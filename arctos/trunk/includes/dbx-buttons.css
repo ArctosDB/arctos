@@ -1,0 +1,145 @@
+
+
+
+/****************************************************************
+  Docking Boxes core CSS: YOU MUST NOT CHANGE OR OVERRIDE THESE 
+*****************************************************************/
+.dbx-clone {
+	position:absolute;
+	visibility:hidden;
+	}
+.dbx-clone, .dbx-clone .dbx-handle-cursor {
+	cursor:move !important;
+	}
+.dbx-dummy {
+	display:block;
+	width:0;
+	height:0;
+	overflow:hidden;
+	}
+.dbx-group, .dbx-box, .dbx-handle {
+	position:relative;
+	display:block;
+	}
+
+
+
+/****************************************************************
+  avoid padding, margins or borders on dbx-box, 
+  to reduce visual discrepancies between it and the clone.  
+  overall, dbx-box is best left as visually unstyled as possible 
+*****************************************************************/
+.dbx-box {
+	margin:0;
+	padding:0;
+	border:none;
+	}
+
+
+
+/****************************************************************
+  otherwise, do what you like :) 
+*****************************************************************/
+
+
+
+
+
+/* group container(s) */
+.dbx-group {
+	background:#fff;
+	border:1px solid #eee;
+	border-color:#f3f3f3 #999 #999 #f3f3f3;
+	width:347px;
+	padding:0;
+	margin:0 0 10px 0;
+	list-style-type:none;
+	float:left;
+	}
+
+
+
+
+
+/* boxes */
+.dbx-box {
+	padding:0;
+	margin:0;
+	list-style-type:none;
+	float:left;
+	}
+	
+
+	
+/* handles */
+.dbx-handle, .dbx-handle:visited {
+	display:block;
+	margin:3px 0 3px 3px;
+	width:32px;
+	height:32px;
+	background:#fff;
+	border:1px solid #fff;
+	padding:3px;
+	}
+	
+.dbx-handle:hover, .dbx-handle:focus {
+	border-color:#eee #666 #666 #eee;
+	padding:2px 4px 4px 2px;
+	}
+
+.dbx-handle:active {
+	border-color:#666 #eee #eee #666;
+	padding:3px;
+	}
+
+.dbx-handle img {
+	border:none;
+	}
+
+
+
+
+
+/* keyboard navigation tooltip */
+.dbx-tooltip {
+	display:block;
+	position:absolute;
+	margin:44px 0 0 4px;
+	width:185px;
+	border:1px solid #000;
+	background:#ffd;
+	color:#000;
+	font:normal normal normal 0.85em tahoma, arial, sans-serif;
+	padding:2px 4px 3px 5px;
+	text-align:left;
+	}
+* html .dbx-tooltip { width:195px; }
+
+/* use CSS2 system colors in CSS2 browsers 
+   but not safari, which doesn't support them */
+*[class="dbx-tooltip"]:lang(en) {
+	border-color:InfoText;
+	background:InfoBackground;
+	color:InfoText;
+	font:small-caption;
+	font-weight:normal;
+	}
+
+
+
+
+
+
+
+
+
+/* additional clone styles */
+.dbx-clone {
+	opacity:0.9;
+	-moz-opacity:0.9;
+	-khtml-opacity:0.9;
+	filter:alpha(opacity=90);
+	}
+
+
+

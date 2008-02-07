@@ -1,0 +1,10 @@
+create role manage_authority;
+grant update,insert,delete on TAXONOMY to manage_authority;
+grant update,insert,delete on TAXON_RELATIONS to manage_authority;
+grant update,insert,delete on COMMON_NAME to manage_authority;
+grant update,insert,delete on GEOG_AUTH_REC to manage_authority;
+grant update,insert,delete on AGENT to manage_authority;
+grant update,insert,delete on AGENT_NAME to manage_authority;
+grant update,insert,delete on PERSON to manage_authority;
+grant update,insert,delete on AGENT_RELATIONS to manage_authority;
+grant select on cf_log to manage_authority;

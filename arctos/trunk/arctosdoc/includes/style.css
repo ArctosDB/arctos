@@ -1,0 +1,10 @@
+body {font-family:Arial, Helvetica, sans-serif;
+background-color:#FFFF99}
+
+a:link {color:#0000FF; text-decoration:none}
+
+a:visited {color:#006699; text-decoration:none}
+
+a:hover {color:#FF0000; text-decoration:none}
+
+span.example {color:#006600;}

@@ -1,0 +1,1020 @@
+#!/usr/bin/perl
+#
+# 'HTMLThumbnail', written by Benjamin Franz, snowhare@nihongo.org
+#
+# History:
+#
+#  1.1.4  13 Jul, 2000       - Patched to support PNG graphics.
+#                              Patch courtesy of Sang Thong Chang
+#                              <S.T.Chang@acm.org>
+#
+#  1.1.3b 11 Jun, 1999       - Corrected bug in 'readfile'. Bug
+#                              found by sam.berman@att.com
+#
+#  1.1.3a 06 Sep, 1998       - Corrected bug in offsets for drop
+#                              shadows that misaligned the
+#                              shadow under some circumstances.
+#
+#  1.1.3  11 May, 1998       - Added the 'rotate' filter to
+#                              allow the final icons to be rotated
+#                              through an arbitrary angle. Fixed
+#                              image link border thickness bug 
+#                              (bug and fix identified by Matthew N. 
+#                              Kleiman <matt@berner.org>).
+#
+#  1.1.2  10 May, 1998       - Improved handling for files with funky
+#                              characters in their names. Replaced
+#                              the use of 'pnmsmooth' with direct
+#                              use of 'pnmconvol' to improve 
+#                              portability. Pushed various things
+#                              into sub-routines for code clarity and
+#                              let 'anytopnm' try and deal with unrecognized
+#                              file types. This should allow any graphic
+#                              type 'anytopnm' can deal with to be thumbnailed.
+#
+#  1.1.1  8 May, 1998        - Minor workarounds for systems with old
+#                              NetPBM libaries installed. Some old 
+#                              versions have broken anytopnm routines
+#                              and a crippled 'pnmsmooth'.
+#
+#  1.1    27 February, 1998  - Color edges and drop shadows for thumbnails
+#
+#  1.0    20 February, 1998  - Release of 1.0 version
+#
+# HTMLThumbnail generates an HTML page of thumbnailed images
+# to allow the ready visual inspection of the contents of a directory
+# of images (gifs and/or jpegs). The typical resulting thumbnail 
+# file size is around 1-2% of the size of the original images.
+#
+# Usage:
+#     htmlthumbnail [-update <oldcatalogfile>]
+#                   [-output <newcatalogfile>]
+#                   [-size   <sizeofthumbnails>]
+#                   [-quality <jpegqualitysetting>]
+#                   [-link    <0|1>]
+#                   [-rowsize <numberofimagesperrow>]
+#                   [-catalogdir <sub-directory-name-for-icons>]
+#                   [-title <title for page>]
+#                   [-background <URL>]
+#                   [-bgcolor    "#rrggbb"]
+#                   [-textcolor  "#rrggbb"]
+#                   [-linkcolor  "#rrggbb"]
+#                   [-alinkcolor "#rrggbb"]
+#                   [-vlinkcolor "#rrggbb"]
+#                   [-border <thickness of link hilight border on icons>]
+#                   [-edgewidth <thickness of applied edge on icons>]
+#                   [-edgecolor "#rrggbb"] <color of applied edge on icons>] 
+#                   [-dropshadow <0|1>]
+#                   [-dshadowblur <n>]
+#                   [-dshadowoffset <n>]
+#                   [-dshadowcolor "#rrggbb"]
+#                   [-rotate <ndegrees]
+#                   [-progressive]
+#                   [-tempdir <temporary directory>]
+#                   <list of image files>
+#
+# It creates the thumbnails in the 'catalogdir' sub-directory
+# of the *current* directory - so you have to 'cd' to the directory
+# above where you want the thumbnails to go before starting.
+#
+#    cd /www/somedirectorywithimages
+#    htmlthumbnail *jpg -output test.html
+#
+# for example.
+#
+# The -update mode can be used to greatly improve processing
+# efficiency by only making icons for images that are new or
+# seem to have changed since the last time a catalog was generated.
+# Use it that way like this:
+#
+#     htmlthumbnail -update catalog.html -output catalog.html *jpg *gif
+#
+# The -link option controls whether or not the thumbnails are
+# linked to the original images in the catalog. 
+# '-link 0' results in NO links, '-link 1' results in links.
+#
+# This utility depends on the Independent JPEG Group's software
+# (available at <URL:ftp://ftp.uu.net/graphics/jpeg>)
+# (in particular it depends on the 'cjpeg' and 'djpeg' routines) and the
+# NetPBM package (available at 
+# <URL:ftp://wuarchive.wustl.edu/graphics/graphics/packages/NetPBM>
+# or <URL:ftp://ftp.x.org/R5contrib/>)
+# 
+# If those are already installed on your system, you are good to
+# go. If not, you will have to download and install them before
+# you can use this utility. 
+#
+# The default 'quality' setting I've chosen for the thumbnails is 
+# only '50'. If the resulting icons don't come up to your standards, 
+# bump it up to 75 or so.
+#
+# Credit should also be given to Andrew Tong, werdna@ugcs.caltech.edu
+# and alex@ed.ac.uk since the logic for the gif and jpeg size
+# detection sub-routines is based on that found in 'wwwimagesize' 
+# (hacked up a bit and with better handling of a couple
+# of bogus cases)
+#
+# Known issues: 
+#
+#        Transparent 1 x X pixel 'spacer' GIFs may not be processed 
+#               correctly. 
+#
+#        It is not likely that HTMLThumbnail will work on non-Unix 
+#               type machines without a bit of hacking 
+#               on your part. IOW: It probably will not
+#               work on a Mac or under Windows.
+#
+#        GIFs with transparent areas will have the transparent
+#               areas shown with the actual index color (not transparent).
+#
+#        If for some reason the routine can't generate a
+#               thumbnail image from an original, it will skip it
+#               in the HTML catalog and generate an error message.
+#               The usual cause is damaged original images.
+#
+#        No error checking is performed on command line parameters.
+#
+#        The 'backtick' calls to 'cjpeg', 'djpeg', 'giftopnm',
+#              'anytopnm, 'pnmscale', 'pnmconvol', 'ppmmake', 'pnmpaste'
+#               assume that they can be found in your PATH.
+#               If they can't you need to either add them to your PATH
+#               or give the FULL path to them in the backtick calls.
+#
+#        Some old versions of 'cjpeg' can't handle the 'progressive'
+#               flag. If you can't upgrade to the current version,
+#               turn off the progressive flag by setting the
+#               line reading "$progressive=1;" to read
+#               "$progressive='';".
+#
+#        Some old versions of 'anytopnm' are broken and will try to
+#               call 'giftoppm', which doesn't exist. You can
+#               fix this by changing the places in 'anytopnm'
+#               that call 'giftoppm' with 'giftopnm'. Or update
+#               your NetPBM as above.
+#
+# NOTE: HTMLThumbnail is not meant to work as a CGI but from the
+# command line. If you want to hack it to work as a CGI, fine - 
+# but don't email me about it not working as CGI. That's
+# because it *ISN'T* a CGI program.
+#
+# THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS
+# OR IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+# PARTICULAR PURPOSE.
+#
+# Use of this software in any way or in any form, source or binary,
+# is not allowed in any country which prohibits disclaimers of any
+# implied warranties of merchantability or fitness for a particular
+# purpose or any disclaimers of a similar nature.
+#
+# IN NO EVENT SHALL I BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,
+# SPECIAL, INCIDENTAL,  OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE
+# USE OF THIS SOFTWARE AND ITS DOCUMENTATION (INCLUDING, BUT NOT
+# LIMITED TO, LOST PROFITS) EVEN IF I HAVE BEEN ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE
+#
+# Copyright February 1998, Benjamin Franz
+#
+# This software may be freely copied, changed or redistributed under 
+# the same terms and conditions as Perl itself.
+
+$Version="1.1.4";
+
+&ReadCommandLine('update:output:size:quality:link:rowsize:catalogdir:background:textcolor:bgcolor:vlinkcolor:alinkcolor:linkcolor:title:tempdir:edgecolor:edgewidth:dropshadow:dshadowblur:dshadowoffset:dshadowcolor:rotate:border');
+
+#######################################################################
+#                      Global setting defaults.                       #
+#######################################################################
+
+# Title of the page
+# Command line control: -title "Title stuff"
+$title = "HTMLThumbnail $Version";
+
+# Thumbnails should be *small*
+# Command line control: -size <value>
+$thumbnailsize    = 80; 
+
+# Border size on images
+# Command line control: -border <value>
+$border=0;
+
+# 1-100. Thumbnails don't usually need great quality
+# Command line control: -quality <1-100>
+$qualityfactor    = 50; 
+
+# 1=link to original image, 0=don't link
+# Command line control: -link <0|1>
+$linkimage        = 1;  
+
+# Rule of thumb: $imagesperrow=int(400/$thumbnailsize)
+# Command line control: -rowsize <value>
+$imagesperrow     = 5;  
+
+# name of the sub-directory to place the icon images in
+# Command line control: -catalogdir <value>
+$catalogdirectory = ".catalogimages";
+
+# Without a defined outputfile, (either here or on the command line)
+# the HTML output will go to STDOUT 
+# Command line control: -output <filename>
+# $outputfile="catalog.html"
+
+# BACKGROUND
+# Command line control: -background <URL>
+# $background="/graphics/background/background.jpg";
+$background="";
+
+# BGCOLOR
+# Command line control: -bgcolor #rrggbb
+$bgcolor="#ffffff";
+
+# TEXT
+# Command line control: -textcolor #rrggbb
+$textcolor="#000000";
+
+# LINK
+# Command line control: -linkcolor #rrggbb
+$linkcolor="#0000cc";
+
+# ALINK
+# Command line control: -alinkcolor #rrggbb
+$alinkcolor="#cc0000";
+
+# VLINK
+# Command line control: -vlinkcolor #rrggbb
+$vlinkcolor="#cc00cc";
+
+# Make 'progressive' jpgs for the thumbnails
+# I think it is safe enough now (early 1998).
+# If you don't agree, (or if you just want
+# slightly better compression), set it to 0 to 
+# get old style non-progressive jpeg by default.
+$progressive=1;
+
+# Temporary scratch directory to use
+# Command line control: -tempdir <dirname>
+$tempdir="/tmp";
+
+# Edge thickness (must be an integer)
+# Command line control: -edgewidth <n>
+$edgewidth=1;
+
+# Edge color (hexadecimal color code)
+# Command line control: -edgercolor #rrggbb
+$edgecolor="#000000";
+
+# Drop shadow color (hexadecimal color code)
+# Command line override: -dshadowcolor #rrggbb
+$dropshadowcolor="#333333";
+
+# Drop shadow offset (integer)
+# Command line override: -dshadowoffset <n>
+$dropshadowoffset=3;
+
+# Drop shadow blur (integer - even numbers will be rounded
+# up to odd numbers internally. '0' is no blur.) 
+# Command line override: -dshadowblur <n>
+$dropshadowblur=5;
+
+# Make drop shadow (flag - 0 = no, 1 = yes)
+# Command line override: -dropshadow <0|1>
+$makedropshadow=1;
+
+# Rotate the final image through an angle (degrees)
+# Command line override: -rotate <ndegrees>
+$rotationangle = 0;
+
+#######################################################################
+#                      Handle command line options                    #
+#######################################################################
+
+# Read the catalog to be updated before opening the
+# output file to prevent wiping out the data
+# if they are the same file (they probably will be in general)
+if (defined($opt{'update'})) {
+	&readcatalog($opt{'update'});
+}
+
+if (defined($opt{'output'})) {
+	$outputfile=$opt{'output'};
+}
+
+if ($outputfile) {
+	if (! open(OUTPUTFILE,">$outputfile")) {
+		die ("Could not open $outputfile for writing\n$!");
+	}
+	select (OUTPUTFILE);
+}
+
+if (defined($opt{'title'})) {
+	$title=$opt{'title'};
+}
+
+if (defined($opt{'border'})) {
+	$border=$opt{'border'};
+}
+
+if (defined($opt{'background'})) {
+	$background=$opt{'background'};
+}
+
+if (defined($opt{'bgcolor'})) {
+	$bgcolor=$opt{'bgcolor'};
+}
+
+if (defined($opt{'textcolor'})) {
+	$textcolor=$opt{'textcolor'};
+}
+
+if (defined($opt{'linkcolor'})) {
+	$linkcolor=$opt{'linkcolor'};
+}
+
+if (defined($opt{'alinkcolor'})) {
+	$alinkcolor=$opt{'alinkcolor'};
+}
+
+if (defined($opt{'vlinkcolor'})) {
+	$vlinkcolor=$opt{'vlinkcolor'};
+}
+
+if (defined($opt{'edgecolor'})) {
+	$edgecolor=$opt{'edgecolor'};
+}
+
+if (defined($opt{'edgewidth'})) {
+	$edgewidth=$opt{'edgewidth'};
+}
+
+if (defined($opt{'size'})) {
+	$thumbnailsize=$opt{'size'};
+}
+
+if (defined($opt{'quality'})) {
+	$qualityfactor=$opt{'quality'};
+}
+
+if (defined($opt{'rowsize'})) {
+	$imagesperrow=$opt{'rowsize'};
+}
+
+if (defined($opt{'catalogdir'})) {
+	$catalogdirectory=$opt{'catalogdir'};
+}
+
+if (defined($opt{'tempdir'})) {
+	$tempdir=$opt{'tempdir'};
+}
+
+if (defined($opt{'link'})) {
+	$linkimage=$opt{'link'};
+}
+
+if (defined($opt{'dropshadow'})) {
+	$makedropshadow=$opt{'dropshadow'};
+}
+
+if (defined($opt{'dshadowcolor'})) {
+	$dropshadowcolor=$opt{'dshadowcolor'};
+}
+
+if (defined($opt{'dshadowblur'})) {
+	$dropshadowblur=$opt{'dshadowblur'};
+}
+
+if (defined($opt{'dshadowoffset'})) {
+	$dropshadowoffset=$opt{'dshadowoffset'};
+}
+
+if (defined($opt{'progressive'})) {
+	$progressive=1;
+}
+
+if (defined($opt{'rotate'})) {
+	$rotationangle=$opt{'rotate'};
+}
+
+#######################################################################
+#                  Set final pre-processing elements                  #
+#######################################################################
+
+my($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$fsize,$atime,$mtime,$ctime,
+	$blksize,$blocks,$file,$icon,$newfile,$image,$height,$width,
+        $iheight,$iwidth,$icon,$counter,$filetype);
+
+$background ="background=\"$background\"" if ($background);
+$rawbgcolor =$bgcolor;
+$bgcolor    ="bgcolor=\"$bgcolor\"" if ($bgcolor);
+$textcolor  ="text=\"$textcolor\"" if ($textcolor);
+$linkcolor  ="link=\"$linkcolor\"" if ($linkcolor);
+$alinkcolor ="alink=\"$alinkcolor\"" if ($alinkcolor);
+$vlinkcolor ="vlink=\"$vlinkcolor\"" if ($vlinkcolor);
+
+if ($progressive) {
+	$progressive="-progressive";
+} else {
+	$progressive='';
+}
+
+if (! -e $catalogdirectory) {
+	mkdir ($catalogdirectory,0755) ||
+		die ("No $catalogdirectory directory and could not create\n$!");
+	chmod (0755,$catalogdirectory);
+}
+
+if (! -d $catalogdirectory) {
+	die ("$catalogdirectory exists, but is not a directory\n");
+}
+
+# Round the dropshadow blur *up* to the nearest odd integer
+# if it is not '0'
+if ($dropshadowblur && (! ($dropshadowblur % 2))) {
+	$dropshadowblur++;
+}
+
+# If we need to blur a drop shadow, we need a convolution map for it
+if ($makedropshadow && $dropshadowblur) {
+	my ($convol_map) = &get_convol_map($dropshadowblur);
+	&savefile ("$tempdir/$$-dropshadow.cnv",$convol_map);
+}
+
+undef $/;
+print <<"EOF";
+<html>
+<head>
+<title>$title</title>
+</head>
+<body $background $bgcolor $textcolor $linkcolor $vlinkcolor $alinkcolor>
+<center>
+<h1>$title</h1>
+<table cellpadding=5>
+EOF
+$counter=0;
+
+foreach $file (sort @ARGV) {
+	next if (! (-f $file && -r _ ));
+	next if ($file =~ m#-indexicon\.jpg$#oi);
+
+	my ($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$fsize,$atime,$mtime,
+		$ctime,$blksize,$blocks)=stat($file);
+
+	if ( defined($newfile=$images{"$file thumbnail"})
+	     && (-e "$catalogdirectory/$newfile")
+	     && ($images{"$file lastmod"} == $mtime) 
+	     && ($images{"$file size"} == $fsize) ) {
+		$width   = $images{"$file width"};
+		$height  = $images{"$file height"};
+		$newfile = $images{"$file thumbnail"};
+		$iwidth  = $thumbnails{"$newfile width"};
+		$iheight = $thumbnails{"$newfile height"}; 
+	} else {
+		# Make up a name for the icon file
+		$newfile = $file;
+		$newfile =~ s/\.([a-z]{3,4})$/-$1-indexicon.jpg/oi;
+
+		# flatten funny chars to '_'
+		$newfile =~ s/[^-_a-z0-9.]/_/oigs;
+
+		# Handle the case if they index sub-directories
+		# by flattening the '/'s to '-' for the icon names
+		$newfile =~ s/\//-/g;
+
+		# get the various meta info about the file
+		($width,$height,$fsize) = &get_image_stats($file);
+		if (! $fsize) {
+			print STDERR "Unable to determine $file contents. Skipping\n";
+			next;
+		}
+
+		# Create the initial icon
+		$icon = &scale_image_file($file,$thumbnailsize);
+		if (length($icon) == 0) {
+			print STDERR "Unable to generate a thumbnail of $file. Skipping.\n";
+			next;
+		}
+
+		# Add a border to the image, if requested
+		if ($edgewidth > 0) {
+			$icon = &add_border($icon,$edgewidth,$edgecolor);
+			if (length($icon) == 0) {
+				print STDERR "Could not add requested border to icon for $file. Skipping\n";
+				next;
+			}
+		}
+
+		# Add a drop shadow to the image if requested
+		# (Note: Only works with 'flat' color backgrounds)
+		# graphic backgrounds are not supported at this time.
+		if ($makedropshadow) {
+			$icon = &add_dropshadow($icon,$dropshadowblur,$dropshadowoffset,$dropshadowcolor,$rawbgcolor);
+			if (length($icon) == 0) {
+				print STDERR "Unable to add requested dropshadow to icon for $file\n";
+				next;
+			}
+		}
+
+		# Rotate the image, if requested
+		if ($rotationangle > 0) {
+			$icon = &rotate($icon,$rotationangle,$rawbgcolor);
+			if (length($icon) == 0) {
+				print STDERR "Could not rotate icon for $file. Skipping\n";
+				next;
+			}
+		}
+
+		# Compress it into a jpg and save it
+		&savefile("| cjpeg -quality $qualityfactor -optimize $progressive > '$catalogdirectory/$newfile'",$icon);
+		($iwidth,$iheight)=&pnmsize($icon);
+	}
+
+	if (($counter%$imagesperrow)==0) {
+		print "<tr valign=bottom align=center>\n";
+	}
+
+	$counter++;
+	print "  <td>";
+
+	if ($linkimage) {
+		print "<a href=\"$file\">";
+	}
+
+	print "<img src=\"$catalogdirectory/$newfile\" alt=\"[$file]\"  height=$iheight width=$iwidth border=$border>";
+
+	if ($linkimage) {
+		print "</a>";
+	} 
+
+	print "<br>$file<br> ${fsize} bytes<br> $width x $height<br>";
+	print "<!-- LASTMOD: $mtime --></td>\n";
+
+	if (($counter%$imagesperrow)==0) {
+		print "</tr>\n";
+	}
+}
+
+if (($counter%$imagesperrow)!=0) {
+	print "</tr>\n";
+}
+print <<"EOF";
+</table>
+<hr>
+<p>
+Generated by <a href="http://www.nihongo.org/snowhare/utilities/">HTMLThumbnail $Version</a>
+</p>
+</center>
+</body>
+</html>
+EOF
+
+# if any of the temporary files are still hanging around - get rid of them
+if (-e "$tempdir/$$-scratchfile0.pnm") {
+	unlink ("$tempdir/$$-scratchfile0.pnm");
+}
+if (-e "$tempdir/$$-scratchfile1.pnm") {
+	unlink ("$tempdir/$$-scratchfile1.pnm");
+}
+if (-e "$tempdir/$$-scratchfile2.pnm") {
+	unlink ("$tempdir/$$-scratchfile2.pnm");
+}
+if (-e "$tempdir/$$-dropshadow.cnv") {
+	unlink ("$tempdir/$$-dropshadow.cnv");
+}
+
+######################################################################
+# Get the height, width and size in bytes of the file                #
+######################################################################
+sub get_image_stats {
+
+	my ($file) = @_;
+
+	my ($filetype) = &get_file_type($file);
+
+	if (! open (ORIGINAL,$file)) {
+		print STDERR "Could not open $file for reading\n$!";
+		return;
+	}
+
+	$image=<ORIGINAL>;
+	close(ORIGINAL);
+	
+	if ($filetype eq 'jpg') {
+		($width,$height)= &jpegsize($image);
+	} elsif ($filetype eq 'gif') {
+		($width,$height) = &gifsize($image);
+	} elsif ($filetype eq 'png') {  # A quick hack to read PNG 
+	 	$image = `pngtopnm $file`;	
+		if (length ($image) == 0) {
+			print STDERR "$file does not seems to be PNG.\n";
+			return;
+		}
+		($width,$height) = &pnmsize($image);
+	} else { # Let 'anytopnm' have a shot at it. "Do you feel lucky, punk?"
+		$image = `anytopnm $file`;
+		if (length ($image) == 0) {
+#			print STDERR "Could not determine type of $file. Skipping\n";
+			return;
+		}
+		($width,$height) = &pnmsize($image);
+	}
+
+	if (! ($height && $width)) {
+		print STDERR "Could not determine height and width of $file. Skipping\n";
+		return;
+	}
+
+	$fsize=length($image);
+
+	return ($width,$height,$fsize);
+}
+
+######################################################################
+# Guess the file type                                                #
+######################################################################
+sub get_file_type {
+
+	my ($file) = @_;
+
+	my ($filetype) = '';
+
+	if ($file =~ m/\.(pjpeg|jpg|pjpg|jpeg)$/i) {
+		$filetype = 'jpg';
+
+	} elsif ($file =~ m/\.gif$/i) {
+		$filetype = 'gif';
+
+	} elsif ($file =~ m/\.(png)$/i) {
+		$filetype = 'png';
+
+	} else {
+		$filetype = 'unknown';
+	}
+
+	return ($filetype);
+}
+
+######################################################################
+# Rotate an image through an angle                                   #
+######################################################################
+sub rotate {
+	my ($icon,$angle,$bgcolor) = @_;
+
+
+	if (! &savefile ("$tempdir/$$-scratchfile1.pnm",$icon)) {
+		print STDERR "Failed to save image $tempdir/$$-scratchfile0.pnm to temp dir\n";
+		return;
+	}
+
+	# Add a two pixel bgcolor margin to the icon (so the alpha 
+	# mask doesn't eat any of the icon)
+	`pnmmargin -color '$bgcolor' 2 $tempdir/$$-scratchfile1.pnm > $tempdir/$$-scratchfile0.pnm`;
+	
+	# Make and rotate our alpha mask
+	my ($width,$height) = &pnmsize($icon);
+	`ppmmake '#ffffff' $width $height > $tempdir/$$-scratchfile1.pnm`;
+	`pnmmargin -color '#000000' 2 $tempdir/$$-scratchfile1.pnm > $tempdir/$$-scratchfile3.pnm`;
+	`pnmrotate $angle $tempdir/$$-scratchfile3.pnm > $tempdir/$$-scratchfile2.pnm`;
+	`ppmtopgm $tempdir/$$-scratchfile2.pnm > $tempdir/$$-scratchfile1.pnm`;
+
+	# Rotate the image
+	`pnmrotate $angle $tempdir/$$-scratchfile0.pnm > $tempdir/$$-scratchfile2.pnm`;
+
+	if ( ($temp = &readfile("$tempdir/$$-scratchfile1.pnm")) ) {
+		my ($newwidth,$newheight) = &pnmsize($temp);
+
+		# Regenerate our background
+		`ppmmake '$bgcolor' $newwidth $newheight > $tempdir/$$-scratchfile0.pnm`;
+
+		# Composite the rotated image 
+		$icon = `pnmcomp -invert -alpha $tempdir/$$-scratchfile1.pnm $tempdir/$$-scratchfile0.pnm $tempdir/$$-scratchfile2.pnm`; 
+		unlink ("$tempdir/$$-scratchfile0.pnm","$tempdir/$$-scratchfile1.pnm",
+			"$tempdir/$$-scratchfile2.pnm","$tempdir/$$-scratchfile3.pnm");
+	} else { 
+		$icon = '';
+	}
+
+	return $icon;
+}
+
+######################################################################
+# Return a scaled portable anymap of the requested image             #
+######################################################################
+sub scale_image_file {
+	my ($file,$size) = @_;
+
+	my ($filetype) = &get_file_type($file);
+	my ($icon) = '';
+
+	# generate a PNM scaled to the icon size
+	if ($filetype eq 'jpg') {
+		$icon=`djpeg '$file' | pnmscale -xysize $size $size`;
+	} elsif ($filetype eq 'gif') { # Because 'anytopnm' screws up for gifs
+		$icon=`giftopnm '$file' | pnmscale -xysize $size $size`;
+	} elsif ($filetype eq 'png') { 
+		$icon=`pngtopnm '$file' | pnmscale -xysize $size $size`;
+	} else { # maybe we'll get lucky and 'anytopnm' will guess right.
+		$icon=`anytopnm '$file' | pnmscale -xysize $size $size`;
+	}
+	return ($icon);
+}
+
+#######################################################################
+# Add a drop shadow to the image if requested                         #
+# (Note: Only works with 'flat' color backgrounds)                    #
+# graphic backgrounds are not supported at this time.                 #
+#######################################################################
+sub add_dropshadow {
+
+	my ($er) = @_;
+
+	my ($icon,$dropshadowblur,$dropshadowoffset,$dropshadowcolor,$rawbgcolor) = @_;
+
+	my ($leftpad,$rightpad,$toppad,$bottompad,$iwidth,$iheight,$dswidth,$dsheight);
+
+	$leftpad   = $dropshadowblur-$dropshadowoffset;
+	$leftpad   = 0 if ($leftpad < 0);
+
+	$rightpad  = $dropshadowblur+$dropshadowoffset;
+	$rightpad  = 0 if ($rightpad < 0);
+
+	$toppad    = $dropshadowblur-$dropshadowoffset;
+	$toppad    = 0 if ($toppad < 0);
+
+	$bottompad = $dropshadowblur+$dropshadowoffset;
+	$bottompad = 0 if ($bottompad < 0);
+
+	($dswidth,$dsheight) = &pnmsize($icon);
+
+	my $dsoffset = $dropshadowoffset;
+	$dsoffset += $leftpad;
+
+	$iwidth   = $dswidth;
+	$iheight  = $dsheight;
+	$dswidth  = $dswidth+$leftpad+$rightpad;
+	$dsheight = $dsheight+$toppad+$bottompad;
+
+	# Make the color block for the dropshadow
+	`ppmmake '$dropshadowcolor' $iwidth $iheight > $tempdir/$$-scratchfile0.pnm`;
+
+	# Make the padded block
+	`ppmmake '$rawbgcolor' $dswidth $dsheight > $tempdir/$$-scratchfile1.pnm`;
+
+	# insert the dropshadow block into the padded block
+	`pnmpaste -replace $tempdir/$$-scratchfile0.pnm $dsoffset $dsoffset $tempdir/$$-scratchfile1.pnm> $tempdir/$$-scratchfile2.pnm`;
+
+	# Blur the shadow, if a blur has been specified
+	if ($dropshadowblur) {
+		`pnmconvol $tempdir/$$-dropshadow.cnv $tempdir/$$-scratchfile2.pnm > $tempdir/$$-scratchfile0.pnm`;
+	} else {
+		# "mv" - but faster
+		# Should add error checks....
+		unlink ("$tempdir/$$-scratchfile0.pnm");
+		link ("$tempdir/$$-scratchfile2.pnm","$tempdir/$$-scratchfile0.pnm");
+		unlink ("$tempdir/$$-scratchfile2.pnm");
+	}
+
+	# Insert the raw icon into its drop shadow frame
+	if (! &savefile ("$tempdir/$$-scratchfile1.pnm",$icon)) {
+		print STDERR "Failed to save image to temp dir\n";
+		next;
+	}
+	$icon = `pnmpaste -replace $tempdir/$$-scratchfile1.pnm $leftpad $toppad $tempdir/$$-scratchfile0.pnm`;
+			
+	# Dispose of the temporary files
+	unlink ("$tempdir/$$-scratchfile0.pnm",
+		"$tempdir/$$-scratchfile1.pnm",
+		"$tempdir/$$-scratchfile2.pnm");
+
+	return ($icon);
+}
+
+#######################################################################
+# Add a colored border to an icon                                     #
+#######################################################################
+sub add_border {
+
+	my ($icon,$edgewidth,$edgecolor) = @_;
+
+	if (! &savefile ("$tempdir/$$-scratchfile0.pnm",$icon)) {
+		print STDERR "Failed to save image $tempdir/$$-scratchfile0.pnm to temp dir\n";
+		return;
+	}
+	$icon =  `pnmmargin -color $edgecolor $edgewidth $tempdir/$$-scratchfile0.pnm`;
+	unlink ("$tempdir/$$-scratchfile0.pnm");
+	return $icon;
+}
+
+#######################################################################
+# saves the data passed in 'image' to $filename                       #
+#######################################################################
+sub savefile {
+
+	my ($filename,$image)=@_;
+
+	if (! ($filename =~ m#^\s*[|><]#o)) {
+		$filename=">$filename";
+	}
+	if (! open (NEWFILE,"$filename")) {
+		print STDERR "$filename could not be opened for writing\n$!";
+		return 0;
+	}
+
+	print NEWFILE $image;
+	close (NEWFILE);
+	1;
+}
+
+#######################################################################
+# returns the contents of $filename                                   #
+#######################################################################
+sub readfile {
+
+	my ($filename)=@_;
+
+	if (! open (NEWFILE,$filename)) {
+		print STDERR "$filename could not be opened for reading\n$!";
+		return;
+	}
+
+	my ($savedreadstate) = $/;
+	undef $/;
+	$data = <NEWFILE>;
+	$/ = $savedreadstate;
+	close (NEWFILE);
+
+	return ($data);
+}
+
+#######################################################################
+# Generates the convolution map needed by pnmcovol to do a blur       #
+#######################################################################
+sub get_convol_map {
+	my ($blursize) = @_;
+
+	my ($map,$offset,$rowvalue,$x,$y);
+
+	# Round the blur *up* to the nearest odd integer
+	# if it is not '0'
+	if ($blursize && (! ($blursize % 2))) {
+	        $blursize++;
+	}
+	
+	$offset   = $blursize * $blursize;
+	$rowvalue = $offset + 1;
+	$offset   = $offset * 2;
+	$map = "P2\n$blursize $blursize\n$offset\n";
+
+	for ($y=1;$y<=$blursize;$y++) {
+		for ($x=1;$x<=$blursize;$x++) {
+			$map .= $rowvalue;
+			if ($x != $blursize) {
+				$map .= " ";
+			}
+		}
+		$map .= "\n";
+	}
+	return ($map);
+}
+
+########################################################################
+# Determines the size of a jpeg                                        #
+########################################################################
+sub jpegsize {
+
+  my($JPEG) = @_;
+
+  my($count) = 2;
+  my($length)= length($JPEG);
+  my($ch)    = "";
+  my ($c1,$c2,$a,$b,$c,$d,$width,$height);
+
+  while (($ch ne "\xda") && ($count<$length)) {
+    # Find next marker (JPEG markers begin with 0xFF)
+    while (($ch ne "\xff") && ($count < $length)) {
+  	$ch=substr($JPEG,$count,1); 
+	$count++;
+    }
+    # JPEG markers can be padded with unlimited 0xFF's
+    while (($ch eq "\xff") && ($count<$length)) {
+  	$ch=substr($JPEG,$count,1); 
+	$count++;
+    }
+    # Now, $ch contains the value of the marker.
+    if ((ord($ch) >= 0xC0) && (ord($ch) <= 0xC3)) {
+	$count+=3;
+	($a,$b,$c,$d)=unpack("C"x4,substr($JPEG,$count,4));
+	$width=$c<<8|$d;
+	$height=$a<<8|$b;
+	return($width,$height);
+    } else {
+      # We **MUST** skip variables, since FF's within variable names are
+      # NOT valid JPEG markers
+	($c1,$c2)= unpack("C"x2,substr($JPEG,$count,2));
+	$count += $c1<<8|$c2;
+    }
+  }   
+}
+
+########################################################################
+# Determines the size of an anymap                                     #
+########################################################################
+sub pnmsize {
+	my($pnm) = @_;
+
+	my ($width,$height);
+
+	($width,$height)=$pnm=~m#^P\d+\s+(\d+)\s+(\d+)\s+\d+\s#ois;
+	return ($width,$height) if ($width && $height);
+}
+
+########################################################################
+# Determines the size of a gif                                        #
+########################################################################
+sub gifsize {
+	my($GIF) = @_;
+
+	my ($type,$a,$b,$c,$d,$s,$width,$height);
+  
+	$type=substr($GIF,0,6);
+	if(!($type =~ m/GIF8[7,9]a/) || (length($s=substr($GIF, 6, 4)) != 4) ){
+		return;
+	}
+	($a,$b,$c,$d)=unpack("C"x4,$s);
+	$width= $b<<8|$a;
+	$height= $d<<8|$c;
+	return ($width,$height);
+}
+
+sub readcatalog {
+	my($catalogfile)=@_;
+
+	undef %images;
+	undef %thumbnails;
+
+	my ($thumbnailname,$thumbnailwidth,$thumbnailheight,
+		$imagename,$imageheight,$imagewidth,$imagesize,
+		$qcat);
+
+	if (! open(CATALOG,$catalogfile)) {
+		warn("Catalog file $catalogfile not readable\n$!");
+		return;
+	}
+	$qcat=quotemeta($catalogdirectory);
+	while (<CATALOG>) {
+		chop;
+		$imagelastmod=0;
+		($thumbnailname,$thumbnailheight,$thumbnailwidth,
+		$imagename,$imagesize,$imagewidth,$imageheight,$imagelastmod)=
+		    m#^\s*<td>.*<img\ssrc="$qcat/([^"]+)".*\sheight=(\d+)\swidth=(\d+)[^>]*>\S{0,4}<br>\s*(.+)<br>\s*(\d+)\sbytes<br>\s*(\d+)\sx\s(\d+)<br>\s*<!--\sLASTMOD:\s(\d+)\s--></td>#o;
+		next if (! $imagelastmod);
+#		push(@thumbnailslist,$thumbnailname);
+#		push(@imageslist,$imagename);
+		$thumbnails{"$thumbnailname height"}   = $thumbnailheight;
+		$thumbnails{"$thumbnailname width"}    = $thumbnailwidth;
+		$thumbnails{"$thumbnailname imagename"}= $imagename;
+		$images{"$imagename lastmod"}          = $imagelastmod;
+		$images{"$imagename height"}           = $imageheight;
+		$images{"$imagename width"}            = $imagewidth;
+		$images{"$imagename size"}             = $imagesize;
+		$images{"$imagename thumbnail"}        = $thumbnailname;
+	}
+	close (CATALOG);
+}
+
+# I *DON'T* use the standard Perl lib for parsing command lines
+# because I've had trouble with core dumping Perl using those routines
+# before. This is simple and reliable. And it doesn't *EVER* core dump.
+
+sub ReadCommandLine {
+
+        # parse list has the form 'a:b:c:'
+        # flags with parse list entries must take values
+
+        my($parselist)=$_[0];
+        my(@CommandLine)=@ARGV;
+        my(@ParseList,%ParseRules,@GenericList,$item,$parm,$value);
+ 
+        (@ParseList)=split(/:/,$parselist);
+
+        foreach $item (@ParseList) {
+                $ParseRules{$item}=1;
+        }
+
+        while ($parm=shift(@CommandLine)) {
+                if ($parm =~ m#^\-([a-zA-Z]+)$#o) {
+                        $parm=$1;
+                        $opt{$parm}=1;
+                        if ($ParseRules{$parm}) {
+                                $value=shift(@CommandLine);
+                                if ($value eq "") {
+                                      die ("Invalid comand line switch usage, '-$parm' requires value\n"); 
+                                }
+                                $opt{$parm}=$value;
+                        }
+                        next;
+                }
+                push(@GenericList,$parm);
+        }
+        @ARGV=@GenericList;
+}
+
+
