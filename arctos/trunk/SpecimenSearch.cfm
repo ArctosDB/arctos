@@ -1076,6 +1076,15 @@ function changeGrp(tid) {
 							  </cfoutput> </select>
 							</td>
 						</tr>
+						<!--- want to get Part Remarks here eventually
+						<tr>
+							<td align="right" width="250">
+								 Part Remarks:&nbsp;
+							</td>
+							<td align="left">
+								<input name="part_remarks" type="text" size="50">
+							</td>
+						</tr>--->
 					</table>
 				</div>
 			</td>
