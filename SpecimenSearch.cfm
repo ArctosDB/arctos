@@ -1,5 +1,3 @@
-im new here!
-
 <cfif not isdefined("institution_appearance")>
 	<cfset institution_appearance = "">
 </cfif>
