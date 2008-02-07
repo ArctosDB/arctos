@@ -1,0 +1,383 @@
+/* doesn't really work all that well in FlashPaper, but helps with formatting - sometimes - maybe... */
+
+.gBorder table {
+	padding:0px;
+	}
+.gBorder td {
+	border:1px solid black;
+	padding:0px;
+	}
+table#collapsed{border-collapse: collapse;  border: 2px solid black; float: right;caption-side:bottom;}
+table#collapsed thead{}
+table#collapsed tbody tr{}
+table#collapsed tbody td{border: 1px solid black;}
+table#collapsed colgroup{}
+table#collapsed col{}
+table#collapsed td{}
+table#collapsed th{}
+table#collapsed tfoot{}
+
+table#goodborder{border-collapse: collapse;  border: 1px solid black; float: right;caption-side:bottom;}
+table#goodborder thead{}
+table#goodborder tbody tr{}
+table#goodborder tbody td{border: 1px solid black;}
+
+table#goodborder colgroup{}
+table#goodborder col{}
+table#goodborder td{}
+table#goodborder th{}
+table#goodborder tfoot{}
+/* ------------------------------------- fonts ----------------------------------*/
+
+	.silk8 {
+	font-family:Silkscreen ;
+	font-size:8px;
+	font-weight:400;
+	}
+.zd {
+	font-family:ZapfDingbats ;
+	font-size:9px;
+	}
+
+.arial4 {
+	font:Arial, Helvetica, sans-serif;
+	font-size:4px;
+	font-weight:100;
+	}
+
+.arial5 {
+	font:Arial, Helvetica, sans-serif;
+	font-size:5px;
+	font-weight:100;
+	}
+.arial6 {
+	font:Arial, Helvetica, sans-serif;
+	font-size:6px;
+	font-weight:100;
+	}
+.arial6b {
+	font:Arial, Helvetica, sans-serif;
+	font-size:6px;
+	font-weight:600;
+	}
+.arial6bi {
+	font:Arial, Helvetica, sans-serif;
+	font-size:6px;
+	font-weight:600;
+	font-style:italic;
+	}
+.arial7 {
+	font:Arial, Helvetica, sans-serif;
+	font-size:7px;
+	font-weight:100;
+	}
+.arial7b {
+	font:Arial, Helvetica, sans-serif;
+	font-size:7px;
+	font-weight:600;
+	}
+.arial8 {
+	font:Arial, Helvetica, sans-serif;
+	font-size:8px;
+	font-weight:100;
+	}
+.arial8n {
+	font:Arial, Helvetica, sans-serif;
+	font-size:8px;
+	font-weight:100;
+	font-stretch:ultra-condensed;
+	}
+.arial8b {
+	font:Arial, Helvetica, sans-serif;
+	font-size:8px;
+	font-weight:600;
+	}
+.arial8bi {
+	font:Arial, Helvetica, sans-serif;
+	font-size:8px;
+	font-weight:600;
+	font-style:italic;
+	}
+.arial7bi {
+	font:Arial, Helvetica, sans-serif;
+	font-size:7px;
+	font-weight:400;
+	font-style:italic;
+	}
+.aria14b {
+	font:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	font-weight:600;
+	font-stretch:extra-condensed;
+	}
+.aria13b {
+	font:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:600;
+	font-stretch:extra-condensed;
+	}
+.arial9b {
+	font:Arial, Helvetica, sans-serif;
+	font-size:9px;
+	font-weight:600;
+	font-stretch:ultra-condensed;
+	}
+.arial10 {
+	font:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	font-weight:100;
+	}
+.arial10 {
+	font:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	font-weight:100;
+	}
+.courier3 {
+	font:"Courier New", Courier, mono;
+	font-size:3px;
+	font-weight:100;
+	}
+.courier4b {
+	font:"Courier New", Courier, mono;
+	font-size:4px;
+	font-weight:600;
+	}
+.courier4 {
+	font:"Courier New", Courier, mono;
+	font-size:4px;
+	font-weight:100;
+	}
+.courier6 {
+	font:"Courier New", Courier, mono;
+	font-size:6px;
+	font-weight:100;
+	}
+.courier6b {
+	font:"Courier New", Courier, mono;
+	font-size:6px;
+	font-weight:600;
+	}
+.courier7 {
+	font:"Courier New", Courier, mono;
+	font-size:7px;
+	font-weight:100;
+	}
+
+.courier8 {
+	font:"Courier New", Courier, mono;
+	font-size:8px;
+	font-weight:100;
+	}
+.courier8b {
+	font:"Courier New", Courier, mono;
+	font-size:8px;
+	font-weight:600;
+	}
+.courier9 {
+	font:"Courier New", Courier, mono;
+	font-size:9px;
+	font-weight:100;
+	}
+.courier9b {
+	font:"Courier New", Courier, mono;
+	font-size:9px;
+	font-weight:600;
+	}
+.courier14b {
+	font:"Courier New", Courier, mono;
+	font-size:14px;
+	font-weight:600;
+	}
+.times5 {
+	font:"Times New Roman", Times, serif;
+	font-size:5px;
+	font-weight:100;
+	}
+.times6 {
+	font:"Times New Roman", Times, serif;
+	font-size:6px;
+	font-weight:100;
+	}
+.times7 {
+	font:"Times New Roman", Times, serif;
+	font-size:4px;
+	font-weight:100;
+	}
+.times7bc {
+	font:"Times New Roman", Times, serif;
+	font-size:7px;
+	font-weight:600;
+	font-stretch:ultra-condensed;
+	}
+.times8 {
+	font:"Times New Roman", Times, serif;
+	font-size:8px;
+	font-weight:100;
+	}
+.times8b {
+	font:"Times New Roman", Times, serif;
+	font-size:8px;
+	font-weight:600;
+	}	
+.times9 {
+	font:"Times New Roman", Times, serif;
+	font-size:9px;
+	font-weight:100;
+	}
+.times9b {
+	font:"Times New Roman", Times, serif;
+	font-size:9px;
+	font-weight:600;
+	}
+.times9bc {
+	font:"Times New Roman", Times, serif;
+	font-size:9px;
+	font-weight:600;
+	font-stretch:ultra-condensed;
+	}	
+.times10 {
+	font:"Times New Roman", Times, serif;
+	font-size:10px;
+	font-weight:100;
+	}
+.times10b {
+	font:"Times New Roman", Times, serif;
+	font-size:10px;
+	font-weight:600;
+	}
+.times11 {
+	font:"Times New Roman", Times, serif;
+	font-size:11px;
+	font-weight:100;
+	}
+.times11b {
+	font:"Times New Roman", Times, serif;
+	font-size:11px;
+	font-weight:600;
+	}
+.times12 {
+	font:"Times New Roman", Times, serif;
+	font-size:12px;
+	font-weight:100;
+	}
+.times12b {
+	font:"Times New Roman", Times, serif;
+	font-size:12px;
+	font-weight:600;
+	}
+.times13 {
+	font:"Times New Roman", Times, serif;
+	font-size:13px;
+	font-weight:100;
+	}
+.times14b {
+	font:"Times New Roman", Times, serif;
+	font-size:14px;
+	font-weight:600;
+	}
+.times16b {
+	font:"Times New Roman", Times, serif;
+	font-size:16px;
+	font-weight:600;
+	}
+
+
+/* ------------------------------ borders, indents, etc ------------------------------*/
+.gray {color:gray;}
+
+
+.bord1bk {
+	border:1px solid black;
+	}
+.bordDash {
+	border:1px dashed #CCCCCC;
+	}
+.bordTopBot {
+	border-bottom:1px solid black;
+	border-top:1px solid black;
+	}
+.bordTop {
+	border-top:1px solid black;
+	}
+.bordTopDash {
+	border-top:1px dashed #CCCCCC;
+	}
+.bordBotDash {
+	border-bottom:1px dashed #CCCCCC;
+	}
+.bordleftDash {
+	border-left:1px dashed #CCCCCC;
+	}
+.bordRightDash {
+	border-right:1px dashed #CCCCCC;
+	}
+.indent20 {
+	padding-left:20px;
+	}
+.pad10 {
+	padding:10px;
+	}
+.pad3 {
+	padding:3px;
+	}
+.pad5 {
+	padding:5px;
+	}
+table.goodBorder td {
+	border:1px solid black;
+	}
+/* ------------------------------- alignment ------------------------------------------- */	
+.alignR {
+	text-align:right;
+	}
+.alignC {
+	text-align:center;
+	}
+.valignT {
+	vertical-align:text-top;
+	}
+.valignB {
+	vertical-align:bottom;
+	}
+
+/* ----------------------------------- dimensions --------------------------------------*/
+.noDamnedMarginsPlease{
+	margin-left:0px;
+	margin-top:-10px;
+	margin-right:0px;
+	margin-bottom:10px;
+}
+	}
+.heightFull {
+	height:100%;
+	}
+.height11 {
+	height:11px;
+	}
+.height14 {
+	height:14px;
+	}
+.height20 {
+	height:20px;
+	}
+.height26 {
+	height:26px;
+	}
+.height38 {
+	height:38px;
+	}
+.height50 {
+	height:50px;
+	}
+.height100 {
+	height:150px;
+	}
+.height900 {
+	height:900px;
+	}
+.width600 {
+	width:600px;
+	}
+.widthHalf {
+	width:50%;
+	}

@@ -1,0 +1,171 @@
+Retrieving map data - please wait....
+<cfflush>
+<cfif isdefined("action") and #action# IS "mapPoint">
+	<!---- map a lat_long_id ---->
+	<cfif not isdefined("lat_long_id") or len(#lat_long_id#) is 0>
+		You can't map a point without a lat_long_id.
+		<cfabort>
+	</cfif>
+	<cfoutput>
+	<cfquery name="getMapData" datasource="#web_user#">
+		SELECT
+			'All collections' Collection_cde,
+			'000000' cat_num,
+			'Lat Long ID: '||lat_long_id scientific_name,
+			'none' verbatim_date,
+			'none' spec_locality,
+			dec_lat,
+			dec_long,
+			decode(max_error_units,
+				'm',max_error_distance,
+				'ft',max_error_distance * 3.28,
+				'km',max_error_distance * 1000,
+				'mi',max_error_distance * 1609.3,
+				'yd',max_error_distance * .9144) max_error_meters,
+			datum,
+			'000000' collection_object_id
+		FROM lat_long WHERE
+			lat_long_id=#lat_long_id#
+	</cfquery>
+	</cfoutput>
+<cfelseif isdefined("action") and #action# IS "mapCfUserLoanItems">
+	<cfif not isdefined("loan_id") OR len(#loan_id#) is 0>
+		You didn't pass a loan ID!
+		<cfabort>
+	</cfif>
+	<cfquery name="getMapData" datasource="#web_user#">
+		SELECT DISTINCT 
+			institution_acronym||' '||collection.collection_cde Collection_cde,
+			cat_num,
+			identification.scientific_name,
+			verbatim_date,
+			spec_locality,
+			dec_lat,
+			dec_long,
+			decode(max_error_units,
+				'm',max_error_distance,
+				'ft',max_error_distance * 3.28,
+				'km',max_error_distance * 1000,
+				'mi',max_error_distance * 1609.3,
+				'yd',max_error_distance * .9144) max_error_meters,
+			datum,
+			cataloged_item.collection_object_id
+		FROM
+			specimen_part,
+			collection,
+			cataloged_item,
+			identification,
+			cf_loan_item,
+			cf_loan,
+			collecting_event,
+			locality,
+			accepted_lat_long
+		WHERE
+			cataloged_item.collection_object_id = identification.collection_object_id AND
+			sampled_from_obj_id is null and
+			accepted_id_fg = 1 and
+			cataloged_item.collection_id = collection.collection_id and
+			cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
+			cf_loan_item.loan_id = cf_loan.loan_id AND
+			specimen_part.collection_object_id = cf_loan_item.collection_object_id and
+			cataloged_item.collecting_event_id = collecting_event.collecting_event_id AND 
+			collecting_event.locality_id = locality.locality_id AND 
+			locality.locality_id = accepted_lat_long.locality_id AND
+			cf_loan_item.loan_id = #loan_id#
+	</cfquery>
+<cfelse><!--- regular mapping routine ---->
+<cfset basSelect = "SELECT DISTINCT 
+	institution_acronym||' '||collection.collection_cde Collection_cde,
+	cat_num,
+	identification.scientific_name,
+	verbatim_date,
+	spec_locality,
+	dec_lat,
+	dec_long,
+	decode(max_error_units,
+		'm',max_error_distance,
+		'ft',max_error_distance * 3.28,
+		'km',max_error_distance * 1000,
+		'mi',max_error_distance * 1609.3,
+		'yd',max_error_distance * .9144) max_error_meters,
+	datum,
+	cataloged_item.collection_object_id">
+
+<cfset basFrom = "	
+FROM
+	collecting_event,
+	accepted_lat_long,
+	locality,
+	cataloged_item,
+	collection,
+	identification ">
+<cfset basWhere = " WHERE  
+	collecting_event.locality_id = locality.locality_id AND 
+	locality.locality_id = accepted_lat_long.locality_id AND
+	cataloged_item.collecting_event_id = collecting_event.collecting_event_id AND 
+	cataloged_item.collection_id = collection.collection_id AND 
+	cataloged_item.collection_object_id=identification.collection_object_id and
+	accepted_id_fg=1 and
+	dec_lat is not null AND
+	dec_long is not null">
+
+
+
+<cfinclude template="/includes/SearchSql.cfm">
+<cfset SqlString = #basSelect# & #basFrom# & #basWhere# & #basQual#>
+
+
+
+<!--- Display this stuff for debugging 
+<cfset DispStr = "-----<br>basSelect:<br>" & #basSelect# & "<br>basWhere:<br> " 
+		& #basWhere# & "<br>basQual: " & #basQual# & "<br>------">
+<cfoutput>#DispStr#</cfoutput>
+<p>
+<cfoutput>#ucase(SqlString)#</cfoutput></p>
+ end debug display --->
+<!--- send it off --->
+
+<!---cfset SqlString = "select distinct(other_id_type) from coll_obj_other_id_num where other_id_type like 'GenBank%'"--->
+
+<cfquery name="getMapData" datasource = "#uam_dbo#" >
+#preserveSingleQuotes(SqlString)#
+</cfquery>
+</cfif><!--- end point map option --->
+<cfset dlPath = "/var/www/html/bnhmMaps/">
+<cfset dlFile = "tabfile#cfid##cftoken#.txt">
+<cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="" nameconflict="overwrite">
+<cfoutput query="getMapData">
+	<cfset catalogNumber="#collection_cde# #cat_num#">
+	<cfset relInfo='<a href="http://arctos.database.museum/SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="_blank">#collection_cde#&nbsp;#cat_num#</a>'>
+	<cfset oneLine="#relInfo##chr(9)##scientific_name##chr(9)##verbatim_date##chr(9)##spec_locality##chr(9)##dec_lat##chr(9)##dec_long##chr(9)##max_error_meters##chr(9)##datum##chr(9)##collection_cde##chr(9)##catalogNumber#">
+		
+		
+	<cfset oneLine=trim(oneLine)>
+	<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#oneLine#">
+</cfoutput>
+<cfoutput>
+<cfquery name="distColl" dbtype="query">
+	select collection_cde from getMapData group by collection_cde
+	order by collection_cde
+</cfquery>
+<cfset collList="">
+<cfloop query="distColl">
+	<cfif len(#collList#) is 0>
+		<cfset collList="#collection_cde#">
+	<cfelse>
+		<cfset CollList="#collList#, #collection_cde#">
+	</cfif>
+</cfloop>
+<cfset listColl=reverse(CollList)>
+<cfset listColl=replace(listColl,",","dna ,","first")>
+<cfset CollList=reverse(listColl)>
+<cfset CollList="#CollList# data.">
+
+
+	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/index.php?ViewResults=tab&tabfile=http://arctos.database.museum/bnhmMaps/#dlFile#&configfile=http://arctos.database.museum/bnhmMaps/UamConfig.xml&sourcename=#collList#">
+	
+
+	<script type="text/javascript" language="javascript">
+		document.location='#bnhmUrl#';
+	</script>
+</cfoutput>

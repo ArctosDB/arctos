@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<title>CFAjax - Amazon Example</title>
+		<style type="text/css">
+			body {
+				font-family: Verdana, Arial, Helvetica, sans-serif;
+				font-size:12px;
+			}
+			.amazon {
+				border-width: 5px;
+				background-color: white;
+			}
+			.amazon td { 
+				font-size: small; 
+				padding-top:10px;
+				padding-left:5px;
+				padding-bottom:10px;
+				padding-right:5px;
+			}
+			.amazon td A {
+				font-family: Verdana;
+				font-weight:bold;
+				text-decoration:none;
+				color:#0000FF;
+				font-size:12px
+			}
+			.amazon td B {
+				font-family: Verdana;
+				font-weight:bold;
+				color:#333333;
+				font-size:12px
+			}
+			
+			.binding {
+				font-family: Verdana;
+				font-weight:bold;
+				color:#CC9900;
+				font-size:12px
+			}
+			
+		
+			.message {
+				position:absolute;
+				top:0px;
+				right:0px;
+				color:#FFFFFF;
+				font-family:Arial, Helvetica, sans-serif;
+				padding:4px;
+			}	
+			
+			.artist {
+				font-family: Verdana;
+				font-weight:bold;
+				color:#9999FF;
+				font-size:12px
+			}
+			
+		</style>
+		<script type='text/javascript' src='/ajax/core/engine.js'></script>
+		<script type='text/javascript' src='/ajax/core/util.js'></script>
+		<script type='text/javascript' src='/ajax/core/settings.js'></script>
+		<script language="javascript">
+			var data = null;
+			var orgSearch = null;
+			var loadPageNumber = true;
+			
+			function getAmazonMusicData()
+			{
+				var search = DWRUtil.getValue("search");
+				var page = null;
+				if (search != "")
+				{
+					if (orgSearch == null) {
+						loadPageNumber = true;
+						page = 1;
+					} else {
+						if (orgSearch != search) 
+						{
+							loadPageNumber = true;
+							page = 1;
+						} else {
+							page = DWRUtil.getValue("page");
+						}
+					}
+					orgSearch = search;
+					DWREngine._execute(_cfscriptAmazonLocation, null, 'amazonmusicsearch', search, page, getAmazonMusicDataResult);
+				}
+			}
+		
+			function getAmazonMusicDataResult(results)
+			{
+				data = results;
+				amazonTable(results);
+				$('divPage').style.visibility = 'visible';
+			}
+			
+			function init()
+			{
+				DWRUtil.useLoadingMessage();
+				DWREngine._errorHandler =  errorHandler;
+				getAmazonMusicData();
+			}
+			
+			function redisplay()
+			{
+				if (data != null)
+				{
+					amazonTable(data);
+				}
+			}
+		
+			function amazonTable(tableData)
+			{
+				// loop through data source
+				var output = "";
+				if (tableData.length  > 0) 
+				{
+					output += "<table>";
+						output += "<tr>";
+							output += "<td>Total Albums found : </td>"
+							output += "<td><b>" +  tableData[0].RECORDS + "</b></td>"
+						output += "</tr>";
+					output += "</table>";
+				
+				
+					if (loadPageNumber)
+					{
+						var pcounter=tableData[0].PAGES;
+						if (tableData[0].PAGES > 25) 
+						{
+							pcounter = 25;	//just too many pages so limiting the number of pages to be shown..
+						}
+						
+						var pagesArray = new Array();
+						for (var pctr=0; pctr < pcounter; pctr++)
+						{
+							pagesArray[pctr] = pctr+1;
+						}
+						
+						DWRUtil.removeAllOptions("page");
+						DWRUtil.addOptions("page", pagesArray);
+						loadPageNumber = false;
+					}		
+					
+					
+					output += "<table id='myTable1'><tbody id='myTbody'>";
+					var option = $("option");
+					if (option.checked)
+					{
+						var ctr=1;
+						for (var j = 0; j < tableData.length; j++) {
+							if (ctr == 1) {
+								output += "<tr class='tr" + (j%2) + "'>";
+							}
+								output += "<td width=50%>";
+									output += singleItem(tableData[j]) ;
+								output += "</td>";
+							if (ctr == 2) {
+							   output += "</tr>";
+							   ctr=0;
+							}
+							ctr++;
+						}
+					}
+					else 
+					{
+						for (var j = 0; j < tableData.length; j++) {
+							output += "<tr class='tr" + (j%2) + "'>";
+								output += "<td>";
+									output += singleItem(tableData[j]) ;
+								output += "</td>";
+						   output += "</tr>";
+						}
+					}
+					output += "<tr><td colspan=2>";
+						output += "<hr size=1 width=100%>";
+					output += "</td><tr>";
+					
+					output += "</tbody></table>";
+					document.getElementById("tableWrap").innerHTML = output;
+				}
+				else
+				{
+					alert("No Albums for the keyword :" + DWRUtil.getValue("search"));
+				}
+			}
+			
+			function singleItem(item)
+			{
+				var output = "<table class=amazon>";
+					output += "<tr>";
+						output += "<td align=center valign=top>";
+							output += "<a href=" + item.DETAILURL + " target='_blank'><img src='" + item.SMALLIMAGE + "' width=75 height=75 align=center border=0></a>";
+						output += "</td>";
+						output += "<td valign=top>";
+							output += "<a href=" + item.DETAILURL + " target='_blank'>" + item.TITLE + "</a> -- ";
+							if (item.ARTIST != '')
+							{
+								output += " <span class='artist'>" + item.ARTIST + "</span>";
+							}
+							output += " " + item.CREATOR;
+							output += " (<span class='binding'>" + item.BINDING + "</span>)";
+							output += "<br>";
+							output += "<a href='" + item.DETAILURL + "' target='_blank'>Buy new</a></span>: ";
+							output += "<b class=price>" + item.PRICE + "</b>";
+							output += " -- Used & new from: ";
+							if (item.LOWEST == "0")
+								output += "<b class=price>" + item.PRICE + "</b>";
+							else
+								output += "<b class=price>" + item.LOWEST + "</b>";
+							output += "</b>";
+							
+							if (item.RELEASEDATE != '')
+							{
+								output += "<br>Released On <span class='binding'>" + item.RELEASEDATE + "</span>";
+							}
+						output += "</td>";
+					output += "</tr>";
+				output += "</table>";
+				return output;
+			}
+		</script>
+	</head>
+	<body onLoad="init()">
+
+<center>
+<h3>Search Amazon Music Catalog</h3>
+<br>
+<table width="90%">
+	<tr>
+		<td colspan="2">
+			<hr size="1" width="100%">
+		</td>
+	</tr>
+	<tr>
+		<td align="center">
+			Keyword : 
+			<input type="text" name="search" id="search" value="pop">
+			<input type="button" name="submit" value="Search" onClick="getAmazonMusicData()">
+		</td>
+	</tr>
+	<tr>
+		<td align="center">
+			<input type="checkbox" id="option" name="option" value=true checked onClick="redisplay()"> Multiple column display
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<hr size="1" width="100%">
+		</td>
+	</tr>
+	<tr>
+		<td align="left" colspan="2" width="100%">
+			<div id="divPage" style="visibility:hidden">
+			<table>
+				<tr>
+					<td align=right>Go to Page#: </td>
+					<td>
+						<select name="page" id="page" onChange="getAmazonMusicData()">
+						</select>
+					</td>
+				</tr>
+			</table>
+			</div>
+			<div id="tableWrap"></div>
+		</td>
+	</tr>
+</table>
+
+<!---
+<form name="frm">
+<textarea id="error" name="error" rows="20" cols="80"></textarea>
+</form>
+--->
+</center>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,42 @@
+cd web
+mkdir t
+cp -r temp/* t/
+rm -rf temp
+
+mkdir l
+cp -r log/* l/
+rm -rf log
+
+mkdir s
+cp -r SpecimenImages/* s/
+rm -rf SpecimenImages
+
+mkdir st
+cp -r Static/* st/
+rm -rf Static
+
+mkdir ti
+cp -r tempImages/* ti/
+rm -rf tempImages
+
+mkdir d
+cp -r download/* d/
+rm -rf download
+
+
+
+svn {get_new_stuff)
+
+cp -r t/* temp/
+cp -r l/* log/
+cp -r s/* SpecimenImages/
+cp -r st/* Static/
+cp -r ti/* tempImages/
+cp -r d/* download/
+
+rm -rf t
+rm -rf l
+rm -rf s
+rm -rf st
+rm -rf ti
+rm -rf d
