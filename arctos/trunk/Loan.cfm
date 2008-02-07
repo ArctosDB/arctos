@@ -578,14 +578,14 @@
 				<option value="/Reports/UAMLoanInvoice.cfm?transaction_id=#transaction_id#">UAM Generic Invoice Header</option>
 				<option value="/Reports/UAMLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemList">UAM Generic Item Invoice</option>
 				<option value="/Reports/UAMLoanInvoice.cfm?transaction_id=#transaction_id#&Action=showCondition">UAM Generic Item Conditions</option>
+				<option value="/Reports/loanShipLabel.cfm?transaction_id=#transaction_id#">Shipping Label</option>
 			<cfelse>
 				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#">Invoice Header</option>
 				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemList">Item Invoice</option>
 				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=showCondition">Item Conditions</option>
 				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemLabels">Item Slips</option>
-				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=shippingLabel">MVZ shipping label</option>
+				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=shippingLabel">Shipping label</option>
 			</cfif>
-			<option value="/Reports/loanShipLabel.cfm?transaction_id=#transaction_id#">Shipping Label</option>
    		</select>
 		
    
