@@ -343,7 +343,7 @@
 				onclick="saveSearch();">Save&nbsp;Search</span>
 		</td>
 		<td nowrap="nowrap">
-			<cfif summary.recordcount lt 1000 and (isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user"))>					
+			<cfif summary.recordcount lt 10000 and (isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user"))>					
 				<cfset collObjIdList = valuelist(summary.collection_object_id)>
 				<label for="goWhere">Manage...</label>
 				<select name="goWhere" id="goWhere" size="1" target="#client.target#">
