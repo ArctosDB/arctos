@@ -93,7 +93,7 @@ window.setInterval("chkVal()",1000);
 						class="delBtn"
    						onmouseover="this.className='delBtn btnhov'" 
 						onmouseout="this.className='delBtn'"
-						onclick="reln#i#.action.value='deleReln'; confirmDelete('reln#i#');">
+						onclick="reln#i#.action.value='deleReln'; confirmDelete('reln#i#','this relationship');">
 			</td>
 			<td valign="middle">
 				<a href="SpecimenDetail.cfm?collection_object_id=#getRelns.collection_object_id#" target="#client.target#"><img src="/images/info.gif"></a>
