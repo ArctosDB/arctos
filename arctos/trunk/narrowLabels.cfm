@@ -507,7 +507,6 @@ To you programmers, that means DON'T TOUCH THE MARGINS!!!--->
 					<cfset stripParts = '+#Trim(stripParts)#'>
 				</cfif>
 		<cfelseif collection_cde is 'Egg'>
-			<!--- test it  --->
 			<cfset stripParts=tempParts>
 		</cfif>
 				<!--- portion to abbreviate common words from parts --->
