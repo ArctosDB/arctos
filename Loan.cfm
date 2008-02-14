@@ -182,18 +182,34 @@
 	</tr>
 	<tr>
 		<td>
+			<label for="auth_agent_name">Authorized By</label>
+			<input type="text" name="auth_agent_name" class="reqdClr" size="40" 
+			  onchange="getAgent('auth_agent_id','auth_agent_name','newloan',this.value); return false;"
+			  onKeyPress="return noenter(event);"> 
+			<input type="hidden" name="auth_agent_id">
+		</td>
+		<td>
 			<label for="rec_agent_name"><a href="javascript:void(0);" onClick="getDocs('loan','to')">To:</a></label>
 			<input type="text" name="rec_agent_name" class="reqdClr" size="40" 
 			  onchange="getAgent('rec_agent_id','rec_agent_name','newloan',this.value); return false;"
 			  onKeyPress="return noenter(event);"> 			  
 			<input type="hidden" name="rec_agent_id">
 		</td>
+	</tr>
+	<tr>
 		<td>
-			<label for="auth_agent_name">Authorized By</label>
-			<input type="text" name="auth_agent_name" class="reqdClr" size="40" 
-			  onchange="getAgent('auth_agent_id','auth_agent_name','newloan',this.value); return false;"
+			<label for="in-house_contact_agent_name">In-House Contact:</label>
+			<input type="text" name="in-house_contact_agent_name" size="40" 
+			  onchange="getAgent('in-house_contact_agent_id','in-house_contact_agent_name','newloan',this.value); return false;"
 			  onKeyPress="return noenter(event);"> 
-			<input type="hidden" name="auth_agent_id">
+			<input type="hidden" name="in-house_contact_agent_id">
+		</td>
+		<td>
+			<label for="outside_contact_agent_name">Outside Contact:</label>
+			<input type="text" name="outside_contact_agent_name" size="40" 
+			  onchange="getAgent('outside_contact_agent_id','outside_contact_agent_name','newloan',this.value); return false;"
+			  onKeyPress="return noenter(event);"> 			  
+			<input type="hidden" name="outside_contact_agent_id">
 		</td>
 	</tr>
 	<tr>
@@ -1113,7 +1129,7 @@ Shipment Information:
 			len(#loan_number#) is 0 OR
 			len(#initiating_date#) is 0 OR
 			len(#rec_agent_id#) is 0 OR
-			len(#auth_agent_id#) is 0 
+			len(#auth_agent_id#) is 0
 		>
 			<br>Something bad happened.
 			<br>You must fill in loan_type, loannumber, authorizing_agent_name, initiating_date, loan_num_prefix, received_agent_name.
@@ -1196,6 +1212,30 @@ Shipment Information:
 					#auth_agent_id#,
 					'authorized by')
 			</cfquery>
+			<cfif len(#in-house_contact_agent_id#) is 0>
+				<cfquery name="in-house_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					INSERT INTO trans_agent (
+					    transaction_id,
+					    agent_id,
+					    trans_agent_role
+					) values (
+						#nextTransId.nextTransactionId#,
+						#in-house_contact_agent_id#,
+						'in-house contact')
+				</cfquery>
+			</cfif>
+			<cfif len(#outside_contact_agent_id#) is 0>
+				<cfquery name="outside_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					INSERT INTO trans_agent (
+					    transaction_id,
+					    agent_id,
+					    trans_agent_role
+					) values (
+						#nextTransId.nextTransactionId#,
+						#outside_contact_agent_id#,
+						'outside contact')
+				</cfquery>
+			</cfif>
 			<cfquery name="newLoan" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 				INSERT INTO trans_agent (
 				    transaction_id,
