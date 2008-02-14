@@ -365,6 +365,10 @@ To you programmers, that means DON'T TOUCH THE MARGINS!!!--->
 				</cfif>
 				<!--- portion to eliminiate certain parts from report
 				as specified by the parts matrix--->
+				<!--- Definitions:
+				parts is the parts obtained from the query; 
+				tempParts is the subset of those parts that are checked in the parts matrix;
+				stripParts is the parts string that gets printed; does collection logic--->
 				<cfset stripParts=''>
 				<cfset tempParts=''>
                 <cfset tiss = "">
@@ -498,6 +502,9 @@ To you programmers, that means DON'T TOUCH THE MARGINS!!!--->
 				<cfif wholeanimal and otherPartAdded>
 					<cfset stripParts = '+#Trim(stripParts)#'>
 				</cfif>
+		<cfelseif collection_cde is 'Egg'>
+			<!--- test it  --->
+			<cfset stripParts=tempParts>
 		</cfif>
 				<!--- portion to abbreviate common words from parts --->
 				<cfset stripParts = replace(stripParts,'partial','part.','all')>
