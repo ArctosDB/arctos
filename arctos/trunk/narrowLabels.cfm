@@ -327,7 +327,7 @@ To you programmers, that means DON'T TOUCH THE MARGINS!!!--->
 				<cfelse>
 					<cfset sexcde='?'>
 				</cfif>
-				<cfif collection_cde = 'Egg'>
+				<cfif collection_cde is 'Egg'>
 					<cfset sexcde=''>
 				</cfif>
 				
