@@ -327,6 +327,10 @@ To you programmers, that means DON'T TOUCH THE MARGINS!!!--->
 				<cfelse>
 					<cfset sexcde='?'>
 				</cfif>
+				<cfif collection_cde = 'Egg'>
+					<cfset sexcde=''>
+				</cfif>
+				
                 <!---<cfif #sex# contains "female">
                         <cfset sexcde = replace(sex,"female","&##9792;")>
                 <cfelseif #sex# contains "male">
