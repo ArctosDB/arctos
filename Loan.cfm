@@ -198,11 +198,11 @@
 	</tr>
 	<tr>
 		<td>
-			<label for="in-house_contact_agent_name">In-House Contact:</label>
-			<input type="text" name="in-house_contact_agent_name" size="40" 
-			  onchange="getAgent('in-house_contact_agent_id','in-house_contact_agent_name','newloan',this.value); return false;"
+			<label for="in_house_contact_agent_name">In-House Contact:</label>
+			<input type="text" name="in_house_contact_agent_name" size="40" 
+			  onchange="getAgent('in_house_contact_agent_id','in_house_contact_agent_name','newloan',this.value); return false;"
 			  onKeyPress="return noenter(event);"> 
-			<input type="hidden" name="in-house_contact_agent_id">
+			<input type="hidden" name="in_house_contact_agent_id">
 		</td>
 		<td>
 			<label for="outside_contact_agent_name">Outside Contact:</label>
@@ -1212,19 +1212,19 @@ Shipment Information:
 					#auth_agent_id#,
 					'authorized by')
 			</cfquery>
-			<cfif len(#in-house_contact_agent_id#) is 0>
-				<cfquery name="in-house_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfif len(#in_house_contact_agent_id#) is not 0>
+				<cfquery name="in_house_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 					INSERT INTO trans_agent (
 					    transaction_id,
 					    agent_id,
 					    trans_agent_role
 					) values (
 						#nextTransId.nextTransactionId#,
-						#in-house_contact_agent_id#,
+						#in_house_contact_agent_id#,
 						'in-house contact')
 				</cfquery>
 			</cfif>
-			<cfif len(#outside_contact_agent_id#) is 0>
+			<cfif len(#outside_contact_agent_id#) is not 0>
 				<cfquery name="outside_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 					INSERT INTO trans_agent (
 					    transaction_id,
