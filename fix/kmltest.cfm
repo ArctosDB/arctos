@@ -63,14 +63,27 @@ function RadToDeg(radians)
 	<cfset d = radius_form>
 	<cfset d_rad=d/6378137>
 	
-	<cfset retn = "<Folder>\n<name>KML Circle Generator Output</name>\n<visibility>1</visibility>\n<Placemark>\n<name>circle</name>\n<visibility>1</visibility>\n<Style>\n<geomColor>ff0000ff</geomColor>\n<geomScale>1</geomScale></Style>\n<LineString>\n<coordinates>">
+	<cfset retn = "<Folder>
+	<name>KML Circle Generator Output</name>
+	<visibility>1</visibility>
+	<Placemark>
+	<name>circle</name>
+	<visibility>1</visibility>
+	<Style>
+	<geomColor>ff0000ff</geomColor>
+	<geomScale>1</geomScale></Style>
+	<LineString>
+	<coordinates>">
 	
 	<cfloop from="1" to="360" index="i">
 		<cfset radial = DegToRad(i)>
 		<cfset lat_rad = asin(sin(lat)*cos(d_rad) + cos(lat)*sin(d_rad)*cos(radial))>
 		<cfset dlon_rad = atan2(sin(radial)*sin(d_rad)*cos(lat),cos(d_rad)-sin(lat)*sin(lat_rad))>
 		<cfset lon_rad = (long+dlon_rad + pi() mod 2*pi()) - pi()>
-		<cfset retn = '#retn#, RadToDeg(lon_rad).",".RadToDeg(lat_rad).",0 ")'>
+		<cfset rLong = RadToDeg(lon_rad)>
+		<cfset rLat = RadToDeg(lat_rad)>
+		<cfset retn = '#retn#,#rLong#,#rLat#,0 ")'>
+		
 	</cfloop>
 	<!---
 	for($i=0; $i<=360; $i++) {
