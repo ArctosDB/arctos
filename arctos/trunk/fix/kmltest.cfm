@@ -56,16 +56,7 @@ function RadToDeg(radians)
 	     type="numeric"
 	     required="true"/>
 	     
-	<cfargument
-	     name="circumlat_form"
-	     type="numeric"
-	     required="false"/>
-	     
-	<cfargument
-	     name="circumlong_form"
-	     type="numeric"
-	     required="false"/>
-    
+	
 	<cfset retn = "<Folder>
 	<name>KML Circle Generator Output</name>
 	<visibility>1</visibility>
@@ -82,12 +73,7 @@ function RadToDeg(radians)
 	
 	<cfset lat = DegToRad(centerlat_form)>
 	<cfset long = DegToRad(centerlong_form)>
-		<cfset lat2= DegToRad(circumlat_form)>
-		<cfset long2 = DegToRad(circumlong_form)>
-		
-		<cfset dlat = lat2-lat>
-		<cfset dlong = long2-long>
-
+	
 
 	<cfset d = radius_form>
 	<cfset d_rad=d/6378137>
