@@ -192,7 +192,7 @@ if(file_exists($filename)) {
    </Folder>
 </kml>
 '>
-<cffile action="write" file="/temp/test.kml" output="#theFile#" nameconflict="overwrite">
+<cffile action="write" file="#webDirectory#/temp/test.kml" output="#theFile#" nameconflict="overwrite">
 <a href="/temp/test.kml">/temp/test.kml</a>
 	</cfoutput>
 	</cfif>
