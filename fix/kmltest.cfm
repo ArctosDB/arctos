@@ -77,7 +77,7 @@ function RadToDeg(radians)
 
 	<cfset d = radius_form>
 	<cfset d_rad=d/6378137>
-	
+	<cfset retn = '<table border>'>
 	<cfloop from="0" to="360" index="i">
 		<cfset radial = DegToRad(i)>
 		<cfset lat_rad = asin(sin(lat)*cos(d_rad) + cos(lat)*sin(d_rad)*cos(radial))>
@@ -89,7 +89,7 @@ function RadToDeg(radians)
 
 		<cfset rLong = RadToDeg(lon_rad)>
 		<cfset rLat = RadToDeg(lat_rad)>
-		<cfset retn = '#retn# :#i#:#dlon_rad#:#lon_rad#:#rLong#,#rLat#,0<br>'>	
+		<cfset retn = '#retn#<tr><td>#i#</td><td>#dlon_rad#</td><td>#lon_rad#</td><td>#rLong#</td><td>#rLat#</td></tr>'>	
 	</cfloop>
 	
 
@@ -102,7 +102,7 @@ function RadToDeg(radians)
   }
 
 
-	<cfset retn = '#retn#</coordinates></LineString></Placemark></Folder>'>
+	<cfset retn = '#retn#</table>'>
 	
 	<cfreturn retn>
 	</cffunction>
