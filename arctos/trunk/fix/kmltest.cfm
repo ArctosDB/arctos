@@ -94,8 +94,9 @@ function ProperMod(y,x) {
 
 	<cfset d = radius_form>
 	<cfset d_rad=d/6378137>
+	<!---
 	<cfset retn = '<table border><tr><td>i</td><td>x</td><td>y</td><td>dlon_rad</td><td>lon_rad</td><td>rLong</td><td>rLat</td></tr>'>	
-			
+			---->
 	<cfloop from="0" to="360" index="i">
 		<cfset radial = DegToRad(i)>
 		<cfset lat_rad = asin(sin(lat)*cos(d_rad) + cos(lat)*sin(d_rad)*cos(radial))>
@@ -112,7 +113,10 @@ function ProperMod(y,x) {
   <cfset lon_rad = ProperMod((long+dlon_rad + p), 2*p) - p>
 		<cfset rLong = RadToDeg(lon_rad)>
 		<cfset rLat = RadToDeg(lat_rad)>
+		<!---
 		<cfset retn = '#retn#<tr><td>#i#</td><td>#x#</td><td>#y#</td><td>#dlon_rad#</td><td>#lon_rad#</td><td>#rLong#</td><td>#rLat#</td></tr>'>	
+	--->
+		<cfset retn = '#retn# #rLong#,#rLat#,0'>	
 	</cfloop>
 	
 
@@ -125,8 +129,8 @@ function ProperMod(y,x) {
   }
 
 
-	<cfset retn = '#retn#</table>'>
-	
+	<cfset retn = '#retn#</coordinates></LineString></Placemark></Folder>'>
+				
 	<cfreturn retn>
 	</cffunction>
 <!---
