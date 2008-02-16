@@ -30,7 +30,7 @@ function DegToRad(degrees)
 	<cfset long = DegToRad(centerlong_form)>
 	<cfset a = ((sin(lat/2))^ 2) + cos(lat) * ((sin(long/2)) ^ 2)>
 	 
-	<cfreturn k>
+	<cfreturn a>
 	</cffunction>
 <!---
 
