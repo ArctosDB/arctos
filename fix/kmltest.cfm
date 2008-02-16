@@ -86,6 +86,7 @@ function RadToDeg(radians)
 		<cfset retn = '#retn# #rLong#,#rLat#,0'>
 		
 	</cfloop>
+	<cfset retn = '#retn#</coordinates></LineString></Placemark></Folder>'>
 	<!---
 	for($i=0; $i<=360; $i++) {
   $radial = deg2rad($i);
