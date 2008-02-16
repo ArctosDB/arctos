@@ -27,7 +27,18 @@ function atan2(firstArg, secondArg) {
 	return Math.atan2(javacast("double",firstArg), javacast("double",secondArg)); 
 }
 
-
+/**
+ * Converts radians to degrees.
+ * 
+ * @param radians 	 Angle (in radians) you want converted to degrees. 
+ * @return Returns a simple value. 
+ * @author Rob Brooks-Bilson (rbils@amkor.com) 
+ * @version 1.0, July 18, 2001 
+ */
+function RadToDeg(radians)
+{
+  Return (radians*(180/Pi()));
+}
 </cfscript>
 
 <cffunction     name="kmlCircle"     access="public"    returntype="string" output="false">
@@ -55,11 +66,11 @@ function atan2(firstArg, secondArg) {
 	<cfset retn = "<Folder>\n<name>KML Circle Generator Output</name>\n<visibility>1</visibility>\n<Placemark>\n<name>circle</name>\n<visibility>1</visibility>\n<Style>\n<geomColor>ff0000ff</geomColor>\n<geomScale>1</geomScale></Style>\n<LineString>\n<coordinates>">
 	
 	<cfloop from="1" to="360" index="i">
-		<cfset radial = deg2rad(i)>
+		<cfset radial = DegToRad(i)>
 		<cfset lat_rad = asin(sin(lat)*cos(d_rad) + cos(lat)*sin(d_rad)*cos(radial))>
 		<cfset dlon_rad = atan2(sin(radial)*sin(d_rad)*cos(lat),cos(d_rad)-sin(lat)*sin(lat_rad))>
 		<cfset lon_rad = (long+dlon_rad + pi() mod 2*pi()) - pi()>
-		<cfset retn = '#retn#, rad2deg(lon_rad).",".rad2deg(lat_rad).",0 ")'>
+		<cfset retn = '#retn#, RadToDeg(lon_rad).",".RadToDeg(lat_rad).",0 ")'>
 	</cfloop>
 	<!---
 	for($i=0; $i<=360; $i++) {
