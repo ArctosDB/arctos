@@ -194,6 +194,5 @@ if(file_exists($filename)) {
 '>
 <cffile action="write" file="/temp/test.kml" nameconflict="overwrite">
 <a href="/temp/test.kml">/temp/test.kml</a>
+	</cfoutput>
 	</cfif>
-	#k#
-</cfoutput>
