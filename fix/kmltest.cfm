@@ -58,7 +58,7 @@ function atan2(firstArg, secondArg) {
 		<cfset radial = deg2rad(i)>
 		<cfset lat_rad = asin(sin(lat)*cos(d_rad) + cos(lat)*sin(d_rad)*cos(radial))>
 		<cfset dlon_rad = atan2(sin(radial)*sin(d_rad)*cos(lat),cos(d_rad)-sin(lat)*sin(lat_rad))>
-		<cfset lon_rad = mod((long+dlon_rad + pi()), 2*pi()) - pi()>
+		<cfset lon_rad = (long+dlon_rad + pi() mod 2*pi()) - pi()>
 		<cfset retn = '#retn#, rad2deg(lon_rad).",".rad2deg(lat_rad).",0 ")'>
 	</cfloop>
 	<!---
