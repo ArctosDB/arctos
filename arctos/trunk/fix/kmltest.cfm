@@ -40,6 +40,23 @@ function RadToDeg(radians)
 {
   Return (radians*(180/Pi()));
 }
+
+/**
+ * Computes the mathematical function Mod(y,x).
+ * 
+ * @param y 	 Number to be modded. 
+ * @param x 	 Devisor. 
+ * @return Returns a numeric value. 
+ * @author Tom Nunamaker (tom@toshop.com) 
+ * @version 1, February 24, 2002 
+ */
+function ProperMod(y,x) {
+  var modvalue = y - x * int(y/x);
+  
+  if (modvalue LT 0) modvalue = modvalue + x;
+  
+  Return ( modvalue );
+}
 </cfscript>
 
 <cffunction     name="kmlCircle"     access="public"    returntype="string" output="false">
@@ -89,8 +106,10 @@ function RadToDeg(radians)
 		<cfset p="3.14">
 		<cfset x=(long+dlon_rad + p)>
 		<cfset y=(2*p)>
+		<!---
 		<cfset lon_rad = (x mod y) - p>
-
+---->
+  <cfset lon_rad = ProperMod((long+dlon_rad + p), 2*p) - p>
 		<cfset rLong = RadToDeg(lon_rad)>
 		<cfset rLat = RadToDeg(lat_rad)>
 		<cfset retn = '#retn#<tr><td>#i#</td><td>#x#</td><td>#y#</td><td>#dlon_rad#</td><td>#lon_rad#</td><td>#rLong#</td><td>#rLat#</td></tr>'>	
