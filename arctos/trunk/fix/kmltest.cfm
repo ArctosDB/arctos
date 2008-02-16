@@ -156,8 +156,7 @@ if(file_exists($filename)) {
 ---->
 <form name="a" method="post" action="kmltest.cfm">
 	Lat:<input type="text" name="lat">
-	<br>Lon:<input type="text" name="long
-			\\">
+	<br>Lon:<input type="text" name="long">
 	<br>Rad:<input type="text" name="rad">
 	<input type="hidden" name="action" value="make">
 	<input type="submit">
