@@ -164,7 +164,7 @@ if(file_exists($filename)) {
 <cfif #action# is "make">
 <cfoutput>
 	<cfset k = kmlCircle(#lat#,#long#,#rad#)>
-	<cfset theFile = "
+	<cfset theFile = '
 	<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://earth.google.com/kml/2.2">
   <Folder>
@@ -191,7 +191,9 @@ if(file_exists($filename)) {
   	</Folder>
    </Folder>
 </kml>
-">
+'>
+<cffile action="write" file="/temp/test.kml" nameconflict="overwrite">
+<a href="/temp/test.kml">/temp/test.kml</a>
 	</cfif>
 	#k#
 </cfoutput>
