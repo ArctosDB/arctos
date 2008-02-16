@@ -156,15 +156,15 @@ if(file_exists($filename)) {
 ?>
 ---->
 <form name="a" method="post" action="kmltest.cfm">
-	Lat:<input type="text" name="lat">
-	<br>Lon:<input type="text" name="long">
-	<br>Rad:<input type="text" name="rad">
+	Lat:<input type="text" name="inlat">
+	<br>Lon:<input type="text" name="inlong">
+	<br>Rad:<input type="text" name="inrad">
 	<input type="hidden" name="action" value="make">
 	<input type="submit">
 </form>
 <cfif #action# is "make">
 <cfoutput>
-	<cfset k = kmlCircle(#lat#,#long#,#rad#)>
+	<cfset k = kmlCircle(#inlat#,#inlong#,#inrad#)>
 	<cfset theFile = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2">
   <Folder>
   	<name>Big Folder</name>
@@ -175,7 +175,7 @@ if(file_exists($filename)) {
 	    <description>Attached to the ground. Intelligently places itself 
 	       at the height of the underlying terrain.</description>
 	    <Point>
-	      <coordinates>#long#,#lat#,0</coordinates>
+	      <coordinates>#inlong#,#inlat#,0</coordinates>
 	    </Point>
 	  </Placemark>
 	  #k#
