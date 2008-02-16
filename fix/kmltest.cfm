@@ -164,9 +164,7 @@ if(file_exists($filename)) {
 <cfif #action# is "make">
 <cfoutput>
 	<cfset k = kmlCircle(#lat#,#long#,#rad#)>
-	<cfset theFile = '
-	<?xml version="1.0" encoding="UTF-8"?>
-<kml xmlns="http://earth.google.com/kml/2.2">
+	<cfset theFile = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2">
   <Folder>
   	<name>Big Folder</name>
   	<Folder>
