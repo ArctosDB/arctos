@@ -1,8 +1,4 @@
- <cffunction
-     name="kmlCircle"
-     access="public"
-     returntype="string"
-     output="false"/>
+ <cffunction     name="kmlCircle"     access="public"    returntype="string" output="false">
      <cfargument
 	     name="centerlat_form"
 	     type="numeric"
