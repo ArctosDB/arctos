@@ -80,7 +80,7 @@ function RadToDeg(radians)
 		<cfset radial = DegToRad(i)>
 		<cfset lat_rad = asin(sin(lat)*cos(d_rad) + cos(lat)*sin(d_rad)*cos(radial))>
 		<cfset dlon_rad = atan2(sin(radial)*sin(d_rad)*cos(lat),cos(d_rad)-sin(lat)*sin(lat_rad))>
-		<cfset lon_rad = (long+dlon_rad + pi() mod 2*pi()) - pi()>
+		<cfset lon_rad = ((long+dlon_rad + pi()) mod (2*pi()) - pi())>
 		<cfset rLong = RadToDeg(lon_rad)>
 		<cfset rLat = RadToDeg(lat_rad)>
 		<cfset retn = '#retn# #rLong#,#rLat#,0'>
