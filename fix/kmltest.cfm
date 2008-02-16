@@ -26,7 +26,7 @@ function DegToRad(degrees)
 	     name="radius_form"
 	     type="numeric"
 	     required="true"/>
-     <cfset k = deg2rad(centerlat_form)>
+     <cfset k = DegToRad(centerlat_form)>
 	<cfreturn k>
 	</cffunction>
 <!---
