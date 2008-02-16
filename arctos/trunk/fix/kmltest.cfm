@@ -163,6 +163,7 @@ if(file_exists($filename)) {
 	<input type="submit">
 </form>
 <cfif #action# is "make">
+<cfdump var=#form#>
 <cfoutput>
 	<cfset k = kmlCircle(#inlat#,#inlong#,#inrad#)>
 	<cfset theFile = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2">
