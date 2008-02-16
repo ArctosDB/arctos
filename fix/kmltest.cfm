@@ -1,4 +1,19 @@
- <cffunction     name="kmlCircle"     access="public"    returntype="string" output="false">
+ <cfscript>
+/**
+ * Converts degrees to radians.
+ * 
+ * @param degrees 	 Angle (in degrees) you want converted to radians. 
+ * @return Returns a simple value 
+ * @author Rob Brooks-Bilson (rbils@amkor.com) 
+ * @version 1.0, July 18, 2001 
+ */
+function DegToRad(degrees)
+{
+  Return (degrees*(Pi()/180));
+}
+</cfscript>
+
+<cffunction     name="kmlCircle"     access="public"    returntype="string" output="false">
      <cfargument
 	     name="centerlat_form"
 	     type="numeric"
