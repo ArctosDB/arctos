@@ -85,7 +85,8 @@ function RadToDeg(radians)
 		<!---
 		<cfset lon_rad = ((long+dlon_rad + 3.1415) mod (2*3.1415)) - 3.1415>
 		--->
-		<cfset lon_rad = ((long+dlon_rad + pi()) mod (2*pi())) - pi()>
+		<cfset p="3.14">
+		<cfset lon_rad = ((long+dlon_rad + p) mod (2*p)) - p>
 
 		<cfset rLong = RadToDeg(lon_rad)>
 		<cfset rLat = RadToDeg(lat_rad)>
