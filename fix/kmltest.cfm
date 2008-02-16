@@ -55,6 +55,16 @@ function RadToDeg(radians)
 	     name="radius_form"
 	     type="numeric"
 	     required="true"/>
+	     
+	<cfargument
+	     name="circumlat_form"
+	     type="numeric"
+	     required="false"/>
+	     
+	<cfargument
+	     name="circumlong_form"
+	     type="numeric"
+	     required="false"/>
     
 	<cfset retn = "<Folder>
 	<name>KML Circle Generator Output</name>
@@ -72,7 +82,13 @@ function RadToDeg(radians)
 	
 	<cfset lat = DegToRad(centerlat_form)>
 	<cfset long = DegToRad(centerlong_form)>
-	
+		<cfset lat2= DegToRad(circumlat_form)>
+		<cfset long2 = DegToRad(circumlong_form)>
+		
+		<cfset dlat = lat2-lat>
+		<cfset dlong = long2-long>
+
+
 	<cfset d = radius_form>
 	<cfset d_rad=d/6378137>
 		
@@ -89,8 +105,8 @@ function RadToDeg(radians)
 		<cfset retn = '#retn# #rLong#,#rLat#,0'>	
 	</cfloop>
 	
-	for($i=0; $i<=360; $i++) {
-  $radial = deg2rad($i);
+
+ $radial = deg2rad($i);
   $lat_rad = asin(sin($lat1)*cos($d_rad) + cos($lat1)*sin($d_rad)*cos($radial));
   $dlon_rad = atan2(sin($radial)*sin($d_rad)*cos($lat1),
                     cos($d_rad)-sin($lat1)*sin($lat_rad));
@@ -189,6 +205,9 @@ if(file_exists($filename)) {
    </Folder>
 </kml>
 '>
+<hr>
+#theFile#
+<hr>
 <cffile action="write" file="#application.webDirectory#/temp/test.kml" output="#theFile#" nameconflict="overwrite">
 <a href="/temp/test.kml">/temp/test.kml</a>
 	</cfoutput>
