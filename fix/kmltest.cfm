@@ -1,4 +1,5 @@
- <cfscript>
+<cfinclude  template="/includes/_header.cfm"> 
+<cfscript>
 /**
  * Converts degrees to radians.
  * 
