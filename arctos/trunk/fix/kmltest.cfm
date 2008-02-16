@@ -83,11 +83,22 @@ function RadToDeg(radians)
 		<!---
 		<cfset lon_rad = ((long+dlon_rad + pi()) mod (2*pi()) - pi())>
 		--->
-		<cfset lon_rad = ((long+dlon_rad + 3.1415) mod (2*3.1415) - 3.1415)>
+		<cfset lon_rad = ((long+dlon_rad + 3.1415) mod (2*3.1415)) - 3.1415>
 		<cfset rLong = RadToDeg(lon_rad)>
 		<cfset rLat = RadToDeg(lat_rad)>
 		<cfset retn = '#retn# #rLong#,#rLat#,0'>	
 	</cfloop>
+	
+	for($i=0; $i<=360; $i++) {
+  $radial = deg2rad($i);
+  $lat_rad = asin(sin($lat1)*cos($d_rad) + cos($lat1)*sin($d_rad)*cos($radial));
+  $dlon_rad = atan2(sin($radial)*sin($d_rad)*cos($lat1),
+                    cos($d_rad)-sin($lat1)*sin($lat_rad));
+  $lon_rad = fmod(($long1+$dlon_rad + M_PI), 2*M_PI) - M_PI;
+  fwrite( $fileappend, rad2deg($lon_rad).",".rad2deg($lat_rad).",0 ");
+  }
+
+
 	<cfset retn = '#retn#</coordinates></LineString></Placemark></Folder>'>
 	
 	<cfreturn retn>
