@@ -82,7 +82,7 @@ function RadToDeg(radians)
 		<cfset lon_rad = (long+dlon_rad + pi() mod 2*pi()) - pi()>
 		<cfset rLong = RadToDeg(lon_rad)>
 		<cfset rLat = RadToDeg(lat_rad)>
-		<cfset retn = '#retn#,#rLong#,#rLat#,0 ")'>
+		<cfset retn = '#retn#,#rLong#,#rLat#,0'>
 		
 	</cfloop>
 	<!---
