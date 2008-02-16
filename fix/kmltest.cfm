@@ -55,15 +55,7 @@ function RadToDeg(radians)
 	     name="radius_form"
 	     type="numeric"
 	     required="true"/>
-    <cfset lat = DegToRad(centerlat_form)>
-	<cfset long = DegToRad(centerlong_form)>
-	<!---
-	<cfset a = ((sin(lat/2))^ 2) + cos(lat) * ((sin(long/2)) ^ 2)>
-	<cfset c = 2 * atan2(sqr(a), sqr(1-a))>
-	--->
-	<cfset d = radius_form>
-	<cfset d_rad=d/6378137>
-	
+    
 	<cfset retn = "<Folder>
 	<name>KML Circle Generator Output</name>
 	<visibility>1</visibility>
@@ -76,31 +68,45 @@ function RadToDeg(radians)
 	<LineString>
 	<coordinates>">
 	
+	
+	
+	<cfset lat = DegToRad(centerlat_form)>
+	<cfset long = DegToRad(centerlong_form)>
+	
+	<cfset d = radius_form>
+	<cfset d_rad=d/6378137>
+		
 	<cfloop from="1" to="360" index="i">
 		<cfset radial = DegToRad(i)>
 		<cfset lat_rad = asin(sin(lat)*cos(d_rad) + cos(lat)*sin(d_rad)*cos(radial))>
 		<cfset dlon_rad = atan2(sin(radial)*sin(d_rad)*cos(lat),cos(d_rad)-sin(lat)*sin(lat_rad))>
+		<!---
 		<cfset lon_rad = ((long+dlon_rad + pi()) mod (2*pi()) - pi())>
+		--->
+		<cfset lon_rad = ((long+dlon_rad + 3.1415) mod (2*3.1415) - 3.1415)>
 		<cfset rLong = RadToDeg(lon_rad)>
 		<cfset rLat = RadToDeg(lat_rad)>
-		<cfset retn = '#retn# #rLong#,#rLat#,0'>
-		
+		<cfset retn = '#retn# #rLong#,#rLat#,0'>	
 	</cfloop>
 	<cfset retn = '#retn#</coordinates></LineString></Placemark></Folder>'>
-	<!---
-	for($i=0; $i<=360; $i++) {
-  $radial = deg2rad($i);
-  $lat_rad = asin(sin($lat1)*cos($d_rad) + cos($lat1)*sin($d_rad)*cos($radial));
-  $dlon_rad = atan2(sin($radial)*sin($d_rad)*cos($lat1),
-                    cos($d_rad)-sin($lat1)*sin($lat_rad));
-  $lon_rad = fmod(($long1+$dlon_rad + M_PI), 2*M_PI) - M_PI;
-  fwrite( $fileappend, rad2deg($lon_rad).",".rad2deg($lat_rad).",0 ");
-  }
-	--->
+	
 	<cfreturn retn>
 	</cffunction>
 <!---
+<?php 
+// make sure we have the information we need
+if ((!$centerlat_form || !$centerlong_form) ||
+    (!$circumlat_form && !$radius_form) )
+{
+  echo "Go back and make sure you have entered the values we need";
+  exit(1);
+}
 
+// convert coordinates to radians
+$lat1 = deg2rad($centerlat_form);
+$long1 = deg2rad($centerlong_form);
+$lat2 = deg2rad($circumlat_form);
+$long2 = deg2rad($circumlong_form);
 
 // get the difference between lat/long coords
 $dlat = $lat2-$lat1;
@@ -113,26 +119,13 @@ if (!$radius_form) {
        pow((sin($dlong/2)), 2);
   $c = 2 * atan2(sqrt($a), sqrt(1-$a));
   // get distance between points (in meters)
-  
+  $d = 6378137 * $c;
 } else {
   $d = $radius_form;
 }
 
 $d_rad = $d/6378137;
 
-// use a random 5-digit number appended to the date for the name of the kml file
-$day = date("m-d-y-");
-srand( microtime() * 1000000);
-$randomnum = rand(10000,99999);
-$file_ext = $day.$randomnum.'.kml';
-$filename = ('temp/'.$file_ext);
-
-// define initial write and appends
-$filewrite = fopen($filename, "w");
-$fileappend = fopen($filename, "a");
-
-// open file and write header:
-fwrite($filewrite, "<Folder>\n<name>KML Circle Generator Output</name>\n<visibility>1</visibility>\n<Placemark>\n<name>circle</name>\n<visibility>1</visibility>\n<Style>\n<geomColor>ff0000ff</geomColor>\n<geomScale>1</geomScale></Style>\n<LineString>\n<coordinates>\n");
 
 // loop through the array and write path linestrings
 for($i=0; $i<=360; $i++) {
@@ -154,6 +147,7 @@ if(file_exists($filename)) {
 }
 
 ?>
+
 ---->
 <form name="a" method="post" action="kmltest.cfm">
 	Lat:<input type="text" name="inlat">
