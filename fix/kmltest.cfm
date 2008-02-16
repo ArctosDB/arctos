@@ -178,14 +178,6 @@ if(file_exists($filename)) {
 	      <coordinates>#long#,#lat#,0</coordinates>
 	    </Point>
 	  </Placemark>
-	  <Placemark>
-	    <name>Two</name>
-	    <description>Attached to the ground. Intelligently places itself 
-	       at the height of the underlying terrain.</description>
-	    <Point>
-	      <coordinates>-122.1822035425683,37.52228990140251,0</coordinates>
-	    </Point>
-	  </Placemark>
 	  #k#
   	</Folder>
    </Folder>
