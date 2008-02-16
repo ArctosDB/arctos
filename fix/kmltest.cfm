@@ -26,15 +26,14 @@ function DegToRad(degrees)
 	     name="radius_form"
 	     type="numeric"
 	     required="true"/>
-     <cfset k = DegToRad(centerlat_form)>
+    <cfset lat = DegToRad(centerlat_form)>
+	<cfset long = DegToRad(centerlong_form)>
+	<cfset a = pow((sin(lat/2)), 2) + cos(lat) * pow((sin(long/2)), 2);
+	<cfset 
 	<cfreturn k>
 	</cffunction>
 <!---
-// convert coordinates to radians
-$lat1 = deg2rad($centerlat_form);
-$long1 = deg2rad($centerlong_form);
-$lat2 = deg2rad($circumlat_form);
-$long2 = deg2rad($circumlong_form);
+
 
 // get the difference between lat/long coords
 $dlat = $lat2-$lat1;
@@ -91,6 +90,6 @@ if(file_exists($filename)) {
 ---->
 
 <cfoutput>
-	<cfset k = kmlCircle(0,0,12)>
+	<cfset k = kmlCircle(64,-147,12)>
 	#k#
 </cfoutput>
