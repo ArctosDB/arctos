@@ -196,6 +196,11 @@
 					data
 				where
 					locality_id = #locality_id#
+				group by
+					collection_object_id,
+					cat_num,
+					scientific_name,
+					collection
 			</cfquery>
 			<cfset kml='<Placemark><name>#spec_locality# (#locality_id#)</name><description><![CDATA[Datum: #datum#<br/>
 			Error: #round(errorInMeters)# m<br/>'>
@@ -211,8 +216,9 @@
 			<Point>
 	      	<coordinates>#dec_long#,#dec_lat#,0</coordinates>
 	    	</Point>
-	    	<Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href></Icon>
-	  		</Placemark>'>
+	    	<styleUrl>##sn_grn-blank</styleUrl>
+			<Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href></Icon>
+			</Placemark>'>
 	  		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		</cfloop>
 		
