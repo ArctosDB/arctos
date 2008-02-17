@@ -148,13 +148,6 @@
 			</Icon>
 		</IconStyle>
 	</Style>
-	<Style id="sn_red-stars">
-		<IconStyle>
-			<Icon>
-				<href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>
-			</Icon>
-		</IconStyle>
-	</Style>
 	'>
 			
 			
