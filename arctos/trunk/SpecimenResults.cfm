@@ -243,7 +243,7 @@
 <cfif isdefined("transaction_id")>
 	<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
 </cfif>
-<a href="bnhmMaps/kml.cfm?action=make&table_name=#thisTableName#">kml</a>
+<a href="bnhmMaps/kml.cfm?table_name=#thisTableName#">kml</a>
 <table border="0">
 	<tr>
 		<td>

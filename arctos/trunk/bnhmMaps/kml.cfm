@@ -2,11 +2,7 @@
 <cfoutput>
 	<cfheader name="Content-Disposition" value="attachment; filename=#f#">
 	<cfcontent type="application/vnd.google-earth.kml+xml" file="#Application.webDirectory#/bnhmMaps/#f#">
-</cfoutput>
-
-		
-		
-		
+</cfoutput>	
 </cfif>
 <cfinclude  template="/includes/_header.cfm"> 
 <cfinclude  template="/includes/functionLib.cfm"> 
@@ -75,13 +71,17 @@
 				
 	<cfreturn retn>
 	</cffunction>
-<form name="a" method="post" action="kmltest.cfm">
-	Lat:<input type="text" name="inlat">
-	<br>Lon:<input type="text" name="inlong">
-	<br>Rad:<input type="text" name="inrad">
-	<input type="hidden" name="action" value="make">
-	<input type="submit">
-</form>
+<cfif #action# is "nothing">
+	<form name="prefs" method="post" action="kml.cfm">
+		<input type="hidden" name="action" value="make">
+		<input type="hidden" name="table_name" value="#table_name#">
+		<label for="showErrors">Show Error Circles?</label>
+		<input type="checkbox" name="showErrors" id="showErrors" value="1">
+		<label for="mapByLocality">Map By Locality?</label>
+		<input type="checkbox" name="mapByLocality" id="mapByLocality" value="1">
+		<input type="submit">
+	</form>
+</cfif>
 <cfif #action# is "make">
 Retrieving map data - please wait....
 <cfflush>
@@ -92,34 +92,64 @@ Retrieving map data - please wait....
 	</cfif>
 	<cfset dlPath = "#Application.webDirectory#/bnhmMaps/">
 	<cfset dlFile = "kmlfile#cfid##cftoken#.kml">
-	<cfquery name="data" datasource="#Application.web_user#">
-		select 
-			#flatTableName#.collection_object_id,
-			#flatTableName#.cat_num,
-			lat_long.dec_lat,
-			lat_long.dec_long,
-			decode(lat_long.accepted_lat_long_fg,
-				1,'yes',
-				0,'no') isAcceptedLatLong,
-			to_meters(lat_long.max_error_distance,lat_long.max_error_units) errorInMeters,
-			lat_long.datum,
-			#flatTableName#.scientific_name,
-			#flatTableName#.collection,
-			#flatTableName#.spec_locality,
-			#flatTableName#.locality_id,
-			#flatTableName#.verbatimLatitude,
-			#flatTableName#.verbatimLongitude,
-			lat_long.lat_long_id
-		 from 
-		 	#flatTableName#,
-		 	lat_long
-		 where
-		 	#flatTableName#.locality_id = lat_long.locality_id and
-		 	lat_long.dec_lat is not null and lat_long.dec_long is not null and
-		 	#flatTableName#.locality_id IN (
-		 		select #flatTableName#.locality_id from #table_name#,#flatTableName#
-		 		where #flatTableName#.collection_object_id = #table_name#.collection_object_id)
-	</cfquery>
+	<cfif isdefined("mapByLocality") and #mapByLocality# is 1>
+		<cfquery name="data" datasource="#Application.web_user#">
+			select 
+				#flatTableName#.collection_object_id,
+				#flatTableName#.cat_num,
+				lat_long.dec_lat,
+				lat_long.dec_long,
+				decode(lat_long.accepted_lat_long_fg,
+					1,'yes',
+					0,'no') isAcceptedLatLong,
+				to_meters(lat_long.max_error_distance,lat_long.max_error_units) errorInMeters,
+				lat_long.datum,
+				#flatTableName#.scientific_name,
+				#flatTableName#.collection,
+				#flatTableName#.spec_locality,
+				#flatTableName#.locality_id,
+				#flatTableName#.verbatimLatitude,
+				#flatTableName#.verbatimLongitude,
+				lat_long.lat_long_id
+			 from 
+			 	#flatTableName#,
+			 	lat_long
+			 where
+			 	#flatTableName#.locality_id = lat_long.locality_id and
+			 	lat_long.dec_lat is not null and lat_long.dec_long is not null and
+			 	#flatTableName#.locality_id IN (
+			 		select #flatTableName#.locality_id from #table_name#,#flatTableName#
+			 		where #flatTableName#.collection_object_id = #table_name#.collection_object_id)
+		</cfquery>
+	<cfelse>
+		<cfquery name="data" datasource="#Application.web_user#">
+			select 
+				#flatTableName#.collection_object_id,
+				#flatTableName#.cat_num,
+				lat_long.dec_lat,
+				lat_long.dec_long,
+				decode(lat_long.accepted_lat_long_fg,
+					1,'yes',
+					0,'no') isAcceptedLatLong,
+				to_meters(lat_long.max_error_distance,lat_long.max_error_units) errorInMeters,
+				lat_long.datum,
+				#flatTableName#.scientific_name,
+				#flatTableName#.collection,
+				#flatTableName#.spec_locality,
+				#flatTableName#.locality_id,
+				#flatTableName#.verbatimLatitude,
+				#flatTableName#.verbatimLongitude,
+				lat_long.lat_long_id
+			 from 
+			 	#flatTableName#,
+			 	lat_long,
+			 	#table_name#
+			 where
+			 	#flatTableName#.locality_id = lat_long.locality_id and
+			 	lat_long.dec_lat is not null and lat_long.dec_long is not null and
+			 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
+		</cfquery>
+	</cfif>
 	<cfset kml = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Folder><name>Specimens</name>'><cfoutput>
 	<cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
 	<cfquery name="colln" dbtype="query">
@@ -188,7 +218,7 @@ Retrieving map data - please wait....
 		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 	</cfloop>
 	
-	<cfif 1 is 1><!---- turn off errors here --->
+	<cfif isdefined("showErrors") and #showErrors# is 1><!---- turn off errors here --->
 		<cfquery name="errors" dbtype="query">
 			select errorInMeters,dec_lat,dec_long
 			from data 
