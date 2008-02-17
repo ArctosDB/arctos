@@ -26,8 +26,8 @@
 	<name>Error</name>
 	<visibility>1</visibility>
 	<Style>
-	<geomColor>ff0000ff</geomColor>
-	<geomScale>1</geomScale></Style>
+	<color>ff0000ff</color>
+	<csale>1</scale></Style>
 	<LineString>
 	<coordinates>">
 	<cfset lat = DegToRad(centerlat_form)>
