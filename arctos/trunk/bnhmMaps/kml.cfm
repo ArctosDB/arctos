@@ -147,6 +147,7 @@
 			<Icon>
 				<href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href>
 			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 	</Style>
 	<Style id="sn_red_star">
@@ -155,9 +156,12 @@
 			<Icon>
 				<href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>
 			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 	</Style>
 	'>
+			
+			
 	<cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
 	<cfquery name="colln" dbtype="query">
 		select collection from data group by collection
