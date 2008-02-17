@@ -164,6 +164,8 @@ Retrieving map data - please wait....
 	  		</Placemark>">
 	  		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		</cfloop>
+		<cfset kml = "</Folder>">
+				<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 	</cfloop>
 		<cfset kml = '</Folder>'>
 		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
