@@ -211,6 +211,9 @@ Retrieving map data - please wait....
 			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		<p>
 		</p><a href="kml.cfm?action=getFile&p=#URLEncodedFormat(dlPath)#&f=#URLEncodedFormat(dlFile)#">file</a>
+		<p>
+			<a href="http://maps.google.com/maps?q=http://mvzarctos-dev.berkeley.edu/#dlPath#/#dlFile#" target="_blank">Google Maps</a>
+		</p>
 	<!----
 
 	<cfdump var=#data#>
