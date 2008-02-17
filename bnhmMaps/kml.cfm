@@ -187,7 +187,7 @@ Retrieving map data - please wait....
 				from data 
 				where errorInMeters>0
 				and dec_lat is not null and dec_long is not null
-				and locality_id = #locality_id#
+				and locality_id = #colln.locality_id#
 				group by locality_id,errorInMeters,dec_lat,dec_long
 			</cfquery>
 			<cfset kml="<Folder><name>#Collection# Error</name>">
