@@ -168,7 +168,13 @@ Retrieving map data - please wait....
 				where
 					locality_id = #locality_id#
 			</cfquery>
-			<cfset kml="<Placemark><name>#spec_locality# (#locality_id#)</name><description>">
+			<cfset kml="<Placemark><name>#spec_locality# (#locality_id#)</name>
+			<ExtendedData>
+			    <Data name="datum">
+			      <value>#datum#</value>
+			    </Data>
+			  </ExtendedData>
+			<description>">
 			<cfset kml='#kml#<p><a href="#application.serverRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>'>
 			<cfloop query="sdet">
 				<cfset kml='#kml#<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
