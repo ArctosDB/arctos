@@ -1,7 +1,7 @@
 <cfif isdefined("action") and #action# is "getFile">
 <cfoutput>
-	<cfheader name="Content-Disposition" value="inline; filename=#f#">
-	<cfcontent type="application/vnd.google-earth.kml+xml" file="#f#">
+	<cfheader name="Content-Disposition" value="inline; filename=/bnhmMaps/#f#">
+	<cfcontent type="application/vnd.google-earth.kml+xml" file="/bnhmMaps/#f#">
 </cfoutput>
 
 		
@@ -210,7 +210,7 @@ Retrieving map data - please wait....
 	<cfset kml='</Folder></kml>'><!--- close specimens folder --->
 			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		<p>
-		</p><a href="kml.cfm?action=getFile&f=#URLEncodedFormat("/bnhmMaps/" & dlFile)#">file</a>
+		</p><a href="kml.cfm?action=getFile&f=#URLEncodedFormat(dlFile)#">file</a>
 	<!----
 
 	<cfdump var=#data#>
