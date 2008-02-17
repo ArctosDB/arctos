@@ -212,7 +212,7 @@
 					#collection# #cat_num# (<em>#scientific_name#</em>)
 				</a><br/>'>
 			</cfloop>
-			<cfset kml='#kml#]]</description>
+			<cfset kml='#kml#]]></description>
 			<Point>
 	      	<coordinates>#dec_long#,#dec_lat#,0</coordinates>
 	    	</Point>
