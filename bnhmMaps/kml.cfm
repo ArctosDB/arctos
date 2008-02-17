@@ -204,7 +204,7 @@ Retrieving map data - please wait....
 	</cfif>
 	
 	
-	<cfset kml='#kml#</Folder></Folder></kml>'>
+	<cfset kml='#kml#</Folder></kml>'>
 			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		<p>
 		</p><a href="/bnhmMaps/#dlFile#">file</a>
