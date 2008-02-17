@@ -1,3 +1,13 @@
+<cfif isdefined("action") and #action# is "getFile">
+<cfoutput>
+	<cfheader name="Content-Disposition" value="inline; filename=#file#">
+	<cfcontent type="application/vnd.google-earth.kml+xml" file="#file#">
+</cfoutput>
+
+		
+		
+		
+</cfif>
 <cfinclude  template="/includes/_header.cfm"> 
 <cfinclude  template="/includes/functionLib.cfm"> 
 <cffunction     name="kmlCircle"     access="public"    returntype="string" output="false">
@@ -15,11 +25,10 @@
 	     required="true"/>
 	     
 	
-	<cfset retn = "<Folder>
-	<name>KML Circle Generator Output</name>
+	<cfset retn = "
 	<visibility>1</visibility>
 	<Placemark>
-	<name>circle</name>
+	<name>Error</name>
 	<visibility>1</visibility>
 	<Style>
 	<geomColor>ff0000ff</geomColor>
@@ -61,16 +70,8 @@
 	</cfloop>
 	
 
- $radial = deg2rad($i);
-  $lat_rad = asin(sin($lat1)*cos($d_rad) + cos($lat1)*sin($d_rad)*cos($radial));
-  $dlon_rad = atan2(sin($radial)*sin($d_rad)*cos($lat1),
-                    cos($d_rad)-sin($lat1)*sin($lat_rad));
-  $lon_rad = fmod(($long1+$dlon_rad + M_PI), 2*M_PI) - M_PI;
-  fwrite( $fileappend, rad2deg($lon_rad).",".rad2deg($lat_rad).",0 ");
-  }
 
-
-	<cfset retn = '#retn#</coordinates></LineString></Placemark></Folder>'>
+	<cfset retn = '#retn#</coordinates></LineString></Placemark>'>
 				
 	<cfreturn retn>
 	</cffunction>
@@ -189,7 +190,7 @@ Retrieving map data - please wait....
 		where errorInMeters>0
 		group by locality_id,errorInMeters,dec_lat,dec_long
 	</cfquery>
-	<cfset kml="<Folder>">
+	<cfset kml="<Folder><name>Error Circles</name>">
 	<cfloop query="errors">
 		<cfset k = kmlCircle(#dec_lat#,#dec_long#,#errorInMeters#)>
 		<cfset kml="#kml# #k#">
@@ -197,9 +198,7 @@ Retrieving map data - please wait....
 	<cfset kml='#kml#</Folder></Folder></kml>'>
 			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		<p>
-		<cfcontent type="application/vnd.google-earth.kml+xml">
-		</p><a href="/bnhmMaps/#dlFile#">file</a>
-		</cfcontent>
+		</p><a href="kml.cfm?action=getFile&file=/bnhmMaps/#dlFile#">file</a>
 	<!----
 
 	<cfdump var=#data#>
