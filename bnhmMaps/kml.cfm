@@ -185,7 +185,9 @@ Retrieving map data - please wait....
 	</cfloop>
 	<cfquery name="errors" dbtype="query">
 		select locality_id,errorInMeters,dec_lat,dec_long
-		from data group by locality_id,errorInMeters,dec_lat,dec_long
+		from data 
+		where errorInMeters>0
+		group by locality_id,errorInMeters,dec_lat,dec_long
 	</cfquery>
 	<cfset kml="<Folder>">
 	<cfloop query="errors">
