@@ -204,7 +204,7 @@
 			where errorInMeters>0
 			group by errorInMeters,dec_lat,dec_long
 		</cfquery>
-		<cfset kml="<Folder><name>Error Circles</name>">------made error circles folder---------
+		<cfset kml="<Folder><name>Error Circles</name>"><!------made error circles folder--------->
 		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		<cfloop query="errors">
 			<cfset k = kmlCircle(#dec_lat#,#dec_long#,#errorInMeters#)>
@@ -219,9 +219,9 @@
 	<cfset kml='</Folder></kml>'><!--- close specimens folder --->
 			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		<p>
-		</p><a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">file</a>
+		</p><a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">Download KML</a> (requires <a href="http://earth.google.com/">Google Earth</a>
 		<p>
-			<a href="http://maps.google.com/maps?q=http://mvzarctos-dev.berkeley.edu/bnhmMaps/#dlFile#" target="_blank">Google Maps</a>
+			View in <a href="http://maps.google.com/maps?q=http://mvzarctos-dev.berkeley.edu/bnhmMaps/#dlFile#" target="_blank">Google Maps</a>
 		</p>
 	<!----
 
