@@ -225,9 +225,9 @@
 	      	<coordinates>#dec_long#,#dec_lat#,0</coordinates>
 	    	</Point>'>
 	    	<cfif #isAcceptedLatLong# is "yes">
-	    		<cfset kml='#kml#<styleUrl>##sn_grn-blank</styleUrl>'>
+	    		<cfset kml='#kml#<styleUrl>##sn_grn-blank</styleUrl><Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href></Icon>'>
 	    	<cfelse>
-	    		<cfset kml='#kml#<styleUrl>##sn_red-star</styleUrl>'>
+	    		<cfset kml='#kml#<styleUrl>##sn_red-star</styleUrl><Icon><href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href></Icon>'>
 	    	</cfif>
 	    	<cfset kml='#kml#</Placemark>'>
 	  		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
