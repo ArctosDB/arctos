@@ -142,15 +142,13 @@
 	</cfif>
 	<cfset kml = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Folder><name>Specimens</name>
 	<open>1</open>
-	<Style id="sn_grn-blank">
-		<IconStyle>
+	<Style >
+		<IconStyle id="sn_grn-blank">
 			<Icon>
 				<href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href>
 			</Icon>
 		</IconStyle>
-	</Style>
-	 <Style id="downArrowIcon">
-      <IconStyle>
+      <IconStyle  id="downArrowIcon">
         <Icon>
           <href>http://maps.google.com/mapfiles/kml/pal4/icon28.png</href>
         </Icon>
