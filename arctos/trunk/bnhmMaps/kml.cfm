@@ -183,7 +183,16 @@ Retrieving map data - please wait....
 		<cfset kml = "</Folder>">
 				<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 	</cfloop>
-		<cfset kml = '</Folder></kml>'>
+	<cfquery name="errors" dbtype="query">
+		select locality,errorInMeters
+		from data group by locality,errorInMeters
+	</cfquery>
+	<cfset kml="<Folder>">
+	<cfloop query="errors">
+		<cfset k = kmlCircle(#inlat#,#inlong#,#inrad#)>
+		<cfset kml="#kml# #k#">
+	</cfloop>
+	<cfset kml='#kml#</Folder></Folder></kml>'>
 			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		<p>
 		<cfcontent type="application/vnd.google-earth.kml+xml">
@@ -240,7 +249,7 @@ Retrieving map data - please wait....
 
 <cfdump var=#form#>
 <cfoutput>
-	<cfset k = kmlCircle(#inlat#,#inlong#,#inrad#)>
+	
 	<cfset theFile = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2">
   <Folder>
   	<name>Big Folder</name>
