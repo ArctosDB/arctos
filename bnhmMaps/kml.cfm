@@ -142,17 +142,17 @@
 	</cfif>
 	<cfset kml = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Document><name>Specimens</name>
 	<open>1</open>
-	<Style id="sn_grn-blank">
+	<Style id="green-star">
 		<IconStyle>
 			<Icon>
-				<href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href>
 			</Icon>
 		</IconStyle>
-	<Style id="downArrowIcon">
+	<Style id="red-star">
 	</Style>
       <IconStyle>
         <Icon>
-          <href>http://maps.google.com/mapfiles/kml/pal4/icon28.png</href>
+          <href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>
         </Icon>
       </IconStyle>
     </Style>
@@ -226,10 +226,10 @@
 	      	<coordinates>#dec_long#,#dec_lat#,0</coordinates>
 	    	</Point>'>
 	    	<cfif #isAcceptedLatLong# is "yes">
-	    		<cfset kml='#kml#<styleUrl>##sn_grn-blank</styleUrl>
-					<Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href></Icon>'>
+	    		<cfset kml='#kml#<styleUrl>##green-star</styleUrl>
+					<Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href></Icon>'>
 	    	<cfelse>
-	    	<cfset kml='#kml#<styleUrl>##sn_red-stars</styleUrl>
+	    	<cfset kml='#kml#<styleUrl>##red-star</styleUrl>
 				<Icon><href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href></Icon>'>
 	    	</cfif>
 	    	<cfset kml='#kml#</Placemark>'>
