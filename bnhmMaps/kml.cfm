@@ -25,7 +25,7 @@
 	<name>Error</name>
 	<visibility>1</visibility>
 	<Style>
-	<color>ff0000ff</color>
+	<color>ff00ff</color>
 	<scale>1</scale></Style>
 	<LineString>
 	<coordinates>">
