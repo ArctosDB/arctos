@@ -1,7 +1,7 @@
 <cfif isdefined("action") and #action# is "getFile">
 <cfoutput>
-	<cfheader name="Content-Disposition" value="inline; filename=#file#">
-	<cfcontent type="application/vnd.google-earth.kml+xml" file="#file#">
+	<cfheader name="Content-Disposition" value="inline; filename=#f#">
+	<cfcontent type="application/vnd.google-earth.kml+xml" file="#f#">
 </cfoutput>
 
 		
@@ -169,14 +169,14 @@ Retrieving map data - please wait....
 					locality_id = #locality_id#
 			</cfquery>
 			<cfset kml='<Placemark><name>#spec_locality# (#locality_id#)</name><description>Datum: #datum#<br/>
-			Error: #errorInMeters#<br/><blockquote>'>
+			Error: #errorInMeters#<br/>'>
 			<cfset kml='#kml#<p><a href="#application.serverRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>'>
 			<cfloop query="sdet">
 				<cfset kml='#kml#<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
 					#collection# #cat_num# (<em>#scientific_name#</em>)
 				</a><br/>'>
 			</cfloop>
-			<cfset kml='#kml#</blockquote></description>
+			<cfset kml='#kml#</description>
 			<Point>
 	      	<coordinates>#dec_long#,#dec_lat#,0</coordinates>
 	    	</Point>
@@ -210,7 +210,7 @@ Retrieving map data - please wait....
 	<cfset kml='</Folder></kml>'><!--- close specimens folder --->
 			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		<p>
-		</p><a href="/bnhmMaps/#dlFile#">file</a>
+		</p><a href="kml.cfm?action=getFile&f=/bnhmMaps/#dlFile#">file</a>
 	<!----
 
 	<cfdump var=#data#>
