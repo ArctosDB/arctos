@@ -117,6 +117,7 @@ Retrieving map data - please wait....
 		 	lat_long
 		 where
 		 	#flatTableName#.locality_id = lat_long.locality_id and
+		 	lat_long.dec_lat is not null and lat_long.dec_long is not null and
 		 	#flatTableName#.locality_id IN (
 		 		select #flatTableName#.locality_id from #table_name#,#flatTableName#
 		 		where #flatTableName#.collection_object_id = #table_name#.collection_object_id)
@@ -188,11 +189,10 @@ Retrieving map data - please wait....
 	
 	<cfif 1 is 1><!---- turn off errors here --->
 		<cfquery name="errors" dbtype="query">
-			select locality_id,errorInMeters,dec_lat,dec_long
+			select errorInMeters,dec_lat,dec_long
 			from data 
 			where errorInMeters>0
-			and dec_lat is not null and dec_long is not null
-			group by locality_id,errorInMeters,dec_lat,dec_long
+			group by errorInMeters,dec_lat,dec_long
 		</cfquery>
 		<cfset kml="<Folder><name>Error Circles</name>">
 		<cfloop query="errors">
