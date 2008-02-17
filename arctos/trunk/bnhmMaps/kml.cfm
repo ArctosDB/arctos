@@ -170,7 +170,7 @@ Retrieving map data - please wait....
 			</cfquery>
 			<cfset kml='<Placemark><name>#spec_locality# (#locality_id#)</name>
 			<ExtendedData>
-			    <Data name="datum">
+			    <Data displayName="datum">
 			      <value>#datum#</value>
 			    </Data>
 			  </ExtendedData>
