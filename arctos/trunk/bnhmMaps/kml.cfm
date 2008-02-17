@@ -167,11 +167,12 @@ Retrieving map data - please wait....
 		<cfset kml = "</Folder>">
 				<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 	</cfloop>
-		<cfset kml = '</Folder>'>
+		<cfset kml = '</Folder></kml>'>
 
 		<p>
-		
+		<cfcontent type="application/vnd.google-earth.kml+xml">
 		</p><a href="/bnhmMaps/#dlFile#">file</a>
+		</cfcontent>
 	<!----
 			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 	<cfdump var=#data#>
