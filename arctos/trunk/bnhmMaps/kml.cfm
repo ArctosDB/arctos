@@ -19,8 +19,6 @@
 	     name="radius_form"
 	     type="numeric"
 	     required="true"/>
-	     
-	
 	<cfset retn = "
 	<visibility>1</visibility>
 	<Placemark>
@@ -31,47 +29,27 @@
 	<geomScale>1</geomScale></Style>
 	<LineString>
 	<coordinates>">
-	
-	
-	
 	<cfset lat = DegToRad(centerlat_form)>
 	<cfset long = DegToRad(centerlong_form)>
-	
-
 	<cfset d = radius_form>
 	<cfset d_rad=d/6378137>
-	<!---
-	<cfset retn = '<table border><tr><td>i</td><td>x</td><td>y</td><td>dlon_rad</td><td>lon_rad</td><td>rLong</td><td>rLat</td></tr>'>	
-			---->
 	<cfloop from="0" to="360" index="i">
 		<cfset radial = DegToRad(i)>
 		<cfset lat_rad = asin(sin(lat)*cos(d_rad) + cos(lat)*sin(d_rad)*cos(radial))>
 		<cfset dlon_rad = atan2(sin(radial)*sin(d_rad)*cos(lat),cos(d_rad)-sin(lat)*sin(lat_rad))>
-		<!---
-		<cfset lon_rad = ((long+dlon_rad + 3.1415) mod (2*3.1415)) - 3.1415>
-		--->
 		<cfset p="3.14">
 		<cfset x=(long+dlon_rad + p)>
 		<cfset y=(2*p)>
-		<!---
-		<cfset lon_rad = (x mod y) - p>
----->
-  <cfset lon_rad = ProperMod((long+dlon_rad + p), 2*p) - p>
+		<cfset lon_rad = ProperMod((long+dlon_rad + p), 2*p) - p>
 		<cfset rLong = RadToDeg(lon_rad)>
 		<cfset rLat = RadToDeg(lat_rad)>
-		<!---
-		<cfset retn = '#retn#<tr><td>#i#</td><td>#x#</td><td>#y#</td><td>#dlon_rad#</td><td>#lon_rad#</td><td>#rLong#</td><td>#rLat#</td></tr>'>	
-	--->
 		<cfset retn = '#retn# #rLong#,#rLat#,0'>	
 	</cfloop>
-	
-
-
-	<cfset retn = '#retn#</coordinates></LineString></Placemark>'>
-				
+	<cfset retn = '#retn#</coordinates></LineString></Placemark>'>	
 	<cfreturn retn>
-	</cffunction>
+</cffunction>
 <cfif #action# is "nothing">
+<cfoutput>
 	<form name="prefs" method="post" action="kml.cfm">
 		<input type="hidden" name="action" value="make">
 		<input type="hidden" name="table_name" value="#table_name#">
@@ -81,11 +59,10 @@
 		<input type="checkbox" name="mapByLocality" id="mapByLocality" value="1">
 		<input type="submit">
 	</form>
+</cfoutput>
 </cfif>
 <cfif #action# is "make">
 <cfoutput>
-Retrieving map data - please wait....
-<cfflush>
 	<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
 		<cfset flatTableName = "flat">
 	<cfelse>
@@ -147,7 +124,8 @@ Retrieving map data - please wait....
 			 	#table_name#
 			 where
 			 	#flatTableName#.locality_id = lat_long.locality_id and
-			 	lat_long.dec_lat is not null and lat_long.dec_long is not null and
+			 	lat_long.dec_lat is not null and 
+			 	lat_long.dec_long is not null and
 			 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
 		</cfquery>
 	</cfif>
