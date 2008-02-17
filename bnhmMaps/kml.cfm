@@ -140,7 +140,7 @@
 			 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
 		</cfquery>
 	</cfif>
-	<cfset kml = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Folder><name>Specimens</name>
+	<cfset kml = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Document><name>Specimens</name>
 	<open>1</open>
 	<Style >
 		<IconStyle id="sn_grn-blank">
@@ -257,7 +257,7 @@
 	</cfif>
 	
 	
-	<cfset kml='</Folder></kml>'><!--- close specimens folder --->
+	<cfset kml='</Document></kml>'><!--- close specimens folder --->
 			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		<p>
 		</p><a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">Download KML</a> (requires <a href="http://earth.google.com/">Google Earth</a>)
