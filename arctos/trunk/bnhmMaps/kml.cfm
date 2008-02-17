@@ -83,10 +83,8 @@
 	<input type="submit">
 </form>
 <cfif #action# is "make">
-	<cfset kml = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Folder><name>Specimens</name>'>
 Retrieving map data - please wait....
 <cfflush>
-<cfoutput>
 	<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
 		<cfset flatTableName = "flat">
 	<cfelse>
@@ -122,13 +120,12 @@ Retrieving map data - please wait....
 		 		select #flatTableName#.locality_id from #table_name#,#flatTableName#
 		 		where #flatTableName#.collection_object_id = #table_name#.collection_object_id)
 	</cfquery>
+	<cfset kml = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Folder><name>Specimens</name>'><cfoutput>
 	<cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
 	<cfquery name="colln" dbtype="query">
 		select collection from data group by collection
 	</cfquery>
 	<cfloop query="colln">
-		<cfset kml = "<Folder><name>#collection#</name>">
-		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		<cfquery name="loc" dbtype="query">
 			select 
 				dec_lat,
@@ -157,6 +154,8 @@ Retrieving map data - please wait....
 				verbatimLongitude,
 				lat_long_id
 		</cfquery>
+		<cfset kml = "<Folder><name>#collection#</name>">
+		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		<cfloop query="loc">
 			<cfquery name="sdet" dbtype="query">
 				select 
@@ -170,6 +169,7 @@ Retrieving map data - please wait....
 					locality_id = #locality_id#
 			</cfquery>
 			<cfset kml="<Placemark><name>#spec_locality# (#locality_id#)</name><description>">
+			<cfset kml='#kml#<p><a href="#application.serverRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>'>
 			<cfloop query="sdet">
 				<cfset kml='#kml#<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
 					#collection# #cat_num# (<em>#scientific_name#</em>)
@@ -194,17 +194,19 @@ Retrieving map data - please wait....
 			where errorInMeters>0
 			group by errorInMeters,dec_lat,dec_long
 		</cfquery>
-		<cfset kml="<Folder><name>Error Circles</name>">
+		<cfset kml="<Folder><name>Error Circles</name>">------made error circles folder---------
+		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		<cfloop query="errors">
 			<cfset k = kmlCircle(#dec_lat#,#dec_long#,#errorInMeters#)>
-			<cfset kml="#kml# #k#">
+			<cfset kml=" #k#">
+			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		</cfloop>
-		<cfset kml = "#kml#</Folder>">
+		<cfset kml = "</Folder>"><!--- close error folder --->
 		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 	</cfif>
 	
 	
-	<cfset kml='#kml#</Folder></kml>'>
+	<cfset kml='</Folder></kml>'><!--- close specimens folder --->
 			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		<p>
 		</p><a href="/bnhmMaps/#dlFile#">file</a>
