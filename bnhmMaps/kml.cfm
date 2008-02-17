@@ -85,7 +85,7 @@
 				decode(lat_long.accepted_lat_long_fg,
 					1,'yes',
 					0,'no') isAcceptedLatLong,
-				to_meters(lat_long.max_error_distance,lat_long.max_error_units) errorInMeters,
+				round(to_meters(lat_long.max_error_distance,lat_long.max_error_units)) errorInMeters,
 				lat_long.datum,
 				#flatTableName#.scientific_name,
 				#flatTableName#.collection,
@@ -117,7 +117,7 @@
 				decode(lat_long.accepted_lat_long_fg,
 					1,'yes',
 					0,'no') isAcceptedLatLong,
-				to_meters(lat_long.max_error_distance,lat_long.max_error_units) errorInMeters,
+				round(to_meters(lat_long.max_error_distance,lat_long.max_error_units)) errorInMeters,
 				lat_long.datum,
 				#flatTableName#.scientific_name,
 				#flatTableName#.collection,
@@ -212,7 +212,7 @@
 					collection
 			</cfquery>
 			<cfset kml='<Placemark><name>#spec_locality# (#locality_id#)</name><description><![CDATA[Datum: #datum#<br/>
-			Error: #round(errorInMeters)# m<br/>'>
+			Error: #errorInMeters# m<br/>'>
 			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
 				<cfset kml='#kml#<p><a href="#application.serverRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>'>
 			</cfif>
