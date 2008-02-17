@@ -21,7 +21,6 @@
 	     type="numeric"
 	     required="true"/>
 	<cfset retn = "
-	<visibility>1</visibility>
 	<Placemark>
 	<name>Error</name>
 	<visibility>1</visibility>
