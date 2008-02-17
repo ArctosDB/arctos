@@ -23,10 +23,7 @@
 	<cfset retn = "
 	<Placemark>
 	<name>Error</name>
-	<visibility>1</visibility>
-	<Style>
-	<color>ff00ff</color>
-	<scale>1</scale></Style>
+	<styleUrl>#error-line</styleUrl>
 	<LineString>
 	<coordinates>">
 	<cfset lat = DegToRad(centerlat_form)>
@@ -37,7 +34,7 @@
 		<cfset radial = DegToRad(i)>
 		<cfset lat_rad = asin(sin(lat)*cos(d_rad) + cos(lat)*sin(d_rad)*cos(radial))>
 		<cfset dlon_rad = atan2(sin(radial)*sin(d_rad)*cos(lat),cos(d_rad)-sin(lat)*sin(lat_rad))>
-		<cfset p="3.14">
+		<cfset p=pi()>
 		<cfset x=(long+dlon_rad + p)>
 		<cfset y=(2*p)>
 		<cfset lon_rad = ProperMod((long+dlon_rad + p), 2*p) - p>
@@ -147,6 +144,7 @@
 				<href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href>
 			</Icon>
 		</IconStyle>
+		
 	</Style>
 	<Style id="red-star">
       <IconStyle>
@@ -154,6 +152,16 @@
           <href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>
         </Icon>
       </IconStyle>
+	<LineStyle>
+      <color>ff0000ff</color>
+      <width>15</width>
+    </LineStyle>
+    </Style>
+	<Style id="error-line">
+	<LineStyle>
+      <color>ff0000ff</color>
+      <width>15</width>
+    </LineStyle>
     </Style>
 	'>
 			
