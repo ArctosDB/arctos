@@ -23,7 +23,7 @@
 	<cfset retn = "
 	<Placemark>
 	<name>Error</name>
-	<styleUrl>#error-line</styleUrl>
+	<styleUrl>##error-line</styleUrl>
 	<LineString>
 	<coordinates>">
 	<cfset lat = DegToRad(centerlat_form)>
