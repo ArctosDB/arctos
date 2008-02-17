@@ -188,6 +188,7 @@ Retrieving map data - please wait....
 		select locality_id,errorInMeters,dec_lat,dec_long
 		from data 
 		where errorInMeters>0
+		and dec_lat is not null and dec_long is not null
 		group by locality_id,errorInMeters,dec_lat,dec_long
 	</cfquery>
 	<cfset kml="<Folder><name>Error Circles</name>">
