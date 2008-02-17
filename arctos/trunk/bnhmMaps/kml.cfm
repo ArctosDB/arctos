@@ -148,8 +148,8 @@
 				<href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href>
 			</Icon>
 		</IconStyle>
-	<Style id="red-star">
 	</Style>
+	<Style id="red-star">
       <IconStyle>
         <Icon>
           <href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>
