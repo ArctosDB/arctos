@@ -168,11 +168,12 @@ Retrieving map data - please wait....
 				<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 	</cfloop>
 		<cfset kml = '</Folder>'>
-		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+
 		<p>
 		
 		</p><a href="/bnhmMaps/#dlFile#">file</a>
 	<!----
+			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 	<cfdump var=#data#>
 	table_name: #table_name#
 	
