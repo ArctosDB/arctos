@@ -27,7 +27,7 @@
 	<visibility>1</visibility>
 	<Style>
 	<color>ff0000ff</color>
-	<csale>1</scale></Style>
+	<scale>1</scale></Style>
 	<LineString>
 	<coordinates>">
 	<cfset lat = DegToRad(centerlat_form)>
