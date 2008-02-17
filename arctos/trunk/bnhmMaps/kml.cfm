@@ -211,6 +211,7 @@
 			<Point>
 	      	<coordinates>#dec_long#,#dec_lat#,0</coordinates>
 	    	</Point>
+	    	<Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href></Icon>
 	  		</Placemark>'>
 	  		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		</cfloop>
