@@ -4,6 +4,7 @@
 	<cfcontent type="application/vnd.google-earth.kml+xml" file="#Application.webDirectory#/bnhmMaps/#f#">
 </cfoutput>	
 </cfif>
+<!----------------------------------------------------------------->
 <cfinclude  template="/includes/_header.cfm"> 
 <cfinclude  template="/includes/functionLib.cfm"> 
 <cffunction     name="kmlCircle"     access="public"    returntype="string" output="false">
@@ -48,19 +49,23 @@
 	<cfset retn = '#retn#</coordinates></LineString></Placemark>'>	
 	<cfreturn retn>
 </cffunction>
+<!------------------------------------------------------------->
 <cfif #action# is "nothing">
 <cfoutput>
+	NOTE: Horizontal Datum is NOT transformed correctly. Positions will be misplaced for all non-WGS84 datum points.
 	<form name="prefs" method="post" action="kml.cfm">
 		<input type="hidden" name="action" value="make">
 		<input type="hidden" name="table_name" value="#table_name#">
-		<label for="showErrors">Show Error Circles?</label>
-		<input type="checkbox" name="showErrors" id="showErrors" value="1">
-		<label for="mapByLocality">Map By Locality?</label>
+		<br>Show Error Circles? <input type="checkbox" name="showErrors" id="showErrors" value="1">
+		<br>Show all specimens at each locality represented by query?
 		<input type="checkbox" name="mapByLocality" id="mapByLocality" value="1">
+		<br>Show only accepted coordinate determinations?
+		<input type="checkbox" name="showOnlyAccepted" id="showOnlyAccepted" value="1">
 		<input type="submit">
 	</form>
 </cfoutput>
 </cfif>
+<!-------------------------------------------------------------------------->
 <cfif #action# is "make">
 <cfoutput>
 	<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
@@ -94,6 +99,9 @@
 			 	lat_long
 			 where
 			 	#flatTableName#.locality_id = lat_long.locality_id and
+			 	<cfif isdefined("showOnlyAccepted") and #showOnlyAccepted# is 1>
+			 		lat_long.accepted_lat_long_fg = 1 AND
+			 	</cfif>
 			 	lat_long.dec_lat is not null and lat_long.dec_long is not null and
 			 	#flatTableName#.locality_id IN (
 			 		select #flatTableName#.locality_id from #table_name#,#flatTableName#
@@ -124,6 +132,9 @@
 			 	#table_name#
 			 where
 			 	#flatTableName#.locality_id = lat_long.locality_id and
+			 	<cfif isdefined("showOnlyAccepted") and #showOnlyAccepted# is 1>
+			 		lat_long.accepted_lat_long_fg = 1 AND
+			 	</cfif>
 			 	lat_long.dec_lat is not null and 
 			 	lat_long.dec_long is not null and
 			 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
@@ -179,7 +190,9 @@
 			</cfquery>
 			<cfset kml='<Placemark><name>#spec_locality# (#locality_id#)</name><description>Datum: #datum#<br/>
 			Error: #round(errorInMeters)# m<br/>'>
-			<cfset kml='#kml#<p><a href="#application.serverRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>'>
+			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
+				<cfset kml='#kml#<p><a href="#application.serverRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>'>
+			</cfif>
 			<cfloop query="sdet">
 				<cfset kml='#kml#<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
 					#collection# #cat_num# (<em>#scientific_name#</em>)
@@ -189,6 +202,7 @@
 			<Point>
 	      	<coordinates>#dec_long#,#dec_lat#,0</coordinates>
 	    	</Point>
+	    	<icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href></icon>
 	  		</Placemark>'>
 	  		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		</cfloop>
