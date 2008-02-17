@@ -152,10 +152,6 @@
           <href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>
         </Icon>
       </IconStyle>
-	<LineStyle>
-      <color>ff0000ff</color>
-      <width>15</width>
-    </LineStyle>
     </Style>
 	<Style id="error-line">
 	<LineStyle>
