@@ -156,12 +156,28 @@ Retrieving map data - please wait....
 				lat_long_id
 		</cfquery>
 		<cfloop query="loc">
-			<cfset kml="<Placemark><name>#spec_locality# (#locality_id#)</name>
-			<description>#datum#</description>
+			<cfquery name="sdet" dbtype="query">
+				select 
+					collection_object_id,
+					cat_num,
+					scientific_name,
+					collection
+				from
+					data
+				where
+					locality_id = #locality_id#
+			</cfquery>
+			<cfset kml="<Placemark><name>#spec_locality# (#locality_id#)</name><description>">
+			<cfloop query="sdet">
+				<cfset kml='<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
+					#collection# #cat_num# (<em>#scientific_name#</em>)
+				</a><br/>'>
+			</cfloop>
+			<cfset kml='</description>
 			<Point>
 	      	<coordinates>#dec_long#,#dec_lat#,0</coordinates>
 	    	</Point>
-	  		</Placemark>">
+	  		</Placemark>'>
 	  		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		</cfloop>
 		<cfset kml = "</Folder>">
@@ -181,17 +197,7 @@ Retrieving map data - please wait....
 	
 
 	<cfloop query="loc">
-		<cfquery name="sdet" dbtype="query">
-			select 
-				collection_object_id,
-				cat_num,
-				scientific_name,
-				collection
-			from
-				data
-			where
-				locality_id = #locality_id#
-		</cfquery>
+		
 		<cfset specLink = "">
 		<cfloop query="sdet">
 			<cfif len(#specLink#) is 0>
