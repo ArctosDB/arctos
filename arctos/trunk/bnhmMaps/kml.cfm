@@ -143,20 +143,9 @@
 	<cfset kml = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Folder><name>Specimens</name>
 	<Style id="sn_grn-blank">
 		<IconStyle>
-			<scale>1.1</scale>
 			<Icon>
 				<href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href>
 			</Icon>
-			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
-		</IconStyle>
-	</Style>
-	<Style id="sn_red_star">
-		<IconStyle>
-			<scale>1.1</scale>
-			<Icon>
-				<href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>
-			</Icon>
-			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
 	</Style>
 	'>
@@ -229,7 +218,8 @@
 	      	<coordinates>#dec_long#,#dec_lat#,0</coordinates>
 	    	</Point>'>
 	    	<cfif #isAcceptedLatLong# is "yes">
-	    		<cfset kml='#kml#<styleUrl>##sn_grn-blank</styleUrl><Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href></Icon>'>
+	    		<cfset kml='#kml#<styleUrl>##sn_grn-blank</styleUrl>
+			<Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href></Icon>'>
 	    	<cfelse>
 	    		<cfset kml='#kml#<styleUrl>##sn_red-star</styleUrl><Icon><href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href></Icon>'>
 	    	</cfif>
