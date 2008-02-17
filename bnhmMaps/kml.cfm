@@ -147,9 +147,17 @@
 			<Icon>
 				<href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href>
 			</Icon>
-			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
 		</IconStyle>
-	</Style>'>
+	</Style>
+	<Style id="sn_red_star">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>
+			</Icon>
+		</IconStyle>
+	</Style>
+	'>
 	<cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
 	<cfquery name="colln" dbtype="query">
 		select collection from data group by collection
@@ -215,9 +223,13 @@
 			<cfset kml='#kml#]]></description>
 			<Point>
 	      	<coordinates>#dec_long#,#dec_lat#,0</coordinates>
-	    	</Point>
-	    	<styleUrl>##sn_grn-blank</styleUrl>
-			</Placemark>'>
+	    	</Point>'>
+	    	<cfif #isAcceptedLatLong# is "yes">
+	    		<cfset kml='#kml#<styleUrl>##sn_grn-blank</styleUrl>'>
+	    	<cfelse>
+	    		<cfset kml='#kml#<styleUrl>##sn_red-star</styleUrl>'>
+	    	</cfif>
+	    	<cfset kml='#kml#</Placemark>'>
 	  		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		</cfloop>
 		
@@ -251,82 +263,5 @@
 		<p>
 			View in <a href="http://maps.google.com/maps?q=http://mvzarctos-dev.berkeley.edu/bnhmMaps/#dlFile#" target="_blank">Google Maps</a>
 		</p>
-	<!----
-
-	<cfdump var=#data#>
-	table_name: #table_name#
-	
-	
-
-	<cfloop query="loc">
-		
-		<cfset specLink = "">
-		<cfloop query="sdet">
-			<cfif len(#specLink#) is 0>
-				<cfset specLink = "#collection# #cat_num# #scientific_name#">
-			<cfelse>
-				<cfset specLink = "#specLink#<br>#collection# #cat_num# #scientific_name#">
-			</cfif>
-		</cfloop>
-		<cfset relInfo='<a href="#Application.ServerRootUrl#/editLocality.cfm?locality_id=#locality_id#" target="_blank">#spec_locality#</a>'>
-		<cfset oneLine="#relInfo##chr(9)##locality_id##chr(9)##lat_long_id##chr(9)##spec_locality##chr(9)##dec_lat##chr(9)##dec_long##chr(9)##errorInMeters##chr(9)##datum##chr(9)##isAcceptedLatLong##chr(9)##specLink##chr(9)##verbatimLatitude#/#verbatimLongitude#">
-		<cfset oneLine=trim(oneLine)>
-		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#oneLine#">
-	</cfloop>
-
-	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/index.php?ViewResults=tab&tabfile=#Application.ServerRootUrl#/bnhmMaps/#dlFile#&configfile=#Application.ServerRootUrl#/bnhmMaps/SpecByLoc.xml&sourcename=Locality">
-	
-
-	<script type="text/javascript" language="javascript">
-		document.location='#bnhmUrl#';
-	</script>
-</cfoutput>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<cfdump var=#form#>
-<cfoutput>
-	
-	<cfset theFile = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2">
-  <Folder>
-  	<name>Big Folder</name>
-  	<Folder>
-  		<name>liler Folder</name>
-  		<Placemark>
-	    <name>One</name>
-	    <description>Attached to the ground. Intelligently places itself 
-	       at the height of the underlying terrain.</description>
-	    <Point>
-	      <coordinates>#inlong#,#inlat#,0</coordinates>
-	    </Point>
-	  </Placemark>
-	  #k#
-  	</Folder>
-   </Folder>
-</kml>
-'>
-<hr>
-#theFile#
-<hr>
-<cffile action="write" file="#application.webDirectory#/temp/test.kml" output="#theFile#" nameconflict="overwrite">
-<a href="/temp/test.kml">/temp/test.kml</a>
-
----->
 	</cfoutput>
 	</cfif>
