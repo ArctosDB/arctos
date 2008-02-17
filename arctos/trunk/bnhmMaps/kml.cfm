@@ -148,6 +148,13 @@
 			</Icon>
 		</IconStyle>
 	</Style>
+	<Style id="sn_red-stars">
+		<IconStyle>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>
+			</Icon>
+		</IconStyle>
+	</Style>
 	'>
 			
 			
@@ -219,9 +226,10 @@
 	    	</Point>'>
 	    	<cfif #isAcceptedLatLong# is "yes">
 	    		<cfset kml='#kml#<styleUrl>##sn_grn-blank</styleUrl>
-			<Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href></Icon>'>
+					<Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href></Icon>'>
 	    	<cfelse>
-	    		<cfset kml='#kml#<styleUrl>##sn_red-star</styleUrl><Icon><href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href></Icon>'>
+	    	<cfset kml='#kml#<styleUrl>##sn_red-stars</styleUrl>
+				<Icon><href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href></Icon>'>
 	    	</cfif>
 	    	<cfset kml='#kml#</Placemark>'>
 	  		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
