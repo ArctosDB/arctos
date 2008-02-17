@@ -1,3 +1,62 @@
+<cfscript>
+/**
+ * Converts degrees to radians.
+ * 
+ * @param degrees 	 Angle (in degrees) you want converted to radians. 
+ * @return Returns a simple value 
+ * @author Rob Brooks-Bilson (rbils@amkor.com) 
+ * @version 1.0, July 18, 2001 
+ */
+function DegToRad(degrees)
+{
+  Return (degrees*(Pi()/180));
+}
+
+
+/**
+ * Calculates the arc tangent of the two variables, x and y.
+ * 
+ * @param x 	 First value. (Required)
+ * @param y 	 Second value. (Required)
+ * @return Returns a number. 
+ * @author Rick Root (rick.root@webworksllc.com) 
+ * @version 1, September 14, 2005 
+ */
+function atan2(firstArg, secondArg) {    
+	var Math = createObject("java","java.lang.Math");    
+	return Math.atan2(javacast("double",firstArg), javacast("double",secondArg)); 
+}
+
+/**
+ * Converts radians to degrees.
+ * 
+ * @param radians 	 Angle (in radians) you want converted to degrees. 
+ * @return Returns a simple value. 
+ * @author Rob Brooks-Bilson (rbils@amkor.com) 
+ * @version 1.0, July 18, 2001 
+ */
+function RadToDeg(radians)
+{
+  Return (radians*(180/Pi()));
+}
+
+/**
+ * Computes the mathematical function Mod(y,x).
+ * 
+ * @param y 	 Number to be modded. 
+ * @param x 	 Devisor. 
+ * @return Returns a numeric value. 
+ * @author Tom Nunamaker (tom@toshop.com) 
+ * @version 1, February 24, 2002 
+ */
+function ProperMod(y,x) {
+  var modvalue = y - x * int(y/x);
+  
+  if (modvalue LT 0) modvalue = modvalue + x;
+  
+  Return ( modvalue );
+}
+</cfscript>
      <cffunction
      name="CSVToArray"
      access="public"
