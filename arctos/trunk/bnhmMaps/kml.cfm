@@ -181,21 +181,29 @@ Retrieving map data - please wait....
 	  		</Placemark>'>
 	  		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		</cfloop>
-		<cfset kml = "</Folder>">
-				<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+		<cfif 1 is 1><!---- turn off errors here --->
+			<cfquery name="errors" dbtype="query">
+				select locality_id,errorInMeters,dec_lat,dec_long
+				from data 
+				where errorInMeters>0
+				and dec_lat is not null and dec_long is not null
+				and locality_id = #locality_id#
+				group by locality_id,errorInMeters,dec_lat,dec_long
+			</cfquery>
+			<cfset kml="<Folder><name>#Collection# Error</name>">
+			<cfloop query="errors">
+				<cfset k = kmlCircle(#dec_lat#,#dec_long#,#errorInMeters#)>
+				<cfset kml="#kml# #k#">
+			</cfloop>
+			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+			<cfset kml = "</Folder>">
+		</cfif>
+		<cfset kml = "</Folder>"><!--- close collection folder --->
+		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 	</cfloop>
-	<cfquery name="errors" dbtype="query">
-		select locality_id,errorInMeters,dec_lat,dec_long
-		from data 
-		where errorInMeters>0
-		and dec_lat is not null and dec_long is not null
-		group by locality_id,errorInMeters,dec_lat,dec_long
-	</cfquery>
-	<cfset kml="<Folder><name>Error Circles</name>">
-	<cfloop query="errors">
-		<cfset k = kmlCircle(#dec_lat#,#dec_long#,#errorInMeters#)>
-		<cfset kml="#kml# #k#">
-	</cfloop>
+	
+	
+	
 	<cfset kml='#kml#</Folder></Folder></kml>'>
 			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		<p>
