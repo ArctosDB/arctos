@@ -1,7 +1,7 @@
 <cfif isdefined("action") and #action# is "getFile">
 <cfoutput>
 	<cfheader name="Content-Disposition" value="inline; filename=#f#">
-	<cfcontent type="application/vnd.google-earth.kml+xml" file="#Application.webDirectory#/bnhmMaps/#f#">
+	<cfcontent type="application/vnd.google-earth.kml+xml" file="#Application.serverRootUrl#/bnhmMaps/#f#">
 </cfoutput>
 
 		
