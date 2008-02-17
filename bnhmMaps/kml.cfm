@@ -210,7 +210,7 @@ Retrieving map data - please wait....
 	<cfset kml='</Folder></kml>'><!--- close specimens folder --->
 			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		<p>
-		</p><a href="kml.cfm?action=getFile&p=#URLEncodedFormat(/bnmhMaps/)#&f=#URLEncodedFormat(dlFile)#">file</a>
+		</p><a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">file</a>
 		<p>
 			<a href="http://maps.google.com/maps?q=http://mvzarctos-dev.berkeley.edu/bnhmMaps/#dlFile#" target="_blank">Google Maps</a>
 		</p>
