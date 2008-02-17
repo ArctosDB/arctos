@@ -156,7 +156,7 @@
 	<Style id="error-line">
 	<LineStyle>
       <color>ff0000ff</color>
-      <width>3</width>
+      <width>1</width>
     </LineStyle>
     </Style>
 	'>
