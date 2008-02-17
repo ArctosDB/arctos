@@ -199,7 +199,7 @@ Retrieving map data - please wait....
 	<cfset kml='#kml#</Folder></Folder></kml>'>
 			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		<p>
-		</p><a href="kml.cfm?action=getFile&file=/bnhmMaps/#dlFile#">file</a>
+		</p><a href="/bnhmMaps/#dlFile#">file</a>
 	<!----
 
 	<cfdump var=#data#>
