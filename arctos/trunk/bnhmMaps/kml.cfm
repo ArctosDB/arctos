@@ -140,7 +140,21 @@
 			 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
 		</cfquery>
 	</cfif>
-	<cfset kml = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Folder><name>Specimens</name>'>
+	<cfset kml = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Folder><name>Specimens</name>
+	<Style id="sn_grn-blank">
+		<IconStyle>
+			<scale>1.1</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href>
+			</Icon>
+			<hotSpot x="32" y="1" xunits="pixels" yunits="pixels"/>
+		</IconStyle>
+		<ListStyle>
+			<ItemIcon>
+				<href>http://maps.google.com/mapfiles/kml/paddle/grn-blank-lv.png</href>
+			</ItemIcon>
+		</ListStyle>
+	</Style>'>
 	<cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
 	<cfquery name="colln" dbtype="query">
 		select collection from data group by collection
@@ -188,7 +202,7 @@
 				where
 					locality_id = #locality_id#
 			</cfquery>
-			<cfset kml='<Placemark><name>#spec_locality# (#locality_id#)</name><description>Datum: #datum#<br/>
+			<cfset kml='<Placemark><name>#spec_locality# (#locality_id#)</name><description><![CDATA[Datum: #datum#<br/>
 			Error: #round(errorInMeters)# m<br/>'>
 			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
 				<cfset kml='#kml#<p><a href="#application.serverRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>'>
@@ -198,11 +212,11 @@
 					#collection# #cat_num# (<em>#scientific_name#</em>)
 				</a><br/>'>
 			</cfloop>
-			<cfset kml='#kml#</description>
+			<cfset kml='#kml#]]</description>
 			<Point>
 	      	<coordinates>#dec_long#,#dec_lat#,0</coordinates>
 	    	</Point>
-	    	<Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-blank.png</href></Icon>
+	    	<styleUrl>##msn_grn-blank</styleUrl>
 	  		</Placemark>'>
 	  		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		</cfloop>
