@@ -184,12 +184,12 @@ Retrieving map data - please wait....
 				<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 	</cfloop>
 	<cfquery name="errors" dbtype="query">
-		select locality_id,errorInMeters
-		from data group by locality_id,errorInMeters
+		select locality_id,errorInMeters,dec_lat,dec_long
+		from data group by locality_id,errorInMeters,dec_lat,dec_long
 	</cfquery>
 	<cfset kml="<Folder>">
 	<cfloop query="errors">
-		<cfset k = kmlCircle(#inlat#,#inlong#,#inrad#)>
+		<cfset k = kmlCircle(#dec_lat#,#dec_long#,#errorInMeters#)>
 		<cfset kml="#kml# #k#">
 	</cfloop>
 	<cfset kml='#kml#</Folder></Folder></kml>'>
