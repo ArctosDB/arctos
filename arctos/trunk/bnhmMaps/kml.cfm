@@ -83,6 +83,7 @@
 	</form>
 </cfif>
 <cfif #action# is "make">
+<cfoutput>
 Retrieving map data - please wait....
 <cfflush>
 	<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
@@ -150,7 +151,7 @@ Retrieving map data - please wait....
 			 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
 		</cfquery>
 	</cfif>
-	<cfset kml = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Folder><name>Specimens</name>'><cfoutput>
+	<cfset kml = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Folder><name>Specimens</name>'>
 	<cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
 	<cfquery name="colln" dbtype="query">
 		select collection from data group by collection
