@@ -238,12 +238,13 @@
 			<span class="infoLink" onclick="getDocs('maps');">
 				What's this?
 			</span>
+			<a href="bnhmMaps/kml.cfm?table_name=#thisTableName#">Google Earth/Maps</a>
 			<a href="SpecimenResultsHTML.cfm?#mapurl#" class="infoLink">&nbsp;&nbsp;&nbsp;Problems viewing this page? Click for HTML version</a>
 <div style="border:2px solid blue;">
 <cfif isdefined("transaction_id")>
 	<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
 </cfif>
-<a href="bnhmMaps/kml.cfm?table_name=#thisTableName#">kml</a>
+
 <table border="0">
 	<tr>
 		<td>
