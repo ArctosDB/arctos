@@ -169,11 +169,11 @@ Retrieving map data - please wait....
 			</cfquery>
 			<cfset kml="<Placemark><name>#spec_locality# (#locality_id#)</name><description>">
 			<cfloop query="sdet">
-				<cfset kml='<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
+				<cfset kml='#kml#<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
 					#collection# #cat_num# (<em>#scientific_name#</em>)
 				</a><br/>'>
 			</cfloop>
-			<cfset kml='</description>
+			<cfset kml='#kml#</description>
 			<Point>
 	      	<coordinates>#dec_long#,#dec_lat#,0</coordinates>
 	    	</Point>
