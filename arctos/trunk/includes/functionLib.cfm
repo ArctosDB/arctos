@@ -57,6 +57,15 @@ function ProperMod(y,x) {
   Return ( modvalue );
 }
 </cfscript>
+<cffunction name="kmlStripper" returntype="string" output="false">
+	<cfargument name="in" type="string">
+	<cfset out = replace(in,"&","&amp;","all")>
+	<cfset out = replace(out,"'","&apos;","all")>
+	<cfset out = replace(out,'"',"&quot;","all")>
+	<cfset out = replace(out,'>',"&qt;","all")>
+	<cfset out = replace(out,'<',"&lt;","all")>
+	<cfreturn out>
+</cffunction>
      <cffunction
      name="CSVToArray"
      access="public"
