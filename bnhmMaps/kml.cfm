@@ -57,7 +57,10 @@
 		<input type="checkbox" name="mapByLocality" id="mapByLocality" value="1">
 		<br>Show only accepted coordinate determinations?
 		<input type="checkbox" name="showOnlyAccepted" id="showOnlyAccepted" value="1">
-		<input type="submit">
+		<br>
+		
+		<input type="submit" value="get KML" class="lnkBtn"
+   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
 	</form>
 </cfoutput>
 </cfif>
@@ -76,6 +79,8 @@
 			select 
 				#flatTableName#.collection_object_id,
 				#flatTableName#.cat_num,
+				to_char(#flatTableName#.began_date,'yyyy-mm-dd') began_date,
+				to_char(#flatTableName#.ended_date,'yyyy-mm-dd') ended_date,
 				lat_long.dec_lat,
 				lat_long.dec_long,
 				decode(lat_long.accepted_lat_long_fg,
@@ -108,6 +113,8 @@
 			select 
 				#flatTableName#.collection_object_id,
 				#flatTableName#.cat_num,
+				to_char(#flatTableName#.began_date,'yyyy-mm-dd') began_date,
+				to_char(#flatTableName#.ended_date,'yyyy-mm-dd') ended_date,
 				lat_long.dec_lat,
 				lat_long.dec_long,
 				decode(lat_long.accepted_lat_long_fg,
@@ -143,8 +150,7 @@
 			<Icon>
 				<href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href>
 			</Icon>
-		</IconStyle>
-		
+		</IconStyle>		
 	</Style>
 	<Style id="red-star">
       <IconStyle>
@@ -178,7 +184,9 @@
 				locality_id,
 				verbatimLatitude,
 				verbatimLongitude,
-				lat_long_id
+				lat_long_id,
+				began_date,
+				ended_date
 			from
 				data
 			where
@@ -193,7 +201,9 @@
 				locality_id,
 				verbatimLatitude,
 				verbatimLongitude,
-				lat_long_id
+				lat_long_id,
+				began_date,
+				ended_date,
 		</cfquery>
 		<cfset kml = "<Folder><name>#collection#</name>">
 		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
@@ -214,7 +224,11 @@
 					scientific_name,
 					collection
 			</cfquery>
-			<cfset kml='<Placemark><name>#spec_locality# (#locality_id#)</name><description><![CDATA[Datum: #datum#<br/>
+			<cfset kml='<Placemark><name>#kmlStripper(spec_locality)# (#locality_id#)</name>
+			 <TimeSpan>
+			    <begin>#began_date@</begin><end>#ended_date#</end>
+			  </TimeSpan>
+			<description><![CDATA[Datum: #datum#<br/>
 			Error: #errorInMeters# m<br/>'>
 			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
 				<cfset kml='#kml#<p><a href="#application.serverRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>'>
