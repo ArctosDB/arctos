@@ -79,8 +79,10 @@
 			select 
 				#flatTableName#.collection_object_id,
 				#flatTableName#.cat_num,
+				<!---
 				to_char(#flatTableName#.began_date,'yyyy-mm-dd') began_date,
 				to_char(#flatTableName#.ended_date,'yyyy-mm-dd') ended_date,
+				--->
 				lat_long.dec_lat,
 				lat_long.dec_long,
 				decode(lat_long.accepted_lat_long_fg,
@@ -113,8 +115,10 @@
 			select 
 				#flatTableName#.collection_object_id,
 				#flatTableName#.cat_num,
+				<!---
 				to_char(#flatTableName#.began_date,'yyyy-mm-dd') began_date,
 				to_char(#flatTableName#.ended_date,'yyyy-mm-dd') ended_date,
+				---->
 				lat_long.dec_lat,
 				lat_long.dec_long,
 				decode(lat_long.accepted_lat_long_fg,
@@ -184,9 +188,7 @@
 				locality_id,
 				verbatimLatitude,
 				verbatimLongitude,
-				lat_long_id,
-				began_date,
-				ended_date
+				lat_long_id
 			from
 				data
 			where
@@ -201,9 +203,7 @@
 				locality_id,
 				verbatimLatitude,
 				verbatimLongitude,
-				lat_long_id,
-				began_date,
-				ended_date
+				lat_long_id
 		</cfquery>
 		<cfset kml = "<Folder><name>#collection#</name>">
 		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
@@ -225,9 +225,6 @@
 					collection
 			</cfquery>
 			<cfset kml='<Placemark><name>#kmlStripper(spec_locality)# (#locality_id#)</name>
-			 <TimeSpan>
-			    <begin>#began_date#</begin><end>#ended_date#</end>
-			  </TimeSpan>
 			<description><![CDATA[Datum: #datum#<br/>
 			Error: #errorInMeters# m<br/>'>
 			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
