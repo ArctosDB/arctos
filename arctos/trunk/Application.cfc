@@ -161,7 +161,7 @@ Exceptions:
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="false">	
-		<cfset Client.SpecimenDownloadFileName = "MVZData_#cfid##cftoken#.txt">
+		<cfset Client.SpecimenDownloadFileName = "ArctosData_#cfid##cftoken#.txt">
 		<cfif not isdefined("client.target")>
 			<cfset client.target="_self">
 		</cfif>
