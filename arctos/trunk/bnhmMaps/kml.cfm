@@ -226,7 +226,7 @@
 			</cfquery>
 			<cfset kml='<Placemark><name>#kmlStripper(spec_locality)# (#locality_id#)</name>
 			 <TimeSpan>
-			    <begin>#began_date@</begin><end>#ended_date#</end>
+			    <begin>#began_date#</begin><end>#ended_date#</end>
 			  </TimeSpan>
 			<description><![CDATA[Datum: #datum#<br/>
 			Error: #errorInMeters# m<br/>'>
