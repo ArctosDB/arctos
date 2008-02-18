@@ -52,7 +52,7 @@
 	<form name="prefs" method="post" action="kml.cfm">
 		<input type="hidden" name="action" value="make">
 		<input type="hidden" name="table_name" value="#table_name#">
-		<br>Show Error Circles? <input type="checkbox" name="showErrors" id="showErrors" value="1">
+		<br>Show Error Circles? (Makes big filesizes) <input type="checkbox" name="showErrors" id="showErrors" value="1">
 		<br>Show all specimens at each locality represented by query?
 		<input type="checkbox" name="mapByLocality" id="mapByLocality" value="1">
 		<br>Show only accepted coordinate determinations?
