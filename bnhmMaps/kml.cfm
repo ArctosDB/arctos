@@ -203,7 +203,7 @@
 				verbatimLongitude,
 				lat_long_id,
 				began_date,
-				ended_date,
+				ended_date
 		</cfquery>
 		<cfset kml = "<Folder><name>#collection#</name>">
 		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
