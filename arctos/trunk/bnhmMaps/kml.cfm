@@ -277,10 +277,30 @@
 	
 	<cfset kml='</Document></kml>'><!--- close specimens folder --->
 			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+			<cfset linkFile = "kmlLinkfile#cfid##cftoken#.kml">
+			<cfset kml='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.0">
+				<NetworkLink>
+				  <name>Arctos</name>
+				  <visibility>1</visibility>
+					<Url>
+			    <href>#Application.ServerRootUrl#/bnhmMaps/#dlFile#</href>
+			    </Url>
+			</NetworkLink>
+			</kml>'>
+			<cffile action="write" file="#dlPath##linkFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
 		<p>
-		</p><a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">Download KML</a> (requires <a href="http://earth.google.com/">Google Earth</a>)
+		</p><a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">Download Entire KML</a> (requires <a href="http://earth.google.com/">Google Earth</a>)
+			<blockquote>
+				Download all data to your hard drive
+			</blockquote>
 		<p>
-			View in <a href="http://maps.google.com/maps?q=http://mvzarctos-dev.berkeley.edu/bnhmMaps/#dlFile#" target="_blank">Google Maps</a>
+		<a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">Download KML Link</a> (requires <a href="http://earth.google.com/">Google Earth</a>)
+			<blockquote>
+				Download only a link to your hard drive. Data remains on Arctos and will be refreshed every time you build a KML.
+			</blockquote>
+		</p>
+		<p>
+			View in <a href="http://maps.google.com/maps?q=#Application.ServerRootUrl#/bnhmMaps/#dlFile#" target="_blank">Google Maps</a>
 		</p>
 	</cfoutput>
 	</cfif>
