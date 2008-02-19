@@ -1,4 +1,7 @@
 <cfinclude template="/includes/_header.cfm"><cfparam name="uname" default="">
+
+
+
 <cfparam name="date" default="">
 <cfparam name="sql" default="">
 <table>
