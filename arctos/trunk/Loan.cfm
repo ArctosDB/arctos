@@ -231,14 +231,15 @@
 			'input'
 		),
 		new Array(
-			new Array('type','name','size','onchange'),
+			new Array('type','name','size','onchange','onKeyPress'),
 			new Array('name','size'),
 			new Array('type','name')
 		),
 		new Array(
 			new Array('text','extraAgentName',40,
 				'getAgent(&quot;extraAgentId' + this.name.substr('extraAgentName'.length) + '&quot;, &quot;' 
-				+ this.name + '&quot;,&quot;editloan&quot;,this.value); return false;'),
+				+ this.name + '&quot;,&quot;editloan&quot;,this.value); return false;',
+				'return noenter(event);'),
 			new Array('extraAgentType',50),
 			new Array('hidden','extraAgentId')
 		),
