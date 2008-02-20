@@ -54,6 +54,7 @@
 <!-------------------------------------------------------------------------------------------------->
 <!-------------------------------------------------------------------------------------------------->
 <cfif  #action# is "newLoan">
+<script type="text/javascript" src="includes/adjustableEntry.js" />
 <cfset title="New Loan">
 	Initiate a loan: <img src="images/info.gif" class="likeLink" onClick="getDocs('loan')" />
 
@@ -216,6 +217,33 @@
 			  onKeyPress="return noenter(event);"> 			  
 			<input type="hidden" name="outside_contact_agent_id">
 		</td>
+	</tr>
+	<tr>
+		<th>Agent Name:</th><th>Agent Role:</th>
+	</tr>
+	<tr id='endOfExtraAgent'>
+		<td><input type='button' className='picBtn' 
+	onclick="
+	javascript: addNewRow(
+		new Array('input','select'),
+		new Array(
+			new Array('type','name','size','onchange'),
+			new Array('name','size')
+		),
+		new Array(
+			new Array('text','extraAgentName',40,
+				'getAgent(\"trans_agent_id_#trans_agent_id#\",\"trans_agent_#trans_agent_id#\",\"editloan\",this.value); return false;'),
+			new Array('extraAgentType')
+		),
+		new Array('','
+			<option>Please choose a role...</option>
+			<cfloop query=\"cttrans_agent_role\">
+				<option value=\"#trans_agent_role#\">#trans_agent_role#</option>
+			</cfloop>
+		'),
+		'endOfExtraAgent',
+		'extraAgent'
+	);" value='Add new agent...' /></td>
 	</tr>
 	<tr>
 		<td>
