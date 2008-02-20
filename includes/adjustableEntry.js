@@ -97,10 +97,10 @@ function addNewRow(tagArray, attributeTypeArray, attributeValueArray,
 	var e;
 	
 	//Create the tds and inner elements in each td
-	for (var i = 0; i < tagArray.length; i++) {
+	for (var i = 0; i < attributeTypeArray.length; i++) {
 		td = document.createElement("TD");
 		e = document.createElement(tagArray[i]);
-		for (var j = 0; j < attributeTypeArray.length; j++) {
+		for (var j = 0; j < attributeTypeArray[i].length; j++) {
 			var temp;
 			if (attributeTypeArray[i][j].toUpperCase() == 'NAME') {
 				temp = attributeValueArray[i][j] + curNum;
