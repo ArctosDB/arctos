@@ -22,6 +22,9 @@
 		var e = document.getElementById('loan_number');
 		e.value=v;
 	}
+	function AuthToInHouse(){
+		alert('spiffy');
+	}
 </script>
 <!-------------------------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
@@ -198,7 +201,9 @@
 	</tr>
 	<tr>
 		<td>
-			<label for="in_house_contact_agent_name">In-House Contact:</label>
+			<label for="in_house_contact_agent_name">In-House Contact (required to print) <span onclick="AuthToInHouse();">
+				Use Authorized
+			</span></label>
 			<input type="text" name="in_house_contact_agent_name" size="40" 
 			  onchange="getAgent('in_house_contact_agent_id','in_house_contact_agent_name','newloan',this.value); return false;"
 			  onKeyPress="return noenter(event);"> 
