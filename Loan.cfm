@@ -237,8 +237,8 @@
 		),
 		new Array('','
 			<option>Please choose a role...</option>
-			<cfloop query=\"cttrans_agent_role\">
-				<option value=\"#trans_agent_role#\">#trans_agent_role#</option>
+			<cfloop query="cttrans_agent_role">
+				<option value="#trans_agent_role#">#trans_agent_role#</option>
 			</cfloop>
 		'),
 		'endOfExtraAgent',
