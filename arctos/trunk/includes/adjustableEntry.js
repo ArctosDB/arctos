@@ -110,7 +110,7 @@ function addNewRow(tagArray, attributeTypeArray, attributeValueArray,
 			setAttribute(e, attributeTypeArray[i][j], temp);
 		}
 		e.innerHTML = innerHTMLArray[i];
-		TD.appendChild(e);
+		td.appendChild(e);
 		newRow.appendChild(td);
 	}
 	
