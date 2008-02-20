@@ -109,7 +109,9 @@ function addNewRow(tagArray, attributeTypeArray, attributeValueArray,
 			}
 			setAttribute(e, attributeTypeArray[i][j], temp);
 		}
-		e.innerHTML = innerHTMLArray[i];
+		if (innerHTMLArray[i] != "") {
+			e.innerHTML = innerHTMLArray[i];
+		}
 		td.appendChild(e);
 		newRow.appendChild(td);
 	}
