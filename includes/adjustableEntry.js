@@ -197,9 +197,10 @@ function findNumberAtEnd(string) {
 }
 
 function setAttribute(node, name, value) {
-	for (var i = 0; i < node.attributes[i]; i++) {
+	node.setAttribute(name,value);
+	/*for (var i = 0; i < node.attributes[i]; i++) {
 		if (node.attributes[i].name.toUpperCase() == name.toUpperCase()) {
 			node.attributes[i].value = value;
 		}
-	}
+	}*/
 } 
