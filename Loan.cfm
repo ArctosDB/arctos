@@ -201,7 +201,7 @@
 	</tr>
 	<tr>
 		<td>
-			<label for="in_house_contact_agent_name">In-House Contact (required to print) <span onclick="AuthToInHouse();">
+			<label for="in_house_contact_agent_name">In-House Contact (required to print) <span class-"likeLink" onclick="AuthToInHouse();">
 				Use Authorized
 			</span></label>
 			<input type="text" name="in_house_contact_agent_name" size="40" 
