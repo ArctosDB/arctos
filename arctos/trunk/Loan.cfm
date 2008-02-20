@@ -246,7 +246,7 @@
 			'<option>Please choose a role...</option>'+
 			'<cfloop query="cttrans_agent_role">'+
 				'<option value=&quot;#trans_agent_role#&quot;>#trans_agent_role#</option>'+
-			'</cfloop>'+
+			'</cfloop>'
 		),
 		'endOfExtraAgent',
 		'extraAgent'
