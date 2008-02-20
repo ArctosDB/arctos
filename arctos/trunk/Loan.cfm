@@ -227,26 +227,26 @@
 	javascript: addNewRow(
 		new Array(
 			'input',
-			'input',
-			'select'
+			'select',
+			'input'
 		),
 		new Array(
 			new Array('type','name','size','onchange'),
-			new Array('type','name'),
-			new Array('name','size')
+			new Array('name','size'),
+			new Array('type','name')
 		),
 		new Array(
 			new Array('text','extraAgentName',40,
 				'getAgent(&quot;extraAgentId' + this.name.substr('extraAgentName'.length) + '&quot;, &quot;' 
 				+ this.name + '&quot;,&quot;editloan&quot;,this.value); return false;'),
-			new Array('hidden','extraAgentId'),
-			new Array('extraAgentType',50)
+			new Array('extraAgentType',50),
+			new Array('hidden','extraAgentId')
 		),
 		new Array('',
 			'<option>Please choose a role...</option>'+
 			'<cfloop query="cttrans_agent_role">'+
 				'<option value=&quot;#trans_agent_role#&quot;>#trans_agent_role#</option>'+
-			'</cfloop>'
+			'</cfloop>',''
 		),
 		'endOfExtraAgent',
 		'extraAgent'
