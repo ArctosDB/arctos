@@ -1,3 +1,5 @@
+test
+
 #!/usr/bin/perl
 #
 # 'HTMLThumbnail', written by Benjamin Franz, snowhare@nihongo.org
