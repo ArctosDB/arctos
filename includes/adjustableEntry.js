@@ -190,7 +190,7 @@ function reIndex(theRow, num, tagArray, attributeTypeArray,
 }
 
 function setAttribute(node, name, value) {
-	for (var i = 0; i {
+	for (var i = 0; i < node.attributes[i]; i++) {
 		if (node.attributes[i].name.toUpperCase() == name.toUpperCase()) {
 			node.attributes[i].value = value;
 		}
