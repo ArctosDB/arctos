@@ -189,6 +189,11 @@ function reIndex(theRow, num, tagArray, attributeTypeArray,
 	
 }
 
+function findNumberAtEnd(string) {
+	for (i = string.length; i >= 0 && isFinite(string.substr(i)); i--);
+	return string.substr(i+1,string.length-(i+1));
+}
+
 function setAttribute(node, name, value) {
 	for (var i = 0; i < node.attributes[i]; i++) {
 		if (node.attributes[i].name.toUpperCase() == name.toUpperCase()) {
