@@ -238,7 +238,7 @@
 		new Array(
 			new Array('text','extraAgentName',40,
 				'getAgent(\"extraAgentId' + this.name.substr('extraAgentName'.length)'\",
-					\"trans_agent_#trans_agent_id#\",\"editloan\",this.value); return false;'),
+					\"' +  this.name + '\",\"editloan\",this.value); return false;'),
 			new Array('hidden','extraAgentId')
 			new Array('extraAgentType',50)
 		),
