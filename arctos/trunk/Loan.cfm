@@ -225,15 +225,22 @@
 		<td><input type='button' className='picBtn' 
 	onclick="
 	javascript: addNewRow(
-		new Array('input','select'),
+		new Array(
+			'input',
+			'input',
+			'select'
+		),
 		new Array(
 			new Array('type','name','size','onchange'),
+			new Array('type','name'),
 			new Array('name','size')
 		),
 		new Array(
 			new Array('text','extraAgentName',40,
-				'getAgent(\"trans_agent_id_#trans_agent_id#\",\"trans_agent_#trans_agent_id#\",\"editloan\",this.value); return false;'),
-			new Array('extraAgentType')
+				'getAgent(\"extraAgentId' + this.name.substr('extraAgentName'.length)'\",
+					\"trans_agent_#trans_agent_id#\",\"editloan\",this.value); return false;'),
+			new Array('hidden','extraAgentId')
+			new Array('extraAgentType',50)
 		),
 		new Array('','
 			<option>Please choose a role...</option>
