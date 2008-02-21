@@ -17,9 +17,9 @@
 
 <cfquery name="getLoan" datasource="#Application.web_user#">
         SELECT
-                authAgent.agent_name  authAgentName,
+                concattransagent(trans.transaction_id, 'authorized by') authAgentName,
                 trans_date,
-                recAgent.agent_name  recAgentName,
+                concattransagent(trans.transaction_id, 'received by') recAgentName,
                 return_due_date,
                 nature_of_material,
                 trans_remarks,
