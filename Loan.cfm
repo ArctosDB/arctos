@@ -1260,7 +1260,7 @@ Shipment Information:
 					#auth_agent_id#,
 					'authorized by')
 			</cfquery>--->
-			<cfif len(#in_house_contact_agent_id#) is not 0>
+			<cfif len(#in_house_contact_agent_id#) is not 0 and len(#in_house_contact_agent_name) is not 0>
 				<script>alert("posting an inhouse contact")</script>
 				<!---<cfquery name="in_house_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 					INSERT INTO trans_agent (
@@ -1273,7 +1273,7 @@ Shipment Information:
 						'in-house contact')
 				</cfquery>--->
 			</cfif>
-			<cfif len(#outside_contact_agent_id#) is not 0>
+			<cfif len(#outside_contact_agent_id#) is not 0 and len(#outside_contact_agent_name) is not 0>
 				<script>alert("posting an outside contact")</script>
 				<!---<cfquery name="outside_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 					INSERT INTO trans_agent (
@@ -1296,6 +1296,7 @@ Shipment Information:
 					#REC_AGENT_ID#,
 					'received by')
 			</cfquery>--->
+			<cfquery>select 1 from dual</cfquery>
 		</cftransaction>
 	
 		<!---<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#nextTransId.nextTransactionId#">--->
