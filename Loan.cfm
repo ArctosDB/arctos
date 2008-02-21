@@ -202,7 +202,7 @@
 	</tr>
 	<tr>
 		<td>
-			<label for="in_house_contact_agent_name">In-House Contact </label>
+			<label for="in_house_contact_agent_name">In-House Contact: (required to print invoice)</label>
 				<span class="infoLink" 
 	onclick="newloan.in_house_contact_agent_name.value=newloan.auth_agent_name.value;
 			newloan.in_house_contact_agent_id.value=newloan.auth_agent_id.value">
@@ -211,10 +211,9 @@
 			  onchange="getAgent('in_house_contact_agent_id','in_house_contact_agent_name','newloan',this.value); return false;"
 			  onKeyPress="return noenter(event);"> 
 			<input type="hidden" name="in_house_contact_agent_id">
-			<div class="breadcrumbs">(required to print invoice)</div>
 		</td>
 		<td>
-			<label for="outside_contact_agent_name">Outside Contact:</label>
+			<label for="outside_contact_agent_name">Outside Contact: (required to print invoice)</label>
 			<span class="infoLink" 
 	onclick="newloan.outside_contact_agent_name.value=newloan.rec_agent_name.value;
 			newloan.outside_contact_agent_id.value=newloan.rec_agent_id.value">
@@ -223,7 +222,6 @@
 			  onchange="getAgent('outside_contact_agent_id','outside_contact_agent_name','newloan',this.value); return false;"
 			  onKeyPress="return noenter(event);"> 			  
 			<input type="hidden" name="outside_contact_agent_id">
-			<div class="breadcrumbs">(required to print invoice)</div>
 		</td>
 	</tr><!---
 	<tr>
