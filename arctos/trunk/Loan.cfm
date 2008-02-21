@@ -1601,7 +1601,7 @@ Shipment Information:
 		collection_contacts
 		where
 		collection.collection_id = collection_contacts.collection_id and
-		contact_agent_id = #client.agent_id#
+		contact_agent_id = #client.myAgentId#
 		group by institution_acronym
 	</cfquery>
 	<cfset instList = "">
