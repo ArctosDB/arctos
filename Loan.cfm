@@ -211,7 +211,7 @@
 			  onchange="getAgent('in_house_contact_agent_id','in_house_contact_agent_name','newloan',this.value); return false;"
 			  onKeyPress="return noenter(event);"> 
 			<input type="hidden" name="in_house_contact_agent_id">
-			<span class="breadcrumbs">(required to print invoice)</span>
+			<div class="breadcrumbs">(required to print invoice)</div>
 		</td>
 		<td>
 			<label for="outside_contact_agent_name">Outside Contact:</label>
@@ -223,7 +223,7 @@
 			  onchange="getAgent('outside_contact_agent_id','outside_contact_agent_name','newloan',this.value); return false;"
 			  onKeyPress="return noenter(event);"> 			  
 			<input type="hidden" name="outside_contact_agent_id">
-			<span class="breadcrumbs">(required to print invoice)</span>
+			<div class="breadcrumbs">(required to print invoice)</div>
 		</td>
 	</tr><!---
 	<tr>
