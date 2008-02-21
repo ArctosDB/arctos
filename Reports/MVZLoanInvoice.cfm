@@ -29,20 +29,50 @@
                 loan_number,
                 loan_status,
                 loan_instructions,
-                authAddr.job_title  authorizerTitle,
-                authAddr.formatted_addr  authorizerAddr,
-                authAddrEmail.address  authEmail
+				inhouse_preferred_agent_name.agent_name inhouse_contact_name,
+                inhouse_addr.job_title inhouse_contact_title,
+                inhouse_addr.formatted_addr inhouse_addr_addr,
+                inhouse_electronic_address.address inhouse_contact_email,
+				inhouse_agent.agent_id inhouseContactID,
+				
+				outside_preferred_agent_name.agent_name outside_contact_name,
+                outside_addr.job_title outside_contact_title,
+                outside_addr.formatted_addr outside_addr_addr,
+                outside_electronic_address.address outside_contact_email,
+				outside_agent.agent_id outsideContactID
         FROM
-                loan
-                inner join trans ON (loan.transaction_id = trans.transaction_id)
-                inner join preferred_agent_name  recAgent ON (trans.received_agent_id = recAgent.agent_id)
-                inner join preferred_agent_name  authAgent ON (trans.auth_agent_id = authAgent.agent_id)
-               inner join addr authAddr ON (trans.auth_agent_id = authAddr.agent_id)
-               inner join electronic_address  authAddrEmail ON (trans.auth_agent_id = authAddrEmail.agent_id)
-        WHERE
-                loan.transaction_id=#transaction_id# and
-                authAddrEmail.address_type ='e-mail'
-</cfquery>
+                loan,
+				trans,
+				
+				preferred_agent_name inhouse_preferred_agent_name,
+				electronic_address inhouse_electronic_address,
+				addr inhouse_addr,
+				trans_agent inhouse_agent,
+				
+				preferred_agent_name outside_preferred_agent_name,
+				electronic_address outside_electronic_address,
+				addr outside_addr,
+				trans_agent outside_agent
+		WHERE
+                loan.transaction_id = trans.transaction_id and
+				loan.transaction_id=#transaction_id# and
+				
+				trans.transaction_id = inhouse_agent.transaction_id and
+				inhouse_agent.agent_id = inhouse_preferred_agent_name.agent_id and
+				inhouse_agent.trans_agent_role='in-house contact' and
+				inhouse_agent.agent_id = inhouse_electronic_address.agent_id and
+				inhouse_electronic_address.address_type ='e-mail' and
+				inhouse_agent.agent_id = inhouse_addr.agent_id and
+				inhouse_addr.addr_type='Correspondence' and
+				
+				trans.transaction_id = outside_agent.transaction_id and
+				outside_agent.agent_id = outside_preferred_agent_name.agent_id and
+				outside_agent.trans_agent_role='outside contact' and
+				outside_agent.agent_id = outside_electronic_address.agent_id and
+				outside_electronic_address.address_type ='e-mail' and
+				outside_agent.agent_id = outside_addr.agent_id and
+				outside_addr.addr_type='Correspondence'
+		</cfquery>
 <cfoutput>
 	<cfquery name="shipDate" datasource="#Application.web_user#">
 		select shipped_date from shipment where transaction_id=#transactioN_id#
@@ -61,11 +91,11 @@
 <table width="800" height="1030">
 	<tr>
     	<td valign="top">	
-			<div align="right">
+			<!---<div align="right">
 				<font size="1" face="Arial, Helvetica, sans-serif">
 					<b>Loan ## #getLoan.loan_number#</b>
 				</font> 
-			</div>
+			</div>--->
 			<div align="center" style="font-weight:bold;">
 		        <font size="3">SPECIMEN&nbsp;&nbsp;INVOICE</font> 
 			  <font size="4">
@@ -88,18 +118,18 @@
 				<tr>
 					<td align="left" width="60%">
 						<blockquote>
-							#replace(shipTo.formatted_Addr,"#chr(10)#","<br>","all")#
+							#replace(getLoan.outside_addr_addr,"#chr(10)#","<br>","all")#
 						</blockquote>
 					</td>
 					<td align="right" valign="top">
 						<table border="1" cellpadding="0" cellspacing="0" width="100%">
 							<tr>
 						   		<td>
-						   			Loan approved by:
+						   			Loan #getLoan.loan_number# approved by:
 								   <br>&nbsp;
 								   <br>&nbsp;
 								   <hr>
-								   #getLoan.authAgentName#, #getLoan.authorizerTitle#
+								   #getLoan.authAgentName#
 								 </td>
 							</tr>
 						 </table>
@@ -157,8 +187,8 @@
 			<table>
 				<tr>
 					<td>
-						<blockquote> <font size="2">#getLoan.authorizerAddr#
-						<br />Email: #getLoan.authEmail#</font> 
+						<blockquote> <font size="2">#getLoan.inhouse_addr_addr#
+						<br />Email: #getLoan.inhouse_contact_email#</font> 
 						  </blockquote>
 					</td>
 					<td align="right" width="300" valign="top">
