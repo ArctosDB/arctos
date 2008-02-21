@@ -202,27 +202,28 @@
 	</tr>
 	<tr>
 		<td>
-			<label for="in_house_contact_agent_name">In-House Contact (required to print) 
+			<label for="in_house_contact_agent_name">In-House Contact </label>
 				<span class="infoLink" 
 	onclick="newloan.in_house_contact_agent_name.value=newloan.auth_agent_name.value;
 			newloan.in_house_contact_agent_id.value=newloan.auth_agent_id.value">
-Use Authorized Agent as In-House Contact Agent</span>
-		<span class="likeLink" onclick="AuthToInHouse();">dummy text</span></label>
+		Use Authorized Agent as In-House Contact Agent</span>
 			<input type="text" name="in_house_contact_agent_name" size="40" 
 			  onchange="getAgent('in_house_contact_agent_id','in_house_contact_agent_name','newloan',this.value); return false;"
 			  onKeyPress="return noenter(event);"> 
 			<input type="hidden" name="in_house_contact_agent_id">
+			(required to print invoice)
 		</td>
 		<td>
 			<label for="outside_contact_agent_name">Outside Contact:</label>
 			<span class="infoLink" 
-	onclick="newloan.in_house_contact_agent_name.value=newloan.auth_agent_name.value;
-			newloan.in_house_contact_agent_id.value=newloan.auth_agent_id.value">
-Use To Agent as Outside Contact Agent</span>
+	onclick="newloan.outside_contact_agent_name.value=newloan.rec_agent_name.value;
+			newloan.outside_contact_agent_id.value=newloan.rec_agent_id.value">
+		Use To Agent as Outside Contact Agent</span>
 			<input type="text" name="outside_contact_agent_name" size="40" 
 			  onchange="getAgent('outside_contact_agent_id','outside_contact_agent_name','newloan',this.value); return false;"
 			  onKeyPress="return noenter(event);"> 			  
 			<input type="hidden" name="outside_contact_agent_id">
+			(required to print invoice)
 		</td>
 	</tr><!---
 	<tr>
