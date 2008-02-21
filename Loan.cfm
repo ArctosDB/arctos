@@ -1190,7 +1190,7 @@ Shipment Information:
 		
 	
 	<cftransaction>
-			<cfquery name="newLoanTrans" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<!---<cfquery name="newLoanTrans" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 				INSERT INTO trans (
 					TRANSACTION_ID,
 					TRANS_DATE,
@@ -1258,10 +1258,10 @@ Shipment Information:
 					#nextTransId.nextTransactionId#,
 					#auth_agent_id#,
 					'authorized by')
-			</cfquery>
+			</cfquery>--->
 			<cfif len(#in_house_contact_agent_id#) is not 0>
 				<script>alert("posting an inhouse contact")</script>
-				<cfquery name="in_house_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<!---<cfquery name="in_house_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 					INSERT INTO trans_agent (
 					    transaction_id,
 					    agent_id,
@@ -1270,11 +1270,11 @@ Shipment Information:
 						#nextTransId.nextTransactionId#,
 						#in_house_contact_agent_id#,
 						'in-house contact')
-				</cfquery>
+				</cfquery>--->
 			</cfif>
 			<cfif len(#outside_contact_agent_id#) is not 0>
 				<script>alert("posting an outside contact")</script>
-				<cfquery name="outside_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<!---<cfquery name="outside_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 					INSERT INTO trans_agent (
 					    transaction_id,
 					    agent_id,
@@ -1283,9 +1283,9 @@ Shipment Information:
 						#nextTransId.nextTransactionId#,
 						#outside_contact_agent_id#,
 						'outside contact')
-				</cfquery>
+				</cfquery>--->
 			</cfif>
-			<cfquery name="newLoan" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<!---<cfquery name="newLoan" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 				INSERT INTO trans_agent (
 				    transaction_id,
 				    agent_id,
@@ -1294,7 +1294,7 @@ Shipment Information:
 					#nextTransId.nextTransactionId#,
 					#REC_AGENT_ID#,
 					'received by')
-			</cfquery>
+			</cfquery>--->
 		</cftransaction>
 	
 		<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#nextTransId.nextTransactionId#">
