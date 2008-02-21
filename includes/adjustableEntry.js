@@ -3,6 +3,9 @@ Title: adjustableEntry.js
 Author: Peter DeVore
 Email: pdevore@berkeley.edu 
 
+Notes:
+	As of 20080221, This is put on hold for now. If this note is still here, 
+	feel free to modify this into a working library that does a similar purpose.
 Description: 
 	A tool for adding and removing rows in a table. Will allow for an
 	arbitrary number of variable inputs in a form, where each name is
