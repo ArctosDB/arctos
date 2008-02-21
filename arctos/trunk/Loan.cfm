@@ -1296,7 +1296,7 @@ Shipment Information:
 					#REC_AGENT_ID#,
 					'received by')
 			</cfquery>--->
-			<cfquery>select 1 from dual</cfquery>
+			<cfquery datasource="user_login">select 1 from dual</cfquery>
 		</cftransaction>
 	
 		<!---<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#nextTransId.nextTransactionId#">--->
