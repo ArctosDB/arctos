@@ -1260,6 +1260,7 @@ Shipment Information:
 					'authorized by')
 			</cfquery>
 			<cfif len(#in_house_contact_agent_id#) is not 0>
+				<script>alert("posting an inhouse contact")</script>
 				<cfquery name="in_house_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 					INSERT INTO trans_agent (
 					    transaction_id,
@@ -1272,6 +1273,7 @@ Shipment Information:
 				</cfquery>
 			</cfif>
 			<cfif len(#outside_contact_agent_id#) is not 0>
+				<script>alert("posting an outside contact")</script>
 				<cfquery name="outside_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 					INSERT INTO trans_agent (
 					    transaction_id,
