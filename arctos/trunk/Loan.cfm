@@ -1157,6 +1157,7 @@ Shipment Information:
 <!-------------------------------------------------------------------------------------------------->
 <cfif isdefined("Action") AND #action# is "makeLoan">
 	<cfoutput>
+		<cfdump var="#form#">
 		<!--- get the next loan_number --->
 		<cfquery name="nextTransId" datasource="#Application.web_user#">
 			select max(transaction_id) + 1 as nextTransactionId from trans
@@ -1297,7 +1298,7 @@ Shipment Information:
 			</cfquery>--->
 		</cftransaction>
 	
-		<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#nextTransId.nextTransactionId#">
+		<!---<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#nextTransId.nextTransactionId#">--->
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
