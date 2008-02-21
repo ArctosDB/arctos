@@ -54,7 +54,7 @@
 <!-------------------------------------------------------------------------------------------------->
 <!-------------------------------------------------------------------------------------------------->
 <cfif  #action# is "newLoan">
-<script type="text/javascript" src="includes/adjustableEntry.js" />
+<!---<script type="text/javascript" src="includes/adjustableEntry.js" />--->
 <cfset title="New Loan">
 	Initiate a loan: <img src="images/info.gif" class="likeLink" onClick="getDocs('loan')" />
 
@@ -202,9 +202,12 @@
 	</tr>
 	<tr>
 		<td>
-			<label for="in_house_contact_agent_name">In-House Contact (required to print) <span class-"likeLink" onclick="AuthToInHouse();">
-				Use Authorized
-			</span></label>
+			<label for="in_house_contact_agent_name">In-House Contact (required to print) 
+				<span class="infoLink" 
+	onclick="newloan.in_house_contact_agent_name.value=newloan.auth_agent_name.value;
+			newloan.in_house_contact_agent_id.value=newloan.auth_agent_id.value">
+Use Authorized Agent as In-House Contact Agent</span>
+		<span class="likeLink" onclick="AuthToInHouse();">dummy text</span></label>
 			<input type="text" name="in_house_contact_agent_name" size="40" 
 			  onchange="getAgent('in_house_contact_agent_id','in_house_contact_agent_name','newloan',this.value); return false;"
 			  onKeyPress="return noenter(event);"> 
@@ -212,12 +215,16 @@
 		</td>
 		<td>
 			<label for="outside_contact_agent_name">Outside Contact:</label>
+			<span class="infoLink" 
+	onclick="newloan.in_house_contact_agent_name.value=newloan.auth_agent_name.value;
+			newloan.in_house_contact_agent_id.value=newloan.auth_agent_id.value">
+Use To Agent as Outside Contact Agent</span>
 			<input type="text" name="outside_contact_agent_name" size="40" 
 			  onchange="getAgent('outside_contact_agent_id','outside_contact_agent_name','newloan',this.value); return false;"
 			  onKeyPress="return noenter(event);"> 			  
 			<input type="hidden" name="outside_contact_agent_id">
 		</td>
-	</tr>
+	</tr><!---
 	<tr>
 		<th>Agent Name:</th><th>Agent Role:</th>
 	</tr>
@@ -252,7 +259,7 @@
 		'endOfExtraAgent',
 		'extraAgent'
 	);" value='Add new agent...' /></td>
-	</tr>
+	</tr>--->
 	<tr>
 		<td>
 			<label for="loan_type">Loan Type</label>
