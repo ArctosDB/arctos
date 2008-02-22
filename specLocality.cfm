@@ -762,12 +762,13 @@
 		#preservesinglequotes(sql)#
 		<cfabort>
 	</cfif>
+		#preservesinglequotes(sql)#
+	<cfabort>
+	
 ---->
 
 <cfset sql = "#sql# WHERE collection_object_id = #collection_object_id#">
-	#preservesinglequotes(sql)#
-	<cfabort>
-	
+
 		<cfquery name="upCollLocLatLong" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
