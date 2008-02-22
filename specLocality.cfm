@@ -636,7 +636,7 @@
 <cfoutput>
 	<cfset sql = "UPDATE spec_with_loc SET
 		higher_geog = '#higher_geog#',
-		spec_locality = '#replace(spec_locality,"'","''","all")#'">
+		spec_locality = '#escapeQuotes(spec_locality)#'">
 		<cfif len(#MINIMUM_ELEVATION#) is 0>
 			<cfset sql = "#sql# ,MINIMUM_ELEVATION = NULL">
 		<cfelse>
@@ -658,18 +658,17 @@
 		<cfelse>
 			<cfset sql = "#sql# ,max_depth = #max_depth#">
 		</cfif>
-		<cfset locrem=replace(LOCALITY_REMARKS,"'","''","all")>
 		<cfset sql = "#sql# ,depth_units = '#depth_units#',
-		LOCALITY_REMARKS = '#locrem#',
-		verbatim_locality = '#replace(verbatim_locality,"'","''","all")#',
-		verbatim_date = '#verbatim_date#',
+		LOCALITY_REMARKS = '#escapeQuotes(locality_remarks)#',
+		verbatim_locality = '#escapeQuotes(verbatim_locality)#',
+		verbatim_date = '#escapeQuotes(verbatim_date)#',
 		began_date = '#dateformat(began_date,"dd-mmm-yyyy")#',
 		ended_date = '#dateformat(ended_date,"dd-mmm-yyyy")#',
-		COLL_EVENT_REMARKS = '#COLL_EVENT_REMARKS#',
+		COLL_EVENT_REMARKS = '#escapeQuotes(COLL_EVENT_REMARKS)#',
 		COLLECTING_SOURCE = '#COLLECTING_SOURCE#',
-		COLLECTING_METHOD = '#COLLECTING_METHOD#',
-		habitat_desc = '#habitat_desc#',
-		NoGeorefBecause='#NoGeorefBecause#'
+		COLLECTING_METHOD = '#escapeQuotes(COLLECTING_METHOD)#',
+		habitat_desc = '#escapeQuotes(habitat_desc)#',
+		NoGeorefBecause='#escapeQuotes(NoGeorefBecause)#'
 			">	
 		
 	<cfif len(#ORIG_LAT_LONG_UNITS#) gt 0>
@@ -694,10 +693,9 @@
 			<cfelse>
 				<cfset sql = "#sql#,extent = NULL">
 			</cfif>
-			<cfset llrem=replace(LAT_LONG_REMARKS,"'","''","all")>
 			<cfset sql = "#sql#,VerificationStatus = '#VerificationStatus#',
-			LAT_LONG_REF_SOURCE = '#LAT_LONG_REF_SOURCE#',
-			LAT_LONG_REMARKS = '#llrem#'">
+			LAT_LONG_REF_SOURCE = '#escapeQuotes(LAT_LONG_REF_SOURCE)#',
+			LAT_LONG_REMARKS = '#escapeQuotes(LAT_LONG_REMARKS)#'">
 		<cfif #ORIG_LAT_LONG_UNITS# is "decimal degrees">
 			<cfset sql = "#sql#,
 				DEC_LAT = #DEC_LAT#,
