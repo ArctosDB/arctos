@@ -207,7 +207,7 @@ Exceptions:
 				and agent_name_type='login'
 			</cfquery>
 			<cfif id.recordcount is 1>
-				<cfset client.agent_id=#id.agent_id#>
+				<cfset client.myAgentId=#gcid.agent_id#>
 			</cfif>
 		</cfif>
 	<cfreturn true>
