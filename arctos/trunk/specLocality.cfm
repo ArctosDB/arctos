@@ -8,13 +8,8 @@
 	</SCRIPT>
 	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
 	
-<span class="pageHelp">
-	<a href="javascript:void(0);" 
-				onClick="pageHelp('specLocality'); return false;"
-				class="info">
-				<img src="/images/what.gif" border="0" alt="Click for page help.">
-	<span>Page Help</span>
-	</a>
+<span class="pageHelp" onClick="pageHelp('specLocality');">
+	Page Help
 </span>
 <script>
 	function showLLFormat(orig_units) {
