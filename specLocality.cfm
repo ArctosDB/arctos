@@ -755,9 +755,10 @@
 			UTM_EW = NULL,
 			UTM_NS = NULL">
 	</cfif>
-<!----
+
 	#preservesinglequotes(sql)#
 	<cfabort>
+	<!----
 	<cfif #client.username# is "dlm">
 		#preservesinglequotes(sql)#
 		<cfabort>
