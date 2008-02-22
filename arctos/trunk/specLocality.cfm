@@ -756,8 +756,7 @@
 			UTM_NS = NULL">
 	</cfif>
 
-	#preservesinglequotes(sql)#
-	<cfabort>
+	
 	<!----
 	<cfif #client.username# is "dlm">
 		#preservesinglequotes(sql)#
@@ -766,7 +765,8 @@
 ---->
 
 <cfset sql = "#sql# WHERE collection_object_id = #collection_object_id#">
-	
+	#preservesinglequotes(sql)#
+	<cfabort>
 	
 		<cfquery name="upCollLocLatLong" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 			#preservesinglequotes(sql)#
