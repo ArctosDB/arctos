@@ -11,7 +11,7 @@
 <p>
 	The following rules are followed by this application. If any of them are not desirable, 
 	use the standard Edit Locality form, making sure you pay attention to the relational nature of the data
-	through that form.
+	accessed through that form.
 </p> 
 	<ul>
 		<li>
