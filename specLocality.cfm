@@ -8,7 +8,7 @@
 	</SCRIPT>
 	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
 	
-<span class="pageHelp" onClick="pageHelp('specLocality');">
+<span class="pageHelp likeLink" onClick="pageHelp('specLocality');">
 	Page Help
 </span>
 <script>
