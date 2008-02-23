@@ -8,9 +8,9 @@ namebank_search_canonical(2038379)
 <cfdump var=#MyXml#>
 <hr>
 <p>
-namebank_search('Alces')
+namebank_search('Alces alces')
 </p>
-<cfset bla = namebank_search(2038379)>
+<cfset bla = namebank_search('Alces alces')>
 <cfset MyXml = xmlparse(bla)>
 <cfdump var=#MyXml#>
 <hr>
