@@ -202,11 +202,11 @@ Exceptions:
 			<cfset client.LastLogin="">
 		</cfif>
 		<cfif len(#client.username#) gt 0>
-			<cfquery name="id" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+			<cfquery name="gcid" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 				select agent_id from agent_name where agent_name='#client.username#'
 				and agent_name_type='login'
 			</cfquery>
-			<cfif id.recordcount is 1>
+			<cfif gcid.recordcount is 1>
 				<cfset client.myAgentId=#gcid.agent_id#>
 			</cfif>
 		</cfif>
