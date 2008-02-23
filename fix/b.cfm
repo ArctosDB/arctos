@@ -1,17 +1,30 @@
 <cfinclude template="/service/uBio.cfc">
 <cfoutput>
-<cfset bla = namebank_search_canonical()>
-namebank_search_canonical:
-<p></p>
-<cfdump var=#bla#>
-<hr>
-<cfset bla = namebank_search()>
-namebank_search:
 <p>
-<cfdump var=#bla#>
+namebank_search_canonical(2038379)
 </p>
+<cfset bla = namebank_search_canonical(2038379)>
 <cfset MyXml = xmlparse(bla)>
-<!------->
+<cfdump var=#MyXml#>
+<hr>
+<p>
+namebank_search('Alces alces')
+</p>
+<cfset bla = namebank_search(2038379)>
+<cfset MyXml = xmlparse(bla)>
+<cfdump var=#MyXml#>
+<hr>
+
+<p>
+classificationbank_search(3070378)
+</p>
+<cfset bla = namebank_search(3070378)>
+<cfset MyXml = xmlparse(bla)>
+<cfdump var=#MyXml#>
+<hr>
+
+
+<!---
 <cfloop index="c" from="1" to="#ArrayLen(MyXml.results.scientificNames.value)#">
 	<cfset nameString=MyXml.results.scientificNames.value[c].nameString.XmlText>
 	<cfset nameString= ToString(ToBinary(nameString))>
@@ -30,5 +43,7 @@ namebank_search:
 	--->
 	<hr>
 </cfloop>
+---->
+
 
 </cfoutput>
