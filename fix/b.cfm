@@ -10,9 +10,11 @@ namebank_search:
 <p></p>
 <cfset MyXml = xmlparse(bla)>
 <cfloop index="c" from="1" to="#ArrayLen(MyXml.results.scientificNames)#">
-
-<br>#MyXml.results.scientificNames[c].nameString.XmlText# 
+	<cfset thisTerm=MyXml.results.scientificNames[c].nameString.XmlText>
+<br>#thisTerm# 
+<!--
 	<br>#BinaryDecode(MyXml.results.scientificNames[c].nameString.XmlText,"base64")#
+	-->
 	<hr>
 </cfloop>
 
