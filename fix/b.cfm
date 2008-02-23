@@ -11,13 +11,15 @@ namebank_search:
 <cfdump var=#bla#>
 </p>
 <cfset MyXml = xmlparse(bla)>
-<!---#ArrayLen(MyXml.results.scientificNames.value)#---->
-<cfloop index="c" from="1" to="5">
-	<cfset thisTerm=MyXml.results.scientificNames.value[c].nameString.XmlText>
-<br>#thisTerm# 
-<cfset binky= ToString(ToBinary(thisTerm))>
-<cfdump var=#binky#>
-<br>
+<!------->
+<cfloop index="c" from="1" to="#ArrayLen(MyXml.results.scientificNames.value)#">
+	<cfset nameString=MyXml.results.scientificNames.value[c].nameString.XmlText>
+	<cfset nameString= ToString(ToBinary(nameString))>
+	<br>nameString: #nameString#
+	<cfset nameString=MyXml.results.scientificNames.value[c].fullNameString.XmlText>
+	<cfset fullNameString= ToString(ToBinary(fullNameString))>
+	<br>fullNameString: #fullNameString#
+
 
 <!---
 
