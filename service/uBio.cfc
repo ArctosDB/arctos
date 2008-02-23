@@ -3,10 +3,11 @@
 	<cfoutput>
 		<cffunction name="testUbio" access="remote" returntype="string" output="no">
 	    	<!--- Creatr a variable for the URL --->
-<cfset theURL = "http://www.ubio.org/webservices/service_internal.php?function=classificationbank_object&classificationBankID=2038379&childrenFlag=1&ancestryFlag=1&citationsFlag=1&synonymsFlag=1&version=2.0&keyCode=0dcb58874a48e95725f591152981365d45833b56">
+<cfset theURL = "http://www.ubio.org/webservices/service_internal.php?function=classificationbank_object&classificationBankID=2038379&childrenFlag=1&ancestryFlag=1&citationsFlag=1&synonymsFlag=1&version=2.0">
 
 <!--- Make the Post Request --->	
 <cfhttp url="#theURL#" charset="utf-8" method="get">
+	<cfhttpparam type="formfield" name="keyCode" value="0dcb58874a48e95725f591152981365d45833b56">
 </cfhttp>
 
 <cfswitch expression="#cfhttp.responseHeader.status_code#">
