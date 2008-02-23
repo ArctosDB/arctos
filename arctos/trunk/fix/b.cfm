@@ -1,4 +1,5 @@
 <cfinclude template="/service/uBio.cfc">
+<cfoutput>
 <cfset bla = namebank_search_canonical()>
 namebank_search_canonical:
 <p></p>
@@ -15,3 +16,4 @@ namebank_search:
 	<hr>
 </cfloop>
 
+</cfoutput>
