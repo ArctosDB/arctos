@@ -17,9 +17,12 @@
 	  	<cffunction name="namebank_search" access="remote" returntype="string" output="no">
 			<cfhttp url="http://www.ubio.org/webservices/service_internal.php" charset="utf-8" method="get">
 				<cfhttpparam type="url" name="keyCode" value="0dcb58874a48e95725f591152981365d45833b56">
-				<cfhttpparam type="url" name="search" value="Aotus">
-				<cfhttpparam type="url" name="version" value="2.0">
+				<cfhttpparam type="url" name="function" value="namebank_search">
+				<cfhttpparam type="url" name="searchName" value="Octopus">
+				<cfhttpparam type="url" name="sci" value="2">
+				<cfhttpparam type="url" name="vern" value="1">
 			</cfhttp>
+			
 			<cfreturn cfhttp.fileContent>             
 	  	</cffunction>
 	 
