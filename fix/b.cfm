@@ -11,7 +11,7 @@ namebank_search:
 <cfdump var=#bla#>
 </p>
 <cfset MyXml = xmlparse(bla)>
-<cfloop index="c" from="1" to="#ArrayLen(MyXml.results.scientificNames)#">
+<cfloop index="c" from="1" to="#ArrayLen(MyXml.results.scientificNames.value)#">
 	<cfset thisTerm=MyXml.results.scientificNames.value[c].nameString.XmlText>
 <br>#thisTerm# 
 
