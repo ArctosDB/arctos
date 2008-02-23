@@ -38,7 +38,7 @@
 <cfif #action# is "namebank_object">
 	<cfset bla = namebank_object(#v#)>
 	<cfset MyXml = xmlparse(bla)>
-	<cfdump var="MyXml">
+	<cfdump var=#MyXml#>
 </cfif>
 
 	<!---
