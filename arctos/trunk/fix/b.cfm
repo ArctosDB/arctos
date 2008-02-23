@@ -7,6 +7,11 @@ namebank_search_canonical:
 <cfset bla = namebank_search()>
 namebank_search:
 <p></p>
-<cfset bb = xmlparse(bla)>
-<cfdump var=#bb#>
-<hr>
+<cfset MyXml = xmlparse(bla)>
+<cfloop index="c" from="1" to="#ArrayLen(MyXml.results.scientificNames)#">
+
+<br>#MyXml.results.scientificNames[c].nameString.XmlText# 
+	<br>#BinaryDecode(MyXml.results.scientificNames[c].nameString.XmlText,"base64")#
+	<hr>
+</cfloop>
+
