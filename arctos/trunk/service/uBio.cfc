@@ -7,7 +7,7 @@
 
 <!--- Make the Post Request --->	
 <cfhttp url="#theURL#" charset="utf-8" method="post">
-	<cfhttpparam type="header" name="keyCode" value="0dcb58874a48e95725f591152981365d45833b56">
+	<cfhttpparam type="url" name="keyCode" value="0dcb58874a48e95725f591152981365d45833b56">
 </cfhttp>
 
 <cfswitch expression="#cfhttp.responseHeader.status_code#">
