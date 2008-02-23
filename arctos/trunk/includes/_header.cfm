@@ -62,7 +62,7 @@
   		FOREIGN KEY (collection_id)
   		REFERENCES collection(collection_id);
 	--->
-		<cfquery name="getCollApp" datasource="#Application.web_user#">
+		<cfquery name="getCollApp" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 			select * from cf_collection_appearance where collection_id = #client.exclusive_collection_id#
 		</cfquery>
 		<cfif #getCollApp.recordcount# gt 0>
@@ -177,7 +177,7 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 						</td>
 					</tr>
 					<tr>
-						<td align="left" nowrap="nowrap" id="collectionCell">
+						<td align="left" nowrap="nowrap" id="collectionCell" class="collectionCell">
 							<a target="_top" href="#client.collection_url#" class="novisit">
 								<span class="headerCollectionText">
 										#client.collection_link_text#
@@ -220,8 +220,8 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 	<!--- see what forms this user gets access to --->
 	<cfset r = replace(client.roles,",","','","all")>
 	<cfset r = "'#r#'">
-	<!---  cachedWithin="#CreateTimeSpan(0,1,0,0)#" --->
-<cfquery name="roles" datasource="#Application.web_user#">
+	<!---    --->
+<cfquery name="roles" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select form_path from cf_form_permissions 
 	where upper(role_name) IN (#ucase(preservesinglequotes(r))#)
 	minus select form_path from cf_form_permissions 
@@ -290,16 +290,18 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 					</ul>
 				</li>
 			</cfif>
-			<cfif listfind(formList,"/EditContainer.cfm")>
+			<cfif listfind(formList,"/EditContainer.cfm") OR listfind(formList,"/tools/dgr_locator.cfm")>
 				<li><a target="_top" href="##" class="x">Object Tracking</a>
 					<ul>
 						<cfif listfind(formList,"/tools/dgr_locator.cfm")>
 							<li><a target="_top" href="/tools/dgr_locator.cfm">DGR Locator</a></li>
 						</cfif>
-						<li><a target="_top" href="/LoadBarcodes.cfm">Load Labels</a></li>
-						<li><a target="_top" href="/EditContainer.cfm?action=newContainer">Create container</a></li>
-						<li><a target="_top" href="/SpecimenContainerLabels.cfm">Print label data</a></li>
-						<li><a target="_top" href="/CreateContainersForBarcodes.cfm?action=set">Load Specimen Labels</a></li>
+						<cfif listfind(formList,"/EditContainer.cfm")>
+							<li><a target="_top" href="/LoadBarcodes.cfm">Load Labels</a></li>
+							<li><a target="_top" href="/EditContainer.cfm?action=newContainer">Create container</a></li>
+							<li><a target="_top" href="/SpecimenContainerLabels.cfm">Print label data</a></li>
+							<li><a target="_top" href="/CreateContainersForBarcodes.cfm?action=set">Load Specimen Labels</a></li>
+						</cfif>
 						<cfif listfind(formList,"/moveContainer.cfm")>
 							<li><a target="_top" href="/batchScan.cfm">Scan Container</a></li>
 							<li><a target="_top" href="/moveContainer.cfm">Move container (old)</a></li>
