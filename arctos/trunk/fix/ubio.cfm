@@ -1,4 +1,4 @@
-<cfinclude template="/includes/header.cfm">
+<cfinclude template="/includes/_header.cfm">
 <cfinclude template="/service/uBio.cfc">
 <cfoutput>
 <cfif #action# is "nothing">
@@ -82,4 +82,4 @@ classificationbank_search(3070378)
 
 
 </cfoutput>
-<cfinclude template="/includes/footer.cfm">
+<cfinclude template="/includes/_footer.cfm">
