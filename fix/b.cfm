@@ -15,7 +15,7 @@ namebank_search:
 <cfloop index="c" from="1" to="5">
 	<cfset thisTerm=MyXml.results.scientificNames.value[c].nameString.XmlText>
 <br>#thisTerm# 
-<cfset binky= BinaryDecode(thisTerm,"base64")>
+<cfset binky= ToString(ToBinary(thisTerm))>
 <cfdump var=#binky#>
 <br>
 
