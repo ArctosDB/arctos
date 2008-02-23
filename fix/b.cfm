@@ -7,5 +7,6 @@ namebank_search_canonical:
 <cfset bla = namebank_search()>
 namebank_search:
 <p></p>
-<cfdump var=#bla#>
+<cfset bb = xmlparse(bla)>
+<cfdump var=#bb#>
 <hr>
