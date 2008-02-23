@@ -424,7 +424,7 @@ Review items in loan<b>
 			&nbsp;
 		</td>
 		<td>
-			#Condition#&nbsp;<img src="/images/info.gif" border="0" class="likeLink" onClick="chgCondition('#partID#')">
+			#Condition#&nbsp;<span class="infoLink" onClick="chgCondition('#partID#')">Update</span>
 		</td>
 		<td>
 			<cfif len(#sampled_from_obj_id#) gt 0>
