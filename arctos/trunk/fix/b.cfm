@@ -16,7 +16,7 @@ namebank_search:
 	<cfset nameString=MyXml.results.scientificNames.value[c].nameString.XmlText>
 	<cfset nameString= ToString(ToBinary(nameString))>
 	<br>nameString: #nameString#
-	<cfset nameString=MyXml.results.scientificNames.value[c].fullNameString.XmlText>
+	<cfset fullNameString=MyXml.results.scientificNames.value[c].fullNameString.XmlText>
 	<cfset fullNameString= ToString(ToBinary(fullNameString))>
 	<br>fullNameString: #fullNameString#
 
