@@ -1,5 +1,4 @@
 <cfcomponent>
-	<cfinclude template="/includes/alwaysInclude.cfm">
 	<cfoutput>
 		<cffunction name="namebank_search_canonical" access="remote" returntype="string" output="no">
 			<cfargument required="true" name="classificationBankID" type="numeric">
