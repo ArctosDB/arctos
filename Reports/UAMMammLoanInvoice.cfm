@@ -1,6 +1,9 @@
+<cfinclude template="/includes/_frameHeader.cfm">
 <!------------------------------------------------------------------->
 <cfif #Action# is "nothing">
-<cfdocument overwrite="true"
+<!---
+	--->
+	<cfdocument overwrite="true"
 	format="pdf"
 	pagetype="letter"
 	margintop=".25"
@@ -10,35 +13,9 @@
 	orientation="portrait"
 	fontembed="yes"
 	filename="#Application.webDirectory#/temp/UamMammLoanHead.pdf" >
-	
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
+<cf_getLoanFormInfo>
 
-
-<cfquery name="getLoan" datasource="#Application.web_user#">
-	SELECT 
-		authAgent.agent_name as authAgentName,
-		trans_date,
-		recAgent.agent_name as recAgentName,
-		return_due_date,
-		nature_of_material,
-		trans_remarks,
-		loan_instructions,
-		loan_description,
-		loan_type,
-		loan_number,
-		loan_status,
-		loan_instructions		
-	FROM 
-		loan, 
-		trans,
-		preferred_agent_name authAgent,
-		preferred_agent_name recAgent
-	WHERE
-		loan.transaction_id = trans.transaction_id AND
-		trans.auth_agent_id = authAgent.agent_id (+) AND
-		trans.received_agent_id = recAgent.agent_id AND
-		loan.transaction_id=#transaction_id#
-</cfquery>
 <cfquery name="sponsor" datasource="#Application.web_user#">
 	select 
 		agent_name,
@@ -69,20 +46,7 @@
 		acknowledgement		
 </cfquery>
 <cfoutput>
-	
-	<cfquery name="shipDate" datasource="#Application.web_user#">
-		select shipped_date from shipment where transaction_id=#transactioN_id#
-	</cfquery>
-	<cfquery name="shipTo" datasource="#Application.web_user#">
-		select formatted_addr from addr, shipment
-		where addr.addr_id = shipment.shipped_to_addr_id AND
-		shipment.transaction_id=#transaction_id#
-	</cfquery>
-	<cfquery name="procBy" datasource="#Application.web_user#">
-		select agent_name from preferred_agent_name, shipment
-		where preferred_agent_name.agent_id = shipment.packed_by_agent_id AND
-		shipment.transaction_id=#transaction_id#
-	</cfquery>
+
 <div align="center">
 <table width="800" height="1030">
 	<tr>
@@ -100,7 +64,7 @@
               UNIVERSITY&nbsp;&nbsp;of&nbsp;&nbsp;ALASKA&nbsp;&nbsp;MUSEUM 
 			  </font>
 			  <font size="3">
-			<br>#dateformat(shipDate.shipped_date,"dd mmmm yyyy")#
+			<br>#dateformat(getLoan.shipped_date,"dd mmmm yyyy")#
 			</div>
 		</td>
 	</tr>
@@ -115,7 +79,7 @@
 				<tr>
 					<td align="left" width="60%">
 						<blockquote>
-							#replace(shipTo.formatted_Addr,"#chr(10)#","<br>","all")#
+							#replace(getLoan.shipped_to_address,"#chr(10)#","<br>","all")#
 						</blockquote>
 					</td>
 					<td align="right" valign="top">
@@ -263,7 +227,7 @@
 					<td>
 					  <div align="right">
 						<font size="1" face="Arial, Helvetica, sans-serif">Loan processed 
-						by #procBy.agent_name#</font>
+						by #getLoan.processed_by_name#</font>
 						</div>
 					</td>
 				</tr>
@@ -275,6 +239,9 @@
 
 </cfoutput>
 </cfdocument>
+<!---
+
+--->
 <cfoutput>
 	<a href="#Application.ServerRootUrl#/temp/UamMammLoanHead.pdf">Click to view PDF, or right-click and save to disk</a>
 </cfoutput>

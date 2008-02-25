@@ -4,7 +4,6 @@
 		<cfset csss = #client.currentStyleSheet#>
 		<cfhtmlhead text='<link rel="alternate stylesheet" type="text/css" href="/includes/css/#client.currentStyleSheet#.css" title="#client.currentStyleSheet#">'>
 	<cfelse>
-		no style
 		<cfset csss = "">
 	</cfif>
 	<script type="text/javascript" language="javascript">

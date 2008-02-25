@@ -41,26 +41,29 @@
 	<cfquery name="f" datasource="#Application.uam_dbo#">
 		select * from ala_plant_imaging
 		where 1=1
-		<cfif len(#folder_identification#) gt 0>
+		<cfif isdefined("folder_identification") and len(#folder_identification#) gt 0>
 			AND folder_identification='#folder_identification#'
 		</cfif>
-		<cfif len(#folder_barcode#) gt 0>
+		<cfif isdefined("folder_barcode") and  len(#folder_barcode#) gt 0>
 			AND folder_barcode='#folder_barcode#'
 		</cfif>
-		<cfif len(#idType#) gt 0>
+		<cfif isdefined("idType") and  len(#idType#) gt 0>
 			AND idType='#idType#'
 		</cfif>
-		<cfif len(#idNum#) gt 0>
+		<cfif isdefined("idNum") and  len(#idNum#) gt 0>
 			AND idNum='#idNum#'
 		</cfif>
-		<cfif len(#barcode#) gt 0>
+		<cfif isdefined("barcode") and  len(#barcode#) gt 0>
 			AND barcode='#barcode#'
 		</cfif>
-		<cfif len(#whodunit#) gt 0>
+		<cfif isdefined("whodunit") and  len(#whodunit#) gt 0>
 			AND whodunit='#whodunit#'
 		</cfif>
-		<cfif len(#whendunit#) gt 0>
+		<cfif isdefined("whendunit") and  len(#whendunit#) gt 0>
 			AND whendunit='to_date(#whendunit#)'
+		</cfif>
+		<cfif isdefined("image_id_list") and len(#image_id_list#) gt 0>
+			AND image_id IN (#image_id_list#)
 		</cfif>
 	</cfquery>
 	<table border>
@@ -73,6 +76,7 @@
 			<td>who</td>
 			<td>when</td>
 			<td>status</td>
+			<td>Arctos</td>
 		</tr>
 		<cfloop query="f">
 			<tr class="likeLink" onclick="document.location='ala_edit.cfm?action=editRecord&image_id=#image_id#';">
@@ -84,6 +88,7 @@
 				<td>#whodunit#</td>
 				<td>#whendunit#</td>
 				<td>#status#</td>
+				<td><a href="/SpecimenResults.cfm?OIDType=#idType#&OIDNum=#idNum#">Arctos?</a></td>
 			</tr>
 		</cfloop>
 	</table>
@@ -113,6 +118,9 @@
 	</select>
 	<label for="idNum">ID Number</label>
 	<input type="text" name="idNum" id="idNum" size="20" value="#f.idNum#">
+	<label for="">Search Arctos for this ID</label>
+	<a href="/SpecimenResults.cfm?OIDType=#f.idType#&OIDNum=#f.idNum#">Arctos?</a>
+	<label for="savBtn">&nbsp;</label>
 	<input type="submit" 
 					class="savBtn"
 					onmouseover="this.className='savBtn btnhov'" 

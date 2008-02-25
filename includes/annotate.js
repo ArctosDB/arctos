@@ -59,7 +59,7 @@ function closeAnnotation() {
 		var theDiv = document.createElement('div');
 		theDiv.id = 'annotateDiv';
 		theDiv.className = 'annotateBox';
-		theDiv.innerHTML='<br>hi I am a div.';
+		theDiv.innerHTML='<br>hi I an a div.';
 		
 		theDiv.src = "";
 		

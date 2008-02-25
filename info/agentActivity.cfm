@@ -6,7 +6,7 @@
 </cfif>
 <cfset title = "Agent Activity">
 <cfoutput>
-Back to <a href="/agents.cfm?agent_id=#agent_id#&action=editAgent">Agent Details</a><table border>
+Back to <a href="/editAllAgent.cfm?agent_id=#agent_id#">Agent Details</a><table border>
 	<cfquery name="agent" datasource="#Application.web_user#">
 		select * FROM agent where agent_id=#agent_id#
 	</cfquery>

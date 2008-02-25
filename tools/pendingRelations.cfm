@@ -1,6 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfparam name="filterForPending" default="true">
 <cfif #action# is "showStatus">
+
 <cfset title="Pending Relationships">
 <cfquery name="getRels" datasource="#Application.web_user#">
 	select * from cf_temp_relations

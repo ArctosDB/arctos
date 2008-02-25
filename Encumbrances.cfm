@@ -348,7 +348,7 @@ UPDATE encumbrance SET
 	,ENCUMBRANCE = '#ENCUMBRANCE#'
 	,ENCUMBRANCE_ACTION = '#ENCUMBRANCE_ACTION#'
 	<cfif len(#expiration_date#) gt 0>
-		,EXPIRATION_DATE = '#dateformat(EXPIRATION_DATE,'dd-mmm-yyyy')#	
+		,EXPIRATION_DATE = '#dateformat(EXPIRATION_DATE,"dd-mmm-yyyy")#'	
 	</cfif>
 	<cfif len(#EXPIRATION_EVENT#) gt 0>
 		,EXPIRATION_EVENT = '#EXPIRATION_EVENT#'	

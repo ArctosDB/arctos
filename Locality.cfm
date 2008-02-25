@@ -1,3 +1,6 @@
+<div id="theHead">
+	<cfinclude template="includes/_header.cfm">
+</div>
 <cfinclude template="/includes/functionLib.cfm">
 <cfoutput>
 <!--- see if action is duplicated --->
@@ -37,9 +40,7 @@
 	<cflocation url="Locality.cfm?action=editCollEvnt&collecting_event_id=#ceid.collecting_event_id#">
 </cfif>
 <!--- only put a header on if we aren't in a frame --->
-<div id="theHead">
-	<cfinclude template="includes/_header.cfm">
-</div>
+
 </div><!--- kill content div --->
 
 </cfoutput>
@@ -52,25 +53,25 @@
 <!--------------------------- Code-table queries --------------------------------------------------> 
 
 <cfquery name="ctIslandGroup" datasource="#Application.web_user#">
-	select island_group from ctisland_group
+	select island_group from ctisland_group order by island_group
 </cfquery>
 <cfquery name="ctGeogSrcAuth" datasource="#Application.web_user#">
-	select source_authority from ctgeog_source_authority
+	select source_authority from ctgeog_source_authority order by source_authority
 </cfquery>
 <cfquery name="ctElevUnit" datasource="#Application.web_user#">
-	select orig_elev_units from ctorig_elev_units
+	select orig_elev_units from ctorig_elev_units order by orig_elev_units
 </cfquery>
 <cfquery name="ctCollecting_Source" datasource="#Application.web_user#">
-	select collecting_source from ctCollecting_Source
+	select collecting_source from ctCollecting_Source order by collecting_source
 </cfquery>
 <cfquery name="ctFeature" datasource="#Application.web_user#">
 	select distinct(feature) from ctfeature order by feature
 </cfquery>
  	<cfquery name="ctGeorefMethod" datasource="#Application.web_user#">
-					select georefMethod from ctgeorefmethod
+					select georefMethod from ctgeorefmethod order by georefMethod
 				</cfquery>
 	<cfquery name="ctVerificationStatus" datasource="#Application.web_user#">
-					select VerificationStatus from ctVerificationStatus
+					select VerificationStatus from ctVerificationStatus order by VerificationStatus
 				</cfquery>
 
 <!--------------------------- End Code-table queries -------------------------------------------------->

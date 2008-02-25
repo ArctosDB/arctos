@@ -66,7 +66,7 @@ function changeGrp(tid) {
 <!---
 <span class="infoLink pageHelp" onclick="pageHelp('searching');">Page Help</span>			
 --->		
-	   <table width="600" cellpadding="0" cellspacing="0">
+	   <table width="75%" cellpadding="0" cellspacing="0">
 	   	<tr><td colspan="4">
 		 <p> <font size="+1">Access to
 		<a href="javascript: void(0);" 
@@ -175,7 +175,7 @@ function changeGrp(tid) {
 </cfif>
 <form method="post" action="SpecimenResults.cfm" name="SpecData">
 <cfoutput>
-<table>
+<table border="0">
 	<tr>
 		<td valign="top">
 			<input type="submit" value="Search" class="schBtn"
@@ -232,7 +232,7 @@ function changeGrp(tid) {
 <cfquery name="collections" datasource="#Application.web_user#">
 	select collection_cde from ctCollection_Cde order by collection_cde
 </cfquery>
-<table width="700" cellspacing="2" cellpadding="4"><!--- outer table --->
+<table width="75%" cellspacing="2" cellpadding="4"><!--- outer table --->
 		<tr>
 			<td>
 			<table>
@@ -324,12 +324,36 @@ function changeGrp(tid) {
 							</a>&nbsp;
 							</td>
 							<td align="left">
+								<label for="CustomOidOper">Display Value</label>
 								<select name="CustomOidOper" size="1">
 							<option value="IS">is</option>
 							<option value="" selected="selected">contains</option>
 							<option value="LIST">in list</option>
 							<option value="BETWEEN">in range</option>								
 						  </select><input type="text" name="CustomIdentifierValue" size="50">
+							</td>
+						</tr>
+						<tr>
+							<td align="right" width="250">
+								&nbsp;
+							</td>
+							<td align="left">
+								<table cellpadding="0" cellspacing="0">
+									<tr>
+										<td>
+											<label for="custom_id_prefix">OR: Prefix</label>
+											<input type="text" name="custom_id_prefix" id="custom_id_prefix" size="12">
+										</td>
+										<td>
+											<label for="custom_id_number">Number</label>
+											<input type="text" name="custom_id_number" id="custom_id_number" size="24">
+										</td>
+										<td>
+											<label for="custom_id_suffix">Suffix</label>
+											<input type="text" name="custom_id_suffix" id="custom_id_suffix" size="12">
+										</td>
+									</tr>
+								</table>
 							</td>
 						</tr>
 					</cfif>
@@ -1076,15 +1100,6 @@ function changeGrp(tid) {
 							  </cfoutput> </select>
 							</td>
 						</tr>
-						<!--- want to get Part Remarks here eventually
-						<tr>
-							<td align="right" width="250">
-								 Part Remarks:&nbsp;
-							</td>
-							<td align="left">
-								<input name="part_remarks" type="text" size="50">
-							</td>
-						</tr>--->
 					</table>
 				</div>
 			</td>
@@ -1204,6 +1219,7 @@ function changeGrp(tid) {
 									<select name="type_status" size="1">
 										<option value=""></option>
 										<option value="any">Any</option>
+										<option value="type">Any TYPE</option>
 										<cfoutput query="ctTypeStatus">
 											<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
 										</cfoutput>
@@ -1446,7 +1462,7 @@ function changeGrp(tid) {
 							<tr>
 						  
 						  <cfquery name="ctAttributeType" datasource="#Application.web_user#">
-							select distinct(attribute_type) from ctattribute_type
+							select distinct(attribute_type) from ctattribute_type order by attribute_type
 						  </cfquery>
 						  <td>
 						  <select name="attribute_type_1" size="1">

@@ -216,9 +216,28 @@ function isValidDate(val) {
 	return false;
 	}
 }
-	
 
 
+function MVZDefaults() {
+	// default all dispositions to "in collection"
+	document.getElementById('coll_obj_disposition').value='in collection';
+	document.getElementById('part_disposition_1').value='in collection';
+	document.getElementById('part_disposition_2').value='in collection';
+	document.getElementById('part_disposition_3').value='in collection';
+	document.getElementById('part_disposition_4').value='in collection';
+	document.getElementById('part_disposition_5').value='in collection';
+	document.getElementById('part_disposition_6').value='in collection';
+	document.getElementById('part_disposition_7').value='in collection';
+	document.getElementById('part_disposition_8').value='in collection';
+	document.getElementById('part_disposition_9').value='in collection';
+	document.getElementById('part_disposition_10').value='in collection';
+	document.getElementById('part_disposition_11').value='in collection';
+	document.getElementById('part_disposition_12').value='in collection';	
+}
+
+			
+					
+			
 
 
 
@@ -525,6 +544,7 @@ function changeMode (mode,collobjid) {
 			tDiv.style.display='none';
 			//alert('clearing defaults...');
 			setNewRecDefaults();
+			/*
 			var cc = document.getElementById('collection_cde').value;
 			var ia = document.getElementById('institution_acronym').value;
 			if(cc == 'Mamm' && ia == 'UAM') {
@@ -532,6 +552,7 @@ function changeMode (mode,collobjid) {
 			} else if(cc == 'Bird' && ia == 'MSB') {
 				MSBBirdDefault();	
 			}
+			*/
 		}
 	}
 	var splashPg = document.getElementById('splash');
@@ -614,6 +635,16 @@ function setNewRecDefaults () {
 	getAttributeStuff(attribute_9,'attribute_9');
 	getAttributeStuff(attribute_10,'attribute_10');
 	
+	// collection-specific stuff
+	var cc = document.getElementById('collection_cde').value;
+	var ia = document.getElementById('institution_acronym').value;
+	if(cc == 'Mamm' && ia == 'UAM') {
+		catNumGap();
+	} else if(cc == 'Bird' && ia == 'MSB') {
+		MSBBirdDefault();	
+	} else if(ia == 'MVZ') {
+		MVZDefaults();
+	}	
 }
 
 

@@ -82,6 +82,13 @@
 			AND journal_article.journal_id = journal.journal_id AND
 			upper(journal_name) #jnOper# #jname#">
 	</cfif>
+	<cfif isdefined("collection_id") AND len(#collection_id#) gt 0>
+		<cfset basFrom = "#basFrom# ,
+			citation,cataloged_item">
+		<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id 
+			AND citation.collection_object_id = cataloged_item.collection_object_id AND
+			cataloged_item.collection_id = #collection_id#">
+	</cfif>
 	
 	
 	<cfset basSql = "#basSQL# #basFrom# #basWhere# ORDER BY publication.publication_id">

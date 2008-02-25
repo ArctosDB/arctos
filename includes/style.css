@@ -1,3 +1,50 @@
+/*
+top right bottom left
+*/
+.detailBlock{
+}
+.innerDetailLabel{
+	font-weight:bold;
+}
+.detailData{
+	margin-left:-10px;
+}
+.detailCellSmall {
+	font-size:.8em;
+}
+.detailCell {
+	border:1px dotted gray;
+	text-align:left;
+	padding:2px 3px 3px 15px;
+	position:relative;
+	margin:1px 6px 12px 2px;
+	}
+.detailLabel {
+	border:1px solid gray;
+	margin: 1px 0px 1px -11px;
+	position:relative;
+	background-color:#FFF7D7;
+	font-weight:bold;
+	font-size:1.1em;
+	}
+.detailEditCell {
+	float:right;
+	right:2px;
+	top:0px;;
+	position:absolute;
+	cursor:pointer;
+	color:#2B547E;
+	font-size:.75em;
+	font-family:Arial, Helvetica, sans-serif;
+	}
+.detailEditCell:hover {
+	color:#FF0000;
+	text-decoration: underline;
+	}
+	
+	
+	
+	
 .sessionTimer{
 	background-color:green;
 	color:white; 

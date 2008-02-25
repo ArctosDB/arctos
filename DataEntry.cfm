@@ -183,510 +183,7 @@ Some Totally Random String Data .....
 							type="submit" value="Enter Data"/>
 					</form>
 </cfoutput>
-<!----
-<cfif #cgi.SERVER_NAME# contains "berkeley">
-				<cfoutput>
-				<!--- there should be templates in bulkloader. If not, create them --->
-				<!--- UAM Mammal --->
-				<cfquery  name="isBL" datasource="#Application.web_user#">
-					select * from bulkloader where collection_object_id = 1
-				</cfquery>
-				<cfif #isBl.recordcount# is 0>
-					<!--- re-create 1 --->
-					<cfquery name="prime" datasource="#Application.web_user#">
-						insert into bulkloader (
-							collection_object_id, 
-							institution_acronym,
-							collection_cde,
-							loaded) VALUES (
-							1,
-							'MVZ',
-							'Mamm',
-							'MVZ MAMMAL TEMPLATE')
-					</cfquery>
-				<cfelse>
-					<!--- see if it's our template --->
-					<cfif #isBL.loaded# is not "MVZ MAMMAL TEMPLATE">
-						<!--- shiyite - move the barged-in record and create template --->
-						<cfquery name="move" datasource="#Application.web_user#">
-							update bulkloader set collection_object_id = bulkloader_PKEY.nextval
-							where collection_object_id = 1
-						</cfquery>
-						<cfquery name="prime" datasource="#Application.web_user#">
-							insert into bulkloader (
-								collection_object_id, 
-								institution_acronym,
-								collection_cde,
-								loaded) VALUES (
-								1,
-								'MVZ',
-								'Mamm',
-								'MVZ MAMMAL TEMPLATE')
-						</cfquery>			
-					</cfif>
-				</cfif>
-				<!--- MVZ Bird --->
-				<cfquery  name="isBL" datasource="#Application.web_user#">
-					select * from bulkloader where collection_object_id = 2
-				</cfquery>
-				<cfif #isBl.recordcount# is 0>
-					<!--- re-create 1 --->
-					<cfquery name="prime" datasource="#Application.web_user#">
-						insert into bulkloader (
-							collection_object_id, 
-							institution_acronym,
-							collection_cde,
-							loaded) VALUES (
-							2,
-							'MVZ',
-							'Bird',
-							'MVZ BIRD TEMPLATE')
-					</cfquery>
-				<cfelse>
-					<!--- see if it's our template --->
-					<cfif #isBL.loaded# is not "MVZ BIRD TEMPLATE">
-						<!--- shiyite - move the barged-in record and create template --->
-						<cfquery name="move" datasource="#Application.web_user#">
-							update bulkloader set collection_object_id = bulkloader_PKEY.nextval
-							where collection_object_id = 2
-						</cfquery>
-						<cfquery name="prime" datasource="#Application.web_user#">
-							insert into bulkloader (
-								collection_object_id, 
-								institution_acronym,
-								collection_cde,
-								loaded) VALUES (
-								2,
-								'MVZ',
-								'Bird',
-								'MVZ BIRD TEMPLATE')
-						</cfquery>			
-					</cfif>
-				</cfif>
-				<!--- MVZ Herp --->
-				<cfquery  name="isBL" datasource="#Application.web_user#">
-					select * from bulkloader where collection_object_id = 3
-				</cfquery>
-				<cfif #isBl.recordcount# is 0>
-					<!--- re-create 1 --->
-					<cfquery name="prime" datasource="#Application.web_user#">
-						insert into bulkloader (
-							collection_object_id, 
-							institution_acronym,
-							collection_cde,
-							loaded) VALUES (
-							3,
-							'MVZ',
-							'Herp',
-							'MVZ HERP TEMPLATE')
-					</cfquery>
-				<cfelse>
-					<!--- see if it's our template --->
-					<cfif #isBL.loaded# is not "MVZ HERP TEMPLATE">
-						<!--- shiyite - move the barged-in record and create template --->
-						<cfquery name="move" datasource="#Application.web_user#">
-							update bulkloader set collection_object_id = bulkloader_PKEY.nextval
-							where collection_object_id = 3
-						</cfquery>
-						<cfquery name="prime" datasource="#Application.web_user#">
-							insert into bulkloader (
-								collection_object_id, 
-								institution_acronym,
-								collection_cde,
-								loaded) VALUES (
-								3,
-								'MVZ',
-								'Herp',
-								'MVZ HERP TEMPLATE')
-						</cfquery>			
-					</cfif>
-				</cfif>
-				
-				
-				</cfoutput>
-<cfelseif #cgi.SERVER_NAME# contains "database.museum">
-				<cfoutput>
-				<!--- there should be templates in bulkloader. If not, create them --->
-				<!--- UAM Mammal --->
-				<cfquery  name="isBL" datasource="#Application.web_user#">
-					select * from bulkloader where collection_object_id = 1
-				</cfquery>
-				<cfif #isBl.recordcount# is 0>
-					<!--- re-create 1 --->
-					<cfquery name="prime" datasource="#Application.web_user#">
-						insert into bulkloader (
-							collection_object_id, 
-							institution_acronym,
-							collection_cde,
-							loaded) VALUES (
-							1,
-							'UAM',
-							'Mamm',
-							'UAM MAMMAL TEMPLATE')
-					</cfquery>
-				<cfelse>
-					<!--- see if it's our template --->
-					<cfif #isBL.loaded# is not "UAM MAMMAL TEMPLATE">
-						<!--- shiyite - move the barged-in record and create template --->
-						<cfquery name="move" datasource="#Application.web_user#">
-							update bulkloader set collection_object_id = bulkloader_PKEY.nextval
-							where collection_object_id = 1
-						</cfquery>
-						<cfquery name="prime" datasource="#Application.web_user#">
-							insert into bulkloader (
-								collection_object_id, 
-								institution_acronym,
-								collection_cde,
-								loaded) VALUES (
-								1,
-								'UAM',
-								'Mamm',
-								'UAM MAMMAL TEMPLATE')
-						</cfquery>			
-					</cfif>
-				</cfif>
-				<!-------------  MSB Mamm  ---------------------------->
-				<cfquery  name="isBL" datasource="#Application.web_user#">
-					select * from bulkloader where collection_object_id = 2
-				</cfquery>
-				<cfif #isBl.recordcount# is 0>
-					<!--- re-create 2 --->
-					<cfquery name="prime" datasource="#Application.web_user#">
-						insert into bulkloader (
-							collection_object_id, 
-							institution_acronym,
-							collection_cde,
-							loaded) VALUES (
-							2,
-							'MSB',
-							'Mamm',
-							'MSB MAMMAL TEMPLATE')
-					</cfquery>
-				<cfelse>
-					<!--- see if it's our template --->
-					<cfif #isBL.loaded# is not "MSB MAMMAL TEMPLATE">
-						<!--- shiyite - move the barged-in record and create template --->
-						<cfquery name="move" datasource="#Application.web_user#">
-							update bulkloader set collection_object_id = bulkloader_PKEY.nextval
-							where collection_object_id = 2
-						</cfquery>
-						<cfquery name="prime" datasource="#Application.web_user#">
-							insert into bulkloader (
-								collection_object_id, 
-								institution_acronym,
-								collection_cde,
-								loaded) VALUES (
-								2,
-								'MSB',
-								'Mamm',
-								'MSB MAMMAL TEMPLATE')
-						</cfquery>			
-					</cfif>
-				</cfif>
-				<!-------------  MSB Bird  ---------------------------->
-				<cfquery  name="isBL" datasource="#Application.web_user#">
-					select * from bulkloader where collection_object_id = 3
-				</cfquery>
-				<cfif #isBl.recordcount# is 0>
-					<!--- re-create 2 --->
-					<cfquery name="prime" datasource="#Application.web_user#">
-						insert into bulkloader (
-							collection_object_id, 
-							institution_acronym,
-							collection_cde,
-							loaded) VALUES (
-							3,
-							'MSB',
-							'Bird',
-							'MSB BIRD TEMPLATE')
-					</cfquery>
-				<cfelse>
-					<!--- see if it's our template --->
-					<cfif #isBL.loaded# is not "MSB BIRD TEMPLATE">
-						<!--- shiyite - move the barged-in record and create template --->
-						<cfquery name="move" datasource="#Application.web_user#">
-							update bulkloader set collection_object_id = bulkloader_PKEY.nextval
-							where collection_object_id = 3
-						</cfquery>
-						<cfquery name="prime" datasource="#Application.web_user#">
-							insert into bulkloader (
-								collection_object_id, 
-								institution_acronym,
-								collection_cde,
-								loaded) VALUES (
-								3,
-								'MSB',
-								'Bird',
-								'MSB BIRD TEMPLATE')
-						</cfquery>			
-					</cfif>
-				</cfif>
-				<!-------------  DGR Mamm  ---------------------------->
-				<cfquery  name="isBL" datasource="#Application.web_user#">
-					select * from bulkloader where collection_object_id = 4
-				</cfquery>
-				<cfif #isBl.recordcount# is 0>
-					<!--- re-create 2 --->
-					<cfquery name="prime" datasource="#Application.web_user#">
-						insert into bulkloader (
-							collection_object_id, 
-							institution_acronym,
-							collection_cde,
-							loaded) VALUES (
-							4,
-							'DGR',
-							'Mamm',
-							'DGR MAMM TEMPLATE')
-					</cfquery>
-				<cfelse>
-					<!--- see if it's our template --->
-					<cfif #isBL.loaded# is not "DGR MAMM TEMPLATE">
-						<!--- shiyite - move the barged-in record and create template --->
-						<cfquery name="move" datasource="#Application.web_user#">
-							update bulkloader set collection_object_id = bulkloader_PKEY.nextval
-							where collection_object_id = 4
-						</cfquery>
-						<cfquery name="prime" datasource="#Application.web_user#">
-							insert into bulkloader (
-								collection_object_id, 
-								institution_acronym,
-								collection_cde,
-								loaded) VALUES (
-								4,
-								'DGR',
-								'Mamm',
-								'DGR MAMM TEMPLATE')
-						</cfquery>			
-					</cfif>
-				</cfif>
-				<!-------------  UAM Plant  ---------------------------->
-				<cfquery  name="isBL" datasource="#Application.web_user#">
-					select * from bulkloader where collection_object_id = 5
-				</cfquery>
-				<cfif #isBl.recordcount# is 0>
-					<!--- re-create 2 --->
-					<cfquery name="prime" datasource="#Application.web_user#">
-						insert into bulkloader (
-							collection_object_id, 
-							institution_acronym,
-							collection_cde,
-							loaded) VALUES (
-							5,
-							'UAM',
-							'Herb',
-							'UAM HERB TEMPLATE')
-					</cfquery>
-				<cfelse>
-					<!--- see if it's our template --->
-					<cfif #isBL.loaded# is not "UAM HERB TEMPLATE">
-						<!--- shiyite - move the barged-in record and create template --->
-						<cfquery name="move" datasource="#Application.web_user#">
-							update bulkloader set collection_object_id = bulkloader_PKEY.nextval
-							where collection_object_id = 5
-						</cfquery>
-						<cfquery name="prime" datasource="#Application.web_user#">
-							insert into bulkloader (
-								collection_object_id, 
-								institution_acronym,
-								collection_cde,
-								loaded) VALUES (
-								5,
-								'UAM',
-								'Herb',
-								'UAM HERB TEMPLATE')
-						</cfquery>			
-					</cfif>
-				</cfif>
-				<!-------------  UAM Crustacean  ---------------------------->
-				<cfquery  name="isBL" datasource="#Application.web_user#">
-					select * from bulkloader where collection_object_id = 6
-				</cfquery>
-				<cfif #isBl.recordcount# is 0>
-					<!--- re-create 2 --->
-					<cfquery name="prime" datasource="#Application.web_user#">
-						insert into bulkloader (
-							collection_object_id, 
-							institution_acronym,
-							collection_cde,
-							loaded) VALUES (
-							6,
-							'UAM',
-							'Crus',
-							'UAM CRUS TEMPLATE')
-					</cfquery>
-				<cfelse>
-					<!--- see if it's our template --->
-					<cfif #isBL.loaded# is not "UAM CRUS TEMPLATE">
-						<!--- shiyite - move the barged-in record and create template --->
-						<cfquery name="move" datasource="#Application.web_user#">
-							update bulkloader set collection_object_id = bulkloader_PKEY.nextval
-							where collection_object_id = 6
-						</cfquery>
-						<cfquery name="prime" datasource="#Application.web_user#">
-							insert into bulkloader (
-								collection_object_id, 
-								institution_acronym,
-								collection_cde,
-								loaded) VALUES (
-								6,
-								'UAM',
-								'Crus',
-								'UAM CRUS TEMPLATE')
-						</cfquery>			
-					</cfif>
-				</cfif>
-				<!-------------  UAM Bryozoan  ---------------------------->
-				<cfquery  name="isBL" datasource="#Application.web_user#">
-					select * from bulkloader where collection_object_id = 7
-				</cfquery>
-				<cfif #isBl.recordcount# is 0>
-					<!--- re-create 2 --->
-					<cfquery name="prime" datasource="#Application.web_user#">
-						insert into bulkloader (
-							collection_object_id, 
-							institution_acronym,
-							collection_cde,
-							loaded) VALUES (
-							7,
-							'UAM',
-							'Bryo',
-							'UAM BRYO TEMPLATE')
-					</cfquery>
-				<cfelse>
-					<!--- see if it's our template --->
-					<cfif #isBL.loaded# is not "UAM BRYO TEMPLATE">
-						<!--- shiyite - move the barged-in record and create template --->
-						<cfquery name="move" datasource="#Application.web_user#">
-							update bulkloader set collection_object_id = bulkloader_PKEY.nextval
-							where collection_object_id = 7
-						</cfquery>
-						<cfquery name="prime" datasource="#Application.web_user#">
-							insert into bulkloader (
-								collection_object_id, 
-								institution_acronym,
-								collection_cde,
-								loaded) VALUES (
-								7,
-								'UAM',
-								'Bryo',
-								'UAM BRYO TEMPLATE')
-						</cfquery>			
-					</cfif>
-				</cfif>
-				<!-------------  PSU Mammals  ---------------------------->
-				<cfquery  name="isBL" datasource="#Application.web_user#">
-					select * from bulkloader where collection_object_id = 8
-				</cfquery>
-				<cfif #isBl.recordcount# is 0>
-					<!--- re-create 2 --->
-					<cfquery name="prime" datasource="#Application.web_user#">
-						insert into bulkloader (
-							collection_object_id, 
-							institution_acronym,
-							collection_cde,
-							loaded) VALUES (
-							8,
-							'PSU',
-							'Mamm',
-							'PSU MAMM TEMPLATE')
-					</cfquery>
-				<cfelse>
-					<!--- see if it's our template --->
-					<cfif #isBL.loaded# is not "PSU MAMM TEMPLATE">
-						<!--- shiyite - move the barged-in record and create template --->
-						<cfquery name="move" datasource="#Application.web_user#">
-							update bulkloader set collection_object_id = bulkloader_PKEY.nextval
-							where collection_object_id = 8
-						</cfquery>
-						<cfquery name="prime" datasource="#Application.web_user#">
-							insert into bulkloader (
-								collection_object_id, 
-								institution_acronym,
-								collection_cde,
-								loaded) VALUES (
-								8,
-								'PSU',
-								'Mamm',
-								'PSU MAMM TEMPLATE')
-						</cfquery>			
-					</cfif>
-				</cfif>
-				<!-------------  UAM Herp  ---------------------------->
-				<cfquery  name="isBL" datasource="#Application.web_user#">
-					select * from bulkloader where collection_object_id = 9
-				</cfquery>
-				<cfif #isBl.recordcount# is 0>
-					<!--- re-create 2 --->
-					<cfquery name="prime" datasource="#Application.web_user#">
-						insert into bulkloader (
-							collection_object_id, 
-							institution_acronym,
-							collection_cde,
-							loaded) VALUES (
-							9,
-							'UAM',
-							'Herp',
-							'UAM HERP TEMPLATE')
-					</cfquery>
-				<cfelse>
-					<!--- see if it's our template --->
-					<cfif #isBL.loaded# is not "UAM HERP TEMPLATE">
-						<!--- shiyite - move the barged-in record and create template --->
-						<cfquery name="move" datasource="#Application.web_user#">
-							update bulkloader set collection_object_id = bulkloader_PKEY.nextval
-							where collection_object_id = 9
-						</cfquery>
-						<cfquery name="prime" datasource="#Application.web_user#">
-							insert into bulkloader (
-								collection_object_id, 
-								institution_acronym,
-								collection_cde,
-								loaded) VALUES (
-								9,
-								'UAM',
-								'Herp',
-								'UAM Herp TEMPLATE')
-						</cfquery>			
-					</cfif>
-				</cfif>
-				Welcome to the enter and edit unbulked data application, #client.username#.
-				<ul>
-					<li>Green Screen: You are entering data to a new record.</li>
-					<li>Blue Screen: you are editing an unloaded record that you've previously entered.</li>
-					<li>Yellow Screen: A record has been saved but has errors that must be corrected. Fix and save to continue.</li>
-				</ul>
-				<cfquery datasource="#Application.web_user#" name="theirLast">
-					select max(collection_object_id) theId from bulkloader where enteredby = '#client.username#'
-				</cfquery>
-				
-					What would you like to do?<br />
-					<form name="begin" method="post" action="DataEntry.cfm">
-						<input type="hidden" name="action" value="editEnterData" />
-						<select name="collection_object_id" size="1">
-							<cfif len(#theirLast.theId#) gt 0>
-								<option value="#theirLast.theId#">Start where you left off</option>
-							</cfif>
-							<option value="1">Enter a new UAM Mammal Record</option>
-							<option value="2">Enter a new MSB Mammal Record</option>
-							<option value="3">Enter a new MSB Bird Record</option>
-							<option value="4">Enter a new DGR Mamm Record</option>
-							<option value="5">Enter a new UAM Herb Record</option>
-							<option value="6">Enter a new UAM Crus Record</option>
-							<option value="7">Enter a new UAM Bryo Record</option>
-							<option value="8">Enter a new PSU Mamm Record</option>
-							<option value="9">Enter a new UAM Herp Record</option>
-						</select>
-						 <input type="submit" 
-						 	value="Enter Data" 
-							class="insBtn"
-							onmouseover="this.className='insBtn btnhov';this.focus();" 
-							onmouseout="this.className='insBtn'">	
-					</form>
-				</cfoutput>
-</cfif>
 
-
-	---->
 	
 </cfif>
 <!------------ editEnterData --------------------------------------------------------------------------------------------->
@@ -718,7 +215,7 @@ Some Totally Random String Data .....
 			</cfif>
 	</cfquery>
 	<cfquery name="ctnature" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select nature_of_id from ctnature_of_id
+		select nature_of_id from ctnature_of_id order by nature_of_id
 	</cfquery>
 	<!----
 	<cfquery name="ctGeog" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
@@ -726,53 +223,57 @@ Some Totally Random String Data .....
 	</cfquery>
 	---->
 	<cfquery name="ctunits" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-        select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS 
+        select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS order by orig_lat_long_units
      </cfquery>
 	 <cfquery name="ctflags" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-        select flags from ctflags 
+        select flags from ctflags order by flags
      </cfquery>
 	 <cfquery name="CTCOLL_OBJ_DISP" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-        select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP 
+        select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP order by coll_obj_DISPOSITION
      </cfquery>
 	 
 	  <cfquery name="cterror" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-      		select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS 
+      		select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS order by lat_long_error_units
       </cfquery>
 	   <cfquery name="ctdatum" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select datum from ctdatum 
+			select datum from ctdatum order by datum
       </cfquery>
        
 		<cfquery name="ctgeorefmethod" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-        select georefmethod from ctgeorefmethod
+        	select georefmethod from ctgeorefmethod order by georefmethod
         </cfquery>
 		<cfquery name="ctverificationstatus" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-        select verificationstatus from ctverificationstatus 
+        	select verificationstatus from ctverificationstatus order by verificationstatus
         </cfquery>
-		
+		<cfquery name="ctcollecting_source" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+        	select collecting_source from ctcollecting_source order by collecting_source
+        </cfquery>			
         <cfquery name="ctew" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-        select e_or_w from ctew 
+       		select e_or_w from ctew order by e_or_w
         </cfquery>
         <cfquery name="ctns" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-        select n_or_s from ctns 
+        	select n_or_s from ctns order by n_or_s
         </cfquery>
 		<cfquery name="ctOtherIdType" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT distinct(other_id_type) FROM ctColl_Other_id_type
 				<cfif len(#collection_cde#) gt 0>
 					WHERE collection_cde='#collection_cde#'
 				</cfif>
+				order by other_id_type
         </cfquery>
 		<cfquery name="ctSex_Cde" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT distinct(sex_cde) as sex_cde FROM ctSex_Cde
 				<cfif len(#collection_cde#) gt 0>
 					WHERE collection_cde='#collection_cde#'
 				</cfif>
+				order by sex_cde
         </cfquery>
 		<cfquery name="ctOrigElevUnits" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
         	select orig_elev_units from ctorig_elev_units
         </cfquery>
 		<cfquery name="ctbiol_relations" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
         	select BIOL_INDIV_RELATIONSHIP from ctbiol_relations
-		order by BIOL_INDIV_RELATIONSHIP
+			order by BIOL_INDIV_RELATIONSHIP
         </cfquery>
 		<cfquery name="ctPartName" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT distinct(part_name) FROM ctSpecimen_part_name
@@ -790,6 +291,7 @@ Some Totally Random String Data .....
 				<cfif len(#collection_cde#) gt 0>
 					WHERE collection_cde='#collection_cde#'
 				</cfif>
+				order by preserve_method
 		</cfquery>
 		<cfquery name="ctAttributeType" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select distinct(attribute_type) from ctattribute_type
@@ -802,13 +304,14 @@ Some Totally Random String Data .....
 			select length_units from ctLength_Units
 		</cfquery>
 		<cfquery name="ctWeight_Units" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select Weight_Units from ctWeight_Units
+			select Weight_Units from ctWeight_Units order by weight_units
 		</cfquery>
 		<cfquery name="ctattribute_type" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT attribute_type FROM ctattribute_type 
 		<cfif len(#collection_cde#) gt 0>
 				WHERE collection_cde='#collection_cde#'
 		</cfif>
+		order by attribute_type
 </cfquery>
 <cfquery name="ctCodes" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select 
@@ -879,7 +382,6 @@ Some Totally Random String Data .....
 	<input type="hidden" name="institution_acronym" value="#institution_acronym#" id="institution_acronym">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#"  id="collection_object_id"/>  
 	<input type="hidden" name="loaded" value="waiting approval"  id="loaded"/>
-	<input type="hidden" name="collecting_source" value="wild caught"  id="collecting_source"/>  
 	<table cellpadding="0" cellspacing="0" class="fs"><!--- cat item IDs --->
 		<tr>
 			<td valign="top">
@@ -907,9 +409,16 @@ Some Totally Random String Data .....
 						<span class="f11a">#client.CustomOtherIdentifier#</span>
 							<input type="hidden" name="other_id_num_type_5" value="#client.CustomOtherIdentifier#" id="other_id_num_type_5" />
 							<input type="text" name="other_id_num_5" value="#other_id_num_5#" 
-								size="6"
+								size="8"
 								id="other_id_num_5" class="d11a">
-					</cfif>
+							<span id="rememberLastId">
+							<cfif isdefined("session.rememberLastOtherId") and #session.rememberLastOtherId# is 1>
+								<span class="infoLink" onclick="rememberLastOtherId(0)">Nevermind</span>
+							<cfelse>
+								<span class="infoLink" onclick="rememberLastOtherId(1)">Increment this</span>
+							</cfif>
+						</cfif>
+						</span>
 					<span class="f11a">Accn</span>
 						<input type="text" name="accn" value="#accn#" size="13"
 						class="d11a reqdClr" id="accn" onchange="isGoodAccn();">
@@ -1281,7 +790,7 @@ Some Totally Random String Data .....
 					<span class="infoLink" 
 						onclick="document.getElementById('verbatim_locality').value=document.getElementById('spec_locality').value;">
 						Use Specloc
-					</span
+					</span>
 				</td>
 			</tr>			
 			<tr>
@@ -1350,11 +859,35 @@ Some Totally Random String Data .....
 			<tr>
 				<td align="right"><span class="f11a">Coll. Meth.:</span></td>
 				<td>
-					<input type="text" 
-						name="collecting_method" 
-						class="d11a" 
-						value="#collecting_method#"
-						id="collecting_method">
+					<table cellspacing="0" cellpadding="0">
+						<tr>
+							<td>
+								<input type="text" 
+									name="collecting_method" 
+									class="d11a" 
+									value="#collecting_method#"
+									id="collecting_method">
+							</td>
+							<td align="right"><span class="f11a">Coll. Src.:</span></td>
+							<td>
+								<cfif len(#collecting_source#) gt 0>
+									<cfset thisCollSrc=#collecting_source#>
+								<cfelse>
+									<cfset thisCollSrc="wild caught">
+								</cfif>
+								<select name="collecting_source" 
+									size="1" 
+									id="collecting_source"
+									class="d11a reqdClr">										
+									<cfloop query="ctcollecting_source">
+										<option 
+											<cfif #collecting_source# is #thisCollSrc#> selected </cfif>
+											value="#collecting_source#">#collecting_source#</option>
+									</cfloop>
+									</select>
+							</td>
+						</tr>
+					</table>
 				</td>
 			</tr>
 			<tr>
@@ -1365,6 +898,16 @@ Some Totally Random String Data .....
 						class="d11a"
 						size="50"
 						id="HABITAT_DESC" value="#HABITAT_DESC#">
+				</td>
+			</tr>
+			<tr>
+				<td align="right"><span class="f11a">Associated&nbsp;Species</span></td>
+				<td>
+					<input type="text"  
+							name="associated_species" 
+						class="d11a"
+						size="50"
+						id="associated_species" value="#associated_species#">
 				</td>
 			</tr>
 			<tr>
@@ -3710,7 +3253,20 @@ Some Totally Random String Data .....
 	</script>
 </cfif>
 --->
-
+<!--- after all else is loaded, see if we're carrying an ID over --->
+<cfif isdefined("session.rememberLastOtherId") and #session.rememberLastOtherId# is 1>
+	<cfset cVal="">
+	<cfif isnumeric(#other_id_num_5#)>
+		<cfset cVal = #other_id_num_5# + 1>
+	<cfelseif isnumeric(right(other_id_num_5,len(other_id_num_5)-1))>
+		<cfset temp = (right(other_id_num_5,len(other_id_num_5)-1)) + 1>
+		<cfset cVal = left(other_id_num_5,1) & temp>
+	</cfif>
+	<script>
+		//alert('carry');
+		var cid = document.getElementById('other_id_num_5').value='#cVal#';
+	</script>
+</cfif>
 </cfoutput>
 </cfif>
 
@@ -3818,9 +3374,6 @@ Some Totally Random String Data .....
 	<cflocation url="#theLink#">
 	<cflocation url="">
 </cfoutput>
-
 </cfif>
-
 <DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>
 <cfinclude template="/includes/_footer.cfm">
-<!----------------------------------------------------------------------------------------->

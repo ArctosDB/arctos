@@ -2,78 +2,84 @@
 <cfset This.name = "Arctos">
 <cfset This.SessionManagement="True">
 <cfset This.ClientManagement="True">
+
 <cffunction name="onError">
     <cfargument name="exception" required="true">
     <cfargument name="EventName" type="String" required="true">
-
+	<cfset showErr=1>
     <cfif isdefined("exception.type") and exception.type eq "coldfusion.runtime.AbortException">
-        <cfreturn/>
-    </cfif>
-	<cfif StructKeyExists(form,"C0-METHODNAME")>
-		<!--- cfajax calling cfabort --->
+        <cfset showErr=0>
 		<cfreturn/>
 	</cfif>
-
-
-	<table cellpadding="10">
-	<tr><td valign="top"><img src="/images/blowup.gif"></td>
-	<td>
-    <font color="##FF0000" size="+1"><strong>An error occurred while processing this page!</strong></font>
-		
-	<p>This message has been logged. Please submit a <a href="/info/bugs.cfm">bug report</a> 
-	with any infomation that might help us to resolve this problem.</p>
-	
-		
-	
-</td></tr>
-</table>
-<!---
-
-<cfdump var="#exception#" label="exception">
-<cfdump var="#client#" label="client">
-<cfdump var="#form#" label="form">
-<cfdump var="#url#" label="url">
---->
-
-Exceptions:
-		<hr>
-		<cfdump var="#exception#" label="exception">
-		<hr>
-		Client Dump:
-		<hr>
-		<cfdump var="#client#" label="client">
-		<hr>
-		Form Dump:
-		<hr>
-		<cfdump var="#form#" label="form">
-		<hr>
-		URL Dump:
-		<hr>
-		<cfdump var="#url#" label="url">
-		
-			<cfsavecontent variable="errortext">
-Exceptions:
-		<hr>
-		<cfdump var="#exception#" label="exception">
-		<hr>
-		Client Dump:
-		<hr>
-		<cfdump var="#client#" label="client">
-		<hr>
-		Form Dump:
-		<hr>
-		<cfdump var="#form#" label="form">
-		<hr>
-		URL Dump:
-		<hr>
-		<cfdump var="#url#" label="url">
-
-</cfsavecontent>
-
-<cfmail subject="Error" to="#Application.PageProblemEmail#" from="SomethingBroke@#Application.fromEmail#" type="html">
-		#errortext#
-	</cfmail>
-<cfreturn/>
+	<cfif StructKeyExists(form,"C0-METHODNAME")>
+		<!--- cfajax calling cfabort --->
+		<cfset showErr=0>
+		<cfreturn/>
+	</cfif>
+	<cfif #showerr# is 1>
+		<cfsavecontent variable="errortext">
+			Exceptions:
+			<hr>
+			<cfdump var="#exception#" label="exception">
+			<hr>
+			Client Dump:
+			<hr>
+			<cfdump var="#client#" label="client">
+			<hr>
+			Form Dump:
+			<hr>
+			<cfdump var="#form#" label="form">
+			<hr>
+			URL Dump:
+			<hr>
+			<cfdump var="#url#" label="url">
+			CGI Dump:
+			<hr>
+			<cfdump var="#CGI#" label="CGI">
+			<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and #len(CGI.HTTP_X_Forwarded_For)# gt 0>
+				<CFSET ipaddress="#CGI.HTTP_X_Forwarded_For#">
+			<CFELSEif  isdefined("CGI.Remote_Addr") and #len(CGI.Remote_Addr)# gt 0>
+				<CFSET ipaddress="#CGI.Remote_Addr#">
+			<cfelse>
+				<cfset ipaddress='unknown'>
+			</CFIF>
+			<p>ipaddress: <cfoutput>#ipaddress#</cfoutput></p>
+		</cfsavecontent>
+		<cfif isdefined("client.username") and #client.username# is "fselm10" or
+			#client.username# is "brandy" or
+			#client.username# is "dlm" or
+			#client.username# is "sumy" or
+			#client.username# is "Rhiannon" or
+				#client.username# is "dusty">
+			<cfoutput>
+				#errortext#
+			</cfoutput>		
+		</cfif>
+		<cfmail subject="Error" to="#Application.PageProblemEmail#" from="SomethingBroke@#Application.fromEmail#" type="html">
+			#errortext#
+		</cfmail>	
+		<table cellpadding="10">
+			<tr>
+				<td valign="top">
+					<img src="/images/blowup.gif">
+				</td>
+				<td>
+    				<font color="##FF0000" size="+1"><strong>An error occurred while processing this page!</strong></font>
+					<cfif isdefined("exception.message")>
+						<br><i><cfoutput>#exception.message#
+						<cfif isdefined("exception.detail")>
+							<br>#exception.detail#
+						</cfif>
+						</cfoutput></i>
+					</cfif>
+					<p>This message has been logged. Please submit a <a href="/info/bugs.cfm">bug report</a> 
+					with any infomation that might help us to resolve this problem.</p>
+				</td>
+			</tr>
+		</table>
+		<cfinclude template="/includes/_footer.cfm">
+	</cfif>
+	<cfreturn/>
 </cffunction>
 
 <!-------------------------->
@@ -85,7 +91,6 @@ Exceptions:
 	<cfset Application.user_login="user_login">
 	<cfset Application.max_pw_age = 90>
 	<cfset Application.fromEmail = "#HTTP_HOST#">
-	
 	<cfset Application.header_color = "##E7E7E7">
 	<cfset Application.header_image = "/images/genericHeaderIcon.gif">
 	<cfset Application.collection_url = "/">
@@ -98,7 +103,7 @@ Exceptions:
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
 	<cfset Application.fromEmail = "#HTTP_HOST#">
 		
-	<cfif #cgi.HTTP_HOST# contains "database.museum">
+	<cfif #cgi.HTTP_HOST# contains "database.museum">		
 		<cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/var/www/html">
 		<cfset Application.SpecimenDownloadPath = "/var/www/html/download/">
@@ -139,7 +144,6 @@ Exceptions:
 		<cfset Application.collection_link_text = "Collections Database">
 		<cfset Application.institution_url = "http://mvz.berkeley.edu">
 		<cfset Application.institution_link_text = "MUSEUM OF VERTEBRATE ZOOLOGY">
-		
 		<cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/users/mvzarctos/tomcat/webapps/cfusion">
 		<cfset Application.SpecimenDownloadPath = "/users/mvzarctos/tomcat/webapps/cfusion/download/">
@@ -155,12 +159,12 @@ Exceptions:
 		<cfset Application.Google_uacct = "UA-936774-1">
 		<cfset Application.InstitutionBlurb = "<a href=""#Application.serverRootUrl#"">Collections Database, Museum of Vertebrate Zoology, UC Berkeley</a>">
 		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
-		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
+		<cfset Application.PageProblemEmail = "dustymc@gmail.com,lkv@berkeley.edu,ccicero@berkeley.edu">
 	</cfif>
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
-<cffunction name="onRequestStart" returnType="boolean" output="false">	
+<cffunction name="onRequestStart" returnType="boolean" output="false">
 		<cfset Client.SpecimenDownloadFileName = "ArctosData_#cfid##cftoken#.txt">
 		<cfif not isdefined("client.target")>
 			<cfset client.target="_self">

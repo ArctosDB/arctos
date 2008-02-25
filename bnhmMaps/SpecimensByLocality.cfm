@@ -75,13 +75,21 @@ Retrieving map data - please wait....
 				data
 			where
 				locality_id = #locality_id#
+			group by
+				collection_object_id,
+				cat_num,
+				scientific_name,
+				collection
 		</cfquery>
 		<cfset specLink = "">
 		<cfloop query="sdet">
+			<cfset rColn = replace(collection," ","&nbsp;","all")>
+			<cfset rName = replace(scientific_name," ","&nbsp;","all")>
+			<cfset oneSpecLink = '<a href="#Application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="_blank">#rColn#&nbsp;#cat_num#&nbsp;#rName#</a>'>
 			<cfif len(#specLink#) is 0>
-				<cfset specLink = "#collection# #cat_num# #scientific_name#">
+				<cfset specLink = oneSpecLink>
 			<cfelse>
-				<cfset specLink = "#specLink#<br>#collection# #cat_num# #scientific_name#">
+				<cfset specLink = '#specLink#<br>#oneSpecLink#'>
 			</cfif>
 		</cfloop>
 		<cfset relInfo='<a href="#Application.ServerRootUrl#/editLocality.cfm?locality_id=#locality_id#" target="_blank">#spec_locality#</a>'>

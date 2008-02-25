@@ -71,7 +71,29 @@ A publication might also be linked to the project from which it resulted.  We ma
 	
 	</td>
     <td>
-	<input type="checkbox" name="onlyCitePubs" value="1"></td>
+	<input type="checkbox" name="onlyCitePubs" value="1">
+	</td>
+</tr>
+<tr>
+	<td align="right">
+		Cites&nbsp;Collection:
+	</td>
+	<cfquery name="ctColl" datasource="#Application.web_user#">
+		select collection,collection_id from collection order by collection_id
+	</cfquery>
+	<td>
+		<cfoutput>
+		<select name="collection_id" id="collection_id" size="1">
+			<option value="">All</option>
+			<cfloop query="ctColl">
+				<option 
+					<cfif isdefined("client.exclusive_collection_id") and
+						#client.exclusive_collection_id# is #collection_id#> selected="selected"</cfif>
+					value="#collection_id#">#collection#</option>
+			</cfloop>
+		</select>
+		</cfoutput>
+	</td>
   </tr>
   
   

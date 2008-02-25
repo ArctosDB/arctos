@@ -8,7 +8,7 @@
 
 <cfquery name="makeEdit" datasource="#Application.uam_dbo#">
 	UPDATE coll_object SET
-		last_edited_person_id = #client.agent_id#,
+		last_edited_person_id = #client.myAgentId#,
 		last_edit_date = '#thisDate#'
 	WHERE
 		collection_object_id = #collection_object_id#

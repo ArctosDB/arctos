@@ -176,122 +176,119 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 
 
 <cfif #nogo# is "false">
-
+<br>going--
+<br>good id: #bads.related_agent_id#
+<br>bad id: #bads.agent_id#
+<cfflush>
 	<!---- names not used anywhere, go ahead and make necessary switches ---->
 	
 	<cfquery name="collector" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		UPDATE collector SET agent_id = #bads.related_agent_id#
 		WHERE agent_id = #bads.agent_id#
 	</cfquery>
-	
+	got collector<br><cfflush>
 	<cfquery name="attributes" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		update attributes SET determined_by_agent_id=#bads.related_agent_id#
 		where determined_by_agent_id = #bads.agent_id#
 	</cfquery>
-	
+	got attributes<br><cfflush>
 	<cfquery name="binary_object" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		UPDATE 
 		binary_object SET made_agent_id=#bads.related_agent_id#
 		where made_agent_id=#bads.agent_id#
 	</cfquery>
-		
+		got binobj<br><cfflush>
 	<cfquery name="encumbrance" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		UPDATE encumbrance SET encumbering_agent_id = #bads.related_agent_id#
 		where encumbering_agent_id = #bads.agent_id#
 	</cfquery>
-	
+	got encumbrance<br><cfflush>
 	<cfquery name="identification" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		update identification set
 		id_made_by_agent_id = #bads.related_agent_id#
 		where id_made_by_agent_id = #bads.agent_id#
 	</cfquery>
+	got ID<br><cfflush>
 	<cfquery name="identification_agent" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		update identification_agent set
 		agent_id = #bads.related_agent_id#
 		where agent_id = #bads.agent_id#
 	</cfquery>
+	got ID agnt<br><cfflush>
 	<cfquery name="lat_long" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		update
 		lat_long set 
 		determined_by_agent_id = #bads.related_agent_id# where
 		determined_by_agent_id = #bads.agent_id#
 	</cfquery>
-	
+	got latlong<br><cfflush>
 		
 	<cfquery name="permit_to" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		update permit set
 			ISSUED_TO_AGENT_ID = #bads.related_agent_id# where
 			ISSUED_TO_AGENT_ID = #bads.agent_id#
 	</cfquery>
-	
+	update trans_agent set
+			TRANS_AGENT_ID = #bads.related_agent_id# where
+			TRANS_AGENT_ID = #bads.agent_id#killagent<CFFLUSH>
+	<cfquery name="trans_agent" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		update trans_agent set
+			AGENT_ID = #bads.related_agent_id# where
+			AGENT_ID = #bads.agent_id#
+	</cfquery>
+	got tagent<br><cfflush>
 	<cfquery name="permit_by" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		update permit set
 			ISSUED_by_AGENT_ID = #bads.related_agent_id# where
 			ISSUED_by_AGENT_ID = #bads.agent_id#
 	</cfquery>
+	got permit<br><cfflush>
 	<cfquery name="shipment" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		update shipment set 
 		PACKED_BY_AGENT_ID = #bads.related_agent_id# where
 		PACKED_BY_AGENT_ID = #bads.agent_id#
 	</cfquery>
-	
-	<cfquery name="trans_auth" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-		update trans set
-		AUTH_AGENT_ID = #bads.related_agent_id# where
-		AUTH_AGENT_ID = #bads.agent_id#
-	</cfquery>
-	
-	<cfquery name="trans_ent" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-		update trans set
-		TRANS_ENTERED_AGENT_ID = #bads.related_agent_id# where
-		TRANS_ENTERED_AGENT_ID = #bads.agent_id#
-	</cfquery>
-	
-	<cfquery name="trans_rec" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-		update trans set
-		RECEIVED_AGENT_ID = #bads.related_agent_id# where
-		RECEIVED_AGENT_ID = #bads.agent_id#
-	</cfquery>
-	
+	got shipment<br><cfflush>
 	<cfquery name="entered" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		update coll_object set
 		ENTERED_PERSON_ID = #bads.related_agent_id# where
 		ENTERED_PERSON_ID = #bads.agent_id#
 	</cfquery>
-	
+	got collobject<br><cfflush>
 	<cfquery name="last_edit" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		update coll_object set
 		LAST_EDITED_PERSON_ID = #bads.related_agent_id# where
 		LAST_EDITED_PERSON_ID = #bads.agent_id#
 	</cfquery>
-	
+	got collobjed<br><cfflush>
 	<cfquery name="loan_item" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		update loan_item set
 		RECONCILED_BY_PERSON_ID = #bads.related_agent_id# where
 		RECONCILED_BY_PERSON_ID = #bads.agent_id#
 	</cfquery>
+	got loan<br><cfflush>
 	<!---
 	<cftransaction action="commit">
 	---->
 	<cfquery name="related" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		DELETE FROM agent_relations WHERE agent_id = #bads.agent_id# OR related_agent_id = #bads.agent_id#
 	</cfquery>
-	
+	del agntreln<br><cfflush>
 	
 	<cfquery name="killnames" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		DELETE FROM agent_name WHERE agent_id = #bads.agent_id#
 	</cfquery>
-	
+	del agntname<br><cfflush>
 	
 	
 	<cfquery name="killperson" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		DELETE FROM person WHERE person_id = #bads.agent_id#
 	</cfquery>
-	
+	del person<br><cfflush>
 	<cfquery name="killagent" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		DELETE FROM agent WHERE agent_id = #bads.agent_id#
 	</cfquery>
-	
+	del agnt<br><cfflush>
 </cfif>
 </cftransaction>
 

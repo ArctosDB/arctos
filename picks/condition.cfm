@@ -1,4 +1,11 @@
 <cfinclude template="/includes/_pickHeader.cfm">
+	<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
+	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+		var cal1 = new CalendarPopup("theCalendar");
+		cal1.showYearNavigation();
+		cal1.showYearNavigationInput();
+	</SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
 <cfoutput>
 <cfif #action# is "nothing">
 <!---- see what we're getting a condition of ---->
@@ -41,8 +48,6 @@
 			specimen_part.collection_object_id = #collection_object_id#
 	</cfquery>
 </cfif>
-<i><font size="-1">Changes made on this form may not show up on the form you came from until you refresh that form.</font></i>
-<br>
 <strong>Condition History of #itemDetails.institution_acronym# #itemDetails.collection_cde# #itemDetails.cat_num#
 (<i>#itemDetails.scientific_name#</i>) #itemDetails.part_name#</strong>
 <br>Insert a condition determination:
@@ -53,9 +58,9 @@
 		<tr>
 			<td valign="top">
 				<font size="-2">Determined By<br>
-				</font>				<input type="hidden" name="determined_agent_id"
+				</font><input type="hidden" name="determined_agent_id" id="determined_agent_id" value="#client.myAgentId#">
 				
-				<input type="text" name="agent_name"class="reqdClr" 
+				<input type="text" name="agent_name"class="reqdClr" value="#client.username#"
 		onchange="getAgent('determined_agent_id','agent_name','newCondition',this.value); return false;"
 		 onKeyPress="return noenter(event);">
 				
@@ -63,17 +68,22 @@
 			<td valign="top">
 				<font size="-2">Determined Date<br>
 				</font>
-				<input type="text" name="determined_date"  size="9">
+				<input type="text" name="determined_date"  size="9" value="#dateformat(now(),"dd mmm yyyy")#">
+				<img src="images/pick.gif" 
+						class="likeLink" 
+						border="0" 
+						alt="[calendar]"
+						name="anchor1"
+						id="anchor1"
+						onClick="cal1.select(document.newCondition.determined_date,'anchor1','dd-MMM-yyyy'); return false;"/>					
+					
 			</td>
 			<td>
 				<font size="-2">Condition<br>
 				</font>
 				<textarea name="condition" rows="2" cols="40" class="reqdClr"></textarea>
 			</td>
-		</tr>
-		
-		<tr>
-			<td colspan="4" align="center">
+				<td align="center">
 			 <input type="submit" 
 	value="Save Condition" 
 	class="insBtn"
@@ -83,7 +93,7 @@
 	</form>
 	</table>
 	
-Condition History:
+Condition History (<span style="background-color:green">Green is current</span>)
 <cfquery name="cond" datasource="#Application.web_user#">
 	select 
 		object_condition_id,
@@ -108,17 +118,7 @@ Condition History:
 		<td><strong>Date</strong></td>
 		<td><strong>Condition</strong></td>
 	</tr>
-	<tr>
-		<td>
-			unknown
-		</td>
-		<td>
-			Current
-		</td>
-		<td>
-			#currentCond.condition#
-		</td>
-	</tr>
+	
 	<cfset i=1>
 	<form name="condn" method="post" action="condition.cfm">
 		<input type="hidden" name="action" value="saveEdits">
@@ -127,7 +127,7 @@ Condition History:
 	<cfloop query="cond">
 		<input type="hidden" name="object_condition_id_#i#" value="#object_condition_id#">
 			
-		<tr>
+		<tr <cfif #currentCond.condition# is #condition#> style="background-color:green;"></cfif>
 			<td>
 				<cfif len(#agent_name#) gt 0>
 					<cfset thisAgent = #agent_name#>
@@ -266,5 +266,5 @@ Condition have been saved. Reload the page you came from to see the changes.
 ---->
 
 </cfoutput>
-
+<DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>
 <cfinclude template="/includes/_pickFooter.cfm">

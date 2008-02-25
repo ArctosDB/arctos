@@ -55,8 +55,8 @@
 	<!--- handle collection-specific links to this page --->
 	<cfoutput>
 		<cfif len(#exclusive_collection_id#) gt 0>
-			<cfset sql = "INSERT INTO cf_users (user_id, username, password,exclusive_collection_id,PW_CHANGE_DATE) VALUES
-			(#nextUserID.nextid#, '#username#', '#hash(password)#',#exclusive_collection_id#),sysdate">
+			<cfset sql = "INSERT INTO cf_users (user_id, username, password,exclusive_collection_id,PW_CHANGE_DATE,last_login) VALUES
+			(#nextUserID.nextid#, '#username#', '#hash(password)#',#exclusive_collection_id#,sysdate,sysdate)">
 			<cfset client.exclusive_collection_id = "#exclusive_collection_id#">
 		<cfelse>
 			<cfset sql = "INSERT INTO cf_users (user_id, username, password,PW_CHANGE_DATE,last_login) VALUES

@@ -1,4 +1,5 @@
-<cfif #Action# is "nothing">
+<cfinclude template="/includes/_frameHeader.cfm">
+<cfif #action# is "nothing">
 <cfdocument 
 	format="pdf"
 	pagetype="letter"
@@ -11,35 +12,7 @@
 	
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 
-
-<cfquery name="getLoan" datasource="#Application.web_user#">
-        SELECT
-                authAgent.agent_name  authAgentName,
-                trans_date,
-                recAgent.agent_name  recAgentName,
-                return_due_date,
-                nature_of_material,
-                trans_remarks,
-                loan_instructions,
-                loan_description,
-                loan_type,
-                loan_number,
-                loan_status,
-                loan_instructions,
-                authAddr.job_title  authorizerTitle,
-                authAddr.formatted_addr  authorizerAddr,
-                authAddrEmail.address  authEmail
-        FROM
-                loan
-                inner join trans ON (loan.transaction_id = trans.transaction_id)
-                inner join preferred_agent_name  recAgent ON (trans.received_agent_id = recAgent.agent_id)
-                inner join preferred_agent_name  authAgent ON (trans.auth_agent_id = authAgent.agent_id)
-               inner join addr authAddr ON (trans.auth_agent_id = authAddr.agent_id)
-               inner join electronic_address  authAddrEmail ON (trans.auth_agent_id = authAddrEmail.agent_id)
-        WHERE
-                loan.transaction_id=#transaction_id# and
-                authAddrEmail.address_type ='e-mail'
-</cfquery>
+<cf_getLoanFormInfo>
 
 <cfoutput>
 	<cfquery name="shipDate" datasource="#Application.web_user#">

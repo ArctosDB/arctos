@@ -1,5 +1,4 @@
 <cfinclude template="/includes/_frameHeader.cfm">
- 
 <cfquery name="ctNameType" datasource="#Application.web_user#">
 	select agent_name_type as agent_name_type from ctagent_name_type
 </cfquery>
@@ -23,7 +22,6 @@
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
 <cfif #Action# is "newOtherAgent">
- <!--- no security --->
 <cfoutput>
 <form name="prefdName" action="editAllAgent.cfm" method="post" target="_person">
 	<input type="hidden" name="Action" value="makeNewAgent">
@@ -48,7 +46,6 @@
 
 <!------------------------------------------------------------------------------------------------------------->
 <cfif #Action# is "newPerson">
- <!--- no security --->
 	<form name="newPerson" action="editAllAgent.cfm" method="post" target="_person">
 		<input type="hidden" name="Action" value="insertPerson">
 		<br>Prefix: 
@@ -164,12 +161,7 @@
 			<cfif len(#person.agent_remarks#) gt 0>
 				<br>#person.agent_remarks#
 			</cfif>
-			<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#" target="#client.target#">Agent Activity</a>
-			<cfif  #client.rights# does not contain "update">
-				<br><b><font size="-1">You are not a user who may modify agents, so some buttons 
-     				are not present. Don't try to change anything other than addresses on this 
-     				form.</font></b> 
-    		</cfif>
+			<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#" target="_self">Agent Activity</a>
 		</td>
 	</tr>
 </cfoutput>
@@ -375,8 +367,6 @@
 				<td colspan="4"><input type="text" value="#agent_remarks#" name="agent_remarks" size="50"></td>
 			</tr>
 		</table>
-	
-<cfif #client.rights# contains "update">	
 <tr>
 	<td align="center">
 		<input type="button" 
@@ -387,7 +377,6 @@
 				onClick="editPerson.Action.value='editPerson';submit();">
 	</td>
 </tr>
-</cfif>
 </form>
 </cfoutput>
 </cfif>
@@ -465,10 +454,7 @@
 						<input type="hidden" name="member_id">
 						<input type="text" name="group_member" class="reqdClr" 
 							onchange="getAgent('member_id','group_member','newGroupMember',this.value); return false;"
-		 					onKeyPress="return noenter(event);"
-							<cfif #client.rights# does not contain "update">
-								readonly="yes"
-							</cfif>>
+		 					onKeyPress="return noenter(event);">
 					</td>
 					
 					<td>
@@ -525,7 +511,6 @@
 						</cfif>
 					</select>
 				</td>
-				<cfif #client.rights# contains "update">
 				<td>
 					<input type="button" 
 						value="Update" 
@@ -548,7 +533,6 @@
 						onmouseout="this.className='insBtn'"
 						onClick="newName.agent_name.value='#names.agent_name#';newName.agent_name_type.value='#names.agent_name_type#'">
 				</td>
-				</cfif>
 			</tr>
 			</form>
 			<cfset name = #name# + 1>
@@ -580,7 +564,6 @@
 						</cfloop>
 					  </select>
 				</td>
-				<cfif #client.rights# contains "update">
 				<td>
 					<input type="submit" 
 						value="Create" 
@@ -588,7 +571,6 @@
 						onmouseover="this.className='insBtn btnhov'"
 						onmouseout="this.className='insBtn'">
 				</td>
-				</cfif>
 			</tr>
 			</form>
 			</cfoutput>
@@ -643,13 +625,8 @@
 				<td>
 					 <input type="text" name="related_agent" class="reqdClr" value="#agent_name#"
 						onchange="getAgent('newRelatedAgentId','related_agent','agentRelations#i#',this.value); return false;"
-						onKeyPress="return noenter(event);"
-						<cfif #client.rights# does not contain "update">
-							readonly="yes"
-						</cfif>
-						>
+						onKeyPress="return noenter(event);">
 				</td>
-				<cfif #client.rights# contains "update">
 				<td>
 					<input type="button" 
 						value="Save Change" 
@@ -664,7 +641,6 @@
 						onmouseout="this.className='delBtn'"
 						onClick="agentRelations#i#.Action.value='deleteRelated';confirmDelete('agentRelations#i#');">
 				</td>
-		 		</cfif>
 			</tr>
 			</form>
 			<cfset i=#i#+1>
@@ -698,13 +674,8 @@
 				<td>
 					<input type="text" name="related_agent" class="reqdClr"
 						onchange="getAgent('newRelatedAgentId','related_agent','newRelationship',this.value); return false;"
-						onKeyPress="return noenter(event);"
-						<cfif #client.rights# does not contain "update">
-							readonly="yes"
-						</cfif>
-						>
+						onKeyPress="return noenter(event);">
 				</td>					
-				<cfif #client.rights# contains "update">
 				<td>
 					<input type="submit" 
 						value="Save Change" 
@@ -712,7 +683,6 @@
 						onmouseover="this.className='savBtn btnhov'"
 						onmouseout="this.className='savBtn'">
 				</td>
-				</cfif>				
 			</tr>
 			</form>
 			</cfoutput>
@@ -1593,7 +1563,6 @@ Edit This Address:
 
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "addRelationship">
- <!--- no security --->
 	<cfoutput>
 	<cfif len(#newRelatedAgentId#) is 0>
 	Pick an agent, then click the button.
@@ -1624,7 +1593,6 @@ Edit This Address:
 
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "deleteRelated">
- <!--- no security --->
 	<cfoutput>
 	<cfquery name="killRel" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		delete from agent_relations where
@@ -1656,7 +1624,6 @@ Edit This Address:
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "changeRelated">
- <!--- no security --->
 	<cfoutput>
 	<!----
 	
@@ -1695,7 +1662,6 @@ UPDATE agent_relations SET
 
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "newName">
- <!--- no security --->
 	<cfoutput>
 	
 	<!--- get next agent_id --->
@@ -1721,7 +1687,6 @@ UPDATE agent_relations SET
 
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "updateName">
- <!--- no security --->
 	<cfoutput>
 		<cfquery name="updateName" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 			UPDATE agent_name SET agent_name = '#agent_name#', agent_name_type='#agent_name_type#'
@@ -1736,7 +1701,6 @@ UPDATE agent_relations SET
 
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "deleteName">
- <!--- no security --->
 	<cfoutput>
 	
 	<cfquery name="delId" datasource="#Application.web_user#">
@@ -1771,7 +1735,6 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
 
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "deletePerson">
- <!--- no security --->
 
 	
 	<cfoutput>
@@ -1801,7 +1764,6 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
 
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "editPerson">
- <!--- no security --->
 	<cfoutput>
 		<cftransaction>
 		<cfquery name="editPerson" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
@@ -1914,7 +1876,6 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
 
 <cfif #action# is "insertPerson">
 
- <!--- no security --->
 	<cfoutput>
 		<!--- we need at least a first or last name to proceed --->
 		<cfif len(#first_name#) is 0 AND len(#last_name#) is 0>
@@ -2085,7 +2046,6 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
 <cfif #Action# is "makeNewAgent">
- <!--- no security --->
 
 
 	<cfoutput>

@@ -447,7 +447,6 @@
 
 <!--------------------------------------------------------------------------------------------------->
 <cfif #Action# is "multi">
-<cfinclude template="/includes/_header.cfm">
 	<!--- edit IDs for a list of specimens passed in from specimenresults --->
 	<!--- no security --->
 <cfset title = "Edit Identification">

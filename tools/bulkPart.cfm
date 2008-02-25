@@ -155,9 +155,9 @@
 						VALUES (
 							#thisPartId#,
 							'SP',
-							#client.agent_id#,
+							#client.myAgentId#,
 							'#thisDate#',
-							#client.agent_id#,
+							#client.myAgentId#,
 							'#thisDisposition#',
 							#thisLotCount#,
 							'#thisCondition#',

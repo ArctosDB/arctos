@@ -50,16 +50,19 @@
 <cfquery name="r_d" datasource="#Application.web_user#">
 	select * from cf_spec_res_cols order by disp_order
 </cfquery>
-
-<!---
 <cfquery name="reqd" dbtype="query">
 	select * from r_d where category='required'
 </cfquery>
+
 <cfloop query="reqd">
-	<cfif not ListContainsNoCase(client.resultColumnList,display_value)>
-		<cfset client.resultColumnList = ListAppend(client.resultColumnList, display_value)>
+	<cfif not ListContainsNoCase(client.resultColumnList,COLUMN_NAME)>
+		<cfset client.resultColumnList = ListAppend(client.resultColumnList, COLUMN_NAME)>
 	</cfif>
 </cfloop>
+
+
+<!---
+
 ---->
 <cfset basSelect = " SELECT distinct #flatTableName#.collection_object_id">
 <cfif len(#Client.CustomOtherIdentifier#) gt 0>
@@ -135,7 +138,6 @@
 ---------------->
 
 <cfset thisTableName = "SearchResults_#cfid#_#cftoken#">	
-<hr>thisTableName: #thisTableName#<hr>
 		</cfoutput>
 <!--- try to kill any old tables that they may have laying around --->
 <cftry>
@@ -189,10 +191,9 @@
 	</div>
 	<cfabort>
 </cfif>
-
+<cfset collObjIdList = valuelist(summary.collection_object_id)>
 <script>
 	hidePageLoad();
-	getSpecResultsData(1,#client.displayrows#);
 </script>
 <cfquery name="mappable" datasource="#Application.web_user#">
 	select count(distinct(collection_object_id)) cnt from #thisTableName# where dec_lat is not null and dec_long is not null
@@ -240,6 +241,7 @@
 			</span>
 			<a href="bnhmMaps/kml.cfm?table_name=#thisTableName#">Google Earth/Maps</a>
 			<a href="SpecimenResultsHTML.cfm?#mapurl#" class="infoLink">&nbsp;&nbsp;&nbsp;Problems viewing this page? Click for HTML version</a>
+			&nbsp;&nbsp;&nbsp;<a class="infoLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a>	
 <div style="border:2px solid blue;">
 <cfif isdefined("transaction_id")>
 	<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
@@ -345,7 +347,6 @@
 		</td>
 		<td nowrap="nowrap">
 			<cfif summary.recordcount lt 1000 and (isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user"))>					
-				<cfset collObjIdList = valuelist(summary.collection_object_id)>
 				<label for="goWhere">Manage...</label>
 				<select name="goWhere" id="goWhere" size="1" target="#client.target#">
 					<option value="Encumbrances.cfm?collection_object_id=#collObjIdList#">
@@ -419,6 +420,10 @@
 </table>
 </div>
 </form>
-</cfoutput>
+
 <div id="resultsGoHere"></div>
+<script>
+	getSpecResultsData(1,#client.displayrows#);
+</script>
+</cfoutput>
 <cf_get_footer collection_id="#exclusive_collection_id#">

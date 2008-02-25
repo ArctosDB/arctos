@@ -87,13 +87,11 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-		These data are <a href="javascript:void(0);" 
-							onClick="getLegal('copyright'); return false;"
-							onMouseOver="self.status='Click for copyright.';return true;" 
-	onmouseout="self.status='';return true;">copyrighted</a> and may not be 
-repackaged, redistributed, or sold without prior written consent from 
-the Museum.
-
+		These data are intended for use in education and research and may not be repackaged, redistributed, or sold in any form 
+		without prior written consent from the Museum. Those wishing to include these data in analyses or reports must acknowledge 
+		the provenance of the original data and notify the appropriate curator prior to publication. These are secondary data, and
+		 their accuracy is not guaranteed. Citation of the data is no substitute for examination of specimens. The Museum and its staff 
+		 are not responsible for loss or damages due to use of these data.
 		</td>
 		
 	</tr>
@@ -207,8 +205,15 @@ do not agree</font>.</a>
 	<!--- if they agree to the terms, send them to their download --->
 	<cfif #agree# is "yes">
 		<cfquery name="cols" datasource="#Application.web_user#">
-			 select column_name from user_tab_cols where 
-			 upper(table_name)=upper('SEARCHRESULTS_#CFID#_#CFTOKEN#') order by internal_column_id
+			select 
+				user_tab_cols.column_name 
+			from 
+				user_tab_cols
+				left outer join 
+					cf_spec_res_cols on 
+					(upper(user_tab_cols.column_name) = upper(cf_spec_res_cols.column_name)) 
+			where 
+				upper(table_name)=upper('#tableName#') order by DISP_ORDER
 		</cfquery>
 		<cfquery name="getData" datasource="#Application.web_user#">
 			select * from #tableName#
@@ -227,6 +232,12 @@ do not agree</font>.</a>
 		<cfif ListFindNoCase(ac,'TAXON_NAME_ID')>
 			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'TAXON_NAME_ID'))>
 		</cfif>
+		<cfif ListFindNoCase(ac,'COLLECTION_CDE')>
+			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'COLLECTION_CDE'))>
+		</cfif>
+		<cfif ListFindNoCase(ac,'INSTITUTION_ACRONYM')>
+			<cfset ac = ListDeleteAt(ac, ListFindNoCase(ac,'INSTITUTION_ACRONYM'))>
+		</cfif>
 		
 		
 		<cfset fileDir = "#Application.webDirectory#">
@@ -236,7 +247,7 @@ do not agree</font>.</a>
 		<cfoutput>
 
 			<cfif #fileFormat# is "csv">
-				<cfset fileName = "/download/ArctosData.csv">
+				<cfset fileName = "/download/ArctosData_#cfid#_#cftoken#.csv">
 				<cfset header=#trim(ac)#>
 				<cffile action="write" file="#fileDir##fileName#" addnewline="yes" output="#header#">
 				<cfloop query="getData">
@@ -258,7 +269,7 @@ do not agree</font>.</a>
 				<a href="#Application.serverRootUrl#/#fileName#">Right-click to save your download.</a>
 				
 			<cfelseif #fileFormat# is "text">
-				<cfset fileName = "/download/ArctosData.txt">
+				<cfset fileName = "/download/ArctosData_#cfid#_#cftoken#.txt">
 				<cfset header = replace(ac,",","#chr(9)#","all")>
 				<cfset header=#trim(header)#>
 				<cffile action="write" file="#fileDir##fileName#" addnewline="yes" output="#header#">
@@ -282,7 +293,7 @@ do not agree</font>.</a>
 			
 			
 			<cfelseif #fileFormat# is "xml">
-				<cfset fileName = "/download/ArctosData.xml">
+				<cfset fileName = "/download/ArctosData_#cfid#_#cftoken#.xml">
 				<cfset header = "<result>">
 				<cffile action="write" file="#fileDir##fileName#" addnewline="no" output="#header#">
 				<cfloop query="getData">

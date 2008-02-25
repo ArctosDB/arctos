@@ -1,6 +1,10 @@
 <cfinclude template="includes/_frameHeader.cfm">
-
-
+<cfquery name="prefix" datasource="#Application.web_user#">
+	select distinct(prefix) as prefix from person where prefix is not null
+</cfquery>
+<cfquery name="suffix" datasource="#Application.web_user#">
+	select distinct(suffix) as suffix from person where suffix is not null
+</cfquery>
 <!---
  <a href="javascript:void(0);"
  	onClick="getDocs('agent'); return false;"
@@ -111,7 +115,6 @@ Search for an agent:
 				class="clrBtn"
 				onmouseover="this.className='clrBtn btnhov'"
 				onmouseout="this.className='clrBtn'">
-			<cfif #client.rights# contains "update">
 				<br>
 				<input type="button" 
 					value="New Person" 
@@ -125,7 +128,6 @@ Search for an agent:
 					onmouseover="this.className='insBtn btnhov'"
 					onmouseout="this.className='insBtn'"
 					onClick="window.open('editAllAgent.cfm?Action=newOtherAgent','_person');">
-			</cfif>	
 		</td>
 	</tr>
 </table>

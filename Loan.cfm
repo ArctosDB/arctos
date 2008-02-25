@@ -18,12 +18,11 @@
 	select distinct(trans_agent_role)  from cttrans_agent_role order by trans_agent_role
 </cfquery>
 <script>
-	function setAccnNum(v) {
+	function setAccnNum(i,v) {
 		var e = document.getElementById('loan_number');
 		e.value=v;
-	}
-	function AuthToInHouse(){
-		alert('spiffy');
+		var inst = document.getElementById('institution_acronym');
+		inst.value=i;	
 	}
 </script>
 <!-------------------------------------------------------------------------------------------------->
@@ -54,22 +53,20 @@
 <!-------------------------------------------------------------------------------------------------->
 <!-------------------------------------------------------------------------------------------------->
 <cfif  #action# is "newLoan">
-<!---<script type="text/javascript" src="includes/adjustableEntry.js" />--->
 <cfset title="New Loan">
-	Initiate a loan: <img src="images/info.gif" class="likeLink" onClick="getDocs('loan')" />
+	Initiate a loan: <span class="infoLink" onClick="getDocs('loan')">Help</span>
 
 	
 	<cfoutput>
 		<form name="newloan" action="Loan.cfm" method="post" onSubmit="return noenter();">
 			<input type="hidden" name="action" value="makeLoan">
 			<!--- set loan_number - same code works for accn_num --->
-<a href="javascript:void(0);" onClick="getDocs('loan','loannum')">Initiate Loan:</a>
 <table border>
 	<tr>
 		<td>
 			<label for="institution_acronym">Institution
 			</label>
-			<select name="institution_acronym" size="1" id="institution_acronym" onchange="getLoanNum();">
+			<select name="institution_acronym" size="1" id="institution_acronym">
 				<cfloop query="ctInst">
 					<option value="#ctInst.institution_acronym#">#ctInst.institution_acronym#</option>
 				</cfloop>
@@ -99,7 +96,7 @@
 						<cfelse>
 							<cfset thisNum = '#dateformat(now(),"yyyy")#.#uam_mamm.nn#.Mamm'>
 						</cfif>
-						<span class="likeLink" onclick="setAccnNum('#thisNum#')">#thisNum#</span>
+						<span class="likeLink" onclick="setAccnNum('UAM','#thisNum#')">UAM #thisNum#</span>
 					</li>
 					<li>
 						<cfquery name="msb_mamm" datasource="#Application.web_user#">
@@ -117,7 +114,7 @@
 						<cfelse>
 							<cfset thisNum = '#dateformat(now(),"yyyy")#.#msb_mamm.nn#.Mamm'>
 						</cfif>
-						<span class="likeLink" onclick="setAccnNum('#thisNum#')">#thisNum#</span>
+						<span class="likeLink" onclick="setAccnNum('MSB','#thisNum#')">MSB #thisNum#</span>
 					</li>
 					<li>
 						<cfquery name="dgr_mamm" datasource="#Application.web_user#">
@@ -135,7 +132,7 @@
 						<cfelse>
 							<cfset thisNum = '#dateformat(now(),"yyyy")#.#dgr_mamm.nn#.Mamm'>
 						</cfif>
-						<span class="likeLink" onclick="setAccnNum('#thisNum#')">#thisNum#</span>
+						<span class="likeLink" onclick="setAccnNum('DGR','#thisNum#')">DGR #thisNum#</span>
 					</li>
 					<li>
 						<cfquery name="dgr_bird" datasource="#Application.web_user#">
@@ -147,16 +144,16 @@
 							institution_acronym='DGR' and
 							substr(loan_number,10,4)='Bird'
 						</cfquery>
-						<cfif #dgr_mamm.recordcount# is 0>
+						<cfif #dgr_bird.recordcount# is 0>
 							<!--- new year, prolly --->
 							<cfset thisNum = '#dateformat(now(),"yyyy")#.1.Bird'>
 						<cfelse>
 							<cfset thisNum = '#dateformat(now(),"yyyy")#.#dgr_bird.nn#.Bird'>
 						</cfif>
-						<span class="likeLink" onclick="setAccnNum('#thisNum#')">#thisNum#</span>
+						<span class="likeLink" onclick="setAccnNum('DGR','#thisNum#')">DGR #thisNum#</span>
 					</li>
 				</ul>
-				<span class="likeLink" onclick="setAccnNum('#mvz_mamm.nn#')">#mvz_mamm.nn#</span>
+				<span class="likeLink" onclick="setAccnNum('#dgr_bird.nn#')">#dgr_bird.nn#</span>
 			<cfelseif #cgi.HTTP_HOST# contains "berkeley.edu">
 				<!--- all collection share loan number and never start over --->
 				<cfquery name="mvz_mamm" datasource="#Application.web_user#">
@@ -170,15 +167,15 @@
 				<ul>
 					<li>
 						<cfset thisNum = '#dateformat(now(),"yyyy")#.#mvz_mamm.nn#.Bird'>
-						<span class="likeLink" onclick="setAccnNum('#thisNum#')">#thisNum#</span>
+						<span class="likeLink" onclick="setAccnNum('MVZ','#thisNum#')">MVZ #thisNum#</span>
 					</li>
 					<li>
 						<cfset thisNum = '#dateformat(now(),"yyyy")#.#mvz_mamm.nn#.Herp'>
-						<span class="likeLink" onclick="setAccnNum('#thisNum#')">#thisNum#</span>
+						<span class="likeLink" onclick="setAccnNum('MVZ','#thisNum#')">MVZ #thisNum#</span>
 					</li>
 					<li>
 						<cfset thisNum = '#dateformat(now(),"yyyy")#.#mvz_mamm.nn#.Mamm'>
-						<span class="likeLink" onclick="setAccnNum('#thisNum#')">#thisNum#</span>
+						<span class="likeLink" onclick="setAccnNum('MVZ','#thisNum#')">MVZ #thisNum#</span>
 					</li>
 				</ul>
 			</cfif>
@@ -202,63 +199,20 @@
 	</tr>
 	<tr>
 		<td>
-			<label for="in_house_contact_agent_name">In-House Contact: (required to print invoice)</label>
-				<span class="infoLink" 
-	onclick="newloan.in_house_contact_agent_name.value=newloan.auth_agent_name.value;
-			newloan.in_house_contact_agent_id.value=newloan.auth_agent_id.value">
-		Use Authorized Agent as In-House Contact Agent</span>
+			<label for="in_house_contact_agent_name">In-House Contact:</label>
 			<input type="text" name="in_house_contact_agent_name" size="40" 
 			  onchange="getAgent('in_house_contact_agent_id','in_house_contact_agent_name','newloan',this.value); return false;"
 			  onKeyPress="return noenter(event);"> 
 			<input type="hidden" name="in_house_contact_agent_id">
 		</td>
 		<td>
-			<label for="outside_contact_agent_name">Outside Contact: (required to print invoice)</label>
-			<span class="infoLink" 
-	onclick="newloan.outside_contact_agent_name.value=newloan.rec_agent_name.value;
-			newloan.outside_contact_agent_id.value=newloan.rec_agent_id.value">
-		Use To Agent as Outside Contact Agent</span>
+			<label for="outside_contact_agent_name">Outside Contact:</label>
 			<input type="text" name="outside_contact_agent_name" size="40" 
 			  onchange="getAgent('outside_contact_agent_id','outside_contact_agent_name','newloan',this.value); return false;"
 			  onKeyPress="return noenter(event);"> 			  
 			<input type="hidden" name="outside_contact_agent_id">
 		</td>
-	</tr><!---
-	<tr>
-		<th>Agent Name:</th><th>Agent Role:</th>
 	</tr>
-	<tr id='endOfExtraAgent'>
-		<td><input type='button' className='picBtn' 
-	onclick="
-	javascript: addNewRow(
-		new Array(
-			'input',
-			'select',
-			'input'
-		),
-		new Array(
-			new Array('type','name','size','onchange','onKeyPress'),
-			new Array('name','size'),
-			new Array('type','name')
-		),
-		new Array(
-			new Array('text','extraAgentName',40,
-				'getAgent(&quot;extraAgentId' + this.name.substr('extraAgentName'.length) + '&quot;, &quot;' 
-				+ this.name + '&quot;,&quot;editloan&quot;,this.value); return false;',
-				'return noenter(event);'),
-			new Array('extraAgentType',50),
-			new Array('hidden','extraAgentId')
-		),
-		new Array('',
-			'<option>Please choose a role...</option>'+
-			'<cfloop query="cttrans_agent_role">'+
-				'<option value=&quot;#trans_agent_role#&quot;>#trans_agent_role#</option>'+
-			'</cfloop>',''
-		),
-		'endOfExtraAgent',
-		'extraAgent'
-	);" value='Add new agent...' /></td>
-	</tr>--->
 	<tr>
 		<td>
 			<label for="loan_type">Loan Type</label>
@@ -642,14 +596,14 @@
 				<option value="/Reports/UAMLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemList">UAM Generic Item Invoice</option>
 				<option value="/Reports/UAMLoanInvoice.cfm?transaction_id=#transaction_id#&Action=showCondition">UAM Generic Item Conditions</option>
 				<option value="/Reports/loanShipLabel.cfm?transaction_id=#transaction_id#">Shipping Label</option>
-			<cfelse>
+   			<cfelse>
 				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#">Invoice Header</option>
 				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemList">Item Invoice</option>
 				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=showCondition">Item Conditions</option>
 				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemLabels">Item Slips</option>
-				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=shippingLabel">Shipping label</option>
+				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=shippingLabel">MVZ shipping label</option>
 			</cfif>
-   		</select>
+		</select>
 		
    
    
@@ -1157,18 +1111,10 @@ Shipment Information:
 <!-------------------------------------------------------------------------------------------------->
 <cfif isdefined("Action") AND #action# is "makeLoan">
 	<cfoutput>
-		<cfdump var="#form#">
 		<!--- get the next loan_number --->
 		<cfquery name="nextTransId" datasource="#Application.web_user#">
 			select max(transaction_id) + 1 as nextTransactionId from trans
 		</cfquery>
-		<cfquery name="TRANS_ENTERED_AGENT_ID" datasource="#Application.web_user#">
-			select agent_id from agent_name where agent_name = '#client.username#'
-		</cfquery>
-		<cfif len(#TRANS_ENTERED_AGENT_ID.agent_id#) is 0>
-			You are not logged in as a recognized agent. Your login ID (#client.username#)
-			must be entered in the agent names table as type 'login'.
-		</cfif>
 		<!------#loan_type# - #loan_num# - #initiating_date# - #loan_num_suffix# - #rec_agent_id# - #loan_num# - #auth_agent_id#---
 		<cfabort>--->
 		<!--- make sure they filled in all the good stuff. --->
@@ -1184,12 +1130,12 @@ Shipment Information:
 			<br>Use your browser's back button to fix the problem and try again.
 			<cfabort>
 		</cfif>
-		
-		<!--- everything is peachy --->
-		<!--- Create the trans --->
-
-		
-	
+		<cfif len(#in_house_contact_agent_id#) is 0>
+			<cfset in_house_contact_agent_id=#auth_agent_id#>
+		</cfif>
+		<cfif len(#outside_contact_agent_id#) is 0>
+			<cfset outside_contact_agent_id=#REC_AGENT_ID#>
+		</cfif>	
 	<cftransaction>
 			<cfquery name="newLoanTrans" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 				INSERT INTO trans (
@@ -1260,32 +1206,26 @@ Shipment Information:
 					#auth_agent_id#,
 					'authorized by')
 			</cfquery>
-			<cfif len(#in_house_contact_agent_id#) is not 0 and len(#in_house_contact_agent_name#) is not 0>
-				<!---<script>alert("posting an inhouse contact")</script>--->
-				<cfquery name="in_house_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-					INSERT INTO trans_agent (
-					    transaction_id,
-					    agent_id,
-					    trans_agent_role
-					) values (
-						#nextTransId.nextTransactionId#,
-						#in_house_contact_agent_id#,
-						'in-house contact')
-				</cfquery>
-			</cfif>
-			<cfif len(#outside_contact_agent_id#) is not 0 and len(#outside_contact_agent_name#) is not 0>
-				<!---<script>alert("posting an outside contact")</script>--->
-				<cfquery name="outside_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-					INSERT INTO trans_agent (
-					    transaction_id,
-					    agent_id,
-					    trans_agent_role
-					) values (
-						#nextTransId.nextTransactionId#,
-						#outside_contact_agent_id#,
-						'outside contact')
-				</cfquery>
-			</cfif>
+			<cfquery name="in_house_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				INSERT INTO trans_agent (
+				    transaction_id,
+				    agent_id,
+				    trans_agent_role
+				) values (
+					#nextTransId.nextTransactionId#,
+					#in_house_contact_agent_id#,
+					'in-house contact')
+			</cfquery>
+			<cfquery name="outside_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				INSERT INTO trans_agent (
+				    transaction_id,
+				    agent_id,
+				    trans_agent_role
+				) values (
+					#nextTransId.nextTransactionId#,
+					#outside_contact_agent_id#,
+					'outside contact')
+			</cfquery>
 			<cfquery name="newLoan" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 				INSERT INTO trans_agent (
 				    transaction_id,
@@ -1296,8 +1236,7 @@ Shipment Information:
 					#REC_AGENT_ID#,
 					'received by')
 			</cfquery>
-		</cftransaction>
-	
+		</cftransaction>	
 		<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#nextTransId.nextTransactionId#">
 	</cfoutput>
 </cfif>
@@ -1595,6 +1534,10 @@ Shipment Information:
 	<cfif isdefined("notClosed") AND len(#notClosed#) gt 0>
 		<cfset sql = "#sql# AND loan_status <> 'closed'">
 	</cfif>
+		<cfif not isdefined("myAgentId") or len(#myAgentId#) is 0>
+			You are not a contact for any collection. This form will never return anything.
+			<cfabort>
+		</cfif>
 		<cfquery name="okInst" datasource="#Application.web_user#">
 		select institution_acronym from
 		collection,
@@ -1604,6 +1547,10 @@ Shipment Information:
 		contact_agent_id = #client.myAgentId#
 		group by institution_acronym
 	</cfquery>
+	<cfif okInst.recordcount is 0>
+		You are not a contact for any collection. This form will never return anything.
+		<cfabort>
+	</cfif>
 	<cfset instList = "">
 	<cfloop query="okInst">
 		<cfif len(#instList#) is 0>

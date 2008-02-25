@@ -328,14 +328,16 @@
 				) a where rownum <= #startrow#
 			) where rnum >= #stoprow#' message from dual
 		</cfquery>
+		
+		
 	--->
-	
-		<cfcatch>
+	<cfcatch>
 			<cfset result = querynew("collection_object_id,message")>
 			<cfset temp = queryaddrow(result,1)>
 			<cfset temp = QuerySetCell(result, "collection_object_id", "-1", 1)>
 			<cfset temp = QuerySetCell(result, "message", "#cfcatch.Message# #cfcatch.Detail#", 1)>
 		</cfcatch>
+		
 	</cftry>
 
 	<cfreturn result>

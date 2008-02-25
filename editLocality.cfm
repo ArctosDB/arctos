@@ -358,10 +358,24 @@
 					</tr>
 		   </table>
 		   <hr />
-         
-        Coordinates
-		<img src="/images/info.gif" border="0" class="likeLink" onClick="getDocs('lat_long')">
-			for this locality: 
+        <table>
+			<tr>
+				<td>
+					Coordinates for this locality: 
+				</td>
+				<td>
+					&nbsp;&nbsp;&nbsp;<span class="likeLink" style="font-size:smaller;" onClick="getDocs('lat_long')">Help</span>
+				</td>
+				<td>
+					&nbsp;&nbsp;&nbsp;
+					<span style="font-size:smaller;">
+				    	<a href="http://bg.berkeley.edu/latest/" target="_blank">BioGeoMancer<img src="/images/linkOut.gif" border="0"></a>
+				        &nbsp;~&nbsp;
+				        <a href="http://manisnet.org/gc.html" target="_blank">Georef Calculator<img src="/images/linkOut.gif" border="0"></a>
+				     </span>	
+				</td>
+			</tr>
+		</table>
 		<cfset i=1>
 		<table border>
 		</cfoutput>

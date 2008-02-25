@@ -1,6 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif #action# is "nothing">
-<cf_security access_level="student0">
 
 <cfquery name="getCols" datasource="uam_god">
 	select column_name from sys.user_tab_cols

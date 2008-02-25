@@ -12,7 +12,6 @@
 	fontembed="yes"
 	filename="#Application.webDirectory#/temp/LoanInvoice.pdf" 
 	overwrite="true">
-	
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 
 <cfquery name="getLoan" datasource="#Application.web_user#">
@@ -29,6 +28,7 @@
                 loan_number,
                 loan_status,
                 loan_instructions,
+
 				inhouse_preferred_agent_name.agent_name inhouse_contact_name,
                 inhouse_addr.job_title inhouse_contact_title,
                 inhouse_addr.formatted_addr inhouse_addr_addr,
@@ -129,7 +129,7 @@
 								   <br>&nbsp;
 								   <br>&nbsp;
 								   <hr>
-								   #getLoan.authAgentName#
+								   #getLoan.authAgentName#<!---, #getLoan.contact_title# --->
 								 </td>
 							</tr>
 						 </table>

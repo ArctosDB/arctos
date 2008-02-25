@@ -66,7 +66,7 @@ function ProperMod(y,x) {
 	<cfset out = replace(out,'<',"&lt;","all")>
 	<cfreturn out>
 </cffunction>
-     <cffunction
+<cffunction
      name="CSVToArray"
      access="public"
      returntype="array"

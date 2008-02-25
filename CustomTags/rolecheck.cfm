@@ -9,8 +9,8 @@
 
 <cfset logfile = "#Application.webDirectory#/log/UnauthAccess.log">
 
-<!--- cachedWithin="#CreateTimeSpan(0,1,0,0)#" --->
-<cfquery name="isValid" datasource="#Application.web_user#">
+<!---  --->
+<cfquery name="isValid" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select ROLE_NAME from cf_form_permissions 
 	where form_path = '#escapeGoofyInstall#'
 </cfquery>
@@ -29,15 +29,28 @@ isValid.recordcount: #isValid.recordcount#;
 		<cfset badYou = "yes">
 	<cfelse>
 		<!--- access is controlled and they have roles - see if they have the right role --->
-		<span style="font-size:x-small">#valuelist(isValid.role_name)#</span>
 		<cfloop query="isValid">
 			<cfif not listfindnocase(client.roles,role_name)>
 				<cfset badYou = "yes">
 			</cfif>
 		</cfloop>
 	</cfif>
-<cfelse>
-	<span style="font-size:x-small">No control</span>
+</cfif>
+<!--- if they are logged in, check their cookie to see if they've been idle for >90m (ie, with browser not running) ---->
+<cfif isdefined("cookie.username") and len(#client.username#) gt 0>
+	<cfif isdefined("cookie.ArctosSession")>
+		<cfset thisTime = #dateconvert('local2Utc',now())#>
+		<cfset cookieTime = #cookie.ArctosSession#>		
+		<cfset cage = DateDiff("n",cookieTime, thisTime)>
+		<cfset tleft = Application.session_timeout - cage>
+		<cfif tleft lte 0>
+			<!--- cookie expired, bye now --->
+			<cfset badYou = "yes">
+		</cfif>
+	<cfelse>
+		<!--- username but no cookie? BAD! --->
+		<cfset badYou = "yes">
+	</cfif>
 </cfif>
 <br>
 <cfif isdefined("badyou")>
@@ -57,16 +70,12 @@ isValid.recordcount: #isValid.recordcount#;
 	<table cellpadding="10">
 	<tr><td valign="top"><img src="/images/oops.gif" alt="[ unauthorized access ]"></td>
 	<td><font color="##FF0000" size="+1">
-			#escapeGoofyInstall# may only be accessed by logged in users with 
-			the proper rights. You are not authorized to access this form, or your login has 
-			expired.
-		</font> 
-		<br>
-		Your IP address (#cgi.HTTP_X_Forwarded_For# - #remote_host#) has been logged. <br>
-		
-		Click <a href="/">here</a> to visit the Arctos home page, or <a href="/login.cfm">log in</a>.
-		<br>
-		<span style="font-size:x-small">rolecheck</span>	
+			You tried to visit a form for which you are not authorized,
+			or your login has expired. 
+			<br>
+			If this message is in error, please <a href="/info/bugs.cfm">file a bug report</a> or contact the Arctos team.
+			<br>
+			Click <a href="/home.cfm">here</a> to visit the Arctos home page, or log in below.
 	</td>
 	</tr>
 	<tr>
@@ -125,7 +134,7 @@ isValid.recordcount: #isValid.recordcount#;
 	--->
 	<span class="sessionTimer" id="sessionTimer"></span>
 	<cfcookie name="ArctosSession" value="-" expires="NOW" domain="#Application.domain#" path="/">
-	<cfcookie name="ArctosSession" value='#dateconvert("local2Utc",now())#' domain="#Application.domain#" path="/">
+	<cfcookie name="ArctosSession" value='#dateconvert("local2Utc",now())#' expires="1" domain="#Application.domain#" path="/">
 	<script type="text/javascript">
 		function showSessionTimeLeft () {
 			//alert('get timeout')
@@ -138,7 +147,7 @@ isValid.recordcount: #isValid.recordcount#;
 					// too late, bye now...
 					alert('Your session has expired. You must log in to continue. \n Please close any other open windows.');
 					document.location='/login.cfm?action=signOut';
-				} else if (result <= 5) {
+				} else if (result <= 10) {
 					var st = document.getElementById('sessionTimer');
 					st.innerHTML='Session expires in ' + result + 'm';
 					st.className='sessionExpiring';

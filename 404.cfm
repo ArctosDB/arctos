@@ -23,7 +23,7 @@
 	them to fix the problem. If you came from somewhere on Arctos, please submit a
 	<a href="/info/bugs.cfm">bug report</a>.
 </cfif>
-		<cfmail subject="Dead Link" to="#Application.PageProblemEmail#" from="dead.link@#Application.fromEmail#" type="html">
+		<cfmail subject="Dead Link" to="#Application.PageProblemEmail#" from="dead.link@arctos.database.museum" type="html">
 			A user found a dead link! The referring site was #cgi.HTTP_REFERER#.
 			<cfif isdefined("CGI.script_name")>
 				<br>The missing page is #Replace(CGI.script_name, "/", "")#

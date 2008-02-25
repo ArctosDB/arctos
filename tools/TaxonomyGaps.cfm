@@ -1,8 +1,11 @@
 <cfinclude template="/includes/_header.cfm">
  <cfoutput>
+Note: This form will return a maximum of 10,000 records.
 <cfquery name="md" datasource="#Application.web_user#">
  select taxon_name_id, scientific_name, phylclass, phylorder, family from taxonomy where
- phylclass is null or phylorder is null or family is null order by scientific_name
+ phylclass is null or phylorder is null or family is null 
+and rownum < 10000
+order by scientific_name
 </cfquery>
 <table border>
 	<tr>

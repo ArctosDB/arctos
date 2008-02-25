@@ -22,7 +22,7 @@
 	     required="true"/>
 	<cfset retn = "
 	<Placemark>
-	<name>Error</name>
+	<name>Error</name><visibility>1</visibility>
 	<styleUrl>##error-line</styleUrl>
 	<LineString>
 	<coordinates>">
@@ -57,6 +57,8 @@
 		<input type="checkbox" name="mapByLocality" id="mapByLocality" value="1">
 		<br>Show only accepted coordinate determinations?
 		<input type="checkbox" name="showOnlyAccepted" id="showOnlyAccepted" value="1">
+		<br>File Name
+		<input type="text" name="userFileName" id="userFileName" size="40" value="kmlfile#cfid##cftoken#">
 		<br>
 		
 		<input type="submit" value="get KML" class="lnkBtn"
@@ -73,7 +75,11 @@
 		<cfset flatTableName = "filtered_flat">
 	</cfif>
 	<cfset dlPath = "#Application.webDirectory#/bnhmMaps/">
-	<cfset dlFile = "kmlfile#cfid##cftoken#.kml">
+	<cfif isdefined("userFileName") and len(#userFileName#) gt 0>
+		<cfset dlFile = "#userFileName#.kml">
+	<cfelse>
+		<cfset dlFile = "kmlfile#cfid##cftoken#.kml">
+	</cfif>	
 	<cfif isdefined("mapByLocality") and #mapByLocality# is 1>
 		<cfquery name="data" datasource="#Application.web_user#">
 			select 
@@ -205,7 +211,7 @@
 				began_date,
 				ended_date
 		</cfquery>
-		<cfset kml = "<Folder><name>#collection#</name>">
+		<cfset kml = "<Folder><name>#collection#</name><visibility>1</visibility>">
 		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		<cfloop query="loc">
 			<cfquery name="sdet" dbtype="query">
@@ -225,7 +231,7 @@
 					collection
 			</cfquery>
 			<cfset kml='<Placemark><name>#kmlStripper(spec_locality)# (#locality_id#)</name>
-			<description>
+			<visibility>1</visibility><description>
 			<Timespan><begin>#began_date#</begin><end>#ended_date#</end></Timespan>
 			<![CDATA[Datum: #datum#<br/>
 			Error: #errorInMeters# m<br/>'>
@@ -277,11 +283,13 @@
 	
 	<cfset kml='</Document></kml>'><!--- close specimens folder --->
 			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
-			<cfset linkFile = "kmlLinkfile#cfid##cftoken#.kml">
+			
+			<cfset linkFile = "link_#dlFile#">
 			<cfset kml='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.0">
 				<NetworkLink>
 				  <name>Arctos Locations</name>
 				  <visibility>1</visibility>
+				  <open>1</open>
 					<Url>
 			    <href>#Application.ServerRootUrl#/bnhmMaps/#dlFile#</href>
 			    </Url>
@@ -291,12 +299,13 @@
 		<p>
 		</p><a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">Download Entire KML</a> (requires <a href="http://earth.google.com/">Google Earth</a>)
 			<blockquote>
-				Download all data to your hard drive
+				Download KML (#dlFile#) including all data to your hard drive
 			</blockquote>
 		<p>
 		<a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">Download KML Link</a> (requires <a href="http://earth.google.com/">Google Earth</a>)
 			<blockquote>
-				Download only a link to your hard drive. Data remains on Arctos and will be refreshed every time you build a KML.
+				Download KML Link data (#linkFile#). Data remains on Arctos and will be refreshed every time you build a KML with the same name.
+				 Data on Arctos will be periodically purged.
 			</blockquote>
 		</p>
 		<p>

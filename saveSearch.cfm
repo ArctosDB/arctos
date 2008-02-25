@@ -1,5 +1,6 @@
-<cfinclude template="/includes/alwaysInclude.cfm">
-<cfset title="Save Seaches">
+<cfinclude template="/includes/_header.cfm">
+<cf_showMenuOnly>
+<cfset title="Save Searches">
 <cfif #action# is "nothing">
 "Can" the dynamic page that you are currently on to quickly return later. Results are data-based, so you may get different results the next time you visit; only your criteria are stored.
 
@@ -48,11 +49,6 @@
 
 
 <cfif #action# is "manage">
-<cfinclude template="/includes/_header.cfm">
-<script type='text/javascript' src='/ajax/core/engine.js'></script>
-	<script type='text/javascript' src='/ajax/core/util.js'></script>
-	<script type='text/javascript' src='/ajax/core/settings.js'></script>
-	<cfinclude template="/ajax/core/cfajax.cfm">
 <script type='text/javascript' src='/includes/_treeAjax.js'></script>
 
 
@@ -101,9 +97,7 @@
 		</td>
 	</tr>
 </cfloop>
-
-
 </table>
-<cfinclude template="/includes/_footer.cfm">
 </cfoutput>
 </cfif>
+<cfinclude template="/includes/_footer.cfm">

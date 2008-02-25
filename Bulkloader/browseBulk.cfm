@@ -116,8 +116,6 @@
 <!-------------------------------------------------------------->
 <cfif #action# is "viewTable">
 <cfoutput>
-<cfinclude template="/includes/_header.cfm">
-<!--- no security --->
 <cfset sql = "select * from bulkloader
 	where enteredby IN (#enteredby#)">
 <cfif len(#accn#) gt 0>

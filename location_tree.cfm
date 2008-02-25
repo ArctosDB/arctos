@@ -192,6 +192,7 @@ parent_container_id,
 	DESCRIPTION,
 	PARENT_INSTALL_DATE,
 	CONTAINER_REMARKS,
+	barcode,
 	label
 	 from container
 	start with container_id=#container_id#
@@ -205,7 +206,7 @@ parent_container_id,
 				<cfset expand = " <a href=""location_tree.cfm?container_id=#container_id#&action=contentsSearch""><img src=""/images/plus.gif""></a>">
 			</cfif>
 			<cfset a = "#a#
-			d.add(#container_id#,#parent_container_id#,'#label# (#container_type#) #expand#','ContDet.cfm?container_id=#container_id#&objType=CollObj','','_detail');">
+			d.add(#container_id#,#parent_container_id#,'#label# (#container_type#) [#barcode#] #expand#','ContDet.cfm?container_id=#container_id#&objType=CollObj','','_detail');">
 		</cfif>
 		<cfset placedContainers = listappend(placedContainers,#container_id#)> 
 	</cfloop>

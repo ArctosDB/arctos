@@ -6,7 +6,13 @@
 		 where 
 		 username = '#username#' order by cf_users.user_id
 	</cfquery>
-
+	<cfquery name="id" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+		select agent_id from agent_name where agent_name='#client.username#'
+		and agent_name_type='login'
+	</cfquery>
+	<cfif id.recordcount is 1>
+		<cfset client.myAgentId=#id.agent_id#>
+	</cfif>
 	<cfoutput query="getPrefs" group="user_id">
 	<!--- set session variables with all their stored values --->
 	<cfset client.last_login = "#last_login#">

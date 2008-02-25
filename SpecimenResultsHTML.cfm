@@ -12,7 +12,8 @@
 		<cfset detail_level = 1>
 	</cfif>	
 </cfif>
-
+<cfoutput>
+</cfoutput>
 <cfset title="Specimen Results">
 <cfif not isdefined("displayrows")>
 	<cfset displayrows = client.displayrows>
@@ -201,8 +202,10 @@
 			<font color="##FF0000" size="+2">You must enter some search criteria!</font>	  
 			<cfabort>
 		</cfif>
-<!-------------------------- dlkm debug -----------------<--------------------->	
-	<cfif isdefined("client.username") and (#client.username# is "dlm" or #client.username# is "dusty")>
+<!-------------------------- dlkm debug --
+
+
+<cfif isdefined("client.username") and (#client.username# is "dlm" or #client.username# is "dusty")>
 		
 	<cfoutput>
 	--#client.username#--
@@ -212,6 +215,10 @@
 	<cfdump var=#variables#>
 	</cfoutput>
 	</cfif>
+	
+	
+	---------------<--------------------->	
+	
 	<!-------------------------- / dlm debug -------------------------------------->
 	
 	

@@ -29,7 +29,7 @@
 	sho err	
 	create sequence specimen_annotations_seq;
 	---->
-<cfinclude template="/includes/_frameHeader.cfm">
+		<cfinclude template="/includes/_frameHeader.cfm">
 <cfif #action# is "nothing">
 
 <link rel="stylesheet" type="text/css" href="/includes/annotate.css">

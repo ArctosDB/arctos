@@ -11,14 +11,14 @@
 </script>
 <cfset title = "Locality Pick Search">
 <cfquery name="ctIslandGroup" datasource="#Application.web_user#">
-	select island_group from ctisland_group
+	select island_group from ctisland_group order by island_group
 </cfquery>
 <cfquery name="ctGeogSrcAuth" datasource="#Application.web_user#">
-	select source_authority from ctgeog_source_authority
+	select source_authority from ctgeog_source_authority order by source_authority
 </cfquery>
 
 <cfquery name="ctElevUnit" datasource="#Application.web_user#">
-	select orig_elev_units from ctorig_elev_units
+	select orig_elev_units from ctorig_elev_units order by orig_elev_units
 </cfquery>
 
 <cfif #Action# is "nothing">

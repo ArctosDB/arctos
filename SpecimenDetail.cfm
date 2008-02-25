@@ -555,7 +555,9 @@ window.onload=dyniframesize
 	</tr>
 </table>
 </div>
-<cf_get_footer collection_id="#detail.collection_id#">
+<cfset exclusive_collection_id="#detail.collection_id#">
+<cfinclude template="/includes/_footer.cfm">
+
 	
 	
 	<cfset log.query_string="?collection_object_id=#collection_object_id#">

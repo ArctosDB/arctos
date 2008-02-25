@@ -84,11 +84,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 </form>
 </td>
 </tr></table>
-<cfinclude template = "includes/_footer.cfm">
-
-
 </cfif>
-<!------------------------------------------------------------------------------------------->
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "makeNew">
 <strong>Create New Project:</strong>

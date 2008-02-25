@@ -1,6 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset collection_cde="Mamm">
 <cfif #action# is "nothing">
+
 	This form used the current structure of the Bulkloader table to build data handling tools.
 	
 	<p>

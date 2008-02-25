@@ -1,5 +1,5 @@
 <cfoutput>
-<cfquery name="colls" datasource="#Application.uam_dbo#">
+<cfquery name="colls" datasource="#uam_dbo#">
 	select * from collection	
 </cfquery>
 <cfset mappings = "GlobalUniqueIdentifier:GUID|DateLastModified:LAST_EDIT_DATE|BasisOfRecord:BASISOFRECORD|InstitutionCode:INSTITUTION_ACRONYM|CollectionCode:COLLECTION_CDE|CatalogNumber:CAT_NUM|CatalogNumberText:CAT_NUM|InformationWithheld:ENCUMBRANCES|Remarks:REMARKS|ScientificName:SCIENTIFIC_NAME|HigherTaxon:FULL_TAXON_NAME|Kingdom:KINGDOM|Phylum:PHYLUM|Class:PHYLCLASS|Order:PHYLORDER|Family:FAMILY|Genus:GENUS|SpecificEpithet:SPECIES|Species:SPECIES|InfraspecificRank:INFRASPECIFIC_RANK|InfraspecificEpithet:SUBSPECIES|AuthorYearOfScientificName:AUTHOR_TEXT|NomenclaturalCode:NOMENCLATURALCODE|IdentificationQualifier:IDENTIFICATIONMODIFIER|HigherGeography:HIGHER_GEOG|Continent:CONTINENT_OCEAN|IslandGroup:ISLAND_GROUP|Island:ISLAND|Country:COUNTRY|StateProvince:STATE_PROV|County:COUNTY|Locality:SPEC_LOCALITY|MinimumElevationInMeters:MIN_ELEV_IN_M|MaximumElevationInMeters:MAX_ELEV_IN_M|MinimumDepthInMeters:MIN_DEPTH_IN_M|MaximumDepthInMeters:MAX_DEPTH_IN_M|CollectingMethod:COLLECTING_METHOD|ValidDistributionFlag:COLLECTING_SOURCE|EarliestDateCollected:BEGAN_DATE|LatestDateCollected:ENDED_DATE|DayOfYear:DAYOFYEAR|Collector:COLLECTORS|Sex:SEX|LifeStage:AGE_CLASS|Attributes:ATTRIBUTES|ImageURL:IMAGEURL|RelatedInformation:SPECIMENDETAILURL|CatalogNumberNumeric:CAT_NUM|IdentifiedBy:IDENTIFIEDBY|DateIdentified:MADE_DATE|CollectorNumber:COLLECTORNUMBER|FieldNumber:FIELD_NUM|FieldNotes:FIELDNOTESURL|VerbatimCollectingDate:VERBATIM_DATE|VerbatimElevation:VERBATIMELEVATION|Preparations:PARTS|TypeStatus:TYPESTATUS|GenBankNumber:GENBANKNUM|OtherCatalogNumbers:OTHERCATALOGNUMBERS|RelatedCatalogedItems:RELATEDCATALOGEDITEMS|Disposition:COLL_OBJ_DISPOSITION|IndividualCount:INDIVIDUALCOUNT|DecimalLatitude:DEC_LAT|DecimalLongitude:DEC_LONG|GeodeticDatum:DATUM|CoordinateUncertaintyInMeters:COORDINATEUNCERTAINTYINMETERS |VerbatimLatitude:VERBATIMLATITUDE|VerbatimLongitude:VERBATIMLONGITUDE|VerbatimCoordinateSystem:ORIG_LAT_LONG_UNITS|GeoreferenceProtocol:GEOREFMETHOD|GeoreferenceSources:LAT_LONG_REF_SOURCE|GeoreferenceVerificationStatus:VERIFICATIONSTATUS|GeoreferenceRemarks:LAT_LONG_REMARKS">
@@ -9,11 +9,8 @@
 	<cfset database = "arctos">
 	<cfset tableName = "DIGIR_FILTERED_FLAT">
 	<cfset filePath = "/DiGIRprov/config/">
-<cfelseif  #cgi.HTTP_HOST# contains "berkeley.edu">>
-	<cfset constr = "imperial.ist.berkeley.edu:1521">
-	<cfset database = "mvzlprod">
-	<cfset tableName = "DIGIR_FILTERED_FLAT">
-	<cfset filePath = "/DiGIRprov/config/">
+<cfelse>
+	<cfabort>
 	<!----------- add collections here ----------------------->
 </cfif>
 <cfset data = '<?xml version="1.0"?>'>
@@ -27,7 +24,7 @@
 <cfset data = '#data#</resources>'>
 <cfset fileName = "#filePath#resources.xml">
 
-<cffile action="write" file="#Application.webDirectory##fileName#" addnewline="yes" output="#data#" mode="777">
+<cffile action="write" file="#webDirectory##fileName#" addnewline="yes" output="#data#" mode="777">
 
 
 <cfloop query="colls">
@@ -87,7 +84,7 @@
 	'>
 	<cfset data = '#data#<metadata>
 		'>
-	<cfquery name="TechContact" datasource="#Application.web_user#">
+	<cfquery name="TechContact" datasource="#web_user#">
 		select 
 			agent_name,
 			ADDRESS
@@ -114,7 +111,7 @@
 		<cfset data = '#data#</contact>
 		'>
 	</cfloop>
-	<cfquery name="AdminContact" datasource="#Application.web_user#">
+	<cfquery name="AdminContact" datasource="#web_user#">
 		select 
 			agent_name,
 			ADDRESS
@@ -152,7 +149,7 @@
 	'>
 	<cfset data = '#data#<abstract>#descr#</abstract>
 	'>
-	<cfset data = '#data#<relatedInformation>#Application.ServerRootUrl#</relatedInformation>
+	<cfset data = '#data#<relatedInformation>http://arctos.database.museum</relatedInformation>
 	'>
 	<cfset data = '#data#<keywords>#descr#</keywords>
 	'>
@@ -170,6 +167,6 @@
 	'>
 	<cfset data = '#data#</configuration>
 	'>
-	<cffile action="write" file="#Application.webDirectory##fileName#" addnewline="yes" output="#data#" mode="777">
+	<cffile action="write" file="#webDirectory##fileName#" addnewline="yes" output="#data#" mode="777">
 </cfloop>
 </cfoutput>

@@ -1,5 +1,5 @@
 <cfinclude template="includes/_pickHeader.cfm">
- 
+<cfinclude template="includes/functionLib.cfm">
 
 <cfif not isdefined("Action") OR not #action# is "search">
 	<!---- waiting for something to search --->
@@ -49,6 +49,7 @@
 	<cfset lastname = #replace(last_name,"'","''")#>
 	<cfset sql = "#sql# AND Last_Name LIKE '#lastname#'">
 </cfif>
+
 <cfif isdefined("Middle_Name") AND len(#Middle_Name#) gt 0>
 	<cfset sql = "#sql# AND Middle_Name LIKE '#Middle_Name#'">
 </cfif>
@@ -67,7 +68,8 @@
 	<cfset sql = "#sql# AND Death_Date #deathOper# '#ddate#'">
 </cfif>
 <cfif isdefined("anyName") AND len(#anyName#) gt 0>
-	<cfset sql = "#sql# AND upper(agent_name.agent_name) like '%#ucase(anyName)#%'">
+	<cfset aName = replace(anyName,"'","''","all")>
+	<cfset sql = "#sql# AND upper(agent_name.agent_name) like '%#ucase(aName)#%'">
 </cfif>
 <cfif isdefined("agent_id") AND isnumeric(#agent_id#)>
 	<cfset sql = "#sql# AND agent_name.agent_id = #agent_id#">

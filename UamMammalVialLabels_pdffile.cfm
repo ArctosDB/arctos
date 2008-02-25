@@ -1,4 +1,4 @@
-
+<cfinclude template="/includes/_header.cfm">
 <cfif not isdefined("collection_object_id")>
 	<cfabort>
 </cfif>
@@ -94,11 +94,17 @@ select
 			
 			</cfoutput>
 			<cfabort>
+			#preservesinglequotes(sql)#
+<cfdump var="#data#">
+			#preservesinglequotes(sql)#
+<cfdump var="#data#">
+
+
 			---->
 	<cfquery name="data" datasource="#Application.web_user#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-
+	
 <cfoutput>
 
 
@@ -355,7 +361,6 @@ select
 			<cfelse>
 				<cfset meas="#meas#X">
 			</cfif>
-		<cfset accn=#accn_number#>
 		<cfset stripParts = "">
 		<cfset tiss = "">
 		<cfloop list="#parts#" delimiters=";" index="p">
@@ -369,6 +374,7 @@ select
 				</cfif>
 			</cfif>
 		</cfloop>
+		<cfset accn = replace(accn_number,".Mamm","","all")>
 		<cfif len(#tiss#) gt 0>
 			<cfset stripParts = "#stripParts#; #tiss#">
 		</cfif>
@@ -551,7 +557,7 @@ select
 				padding:1px;
 				font-stretch:ultra-condensed;" 	
 				align="right"  
-				class="arial6">Accn #accn#</div>
+				class="arial6">Accn:&nbsp;#accn#</div>
 				
 				
 			</div>
@@ -653,6 +659,6 @@ select
 	
 	----->
 	</cfdocument>
-	<cflocation url="/temp/UamMammalVialLabels.pdf">
+	<a href="/temp/UamMammalVialLabels.pdf">Get the PDF</a>
 	</cfoutput>
 	</cfif><!--- end action not nothing --->

@@ -1,3 +1,4 @@
+<cfinclude template="/includes/_frameHeader.cfm">
 <cfif #action# is "nothing">
 <cfoutput>
 <cfquery name="ctFeature" datasource="#Application.web_user#">

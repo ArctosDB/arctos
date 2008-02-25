@@ -13,38 +13,10 @@
 	
 	<link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 
-
-
-<cfquery name="getLoan" datasource="#Application.web_user#">
-	SELECT 
-		authAgent.agent_name as authAgentName,
-		trans_date,
-		recAgent.agent_name as recAgentName,
-		return_due_date,
-		nature_of_material,
-		trans_remarks,
-		loan_instructions,
-		loan_description,
-		loan_type,
-		loan_number,
-		loan_status,
-		loan_instructions		
-	FROM 
-		loan, 
-		trans,
-		preferred_agent_name authAgent,
-		preferred_agent_name recAgent
-	WHERE
-		loan.transaction_id = trans.transaction_id AND
-		trans.auth_agent_id = authAgent.agent_id (+) AND
-		trans.received_agent_id = recAgent.agent_id AND
-		loan.transaction_id=#transaction_id#		
-</cfquery>
+<cf_getLoanFormInfo>
 
 <cfoutput>
-	<cfquery name="shipDate" datasource="#Application.web_user#">
-		select shipped_date from shipment where transaction_id=#transactioN_id#
-	</cfquery>
+	
 <center>
 <table width="800"><tr>
           <td> <center>
@@ -62,7 +34,7 @@
               UNIVERSITY&nbsp;of&nbsp;NEW&nbsp;MEXICO&nbsp;&##45;&nbsp;MUSEUM of SOUTHWESTERN BIOLOGY
 			  </font>
 			  <font size="3">
-			<br>#dateformat(shipDate.shipped_date,"dd mmmm yyyy")#</b>
+			<br>#dateformat(getLoan.shipped_date,"dd mmmm yyyy")#</b>
 		</center>
 			
 			 <table cellpadding="0" cellspacing="0" width="600"><tr><td> 
@@ -79,13 +51,9 @@
 <p>
 <table width="100%"><tr>
 <td align="left" width="60%">
-<cfquery name="shipTo" datasource="#Application.web_user#">
-	select formatted_addr from addr, shipment
-	where addr.addr_id = shipment.shipped_to_addr_id AND
-	shipment.transaction_id=#transaction_id#
-</cfquery>
+
 <blockquote>
-	#replace(shipTo.formatted_Addr,"#chr(10)#","<br>","all")#
+	#replace(getLoan.shipped_to_address,"#chr(10)#","<br>","all")#
 </blockquote>
 
 </td>
@@ -194,14 +162,10 @@ website: http://msb.unm.edu<br>
    <table width="100%"><tr><td align="left">
     <font size="1">Printed #dateformat(now(),"dd mmmm yyyy")#</font> 
    </td>
-  <td><cfquery name="procBy" datasource="#Application.web_user#">
-	select agent_name from preferred_agent_name, shipment
-	where preferred_agent_name.agent_id = shipment.packed_by_agent_id AND
-	shipment.transaction_id=#transaction_id#
-</cfquery>
+  <td>
                   <div align="right">
                     <font size="1" face="Arial, Helvetica, sans-serif">Loan processed 
-                    by #procBy.agent_name#</font> </div></td>
+                    by #getLoan.processed_by_name#</font> </div></td>
    </tr></table>   
 		  </td></tr></table>
 </center>

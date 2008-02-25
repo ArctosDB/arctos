@@ -649,6 +649,66 @@
 			</cfif>
 			<cfset basQual = " #basQual# AND upper(accn_agency.agent_name) LIKE '%#ucase(accn_agency)#%'">
 		</cfif>
+		<cfif isdefined("custom_id_prefix") and len(#custom_id_prefix#) gt 0>
+			<cfset mapurl = "#mapurl#&custom_id_prefix=#custom_id_prefix#">
+			<cfif #basJoin# does not contain " customIdentifier ">
+				<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num customIdentifier ON 
+				(cataloged_item.collection_object_id = customIdentifier.collection_object_id)">
+			</cfif>
+			<cfif #basQual# does not contain "customIdentifier.other_id_type">
+				<cfset basQual = " #basQual# AND customIdentifier.other_id_type = '#Client.CustomOtherIdentifier#'">
+			</cfif>
+			<cfset basQual = " #basQual# AND upper(customIdentifier.other_id_prefix) LIKE '%#ucase(custom_id_prefix)#%'">
+		</cfif>
+		<cfif isdefined("custom_id_suffix") and len(#custom_id_suffix#) gt 0>
+			<cfset mapurl = "#mapurl#&custom_id_suffix=#custom_id_suffix#">
+			<cfif #basJoin# does not contain " customIdentifier ">
+				<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num customIdentifier ON 
+				(cataloged_item.collection_object_id = customIdentifier.collection_object_id)">
+			</cfif>
+			<cfif #basQual# does not contain "customIdentifier.other_id_type">
+				<cfset basQual = " #basQual# AND customIdentifier.other_id_type = '#Client.CustomOtherIdentifier#'">
+			</cfif>
+			<cfset basQual = " #basQual# AND upper(customIdentifier.other_id_suffix) LIKE '%#ucase(custom_id_suffixid_prefix)#%'">
+		</cfif>
+		<cfif isdefined("custom_id_number") and len(#custom_id_number#) gt 0>
+			<cfset mapurl = "#mapurl#&custom_id_number=#custom_id_number#">
+			<cfif #basJoin# does not contain " customIdentifier ">
+				<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num customIdentifier ON 
+				(cataloged_item.collection_object_id = customIdentifier.collection_object_id)">
+			</cfif>
+			<cfif #basQual# does not contain "customIdentifier.other_id_type">
+				<cfset basQual = " #basQual# AND customIdentifier.other_id_type = '#Client.CustomOtherIdentifier#'">
+			</cfif>
+			<cfif #custom_id_number# contains "-">
+				<!--- range --->
+				<cfset start=listgetat(custom_id_number,1,"-")>
+				<cfset stop=listgetat(custom_id_number,2,"-")>
+				<cfset basQual = " #basQual# AND customIdentifier.other_id_number between #start# and #stop# ">
+			<cfelseif #custom_id_number# contains ",">
+				<cfset CustOidList="">
+				<cfloop list="#custom_id_number#" delimiters="," index="v">
+					<cfif len(#CustOidList#) is 0>
+						<cfset CustOidList = "#v#">
+					<cfelse>
+						<cfset CustOidList = "#CustOidList#,#v#">
+					</cfif>
+				</cfloop>
+				<cfset basQual = " #basQual# AND customIdentifier.other_id_number IN ( #CustOidList#) ">
+			<cfelseif #isnumeric(custom_id_number)#>
+				<!--- equals --->
+				<cfset basQual = " #basQual# AND customIdentifier.other_id_number = #custom_id_number# ">
+			<cfelse>
+				Custom ID Number may be any of the following formats:
+				<ul>
+					<li>An integer (1)</li>
+					<li>A comma-separated list (1,3,5)</li>
+					<li>A hyphen-separated range (1-5)</li>
+				</ul>
+				Please use your back button to try again.
+				<cfabort>
+			</cfif>			
+		</cfif>
 		
 		<cfif isdefined("CustomIdentifierValue") and len(#CustomIdentifierValue#) gt 0>
 			<cfif not isdefined("CustomOidOper")>
@@ -660,7 +720,9 @@
 				<cfset basJoin = " #basJoin# INNER JOIN coll_obj_other_id_num customIdentifier ON 
 				(cataloged_item.collection_object_id = customIdentifier.collection_object_id)">
 			</cfif>
-			<cfset basQual = " #basQual# AND customIdentifier.other_id_type = '#Client.CustomOtherIdentifier#'">
+			<cfif #basQual# does not contain "customIdentifier.other_id_type">
+				<cfset basQual = " #basQual# AND customIdentifier.other_id_type = '#Client.CustomOtherIdentifier#'">
+			</cfif>
 			<cfif #CustomOidOper# is "IS">
 				<cfset basQual = " #basQual# AND customIdentifier.DISPLAY_VALUE = '#CustomIdentifierValue#'">
 			<cfelseif #CustomOidOper# is "LIST">

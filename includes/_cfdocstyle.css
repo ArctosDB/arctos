@@ -270,6 +270,16 @@ table#goodborder tfoot{}
 	font-size:13px;
 	font-weight:100;
 	}
+.times10b {
+	font:"Times New Roman", Times, serif;
+	font-size:10px;
+	font-weight:600;
+	}
+.times12b {
+	font:"Times New Roman", Times, serif;
+	font-size:12px;
+	font-weight:600;
+	}
 .times14b {
 	font:"Times New Roman", Times, serif;
 	font-size:14px;

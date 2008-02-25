@@ -86,7 +86,7 @@ Existing Images:
 	<cfloop query="getImages">
 		<cfset offset = (#level#-1) * 50>
 		<cfif #full_url# contains #Application.ServerRootUrl#>
-			<cfset thisImgFile = "#Application.webDirectory##right(full_url,len(full_url) - len(serverRootUrl))#">
+			<cfset thisImgFile = "#Application.webDirectory##right(full_url,len(full_url) - len(Application.serverRootUrl))#">
 			<cfset imgDir = #left(thisImgFile,len(thisImgFile) - find("/",reverse(thisImgFile)))#>
 			<cfset thisFileName = #right(thisImgFile,find("/",reverse(thisImgFile))-1)#>
 			<cfset thisExtension = #right(thisImgFile,find(".",reverse(thisImgFile)))#>
@@ -225,7 +225,7 @@ Existing Images:
 			<input type="hidden" name="made_agent_id" value="#defs.agent_id#">
 			<input type="text" name="made_agent" 
 				id="made_agent" class="reqdClr" size="50" value="#defs.agent_name#"
-		 		onchange="getAgent('made_agent_id','made_agent','newimage',this.value); return false;"
+		 		onchange="getAgent('made_agent_id','made_agent','getBinFil',this.value); return false;"
 			  	onKeyUp="return noenter();"> 
 		</td>
 	</tr>
@@ -300,7 +300,7 @@ Existing Images:
 	</cftransaction>
 		
 		<cfif #predeleImg.full_url# contains #Application.ServerRootUrl#>
-			<cfset thisImgFile = "#Application.webDirectory##right(predeleImg.full_url,len(predeleImg.full_url) - len(serverRootUrl))#">
+			<cfset thisImgFile = "#Application.webDirectory##right(predeleImg.full_url,len(predeleImg.full_url) - len(Application.serverRootUrl))#">
 			<cftry>
 					<cffile action="delete" file="#thisImgFile#">
 				<cfcatch><!--- so ---></cfcatch>
@@ -313,7 +313,7 @@ Existing Images:
 				and thumbnail_url='#predeleImg.thumbnail_url#'
 			</cfquery>
 			<cfif #sharedTN.cnt# is 0>
-				<cfset thisImgFile = "#Application.webDirectory##right(predeleImg.thumbnail_url,len(predeleImg.thumbnail_url) - len(serverRootUrl))#">
+				<cfset thisImgFile = "#Application.webDirectory##right(predeleImg.thumbnail_url,len(predeleImg.thumbnail_url) - len(Application.serverRootUrl))#">
 				<cftry>
 					<cffile action="delete" file="#thisImgFile#">
 				<cfcatch><!--- so ---></cfcatch>
@@ -353,11 +353,11 @@ Existing Images:
 		collection_object_id=#imageID#
 		</cfquery>
 			<cfquery name="upColObj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				update coll_object set LAST_EDITED_PERSON_ID=#application.agent_id#,LAST_EDIT_DATE=sysdate
+				update coll_object set LAST_EDITED_PERSON_ID=#client.myAgentId#,LAST_EDIT_DATE=sysdate
 				where collection_object_id=#imageID#
 			</cfquery>
 			<cfquery name="upSpecColObj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				update coll_object set LAST_EDITED_PERSON_ID=#application.agent_id#,LAST_EDIT_DATE=sysdate
+				update coll_object set LAST_EDITED_PERSON_ID=#client.myAgentId#,LAST_EDIT_DATE=sysdate
 				where collection_object_id=#collection_object_id#
 			</cfquery>
 		<cf_logEdit collection_object_id="#collection_object_id#">
@@ -585,7 +585,7 @@ Edit Image:
 			<cfset preview_url="">
 		</cfcatch>
 	</cftry>
-	<cfset enteredbyid = application.agent_id>
+	<cfset enteredbyid = client.myAgentId>
 	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 	<cfquery name="nextID" datasource="#Application.web_user#">
 		select max(collection_object_id) + 1 as nextID from coll_object

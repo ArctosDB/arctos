@@ -798,13 +798,11 @@ not by specimens. --->
 <cfif findnocase(";",order) gt 0>
 	Invalid ordering<cfabort>
 </cfif>
-<!--- TODO: fix sorting by date for specimens query--->
 <!--- Check to see if it is a date. If it is a date, then 
 make the order by part correct, as in year, then month, then day,
 and on day add a 0 to the front if it is one digit only--->
 <cfif find("date",order) is not 0>
 	<!---first extract asc or desc from it--->
-	<!---Got into date section<br/>--->
 	<cfif find("asc",order) is not 0>
 		<cfset ascDesc = right(order,len("asc"))>
 		<cfset order = left(order,len(order)-len("asc"))>
@@ -818,8 +816,8 @@ and on day add a 0 to the front if it is one digit only--->
 	<!--- now remove any trailing spaces --->
 	<cfset order = Trim(order)>
 	<!--- now order by year, then month, then date --->
-	<cfset order = "to_date(#order#,'dd-mon-yy') #ascDesc#">
-	<!---order is #order#<br/>--->
+	<cfset order = "to_date(#order#,'dd-mon-yy')  #ascDesc#">
+	
 </cfif>
 <!--- end date handling--->
 <cfif not isnumeric(permit_id)>

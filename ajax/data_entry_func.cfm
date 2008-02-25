@@ -1,5 +1,12 @@
+
 <!--- hint="type=keyvalue, jsreturn=array , listdelimiter=| , delimiter='='" --->
 <cfinclude template="/ajax/core/cfajax.cfm">
+
+<cffunction name="rememberLastOtherId" returntype="string">
+	<cfargument name="yesno" type="numeric" required="yes">
+	<cfset session.rememberLastOtherId=#yesno#>
+	<cfreturn yesno>
+</cffunction>
 <!--------------
 	<cftry>
 		<cfquery name="tieRef" datasource="#Application.uam_dbo#">

@@ -626,15 +626,16 @@ function success_getSpecResultsData(result){
 						theInnerHtml += "&returnURL=" + escape(mapURL);
 					}
 					theInnerHtml += '">';
-					theInnerHtml += ' <div class="linkButton" onmouseover="this.className=\'linkButton btnhov\'"';
-					theInnerHtml += 'onmouseout="this.className=\'linkButton\'">';
-			 		theInnerHtml += '<img src="images/';
-			 		theInnerHtml +=  result[i].INSTITUTION_ACRONYM;
-			 		theInnerHtml += '_icon.gif" border="0" alt="" width="18" height="18">';
-					theInnerHtml += '&nbsp;' + result[i].INSTITUTION_ACRONYM + '&nbsp;' + result[i].COLLECTION_CDE;
+					//theInnerHtml += ' <div class="linkButton" onmouseover="this.className=\'linkButton btnhov\'"';
+					//theInnerHtml += 'onmouseout="this.className=\'linkButton\'">';
+			 		//theInnerHtml += '<img src="images/';
+			 		//theInnerHtml +=  result[i].INSTITUTION_ACRONYM;
+			 		//theInnerHtml += '_icon.gif" border="0" alt="" width="18" height="18">';
+					theInnerHtml += '&nbsp;' + result[i].COLLECTION;
 					theInnerHtml += '&nbsp;';
 					theInnerHtml += result[i].CAT_NUM;
-					theInnerHtml += '</div></a>';
+					//theInnerHtml += '</div></a>';
+					theInnerHtml += '</a>';
 				theInnerHtml += '</td>';
 				if (loan_request_coll_id.length > 0) {
 					if (loan_request_coll_id == result[i].COLLECTION_ID){
