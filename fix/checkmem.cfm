@@ -8,3 +8,10 @@
     Total Memory Allocated: #Round(totalMemory)#mb<br>
     Max Memory Available to JVM: #Round(maxMemory)#mb<br>
 </cfoutput>
+
+<cfset percentFreeAllocated = Round((freeMemory / totalMemory) * 100)>
+<cfset percentAllocated = Round((totalMemory / maxMemory ) * 100)>
+<cfoutput>
+    % of Free Allocated Memory: #percentFreeAllocated#%<br>
+    % of Available Memory Allocated: #percentAllocated#%<br>
+</cfoutput>
