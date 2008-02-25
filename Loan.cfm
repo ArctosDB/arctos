@@ -226,7 +226,9 @@
 			<label for="loan_status">Loan Status</label>
 			<select name="loan_status" id="loan_status" class="reqdClr">
 				<cfloop query="ctLoanStatus">
-					<option value="#ctLoanStatus.loan_status#">#ctLoanStatus.loan_status#</option>
+					<option value="#ctLoanStatus.loan_status#" 
+							<cfif #ctLoanStatus.loan_status# is "open">selected='selected'</cfif>
+							>#ctLoanStatus.loan_status#</option>
 				</cfloop>
 			</select>
 		</td>
