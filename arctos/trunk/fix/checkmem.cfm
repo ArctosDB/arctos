@@ -15,3 +15,10 @@
     % of Free Allocated Memory: #percentFreeAllocated#%<br>
     % of Available Memory Allocated: #percentAllocated#%<br>
 </cfoutput>
+
+<cfquery name="c" datasource="#Application.web_user#" username="" password="">
+	select global_name from global_name
+</cfquery>
+<cfoutput>
+	#c.global_name#
+</cfoutput>
