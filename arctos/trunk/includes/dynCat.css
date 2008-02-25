@@ -1,0 +1,47 @@
+#mainPage {
+	font-family: Arial, sans-serif;
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+	width: 95%;
+	border:2px solid black;
+}
+#mainPage li.single {
+	cursor: move;
+	position: relative;
+	float: left;
+	margin: 0px 0px 0px 0px;
+	width: 33%;
+	text-align: center;
+	padding: 1px;
+	border: 1px solid #000;
+}
+#mainPage li.flex {
+	cursor: move;
+	position: relative;
+	float: left;
+	margin: 0px 0px 0px 0px;
+	text-align: center;
+	padding: 1px;
+	border: 1px solid #000;
+}
+#mainPage li.double {
+	cursor: move;
+	position: relative;
+	float: left;
+	margin: 0px 0px 0px 0px;
+	width: 66%;
+	text-align: center;
+	padding-top: 1px;
+	border: 1px solid #000;
+}
+#mainPage li.triple {
+	cursor: move;
+	position: relative;
+	float: left;
+	margin: 0px 0px 0px 0px;
+	width: 99%;
+	text-align: center;
+	padding-top: 1px;	
+	border: 1px solid #000;
+}

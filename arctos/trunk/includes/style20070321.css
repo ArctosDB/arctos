@@ -1,0 +1,989 @@
+/********************************* Site-wide behavior ********************************************/
+/****************************** tooltips *********************************************************/
+span.helpDiv{
+    position:relative; /*this is the key*/
+    z-index:99;
+    color:#0000FF;
+    text-decoration:none;
+	}
+.red {background-color:#FF0000;}
+redCheck{
+	border: 5px solid red;
+}
+.infoLink {
+	cursor:pointer;
+	color:#62789D;
+	font-size:x-small;
+	font-family:Arial, Helvetica, sans-serif;
+}
+span.helpDiv:hover{z-index:999;
+	background-color: transparent;
+	cursor:pointer;
+	color:#FF0000;
+	text-decoration:underline;
+	}
+.error {
+	font-size:2em;
+	background-color:red;
+}
+span.helpDiv span{display: none}
+
+span.helpDiv:hover span{ /*the span will display just on :hover state*/
+    display:block;
+    position:absolute;
+    top:2em; left:2em;
+	background-color:#00CC33;
+    color:#000;
+    text-align: center;
+	text-decoration:none;
+	width:400px;
+	font-size:small;
+	padding:5px;}
+	
+div.fldDef {
+	float:right; 
+	clear:both; 
+	border:1px solid green;
+	font-size:x-small;
+	color:#999999;
+	padding:3px;
+	margin-left:5px;
+	margin-right:2px;
+	width:200px;
+	z-index:1;
+}
+
+a.info{
+    position:relative; /*this is the key*/
+    z-index:24;
+    color:#000;
+    text-decoration:none;}
+
+a.info:hover{z-index:20;
+	background-color: transparent;
+	font-size:small;
+	}
+
+a.info span{display: none}
+
+a.info:hover span{ /*the span will display just on :hover state*/
+    display:block;
+    position:absolute;
+    top:2em; left:2em;
+    border:1px solid #0cf;
+	background-color:#FFFFFF;
+    color:#000;
+    text-align: center;
+	text-decoration:none;}
+span.helpLink {
+	/* white span around the help, login, map links */
+	background-color:#FFFFFF; 
+	padding:2px;
+	}
+
+/****************************** end tooltips ****************************************************/
+div.breadcrumbs {
+	font-size:.6em;
+	font-weight:bold;
+}
+
+h1 {
+	font-size:2em;
+	font-weight: bold;
+}
+h2 {
+	font-size:1.6em;
+	font-weight:bold;
+}
+table.sortable a.sortheader {
+    background-color:#eee;
+    color:#666666;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+}
+table.sortable span.sortarrow {
+    color: black;
+    text-decoration: none;
+}
+
+body.helpPages {
+	font-family:Arial, Helvetica, sans-serif;
+	background-color:#FFFF99;
+	margin:10px;
+}
+input.hSearch {
+	font-size:10px;;
+	}
+input.hBtn {
+	color:#666666;
+	font-size:8pt;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	background-color:#CCCC99;
+	border-color:#336666;
+	border:1px solid;
+	}
+/* span class for labels */
+span.lblFont {
+	font-size:9px;
+	font-weight:600;
+	color:#333333;
+	}
+/* label styling */
+label {
+	display:block;
+	font-size:12px;
+	font-weight:800;
+	}
+fieldset {
+	padding:none;
+	}
+span.pageHelp {
+	float:right;
+	clear:left;
+	}
+div.content {
+	margin-left:5px;
+	margin-right:5px;
+	}
+.smaller {
+	font-size:.8em;
+}
+div.infoBox {
+	background-color:#999999;
+	color:#333333;
+	font-size:smaller;
+	padding:3px;
+	}
+/*width:100%;
+	text-align:left;
+	margin:5px;
+	make the cursor a hand on mouseover 
+	used for link images
+*/
+.likeLink {
+	cursor:pointer;
+	color: blue;
+	}
+.likeLink:hover {
+	text-decoration: underline;
+	color: #CC0000;
+	}	
+.selectedLink {color:#FF0000;}	
+/* 
+	group classes of search/preference terms into 
+	gray boxes 
+*/
+div.group {
+	background-color:#EFEFEF;
+	padding: 5 px;
+	border: 3px solid #EFEFEF;
+	}
+
+input.tab {
+	color:	black;
+	font-size:10pt;
+	font-weight:bold;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color:#33CC99;
+	text-align:left;
+	border:none;
+	}
+div.tabBG {
+	color:	black;
+	font-size:10pt;
+	font-weight:bold;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color:#33CC99;
+	border-color: #336666;
+	border: 1px solid;
+	text-align:left;
+	padding:2px;
+	}
+input.tabHov {
+	      border-top-color:#FF6633 ;
+	   border-left-color:#FF6633 ;
+	   border-right-color:#FF6666 ;
+	   border-bottom-color:#FF6666 ;
+	   cursor:pointer;
+	   border: 1px solid;
+	  }
+div.linkButton {
+	color:	#666666;
+	font-size:10pt;
+	font-weight:bold;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color:#99CCFF;
+	border-color: #336666;
+	border:1px solid;
+	padding:2px;
+	text-align:center;
+}
+div.isAButton {
+	color:	black;
+	font-size:10pt;
+	font-weight:bold;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color:#F5F5F5;
+	border-color: #336666;
+	border: 1px solid;
+	padding:2px;
+	width:80%;
+	text-align:left;
+	text-indent:10px;
+	}
+div.HalfAButton {
+	color:	black;
+	font-size:10pt;
+	font-weight:bold;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color:#F5F5F5;
+	border-color: #336666;
+	border: 1px solid;
+	padding:2px;
+	width:40%;
+	text-align:left;
+	text-indent:10px;
+	float:left;
+	}
+
+input.acell {
+	color:	black;
+	font-size:10pt;
+	font-weight:bold;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color:#F5F5F5;
+	border-color: #336666;
+	border: 1px solid;
+	width:80%;
+	text-align:left;
+	}
+/* Nav Bar header table */
+td.l {
+	width:30%;
+	text-align:right;
+	font-weight:bold;
+	white-space:nowrap;
+	}
+td.r {
+	width:70%;
+	text-align:left;
+	}
+table.grp {
+	width: 100%;
+	}
+tr.t, td.t {
+	background-color:#C7D5D6;
+	}
+	
+tr.dd, td.dd {
+	background-color:#7B8075;
+	}
+tr.dms, td.dms {
+	background-color:#ADB1A9;
+	}
+tr.ddm, td.ddm {
+	background-color:#9DA699;
+	}
+			
+	tr.s, td.s {
+	background-color:blue;
+	}
+div.floatHead {
+	float:right;
+	}
+table.navBar {
+		border-color: midnightblue;
+		border-style: solid;
+		}
+		/* NavBar div */
+	div.navBar {
+		position:center;		
+		border-color: midnightblue;
+		border-style: solid;
+		white-space: nowrap;
+		}
+
+body {
+	font-family:arial,sans-serif;
+	background-color:#FFFFFF;
+	/*color:#191970;*/
+	margin:0;
+	padding:0;
+	}
+A:link {
+	text-decoration: none; 
+	color: blue;
+	}
+A:visited:hover {
+	text-decoration: underline;
+	color: #CC0000;
+	}
+A:visited {
+	text-decoration: none;
+	color:#660099;
+	}
+A:hover  {
+	text-decoration: underline;
+	color: #CC0000;
+	}
+A.novisit {
+	color: blue;
+	}
+A:novisit:hover {
+	text-decoration: underline;
+	color: #CC0000;
+	}
+/* control page width */
+	div.pagewidth {
+		margin-left:5%;
+		margin-right:5%;
+		}
+div.searchpage {
+	width:700px;
+	text-align:center;
+	padding:2px;
+	}
+
+	div.left {
+	width:200px;
+	float:left;
+	text-align:right;
+	}
+div.right {
+	text-align:left;
+	}
+
+div.leftHome {
+	text-align:left;
+	width:400px;
+	float:left;
+	
+	padding:2px;
+	}
+div.rightHome {
+	text-align:left;
+	width:192px;
+	float:right;
+	border-color:#000066;
+	border-style:solid;
+	border-width:2px;;
+	}
+		
+
+div.usrFld {
+	background-color:#EFEFEF;
+	}
+div.stdFld {
+	background-color:#FFFFFF;
+	}
+	
+span.counter {
+	background-color:#000000;
+	font-family:Fixedsys;
+	color:#00FF00;
+	padding:1px;
+	border-color:#666666;
+	border-style:outset;
+	border-width:2px;
+	cursor:crosshair;
+	}
+span.counterLink {
+	background-color:#000000;
+	font-family:Fixedsys;
+	color:#00FF00;
+	padding:1px;
+	border-color:#666666;
+	border-style:outset;
+	border-width:2px;
+	cursor:pointer;
+	}
+/********************************* /Site-wide behavior ********************************************/
+
+
+div.taxa, tr.taxa {
+		border-color:#000066;
+		border-style:ridge;
+		border-width:2px;
+		padding:1px;
+		}
+
+div.geog {
+		border-color:#FFFF00;
+		border-style: ridge;
+		border-width:2px;
+		padding:1px;
+		}	
+div.coordinate {
+		border-color:#996600;
+		border-style: ridge;
+		border-width:2px;
+		padding:1px;
+		}
+div.numbers {
+		border-color:#00FF00;
+		border-style: ridge;
+		border-width:2px;
+		padding:1px;
+		}
+div.parts {
+		border-color:#0000FF;
+		border-style: ridge;
+		border-width:2px;
+		padding:1px;
+		}
+div.images {
+		border-color:#FF33FF;
+		border-style: ridge;
+		border-width:2px;
+		padding:1px;
+		}
+div.permit {
+		border-color:#999999;
+		border-style: solid;
+		border-width:2px;
+		padding:1px;
+		}
+div.citation {
+		border-color:#99FF99;
+		border-style: ridge;
+		border-width:2px;
+		padding:1px;
+		}
+div.project {
+		border-color:#009999;
+		border-style: ridge;
+		border-width:2px;
+		padding:1px;
+		}
+div.attribute {
+		border-color:#FF0000;
+		border-style:ridge;
+		border-width:2px;
+		padding:1px;
+		}
+div.coll {
+		border-color: #FF3366;
+		border-style:ridge;
+		border-width:2px;
+		padding:1px;
+		}
+		
+div.curate {
+		border-color:#0000CC;
+		border-style:ridge;
+		border-width:2px;
+		padding:1px;
+		}
+		
+		
+/********************************* tables for cells of SpecimenEdit ********************************************/
+table.acell {
+	border-style:solid;
+	background-color:#C7D5D6;
+	}
+
+table.bcell {
+	border-style:solid;
+	background-color:#F5F5F5;
+	}
+input.bcell {
+	color:	black;
+	font-size:10pt;
+	font-weight:bold;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color:#99FFFF;
+	border-color: #336666;
+	border: 1px solid;
+	}
+/********************************* /tables for cells of SpecimenEdit ********************************************/
+/********************************* /Customizable and Standard stuff on SpecimenSearch ********************************************/
+tr.usrFld {
+	background-color:#EEF0E7;
+	}
+tr.stdFld {
+	background-color:#FFFB0;
+	}
+	
+td.yes {
+		background-color:#CEFFCE;
+		border-color:#66FF66;
+		border-style:solid;
+		border-width:thin;
+		}
+td.no {
+		background-color:#ECD1CC;
+		border-color:#FF0000;
+		border-style:solid;
+		border-width:thin;
+		}
+/********************************* Customizable and Standard stuff on SpecimenSearch ********************************************/
+
+/********************************* even and odd row alternating colors ********************************************/
+/* To implement this, use
+	 <tr #iif(currentrow MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+*/
+tr.evenRow, td.evenRow {
+	background-color:#E5E5E5;
+	}
+tr.oddRow, td.oddRow {
+	background-color:#F5F5F5;
+	}	
+/********************************* /even and odd row alternating colors ********************************************/
+/********************************* Custom buttons, tables, forms ********************************************/
+/* Table background color for new record */
+td.newRec, tr.newRec {
+	background-color:#D6F5F2;
+	}
+table.newRec {
+	background-color: #D6F5F2;
+	cellpadding:0;
+	cellspacing:0;
+	}
+/* Save Changed Button */
+input.savBtn {
+   	color:	#666666;
+   	font-size:10pt;
+	font-weight:bold;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color:#FBD29B;
+	border:1px solid;
+	border-color: #336666;
+	}	  
+/* Link Button */	  
+	input.lnkBtn {
+		color:	#666666;
+		font-size:10pt;
+		font-weight:bold;
+		font-family: Arial, Helvetica, sans-serif;
+		background-color:#99CCFF;
+		border-color: #336666;
+		border:1px solid;
+		}
+/* Search Button */
+input.schBtn {
+	color:#666666;
+	font-size:10pt;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	background-color:#CCCC99;
+	border-color:#336666;
+	border:1px solid;
+	}
+/* Clear Form Button */
+input.clrBtn {
+	color:	#666666;
+	font-size:10pt;
+	font-weight:bold;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color:#FFCC00;
+	border-color: #336666;
+	border:1px solid;
+	} 
+/* Insert Button */
+	input.insBtn {
+		color:	#666666;
+		font-size:10pt;
+		font-weight:bold;
+		font-family: Arial, Helvetica, sans-serif;
+		background-color:#99CCCC;
+		border-color: #336666;
+		border:1px solid;
+		}
+/* Pick Button */
+	input.picBtn {
+		color:	#666666;
+		font-size:10pt;
+		font-weight:bold;
+		font-family: Arial, Helvetica, sans-serif;
+		background-color:#CCCC99;
+		border-color: #336666;
+		border:1px solid;
+		}
+/* Delete Button */
+	input.delBtn {
+	color:	#666666;
+	font-size:10pt;
+	font-weight:bold;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color:#FF9966;
+	border-color: #336666;
+	border:1px solid;
+	}
+/* Quit Button */
+	input.qutBtn {
+		color:	#666666;
+		font-size:10pt;
+		font-weight:bold;
+		font-family: Arial, Helvetica, sans-serif;
+		background-color:#FFFF00  ;
+		border-color: #336666;
+		border:1px solid;
+		}
+		 	  
+/* Required Input, select, textarea */
+		input.reqdClr, select.reqdClr, textarea.reqdClr {
+		   background-color:#FFFF33;
+		 	  }	 	  
+		/* pick field hasn't done it's thing yet */
+ 		input.badPick, select.badPick, textarea.badPick {
+		   background-color:#FF3366;
+		 	  }
+		/* pick field has done it's thing; safe to move on */
+ 		input.goodPick, select.goodPick, textarea.goodPick {
+		   background-color:#8BFEB9;
+		 	  }	 
+	input.seleClr, select.seleClr, textarea.seleClr {
+		   background-color:#FF0000;
+		 	  }	 	
+			  
+ /* Read-only Input, Select */
+		input.readClr, select.readClr {
+		   background-color:#CCCCCC;
+		 	  }	 	  		 	  
+
+/* Mouseover Button */
+	   input.btnhov, div.btnhov {
+	      border-top-color:#FF6633 ;
+	   border-left-color:#FF6633 ;
+	   border-right-color:#FF6666 ;
+	   border-bottom-color:#FF6666 ;
+	   cursor:pointer;
+	  }
+/********************************* / Custom buttons, tables, forms ********************************************/
+
+	
+
+	
+	
+
+/* Specimen Detail Pages */
+		input.detLinkBtn {
+			   color:	#666666;
+		    font-size:10pt;
+		   font-weight:bold;
+		     font-family: Arial, Helvetica, sans-serif;
+		   background-color:#99CCFF;
+		   border-color: #336666;
+		   border: 1px solid;
+		   width: 125px;
+		   height: 25px;
+		 	  }
+
+/****************************************************** Specimen Detail Tabs *************************************/
+DIV.taMenu
+{
+   float            : left;
+   background       : #FFFFFF url(/images/taMenuBorder.gif) repeat-x bottom;
+}
+
+DIV.taMenu UL
+{
+   margin           : 0px;
+   padding          : 0px;
+   list-style       : none;
+}
+
+DIV.taMenu LI
+{
+   display          : inline;
+   margin           : 0px;
+   padding          : 0px;
+}
+
+DIV.taMenu A
+{
+   float            : left;
+   background       : url(/images/taMenuRight.gif) no-repeat right top;
+   border-bottom    : 1px solid #84B0C7;
+
+   font-size        : small;
+   font-weight      : bold;
+   text-decoration  : none;
+}
+
+DIV.taMenu A.smallBusiness
+{
+   background       : url(/images/sbMenuRight.jpg) no-repeat right top;
+}
+
+DIV.taMenu A:hover
+{
+   background-position: 100% -150px;
+}
+
+DIV.taMenu A:link, DIV.taMenu A:visited,
+DIV.taMenu A:active, DIV.taMenu A:hover
+{
+   color            : #115E94;
+}
+
+DIV.taMenu SPAN
+{
+   float            : left;
+   display          : block;
+   background       : url(/images/taMenuLeft.gif) no-repeat left top;
+   padding          : 5px 9px;
+   white-space      : nowrap;
+}
+
+DIV.taMenu SPAN.smallBusiness
+{
+   background       : url(/images/sbMenuLeft.jpg) no-repeat left top;
+}
+
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+DIV.taMenu SPAN {float : none;}
+/* End IE5-Mac hack */
+
+DIV.taMenu A:hover SPAN
+{
+   background-position: 0% -150px;
+}
+
+DIV.taMenu LI#current A
+{
+   background-position: 100% -150px;
+   border-width     : 0px;
+}
+
+DIV.taMenu LI#current SPAN
+{
+   background-position: 0% -150px;
+   padding-bottom   : 6px;
+}
+/********************************************* Site Navigation Tabs **********************************************************/
+
+#header {
+      float:left;
+      width:100%;
+     /* background:url("/images/bg.gif") repeat-x bottom;*/
+      font-size:93%;
+      line-height:normal;
+      }
+    #header ul {
+      margin:0;
+      padding:10px 10px 0;
+      list-style:none;
+      }
+    #header li {
+      float:left;
+      background:url("/images/left.gif") no-repeat left top;
+      margin:0;
+      padding:0 0 0 9px;
+      }
+    #header a {
+      display:block;
+      background:url("/images/right.gif") no-repeat right top;
+      padding:5px 15px 4px 6px;
+      }
+    #header #current {
+      background-image:url("/images/left_on.gif");
+      }
+    #header #current a {
+      background-image:url("/images/right_on.gif");
+      padding-bottom:5px;
+      }
+	  
+/********************************************* Site Navigation Tabs **********************************************************/
+
+/*******************************************************************************************************/
+
+
+	#navbar {
+		color: green;
+		border-bottom: 2px solid black;
+		border-top: 2px solid black;
+		margin: 12px 0px 0px 0px;
+		padding: 0px;
+		z-index: 1;
+		text-align:center;
+		}
+
+	#navbar li {
+		display: inline;
+		overflow: hidden;
+		list-style-type: none; }
+
+
+	/*
+	#tabmenu a, a.active {
+		color: blue;
+		background-color:#E7E7E7;
+		border-right:1px solid black;
+		border-left:1px solid black;
+		border-top:1px solid black;
+		border-bottom: 3px solid black;
+		padding: 0px 5px 0px 5px;
+		margin: 0px;
+		text-decoration: none;
+		font-weight:800;
+		font-family:Arial, Helvetica, sans-serif;
+		font-size:smaller;
+		position:bottom; }
+*/
+		/**/
+		#navbar a, a.active {
+		color: green;
+		background-color:#E7E7E7;
+		border-right:1px solid black;
+		text-decoration: none;
+		border-left:1px solid black;
+		border-top:1px solid black;
+		border-bottom:1px solid black;
+		padding: 0px 5px 0px 5px;
+		margin: 0px;
+		font-weight:bolder;
+		font-size:small;
+		font-family:Arial, Helvetica, sans-serif;		
+		}
+		
+		#navbar span, span.active {
+		color: green;
+		background-color:#E7E7E7;
+		border-right:1px solid black;
+		text-decoration: none;
+		border-left:1px solid black;
+		border-top:1px solid black;
+		border-bottom:1px solid black;
+		padding: 0px 5px 0px 5px;
+		margin: 0px;
+		font-weight:bolder;
+		font-size:small;
+		font-family:Arial, Helvetica, sans-serif;		
+		}
+		
+	#navbar a.active {
+		background-color:#000000;
+		color:green; }
+	#navbar span.active {
+		background-color:#000000;
+		color:green; }
+		
+	#navbar a:hover {
+		color:red;
+		background: #E7E7E7;
+		border-bottom:1px solid black;
+		 }
+		#navbar span:hover {
+		color:red;
+		background: #E7E7E7;
+		border-bottom:1px solid black;
+		 }
+
+	#navbar a:visited {
+		color: #blue; }
+	#navbar span:visited {
+		color: #blue; }
+
+	#navbar a.active:hover {
+		background: #FFFFFF;
+		color: #red; }
+	#navbar span.active:hover {
+		background: #FFFFFF;
+		color: #red; }
+/******************************************************************************************************/
+	
+	pre {text-indent: 30px}
+
+	#tabmenu {
+		color: blue;
+		border-bottom: 2px solid black;
+		margin: 12px 0px 0px 0px;
+		padding: 0px;
+		z-index: 1;
+		padding-left: 10px;
+		font-weight:bolder;
+		font-size:small;
+		}
+
+	#tabmenu li {
+		display: inline;
+		overflow:scroll;
+		list-style-type: none; }
+
+	/*
+	#tabmenu a, a.active {
+		color: blue;
+		background-color:#E7E7E7;
+		border-right:1px solid black;
+		border-left:1px solid black;
+		border-top:1px solid black;
+		border-bottom: 3px solid black;
+		padding: 0px 5px 0px 5px;
+		margin: 0px;
+		text-decoration: none;
+		font-weight:800;
+		font-family:Arial, Helvetica, sans-serif;
+		font-size:smaller;
+		position:bottom; }
+*/
+		/**/
+		#tabmenu a, a.active {
+		color: blue;
+		background-color:#E7E7E7;
+		border-right:1px solid black;
+		text-decoration: none;
+		border-left:1px solid black;
+		border-top:1px solid black;
+		padding: 0px 5px 0px 5px;
+		margin: 0px;
+		font-family:Arial, Helvetica, sans-serif;
+		}
+		/*
+		original
+		#tabmenu a, a.active {
+		color: blue;
+		background-color:#E7E7E7;
+		border-right:1px solid black;
+		text-decoration: none;
+		border-left:1px solid black;
+		border-top:1px solid black;
+		padding: 0px 5px 0px 5px;
+		margin: 0px;
+		font-family:Arial, Helvetica, sans-serif;
+		}
+		*/
+	#tabmenu a.active {
+		background: #FFFFFF;
+		border-bottom: 4px solid #FFFFFF;
+		font-weight:bolder;
+		font-size:small; }
+		
+	#tabmenu a:hover {
+		color:red;
+		background: #E7E7E7;
+		 }
+
+	#tabmenu a:visited {
+		color: #blue; 
+		font-family:Arial, Helvetica, sans-serif;}
+
+	#tabmenu a.active:hover {
+		background: #FFFFFF;
+		color: #red;
+		border-bottom: 3px solid #FFFFFF; }
+		
+/*************************************************************************************************/	 
+
+/*************************************************************************************************/	  
+/* Monica Albe's additions to style sheet for header */
+.style2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: small;
+}
+.style3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: xx-large;
+}
+.style4 {
+	font-size: x-large;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style5 {font-size: large}
+.style6 {font-family: Arial, Helvetica, sans-serif}
+.style8 {font-family: Arial, Helvetica, sans-serif; font-size: small; }
+/* End Monica Albe's additions */
+
+ 

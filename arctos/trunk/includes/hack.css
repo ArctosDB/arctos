@@ -1,0 +1,22 @@
+/*Not really sure why IE needs all these,but hey it works!*/
+.horizontal  li ul{
+	margin-top: 1.4em;
+	margin-left: -129px;
+}	
+.horizontal  li li ul{
+	position: absolute;
+	left: 0px;
+}
+/*These assist the iframe shim*/
+.mlmenu iframe{
+	position: absolute;
+	display: none;
+	filter: alpha(opacity=0);
+	z-index: 2;
+}
+select,object,iframe{
+	z-index: 1;
+}
+.delay li.hide ul{
+	filter: alpha(opacity=0);
+}

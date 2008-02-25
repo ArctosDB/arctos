@@ -1,0 +1,12 @@
+<!--#set var="title" value="Arctos Examples" -->
+<!--#include virtual="/includes/_header.shtml" -->
+<font size="-2"><a href="../UAM/index.shtml">Help</a> >> <strong>Arctos Examples</strong></font><br />
+<font size="+1">Examples</font>
+<p>From here, you can find examples that demonstrate methods for finding 
+the information you need in:</p>
+<ul>
+<li><a href="/UAM/examples.shtml">Arctos</a></li>
+<li><a href="/MSB/examples.shtml">BUENO</a></li>
+</ul>
+
+<!--#include virtual="/includes/_footer.shtml" -->
