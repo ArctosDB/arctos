@@ -1,7 +1,7 @@
 <cfcomponent>
 	<cfoutput>
 		<cffunction name="classificationbank_object" access="remote" returntype="string" output="no">
-			<cfargument required="true" name="hierarchiesID" type="numeric">
+			<cfargument required="true" name="classificationBankID" type="numeric">
 			<cfhttp url="http://www.ubio.org/webservices/service_internal.php" charset="utf-8" method="get">
 				<cfhttpparam type="url" name="keyCode" value="0dcb58874a48e95725f591152981365d45833b56">
 				<cfhttpparam type="url" name="function" value="classificationbank_object">
