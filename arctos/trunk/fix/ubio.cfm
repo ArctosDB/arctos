@@ -1,4 +1,3 @@
-booger
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/service/uBio.cfc">
 <cfoutput>
