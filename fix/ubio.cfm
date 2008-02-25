@@ -18,9 +18,8 @@
 	<br>namebankID: #namebankID#
 	<a href="ubio.cfm?action=namebank_object&v=#namebankID#">namebank_object</a>
 	<a href="ubio.cfm?action=classificationbank_search&v=#namebankID#">classificationbank_search</a>
-	
-		<a href="ubio.cfm?action=classificationbank_object&v=#namebankID#">classificationbank_object</a>
-	classificationbank_object
+	<a href="ubio.cfm?action=classificationbank_object&v=#namebankID#">classificationbank_object</a>
+
 	
 	<cfset packageID=MyXml.results.scientificNames.value[c].packageID.XmlText>
 	<br>packageID: #packageID#
