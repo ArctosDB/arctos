@@ -1,1 +1,0 @@
-create table proc_bl_status (status number(1));
