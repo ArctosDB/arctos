@@ -17,7 +17,10 @@
 	<cfset namebankID=MyXml.results.scientificNames.value[c].namebankID.XmlText>
 	<br>namebankID: #namebankID#
 	<a href="ubio.cfm?action=namebank_object&v=#namebankID#">namebank_object</a>
-	<a href="ubio.cfm?action=classificationbank_search&v=#namebankID#">namebank_object</a>
+	<a href="ubio.cfm?action=classificationbank_search&v=#namebankID#">classificationbank_search</a>
+	
+		<a href="ubio.cfm?action=classificationbank_object&v=#namebankID#">classificationbank_object</a>
+	classificationbank_object
 	
 	<cfset packageID=MyXml.results.scientificNames.value[c].packageID.XmlText>
 	<br>packageID: #packageID#
@@ -43,7 +46,13 @@
 	<cfdump var=#MyXml#>
 </cfif>
 <cfif #action# is "classificationbank_search">
-	<cfset bla = namebank_object(#v#)>
+	<cfset bla = classificationbank_search(#v#)>
+	<cfset MyXml = xmlparse(bla)>
+	<cfdump var=#MyXml#>
+</cfif>
+
+<cfif #action# is "classificationbank_object">
+	<cfset bla = classificationbank_object(#v#)>
 	<cfset MyXml = xmlparse(bla)>
 	<cfdump var=#MyXml#>
 </cfif>
