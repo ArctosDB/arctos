@@ -37,8 +37,8 @@
 				(select * from addr where addr_type='Correspondence') outside_addr,
 				(select * from addr where addr_type='Correspondence') inside_addr,
 				shipment,
-				(select * from addr where addr_type='Shipping') ship_to_addr,
-				(select * from addr where addr_type='Shipping') ship_from_addr,
+				addr ship_to_addr,
+				addr ship_from_addr,
 				preferred_agent_name processed_by
         WHERE
                 loan.transaction_id = trans.transaction_id and
