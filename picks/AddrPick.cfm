@@ -26,8 +26,7 @@
 			preferred_agent_name, addr
 			 where 
 			 preferred_agent_name.agent_id = addr.agent_id (+) AND
-			 UPPER(agent_name) LIKE '%#ucase(agentname)#%'
-				
+			 UPPER(agent_name) LIKE '%#ucase(agentname)#%'				
 		</cfquery>
 	</cfoutput>
 	<cfoutput query="getAgentId">
@@ -35,14 +34,12 @@
 <br>
 #agent_name#<br>
 <cfif len(#formatted_addr#) gt 0>
-here we are
 <cfset addr = #replace(formatted_addr,"'","`","ALL")#>
 <cfset addr = #replace(addr,"#chr(9)#","-","ALL")#>
 <cfset addr = #replace(addr,"#chr(10)#","-","ALL")#>
 <cfset addr = #replace(addr,"#chr(13)#","-","ALL")#>
 <cfset addr=trim(addr)>
 <a href="##" onClick="javascript: opener.document.#formName#.#addrFld#.value='#addr#';opener.document.#formName#.#addrIdFld#.value='#addr_id#';self.close();">#addr#</a>
-opener.document.#formName#.#addrIdFld#.value='#addr_id#';opener.document.#formName#.#addrFld#.value='#addr#';self.close();
 <br>
       <a href="/agents.cfm?agent_id=#agent_id#" target="_blank"><font color="##00FF66">Add 
       address for #agent_name# <font size="-2">(new window)</font></font></a> 
