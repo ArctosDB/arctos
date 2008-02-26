@@ -137,19 +137,15 @@
             </tr>
             <tr> 
               <td><div align="right">Began Date:</div></td>
-              <td><select name="begDateOper" size="1">
-                  <option value="=">is</option>
-                  <option value="<">before</option>
-                  <option value=">">after</option>
-                </select> <input type="text" name="BEGAN_DATE"> </td>
+              <td><input type="text" name="BEGAN_DATE"> </td>
+				<td align="right">Began Until Date (leave blank otherwise)</td>
+				<td><input type="text" name="began_until_date"></td>
             </tr>
             <tr> 
               <td><div align="right">Ended Date:</div></td>
-              <td><select name="endDateOper" size="1">
-                  <option value="=">is</option>
-                  <option value="<">before</option>
-                  <option value=">">after</option>
-                </select> <input type="text" name="ENDED_DATE"> </td>
+              <td><input type="text" name="ENDED_DATE"> </td>
+				<td align="right">Ended Until Date (leave blank otherwise)</td>
+				<td><input type="text" name="ENDED_until_date"></td>
             </tr>
             <tr> 
               <td><div align="right">Verbatim Date:</div></td>
@@ -214,13 +210,22 @@
 	
 	
 		
-		
-		<cfif len(#BEGAN_DATE#) gt 0>
-			<cfset sql = "#sql# AND upper(BEGAN_DATE) #begDateOper# '#BEGAN_DATE#'">
+		<cfif isdefined("BEGAN_DATE") and len(#BEGAN_DATE#) gt 0>
+			<cfif isdefined("began_until_date") and len(#began_until_date#) gt 0>
+				<cfset sql = "#sql# AND upper(BEGAN_DATE) between to_date('#BEGAN_DATE#', 'DD Mon YYYY') 
+																and to_date('#began_until_date#', 'DD Mon YYYY')">
+			<cfelse>
+				<cfset sql = "#sql# AND upper(BEGAN_DATE) like to_date('#BEGAN_DATE#', 'DD Mon YYYY')">
+			</cfif>
 		</cfif>
 		
-		<cfif len(#ENDED_DATE#) gt 0>
-			<cfset sql = "#sql# AND upper(ENDED_DATE) #endDateOper# '#ENDED_DATE#'">
+		<cfif isdefined("ENDED_DATE") and len(#ended_DATE#) gt 0>
+			<cfif isdefined("ended_until_date") and len(#ended_until_date#) gt 0>
+				<cfset sql = "#sql# AND upper(ended_DATE) between to_date('#ended_DATE#', 'DD Mon YYYY') 
+																and to_date('#ended_until_date#', 'DD Mon YYYY')">
+			<cfelse>
+				<cfset sql = "#sql# AND upper(ended_DATE) like to_date('#ended_DATE#', 'DD Mon YYYY')">
+			</cfif>
 		</cfif>
 		
 		<cfif len(#VERBATIM_DATE#) gt 0>
