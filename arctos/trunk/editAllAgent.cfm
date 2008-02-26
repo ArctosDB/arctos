@@ -1000,13 +1000,6 @@ Edit This Address:
 						</td>
 					</tr>
 					<tr>
-						<td>Formatted Address
-							<br>
-                <font size="-1">(Leave blank to auto-generate)</font> </td>
-						<cfset thisAddr = #replace(formatted_addr,"<br>","##chr(10)##","all")#>
-						<td colspan="3"><textarea rows="6" cols="50" name="formatted_addr">#thisAddr#</textarea></td>
-					</tr>
-					<tr>
 						<td><input type="submit" 
 		value="Save Updates" 
 		class="savBtn"
@@ -1123,40 +1116,6 @@ Edit This Address:
 			 </cfif>
 			 where addr_id = #addr_id#
 	</cfquery>	
-		
-		<cfquery name="addr" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-			select * from addr
-			,preferred_agent_name where addr.agent_id = preferred_agent_name.agent_id
-			and addr_id=#addr_id#
-		</cfquery>
-		<cfset formAddr = "#addr.agent_name#">
-		<cfif len(#addr.job_title#) gt 0>
-			<cfset formAddr = "#formAddr#, #addr.job_title#">		
-		</cfif>
-		<cfif len(#addr.institution#) gt 0>
-			<cfset formAddr = "#formAddr#<br>#addr.institution#">		
-		</cfif>
-		<cfif len(#addr.department#) gt 0>
-			<cfset formAddr = "#formAddr#<br>#addr.department#">		
-		</cfif>
-		<cfif len(#addr.street_addr1#) gt 0>
-			<cfset formAddr = "#formAddr#<br>#addr.street_addr1#">		
-		</cfif>
-		<cfif len(#addr.street_addr2#) gt 0>
-			<cfset formAddr = "#formAddr#<br>#addr.street_addr2#">		
-		</cfif>
-			<cfset formAddr = "#formAddr#<br>#addr.city#, #addr.state# #addr.zip#">		
-		<cfif len(#addr.country_cde#) gt 0>
-			<cfset formAddr = "#formAddr#<br>#addr.country_cde#">		
-		</cfif>
-		<cfif len(#addr.mail_stop#) gt 0>
-			<cfset formAddr = "#formAddr#<br>#addr.mail_stop#">		
-		</cfif>	
-			<cfquery name="makeFormat" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				update addr SET formatted_addr=
-					'#formAddr#'
-				where addr_id = #addr_id#
-			</cfquery>
 		<cfquery name="elecaddr" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 				UPDATE electronic_address 
 			 SET AGENT_ID = #agent_id#
@@ -1350,40 +1309,6 @@ Edit This Address:
 			 </cfif>
 		)
 	</cfquery>
-	
-	<cfquery name="addr" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-			select * from addr
-			,preferred_agent_name where addr.agent_id = preferred_agent_name.agent_id
-			and addr.agent_id=#agent_id#
-		</cfquery>
-		<cfset formAddr = "#addr.agent_name#">
-		<cfif len(#addr.job_title#) gt 0>
-			<cfset formAddr = "#formAddr#, #addr.job_title#">		
-		</cfif>
-		<cfif len(#addr.institution#) gt 0>
-			<cfset formAddr = "#formAddr#<br>#addr.institution#">		
-		</cfif>
-		<cfif len(#addr.department#) gt 0>
-			<cfset formAddr = "#formAddr#<br>#addr.department#">		
-		</cfif>
-		<cfif len(#addr.street_addr1#) gt 0>
-			<cfset formAddr = "#formAddr#<br>#addr.street_addr1#">		
-		</cfif>
-		<cfif len(#addr.street_addr2#) gt 0>
-			<cfset formAddr = "#formAddr#<br>#addr.street_addr2#">		
-		</cfif>
-			<cfset formAddr = "#formAddr#<br>#addr.city#, #addr.state# #addr.zip#">		
-		<cfif len(#addr.country_cde#) gt 0>
-			<cfset formAddr = "#formAddr#<br>#addr.country_cde#">		
-		</cfif>
-		<cfif len(#addr.mail_stop#) gt 0>
-			<cfset formAddr = "#formAddr#<br>#addr.mail_stop#">		
-		</cfif>	
-			<cfquery name="makeFormat" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				update addr SET formatted_addr=
-					'#formAddr#'
-				where addr_id = #nextAddr.nextAddrId#
-			</cfquery>
 	</cftransaction>
 	<cf_ActivityLog sql="INSERT INTO addr (
 			 ADDR_ID
