@@ -14,65 +14,9 @@
 	overwrite="true">
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 
-<cfquery name="getLoan" datasource="#Application.web_user#">
-        SELECT
-                concattransagent(trans.transaction_id, 'authorized by') authAgentName,
-                trans_date,
-                concattransagent(trans.transaction_id, 'received by') recAgentName,
-                return_due_date,
-                nature_of_material,
-                trans_remarks,
-                loan_instructions,
-                loan_description,
-                loan_type,
-                loan_number,
-                loan_status,
-                loan_instructions,
 
-				inhouse_preferred_agent_name.agent_name inhouse_contact_name,
-                inhouse_addr.job_title inhouse_contact_title,
-                inhouse_addr.formatted_addr inhouse_addr_addr,
-                inhouse_electronic_address.address inhouse_contact_email,
-				inhouse_agent.agent_id inhouseContactID,
-				
-				outside_preferred_agent_name.agent_name outside_contact_name,
-                outside_addr.job_title outside_contact_title,
-                outside_addr.formatted_addr outside_addr_addr,
-                outside_electronic_address.address outside_contact_email,
-				outside_agent.agent_id outsideContactID
-        FROM
-                loan,
-				trans,
-				
-				preferred_agent_name inhouse_preferred_agent_name,
-				electronic_address inhouse_electronic_address,
-				addr inhouse_addr,
-				trans_agent inhouse_agent,
-				
-				preferred_agent_name outside_preferred_agent_name,
-				electronic_address outside_electronic_address,
-				addr outside_addr,
-				trans_agent outside_agent
-		WHERE
-                loan.transaction_id = trans.transaction_id and
-				loan.transaction_id=#transaction_id# and
-				
-				trans.transaction_id = inhouse_agent.transaction_id and
-				inhouse_agent.agent_id = inhouse_preferred_agent_name.agent_id and
-				inhouse_agent.trans_agent_role='in-house contact' and
-				inhouse_agent.agent_id = inhouse_electronic_address.agent_id and
-				inhouse_electronic_address.address_type ='e-mail' and
-				inhouse_agent.agent_id = inhouse_addr.agent_id and
-				inhouse_addr.addr_type='Correspondence' and
-				
-				trans.transaction_id = outside_agent.transaction_id and
-				outside_agent.agent_id = outside_preferred_agent_name.agent_id and
-				outside_agent.trans_agent_role='outside contact' and
-				outside_agent.agent_id = outside_electronic_address.agent_id and
-				outside_electronic_address.address_type ='e-mail' and
-				outside_agent.agent_id = outside_addr.agent_id and
-				outside_addr.addr_type='Correspondence'
-		</cfquery>
+<cf_getLoanFormInfo>
+
 <cfoutput>
 	<cfquery name="shipDate" datasource="#Application.web_user#">
 		select shipped_date from shipment where transaction_id=#transactioN_id#
@@ -118,7 +62,7 @@
 				<tr>
 					<td align="left" width="60%">
 						<blockquote>
-							#replace(getLoan.outside_addr_addr,"#chr(10)#","<br>","all")#
+							#replace(getLoan.outside_address,"#chr(10)#","<br>","all")#
 						</blockquote>
 					</td>
 					<td align="right" valign="top">
@@ -187,8 +131,8 @@
 			<table>
 				<tr>
 					<td>
-						<blockquote> <font size="2">#getLoan.inhouse_addr_addr#
-						<br />Email: #getLoan.inhouse_contact_email#</font> 
+						<blockquote> <font size="2">#getLoan.inside_address#
+						<br />Email: #getLoan.inside_email_address#</font> 
 						  </blockquote>
 					</td>
 					<td align="right" width="300" valign="top">
