@@ -16,6 +16,6 @@
     <tr><td>Total Memory Allocated: </td><td>#Round(totalMemory)#mb</td></tr>
     <tr><td>Max Memory Available to JVM: </td><td>#Round(maxMemory)#mb</td></tr>
     <tr><td>% of Free Allocated Memory: </td><td>#percentFreeAllocated#%</td></tr>
-    <tr><td>% of Available Memory Allocated: </td><td>percentAllocated#%</td></tr>
+    <tr><td>% of Available Memory Allocated: </td><td>#percentAllocated#%</td></tr>
 	</table>
 </cfoutput>
