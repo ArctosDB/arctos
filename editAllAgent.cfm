@@ -217,7 +217,7 @@
 				</tr>
 				<tr>
 					<td>
-						#replace(formatted_addr,"#chr(13)#","<br>","all")#
+						#replace(formatted_addr,"#chr(10)#","<br>","all")#
 					</td>
 				</tr>
 				<tr>
