@@ -469,19 +469,19 @@ Based on:
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 <cfloop from="0" index="whatever" to="1">
 <div style="width: 300px; height: 225px; border: 1px black dashed; padding: 5px;">
-	<span class="#fromToClass#">From:</span><br/>
+	<span class="#fromToClass#">From:</span>
 	<div class="#fromAddrClass#" style="#addrStyle#">
 		<blockquote>
 			#replace(shipped_from_addr,"#chr(10)#","<br>","all")#
 		</blockquote>
 	</div>
 	<hr>
-	<span class="#fromToClass#">To:</span><br/>
+	<span class="#fromToClass#">To:</span>
 	<div class="#toAddrClass#" style="#addrStyle#">
 		<blockquote>
 			#replace(shipped_to_addr,"#chr(10)#","<br>","all")#
 		</blockquote>
-	</div><br/>
+	</div>
 	<!--- It seems that, as of Coldfusion 7, cfdocument does not support Times 
 	New Roman White Box character. From this, I assume that it cannot support 
 	one other non keyboard characters.Thus to make a checkbox I put in spaces 
