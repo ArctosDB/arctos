@@ -470,14 +470,14 @@ Based on:
 <!--- we want two copies of the label, so we do a loop that runs twice --->
 <cfloop from="0" index="whatever" to="1">
 <div style="width: 300px; height: 195px; border: 1px black dashed; padding: 5px;">
-	<table><tr><td><span class="#fromToClass#">From:</span></td>
+	<table><tr><td valign="top"><span class="#fromToClass#">From:</span></td>
 	<td><div class="#fromAddrClass#" style="#addrStyle#">
 		<blockquote>
 			#replace(shipped_from_addr,"#chr(10)#","<br>","all")#
 		</blockquote>
 	</div></td></tr></table>
 	<hr>
-	<table><tr><td><span class="#fromToClass#">To:</span></td>
+	<table><tr><td valign="top"><span class="#fromToClass#">To:</span></td>
 	<td><div class="#toAddrClass#" style="#addrStyle#">
 		<blockquote>
 			#replace(shipped_to_addr,"#chr(10)#","<br>","all")#
