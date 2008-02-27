@@ -409,13 +409,15 @@ update -- seems to work now, I have no idea what fixed it... --->
 <cfinclude template='../includes/_header.cfm'>
 <!---
 For this action:
-Author: Peter DeVore, based on work by Dusty
+Author: Peter DeVore
 Email: pdevore@berkeley.edu
 
 Description:
-	Used to make printable shipping labels for specimens from Loan page.
+	Used to make printable shipping labels for specimens from Loan.cfm page.
 Parameters:
 	transaction_id
+Based on:
+	other actions in this page
 --->
 
 <cfparam name="shipped_to_addr" default = "">
@@ -425,19 +427,18 @@ Parameters:
 <cfquery name="ship" datasource="#Application.web_user#">
 	select * from shipment where transaction_id = #transaction_id#
 </cfquery>
+<!--- Test to see if there are shipping addresses. --->
 <cfif ship.recordcount gt 0>
 	<cfquery name="shipped_to_addr_id" datasource="#Application.web_user#">
 		select formatted_addr from addr where 
 		addr_id = #ship.shipped_to_addr_id#
 	</cfquery>
 		<cfset shipped_to_addr = "#shipped_to_addr_id.formatted_addr#">
-		<cfset shipped_to_addr_id = #ship.shipped_to_addr_id#>
 	<cfquery name="shipped_from_addr_id" datasource="#Application.web_user#">
 		select formatted_addr from addr where 
 		addr_id = #ship.shipped_from_addr_id#
 	</cfquery>
 		<cfset shipped_from_addr = "#shipped_from_addr_id.formatted_addr#">
-		<cfset shipped_from_addr_id = #ship.shipped_from_addr_id#>
 <cfoutput>
 <p>
 	<a href="/temp/loaninvoice_#cfid#_#cftoken#.pdf" target="_blank">Get the PDF</a>
@@ -446,11 +447,11 @@ Parameters:
 
 
 <!--- Define formatting params --->
-<cfset fromToClass = "times11b">
-<cfset fromAddrClass = "times13">
-<cfset toAddrClass = "times14b">
+<cfset fromToClass = "times10b">
+<cfset fromAddrClass = "times11">
+<cfset toAddrClass = "times12b">
 <cfset addrStyle = "text-align: center;">
-<cfset checkboxTextClass = 'times12'>
+<cfset checkboxTextClass = 'times10'>
 <cfset checkboxStyle = "border: 1px solid black; padding: -.25em 0em -.25em 0em;">
 <!--- End formatting params --->
 <cfdocument 
@@ -467,7 +468,7 @@ Parameters:
 <cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 <cfloop from="0" index="whatever" to="1">
-<div style="width: 400px; height: 300px; border: 1px black dashed; padding: 20px;">
+<div style="width: 300px; height: 225px; border: 1px black dashed; padding: 5px;">
 	<span class="#fromToClass#">From:</span><br/>
 	<div class="#fromAddrClass#" style="#addrStyle#">
 		<blockquote>
@@ -481,12 +482,14 @@ Parameters:
 			#replace(shipped_to_addr,"#chr(10)#","<br>","all")#
 		</blockquote>
 	</div><br/>
-	<!--- It seems that, as of Coldfusion 7, cfdocument does not support Times New Roman White Box
-	character. From this, I assume that it cannot support other non keyboard characters.
-	Thus to make a checkbox I put in spaces and surround it with a black border. I then adjust
-	the padding until it is the right size/shape. Thankfully, this does not need be cross-browser
-	compatible because it made ONLY at the Arctos server. Thus, this only needs to be updated
-	if the font of the text around it changes or if the server changes its HTML formatting drastically.
+	<!--- It seems that, as of Coldfusion 7, cfdocument does not support Times 
+	New Roman White Box character. From this, I assume that it cannot support 
+	one other non keyboard characters.Thus to make a checkbox I put in spaces 
+	and surround it with a black border. I then adjust the padding until it is 
+	the right size/shape. Thankfully, this does not need be cross-browser
+	compatible because it is made ONLY at the Arctos server. Thus, this only 
+	needs to be updated if the font of the text around it changes or if the 
+	server changes its HTML formatting drastically.
 	--Peter DeVore, 2008-02-06 --->
 	<!--- previously tried any of the following (numbers were for spacing them to test)
 	<cfoutput>
@@ -496,6 +499,8 @@ Parameters:
 	1 &##9744;
 	2 #charsetEncode(binaryDecode("feff25A1","hex"),"utf-16")#
 	3 &##x25a1;
+	These are the unicode characters for different boxes. See above comment as 
+	to why I don't use them.
 	</cfoutput>--->
 	<span class="#checkboxTextClass#"><span style='#checkboxStyle#'>&nbsp;&nbsp;</span>
 	Printed Matter</span><br/>
