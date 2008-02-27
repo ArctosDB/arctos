@@ -448,7 +448,7 @@ Based on:
 
 <!--- Define formatting params --->
 <cfset fromToClass = "times9b">
-<cfset fromAddrClass = "times6">
+<cfset fromAddrClass = "times10">
 <cfset toAddrClass = "times12b">
 <cfset addrStyle = "text-align: center;">
 <cfset checkboxTextClass = 'times10'>
@@ -470,19 +470,19 @@ Based on:
 <!--- we want two copies of the label, so we do a loop that runs twice --->
 <cfloop from="0" index="whatever" to="1">
 <div style="width: 300px; height: 195px; border: 1px black dashed; padding: 5px;">
-	<span class="#fromToClass#">From:</span>
-	<div class="#fromAddrClass#" style="#addrStyle#">
+	<table><tr><td><span class="#fromToClass#">From:</span></td>
+	<td><div class="#fromAddrClass#" style="#addrStyle#">
 		<blockquote>
 			#replace(shipped_from_addr,"#chr(10)#","<br>","all")#
 		</blockquote>
-	</div>
+	</div></td></tr></table>
 	<hr>
-	<span class="#fromToClass#">To:</span>
-	<div class="#toAddrClass#" style="#addrStyle#">
+	<table><tr><td><span class="#fromToClass#">To:</span></td>
+	<td><div class="#toAddrClass#" style="#addrStyle#">
 		<blockquote>
 			#replace(shipped_to_addr,"#chr(10)#","<br>","all")#
 		</blockquote>
-	</div>
+	</div></td></tr></table>
 	<!--- It seems that, as of Coldfusion 7, cfdocument does not support Times 
 	New Roman White Box character. From this, I assume that it cannot support 
 	one other non keyboard characters.Thus to make a checkbox I put in spaces 
