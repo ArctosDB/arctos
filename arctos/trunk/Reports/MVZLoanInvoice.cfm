@@ -1016,11 +1016,13 @@ select
 		loan,
 		specimen_part, 
 		coll_object,
-		cataloged_item
+		cataloged_item,
+		collection
 	WHERE
 		loan_item.collection_object_id = specimen_part.collection_object_id AND
 		loan.transaction_id = loan_item.transaction_id AND
 		specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
+		cataloged_item.collection_id = collection.collection_id AND
 		specimen_part.collection_object_id = coll_object.collection_object_id AND
 		loan_item.transaction_id = #transaction_id#
 	ORDER BY cat_num
