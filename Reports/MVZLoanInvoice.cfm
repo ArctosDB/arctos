@@ -448,7 +448,7 @@ Based on:
 
 <!--- Define formatting params --->
 <cfset fromToClass = "times9b">
-<cfset fromAddrClass = "times10">
+<cfset fromAddrClass = "times6">
 <cfset toAddrClass = "times12b">
 <cfset addrStyle = "text-align: center;">
 <cfset checkboxTextClass = 'times10'>
@@ -467,8 +467,9 @@ Based on:
 	overwrite="yes">
 <cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
+<!--- we want two copies of the label, so we do a loop that runs twice --->
 <cfloop from="0" index="whatever" to="1">
-<div style="width: 300px; height: 225px; border: 1px black dashed; padding: 5px;">
+<div style="width: 300px; height: 195px; border: 1px black dashed; padding: 5px;">
 	<span class="#fromToClass#">From:</span>
 	<div class="#fromAddrClass#" style="#addrStyle#">
 		<blockquote>
