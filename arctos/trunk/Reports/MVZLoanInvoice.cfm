@@ -1004,7 +1004,7 @@ select
 
 select 
 		cat_num, 
-		collection_cde,
+		collection,
 		part_name,
 		 part_modifier,
 		 preserve_method,
