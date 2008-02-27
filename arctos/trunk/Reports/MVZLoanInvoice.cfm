@@ -447,8 +447,8 @@ Based on:
 
 
 <!--- Define formatting params --->
-<cfset fromToClass = "times10b">
-<cfset fromAddrClass = "times11">
+<cfset fromToClass = "times9b">
+<cfset fromAddrClass = "times10">
 <cfset toAddrClass = "times12b">
 <cfset addrStyle = "text-align: center;">
 <cfset checkboxTextClass = 'times10'>
