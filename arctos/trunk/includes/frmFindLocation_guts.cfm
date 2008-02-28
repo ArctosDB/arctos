@@ -53,8 +53,9 @@
 <cfquery name="ctGeorefMethod" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select georefMethod from ctgeorefmethod order by georefMethod
 </cfquery>
-<table cellpadding="0" cellspacign="0">
-	<div id="geogDetail" class="locGroup">
+
+	<table cellpadding="0" cellspacign="0">
+		<div id="geogDetail" class="noShow">
 		<tr>
 			<td>
 				<label for="continent_ocean">Continent or Ocean</label>
