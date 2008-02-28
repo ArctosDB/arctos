@@ -31,9 +31,9 @@
 		accepted_lat_long,
 		collecting_event
 	where
-		geog_auth_rec.geog_auth_rec_id = locality.geog_auth_rec_id and
+		geog_auth_rec.geog_auth_rec_id = locality.geog_auth_rec_id (+) and
 		locality.locality_id = accepted_lat_long.locality_id (+) and
-		locality.locality_id=collecting_event.locality_id">
+		locality.locality_id=collecting_event.locality_id (+) ">
 
 <cfif isdefined("locality_id") and len(#locality_id#) gt 0>
 	<cfset sql = "#sql# AND locality.locality_id = #locality_id#">

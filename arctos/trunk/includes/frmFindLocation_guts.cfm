@@ -111,98 +111,93 @@
 	select georefMethod from ctgeorefmethod order by georefMethod
 </cfquery>
 <table  cellpadding="0" cellspacign="0"><tr><td>
-<div class="locGroup">
-<span id="geogDetailCtl" class="infoLink" onclick="toggleGeogDetail(1)";>Show More Options</span>
-<div id="geogDetail" class="noShow">
-	<table cellpadding="0" cellspacign="0">
-		<tr>
-			<td>
-				<label for="continent_ocean">Continent or Ocean</label>
-				<input type="text" name="continent_ocean" id="continent_ocean" size="50">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="country">Country</label>
-				<input type="text" name="country" id="country" size="50">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="state_prov">State or Province</label>
-				<input type="text" name="state_prov" id="state_prov" size="50">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="county">County</label>
-				<input type="text" name="county" id="county" size="50">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="quad">Quad</label>
-				<input type="text" name="quad" id="quad" size="50">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="feature">Feature</label>
-				<select name="feature" id="feature">
-					<option value=""></option>
-					<cfloop query="ctFeature">
-						<option value = "#ctFeature.feature#">#ctFeature.feature#</option>
-					</cfloop>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="island_group">Island Group</label>
-				<select name="island_group" id="island_group">
-					<option value=""></option>
-					<cfloop query="ctIslandGroup">
-						<option value = "#ctIslandGroup.island_group#">#ctIslandGroup.island_group#</option>
-					</cfloop>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="island">Island</label>
-				<input type="text" name="island" id="island" size="50">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="sea">Sea</label>
-				<input type="text" name="sea" id="sea" size="50">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="geog_auth_rec_id">Geog Auth Rec ID</label>
-				<input type="text" name="geog_auth_rec_id" id="geog_auth_rec_id">
-			</td>
-		</tr>
-	</table>
-</div>
+	<div class="locGroup">
+		<span id="geogDetailCtl" class="infoLink" onclick="toggleGeogDetail(1)";>Show More Options</span>
+		<div id="geogDetail" class="noShow">
+		<table cellpadding="0" cellspacign="0">
+			<tr>
+				<td>
+					<label for="continent_ocean">Continent or Ocean</label>
+					<input type="text" name="continent_ocean" id="continent_ocean" size="50">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="country">Country</label>
+					<input type="text" name="country" id="country" size="50">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="state_prov">State or Province</label>
+					<input type="text" name="state_prov" id="state_prov" size="50">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="county">County</label>
+					<input type="text" name="county" id="county" size="50">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="quad">Quad</label>
+					<input type="text" name="quad" id="quad" size="50">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="feature">Feature</label>
+					<select name="feature" id="feature">
+						<option value=""></option>
+						<cfloop query="ctFeature">
+							<option value = "#ctFeature.feature#">#ctFeature.feature#</option>
+						</cfloop>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="island_group">Island Group</label>
+					<select name="island_group" id="island_group">
+						<option value=""></option>
+						<cfloop query="ctIslandGroup">
+							<option value = "#ctIslandGroup.island_group#">#ctIslandGroup.island_group#</option>
+						</cfloop>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="island">Island</label>
+					<input type="text" name="island" id="island" size="50">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="sea">Sea</label>
+					<input type="text" name="sea" id="sea" size="50">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="geog_auth_rec_id">Geog Auth Rec ID</label>
+					<input type="text" name="geog_auth_rec_id" id="geog_auth_rec_id">
+				</td>
+			</tr>
+		</table>
+		</div>
 	<table cellpadding="0" cellspacign="0">
 		<tr>
 			<td>
 				<label for="higher_geog">Higher Geog</label>
-				<input type="text" name="sea" id="higher_geog" size="50">
+				<input type="text" name="higher_geog" id="higher_geog" size="50">
 			</td>
 		</tr>
 	</table>	
 </div>
 
-
-
-
-	<!----------------------------------------------- locality -------------------------------->
 <cfif #showLocality# is 1>
-
 	<div class="locGroup">
 		<span id="locDetailCtl" class="infoLink" onclick="toggleLocDetail(1)";>Show More Options</span>
 	<table cellpadding="0" cellspacign="0">
@@ -318,25 +313,16 @@
 					</select>
 				</td>
 			</tr>
-
-
 		</table>
 	</div>	
-	</div>		</div>	
-	</cfif>
-	
-	
-	
+	</div>
+	</div>	
+</cfif>	
 	<!--------------------------------------- event ----------------------------------------------------------->
 	<cfif #showEvent# is 1>	
-
 	<div class="locGroup">
 		<span id="eventDetailCtl" class="infoLink" onclick="toggleEventDetail(1)";>Show More Options</span>
 	<table cellpadding="0" cellspacign="0">
-
-
-
-		<table cellpadding="0" cellspacign="0">	
 		<tr>
 			<td>
 				<label for="verbatim_locality">Verbatim Locality</label>
@@ -367,7 +353,7 @@
 		</tr>
 	</table>
 		<div id="eventDetail" class="noShow">
-					<table cellpadding="0" cellspacign="0">	
+			<table cellpadding="0" cellspacign="0">	
 			<tr>
 				<td>
 					<label for="verbatim_date">Verbatim Date</label>
@@ -413,7 +399,7 @@
 		</div>
 		</div>
 		</cfif>
-						<table cellpadding="0" cellspacign="0">	
+<table cellpadding="0" cellspacign="0">	
 	<tr>
 		<td align="center">
 			<input type="submit" 
