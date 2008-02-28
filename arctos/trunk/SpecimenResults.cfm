@@ -231,7 +231,6 @@
 </cfif>
 
 <form name="controls">
-	<input type="text" name="orderedCollObjIds" id="orderedCollObjIds">
 <strong>#mappable.cnt#</strong> of these <strong>#summary.recordcount#</strong> records have coordinates and can be displayed with 
 				<span class="controlButton" 
 				onmouseover="this.className='controlButton btnhov'" 
