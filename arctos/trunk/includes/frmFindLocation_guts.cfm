@@ -73,23 +73,11 @@
 	
 </script>
 <cfoutput>
-<cfif not isdefined("geogDetail")>
-	<cfset geogDetail=0>
-</cfif>
 <cfif not isdefined("showLocality")>
 	<cfset showLocality=0>
 </cfif>
-<cfif not isdefined("localityDetail")>
-	<cfset localityDetail=0>
-</cfif>
 <cfif not isdefined("showEvent")>
 	<cfset showEvent=0>
-</cfif>
-<cfif not isdefined("georefDetail")>
-	<cfset georefDetail=0>
-</cfif>
-<cfif not isdefined("eventDetail")>
-	<cfset eventDetail=0>
 </cfif>
 <cfquery name="ctElevUnit" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select orig_elev_units from ctorig_elev_units order by orig_elev_units
