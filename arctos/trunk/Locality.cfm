@@ -2126,143 +2126,12 @@ INSERT INTO geog_auth_rec (
 
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "findLocality">
-	<cfset sql = "select 
-					geog_auth_rec.geog_auth_rec_id,
-					locality.locality_id,
-					higher_geog,
-					spec_locality,
-					lat_deg,
-					dec_lat_min,
-					lat_min,
-					lat_sec,
-					lat_dir,
-					long_deg,
-					dec_long_min,
-					long_min,
-					long_sec,
-					long_dir,
-					dec_lat,
-					dec_long,
-					datum,
-					orig_lat_long_units,
-					lat_long_ref_source,
-					max_error_distance,
-					max_error_units,
-					accepted_lat_long_fg,
-					NoGeorefBecause
-				 FROM 
-					locality
-					inner join geog_auth_rec ON (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)
-					left outer join lat_long ON (locality.locality_id = lat_long.locality_id)
-				where
-					locality.locality_id > 0 ">
-	<cfif isdefined("geog_auth_rec_id") AND len(#geog_auth_rec_id#) gt 0>
-		<cfset sql = "#sql# AND locality.geog_auth_rec_id = #geog_auth_rec_id#">
-	<cfelse><!--- if above, we're coming from a link. Otherwise, build and run a search--->	
-	<cfif len(#spec_locality#) gt 0>
-		<cfset sloc = #ucase(replace(spec_locality,"'","''","all"))#>
-		<cfset sql = "#sql# AND upper(spec_locality) like '%#sloc#%'">
-	</cfif>
-	<cfif isdefined("NoGeorefBecause") AND len(#NoGeorefBecause#) gt 0>
-		<cfset sql = "#sql# AND upper(NoGeorefBecause) like '%#ucase(NoGeorefBecause)#%'">
-	</cfif>
-	<cfif isdefined("VerificationStatus") AND len(#VerificationStatus#) gt 0>
-		<cfset sql = "#sql# AND VerificationStatus='#VerificationStatus#'">
-	</cfif>
-	<cfif isdefined("GeorefMethod") AND len(#GeorefMethod#) gt 0>
-		<cfset sql = "#sql# AND GeorefMethod='#GeorefMethod#'">
-	</cfif>
-	
-	<cfif isdefined("nullNoGeorefBecause") and len(#nullNoGeorefBecause#) gt 0>
-		<cfset sql = "#sql# AND NoGeorefBecause IS NULL">
-	</cfif>
-	<cfif len(#MAXIMUM_ELEVATION#) gt 0>
-		<cfset sql = "#sql# AND MAXIMUM_ELEVATION #maxElevOper# #MAXIMUM_ELEVATION#">
-	</cfif>
-	<cfif len(#MINIMUM_ELEVATION#) gt 0>
-		<cfset sql = "#sql# AND MINIMUM_ELEVATION #minElevOper# #MINIMUM_ELEVATION#">
-	</cfif>
-	<cfif len(#ORIG_ELEV_UNITS#) gt 0>
-		<cfset sql = "#sql# AND ORIG_ELEV_UNITS = '#ORIG_ELEV_UNITS#'">
-	</cfif>
-	<cfif isdefined("isIncomplete") AND len(#isIncomplete#) gt 0>
-		<cfset sql = "#sql# AND 
-			( GPSACCURACY IS NULL OR EXTENT IS NULL OR MAX_ERROR_DISTANCE = 0)">
-	</cfif>
-	<cfif len(#LOCALITY_REMARKS#) gt 0>
-		<cfset sql = "#sql# AND upper(LOCALITY_REMARKS) like '%#ucase(LOCALITY_REMARKS)#%'">
-	</cfif>
-	<cfif len(#continent_ocean#) gt 0>
-		<cfset sql = "#sql# AND upper(continent_ocean) LIKE '%#ucase(continent_ocean)#%'">
-	</cfif>
-	<cfif len(#country#) gt 0>
-		<cfset sql = "#sql# AND upper(country) LIKE '%#ucase(country)#%'">
-	</cfif>
-	<cfif len(#state_prov#) gt 0>
-		<cfset sql = "#sql# AND upper(state_prov) LIKE '%#ucase(state_prov)#%'">
-	</cfif>
-	<cfif len(#county#) gt 0>
-		<cfset sql = "#sql# AND upper(county) LIKE '%#ucase(county)#%'">
-	</cfif>
-	<cfif len(#quad#) gt 0>
-		<cfif #compare(Quad,"NULL")# is 0>
-			<cfset sql = " #sql# AND Quad is null">
-		<cfelse>
-			<cfset sql = "#sql# AND upper(quad) LIKE '%#ucase(quad)#%'">
-		</cfif>		
-	</cfif>
-	<cfif len(#feature#) gt 0>
-		<cfset sql = "#sql# AND feature = '#feature#'">
-	</cfif>
-	<cfif len(#island_group#) gt 0>
-		<cfset sql = "#sql# AND island_group = '#island_group#'">
-	</cfif>
-	<cfif len(#island#) gt 0>
-		<cfif #compare(island,"NULL")# is 0>
-			<cfset sql = " #sql# AND island is null">
-		<cfelse>
-			<cfset sql = "#sql# AND upper(island) LIKE '%#ucase(island)#%'">
-		</cfif>		
-	</cfif>
-	<cfif len(#sea#) gt 0>
-		<cfset sql = "#sql# AND upper(sea) LIKE '%#ucase(sea)#%'">
-	</cfif>
-	<cfif len(#valid_catalog_term_fg#) gt 0>
-		<cfset sql = "#sql# AND valid_catalog_term_fg = #valid_catalog_term_fg#">
-	</cfif>
-	<cfif isdefined("findNoGeoRef") and len(#findNoGeoRef#) gt 0>
-		<cfset sql = "#sql# AND locality.locality_id NOT IN (select locality_id from lat_long)">
-	</cfif>
-	<cfif isdefined("findNoAccGeoRef") and len(#findNoAccGeoRef#) gt 0>
-		<cfset sql = "#sql# AND locality.locality_id 
-			IN (select locality_id from lat_long) AND
-			locality.locality_id  NOT IN (select locality_id from lat_long where accepted_lat_long_fg=1)">
-	</cfif>
-	
-	<cfif len(#source_authority#) gt 0>
-		<cfset srcAuth = #replace(source_authority,"'","''")#>
-		<cfset sql = "#sql# AND source_authority = '#srcAuth#'">
-	</cfif>
-	<cfif len(#locality_id#) gt 0>
-		<cfset sql = "#sql# AND locality.locality_id = #locality_id#">
-	</cfif>
-	</cfif><!--- end coming from link --->
-	
-	<cfset sql = "#sql# ORDER BY spec_locality, locality_id">
-	<!---
-	<cfoutput>
-	#preservesinglequotes(sql)#
-	</cfoutput>
-	<cfabort>
-	--->
-	<cfquery name="getLoc" datasource="#Application.web_user#">
-		#preservesinglequotes(sql)#
-	</cfquery>
-<cfoutput>
+	<cf_findLocality>
+			
 
-<cfif #getLoc.recordcount# lt 1000>
+<cfif #localityResults.recordcount# lt 1000>
 	<cfset thisLocId="">
-	<cfloop query="getLoc">
+	<cfloop query="localityResults">
 		<cfif len(#thisLocId#) is 0>
 			<cfset thisLocId="#locality_id#">
 		<cfelse>
@@ -2284,7 +2153,7 @@ INSERT INTO geog_auth_rec (
 	   <td><b>Geog</b></td>
     </tr>
 	<cfset i=1>
-    <cfoutput query="getLoc" group="locality_id"> 
+    <cfoutput query="localityResults"> 
       <tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
         <td rowspan="2"> 
           <a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#geog_auth_rec_id#</a> </td>
@@ -2297,33 +2166,12 @@ INSERT INTO geog_auth_rec (
 		  
 		  <td rowspan="2">#higher_geog#</td>
       </tr>
-      <cfquery name="lat_long" dbtype="query">
-      select * from getLoc where locality_id = #locality_id# and accepted_lat_long_fg 
-      = 1 
-      </cfquery>
       <tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
         <td> 
           <font size="-1"> 
 		 &nbsp;
-          <cfif lat_long.recordcount gt 0>
-            <cfloop query="lat_long">
-              <cfif #orig_lat_long_units# is "decimal degrees">
-                	<b>Lat/Long:</b> #dec_lat# / #dec_long# <b>Ref. Src.: </b>  #lat_long_ref_source# 
-                    <b>Max Error:</b> #max_error_distance# #max_error_units# 
-             <cfelseif #orig_lat_long_units# is "deg. min. sec.">
-					<b>Lat/Long:</b> #lat_deg#<sup>0</sup> #lat_min#' #lat_sec#'' #lat_dir# / #long_deg#
-						<sup>0</sup> #long_min#' #long_sec#'' #long_dir# 
-					<b>Ref. Src.:</b> #lat_long_ref_source#  <b>Max Error:</b> #max_error_distance# #max_error_units# 
-              <cfelseif #orig_lat_long_units# is "degrees dec. minutes">
-					<b>Lat/Long:</b> #lat_deg#<sup>0</sup> #dec_lat_min#' #lat_dir# / #long_deg#
-						<sup>0</sup> #dec_long_min#' #long_dir# 
-					<b>Ref. Src.:</b> #lat_long_ref_source# 
-					<b>Max Error:</b> #max_error_distance# #max_error_units# 
-               <cfelse>
-			   		<b>Something hinky happened!</b>
-			   </cfif>
-			   
-            </cfloop>
+          <cfif len(verbatimLatitude) gt 0>
+            #verbatimLatitude# / #verbatimLongitude#
             <cfelse>
             <b>NoGeorefBecause: #NoGeorefBecause#</b> 
           </cfif>
