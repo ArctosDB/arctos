@@ -1,4 +1,5 @@
 <!--- returns query object localityResults --->
+<cfinclude template="/includes/functionLib.cfm">
 <cfoutput>
 <cfset sql = "
 	select
