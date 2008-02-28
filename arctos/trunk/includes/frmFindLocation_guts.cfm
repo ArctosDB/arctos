@@ -12,7 +12,8 @@
 		display:none;
 		}
 	.locGroup {
-		border: 1px solid green;
+		border: 2px dotted green;
+		padding:2px;
 		overflow:
 		}
 </style>
@@ -30,6 +31,21 @@
 			c.innerHTML='Show Fewer Options';
 		}
 	}
+	function toggleLocDetail(onOff) {
+		var e = document.getElementById('locDetail');
+		var c = document.getElementById('locDetailCtl');
+		if (onOff==0) {
+			e.className='noShow'
+			c.setAttribute('onCLick','toggleLocDetail(1)');
+			c.innerHTML='Show More Options';
+		} else {
+			e.className='';
+			c.setAttribute('onCLick','toggleLocDetail(0)');
+			c.innerHTML='Show Fewer Options';
+		}
+	}
+	
+	
 </script>
 <cfoutput>
 <cfif not isdefined("geogDetail")>
@@ -69,7 +85,7 @@
 <cfquery name="ctGeorefMethod" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select georefMethod from ctgeorefmethod order by georefMethod
 </cfquery>
-<table border><tr><td>
+<table  cellpadding="0" cellspacign="0"><tr><td>
 <div class="locGroup">
 <span id="geogDetailCtl" class="infoLink" onclick="toggleGeogDetail(1)";>Show More Options</span>
 <div id="geogDetail" class="noShow">
@@ -155,15 +171,25 @@
 		</tr>
 	</table>	
 </div>
-	<table cellpadding="0" cellspacign="0">
+
+
+
+
 	<!----------------------------------------------- locality -------------------------------->
-	<cfif #showLocality# is 1>
+<cfif #showLocality# is 1>
+
+	<div class="locGroup">
+		<span id="locDetailCtl" class="infoLink" onclick="toggleLocDetail(1)";>Show More Options</span>
+	<table cellpadding="0" cellspacign="0">
 		<tr>
 			<td colspan="2">
 				<label for="spec_locality">Specific Locality</label>
 				<input type="text" name="spec_locality" id="spec_locality" size="50">
 			</td>
 		</tr>
+		</table>
+		<div id="geogDetail" class="noShow">
+		<table cellpadding="0" cellspacign="0">
 		<cfif #localityDetail# is 1>
 			<tr>
 				<td>
@@ -266,11 +292,18 @@
 					</select>
 				</td>
 			</tr>
-		</cfif>
-		
+
 	</cfif>
+		</table>
+	</div>	
+	</div>	
+	</cfif>
+	
+	
+	
 	<!--------------------------------------- event ----------------------------------------------------------->
 	<cfif #showEvent# is 1>	
+		<table cellpadding="0" cellspacign="0">	
 		<tr>
 			<td>
 				<label for="verbatim_locality">Verbatim Locality</label>
