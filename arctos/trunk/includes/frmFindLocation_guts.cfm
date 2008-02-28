@@ -190,11 +190,10 @@
 				</td>
 			</tr>
 			<tr>
-				<td align="right"></td>
-					<td>
-						<label for="NoGeorefBecause">NoGeorefBecause</label>
-						<input type="text" name="NoGeorefBecause" size="50" id="NoGeorefBecause">
-						NULL: <input type="checkbox" name="nullNoGeorefBecause" id="nullNoGeorefBecause">
+				<td>
+					<label for="NoGeorefBecause">NoGeorefBecause</label>
+					<input type="text" name="NoGeorefBecause" size="50" id="NoGeorefBecause">
+					NULL: <input type="checkbox" name="nullNoGeorefBecause" id="nullNoGeorefBecause">
 				</td>
 			</tr>
 			<tr>
