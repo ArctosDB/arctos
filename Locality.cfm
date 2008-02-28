@@ -1954,7 +1954,54 @@ INSERT INTO geog_auth_rec (
 	<cfoutput>
 		<form name="tools" method="post" action="Locality.cfm">
 			<input type="hidden" name="action" value="massMoveCollEvent" />
-			<cfinclude template="/includes/resFindCollEvent_guts.cfm">
+			<cf_findLocality>
+			
+	
+<table border>
+	<tr>
+		<td><b>Geog</b></td>
+		<td><b>Locality</b></td>
+		<td><b>Verbatim&nbsp;Locality</b></td>
+		<td><b>Began&nbsp;Date</b></td>
+		<td><b>End&nbsp;Date</b></td>
+		<td><b>Verb.&nbsp;Date</b></td>
+		<td><b>Source</b></td>
+		<td><b>Method</b></td>
+	</tr>
+	<cfloop query="localityResults">
+		<input type="hidden" name="collecting_event_id" value="#collecting_event_id#" />
+		<tr>
+			<td> <div class="smaller">#higher_geog#
+				(<a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#" 
+					target="#client.target#">#geog_auth_rec_id#</a>)
+				</div>
+			</td>
+			<td>
+				 <div class="smaller">
+				 #spec_locality#
+					<cfif len(#VerbatimLatitude#) gt 0>
+						<br>#VerbatimLatitude#/#VerbatimLongitude#
+					<cfelse>
+						<br>#nogeorefbecause#
+					</cfif> 
+					(<a href="editLocality.cfm?locality_id=#locality_id#" 
+						target="#client.target#">#locality_id#</a>)
+				</div>
+			<!---&nbsp;<a href="/fix/DupLocs.cfm?action=killDups&locid=#locality_id#" target="_blank"><font size="-2"><i>kill dups</i></font></a>---></td>
+			<td>
+				<div class="smaller">
+				 	#verbatim_locality#
+					(<a href="Locality.cfm?Action=editCollEvnt&collecting_event_id=#collecting_event_id#">#collecting_event_id#</a>)
+				</div>
+			</td>
+			<td>#dateformat(began_date,"dd mmm yyyy")#</td>
+			<td>#dateformat(ended_date,"dd mmm yyyy")#</td>
+			<td>#verbatim_date#</td>
+			<td>#collecting_source#</td>
+			<td>#collecting_method#</td>
+		</tr>
+	</cfloop>
+</table>
 			<input type="submit" 
 				value="Move These Collecting Events to new Locality" 
 				class="savBtn"
