@@ -7,6 +7,14 @@
 	localityDetail
 	showEvent
 --->
+<style>
+	.noShow {
+		display:none;
+		}
+	.locGroup {
+		border: 1 px solid green'
+		}
+</style>
 <cfoutput>
 <cfif not isdefined("geogDetail")>
 	<cfset geogDetail=0>
@@ -46,7 +54,7 @@
 	select georefMethod from ctgeorefmethod order by georefMethod
 </cfquery>
 <table cellpadding="0" cellspacign="0">
-	<div id="geogDetail" class="noShow">
+	<div id="geogDetail" class="locGroup">
 		<tr>
 			<td>
 				<label for="continent_ocean">Continent or Ocean</label>
