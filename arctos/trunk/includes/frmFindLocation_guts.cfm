@@ -14,7 +14,7 @@
 	.locGroup {
 		border: 2px dotted green;
 		padding:2px;
-		overflow:
+		margin:3px;
 		}
 </style>
 <script>
@@ -44,7 +44,19 @@
 			c.innerHTML='Show Fewer Options';
 		}
 	}
-	
+	function toggleGeorefDetail(onOff) {
+		var e = document.getElementById('georefDetail');
+		var c = document.getElementById('georefDetailCtl');
+		if (onOff==0) {
+			e.className='noShow'
+			c.setAttribute('onCLick','toggleGeorefDetail(1)');
+			c.innerHTML='Show Georeference Options';
+		} else {
+			e.className='';
+			c.setAttribute('onCLick','toggleGeorefDetail(0)');
+			c.innerHTML='Show Georeference Options';
+		}
+	}
 	
 </script>
 <cfoutput>
@@ -190,7 +202,6 @@
 		</table>
 		<div id="locDetail" class="noShow">
 		<table cellpadding="0" cellspacign="0">
-		<cfif #localityDetail# is 1>
 			<tr>
 				<td>
 					<label for="MinElevOper">Minimum Elevation</label>
@@ -238,8 +249,10 @@
 					<input type="text" name="locality_id" id="locality_id">
 				</td>
 			</tr>
-		</cfif>
-		<cfif #georefDetail# is 1>
+		</table>
+		<span id="georefDetailCtl" class="infoLink" onclick="toggleGeorefDetail(1)";>Show Georeference Options</span>
+		<div id="georefDetail" class="noShow">
+		<table cellpadding="0" cellspacign="0">
 			<tr>
 				<td>
 					<label for="findNoGeoRef">No Georeferences</label>
@@ -293,7 +306,7 @@
 				</td>
 			</tr>
 
-	</cfif>
+
 		</table>
 	</div>	
 	</div>	
