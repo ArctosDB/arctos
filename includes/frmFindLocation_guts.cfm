@@ -13,7 +13,6 @@
 		}
 	.locGroup {
 		border: 1px solid green;
-		width:1px;
 		overflow:
 		}
 </style>
