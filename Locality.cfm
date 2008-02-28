@@ -710,7 +710,7 @@
             </tr>
           </table>
 		---->
-		<cfinclude template="/includes/findCollEvent_guts.cfm">
+		<cfinclude template="/includes/frmFindCollEvent_guts.cfm">
           <p><br>
           </p>
         </cfform>
@@ -2110,6 +2110,16 @@ INSERT INTO geog_auth_rec (
 <!--------------------------- Results -------------------------------------------------->
 <!---------------------------------------------------------------------------------------------------->
     <cfif #Action# is "findCollEvent">
+	<form name="tools" method="post" action="Locality.cfm">
+		<input type="hidden" name="action" value="massMoveCollEvent" />
+		<cfinclude template="/includes/resFindCollEvent.cfm">
+		<input type="submit" 
+			value="Move These Collecting Events to new Locality" 
+			class="savBtn"
+			onmouseover="this.className='savBtn btnhov'" 
+			onmouseout="this.className='savBtn'" />
+	</form>
+	<!--
 	<cfset sql = "select
 					geog_auth_rec.geog_auth_rec_id,
 					locality.locality_id,
@@ -2253,8 +2263,6 @@ INSERT INTO geog_auth_rec (
 			<td><b>Source</b></td>
 			<td><b>Method</b></td>
 		</tr>
-	<form name="tools" method="post" action="Locality.cfm">
-		<input type="hidden" name="action" value="massMoveCollEvent" />
 		<cfoutput query="getCollEvent">
 			<input type="hidden" name="collecting_event_id" value="#collecting_event_id#" />
 		<tr>
@@ -2285,13 +2293,9 @@ INSERT INTO geog_auth_rec (
 		</tr>
 	
 	</cfoutput>
-		<input type="submit" 
-			value="Move These Collecting Events to new Locality" 
-			class="savBtn"
-			onmouseover="this.className='savBtn btnhov'" 
-			onmouseout="this.className='savBtn'" />
-	</form>
+		
 	</table>
+	--->
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 
