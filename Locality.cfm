@@ -1598,7 +1598,7 @@
 	</cfquery>
 <cfif len(#isSpec.collection_object_id#) gt 0>
 	There are specimens for this collecting event. It cannot be deleted. If you can't see them, perhaps they aren't in 
-	the collection list you've set in your preferences (#client.collection#).
+	the collection list you've set in your preferences.
 	<br><a href="Locality.cfm?Action=editCollEvent&collecting_event_id=#collecting_event_id#">Return</a> to editing.
 	<cfabort>
 <cfelseif len(#isSpec.collection_object_id#) is 0>
