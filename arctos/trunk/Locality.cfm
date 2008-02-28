@@ -357,199 +357,23 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "findLO">
 <cfoutput>
-<cfset title="Find Locality">
+	<cfset title="Find Locality">
+	<cfset showLocality=1>
 
-<cfform name="getLoc" method="post" action="Locality.cfm">
-	<input type="hidden" name="Action" value="findLocality">
-	<table>
-		<tr>
-			<td align="right">Specific Locality:</td>
-			<td><input type="text" name="spec_locality" size="50"></td>
-		</tr>
-		<tr>
-			<td align="right">No Georeferences:</td>
-			<td>
-				
-				<input type="checkbox" name="findNoGeoRef">
-			</td>
-		</tr>
-		<tr>
-			<td align="right">No Accepted Georeferences:</td>
-			<td>
-				
-				<input type="checkbox" name="findNoAccGeoRef">
-			</td>
-		</tr>
-		<tr>
-			<td align="right">isIncomplete</td>
-			<td>
-				
-				<input type="checkbox" name="isIncomplete">
-			</td>
-		</tr>
-		
-		<tr>
-			<td align="right">NoGeorefBecause</td>
-			<td>
-				<input type="text" name="NoGeorefBecause" size="50">
-				NULL: <input type="checkbox" name="nullNoGeorefBecause">
-			</td>
-		</tr>
-		<tr>
-			<td align="right">VerificationStatus</td>
-			<td>
-				<select name="VerificationStatus" size="1">
-					<option value=""></option>
-					<cfloop query="ctVerificationStatus">
-						<option value="#VerificationStatus#">#VerificationStatus#</option>
-					</cfloop>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td align="right">GeorefMethod</td>
-			<td>
-				<select name="GeorefMethod" size="1">
-					<option value=""></option>
-					<cfloop query="ctGeorefMethod">
-						<option value="#GeorefMethod#">#GeorefMethod#</option>
-					</cfloop>
-				</select>
-			</td>
-		</tr>
-		
-		
-		 
-		<tr>
-			<td align="right">Minimum Elevation: </td>
-			<td><select name="minElevOper" size="1">
-			<option value="=">is</option>
-			<option value="<>">is not</option>
-			<option value=">">more than</option>
-			<option value="<">less than</option>
-		</select>
-	<input type="text" name="MINIMUM_ELEVATION"></td>
-		</tr>
-		<tr>
-			<td align="right">Maximum Elevation:</td>
-			<td><select name="maxElevOper" size="1">
-			<option value="=">is</option>
-			<option value="<>">is not</option>
-			<option value=">">more than</option>
-			<option value="<">less than</option>
-		</select>
-	<input type="text" name="MAXIMUM_ELEVATION"></td>
-		</tr>
-		<tr>
-			<td align="right">Original Units:</td>
-			<td><select name="ORIG_ELEV_UNITS" size="1">
-		<option value=""></option>
-		<cfloop query="ctElevUnit">
-			<option value="#ctElevUnit.orig_elev_units#">#ctElevUnit.orig_elev_units#</option>
-		</cfloop>
-	</select></td>
-		</tr>
-		<tr>
-			<td align="right">Locality Remarks:</td>
-			<td><input type="text" name="LOCALITY_REMARKS"></td>
-		</tr>
-		<tr>
-			<td align="right">Continent or Ocean:</td>
-			<td><input type="text" name="continent_ocean"></td>
-		</tr>
-		<tr>
-			<td align="right">Country:</td>
-			<td> <input type="text" name="country"></td>
-		</tr>
-		<tr>
-			<td align="right">State:</td>
-			<td><input type="text" name="state_prov"></td>
-		</tr>
-		<tr>
-			<td align="right">County:</td>
-			<td><input type="text" name="county"></td>
-		</tr>
-		<tr>
-			<td align="right">Quad:</td>
-			<td><input type="text" name="quad"></td>
-		</tr>
-		<tr>
-			<td align="right">Feature:</td>
-			<td><select name="feature">
-				<option value=""></option>
-					<cfloop query="ctFeature">
-						<option value = "#ctFeature.feature#">#ctFeature.feature#</option>
-					</cfloop>
-			</select></td>
-		</tr>
-		<tr>
-			<td align="right">Island Group:</td>
-			<td><select name="island_group" size="1">
-			<option value=""></option>
-			<cfloop query="ctIslandGroup">
-				<option value="#ctIslandGroup.island_group#">#ctIslandGroup.island_group#</option>
-			</cfloop>
-		</select></td>
-		</tr>
-		<tr>
-			<td align="right">Island:</td>
-			<td><input type="text" name="island" size="50"></td>
-		</tr>
-		<tr>
-			<td align="right">Sea:</td>
-			<td><input type="text" name="sea"></td>
-		</tr>
-		<tr>
-			<td align="right">Valid?</td>
-			<td><select name="valid_catalog_term_fg">
-			<option value=""></option>
-			<option value="1">yes</option>
-			<option value="0">no</option>
-		</select></td>
-		</tr>
-		<tr>
-			<td align="right">Source Authority:</td>
-			<td><select name="source_authority" size="1">
-			<option value=""></option>
-			<cfloop query="ctGeogSrcAuth">
-				<option value="#ctGeogSrcAuth.source_authority#">#ctGeogSrcAuth.source_authority#</option>
-			</cfloop>
-		</select></td>
-		</tr>
-		<tr>
-			<td align="right">Locality ID:</td>
-			<td><input type="text" name="locality_id"></td>
-		</tr>
-			<td colspan="2">
-			<input type="submit" 
-				value="Find Locality" 
-				class="schBtn"
-				onmouseover="this.className='schBtn btnhov'" 
-				onmouseout="this.className='schBtn'">	
-			<input type="button"
-				value="Quit"
-				class="qutBtn"
-				onmouseover="this.className='qutBtn btnhov'"
-				onmouseout="this.className='qutBtn'"
-				onclick="document.location='Locality.cfm';">
-			<input type="reset" value="Clear Form" class="clrBtn"
-   onmouseover="this.className='clrBtn btnhov'" onmouseout="this.className='clrBtn'">
-</td>
-		</tr>
-	</table>
-</cfform>
+	<strong>Find Locality:</strong>
+    <form name="getCol" method="post" action="Locality.cfm">
+           <input type="hidden" name="Action" value="findLocality">	
+			<cfinclude template="/includes/frmFindLocation_guts.cfm">
+     </form>
+
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "findCO">
 <cfoutput> 
 	<cfset title="Find Collecting Events">
-	<cfset geogDetail=1>
 	<cfset showLocality=1>
-	<cfset localityDetail=1>
-	<cfset georefDetail=1>
 	<cfset showEvent=1>
-	<cfset eventDetail=1>
 	<strong>Find Collecting Events:</strong>
     <form name="getCol" method="post" action="Locality.cfm">
            <input type="hidden" name="Action" value="findCollEvent">	
