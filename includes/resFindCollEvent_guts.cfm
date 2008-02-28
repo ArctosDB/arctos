@@ -133,11 +133,10 @@
 	<tr>
 		<td><b>Geog</b></td>
 		<td><b>Locality</b></td>
-		<td><b>Coll Evnt Id</b></td>
-		<td><b>Verb. Loc</b></td>
-		<td><b>Beg. Date</b></td>
-		<td><b>End Date</b></td>
-		<td><b>Verb. Date</b></td>
+		<td><b>Verbatim&nbsp;Locality</b></td>
+		<td><b>Began&nbsp;Date</b></td>
+		<td><b>End&nbsp;Date</b></td>
+		<td><b>Verb.&nbsp;Date</b></td>
 		<td><b>Source</b></td>
 		<td><b>Method</b></td>
 	</tr>
@@ -161,8 +160,12 @@
 						target="#client.target#">#locality_id#</a>)
 				</div>
 			<!---&nbsp;<a href="/fix/DupLocs.cfm?action=killDups&locid=#locality_id#" target="_blank"><font size="-2"><i>kill dups</i></font></a>---></td>
-			<td><a href="Locality.cfm?Action=editCollEvnt&collecting_event_id=#collecting_event_id#">#collecting_event_id#</a></td>
-			<td>#verbatim_locality#</td>
+			<td>
+				<div class="smaller">
+				 	#verbatim_locality#
+					(<a href="Locality.cfm?Action=editCollEvnt&collecting_event_id=#collecting_event_id#">#collecting_event_id#</a>)
+				</div>
+			</td>
 			<td>#dateformat(began_date,"dd mmm yyyy")#</td>
 			<td>#dateformat(ended_date,"dd mmm yyyy")#</td>
 			<td>#verbatim_date#</td>
