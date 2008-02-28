@@ -1,0 +1,1 @@
+fromA:<input type="text" name="fromA">
