@@ -152,6 +152,7 @@
 	spec_locality,
 	verbatim_locality,
 	verbatimLatitude">
+	#sql#
 <cfquery name="caller.localityResults" datasource="#Application.web_user#">
 	#preservesinglequotes(sql)#
 </cfquery>
