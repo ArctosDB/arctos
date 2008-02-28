@@ -610,9 +610,12 @@ function success_getSpecResultsData(result){
 				theInnerHtml += '<th>Dec.&nbsp;Long.</th>';
 			}
 		theInnerHtml += '</tr>';
-
+		// get an ordered list of collection_object_ids to pass on to 
+		// SpecimenDetail for browsing
+		var orderedCollObjIdArray = new Array();
 		
 		for (i=0; i<result.length; ++i) {
+			orderedCollObjIdArray.push(result[i].COLLECTION_OBJECT_ID);
 			theInnerHtml += '<tr>';
 				if (killrow == 1){
 					theInnerHtml += '<td align="center"><input type="checkbox" onchange="toggleKillrow(' + "'";
@@ -910,7 +913,8 @@ function success_getSpecResultsData(result){
 			theInnerHtml += '</tr>';
 		}
 		
-		
+		var orderedCollObjIdList = orderedCollObjIdArray.join(",");
+		document.getElementById("orderedCollObjIds").value=orderedCollObjIdList;
 		theInnerHtml += '</table>';
 		//alert(theInnerHtml);
 		tgt.innerHTML = theInnerHtml;
