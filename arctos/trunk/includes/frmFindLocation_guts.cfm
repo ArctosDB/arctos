@@ -193,7 +193,12 @@
 				<td>
 					<label for="NoGeorefBecause">NoGeorefBecause</label>
 					<input type="text" name="NoGeorefBecause" size="50" id="NoGeorefBecause">
-					NULL: <input type="checkbox" name="nullNoGeorefBecause" id="nullNoGeorefBecause">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="nullNoGeorefBecause">NULL NoGeorefBecause</label>
+					<input type="checkbox" name="nullNoGeorefBecause" id="nullNoGeorefBecause">
 				</td>
 			</tr>
 			<tr>
