@@ -2131,7 +2131,7 @@ INSERT INTO geog_auth_rec (
 				 left outer join lat_long on (locality.locality_id = lat_long.locality_id)
 				 inner join geog_auth_rec on (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)
 				  inner join collecting_event on (locality.locality_id=collecting_event.locality_id)
-		 where  locality.locality_id > 0 ">
+		 where  locality.locality_id > -1 ">
 	
 		<cfif isdefined("locality_id") and len(#locality_id#) gt 0>
 			<cfset sql = "#sql# AND collecting_event.locality_id = #locality_id#">

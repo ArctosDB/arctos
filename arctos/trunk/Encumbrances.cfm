@@ -47,36 +47,69 @@
 
 	<input type="hidden" name="Action" value="listEncumbrances">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-	<table border="1">
+	<table border="0">
 		<tr>
-			<td align="right">Encumbering Agent:</td>
-			<td><input name="encumberingAgent" type="text"></td>
-			<td align="right">Made Date:</td>
-			<td><input type="text" name="made_date">
-			<span class="infoLink"
-				name="anchor1"
-				id="anchor1"
-				onClick="cal1.showCalendar('anchor1'); 
-					cal1.select(document.encumber.made_date,'anchor1','d NNN yyyy'); 
-						return false;">
-					Pick
-			</span>
+			<td colspan="2">
+				<label for="">Encumbering Agent</label>
+				<input name="encumberingAgent" id="encumberingAgent" type="text">
 			</td>
 		</tr>
 		<tr>
-			<td align="right">Expiration Date:</td>
-			<td><input type="text" name="expiration_date">
-			<span class="infoLink"
-				name="anchor2"
-				id="anchor2"
-				onClick="cal1.showCalendar('anchor2'); 
-					cal1.select(document.encumber.expiration_date,'anchor2','d NNN yyyy'); 
-						return false;">
-					Pick
-			</span>
+			<td>
+				<label for="made_date_after">Made Date After</label>
+				<input type="text" name="made_date_after" id="made_date_after">
+				<span class="infoLink"
+					name="anchor1"
+					id="anchor1"
+					onClick="cal1.showCalendar('anchor1'); 
+						cal1.select(document.encumber.made_date_after,'anchor1','d NNN yyyy'); 
+							return false;">
+						Pick
+				</span>
 			</td>
-			<td align="right">Expiration Event</td>
-			<td><input type="text" name="expiration_event"></td>
+			<td>
+				<label for="made_date_before">Made Date Before</label>
+				<input type="text" name="made_date_before" id="made_date_before">
+				<span class="infoLink"
+					name="anchor1"
+					id="anchor1"
+					onClick="cal1.showCalendar('anchor1'); 
+						cal1.select(document.encumber.made_date_before,'anchor1','d NNN yyyy'); 
+							return false;">
+						Pick
+				</span>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="expiration_date_after">Expiration Date After</label>
+				<input type="text" name="expiration_date_after" id="expiration_date_after">
+				<span class="infoLink"
+					name="anchor1"
+					id="anchor1"
+					onClick="cal1.showCalendar('anchor1'); 
+						cal1.select(document.encumber.expiration_date_after,'anchor1','d NNN yyyy'); 
+							return false;">
+						Pick
+				</span>
+			</td>
+			<td>
+				<label for="expiration_date_before">Expiration Date Before</label>
+				<input type="text" name="expiration_date_before" id="expiration_date_before">
+				<span class="infoLink"
+					name="anchor1"
+					id="anchor1"
+					onClick="cal1.showCalendar('anchor1'); 
+						cal1.select(document.encumber.expiration_date_before,'anchor1','d NNN yyyy'); 
+							return false;">
+						Pick
+				</span>
+			</td>
+		</tr>	
+			<td>
+				<label for="expiration_event">Expiration Event</label>
+				<input type="text" id="expiration_event" name="expiration_event">
+			</td>
 		</tr>
 		<tr>
 			<td align="right">Encumbrance:</td>
@@ -122,7 +155,7 @@
 		<cfset sql = "#sql# AND upper(agent_name) like '%#ucase(encumberingAgent)#%'">	
 	</cfif>
 	<cfif len(#made_date#) gt 0>
-		<cfset sql = "#sql# AND upper(made_date) like '%#ucase(made_date)#%'">	
+		<cfset sql = "#sql# AND upper(made_date) like 'to_date(#made_date#)'">	
 	</cfif>
 	<cfif len(#expiration_date#) gt 0>
 		<cfset sql = "#sql# AND upper(expiration_date) like '%#ucase(expiration_date)#%'">	
