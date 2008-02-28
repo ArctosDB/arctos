@@ -138,12 +138,16 @@
             <tr> 
               <td><div align="right">Began Date:</div></td>
               <td><input type="text" name="BEGAN_DATE"> </td>
+            </tr>
+            <tr> 
 				<td align="right">Began Until Date (leave blank otherwise)</td>
 				<td><input type="text" name="began_until_date"></td>
             </tr>
             <tr> 
               <td><div align="right">Ended Date:</div></td>
               <td><input type="text" name="ENDED_DATE"> </td>
+            </tr>
+            <tr> 
 				<td align="right">Ended Until Date (leave blank otherwise)</td>
 				<td><input type="text" name="ENDED_until_date"></td>
             </tr>
@@ -212,19 +216,19 @@
 		
 		<cfif isdefined("BEGAN_DATE") and len(#BEGAN_DATE#) gt 0>
 			<cfif isdefined("began_until_date") and len(#began_until_date#) gt 0>
-				<cfset sql = "#sql# AND upper(BEGAN_DATE) between to_date('#BEGAN_DATE#', 'DD Mon YYYY') 
+				<cfset sql = "#sql# AND BEGAN_DATE between to_date('#BEGAN_DATE#', 'DD Mon YYYY') 
 																and to_date('#began_until_date#', 'DD Mon YYYY')">
 			<cfelse>
-				<cfset sql = "#sql# AND upper(BEGAN_DATE) like to_date('#BEGAN_DATE#', 'DD Mon YYYY')">
+				<cfset sql = "#sql# AND BEGAN_DATE like to_date('#BEGAN_DATE#', 'DD Mon YYYY')">
 			</cfif>
 		</cfif>
 		
 		<cfif isdefined("ENDED_DATE") and len(#ended_DATE#) gt 0>
 			<cfif isdefined("ended_until_date") and len(#ended_until_date#) gt 0>
-				<cfset sql = "#sql# AND upper(ended_DATE) between to_date('#ended_DATE#', 'DD Mon YYYY') 
+				<cfset sql = "#sql# AND ended_DATE between to_date('#ended_DATE#', 'DD Mon YYYY') 
 																and to_date('#ended_until_date#', 'DD Mon YYYY')">
 			<cfelse>
-				<cfset sql = "#sql# AND upper(ended_DATE) like to_date('#ended_DATE#', 'DD Mon YYYY')">
+				<cfset sql = "#sql# AND ended_DATE like to_date('#ended_DATE#', 'DD Mon YYYY')">
 			</cfif>
 		</cfif>
 		
