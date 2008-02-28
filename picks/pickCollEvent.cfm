@@ -1,12 +1,8 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfif #action# is "nothing">
 <cfoutput>
-<cfquery name="ctFeature" datasource="#Application.web_user#">
-	select distinct(feature) from geog_auth_rec order by feature
-</cfquery>
-<cfquery name="ctcollecting_source" datasource="#Application.web_user#">
-	select distinct(collecting_source) from ctcollecting_source order by collecting_source
-</cfquery>
+<cfset showLocality=1>
+<cfset showEvent=1>
 <form name="findCollEvent" method="post" action="pickCollEvent.cfm">
 	<input type="hidden" name="action" value="findem">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
