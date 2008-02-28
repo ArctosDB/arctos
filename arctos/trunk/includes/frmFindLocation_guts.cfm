@@ -63,7 +63,7 @@
 <cfquery name="ctGeorefMethod" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select georefMethod from ctgeorefmethod order by georefMethod
 </cfquery>
-<div class="locGroup">
+<span class="locGroup">
 <span id="geogDetailCtl" onclick="toggleGeogDetail(1)";>Show More Options</span>
 <div id="geogDetail" class="noShow">
 	<table cellpadding="0" cellspacign="0">
@@ -147,7 +147,7 @@
 			</td>
 		</tr>
 	</table>	
-</div>
+</span>
 	<table cellpadding="0" cellspacign="0">
 	<!----------------------------------------------- locality -------------------------------->
 	<cfif #showLocality# is 1>
