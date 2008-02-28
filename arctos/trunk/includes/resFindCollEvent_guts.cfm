@@ -1,3 +1,4 @@
+<cfoutput>
 <cfset sql = "
 	select
 		geog_auth_rec.geog_auth_rec_id,
@@ -169,4 +170,5 @@
 			<td>#collecting_method#</td>
 		</tr>
 	</cfloop>
-	</table>
+</table>
+</cfoutput>
