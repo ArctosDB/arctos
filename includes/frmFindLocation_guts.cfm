@@ -7,6 +7,7 @@
 	localityDetail
 	showEvent
 --->
+<cfoutput>
 <cfif not isdefined("geogDetail")>
 	<cfset geogDetail=0>
 </cfif>
@@ -309,3 +310,4 @@
 		</td>
 	</tr>
 </table>
+</cfoutput>
