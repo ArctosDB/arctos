@@ -149,95 +149,11 @@
 <cfoutput>
 <cfset title="Find Geography">
 <strong>Find Higher Geography:</strong>
-<cfform name="getHG" method="post" action="Locality.cfm">
-	<input type="hidden" name="Action" value="findGeog">
-	<table>
-		<tr>
-			<td align="right">Anything:</td>
-			<td><input type="text" name="higher_geog"></td>
-		</tr>
-		<tr>
-			<td align="right">Continent or Ocean:</td>
-			<td><input type="text" name="continent_ocean"></td>
-		</tr>
-		<tr>
-			<td align="right">Country:</td>
-			<td><input type="text" name="country"></td>
-		</tr>
-		<tr>
-			<td align="right">State:</td>
-			<td><input type="text" name="state_prov"></td>
-		</tr>
-		<tr>
-			<td align="right">County:</td>
-			<td><input type="text" name="county"></td>
-		</tr>
-		<tr>
-			<td align="right">Quad:</td>
-			<td><input type="text" name="quad"></td>
-		</tr>
-		<tr>
-			<td align="right"></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td align="right">Feature:</td>
-			<td>
-			<select name="feature">
-				<option value=""></option>
-					<cfloop query="ctFeature">
-						<option value = "#ctFeature.feature#">#ctFeature.feature#</option>
-					</cfloop>
-			</select>
-			</td>
-		</tr>
-		<tr>
-			<td align="right">Island Group:</td>
-			<td><select name="island_group" size="1">
-			<option value=""></option>
-			<cfloop query="ctIslandGroup">
-				<option value="#ctIslandGroup.island_group#">#ctIslandGroup.island_group#</option>
-			</cfloop>
-		</select></td>
-		</tr>
-		<tr>
-			<td align="right">Island:</td>
-			<td><input type="text" name="island" size="50"></td>
-		</tr>
-		<tr>
-			<td align="right">Sea:</td>
-			<td> <input type="text" name="sea"></td>
-		</tr>
-		<tr>
-			<td align="right">Valid?</td>
-			<td><select name="valid_catalog_term_fg">
-			<option value=""></option>
-			<option value="1">yes</option>
-			<option value="0">no</option>
-		</select></td>
-		</tr>
-		<tr>
-			<td align="right">Source Authority:</td>
-			<td><select name="source_authority" size="1">
-			<option value=""></option>
-			<cfloop query="ctGeogSrcAuth">
-				<option value="#ctGeogSrcAuth.source_authority#">#ctGeogSrcAuth.source_authority#</option>
-			</cfloop>
-		</select></td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-			 <input type="submit" value="Find Matches" class="schBtn"
-   onmouseover="this.className='schBtn btnhov'" onmouseout="this.className='schBtn'">	
-<input type="button" value="Quit" class="qutBtn"
-   onmouseover="this.className='qutBtn btnhov'" onmouseout="this.className='qutBtn'"
-   onclick="document.location='Locality.cfm';">
-   <input type="reset" value="Clear Form" class="clrBtn"
-   onmouseover="this.className='clrBtn btnhov'" onmouseout="this.className='clrBtn'">
-   </td>
-		</tr>
-	</table>
-</cfform>
+
+<form name="getCol" method="post" action="Locality.cfm">
+           <input type="hidden" name="Action" value="findGeog">	
+			<cfinclude template="/includes/frmFindLocation_guts.cfm">
+     </form>
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
@@ -2128,8 +2044,6 @@ INSERT INTO geog_auth_rec (
 <cfif #Action# is "findLocality">
 	<cfoutput>
 	<cf_findLocality>
-			
-
 <cfif #localityResults.recordcount# lt 1000>
 	<cfset thisLocId="">
 	<cfloop query="localityResults">
