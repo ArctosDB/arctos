@@ -46,7 +46,7 @@
 	select georefMethod from ctgeorefmethod order by georefMethod
 </cfquery>
 <table cellpadding="0" cellspacign="0">
-	<cfif #geogDetail# is 1>
+	<div id="geogDetail#" class="noShow">
 		<tr>
 			<td>
 				<label for="continent_ocean">Continent or Ocean</label>
@@ -111,14 +111,20 @@
 				<input type="text" name="sea" id="sea" size="50">
 			</td>
 		</tr>
-	<cfelse>
+		<tr>
+			<td>
+				<label for="geog_auth_rec_id">Geog Auth Rec ID</label>
+				<input type="text" name="geog_auth_rec_id" id="geog_auth_rec_id">
+			</td>
+		</tr>
+	</div>
 		<tr>
 			<td>
 				<label for="higher_geog">Higher Geog</label>
 				<input type="text" name="sea" id="higher_geog" size="50">
 			</td>
 		</tr>	
-	</cfif>
+	
 	
 	<!----------------------------------------------- locality -------------------------------->
 	<cfif #showLocality# is 1>
@@ -168,6 +174,12 @@
 				<td>
 					<label for="locality_remarks">Locality Remarks</label>
 					<input type="text" name="locality_remarks" id="locality_remarks" size="50">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="locality_id">Locality ID</label>
+					<input type="text" name="locality_id" id="locality_id">
 				</td>
 			</tr>
 		</cfif>
@@ -291,6 +303,12 @@
 				<td>
 					<label for="habitat_desc">Habitat</label>
 					<input type="text" name="habitat_desc" id="habitat_desc" size="50">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="collecting_event_id">Collecting Event ID</label>
+					<input type="text" name="collecting_event_id" id="collecting_event_id" >
 				</td>
 			</tr>
 		</cfif>
