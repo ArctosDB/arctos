@@ -2110,15 +2110,17 @@ INSERT INTO geog_auth_rec (
 <!--------------------------- Results -------------------------------------------------->
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "findCollEvent">
-	<form name="tools" method="post" action="Locality.cfm">
-		<input type="hidden" name="action" value="massMoveCollEvent" />
-		<cfinclude template="/includes/resFindCollEvent_guts.cfm">
-		<input type="submit" 
-			value="Move These Collecting Events to new Locality" 
-			class="savBtn"
-			onmouseover="this.className='savBtn btnhov'" 
-			onmouseout="this.className='savBtn'" />
-	</form>
+	<cfoutput>
+		<form name="tools" method="post" action="Locality.cfm">
+			<input type="hidden" name="action" value="massMoveCollEvent" />
+			<cfinclude template="/includes/resFindCollEvent_guts.cfm">
+			<input type="submit" 
+				value="Move These Collecting Events to new Locality" 
+				class="savBtn"
+				onmouseover="this.className='savBtn btnhov'" 
+				onmouseout="this.className='savBtn'" />
+		</form>
+	</cfoutput>
 	<!---
 	<cfset sql = "select
 					geog_auth_rec.geog_auth_rec_id,
