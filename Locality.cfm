@@ -2112,7 +2112,7 @@ INSERT INTO geog_auth_rec (
     <cfif #Action# is "findCollEvent">
 	<form name="tools" method="post" action="Locality.cfm">
 		<input type="hidden" name="action" value="massMoveCollEvent" />
-		<cfinclude template="/includes/resFindCollEvent.cfm">
+		<cfinclude template="/includes/resFindCollEvent_guts.cfm">
 		<input type="submit" 
 			value="Move These Collecting Events to new Locality" 
 			class="savBtn"
