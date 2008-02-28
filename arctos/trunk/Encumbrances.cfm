@@ -159,12 +159,19 @@
 	<cfif len(#encumberingAgent#) gt 0>
 		<cfset sql = "#sql# AND upper(agent_name) like '%#ucase(encumberingAgent)#%'">	
 	</cfif>
-	<cfif len(#made_date#) gt 0>
-		<cfset sql = "#sql# AND upper(made_date) like 'to_date(#made_date#)'">	
+	<cfif isdefined("made_date_after") and len(#made_date_after#) gt 0>
+		<cfset sql = "#sql# AND made_date >= 'to_date(#made_date_after#)'">	
 	</cfif>
-	<cfif len(#expiration_date#) gt 0>
-		<cfset sql = "#sql# AND upper(expiration_date) like '%#ucase(expiration_date)#%'">	
+	<cfif isdefined("made_date_before") and len(#made_date_before#) gt 0>
+		<cfset sql = "#sql# AND made_date <= 'to_date(#made_date_before#)'">	
 	</cfif>
+	<cfif isdefined("expiration_date_after") and len(#expiration_date_after#) gt 0>
+		<cfset sql = "#sql# AND expiration_date >= 'to_date(#expiration_date_after#)'">	
+	</cfif>
+	<cfif isdefined("expiration_date_before") and len(#expiration_date_before#) gt 0>
+		<cfset sql = "#sql# AND expiration_date <= 'to_date(#expiration_date_before#)'">	
+	</cfif>
+				
 	<cfif len(#encumbrance#) gt 0>
 		<cfset sql = "#sql# AND upper(encumbrance) like '%#ucase(encumbrance)#%'">	
 	</cfif>
