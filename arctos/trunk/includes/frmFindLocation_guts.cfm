@@ -12,9 +12,19 @@
 		display:none;
 		}
 	.locGroup {
-		border: 1 px solid green'
+		border: 1px solid green;
 		}
 </style>
+<script>
+	function toggleGeogDetail(onOff) {
+		var e = document.getElementById('geogDetail');
+		if (onOff==0) {
+			e.className='noShow'
+		} else {
+			e.className='';
+		}
+	}
+</script>
 <cfoutput>
 <cfif not isdefined("geogDetail")>
 	<cfset geogDetail=0>
@@ -54,6 +64,7 @@
 	select georefMethod from ctgeorefmethod order by georefMethod
 </cfquery>
 <div class="locGroup">
+<span id="geogDetailCtl" onclick="toggleGeogDetail(1)";>Show More Options</span>
 <div id="geogDetail" class="noShow">
 	<table cellpadding="0" cellspacign="0">
 		<tr>
