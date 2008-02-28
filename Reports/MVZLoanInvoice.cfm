@@ -62,7 +62,7 @@
 				<tr>
 					<td align="left" width="60%">
 						<blockquote>
-							#replace(getLoan.outside_address,"#chr(10)#","<br>","all")#
+							#replace(getLoan.outside_address,"#chr(10)#","<br/>","all")#
 						</blockquote>
 					</td>
 					<td align="right" valign="top">
@@ -91,7 +91,7 @@
 		<td>
 			<b>Nature of Material:</b>
 			<!--- format for PDF --->
-			<cfset nom = replace(getLoan.nature_of_material,"#chr(10)#","<br>","all")>
+			<cfset nom = replace(getLoan.nature_of_material,"#chr(10)#","<br/>","all")>
 			<cfset nom = replace(nom,"<i>","","all")>
 			<cfset nom = replace(nom,"</i>","","all")>
   					#nom#
@@ -101,7 +101,7 @@
 		<tr>
 			<td>
 				<b>Description:</b>
- 				&nbsp;#replace(getLoan.loan_description,"#chr(10)#","<br>","all")#
+ 				&nbsp;#replace(getLoan.loan_description,"#chr(10)#","<br/>","all")#
 			</td>
 		</tr>
 	</cfif>
@@ -473,14 +473,14 @@ Based on:
 	<table><tr><td valign="top"><span class="#fromToClass#">From:</span></td>
 	<td><div class="#fromAddrClass#" style="#addrStyle#">
 		<blockquote>
-			#replace(shipped_from_addr,"#chr(10)#","<br>","all")#
+			#replace(shipped_from_addr,"#chr(10)#","<br/>","all")#
 		</blockquote>
 	</div></td></tr></table>
 	<hr>
 	<table><tr><td valign="top"><span class="#fromToClass#">To:</span></td>
 	<td><div class="#toAddrClass#" style="#addrStyle#">
 		<blockquote>
-			#replace(shipped_to_addr,"#chr(10)#","<br>","all")#
+			#replace(shipped_to_addr,"#chr(10)#","<br/>","all")#
 		</blockquote>
 	</div></td></tr></table>
 	<!--- It seems that, as of Coldfusion 7, cfdocument does not support Times 
