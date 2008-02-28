@@ -710,7 +710,7 @@
             </tr>
           </table>
 		---->
-		<cfinclude template="/includes/frmFindCollEvent_guts.cfm">
+		<cfinclude template="/includes/frmFindLocation_guts.cfm">
           <p><br>
           </p>
         </cfform>

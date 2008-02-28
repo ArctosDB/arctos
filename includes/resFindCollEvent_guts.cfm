@@ -117,9 +117,34 @@
 <cfif isdefined("sea") and len(#sea#) gt 0>
 	<cfset sql = "#sql# AND upper(sea) LIKE '%#ucase(sea)#%'">
 </cfif>
-<cfif isdefined("valid_catalog_term_fg") and len(#valid_catalog_term_fg#) gt 0>
-	<cfset sql = "#sql# AND valid_catalog_term_fg = #valid_catalog_term_fg#">
+<cfif isdefined("higher_geog") and len(#higher_geog#) gt 0>
+	<cfset sql = "#sql# AND upper(higher_geog) = '%#ucase(higher_geog)#%'">
 </cfif>
+<cfif isdefined("NoGeorefBecause") AND len(#NoGeorefBecause#) gt 0>
+	<cfset sql = "#sql# AND upper(NoGeorefBecause) like '%#ucase(NoGeorefBecause)#%'">
+</cfif>
+<cfif isdefined("VerificationStatus") AND len(#VerificationStatus#) gt 0>
+	<cfset sql = "#sql# AND VerificationStatus='#VerificationStatus#'">
+</cfif>
+<cfif isdefined("GeorefMethod") AND len(#GeorefMethod#) gt 0>
+	<cfset sql = "#sql# AND GeorefMethod='#GeorefMethod#'">
+</cfif>
+<cfif isdefined("nullNoGeorefBecause") and len(#nullNoGeorefBecause#) gt 0>
+	<cfset sql = "#sql# AND NoGeorefBecause IS NULL">
+</cfif>
+<cfif isdefined("isIncomplete") AND len(#isIncomplete#) gt 0>
+	<cfset sql = "#sql# AND 
+		( GPSACCURACY IS NULL OR EXTENT IS NULL OR MAX_ERROR_DISTANCE = 0 or MAX_ERROR_DISTANCE IS NULL)">
+</cfif>
+<cfif isdefined("findNoAccGeoRef") and len(#findNoAccGeoRef#) gt 0>
+	<cfset sql = "#sql# AND locality.locality_id 
+		IN (select locality_id from lat_long) AND
+		locality.locality_id  NOT IN (select locality_id from lat_long where accepted_lat_long_fg=1)">
+</cfif>
+<cfif isdefined("findNoGeoRef") and len(#findNoGeoRef#) gt 0>
+	<cfset sql = "#sql# AND locality.locality_id NOT IN (select locality_id from lat_long)">
+</cfif>
+	
 <cfset sql = "#sql# ORDER BY
 	higher_geog,
 	spec_locality,
