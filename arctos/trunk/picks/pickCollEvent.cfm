@@ -16,140 +16,7 @@
 <cfif #action# is "findem">
 
 <cfoutput>
-	 <cfset sql = "select 
-	 					geog_auth_rec.geog_auth_rec_id,
-						higher_geog,
-						locality.locality_id,
-						spec_locality,
-						collecting_event.collecting_event_id,
-						decode(orig_lat_long_units,
-							'decimal degrees',to_char(dec_lat) || '&deg; ',
-							'deg. min. sec.', to_char(lat_deg) || '&deg; ' || to_char(lat_min) || '&acute; ' || to_char(lat_sec) || '&acute;&acute; ' || lat_dir,
-							'degrees dec. minutes', to_char(lat_deg) || '&deg; ' || to_char(dec_lat_min) || '&acute; ' || lat_dir
-						)  VerbatimLatitude,
-						decode(orig_lat_long_units,
-							'decimal degrees',to_char(dec_long) || '&deg;',
-							'deg. min. sec.', to_char(long_deg) || '&deg; ' || to_char(long_min) || '&acute; ' || to_char(long_sec) || '&acute;&acute; ' || long_dir,
-							'degrees dec. minutes', to_char(long_deg) || '&deg; ' || to_char(dec_long_min) || '&acute; ' || long_dir
-						)  VerbatimLongitude,
-						lat_long_ref_source,
-						max_error_units,
-						max_error_distance,
-						began_date,
-						ended_date,
-						verbatim_date,
-						verbatim_locality,
-						feature,
-						island
-					from 
-						locality, 
-						geog_auth_rec, 
-						collecting_event,
-						accepted_lat_long
-					where 
-						collecting_event.locality_id = locality.locality_id and
-		 				locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id and
-						locality.locality_id = accepted_lat_long.locality_id (+)">
-	
-	
-		
-		
-		<cfif len(#BEGAN_DATE#) gt 0>
-			<cfset sql = "#sql# AND upper(BEGAN_DATE) #begDateOper# '#BEGAN_DATE#'">
-		</cfif>
-		<cfif len(#spec_locality#) gt 0>
-			<cfset sql = "#sql# AND upper(spec_locality) like '%#ucase(replace(spec_locality,"'","''","all"))#%'">
-		</cfif>
-		<cfif len(#feature#) gt 0>
-		<cfset sql = "#sql# AND feature = '#feature#'">
-	</cfif>
-	<cfif len(#island#) gt 0>
-		<cfset sql = "#sql# AND upper(island) LIKE '%#ucase(island)#%'">
-	</cfif>
-	<cfif len(#locality_id#) gt 0>
-		<cfset sql = "#sql# AND locality.locality_id = #locality_id#">
-	</cfif>
-	<cfif len(#state_prov#) gt 0>
-		<cfset sql = "#sql# AND upper(state_prov) LIKE '%#ucase(state_prov)#%'">
-	</cfif>
-	<cfif len(#collecting_source#) gt 0>
-		<cfset sql = "#sql# AND upper(collecting_source) LIKE '%#ucase(collecting_source)#%'">
-	</cfif>
-		<!----
-		<cfif len(#ENDED_DATE#) gt 0>
-			<cfset sql = "#sql# AND upper(ENDED_DATE) #endDateOper# '#ENDED_DATE#'">
-		</cfif>
-		
-		<cfif len(#VERBATIM_DATE#) gt 0>
-			<cfset sql = "#sql# AND upper(VERBATIM_DATE) like '%#ucase(VERBATIM_DATE)#%'">
-		</cfif>
-		
-		<cfif len(#VERBATIM_LOCALITY#) gt 0>
-			<cfset sql = "#sql# AND upper(VERBATIM_LOCALITY) like '%#ucase(VERBATIM_LOCALITY)#%'">
-		</cfif>
-		<cfif len(#COLL_EVENT_REMARKS#) gt 0>
-			<cfset sql = "#sql# AND upper(COLL_EVENT_REMARKS) like '%#ucase(COLL_EVENT_REMARKS)#%'">
-		</cfif>
-		<cfif len(#VALID_DISTRIBUTION_FG#) gt 0>
-			<cfset sql = "#sql# AND VALID_DISTRIBUTION_FG =  #VALID_DISTRIBUTION_FG#">
-		</cfif>
-		<cfif len(#COLLECTING_SOURCE#) gt 0>
-			<cfset sql = "#sql# AND upper(COLLECTING_SOURCE) like '%#ucase(COLLECTING_SOURCE)#%'">
-		</cfif>
-		
-		<cfif len(#COLLECTING_METHOD#) gt 0>
-			<cfset sql = "#sql# AND upper(COLLECTING_METHOD) like '%#ucase(COLLECTING_METHOD)#%'">
-		</cfif>
-		
-		<cfif len(#HABITAT_DESC#) gt 0>
-			<cfset sql = "#sql# AND upper(HABITAT_DESC) like '%#ucase(HABITAT_DESC)#%'">
-		</cfif>
-		
-	<cfif len(#MAXIMUM_ELEVATION#) gt 0>
-		<cfset sql = "#sql# AND MAXIMUM_ELEVATION maxElevOper #MAXIMUM_ELEVATION#">
-	</cfif>
-	<cfif len(#MINIMUM_ELEVATION#) gt 0>
-		<cfset sql = "#sql# AND MINIMUM_ELEVATION minElevOper #MINIMUM_ELEVATION#">
-	</cfif>
-	<cfif len(#ORIG_ELEV_UNITS#) gt 0>
-		<cfset sql = "#sql# AND ORIG_ELEV_UNITS = '#ORIG_ELEV_UNITS#'">
-	</cfif>
-	<cfif len(#LOCALITY_REMARKS#) gt 0>
-		<cfset sql = "#sql# AND upper(LOCALITY_REMARKS) like '%#ucase(LOCALITY_REMARKS)#%'">
-	</cfif>
-	<cfif len(#continent_ocean#) gt 0>
-		<cfset sql = "#sql# AND upper(continent_ocean) LIKE '%#ucase(continent_ocean)#%'">
-	</cfif>
-	<cfif len(#country#) gt 0>
-		<cfset sql = "#sql# AND upper(country) LIKE '%#ucase(country)#%'">
-	</cfif>
-	
-	<cfif len(#county#) gt 0>
-		<cfset sql = "#sql# AND upper(county) LIKE '%#ucase(county)#%'">
-	</cfif>
-	<cfif len(#quad#) gt 0>
-		<cfset sql = "#sql# AND upper(quad) LIKE '%#ucase(quad)#%'">
-	</cfif>
-	
-	<cfif len(#island_group#) gt 0>
-		<cfset sql = "#sql# AND island_group = '#island_group#'">
-	</cfif>
-	
-	<cfif len(#sea#) gt 0>
-		<cfset sql = "#sql# AND upper(sea) LIKE '%#ucase(sea)#%'">
-	</cfif>
-	<cfif len(#valid_catalog_term_fg#) gt 0>
-		<cfset sql = "#sql# AND valid_catalog_term_fg = #valid_catalog_term_fg#">
-	</cfif>
-	<cfif len(#source_authority#) gt 0>
-		<cfset srcAuth = #replace(source_authority,"'","''")#>
-		<cfset sql = "#sql# AND source_authority = '#srcAuth#'">
-	</cfif>
-	---->
-	<cfset sql = "#sql# ORDER BY state_prov,verbatim_locality,VerbatimLatitude">
-	<cfquery name="getCollEvent" datasource="#Application.web_user#">
-		#preservesinglequotes(sql)#
-	</cfquery>
+	<cf_findLocality>
 	
 	<table border>
 		<tr>
@@ -182,7 +49,7 @@
 		
 		
 	<cfset i = 1>
-	<cfloop query="getCollEvent">
+	<cfloop query="localityResults">
 		 <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 			<td rowspan="3"> 
 				<font size="-2">
