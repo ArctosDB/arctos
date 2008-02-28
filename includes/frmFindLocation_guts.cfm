@@ -113,6 +113,14 @@
 <table  cellpadding="0" cellspacign="0"><tr><td>
 	<div class="locGroup">
 		<span id="geogDetailCtl" class="infoLink" onclick="toggleGeogDetail(1)";>Show More Options</span>
+		<table cellpadding="0" cellspacign="0">
+		<tr>
+			<td>
+				<label for="higher_geog">Higher Geog</label>
+				<input type="text" name="higher_geog" id="higher_geog" size="50">
+			</td>
+		</tr>
+	</table>	
 		<div id="geogDetail" class="noShow">
 		<table cellpadding="0" cellspacign="0">
 			<tr>
@@ -187,14 +195,7 @@
 			</tr>
 		</table>
 		</div>
-	<table cellpadding="0" cellspacign="0">
-		<tr>
-			<td>
-				<label for="higher_geog">Higher Geog</label>
-				<input type="text" name="higher_geog" id="higher_geog" size="50">
-			</td>
-		</tr>
-	</table>	
+	
 </div>
 
 <cfif #showLocality# is 1>
