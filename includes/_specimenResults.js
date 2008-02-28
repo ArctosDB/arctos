@@ -613,6 +613,10 @@ function success_getSpecResultsData(result){
 		// get an ordered list of collection_object_ids to pass on to 
 		// SpecimenDetail for browsing
 		var orderedCollObjIdArray = new Array();
+		for (i=0; i<result.length; ++i) {
+			orderedCollObjIdArray.push(result[i].COLLECTION_OBJECT_ID);
+		}
+		var orderedCollObjIdList = orderedCollObjIdArray.join(",");
 		
 		for (i=0; i<result.length; ++i) {
 			orderedCollObjIdArray.push(result[i].COLLECTION_OBJECT_ID);
@@ -628,6 +632,7 @@ function success_getSpecResultsData(result){
 					if (mapURL.length > 0) {
 						theInnerHtml += "&returnURL=" + escape(mapURL);
 					}
+					theInnerHtml += "&orderedCollObjIdList=" + orderedCollObjIdList;
 					theInnerHtml += '">';
 					//theInnerHtml += ' <div class="linkButton" onmouseover="this.className=\'linkButton btnhov\'"';
 					//theInnerHtml += 'onmouseout="this.className=\'linkButton\'">';
@@ -913,8 +918,7 @@ function success_getSpecResultsData(result){
 			theInnerHtml += '</tr>';
 		}
 		
-		var orderedCollObjIdList = orderedCollObjIdArray.join(",");
-		document.getElementById("orderedCollObjIds").value=orderedCollObjIdList;
+		
 		theInnerHtml += '</table>';
 		//alert(theInnerHtml);
 		tgt.innerHTML = theInnerHtml;
