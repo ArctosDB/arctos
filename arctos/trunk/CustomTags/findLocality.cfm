@@ -78,7 +78,7 @@
 </cfif>		
 <cfif isdefined("spec_locality") and len(#spec_locality#) gt 0>
 	<cfset sloc = #ucase(replace(spec_locality,"'","''","all"))#>
-	<cfset sql = "#sql# AND upper(spec_locality) like '%#escapeQuotes(spec_locality)#%'">
+	<cfset sql = "#sql# AND upper(spec_locality) like '%#escapeQuotes(ucase(spec_locality))#%'">
 </cfif>
 <cfif isdefined("maximum_elevation") and len(#maximum_elevation#) gt 0>
 	<cfset sql = "#sql# AND maximum_elevation #maxElevOper# #maximum_elevation#">
