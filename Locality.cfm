@@ -544,7 +544,10 @@
 <cfif #Action# is "findCO">
 <cfoutput> 
 	<cfset title="Find Collecting Events">
+	<cfset geogDetail=1>
 	<cfset showLocality=1>
+	<cfset localityDetail=1>
+	<cfset georefDetail=1>
 	<cfset showEvent=1>
 	<cfset eventDetail=1>
 	<strong>Find Collecting Events:</strong>
