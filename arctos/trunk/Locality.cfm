@@ -2101,72 +2101,11 @@ INSERT INTO geog_auth_rec (
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "findGeog">
 <cfoutput>
-	<cfset sql = "select 
-		GEOG_AUTH_REC_ID,
-		CONTINENT_OCEAN,
-		COUNTRY,
-		STATE_PROV,
-		COUNTY,
-		QUAD,
-		FEATURE,
-		ISLAND,
-		ISLAND_GROUP,
-		SEA,
-		VALID_CATALOG_TERM_FG,
-		SOURCE_AUTHORITY ,
-		HIGHER_GEOG 
-		from 
-		geog_auth_rec WHERE geog_auth_rec_id > 0">
+		<cf_findLocality>
 	
-	<cfif len(#higher_geog#) gt 0>
-		<cfset sql = "#sql# AND upper(higher_geog) LIKE '%#ucase(higher_geog)#%'">
-	</cfif>
-	<cfif len(#continent_ocean#) gt 0>
-		<cfset sql = "#sql# AND upper(continent_ocean) LIKE '%#ucase(continent_ocean)#%'">
-	</cfif>
-	<cfif len(#country#) gt 0>
-		<cfset sql = "#sql# AND upper(country) LIKE '%#ucase(country)#%'">
-	</cfif>
-	<cfif len(#state_prov#) gt 0>
-		<cfset sql = "#sql# AND upper(state_prov) LIKE '%#ucase(state_prov)#%'">
-	</cfif>
-	<cfif len(#county#) gt 0>
-		<cfset sql = "#sql# AND upper(county) LIKE '%#ucase(county)#%'">
-	</cfif>
-	<cfif len(#quad#) gt 0>
-		<cfset sql = "#sql# AND upper(quad) LIKE '%#ucase(quad)#%'">
-	</cfif>
-	<cfif len(#feature#) gt 0>
-		<cfset sql = "#sql# AND feature = '#feature#'">
-	</cfif>
-	<cfif len(#island_group#) gt 0>
-		<cfset sql = "#sql# AND island_group = '#island_group#'">
-	</cfif>
-	<cfif len(#island#) gt 0>
-		<cfset sql = "#sql# AND upper(island) LIKE '%#ucase(island)#%'">
-	</cfif>
-	<cfif len(#sea#) gt 0>
-		<cfset sql = "#sql# AND upper(sea) LIKE '%#ucase(sea)#%'">
-	</cfif>
-	<cfif len(#valid_catalog_term_fg#) gt 0>
-		<cfset sql = "#sql# AND valid_catalog_term_fg = #valid_catalog_term_fg#">
-	</cfif>
-	<cfif len(#source_authority#) gt 0>
-		<cfset srcAuth = #replace(source_authority,"'","''")#>
-		<cfset sql = "#sql# AND source_authority = '#srcAuth#'">
-	</cfif>
-	<cfset sql = "#sql# ORDER BY higher_geog, geog_auth_rec_id">
-</cfoutput>
-<cfif #sql# is "select * from geog_auth_rec where geog_auth_rec_id > 0 AND valid_catalog_term_fg = #valid_catalog_term_fg#">
-	Enter some search terms!<cfabort>
-</cfif>
-
-<cfquery name="getGeog" datasource="#Application.web_user#">
-	#preservesinglequotes(sql)#
-</cfquery>
 <table border>
 <tr><td><b>Geog ID</b></td><td><b>Higher Geog</b></td></tr>
-<cfoutput query="getGeog" group="geog_auth_rec_id">
+<cfloop query="localityResults">
 <tr>
 	<td><a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#geog_auth_rec_id#</a></td>
 	<td>
@@ -2174,6 +2113,7 @@ INSERT INTO geog_auth_rec (
 		<input style="border:none;" value="#higher_geog#" size="80" readonly="yes"/>
 	</td>
 </tr>
+</cfloop>
 </cfoutput>
 </table>
 </cfif>
