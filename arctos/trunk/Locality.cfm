@@ -548,10 +548,14 @@
 	  <strong>Find Collecting Events:</strong>
         <cfform name="getCol" method="post" action="Locality.cfm">
            <input type="hidden" name="Action" value="findCollEvent">
-        <table border="1">
+        
+		
+		
+		<table border="1">
             <tr> 
               <td><div align="right">Specific Locality:</div></td>
-              <td><input type="text" name="spec_locality" size="50"> </td>
+            <td>
+			<input type="text" name="spec_locality" size="50"> </td>
             </tr>
             <tr> 
               <td><div align="right">Minimum Elevation:</div></td>
