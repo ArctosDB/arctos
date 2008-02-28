@@ -2143,7 +2143,7 @@ INSERT INTO geog_auth_rec (
 <cfelse>
 	1000 record limit on mapping, sorry...
 </cfif>
-<br /><strong>Your query found #getLoc.recordcount# localities.</strong>
+<br /><strong>Your query found #localityResults.recordcount# localities.</strong>
 
 	
   <table border>
