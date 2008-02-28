@@ -179,7 +179,9 @@
 			WHEN'degrees dec. minutes' THEN long_deg || 'd ' || dec_long_min || 'm ' || long_dir
 			WHEN 'deg. min. sec.' THEN long_deg || 'd ' || long_min || 'm ' || long_sec || 's ' || long_dir
 		END,
-		nogeorefbecause">
+		nogeorefbecause,
+		max_error_distance,
+		max_error_units">
 <cfset sql = "#sql# ORDER BY
 	higher_geog,
 	spec_locality,
