@@ -128,7 +128,7 @@
 	<cfset sql = "#sql# AND upper(sea) LIKE '%#ucase(sea)#%'">
 </cfif>
 <cfif isdefined("higher_geog") and len(#higher_geog#) gt 0>
-	<cfset sql = "#sql# AND upper(higher_geog) = '%#ucase(higher_geog)#%'">
+	<cfset sql = "#sql# AND upper(higher_geog) like '%#ucase(higher_geog)#%'">
 </cfif>
 <cfif isdefined("NoGeorefBecause") AND len(#NoGeorefBecause#) gt 0>
 	<cfset sql = "#sql# AND upper(NoGeorefBecause) like '%#ucase(NoGeorefBecause)#%'">
