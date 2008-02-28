@@ -2102,7 +2102,12 @@ INSERT INTO geog_auth_rec (
 <cfif #Action# is "findGeog">
 <cfoutput>
 		<cf_findLocality>
-	
+		<!--- need to filter out distinct --->
+		<cfquery name="localityResults" dbtype="query">
+			select geog_auth_rec_id,higher_geog
+			from localityResults
+			group by geog_auth_rec_id,higher_geog
+		</cfquery>
 <table border>
 <tr><td><b>Geog ID</b></td><td><b>Higher Geog</b></td></tr>
 <cfloop query="localityResults">
