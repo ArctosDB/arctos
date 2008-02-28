@@ -2126,6 +2126,7 @@ INSERT INTO geog_auth_rec (
 
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "findLocality">
+	<cfoutput>
 	<cf_findLocality>
 			
 
@@ -2143,7 +2144,7 @@ INSERT INTO geog_auth_rec (
 	1000 record limit on mapping, sorry...
 </cfif>
 <br /><strong>Your query found #getLoc.recordcount# localities.</strong>
-</cfoutput>
+
 	
   <table border>
     <tr> 
@@ -2153,7 +2154,7 @@ INSERT INTO geog_auth_rec (
 	   <td><b>Geog</b></td>
     </tr>
 	<cfset i=1>
-    <cfoutput query="localityResults"> 
+    <cfloop query="localityResults"> 
       <tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
         <td rowspan="2"> 
           <a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#geog_auth_rec_id#</a> </td>
@@ -2178,6 +2179,7 @@ INSERT INTO geog_auth_rec (
           </font> </td>
       </tr>
 	  <cfset i=#i#+1>
+	  </cfloop>
     </cfoutput> 
   </table>
 </cfif>
