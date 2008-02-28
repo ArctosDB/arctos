@@ -24,7 +24,10 @@
 			WHEN'degrees dec. minutes' THEN long_deg || 'd ' || dec_long_min || 'm ' || long_dir
 			WHEN 'deg. min. sec.' THEN long_deg || 'd ' || long_min || 'm ' || long_sec || 's ' || long_dir
 		END VerbatimLongitude,
-		nogeorefbecause
+		nogeorefbecause,
+		max_error_distance,
+		max_error_units,
+		lat_long_ref_source
 	from 
 		geog_auth_rec,
 		locality,
@@ -158,36 +161,11 @@
 	You must enter search criteria.
 	<cfabort>
 </cfif>
-<cfset sql = "#sql# GROUP BY geog_auth_rec.geog_auth_rec_id,
-		locality.locality_id,
-		collecting_event.collecting_event_id,
-		higher_geog,
-		spec_locality,
-		began_date,
-		ended_date,
-		verbatim_date,
-		verbatim_locality,
-		collecting_source,
-		collecting_method,
-		CASE orig_lat_long_units
-			WHEN 'decimal degrees' THEN dec_lat || 'd'
-			WHEN 'deg. min. sec.' THEN lat_deg || 'd ' || lat_min || 'm ' || lat_sec || 's ' || lat_dir
-			WHEN 'degrees dec. minutes' THEN lat_deg || 'd ' || dec_lat_min || 'm ' || lat_dir
-		END,
-		CASE orig_lat_long_units
-			WHEN 'decimal degrees' THEN dec_long || 'd'
-			WHEN'degrees dec. minutes' THEN long_deg || 'd ' || dec_long_min || 'm ' || long_dir
-			WHEN 'deg. min. sec.' THEN long_deg || 'd ' || long_min || 'm ' || long_sec || 's ' || long_dir
-		END,
-		nogeorefbecause,
-		max_error_distance,
-		max_error_units">
 <cfset sql = "#sql# ORDER BY
 	higher_geog,
 	spec_locality,
 	verbatim_locality,
 	verbatimLatitude">
-	#sql#
 <cfquery name="caller.localityResults" datasource="#Application.web_user#">
 	#preservesinglequotes(sql)#
 </cfquery>
