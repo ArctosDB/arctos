@@ -13,13 +13,14 @@
 		}
 	.locGroup {
 		border: 1px solid green;
+		width:1px;
+		overflow:
 		}
 </style>
 <script>
 	function toggleGeogDetail(onOff) {
 		var e = document.getElementById('geogDetail');
 		var c = document.getElementById('geogDetailCtl');
-		<span id="" class="infoLink" onclick="toggleGeogDetail(1)";>Show More Options</span>
 		if (onOff==0) {
 			e.className='noShow'
 			c.setAttribute('onCLick','toggleGeogDetail(1)');
@@ -69,6 +70,7 @@
 <cfquery name="ctGeorefMethod" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select georefMethod from ctgeorefmethod order by georefMethod
 </cfquery>
+<table border><tr><td>
 <div class="locGroup">
 <span id="geogDetailCtl" class="infoLink" onclick="toggleGeogDetail(1)";>Show More Options</span>
 <div id="geogDetail" class="noShow">
@@ -357,4 +359,5 @@
 		</td>
 	</tr>
 </table>
+</td></tr></table>
 </cfoutput>
