@@ -54,7 +54,20 @@
 		} else {
 			e.className='';
 			c.setAttribute('onCLick','toggleGeorefDetail(0)');
-			c.innerHTML='Show Georeference Options';
+			c.innerHTML='Hide Georeference Options';
+		}
+	}
+	function toggleEventDetail(onOff) {
+		var e = document.getElementById('eventDetail');
+		var c = document.getElementById('eventDetailCtl');
+		if (onOff==0) {
+			e.className='noShow'
+			c.setAttribute('onCLick','toggleEventDetail(1)');
+			c.innerHTML='Show More Options';
+		} else {
+			e.className='';
+			c.setAttribute('onCLick','toggleEventDetail(0)');
+			c.innerHTML='Show Fewer Options';
 		}
 	}
 	
@@ -316,6 +329,13 @@
 	
 	<!--------------------------------------- event ----------------------------------------------------------->
 	<cfif #showEvent# is 1>	
+
+	<div class="locGroup">
+		<span id="eventDetailCtl" class="infoLink" onclick="toggleEventDetail(1)";>Show More Options</span>
+	<table cellpadding="0" cellspacign="0">
+
+
+
 		<table cellpadding="0" cellspacign="0">	
 		<tr>
 			<td>
@@ -345,7 +365,9 @@
 				<input type="text" name="ended_date" id="ended_date">
 			</td>
 		</tr>
-		<cfif #eventDetail# is 1>
+	</table>
+		<div id="eventDetail" class="noShow">
+					<table cellpadding="0" cellspacign="0">	
 			<tr>
 				<td>
 					<label for="verbatim_date">Verbatim Date</label>
@@ -387,8 +409,11 @@
 					<input type="text" name="collecting_event_id" id="collecting_event_id" >
 				</td>
 			</tr>
+		</table>
+		</div>
+		</div>
 		</cfif>
-	</cfif>
+						<table cellpadding="0" cellspacign="0">	
 	<tr>
 		<td align="center">
 			<input type="submit" 
