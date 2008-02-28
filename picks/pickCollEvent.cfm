@@ -11,58 +11,8 @@
 	<input type="hidden" name="action" value="findem">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 	<input type="hidden" name="formName" value="#formName#">
-				<input type="hidden" name="collIdFld" value="#collIdFld#">
-  <table border="0">
-            <tr> 
-              <td><div align="right">Specific Locality:</div></td>
-              <td><input type="text" name="spec_locality" size="50"> </td>
-            </tr>
-			 <tr> 
-              <td><div align="right">Island</div></td>
-              <td><input type="text" name="island" size="50"></td>
-            </tr>
-			<tr> 
-              <td><div align="right">Feature:</div></td>
-              <td><select name="feature">
-				<option value=""></option>
-					<cfloop query="ctFeature">
-						<option value = "#ctFeature.feature#">#ctFeature.feature#</option>
-					</cfloop>
-			</select></td>
-            </tr>
-			 <tr> 
-              <td><div align="right">Began Date:</div></td>
-              <td><select name="begDateOper" size="1">
-                  <option value="=">is</option>
-                  <option value="<">before</option>
-                  <option value=">">after</option>
-                </select> <input type="text" name="BEGAN_DATE"> </td>
-            </tr>
-			<tr> 
-              <td colspan="2">Locality ID:<input type="text" name="locality_id" size="4">
-			 &nbsp;State:
-			  <input type="text" name="state_prov"> </td>
-			 
-            </tr>
-			<tr> 
-              <td><div align="right">Collecting Source:</div></td>
-              <td><select name="collecting_source">
-				<option value=""></option>
-					<cfloop query="ctcollecting_source">
-						<option value = "#ctcollecting_source.collecting_source#">#ctcollecting_source.collecting_source#</option>
-					</cfloop>
-			</select></td>
-            </tr>
-			<tr>
-				<td colspan="2" align="center">
-					<input type="submit" 
-								value="Find Matches" 
-								class="schBtn"
-								onmouseover="this.className='schBtn btnhov'" 
-								onmouseout="this.className='schBtn'">
-				</td>
-			</tr>
-			</table>
+	<input type="hidden" name="collIdFld" value="#collIdFld#">
+ 	<cfinclude template="/includes/frmFindLocation_guts.cfm">
 </form>
 </cfoutput>
 </cfif>
