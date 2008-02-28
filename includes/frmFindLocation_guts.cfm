@@ -188,7 +188,7 @@
 			</td>
 		</tr>
 		</table>
-		<div id="geogDetail" class="noShow">
+		<div id="locDetail" class="noShow">
 		<table cellpadding="0" cellspacign="0">
 		<cfif #localityDetail# is 1>
 			<tr>
