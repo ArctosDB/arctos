@@ -1562,7 +1562,28 @@ Shipment Information:
 		</cfif>
 	</cfloop>
 	<cfset sql = "#sql# AND trans.institution_acronym IN (#instList#)">
-	<cfset sql ="#sel# #frm# #sql# ORDER BY loan_num_prefix,loan_num,loan_num_suffix">
+	<cfset sql ="#sel# #frm# #sql# 				
+				 group by
+   trans.transaction_id, 
+   loan_number,
+    loan_type,
+     loan_status,
+      loan_instructions,
+       loan_description, 
+concattransagent(trans.transaction_id,'authorized by'),
+ concattransagent(trans.transaction_id,'entered by'),
+ concattransagent(trans.transaction_id,'received by'),
+ nature_of_material, 
+ trans_remarks, 
+ return_due_date,
+  trans_date,
+   project_name, 
+ project.project_id, 
+ institution_acronym
+ORDER BY loan_number">
+				<cfoutput>
+				<hr>#sql#<hr>
+				</cfoutput>
 	<cfquery name="allLoans" datasource="#Application.web_user#">
 		#preservesinglequotes(sql)#
 	</cfquery>
@@ -1669,6 +1690,7 @@ Shipment Information:
 			<td>
 				<cfquery name="p" dbtype="query">
 					select project_name,pid from allLoans where transaction_id=#transaction_id#
+					group by project_name,pid
 				</cfquery>
 				
 				<cfloop query="p">

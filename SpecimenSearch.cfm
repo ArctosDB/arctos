@@ -275,6 +275,7 @@ function changeGrp(tid) {
 						SELECT institution_acronym, collection, collection_id FROM collection
 						<cfif len(#exclusive_collection_id#) gt 0>
 							WHERE collection_id = #exclusive_collection_id#
+						order by collection
 						</cfif>						
 					</cfquery>
 			
