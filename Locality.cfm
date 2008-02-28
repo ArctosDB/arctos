@@ -549,7 +549,7 @@
         <cfform name="getCol" method="post" action="Locality.cfm">
            <input type="hidden" name="Action" value="findCollEvent">
         
-		
+		<!---
 		
 		<table border="1">
             <tr> 
@@ -709,6 +709,8 @@
                 </div></td>
             </tr>
           </table>
+		---->
+		<cfinclude template="/includes/findCollEvent_guts.cfm">
           <p><br>
           </p>
         </cfform>
