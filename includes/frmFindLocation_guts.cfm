@@ -322,7 +322,7 @@
 
 		</table>
 	</div>	
-	</div>	
+	</div>		</div>	
 	</cfif>
 	
 	
