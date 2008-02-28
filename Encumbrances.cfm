@@ -106,31 +106,36 @@
 				</span>
 			</td>
 		</tr>	
-			<td>
+			<td colspan="2">
 				<label for="expiration_event">Expiration Event</label>
 				<input type="text" id="expiration_event" name="expiration_event">
 			</td>
 		</tr>
 		<tr>
-			<td align="right">Encumbrance:</td>
-			<td><input type="text" name="encumbrance"></td>
-			<td align="right">Encumbrance Action</td>
-			<td>
-			<select name="encumbrance_action" size="1">
-				<option value=""></option>
-				<cfloop query="ctEncAct">
-					<option value="#ctEncAct.encumbrance_action#">#ctEncAct.encumbrance_action#</option>
-				</cfloop>
-			
-			</select>
+			<td colspan="2">
+				<label for="encumbrance">Encumbrance Event</label>
+				<input type="text" name="encumbrance" id="encumbrance">
 			</td>
 		</tr>
 		<tr>
-			<td align="right">Remarks:</td>
-			<td colspan="3"><textarea name="remarks" rows="3" cols="50"></textarea></td>
+			<td colspan="2">
+				<label for="encumbrance_action">Encumbrance Action</label>
+				<select name="encumbrance_action" id="encumbrance_action" size="1">
+					<option value=""></option>
+					<cfloop query="ctEncAct">
+						<option value="#ctEncAct.encumbrance_action#">#ctEncAct.encumbrance_action#</option>
+					</cfloop>
+				</select>
+			</td>
 		</tr>
 		<tr>
-			<td colspan="4" align="center">
+			<td colspan="2">
+				<label for="remarks">Remarks</label>
+				<textarea name="remarks" id="remarks" rows="3" cols="50"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
 			
 			 <input type="submit" value="Find Encumbrance" class="schBtn"
    onmouseover="this.className='schBtn btnhov'" onmouseout="this.className='schBtn'">	
