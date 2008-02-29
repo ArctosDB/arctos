@@ -134,9 +134,9 @@ Condition History (<span style="background-color:green">Green is current</span>)
 				<cfelse>
 					<cfset thisAgent = "unknown">
 				</cfif>
-				<input type="hidden" name="determined_agent_id_#i#" value="#determined_agent_id#">
+				<input type="hidden" name="determined_agent_id_#i#" value="#client.myAgentId#">
 				
-				<input type="text" name="agent_name_#i#" value="#thisAgent#"
+				<input type="text" name="agent_name_#i#" value="#client.username#" class="reqdClr"
 		onchange="getAgent('determined_agent_id_#i#','agent_name_#i#','',this.value); return false;"
 		 onKeyPress="return noenter(event);">
 				
@@ -147,7 +147,7 @@ Condition History (<span style="background-color:green">Green is current</span>)
 				<cfelse>
 					<cfset thisDate = "unknown">
 				</cfif>
-				<input type="text" name="determined_date_#i#"  size="9" value="#thisDate#">
+				<input type="text" name="determined_date_#i#"  size="9" value="#thisDate#" class="reqdClr">
 			</td>
 			<td>
 				<textarea name="condition_#i#" rows="2" cols="40">#condition#</textarea>
@@ -195,33 +195,22 @@ Condition History (<span style="background-color:green">Green is current</span>)
 <cfif #action# is "newEntry">
 	<cfoutput>
 		<cftransaction>
-			<cfquery name="nid" datasource="#Application.uam_dbo#">
-				select max(object_condition_id) + 1 nid from object_condition
-			</cfquery>
-			<cfquery name="newObjCond" datasource="#Application.uam_dbo#">
+			<cfquery name="newObjCond" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 				INSERT INTO object_condition (
 					 OBJECT_CONDITION_ID,
 					 COLLECTION_OBJECT_ID ,
 					  CONDITION 
-					  <cfif len(#DETERMINED_AGENT_ID#) gt 0>
 					  	,DETERMINED_AGENT_ID
-					  </cfif>
-					  <cfif len(#DETERMINED_DATE#) gt 0>
 					  	,DETERMINED_DATE
-					  </cfif>
 					  ) VALUES (
-					   #nid.nid#,
+					  objcondid.nextval,
 					 #COLLECTION_OBJECT_ID# ,
 					  '#CONDITION#'
-					  <cfif len(#DETERMINED_AGENT_ID#) gt 0>
 					  	,#DETERMINED_AGENT_ID#
-					  </cfif>
-					  <cfif len(#DETERMINED_DATE#) gt 0>
-					  	,'#DETERMINED_DATE#'
-					  </cfif>
+					  	,to_date('#DETERMINED_DATE#')
 					  ) 
 				</cfquery>
-			<cfquery name="upCollObj" datasource="#Application.uam_dbo#">
+			<cfquery name="upCollObj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 				UPDATE coll_object SET condition='#condition#' where
 				COLLECTION_OBJECT_ID = #COLLECTION_OBJECT_ID#
 			</cfquery>
