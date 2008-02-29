@@ -18,3 +18,51 @@
 				onclick="closeUpload()">
 	</form>
 </cfif>
+<cfif #action# is "getFile">
+<cfoutput>
+	<cfquery name="validExtension" datasource="#application.web_user#">
+		select media_type from ctmedia_type
+	</cfquery>
+	<cfset fileName=#cffile.serverfile#>
+	<cfset dotPos=find(".",fileName)>
+	<cfset name=left(fileName,dotPos-1)>
+	<cfset extension=right(fileName,len(fileName)-dotPos+1)>
+	<cfif REFind("[^A-Za-z0-9_]",name,1) gt 0>
+		<font color="##FF0000" size="+2">The filename (<strong>#fileName#</strong>) you entered contains characters that are not alphanumeric.
+		Please rename your file and try again.</font>
+		<a href="javascript:back()">Go Back</a>
+		<cfabort>   
+	</cfif>
+	<!----This name contains only alphanumeric characters, check the extension---->
+	<cfset ext=right(extension,len(extension)-1)>
+	<cfif REFind("[^A-Za-z]",ext,1) gt 0>
+		The extension you provided contains inappropriate characters.
+		Please rename your file and <a href="javascript:back()">try again</a>.
+		<cfabort>
+	</cfif>
+	<cfset goodExtensions=valuelist(validExtension.media_type)>
+	<cfif not listfindnocase(goodExtensions,ext,",")>
+		The extension you provided is not acceptable. Acceptable extensions are: #goodExtensions#
+		Please <a href="/info/bugs.cfm">file a bug report</a> if you feel that this message is in error, or
+		<a href="javascript:back()">try again</a>.
+		<cfabort>
+	</cfif>
+	<cfset loadPath = "#Application.webDirectory#/mediaUploads/#client.username#">
+	<cftry>
+		<cfdirectory action="create" directory="#loadPath#">
+		<cfcatch><!--- it already exists, do nothing---></cfcatch>
+	</cftry>
+	<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#client.username#/#fileName#">
+	<cffile action="upload"
+    	destination="#loadPath#"
+      	nameConflict="error"
+      	fileField="Form.FiletoUpload" mode="777">
+
+uploaded: #media_uri#
+</cfoutput>
+</cfif>
+ 
+	  
+	  
+ 	<!---<cffile action="write" file="#filename#" nameconflict="overwrite" output="blank" mode="777">--->
+    
