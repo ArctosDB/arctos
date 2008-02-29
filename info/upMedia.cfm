@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_frameHeader.cfm">
+<script type='text/javascript' src='/includes/media.js'></script>
 <cfif #action# is "nothing">
 	<form name="uploadFile" method="post" enctype="multipart/form-data" action="upMedia.cfm">
 		<input type="hidden" name="action" value="getFile">
