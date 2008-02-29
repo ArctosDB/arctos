@@ -169,7 +169,7 @@
 <cfquery name="caller.localityResults" datasource="#Application.web_user#">
 	#preservesinglequotes(sql)#
 </cfquery>
-<cfif right(sql,4) is " (+)">
+<cfif caller.localityResult.recordcount is 0>
 	<div class="error">Your search found no matches.</div>
 	<cfabort>
 </cfif>	
