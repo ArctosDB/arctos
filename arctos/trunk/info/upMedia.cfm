@@ -10,5 +10,11 @@
 				class="savBtn"
 				onmouseover="this.className='savBtn btnhov'"
 				onmouseout="this.className='savBtn'">
+	<input type="button" 
+				value="Cancel" 
+				class="qutBtn"
+				onmouseover="this.className='qutBtn btnhov'"
+				onmouseout="this.className='qutBtn'"
+				onclick="closeUpload()">
 	</form>
 </cfif>
