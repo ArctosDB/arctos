@@ -1,8 +1,5 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 <cfset title = "Agent Pick">
-<body bgcolor="#FFFBF0" text="midnightblue" link="blue" vlink="midnightblue">
- 
- 
 <!--- build an agent id search --->
 <form name="searchForAgent" action="AgentPick.cfm" method="post">
 	<br>Agent Name: <input type="text" name="agentname">
