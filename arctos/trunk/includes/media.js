@@ -29,7 +29,7 @@ function pickedRelationship (id){
 }
 function addAgentRelation (id){
 	alert('addAgentRelation');
-	var t = 'relationship' + id + 'Div';
+	var t = id + 'Div';
 	var theDivName=eval(t);
 	var theDiv=document.getElementById(theDivName);
 	theDiv.innerHTML +='<input type="hidden" name="agent_id_1"><input type="text" name="agent_name_1">'; 
