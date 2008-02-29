@@ -15,4 +15,8 @@ function clickUpload(){
 }
 function pickedRelationship (id){
 	alert(id);
+	var relationship = document.getElementById(id).value;
+	var relatedTableAry=relationship.split(" ");
+	var relatedTable =  relatedTableAry[relatedTableAry.length-1];
+	alert('Table: ' + relatedTable;
 }
