@@ -29,6 +29,8 @@ function pickedRelationship (id){
 }
 function addAgentRelation (id){
 	alert('addAgentRelation');
+	var theDivName = 'relationship' + id + 'Div';
+	theDivName.innerHTML +='<input type="hidden" name="agent_id_1"><input type="text" name="agent_name_1">'; 
 }
 function addLocalityRelation (id){
 	alert('addLocalityRelation');

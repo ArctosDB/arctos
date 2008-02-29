@@ -11,12 +11,14 @@
 			<input type="text" name="media_uri" id="media_uri" size="90"><span class="infoLink" id="uploadMedia">Upload</span>
 			<label for="relationships">Media Relationships</label>
 			<div id="relationships" style="border:1px dashed red;">
+				<div id="relationship1Div">
 				<select name="relationship1" id="relationship1" size="1" onchange="pickedRelationship(this.id)";>
 					<option value=""></option>
 					<cfloop query="ctmedia_relationship">
 						<option value="#media_relationship#">#media_relationship#</option>
 					</cfloop>
 				</select>
+				</div>
 			</div>
 		</form>
 	</cfoutput>
