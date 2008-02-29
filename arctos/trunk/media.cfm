@@ -28,7 +28,7 @@ function removeEventListener(event) {
         instance.detachEvent("on" + event.name, event.listener);
     }
 }
-*/
+
 /*********************************************************************************************/
 var elem = document.getElementById('uploadMedia');
 var listener = adEventListener(elem, 'click', function() {
