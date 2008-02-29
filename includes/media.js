@@ -29,8 +29,11 @@ function addAgentRelation (id){
 	var theDivName = id + 'Div';
 	//var =eval(t);
 	var theDiv=document.getElementById(theDivName);
+	var theSpanName = id + 'Span';
+	nSpan = document.createElement("span");
 	var theHtml='<input type="hidden" name="agent_id_1"><input type="text" name="agent_name_1">';
-	theDiv.appendChild(theHtml);
+	nSpan.innerHTML=theHtml;
+	theDiv.appendChild(nSpan);
 	getAgent('agent_id_1','agent_name_1','newMedia','');
 }
 function addLocalityRelation (id){

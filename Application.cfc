@@ -144,7 +144,7 @@
 		<cfset Application.collection_link_text = "Collections Database">
 		<cfset Application.institution_url = "http://mvz.berkeley.edu">
 		<cfset Application.institution_link_text = "MUSEUM OF VERTEBRATE ZOOLOGY">
-		<cfset Application.svn = "/usr/local/bin/svn">
+		<cfset Application.svn = "/opt/csw/bin/svn">
 		<cfset Application.webDirectory = "/users/mvzarctos/tomcat/webapps/cfusion">
 		<cfset Application.SpecimenDownloadPath = "/users/mvzarctos/tomcat/webapps/cfusion/download/">
 		<cfset Application.bugReportEmail = "dustymc@gmail.com,ccicero@berkeley.edu,mvzdata@lists.berkeley.edu">
