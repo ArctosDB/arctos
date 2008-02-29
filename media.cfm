@@ -42,6 +42,8 @@ function unregisterAllEvents() {
     while (__eventListeners.length > 0) {
 	removeEventListener(__eventListeners[0]);
     }
+}
+/*********************************************************************************/
 function clickUpload(){
 	alert('clicky!');
 }
