@@ -15,7 +15,7 @@
 				class="qutBtn"
 				onmouseover="this.className='qutBtn btnhov'"
 				onmouseout="this.className='qutBtn'"
-				onclick="parent.closeUpload()">
+				onclick="parent.closeUpload('')">
 	</form>
 </cfif>
 <cfif #action# is "getFile">
@@ -62,7 +62,7 @@
     	destination="#loadPath#"
       	nameConflict="error">
 	
-<script>closeUpload('#media_uri#');</script>
+<script>parent.closeUpload('#media_uri#');</script>
 </cfoutput>
 </cfif>
  
