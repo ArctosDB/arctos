@@ -57,31 +57,28 @@
 		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 		<tr>
 			<td valign="top">
-				<font size="-2">Determined By<br>
-				</font><input type="hidden" name="determined_agent_id" id="determined_agent_id" value="#client.myAgentId#">
-				
-				<input type="text" name="agent_name"class="reqdClr" value="#client.username#"
-		onchange="getAgent('determined_agent_id','agent_name','newCondition',this.value); return false;"
-		 onKeyPress="return noenter(event);">
-				
-		  </td>
+				<label for="agent_name">Determined By</label>
+				<input type="hidden" name="determined_agent_id" id="determined_agent_id" value="#client.myAgentId#">
+				<input type="text" name="agent_name" id="agent_name" class="reqdClr" value="#client.username#"
+					onchange="getAgent('determined_agent_id','agent_name','newCondition',this.value); return false;"
+		 			onKeyPress="return noenter(event);">
+			</td>
 			<td valign="top">
-				<font size="-2">Determined Date<br>
+				<font size="-2">Determined <br>
 				</font>
-				<input type="text" name="determined_date"  size="9" value="#dateformat(now(),"dd mmm yyyy")#">
-				<img src="images/pick.gif" 
-						class="likeLink" 
-						border="0" 
-						alt="[calendar]"
+				<label for="determined_date">Determined Date</label>
+				<input type="text" name="determined_date"  id="determined_date" size="9" 
+						value="#dateformat(now(),"dd mmm yyyy")#" class="reqdClr">
+				<span class="infoLink"
 						name="anchor1"
 						id="anchor1"
-						onClick="cal1.select(document.newCondition.determined_date,'anchor1','dd-MMM-yyyy'); return false;"/>					
-					
+						onClick="cal1.select(document.newCondition.determined_date,'anchor1','dd-MMM-yyyy'); return false;">
+					pick
+				</span>
 			</td>
 			<td>
-				<font size="-2">Condition<br>
-				</font>
-				<textarea name="condition" rows="2" cols="40" class="reqdClr"></textarea>
+				<label for="condition">Condition</label>
+				<textarea name="condition" id="condition" rows="2" cols="40" class="reqdClr"></textarea>
 			</td>
 				<td align="center">
 			 <input type="submit" 
