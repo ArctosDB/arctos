@@ -17,6 +17,14 @@ function pickedRelationship (id){
 	var relationship=document.getElementById(id).value;
 	var relatedTableAry=relationship.split(" ");
 	var relatedTable=relatedTableAry[relatedTableAry.length-1];
+	// clean up old craps
+	var theSpanName = id + 'Span';
+	if (document.getElementById(theSpanName)){
+		var theDivName = id + 'Div';
+		var theDiv=document.getElementById(theDivName);
+		var s=document.getElementById(theSpanName);
+		theDiv.removeChild(s);
+	}
 	if (relatedTable=='agent'){
 		addAgentRelation(id);
 	} else if (relatedTable=='locality'){
@@ -29,11 +37,6 @@ function addAgentRelation (id){
 	var theDivName = id + 'Div';
 	//var =eval(t);
 	var theDiv=document.getElementById(theDivName);
-	var theSpanName = id + 'Span';
-	if (document.getElementById(theSpanName)){
-		var s=document.getElementById(theSpanName);
-		theDiv.removeChild(s);
-	}
 	nSpan = document.createElement("span");
 	var theHtml='<input type="hidden" name="agent_id_1"><input type="text" name="agent_name_1">';
 	nSpan.innerHTML=theHtml;
