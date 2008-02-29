@@ -1,12 +1,12 @@
 <cfinclude template="includes/_header.cfm">
 <cfquery name="ctInfRank" datasource="#Application.web_user#">
-	select infraspecific_rank from ctinfraspecific_rank
+	select infraspecif from ctinfraspecific_rank order by infraspecif
 </cfquery>
 <cfquery name="ctRelation" datasource="#Application.web_user#">
-	select taxon_relationship  from cttaxon_relation
+	select taxon_relationship  from cttaxon_relation order by taxon_relationship
 </cfquery>
 <cfquery name="ctSourceAuth" datasource="#Application.web_user#">
-	select source_authority from CTTAXONOMIC_AUTHORITY
+	select source_authority from CTTAXONOMIC_AUTHORITY order by source_authority
 </cfquery>
 <cfset title="Edit Taxonomy">
 
@@ -622,7 +622,7 @@ New Common Name:
 				<select name="source_authority" id="source_authority" size="1"  class="reqdClr">
 	              <cfloop query="ctSourceAuth">
 	                <option 
-							<cfif #source_authority# is "#ctsourceauth.source_authority#"> selected </cfif>value="#ctSourceAuth.source_authority#">#ctSourceAuth.source_authority#</option>
+						<cfif #form.source_authority# is "#ctsourceauth.source_authority#"> selected </cfif>value="#ctSourceAuth.source_authority#">#ctSourceAuth.source_authority#</option>
 	              </cfloop>
 	            </select>
 			</td>
