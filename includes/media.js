@@ -29,7 +29,8 @@ function addAgentRelation (id){
 	var theDivName = id + 'Div';
 	//var =eval(t);
 	var theDiv=document.getElementById(theDivName);
-	theDiv.innerHTML +='<input type="hidden" name="agent_id_1"><input type="text" name="agent_name_1">';
+	var theHtml='<input type="hidden" name="agent_id_1"><input type="text" name="agent_name_1">';
+	theDiv.appendChild(theHtml);
 	getAgent('agent_id_1','agent_name_1','newMedia','');
 }
 function addLocalityRelation (id){
