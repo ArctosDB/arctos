@@ -42,6 +42,9 @@ function unregisterAllEvents() {
     while (__eventListeners.length > 0) {
 	removeEventListener(__eventListeners[0]);
     }
+function clickUpload(){
+	alert('clicky!');
+}
 }
 </script>
 <cfif #action# is "newMedia">
@@ -55,9 +58,7 @@ function unregisterAllEvents() {
 	</cfoutput>
 	<script>
 		var elem = document.getElementById('uploadMedia');
-		var listener = addEventListener(elem, "click", function() {
-		    alert("You clicked me!");
-		});
+		var listener = addEventListener(elem, "click", clickUpload);
 
 	</script>
 </cfif>
