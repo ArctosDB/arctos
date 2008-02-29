@@ -43,9 +43,6 @@ function unregisterAllEvents() {
 	removeEventListener(__eventListeners[0]);
     }
 }
-
-
-}
 </script>
 <cfif #action# is "newMedia">
 	
