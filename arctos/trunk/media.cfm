@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <script>
 	
-function adEventListener(instance, eventName, listener) {
+function addEventListener(instance, eventName, listener) {
     var listenerFn = listener;
     if (instance.addEventListener) {
         instance.addEventListener(eventName, listenerFn, false);
@@ -31,7 +31,7 @@ function removeEventListener(event) {
 
 /*********************************************************************************************/
 var elem = document.getElementById('uploadMedia');
-var listener = adEventListener(elem, 'click', function() {
+var listener = addEventListener(elem, 'click', function() {
     alert('You clicked me!');
 });
 </script>
