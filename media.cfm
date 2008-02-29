@@ -13,10 +13,7 @@ function addEvent(obj, evType, fn){
 }
 
 /*********************************************************************************************/
-var elem = document.getElementById('uploadMedia');
-elem.addEventListener('click',function (e) {
-  alert('1. Div capture ran');
-},true);
+
 /*
 
 */
@@ -29,5 +26,11 @@ elem.addEventListener('click',function (e) {
 			<input type="text" name="media_uri" id="media_uri" size="50"><span class="infoLink" id="uploadMedia">Upload</span>
 		</form>
 	</cfoutput>
+	<script>
+		var elem = document.getElementById('uploadMedia');
+elem.addEventListener('click',function (e) {
+  alert('1. Div capture ran');
+},true);
+	</script>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
