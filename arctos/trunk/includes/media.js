@@ -19,4 +19,17 @@ function pickedRelationship (id){
 	var relatedTableAry=relationship.split(" ");
 	var relatedTable=relatedTableAry[relatedTableAry.length-1];
 	alert('Table: ' + relatedTable);
+	if (relatedTable=='agent'){
+		addAgentRelation(id);
+	} else if (relatedTable=='locality'){
+		addLocalityRelation(id);
+	} else {
+		alert('Something is broken. I have no idea what to do with a relationship to ' + relatedTable);
+	}
+}
+function addAgentRelation (id){
+	alert('addAgentRelation');
+}
+function addLocalityRelation (id){
+	alert('addLocalityRelation');
 }
