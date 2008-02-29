@@ -30,7 +30,7 @@ function addAgentRelation (id){
 	//var =eval(t);
 	var theDiv=document.getElementById(theDivName);
 	var theSpanName = id + 'Span';
-	if document.getElementById(theSpanName){
+	if (document.getElementById(theSpanName)){
 		var s=document.getElementById(theSpanName)
 		document.removeChild(s);
 	}
