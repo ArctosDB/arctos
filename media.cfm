@@ -34,7 +34,7 @@ function clickUpload(){
 	var theDiv = document.createElement('div');
 	theDiv.id = 'uploadDiv';
 	theDiv.name = 'uploadDiv';
-	theDiv.className = 'customBox';
+	theDiv.className = 'uploadMediaDiv';
 	document.body.appendChild(theDiv);
 	var guts = "/info/upMedia.cfm";
 	ahah(guts,'uploadDiv');
