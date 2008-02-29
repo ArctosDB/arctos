@@ -14,11 +14,9 @@ function clickUpload(){
 	theDiv.src=guts;
 }
 function pickedRelationship (id){
-	alert(id);
 	var relationship=document.getElementById(id).value;
 	var relatedTableAry=relationship.split(" ");
 	var relatedTable=relatedTableAry[relatedTableAry.length-1];
-	alert('Table: ' + relatedTable);
 	if (relatedTable=='agent'){
 		addAgentRelation(id);
 	} else if (relatedTable=='locality'){
@@ -28,11 +26,11 @@ function pickedRelationship (id){
 	}
 }
 function addAgentRelation (id){
-	alert('addAgentRelation');
 	var theDivName = id + 'Div';
 	//var =eval(t);
 	var theDiv=document.getElementById(theDivName);
-	theDiv.innerHTML +='<input type="hidden" name="agent_id_1"><input type="text" name="agent_name_1">'; 
+	theDiv.innerHTML +='<input type="hidden" name="agent_id_1"><input type="text" name="agent_name_1">';
+	getAgent('agent_id_1','agent_name_1','newMedia');
 }
 function addLocalityRelation (id){
 	alert('addLocalityRelation');
