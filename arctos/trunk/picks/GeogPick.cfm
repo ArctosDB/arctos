@@ -1,16 +1,6 @@
-<cfinclude template="../includes/_pickHeader.cfm">
+<cfinclude template="/includes/_pickHeader.cfm">
 <cfset title = "Pick Higher Geog">
-<cfoutput>
-<cfif not isdefined("Action")>
-	<cfset Action = "nothing">
-</cfif>
-<cfquery name="ctIslandGroup" datasource="#Application.web_user#">
-	select island_group from ctisland_group
-</cfquery>
-<cfquery name="ctGeogSrcAuth" datasource="#Application.web_user#">
-	select source_authority from ctgeog_source_authority
-</cfquery>
-	
+<cfoutput>	
 <b>Find Geography:</b>	
   <table border="1">
     <form name="getHG" method="post" action="GeogPick.cfm">
@@ -23,7 +13,6 @@
 </cfoutput>
 <!-------------------------------------------------------------------->
 <cfif #Action# is "findGeog">
-<cfoutput>
 <cf_findLocality>
 <cfquery name="localityResults" dbtype="query">
 	select geog_auth_rec_id,higher_geog
@@ -36,4 +25,4 @@
 
 </cfoutput>
 </cfif>
-<cfinclude template="../includes/_pickFooter.cfm">
+<cfinclude template="/includes/_pickFooter.cfm">
