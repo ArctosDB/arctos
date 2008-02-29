@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_pickHeader.cfm">
-	<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
+	<script language="JavaScript" src="/includes/CalendarPopup.js" type="text/javascript"></script>
 	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
 		var cal1 = new CalendarPopup("theCalendar");
 		cal1.showYearNavigation();
@@ -99,8 +99,14 @@ Condition History (<span style="background-color:green">Green is current</span>)
 		 determined_date,
 		 condition
 		from object_condition,preferred_agent_name
-		where determined_agent_id = agent_id (+) and
+		where determined_agent_id = agent_id and
 		collection_object_id = #collection_object_id#
+		group by
+		object_condition_id,
+		determined_agent_id,
+		agent_name,
+		 determined_date,
+		 condition
 		order by determined_date DESC
 </cfquery>
 <cfquery name="currentCond" datasource="#Application.web_user#">
