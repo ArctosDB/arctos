@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <script>
+	/*
 function addEventListener(instance, eventName, listener) {
     var listenerFn = listener;
     if (instance.addEventListener) {
@@ -27,7 +28,7 @@ function removeEventListener(event) {
         instance.detachEvent("on" + event.name, event.listener);
     }
 }
-
+*/
 /*********************************************************************************************/
 var elem = document.getElementById("uploadMedia");
 var listener = addEventListener(elem, "click", function() {
