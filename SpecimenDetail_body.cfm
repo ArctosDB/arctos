@@ -169,7 +169,8 @@ end cmask,
 		part_object.lot_count,
 		concatencumbrances(cataloged_item.collection_object_id) concatenatedEncumbrances,
 		concatEncumbranceDetails(cataloged_item.collection_object_id) encumbranceDetail,
-		locality.locality_remarks	
+		locality.locality_remarks,
+		verbatim_locality	
 	FROM 
 		cataloged_item,
 		collection,
@@ -297,7 +298,8 @@ end cmask,
 		EditedBy,
 		accession,
 		encumbranceDetail,
-		locality_remarks
+		locality_remarks,
+		verbatim_locality
 	from
 		detail
 	group by
@@ -351,7 +353,8 @@ end cmask,
 		EditedBy,
 		accession,
 		encumbranceDetail,
-		locality_remarks
+		locality_remarks,
+		verbatim_locality
 </cfquery>
 <cfquery name="colls"  dbtype="query">
 	SELECT 
@@ -671,6 +674,16 @@ end cmask,
 							</span>
 						</div>
 					</cfif>
+					<cfif #one.verbatim_locality# is not #one.spec_locality#>
+						<cfif len(#one.verbatim_locality#) gt 0>
+							<div class="detailBlock">
+								<span class="detailData">
+									<span class="innerDetailLabel">Verbatim Locality:</span>
+									#one.verbatim_locality#
+								</span>
+							</div>
+						</cfif>
+					</cfif>					
 					<cfif len(#one.locality_remarks#) gt 0>
 						<div class="detailBlock">
 							<span class="detailData">
