@@ -37,6 +37,7 @@ function addAgentRelation (id){
 	nSpan = document.createElement("span");
 	var theHtml='<input type="hidden" name="agent_id_1"><input type="text" name="agent_name_1">';
 	nSpan.innerHTML=theHtml;
+	nSpan.id=theSpanName;
 	theDiv.appendChild(nSpan);
 	getAgent('agent_id_1','agent_name_1','newMedia','');
 }
