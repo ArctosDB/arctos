@@ -13,3 +13,6 @@ function clickUpload(){
 	var guts = "/info/upMedia.cfm";
 	theDiv.src=guts;
 }
+function pickedRelationship (id){
+	alert(id);
+}

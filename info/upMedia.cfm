@@ -3,7 +3,7 @@
 	<form name="uploadFile" method="post" enctype="multipart/form-data" action="upMedia.cfm">
 		<input type="hidden" name="action" value="getFile">
 		  <label for="FiletoUpload">Browse...</label>
-		  <input type="file" name="FiletoUpload" id="FiletoUpload" size="45">
+		  <input type="file" name="FiletoUpload" id="FiletoUpload" size="90">
    
       <input type="submit" 
 				value="Upload" 
