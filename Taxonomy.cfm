@@ -1,6 +1,6 @@
 <cfinclude template="includes/_header.cfm">
 <cfquery name="ctInfRank" datasource="#Application.web_user#">
-	select infraspecif from ctinfraspecific_rank order by ctinfraspecific_rank
+	select infraspecif_rank from ctinfraspecific_rank order by infraspecif_rank
 </cfquery>
 <cfquery name="ctRelation" datasource="#Application.web_user#">
 	select taxon_relationship  from cttaxon_relation order by taxon_relationship
