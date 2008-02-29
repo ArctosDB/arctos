@@ -30,6 +30,10 @@ function addAgentRelation (id){
 	//var =eval(t);
 	var theDiv=document.getElementById(theDivName);
 	var theSpanName = id + 'Span';
+	if document.getElementById(theSpanName){
+		var s=document.getElementById(theSpanName)
+		document.removeChild(s);
+	}
 	nSpan = document.createElement("span");
 	var theHtml='<input type="hidden" name="agent_id_1"><input type="text" name="agent_name_1">';
 	nSpan.innerHTML=theHtml;
