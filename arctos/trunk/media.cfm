@@ -39,7 +39,7 @@ function clickUpload(){
 	theDiv.src = "";
 	document.body.appendChild(theDiv);
 	var guts = "/info/upMedia.cfm";
-	ahah(guts,'customDiv');
+	ahah(guts,'uploadDiv');
 }
 </script>
 <cfif #action# is "newMedia">
