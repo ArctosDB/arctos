@@ -29,9 +29,10 @@ function ahahDone(req, url, target, delay) {
     }
   }
 }
-function closeUpload() {
+function closeUpload(media_uri) {
 	var theDiv = document.getElementById('uploadDiv');
 	document.body.removeChild(theDiv);
+	document.getElementById('media_uri').value=media_uri;
 }
 function clickUpload(){
 	var theDiv = document.createElement('iFrame');

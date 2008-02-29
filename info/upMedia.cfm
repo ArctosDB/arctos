@@ -62,8 +62,7 @@
     	destination="#loadPath#"
       	nameConflict="error">
 	
-
-uploaded: #media_uri#
+<script>closeUpload('#media_uri#');</script>
 </cfoutput>
 </cfif>
  
