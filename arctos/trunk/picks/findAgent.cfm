@@ -2,7 +2,20 @@
 <cfif #action# is "nothing">
 	<!--- make sure we're searching for something --->
 	<cfif len(#agent_name#) is 0>
-		You must enter search criteria.
+		<form name="searchForAgent" action="findAgent.cfm" method="post">
+			<label for+"agent_name">Agent Name</label>
+			<input type="text" name="agent_name" id="agent_name">
+			<input type="submit" 
+				value="Search" 
+				class="lnkBtn"
+				onmouseover="this.className='lnkBtn btnhov'"
+				onmouseout="this.className='lnkBtn'">
+			<cfoutput>
+				<input type="hidden" name="agentIdFld" value="#agentIdFld#">
+				<input type="hidden" name="agentNameFld" value="#agentNameFld#">
+				<input type="hidden" name="formName" value="#formName#">
+			</cfoutput>
+		</form>
 		<cfabort>
 	</cfif>
 	

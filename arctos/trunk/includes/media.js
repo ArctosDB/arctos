@@ -30,7 +30,7 @@ function addAgentRelation (id){
 	//var =eval(t);
 	var theDiv=document.getElementById(theDivName);
 	theDiv.innerHTML +='<input type="hidden" name="agent_id_1"><input type="text" name="agent_name_1">';
-	getAgent('agent_id_1','agent_name_1','newMedia');
+	getAgent('agent_id_1','agent_name_1','newMedia','');
 }
 function addLocalityRelation (id){
 	alert('addLocalityRelation');
