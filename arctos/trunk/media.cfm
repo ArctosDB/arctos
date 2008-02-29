@@ -32,11 +32,9 @@ function ahahDone(req, url, target, delay) {
 
 function clickUpload(){
 	var theDiv = document.createElement('div');
-	theDiv.id = 'upload';
+	theDiv.id = 'uploadDiv';
 	theDiv.name = 'uploadDiv';
 	theDiv.className = 'customBox';
-	theDiv.innerHTML='<br>content loading....';
-	theDiv.src = "";
 	document.body.appendChild(theDiv);
 	var guts = "/info/upMedia.cfm";
 	ahah(guts,'uploadDiv');
