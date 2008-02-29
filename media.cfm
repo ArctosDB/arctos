@@ -29,7 +29,10 @@ function ahahDone(req, url, target, delay) {
     }
   }
 }
-
+function closeUpload() {
+	var theDiv = document.getElementById('uploadDiv');
+	document.body.removeChild(theDiv);
+}
 function clickUpload(){
 	var theDiv = document.createElement('div');
 	theDiv.id = 'uploadDiv';
