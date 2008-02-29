@@ -34,7 +34,7 @@ function closeUpload() {
 	document.body.removeChild(theDiv);
 }
 function clickUpload(){
-	var theDiv = document.createElement('div');
+	var theDiv = document.createElement('iFrame');
 	theDiv.id = 'uploadDiv';
 	theDiv.name = 'uploadDiv';
 	theDiv.className = 'uploadMediaDiv';
