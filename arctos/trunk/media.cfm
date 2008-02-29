@@ -44,18 +44,10 @@ function unregisterAllEvents() {
     }
 }
 
-function onLoad() {
-    var elem = document.getElementById("uploadMedia");
-    addEventListener(elem, "click", function() {
-	alert("Event listener 1 received click");
-    });
-    addEventListener(elem, "click", function() {
-	alert("Event listener 2 received click");
-    });
+
 }
 </script>
 <cfif #action# is "newMedia">
-<cfhtmlhead text="<body onload='onLoad()' onunload='unregisterAllEvents()'>">
 	
 	<cfoutput>
 		<form name="newMedia" method="post" action="media.cfm">
