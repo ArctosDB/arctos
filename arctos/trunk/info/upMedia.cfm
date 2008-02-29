@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfif #action# is "nothing">
-	<form name="uploadFile" method="post" action="upMedia.cfm">
+	<form name="uploadFile" method="post" enctype="multipart/form-data" action="upMedia.cfm">
 		<input type="hidden" name="action" value="getFile">
 		  <label for="FiletoUpload">Browse...</label>
 		  <input type="file" name="FiletoUpload" id="FiletoUpload" size="45">
@@ -23,6 +23,10 @@
 	<cfquery name="validExtension" datasource="#application.web_user#">
 		select media_type from ctmedia_type
 	</cfquery>
+	<cffile action="upload"
+    	destination="#Application.webDirectory#/temp/"
+      	nameConflict="overwrite"
+      	fileField="Form.FiletoUpload" mode="777">
 	<cfset fileName=#cffile.serverfile#>
 	<cfset dotPos=find(".",fileName)>
 	<cfset name=left(fileName,dotPos-1)>
@@ -53,10 +57,11 @@
 		<cfcatch><!--- it already exists, do nothing---></cfcatch>
 	</cftry>
 	<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#client.username#/#fileName#">
-	<cffile action="upload"
+	<cffile action="move"
+		source="#Application.webDirectory#/temp/#fileName#" 
     	destination="#loadPath#"
-      	nameConflict="error"
-      	fileField="Form.FiletoUpload" mode="777">
+      	nameConflict="error">
+	
 
 uploaded: #media_uri#
 </cfoutput>
