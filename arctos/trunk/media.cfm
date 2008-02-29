@@ -29,11 +29,12 @@ function removeEventListener(event) {
     }
 }
 
-/*********************************************************************************************/
+/***************************************************************************************
 var elem = document.getElementById('uploadMedia');
 var listener = addEventListener(elem, 'click', function() {
     alert('You clicked me!');
 });
+******/
 </script>
 <cfif #action# is "newMedia">
 	<cfoutput>
