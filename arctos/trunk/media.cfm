@@ -1,32 +1,15 @@
 <cfinclude template="/includes/_header.cfm">
 <script>
-	
-function addEventListener(instance, eventName, listener) {
-    var listenerFn = listener;
-    if (instance.addEventListener) {
-        instance.addEventListener(eventName, listenerFn, false);
-    } else if (instance.attachEvent) {
-        listenerFn = function() {
-            listener(window.event);
-        }
-        instance.attachEvent("on" + eventName, listenerFn);
-    } else {
-        throw new Error("Event registration not supported");
-    }
-    return {
-        instance: instance,
-        name: eventName,
-        listener: listenerFn
-    };
-}
-
-function removeEventListener(event) {
-    var instance = event.instance;
-    if (instance.removeEventListener) {
-        instance.removeEventListener(event.name, event.listener, false);
-    } else if (instance.detachEvent) {
-        instance.detachEvent("on" + event.name, event.listener);
-    }
+function addEvent(obj, evType, fn){ 
+ if (obj.addEventListener){ 
+   obj.addEventListener(evType, fn, false); 
+   return true; 
+ } else if (obj.attachEvent){ 
+   var r = obj.attachEvent("on"+evType, fn); 
+   return r; 
+ } else { 
+   return false; 
+ } 
 }
 
 /***************************************************************************************
