@@ -43,7 +43,7 @@ function clickUpload(){
 	</cfoutput>
 	<script>
 		var elem = document.getElementById('uploadMedia');
-		var listener = addEventListener(elem, "click", clickUpload());
+		//var listener = addEventListener(elem, "click", clickUpload());
 	</script>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
