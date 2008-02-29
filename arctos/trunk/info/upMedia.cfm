@@ -15,7 +15,7 @@
 				class="qutBtn"
 				onmouseover="this.className='qutBtn btnhov'"
 				onmouseout="this.className='qutBtn'"
-				onclick="closeUpload()">
+				onclick="closeUpload('')">
 	</form>
 </cfif>
 <cfif #action# is "getFile">
