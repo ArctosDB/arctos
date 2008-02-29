@@ -1,18 +1,9 @@
-<!---
-	Search form for all location "stuff"
-	
-	Need from caller, all in 1 or 0:
-	geogDetail
-	showLocality
-	localityDetail
-	showEvent
---->
 <style>
 	.noShow {
 		display:none;
 		}
 	.locGroup {
-		border: 2px dotted green;
+		border: 2px dashed green;
 		padding:2px;
 		margin:3px;
 		}
