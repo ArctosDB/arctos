@@ -3,9 +3,9 @@
 		display:none;
 		}
 	.locGroup {
-		border: 2px dashed green;
+		border: 1px dashed green;
 		padding:2px;
-		margin:3px;
+		margin:5px;
 		}
 </style>
 <script>
