@@ -158,7 +158,7 @@
 	<cfset sql = "#sql# AND locality.locality_id NOT IN (select locality_id from lat_long)">
 </cfif>
 <cfif right(sql,4) is " (+)">
-	You must enter search criteria.
+	<div class="error">You must enter search criteria.</div>
 	<cfabort>
 </cfif>
 <cfset sql = "#sql# ORDER BY
@@ -169,5 +169,8 @@
 <cfquery name="caller.localityResults" datasource="#Application.web_user#">
 	#preservesinglequotes(sql)#
 </cfquery>
-	
+<cfif right(sql,4) is " (+)">
+	<div class="error">Your search found no matches.</div>
+	<cfabort>
+</cfif>	
 </cfoutput>
