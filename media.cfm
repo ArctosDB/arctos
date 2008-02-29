@@ -14,9 +14,9 @@ function addEvent(obj, evType, fn){
 
 /*********************************************************************************************/
 var elem = document.getElementById('uploadMedia');
-elem.addEvent(elem, 'click', function() {
-    alert('You clicked me!');
-});
+elem.addEventListener('click',function (e) {
+  alert('1. Div capture ran');
+},true);
 /*
 
 */
