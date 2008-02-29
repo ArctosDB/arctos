@@ -49,7 +49,7 @@
 		<cfoutput>
 			Nothing matched <strong>#agent_name#</strong>. 
 			<br>
-			<a href="findAgent.cfm?formName=#formName#&agentIdFld=#agentIdFld#&agentNameFld=#agentNameFld#">Search again.</a>
+			<a href="findAgent.cfm?formName=#formName#&agentIdFld=#agentIdFld#&agentNameFld=#agentNameFld#&agent_name=">Search again.</a>
 			<cfif isdefined("allowCreation") and #allowCreation# is "true">
 				<p>
 					Use the Agents tab to create a new agent, or create new verbatim agent here if the
