@@ -96,6 +96,17 @@ top right bottom left
 	color:#2B547E;
 	font-size:.85em;
 }
+.uploadMediaDiv {
+	border:3px solid red;
+	z-index:9999;
+	position:absolute;
+	top:5%;
+	left:5%;
+	width:65%;
+	height:100px;
+	background-color:white;
+	overflow:hidden;
+	}
 .customBox {
 		border:3px solid green;
 		z-index:9999;
