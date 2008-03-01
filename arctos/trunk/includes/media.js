@@ -21,7 +21,7 @@ function pickedRelationship (id){
 	var relatedTableAry=relationship.split(" ");
 	var relatedTable=relatedTableAry[relatedTableAry.length-1];
 	// clean up old craps
-	var theSpanName = 'relationshipSpan' + elementNumber;
+	var theSpanName = 'relationshipSpan__' + elementNumber;
 	if (document.getElementById(theSpanName)){
 		var theDivName = 'relationshipDiv__' + elementNumber;
 		var theDiv=document.getElementById(theDivName);
