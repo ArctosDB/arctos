@@ -8,6 +8,7 @@
 	select media_label from ctmedia_label order by media_label
 </cfquery>
 <cfif #action# is "nothing">
+	<cfoutput>
 	Search for Media OR <a href="media.cfm?action=newMedia">Create media</a>
 		<form name="newMedia" method="post" action="media.cfm">
 			<input type="hidden" name="action" value="search">
@@ -46,6 +47,11 @@
 				onmouseover="this.className='insBtn btnhov'" 
 				onmouseout="this.className='insBtn'">
 		</form>
+		</cfoutput>
+</cfif>
+<!----------------------------------------------------------------------------------------->
+<cfif #action# is "search">
+<cfdump var=#form#>
 </cfif>
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "newMedia">
