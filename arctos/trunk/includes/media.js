@@ -101,7 +101,9 @@ function addLabel (n) {
 	nInp.name="label_value__" + n;
 	nInp.id="label_value__" + n;
 	nDiv.appendChild(nInp);
-	
+	c = document.createElement("textNode");
+	c.innerHTML=":&nbsp;";
+	nDiv.appendChild(c);
 	var mS = document.getElementById('addLabel');
 	pDiv.removeChild(mS);
 	var np1=n+1;
