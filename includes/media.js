@@ -46,7 +46,7 @@ function addAgentRelation (elementNumber){
 	var idInputName = 'agent_id_' + elementNumber;
 	var dispInputName = 'agent_name_' + elementNumber;
 	var theHtml='<input type="hidden" name="' + idInputName + '">';
-	theHtml+='<input type="text" name="' + dispInputName + '">';
+	theHtml+='<input type="text" name="' + dispInputName + '" size="80">';
 	nSpan.innerHTML=theHtml;
 	nSpan.id=theSpanName;
 	theDiv.appendChild(nSpan);
@@ -60,7 +60,7 @@ function addLocalityRelation (elementNumber){
 	var idInputName = 'locality_id_' + elementNumber;
 	var dispInputName = 'spec_locality_' + elementNumber;
 	var theHtml='<input type="hidden" name="' + idInputName + '">';
-	theHtml+='<input type="text" name="' + dispInputName + '">';
+	theHtml+='<input type="text" name="' + dispInputName + '" size="80">';
 	nSpan.innerHTML=theHtml;
 	nSpan.id=theSpanName;
 	theDiv.appendChild(nSpan);
@@ -83,6 +83,29 @@ function addRelation (n) {
 	var oc="addRelation(" + np1 + ")";
 	mS.setAttribute("onclick",oc);
 	pDiv.appendChild(mS);
+}
+function addLabels (n) {
+	var pDiv=document.getElementById('labels');
+	var nDiv = document.createElement('div');
+	nDiv.id='labelsDiv__' + n;
+	pDiv.appendChild(nDiv);
+	var n1=n-1;
+	var selName='label__' + n1;
+	var nSel = document.getElementById(selName).cloneNode(true);
+	nSel.name="label__" + n;
+	nSel.id="label__" + n;
+	nDiv.appendChild(nSel);
 	
+	var inpName='label_value__' + n1;
+	var nInp = document.getElementById(selName).cloneNode(true);
+	nSel.name="label_value__" + n;
+	nSel.id="label_value__" + n;
+	nDiv.appendChild(nInp);
 	
+	var mS = document.getElementById('addLabel');
+	pDiv.removeChild(mS);
+	var np1=n+1;
+	var oc="addLabel(" + np1 + ")";
+	mS.setAttribute("onclick",oc);
+	pDiv.appendChild(mS);
 }
