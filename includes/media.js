@@ -107,7 +107,7 @@ function addRelation (n) {
 	pDiv.appendChild(mS);
 	
 	var cc=document.getElementById('number_of_relations');
-	cc.value=cc.value+1;
+	cc.value=parseInt(cc.value)+1;
 }
 function addLabel (n) {
 	var pDiv=document.getElementById('labels');
@@ -141,5 +141,5 @@ function addLabel (n) {
 	pDiv.appendChild(mS);
 	
 	var cc=document.getElementById('number_of_labels');
-	cc.value=cc.value+1;
+	cc.value=parseInt(cc.value)+1;
 }
