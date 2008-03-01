@@ -10,8 +10,8 @@
 	<cfoutput>
 		<form name="newMedia" method="post" action="media.cfm">
 			<input type="hidden" name="action" value="saveNew">
-			<input type="hidden" id="number_of_relations" value="1">
-			<input type="hidden" id="number_of_labels" value="1">
+			<input type="text" id="number_of_relations" name="number_of_relations" value="1">
+			<input type="text" id="number_of_labels" name="number_of_labels" value="1">
 			<label for="media_uri">Media URI</label>
 			<input type="text" name="media_uri" id="media_uri" size="90"><span class="infoLink" id="uploadMedia">Upload</span>
 			<label for="relationships">Media Relationships</label>
