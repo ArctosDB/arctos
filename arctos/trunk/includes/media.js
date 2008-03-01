@@ -52,7 +52,7 @@ function addAgentRelation (elementNumber){
 	theDiv.appendChild(nSpan);
 	getAgent(idInputName,dispInputName,'newMedia','');
 }
-function addLocalityRelation (id){
+function addLocalityRelation (elementNumber){
 	var theDivName = 'relationshipDiv__' + elementNumber;
 	var theDiv=document.getElementById(theDivName);
 	var theSpanName = 'relationshipSpan__' + elementNumber;
