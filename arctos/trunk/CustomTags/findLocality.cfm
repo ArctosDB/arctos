@@ -27,7 +27,10 @@
 		nogeorefbecause,
 		max_error_distance,
 		max_error_units,
-		lat_long_ref_source
+		lat_long_ref_source,
+		minimum_elevation,
+		maximum_elevation,
+		orig_elev_units
 	from 
 		geog_auth_rec,
 		locality,
