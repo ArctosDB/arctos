@@ -20,8 +20,8 @@ function pickedRelationship (id){
 	var elementNumber=id.substring(ddPos+2,id.length);
 	var relatedTableAry=relationship.split(" ");
 	var relatedTable=relatedTableAry[relatedTableAry.length-1];
-	var idInputName = 'related_value__' + elementNumber;
-	var dispInputName = 'related_id__' + elementNumber;
+	var idInputName = 'related_id__' + elementNumber;
+	var dispInputName = 'related_value__' + elementNumber;
 	var hid=document.getElementById(idInputName);
 	hid.value='';
 	var inp=document.getElementById(dispInputName);
