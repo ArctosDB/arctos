@@ -12,7 +12,7 @@
 			<label for="relationships">Media Relationships</label>
 			<div id="relationships" style="border:1px dashed red;">
 				<div id="relationshipDiv__1">
-				<select name="relationship__1" id="relationship__1" size="1" onchange="pickedRelationship(this.id)";>
+				<select name="relationship__1" id="relationship__1" size="1" onchange="pickedRelationship(this.id)">
 					<option value=""></option>
 					<cfloop query="ctmedia_relationship">
 						<option value="#media_relationship#">#media_relationship#</option>
