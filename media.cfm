@@ -51,7 +51,58 @@
 </cfif>
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "search">
-<cfdump var=#form#>
+<cfoutput>
+<cfset sel="select *  "> 
+<cfset frm="from media,
+			media_relations,
+			media_labels ">
+<cfset whr=" where
+				media.media_id=media_relations.media_id (+) and
+				media.media_id=media_labels.media_id (+)">
+<cfset srch="where 1=1">		
+<cfif isdefined("media_uri") and len(#media_uri#) gt 0>
+	<cfset srch="#srch# AND upper(media_uri) like '%#ucase(media_uri)#%'">
+</cfif>
+<cfloop from="1" to="#number_of_relations#" index="n">
+	<cfset thisRelationship = #evaluate("relationship__" & n)#>
+	<cfset thisRelatedId = #evaluate("related_id__" & n)#>
+	<cfset thisTableName=ListLast(thisRelationship," ")>
+	<cfif len(#thisRelationship#) gt>
+		<cfset srch="#srch# AND media_relations.media_relationship = '#thisRelationship#'">
+	</cfif>
+	<cfif len(#thisRelatedId#) gt>
+		<cfif #thisTableName# is "agent">
+			<cfif #frm# does not contain "preferred_agent_name">
+				<cfset frm="#frm#,preferred_agent_name">
+				<cfset whr="#whr# AND media_relations.related_agent_id=preferred_agent_name.agent_id">
+			</cfif>
+			<cfset srch="#srch# AND upper(preferred_agent_name.agent_name) like '%#ucase(thisRelatedId)#%'">
+		<cfelseif #thisTableName# is "locality">
+			<cfif #frm# does not contain "locality">
+				<cfset frm="#frm#,locality">
+				<cfset whr="#whr# AND media_relations.locality_id=locality.locality_id">
+			</cfif>
+			<cfset srch="#srch# AND upper(locality.spec_locality) like '%#ucase(thisRelatedId)#%'">
+		<cfelse>
+			Table name not found or handled. Aborting..............
+		</cfif>
+		<cfset srch="#srch# AND media_relations.media_relationship = '#thisRelationship#'">
+	</cfif>	
+</cfloop>
+	<cfloop from="1" to="#number_of_labels#" index="n">
+		<cfset thisLabel = #evaluate("label__" & n)#>
+		<cfset thisLabelValue = #evaluate("label_value__" & n)#>
+		<cfif len(#thisLabel#) gt 0>
+			<cfset srch="#srch# AND upper(media_label) like '%#ucase(thisLabel)#%'">
+		</cfif>
+		<cfif len(#thisLabelValue#) gt 0>
+			<cfset srch="#srch# AND upper(label_value) like '%#ucase(thisLabelValue)#%'">
+		</cfif>
+	</cfloop>
+<cfset ssql="#sel# #frm# #whr# #srch#">
+<hr>#ssql#<hr>
+</cfoutput>
+</cfif>
 </cfif>
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "newMedia">
@@ -100,6 +151,7 @@
 		elem.addEventListener('click',clickUpload,false);
 	</script>
 </cfif>
+<!------------------------------------------------------------------------------------------>
 <cfif #action# is "saveNew">
 <cfoutput>
 	<cftransaction>
