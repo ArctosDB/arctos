@@ -100,7 +100,7 @@
 <cfquery name="findIDs" datasource="#application.web_user#">
 	#preservesinglequotes(ssql)#
 </cfquery>
-<cfdump var=#find#>
+<cfdump var=#findIDs#>
 
 </cfoutput>
 </cfif>
