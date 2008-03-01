@@ -20,24 +20,25 @@ function pickedRelationship (id){
 	var elementNumber=id.substring(ddPos+2,id.length);
 	var relatedTableAry=relationship.split(" ");
 	var relatedTable=relatedTableAry[relatedTableAry.length-1];
-	// clean up old craps
-	var theSpanName = 'relationshipSpan__' + elementNumber;
-	if (document.getElementById(theSpanName)){
-		var theDivName = 'relationshipDiv__' + elementNumber;
-		var theDiv=document.getElementById(theDivName);
-		var s=document.getElementById(theSpanName);
-		theDiv.removeChild(s);
-	}
+	var idInputName = 'related_value__' + elementNumber;
+	var dispInputName = 'related_id__' + elementNumber;
+	var hid=document.getElementById(idInputName);
+	hid.value='';
+	var inp=document.getElementById(dispInputName);
+	inp.value='';
 	if (relatedTable=='') {
 		// do nothing, cleanup already happened
 	} else if (relatedTable=='agent'){
-		addAgentRelation(elementNumber);
+		//addAgentRelation(elementNumber);
+		getAgent(idInputName,dispInputName,'newMedia','');		
 	} else if (relatedTable=='locality'){
-		addLocalityRelation(elementNumber);
+		LocalityPick(idInputName,dispInputName,'newMedia'); 
 	} else {
 		alert('Something is broken. I have no idea what to do with a relationship to ' + relatedTable);
 	}
 }
+
+/*
 function addAgentRelation (elementNumber){
 	var theDivName = 'relationshipDiv__' + elementNumber;
 	var theDiv=document.getElementById(theDivName);
@@ -66,6 +67,7 @@ function addLocalityRelation (elementNumber){
 	theDiv.appendChild(nSpan);
 	LocalityPick(idInputName,dispInputName,'newMedia'); 
 }
+*/
 function addRelation (n) {
 	var pDiv=document.getElementById('relationships');
 	var nDiv = document.createElement('div');
@@ -77,6 +79,24 @@ function addRelation (n) {
 	nSel.name="relationship__" + n;
 	nSel.id="relationship__" + n;
 	nDiv.appendChild(nSel);
+	
+	c = document.createElement("textNode");
+	c.innerHTML=":&nbsp;";
+	nDiv.appendChild(c);
+	
+	var n1=n-1;
+	var inpName='related_value__' + n1;
+	var nInp = document.getElementById(inpName).cloneNode(true);
+	nInp.name="related_value__" + n;
+	nInp.id="related_value__" + n;
+	nDiv.appendChild(nInp);
+	
+	var hName='related_id__' + n1;
+	var nHid = document.getElementById(hName).cloneNode(true);
+	nHid.name="related_id__" + n;
+	nHid.id="related_id__" + n;
+	nDiv.appendChild(nHid);
+	
 	var mS = document.getElementById('addRelationship');
 	pDiv.removeChild(mS);
 	var np1=n+1;
