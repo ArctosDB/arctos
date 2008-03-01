@@ -59,27 +59,40 @@
 			select seq_media.nextval nv from dual
 		</cfquery>
 		<cfset media_id=mid.nv>
-
-	insert into media (media_id,media_uri) values (#media_id#,'#escapeQuotes(media_uri)#')
+		<cfquery name="makeMedia" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			insert into media (media_id,media_uri) values (#media_id#,'#escapeQuotes(media_uri)#')
+		</cfquery>
 	<br>
 	<cfloop from="1" to="#number_of_relations#" index="n">
 		<cfset thisRelationship = #evaluate("relationship__" & n)#>
 		<cfset thisRelatedId = #evaluate("related_id__" & n)#>
 		<cfset thisTableName=ListLast(thisRelationship," ")>
-		insert into media_relations (media_id,media_relationship
-		<cfif #thisTableName# is "agent">
-			related_agent_id
-		<cfelseif #thisTableName# is "locality">
-			related_locality_id
-		<cfelse>
-			Table name not found or handled. Aborting..............
+		<cfif len(#thisRelationship#) gt 0 and len(#thisRelatedId#) gt 0>
+			<cfquery name="makeRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				insert into media_relations (media_id,media_relationship
+				<cfif #thisTableName# is "agent">
+					related_agent_id
+				<cfelseif #thisTableName# is "locality">
+					related_locality_id
+				<cfelse>
+					Table name not found or handled. Aborting..............
+				</cfif>
+				 ) values (#media_id#,'#thisRelationship#',#thisRelatedId#)
+			</cfquery>
+		</cfif>	
+	</cfloop>
+	<cfloop from="1" to="#number_of_labels#" index="n">
+		<cfset thisLabel = #evaluate("label__" & n)#>
+		<cfset thisLabelValue = #evaluate("label_value__" & n)#>
+		<cfif len(#thisLabel#) gt 0 and len(#thisLabelValue#) gt 0>
+			<cfquery name="makeRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				insert into media_labels (media_id,media_label,label_value)
+				values (#media_id#,'#thisLabel#','#thisLabelValue#')
+			</cfquery>
 		</cfif>
-		 ) values (#media_id#,'#thisRelationship#',#thisRelatedId#)
-<br>
-
-
 	</cfloop>
 		</cftransaction>
+		spiffiriffic!
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
