@@ -35,7 +35,6 @@ function pickedRelationship (id){
 }
 function addAgentRelation (id){
 	var theDivName = id + 'Div';
-	//var =eval(t);
 	var theDiv=document.getElementById(theDivName);
 	nSpan = document.createElement("span");
 	var theHtml='<input type="hidden" name="agent_id_1"><input type="text" name="agent_name_1">';
@@ -45,5 +44,12 @@ function addAgentRelation (id){
 	getAgent('agent_id_1','agent_name_1','newMedia','');
 }
 function addLocalityRelation (id){
-	alert('addLocalityRelation');
+	var theDivName = id + 'Div';
+	var theDiv=document.getElementById(theDivName);
+	nSpan = document.createElement("span");
+	var theHtml='<input type="hidden" name="locality_id_1"><input type="text" name="spec_locality_1">';
+	nSpan.innerHTML=theHtml;
+	nSpan.id=theSpanName;
+	theDiv.appendChild(nSpan);
+	LocalityPick('locality_id_1','spec_locality_1','newMedia'); 
 }
