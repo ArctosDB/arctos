@@ -18,7 +18,7 @@ function pickedRelationship (id){
 	alert(id);
 	var ddPos = id.lastIndexOf('__');
 	alert(ddPos);
-	var elementNumber=id.substring(ddPos,id.length);
+	var elementNumber=id.substring(ddPos+2,id.length);
 	alert(elementNumber);
 	
 	
