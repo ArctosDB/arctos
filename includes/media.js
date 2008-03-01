@@ -13,21 +13,17 @@ function clickUpload(){
 	var guts = "/info/upMedia.cfm";
 	theDiv.src=guts;
 }
+
 function pickedRelationship (id){
 	var relationship=document.getElementById(id).value;
-	alert(id);
 	var ddPos = id.lastIndexOf('__');
-	alert(ddPos);
 	var elementNumber=id.substring(ddPos+2,id.length);
-	alert(elementNumber);
-	
-	
 	var relatedTableAry=relationship.split(" ");
 	var relatedTable=relatedTableAry[relatedTableAry.length-1];
 	// clean up old craps
 	var theSpanName = id + 'Span';
 	if (document.getElementById(theSpanName)){
-		var theDivName = id + 'Div';
+		var theDivName = 'relationshipDiv__' + elementNumber;
 		var theDiv=document.getElementById(theDivName);
 		var s=document.getElementById(theSpanName);
 		theDiv.removeChild(s);
@@ -35,32 +31,38 @@ function pickedRelationship (id){
 	if (relatedTable=='') {
 		// do nothing, cleanup already happened
 	} else if (relatedTable=='agent'){
-		addAgentRelation(id);
+		addAgentRelation(elementNumber);
 	} else if (relatedTable=='locality'){
-		addLocalityRelation(id);
+		addLocalityRelation(elementNumber);
 	} else {
 		alert('Something is broken. I have no idea what to do with a relationship to ' + relatedTable);
 	}
 }
-function addAgentRelation (id){
-	var theDivName = id + 'Div';
+function addAgentRelation (elementNumber){
+	var theDivName = 'relationshipDiv__' + elementNumber;
 	var theDiv=document.getElementById(theDivName);
-	var theSpanName = id + 'Span';
+	var theSpanName = 'relationshipSpan__' + elementNumber;
 	nSpan = document.createElement("span");
-	var theHtml='<input type="hidden" name="agent_id_1"><input type="text" name="agent_name_1">';
+	var idInputName = 'agent_id_' + elementNumber;
+	var dispInputName = 'agent_name_' + elementNumber;
+	var theHtml='<input type="hidden" name="' + idInputName + '">';
+	theHtml+='<input type="text" name="' + dispInputName + '">';
 	nSpan.innerHTML=theHtml;
 	nSpan.id=theSpanName;
 	theDiv.appendChild(nSpan);
-	getAgent('agent_id_1','agent_name_1','newMedia','');
+	getAgent(idInputName,dispInputName,'newMedia','');
 }
 function addLocalityRelation (id){
-	var theDivName = id + 'Div';
+	var theDivName = 'relationshipDiv__' + elementNumber;
 	var theDiv=document.getElementById(theDivName);
-	var theSpanName = id + 'Span';
+	var theSpanName = 'relationshipSpan__' + elementNumber;
 	nSpan = document.createElement("span");
-	var theHtml='<input type="hidden" name="locality_id_1"><input type="text" name="spec_locality_1">';
+	var idInputName = 'locality_id_' + elementNumber;
+	var dispInputName = 'spec_locality_' + elementNumber;
+	var theHtml='<input type="hidden" name="' + idInputName + '">';
+	theHtml+='<input type="text" name="' + dispInputName + '">';
 	nSpan.innerHTML=theHtml;
 	nSpan.id=theSpanName;
 	theDiv.appendChild(nSpan);
-	LocalityPick('locality_id_1','spec_locality_1','newMedia'); 
+	LocalityPick(idInputName,dispInputName,'newMedia'); 
 }
