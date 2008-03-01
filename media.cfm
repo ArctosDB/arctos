@@ -33,7 +33,7 @@
 					<cfloop query="ctmedia_label">
 						<option value="#media_label#">#media_label#</option>
 					</cfloop>
-				</select>
+				</select>:&nbsp;
 				<input type="text" name="label_value__1" id="label_value__1" size="80">
 				</div>
 				<span class="infoLink" id="addLabel" onclick="addLabel(2)">More...</span>
