@@ -25,7 +25,9 @@ function pickedRelationship (id){
 		var s=document.getElementById(theSpanName);
 		theDiv.removeChild(s);
 	}
-	if (relatedTable=='agent'){
+	if (relatedTable=='') {
+		// do nothing, cleanup already happened
+	} else if (relatedTable=='agent'){
 		addAgentRelation(id);
 	} else if (relatedTable=='locality'){
 		addLocalityRelation(id);
@@ -36,6 +38,7 @@ function pickedRelationship (id){
 function addAgentRelation (id){
 	var theDivName = id + 'Div';
 	var theDiv=document.getElementById(theDivName);
+	var theSpanName = id + 'Span';
 	nSpan = document.createElement("span");
 	var theHtml='<input type="hidden" name="agent_id_1"><input type="text" name="agent_name_1">';
 	nSpan.innerHTML=theHtml;
@@ -46,6 +49,7 @@ function addAgentRelation (id){
 function addLocalityRelation (id){
 	var theDivName = id + 'Div';
 	var theDiv=document.getElementById(theDivName);
+	var theSpanName = id + 'Span';
 	nSpan = document.createElement("span");
 	var theHtml='<input type="hidden" name="locality_id_1"><input type="text" name="spec_locality_1">';
 	nSpan.innerHTML=theHtml;
