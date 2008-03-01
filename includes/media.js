@@ -84,7 +84,7 @@ function addRelation (n) {
 	mS.setAttribute("onclick",oc);
 	pDiv.appendChild(mS);
 }
-function addLabels (n) {
+function addLabel (n) {
 	var pDiv=document.getElementById('labels');
 	var nDiv = document.createElement('div');
 	nDiv.id='labelsDiv__' + n;
