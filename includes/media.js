@@ -97,9 +97,9 @@ function addLabel (n) {
 	nDiv.appendChild(nSel);
 	
 	var inpName='label_value__' + n1;
-	var nInp = document.getElementById(selName).cloneNode(true);
-	nSel.name="label_value__" + n;
-	nSel.id="label_value__" + n;
+	var nInp = document.getElementById(inpName).cloneNode(true);
+	nInp.name="label_value__" + n;
+	nInp.id="label_value__" + n;
 	nDiv.appendChild(nInp);
 	
 	var mS = document.getElementById('addLabel');
