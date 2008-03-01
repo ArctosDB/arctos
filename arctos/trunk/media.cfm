@@ -25,9 +25,10 @@
 				<span class="infoLink" id="addRelationship" onclick="addRelation(2)">More...</span>
 			</div>
 			<br>
+			<label for="labels">Media Labels</label>
 			<div id="labels" style="border:1px dashed red;">
 				<div id="labelsDiv__1">
-				<select name="labels__1" id="labels__1" size="1">
+				<select name="label__1" id="label__1" size="1">
 					<option value=""></option>
 					<cfloop query="ctmedia_label">
 						<option value="#media_label#">#media_label#</option>
@@ -35,7 +36,7 @@
 				</select>:&nbsp;
 				<input type="text" name="label_value__1" id="label_value__1" size="80">
 				</div>
-				<span class="infoLink" id="addLabel" onclick="addLabels(2)">More...</span>
+				<span class="infoLink" id="addLabel" onclick="addLabel(2)">More...</span>
 			</div>
 		</form>
 	</cfoutput>
