@@ -105,6 +105,8 @@ function addRelation (n) {
 	var oc="addRelation(" + np1 + ")";
 	mS.setAttribute("onclick",oc);
 	pDiv.appendChild(mS);
+	
+	document.getElementById('number_of_relations').value+=1;
 }
 function addLabel (n) {
 	var pDiv=document.getElementById('labels');
