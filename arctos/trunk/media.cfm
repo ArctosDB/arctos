@@ -67,10 +67,10 @@
 	<cfset thisRelationship = #evaluate("relationship__" & n)#>
 	<cfset thisRelatedId = #evaluate("related_id__" & n)#>
 	<cfset thisTableName=ListLast(thisRelationship," ")>
-	<cfif len(#thisRelationship#) gt>
+	<cfif len(#thisRelationship#) gt 0>
 		<cfset srch="#srch# AND media_relations.media_relationship = '#thisRelationship#'">
 	</cfif>
-	<cfif len(#thisRelatedId#) gt>
+	<cfif len(#thisRelatedId#) gt 0>
 		<cfif #thisTableName# is "agent">
 			<cfif #frm# does not contain "preferred_agent_name">
 				<cfset frm="#frm#,preferred_agent_name">
@@ -102,7 +102,6 @@
 <cfset ssql="#sel# #frm# #whr# #srch#">
 <hr>#ssql#<hr>
 </cfoutput>
-</cfif>
 </cfif>
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "newMedia">
