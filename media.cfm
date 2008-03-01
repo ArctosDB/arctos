@@ -52,6 +52,7 @@
 	</script>
 </cfif>
 <cfif #action# is "saveNew">
+<cfoutput>
 	<cftransaction>
 		<cfquery name="mid" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 			select seq_media.nextval nv from dual
@@ -78,5 +79,6 @@
 
 	</cfloop>
 		</cftransaction>
+</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
