@@ -69,7 +69,7 @@
 		<cfset thisTableName=ListLast(thisRelationship," ")>
 		<cfif len(#thisRelationship#) gt 0 and len(#thisRelatedId#) gt 0>
 			<cfquery name="makeRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				insert into media_relations (media_id,media_relationship
+				insert into media_relations (media_id,media_relationship,
 				<cfif #thisTableName# is "agent">
 					related_agent_id
 				<cfelseif #thisTableName# is "locality">
