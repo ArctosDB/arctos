@@ -78,6 +78,7 @@ function addRelation (n) {
 	var nSel = document.getElementById(selName).cloneNode(true);
 	nSel.name="relationship__" + n;
 	nSel.id="relationship__" + n;
+	nSel.value='';
 	nDiv.appendChild(nSel);
 	
 	c = document.createElement("textNode");
@@ -89,6 +90,7 @@ function addRelation (n) {
 	var nInp = document.getElementById(inpName).cloneNode(true);
 	nInp.name="related_value__" + n;
 	nInp.id="related_value__" + n;
+	nInp.value='';
 	nDiv.appendChild(nInp);
 	
 	var hName='related_id__' + n1;
@@ -114,6 +116,7 @@ function addLabel (n) {
 	var nSel = document.getElementById(selName).cloneNode(true);
 	nSel.name="label__" + n;
 	nSel.id="label__" + n;
+	nSel.value='';
 	nDiv.appendChild(nSel);
 	
 	c = document.createElement("textNode");
@@ -124,8 +127,9 @@ function addLabel (n) {
 	var nInp = document.getElementById(inpName).cloneNode(true);
 	nInp.name="label_value__" + n;
 	nInp.id="label_value__" + n;
+	nInp.value='';
 	nDiv.appendChild(nInp);
-	
+
 	var mS = document.getElementById('addLabel');
 	pDiv.removeChild(mS);
 	var np1=n+1;
