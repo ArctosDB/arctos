@@ -75,6 +75,9 @@ function addRelation (n) {
 	var selName='relationship__' + n1;
 	alert(selName);
 	var nSel = document.getElementById(selName).cloneNode(true);
+
+	nSel.name="relationship__" + n;
+	nSel.id="relationship__" + n;
 	alert('going append');
 	nDiv.appendChild(nSel);
 	alert('spiffy');
