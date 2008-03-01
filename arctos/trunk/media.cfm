@@ -4,6 +4,9 @@
 	<cfquery name="ctmedia_relationship" datasource="#application.web_user#">
 		select media_relationship from ctmedia_relationship order by media_relationship
 	</cfquery>
+	<cfquery name="ctmedia_label" datasource="#application.web_user#">
+		select media_label from ctmedia_label order by media_label
+	</cfquery>
 	<cfoutput>
 		<form name="newMedia" method="post" action="media.cfm">
 			<input type="hidden" name="action" value="saveNew">
@@ -20,6 +23,19 @@
 				</select>
 				</div>
 				<span class="infoLink" id="addRelationship" onclick="addRelation(2)">More...</span>
+			</div>
+			<br>
+			<div id="labels" style="border:1px dashed red;">
+				<div id="labelsDiv__1">
+				<select name="labels__1" id="labels__1" size="1">
+					<option value=""></option>
+					<cfloop query="ctmedia_label">
+						<option value="#media_label#">#media_label#</option>
+					</cfloop>
+				</select>:&nbsp;
+				<input type="text" name="label_value__1" id="label_value__1" size="80">
+				</div>
+				<span class="infoLink" id="addLabel" onclick="addLabels(2)">More...</span>
 			</div>
 		</form>
 	</cfoutput>
