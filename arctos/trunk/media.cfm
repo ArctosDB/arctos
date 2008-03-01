@@ -59,7 +59,7 @@
 <cfset whr=" where
 				media.media_id=media_relations.media_id (+) and
 				media.media_id=media_labels.media_id (+)">
-<cfset srch="where 1=1">		
+<cfset srch=" ">		
 <cfif isdefined("media_uri") and len(#media_uri#) gt 0>
 	<cfset srch="#srch# AND upper(media_uri) like '%#ucase(media_uri)#%'">
 </cfif>
@@ -93,7 +93,7 @@
 		<cfset thisLabel = #evaluate("label__" & n)#>
 		<cfset thisLabelValue = #evaluate("label_value__" & n)#>
 		<cfif len(#thisLabel#) gt 0>
-			<cfset srch="#srch# AND upper(media_label) like '%#ucase(thisLabel)#%'">
+			<cfset srch="#srch# AND media_label = '#thisLabel#'">
 		</cfif>
 		<cfif len(#thisLabelValue#) gt 0>
 			<cfset srch="#srch# AND upper(label_value) like '%#ucase(thisLabelValue)#%'">
@@ -101,6 +101,11 @@
 	</cfloop>
 <cfset ssql="#sel# #frm# #whr# #srch#">
 <hr>#ssql#<hr>
+<cfquery name="find" datasource="#application.web_user#">
+	#preservesinglequotes(ssql)#
+</cfquery>
+<cfdump var=#find#>
+
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------------->
