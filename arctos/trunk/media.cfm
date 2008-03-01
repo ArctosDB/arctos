@@ -33,16 +33,23 @@
 					<cfloop query="ctmedia_label">
 						<option value="#media_label#">#media_label#</option>
 					</cfloop>
-				</select>:&nbsp;
-				<input type="text" name="label_value__1" id="label_value__1" size="80">
+				</select>:&nbsp;<input type="text" name="label_value__1" id="label_value__1" size="80">
 				</div>
 				<span class="infoLink" id="addLabel" onclick="addLabel(2)">More...</span>
 			</div>
+			<input type="submit" 
+				value="Create Media" 
+				class="insBtn"
+				onmouseover="this.className='insBtn btnhov'" 
+				onmouseout="this.className='insBtn'">
 		</form>
 	</cfoutput>
 	<script>
 		var elem = document.getElementById('uploadMedia');
 		elem.addEventListener('click',clickUpload,false);
 	</script>
+</cfif>
+<cfif #action# is "saveNew">
+	gonna check some errors....
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
