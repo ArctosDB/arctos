@@ -96,14 +96,16 @@ function addLabel (n) {
 	nSel.id="label__" + n;
 	nDiv.appendChild(nSel);
 	
+	c = document.createElement("textNode");
+	c.innerHTML=":&nbsp;";
+	nDiv.appendChild(c);
+	
 	var inpName='label_value__' + n1;
 	var nInp = document.getElementById(inpName).cloneNode(true);
 	nInp.name="label_value__" + n;
 	nInp.id="label_value__" + n;
 	nDiv.appendChild(nInp);
-	c = document.createElement("textNode");
-	c.innerHTML=":&nbsp;";
-	nDiv.appendChild(c);
+	
 	var mS = document.getElementById('addLabel');
 	pDiv.removeChild(mS);
 	var np1=n+1;
