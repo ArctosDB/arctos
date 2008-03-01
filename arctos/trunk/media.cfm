@@ -54,10 +54,10 @@
 <cfif #action# is "saveNew">
 	<cftransaction>
 		<cfquery name="mid" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-			select seq_media_relations.nextval nv from dual
+			select seq_media.nextval nv from dual
 		</cfquery>
 		<cfset media_id=mid.nv>
-	</cftransaction>
+
 	insert into media (media_id,media_uri) values (#media_id#,'#escapeQuotes(media_uri)#')
 	<br>
 	<cfloop from="1" to="#number_of_relations#" index="n">
@@ -77,5 +77,6 @@
 
 
 	</cfloop>
+		</cftransaction>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
