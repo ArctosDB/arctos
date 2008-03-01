@@ -15,6 +15,13 @@ function clickUpload(){
 }
 function pickedRelationship (id){
 	var relationship=document.getElementById(id).value;
+	alert(id);
+	var ddPos = id.lastIndexOf('__');
+	alert(ddPos);
+	var elementNumber=id.substring(ddPos,id.length);
+	alert(elementNumber);
+	
+	
 	var relatedTableAry=relationship.split(" ");
 	var relatedTable=relatedTableAry[relatedTableAry.length-1];
 	// clean up old craps
