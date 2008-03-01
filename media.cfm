@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfinclude template="/includes/functionLib.cfm">
 <script type='text/javascript' src='/includes/media.js'></script>
 <cfif #action# is "newMedia">
 	<cfquery name="ctmedia_relationship" datasource="#application.web_user#">
