@@ -66,3 +66,18 @@ function addLocalityRelation (elementNumber){
 	theDiv.appendChild(nSpan);
 	LocalityPick(idInputName,dispInputName,'newMedia'); 
 }
+function addRelation (n) {
+	var pDiv=document.getElementById('relationships');
+	var nDiv = document.createElement('div');
+	nDiv.id='relationshipDiv__' + n;
+	pDiv.appendChild(nDiv);
+	var selName='relationship__' + n;
+	var nSel = document.getElementById(selName).cloneNode;
+	nDiv.appendChild(nSel);
+	
+	var mS = document.getElementById('addRelationship');
+	pDiv.removeChild(mS);
+	pDiv.appendChild(mS);
+	
+	
+}

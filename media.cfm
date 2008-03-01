@@ -19,6 +19,7 @@
 					</cfloop>
 				</select>
 				</div>
+				<span class="infoLink" id="addRelationship" onclick="addRelation(2)">More...</span>
 			</div>
 		</form>
 	</cfoutput>
