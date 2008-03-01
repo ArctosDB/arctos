@@ -80,6 +80,9 @@ function addRelation (n) {
 	alert('spiffy');
 	var mS = document.getElementById('addRelationship');
 	pDiv.removeChild(mS);
+	var np1=n+1;
+	var oc="addRelation(" + np1 + ")";
+	mS.setAttribute("onclick",oc);
 	pDiv.appendChild(mS);
 	
 	
