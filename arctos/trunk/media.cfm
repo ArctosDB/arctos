@@ -52,6 +52,30 @@
 	</script>
 </cfif>
 <cfif #action# is "saveNew">
-	<cfdump var=#form#>
+	<cftransaction>
+		<cfquery name="mid" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			select seq_media_relations.nextval nv from dual
+		</cfquery>
+		<cfset media_id=mid.nv>
+	</cftransaction>
+	insert into media (media_id,media_uri) values (#media_id#,'#escapeQuotes(media_uri)#')
+	<br>
+	<cfloop from="1" to="#number_of_relations#" index="n">
+		<cfset thisRelationship = #evaluate("relationship__" & n)#>
+		<cfset thisRelatedId = #evaluate("related_id__" & n)#>
+		<cfset thisTableName=ListLast(thisRelationship," ")>
+		insert into media_relations (media_id,media_relationship
+		<cfif #thisTableName# is "agent">
+			related_agent_id
+		<cfelseif #thisTableName# is "locality">
+			related_locality_id
+		<cfelse>
+			Table name not found or handled. Aborting..............
+		</cfif>
+		 ) values (#media_id#,'#thisRelationship#',#thisRelatedId#)
+<br>
+
+
+	</cfloop>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
