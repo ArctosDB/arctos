@@ -52,7 +52,7 @@
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "search">
 <cfoutput>
-<cfset sel="select *  "> 
+<cfset sel="select media.media_id "> 
 <cfset frm="from media,
 			media_relations,
 			media_labels ">
@@ -72,17 +72,13 @@
 	</cfif>
 	<cfif len(#thisRelatedId#) gt 0>
 		<cfif #thisTableName# is "agent">
-			<cfif #frm# does not contain "preferred_agent_name">
-				<cfset frm="#frm#,preferred_agent_name">
-				<cfset whr="#whr# AND media_relations.related_agent_id=preferred_agent_name.agent_id">
-			</cfif>
-			<cfset srch="#srch# AND upper(preferred_agent_name.agent_name) like '%#ucase(thisRelatedId)#%'">
+			<cfset frm="#frm#,preferred_agent_name preferred_agent_name_#n#">
+			<cfset whr="#whr# AND media_relations.related_agent_id=preferred_agent_name_#n#.agent_id">
+			<cfset srch="#srch# AND upper(preferred_agent_name_#n#.agent_name) like '%#ucase(thisRelatedId)#%'">
 		<cfelseif #thisTableName# is "locality">
-			<cfif #frm# does not contain "locality">
-				<cfset frm="#frm#,locality">
-				<cfset whr="#whr# AND media_relations.locality_id=locality.locality_id">
-			</cfif>
-			<cfset srch="#srch# AND upper(locality.spec_locality) like '%#ucase(thisRelatedId)#%'">
+			<cfset frm="#frm#,locality locality_#n#">
+			<cfset whr="#whr# AND media_relations.locality_id=locality_#n#.locality_id">
+			<cfset srch="#srch# AND upper(locality_#n#.spec_locality) like '%#ucase(thisRelatedId)#%'">
 		<cfelse>
 			Table name not found or handled. Aborting..............
 		</cfif>
@@ -101,7 +97,7 @@
 	</cfloop>
 <cfset ssql="#sel# #frm# #whr# #srch#">
 <hr>#ssql#<hr>
-<cfquery name="find" datasource="#application.web_user#">
+<cfquery name="findIDs" datasource="#application.web_user#">
 	#preservesinglequotes(ssql)#
 </cfquery>
 <cfdump var=#find#>
