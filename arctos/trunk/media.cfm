@@ -22,7 +22,7 @@
 					</cfloop>
 				</select>
 				</div>
-				<span class="infoLink" id="addRelationship" onclick="addRelation(2)">More...</span>
+				<span class="infoLink" id="addRelationship" onclick="addRelation(2)">Add Relationship</span>
 			</div>
 			<br>
 			<label for="labels">Media Labels</label>
@@ -35,8 +35,9 @@
 					</cfloop>
 				</select>:&nbsp;<input type="text" name="label_value__1" id="label_value__1" size="80">
 				</div>
-				<span class="infoLink" id="addLabel" onclick="addLabel(2)">More...</span>
+				<span class="infoLink" id="addLabel" onclick="addLabel(2)">Add Label</span>
 			</div>
+			<br>
 			<input type="submit" 
 				value="Create Media" 
 				class="insBtn"
@@ -50,6 +51,6 @@
 	</script>
 </cfif>
 <cfif #action# is "saveNew">
-	gonna check some errors....
+	<cfdump var=#form#>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
