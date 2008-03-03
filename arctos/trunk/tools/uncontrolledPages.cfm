@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfparam name="url.sort" default="datelastmodified desc">
-<cfdirectory directory="#ExpandPath("./")#" action="list" name="dir" sort="#url.sort#">
+<cfdirectory directory="/" action="list" name="dir" sort="name">
 <table width="100%" cellpadding="0" cellspacing="0">
 	<tr>
 <th>Name <a href="?sort=name" class="sort" title="Sort By Name">v</a></th>
