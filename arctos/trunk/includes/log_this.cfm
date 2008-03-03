@@ -1,4 +1,3 @@
-<cfinclude template="/Application.cfm">
 <cfoutput>
 		<cfquery name="nv" datasource="#Application.uam_dbo#">
 			select search_log_seq.nextval nv from dual
