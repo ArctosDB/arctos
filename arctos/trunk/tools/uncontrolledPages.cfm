@@ -10,7 +10,7 @@
 		<th>Last Modified <a href="?sort=datelastmodified+desc" class="sort" title="Sort By Date">v</a></th>
 	</tr>
 	<cfoutput query="dir">
-	<cfif dir.name IS NOT "index.cfm">
+	<cfif dir.type dir>
 	<tr>
 		<td><a href="#dir.name#">#dir.name#</a></td>
 		<td>#dir.size#</td>
