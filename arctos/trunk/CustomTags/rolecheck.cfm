@@ -30,11 +30,14 @@ isValid.recordcount: #isValid.recordcount#;
 	<cfelse>
 		<!--- access is controlled and they have roles - see if they have the right role --->
 		<cfloop query="isValid">
-			<cfif not listfindnocase(client.roles,role_name)>
+			<cfif #role_name# is not "public" and not listfindnocase(client.roles,role_name)>
 				<cfset badYou = "yes">
 			</cfif>
 		</cfloop>
 	</cfif>
+<cfelse>
+	<!--- got nothing back from the query, forms must have at least public role to be accessed --->
+	this form is not controlled. Add it to Form Permissions or get ready to see it go bye-bye.
 </cfif>
 <!--- if they are logged in, check their cookie to see if they've been idle for >90m (ie, with browser not running) ---->
 <cfif isdefined("cookie.username") and len(#client.username#) gt 0>
