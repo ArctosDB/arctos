@@ -25,7 +25,7 @@
 				<span <cfif current.c is 0> style="color:red;"</cfif>>#thisPath#/#name# (#type#)</span>
 			</td>
 			<td>
-				<a href="/Admin/form_roles.cfm?action=setRoles&filter=#name#">set permissions</a>
+				<a href="/Admin/form_roles.cfm?action=setRoles&filter=#thisPath#/#name#">set permissions</a>
 			</td>
 			<td>
 				<a href="#thisPath#/#name#">Visit Form</a>
