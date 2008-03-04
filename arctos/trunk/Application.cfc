@@ -182,14 +182,15 @@
 		<cfif not isdefined("client.roles")>
 			<cfset client.roles="public">
 			<!--- protect "us" directories --->
-			<cfif #currentPath# contains "Admin" or 
-				#currentPath# contains "ALA_Imaging" or
-				#currentPath# contains "Bulkloader" or
-				#currentPath# contains "fix" or
-				#currentPath# contains "picks" or
-				#currentPath# contains "ScheduledTasks" or
-				#currentPath# contains "tools">
-			<cflocation url="/info/forbidden.cfm" addtoken="false">
+			<cfif currentPath contains "Admin" or
+				currentPath contains "ALA_Imaging" or
+				currentPath contains "Bulkloader" or
+				currentPath contains "fix" or
+				currentPath contains "picks" or
+				currentPath contains "ScheduledTasks" or
+				currentPath contains "tools">
+				<cflocation url="/info/forbidden.cfm" addtoken="false">
+			</cfif>
 		</cfif>
 		<cfif not isdefined("client.showObservations")>
 			<cfset client.showObservations="">
