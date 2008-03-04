@@ -225,7 +225,7 @@
 			</cfif>
 		</cfif>
 		<!--- protect "us" directories --->
-		<cfif #client.roles is "public" and 
+		<cfif #client.roles# is "public" and 
 				(currentPath contains "/Admin/" or
 				currentPath contains "/ALA_Imaging/" or
 				currentPath contains "/Bulkloader/" or
