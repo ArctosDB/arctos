@@ -1,3 +1,5 @@
+<cfinclude template="/includes/_header.cfm">
+<cfinclude template="/includes/functionLib.cfm">
 <cfset title="Form Access">
 <script type='text/javascript' src='/ajax/core/engine.js'></script>
 <script type='text/javascript' src='/ajax/core/util.js'></script>
@@ -67,7 +69,7 @@ function success_setUserFormAccess (result) {
 	grant select on cf_form_permissions to public;
 	
 --->
-<cfinclude template="/includes/_header.cfm">
+
 Find a form using the filter below. Searches are case-sensitive. Only .cfm files are available.
 <form name="r" method="post" action="form_roles.cfm">
 	<input type="hidden" name="action" value="setRoles">
