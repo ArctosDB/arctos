@@ -11,7 +11,7 @@
 <table border>
 <cfloop query="q">
 	<cfif #name# is not ".svn" and #name# is not "CFIDE">
-	<cfset thisPath=replace(directory,"/users/mvzarctos/tomcat/webapps/cfusion","all")>
+	<cfset thisPath=replace(directory,"/users/mvzarctos/tomcat/webapps/cfusion","/","all")>
 		<cfif #type# is "dir">
 		</cfif>
 		<tr>
