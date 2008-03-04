@@ -216,7 +216,7 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 		</ul>
 	</li> 
 </ul>
-<cfif isdefined("client.roles") and len(#client.roles#) gt 0>
+<cfif client.roles is not "public">
 	<!--- see what forms this user gets access to --->
 	<cfset r = replace(client.roles,",","','","all")>
 	<cfset r = "'#r#'">
