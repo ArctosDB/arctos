@@ -88,14 +88,13 @@ Find a form using the filter below. Searches are case-sensitive. Only .cfm files
 		<cfset sPos=RFind("/",filter)>
 		<cfset path=left(filter,sPos)>
 		<cfset ff=mid(filter,sPos+1,len(filter)-sPos+1)>
-		--Path: #path# - ff: #ff#--
 	</cfif>
 	<cfdirectory action="LIST"
     	directory="#Application.webDirectory##path#"
         name="root"
 		recurse="yes"
 		filter="*#ff#*">
-	
+	Searching Path: #path#, Form: #ff#
 	<form name="r">
 	<table border>
 		<tr>
