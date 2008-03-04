@@ -21,8 +21,11 @@
 		select count(*) c from cf_form_permissions where form_path='#thisName#'
 	</cfquery>
 		<tr>
-			<td>#thisPath#</td>
-			<td><a href="/Admin/form_roles.cfm?action=setRoles&filter=#name#">#name#</a></td>
+			<td>
+				#thisPath#/#name#
+				<a href="/Admin/form_roles.cfm?action=setRoles&filter=#name#">set permissions</a>
+				<a href="#thisPath#/#name#">Visit Form</a>			
+			</td>
 			<td>#type#</td>
 			<td><cfif current.c is 0>---------NOT CONTROLLED----------</cfif></td>
 		</tr>

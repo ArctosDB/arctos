@@ -113,6 +113,7 @@
 	
 	<cfset client.roles = ''>
 	<cfset client.roles = valuelist(dbrole.role_name)>
+	<cfset client.roles=listappend(client.roles,"public")>
 <!--- redirect to personal home --->
 <cfinclude template="/includes/setPrefs.cfm">
 <!--- don't let them log in without a password change --->
