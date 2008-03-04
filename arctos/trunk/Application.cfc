@@ -165,6 +165,8 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="false">
+	<cfset here=GetDirectoryFromPath(GetTemplatePath())> 
+	<cfoutput>#here#</cfoutput>
 		<cfset Client.SpecimenDownloadFileName = "ArctosData_#cfid##cftoken#.txt">
 		<cfif not isdefined("client.target")>
 			<cfset client.target="_self">
