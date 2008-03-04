@@ -2,7 +2,7 @@
 <cfinclude template="/ajax/core/cfajax.cfm">
 
 
-<cffunction name="addAnnotation" returntype="string">
+<cffunction name="addAnnotation" returntype="string" access="private">
 <cfargument name="collection_object_id" type="numeric" required="yes">
 <cfargument name="scientific_name" type="string" required="yes">
 <cfargument name="higher_geography" type="string" required="yes">
