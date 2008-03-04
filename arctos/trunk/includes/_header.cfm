@@ -366,6 +366,7 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 <ul>
 	<li><h2>Reports</h2>
 		<ul>
+			<li><a target="_top" href="/info/annotate.cfm">Annotations</a></li>
 			<li><a target="_top" href="/Admin/download.cfm">Download Stats</a></li>
 			<li><a target="_top" href="/Admin/ActivityLog.cfm">SQL log</a></li>
 			<li><a target="_top" href="/Admin/cfUserLog.cfm">User access</a></li>
