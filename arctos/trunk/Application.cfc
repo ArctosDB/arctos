@@ -179,6 +179,9 @@
 		<cfif not isdefined("client.mapSize")>
 			<cfset client.mapSize="">
 		</cfif>
+		<cfif not isdefined("client.roles")>
+			<cfset client.roles="public">
+		</cfif>
 		<cfif not isdefined("client.showObservations")>
 			<cfset client.showObservations="">
 		</cfif>

@@ -22,22 +22,14 @@ select ROLE_NAME from cf_form_permissions
 	<hr>
 isValid.recordcount: #isValid.recordcount#;
 --->
-<cfif #isValid.recordcount# gt 0>
-	<!--- the form is access-controlled --->
-	<cfif not isdefined("client.roles")>
-		<!--- no need to check any more - access is controlled, and they don't have a controller --->
-		<cfset badYou = "yes">
-	<cfelse>
-		<!--- access is controlled and they have roles - see if they have the right role --->
-		<cfloop query="isValid">
-			<cfif #role_name# is not "public" and not listfindnocase(client.roles,role_name)>
-				<cfset badYou = "yes">
-			</cfif>
-		</cfloop>
-	</cfif>
+<cfif #isValid.recordcount# is 0>
+	This form is not controlled. Add it to Form Permissions or get ready to see it go bye-bye.
 <cfelse>
-	<!--- got nothing back from the query, forms must have at least public role to be accessed --->
-	this form is not controlled. Add it to Form Permissions or get ready to see it go bye-bye.
+	<cfloop query="isValid">
+		<cfif not listfindnocase(client.roles,role_name)>
+			<cfset badYou = "yes">
+		</cfif>
+	</cfloop>
 </cfif>
 <!--- if they are logged in, check their cookie to see if they've been idle for >90m (ie, with browser not running) ---->
 <cfif isdefined("cookie.username") and len(#client.username#) gt 0>
