@@ -83,7 +83,7 @@ Find a form using the filter below. Searches are case-sensitive. Only .cfm files
 		select distinct role_name from cf_ctuser_roles order by role_name
 	</cfquery>
 	<cfset path="">
-	<cfset ff="">
+	<cfset ff=filter>
 	<cfif find("/",filter)>
 		<cfset sPos=RFind("/",filter)>
 		<cfset path=left(filter,sPos)>
