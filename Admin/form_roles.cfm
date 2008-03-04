@@ -113,10 +113,7 @@ Find a form using the filter below. Searches are case-sensitive. Only .cfm files
 				#right(name,4)# is ".cfm" and
 				#thisName# does not contain "/CFIDE" and
 				#thisName# does not contain "/WEB-INF" and
-				#thisName# does not contain "/cfdocs" and
-				#thisName# does not contain "/CustomTags" and
-				#thisName# does not contain "/ajax" and
-				#thisName# does not contain "/includes">
+				#thisName# does not contain "/cfdocs">
 				
 				 <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 					<td style="font-size:small;">#thisName#</td>
