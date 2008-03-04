@@ -1,6 +1,6 @@
 <cfoutput>
 <cffunction name="d" returntype="Any">
-	<cfparam name="p" type="any">
+	<cfargument name="p" type="any">
 	<cfdirectory directory="#p#" action="list" name="dir" sort="name" recurse="true">
 	<cfreturn dir>
 </cffunction>
