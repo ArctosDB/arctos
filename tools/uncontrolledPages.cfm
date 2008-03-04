@@ -3,7 +3,7 @@
 	<cfargument name="p" type="string">
 	<cfargument name="n" type="string">
 	<cfdirectory directory="#application.webDirectory#/#p#" action="list" name="#n#" sort="name" recurse="false">
-	<cfreturn dir>
+	<cfreturn #n#>
 </cffunction>
 <cfinclude template="/includes/_header.cfm">
 
