@@ -1,5 +1,6 @@
-<cfheader statuscode="404" statustext="Page Missing">
+
 <cfinclude template="/includes/_header.cfm">
+<cfheader statuscode="404" statustext="Page Missing">
 <cfoutput>
 <table cellpadding="10">
 	<tr><td valign="top"><img src="/images/oops.gif"></td>
