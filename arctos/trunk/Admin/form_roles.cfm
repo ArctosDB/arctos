@@ -69,7 +69,6 @@ function success_setUserFormAccess (result) {
 --->
 <cfinclude template="/includes/_header.cfm">
 Find a form using the filter below. Searches are case-sensitive. Only .cfm files are available.
-Slashes are not allowed.
 <form name="r" method="post" action="form_roles.cfm">
 	<input type="hidden" name="action" value="setRoles">
 	Filter for form name contains: <input type="text" name="filter">
@@ -84,6 +83,12 @@ Slashes are not allowed.
 	<cfquery name="roles" datasource="#Application.web_user#">
 		select distinct role_name from cf_ctuser_roles order by role_name
 	</cfquery>
+	<cfif find("/",filter)>
+		<cfset sPos=find("/",filter)>
+		<cfset path=left(filter,sPos)>
+		<cfset ff=mid(filter,sPos,len(filter)-sPos)>
+		--Path: #path# - ff: #ff#--
+	</cfif>
 	<cfdirectory action="LIST"
     	directory="#Application.webDirectory#"
         name="root"
