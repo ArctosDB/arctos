@@ -10,12 +10,11 @@
 <cfset dl=d('/',"root")>
 <table border>
 <cfloop query="q">
-	<!---<cfif #directory# does not contain ".svn" and #name# is not ".svn"
+	<cfif #directory# does not contain ".svn" and #name# is not ".svn"
 		and #directory# does not contain "CFIDE" and #name# is not "CFIDE"
 		and #directory# does not contain "WEB-INF" and #name# is not "WEB-INF"
-		and #directory# does not contain "WEB-INF" and #name# is not "META-INF">
-		--->
-	<cfif #name# contains ".cfm">
+		and #directory# does not contain "WEB-INF" and #name# is not "META-INF" and
+		#name# contains ".cfm">
 	<cfset thisPath=replace(directory,"/users/mvzarctos/tomcat/webapps/cfusion","","all")>
 	<cfset thisName="#thisPath#/#name#">
 	<cfquery name="current" datasource="#Application.web_user#">
