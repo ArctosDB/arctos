@@ -2,14 +2,14 @@
 <cffunction name="d" returntype="query">
 	<cfargument name="p" type="string">
 	<cfargument name="n" type="string">
-	<cfdirectory directory="#application.webDirectory#/#p#" action="list" name="#n#" sort="name" recurse="false">
-	<cfreturn #n#>
+	<cfdirectory directory="#application.webDirectory#/#p#" action="list" name="q_#n#" sort="name" recurse="false">
+	<cfreturn q_#n#>
 </cffunction>
 <cfinclude template="/includes/_header.cfm">
 
 <cfset dl=d('/',"root")>
 <table border>
-<cfloop query="root">
+<cfloop query="q_root">
 <tr>
 	<td>#directory#</td>
 	<td>#name#</td>
