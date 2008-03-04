@@ -79,7 +79,7 @@ Slashes are not allowed.
 <cfif #action# is "setRoles">
 <cfoutput>
 	Check or uncheck boxs below to require roles for form access. A form may require any number of roles. 
-	No checks means the form is publicly available (although query logins may cause it to be inoperative).
+	No checks means the form is not available to any user and should be PERMANENTLY DELETED.
 	
 	<cfquery name="roles" datasource="#Application.web_user#">
 		select distinct role_name from cf_ctuser_roles order by role_name
