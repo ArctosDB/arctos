@@ -170,7 +170,7 @@
 		currentPath contains "/binary_stuff/" OR
 		currentPath contains "/includes/" OR
 		currentPath contains "/log/">
-		<cflocation url="/info/forbidden.cfm" addtoken="false">
+		<cflocation url="/errors/forbidden.cfm" addtoken="false">
 	</cfif>
 		<cfset Client.SpecimenDownloadFileName = "ArctosData_#cfid##cftoken#.txt">
 		<cfif not isdefined("client.target")>
@@ -233,7 +233,7 @@
 				currentPath contains "/picks/" or
 				currentPath contains "/ScheduledTasks/" or
 				currentPath contains "/tools/")>
-				<cflocation url="/info/forbidden.cfm" addtoken="false">
+				<cflocation url="/errors/forbidden.cfm" addtoken="false">
 			</cfif>
 	<cfreturn true>
 </cffunction>
