@@ -165,7 +165,7 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onMissingTemplate" returnType="boolean" output="false">
-<cfinclude template="/error/404.cfm">
+<cfinclude template="/errors/404.cfm">
 </cffunction>
 <cffunction name="onRequestStart" returnType="boolean" output="false">
 	<cfset currentPath=GetDirectoryFromPath(GetTemplatePath())> 
