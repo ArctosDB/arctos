@@ -2,7 +2,7 @@
 <cffunction name="d" returntype="query">
 	<cfargument name="p" type="string">
 	<cfargument name="n" type="string">
-	<cfdirectory directory="#application.webDirectory#/#p#" action="list" name="q" sort="name" recurse="false">
+	<cfdirectory directory="#application.webDirectory#/#p#" action="list" name="q" sort="name" recurse="true">
 	<cfreturn q>
 </cffunction>
 <cfinclude template="/includes/_header.cfm">
@@ -12,9 +12,6 @@
 <cfloop query="q">
 	<cfif #name# is not ".svn" and #name# is not "CFIDE">
 	<cfset thisPath=replace(directory,"/users/mvzarctos/tomcat/webapps/cfusion","","all")>
-		<cfif #type# is "dir">
-			<cfset dl=d('#thisPath#/#name#',"root")>
-		</cfif>
 		<tr>
 			<td>#thisPath#</td>
 			<td>#name#</td>
