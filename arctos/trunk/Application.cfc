@@ -164,6 +164,9 @@
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
+<cffunction name="onMissingTemplate" returnType="boolean" output="false">
+<cfinclude template="/error/404.cfm">
+</cffunction>
 <cffunction name="onRequestStart" returnType="boolean" output="false">
 	<cfset currentPath=GetDirectoryFromPath(GetTemplatePath())> 
 	<cfif currentPath contains "/CustomTags/" OR
