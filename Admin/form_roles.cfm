@@ -1,9 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/includes/functionLib.cfm">
 <cfset title="Form Access">
-<script type='text/javascript' src='/ajax/core/engine.js'></script>
-<script type='text/javascript' src='/ajax/core/util.js'></script>
-<script type='text/javascript' src='/ajax/core/settings.js'></script>
 <script>
 	function setUserFormAccess (id) {
 		var cid = "cell_" + id;
@@ -85,17 +82,19 @@ Find a form using the filter below. Searches are case-sensitive. Only .cfm files
 	<cfquery name="roles" datasource="#Application.web_user#">
 		select distinct role_name from cf_ctuser_roles order by role_name
 	</cfquery>
+	<cfset path="">
+	<cfset ff="">
 	<cfif find("/",filter)>
 		<cfset sPos=RFind("/",filter)>
 		<cfset path=left(filter,sPos)>
-		<cfset ff=mid(filter,sPos,len(filter)-sPos)>
+		<cfset ff=mid(filter,sPos+1,len(filter)-sPos+1)>
 		--Path: #path# - ff: #ff#--
 	</cfif>
 	<cfdirectory action="LIST"
-    	directory="#Application.webDirectory#"
+    	directory="#Application.webDirectory##path#"
         name="root"
 		recurse="yes"
-		filter="*#filter#*">
+		filter="*#ff#*">
 	
 	<form name="r">
 	<table border>
