@@ -10,7 +10,7 @@
 <cfset dl=d('/',"root")>
 <table border>
 <cfloop query="q">
-	<cfif #name# is not ".svn" and #name# is not "CFIDE">
+	<cfif #directory# does not contain ".svn" and #name# is not "CFIDE" and #name# is not "WEB-INF">
 	<cfset thisPath=replace(directory,"/users/mvzarctos/tomcat/webapps/cfusion","","all")>
 		<tr>
 			<td>#thisPath#</td>
