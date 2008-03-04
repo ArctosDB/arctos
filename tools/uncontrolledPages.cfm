@@ -22,12 +22,14 @@
 	</cfquery>
 		<tr>
 			<td>
-				#thisPath#/#name#
-				<a href="/Admin/form_roles.cfm?action=setRoles&filter=#name#">set permissions</a>
-				<a href="#thisPath#/#name#">Visit Form</a>			
+				<span <cfif current.c is 0> style="color:red;">#thisPath#/#name# (#type#)</span>
 			</td>
-			<td>#type#</td>
-			<td><cfif current.c is 0>---------NOT CONTROLLED----------</cfif></td>
+			<td>
+				<a href="/Admin/form_roles.cfm?action=setRoles&filter=#name#">set permissions</a>
+			</td>
+			<td>
+				<a href="#thisPath#/#name#">Visit Form</a>
+			</td>
 		</tr>
 </cfif>
 </cfloop>
