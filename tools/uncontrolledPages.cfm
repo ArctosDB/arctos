@@ -1,7 +1,7 @@
 <cfoutput>
-<cffunction name="d" returntype="Any">
-	<cfargument name="p" type="any">
-	<cfdirectory directory="#p#" action="list" name="dir" sort="name" recurse="true">
+<cffunction name="d" returntype="query">
+	<cfargument name="p" type="string">
+	<cfdirectory directory="#application.webDirectory#/#p#" action="list" name="dir" sort="name" recurse="true">
 	<cfreturn dir>
 </cffunction>
 <cfinclude template="/includes/_header.cfm">
