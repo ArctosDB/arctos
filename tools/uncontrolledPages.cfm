@@ -15,10 +15,15 @@
 		and #directory# does not contain "WEB-INF" and #name# is not "WEB-INF"
 		and #directory# does not contain "WEB-INF" and #name# is not "META-INF">
 	<cfset thisPath=replace(directory,"/users/mvzarctos/tomcat/webapps/cfusion","","all")>
+	<cfset thisName="#thisPath#/#name#">
+	<cfquery name="current" datasource="#Application.web_user#">
+		select count(*) c from cf_form_permissions where form_path='#thisName#'
+	</cfquery>
 		<tr>
 			<td>#thisPath#</td>
 			<td>#name#</td>
 			<td>#type#</td>
+			<td><cfif current.c is 0>---------NOT CONTROLLED----------</cfif></td>
 		</tr>
 </cfif>
 </cfloop>
