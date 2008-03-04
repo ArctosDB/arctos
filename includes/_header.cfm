@@ -334,6 +334,7 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 				<li><a target="_top" href="##" class="x">Arctos</a>
 					<ul>
 						<li><a target="_top" href="/Admin/form_roles.cfm">Form Permissions</a></li>
+						<li><a target="_top" href="/tools/uncontrolledPages.cfm">See Form Permissions</a></li>
 						<li><a target="_top" href="/AdminUsers.cfm">Arctos Users</a></li>
 						<li><a target="_top" href="/Admin/user_roles.cfm">Database Roles</a></li>
 						<li><a target="_top" href="/Admin/user_report.cfm">All User Stats</a></li>
