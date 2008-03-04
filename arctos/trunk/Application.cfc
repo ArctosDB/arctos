@@ -167,7 +167,6 @@
 <cffunction name="onRequestStart" returnType="boolean" output="false">
 	<cfset currentPath=GetDirectoryFromPath(GetTemplatePath())> 
 	<cfif currentPath contains "/CustomTags/" OR
-		currentPath contains "/ajax/" OR
 		currentPath contains "/binary_stuff/" OR
 		currentPath contains "/includes/" OR
 		currentPath contains "/log/">
