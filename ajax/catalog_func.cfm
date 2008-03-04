@@ -12,9 +12,7 @@
 	</cftry>
 	----------------------->
 <!------------------------------------->
-upDispn
-
-<cffunction name="upDispn" returntype="string">
+<cffunction name="upDispn" returntype="string" access="public">
 <cfargument name="collection_object_id" type="numeric" required="yes">
 <cfargument name="disposition" type="string" required="yes">
 
@@ -35,7 +33,7 @@ upDispn
 		<cfreturn result>
 </cffunction>
 <!-------------------------------------------------------------------------->
-<cffunction name="upRemarks" returntype="string">
+<cffunction name="upRemarks" returntype="string" access="public">
 <cfargument name="collection_object_id" type="numeric" required="yes">
 <cfargument name="remark" type="string" required="yes">
 <cfset remark = replace(remark,"##","####","all")>
@@ -69,7 +67,7 @@ upDispn
 		<cfreturn result>
 </cffunction>
 <!-------------------------------------------------------------------------->
-<cffunction name="saveNewAtt" returntype="string">
+<cffunction name="saveNewAtt" returntype="string" access="public">
 <cfargument name="collection_object_id" type="numeric" required="yes">
 
 <cfargument name="attribute_type" type="string" required="yes">
@@ -143,7 +141,7 @@ upDispn
 </cffunction>
 <!-------------------------------------------------------------------------->
 
-<cffunction name="saveNewId" returntype="string">
+<cffunction name="saveNewId" returntype="string" access="public">
 <cfargument name="collection_object_id" type="numeric" required="yes">
 <cfargument name="taxon_id" type="numeric" required="yes">
 <cfargument name="identifier_id" type="numeric" required="yes">
@@ -221,7 +219,7 @@ upDispn
 		<cfreturn result>
 </cffunction>
 <!-------------------------------------------------------------------------->
-<cffunction name="newpart" returntype="string">
+<cffunction name="newpart" returntype="string" access="public">
 
 <cfargument name="collection_object_id" type="numeric" required="yes">
 
@@ -355,7 +353,7 @@ upDispn
 		<cfreturn result>
 </cffunction>
 <!-------------------------------------------------------------------------->
-<cffunction name="delPart" returntype="string">
+<cffunction name="delPart" returntype="string" access="public">
 <cfargument name="partID" type="numeric" required="yes">
 <cfargument name="i" type="numeric" required="yes">
 <cfset result = "#i#">
@@ -397,7 +395,7 @@ upDispn
 		<cfreturn result>
 </cffunction>
 <!-------------------------------------------------------------------------->
-<cffunction name="upPartLabel" returntype="string">
+<cffunction name="upPartLabel" returntype="string" access="public">
 <cfargument name="partID" type="numeric" required="yes">
 <cfargument name="i" type="numeric" required="yes">
 <cfargument name="barcode" type="string" required="yes">
