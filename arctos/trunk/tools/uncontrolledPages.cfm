@@ -22,7 +22,7 @@
 	</cfquery>
 		<tr>
 			<td>#thisPath#</td>
-			<td>#name#</td>
+			<td><a href="/Admin/form_roles.cfm?action=setRoles&filter=#name#">#name#</a></td>
 			<td>#type#</td>
 			<td><cfif current.c is 0>---------NOT CONTROLLED----------</cfif></td>
 		</tr>
