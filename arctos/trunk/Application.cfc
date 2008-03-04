@@ -164,9 +164,11 @@
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
-<cffunction name="onRequestStart" returnType="boolean" output="true">
-	<cfset here=GetDirectoryFromPath(GetTemplatePath())> 
-	<cfoutput>::#here#""</cfoutput>
+<cffunction name="onRequestStart" returnType="boolean" output="false">
+	<cfset currentPath=GetDirectoryFromPath(GetTemplatePath())> 
+	<cfif currentPath contains "CustomTags">
+		<cflocation url="/info/forbidden.cfm" addtoken="false">
+	</cfif>
 		<cfset Client.SpecimenDownloadFileName = "ArctosData_#cfid##cftoken#.txt">
 		<cfif not isdefined("client.target")>
 			<cfset client.target="_self">
