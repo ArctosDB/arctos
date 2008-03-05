@@ -86,7 +86,9 @@
 	</cfif>
 <cfoutput>
 
-
+<cfpdfform source="#application.webDirectory#/Reports/templates/template_alaLabel.pdf" result="resultStruct" action="read"/>
+<cfdump var="#resultStruct#">
+<!---
  <cfloop query="data">
  	
 	<cfset coordinates = "">
@@ -114,13 +116,14 @@
 	</cftry>
 <cfdocument format="pdf">
 	<cfdocumentsection >hi</cfdocumentsection>
-	<cfpdfform action="populate" source="#application.webDirectory#/Reports/templates/template_alaLabel.pdf">
+	<cfpdfform action="populate" source="">
         <cfpdfsubform name="form1">
             <cfpdfformparam name="family" value="#family#">
         </cfpdfsubform>
     </cfpdfform>
 </cfdocument>
 </cfloop>
+--->
 <!---
 				<table cellpadding="0" cellspacing="0" width="100%" class="pad10" border="0">
 					<tr>
