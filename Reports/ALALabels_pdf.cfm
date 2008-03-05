@@ -76,14 +76,15 @@
 
 <!---- 
 	Last label is mussed if there are an odd number of labels
-	--->
-	
 	<cfif  #data.recordcount# mod 2 neq 0>
 		<!--- pad on a garbage record --->
 		<cfset temp = queryaddrow(data,1)>
 		<cfset temp = querysetcell(data,'family','blank filler')>
 		
 	</cfif>
+	--->
+	
+	
 <cfoutput>
 <!---
 <cfpdfform source="#application.webDirectory#/Reports/templates/template_alaLabel.pdf" result="resultStruct" action="read"/>
@@ -114,11 +115,11 @@
 			<cfset thisDate = #verbatim_date#>
 		</cfcatch>
 	</cftry>
-	<cfset geog="#ucase(state_prov)#,&nbsp;">
+	<cfset geog="#ucase(state_prov)#, ">
 	<cfif #country# is "United States">
-		<cfset geog="#geog#,&nbsp;USA">
+		<cfset geog="#geog#, USA">
 	<cfelse>
-		<cfset geog="#geog#,&nbsp;#ucase(country)#">
+		<cfset geog="#geog#, #ucase(country)#">
 	</cfif>
 	<cfset locality="">
 	<cfif len(#locality#) gt 0>
@@ -131,7 +132,7 @@
 	 	<cfset locality = "#locality#, #coordinates#">
 	 </cfif>
 	  <cfif len(#ORIG_ELEV_UNITS#) gt 0>
-	 	<cfset locality = "#locality#. Elev.&nbsp;#MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION#&nbsp;#ORIG_ELEV_UNITS#">
+	 	<cfset locality = "#locality#. Elev. #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#">
 	 </cfif>
 	 <cfif len(#habitat#) gt 0>
 	 	<cfset locality = "#locality#, #habitat#">
@@ -140,10 +141,10 @@
 	 	<cfset locality = "#locality#, #associated_species#">
 	 </cfif>
 	 <cfif right(locality,1) is not "."><cfset locality = "#locality#."></cfif>
-	 <cfset collector="#collectors#&nbsp;#fieldnum#">
+	 <cfset collector="#collectors# #fieldnum#">
 		<cfset determiner="">
 		<cfif #collectors# neq #identified_by# AND #identified_by# is not "unknown">
-			<cfset determiner="Det:&nbsp;#identified_by#&nbsp;on&nbsp;#dateformat(made_date,"dd mmm yyyy")#">
+			<cfset determiner="Det: #identified_by# on #dateformat(made_date,"dd mmm yyyy")#">
 		</cfif>
 		<cfset project="#project_name#">
 		
