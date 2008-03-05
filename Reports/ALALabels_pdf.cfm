@@ -115,7 +115,6 @@
 		</cfcatch>
 	</cftry>
 <cfdocument format="pdf">
-	<cfdocumentsection >hi</cfdocumentsection>
 	<cfpdfform action="populate" source="#application.webDirectory#/Reports/templates/template_alaLabel.pdf">
     <cfpdfformparam name="family" value="#family#">
 </cfpdfform>
