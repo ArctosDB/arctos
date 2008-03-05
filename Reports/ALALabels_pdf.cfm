@@ -154,7 +154,7 @@
 			</cfif>
 			<cfset project="#project#NPS: #npsa# #npsc#">
 		</cfif>
-		<cfset alaac="Herbarium, University of Alaska Museum (ALA) accession #alaac#">			
+		<cfset alaacString="Herbarium, University of Alaska Museum (ALA) accession #alaac#">			
 	<cfpdfform action="populate" 
 		destination="#application.webDirectory#/Reports/templates/temp.pdf"
 		source="#application.webDirectory#/Reports/templates/template_alaLabel.pdf"
@@ -168,7 +168,7 @@
 			<cfpdfformparam name="colldate" value="#thisDate#">
 			<cfpdfformparam name="determiner" value="#determiner#">
 			<cfpdfformparam name="project" value="#project#">
-			<cfpdfformparam name="alaac" value="#alaac#">
+			<cfpdfformparam name="alaac" value="#alaacString#">
 	</cfpdfform>
 
 </cfloop>
