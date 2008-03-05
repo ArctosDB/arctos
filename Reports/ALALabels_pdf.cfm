@@ -114,111 +114,73 @@
 			<cfset thisDate = #verbatim_date#>
 		</cfcatch>
 	</cftry>
-
-
+	<cfset geog="#ucase(state_prov)#,&nbsp;">
+	<cfif #country# is "United States">
+		<cfset geog="#geog#,&nbsp;USA">
+	<cfelse>
+		<cfset geog="#geog#,&nbsp;#ucase(country)#">
+	</cfif>
+	<cfset locality="">
+	<cfif len(#locality#) gt 0>
+		<cfset locality = "#quad# Quad.:">
+	</cfif>
+	<cfif len(#spec_locality#) gt 0>
+		<cfset locality = "#locality# #spec_locality#">
+	</cfif>
+	<cfif len(#coordinates#) gt 0>
+	 	<cfset locality = "#locality#, #coordinates#">
+	 </cfif>
+	  <cfif len(#ORIG_ELEV_UNITS#) gt 0>
+	 	<cfset locality = "#locality#. Elev.&nbsp;#MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION#&nbsp;#ORIG_ELEV_UNITS#">
+	 </cfif>
+	 <cfif len(#habitat#) gt 0>
+	 	<cfset locality = "#locality#, #habitat#">
+	 </cfif>
+	 <cfif len(#associated_species#) gt 0>
+	 	<cfset locality = "#locality#, #associated_species#">
+	 </cfif>
+	 <cfif right(locality,1) is not "."><cfset locality = "#locality#."></cfif>
+	 <cfset collector="#collectors#&nbsp;#fieldnum#">
+		<cfif #collectors# neq #identified_by# AND #identified_by# is not "unknown">
+			<cfset determiner="Det:&nbsp;#identified_by#&nbsp;on&nbsp;#dateformat(made_date,"dd mmm yyyy")#">
+		</cfif>
+		<cfset project="#project_name#">
+		
+		<cfif len(#npsa#) gt 0 or len(#npsc#) gt 0>
+			<cfif len(#project#) gt 0>
+				<cfset project="#project#<br/>">
+			</cfif>
+			<cfset project="#project#NPS: #npsa# #npsc#">
+		</cfif>
+		<cfset alaac="Herbarium, University of Alaska Museum (ALA) accession #alaac#">			
 	<cfpdfform action="populate" 
 		destination="#application.webDirectory#/Reports/templates/temp.pdf"
-		source="#application.webDirectory#/Reports/templates/template_alaLabel.pdf">
-    <cfpdfformparam name="family" value="#family#">
-</cfpdfform>
+		source="#application.webDirectory#/Reports/templates/template_alaLabel.pdf"
+		overwrite="true">
+    		<cfpdfformparam name="family" value="#family#">
+			<cfpdfformparam name="geog" value="#geog#">
+			<cfpdfformparam name="identification" value="#sci_name_with_auth#">
+			<cfpdfformparam name="identification_remarks" value="#identification_remarks#">
+			<cfpdfformparam name="locality" value="#locality#">
+			<cfpdfformparam name="collector" value="#collector#">
+			<cfpdfformparam name="colldate" value="#thisDate#">
+			<cfpdfformparam name="determiner" value="#determiner#">
+			<cfpdfformparam name="project" value="#project#">
+			<cfpdfformparam name="alaac" value="#alaac#">
+	</cfpdfform>
 
 </cfloop>
 
 <!---
-				<table cellpadding="0" cellspacing="0" width="100%" class="pad10" border="0">
-					<tr>
-						<td colspan="1" class="times14b">#family#</td>
-						<td class="times14b" colspan="1" align="right">
-							#ucase(state_prov)#,&nbsp;<cfif #country# is "United States">USA<cfelse>#ucase(country)#</cfif>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">&nbsp;</td>
-					</tr>
-					<tr>
-					<!---
-						<cfset sn = #replace(sci_name_with_auth," ","-space-","all")#>
-						<cfset sn = #replace(sci_name_with_auth,"&nbsp;","-nobreakspace-","all")#>
-						<CFSET sn = REReplaceNoCase(sci_name_with_auth, "[^a-z]", ":dammit:" , "All")> 
-						<cfset sn = #replace(sn,"/",":slashie:","all")#>
-						
-						<cfset sn = #replace(sn,">",":closebracket:","all")#>
-						<cfset sn = #replace(sn,"<",":openbracket:","all")#>
-						
-						#replace(tsname," ","&nbsp;","all")#
-						--->
-						<cfset sn=sci_name_with_auth>
-						
-						
-						<td colspan="2" class="times15b">
-							#sci_name_with_auth#
-						<!---
-							<table border="1" width="100%">
-								<tr>
-									<td>askjfbgaskjlbdh lkjasbdakjshdf lkjasdfajkhsd lalksdjhaks liuasb</td>
-									<td>/lkdj kljfls dlkj kjsdfg lkj ajkhgsd lghjkdf kjahsd lkjh sadflkj</td>
-								</tr>
-							</table>
-							---->
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" class="times12 height20">
-						#identification_remarks#&nbsp;</td>
-					</tr>
-					<tr>
-						<cfset geog="">
-						<cfif len(#quad#) gt 0>
-							<cfset geog = "#quad# Quad.:">
-						</cfif>
-						<cfif len(#spec_locality#) gt 0>
-							<cfset geog = "#geog# #spec_locality#">
-						</cfif>
-						<cfif len(#coordinates#) gt 0>
-						 	<cfset geog = "#geog#, #coordinates#">
-						 </cfif>
-						  <cfif len(#ORIG_ELEV_UNITS#) gt 0>
-						 	<cfset geog = "#geog#. Elev.&nbsp;#MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION#&nbsp;#ORIG_ELEV_UNITS#">
-						 </cfif>
-						 <cfif len(#habitat#) gt 0>
-						 	<cfset geog = "#geog#, #habitat#">
-						 </cfif>
-						 <cfif len(#associated_species#) gt 0>
-						 	<cfset geog = "#geog#, #associated_species#">
-						 </cfif>
-						 <cfif right(geog,1) is not "."><cfset geog = "#geog#."></cfif>
-						<td colspan="2" class="times12 height100">
-							#geog#
-						</td>
-					</tr>
 				
-					<tr>
-						<td class="times12">#collectors# #fieldnum#</td>
-						<td class="times12" align="right">
-						#thisDate#
-						</td>
-					</tr>
-					<tr>
-						<td class="times12" colspan="2"><cfif #collectors# neq #identified_by# AND #identified_by# is not "unknown">
-								Det: #identified_by# on #dateformat(made_date,"dd mmm yyyy")#
-							</cfif>&nbsp;
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" align="middle" class="times12">
-							#project_name#&nbsp;
-						</td>
-					</tr>
-					<tr>
+					
 						<td colspan="2"  align="middle" class="times12">
-							<cfif len(#npsa#) gt 0 or len(#npsc#) gt 0>
-								NPS: #npsa# #npsc#&nbsp;
-							</cfif>
+							
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2" align="middle" class="times12b">
-							Herbarium, University of Alaska Museum (ALA) accession #alaac#
+							
 						</td>
 					</tr>
 					
