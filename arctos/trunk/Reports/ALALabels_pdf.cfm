@@ -119,6 +119,7 @@
         </cfpdfsubform>
     </cfpdfform>
 </cfdocument>
+</cfloop>
 <!---
 				<table cellpadding="0" cellspacing="0" width="100%" class="pad10" border="0">
 					<tr>
