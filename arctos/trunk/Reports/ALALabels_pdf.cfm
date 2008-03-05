@@ -114,11 +114,14 @@
 			<cfset thisDate = #verbatim_date#>
 		</cfcatch>
 	</cftry>
-<cfdocument format="pdf">
-	<cfpdfform action="populate" source="#application.webDirectory#/Reports/templates/template_alaLabel.pdf">
+
+
+	<cfpdfform action="populate" 
+		destination="#application.webDirectory#/Reports/templates/temp.pdf"
+		source="#application.webDirectory#/Reports/templates/template_alaLabel.pdf">
     <cfpdfformparam name="family" value="#family#">
 </cfpdfform>
-</cfdocument>
+
 </cfloop>
 
 <!---
