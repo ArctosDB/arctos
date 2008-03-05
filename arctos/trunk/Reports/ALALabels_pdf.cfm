@@ -170,7 +170,7 @@
 			<cfpdfformparam name="project" value="#project#">
 			<cfpdfformparam name="alaac" value="#alaacString#">
 	</cfpdfform>
-
+<a href="#application.serverRootUrl#/Reports/templates/temp.pdf">pdf</a>
 </cfloop>
 
 <!---
