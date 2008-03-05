@@ -141,6 +141,7 @@
 	 </cfif>
 	 <cfif right(locality,1) is not "."><cfset locality = "#locality#."></cfif>
 	 <cfset collector="#collectors#&nbsp;#fieldnum#">
+		<cfset determiner="">
 		<cfif #collectors# neq #identified_by# AND #identified_by# is not "unknown">
 			<cfset determiner="Det:&nbsp;#identified_by#&nbsp;on&nbsp;#dateformat(made_date,"dd mmm yyyy")#">
 		</cfif>
