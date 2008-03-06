@@ -292,7 +292,7 @@ Change to: <select name="format">
 <cfset curPage = 1>
 <cfset curRecord = 1>
 <!--- Formatting parameters --->
-<cfset labelWidth = 'width: 365px;'>
+<cfset labelWidth = 'width: 368px;'>
 <cfset labelBorder = 'border: 1px solid black;'>
 <cfif format is "Bird/Mammal">
 	<cfset textClass = "times10">
@@ -377,7 +377,7 @@ update -- seems to work now, I have no idea what fixed it... --->
 		</td>
 		<td>
 		<!--- mmm is Aug, while mmmm is August (diff formats)--->
-			<span class="#textClass#">#dateformat(trans_date,dateStyle)#</span>	
+			<div class="#textClass#">#dateformat(trans_date,dateStyle)#</div>	
 		</td>
 		<td>
 			<span class="#textClass#">#agent_name#</span>	
