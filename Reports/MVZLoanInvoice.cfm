@@ -373,7 +373,7 @@ update -- seems to work now, I have no idea what fixed it... --->
 		</td>
 		<td>
 		<!--- mmm is Aug, while mmmm is August (diff formats)--->
-			<span class="#textClass#">#dateformat(trans_date,"dd mmm yyyy")#</span>	
+			<span class="#textClass#">#dateformat(trans_date,"dd mmm<br>yyyy")#</span>	
 		</td>
 		<td>
 			<span class="#textClass#">#agent_name#</span>	
