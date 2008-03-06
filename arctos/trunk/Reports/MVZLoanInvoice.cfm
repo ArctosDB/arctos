@@ -370,14 +370,14 @@ update -- seems to work now, I have no idea what fixed it... --->
 			<span class="#textClass#">#cat_num#</span>
 		</td>
 		<td>
-			<span class="#textClass#"><i>#replace(scientific_name," ","&nbsp;","all")#</i></span>	
+			<span class="#textClass# width: 100px"><i>#replace(scientific_name," ","&nbsp;","all")#</i></span>	
 		</td>
 		<td>
 			<span class="#textClass#">Loan&nbsp;##&nbsp;#getItems.loan_number#</span>
 		</td>
 		<td>
 		<!--- mmm is Aug, while mmmm is August (diff formats)--->
-			<div class="#textClass# width: 50px">#dateformat(trans_date,dateStyle)#</div>	
+			<div class="#textClass#">#dateformat(trans_date,dateStyle)#</div>	
 		</td>
 		<td>
 			<span class="#textClass#">#agent_name#</span>	
