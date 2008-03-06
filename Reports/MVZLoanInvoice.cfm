@@ -292,17 +292,17 @@ Change to: <select name="format">
 <cfset curPage = 1>
 <cfset curRecord = 1>
 <!--- Formatting parameters --->
-<cfset labelWidth = 'width: 370px;'>
+<cfset labelWidth = 'width: 365px;'>
 <cfset labelBorder = 'border: 1px solid black;'>
 <cfif format is "Bird/Mammal">
 	<cfset textClass = "times10">
 	<cfset dateStyle = "dd mmm<br>yyyy">
-	<cfset labelStyle = 'height: 30px; #labelWidth# #labelBorder#'>
+	<cfset labelStyle = 'height: 32px; #labelWidth# #labelBorder#'>
 </cfif>
 <cfif format is "Herp">
 	<cfset textClass = "times8">
 	<cfset dateStyle = "dd mmm yyyy">
-	<cfset labelStyle = 'height: 15px; #labelWidth# #labelBorder#'>
+	<cfset labelStyle = 'height: 17px; #labelWidth# #labelBorder#'>
 </cfif>
 <cfset outerTableParams = 'width="100%" cellspacing="0" cellpadding="0" border="0"'>
 <cfset innerTableParams = 'width="100%" cellspacing="0" cellpadding="0" border="0"'>
