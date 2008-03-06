@@ -298,11 +298,13 @@ Change to: <select name="format">
 	<cfset textClass = "times10">
 	<cfset dateStyle = "dd mmm<br>yyyy">
 	<cfset labelStyle = 'height: 32px; #labelWidth# #labelBorder#'>
+	<cfset dateWidth = "width: 40px;">
 </cfif>
 <cfif format is "Herp">
 	<cfset textClass = "times8">
 	<cfset dateStyle = "dd mmm yyyy">
 	<cfset labelStyle = 'height: 17px; #labelWidth# #labelBorder#'>
+	<cfset dateWidth = "width: 50px;">
 </cfif>
 <cfset outerTableParams = 'width="100%" cellspacing="0" cellpadding="0" border="0"'>
 <cfset innerTableParams = 'width="100%" cellspacing="0" cellpadding="0" border="0"'>
@@ -377,7 +379,7 @@ update -- seems to work now, I have no idea what fixed it... --->
 		</td>
 		<td>
 		<!--- mmm is Aug, while mmmm is August (diff formats)--->
-			<div class="#textClass#" style="width: 50px;">#dateformat(trans_date,dateStyle)#</div>	
+			<div class="#textClass#" style="#dateWidth#">#dateformat(trans_date,dateStyle)#</div>	
 		</td>
 		<td>
 			<span class="#textClass#">#agent_name#</span>	
