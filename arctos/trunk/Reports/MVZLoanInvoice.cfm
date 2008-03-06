@@ -300,7 +300,7 @@ Change to: <select name="format">
 	<cfset labelStyle = 'height: 32px; #labelWidth# #labelBorder#'>
 	<!--- This width is smaller because this date occupies two lines--->
 	<cfset dateWidth = "width: 40px;">
-	<cfset sciNameWidth = "width: 100px;">
+	<cfset sciNameStyle = "width: 100px; borders: 1px solid white;">
 </cfif>
 <cfif format is "Herp">
 	<cfset textClass = "times8">
@@ -308,7 +308,7 @@ Change to: <select name="format">
 	<cfset labelStyle = 'height: 17px; #labelWidth# #labelBorder#'>
 	<!--- This width is larger because this date occupies one line--->
 	<cfset dateWidth = "width: 50px;">
-	<cfset sciNameWidth = "width: 80px;">
+	<cfset sciNameStyle = "width: 80px; borders: 1px solid white;">
 </cfif>
 <cfset outerTableParams = 'width="100%" cellspacing="0" cellpadding="0" border="0"'>
 <cfset innerTableParams = 'width="100%" cellspacing="0" cellpadding="0" border="0"'>
@@ -376,7 +376,7 @@ update -- seems to work now, I have no idea what fixed it... --->
 			<span class="#textClass#">#cat_num#</span>
 		</td>
 		<td>
-			<span class="#textClass#" style='#sciNameWidth#'><i>#replace(scientific_name," ","&nbsp;","all")#</i></span>	
+			<span class="#textClass#" style='#sciNameStyle#'><i>#replace(scientific_name," ","&nbsp;","all")#</i></span>	
 		</td>
 		<td>
 			<span class="#textClass#">Loan&nbsp;##&nbsp;#getItems.loan_number#</span>
