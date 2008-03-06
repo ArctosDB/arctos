@@ -370,7 +370,7 @@ update -- seems to work now, I have no idea what fixed it... --->
 			<span class="#textClass#">#cat_num#</span>
 		</td>
 		<td>
-			<span class="#textClass# width: 100px"><i>#replace(scientific_name," ","&nbsp;","all")#</i></span>	
+			<span class="#textClass#"><i>#replace(scientific_name," ","&nbsp;","all")#</i></span>	
 		</td>
 		<td>
 			<span class="#textClass#">Loan&nbsp;##&nbsp;#getItems.loan_number#</span>
@@ -380,7 +380,7 @@ update -- seems to work now, I have no idea what fixed it... --->
 			<div class="#textClass#">#dateformat(trans_date,dateStyle)#</div>	
 		</td>
 		<td>
-			<span class="#textClass#">#agent_name#</span>	
+			<span class="#textClass#" style="width: 100px">#agent_name#</span>	
 		</td>
 	</tr></table>
 	</div>
