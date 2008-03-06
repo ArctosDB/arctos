@@ -377,10 +377,10 @@ update -- seems to work now, I have no idea what fixed it... --->
 		</td>
 		<td>
 		<!--- mmm is Aug, while mmmm is August (diff formats)--->
-			<div class="#textClass#">#dateformat(trans_date,dateStyle)#</div>	
+			<div class="#textClass#" style="width: 50px;">#dateformat(trans_date,dateStyle)#</div>	
 		</td>
 		<td>
-			<span class="#textClass#" style="width: 100px">#agent_name#</span>	
+			<span class="#textClass#">#agent_name#</span>	
 		</td>
 	</tr></table>
 	</div>
