@@ -279,7 +279,7 @@ Change to: <select name="format">
 </cfquery>
 
 <!--- Set up the necessary variables --->
-<!--- Basic parameters --->
+<!--- Layout parameters --->
 <cfset maxCol = 2>
 <cfif format is "Bird/Mammal">
 	<cfset maxRow = 15>
@@ -296,13 +296,16 @@ Change to: <select name="format">
 <cfset rowSpan = 5>
 <cfif format is "Bird/Mammal">
 	<cfset textClass = "times10">
+	<cfset dateStyle = "dd mmm<br>yyyy">
+	<cfset tableStyle = 'height="50px" width="400px"'>
 </cfif>
 <cfif format is "Herp">
 	<cfset textClass = "times8">
+	<cfset dateStyle = "dd mmm yyyy">
+	<cfset tableStyle = 'height="25px" width="400px"'>
 </cfif>
 <cfset outerTableParams = 'width="100%" cellspacing="0" cellpadding="0" border="0"'>
 <cfset innerTableParams = 'width="100%" cellspacing="0" cellpadding="0" border="1"'>
-
 
 <cfset pageHeader='
 <div style="position:static; top:0; left:0; width:100%;">
@@ -361,6 +364,7 @@ update -- seems to work now, I have no idea what fixed it... --->
 	<tr><td>
 	<!--- here is where I could insert a div tag so that I could limit the space
 	allotted per item, but make sure that the div tag size is a function or which format is chosen--->
+	<div style="#labelStyle#">
 	<table><tr>
 		<td>
 			<span class="#textClass#">#cat_num#</span>
@@ -373,12 +377,14 @@ update -- seems to work now, I have no idea what fixed it... --->
 		</td>
 		<td>
 		<!--- mmm is Aug, while mmmm is August (diff formats)--->
-			<span class="#textClass#">#dateformat(trans_date,"dd mmm<br>yyyy")#</span>	
+			<span class="#textClass#">#dateformat(trans_date,dateStyle)#</span>	
 		</td>
 		<td>
 			<span class="#textClass#">#agent_name#</span>	
 		</td>
-	</tr></table></td></tr>
+	</tr></table>
+	</div>
+	</td></tr>
 	<!--- End Column? Do it after every #maxRow# labels --->
 	<cfif curRecord mod maxRow is 0>
 		</table></td>
