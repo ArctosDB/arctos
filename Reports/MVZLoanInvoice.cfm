@@ -296,7 +296,7 @@ Change to: <select name="format">
 <cfif format is "Bird/Mammal">
 	<cfset textClass = "times10">
 	<cfset dateStyle = "dd mmm<br>yyyy">
-	<cfset labelStyle = 'height: 50px; width=: #labelWidth#px;'>
+	<cfset labelStyle = 'height: 30px; width=: #labelWidth#px;'>
 </cfif>
 <cfif format is "Herp">
 	<cfset textClass = "times8">
