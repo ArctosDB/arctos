@@ -270,7 +270,9 @@ Change to: <select name="format">
 		identification.accepted_id_fg = 1 AND
 		cataloged_item.collecting_event_id = collecting_event.collecting_event_id AND
 		trans.transaction_id = loan_item.transaction_id AND
-		trans.received_agent_id = preferred_agent_name.agent_id AND
+		trans.transaction_id = trans_agent.transaction_id and 
+		trans_agent.trans_agent_role = 'outside contact' and 
+		trans_agent.agent_id = preferred_agent_name.agent_id AND
 	    loan_item.transaction_id = #transaction_id#
 	ORDER BY cat_num
 </cfquery>
