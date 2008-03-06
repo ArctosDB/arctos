@@ -261,7 +261,8 @@ Change to: <select name="format">
 		identification,
 		collecting_event,
 		preferred_agent_name,
-		trans
+		trans,
+		trans_agent
 	WHERE
 		loan_item.collection_object_id = specimen_part.collection_object_id AND
 		loan.transaction_id = loan_item.transaction_id AND
