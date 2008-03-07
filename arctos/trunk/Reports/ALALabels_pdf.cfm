@@ -223,9 +223,11 @@
 	</cfif>
 	<cfset cFile = "#outPutName#_#thisFormNum#.pdf">
 	
-<cfset cPair"family#f#|#family#">
+<cfset cPair"family#f#">
+<cfset cPair="#cPair#|">
+<cfset cPair="#cPair##family#">
 <cfset fVals=listappend(fVals,cPair,",")>
-
+<!---
 <cfset cPair"geog#f#|#geog#">
 <cfset fVals=listappend(fVals,cPair,",")>
 
@@ -247,7 +249,7 @@
 <cfset fVals=listappend(fVals,cPair,",")>
 <cfset cPair"alaac#f#|#alaacString#">
 <cfset fVals=listappend(fVals,cPair,",")>
-
+--->
 	<cfif f is 4 OR i is #data.recordcount#>
 		<cf_pdfThis fVals="#fVals#" cFile='#cFile#'>
 		<cfset fVals="">
