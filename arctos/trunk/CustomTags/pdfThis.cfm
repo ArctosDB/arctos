@@ -13,6 +13,10 @@
         <cfset blabla=attributes.dArray[i]>
 		<cfdump var=#blabla#>
 		<hr>
+		blabla1,1:
+		<cfset a=attributes.dArray[i][1][1]>
+		<cfdump var=a>
+		
     </cfloop>
 	<!---
 	
