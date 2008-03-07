@@ -182,6 +182,7 @@
 <cfset filesToMerge=listappend(filesToMerge,"#application.serverRootUrl#/Reports/templates/temp_#collection_object_id#.pdf",",")>
 
 </cfloop>
+filesToMerge: #filesToMerge#
 <cfpdf action="merge" source="#filesToMerge#" destination="#application.serverRootUrl#/Reports/templates/merged.pdf" overwrite="true">
 <a href="#application.serverRootUrl#/Reports/templates/merged.pdf">merged.pdf</a> 
 <!---
