@@ -99,6 +99,9 @@
 <cfset outPutName="ala_page_">
 <cfset cFile = "#outPutName#_1.pdf">
 
+	
+	
+
 
 
 
@@ -255,7 +258,7 @@
 <cfset i=i+1>
 </cfloop>
 <hr>
-#theString#
+evaluate(#theString#)
 <hr>
 <!---
 
