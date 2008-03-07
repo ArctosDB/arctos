@@ -183,7 +183,9 @@
 
 </cfloop>
 filesToMerge: #filesToMerge#
-
+ <cfloop list="#filesToMerge#" index="i">
+		cfpdfparam source="#i#"
+	</cfloop> 
 <cfpdf action="merge" name="mdoc">
     <cfloop list="#filesToMerge#" index="i">
 		<cfpdfparam source="#i#">
