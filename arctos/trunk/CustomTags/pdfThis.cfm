@@ -3,6 +3,14 @@
 	<cfset bla = StructKeyArray(attributes.dArray)>
 	<cfdump var="#bla#">
 	
+	
+	  <hr size = "2" color = "#0000A0">
+    <cfset keysToStruct = StructKeyArray(attributes.dArray)>
+    <cfloop index = "i" from = "1" to = "#ArrayLen(keysToStruct)#">
+        <p>Key#i# is #keysToStruct[i]#</p>
+        <p>Value#i# is #employee[keysToStruct[i]]#
+        </p>
+    </cfloop>
 	<!---
 <cfpdfform action="populate" destination="#application.webDirectory#/Reports/templates/#attributes.cFile#" 
 	source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
