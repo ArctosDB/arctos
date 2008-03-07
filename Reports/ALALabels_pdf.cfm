@@ -225,29 +225,27 @@
 	<cfset booger="hi">
 <cfset cPair="family#f#|#family#">
 <cfset fVals=listappend(fVals,cPair,",")>
-<!---
-<cfset cPair"geog#f#|#geog#">
+<cfset cPair="geog#f#|#geog#">
 <cfset fVals=listappend(fVals,cPair,",")>
 
-<cfset cPair"identification#f#|#sna#">
+<cfset cPair="identification#f#|#sna#">
 <cfset fVals=listappend(fVals,cPair,",")>
 
-<cfset cPair"identification_remarks#f#|#identification_remarks#">
+<cfset cPair="identification_remarks#f#|#identification_remarks#">
 <cfset fVals=listappend(fVals,cPair,",")>
 
-<cfset cPair"locality#f#|#locality#">
+<cfset cPair="locality#f#|#locality#">
 <cfset fVals=listappend(fVals,cPair,",")>
-<cfset cPair"collector#f#|#collector#">
+<cfset cPair="collector#f#|#collector#">
 <cfset fVals=listappend(fVals,cPair,",")>
-<cfset cPair"colldate#f#|#thisDate#">
+<cfset cPair="colldate#f#|#thisDate#">
 <cfset fVals=listappend(fVals,cPair,",")>
-<cfset cPair"determiner#f#|#determiner#">
+<cfset cPair="determiner#f#|#determiner#">
 <cfset fVals=listappend(fVals,cPair,",")>
-<cfset cPair"project#f#|#project#">
+<cfset cPair="project#f#|#project#">
 <cfset fVals=listappend(fVals,cPair,",")>
-<cfset cPair"alaac#f#|#alaacString#">
+<cfset cPair="alaac#f#|#alaacString#">
 <cfset fVals=listappend(fVals,cPair,",")>
---->
 	<cfif f is 4 OR i is #data.recordcount#>
 		<cf_pdfThis fVals="#fVals#" cFile='#cFile#'>
 		<cfset fVals="">
