@@ -226,7 +226,13 @@
 	<cfset temp=structnew()>
 		<cfset temp["key"]="family#f#">
 		<cfset temp["value"]="#family#">
-		<cfset dArray=temp>
+		<cfdump var="#temp#">
+		<cfdump var=#dArray#>
+		<cfset t=structAppend(dArray,temp)>
+		<cfdump var=#t#>
+		<cfdump var="#temp#">
+		<cfdump var=#dArray#>
+		
 		<!---
 	<cfset temp=structnew()>
 		<cfset temp["key"]="geog#f#">
