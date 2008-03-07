@@ -225,20 +225,27 @@
 	
 
 	<cfif f is 1>
-		<cfset theString='#theString# <cfpdfform action="populate" destination="#application.webDirectory#/Reports/templates/#cFile#" source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf" overwrite="true">'>
+		<br>
+		fpdfform action="populate" destination="#application.webDirectory#/Reports/templates/#cFile#" 
+			source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf" overwrite="tru
+		<br>
+		<cfpdfform action="populate" destination="#application.webDirectory#/Reports/templates/#cFile#" 
+			source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
 	</cfif>
-    		<cfset theString='#theString# <cfpdfformparam name="family#f#" value="#family#">'>
-			<cfset theString='#theString# <cfpdfformparam name="geog#f#" value="#geog#">'>
-			<cfset theString='#theString# <cfpdfformparam name="identification#f#" value="#sna#">'>
-			<cfset theString='#theString# <cfpdfformparam name="identification_remarks#f#" value="#identification_remarks#">'>
-			<cfset theString='#theString# <cfpdfformparam name="locality#f#" value="#locality#">'>
-			<cfset theString='#theString# <cfpdfformparam name="collector#f#" value="#collector#">'>
-			<cfset theString='#theString# <cfpdfformparam name="colldate#f#" value="#thisDate#">'>
-			<cfset theString='#theString# <cfpdfformparam name="determiner#f#" value="#determiner#">'>
-			<cfset theString='#theString# <cfpdfformparam name="project#f#" value="#project#">'>
-			<cfset theString='#theString# <cfpdfformparam name="alaac#f#" value="#alaacString#">'>
+    <br>insert stuffs<br>		 
+	<cfpdfformparam name="family#f#" value="#family#">
+			 <cfpdfformparam name="geog#f#" value="#geog#">
+			 <cfpdfformparam name="identification#f#" value="#sna#">
+			 <cfpdfformparam name="identification_remarks#f#" value="#identification_remarks#">
+			 <cfpdfformparam name="locality#f#" value="#locality#">
+			 <cfpdfformparam name="collector#f#" value="#collector#">
+			 <cfpdfformparam name="colldate#f#" value="#thisDate#">
+			 <cfpdfformparam name="determiner#f#" value="#determiner#">
+			 <cfpdfformparam name="project#f#" value="#project#">
+			 <cfpdfformparam name="alaac#f#" value="#alaacString#">
 	<cfif f is 4 OR i is #data.recordcount#>
-		<cfset theString='#theString# </cfpdfform>'>
+		<br>close<br>
+		 </cfpdfform>
 	</cfif>
 
 
