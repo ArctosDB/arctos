@@ -223,8 +223,10 @@
 	</cfif>
 	<cfset cFile = "#outPutName#_#thisFormNum#.pdf">
 	<cfset booger="hi">
-	<cfset dArray[f]["family#f#"]="#family#">
-	<cfset dArray[f]["geog#f#"]="#geog#">
+	<cfset dArray[f]["key"]="family#f#">
+	<cfset dArray[f]["value"]="#family#">
+	<cfset dArray[f]["key"]="geog#f#">
+	<cfset dArray[f]["value"]="#geog#">
 
 <cfset cPair="identification#f#|#sna#">
 <cfset fVals=listappend(fVals,cPair,",")>

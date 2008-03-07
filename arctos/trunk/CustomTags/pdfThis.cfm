@@ -14,8 +14,10 @@
 		<cfdump var=#blabla#>
 		<hr>
 		blabla1,1:
-		<cfset a=attributes.dArray[i][1][1]>
-		<cfdump var=a>
+		<cfset a=attributes.dArray[i]["key"]>
+		key:<cfdump var=a>
+		<cfset a=attributes.dArray[i]["value"]>
+		value:<cfdump var=a>
 		
     </cfloop>
 	<!---
