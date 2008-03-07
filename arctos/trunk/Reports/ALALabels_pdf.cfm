@@ -102,6 +102,47 @@
 
 
 
+
+
+<cfpdfform action="populate" destination="/var/www/html/Reports/templates/ala_page__1.pdf"
+			source="/var/www/html/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
+<cfpdfformparam name="family1" value="Orchidaceae">
+<cfpdfformparam name="family2" value="Asteraceae"> 
+<cfpdfformparam name="family3" value="Primulaceae"> 
+<cfpdfformparam name="family4" value="Zosteraceae"> 
+</cfpdfform>
+
+<cfpdfform action="populate" destination="/var/www/html/Reports/templates/ala_page__2.pdf" 
+			source="/var/www/html/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
+<cfpdfformparam name="family1" value="Chenopodiaceae">
+<cfpdfformparam name="family2" value="Rubiaceae"> 
+<cfpdfformparam name="family3" value="Plantaginaceae"> 
+<cfpdfformparam name="family4" value="Rosaceae"> 
+</cfpdfform>
+
+<cfpdfform action="populate" destination="/var/www/html/Reports/templates/ala_page__3.pdf"
+			 source="/var/www/html/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
+<cfpdfformparam name="family1" value="Scrophulariaceae">
+<cfpdfformparam name="family2" value="Rosaceae"> 
+<cfpdfformparam name="family3" value="Ranunculaceae"> 
+<cfpdfformparam name="family4" value="Orchidaceae"> 
+</cfpdfform>
+
+<cfpdfform action="populate" destination="/var/www/html/Reports/templates/ala_page__4.pdf" 
+			source="/var/www/html/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
+<cfpdfformparam name="family1" value="Ranunculaceae">
+<cfpdfformparam name="family2" value="Lamiaceae"> 
+<cfpdfformparam name="family3" value="Selaginellaceae"> 
+<cfpdfformparam name="family4" value="Cyperaceae"> 
+</cfpdfform>
+
+<cfpdfform action="populate" destination="/var/www/html/Reports/templates/ala_page__5.pdf"
+			 source="/var/www/html/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
+<cfpdfformparam name="family1" value="Rosaceae"> 
+</cfpdfform> 
+
+<!----
+
  <cfloop query="data">
  	
 	<cfset coordinates = "">
@@ -224,7 +265,7 @@
 
 <cfset i=i+1>
 </cfloop>
-
+---->
 <!---
 <cfset filesToMerge=listappend(filesToMerge,"#application.webDirectory#/Reports/templates/temp_#collection_object_id#.pdf",",")>
 filesToMerge: #filesToMerge#
