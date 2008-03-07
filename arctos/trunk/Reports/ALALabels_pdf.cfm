@@ -101,7 +101,7 @@
 
 	
 	
-<cfset dArray=ArrayNew(2)>
+<cfset dArray=StructNew()>
 
 
 
@@ -249,6 +249,7 @@
 		<cf_pdfThis fVals="#fVals#" cFile='#cFile#'>
 		--->
 		<cfdump var="#dArray#">
+		<cfset dArray=StructNew()>
 		<cfset fVals="">
 	</cfif>
 
