@@ -1,3 +1,4 @@
+<cfoutput>
 <cfpdfform action="populate" destination="#application.webDirectory#/Reports/templates/#attributes.cFile#" 
 	source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
 	<cfloop list="#attributes.fVals" index="i">
@@ -6,3 +7,4 @@
 		<cfpdfformparam name="#name#" value="#val#">
 	</cfloop>
  </cfpdfform>
+</cfoutput>
