@@ -95,11 +95,16 @@
 	<cfset coordinates = "">
 	<cfif len(#verbatimLatitude#) gt 0 AND len(#verbatimLongitude#) gt 0>
 		<cfset coordinates = "#verbatimLatitude# / #verbatimLongitude#">
+		<!---
 		<cfset coordinates = replace(coordinates,"d","&##176;","all")>
 		<cfset coordinates = replace(coordinates,"m","'","all")>
 		<cfset coordinates = replace(coordinates,"s","''","all")>
+		---->
 	</cfif>
-	
+	<cfset sna = #sci_name_with_auth#>
+	<cfset sna = replace(sna,"<i>","","all")>
+	<cfset sna = replace(sna,"</i>","","all")>
+	<cfset sna = replace(sna,"&nbsp;"," ","all")>
 	<cfif #collectors# contains ";">
 		<Cfset spacePos = find(";",collectors)>
 		<cfset thisColl = left(collectors,#SpacePos# - 1)>
@@ -115,7 +120,7 @@
 			<cfset thisDate = #verbatim_date#>
 		</cfcatch>
 	</cftry>
-	<cfset geog="#ucase(state_prov)#, ">
+	<cfset geog="#ucase(state_prov)#">
 	<cfif #country# is "United States">
 		<cfset geog="#geog#, USA">
 	<cfelse>
@@ -161,7 +166,7 @@
 		overwrite="true">
     		<cfpdfformparam name="family" value="#family#">
 			<cfpdfformparam name="geog" value="#geog#">
-			<cfpdfformparam name="identification" value="#sci_name_with_auth#">
+			<cfpdfformparam name="identification" value="#sna#">
 			<cfpdfformparam name="identification_remarks" value="#identification_remarks#">
 			<cfpdfformparam name="locality" value="#locality#">
 			<cfpdfformparam name="collector" value="#collector#">
