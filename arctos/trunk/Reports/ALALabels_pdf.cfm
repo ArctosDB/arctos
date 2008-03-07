@@ -223,11 +223,14 @@
 	</cfif>
 	<cfset cFile = "#outPutName#_#thisFormNum#.pdf">
 	<cfset booger="hi">
-	<cfset dArray[i][f]["key"]="family#f#">
-	<cfset dArray[i][f]["value"]="#family#">
-	<cfset dArray[i][f]["key"]="geog#f#">
-	<cfset dArray[i][f]["value"]="#geog#">
-
+	<cfset temp=structnew()>
+		<cfset temp["key"]="family#f#">
+		<cfset temp["value"]="#family#">
+		<cfset dArray=structappend(dArray,temp)>
+	<cfset temp=structnew()>
+		<cfset temp["key"]="geog#f#">
+		<cfset temp["value"]="#geog#">
+		<cfset dArray=structappend(dArray,temp)>
 <cfset cPair="identification#f#|#sna#">
 <cfset fVals=listappend(fVals,cPair,",")>
 
