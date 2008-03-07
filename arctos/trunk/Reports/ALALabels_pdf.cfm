@@ -92,6 +92,7 @@
 <cfpdfform source="#application.webDirectory#/Reports/templates/template_alaLabel.pdf" result="resultStruct" action="read"/>
 <cfdump var="#resultStruct#">
 --->
+<cfset filesToMerge="">
  <cfloop query="data">
  	
 	<cfset coordinates = "">
@@ -178,8 +179,11 @@
 			<cfpdfformparam name="alaac" value="#alaacString#">
 	</cfpdfform>
 <a href="#application.serverRootUrl#/Reports/templates/temp_#collection_object_id#.pdf">temp_#collection_object_id#.pdf</a>
-</cfloop>
+<cfset filesToMerge=listappend(filesToMerge,"#application.serverRootUrl#/Reports/templates/temp_#collection_object_id#.pdf",",")>
 
+</cfloop>
+<cfpdf action="merge" source="#filesToMerge#" destination="#application.serverRootUrl#/Reports/templates/merged.pdf" overwrite="true">
+<a href="#application.serverRootUrl#/Reports/templates/merged.pdf">merged.pdf</a> 
 <!---
 				
 					
