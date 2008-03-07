@@ -222,12 +222,10 @@
 	
 
 	<cfif f is 1>
-		<br>
 		<cfpdfform action="populate" 
 			destination="#application.webDirectory#/Reports/templates/#cFile#"
 			source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf"
 			overwrite="true">
-		<br>
 	</cfif>
     		<cfpdfformparam name="family#f#" value="#family#">
 			<!---
@@ -243,7 +241,6 @@
 			--->
 	<cfif f is 4 OR i is #data.recordcount#>
 		</cfpdfform>
-		<br>
 	</cfif>
 
 
