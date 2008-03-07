@@ -8,7 +8,7 @@
     <cfset keysToStruct = StructKeyArray(attributes.dArray)>
     <cfloop index = "i" from = "1" to = "#ArrayLen(keysToStruct)#">
         <p>Key#i# is #keysToStruct[i]#</p>
-        <p>Value#i# is #employee[keysToStruct[i]]#
+        <p>Value#i# is #attributes.dArray[keysToStruct[i]]#
         </p>
     </cfloop>
 	<!---
