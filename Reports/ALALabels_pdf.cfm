@@ -170,10 +170,10 @@
 		<cfset alaacString="Herbarium, University of Alaska Museum (ALA) accession #alaac#">			
 	<cfset f=f+1>
 	<cfif f is 5>
-		<cfset thisFormName=thisFormName + 1>
+		<cfset thisFormNum=thisFormNum + 1>
 		<cfset f=1>
 	</cfif>
-	<cfset cFile = "#outPutName#_#thisFormName#.pdf">
+	<cfset cFile = "#outPutName#_#thisFormNum#.pdf">
 	f is: #f#<br>
 	<cfif f is 1>
 		<hr>
