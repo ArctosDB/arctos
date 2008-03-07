@@ -223,9 +223,7 @@
 	</cfif>
 	<cfset cFile = "#outPutName#_#thisFormNum#.pdf">
 	<cfset booger="hi">
-<cfset cPair"family">
-<cfset cPair="#cPair#|">
-<cfset cPair="#cPair##family#">
+<cfset cPair="family#f#|#family#">
 <cfset fVals=listappend(fVals,cPair,",")>
 <!---
 <cfset cPair"geog#f#|#geog#">
