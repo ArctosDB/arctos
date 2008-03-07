@@ -1,17 +1,24 @@
 <cfoutput>
+	What we got:
+	<br>
 	<cfdump var="#attributes.dArray#">
 	<cfset bla = StructKeyArray(attributes.dArray)>
+	StructKeyArray: <br>
 	<cfdump var="#bla#">
 	
 	
 	  <hr>
     <cfset keysToStruct = StructKeyArray(attributes.dArray)>
     <cfloop index = "i" from = "1" to = "#ArrayLen(keysToStruct)#">
-        <p>Key#i# is StructKeyArray[i]</p>
-        <p>Value#i# is #attributes.dArray[i[i]]#
-        </p>
+        <cfset blabla=attributes.dArray[i]>
+		<cfdump var=#blabla#>
+		<hr>
     </cfloop>
 	<!---
+	
+	<p>Key#i# is StructKeyArray[i]</p>
+        <p>Value#i# is #attributes.dArray[i[i]]#
+        </p>
 <cfpdfform action="populate" destination="#application.webDirectory#/Reports/templates/#attributes.cFile#" 
 	source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
 	<cfloop from="1" to="attributes.dArray.StructCount" index="i">
