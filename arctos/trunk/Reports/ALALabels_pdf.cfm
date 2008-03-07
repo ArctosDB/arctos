@@ -90,11 +90,11 @@
 <cfoutput>
 	<cfpdfform source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf" result="resultStruct" action="read"/>
 <cfdump var="#resultStruct#">
-<cfabort>
 <!---
 
 --->
-<cfset filesToMerge="">
+<cfset f=0>
+<cfset outPutName="ala_page_">
  <cfloop query="data">
  	
 	<cfset coordinates = "">
@@ -165,25 +165,36 @@
 			<cfset project="#project#NPS: #npsa# #npsc#">
 		</cfif>
 		<cfset alaacString="Herbarium, University of Alaska Museum (ALA) accession #alaac#">			
+	<cfset f=f+1>
+	<cfif f is 5>
+		<cfset f=1>
+	</cfif>
+	<cfset cFile = "#outPutName#_#f#.pdf">
+	
 	<cfpdfform action="populate" 
-		destination="#application.webDirectory#/Reports/templates/temp_#collection_object_id#.pdf"
-		source="#application.webDirectory#/Reports/templates/template_alaLabel.pdf"
+		destination="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf"
+		source="#application.webDirectory#/Reports/templates/#cFile#"
 		overwrite="true">
-    		<cfpdfformparam name="family" value="#family#">
-			<cfpdfformparam name="geog" value="#geog#">
-			<cfpdfformparam name="identification" value="#sna#">
-			<cfpdfformparam name="identification_remarks" value="#identification_remarks#">
-			<cfpdfformparam name="locality" value="#locality#">
-			<cfpdfformparam name="collector" value="#collector#">
-			<cfpdfformparam name="colldate" value="#thisDate#">
-			<cfpdfformparam name="determiner" value="#determiner#">
-			<cfpdfformparam name="project" value="#project#">
-			<cfpdfformparam name="alaac" value="#alaacString#">
+    		<cfpdfformparam name="family" value="#family#" index="#f#">
+			<cfpdfformparam name="geog" value="#geog#" index="#f#">
+			<cfpdfformparam name="identification" value="#sna#" index="#f#">
+			<cfpdfformparam name="identification_remarks" value="#identification_remarks#" index="#f#">
+			<cfpdfformparam name="locality" value="#locality#" index="#f#">
+			<cfpdfformparam name="collector" value="#collector#" index="#f#">
+			<cfpdfformparam name="colldate" value="#thisDate#" index="#f#">
+			<cfpdfformparam name="determiner" value="#determiner#" index="#f#">
+			<cfpdfformparam name="project" value="#project#" index="#f#">
+			<cfpdfformparam name="alaac" value="#alaacString#" index="#f#">
 	</cfpdfform>
-<a href="#application.serverRootUrl#/Reports/templates/temp_#collection_object_id#.pdf">temp_#collection_object_id#.pdf</a>
-<cfset filesToMerge=listappend(filesToMerge,"#application.webDirectory#/Reports/templates/temp_#collection_object_id#.pdf",",")>
+	<cfif f is 1>
+		<a href="#application.serverRootUrl#/Reports/templates/#cfile#">#cfile#</a>
+	</cfif>
+
+
 
 </cfloop>
+<!---
+<cfset filesToMerge=listappend(filesToMerge,"#application.webDirectory#/Reports/templates/temp_#collection_object_id#.pdf",",")>
 filesToMerge: #filesToMerge#
  <cfloop list="#filesToMerge#" index="i">
 		cfpdfparam source="#i#"
@@ -197,6 +208,7 @@ filesToMerge: #filesToMerge#
 
 
 <a href="#application.serverRootUrl#/Reports/templates/merged.pdf">merged.pdf</a> 
+--->
 <!---
 				
 					
