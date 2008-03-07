@@ -191,7 +191,7 @@
 			<cfpdfformparam name="project" value="#project#" index="#f#">
 			<cfpdfformparam name="alaac" value="#alaacString#" index="#f#">
 			--->
-	<cfif f is 1>
+	<cfif f is 4>
 		/cfpdfform>
 		<br>
 	</cfif>
