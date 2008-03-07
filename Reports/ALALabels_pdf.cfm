@@ -105,8 +105,8 @@
 		---->
 	</cfif>
 	<cfset sna = #sci_name_with_auth#>
-	<cfset sna = replace(sna,"<i>","","all")>
-	<cfset sna = replace(sna,"</i>","","all")>
+	<cfset sna = replace(sna,"<i>",'<Emphasis style="italic">',"all")>
+	<cfset sna = replace(sna,"</i>",'</Emphasis>',"all")>
 	<cfset sna = replace(sna,"&nbsp;"," ","all")>
 	<cfif #collectors# contains ";">
 		<Cfset spacePos = find(";",collectors)>
