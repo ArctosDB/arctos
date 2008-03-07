@@ -222,8 +222,8 @@
 		<cfset f=1>
 	</cfif>
 	<cfset cFile = "#outPutName#_#thisFormNum#.pdf">
-	
-<cfset cPair"family#f#">
+	<cfset booger="hi">
+<cfset cPair"family">
 <cfset cPair="#cPair#|">
 <cfset cPair="#cPair##family#">
 <cfset fVals=listappend(fVals,cPair,",")>
