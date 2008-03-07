@@ -192,7 +192,8 @@
 			<cfpdfformparam name="project" value="#project#" index="#f#">
 			<cfpdfformparam name="alaac" value="#alaacString#" index="#f#">
 			--->
-	<cfif f is 4 OR i is data.recordcount>
+			--#i#--<br> --#data.recordcount#--<br>
+	<cfif f is 4 OR i is #data.recordcount#>
 		/cfpdfform>
 		<hr>
 	</cfif>
