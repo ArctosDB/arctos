@@ -186,7 +186,7 @@ filesToMerge: #filesToMerge#
  <cfloop list="#filesToMerge#" index="i">
 		cfpdfparam source="#i#"
 	</cfloop> 
-<cfpdf action="merge" destination="#application.webDirectory#/Reports/templates/merged.pdf" overwrite="true"
+<cfpdf action="merge" destination="#application.webDirectory#/Reports/templates/merged.pdf" overwrite="true">
     <cfloop list="#filesToMerge#" index="i">
 		<cfpdfparam source="#i#">
 	</cfloop> 
