@@ -170,7 +170,7 @@
 		<cfset f=1>
 	</cfif>
 	<cfset cFile = "#outPutName#_#f#.pdf">
-	
+	f is: #f#<br>
 	<cfpdfform action="populate" 
 		destination="#application.webDirectory#/Reports/templates/#cFile#"
 		source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf"
