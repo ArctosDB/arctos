@@ -2,6 +2,8 @@
 	What we got:
 	<br>
 	<cfdump var="#attributes.dArray#">
+	
+	<!---
 	<cfset bla = StructKeyArray(attributes.dArray)>
 	StructKeyArray: <br>
 	<cfdump var="#bla#">
@@ -20,8 +22,6 @@
 		value:<cfdump var=a>
 		
     </cfloop>
-	<!---
-	
 	<p>Key#i# is StructKeyArray[i]</p>
         <p>Value#i# is #attributes.dArray[i[i]]#
         </p>
