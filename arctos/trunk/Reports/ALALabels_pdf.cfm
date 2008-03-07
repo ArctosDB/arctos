@@ -144,7 +144,7 @@
 <cfpdfformparam name="family1" value="Rosaceae"> 
 </cfpdfform> 
 ---->
-
+		<cfset fVals="">
 <cfset theString=''>
  <cfloop query="data">
  	
@@ -223,29 +223,34 @@
 	</cfif>
 	<cfset cFile = "#outPutName#_#thisFormNum#.pdf">
 	
+<cfset cPair"family#f#|#family#">
+<cfset fvals=listappend(fVals,cPair,",")>
 
-	<cfif f is 1>
-		<br>
-		fpdfform action="populate" destination="#application.webDirectory#/Reports/templates/#cFile#" 
-			source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf" overwrite="tru
-		<br>
-		<cfpdfform action="populate" destination="#application.webDirectory#/Reports/templates/#cFile#" 
-			source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
-	</cfif>
-    <br>insert stuffs<br>		 
-	<cfpdfformparam name="family#f#" value="#family#">
-			 <cfpdfformparam name="geog#f#" value="#geog#">
-			 <cfpdfformparam name="identification#f#" value="#sna#">
-			 <cfpdfformparam name="identification_remarks#f#" value="#identification_remarks#">
-			 <cfpdfformparam name="locality#f#" value="#locality#">
-			 <cfpdfformparam name="collector#f#" value="#collector#">
-			 <cfpdfformparam name="colldate#f#" value="#thisDate#">
-			 <cfpdfformparam name="determiner#f#" value="#determiner#">
-			 <cfpdfformparam name="project#f#" value="#project#">
-			 <cfpdfformparam name="alaac#f#" value="#alaacString#">
+<cfset cPair"geog#f#|#geog#">
+<cfset fvals=listappend(fVals,cPair,",")>
+
+<cfset cPair"identification#f#|#sna#">
+<cfset fvals=listappend(fVals,cPair,",")>
+
+<cfset cPair"identification_remarks#f#|#identification_remarks#">
+<cfset fvals=listappend(fVals,cPair,",")>
+
+<cfset cPair"locality#f#|#locality#">
+<cfset fvals=listappend(fVals,cPair,",")>
+<cfset cPair"collector#f#|#collector#">
+<cfset fvals=listappend(fVals,cPair,",")>
+<cfset cPair"colldate#f#|#thisDate#">
+<cfset fvals=listappend(fVals,cPair,",")>
+<cfset cPair"determiner#f#|#determiner#">
+<cfset fvals=listappend(fVals,cPair,",")>
+<cfset cPair"project#f#|#project#">
+<cfset fvals=listappend(fVals,cPair,",")>
+<cfset cPair"alaac#f#|#alaacString#">
+<cfset fvals=listappend(fVals,cPair,",")>
+
 	<cfif f is 4 OR i is #data.recordcount#>
-		<br>close<br>
-		 </cfpdfform>
+		<cf_pdfThis fVals="#fVals#" cFile='#cFile#'>
+		<cfset fVals="">
 	</cfif>
 
 
