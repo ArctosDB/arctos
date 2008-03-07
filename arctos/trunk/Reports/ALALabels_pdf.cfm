@@ -1,5 +1,6 @@
-<cfset collection_object_id="587812,587718,587818,587790,587706,587768,587814,587724,587840,676610,587856,587810,587688,587716,587830,587754,587826,587870,600878,587774,587728,587816,587844,587796,587762,587872,587832,587698,587802,587806,587740,587764,587748,637114,587738,587746,587704,587868,587720,587778,587770,587772,587710,587842,587834,587804,587852,587694,587722,587726,587848,587732,587860,587824,587730,587788,587786,587864,587828,641040,587690,587836,587696,587782,587700,587862,587742,587798,587850,587692,587756,587780,587776,641000,587838,587708,587800,602220,587750,587766,587784,587760,587736,587792,587820,645154,587758,736240,587854,587858,587712,587752,587714,587808,660706,587744,587702,587866,587734,587822,587846,587794">
+
 <cfset collection_object_id="587812">
+<cfset collection_object_id="587812,587718,587830,587754,587826,587696,587782,587700,587862,587742,587798,587850,587692,587756,587780,587776,641000">
 <cfif not isdefined("collection_object_id")>
 		<cfabort>
 	</cfif>
@@ -7,7 +8,8 @@
 	
 <cfset sql="
 	select
-		get_scientific_name_auths(cataloged_item.collection_object_id) sci_name_with_auth,
+		cataloged_item.collection_object_id,
+			get_scientific_name_auths(cataloged_item.collection_object_id) sci_name_with_auth,
 		concatAcceptedIdentifyingAgent(cataloged_item.collection_object_id) identified_by,
 		get_taxonomy(cataloged_item.collection_object_id,'family') family,
 		get_taxonomy(cataloged_item.collection_object_id,'scientific_name') tsname,
@@ -161,7 +163,7 @@
 		</cfif>
 		<cfset alaacString="Herbarium, University of Alaska Museum (ALA) accession #alaac#">			
 	<cfpdfform action="populate" 
-		destination="#application.webDirectory#/Reports/templates/temp.pdf"
+		destination="#application.webDirectory#/Reports/templates/temp_#collection_object_id#.pdf"
 		source="#application.webDirectory#/Reports/templates/template_alaLabel.pdf"
 		overwrite="true">
     		<cfpdfformparam name="family" value="#family#">
