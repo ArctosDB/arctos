@@ -174,13 +174,13 @@
 	f is: #f#<br>
 	<cfif f is 1>
 		<hr>
-		cfpdfform action="populate" 
+		<cfpdfform action="populate" 
 			destination="#application.webDirectory#/Reports/templates/#cFile#"
 			source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf"
 			overwrite="true">
 		<br>
 	</cfif>
-    		cfpdfformparam name="family" value="#family#" index="#f#">
+    		<cfpdfformparam name="family" value="#family#" index="#f#">
 			<!---
 			<cfpdfformparam name="geog" value="#geog#" index="#f#">
 			<cfpdfformparam name="identification" value="#sna#" index="#f#">
@@ -194,7 +194,7 @@
 			--->
 			--#i#--<br> --#data.recordcount#--<br>
 	<cfif f is 4 OR i is #data.recordcount#>
-		/cfpdfform>
+		</cfpdfform>
 		<hr>
 	</cfif>
 	<cfif f is 1>
