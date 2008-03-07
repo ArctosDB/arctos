@@ -225,11 +225,9 @@
 	<cfset booger="hi">
 	<cfset dArray[i][1]="family#f#">
 	<cfset dArray[i][2]="#family#">
+	<cfset dArray[i][1]="geog#f#">
+	<cfset dArray[i][2]="#geog#">
 	
-<cfset cPair="|#family#">
-<cfset fVals=listappend(fVals,cPair,",")>
-<cfset cPair="geog#f#|#geog#">
-<cfset fVals=listappend(fVals,cPair,",")>
 
 <cfset cPair="identification#f#|#sna#">
 <cfset fVals=listappend(fVals,cPair,",")>
