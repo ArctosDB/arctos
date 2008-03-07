@@ -230,7 +230,7 @@
 	<cfset temp=structnew()>
 		<cfset temp["key"]="geog#f#">
 		<cfset temp["value"]="#geog#">
-		<cfset dArray=structappend(dArray,temp)>
+		<cfset f=structappend(dArray,temp)>
 <cfset cPair="identification#f#|#sna#">
 <cfset fVals=listappend(fVals,cPair,",")>
 
