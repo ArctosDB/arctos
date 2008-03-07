@@ -174,16 +174,17 @@
 		<cfset f=1>
 	</cfif>
 	<cfset cFile = "#outPutName#_#thisFormNum#.pdf">
-	f is: #f#<br>
+	
+
 	<cfif f is 1>
-		<hr>
-		cfpdfform action="populate" 
+		<br>
+		&lt;cfpdfform action="populate" 
 			destination="#application.webDirectory#/Reports/templates/#cFile#"
 			source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf"
 			overwrite="true">
 		<br>
 	</cfif>
-    		cfpdfformparam name="family" value="#family#" index="#f#">
+    		&lt;cfpdfformparam name="family" value="#family#" index="#f#">
 			<!---
 			<cfpdfformparam name="geog" value="#geog#" index="#f#">
 			<cfpdfformparam name="identification" value="#sna#" index="#f#">
@@ -195,12 +196,20 @@
 			<cfpdfformparam name="project" value="#project#" index="#f#">
 			<cfpdfformparam name="alaac" value="#alaacString#" index="#f#">
 			--->
-			--#i#--<br> --#data.recordcount#--<br>
 	<cfif f is 4 OR i is #data.recordcount#>
-		/cfpdfform>
-		<hr>
+		&lt;/cfpdfform>
+		<br>
 	</cfif>
+
+	
+	
+
+
+
+
+
 	<cfif f is 1>
+		<br>
 		<a href="#application.serverRootUrl#/Reports/templates/#cfile#">#cfile#</a>
 	</cfif>
 
