@@ -88,10 +88,10 @@
 	
 	
 <cfoutput>
+
+<!---
 	<cfpdfform source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf" result="resultStruct" action="read"/>
 <cfdump var="#resultStruct#">
-<!---
-
 --->
 <cfset f=0>
 <cfset i=1>
@@ -222,10 +222,7 @@
 	
 
 	<cfif f is 1>
-		<cfset theString='#theString# <cfpdfform action="populate" 
-			destination="#application.webDirectory#/Reports/templates/#cFile#"
-			source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf"
-			overwrite="true">'>
+		<cfset theString='#theString# <cfpdfform action="populate" destination="#application.webDirectory#/Reports/templates/#cFile#" source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf" overwrite="true">'>
 	</cfif>
     		<cfset theString='#theString# <cfpdfformparam name="family#f#" value="#family#">'>
 			<cfset theString='#theString# <cfpdfformparam name="geog#f#" value="#geog#">'>
@@ -257,8 +254,9 @@
 
 <cfset i=i+1>
 </cfloop>
-
+<hr>
 #theString#
+<hr>
 <!---
 
 <cfif f is 1>
