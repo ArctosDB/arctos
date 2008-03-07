@@ -224,7 +224,7 @@
 	<cfset cFile = "#outPutName#_#thisFormNum#.pdf">
 	<cfset booger="hi">
 	<cfset dArray[i]["family#f#"]="#family#">
-	
+	<cfset dArray[i]["geog#f#"]="#geog#">
 
 <cfset cPair="identification#f#|#sna#">
 <cfset fVals=listappend(fVals,cPair,",")>
