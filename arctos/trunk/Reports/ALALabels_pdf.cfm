@@ -96,6 +96,7 @@
 <cfset f=0>
 <cfset i=1>
 <cfset outPutName="ala_page_">
+<cfset cFile = "#outPutName#_1.pdf">
  <cfloop query="data">
  	
 	<cfset coordinates = "">
@@ -168,9 +169,9 @@
 		<cfset alaacString="Herbarium, University of Alaska Museum (ALA) accession #alaac#">			
 	<cfset f=f+1>
 	<cfif f is 5>
+		<cfset cFile = "#outPutName#_#f#.pdf">
 		<cfset f=1>
 	</cfif>
-	<cfset cFile = "#outPutName#_#f#.pdf">
 	f is: #f#<br>
 	<cfif f is 1>
 		<hr>
