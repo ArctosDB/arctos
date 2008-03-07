@@ -102,46 +102,6 @@
 
 
 
-
-<cfpdfform action="populate" destination="/var/www/html/Reports/templates/ala_page__1.pdf" 
-				source="/var/www/html/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
-<cfpdfformparam name="family" value="Orchidaceae" index="1">
-
-<cfpdfformparam name="family" value="Asteraceae" index="2"> 
-<cfpdfformparam name="family" value="Primulaceae" index="3"> 
-<cfpdfformparam name="family" value="Zosteraceae" index="4"> 
-
-</cfpdfform>
-
-<cfpdfform action="populate" destination="/var/www/html/Reports/templates/ala_page__2.pdf"
-			 source="/var/www/html/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
-<cfpdfformparam name="family" value="Chenopodiaceae" index="1">
-<cfpdfformparam name="family" value="Rubiaceae" index="2">
- <cfpdfformparam name="family" value="Plantaginaceae" index="3"> 
-<cfpdfformparam name="family" value="Rosaceae" index="4">
- </cfpdfform>
-
-<cfpdfform action="populate" destination="/var/www/html/Reports/templates/ala_page__3.pdf" 
-			source="/var/www/html/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
-<cfpdfformparam name="family" value="Scrophulariaceae" index="1">
- <cfpdfformparam name="family" value="Rosaceae" index="2">
- <cfpdfformparam name="family" value="Ranunculaceae" index="3"> 
-<cfpdfformparam name="family" value="Orchidaceae" index="4"> 
-</cfpdfform>
-
-<cfpdfform action="populate" destination="/var/www/html/Reports/templates/ala_page__4.pdf" 
-			source="/var/www/html/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
-<cfpdfformparam name="family" value="Ranunculaceae" index="1">
-<cfpdfformparam name="family" value="Lamiaceae" index="2"> 
-<cfpdfformparam name="family" value="Selaginellaceae" index="3"> 
-<cfpdfformparam name="family" value="Cyperaceae" index="4"> 
-</cfpdfform>
-
-<cfpdfform action="populate" destination="/var/www/html/Reports/templates/ala_page__5.pdf" 
-			source="/var/www/html/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
-<cfpdfformparam name="family" value="Rosaceae" index="1">
- </cfpdfform>
-<!---
  <cfloop query="data">
  	
 	<cfset coordinates = "">
@@ -219,7 +179,7 @@
 	</cfif>
 	<cfset cFile = "#outPutName#_#thisFormNum#.pdf">
 	
-<!---
+
 	<cfif f is 1>
 		<br>
 		&lt;cfpdfform action="populate" 
@@ -228,9 +188,9 @@
 			overwrite="true">
 		<br>
 	</cfif>
-    		&lt;cfpdfformparam name="family" value="#family#" index="#f#">
+    		&lt;cfpdfformparam name="family" value="#family##f#">
 			<!---
-			<cfpdfformparam name="geog" value="#geog#" index="#f#">
+			<cfpdfformparam name="geog" value="#geog#" index="">
 			<cfpdfformparam name="identification" value="#sna#" index="#f#">
 			<cfpdfformparam name="identification_remarks" value="#identification_remarks#" index="#f#">
 			<cfpdfformparam name="locality" value="#locality#" index="#f#">
@@ -245,7 +205,7 @@
 		<br>
 	</cfif>
 
-	---->
+
 	
 	
 	
@@ -264,7 +224,7 @@
 
 <cfset i=i+1>
 </cfloop>
---->
+
 <!---
 <cfset filesToMerge=listappend(filesToMerge,"#application.webDirectory#/Reports/templates/temp_#collection_object_id#.pdf",",")>
 filesToMerge: #filesToMerge#
