@@ -179,7 +179,7 @@
 			<cfpdfformparam name="alaac" value="#alaacString#">
 	</cfpdfform>
 <a href="#application.serverRootUrl#/Reports/templates/temp_#collection_object_id#.pdf">temp_#collection_object_id#.pdf</a>
-<cfset filesToMerge=listappend(filesToMerge,"#application.serverRootUrl#/Reports/templates/temp_#collection_object_id#.pdf",",")>
+<cfset filesToMerge=listappend(filesToMerge,"#application.webDirectory#/Reports/templates/temp_#collection_object_id#.pdf",",")>
 
 </cfloop>
 filesToMerge: #filesToMerge#
