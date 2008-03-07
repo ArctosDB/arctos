@@ -172,12 +172,15 @@
 	<cfset cFile = "#outPutName#_#f#.pdf">
 	f is: #f#<br>
 	<cfif f is 1>
-	<cfpdfform action="populate" 
-		destination="#application.webDirectory#/Reports/templates/#cFile#"
-		source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf"
-		overwrite="true">
+		cfpdfform action="populate" 
+			destination="#application.webDirectory#/Reports/templates/#cFile#"
+			source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf"
+			overwrite="true">
+			<br>
 	</cfif>
-    		<cfpdfformparam name="family" value="#family#" index="#f#">
+    		cfpdfformparam name="family" value="#family#" index="#f#">
+	<br>
+			<!---
 			<cfpdfformparam name="geog" value="#geog#" index="#f#">
 			<cfpdfformparam name="identification" value="#sna#" index="#f#">
 			<cfpdfformparam name="identification_remarks" value="#identification_remarks#" index="#f#">
@@ -187,8 +190,10 @@
 			<cfpdfformparam name="determiner" value="#determiner#" index="#f#">
 			<cfpdfformparam name="project" value="#project#" index="#f#">
 			<cfpdfformparam name="alaac" value="#alaacString#" index="#f#">
+			--->
 	<cfif f is 1>
-	</cfpdfform>
+		/cfpdfform>
+		<br>
 	</cfif>
 	<cfif f is 1>
 		<a href="#application.serverRootUrl#/Reports/templates/#cfile#">#cfile#</a>
