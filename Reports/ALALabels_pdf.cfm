@@ -172,8 +172,8 @@
 	<cfset cFile = "#outPutName#_#f#.pdf">
 	
 	<cfpdfform action="populate" 
-		destination="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf"
-		source="#application.webDirectory#/Reports/templates/#cFile#"
+		destination="#application.webDirectory#/Reports/templates/#cFile#"
+		source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf"
 		overwrite="true">
     		<cfpdfformparam name="family" value="#family#" index="#f#">
 			<cfpdfformparam name="geog" value="#geog#" index="#f#">
