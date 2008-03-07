@@ -224,29 +224,29 @@
 	<cfset cFile = "#outPutName#_#thisFormNum#.pdf">
 	
 <cfset cPair"family#f#|#family#">
-<cfset fvals=listappend(fVals,cPair,",")>
+<cfset fVals=listappend(fVals,cPair,",")>
 
 <cfset cPair"geog#f#|#geog#">
-<cfset fvals=listappend(fVals,cPair,",")>
+<cfset fVals=listappend(fVals,cPair,",")>
 
 <cfset cPair"identification#f#|#sna#">
-<cfset fvals=listappend(fVals,cPair,",")>
+<cfset fVals=listappend(fVals,cPair,",")>
 
 <cfset cPair"identification_remarks#f#|#identification_remarks#">
-<cfset fvals=listappend(fVals,cPair,",")>
+<cfset fVals=listappend(fVals,cPair,",")>
 
 <cfset cPair"locality#f#|#locality#">
-<cfset fvals=listappend(fVals,cPair,",")>
+<cfset fVals=listappend(fVals,cPair,",")>
 <cfset cPair"collector#f#|#collector#">
-<cfset fvals=listappend(fVals,cPair,",")>
+<cfset fVals=listappend(fVals,cPair,",")>
 <cfset cPair"colldate#f#|#thisDate#">
-<cfset fvals=listappend(fVals,cPair,",")>
+<cfset fVals=listappend(fVals,cPair,",")>
 <cfset cPair"determiner#f#|#determiner#">
-<cfset fvals=listappend(fVals,cPair,",")>
+<cfset fVals=listappend(fVals,cPair,",")>
 <cfset cPair"project#f#|#project#">
-<cfset fvals=listappend(fVals,cPair,",")>
+<cfset fVals=listappend(fVals,cPair,",")>
 <cfset cPair"alaac#f#|#alaacString#">
-<cfset fvals=listappend(fVals,cPair,",")>
+<cfset fVals=listappend(fVals,cPair,",")>
 
 	<cfif f is 4 OR i is #data.recordcount#>
 		<cf_pdfThis fVals="#fVals#" cFile='#cFile#'>
