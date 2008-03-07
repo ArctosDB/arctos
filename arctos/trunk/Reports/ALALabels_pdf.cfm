@@ -101,7 +101,7 @@
 
 	
 	
-
+<cfset dArray=ArrayNew(2)>
 
 
 
@@ -223,7 +223,10 @@
 	</cfif>
 	<cfset cFile = "#outPutName#_#thisFormNum#.pdf">
 	<cfset booger="hi">
-<cfset cPair="family#f#|#family#">
+	<cfset dArray[i][1]="family#f#">
+	<cfset dArray[i][2]="#family#">
+	
+<cfset cPair="|#family#">
 <cfset fVals=listappend(fVals,cPair,",")>
 <cfset cPair="geog#f#|#geog#">
 <cfset fVals=listappend(fVals,cPair,",")>
@@ -247,7 +250,10 @@
 <cfset cPair="alaac#f#|#alaacString#">
 <cfset fVals=listappend(fVals,cPair,",")>
 	<cfif f is 4 OR i is #data.recordcount#>
+		<!---
 		<cf_pdfThis fVals="#fVals#" cFile='#cFile#'>
+		--->
+		<cfdump var="#dArray#">
 		<cfset fVals="">
 	</cfif>
 
