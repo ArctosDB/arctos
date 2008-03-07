@@ -182,13 +182,13 @@
 
 	<cfif f is 1>
 		<br>
-		<cfpdfform action="populate" 
+		&lt;cfpdfform action="populate" 
 			destination="#application.webDirectory#/Reports/templates/#cFile#"
 			source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf"
 			overwrite="true">
 		<br>
 	</cfif>
-    		<cfpdfformparam name="family#f#" value="#family#">
+    		&lt;cfpdfformparam name="family#f#" value="#family#">
 			<!---
 			<cfpdfformparam name="geog" value="#geog#" index="">
 			<cfpdfformparam name="identification" value="#sna#" index="#f#">
@@ -201,7 +201,7 @@
 			<cfpdfformparam name="alaac" value="#alaacString#" index="#f#">
 			--->
 	<cfif f is 4 OR i is #data.recordcount#>
-		</cfpdfform>
+		&lt;/cfpdfform>
 		<br>
 	</cfif>
 
