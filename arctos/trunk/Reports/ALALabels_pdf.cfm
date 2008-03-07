@@ -102,7 +102,7 @@
 
 
 
-
+<!----
 
 <cfpdfform action="populate" destination="/var/www/html/Reports/templates/ala_page__1.pdf"
 			source="/var/www/html/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
@@ -140,8 +140,8 @@
 			 source="/var/www/html/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
 <cfpdfformparam name="family1" value="Rosaceae"> 
 </cfpdfform> 
+---->
 
-<!----
 
  <cfloop query="data">
  	
@@ -223,13 +223,13 @@
 
 	<cfif f is 1>
 		<br>
-		&lt;cfpdfform action="populate" 
+		<cfpdfform action="populate" 
 			destination="#application.webDirectory#/Reports/templates/#cFile#"
 			source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf"
 			overwrite="true">
 		<br>
 	</cfif>
-    		&lt;cfpdfformparam name="family#f#" value="#family#">
+    		<cfpdfformparam name="family#f#" value="#family#">
 			<!---
 			<cfpdfformparam name="geog" value="#geog#" index="">
 			<cfpdfformparam name="identification" value="#sna#" index="#f#">
@@ -242,7 +242,7 @@
 			<cfpdfformparam name="alaac" value="#alaacString#" index="#f#">
 			--->
 	<cfif f is 4 OR i is #data.recordcount#>
-		&lt;/cfpdfform>
+		</cfpdfform>
 		<br>
 	</cfif>
 
@@ -257,16 +257,18 @@
 
 
 
-	<cfif f is 1>
-		<br>
-		<a href="#application.serverRootUrl#/Reports/templates/#cfile#">#cfile#</a>
-	</cfif>
+	
 
 
 <cfset i=i+1>
 </cfloop>
----->
+
 <!---
+
+<cfif f is 1>
+		<br>
+		<a href="#application.serverRootUrl#/Reports/templates/#cfile#">#cfile#</a>
+	</cfif>
 <cfset filesToMerge=listappend(filesToMerge,"#application.webDirectory#/Reports/templates/temp_#collection_object_id#.pdf",",")>
 filesToMerge: #filesToMerge#
  <cfloop list="#filesToMerge#" index="i">
