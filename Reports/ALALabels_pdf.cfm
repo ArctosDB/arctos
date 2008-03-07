@@ -202,7 +202,7 @@
 	</cfif>
 
 
-<cfset i=1+1>
+<cfset i=i+1>
 </cfloop>
 <!---
 <cfset filesToMerge=listappend(filesToMerge,"#application.webDirectory#/Reports/templates/temp_#collection_object_id#.pdf",",")>
