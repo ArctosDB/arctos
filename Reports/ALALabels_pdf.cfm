@@ -88,9 +88,11 @@
 	
 	
 <cfoutput>
-<!---
-<cfpdfform source="#application.webDirectory#/Reports/templates/template_alaLabel.pdf" result="resultStruct" action="read"/>
+	<cfpdfform source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf" result="resultStruct" action="read"/>
 <cfdump var="#resultStruct#">
+<cfabort>
+<!---
+
 --->
 <cfset filesToMerge="">
  <cfloop query="data">
