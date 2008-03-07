@@ -228,17 +228,15 @@
 			overwrite="true">'>
 	</cfif>
     		<cfset theString='#theString# <cfpdfformparam name="family#f#" value="#family#">'>
-			<!---
-			<cfpdfformparam name="geog" value="#geog#" index="">
-			<cfpdfformparam name="identification" value="#sna#" index="#f#">
-			<cfpdfformparam name="identification_remarks" value="#identification_remarks#" index="#f#">
-			<cfpdfformparam name="locality" value="#locality#" index="#f#">
-			<cfpdfformparam name="collector" value="#collector#" index="#f#">
-			<cfpdfformparam name="colldate" value="#thisDate#" index="#f#">
-			<cfpdfformparam name="determiner" value="#determiner#" index="#f#">
-			<cfpdfformparam name="project" value="#project#" index="#f#">
-			<cfpdfformparam name="alaac" value="#alaacString#" index="#f#">
-			--->
+			<cfset theString='#theString# <cfpdfformparam name="geog#f#" value="#geog#">'>
+			<cfset theString='#theString# <cfpdfformparam name="identification#f#" value="#sna#">'>
+			<cfset theString='#theString# <cfpdfformparam name="identification_remarks#f#" value="#identification_remarks#">'>
+			<cfset theString='#theString# <cfpdfformparam name="locality#f#" value="#locality#">'>
+			<cfset theString='#theString# <cfpdfformparam name="collector#f#" value="#collector#">'>
+			<cfset theString='#theString# <cfpdfformparam name="colldate#f#" value="#thisDate#">'>
+			<cfset theString='#theString# <cfpdfformparam name="determiner#f#" value="#determiner#">'>
+			<cfset theString='#theString# <cfpdfformparam name="project#f#" value="#project#">'>
+			<cfset theString='#theString# <cfpdfformparam name="alaac#f#" value="#alaacString#">'>
 	<cfif f is 4 OR i is #data.recordcount#>
 		<cfset theString='#theString# </cfpdfform>'>
 	</cfif>
