@@ -94,6 +94,7 @@
 
 --->
 <cfset f=0>
+<cfset i=1>
 <cfset outPutName="ala_page_">
  <cfloop query="data">
  	
@@ -191,7 +192,7 @@
 			<cfpdfformparam name="project" value="#project#" index="#f#">
 			<cfpdfformparam name="alaac" value="#alaacString#" index="#f#">
 			--->
-	<cfif f is 4>
+	<cfif f is 4 OR i is data.recordcount>
 		/cfpdfform>
 		<hr>
 	</cfif>
@@ -200,7 +201,7 @@
 	</cfif>
 
 
-
+<cfset i=1+1>
 </cfloop>
 <!---
 <cfset filesToMerge=listappend(filesToMerge,"#application.webDirectory#/Reports/templates/temp_#collection_object_id#.pdf",",")>
