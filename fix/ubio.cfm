@@ -46,6 +46,7 @@
 </cfif>
 <cfif #action# is "classificationbank_search">
 	<cfset bla = classificationbank_search(#v#)>
+	<cfdump var=#bla#>
 	<cfset MyXml = xmlparse(bla)>
 	<cfdump var=#MyXml#>
 </cfif>
