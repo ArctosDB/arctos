@@ -228,6 +228,7 @@
 	<cfset fq="#application.webDirectory#/Reports/templates/#i#">
 	<cfset fqPnames = listappend(fqPnames,fq)>
 </cfloop>
+fqPnames: #fqPnames#
 <cfpdf
     action = "merge"
     source = "#fqPnames#"
