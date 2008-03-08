@@ -1,5 +1,5 @@
 <cfoutput>
-
+<!---
 
 <cfdocument name="pdf1" format="pdf">
 <cfoutput>
@@ -17,8 +17,8 @@ This is PDF 2 at #timeFormat(now())#
 
 <cffile action="write" file="#savedFolder#/pdf1.pdf" output="#pdf1#">
 <cffile action="write" file="#savedFolder#/pdf2.pdf" output="#pdf2#">
-
-<cfpdf action="merge" source="#savedFolder#/pdf1.pdf,#savedFolder#/pdf2.pdf" name="mergedpdf">
+--->
+<cfpdf action="merge" source="#application.webDirectory#/Reports/templates/ala_page__1.pdf,#application.webDirectory#/Reports/templates/ala_page__2.pdf" name="mergedpdf">
 
 <cfcontent type="application/pdf" reset="true" variable="#toBinary(mergedpdf)#">
 
