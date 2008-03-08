@@ -223,6 +223,14 @@
 	</cfif>
 	<cfset cFile = "#outPutName#_#thisFormNum#.pdf">
 	<cfset booger="hi">
+	<cfscript>
+		StructInsert(dArray, "key", "family#f#");
+		StructInsert(dArray, "value", "##family#");
+	</cfscript>
+	
+		<!---
+		
+		
 	<cfset temp=structnew()>
 		<cfset temp["key"]="family#f#">
 		<cfset temp["value"]="#family#">
@@ -242,7 +250,6 @@
 		temp:<cfdump var="#temp#">
 		dar:<cfdump var=#dArray#>
 		
-		<!---
 	<cfset temp=structnew()>
 		<cfset temp["key"]="geog#f#">
 		<cfset temp["value"]="#geog#">
