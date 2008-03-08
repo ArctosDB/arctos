@@ -226,52 +226,35 @@
 	<cfscript>
 		StructInsert(dArray, "family#f#", "#family#");
 		StructInsert(dArray, "geog#f#", "#geog#");
+		StructInsert(dArray, "identification#f#", "#sna#");
+		StructInsert(dArray, "identification_remarks#f#", "#identification_remarks#");
+		StructInsert(dArray, "locality#f#", "#locality#");
+		StructInsert(dArray, "collector#f#", "#collector#");
+		StructInsert(dArray, "colldate#f#", "#thisDate#");
+		StructInsert(dArray, "determiner#f#", "#determiner#");
+		StructInsert(dArray, "project#f#", "#project#");
+		StructInsert(dArray, "alaac#f#", "#alaacString#");
 	</cfscript>
 	
 		<!---
-		
-		
-	<cfset temp=structnew()>
-		<cfset temp["key"]="family#f#">
-		<cfset temp["value"]="#family#">
-		temp:<cfdump var="#temp#">
-		dar:<cfdump var=#dArray#>
-		<cfset t=structAppend(dArray,temp)>
-		t:<cfdump var=#t#>
-		temp:<cfdump var="#temp#">
-		dar:<cfdump var=#dArray#>
-	<cfset temp=structnew()>
-		<cfset temp["key"]="geog#f#">
-		<cfset temp["value"]="#geog#">
-		temp:<cfdump var="#temp#">
-		dar:<cfdump var=#dArray#>
-		<cfset t=structAppend(dArray,temp)>
-		t:<cfdump var=#t#>
-		temp:<cfdump var="#temp#">
-		dar:<cfdump var=#dArray#>
-		
-	<cfset temp=structnew()>
-		<cfset temp["key"]="geog#f#">
-		<cfset temp["value"]="#geog#">
-		<cfset f=structappend(dArray,temp)>
-		---->
-<cfset cPair="identification#f#|#sna#">
+	
+<cfset cPair="#f#|##">
 <cfset fVals=listappend(fVals,cPair,",")>
 
-<cfset cPair="identification_remarks#f#|#identification_remarks#">
+<cfset cPair="#f#|#identification_remarks#">
 <cfset fVals=listappend(fVals,cPair,",")>
 
-<cfset cPair="locality#f#|#locality#">
+<cfset cPair="#f#|#locality#">
 <cfset fVals=listappend(fVals,cPair,",")>
-<cfset cPair="collector#f#|#collector#">
+<cfset cPair="#f#|#collector#">
 <cfset fVals=listappend(fVals,cPair,",")>
-<cfset cPair="colldate#f#|#thisDate#">
+<cfset cPair="#f#|##">
 <cfset fVals=listappend(fVals,cPair,",")>
-<cfset cPair="determiner#f#|#determiner#">
+<cfset cPair="#f#|#determiner#">
 <cfset fVals=listappend(fVals,cPair,",")>
-<cfset cPair="project#f#|#project#">
+<cfset cPair="#f#|#project#">
 <cfset fVals=listappend(fVals,cPair,",")>
-<cfset cPair="alaac#f#|#alaacString#">
+<cfset cPair="#f#|##">
 <cfset fVals=listappend(fVals,cPair,",")>
 	<cfif f is 4 OR i is #data.recordcount#>
 		<!---
