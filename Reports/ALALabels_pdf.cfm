@@ -224,7 +224,7 @@
 <hr>
 #pNames#
 <cfset fqPnames="">
-<cfloop list="##" index="i">
+<cfloop list="#pNames#" index="i">
 	<cfset fq="#application.webDirectory#/Reports/templates/#i#">
 	<cfset fqPnames = listappend(fqPnames,fq)>
 </cfloop>
