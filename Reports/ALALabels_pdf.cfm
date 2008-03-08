@@ -229,12 +229,25 @@
 	<cfset fqPnames = listappend(fqPnames,fq)>
 </cfloop>
 fqPnames: #fqPnames#
+<br>
+merging: #listgetat(fqPnames,1)#
+<cfdocument format="PDF" name="cfdoc">
+<html>
+<body>
+<h1>Here is a cover page</h1>
+</body>
+</html>
+</cfdocument>
 <cfpdf
     action = "merge"
     destination = "#application.webDirectory#/Reports/mergedPlants.pdf"
      overwrite = "yes">
+	 <cfpdfparam source="cfdoc">
 	<cfpdfparam source="#listgetat(fqPnames,1)#">
 </cfpdf>
+
+
+
 
 <hr>
 <!---
