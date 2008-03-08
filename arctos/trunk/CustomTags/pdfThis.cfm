@@ -5,6 +5,12 @@
 	Keys:
 	
 	<cfdump var="#StructKeyArray(attributes.dArray)#">
+	
+	<cfloop collection = #attributes.dArray# item = "k ">
+    #k#<br>
+       #StructFind(attributes.dArray, k)#<br>
+	<hr>
+</cfloop> 
 	<!---
 	<cfset bla = StructKeyArray(attributes.dArray)>
 	StructKeyArray: <br>
