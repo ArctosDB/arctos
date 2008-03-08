@@ -233,14 +233,14 @@ fqPnames: #fqPnames#
     action = "merge"
     destination = "#application.webDirectory#/Reports/mergedPlants.pdf"
      overwrite = "yes">
-	<cfloop list="#fqPnames#" index="i">
-		<cfpdfparam source="#i#">
-	</cfloop>
+	<cfpdfparam source="#listgetat(fqPnames,1)#">
 </cfpdf>
 
 <hr>
 <!---
-
+<cfloop list="#fqPnames#" index="i">
+		
+	</cfloop>
 <cfif f is 1>
 		<br>
 		<a href="#application.serverRootUrl#/Reports/templates/#cfile#">#cfile#</a>
