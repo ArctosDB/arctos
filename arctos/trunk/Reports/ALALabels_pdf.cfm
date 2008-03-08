@@ -18,7 +18,7 @@ This is PDF 2 at #timeFormat(now())#
 <cffile action="write" file="#savedFolder#/pdf1.pdf" output="#pdf1#">
 <cffile action="write" file="#savedFolder#/pdf2.pdf" output="#pdf2#">
 
-<cfpdf action="merge" directory="#savedFolder#" name="mergedpdf">
+<cfpdf action="merge" source="#savedFolder#/pdf1.pdf,#savedFolder#/pdf2.pdf" name="mergedpdf">
 
 <cfcontent type="application/pdf" reset="true" variable="#toBinary(mergedpdf)#">
 
