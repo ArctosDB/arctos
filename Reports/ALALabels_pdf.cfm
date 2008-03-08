@@ -225,7 +225,7 @@
 	<cfset booger="hi">
 	<cfscript>
 		StructInsert(dArray, "key", "family#f#");
-		StructInsert(dArray, "value", "##family#");
+		StructInsert(dArray, "value", "#family#");
 	</cfscript>
 	
 		<!---
