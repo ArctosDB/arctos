@@ -96,6 +96,7 @@
 <cfset f=0>
 <cfset i=1>
 <cfset pNames="">
+<cfset thisFormNum=1>
 <cfset outPutName="ala_page_">
 <cfset cFile = "#outPutName#_1.pdf">
 
