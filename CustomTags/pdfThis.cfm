@@ -2,7 +2,9 @@
 	What we got:
 	<br>
 	<cfdump var="#attributes.dArray#">
+	Keys:
 	
+	<cfdump var="#StructKeyArray(attributes.dArray)#">
 	<!---
 	<cfset bla = StructKeyArray(attributes.dArray)>
 	StructKeyArray: <br>
