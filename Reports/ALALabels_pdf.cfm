@@ -1,4 +1,23 @@
+<cfoutput>
+<cfpdf
+    action = "merge"
+    destination = "#application.webDirectory#/Reports/mergedPlants.pdf"
+     overwrite = "yes">
+	 <cfpdfparam source="cfdoc">
+	<cfpdfparam source="#application.webDirectory#/Reports/templates/ala_page__1.pdf">
+</cfpdf>
 
+merged 
+#application.webDirectory#/Reports/templates/ala_page__1.pdf
+
+into 
+
+
+#application.webDirectory#/Reports/mergedPlants.pdf
+
+<cfabort>
+
+</cfoutput>
 <cfset collection_object_id="587812">
 <cfset collection_object_id="587812,587718,587830,587754,587826,587696,587782,587700,587862,587742,587798,587850,587692,587756,587780,587776,641000">
 <cfif not isdefined("collection_object_id")>
