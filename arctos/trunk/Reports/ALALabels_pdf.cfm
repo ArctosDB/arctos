@@ -224,8 +224,7 @@
 	<cfset cFile = "#outPutName#_#thisFormNum#.pdf">
 	<cfset booger="hi">
 	<cfscript>
-		StructInsert(dArray, "key", "family#f#");
-		StructInsert(dArray, "value", "#family#");
+		StructInsert(dArray, "family#f#", "#family#");
 	</cfscript>
 	
 		<!---
