@@ -225,6 +225,7 @@
 	<cfset booger="hi">
 	<cfscript>
 		StructInsert(dArray, "family#f#", "#family#");
+		StructInsert(dArray, "geog#f#", "#geog#");
 	</cfscript>
 	
 		<!---
