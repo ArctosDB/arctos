@@ -1,16 +1,10 @@
 <cfoutput>
-	What we got:
-	<br>
-	<cfdump var="#attributes.dArray#">
-	Keys:
-	
-	<cfdump var="#StructKeyArray(attributes.dArray)#">
-	
-	<cfloop collection = #attributes.dArray# item = "k ">
-    #k#<br>
-       #StructFind(attributes.dArray, k)#<br>
-	<hr>
+	<cfpdfform action="populate" destination="#application.webDirectory#/Reports/templates/#attributes.cFile#" 
+	source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
+		<cfloop collection = #attributes.dArray# item = "k ">
+			<cfpdfformparam name="#k#" value="#StructFind(attributes.dArray, k)#">
 </cfloop> 
+ </cfpdfform>
 	<!---
 	<cfset bla = StructKeyArray(attributes.dArray)>
 	StructKeyArray: <br>
@@ -33,15 +27,14 @@
 	<p>Key#i# is StructKeyArray[i]</p>
         <p>Value#i# is #attributes.dArray[i[i]]#
         </p>
-<cfpdfform action="populate" destination="#application.webDirectory#/Reports/templates/#attributes.cFile#" 
-	source="#application.webDirectory#/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
+
 	<cfloop from="1" to="attributes.dArray.StructCount" index="i">
 		<cfif listlen(i,"|") is 2>
 			<cfset name=listgetat(i,1,"|")>
 			<cfset val=listgetat(i,2,"|")>
-			<cfpdfformparam name="#name#" value="#val#">
+			
 		</cfif>
 	</cfloop>
- </cfpdfform>
+
 	--->
 </cfoutput>
