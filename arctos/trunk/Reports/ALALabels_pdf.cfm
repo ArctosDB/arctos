@@ -95,7 +95,7 @@
 --->
 <cfset f=0>
 <cfset i=1>
-<cfset thisFormNum=1>
+<cfset pNames="">
 <cfset outPutName="ala_page_">
 <cfset cFile = "#outPutName#_1.pdf">
 
@@ -104,46 +104,6 @@
 <cfset dArray=StructNew()>
 
 
-
-<!----
-
-<cfpdfform action="populate" destination="/var/www/html/Reports/templates/ala_page__1.pdf"
-			source="/var/www/html/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
-<cfpdfformparam name="family1" value="Orchidaceae">
-<cfpdfformparam name="family2" value="Asteraceae"> 
-<cfpdfformparam name="family3" value="Primulaceae"> 
-<cfpdfformparam name="family4" value="Zosteraceae"> 
-</cfpdfform>
-
-<cfpdfform action="populate" destination="/var/www/html/Reports/templates/ala_page__2.pdf" 
-			source="/var/www/html/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
-<cfpdfformparam name="family1" value="Chenopodiaceae">
-<cfpdfformparam name="family2" value="Rubiaceae"> 
-<cfpdfformparam name="family3" value="Plantaginaceae"> 
-<cfpdfformparam name="family4" value="Rosaceae"> 
-</cfpdfform>
-
-<cfpdfform action="populate" destination="/var/www/html/Reports/templates/ala_page__3.pdf"
-			 source="/var/www/html/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
-<cfpdfformparam name="family1" value="Scrophulariaceae">
-<cfpdfformparam name="family2" value="Rosaceae"> 
-<cfpdfformparam name="family3" value="Ranunculaceae"> 
-<cfpdfformparam name="family4" value="Orchidaceae"> 
-</cfpdfform>
-
-<cfpdfform action="populate" destination="/var/www/html/Reports/templates/ala_page__4.pdf" 
-			source="/var/www/html/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
-<cfpdfformparam name="family1" value="Ranunculaceae">
-<cfpdfformparam name="family2" value="Lamiaceae"> 
-<cfpdfformparam name="family3" value="Selaginellaceae"> 
-<cfpdfformparam name="family4" value="Cyperaceae"> 
-</cfpdfform>
-
-<cfpdfform action="populate" destination="/var/www/html/Reports/templates/ala_page__5.pdf"
-			 source="/var/www/html/Reports/templates/alaLabelTemplate.pdf" overwrite="true">
-<cfpdfformparam name="family1" value="Rosaceae"> 
-</cfpdfform> 
----->
 		<cfset fVals="">
 <cfset theString=''>
  <cfloop query="data">
@@ -158,8 +118,8 @@
 		---->
 	</cfif>
 	<cfset sna = #sci_name_with_auth#>
-	<cfset sna = replace(sna,"<i>",'<Emphasis style="italic">',"all")>
-	<cfset sna = replace(sna,"</i>",'</Emphasis>',"all")>
+	<cfset sna = replace(sna,"<i>",'',"all")>
+	<cfset sna = replace(sna,"</i>",'',"all")>
 	<cfset sna = replace(sna,"&nbsp;"," ","all")>
 	<cfif #collectors# contains ";">
 		<Cfset spacePos = find(";",collectors)>
@@ -239,12 +199,9 @@
 
 
 	<cfif f is 4 OR i is #data.recordcount#>
-		<!---
-			<cfdump var="#dArray#">	
-		--->
-
 		<cf_pdfThis dArray="#dArray#" cFile='#cFile#'>
 		<cfset dArray=StructNew()>
+		<cfset pNames=listappend(pNames,cFile)>
 	</cfif>
 
 
@@ -264,6 +221,7 @@
 <cfset i=i+1>
 </cfloop>
 <hr>
+#pNames#
 <hr>
 <!---
 
