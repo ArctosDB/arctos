@@ -236,26 +236,8 @@
 		StructInsert(dArray, "alaac#f#", "#alaacString#");
 	</cfscript>
 	
-		<!---
-	
-<cfset cPair="#f#|##">
-<cfset fVals=listappend(fVals,cPair,",")>
 
-<cfset cPair="#f#|#identification_remarks#">
-<cfset fVals=listappend(fVals,cPair,",")>
 
-<cfset cPair="#f#|#locality#">
-<cfset fVals=listappend(fVals,cPair,",")>
-<cfset cPair="#f#|#collector#">
-<cfset fVals=listappend(fVals,cPair,",")>
-<cfset cPair="#f#|##">
-<cfset fVals=listappend(fVals,cPair,",")>
-<cfset cPair="#f#|#determiner#">
-<cfset fVals=listappend(fVals,cPair,",")>
-<cfset cPair="#f#|#project#">
-<cfset fVals=listappend(fVals,cPair,",")>
-<cfset cPair="#f#|##">
-<cfset fVals=listappend(fVals,cPair,",")>
 	<cfif f is 4 OR i is #data.recordcount#>
 		<!---
 			<cfdump var="#dArray#">	
@@ -263,7 +245,6 @@
 
 		<cf_pdfThis dArray="#dArray#" cFile='#cFile#'>
 		<cfset dArray=StructNew()>
-		<cfset fVals="">
 	</cfif>
 
 
