@@ -223,6 +223,18 @@
 </cfloop>
 <hr>
 #pNames#
+<cfset fqPnames="">
+<cfloop list="##" index="i">
+	<cfset fq="#application.webDirectory#/Reports/templates/#i#">
+	<cfset fqPnames = listappend(fqPnames,fq)>
+</cfloop>
+<cfpdf
+    action = "merge"
+    directory = "directory of PDF files to merge"
+    source = "#fqPnames#"
+    destination = "#application.webDirectory#/Reports/mergedPlants.pdf"
+     overwrite = "yes">
+
 <hr>
 <!---
 
