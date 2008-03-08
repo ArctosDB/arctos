@@ -1,4 +1,32 @@
 <cfoutput>
+
+
+<cfdocument name="pdf1" format="pdf">
+<cfoutput>
+This is PDF 1 at #timeFormat(now())#
+</cfoutput>
+</cfdocument>
+
+<cfdocument name="pdf2" format="pdf">
+<cfoutput>
+This is PDF 2 at #timeFormat(now())#
+</cfoutput>
+</cfdocument>
+
+<cfset savedFolder = expandPath("./templates")>
+
+<cffile action="write" file="#savedFolder#/pdf1.pdf" output="#pdf1#">
+<cffile action="write" file="#savedFolder#/pdf2.pdf" output="#pdf2#">
+
+<cfpdf action="merge" directory="#savedFolder#" name="mergedpdf">
+
+<cfcontent type="application/pdf" reset="true" variable="#toBinary(mergedpdf)#">
+
+
+
+<cfabort>
+#application.webDirectory#/Reports/mergedPlants.pdf
+
 <cfpdf
     action = "merge"
     destination = "#application.webDirectory#/Reports/mergedPlants.pdf"
@@ -9,12 +37,6 @@ merged
 #application.webDirectory#/Reports/templates/ala_page__1.pdf
 
 into 
-
-
-#application.webDirectory#/Reports/mergedPlants.pdf
-
-<cfabort>
-
 </cfoutput>
 <cfset collection_object_id="587812">
 <cfset collection_object_id="587812,587718,587830,587754,587826,587696,587782,587700,587862,587742,587798,587850,587692,587756,587780,587776,641000">
