@@ -230,7 +230,6 @@
 </cfloop>
 <cfpdf
     action = "merge"
-    directory = "directory of PDF files to merge"
     source = "#fqPnames#"
     destination = "#application.webDirectory#/Reports/mergedPlants.pdf"
      overwrite = "yes">
