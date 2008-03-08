@@ -3,7 +3,6 @@
     action = "merge"
     destination = "#application.webDirectory#/Reports/mergedPlants.pdf"
      overwrite = "yes">
-	 <cfpdfparam source="cfdoc">
 	<cfpdfparam source="#application.webDirectory#/Reports/templates/ala_page__1.pdf">
 </cfpdf>
 
