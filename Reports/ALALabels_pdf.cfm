@@ -3,7 +3,7 @@
     action = "merge"
     destination = "#application.webDirectory#/Reports/mergedPlants.pdf"
      overwrite = "yes"
-	source=	"#application.webDirectory#/Reports/templates/" />
+	source=	"#application.webDirectory#/Reports/templates" />
 
 merged 
 #application.webDirectory#/Reports/templates/ala_page__1.pdf
