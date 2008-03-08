@@ -231,9 +231,12 @@
 fqPnames: #fqPnames#
 <cfpdf
     action = "merge"
-    source = "#fqPnames#"
     destination = "#application.webDirectory#/Reports/mergedPlants.pdf"
      overwrite = "yes">
+	<cfloop list="#fqPnames#" index="i">
+		<cfpdfparam source="#i#">
+	</cfloop>
+</cfpdf>
 
 <hr>
 <!---
