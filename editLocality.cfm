@@ -1057,19 +1057,36 @@
 			insert into geology_attributes (
     			locality_id,
 			    geology_attribute,
-			    geo_att_value,
-			    geo_att_determiner_id,
-			    geo_att_determined_date,
-			    geo_att_determined_method,
-			    geo_att_remark
+			    geo_att_value
+			    <cfif len(#geo_att_determiner_id#) gt 0>
+					,geo_att_determiner_id
+				</cfif>
+				<cfif len(#geo_att_determined_date#) gt 0>
+					,geo_att_determined_date
+				</cfif>
+			   	<cfif len(#geo_att_determined_method#) gt 0>
+					,geo_att_determined_method
+				</cfif>
+			   	<cfif len(#geo_att_remark#) gt 0>
+					,geo_att_remark
+				</cfif>
+			    
 			   ) values (
 			   #locality_id#,
 			   '#geology_attribute#',
 			   '#stripQuotes(geo_att_value)#',
-			   #geo_att_determiner_id#,
-			   '#dateformat(geo_att_determined_date,"dd-mmm-yyyy")#',
-			   '#stripQuotes(geo_att_determined_method)#',
-			   '#stripQuotes(geo_att_remark)#'
+			   <cfif len(#geo_att_determiner_id#) gt 0>
+					,#geo_att_determiner_id#
+				</cfif>
+				<cfif len(#geo_att_determined_date#) gt 0>
+					,'#dateformat(geo_att_determined_date,"dd-mmm-yyyy")#'
+				</cfif>
+				<cfif len(#geo_att_determined_method#) gt 0>
+					,'#stripQuotes(geo_att_determined_method)#'
+				</cfif>
+				<cfif len(#geo_att_remark#) gt 0>
+					,'#stripQuotes(geo_att_remark)#'
+				</cfif>
 			 )
 		</cfquery>
 		<cflocation url="editLocality.cfm?locality_id=#locality_id#" addtoken="no">
