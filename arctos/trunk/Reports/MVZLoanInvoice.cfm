@@ -280,51 +280,6 @@ Change to: <select name="format">
 
 <!--- Set up the necessary variables --->
 
-<!--- Data manipulation --->
-<cfif format is "Bird/Mammal">
-	<cfset sciName = #replace(scientific_name," ","&nbsp;","all")#>
-	<!--- complicated and stupid, but it should work.
-	The idea is to find all the spaces in the scientific name. Then find the 
-	one that is closest to the center of the string. Change that space to a
-	newline.
-	--Peter DeVore --->
-	<!--- Find the space locations --->
-	<cfset curLoc = 0>
-	<cfset spaceLocs = "">
-	<cfset replacedSpace = false>
-	<cfloop condition="temp lt #len(sciName)#">
-		<cfset curLoc = find(" ",sciName,curLoc)>
-		<cfset spaceLocs = ListAppend(spaceLocs,curLoc)>
-	</cfloop>
-	
-	<!--- Convert the space locations into distances from center --->
-	<cfset convertedSpaceLocs = "">
-	<cfloop list="spaceLocs" index="loc">
-		<cfset convertedSpaceLocs = abs(loc - (len(sciName)/2))>
-	</cfloop>
-	
-	<!--- Sort those distances --->
-	<cfset convertedSpaceLocs = ListSort(convertedSpaceLocs,"numeric")>
-	
-	<!--- Try inserting newline if the closest space is after the center --->
-	<cfset position = (len(sciName)/2) + ListFirst(convertedSpaceLocs)>
-	<cfif find(" ", sciName, position) is position and not replacedSpace>
-		<cfset sciName = insert("<br>", sciName, position)>
-		<cfset replaceSpace = true>
-	</cfif>
-	
-	<!--- Try inserting newline if the closest space is before the center --->
-	<cfset position = (len(sciName)/2) - ListFirst(convertedSpaceLocs)>
-	<cfif find(" ", sciName, position) is position and not replacedSpace>
-		<cfset sciName = insert("<br>", sciName, position)>
-		<cfset replaceSpace = true>
-	</cfif>
-</cfif>
-<cfif format is "Herp">
-	<cfset sciName = #replace(scientific_name," ","&nbsp;","all")#>
-</cfif>
-
-
 <!--- Layout parameters --->
 <cfset maxCol = 2>
 <cfif format is "Bird/Mammal">
@@ -415,6 +370,52 @@ update -- seems to work now, I have no idea what fixed it... --->
 #pageHeader#
 <!--- Main loop --->
 <cfloop query="getItems">
+	
+<!--- Data manipulation --->
+<cfif format is "Bird/Mammal">
+	<cfset sciName = #replace(scientific_name," ","&nbsp;","all")#>
+	<!--- complicated and stupid, but it should work.
+	The idea is to find all the spaces in the scientific name. Then find the 
+	one that is closest to the center of the string. Change that space to a
+	newline.
+	--Peter DeVore --->
+	<!--- Find the space locations --->
+	<cfset curLoc = 0>
+	<cfset spaceLocs = "">
+	<cfset replacedSpace = false>
+	<cfloop condition="temp lt #len(sciName)#">
+		<cfset curLoc = find(" ",sciName,curLoc)>
+		<cfset spaceLocs = ListAppend(spaceLocs,curLoc)>
+	</cfloop>
+	
+	<!--- Convert the space locations into distances from center --->
+	<cfset convertedSpaceLocs = "">
+	<cfloop list="spaceLocs" index="loc">
+		<cfset convertedSpaceLocs = abs(loc - (len(sciName)/2))>
+	</cfloop>
+	
+	<!--- Sort those distances --->
+	<cfset convertedSpaceLocs = ListSort(convertedSpaceLocs,"numeric")>
+	
+	<!--- Try inserting newline if the closest space is after the center --->
+	<cfset position = (len(sciName)/2) + ListFirst(convertedSpaceLocs)>
+	<cfif find(" ", sciName, position) is position and not replacedSpace>
+		<cfset sciName = insert("<br>", sciName, position)>
+		<cfset replaceSpace = true>
+	</cfif>
+	
+	<!--- Try inserting newline if the closest space is before the center --->
+	<cfset position = (len(sciName)/2) - ListFirst(convertedSpaceLocs)>
+	<cfif find(" ", sciName, position) is position and not replacedSpace>
+		<cfset sciName = insert("<br>", sciName, position)>
+		<cfset replaceSpace = true>
+	</cfif>
+</cfif>
+<cfif format is "Herp">
+	<cfset sciName = #replace(scientific_name," ","&nbsp;","all")#>
+</cfif>
+<!--- End data manipulation --->
+	
 	<tr><td>
 	<!--- here is where I could insert a div tag so that I could limit the space
 	allotted per item, but make sure that the div tag size is a function or which format is chosen--->
