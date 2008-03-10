@@ -1280,7 +1280,7 @@ or cfloop with name="your query".
 <cfif #cgi.HTTP_HOST# contains "berkeley.edu">
 	<cfquery name="grefcount" datasource="#Application.web_user#">
 		select
-		  count(book_section.publication_id,page_id) thecount
+		  count(book_section.publication_id) thecount
 		from
 		  gref_roi_ng, gref_roi_value_ng, book_section
 		where
