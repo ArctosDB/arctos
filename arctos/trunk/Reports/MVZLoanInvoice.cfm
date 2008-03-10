@@ -334,8 +334,8 @@ Change to: <select name="format">
 </table>
 '>
 	
- Document tags --->
- TODO: figure out WHY the pdf i download from the link above is not getting changed...
+<!--- Document tags --->
+<!--- TODO: figure out WHY the pdf i download from the link above is not getting changed...
 sent email to dusty about it.
 update -- seems to work now, I have no idea what fixed it... --->
 <cfdocument 
@@ -388,7 +388,6 @@ update -- seems to work now, I have no idea what fixed it... --->
 		
 		<!--- Sort those distances --->
 		<cfset convertedSpaceLocs = ListSort(convertedSpaceLocs,"numeric")>
-		convertedSpaceLocs: #convertedSpaceLocs#<br>
 		
 		<!--- Have not replaced a space yet --->
 		<cfset replacedSpace = false>
