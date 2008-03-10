@@ -402,7 +402,7 @@ update -- seems to work now, I have no idea what fixed it... --->
 		trying position: #position#<br>
 		find(thingToReplace, sciName, position): #find(thingToReplace, sciName, position)#<br>
 		<cfif find(thingToReplace, sciName, position) is position and not replacedSpace>
-			<cfset sciName = insert("<br>", sciName, position)>
+			<cfset sciName = insert("<br>", sciName, position-1)>
 			<cfset replacedSpace = true>
 		</cfif>
 		
@@ -411,7 +411,7 @@ update -- seems to work now, I have no idea what fixed it... --->
 		trying position: #position#<br>
 		find(thingToReplace, sciName, position): #find(thingToReplace, sciName, position)#<br>
 		<cfif find(thingToReplace, sciName, position) is position and not replacedSpace>
-			<cfset sciName = insert("<br>", sciName, position)>
+			<cfset sciName = insert("<br>", sciName, position-1)>
 			<cfset replacedSpace = true>
 		</cfif>
 		replacedSpace: #replacedSpace#<br>
