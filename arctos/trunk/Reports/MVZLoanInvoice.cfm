@@ -300,7 +300,7 @@ Change to: <select name="format">
 	<cfset labelStyle = 'height: 32px; #labelWidth# #labelBorder#'>
 	<!--- This width is smaller because this date occupies two lines--->
 	<cfset dateWidth = "width: 40px;">
-	<cfset sciNameWidth = "width: 60px;">
+	<!---<cfset sciNameWidth = "width: 60px;">--->
 </cfif>
 <cfif format is "Herp">
 	<cfset textClass = "times8">
@@ -308,7 +308,7 @@ Change to: <select name="format">
 	<cfset labelStyle = 'height: 17px; #labelWidth# #labelBorder#'>
 	<!--- This width is larger because this date occupies one line--->
 	<cfset dateWidth = "width: 50px;">
-	<cfset sciNameWidth = "width: 60px;">
+	<!---<cfset sciNameWidth = "width: 60px;">--->
 </cfif>
 <cfset outerTableParams = 'width="100%" cellspacing="0" cellpadding="0" border="0"'>
 <cfset innerTableParams = 'width="100%" cellspacing="0" cellpadding="0" border="0"'>
@@ -375,13 +375,16 @@ update -- seems to work now, I have no idea what fixed it... --->
 		<td>
 			<span class="#textClass#">#cat_num#</span>
 		</td>
-<!--- in order to fix sciname width problem (sample: transaction_id=11062560 in dev)
-need to insert a newline character--->
-		<td style="#sciNameWidth#">
+<!--- there is a sciname width problem (sample: transaction_id=11062560 in dev)
+where it can be too big and force the slips onto the next line.
+not much i can do about it: i tried limiting the width of it, but if you want
+one line slips, then its going to take that much room and that's that.
+--Peter DeVore--->
+		<td>
 			<div class="#textClass#"><i>#replace(scientific_name," ","&nbsp;","all")#</i></span>	
 		</td>
 		<td>
-			<span class="#textClass#">Loan&nbsp;##&nbsp;#getItems.loan_number#</span>
+			<span class="#textClass#">&nbsp;#getItems.loan_number#</span>
 		</td>
 		<td>
 		<!--- mmm is Aug, while mmmm is August (diff formats)--->
