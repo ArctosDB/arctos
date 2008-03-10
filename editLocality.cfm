@@ -65,8 +65,10 @@
     	select 
 			*
 		from 
-			geology_attributes
+			geology_attributes,
+			preferred_agent_name
 		where 
+			geology_attributes.geo_att_determiner_id = preferred_agent_name.agent_id (+) and
 			geology_attributes.locality_id=#locality_id# 
 	</cfquery>
 	<cfquery name="whatSpecs" datasource="#Application.web_user#">
@@ -972,7 +974,53 @@
 	<hr>
 	Geology Attributes
 	<cfif geolDet.recordcount gt 0>
-		<cfdump var="#geolDet#">
+		<table border>
+			<tr>
+				<th>Attribute</th>
+				<th>Value</th>
+				<th>Determiner</th>
+				<th>Date</th>
+				<th>Method</th>
+				<th>Remark</th>
+			</tr>
+			<form name="editGeolAtt" method="post" action="editLocality.cfm">
+				<input type="hidden" name="Action" value="editGeol">
+            	<input type="hidden" name="locality_id" value="#locDet.locality_id#">
+			<cfloop query="geolDet">
+				<tr>
+					<td>
+						<select name="geology_attribute" id="geology_attribute">
+							<cfloop query="ctgeology_attribute">
+								<option <cfif #ctgeology_attribute.geology_attribute# is #geolDet.geology_attribute#> selected="selected" </cfif>value="#geology_attribute#">#geology_attribute#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<input type="text" name="geo_att_value" id="geo_att_value" size="60" class="reqdClr" value="#geo_att_value#">
+					</td>
+					<td>
+						<input type="hidden" name="geo_att_determiner_id" id="geo_att_determiner_id" value="geo_att_determiner_id">
+						<input type="text" name="geo_att_determiner" id="geo_att_determiner" size="60" class="reqdClr" value="#agent_name#">
+					</td>
+					<td>
+						<input type="text" name="geo_att_determined_date" id="geo_att_determined_date" size="60" class="reqdClr" 
+							value="#dateformat(geo_att_determined_date,'dd mmm yyyy')#">
+					</td>
+					<td>
+						<input type="text" name="geo_att_determined_method" id="geo_att_determined_method"
+							size="60" class="reqdClr" value="#geo_att_determined_method#">
+					</td>
+					<td>
+						<input type="text" name="geo_att_remark" id="geo_att_remark"
+							size="60" class="reqdClr" value="#geo_att_remark#">
+					</td>
+				</tr>
+			</cfloop>
+			<input type="submit" value='Save Changes'>
+		</table>
+
+		
+		</form>
 	</cfif>
 	Create Determination
 	<form name="newGeolDet" method="post" action="editLocality.cfm">
