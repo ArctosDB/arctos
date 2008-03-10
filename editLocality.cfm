@@ -989,9 +989,10 @@
 			<cfloop query="geolDet">
 				<tr>
 					<td>
+						<cfset ttAtt=#geology_attribute#>
 						<select name="geology_attribute" id="geology_attribute">
 							<cfloop query="ctgeology_attribute">
-								<option <cfif #ctgeology_attribute.geology_attribute# is #geolDet.geology_attribute#> selected="selected" </cfif>value="#geology_attribute#">#geology_attribute#</option>
+								<option <cfif #geology_attribute# is #ttAtt#> selected="selected" </cfif>value="#geology_attribute#">#geology_attribute#</option>
 							</cfloop>
 						</select>
 					</td>
