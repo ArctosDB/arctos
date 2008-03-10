@@ -369,10 +369,10 @@ update -- seems to work now, I have no idea what fixed it... --->
 	<cfset spaceLocs = "">
 	<cfset loopin = true>
 	<cfloop condition="loopin">
-		<cfif curLoc is find(" ",sciName,curLoc)>
+		<cfif curLoc is find("&nbsp;",sciName,curLoc)>
 			<cfset loopin = false>
 		<cfelse> 
-			<cfset curLoc = find(" ",sciName,curLoc)>
+			<cfset curLoc = find("&nbsp;",sciName,curLoc)>
 			<cfset spaceLocs = ListAppend(spaceLocs,curLoc)>
 		</cfif>
 	</cfloop>
