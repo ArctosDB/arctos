@@ -1312,7 +1312,6 @@ or cfloop with name="your query".
 		<cfloop query="gref">
 			<div class="detailBlock">
 				<span class="innerDetailLabel">Field Notebook Page:</span>
-				&nbsp;
 				<a 
 href="http://bg.berkeley.edu/gref/Client.html?pageId=#page_id#&publicationId=#publication_id#" 
 						target="_blank">click here</a>
