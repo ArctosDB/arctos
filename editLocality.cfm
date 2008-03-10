@@ -982,7 +982,7 @@
 			<select name="geology_attribute" id="geology_attribute">
 				<option value=""></option>
 				<cfloop query="ctgeology_attribute">
-					<option value="geology_attribute">#geology_attribute#</option>
+					<option value="#geology_attribute#">#geology_attribute#</option>
 				</cfloop>
 			</select>
 			<label for="geo_att_value">Value</label>
