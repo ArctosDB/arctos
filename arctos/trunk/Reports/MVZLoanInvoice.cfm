@@ -391,12 +391,15 @@ update -- seems to work now, I have no idea what fixed it... --->
 		
 		<!--- Sort those distances --->
 		<cfset convertedSpaceLocs = ListSort(convertedSpaceLocs,"numeric")>
+		convertedSpaceLocs: #convertedSpaceLocs#<br>
 		
 		<!--- Have not replaced a space yet --->
 		<cfset replacedSpace = false>
 		
 		<!--- Try inserting newline if the closest space is after the center --->
 		<cfset position = (len(sciName)/2) + ListFirst(convertedSpaceLocs)>
+		trying position: #position#<br>
+		find(" ", sciName, position): #find(" ", sciName, position)#<br>
 		<cfif find(" ", sciName, position) is position and not replacedSpace>
 			<cfset sciName = insert("<br>", sciName, position)>
 			<cfset replaceSpace = true>
@@ -404,10 +407,13 @@ update -- seems to work now, I have no idea what fixed it... --->
 		
 		<!--- Try inserting newline if the closest space is before the center --->
 		<cfset position = (len(sciName)/2) - ListFirst(convertedSpaceLocs)>
+		trying position: #position#<br>
+		find(" ", sciName, position): #find(" ", sciName, position)#<br>
 		<cfif find(" ", sciName, position) is position and not replacedSpace>
 			<cfset sciName = insert("<br>", sciName, position)>
 			<cfset replaceSpace = true>
 		</cfif>
+		replaceSpace: #replaceSpace#<br>
 	</cfif>
 </cfif>
 <cfif format is "Herp">
