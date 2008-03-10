@@ -61,6 +61,14 @@
 			locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id and 
 			locality.locality_id=#locality_id# 
 	</cfquery>
+	<cfquery name="geolDet" datasource="#Application.web_user#">
+    	select 
+			*
+		from 
+			geology_attributes
+		where 
+			geology_attributes.locality_id=#locality_id# 
+	</cfquery>
 	<cfquery name="whatSpecs" datasource="#Application.web_user#">
   		SELECT 
 			count(cataloged_item.cat_num) numOfSpecs, 
@@ -107,6 +115,10 @@
      <cfquery name="ctunits" datasource="#Application.web_user#">
         select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS order by ORIG_LAT_LONG_UNITS
      </cfquery>
+	<cfquery name="geology_attribute" datasource="#Application.web_user#">
+        select geology_attribute from ctgeology_attribute order by geology_attribute
+     </cfquery>
+	                                 
   	<table>
   		<tr>
 			<td>
@@ -957,10 +969,64 @@
 			</form>
   	
 	<table >
+	<hr>
+	Geology Attributes
+	<cfif geolDet.recordcount gt 0>
+		<cfdump var="#geolDet#">
+	</cfif>
+	Create Determination
+	<form name="newGeolDet" method="post" action="editLocality.cfm">
+            <input type="hidden" name="Action" value="AddGeol">
+            <input type="hidden" name="locality_id" value="#locDet.locality_id#">
+			<label for="geology_attribute">Geology Attribute</label>
+			<select name="geology_attribute" id="geology_attribute">
+				<option value=""></option>
+				<cfloop query="ctgeology_attribute">
+					<option value="geology_attribute">#geology_attribute#</option>
+				</cfloop>
+			</select>
+			<label for="geo_att_value">Value</label>
+			<input type="text" name="geo_att_value" id="geo_att_value" size="60" class="reqdClr">
+			<label for="geo_att_determiner">Determiner</label>
+			<input type="text" name="geo_att_determiner" id="geo_att_determiner" size="40"
+						onchange="getAgent('geo_att_determiner_id','geo_att_determiner','newGeolDet',this.value); return false;"
+		 				onKeyPress="return noenter(event);">
+			<input type="hidden" name="geo_att_determiner_id" id="geo_att_determiner_id">
+			<label for="geo_att_determined_date">Determined Date</label>
+			<input type="text" name="geo_att_determined_date" id="geo_att_determined_date">
+			<label for="geo_att_determined_method">Determination Method</label>
+			<input type="text" name="geo_att_determined_method" id="geo_att_determined_method" size="60">
+			<label for="geo_att_remark">Remark</label>
+			<input type="text" name="geo_att_remark" id="geo_att_remark" size="60">
+			<input type="submit" value="Create Determination">
 </cfoutput> 
 <cfinclude template="/includes/_footer.cfm">
 </cfif>
 <!------------------------------------------------------------------------------------------------------>
+<cfif #Action# is "AddGeol">
+<cfoutput>
+		<cfquery name="changeGeog" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			insert into geology_attributes (
+    			locality_id,
+			    geology_attribute,
+			    geo_att_value,
+			    geo_att_determiner_id,
+			    geo_att_determined_date,
+			    geo_att_determined_method,
+			    geo_att_remark
+			   ) values (
+			   #locality_id#,
+			   '#geology_attribute#',
+			   '#stripQuotes(geo_att_value)#',
+			   #geo_att_determiner_id#,
+			   '#dateformat(geo_att_determined_date,"dd-mmm-yyyy")#',
+			   '#stripQuotes(geo_att_determined_method)#',
+			   '#stripQuotes(geo_att_remark)#'
+			 )
+		</cfquery>
+		<cflocation url="editLocality.cfm?locality_id=#locality_id#" addtoken="no">
+</cfoutput>
+</cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "changeGeog">
 <!--- no security --->
