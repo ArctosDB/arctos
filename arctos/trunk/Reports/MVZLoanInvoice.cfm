@@ -383,7 +383,7 @@ update -- seems to work now, I have no idea what fixed it... --->
 	<cfif len(spaceLocs) gt 0>
 		<!--- Convert the space locations into distances from center --->
 		<cfset convertedSpaceLocs = "">
-		<cfloop list="spaceLocs" index="loc">
+		<cfloop list="#spaceLocs#" index="loc">
 			loc: #loc#<br>
 			<cfset convertedSpaceLocs = abs(loc - (len(sciName)/2))>
 		</cfloop>
