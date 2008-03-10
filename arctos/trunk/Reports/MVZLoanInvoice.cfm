@@ -383,7 +383,7 @@ update -- seems to work now, I have no idea what fixed it... --->
 	<cfset curLoc = 0>
 	<cfset spaceLocs = "">
 	<cfset replacedSpace = false>
-	<cfloop condition="temp lt #len(sciName)#">
+	<cfloop condition="curLoc lt #len(sciName)#">
 		<cfset curLoc = find(" ",sciName,curLoc)>
 		<cfset spaceLocs = ListAppend(spaceLocs,curLoc)>
 	</cfloop>
