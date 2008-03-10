@@ -115,7 +115,7 @@
      <cfquery name="ctunits" datasource="#Application.web_user#">
         select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS order by ORIG_LAT_LONG_UNITS
      </cfquery>
-	<cfquery name="geology_attribute" datasource="#Application.web_user#">
+	<cfquery name="ctgeology_attribute" datasource="#Application.web_user#">
         select geology_attribute from ctgeology_attribute order by geology_attribute
      </cfquery>
 	                                 
