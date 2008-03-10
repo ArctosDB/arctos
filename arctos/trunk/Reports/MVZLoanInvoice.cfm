@@ -300,7 +300,7 @@ Change to: <select name="format">
 	<cfset labelStyle = 'height: 32px; #labelWidth# #labelBorder#'>
 	<!--- This width is smaller because this date occupies two lines--->
 	<cfset dateWidth = "width: 40px;">
-	<cfset sciNameWidth = "40%">
+	<cfset sciNameWidth = "width: 60px;">
 </cfif>
 <cfif format is "Herp">
 	<cfset textClass = "times8">
@@ -308,7 +308,7 @@ Change to: <select name="format">
 	<cfset labelStyle = 'height: 17px; #labelWidth# #labelBorder#'>
 	<!--- This width is larger because this date occupies one line--->
 	<cfset dateWidth = "width: 50px;">
-	<cfset sciNameWidth = "50%">
+	<cfset sciNameWidth = "width: 60px;">
 </cfif>
 <cfset outerTableParams = 'width="100%" cellspacing="0" cellpadding="0" border="0"'>
 <cfset innerTableParams = 'width="100%" cellspacing="0" cellpadding="0" border="0"'>
@@ -377,7 +377,7 @@ update -- seems to work now, I have no idea what fixed it... --->
 		</td>
 <!--- in order to fix sciname width problem (sample: transaction_id=11062560 in dev)
 need to insert a newline character--->
-		<td width="#sciNameWidth#">
+		<td style="#sciNameWidth#">
 			<div class="#textClass#"><i>#replace(scientific_name," ","&nbsp;","all")#</i></span>	
 		</td>
 		<td>
