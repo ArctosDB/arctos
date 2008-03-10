@@ -307,14 +307,14 @@ Change to: <select name="format">
 	<cfset convertedSpaceLocs = ListSort(convertedSpaceLocs,"numeric")>
 	
 	<!--- Try inserting newline if the closest space is after the center --->
-	<cfset position = (len(sciName)/2)) + ListFirst(convertedSpaceLocs)>
+	<cfset position = (len(sciName)/2) + ListFirst(convertedSpaceLocs)>
 	<cfif find(" ", sciName, position) = position and not replacedSpace>
 		<cfset sciName = insert("<br>", sciName, position)>
 		<cfset replaceSpace = true>
 	</cfif>
 	
 	<!--- Try inserting newline if the closest space is before the center --->
-	<cfset position = (len(sciName)/2)) - ListFirst(convertedSpaceLocs)>
+	<cfset position = (len(sciName)/2) - ListFirst(convertedSpaceLocs)>
 	<cfif find(" ", sciName, position) = position and not replacedSpace>
 		<cfset sciName = insert("<br>", sciName, position)>
 		<cfset replaceSpace = true>
