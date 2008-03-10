@@ -1309,7 +1309,7 @@ or cfloop with name="your query".
 		<div class="detailCell">
 			<div class="detailLabel">Media</div>
 	</cfoutput>
-		<cfoutput query="gref">
+		<cfloop query="gref">
 			<div class="detailBlock">
 				<span class="innerDetailLabel">Field Notebook Page:</span>
 				&nbsp;
@@ -1317,7 +1317,7 @@ or cfloop with name="your query".
 href="http://bg.berkeley.edu/gref/Client.html?pageId=#page_id#&publicationId=#publication_id#" 
 						target="_blank">click here</a>
 			</div>
-		</cfoutput>
+		</cfloop>
 		<!--- Insert here more media in detail blocks here --->
 </cfif>
 	<!---------------------------------------------------------------------------
