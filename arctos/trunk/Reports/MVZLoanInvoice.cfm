@@ -366,14 +366,15 @@ update -- seems to work now, I have no idea what fixed it... --->
 	--Peter DeVore ---><br>
 	sciName: #sciName#<br>
 	<!--- Find the space locations --->
+	<cfset thingToReplace = "&nbsp;">
 	<cfset curLoc = 0>
 	<cfset spaceLocs = "">
 	<cfset loopin = true>
 	<cfloop condition="loopin">
-		<cfif find("&nbsp;",sciName,curLoc+1) is 0>
+		<cfif find(thingToReplace,sciName,curLoc+1) is 0>
 			<cfset loopin = false>
 		<cfelse> 
-			<cfset curLoc = find("&nbsp;",sciName,curLoc+1)>
+			<cfset curLoc = find(thingToReplace,sciName,curLoc+1)>
 			<cfset spaceLocs = ListAppend(spaceLocs,curLoc)>
 		</cfif>
 	</cfloop>
@@ -399,21 +400,21 @@ update -- seems to work now, I have no idea what fixed it... --->
 		<!--- Try inserting newline if the closest space is after the center --->
 		<cfset position = (len(sciName)/2) + ListFirst(convertedSpaceLocs)>
 		trying position: #position#<br>
-		find(" ", sciName, position): #find(" ", sciName, position)#<br>
-		<cfif find(" ", sciName, position) is position and not replacedSpace>
+		find(thingToReplace, sciName, position): #find(thingToReplace, sciName, position)#<br>
+		<cfif find(thingToReplace, sciName, position) is position and not replacedSpace>
 			<cfset sciName = insert("<br>", sciName, position)>
-			<cfset replaceSpace = true>
+			<cfset replacedSpace = true>
 		</cfif>
 		
 		<!--- Try inserting newline if the closest space is before the center --->
 		<cfset position = (len(sciName)/2) - ListFirst(convertedSpaceLocs)>
 		trying position: #position#<br>
-		find(" ", sciName, position): #find(" ", sciName, position)#<br>
-		<cfif find(" ", sciName, position) is position and not replacedSpace>
+		find(thingToReplace, sciName, position): #find(thingToReplace, sciName, position)#<br>
+		<cfif find(thingToReplace, sciName, position) is position and not replacedSpace>
 			<cfset sciName = insert("<br>", sciName, position)>
-			<cfset replaceSpace = true>
+			<cfset replacedSpace = true>
 		</cfif>
-		replaceSpace: #replaceSpace#<br>
+		replacedSpace: #replacedSpace#<br>
 	</cfif>
 </cfif>
 <cfif format is "Herp">
