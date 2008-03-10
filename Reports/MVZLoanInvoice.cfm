@@ -351,21 +351,6 @@ update -- seems to work now, I have no idea what fixed it... --->
 	overwrite="yes">
 <cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
-<!---<div style="position:absolute; left:5px; top:5px;font-size:10px; font-weight:600;">
-	Page 1 of #numberOfPages#
-</div>
-<div style="position:absolute; right:5px; top:5px; font-size:10px; font-weight:600;">
-	Loan&nbsp;##&nbsp;#getItems.loan_number#
-</div>
-<div style=" width:100%; " align="center">
-         <b><font face="Arial, Helvetica, sans-serif">SPECIMEN&nbsp;&nbsp;LIST <br>
-   	
-	<font size="+2"> Museum of Vertebrate Zoology <br>
-    University of California, Berkeley</font></font></b> <br>
-   <b> #dateformat(shipDate.shipped_date,"dd mmmm yyyy")#</b>
-   <br>
-      <font face="Courier New, Courier, mono"><b>Item List</b></font>
-</div>--->
 <cfset pageHeader = replace(pageHeader,'Page #curPage-1# of','Page #curPage# of')>
 #pageHeader#
 <!--- Main loop --->
@@ -380,35 +365,45 @@ update -- seems to work now, I have no idea what fixed it... --->
 	newline.
 	--Peter DeVore --->
 	<!--- Find the space locations --->
-	<cfset curLoc = 0>
+	<cfset curLoc = -1>
 	<cfset spaceLocs = "">
-	<cfset replacedSpace = false>
-	<cfloop condition="curLoc lt #len(sciName)#">
-		<cfset curLoc = find(" ",sciName,curLoc)>
-		<cfset spaceLocs = ListAppend(spaceLocs,curLoc)>
+	<cfset loopin = true>
+	<cfloop condition="loopin">
+		<cfif curLoc is find(" ",sciName,curLoc)>
+			<cfset loopin = false>
+		<cfelse> 
+			<cfset curLoc = find(" ",sciName,curLoc)>
+			<cfset spaceLocs = ListAppend(spaceLocs,curLoc)>
+		</cfif>
 	</cfloop>
 	
-	<!--- Convert the space locations into distances from center --->
-	<cfset convertedSpaceLocs = "">
-	<cfloop list="spaceLocs" index="loc">
-		<cfset convertedSpaceLocs = abs(loc - (len(sciName)/2))>
-	</cfloop>
-	
-	<!--- Sort those distances --->
-	<cfset convertedSpaceLocs = ListSort(convertedSpaceLocs,"numeric")>
-	
-	<!--- Try inserting newline if the closest space is after the center --->
-	<cfset position = (len(sciName)/2) + ListFirst(convertedSpaceLocs)>
-	<cfif find(" ", sciName, position) is position and not replacedSpace>
-		<cfset sciName = insert("<br>", sciName, position)>
-		<cfset replaceSpace = true>
-	</cfif>
-	
-	<!--- Try inserting newline if the closest space is before the center --->
-	<cfset position = (len(sciName)/2) - ListFirst(convertedSpaceLocs)>
-	<cfif find(" ", sciName, position) is position and not replacedSpace>
-		<cfset sciName = insert("<br>", sciName, position)>
-		<cfset replaceSpace = true>
+	<!--- If there are no spaces, then no need to do anything else! --->
+	<cfif len(spaceLocs) gt 0>
+		<!--- Convert the space locations into distances from center --->
+		<cfset convertedSpaceLocs = "">
+		<cfloop list="spaceLocs" index="loc">
+			<cfset convertedSpaceLocs = abs(loc - (len(sciName)/2))>
+		</cfloop>
+		
+		<!--- Sort those distances --->
+		<cfset convertedSpaceLocs = ListSort(convertedSpaceLocs,"numeric")>
+		
+		<!--- Have not replaced a space yet --->
+		<cfset replacedSpace = false>
+		
+		<!--- Try inserting newline if the closest space is after the center --->
+		<cfset position = (len(sciName)/2) + ListFirst(convertedSpaceLocs)>
+		<cfif find(" ", sciName, position) is position and not replacedSpace>
+			<cfset sciName = insert("<br>", sciName, position)>
+			<cfset replaceSpace = true>
+		</cfif>
+		
+		<!--- Try inserting newline if the closest space is before the center --->
+		<cfset position = (len(sciName)/2) - ListFirst(convertedSpaceLocs)>
+		<cfif find(" ", sciName, position) is position and not replacedSpace>
+			<cfset sciName = insert("<br>", sciName, position)>
+			<cfset replaceSpace = true>
+		</cfif>
 	</cfif>
 </cfif>
 <cfif format is "Herp">
