@@ -338,7 +338,7 @@ Change to: <select name="format">
 <!--- TODO: figure out WHY the pdf i download from the link above is not getting changed...
 sent email to dusty about it.
 update -- seems to work now, I have no idea what fixed it... --->
-<cfdocument 
+<!---<cfdocument 
 	format="pdf"
 	pagetype="letter"
 	margintop=".25"
@@ -348,7 +348,7 @@ update -- seems to work now, I have no idea what fixed it... --->
 	orientation="landscape"
 	fontembed="yes"
 	filename="#Application.webDirectory#/temp/loaninvoice_#cfid#_#cftoken#.pdf"
-	overwrite="yes">
+	overwrite="yes">--->
 <cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 <cfset pageHeader = replace(pageHeader,'Page #curPage-1# of','Page #curPage# of')>
@@ -376,12 +376,15 @@ update -- seems to work now, I have no idea what fixed it... --->
 			<cfset spaceLocs = ListAppend(spaceLocs,curLoc)>
 		</cfif>
 	</cfloop>
+	curLoc: #curLoc#<br>
+	spaceLocs: #spaceLocs#<br>
 	
 	<!--- If there are no spaces, then no need to do anything else! --->
 	<cfif len(spaceLocs) gt 0>
 		<!--- Convert the space locations into distances from center --->
 		<cfset convertedSpaceLocs = "">
 		<cfloop list="spaceLocs" index="loc">
+			loc: #loc#<br>
 			<cfset convertedSpaceLocs = abs(loc - (len(sciName)/2))>
 		</cfloop>
 		
@@ -461,7 +464,7 @@ one line slips, then its going to take that much room and that's that.
 </cfloop>
 #pageFooter#
 </cfoutput>
-</cfdocument>
+<!--- </cfdocument> --->
 <cfinclude template = "../includes/_footer.cfm">
 </cfif>
 
