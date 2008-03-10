@@ -1074,7 +1074,7 @@
 			   ) values (
 			   #locality_id#,
 			   '#geology_attribute#',
-			   '#stripQuotes(geo_att_value)#',
+			   '#stripQuotes(geo_att_value)#'
 			   <cfif len(#geo_att_determiner_id#) gt 0>
 					,#geo_att_determiner_id#
 				</cfif>
