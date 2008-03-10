@@ -363,16 +363,17 @@ update -- seems to work now, I have no idea what fixed it... --->
 	The idea is to find all the spaces in the scientific name. Then find the 
 	one that is closest to the center of the string. Change that space to a
 	newline.
-	--Peter DeVore --->
+	--Peter DeVore ---><br>
+	sciName: #sciName#<br>
 	<!--- Find the space locations --->
-	<cfset curLoc = -1>
+	<cfset curLoc = 0>
 	<cfset spaceLocs = "">
 	<cfset loopin = true>
 	<cfloop condition="loopin">
-		<cfif curLoc is find("&nbsp;",sciName,curLoc)>
+		<cfif find("&nbsp;",sciName,curLoc+1) is 0>
 			<cfset loopin = false>
 		<cfelse> 
-			<cfset curLoc = find("&nbsp;",sciName,curLoc)>
+			<cfset curLoc = find("&nbsp;",sciName,curLoc+1)>
 			<cfset spaceLocs = ListAppend(spaceLocs,curLoc)>
 		</cfif>
 	</cfloop>
