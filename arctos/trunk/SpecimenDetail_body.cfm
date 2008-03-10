@@ -1266,6 +1266,60 @@ end cmask,
 						</cfloop>
 					</div>
 				</cfif>
+<!--- Adding media block of information. 
+3 steps required.
+1) Do the query looking for relevant media.
+2) If a query detects media, do <cfset isMedia = true> after the query.
+	Then the media block will appear.	
+3) Output it in the media block below, using cfoutput query="your query"
+or cfloop with name="your query".
+--Peter DeVore, 20080310
+--->
+<cfset isMedia = false>		
+<!---Adding in GReF code --->
+<cfif #cgi.HTTP_HOST# contains "berkeley.edu">
+	<cfquery name="grefcount" datasource="#Application.web_user#">
+		select
+		  count(book_section.publication_id,page_id) thecount
+		from
+		  gref_roi_ng, gref_roi_value_ng, book_section
+		where
+		  book_section.book_id = gref_roi_ng.publication_id
+		  and gref_roi_value_ng.id = gref_roi_ng.ROI_VALUE_NG_ID
+		  and gref_roi_ng.section_number = book_section.book_section_order
+		  and gref_roi_value_ng.collection_object_id = #collection_object_id#
+	</cfquery>
+	<cfif grefcount.thecount gt 0>
+		<cfquery name="gref" datasource="#Application.web_user#">
+			select
+			  book_section.publication_id,page_id
+			from
+			  gref_roi_ng, gref_roi_value_ng, book_section
+			where
+			  book_section.book_id = gref_roi_ng.publication_id
+			  and gref_roi_value_ng.id = gref_roi_ng.ROI_VALUE_NG_ID
+			  and gref_roi_ng.section_number = book_section.book_section_order
+			  and gref_roi_value_ng.collection_object_id = #collection_object_id#
+		</cfquery>
+		<cfset isMedia = true>
+	</cfif>
+</cfif>
+<cfif isMedia>
+	<cfoutput>
+		<div class="detailCell">
+			<div class="detailLabel">Media</div>
+	</cfoutput>
+		<cfoutput query="gref">
+			<div class="detailBlock">
+				<span class="innerDetailLabel">Field Notebook Page:</span>
+				&nbsp;
+				<a 
+href="http://bg.berkeley.edu/gref/Client.html?pageId=#page_id#&publicationId=#publication_id#" 
+						target="_blank">click here</a>
+			</div>
+		</cfoutput>
+		<!--- Insert here more media in detail blocks here --->
+</cfif>
 	<!---------------------------------------------------------------------------
 
 	 
