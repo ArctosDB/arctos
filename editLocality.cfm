@@ -1063,6 +1063,7 @@
 	<cfloop from="1" to="#number_of_determinations#" index="n">
 		<cfset thisID = #evaluate("geology_attribute_id_" & n)#>
 		<cfset thisAttribute = #evaluate("geology_attribute_" & n)#>
+		<cfset thisValue = #evaluate("geo_att_value_" & n)#>
 		<cfset thisDate = #evaluate("geo_att_determined_date_" & n)#>
 		<cfset thisMethod = #evaluate("geo_att_determined_method_" & n)#>
 		<cfset thisDeterminer = #evaluate("geo_att_determiner_id_" & n)#>
@@ -1071,9 +1072,41 @@
 			<cfset deleteThis = #evaluate("deleteThis_" & n)#>
 		<cfcatch><!--- whatever ---></cfcatch>
 		</cftry>
+		<cfif isdefined("deleteThis") and #deleteThis# is 1>
+			<cfquery name="deleteGeol" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				delete from geology_attributes where geology_attribute_id=#thisID#
+			</cfquery>
+		<cfelse>
+			<cfquery name="upGeol" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				update 
+					geology_attributes 
+				set 
+					geology_attribute='#thisAttribute#',
+					geo_att_value='#stripQuotes(thisValue)#'
+					<cfif len(#thisDeterminer#) gt 0>
+						,geo_att_determiner_id=#thisDeterminer#
+					<cfelse>
+						,geo_att_determiner_id=NULL
+					</cfif>
+					<cfif len(#thisDate#) gt 0>
+						,geo_att_determined_date='#dateformat(geo_att_determined_date,"dd-mmm-yyyy")#'
+					<cfelse>
+						,geo_att_determined_date=NULL
+					</cfif>
+					<cfif len(#thisMethod#) gt 0>
+						,geo_att_determined_method='#stripQuotes(geo_att_determined_method)#'
+					<cfelse>
+						,geo_att_determined_method=NULL
+					</cfif>
+					<cfif len(#thisRemark#) gt 0>
+						,geo_att_remark='#stripQuotes(geo_att_remark)#'
+					<cfelse>
+						,geo_att_remark=NULL
+					</cfif>
+			</cfquery>
+		</cfif>
 	</cfloop>
-	
-    <cfdump var="#form#">
+	<cflocation url="editLocality.cfm?locality_id=#locality_id#" addtoken="no">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------>
@@ -1095,8 +1128,7 @@
 				</cfif>
 			   	<cfif len(#geo_att_remark#) gt 0>
 					,geo_att_remark
-				</cfif>
-			    
+				</cfif>			    
 			   ) values (
 			   #locality_id#,
 			   '#geology_attribute#',
