@@ -1109,9 +1109,7 @@
 			</cfquery>
 		</cfif>
 	</cfloop>
-	<!---
 	<cflocation url="editLocality.cfm?locality_id=#locality_id#" addtoken="no">
-	--->
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------>
