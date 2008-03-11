@@ -982,30 +982,32 @@
 			<cfloop query="geolDet">
 				<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 					<td>
-						<label for="geology_attribute">Geology Attribute</label>
+						<label for="geology_attribute_#i#">Geology Attribute</label>
 						<cfset ttAtt=#geology_attribute#>
-						<select name="geology_attribute">
+						<select name="geology_attribute_#i#" id="geology_attribute_#i#">
 							<cfloop query="ctgeology_attribute">
 								<option <cfif #geology_attribute# is #ttAtt#> selected="selected" </cfif>value="#geology_attribute#">#geology_attribute#</option>
 							</cfloop>
 						</select>
+						<label for="deleteThis_#i#">Remove Attribute</label>
+						<input type="checkbox" name="deleteThis_#i#" id="deleteThis_#i#" value="1">
 						<label for="geo_att_value">Value</label>
-						<input type="text" name="geo_att_value" size="60" class="reqdClr" value="#geo_att_value#">
+						<input type="text" name="geo_att_value_#i#" size="60" class="reqdClr" value="#geo_att_value#">
 						
-						<label for="geo_att_determiner">Determiner</label>
-						<input type="text" name="geo_att_determiner"  size="40"
+						<label for="geo_att_determiner_#i#">Determiner</label>
+						<input type="text" name="geo_att_determiner_#i#"  size="40"
 							onchange="getAgent('geo_att_determiner_id','geo_att_determiner','newGeolDet',this.value); return false;"
 		 					onKeyPress="return noenter(event);"
 		 					value="#agent_name#">
-						<input type="hidden" name="geo_att_determiner_id" id="geo_att_determiner_id" value="#geo_att_determiner_id#">
-						<label for="geo_att_determined_date">Date</label>
-						<input type="text" name="geo_att_determined_date" size="60" class="reqdClr" 
+						<input type="hidden" name="geo_att_determiner_id_#i#" id="geo_att_determiner_id" value="#geo_att_determiner_id#">
+						<label for="geo_att_determined_date_#i#">Date</label>
+						<input type="text" name="geo_att_determined_date_#i#" size="60" class="reqdClr" 
 							value="#dateformat(geo_att_determined_date,'dd mmm yyyy')#">
-						<label for="geo_att_determined_method">Method</label>
-						<input type="text" name="geo_att_determined_method" 
+						<label for="geo_att_determined_method_#i#">Method</label>
+						<input type="text" name="geo_att_determined_method_#i#" 
 							size="60"  value="#geo_att_determined_method#">
-						<label for="geo_att_remark">Remark</label>
-						<input type="text" name="geo_att_remark"
+						<label for="geo_att_remark_#i#">Remark</label>
+						<input type="text" name="geo_att_remark_#i#"
 							size="60" value="#geo_att_remark#">
 					</td>
 				</tr>
@@ -1017,7 +1019,7 @@
 			
 		</table>
 
-		
+		<input type="number_of_determinations" value="#geolDet.recordcount#">
 		</form>
 	</cfif>
 	<table class="newRec">
@@ -1051,6 +1053,13 @@
 	</table>
 </cfoutput> 
 <cfinclude template="/includes/_footer.cfm">
+</cfif>
+<!------------------------------------------------------------------------------------------------------>
+
+<cfif #Action# is "editGeol">
+<cfoutput>
+	<cfdump var="#form#">
+</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------>
 <cfif #Action# is "AddGeol">
