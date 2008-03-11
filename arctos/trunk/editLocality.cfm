@@ -980,6 +980,7 @@
             	<input type="hidden" name="locality_id" value="#locDet.locality_id#">
 			<cfset i=1>
 			<cfloop query="geolDet">
+				<input type="hidden" name="geology_attribute_id_#i#" value="#geology_attribute_id#">
 				<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 					<td>
 						<label for="geology_attribute_#i#">Geology Attribute</label>
