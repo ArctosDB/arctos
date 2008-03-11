@@ -128,8 +128,10 @@ body, td {
 <td>#maxMemory# MB</td>
 </tr>
 <tr>
+	<!---
 <td><strong>Max Memory Used:</strong></td>
 <td><strong>#maxUsedMem# MB</strong></td>
+--->
 </tr>
 </table>
 
