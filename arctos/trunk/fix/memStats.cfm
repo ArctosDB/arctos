@@ -13,7 +13,7 @@ path = getdirectoryfrompath(gettemplatepath());
 filepath = path & "stats.wddx";
 </cfscript>
 
-<cfoutput><p>#path#</p></cfoutput>
+<!--- <cfoutput><p>#path#</p></cfoutput> --->
 
 <!--- Delete file if specified --->
 <cfif isdefined("form.delete")>
@@ -90,7 +90,7 @@ for (i = 1; i lte arraylen(memorymonitor.aStats); i = i + 1)
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<meta http-equiv="refresh" content="60"> <!--- 60 seconds --->
+<meta http-equiv="refresh" content="300"> <!--- 60 seconds --->
 
 <title>Memory Usage</title>
 </head>
@@ -134,7 +134,9 @@ body, td {
 <td>#percentAllocated#%</td>
 </tr>
 </table>
+</cfoutput> 
 
+<!--->
 <hr>
 
 <h2>Historical Values - Memory Usage (Percentage)</h2>
@@ -158,6 +160,7 @@ body, td {
 <cfchartseries type="line" query="qStats" itemcolumn="datetime" valuecolumn="TOTALLOCMEM" serieslabel="Total Allocated Memory (MB)">
 <cfchartseries type="line" query="qStats" itemcolumn="datetime" valuecolumn="MAXALLOCMEM" serieslabel="Max Allocated Memory (MB)">
 </cfchart>
+--->
 
 <cfoutput>
 <hr>
