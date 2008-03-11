@@ -992,11 +992,13 @@
 								<option <cfif #geology_attribute# is #ttAtt#> selected="selected" </cfif>value="#geology_attribute#">#geology_attribute#</option>
 							</cfloop>
 						</select>
+					</td>
+					<td>
 						<label for="deleteThis_#i#">Remove Attribute</label>
 						<input type="checkbox" name="deleteThis_#i#" id="deleteThis_#i#" value="1">
 						<label for="geo_att_value">Value</label>
 						<input type="text" name="geo_att_value_#i#" size="60" class="reqdClr" value="#geo_att_value#">
-						
+					<td colspan="2">
 						<label for="geo_att_determiner_#i#">Determiner</label>
 						<input type="text" name="geo_att_determiner_#i#"  size="40"
 							onchange="getAgent('geo_att_determiner_id','geo_att_determiner','newGeolDet',this.value); return false;"
@@ -1004,7 +1006,7 @@
 		 					value="#agent_name#">
 						<input type="hidden" name="geo_att_determiner_id_#i#" id="geo_att_determiner_id" value="#geo_att_determiner_id#">
 						<label for="geo_att_determined_date_#i#">Date</label>
-						<input type="text" name="geo_att_determined_date_#i#" size="60" class="reqdClr" 
+						<input type="text" name="geo_att_determined_date_#i#" 
 							value="#dateformat(geo_att_determined_date,'dd mmm yyyy')#">
 						<label for="geo_att_determined_method_#i#">Method</label>
 						<input type="text" name="geo_att_determined_method_#i#" 
@@ -1017,7 +1019,13 @@
 				<cfset i=i+1>
 			</cfloop>
 			<tr>
-				<td><input type="submit" value='Save Changes'></td>
+				<td colspan="2">
+					<input type="submit" 
+					value="Save Change" 
+					class="savBtn"
+					onmouseover="this.className='savBtn btnhov'"
+					onmouseout="this.className='savBtn'">
+				</td>
 			</tr>
 			
 		</table>
