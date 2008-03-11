@@ -1067,7 +1067,9 @@
 		<cfset thisMethod = #evaluate("geo_att_determined_method_" & n)#>
 		<cfset thisDeterminer = #evaluate("geo_att_determiner_id_" & n)#>
 		<cfset thisRemark = #evaluate("geo_att_remark_" & n)#>
-		<cfset deleteThis = #evaluate("deleteThis_" & n)#>		
+		<cfif isdefined(evaluate("deleteThis_" & n))>
+		<cfset deleteThis = #evaluate("deleteThis_" & n)#>
+		</cfif>		
 	</cfloop>
 	
     <cfdump var="#form#">
