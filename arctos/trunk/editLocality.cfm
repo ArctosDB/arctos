@@ -988,15 +988,12 @@
 						<label for="geology_attribute_#i#">Geology Attribute</label>
 						<cfset ttAtt=#geology_attribute#>
 						<select name="geology_attribute_#i#" id="geology_attribute_#i#">
+							<option value="delete">Delete This</option>
 							<cfloop query="ctgeology_attribute">
 								<option <cfif #geology_attribute# is #ttAtt#> selected="selected" </cfif>value="#geology_attribute#">#geology_attribute#</option>
 							</cfloop>
 						</select>
-						
-						booger
-						</label>
-						<label for="deleteThis_#i#">Remove Attribute</label>
-						<input type="checkbox" name="deleteThis_#i#" id="deleteThis_#i#" value="1">
+						<span class="infoLink" onclick="document.getElementById('geology_attribute_#i#').value='delete'">Delete This</span>	
 						<label for="geo_att_value">Value</label>
 						<input type="text" name="geo_att_value_#i#" size="60" class="reqdClr" value="#geo_att_value#">
 						<label for="geo_att_determiner_#i#">Determiner</label>
@@ -1077,11 +1074,8 @@
 		<cfset thisMethod = #evaluate("geo_att_determined_method_" & n)#>
 		<cfset thisDeterminer = #evaluate("geo_att_determiner_id_" & n)#>
 		<cfset thisRemark = #evaluate("geo_att_remark_" & n)#>
-		<cftry>
-			<cfset deleteThis = #evaluate("deleteThis_" & n)#>
-		<cfcatch><!--- whatever ---></cfcatch>
-		</cftry>
-		<cfif isdefined("deleteThis") and #deleteThis# is 1>
+		
+		<cfif #thisAttribute# is "delete">
 			<cfquery name="deleteGeol" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 				delete from geology_attributes where geology_attribute_id=#thisID#
 			</cfquery>
