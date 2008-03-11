@@ -972,7 +972,7 @@
   	
 	<table >
 	<hr>
-	Geology Attributes
+	Edit Geology Attributes
 	<cfif geolDet.recordcount gt 0>
 		<table border>
 			<form name="editGeolAtt" method="post" action="editLocality.cfm">
@@ -1031,7 +1031,7 @@
 	</cfif>
 	<table class="newRec">
 		<tr><td>
-	Create Determination
+	Create Geology Determination
 	<form name="newGeolDet" method="post" action="editLocality.cfm">
             <input type="hidden" name="Action" value="AddGeol">
             <input type="hidden" name="locality_id" value="#locDet.locality_id#">
