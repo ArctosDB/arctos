@@ -1108,6 +1108,8 @@
 					<cfelse>
 						,geo_att_remark=NULL
 					</cfif>
+				where
+					geology_attribute_id=#thisID#
 			</cfquery>
 			--->
 			update 
@@ -1135,6 +1137,8 @@
 					<cfelse>
 						,geo_att_remark=NULL
 					</cfif>
+				where
+					geology_attribute_id=#thisID#
 		</cfif>
 	</cfloop>
 	<!---
