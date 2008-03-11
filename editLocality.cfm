@@ -975,29 +975,25 @@
 	Geology Attributes
 	<cfif geolDet.recordcount gt 0>
 		<table border>
-			<tr>
-				<th>Attribute</th>
-				<th>Value</th>
-				<th>Determiner</th>
-				<th>Date</th>
-				<th>Method</th>
-				<th>Remark</th>
-			</tr>
 			<form name="editGeolAtt" method="post" action="editLocality.cfm">
 				<input type="hidden" name="Action" value="editGeol">
             	<input type="hidden" name="locality_id" value="#locDet.locality_id#">
+			<cfset i=1>
 			<cfloop query="geolDet">
-				<tr>
+				<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 					<td>
+						<label for="geology_attribute">Geology Attribute</label>
 						<cfset ttAtt=#geology_attribute#>
-						<select name="geology_attribute" id="geology_attribute">
+						<select name="geology_attribute">
 							<cfloop query="ctgeology_attribute">
 								<option <cfif #geology_attribute# is #ttAtt#> selected="selected" </cfif>value="#geology_attribute#">#geology_attribute#</option>
 							</cfloop>
 						</select>
+						<label for="geo_att_value">Value</label>
+						<input type="text" name="geo_att_value" size="60" class="reqdClr" value="#geo_att_value#">
 					</td>
 					<td>
-						<input type="text" name="geo_att_value" id="geo_att_value" size="60" class="reqdClr" value="#geo_att_value#">
+						
 					</td>
 					<td>
 						<input type="hidden" name="geo_att_determiner_id" id="geo_att_determiner_id" value="geo_att_determiner_id">
@@ -1016,6 +1012,7 @@
 							size="60" class="reqdClr" value="#geo_att_remark#">
 					</td>
 				</tr>
+				<cfset i=1+1>
 			</cfloop>
 			<input type="submit" value='Save Changes'>
 		</table>
