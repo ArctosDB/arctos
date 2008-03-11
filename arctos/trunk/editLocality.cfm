@@ -1012,7 +1012,7 @@
 							size="60" value="#geo_att_remark#">
 					</td>
 				</tr>
-				<cfset i=1+1>
+				<cfset i=i+1>
 			</cfloop>
 			<tr>
 				<td><input type="submit" value='Save Changes'></td>
