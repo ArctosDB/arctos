@@ -978,6 +978,8 @@
 			<form name="editGeolAtt" method="post" action="editLocality.cfm">
 				<input type="hidden" name="Action" value="editGeol">
             	<input type="hidden" name="locality_id" value="#locDet.locality_id#">
+				<input type="text" name="number_of_determinations" value="#geolDet.recordcount#">
+		
 			<cfset i=1>
 			<cfloop query="geolDet">
 				<input type="hidden" name="geology_attribute_id_#i#" value="#geology_attribute_id#">
@@ -1020,7 +1022,6 @@
 			
 		</table>
 
-		<input type="number_of_determinations" value="#geolDet.recordcount#">
 		</form>
 	</cfif>
 	<table class="newRec">
@@ -1059,7 +1060,17 @@
 
 <cfif #Action# is "editGeol">
 <cfoutput>
-	<cfdump var="#form#">
+	<cfloop from="1" to="#number_of_determinations#" index="n">
+		<cfset thisID = #evaluate("geology_attribute_id_" & n)#>
+		<cfset thisAttribute = #evaluate("geology_attribute_" & n)#>
+		<cfset thisDate = #evaluate("geo_att_determined_date_" & n)#>
+		<cfset thisMethod = #evaluate("geo_att_determined_method_" & n)#>
+		<cfset thisDeterminer = #evaluate("geo_att_determiner_id_" & n)#>
+		<cfset thisRemark = #evaluate("geo_att_remark_" & n)#>
+		<cfset deleteThis = #evaluate("deleteThis_" & n)#>		
+	</cfloop>
+	
+    <cfdump var="#form#">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------>
