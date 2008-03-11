@@ -978,7 +978,7 @@
 			<form name="editGeolAtt" method="post" action="editLocality.cfm">
 				<input type="hidden" name="Action" value="editGeol">
             	<input type="hidden" name="locality_id" value="#locDet.locality_id#">
-				<input type="text" name="number_of_determinations" value="#geolDet.recordcount#">
+				<input type="hidden" name="number_of_determinations" value="#geolDet.recordcount#">
 		
 			<cfset i=1>
 			<cfloop query="geolDet">
@@ -1055,7 +1055,12 @@
 			<input type="text" name="geo_att_determined_method" id="geo_att_determined_method" size="60">
 			<label for="geo_att_remark">Remark</label>
 			<input type="text" name="geo_att_remark" id="geo_att_remark" size="60">
-			<input type="submit" value="Create Determination">
+			<br>
+			<input type="submit" 
+					value="Create Determination" 
+					class="insBtn"
+					onmouseover="this.className='insBtn btnhov'"
+					onmouseout="this.className='insBtn'">
 			</td></tr>
 	</table>
 </cfoutput> 
