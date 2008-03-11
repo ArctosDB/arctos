@@ -991,35 +991,37 @@
 						</select>
 						<label for="geo_att_value">Value</label>
 						<input type="text" name="geo_att_value" size="60" class="reqdClr" value="#geo_att_value#">
-					</td>
-					<td>
 						
-					</td>
-					<td>
-						<input type="hidden" name="geo_att_determiner_id" id="geo_att_determiner_id" value="geo_att_determiner_id">
-						<input type="text" name="geo_att_determiner" id="geo_att_determiner" size="60" class="reqdClr" value="#agent_name#">
-					</td>
-					<td>
-						<input type="text" name="geo_att_determined_date" id="geo_att_determined_date" size="60" class="reqdClr" 
+						<label for="geo_att_determiner">Determiner</label>
+						<input type="text" name="geo_att_determiner"  size="40"
+							onchange="getAgent('geo_att_determiner_id','geo_att_determiner','newGeolDet',this.value); return false;"
+		 					onKeyPress="return noenter(event);"
+		 					value="#agent_name#">
+						<input type="hidden" name="geo_att_determiner_id" id="geo_att_determiner_id" value="#geo_att_determiner_id#">
+						<label for="geo_att_determined_date">Date</label>
+						<input type="text" name="geo_att_determined_date" size="60" class="reqdClr" 
 							value="#dateformat(geo_att_determined_date,'dd mmm yyyy')#">
-					</td>
-					<td>
-						<input type="text" name="geo_att_determined_method" id="geo_att_determined_method"
-							size="60" class="reqdClr" value="#geo_att_determined_method#">
-					</td>
-					<td>
-						<input type="text" name="geo_att_remark" id="geo_att_remark"
-							size="60" class="reqdClr" value="#geo_att_remark#">
+						<label for="geo_att_determined_method">Method</label>
+						<input type="text" name="geo_att_determined_method" 
+							size="60"  value="#geo_att_determined_method#">
+						<label for="geo_att_remark">Remark</label>
+						<input type="text" name="geo_att_remark"
+							size="60" value="#geo_att_remark#">
 					</td>
 				</tr>
 				<cfset i=1+1>
 			</cfloop>
-			<input type="submit" value='Save Changes'>
+			<tr>
+				<td><input type="submit" value='Save Changes'></td>
+			</tr>
+			
 		</table>
 
 		
 		</form>
 	</cfif>
+	<table class="newRec">
+		<tr><td>
 	Create Determination
 	<form name="newGeolDet" method="post" action="editLocality.cfm">
             <input type="hidden" name="Action" value="AddGeol">
@@ -1045,6 +1047,8 @@
 			<label for="geo_att_remark">Remark</label>
 			<input type="text" name="geo_att_remark" id="geo_att_remark" size="60">
 			<input type="submit" value="Create Determination">
+			</td></tr>
+	</table>
 </cfoutput> 
 <cfinclude template="/includes/_footer.cfm">
 </cfif>
