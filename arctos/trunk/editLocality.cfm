@@ -1074,14 +1074,10 @@
 		<cfcatch><!--- whatever ---></cfcatch>
 		</cftry>
 		<cfif isdefined("deleteThis") and #deleteThis# is 1>
-			<!---
 			<cfquery name="deleteGeol" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 				delete from geology_attributes where geology_attribute_id=#thisID#
 			</cfquery>
-			--->
-			delete from geology_attributes where geology_attribute_id=#thisID#
 		<cfelse>
-		<!---
 			<cfquery name="upGeol" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 				update 
 					geology_attributes 
@@ -1094,51 +1090,23 @@
 						,geo_att_determiner_id=NULL
 					</cfif>
 					<cfif len(#thisDate#) gt 0>
-						,geo_att_determined_date='#dateformat(geo_att_determined_date,"dd-mmm-yyyy")#'
+						,geo_att_determined_date='#dateformat(thisDate,"dd-mmm-yyyy")#'
 					<cfelse>
 						,geo_att_determined_date=NULL
 					</cfif>
 					<cfif len(#thisMethod#) gt 0>
-						,geo_att_determined_method='#stripQuotes(geo_att_determined_method)#'
+						,geo_att_determined_method='#stripQuotes(thisMethod)#'
 					<cfelse>
 						,geo_att_determined_method=NULL
 					</cfif>
 					<cfif len(#thisRemark#) gt 0>
-						,geo_att_remark='#stripQuotes(geo_att_remark)#'
+						,geo_att_remark='#stripQuotes(thisRemark)#'
 					<cfelse>
 						,geo_att_remark=NULL
 					</cfif>
 				where
 					geology_attribute_id=#thisID#
 			</cfquery>
-			--->
-			update 
-					geology_attributes 
-				set 
-					geology_attribute='#thisAttribute#',
-					geo_att_value='#stripQuotes(thisValue)#'
-					<cfif len(#thisDeterminer#) gt 0>
-						,geo_att_determiner_id=#thisDeterminer#
-					<cfelse>
-						,geo_att_determiner_id=NULL
-					</cfif>
-					<cfif len(#thisDate#) gt 0>
-						,geo_att_determined_date='#dateformat(geo_att_determined_date,"dd-mmm-yyyy")#'
-					<cfelse>
-						,geo_att_determined_date=NULL
-					</cfif>
-					<cfif len(#thisMethod#) gt 0>
-						,geo_att_determined_method='#stripQuotes(geo_att_determined_method)#'
-					<cfelse>
-						,geo_att_determined_method=NULL
-					</cfif>
-					<cfif len(#thisRemark#) gt 0>
-						,geo_att_remark='#stripQuotes(geo_att_remark)#'
-					<cfelse>
-						,geo_att_remark=NULL
-					</cfif>
-				where
-					geology_attribute_id=#thisID#
 		</cfif>
 	</cfloop>
 	<!---
