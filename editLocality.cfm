@@ -992,13 +992,13 @@
 								<option <cfif #geology_attribute# is #ttAtt#> selected="selected" </cfif>value="#geology_attribute#">#geology_attribute#</option>
 							</cfloop>
 						</select>
-					</td>
-					<td>
+						
+						booger
+						</label>
 						<label for="deleteThis_#i#">Remove Attribute</label>
 						<input type="checkbox" name="deleteThis_#i#" id="deleteThis_#i#" value="1">
 						<label for="geo_att_value">Value</label>
 						<input type="text" name="geo_att_value_#i#" size="60" class="reqdClr" value="#geo_att_value#">
-					<td colspan="2">
 						<label for="geo_att_determiner_#i#">Determiner</label>
 						<input type="text" name="geo_att_determiner_#i#"  size="40"
 							onchange="getAgent('geo_att_determiner_id','geo_att_determiner','newGeolDet',this.value); return false;"
