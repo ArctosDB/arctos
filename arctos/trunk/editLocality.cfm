@@ -982,7 +982,7 @@
 		
 			<cfset i=1>
 			<cfloop query="geolDet">
-				<input type="hidden" name="geology_attribute_id_#i#" value="#geology_attribute_id#">
+				<input type="hidden" name="geology_attribute_id_#i#" value="#geology_attribute_id#" class="reqdClr">
 				<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 					<td>
 						<label for="geology_attribute_#i#">Geology Attribute</label>
@@ -1036,7 +1036,7 @@
             <input type="hidden" name="Action" value="AddGeol">
             <input type="hidden" name="locality_id" value="#locDet.locality_id#">
 			<label for="geology_attribute">Geology Attribute</label>
-			<select name="geology_attribute" id="geology_attribute">
+			<select name="geology_attribute" id="geology_attribute" class="reqdClr">
 				<option value=""></option>
 				<cfloop query="ctgeology_attribute">
 					<option value="#geology_attribute#">#geology_attribute#</option>
