@@ -1018,7 +1018,7 @@
 			<tr>
 				<td colspan="2">
 					<input type="submit" 
-					value="Save Change" 
+					value="Save Changes" 
 					class="savBtn"
 					onmouseover="this.className='savBtn btnhov'"
 					onmouseout="this.className='savBtn'">
