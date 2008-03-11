@@ -1061,6 +1061,7 @@
 <cfif #Action# is "editGeol">
 <cfoutput>
 	<cfloop from="1" to="#number_of_determinations#" index="n">
+		<cfset deleteThis="">
 		<cfset thisID = #evaluate("geology_attribute_id_" & n)#>
 		<cfset thisAttribute = #evaluate("geology_attribute_" & n)#>
 		<cfset thisValue = #evaluate("geo_att_value_" & n)#>
