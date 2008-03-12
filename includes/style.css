@@ -1,21 +1,20 @@
 /*
 top right bottom left
 */
-.external:link {
-	background: url(/images/linkOut.gif) white no-repeat right center;
-	padding: 0 12px 0 0;
+.external :after {
+	content: " " url(/images/linkOut.gif);
 	}
-.external:hover {
-	background: url(/images/linkOutHover.gif) white no-repeat right center;
-	padding: 0 12px 0 0;
+.external a:link:after {
+	content: " " url(/images/linkOut.gif);
 	}
-.external:visited {
-	background: url(/images/linkOutVisited.gif) white no-repeat right center;
-	padding: 0 12px 0 0;
+.external a:hover:after {
+	content: " " url(/images/linkOutHover.gif);
 	}
-.external:hover:visited {
-	background: url(/images/linkOutHover.gif) white no-repeat right center;
-	padding: 0 12px 0 0;
+.external a:visited:after {
+	content: " " url(/images/linkOutVisited.gif);
+	}
+.external a:hover:visited:after {
+	content: " " url(/images/linkOutHover.gif);
 	}
 .detailBlock{
 }
