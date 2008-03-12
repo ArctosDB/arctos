@@ -453,6 +453,15 @@ A:hover  {
 	color: #CC0000;}
 A.novisit {
 	color: blue;}
+a.external:link {
+	background: url(linkOut.gif) white no-repeat 100% 0;
+	}
+a.external:hover {
+	background: url(linkOutHover.gif) white no-repeat 100% 0;
+	}
+a.external:visited {
+	background: url(linkOutVisited.gif) white no-repeat 100% 0;
+	}
 	/*
 A:novisit:hover {
 	text-decoration: underline;
