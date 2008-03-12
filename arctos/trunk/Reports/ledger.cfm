@@ -32,10 +32,6 @@ Based on:
 	Need an accession number and specimens for the ledger!
 	<cfabort>
 </cfif>
-<cfif not isdefined('action')>
-	<cfset action='nothing'>
-	Action was not defined! That's the whole problem.
-</cfif>
 
 <cfif #action# is 'generatePDF'>
 <cfquery name="ctAtt" datasource="#Application.web_user#">
