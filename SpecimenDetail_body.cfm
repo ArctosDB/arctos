@@ -1210,6 +1210,39 @@ end cmask,
 										<a href="http://www.ncbi.nlm.nih.gov:80/entrez/query.fcgi?cmd=search&db=nucleotide&term=#display_value#&doptcmdl=GenBank" 
 											target="_blank" 
 												>#display_value#</a>
+									<cfelseif #cgi.HTTP_HOST# contains "berkeley.edu" and #other_id_type# is "collector number">		
+<!---Adding in GReF code --->
+	<cfquery name="grefcount" datasource="#Application.web_user#">
+		select
+		  count(book_section.publication_id) thecount
+		from
+		  gref_roi_ng, gref_roi_value_ng, book_section
+		where
+		  book_section.book_id = gref_roi_ng.publication_id
+		  and gref_roi_value_ng.id = gref_roi_ng.ROI_VALUE_NG_ID
+		  and gref_roi_ng.section_number = book_section.book_section_order
+		  and gref_roi_value_ng.collection_object_id = #collection_object_id#
+	</cfquery>
+	<cfif grefcount.thecount gt 0>
+		<cfquery name="gref" datasource="#Application.web_user#">
+			select
+			  book_section.publication_id,page_id
+			from
+			  gref_roi_ng, gref_roi_value_ng, book_section
+			where
+			  book_section.book_id = gref_roi_ng.publication_id
+			  and gref_roi_value_ng.id = gref_roi_ng.ROI_VALUE_NG_ID
+			  and gref_roi_ng.section_number = book_section.book_section_order
+			  and gref_roi_value_ng.collection_object_id = #collection_object_id#
+		</cfquery>
+		<!---<cfset isMedia = true>--->
+		#display_value# 
+				(<a class='external'
+href="http://bg.berkeley.edu/gref/Client.html?pageId=#page_id#&publicationId=#publication_id#" 
+						target="_blank">click here for reference on field notebook page</a>)
+	<cfelse>
+		#display_value#
+	</cfif>
 									<cfelse>
 										#display_value#
 									</cfif>
@@ -1266,7 +1299,9 @@ end cmask,
 						</cfloop>
 					</div>
 				</cfif>
-<!--- Adding media block of information. 
+<!--- Idea scrapped for now.
+
+Adding media block of information. 
 3 steps required.
 1) Do the query looking for relevant media.
 2) If a query detects media, do <cfset isMedia = true> after the query.
@@ -1275,36 +1310,8 @@ end cmask,
 or cfloop with name="your query".
 --Peter DeVore, 20080310
 --->
-<cfset isMedia = false>		
-<!---Adding in GReF code --->
-<cfif #cgi.HTTP_HOST# contains "berkeley.edu">
-	<cfquery name="grefcount" datasource="#Application.web_user#">
-		select
-		  count(book_section.publication_id) thecount
-		from
-		  gref_roi_ng, gref_roi_value_ng, book_section
-		where
-		  book_section.book_id = gref_roi_ng.publication_id
-		  and gref_roi_value_ng.id = gref_roi_ng.ROI_VALUE_NG_ID
-		  and gref_roi_ng.section_number = book_section.book_section_order
-		  and gref_roi_value_ng.collection_object_id = #collection_object_id#
-	</cfquery>
-	<cfif grefcount.thecount gt 0>
-		<cfquery name="gref" datasource="#Application.web_user#">
-			select
-			  book_section.publication_id,page_id
-			from
-			  gref_roi_ng, gref_roi_value_ng, book_section
-			where
-			  book_section.book_id = gref_roi_ng.publication_id
-			  and gref_roi_value_ng.id = gref_roi_ng.ROI_VALUE_NG_ID
-			  and gref_roi_ng.section_number = book_section.book_section_order
-			  and gref_roi_value_ng.collection_object_id = #collection_object_id#
-		</cfquery>
-		<cfset isMedia = true>
-	</cfif>
-</cfif>
-<cfif isMedia>
+<!---<cfset isMedia = false>--->
+<!---<cfif isMedia>
 	<cfoutput>
 		<div class="detailCell">
 			<div class="detailLabel">Media</div>
@@ -1318,7 +1325,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#page_id#&publicationId=#pu
 			</div>
 		</cfloop>
 		<!--- Insert here more media in detail blocks here --->
-</cfif>
+</cfif>--->
 	<!---------------------------------------------------------------------------
 
 	 
