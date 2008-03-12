@@ -454,16 +454,16 @@ A:hover  {
 A.novisit {
 	color: blue;}
 a.external:link {
-	background: url(/images/linkOut.gif) white no-repeat 100% 0;
-	padding: 0 12px 0 0;
+	background: url(/images/linkOut.gif) white no-repeat 100% 100%;
+	padding: 0 12px 0 2px;
 	}
 a.external:hover {
-	background: url(/images/linkOutHover.gif) white no-repeat 100% 0;
-	padding: 0 12px 0 0;
+	background: url(/images/linkOutHover.gif) white no-repeat 100% 100%;
+	padding: 0 12px 0 2px;
 	}
 a.external:visited {
-	background: url(/images/linkOutVisited.gif) white no-repeat 100% 0;
-	padding: 0 12px 0 0;
+	background: url(/images/linkOutVisited.gif) white no-repeat 100% 100%;
+	padding: 0 12px 0 2px;
 	}
 	/*
 A:novisit:hover {
