@@ -32,6 +32,9 @@ Based on:
 	Need an accession number and specimens for the ledger!
 	<cfabort>
 </cfif>
+<cfif not isdefined('action')>
+	<cfset action='nothing'>
+</cfif>
 
 <cfif #action# is 'generatePDF'>
 <cfquery name="ctAtt" datasource="#Application.web_user#">
