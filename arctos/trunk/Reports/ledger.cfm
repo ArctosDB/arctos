@@ -497,10 +497,10 @@ is 1 inch, even => bottom side is 1 inch. --->
 		<!---<option value=''></option>--->
 		">
 <cfset collectionCodes = "
-		<option value='Mamm'>Mammal</option>
-		<option value='Herp'>Herp</option>
 		<option value='Bird'>Bird</option>
 		<option value='Egg'>Egg</option>
+		<option value='Herp'>Herp</option>
+		<option value='Mamm'>Mammal</option>
 		">
 <cfif not isdefined('accn_number')>
 	<cfset accn_number = ''>
