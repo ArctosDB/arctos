@@ -1,19 +1,19 @@
 /*
 top right bottom left
 */
-.external :after {
+.external:after {
 	content: " " url(/images/linkOut.gif);
 	}
-.external a:link:after {
+a.external:link:after {
 	content: " " url(/images/linkOut.gif);
 	}
-.external a:hover:after {
+a.external:hover:after {
 	content: " " url(/images/linkOutHover.gif);
 	}
-.external a:visited:after {
+a.external:visited:after {
 	content: " " url(/images/linkOutVisited.gif);
 	}
-.external a:hover:visited:after {
+a.external:hover:visited:after {
 	content: " " url(/images/linkOutHover.gif);
 	}
 .detailBlock{
