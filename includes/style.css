@@ -465,7 +465,7 @@ a.external:visited {
 	background: url(/images/linkOutVisited.gif) white no-repeat right center;
 	padding: 0 12px 0 0;
 	}
-a.external:hover visited {
+a.external:hover:visited {
 	background: url(/images/linkOutHover.gif) white no-repeat right center;
 	padding: 0 12px 0 0;
 	}
