@@ -1,6 +1,22 @@
 /*
 top right bottom left
 */
+.external:link {
+	background: url(/images/linkOut.gif) white no-repeat right center;
+	padding: 0 12px 0 0;
+	}
+.external:hover {
+	background: url(/images/linkOutHover.gif) white no-repeat right center;
+	padding: 0 12px 0 0;
+	}
+.external:visited {
+	background: url(/images/linkOutVisited.gif) white no-repeat right center;
+	padding: 0 12px 0 0;
+	}
+.external:hover:visited {
+	background: url(/images/linkOutHover.gif) white no-repeat right center;
+	padding: 0 12px 0 0;
+	}
 .detailBlock{
 }
 .innerDetailLabel{
@@ -453,22 +469,6 @@ A:hover  {
 	color: #CC0000;}
 A.novisit {
 	color: blue;}
-a.external:link {
-	background: url(/images/linkOut.gif) white no-repeat right center;
-	padding: 0 12px 0 0;
-	}
-a.external:hover {
-	background: url(/images/linkOutHover.gif) white no-repeat right center;
-	padding: 0 12px 0 0;
-	}
-a.external:visited {
-	background: url(/images/linkOutVisited.gif) white no-repeat right center;
-	padding: 0 12px 0 0;
-	}
-a.external:hover:visited {
-	background: url(/images/linkOutHover.gif) white no-repeat right center;
-	padding: 0 12px 0 0;
-	}
 	/*
 A:novisit:hover {
 	text-decoration: underline;
