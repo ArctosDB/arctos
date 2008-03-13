@@ -810,7 +810,6 @@ function highlightErrors (loadedMsg) {
 }
 
 function cleanup () {
-	alert('cleanup');
 var thisCC = document.getElementById('collection_cde').value;
 	if (thisCC == 'Mamm') {	
 	//alert('Mamm');
