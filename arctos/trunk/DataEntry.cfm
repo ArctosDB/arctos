@@ -23,53 +23,7 @@ Some Totally Random String Data .....
 <cfif not isdefined("ImAGod") or len(#ImAGod#) is 0>
 	<cfset ImAGod = "no">
 </cfif>
-<!----
-<cfif #ImAGod# is "yes">
-	<cfquery name="u" datasource="#Application.web_user#">
-		select 
-			grp.agent_name
-		from
-			preferred_agent_name grp,
-			agent_name usr,
-			group_member
-		where
-			grp.agent_id=group_member.GROUP_AGENT_ID and
-			group_member.MEMBER_AGENT_ID = usr.agent_id and
-			usr.agent_name='#client.username#' and
-			grp.agent_name like '% Data Admin Group'
-	</cfquery>
-	<cfif #u.recordcount# is 1>
-	<cfset grpMembership = "#u.agent_name#">
-	<!--- figure out who's records they should see	--->
-	<cfset DEgrp = left(u.agent_name,8)>
-	<cfset DEgrp = "#DEgrp# Entry">
-	<cfquery name="entGrp" datasource="#Application.web_user#">
-		select usr.agent_name
-			from
-				preferred_agent_name grp,
-				agent_name usr,
-				group_member
-				where
-				grp.agent_id=group_member.GROUP_AGENT_ID and
-				group_member.MEMBER_AGENT_ID = usr.agent_id AND
-				usr.agent_name_type='login' AND
-				grp.agent_name = '#DEgrp#'
-			</cfquery>
-		<cfelse>
-			<cfset grpMembership = "">
-			You are not a member of the appropriate groups!
-			<cfabort>
-		</cfif>
-		<cfset entBy = "">
-		<cfloop query="entGrp">
-			<cfif len(#entBy#) is 0>
-				<cfset entBy = "'#agent_name#'">
-			<cfelse>
-				<cfset entBy = "#entBy#,'#agent_name#'">
-			</cfif>
-		</cfloop>
-</cfif>
----->
+
 <!---- end imagod --->
 <cfif isdefined("CFGRIDKEY") and not isdefined("collection_object_id")>
 	<cfset collection_object_id = #CFGRIDKEY#>
@@ -78,12 +32,6 @@ Some Totally Random String Data .....
 <cfif not isdefined("pMode") or len(#pMode#) is 0>
 	<cfset pMode = "enter">
 </cfif>
-<!----
-	There isn't room for a normal header on this page, so float a link in the upper right
-	and manually add all the HTML header stuff
---->
-
-
 	<link rel="stylesheet" type="text/css" href="/includes/_DEstyle.css">
 	<script type='text/javascript' src='/includes/_DEhead.js'></script>	
 	<script type='text/javascript' src='/includes/_DEajax.js'></script>	
@@ -98,8 +46,7 @@ Some Totally Random String Data .....
 
 <cfset title="Data Entry">
 
-<!---- declare all variables up here - the inactive things kill the query otherwise ---->
-	<cfset thisDate = #dateformat(now(),"dd mmm yyyy")#>
+<cfset thisDate = #dateformat(now(),"dd mmm yyyy")#>
 <!------------ default page --------------------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
 <!--- prime the bulkloader table with templates for each collection ---->
@@ -148,7 +95,7 @@ Some Totally Random String Data .....
 		</cfif>
 	</cfloop>
 	
-	Welcome to the enter and edit unbulked data application. #client.username# 
+	Welcome to the enter and edit unbulked data application, #client.username# 
 	<ul>
 		<li>Green Screen: You are entering data to a new record.</li>
 		<li>Blue Screen: you are editing an unloaded record that you've previously entered.</li>
@@ -301,18 +248,22 @@ Some Totally Random String Data .....
 				order by attribute_type
 		</cfquery>
 		<cfquery name="ctLength_Units" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select length_units from ctLength_Units
+			select length_units from ctLength_Units order by length_units
 		</cfquery>
 		<cfquery name="ctWeight_Units" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select Weight_Units from ctWeight_Units order by weight_units
 		</cfquery>
 		<cfquery name="ctattribute_type" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT attribute_type FROM ctattribute_type 
-		<cfif len(#collection_cde#) gt 0>
-				WHERE collection_cde='#collection_cde#'
-		</cfif>
-		order by attribute_type
-</cfquery>
+			<cfif len(#collection_cde#) gt 0>
+					WHERE collection_cde='#collection_cde#'
+			</cfif>
+			order by attribute_type
+		</cfquery>
+		<cfquery name="ctgeology_attribute" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select geology_attribute from ctgeology_attribute order by geology_attribute
+		</cfquery>
+		
 <cfquery name="ctCodes" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
 	select 
 		attribute_type,
@@ -1346,6 +1297,25 @@ Some Totally Random String Data .....
 	</tr>
 	</table>
 <!-------------------------------------------------- /coordinates --------------------------------------------------->
+<!-------------------------------------------------- geology --------------------------------------------------->
+<div id="geolCell">
+	<img src="/images/info.gif" border="0" onClick="getDocs('attributes')" class="likeLink" alt="[ help ]">
+	<table cellpadding="0" cellspacing="0" class="fs">
+		<tr>
+			<td>
+				<table cellpadding="0" cellspacing="0">
+					<tr>
+						<td nowrap="nowrap">
+							Attribute
+						</td>
+						<td>Value</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>			
+<!-------------------------------------------------- /geology --------------------------------------------------->
 <!-------------------------------------------------- attributes --------------------------------------------------->
 <table cellpadding="0" cellspacing="0" class="fs">
 	<tr>
