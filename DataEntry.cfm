@@ -1307,19 +1307,28 @@ Some Totally Random String Data .....
 					<tr>
 						<th nowrap="nowrap">
 							<span class="f11a">Geol Att.</span>
-						</td>
-						<th><span class="f11a">Geol Att. Value</span></td>
+						</th>
+						<th>
+							<span class="f11a">Geol Att. Value</span>
+						</th>
+						<th>
+							<span class="f11a">Determiner</span>
+						</th>
+						<th>
+							<span class="f11a">Date</span>
+						</th>
+						<th>
+							<span class="f11a">Method</span>
+						</th>
 					</tr>
 					<cfloop from="1" to="6" index="i">
 						<cfset thisAttribute= evaluate("data.geology_attribute_" & i)>
 						<cfset thisVal= evaluate("data.geo_att_value_" & i)>
-						
-						
-						<cfset thisDeterminer="geo_att_determiner_#i#">
-						<cfset thisDate="geo_att_determined_date_#i#">
-						<cfset thisMeth="geo_att_determined_method_#i#">
-						<cfset thisRemark="geo_att_remark_#i#">
-						<div id="attribute_value_cell_#i#">
+						<cfset thisDeterminer= evaluate("data.geo_att_determiner_" & i)>
+						<cfset thisDate= evaluate("data.geo_att_determined_date_" & i)>
+						<cfset thisMeth= evaluate("data.geo_att_determined_method_" & i)>
+						<cfset thisRemark= evaluate("data.geo_att_remark_" & i)>
+						<div id="#i#">
 						<tr>
 							<td>
 								<select name="geology_attribute_#i#" id="geology_attribute_#i#" size="1" class="d11a">
@@ -1338,6 +1347,45 @@ Some Totally Random String Data .....
 									value="#thisVal#"
 									class="d11a"
 									size="15">	
+							</td>
+							<td>
+								<input type="text" 
+									name="geo_att_determiner_#i#"
+									id="geo_att_determiner_#i#"
+									value="#thisDeterminer#" 
+									class="reqdClr d11a" 
+									onchange="getAgent('nothing','geo_att_determiner_#i#','dataEntry',this.value); return false;"/>
+							</td>
+							<td>
+								<input type="text" 
+									name="geo_att_determined_date_#i#"
+									id="geo_att_determined_date_#i#"
+									value="#thisDate#"
+									class="d11a"
+									size="10">
+								<img src="images/pick.gif" 
+									class="likeLink" 
+									border="0" 
+									alt="[calendar]"
+									name="anchor1#i#"
+									id="anchor#i#"
+									onClick="cal1.select(document.dataEntry.geo_att_determined_date_#i#,'anchor1#i#','dd-MMM-yyyy'); return false;"/>	
+							</td>
+							<td>
+								<input type="text" 
+									name="geo_att_determined_method_#i#"
+									id="geo_att_determined_method_#i#"
+									value="#thisMeth#"
+									class="d11a"
+									size="15">						
+							</td>
+							<td>
+								<input type="text" 
+									name="geo_att_remark_#i#"
+									id="geo_att_remark_#i#"
+									value="#thisRemark#"
+									class="d11a"
+									size="15">						
 							</td>
 						</tr>
 						</div>
