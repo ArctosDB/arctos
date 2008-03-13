@@ -208,8 +208,8 @@ Some Totally Random String Data .....
 				</cfif>
 				order by other_id_type
         </cfquery>
-		<!--- cachedwithin="#createtimespan(0,0,60,0)#"--->
-		<cfquery name="ctSex_Cde" datasource="#Application.web_user#">
+		<!--- --->
+		<cfquery name="ctSex_Cde" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT distinct(sex_cde) as sex_cde FROM ctSex_Cde
 				<cfif len(#collection_cde#) gt 0>
 					WHERE collection_cde='#collection_cde#'
@@ -241,8 +241,8 @@ Some Totally Random String Data .....
 				</cfif>
 				order by preserve_method
 		</cfquery>
-		<!----cachedwithin="#createtimespan(0,0,60,0)#"---->
-		<cfquery name="ctAttributeType" datasource="#Application.web_user#" >
+		<!-------->
+		<cfquery name="ctAttributeType" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select distinct(attribute_type) from ctattribute_type
 				<cfif len(#collection_cde#) gt 0>
 					WHERE collection_cde='#collection_cde#'
@@ -1300,6 +1300,7 @@ Some Totally Random String Data .....
 	</table>
 <!-------------------------------------------------- /coordinates --------------------------------------------------->
 <!-------------------------------------------------- geology --------------------------------------------------->
+<cfif #collection_cde# is "VPal" or #collection_cde# is "IPal">
 <div id="geolCell">
 	<table cellpadding="0" cellspacing="0" class="fs">
 		<tr>
@@ -1403,7 +1404,8 @@ Some Totally Random String Data .....
 			</td>
 		</tr>
 	</table>
-</div>			
+</div>
+</cfif>		
 <!-------------------------------------------------- /geology --------------------------------------------------->
 <!-------------------------------------------------- attributes --------------------------------------------------->
 <table cellpadding="0" cellspacing="0" class="fs">
