@@ -1299,10 +1299,10 @@ Some Totally Random String Data .....
 <!-------------------------------------------------- /coordinates --------------------------------------------------->
 <!-------------------------------------------------- geology --------------------------------------------------->
 <div id="geolCell">
-	<img src="/images/info.gif" border="0" onClick="getDocs('attributes')" class="likeLink" alt="[ help ]">
 	<table cellpadding="0" cellspacing="0" class="fs">
 		<tr>
 			<td>
+				<img src="/images/info.gif" border="0" onClick="getDocs('geology_attributes')" class="likeLink" alt="[ help ]">
 				<table cellpadding="0" cellspacing="0">
 					<tr>
 						<th nowrap="nowrap">
