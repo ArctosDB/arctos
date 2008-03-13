@@ -1407,7 +1407,8 @@ Some Totally Random String Data .....
 <table cellpadding="0" cellspacing="0" class="fs">
 	<tr>
 		<td>
-		<cfif #collection_cde# is not "Crus" and #collection_cde# is not "Herb">
+		<cfif #collection_cde# is not "Crus" and #collection_cde# is not "Herb"
+			and #collection_cde# is not "VPal" and #collection_cde# is not "IPal">
 		<table cellpadding="0" cellspacing="0">
 		<tr>
 			<td rowspan="99" valign="top">
