@@ -1366,7 +1366,7 @@ Some Totally Random String Data .....
 									value="#thisDate#"
 									class="d11a"
 									size="10"
-									onclick="cal1.select(document.dataEntry.geo_att_determined_date_#i#,'anchor1#i#','dd-MM-yyyy');">
+									onclick="cal1.select(document.dataEntry.geo_att_determined_date_#i#,'anchor1#i#','dd-MMM-yyyy');">
 								<a name="anchor1#i#" id="anchor1#i#"></a>
 								<!---
 								<img src="images/pick.gif" 
