@@ -1305,11 +1305,43 @@ Some Totally Random String Data .....
 			<td>
 				<table cellpadding="0" cellspacing="0">
 					<tr>
-						<td nowrap="nowrap">
-							Attribute
+						<th nowrap="nowrap">
+							<span class="f11a">Geol Att.</span>
 						</td>
-						<td>Value</td>
+						<th><span class="f11a">Geol Att. Value</span></td>
 					</tr>
+					<cfloop from="1" to="6" index="i">
+						<cfset thisAttribute= evaluate("data.geology_attribute_" & i)>
+						<cfset thisVal= evaluate("data.geo_att_value_" & i)>
+						
+						
+						<cfset thisDeterminer="geo_att_determiner_#i#">
+						<cfset thisDate="geo_att_determined_date_#i#">
+						<cfset thisMeth="geo_att_determined_method_#i#">
+						<cfset thisRemark="geo_att_remark_#i#">
+						<div id="attribute_value_cell_#i#">
+						<tr>
+							<td>
+								<select name="geology_attribute_#i#" id="geology_attribute_#i#" size="1" class="d11a">
+									<option value=""></option>
+									<cfloop query="ctgeology_attribute">
+										<option 
+											<cfif #thisAttribute# is #geology_attribute#> selected="selected" </cfif>
+												value="#geology_attribute#">#geology_attribute#</option>
+									</cfloop>
+								</select>								
+							</td>
+							<td>
+								<input type="text" 
+									name="geo_att_value_#i#"
+									id="geo_att_value_#i#"
+									value="#thisVal#"
+									class="d11a"
+									size="15">	
+							</td>
+						</tr>
+						</div>
+					</cfloop>
 				</table>
 			</td>
 		</tr>
