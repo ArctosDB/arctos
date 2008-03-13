@@ -920,7 +920,7 @@ var thisCC = document.getElementById('collection_cde').value;
 		reqdFlds.push('coll_obj_disposition');
 		reqdFlds.push('id_made_by_agent');
 		reqdFlds.push('nature_of_id');
-		if (thisCC != 'Crus' && thisCC != 'Herb') {
+		if (thisCC != 'Crus' && thisCC != 'Herb' && thisCC != 'VPal'  && thisCC != 'IPal') {
 			// require sex stuff UNLESS Crus or Herb
 			reqdFlds.push('attribute_value_1');
 			reqdFlds.push('attribute_determiner_1');
