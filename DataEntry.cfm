@@ -1349,7 +1349,7 @@ Some Totally Random String Data .....
 									id="geo_att_value_#i#"
 									value="#thisVal#"
 									class="d11a"
-									size="15">	
+									size="25">	
 							</td>
 							<td>
 								<input type="text" 
@@ -1366,7 +1366,7 @@ Some Totally Random String Data .....
 									value="#thisDate#"
 									class="d11a"
 									size="10"
-									onclick="cal1.select(document.dataEntry.geo_att_determined_date_#i#,'anchor1#i#','dd-MMM-yyyy');">
+									onclick="cal1.select(document.dataEntry.geo_att_determined_date_#i#,'anchor1#i#','dd-MM-yyyy');">
 								<a name="anchor1#i#" id="anchor1#i#"></a>
 								<!---
 								<img src="images/pick.gif" 
