@@ -1365,14 +1365,17 @@ Some Totally Random String Data .....
 									id="geo_att_determined_date_#i#"
 									value="#thisDate#"
 									class="d11a"
-									size="10">
+									size="10"
+									onclick="cal1.select(document.dataEntry.geo_att_determined_date_#i#,'anchor1#i#','dd-MMM-yyyy');">
+								<!---
 								<img src="images/pick.gif" 
 									class="likeLink" 
 									border="0" 
 									alt="[calendar]"
 									name="anchor1#i#"
 									id="anchor1#i#"
-									onClick="cal1.select(document.dataEntry.geo_att_determined_date_#i#,'anchor1#i#','dd-MMM-yyyy'); return false;"/>	
+									onClick="cal1.select(document.dataEntry.geo_att_determined_date_#i#,'anchor1#i#','dd-MMM-yyyy'); return false;"/>
+									--->	
 							</td>
 							<td>
 								<input type="text" 
