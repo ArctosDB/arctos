@@ -1212,27 +1212,26 @@ end cmask,
 												>#display_value#</a>
 									<cfelseif #cgi.HTTP_HOST# contains "berkeley.edu" and #other_id_type# is "collector number">		
 										<!---Adding in GReF code --->
-										<cftry>
-											<cfquery name="gref" datasource="#Application.web_user#">
-												select
-												  book_section.publication_id,page_id
-												from
-												  gref_roi_ng, gref_roi_value_ng, book_section
-												where
-												  book_section.book_id = gref_roi_ng.publication_id
-												  and gref_roi_value_ng.id = gref_roi_ng.ROI_VALUE_NG_ID
-												  and gref_roi_ng.section_number = book_section.book_section_order
-												  and gref_roi_value_ng.collection_object_id = #collection_object_id#
-											</cfquery>
+										<cfquery name="gref" datasource="#Application.web_user#">
+											select
+											  book_section.publication_id,page_id
+											from
+											  gref_roi_ng, gref_roi_value_ng, book_section
+											where
+											  book_section.book_id = gref_roi_ng.publication_id
+											  and gref_roi_value_ng.id = gref_roi_ng.ROI_VALUE_NG_ID
+											  and gref_roi_ng.section_number = book_section.book_section_order
+											  and gref_roi_value_ng.collection_object_id = #collection_object_id#
+										</cfquery>
+										<cfif gref.page_id is not "">
 											<!---<cfset isMedia = true>--->
 											#display_value# 
 													(<a class='external'
 									href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationId=#gref.publication_id#" 
 															target="_blank">click here for reference on field notebook page</a>)
-										<cfcatch type='any'>
+										<cfelse>
 											#display_value#
-										</cfcatch>
-										</cftry>
+										</cfif>
 									<cfelse>
 										#display_value#
 									</cfif>
