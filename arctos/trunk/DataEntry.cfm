@@ -208,7 +208,8 @@ Some Totally Random String Data .....
 				</cfif>
 				order by other_id_type
         </cfquery>
-		<cfquery name="ctSex_Cde" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+		<!--- cachedwithin="#createtimespan(0,0,60,0)#"--->
+		<cfquery name="ctSex_Cde" datasource="#Application.web_user#">
 			SELECT distinct(sex_cde) as sex_cde FROM ctSex_Cde
 				<cfif len(#collection_cde#) gt 0>
 					WHERE collection_cde='#collection_cde#'
