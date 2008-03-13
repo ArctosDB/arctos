@@ -241,7 +241,8 @@ Some Totally Random String Data .....
 				</cfif>
 				order by preserve_method
 		</cfquery>
-		<cfquery name="ctAttributeType" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+		<!----cachedwithin="#createtimespan(0,0,60,0)#"---->
+		<cfquery name="ctAttributeType" datasource="#Application.web_user#" >
 			select distinct(attribute_type) from ctattribute_type
 				<cfif len(#collection_cde#) gt 0>
 					WHERE collection_cde='#collection_cde#'
