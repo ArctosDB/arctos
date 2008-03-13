@@ -1320,6 +1320,9 @@ Some Totally Random String Data .....
 						<th>
 							<span class="f11a">Method</span>
 						</th>
+						<th>
+							<span class="f11a">Remark</span>
+						</th>
 					</tr>
 					<cfloop from="1" to="6" index="i">
 						<cfset thisAttribute= evaluate("data.geology_attribute_" & i)>
@@ -1368,7 +1371,7 @@ Some Totally Random String Data .....
 									border="0" 
 									alt="[calendar]"
 									name="anchor1#i#"
-									id="anchor#i#"
+									id="anchor1#i#"
 									onClick="cal1.select(document.dataEntry.geo_att_determined_date_#i#,'anchor1#i#','dd-MMM-yyyy'); return false;"/>	
 							</td>
 							<td>
