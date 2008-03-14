@@ -82,7 +82,7 @@
 
   
 	<cfif not listfindnocase(valuelist(ctgeology_attribute.geology_attribute),attribute)>
-		 <li><span style="color:red">#attribtue#</span></li>
+		 <li><span style="color:red">#attribute#</span></li>
 	</cfif>
 
    <!--- If this is the last row, then we need to close all unordered lists --->
