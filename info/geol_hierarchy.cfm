@@ -54,7 +54,7 @@
 </cfquery>
 <cfloop query="cData">
 	<cfset p=#level# * 50>
-	<div style="padding-left:#p#;border:1px dotted red;">
+	<div style="margin-left:#p#;border:1px dotted red;">
 		#attribute# (#level#)
 	</div>
 </cfloop>
