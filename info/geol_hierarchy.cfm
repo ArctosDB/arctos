@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfif #action# is "nothing">
 <cfquery name="cData" datasource="#application.web_user#">
 	 SELECT  
 	 	level,
@@ -14,6 +15,7 @@
 	select geology_attribute_hierarchy_id,
 	attribute from geology_attribute_hierarchy  order by attribute
 </cfquery>
+<cfoutput >
 <form name="ins" method="post" action="geol_hierarchy.cfm">
 	<input type="hidden" name="action" value="newTerm">
 	<label for="newTerm">Insert Term</label>
@@ -25,13 +27,13 @@
 	<label for="newTerm">Parent Term</label>
 	<select name="parent">
 		<cfloop query="terms">
-			<option value="#attribute#">#attribute#</option>
+			<option value="#geology_attribute_hierarchy_id#">#attribute#</option>
 		</cfloop>
 	</select>
 	<label for="newTerm">Child Term</label>
 	<select name="child">
 		<cfloop query="terms">
-			<option value="#attribute#">#attribute#</option>
+			<option value="#geology_attribute_hierarchy_id#">#attribute#</option>
 		</cfloop>
 	</select>
 	<input type="text" name="parent">
@@ -51,4 +53,15 @@
 		geology_attribute_hierarchy_id = parent_id
 </cfquery>
 <cfdump var="#cData#">
+</cfoutput>
+</cfif>
+<!---------------------------------------------------->
+<cfif #action# is "newReln">
+	<cfoutput>
+	<cfquery name="changeGeog" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		update geology_attribute_hierarchy set parent_id=#parent# where geology_attribute_hierarchy_id=#child#
+	</cfquery>
+	<cflocation url="geol_hierarchy.cfm" addtoken="false">
+	</cfoutput>
+</cfif>
 <cfinclude template="/includes/_footer.cfm">
