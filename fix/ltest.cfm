@@ -2,4 +2,7 @@
 	<div style="border:1px solid red;width:5.5in;height:2.5in;position:absolute;top:0in;left:0in;">
 		labeley
 	</div>
+	<div style="border:1px solid red;width:5.5in;height:2.5in;position:absolute;top:0in;left:2.5in;">
+		labeley
+	</div>
 </div>
