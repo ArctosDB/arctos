@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif #action# is "nothing">
+<cfset title="Geology Attribute Hierarchy">
 <cfquery name="cData" datasource="#application.web_user#">
 	 SELECT  
 	 	level,
