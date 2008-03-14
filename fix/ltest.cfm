@@ -40,7 +40,8 @@
 				left:.25in;
 				width:5in;
 				border:1px solid green;
-				height:.25in;">
+				height:.25in;
+				overflow:hidden;">
 					one very nice div but it's SO big!!!
 					one very nice div but it's SO big!!!
 					one very nice div but it's SO big!!!
