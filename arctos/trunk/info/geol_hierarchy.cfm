@@ -52,14 +52,19 @@
 	CONNECT BY PRIOR 
 		geology_attribute_hierarchy_id = parent_id
 </cfquery>
-<cfdump var="#cData#">
+<cfloop query="cData">
+	<cfset p=#level# * 20>
+	<div style="padding-left:#p#">
+		#attribute#
+	</div>
+</cfloop>
 </cfoutput>
 </cfif>
 <!---------------------------------------------------->
 <cfif #action# is "newTerm">
 	<cfoutput>
 	<cfquery name="changeGeog" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-		insert into geology_attribute_hierarchy (attribute) values ('#newTerm#')
+		insert into geology_attribute_hierarchy (attribute) values ('#attribute#')
 	</cfquery>
 	<cflocation url="geol_hierarchy.cfm" addtoken="false">
 	</cfoutput>
