@@ -53,9 +53,9 @@
 		geology_attribute_hierarchy_id = parent_id
 </cfquery>
 <cfloop query="cData">
-	<cfset p=#level# * 20>
-	<div style="padding-left:#p#">
-		#attribute#
+	<cfset p=#level# * 50>
+	<div style="padding-left:#p#;border:1px dotted red;">
+		#attribute# (#level#)
 	</div>
 </cfloop>
 </cfoutput>
