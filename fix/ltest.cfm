@@ -11,6 +11,8 @@
 <cfset lrPosn=0>
 <cfset topPosn = 0>
 <cfset counter=1>
+<cfset currentRow=0>
+<cfset currentColumn=0>
 <cfloop from="1" to="10" index="i">
 	<cfif #counter# is 1>
 		<!--- new page --->
@@ -20,7 +22,7 @@
 	<!--- only works on 2-column labels --->
 
 	<div style="border:1px solid red;width:#lblWidth#in;height:#lblHeight#in;position:absolute;top:#topPosn#in;left:#lrPosn#in;">
-		width:#lblWidth#in;height:#lblHeight#in;position:absolute;top:#topPosn#in;left:#lrPosn#in;
+		counter:#counter#;width:#lblWidth#in;height:#lblHeight#in;position:absolute;top:#topPosn#in;left:#lrPosn#in;
 	</div>
 	
 	<cfif lrPosn is 0>
