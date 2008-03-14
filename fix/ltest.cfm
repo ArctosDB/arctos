@@ -30,11 +30,34 @@
 			<div style="position:absolute;
 				top:.25in;
 				left:.25in;
-				width:3in;
+				width:5in;
 				border:1px solid purple;
 				height:.25in;">
-		one very nice div
-		</div>
+					one very nice div
+			</div>
+			<div style="position:absolute;
+				top:.5in;
+				left:.25in;
+				width:5in;
+				border:1px solid green;
+				height:.25in;">
+					one very nice div but it's SO big!!!
+					one very nice div but it's SO big!!!
+					one very nice div but it's SO big!!!
+					one very nice div but it's SO big!!!
+					one very nice div but it's SO big!!!
+					one very nice div but it's SO big!!!
+					one very nice div but it's SO big!!!
+					one very nice div but it's SO big!!!
+					one very nice div but it's SO big!!!
+					one very nice div but it's SO big!!!
+					one very nice div but it's SO big!!!
+					one very nice div but it's SO big!!!
+					one very nice div but it's SO big!!!
+					one very nice div but it's SO big!!!
+					one very nice div but it's SO big!!!
+					
+			</div>
 		counter:#counter#;width:#lblWidth#in;height:#lblHeight#in;position:absolute;top:#topPosn#in;left:#lrPosn#in;
 	</div>
 	<cfif counter mod 2 is 0>
