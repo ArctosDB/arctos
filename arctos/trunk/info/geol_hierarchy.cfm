@@ -80,10 +80,11 @@
       </cfif>
    </cfif>
 
-  
+  <li><span
 	<cfif not listfindnocase(valuelist(ctgeology_attribute.geology_attribute),attribute)>
-		 <li><span style="color:red">#attribute#</span></li>
+		  style="color:red"
 	</cfif>
+	>#attribute#</span></li>
 
    <!--- If this is the last row, then we need to close all unordered lists --->
    <cfif cData.currentRow IS cData.recordCount>
