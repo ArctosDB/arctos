@@ -24,7 +24,15 @@
 	<div style="border:1px solid red;width:#lblWidth#in;height:#lblHeight#in;position:absolute;top:#topPosn#in;left:#lrPosn#in;">
 		counter:#counter#;width:#lblWidth#in;height:#lblHeight#in;position:absolute;top:#topPosn#in;left:#lrPosn#in;
 	</div>
-	
+	<cfif counter mod 2 is 0>
+		<!--- even number= just made right column --->
+		<cfset lrPosn=0>
+		<cfset topPosn=lblHeight>
+	<cfelse>
+		<!--- odd number, left column --->
+		<cfset lrPosn=lblWidth>
+	</cfif>
+	<!----
 	<cfif lrPosn is 0>
 		<cfset lrPosn=lblWidth>
 	<cfelse>
@@ -36,10 +44,12 @@
 	<cfelse>
 		<cfset topPosn=0>
 	</cfif>
-	
+	---->
 	<cfset counter=counter+1>
 	<cfif counter gt (rowsPerPage * colsPerPage)>
 		<cfset counter=1>
+		<cfset lrPosn=0>
+		<cfset topPosn = 0>
 	</cfif>
 	<cfif #counter# is 1>
 		<!--- close new page --->
