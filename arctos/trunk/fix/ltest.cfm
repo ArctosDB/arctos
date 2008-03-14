@@ -1,3 +1,4 @@
+<cfoutput>
 <cfset rowsPerPage = 2>
 <cfset colsPerPage = 2>
 
@@ -45,3 +46,4 @@
 		labeley
 	</div>
 ---->
+</cfoutput>
