@@ -21,7 +21,13 @@
 	
 	<!--- only works on 2-column labels --->
 
-	<div style="border:1px solid red;width:#lblWidth#in;height:#lblHeight#in;position:absolute;top:#topPosn#in;left:#lrPosn#in;">
+	<div style="border:1px solid red;
+		width:#lblWidth#in;
+		height:#lblHeight#in;
+		position:absolute;
+		top:#topPosn#in;
+		left:#lrPosn#in;
+		padding:.25in;">
 		counter:#counter#;width:#lblWidth#in;height:#lblHeight#in;position:absolute;top:#topPosn#in;left:#lrPosn#in;
 	</div>
 	<cfif counter mod 2 is 0>
