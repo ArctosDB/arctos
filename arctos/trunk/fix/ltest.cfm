@@ -11,7 +11,7 @@
 <cfset lblWidth=5.5>
 
 <cfset counter=0>
-<cfloop from="1" to="6" index="i">
+<cfloop from="1" to="10" index="i">
 	<cfif #counter# is 1>
 		<!--- new page --->
 		<div style="border:1px solid blue;width:11in;height:8.5in;position:relative">
@@ -20,13 +20,13 @@
 	<!--- only works on 2-column labels --->
 	<cfset lrPosn = counter mod 2 * lblWidth>
 			
-	<div style="border:1px solid red;width:#lblWidth#in;height:#lblHeight#in;position:absolute;top:#topPosn#in;left:0in;">
+	<div style="border:1px solid red;width:#lblWidth#in;height:#lblHeight#in;position:absolute;top:#topPosn#in;left:#lrPosn#in;">
 		labeley
 		<cfdump var=#variables#>
 	</div>
 	
 	<cfset counter=counter+1>
-	<cfif counter gt (rowsPerPage * colsPerPage)>
+	<cfif counter gt (rowsPerPage * colsPerPage) -1>
 		<cfset counter=0>
 	</cfif>
 	<cfif #counter# is 0>
