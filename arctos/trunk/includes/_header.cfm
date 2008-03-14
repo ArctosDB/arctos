@@ -351,6 +351,7 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 						<li><a target="_top" href="/tools/parent_child_taxonomy.cfm">Sync parent/child taxonomy</a></li>
 						<li><a target="_top" href="/Admin/killBadAgentDups.cfm">Merge bad dup agents</a></li>
 						<li><a target="_top" href="/CodeTableButtons.cfm">Code tables</a></li>
+						<li><a target="_top" href="/info/geol_hierarchy.cfm">Geol. Att. Hierarchy</a></li>
 						<li><a target="_top" href="/tools/pendingRelations.cfm">Pending Relationships</a></li>
 						<li><a target="_top" href="/Admin/Collection.cfm">Manage collections</a></li>
 						<li><a target="_top" href="/Encumbrances.cfm">Encumbrances</a></li>
