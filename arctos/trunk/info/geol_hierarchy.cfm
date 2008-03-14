@@ -16,6 +16,9 @@
 	select geology_attribute_hierarchy_id,
 	attribute from geology_attribute_hierarchy  order by attribute
 </cfquery>
+<cfquery name="ctgeology_attribute"  datasource="#application.web_user#">
+	select geology_attribute from ctgeology_attribute  order by geology_attribute
+</cfquery>
 <cfoutput >
 <form name="ins" method="post" action="geol_hierarchy.cfm">
 	<input type="hidden" name="action" value="newTerm">
@@ -53,10 +56,10 @@
 	CONNECT BY PRIOR 
 		geology_attribute_hierarchy_id = parent_id
 </cfquery>
-<br>Current Data:
+<br>Current Data (values in red are NOT code table values):
 <cfset levelList = "">
 <cfloop query="cData">
-
+	
 
    <!--- Is the last value in the list this level? --->
    <cfif listLast(levelList,",") IS NOT cData.level>
@@ -77,7 +80,10 @@
       </cfif>
    </cfif>
 
-   <li> #cData.attribute# (#level#)</li>
+  
+	<cfif not listfindnocase(valuelist(ctgeology_attribute.geology_attribute),attribute)>
+		 <li><span style="color:red">#attribtue#</span></li>
+	</cfif>
 
    <!--- If this is the last row, then we need to close all unordered lists --->
    <cfif cData.currentRow IS cData.recordCount>
