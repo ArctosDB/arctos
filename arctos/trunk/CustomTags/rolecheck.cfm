@@ -24,6 +24,9 @@ isValid.recordcount: #isValid.recordcount#;
 --->
 <cfif #isValid.recordcount# is 0>
 	This form is not controlled. Add it to Form Permissions or get ready to see it go bye-bye.
+	<cfmail subject="Uncontrolled Form" to="#Application.technicalEmail#" from="Security@#Application.fromEmail#" type="html">
+		Form #escapeGoofyInstall# needs some control. Found by #client.username# (#cgi.HTTP_X_Forwarded_For# - #remote_host#)
+	</cfmail>
 <cfelse>
 	<cfloop query="isValid">
 		<cfif not listfindnocase(client.roles,role_name)>
