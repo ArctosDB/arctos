@@ -21,7 +21,7 @@
 	
 	<!--- only works on 2-column labels --->
 
-	<div style="border:1px solid red;
+	<div style="border:3px solid red;
 		width:#lblWidth#in;
 		height:#lblHeight#in;
 		position:absolute;
