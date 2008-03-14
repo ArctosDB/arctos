@@ -36,7 +36,6 @@
 			<option value="#geology_attribute_hierarchy_id#">#attribute#</option>
 		</cfloop>
 	</select>
-	<input type="text" name="parent">
 	<input type="submit">
 </form>
 
@@ -49,11 +48,21 @@
 		attribute
 	FROM
 		geology_attribute_hierarchy
+	start with parent_id is null
 	CONNECT BY PRIOR 
 		geology_attribute_hierarchy_id = parent_id
 </cfquery>
 <cfdump var="#cData#">
 </cfoutput>
+</cfif>
+<!---------------------------------------------------->
+<cfif #action# is "newTerm">
+	<cfoutput>
+	<cfquery name="changeGeog" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		insert into geology_attribute_hierarchy (attribute) values ('#newTerm#')
+	</cfquery>
+	<cflocation url="geol_hierarchy.cfm" addtoken="false">
+	</cfoutput>
 </cfif>
 <!---------------------------------------------------->
 <cfif #action# is "newReln">
