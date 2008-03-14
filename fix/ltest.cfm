@@ -10,7 +10,7 @@
 
 <cfset lrPosn=0>
 <cfset topPosn = 0>
-<cfset counter=0>
+<cfset counter=1>
 <cfloop from="1" to="10" index="i">
 	<cfif #counter# is 1>
 		<!--- new page --->
@@ -37,10 +37,10 @@
 	</cfif>
 	
 	<cfset counter=counter+1>
-	<cfif counter gt (rowsPerPage * colsPerPage) -1>
-		<cfset counter=0>
+	<cfif counter gt (rowsPerPage * colsPerPage)>
+		<cfset counter=1>
 	</cfif>
-	<cfif #counter# is 0>
+	<cfif #counter# is 1>
 		<!--- close new page --->
 		</div>
 	</cfif>
