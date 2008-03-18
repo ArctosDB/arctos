@@ -47,8 +47,24 @@
 	<cfset sql = "#sql# AND locality.locality_id = #locality_id#">
 </cfif>
 <cfif isdefined("geology_attribute") and len(#geology_attribute#) gt 0>
-	<cfset sql = "#sql# AND geology_attributes.geology_attribute = '#geology_attribute#'">
+	<cfif isdefined("geology_attribute_hier") and #geology_attribute_hier# is 1>
+		<cfset sql = "#sql# AND geology_attributes.geology_attribute IN (
+				SELECT
+					attribute
+				FROM
+					geology_attribute_hierarchy
+				WHERE
+					attribute='#geology_attribute#'
+				CONNECT BY PRIOR 
+					geology_attribute_hierarchy_id = parent_id">
+	<cfelse>
+		<cfset sql = "#sql# AND geology_attributes.geology_attribute = '#geology_attribute#'">	
+	</cfif>	
 </cfif>
+<cfif isdefined("geo_att_value") and len(#geo_att_value#) gt 0>
+
+</cfif>
+
 <cfif isdefined("geog_auth_rec_id") and len(#geog_auth_rec_id#) gt 0>
 	<cfset sql = "#sql# AND geog_auth_rec.geog_auth_rec_id = #geog_auth_rec_id#">
 </cfif>

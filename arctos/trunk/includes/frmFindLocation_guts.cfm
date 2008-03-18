@@ -242,13 +242,31 @@
 			</tr>
 			<tr>
 				<td>
+					<table cellpadding="0" cellspacing="0">
+						<tr><td>
 					<label for="geology_attribute">Geology Attribute</label>
 					<select name="geology_attribute" id="geology_attribute">
-						<option value=""></option>
+						<option value="">Anything</option>
 						<cfloop query="ctgeology_attribute">
 							<option value = "#ctgeology_attribute.geology_attribute#">#ctgeology_attribute.geology_attribute#</option>
 						</cfloop>
 					</select>
+						</td>
+						
+						<td>
+							<label for="geo_att_value">Attribute Value</label>
+							<input type="text" name="geo_att_value">
+						</td>
+						<td>
+						<label for="geology_attribute_hier">Match Parents?</label>
+					<select name="geology_attribute_hier" id="geology_attribute_hier">
+						<option selected="selected" value="0">No</option>
+						<option value="1">Yes</option>
+					</select>
+						</td>
+						</tr>
+						
+					</table>
 				</td>
 			</tr>
 		</table>
