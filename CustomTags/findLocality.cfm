@@ -46,6 +46,9 @@
 <cfif isdefined("locality_id") and len(#locality_id#) gt 0>
 	<cfset sql = "#sql# AND locality.locality_id = #locality_id#">
 </cfif>
+<cfif isdefined("geology_attribute") and len(#geology_attribute#) gt 0>
+	<cfset sql = "#sql# AND geology_attributes.geology_attribute = '#geology_attribute#'">
+</cfif>
 <cfif isdefined("geog_auth_rec_id") and len(#geog_auth_rec_id#) gt 0>
 	<cfset sql = "#sql# AND geog_auth_rec.geog_auth_rec_id = #geog_auth_rec_id#">
 </cfif>
