@@ -89,6 +89,9 @@
 <cfquery name="ctGeorefMethod" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select georefMethod from ctgeorefmethod order by georefMethod
 </cfquery>
+<cfquery name="ctgeology_attribute" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+	select geology_attribute from ctgeology_attribute order by geology_attribute
+</cfquery>
 <table  cellpadding="0" cellspacign="0"><tr><td>
 	<div class="locGroup">
 		<span id="geogDetailCtl" class="infoLink" onclick="toggleGeogDetail(1)";>Show More Options</span>
@@ -235,6 +238,17 @@
 				<td>
 					<label for="locality_id">Locality ID</label>
 					<input type="text" name="locality_id" id="locality_id">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="geology_attribute">Geology Attribute</label>
+					<select name="geology_attribute" id="geology_attribute">
+						<option value=""></option>
+						<cfloop query="ctgeology_attribute">
+							<option value = "#ctgeology_attribute.geology_attribute#">#ctgeology_attribute.geology_attribute#</option>
+						</cfloop>
+					</select>>
 				</td>
 			</tr>
 		</table>

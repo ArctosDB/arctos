@@ -67,12 +67,12 @@
 <cfquery name="ctFeature" datasource="#Application.web_user#">
 	select distinct(feature) from ctfeature order by feature
 </cfquery>
- 	<cfquery name="ctGeorefMethod" datasource="#Application.web_user#">
-					select georefMethod from ctgeorefmethod order by georefMethod
-				</cfquery>
-	<cfquery name="ctVerificationStatus" datasource="#Application.web_user#">
-					select VerificationStatus from ctVerificationStatus order by VerificationStatus
-				</cfquery>
+	<cfquery name="ctGeorefMethod" datasource="#Application.web_user#">
+	select georefMethod from ctgeorefmethod order by georefMethod
+</cfquery>
+<cfquery name="ctVerificationStatus" datasource="#Application.web_user#">
+	select VerificationStatus from ctVerificationStatus order by VerificationStatus
+</cfquery>
 
 <!--------------------------- End Code-table queries -------------------------------------------------->
 
