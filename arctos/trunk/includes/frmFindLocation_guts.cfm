@@ -248,7 +248,7 @@
 						<cfloop query="ctgeology_attribute">
 							<option value = "#ctgeology_attribute.geology_attribute#">#ctgeology_attribute.geology_attribute#</option>
 						</cfloop>
-					</select>>
+					</select>
 				</td>
 			</tr>
 		</table>
