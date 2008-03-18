@@ -48,6 +48,8 @@
 </cfif>
 <cfif isdefined("geology_attribute") and len(#geology_attribute#) gt 0>
 	<cfif isdefined("geology_attribute_hier") and #geology_attribute_hier# is 1>
+		<!--- not quite sure what to do with this yet - turning it off at the 
+		search form for now - DLM --->
 		<cfset sql = "#sql# AND geology_attributes.geology_attribute IN (
 				SELECT
 					attribute
@@ -62,7 +64,7 @@
 	</cfif>	
 </cfif>
 <cfif isdefined("geo_att_value") and len(#geo_att_value#) gt 0>
-
+	<cfset sql = "#sql# AND upper(geology_attributes.geo_att_value) like '%#ucase(geo_att_value)#%'">	
 </cfif>
 
 <cfif isdefined("geog_auth_rec_id") and len(#geog_auth_rec_id#) gt 0>

@@ -56,7 +56,7 @@
 	CONNECT BY PRIOR 
 		geology_attribute_hierarchy_id = parent_id
 </cfquery>
-<br>Current Data (values in red are NOT code table values):
+<br>Current Data (values in red are NOT code table values but may still be used in searches):
 <cfset levelList = "">
 <cfloop query="cData">
 	
