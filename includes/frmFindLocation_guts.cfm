@@ -257,6 +257,7 @@
 							<label for="geo_att_value">Attribute Value</label>
 							<input type="text" name="geo_att_value">
 						</td>
+						<!---
 						<td>
 						<label for="geology_attribute_hier">Match Parents?</label>
 					<select name="geology_attribute_hier" id="geology_attribute_hier">
@@ -264,6 +265,7 @@
 						<option value="1">Yes</option>
 					</select>
 						</td>
+						--->
 						</tr>
 						
 					</table>
