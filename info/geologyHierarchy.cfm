@@ -101,7 +101,7 @@
   
 	<cfloop query="cData">
 		
-   <!--- Is the last value in the list this level? --->
+   <!--- Is the last value in the list this level? 
    <cfif listLast(levelList,",") IS NOT cData.level>
       <!--- Is this level in the levelList?
           If so, we need to close previous level down to this one now. --->
@@ -130,11 +130,13 @@
    <cfif cData.currentRow IS cData.recordCount>
       #repeatString("</div>",listLen(levelList,","))#
    </cfif>
+--->
 
-		<!---<div id="d_#geology_attribute_hierarchy_id#" class="clear-element page-item3 sort-handle left">
+		<!---
+		---->
+		<div id="d_#geology_attribute_hierarchy_id#" class="clear-element page-item3 sort-handle left">
 			<div>#attribute#</div>
 		</div>
-		---->
 	</cfloop>
 	 </span>
         </div>
