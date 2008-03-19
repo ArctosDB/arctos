@@ -1,8 +1,10 @@
  <!--- no security --->
 <cfinclude template="/includes/_header.cfm">
 <script type='text/javascript' src='/includes/jquery.js'></script>
-<!----
+
 <script type='text/javascript' src="/includes/inestedsortable.js"></script>
+
+<!----
 <cfquery name="data" datasource="#application.web_user#">
 	 SELECT  
 	 	level,
