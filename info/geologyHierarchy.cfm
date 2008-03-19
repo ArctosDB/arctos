@@ -12,6 +12,7 @@
 
 <script type='text/javascript' src="/includes/jquery/inestedsortable.js"></script>
 
+<script type='text/javascript' src="/includes/jquery/jquery.nestedsortablewidget.js"></script>
 <style type="text/css">
 			.redFont {color:red;}
 			div.wrap {
