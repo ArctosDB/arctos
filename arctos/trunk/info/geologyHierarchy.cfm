@@ -1,7 +1,8 @@
  <!--- no security --->
 <!---
-<cfinclude template="/includes/_header.cfm">
+
 --->
+<cfinclude template="/includes/_header.cfm">
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type="text/javascript" src="/includes/jquery/isortables.js"></script>
 
