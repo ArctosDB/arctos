@@ -1,7 +1,4 @@
- <!--- no security --->
-<!---
 
---->
 <cfinclude template="/includes/_header.cfm">
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type="text/javascript" src="/includes/jquery/isortables.js"></script>
@@ -28,25 +25,6 @@
 </cfquery>
 ---->
 
-<pre>
-//Code:
-$('#left-to-right').NestedSortable(
-	{
-		accept: 'page-item1',
-		noNestingClass: "no-nesting",
-		opacity: .8,
-		helperclass: 'helper',
-		onChange: function(serialized) {
-			$('#left-to-right-ser')
-			.html("This can be passed as parameter 
-				to a GET or POST request: " 
-				+ serialized[0].hash);
-		},
-		autoScroll: true,
-		handle: '.sort-handle'
-	}
-);
-</pre>
 
         <div class="wrap">
             <ul id="left-to-right" class="page-list">
