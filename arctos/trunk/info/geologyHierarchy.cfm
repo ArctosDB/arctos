@@ -122,9 +122,11 @@
 
 
 	<cfif not listfindnocase(valuelist(ctgeology_attribute.geology_attribute),attribute)>
-		  style="color:red"
+		  <cfset aClass=" red">
+	<cfelse>
+		<cfset aClass="">
 	</cfif>
-	<div id="d_#geology_attribute_hierarchy_id#" class="clear-element page-item3 sort-handle left">#attribute# (#level#)</div>
+	<div id="d_#geology_attribute_hierarchy_id#" class="clear-element page-item3 sort-handle left #aClass#">#attribute# (#level#)</div>
 
    <!--- If this is the last row, then we need to close all unordered lists --->
    <cfif cData.currentRow IS cData.recordCount>
