@@ -1,13 +1,7 @@
  <!--- no security --->
 <cfinclude template="/includes/_header.cfm">
-<script type='text/javascript' src='/includes/dhtmlXTree.js'></script>
-<script  src="/includes/dhtmlXCommon.js"></script>
-<link rel="STYLESHEET" type="text/css" href="/includes/dhtmlXTree.css">
-
-<script type='text/javascript' src='/includes/wz_dragdrop.js'></script>
-
-
-<script type='text/javascript' src='/includes/_treeAjax.js'></script>
+<script type='text/javascript' src='/includes/jquery.js'></script>
+<script  src="/includes/inestedsortable.js"></script>
 <cfquery name="data" datasource="#application.web_user#">
 	 SELECT  
 	 	level,
@@ -19,6 +13,56 @@
 	CONNECT BY PRIOR 
 		geology_attribute_hierarchy_id = parent_id
 </cfquery>
+
+<script>
+	$('#left-to-right').NestedSortable(
+	{
+		accept: 'page-item1',
+		noNestingClass: "no-nesting",
+		opacity: .8,
+		helperclass: 'helper',
+		onChange: function(serialized) {
+			$('#left-to-right-ser')
+			.html("This can be passed as parameter 
+				to a GET or POST request: " 
+				+ serialized[0].hash);
+		},
+		autoScroll: true,
+		handle: '.sort-handle'
+	}
+);
+</script>
+
+ <div class="wrap">
+            <ul id="left-to-right" class="page-list">
+
+                <li id="ele-1" class="clear-element page-item1 left no-nesting">
+                    <div class='sort-handle'><img src="file.gif" align="left"/>File 1</div>
+                </li>
+                <li id="ele-2" class="clear-element page-item1 left no-nesting">
+                    <div class='sort-handle'><img src="file.gif" align="left"/>File 2</div>
+                </li>
+                <li id="ele-3" class="clear-element page-item1 left">
+                    <div class='sort-handle'><img src="folder.gif" align="left"/>Folder 1</div>
+
+                </li>
+                 <li id="ele-4" class="clear-element page-item1 left">
+                    <div class='sort-handle'><img src="folder.gif" align="left"/>Folder 2</div>
+					<ul class="page-list">
+		                <li id="ele-5" class="clear-element page-item1 left">
+		                 	<div class='sort-handle'><img src="folder.gif" align="left"/>Folder 3</div>
+							<ul  class="page-list" >
+				                <li id="ele-6" class="clear-element page-item1 left no-nesting">
+
+	                            	<div class='sort-handle'><img src="file.gif" align="left"/>File 3</div>
+				                </li>
+							</ul>
+						</li>
+					</ul>
+                </li>
+            </ul>
+        </div>
+
 <cfdump var=#data#>
 <cfoutput>
 	<!----
