@@ -127,7 +127,7 @@
 	<cfelse>
 		<cfset aClass="">
 	</cfif>
-	<div id="d_#geology_attribute_hierarchy_id#" class="clear-element page-item3 sort-handle left #aClass#">#attribute# (#level#)</div>
+	<div id="d_#geology_attribute_hierarchy_id#" class="clear-element page-item3 sort-handle left"><div>#attribute# (#level#)</div></div>
 
    <!--- If this is the last row, then we need to close all unordered lists --->
    <cfif cData.currentRow IS cData.recordCount>
@@ -147,36 +147,7 @@
 	 </span>
         </div>
 		
-	<br>What It Did:
-		<div class="clear-element page-item3 sort-handle left" id="d_1283207" style="-moz-user-select: none;">
-<div>
 
-Ar39/Ar40 (2)
-
-</div>
-<div>
-
-C14 (2)
-
-</div>
-</div>
-
-What it should have done:
-
-<div class="clear-element page-item3 sort-handle left" id="d_1283207" style="-moz-user-select: none;">
-<div>
-
-Ar39/Ar40 (2)
-
-</div>
-<div class="clear-element page-item3 sort-handle left" id="d_1283207" style="-moz-user-select: none;">
-<div>
-
-C14 (2)
-
-</div>
-</div>
-</div>
 
 	
 	<!---
