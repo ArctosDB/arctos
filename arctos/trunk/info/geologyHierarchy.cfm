@@ -8,6 +8,7 @@
 <script type='text/javascript' src="/includes/jquery/fx.js"></script>
 <script type='text/javascript' src="/includes/jquery/idrag.js"></script>
 <script type='text/javascript' src="/includes/jquery/idrop.js"></script>
+<script type='text/javascript' src="/includes/jquery/interface.js"></script>
 <!----
 <cfquery name="data" datasource="#application.web_user#">
 	 SELECT  
