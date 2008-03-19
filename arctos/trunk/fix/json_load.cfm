@@ -22,6 +22,30 @@
 	<cfset i=1>
 	<cfset lastLevel=1>
 	<cfloop query="data">
+		<cfquery name="nl" dbtype="query">
+			select level from data where rownum=rownum+1
+		</cfquery>
+		<cfset nextlevel=nl.level>
+		<!--- always start a "family" with [ - not needed if "family" is only one member --->
+		<cfif nextlevel gt level>
+			"children:" [
+		</cfif>
+		<!--- this stuff is there no matter what --->
+		{ "id":#geology_attribute_hierarchy_id#, "info":["Page Title(#i#)", "#attribute# (#level#)", "2007-06-09 2:44 pm"
+		<!--- close up when at end of family --->
+		<cfif nextlevel is 1>
+			<cfloop from="1" to="#level#" index="i">
+				<!--- closing } for every level, including one --->
+				}
+				<cfif level gt 1>
+					<!--- and closing ] for multiple levels --->
+					]
+				</cfif>
+			</cfloop>
+		</cfif>
+		
+		
+		<!---
 		<cfif i is 1>] }</cfif>
 		<cfif level is 1 and lastlevel gt 1>
 			<cfloop from="1" to="#lastlevel#" index="ll">
@@ -31,10 +55,9 @@
 		<cfif #level# gt 1>
 			"children":
 		</cfif>
-		{ "id":#geology_attribute_hierarchy_id#, "info":["Page Title(#i#)", "#attribute# (#level#)", "2007-06-09 2:44 pm"
 		,
 		<br>
-		
+		--->
 		<cfset lastLevel=level>
 		<cfset i=i+1>
 	</cfloop>
@@ -43,18 +66,18 @@
 { "requestFirstIndex" : 0, "firstIndex" : 0, "count": 22, "totalCount" : 22, "columns":["Title(ID)", "Owner", "Updated"], "items": 
 [ 
 	{ 
-		"id":1, "info":["Page Title(1)", "Bernardo PÃ¡dua", "2007-06-09 2:44 pm"] 
+		-- level1 "id":1, "info":["Page Title(1)", "Bernardo PÃ¡dua", "2007-06-09 2:44 pm"] 
 	}, 
 	{ 
-		"id":2, "info":["Page Title(2)", "Bernardo PÃ¡dua", "2007-06-09 2:44 pm"], 
+		-- level1 "id":2, "info":["Page Title(2)", "Bernardo PÃ¡dua", "2007-06-09 2:44 pm"], 
 		"children": 
 		[ 
 			{ 
-				"id":3, "info":["Page Title(3)", "Bernardo PÃ¡dua", "2007-06-09 2:44 pm"],
+				--level2 "id":3, "info":["Page Title(3)", "Bernardo PÃ¡dua", "2007-06-09 2:44 pm"],
  				"children": 
 				[ 
 					{ 
-						"id":4, "info":["Page Title(4)", "Bernardo PÃ¡dua", "2007-06-09 2:44 pm"] 
+						-- level3 "id":4, "info":["Page Title(4)", "Bernardo PÃ¡dua", "2007-06-09 2:44 pm"] 
 					} 
 				] 
 			} 
