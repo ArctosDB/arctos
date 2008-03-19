@@ -15,22 +15,12 @@
 </cfquery>
 
 <script>
-	$('#left-to-right').NestedSortable(
-	{
-		accept: 'page-item1',
-		noNestingClass: "no-nesting",
-		opacity: .8,
-		helperclass: 'helper',
-		onChange: function(serialized) {
-			$('#left-to-right-ser')
-			.html("This can be passed as parameter 
-				to a GET or POST request: " 
-				+ serialized[0].hash);
-		},
-		autoScroll: true,
-		handle: '.sort-handle'
-	}
-);
+ $(document).ready(function() {
+   $("a").click(function() {
+     alert("Hello world!");
+   });
+ });
+
 </script>
 
  <div class="wrap">
