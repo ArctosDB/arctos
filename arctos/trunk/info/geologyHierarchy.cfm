@@ -79,6 +79,39 @@
 ---->
 
 
+
+<div class="wrap">
+            <span id="spans-divs" class="page-list">
+                <div class="clear-element page-item3 sort-handle left">
+
+                    <div>Element 1</div>
+                </div>
+                <div class="clear-element page-item3 sort-handle left">
+                    <div>Element 2</div>
+                </div>
+                <div class="clear-element page-item3 sort-handle left">
+                    <div>Element 3</div>
+
+                </div>
+                <div class="clear-element page-item3 sort-handle left">
+                    <div>Element 4</div>
+					<span class="page-list">
+		                <div class="clear-element page-item3 sort-handle left">
+		                    <div>Element 5</div>
+							<span class="page-list">
+				                <div class="clear-element page-item3 sort-handle left">
+
+				                    <div>Element 6</div>
+				                </div>
+							</span>
+						</div>
+					</span>
+                </div>
+            </span>
+        </div>
+
+
+
         <div class="wrap">
             <ul id="left-to-right" class="page-list">
 
@@ -117,7 +150,18 @@
 		
 <script type="text/javascript">
 jQuery( function($) {
-
+$('#spans-divs').NestedSortable(
+	{
+	accept: 'page-item3',
+	opacity: 0.8,
+	helperclass: 'helper',
+	nestingPxSpace: 20,
+	currentNestingClass: 'current-nesting',
+	fx:400,
+	revert: true,
+	autoScroll: false
+	}
+);
 $('#left-to-right').NestedSortable(
 	{
 		accept: 'page-item1',
