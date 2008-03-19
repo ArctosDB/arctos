@@ -95,6 +95,40 @@
 <br>Current Data (values in red are NOT code table values but may still be used in searches):
 <cfset levelList = "">
 <cfoutput>
+	<cfdump var="#cData#">
+	<div class="wrap">
+            <span id="spans-divs" class="page-list">
+               
+				
+				<div  id="one" class="clear-element page-item3 sort-handle left">
+
+                    <div>Element 1</div>
+                </div>
+                <div  id="two" class="clear-element page-item3 sort-handle left">
+                    <div>Element 2</div>
+                </div>
+                <div class="clear-element page-item3 sort-handle left">
+                    <div>Element 3</div>
+
+                </div>
+                <div class="clear-element page-item3 sort-handle left">
+                    <div>Element 4</div>
+					<span class="page-list">
+		                <div class="clear-element page-item3 sort-handle left">
+		                    <div>Element 5</div>
+							<span class="page-list">
+				                <div class="clear-element page-item3 sort-handle left">
+
+				                    <div>Element 6</div>
+				                </div>
+							</span>
+						</div>
+					</span>
+                </div>
+            </span>
+        </div>
+		
+	       <!---
 	        <div class="wrap">
 <cfloop query="cData">
 	
@@ -140,6 +174,7 @@
 
 </cfloop>
 </div>
+--->
 </cfoutput>
 
 <!---------
