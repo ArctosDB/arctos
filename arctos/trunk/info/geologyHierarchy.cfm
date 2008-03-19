@@ -77,7 +77,9 @@
 		geology_attribute_hierarchy_id = parent_id
 </cfquery>
 ---->
-
+<cfquery name="ctgeology_attribute"  datasource="#application.web_user#">
+	select geology_attribute from ctgeology_attribute  order by geology_attribute
+</cfquery>
 <cfquery name="cData" datasource="#application.web_user#">
 	 SELECT  
 	 	level,
