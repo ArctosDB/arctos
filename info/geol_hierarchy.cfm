@@ -20,11 +20,19 @@
 <cfquery name="ctgeology_attribute"  datasource="#application.web_user#">
 	select geology_attribute from ctgeology_attribute  order by geology_attribute
 </cfquery>
-<cfoutput >
+<cfoutput>
+New Term:
 <form name="ins" method="post" action="geol_hierarchy.cfm">
 	<input type="hidden" name="action" value="newTerm">
-	<label for="newTerm">Insert Term</label>
+	<label for="newTerm">Attribute ("formation")</label>
 	<input type="text" name="attribute">
+	<label for="newTerm">Value ("Prince Creek")</label>
+	<input type="text" name="attribute_value">
+	<label for="newTerm">Attribute Valid for Data Entry></label>
+	<select name="usable_value_fg" id="usable_value_fg">
+		<option value="0">no</option>
+		<option value="1">yes</option>
+	</select>
 	<input type="submit">
 </form>
 <form name="rel" method="post" action="geol_hierarchy.cfm">
@@ -107,8 +115,25 @@
 <!---------------------------------------------------->
 <cfif #action# is "newTerm">
 	<cfoutput>
+		
+		<input type="hidden" name="action" value="newTerm">
+	<label for="newTerm">Attribute ("formation")</label>
+	<input type="text" name="attribute">
+	<label for="newTerm">Value ("Prince Creek")</label>
+	<input type="text" name="attribute_value">
+	<label for="newTerm">Attribute Valid for Data Entry></label>
+	<select name="usable_value_fg" id="usable_value_fg">
+		<option value="0">no</option>
+		<option value="1">yes</option>
+	</select>
+	<input type="submit">
+
+
+
 	<cfquery name="changeGeog" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-		insert into geology_attribute_hierarchy (attribute) values ('#attribute#')
+		insert into geology_attribute_hierarchy (attribute,attribute_value,usable_value_fg) 
+		values
+		 ('#attribute#','#attribute_value#',#usable_value_fg#)
 	</cfquery>
 	<cflocation url="geol_hierarchy.cfm" addtoken="false">
 	</cfoutput>
