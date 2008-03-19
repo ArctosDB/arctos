@@ -160,7 +160,7 @@ $('#spans-divs').NestedSortable(
 	fx:400,
 	onChange: function(serialized) {
 			$('#spans-divs-ser')
-			.html("This can be passed as parameter to a GET or POST request: <br/>" + serialized[0].id);
+			.html("This can be passed as parameter to a GET or POST request: <br/>" + serialized[0].hash);
 		},
 	revert: true,
 	autoScroll: false
