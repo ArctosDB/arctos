@@ -82,12 +82,12 @@
 
 <div class="wrap">
             <span id="spans-divs" class="page-list">
-                <div class="clear-element page-item3 sort-handle left">
+                <div  id="one" class="clear-element page-item3 sort-handle left">
 
-                    <div id="one">Element 1</div>
+                    <div>Element 1</div>
                 </div>
-                <div class="clear-element page-item3 sort-handle left">
-                    <div id="two">Element 2</div>
+                <div  id="two" class="clear-element page-item3 sort-handle left">
+                    <div>Element 2</div>
                 </div>
                 <div class="clear-element page-item3 sort-handle left">
                     <div>Element 3</div>
