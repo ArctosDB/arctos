@@ -101,7 +101,7 @@
   
 	<cfloop query="cData">
 		
-   <!--- Is the last value in the list this level? 
+   <!--- Is the last value in the list this level? --->
    <cfif listLast(levelList,",") IS NOT cData.level>
       <!--- Is this level in the levelList?
           If so, we need to close previous level down to this one now. --->
@@ -112,33 +112,34 @@
             <!--- Shorten the list to the appropriate level --->
             <cfset levelList = listDeleteAt(levelList,listLen(levelList,","))>
          </cfloop>
-         #repeatString("</div>",numberOfLevelsToRemove)#
+         #repeatString("</span>",numberOfLevelsToRemove)#
       <cfelse>
          <!--- Not in list, so start a new list level --->
          <cfset levelList = listAppend(levelList,cData.level)>
-         <div id="d_#geology_attribute_hierarchy_id#" class="clear-element page-item3 sort-handle left">
+         <span class="page-list" style="padding-left: 20px; padding-right: 0pt;">
       </cfif>
    </cfif>
 
-  <div
+
 	<cfif not listfindnocase(valuelist(ctgeology_attribute.geology_attribute),attribute)>
 		  style="color:red"
 	</cfif>
-	>#attribute# (#level#)</div>
+	<div id="d_#geology_attribute_hierarchy_id#" class="clear-element page-item3 sort-handle left">#attribute# (#level#)</div>
 
    <!--- If this is the last row, then we need to close all unordered lists --->
    <cfif cData.currentRow IS cData.recordCount>
-      #repeatString("</div>",listLen(levelList,","))#
+      #repeatString("</span>",listLen(levelList,","))#
    </cfif>
---->
+
 
 		<!---
-		---->
-		
-		
 		<div id="d_#geology_attribute_hierarchy_id#" class="clear-element page-item3 sort-handle left">
 			#attribute# (#level#)
 		</div>
+		---->
+		
+		
+		
 	</cfloop>
 	 </span>
         </div>
