@@ -11,6 +11,59 @@
 <script type='text/javascript' src="/includes/jquery/interface.js"></script>
 
 <script type='text/javascript' src="/includes/jquery/inestedsortable.js"></script>
+
+<style type="text/css">
+			div.wrap {
+				border:1px solid #BBBBBB;
+				padding: 1em 1em 1em 1em;
+			}
+			
+			.page-list {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: block;
+			}
+			
+			.clear-element {
+				clear: both;
+			}
+			
+			.page-item1 > div,
+			.page-item2 > div,
+			.page-item3 > div,
+			.page-item4 > div {
+				background: #f8f8f8;
+				margin: 0.25em 0 0 0;
+			}
+
+			.left {
+				text-align: left;
+			}
+			
+			.right {
+				text-align: right;
+			}
+
+			.sort-handle {
+				cursor:move;
+			}
+			
+			.helper {
+			border:2px dashed #777777;
+			}
+			
+			.current-nesting {
+				background-color: yellow;
+			}
+			
+			.bold {
+				color: red;
+				font-weight: bold;
+			}
+			
+		</style>
+		
 <!----
 <cfquery name="data" datasource="#application.web_user#">
 	 SELECT  
