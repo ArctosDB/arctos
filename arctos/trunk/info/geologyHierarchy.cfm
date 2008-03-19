@@ -84,10 +84,10 @@
             <span id="spans-divs" class="page-list">
                 <div class="clear-element page-item3 sort-handle left">
 
-                    <div>Element 1</div>
+                    <div id="one">Element 1</div>
                 </div>
                 <div class="clear-element page-item3 sort-handle left">
-                    <div>Element 2</div>
+                    <div id="two">Element 2</div>
                 </div>
                 <div class="clear-element page-item3 sort-handle left">
                     <div>Element 3</div>
@@ -146,7 +146,7 @@
 		<div id='left-to-right-ser' class="wrap">
 			Change the order of the above NestedSortable and the serialized output will be shown here.
 		</div>
-	
+	<div id="spans-divs-ser"></div>
 		
 <script type="text/javascript">
 jQuery( function($) {
@@ -159,7 +159,7 @@ $('#spans-divs').NestedSortable(
 	currentNestingClass: 'current-nesting',
 	fx:400,
 	onChange: function(serialized) {
-			$('#spans-divs')
+			$('#spans-divs-ser')
 			.html("This can be passed as parameter to a GET or POST request: <br/>" + serialized[0].hash);
 		},
 	revert: true,
