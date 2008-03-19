@@ -95,6 +95,7 @@
 <br>Current Data (values in red are NOT code table values but may still be used in searches):
 <cfset levelList = "">
 <cfoutput>
+	        <div class="wrap">
 <cfloop query="cData">
 	
 
@@ -113,15 +114,15 @@
       <cfelse>
          <!--- Not in list, so start a new list level --->
          <cfset levelList = listAppend(levelList,cData.level)>
-         <ul>
+         <ul  id="left-to-right" class="page-list">
       </cfif>
    </cfif>
 
-  <li><span
+  <li  id="thingy_#geology_attribute_hierarchy_id#" class="clear-element page-item1 left no-nesting"><div class='sort-handle'
 	<cfif not listfindnocase(valuelist(ctgeology_attribute.geology_attribute),attribute)>
 		  style="color:red"
 	</cfif>
-	>#attribute#</span></li>
+	>#attribute#</div></li>
 
    <!--- If this is the last row, then we need to close all unordered lists --->
    <cfif cData.currentRow IS cData.recordCount>
@@ -138,6 +139,7 @@
 	
 
 </cfloop>
+</div>
 </cfoutput>
 
 <!---------
