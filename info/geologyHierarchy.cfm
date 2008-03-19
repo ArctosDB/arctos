@@ -97,6 +97,14 @@
 <br>Current Data (values in red are NOT code table values but may still be used in searches):
 <cfset levelList = "">
 <cfoutput>
+	
+	
+	<hr>
+	
+	<div id="ajax-response1"></div>
+	
+	
+	<hr>
 		<div class="wrap">
             <span id="spans-divs" class="page-list">
   
@@ -303,10 +311,16 @@
 	<div id='spans-divs-ser' class="wrap">what the??</div>
 	
 	--->
-		------------->
 <script type="text/javascript">
 jQuery( function($) {
-	
+
+
+$('#ajax-response1').NestedSortableWidget({
+	loadUrl: "/fix/json_load.cfm"
+});
+
+
+
 $('#spans-divs').NestedSortable(
 	{
 	accept: 'page-item3',
