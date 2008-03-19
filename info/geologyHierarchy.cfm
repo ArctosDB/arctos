@@ -78,8 +78,67 @@
 </cfquery>
 ---->
 
+<cfquery name="cData" datasource="#application.web_user#">
+	 SELECT  
+	 	level,
+	 	geology_attribute_hierarchy_id,
+	 	parent_id,
+		attribute
+	FROM
+		geology_attribute_hierarchy
+	start with parent_id is null
+	CONNECT BY PRIOR 
+		geology_attribute_hierarchy_id = parent_id
+</cfquery>
+<br>Current Data (values in red are NOT code table values but may still be used in searches):
+<cfset levelList = "">
+<cfoutput>
+<cfloop query="cData">
+	
+
+   <!--- Is the last value in the list this level? --->
+   <cfif listLast(levelList,",") IS NOT cData.level>
+      <!--- Is this level in the levelList?
+          If so, we need to close previous level down to this one now. --->
+      <cfset levelListIndex = listFind(levelList,cData.level,",")>
+      <cfif levelListIndex IS NOT 0>
+         <cfset numberOfLevelsToRemove = listLen(levelList,",") - levelListIndex>
+         <cfloop from="1" to="#numberOfLevelsToRemove#" index="i">
+            <!--- Shorten the list to the appropriate level --->
+            <cfset levelList = listDeleteAt(levelList,listLen(levelList,","))>
+         </cfloop>
+         #repeatString("</ul>",numberOfLevelsToRemove)#
+      <cfelse>
+         <!--- Not in list, so start a new list level --->
+         <cfset levelList = listAppend(levelList,cData.level)>
+         <ul>
+      </cfif>
+   </cfif>
+
+  <li><span
+	<cfif not listfindnocase(valuelist(ctgeology_attribute.geology_attribute),attribute)>
+		  style="color:red"
+	</cfif>
+	>#attribute#</span></li>
+
+   <!--- If this is the last row, then we need to close all unordered lists --->
+   <cfif cData.currentRow IS cData.recordCount>
+      #repeatString("</ul>",listLen(levelList,","))#
+   </cfif>
 
 
+	
+	
+	
+	
+	
+	
+	
+
+</cfloop>
+</cfoutput>
+
+<!---------
 <div class="wrap">
             <span id="spans-divs" class="page-list">
                 <div  id="one" class="clear-element page-item3 sort-handle left">
@@ -147,9 +206,12 @@
 			Change the order of the above NestedSortable and the serialized output will be shown here.
 		</div>
 	<div id='spans-divs-ser' class="wrap">what the??</div>
-		
+	
+	--->
+		------------->
 <script type="text/javascript">
 jQuery( function($) {
+	
 $('#spans-divs').NestedSortable(
 	{
 	accept: 'page-item3',
@@ -180,6 +242,7 @@ $('#left-to-right').NestedSortable(
 		handle: '.sort-handle'
 	}
 );
+
 
 });
 </script>
