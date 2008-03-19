@@ -22,9 +22,9 @@
 	<cfset i=1>
 	<cfset lastLevel=1>
 	<cfloop query="data">
-
+		<cfset nrn=rownum+1>
 		<cfquery name="nl" dbtype="query">
-			select level from data where rownum=(#rownum# + 1)
+			select level from data where rownum=#nrn#
 		</cfquery>
 		<cfset nextlevel=nl.level>
 		<!--- always start a "family" with [ - not needed if "family" is only one member --->
