@@ -146,7 +146,7 @@
 		<div id='left-to-right-ser' class="wrap">
 			Change the order of the above NestedSortable and the serialized output will be shown here.
 		</div>
-	<div id="spans-divs-ser"></div>
+	<div id="spans-divs-ser" class="wrap">what the??</div>
 		
 <script type="text/javascript">
 jQuery( function($) {
