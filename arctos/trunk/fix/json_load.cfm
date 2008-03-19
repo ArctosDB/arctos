@@ -18,6 +18,7 @@
 	"totalCount" : 22, 
 	"columns":["Title(ID)", "Owner", "Updated"], "items": [
 	<cfset i=1>
+	<cfset lastLevel=1>
 	<cfloop query="data">
 		<cfif level is 1 and lastlevel gt 1>
 			<cfloop from="1" to="#lastlevel#" index="ll">
