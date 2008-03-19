@@ -138,9 +138,41 @@
 	</cfloop>
 	 </span>
         </div>
-	<cfdump var="#cData#">
+		
+	<br>What It Did:
+		<div class="clear-element page-item3 sort-handle left" id="d_1283207" style="-moz-user-select: none;">
+<div>
+
+Ar39/Ar40 (2)
+
+</div>
+<div>
+
+C14 (2)
+
+</div>
+</div>
+
+What it should have done:
+
+<div class="clear-element page-item3 sort-handle left" id="d_1283207" style="-moz-user-select: none;">
+<div>
+
+Ar39/Ar40 (2)
+
+</div>
+<div class="clear-element page-item3 sort-handle left" id="d_1283207" style="-moz-user-select: none;">
+<div>
+
+C14 (2)
+
+</div>
+</div>
+</div>
+
 	
 	<!---
+		<cfdump var="#cData#">
 	<div class="wrap">
             <span id="spans-divs" class="page-list">
                
