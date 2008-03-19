@@ -6,7 +6,8 @@
 	 	level,
 	 	geology_attribute_hierarchy_id,
 	 	parent_id,
-		attribute
+	 	usable_value_fg,
+   		attribute_value || ' (' || attribute || ')' attribute
 	FROM
 		geology_attribute_hierarchy
 	CONNECT BY PRIOR 
