@@ -32,19 +32,19 @@
 			"children:" [
 		</cfif>
 		<!--- this stuff is there no matter what --->
-		{ "id":#geology_attribute_hierarchy_id#, "info":["Page Title(#i#)", "#attribute# (#lvl#)", "2007-06-09 2:44 pm"
+		{ "id":#geology_attribute_hierarchy_id#, "info":["Page Title(#i#)", "#attribute# (#lvl#)", "2007-06-09 2:44 pm"]
 		<!--- close up when at end of family --->
 		<cfif nextlevel is 1>
 			<cfloop from="1" to="#lvl#" index="i">
 				<!--- closing } for every level, including one --->
-				}
-				<cfif lvl gt 1>
-					<!--- and closing ] for multiple levels --->
-					]
-				</cfif>
+				}				
 			</cfloop>
+			<cfif lvl gt 1>
+				<!--- and closing ] for multiple levels --->
+				]
+			</cfif>
 		</cfif>
-		
+
 		
 		<!---
 		<cfif i is 1>] }</cfif>
