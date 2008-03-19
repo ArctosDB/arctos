@@ -1,7 +1,7 @@
 <cfquery name="data" datasource="#application.web_user#">
 	 SELECT  
 	 	rownum,
-	 	level,
+	 	level lvl,
 	 	geology_attribute_hierarchy_id,
 	 	parent_id,
 		attribute
@@ -24,9 +24,9 @@
 	<cfloop query="data">
 		<cfset nrn=rownum+1>
 		<cfquery name="nl" dbtype="query">
-			select level from data where rownum=#nrn#
+			select lvl from data where rownum=#nrn#
 		</cfquery>
-		<cfset nextlevel=nl.level>
+		<cfset nextlevel=nl.lvl>
 		<!--- always start a "family" with [ - not needed if "family" is only one member --->
 		<cfif nextlevel gt level>
 			"children:" [
