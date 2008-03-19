@@ -95,7 +95,19 @@
 <br>Current Data (values in red are NOT code table values but may still be used in searches):
 <cfset levelList = "">
 <cfoutput>
+		<div class="wrap">
+            <span id="spans-divs" class="page-list">
+  
+	<cfloop query="cData">
+		<div id="d_#geology_attribute_hierarchy_id#" class="clear-element page-item3 sort-handle left">>
+			<div>#attribute#</div>
+		</div>
+	</cfloop>
+	 </span>
+        </div>
 	<cfdump var="#cData#">
+	
+	<!---
 	<div class="wrap">
             <span id="spans-divs" class="page-list">
                
@@ -127,7 +139,7 @@
                 </div>
             </span>
         </div>
-		
+		--->
 	       <!---
 	        <div class="wrap">
 <cfloop query="cData">
