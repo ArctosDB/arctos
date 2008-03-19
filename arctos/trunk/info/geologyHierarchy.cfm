@@ -92,6 +92,7 @@
 	CONNECT BY PRIOR 
 		geology_attribute_hierarchy_id = parent_id
 </cfquery>
+	<div id='spans-divs-ser' class="wrap">what the??</div>
 <br>Current Data (values in red are NOT code table values but may still be used in searches):
 <cfset levelList = "">
 <cfoutput>
