@@ -13,6 +13,7 @@
 <script type='text/javascript' src="/includes/jquery/inestedsortable.js"></script>
 
 <style type="text/css">
+			.redFont {color:red;}
 			div.wrap {
 				border:1px solid #BBBBBB;
 				padding: 1em 1em 1em 1em;
@@ -122,7 +123,7 @@
 
 
 	<cfif not listfindnocase(valuelist(ctgeology_attribute.geology_attribute),attribute)>
-		  <cfset aClass=" red">
+		  <cfset aClass=" redFont">
 	<cfelse>
 		<cfset aClass="">
 	</cfif>
