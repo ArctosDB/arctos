@@ -37,9 +37,7 @@ $('#left-to-right').NestedSortable(
 		helperclass: 'helper',
 		onChange: function(serialized) {
 			$('#left-to-right-ser')
-			.html("This can be passed as parameter 
-				to a GET or POST request: " 
-				+ serialized[0].hash);
+			.html("This can be passed as parameter 	to a GET or POST request: " + serialized[0].hash);
 		},
 		autoScroll: true,
 		handle: '.sort-handle'
