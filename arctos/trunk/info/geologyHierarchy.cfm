@@ -19,8 +19,9 @@
 	CONNECT BY PRIOR 
 		geology_attribute_hierarchy_id = parent_id
 </cfquery>
-
+<cfdump var=#data#>
 <cfoutput>
+	<!----
 <div id="containerDetails" name="containerDetails" style="display:none; position:absolute; left:30px; top:30px; border:2px solid ##666666; background-color:##CCCCCC; padding:20px;">
 	<div id="k" name="k" style="position:absolute; right:0; top:0; width:20px; height:20px; clear:both;">
 		<img src="/images/del.gif" class="likeLink" onclick="closeDetails();" />
@@ -240,4 +241,5 @@
 	SET_DHTML("containerDetails");
 	dd.elements.containerDetails.resizeTo(300,200);
 </script>
+---->
 </cfoutput>
