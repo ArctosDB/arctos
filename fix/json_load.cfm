@@ -28,17 +28,17 @@
 		</cfquery>
 		<cfset nextlevel=nl.lvl>
 		<!--- always start a "family" with [ - not needed if "family" is only one member --->
-		<cfif nextlevel gt level>
+		<cfif nextlevel gt lvl>
 			"children:" [
 		</cfif>
 		<!--- this stuff is there no matter what --->
-		{ "id":#geology_attribute_hierarchy_id#, "info":["Page Title(#i#)", "#attribute# (#level#)", "2007-06-09 2:44 pm"
+		{ "id":#geology_attribute_hierarchy_id#, "info":["Page Title(#i#)", "#attribute# (#lvl#)", "2007-06-09 2:44 pm"
 		<!--- close up when at end of family --->
 		<cfif nextlevel is 1>
-			<cfloop from="1" to="#level#" index="i">
+			<cfloop from="1" to="#lvl#" index="i">
 				<!--- closing } for every level, including one --->
 				}
-				<cfif level gt 1>
+				<cfif lvl gt 1>
 					<!--- and closing ] for multiple levels --->
 					]
 				</cfif>
@@ -59,7 +59,7 @@
 		,
 		<br>
 		--->
-		<cfset lastLevel=level>
+		<cfset lastLevel=lvl>
 		<cfset i=i+1>
 	</cfloop>
 </cfoutput>
