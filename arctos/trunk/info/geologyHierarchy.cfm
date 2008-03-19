@@ -134,8 +134,10 @@
 
 		<!---
 		---->
+		
+		
 		<div id="d_#geology_attribute_hierarchy_id#" class="clear-element page-item3 sort-handle left">
-			<div>#attribute#</div>
+			#attribute# (#level#)
 		</div>
 	</cfloop>
 	 </span>
