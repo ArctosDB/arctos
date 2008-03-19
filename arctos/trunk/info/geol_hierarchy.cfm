@@ -1,4 +1,27 @@
 <cfinclude template="/includes/_header.cfm">
+<cfif #action# is "edit">
+<cfoutput>
+	<cfquery name="terms"  datasource="#application.web_user#">
+		select * from geology_attribute_hierarchy where geology_attribute_hierarchy_id=#geology_attribute_hierarchy_id#
+	</cfquery>
+	<form name="ins" method="post" action="geol_hierarchy.cfm">
+	<input type="hidden" name="action" value="saveEdit">
+	<label for="newTerm">Attribute ("formation")</label>
+	<input type="text" name="attribute">
+	<label for="newTerm">Value ("Prince Creek")</label>
+	<input type="text" name="attribute_value">
+	<label for="newTerm">Attribute Valid for Data Entry></label>
+	<select name="usable_value_fg" id="usable_value_fg">
+		<option value="0">no</option>
+		<option value="1">yes</option>
+	</select>
+	<label for="description">Description</label>
+	<input type="text" name="description">
+	<br>
+	<input type="submit" value="Insert Term">
+</form>
+</cfoutput>
+</cfif>
 <cfif #action# is "nothing">
 <cfset title="Geology Attribute Hierarchy">
 <cfquery name="cData" datasource="#application.web_user#">
@@ -32,6 +55,8 @@ New Term:
 		<option value="0">no</option>
 		<option value="1">yes</option>
 	</select>
+	<label for="description">Description</label>
+	<input type="text" name="description">
 	<br>
 	<input type="submit" value="Insert Term">
 </form>
@@ -83,7 +108,9 @@ Create Hierarchies:
 	<cfif not usable_value_fg is 0>
 		  style="color:red"
 	</cfif>
-	>#attribute#</span></li>
+	>#attribute#</span>
+	<a class="infoLink" href="geol_hierarchy.cfm?action=edit&geology_attribute_hierarchy=#geology_attribute_hierarchy#">more</a>
+	</li>
 
    <!--- If this is the last row, then we need to close all unordered lists --->
    <cfif cData.currentRow IS cData.recordCount>
@@ -103,13 +130,27 @@ Create Hierarchies:
 </cfoutput>
 </cfif>
 <!---------------------------------------------------->
+<cfif #action# is "saveEdit">
+	<cfoutput>
+
+	<cfquery name="changeGeog" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		update geology_attribute_hierarchy set
+		attribute='#attribute#',
+		attribute_value='#attribute_value#',
+		usable_value_fg=#usable_value_fg#,
+		description='#description#') 
+	</cfquery>
+	<cflocation url="geol_hierarchy.cfm" addtoken="false">
+	</cfoutput>
+</cfif>
+<!---------------------------------------------------->
 <cfif #action# is "newTerm">
 	<cfoutput>
 
 	<cfquery name="changeGeog" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-		insert into geology_attribute_hierarchy (attribute,attribute_value,usable_value_fg) 
+		insert into geology_attribute_hierarchy (attribute,attribute_value,usable_value_fg,description) 
 		values
-		 ('#attribute#','#attribute_value#',#usable_value_fg#)
+		 ('#attribute#','#attribute_value#',#usable_value_fg#,'#description#')
 	</cfquery>
 	<cflocation url="geol_hierarchy.cfm" addtoken="false">
 	</cfoutput>
