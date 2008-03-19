@@ -54,9 +54,10 @@
             </ul>
         </div>
 
-<cfdump var=#data#>
+
 <cfoutput>
 	<!----
+	<cfdump var=#data#>
 <div id="containerDetails" name="containerDetails" style="display:none; position:absolute; left:30px; top:30px; border:2px solid ##666666; background-color:##CCCCCC; padding:20px;">
 	<div id="k" name="k" style="position:absolute; right:0; top:0; width:20px; height:20px; clear:both;">
 		<img src="/images/del.gif" class="likeLink" onclick="closeDetails();" />
