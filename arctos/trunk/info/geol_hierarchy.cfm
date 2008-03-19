@@ -55,18 +55,6 @@ Create Hierarchies:
 </form>
 
 
-<cfquery name="cData" datasource="#application.web_user#">
-	 SELECT  
-	 	level,
-	 	geology_attribute_hierarchy_id,
-	 	parent_id,
-		attribute
-	FROM
-		geology_attribute_hierarchy
-	start with parent_id is null
-	CONNECT BY PRIOR 
-		geology_attribute_hierarchy_id = parent_id
-</cfquery>
 <br>Current Data (values in red are NOT code table values but may still be used in searches):
 <cfset levelList = "">
 <cfloop query="cData">
@@ -92,7 +80,7 @@ Create Hierarchies:
    </cfif>
 
   <li><span
-	<cfif not listfindnocase(valuelist(ctgeology_attribute.geology_attribute),attribute)>
+	<cfif not usable_value_fg is 0>
 		  style="color:red"
 	</cfif>
 	>#attribute#</span></li>
