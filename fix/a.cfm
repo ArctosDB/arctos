@@ -67,12 +67,12 @@ function formatItem(row) {
 	return row[0] + "<br><i>" + row[1] + "</i>";
 }
 
-jQuery( function($) {
+
 	$(document).ready(function() {
 		$("#ac_me").autocomplete("search.php", { minChars:3, matchSubset:1, matchContains:1, cacheLength:10, onItemSelect:selectItem, formatItem:formatItem, selectOnly:1 });
 		$("#ac_me2").autocomplete("search.php", { minChars:3, matchSubset:false, matchContains:false, cacheLength:10, onItemSelect:selectItem, formatItem:formatItem, selectOnly:1 });
 	});
-});
+
 </script>
 <!---
 
