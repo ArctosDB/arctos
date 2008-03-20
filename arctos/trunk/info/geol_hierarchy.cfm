@@ -1,22 +1,23 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif #action# is "edit">
 <cfoutput>
-	<cfquery name="terms"  datasource="#application.web_user#">
+	<cfquery name="c"  datasource="#application.web_user#">
 		select * from geology_attribute_hierarchy where geology_attribute_hierarchy_id=#geology_attribute_hierarchy_id#
 	</cfquery>
 	<form name="ins" method="post" action="geol_hierarchy.cfm">
 	<input type="hidden" name="action" value="saveEdit">
 	<label for="newTerm">Attribute ("formation")</label>
-	<input type="text" name="attribute">
+	<input type="text" name="attribute" value="#c.attribute#">
 	<label for="newTerm">Value ("Prince Creek")</label>
-	<input type="text" name="attribute_value">
+	<input type="text" name="attribute_value" value="#c.attribute_value#">
 	<label for="newTerm">Attribute Valid for Data Entry></label>
+	<cfset uvf=c.usable_value_fg>
 	<select name="usable_value_fg" id="usable_value_fg">
-		<option value="0">no</option>
-		<option value="1">yes</option>
+		<option <cfif #uvf# is 0>selected="selected" </cfif>value="0">no</option>
+		<option <cfif #uvf# is 1>selected="selected" </cfif>value="1">yes</option>
 	</select>
 	<label for="description">Description</label>
-	<input type="text" name="description">
+	<input type="text" name="description" value="#c.description#">
 	<br>
 	<input type="submit" value="Insert Term">
 </form>
