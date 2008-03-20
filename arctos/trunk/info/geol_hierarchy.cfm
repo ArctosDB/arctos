@@ -31,7 +31,8 @@
 	 	geology_attribute_hierarchy_id,
 	 	parent_id,
 	 	usable_value_fg,
-   		attribute_value || ' (' || attribute || ')' attribute
+   		attribute_value,
+		attribute
 	FROM
 		geology_attribute_hierarchy
 	CONNECT BY PRIOR 
@@ -85,49 +86,26 @@ Create Hierarchies:
 <br>Current Data (values in red are NOT code table values but may still be used in searches):
 <cfset levelList = "">
 <cfloop query="cData">
-	
-
-   <!--- Is the last value in the list this level? --->
-   <cfif listLast(levelList,",") IS NOT level>
-      <!--- Is this level in the levelList?
-          If so, we need to close previous level down to this one now. --->
-      <cfset levelListIndex = listFind(levelList,cData.level,",")>
-      <cfif levelListIndex IS NOT 0>
-         <cfset numberOfLevelsToRemove = listLen(levelList,",") - levelListIndex>
-         <cfloop from="1" to="#numberOfLevelsToRemove#" index="i">
-            <!--- Shorten the list to the appropriate level --->
-            <cfset levelList = listDeleteAt(levelList,listLen(levelList,","))>
-         </cfloop>
-         #repeatString("</ul>",numberOfLevelsToRemove)#
-      <cfelse>
-         <!--- Not in list, so start a new list level --->
-         <cfset levelList = listAppend(levelList,cData.level)>
-         <ul>
-      </cfif>
-   </cfif>
-
-  <li><span
-	<cfif usable_value_fg is 0>
-		  style="color:red"
-	</cfif>
+	<cfif listLast(levelList,",") IS NOT level>
+    	<cfset levelListIndex = listFind(levelList,cData.level,",")>
+      	<cfif levelListIndex IS NOT 0>
+        	<cfset numberOfLevelsToRemove = listLen(levelList,",") - levelListIndex>
+         	<cfloop from="1" to="#numberOfLevelsToRemove#" index="i">
+            	<cfset levelList = listDeleteAt(levelList,listLen(levelList,","))>
+         	</cfloop>
+        	#repeatString("</ul>",numberOfLevelsToRemove)#
+      	<cfelse>
+        	<cfset levelList = listAppend(levelList,cData.level)>
+         	<ul>
+      	</cfif>
+  	</cfif>
+	<li><span <cfif usable_value_fg is 0>style="color:red"</cfif>
 	>#attribute#</span>
 	<a class="infoLink" href="geol_hierarchy.cfm?action=edit&geology_attribute_hierarchy_id=#geology_attribute_hierarchy_id#">more</a>
 	</li>
-
-   <!--- If this is the last row, then we need to close all unordered lists --->
-   <cfif cData.currentRow IS cData.recordCount>
-      #repeatString("</ul>",listLen(levelList,","))#
-   </cfif>
-
-
-	
-	
-	
-	
-	
-	
-	
-	
+	<cfif cData.currentRow IS cData.recordCount>
+		#repeatString("</ul>",listLen(levelList,","))#
+   	</cfif>
 </cfloop>
 </cfoutput>
 </cfif>
