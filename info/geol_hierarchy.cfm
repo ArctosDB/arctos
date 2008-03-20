@@ -103,6 +103,7 @@ Create Hierarchies:
 	<input type="hidden" name="action" value="newReln">
 	<label for="newTerm">Parent Term</label>
 	<select name="parent">
+		<option value="">NULL</option>
 		<cfloop query="terms">
 			<option value="#geology_attribute_hierarchy_id#">#attribute#</option>
 		</cfloop>
