@@ -381,9 +381,9 @@ window.onload=dyniframesize
 			select count(*) cnt from specimen_annotations
 			where collection_object_id = #collection_object_id#
 		</cfquery>
-		<span onclick="openAnnotation('#collection_object_id#')">
+		<a onclick="openAnnotation('#collection_object_id#')">
 			Annotate
-		</span>
+		</a>
 		<cfif #existingAnnotations.cnt# gt 0>
 			<br>(#existingAnnotations.cnt# existing)
 		</cfif>
@@ -391,7 +391,7 @@ window.onload=dyniframesize
 		<a href="/login.cfm">Login or Create Account</a>
 	</cfif>
 	<cfif isdefined("returnURL")>
-		<br><span onclick="SpecimenResults.cfm?#returnURL#">Return to Results</span>
+		<br><a href="SpecimenResults.cfm?#returnURL#">Return to Results</a>
 	</cfif>	
 </span>
 </td></tr></table></div></td>
