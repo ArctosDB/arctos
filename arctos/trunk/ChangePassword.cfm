@@ -22,7 +22,7 @@
 <cfif #client.username# is "guest">
 	Guests are not allowed to change passwords.<cfabort>
 </cfif>
-<table border><tr><td>
+<table cellpadding="20"><tr><td valign="top">
 You are logged in as #client.username#. You must change your password every #Application.max_pw_age# days. 
 	Your password is #pwtime# days old.
  <form action="ChangePassword.cfm?action=update" method="post">
@@ -47,7 +47,7 @@ You are logged in as #client.username#. You must change your password every #App
 	</table>
 	</form>
 	</td>
-	<td>
+	<td valign="top">
 	Lost your password? Passwords are stored in an encrypted format and cannot be recovered. 
 <br>If you have saved your email address in your profile, enter it here to reset your password. 
 <br>If you have not saved your email address, please submit a bug report to that effect and we will reset your password for you.
@@ -165,7 +165,7 @@ You are logged in as #client.username#. You must change your password every #App
 				
 				or from your Preferences.
 				
-				If you did not request this change, please email fndlm@uaf.edu immediately.
+				If you did not request this change, please reply to #Application.technicalEmail#.
 			</cfmail>
 		An email containing your new password has been sent.
 	</cfif>
