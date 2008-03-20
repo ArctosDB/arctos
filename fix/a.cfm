@@ -7,7 +7,10 @@
 
 	
 
-
+<script language='javascript'>
+var mySuggestObject= new Suggest();
+var searchString = "";
+</script>
 <script language='javascript'>
 function onInit()
 {
