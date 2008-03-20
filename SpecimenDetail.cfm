@@ -218,26 +218,6 @@ window.onload=dyniframesize
 </cfif>
 ---->
 
-<span class="annotateSpace">
-	<cfif len(#client.username#) gt 0>
-		<cfquery name="existingAnnotations" datasource="#Application.web_user#">
-			select count(*) cnt from specimen_annotations
-			where collection_object_id = #collection_object_id#
-		</cfquery>
-		<span onclick="openAnnotation('#collection_object_id#')">
-			Annotate
-		</span>
-		<cfif #existingAnnotations.cnt# gt 0>
-			<br>(#existingAnnotations.cnt# existing)
-		</cfif>
-	<cfelse>
-		<a href="/login.cfm">Login or Create Account</a>
-	</cfif>
-	<cfif isdefined("returnURL")>
-		<br><a href="SpecimenResults.cfm?#returnURL#">Return to Results</a>
-	</cfif>	
-</span>
-
 	<script type="text/javascript" language="javascript">
 		//changeStyle('#detail.institution_acronym#');
 		// set this as a variable
@@ -312,7 +292,7 @@ window.onload=dyniframesize
 					</cfif>
 				</cfif>
 </cfoutput>
-<table width="90%">
+<table>
 	<tr>
 		<td nowrap valign="top">
 			<cfoutput query="detail" group="cat_num">
@@ -391,6 +371,29 @@ window.onload=dyniframesize
 								</font>
 								
 		</td>
+		<td valign="top">
+		
+
+<span class="annotateSpace">
+	<cfif len(#client.username#) gt 0>
+		<cfquery name="existingAnnotations" datasource="#Application.web_user#">
+			select count(*) cnt from specimen_annotations
+			where collection_object_id = #collection_object_id#
+		</cfquery>
+		<span onclick="openAnnotation('#collection_object_id#')">
+			Annotate
+		</span>
+		<cfif #existingAnnotations.cnt# gt 0>
+			<br>(#existingAnnotations.cnt# existing)
+		</cfif>
+	<cfelse>
+		<a href="/login.cfm">Login or Create Account</a>
+	</cfif>
+	<cfif isdefined("returnURL")>
+		<br><a href="SpecimenResults.cfm?#returnURL#">Return to Results</a>
+	</cfif>	
+</span>
+</td>
 		</cfoutput>
 		
 		
