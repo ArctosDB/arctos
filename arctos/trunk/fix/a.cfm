@@ -1,8 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
-	<link rel="stylesheet" type="text/css" href="/ajax/core/suggest.js">
-	
-		<link rel="stylesheet" type="text/css" href="/includes/scriptaculous/prototype.js">
-	
+		<script type='text/javascript' src='/ajax/core/suggest.js'></script>	
+<!---
+	<link rel="stylesheet" type="text/css" href="/includes/scriptaculous/prototype.js">
+	--->
 	
 	
 
