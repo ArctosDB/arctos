@@ -1,6 +1,6 @@
 <!--- hint="type=keyvalue, jsreturn=array , listdelimiter=| , delimiter='='" --->
 <cfinclude template="/ajax/core/cfajax.cfm">
-<!----
+
 <cffunction name="suggestGeology" returntype="query" output="no">
 	<cfargument name="searchString" type="string" required="yes">
 	
@@ -12,7 +12,7 @@
 	<cfreturn QGetMatchingUsers>
 <cffunction>
 
----->
+
 <cffunction name="getSessionTimeout" returntype="string">
 	<cfif isdefined("client.username") and len(#client.username#) gt 0>
 		<cfif isdefined("cookie.ArctosSession")>
