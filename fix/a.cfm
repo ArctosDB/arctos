@@ -44,7 +44,9 @@ mySuggestObject.InitQueryCode('mySuggestObject','formfieldname')
 }
 
 function getData(qry) {
-	DWREngine._execute(_cfscriptLocation, null, 'suggestGeology',qry, getDataResult);
+	alert('going');
+	searchString = qry;
+	DWREngine._execute(_cfscriptLocation, null, 'searchString',qry, getDataResult);
 }
 
 function getDataResult(bla){
