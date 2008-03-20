@@ -5,11 +5,6 @@ var mySuggestObject= new Suggest();
 var searchString = "";
 }
 
-function onInit()
-{
-onSuggestFieldFocus(mySuggestObject);
-mySuggestObject.InitQueryCode('mySuggestObject','formfieldname')
-}
 
 function getData(qry)
 {
@@ -26,10 +21,15 @@ as the username is typed, the full DN is displayed as the suggest option
 var value = Array();
 for (i=0; i < return.length; i++)
 {
-key[i] = return[i].USERNAME; //if your query has a different column name, use it here
-value[i] = return[i].DN; //if your query has a different column name, use it here
+key[i] = return[i].GEOLOGY_ATTRIBUTE; //if your query has a different column name, use it here
 }
 strQuery = selectedSuggestObject.name + '.showQueryDiv("' + searchString + '", key , value)'; eval (strQuery);
 }
 </script>
 <input id="formfieldname" name="formfieldname" value="" size=20 autocomplete="off" onFocus="onSuggestFieldFocus(mySuggestObject)">
+
+
+<script>
+onSuggestFieldFocus(mySuggestObject);
+mySuggestObject.InitQueryCode('mySuggestObject','formfieldname')
+</script>
