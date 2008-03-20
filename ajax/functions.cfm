@@ -1,5 +1,16 @@
 <!--- hint="type=keyvalue, jsreturn=array , listdelimiter=| , delimiter='='" --->
 <cfinclude template="/ajax/core/cfajax.cfm">
+<cffunction name="suggestGeology" returntype="query" output="no">
+<cfargument name="searchString" type="string" required="yes">
+<cfset var QGetMatchingUsers="">
+<cfquery name="QGetMatchingUsers" datasource="#Application.web_user#">
+SELECT geology_attribute
+FROM ctgeology_attribute
+WHERE upper(geology_attribute) LIKE <cfqueryparam cfslqtype="cf_sql_varchar" value="#ucase(ARGUMENTS.searchString)#%">
+</cfquery>
+<cfreturn QGetMatchingUsers>
+<cffunction>
+
 
 <cffunction name="getSessionTimeout" returntype="string">
 	<cfif isdefined("client.username") and len(#client.username#) gt 0>
