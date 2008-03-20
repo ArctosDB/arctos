@@ -125,7 +125,7 @@ Create Hierarchies:
 </cfoutput>
 </cfif>
 <!---------------------------------------------------->
-<cfif #action# is "saveEdit">
+<cfif #action# is "delete">
 	<cfoutput>
 		<cfquery name="killGeog" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 			delete from  geology_attribute_hierarchy where geology_attribute_hierarchy_id=#geology_attribute_hierarchy_id#
