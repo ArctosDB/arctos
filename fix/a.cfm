@@ -68,11 +68,15 @@ function formatItem(row) {
 }
 
 
-	$(document).ready(function() {
-		$("#ac_me").autocomplete("search.php", { minChars:3, matchSubset:1, matchContains:1, cacheLength:10, onItemSelect:selectItem, formatItem:formatItem, selectOnly:1 });
-		$("#ac_me2").autocomplete("search.php", { minChars:3, matchSubset:false, matchContains:false, cacheLength:10, onItemSelect:selectItem, formatItem:formatItem, selectOnly:1 });
-	});
+	
 
+</script>
+<script>
+jQuery( function($) {
+	$(document).ready(function() {
+		$("#ac_me").autocomplete("b.cfm", { minChars:1, matchSubset:1, matchContains:1, cacheLength:10, onItemSelect:selectItem, formatItem:formatItem, selectOnly:1 });
+	});
+});
 </script>
 <!---
 
