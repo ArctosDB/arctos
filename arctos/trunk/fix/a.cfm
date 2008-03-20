@@ -8,6 +8,7 @@ var searchString = "";
 
 function getData(qry)
 {
+	alert(qry);
 searchString = qry;
 DWREngine._execute(_cfscriptLocation, null, 'suggestGeology', searchString, getDataResult);
 }
