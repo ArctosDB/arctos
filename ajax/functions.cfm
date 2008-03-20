@@ -2,7 +2,7 @@
 <cfinclude template="/ajax/core/cfajax.cfm">
 <cffunction name="suggestGeology" returntype="query" output="no">
 <cfargument name="searchString" type="string" required="yes">
-<cfset var QGetMatchingUsers="">
+
 <cfquery name="QGetMatchingUsers" datasource="#Application.web_user#">
 SELECT geology_attribute
 FROM ctgeology_attribute
