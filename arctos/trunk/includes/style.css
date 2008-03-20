@@ -43,9 +43,10 @@ a.external:hover:visited:after {
 	/*border:1px solid gray;*/
 	margin: 1px 0px 1px -11px;
 	position:relative;
+	color: #444444;
 	/*background-color:#FFF7D7;*/
 	font-weight:bold;
-	font-size:1.1em;
+	/*font-size:1.1em;*/
 	}
 .detailEditCell {
 	float:right;
