@@ -32,6 +32,13 @@
 	   	onmouseover="this.className='delBtn btnhov'" 
 	   	onmouseout="this.className='delBtn'"
    		onclick="document.location='geol_hierarchy.cfm?action=delete&geology_attribute_hierarchy_id=#geology_attribute_hierarchy_id#';">
+	<br>
+	<input type="button" 
+		value="Nevermind..." 
+		class="qutBtn"
+	   	onmouseover="this.className='qutBtn btnhov'" 
+	   	onmouseout="this.className='delBtn'"
+   		onclick="document.location='geol_hierarchy.cfm';">
 
 
 </form>
