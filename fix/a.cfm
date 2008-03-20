@@ -1,7 +1,6 @@
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>	
-<script type='text/javascript' src='/includes/jquery/autocomplete.js'></script>	
-		
-		<cfinclude template="/includes/_header.cfm">
+<script type='text/javascript' src='/includes/jquery/jquery.dimensions.js'></script>	
+<cfinclude template="/includes/_header.cfm">
 
 <style type="text/css">
 .ac_input {
@@ -58,7 +57,7 @@
 <p><input id='suggest' type='text'> (autocomplete box)</p>
 <script type="text/javascript">
 jQuery(function() {
-jQuery("#suggest").suggest("files/search.php",{
+jQuery("#suggest").suggest("b.cfm",{
 onSelect: function() {alert("You selected: " + this.value)}});
 });
 </script>
