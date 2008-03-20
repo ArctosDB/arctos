@@ -75,7 +75,7 @@ Create hierarchies by selecting a child and parent term.
 Click More to edit or delete an attribute. You cannot delete attributes with children or attributes used as Geology Attributes.
 </div>
 <cfoutput>
-	<span class="newRec">
+<table class="newRec"><tr><td>
 New Term:
 <form name="ins" method="post" action="geol_hierarchy.cfm">
 	<input type="hidden" name="action" value="newTerm">
@@ -97,7 +97,7 @@ New Term:
 	   	onmouseover="this.className='insBtn btnhov'" 
 	   	onmouseout="this.className='insBtn'">	
 </form>
-</span>
+</td></tr></table>
 Create Hierarchies:
 <form name="rel" method="post" action="geol_hierarchy.cfm">
 	<input type="hidden" name="action" value="newReln">
