@@ -4,7 +4,7 @@
 <cfargument name="searchString" type="string" required="yes">
 <cfset var QGetMatchingUsers="">
 <cfquery name="QGetMatchingUsers" datasource="#Application.web_user#">
-SELECT geology_attribute,'booger' boog
+SELECT geology_attribute
 FROM ctgeology_attribute
 WHERE upper(geology_attribute) LIKE <cfqueryparam cfslqtype="cf_sql_varchar" value="#ucase(ARGUMENTS.searchString)#%">
 </cfquery>

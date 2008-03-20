@@ -20,9 +20,9 @@ function getData(qry) {
 	DWREngine._execute(_cfscriptLocation, null, 'suggestGeology', searchString, getDataResult);
 }
 
-function getDataResult(return){ 
+function getDataResult(return){
 	for (i=0; i < return.length; i++) {
-		key[i] = return[i].GEOLOGY_ATTRIBUTE; //if your query has a different column name, use it here
+		key[i] = return[i].GEOLOGY_ATTRIBUTE;
 	}
 	strQuery = selectedSuggestObject.name + '.showQueryDiv("' + searchString + '", key )'; 
 	eval (strQuery);
