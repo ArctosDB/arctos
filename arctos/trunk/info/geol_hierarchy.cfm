@@ -37,6 +37,7 @@
 	CONNECT BY PRIOR 
 		geology_attribute_hierarchy_id = parent_id
 </cfquery>
+<cfdump var=#cData#>
 <cfquery name="terms"  datasource="#application.web_user#">
 	select geology_attribute_hierarchy_id,
 	attribute_value || ' (' || attribute || ')' attribute
@@ -87,7 +88,7 @@ Create Hierarchies:
 	
 
    <!--- Is the last value in the list this level? --->
-   <cfif listLast(levelList,",") IS NOT cData.level>
+   <cfif listLast(levelList,",") IS NOT level>
       <!--- Is this level in the levelList?
           If so, we need to close previous level down to this one now. --->
       <cfset levelListIndex = listFind(levelList,cData.level,",")>
