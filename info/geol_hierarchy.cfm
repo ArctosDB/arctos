@@ -20,9 +20,24 @@
 	<input type="text" name="description" value="#c.description#">
 	<br>
 	<input type="submit" value="Save Edits">
+	<br>
+	<input type="button" value="Delete" onclick="document.location='geol_hierarchy.cfm?action=delete&geology_attribute_hierarchy_id=#geology_attribute_hierarchy_id#">
 </form>
 </cfoutput>
 </cfif>
+<!---------------------------------------->
+This form serves dual purpose as the code table editor for geology attributes AND a way to store attribute values as 
+hierarchical data for use in searching.
+<br>
+Create any attributes that you need.
+<br>
+Select "no" for "Attribute valid for Data Entry" for those that should only be used for searching. "Lithostratigraphy" 
+might be a useful term as the start of a set of hierarchies, but it's not something that can have a meaning in Geology Attributes
+so should not be "valid." Note that a value is required. " " (a blank space) is acceptable and appropriate for this example.
+<br>
+Create hierarchies by selecting a child and parent term. 
+<br>
+Click More to edit or delete an attribute.
 <cfif #action# is "nothing">
 <cfset title="Geology Attribute Hierarchy">
 <cfquery name="cData" datasource="#application.web_user#">
@@ -108,6 +123,16 @@ Create Hierarchies:
 </cfloop>
 </cfoutput>
 </cfif>
+<!---------------------------------------------------->
+<cfif #action# is "saveEdit">
+	<cfoutput>
+		<cfquery name="killGeog" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			delete from  geology_attribute_hierarchy where geology_attribute_hierarchy_id=#geology_attribute_hierarchy_id#
+		</cfquery>
+		<cflocation url="geol_hierarchy.cfm" addtoken="false">
+	</cfoutput>
+</cfif>
+
 <!---------------------------------------------------->
 <cfif #action# is "saveEdit">
 	<cfoutput>
