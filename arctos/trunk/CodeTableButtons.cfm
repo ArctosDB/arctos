@@ -8,8 +8,9 @@ However, some tables have not followed normal naming conventions and are cryptic
 
 
 <cfquery name="getCTName" datasource="uam_god">
-	select distinct(table_name) from sys.user_tables where table_name like 'CT%' order by table_name
-	UNION select 'ctgeology_attribute' from dual
+	select distinct(table_name) table_name from sys.user_tables where table_name like 'CT%'
+	UNION select 'CTGEOLOGY_ATTRIBUTE' table_name from dual
+	 order by table_name
 </cfquery>
 <cfoutput>
 <cfset i=1>
