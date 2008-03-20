@@ -21,18 +21,15 @@ function getData(qry) {
 }
 
 function getDataResult(return){
-	for (i=0; i < return.length; i++) {
-		key[i] = return[i].GEOLOGY_ATTRIBUTE;
-	}
-	strQuery = selectedSuggestObject.name + '.showQueryDiv("' + searchString + '", key )'; 
-	eval (strQuery);
+	alert('hi');
+	//for (i=0; i < return.length; i++) {
+	//	key[i] = return[i].GEOLOGY_ATTRIBUTE;
+	//}
+	//strQuery = selectedSuggestObject.name + '.showQueryDiv("' + searchString + '", key )'; 
+	//eval (strQuery);
 }
 </script>
 <input id="formfieldname" name="formfieldname" value="" size=20 autocomplete="off" onFocus="onSuggestFieldFocus(mySuggestObject)">
 
 
-<script>
 <script>onInit();</script>
-</script>
-
----->
