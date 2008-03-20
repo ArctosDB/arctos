@@ -106,7 +106,7 @@ Create Hierarchies:
    </cfif>
 
   <li><span
-	<cfif not usable_value_fg is 0>
+	<cfif usable_value_fg is 0>
 		  style="color:red"
 	</cfif>
 	>#attribute#</span>
