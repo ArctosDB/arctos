@@ -29,6 +29,10 @@ mySuggestObject.InitQueryCode('mySuggestObject','formfieldname')
 
 
 
+
+<form name="a" id="a">
+<input id="formfieldname" name="formfieldname" value="" size=20 autocomplete="off" onFocus="onSuggestFieldFocus(mySuggestObject)">
+</form>
 <script language='javascript'>
 
 function onInit()
@@ -52,8 +56,4 @@ function getDataResult(bla){
 	//eval (strQuery);
 }
 </script>
-<form name="a" id="a">
-<input id="formfieldname" name="formfieldname" value="" size=20 autocomplete="off" onFocus="onSuggestFieldFocus(mySuggestObject)">
-</form>
-
 <script>onInit();</script>
