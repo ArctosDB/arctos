@@ -497,7 +497,7 @@ tr.evenRow, td.evenRow {
 	background-color:#E5E5E5;}
 tr.oddRow, td.oddRow {
 	background-color:#F5F5F5;}
-td.newRec, tr.newRec {
+.newRec {
 	background-color:#D6F5F2;}
 table.newRec {
 	background-color: #D6F5F2;
