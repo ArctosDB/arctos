@@ -7,7 +7,7 @@
 		FROM ctgeology_attribute
 		WHERE upper(geology_attribute) LIKE '#ucase(searchString)#%'
 		</cfquery>
-	<cfreturn QGetMatchingUsers>
+	<cfreturn ins>
 
 </cffunction>
 
