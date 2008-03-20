@@ -1,6 +1,6 @@
 <!--- hint="type=keyvalue, jsreturn=array , listdelimiter=| , delimiter='='" --->
 <cfinclude template="/ajax/core/cfajax.cfm">
-<cffunction name="suggestGeology" returntype="query">
+<cffunction name="suggestGeologyAttribute" returntype="query">
 	<cfargument name="searchString" type="string" required="yes">
 		<cfquery name="ins" datasource="#Application.web_user#">
 			SELECT geology_attribute
@@ -10,7 +10,17 @@
 	<cfreturn ins>
 
 </cffunction>
+<cffunction name="suggestGeologyAttVal" returntype="query">
+	<cfargument name="searchString" type="string" required="yes">
+		<cfquery name="ins" datasource="#Application.web_user#">
+			SELECT attribute_value
+		FROM geology_attribute_hierarchy
+		WHERE upper(attribute_value) LIKE '#ucase(searchString)#%'
+		group by attribute_value
+		</cfquery>
+	<cfreturn ins>
 
+</cffunction>
 <cffunction name="getSessionTimeout" returntype="string">
 	<cfif isdefined("client.username") and len(#client.username#) gt 0>
 		<cfif isdefined("cookie.ArctosSession")>
