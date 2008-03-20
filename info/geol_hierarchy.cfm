@@ -28,7 +28,8 @@
 </cfoutput>
 </cfif>
 <!---------------------------------------->
-This form serves dual purpose as the code table editor for geology attributes AND a way to store attribute values as 
+<span style="border:1px dotted gray;font-size:smaller;">
+This form serves dual purpose as the code table editor for geology attributes and a way to store attribute values as 
 hierarchical data for use in searching.
 <br>
 Create any attributes that you need.
@@ -39,7 +40,8 @@ so should not be "valid." Note that a value is required. " " (a blank space) is 
 <br>
 Create hierarchies by selecting a child and parent term. 
 <br>
-Click More to edit or delete an attribute. You cannot delete attributes with parents or children.
+Click More to edit or delete an attribute. You cannot delete attributes with children or attributes used as Geology Attributes.
+</span>
 <cfif #action# is "nothing">
 <cfset title="Geology Attribute Hierarchy">
 <cfquery name="cData" datasource="#application.web_user#">
