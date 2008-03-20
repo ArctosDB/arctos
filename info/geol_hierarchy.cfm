@@ -31,8 +31,7 @@
 	 	geology_attribute_hierarchy_id,
 	 	parent_id,
 	 	usable_value_fg,
-   		attribute_value,
-		attribute
+   		attribute_value || ' (' || attribute || ')' attribute
 	FROM
 		geology_attribute_hierarchy
 	start with parent_id is null
