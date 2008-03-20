@@ -37,7 +37,7 @@
 		value="Nevermind..." 
 		class="qutBtn"
 	   	onmouseover="this.className='qutBtn btnhov'" 
-	   	onmouseout="this.className='delBtn'"
+	   	onmouseout="this.className='qutBtn'"
    		onclick="document.location='geol_hierarchy.cfm';">
 
 
@@ -121,7 +121,12 @@ Create Hierarchies:
 			<option value="#geology_attribute_hierarchy_id#">#attribute#</option>
 		</cfloop>
 	</select>
-	<input type="submit">
+	<br>
+	<input type="submit" 
+		value="Create Relationship" 
+		class="savBtn"
+	   	onmouseover="this.className='savBtn btnhov'"
+	   	onmouseout="this.className='savBtn'">
 </form>
 
 
