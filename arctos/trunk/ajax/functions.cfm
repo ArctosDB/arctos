@@ -1,14 +1,14 @@
 <!--- hint="type=keyvalue, jsreturn=array , listdelimiter=| , delimiter='='" --->
 <cfinclude template="/ajax/core/cfajax.cfm">
 <cffunction name="suggestGeology" returntype="query" output="no">
-<cfargument name="searchString" type="string" required="yes">
-
-<cfquery name="QGetMatchingUsers" datasource="#Application.web_user#">
-SELECT geology_attribute
-FROM ctgeology_attribute
-WHERE upper(geology_attribute) LIKE '#ucase(searchString)#%'
-</cfquery>
-<cfreturn QGetMatchingUsers>
+	<cfargument name="searchString" type="string" required="yes">
+	
+	<cfquery name="QGetMatchingUsers" datasource="#Application.web_user#">
+	SELECT geology_attribute
+	FROM ctgeology_attribute
+	WHERE upper(geology_attribute) LIKE '#ucase(searchString)#%'
+	</cfquery>
+	<cfreturn QGetMatchingUsers>
 <cffunction>
 
 
