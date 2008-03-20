@@ -6,7 +6,7 @@
 <cfquery name="QGetMatchingUsers" datasource="#Application.web_user#">
 SELECT geology_attribute
 FROM ctgeology_attribute
-WHERE upper(geology_attribute) LIKE <cfqueryparam cfslqtype="cf_sql_varchar" value="#ucase(ARGUMENTS.searchString)#%">
+WHERE upper(geology_attribute) LIKE '#ucase(searchString)#%'
 </cfquery>
 <cfreturn QGetMatchingUsers>
 <cffunction>
