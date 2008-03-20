@@ -1,3 +1,19 @@
+/* absolutely positioned plant labels */
+
+.onePage {
+	width:11in;
+	height:8.5in;
+	position:relative;
+}
+.oneLabel{
+	position:absolute;
+	overflow:hidden;
+}
+.oneCell {
+	position:absolute;
+	overflow:hidden;
+}
+
 /* doesn't really work all that well in FlashPaper, but helps with formatting - sometimes - maybe... */
 
 .gBorder table {
@@ -34,6 +50,9 @@ table#goodborder tfoot{}
 	font-size:8px;
 	font-weight:400;
 	}
+.italic {
+	font-style:italic;
+}
 .zd {
 	font-family:ZapfDingbats ;
 	font-size:9px;
@@ -382,6 +401,12 @@ table.goodBorder td {
 .height100 {
 	height:150px;
 	}
+.height91 {
+	height:91px;
+}
+.height90 {
+	height:80px;
+	}
 .height900 {
 	height:900px;
 	}
@@ -391,3 +416,6 @@ table.goodBorder td {
 .widthHalf {
 	width:50%;
 	}
+.width80 {
+	width:85%;
+	)
