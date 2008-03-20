@@ -1,5 +1,7 @@
 <cfinclude template="includes/_header.cfm">
-
+<cfif #tbl# is "CTGEOLOGY_ATTRIBUTE">
+	<cflocation url="/info/geol_hierarchy.cfm">
+</cfif>
 
 <!---- variables we'll use to build dynamic update query 
  Must pass in table, field name, and y/n for collection cde via URL, ie:
