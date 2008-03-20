@@ -53,6 +53,8 @@ function getData(qry) {
 
 function getDataResult(result){
 	//alert('hi');
+	var key = Array();
+				
 	for (i=0; i < result.length; i++) {
 		key[i] = result[i].GEOLOGY_ATTRIBUTE;
 	}
