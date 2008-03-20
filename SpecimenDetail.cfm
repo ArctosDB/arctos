@@ -391,7 +391,7 @@ window.onload=dyniframesize
 		<a href="/login.cfm">Login or Create Account</a>
 	</cfif>
 	<cfif isdefined("returnURL")>
-		<br><a href="SpecimenResults.cfm?#returnURL#">Return to Results</a>
+		<br><span onclick="SpecimenResults.cfm?#returnURL#">Return to Results</span>
 	</cfif>	
 </span>
 </td></tr></table></div></td>
