@@ -1,4 +1,5 @@
 <cfinclude template = "includes/_header.cfm">
+<cfif #action# is "nothing">
 <!---- this is an internal use page and needs a (light) security wrapper --->
 <cfif len(#client.username#) lt 1>
 	You must log in first.
@@ -21,7 +22,7 @@
 <cfif #client.username# is "guest">
 	Guests are not allowed to change passwords.<cfabort>
 </cfif>
-<table><tr><td>
+<table border><tr><td>
 You are logged in as #client.username#. You must change your password every #Application.max_pw_age# days. 
 	Your password is #pwtime# days old.
  <form action="ChangePassword.cfm?action=update" method="post">
@@ -59,6 +60,8 @@ You are logged in as #client.username#. You must change your password every #App
 </form>
 </td></tr></table>
 </cfoutput>
+</cfif>
+<!----------------------------------------------------------->
 <cfif #url.action# is "update">
 	<cfoutput>
 	<cfquery name="getPass" datasource="#Application.uam_dbo#">
