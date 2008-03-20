@@ -1,6 +1,8 @@
 
 
-
+<html>
+<body onload="onInit()"></body>
+</html>
 
 
 
@@ -56,4 +58,6 @@ function getDataResult(bla){
 	//eval (strQuery);
 }
 </script>
-<script>onInit();</script>
+</body>
+</html>
+
