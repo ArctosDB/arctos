@@ -35,6 +35,7 @@
 		attribute
 	FROM
 		geology_attribute_hierarchy
+	start with parent_id is null
 	CONNECT BY PRIOR 
 		geology_attribute_hierarchy_id = parent_id
 </cfquery>
