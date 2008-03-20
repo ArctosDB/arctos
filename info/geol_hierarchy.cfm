@@ -19,7 +19,7 @@
 	<label for="description">Description</label>
 	<input type="text" name="description" value="#c.description#">
 	<br>
-	<input type="submit" value="Insert Term">
+	<input type="submit" value="Save Edits">
 </form>
 </cfoutput>
 </cfif>
@@ -139,7 +139,7 @@ Create Hierarchies:
 		attribute='#attribute#',
 		attribute_value='#attribute_value#',
 		usable_value_fg=#usable_value_fg#,
-		description='#description#') 
+		description='#description#'
 	</cfquery>
 	<cflocation url="geol_hierarchy.cfm" addtoken="false">
 	</cfoutput>
