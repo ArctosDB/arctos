@@ -75,8 +75,9 @@ function getDataResult(stateArray){
 	}
 	strQuery = selectedSuggestObject.name + '.showQueryDiv("' + searchString + '", key )'; 
 	eval (strQuery);
+	}
 	*/
-}
+
 </script>
 </body>
 </html>
