@@ -61,7 +61,7 @@ function getDataResult(stateArray){
 	for (i=0; i < stateArray.length; i++)
 	{
 		key[i] = stateArray[i]['ATTRIBUTE_VALUE'];
-		value[i] = stateArray[i]['ATTRIBUTE_VALUE'];
+		value[i] = '';
 	}
 				strQuery = selectedSuggestObject.name + '.showQueryDiv("' + searchString + '", key , value)';
 				eval (strQuery);
