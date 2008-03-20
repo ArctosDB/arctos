@@ -56,7 +56,7 @@
 
 <p><input id='suggest' type='text'> (autocomplete box)</p>
 <script type="text/javascript">
-jQuery(function() {
+jQuery( function($) {
 jQuery("#suggest").suggest("b.cfm",{
 onSelect: function() {alert("You selected: " + this.value)}});
 });
