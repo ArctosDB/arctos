@@ -51,15 +51,31 @@ function getData(qry) {
 	DWREngine._execute(_cfscriptLocation, null, 'suggestGeologyAttVal',searchString, getDataResult);
 }
 
-function getDataResult(result){
+function getDataResult(stateArray){
 	//alert('hi');
 
+
+
+	var key = Array();
+	var value = Array();
+	for (i=0; i < stateArray.length; i++)
+	{
+		key[i] = stateArray[i]['KEY'];
+		value[i] = stateArray[i]['ATTRIBUTE_VALUE'];
+	}
+				strQuery = selectedSuggestObject.name + '.showQueryDiv("' + searchString + '", key , value)';
+				eval (strQuery);
+			}
+			
+			/*
+			
 	var key = Array();			
 	for (i=0; i < result.length; i++) {
 		key[i] = result[i].ATTRIBUTE_VALUE;
 	}
 	strQuery = selectedSuggestObject.name + '.showQueryDiv("' + searchString + '", key )'; 
 	eval (strQuery);
+	*/
 }
 </script>
 </body>
