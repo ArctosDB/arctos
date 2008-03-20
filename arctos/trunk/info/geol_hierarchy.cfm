@@ -186,7 +186,7 @@ Create Hierarchies:
 <cfif #action# is "newReln">
 	<cfoutput>
 	<cfquery name="changeGeog" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-		update geology_attribute_hierarchy set parent_id=#parent# where geology_attribute_hierarchy_id=#child#
+		update geology_attribute_hierarchy set parent_id=<cfif parent is "">NULL<cfelse>#parent#</cfif> where geology_attribute_hierarchy_id=#child#
 	</cfquery>
 	<cflocation url="geol_hierarchy.cfm" addtoken="false">
 	</cfoutput>
