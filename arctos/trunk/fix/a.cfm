@@ -1,8 +1,9 @@
 <script type='text/javascript' src='/ajax/core/engine.js'></script>
 <script type='text/javascript' src='/ajax/core/util.js'></script>
 <script type='text/javascript' src='/ajax/core/settings.js'></script>
-		<script type='text/javascript' src='/ajax/core/suggest.js'></script>
 				<script type='text/javascript' src='/ajax/core/prototype.js'></script>	
+		<script type='text/javascript' src='/ajax/core/suggest.js'></script>
+
 
 	
 
