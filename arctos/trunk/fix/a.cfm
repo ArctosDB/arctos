@@ -60,13 +60,14 @@ function getDataResult(stateArray){
 	var value = Array();
 	for (i=0; i < stateArray.length; i++)
 	{
-		key[i] = stateArray[i]['KEY'];
+		key[i] = stateArray[i]['ATTRIBUTE_VALUE'];
 		value[i] = stateArray[i]['ATTRIBUTE_VALUE'];
 	}
-				strQuery = selectedSuggestObject.name + '.showQueryDiv("' + searchString + '" value, value)';
+				strQuery = selectedSuggestObject.name + '.showQueryDiv("' + searchString + '", key , value)';
 				eval (strQuery);
 			}
-			
+		
+		
 			/*
 			
 	var key = Array();			
