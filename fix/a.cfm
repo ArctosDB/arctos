@@ -23,12 +23,10 @@ DWREngine._execute(_cfscriptLocation, null, 'suggestGeology', searchString, getD
 }
 
 function getDataResult(return){ 
-	var key = Array();
-	var value = Array();
-	for (i=0; i < return.length; i++) {
+		for (i=0; i < return.length; i++) {
 		key[i] = return[i].GEOLOGY_ATTRIBUTE; //if your query has a different column name, use it here
 	}
-	strQuery = selectedSuggestObject.name + '.showQueryDiv("' + searchString + '", key , value)'; eval (strQuery);
+	strQuery = selectedSuggestObject.name + '.showQueryDiv("' + searchString + '", key )'; eval (strQuery);
 }
 </script>
 <input id="formfieldname" name="formfieldname" value="" size=20 autocomplete="off" onFocus="onSuggestFieldFocus(mySuggestObject)">
