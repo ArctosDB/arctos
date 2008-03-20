@@ -13,7 +13,7 @@
 <cffunction name="suggestGeologyAttVal" returntype="query">
 	<cfargument name="searchString" type="string" required="yes">
 		<cfquery name="ins" datasource="#Application.web_user#">
-			SELECT attribute_value
+			SELECT '' key, attribute_value
 		FROM geology_attribute_hierarchy
 		WHERE upper(attribute_value) LIKE '#ucase(searchString)#%'
 		group by attribute_value
