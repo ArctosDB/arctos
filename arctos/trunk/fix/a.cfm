@@ -1,4 +1,4 @@
-
+<cfinclude template="/includes/_header.cfm">
 
 <html>
 <body onload="onInit()"></body>
