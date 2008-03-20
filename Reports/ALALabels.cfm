@@ -1,8 +1,24 @@
-<cfif not isdefined("collection_object_id")>
-		<cfabort>
-	</cfif>
+<!---
 
-	
+---->
+<cfdocument 
+	format="pdf"
+	pagetype="letter" 
+		orientation="landscape"
+		margintop="0"
+		marginleft="0"
+		marginbottom="0"
+		marginright="0.0" 
+		overwrite="true"
+	fontembed="yes" filename="#Application.webDirectory#/temp/alaLabel.pdf" >
+
+<link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
+
+<cfif not isdefined("collection_object_id")>
+	<cfabort>
+</cfif>	
+
+
 <cfset sql="
 	select
 		get_scientific_name_auths(cataloged_item.collection_object_id) sci_name_with_auth,
@@ -10,6 +26,8 @@
 		get_taxonomy(cataloged_item.collection_object_id,'family') family,
 		get_taxonomy(cataloged_item.collection_object_id,'scientific_name') tsname,
 		get_taxonomy(cataloged_item.collection_object_id,'author_text') auth,
+		CONCATATTRIBUTE(cataloged_item.collection_object_id) attributes,
+		trim(ConcatAttributeValue(cataloged_item.collection_object_id,'abundance')) abundance,
 		identification_remarks,
 		made_date,
 		cat_num,
@@ -18,6 +36,7 @@
 		quad,
 		county,
 		island,
+		island_group,
 		sea,
 		feature,
 		spec_locality,
@@ -71,41 +90,39 @@
 	<cfquery name="data" datasource="#Application.web_user#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-
-<!---- 
-	Last label is mussed if there are an odd number of labels
-	--->
 	
 	<cfif  #data.recordcount# mod 2 neq 0>
 		<!--- pad on a garbage record --->
 		<cfset temp = queryaddrow(data,1)>
 		<cfset temp = querysetcell(data,'family','blank filler')>
-		
-	</cfif>
-<cfoutput>
+	</cfif>	
+	<cfoutput>
+	
+	
+	
+	
+<cfset rowsPerPage = 2>
+<cfset colsPerPage = 2>
 
-<!---
+<cfset pHeight=8.5>
+<cfset pWidth=11>
 
-	--->
-	<cfdocument 
-	format="pdf"
-	pagetype="letter" 
-		orientation="landscape"
-		margintop="0"
-		marginleft="0"
-		marginbottom="0"
-		marginright="0.0" 
-		overwrite="true"
-	fontembed="yes" filename="#Application.webDirectory#/temp/alaLabel.pdf" >
-<link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
+<cfset lblHeight=3.25>
+<cfset lblWidth=5.5>
+
+<cfset lrPosn=0>
+<cfset topPosn = 0>
+<cfset counter=1>
+<cfset currentRow=0>
+<cfset currentColumn=0>
 <cfset i=1>
-<cfset t=1>
-<cfset numRows = 2>
-<cfset numCols = 2>
-<table cellpadding="0" cellspacing="0" width="100%" border="0" class="noDamnedMarginsPlease"> <!--- open page table --->
-<tr>
- <cfloop query="data">
- 	
+<cfloop query="data">
+	<cfset geog="#ucase(state_prov)#">
+	<cfif #country# is "United States">
+		<cfset geog="#geog#, USA">
+	<cfelse>
+		<cfset geog="#geog#, #ucase(country)#">
+	</cfif>
 	<cfset coordinates = "">
 	<cfif len(#verbatimLatitude#) gt 0 AND len(#verbatimLongitude#) gt 0>
 		<cfset coordinates = "#verbatimLatitude# / #verbatimLongitude#">
@@ -113,156 +130,199 @@
 		<cfset coordinates = replace(coordinates,"m","'","all")>
 		<cfset coordinates = replace(coordinates,"s","''","all")>
 	</cfif>
-	
-		<cfif #collectors# contains ";">
-			<Cfset spacePos = find(";",collectors)>
-			<cfset thisColl = left(collectors,#SpacePos# - 1)>
-			<cfset thisColl = "#thisColl# et al.">
-		<cfelse>
-			<cfset thisColl = #collectors#>
-		</cfif>
-	
-		<cfset thisDate = "">
-		<cftry>
-			<cfset thisDate = #dateformat(verbatim_date,"dd mmm yyyy")#>
-			<cfcatch>
-				<cfset thisDate = #verbatim_date#>
-			</cfcatch>
-		</cftry>
-		<!------ end cleanup and format ------------>
-	<cfif #i# is #numCols# + 1>
-		</tr>
-		<cfif #t# is #numCols# * #numRows# +1>
-			</table>
-			<!----
-				
-				<hr>
-			---->
-			<cfdocumentitem type = "pagebreak"/>
-		
-<table cellpadding="0" cellspacing="0" width="100%" border="0" class="noDamnedMarginsPlease"> <!--- open page table --->
-			<cfset t=1>
-		</cfif>
-		<tr>
-		<cfset i=1>
+	<cfset locality="">
+	<cfif len(#quad#) gt 0>
+		<cfset locality = "#quad# Quad.:">
 	</cfif>
-	<td class="" width="50%" style="padding-left:10px;"><!---- open cell table ---->
-				
-				<table cellpadding="0" cellspacing="0" width="100%" class="pad10" border="0">
-					<tr>
-						<td colspan="1" class="times14b">#family#</td>
-						<td class="times14b" colspan="1" align="right">
-							#ucase(state_prov)#,&nbsp;<cfif #country# is "United States">USA<cfelse>#ucase(country)#</cfif>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">&nbsp;</td>
-					</tr>
-					<tr>
-					<!---
-						<cfset sn = #replace(sci_name_with_auth," ","-space-","all")#>
-						<cfset sn = #replace(sci_name_with_auth,"&nbsp;","-nobreakspace-","all")#>
-						<CFSET sn = REReplaceNoCase(sci_name_with_auth, "[^a-z]", ":dammit:" , "All")> 
-						<cfset sn = #replace(sn,"/",":slashie:","all")#>
-						
-						<cfset sn = #replace(sn,">",":closebracket:","all")#>
-						<cfset sn = #replace(sn,"<",":openbracket:","all")#>
-						
-						#replace(tsname," ","&nbsp;","all")#
-						--->
-						<cfset sn=sci_name_with_auth>
-						
-						
-						<td colspan="2" class="times15b">
-							#sci_name_with_auth#
-						<!---
-							<table border="1" width="100%">
-								<tr>
-									<td>askjfbgaskjlbdh lkjasbdakjshdf lkjasdfajkhsd lalksdjhaks liuasb</td>
-									<td>/lkdj kljfls dlkj kjsdfg lkj ajkhgsd lghjkdf kjahsd lkjh sadflkj</td>
-								</tr>
-							</table>
-							---->
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" class="times12 height20">
-						#identification_remarks#&nbsp;</td>
-					</tr>
-					<tr>
-						<cfset geog="">
-						<cfif len(#quad#) gt 0>
-							<cfset geog = "#quad# Quad.:">
-						</cfif>
-						<cfif len(#spec_locality#) gt 0>
-							<cfset geog = "#geog# #spec_locality#">
-						</cfif>
-						<cfif len(#coordinates#) gt 0>
-						 	<cfset geog = "#geog#, #coordinates#">
-						 </cfif>
-						  <cfif len(#ORIG_ELEV_UNITS#) gt 0>
-						 	<cfset geog = "#geog#. Elev.&nbsp;#MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION#&nbsp;#ORIG_ELEV_UNITS#">
-						 </cfif>
-						 <cfif len(#habitat#) gt 0>
-						 	<cfset geog = "#geog#, #habitat#">
-						 </cfif>
-						 <cfif len(#associated_species#) gt 0>
-						 	<cfset geog = "#geog#, #associated_species#">
-						 </cfif>
-						 <cfif right(geog,1) is not "."><cfset geog = "#geog#."></cfif>
-						<td colspan="2" class="times12 height100">
-							#geog#
-						</td>
-					</tr>
-				
-					<tr>
-						<td class="times12">#collectors# #fieldnum#</td>
-						<td class="times12" align="right">
-						#thisDate#
-						</td>
-					</tr>
-					<tr>
-						<td class="times12" colspan="2"><cfif #collectors# neq #identified_by# AND #identified_by# is not "unknown">
-								Det: #identified_by# on #dateformat(made_date,"dd mmm yyyy")#
-							</cfif>&nbsp;
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" align="middle" class="times12">
-							#project_name#&nbsp;
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2"  align="middle" class="times12">
-							<cfif len(#npsa#) gt 0 or len(#npsc#) gt 0>
-								NPS: #npsa# #npsc#&nbsp;
-							</cfif>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" align="middle" class="times12b">
-							Herbarium, University of Alaska Museum (ALA) accession #alaac#
-						</td>
-					</tr>
-					
-					
-					
-				</table>
-				<!--- end cell table --->
-				</td><!--- end cell cell --->
-	
-	
-	<cfset i=#i#+1>
-	<cfset t=#t#+1>	
+	<cfif len(#spec_locality#) gt 0>
+		<cfset locality = "#locality# #spec_locality#">
+	</cfif>
+	<cfif len(#coordinates#) gt 0>
+	 	<cfset locality = "#locality#, #coordinates#">
+	 </cfif>
+	  <cfif len(#ORIG_ELEV_UNITS#) gt 0>
+	 	<cfset locality = "#locality#. Elev. #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#">
+	 </cfif>
+	 <cfif len(#habitat#) gt 0>
+	 	<cfset locality = "#locality#, #habitat#">
+	 </cfif>
+	 <cfif len(#associated_species#) gt 0>
+	 	<cfset locality = "#locality#, #associated_species#">
+	 </cfif>	
+	<cfif len(abundance) gt 0>
+		<cfset locality = "#locality#, #abundance#">
+	</cfif>
+	 <cfif right(locality,1) is not ".">
+		 <cfset locality = "#locality#.">
+	</cfif>
+	<cfset collector="#collectors# #fieldnum#">
+	<cfset determiner="">
+	<cfif #collectors# neq #identified_by# AND #identified_by# is not "unknown">
+		<cfset determiner="Det: #identified_by# #dateformat(made_date,"dd mmm yyyy")#">
+	</cfif>
+	<cfset project="#project_name#">	
+	<cfif len(#npsa#) gt 0 or len(#npsc#) gt 0>
+		<cfif len(#project#) gt 0>
+			<cfset project="#project#<br/>">
+		</cfif>
+		<cfset project="#project#NPS: #npsa# #npsc#">
+	</cfif>	
+	<cfset alaacString="Herbarium, University of Alaska Museum (ALA) accession #alaac#">
+	<cfset sAtt="">
+	<cfloop list="#attributes#" index="att">
+		<cfif att does not contain "abundance">
+			<cfif att contains "diploid number">
+				<cfset att=replace(att,"diploid number: ","2n=","all")>
+			</cfif>
+			<cfset sAtt=listappend(sAtt,att)>
+		</cfif>
 	</cfloop>
-</tr>
-</table><!--- close page table --->
-	<!-----
+				
+	<cfif #counter# is 1>
+		<!--- new page --->
+		<div style="width:11in;
+	height:8.5in;
+	position:relative;">
+	</cfif>
+	<!---
+	i: #i#; counter: #counter#; lrPosn: #lrPosn#
+	--->
+	<!--- only works on 2-column labels --->
 
-	----->
-	</cfdocument>
+	<div class="oneLabel" style="
+		width:#lblWidth#in;
+		height:#lblHeight#in;
+		top:#topPosn#in;
+		left:#lrPosn#in;">
+			<div class="oneCell times16b"
+				style="top:.15in;
+				left:.25in;
+				width:2.5in;
+				height:.25in;">
+					#family#					
+			</div>
+			<div class="oneCell times16b alignR"
+				 style="top:.15in;
+					left:2.75in;
+					width:2.5in;
+					height:.25in;">
+					#geog#
+			</div>
+			<div class="oneCell times16b"
+				 style="top:.4in;
+					left:.25in;
+					width:5in;
+					height:.25in;">
+					#sci_name_with_auth#
+			</div>
+			<div class="oneCell times14"
+				 style="top:.65in;
+					left:.25in;
+					width:5in;
+					height:.25in;">
+					#identification_remarks#
+			</div>
+			<div class="oneCell times14"
+				 style="top:.9in;
+					left:.25in;
+					width:5in;
+					height:.75in;">
+					#locality#
+			</div>
+			<div class="oneCell"
+				 style="top:1.65in;
+					left:.25in;
+					width:5in;
+					height:.25in;">
+					#sAtt#
+			</div>			
+			<div class="oneCell"
+				 style="top:1.9in;
+					left:.25in;
+					width:3.5in;
+					height:.25in;">
+					#collector#
+			</div>
+			<div class="oneCell alignR"
+				 style="top:1.9in;
+					left:3.75in;
+					width:1.5in;
+					height:.25in;">
+					<!---#dateformat(made_date,"dd mmm yyyy")#--->
+					#verbatim_date#
+			</div>
+			<div class="oneCell"
+				 style="top:2.1in;
+					left:.25in;
+					width:5in;
+					height:.25in;">
+					#determiner#
+			</div>
+			<div class="oneCell"
+				 style="top:2.3in;
+					left:.25in;
+					width:5in;
+					height:.45in;">
+					#project#
+			</div>
+			<div class="oneCell times16b valignB alignC"
+				 style="top:2.75in;
+					left:.25in;
+					width:5in;
+					height:.25in;">
+					#alaacString#
+			</div>			
+	</div>
+	<cfif counter mod 2 is 0>
+		<!--- even number= just made right column --->
+		<cfset lrPosn=0>
+		<cfset topPosn=lblHeight>
+	<cfelse>
+		<!--- odd number, left column --->
+		<cfset lrPosn=lblWidth>
+	</cfif>
+	<!----
+	<cfif lrPosn is 0>
+		<cfset lrPosn=lblWidth>
+	<cfelse>
+		<cfset lrPosn=0>
+	</cfif>
 	
+	<cfif topPosn is 0>
+		<cfset topPosn=lblHeight>
+	<cfelse>
+		<cfset topPosn=0>
+	</cfif>
+	---->
+	<cfset counter=counter+1>
+	<cfif counter gt (rowsPerPage * colsPerPage)>
+		<cfset counter=1>
+		<cfset lrPosn=0>
+		<cfset topPosn = 0>
+	</cfif>
+	<cfif #counter# is 1>
+		<!--- close new page --->
+		</div>
+	</cfif>
+	<cfset i=i+1>
+</cfloop>
+
+	<!----
+	<div style="border:1px solid red;width:5.5in;height:2.5in;position:absolute;top:0in;left:5.5in;">
+		labeley
+	</div>
+	<div style="border:1px solid red;width:5.5in;height:2.5in;position:absolute;top:2.5in;left:0in;">
+		labeley
+	</div>
+	<div style="border:1px solid red;width:5.5in;height:2.5in;position:absolute;top:2.5in;left:5.5in;">
+		labeley
+	</div>
+---->
+</cfoutput>
+<!----
+
+---->
+</cfdocument>
+<cfoutput>
 	<a href="#Application.ServerRootUrl#/temp/alaLabel.pdf">pdf</a>
 	</cfoutput>
-	
-

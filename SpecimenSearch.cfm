@@ -82,7 +82,7 @@ function changeGrp(tid) {
 					from collection where
 					collection_id=#exclusive_collection_id#
 				</cfquery>
-				<cfoutput>#coll.institution_acronym# #coll.collection_cde#</cfoutput>
+				<cfoutput>#coll.collection#</cfoutput>
 			records, or <a href="searchAll.cfm">all collections</a>.
 			<cfelse>
 			records.
