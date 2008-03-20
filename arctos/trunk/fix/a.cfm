@@ -46,18 +46,18 @@ mySuggestObject.InitQueryCode('mySuggestObject','formfieldname')
 }
 
 function getData(qry) {
-	alert('going');
+	//alert('going');
 	searchString = qry;
 	DWREngine._execute(_cfscriptLocation, null, 'suggestGeology',searchString, getDataResult);
 }
 
 function getDataResult(bla){
-	alert('hi');
-	//for (i=0; i < return.length; i++) {
-	//	key[i] = return[i].GEOLOGY_ATTRIBUTE;
-	//}
-	//strQuery = selectedSuggestObject.name + '.showQueryDiv("' + searchString + '", key )'; 
-	//eval (strQuery);
+	//alert('hi');
+	for (i=0; i < return.length; i++) {
+		key[i] = return[i].GEOLOGY_ATTRIBUTE;
+	}
+	strQuery = selectedSuggestObject.name + '.showQueryDiv("' + searchString + '", key )'; 
+	eval (strQuery);
 }
 </script>
 </body>
