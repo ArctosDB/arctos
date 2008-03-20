@@ -1,8 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 	<link rel="stylesheet" type="text/css" href="/ajax/core/suggest.js">
 <script language='javascript'>
-var mySuggestObject= new Suggest();
-var searchString = "";
+
 
 
 function getData(qry)
@@ -25,6 +24,8 @@ function getDataResult(return){
 
 
 <script>
+	var mySuggestObject= new Suggest();
+var searchString = "";
 onSuggestFieldFocus(mySuggestObject);
 mySuggestObject.InitQueryCode('mySuggestObject','formfieldname')
 </script>
