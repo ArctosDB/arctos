@@ -75,7 +75,8 @@ Create any attributes that you need.
 <br>
 Select "no" for "Attribute valid for Data Entry" for those that should only be used for searching. "Lithostratigraphy" 
 might be a useful term as the start of a set of hierarchies, but it's not something that can have a meaning in Geology Attributes
-so should not be "valid." Note that a value is required. " " (a blank space) is acceptable and appropriate for this example.
+so should not be "valid." Note that Attribute and Value required. Value is used in building hierarchies for dearching, so
+ " " (a blank space) is an acceptable and appropriate attribute for this example.
 <br>
 Create hierarchies by selecting a child and parent term. 
 <br>
