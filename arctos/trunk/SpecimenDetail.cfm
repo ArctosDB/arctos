@@ -294,6 +294,7 @@ window.onload=dyniframesize
 </cfoutput>
 <table>
 	<tr>
+		<td><div><table><tr>
 		<td nowrap valign="top">
 			<cfoutput query="detail" group="cat_num">
 				<font size="+1"><B>#collection#&nbsp;#cat_num#</b></font>
@@ -393,7 +394,7 @@ window.onload=dyniframesize
 		<br><a href="SpecimenResults.cfm?#returnURL#">Return to Results</a>
 	</cfif>	
 </span>
-</td>
+</td></tr></table></div></td>
 		</cfoutput>
 		
 		
