@@ -17,11 +17,13 @@
 	<cfset pwtime =  round(now() - pwExp.pw_change_date)>
 	<cfset pwage = Application.max_pw_age - pwtime>
 
-	You are logged in as #client.username#. You must change your password every #Application.max_pw_age# days. 
-	Your password is #pwtime# days old.
+	
 <cfif #client.username# is "guest">
 	Guests are not allowed to change passwords.<cfabort>
 </cfif>
+<table><tr><td>
+You are logged in as #client.username#. You must change your password every #Application.max_pw_age# days. 
+	Your password is #pwtime# days old.
  <form action="ChangePassword.cfm?action=update" method="post">
 	<table>
 		<tr>
@@ -43,6 +45,19 @@
 		</tr>
 	</table>
 	</form>
+	</td>
+	<td>
+	Lost your password? Passwords are stored in an encrypted format and cannot be recovered. 
+<br>If you have saved your email address in your profile, enter it here to reset your password. 
+<br>If you have not saved your email address, please submit a bug report to that effect and we will reset your password for you.
+
+	<form name="pw" method="post" action="?action=findPass">
+	Username:&nbsp;<input type="text" name="username" />
+	Email Address:&nbsp;<input type="text" name="email">
+	 <input type="submit" value="Request Password" class="lnkBtn"
+   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
+</form>
+</td></tr></table>
 </cfoutput>
 <cfif #url.action# is "update">
 	<cfoutput>
@@ -116,6 +131,43 @@
 	</script>
 </cfoutput>
 </cfif>
-
+<!---------------------------------------------------------------------->
+<cfif #action# is "findPass">
+<cfoutput>
+	<cfquery name="isGoodEmail" datasource="#Application.web_user#">
+		select cf_user_data.user_id, email,username from cf_user_data,cf_users
+		 where cf_user_data.user_id = cf_users.user_id and
+		 email = '#email#' and username= '#username#'
+	</cfquery>
+	<cfif #isGoodEmail.recordcount# neq 1>
+		Sorry, that email wasn't found with your username.
+		<cfabort>
+	  <cfelse>
+			<cfset charList = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,z,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,1,2,3,4,5,6,7,8,9,0">
+			<cfset newPass = "">
+			<cfloop index="i" from="1" to ="10">
+				<cfset thisCharNum = RandRange(1,listlen(charList))>
+				<cfset thisChar = ListGetAt(charList,#thisCharNum#)>
+				<cfset newPass = "#newPass##thisChar#">
+			</cfloop>
+			<cfquery name="setNewPass" datasource="#Application.uam_dbo#">
+				UPDATE cf_users SET password = '#hash(newPass)#'
+				where user_id = #isGoodEmail.user_id#
+			</cfquery>
+			
+			<cfmail to="#email#" subject="Arctos password" from="LostFound@#Application.fromEmail#" type="text">
+				Your Arctos username/password is #username#/#newPass#. Log in, then change it at:
+			
+				#Application.ServerRootUrl#/ChangePassword.cfm
+				
+				or from your Preferences.
+				
+				If you did not request this change, please email fndlm@uaf.edu immediately.
+			</cfmail>
+		An email containing your new password has been sent.
+	</cfif>
+</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------->
 <cfinclude template = "includes/_footer.cfm">
 
