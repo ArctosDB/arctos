@@ -109,7 +109,7 @@ Create Hierarchies:
 		  style="color:red"
 	</cfif>
 	>#attribute#</span>
-	<a class="infoLink" href="geol_hierarchy.cfm?action=edit&geology_attribute_hierarchy=#geology_attribute_hierarchy#">more</a>
+	<a class="infoLink" href="geol_hierarchy.cfm?action=edit&geology_attribute_hierarchy_id=#geology_attribute_hierarchy_id#">more</a>
 	</li>
 
    <!--- If this is the last row, then we need to close all unordered lists --->
