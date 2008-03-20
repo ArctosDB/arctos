@@ -53,10 +53,10 @@ function getData(qry) {
 
 function getDataResult(result){
 	//alert('hi');
-	var key = Array();
-				
+
+	var value = Array();			
 	for (i=0; i < result.length; i++) {
-		key[i] = result[i].GEOLOGY_ATTRIBUTE;
+		key[i] = result[i].ATTRIBUTE_VALUE;
 	}
 	strQuery = selectedSuggestObject.name + '.showQueryDiv("' + searchString + '", key )'; 
 	eval (strQuery);
