@@ -21,7 +21,8 @@
 	<br>
 	<input type="submit" value="Save Edits">
 	<br>
-	<input type="button" value="Delete" onclick="document.location='geol_hierarchy.cfm?action=delete&geology_attribute_hierarchy_id=#geology_attribute_hierarchy_id#">
+	<input type="button" value="Delete" 
+		onclick="document.location='geol_hierarchy.cfm?action=delete&geology_attribute_hierarchy_id=#geology_attribute_hierarchy_id#';">
 </form>
 </cfoutput>
 </cfif>
@@ -37,7 +38,7 @@ so should not be "valid." Note that a value is required. " " (a blank space) is 
 <br>
 Create hierarchies by selecting a child and parent term. 
 <br>
-Click More to edit or delete an attribute.
+Click More to edit or delete an attribute. You cannot delete attributes with parents or children.
 <cfif #action# is "nothing">
 <cfset title="Geology Attribute Hierarchy">
 <cfquery name="cData" datasource="#application.web_user#">
