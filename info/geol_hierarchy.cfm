@@ -18,30 +18,27 @@
 		<option <cfif #uvf# is 1>selected="selected" </cfif>value="1">yes</option>
 	</select>
 	<label for="description">Description</label>
-	<input type="text" name="description" value="#c.description#">
+	<input type="text" name="description" value="#c.description#" size="60">
 	<br>
-	<input type="submit" value="Save Edits">
+	<input type="submit" 
+		value="Save Edits" 
+		class="savBtn"
+	   	onmouseover="this.className='savBtn btnhov'" 
+	   	onmouseout="this.className='savBtn'">
 	<br>
-	<input type="button" value="Delete" 
-		onclick="document.location='geol_hierarchy.cfm?action=delete&geology_attribute_hierarchy_id=#geology_attribute_hierarchy_id#';">
+	<input type="button" 
+		value="Delete" 
+		class="delBtn"
+	   	onmouseover="this.className='delBtn btnhov'" 
+	   	onmouseout="this.className='delBtn'"
+   		onclick="document.location='geol_hierarchy.cfm?action=delete&geology_attribute_hierarchy_id=#geology_attribute_hierarchy_id#';">
+
+
 </form>
 </cfoutput>
 </cfif>
 <!---------------------------------------->
-<span style="border:1px dotted gray;font-size:smaller;">
-This form serves dual purpose as the code table editor for geology attributes and a way to store attribute values as 
-hierarchical data for use in searching.
-<br>
-Create any attributes that you need.
-<br>
-Select "no" for "Attribute valid for Data Entry" for those that should only be used for searching. "Lithostratigraphy" 
-might be a useful term as the start of a set of hierarchies, but it's not something that can have a meaning in Geology Attributes
-so should not be "valid." Note that a value is required. " " (a blank space) is acceptable and appropriate for this example.
-<br>
-Create hierarchies by selecting a child and parent term. 
-<br>
-Click More to edit or delete an attribute. You cannot delete attributes with children or attributes used as Geology Attributes.
-</span>
+
 <cfif #action# is "nothing">
 <cfset title="Geology Attribute Hierarchy">
 <cfquery name="cData" datasource="#application.web_user#">
@@ -62,8 +59,23 @@ Click More to edit or delete an attribute. You cannot delete attributes with chi
 	attribute_value || ' (' || attribute || ')' attribute
 	 from geology_attribute_hierarchy  order by attribute
 </cfquery>
-
+<div style="border:1px dotted gray;font-size:smaller;
+	margin-leff:50px;margin-right:50px;">
+This form serves dual purpose as the code table editor for geology attributes and a way to store attribute values as 
+hierarchical data for use in searching.
+<br>
+Create any attributes that you need.
+<br>
+Select "no" for "Attribute valid for Data Entry" for those that should only be used for searching. "Lithostratigraphy" 
+might be a useful term as the start of a set of hierarchies, but it's not something that can have a meaning in Geology Attributes
+so should not be "valid." Note that a value is required. " " (a blank space) is acceptable and appropriate for this example.
+<br>
+Create hierarchies by selecting a child and parent term. 
+<br>
+Click More to edit or delete an attribute. You cannot delete attributes with children or attributes used as Geology Attributes.
+</div>
 <cfoutput>
+	<div class="newRec">
 New Term:
 <form name="ins" method="post" action="geol_hierarchy.cfm">
 	<input type="hidden" name="action" value="newTerm">
@@ -77,11 +89,15 @@ New Term:
 		<option value="1">yes</option>
 	</select>
 	<label for="description">Description</label>
-	<input type="text" name="description">
+	<input type="text" name="description" size="60">
 	<br>
-	<input type="submit" value="Insert Term">
+	<input type="submit" 
+		value="Insert Term" 
+		class="insBtn"
+	   	onmouseover="this.className='insBtn btnhov'" 
+	   	onmouseout="this.className='insBtn'">	
 </form>
-<br>
+</div>
 Create Hierarchies:
 <form name="rel" method="post" action="geol_hierarchy.cfm">
 	<input type="hidden" name="action" value="newReln">
