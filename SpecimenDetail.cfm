@@ -382,7 +382,7 @@ window.onload=dyniframesize
 			where collection_object_id = #collection_object_id#
 		</cfquery>
 		<a onclick="openAnnotation('#collection_object_id#')">
-			Annotate
+			[Annotate.]
 		</a>
 		<cfif #existingAnnotations.cnt# gt 0>
 			<br>(#existingAnnotations.cnt# existing)
@@ -391,7 +391,7 @@ window.onload=dyniframesize
 		<a href="/login.cfm">Login or Create Account</a>
 	</cfif>
 	<cfif isdefined("returnURL")>
-		<br><a href="SpecimenResults.cfm?#returnURL#">Return to Results</a>
+		<br><a onclick="window.location=SpecimenResults.cfm?#returnURL#">[Return to Results.]</a>
 	</cfif>	
 </span>
 </td></tr></table></div></td>
