@@ -60,7 +60,7 @@
 	 from geology_attribute_hierarchy  order by attribute
 </cfquery>
 <div style="border:1px dotted gray;font-size:smaller;
-	margin-leff:50px;margin-right:50px;">
+	margin-left:50px;margin-right:50px;">
 This form serves dual purpose as the code table editor for geology attributes and a way to store attribute values as 
 hierarchical data for use in searching.
 <br>
