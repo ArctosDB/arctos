@@ -40,10 +40,10 @@ a.external:hover:visited:after {
 	margin:1px 6px 12px 2px;
 	}
 .detailLabel {
-	border:1px solid gray;
+	/*border:1px solid gray;*/
 	margin: 1px 0px 1px -11px;
 	position:relative;
-	background-color:#FFF7D7;
+	/*background-color:#FFF7D7;*/
 	font-weight:bold;
 	font-size:1.1em;
 	}
