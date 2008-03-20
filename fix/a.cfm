@@ -57,6 +57,7 @@
 
 <p><input id='ac_me' type='text'> (autocomplete box)</p>
 <script type="text/javascript">
+
 function selectItem(li) {
 	if (li.extra) {
 		alert("That's '" + li.extra[0] + "' you picked.")
@@ -65,9 +66,12 @@ function selectItem(li) {
 function formatItem(row) {
 	return row[0] + "<br><i>" + row[1] + "</i>";
 }
+
+	jQuery( function($) {
 $(document).ready(function() {
 	$("#ac_me").autocomplete("b.cfm", { minChars:1, matchSubset:1, matchContains:1, cacheLength:10, onItemSelect:selectItem, formatItem:formatItem, selectOnly:1 });
 
+});
 });
 </script>
 <!---
