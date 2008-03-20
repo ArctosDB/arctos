@@ -7,11 +7,10 @@
 
 	
 
+
 <script language='javascript'>
-var mySuggestObject= new Suggest();
-var searchString = "";
-</script>
-<script language='javascript'>
+	var mySuggestObject= new Suggest();
+	var searchString = "";
 function onInit()
 {
 onSuggestFieldFocus(mySuggestObject);
