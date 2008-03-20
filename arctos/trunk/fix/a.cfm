@@ -54,7 +54,7 @@ function getData(qry) {
 function getDataResult(result){
 	//alert('hi');
 
-	var value = Array();			
+	var KEY = Array();			
 	for (i=0; i < result.length; i++) {
 		key[i] = result[i].ATTRIBUTE_VALUE;
 	}
