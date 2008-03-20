@@ -6,6 +6,7 @@
 	</cfquery>
 	<form name="ins" method="post" action="geol_hierarchy.cfm">
 	<input type="hidden" name="action" value="saveEdit">
+	<input type="hidden" name="geology_attribute_hierarchy_id" value="#geology_attribute_hierarchy_id#">
 	<label for="newTerm">Attribute ("formation")</label>
 	<input type="text" name="attribute" value="#c.attribute#">
 	<label for="newTerm">Value ("Prince Creek")</label>
@@ -144,6 +145,8 @@ Create Hierarchies:
 		attribute_value='#attribute_value#',
 		usable_value_fg=#usable_value_fg#,
 		description='#description#'
+		where
+		geology_attribute_hierarchy_id=#geology_attribute_hierarchy_id#
 	</cfquery>
 	<cflocation url="geol_hierarchy.cfm" addtoken="false">
 	</cfoutput>
