@@ -154,8 +154,15 @@
 				<br>Relationships:
 				<ul>
 					<cfloop query="relations">
+						<cfloop list="#relString#" index="record">
+							----#record#----
+							<br>
+							<cfloop list="#record#" index="element">
+								-----#element#----<br>
+							</cfloop>
+						</cfloop>
 						<li>
-							#relString#:
+							:
 						</li>
 					</cfloop>
 				</ul>
