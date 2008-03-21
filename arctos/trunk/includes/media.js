@@ -33,6 +33,8 @@ function pickedRelationship (id){
 		getAgent(idInputName,dispInputName,'newMedia','');		
 	} else if (relatedTable=='locality'){
 		LocalityPick(idInputName,dispInputName,'newMedia'); 
+	} else if (relatedTable=='collecting_event'){
+		findCollEvent(idInputName,'newMedia',dispInputName,-1,); 
 	} else {
 		alert('Something is broken. I have no idea what to do with a relationship to ' + relatedTable);
 	}
