@@ -8,64 +8,45 @@
 <cfinclude template="/includes/_header.cfm">
 
 <style type="text/css">
-.ac_input {
-	width: 200px;
-}
-.ac_results {
-	padding: 0px;
-	border: 1px solid WindowFrame;
-	background-color: Window;
-	overflow: hidden;
-}
-
-.ac_results ul {
-	width: 100%;
-	list-style-position: outside;
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-
-.ac_results iframe {
-	display:none;/*sorry for IE5*/
-	display/**/:block;/*sorry for IE5*/
-	position:absolute;
-	top:0;
-	left:0;
-	z-index:-1;
-	filter:mask();
-	width:3000px;
-	height:3000px;
-}
-
-.ac_results li {
-	margin: 0px;
-	padding: 2px 5px;
-	cursor: pointer;
-	display: block;
-	width: 100%;
-	font: menu;
-	font-size: 12px;
-	overflow: hidden;
-}
-.ac_loading {
-	background : url('/images/indicator.gif') right center no-repeat;
-}
-.ac_over {
-	background-color: Highlight;
-	color: HighlightText;
-}
-
+	
+	.ac_results {
+		border: 1px solid gray;
+		background-color: white;
+		padding: 0;
+		margin: 0;
+		list-style: none;
+		position: absolute;
+		z-index: 10000;
+		display: none;
+	}
+	
+	.ac_results li {
+		padding: 2px 5px;
+		white-space: nowrap;
+		color: #101010;
+		text-align: left;
+	}
+	
+	.ac_over {
+		cursor: pointer;
+		background-color: #F0F0B8;
+	}
+	
+	.ac_match {
+		text-decoration: underline;
+		color: black;
+	}
+	
 	
 </style>
 
 
 
-<input id='ac_me' type='text'>
+<input size="30" style="position: absolute" id="suggest" />
 <script type="text/javascript">
 jQuery( function($) {
-		jQuery("#ac_me").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", { minChars:3, matchSubset:1, matchContains:1, cacheLength:10, onItemSelect:selectItem, formatItem:formatItem, selectOnly:1 });
-	//jQuery("#suggest").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{ minChars:4, onSelect: function() {alert("You selected: " + this.value)}});
+	//	jQuery("#ac_me").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", { minChars:3, matchSubset:1, matchContains:1, cacheLength:10, onItemSelect:selectItem, formatItem:formatItem, selectOnly:1 });
+	jQuery("#suggest").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{ minChars:4, onSelect: function() {alert("You selected: " + this.value)}});
 });
 </script>
 <!---
