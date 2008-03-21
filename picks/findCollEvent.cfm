@@ -66,7 +66,6 @@
 </td>
 			<td rowspan="3">
 			<form name="coll#i#" method="post" action="">
-				<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 				<input type="hidden" name="formName" value="#formName#">
 				<input type="hidden" name="collIdFld" value="#collIdFld#">
 				<input type="hidden" name="dispField" value="#dispField#">
