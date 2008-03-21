@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/includes/functionLib.cfm">
+<cfset title="Manage Media">
 <script type='text/javascript' src='/includes/media.js'></script>
 <cfquery name="ctmedia_relationship" datasource="#application.web_user#">
 	select media_relationship from ctmedia_relationship order by media_relationship
@@ -194,6 +195,8 @@
 					related_agent_id
 				<cfelseif #thisTableName# is "locality">
 					related_locality_id
+				<cfelseif #thisTableName# is "collecting_event">
+					related_collecting_event_id
 				<cfelse>
 					Table name not found or handled. Aborting..............
 				</cfif>
