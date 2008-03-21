@@ -116,6 +116,8 @@
 
 				if (q.length >= options.minchars) {
 					
+					// put the spinny thing in
+					$input.addClass(options.loadingClass);
 					cached = checkCache(q);
 					
 					if (cached) {
