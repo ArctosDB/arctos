@@ -300,6 +300,8 @@
 			options.delimiter = options.delimiter || '\n';
 			options.onSelect = options.onSelect || false;
 			options.maxCacheSize = options.maxCacheSize || 65536;
+			
+			options.typeField = options.typeField;
 		
 			this.each(function() {
 				new $.suggest(this, options);
