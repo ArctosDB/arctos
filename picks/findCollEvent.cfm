@@ -3,7 +3,7 @@
 <cfoutput>
 <cfset showLocality=1>
 <cfset showEvent=1>
-<form name="findCollEvent" method="post" action="pickCollEvent.cfm">
+<form name="findCollEvent" method="post">
 	<input type="hidden" name="action" value="findem">
 	<input type="hidden" name="dispField" value="#dispField#">
 	<input type="hidden" name="formName" value="#formName#">
