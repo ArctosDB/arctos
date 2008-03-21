@@ -52,12 +52,23 @@
 </cfoutput>
 
 <input size="30" id="suggest" />
+<hr>
+<select name="geology_attribute2" id="geology_attribute2" class="reqdClr">
+				<option value=""></option>
+				<cfloop query="ctgeology_attribute">
+					<option value="#geology_attribute#">#geology_attribute#</option>
+				</cfloop>
+			</select>
+</cfoutput>
+
+<input size="30" id="suggest2" />
 <script type="text/javascript">
 
 jQuery( function($) {
 	//  onSelect: function() {alert("You selected: " + this.value)}
 	//	jQuery("#ac_me").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", { minChars:3, matchSubset:1, matchContains:1, cacheLength:10, onItemSelect:selectItem, formatItem:formatItem, selectOnly:1 });
-	jQuery("#suggest").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"geology_attribute"});
+		jQuery("#suggest").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"geology_attribute"});
+	jQuery("#suggest2").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"geology_attribute2"});
 });
 </script>
 <!---
