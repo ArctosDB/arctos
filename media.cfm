@@ -64,7 +64,7 @@
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "search">
 <cfoutput>
-<cfset sel="select media.media_id "> 
+<cfset sel="select media.media_id,media.media_uri,media.mime_type "> 
 <cfset frm="from media,
 			media_relations,
 			media_labels ">
