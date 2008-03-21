@@ -16,8 +16,9 @@
 </cfquery>
 <cfoutput>
 	<ul>
-		<li>media_relationship</li>
+		
 	<cfloop query="relns">
+		<li>#media_relationship#</li>
 		<cfset table_name = listlast(media_relationship," ")>
 		<cfif #media_relationship# is "locality">
 			<cfquery name="d" datasource="#application.web_user#">
