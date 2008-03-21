@@ -42,13 +42,14 @@
 <cfquery name="ctgeology_attribute" datasource="#Application.web_user#">
         select geology_attribute from ctgeology_attribute order by geology_attribute
      </cfquery>
+	<cfoutput>
 <select name="geology_attribute" id="geology_attribute" class="reqdClr">
 				<option value=""></option>
 				<cfloop query="ctgeology_attribute">
 					<option value="#geology_attribute#">#geology_attribute#</option>
 				</cfloop>
 			</select>
-
+</cfoutput>
 
 <input size="30" id="suggest" />
 <script type="text/javascript">
