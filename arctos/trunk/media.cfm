@@ -7,6 +7,10 @@
 <cfquery name="ctmedia_label" datasource="#application.web_user#">
 	select media_label from ctmedia_label order by media_label
 </cfquery>
+<cfquery name="ctmedia_label" datasource="#application.web_user#">
+	select mime_type from ctmime_type order by mime_type
+</cfquery>
+
 <cfif #action# is "nothing">
 	<cfoutput>
 	Search for Media OR <a href="media.cfm?action=newMedia">Create media</a>
@@ -16,6 +20,13 @@
 			<input type="text" id="number_of_labels" name="number_of_labels" value="1">
 			<label for="media_uri">Media URI</label>
 			<input type="text" name="media_uri" id="media_uri" size="90">
+			<label for="mime_type">MIME Type</label>
+			<select name="mime_type" id="mime_type">
+				<option value=""></option>
+					<cfloop query="ctmime_type">
+						<option value="#mime_type#">#mime_type#</option>
+					</cfloop>
+			</select>
 			<label for="relationships">Media Relationships</label>
 			<div id="relationships" style="border:1px dashed red;">
 				<select name="relationship__1" id="relationship__1" size="1">
@@ -62,6 +73,9 @@
 <cfset srch=" ">		
 <cfif isdefined("media_uri") and len(#media_uri#) gt 0>
 	<cfset srch="#srch# AND upper(media_uri) like '%#ucase(media_uri)#%'">
+</cfif>
+<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
+	<cfset srch="#srch# AND mime_type = '#mime_type#'">
 </cfif>
 <cfloop from="1" to="#number_of_relations#" index="n">
 	<cfset thisRelationship = #evaluate("relationship__" & n)#>

@@ -89,7 +89,7 @@
 <cfquery name="ctGeorefMethod" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select georefMethod from ctgeorefmethod order by georefMethod
 </cfquery>
-<cfquery name="ctgeology_attribute" datasource="#Application.web_user#">
+<cfquery name="ctgeology_attribute" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select geology_attribute from ctgeology_attribute order by geology_attribute
 </cfquery>
 <table  cellpadding="0" cellspacign="0"><tr><td>
