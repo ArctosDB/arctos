@@ -55,7 +55,7 @@
 
 
 
-<p><input id='suggest' type='text'> (autocomplete box)</p>
+<p><input id='suggest' class="ac_me" type='text'> (autocomplete box)</p>
 <script type="text/javascript">
 jQuery( function($) {
 	jQuery("#suggest").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{onSelect: function() {alert("You selected: " + this.value)}});
