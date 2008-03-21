@@ -5,5 +5,6 @@
 		WHERE upper(attribute_value) LIKE '#ucase(q)#%'
 		group by attribute_value
 		</cfquery>
-	<cfoutput query="ins">#attribute_value#</cfoutput>
+	<cfoutput query="ins">#attribute_value#
+	</cfoutput>
 </cfif>
