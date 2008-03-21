@@ -123,9 +123,9 @@
 						displayItems(cached['items']);
 						
 					} else {
-					
-						$.get(options.source, {q: q}, function(txt) {
-
+						var newSource=options.source + '&type=bob';
+						//$.get(options.source, {q: q}, function(txt) {
+						$.get(newSource, {q: q}, function(txt) {
 							$results.hide();
 							
 							var items = parseTxt(txt, q);
