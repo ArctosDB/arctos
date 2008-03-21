@@ -152,10 +152,17 @@
 			</cfquery>
 			<cfif relations.recordcount gt 0>
 				<br>Relationships:
+				<cf_mediaRelationList media_id=#media_id#>
+				<!----
 				<ul>
 					<cfloop query="relations">
 						<cfloop list="#relString#" index="record" delimiters="#chr(10)#">
-							----record: #record#----
+						----record: 43|shows agent|11247077|Dusty L. McDonald----
+-----element: 43----
+						
+							<li>
+								Relationship: #listgetat(record,2)#
+							</li>
 							<br>
 							<cfloop list="#record#" index="element" delimiters="|">
 								-----element: #element#----<br>
@@ -166,6 +173,7 @@
 						</li>
 					</cfloop>
 				</ul>
+				---->
 			</cfif>
 		</td>
 	</tr>
