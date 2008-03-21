@@ -49,7 +49,7 @@
 					<option value="#geology_attribute#">#geology_attribute#</option>
 				</cfloop>
 			</select>
-</cfoutput>
+
 
 <input size="30" id="suggest" />
 <hr>
