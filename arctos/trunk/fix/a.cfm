@@ -40,9 +40,9 @@
 	
 </style>
 
-<input size="30" style="position: absolute" id="thingy" />
+<input size="30" id="thingy" />
 
-<input size="30" style="position: absolute" id="suggest" />
+<input size="30" id="suggest" />
 <script type="text/javascript">
 
 jQuery( function($) {
