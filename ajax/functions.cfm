@@ -1,26 +1,5 @@
 <!--- hint="type=keyvalue, jsreturn=array , listdelimiter=| , delimiter='='" --->
 <cfinclude template="/ajax/core/cfajax.cfm">
-<cffunction name="suggestGeologyAttribute" returntype="query">
-	<cfargument name="searchString" type="string" required="yes">
-		<cfquery name="ins" datasource="#Application.web_user#">
-			SELECT geology_attribute
-		FROM ctgeology_attribute
-		WHERE upper(geology_attribute) LIKE '#ucase(searchString)#%'
-		</cfquery>
-	<cfreturn ins>
-
-</cffunction>
-<cffunction name="suggestGeologyAttVal" returntype="String">
-	<cfargument name="q" type="string" required="yes">
-		<cfquery name="ins" datasource="#Application.web_user#">
-			SELECT attribute_value
-		FROM geology_attribute_hierarchy
-		WHERE upper(attribute_value) LIKE '#ucase(q)#%'
-		group by attribute_value
-		</cfquery>
-	<cfoutput query="ins">#attribute_value#</cfoutput>
-
-</cffunction>
 <cffunction name="getSessionTimeout" returntype="string">
 	<cfif isdefined("client.username") and len(#client.username#) gt 0>
 		<cfif isdefined("cookie.ArctosSession")>
