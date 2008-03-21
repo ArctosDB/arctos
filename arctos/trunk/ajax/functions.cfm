@@ -18,7 +18,7 @@
 		WHERE upper(attribute_value) LIKE '#ucase(q)#%'
 		group by attribute_value
 		</cfquery>
-	<cfreturn valuelist(ins.attribute_value)>
+	<cfoutput query="ins">#attribute_value#</cfoutput>
 
 </cffunction>
 <cffunction name="getSessionTimeout" returntype="string">
