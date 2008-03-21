@@ -20,6 +20,7 @@
 	<cfloop query="relns">
 		<li>#media_relationship#</li>
 		<cfset table_name = listlast(media_relationship," ")>
+		table_name: #table_name#
 		<cfif #media_relationship# is "locality">
 			<cfquery name="d" datasource="#application.web_user#">
 				select spec_locality data from locality where locality_id=#related_primary_key#
