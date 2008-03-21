@@ -1,10 +1,10 @@
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>	
-
-<!---	
 <script type='text/javascript' src='/includes/jquery/jquery.dimensions.js'></script>
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
---->
+<!---	
 <script type='text/javascript' src='/includes/jquery/autocomplete.js'></script>	
+--->
+
 <cfinclude template="/includes/_header.cfm">
 
 <style type="text/css">
