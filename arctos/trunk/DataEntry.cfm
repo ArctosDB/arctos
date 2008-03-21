@@ -1361,7 +1361,7 @@ Some Totally Random String Data .....
 									name="geo_att_determiner_#i#"
 									id="geo_att_determiner_#i#"
 									value="#thisDeterminer#" 
-									class="reqdClr d11a" 
+									class="d11a" 
 									onchange="getAgent('nothing','geo_att_determiner_#i#','dataEntry',this.value); return false;"/>
 							</td>
 							<td>
