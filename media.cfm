@@ -117,7 +117,7 @@
 </cfquery>
 <cfloop query="findIDs">
 	URI: #media_uri# <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">edit</a>
-	<br>MIME Type: #mime_type#
+	<br style="padding-left:50px;">MIME Type: #mime_type#
 </cfloop>
 
 </cfoutput>
