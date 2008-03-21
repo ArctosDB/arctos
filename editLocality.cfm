@@ -1,4 +1,6 @@
 <cfinclude template="includes/_header.cfm">
+<script type='text/javascript' src='/includes/jquery/jquery.js'></script>	
+<script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
 <cfinclude template="/includes/functionLib.cfm">
 <cfif #action# is "nothing">
 <cfset title="Edit Locality">
@@ -1013,6 +1015,9 @@
 							size="60" value="#geo_att_remark#">
 					</td>
 				</tr>
+				<script>
+					jQuery("##geo_att_value").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"geology_attribute_#i#"});
+				</script>
 				<cfset i=i+1>
 			</cfloop>
 			<tr>
