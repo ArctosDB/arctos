@@ -1069,6 +1069,9 @@
 					onmouseover="this.className='insBtn btnhov'"
 					onmouseout="this.className='insBtn'">
 			</td></tr>
+			<script>
+				jQuery("##geo_att_value").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"geology_attribute"});
+			</script>
 	</table>
 </cfoutput> 
 <cfinclude template="/includes/_footer.cfm">
