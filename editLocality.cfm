@@ -1018,7 +1018,7 @@
 					</td>
 				</tr>
 				<script>
-					jQuery("##geo_att_value").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"geology_attribute_#i#"});
+					jQuery("##geo_att_value_#i#").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"geology_attribute_#i#"});
 				</script>
 				<cfset i=i+1>
 			</cfloop>
