@@ -60,7 +60,7 @@
 <input size="30" style="position: absolute" id="suggest" />
 <script type="text/javascript">
 jQuery( function($) {
-	jQuery("#suggest").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{onSelect: function() {alert("You selected: " + this.value)}});
+	jQuery("#suggest").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{ minChars:3, onSelect: function() {alert("You selected: " + this.value)}});
 });
 </script>
 <!---
