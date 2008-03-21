@@ -7,7 +7,7 @@
 <cfquery name="ctmedia_label" datasource="#application.web_user#">
 	select media_label from ctmedia_label order by media_label
 </cfquery>
-<cfquery name="ctmedia_label" datasource="#application.web_user#">
+<cfquery name="ctmime_type" datasource="#application.web_user#">
 	select mime_type from ctmime_type order by mime_type
 </cfquery>
 
@@ -16,8 +16,8 @@
 	Search for Media OR <a href="media.cfm?action=newMedia">Create media</a>
 		<form name="newMedia" method="post" action="media.cfm">
 			<input type="hidden" name="action" value="search">
-			<input type="text" id="number_of_relations" name="number_of_relations" value="1">
-			<input type="text" id="number_of_labels" name="number_of_labels" value="1">
+			<input type="hidden" id="number_of_relations" name="number_of_relations" value="1">
+			<input type="hidden" id="number_of_labels" name="number_of_labels" value="1">
 			<label for="media_uri">Media URI</label>
 			<input type="text" name="media_uri" id="media_uri" size="90">
 			<label for="mime_type">MIME Type</label>
