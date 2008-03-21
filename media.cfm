@@ -124,10 +124,16 @@
 	<cfoutput>
 		<form name="newMedia" method="post" action="media.cfm">
 			<input type="hidden" name="action" value="saveNew">
-			<input type="text" id="number_of_relations" name="number_of_relations" value="1">
-			<input type="text" id="number_of_labels" name="number_of_labels" value="1">
+			<input type="hidden" id="number_of_relations" name="number_of_relations" value="1">
+			<input type="hidden" id="number_of_labels" name="number_of_labels" value="1">
 			<label for="media_uri">Media URI</label>
-			<input type="text" name="media_uri" id="media_uri" size="90"><span class="infoLink" id="uploadMedia">Upload</span>
+			<input type="text" name="media_uri" id="media_uri" size="90" class="reqdClr"><span class="infoLink" id="uploadMedia">Upload</span>
+			<label for="mime_type">MIME Type</label>
+			<select name="mime_type" id="mime_type" class="reqdClr">
+					<cfloop query="ctmime_type">
+						<option value="#mime_type#">#mime_type#</option>
+					</cfloop>
+			</select>
 			<label for="relationships">Media Relationships</label>
 			<div id="relationships" style="border:1px dashed red;">
 				<select name="relationship__1" id="relationship__1" size="1" onchange="pickedRelationship(this.id)">
@@ -174,7 +180,7 @@
 		</cfquery>
 		<cfset media_id=mid.nv>
 		<cfquery name="makeMedia" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-			insert into media (media_id,media_uri) values (#media_id#,'#escapeQuotes(media_uri)#')
+			insert into media (media_id,media_uri,mime_type) values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#')
 		</cfquery>
 	<br>
 	<cfloop from="1" to="#number_of_relations#" index="n">
