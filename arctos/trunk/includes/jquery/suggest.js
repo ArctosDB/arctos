@@ -299,7 +299,7 @@
 			options.delimiter = options.delimiter || '\n';
 			options.onSelect = options.onSelect || false;
 			options.maxCacheSize = options.maxCacheSize || 65536;
-			options.loadingClass: "ac_loading",
+			options.loadingClass = options.loadingClass || 'ac_loading';
 		
 			this.each(function() {
 				new $.suggest(this, options);
