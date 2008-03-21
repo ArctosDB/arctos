@@ -997,7 +997,9 @@
 						</select>
 						<span class="infoLink" onclick="document.getElementById('geology_attribute_#i#').value='delete'">Delete This</span>	
 						<label for="geo_att_value">Value</label>
-						<input type="text" name="geo_att_value_#i#" size="60" class="reqdClr" value="#geo_att_value#">
+						<input type="text" 
+							name="geo_att_value_#i#" id="geo_att_value_#i#"
+							 size="60" class="reqdClr" value="#geo_att_value#">
 						<label for="geo_att_determiner_#i#">Determiner</label>
 						<input type="text" name="geo_att_determiner_#i#"  size="40"
 							onchange="getAgent('geo_att_determiner_id','geo_att_determiner','newGeolDet',this.value); return false;"
