@@ -115,11 +115,84 @@
 <cfquery name="findIDs" datasource="#application.web_user#">
 	#preservesinglequotes(ssql)#
 </cfquery>
+<table>
+<cfset i=1>
 <cfloop query="findIDs">
-	URI: #media_uri# <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">edit</a>
-	<br style="padding-left:50px;">MIME Type: #mime_type#
-</cfloop>
+	<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+		<td>
+			URI: #media_uri# 
+			<br>MIME Type: #mime_type# <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">edit</a>
+			<cfquery name="labels"  datasource="#application.web_user#">
+				select
+					media_label,
+					label_value,
+					agent_name
+				from
+					media_labels,
+					preferred_agent_name
+				where
+					media_labels.assigned_by_agent_id=preferred_agent_name.agent_id (+) and
+					media_id=#media_id#
+			</cfquery>
+			<cfif labels.recordcount gt 0>
+				<br>Labels:
+				<ul>
+					<cfloop query="labels">
+						<li>
+							#media_label#: #label_value#
+							<cfif len(#agent_name#) gt 0>
+								(Assigned by #agent_name#)
+							</cfif>
+						</li>
+					</cfloop>
+				</ul>
+			</cfif>
+			<cfquery name="labels"  datasource="#application.web_user#">
+				select
+					media_relationship,
+					agent_name
+					case when related_agent_id is not null then
+						
+					
+				from
+					media_relations,
+					preferred_agent_name
+				where
+					media_relations.created_by_agent_id=preferred_agent_name.agent_id and
+					media_id=#media_id#
+					
+					 CREATE TABLE  (
+     media_relations_id NUMBER NOT NULL,
+     media_id NUMBER NOT NULL,
+      VARCHAR2(40) NOT NULL,
+      NUMBER NOT NULL,
+     related_agent_id NUMBER,
+     related_locality_id NUMBER,
+     related_collecting_event_id NUMBER,
+     related_media_id NUMBER,
+     related_cataloged_item_id NUMBER
+);
 
+
+			</cfquery>
+			<cfif labels.recordcount gt 0>
+				<br>Labels:
+				<ul>
+					<cfloop query="labels">
+						<li>
+							#media_label#: #label_value#
+							<cfif len(#agent_name#) gt 0>
+								(Assigned by #agent_name#)
+							</cfif>
+						</li>
+					</cfloop>
+				</ul>
+			</cfif>
+		</td>
+	</tr>
+	<cfset i=i+1>
+</cfloop>
+</table>
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------------->
