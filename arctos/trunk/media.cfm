@@ -154,10 +154,10 @@
 				<br>Relationships:
 				<ul>
 					<cfloop query="relations">
-						<cfloop list="#relString#" index="record">
+						<cfloop list="#relString#" index="record" delimiters="chr(10)">
 							----#record#----
 							<br>
-							<cfloop list="#record#" index="element">
+							<cfloop list="#record#" index="element" delimiters="|">
 								-----#element#----<br>
 							</cfloop>
 						</cfloop>
