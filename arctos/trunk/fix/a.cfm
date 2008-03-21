@@ -45,17 +45,19 @@
 	overflow: hidden;
 }
 .ac_loading {
-	background : url('/jquery/img/indicator.gif') right center no-repeat;
+	background : url('/images/indicator.gif') right center no-repeat;
 }
 .ac_over {
 	background-color: Highlight;
 	color: HighlightText;
 }
+
+	
 </style>
 
 
 
-<p><input id='suggest' class="ac_me" type='text'> (autocomplete box)</p>
+<input size="30" style="position: absolute" id="suggest" />
 <script type="text/javascript">
 jQuery( function($) {
 	jQuery("#suggest").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{onSelect: function() {alert("You selected: " + this.value)}});
