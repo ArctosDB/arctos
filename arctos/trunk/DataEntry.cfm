@@ -1,4 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
+<script type='text/javascript' src='/includes/jquery/jquery.js'></script>	
+<script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
 <cf_showMenuOnly>
 <cfinclude template="/includes/functionLib.cfm">
 <!--- 
@@ -1399,6 +1401,9 @@ Some Totally Random String Data .....
 							</td>
 						</tr>
 						</div>
+						<script>
+							jQuery("##geo_att_value_#i#").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"geology_attribute_#i#"});
+						</script>
 					</cfloop>
 				</table>
 			</td>
