@@ -123,7 +123,8 @@
 						displayItems(cached['items']);
 						
 					} else {
-						var newSource=options.source + '&type=bob';
+						vat typeValue=document.getElementById('thingy').value;
+						var newSource=options.source + '&type=' + typeValue;
 						//$.get(options.source, {q: q}, function(txt) {
 						$.get(newSource, {q: q}, function(txt) {
 							$results.hide();
