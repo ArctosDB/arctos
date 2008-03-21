@@ -11,7 +11,7 @@
 	<input type="text" name="attribute" value="#c.attribute#">
 	<label for="newTerm">Value ("Prince Creek")</label>
 	<input type="text" name="attribute_value" value="#c.attribute_value#">
-	<label for="newTerm">Attribute valid for Data Entry></label>
+	<label for="newTerm">Attribute valid for Data Entry?</label>
 	<cfset uvf=c.usable_value_fg>
 	<select name="usable_value_fg" id="usable_value_fg">
 		<option <cfif #uvf# is 0>selected="selected" </cfif>value="0">no</option>
@@ -91,7 +91,7 @@ New Term:
 	<input type="text" name="attribute">
 	<label for="newTerm">Value ("Prince Creek")</label>
 	<input type="text" name="attribute_value">
-	<label for="newTerm">Attribute valid for Data Entry></label>
+	<label for="newTerm">Attribute valid for Data Entry?</label>
 	<select name="usable_value_fg" id="usable_value_fg">
 		<option value="0">no</option>
 		<option value="1">yes</option>
