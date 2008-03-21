@@ -63,7 +63,7 @@
 <input id='ac_me' type='text'>
 <script type="text/javascript">
 jQuery( function($) {
-		$("#ac_me").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", { minChars:3, matchSubset:1, matchContains:1, cacheLength:10, onItemSelect:selectItem, formatItem:formatItem, selectOnly:1 });
+		jQuery("#ac_me").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", { minChars:3, matchSubset:1, matchContains:1, cacheLength:10, onItemSelect:selectItem, formatItem:formatItem, selectOnly:1 });
 	//jQuery("#suggest").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{ minChars:4, onSelect: function() {alert("You selected: " + this.value)}});
 });
 </script>
