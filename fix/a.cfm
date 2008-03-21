@@ -1,6 +1,9 @@
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>	
-<script type='text/javascript' src='/includes/jquery/jquery.dimensions.js'></script>	
+<script type='text/javascript' src='/includes/jquery/jquery.dimensions.js'></script>
+<!---	
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
+--->
+<script type='text/javascript' src='/includes/jquery/autocomplete.js'></script>	
 <cfinclude template="/includes/_header.cfm">
 
 <style type="text/css">
@@ -57,10 +60,11 @@
 
 
 
-<input size="30" style="position: absolute" id="suggest" />
+<input id='ac_me' type='text'>
 <script type="text/javascript">
 jQuery( function($) {
-	jQuery("#suggest").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{ minChars:3, onSelect: function() {alert("You selected: " + this.value)}});
+		$("#ac_me").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", { minChars:3, matchSubset:1, matchContains:1, cacheLength:10, onItemSelect:selectItem, formatItem:formatItem, selectOnly:1 });
+	//jQuery("#suggest").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{ minChars:4, onSelect: function() {alert("You selected: " + this.value)}});
 });
 </script>
 <!---
