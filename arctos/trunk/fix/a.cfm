@@ -1,6 +1,7 @@
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>	
-<script type='text/javascript' src='/includes/jquery/jquery.dimensions.js'></script>
+
 <!---	
+<script type='text/javascript' src='/includes/jquery/jquery.dimensions.js'></script>
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
 --->
 <script type='text/javascript' src='/includes/jquery/autocomplete.js'></script>	
