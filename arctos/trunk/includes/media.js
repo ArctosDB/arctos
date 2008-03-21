@@ -34,7 +34,7 @@ function pickedRelationship (id){
 	} else if (relatedTable=='locality'){
 		LocalityPick(idInputName,dispInputName,'newMedia'); 
 	} else if (relatedTable=='collecting_event'){
-		findCollEvent(idInputName,'newMedia',dispInputName,-1,); 
+		findCollEvent(idInputName,'newMedia',dispInputName); 
 	} else {
 		alert('Something is broken. I have no idea what to do with a relationship to ' + relatedTable);
 	}
