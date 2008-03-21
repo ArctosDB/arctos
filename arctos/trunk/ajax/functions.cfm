@@ -10,15 +10,15 @@
 	<cfreturn ins>
 
 </cffunction>
-<cffunction name="suggestGeologyAttVal" returntype="query">
-	<cfargument name="searchString" type="string" required="yes">
+<cffunction name="suggestGeologyAttVal" returntype="String">
+	<cfargument name="q" type="string" required="yes">
 		<cfquery name="ins" datasource="#Application.web_user#">
-			SELECT '' key, attribute_value
+			SELECT attribute_value
 		FROM geology_attribute_hierarchy
-		WHERE upper(attribute_value) LIKE '#ucase(searchString)#%'
+		WHERE upper(attribute_value) LIKE '#ucase(q)#%'
 		group by attribute_value
 		</cfquery>
-	<cfreturn ins>
+	<cfreturn valuelist(ins.attribute_value)>
 
 </cffunction>
 <cffunction name="getSessionTimeout" returntype="string">
