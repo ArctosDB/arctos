@@ -147,43 +147,15 @@
 					</cfloop>
 				</ul>
 			</cfif>
-			<cfquery name="labels"  datasource="#application.web_user#">
-				select
-					media_relationship,
-					agent_name
-					case when related_agent_id is not null then
-						
-					
-				from
-					media_relations,
-					preferred_agent_name
-				where
-					media_relations.created_by_agent_id=preferred_agent_name.agent_id and
-					media_id=#media_id#
-					
-					 CREATE TABLE  (
-     media_relations_id NUMBER NOT NULL,
-     media_id NUMBER NOT NULL,
-      VARCHAR2(40) NOT NULL,
-      NUMBER NOT NULL,
-     related_agent_id NUMBER,
-     related_locality_id NUMBER,
-     related_collecting_event_id NUMBER,
-     related_media_id NUMBER,
-     related_cataloged_item_id NUMBER
-);
-
-
+			<cfquery name="relations"  datasource="#application.web_user#">
+				select  q_media_relations(#media_id#) relString from dual
 			</cfquery>
-			<cfif labels.recordcount gt 0>
-				<br>Labels:
+			<cfif relations.recordcount gt 0>
+				<br>Relationships:
 				<ul>
-					<cfloop query="labels">
+					<cfloop query="relations">
 						<li>
-							#media_label#: #label_value#
-							<cfif len(#agent_name#) gt 0>
-								(Assigned by #agent_name#)
-							</cfif>
+							#relString#:
 						</li>
 					</cfloop>
 				</ul>
