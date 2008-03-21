@@ -123,8 +123,12 @@
 						displayItems(cached['items']);
 						
 					} else {
-						var typeValue=document.getElementById(options.typeField).value;
-						var newSource=options.source + '&type=' + typeValue;
+						if (options.typeField) {
+							var typeValue=document.getElementById(options.typeField).value;
+							var newSource=options.source + '&type=' + typeValue;
+						} else {
+							var newSource=options.source;
+						}
 						//$.get(options.source, {q: q}, function(txt) {
 						$.get(newSource, {q: q}, function(txt) {
 							$results.hide();

@@ -46,7 +46,7 @@
 <script type="text/javascript">
 
 jQuery( function($) {
-	
+	//typeField:"thingy",
 	//	jQuery("#ac_me").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", { minChars:3, matchSubset:1, matchContains:1, cacheLength:10, onItemSelect:selectItem, formatItem:formatItem, selectOnly:1 });
 	jQuery("#suggest").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,  onSelect: function() {alert("You selected: " + this.value)}});
 });
