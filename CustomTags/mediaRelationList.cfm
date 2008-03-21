@@ -5,7 +5,7 @@
 	
 --->
 <cfset supportedFormats="list">
-<cfif not isdefined(attribues.format) or not listfind(supportedFormats,attribues.format)>
+<cfif not isdefined("attribues.format") or not listfind(supportedFormats,attribues.format)>
 	<cfset format="list">
 <cfelse>
 	<cfset format=attributes.format>
