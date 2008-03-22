@@ -54,6 +54,8 @@ getMediaRelations
 	<cfquery name="media" datasource="#application.web_user#">
 		select * from media where media_id=#media_id#
 	</cfquery>
+	<cfset relns=getMediaRelations(#media_id#)>
+	<cfdump var=#relns#>
 	<cfoutput>
 		Edit Media
 		<form name="editMedia" method="post">
