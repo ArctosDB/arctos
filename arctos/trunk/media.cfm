@@ -134,8 +134,8 @@
 					media_labels.assigned_by_agent_id=preferred_agent_name.agent_id (+) and
 					media_id=#media_id#
 			</cfquery>
+			<br>Labels:	
 			<cfif labels.recordcount gt 0>
-				<br>Labels:
 				<ul>
 					<cfloop query="labels">
 						<li>
@@ -147,34 +147,8 @@
 					</cfloop>
 				</ul>
 			</cfif>
-			<cfquery name="relations"  datasource="#application.web_user#">
-				select  q_media_relations(#media_id#) relString from dual
-			</cfquery>
-			<cfif relations.recordcount gt 0>
-				<br>Relationships:
-				<cf_mediaRelationList media_id=#media_id#>
-				<!----
-				<ul>
-					<cfloop query="relations">
-						<cfloop list="#relString#" index="record" delimiters="#chr(10)#">
-						----record: 43|shows agent|11247077|Dusty L. McDonald----
------element: 43----
-						
-							<li>
-								Relationship: #listgetat(record,2)#
-							</li>
-							<br>
-							<cfloop list="#record#" index="element" delimiters="|">
-								-----element: #element#----<br>
-							</cfloop>
-						</cfloop>
-						<li>
-							:
-						</li>
-					</cfloop>
-				</ul>
-				---->
-			</cfif>
+			<br>Relationships:
+			<cf_mediaRelationList media_id=#media_id#>
 		</td>
 	</tr>
 	<cfset i=i+1>
