@@ -87,7 +87,7 @@ getMediaRelations
 				<cfset i=1>
 				<cfloop query="relns">
 					<cfset d=media_relationship>
-					<select name="relationship__#i#" id="relationship__#i#" size="1">
+					<select name="relationship__#i#" id="relationship__#i#" size="1"  onchange="pickedRelationship(this.id)">>
 						<option value=""></option>
 						<cfloop query="ctmedia_relationship">
 							<option <cfif #d# is #media_relationship#> selected="selected" </cfif>value="#media_relationship#">#media_relationship#</option>
