@@ -18,15 +18,24 @@
 	<ul>
 		
 	<cfloop query="relns">
-		<li>#media_relationship#</li>
 		<cfset table_name = listlast(media_relationship," ")>
-		table_name: #table_name#
-		<cfif #media_relationship# is "locality">
+		<cfif #table_name# is "locality">
 			<cfquery name="d" datasource="#application.web_user#">
-				select spec_locality data from locality where locality_id=#related_primary_key#
+				select spec_locality data from #table_name# where locality_id=#related_primary_key#
 			</cfquery>
 			<li>
 				#media_relationship#: #d.data#
+			</li>
+		<cfelseif #table_name# is "agent">
+			<cfquery name="d" datasource="#application.web_user#">
+				select agent_name data from preferred_agent_name where agent_id=#related_primary_key#
+			</cfquery>
+			<li>
+				#media_relationship#: #d.data#
+			</li>
+		<cfelse>
+			<li>
+				#media_relationship#: #table_name# is not supported.
 			</li>
 		</cfif>
 	</cfloop>
