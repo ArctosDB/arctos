@@ -5,7 +5,7 @@
 		preferred_agent_name
 		where
 		media_relations.created_by_agent_id = preferred_agent_name.agent_id and
-		media_id=#attributes.media_id#
+		media_id=#media_id#
 	</cfquery>
 	<cfset result = querynew("media_relationship,created_agent_name,related_primary_key,summary")>
 	<cfset i=1>
