@@ -73,10 +73,11 @@ getMediaRelations
 			<div id="relationships" style="border:1px dashed red;">
 				<cfset i=1>
 				<cfloop query="relns">
+					<cfset d=media_relationship>
 					<select name="relationship__#i#" id="relationship__#i#" size="1">
 						<option value=""></option>
 						<cfloop query="ctmedia_relationship">
-							<option <cfif #relns.media_relationship# is #ctmedia_relationship.media_relationship#> selected="selected" </cfif>value="#media_relationship#">#media_relationship#</option>
+							<option <cfif #d# is #media_relationship#> selected="selected" </cfif>value="#media_relationship#">#media_relationship#</option>
 						</cfloop>
 					</select>:&nbsp;<input type="text" name="related_value__#i#" id="related_value__#i#" size="80" value="#summary#">
 					<input type="hidden" name="related_id__#i#" id="related_id__#i#" value="#related_primary_key#">
