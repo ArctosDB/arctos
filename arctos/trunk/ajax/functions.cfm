@@ -252,16 +252,16 @@
 		select 
 			cataloged_item.COLLECTION_OBJECT_ID,
 			specimen_part.collection_object_id partID,
-			COLL_OBJ_DISPOSITION,
-			LOT_COUNT,
-			CONDITION,
-			PART_NAME,
-			PART_MODIFIER,
-			SAMPLED_FROM_OBJ_ID,
-			PRESERVE_METHOD,
-			IS_TISSUE,
+			coll_object.COLL_OBJ_DISPOSITION,
+			specimen_part.LOT_COUNT,
+			coll_object.CONDITION,
+			specimen_part.PART_NAME,
+			specimen_part.PART_MODIFIER,
+			specimen_part.SAMPLED_FROM_OBJ_ID,
+			specimen_part.PRESERVE_METHOD,
+			specimen_part.IS_TISSUE,
 			concatEncumbrances(cataloged_item.collection_object_id) as encumbrance_action,
-			transaction_id
+			loan_item.transaction_id
 		from
 			#userTableName#,
 			cataloged_item,
@@ -275,7 +275,7 @@
 			specimen_part.SAMPLED_FROM_OBJ_ID is null and
 			specimen_part.collection_object_id = loan_item.collection_object_id (+) 
 		order by
-			cataloged_item.collection_object_id, part_name
+			cataloged_item.collection_object_id, specimen_part.part_name
 	</cfquery>
 	<cfreturn result>
 	</cfoutput>
