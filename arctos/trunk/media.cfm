@@ -55,7 +55,6 @@ getMediaRelations
 		select * from media where media_id=#media_id#
 	</cfquery>
 	<cfset relns=getMediaRelations(#media_id#)>
-	<cfdump var=#relns#>
 	<cfoutput>
 		Edit Media
 		<form name="editMedia" method="post">
@@ -72,14 +71,19 @@ getMediaRelations
 			</select>
 			<label for="relationships">Media Relationships</label>
 			<div id="relationships" style="border:1px dashed red;">
-				<select name="relationship__1" id="relationship__1" size="1">
-					<option value=""></option>
-					<cfloop query="ctmedia_relationship">
-						<option value="#media_relationship#">#media_relationship#</option>
-					</cfloop>
-				</select>:&nbsp;<input type="text" name="related_value__1" id="related_value__1" size="80">
-				<input type="hidden" name="related_id__1" id="related_id__1">
-				<br><span class="infoLink" id="addRelationship" onclick="addRelation(2)">Add Relationship</span>
+				<cfset i=1>
+				<cfloop query="relns">
+					<select name="relationship__#i#" id="relationship__#i#" size="1">
+						<option value=""></option>
+						<cfloop query="ctmedia_relationship">
+							<option <cfif #relns.media_relationship# is #ctmedia_relationship.media_relationship#> selected="selected" </cfif>value="#media_relationship#">#media_relationship#</option>
+						</cfloop>
+					</select>:&nbsp;<input type="text" name="related_value__#i#" id="related_value__#i#" size="80" value="#summary#">
+					<input type="hidden" name="related_id__#i#" id="related_id__#i#" value="#related_primary_key#">
+					<cfset i=i+1>
+				</cfloop>
+				
+				<br><span class="infoLink" id="addRelationship" onclick="addRelation(#i#)">Add Relationship</span>
 			</div>
 			<br>
 			<label for="labels">Media Labels</label>
