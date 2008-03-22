@@ -55,12 +55,25 @@ getMediaRelations
 		select * from media where media_id=#media_id#
 	</cfquery>
 	<cfset relns=getMediaRelations(#media_id#)>
+	<cfquery name="labels"  datasource="#application.web_user#">
+		select
+			media_label,
+			label_value,
+			agent_name
+		from
+			media_labels,
+			preferred_agent_name
+		where
+			media_labels.assigned_by_agent_id=preferred_agent_name.agent_id (+) and
+			media_id=#media_id#
+	</cfquery>
 	<cfoutput>
 		Edit Media
 		<form name="editMedia" method="post">
 			<input type="hidden" name="action" value="saveEdit">
-			<input type="hidden" id="number_of_relations" name="number_of_relations" value="1">
-			<input type="hidden" id="number_of_labels" name="number_of_labels" value="1">
+			<input type="hidden" id="number_of_relations" name="number_of_relations" value="#relns.recordcount#">
+			<input type="hidden" id="number_of_labels" name="number_of_labels" value="#labels.recordcount#">
+			<input type="hidden" id="media_id" name="media_id" value="#media_id#">
 			<label for="media_uri">Media URI</label>
 			<input type="text" name="media_uri" id="media_uri" size="90" value="#media.media_uri#">
 			<label for="mime_type">MIME Type</label>
@@ -90,19 +103,26 @@ getMediaRelations
 			<br>
 			<label for="labels">Media Labels</label>
 			<div id="labels" style="border:1px dashed red;">
-				<div id="labelsDiv__1">
-				<select name="label__1" id="label__1" size="1">
+			
+			<cfset i=1>
+			<cfloop query="labels">
+				<cfset d=media_label>
+				<div id="labelsDiv__#i#">
+				<select name="label__#i#" id="label__#i#" size="1">
 					<option value=""></option>
 					<cfloop query="ctmedia_label">
-						<option value="#media_label#">#media_label#</option>
+						<option <cfif #d# is #media_label#> selected="selected" </cfif>value="#media_label#">#media_label#</option>
 					</cfloop>
-				</select>:&nbsp;<input type="text" name="label_value__1" id="label_value__1" size="80">
+				</select>:&nbsp;<input type="text" name="label_value__#i#" id="label_value__#i#" size="80" value="#label_value#">
 				</div>
-				<span class="infoLink" id="addLabel" onclick="addLabel(2)">Add Label</span>
+				<cfset i=i+1>
+			</cfloop>
+				
+				<span class="infoLink" id="addLabel" onclick="addLabel(#i#)">Add Label</span>
 			</div>
 			<br>
 			<input type="submit" 
-				value="Find Media" 
+				value="Save Edits" 
 				class="insBtn"
 				onmouseover="this.className='insBtn btnhov'" 
 				onmouseout="this.className='insBtn'">
@@ -110,8 +130,10 @@ getMediaRelations
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------------->
-
-
+<cfif #action# is "saveEdit">
+	<cfdump var="#form#">
+</cfif>
+<!----------------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
 	<cfoutput>
 	Search for Media OR <a href="media.cfm?action=newMedia">Create media</a>
