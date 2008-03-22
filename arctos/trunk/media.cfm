@@ -81,6 +81,7 @@ getMediaRelations
 					</select>:&nbsp;<input type="text" name="related_value__#i#" id="related_value__#i#" size="80" value="#summary#">
 					<input type="hidden" name="related_id__#i#" id="related_id__#i#" value="#related_primary_key#">
 					<cfset i=i+1>
+					<br>
 				</cfloop>
 				
 				<br><span class="infoLink" id="addRelationship" onclick="addRelation(#i#)">Add Relationship</span>
