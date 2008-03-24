@@ -70,7 +70,6 @@
 	<cfset thisRelationID=#evaluate("media_relations_id__" & n)#>
 	thisRelationID: #thisRelationID#
 	
-	</cfif>	
 </cfloop>
 </cfoutput>
 </cfif>
