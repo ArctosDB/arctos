@@ -3,7 +3,8 @@
  Access denied.
 </div>
 <cfsavecontent variable="errortext">
-	<cfdump var="#cgi#" label="exception">
+	HTTP_REFERER: #cgi.HTTP_REFERER#;
+	QUERY_STRING: #cgi.QUERY_STRING#;
 </cfsavecontent>
 <cfthrow 
    type = "Access_Violation"
@@ -11,4 +12,3 @@
    detail = "Someone found a locked form."
    errorCode = "99928786513 "
    extendedInfo = "#errortext#">
-
