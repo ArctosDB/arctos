@@ -2,10 +2,13 @@
 <div class="error">
  Access denied.
 </div>
+<cfsavecontent variable="errortext">
+	<cfdump var="#cgi#" label="exception">
+</cfsavecontent>
 <cfthrow 
    type = "Access_Violation"
-   message = "message"
-   detail = "forbidden.... "
+   message = "Forbidden"
+   detail = "Someone found a locked form."
    errorCode = "99928786513 "
-   extendedInfo = "additional_information">
+   extendedInfo = "#errortext#">
 
