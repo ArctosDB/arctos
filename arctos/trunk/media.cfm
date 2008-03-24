@@ -64,73 +64,73 @@
 	</cfquery>
 	<!--- relations --->
 	<cfloop from="1" to="#number_of_relations#" index="n">
-	<cfset thisRelationship = #evaluate("relationship__" & n)#>
-	<cfset thisRelatedId = #evaluate("related_id__" & n)#>
-	<cfif isdefined(evaluate("media_relations_id__" & n))>
-		<cfset thisRelationID=#evaluate("media_relations_id__" & n)#>
-	<cfelse>
-		<cfset thisRelationID=-1>
-	</cfif>
-	<cfif thisRelationID is -1>
-		<cfquery name="makeRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-			insert into 
-				media_relations (
-				media_id,media_relationship,related_primary_key
-			)values (
-				#media_id#,'#thisRelationship#',#thisRelatedId#)
-		</cfquery>
-	<cfelse>
-		<cfif #thisRelationship# is "delete">
-			<cfquery name="upRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				delete from 
-					media_relations
-				where media_relations_id=#thisRelationID#
+		<cfset thisRelationship = #evaluate("relationship__" & n)#>
+		<cfset thisRelatedId = #evaluate("related_id__" & n)#>
+		<cfif isdefined(evaluate("media_relations_id__" & n))>
+			<cfset thisRelationID=#evaluate("media_relations_id__" & n)#>
+		<cfelse>
+			<cfset thisRelationID=-1>
+		</cfif>
+		<cfif thisRelationID is -1>
+			<cfquery name="makeRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				insert into 
+					media_relations (
+					media_id,media_relationship,related_primary_key
+				)values (
+					#media_id#,'#thisRelationship#',#thisRelatedId#)
 			</cfquery>
 		<cfelse>
-			<cfquery name="upRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				update 
-					media_relations
-				set
-					media_relationship='#thisRelationship#',
-					related_primary_key=#thisRelatedId#
-				where media_relations_id=#thisRelationID#
-			</cfquery>
-		</cfif>	
-	</cfif>
-	
+			<cfif #thisRelationship# is "delete">
+				<cfquery name="upRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					delete from 
+						media_relations
+					where media_relations_id=#thisRelationID#
+				</cfquery>
+			<cfelse>
+				<cfquery name="upRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					update 
+						media_relations
+					set
+						media_relationship='#thisRelationship#',
+						related_primary_key=#thisRelatedId#
+					where media_relations_id=#thisRelationID#
+				</cfquery>
+			</cfif>	
+		</cfif>
+	</cfloop>
 	<!--- labels --->
 	<cfloop from="1" to="#number_of_labels#" index="n">
-	<cfset thisLabel = #evaluate("label__" & n)#>
-	<cfset thisLabelValue = #evaluate("label_value__" & n)#>
-	<cfif isdefined(evaluate("media_label_id__" & n))>
-		<cfset thisLabelID=#evaluate("media_label_id__" & n)#>
-	<cfelse>
-		<cfset thisLabelID=-1>
-	</cfif>
-	<cfif thisLabelID is -1>
-		<cfquery name="makeLabel" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-			insert into media_labels (media_id,media_label,label_value)
-			values (#media_id#,'#thisLabel#','#thisLabelValue#')
-		</cfquery>
-	<cfelse>
-		<cfif #thisLabel# is "delete">
-			<cfquery name="upRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				delete from 
-					media_labels
-				where media_label_id=#thisLabelID#
+		<cfset thisLabel = #evaluate("label__" & n)#>
+		<cfset thisLabelValue = #evaluate("label_value__" & n)#>
+		<cfif isdefined(evaluate("media_label_id__" & n))>
+			<cfset thisLabelID=#evaluate("media_label_id__" & n)#>
+		<cfelse>
+			<cfset thisLabelID=-1>
+		</cfif>
+		<cfif thisLabelID is -1>
+			<cfquery name="makeLabel" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				insert into media_labels (media_id,media_label,label_value)
+				values (#media_id#,'#thisLabel#','#thisLabelValue#')
 			</cfquery>
 		<cfelse>
-			<cfquery name="upRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				update 
-					media_labels
-				set
-					media_label='#thisLabel#',
-					label_value='#thisLabelValue#'
-				where media_label_id=#thisLabelID#
-			</cfquery>
-		</cfif>		
-	</cfif>
-</cfloop>
+			<cfif #thisLabel# is "delete">
+				<cfquery name="upRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					delete from 
+						media_labels
+					where media_label_id=#thisLabelID#
+				</cfquery>
+			<cfelse>
+				<cfquery name="upRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					update 
+						media_labels
+					set
+						media_label='#thisLabel#',
+						label_value='#thisLabelValue#'
+					where media_label_id=#thisLabelID#
+				</cfquery>
+			</cfif>		
+		</cfif>
+	</cfloop>
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------------->
