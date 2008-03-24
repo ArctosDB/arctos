@@ -28,6 +28,12 @@
 				select agent_name data from preferred_agent_name where agent_id=#related_primary_key#
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
+		<cfelseif #table_name# is "collecting_event">
+			<cfquery name="d" datasource="#application.web_user#">
+				select verbatinm_locality || '(' || verbatim_date || ')' data from 
+				collecting_event where collecting_event_id=#related_primary_key#
+			</cfquery>
+			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
 		<cfelse>
 			<cfset temp = QuerySetCell(result, "summary", "#table_name# is not currently supported.", i)>
 		</cfif>
