@@ -113,6 +113,7 @@ function addRelation (n) {
 	var cc=document.getElementById('number_of_relations');
 	cc.value=parseInt(cc.value)+1;
 }
+
 function addLabel (n) {
 	var pDiv=document.getElementById('labels');
 	var nDiv = document.createElement('div');
