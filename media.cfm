@@ -7,12 +7,12 @@
 		media_relations.created_by_agent_id = preferred_agent_name.agent_id and
 		media_id=#media_id#
 	</cfquery>
-	<cfset result = querynew("media_relationship_id,media_relationship,created_agent_name,related_primary_key,summary")>
+	<cfset result = querynew("media_relations_id,media_relationship,created_agent_name,related_primary_key,summary")>
 	<cfset i=1>
 	<cfloop query="relns">
 		<cfset temp = queryaddrow(result,1)>
 		
-		<cfset temp = QuerySetCell(result, "media_relationship_id", "#media_relationship_id#", i)>	
+		<cfset temp = QuerySetCell(result, "media_relations_id", "#media_relations_id#", i)>	
 		<cfset temp = QuerySetCell(result, "media_relationship", "#media_relationship#", i)>
 		<cfset temp = QuerySetCell(result, "created_agent_name", "#agent_name#", i)>
 		<cfset temp = QuerySetCell(result, "related_primary_key", "#related_primary_key#", i)>
