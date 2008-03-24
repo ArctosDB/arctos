@@ -66,7 +66,7 @@
 	<cfloop from="1" to="#number_of_relations#" index="n">
 		<cfset thisRelationship = #evaluate("relationship__" & n)#>
 		<cfset thisRelatedId = #evaluate("related_id__" & n)#>
-		<cfif isdefined(evaluate("media_relations_id__" & n))>
+		<cfif isdefined("media_relations_id__#n#")>
 			<cfset thisRelationID=#evaluate("media_relations_id__" & n)#>
 		<cfelse>
 			<cfset thisRelationID=-1>
