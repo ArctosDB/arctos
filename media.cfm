@@ -51,8 +51,31 @@
 	select mime_type from ctmime_type order by mime_type
 </cfquery>
 <!----------------------------------------------------------------------------------------->
+
+<cfif #action# is "saveEdit">
+	<cfoutput>
+	<cfdump var="#form#">
+	<!--- update media --->
+	<cfquery name="makeMedia" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		update media set
+		media_uri='#escapeQuotes(media_uri)#',
+		mime_type='#mime_type#'
+		where media_id=#media_id#
+	</cfquery>
+	<!--- relations --->
+	<cfloop from="1" to="#number_of_relations#" index="n">
+	<cfset thisRelationship = #evaluate("relationship__" & n)#>
+	<cfset thisRelatedId = #evaluate("related_id__" & n)#>
+	<cfset thisTableName=ListLast(thisRelationship," ")>
+	<cfset thisRelationID=#evaluate("media_relations_id__" & n)#>
+	thisRelationID: #thisRelationID#
+	
+	</cfif>	
+</cfloop>
+</cfoutput>
+</cfif>
+<!----------------------------------------------------------------------------------------->
 <cfif #action# is "edit">
-getMediaRelations
 	<cfquery name="media" datasource="#application.web_user#">
 		select * from media where media_id=#media_id#
 	</cfquery>
@@ -135,10 +158,6 @@ getMediaRelations
 				onmouseout="this.className='insBtn'">
 		</form>
 	</cfoutput>
-</cfif>
-<!----------------------------------------------------------------------------------------->
-<cfif #action# is "saveEdit">
-	<cfdump var="#form#">
 </cfif>
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "nothing">

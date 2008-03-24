@@ -15,7 +15,6 @@ function clickUpload(){
 }
 
 function pickedRelationship (id){
-	alert('picky');
 	var relationship=document.getElementById(id).value;
 	var ddPos = id.lastIndexOf('__');
 	var elementNumber=id.substring(ddPos+2,id.length);
