@@ -3,8 +3,10 @@
  Access denied.
 </div>
 <cfsavecontent variable="errortext">
-	HTTP_REFERER: #cgi.HTTP_REFERER#;
-	QUERY_STRING: #cgi.QUERY_STRING#;
+	<cfoutput>
+		HTTP_REFERER: #cgi.HTTP_REFERER#;
+		QUERY_STRING: #cgi.QUERY_STRING#;
+	</cfoutput>
 </cfsavecontent>
 <cfthrow 
    type = "Access_Violation"
