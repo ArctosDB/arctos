@@ -103,7 +103,7 @@
 	<cfloop from="1" to="#number_of_labels#" index="n">
 		<cfset thisLabel = #evaluate("label__" & n)#>
 		<cfset thisLabelValue = #evaluate("label_value__" & n)#>
-		<cfif isdefined(evaluate("media_label_id__" & n))>
+		<cfif isdefined("media_label_id__#n#")>
 			<cfset thisLabelID=#evaluate("media_label_id__" & n)#>
 		<cfelse>
 			<cfset thisLabelID=-1>
