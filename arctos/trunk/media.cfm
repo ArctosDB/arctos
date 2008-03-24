@@ -30,7 +30,7 @@
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
 		<cfelseif #table_name# is "collecting_event">
 			<cfquery name="d" datasource="#application.web_user#">
-				select verbatim_locality || '(' || verbatim_date || ')' data from 
+				select verbatim_locality || ' (' || verbatim_date || ')' data from 
 				collecting_event where collecting_event_id=#related_primary_key#
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
@@ -139,6 +139,7 @@
 			</cfif>		
 		</cfif>
 	</cfloop>
+	<cflocation url="media.cfm?media_id=#media_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------------->
@@ -201,6 +202,21 @@
 			<div id="labels" style="border:1px dashed red;">
 			
 			<cfset i=1>
+			<cfif labels.recordcount is 0>
+				<!--- seed --->
+				<div id="seedLabel" style="display:none;">
+					<div id="labelsDiv__0">
+						<input type="hidden" id="media_label_id__0" name="media_label_id__0">
+						<cfset d="">
+						<select name="label__0" id="label__0" size="1">
+							<option value="delete">delete</option>
+							<cfloop query="ctmedia_label">
+								<option <cfif #d# is #media_label#> selected="selected" </cfif>value="#media_label#">#media_label#</option>
+							</cfloop>
+						</select>:&nbsp;<input type="text" name="label_value__0" id="label_value__0" size="80">
+						</div>
+				</div>
+			</cfif>
 			<cfloop query="labels">
 				<cfset d=media_label>
 				<div id="labelsDiv__#i#">
