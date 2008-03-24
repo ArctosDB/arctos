@@ -35,6 +35,8 @@ function pickedRelationship (id){
 		LocalityPick(idInputName,dispInputName,'newMedia'); 
 	} else if (relatedTable=='collecting_event'){
 		findCollEvent(idInputName,'newMedia',dispInputName); 
+	} else if (relatedTable=='delete'){
+		document.getElementById(dispInputName).value='Marked for deletion.....';
 	} else {
 		alert('Something is broken. I have no idea what to do with a relationship to ' + relatedTable);
 	}
