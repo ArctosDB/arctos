@@ -234,9 +234,9 @@
 				<div style="background-color:##FF0000; border:2px solid black; width:75%;">
 					<strong>Attention Power User:</strong>
 					<br />
-					The Arctos security model has changed. You must <a href="Admin/db_user_setup.cfm?unm=#username#">follow this link</a>
+					The Arctos security model has changed. You must <a href="user/db_user_setup.cfm?unm=#username#">follow this link</a>
 					and complete the registration process to retain your curatorial role. You may be required to change your password.
-					Once you complete <a href="Admin/db_user_setup.cfm?unm=#username#">the form</a>, you will be redirected here. This box will not
+					Once you complete <a href="/user/db_user_setup.cfm?unm=#username#">the form</a>, you will be redirected here. This box will not
 					 appear if you've successfully authenticated.
 					 <p>
 					 This process is necessary to improve Arctos security. We apologize for the inconvenience.
