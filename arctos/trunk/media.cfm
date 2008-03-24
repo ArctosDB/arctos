@@ -67,7 +67,10 @@
 	<cfset thisRelationship = #evaluate("relationship__" & n)#>
 	<cfset thisRelatedId = #evaluate("related_id__" & n)#>
 	<cfset thisTableName=ListLast(thisRelationship," ")>
-	<cfset thisRelationID=#evaluate("media_relations_id__" & n)#>
+
+	<cfif isdefined(evaluate("media_relations_id__" & n))>
+			<cfset thisRelationID=#evaluate("media_relations_id__" & n)#>
+	</cfif>
 	thisRelationID: #thisRelationID#
 	
 </cfloop>
