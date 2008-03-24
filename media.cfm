@@ -139,7 +139,7 @@
 			</cfif>		
 		</cfif>
 	</cfloop>
-	<cflocation url="media.cfm?media_id=#media_id#" addtoken="false">
+	<cflocation url="media.cfm?action=edit&media_id=#media_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------------->
