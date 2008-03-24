@@ -69,7 +69,7 @@ getMediaRelations
 	</cfquery>
 	<cfoutput>
 		Edit Media
-		<form name="editMedia" method="post" action="media.cfm">
+		<form name="newMedia" method="post" action="media.cfm">
 			<input type="hidden" name="action" value="saveEdit">
 			<input type="hidden" id="number_of_relations" name="number_of_relations" value="#relns.recordcount#">
 			<input type="hidden" id="number_of_labels" name="number_of_labels" value="#labels.recordcount#">
