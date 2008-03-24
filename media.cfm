@@ -71,6 +71,7 @@
 		<cfelse>
 			<cfset thisRelationID=-1>
 		</cfif>
+				thisRelationID: #thisRelationID#----
 		<cfif thisRelationID is -1>
 			<cfquery name="makeRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 				insert into 
@@ -107,6 +108,7 @@
 		<cfelse>
 			<cfset thisLabelID=-1>
 		</cfif>
+		---thisLabelID: #thisLabelID#----
 		<cfif thisLabelID is -1>
 			<cfquery name="makeLabel" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 				insert into media_labels (media_id,media_label,label_value)
