@@ -57,6 +57,115 @@
 	select mime_type from ctmime_type order by mime_type
 </cfquery>
 <!----------------------------------------------------------------------------------------->
+<cfif #action# is "search">
+<cfoutput>
+<cfset sel="select media.media_id,media.media_uri,media.mime_type "> 
+<cfset frm="from media">
+
+,
+			media_relations,
+			media_labels ">
+			
+			
+<cfset whr=" where media.media_id > 0">
+
+
+				media.media_id=media_relations.media_id (+) and
+				media.media_id=media_labels.media_id (+)">
+<cfset srch=" ">		
+<cfif isdefined("media_uri") and len(#media_uri#) gt 0>
+	<cfset srch="#srch# AND upper(media_uri) like '%#ucase(media_uri)#%'">
+</cfif>
+<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
+	<cfset srch="#srch# AND mime_type = '#mime_type#'">
+</cfif>
+<cfloop from="1" to="#number_of_relations#" index="n">
+	<cfset thisRelationship = #evaluate("relationship__" & n)#>
+	<cfset thisRelatedItem = #evaluate("related_value__" & n)#>
+	<cfset sel=" #sel#, q_media_relations(media.media_id) q_media_relations#n#">
+	
+	<cfif len(#thisRelationship#) gt 0>
+		<cfset srch="#srch# AND q_media_relations#n# like '%#thisRelationship#%'">
+	</cfif>
+	<cfif len(#thisRelatedItem#) gt 0>
+		<cfset srch="#srch# AND q_media_relations#n# like '%#thisRelatedItem#%'">
+	</cfif>
+		<cfif #thisTableName# is "agent">
+			<cfset frm="#frm#,preferred_agent_name preferred_agent_name_#n#">
+			<cfset whr="#whr# AND media_relations.related_agent_id=preferred_agent_name_#n#.agent_id">
+			<cfset srch="#srch# AND upper(preferred_agent_name_#n#.agent_name) like '%#ucase(thisRelatedId)#%'">
+		<cfelseif #thisTableName# is "locality">
+			<cfset frm="#frm#,locality locality_#n#">
+			<cfset whr="#whr# AND media_relations.locality_id=locality_#n#.locality_id">
+			<cfset srch="#srch# AND upper(locality_#n#.spec_locality) like '%#ucase(thisRelatedId)#%'">
+		<cfelse>
+			Table name not found or handled. Aborting..............
+		</cfif>
+		<cfset srch="#srch# AND media_relations.media_relationship = '#thisRelationship#'">
+	</cfif>	
+</cfloop>
+	<cfloop from="1" to="#number_of_labels#" index="n">
+		<cfset thisLabel = #evaluate("label__" & n)#>
+		<cfset thisLabelValue = #evaluate("label_value__" & n)#>
+		<cfif len(#thisLabel#) gt 0>
+			<cfset srch="#srch# AND media_label = '#thisLabel#'">
+		</cfif>
+		<cfif len(#thisLabelValue#) gt 0>
+			<cfset srch="#srch# AND upper(label_value) like '%#ucase(thisLabelValue)#%'">
+		</cfif>
+	</cfloop>
+<cfset ssql="#sel# #frm# #whr# #srch#">
+<hr>#ssql#<hr>
+<cfquery name="findIDs" datasource="#application.web_user#">
+	#preservesinglequotes(ssql)#
+</cfquery>
+<table>
+<cfset i=1>
+<cfloop query="findIDs">
+	<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+		<td>
+			URI: #media_uri# 
+			<br>MIME Type: #mime_type# <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">edit</a>
+			<cfquery name="labels"  datasource="#application.web_user#">
+				select
+					media_label,
+					label_value,
+					agent_name
+				from
+					media_labels,
+					preferred_agent_name
+				where
+					media_labels.assigned_by_agent_id=preferred_agent_name.agent_id (+) and
+					media_id=#media_id#
+			</cfquery>
+			<br>Labels:	
+			<cfif labels.recordcount gt 0>
+				<ul>
+					<cfloop query="labels">
+						<li>
+							#media_label#: #label_value#
+							<cfif len(#agent_name#) gt 0>
+								(Assigned by #agent_name#)
+							</cfif>
+						</li>
+					</cfloop>
+				</ul>
+			</cfif>
+			<br>Relationships:
+			<cfset mrel=getMediaRelations(#media_id#)>
+			<ul>
+			<cfloop query="mrel">
+				<li>#media_relationship#: #summary#</li>
+			</cfloop>
+			</ul>
+		</td>
+	</tr>
+	<cfset i=i+1>
+</cfloop>
+</table>
+</cfoutput>
+</cfif>
+<!----------------------------------------------------------------------------------------->
 
 <cfif #action# is "saveEdit">
 	<cfoutput>
@@ -303,106 +412,7 @@
 		</form>
 		</cfoutput>
 </cfif>
-<!----------------------------------------------------------------------------------------->
-<cfif #action# is "search">
-<cfoutput>
-<cfset sel="select media.media_id,media.media_uri,media.mime_type "> 
-<cfset frm="from media,
-			media_relations,
-			media_labels ">
-<cfset whr=" where
-				media.media_id=media_relations.media_id (+) and
-				media.media_id=media_labels.media_id (+)">
-<cfset srch=" ">		
-<cfif isdefined("media_uri") and len(#media_uri#) gt 0>
-	<cfset srch="#srch# AND upper(media_uri) like '%#ucase(media_uri)#%'">
-</cfif>
-<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
-	<cfset srch="#srch# AND mime_type = '#mime_type#'">
-</cfif>
-<cfloop from="1" to="#number_of_relations#" index="n">
-	<cfset thisRelationship = #evaluate("relationship__" & n)#>
-	<cfset thisRelatedId = #evaluate("related_id__" & n)#>
-	<cfset thisTableName=ListLast(thisRelationship," ")>
-	<cfif len(#thisRelationship#) gt 0>
-		<cfset srch="#srch# AND media_relations.media_relationship = '#thisRelationship#'">
-	</cfif>
-	<cfif len(#thisRelatedId#) gt 0>
-		<cfif #thisTableName# is "agent">
-			<cfset frm="#frm#,preferred_agent_name preferred_agent_name_#n#">
-			<cfset whr="#whr# AND media_relations.related_agent_id=preferred_agent_name_#n#.agent_id">
-			<cfset srch="#srch# AND upper(preferred_agent_name_#n#.agent_name) like '%#ucase(thisRelatedId)#%'">
-		<cfelseif #thisTableName# is "locality">
-			<cfset frm="#frm#,locality locality_#n#">
-			<cfset whr="#whr# AND media_relations.locality_id=locality_#n#.locality_id">
-			<cfset srch="#srch# AND upper(locality_#n#.spec_locality) like '%#ucase(thisRelatedId)#%'">
-		<cfelse>
-			Table name not found or handled. Aborting..............
-		</cfif>
-		<cfset srch="#srch# AND media_relations.media_relationship = '#thisRelationship#'">
-	</cfif>	
-</cfloop>
-	<cfloop from="1" to="#number_of_labels#" index="n">
-		<cfset thisLabel = #evaluate("label__" & n)#>
-		<cfset thisLabelValue = #evaluate("label_value__" & n)#>
-		<cfif len(#thisLabel#) gt 0>
-			<cfset srch="#srch# AND media_label = '#thisLabel#'">
-		</cfif>
-		<cfif len(#thisLabelValue#) gt 0>
-			<cfset srch="#srch# AND upper(label_value) like '%#ucase(thisLabelValue)#%'">
-		</cfif>
-	</cfloop>
-<cfset ssql="#sel# #frm# #whr# #srch#">
-<hr>#ssql#<hr>
-<cfquery name="findIDs" datasource="#application.web_user#">
-	#preservesinglequotes(ssql)#
-</cfquery>
-<table>
-<cfset i=1>
-<cfloop query="findIDs">
-	<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-		<td>
-			URI: #media_uri# 
-			<br>MIME Type: #mime_type# <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">edit</a>
-			<cfquery name="labels"  datasource="#application.web_user#">
-				select
-					media_label,
-					label_value,
-					agent_name
-				from
-					media_labels,
-					preferred_agent_name
-				where
-					media_labels.assigned_by_agent_id=preferred_agent_name.agent_id (+) and
-					media_id=#media_id#
-			</cfquery>
-			<br>Labels:	
-			<cfif labels.recordcount gt 0>
-				<ul>
-					<cfloop query="labels">
-						<li>
-							#media_label#: #label_value#
-							<cfif len(#agent_name#) gt 0>
-								(Assigned by #agent_name#)
-							</cfif>
-						</li>
-					</cfloop>
-				</ul>
-			</cfif>
-			<br>Relationships:
-			<cfset mrel=getMediaRelations(#media_id#)>
-			<ul>
-			<cfloop query="mrel">
-				<li>#media_relationship#: #summary#</li>
-			</cfloop>
-			</ul>
-		</td>
-	</tr>
-	<cfset i=i+1>
-</cfloop>
-</table>
-</cfoutput>
-</cfif>
+
 <!----------------------------------------------------------------------------------------->
 
 <cfif #action# is "newMedia">
