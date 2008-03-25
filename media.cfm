@@ -136,6 +136,15 @@
 						label_value='#thisLabelValue#'
 					where media_label_id=#thisLabelID#
 				</cfquery>
+				
+				update 
+						media_labels
+					set
+						media_label='#thisLabel#',
+						label_value='#thisLabelValue#'
+					where media_label_id=#thisLabelID#
+					
+					
 			</cfif>		
 		</cfif>
 	</cfloop>
