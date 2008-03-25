@@ -6,10 +6,16 @@
 
 <script type="text/javascript">
 jQuery( function($) {
+	/*
 	$(document).ready(function(){
 		$.get("/includes/SpecSearch/catnum.cfm", function(data){
 		 $('#sc1').html(data);
 	});
+	*/
+	function loadContent(){
+		$.get("/includes/SpecSearch/catnum.cfm", function(data){
+		 $('#sc1').html(data);}
+	}
 });
 
 
@@ -18,7 +24,7 @@ jQuery( function($) {
 
 });
 </script>
-
+<span onclick="loadContent()">load content</span>
 <div style="border:2px solid red;" id="j">
 
 </div>
