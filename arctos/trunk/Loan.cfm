@@ -117,6 +117,26 @@
 						<span class="likeLink" onclick="setAccnNum('MSB','#thisNum#')">MSB #thisNum#</span>
 					</li>
 					<li>
+						<cfquery name="msb_bird" datasource="#Application.web_user#">
+							select loan_number from loan,trans where
+							loan.transaction_id = trans.transaction_id and
+							loan_number like '#dateformat(now(),"yyyy")#%' and
+							institution_acronym='MSB' and
+							loan_number like '%Bird'
+						</cfquery>
+						<cfif #msb_bird.recordcount# is 0>
+							<!--- new year, prolly --->
+							<cfset thisNum = '#dateformat(now(),"yyyy")#.1.Bird'>
+						<cfelse>
+							<cfset r=msb_bird.loan_number>
+							<cfset temp=replace(r,'.Bird','','all')>
+							<cfset temp=replace(temp,"#dateformat(now(),"yyyy")#.","","all")>
+							<cfset temp=temp+1>
+							<cfset thisNum = '#dateformat(now(),"yyyy")#.#temp#.Bird'>
+						</cfif>
+						<span class="likeLink" onclick="setAccnNum('MSB','#thisNum#')">MSB #thisNum#</span>
+					</li>
+					<li>
 						<cfquery name="dgr_mamm" datasource="#Application.web_user#">
 							select max(to_number(substr(loan_number,
 							(instr(loan_number,'.',1,1)+1),

@@ -6,12 +6,11 @@
 
 <script type="text/javascript">
 jQuery( function($) {
-
-$(document).ready(function(){
-$.get("/SpecimenDetail.cfm?collection_object_id=12", function(data){
- $('#j').html(data);
+	$(document).ready(function(){
+		$.get("/SpecimenDetail.cfm?collection_object_id=12", function(data){
+		 $('#j').html(data);
+	});
 });
- });
 
 
 
