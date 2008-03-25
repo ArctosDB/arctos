@@ -1,4 +1,4 @@
- <!--- Set taskStartTimeDefaults and Constants --->
+ <!--- Set Defaults and Constants --->
 <cfscript>
 	sitename = "mvzarctos-dev.berkeley.edu";
 	
@@ -94,7 +94,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<cfoutput><title>#sitename# Scheduler</title></cfoutput>
+<cfoutput><title>#sitename# Scheduler</title</cfoutput>>
 
 <style type="text/css">
 	table {border:3px double #003366;}
@@ -140,7 +140,7 @@
 		value="#defaultStartDate#" 
 		message="Enter a valid start date." 
 		size="10"> 
-	Start Time: 
+	Time: 
 	<cfinput 
 		name="taskStartTime" 
 		type="text" 
@@ -165,7 +165,7 @@
 		name="taskPublishPath" 
 		type="text" 
 		required="yes" 
-		value="#taskStartTimedefaultPath#" 
+		value="#defaultPath#" 
 		message="Enter path for published file." 
 		size="50">
 	File Name: 
