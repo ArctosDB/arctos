@@ -80,6 +80,7 @@
 				defaultTaskURL = services[i].url;
 				defaultStartDate = services[i].start_date;
 				defaultStartTime = services[i].start_time;
+				defaultStartDate = services[i].end_date;
 				defaultPath = services[i].path;
 				defaultFileName = services[i].file;
 				defaultInterval = services[i].interval;
