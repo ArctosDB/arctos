@@ -6,7 +6,6 @@
 	defaultTaskURL = "http://#sitename#/";
 	defaultStartDate = DateFormat(now());
 	defaultStartTime = TimeFormat(now());
-	defaultEndDate = DateFormat(now());
 	defaultPath = GetDirectoryFromPath(GetCurrentTemplatePath());
 	defaultFileName = "output.htm";
 	defaultInterval = "daily";
@@ -80,7 +79,6 @@
 				defaultTaskURL = services[i].url;
 				defaultStartDate = services[i].start_date;
 				defaultStartTime = services[i].start_time;
-				defaultStartDate = services[i].end_date;
 				defaultPath = services[i].path;
 				defaultFileName = services[i].file;
 				defaultInterval = services[i].interval;
@@ -149,15 +147,6 @@
 		validate="time" 
 		value="#defaultStartTime#" 
 		message="Enter a valid start time." 
-		size="10">
-	End Date: 
-	<cfinput 
-		name="taskEndDate" 
-		type="text" 
-		required="yes" 
-		validate="date" 
-		value="#defaultEndDate#" 
-		message="Enter a valid end date." 
 		size="10">
 	</td></tr>
 	
