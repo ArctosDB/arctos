@@ -8,8 +8,14 @@
 jQuery( function($) {
 
 $(document).ready(function(){
-   alert('ready');
+$.get("SpecimenResults.cfm", function(data){
+  alert("Data Loaded: " + data);
+});
  });
+
+
+
+
 
 });
 </script>
