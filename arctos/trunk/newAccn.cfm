@@ -156,6 +156,13 @@
 		institution_acronym='MSB' and
 		substr(accn_number,10,4)='Mamm'
 	</cfquery>
+	<cfquery name="msb_bird" datasource="#Application.web_user#">
+		select lpad(max(to_number(substr(accn_number,6,3))) + 1,3,0) nn from accn,trans where
+		accn.transaction_id = trans.transaction_id and
+		substr(accn_number,1,4)='#dateformat(now(),"yyyy")#' and
+		institution_acronym='MSB' and
+		substr(accn_number,10,4)='Bird'
+	</cfquery>
 	
 	<table border="1">
 		<tr>
@@ -175,6 +182,14 @@
 			<td>
 				<span class="likeLink" onclick="document.getElementById('institution_acronym').value='MSB';document.getElementById('accn_number').value='#dateformat(now(),"yyyy")#.#msb_mamm.nn#.Mamm';">
 				#dateformat(now(),"yyyy")#.#msb_mamm.nn#.Mamm
+				</span>
+			</td>
+		</tr>
+		<tr>
+			<td>MSB Bird</td>
+			<td>
+				<span class="likeLink" onclick="document.getElementById('institution_acronym').value='MSB';document.getElementById('accn_number').value='#dateformat(now(),"yyyy")#.#msb_bird.nn#.Bird';">
+				#dateformat(now(),"yyyy")#.#msb_bird.nn#.Bird
 				</span>
 			</td>
 		</tr>
