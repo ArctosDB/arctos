@@ -15,7 +15,8 @@ jQuery( function($) {
 	function loadContent(){
 		$.get("/includes/SpecSearch/catnum.cfm", function(data){
 		 $('#sc1').html(data);
-		 )}}
+		 )};
+	}
 
 
 
