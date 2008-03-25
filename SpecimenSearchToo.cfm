@@ -8,7 +8,7 @@
 jQuery( function($) {
 	$(document).ready(function(){
 		$.get("/includes/SpecSearch/catnum.cfm", function(data){
-		 $('#j').html(data);
+		 $('#sc1').html(data);
 	});
 });
 
@@ -290,6 +290,8 @@ function changeGrp(tid) {
 			</table>
 			</td>
 		</tr>
+		<div id="sc1"></div>
+		<!---
 		<tr>
 			<td>
 				<div class="group" align="left">
@@ -466,6 +468,7 @@ function changeGrp(tid) {
 				</div>
 			</td>
 		</tr>
+		--->
 		<tr>
 			<td>
 				<div class="group">
