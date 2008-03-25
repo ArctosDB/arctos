@@ -7,7 +7,7 @@
 <script type="text/javascript">
 jQuery( function($) {
 	$(document).ready(function(){
-		$.get("/SpecimenDetail.cfm?collection_object_id=12", function(data){
+		$.get("/includes/SpecSearch/catnum.cfm", function(data){
 		 $('#j').html(data);
 	});
 });
