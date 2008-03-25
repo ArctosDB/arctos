@@ -1,4 +1,4 @@
- <!--- Set Defaults and Constants --->
+ <!--- Set taskStartTimeDefaults and Constants --->
 <cfscript>
 	sitename = "mvzarctos-dev.berkeley.edu";
 	
@@ -6,6 +6,7 @@
 	defaultTaskURL = "http://#sitename#/";
 	defaultStartDate = DateFormat(now());
 	defaultStartTime = TimeFormat(now());
+	defaultEndDate = DateFormat(now());
 	defaultPath = GetDirectoryFromPath(GetCurrentTemplatePath());
 	defaultFileName = "output.htm";
 	defaultInterval = "daily";
@@ -139,7 +140,7 @@
 		value="#defaultStartDate#" 
 		message="Enter a valid start date." 
 		size="10"> 
-	Time: 
+	Start Time: 
 	<cfinput 
 		name="taskStartTime" 
 		type="text" 
@@ -148,6 +149,15 @@
 		value="#defaultStartTime#" 
 		message="Enter a valid start time." 
 		size="10">
+	End Date: 
+	<cfinput 
+		name="taskEndDate" 
+		type="text" 
+		required="yes" 
+		validate="date" 
+		value="#defaultEndDate#" 
+		message="Enter a valid end date." 
+		size="10">
 	</td></tr>
 	
 	<tr><td>Publish Path:</td><td>
@@ -155,7 +165,7 @@
 		name="taskPublishPath" 
 		type="text" 
 		required="yes" 
-		value="#defaultPath#" 
+		value="#taskStartTimedefaultPath#" 
 		message="Enter path for published file." 
 		size="50">
 	File Name: 
