@@ -207,6 +207,7 @@
 			<th>Task Name</th>
 			<th>Start Date</th>
 			<th>Start Time</th>
+			<th>End Date</th>
 			<th>Interval</th>
 			<th>Delete</th>
 		</tr>
