@@ -8,7 +8,7 @@
 jQuery( function($) {
 
 $(document).ready(function(){
-$.get("/fix/b.cfm", function(data){
+$.get("/SpecimenDetail.cfm?collection_object_id=12.cfm", function(data){
  $('#j').html(data);
 });
  });
