@@ -117,7 +117,7 @@
 						<span class="likeLink" onclick="setAccnNum('MSB','#thisNum#')">MSB #thisNum#</span>
 					</li>
 					<li>
-						--msb--<cfquery name="msb_bird" datasource="#Application.web_user#">
+						<cfquery name="msb_bird" datasource="#Application.web_user#">
 							select loan_number from loan,trans where
 							loan.transaction_id = trans.transaction_id and
 							loan_number like '#dateformat(now(),"yyyy")#%' and
@@ -173,7 +173,6 @@
 						<span class="likeLink" onclick="setAccnNum('DGR','#thisNum#')">DGR #thisNum#</span>
 					</li>
 				</ul>
-				<span class="likeLink" onclick="setAccnNum('#dgr_bird.nn#')">#dgr_bird.nn#</span>
 			<cfelseif #cgi.HTTP_HOST# contains "berkeley.edu">
 				<!--- all collection share loan number and never start over --->
 				<cfquery name="mvz_mamm" datasource="#Application.web_user#">
