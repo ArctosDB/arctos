@@ -12,7 +12,7 @@ jQuery( function($) {
 		 $('#sc1').html(data);
 	});
 	*/
-	$('#ls').click(function()){
+	$('#ls').click(function(){
 		$.get("/includes/SpecSearch/catnum.cfm", function(data){
 		 $('#sc1').html(data);
 	});
