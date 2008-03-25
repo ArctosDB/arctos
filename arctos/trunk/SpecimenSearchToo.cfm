@@ -9,7 +9,7 @@ jQuery( function($) {
 
 $(document).ready(function(){
 $.get("/fix/b.cfm", function(data){
-  alert("Data Loaded: " + data);
+ $('j').html(data);
 });
  });
 
@@ -20,7 +20,9 @@ $.get("/fix/b.cfm", function(data){
 });
 </script>
 
+<div style="border:2px solid red;" id="j">
 
+</div>
 
 <script language="javascript" type="text/javascript">
 self.name='SpecimenSearch';
