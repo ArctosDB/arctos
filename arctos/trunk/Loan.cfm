@@ -117,7 +117,7 @@
 						<span class="likeLink" onclick="setAccnNum('MSB','#thisNum#')">MSB #thisNum#</span>
 					</li>
 					<li>
-						<cfquery name="msb_bird" datasource="#Application.web_user#">
+						--msb--<cfquery name="msb_bird" datasource="#Application.web_user#">
 							select loan_number from loan,trans where
 							loan.transaction_id = trans.transaction_id and
 							loan_number like '#dateformat(now(),"yyyy")#%' and
