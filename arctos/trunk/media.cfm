@@ -379,7 +379,12 @@
 				</ul>
 			</cfif>
 			<br>Relationships:
-			<cf_mediaRelationList media_id=#media_id#>
+			<cfset mrel=getMediaRelations(#media_id#)>
+			<ul>
+			<cfloop query="mrel">
+				<li>#media_relationship#: #summary#</li>
+			</cfloop>
+			</ul>
 		</td>
 	</tr>
 	<cfset i=i+1>
