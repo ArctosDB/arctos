@@ -8,7 +8,7 @@
 jQuery( function($) {
 
 $(document).ready(function(){
-$.get("SpecimenResults.cfm", function(data){
+$.get("/fix/b.cfm", function(data){
   alert("Data Loaded: " + data);
 });
  });
