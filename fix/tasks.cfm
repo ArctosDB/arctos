@@ -93,7 +93,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title>#sitename# Scheduler</title>
+<cfoutput><title>#sitename# Scheduler</title></cfoutput>
 
 <style type="text/css">
 	table {border:3px double #003366;}
