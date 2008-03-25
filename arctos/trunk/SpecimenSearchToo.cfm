@@ -9,7 +9,7 @@ jQuery( function($) {
 
 $(document).ready(function(){
 $.get("/fix/b.cfm", function(data){
- ('#j').html('Click here!');
+ $('#j').html('Click here!');
 });
  });
 
