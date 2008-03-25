@@ -246,7 +246,6 @@
 			<td>#services[i].task#</td>
 			<td nowrap>#services[i].start_date#</td>
 			<td nowrap>#services[i].start_time#</td>
-			<td nowrap>#services[i].end_date#</td>
 			<td>#services[i].interval#</td>
 			<td>
 				<form 
