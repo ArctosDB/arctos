@@ -39,7 +39,6 @@
 <cfset currentColPosn=1>
 
 
-<cfdump var=#variables#>
 
 
 <cfloop from="1" to="#recordcount#" index="i">
