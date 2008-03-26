@@ -405,7 +405,6 @@ select
 <cfif #Action# is "showCondition">
 <cfoutput>
 <cfquery name="getItems" datasource="#Application.web_user#">
-
 select 
 		cat_num, 
 		collection,
@@ -420,11 +419,13 @@ select
 		loan,
 		specimen_part, 
 		coll_object,
-		cataloged_item
+		cataloged_item,
+		collection
 	WHERE
 		loan_item.collection_object_id = specimen_part.collection_object_id AND
 		loan.transaction_id = loan_item.transaction_id AND
 		specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
+		cataloged_item.collection_id=collection.collection_id and
 		specimen_part.collection_object_id = coll_object.collection_object_id AND
 		loan_item.transaction_id = #transaction_id#
 </cfquery>
@@ -436,7 +437,7 @@ Loan ## #getItems.loan_number#
 <center>
     <b><font face="Arial, Helvetica, sans-serif">SPECIMEN&nbsp;&nbsp;INVOICE <br>
     <font size="+2"> MAMMAL&nbsp;&nbsp;COLLECTION <br>
-    UNIVERSITY&nbsp;&nbsp;OF&nbsp;&nbsp;ALASKA&nbsp;&nbsp;MUSEUM</font></font></b> <br>
+    Museum&nbsp;&nbsp;of&nbsp;&nbsp;Southwestern&nbsp;&nbsp;Biology</font></font></b> <br>
 	<cfquery name="shipDate" datasource="#Application.web_user#">
 		select shipped_date from shipment where transaction_id=#transactioN_id#
 	</cfquery>
@@ -471,7 +472,7 @@ Loan ## #getItems.loan_number#
 
 	<tr>
 		<td>
-			#collection_cde# #cat_num#&nbsp;
+			#collection# #cat_num#&nbsp;
 		</td>
 		<td>
 			#CustomID#&nbsp;
