@@ -61,7 +61,7 @@ Hi, I'm a label<br>
 ---->
 
 	<div class="oneLabel" style="top:#topPosn#in; left:#lrPosn#in; width:#lblWidth#in; height:#lblHeight#in; position:absolute;">
-		Hi, I'm a label<br>
+		Hi, I'm label number #i#<br>
 		top:#topPosn#; left:#lrPosn#
 	</div>
 	
