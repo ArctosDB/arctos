@@ -31,6 +31,82 @@
 	
 </cfif>
 <cfif #action# is "print">
+
+<cfset collection_object_id="266883,284046,292102,190294,190295,292101,190290,190292,292100,214973,213572,190289,190293,266884,213571,213570,214293,190291,215248,219029">
+<cfset sql="
+	select
+		get_scientific_name_auths(cataloged_item.collection_object_id) sci_name_with_auth,
+		concatAcceptedIdentifyingAgent(cataloged_item.collection_object_id) identified_by,
+		get_taxonomy(cataloged_item.collection_object_id,'family') family,
+		get_taxonomy(cataloged_item.collection_object_id,'scientific_name') tsname,
+		get_taxonomy(cataloged_item.collection_object_id,'author_text') auth,
+		CONCATATTRIBUTE(cataloged_item.collection_object_id) attributes,
+		trim(ConcatAttributeValue(cataloged_item.collection_object_id,'abundance')) abundance,
+		identification_remarks,
+		made_date,
+		cat_num,
+		state_prov,
+		country,
+		quad,
+		county,
+		island,
+		island_group,
+		sea,
+		feature,
+		spec_locality,
+		CASE orig_lat_long_units
+			WHEN 'decimal degrees' THEN dec_lat || 'd'
+			WHEN 'deg. min. sec.' THEN lat_deg || 'd ' || lat_min || 'm ' || lat_sec || 's ' || lat_dir
+			WHEN 'degrees dec. minutes' THEN lat_deg || 'd ' || dec_lat_min || 'm ' || lat_dir
+		END as VerbatimLatitude,
+		CASE orig_lat_long_units
+			WHEN 'decimal degrees' THEN dec_long || 'd'
+			WHEN'degrees dec. minutes' THEN long_deg || 'd ' || dec_long_min || 'm ' || long_dir
+			WHEN 'deg. min. sec.' THEN long_deg || 'd ' || long_min || 'm ' || long_sec || 's ' || long_dir
+		END as VerbatimLongitude,
+		MAXIMUM_ELEVATION,
+		MINIMUM_ELEVATION,
+		ORIG_ELEV_UNITS,
+		concatColl(cataloged_item.collection_object_id) as collectors,
+		concatotherid(cataloged_item.collection_object_id) as other_ids,
+		concatsingleotherid(cataloged_item.collection_object_id,'original identifier') fieldnum,
+		concatsingleotherid(cataloged_item.collection_object_id,'U. S. National Park Service accession') npsa,
+		concatsingleotherid(cataloged_item.collection_object_id,'U. S. National Park Service catalog') npsc,
+		concatsingleotherid(cataloged_item.collection_object_id,'ALAAC') ALAAC,
+		verbatim_date,
+		habitat_desc,
+		habitat,
+		associated_species,
+		project_name
+	FROM
+		cataloged_item,
+		identification,
+		collecting_event,
+		locality,
+		geog_auth_rec,
+		accepted_lat_long,
+		coll_object_remark,
+		project_trans,
+		project
+	WHERE
+		cataloged_item.collection_object_id = identification.collection_object_id AND
+		cataloged_item.collecting_event_id = collecting_event.collecting_event_id AND
+		collecting_event.locality_id = locality.locality_id AND
+		locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id AND
+		locality.locality_id = accepted_lat_long.locality_id (+) AND
+		cataloged_item.collection_object_id = coll_object_remark.collection_object_id (+) AND
+		cataloged_item.accn_id = project_trans.transaction_id (+) AND
+		project_trans.project_id = project.project_id(+) AND
+		accepted_id_fg=1 AND cataloged_item.collection_object_id IN (#collection_object_id#)
+	ORDER BY
+		concatsingleotherid(cataloged_item.collection_object_id,'original identifier')
+			">
+	<cfquery name="data" datasource="#Application.web_user#">
+		#preservesinglequotes(sql)#
+	</cfquery>
+	
+	
+	
 <!---
 <cfdocument 
 	format="FlashPaper"
