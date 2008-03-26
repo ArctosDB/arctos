@@ -140,7 +140,7 @@
 <cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 <cfset rc=data.recordcount>
-
+<cfset locHeight=font_size*6>
 <style>
 	.singleLine {
 		height:#font_size#px;
@@ -157,6 +157,13 @@
 		font-family:"Times New Roman", Times, serif;
 		height:#font_size#px;
 		font-size:#font_size#px;
+		overflow:hidden;
+		border:1px solid red;
+	}
+	.locality {
+		height:#locHeight#px;
+		font-size:#font_size#px;
+		font-family:#font_family#;		
 		overflow:hidden;
 		border:1px solid red;
 	}
@@ -189,6 +196,41 @@ an inner container, which holds the content
 
 <cfset i=1>
 <cfloop query="data">
+	<cfset geog="#ucase(state_prov)#">
+	<cfif #country# is "United States">
+		<cfset geog="#geog#, USA">
+	<cfelse>
+		<cfset geog="#geog#, #ucase(country)#">
+	</cfif>
+	<cfset coordinates = "">
+	<cfif len(#verbatimLatitude#) gt 0 AND len(#verbatimLongitude#) gt 0>
+		<cfset coordinates = "#verbatimLatitude# / #verbatimLongitude#">
+		<cfset coordinates = replace(coordinates,"d","&##176;","all")>
+		<cfset coordinates = replace(coordinates,"m","'","all")>
+		<cfset coordinates = replace(coordinates,"s","''","all")>
+	</cfif>
+	<cfset locality="">
+	<cfif len(#quad#) gt 0>
+		<cfset locality = "#quad# Quad.:">
+	</cfif>
+	<cfif len(#spec_locality#) gt 0>
+		<cfset locality = "#locality# #spec_locality#">
+	</cfif>
+	<cfif len(#coordinates#) gt 0>
+	 	<cfset locality = "#locality#, #coordinates#">
+	 </cfif>
+	  <cfif len(#ORIG_ELEV_UNITS#) gt 0>
+	 	<cfset locality = "#locality#. Elev. #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#">
+	 </cfif>
+	 <cfif len(#habitat#) gt 0>
+	 	<cfset locality = "#locality#, #habitat#">
+	 </cfif>
+	 <cfif right(locality,1) is not ".">
+		 <cfset locality = "#locality#.">
+	</cfif>
+	
+	
+	
 	<cfif counter is 1>
 		<!--- new page  
 			
@@ -230,7 +272,9 @@ Hi, I'm a label<br>
 					<div class="sciName">
 						#scientific_name#
 					</div>
-									
+					<div class="locality">
+						#locality#
+					</div>			
 					<!--- end of content ---->
 				</div>
 		</div>
