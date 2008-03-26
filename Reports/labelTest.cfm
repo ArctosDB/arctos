@@ -2,7 +2,7 @@
 
 ---->
 <cfdocument 
-	format="pdf"
+	format="FlashPaper"
 	pagetype="letter" 
 		orientation="landscape"
 		margintop="0"
@@ -10,7 +10,8 @@
 		marginbottom="0"
 		marginright="0.0" 
 		overwrite="true"
-	fontembed="yes" filename="#Application.webDirectory#/temp/alaLabel.pdf" >
+	fontembed="yes" >
+		<!---filename="#Application.webDirectory#/temp/alaLabel.pdf" --->
 <cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 
