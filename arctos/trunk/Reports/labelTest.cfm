@@ -141,10 +141,12 @@
 	.singleLineLeft {
 		height:#font_size#px;
 		font-size:#font_size#px;
-		font-family:#font_family#;
-		align:center;						
+		font-family:#font_family#;		
 		overflow:hidden;
 		border:1px solid red;
+	}
+	.alignCenter {
+		text-align:center;						
 	}
 </style>
 <cfif #orientation# is "portrait">
@@ -204,10 +206,10 @@ Hi, I'm a label<br>
 				<div style="position:relative; height:#innerHeight#in; width:#innerWidth#in; margin:#lblMargin#in">
 					<!--- content goes here --->
 					<cfset thisHeight=".2in;">
-					<div class="singleLineLeft">
+					<div class="singleLineLeft" alignCenter>
 						Museum of Southwestern Biology
 					</div>
-					<div class="singleLineLeft">
+					<div class="singleLineLeft" alignCenter>
 						Biological Surveys Collection
 					</div>
 									
