@@ -160,6 +160,7 @@
 		float:right;		
 		position:absolute;
 		top:0px;
+		right:0px;
 	}
 	.alignCenter {
 		text-align:center;						
