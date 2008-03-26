@@ -52,6 +52,7 @@
 	
 	<div class="oneLabel" style="top:#topPosn#in; left:#lrPosn#in; width:#lblWidth#in; height:#lblHeight#in">
 		top:#topPosn#; left:#lrPosn#
+		<cfdump var=#variables#>
 	</div>
 	<cfset currentRowPosn=currentRowPosn+1>
 	
