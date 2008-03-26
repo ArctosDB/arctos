@@ -14,8 +14,13 @@
 		<label for="lblMargin">Label Margin</label>
 		<input type="text" name="lblMargin" id="lblMargin" value=".1">inches
 		
-		<label for="lblBorder">Label Border</label>
+		<label for="lblBorder">Outer Border</label>
 		<select name="lblBorder" id="lblBorder">
+			<option value="1px dashed gray">1px dashed gray</option>
+		</select>
+		
+		<label for="inrBorder">Inner Border</label>
+		<select name="inrBorder" id="inrBorder">
 			<option value="1px dotted gray">1px dotted gray</option>
 		</select>
 		<br>
@@ -96,8 +101,8 @@ Hi, I'm a label<br>
 		position:absolute;
 		overflow:hidden;
 		border:#lblBorder#;">
-		<div style="height: #middleHeight#in; width:#middleWidth#in; position:relative; border:1px dotted green; margin:#lblMargin#in">
-				<div style="position:relative; height:#innerHeight#in; width:#innerWidth#in; border:1px dotted purple; margin:#lblMargin#in">
+		<div style="height: #middleHeight#in; width:#middleWidth#in; position:relative; border:#inrBorder#; margin:#lblMargin#in">
+				<div style="position:relative; height:#innerHeight#in; width:#innerWidth#in; margin:#lblMargin#in">
 					Hi, I'm label number #i#<br>
 					top:#topPosn#; left:#lrPosn#
 				</div>
