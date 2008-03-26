@@ -44,16 +44,20 @@
 
 <cfloop from="1" to="#recordcount#" index="i">
 	<cfif counter is 1>
-		<!-- new page --->
-		<div class="onePage">
+		<!-- new page  <div class="onePage">   --->
+		---starting a new page -------------------<br>
 	</cfif>
+	
 	<cfset lrPosn=lrPosn*currentRowPosn>
 	<cfset topPosn=topPosn*currentColPosn>
-	
+	Hi, I'm a label<br>
+	top:#topPosn#; left:#lrPosn#<br>
+	<!---
 	<div class="oneLabel" style="top:#topPosn#in; left:#lrPosn#in; width:#lblWidth#in; height:#lblHeight#in">
 		top:#topPosn#; left:#lrPosn#
 		<cfdump var=#variables#>
 	</div>
+	---->
 	<cfset currentRowPosn=currentRowPosn+1>
 	
 	<cfif currentRowPosn gte rowsPerPage>
@@ -84,8 +88,8 @@
 		<cfset topPosn = 0>
 	</cfif>
 	<cfif #counter# is 1>
-		<!--- close new page --->
-		</div>
+		<!--- close new page  </div> --->
+		------closing the page div -----------------<br>
 	</cfif>
 	<cfset i=i+1>
 	
