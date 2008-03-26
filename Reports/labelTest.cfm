@@ -1,6 +1,4 @@
 <!---
-
----->
 <cfdocument 
 	format="FlashPaper"
 	pagetype="letter" 
@@ -11,9 +9,35 @@
 		marginright="0.0" 
 		overwrite="true"
 	fontembed="yes" >
+---->
+
 		<!---filename="#Application.webDirectory#/temp/alaLabel.pdf" --->
 <cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
+
+<cfset pHeight=8.5>
+<cfset pWidth=11>
+<cfset lblHeight=2.25>
+<cfset lblWidth=1.5>
+
+
+<cfset rowsPerPage = int(pHeight/lblHeight)>
+<cfset colsPerPage = int(pWidth/lblWidth)>
+
+
+
+
+
+<cfset lrPosn=0>
+<cfset topPosn = 0>
+<cfset counter=1>
+<cfset currentRow=0>
+<cfset currentColumn=0>
+<cfdump var=#variables#>
+<cfloop from="1" to="20" index="i">
+
+</cfloop>
+
 
 <div class="onePage">
 	<div class="oneLabel">
@@ -333,9 +357,9 @@
 ---->
 </cfoutput>
 <!----
-
----->
 </cfdocument>
+---->
+
 <cfoutput>
 	<a href="#Application.ServerRootUrl#/temp/alaLabel.pdf">pdf</a>
 	</cfoutput>
