@@ -149,6 +149,9 @@
 		overflow:hidden;
 		border:1px solid red;
 	}
+	.threeQuarter {
+		width:75%;
+		}
 	.alignCenter {
 		text-align:center;						
 	}
@@ -274,7 +277,15 @@ Hi, I'm a label<br>
 					</div>
 					<div class="locality">
 						#locality#
-					</div>			
+					</div>
+					<div class="singleLine">
+						#verbatim_date#
+					</div>
+					<div class="singleLine threeQuarter">
+						#collectors#
+					</div>		
+					
+						
 					<!--- end of content ---->
 				</div>
 		</div>
