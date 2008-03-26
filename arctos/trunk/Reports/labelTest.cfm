@@ -54,7 +54,7 @@
 	top:#topPosn#; left:#lrPosn#<br>
 	
 	<cfset lrPosn= lrPosn + lblWidth>
-	<cfif lrPosn gte (pWidth  + lblWidth)>
+	<cfif lrPosn gte (pWidth  - lblWidth)>
 		<cfset lrPosn=0>
 		<cfset topPosn=topPosn+lblHeight>
 	</cfif>
