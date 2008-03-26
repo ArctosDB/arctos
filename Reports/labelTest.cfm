@@ -62,7 +62,7 @@ Hi, I'm a label<br>
 
 	<div style="top:#topPosn#in; left:#lrPosn#in; width:#lblWidth#in; height:#lblHeight#in; position:absolute;">
 		Hi, I'm a label<br>
-	top:#topPosn#; left:#lrPosn#
+		top:#topPosn#; left:#lrPosn#
 	</div>
 	
 	
@@ -94,9 +94,6 @@ Hi, I'm a label<br>
 		
 	</cfif>
 	<cfset i=i+1>
-	
-	
-</div>
 </cfloop>
 
 
