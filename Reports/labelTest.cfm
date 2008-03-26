@@ -26,9 +26,9 @@
 			<option value="1px dotted gray">1px dotted gray</option>
 		</select>
 		
-		<label for="font_style">Base Font</label>
-		<select name="font_style" id="font_style">
-			<option value='"Times New Roman", Times, serif;'>"Times New Roman", Times, serif;</option>
+		<label for="font_family">Base Font</label>
+		<select name="font_family" id="font_family">
+			<option value="'Times New Roman', Times, serif">"Times New Roman", Times, serif</option>
 		</select>
 		<label for="lblHeight">Base Font Size</label>
 		<input type="text" name="font_size" id="font_size" value="8">px
@@ -194,7 +194,7 @@ Hi, I'm a label<br>
 					<cfset thisHeight=".2in;">
 					<div style="height:#thisHeight#"
 						font:#font_style#;
-						font-size:#font_size#>
+						font-family:#font_family#;>
 						Museum of Southwestern Biology
 					</div>					
 					<!--- end of content ---->
