@@ -14,7 +14,7 @@
 		<!---filename="#Application.webDirectory#/temp/alaLabel.pdf" --->
 <cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
-<cfset recordcount=199>
+<cfset rc=199>
 
 
 
@@ -33,7 +33,7 @@
 
 
 
-<cfloop from="1" to="#recordcount#" index="i">
+<cfloop from="1" to="#rc#" index="i">
 	<cfif counter is 1>
 		<!--- new page  
 			
@@ -75,7 +75,7 @@ Hi, I'm a label<br>
 		<cfset lrPosn=0>
 		<cfset topPosn = 0>
 	</cfif>
-	<cfif #counter# is 1>
+	<cfif #counter# is 1 or i is rc>
 		<!--- close new page--  
 		----closing the page div -----------------<br>
 		  --->
