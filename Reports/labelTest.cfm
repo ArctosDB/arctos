@@ -1,3 +1,26 @@
+<cfif #action# is "nothing">
+	<cfinclude template="/includes/_header.cfm">
+	<form name="l" method="post" action="labelTest.cfm">
+		<label for="orientation">Orientation</label>
+		<select name="orientation" id="orientation">
+			<option value="portrait">portrait</option>
+		</select>
+		<label for="lblHeight">Label Height</label>
+		<input type="text" name="lblHeight" id="lblHeight" value="2.25">inches
+		<label for="lblWidth">Label Width</label>
+		<input type="text" name="lblWidth" id="lblWidth" value="1.5">inches
+		<label for="lblMargin">Label Margin</label>
+		<input type="text" name="lblMargin" id="lblMargin" value=".1">inches
+		
+		<label for="lblBorder">Label Border</label>
+		<select name="lblBorder" id="lblBorder">
+			<option value="1px dotted gray">1px dotted gray</option>
+		</select>
+		
+	</form>
+	
+</cfif>
+<cfif #action# is "print">
 <!---
 <cfdocument 
 	format="FlashPaper"
@@ -17,13 +40,10 @@
 <cfset rc=199>
 
 
-
-
-<cfset pHeight=11>
-<cfset pWidth=8.5>
-<cfset lblHeight=2.25>
-<cfset lblWidth=1.5>
-
+<cfif #orientation# is "portrait">
+	<cfset pHeight=11>
+	<cfset pWidth=8.5>
+</cfif>
 
 <cfset rowsPerPage = int(pHeight/lblHeight)>
 <cfset colsPerPage = int(pWidth/lblWidth)>
@@ -42,7 +62,7 @@
 		<div style="width:#pWidth#in;
 			height:#pHeight#in;
 			position:relative;
-			border:1px solid black;">   
+			border:1px solid green;">   
 	</cfif>
 	
 <!----
@@ -52,7 +72,14 @@ Hi, I'm a label<br>
 	top:#topPosn#; left:#lrPosn#<br>
 ---->
 
-	<div class="oneLabel" style="top:#topPosn#in; left:#lrPosn#in; width:#lblWidth#in; height:#lblHeight#in; position:absolute;">
+	<div style="top:#topPosn#in; 
+		left:#lrPosn#in; 
+		width:#lblWidth#in; 
+		height:#lblHeight#in; 
+		position:absolute;
+		overflow:hidden;
+		border:#lblBorder#;
+		margin:#lblMargin#">
 		Hi, I'm label number #i#<br>
 		top:#topPosn#; left:#lrPosn#
 	</div>
@@ -401,3 +428,4 @@ Hi, I'm a label<br>
 <cfoutput>
 	<a href="#Application.ServerRootUrl#/temp/alaLabel.pdf">pdf</a>
 	</cfoutput>
+	</cfif>
