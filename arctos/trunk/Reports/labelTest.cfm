@@ -137,7 +137,16 @@
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 <cfset rc=199>
 
-
+<style>
+	.singleLineLeft {
+		height:#font_size#px;
+		font-size:#font_size#px;
+		font-family:#font_family#;
+		align:center;						
+		overflow:hidden;
+		border:1px solid red;
+	}
+</style>
 <cfif #orientation# is "portrait">
 	<cfset pHeight=11>
 	<cfset pWidth=8.5>
@@ -195,20 +204,10 @@ Hi, I'm a label<br>
 				<div style="position:relative; height:#innerHeight#in; width:#innerWidth#in; margin:#lblMargin#in">
 					<!--- content goes here --->
 					<cfset thisHeight=".2in;">
-					<div style="height:#font_size#px;
-						font-size:#font_size#px;
-						font-family:#font_family#;
-						align:center;						
-		overflow:hidden;
-							border:1px solid red;">
+					<div class="singleLineLeft">
 						Museum of Southwestern Biology
 					</div>
-					<div style="height:#font_size#px;
-						font-size:#font_size#px;
-						font-family:#font_family#;
-						align:center;	
-		overflow:hidden;
-						border:1px solid red;">
+					<div class="singleLineLeft">
 						Biological Surveys Collection
 					</div>
 									
