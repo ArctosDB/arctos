@@ -48,6 +48,7 @@
 	<cfset pWidth=8.5>
 </cfif>
 
+<cfset innerHeight=lblHeight-lblMargin>
 <cfset rowsPerPage = int(pHeight/lblHeight)>
 <cfset colsPerPage = int(pWidth/lblWidth)>
 <cfset counter=1>
@@ -82,7 +83,7 @@ Hi, I'm a label<br>
 		position:absolute;
 		overflow:hidden;
 		border:#lblBorder#;">
-		<div style="position:relative; border:1px dotted green; margin:#lblMargin#in">
+		<div style="height: #innerHeight#in; position:relative; border:1px dotted green; margin:#lblMargin#in">
 				Hi, I'm label number #i#<br>
 				top:#topPosn#; left:#lrPosn#
 		</div>
