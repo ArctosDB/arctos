@@ -138,7 +138,7 @@
 <cfset rc=199>
 
 <style>
-	.singleLineLeft {
+	.singleLine {
 		height:#font_size#px;
 		font-size:#font_size#px;
 		font-family:#font_family#;		
@@ -206,10 +206,10 @@ Hi, I'm a label<br>
 				<div style="position:relative; height:#innerHeight#in; width:#innerWidth#in; margin:#lblMargin#in">
 					<!--- content goes here --->
 					<cfset thisHeight=".2in;">
-					<div class="singleLineLeft" alignCenter>
+					<div class="singleLine alignCenter" >
 						Museum of Southwestern Biology
 					</div>
-					<div class="singleLineLeft" alignCenter>
+					<div class="singleLine alignCenter" >
 						Biological Surveys Collection
 					</div>
 									
