@@ -227,7 +227,7 @@ Hi, I'm a label<br>
 					<div class="singleLine alignCenter">
 						MSB #cat_num#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#sex#
 					</div>
-					<div class="singleLine alignCenter italic">
+					<div class="sciName">
 						#scientific_name#
 					</div>
 									
