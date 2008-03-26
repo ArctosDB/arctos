@@ -28,7 +28,10 @@
 		
 		<label for="font_family">Base Font</label>
 		<select name="font_family" id="font_family">
-			<option value="'Times New Roman', Times, serif">"Times New Roman", Times, serif</option>
+			<option value="'Times New Roman', Times, serif">'Times New Roman', Times, serif</option>
+			<option value="Arial, Helvetica, sans-serif">Arial, Helvetica, sans-serif</option>
+			
+			
 		</select>
 		<label for="lblHeight">Base Font Size</label>
 		<input type="text" name="font_size" id="font_size" value="8">px
