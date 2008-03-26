@@ -97,7 +97,7 @@ Hi, I'm a label<br>
 		overflow:hidden;
 		border:#lblBorder#;">
 		<div style="height: #middleHeight#in; width:#middleWidth#in; position:relative; border:1px dotted green; margin:#lblMargin#in">
-				<div style="position:relative; height:#innerHeight#in; width:#innerWidth#in">
+				<div style="position:relative; height:#innerHeight#in; width:#innerWidth#in; border:1px dotted purple; margin:#lblMargin#in">
 					Hi, I'm label number #i#<br>
 					top:#topPosn#; left:#lrPosn#
 				</div>
