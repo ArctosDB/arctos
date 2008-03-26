@@ -81,10 +81,11 @@ Hi, I'm a label<br>
 		height:#lblHeight#in; 
 		position:absolute;
 		overflow:hidden;
-		border:#lblBorder#;
-		padding:#lblMargin#in">
-		Hi, I'm label number #i#<br>
-		top:#topPosn#; left:#lrPosn#
+		border:#lblBorder#;">
+		<div style="width:100%; height:100%; padding:#lblMargin#in">
+				Hi, I'm label number #i#<br>
+				top:#topPosn#; left:#lrPosn#
+		</div>
 	</div>
 	
 	
