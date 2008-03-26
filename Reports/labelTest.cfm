@@ -19,16 +19,16 @@
 <cfset pWidth=11>
 <cfset lblHeight=2.25>
 <cfset lblWidth=1.5>
-<cfset vMargin=.01>
-<cfset hMargin=.01>
+<cfset vSpace=1>
+<cfset hSpace=.01>
 
 <cfset rowsPerPage = int(pHeight/lblHeight)>
 <cfset colsPerPage = int(pWidth/lblWidth)>
-<cfset temp=rowsPerPage*hMargin>
+<cfset temp=rowsPerPage*hSpace>
 <cfif temp gt pHeight>
 	<cfset pHeight=pHeight-1>
 </cfif>
-<cfset temp=colsPerPage*vMargin>
+<cfset temp=colsPerPage*vSpace>
 <cfif temp gt pWidth>
 	<cfset pWidth=pWidth-1>
 </cfif>
