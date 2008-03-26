@@ -4,14 +4,17 @@
 	width:11in;
 	height:8.5in;
 	position:relative;
+	border:1px solid black;
 }
 .oneLabel{
 	position:absolute;
 	overflow:hidden;
+	border:1px solid black;
 }
 .oneCell {
 	position:absolute;
 	overflow:hidden;
+	border:1px solid black;
 }
 
 /* doesn't really work all that well in FlashPaper, but helps with formatting - sometimes - maybe... */

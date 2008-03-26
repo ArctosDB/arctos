@@ -96,9 +96,9 @@ Condition History (<span style="background-color:green">Green is current</span>)
 		object_condition_id,
 		determined_agent_id,
 		agent_name,
-		 determined_date,
-		 condition
-		from object_condition,preferred_agent_name
+		determined_date,
+		condition
+	from object_condition,preferred_agent_name
 		where determined_agent_id = agent_id and
 		collection_object_id = #collection_object_id#
 		group by
@@ -137,10 +137,10 @@ Condition History (<span style="background-color:green">Green is current</span>)
 				<cfelse>
 					<cfset thisAgent = "unknown">
 				</cfif>
-				<input type="hidden" name="determined_agent_id_#i#" value="#client.myAgentId#">
+				<input type="hidden" name="determined_agent_id_#i#" value="#determined_agent_id#">
 				
-				<input type="text" name="agent_name_#i#" value="#client.username#" class="reqdClr"
-		onchange="getAgent('determined_agent_id_#i#','agent_name_#i#','',this.value); return false;"
+				<input type="text" name="agent_name_#i#" value="#agent_name#" class="reqdClr"
+		onchange="getAgent('determined_agent_id_#i#','agent_name_#i#','condn',this.value); return false;"
 		 onKeyPress="return noenter(event);">
 				
 			</td>

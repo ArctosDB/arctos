@@ -50,7 +50,7 @@ select
 			ConcatAttributeValue(cataloged_item.collection_object_id,'sex') as sex,
 			concatotherid(cataloged_item.collection_object_id) as other_ids,
 			concatparts(cataloged_item.collection_object_id) as parts,
-			concatsingleotherid(cataloged_item.collection_object_id,'NK Number') as NK,
+			concatsingleotherid(cataloged_item.collection_object_id,'NK') as NK,
 			verbatim_date,
 			accn_num_prefix,
 			accn_num,
@@ -110,8 +110,8 @@ select
 
  <cfloop query="data">
  	<cfquery name="tCollNum" datasource="#Application.web_user#">
-		select other_id_num from coll_obj_other_id_num where
-		other_id_type='NK Number'
+		select display_value from coll_obj_other_id_num where
+		other_id_type='NK'
 		and collection_object_id=#collection_object_id#
 	</cfquery>
 	<cfset coordinates = "">

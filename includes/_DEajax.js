@@ -1,3 +1,17 @@
+function rememberLastOtherId (yesno) {
+	DWREngine._execute(_data_entry_func, null, 'rememberLastOtherId', yesno,success_rememberLastOtherId);
+}
+function success_rememberLastOtherId (yesno) {
+	var theSpan = document.getElementById('rememberLastId');
+	if (yesno==0){
+		theSpan.innerHTML='<span class="infoLink" onclick="rememberLastOtherId(1)">Increment This</span>';
+	} else if (yesno == 1) {
+		theSpan.innerHTML='<span class="infoLink" onclick="rememberLastOtherId(0)">Nevermind</span>';
+	} else {
+		alert('Something goofy happened. Remembering your next Other ID may not have worked.');
+	}	
+}
+
 function isGoodAccn () {
 	var accn = document.getElementById('accn').value;
 	var institution_acronym = document.getElementById('institution_acronym').value;
