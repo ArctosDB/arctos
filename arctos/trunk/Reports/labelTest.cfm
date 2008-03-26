@@ -14,7 +14,7 @@
 		<!---filename="#Application.webDirectory#/temp/alaLabel.pdf" --->
 <cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
-<cfset recordcount=1>
+<cfset recordcount=2>
 
 
 
