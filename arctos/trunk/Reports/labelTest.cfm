@@ -14,49 +14,86 @@
 		<!---filename="#Application.webDirectory#/temp/alaLabel.pdf" --->
 <cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
+<cfset recordcount=20>
+
+
+
 
 <cfset pHeight=8.5>
 <cfset pWidth=11>
 <cfset lblHeight=2.25>
 <cfset lblWidth=1.5>
-<cfset vSpace=3>
-<cfset hSpace=.01>
+<cfset margin=.1>
+
+
 
 <cfset rowsPerPage = int(pHeight/lblHeight)>
 <cfset colsPerPage = int(pWidth/lblWidth)>
-<cfset temp=rowsPerPage*hSpace>
-<cfif temp gt pHeight>
-	<cfset pHeight=pHeight-1>
-</cfif>
-<cfset temp=colsPerPage*vSpace>
-<cfif temp gt pWidth>
-	<cfset pWidth=pWidth-1>
-</cfif>
-
-
-
-
-<cfset lrPosn=0>
-<cfset topPosn = 0>
 <cfset counter=1>
-<cfset currentRow=0>
-<cfset currentColumn=0>
-<cfdump var=#variables#>
-<cfloop from="1" to="20" index="i">
+<cfset lrPosn=0>
+<cfset topPosn=0>
+<cfset currentRow=1>
+<cfset currentColumn=1>
 
+<cfset currentRowPosn=1>
+<cfset currentColPosn=1>
+
+
+<cfdump var=#variables#>
+
+
+<cfloop from="1" to="#recordcount#" index="i">
+	<cfif counter is 1>
+		<!-- new page --->
+		<div class="onePage">
+	</cfif>
+	
+	<div class="oneLabel" style="top:#topPosn#; left:#lrPosn#">
+		top:#topPosn#; left:#lrPosn#
+	</div>
+	<cfset currentRowPosn=currentRowPosn+1>
+	<cfset lrPosn=lrPosn*currentRowPosn>
+	<cfset topPosn=topPosn*currentColPosn>
+	
+	<cfif currentRowPosn gte rowsPerPage>
+		<cfset currentRow=currentRow+1>
+		<cfset currentRowPosn=1>
+	</cfif>
+	<cfif currentColPosn gte colsPerPage>
+		<cfset currentColumn=currentColumn+1>
+		<cfset currentColPosn=1>
+	</cfif>
+	
+	<!---
+	<cfif i is (recordcount mod colsPerPage) + 1>
+		<cfset currentRow=currentRow+1>
+		<cfset lrPosn=0>
+	</cfif>
+	--->
+	<cfif currentrow gte rowsPerPage>
+		<cfset currentrow=currentrow+1>
+	</cfif>
+	
+	<cfset counter=counter+1>
+	
+	<cfif counter gt (rowsPerPage * colsPerPage)>
+		<!--- counter starts with one at every page --->
+		<cfset counter=1>
+		<cfset lrPosn=0>
+		<cfset topPosn = 0>
+	</cfif>
+	<cfif #counter# is 1>
+		<!--- close new page --->
+		</div>
+	</cfif>
+	<cfset i=i+1>
+	
+	
+</div>
 </cfloop>
 
 
-<div class="onePage">
-	<div class="oneLabel">
-		<div class="oneCell" style="width:6in;height:1in">
-			this div should be 6 inches by 1 inch
-		</div>
-		<div class="oneCell" style="width:6in;height:1in">
-			this div should be 1 inch by 6 inches
-		</div>
-	</div>
-</div>
+
 <!----
 <cfif not isdefined("collection_object_id")>
 	<cfabort>
