@@ -195,11 +195,17 @@ Hi, I'm a label<br>
 				<div style="position:relative; height:#innerHeight#in; width:#innerWidth#in; margin:#lblMargin#in">
 					<!--- content goes here --->
 					<cfset thisHeight=".2in;">
-					<div style="height:#thisHeight#
+					<div style="height:#font_size#px;
 						font-size:#font_size#px;
 						font-family:#font_family#;">
 						Museum of Southwestern Biology
-					</div>					
+					</div>
+					<div style="height:#font_size#px;
+						font-size:#font_size#px;
+						font-family:#font_family#;">
+						Biological Surveys Collection
+					</div>
+									
 					<!--- end of content ---->
 				</div>
 		</div>
