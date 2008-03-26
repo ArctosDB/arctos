@@ -19,8 +19,8 @@
 
 
 
-<cfset pHeight=8.5>
-<cfset pWidth=11>
+<cfset pHeight=11>
+<cfset pWidth=8.5>
 <cfset lblHeight=2.25>
 <cfset lblWidth=1.5>
 <cfset margin=.1>
