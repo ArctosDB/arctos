@@ -152,8 +152,13 @@
 	.alignCenter {
 		text-align:center;						
 	}
-	.italic {
+	.sciName {
 		font-style:italic;
+		font:"Times New Roman", Times, serif;
+		height:#font_size#px;
+		font-size:#font_size#px;
+		overflow:hidden;
+		border:1px solid red;
 	}
 </style>
 <cfif #orientation# is "portrait">
