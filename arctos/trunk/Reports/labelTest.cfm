@@ -48,6 +48,10 @@
 <cfset sql="
 	select
 		get_scientific_name_auths(cataloged_item.collection_object_id) sci_name_with_auth,
+		decode(trim(ConcatAttributeValue(cataloged_item.collection_object_id,'abundance')),
+			'male','M',
+			'female','F',
+			'U') sex,					
 		concatAcceptedIdentifyingAgent(cataloged_item.collection_object_id) identified_by,
 		get_taxonomy(cataloged_item.collection_object_id,'family') family,
 		get_taxonomy(cataloged_item.collection_object_id,'scientific_name') tsname,
@@ -211,6 +215,9 @@ Hi, I'm a label<br>
 					</div>
 					<div class="singleLine alignCenter">
 						Biological Surveys Collection
+					</div>
+					<div class="singleLine alignCenter">
+						MSB #cat_num#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#sex#
 					</div>
 									
 					<!--- end of content ---->
