@@ -155,6 +155,7 @@
 	}
 	.oneQuarter {
 		width:25%;
+		float:right;
 	}
 	.alignCenter {
 		text-align:center;						
