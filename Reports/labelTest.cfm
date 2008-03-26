@@ -48,8 +48,8 @@
 		---starting a new page -------------------<br>
 	</cfif>
 	
-	<cfset lrPosn=lrPosn*currentRowPosn>
-	<cfset topPosn=topPosn*currentColPosn>
+	<cfset lrPosn= lrPosn + (lrPosn*currentRowPosn)>
+	<cfset topPosn=topPosn + (topPosn*currentColPosn)>
 	Hi, I'm a label<br>
 	top:#topPosn#; left:#lrPosn#<br>
 	<!---
