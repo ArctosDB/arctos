@@ -118,8 +118,6 @@
 	</cfquery>
 	
 	
-	
-<!---
 <cfdocument 
 	format="FlashPaper"
 	pagetype="letter" 
@@ -129,7 +127,9 @@
 		marginbottom="0"
 		marginright="0.0" 
 		overwrite="true"
-	fontembed="yes" >
+	fontembed="yes" >	
+<!---
+
 ---->
 
 		<!---filename="#Application.webDirectory#/temp/alaLabel.pdf" --->
@@ -554,9 +554,9 @@ Hi, I'm a label<br>
 ---->
 </cfoutput>
 <!----
-</cfdocument>
----->
 
+---->
+</cfdocument>
 <cfoutput>
 	<a href="#Application.ServerRootUrl#/temp/alaLabel.pdf">pdf</a>
 	</cfoutput>
