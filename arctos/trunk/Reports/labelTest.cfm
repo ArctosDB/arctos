@@ -47,13 +47,13 @@
 		<!-- new page --->
 		<div class="onePage">
 	</cfif>
+	<cfset lrPosn=lrPosn*currentRowPosn>
+	<cfset topPosn=topPosn*currentColPosn>
 	
 	<div class="oneLabel" style="top:#topPosn#; left:#lrPosn#">
 		top:#topPosn#; left:#lrPosn#
 	</div>
 	<cfset currentRowPosn=currentRowPosn+1>
-	<cfset lrPosn=lrPosn*currentRowPosn>
-	<cfset topPosn=topPosn*currentColPosn>
 	
 	<cfif currentRowPosn gte rowsPerPage>
 		<cfset currentRow=currentRow+1>
