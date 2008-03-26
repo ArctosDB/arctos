@@ -48,10 +48,14 @@
 		---starting a new page -------------------<br>
 	</cfif>
 	
-	<cfset lrPosn= lrPosn + lblWidth>
+
 
 	Hi, I'm a label<br>
 	top:#topPosn#; left:#lrPosn#<br>
+	
+	<cfset lrPosn= lrPosn + lblWidth>
+		
+		
 	<!---
 	<div class="oneLabel" style="top:#topPosn#in; left:#lrPosn#in; width:#lblWidth#in; height:#lblHeight#in">
 		top:#topPosn#; left:#lrPosn#
