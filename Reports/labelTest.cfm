@@ -19,7 +19,7 @@
 <cfset pWidth=11>
 <cfset lblHeight=2.25>
 <cfset lblWidth=1.5>
-<cfset vSpace=1>
+<cfset vSpace=3>
 <cfset hSpace=.01>
 
 <cfset rowsPerPage = int(pHeight/lblHeight)>
