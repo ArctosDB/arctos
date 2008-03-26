@@ -14,7 +14,7 @@
 		<!---filename="#Application.webDirectory#/temp/alaLabel.pdf" --->
 <cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
-<cfset recordcount=2>
+<cfset recordcount=10>
 
 
 
@@ -54,7 +54,10 @@
 	top:#topPosn#; left:#lrPosn#<br>
 	
 	<cfset lrPosn= lrPosn + lblWidth>
-		
+	<cfif lrPosn gte (pWidth  + lblWidth)>
+		<cfset lrPosn=0>
+		<cfset topPosn=topPosn+lblHeight>
+	</cfif>
 		
 	<!---
 	<div class="oneLabel" style="top:#topPosn#in; left:#lrPosn#in; width:#lblWidth#in; height:#lblHeight#in">
