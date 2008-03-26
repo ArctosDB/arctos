@@ -1,6 +1,7 @@
 <cfif #action# is "nothing">
 	<cfinclude template="/includes/_header.cfm">
 	<form name="l" method="post" action="labelTest.cfm">
+		<input type="hidden" name="action" value="print">
 		<label for="orientation">Orientation</label>
 		<select name="orientation" id="orientation">
 			<option value="portrait">portrait</option>
