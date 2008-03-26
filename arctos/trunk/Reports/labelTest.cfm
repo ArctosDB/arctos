@@ -85,7 +85,8 @@
 		ORIG_ELEV_UNITS,
 		concatColl(cataloged_item.collection_object_id) as collectors,
 		concatotherid(cataloged_item.collection_object_id) as other_ids,
-		concatsingleotherid(cataloged_item.collection_object_id,'original identifier') fieldnum,
+		concatsingleotherid(cataloged_item.collection_object_id,'collector number') collector_number,
+				concatsingleotherid(cataloged_item.collection_object_id,'original identifier') fieldnum,
 		concatsingleotherid(cataloged_item.collection_object_id,'U. S. National Park Service accession') npsa,
 		concatsingleotherid(cataloged_item.collection_object_id,'U. S. National Park Service catalog') npsc,
 		concatsingleotherid(cataloged_item.collection_object_id,'ALAAC') ALAAC,
@@ -151,7 +152,10 @@
 	}
 	.threeQuarter {
 		width:75%;
-		}
+	}
+	.oneQuarter {
+		width:25%;
+	}
 	.alignCenter {
 		text-align:center;						
 	}
@@ -283,6 +287,9 @@ Hi, I'm a label<br>
 					</div>
 					<div class="singleLine threeQuarter">
 						#collectors#
+					</div>
+					<div class="singleLine oneQuarter">
+						#collector_number#
 					</div>		
 					
 						
