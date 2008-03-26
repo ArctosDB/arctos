@@ -193,7 +193,7 @@ Hi, I'm a label<br>
 					<!--- content goes here --->
 					<cfset thisHeight=".2in;">
 					<div style="height:#thisHeight#"
-						font-size:#font_size#;
+						font-size:#font_size#px;
 						font-family:#font_family#;">
 						Museum of Southwestern Biology
 					</div>					
