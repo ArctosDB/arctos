@@ -48,7 +48,7 @@
 	<cfset pWidth=8.5>
 </cfif>
 
-<cfset innerHeight=lblHeight-lblMargin>
+<cfset innerHeight=lblHeight-(lblMargin*2)>
 <cfset rowsPerPage = int(pHeight/lblHeight)>
 <cfset colsPerPage = int(pWidth/lblWidth)>
 <cfset counter=1>
