@@ -152,10 +152,14 @@
 	}
 	.threeQuarter {
 		width:75%;
+		position:absolute;
+		top:0px;
 	}
 	.oneQuarter {
 		width:25%;
-		float:right;
+		float:right;		
+		position:absolute;
+		top:0px;
 	}
 	.alignCenter {
 		text-align:center;						
@@ -286,8 +290,8 @@ Hi, I'm a label<br>
 					<div class="singleLine">
 						#verbatim_date#
 					</div>
-					<div style="border:1px solid green;">
-						<div class="singleLine threeQuarter">
+					<div style="border:1px solid green; position:relative;">
+						<div class="singleLine threeQuarter" >
 							#collectors#
 						</div>
 						<div class="singleLine oneQuarter">
