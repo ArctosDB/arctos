@@ -117,6 +117,8 @@
 		#preservesinglequotes(sql)#
 	</cfquery>
 	
+
+<!---
 	
 <cfdocument 
 	format="PDF"
@@ -128,8 +130,6 @@
 		marginright="0.0" 
 		overwrite="true"
 	fontembed="yes" filename="#Application.webDirectory#/temp/alaLabel.pdf">	
-<!---
-
 ---->
 
 		<!--- --->
@@ -206,10 +206,10 @@ Hi, I'm a label<br>
 				<div style="position:relative; height:#innerHeight#in; width:#innerWidth#in; margin:#lblMargin#in">
 					<!--- content goes here --->
 					<cfset thisHeight=".2in;">
-					<div class="singleLine alignCenter" >
+					<div class="singleLine alignCenter">
 						Museum of Southwestern Biology
 					</div>
-					<div class="singleLine alignCenter" >
+					<div class="singleLine alignCenter">
 						Biological Surveys Collection
 					</div>
 									
@@ -556,9 +556,9 @@ Hi, I'm a label<br>
 ---->
 </cfoutput>
 <!----
-
----->
 </cfdocument>
+---->
+
 <cfoutput>
 	<a href="#Application.ServerRootUrl#/temp/alaLabel.pdf">pdf</a>
 	</cfoutput>
