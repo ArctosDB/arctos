@@ -198,14 +198,16 @@ Hi, I'm a label<br>
 					<div style="height:#font_size#px;
 						font-size:#font_size#px;
 						font-family:#font_family#;
-						align:center;
+						align:center;						
+		overflow:hidden;
 							border:1px solid red;">
 						Museum of Southwestern Biology
 					</div>
 					<div style="height:#font_size#px;
 						font-size:#font_size#px;
 						font-family:#font_family#;
-						align:center;
+						align:center;	
+		overflow:hidden;
 						border:1px solid red;">
 						Biological Surveys Collection
 					</div>
