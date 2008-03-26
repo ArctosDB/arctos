@@ -14,7 +14,7 @@
 		<!---filename="#Application.webDirectory#/temp/alaLabel.pdf" --->
 <cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
-<cfset recordcount=200>
+<cfset recordcount=199>
 
 
 
@@ -23,8 +23,6 @@
 <cfset pWidth=8.5>
 <cfset lblHeight=2.25>
 <cfset lblWidth=1.5>
-<cfset margin=.1>
-
 
 
 <cfset rowsPerPage = int(pHeight/lblHeight)>
@@ -32,12 +30,6 @@
 <cfset counter=1>
 <cfset lrPosn=0>
 <cfset topPosn=0>
-<cfset currentRow=1>
-<cfset currentColumn=1>
-
-<cfset currentRowPosn=1>
-<cfset currentColPosn=1>
-
 
 
 
@@ -73,10 +65,7 @@ Hi, I'm a label<br>
 	</cfif>
 		
 
-	
-	<cfif currentrow gte rowsPerPage>
-		<cfset currentrow=currentrow+1>
-	</cfif>
+
 	
 	<cfset counter=counter+1>
 	
