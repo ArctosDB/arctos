@@ -82,7 +82,7 @@ Hi, I'm a label<br>
 		position:absolute;
 		overflow:hidden;
 		border:#lblBorder#;
-		margin:#lblMargin#">
+		margin:#lblMargin#in">
 		Hi, I'm label number #i#<br>
 		top:#topPosn#; left:#lrPosn#
 	</div>
