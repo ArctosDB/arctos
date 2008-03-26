@@ -54,7 +54,7 @@
 
 
 	
-	<div class="oneLabel" style="top:#topPosn#in; left:#lrPosn#in; width:#lblWidth#in; height:#lblHeight#in">
+	<div class="oneLabel" style="top:#topPosn#in; left:#lrPosn#in; width:#lblWidth#in; height:#lblHeight#in; position:absolute;">
 		Hi, I'm a label<br>
 	top:#topPosn#; left:#lrPosn#
 	</div>
