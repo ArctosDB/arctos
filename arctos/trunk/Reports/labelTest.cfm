@@ -43,20 +43,25 @@
 
 <cfloop from="1" to="#recordcount#" index="i">
 	<cfif counter is 1>
-		<!-- new page    ---starting a new page -------------------<br> --->
-		<div style="width:#pWidth#in;
+		<!-- new page  <div style="width:#pWidth#in;
 			height:#pHeight#in;
 			position:relative;
-			border:1px solid black;">
+			border:1px solid black;">   --->
+		---starting a new page -------------------<br>
 	</cfif>
 	
+<!----
 
-
-	
-	<div style="top:#topPosn#in; left:#lrPosn#in; width:#lblWidth#in; height:#lblHeight#in; position:absolute;">
+<div style="top:#topPosn#in; left:#lrPosn#in; width:#lblWidth#in; height:#lblHeight#in; position:absolute;">
 		Hi, I'm a label<br>
 	top:#topPosn#; left:#lrPosn#
 	</div>
+
+---->
+Hi, I'm a label<br>
+	top:#topPosn#; left:#lrPosn#<br>
+	
+	
 	
 	<cfset lrPosn= lrPosn + lblWidth>
 	<cfif lrPosn gte (pWidth  - lblWidth)>
@@ -79,9 +84,10 @@
 		<cfset topPosn = 0>
 	</cfif>
 	<cfif #counter# is 1>
-		<!--- close new page------closing the page div -----------------<br>  --->
-		</div>
+		<!--- close new page--  </div>
+		  --->
 		
+		----closing the page div -----------------<br>
 	</cfif>
 	<cfset i=i+1>
 	
