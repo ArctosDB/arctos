@@ -16,11 +16,13 @@
 		
 		<label for="lblBorder">Outer Border</label>
 		<select name="lblBorder" id="lblBorder">
+			<option value="none">none</option>
 			<option value="1px dashed gray">1px dashed gray</option>
 		</select>
 		
 		<label for="inrBorder">Inner Border</label>
 		<select name="inrBorder" id="inrBorder">
+			<option value="none">none</option>
 			<option value="1px dotted gray">1px dotted gray</option>
 		</select>
 		<br>
