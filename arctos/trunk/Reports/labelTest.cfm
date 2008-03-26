@@ -45,7 +45,10 @@
 <cfloop from="1" to="#recordcount#" index="i">
 	<cfif counter is 1>
 		<!-- new page    ---starting a new page -------------------<br> --->
-		<div class="onePage">
+		<div style="width:#pWidth#in;
+			height:#pHeight#in;
+			position:relative;
+			border:1px solid black;">
 	</cfif>
 	
 
