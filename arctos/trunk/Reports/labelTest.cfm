@@ -47,8 +47,21 @@
 	<cfset pHeight=11>
 	<cfset pWidth=8.5>
 </cfif>
+<!--- there are three nested divs:
 
-<cfset innerHeight=lblHeight-(lblMargin*2)>
+the main label container, which sets outer border
+an intermediate container, which sets the inner border
+an inner container, which holds the content
+
+--->
+
+<cfset middleHeight=lblHeight-(lblMargin*2)>
+<cfset middleWidth=lblWidth-(lblMargin*2)>
+
+<cfset innerHeight=lblHeight-(lblMargin*4)>
+<cfset innerWidth=lblWidth-(lblMargin*4)>
+
+
 <cfset rowsPerPage = int(pHeight/lblHeight)>
 <cfset colsPerPage = int(pWidth/lblWidth)>
 <cfset counter=1>
@@ -83,9 +96,11 @@ Hi, I'm a label<br>
 		position:absolute;
 		overflow:hidden;
 		border:#lblBorder#;">
-		<div style="height: #innerHeight#in; position:relative; border:1px dotted green; margin:#lblMargin#in">
-				Hi, I'm label number #i#<br>
-				top:#topPosn#; left:#lrPosn#
+		<div style="height: #middleHeight#in; width:#middleWidth#in; position:relative; border:1px dotted green; margin:#lblMargin#in">
+				<div style="position:relative; height:#innerHeight#in; width:#innerWidth#in">
+					Hi, I'm label number #i#<br>
+					top:#topPosn#; left:#lrPosn#
+				</div>
 		</div>
 	</div>
 	
