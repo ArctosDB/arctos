@@ -286,13 +286,14 @@ Hi, I'm a label<br>
 					<div class="singleLine">
 						#verbatim_date#
 					</div>
-					<div class="singleLine threeQuarter">
-						#collectors#
+					<div style="border:1px solid green;">
+						<div class="singleLine threeQuarter">
+							#collectors#
+						</div>
+						<div class="singleLine oneQuarter">
+							#collector_number#
+						</div>		
 					</div>
-					<div class="singleLine oneQuarter">
-						#collector_number#
-					</div>		
-					
 						
 					<!--- end of content ---->
 				</div>
