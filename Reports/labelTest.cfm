@@ -11,7 +11,7 @@
 		marginright="0.0" 
 		overwrite="true"
 	fontembed="yes" filename="#Application.webDirectory#/temp/alaLabel.pdf" >
-
+<cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 
 <div class="onePage">
@@ -24,6 +24,7 @@
 		</div>
 	</div>
 </div>
+<!----
 <cfif not isdefined("collection_object_id")>
 	<cfabort>
 </cfif>	
@@ -327,6 +328,7 @@
 	<div style="border:1px solid red;width:5.5in;height:2.5in;position:absolute;top:2.5in;left:5.5in;">
 		labeley
 	</div>
+---->
 ---->
 </cfoutput>
 <!----
