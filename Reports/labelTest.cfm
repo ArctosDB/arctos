@@ -25,6 +25,15 @@
 			<option value="none">none</option>
 			<option value="1px dotted gray">1px dotted gray</option>
 		</select>
+		
+		<label for="font_style">Base Font</label>
+		<select name="font_style" id="font_style">
+			<option value='"Times New Roman", Times, serif;'>"Times New Roman", Times, serif;</option>
+		</select>
+		<label for="lblHeight">Base Font Size</label>
+		<input type="text" name="font_size" id="font_size" value="8">px
+		
+		
 		<br>
 		<input type="submit">
 	</form>
@@ -183,7 +192,9 @@ Hi, I'm a label<br>
 				<div style="position:relative; height:#innerHeight#in; width:#innerWidth#in; margin:#lblMargin#in">
 					<!--- content goes here --->
 					<cfset thisHeight=".2in;">
-					<div style="height:#thisHeight#">
+					<div style="height:#thisHeight#"
+						font:#font_style#;
+						font-size:#font_size#>
 						Museum of Southwestern Biology
 					</div>					
 					<!--- end of content ---->
