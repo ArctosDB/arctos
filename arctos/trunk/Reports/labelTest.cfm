@@ -47,8 +47,8 @@
 <cfset collection_object_id="266883,284046,292102,190294,190295,292101,190290,190292,292100,214973,213572,190289,190293,266884,213571,213570,214293,190291,215248,219029">
 <cfset sql="
 	select
-		get_scientific_name_auths(cataloged_item.collection_object_id) sci_name_with_auth,
-		decode(trim(ConcatAttributeValue(cataloged_item.collection_object_id,'abundance')),
+		scientific_name,
+		decode(trim(ConcatAttributeValue(cataloged_item.collection_object_id,'sex')),
 			'male','M',
 			'female','F',
 			'U') sex,					
@@ -152,6 +152,9 @@
 	.alignCenter {
 		text-align:center;						
 	}
+	.italic {
+		font-style:italic;
+	}
 </style>
 <cfif #orientation# is "portrait">
 	<cfset pHeight=11>
@@ -218,6 +221,9 @@ Hi, I'm a label<br>
 					</div>
 					<div class="singleLine alignCenter">
 						MSB #cat_num#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#sex#
+					</div>
+					<div class="singleLine alignCenter italic">
+						#scientific_name#
 					</div>
 									
 					<!--- end of content ---->
