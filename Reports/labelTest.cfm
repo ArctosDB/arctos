@@ -181,8 +181,12 @@ Hi, I'm a label<br>
 		border:#lblBorder#;">
 		<div style="height: #middleHeight#in; width:#middleWidth#in; position:relative; border:#inrBorder#; margin:#lblMargin#in">
 				<div style="position:relative; height:#innerHeight#in; width:#innerWidth#in; margin:#lblMargin#in">
-					Hi, I'm label number #i#<br>
-					top:#topPosn#; left:#lrPosn#
+					<!--- content goes here --->
+					<cfset thisHeight=".2in;">
+					<div style="height:#thisHeight#">
+						Museum of Southwestern Biology
+					</div>					
+					<!--- end of content ---->
 				</div>
 		</div>
 	</div>
