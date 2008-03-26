@@ -18,7 +18,8 @@
 		<select name="lblBorder" id="lblBorder">
 			<option value="1px dotted gray">1px dotted gray</option>
 		</select>
-		
+		<br>
+		<input type="submit">
 	</form>
 	
 </cfif>
