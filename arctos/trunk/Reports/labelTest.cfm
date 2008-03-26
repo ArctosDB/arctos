@@ -139,7 +139,7 @@
 		<!--- --->
 <cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
-<cfset rc=199>
+<cfset rc=data.recordcount>
 
 <style>
 	.singleLine {
@@ -179,8 +179,8 @@ an inner container, which holds the content
 <cfset topPosn=0>
 
 
-
-<cfloop from="1" to="#rc#" index="i">
+<cfset i=1>
+<cfloop query="data">
 	<cfif counter is 1>
 		<!--- new page  
 			
