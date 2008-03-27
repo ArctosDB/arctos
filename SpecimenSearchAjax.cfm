@@ -1630,7 +1630,7 @@ function changeGrp(tid) {
 <script>
 
 			$("select#t").change(function(){
-				$.getJSON("/ajax/jsonCT."",{t: 'collection'},{c: 'collection'}, function(j){
+				$.getJSON("/ajax/jsonCT.",{t: 'collection'},{c: 'collection'}, function(j){
 					var options = '';
 					for (var i = 0; i < j.length; i++) {
 						options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
