@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-
+<script type='text/javascript' src='/includes/jquery/jquery.js'></script>	
 <script language="javascript" type="text/javascript">
 function changeTarget(id,tvalue) {
 	//alert('id:' + id);
@@ -1618,7 +1618,8 @@ function changeGrp(tid) {
 	
   <input type="hidden" name="newQuery" value="1"><!--- pass this to the next form so we clear the cache and run the proper queries--->
 <select  name="t" id="t">
-
+<option value="a">a</option>
+<option value="b">b</option>
 </select>
 </form>
 <script type='text/javascript' language='javascript'>
@@ -1628,15 +1629,17 @@ function changeGrp(tid) {
 </script>
 
 <script>
-
-				$.getJSON("/ajax/jsonCT.",{t: 'collection'},{c: 'collection'}, function(j){
-					alert('got sumthin');
-					var options = '';
-					for (var i = 0; i < j.length; i++) {
-						options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
-					}
-					$("#t").html(options);
-				})
+$(function(){
+  $("select#t").change(function(){
+    $.getJSON("/ajax/jsonCT.cfm",{id: $(this).val(), ajax: 'true'}, function(j){
+      var options = '';
+      for (var i = 0; i < j.length; i++) {
+        options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
+      }
+      $("select#t").html(options);
+    })
+  })
+})
 
 </script>
 <cfinclude template = "includes/_footer.cfm">
