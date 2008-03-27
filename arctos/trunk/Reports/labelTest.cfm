@@ -12,26 +12,26 @@
 		<label for="lblWidth">Label Width</label>
 		<input type="text" name="lblWidth" id="lblWidth" value="1.5">inches
 		<label for="lblMargin">Label Margin</label>
-		<input type="text" name="lblMargin" id="lblMargin" value=".1">inches
+		<input type="text" name="lblMargin" id="lblMargin" value=".05">inches
 		
 		<label for="lblBorder">Outer Border</label>
 		<select name="lblBorder" id="lblBorder">
-			<option value="none">none</option>
 			<option value="1px dashed gray">1px dashed gray</option>
+			<option value="none">none</option>
 		</select>
 		
 		<label for="inrBorder">Inner Border</label>
 		<select name="inrBorder" id="inrBorder">
-			<option value="none">none</option>
+			<option value=".5px dotted lightgray">.5px dotted lightgray</option>
 			<option value="1px dotted gray">1px dotted gray</option>
+			<option value="none">none</option>
+
 		</select>
 		
 		<label for="font_family">Base Font</label>
 		<select name="font_family" id="font_family">
-			<option value="'Times New Roman', Times, serif">'Times New Roman', Times, serif</option>
 			<option value="Arial, Helvetica, sans-serif">Arial, Helvetica, sans-serif</option>
-			
-			
+			<option value="'Times New Roman', Times, serif">'Times New Roman', Times, serif</option>			
 		</select>
 		<label for="lblHeight">Base Font Size</label>
 		<input type="text" name="font_size" id="font_size" value="8">px
