@@ -104,16 +104,6 @@ function changeGrp(tid) {
 		</cfoutput>
 	</select>
 </cfif>
-		 
-		 
-		 
-		 
-		 
-
-			
-			
-			
-			
 				
 <cfif #action# is "dispCollObj">
 	<p><font color="#FF0000" size="+2">You are searching for items to add to a loan.</font></p>
@@ -262,6 +252,15 @@ function changeGrp(tid) {
 					</td>
 				</tr>
 			</table>
+			</td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+			<td colspan="2">
+				<div style="background-color:red;">
+					controlthingymabobber
+				</div>
 			</td>
 		</tr>
 		<tr>
@@ -440,6 +439,8 @@ function changeGrp(tid) {
 				</div>
 			</td>
 		</tr>
+	</table>
+	<table>
 		<tr>
 			<td>
 				<div class="group">
@@ -1626,21 +1627,8 @@ function changeGrp(tid) {
 	changeGrp('groupBy');
 </script>
 
+<!--- not that the page is loaded, populate selects in order of appearance --->
 <script>
-	/*
-$(function(){
-  $("select#t").change(function(){
-    $.getJSON("/ajax/jsonCT.cfm",{id: $(this).val(), ajax: 'true'}, function(j){
-      var options = '';
-      for (var i = 0; i < j.length; i++) {
-        //alert(j[i]);
-        options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
-      }
-      $("select#t").html(options);
-    })
-  })
-})
-*/
  $.getJSON("/ajax/jsonCT.cfm",{id: $(this).val(), ajax: 'true'}, function(j){
       var options = '';
       for (var i = 0; i < j.length; i++) {
