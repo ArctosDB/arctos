@@ -1,3 +1,5 @@
+<cfset c="collection">
+<cfset t="collection">
 <cfquery name="ins" datasource="#Application.web_user#">
 	SELECT 
 		#c# data
