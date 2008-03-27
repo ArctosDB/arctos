@@ -134,6 +134,9 @@
 	
 
 <!---
+
+---->
+
 <cfdocument 
 	format="PDF"
 	pagetype="letter" 
@@ -144,7 +147,9 @@
 		marginright="0.0" 
 		overwrite="true"
 	fontembed="yes" filename="#Application.webDirectory#/temp/msbLabel.pdf">	
----->
+		
+		
+		
 <cfoutput>	
 
 
@@ -352,10 +357,10 @@ Hi, I'm a label<br>
 
 
 <!----
-</cfdocument>
+
 ---->
 
-
+</cfdocument>
 </cfoutput>
 <cfoutput>
 	<a href="#Application.ServerRootUrl#/temp/msbLabel.pdf">get the pdf</a>
