@@ -8,5 +8,7 @@
 	group by #c#
 	order by #c#
 </cfquery>
-	<cfoutput query="ins">#data#
+[
+	<cfoutput query="ins">optionValue:'#data#', optionDisplay: '#data#'},
 	</cfoutput>
+	]
