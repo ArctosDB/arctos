@@ -134,9 +134,6 @@
 	
 
 <!---
-
----->
-<cfoutput>	
 <cfdocument 
 	format="PDF"
 	pagetype="letter" 
@@ -147,6 +144,9 @@
 		marginright="0.0" 
 		overwrite="true"
 	fontembed="yes" filename="#Application.webDirectory#/temp/msbLabel.pdf">	
+---->
+<cfoutput>	
+
 
 
 <cfset rc=data.recordcount>
@@ -352,9 +352,9 @@ Hi, I'm a label<br>
 
 
 <!----
-
----->
 </cfdocument>
+---->
+
 
 </cfoutput>
 <cfoutput>
