@@ -136,19 +136,19 @@
 <!---
 
 ---->
-	
+<cfoutput>	
 <cfdocument 
 	format="PDF"
 	pagetype="letter" 
-		orientation="landscape"
+		orientation="#orientation#"
 		margintop="0"
 		marginleft="0"
 		marginbottom="0"
 		marginright="0.0" 
 		overwrite="true"
-	fontembed="yes" filename="#Application.webDirectory#/temp/alaLabel.pdf">	
+	fontembed="yes" filename="#Application.webDirectory#/temp/msbLabel.pdf">	
 
-<cfoutput>
+
 <cfset rc=data.recordcount>
 <cfset locHeight=(font_size*6)*1.2>
 <cfset ff=font_size*1.2>
@@ -350,12 +350,14 @@ Hi, I'm a label<br>
 </cfloop>
 
 
-</cfoutput>
+
 <!----
 
 ---->
 </cfdocument>
+
+</cfoutput>
 <cfoutput>
-	<a href="#Application.ServerRootUrl#/temp/alaLabel.pdf">pdf</a>
+	<a href="#Application.ServerRootUrl#/temp/msbLabel.pdf">get the pdf</a>
 	</cfoutput>
 	</cfif>
