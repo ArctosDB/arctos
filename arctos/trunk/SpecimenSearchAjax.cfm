@@ -259,11 +259,11 @@ function changeGrp(tid) {
 		<tr>
 			<td colspan="2">
 				<div style="background-color:red;">
-					Identifiers
-					
+					<span style="float:left;border:1px solid green;">Identifiers</span>
+					<span style="float:right;border:1px solid green;">bla</span>
+					<span style="float:right;1px solid green;">booger</span>
 				</div>
-				<span style="float:right;">bla</span>
-					<span style="float:right;">booger</span>
+				
 			</td>
 		</tr>
 		<tr>
