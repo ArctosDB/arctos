@@ -165,7 +165,13 @@
 		overflow:hidden;
 		border:#cellBorder#;
 	}
-						
+	.locality {
+		height:#locHeight#px;
+		font-size:#font_size#px;
+		font-family:#font_family#;		
+		overflow:hidden;
+		border:#cellBorder#;
+	}					
 	.threeQuarter {
 		width:75%;
 		float:left;
@@ -186,13 +192,7 @@
 		overflow:hidden;
 		border:#cellBorder#;
 	}
-	.locality {
-		height:#locHeight#px;
-		font-size:#font_size#px;
-		font-family:#font_family#;		
-		overflow:hidden;
-		border:#cellBorder#;
-	}
+	
 </style>
 <cfif #orientation# is "portrait">
 	<cfset pHeight=11>
