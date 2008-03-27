@@ -1,4 +1,5 @@
-<tr>
+	<table border>
+		<tr>
 			<td>
 				<div class="group" align="left">
 				<table cellpadding="0" cellspacing="0" width="100%">
@@ -174,3 +175,4 @@
 				</div>
 			</td>
 		</tr>
+	</table>
