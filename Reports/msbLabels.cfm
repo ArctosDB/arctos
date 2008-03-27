@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif #action# is "nothing">
 <cfoutput>
-	<form name="l" method="post" action="msbLabels.cfm">
+	<form name="l" method="get" action="msbLabels.cfm">
 		<input type="hidden" name="action" value="print">
 				<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 		<label for="orientation">Orientation</label>
