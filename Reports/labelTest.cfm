@@ -309,7 +309,8 @@ Hi, I'm a label<br>
 		border:1px solid red;
 	width:20%;
 		right:0px;
-		top:0px;">
+		top:0px;
+			float:right;">
 							bla
 						</div>		
 					<!---
