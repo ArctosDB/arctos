@@ -3,7 +3,7 @@
 <!--- must process the title before FLUSHing 
 <cf_get_header collection_id="#exclusive_collection_id#">
 --->
-	<script type='text/javascript' src='/includes/_specimenResults.js'></script>
+<script type='text/javascript' src='/includes/_specimenResults.js'></script>
 <div id="loading" style="position:absolute;top:50%;right:50%;z-index:999;background-color:green;color:white;font-size:large;font-weight:bold;padding:15px;">
 	Page loading....
 </div>
@@ -360,6 +360,9 @@
 					</option>
 					<option value="MSBMammLabels.cfm?collection_object_id=#collObjIdList#">
 						MSB Mammals Labels
+					</option>
+					<option value="msbLabels.cfm?collection_object_id=#collObjIdList#">
+						MSB  Labels
 					</option>
 					<option value="narrowLabels.cfm?collection_object_id=#collObjIdList#">
 						MVZ narrow Labels
