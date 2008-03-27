@@ -132,7 +132,7 @@
 		#preservesinglequotes(sql)#
 	</cfquery>
 	
-
+<cfoutput>	
 <!---
 
 ---->
@@ -150,7 +150,7 @@
 		
 		
 		
-<cfoutput>	
+
 
 
 
