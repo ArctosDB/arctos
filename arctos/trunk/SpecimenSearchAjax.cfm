@@ -1618,8 +1618,6 @@ function changeGrp(tid) {
 	
   <input type="hidden" name="newQuery" value="1"><!--- pass this to the next form so we clear the cache and run the proper queries--->
 <select  name="t" id="t">
-<option value="a">a</option>
-<option value="b">b</option>
 </select>
 </form>
 <script type='text/javascript' language='javascript'>
