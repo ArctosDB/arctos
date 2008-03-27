@@ -203,7 +203,7 @@
 <cffile action="write" file="#application.webDirectory#/temp/lblCSS.css" output="#tCSS#">
 <link rel="stylesheet" type="text/css" href="/temp/lblCSS.css">
 ---->
-<style>
+<style type="text/css">
 .singleLine {
 		height:#ff#px;
 		font-size:#font_size#px;
