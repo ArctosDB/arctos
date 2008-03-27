@@ -16,9 +16,9 @@
 	
 	function load(form){
 		alert(form);
-		var ptl="/includes/SpecSearch/" + catnum + ".cfm";
+		var ptl="/includes/SpecSearch/" + form + ".cfm";
 		$.get(ptl, function(data){
-		 $('#sc1').html(data);
+		 $('#j').html(data);
 		})
 	}
 	
