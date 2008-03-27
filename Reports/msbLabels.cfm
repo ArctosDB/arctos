@@ -17,21 +17,18 @@
 		
 		<label for="lblBorder">Outer Border</label>
 		<select name="lblBorder" id="lblBorder">
-			<option value=".5px dotted lightgray">.5px dotted lightgray</option>
 			<option value="1px dashed gray">1px dashed gray</option>
 			<option value="none">none</option>
 		</select>
 		
 		<label for="inrBorder">Inner Border</label>
 		<select name="inrBorder" id="inrBorder">
-			<option value=".5px dotted lightgray">.5px dotted lightgray</option>
 			<option value="1px dotted gray">1px dotted gray</option>
 			<option value="none">none</option>
 		</select>
 		<label for="cellBorder">Cell Border</label>
 		<select name="cellBorder" id="cellBorder">
 			<option value="none">none</option>
-			<option value=".5px dotted lightgray">.5px dotted lightgray</option>
 			<option value="1px dotted gray">1px dotted gray</option>
 		</select>
 		
