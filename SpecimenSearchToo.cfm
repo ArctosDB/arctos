@@ -17,9 +17,9 @@
 	function load(form){
 		alert(form);
 		var ptl="/includes/SpecSearch/" + form + ".cfm";
-		var div='d_'+form;
+		var tDiv='d_'+form;
 		$.get(ptl, function(data){
-		 $(div).html(data);
+		 $(div[id=tDiv]).html(data);
 		})
 	}
 	
