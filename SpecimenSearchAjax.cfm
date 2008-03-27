@@ -53,12 +53,12 @@ function showHide(id,onOff) {
 	var ctl=document.getElementById(t);
 	if (onOff==1) {
 		tab.style.dispaly='';
-		ctl.setAttribute("onclick","showHide('identifiers',1)");
-		ctl.innerHTML='changed';
+		ctl.setAttribute("onclick","showHide('identifiers',0)");
+		ctl.innerHTML='Show Fewer Options';
 	} else {
 		tab.style.dispaly='none';
-		ctl.setAttribute("onclick","showHide('identifiers',0)");
-		ctl.innerHTML='zero';
+		ctl.setAttribute("onclick","showHide('identifiers',1)");
+		ctl.innerHTML='Show More Options';
 	} 
 }
 
