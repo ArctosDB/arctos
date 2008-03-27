@@ -154,13 +154,13 @@
 	}
 	.threeQuarter {
 		width:75%;
-		position:absolute;
+		position:relative;
 		top:0px;
 	}
 	.oneQuarter {
 		width:22%;
 		float:right;		
-		position:absolute;
+		position:relative;
 		top:0px;
 		right:0px;
 	}
