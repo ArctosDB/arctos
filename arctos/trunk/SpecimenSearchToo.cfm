@@ -40,9 +40,7 @@ jQuery( function($) {
 });
 </script>
 
-<div style="border:2px solid red;" id="d_catnum">
-	<span  class="likeLink" id='catnum' onclick="load('catnum')">load catnum block</span>
-</div>
+
 
 <script language="javascript" type="text/javascript">
 self.name='SpecimenSearch';
@@ -216,6 +214,10 @@ function changeGrp(tid) {
 </cfif>
 <form method="post" action="SpecimenResults.cfm" name="SpecData">
 <cfoutput>
+	
+	<div style="border:2px solid red;" id="d_catnum">
+	<span  class="likeLink" id='catnum' onclick="load('catnum')">load catnum block</span>
+</div>
 <table border="0">
 	<tr>
 		<td valign="top">
