@@ -3,9 +3,8 @@
 		#c#
 	FROM 
 		#t#
-	order by #c#
 	group by #c#
-	
+	order by #c#
 </cfquery>
 	<cfoutput query="ins">#c#
 	</cfoutput>
