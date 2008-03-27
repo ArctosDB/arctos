@@ -9,6 +9,6 @@
 	order by #c#
 </cfquery>
 [
-	<cfoutput query="ins">optionValue:'#data#', optionDisplay: '#data#'},
+	<cfoutput query="ins">{optionValue:'#data#', optionDisplay: '#data#'},
 	</cfoutput>
 	]
