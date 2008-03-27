@@ -45,7 +45,21 @@ function changeGrp(tid) {
 	}
 }
 
-
+function showHide(id,onOff) {
+	var t='t_' + id;
+	vat tab=document.getElementById(t);
+	var t='c_' + id;
+	vat ctl=document.getElementById(t);
+	if (onOff==1) {
+		tab.style.dispaly='';
+		ctl.setAttribute(onclick,"showHide('identifiers',1)");
+		ctl.innerHTML='changed';
+	} else {
+		tab.style.dispaly='none';
+		ctl.setAttribute(onclick,"showHide('identifiers',0)");
+		ctl.innerHTML='zero';
+	} 
+}
 
 
 
@@ -260,8 +274,8 @@ function changeGrp(tid) {
 			<td colspan="2" style="border:1px solid red;">
 
 					<span style="float:left;border:1px solid green;">Identifiers</span>
-					<span style="float:right;border:1px solid green;">bla</span>
-					<span style="float:right;border:1px solid green;">booger</span>
+					<span style="float:right;border:1px solid green;" class="infoLink" id="c_identifiers"
+						onclick="showHide('identifiers',1)">More Options</span>
 			</td>
 		</tr>
 		<tr>
