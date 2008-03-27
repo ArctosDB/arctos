@@ -84,9 +84,11 @@
 		MINIMUM_ELEVATION,
 		ORIG_ELEV_UNITS,
 		concatColl(cataloged_item.collection_object_id) as collectors,
+					concatPrep(cataloged_item.collection_object_id) as preparators,
 		concatotherid(cataloged_item.collection_object_id) as other_ids,
 		concatsingleotherid(cataloged_item.collection_object_id,'collector number') collector_number,
-				concatsingleotherid(cataloged_item.collection_object_id,'original identifier') fieldnum,
+		concatsingleotherid(cataloged_item.collection_object_id,'preparator number') preparator_number,
+		concatsingleotherid(cataloged_item.collection_object_id,'original identifier') fieldnum,
 		concatsingleotherid(cataloged_item.collection_object_id,'U. S. National Park Service accession') npsa,
 		concatsingleotherid(cataloged_item.collection_object_id,'U. S. National Park Service catalog') npsc,
 		concatsingleotherid(cataloged_item.collection_object_id,'ALAAC') ALAAC,
@@ -156,7 +158,7 @@
 		top:0px;
 	}
 	.oneQuarter {
-		width:25%;
+		width:22%;
 		float:right;		
 		position:absolute;
 		top:0px;
@@ -291,12 +293,20 @@ Hi, I'm a label<br>
 					<div class="singleLine">
 						#verbatim_date#
 					</div>
-					<div style="border:1px solid green; position:relative;">
+					<div style="position:relative;">
 						<div class="singleLine threeQuarter" >
 							#collectors#
 						</div>
 						<div class="singleLine oneQuarter">
 							#collector_number#
+						</div>		
+					</div>
+					<div style="position:relative;">
+						<div class="singleLine threeQuarter" >
+							#preparators#
+						</div>
+						<div class="singleLine oneQuarter">
+							#preparator_number#
 						</div>		
 					</div>
 						
