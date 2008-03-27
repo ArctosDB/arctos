@@ -144,7 +144,7 @@
 <cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 <cfset rc=data.recordcount>
-<cfset locHeight=font_size*6>
+<cfset locHeight=font_size*8>
 <style>
 	.singleLine {
 		height:#font_size#px;
