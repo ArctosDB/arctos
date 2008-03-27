@@ -37,8 +37,11 @@
 		
 		<label for="font_family">Base Font</label>
 		<select name="font_family" id="font_family">
+			<option value="'Courier New', Courier, mono">'Courier New', Courier, mono</option>
 			<option value="Arial, Helvetica, sans-serif">Arial, Helvetica, sans-serif</option>
-			<option value="'Times New Roman', Times, serif">'Times New Roman', Times, serif</option>			
+			<option value="'Times New Roman', Times, serif">'Times New Roman', Times, serif</option>
+			
+					
 		</select>
 		<label for="lblHeight">Base Font Size</label>
 		<input type="text" name="font_size" id="font_size" value="8">px
@@ -165,6 +168,9 @@
 		overflow:hidden;
 		border:#cellBorder#;
 	}
+	.alignCenter {
+		text-align:center;						
+	}
 	.locality {
 		height:#locHeight#px;
 		font-size:#font_size#px;
@@ -181,9 +187,7 @@
 		float:right;
 		text-align:right;	
 	}
-	.alignCenter {
-		text-align:center;						
-	}
+	
 	.sciName {
 		font-style:italic;
 		font-family:"Times New Roman", Times, serif;
@@ -286,7 +290,7 @@ Hi, I'm a label<br>
 				<div style="position:relative; height:#innerHeight#in; width:#innerWidth#in; margin:#lblMargin#in">
 					<!--- content goes here --->
 					<cfset thisHeight=".2in;">
-					<div class="singleLine alignCenter">
+					<div class="singleLine">
 						Museum of Southwestern Biology
 					</div>
 					<div class="singleLine alignCenter">
