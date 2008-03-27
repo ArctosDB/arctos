@@ -46,8 +46,6 @@ function changeGrp(tid) {
 }
 
 function showHide(id,onOff) {
-	alert(onOff);
-	// place to put new div: e_identifiers
 	var t='e_' + id;
 	var tab=document.getElementById(t);
 	var t='c_' + id;
@@ -57,7 +55,6 @@ function showHide(id,onOff) {
 		$.get(ptl, function(data){
 		 $(tab).html(data);
 		})
-
 		ctl.setAttribute("onclick","showHide('identifiers',0)");
 		ctl.innerHTML='Show Fewer Options';
 	} else {
