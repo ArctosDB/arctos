@@ -1629,6 +1629,7 @@ function changeGrp(tid) {
 </script>
 
 <script>
+	/*
 $(function(){
   $("select#t").change(function(){
     $.getJSON("/ajax/jsonCT.cfm",{id: $(this).val(), ajax: 'true'}, function(j){
@@ -1641,6 +1642,15 @@ $(function(){
     })
   })
 })
+*/
+ $.getJSON("/ajax/jsonCT.cfm",{id: $(this).val(), ajax: 'true'}, function(j){
+      var options = '';
+      for (var i = 0; i < j.length; i++) {
+        //alert(j[i]);
+        options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
+      }
+      $("select#t").html(options);
+    })
 
 </script>
 <cfinclude template = "includes/_footer.cfm">
