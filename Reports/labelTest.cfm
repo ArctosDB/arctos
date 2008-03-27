@@ -293,7 +293,7 @@ Hi, I'm a label<br>
 					<div class="singleLine">
 						#verbatim_date#
 					</div>
-					<div style="position:relative;">
+					<div style="position:relative; border:1px solid green;">
 						<div class="singleLine threeQuarter" >
 							#collectors#
 						</div>
@@ -301,7 +301,7 @@ Hi, I'm a label<br>
 							#collector_number#
 						</div>		
 					</div>
-					<div style="position:relative;">
+					<div style="position:relative; border:1px solid green;">
 						<div class="singleLine threeQuarter" >
 							#preparators#
 						</div>
