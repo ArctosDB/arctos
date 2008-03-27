@@ -314,6 +314,27 @@ Hi, I'm a label<br>
 			float:right;">
 							bla
 						</div>		
+						<div style="height:#font_size#px;
+		font-size:#font_size#px;
+		font-family:#font_family#;		
+		overflow:hidden;
+		border:1px solid red;
+	width:75%;
+		top:0px;
+			float:left;">
+						blabitty4444
+					</div>
+					<div style="height:#font_size#px;
+		font-size:#font_size#px;
+		font-family:#font_family#;		
+		overflow:hidden;
+		border:1px solid red;
+	width:20%;
+		right:0px;
+		top:0px;
+			float:right;">
+							blaqwe
+						</div>		
 					<!---
 					<div style="position:relative; border:1px solid green;">
 						<div class="singleLine threeQuarter" >
