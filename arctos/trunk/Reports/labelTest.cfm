@@ -160,7 +160,7 @@
 		float:left;
 	}
 	.oneQuarter {
-		width:25%;
+		width:22%;
 		float:right;	
 	}
 	.alignCenter {
