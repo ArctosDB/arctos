@@ -299,7 +299,8 @@ Hi, I'm a label<br>
 		overflow:hidden;
 		border:1px solid red;
 	width:75%;
-		top:0px;">
+		top:0px;
+			float:left;">
 						blabitty
 					</div>
 					<div style="height:#font_size#px;
