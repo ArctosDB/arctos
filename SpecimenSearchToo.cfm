@@ -14,18 +14,25 @@
 --->
 <script type="text/javascript">
 jQuery( function($) {
-	$('#catnum').click(function(){
-		var ptl={"id":$("#catnum")};
+	/*
+	$('#ls').click(function(){
+		var ptl="/includes/SpecSearch/catnum.cfm";
 		$.get(ptl, function(data){
 		 $('#sc1').html(data);
 		})
 	});
-	
+	*/
+	function load(form){
+		alert(form);
+		$.get(ptl, function(data){
+		 $('#sc1').html(data);
+		});
+	}
 
 
 });
 </script>
-<span  class="likeLink" id='catnum'>load catnum block</span>
+<span  class="likeLink" id='catnum' onclick="load('catnum')">load catnum block</span>
 <div style="border:2px solid red;" id="j">
 
 </div>
