@@ -163,7 +163,6 @@
 		position:relative;
 		top:0px;
 		right:0px;
-		clear:none;
 	}
 	.alignCenter {
 		text-align:center;						
