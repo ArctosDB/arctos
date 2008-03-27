@@ -52,6 +52,7 @@
 			'male','M',
 			'female','F',
 			'U') sex,					
+				concatParts(cataloged_item.collection_object_id) parts,
 		concatAcceptedIdentifyingAgent(cataloged_item.collection_object_id) identified_by,
 		get_taxonomy(cataloged_item.collection_object_id,'family') family,
 		get_taxonomy(cataloged_item.collection_object_id,'scientific_name') tsname,
@@ -290,49 +291,22 @@ Hi, I'm a label<br>
 					<div class="singleLine">
 						#verbatim_date#
 					</div>
-					<div style="height:#font_size#px;
-		font-size:#font_size#px;
-		font-family:#font_family#;		
-		overflow:hidden;
-		border:1px solid red;
-	width:75%;
-		top:0px;
-			float:left;">
-						blabitty
+					<div class="singleLine threeQuarter" >
+						#collectors#
 					</div>
-					<div style="height:#font_size#px;
-		font-size:#font_size#px;
-		font-family:#font_family#;		
-		overflow:hidden;
-		border:1px solid red;
-	width:20%;
-		right:0px;
-		top:0px;
-			float:right;">
-							bla
-						</div>		
-						<div class="singleLine threeQuarter">
-						blabitty4444
+					<div class="singleLine oneQuarter">
+						#collector_number#
+					</div>		
+
+					<div class="singleLine threeQuarter" >
+						#preparators#
 					</div>
-					<div  class="singleLine oneQuarter">
-							blaqwe
-						</div>		
-
-
-						<div class="singleLine threeQuarter" >
-							#collectors#
-						</div>
-						<div class="singleLine oneQuarter">
-							#collector_number#
-						</div>		
-
-						<div class="singleLine threeQuarter" >
-							#preparators#
-						</div>
-						<div class="singleLine oneQuarter">
-							#preparator_number#
-						</div>		
+					<div class="singleLine oneQuarter">
+						#preparator_number#
 					</div>
+					<div class="locality">
+						#parts#
+					</div>	
 
 					<!--- end of content ---->
 				</div>
