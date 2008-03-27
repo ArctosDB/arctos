@@ -3,15 +3,15 @@
 </cfif>
 <cfinclude template="/includes/_header.cfm">
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
-
 <script type="text/javascript">
-
 	jQuery('#ls').click(function(){
 		$.get("/includes/SpecSearch/catnum.cfm", function(data){
 		 $('#sc1').html(data);
 	});
-
 </script>
+
+
+
 <span id='ls'>load content</span>
 <div style="border:2px solid red;" id="j">
 
