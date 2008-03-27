@@ -47,9 +47,9 @@ function changeGrp(tid) {
 
 function showHide(id,onOff) {
 	var t='t_' + id;
-	vat tab=document.getElementById(t);
+	var tab=document.getElementById(t);
 	var t='c_' + id;
-	vat ctl=document.getElementById(t);
+	var ctl=document.getElementById(t);
 	if (onOff==1) {
 		tab.style.dispaly='';
 		ctl.setAttribute(onclick,"showHide('identifiers',1)");
