@@ -61,8 +61,7 @@ function showHide(id,onOff) {
 		ctl.setAttribute("onclick","showHide('identifiers',0)");
 		ctl.innerHTML='Show Fewer Options';
 	} else {
-		// just hide it
-		tab.style.display='none';
+		tab.innerHTML='';
 		ctl.setAttribute("onclick","showHide('identifiers',1)");
 		ctl.innerHTML='Show More Options';
 	} 
