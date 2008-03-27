@@ -54,8 +54,6 @@ function showHide(id,onOff) {
 	var ctl=document.getElementById(t);
 	if (onOff==1) {
 		var ptl="/includes/SpecSearch/" + id + ".cfm";
-		var tDiv='d_'+form;
-		var d=document.getElementById(tDiv);
 		$.get(ptl, function(data){
 		 $(tab).html(data);
 		})
