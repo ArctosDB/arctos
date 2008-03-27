@@ -1630,6 +1630,7 @@ function changeGrp(tid) {
 <script>
 
 				$.getJSON("/ajax/jsonCT.",{t: 'collection'},{c: 'collection'}, function(j){
+					alert('got sumthin');
 					var options = '';
 					for (var i = 0; i < j.length; i++) {
 						options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
