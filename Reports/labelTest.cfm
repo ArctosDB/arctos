@@ -144,10 +144,11 @@
 <cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 <cfset rc=data.recordcount>
-<cfset locHeight=font_size*8>
+<cfset locHeight=(font_size*6)*1.2>
+<cfset ff=font_size*1.2>
 <style>
 	.singleLine {
-		height:#font_size#px;
+		height:#ff#px;
 		font-size:#font_size#px;
 		font-family:#font_family#;		
 		overflow:hidden;
