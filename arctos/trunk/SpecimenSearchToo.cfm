@@ -15,7 +15,8 @@
 <script type="text/javascript">
 jQuery( function($) {
 	$('#ls').click(function(){
-		$.get("/includes/SpecSearch/catnum.cfm", function(data){
+		var ptl="/includes/SpecSearch/catnum.cfm";
+		$.get(ptl, function(data){
 		 $('#sc1').html(data);
 		})
 	});
