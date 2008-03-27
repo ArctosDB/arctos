@@ -294,6 +294,7 @@ Hi, I'm a label<br>
 						#verbatim_date#
 					</div>
 					<div style="position:relative; border:1px solid green;">
+					booger
 						<div class="singleLine threeQuarter" >
 							#collectors#
 						</div>
@@ -302,6 +303,7 @@ Hi, I'm a label<br>
 						</div>		
 					</div>
 					<div style="position:relative; border:1px solid green;">
+					moreboogs
 						<div class="singleLine threeQuarter" >
 							#preparators#
 						</div>
