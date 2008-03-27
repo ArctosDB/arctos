@@ -178,14 +178,14 @@
 		height:#font_size#px;
 		font-size:#font_size#px;
 		overflow:hidden;
-		border:1px solid red;
+		border:#cellBorder#;
 	}
 	.locality {
 		height:#locHeight#px;
 		font-size:#font_size#px;
 		font-family:#font_family#;		
 		overflow:hidden;
-		border:1px solid red;
+		border:#cellBorder#;
 	}
 </style>
 <cfif #orientation# is "portrait">
