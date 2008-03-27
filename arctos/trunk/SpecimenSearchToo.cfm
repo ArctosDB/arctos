@@ -13,6 +13,15 @@
 
 --->
 <script type="text/javascript">
+	
+	function load(form){
+		alert(form);
+		$.get(ptl, function(data){
+		 $('#sc1').html(data);
+		})
+	}
+	
+	
 jQuery( function($) {
 	/*
 	$('#ls').click(function(){
@@ -22,12 +31,7 @@ jQuery( function($) {
 		})
 	});
 	*/
-	function load(form){
-		alert(form);
-		$.get(ptl, function(data){
-		 $('#sc1').html(data);
-		});
-	}
+	
 
 
 });
