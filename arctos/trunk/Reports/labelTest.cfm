@@ -167,7 +167,8 @@
 	}
 	.oneQuarter {
 		width:22%;
-		float:right;	
+		float:right;
+		text-align:right;	
 	}
 	.alignCenter {
 		text-align:center;						
