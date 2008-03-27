@@ -234,7 +234,7 @@
 	.sciName {
 		font-style:italic;
 		font-family:"Times New Roman", Times, serif;
-		height:#font_size#px;
+		height:#ff#px;
 		font-size:#font_size#px;
 		overflow:hidden;
 		border:#cellBorder#;
