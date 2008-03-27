@@ -1629,7 +1629,6 @@ function changeGrp(tid) {
 
 <script>
 
-			$("select#t").change(function(){
 				$.getJSON("/ajax/jsonCT.",{t: 'collection'},{c: 'collection'}, function(j){
 					var options = '';
 					for (var i = 0; i < j.length; i++) {
@@ -1637,7 +1636,6 @@ function changeGrp(tid) {
 					}
 					$("#t").html(options);
 				})
-			})			
 
 </script>
 <cfinclude template = "includes/_footer.cfm">
