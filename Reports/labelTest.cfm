@@ -158,7 +158,7 @@
 		top:0px;
 	}
 	.oneQuarter {
-		width:22%;
+		width:20%;
 		float:right;		
 		position:relative;
 		top:0px;
