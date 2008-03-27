@@ -293,6 +293,26 @@ Hi, I'm a label<br>
 					<div class="singleLine">
 						#verbatim_date#
 					</div>
+					<div style="height:#font_size#px;
+		font-size:#font_size#px;
+		font-family:#font_family#;		
+		overflow:hidden;
+		border:1px solid red;
+	width:75%;
+		top:0px;">
+						blabitty
+					</div>
+					<div style="height:#font_size#px;
+		font-size:#font_size#px;
+		font-family:#font_family#;		
+		overflow:hidden;
+		border:1px solid red;
+	width:20%;
+		right:0px;
+		top:0px;">
+							bla
+						</div>		
+					<!---
 					<div style="position:relative; border:1px solid green;">
 						<div class="singleLine threeQuarter" >
 							#collectors#&nbsp;
@@ -309,7 +329,7 @@ Hi, I'm a label<br>
 							#preparator_number#&nbsp;
 						</div>		
 					</div>
-						
+						--->
 					<!--- end of content ---->
 				</div>
 		</div>
