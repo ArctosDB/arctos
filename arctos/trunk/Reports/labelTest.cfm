@@ -152,17 +152,14 @@
 		overflow:hidden;
 		border:1px solid red;
 	}
+						
 	.threeQuarter {
 		width:75%;
-		position:absolute;
-		top:0px;
+		float:left;
 	}
 	.oneQuarter {
 		width:20%;
-		float:right;		
-		position:absolute;
-		top:0px;
-		right:0px;
+		float:right;	
 	}
 	.alignCenter {
 		text-align:center;						
@@ -314,25 +311,10 @@ Hi, I'm a label<br>
 			float:right;">
 							bla
 						</div>		
-						<div style="height:#font_size#px;
-		font-size:#font_size#px;
-		font-family:#font_family#;		
-		overflow:hidden;
-		border:1px solid red;
-	width:75%;
-		top:0px;
-			float:left;">
+						<div class="singleLine threeQuarter">
 						blabitty4444
 					</div>
-					<div style="height:#font_size#px;
-		font-size:#font_size#px;
-		font-family:#font_family#;		
-		overflow:hidden;
-		border:1px solid red;
-	width:20%;
-		right:0px;
-		top:0px;
-			float:right;">
+					<div  class="singleLine oneQuarter">
 							blaqwe
 						</div>		
 					<!---
