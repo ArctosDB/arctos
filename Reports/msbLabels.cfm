@@ -161,6 +161,7 @@
 <cfset rc=data.recordcount>
 <cfset locHeight=(font_size*6)*1.2>
 <cfset ff=font_size*1.2>
+<!---
 <cfsavecontent variable="tCSS">
 	.singleLine {
 		height:#ff#px;
@@ -200,8 +201,46 @@
 </cfsavecontent>
 
 <cffile action="write" file="#application.webDirectory#/temp/lblCSS.css" output="#tCSS#">
-
 <link rel="stylesheet" type="text/css" href="/temp/lblCSS.css">
+---->
+<style>
+.singleLine {
+		height:#ff#px;
+		font-size:#font_size#px;
+		font-family:#font_family#;		
+		overflow:hidden;
+		border:#cellBorder#;
+	}
+	.alignCenter {
+		text-align:center;						
+	}
+	.locality {
+		height:#locHeight#px;
+		font-size:#font_size#px;
+		font-family:#font_family#;		
+		overflow:hidden;
+		border:#cellBorder#;
+	}					
+	.threeQuarter {
+		width:75%;
+		float:left;
+	}
+	.oneQuarter {
+		width:22%;
+		float:right;
+		text-align:right;	
+	}
+	
+	.sciName {
+		font-style:italic;
+		font-family:"Times New Roman", Times, serif;
+		height:#font_size#px;
+		font-size:#font_size#px;
+		overflow:hidden;
+		border:#cellBorder#;
+	}
+</style>
+
 <cfif #orientation# is "portrait">
 	<cfset pHeight=11>
 	<cfset pWidth=8.5>
