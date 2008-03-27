@@ -14,8 +14,8 @@
 --->
 <script type="text/javascript">
 jQuery( function($) {
-	$('#ls').click(function(){
-		var ptl="/includes/SpecSearch/catnum.cfm";
+	$('#catnum').click(function(){
+		var ptl={"id":$("#catnum")};
 		$.get(ptl, function(data){
 		 $('#sc1').html(data);
 		})
@@ -25,7 +25,7 @@ jQuery( function($) {
 
 });
 </script>
-<span id='ls'>load content</span>
+<span  class="likeLink" id='catnum'>load catnum block</span>
 <div style="border:2px solid red;" id="j">
 
 </div>
