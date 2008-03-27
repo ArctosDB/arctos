@@ -17,8 +17,9 @@
 	function load(form){
 		alert(form);
 		var ptl="/includes/SpecSearch/" + form + ".cfm";
+		var div='d_'+form;
 		$.get(ptl, function(data){
-		 $('#j').html(data);
+		 $(#div).html(data);
 		})
 	}
 	
@@ -37,9 +38,9 @@ jQuery( function($) {
 
 });
 </script>
-<span  class="likeLink" id='catnum' onclick="load('catnum')">load catnum block</span>
-<div style="border:2px solid red;" id="j">
 
+<div style="border:2px solid red;" id="d_catnum">
+	<span  class="likeLink" id='catnum' onclick="load('catnum')">load catnum block</span>
 </div>
 
 <script language="javascript" type="text/javascript">
