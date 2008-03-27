@@ -17,13 +17,9 @@ jQuery( function($) {
 		 $('#sc1').html(data);
 	});
 
-
-
-
-
 });
 </script>
-<span onclick="loadContent()" id='ls'>load content</span>
+<span id='ls'>load content</span>
 <div style="border:2px solid red;" id="j">
 
 </div>
