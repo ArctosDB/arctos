@@ -294,21 +294,19 @@ Hi, I'm a label<br>
 						#verbatim_date#
 					</div>
 					<div style="position:relative; border:1px solid green;">
-					booger
 						<div class="singleLine threeQuarter" >
-							#collectors#
+							#collectors#&nbsp;
 						</div>
 						<div class="singleLine oneQuarter">
-							#collector_number#
+							#collector_number#&nbsp;
 						</div>		
 					</div>
 					<div style="position:relative; border:1px solid green;">
-					moreboogs
 						<div class="singleLine threeQuarter" >
-							#preparators#
+							#preparators#&nbsp;
 						</div>
 						<div class="singleLine oneQuarter">
-							#preparator_number#
+							#preparator_number#&nbsp;
 						</div>		
 					</div>
 						
