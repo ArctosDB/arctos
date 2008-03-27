@@ -46,6 +46,7 @@ function changeGrp(tid) {
 }
 
 function showHide(id,onOff) {
+	alert(onOff);
 	var t='t_' + id;
 	var tab=document.getElementById(t);
 	var t='c_' + id;
