@@ -161,7 +161,7 @@
 <cfset rc=data.recordcount>
 <cfset locHeight=(font_size*6)*1.2>
 <cfset ff=font_size*1.2>
-<style>
+<cfsavecontent variable="tCSS">
 	.singleLine {
 		height:#ff#px;
 		font-size:#font_size#px;
@@ -197,8 +197,11 @@
 		overflow:hidden;
 		border:#cellBorder#;
 	}
-	
-</style>
+</cfsavecontent>
+
+<cffile action="write" file="#application.webDirectory#/temp/lblCSS.css" output="#tCSS#">
+
+<link rel="stylesheet" type="text/css" href="/temp/lblCSS.css">
 <cfif #orientation# is "portrait">
 	<cfset pHeight=11>
 	<cfset pWidth=8.5>
