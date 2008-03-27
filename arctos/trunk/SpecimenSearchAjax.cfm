@@ -262,8 +262,6 @@ function changeGrp(tid) {
 					<span style="float:left;border:1px solid green;">Identifiers</span>
 					<span style="float:right;border:1px solid green;">bla</span>
 					<span style="float:right;border:1px solid green;">booger</span>
-
-				
 			</td>
 		</tr>
 		<tr>
@@ -316,7 +314,8 @@ function changeGrp(tid) {
 						</cfif>
 					</td>
 				</tr>	
-				<cfif len(#Client.CustomOtherIdentifier#) gt 0>
+</table>
+<table id="t_identifiers" style="display:none;">
 					<tr>
 						<td align="right" width="250">
 							<a href="javascript:void(0);" 
@@ -357,7 +356,7 @@ function changeGrp(tid) {
 								</table>
 							</td>
 						</tr>
-					</cfif>
+
 					<cfif len(#exclusive_collection_id#) gt 0>
 						<cfset oidTable = "cCTCOLL_OTHER_ID_TYPE#exclusive_collection_id#">
 					<cfelse>
