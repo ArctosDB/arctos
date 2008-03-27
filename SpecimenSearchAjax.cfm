@@ -52,11 +52,11 @@ function showHide(id,onOff) {
 	var ctl=document.getElementById(t);
 	if (onOff==1) {
 		tab.style.dispaly='';
-		ctl.setAttribute(onclick,"showHide('identifiers',1)");
+		ctl.setAttribute("onclick","showHide('identifiers',1)");
 		ctl.innerHTML='changed';
 	} else {
 		tab.style.dispaly='none';
-		ctl.setAttribute(onclick,"showHide('identifiers',0)");
+		ctl.setAttribute("onclick","showHide('identifiers',0)");
 		ctl.innerHTML='zero';
 	} 
 }
