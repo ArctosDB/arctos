@@ -25,8 +25,14 @@
 			<option value=".5px dotted lightgray">.5px dotted lightgray</option>
 			<option value="1px dotted gray">1px dotted gray</option>
 			<option value="none">none</option>
-
 		</select>
+		<label for="cellBorder">Cell Border</label>
+		<select name="cellBorder" id="cellBorder">
+			<option value="none">none</option>
+			<option value=".5px dotted lightgray">.5px dotted lightgray</option>
+			<option value="1px dotted gray">1px dotted gray</option>
+		</select>
+		
 		
 		<label for="font_family">Base Font</label>
 		<select name="font_family" id="font_family">
@@ -152,7 +158,7 @@
 		font-size:#font_size#px;
 		font-family:#font_family#;		
 		overflow:hidden;
-		border:1px solid red;
+		border:#cellBorder#;
 	}
 						
 	.threeQuarter {
