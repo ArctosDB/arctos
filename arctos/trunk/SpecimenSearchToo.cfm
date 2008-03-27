@@ -6,13 +6,7 @@
 
 <script type="text/javascript">
 jQuery( function($) {
-	/*
-	$(document).ready(function(){
-		$.get("/includes/SpecSearch/catnum.cfm", function(data){
-		 $('#sc1').html(data);
-	});
-	*/
-	$('#ls').click(function(){
+	jQuery('#ls').click(function(){
 		$.get("/includes/SpecSearch/catnum.cfm", function(data){
 		 $('#sc1').html(data);
 	});
