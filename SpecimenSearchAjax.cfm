@@ -1634,8 +1634,8 @@ $(function(){
     $.getJSON("/ajax/jsonCT.cfm",{id: $(this).val(), ajax: 'true'}, function(j){
       var options = '';
       for (var i = 0; i < j.length; i++) {
-        alert(j[i]);
-        //options += '<option value="' + j[i] + '">' + j[i] + '</option>';
+        //alert(j[i]);
+        options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
       }
       $("select#t").html(options);
     })
