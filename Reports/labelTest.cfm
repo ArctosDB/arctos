@@ -317,24 +317,23 @@ Hi, I'm a label<br>
 					<div  class="singleLine oneQuarter">
 							blaqwe
 						</div>		
-					<!---
-					<div style="position:relative; border:1px solid green;">
+
+
 						<div class="singleLine threeQuarter" >
-							#collectors#&nbsp;
+							#collectors#
 						</div>
 						<div class="singleLine oneQuarter">
-							#collector_number#&nbsp;
+							#collector_number#
 						</div>		
-					</div>
-					<div style="position:relative; border:1px solid green;">
+
 						<div class="singleLine threeQuarter" >
-							#preparators#&nbsp;
+							#preparators#
 						</div>
 						<div class="singleLine oneQuarter">
-							#preparator_number#&nbsp;
+							#preparator_number#
 						</div>		
 					</div>
-						--->
+
 					<!--- end of content ---->
 				</div>
 		</div>
