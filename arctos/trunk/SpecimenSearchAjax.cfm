@@ -1617,6 +1617,9 @@ function changeGrp(tid) {
 
 	
   <input type="hidden" name="newQuery" value="1"><!--- pass this to the next form so we clear the cache and run the proper queries--->
+<select  name="t" id="t">
+
+</select>
 </form>
 <script type='text/javascript' language='javascript'>
 	var tval = document.getElementById('tgtForm').value;
@@ -1626,14 +1629,13 @@ function changeGrp(tid) {
 
 <script>
 
-			$("select#ctlJob").change(function(){
-				$.getJSON("select.php",{id: $(this).val()}, function(j){
+			$("select#t").change(function(){
+				$.getJSON("/ajax/jsonCT."",{t: 'collection',c: 'collection'}, function(j){
 					var options = '';
 					for (var i = 0; i < j.length; i++) {
 						options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
 					}
-					$("#ctlPerson").html(options);
-					$('#ctlPerson option:first').attr('selected', 'selected');
+					$("#t").html(options);
 				})
 			})			
 
