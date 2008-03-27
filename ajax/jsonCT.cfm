@@ -9,4 +9,3 @@
 </cfquery>
 	<cfoutput query="ins">#c#
 	</cfoutput>
-</cfif>
