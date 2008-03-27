@@ -19,7 +19,7 @@
 		var ptl="/includes/SpecSearch/" + form + ".cfm";
 		var tDiv='d_'+form;
 		$.get(ptl, function(data){
-		 $(div[id=tDiv]).html(data);
+		 $([id=tDiv]).html(data);
 		})
 	}
 	
