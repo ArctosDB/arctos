@@ -23,6 +23,20 @@
 	<cfreturn "">
 </cffunction>
 <!-------------------------------------------->
+<cffunction name="getSpecSrchPref" returntype="string">
+	<cfif isdefined("client.username") and len(#client.username#) gt 0>
+		<cftry>
+			<cfquery name="ins" datasource="#application.web_user#">
+				select specsrchprefs from cf_users
+				where username='#client.username#'
+			</cfquery>
+		<cfcatch><!-- nada --></cfcatch>
+	</cftry>
+
+	<cfreturn ins.specsrchprefs>
+</cffunction>
+
+<!-------------------------------------------->
 <cffunction name="getSessionTimeout" returntype="string">
 	<cfif isdefined("client.username") and len(#client.username#) gt 0>
 		<cfif isdefined("cookie.ArctosSession")>
