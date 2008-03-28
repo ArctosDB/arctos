@@ -11,10 +11,14 @@
 				where username='#client.username#'
 			</cfquery>
 			<cfset cv=valuelist(ins.specsrchprefs)>
-			<cfif onOff is 1 and not listfind(cv,id)>
-				<cfset nv=listappend(cv,id)>
+			<cfif onOff is 1 and>
+				<cfif not listfind(cv,id)>
+					<cfset nv=listappend(cv,id)>
+				</cfif>
 			<cfelse>
-				<cfset nv=listdeleteat(cv,listfind(cv,id))>
+				<cfif listfind(cv,id)>
+					<cfset nv=listdeleteat(cv,listfind(cv,id))>
+				</cfif>
 			</cfif>
 			<cfquery name="ins" datasource="#application.web_user#">
 				update cf_users set specsrchprefs='#nv#'
