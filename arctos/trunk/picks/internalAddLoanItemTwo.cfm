@@ -147,22 +147,12 @@ Specimen: <a href="/SpecimenDetails.cfm?collection_object_id=#collection_object_
 <cfif #Action# is "AddItem">
 <cftransaction>
 	<cfoutput>
-		<cfquery name="RECONCILED_BY_PERSON_ID" datasource="#Application.uam_dbo#">
-			select agent_id from agent_name where agent_name = '#client.username#'
-		</cfquery>
-		<cfif len(#RECONCILED_BY_PERSON_ID.agent_id#) is 0>
-			You are not logged in as a recognized agent. Your login ID (#client.username#)
-			must be entered in the agent names table as type 'login'.
-			<cfabort>
-		</cfif>
-		<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
-
-	<cfif isdefined("isSubsample") and #isSubsample# is "y">
+		<cfif isdefined("isSubsample") and #isSubsample# is "y">
 		<!--- make a subsample --->
-		<cfquery name="nextID" datasource="#Application.uam_dbo#">
+		<cfquery name="nextID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 			select max(collection_object_id) + 1 as nextID from coll_object
 		</cfquery>
-		<cfquery name="parentData" datasource="#Application.uam_dbo#">
+		<cfquery name="parentData" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 			SELECT 
 				coll_obj_disposition, 
 				condition,
@@ -177,7 +167,7 @@ Specimen: <a href="/SpecimenDetails.cfm?collection_object_id=#collection_object_
 				coll_object.collection_object_id = specimen_part.collection_object_id AND
 				coll_object.collection_object_id = #partID#
 		</cfquery>
-		<cfquery name="newCollObj" datasource="#Application.uam_dbo#">
+		<cfquery name="newCollObj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 			INSERT INTO coll_object (
 				COLLECTION_OBJECT_ID,
 				COLL_OBJECT_TYPE,
@@ -191,15 +181,15 @@ Specimen: <a href="/SpecimenDetails.cfm?collection_object_id=#collection_object_
 			VALUES
 				(#nextID.nextID#,
 				'SS',
-				#RECONCILED_BY_PERSON_ID.agent_id#,
+				#client.myAgentId#,
 				'#thisDate#',
-				#RECONCILED_BY_PERSON_ID.agent_id#,
-				'#thisDate#',
+				#client.myAgentId#,
+				sysdate,
 				'#parentData.coll_obj_disposition#',
 				1,
 				'#parentData.condition#')
 		</cfquery>
-		<cfquery name="newPart" datasource="#Application.uam_dbo#">
+		<cfquery name="newPart" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 			INSERT INTO specimen_part (
 				COLLECTION_OBJECT_ID
 				,PART_NAME
@@ -228,8 +218,8 @@ Specimen: <a href="/SpecimenDetails.cfm?collection_object_id=#collection_object_
 		
 	
 	</cfif>
-	<cfquery name="addLoanItem" datasource="#Application.uam_dbo#">
-	
+
+		<cfquery name="addLoanItem" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">	
 	INSERT INTO loan_item (
 		TRANSACTION_ID,
 		COLLECTION_OBJECT_ID,
@@ -250,7 +240,7 @@ Specimen: <a href="/SpecimenDetails.cfm?collection_object_id=#collection_object_
 		<cfelse>
 			#partID#,
 		</cfif>		
-		#RECONCILED_BY_PERSON_ID.agent_id#,
+		#client.myAgentId#,
 		'#thisDate#'
 		,'#collection# #cat_num# #part_name#'
 		<cfif isdefined("ITEM_INSTRUCTIONS") AND len(#ITEM_INSTRUCTIONS#) gt 0>
@@ -261,8 +251,7 @@ Specimen: <a href="/SpecimenDetails.cfm?collection_object_id=#collection_object_
 		</cfif>
 		)
 		</cfquery>
-		
-		<cfquery name="setDisp" datasource="#Application.uam_dbo#">
+		<cfquery name="setDisp" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">			
 			UPDATE coll_object SET coll_obj_disposition = 'on loan'
 			where collection_object_id = 
 		<cfif isdefined("isSubsample") and #isSubsample# is "y">
@@ -288,4 +277,4 @@ Specimen: <a href="/SpecimenDetails.cfm?collection_object_id=#collection_object_
 </cftransaction>
 </cfif>
 
-<cfinclude template="../includes/_pickFooter.cfm">
+<cfinclude template="/includes/_pickFooter.cfm">
