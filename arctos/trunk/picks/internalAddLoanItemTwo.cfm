@@ -182,7 +182,7 @@ Specimen: <a href="/SpecimenDetails.cfm?collection_object_id=#collection_object_
 				(#nextID.nextID#,
 				'SS',
 				#client.myAgentId#,
-				'#thisDate#',
+				sysdate,
 				#client.myAgentId#,
 				sysdate,
 				'#parentData.coll_obj_disposition#',
