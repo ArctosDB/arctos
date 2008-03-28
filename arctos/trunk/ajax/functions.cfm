@@ -11,7 +11,7 @@
 				where username='#client.username#'
 			</cfquery>
 			<cfset cv=valuelist(ins.specsrchprefs)>
-			<cfif onOff is 1>
+			<cfif onOff is 1 and not listfind(cv,id)>
 				<cfset nv=listappend(cv,id)>
 			<cfelse>
 				<cfset nv=listdeleteat(cv,listfind(cv,id))>
