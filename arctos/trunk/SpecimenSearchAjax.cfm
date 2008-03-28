@@ -102,7 +102,7 @@ function load(form){
 	}
 .secDiv {
 	border:1px solid green;
-	width:80%;
+	width:20em;
 	margin-left:1em;
 }
 table.ssrch {
