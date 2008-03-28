@@ -84,8 +84,18 @@ function load(form){
 	float:left;
 	border:1px solid green;
 }
-.secControl {float:right;}
+.secControl ,.infoLink a:visited{
+	float:right;
+	cursor:pointer;
+	color:#2B547E;
+	font-size:.65em;
+	font-family:Arial, Helvetica, sans-serif;
+}
 
+.secControl:hover {
+	color:#FF0000;
+	text-decoration: underline;
+	}
 </style>
 <cfset title="Specimen Search">
 
@@ -324,7 +334,7 @@ function load(form){
 		<tr>
 			<td colspan="2" class="secHead">
 					<span class="secLabel">Identifiers</span>
-					<span class="secControl" class="infoLink secControl" id="c_identifiers"
+					<span class="secControl" class="secControl" id="c_identifiers"
 						onclick="showHide('identifiers',1)">Show More Options</span>
 			</td>
 		</tr>
