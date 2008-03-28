@@ -1,3 +1,4 @@
+<cfoutput>
 <cfif len(#exclusive_collection_id#) gt 0>
 	<cfset partTable = "cctspecimen_part_name#exclusive_collection_id#">
 	<cfset presTable = "cCTSPECIMEN_PRESERV_METHOD#exclusive_collection_id#">
@@ -94,7 +95,8 @@
 				onclick="windowOpener('/info/attributeHelpPick.cfm?attNum=1&attribute='+SpecData.attribute_type_1.value,'attPick','width=600,height=600, resizable,scrollbars');">
 				Pick
 			</span>
-			<input type="text" name="attribute_units_1" size="6">
+			<input type="text" name="attribute_units_1" size="6">(units)
 		</td>
 	</tr>		
 </table>
+</cfoutput>
