@@ -11,11 +11,12 @@
 				update cf_users set specsrchprefs=specsrchprefs||','||'#id#'
 				where username='#client.username#'
 			</cfquery>
-		<cfcatch><!--- nada ---></cfcatch>
+		<cfcatch><!-- nada --></cfcatch>
 		</cftry>
 	</cfif>
 	<cfreturn "">
 </cffunction>
+
 <!-------------------------------------------->
 <cffunction name="getSessionTimeout" returntype="string">
 	<cfif isdefined("client.username") and len(#client.username#) gt 0>
