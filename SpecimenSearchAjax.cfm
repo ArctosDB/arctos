@@ -140,9 +140,9 @@ function load(form){
 				<select name="goCanned" id="goCanned" size="1" onchange="document.location=this.value;">
 					<option value=""></option>
 					<option value="saveSearch.cfm?action=manage">[ Manage ]</option>
-					<cfoutput query="hasCanned">
+					<cfloop query="hasCanned">
 						<option value="#url#">#SEARCH_NAME#</option><br />
-					</cfoutput>
+					</cfloop>
 				</select>
 			</cfif>
 			<span style="color:red;">
