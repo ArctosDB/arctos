@@ -155,8 +155,7 @@ td.lbl {
 		</td>
 		<cfif #hasCanned.recordcount# gt 0>
 			<td style="padding-left:2em;padding-right:2em;">
-				<label for="goCanned">Saved Searches:</label>
-				<select name="goCanned" id="goCanned" size="1" onchange="document.location=this.value;">
+				Saved Searches: <select name="goCanned" id="goCanned" size="1" onchange="document.location=this.value;">
 					<option value=""></option>
 					<option value="saveSearch.cfm?action=manage">[ Manage ]</option>
 					<cfloop query="hasCanned">
