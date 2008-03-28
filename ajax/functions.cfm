@@ -5,7 +5,6 @@
 	<cfargument name="id" type="string" required="yes">
 	<cfargument name="onOff" type="numeric" required="yes">
 	<cfif isdefined("client.username") and len(#client.username#) gt 0>
-		<!---
 		<cftry>
 			<cfquery name="ins" datasource="#application.web_user#">
 				update cf_users set specsrchprefs=specsrchprefs||','||'#id#'
@@ -13,9 +12,8 @@
 			</cfquery>
 			<cfcatch><!-- nada --></cfcatch>
 		</cftry>
-		--->
 	</cfif>
-	<cfreturn "ok">
+	<cfreturn "">
 </cffunction>
 <!-------------------------------------------->
 <cffunction name="getSessionTimeout" returntype="string">
