@@ -110,7 +110,7 @@ table.ssrch {
 }
 
 td.lbl {
-	width:35%;
+	width:15em;
 	text-align:right;
 	padding-right:5px;
 }
