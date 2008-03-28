@@ -259,7 +259,6 @@ function load(form){
 </table>			
 <input type="hidden" name="Action" value="#Action#">
 
-</cfoutput>
 <cfquery name="collections" datasource="#Application.web_user#">
 	select collection_cde from ctCollection_Cde order by collection_cde
 </cfquery>
@@ -363,12 +362,12 @@ function load(form){
 							<cfif len(#exclusive_collection_id#) is 0>
 								<option value="">All</option>
 							</cfif>
-							<cfoutput query="ctInst">
+							<cfloop query="ctInst">
 								<option <cfif #thisCollId# is #ctInst.collection_id#>
 							 		selected </cfif>
 									value="#ctInst.collection_id#">
 									#ctInst.collection#</option>
-							</cfoutput>
+							</cfloop>
 						</select>				
 					</td>
 				</tr>
@@ -440,9 +439,9 @@ function load(form){
 						<td align="left">
 						 	<select name="phylclass" size="1">
 									<option value=""></option>
-									<cfoutput query="ctClass">
+									<cfloop query="ctClass">
 										<option value="#ctClass.phylclass#">#ctClass.phylclass#</option>
-									</cfoutput>
+									</cfloop>
 								</select><span class="infoLink" 
 					  				onclick="getCtDoc('ctclass',SpecData.phylclass.value);">Define</span>
 						</td>
@@ -471,9 +470,9 @@ function load(form){
 						<td align="left">
 							<select name="nature_of_id" size="1">
 									<option value=""></option>
-									<cfoutput query="ctNatureOfId">
+									<cfloop query="ctNatureOfId">
 										<option value="#ctNatureOfId.nature_of_id#">#ctNatureOfId.nature_of_id#</option>
-									</cfoutput>
+									</cfloop>
 								</select><span class="infoLink" 
 					  				onclick="getCtDoc('ctnature_of_id',SpecData.nature_of_id.value);">Define</span>
 						</td>
@@ -514,9 +513,9 @@ function load(form){
 							<td align="left">
 								<select name="continent_ocean" size="1">
 										  <option value=""></option>
-										  <cfoutput query="ContOcean"> 
+										  <cfloop query="ContOcean"> 
 											<option value="#ContOcean.continent_ocean#">#ContOcean.continent_ocean#</option>
-										  </cfoutput> </select>
+										  </cfloop> </select>
 							</td>
 						</tr>
 						
@@ -530,9 +529,9 @@ function load(form){
 							<td align="left">
 								<select name="Country" size="1">
 											<option value=""></option>
-											<cfoutput query="Country">
+											<cfloop query="Country">
 												<option value="#Country.Country#">#Country.Country#</option>
-											</cfoutput>
+											</cfloop>
 								</select>
 							</td>
 						</tr>
@@ -581,9 +580,9 @@ function load(form){
 							<td align="left">
 								<select name="island_group" size="1">
 									  <option value=""></option>
-									  <cfoutput query="IslGrp"> 
+									  <cfloop query="IslGrp"> 
 										<option value="#IslGrp.Island_Group#">#IslGrp.Island_Group#</option>
-									  </cfoutput> 
+									  </cfloop> 
 								</select>
 							</td>
 						</tr>
@@ -611,9 +610,9 @@ function load(form){
 							<td align="left">
 								<select name="Feature" size="1">
 									<option value=""></option>
-									<cfoutput query="Feature">
+									<cfloop query="Feature">
 										<option value="#Feature.Feature#">#Feature.Feature#</option>
-									</cfoutput>
+									</cfloop>
 								</select>
 							</td>
 						</tr>
@@ -640,9 +639,9 @@ function load(form){
 								<input type="text" name="maximum_elevation" size="5">
 								<select name="orig_elev_units" size="1">
 									<option value=""></option>
-									<cfoutput query="ctElevUnits">
+									<cfloop query="ctElevUnits">
 										<option value="#ctElevUnits.orig_elev_units#">#ctElevUnits.orig_elev_units#</option>
-									</cfoutput>
+									</cfloop>
 								</select>
 							</td>
 						</tr>
@@ -673,10 +672,10 @@ function load(form){
 								</cfquery>
 								<select name="collecting_source" size="1">
 									<option value=""></option>
-									<cfoutput query="ctcollecting_source">
+									<cfloop query="ctcollecting_source">
 										<option value="#ctcollecting_source.collecting_source#">
 											#ctcollecting_source.collecting_source#</option>
-									</cfoutput>
+									</cfloop>
 								</select>
 							</td>
 						</tr>
@@ -857,11 +856,9 @@ function load(form){
 										<td width="40%">
 											<select name="begDay" size="1">
 									<option value=""></option>
-									<cfoutput>
 										<cfloop from="1" to="31" index="day">
 											<option value="#day#">#day#</option>
 										</cfloop>
-									</cfoutput>
 								</select>
 										</td>
 										<td width="10%">
@@ -871,11 +868,9 @@ function load(form){
 										<td width="40%">
 											<select name="endDay" size="1">
 									<option value=""></option>
-									<cfoutput>
 										<cfloop from="1" to="31" index="day">
 											<option value="#day#">#day#</option>
 										</cfloop>
-									</cfoutput>
 								</select>
 										</td>
 									</tr>
@@ -971,7 +966,7 @@ function load(form){
 				<cfset pmodTable = "CTSPECIMEN_PART_MODIFIER">
 			</cfif>
 			
-			<cfoutput>
+
 			<cfquery name="Part" datasource="#Application.web_user#">
 				select part_name from #partTable# group by part_name order by part_name
 			</cfquery>
@@ -983,7 +978,7 @@ function load(form){
 			<cfquery name="ctpart_mod" datasource="#Application.web_user#">
 				select distinct part_modifier from #pmodTable# order by part_modifier
 			</cfquery>
-			</cfoutput>
+
 		<tr>
 			<td>
 				<div class="group">
@@ -1013,9 +1008,9 @@ function load(form){
 										size="1"
 									</cfif>>
 								  <option value=""></option>
-								  <cfoutput query="Part"> 
+								  <cfloop query="Part"> 
 									<option value="#Part.Part_Name#">#Part.Part_Name#</option>
-								  </cfoutput> </select>
+								  </cfloop> </select>
 							<a class="info" href="javascript:void(0);">
 								<span class="infoLink" 
 					  				onclick="getCtDoc('ctspecimen_part_name',SpecData.part_name.value);">Define</span>
@@ -1028,9 +1023,9 @@ function load(form){
 							<td align="left">
 								<select name="preserv_method" size="1">
 							  <option value=""></option>
-							  <cfoutput query="pres"> 
+							  <cfloop query="pres"> 
 								<option value="#pres.preserve_method#">#pres.preserve_method#</option>
-							  </cfoutput> </select>
+							  </cfloop> </select>
 							  <span class="infoLink" 
 					  				onclick="getCtDoc('ctspecimen_preserv_method',SpecData.preserv_method.value);">Define</span>
 							</td>
@@ -1042,9 +1037,9 @@ function load(form){
 							<td align="left">
 								<select name="part_modifier" size="1">
 							  <option value=""></option>
-							  <cfoutput query="ctpart_mod"> 
+							  <cfloop query="ctpart_mod"> 
 								<option value="#ctpart_mod.part_modifier#">#ctpart_mod.part_modifier#</option>
-							  </cfoutput> </select>
+							  </cfloop> </select>
 							</td>
 						</tr>
 					</table>
@@ -1075,9 +1070,9 @@ function load(form){
 						<td align="left">
 							<select name="subject" size="1">
 							<option value=""></option>
-							<cfoutput query="ctSubject">
+							<cfloop query="ctSubject">
 								<option value="#ctSubject.subject#">#ctSubject.subject#</option>
-							</cfoutput>
+							</cfloop>
 					  </select>
 					   <span class="infoLink" 
 					  		onclick="getCtDoc('ctbin_obj_subject',SpecData.subject.value);">Define</span>
@@ -1167,9 +1162,9 @@ function load(form){
 										<option value=""></option>
 										<option value="any">Any</option>
 										<option value="type">Any TYPE</option>
-										<cfoutput query="ctTypeStatus">
+										<cfloop query="ctTypeStatus">
 											<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
-										</cfoutput>
+										</cfloop>
 									</select>
 									<span class="infoLink" 
 					  					onclick="getCtDoc('ctcitation_type_status',SpecData.phylclass.value);">Define</span>									
@@ -1195,10 +1190,10 @@ function load(form){
 									</cfquery>
 									<select name="relationship" size="1">
 										<option value=""></option>
-										<cfoutput query="ctbiol_relations">
+										<cfloop query="ctbiol_relations">
 											<option value="#ctbiol_relations.biol_indiv_relationship#">
 												#ctbiol_relations.biol_indiv_relationship#</option>
-										</cfoutput>
+										</cfloop>
 									</select>								
 								</td>
 							</tr>
@@ -1286,9 +1281,9 @@ function load(form){
 											</cfquery>
 											<select name="permit_Type" size="1">
 														<option value=""></option>
-														<cfoutput query="ctPermitType">
+														<cfloop query="ctPermitType">
 															<option value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
-														 </cfoutput>
+														 </cfloop>
 													
 										  </select>
 								</td>
@@ -1339,9 +1334,9 @@ function load(form){
 								<td align="left" nowrap>
 									<select name="coll_obj_disposition" size="1">
 										<option value=""></option>
-										<cfoutput query="ctCollObjDisp">
+										<cfloop query="ctCollObjDisp">
 											<option value="#ctCollObjDisp.coll_obj_disposition#">#ctCollObjDisp.coll_obj_disposition#</option>
-										</cfoutput>									</select>
+										</cfloop>									</select>
 									
 						
 								</td>
@@ -1377,11 +1372,9 @@ function load(form){
 									</cfquery>
 									<select name="coll_obj_flags" size="1">
 										<option value=""></option>
-										<cfoutput>
 										<cfloop query="ctFlags">
 											<option value="#flags#">#flags#</option>
 										</cfloop>
-										</cfoutput>
 									</select>
 								</td>
 							</tr>
@@ -1414,9 +1407,9 @@ function load(form){
 						  <td>
 						  <select name="attribute_type_1" size="1">
 							<option selected value=""></option>
-								<cfoutput query="ctAttributeType">
+								<cfloop query="ctAttributeType">
 									<option value="#ctAttributeType.attribute_type#">#ctAttributeType.attribute_type#</option>
-								</cfoutput>
+								</cfloop>
 							
 						  </select>
 						  </td>
@@ -1442,9 +1435,9 @@ function load(form){
 							 <td>
 							  <select name="attribute_type_2" size="1">
 								<option selected value=""></option>
-									<cfoutput query="ctAttributeType">
+									<cfloop query="ctAttributeType">
 										<option value="#ctAttributeType.attribute_type#">#ctAttributeType.attribute_type#</option>
-									</cfoutput>
+									</cfloop>
 								
 							  </select>
 						  </td>
@@ -1469,9 +1462,9 @@ function load(form){
 							 <td>
 							  <select name="attribute_type_3" size="1">
 								<option selected value=""></option>
-									<cfoutput query="ctAttributeType">
+									<cfloop query="ctAttributeType">
 										<option value="#ctAttributeType.attribute_type#">#ctAttributeType.attribute_type#</option>
-									</cfoutput>
+									</cfloop>
 								
 							  </select>
 						  </td>
@@ -1558,8 +1551,8 @@ function load(form){
 			
  
   <cfif isdefined("transaction_id") and len(#transaction_id#) gt 0>
-		 <cfoutput><input type="hidden" name="transaction_id" value="#transaction_id#">
-		   </cfoutput> 
+		 <input type="hidden" name="transaction_id" value="#transaction_id#">
+		  
 	</cfif>
 
 
@@ -1568,6 +1561,7 @@ function load(form){
 <select  name="t" id="t">
 </select>
 </form>
+ </cfoutput> 
 <script type='text/javascript' language='javascript'>
 	var tval = document.getElementById('tgtForm').value;
 	changeTarget('tgtForm',tval);
