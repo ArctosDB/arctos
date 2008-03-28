@@ -11,7 +11,7 @@
 				update cf_users set specsrchprefs=specsrchprefs||','||'#id#'
 				where username='#client.username#'
 			</cfquery>
-		<cfcatch></cfcatch>
+		<cfcatch><!--- nada ---></cfcatch>
 		</cftry>
 	</cfif>
 	<cfreturn "">
