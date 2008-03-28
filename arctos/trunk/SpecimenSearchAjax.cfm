@@ -48,23 +48,25 @@ function changeGrp(tid) {
 function nada(){var a=1;}
 function showHide(id,onOff) {
 	var t='e_' + id;
-	var tab=document.getElementById(t);
-	var t='c_' + id;
-	var ctl=document.getElementById(t);
-	if (onOff==1) {
-		var ptl="/includes/SpecSearch/" + id + ".cfm";
-		$.get(ptl, function(data){
-		 $(tab).html(data);
-		})
-		ctl.setAttribute("onclick","showHide('" + id + "',0)");
-		ctl.innerHTML='Show Fewer Options';
-	} else {
-		tab.innerHTML='';
-		ctl.setAttribute("onclick","showHide('" + id + "',1)");
-		ctl.innerHTML='Show More Options';
-	} 
-	// see if we can save it to their preferences
-	DWREngine._execute(_cfscriptLocation, null, 'saveSpecSrchPref', id, onOff,nada);
+	var z='c_' + id;	
+	if (document.getElementById(t) && document.getElementById(z)) {	
+		var tab=document.getElementById(t);
+		var ctl=document.getElementById(z);
+		if (onOff==1) {
+			var ptl="/includes/SpecSearch/" + id + ".cfm";
+			$.get(ptl, function(data){
+			 $(tab).html(data);
+			})
+			ctl.setAttribute("onclick","showHide('" + id + "',0)");
+			ctl.innerHTML='Show Fewer Options';
+		} else {
+			tab.innerHTML='';
+			ctl.setAttribute("onclick","showHide('" + id + "',1)");
+			ctl.innerHTML='Show More Options';
+		} 
+		// see if we can save it to their preferences
+		DWREngine._execute(_cfscriptLocation, null, 'saveSpecSrchPref', id, onOff,nada);
+	}
 }
 /*
 function load(form){
