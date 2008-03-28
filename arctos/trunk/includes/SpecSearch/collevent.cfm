@@ -21,31 +21,7 @@
 			</a>
 		</td>
 		<td class="srch">
-			<table cellpadding="0" cellspacing="0">
-				<tr>
-					<td width="40%">
-						<select name="begMon" size="1">
-							<option value=""></option>
-							<option value="01">January</option>
-							<option value="02">February</option>
-							<option value="03">March</option>
-							<option value="04">April</option>
-							<option value="05">May</option>
-							<option value="06">June</option>
-							<option value="07">July</option>
-							<option value="08">August</option>
-							<option value="09">September</option>
-							<option value="10">October</option>
-							<option value="11">November</option>
-							<option value="12">December</option>						
-						</select>
-					</td>
-					<td width="10%">
-						<span class="infoLink" 
-  							onclick="SpecData.endMon.value=SpecData.begMon.value;">Copy&nbsp;--></span>
-					</td>
-					<td width="40%">
-						<select name="endMon" size="1">
+			<select name="begMon" size="1">
 				<option value=""></option>
 				<option value="01">January</option>
 				<option value="02">February</option>
@@ -60,9 +36,22 @@
 				<option value="11">November</option>
 				<option value="12">December</option>						
 			</select>
-					</td>
-				</tr>
-			</table>
+			&nbsp;<span class="infoLink" onclick="SpecData.endMon.value=SpecData.begMon.value;">-->&nbsp;Copy&nbsp;--></span>&nbsp;
+			<select name="endMon" size="1">
+				<option value=""></option>
+				<option value="01">January</option>
+				<option value="02">February</option>
+				<option value="03">March</option>
+				<option value="04">April</option>
+				<option value="05">May</option>
+				<option value="06">June</option>
+				<option value="07">July</option>
+				<option value="08">August</option>
+				<option value="09">September</option>
+				<option value="10">October</option>
+				<option value="11">November</option>
+				<option value="12">December</option>						
+			</select>
 		</td>
 	</tr>
 	<tr>
@@ -74,30 +63,19 @@
 			</a>
 		</td>
 		<td class="srch">
-			<table width="250" cellpadding="0" cellspacing="0">
-									<tr>
-										<td width="40%">
-											<select name="begDay" size="1">
-									<option value=""></option>
-										<cfloop from="1" to="31" index="day">
-											<option value="#day#">#day#</option>
-										</cfloop>
-								</select>
-										</td>
-										<td width="10%">
-											<span class="infoLink" 
-					  							onclick="SpecData.endDay.value=SpecData.begDay.value;">Copy&nbsp;--></span>
-										</td>
-										<td width="40%">
-											<select name="endDay" size="1">
-									<option value=""></option>
-										<cfloop from="1" to="31" index="day">
-											<option value="#day#">#day#</option>
-										</cfloop>
-								</select>
-										</td>
-									</tr>
-								</table>
+			<select name="begDay" size="1">
+				<option value=""></option>
+				<cfloop from="1" to="31" index="day">
+					<option value="#day#">#day#</option>
+				</cfloop>
+			</select>
+			&nbsp;<span class="infoLink" onclick="SpecData.endDay.value=SpecData.begDay.value;">-->&nbsp;Copy&nbsp;--></span>&nbsp;
+			<select name="endDay" size="1">
+				<option value=""></option>
+				<cfloop from="1" to="31" index="day">
+					<option value="#day#">#day#</option>
+				</cfloop>
+			</select>
 		</td>
 	</tr>
 	<tr>
@@ -109,20 +87,9 @@
 			</a>
 		</td>
 		<td class="srch">
-			<table width="250" cellpadding="0" cellspacing="0">
-									<tr>
-										<td width="40%">
-											<input name="begDate" type="text" size="15">
-										</td>
-										<td width="10%">
-											<span class="infoLink" 
-					  							onclick="SpecData.endDate.value=SpecData.begDate.value;">Copy&nbsp;--></span>
-										</td>
-										<td width="40%">
-											<input name="endDate" type="text" size="15">
-										</td>
-									</tr>
-								</table>
+			<input name="begDate" type="text" size="15">
+			&nbsp;<span class="infoLink" onclick="SpecData.endDate.value=SpecData.begDate.value;">-->&nbsp;Copy&nbsp;--></span>&nbsp;
+			<input name="endDate" type="text" size="15">
 		</td>
 	</tr>
 	<tr>
