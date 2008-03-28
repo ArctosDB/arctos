@@ -100,6 +100,7 @@ function load(form){
 	border:2px solid red;
 	}
 </style>
+
 <cfoutput>
 <cfset title="Specimen Search">
 <cfquery name="getCount" datasource="#Application.web_user#">
@@ -324,7 +325,6 @@ function load(form){
 
 
 <div class="secDiv">
-	
 	<table>
 		<tr>
 			<td colspan="2" class="secHead">
@@ -335,7 +335,6 @@ function load(form){
 		</tr>
 		<tr>
 			<td>
-				<div class="group" align="left">
 				<table cellpadding="0" cellspacing="0" width="100%">
 					<tr>
 					<cfquery name="ctInst" datasource="#Application.web_user#">
