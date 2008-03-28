@@ -15,18 +15,6 @@
 	<tr>
 		<td class="lbl">
 			<a href="javascript:void(0);"
-				onClick="getHelp('incl_date'); return false;"
-				onMouseOver="self.status='Click for Date Search help.';return true;"
-				onmouseout="self.status='';return true;">Inclusive Date Search?
-			</a>
-		</td>
-		<td class="srch">
-			<input type="checkbox" name="inclDateSearch" value="yes">
-		</td>
-	</tr>
-	<tr>
-		<td class="lbl">
-			<a href="javascript:void(0);"
 				onClick="getHelp('month_collected'); return false;"
 				onMouseOver="self.status='Click for Year Collected help.';return true;"
 				onmouseout="self.status='';return true;">Month Collected:
