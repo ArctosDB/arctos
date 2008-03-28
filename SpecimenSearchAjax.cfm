@@ -99,6 +99,9 @@ function load(form){
 .secDiv {
 	border:2px solid red;
 	}
+table.ssrch {
+	width:100%;
+}
 </style>
 
 <cfoutput>
