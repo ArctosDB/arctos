@@ -470,189 +470,48 @@ td.lbl {
 	</table>
 	<div id="e_usage"></div>
 </div>
-					
-				
-		
-		<cfif #ListContains(client.searchBy, 'parts')# gt 0>
-			<cfif len(#exclusive_collection_id#) gt 0>
-				<cfset partTable = "cctspecimen_part_name#exclusive_collection_id#">
-				<cfset presTable = "cCTSPECIMEN_PRESERV_METHOD#exclusive_collection_id#">
-				<cfset pmodTable = "cCTSPECIMEN_PART_MODIFIER#exclusive_collection_id#">
-			<cfelse>
-				<cfset partTable = "ctspecimen_part_name">
-				<cfset presTable = "CTSPECIMEN_PRESERV_METHOD">
-				<cfset pmodTable = "CTSPECIMEN_PART_MODIFIER">
-			</cfif>
-			
-
-			<cfquery name="Part" datasource="#Application.web_user#">
-				select part_name from #partTable# group by part_name order by part_name
-			</cfquery>
-			
-			<cfquery name="pres" datasource="#Application.web_user#">
-				select distinct(preserve_method) from #presTable#
-				ORDER BY preserve_method
-			</cfquery>
-			<cfquery name="ctpart_mod" datasource="#Application.web_user#">
-				select distinct part_modifier from #pmodTable# order by part_modifier
-			</cfquery>
-
+<cfquery name="Part" datasource="#Application.web_user#">
+	select part_name from 
+		<cfif len(#exclusive_collection_id#) gt 0>cctspecimen_part_name#exclusive_collection_id#<cfelse>ctspecimen_part_name</cfif>
+		group by part_name order by part_name
+</cfquery>
+<div class="secDiv">
+	<table class="ssrch">
 		<tr>
-			<td>
-				<div class="group">
-					<table cellpadding="0" cellspacing="0" width="100%">
-						
-						<tr>
-							<td align="right" width="250">
-								<a href="javascript:void(0);" 
-							onClick="getHelp('parts'); return false;"
-							onMouseOver="self.status='Click for Parts help.';return true;" 
-							onmouseout="self.status='';return true;">Part:</a>&nbsp;
-							</td>
-							<td align="left">
-								<select name="part_name"  
-									<cfif #ListContains(client.searchBy, 'bigsearchbox')# gt 0>
-										multiple="multiple" size="5"
-									<cfelse>
-										size="1"
-									</cfif>>
-								  <option value=""></option>
-								  <cfloop query="Part"> 
-									<option value="#Part.Part_Name#">#Part.Part_Name#</option>
-								  </cfloop> </select>
-							<a class="info" href="javascript:void(0);">
-								<span class="infoLink" 
-					  				onclick="getCtDoc('ctspecimen_part_name',SpecData.part_name.value);">Define</span>
-							</td>
-						</tr>
-						<tr>
-							<td align="right" width="250">
-								 Preservation Method:&nbsp;
-							</td>
-							<td align="left">
-								<select name="preserv_method" size="1">
-							  <option value=""></option>
-							  <cfloop query="pres"> 
-								<option value="#pres.preserve_method#">#pres.preserve_method#</option>
-							  </cfloop> </select>
-							  <span class="infoLink" 
-					  				onclick="getCtDoc('ctspecimen_preserv_method',SpecData.preserv_method.value);">Define</span>
-							</td>
-						</tr>
-						<tr>
-							<td align="right" width="250">
-								 Part Modifier:&nbsp;
-							</td>
-							<td align="left">
-								<select name="part_modifier" size="1">
-							  <option value=""></option>
-							  <cfloop query="ctpart_mod"> 
-								<option value="#ctpart_mod.part_modifier#">#ctpart_mod.part_modifier#</option>
-							  </cfloop> </select>
-							</td>
-						</tr>
-					</table>
-				</div>
+			<td colspan="2" class="secHead">
+					<span class="secLabel">Biological Individual</span>
+					<span class="secControl" id="c_biolindiv"
+						onclick="showHide('biolindiv',1)">Show More Options</span>
 			</td>
 		</tr>
-		</cfif>
+		<tr>
+			<td class="lbl">
+				<a href="javascript:void(0);" 
+					onClick="getHelp('parts'); return false;"
+					onMouseOver="self.status='Click for Parts help.';return true;" 
+					onmouseout="self.status='';return true;">Part:
+				</a>
+			</td>
+			<td class="srch">
+				<select name="part_name"  
+					<cfif #ListContains(client.searchBy, 'bigsearchbox')# gt 0>
+						multiple="multiple" size="5"
+					<cfelse>
+						size="1"
+					</cfif>>
+					<option value=""></option>
+						<cfloop query="Part"> 
+							<option value="#Part.Part_Name#">#Part.Part_Name#</option>
+						</cfloop>
+				</select>
+				<span class="infoLink" onclick="getCtDoc('ctspecimen_part_name',SpecData.part_name.value);">Define</span>
+			</td>
+		</tr>
+	</table>
+	<div id="e_biolindiv"></div>
+</div>
+					
 		
-		<!----
-		<cfif #ListContains(client.searchBy, 'permit')# gt 0>
-			<tr>
-				<td>
-					<div class="group">
-						<table cellpadding="0" cellspacing="0" width="100%">
-							<tr>
-								<td align="right" width="250">
-									 Permit Issued By:&nbsp;
-								</td>
-								<td align="left">
-									<input name="permit_issued_by" type="text" size="50">
-								</td>
-							</tr>
-							<tr>
-								<td align="right" width="250">
-									 Permit Issued To:&nbsp;
-								</td>
-								<td align="left">
-									<input name="permit_issued_to" type="text" size="50">
-								</td>
-							</tr>
-							<tr>
-								<td align="right" width="250">
-									Permit Type:&nbsp;
-								</td>
-								<td align="left">
-									<cfquery name="ctPermitType" datasource="#Application.web_user#">
-												select * from ctpermit_type
-											</cfquery>
-											<select name="permit_Type" size="1">
-														<option value=""></option>
-														<cfoutput query="ctPermitType">
-															<option value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
-														 </cfoutput>
-													
-										  </select>
-									 
-								</td>
-							</tr>
-							<tr>
-								<td align="right" width="250">
-									Permit Number:&nbsp;
-								</td>
-								<td align="left">
-									<input type="text" name="permit_num" size="50">
-									 <span class="infoLink" 
-					  					onclick="getHelp('get_permit_number');">Pick</span>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</td>
-			</tr>
-		</cfif>
-		---->
-		
-		<cfif #ListContains(client.searchBy, 'miscellaneous')# gt 0>
-			<tr>
-				<td>
-					<div class="group">
-						<table cellpadding="0" cellspacing="0" width="100%">
-							<tr>
-								<td align="right" width="250">
-									Relationship:&nbsp;
-								</td>
-								<td align="left">
-									<cfquery name="ctbiol_relations" datasource="#Application.web_user#">
-										select biol_indiv_relationship  from ctbiol_relations
-									</cfquery>
-									<select name="relationship" size="1">
-										<option value=""></option>
-										<cfloop query="ctbiol_relations">
-											<option value="#ctbiol_relations.biol_indiv_relationship#">
-												#ctbiol_relations.biol_indiv_relationship#</option>
-										</cfloop>
-									</select>								
-								</td>
-							</tr>
-							<tr>
-								<td align="right" width="250">
-									Derived Relationship:&nbsp;
-								</td>
-								<td align="left">
-									<select name="derived_relationship" size="1">
-										<option value=""></option>
-											<option value="offspring of">
-												offspring of</option>
-									</select>								
-								</td>
-							</tr>
-						</table>
-					</div>
-				</td>
-			</tr>
-		</cfif>
 		
 		<cfif #ListContains(client.searchBy, 'curatorial_stuff')# gt 0>
 			<tr>
@@ -787,115 +646,7 @@ td.lbl {
 				</td>
 			</tr>
 		</cfif>
-		<cfif #ListContains(client.searchBy, 'attributes')# gt 0>
-			<tr>
-				<td align="center">
-				<div class="group">
-					<table border>
-							<tr>
-								<td>
-								 <a href="javascript:void(0);" 
-							onClick="windowOpener('/info/attributeHelpPick.cfm?attribute='+SpecData.attribute_type_1.value,'attPick','width=600,height=600, resizable,scrollbars'); return false;"
-							onMouseOver="self.status='Click for Attributes help.';return true;" 
-							onmouseout="self.status='';return true;">Attribute</a>
-								</td>
-								<td>Operator</td>
-								<td>Value</td>
-								<td>Units</td>
-							</tr>
-							<tr>
-						  
-						  <cfquery name="ctAttributeType" datasource="#Application.web_user#">
-							select distinct(attribute_type) from ctattribute_type order by attribute_type
-						  </cfquery>
-						  <td>
-						  <select name="attribute_type_1" size="1">
-							<option selected value=""></option>
-								<cfloop query="ctAttributeType">
-									<option value="#ctAttributeType.attribute_type#">#ctAttributeType.attribute_type#</option>
-								</cfloop>
-							
-						  </select>
-						  </td>
-						  <td>
-							<select name="attOper_1" size="1">
-								<option selected value="">equals</option>
-								<option value="like">contains</option>
-								<option value="greater">greater than</option>
-								<option value="less">less than</option>
-							</select>
-						  </td>
-						  <td>
-								<input type="text" name="attribute_value_1" size="20">
-							  	<span class="infoLink" 
-					  				onclick="windowOpener('/info/attributeHelpPick.cfm?attNum=1&attribute='+SpecData.attribute_type_1.value,'attPick','width=600,height=600, resizable,scrollbars');">
-						  				Pick
-								</span>		 
-						 	</td>
-						  
-						  <td> <input type="text" name="attribute_units_1" size="6"></td>
-						  </tr>
-						  <tr>
-							 <td>
-							  <select name="attribute_type_2" size="1">
-								<option selected value=""></option>
-									<cfloop query="ctAttributeType">
-										<option value="#ctAttributeType.attribute_type#">#ctAttributeType.attribute_type#</option>
-									</cfloop>
-								
-							  </select>
-						  </td>
-						  <td>
-							<select name="attOper_2" size="1">
-								<option selected value="">equals</option>
-								<option value="like">contains</option>
-								<option value="greater">greater than</option>
-								<option value="less">less than</option>
-							</select>
-						  </td>
-						  <td> <input type="text" name="attribute_value_2" size="20">
-						  <span class="infoLink" 
-					  			onclick="windowOpener('/info/attributeHelpPick.cfm?attNum=2&attribute='+SpecData.attribute_type_2.value,'attPick','width=600,height=600, resizable,scrollbars');">
-						  			Pick
-							</span>
-							</td>
-						  <td> <input type="text" name="attribute_units_2" size="6"></td>
-						
-						 </tr>
-						 <tr>
-							 <td>
-							  <select name="attribute_type_3" size="1">
-								<option selected value=""></option>
-									<cfloop query="ctAttributeType">
-										<option value="#ctAttributeType.attribute_type#">#ctAttributeType.attribute_type#</option>
-									</cfloop>
-								
-							  </select>
-						  </td>
-						  <td>
-							<select name="attOper_3" size="1">
-								<option selected value="">equals</option>
-								<option value="like">contains</option>
-								<option value="greater">greater than</option>
-								<option value="less">less than</option>
-							</select>
-						  </td>
-						  <td> <input type="text" name="attribute_value_3" size="20">
-						  <span class="infoLink" 
-					  			onclick="windowOpener('/info/attributeHelpPick.cfm?attNum=3&attribute='+SpecData.attribute_type_3.value,'attPick','width=600,height=600, resizable,scrollbars');">
-						  			Pick
-							</span>
-							</td>
-						  <td> <input type="text" name="attribute_units_3" size="6"></td>
-						
-						 </tr>
-						 
-						  </tr>
-						   </table>
-						   </div>
-				</td>
-			</tr>
-			</cfif>
+		
 			
 			<!------------------ wtf section -------------------------------->
 			
