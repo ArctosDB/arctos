@@ -654,16 +654,18 @@ function success_getSpecResultsData(result){
 						theInnerHtml +='<td>N/A</td>';
 					}
 				}
-				/*
+				
 				if (action == 'dispCollObj'){
 					theInnerHtml +='<td><span class="likeLink" onclick="goPickParts(' + "'" 
 					theInnerHtml += result[i].COLLECTION_OBJECT_ID + "','";
 					theInnerHtml += transaction_id + "');" + '">Pick&nbsp;Part</span></td>';
 				}
-				*/
+				
+				/*
 				if (action == 'dispCollObj'){
 					theInnerHtml +='<td id="partCell_' + result[i].COLLECTION_OBJECT_ID + '"></td>';
 				}
+				*/
 				if (result[0].COLUMNLIST.indexOf('CUSTOMID')> -1) {
 					theInnerHtml += '<td>';
 						theInnerHtml += result[i].CUSTOMID + '&nbsp;';

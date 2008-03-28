@@ -4,6 +4,7 @@
 <cf_get_header collection_id="#exclusive_collection_id#">
 --->
 <script type='text/javascript' src='/includes/_specimenResults.js'></script>
+
 <div id="loading" style="position:absolute;top:50%;right:50%;z-index:999;background-color:green;color:white;font-size:large;font-weight:bold;padding:15px;">
 	Page loading....
 </div>
