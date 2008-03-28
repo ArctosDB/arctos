@@ -78,11 +78,11 @@ function load(form){
 </script>
 
 <style>
-.secHead{background-color:#152DC6;}
+.secHead{background-color:lightgrey;}
 
 .secLabel{
 	float:left;
-	border:1px solid green;
+	font-weight:bold;
 }
 .secControl ,.infoLink a:visited{
 	float:right;
@@ -97,10 +97,16 @@ function load(form){
 	text-decoration: underline;
 	}
 .secDiv {
-	border:2px solid red;
+	border:2px dashed green;
 	}
 table.ssrch {
 	width:100%;
+}
+
+td.lbl {
+	width:35%;
+	text-align:right;
+padding-right:5px;
 }
 </style>
 
