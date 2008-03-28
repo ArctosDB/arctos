@@ -432,8 +432,8 @@ td.lbl {
 			</td>
 			<td class="srch">
 				<input name="begYear" type="text" size="6">&nbsp;
-				<span class="infoLink" onclick="SpecData.endYear.value=SpecData.begYear.value">-->Copy--></span>
-				<input name="endYear" type="text" size="6">
+				<span class="infoLink" onclick="SpecData.endYear.value=SpecData.begYear.value">-->&nbsp;Copy&nbsp;--></span>
+				&nbsp;<input name="endYear" type="text" size="6">
 			</td>
 		</tr>
 	</table>
