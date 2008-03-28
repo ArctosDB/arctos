@@ -1511,7 +1511,7 @@ td.lbl {
 // make an ajax call to get their preferences, then set their stuff on if necessary
 	DWREngine._execute(_cfscriptLocation, null, 'getSpecSrchPref', r_getSpecSrchPref);
 	function r_getSpecSrchPref (result){
-		alert(result);
+		//alert(result);
 		var j=result.split(',');
 		for (var i = 0; i < j.length; i++) {
 			showHide(j[i],1);
