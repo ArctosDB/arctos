@@ -145,17 +145,19 @@ function load(form){
 					</cfoutput>
 				</select>
 			</cfif>
-			<cfif #action# is "dispCollObj">
-				<p><font color="#FF0000" size="+2">You are searching for items to add to a loan.</font></p>
-			<cfelseif #action# is "encumber">
-				<p><font color="#FF0000" size="+2">You are searching for items to encumber.</font></p>
-			<cfelseif #action# is "collEvent">
-				<p><font color="#FF0000" size="+2">You are searching for items to change collecting event.</font></p>
-			<cfelseif #action# is "identification">
-				<p><font color="#FF0000" size="+2">You are searching for items to reidentify.</font></p>
-			<cfelseif #action# is "addAccn">
-				<p><font color="#FF0000" size="+2">You are searching for items to reaccession.</font></p>
-			</cfif>
+			<span style="color:red;">
+				<cfif #action# is "dispCollObj">
+					<p>You are searching for items to add to a loan.</p>
+				<cfelseif #action# is "encumber">
+					<p>You are searching for items to encumber.</p>
+				<cfelseif #action# is "collEvent">
+					<p>You are searching for items to change collecting event.</p>
+				<cfelseif #action# is "identification">
+					<p>You are searching for items to reidentify.</p>
+				<cfelseif #action# is "addAccn">
+					<p>You are searching for items to reaccession.</p>
+				</cfif>
+			</span>
 		</td>
 	</tr>
 </table>
