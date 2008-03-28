@@ -122,7 +122,6 @@
 						</tr>
 					</cfif>
 				</table>
-				</div>
 			</td>
 		</tr>
 	</table>
