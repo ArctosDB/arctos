@@ -6,17 +6,20 @@
 	<cfargument name="onOff" type="numeric" required="yes">
 	<cfif isdefined("client.username") and len(#client.username#) gt 0>
 		<cftry>
+			<cfquery name="ins" datasource="#application.web_user#">
+				select specsrchprefs from cf_users
+				where username='#client.username#'
+			</cfquery>
+			<cfset cv=valuelist(ins.specsrchprefs)>
 			<cfif onOff is 1>
-				<cfquery name="ins" datasource="#application.web_user#">
-					update cf_users set specsrchprefs=specsrchprefs||','||'#id#'
-					where username='#client.username#'
-				</cfquery>
+				<cfset nv=listappend(cv,id)>
 			<cfelse>
-				<cfquery name="ins" datasource="#application.web_user#">
-					update cf_users set specsrchprefs=replace(specsrchprefs,','||'#id#','')
-					where username='#client.username#'
-				</cfquery>
+				<cfset nv=listdeleteat(cv,listfind(cv,id))>
 			</cfif>
+			<cfquery name="ins" datasource="#application.web_user#">
+				update cf_users set specsrchprefs='#nv#'
+				where username='#client.username#'
+			</cfquery>
 			<cfcatch><!-- nada --></cfcatch>
 		</cftry>
 	</cfif>
