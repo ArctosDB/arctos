@@ -1515,7 +1515,7 @@ td.lbl {
 		var j=result.split(',');
 		for (var i = 0; i < j.length; i++) {
 			//showHide(i,1);
-			alert(i);
+			alert(j[i]);
 		}
 	}
 </script>
