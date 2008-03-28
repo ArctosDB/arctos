@@ -325,6 +325,18 @@ function load(form){
 
 
 <div class="secDiv">
+	<cfquery name="ctInst" datasource="#Application.web_user#">
+		SELECT institution_acronym, collection, collection_id FROM collection
+		<cfif len(#exclusive_collection_id#) gt 0>
+			WHERE collection_id = #exclusive_collection_id#
+		</cfif>
+		order by collection
+	</cfquery>
+	<cfif isdefined("collection_id") and len(#collection_id#) gt 0>
+		<cfset thisCollId = #collection_id#>
+	<cfelse>
+		<cfset thisCollId = "">
+	</cfif>
 	<table>
 		<tr>
 			<td colspan="2" class="secHead">
@@ -334,54 +346,38 @@ function load(form){
 			</td>
 		</tr>
 		<tr>
-			<td>
-				<table cellpadding="0" cellspacing="0" width="100%">
-					<tr>
-					<cfquery name="ctInst" datasource="#Application.web_user#">
-						SELECT institution_acronym, collection, collection_id FROM collection
-						<cfif len(#exclusive_collection_id#) gt 0>
-							WHERE collection_id = #exclusive_collection_id#
-						</cfif>
-						order by collection
-					</cfquery>
-			
-					<cfif isdefined("collection_id") and len(#collection_id#) gt 0>
-						<cfset thisCollId = #collection_id#>
-					<cfelse>
-						<cfset thisCollId = "">
+			<td class="lbl">
+				<a href="javascript:void(0);" 
+						onClick="pageHelp('SpecimenSearchFldDef','cat_num');">
+						Institutional Catalog:
+				</a>
+			</td>
+			<td class="srch">
+				<select name="collection_id" size="1">
+					<cfif len(#exclusive_collection_id#) is 0>
+						<option value="">All</option>
 					</cfif>
-					<td align="right" width="250" nowrap>
-						<a href="javascript:void(0);" 
-							onClick="pageHelp('SpecimenSearchFldDef','cat_num');">
-							Institutional Catalog:
-						</a>&nbsp;
-					</td>
-					<td>
-						<select name="collection_id" size="1">
-							<cfif len(#exclusive_collection_id#) is 0>
-								<option value="">All</option>
-							</cfif>
-							<cfloop query="ctInst">
-								<option <cfif #thisCollId# is #ctInst.collection_id#>
-							 		selected </cfif>
-									value="#ctInst.collection_id#">
-									#ctInst.collection#</option>
-							</cfloop>
-						</select>				
-					</td>
-				</tr>
-				<tr>
-					<td align="right">
-						Catalog Number:&nbsp;
-					</td>
-					<td align="left">
-						<cfif #ListContains(client.searchBy, 'bigsearchbox')# gt 0>
-							<textarea name="listcatnum" rows="6" cols="40" wrap="soft"></textarea>
-						<cfelse>
-							<input type="text" name="listcatnum" size="21">
-						</cfif>
-					</td>
-				</tr>	
+					<cfloop query="ctInst">
+						<option <cfif #thisCollId# is #ctInst.collection_id#>
+					 		selected </cfif>
+							value="#ctInst.collection_id#">
+							#ctInst.collection#</option>
+					</cfloop>
+				</select>				
+			</td>
+		</tr>
+		<tr>
+		<td class="lbl">
+			Catalog Number:
+		</td>
+		<td class="srch">
+			<cfif #ListContains(client.searchBy, 'bigsearchbox')# gt 0>
+				<textarea name="listcatnum" rows="6" cols="40" wrap="soft"></textarea>
+			<cfelse>
+				<input type="text" name="listcatnum" size="21">
+			</cfif>
+		</td>
+	</tr>	
 </table>
 </tr></td></table>
 <div id="e_identifiers"></div>
