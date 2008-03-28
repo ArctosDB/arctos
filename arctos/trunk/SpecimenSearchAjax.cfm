@@ -520,8 +520,7 @@ td.lbl {
 		</table>
 		<div id="e_curatorial"></div>
 	</div>
-</cfif>
-	
+</cfif>	
 <table>
 	<tr>
 		<td valign="top">
@@ -569,46 +568,19 @@ td.lbl {
 			</select>
 			</div>
 		</td>
-</tr>
-</table>
-		</td>
-			</tr>
-			</table>
-		
-			
- 
-  <cfif isdefined("transaction_id") and len(#transaction_id#) gt 0>
-		 <input type="hidden" name="transaction_id" value="#transaction_id#">
-		  
-	</cfif>
-
-
-	
-  <input type="hidden" name="newQuery" value="1"><!--- pass this to the next form so we clear the cache and run the proper queries--->
-<select  name="t" id="t">
-</select>
+	</tr>
+</table> 
+<cfif isdefined("transaction_id") and len(#transaction_id#) gt 0>
+	<input type="hidden" name="transaction_id" value="#transaction_id#">
+</cfif>
+<input type="hidden" name="newQuery" value="1"><!--- pass this to the next form so we clear the cache and run the proper queries--->
 </form>
- </cfoutput> 
+</cfoutput> 
 <script type='text/javascript' language='javascript'>
 	var tval = document.getElementById('tgtForm').value;
 	changeTarget('tgtForm',tval);
 	changeGrp('groupBy');
-</script>
-
-<!--- not that the page is loaded, populate selects in order of appearance --->
-<script>
-
- $.getJSON("/ajax/jsonCT.cfm",{id: $(this).val(), ajax: 'true'}, function(j){
-      var options = '';
-      for (var i = 0; i < j.length; i++) {
-        //alert(j[i]);
-        options += '<option value="' + j[i].optionValue + '">' + j[i].optionDisplay + '</option>';
-      }
-      $("select#t").html(options);
-    })
-
-
-// make an ajax call to get their preferences, then set their stuff on if necessary
+	// make an ajax call to get preferences, then turn stuff on
 	DWREngine._execute(_cfscriptLocation, null, 'getSpecSrchPref', r_getSpecSrchPref);
 	function r_getSpecSrchPref (result){
 		//alert(result);
@@ -621,8 +593,4 @@ td.lbl {
 		}
 	}
 </script>
-
-<br />
 <cfinclude template = "includes/_footer.cfm">
-
-
