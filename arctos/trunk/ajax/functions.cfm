@@ -30,10 +30,11 @@
 				select specsrchprefs from cf_users
 				where username='#client.username#'
 			</cfquery>
-		<cfcatch><!-- nada --></cfcatch>
-	</cftry>
-
-	<cfreturn ins.specsrchprefs>
+				<cfreturn ins.specsrchprefs>
+			<cfcatch><!-- nada --></cfcatch>
+		</cftry>
+	</cfif>
+	<cfreturn "null">	
 </cffunction>
 
 <!-------------------------------------------->
