@@ -437,58 +437,13 @@ td.lbl {
 						</tr>
 					</cfif>
 					<cfif #ListContains(client.searchBy, 'max_error_in_meters')# gt 0>
-						<tr>
-							<td align="right" width="250">
-								<a href="javascript:void(0);" 
-										onClick="getHelp('max_error_in_meters'); return false;"
-										onMouseOver="self.status='Click for Coordinate Error help.';return true;" 
-										onmouseout="self.status='';return true;">Coordinate Error (meters):&nbsp;</a>					
-							</td>
-							<td align="left">
-								<input type="text" name="max_error_in_meters">
-							</td>
-						</tr>
+						
 					</cfif>
 				</table>
 				</div>
 			</td>
 		</tr>
-		<cfif #ListContains(client.searchBy, 'boundingbox')# gt 0>
-			<tr>
-				<td>
-					<div class="group">
-						<table cellpadding="0" cellspacing="0" width="100%">
-							<tr>
-								<td align="left" width="250" colspan="2">
-									Bounding Box <font size="-1"><em>(You must provide coordinates for each corner in
-									decimal latitude format.)</em></font>
-								</td>
-							</tr>
-							<tr>
-								<td align="right" width="250">
-									Northwest Corner:&nbsp;
-								</td>
-								<td align="left" nowrap>
-									<strong><em>Latitude:</em></strong> <input type="text" name="nwLat" size="8">
-									<strong><em>Longitude:</em></strong> <input type="text" name="nwlong" size="8">
-									
-								</td>
-							</tr>
-							<tr>
-								<td align="right" width="250">
-									Southeast Corner:&nbsp;
-								</td>
-								<td align="left" nowrap>
-									
-									<strong><em>Latitude:</em></strong> <input type="text" name="selat" size="8">
-									<strong><em>Longitude:</em></strong> <input type="text" name="selong" size="8">
-								</td>
-							</tr>
-						</table>
-					</div>
-				</td>
-			</tr>
-		</cfif>
+		
 		<tr>
 			<td>
 				<div class="group">
