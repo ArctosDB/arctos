@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="Specimen Search">
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>	
 <script language="javascript" type="text/javascript">
 function changeTarget(id,tvalue) {
@@ -116,7 +117,6 @@ td.lbl {
 </style>
 
 <cfoutput>
-<cfset title="Specimen Search">
 <cfquery name="getCount" datasource="#Application.web_user#">
 	select count(collection_object_id) as cnt from cataloged_item
 	<cfif len(#exclusive_collection_id#) gt 0>
@@ -125,7 +125,7 @@ td.lbl {
 		cataloged_item.collection_id = #exclusive_collection_id#
 	</cfif>
 </cfquery>
-<table width="75%" cellpadding="0" cellspacing="0">
+<table cellpadding="0" cellspacing="0">
 	<tr>
 		<td colspan="4">
 			Access to #getCount.cnt#
