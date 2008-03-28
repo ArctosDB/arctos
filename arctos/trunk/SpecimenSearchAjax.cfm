@@ -62,6 +62,8 @@ function showHide(id,onOff) {
 		ctl.setAttribute("onclick","showHide('" + id + "',1)");
 		ctl.innerHTML='Show More Options';
 	} 
+	// see if we can save it to their preferences
+	DWREngine._execute(_cfscriptLocation, null, 'saveSpecSrchPref', id, onOff,null);
 }
 /*
 function load(form){
