@@ -1512,6 +1512,10 @@ td.lbl {
 	DWREngine._execute(_cfscriptLocation, null, 'getSpecSrchPref', r_getSpecSrchPref);
 	function r_getSpecSrchPref (result){
 		alert(result);
+		var j=result.split(',');
+		for (var i = 0; i < j.length; i++) {
+			showHide(i,1);
+		}
 	}
 </script>
 
