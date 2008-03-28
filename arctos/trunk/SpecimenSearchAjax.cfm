@@ -45,7 +45,7 @@ function changeGrp(tid) {
 		}
 	}
 }
-function nada(){null;}
+function nada(){var a=1;}
 function showHide(id,onOff) {
 	var t='e_' + id;
 	var tab=document.getElementById(t);
