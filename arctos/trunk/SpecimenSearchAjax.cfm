@@ -283,8 +283,7 @@ td.lbl {
 					<a href="javascript:void(0);" 
 						onClick="getHelp('show_observations'); return false;"
 						onMouseOver="self.status='Click for Observations help.';return true;"
-						onmouseout="self.status='';return true;">Observations
-					</a>?
+						onmouseout="self.status='';return true;">Observations</a>?
 				</strong>
 				<input type="checkbox" name="showObservations" value="true">
 			</td>
