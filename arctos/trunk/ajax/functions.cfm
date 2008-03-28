@@ -1,7 +1,7 @@
 <!--- hint="type=keyvalue, jsreturn=array , listdelimiter=| , delimiter='='" --->
 <cfinclude template="/ajax/core/cfajax.cfm">
 
-
+<!----
 <cffunction name="saveSpecSrchPref" returntype="string">
 	<cfif isdefined("client.username") and len(#client.username#) gt 0>
 		<cfargument name="id" type="string" required="yes">
@@ -16,7 +16,7 @@
 	</cfif>
 	<cfreturn "">
 </cffunction>
-
+---->
 <!-------------------------------------------->
 <cffunction name="getSessionTimeout" returntype="string">
 	<cfif isdefined("client.username") and len(#client.username#) gt 0>
