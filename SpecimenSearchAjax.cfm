@@ -510,27 +510,28 @@ td.lbl {
 	</table>
 	<div id="e_biolindiv"></div>
 </div>
-<div class="secDiv">
-	<table class="ssrch">
-		<tr>
-			<td colspan="2" class="secHead">
-					<span class="secLabel">Curatorial</span>
-					<span class="secControl" id="c_curatorial"
-						onclick="showHide('curatorial',1)">Show More Options</span>
-			</td>
-		</tr>
-		<tr>
-			<td class="lbl">
-				Barcode:
-			</td>
-			<td class="srch">
-				<input type="text" name="barcode" size="50">
-			</td>
-		</tr>
-	</table>
-	<div id="e_curatorial"></div>
-</div>
-					
+<cfif liscontains(client.roles,"coldfusion_user">
+	<div class="secDiv">
+		<table class="ssrch">
+			<tr>
+				<td colspan="2" class="secHead">
+						<span class="secLabel">Curatorial</span>
+						<span class="secControl" id="c_curatorial"
+							onclick="showHide('curatorial',1)">Show More Options</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="lbl">
+					Barcode:
+				</td>
+				<td class="srch">
+					<input type="text" name="barcode" size="50">
+				</td>
+			</tr>
+		</table>
+		<div id="e_curatorial"></div>
+	</div>
+</cfif>
 	
 <table>
 	<tr>
