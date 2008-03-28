@@ -100,11 +100,8 @@ function load(form){
 	border:2px solid red;
 	}
 </style>
+<cfoutput>
 <cfset title="Specimen Search">
-
-
-
-
 <cfquery name="getCount" datasource="#Application.web_user#">
 	select count(collection_object_id) as cnt from cataloged_item
 	<cfif len(#exclusive_collection_id#) gt 0>
@@ -113,108 +110,102 @@ function load(form){
 		cataloged_item.collection_id = #exclusive_collection_id#
 	</cfif>
 </cfquery>
-<!---
-<span class="infoLink pageHelp" onclick="pageHelp('searching');">Page Help</span>			
---->		
-	   <table width="75%" cellpadding="0" cellspacing="0">
-	   	<tr><td colspan="4">
-		 <p> <font size="+1">Access to
-		<a href="javascript: void(0);" 
-			onClick="getHelp('CollStats'); return false;"
-			onMouseOver="self.status='Click for holdings detail.';return true;"
-			onmouseout="self.status='';return true;"
-			><cfoutput>#getCount.cnt#</cfoutput>
-			</a> 
-			</font>
+<table width="75%" cellpadding="0" cellspacing="0">
+	<tr>
+		<td colspan="4">
+			Access to #getCount.cnt#
 			<cfif len(#exclusive_collection_id#) gt 0>
 				<cfquery name="coll" datasource="#Application.web_user#">
-					select collection,institution_acronym,collection_cde
+					select collection
 					from collection where
 					collection_id=#exclusive_collection_id#
 				</cfquery>
-				<cfoutput>#coll.collection#</cfoutput>
-			records, or <a href="searchAll.cfm">all collections</a>.
+				#coll.collection#
+			records. <a href="searchAll.cfm">Search all collections</a>.
 			<cfelse>
 			records.
 			</cfif>
-<cfquery name="hasCanned" datasource="#Application.web_user#">
-	select SEARCH_NAME,URL
-	from cf_canned_search,cf_users
-	where cf_users.user_id=cf_canned_search.user_id
-	and username='#client.username#'
-	order by search_name
-</cfquery>
-<cfif #hasCanned.recordcount# gt 0>
-	<label for="goCanned">Saved Searches:</label>
-	<select name="goCanned" id="goCanned" size="1" onchange="document.location=this.value;">
-		<option value=""></option>
-		<option value="saveSearch.cfm?action=manage">[ Manage ]</option>
-		<cfoutput query="hasCanned">
-			<option value="#url#">#SEARCH_NAME#</option><br />
-		</cfoutput>
-	</select>
-</cfif>
-				
-<cfif #action# is "dispCollObj">
-	<p><font color="#FF0000" size="+2">You are searching for items to add to a loan.</font></p>
-<cfelseif #action# is "encumber">
-	<p><font color="#FF0000" size="+2">You are searching for items to encumber.</font></p>
-<cfelseif #action# is "collEvent">
-	<p><font color="#FF0000" size="+2">You are searching for items to change collecting event.</font></p>
-<cfelseif #action# is "identification">
-	<p><font color="#FF0000" size="+2">You are searching for items to reidentify.</font></p>
-<cfelseif #action# is "addAccn">
-	<p><font color="#FF0000" size="+2">You are searching for items to reaccession.</font></p>
-</cfif>
-		</td></tr>
+			<span class="infoLink" onClick="getHelp('CollStats');">
+				Holdings Details
+			</span>
+			<cfquery name="hasCanned" datasource="#Application.web_user#">
+				select SEARCH_NAME,URL
+				from cf_canned_search,cf_users
+				where cf_users.user_id=cf_canned_search.user_id
+				and username='#client.username#'
+				order by search_name
+			</cfquery>
+			<cfif #hasCanned.recordcount# gt 0>
+				<label for="goCanned">Saved Searches:</label>
+				<select name="goCanned" id="goCanned" size="1" onchange="document.location=this.value;">
+					<option value=""></option>
+					<option value="saveSearch.cfm?action=manage">[ Manage ]</option>
+					<cfoutput query="hasCanned">
+						<option value="#url#">#SEARCH_NAME#</option><br />
+					</cfoutput>
+				</select>
+			</cfif>
+			<cfif #action# is "dispCollObj">
+				<p><font color="#FF0000" size="+2">You are searching for items to add to a loan.</font></p>
+			<cfelseif #action# is "encumber">
+				<p><font color="#FF0000" size="+2">You are searching for items to encumber.</font></p>
+			<cfelseif #action# is "collEvent">
+				<p><font color="#FF0000" size="+2">You are searching for items to change collecting event.</font></p>
+			<cfelseif #action# is "identification">
+				<p><font color="#FF0000" size="+2">You are searching for items to reidentify.</font></p>
+			<cfelseif #action# is "addAccn">
+				<p><font color="#FF0000" size="+2">You are searching for items to reaccession.</font></p>
+			</cfif>
+		</td>
+	</tr>
 </table>
 <cfif #len(client.username)# is 0>
 	<form name="logIn" method="post" action="/login.cfm">
 	<input type="hidden" name="action" value="signIn">
 	<input type="hidden" name="gotopage" value="SpecimenSearch.cfm">
-	<div style="float:right; border: 2px solid ##0066FF; padding:2px; width:25%; ">
-	<table cellpadding="0" cellspacing="0" border="0">
-		<tr>
-			<td align="right">
-				Username:&nbsp;
-			</td>
-			<td>
-				<input type="text" name="username">
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-				Password:&nbsp;
-			</td>
-			<td>
-				 <input type="password" name="password">
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-				<input type="submit" value="Log In" class="lnkBtn"
-   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
-				<input type="button" value="Create Account" class="lnkBtn"
-   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-					onClick="logIn.action.value='newUser';submit();">
-					<span class="infoLink" 
-						onclick="pageHelp('customize');">What's this?</span>
-			</td>
-		</tr>
-		<tr>
-			
-			<td colspan="2">
-				<div class="infoBox">
-					Logging in enables you to turn on, turn off, or otherwise customize many features of this database. To create an account and log in, simply supply a username and password here and click Create Account.
-				</div>
-			</td>
-		</tr>
-	</table>
-	</div>
+		<div style="float:right; border: 2px solid ##0066FF; padding:2px; width:25%; ">
+			<table cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td align="right">
+						Username:&nbsp;
+					</td>
+					<td>
+						<input type="text" name="username">
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						Password:&nbsp;
+					</td>
+					<td>
+						 <input type="password" name="password">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input type="submit" value="Log In" class="lnkBtn"
+		   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
+						<input type="button" value="Create Account" class="lnkBtn"
+		   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
+							onClick="logIn.action.value='newUser';submit();">
+							<span class="infoLink" 
+								onclick="pageHelp('customize');">What's this?</span>
+					</td>
+				</tr>
+				<tr>
+					
+					<td colspan="2">
+						<div class="infoBox">
+							Logging in enables you to turn on, turn off, or otherwise customize many features of this database. To create an account and log in, simply supply a username and password here and click Create Account.
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
 	</form>
 </cfif>
 <form method="post" action="SpecimenResults.cfm" name="SpecData">
-<cfoutput>
+
 <table border="0">
 	<tr>
 		<td valign="top">
