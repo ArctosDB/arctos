@@ -1515,8 +1515,8 @@ td.lbl {
 		var j=result.split(',');
 		for (var i = 0; i < j.length; i++) {
 			if (j[i].length>0){
-				//showHide(j[i],1);
-				alert(j[i]);
+				showHide(j[i],1);
+				//alert(j[i]);
 			}
 		}
 	}
