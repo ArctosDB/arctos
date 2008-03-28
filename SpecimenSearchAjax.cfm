@@ -59,7 +59,7 @@ function showHide(id,onOff) {
 		ctl.innerHTML='Show Fewer Options';
 	} else {
 		tab.innerHTML='';
-		ctl.setAttribute("onclick","showHide('identifiers',1)");
+		ctl.setAttribute("onclick","showHide('" + id + "',1)");
 		ctl.innerHTML='Show More Options';
 	} 
 }
