@@ -96,6 +96,9 @@ function load(form){
 	color:#FF0000;
 	text-decoration: underline;
 	}
+.secDiv {
+	border:2px solid red;
+	}
 </style>
 <cfset title="Specimen Search">
 
@@ -328,7 +331,7 @@ function load(form){
 
 
 
-
+<div class="secDiv">
 	
 	<table>
 		<tr>
@@ -390,6 +393,7 @@ function load(form){
 				</tr>	
 </table>
 <div id="e_identifiers"></div>
+</div>
 	<table>
 		<tr>
 			<td>
