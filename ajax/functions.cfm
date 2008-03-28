@@ -1,5 +1,22 @@
 <!--- hint="type=keyvalue, jsreturn=array , listdelimiter=| , delimiter='='" --->
 <cfinclude template="/ajax/core/cfajax.cfm">
+
+
+<cffunction name="saveSpecSrchPref" returntype="string">
+	<cfif isdefined("client.username") and len(#client.username#) gt 0>
+		<cfargument name="id" type="string" required="yes">
+		<cfargument name="onOff" type="numeric" required="yes">
+		<cftry>
+			<cfquery name="ins" datasource="#application.web_user#">
+				update cf_users set specsrchprefs=specsrchprefs||','||'#id#'
+				where username='#client.username#'
+			</cfquery>
+		<cfcatch></cfcatch>
+		</cftry>
+	</cfif>
+	<cfreturn "">
+</cffunction>
+<!-------------------------------------------->
 <cffunction name="getSessionTimeout" returntype="string">
 	<cfif isdefined("client.username") and len(#client.username#) gt 0>
 		<cfif isdefined("cookie.ArctosSession")>
