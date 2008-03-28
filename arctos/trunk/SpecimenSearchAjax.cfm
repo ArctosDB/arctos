@@ -276,48 +276,33 @@ td.lbl {
 				</select>
 			</div>
 		</td>
+		 <cfif #client.showObservations# is not 1>
+			<td>
+				<strong>
+					Show 
+					<a href="javascript:void(0);" 
+						onClick="getHelp('show_observations'); return false;"
+						onMouseOver="self.status='Click for Observations help.';return true;"
+						onmouseout="self.status='';return true;">Observations
+					</a>?
+				</strong>
+				<input type="checkbox" name="showObservations" value="true">
+			</td>
+		</cfif>
+		<td>
+			<a href="javascript:alert('This \'tissues only\' flag is an 
+				MVZ phenomenon; checking this box will preclude returning any 
+				data from institutions other than the MVZ. Checking the box 
+				will return all MVZ specimen records with a part designated as 
+				tissue, which typically is a part collected for destructive sampling. 
+				This may include \'tissue\' parts that no longer exist in the 
+				collection (e.g., they have been used up).');">Tissues Only?</a>
+			<input type="checkbox" name="is_tissue" value="1">
+		</td>
 	</tr>
 </table>			
 <input type="hidden" name="Action" value="#Action#">
 
-<cfquery name="collections" datasource="#Application.web_user#">
-	select collection_cde from ctCollection_Cde order by collection_cde
-</cfquery>
-<table width="75%" cellspacing="2" cellpadding="4"><!--- outer table --->
-		<tr>
-			<td>
-			<table>
-				 <cfif #client.showObservations# is not 1>
-				<tr>
-					<td><strong>Show 
-					<a href="javascript:void(0);" 
-						onClick="getHelp('show_observations'); return false;"
-						onMouseOver="self.status='Click for Observations help.';return true;"
-						onmouseout="self.status='';return true;">Observations</a>?</strong>
-						<input type="checkbox" 
-							name="showObservations" 
-							value="true">
-					</td>
-				</tr>
-				</cfif>
-				<tr>
-					<td>
-						<a href="javascript:alert('This \'tissues only\' flag is an 
-								MVZ phenomenon; checking this box will preclude returning any 
-								data from institutions other than the MVZ. Checking the box 
-								will return all MVZ specimen records with a part designated as 
-								tissue, which typically is a part collected for destructive sampling. 
-								This may include \'tissue\' parts that no longer exist in the 
-								collection (e.g., they have been used up).');">Tissues Only?</a>
-					<input type="checkbox" 
-							name="is_tissue" 
-							value="1">
-					</td>
-				</tr>
-			</table>
-			</td>
-		</tr>
-	</table>
 <div class="secDiv">
 	<cfquery name="ctInst" datasource="#Application.web_user#">
 		SELECT institution_acronym, collection, collection_id FROM collection
