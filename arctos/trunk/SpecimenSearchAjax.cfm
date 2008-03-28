@@ -187,7 +187,7 @@ td.lbl {
 	<form name="logIn" method="post" action="/login.cfm">
 	<input type="hidden" name="action" value="signIn">
 	<input type="hidden" name="gotopage" value="SpecimenSearch.cfm">
-		<div style="float:right; border: 2px solid ##0066FF; padding:2px; width:25%; ">
+		<div style="float:right; clear:both; border: 2px solid ##0066FF; padding:2px; width:25%; ">
 			<table cellpadding="0" cellspacing="0" border="0">
 				<tr>
 					<td align="right">
