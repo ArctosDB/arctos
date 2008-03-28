@@ -608,7 +608,7 @@ td.lbl {
 
 <!--- not that the page is loaded, populate selects in order of appearance --->
 <script>
-/*
+
  $.getJSON("/ajax/jsonCT.cfm",{id: $(this).val(), ajax: 'true'}, function(j){
       var options = '';
       for (var i = 0; i < j.length; i++) {
@@ -617,7 +617,7 @@ td.lbl {
       }
       $("select#t").html(options);
     })
-*/
+
 
 // make an ajax call to get their preferences, then set their stuff on if necessary
 	DWREngine._execute(_cfscriptLocation, null, 'getSpecSrchPref', r_getSpecSrchPref);
