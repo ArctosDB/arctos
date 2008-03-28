@@ -241,7 +241,7 @@ Specimen: <a href="/SpecimenDetails.cfm?collection_object_id=#collection_object_
 			#partID#,
 		</cfif>		
 		#client.myAgentId#,
-		'#thisDate#'
+		sysdate,
 		,'#collection# #cat_num# #part_name#'
 		<cfif isdefined("ITEM_INSTRUCTIONS") AND len(#ITEM_INSTRUCTIONS#) gt 0>
 			,'#ITEM_INSTRUCTIONS#'
