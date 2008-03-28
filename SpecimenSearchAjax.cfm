@@ -97,8 +97,10 @@ function load(form){
 	text-decoration: underline;
 	}
 .secDiv {
-	border:2px dashed green;
-	}
+	border:1px solid green;
+	width:80%;
+	margin-left:5em;
+}
 table.ssrch {
 	width:100%;
 }
@@ -388,7 +390,7 @@ padding-right:5px;
 		</td>
 	</tr>	
 </table>
-</tr></td></table>
+
 <div id="e_identifiers"></div>
 </div>
 
