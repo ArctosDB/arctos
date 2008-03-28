@@ -55,7 +55,7 @@ function showHide(id,onOff) {
 		$.get(ptl, function(data){
 		 $(tab).html(data);
 		})
-		ctl.setAttribute("onclick","showHide('identifiers',0)");
+		ctl.setAttribute("onclick","showHide('" + id + "',0)");
 		ctl.innerHTML='Show Fewer Options';
 	} else {
 		tab.innerHTML='';
