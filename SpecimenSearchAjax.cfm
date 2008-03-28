@@ -439,9 +439,39 @@ td.lbl {
 	</table>
 	<div id="e_collevent"></div>
 </div>
+<div class="secDiv">
+	<table class="ssrch">
+		<tr>
+			<td colspan="2" class="secHead">
+					<span class="secLabel">Usage</span>
+					<span class="secControl" id="c_usage"
+						onclick="showHide('usage',1)">Show More Options</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="lbl">
+				Type Status:
+			</td>
+			<td class="srch">
+				<cfquery name="ctTypeStatus" datasource="#Application.web_user#">
+					select type_status from ctcitation_type_status
+				</cfquery>
+				<select name="type_status" size="1">
+					<option value=""></option>
+					<option value="any">Any</option>
+					<option value="type">Any TYPE</option>
+					<cfloop query="ctTypeStatus">
+						<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
+					</cfloop>
+				</select>
+				<span class="infoLink" onclick="getCtDoc('ctcitation_type_status',SpecData.phylclass.value);">Define</span>	
+			</td>
+		</tr>
+	</table>
+	<div id="e_usage"></div>
+</div>
 					
 				
-		
 		
 		<cfif #ListContains(client.searchBy, 'parts')# gt 0>
 			<cfif len(#exclusive_collection_id#) gt 0>
@@ -471,16 +501,7 @@ td.lbl {
 			<td>
 				<div class="group">
 					<table cellpadding="0" cellspacing="0" width="100%">
-						<cfif isdefined("client.username") and (#client.username# is "dlm" OR #client.username# is "gordon")>
-							<tr>
-								<td align="right" width="250">
-									Secret Part Searcher Thingy
-								</td>
-								<td align="left">
-									<input type="text" name="srchParts" id="srchParts" />
-								</td>
-							</tr>
-						</cfif>
+						
 						<tr>
 							<td align="right" width="250">
 								<a href="javascript:void(0);" 
@@ -535,48 +556,7 @@ td.lbl {
 			</td>
 		</tr>
 		</cfif>
-		<cfif #ListContains(client.searchBy, 'images')# gt 0>
-			<cfquery name="ctSubject" datasource="#Application.web_user#">
-				select subject from ctbin_obj_subject
-			</cfquery>
-		<tr>
-			<td>
-			<div class="group">
-				<table cellpadding="0" cellspacing="0" width="100%">
-					<tr>
-						<td align="right" width="250">
-							Find items with images:&nbsp;
-						</td>
-						<td align="left">
-							<input type="checkbox" name="onlyImages" value="yes">
-						</td>
-					</tr>
-					<tr>
-						<td align="right" width="250">
-							 Image Subject:&nbsp;
-						</td>
-						<td align="left">
-							<select name="subject" size="1">
-							<option value=""></option>
-							<cfloop query="ctSubject">
-								<option value="#ctSubject.subject#">#ctSubject.subject#</option>
-							</cfloop>
-					  </select>
-					   <span class="infoLink" 
-					  		onclick="getCtDoc('ctbin_obj_subject',SpecData.subject.value);">Define</span>
-						</td>
-					</tr>
-					<tr>
-						<td align="right" width="250">
-							 Image Description:&nbsp;
-						</td>
-						<td align="left">
-							<input type="text" name="imgDescription" size="50">
-						</td>
-					</tr>
-				</table>
-			</div>
-		</cfif>
+		
 		<!----
 		<cfif #ListContains(client.searchBy, 'permit')# gt 0>
 			<tr>
@@ -633,36 +613,7 @@ td.lbl {
 			</tr>
 		</cfif>
 		---->
-		<cfif #ListContains(client.searchBy, 'citation')# gt 0>
-			<tr>
-				<td>
-					<div class="group">
-						<table cellpadding="0" cellspacing="0" width="100%">
-							<tr>
-								<td align="right" width="250">
-									Type Status:&nbsp;
-								</td>
-								<td align="left">
-									<cfquery name="ctTypeStatus" datasource="#Application.web_user#">
-										select type_status from ctcitation_type_status
-									</cfquery>
-									<select name="type_status" size="1">
-										<option value=""></option>
-										<option value="any">Any</option>
-										<option value="type">Any TYPE</option>
-										<cfloop query="ctTypeStatus">
-											<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
-										</cfloop>
-									</select>
-									<span class="infoLink" 
-					  					onclick="getCtDoc('ctcitation_type_status',SpecData.phylclass.value);">Define</span>									
-								</td>
-							</tr>
-						</table>
-					</div>
-				</td>
-			</tr>
-		</cfif>
+		
 		<cfif #ListContains(client.searchBy, 'miscellaneous')# gt 0>
 			<tr>
 				<td>
@@ -702,42 +653,7 @@ td.lbl {
 				</td>
 			</tr>
 		</cfif>
-		<cfif #ListContains(client.searchBy, 'project')# gt 0>
-			<tr>
-				<td>
-					<div class="group">
-						<table cellpadding="0" cellspacing="0" width="100%">
-							<tr>
-								<td align="right" width="250">
-									Accessioned By Project Name:&nbsp;
-								</td>
-								<td align="left" nowrap>
-									<input type="text" name="project_name" size="50">									
-									<span class="infoLink" 
-					  					onclick="getHelp('get_proj_name');">Pick</span>	
-								</td>
-							</tr>
-							<tr>
-								<td align="right" width="250">
-									Loaned To Project Name:&nbsp;
-								</td>
-								<td align="left" nowrap>
-									<input type="text" name="loan_project_name" size="50">
-								</td>
-							</tr>
-							<tr>
-								<td align="right" width="250">
-									Project Sponsor:&nbsp;
-								</td>
-								<td align="left" nowrap>
-									<input type="text" name="project_sponsor" size="50">
-								</td>
-							</tr>
-						</table>
-					</div>
-				</td>
-			</tr>
-		</cfif>
+		
 		<cfif #ListContains(client.searchBy, 'curatorial_stuff')# gt 0>
 			<tr>
 				<td>
