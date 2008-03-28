@@ -163,30 +163,23 @@
 			Bounding Box:
 		</td>
 		<td class="srch">
-			<table cellpadding="0" cellspacing="0" width="100%">
+			<table cellpadding="0" cellspacing="0">
 				<tr>
 					<td align="left" width="250" colspan="2">
 						
 					</td>
 				</tr>
 				<tr>
-					<td align="right" width="250">
-						Northwest Corner:&nbsp;
-					</td>
 					<td align="left" nowrap>
-						<strong><em>Latitude:</em></strong> <input type="text" name="nwLat" size="8">
-						<strong><em>Longitude:</em></strong> <input type="text" name="nwlong" size="8">
+						<strong><em>NW Latitude:</em></strong> <input type="text" name="nwLat" size="8">
+						<strong><em>NW Longitude:</em></strong> <input type="text" name="nwlong" size="8">
 						
 					</td>
 				</tr>
 				<tr>
-					<td align="right" width="250">
-						Southeast Corner:&nbsp;
-					</td>
 					<td align="left" nowrap>
-						
-						<strong><em>Latitude:</em></strong> <input type="text" name="selat" size="8">
-						<strong><em>Longitude:</em></strong> <input type="text" name="selong" size="8">
+						<strong><em>SE Latitude:</em></strong> <input type="text" name="selat" size="8">
+						<strong><em>SE Longitude:</em></strong> <input type="text" name="selong" size="8">
 					</td>
 				</tr>
 			</table>
