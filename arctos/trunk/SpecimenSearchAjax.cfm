@@ -510,190 +510,28 @@ td.lbl {
 	</table>
 	<div id="e_biolindiv"></div>
 </div>
+<div class="secDiv">
+	<table class="ssrch">
+		<tr>
+			<td colspan="2" class="secHead">
+					<span class="secLabel">Curatorial</span>
+					<span class="secControl" id="c_curatorial"
+						onclick="showHide('curatorial',1)">Show More Options</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="lbl">
+				Barcode:
+			</td>
+			<td class="srch">
+				<input type="text" name="barcode" size="50">
+			</td>
+		</tr>
+	</table>
+	<div id="e_curatorial"></div>
+</div>
 					
-		
-		
-		<cfif #ListContains(client.searchBy, 'curatorial_stuff')# gt 0>
-			<tr>
-				<td>
-					<div class="group">
-						<table cellpadding="0" cellspacing="0" width="100%">
-							<tr>
-								<td align="right" width="250">
-									 Permit Issued By:&nbsp;
-								</td>
-								<td align="left">
-									<input name="permit_issued_by" type="text" size="50">
-								</td>
-							</tr>
-							<tr>
-								<td align="right" width="250">
-									 Permit Issued To:&nbsp;
-								</td>
-								<td align="left">
-									<input name="permit_issued_to" type="text" size="50">
-								</td>
-							</tr>
-							<tr>
-								<td align="right" width="250">
-									Permit Type:&nbsp;
-								</td>
-								<td align="left">
-									<cfquery name="ctPermitType" datasource="#Application.web_user#">
-												select * from ctpermit_type
-											</cfquery>
-											<select name="permit_Type" size="1">
-														<option value=""></option>
-														<cfloop query="ctPermitType">
-															<option value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
-														 </cfloop>
-													
-										  </select>
-								</td>
-							</tr>
-							<tr>
-								<td align="right" width="250">
-									Permit Number:&nbsp;
-								</td>
-								<td align="left">
-									<input type="text" name="permit_num" size="50">
-									 <span class="infoLink" 
-					  					onclick="getHelp('get_permit_number');">Pick</span>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div class="group">
-						<table cellpadding="0" cellspacing="0" width="100%">
-							<tr>
-								<td align="right" width="250">
-									Barcode:&nbsp;
-								</td>
-								<td align="left" nowrap>
-									<input type="text" name="barcode" size="50">
-						
-								</td>
-							</tr>
-							<tr>
-								<td align="right" width="250">
-									Entered By:&nbsp;
-								</td>
-								<td align="left" nowrap>
-									<input type="text" name="entered_by" size="50">
-						
-								</td>
-							</tr>
-							<tr>
-								<td align="right" width="250">
-									Disposition:&nbsp;
-								</td>
-								<cfquery name="ctCollObjDisp" datasource="#Application.web_user#">
-									select coll_obj_disposition from ctcoll_obj_disp
-								</cfquery>
-								<td align="left" nowrap>
-									<select name="coll_obj_disposition" size="1">
-										<option value=""></option>
-										<cfloop query="ctCollObjDisp">
-											<option value="#ctCollObjDisp.coll_obj_disposition#">#ctCollObjDisp.coll_obj_disposition#</option>
-										</cfloop>									</select>
-									
-						
-								</td>
-							</tr>
-							<tr>
-								<td align="right" width="250">Print Flag:&nbsp;</td>
-								<td>
-									<select name="print_fg" size="1">
-										<option value=""></option>
-										<option value="1">Box</option>
-										<option value="2">Vial</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td align="right" width="250">Entered Date:&nbsp;</td>
-								<td>
-									<input type="text" name="beg_entered_date" size="10" />-
-									<input type="text" name="end_entered_date" size="10" />
-								</td>
-							</tr>
-							<tr>
-								<td align="right" width="250">Remarks:&nbsp;</td>
-								<td>
-									<input type="text" name="remark" size="50" />
-								</td>
-							</tr>
-							<tr>
-								<td align="right" width="250">Missing:&nbsp;</td>
-								<td>
-									<cfquery name="ctFlags" datasource="#Application.web_user#">
-										select flags from ctflags
-									</cfquery>
-									<select name="coll_obj_flags" size="1">
-										<option value=""></option>
-										<cfloop query="ctFlags">
-											<option value="#flags#">#flags#</option>
-										</cfloop>
-									</select>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</td>
-			</tr>
-		</cfif>
-		
-			
-			<!------------------ wtf section -------------------------------->
-			
-			<tr>
-								<td align="right" width="250">
-										<a href="javascript:void(0);" 
-											onClick="getHelp('collector'); return false;"
-											onMouseOver="self.status='Click for Collector help.';return true;"
-											onmouseout="self.status='';return true;">
-												<img src="images/info.gif" border="0" alt="Help"></a>&nbsp;
-										<select name="coll_role" size="1">
-											<option value="" selected>Collector</option>
-											<option value="p">Preparator</option>
-										</select>&nbsp;
-								</td>
-								<td align="left">
-									<input type="text" name="coll" size="50">
-								</td>
-							</tr>
-			
-			<cfif #ListContains(client.searchBy, 'collecting_source')# gt 0>	
-						<tr>
-							<td align="right" width="250">
-								<a href="javascript:void(0);" 
-										onClick="getHelp('collecting_source'); return false;"
-										onMouseOver="self.status='Click for Collecting Source help.';return true;" 
-										onmouseout="self.status='';return true;">Collecting Source:&nbsp;</a>									
-							</td>
-							<td align="left">
-								<cfquery name="ctcollecting_source" datasource="#Application.web_user#">
-									select collecting_source from ctcollecting_source
-								</cfquery>
-								<select name="collecting_source" size="1">
-									<option value=""></option>
-									<cfloop query="ctcollecting_source">
-										<option value="#ctcollecting_source.collecting_source#">
-											#ctcollecting_source.collecting_source#</option>
-									</cfloop>
-								</select>
-							</td>
-						</tr>
-					</cfif>
-					
-					
-			<tr>
-				<td align="left">
-				
+	
 <table>
 	<tr>
 		<td valign="top">

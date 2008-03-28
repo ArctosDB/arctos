@@ -1,5 +1,36 @@
-						
+<cfquery name="ctcollecting_source" datasource="#Application.web_user#">
+	select collecting_source from ctcollecting_source
+</cfquery>						
 <table id="t_identifiers" class="ssrch">
+	<tr>
+		<td class="lbl">
+			<select name="coll_role" size="1">
+				<option value="" selected="selected">Collector</option>
+				<option value="p">Preparator</option>
+			</select>
+		</td>
+		<td class="srch">
+			<input type="text" name="coll" size="50">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<a href="javascript:void(0);" 
+				onClick="getHelp('collecting_source'); return false;"
+				onMouseOver="self.status='Click for Collecting Source help.';return true;" 
+				onmouseout="self.status='';return true;">Collecting Source:
+			</a>
+		</td>
+		<td class="srch">
+			<select name="collecting_source" size="1">
+				<option value=""></option>
+				<cfloop query="ctcollecting_source">
+					<option value="#ctcollecting_source.collecting_source#">
+						#ctcollecting_source.collecting_source#</option>
+				</cfloop>
+			</select>
+		</td>
+	</tr>
 	<tr>
 		<td class="lbl">
 			<a href="javascript:void(0);"
