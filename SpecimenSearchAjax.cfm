@@ -63,7 +63,7 @@ function showHide(id,onOff) {
 		ctl.innerHTML='Show More Options';
 	} 
 	// see if we can save it to their preferences
-	DWREngine._execute(_cfscriptLocation, null, 'saveSpecSrchPref', id, onOff,);
+	DWREngine._execute(_cfscriptLocation, null, 'saveSpecSrchPref', id, onOff,NULL);
 }
 /*
 function load(form){
