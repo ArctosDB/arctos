@@ -337,7 +337,7 @@ function load(form){
 	<cfelse>
 		<cfset thisCollId = "">
 	</cfif>
-	<table>
+	<table class="ssrch">
 		<tr>
 			<td colspan="2" class="secHead">
 					<span class="secLabel">Identifiers</span>
