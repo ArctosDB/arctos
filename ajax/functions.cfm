@@ -2,9 +2,9 @@
 <cfinclude template="/ajax/core/cfajax.cfm">
 
 <cffunction name="saveSpecSrchPref" returntype="Any">
+	<cfargument name="id" type="string" required="yes">
+	<cfargument name="onOff" type="numeric" required="yes">
 	<cfif isdefined("client.username") and len(#client.username#) gt 0>
-		<cfargument name="id" type="string" required="yes">
-		<cfargument name="onOff" type="numeric" required="yes">
 		<!---
 		<cftry>
 			<cfquery name="ins" datasource="#application.web_user#">
