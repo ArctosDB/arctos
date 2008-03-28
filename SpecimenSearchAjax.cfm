@@ -125,9 +125,16 @@ td.lbl {
 		cataloged_item.collection_id = #exclusive_collection_id#
 	</cfif>
 </cfquery>
+<cfquery name="hasCanned" datasource="#Application.web_user#">
+	select SEARCH_NAME,URL
+	from cf_canned_search,cf_users
+	where cf_users.user_id=cf_canned_search.user_id
+	and username='#client.username#'
+	order by search_name
+</cfquery>
 <table cellpadding="0" cellspacing="0">
 	<tr>
-		<td colspan="4">
+		<td>
 			Access to #getCount.cnt#
 			<cfif len(#exclusive_collection_id#) gt 0>
 				<cfquery name="coll" datasource="#Application.web_user#">
@@ -135,21 +142,17 @@ td.lbl {
 					from collection where
 					collection_id=#exclusive_collection_id#
 				</cfquery>
-				#coll.collection#
+				<strong>#coll.collection#</strong>
 			records. <a href="searchAll.cfm">Search all collections</a>.
 			<cfelse>
 			records.
 			</cfif>
+		</td>
+		<td>
 			<span class="infoLink" onClick="getHelp('CollStats');">
 				Holdings Details
 			</span>
-			<cfquery name="hasCanned" datasource="#Application.web_user#">
-				select SEARCH_NAME,URL
-				from cf_canned_search,cf_users
-				where cf_users.user_id=cf_canned_search.user_id
-				and username='#client.username#'
-				order by search_name
-			</cfquery>
+		<td>
 			<cfif #hasCanned.recordcount# gt 0>
 				<label for="goCanned">Saved Searches:</label>
 				<select name="goCanned" id="goCanned" size="1" onchange="document.location=this.value;">
@@ -160,6 +163,8 @@ td.lbl {
 					</cfloop>
 				</select>
 			</cfif>
+		</td>
+		<td>
 			<span style="color:red;">
 				<cfif #action# is "dispCollObj">
 					<p>You are searching for items to add to a loan.</p>
