@@ -1514,12 +1514,13 @@ td.lbl {
 		alert(result);
 		var j=result.split(',');
 		for (var i = 0; i < j.length; i++) {
-			showHide(i,1);
+			//showHide(i,1);
+			alert(i);
 		}
 	}
 </script>
 
-<br />function showHide(id,onOff) {
+<br />
 <cfinclude template = "includes/_footer.cfm">
 
 
