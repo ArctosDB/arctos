@@ -413,257 +413,34 @@ td.lbl {
 	</table>
 	<div id="e_locality"></div>
 </div>
-	
-					<cfif #ListContains(client.searchBy, 'collecting_source')# gt 0>	
-						<tr>
-							<td align="right" width="250">
-								<a href="javascript:void(0);" 
-										onClick="getHelp('collecting_source'); return false;"
-										onMouseOver="self.status='Click for Collecting Source help.';return true;" 
-										onmouseout="self.status='';return true;">Collecting Source:&nbsp;</a>									
-							</td>
-							<td align="left">
-								<cfquery name="ctcollecting_source" datasource="#Application.web_user#">
-									select collecting_source from ctcollecting_source
-								</cfquery>
-								<select name="collecting_source" size="1">
-									<option value=""></option>
-									<cfloop query="ctcollecting_source">
-										<option value="#ctcollecting_source.collecting_source#">
-											#ctcollecting_source.collecting_source#</option>
-									</cfloop>
-								</select>
-							</td>
-						</tr>
-					</cfif>
-					<cfif #ListContains(client.searchBy, 'max_error_in_meters')# gt 0>
-						
-					</cfif>
-				</table>
-				</div>
-			</td>
-		</tr>
-		
+<div class="secDiv">
+	<table class="ssrch">
 		<tr>
-			<td>
-				<div class="group">
-					<table cellpadding="0" cellspacing="0" width="100%">
-						<cfif #ListContains(client.searchBy, 'colls')# gt 0>			
-							<tr>
-								<td align="right" width="250">
-										<a href="javascript:void(0);" 
-											onClick="getHelp('collector'); return false;"
-											onMouseOver="self.status='Click for Collector help.';return true;"
-											onmouseout="self.status='';return true;">
-												<img src="images/info.gif" border="0" alt="Help"></a>&nbsp;
-										<select name="coll_role" size="1">
-											<option value="" selected>Collector</option>
-											<option value="p">Preparator</option>
-										</select>&nbsp;
-								</td>
-								<td align="left">
-									<input type="text" name="coll" size="50">
-								</td>
-							</tr>
-						</cfif>
-						<tr>
-							<td align="right" width="250">
-								<a href="javascript:void(0);"
-												onClick="getHelp('year_collected'); return false;"
-												onMouseOver="self.status='Click for Year Collected help.';return true;"
-												onmouseout="self.status='';return true;">Year Collected:</a>&nbsp;
-							</td>
-							<td align="left">
-								<table  width="250" cellpadding="0" cellspacing="0">
-									<tr>
-										<td width="40%">
-											<input name="begYear" type="text" size="6">
-										</td>
-										<td width="10%">
-											<span class="infoLink" 
-					  							onclick="SpecData.endYear.value=SpecData.begYear.value">Copy&nbsp;--></span>
-										</td>
-										<td width="40%">
-											<input name="endYear" type="text" size="6">
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<cfif #ListContains(client.searchBy, 'dates')# gt 0>
-						<tr>
-							<td align="right" width="250">
-								<a href="javascript:void(0);"
-												onClick="getHelp('incl_date'); return false;"
-												onMouseOver="self.status='Click for Date Search help.';return true;"
-												onmouseout="self.status='';return true;">Inclusive Date Search?</a>&nbsp;
-							</td>
-							<td align="left">
-								<input type="checkbox" name="inclDateSearch" value="yes">
-							</td>
-						</tr>
-						<tr>
-							<td align="right" width="250">
-								<a href="javascript:void(0);"
-												onClick="getHelp('month_collected'); return false;"
-												onMouseOver="self.status='Click for Year Collected help.';return true;"
-												onmouseout="self.status='';return true;">Month Collected:</a>&nbsp;
-							</td>
-							<td align="left">
-								<table width="250" cellpadding="0" cellspacing="0">
-									<tr>
-										<td width="40%">
-											<select name="begMon" size="1">
-												<option value=""></option>
-												<option value="01">January</option>
-												<option value="02">February</option>
-												<option value="03">March</option>
-												<option value="04">April</option>
-												<option value="05">May</option>
-												<option value="06">June</option>
-												<option value="07">July</option>
-												<option value="08">August</option>
-												<option value="09">September</option>
-												<option value="10">October</option>
-												<option value="11">November</option>
-												<option value="12">December</option>						
-											</select>
-										</td>
-										<td width="10%">
-											<span class="infoLink" 
-					  							onclick="SpecData.endMon.value=SpecData.begMon.value;">Copy&nbsp;--></span>
-										</td>
-										<td width="40%">
-											<select name="endMon" size="1">
-									<option value=""></option>
-									<option value="01">January</option>
-									<option value="02">February</option>
-									<option value="03">March</option>
-									<option value="04">April</option>
-									<option value="05">May</option>
-									<option value="06">June</option>
-									<option value="07">July</option>
-									<option value="08">August</option>
-									<option value="09">September</option>
-									<option value="10">October</option>
-									<option value="11">November</option>
-									<option value="12">December</option>						
-								</select>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td align="right" width="250">
-								<a href="javascript:void(0);"
-												onClick="getHelp('day_collected'); return false;"
-												onMouseOver="self.status='Click for Year Collected help.';return true;"
-												onmouseout="self.status='';return true;">Day Collected:</a>&nbsp;
-							</td>
-							<td align="left">
-								<table width="250" cellpadding="0" cellspacing="0">
-									<tr>
-										<td width="40%">
-											<select name="begDay" size="1">
-									<option value=""></option>
-										<cfloop from="1" to="31" index="day">
-											<option value="#day#">#day#</option>
-										</cfloop>
-								</select>
-										</td>
-										<td width="10%">
-											<span class="infoLink" 
-					  							onclick="SpecData.endDay.value=SpecData.begDay.value;">Copy&nbsp;--></span>
-										</td>
-										<td width="40%">
-											<select name="endDay" size="1">
-									<option value=""></option>
-										<cfloop from="1" to="31" index="day">
-											<option value="#day#">#day#</option>
-										</cfloop>
-								</select>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td align="right" width="250">
-								<a href="javascript:void(0);"
-												onClick="getHelp('fulldate_collected'); return false;"
-												onMouseOver="self.status='Click for Year Collected help.';return true;"
-												onmouseout="self.status='';return true;">Full Date Collected:</a>&nbsp;
-							</td>
-							<td align="left">
-								<table width="250" cellpadding="0" cellspacing="0">
-									<tr>
-										<td width="40%">
-											<input name="begDate" type="text" size="15">
-										</td>
-										<td width="10%">
-											<span class="infoLink" 
-					  							onclick="SpecData.endDate.value=SpecData.begDate.value;">Copy&nbsp;--></span>
-										</td>
-										<td width="40%">
-											<input name="endDate" type="text" size="15">
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td align="right" width="250">
-								<a href="javascript:void(0);"
-												onClick="getHelp('month_in'); return false;"
-												onMouseOver="self.status='Click for Year Collected help.';return true;"
-												onmouseout="self.status='';return true;">Month:</a>&nbsp;
-							</td>
-							<td align="left">
-								<select name="inMon" size="4" multiple>
-									<option value=""></option>
-									<option value="'01'">January</option>
-									<option value="'02'">February</option>
-									<option value="'03'">March</option>
-									<option value="'04'">April</option>
-									<option value="'05'">May</option>
-									<option value="'06'">June</option>
-									<option value="'07'">July</option>
-									<option value="'08'">August</option>
-									<option value="'09'">September</option>
-									<option value="'10'">October</option>
-									<option value="'11'">November</option>
-									<option value="'12'">December</option>						
-					</select>
-							</td>
-						</tr>
-						<tr>
-							<td align="right" width="250">
-								<a href="javascript:void(0);"
-												onClick="getHelp('verbatim_date'); return false;"
-												onMouseOver="self.status='Click for Year Collected help.';return true;"
-												onmouseout="self.status='';return true;">Verbatim Date:</a>&nbsp;
-							</td>
-							<td align="left">
-								<input type="text" name="verbatim_date" size="50">		
-							</td>
-						</tr>
-						<tr>
-							<td align="right" width="250">
-								<a href="javascript:void(0);" 
-										onClick="getHelp('chronological_extent'); return false;"
-										onMouseOver="self.status='Click for Chronological Extent help.';return true;" 
-										onmouseout="self.status='';return true;">Chronological Extent:&nbsp;</a>					
-							</td>
-							<td align="left">
-								<input type="text" name="chronological_extent">
-							</td>
-						</tr>
-						</cfif>						
-					</table>
-				</div>
+			<td colspan="2" class="secHead">
+					<span class="secLabel">Collecting Event</span>
+					<span class="secControl" id="c_collevent"
+						onclick="showHide('collevent',1)">Show More Options</span>
 			</td>
 		</tr>
+		<tr>
+			<td class="lbl">
+				<a href="javascript:void(0);"
+					onClick="getHelp('year_collected'); return false;"
+					onMouseOver="self.status='Click for Year Collected help.';return true;"
+					onmouseout="self.status='';return true;">Year Collected:
+				</a>
+			</td>
+			<td class="srch">
+				<input name="begYear" type="text" size="6">&nbsp;
+				--><span class="infoLink" onclick="SpecData.endYear.value=SpecData.begYear.value">Copy&nbsp;--></span>
+				&nbsp;<input name="endYear" type="text" size="6">
+			</td>
+		</tr>
+	</table>
+	<div id="e_collevent"></div>
+</div>
+					
+				
 		
 		
 		<cfif #ListContains(client.searchBy, 'parts')# gt 0>
@@ -1203,6 +980,50 @@ td.lbl {
 				</td>
 			</tr>
 			</cfif>
+			
+			<!------------------ wtf section -------------------------------->
+			
+			<tr>
+								<td align="right" width="250">
+										<a href="javascript:void(0);" 
+											onClick="getHelp('collector'); return false;"
+											onMouseOver="self.status='Click for Collector help.';return true;"
+											onmouseout="self.status='';return true;">
+												<img src="images/info.gif" border="0" alt="Help"></a>&nbsp;
+										<select name="coll_role" size="1">
+											<option value="" selected>Collector</option>
+											<option value="p">Preparator</option>
+										</select>&nbsp;
+								</td>
+								<td align="left">
+									<input type="text" name="coll" size="50">
+								</td>
+							</tr>
+			
+			<cfif #ListContains(client.searchBy, 'collecting_source')# gt 0>	
+						<tr>
+							<td align="right" width="250">
+								<a href="javascript:void(0);" 
+										onClick="getHelp('collecting_source'); return false;"
+										onMouseOver="self.status='Click for Collecting Source help.';return true;" 
+										onmouseout="self.status='';return true;">Collecting Source:&nbsp;</a>									
+							</td>
+							<td align="left">
+								<cfquery name="ctcollecting_source" datasource="#Application.web_user#">
+									select collecting_source from ctcollecting_source
+								</cfquery>
+								<select name="collecting_source" size="1">
+									<option value=""></option>
+									<cfloop query="ctcollecting_source">
+										<option value="#ctcollecting_source.collecting_source#">
+											#ctcollecting_source.collecting_source#</option>
+									</cfloop>
+								</select>
+							</td>
+						</tr>
+					</cfif>
+					
+					
 			<tr>
 				<td align="left">
 				
