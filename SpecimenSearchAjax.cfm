@@ -86,6 +86,7 @@ function load(form){
 }
 .secControl ,.infoLink a:visited{
 	float:right;
+	padding-right:1em;
 	cursor:pointer;
 	color:#2B547E;
 	font-size:.65em;
@@ -99,7 +100,7 @@ function load(form){
 .secDiv {
 	border:1px solid green;
 	width:80%;
-	margin-left:5em;
+	margin-left:1em;
 }
 table.ssrch {
 	width:100%;
@@ -108,7 +109,7 @@ table.ssrch {
 td.lbl {
 	width:35%;
 	text-align:right;
-padding-right:5px;
+	padding-right:5px;
 }
 </style>
 
@@ -397,142 +398,31 @@ padding-right:5px;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<table>
+<div class="secDiv">
+	<table class="ssrch">
 		<tr>
-			<td>
-				<div class="group">
-				<table cellpadding="0" cellspacing="0" width="100%">
-					<tr>
-						<td align="right" width="250">
-							Any Taxonomic Element:&nbsp;
-						</td>
-						<td align="left">
-							<input type="text" name="any_taxa_term" size="28">
-						</td>
-					</tr>
-					<cfif #ListContains(client.searchBy, 'scientific_name')# gt 0>
-					<tr>
-						<td align="right" width="250">
-							<a href="javascript:void(0);" 
-										onClick="getHelp('scientific_name'); return false;"
-										onMouseOver="self.status='Click for Scientific Name help.';return true;"
-										onmouseout="self.status='';return true;">Scientific&nbsp;Name:&nbsp;
-				  			</a>
-						</td>
-						<td align="left">
-							<cfif #ListContains(client.searchBy, 'scinameoperator')# gt 0>
-								<select name="sciNameOper" size="1">
-									<option value="">contains</option>
-									<option value="NOT LIKE">does not contain</option>
-									<option value="=">is exactly</option>
-									<option value="was">is/was/cited/related</option>
-							  </select>
-							</cfif>
-							<input type="text" name="scientific_name" size="28">
-						</td>
-					</tr>
-					</cfif>
-					<cfif #ListContains(client.searchBy, 'scinameoperator')# gt 0>
-					<tr>
-						<td align="right"  width="250"><a href="javascript:void(0);" 
-								onClick="getHelp('higher_taxa'); return false;"
-								onMouseOver="self.status='Click for Taxonomy help.';return true;" 
-								onmouseout="self.status='';return true;">Taxonomy:&nbsp;</a></td>
-						<td align="left"><input type="text" name="HighTaxa" size="50"></td>
-					</tr>
-						<cfquery name="ctClass" datasource="#Application.web_user#">
-							SELECT DISTINCT(phylclass) FROM ctclass ORDER BY phylclass
-						</cfquery>
-					<tr>
-						<td align="right" width="250">
-								Class:&nbsp;
-						</td>
-						<td align="left">
-						 	<select name="phylclass" size="1">
-									<option value=""></option>
-									<cfloop query="ctClass">
-										<option value="#ctClass.phylclass#">#ctClass.phylclass#</option>
-									</cfloop>
-								</select><span class="infoLink" 
-					  				onclick="getCtDoc('ctclass',SpecData.phylclass.value);">Define</span>
-						</td>
-					</tr>
-					<tr>
-						<td align="right" width="250">
-								<a href="javascript:void(0);"
-									onClick="getHelp('common_name'); return false;"
-									onMouseOver="self.status='Click for Common Name help.';return true;"
-									onmouseout="self.status='';return true;">Common Name:&nbsp;
-				  				</a>
-						</td>
-						<td align="left">
-							<input name="Common_Name" type="text" size="50">
-						</td>
-					</tr>
-						<cfquery name="ctNatureOfId" datasource="#Application.web_user#">
-							SELECT DISTINCT(nature_of_id) FROM ctnature_of_id ORDER BY nature_of_id
-						</cfquery>
-					<tr>
-						<td align="right" width="250">
-								<a href="javascript:void(0);"
-									onClick="getHelp('nature_of_id');">Nature of ID:&nbsp;
-				  				</a>
-						</td>
-						<td align="left">
-							<select name="nature_of_id" size="1">
-									<option value=""></option>
-									<cfloop query="ctNatureOfId">
-										<option value="#ctNatureOfId.nature_of_id#">#ctNatureOfId.nature_of_id#</option>
-									</cfloop>
-								</select><span class="infoLink" 
-					  				onclick="getCtDoc('ctnature_of_id',SpecData.nature_of_id.value);">Define</span>
-						</td>
-					</tr>
-					</cfif>
-					<cfif #ListContains(client.searchBy, 'identifier')# gt 0>
-					<tr>
-						<td align="right" width="250">
-								<a href="javascript:void(0);" 
-								onClick="getHelp('identifier'); return false;"
-								onMouseOver="self.status='Click for Identifier help.';return true;" 
-								onmouseout="self.status='';return true;">Identifier:&nbsp;</a>
-								
-						</td>
-						<td align="left">
-						 	<input type="text" name="identified_agent">
-						</td>
-					</tr>
-					
-					</cfif>
-					
-				</table>
+			<td colspan="2" class="secHead">
+					<span class="secLabel">Identification and Taxonomy</span>
+					<span class="secControl" id="c_taxonomy"
+						onclick="showHide('taxonomy',1)">Show More Options</span>
 			</td>
 		</tr>
+		<tr>
+			<td class="lbl">
+				Any Taxonomic Element:
+			</td>
+			<td class="srch">
+				<input type="text" name="any_taxa_term" size="28">
+			</td>
+		</tr>
+	</table>
+	<div id="e_taxonomy"></div>
+</div>
+	
+	
+		
+		
+		
 		<tr>
 			<td>
 				<div class="group">
