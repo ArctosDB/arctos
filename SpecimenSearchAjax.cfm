@@ -329,7 +329,7 @@ function load(form){
 		<tr>
 			<td colspan="2" class="secHead">
 					<span class="secLabel">Identifiers</span>
-					<span class="secControl" class="secControl" id="c_identifiers"
+					<span class="secControl" id="c_identifiers"
 						onclick="showHide('identifiers',1)">Show More Options</span>
 			</td>
 		</tr>
@@ -383,8 +383,38 @@ function load(form){
 					</td>
 				</tr>	
 </table>
+</tr></td></table>
 <div id="e_identifiers"></div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<table>
 		<tr>
 			<td>
@@ -494,7 +524,6 @@ function load(form){
 					</cfif>
 					
 				</table>
-				</div>
 			</td>
 		</tr>
 		<tr>
