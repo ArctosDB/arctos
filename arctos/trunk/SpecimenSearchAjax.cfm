@@ -76,6 +76,17 @@ function load(form){
 	
 */
 </script>
+
+<style>
+.secHead{background-color:#152DC6;}
+
+.secLabel{
+	float:left;
+	border:1px solid green;
+}
+.secControl {float:right;}
+
+</style>
 <cfset title="Specimen Search">
 
 
@@ -281,11 +292,39 @@ function load(form){
 			</td>
 		</tr>
 	</table>
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 	<table>
 		<tr>
-			<td colspan="2" style="border:1px solid red;">
-					<span style="float:left;border:1px solid green;">Identifiers</span>
-					<span style="float:right;border:1px solid green;" class="infoLink" id="c_identifiers"
+			<td colspan="2" class="secHead">
+					<span class="secLabel">Identifiers</span>
+					<span class="secControl" class="infoLink secControl" id="c_identifiers"
 						onclick="showHide('identifiers',1)">Show More Options</span>
 			</td>
 		</tr>
