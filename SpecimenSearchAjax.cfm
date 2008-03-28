@@ -510,7 +510,7 @@ td.lbl {
 	</table>
 	<div id="e_biolindiv"></div>
 </div>
-<cfif liscontains(client.roles,"coldfusion_user">
+<cfif liscontains(client.roles,"coldfusion_user")>
 	<div class="secDiv">
 		<table class="ssrch">
 			<tr>
