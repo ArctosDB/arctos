@@ -148,12 +148,13 @@ td.lbl {
 			records.
 			</cfif>
 		</td>
-		<td>
+		<td style="padding-left:2em;padding-right:2em;">
 			<span class="infoLink" onClick="getHelp('CollStats');">
 				Holdings Details
 			</span>
-		<td>
-			<cfif #hasCanned.recordcount# gt 0>
+		</td>
+		<cfif #hasCanned.recordcount# gt 0>
+			<td style="padding-left:2em;padding-right:2em;">
 				<label for="goCanned">Saved Searches:</label>
 				<select name="goCanned" id="goCanned" size="1" onchange="document.location=this.value;">
 					<option value=""></option>
@@ -162,9 +163,9 @@ td.lbl {
 						<option value="#url#">#SEARCH_NAME#</option><br />
 					</cfloop>
 				</select>
-			</cfif>
-		</td>
-		<td>
+			</td>
+		</cfif>
+		<td style="padding-left:2em;padding-right:2em;">
 			<span style="color:red;">
 				<cfif #action# is "dispCollObj">
 					<p>You are searching for items to add to a loan.</p>
