@@ -15,7 +15,7 @@
 		</cftry>
 		--->
 	</cfif>
-	<cfreturn "">
+	<cfreturn "ok">
 </cffunction>
 <!-------------------------------------------->
 <cffunction name="getSessionTimeout" returntype="string">
