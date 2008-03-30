@@ -10,6 +10,11 @@ function success_changecustomOtherIdentifier (result) {
 		alert('An error occured: ' + result);
 	}
 }
+
+function closeThis(){
+	var theDiv = document.getElementById('customDiv');
+	document.body.removeChild(theDiv);
+}
 </script>
 <cfoutput>
 <cfif len(#exclusive_collection_id#) gt 0>
@@ -28,7 +33,7 @@ function success_changecustomOtherIdentifier (result) {
 		<td colspan="2" class="secHead">
 				<span class="secLabel">Customize Identifiers</span>
 				<span class="secControl" id="c_collevent"
-					onclick="self.close();">Close</span>
+					onclick="closeThis();">Close</span>
 		</td>
 	</tr>
 	<tr>
