@@ -197,6 +197,9 @@
 		<cfif not isdefined("client.exclusive_collection_id")>
 			<cfset client.exclusive_collection_id="">
 		</cfif>
+		<cfif not isdefined("client.fancyCOID")>
+			<cfset client.fancyCOID="">
+		</cfif>
 		<cfif not isdefined("client.last_login")>
 			<cfset client.last_login="">
 		</cfif>
