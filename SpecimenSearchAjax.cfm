@@ -68,18 +68,6 @@ function showHide(id,onOff) {
 		DWREngine._execute(_cfscriptLocation, null, 'saveSpecSrchPref', id, onOff,nada);
 	}
 }
-/*
-function load(form){
-		alert(form);
-		var ptl="/includes/SpecSearch/" + form + ".cfm";
-		var tDiv='d_'+form;
-		var d=document.getElementById(tDiv);
-		$.get(ptl, function(data){
-		 $(d).html(data);
-		})
-	}
-	
-*/
 </script>
 
 <style>
@@ -320,6 +308,8 @@ td.lbl {
 		<tr>
 			<td colspan="2" class="secHead">
 					<span class="secLabel">Identifiers</span>
+					<span class="secControl" id="c_identifiers_cust"
+						onclick="showHide('identifiers_custom',1)">Customize</span>
 					<span class="secControl" id="c_identifiers"
 						onclick="showHide('identifiers',1)">Show More Options</span>
 			</td>
