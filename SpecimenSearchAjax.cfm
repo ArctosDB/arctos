@@ -85,15 +85,15 @@ function customizeIdentifiers() {
 
 <style>
 	
-	.customBox {
-		border:3px solid green;
-		z-index:9999;
-		position:absolute;
-		top:5%;
-		left:5%;
-		background-color:white;
-		overflow:hidden;
-	}
+.customBox {
+	border:3px solid green;
+	z-index:9999;
+	position:absolute;
+	top:5%;
+	left:5%;
+	background-color:white;
+	overflow:hidden;
+}
 .secHead{background-color:lightgrey;}
 
 .secLabel{
