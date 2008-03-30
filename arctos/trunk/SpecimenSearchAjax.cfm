@@ -372,7 +372,51 @@ td.lbl {
 				<input type="text" name="listcatnum" size="21">
 			</cfif>
 		</td>
-	</tr>	
+	</tr>
+	<cfif isdefined("Client.CustomOtherIdentifier") and len(#Client.CustomOtherIdentifier#) gt 0>
+		<tr>
+			<td class="lbl">
+				<a href="javascript:void(0);" 
+					onClick="pageHelp('SpecimenSearchFldDef','custom_identifier');">
+					#Client.CustomOtherIdentifier#:
+				</a>
+			</td>
+			<td class="srch">
+				<label for="CustomOidOper">Display Value</label>
+				<select name="CustomOidOper" size="1">
+					<option value="IS">is</option>
+					<option value="" selected="selected">contains</option>
+					<option value="LIST">in list</option>
+					<option value="BETWEEN">in range</option>								
+				</select><input type="text" name="CustomIdentifierValue" size="50">
+			</td>
+		</tr>
+		<tr>
+		<td class="lbl">
+		<cfif isdefined("Client.fancyCOID") and #Client.fancyCOID# is 1>
+			&nbsp;
+		</td>
+			<td class="srch">
+				<table cellpadding="0" cellspacing="0">
+					<tr>
+						<td>
+							<label for="custom_id_prefix">OR: Prefix</label>
+							<input type="text" name="custom_id_prefix" id="custom_id_prefix" size="12">
+						</td>
+						<td>
+							<label for="custom_id_number">Number</label>
+							<input type="text" name="custom_id_number" id="custom_id_number" size="24">
+						</td>
+						<td>
+							<label for="custom_id_suffix">Suffix</label>
+							<input type="text" name="custom_id_suffix" id="custom_id_suffix" size="12">
+						</td>
+					</tr>
+				</table>
+			</td>
+			</cfif>
+		</tr>
+	</cfif>
 </table>
 
 <div id="e_identifiers"></div>

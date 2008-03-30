@@ -556,6 +556,33 @@
 	</cftry>
 	<cfreturn result>
 </cffunction>
+<!------------------------------------------------------------------>
+<cffunction name="changefancyCOID" returntype="string">
+	<cfargument name="tgt" type="string" required="yes">
+	<cftry>
+			<cfquery name="up" datasource="#Application.web_user#">
+				UPDATE cf_users SET
+					fancyCOID = 
+					<cfif #tgt# is 1>
+						#tgt#
+					<cfelse>
+						NULL
+					</cfif>
+				WHERE username = '#client.username#'
+			</cfquery>
+			<cfif #tgt# gt 0>
+				<cfset client.fancyCOID = "#tgt#">
+			<cfelse>
+				<cfset client.fancyCOID = "">
+			</cfif>
+		<cfset result="success">
+	<cfcatch>
+		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
+	</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
+<!------------------------------------------------------------------>
 <cffunction name="changeexclusive_collection_id" returntype="string">
 	<cfargument name="tgt" type="string" required="yes">
 	<cftry>

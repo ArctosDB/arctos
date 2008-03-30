@@ -31,6 +31,11 @@
 	<cfelse>
 		<cfset client.exclusive_collection_id = "">
 	</cfif>
+	<cfif len(#fancyCOID#) gt 0>
+		<cfset client.fancyCOID = "#fancyCOID#">
+	<cfelse>
+		<cfset client.fancyCOID = "">
+	</cfif>
 	<cfif len(#CustomOtherIdentifier#) gt 0>
 		<cfset client.customOtherIdentifier = "#CustomOtherIdentifier#">
 	<cfelse>
