@@ -1,4 +1,4 @@
-<cfinclude template="/includes/_frameHeader.cfm">
+
 <script>
 function changecustomOtherIdentifier (tgt) {
 	DWREngine._execute(_cfscriptLocation, null, 'changecustomOtherIdentifier',tgt, success_changecustomOtherIdentifier);
