@@ -73,7 +73,7 @@ function customizeIdentifiers() {
 	var theDiv = document.createElement('div');
 		theDiv.id = 'customDiv';
 		theDiv.className = 'customBox';
-		theDiv.innerHTML='<br>hi I am a div.';
+		theDiv.innerHTML='<br>Loading...';
 		theDiv.src = "";
 		document.body.appendChild(theDiv);
 		var ptl="/includes/SpecSearch/customIDs.cfm";
