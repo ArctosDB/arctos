@@ -70,12 +70,32 @@ function showHide(id,onOff) {
 }
 
 function customizeIdentifiers() {
-	var child_node =
-   $.create("div", {"style": "border:2px solid blue"}, ["stuff!"]);
+	var theDiv = document.createElement('div');
+		theDiv.id = 'customDiv';
+		theDiv.className = 'customBox';
+		theDiv.innerHTML='<br>hi I am a div.';
+		theDiv.src = "";
+		document.body.appendChild(theDiv);
+		var ptl="/includes/SpecSearch/customIDs.cfm";
+			$.get(ptl, function(data){
+			 $(theDiv).html(data);
+			})
 }
 </script>
 
 <style>
+	
+	.customBox {
+		border:3px solid green;
+		z-index:9999;
+		position:absolute;
+		top:5%;
+		left:5%;
+		width:85%;
+		height:85%;
+		background-color:white;
+		overflow:hidden;
+	}
 .secHead{background-color:lightgrey;}
 
 .secLabel{
