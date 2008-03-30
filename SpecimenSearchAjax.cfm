@@ -91,8 +91,6 @@ function customizeIdentifiers() {
 		position:absolute;
 		top:5%;
 		left:5%;
-		width:85%;
-		height:85%;
 		background-color:white;
 		overflow:hidden;
 	}
