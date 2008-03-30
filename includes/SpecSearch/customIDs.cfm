@@ -36,7 +36,8 @@ function success_changecustomOtherIdentifier (result) {
 			My Other Identifier:
 		</td>
 		<td class="srch">
-			<select name="OIDType" size="1" onchange="this.className='red';changecustomOtherIdentifier(this.value);">
+			<select name="customOtherIdentifier" id="customOtherIdentifier"
+				size="1" onchange="this.className='red';changecustomOtherIdentifier(this.value);">
 				<option value="">None</option>
 				<cfloop query="OtherIdType">
 					<option 
