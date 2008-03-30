@@ -33,7 +33,7 @@ function changefancyCOID (tgt) {
 }
 function success_changefancyCOID (result) {
 	if (result == 'success') {
-		var e = document.getElementById('changefancyCOID').className='';
+		var e = document.getElementById('fancyCOID').className='';
 	} else {
 		alert('An error occured: ' + result);
 	}
@@ -57,7 +57,7 @@ function success_changefancyCOID (result) {
 </cfquery>
 				
 
-	
+<span style="color:red;">You may need to refresh the page to see changes made here.</span>
 <table class="ssrch">
 	<tr>
 		<td colspan="2" class="secHead">
