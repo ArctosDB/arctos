@@ -4,7 +4,11 @@
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
 	
 <script language="javascript" type="text/javascript">
+jQuery( function($) {
 $("#part_name").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"part_name"});
+});
+
+
 
 function changeTarget(id,tvalue) {
 	//alert('id:' + id);
