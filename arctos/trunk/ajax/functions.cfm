@@ -289,6 +289,7 @@
 
 	</cfoutput>
 </cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="getLoanPartResults" returntype="query">
 	<cfargument name="transaction_id" type="numeric" required="yes">
 	<cfoutput>
@@ -325,7 +326,7 @@
 	<cfreturn result>
 	</cfoutput>
 </cffunction>
-
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="removeItems" returntype="string">
 	<cfargument name="removeList" type="string" required="yes">
 	<cfoutput>
@@ -336,7 +337,7 @@
 	<cfreturn "spiffy">
 	</cfoutput>
 </cffunction>
-
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="getSpecResultsData" returntype="query">
 	<cfargument name="startrow" type="numeric" required="yes">
 	<cfargument name="numRecs" type="numeric" required="yes">
@@ -406,6 +407,7 @@
 	<cfset result="ok">
 	<cfreturn result>
 </cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="clientResultColumnList" returntype="string">
 	<cfargument name="ColumnList" type="string" required="yes">
 	<cfargument name="in_or_out" type="string" required="yes">
@@ -460,7 +462,7 @@
 </cffunction>
 
 ---->
-
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="setClientDetailLevel" returntype="string">
 	<cfargument name="detail_level" type="numeric" required="yes">
 	<cfargument name="map_url" type="string" required="yes">
@@ -468,7 +470,7 @@
 	<cfset result="ok">
 	<cfreturn "#detail_level#|#map_url#">
 </cffunction>
-
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="setSrchVal" returntype="string">
 	<cfargument name="name" type="string" required="yes">
 	<cfargument name="tgt" type="numeric" required="yes">
@@ -495,6 +497,7 @@
 	</cftry>
 	<cfreturn result>
 </cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="changedetail_level" returntype="string">
 	<cfargument name="tgt" type="numeric" required="yes">
 	<cftry>
@@ -512,6 +515,7 @@
 	</cftry>
 	<cfreturn result>
 </cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="changecustomOtherIdentifier" returntype="string">
 	<cfargument name="tgt" type="string" required="yes">
 	<cftry>
@@ -533,8 +537,7 @@
 	</cftry>
 	<cfreturn result>
 </cffunction>
-
-
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="changeshowObservations" returntype="string">
 	<cfargument name="tgt" type="string" required="yes">
 	<cfif #tgt# is "true">
@@ -625,7 +628,7 @@
 	</cftry>
 	<cfreturn result>
 </cffunction>
-
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="changeTarget" returntype="string">
 	<cfargument name="tgt" type="string" required="yes">
 	<cftry>
@@ -642,8 +645,7 @@
 	</cftry>
 	<cfreturn result>
 </cffunction>
-
-
+<!----------------------------------------------------------------------------------------------------------------->
  <cffunction name="saveIdentifierChange" returntype="string">
 	<cfargument name="idId" type="string" required="yes">
 	<cfargument name="newAgentId" type="numeric" required="yes">
@@ -664,14 +666,9 @@
 	<cfreturn result>
 </cffunction>
 <!------------------------------------->
-
-
  <cffunction name="deleteIdentification" returntype="string">
 	<cfargument name="identification_id" type="numeric" required="yes">
 	<cftry>
-		<!---
-		
-		--->
 		<cftransaction>
 			<cfquery name="delIdTax" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 				delete from identification_taxonomy where 

@@ -68,7 +68,14 @@ function showHide(id,onOff) {
 		DWREngine._execute(_cfscriptLocation, null, 'saveSpecSrchPref', id, onOff,nada);
 	}
 }
-
+function multi (id){
+	var id=document.getElementById(id);
+	id.multiple=true;
+}
+function singl (id){
+	var id=document.getElementById(id);
+	id.multiple=false;
+}
 function customizeIdentifiers() {
 	var theDiv = document.createElement('div');
 		theDiv.id = 'customDiv';
@@ -542,7 +549,10 @@ td.lbl {
 				</a>
 			</td>
 			<td class="srch">
-				<select name="part_name"  
+				<span onclick="multi('part_name')">m</span>
+				<span onclick="singl('part_name')">s</span>
+			
+				<select name="part_name" id="part_name"  
 					<cfif #ListContains(client.searchBy, 'bigsearchbox')# gt 0>
 						multiple="multiple" size="5"
 					<cfelse>
