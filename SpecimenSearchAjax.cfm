@@ -76,7 +76,7 @@ function multi (id){
 function singl (id){
 	alert('sing');
 	var id=document.getElementById(id);
-	id.multiple="false"";
+	id.multiple="false";
 }
 function customizeIdentifiers() {
 	var theDiv = document.createElement('div');
