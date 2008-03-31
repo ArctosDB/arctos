@@ -69,10 +69,12 @@ function showHide(id,onOff) {
 	}
 }
 function multi (id){
+	alert('mult');
 	var id=document.getElementById(id);
 	id.multiple=true;
 }
 function singl (id){
+	alert('sing');
 	var id=document.getElementById(id);
 	id.multiple=false;
 }
