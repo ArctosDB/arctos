@@ -3,6 +3,7 @@
 		#f# data
 	FROM 
 		#t#
+	where upper(#f#) like '%#ucase(q)#%'
 	group by #f#
 	order by #f#
 </cfquery>
