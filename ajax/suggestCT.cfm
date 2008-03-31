@@ -1,10 +1,10 @@
 <cfquery name="ins" datasource="#Application.web_user#">
 	SELECT 
-		#c# data
+		#f# data
 	FROM 
 		#t#
-	group by #c#
-	order by #c#
+	group by #f#
+	order by #f#
 </cfquery>
 	<cfoutput query="ins">#data#
 	</cfoutput>

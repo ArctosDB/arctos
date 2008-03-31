@@ -126,8 +126,8 @@
 						if (options.typeField) {
 							var typeValue=document.getElementById(options.typeField).value;
 							var newSource=options.source + '?t=' + typeValue;
-						} else if(options.ctName){
-							var newSource=options.source + '?t=' + options.ctName;
+						} else if(options.ctName && options.ctField){
+							var newSource=options.source + '?t=' + options.ctName + '&f=' + options.ctField;
 						} else {
 							var newSource=options.source;
 						}
@@ -308,6 +308,7 @@
 			options.maxCacheSize = options.maxCacheSize || 65536;
 			options.typeField = options.typeField;
 			options.ctName = options.ctName;
+			options.ctField = options.ctField;
 		
 			this.each(function() {
 				new $.suggest(this, options);
