@@ -125,7 +125,7 @@
 					} else {
 						if (options.typeField) {
 							var typeValue=document.getElementById(options.typeField).value;
-							var newSource=options.source + '&t=' + typeValue;
+							var newSource=options.source + '?t=' + typeValue;
 						} else {
 							var newSource=options.source;
 						}
