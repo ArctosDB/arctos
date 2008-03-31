@@ -1,7 +1,11 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Specimen Search">
-<script type='text/javascript' src='/includes/jquery/jquery.js'></script>	
+<script type='text/javascript' src='/includes/jquery/jquery.js'></script>
+<script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
+	
 <script language="javascript" type="text/javascript">
+$("#part_name").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"part_name"});
+
 function changeTarget(id,tvalue) {
 	//alert('id:' + id);
 	//alert('tvalue: ' + tvalue);
@@ -553,6 +557,8 @@ td.lbl {
 				</a>
 			</td>
 			<td class="srch">
+				<input type="text" name="part_name" id="part_name">
+				<!----
 				<span onclick="multi('part_name')">m</span>
 				<span onclick="singl('part_name')">s</span>
 			
@@ -567,7 +573,9 @@ td.lbl {
 							<option value="#Part.Part_Name#">#Part.Part_Name#</option>
 						</cfloop>
 				</select>
+				---->
 				<span class="infoLink" onclick="getCtDoc('ctspecimen_part_name',SpecData.part_name.value);">Define</span>
+				
 			</td>
 		</tr>
 	</table>
