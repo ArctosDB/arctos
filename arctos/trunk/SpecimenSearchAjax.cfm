@@ -71,14 +71,14 @@ function showHide(id,onOff) {
 function multi (id){
 	alert('mult');
 	var id=document.getElementById(id);
-	id.multiple="true";
-	id.size="5";
+	id.setAttribute("multiple","true");
+	id.setAttribute("size","5");
 }
 function singl (id){
 	alert('sing');
 	var id=document.getElementById(id);
-	id.multiple="false";
-	id.size="1";
+	id.removeAttribute("multiple");
+	id.setAttribute("size","1");
 }
 function customizeIdentifiers() {
 	var theDiv = document.createElement('div');
