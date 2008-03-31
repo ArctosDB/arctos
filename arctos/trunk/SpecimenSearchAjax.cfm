@@ -5,7 +5,7 @@
 	
 <script language="javascript" type="text/javascript">
 jQuery( function($) {
-$("#part_name").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1});
+$("#part_name").suggest("/ajax/suggestCT.cfm",{minchars:1,typeField:"part_name"});
 });
 
 
