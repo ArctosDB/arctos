@@ -126,6 +126,8 @@
 						if (options.typeField) {
 							var typeValue=document.getElementById(options.typeField).value;
 							var newSource=options.source + '?t=' + typeValue;
+						} else if(option.ctName){
+							var newSource=options.source + '?t=' + ctName;
 						} else {
 							var newSource=options.source;
 						}
@@ -305,6 +307,7 @@
 			options.onSelect = options.onSelect || false;
 			options.maxCacheSize = options.maxCacheSize || 65536;
 			options.typeField = options.typeField;
+			options.ctName = options.ctName;
 		
 			this.each(function() {
 				new $.suggest(this, options);

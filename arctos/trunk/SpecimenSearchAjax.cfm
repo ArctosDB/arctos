@@ -5,7 +5,7 @@
 	
 <script language="javascript" type="text/javascript">
 jQuery( function($) {
-$("#part_name").suggest("/ajax/suggestCT.cfm",{minchars:1,typeField:"part_name"});
+$("#part_name").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"specimen_part"});
 });
 
 
