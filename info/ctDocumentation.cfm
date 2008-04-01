@@ -61,7 +61,11 @@
 					<tr style="background-color:##339999 ">
 						<td nowrap>#field#</td>
 						<td>#collection_cde#</td>
-						<td>#description#&nbsp;</td>
+						<td>
+							<cfif isdefined("description")>
+								#description#&nbsp;
+							</cfif>
+						</td>
 					</tr>
 				</cfloop>
 			<cfelse>
