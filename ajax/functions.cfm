@@ -111,35 +111,36 @@
 	<cfoutput>
 	<cftry>
 		<cfif type is "cat_num">
-		<cfquery name="result" datasource="#Application.web_user#">
-			select 
-				cataloged_item.COLLECTION_OBJECT_ID,
-				scientific_name
-			from
-				cataloged_item,
-				identification
-			where
-				cataloged_item.collection_object_id = identification.collection_object_id AND
-				accepted_id_fg=1 and
-				cat_num=#theNum# and
-				collection_id=#collection_id#
-		</cfquery>
+			<cfquery name="result" datasource="#Application.web_user#">
+				select 
+					cataloged_item.COLLECTION_OBJECT_ID,
+					scientific_name
+				from
+					cataloged_item,
+					identification
+				where
+					cataloged_item.collection_object_id = identification.collection_object_id AND
+					accepted_id_fg=1 and
+					cat_num=#theNum# and
+					collection_id=#collection_id#
+			</cfquery>
 		<cfelse>
-		<cfquery name="result" datasource="#Application.web_user#">
-			select 
-				cataloged_item.COLLECTION_OBJECT_ID,
-				scientific_name
-			from
-				cataloged_item,
-				identification,
-				coll_obj_other_id_num
-			where
-				cataloged_item.collection_object_id = identification.collection_object_id AND
-				cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id AND
-				accepted_id_fg=1 and
-				display_value='#theNum#' and
-				collection_id=#collection_id#
-		</cfquery>
+			<cfquery name="result" datasource="#Application.web_user#">
+				select 
+					cataloged_item.COLLECTION_OBJECT_ID,
+					scientific_name
+				from
+					cataloged_item,
+					identification,
+					coll_obj_other_id_num
+				where
+					cataloged_item.collection_object_id = identification.collection_object_id AND
+					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id AND
+					accepted_id_fg=1 and
+					display_value='#theNum#' and
+					other_id_type='#type#' and
+					collection_id=#collection_id#
+			</cfquery>
 		</cfif>
 		<cfcatch>
 			<cfset result = querynew("collection_object_id,scientific_name")>

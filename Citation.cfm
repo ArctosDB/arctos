@@ -2,7 +2,9 @@
 	<script>
 		function getCatalogedItemCitation (id,type) {
 			var collection_id = document.getElementById('collection').value;
-			var theNum = document.getElementById(id).value;
+			var el = document.getElementById(id);
+			el.className='red';
+			var theNum = el.value;
 			DWREngine._execute(_cfscriptLocation, null, 'getCatalogedItemCitation', collection_id, theNum,type,success_getCatalogedItemCitation);
 		}
 		function success_getCatalogedItemCitation (result) {
