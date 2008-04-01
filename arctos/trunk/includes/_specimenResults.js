@@ -31,6 +31,7 @@ function success_addPartToLoan(result) {
 function makePartThingy() {
 	//alert('makePartThingy');
 	var transaction_id = document.getElementById("transaction_id").value;
+	alert(transaction_id);
 	DWREngine._execute(_cfscriptLocation, null, 'getLoanPartResults', transaction_id, success_makePartThingy);
 	
 }
@@ -925,7 +926,6 @@ function success_getSpecResultsData(result){
 		//alert(theInnerHtml);
 		tgt.innerHTML = theInnerHtml;
 		if (action == 'dispCollObj'){
-			alert('part thingy');
 			makePartThingy();
 		}
 	}
