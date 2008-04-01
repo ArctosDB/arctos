@@ -1,9 +1,9 @@
 <cfinclude template="includes/_header.cfm">
 	<script>
-		function getCatalogedItemCitation () {
+		function getCatalogedItemCitation (id,type) {
 			var collection_id = document.getElementById('collection').value;
-			var cat_num = document.getElementById('cat_num').value;
-			DWREngine._execute(_cfscriptLocation, null, 'getCatalogedItemCitation', collection_id, cat_num,success_getCatalogedItemCitation);
+			var theNum = document.getElementById(id).value;
+			DWREngine._execute(_cfscriptLocation, null, 'getCatalogedItemCitation', collection_id, theNum,type,success_getCatalogedItemCitation);
 		}
 		function success_getCatalogedItemCitation (result) {
 			//alert(result);
@@ -23,9 +23,12 @@
 					//cn.style.background-color='green';
 				}
 			} else {
-				alert('specimen not found.');
+				alert('Specimen not found or has multiple matches.');
 			}
 		}
+		
+		
+
 	</script>
 	
 <cfquery name="ctTypeStatus" datasource="#Application.web_user#">
@@ -172,8 +175,14 @@
 	</td>	
 	<td>
 		<label for="cat_num">Catalog Number</label>
-		<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation()">
+		<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation(this.id,'cat_num')">
 	</td>
+	<cfif len(Client.CustomOtherIdentifier) gt 0>
+		<td>
+			<label for="custom_id">#Client.CustomOtherIdentifier#</label>
+			<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitationCustom(this.id,'#Client.CustomOtherIdentifier#')">
+		</td>
+	</cfif>
 </tr>
 <tr>
 	</td>
