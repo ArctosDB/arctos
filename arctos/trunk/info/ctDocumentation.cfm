@@ -72,7 +72,11 @@
 					<tr style="background-color:##339999 ">
 						<td nowrap>#field#</td>
 						<td>All</td>
-						<td>#chosenOne.description#&nbsp;</td>
+						<td>
+							<cfif isdefined("chosenOne.description")>
+								#chosenOne.description#&nbsp;
+							</cfif>
+						</td>
 					</tr>					
 			</cfif>
 		</cfif>
@@ -89,7 +93,11 @@
 					 <tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 						<td nowrap>#evaluate(theColumnName)#</td>
 						<td>#collection_cde#</td>
-						<td>#description#&nbsp;</td>
+						<td>
+							<cfif isdefined("description")>
+								#description#&nbsp;
+							</cfif>
+						</td>
 					</tr>
 					<cfset i=#i#+1>
 				</cfloop>
@@ -98,7 +106,11 @@
 					<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 						<td nowrap>#evaluate(theColumnName)#</td>
 						<td>All</td>
-						<td>#description#&nbsp;</td>
+						<td>
+							<cfif isdefined("description")>
+								#description#&nbsp;
+							</cfif>
+						</td>
 						<cfset i=#i#+1>
 					</tr>
 				</cfloop>	
