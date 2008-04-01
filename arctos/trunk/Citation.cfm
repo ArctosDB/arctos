@@ -22,6 +22,9 @@
 						var co = document.getElementById('collection_object_id');
 						var c = document.getElementById('collection');
 						var cn = document.getElementById('cat_num');
+						cn.className='';
+						var cusn = document.getElementById('custom_id');
+						cusn.className='';
 						co.value=collection_object_id;
 						sn.value=scientific_name;
 						//c.style.background-color='green';
@@ -197,7 +200,7 @@
 		<label for="scientific_name">Current Identification</label>
 		<input type="text" name="scientific_name" id="scientific_name" readonly="yes" class="readClr" size="50">
 	</td>
-	<td>
+	<td colspan="2">
 		<label for="citedSciName">
 			<a href="javascript:void(0);" onClick="getDocs('publication','cited_as_taxon')">Cited As</a></label>
 		<input type="text" name="citedSciName" id="citedSciName" class="reqdClr" size="50" onChange="taxaPick('cited_taxon_name_id','citedSciName','newCitation',this.value); return false;">
