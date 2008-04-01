@@ -7,23 +7,27 @@
 		}
 		function success_getCatalogedItemCitation (result) {
 			//alert(result);
-			if (result[0]) {	
-				var scientific_name=result[0].SCIENTIFIC_NAME;
-				var collection_object_id=result[0].COLLECTION_OBJECT_ID;
-				if (collection_object_id < 0) {
-					alert('error: ' + scientific_name);
-				} else {
-					var sn = document.getElementById('scientific_name');
-					var co = document.getElementById('collection_object_id');
-					var c = document.getElementById('collection');
-					var cn = document.getElementById('cat_num');
-					co.value=collection_object_id;
-					sn.value=scientific_name;
-					//c.style.background-color='green';
-					//cn.style.background-color='green';
-				}
+			if (result.length > 1){
+				alert('Multiple matches.');
 			} else {
-				alert('Specimen not found or has multiple matches.');
+				if (result[0]) {	
+					var scientific_name=result[0].SCIENTIFIC_NAME;
+					var collection_object_id=result[0].COLLECTION_OBJECT_ID;
+					if (collection_object_id < 0) {
+						alert('error: ' + scientific_name);
+					} else {
+						var sn = document.getElementById('scientific_name');
+						var co = document.getElementById('collection_object_id');
+						var c = document.getElementById('collection');
+						var cn = document.getElementById('cat_num');
+						co.value=collection_object_id;
+						sn.value=scientific_name;
+						//c.style.background-color='green';
+						//cn.style.background-color='green';
+					}
+				} else {
+					alert('Specimen not found.');
+				}
 			}
 		}
 		
