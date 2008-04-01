@@ -1013,9 +1013,9 @@
 					(cataloged_item.collection_object_id = specimen_part.derived_from_cat_item)">
 				</cfif>
 				<cfset basQual = " #basQual# AND part_name = '#part_name#'">	
-			<cfelseif #part_name# contains ",">
+			<cfelseif #part_name# contains "|">
 				<cfset i=1>
-				<cfloop list="#part_name#" delimiters="," index="p">
+				<cfloop list="#part_name#" delimiters="|" index="p">
 					<cfset basJoin = " #basJoin# INNER JOIN specimen_part sp#i# ON 
 						(cataloged_item.collection_object_id = sp#i#.derived_from_cat_item)">
 					<cfset basQual = " #basQual# AND sp#i#.part_name = '#p#'">

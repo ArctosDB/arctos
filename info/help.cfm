@@ -839,7 +839,11 @@ You can use Other ID even if you do not specify the Other ID Type. For example, 
 <!-------------------------------                p              ---------------------------------------><!-------------------------------                p              --------------------------------------->
 <cfif #content# is "parts">
 <cfset title="Parts Help">
-Add "Big search boxes" to your preferences to search multiple parts. Multiple parts search are ANDed together.
+Search for multiple parts using the pipe ( | ) separator. Example:
+<ul>
+	<li>heart|kidney</li>
+</ul>
+will return specimens having a part_name="heart" AND a part_name="kidney."
 <p>
 Search for specimens having the selected part. Most specimens have multiple parts (ie, skin; skull). Note that parts 
 includes frozen tissue samples.
