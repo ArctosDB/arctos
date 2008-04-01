@@ -106,7 +106,7 @@ function customizeIdentifiers() {
 $(document).ready(function(){
 
 	$(".helpLink").click(function(){
-	  $.append("<span>here I am now</span>");
+	  $this.append("<span>here I am now</span>");
 	});
 
 });
