@@ -428,7 +428,6 @@
 <div id="resultsGoHere"></div>
 <script>
 	getSpecResultsData(1,#client.displayrows#);
-	makePartThingy();
 </script>
 </cfoutput>
 <cf_get_footer collection_id="#exclusive_collection_id#">
