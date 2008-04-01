@@ -1144,6 +1144,7 @@
 		</cfquery>
 		<cfreturn result>
 </cffunction>
+
 <!------------------------------------->
 <cffunction name="getPartRecDet" returntype="query">
 	<cfargument name="id" type="numeric" required="yes">
