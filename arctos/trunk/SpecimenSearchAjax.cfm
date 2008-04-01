@@ -376,7 +376,17 @@ td.lbl {
 						onClick="pageHelp('SpecimenSearchFldDef','cat_num');">
 						Institutional Catalog:
 				</a>
-				<span id="doc:catalog_number" class="helpLink">help test</span>
+				
+				
+				<div id="panel">
+	<!-- you can put content here -->
+</div>
+
+<p class="slide"><span id="doc:catalog_number" class="helpLink">help test</span></p>
+
+
+
+				
 			</td>
 			<td class="srch">
 				<select name="collection_id" size="1">
