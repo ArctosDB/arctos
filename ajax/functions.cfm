@@ -299,7 +299,7 @@
 			cataloged_item.COLLECTION_OBJECT_ID,
 			specimen_part.collection_object_id partID,
 			coll_object.COLL_OBJ_DISPOSITION,
-			specimen_part.LOT_COUNT,
+			coll_object.LOT_COUNT,
 			coll_object.CONDITION,
 			specimen_part.PART_NAME,
 			specimen_part.PART_MODIFIER,
@@ -317,7 +317,7 @@
 		where
 			#userTableName#.collection_object_id = cataloged_item.collection_object_id AND
 			cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
-			specimen_part.collection_object_id =coll_object.collection_object_id and
+			specimen_part.collection_object_id = coll_object.collection_object_id and
 			specimen_part.SAMPLED_FROM_OBJ_ID is null and
 			specimen_part.collection_object_id = loan_item.collection_object_id (+) 
 		order by
