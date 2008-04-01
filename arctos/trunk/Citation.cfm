@@ -230,7 +230,7 @@
 	</td>
 </tr>
 <tr>
-	<td colspan="2">
+	<td colspan="3">
 		<label for="citation_remarks">Remarks:</label>
 		<input type="text" name="citation_remarks" id="citation_remarks" size="90">
 	</td>
