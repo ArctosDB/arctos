@@ -1,6 +1,6 @@
 <cfinvoke 
 webservice="http://arctos.database.museum/service/documentation.cfc?wsdl"
-method="getDefinitionByDispName"
+method="getDefinition"
 returnvariable="creditrequest">
 	<cfinvokeargument name="fld" value="addr.city"/>
 </cfinvoke>
