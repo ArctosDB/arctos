@@ -925,6 +925,7 @@ function success_getSpecResultsData(result){
 		//alert(theInnerHtml);
 		tgt.innerHTML = theInnerHtml;
 		if (action == 'dispCollObj'){
+			alert('part thingy');
 			makePartThingy();
 		}
 	}
