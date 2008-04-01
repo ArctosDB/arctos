@@ -13,7 +13,7 @@
 					<result>
 						<status>500</status>
 						<query>#fld#</query>
-						<error>#cfcatch.message#; #cfcatch.detail#; #cfcatch.sql#</error>
+						<error>#cfcatch.message#; #cfcatch.detail#;</error>
 					</result>
 				</cfxml>
 				<cfreturn returnData>
