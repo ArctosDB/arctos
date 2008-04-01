@@ -106,15 +106,14 @@ function customizeIdentifiers() {
 $(document).ready(function(){
 
 	$(".helpLink").click(function(){
-	  $("#panel").slideToggle("slow");
-	  $(this).toggleClass("active");
+	  $.add("<span>here I am now</span>");
 	});
 
 });
 
 
 </script>
-
+<span class="helpLink">helplink I am</span>
 <style>
 	
 .customBox {
@@ -376,17 +375,6 @@ td.lbl {
 						onClick="pageHelp('SpecimenSearchFldDef','cat_num');">
 						Institutional Catalog:
 				</a>
-				
-				
-				<div id="panel">
-	<!-- you can put content here -->
-</div>
-
-<p class="slide"><span id="doc:catalog_number" class="helpLink">help test</span></p>
-
-
-
-				
 			</td>
 			<td class="srch">
 				<select name="collection_id" size="1">
