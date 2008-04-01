@@ -14,7 +14,7 @@
 				<font size="+1">Documentation for code table <strong>#tableName#</strong>:</font>			</td>
 		</tr>
 	</table>
-	<!--- see if we have docs yet, die if not ---->
+	<!--- see if we have docs yet, die if not
 	<cftry>
 		<cfquery name="isThere" datasource="#Application.web_user#">
 			select description from #table#
@@ -25,6 +25,7 @@
 			<cfabort>
 		</cfcatch>
 	</cftry>
+	 ---->
 	<cfquery name="docs" datasource="#Application.web_user#">
 		select * from #table#
 	</cfquery>
