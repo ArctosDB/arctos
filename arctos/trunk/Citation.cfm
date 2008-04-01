@@ -180,7 +180,7 @@
 	<cfif len(Client.CustomOtherIdentifier) gt 0>
 		<td>
 			<label for="custom_id">#Client.CustomOtherIdentifier#</label>
-			<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitationCustom(this.id,'#Client.CustomOtherIdentifier#')">
+			<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#Client.CustomOtherIdentifier#')">
 		</td>
 	</cfif>
 </tr>
