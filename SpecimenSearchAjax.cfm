@@ -561,7 +561,7 @@ td.lbl {
 				</a>
 			</td>
 			<td class="srch">
-				<input type="text" name="part_name" id="part_name">
+				<input type="text" name="part_name" id="part_name" size="50">
 				<!----
 				<span onclick="multi('part_name')">m</span>
 				<span onclick="singl('part_name')">s</span>
