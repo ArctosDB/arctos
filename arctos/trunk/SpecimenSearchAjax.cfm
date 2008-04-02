@@ -7,9 +7,7 @@ jQuery( function($) {
 $("#part_name").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"specimen_part",ctField:"part_name"});
 
 
-$(".docTitle").click(function(){
-alert('clicky');
-})
+
 
 $(".helpLink").click(function(e){
 				var id=this.id;
@@ -33,6 +31,12 @@ $(".helpLink").click(function(e){
 	   			var h="/fix/b.cfm";
 	   			var h= "/service/doc_rest.cfm";
 	   			$(theDiv).load("/service/get_doc_rest.cfm",{fld: id});
+	   			
+	   			$(".docTitle").click(function(){
+alert('clicky');
+})
+
+
 			});
 	
 			
