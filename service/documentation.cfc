@@ -1,6 +1,21 @@
 <cfcomponent>
 	<cfinclude template="/includes/alwaysInclude.cfm">
 	<cfoutput>
+		<cfoutput>
+		<cffunction name="getDoc" access="remote" returntype="string" output="no">
+			<cfargument required="true" name="fld" type="numeric">
+			<cfhttp url="http://arctos.database.museum/service/doc_rest.cfm" charset="utf-8" method="get">
+				
+				
+				<cfhttpparam type="url" name="action" value="getDefinition">
+				<cfhttpparam type="url" name="fld" value="classificationbank_object">
+				<cfhttpparam type="url" name="hierarchiesID" value="#fld#">
+			</cfhttp>
+			<cfreturn cfhttp.fileContent>             
+	  	</cffunction>
+	  	
+		
+		
 		<cffunction name="getDefinitionByDispName" access="remote" returntype="string" output="no">
 	    	<cfargument name="fld" type="string" required="true">
 	   		 <cftry>
