@@ -151,6 +151,7 @@ function customizeIdentifiers() {
 	font-size:smaller;
 	padding-let:5px;
 }	
+.docMoreInfo{font-size:smaller;}
 
 .docControl {
 	position:absolute;
@@ -166,11 +167,12 @@ background-color:gray;
 .docTitle {
 	font-weight:bold;
 	padding-right:20px;
+	font-size:smaller;
 	}
 .helpBox {
 	border:1px solid green;
 	padding:5px;
-	background-color:#F0FFF0;
+	background-color:#99C68E;
 	max-width:20em;
 padding:.1em;
 
