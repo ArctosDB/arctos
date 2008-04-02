@@ -3,7 +3,7 @@
 	<cfhttpparam type="url" name="fld" value="#fld#">
 </cfhttp>
 <cfoutput>
-	<cfif isdefined("addCtl") and addCtl is 1>
+	<cfif isdefined("addCtl") and #addCtl# is "1">
 		<span class="docControl" onclick="removeHelpDiv()">X</span>
 	</cfif>
 	#cfhttp.fileContent#</cfoutput>
