@@ -18,10 +18,10 @@ jQuery( function($) {
 		theDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(theDiv);
 		var ctlSpn=document.createElement('span');
-		ctlSpan.id='ctlSpan';
-		ctlSpan.className='docControl';
-		ctlSpan.innerHTML='X';
-		theDiv.appendChild(ctlSpan);
+		ctlSpn.id='ctlSpan';
+		ctlSpn.className='docControl';
+		ctlSpn.innerHTML='X';
+		theDiv.appendChild(ctlSpn);
 		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
     	//$.get("psychic.cfm", {method:idArr[0],key:idArr[1]}, function(data){ //do some stuff });
 		// ?=&=field_verified_fg
