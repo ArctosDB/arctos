@@ -106,12 +106,22 @@ function customizeIdentifiers() {
 $(document).ready(function(){
 
 	$(".helpLink").click(function(){
-	   alert(this.id)
+		var id=this.id;
+	   	DWREngine._execute(_cfscriptLocation, null, 'getDocsById', id, r_getDocsById);
 	});
 
 });
 
 
+
+
+
+	function r_getDocsById (result){
+		alert('back we are: ' + result);
+	}
+	
+	
+	
 </script>
 <span class="helpLink" id="gpsaccuracy">gpsaccuracy</span>
 <span class="helpLink" id="georefmethod">georefmethod</span>
