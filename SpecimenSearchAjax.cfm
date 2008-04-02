@@ -1,4 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
+
+<cfset Application.doc_rest_url="http://arctos.database.museum/service/doc_rest.cfm">
 <cfset title="Specimen Search">
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
@@ -103,30 +105,34 @@ function customizeIdentifiers() {
 
 
 
-$(document).ready(function(){
-
-	$(".helpLink").click(function(){
-		var id=this.id;
-	   	DWREngine._execute(_cfscriptLocation, null, 'getDocsById', id, r_getDocsById);
-	});
-
-});
 
 
 
 
-
-	function r_getDocsById (result){
-		alert('back we are: ' + result);
-		 $(result).find('status').each(function(){
-        	var item_text = $(this).text();
-        	alert(item_text);
-		 });
-	}
-	
 	
 	
 </script>
+<cfoutput>
+	<script type="text/javascript" language="javascript">
+		$(document).ready(function(){
+			$(".helpLink").click(function(){
+				var id=this.id;
+				var theDiv = document.createElement('div');
+				theDiv.id = 'helpDiv';
+				theDiv.className = 'helpBox';
+				theDiv.innerHTML='<br>Loading...';
+				document.body.appendChild(theDiv);
+		
+				// ?=&=field_verified_fg
+	   			$.get("#Application.doc_rest_url#", { action: "getDefinition", fld: id } , function(data){
+	   				$(theDiv).html(data);
+	   			})
+			});
+		});
+		
+}
+	</script>
+</cfoutput>
 <span class="helpLink" id="gpsaccuracy">gpsaccuracy</span>
 <span class="helpLink" id="georefmethod">georefmethod</span>
 <style>
