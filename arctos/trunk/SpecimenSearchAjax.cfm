@@ -28,6 +28,8 @@ jQuery( function($) {
 		var h= "/service/doc_rest.cfm";
 		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id});
 		
+		
+		$('.docTitle').html('Click here!');
 		$(".docTitle").click(function(){
 			alert('clicky');
 		});
