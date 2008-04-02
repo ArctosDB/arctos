@@ -9,6 +9,8 @@
 jQuery( function($) {
 $("#part_name").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"specimen_part",ctField:"part_name"});
 
+$('a.load-local').cluetip({local:true, cursor: 'pointer'});
+
 /*
 $(".helpLink").click(function(e){
 				var id=this.id;
@@ -159,7 +161,7 @@ function customizeIdentifiers() {
 
 
 
-$('a.load-local').cluetip({local:true, cursor: 'pointer'});
+
 	
 	
 </script>
