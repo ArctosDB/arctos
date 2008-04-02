@@ -37,7 +37,7 @@ $(".helpLink").click(function(e){
 
 $(".helpLink").click(function(e){
 				var id=this.id;
-				$(id).cluetip({attribute: 'booger' , width: '200px', showTitle: false});
+				$(id).cluetip({attribute: '/fix/b.cfm' , width: '200px', showTitle: false});
 				/*
 				var theDiv = document.createElement('div');
 				theDiv.id = 'helpDiv';
