@@ -159,6 +159,7 @@ function customizeIdentifiers() {
 	top:0px;
 	right:0px;
 	background-color:red;
+	z-index:101;
 	}
 .docTitle { background-color:gray;}
 .helpBox {
