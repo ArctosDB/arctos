@@ -118,9 +118,6 @@ $(document).ready(function(){
 
 	function r_getDocsById (result){
 		alert('back we are: ' + result);
-		var s=$().find("");
-		
-		
 		 $(result).find('status').each(function(){
         	var item_text = $(this).text();
         	alert(item_text);
