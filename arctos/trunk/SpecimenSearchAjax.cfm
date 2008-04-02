@@ -140,10 +140,6 @@ function customizeIdentifiers() {
 </script>
 
 
-<a class="load-local" href="#loadme" rel="#loadme">blabitty</a>
-
-<p id="loadme">guts are here</p>
-
 <span class="helpLink" id="gpsaccuracy">gpsaccuracy</span>
 <span class="helpLink" id="georefmethod">georefmethod</span>
 <style>
@@ -432,10 +428,7 @@ td.lbl {
 		</tr>
 		<tr>
 			<td class="lbl">
-				<a href="javascript:void(0);" 
-						onClick="pageHelp('SpecimenSearchFldDef','cat_num');">
-						Institutional Catalog:
-				</a>
+				<span class="helpLink" id="collection">Institutional Catalog</span>
 			</td>
 			<td class="srch">
 				<select name="collection_id" size="1">
