@@ -30,8 +30,6 @@ $(".helpLink").click(function(e){
 			});
 	
 			
-});
-
 
 
 
