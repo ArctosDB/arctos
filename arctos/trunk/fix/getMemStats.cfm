@@ -1,3 +1,4 @@
+<!---
 <cfscript>
 runtime = CreateObject("java","java.lang.Runtime").getRuntime();
 freeMemory = Round(runtime.freeMemory() / 1024 / 1024);
@@ -9,12 +10,12 @@ percentAllocated = Round((totalMemory / maxMemory ) * 100);
 
 datetime = now();
 
-statRec = datetime & chr(9) &
-	freeMemory & chr(9) & 
-	totalMemory & chr(9) & 
-	maxMemory & chr(9) & 
-	percentFreeAllocated & chr(9) & 
-	percentAllocated;
+//statRec = datetime & chr(9) &
+//	freeMemory & chr(9) & 
+//	totalMemory & chr(9) & 
+//	maxMemory & chr(9) & 
+//	percentFreeAllocated & chr(9) & 
+//	percentAllocated;
 
 path = getdirectoryfrompath(gettemplatepath());
 filepath = path & "memStats.txt";
@@ -184,3 +185,4 @@ body, td {
 </body>
 </html>
 </cfoutput>
+--->
