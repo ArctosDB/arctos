@@ -3321,7 +3321,7 @@ Some Totally Random String Data .....
 </cfif>
 --->
 <!--- after all else is loaded, see if we're carrying an ID over --->
-<cfif isdefined("session.rememberLastOtherId") and #session.rememberLastOtherId# is 1>
+<cfif isdefined("session.rememberLastOtherId") and #session.rememberLastOtherId# is 1 and #pMode# is "enter">
 	<cfset cVal="">
 	<cfif isnumeric(#other_id_num_5#)>
 		<cfset cVal = #other_id_num_5# + 1>
