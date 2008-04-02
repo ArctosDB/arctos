@@ -144,11 +144,10 @@ function customizeIdentifiers() {
 .helpLink {
 	cursor:pointer;
 	color: blue;
-	border-bottom:1px dashed green;
 }
 .helpLink:hover {
 	color: #CC0000;
-	border-bottom:1px dashed red;
+	text-decoration:underline;
 }
 
 
@@ -437,7 +436,7 @@ td.lbl {
 		</tr>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="collection">Institutional Catalog</span>
+				<span class="helpLink" id="collection">Institutional Catalog</span>:
 			</td>
 			<td class="srch">
 				<select name="collection_id" size="1">
@@ -455,7 +454,7 @@ td.lbl {
 		</tr>
 		<tr>
 		<td class="lbl">
-			Catalog Number:
+			<span class="helpLink" id="cat_num">Catalog Number</span>:
 		</td>
 		<td class="srch">
 			<cfif #ListContains(client.searchBy, 'bigsearchbox')# gt 0>
@@ -468,10 +467,7 @@ td.lbl {
 	<cfif isdefined("Client.CustomOtherIdentifier") and len(#Client.CustomOtherIdentifier#) gt 0>
 		<tr>
 			<td class="lbl">
-				<a href="javascript:void(0);" 
-					onClick="pageHelp('SpecimenSearchFldDef','custom_identifier');">
-					#Client.CustomOtherIdentifier#:
-				</a>
+				<span class="helpLink" id="custom_identifier">#Client.CustomOtherIdentifier#</span>:
 			</td>
 			<td class="srch">
 				<label for="CustomOidOper">Display Value</label>
@@ -524,7 +520,7 @@ td.lbl {
 		</tr>
 		<tr>
 			<td class="lbl">
-				Any Taxonomic Element:
+				<span class="helpLink" id="any_taxa_term">Any Taxonomic Element</span>:
 			</td>
 			<td class="srch">
 				<input type="text" name="any_taxa_term" size="28">
