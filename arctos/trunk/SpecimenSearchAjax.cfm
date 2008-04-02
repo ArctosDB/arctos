@@ -156,16 +156,24 @@ function customizeIdentifiers() {
 	position:absolute;
 	top:0px;
 	right:0px;
-	background-color:red;
+border:1px solid red;
+background-color:gray;
 	z-index:101;
-	cursor:hand;
+	cursor:pointer;
+	padding:1px;
+	font-size:.7em;
 	}
 .docTitle {
 	font-weight:bold;
+	padding-right:20px;
 	}
 .helpBox {
 	border:1px solid green;
-	background-color:white;
+	padding:5px;
+	background-color:#F0FFF0;
+	max-width:20em;
+padding:.1em;
+
 }
 .customBox {
 	border:3px solid green;
