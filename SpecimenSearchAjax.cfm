@@ -121,7 +121,7 @@ $(document).ready(function(){
 		 $(result).find('status').each(function(){
         	var item_text = $(this).text();
         	alert(item_text);
-		 }
+		 )};
 	}
 	
 	
