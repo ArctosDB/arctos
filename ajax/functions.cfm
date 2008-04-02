@@ -11,7 +11,6 @@
 		<cfinvokeargument name="fld" value="#id#"/>
 	</cfinvoke>
 	<cfset r=xmlparse(result)>
-	<cfdump var=#r#>
 	<cfreturn r>
 </cffunction>
 <!-------------------------------------------->
