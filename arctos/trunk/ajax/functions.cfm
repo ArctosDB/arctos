@@ -4,8 +4,13 @@
 
 <cffunction name="getDocsById" returntype="Any">
 	<cfargument name="id" type="string" required="yes">
-
-	<cfreturn id>
+	<cfinvoke 
+		webservice="http://arctos.database.museum/service/documentation.cfc?wsdl"
+		method="getDefinition"
+		returnvariable="result">
+		<cfinvokeargument name="fld" value="#id#"/>
+	</cfinvoke>
+	<cfreturn result>
 </cffunction>
 <!-------------------------------------------->
 <cffunction name="saveSpecSrchPref" returntype="Any">
