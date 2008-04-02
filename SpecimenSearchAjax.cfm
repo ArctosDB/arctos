@@ -14,14 +14,14 @@ $(".helpLink").click(function(e){
 				theDiv.className = 'helpBox';
 				theDiv.innerHTML='<br>Loading...';
 				document.body.appendChild(theDiv);
-				$("#helpDiv").css({color:"#993300", fontWeight:"bold"});
+				$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageY, fontWeight:"bold"});
     
 		//$.get("psychic.cfm", {method:idArr[0],key:idArr[1]}, function(data){ //do some stuff });
 				// ?=&=field_verified_fg
 	   			//$.get("http://arctos.database.museum/service/doc_rest.cfm", { action: "getDefinition", fld: id });// , function(data){
 	   			//	$(theDiv).html(data);
 	   			//})
-	   			alert (e.pageX);
+	   			//alert (e.pageX);
 	   			var h="/fix/b.cfm";
 	   			var h= "/service/doc_rest.cfm";
 	   			$(theDiv).load("/service/get_doc_rest.cfm",{fld: id});
