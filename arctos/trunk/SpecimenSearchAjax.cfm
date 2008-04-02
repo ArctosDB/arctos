@@ -61,7 +61,7 @@ $(".helpLink").click(function(e){
 			
 });
 
-
+				$(id).cluetip({attribute: '/fix/b.cfm' , width: '200px', showTitle: false});
 
 function changeTarget(id,tvalue) {
 	//alert('id:' + id);
@@ -159,10 +159,15 @@ function customizeIdentifiers() {
 
 
 
-
+$('a.load-local').cluetip({local:true, cursor: 'pointer'});
 	
 	
 </script>
+
+
+<a class="load-local" href="#loadme" rel="#loadme">blabitty</a>
+
+<p id="loadme">guts are here</p>
 
 <span class="helpLink" id="gpsaccuracy">gpsaccuracy</span>
 <span class="helpLink" id="georefmethod">georefmethod</span>
