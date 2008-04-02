@@ -4,4 +4,4 @@
 				<cfhttpparam type="url" name="action" value="getDefinition">
 				<cfhttpparam type="url" name="fld" value="#fld#">
 			</cfhttp>
-			#cfhttp.fileContent#
+			<cfoutput>#cfhttp.fileContent#</cfoutput>
