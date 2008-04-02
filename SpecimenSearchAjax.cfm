@@ -152,6 +152,7 @@ function customizeIdentifiers() {
 <span class="helpLink" id="gpsaccuracy">gpsaccuracy</span>
 <span class="helpLink" id="georefmethod">georefmethod</span>
 <style>
+.docTitle { background-color:gray;}
 .helpBox {
 	border:2px solid red;
 	background-color:blue;
