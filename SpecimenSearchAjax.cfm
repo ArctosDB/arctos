@@ -14,12 +14,13 @@ $(".helpLink").click(function(e){
 				if (document.getElementById('helpDiv')) {
 					$('#helpDiv').remove();
 				}
+				alert('y:' + e.pageY + '; X:' + e.pageX)
 				var theDiv = document.createElement('div');
 				theDiv.id = 'helpDiv';
 				theDiv.className = 'helpBox';
 				theDiv.innerHTML='<br>Loading...';
 				document.body.appendChild(theDiv);
-				$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageY, fontWeight:"bold"});
+				$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX, fontWeight:"bold"});
     
 		//$.get("psychic.cfm", {method:idArr[0],key:idArr[1]}, function(data){ //do some stuff });
 				// ?=&=field_verified_fg
