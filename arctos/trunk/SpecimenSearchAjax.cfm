@@ -140,14 +140,18 @@ function customizeIdentifiers() {
 </script>
 
 <style>
+	
 .helpLink {
 	cursor:pointer;
-	color: blue;}
+	color: blue;
+	border-bottom:1px dashed green;
 }
 .helpLink:hover {
-	text-decoration: underline;
 	color: #CC0000;
+	border-bottom:1px dashed red;
 }
+
+
 .docDef {
 	font-size:smaller;
 	padding-let:5px;
