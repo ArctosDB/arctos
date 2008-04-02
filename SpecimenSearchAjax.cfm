@@ -1,6 +1,4 @@
 <cfinclude template="/includes/_header.cfm">
-<cfinclude template="/service/documentation.cfc">
-<cfset Application.doc_rest_url="http://arctos.database.museum/service/doc_rest.cfm">
 <cfset title="Specimen Search">
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
@@ -23,7 +21,7 @@ $(".helpLink").click(function(){
 	   			//})
 	   			var h="/fix/b.cfm";
 	   			var h= "/service/doc_rest.cfm";
-	   			$(theDiv).load("/fix/b.cfm",{fld: id});
+	   			$(theDiv).load("/service/doc_rest.cfm",{fld: id});
 			});
 			
 			
