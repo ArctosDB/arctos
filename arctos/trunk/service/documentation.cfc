@@ -1,7 +1,8 @@
 <cfcomponent>
 	<cfinclude template="/includes/alwaysInclude.cfm">
 	<cfoutput>
-		<cfoutput>
+		
+		
 		<cffunction name="getDoc" access="remote" returntype="string" output="no">
 			<cfargument required="true" name="fld" type="numeric">
 			<cfhttp url="http://arctos.database.museum/service/doc_rest.cfm" charset="utf-8" method="get">
