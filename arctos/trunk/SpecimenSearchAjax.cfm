@@ -21,7 +21,9 @@ $(".helpLink").click(function(){
 	   			//$.get("http://arctos.database.museum/service/doc_rest.cfm", { action: "getDefinition", fld: id });// , function(data){
 	   			//	$(theDiv).html(data);
 	   			//})
-	   			$(theDiv).load("/fix/b.cfm");
+	   			var h="/fix/b.cfm";
+	   			var h= "http://arctos.database.museum/service/doc_rest.cfm";
+	   			$(theDiv).load(h);
 			});
 			
 			
