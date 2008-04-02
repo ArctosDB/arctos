@@ -17,6 +17,11 @@ jQuery( function($) {
 		theDiv.className = 'helpBox';
 		theDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(theDiv);
+		var ctlSpn=document.createElement('span');
+		ctlSpan.id='ctlSpan';
+		ctlSpan.className='docControl';
+		ctlSpan.innerHTML='X';
+		theDiv.appendChild(ctlSpan);
 		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
     	//$.get("psychic.cfm", {method:idArr[0],key:idArr[1]}, function(data){ //do some stuff });
 		// ?=&=field_verified_fg
@@ -149,6 +154,12 @@ function customizeIdentifiers() {
 <span class="helpLink" id="gpsaccuracy">gpsaccuracy</span>
 <span class="helpLink" id="georefmethod">georefmethod</span>
 <style>
+	
+	.docControl {position:relative;
+	top:0px;
+	right:0px;
+	background-color:red;
+	}
 .docTitle { background-color:gray;}
 .helpBox {
 	border:2px solid red;
