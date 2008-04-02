@@ -28,7 +28,7 @@ jQuery( function($) {
 		//alert (e.pageX);
 		var h="/fix/b.cfm";
 		var h= "/service/doc_rest.cfm";
-		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id});
+		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
 		// load the content, then append the control
 		//theDiv.appendChild(ctlSpn);
 	});
