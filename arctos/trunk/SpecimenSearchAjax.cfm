@@ -21,7 +21,6 @@ jQuery( function($) {
 		ctlSpn.id='ctlSpan';
 		ctlSpn.className='docControl';
 		ctlSpn.innerHTML='X';
-		theDiv.appendChild(ctlSpn);
 		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
     	//$.get("psychic.cfm", {method:idArr[0],key:idArr[1]}, function(data){ //do some stuff });
 		// ?=&=field_verified_fg
@@ -32,12 +31,8 @@ jQuery( function($) {
 		var h="/fix/b.cfm";
 		var h= "/service/doc_rest.cfm";
 		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id});
-		
-		
-		$('.docTitle').html('Click here!');
-		$(".docTitle").click(function(){
-			alert('clicky');
-		});
+		// load the content, then append the control
+		theDiv.appendChild(ctlSpn);
 	});
 	
 });
