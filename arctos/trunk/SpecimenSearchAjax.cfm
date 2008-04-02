@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-
+<cfinclude template="/service/documentation.cfc">
 <cfset Application.doc_rest_url="http://arctos.database.museum/service/doc_rest.cfm">
 <cfset title="Specimen Search">
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
@@ -16,14 +16,14 @@ $(".helpLink").click(function(){
 				theDiv.className = 'helpBox';
 				theDiv.innerHTML='<br>Loading...';
 				document.body.appendChild(theDiv);
-		
+		//$.get("psychic.cfm", {method:idArr[0],key:idArr[1]}, function(data){ //do some stuff });
 				// ?=&=field_verified_fg
 	   			//$.get("http://arctos.database.museum/service/doc_rest.cfm", { action: "getDefinition", fld: id });// , function(data){
 	   			//	$(theDiv).html(data);
 	   			//})
 	   			var h="/fix/b.cfm";
-	   			var h= "http://arctos.database.museum/service/doc_rest.cfm";
-	   			$(theDiv).load(h);
+	   			var h= "/service/doc_rest.cfm";
+	   			$(theDiv).get("service/documentation.cfc",fld: id);
 			});
 			
 			
