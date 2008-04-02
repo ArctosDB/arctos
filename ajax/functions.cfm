@@ -2,7 +2,7 @@
 <cfinclude template="/ajax/core/cfajax.cfm">
 
 
-<cffunction name="getDocsById" returntype="Any">
+<cffunction name="getDocsById" returntype="xml">
 	<cfargument name="id" type="string" required="yes">
 	<cfinvoke 
 		webservice="http://arctos.database.museum/service/documentation.cfc?wsdl"
