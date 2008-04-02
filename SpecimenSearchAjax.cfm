@@ -8,6 +8,22 @@
 <script language="javascript" type="text/javascript">
 jQuery( function($) {
 $("#part_name").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"specimen_part",ctField:"part_name"});
+
+$(".helpLink").click(function(){
+				var id=this.id;
+				var theDiv = document.createElement('div');
+				theDiv.id = 'helpDiv';
+				theDiv.className = 'helpBox';
+				theDiv.innerHTML='<br>Loading...';
+				document.body.appendChild(theDiv);
+		
+				// ?=&=field_verified_fg
+	   			$.get("http://arctos.database.museum/service/doc_rest.cfm", { action: "getDefinition", fld: id });// , function(data){
+	   			//	$(theDiv).html(data);
+	   			//})
+			});
+			
+			
 });
 
 
@@ -112,25 +128,7 @@ function customizeIdentifiers() {
 	
 	
 </script>
-<cfoutput>
-	<script type="text/javascript" language="javascript">
-		$(document).ready(function(){
-			$(".helpLink").click(function(){
-				var id=this.id;
-				var theDiv = document.createElement('div');
-				theDiv.id = 'helpDiv';
-				theDiv.className = 'helpBox';
-				theDiv.innerHTML='<br>Loading...';
-				document.body.appendChild(theDiv);
-		
-				// ?=&=field_verified_fg
-	   			$.get("#Application.doc_rest_url#", { action: "getDefinition", fld: id });// , function(data){
-	   			//	$(theDiv).html(data);
-	   			//})
-			});
-		});
-	</script>
-</cfoutput>
+
 <span class="helpLink" id="gpsaccuracy">gpsaccuracy</span>
 <span class="helpLink" id="georefmethod">georefmethod</span>
 <style>
