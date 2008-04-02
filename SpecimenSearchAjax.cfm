@@ -129,8 +129,6 @@ function customizeIdentifiers() {
 	   			})
 			});
 		});
-		
-}
 	</script>
 </cfoutput>
 <span class="helpLink" id="gpsaccuracy">gpsaccuracy</span>
