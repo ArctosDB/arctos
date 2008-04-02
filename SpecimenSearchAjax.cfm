@@ -140,11 +140,11 @@ function customizeIdentifiers() {
 </script>
 
 <style>
-helpLink {
+.helpLink {
 	cursor:pointer;
 	color: blue;}
 }
-helpLink:hover {
+.helpLink:hover {
 	text-decoration: underline;
 	color: #CC0000;
 }
