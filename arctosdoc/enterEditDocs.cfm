@@ -96,8 +96,36 @@ function success_saveMoreInfoChange (result) {
 		alert('Error: ' + msg);
 	}
 }
+function saveSearchHintChange (docid,ele) {
+	//alert(defn);
+	var d = 'more_info_' + docid;
+	var elem = document.getElementById(d);
+	//alert(ele);
+	ele = ele.replace('#','##');
+	//alert(ele);
+	elem.className='red';
+	DWREngine._execute(_cfdocajax, null, 'saveSearchHintChange',docid,ele, success_saveSearchHintChange);
+}
+function success_saveSearchHintChange (result) {
+	//alert(result);
+	var rAry = result.split('|');
+	var st = rAry[0];
+	var msg = rAry[1];
+	if (st=1) {
+		var d = 'more_info_' + msg;
+		var def=document.getElementById(d);
+		def.className='';
+	} else {
+		alert('Error: ' + msg);
+	}
+}
 
 
+
+					onblur="('#search_hint#',this.value);">#search_hint#</textarea>
+					
+					
+					
 function saveDisplayNameChange (docid,ele) {
 	//alert(defn);
 	var d = 'display_name_' + docid;
@@ -326,6 +354,10 @@ Create Documentation:
 	<textarea name="newDef" 
 					id="newDef" 
 					rows="2" cols="80"></textarea>
+	<label for="newsearch_hint">New Search Hint</label>
+	<textarea name="newsearch_hint" 
+					id="newsearch_hint" 
+					rows="2" cols="80"></textarea>
 					<!---
 	<input type="text" name="newDef" id="newDef" size="80">
 	--->
@@ -419,6 +451,11 @@ Edit Documentation:
 					id="definition_#doc_id#" 
 					rows="2" cols="80"
 					onblur="saveDefinitionChange('#doc_id#',this.value);">#definition#</textarea>
+				<label for="search_hint_#doc_id#">Definition</label>
+				<textarea name="search_hint_#doc_id#" 
+					id="search_hint_#doc_id#" 
+					rows="2" cols="80"
+					onblur="saveSearchHintChange('#search_hint#',this.value);">#search_hint#</textarea>
 				<!---
 				<input type="text" value="#definition#" name="definition_#doc_id#" id="definition_#doc_id#"
 					onchange="saveDefinitionChange('#doc_id#',this.value);" size="80">
@@ -454,6 +491,9 @@ Edit Documentation:
 			<cfif len(#newMoreInfo#) gt 0>
 				,more_info
 			</cfif>
+			<cfif len(#newsearch_hint#) gt 0>
+				,search_hint
+			</cfif>
 		) values (
 			<cfif len(#newCN#) gt 0>
 				'#newCN#',
@@ -464,6 +504,9 @@ Edit Documentation:
 			'#newDispname#'
 			<cfif len(#newMoreInfo#) gt 0>
 				,'#newMoreInfo#'
+			</cfif>
+			<cfif len(#newsearch_hint#) gt 0>
+				,'#search_hint#'
 			</cfif>
 			)
 	</cfquery>
