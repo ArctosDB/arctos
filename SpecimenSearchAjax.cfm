@@ -18,9 +18,10 @@ $(".helpLink").click(function(){
 				document.body.appendChild(theDiv);
 		
 				// ?=&=field_verified_fg
-	   			$.get("http://arctos.database.museum/service/doc_rest.cfm", { action: "getDefinition", fld: id });// , function(data){
+	   			//$.get("http://arctos.database.museum/service/doc_rest.cfm", { action: "getDefinition", fld: id });// , function(data){
 	   			//	$(theDiv).html(data);
 	   			//})
+	   			$(theDiv).load("http://arctos.database.museum/service/doc_rest.cfm");
 			});
 			
 			
