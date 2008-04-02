@@ -106,14 +106,14 @@ function customizeIdentifiers() {
 $(document).ready(function(){
 
 	$(".helpLink").click(function(){
-	  $this.append("<span>here I am now</span>");
+	   alert("#id")
 	});
 
 });
 
 
 </script>
-<span class="helpLink">helplink I am</span>
+<span class="helpLink" id="gpsaccuracy">gpsaccuracy</span>
 <style>
 	
 .customBox {
