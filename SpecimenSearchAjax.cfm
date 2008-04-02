@@ -8,9 +8,7 @@ jQuery( function($) {
 	
 	$(".helpLink").click(function(e){
 		var id=this.id;
-		if (document.getElementById('helpDiv')) {
-			$('#helpDiv').remove();
-		}
+		removeHelpDiv();
 		//alert('y:' + e.pageY + '; X:' + e.pageX)
 		var theDiv = document.createElement('div');
 		theDiv.id = 'helpDiv';
@@ -32,13 +30,17 @@ jQuery( function($) {
 		var h= "/service/doc_rest.cfm";
 		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id});
 		// load the content, then append the control
-		theDiv.appendChild(ctlSpn);
+		//theDiv.appendChild(ctlSpn);
 	});
 	
 });
 
 
-
+function removeHelpDiv() {
+	if (document.getElementById('helpDiv')) {
+		$('#helpDiv').remove();
+	}
+}
 
 function changeTarget(id,tvalue) {
 	//alert('id:' + id);
