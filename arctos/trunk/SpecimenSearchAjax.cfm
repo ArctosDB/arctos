@@ -23,7 +23,7 @@ $(".helpLink").click(function(){
 	   			//})
 	   			var h="/fix/b.cfm";
 	   			var h= "/service/doc_rest.cfm";
-	   			$(theDiv).get("service/documentation.cfc",fld: id);
+	   			$(theDiv).load("service/documentation.cfc",fld: id);
 			});
 			
 			
