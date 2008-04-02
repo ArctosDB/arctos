@@ -114,6 +114,7 @@ $(document).ready(function(){
 
 </script>
 <span class="helpLink" id="gpsaccuracy">gpsaccuracy</span>
+<span class="helpLink" id="georefmethod">georefmethod</span>
 <style>
 	
 .customBox {
