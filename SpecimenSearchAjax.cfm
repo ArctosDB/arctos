@@ -15,10 +15,6 @@ jQuery( function($) {
 		theDiv.className = 'helpBox';
 		theDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(theDiv);
-		var ctlSpn=document.createElement('span');
-		ctlSpn.id='ctlSpan';
-		ctlSpn.className='docControl';
-		ctlSpn.innerHTML='X';
 		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
     	//$.get("psychic.cfm", {method:idArr[0],key:idArr[1]}, function(data){ //do some stuff });
 		// ?=&=field_verified_fg
@@ -155,6 +151,7 @@ function customizeIdentifiers() {
 	font-size:smaller;
 	padding-let:5px;
 }	
+
 .docControl {
 	position:absolute;
 	top:0px;

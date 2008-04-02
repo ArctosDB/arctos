@@ -5,6 +5,4 @@
 	<cfhttpparam type="url" name="addCtl" value="#addCtl#">
 </cfhttp>
 <cfoutput>
-	<cfif isdefined("addCtl") and #addCtl# is "1">
-		<span class="docControl" onclick="removeHelpDiv()">X</span>
-	</cfif>#cfhttp.fileContent#</cfoutput>
+		#cfhttp.fileContent#</cfoutput>
