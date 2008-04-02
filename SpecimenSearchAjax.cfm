@@ -12,8 +12,7 @@ $("#part_name").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"specimen_part"
 $(".helpLink").click(function(e){
 				var id=this.id;
 				if (document.getElementById('helpDiv')) {
-					var d=document.getElementById('helpDiv');
-					document.removeChild(d);
+					$('#helpDiv').remove();
 				}
 				var theDiv = document.createElement('div');
 				theDiv.id = 'helpDiv';
