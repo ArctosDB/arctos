@@ -4,48 +4,37 @@
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
 <script language="javascript" type="text/javascript">
 jQuery( function($) {
-$("#part_name").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"specimen_part",ctField:"part_name"});
-
-
-
-
-$(".helpLink").click(function(e){
-				var id=this.id;
-				if (document.getElementById('helpDiv')) {
-					$('#helpDiv').remove();
-				}
-				//alert('y:' + e.pageY + '; X:' + e.pageX)
-				var theDiv = document.createElement('div');
-				theDiv.id = 'helpDiv';
-				theDiv.className = 'helpBox';
-				theDiv.innerHTML='<br>Loading...';
-				document.body.appendChild(theDiv);
-				$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
-    
-		//$.get("psychic.cfm", {method:idArr[0],key:idArr[1]}, function(data){ //do some stuff });
-				// ?=&=field_verified_fg
-	   			//$.get("http://arctos.database.museum/service/doc_rest.cfm", { action: "getDefinition", fld: id });// , function(data){
-	   			//	$(theDiv).html(data);
-	   			//})
-	   			//alert (e.pageX);
-	   			var h="/fix/b.cfm";
-	   			var h= "/service/doc_rest.cfm";
-	   			$(theDiv).load("/service/get_doc_rest.cfm",{fld: id});
-	   			
-	   			$(".docTitle").click(function(){
-alert('clicky');
-})
-
-
-			});
+	$("#part_name").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"specimen_part",ctField:"part_name"});
 	
-			
-
-
-
+	$(".helpLink").click(function(e){
+		var id=this.id;
+		if (document.getElementById('helpDiv')) {
+			$('#helpDiv').remove();
+		}
+		//alert('y:' + e.pageY + '; X:' + e.pageX)
+		var theDiv = document.createElement('div');
+		theDiv.id = 'helpDiv';
+		theDiv.className = 'helpBox';
+		theDiv.innerHTML='<br>Loading...';
+		document.body.appendChild(theDiv);
+		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
+    	//$.get("psychic.cfm", {method:idArr[0],key:idArr[1]}, function(data){ //do some stuff });
+		// ?=&=field_verified_fg
+		//$.get("http://arctos.database.museum/service/doc_rest.cfm", { action: "getDefinition", fld: id });// , function(data){
+		//	$(theDiv).html(data);
+		//})
+		//alert (e.pageX);
+		var h="/fix/b.cfm";
+		var h= "/service/doc_rest.cfm";
+		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id});
+		
+		$(".docTitle").click(function(){
+			alert('clicky');
+		});
+	});
 	
-			
 });
+
 
 
 
