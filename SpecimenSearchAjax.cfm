@@ -61,7 +61,7 @@ $(".helpLink").click(function(e){
 			
 });
 
-				$(id).cluetip({attribute: '/fix/b.cfm' , width: '200px', showTitle: false});
+
 
 function changeTarget(id,tvalue) {
 	//alert('id:' + id);
