@@ -152,7 +152,8 @@ function customizeIdentifiers() {
 <span class="helpLink" id="georefmethod">georefmethod</span>
 <style>
 	
-	.docControl {position:relative;
+.docControl {
+	position:absolute;
 	top:0px;
 	right:0px;
 	background-color:red;
