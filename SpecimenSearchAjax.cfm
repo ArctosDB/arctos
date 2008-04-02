@@ -124,7 +124,7 @@ function customizeIdentifiers() {
 				document.body.appendChild(theDiv);
 		
 				// ?=&=field_verified_fg
-	   			//$.get("#Application.doc_rest_url#", { action: "getDefinition", fld: id } , function(data){
+	   			$.get("#Application.doc_rest_url#", { action: "getDefinition", fld: id });// , function(data){
 	   			//	$(theDiv).html(data);
 	   			//})
 			});
