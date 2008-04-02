@@ -2,4 +2,6 @@
 	<cfhttpparam type="url" name="action" value="getDefinition">
 	<cfhttpparam type="url" name="fld" value="#fld#">
 </cfhttp>
-<cfoutput>#cfhttp.fileContent#</cfoutput>
+<cfoutput><cfif isdefined("addCtl") and #addCtl# is "1">
+		<span class="docControl" onclick="removeHelpDiv()">X</span>
+	</cfif>#cfhttp.fileContent#</cfoutput>
