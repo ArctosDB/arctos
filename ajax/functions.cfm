@@ -1,6 +1,13 @@
 
 <cfinclude template="/ajax/core/cfajax.cfm">
 
+
+<cffunction name="getDocsById" returntype="Any">
+	<cfargument name="id" type="string" required="yes">
+
+	<cfreturn id>
+</cffunction>
+<!-------------------------------------------->
 <cffunction name="saveSpecSrchPref" returntype="Any">
 	<cfargument name="id" type="string" required="yes">
 	<cfargument name="onOff" type="numeric" required="yes">
