@@ -14,7 +14,7 @@ $(".helpLink").click(function(e){
 				theDiv.className = 'helpBox';
 				theDiv.innerHTML='<br>Loading...';
 				document.body.appendChild(theDiv);
-				$(".#helpDiv").css({color:"#993300", fontWeight:"bold"});
+				$("#helpDiv").css({color:"#993300", fontWeight:"bold"});
     
 		//$.get("psychic.cfm", {method:idArr[0],key:idArr[1]}, function(data){ //do some stuff });
 				// ?=&=field_verified_fg
