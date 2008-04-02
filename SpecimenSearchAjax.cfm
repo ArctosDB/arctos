@@ -21,7 +21,7 @@ $(".helpLink").click(function(){
 	   			//})
 	   			var h="/fix/b.cfm";
 	   			var h= "/service/doc_rest.cfm";
-	   			$(theDiv).load("/service/doc_rest.cfm",{fld: id});
+	   			$(theDiv).load("/service/get_doc_rest.cfm",{fld: id});
 			});
 			
 			
