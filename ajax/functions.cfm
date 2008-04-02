@@ -10,7 +10,8 @@
 		returnvariable="result">
 		<cfinvokeargument name="fld" value="#id#"/>
 	</cfinvoke>
-	<cfreturn result>
+	<cfset r=xmlparse(result)>
+	<cfreturn r>
 </cffunction>
 <!-------------------------------------------->
 <cffunction name="saveSpecSrchPref" returntype="Any">
