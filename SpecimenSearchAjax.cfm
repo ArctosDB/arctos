@@ -139,10 +139,15 @@ function customizeIdentifiers() {
 	
 </script>
 
-
-<span class="helpLink" id="gpsaccuracy">gpsaccuracy</span>
-<span class="helpLink" id="georefmethod">georefmethod</span>
 <style>
+helpLink {
+	cursor:pointer;
+	color: blue;}
+}
+helpLink:hover {
+	text-decoration: underline;
+	color: #CC0000;
+}
 .docDef {
 	font-size:smaller;
 	padding-let:5px;
