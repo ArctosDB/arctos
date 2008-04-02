@@ -14,6 +14,8 @@ $(".helpLink").click(function(e){
 				theDiv.className = 'helpBox';
 				theDiv.innerHTML='<br>Loading...';
 				document.body.appendChild(theDiv);
+				$(".#helpDiv").css({color:"#993300", fontWeight:"bold"});
+    
 		//$.get("psychic.cfm", {method:idArr[0],key:idArr[1]}, function(data){ //do some stuff });
 				// ?=&=field_verified_fg
 	   			//$.get("http://arctos.database.museum/service/doc_rest.cfm", { action: "getDefinition", fld: id });// , function(data){
