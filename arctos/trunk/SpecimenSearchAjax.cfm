@@ -7,7 +7,7 @@
 jQuery( function($) {
 $("#part_name").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"specimen_part",ctField:"part_name"});
 
-$(".helpLink").click(function(){
+$(".helpLink").click(function(e){
 				var id=this.id;
 				var theDiv = document.createElement('div');
 				theDiv.id = 'helpDiv';
@@ -19,7 +19,7 @@ $(".helpLink").click(function(){
 	   			//$.get("http://arctos.database.museum/service/doc_rest.cfm", { action: "getDefinition", fld: id });// , function(data){
 	   			//	$(theDiv).html(data);
 	   			//})
-	   			alert ($(pageX));
+	   			alert (e.pageX);
 	   			var h="/fix/b.cfm";
 	   			var h= "/service/doc_rest.cfm";
 	   			$(theDiv).load("/service/get_doc_rest.cfm",{fld: id});
