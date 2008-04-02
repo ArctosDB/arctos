@@ -155,6 +155,7 @@ function customizeIdentifiers() {
 	.docControl {position:relative;
 	top:0px;
 	right:0px;
+	float:right;
 	background-color:red;
 	z-index:101;
 	}
