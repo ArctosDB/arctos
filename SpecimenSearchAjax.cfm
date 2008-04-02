@@ -118,6 +118,8 @@ $(document).ready(function(){
 
 	function r_getDocsById (result){
 		alert('back we are: ' + result);
+		var s=$(result).find("status");
+    	alert(s);
 	}
 	
 	
