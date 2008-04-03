@@ -2,9 +2,8 @@
 <cfset title="Specimen Search">
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>
-<script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>	
+<script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>
 <script language="javascript" type="text/javascript">
-
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {
 		$('#helpDiv').remove();

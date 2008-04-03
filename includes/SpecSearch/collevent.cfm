@@ -1,11 +1,12 @@
 <script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>	
 <cfquery name="ctcollecting_source" datasource="#Application.web_user#">
 	select collecting_source from ctcollecting_source
-</cfquery>						
+</cfquery>
+<cfoutput>
 <table id="t_identifiers" class="ssrch">
 	<tr>
 		<td class="lbl">
-			<span class="helpLink infoLink" id="collector">help</span>
+			<span class="helpLink infoLink" id="collector">Help</span>
 			<select name="coll_role" size="1">
 				<option value="" selected="selected">Collector</option>
 				<option value="p">Preparator</option>
@@ -145,3 +146,4 @@
 		</td>
 	</tr>
 </table>
+</cfoutput>
