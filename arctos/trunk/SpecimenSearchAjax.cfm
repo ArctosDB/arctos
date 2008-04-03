@@ -118,6 +118,10 @@ function customizeIdentifiers() {
 </script>
 
 <style>
+.ssHead{
+	border:1px solid red; 
+	float:none;
+}
 .ssLogin {
 	border: 2px solid #0066FF;
 	padding:2px;  
@@ -261,7 +265,7 @@ td.lbl {
 					</div>
 				</form>
 	</cfif>
-<div style="border:1px solid red; float:none;">
+<div class="ssHead">
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
@@ -311,7 +315,7 @@ td.lbl {
 		</td>
 	</tr>
 </table>
-</div>
+
 
 	
 <form method="post" action="SpecimenResults.cfm" name="SpecData">
@@ -374,7 +378,8 @@ td.lbl {
 			<input type="checkbox" name="is_tissue" value="1">
 		</td>
 	</tr>
-</table>			
+</table>
+</div><!--- end of ssHead that keeps the login box out of the control section --->			
 <input type="hidden" name="Action" value="#Action#">
 
 <div class="secDiv">
