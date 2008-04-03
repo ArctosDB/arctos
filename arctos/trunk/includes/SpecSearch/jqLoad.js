@@ -24,7 +24,7 @@ jQuery( function($) {
 			 $(theDiv).html(data);
 			})
 		$(theDiv).css({position:"absolute", top: e.pageY, left: e.pageX});
-}
-	}
+	});
+
 	
 });
