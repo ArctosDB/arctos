@@ -1,3 +1,4 @@
+<script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>	
 <cfoutput>
 <cfquery name="ctPermitType" datasource="#Application.web_user#">
 	select * from ctpermit_type

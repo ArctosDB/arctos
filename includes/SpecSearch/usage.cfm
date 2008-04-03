@@ -1,3 +1,4 @@
+<script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>	
 <cfquery name="ctSubject" datasource="#Application.web_user#">
 	select subject from ctbin_obj_subject
 </cfquery>						
