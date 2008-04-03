@@ -118,21 +118,7 @@ function customizeIdentifiers() {
 </script>
 
 <style>
-	
-	.hContnt{
-	border:5px solid green;
-	}
-.ssHead{
-	border:1px solid red; 
-	float:none;
-}
-.ssLogin {
-	border: 2px solid #0066FF;
-	padding:2px;  
-	clear:both;
-	float:right;
-	background-color:white;
-}
+
 .helpLink {
 	cursor:pointer;
 	color: blue;
@@ -239,40 +225,7 @@ td.lbl {
 </cfquery>
 
 
-<div class="ssHead">
 
-<cfif #len(client.username)# is 0>
-				<form name="logIn" method="post" action="/login.cfm">
-				<input type="hidden" name="action" value="signIn">
-				<input type="hidden" name="gotopage" value="SpecimenSearch.cfm">
-					<div class="ssLogin">
-						<table border="0" cellpadding="0" cellspacing="0">
-							<tr>
-								<td>
-									Username:<input type="text" name="username">
-								</td>
-							</tr>
-							<tr>
-								<td>
-									  Password:<input type="password" name="password">
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<input type="submit" value="Log In" class="lnkBtn"
-					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
-									<input type="button" value="Create Account" class="lnkBtn"
-					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-										onClick="logIn.action.value='newUser';submit();">
-									<span class="infoLink" 
-											onclick="pageHelp('customize');">What's&nbsp;this?</span>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</form>
-	</cfif>
-	<div class="hContnt">
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
@@ -386,8 +339,6 @@ td.lbl {
 		</td>
 	</tr>
 </table>
-</div>
-</div><!--- end of ssHead that keeps the login box out of the control section --->			
 <input type="hidden" name="Action" value="#Action#">
 
 <div class="secDiv">
