@@ -170,7 +170,6 @@ padding:.1em;
 	top:5%;
 	left:5%;
 	background-color:white;
-	overflow:scroll;
 	max-width:60em;
 }
 .secHead{background-color:lightgrey;}
