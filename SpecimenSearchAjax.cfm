@@ -275,7 +275,7 @@ td.lbl {
 	</tr>
 	<cfif #len(client.username)# is 0>
 		<tr>
-			<td>
+			<td colspan="99">
 				<form name="logIn" method="post" action="/login.cfm">
 				<input type="hidden" name="action" value="signIn">
 				<input type="hidden" name="gotopage" value="SpecimenSearch.cfm">
