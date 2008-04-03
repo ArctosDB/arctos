@@ -265,7 +265,7 @@ td.lbl {
 					</div>
 				</form>
 	</cfif>
-<div class="ssHead">
+<span class="ssHead">
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
