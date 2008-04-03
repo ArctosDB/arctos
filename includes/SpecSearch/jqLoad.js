@@ -1,5 +1,5 @@
 jQuery( function($) {
-	$("#tpart_name").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"specimen_part",ctField:"part_name"});
+	$("#tpart_name").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"ctspecimen_part_name",ctField:"part_name"});
 	$(".helpLink").click(function(e){
 		var id=this.id;
 		removeHelpDiv();
