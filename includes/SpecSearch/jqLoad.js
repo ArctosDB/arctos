@@ -13,15 +13,14 @@ jQuery( function($) {
 	});
 	
 	$("#c_identifiers_cust").click(function(e){
-		var theDiv = document.createElement('div');
-		theDiv.id = 'customDiv';
-		theDiv.className = 'customBox';
-		theDiv.innerHTML='<br>Loading...';
-		theDiv.src = "";
-		document.body.appendChild(theDiv);
+		var cDiv = document.createElement('div');
+		cDiv.id = 'customDiv';
+		cDiv.className = 'customBox';
+		cDiv.innerHTML='<br>Loading...';
+		document.body.appendChild(cDiv);
 		var ptl="/includes/SpecSearch/customIDs.cfm";
-		$(theDiv).load(ptl);
-		$(theDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
+		$(cDiv).load(ptl);
+		$(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
 	});
 
 	

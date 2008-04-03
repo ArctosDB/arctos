@@ -105,8 +105,5 @@ function success_changefancyCOID (result) {
 			</select>
 		</td>
 	</tr>
-		
-		
-
 </table>
 </cfoutput>
