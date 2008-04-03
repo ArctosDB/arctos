@@ -280,7 +280,7 @@ td.lbl {
 				<input type="hidden" name="action" value="signIn">
 				<input type="hidden" name="gotopage" value="SpecimenSearch.cfm">
 					<div style="border: 2px solid ##0066FF; padding:2px;">
-						<table cellpadding="0" cellspacing="0" border="0">
+						<table border="0">
 							<tr>
 								<td>
 									<label>Username:</label>
@@ -291,15 +291,18 @@ td.lbl {
 									 <input type="password" name="password">
 								</td>
 								<td>
+									<label>&nbsp;</label>
 									<input type="submit" value="Log In" class="lnkBtn"
 					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
 								</td>
 								<td>
+									<label>&nbsp;</label>
 									<input type="button" value="Create Account" class="lnkBtn"
 					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
 										onClick="logIn.action.value='newUser';submit();">
 								</td>
 								<td>
+									<label>&nbsp;</label>
 									<span class="infoLink" 
 											onclick="pageHelp('customize');">What's&nbsp;this?</span>
 								</td>
