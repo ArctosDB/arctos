@@ -1,3 +1,4 @@
+<script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>	
 <cfquery name="ctElevUnits" datasource="#Application.web_user#">
 	select orig_elev_units from CTORIG_ELEV_UNITS
 </cfquery>

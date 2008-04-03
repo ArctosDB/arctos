@@ -1,3 +1,4 @@
+<script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>	
 <cfquery name="ctClass" datasource="#Application.web_user#">
 	SELECT DISTINCT(phylclass) FROM ctclass ORDER BY phylclass
 </cfquery>
