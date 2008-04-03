@@ -1,7 +1,22 @@
 <style>
-.smallBtn
-{
-	font-size:small;
+.smallBtn {
+color:	#666666;
+	font-size:10pt;
+	font-weight:bold;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color:#FF9966;
+	border-color: #336666;
+	border:1px solid;
+}
+
+.btnhov {
+	border-top-color:#FF6633 ;
+	border-left-color:#FF6633 ;
+	border-right-color:#FF6666 ;
+	border-bottom-color:#FF6666 ;
+	cursor:pointer;}
+.loginTxt {
+	font-size:smaller;
 }
 </style>
 <!---
@@ -217,20 +232,20 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 							<tr>
 								<td>
 									<input type="text" name="username" title="Username" value="Username" size="12" 
-										onfocus="if(this.value==this.title){this.value=''};">
+										class="loginTxt" onfocus="if(this.value==this.title){this.value=''};">
 								</td>
 								<td>
 										 
 									  <input type="text" name="password" value="Password" title="Password"  size="12"
-									  		onfocus="if(this.value==this.title){this.value='';this.type='password'};">
+									  	class="loginTxt" 	onfocus="if(this.value==this.title){this.value='';this.type='password'};">
 								</td>
 							</tr>
 							<tr>
 								<td colspan="2" align="center">
-										<input type="submit" value="Log In" class="lnkBtn smallBtn"
+										<input type="submit" value="Log In" class="smallBtn"
    											onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
 			or	
-										<input type="button" value="Create Account" class="lnkBtn smallBtn"
+										<input type="button" value="Create Account" class="smallBtn"
 						   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
 											onClick="logIn.action.value='newUser';submit();">
 									
