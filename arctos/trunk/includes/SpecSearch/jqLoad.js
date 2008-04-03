@@ -23,7 +23,7 @@ jQuery( function($) {
 			$.get(ptl, function(data){
 			 $(theDiv).html(data);
 			})
-		$(theDiv).css({position:"absolute", top: e.pageY+50, left: "5%"});
+		$(theDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
 	});
 
 	
