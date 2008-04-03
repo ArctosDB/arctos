@@ -118,6 +118,10 @@ function customizeIdentifiers() {
 </script>
 
 <style>
+	
+	.hContnt{
+	border:5px solid green;
+	}
 .ssHead{
 	border:1px solid red; 
 	float:none;
@@ -126,6 +130,7 @@ function customizeIdentifiers() {
 	border: 2px solid #0066FF;
 	padding:2px;  
 	clear:both;
+	float:right;
 	background-color:white;
 }
 .helpLink {
@@ -267,7 +272,7 @@ td.lbl {
 					</div>
 				</form>
 	</cfif>
-	<div style="border:5px solid green">
+	<div class="hContnt">
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
