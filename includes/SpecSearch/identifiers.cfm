@@ -52,7 +52,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="accession">Accession:</span>
+			<span class="helpLink" id="accn_number">Accession:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="accn_number" >
