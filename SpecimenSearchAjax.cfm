@@ -18,7 +18,7 @@ jQuery( function($) {
 		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
 		var $tgt = $(e.target);
 		alert($tgt);
-		
+		$tgt.parent().after(theDiv);
 	});
 });
 
