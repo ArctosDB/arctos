@@ -52,7 +52,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="relationship">Relationship:</span>
+			<span class="helpLink" id="biol_indiv_relationship">Relationship:</span>
 		</td>
 		<td class="srch">
 			<select name="relationship" size="1">
