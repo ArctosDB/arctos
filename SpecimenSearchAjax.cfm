@@ -9,26 +9,17 @@ jQuery( function($) {
 	$(".helpLink").click(function(e){
 		var id=this.id;
 		removeHelpDiv();
-		//alert('y:' + e.pageY + '; X:' + e.pageX)
 		var theDiv = document.createElement('div');
 		theDiv.id = 'helpDiv';
 		theDiv.className = 'helpBox';
 		theDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(theDiv);
 		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
-    	//$.get("psychic.cfm", {method:idArr[0],key:idArr[1]}, function(data){ //do some stuff });
-		// ?=&=field_verified_fg
-		//$.get("http://arctos.database.museum/service/doc_rest.cfm", { action: "getDefinition", fld: id });// , function(data){
-		//	$(theDiv).html(data);
-		//})
-		//alert (e.pageX);
-		var h="/fix/b.cfm";
-		var h= "/service/doc_rest.cfm";
 		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
-		// load the content, then append the control
-		//theDiv.appendChild(ctlSpn);
+		var $tgt = $(e.target);
+		alert($tgt);
+		
 	});
-	
 });
 
 
