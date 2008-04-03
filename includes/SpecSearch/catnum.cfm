@@ -18,6 +18,7 @@
 						<cfset thisCollId = "">
 					</cfif>
 					<td align="right" width="250" nowrap>
+						<span class="helpLink" id="type_status">Type Status:</span>
 						<a href="javascript:void(0);" 
 							onClick="pageHelp('SpecimenSearchFldDef','cat_num');">
 							Institutional Catalog:
