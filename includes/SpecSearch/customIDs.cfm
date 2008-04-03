@@ -11,7 +11,7 @@ function success_changecustomOtherIdentifier (result) {
 }
 
 function closeThis(){
-	document.location=parent.href;
+	document.location=this.href;
 	var theDiv = document.getElementById('customDiv');
 	document.body.removeChild(theDiv);
 }
