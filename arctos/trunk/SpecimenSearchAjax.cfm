@@ -234,6 +234,8 @@ td.lbl {
 </cfquery>
 
 
+<div class="ssHead">
+
 <cfif #len(client.username)# is 0>
 				<form name="logIn" method="post" action="/login.cfm">
 				<input type="hidden" name="action" value="signIn">
@@ -265,7 +267,6 @@ td.lbl {
 					</div>
 				</form>
 	</cfif>
-<div class="ssHead">
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
