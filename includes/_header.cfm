@@ -210,7 +210,7 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 						<table border="0" cellpadding="0" cellspacing="0">
 							<tr>
 								<td>
-									<input type="text" name="username" title="Username" value="Username" 
+									<input type="text" name="username" title="Username" value="Username" size="12" 
 										onfocus="if(this.value==this.title){this.value=''};">
 								</td>
 								<td rowspan="2">
@@ -222,7 +222,7 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 							<tr>
 								<td>
 										 
-									  <input type="text" name="password" value="Password" title="Password"
+									  <input type="text" name="password" value="Password" title="Password"  size="12"
 									  		onfocus="if(this.value==this.title){this.value='';this.type='password'};">
 								</td>
 							</tr>
