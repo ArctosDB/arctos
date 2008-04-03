@@ -15,11 +15,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);" 
-				onClick="getHelp('collecting_source'); return false;"
-				onMouseOver="self.status='Click for Collecting Source help.';return true;" 
-				onmouseout="self.status='';return true;">Collecting Source:
-			</a>
+			<span class="helpLink" id="collecting_source">Collecting Source:</span>
 		</td>
 		<td class="srch">
 			<select name="collecting_source" size="1">
@@ -33,11 +29,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);"
-				onClick="getHelp('incl_date'); return false;"
-				onMouseOver="self.status='Click for Date Search help.';return true;"
-				onmouseout="self.status='';return true;">Inclusive Date Search?
-			</a>
+			<span class="helpLink" id="incl_date">Inclusive Date Search?</span>
 		</td>
 		<td class="srch">
 			<input type="checkbox" name="inclDateSearch" value="yes">
@@ -45,11 +37,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);"
-				onClick="getHelp('month_collected'); return false;"
-				onMouseOver="self.status='Click for Year Collected help.';return true;"
-				onmouseout="self.status='';return true;">Month Collected:
-			</a>
+			<span class="helpLink" id="month_collected">Month Collected:</span>
 		</td>
 		<td class="srch">
 			<select name="begMon" size="1">
@@ -87,11 +75,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);"
-				onClick="getHelp('day_collected'); return false;"
-				onMouseOver="self.status='Click for Year Collected help.';return true;"
-				onmouseout="self.status='';return true;">Day Collected:
-			</a>
+			<span class="helpLink" id="day_collected">Day Collected:</span>
 		</td>
 		<td class="srch">
 			<select name="begDay" size="1">
@@ -111,11 +95,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);"
-				onClick="getHelp('fulldate_collected'); return false;"
-				onMouseOver="self.status='Click for Year Collected help.';return true;"
-				onmouseout="self.status='';return true;">Full Date Collected:
-			</a>
+			<span class="helpLink" id="fulldate_collected">Full Date Collected:</span>
 		</td>
 		<td class="srch">
 			<input name="begDate" type="text" size="15">
@@ -125,11 +105,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);"
-				onClick="getHelp('month_in'); return false;"
-				onMouseOver="self.status='Click for Year Collected help.';return true;"
-				onmouseout="self.status='';return true;">Month:
-			</a>
+			<span class="helpLink" id="month_in">Month:</span>
 		</td>
 		<td class="srch">
 			<select name="inMon" size="4" multiple>
@@ -151,11 +127,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);"
-				onClick="getHelp('verbatim_date'); return false;"
-				onMouseOver="self.status='Click for Year Collected help.';return true;"
-				onmouseout="self.status='';return true;">Verbatim Date:
-			</a>
+			<span class="helpLink" id="verbatim_date">Verbatim Date:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="verbatim_date" size="50">
@@ -163,10 +135,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);" 
-				onClick="getHelp('chronological_extent'); return false;"
-				onMouseOver="self.status='Click for Chronological Extent help.';return true;" 
-				onmouseout="self.status='';return true;">Chronological Extent:
+			<span class="helpLink" id="chronological_extent">Chronological Extent:</span>
 			</a>
 		</td>
 		<td class="srch">
