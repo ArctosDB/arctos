@@ -400,8 +400,7 @@ td.lbl {
 					
 					<span class="secControl" id="c_identifiers"
 						onclick="showHide('identifiers',1)">Show More Options</span>
-					<span class="secControl" id="c_identifiers_cust"
-						onclick="customizeIdentifiers()">Customize</span>
+					<span class="secControl" id="c_identifiers_cust">Customize</span>
 			</td>
 		</tr>
 		<tr>
