@@ -391,7 +391,7 @@ td.lbl {
 	<cfif isdefined("Client.CustomOtherIdentifier") and len(#Client.CustomOtherIdentifier#) gt 0>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="custom_identifier">#Client.CustomOtherIdentifier#:</span>
+				<span class="helpLink" id="custom_identifier">#replace(Client.CustomOtherIdentifier," ","&nbsp;","all")#:</span>
 			</td>
 			<td class="srch">
 				<label for="CustomOidOper">Display Value</label>
