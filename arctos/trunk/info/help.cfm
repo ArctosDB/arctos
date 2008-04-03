@@ -659,7 +659,8 @@ Data are often incomplete.
 <!-------------------------------                i              --------------------------------------->
 <cfif #content# is "island">
 <cfset title="Island Help">
-Many Alaska specimens were collected on an island and there are some duplicate (and even triplicate) island names among the thousands of islands in Alaska. You may therefore need to specify some other paramater in order to get a particular &quot;Green Island.&quot;
+Many Alaska specimens were collected on an island and there are some duplicate (and even triplicate) island names among the thousands of islands in Alaska. 
+You may therefore need to specify some other paramater in order to get a particular &quot;Green Island.&quot;
 <p>You may find specimens for which island is not recorded by searching for "NULL" (without the quotes; this feature is<b></b> case sensitive) in Island.</p>
 </cfif>
 <!----------------------------------------------------------------------------------------------------->

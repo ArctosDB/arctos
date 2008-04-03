@@ -37,7 +37,7 @@
 	</cfquery>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="other_id_number">Other&nbsp;Identifying&nbsp;Number:</span>
+			<span class="helpLink" id="other_id_num">Other&nbsp;Identifying&nbsp;Number:</span>
 		</td>
 		<td class="srch">
 			<select name="oidOper" size="1">

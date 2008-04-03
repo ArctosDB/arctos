@@ -125,7 +125,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="max_error_in_meters">Coordinate Error (meters):</span>
+			<span class="helpLink" id="max_error_distance">Coordinate Error (meters):</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="max_error_in_meters">

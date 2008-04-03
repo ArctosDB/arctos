@@ -368,13 +368,7 @@ td.lbl {
 		</td>
 		 <cfif #client.showObservations# is not 1>
 			<td>
-				<strong>
-					Show 
-					<a href="javascript:void(0);" 
-						onClick="getHelp('show_observations'); return false;"
-						onMouseOver="self.status='Click for Observations help.';return true;"
-						onmouseout="self.status='';return true;">Observations</a>?
-				</strong>
+				Show <span class="helpLink" id="observations">Observations?</span>
 				<input type="checkbox" name="showObservations" value="true">
 			</td>
 		</cfif>
