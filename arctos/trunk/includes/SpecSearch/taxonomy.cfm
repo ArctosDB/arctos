@@ -5,6 +5,7 @@
 <cfquery name="ctNatureOfId" datasource="#Application.web_user#">
 	SELECT DISTINCT(nature_of_id) FROM ctnature_of_id ORDER BY nature_of_id
 </cfquery>
+<cfoutput>
 <table id="t_identifiers" class="ssrch">
 	<tr>
 		<td class="lbl">
@@ -72,4 +73,5 @@
 			<input type="text" name="identified_agent">
 		</td>
 	</tr>
-</table>		
+</table>
+</cfoutput>	
