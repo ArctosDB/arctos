@@ -379,7 +379,7 @@ td.lbl {
 		</td>
 	</tr>
 </table>
-</div><!--- end of ssHead that keeps the login box out of the control section --->			
+</span><!--- end of ssHead that keeps the login box out of the control section --->			
 <input type="hidden" name="Action" value="#Action#">
 
 <div class="secDiv">
