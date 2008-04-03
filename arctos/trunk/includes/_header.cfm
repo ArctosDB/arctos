@@ -220,8 +220,8 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 								</td>
 							</tr>
 							<tr>
-								<td colspan="2">
-										<input type="submit" value="Log In" class="lnkBtn"
+								<td colspan="2" align="center">
+										<input type="submit" value="Log In" class="lnkBtn" style="font-size:small;"
    											onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
 			or	
 										<input type="button" value="Create Account" class="lnkBtn"
