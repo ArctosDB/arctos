@@ -1,3 +1,9 @@
+<style>
+.smallBtn
+{
+	font-size:small;
+}
+</style>
 <!---
 	no cookie, no username: do nothing
 	has cookie, no username: do nothing
@@ -221,10 +227,10 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 							</tr>
 							<tr>
 								<td colspan="2" align="center">
-										<input type="submit" value="Log In" class="lnkBtn" style="font-size:small;"
+										<input type="submit" value="Log In" class="lnkBtn smallBtn"
    											onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
 			or	
-										<input type="button" value="Create Account" class="lnkBtn"
+										<input type="button" value="Create Account" class="lnkBtn smallBtn"
 						   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
 											onClick="logIn.action.value='newUser';submit();">
 									
