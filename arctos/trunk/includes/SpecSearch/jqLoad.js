@@ -1,5 +1,6 @@
 jQuery( function($) {
-	$(".helpLink").click(function(e){
+	$("#part_name").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"specimen_part",ctField:"part_name"});
+    $(".helpLink").click(function(e){
 		var id=this.id;
 		removeHelpDiv();
 		var theDiv = document.createElement('div');
@@ -9,7 +10,6 @@ jQuery( function($) {
 		document.body.appendChild(theDiv);
 		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
-		var $tgt = $(e.target);
 	});
 	
 	$("#c_identifiers_cust").click(function(e){
