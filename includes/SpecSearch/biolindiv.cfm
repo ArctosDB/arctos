@@ -1,3 +1,4 @@
+<script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>	
 <cfoutput>
 <cfif len(#exclusive_collection_id#) gt 0>
 	<cfset partTable = "cctspecimen_part_name#exclusive_collection_id#">
@@ -24,7 +25,7 @@
 <table id="t_identifiers" class="ssrch">
 	<tr>
 		<td class="lbl">
-			Preservation Method:
+			<span class="helpLink" id="part_perserve_method">Preservation Method:</span>
 		</td>
 		<td class="srch">
 			<select name="preserv_method" size="1">
