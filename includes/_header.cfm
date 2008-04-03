@@ -221,8 +221,13 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 							</tr>
 							<tr>
 								<td colspan="2">
-									<span class="likeLink" onclick="logIn.submit();">Log In</span>
-									or <span class="likeLink" onclick="logIn.action.value='newUser';submit();">Create Account</span>			   					
+										<input type="submit" value="Log In" class="lnkBtn"
+   											onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
+			or	
+										<input type="button" value="Create Account" class="lnkBtn"
+						   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
+											onClick="logIn.action.value='newUser';submit();">
+									
 								</td>
 								
 							</tr>
