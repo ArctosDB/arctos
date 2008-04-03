@@ -128,10 +128,14 @@ function customizeIdentifiers() {
 	text-decoration:underline;
 }
 
-
+.docSrchTip {
+	font-size:smaller;
+	padding-left:5px;
+	font-style:italic;
+}	
 .docDef {
 	font-size:smaller;
-	padding-let:5px;
+	padding-left:5px;
 }	
 .docMoreInfo{font-size:smaller;}
 
