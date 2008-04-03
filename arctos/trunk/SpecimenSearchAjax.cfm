@@ -4,10 +4,7 @@
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>
 <script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>
 <script language="javascript" type="text/javascript">
-jQuery( function($) {
-	$("#part_name").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"specimen_part",ctField:"part_name"});
-});
-   
+
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {
 		$('#helpDiv').remove();
@@ -550,7 +547,7 @@ td.lbl {
 				<span class="helpLink" id="part_name">Part:</span>
 			</td>
 			<td class="srch">
-				<input type="text" name="part_name" id="part_name" size="50">
+				<input type="text" name="part_name" id="tpart_name" size="50">
 				<!----
 				<span onclick="multi('part_name')">m</span>
 				<span onclick="singl('part_name')">s</span>
