@@ -11,6 +11,7 @@ function success_changecustomOtherIdentifier (result) {
 }
 
 function closeThis(){
+	document.location=parent.href;
 	var theDiv = document.getElementById('customDiv');
 	document.body.removeChild(theDiv);
 }
@@ -54,9 +55,6 @@ function success_changefancyCOID (result) {
 	select collection_id,collection  from collection
 	order by collection
 </cfquery>
-				
-
-<span style="color:red;">You may need to refresh the page to see changes made here.</span>
 <table class="ssrch">
 	<tr>
 		<td colspan="2" class="secHead">
