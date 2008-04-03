@@ -1,7 +1,7 @@
 <style>
 .smallBtn {
 	color:	#666666;
-	font-size:.7em;
+	font-size:.9em;
 	font-weight:bold;
 	background-color:#99CCFF;
 	border:1px solid #336666;;
