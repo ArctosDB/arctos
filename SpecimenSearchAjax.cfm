@@ -17,8 +17,6 @@ jQuery( function($) {
 		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
 		var $tgt = $(e.target);
-		alert($tgt);
-		$tgt.parent().after(theDiv);
 	});
 });
 
@@ -86,6 +84,22 @@ function showHide(id,onOff) {
 			})
 			ctl.setAttribute("onclick","showHide('" + id + "',0)");
 			ctl.innerHTML='Show Fewer Options';
+			// flipping retarded, but try this here
+			
+			$(".helpLink").click(function(e){
+		var id=this.id;
+		removeHelpDiv();
+		var theDiv = document.createElement('div');
+		theDiv.id = 'helpDiv';
+		theDiv.className = 'helpBox';
+		theDiv.innerHTML='<br>Loading...';
+		document.body.appendChild(theDiv);
+		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
+		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
+		var $tgt = $(e.target);
+	});
+	
+	
 		} else {
 			tab.innerHTML='';
 			ctl.setAttribute("onclick","showHide('" + id + "',1)");
