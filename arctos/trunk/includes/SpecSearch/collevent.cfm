@@ -1,4 +1,3 @@
-<script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>	
 <cfquery name="ctcollecting_source" datasource="#Application.web_user#">
 	select collecting_source from ctcollecting_source
 </cfquery>						
