@@ -15,7 +15,7 @@ jQuery( function($) {
 	$("#c_identifiers_cust").click(function(e){
 		var cDiv = document.createElement('div');
 		cDiv.id = 'customDiv';
-		cDiv.className = 'customBox';
+		cDiv.className = 'sscustomBox';
 		cDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(cDiv);
 		var ptl="/includes/SpecSearch/customIDs.cfm";
