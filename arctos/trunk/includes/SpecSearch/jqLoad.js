@@ -16,7 +16,6 @@ jQuery( function($) {
 		var theDiv = document.createElement('div');
 		theDiv.id = 'customDiv';
 		theDiv.className = 'customBox';
-		tehDiv.style.height=1px;
 		theDiv.innerHTML='<br>Loading...';
 		theDiv.src = "";
 		document.body.appendChild(theDiv);
