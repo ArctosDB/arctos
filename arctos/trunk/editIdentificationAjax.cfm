@@ -4,8 +4,12 @@
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>
+<script >
+jQuery( function($) {
+		$("#taxa_a").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"ctspecimen_part_name",ctField:"part_name"});
+});
+</script>
 
-$("#taxa_a").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"ctspecimen_part_name",ctField:"part_name"});
 	
 <!--------------------------------------------------------------------------------------------------->
 
@@ -1081,6 +1085,6 @@ $("#taxa_a").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"ctspecimen_part_n
 		document.getElementById("theHead").style.display='none';
 		document.getElementById("theFoot").style.display='none';
 		changeStyle('#getID.institution_acronym#');
-		parent.dyniframesize();
+		//parent.dyniframesize();
 	}
 </script>
