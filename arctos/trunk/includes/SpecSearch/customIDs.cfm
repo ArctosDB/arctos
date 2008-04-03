@@ -55,7 +55,7 @@ function success_changefancyCOID (result) {
 	select collection_id,collection  from collection
 	order by collection
 </cfquery>
-<table class="ssrch" border>
+<table class="ssrch">
 	<tr>
 		<td colspan="2" class="secHead">
 				<span class="secLabel">Customize Identifiers</span>
