@@ -214,7 +214,7 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 										onfocus="if(this.value==this.title){this.value=''};">
 								</td>
 								<td rowspan="2">
-									Enter Username and Password to	<br>
+									Enter Username and Password <br> to	
 									<span class="likeLink" onclick="submit();">Log In</span>
 									or <span class="likeLink" onclick="logIn.action.value='newUser';submit();">Create Account</span>			   					
 								</td>
