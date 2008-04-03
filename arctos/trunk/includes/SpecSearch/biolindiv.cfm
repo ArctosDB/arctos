@@ -39,7 +39,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Part Modifier:
+			<span class="helpLink" id="part_modifier">Part Modifier:</span>
 		</td>
 		<td class="srch">
 			<select name="part_modifier" size="1">
@@ -52,7 +52,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Relationship:
+			<span class="helpLink" id="relationship">Relationship:</span>
 		</td>
 		<td class="srch">
 			<select name="relationship" size="1">
@@ -66,7 +66,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Derived Relationship:
+			<span class="helpLink" id="derived_relationship">Derived Relationship:</span>
 		</td>
 		<td class="srch">
 			<select name="derived_relationship" size="1">
