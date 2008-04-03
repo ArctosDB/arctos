@@ -1640,9 +1640,13 @@ ORDER BY loan_number">
 		<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 			<td>
 				<table>
+				<cfquery name="c" datasource="#Application.web_user#">
+					select count(*) cfrom loan_item where transaction_id=#transaction_id#
+				</cfquery>
 					<tr>
 						<td colspan="3">
 							<strong>#institution_acronym# #loan_number#</strong>
+							<cfif #c.c# gt 0>(#c.c# items)</cfif>
 						</td>
 					</tr>
 					<tr>
