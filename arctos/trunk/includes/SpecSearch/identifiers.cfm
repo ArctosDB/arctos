@@ -37,10 +37,7 @@
 	</cfquery>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);"
-				onClick="pageHelp('other_id_number'); return false;"
-				onMouseOver="self.status='Click for Other ID help.';return true;"
-				onmouseout="self.status='';return true;">Other&nbsp;Identifying&nbsp;Number:</a>&nbsp;
+			<span class="helpLink" id="other_id_number">Other&nbsp;Identifying&nbsp;Number:</span>
 		</td>
 		<td class="srch">
 			<select name="oidOper" size="1">
@@ -56,10 +53,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);" 
-				onClick="pageHelp('SpecimenSearchFldDef','accession');">
-					Accession:
-			</a>
+			<span class="helpLink" id="accession">Accession:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="accn_number" >
@@ -68,7 +62,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Accn. Agency:&nbsp;
+			<span class="helpLink" id="accession_agency">Accession Agency:</span>
 		</td>
 		<td>
 			<input type="text" name="accn_agency" size="50">
