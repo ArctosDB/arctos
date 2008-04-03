@@ -213,14 +213,10 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 									<label>Username</label>
 									<input type="text" name="username">
 								</td>
-							</tr>
-							<tr>
-								<td>
+									<td>
 									  <label>Password</label>
 									  <input type="password" name="password">
 								</td>
-							</tr>
-							<tr>
 								<td>
 									<input type="submit" value="Log In" class="lnkBtn"
 					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
