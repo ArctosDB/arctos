@@ -1,25 +1,17 @@
 <style>
 .smallBtn {
-color:	#666666;
-	font-size:10pt;
+	color:	#666666;
+	font-size:.7em;
 	font-weight:bold;
-	font-family: Arial, Helvetica, sans-serif;
-	background-color:#FF9966;
-	border-color: #336666;
-	border:1px solid;
+	background-color:#99CCFF;
+	border:1px solid #336666;;
 }
 .smallBtn:hover {
-color:	red;
-	font-size:10pt;
-	font-weight:bold;
-	font-family: Arial, Helvetica, sans-serif;
-	background-color:#FF9966;
-	border-color: #336666;
-	border:1px solid;
+	color:	red;
+	cursor:pointer;
 }
-
 .loginTxt {
-	font-size:smaller;
+	font-size:.7em;
 }
 </style>
 <!---
@@ -245,11 +237,12 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 							</tr>
 							<tr>
 								<td colspan="2" align="center">
+										<div class="loginTxt" style="padding-top:3px;">
 										<input type="submit" value="Log In" class="smallBtn">
-			or	
+										or	
 										<input type="button" value="Create Account" class="smallBtn"
 											onClick="logIn.action.value='newUser';submit();">
-									
+									</div>
 								</td>
 								
 							</tr>
