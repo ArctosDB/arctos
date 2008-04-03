@@ -213,24 +213,18 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 									<label>Username</label>
 									<input type="text" name="username">
 								</td>
-									<td>
-									  <label>Password</label>
-									  <input type="password" name="password">
-								</td>
-								<td>
+								<td rowspan="2">
 									<input type="submit" value="Log In" class="lnkBtn"
 					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
-								</td>
-								<td>
-									<input type="button" value="Create Account" class="lnkBtn"
+					   					<input type="button" value="Create Account" class="lnkBtn"
 					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
 										onClick="logIn.action.value='newUser';submit();">
 								</td>
+							</tr>
+							<tr>
 								<td>
-									
-									
-									<span class="infoLink" 
-											onclick="pageHelp('customize');">What's&nbsp;this?</span>
+									  <label>Password</label>
+									  <input type="password" name="password">
 								</td>
 							</tr>
 						</table>
