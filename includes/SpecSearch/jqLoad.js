@@ -1,6 +1,5 @@
 jQuery( function($) {
-	$("#part_name").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"specimen_part",ctField:"part_name"});
-    $(".helpLink").click(function(e){
+	 $(".helpLink").click(function(e){
 		var id=this.id;
 		removeHelpDiv();
 		var theDiv = document.createElement('div');
