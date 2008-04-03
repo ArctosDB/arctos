@@ -454,7 +454,7 @@ td.lbl {
 		</tr>
 		<tr>
 		<td class="lbl">
-			<span class="helpLink" id="cat_num">Catalog Number</span>:
+			<span class="helpLink" id="cat_num">Catalog Number:</span>
 		</td>
 		<td class="srch">
 			<cfif #ListContains(client.searchBy, 'bigsearchbox')# gt 0>
@@ -467,7 +467,7 @@ td.lbl {
 	<cfif isdefined("Client.CustomOtherIdentifier") and len(#Client.CustomOtherIdentifier#) gt 0>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="custom_identifier">#Client.CustomOtherIdentifier#</span>:
+				<span class="helpLink" id="custom_identifier">#Client.CustomOtherIdentifier#:</span>
 			</td>
 			<td class="srch">
 				<label for="CustomOidOper">Display Value</label>
@@ -520,7 +520,7 @@ td.lbl {
 		</tr>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="any_taxa_term">Any Taxonomic Element</span>:
+				<span class="helpLink" id="any_taxa_term">Any Taxonomic Element:</span>
 			</td>
 			<td class="srch">
 				<input type="text" name="any_taxa_term" size="28">
@@ -540,10 +540,7 @@ td.lbl {
 		</tr>
 		<tr>
 			<td class="lbl">
-				<a href="javascript:void(0);" 
-					onClick="getHelp('geog'); return false;"
-					onMouseOver="self.status='Click for Geographic Element help.';return true;" 
-					onmouseout="self.status='';return true;">Any&nbsp;Geographic&nbsp;Element:</a>
+				<span class="helpLink" id="any_geog_term">Any&nbsp;Geographic&nbsp;Element:</span>
 			</td>
 			<td class="srch">
 				<input type="text" name="any_geog" size="50">
@@ -563,10 +560,7 @@ td.lbl {
 		</tr>
 		<tr>
 			<td class="lbl">
-				<a href="javascript:void(0);"
-					onClick="getHelp('year_collected'); return false;"
-					onMouseOver="self.status='Click for Year Collected help.';return true;"
-					onmouseout="self.status='';return true;">Year Collected:
+				<span class="helpLink" id="year_collected">Year Collected:</span>
 				</a>
 			</td>
 			<td class="srch">
@@ -589,7 +583,7 @@ td.lbl {
 		</tr>
 		<tr>
 			<td class="lbl">
-				Type Status:
+				<span class="helpLink" id="type_status">Type Status:</span>
 			</td>
 			<td class="srch">
 				<cfquery name="ctTypeStatus" datasource="#Application.web_user#">

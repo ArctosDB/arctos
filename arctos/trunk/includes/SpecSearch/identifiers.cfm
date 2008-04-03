@@ -12,11 +12,7 @@
 	</cfoutput>
 	<tr>					
 		<td class="lbl">
-			<a href="javascript:void(0);" 
-				<!--- onClick="getHelp('other_id_type'); return false;" --->
-				onClick="pageHelp('other_id_type',''); return false;"
-				onMouseOver="self.status='Click for Other ID help.';return true;" 
-				onmouseout="self.status='';return true;">Other&nbsp;Identifier&nbsp;Type:</a>&nbsp;
+			<span class="helpLink" id="other_id_type">Other&nbsp;Identifier&nbsp;Type:</span>
 		</td>
 		<td class="srch">
 			<select name="OIDType" size="1"
