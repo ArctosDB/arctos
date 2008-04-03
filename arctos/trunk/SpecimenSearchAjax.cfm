@@ -163,7 +163,7 @@ background-color:gray;
 padding:.1em;
 
 }
-.customBox {
+.sscustomBox {
 	border:3px solid green;
 	z-index:9999;
 	position:absolute;
