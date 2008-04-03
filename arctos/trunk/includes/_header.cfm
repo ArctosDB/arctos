@@ -210,23 +210,21 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 						<table border="0" cellpadding="0" cellspacing="0">
 							<tr>
 								<td>
-									<input type="text" name="username" title="Username" value="Username" onfocus="if(this.value==this.title){this.value=''};">
+									<input type="text" name="username" title="Username" value="Username" 
+										onfocus="if(this.value==this.title){this.value=''};">
 								</td>
 								<td>
-									<input type="submit" value="Log In" class="lnkBtn"
-					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
-					   					
+									<span class="likeLink" onclick="submit();">Log In</span>					   					
 								</td>
 							</tr>
 							<tr>
 								<td>
+										 
 									  <input type="text" name="password" value="Password" title="Password"
 									  		onfocus="if(this.value==this.title){this.value='';this.type='password'};">
 								</td>
 								<td>
-								<input type="button" value="Create Account" class="lnkBtn"
-					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-										onClick="logIn.action.value='newUser';submit();">
+									<span class="likeLink" onclick="logIn.action.value='newUser';submit();">Create Account</span>
 								</td>
 							</tr>
 						</table>
