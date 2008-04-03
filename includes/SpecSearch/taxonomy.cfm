@@ -7,11 +7,7 @@
 <table id="t_identifiers" class="ssrch">
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);" 
-				onClick="getHelp('scientific_name'); return false;"
-				onMouseOver="self.status='Click for Scientific Name help.';return true;"
-				onmouseout="self.status='';return true;">Scientific&nbsp;Name:&nbsp;
-  			</a>
+			<span class="helpLink" id="scientific_name">Scientific&nbsp;Name:</span>
 		</td>
 		<td class="srch">
 			<select name="sciNameOper" size="1">
@@ -25,11 +21,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);" 
-				onClick="getHelp('higher_taxa'); return false;"
-				onMouseOver="self.status='Click for Taxonomy help.';return true;" 
-				onmouseout="self.status='';return true;">Taxonomy:
-			</a>
+			<span class="helpLink" id="higher_taxa">Taxonomy:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="HighTaxa" size="50">
@@ -37,7 +29,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Class:
+			<span class="helpLink" id="phylclass">Class:</span>
 		</td>
 		<td class="srch">
 		 	<select name="phylclass" size="1">
@@ -51,11 +43,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);"
-				onClick="getHelp('common_name'); return false;"
-				onMouseOver="self.status='Click for Common Name help.';return true;"
-				onmouseout="self.status='';return true;">Common Name:&nbsp;
-			</a>
+			<span class="helpLink" id="common_name">Common Name:</span>
 		</td>
 		<td class="srch">
 			<input name="Common_Name" type="text" size="50">
@@ -63,9 +51,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);"
-				onClick="getHelp('nature_of_id');">Nature of ID:&nbsp;
-			</a>
+			<span class="helpLink" id="nature_of_id">Nature of ID:</span>
 		</td>
 		<td class="srch">
 			<select name="nature_of_id" size="1">
@@ -79,10 +65,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);" 
-				onClick="getHelp('identifier'); return false;"
-				onMouseOver="self.status='Click for Identifier help.';return true;" 
-				onmouseout="self.status='';return true;">Identifier:&nbsp;</a>
+			<span class="helpLink" id="identifier">Identifier:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="identified_agent">

@@ -4,7 +4,7 @@
 <table id="t_identifiers" class="ssrch">
 	<tr>
 		<td class="lbl">
-			Find items with images:
+			<span class="helpLink" id="images">Find items with images:</span>
 		</td>
 		<td class="srch">
 			<input type="checkbox" name="onlyImages" value="yes">
@@ -12,7 +12,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Image Subject:
+			<span class="helpLink" id="image_subject">Image Subject:</span>
 		</td>
 		<td class="srch">
 			<select name="subject" size="1">
@@ -26,7 +26,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Image Description:
+			<span class="helpLink" id="image_description">Image Description:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="imgDescription" size="50">
@@ -34,7 +34,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Accessioned By Project Name:
+			<span class="helpLink" id="accessioned_by_project">Accessioned By Project Name:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="project_name" size="50">					
@@ -43,7 +43,7 @@
 	</tr>	
 	<tr>
 		<td class="lbl">
-			Loaned To Project Name:
+			<span class="helpLink" id="loaned_to_project">Loaned To Project Name:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="loan_project_name" size="50">
@@ -51,12 +51,10 @@
 	</tr>		
 	<tr>
 		<td class="lbl">
-			Project Sponsor:
+			<span class="helpLink" id="project_sponsor">Project Sponsor:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="project_sponsor" size="50">
 		</td>
-	</tr>
-	
-		
+	</tr>		
 </table>
