@@ -253,7 +253,7 @@ td.lbl {
 		   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
 							onClick="logIn.action.value='newUser';submit();">
 							<span class="infoLink" 
-								onclick="pageHelp('customize');">What's this?</span>
+								onclick="pageHelp('customize');">What's&nbsp;this?</span>
 					</td>
 				</tr>
 			</table>
@@ -324,7 +324,7 @@ td.lbl {
    				onmouseover="this.className='clrBtn btnhov'" onmouseout="this.className='clrBtn'">
 		</td>
 		<td align="right" valign="top">
-			<b>See results as:</b>
+			<b>See&nbsp;results&nbsp;as:</b>
 		</td>
 		<td valign="top">
 		 	<select name="tgtForm1" id="tgtForm1" size="1"  onChange="changeTarget(this.id,this.value);">
@@ -362,12 +362,12 @@ td.lbl {
 		</td>
 		 <cfif #client.showObservations# is not 1>
 			<td>
-				Show <span class="helpLink" id="observations">Observations?</span>
+				Show&nbsp;<span class="helpLink" id="observations">Observations?</span>
 				<input type="checkbox" name="showObservations" value="true">
 			</td>
 		</cfif>
 		<td>
-			<span class="helpLink" id="is_tissue">Tissues Only?</span>
+			<span class="helpLink" id="is_tissue">Tissues&nbsp;Only?</span>
 			<input type="checkbox" name="is_tissue" value="1">
 		</td>
 	</tr>
