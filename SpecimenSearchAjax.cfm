@@ -267,7 +267,7 @@ td.lbl {
 					</div>
 				</form>
 	</cfif>
-	<div style="border:1px solid green">
+	<div style="border:5px solid green">
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
