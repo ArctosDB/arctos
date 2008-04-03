@@ -267,6 +267,7 @@ td.lbl {
 					</div>
 				</form>
 	</cfif>
+	<div style="border:1px solid green">
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
@@ -380,6 +381,7 @@ td.lbl {
 		</td>
 	</tr>
 </table>
+</div>
 </div><!--- end of ssHead that keeps the login box out of the control section --->			
 <input type="hidden" name="Action" value="#Action#">
 
