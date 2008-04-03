@@ -223,43 +223,7 @@ td.lbl {
 	and username='#client.username#'
 	order by search_name
 </cfquery>
-<cfif #len(client.username)# is 0>
-	<form name="logIn" method="post" action="/login.cfm">
-	<input type="hidden" name="action" value="signIn">
-	<input type="hidden" name="gotopage" value="SpecimenSearch.cfm">
-		<div style="float:right; clear:both; border: 2px solid ##0066FF; padding:2px; width:25%; ">
-			<table cellpadding="0" cellspacing="0" border="0">
-				<tr>
-					<td align="right">
-						Username:&nbsp;
-					</td>
-					<td>
-						<input type="text" name="username">
-					</td>
-				</tr>
-				<tr>
-					<td align="right">
-						Password:&nbsp;
-					</td>
-					<td>
-						 <input type="password" name="password">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" align="center">
-						<input type="submit" value="Log In" class="lnkBtn"
-		   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
-						<input type="button" value="Create Account" class="lnkBtn"
-		   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-							onClick="logIn.action.value='newUser';submit();">
-							<span class="infoLink" 
-								onclick="pageHelp('customize');">What's&nbsp;this?</span>
-					</td>
-				</tr>
-			</table>
-		</div>
-	</form>
-</cfif>
+
 
 <table cellpadding="0" cellspacing="0">
 	<tr>
@@ -309,6 +273,43 @@ td.lbl {
 			</span>
 		</td>
 	</tr>
+	<cfif #len(client.username)# is 0>
+		<tr>
+			<td>
+				<form name="logIn" method="post" action="/login.cfm">
+				<input type="hidden" name="action" value="signIn">
+				<input type="hidden" name="gotopage" value="SpecimenSearch.cfm">
+					<div style="float:right; clear:both; border: 2px solid ##0066FF; padding:2px; width:25%; ">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td>
+									<label>Username:</label>
+									<input type="text" name="username">
+								</td>
+								<td>
+									 <label>Password</label>
+									 <input type="password" name="password">
+								</td>
+								<td>
+									<input type="submit" value="Log In" class="lnkBtn"
+					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
+								</td>
+								<td>
+									<input type="button" value="Create Account" class="lnkBtn"
+					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
+										onClick="logIn.action.value='newUser';submit();">
+								</td>
+								<td>
+									<span class="infoLink" 
+											onclick="pageHelp('customize');">What's&nbsp;this?</span>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</form>
+			</td>
+		</tr>
+	</cfif>
 </table>
 
 <form method="post" action="SpecimenResults.cfm" name="SpecData">
