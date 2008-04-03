@@ -213,8 +213,9 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 									<input type="text" name="username" title="Username" value="Username" 
 										onfocus="if(this.value==this.title){this.value=''};">
 								</td>
-								<td>
-									<span class="likeLink" onclick="submit();">Log In</span>					   					
+								<td rowspan="2">
+									Enter Username and Password to	<span class="likeLink" onclick="submit();">Log In</span>
+									or <span class="likeLink" onclick="logIn.action.value='newUser';submit();">Create Account</span>			   					
 								</td>
 							</tr>
 							<tr>
@@ -222,9 +223,6 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 										 
 									  <input type="text" name="password" value="Password" title="Password"
 									  		onfocus="if(this.value==this.title){this.value='';this.type='password'};">
-								</td>
-								<td>
-									<span class="likeLink" onclick="logIn.action.value='newUser';submit();">Create Account</span>
 								</td>
 							</tr>
 						</table>
