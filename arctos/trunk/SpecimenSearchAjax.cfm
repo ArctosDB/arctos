@@ -4,6 +4,10 @@
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>
 <script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>
 <script language="javascript" type="text/javascript">
+jQuery( function($) {
+	$("#part_name").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"specimen_part",ctField:"part_name"});
+});
+   
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {
 		$('#helpDiv').remove();
