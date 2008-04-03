@@ -13,7 +13,8 @@
 </cfquery>
 <cfquery name="Feature" datasource="#Application.web_user#">
 	select distinct(Feature) from geog_auth_rec order by Feature
-</cfquery>							
+</cfquery>
+<cfoutput>
 <table id="t_identifiers" class="ssrch">
 	<tr>
 		<td class="lbl">
@@ -159,3 +160,4 @@
 		</td>
 	</tr>	
 </table>
+</cfoutput>
