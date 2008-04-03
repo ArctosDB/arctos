@@ -400,7 +400,7 @@ td.lbl {
 					<option value="" selected="selected">contains</option>
 					<option value="LIST">in list</option>
 					<option value="BETWEEN">in range</option>								
-				</select><input type="text" name="CustomIdentifierValue" size="50">
+				</select>&nbsp;<input type="text" name="CustomIdentifierValue" size="50">
 			</td>
 		</tr>
 		<tr>
