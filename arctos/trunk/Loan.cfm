@@ -1641,7 +1641,7 @@ ORDER BY loan_number">
 			<td>
 				<table>
 				<cfquery name="c" datasource="#Application.web_user#">
-					select count(*) cfrom loan_item where transaction_id=#transaction_id#
+					select count(*) c from loan_item where transaction_id=#transaction_id#
 				</cfquery>
 					<tr>
 						<td colspan="3">
