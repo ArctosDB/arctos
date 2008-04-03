@@ -77,6 +77,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
+			<span class="helpLink infoLink" id="attribute_type">Help</span>
 			<select name="attribute_type_1" size="1">
 				<option selected value=""></option>
 					<cfloop query="ctAttributeType">
