@@ -418,21 +418,15 @@ td.lbl {
 							value="#ctInst.collection_id#">
 							#ctInst.collection#</option>
 					</cfloop>
-				</select>				
-			</td>
-		</tr>
-		<tr>
-		<td class="lbl">
-			<span class="helpLink" id="cat_num">Catalog Number:</span>
-		</td>
-		<td class="srch">
-			<cfif #ListContains(client.searchBy, 'bigsearchbox')# gt 0>
+				</select>
+				<span class="helpLink" id="cat_num">Number:</span>
+				<cfif #ListContains(client.searchBy, 'bigsearchbox')# gt 0>
 				<textarea name="listcatnum" rows="6" cols="40" wrap="soft"></textarea>
 			<cfelse>
 				<input type="text" name="listcatnum" size="21">
-			</cfif>
-		</td>
-	</tr>
+			</cfif>			
+			</td>
+		</tr>
 	<cfif isdefined("Client.CustomOtherIdentifier") and len(#Client.CustomOtherIdentifier#) gt 0>
 		<tr>
 			<td class="lbl">
