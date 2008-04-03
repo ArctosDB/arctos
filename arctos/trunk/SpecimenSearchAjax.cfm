@@ -273,7 +273,7 @@ td.lbl {
 			</span>
 		</td>
 	<cfif #len(client.username)# is 0>
-			<td colspan="99">
+			<td>
 				<form name="logIn" method="post" action="/login.cfm">
 				<input type="hidden" name="action" value="signIn">
 				<input type="hidden" name="gotopage" value="SpecimenSearch.cfm">
@@ -281,26 +281,22 @@ td.lbl {
 						<table border="0">
 							<tr>
 								<td>
-									<label>Username:</label>
-									<input type="text" name="username">
+									Username:<input type="text" name="username">
 								</td>
 							</tr>
 							<tr>
 								<td>
-									 <label>Password</label>
-									 <input type="password" name="password">
+									  Password:<input type="password" name="password">
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label>&nbsp;</label>
 									<input type="submit" value="Log In" class="lnkBtn"
 					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label>&nbsp;</label>
 									<input type="button" value="Create Account" class="lnkBtn"
 					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
 										onClick="logIn.action.value='newUser';submit();">
@@ -308,7 +304,6 @@ td.lbl {
 							</tr>
 							<tr>
 								<td>
-									<label>&nbsp;</label>
 									<span class="infoLink" 
 											onclick="pageHelp('customize');">What's&nbsp;this?</span>
 								</td>
