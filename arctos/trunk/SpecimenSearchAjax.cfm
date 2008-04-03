@@ -272,12 +272,15 @@ td.lbl {
 				</cfif>
 			</span>
 		</td>
-	<cfif #len(client.username)# is 0>
-			<td>
+	</tr>
+</table>
+
+
+<cfif #len(client.username)# is 0>
 				<form name="logIn" method="post" action="/login.cfm">
 				<input type="hidden" name="action" value="signIn">
 				<input type="hidden" name="gotopage" value="SpecimenSearch.cfm">
-					<div style="border: 2px solid ##0066FF; padding:2px;">
+					<div style="border: 2px solid ##0066FF; padding:2px; float:right; clear:left;">
 						<table border="0" cellpadding="0" cellspacing="0">
 							<tr>
 								<td>
@@ -290,20 +293,12 @@ td.lbl {
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<td colspan="2">
 									<input type="submit" value="Log In" class="lnkBtn"
-					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
-								</td>
-							</tr>
-							<tr>
-								<td>
+					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
 									<input type="button" value="Create Account" class="lnkBtn"
 					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
 										onClick="logIn.action.value='newUser';submit();">
-								</td>
-							</tr>
-							<tr>
-								<td>
 									<span class="infoLink" 
 											onclick="pageHelp('customize');">What's&nbsp;this?</span>
 								</td>
@@ -311,10 +306,9 @@ td.lbl {
 						</table>
 					</div>
 				</form>
-			</td>
 	</cfif>
-</table>
-
+	
+	
 <form method="post" action="SpecimenResults.cfm" name="SpecData">
 
 <table border="0">
