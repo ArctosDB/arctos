@@ -104,6 +104,7 @@ function customizeIdentifiers() {
 			$.get(ptl, function(data){
 			 $(theDiv).html(data);
 			})
+		$(theDiv).css({position:"absolute", top: data.pageY, left: data.pageX});
 }
 
 
