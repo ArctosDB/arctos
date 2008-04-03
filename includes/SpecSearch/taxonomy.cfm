@@ -21,7 +21,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="higher_taxa">Taxonomy:</span>
+			<span class="helpLink" id="full_taxon_name">Taxonomy:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="HighTaxa" size="50">

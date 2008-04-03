@@ -601,11 +601,7 @@ td.lbl {
 		</tr>
 		<tr>
 			<td class="lbl">
-				<a href="javascript:void(0);" 
-					onClick="getHelp('parts'); return false;"
-					onMouseOver="self.status='Click for Parts help.';return true;" 
-					onmouseout="self.status='';return true;">Part:
-				</a>
+				<span class="helpLink" id="part_name">Part:</span>
 			</td>
 			<td class="srch">
 				<input type="text" name="part_name" id="part_name" size="50">
