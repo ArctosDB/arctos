@@ -225,7 +225,39 @@ td.lbl {
 </cfquery>
 
 
-<table cellpadding="0" cellspacing="0" border>
+<cfif #len(client.username)# is 0>
+				<form name="logIn" method="post" action="/login.cfm">
+				<input type="hidden" name="action" value="signIn">
+				<input type="hidden" name="gotopage" value="SpecimenSearch.cfm">
+					<div style="border: 2px solid ##0066FF; padding:2px; float:right; clear:left;">
+						<table border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td>
+									Username:<input type="text" name="username">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									  Password:<input type="password" name="password">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<input type="submit" value="Log In" class="lnkBtn"
+					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
+									<input type="button" value="Create Account" class="lnkBtn"
+					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
+										onClick="logIn.action.value='newUser';submit();">
+									<span class="infoLink" 
+											onclick="pageHelp('customize');">What's&nbsp;this?</span>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</form>
+	</cfif>
+	
+<table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
 			Access to #getCount.cnt#
@@ -276,38 +308,6 @@ td.lbl {
 </table>
 
 
-<cfif #len(client.username)# is 0>
-				<form name="logIn" method="post" action="/login.cfm">
-				<input type="hidden" name="action" value="signIn">
-				<input type="hidden" name="gotopage" value="SpecimenSearch.cfm">
-					<div style="border: 2px solid ##0066FF; padding:2px; float:right; clear:left;">
-						<table border="0" cellpadding="0" cellspacing="0">
-							<tr>
-								<td>
-									Username:<input type="text" name="username">
-								</td>
-							</tr>
-							<tr>
-								<td>
-									  Password:<input type="password" name="password">
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<input type="submit" value="Log In" class="lnkBtn"
-					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
-									<input type="button" value="Create Account" class="lnkBtn"
-					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-										onClick="logIn.action.value='newUser';submit();">
-									<span class="infoLink" 
-											onclick="pageHelp('customize');">What's&nbsp;this?</span>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</form>
-	</cfif>
-	
 	
 <form method="post" action="SpecimenResults.cfm" name="SpecData">
 
