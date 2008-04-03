@@ -256,14 +256,6 @@ td.lbl {
 								onclick="pageHelp('customize');">What's this?</span>
 					</td>
 				</tr>
-				<tr>
-					
-					<td colspan="2">
-						<div class="infoBox">
-							Logging in enables you to turn on, turn off, or otherwise customize many features of this database. To create an account and log in, simply supply a username and password here and click Create Account.
-						</div>
-					</td>
-				</tr>
 			</table>
 		</div>
 	</form>
