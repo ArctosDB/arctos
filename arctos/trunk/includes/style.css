@@ -10,6 +10,7 @@ jquery suggest stuff
 		position: absolute;
 		z-index: 10000;
 		display: none;
+		font-size:smaller;
 	}
 	
 	.ac_results li {
