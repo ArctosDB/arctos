@@ -225,7 +225,7 @@ td.lbl {
 </cfquery>
 
 
-<table cellpadding="0" cellspacing="0">
+<table cellpadding="0" cellspacing="0" border>
 	<tr>
 		<td>
 			Access to #getCount.cnt#
@@ -278,7 +278,7 @@ td.lbl {
 				<input type="hidden" name="action" value="signIn">
 				<input type="hidden" name="gotopage" value="SpecimenSearch.cfm">
 					<div style="border: 2px solid ##0066FF; padding:2px;">
-						<table border="0">
+						<table border="0" cellpadding="0" cellspacing="0">
 							<tr>
 								<td>
 									Username:<input type="text" name="username">
