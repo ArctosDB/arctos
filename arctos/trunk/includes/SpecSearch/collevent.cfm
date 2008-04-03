@@ -4,7 +4,7 @@
 <table id="t_identifiers" class="ssrch">
 	<tr>
 		<td class="lbl">
-			<span class="helpLink infoLink" id="collecting_source">help</span>
+			<span class="helpLink infoLink" id="collector">help</span>
 			<select name="coll_role" size="1">
 				<option value="" selected="selected">Collector</option>
 				<option value="p">Preparator</option>
