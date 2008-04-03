@@ -131,7 +131,7 @@ function customizeIdentifiers() {
 .docSrchTip {
 	font-size:smaller;
 	padding-left:5px;
-	font-style:italic;
+	padding-top:5px;
 }	
 .docDef {
 	font-size:smaller;
