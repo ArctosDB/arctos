@@ -16,7 +16,7 @@
 <table id="t_identifiers" class="ssrch">
 	<tr>
 		<td class="lbl">
-			Continent/Ocean:
+			<span class="helpLink" id="continent_ocean">Continent/Ocean:</span>
 		</td>
 		<td class="srch">
 			<select name="continent_ocean" size="1">
@@ -29,7 +29,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Country:
+			<span class="helpLink" id="country">Country:</span>
 		</td>
 		<td class="srch">
 			<select name="Country" size="1">
@@ -42,11 +42,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);"
-				onClick="getHelp('state_prov'); return false;"
-				onMouseOver="self.status='Click for State/Province help.';return true;"
-				onmouseout="self.status='';return true;">State/Province:
-			</a>
+			<span class="helpLink" id="state_prov">State/Province:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="state_prov" size="50">
@@ -54,11 +50,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);" 
-				onClick="getHelp('quad'); return false;"
-				onMouseOver="self.status='Click for Quad help.';return true;" 
-				onmouseout="self.status='';return true;">Map Name:
-			</a>
+			<span class="helpLink" id="quad">Map Name:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="Quad" size="50">
@@ -67,11 +59,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);" 
-				onClick="getHelp('county'); return false;"
-				onMouseOver="self.status='Click for County help.';return true;" 
-				onmouseout="self.status='';return true;">County:
-			</a>
+			<span class="helpLink" id="county">County:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="County" size="50">
@@ -79,7 +67,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Island Group:
+			<span class="helpLink" id="island_group">Island Group:</span>
 		</td>
 		<td class="srch">
 			<select name="island_group" size="1">
@@ -92,11 +80,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);"
-				onClick="getHelp('island'); return false;"
-				onMouseOver="self.status='Click for Island help.';return true;"
-				onmouseout="self.status='';return true;">Island:
-			</a>
+			<span class="helpLink" id="island">Island:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="Island" size="50">
@@ -104,11 +88,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);" 
-				onClick="getHelp('feature'); return false;"
-				onMouseOver="self.status='Click for Feature help.';return true;" 
-				onmouseout="self.status='';return true;">Geographic Feature:
-			</a>
+			<span class="helpLink" id="feature">Geographic Feature:</span>
 		</td>
 		<td class="srch">
 			<select name="Feature" size="1">
@@ -121,11 +101,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);" 
-				onClick="getHelp('spec_locality'); return false;"
-				onMouseOver="self.status='Click for Specific Locality help.';return true;" 
-				onmouseout="self.status='';return true;">Specific&nbsp;Locality:
-			</a>
+			<span class="helpLink" id="spec_locality">Specific&nbsp;Locality:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="spec_locality" size="50">
@@ -133,7 +109,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Elevation:
+			<span class="helpLink" id="elevation">Elevation:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="minimum_elevation" size="5"> - 
@@ -148,11 +124,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<a href="javascript:void(0);" 
-				onClick="getHelp('max_error_in_meters'); return false;"
-				onMouseOver="self.status='Click for Coordinate Error help.';return true;" 
-				onmouseout="self.status='';return true;">Coordinate Error (meters):
-			</a>
+			<span class="helpLink" id="max_error_in_meters">Coordinate Error (meters):</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="max_error_in_meters">
@@ -160,7 +132,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			Bounding Box:
+			<span class="helpLink" id="bounding_box">Bounding Box:</span>
 		</td>
 		<td class="srch">
 			<table cellpadding="0" cellspacing="0">
