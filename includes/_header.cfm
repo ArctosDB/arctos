@@ -210,8 +210,7 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 						<table border="0" cellpadding="0" cellspacing="0">
 							<tr>
 								<td>
-									<label>Username</label>
-									<input type="text" name="username">
+									<input type="text" name="username" title="Username">
 								</td>
 								<td>
 									<input type="submit" value="Log In" class="lnkBtn"
@@ -221,8 +220,7 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 							</tr>
 							<tr>
 								<td>
-									  <label>Password</label>
-									  <input type="password" name="password">
+									  <input type="password" name="password" value="password">
 								</td>
 								<td>
 								<input type="button" value="Create Account" class="lnkBtn"
