@@ -229,7 +229,7 @@ td.lbl {
 				<form name="logIn" method="post" action="/login.cfm">
 				<input type="hidden" name="action" value="signIn">
 				<input type="hidden" name="gotopage" value="SpecimenSearch.cfm">
-					<div style="border: 2px solid ##0066FF; padding:2px; float:right; clear:left;">
+					<div style="border: 2px solid ##0066FF; padding:2px; float:right; clear:both;">
 						<table border="0" cellpadding="0" cellspacing="0">
 							<tr>
 								<td>
@@ -256,7 +256,7 @@ td.lbl {
 					</div>
 				</form>
 	</cfif>
-<div style="border:1px solid red;">
+<div style="border:1px solid red; float:none;">
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
