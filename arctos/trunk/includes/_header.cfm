@@ -220,7 +220,8 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 							</tr>
 							<tr>
 								<td>
-									  <input type="text" name="password" value="password">
+									  <input type="text" name="password" value="Password" title="Password"
+									  		onfocus="if(this.value==this.title){this.value='';this.type='password'};">
 								</td>
 								<td>
 								<input type="button" value="Create Account" class="lnkBtn"
