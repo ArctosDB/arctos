@@ -20,9 +20,12 @@ jQuery( function($) {
 		theDiv.src = "";
 		document.body.appendChild(theDiv);
 		var ptl="/includes/SpecSearch/customIDs.cfm";
+		$(theDiv).load(ptl);
+			/*
 			$.get(ptl, function(data){
 			 $(theDiv).html(data);
 			})
+			*/
 		$(theDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
 	});
 
