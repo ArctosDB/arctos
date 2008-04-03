@@ -256,7 +256,7 @@ td.lbl {
 					</div>
 				</form>
 	</cfif>
-	
+<div style="border:1px solid red;float:left;clear:right;">
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
@@ -306,7 +306,7 @@ td.lbl {
 		</td>
 	</tr>
 </table>
-
+</div>
 
 	
 <form method="post" action="SpecimenResults.cfm" name="SpecData">
