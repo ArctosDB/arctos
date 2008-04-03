@@ -218,7 +218,9 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 									  <input type="text" name="password" value="Password" title="Password"  size="12"
 									  		onfocus="if(this.value==this.title){this.value='';this.type='password'};">
 								</td>
-								<td >
+							</tr>
+							<tr>
+								<td colspan="2">
 									<span class="likeLink" onclick="logIn.submit();">Log In</span>
 									or <span class="likeLink" onclick="logIn.action.value='newUser';submit();">Create Account</span>			   					
 								</td>
