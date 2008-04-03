@@ -272,9 +272,7 @@ td.lbl {
 				</cfif>
 			</span>
 		</td>
-	</tr>
 	<cfif #len(client.username)# is 0>
-		<tr>
 			<td colspan="99">
 				<form name="logIn" method="post" action="/login.cfm">
 				<input type="hidden" name="action" value="signIn">
@@ -286,21 +284,29 @@ td.lbl {
 									<label>Username:</label>
 									<input type="text" name="username">
 								</td>
+							</tr>
+							<tr>
 								<td>
 									 <label>Password</label>
 									 <input type="password" name="password">
 								</td>
+							</tr>
+							<tr>
 								<td>
 									<label>&nbsp;</label>
 									<input type="submit" value="Log In" class="lnkBtn"
 					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
 								</td>
+							</tr>
+							<tr>
 								<td>
 									<label>&nbsp;</label>
 									<input type="button" value="Create Account" class="lnkBtn"
 					   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
 										onClick="logIn.action.value='newUser';submit();">
 								</td>
+							</tr>
+							<tr>
 								<td>
 									<label>&nbsp;</label>
 									<span class="infoLink" 
@@ -311,7 +317,6 @@ td.lbl {
 					</div>
 				</form>
 			</td>
-		</tr>
 	</cfif>
 </table>
 
