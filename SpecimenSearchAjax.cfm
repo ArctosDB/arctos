@@ -373,13 +373,7 @@ td.lbl {
 			</td>
 		</cfif>
 		<td>
-			<a href="javascript:alert('This \'tissues only\' flag is an 
-				MVZ phenomenon; checking this box will preclude returning any 
-				data from institutions other than the MVZ. Checking the box 
-				will return all MVZ specimen records with a part designated as 
-				tissue, which typically is a part collected for destructive sampling. 
-				This may include \'tissue\' parts that no longer exist in the 
-				collection (e.g., they have been used up).');">Tissues Only?</a>
+			<span class="helpLink" id="is_tissue">Tissues Only?</span>
 			<input type="checkbox" name="is_tissue" value="1">
 		</td>
 	</tr>

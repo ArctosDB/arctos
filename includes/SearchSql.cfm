@@ -646,10 +646,13 @@
 			</cfif>
 			
 			<cfif #basJoin# does not contain " accn_agency ">
-				<cfset basJoin = " #basJoin# INNER JOIN agent_name accn_agency ON 
-				(trans.TRANS_AGENCY_ID = accn_agency.agent_id)">
+				<cfset basJoin = " #basJoin# inner join trans_agent on (
+					trans.transaction_id = trans_agent.transaction_id)
+					INNER JOIN agent_name accn_agency ON 
+						(trans_agent.AGENT_ID = accn_agency.agent_id)">
 			</cfif>
-			<cfset basQual = " #basQual# AND upper(accn_agency.agent_name) LIKE '%#ucase(accn_agency)#%'">
+			<cfset basQual = " #basQual# AND trans_agent.TRANS_AGENT_ROLE='associated with agency' and
+					upper(accn_agency.agent_name) LIKE '%#ucase(accn_agency)#%'">
 		</cfif>
 		<cfif isdefined("custom_id_prefix") and len(#custom_id_prefix#) gt 0>
 			<cfset mapurl = "#mapurl#&custom_id_prefix=#custom_id_prefix#">

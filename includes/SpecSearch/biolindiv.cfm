@@ -25,7 +25,7 @@
 <table id="t_identifiers" class="ssrch">
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="part_perserve_method">Preservation Method:</span>
+			<span class="helpLink" id="preserve_method">Preservation Method:</span>
 		</td>
 		<td class="srch">
 			<select name="preserv_method" size="1">
