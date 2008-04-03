@@ -203,14 +203,10 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 					<span style="font-size:smaller">(Last login: #dateformat(last_login, "mmm d yyyy")#)</span>&nbsp;
 				</cfif>
 			<cfelse>
-				
-				<!----
-				
-				
-<cfif #len(client.username)# is 0>
+			<cfset escapeGoofyInstall=replace(cgi.SCRIPT_NAME,"/cfusion","","all")>
 				<form name="logIn" method="post" action="/login.cfm">
 				<input type="hidden" name="action" value="signIn">
-				<input type="hidden" name="gotopage" value="SpecimenSearch.cfm">
+				<input type="hidden" name="gotopage" value="#escapeGoofyInstall#">
 					<div class="ssLogin">
 						<table border="0" cellpadding="0" cellspacing="0">
 							<tr>
@@ -237,11 +233,6 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 						</table>
 					</div>
 				</form>
-	</cfif>
-	
-	---->
-				
-				<a target="_top" href="/login.cfm">Log In</a>&nbsp;
 			</cfif>
 	</div>
 <div id="menu">
