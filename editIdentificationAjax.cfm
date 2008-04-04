@@ -6,13 +6,16 @@
 <script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
 <script >
 jQuery( function($) {
-	setInterval(checkRequired,500);
+	//setInterval(checkRequired,500);
 
 
 });
 
 function checkRequired(){
-	document.getElementById('int').innerHTML+='.';
+	Console.Write('checking...');
+		$(".reqdClr").click(function(e){
+			alert($e.name);
+		});
 }
 </script>
 
@@ -20,6 +23,7 @@ function checkRequired(){
 <!--------------------------------------------------------------------------------------------------->
 
 </div><!--- kill content div --->
+<input type="button" onclick="checkRequired()" value="checkRequired">
 <span id="int"></span>
 <cfif #Action# is "nothing">
 <cfquery name="ctnature" datasource="#Application.web_user#">
