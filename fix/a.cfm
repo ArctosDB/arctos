@@ -20,7 +20,7 @@ function checkRequired(){
 		var fid=this.id;
 		console.log(fid);
 		console.log('els...');
-		$(#id .reqdClr').each(function(e) {
+		$('#id .reqdClr').each(function(e) {
 			var id=this.id;
 		
 			console.log(id);
