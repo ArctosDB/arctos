@@ -8,12 +8,19 @@
 jQuery( function($) {
 		$("#taxa_a").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"preferred_agent_name",ctField:"agent_name"});
 });
+
+setInterval(checkRequired(),500);
+
+function checkRequired(){
+	document.getElementById('int').innerHTML+='.';
+}
 </script>
 
 	
 <!--------------------------------------------------------------------------------------------------->
 
 </div><!--- kill content div --->
+<span id="int"></span>
 <cfif #Action# is "nothing">
 <cfquery name="ctnature" datasource="#Application.web_user#">
 	select nature_of_id from ctnature_of_id

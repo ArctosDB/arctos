@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_pickHeader.cfm">
-	<script language="JavaScript" src="/includes/CalendarPopup.js" type="text/javascript"></script>
+	<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
 	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
 		var cal1 = new CalendarPopup("theCalendar");
 		cal1.showYearNavigation();
@@ -57,28 +57,31 @@
 		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 		<tr>
 			<td valign="top">
-				<label for="agent_name">Determined By</label>
-				<input type="hidden" name="determined_agent_id" id="determined_agent_id" value="#client.myAgentId#">
-				<input type="text" name="agent_name" id="agent_name" class="reqdClr" value="#client.username#"
-					onchange="getAgent('determined_agent_id','agent_name','newCondition',this.value); return false;"
-		 			onKeyPress="return noenter(event);">
-			</td>
+				<font size="-2">Determined By<br>
+				</font><input type="hidden" name="determined_agent_id" id="determined_agent_id" value="#client.myAgentId#">
+				
+				<input type="text" name="agent_name"class="reqdClr" value="#client.username#"
+		onchange="getAgent('determined_agent_id','agent_name','newCondition',this.value); return false;"
+		 onKeyPress="return noenter(event);">
+				
+		  </td>
 			<td valign="top">
-				<font size="-2">Determined <br>
+				<font size="-2">Determined Date<br>
 				</font>
-				<label for="determined_date">Determined Date</label>
-				<input type="text" name="determined_date"  id="determined_date" size="9" 
-						value="#dateformat(now(),"dd mmm yyyy")#" class="reqdClr">
-				<span class="infoLink"
+				<input type="text" name="determined_date"  size="9" value="#dateformat(now(),"dd mmm yyyy")#">
+				<img src="images/pick.gif" 
+						class="likeLink" 
+						border="0" 
+						alt="[calendar]"
 						name="anchor1"
 						id="anchor1"
-						onClick="cal1.select(document.newCondition.determined_date,'anchor1','dd-MMM-yyyy'); return false;">
-					pick
-				</span>
+						onClick="cal1.select(document.newCondition.determined_date,'anchor1','dd-MMM-yyyy'); return false;"/>					
+					
 			</td>
 			<td>
-				<label for="condition">Condition</label>
-				<textarea name="condition" id="condition" rows="2" cols="40" class="reqdClr"></textarea>
+				<font size="-2">Condition<br>
+				</font>
+				<textarea name="condition" rows="2" cols="40" class="reqdClr"></textarea>
 			</td>
 				<td align="center">
 			 <input type="submit" 
@@ -96,17 +99,11 @@ Condition History (<span style="background-color:green">Green is current</span>)
 		object_condition_id,
 		determined_agent_id,
 		agent_name,
-		determined_date,
-		condition
-	from object_condition,preferred_agent_name
-		where determined_agent_id = agent_id and
-		collection_object_id = #collection_object_id#
-		group by
-		object_condition_id,
-		determined_agent_id,
-		agent_name,
 		 determined_date,
 		 condition
+		from object_condition,preferred_agent_name
+		where determined_agent_id = agent_id (+) and
+		collection_object_id = #collection_object_id#
 		order by determined_date DESC
 </cfquery>
 <cfquery name="currentCond" datasource="#Application.web_user#">
@@ -139,8 +136,8 @@ Condition History (<span style="background-color:green">Green is current</span>)
 				</cfif>
 				<input type="hidden" name="determined_agent_id_#i#" value="#determined_agent_id#">
 				
-				<input type="text" name="agent_name_#i#" value="#agent_name#" class="reqdClr"
-		onchange="getAgent('determined_agent_id_#i#','agent_name_#i#','condn',this.value); return false;"
+				<input type="text" name="agent_name_#i#" value="#thisAgent#"
+		onchange="getAgent('determined_agent_id_#i#','agent_name_#i#','',this.value); return false;"
 		 onKeyPress="return noenter(event);">
 				
 			</td>
@@ -150,7 +147,7 @@ Condition History (<span style="background-color:green">Green is current</span>)
 				<cfelse>
 					<cfset thisDate = "unknown">
 				</cfif>
-				<input type="text" name="determined_date_#i#"  size="9" value="#thisDate#" class="reqdClr">
+				<input type="text" name="determined_date_#i#"  size="9" value="#thisDate#">
 			</td>
 			<td>
 				<textarea name="condition_#i#" rows="2" cols="40">#condition#</textarea>
@@ -198,22 +195,33 @@ Condition History (<span style="background-color:green">Green is current</span>)
 <cfif #action# is "newEntry">
 	<cfoutput>
 		<cftransaction>
-			<cfquery name="newObjCond" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="nid" datasource="#Application.uam_dbo#">
+				select max(object_condition_id) + 1 nid from object_condition
+			</cfquery>
+			<cfquery name="newObjCond" datasource="#Application.uam_dbo#">
 				INSERT INTO object_condition (
 					 OBJECT_CONDITION_ID,
 					 COLLECTION_OBJECT_ID ,
 					  CONDITION 
+					  <cfif len(#DETERMINED_AGENT_ID#) gt 0>
 					  	,DETERMINED_AGENT_ID
+					  </cfif>
+					  <cfif len(#DETERMINED_DATE#) gt 0>
 					  	,DETERMINED_DATE
+					  </cfif>
 					  ) VALUES (
-					  objcondid.nextval,
+					   #nid.nid#,
 					 #COLLECTION_OBJECT_ID# ,
 					  '#CONDITION#'
+					  <cfif len(#DETERMINED_AGENT_ID#) gt 0>
 					  	,#DETERMINED_AGENT_ID#
-					  	,to_date('#DETERMINED_DATE#')
+					  </cfif>
+					  <cfif len(#DETERMINED_DATE#) gt 0>
+					  	,'#DETERMINED_DATE#'
+					  </cfif>
 					  ) 
 				</cfquery>
-			<cfquery name="upCollObj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="upCollObj" datasource="#Application.uam_dbo#">
 				UPDATE coll_object SET condition='#condition#' where
 				COLLECTION_OBJECT_ID = #COLLECTION_OBJECT_ID#
 			</cfquery>
