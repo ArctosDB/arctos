@@ -21,7 +21,7 @@ function checkRequired(){
 		console.log(fid);
 		console.log('els...');
 		// and all the className=reqdClr elements
-		$('#' + fid + ' > :input').each(function(e) {
+		$('#' + fid + ' > :input.reqdClr').each(function(e) {
 			var id=this.id;
 			console.log(id);
 		});
