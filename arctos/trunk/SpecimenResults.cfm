@@ -356,7 +356,7 @@
 					<option value="UamMammalVialLabels_pdffile.cfm?collection_object_id=#collObjIdList#">
 						UAM Mammals Vial Labels
 					</option>
-					<option value="mammalLabels.cfm?collection_object_id=#collObjIdList#&action=box">
+					<option value="/Reports/mammalLabels.cfm?collection_object_id=#collObjIdList#&action=box">
 						UAM Mammals Box Labels
 					</option>
 					<option value="MSBMammLabels.cfm?collection_object_id=#collObjIdList#">
