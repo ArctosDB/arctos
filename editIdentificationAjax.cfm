@@ -3,7 +3,7 @@
 </div>
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
-<script type='text/javascript' src='/includes/jquery/suggest.js'></script>
+<script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
 <script >
 jQuery( function($) {
 		$("#taxa_a").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"preferred_agent_name",ctField:"agent_name"});
