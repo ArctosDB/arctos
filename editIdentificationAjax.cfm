@@ -6,10 +6,10 @@
 <script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
 <script >
 jQuery( function($) {
-		$("#taxa_a").suggest("/ajax/suggestCT.cfm",{minchars:1,ctName:"preferred_agent_name",ctField:"agent_name"});
-});
+	setInterval(checkRequired(),500);
 
-setInterval(checkRequired(),500);
+
+});
 
 function checkRequired(){
 	document.getElementById('int').innerHTML+='.';
