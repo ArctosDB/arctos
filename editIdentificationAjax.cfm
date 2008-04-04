@@ -12,7 +12,7 @@ jQuery( function($) {
 });
 
 function checkRequired(){
-	Console.Write('checking...');
+	console.log('checking...');
 		$(".reqdClr").click(function(e){
 			alert($e.name);
 		});
