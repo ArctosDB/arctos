@@ -14,6 +14,16 @@ jQuery( function($) {
 function checkRequired(){
 	console.log('checking...');
 	console.log('forms...');
+	
+	
+	$('form').each(function().$('.reqdClr').each(function() {
+		var fid=this.id;
+		console.log(fid);
+	})
+)	
+		
+	
+	/*
 	$('form').each(function(e) {
 		var fid=this.id;
 		console.log(fid);
@@ -30,6 +40,8 @@ function checkRequired(){
 		
 			console.log(id);
 		});
+		
+		*/
 }
 </script>
 
