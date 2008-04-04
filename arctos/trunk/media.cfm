@@ -90,6 +90,7 @@
 	<cfif len(#thisRelatedItem#) gt 0>
 		<cfset srch="#srch# AND q_media_relations#n# like '%#thisRelatedItem#%'">
 	</cfif>
+	<cfif 1 is 2>
 		<cfif #thisTableName# is "agent">
 			<cfset frm="#frm#,preferred_agent_name preferred_agent_name_#n#">
 			<cfset whr="#whr# AND media_relations.related_agent_id=preferred_agent_name_#n#.agent_id">
