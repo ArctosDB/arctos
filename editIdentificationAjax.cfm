@@ -13,6 +13,13 @@ jQuery( function($) {
 
 function checkRequired(){
 	console.log('checking...');
+	console.log('forms...');
+	$('form').each(function(e) {
+		var id=this.name;
+	
+		console.log(id);
+	});	
+	console.log('requireds...');
 		$('.reqdClr').each(function(e) {
 			var id=this.id;
 		
