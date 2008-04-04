@@ -15,10 +15,10 @@ function checkRequired(){
 	console.log('checking...');
 	console.log('forms...');
 	$('form').each(function(e) {
-		var id=this.name;
-		console.log(id);
+		var fid=this.name;
+		console.log(fid);
 		console.log('requireds in this form....');
-		$('$this.reqdClr').each(function(e) {
+		$('#fid' > '.reqdClr').each(function(e) {
 			var id=this.id;
 			console.log(id);
 		});
