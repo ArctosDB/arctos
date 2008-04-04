@@ -6,7 +6,7 @@
 <script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
 <script >
 jQuery( function($) {
-	setInterval(checkRequired(),500);
+	setInterval(checkRequired,500);
 
 
 });
