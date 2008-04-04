@@ -16,13 +16,9 @@ function checkRequired(){
 	console.log('forms...');
 	
 	
-	$('form').each(function(){
+	$('form').$('.reqdClr').each(function(){
 		var id=this.id;
 		console.log(id);
-		$('.reqdClr').each(function() {
-			var fid=this.id;
-			console.log(fid);
-	});
 	})	;
 		
 	
