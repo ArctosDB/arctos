@@ -75,7 +75,9 @@ select
 	pagetype="letter"
 	margintop=".5"
 	orientation="landscape"
-	fontembed="yes" >
+	fontembed="yes" 
+	overwrite="true"
+	filename="#Application.webDirectory#/temp/uamMammBoxlabel.pdf" >
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 <cfset i=1>
 <cfset t=1>
@@ -295,9 +297,9 @@ select
 			</cfif>
 			
 			<cfif len(#weight#) gt 0>
-				<cfset meas = "#meas##weight_val# #weight_Units#">
+				<cfset meas = "#meas# #weight_val# #weight_Units#">
 			<cfelse>
-				<cfset meas="#meas#X">
+				<cfset meas="#meas# X">
 			</cfif>
 		<cfset accn=#accn_num_prefix#>
 		<cfif len(#accn_num#) is 1>
@@ -403,6 +405,7 @@ select
 	
 	----->
 	</cfdocument>
+		<a href="#Application.ServerRootUrl#/temp/uamMammBoxlabel.pdf">pdf</a>
 	</cfoutput>
 	
 </cfif>
