@@ -145,7 +145,7 @@ function checkRequired(){
               <td><input type="text" name="idBy" class="reqdClr" size="50" 
 			 		 onchange="getAgent('newIdById','idBy','newID',this.value); return false;"
 			  		 onkeypress="return noenter(event);"> 
-                <input type="hidden" name="newIdById" class="reqdClr"> 
+                <input type="hidden" name="newIdById" id="newIdById" class="reqdClr"> 
 				<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 				
 
