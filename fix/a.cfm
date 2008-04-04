@@ -15,11 +15,12 @@ function checkRequired(){
 	console.log('checking...');
 	console.log('forms...');
 	
-	
+	// loop over all the forms...
 	$('form').each(function(){
 		var fid=this.id;
 		console.log(fid);
 		console.log('els...');
+		// and all the className=reqdClr elements
 		$('#' + fid + ' > :input').each(function(e) {
 			var id=this.id;
 			console.log(id);
@@ -60,10 +61,12 @@ function checkRequired(){
 	<input id="f1_1" class="reqdClr">
 	<input id="f1_2" class="reqdClr">
 	<input id="f1_3" class="reqdClr">
+		<input id="f1_4" class="booger">
 </form>
 
 <form name="f2" id="f2">
 	<input id="f2_1" class="reqdClr">
 	<input id="f2_2" class="reqdClr">
 	<input id="f2_3" class="reqdClr">
+		<input id="f2_4" class="boog">
 </form>
