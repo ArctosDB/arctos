@@ -30,7 +30,11 @@ function checkRequired(){
 				hasIssues=1;
 			}
 		});
-		console.log(hasIssues);
+		if (hasIssues == 1) {
+			// form is NOT ready for submission
+			alert(fid + 'is missing required elements and cannot be submitted.');
+			return false;
+		}
 	})	;
 		
 	
@@ -62,16 +66,18 @@ function checkRequired(){
 <input type="button" onclick="checkRequired()" value="checkRequired">
 
 
-<form name="f1" id="f1">
+<form name="f1" id="f1" action="a.cfm" onsubmit="checkRequired(this.id)">
 	<input id="f1_1" class="reqdClr">
 	<input id="f1_2" class="reqdClr">
 	<input id="f1_3" class="reqdClr">
 		<input id="f1_4" class="booger">
+				<input type="submit">
 </form>
 
-<form name="f2" id="f2">
+<form name="f2" id="f2"  action="a.cfm" onsubmit="checkRequired(this.id)">
 	<input id="f2_1" class="reqdClr">
 	<input id="f2_2" class="reqdClr">
 	<input id="f2_3" class="reqdClr">
 		<input id="f2_4" class="boog">
+		<input type="submit">
 </form>
