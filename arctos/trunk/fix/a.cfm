@@ -1,5 +1,5 @@
 <div id="theHead">
-	<cfinclude template="includes/_header.cfm">
+	<cfinclude template="/includes/_header.cfm">
 </div>
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
