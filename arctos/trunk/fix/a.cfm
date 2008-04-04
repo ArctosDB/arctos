@@ -21,11 +21,16 @@ function checkRequired(){
 		console.log(fid);
 		console.log('els...');
 		// and all the className=reqdClr elements
+		var hasIssues;
 		$('#' + fid + ' > :input.reqdClr').each(function(e) {
 			var id=this.id;
 			console.log(id);
+			// see if they have something
+			if (document.getElementById(id).value.length == 0) {
+				hasIssues=1;
+			}
 		});
-		
+		console.log(hasIssues);
 	})	;
 		
 	
