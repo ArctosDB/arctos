@@ -1,6 +1,6 @@
  <!--- Set Defaults and Constants --->
 <cfscript>
-	sitename = "mvzarctos-dev.berkeley.edu";
+	sitename = #HTTP_HOST#;
 	
 	defaultTaskName = "#Replace(sitename,'.','','all')#-";
 	defaultTaskURL = "http://#sitename#/";
