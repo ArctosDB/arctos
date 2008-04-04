@@ -14,7 +14,9 @@ jQuery( function($) {
 function checkRequired(){
 	console.log('checking...');
 		$('.reqdClr').each(function(e) {
-			console.log(e.id);
+			var id=this.id;
+		
+			console.log(id);
 		});
 }
 </script>
