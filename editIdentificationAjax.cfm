@@ -13,8 +13,8 @@ jQuery( function($) {
 
 function checkRequired(){
 	console.log('checking...');
-		$('.reqdClr').each(function() {
-			console.log('one');
+		$('.reqdClr').each(function(e) {
+			console.log(e.id);
 		});
 }
 </script>
