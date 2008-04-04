@@ -33,6 +33,10 @@ function checkRequired(){
 		if (hasIssues == 1) {
 			// form is NOT ready for submission
 			alert(fid + 'is missing required elements and cannot be submitted.');
+			
+		} else {
+			alert('here ya go....')
+			document.getElementById(fid).removeAttribute('onsubmit');
 		}
 	})	;
 		
