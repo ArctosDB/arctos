@@ -1,4 +1,4 @@
- <!--- Set Defaults and Constants --->
+<!--- Set Defaults and Constants --->
 <cfscript>
 	sitename = #HTTP_HOST#;
 	
@@ -104,7 +104,10 @@
 </head>
 
 <body>
-<cfoutput><h3 style="color:green;">#message#</h3></cfoutput>
+<cfoutput>
+<h1>Scheduled Tasks - #sitename#</h1>
+<h3 style="color:green;">#message#</h3>
+</cfoutput>
 
 <cfform name="mySchedule" method="post" action="#CGI.SCRIPT_NAME#">
 <table cellpadding="4" cellspacing="0">
