@@ -16,7 +16,7 @@ function checkRequired(){
 		var fid=this.id;
 		console.log('checking form ' + fid);
 		// and all the className=reqdClr elements
-		var hasIssues;
+		var hasIssues=0;
 		/*
 		$('form#login')
     // hide all the labels inside the form with the 'optional' class
@@ -31,16 +31,16 @@ function checkRequired(){
     });
     */
 			
-		$('form#' + fid).find('.reqdClr').each(function() {
+		$('#' + fid).find('.reqdClr').each(function() {
 			var id=this.id;
 			console.log('checking form ' + fid + ' input ' + id);
 			// see if they have something
 			if (document.getElementById(id).value.length == 0) {
-				hasIssues=1;
+				hasIssues+=1;
 				console.log('FAIL: ' + fid + ' input ' + id);
-			}
+			} 
 		});
-		if (hasIssues == 1) {
+		if (hasIssues == 0) {
 			// form is NOT ready for submission
 			console.log('FORM FAIL: ' + fid );
 			document.getElementById(fid).setAttribute('onsubmit',"return false");
