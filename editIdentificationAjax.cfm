@@ -259,8 +259,10 @@ function removeHelpDiv() {
                 </div></td>
             </tr>
     </table>
+	
+	</form>
           --->
-        </form>
+        
 <!----
 <p>
 <strong><font size="+1">Edit an Existing Determination</font></strong>
