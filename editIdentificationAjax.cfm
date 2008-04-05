@@ -136,11 +136,11 @@ function removeHelpDiv() {
 	</tr> 
 	 <tr> 
               <td colspan="2">
-				<input type="submit" value="missing elements">
+				
             </td>
             </tr>
 
-	
+	<input type="submit" value="missing elements">
 	</form>
 	<!---
 	<input id="f1_1" class="reqdClr">
