@@ -42,7 +42,7 @@ function checkRequired(){
 		} else {
 			//alert('here ya go....')
 			document.getElementById(fid).removeAttribute('onsubmit');
-			$("#" + fid + " > :input.submit").val("spiffy!");
+			$("#" + fid + " > :input[@type='submit']").val("spiffy!");
 			
 		}
 	})	;
