@@ -187,6 +187,8 @@ function removeHelpDiv() {
 	</form>
 	
 	
+	
+	</table>
 	<form name="f1" id="f1" action="a.cfm" onsubmit="return false">
 	<input id="f1_1" class="reqdClr">
 	<input id="f1_2" class="reqdClr">
