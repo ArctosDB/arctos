@@ -116,7 +116,7 @@ function removeHelpDiv() {
 				<cfset taxa_formula='A'>
 			</cfif>
 			<cfset thisForm = "#taxa_formula#">
-			<select name="taxa_formula" size="1" class="reqdClr"
+			<select name="taxa_formula" id="taxa_formula" size="1" class="reqdClr"
 				onchange="newIdFormula(this.value);">
 				<cfloop query="ctFormula">
 					<cfif #ctFormula.taxa_formula# is "A">
@@ -173,7 +173,7 @@ function removeHelpDiv() {
 			  		 </div>
 				</td>
               	<td>
-					<input type="text" name="idBy" class="reqdClr" size="50" 
+					<input type="text" name="idBy" id="idBy" class="reqdClr" size="50" 
 			 		 onchange="getAgent('newIdById','idBy','newID',this.value); return false;"
 			  		 onkeypress="return noenter(event);"> 
                 	<input type="hidden" name="newIdById" id="newIdById" class="reqdClr"> 
@@ -213,14 +213,14 @@ function removeHelpDiv() {
               <td><div align="right">
 			  <a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_date')">ID Date:</a></td>
 			  </div></td>
-              <td><input type="text" name="made_date"></td>
+              <td><input type="text" name="made_date" id="made_date"></td>
             </tr>
             <tr> 
               <td><div align="right">
 			  <a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','nature_of_id')"> Nature of ID:</a></td>
 			
 			 </div></td>
-              <td><select name="nature_of_id" size="1" class="reqdClr">
+              <td><select name="nature_of_id" id="nature_of_id" size="1" class="reqdClr">
                   <cfloop query="ctnature">
                     <option  value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
                   </cfloop>
@@ -234,7 +234,7 @@ function removeHelpDiv() {
             </tr>
             <tr> 
               <td><div align="right">Remarks:</div></td>
-              <td><input type="text" name="identification_remarks" size="50"></td>
+              <td><input type="text" name="identification_remarks" id="identification_remarks" size="50"></td>
             </tr>
             <tr> 
               <td colspan="2"><div align="center"> 
