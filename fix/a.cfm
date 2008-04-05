@@ -35,7 +35,7 @@ function checkRequired(){
 			//alert(fid + 'is missing required elements and cannot be submitted.');
 			document.getElementById(fid).setAttribute('onsubmit',"return false");
 			var sEl="submit_" + fid;
-			document.getElementById(sEl).value="not ready....";"
+			document.getElementById(sEl).value="not ready....";
 			//$('#' + fid + " > :input[@type='submit']").value="not ready....";
 			
 			
