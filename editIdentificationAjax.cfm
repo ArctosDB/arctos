@@ -237,7 +237,7 @@ function checkRequired(){
     </table>
           
         </form>
-
+<!----
 <p>
 <strong><font size="+1">Edit an Existing Determination</font></strong>
 <img src="/images/info.gif" border="0" onClick="getDocs('identification')" class="likeLink">
@@ -425,7 +425,7 @@ function checkRequired(){
       </form>
 <cfset i = #i#+1>
 </cfloop>
- 
+ ---->
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
