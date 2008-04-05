@@ -32,12 +32,14 @@ function checkRequired(){
 		});
 		if (hasIssues == 1) {
 			// form is NOT ready for submission
-			alert(fid + 'is missing required elements and cannot be submitted.');
+			//alert(fid + 'is missing required elements and cannot be submitted.');
 			document.getElementById(fid).setAttribute('onsubmit',"return false");
+			document.getElementById(fid).submit.value="not ready....";
 			
 		} else {
 			alert('here ya go....')
 			document.getElementById(fid).removeAttribute('onsubmit');
+			document.getElementById(fid).submit.value="spiffy!";
 		}
 	})	;
 		
@@ -75,7 +77,7 @@ function checkRequired(){
 	<input id="f1_2" class="reqdClr">
 	<input id="f1_3" class="reqdClr">
 		<input id="f1_4" class="booger">
-				<input type="submit">
+				<input type="submit" value="missing elements">
 </form>
 
 <form name="f2" id="f2"  action="a.cfm" onsubmit="return false">
@@ -83,5 +85,5 @@ function checkRequired(){
 	<input id="f2_2" class="reqdClr">
 	<input id="f2_3" class="reqdClr">
 		<input id="f2_4" class="boog">
-		<input type="submit">
+		<input type="submit" value="missing elements">
 </form>
