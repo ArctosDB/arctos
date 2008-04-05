@@ -30,7 +30,7 @@ function checkRequired(){
 		if (hasIssues == 1) {
 			// form is NOT ready for submission
 			document.getElementById(fid).setAttribute('onsubmit',"return false");
-			$("#" + fid + " > *[@type='submit']").val("Not ready...");			
+			$("#" + fid).find("[@type='submit']").val("Not ready...");			
 		} else {
 			document.getElementById(fid).removeAttribute('onsubmit');
 			$("#" + fid + " > :input[@type='submit']").val("spiffy!");
