@@ -30,9 +30,11 @@ function checkRequired(){
 		});
 		if (hasIssues == 1) {
 			// form is NOT ready for submission
+			console.log('FORM FAIL: ' + fid );
 			document.getElementById(fid).setAttribute('onsubmit',"return false");
 			$("#" + fid).find("[@type='submit']").val("Not ready...");			
 		} else {
+			console.log('ZMFG!!!: ' + fid );
 			document.getElementById(fid).removeAttribute('onsubmit');
 			$("#" + fid).find("[@type='submit']").val("spiffy!");
 		}
