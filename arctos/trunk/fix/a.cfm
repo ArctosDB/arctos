@@ -36,13 +36,13 @@ function checkRequired(){
 			document.getElementById(fid).setAttribute('onsubmit',"return false");
 			//var sEl="submit_" + fid;
 			//document.getElementById(sEl).value="not ready....";
-			$("#" + fid + " > :input.submit").value="not ready....";
+			$("#" + fid + " > :input.submit").val="not ready....";
 			
 			
 		} else {
 			alert('here ya go....')
 			document.getElementById(fid).removeAttribute('onsubmit');
-			$("#" + fid + " > :input.submit").value="spiffy!";
+			$("#" + fid + " > :input.submit").val="spiffy!";
 			
 		}
 	})	;
