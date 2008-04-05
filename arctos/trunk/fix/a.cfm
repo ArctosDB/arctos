@@ -34,7 +34,9 @@ function checkRequired(){
 			// form is NOT ready for submission
 			//alert(fid + 'is missing required elements and cannot be submitted.');
 			document.getElementById(fid).setAttribute('onsubmit',"return false");
-			$('#' + fid + " > :input[@type='submit']").value="not ready....";
+			var sEl="submit_" + fid;
+			document.getElementById(sEl).value="not ready....";"
+			//$('#' + fid + " > :input[@type='submit']").value="not ready....";
 			
 			
 		} else {
@@ -78,7 +80,7 @@ function checkRequired(){
 	<input id="f1_2" class="reqdClr">
 	<input id="f1_3" class="reqdClr">
 		<input id="f1_4" class="booger">
-				<input type="submit" value="missing elements">
+				<input type="submit" id="submit_f1" value="missing elements">
 </form>
 
 <form name="f2" id="f2"  action="a.cfm" onsubmit="return false">
