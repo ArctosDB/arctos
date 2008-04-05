@@ -26,12 +26,12 @@ function checkRequired(){
 	// loop over all the forms...
 	$('form').each(function(){
 		var fid=this.id;
-		console.log('checking ' + fid);
+		console.log('checking form ' + fid);
 		// and all the className=reqdClr elements
 		var hasIssues;
 		$('#' + fid + ' > :input.reqdClr').each(function() {
 			var id=this.id;
-			console.log('checking ' + id);
+			console.log('checking form ' + fid + ' input ' + id);
 			// see if they have something
 			if (document.getElementById(id).value.length == 0) {
 				hasIssues=1;
