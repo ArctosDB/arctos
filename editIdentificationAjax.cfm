@@ -6,7 +6,7 @@
 <script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
-	setInterval(checkRequired,500);
+	//setInterval(checkRequired,500);
 	
 	$(".helpLink").click(function(e){
 		var id=this.id;
@@ -26,10 +26,12 @@ function checkRequired(){
 	// loop over all the forms...
 	$('form').each(function(){
 		var fid=this.id;
+		console.log('checking ' + fid);
 		// and all the className=reqdClr elements
 		var hasIssues;
-		$('#' + fid + ' > :input.reqdClr').each(function(e) {
+		$('#' + fid + ' > :input.reqdClr').each(function() {
 			var id=this.id;
+			console.log('checking ' + id);
 			// see if they have something
 			if (document.getElementById(id).value.length == 0) {
 				hasIssues=1;
@@ -51,7 +53,7 @@ function checkRequired(){
 <!--------------------------------------------------------------------------------------------------->
 
 </div><!--- kill content div --->
-
+<input type="button" onclick="checkRequired()" value="checkRequired">
 <cfif #Action# is "nothing">
 <cfquery name="ctnature" datasource="#Application.web_user#">
 	select nature_of_id from ctnature_of_id
