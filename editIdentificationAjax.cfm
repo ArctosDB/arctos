@@ -48,9 +48,9 @@ checking form f1
 FORM FAIL: f1
     */
 			
-		// finds only DIRECT children  $('#' + fid + ' > :input.reqdClr').each(function(e) {
-		// finds only DIRECT children $('#' + fid).find(' > :input.reqdClr').each(function(e) {
-		$('#' + fid).find(':input.reqdClr').each(function(e) {
+		finds only DIRECT children  $('#' + fid + ' > :input.reqdClr').each(function(e) {
+		// also finds only DIRECT children $('#' + fid).find(' > :input.reqdClr').each(function(e) {
+		// finds everygoddamed thing, once for each form $('#' + fid).find(':input.reqdClr').each(function(e) {
 			var id=this.id;
 			console.log('checking form ' + fid + ' input ' + id);
 			// see if they have something
@@ -118,12 +118,12 @@ function removeHelpDiv() {
 </cfquery>
 <input type="button" onclick="checkRequired()" value="checkRequired">
 
-
+<table class="newRec">
 
 <form name="newID" id="newID" method="post" action="editIdentification.cfm">
 	<input type="hidden" name="Action" value="createNew">
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
-<table class="newRec">
+
 	<tr>
  		<td colspan="2">
 			<strong><font size="+1">Add new Determination</font></strong>&nbsp;
