@@ -90,6 +90,7 @@ function removeHelpDiv() {
 		<input id="f1_4" class="booger">
 				<input type="submit" value="missing elements">
 </form>
+</cfoutput>
 </cfif>
 <!---
 	
