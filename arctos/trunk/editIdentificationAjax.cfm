@@ -47,6 +47,13 @@ function checkRequired(){
 		}
 	});
 }
+
+
+function removeHelpDiv() {
+	if (document.getElementById('helpDiv')) {
+		$('#helpDiv').remove();
+	}
+}
 </script>
 
 	
