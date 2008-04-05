@@ -17,7 +17,7 @@ function checkRequired(){
 		console.log('checking form ' + fid);
 		// and all the className=reqdClr elements
 		var hasIssues;
-		$('#' + fid + ' > * > :input.reqdClr').each(function() {
+		$('#' + fid + ' > *.reqdClr').each(function() {
 			var id=this.id;
 			console.log('checking form ' + fid + ' input ' + id);
 			// see if they have something
