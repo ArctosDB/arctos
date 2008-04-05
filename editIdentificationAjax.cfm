@@ -1134,6 +1134,8 @@ function removeHelpDiv() {
 </script>
 </cfoutput>
 --->
+
+<!----
 <div id="theFoot">
 	<cfinclude template="includes/_footer.cfm">
 </div>
@@ -1147,3 +1149,5 @@ function removeHelpDiv() {
 		//parent.dyniframesize();
 	}
 </script>
+
+---->
