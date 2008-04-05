@@ -43,7 +43,7 @@ function removeHelpDiv() {
 	}
 }
 </script>
-
+<cfif #Action# is "nothing">
 <input type="button" onclick="checkRequired()" value="checkRequired">
 
 
@@ -54,14 +54,14 @@ function removeHelpDiv() {
 		<input id="f1_4" class="booger">
 				<input type="submit" value="missing elements">
 </form>
-
+</cfif>
 <!---
 	
 <!--------------------------------------------------------------------------------------------------->
 
 </div><!--- kill content div --->
 
-<cfif #Action# is "nothing">
+
 <cfquery name="ctnature" datasource="#Application.web_user#">
 	select nature_of_id from ctnature_of_id
 </cfquery>
