@@ -81,7 +81,10 @@ function removeHelpDiv() {
 	select nature_of_id from ctnature_of_id
 </cfquery>
 <input type="button" onclick="checkRequired()" value="checkRequired">
-<form name="f1" id="f1" action="a.cfm" onsubmit="return false">
+
+
+
+<form name="newID" id="newID" method="post" action="editIdentification.cfm">
 <table class="newRec">
  <tr>
  	<td colspan="2">
@@ -113,7 +116,7 @@ function removeHelpDiv() {
 
 <!---   
 
-<form name="newID" id="newID" method="post" action="editIdentification.cfm">
+
 	<input type="hidden" name="Action" value="createNew">
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
  <tr>
