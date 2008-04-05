@@ -97,34 +97,7 @@ function removeHelpDiv() {
 		<td>
 			<span class="helpLink" id="identification.taxa_formula">ID Formula:</span>
 		</td>
-
-	<input id="f1_1" class="reqdClr">
-	<input id="f1_2" class="reqdClr">
-	<input id="f1_3" class="reqdClr">
-		<input id="f1_4" class="booger">
-				<input type="submit" value="missing elements">
-</form>
-</cfoutput>
-</cfif>
-<!---
-	
-<!--------------------------------------------------------------------------------------------------->
-
-</div><!--- kill content div --->
-
-
-
-
-
-
-
-
-<!---   
-
-
-
-
-		<td>
+<td>
 			<cfif not isdefined("taxa_formula")>
 				<cfset taxa_formula='A'>
 			</cfif>
@@ -161,6 +134,33 @@ function removeHelpDiv() {
 			</select>
 		</td>
 	</tr>  
+	<input id="f1_1" class="reqdClr">
+	<input id="f1_2" class="reqdClr">
+	<input id="f1_3" class="reqdClr">
+		<input id="f1_4" class="booger">
+				<input type="submit" value="missing elements">
+</form>
+</cfoutput>
+</cfif>
+<!---
+	
+<!--------------------------------------------------------------------------------------------------->
+
+</div><!--- kill content div --->
+
+
+
+
+
+
+
+
+<!---   
+
+
+
+
+		
 	
 	<tr> 
     	<td><div align="right">Taxon A:</div></td>
