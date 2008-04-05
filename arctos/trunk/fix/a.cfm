@@ -88,5 +88,5 @@ function checkRequired(){
 	<input id="f2_2" class="reqdClr">
 	<input id="f2_3" class="reqdClr">
 		<input id="f2_4" class="boog">
-		<input type="submit" value="missing elements">
+		<input type="submit"  id="submit_f2" value="missing elements">
 </form>
