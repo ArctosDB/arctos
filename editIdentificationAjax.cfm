@@ -29,6 +29,23 @@ function checkRequired(){
     .submit(function(){
         return confirm('Are you sure you want to submit?');
     });
+    
+    
+    checking form newID
+checking form newID input f1_1
+FAIL: newID input f1_1
+checking form newID input f1_2
+FAIL: newID input f1_2
+checking form newID input f1_3
+FAIL: newID input f1_3
+checking form newID input taxa_formula
+checking form newID input taxa_a
+FAIL: newID input taxa_a
+checking form newID input TaxonAID
+FAIL: newID input TaxonAID
+ZMFG!!!: newID
+checking form f1
+FORM FAIL: f1
     */
 			
 		$('#' + fid).find('.reqdClr').each(function() {
