@@ -81,7 +81,7 @@ function checkRequired(){
 	<input id="f1_2" class="reqdClr">
 	<input id="f1_3" class="reqdClr">
 		<input id="f1_4" class="booger">
-				<input type="submit" class="submit" id="submit_f1" value="missing elements">
+				<input type="submit" value="missing elements">
 </form>
 
 <form name="f2" id="f2"  action="a.cfm" onsubmit="return false">
