@@ -7,24 +7,16 @@
 <script >
 jQuery( function($) {
 	setInterval(checkRequired,500);
-
-
 });
 
-function checkRequired(){
-	console.log('checking...');
-	console.log('forms...');
-	
+function checkRequired(){	
 	// loop over all the forms...
 	$('form').each(function(){
 		var fid=this.id;
-		console.log(fid);
-		console.log('els...');
 		// and all the className=reqdClr elements
 		var hasIssues;
 		$('#' + fid + ' > :input.reqdClr').each(function(e) {
 			var id=this.id;
-			console.log(id);
 			// see if they have something
 			if (document.getElementById(id).value.length == 0) {
 				hasIssues=1;
@@ -32,41 +24,13 @@ function checkRequired(){
 		});
 		if (hasIssues == 1) {
 			// form is NOT ready for submission
-			//alert(fid + 'is missing required elements and cannot be submitted.');
 			document.getElementById(fid).setAttribute('onsubmit',"return false");
-			//var sEl="submit_" + fid;
-			//document.getElementById(sEl).value="not ready....";
-			//$("#" + fid + " > :input.submit").val("not ready....");
-			$("#" + fid + " > :input[@type='submit']").val("Not ready...");
-			
+			$("#" + fid + " > :input[@type='submit']").val("Not ready...");			
 		} else {
-			//alert('here ya go....')
 			document.getElementById(fid).removeAttribute('onsubmit');
 			$("#" + fid + " > :input[@type='submit']").val("spiffy!");
-			
 		}
-	})	;
-		
-	
-	/*
-	$('form').each(function(e) {
-		var fid=this.id;
-		console.log(fid);
-		console.log('requireds in this form....');
-		$('#fid > .reqdClr').each(function(e) {
-			var id=this.id;
-			console.log(id);
-		});
-		console.log('nex form....');
-	});	
-	console.log('requireds...');
-		$('.reqdClr').each(function(e) {
-			var id=this.id;
-		
-			console.log(id);
-		});
-		
-		*/
+	});
 }
 </script>
 

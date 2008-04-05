@@ -4,32 +4,34 @@
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
-<script >
+<script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>
+<script type="text/javascript" language="javascript">
 jQuery( function($) {
-	//setInterval(checkRequired,500);
-
-
+	setInterval(checkRequired,500);
 });
 
-function checkRequired(){
-	console.log('checking...');
-	console.log('forms...');
-	$('form').each(function(e) {
-		var id=this.name;
-		console.log(id);
-		console.log('requireds in this form....');
-		$('$this.reqdClr').each(function(e) {
+function checkRequired(){	
+	// loop over all the forms...
+	$('form').each(function(){
+		var fid=this.id;
+		// and all the className=reqdClr elements
+		var hasIssues;
+		$('#' + fid + ' > :input.reqdClr').each(function(e) {
 			var id=this.id;
-			console.log(id);
+			// see if they have something
+			if (document.getElementById(id).value.length == 0) {
+				hasIssues=1;
+			}
 		});
-		console.log('nex form....');
-	});	
-	console.log('requireds...');
-		$('.reqdClr').each(function(e) {
-			var id=this.id;
-		
-			console.log(id);
-		});
+		if (hasIssues == 1) {
+			// form is NOT ready for submission
+			document.getElementById(fid).setAttribute('onsubmit',"return false");
+			$("#" + fid + " > :input[@type='submit']").val("Not ready...");			
+		} else {
+			document.getElementById(fid).removeAttribute('onsubmit');
+			$("#" + fid + " > :input[@type='submit']").val("spiffy!");
+		}
+	});
 }
 </script>
 
@@ -37,8 +39,7 @@ function checkRequired(){
 <!--------------------------------------------------------------------------------------------------->
 
 </div><!--- kill content div --->
-<input type="button" onclick="checkRequired()" value="checkRequired">
-<span id="int"></span>
+
 <cfif #Action# is "nothing">
 <cfquery name="ctnature" datasource="#Application.web_user#">
 	select nature_of_id from ctnature_of_id
@@ -79,65 +80,60 @@ function checkRequired(){
 <table class="newRec">
  <tr>
  	<td colspan="2">
-	
-<strong><font size="+1">Add new Determination</font></strong>&nbsp;
-<a href="javascript:void(0);" onClick="getDocs('identification')"><img src="/images/info.gif" border="0"></a>
+	<strong><font size="+1">Add new Determination</font></strong>&nbsp;
 	</td>
  </tr>
-<form name="newID" method="post" action="editIdentification.cfm">
-	      <input type="hidden" name="content_url" value="editIdentification.cfm">
-            <input type="hidden" name="Action" value="createNew">
-            <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
-    		<tr>
-				<td>
-				<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_formula')">ID Formula:</a></td>
-				
-				<td>
-					<cfif not isdefined("taxa_formula")>
-						<cfset taxa_formula='A'>
+<form name="newID" id="newID" method="post" action="editIdentification.cfm">
+	<input type="hidden" name="Action" value="createNew">
+    <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
+    <tr>
+		<td>
+			<span class="helpLink" id="identification.taxa_formula">ID Formula:</span>
+		</td>
+		<td>
+			<cfif not isdefined("taxa_formula")>
+				<cfset taxa_formula='A'>
+			</cfif>
+			<cfset thisForm = "#taxa_formula#">
+			<select name="taxa_formula" size="1" class="reqdClr"
+				onchange="newIdFormula(this.value);">
+				<cfloop query="ctFormula">
+					<cfif #ctFormula.taxa_formula# is "A">
+						<cfset thisDispVal = "one taxon">
+					<cfelseif #ctFormula.taxa_formula# is "A ?">
+						<cfset thisDispVal = 'taxon + "?"'>
+					<cfelseif #ctFormula.taxa_formula# is "A or B">
+						<cfset thisDispVal = 'A "or" B'>
+					<cfelseif #ctFormula.taxa_formula# is "A / B intergrade">
+						<cfset thisDispVal = 'A / B intergrade'>
+					<cfelseif #ctFormula.taxa_formula# is "A x B">
+						<cfset thisDispVal = 'A "x" B'>
+					<cfelseif #ctFormula.taxa_formula# is "A and B">
+						<cfset thisDispVal = 'A "and" B'>
+					<cfelseif #ctFormula.taxa_formula# is "A sp.">
+						<cfset thisDispVal = 'A "sp."'>
+					<cfelseif #ctFormula.taxa_formula# is "A cf.">
+						<cfset thisDispVal = 'A "cf."'>
+					<cfelseif #ctFormula.taxa_formula# is "A aff.">
+						<cfset thisDispVal = 'A "aff."'>
+					<cfelseif #ctFormula.taxa_formula# is "A ssp.">
+						<cfset thisDispVal = 'A "ssp."'>
+					<cfelse>
+						<cfset thisDispVal = "ERROR!!!">
 					</cfif>
-					<cfset thisForm = "#taxa_formula#">
-					<select name="taxa_formula" size="1" class="reqdClr"
-					onchange="newIdFormula(this.value);">
-						<cfloop query="ctFormula">
-						<cfif #ctFormula.taxa_formula# is "A">
-							<cfset thisDispVal = "one taxon">
-						<cfelseif #ctFormula.taxa_formula# is "A ?">
-							<cfset thisDispVal = 'taxon + "?"'>
-						<cfelseif #ctFormula.taxa_formula# is "A or B">
-							<cfset thisDispVal = 'A "or" B'>
-						<cfelseif #ctFormula.taxa_formula# is "A / B intergrade">
-							<cfset thisDispVal = 'A / B intergrade'>
-						<cfelseif #ctFormula.taxa_formula# is "A x B">
-							<cfset thisDispVal = 'A "x" B'>
-						<cfelseif #ctFormula.taxa_formula# is "A and B">
-							<cfset thisDispVal = 'A "and" B'>
-						<cfelseif #ctFormula.taxa_formula# is "A sp.">
-							<cfset thisDispVal = 'A "sp."'>
-						<cfelseif #ctFormula.taxa_formula# is "A cf.">
-							<cfset thisDispVal = 'A "cf."'>
-						<cfelseif #ctFormula.taxa_formula# is "A aff.">
-							<cfset thisDispVal = 'A "aff."'>
-						<cfelseif #ctFormula.taxa_formula# is "A ssp.">
-							<cfset thisDispVal = 'A "ssp."'>
-						<cfelse>
-							<cfset thisDispVal = "ERROR!!!">
-						</cfif>
-							<option 
-								<cfif #thisForm# is "#ctFormula.taxa_formula#"> selected </cfif>value="#ctFormula.taxa_formula#">#thisDispVal#</option>
-						</cfloop>
-					</select>
-				</td>
-			</tr>     
-	         
-            <tr> 
-              <td><div align="right">Taxon A:</div></td>
-              <td>
-			  	<input type="text" name="taxa_a" id="taxa_a" class="reqdClr" size="50" >
-				
-					<!---onChange="taxaPick('TaxonAID','taxa_a','newID',this.value); return false;"
-				onKeyPress="return noenter(event);">--->
-				<input type="hidden" name="TaxonAID"> 
+					<option 
+					<cfif #thisForm# is "#ctFormula.taxa_formula#"> selected </cfif>value="#ctFormula.taxa_formula#">#thisDispVal#</option>
+				</cfloop>
+			</select>
+		</td>
+	</tr>     
+	<tr> 
+    	<td><div align="right">Taxon A:</div></td>
+        	<td>
+				<input type="text" name="taxa_a" id="taxa_a" class="reqdClr" size="50"
+					onChange="taxaPick('TaxonAID','taxa_a','newID',this.value); return false;"
+					onKeyPress="return noenter(event);">
+					<input type="hidden" name="TaxonAID" class="reqdClr"> 
 			  </td>
             </tr>
 			<tr id="taxon_b_row" style="display:none;"> 
@@ -150,18 +146,18 @@ function checkRequired(){
 			  </td>
             </tr>
             <tr> 
-              <td><div align="right">
-			  <a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_by')">ID By:</a>
-				
-							 </div></td>
-              <td><input type="text" name="idBy" class="reqdClr" size="50" 
+            	<td>
+					<div align="right">
+			  			<span class="helpLink" id="identified_by">ID By:</span>
+			  		 </div>
+				</td>
+              	<td>
+					<input type="text" name="idBy" class="reqdClr" size="50" 
 			 		 onchange="getAgent('newIdById','idBy','newID',this.value); return false;"
 			  		 onkeypress="return noenter(event);"> 
-                <input type="hidden" name="newIdById" id="newIdById" class="reqdClr"> 
-				<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
-				
-
-			 </td>
+                	<input type="hidden" name="newIdById" id="newIdById" class="reqdClr"> 
+					<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
+				</td>
             </tr>
 			<tr id="addNewIdBy_two" style="display:none;"> 
               	<td>
