@@ -33,7 +33,7 @@ function checkRequired(){
 			$("#" + fid).find("[@type='submit']").val("Not ready...");			
 		} else {
 			document.getElementById(fid).removeAttribute('onsubmit');
-			$("#" + fid + " > :input[@type='submit']").val("spiffy!");
+			$("#" + fid).find("[@type='submit']").val("spiffy!");
 		}
 	});
 }
@@ -136,12 +136,21 @@ function removeHelpDiv() {
 			</select>
 		</td>
 	</tr> 
+	<tr> 
+    	<td><div align="right">Taxon A:</div></td>
+        	<td>
+				<input type="text" name="taxa_a" id="taxa_a" class="reqdClr" size="50"
+					onChange="taxaPick('TaxonAID','taxa_a','newID',this.value); return false;"
+					onKeyPress="return noenter(event);">
+					<input type="hidden" name="TaxonAID" id="TaxonAID" class="reqdClr"> 
+			  </td>
+            </tr>
 	 <tr> 
               <td colspan="2">
-
+						<input type="submit" value="missing elements">
             </td>
             </tr>
-						<input type="submit" value="missing elements">
+
 
 	</form>
 	<!---
@@ -174,15 +183,7 @@ function removeHelpDiv() {
 
 		
 	
-	<tr> 
-    	<td><div align="right">Taxon A:</div></td>
-        	<td>
-				<input type="text" name="taxa_a" id="taxa_a" class="reqdClr" size="50"
-					onChange="taxaPick('TaxonAID','taxa_a','newID',this.value); return false;"
-					onKeyPress="return noenter(event);">
-					<input type="hidden" name="TaxonAID" id="TaxonAID" class="reqdClr"> 
-			  </td>
-            </tr>
+	
 	--->   
 	
 			<!----
