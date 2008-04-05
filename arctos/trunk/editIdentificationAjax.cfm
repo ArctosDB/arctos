@@ -133,13 +133,25 @@ function removeHelpDiv() {
 				</cfloop>
 			</select>
 		</td>
-	</tr>  
+	</tr> 
+	 <tr> 
+              <td colspan="2"><div align="center"> 
+                    <input type="submit" value="Create" class="insBtn"
+   onmouseover="this.className='insBtn btnhov';this.focus();" onmouseout="this.className='insBtn'">	
+
+                </div></td>
+            </tr>
+    </table>
+	
+	</form>
+	<!---
 	<input id="f1_1" class="reqdClr">
 	<input id="f1_2" class="reqdClr">
 	<input id="f1_3" class="reqdClr">
 		<input id="f1_4" class="booger">
 				<input type="submit" value="missing elements">
 </form>
+---->
 </cfoutput>
 </cfif>
 <!---
@@ -253,16 +265,7 @@ function removeHelpDiv() {
               <td><div align="right">Remarks:</div></td>
               <td><input type="text" name="identification_remarks" id="identification_remarks" size="50"></td>
             </tr>
-            <tr> 
-              <td colspan="2"><div align="center"> 
-                    <input type="submit" value="Create" class="insBtn"
-   onmouseover="this.className='insBtn btnhov';this.focus();" onmouseout="this.className='insBtn'">	
-
-                </div></td>
-            </tr>
-    </table>
-	
-	</form>
+           
           --->
         
 <!----
