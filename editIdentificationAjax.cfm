@@ -135,10 +135,10 @@ function removeHelpDiv() {
 		</td>
 	</tr> 
 	 <tr> 
-              <td colspan="2"><div align="center"> 
+              <td colspan="2">
                     <input type="submit" value="Create">	
 
-                </div></td>
+            </td>
             </tr>
     </table>
 	
