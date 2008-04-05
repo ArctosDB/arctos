@@ -156,7 +156,7 @@ function removeHelpDiv() {
 				<input type="text" name="taxa_a" id="taxa_a" class="reqdClr" size="50"
 					onChange="taxaPick('TaxonAID','taxa_a','newID',this.value); return false;"
 					onKeyPress="return noenter(event);">
-					<input type="hidden" name="TaxonAID" class="reqdClr"> 
+					<input type="hidden" name="TaxonAID" id="TaxonAID" class="reqdClr"> 
 			  </td>
             </tr>
 			<!----
