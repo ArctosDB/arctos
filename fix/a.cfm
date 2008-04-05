@@ -36,8 +36,8 @@ function checkRequired(){
 			document.getElementById(fid).setAttribute('onsubmit',"return false");
 			//var sEl="submit_" + fid;
 			//document.getElementById(sEl).value="not ready....";
-			$("#" + fid + " > :input.submit").val("not ready....");
-			
+			//$("#" + fid + " > :input.submit").val("not ready....");
+			$("#" + fid + " > :input[@type='submit']").val("Not ready...");
 			
 		} else {
 			//alert('here ya go....')
