@@ -107,7 +107,8 @@ function removeHelpDiv() {
 <form name="newID" id="newID" method="post" action="editIdentification.cfm">
 	<input type="hidden" name="Action" value="createNew">
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
-    <tr>
+<!---   
+ <tr>
 		<td>
 			<span class="helpLink" id="identification.taxa_formula">ID Formula:</span>
 		</td>
@@ -147,7 +148,8 @@ function removeHelpDiv() {
 				</cfloop>
 			</select>
 		</td>
-	</tr>     
+	</tr>  
+	--->   
 	<tr> 
     	<td><div align="right">Taxon A:</div></td>
         	<td>
@@ -157,6 +159,7 @@ function removeHelpDiv() {
 					<input type="hidden" name="TaxonAID" class="reqdClr"> 
 			  </td>
             </tr>
+			<!----
 			<tr id="taxon_b_row" style="display:none;"> 
               <td><div align="right">Taxon B:</div></td>
               <td>
@@ -244,7 +247,7 @@ function removeHelpDiv() {
                 </div></td>
             </tr>
     </table>
-          
+          --->
         </form>
 <!----
 <p>
