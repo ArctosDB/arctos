@@ -25,6 +25,7 @@ function checkRequired(){
 			// see if they have something
 			if (document.getElementById(id).value.length == 0) {
 				hasIssues=1;
+				console.log('FAIL: ' + fid + ' input ' + id);
 			}
 		});
 		if (hasIssues == 1) {
