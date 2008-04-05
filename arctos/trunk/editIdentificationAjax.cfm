@@ -136,7 +136,7 @@ function removeHelpDiv() {
 	</tr> 
 	 <tr> 
               <td colspan="2"><div align="center"> 
-                    <input type="submit" value="Create" class="insBtn">	
+                    <input type="submit" value="Create">	
 
                 </div></td>
             </tr>
