@@ -17,9 +17,21 @@ function checkRequired(){
 		console.log('checking form ' + fid);
 		// and all the className=reqdClr elements
 		var hasIssues;
-		
+		/*
+		$('form#login')
+    // hide all the labels inside the form with the 'optional' class
+    .find('label.optional').hide().end()
+
+    // add a red border to any password fields in the form
+    .find('input:password').css('border', '1px solid red').end()
+
+    // add a submit handler to the form
+    .submit(function(){
+        return confirm('Are you sure you want to submit?');
+    });
+    */
 			
-		$('#' + fid).find('.reqdClr').each(function() {
+		$('form#' + fid).find('.reqdClr').each(function() {
 			var id=this.id;
 			console.log('checking form ' + fid + ' input ' + id);
 			// see if they have something
@@ -163,7 +175,7 @@ function removeHelpDiv() {
 	<input id="f1_2" class="reqdClr">
 	<input id="f1_3" class="reqdClr">
 		<input id="f1_4" class="booger">
-				<input type="submit" value="missing elements">
+		<input type="submit" value="missing elements">
 </form>
 	<!---
 	<input id="f1_1" class="reqdClr">
