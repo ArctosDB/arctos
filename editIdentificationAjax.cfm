@@ -85,13 +85,18 @@ function removeHelpDiv() {
 
 
 <form name="newID" id="newID" method="post" action="editIdentification.cfm">
+	<input type="hidden" name="Action" value="createNew">
+    <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
 <table class="newRec">
- <tr>
- 	<td colspan="2">
-	<strong><font size="+1">Add new Determination</font></strong>&nbsp;
-	</td>
- </tr>
-
+	<tr>
+ 		<td colspan="2">
+			<strong><font size="+1">Add new Determination</font></strong>&nbsp;
+		</td>
+ 	</tr>
+ 	<tr>
+		<td>
+			<span class="helpLink" id="identification.taxa_formula">ID Formula:</span>
+		</td>
 
 	<input id="f1_1" class="reqdClr">
 	<input id="f1_2" class="reqdClr">
@@ -117,12 +122,8 @@ function removeHelpDiv() {
 <!---   
 
 
-	<input type="hidden" name="Action" value="createNew">
-    <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
- <tr>
-		<td>
-			<span class="helpLink" id="identification.taxa_formula">ID Formula:</span>
-		</td>
+
+
 		<td>
 			<cfif not isdefined("taxa_formula")>
 				<cfset taxa_formula='A'>
