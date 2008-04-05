@@ -6,7 +6,7 @@
 <script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
 <script >
 jQuery( function($) {
-	//setInterval(checkRequired,500);
+	setInterval(checkRequired,500);
 
 
 });
@@ -40,7 +40,7 @@ function checkRequired(){
 			
 			
 		} else {
-			alert('here ya go....')
+			//alert('here ya go....')
 			document.getElementById(fid).removeAttribute('onsubmit');
 			$("#" + fid + " > :input.submit").val("spiffy!");
 			
