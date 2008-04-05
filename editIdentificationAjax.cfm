@@ -48,7 +48,8 @@ checking form f1
 FORM FAIL: f1
     */
 			
-		$('#' + fid + ' > :input.reqdClr').each(function(e) {
+		// finds only DIRECT children  $('#' + fid + ' > :input.reqdClr').each(function(e) {
+		$('#' + fid).find(' > :input.reqdClr').each(function(e) {
 			var id=this.id;
 			console.log('checking form ' + fid + ' input ' + id);
 			// see if they have something
