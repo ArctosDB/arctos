@@ -44,11 +44,23 @@ function removeHelpDiv() {
 }
 </script>
 
+<input type="button" onclick="checkRequired()" value="checkRequired">
+
+
+<form name="f1" id="f1" action="a.cfm" onsubmit="return false">
+	<input id="f1_1" class="reqdClr">
+	<input id="f1_2" class="reqdClr">
+	<input id="f1_3" class="reqdClr">
+		<input id="f1_4" class="booger">
+				<input type="submit" value="missing elements">
+</form>
+
+<!---
 	
 <!--------------------------------------------------------------------------------------------------->
 
 </div><!--- kill content div --->
-<input type="button" onclick="checkRequired()" value="checkRequired">
+
 <cfif #Action# is "nothing">
 <cfquery name="ctnature" datasource="#Application.web_user#">
 	select nature_of_id from ctnature_of_id
@@ -92,13 +104,7 @@ function removeHelpDiv() {
 	<strong><font size="+1">Add new Determination</font></strong>&nbsp;
 	</td>
  </tr>
-<form name="f1" id="f1" action="a.cfm" onsubmit="return false">
-	<input id="f1_1" class="reqdClr">
-	<input id="f1_2" class="reqdClr">
-	<input id="f1_3" class="reqdClr">
-		<input id="f1_4" class="booger">
-				<input type="submit" value="missing elements">
-</form>
+
 
 
 <!---   
@@ -1138,4 +1144,5 @@ function removeHelpDiv() {
 	}
 </script>
 
+---->
 ---->
