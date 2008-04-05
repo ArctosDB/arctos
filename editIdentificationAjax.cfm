@@ -48,7 +48,7 @@ checking form f1
 FORM FAIL: f1
     */
 			
-		$(this).find(':input.reqdClr').each(function() {
+		$('#' + fid + ' > :input.reqdClr').each(function(e) {
 			var id=this.id;
 			console.log('checking form ' + fid + ' input ' + id);
 			// see if they have something
