@@ -107,9 +107,9 @@ function newIdFormula (f) {
 	if (f == 'A or B' || f == 'A x B' || f == 'A / B intergrade' || f == 'A and B') {
 		// a and b
 		bTr.style.display='';
-		b_val.style.className='reqdClr';
+		b_val.className='reqdClr';
 		b_val.value='what the....';
-		b_id.style.className='reqdClr';
+		b_id.className='reqdClr';
 	} else if (f == 'A' || f == 'A ?' || f == 'A cf.' || f == 'A sp.' || f == 'A aff.' || f == 'A ssp.') {
 		bTr.style.display='none';
 		b_val.style.value='';
