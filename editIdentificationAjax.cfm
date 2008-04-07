@@ -16,9 +16,8 @@ function ihml() {
 	$('form').each(function(){
 		var fid=this.id;
 		console.log('checking form ' + fid);
-		console.log('find ....' + fid);
-		var queryString = $('#' + fid).fieldSerialize();
-		console.log('...' + queryString);
+		var queryString = $('#' + fid).formSerialize();
+		console.log('...formSerialize: ' + queryString);
 		
 	});
 }
