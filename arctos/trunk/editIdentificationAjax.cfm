@@ -85,7 +85,7 @@ FORM FAIL: f1
 			var ffVal=fp[1];
 			console.log('Field Name: ' + ffName);
 			console.log('Field Value: ' + ffVal);
-			var ffClass=ffName.attr('class');
+			var ffClass=$ffName.attr('class');
 			console.log('Field Class: ' + ffClass);
 		}
 		/*
