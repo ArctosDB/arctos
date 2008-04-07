@@ -140,7 +140,7 @@ function checkRequired(){
 			console.log('FORM FAIL: ' + fid );
 			// form is NOT ready for submission
 			document.getElementById(fid).setAttribute('onsubmit',"return false");
-			$("#" + fid).find("[@type='submit']").val("Not ready..."));		
+			$("#" + fid).find("[@type='submit']").val("Not ready...");		
 			var booger=	$("#" + fid).find("[@type='submit']").val();
 			console.log('booger ' + booger );
 		} else {
