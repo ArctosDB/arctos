@@ -98,7 +98,7 @@ function clearNewIdBy (n) {
 	i.className='';
 	v.value='';
 	i.value='';
-	theES.style.display='';
+	theES.style.display='none';
 }
 
 function newIdFormula (f) {
