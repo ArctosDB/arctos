@@ -3,6 +3,7 @@
 </div>
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
+<script type='text/javascript' src='/includes/jquery/jquery.field.js'></script>
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
 	//setInterval(checkRequired,500);
@@ -48,10 +49,15 @@ checking form f1
 FORM FAIL: f1
     */
 			
-		//finds only DIRECT children  
-		$('#' + fid + ' > :input.reqdClr').each(function(e) {
+		//finds only DIRECT children, not stuff in form>table>.....>input  
+		//$('#' + fid + ' > :input.reqdClr').each(function(e) {
 		// also finds only DIRECT children $('#' + fid).find(' > :input.reqdClr').each(function(e) {
 		// finds everygoddamed thing, once for each form $('#' + fid).find(':input.reqdClr').each(function(e) {
+		
+		var t = $("#" + fid).formHash();
+		console.log(t);
+		
+		/*
 			var id=this.id;
 			console.log('checking form ' + fid + ' input ' + id);
 			// see if they have something
@@ -70,6 +76,7 @@ FORM FAIL: f1
 			document.getElementById(fid).removeAttribute('onsubmit');
 			$("#" + fid).find("[@type='submit']").val("spiffy!");
 		}
+		*/
 	});
 }
 
