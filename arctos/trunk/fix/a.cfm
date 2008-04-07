@@ -32,12 +32,25 @@ function checkRequired(){
 		}
 	});
 }
+
+function checkRequired2(){	
+	// loop over all the forms...
+	$('form').each(function(){
+		var fid=this.id;
+		console.log('FORM: ' + fid);
+		$('#' + fid + ' > :input.reqdClr').each(function(e) {
+			var id=this.id;
+			// see if they have something
+			console.log('...' + id);
+		});
+	});
+}
 </script>
 
 	
 <!--------------------------------------------------------------------------------------------------->
 
-<input type="button" onclick="checkRequired()" value="checkRequired">
+<input type="button" onclick="checkRequired2()" value="checkRequired">
 
 
 <form name="f1" id="f1" action="a.cfm" onsubmit="return false">
