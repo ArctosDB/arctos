@@ -464,7 +464,7 @@ function removeHelpDiv() {
 											id="IdById_#thisIdentification_id#_#idnum#" value="#agent_id#"
 											class="reqdClr"> 
 										<img src="/images/del.gif" class="likeLink" 
-											onclick="removeIdentifier('#thisIdentification_id#','#agent_id#')" />
+											onclick="removeIdentifier('#thisIdentification_id#','#num#')" />
 										
 				 	</td>
 				 	

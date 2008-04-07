@@ -193,15 +193,15 @@ function success_saveNatureOfId (result) {
 }
 
 
-function removeIdentifier ( identification_id,agent_id  ) {
+function removeIdentifier ( identification_id,num  ) {
 	//alert('bye bye');
 
-	var tabCellS = "IdTr_" + identification_id + "_" + agent_id;
+	var tabCellS = "IdTr_" + identification_id + "_" + num;
 	var tabCell = document.getElementById(tabCellS);
 	tabCell.style.display='none';
-	var affElemS = "IdBy_" + identification_id + "_" + agent_id;
+	var affElemS = "IdBy_" + identification_id + "_" + num;
 	var affElem = document.getElementById(affElemS);
-	var affElemIdS = "IdById_" + identification_id + "_" + agent_id;
+	var affElemIdS = "IdById_" + identification_id + "_" + num;
 	var affElemId = document.getElementById(affElemIdS);
 	affElemId.value='delete'
 	affElemId.className='';
