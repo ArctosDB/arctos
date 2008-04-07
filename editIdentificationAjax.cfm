@@ -68,13 +68,20 @@ FORM FAIL: f1
 		
 		// gets what we want, but doesn't seem to be chainable -shiat...
 		// uhmmm - nevermind - does not return (at least) SELECTs - what the FUCK...
-		var fA=$("#" + fid).formHash();
-		console.log(fA);
+		//var fA=$("#" + fid).formHash();
+		//console.log(fA);
 		
-		for (var name in fA) {
-			console.log('name:' + name + ":" + fA[name]);
-		}
-
+		//for (var name in fA) {
+		//	console.log('name:' + name + ":" + fA[name]);
+		//}
+		// FORM plugin...
+		//fieldSerioalize is stoopid,but formSerialize seems to work -so far....
+		var allFormObjs = $('#' + fid).formSerialize();
+		var AFA=allFormObjs.split('&');
+		for (i=0;i<AFA.length;i++)
+			{
+			console.log(AFA[i]);
+			}
 		/*
 			var id=this.id;
 			console.log('checking form ' + fid + ' input ' + id);
