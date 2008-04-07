@@ -202,7 +202,14 @@ function removeHelpDiv() {
 
 <input type="button" onclick="ihml()" value="ihml">
 
-
+<table class="newRec">
+ <tr>
+ 	<td colspan="2">
+	
+<strong><font size="+1">Add new Determination</font></strong>&nbsp;
+<a href="javascript:void(0);" onClick="getDocs('identification')"><img src="/images/info.gif" border="0"></a>
+	</td>
+ </tr>
 <form name="newID" id="newID" method="post" action="editIdentification.cfm">
 	
 
