@@ -145,6 +145,10 @@ function checkRequired(){
 		console.log('pwd ' + pwd);
 		
 		
+		var $submitButton = $(this, "input[type='submit']").val(); 
+		
+		console.log('$submitButton ' + $submitButton);
+		
 			
 		if (hasIssues > 0) {
 			console.log('FORM FAIL: ' + fid );
