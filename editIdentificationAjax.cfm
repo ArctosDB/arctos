@@ -204,6 +204,8 @@ ihml
 <form name="newID" id="newID" method="post" action="editIdentification.cfm">
 	<input type="hidden" name="Action" value="createNew">
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
+	
+	<!---
 
 	<tr>
  		<td colspan="2">
@@ -266,7 +268,7 @@ ihml
               <td colspan="2">
             </td>
             </tr>
-
+--->
 		<input type="submit" value="missing elements">
 	</form>
 	
