@@ -60,8 +60,8 @@ FORM FAIL: f1
 		console.log(fA);
 		
 		for (var name in fA) {
-alert('name:' + name + ":" + fA[name]);
-}
+			console.log('name:' + name + ":" + fA[name]);
+			}
 
 
 		for ( var i=0, len=fA.length; i<len; ++i ){
