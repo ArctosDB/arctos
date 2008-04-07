@@ -168,7 +168,6 @@ function removeHelpDiv() {
 <cfquery name="ctFormula" datasource="#Application.web_user#">
 	select taxa_formula from cttaxa_formula order by taxa_formula
 </cfquery>
-<cfoutput>
 <cfquery name="getID" datasource="#Application.web_user#">
 	SELECT
 		identification.identification_id,
@@ -224,6 +223,7 @@ function removeHelpDiv() {
 </form>
 </cfoutput>
 </cfif>
+<!---
 <!--------------------------------------------------------------------------------------------------->
 
 </div><!--- kill content div --->
