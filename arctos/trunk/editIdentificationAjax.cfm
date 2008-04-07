@@ -363,12 +363,6 @@ function removeHelpDiv() {
     </tr>
 </form>
 </table>
-</cfoutput>
-</cfif>
-<!---
-<!--------------------------------------------------------------------------------------------------->
-
-</div><!--- kill content div --->
 
 
 
@@ -376,102 +370,6 @@ function removeHelpDiv() {
 
 
 
-
-<!---   
-
-
-
-
-		
-	
-	
-	--->   
-	
-			<!----
-			<tr id="taxon_b_row" style="display:none;"> 
-              <td><div align="right">Taxon B:</div></td>
-              <td>
-			  	<input type="text" name="taxa_b" id="taxa_b" class="reqdClr" size="50" 
-					onChange="taxaPick('TaxonBID','taxa_b','newID',this.value); return false;"
-					onKeyPress="return noenter(event);">
-				<input type="hidden" name="TaxonBID" id="TaxonBID">
-			  </td>
-            </tr>
-            <tr> 
-            	<td>
-					<div align="right">
-			  			<span class="helpLink" id="identified_by">ID By:</span>
-			  		 </div>
-				</td>
-              	<td>
-					<input type="text" name="idBy" id="idBy" class="reqdClr" size="50" 
-			 		 onchange="getAgent('newIdById','idBy','newID',this.value); return false;"
-			  		 onkeypress="return noenter(event);"> 
-                	<input type="hidden" name="newIdById" id="newIdById" class="reqdClr"> 
-					<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
-				</td>
-            </tr>
-			<tr id="addNewIdBy_two" style="display:none;"> 
-              	<td>
-					<div align="right">
-						ID By:<span class="infoLink" onclick="clearNewIdBy('two');"> clear</span>	
-					</div>
-				</td>
-              	<td>
-					<input type="text" name="idBy_two" id="idBy_two" class="reqdClr" size="50" 
-			 		 	onchange="getAgent('newIdById_two','idBy_two','newID',this.value); return false;"
-			  		 	onkeypress="return noenter(event);"> 
-                	<input type="hidden" name="newIdById_two" id="newIdById_two"> 
-					<span class="infoLink" onclick="addNewIdBy('three');">more...</span>			
-
-			 </td>
-            </tr>
-           <tr id="addNewIdBy_three" style="display:none;"> 
-              	<td>
-					<div align="right">
-						ID By:<span class="infoLink" onclick="clearNewIdBy('three');"> clear</span>	
-					</div>
-				</td>
-              	<td>
-					<input type="text" name="idBy_three" id="idBy_three" class="reqdClr" size="50" 
-			 		 	onchange="getAgent('newIdById_three','idBy_three','newID',this.value); return false;"
-			  		 	onkeypress="return noenter(event);"> 
-                	<input type="hidden" name="newIdById_three" id="newIdById_three"> 			
-
-			 </td>
-            </tr>
-            <tr> 
-              <td><div align="right">
-			  <a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_date')">ID Date:</a></td>
-			  </div></td>
-              <td><input type="text" name="made_date" id="made_date"></td>
-            </tr>
-            <tr> 
-              <td><div align="right">
-			  <a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','nature_of_id')"> Nature of ID:</a></td>
-			
-			 </div></td>
-              <td><select name="nature_of_id" id="nature_of_id" size="1" class="reqdClr">
-                  <cfloop query="ctnature">
-                    <option  value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
-                  </cfloop>
-                </select>
-				<img 
-				class="likeLink" 
-				src="/images/ctinfo.gif"
-				border="0"
-				alt="Code Table Value Definition"
-				onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)"></td>
-            </tr>
-            <tr> 
-              <td><div align="right">Remarks:</div></td>
-              <td><input type="text" name="identification_remarks" id="identification_remarks" size="50"></td>
-            </tr>
-           
-          --->
-        
-<!----
-<p>
 <strong><font size="+1">Edit an Existing Determination</font></strong>
 <img src="/images/info.gif" border="0" onClick="getDocs('identification')" class="likeLink">
 </p>
@@ -658,7 +556,6 @@ function removeHelpDiv() {
       </form>
 <cfset i = #i#+1>
 </cfloop>
- ---->
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
