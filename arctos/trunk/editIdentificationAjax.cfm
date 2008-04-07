@@ -215,7 +215,11 @@ function removeHelpDiv() {
 
 	<input type="hidden" name="Action" value="createNew">
     <input type="hidden" name="collection_object_id" value="1235" >
-	
+	<tr>
+		<td>
+			<input type="text" name="ftone" id="ftone" class="reqdClr">
+		</td>
+	</tr>
 	<tr><td>
 			<input type="submit" value="missing evasdfbsdlements">
 	</td></tr>
