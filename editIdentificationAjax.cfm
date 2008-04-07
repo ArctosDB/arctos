@@ -1,7 +1,7 @@
 <div id="theHead">
 	<cfinclude template="/includes/_header.cfm">
 </div>
-<script type='text/javascript' src='/includes/_editIdentification.js'></script>
+<script type='text/javascript' src='/includes/_editIdentificationAjax.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.field.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
@@ -266,13 +266,13 @@ function removeHelpDiv() {
 			  	<input type="text" name="taxa_a" class="reqdClr" size="50" 
 				onChange="taxaPick('TaxonAID','taxa_a','newID',this.value); return false;"
 				onKeyPress="return noenter(event);">
-				<input type="hidden" name="TaxonAID"> 
+				<input type="hidden" name="TaxonAID" class="reqdClr"> 
 			  </td>
             </tr>
 			<tr id="taxon_b_row" style="display:none;"> 
               <td><div align="right">Taxon B:</div></td>
               <td>
-			  	<input type="text" name="taxa_b" id="taxa_b" class="reqdClr" size="50" 
+			  	<input type="text" name="taxa_b" id="taxa_b"  size="50" 
 					onChange="taxaPick('TaxonBID','taxa_b','newID',this.value); return false;"
 					onKeyPress="return noenter(event);">
 				<input type="hidden" name="TaxonBID" id="TaxonBID">
@@ -283,10 +283,11 @@ function removeHelpDiv() {
 			  <a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_by')">ID By:</a>
 				
 							 </div></td>
-              <td><input type="text" name="idBy" class="reqdClr" size="50" 
+              <td>
+				<input type="text" name="idBy" class="reqdClr" size="50" 
 			 		 onchange="getAgent('newIdById','idBy','newID',this.value); return false;"
 			  		 onkeypress="return noenter(event);"> 
-                <input type="hidden" name="newIdById"> 
+                <input type="hidden" name="newIdById" class="reqdClr"> 
 				<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 				
 
@@ -299,7 +300,7 @@ function removeHelpDiv() {
 					</div>
 				</td>
               	<td>
-					<input type="text" name="idBy_two" id="idBy_two" class="reqdClr" size="50" 
+					<input type="text" name="idBy_two" id="idBy_two" size="50" 
 			 		 	onchange="getAgent('newIdById_two','idBy_two','newID',this.value); return false;"
 			  		 	onkeypress="return noenter(event);"> 
                 	<input type="hidden" name="newIdById_two" id="newIdById_two"> 
@@ -314,7 +315,7 @@ function removeHelpDiv() {
 					</div>
 				</td>
               	<td>
-					<input type="text" name="idBy_three" id="idBy_three" class="reqdClr" size="50" 
+					<input type="text" name="idBy_three" id="idBy_three"  size="50" 
 			 		 	onchange="getAgent('newIdById_three','idBy_three','newID',this.value); return false;"
 			  		 	onkeypress="return noenter(event);"> 
                 	<input type="hidden" name="newIdById_three" id="newIdById_three"> 			
