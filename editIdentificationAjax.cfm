@@ -476,7 +476,7 @@ function removeHelpDiv() {
 				</table>
 			<td>
 				<span class="infoLink" id="addIdentifier_#thisIdentification_id#" 
-					onclick="addIdentifier('#thisIdentification_id#','#idnum#')" />
+					onclick="addIdentifier('#thisIdentification_id#','#idnum#')">Add Identifier</span>
 			</td>	
 			</td>
 				</tr>
