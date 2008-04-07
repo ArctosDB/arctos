@@ -108,6 +108,7 @@ function newIdFormula (f) {
 		// a and b
 		bTr.style.display='';
 		b_val.style.className='reqdClr';
+		b_val.value='what the....';
 		b_id.style.className='reqdClr';
 	} else if (f == 'A' || f == 'A ?' || f == 'A cf.' || f == 'A sp.' || f == 'A aff.' || f == 'A ssp.') {
 		bTr.style.display='none';
