@@ -145,7 +145,6 @@ function checkRequired(){
 		console.log('pwd ' + pwd);
 		
 		
-		$('#' + fid).find(':input.reqdClr').each(function(e) {
 			
 		if (hasIssues > 0) {
 			console.log('FORM FAIL: ' + fid );
