@@ -55,10 +55,15 @@ FORM FAIL: f1
 		// finds everygoddamed thing, once for each form $('#' + fid).find(':input.reqdClr').each(function(e) {
 		
 		// gets what we want, but doesn't seem to be chainable -shiat...
+		
 		var fA=$("#" + fid).formHash();
 		console.log(fA);
 		
-		
+		for (var name in fA) {
+alert(”My ” + name + “’s name is ” + fA[name]);
+}
+
+
 		for ( var i=0, len=fA.length; i<len; ++i ){
 			 console.log('loopy');
 			 console.log(fA[1].name);
