@@ -10,7 +10,6 @@ jQuery( function($) {
 	//setInterval(checkRequired,500);
 	
 });
-
 function ihml() {
 	console.log('looping through all forms');
 	$('form').each(function(){
