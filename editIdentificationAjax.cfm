@@ -17,10 +17,9 @@ function ihml() {
 		console.log('checking form ' + fid);
 		console.log('find ....' + fid);
 		
-		
-		$('#' + fid).find(':input.reqdClr').each(function(e) {
+		$('#' + fid + ' > :input.reqdClr').each(function(e) {
 			var id=this.id;
-			console.log('checking form ' + fid + ' input ' + id);
+			console.log('...' + id);
 		})
 	});
 }
