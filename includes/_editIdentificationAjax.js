@@ -246,7 +246,7 @@ function addIdentifier(identification_id,num) {
 	var d = document.createElement('img');
 	d.src='/images/del.gif';
 	d.className="likeLink";
-	var cStrg = "removeIdentifier('" + identification_id + "','" + num + "')";
+	var cStrg = "removeIdentifier('" + identification_id + "','" +  parseInt(num+1) + "')";
 	d.setAttribute('onclick',cStrg);
 	theTable.appendChild(r);
 	r.appendChild(t1);
