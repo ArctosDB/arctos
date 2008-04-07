@@ -136,6 +136,7 @@ function checkRequired(){
 			}
 		}
 		if (hasIssues > 0) {
+			console.log('FORM FAIL: ' + fid );
 			// form is NOT ready for submission
 			document.getElementById(fid).setAttribute('onsubmit',"return false");
 			$("#" + fid).find("[@type='submit']").val("Not ready...");			
