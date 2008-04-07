@@ -162,7 +162,7 @@ function removeHelpDiv() {
 </script>
 <cfif #Action# is "nothing">
 	<cfoutput>
-	<!----
+
 <cfquery name="ctFormula" datasource="#Application.web_user#">
 	select taxa_formula from cttaxa_formula order by taxa_formula
 </cfquery>
@@ -206,6 +206,7 @@ ihml
 <table class="newRec">
 
 <form name="newID" id="newID" method="post" action="editIdentification.cfm">
+		<!----
 	<input type="hidden" name="Action" value="createNew">
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
 	
@@ -280,7 +281,7 @@ ihml
 	
 	</table>
 	---->
-	<form name="newID" id="newID" method="post" action="editIdentification.cfm">
+
 	<input type="hidden" name="Action" value="createNew">
     <input type="hidden" name="collection_object_id" value="1235" >
 	
