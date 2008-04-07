@@ -219,6 +219,7 @@ ihml
 				<cfset taxa_formula='A'>
 			</cfif>
 			<cfset thisForm = "#taxa_formula#">
+			<!---
 			<select name="taxa_formula" id="taxa_formula" size="1" class="reqdClr"
 				onchange="newIdFormula(this.value);">
 				<cfloop query="ctFormula">
@@ -249,6 +250,7 @@ ihml
 					<cfif #thisForm# is "#ctFormula.taxa_formula#"> selected </cfif>value="#ctFormula.taxa_formula#">#thisDispVal#</option>
 				</cfloop>
 			</select>
+			---->
 		</td>
 	</tr> 
 	<tr> 
