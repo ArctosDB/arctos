@@ -364,7 +364,7 @@ function removeHelpDiv() {
 	<input id="f1_2" name="f1_2" class="reqdClr">
 	<input id="f1_3" name="f1_3" class="reqdClr">
 		<input id="f1_4" name="f1_4" class="booger">
-		<input type="submit" id="f1_submit"  value="missing elements">
+		<input type="submit" id="f1_submit"  title="my title" value="missing elements">
 </form>
 </cfoutput>
 </cfif>
