@@ -695,6 +695,16 @@ input.insBtn {
 	background-color:#99CCCC;
 	border-color: #336666;
 	border:1px solid;}
+	
+input.insBtn:hover {
+	border-top-color:#FF6633 ;
+	border-left-color:#FF6633 ;
+	border-right-color:#FF6666 ;
+	border-bottom-color:#FF6666 ;
+	cursor:pointer;
+}
+	
+	
 input.picBtn {
 	color:	#666666;
 	font-size:10pt;
