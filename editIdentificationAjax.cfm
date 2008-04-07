@@ -78,8 +78,9 @@ FORM FAIL: f1
 		//fieldSerioalize is stoopid,but formSerialize seems to work -so far....
 		var allFormObjs = $('#' + fid).formSerialize();
 		var AFA=allFormObjs.split('&');
+		var hasIssues=0;
 		for (i=0;i<AFA.length;i++){
-			var hasIssues=0;
+
 			console.log(AFA[i]);
 			var fp=AFA[i].split('=');
 			var ffName=fp[0];
