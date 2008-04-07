@@ -138,6 +138,7 @@ function checkRequired(){
 		console.log('tested form ' + fid );
 		// get the form submit
 		// REQUIREMENT: form dubmit button has id of formID + _submit
+		//REQUIREMENT: form submit has a title
 		var sbmBtnStr=fid + "_submit";
 		console.log('sbmBtnStr ' + sbmBtnStr);
 		var sbmBtn=document.getElementById(sbmBtnStr);
@@ -151,7 +152,7 @@ function checkRequired(){
 			sbmBtn.value="Not ready...";		
 		} else {
 			document.getElementById(fid).removeAttribute('onsubmit');
-			sbmBtn.value="spiffy!";	
+			sbmBtn.value=sbmBtn.title;	
 		}
 	});
 }
@@ -349,7 +350,7 @@ function removeHelpDiv() {
             </tr>
             <tr> 
               <td colspan="2"><div align="center"> 
-                    <input type="submit" id="newID_submit" value="Create" class="insBtn"
+                    <input type="submit" id="newID_submit" value="Create" class="insBtn" title="Create Identification"
    onmouseover="this.className='insBtn btnhov';this.focus();" onmouseout="this.className='insBtn'">	
 
                 </div></td>
