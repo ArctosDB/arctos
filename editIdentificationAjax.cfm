@@ -89,8 +89,9 @@ FORM FAIL: f1
 			console.log('Field Value: ' + ffVal);
 			var ffClass=$("#" + ffName).attr('class');
 			console.log('Field Class: ' + ffClass);
-			if (ffClass=='reqsClr' && ffVal==''){
+			if (ffClass=='reqdClr' && ffVal==''){
 				hasIssues+=1;
+				console.log(':::::::FORM ' + fid + 'field ' + ffName + ' has a issues');
 			}
 		}
 		console.log('------FORM' + fid + 'has a hasIssues value of ' + hasIssues);
