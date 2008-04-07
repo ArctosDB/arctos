@@ -54,7 +54,7 @@ FORM FAIL: f1
 		// also finds only DIRECT children $('#' + fid).find(' > :input.reqdClr').each(function(e) {
 		// finds everygoddamed thing, once for each form $('#' + fid).find(':input.reqdClr').each(function(e) {
 		
-		var t = $("#" + fid).formHash();
+		var t = $("#" + fid).formHash().reqdClr;
 		console.log(t);
 		
 		/*
