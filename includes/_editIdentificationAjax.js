@@ -195,38 +195,69 @@ function success_saveNatureOfId (result) {
 
 function removeIdentifier ( identification_id,agent_id  ) {
 	//alert('bye bye');
+
+	var tabCellS = "IdTr_" + identification_id + "_" + agent_id;
+	var tabCell = document.getElementById(tabCellS);
+	tabCell.style.display='none';
 	var affElemS = "IdBy_" + identification_id + "_" + agent_id;
 	var affElem = document.getElementById(affElemS);
-	affElem.className = 'red';
-	DWREngine._execute(_cfscriptLocation, null, 'removeIdentifier', identification_id,agent_id, success_removeIdentifier);
-}
-function success_removeIdentifier (result) {
-	//alert(result);
-	var statAry=result.split('|');
-	var status=statAry[0];
-	var msg=statAry[1];
-	if (status == 'success') {
-		var elemAry=msg.split('::');
-		var identification_id =elemAry[0];
-		var agent_id =elemAry[1];
-		var remdName="IdTr_" + identification_id + "_" + agent_id;
-		var rName = document.getElementById(remdName);
-    	rName.parentNode.removeChild(rName);
-		//rName.removeNode(false);
-		//rId.removeNode(false);		
-				 
-	} else {
-		alert(msg);
-	}
+	var affElemIdS = "IdById_" + identification_id + "_" + agent_id;
+	var affElemId = document.getElementById(affElemIdS);
+	affElemId.value='delete'
+	affElemId.className='';
+	affElem.className='';
+	affElem.value='';											
 }
 
 
 
-function addIdentifier(inpBox,id_id,agent_id) {
-	//alert('addIdentifier: '+ inpBox + ':' + id_id + ':' + agent_id);	
-	var thisElement = document.getElementById(inpBox);
-	thisElement.className='red';
-	DWREngine._execute(_cfscriptLocation, null, 'addIdentifier', inpBox,id_id,agent_id, success_addIdentifier);
+function addIdentifier(identification_id,num) {
+	var tns = 'identifierTableBody_' + identification_id;
+	var theTable = document.getElementById(tns);
+	
+	var controlS="addIdentifier_" + identification_id;
+	var control=document.getElementById(controlS);
+	var cAtt="addIdentifier('" + identification_id + "','" + num + "')";
+	control.setAttribute("onclick",cAtt);
+	
+	var nI = document.createElement('input');
+	nI.setAttribute('type','text');
+	idStr = 'IdBy_' + identification_id + "_" + num;
+	nI.id = idStr;
+	nI.setAttribute('name',idStr);
+	nI.setAttribute('size','50');
+	nI.className='reqdClr';
+	var onchgStr = "getAgent('IdById_"  + identification_id + "_" + num + "','IdBy_" + num + "','id" + identification_id +  num +"',this.value); return false;";
+	nI.setAttribute('onchange',onchgStr);
+	nI.setAttribute('onKeyPress',"return noenter(event);");
+	
+	var nid = document.createElement('input');
+	nid.setAttribute('type','hidden');
+	
+	ididStr = 'IdById_' + identification_id + "_" + num;
+	nid.id = ididStr;
+	nid.setAttribute('name',ididStr);
+	
+	r = document.createElement('tr');
+	r.id="IdTr_" + identification_id + "_" + num;
+	t1 = document.createElement('td');
+	t2 = document.createElement('td');
+	t3 = document.createTextNode("Identified By:");
+	var d = document.createElement('img');
+	d.src='/images/del.gif';
+	d.className="likeLink";
+	var cStrg = "removeIdentifier('" + identification_id + "','" + num + "')";
+	d.setAttribute('onclick',cStrg);
+	theTable.appendChild(r);
+	r.appendChild(t1);
+	r.appendChild(t2);
+	t1.appendChild(t3);
+	t2.appendChild(nI);
+	t2.appendChild(nid);
+	t2.appendChild(d);
+		
+			
+			
 }
 function success_addIdentifier(result) {
 	//alert(result);
@@ -243,7 +274,7 @@ function success_addIdentifier(result) {
 		var agent_id = elAry[4];
 		var tns = 'identifierTableBody_' + identification_id;
 		var theTable = document.getElementById(tns);
-		<!--- clear the new ider element, create a new element, populate with this stuff --->
+
 		var nI = document.createElement('input');
 		nI.setAttribute('type','text');
 		idStr = 'IdBy_' + identification_id + "_" + agent_id;

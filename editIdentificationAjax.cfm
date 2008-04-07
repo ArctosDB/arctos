@@ -185,7 +185,8 @@ function removeHelpDiv() {
 		made_date,
 		nature_of_id, 
 		accepted_id_fg, 
-		identification_remarks
+		identification_remarks,
+		identification_agent_id
 	FROM 
 		cataloged_item, 
 		identification,
@@ -401,12 +402,14 @@ function removeHelpDiv() {
 		accepted_id_fg DESC,
 		made_date
 </cfquery>
+<form name="editIdentification" id="editIdentification" method="post" action="editIdentification.cfm">
 <cfloop query="distIds">
 	<cfquery name="identifiers" dbtype="query">
 		select 
 			agent_name,
 			identifier_order,
-			agent_id
+			agent_id,
+			identification_agent_id
 		FROM
 			getID
 		WHERE
@@ -414,84 +417,68 @@ function removeHelpDiv() {
 		ORDER BY
 			identifier_order
 	</cfquery>
-	<cfset thisIdentification_id = #identification_id#>
 	
-<form name="id#thisIdentification_id#" method="post" action="editIdentification.cfm"  onSubmit="return gotAgentId(this.newIdById.value)">
-	       
-          
-            <table id="mainTable_#thisIdentification_id#">
-              <tr> 
-                <td><div align="right">Scientific Name:</div></td>
-                <td><b><i>#scientific_name#</i></b>
-				
-				  
-			    </td>
-              </tr>
-              <tr> 
-                <td><div align="right">Accepted?:</div></td>
-				<td>
+	<cfset thisIdentification_id = #identification_id#>
+	<table id="mainTable_#thisIdentification_id#">
+    	<tr> 
+        	<td><div align="right">Scientific Name:</div></td>
+            <td><b><i>#scientific_name#</i></b></td>
+        </tr>
+        <tr> 
+        	<td><div align="right">Accepted?:</div></td>
+			<td>
 				<cfif #accepted_id_fg# is 0>
-				<select name="ACCEPTED_ID_FG" id="accepted_id_fg_#thisIdentification_id#"size="1" class="reqdClr" onchange="flippedAccepted(this.value,'#collection_object_id#','#thisIdentification_id#');this.className='red';">
-                    <option value="1"
+					<select name="ACCEPTED_ID_FG" 
+						id="accepted_id_fg_#thisIdentification_id#" size="1" 
+						class="reqdClr">
+						<option value="1"
 							<cfif #ACCEPTED_ID_FG# is 1> selected </cfif>>yes</option>
-                    <option 
+                    	<option 
 							<cfif #accepted_id_fg# is 0> selected </cfif>value="0">no</option>
-                  </select> 
-				  <cfelse>
-				  	<b>Yes</b>
-				  </cfif>
-				  
-			    </td>
-              </tr>
-              <!---
-			  <tr> 
-                <td><div align="right"> <a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_by')">ID By:</a>
-				</div></td>
-                <td><input type="text" name="idBy" value="#getID.agent_name#" class="reqdClr"
-				 size="50" onchange="getAgent('newIdById','idBy','id#i#',this.value); return false;"
-				 oonKeyPress="return noenter(event);"> 
-                <input type="hidden" name="newIdById"> 
-				
-				
+                  	</select> 
+				<cfelse>
+					<b>Yes</b>
+				</cfif>
 			</td>
-              </tr>
-			  --->
-			  
-			  <tr>
-					<td colspan="2">
-					<table id="identifierTable_#thisIdentification_id#">
+       	</tr>
+        <tr>
+			<td colspan="2">
+				<table id="identifierTable_#thisIdentification_id#">
 					<tbody id="identifierTableBody_#thisIdentification_id#">
-			 <cfloop query="identifiers">
-				<!--- this needs to be a table with an ID so we can get at it via the DOM --->
-				
-				
-				<tr id="IdTr_#thisIdentification_id#_#agent_id#">
-					<td>
-						Identified By:
-					</td>
-					<td>
-						<input type="text" 
-							name="IdBy_#thisIdentification_id#_#agent_id#" 
-							id="IdBy_#thisIdentification_id#_#agent_id#" 
-							value="#agent_name#" 
-							class="reqdClr"
-							size="50" 
-							onchange="this.className='red';getAgent('IdById_#thisIdentification_id#_#agent_id#','IdBy_#thisIdentification_id#_#agent_id#','id#thisIdentification_id#',this.value); return false;"
-				 			onKeyPress="return noenter(event);"> 
-							<!---
-							<img src="/images/down.gif" class="likeLink" onclick="rearrangeIdentifiers('down','#thisIdentification_id#','#agent_id#');" />
-							<img src="/images/up.gif" class="likeLink" onclick="rearrangeIdentifiers('up','#thisIdentification_id#','#agent_id#');" />
-							--->
-				 <input type="hidden" name="IdById_#thisIdentification_id#_#agent_id#" id="IdById_#thisIdentification_id#_#agent_id#" value="#agent_id#"> 
-				<img src="/images/del.gif" class="likeLink" onclick="removeIdentifier('#thisIdentification_id#','#agent_id#')" />
-				 <img src="/images/save.gif" id="saveButton#thisIdentification_id#_#agent_id#" class="likeLink" onclick="saveIdentifierChange('IdBy_#thisIdentification_id#_#agent_id#');" />
-					</td>
+						<cfset idnum=1>
+						<cfloop query="identifiers">
+							<tr id="IdTr_#thisIdentification_id#_#idnum#">
+								<td>Identified By:</td>
+								<td>
+									<input type="text" 
+										name="IdBy_#thisIdentification_id#_#idnum#" 
+										id="IdBy_#thisIdentification_id#_#idnum#" 
+										value="#agent_name#" 
+										class="reqdClr"
+										size="50" 
+										onchange="this.className='red';
+											getAgent('IdById_#thisIdentification_id#_#idnum#','IdBy_#thisIdentification_id#_#idnum#','id#thisIdentification_id#',this.value); return false;"
+							 			onKeyPress="return noenter(event);"> 
+										<input type="hidden" 
+											name="IdById_#thisIdentification_id#_#idnum#" 
+											id="IdById_#thisIdentification_id#_#idnum#" value="#agent_id#"
+											class="reqdClr"> 
+										<img src="/images/del.gif" class="likeLink" 
+											onclick="removeIdentifier('#thisIdentification_id#','#agent_id#')" />
+										
+				 	</td>
+				 	
 				</tr>
-				
+				<cfset idnum=idnum+1>
+						
 			</cfloop>
 			</tbody>
 				</table>
-				</td>
+			<td>
+				<span class="infoLink" id="addIdentifier_#thisIdentification_id#" 
+					onclick="addIdentifier('#thisIdentification_id#','#idnum#')" />
+			</td>	
+			</td>
 				</tr>
 				<cfquery name="maxID" dbtype="query">select max(identifier_order) as nid from identifiers</cfquery>
 				<input type="hidden" name="number_of_identifiers" value="#maxID.nid#" />
@@ -1254,5 +1241,4 @@ function removeHelpDiv() {
 	}
 </script>
 
----->
 ---->
