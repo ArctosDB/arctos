@@ -220,7 +220,7 @@ function removeHelpDiv() {
 		<input type="submit" value="missing evasdfbsdlements">
 	</form>
 	
-	
+</TABLE>	
 	<form name="f1" id="f1" action="a.cfm" onsubmit="return false">
 	<input id="f1_1" name="f1_1" class="reqdClr">
 	<input id="f1_2" name="f1_2" class="reqdClr">
