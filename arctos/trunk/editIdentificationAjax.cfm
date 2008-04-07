@@ -227,7 +227,7 @@ function removeHelpDiv() {
 						<cfset taxa_formula='A'>
 					</cfif>
 					<cfset thisForm = "#taxa_formula#">
-					<select name="taxa_formula" size="1" class="reqdClr"
+					<select name="taxa_formula" id="taxa_formula" size="1" class="reqdClr"
 					onchange="newIdFormula(this.value);">
 						<cfloop query="ctFormula">
 						<cfif #ctFormula.taxa_formula# is "A">
@@ -263,7 +263,7 @@ function removeHelpDiv() {
             <tr> 
               <td><div align="right">Taxon A:</div></td>
               <td>
-			  	<input type="text" name="taxa_a" class="reqdClr" size="50" 
+			  	<input type="text" name="taxa_a" id="taxa_a" class="reqdClr" size="50" 
 				onChange="taxaPick('TaxonAID','taxa_a','newID',this.value); return false;"
 				onKeyPress="return noenter(event);">
 				<input type="hidden" name="TaxonAID" class="reqdClr"> 
@@ -284,7 +284,7 @@ function removeHelpDiv() {
 				
 							 </div></td>
               <td>
-				<input type="text" name="idBy" class="reqdClr" size="50" 
+				<input type="text" name="idBy" id="idBy" class="reqdClr" size="50" 
 			 		 onchange="getAgent('newIdById','idBy','newID',this.value); return false;"
 			  		 onkeypress="return noenter(event);"> 
                 <input type="hidden" name="newIdById" class="reqdClr"> 
@@ -326,14 +326,14 @@ function removeHelpDiv() {
               <td><div align="right">
 			  <a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_date')">ID Date:</a></td>
 			  </div></td>
-              <td><input type="text" name="made_date"></td>
+              <td><input type="text" name="made_date" id="made_date"></td>
             </tr>
             <tr> 
               <td><div align="right">
 			  <a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','nature_of_id')"> Nature of ID:</a></td>
 			
 			 </div></td>
-              <td><select name="nature_of_id" size="1" class="reqdClr">
+              <td><select name="nature_of_id" id="nature_of_id" size="1" class="reqdClr">
                   <cfloop query="ctnature">
                     <option  value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
                   </cfloop>
