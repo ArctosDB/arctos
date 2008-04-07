@@ -140,7 +140,9 @@ function checkRequired(){
 			console.log('FORM FAIL: ' + fid );
 			// form is NOT ready for submission
 			document.getElementById(fid).setAttribute('onsubmit',"return false");
-			$("#" + fid).find("[@type='submit']").each(val("Not ready..."));			
+			$("#" + fid).find("[@type='submit']").val("Not ready..."));		
+			var booger=	$("#" + fid).find("[@type='submit']").val();
+			console.log('booger ' + booger );
 		} else {
 			document.getElementById(fid).removeAttribute('onsubmit');
 			$("#" + fid).find("[@type='submit']").val("spiffy!");
