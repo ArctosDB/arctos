@@ -79,6 +79,7 @@ FORM FAIL: f1
 		var allFormObjs = $('#' + fid).formSerialize();
 		var AFA=allFormObjs.split('&');
 		for (i=0;i<AFA.length;i++){
+			var hasIssues=0;
 			console.log(AFA[i]);
 			var fp=AFA[i].split('=');
 			var ffName=fp[0];
@@ -87,6 +88,10 @@ FORM FAIL: f1
 			console.log('Field Value: ' + ffVal);
 			var ffClass=$("#" + ffName).attr('class');
 			console.log('Field Class: ' + ffClass);
+			if (ffClass=='reqsClr' && ffVal==''){
+				hasIssues+=1;
+			}
+			console.log('------FORM' + fid + 'has a hasIssues value of ' + hasIssues);
 		}
 		/*
 			var id=this.id;
