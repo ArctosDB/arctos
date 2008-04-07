@@ -137,18 +137,6 @@ function checkRequired(){
 		}
 		console.log('tested form ' + fid );
 		// get the form submit
-		var fSubmit=$("#" + fid).find("[@type='submit']").val();
-		console.log('fSubmit ' + fSubmit);
-		
-		
-		var pwd = $('#' + fid + ' :submit').fieldValue();
-		console.log('pwd ' + pwd);
-		
-		
-		var $submitButton = $(this, "input[type='submit']").val(); 
-		
-		console.log('$submitButton ' + $submitButton);
-		
 		// REQUIREMENT: form dubmit button has id of formID + _submit
 		var sbmBtnStr=fid + "_submit";
 		console.log('sbmBtnStr ' + sbmBtnStr);
@@ -160,14 +148,10 @@ function checkRequired(){
 			console.log('FORM FAIL: ' + fid );
 			// form is NOT ready for submission
 			document.getElementById(fid).setAttribute('onsubmit',"return false");
-			
-			$("#" + fid).find("[@type='submit']").val("Not ready...");		
-			console.log('booger ' + booger );
+			sbmBtn.value="Not ready...";		
 		} else {
-						var booger=	$("#" + fid).find("[@type='submit']").val();
-									console.log('booger ' + booger );
 			document.getElementById(fid).removeAttribute('onsubmit');
-			$("#" + fid).find("[@type='submit']").val("spiffy!");
+			sbmBtn.value="spiffy!";	
 		}
 	});
 }
