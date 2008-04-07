@@ -23,7 +23,7 @@ function ihml() {
 		
 	});
 }
-function checkRequired(){	
+function checkRequiredTestThingy(){	
 	// loop over all the forms...
 	$('form').each(function(){
 		var fid=this.id;
@@ -117,6 +117,35 @@ FORM FAIL: f1
 		*/
 	});
 }
+
+
+function checkRequired(){	
+	// loop over all the forms...
+	$('form').each(function(){
+		var fid=this.id;
+		var hasIssues=0;
+		var allFormObjs = $('#' + fid).formSerialize();
+		var AFA=allFormObjs.split('&');
+		for (i=0;i<AFA.length;i++){
+			var fp=AFA[i].split('=');
+			var ffName=fp[0];
+			var ffVal=fp[1];
+			var ffClass=$("#" + ffName).attr('class');
+			if (ffClass=='reqdClr' && ffVal==''){
+				hasIssues+=1;
+			}
+		}
+		if (hasIssues > 0) {
+			// form is NOT ready for submission
+			document.getElementById(fid).setAttribute('onsubmit',"return false");
+			$("#" + fid).find("[@type='submit']").val("Not ready...");			
+		} else {
+			document.getElementById(fid).removeAttribute('onsubmit');
+			$("#" + fid).find("[@type='submit']").val("spiffy!");
+		}
+	});
+}
+
 
 
 function removeHelpDiv() {
