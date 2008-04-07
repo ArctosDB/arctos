@@ -92,8 +92,8 @@ FORM FAIL: f1
 			if (ffClass=='reqsClr' && ffVal==''){
 				hasIssues+=1;
 			}
-			console.log('------FORM' + fid + 'has a hasIssues value of ' + hasIssues);
 		}
+		console.log('------FORM' + fid + 'has a hasIssues value of ' + hasIssues);
 		/*
 			var id=this.id;
 			console.log('checking form ' + fid + ' input ' + id);
