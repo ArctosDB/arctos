@@ -78,10 +78,14 @@ FORM FAIL: f1
 		//fieldSerioalize is stoopid,but formSerialize seems to work -so far....
 		var allFormObjs = $('#' + fid).formSerialize();
 		var AFA=allFormObjs.split('&');
-		for (i=0;i<AFA.length;i++)
-			{
+		for (i=0;i<AFA.length;i++){
 			console.log(AFA[i]);
-			}
+			var fp=AFA[i].split('=');
+			var ffName=fp[0];
+			var ffVal=fp[1];
+			console.log('Field Name: ' + ffName);
+			console.log('Field Value: ' + ffVal);
+		}
 		/*
 			var id=this.id;
 			console.log('checking form ' + fid + ' input ' + id);
