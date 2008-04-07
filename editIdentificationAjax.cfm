@@ -140,8 +140,8 @@ function checkRequired(){
 			console.log('FORM FAIL: ' + fid );
 			// form is NOT ready for submission
 			document.getElementById(fid).setAttribute('onsubmit',"return false");
-			$("#" + fid).find("[@type='submit']").val("Not ready...");		
 			var booger=	$("#" + fid).find("[@type='submit']").val();
+			$("#" + fid).find("[@type='submit']").val("Not ready...");		
 			console.log('booger ' + booger );
 		} else {
 			document.getElementById(fid).removeAttribute('onsubmit');
@@ -265,7 +265,7 @@ ihml
             </td>
             </tr>
 
-<input type="submit" value="missing booger elements">
+		<input type="submit" value="missing elements">
 	</form>
 	
 	
