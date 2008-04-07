@@ -60,7 +60,7 @@ FORM FAIL: f1
 		console.log(fA);
 		
 		for (var name in fA) {
-alert(”My ” + name + “’s name is ” + fA[name]);
+alert('name:' + name + ":" + fA[name]);
 }
 
 
