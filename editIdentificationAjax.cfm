@@ -18,7 +18,7 @@ function ihml() {
 		console.log('checking form ' + fid);
 		var queryString = $('#' + fid).formSerialize();
 		console.log('...formSerialize: ' + queryString);
-		var fs = $('#' + fid + '.reqdClr').fieldSerialize();
+		var fs = $('#' + fid + ' .reqdClr').fieldSerialize();
 		console.log('...fieldSerialize: ' + fs);
 		
 	});
