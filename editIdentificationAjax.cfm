@@ -258,11 +258,10 @@ ihml
             </tr>
 	 <tr> 
               <td colspan="2">
-						<input type="submit" value="missing elements">
             </td>
             </tr>
 
-<input type="submit" value="missing elements">
+<input type="submit" value="missing booger elements">
 	</form>
 	
 	
