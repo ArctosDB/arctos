@@ -161,6 +161,7 @@ function removeHelpDiv() {
 }
 </script>
 <cfif #Action# is "nothing">
+	<!----
 <cfquery name="ctFormula" datasource="#Application.web_user#">
 	select taxa_formula from cttaxa_formula order by taxa_formula
 </cfquery>
@@ -277,6 +278,16 @@ ihml
 	
 	
 	</table>
+	---->
+	<form name="newID" id="newID" method="post" action="editIdentification.cfm">
+	<input type="hidden" name="Action" value="createNew">
+    <input type="hidden" name="collection_object_id" value="1235" >
+	
+	
+		<input type="submit" value="missing elements">
+	</form>
+	
+	
 	<form name="f1" id="f1" action="a.cfm" onsubmit="return false">
 	<input id="f1_1" name="f1_1" class="reqdClr">
 	<input id="f1_2" name="f1_2" class="reqdClr">
