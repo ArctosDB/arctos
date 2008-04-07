@@ -60,7 +60,7 @@ FORM FAIL: f1
 		
 		
 		for ( var i=0, len=fA.length; i<len; ++i ){
-			 console.log(fA[1]);
+			 console.log(fA[1].name);
 		}
 		//console.log(t);
 		
