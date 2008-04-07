@@ -144,6 +144,8 @@ function checkRequired(){
 			$("#" + fid).find("[@type='submit']").val("Not ready...");		
 			console.log('booger ' + booger );
 		} else {
+						var booger=	$("#" + fid).find("[@type='submit']").val();
+									console.log('booger ' + booger );
 			document.getElementById(fid).removeAttribute('onsubmit');
 			$("#" + fid).find("[@type='submit']").val("spiffy!");
 		}
