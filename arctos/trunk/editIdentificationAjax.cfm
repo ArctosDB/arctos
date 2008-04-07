@@ -161,6 +161,7 @@ function removeHelpDiv() {
 }
 </script>
 <cfif #Action# is "nothing">
+	<cfoutput>
 	<!----
 <cfquery name="ctFormula" datasource="#Application.web_user#">
 	select taxa_formula from cttaxa_formula order by taxa_formula
