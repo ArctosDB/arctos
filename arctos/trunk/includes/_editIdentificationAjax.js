@@ -217,7 +217,7 @@ function addIdentifier(identification_id,num) {
 	
 	var controlS="addIdentifier_" + identification_id;
 	var control=document.getElementById(controlS);
-	var cAtt="addIdentifier('" + identification_id + "','" + num + "')";
+	var cAtt="addIdentifier('" + identification_id + "','" +  parseInt(num+1) + "')";
 	control.setAttribute("onclick",cAtt);
 	
 	var nI = document.createElement('input');
@@ -239,14 +239,14 @@ function addIdentifier(identification_id,num) {
 	nid.setAttribute('name',ididStr);
 	
 	r = document.createElement('tr');
-	r.id="IdTr_" + identification_id + "_" + parseInt(num+1) ;
+	r.id="IdTr_" + identification_id + "_" + num;
 	t1 = document.createElement('td');
 	t2 = document.createElement('td');
 	t3 = document.createTextNode("Identified By:");
 	var d = document.createElement('img');
 	d.src='/images/del.gif';
 	d.className="likeLink";
-	var cStrg = "removeIdentifier('" + identification_id + "','" +  parseInt(num+1) + "')";
+	var cStrg = "removeIdentifier('" + identification_id + "','" + num + "')";
 	d.setAttribute('onclick',cStrg);
 	theTable.appendChild(r);
 	r.appendChild(t1);
