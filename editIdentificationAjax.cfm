@@ -16,7 +16,7 @@ function ihml() {
 		var fid=this.id;
 		console.log('checking form ' + fid);
 		console.log('find ....' + fid);
-		$('form#' + fid).each(function(){
+		$('form#' + fid).find(':input').each(function(){
 			var id=this.id;
 			console.log('checking form ' + fid + ' input ' + id);
 		})
