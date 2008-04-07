@@ -151,6 +151,7 @@ function checkRequired(){
 		
 		// REQUIREMENT: form dubmit button has id of formID + _submit
 		var sbmBtnStr=fid + "_submit";
+		console.log('sbmBtnStr ' + sbmBtnStr);
 		var sbmBtn=document.getElementById(sbmBtnStr);
 		var v=sbmBtn.value;
 		
