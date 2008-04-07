@@ -10,7 +10,18 @@ jQuery( function($) {
 	
 });
 
-
+function ihml() {
+	console.log('looping through all forms');
+	$('form').each(function(){
+		var fid=this.id;
+		console.log('checking form ' + fid);
+		console.log('find ....' + fid);
+		$('form#' + fid).each(function({
+			var id=this.id;
+			console.log('checking form ' + fid + ' input ' + id);
+		})
+	});
+}
 function checkRequired(){	
 	// loop over all the forms...
 	$('form').each(function(){
@@ -55,21 +66,14 @@ FORM FAIL: f1
 		// finds everygoddamed thing, once for each form $('#' + fid).find(':input.reqdClr').each(function(e) {
 		
 		// gets what we want, but doesn't seem to be chainable -shiat...
-		
+		// uhmmm - nevermind - does not return (at least) SELECTs - what the FUCK...
 		var fA=$("#" + fid).formHash();
 		console.log(fA);
 		
 		for (var name in fA) {
 			console.log('name:' + name + ":" + fA[name]);
-			}
-
-
-		for ( var i=0, len=fA.length; i<len; ++i ){
-			 console.log('loopy');
-			 console.log(fA[1].name);
 		}
-		//console.log(t);
-		
+
 		/*
 			var id=this.id;
 			console.log('checking form ' + fid + ' input ' + id);
@@ -139,6 +143,8 @@ function removeHelpDiv() {
 </cfquery>
 <input type="button" onclick="checkRequired()" value="checkRequired">
 
+<input type="button" onclick="ihml()" value="ihml">
+ihml
 <table class="newRec">
 
 <form name="newID" id="newID" method="post" action="editIdentification.cfm">
