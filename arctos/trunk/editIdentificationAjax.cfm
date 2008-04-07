@@ -149,7 +149,12 @@ function checkRequired(){
 		
 		console.log('$submitButton ' + $submitButton);
 		
-			
+		// REQUIREMENT: form dubmit button has id of formID + _submit
+		var sbmBtnStr=fid + "_submit";
+		var sbmBtn=document.getElementById(sbmBtn);
+		var v=sbmBtn.value;
+		
+				console.log('v ' + v);
 		if (hasIssues > 0) {
 			console.log('FORM FAIL: ' + fid );
 			// form is NOT ready for submission
@@ -235,7 +240,7 @@ function removeHelpDiv() {
 		</td>
 	</tr>
 	<tr><td>
-			<input type="submit" value="missing evasdfbsdlements">
+			<input type="submit" id="newRec_submit" value="missing evasdfbsdlements">
 	</td></tr>
 
 	</form>
