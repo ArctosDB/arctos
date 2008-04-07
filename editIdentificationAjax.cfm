@@ -161,8 +161,10 @@ function removeHelpDiv() {
 }
 </script>
 <cfif #Action# is "nothing">
-	<cfoutput>
-
+<cfoutput>
+<cfquery name="ctnature" datasource="#Application.web_user#">
+	select nature_of_id from ctnature_of_id
+</cfquery>
 <cfquery name="ctFormula" datasource="#Application.web_user#">
 	select taxa_formula from cttaxa_formula order by taxa_formula
 </cfquery>
@@ -196,91 +198,14 @@ function removeHelpDiv() {
 		ORDER BY accepted_id_fg
 	DESC
 </cfquery>
-<cfquery name="ctnature" datasource="#Application.web_user#">
-	select nature_of_id from ctnature_of_id
-</cfquery>
+
 <input type="button" onclick="checkRequired()" value="checkRequired">
 
 <input type="button" onclick="ihml()" value="ihml">
-ihml
-<table class="newRec">
+
 
 <form name="newID" id="newID" method="post" action="editIdentification.cfm">
-		<!----
-	<input type="hidden" name="Action" value="createNew">
-    <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
 	
-	<!---
-
-	<tr>
- 		<td colspan="2">
-			<strong><font size="+1">Add new Determination</font></strong>&nbsp;
-		</td>
- 	</tr>
- 	<tr>
-		<td>
-			<span class="helpLink" id="identification.taxa_formula">ID Formula:</span>
-		</td>
-<td>
-			<cfif not isdefined("taxa_formula")>
-				<cfset taxa_formula='A'>
-			</cfif>
-			<cfset thisForm = "#taxa_formula#">
-			<!---
-			<select name="taxa_formula" id="taxa_formula" size="1" class="reqdClr"
-				onchange="newIdFormula(this.value);">
-				<cfloop query="ctFormula">
-					<cfif #ctFormula.taxa_formula# is "A">
-						<cfset thisDispVal = "one taxon">
-					<cfelseif #ctFormula.taxa_formula# is "A ?">
-						<cfset thisDispVal = 'taxon + "?"'>
-					<cfelseif #ctFormula.taxa_formula# is "A or B">
-						<cfset thisDispVal = 'A "or" B'>
-					<cfelseif #ctFormula.taxa_formula# is "A / B intergrade">
-						<cfset thisDispVal = 'A / B intergrade'>
-					<cfelseif #ctFormula.taxa_formula# is "A x B">
-						<cfset thisDispVal = 'A "x" B'>
-					<cfelseif #ctFormula.taxa_formula# is "A and B">
-						<cfset thisDispVal = 'A "and" B'>
-					<cfelseif #ctFormula.taxa_formula# is "A sp.">
-						<cfset thisDispVal = 'A "sp."'>
-					<cfelseif #ctFormula.taxa_formula# is "A cf.">
-						<cfset thisDispVal = 'A "cf."'>
-					<cfelseif #ctFormula.taxa_formula# is "A aff.">
-						<cfset thisDispVal = 'A "aff."'>
-					<cfelseif #ctFormula.taxa_formula# is "A ssp.">
-						<cfset thisDispVal = 'A "ssp."'>
-					<cfelse>
-						<cfset thisDispVal = "ERROR!!!">
-					</cfif>
-					<option 
-					<cfif #thisForm# is "#ctFormula.taxa_formula#"> selected </cfif>value="#ctFormula.taxa_formula#">#thisDispVal#</option>
-				</cfloop>
-			</select>
-			---->
-		</td>
-	</tr> 
-	<tr> 
-    	<td><div align="right">Taxon A:</div></td>
-        	<td>
-				<input type="text" name="taxa_a" id="taxa_a" class="reqdClr" size="50"
-					onChange="taxaPick('TaxonAID','taxa_a','newID',this.value); return false;"
-					onKeyPress="return noenter(event);">
-					<input type="hidden" name="TaxonAID" id="TaxonAID" class="reqdClr"> 
-			  </td>
-            </tr>
-	 <tr> 
-              <td colspan="2">
-            </td>
-            </tr>
---->
-		<input type="submit" value="missing elements">
-	</form>
-	
-	
-	
-	</table>
-	---->
 
 	<input type="hidden" name="Action" value="createNew">
     <input type="hidden" name="collection_object_id" value="1235" >
@@ -297,18 +222,8 @@ ihml
 		<input id="f1_4" name="f1_4" class="booger">
 		<input type="submit" value="missing elements">
 </form>
-	<!---
-	<input id="f1_1" class="reqdClr">
-	<input id="f1_2" class="reqdClr">
-	<input id="f1_3" class="reqdClr">
-		<input id="f1_4" class="booger">
-
-</form>
----->
 </cfoutput>
 </cfif>
-<!---
-	
 <!--------------------------------------------------------------------------------------------------->
 
 </div><!--- kill content div --->
