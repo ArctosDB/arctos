@@ -241,7 +241,7 @@ function removeHelpDiv() {
 		</td>
 	</tr>
 	<tr><td>
-			<input type="submit" id="newRec_submit" value="missing evasdfbsdlements">
+			<input type="submit" id="newID_submit" value="missing evasdfbsdlements">
 	</td></tr>
 
 	</form>
