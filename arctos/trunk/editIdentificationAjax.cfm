@@ -201,7 +201,7 @@ function removeHelpDiv() {
 		ORDER BY accepted_id_fg
 	DESC
 </cfquery>
-
+<input type="button" onclick="checkRequiredTestThingy()" value="checkRequiredTestThingy">
 <input type="button" onclick="checkRequired()" value="checkRequired">
 
 <input type="button" onclick="ihml()" value="ihml">
@@ -214,21 +214,21 @@ function removeHelpDiv() {
 	</td>
  </tr>
 <form name="newID" id="newID" method="post" action="editIdentification.cfm">
-	      <input type="hidden" name="content_url" value="editIdentification.cfm">
-            <input type="hidden" name="Action" value="createNew">
-            <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
-    		<tr>
-				<td>
-				<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_formula')">ID Formula:</a></td>
-				
-				<td>
-					<cfif not isdefined("taxa_formula")>
-						<cfset taxa_formula='A'>
-					</cfif>
-					<cfset thisForm = "#taxa_formula#">
-					<select name="taxa_formula" id="taxa_formula" size="1" class="reqdClr"
-					onchange="newIdFormula(this.value);">
-						<cfloop query="ctFormula">
+	<input type="hidden" name="content_url" value="editIdentification.cfm">
+    <input type="hidden" name="Action" value="createNew">
+    <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
+    <tr>
+		<td>
+			<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_formula')">ID Formula:</a>
+		</td>
+		<td>
+			<cfif not isdefined("taxa_formula")>
+				<cfset taxa_formula='A'>
+			</cfif>
+			<cfset thisForm = "#taxa_formula#">
+			<select name="taxa_formula" id="taxa_formula" size="1" class="reqdClr"
+				onchange="newIdFormula(this.value);">
+					<cfloop query="ctFormula">
 						<cfif #ctFormula.taxa_formula# is "A">
 							<cfset thisDispVal = "one taxon">
 						<cfelseif #ctFormula.taxa_formula# is "A ?">
@@ -252,120 +252,118 @@ function removeHelpDiv() {
 						<cfelse>
 							<cfset thisDispVal = "ERROR!!!">
 						</cfif>
-							<option 
-								<cfif #thisForm# is "#ctFormula.taxa_formula#"> selected </cfif>value="#ctFormula.taxa_formula#">#thisDispVal#</option>
-						</cfloop>
-					</select>
-				</td>
-			</tr>     
-	         
-            <tr> 
-              <td><div align="right">Taxon A:</div></td>
-              <td>
-			  	<input type="text" name="taxa_a" id="taxa_a" class="reqdClr" size="50" 
+						<option 
+							<cfif #thisForm# is "#ctFormula.taxa_formula#"> selected </cfif>value="#ctFormula.taxa_formula#">#thisDispVal#</option>
+					</cfloop>
+			</select>
+		</td>
+	</tr>     
+	<tr> 
+    	<td>
+			<div align="right">Taxon A:</div>
+		</td>
+         <td>
+		  	<input type="text" name="taxa_a" id="taxa_a" class="reqdClr" size="50" 
 				onChange="taxaPick('TaxonAID','taxa_a','newID',this.value); return false;"
 				onKeyPress="return noenter(event);">
-				<input type="hidden" name="TaxonAID" class="reqdClr"> 
-			  </td>
-            </tr>
-			<tr id="taxon_b_row" style="display:none;"> 
-              <td><div align="right">Taxon B:</div></td>
-              <td>
-			  	<input type="text" name="taxa_b" id="taxa_b"  size="50" 
-					onChange="taxaPick('TaxonBID','taxa_b','newID',this.value); return false;"
-					onKeyPress="return noenter(event);">
-				<input type="hidden" name="TaxonBID" id="TaxonBID">
-			  </td>
-            </tr>
-            <tr> 
-              <td><div align="right">
-			  <a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_by')">ID By:</a>
-				
-							 </div></td>
-              <td>
-				<input type="text" name="idBy" id="idBy" class="reqdClr" size="50" 
-			 		 onchange="getAgent('newIdById','idBy','newID',this.value); return false;"
-			  		 onkeypress="return noenter(event);"> 
-                <input type="hidden" name="newIdById" class="reqdClr"> 
-				<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
-				
-
-			 </td>
-            </tr>
-			<tr id="addNewIdBy_two" style="display:none;"> 
-              	<td>
-					<div align="right">
-						ID By:<span class="infoLink" onclick="clearNewIdBy('two');"> clear</span>	
-					</div>
-				</td>
-              	<td>
-					<input type="text" name="idBy_two" id="idBy_two" size="50" 
-			 		 	onchange="getAgent('newIdById_two','idBy_two','newID',this.value); return false;"
-			  		 	onkeypress="return noenter(event);"> 
-                	<input type="hidden" name="newIdById_two" id="newIdById_two"> 
-					<span class="infoLink" onclick="addNewIdBy('three');">more...</span>			
-
-			 </td>
-            </tr>
-           <tr id="addNewIdBy_three" style="display:none;"> 
-              	<td>
-					<div align="right">
-						ID By:<span class="infoLink" onclick="clearNewIdBy('three');"> clear</span>	
-					</div>
-				</td>
-              	<td>
-					<input type="text" name="idBy_three" id="idBy_three"  size="50" 
-			 		 	onchange="getAgent('newIdById_three','idBy_three','newID',this.value); return false;"
-			  		 	onkeypress="return noenter(event);"> 
-                	<input type="hidden" name="newIdById_three" id="newIdById_three"> 			
-
-			 </td>
-            </tr>
-            <tr> 
-              <td><div align="right">
-			  <a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_date')">ID Date:</a></td>
-			  </div></td>
-              <td><input type="text" name="made_date" id="made_date"></td>
-            </tr>
-            <tr> 
-              <td><div align="right">
-			  <a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','nature_of_id')"> Nature of ID:</a></td>
-			
-			 </div></td>
-              <td><select name="nature_of_id" id="nature_of_id" size="1" class="reqdClr">
-                  <cfloop query="ctnature">
-                    <option  value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
-                  </cfloop>
-                </select>
-				<img 
-				class="likeLink" 
-				src="/images/ctinfo.gif"
-				border="0"
-				alt="Code Table Value Definition"
-				onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)"></td>
-            </tr>
-            <tr> 
-              <td><div align="right">Remarks:</div></td>
-              <td><input type="text" name="identification_remarks" size="50"></td>
-            </tr>
-            <tr> 
-              <td colspan="2"><div align="center"> 
-                    <input type="submit" id="newID_submit" value="Create" class="insBtn" title="Create Identification"
-   onmouseover="this.className='insBtn btnhov';this.focus();" onmouseout="this.className='insBtn'">	
-
-                </div></td>
-            </tr>
-    </table>
-          
-        </form>
-
-	<form name="f1" id="f1" action="a.cfm" onsubmit="return false">
-	<input id="f1_1" name="f1_1" class="reqdClr">
-	<input id="f1_2" name="f1_2" class="reqdClr">
-	<input id="f1_3" name="f1_3" class="reqdClr">
-		<input id="f1_4" name="f1_4" class="booger">
-		<input type="submit" id="f1_submit"  title="my title" value="missing elements">
+			<input type="hidden" name="TaxonAID" id="TaxonAID" class="reqdClr"> 
+		</td>
+  	</tr>
+	<tr id="taxon_b_row" style="display:none;"> 
+    	<td>
+			<div align="right">Taxon B:</div>
+		</td>
+        <td>
+			<input type="text" name="taxa_b" id="taxa_b"  size="50" 
+				onChange="taxaPick('TaxonBID','taxa_b','newID',this.value); return false;"
+				onKeyPress="return noenter(event);">
+			<input type="hidden" name="TaxonBID" id="TaxonBID">
+		</td>
+  	</tr>
+    <tr> 
+    	<td>
+			<div align="right">
+				<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_by')">ID By:</a>
+			</div>
+		</td>
+        <td>
+			<input type="text" name="idBy" id="idBy" class="reqdClr" size="50" 
+				onchange="getAgent('newIdById','idBy','newID',this.value); return false;"
+			  	onkeypress="return noenter(event);"> 
+            <input type="hidden" name="newIdById" id="newIdById" class="reqdClr"> 
+			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
+		</td>
+	</tr>
+	<tr id="addNewIdBy_two" style="display:none;"> 
+    	<td>
+			<div align="right">
+				ID By:<span class="infoLink" onclick="clearNewIdBy('two');"> remove</span>	
+			</div>
+		</td>
+        <td>
+			<input type="text" name="idBy_two" id="idBy_two" size="50" 
+				onchange="getAgent('newIdById_two','idBy_two','newID',this.value); return false;"
+			  	onkeypress="return noenter(event);"> 
+            <input type="hidden" name="newIdById_two" id="newIdById_two"> 
+			<span class="infoLink" onclick="addNewIdBy('three');">more...</span>			
+		 </td>
+	</tr>
+    <tr id="addNewIdBy_three" style="display:none;"> 
+    	<td>
+			<div align="right">
+				ID By:<span class="infoLink" onclick="clearNewIdBy('three');"> remove</span>	
+			</div>
+		</td>
+        <td>
+			<input type="text" name="idBy_three" id="idBy_three"  size="50" 
+			 	onchange="getAgent('newIdById_three','idBy_three','newID',this.value); return false;"
+			 	onkeypress="return noenter(event);"> 
+            <input type="hidden" name="newIdById_three" id="newIdById_three"> 			
+		 </td>
+    </tr>
+    <tr> 
+    	<td>
+			<div align="right">
+				<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_date')">ID Date:</a></td>
+			 </div>
+		</td>
+        <td>
+			<input type="text" name="made_date" id="made_date">
+		</td>
+	</tr>
+    <tr> 
+    	<td>
+			<div align="right">
+				<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','nature_of_id')"> Nature of ID:</a>
+			</div>
+		</td>
+		<td>
+			<select name="nature_of_id" id="nature_of_id" size="1" class="reqdClr">
+            	<cfloop query="ctnature">
+                	<option  value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
+                </cfloop>
+            </select>
+			<span class="infoLink" onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)">Define</span>
+		</td>
+	</tr>
+    <tr> 
+    	<td>
+			<div align="right">Remarks:</div>
+		</td>
+        <td>
+			<input type="text" name="identification_remarks" id="identification_remarks" size="50">
+		</td>
+    </tr>
+    <tr>
+		<td colspan="2">
+			<div align="center"> 
+            	<input type="submit" id="newID_submit" value="Create" class="insBtn" title="Create Identification"
+   					onmouseover="this.className='insBtn btnhov';this.focus();" onmouseout="this.className='insBtn'">	
+             </div>
+		</td>
+    </tr>
 </form>
+</table>
 </cfoutput>
 </cfif>
 <!---
