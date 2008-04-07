@@ -4,6 +4,7 @@
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.field.js'></script>
+<script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
 	//setInterval(checkRequired,500);
@@ -16,11 +17,9 @@ function ihml() {
 		var fid=this.id;
 		console.log('checking form ' + fid);
 		console.log('find ....' + fid);
+		var queryString = $('#' + fid').fieldSerialize();
+		console.log('...' + queryString);
 		
-		$('#' + fid + ' > :input.reqdClr').each(function(e) {
-			var id=this.id;
-			console.log('...' + id);
-		})
 	});
 }
 function checkRequired(){	
