@@ -17,7 +17,7 @@ function ihml() {
 		var fid=this.id;
 		console.log('checking form ' + fid);
 		console.log('find ....' + fid);
-		var queryString = $('#' + fid').fieldSerialize();
+		var queryString = $('#' + fid).fieldSerialize();
 		console.log('...' + queryString);
 		
 	});
