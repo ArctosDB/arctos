@@ -135,6 +135,7 @@ function checkRequired(){
 				hasIssues+=1;
 			}
 		}
+		console.log('tested form ' + fid );
 		if (hasIssues > 0) {
 			console.log('FORM FAIL: ' + fid );
 			// form is NOT ready for submission
