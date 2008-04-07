@@ -357,8 +357,7 @@ function removeHelpDiv() {
     <tr>
 		<td colspan="2">
 			<div align="center"> 
-            	<input type="submit" id="newID_submit" value="Create" class="insBtn" title="Create Identification"
-   					onmouseover="this.className='insBtn btnhov';this.focus();" onmouseout="this.className='insBtn'">	
+            	<input type="submit" id="newID_submit" value="Create" class="insBtn" title="Create Identification">	
              </div>
 		</td>
     </tr>
