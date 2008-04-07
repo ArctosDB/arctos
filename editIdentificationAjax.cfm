@@ -475,27 +475,17 @@ function removeHelpDiv() {
 			</cfloop>
 			</tbody>
 				</table>
-			<td>
-				<span class="infoLink" id="addIdentifier_#thisIdentification_id#" 
-					onclick="addIdentifier('#thisIdentification_id#','#idnum#')">Add Identifier</span>
-			</td>	
+			
+			
 			</td>
 				</tr>
 				<cfquery name="maxID" dbtype="query">select max(identifier_order) as nid from identifiers</cfquery>
 				<input type="hidden" name="number_of_identifiers" value="#maxID.nid#" />
               <tr>
 					<td>
-						Add Identifier:
-					</td>
-					<td>
-						<input type="text" 
-							name="newidentifier_#thisIdentification_id#" 
-							id="newidentifier_#thisIdentification_id#" 
-							size="50" onchange="getAgent('newidentifierID_#thisIdentification_id#','newidentifier_#thisIdentification_id#','id#thisIdentification_id#',this.value); return false;"
-				 oonKeyPress="return noenter(event);"> 
-				 <img src="/images/save.gif" class="likeLink" onclick="addIdentifier('newidentifier_#thisIdentification_id#','#thisIdentification_id#',document.getElementById('newidentifierID_#thisIdentification_id#').value);" />
-				 <input type="hidden" name="newidentifierID_#thisIdentification_id#" id="newidentifierID_#thisIdentification_id#"> 
-					</td>
+				<span class="infoLink" id="addIdentifier_#thisIdentification_id#" 
+					onclick="addIdentifier('#thisIdentification_id#','#idnum#')">Add Identifier</span>
+			</td>	
 				</tr>
 			  <tr> 
                 <td><div align="right">
