@@ -202,17 +202,27 @@ function removeHelpDiv() {
 
 <input type="button" onclick="ihml()" value="ihml">
 
+<table class="newRec">
+ <tr>
+ 	<td colspan="2">
+	
+<strong><font size="+1">Add new Determination</font></strong>&nbsp;
+<a href="javascript:void(0);" onClick="getDocs('identification')"><img src="/images/info.gif" border="0"></a>
+	</td>
+ </tr>
 <form name="newID" id="newID" method="post" action="editIdentification.cfm">
 	
 
 	<input type="hidden" name="Action" value="createNew">
     <input type="hidden" name="collection_object_id" value="1235" >
 	
-	
-		<input type="submit" value="missing evasdfbsdlements">
+	<tr><td>
+			<input type="submit" value="missing evasdfbsdlements">
+	</td></tr>
+
 	</form>
 	
-
+</TABLE>	
 	<form name="f1" id="f1" action="a.cfm" onsubmit="return false">
 	<input id="f1_1" name="f1_1" class="reqdClr">
 	<input id="f1_2" name="f1_2" class="reqdClr">
