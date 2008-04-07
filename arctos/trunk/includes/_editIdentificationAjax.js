@@ -239,7 +239,7 @@ function addIdentifier(identification_id,num) {
 	nid.setAttribute('name',ididStr);
 	
 	r = document.createElement('tr');
-	r.id="IdTr_" + identification_id + "_" + num;
+	r.id="IdTr_" + identification_id + "_" + parseInt(num+1) ;
 	t1 = document.createElement('td');
 	t2 = document.createElement('td');
 	t3 = document.createTextNode("Identified By:");
