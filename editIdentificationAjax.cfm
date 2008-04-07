@@ -54,10 +54,10 @@ FORM FAIL: f1
 		// also finds only DIRECT children $('#' + fid).find(' > :input.reqdClr').each(function(e) {
 		// finds everygoddamed thing, once for each form $('#' + fid).find(':input.reqdClr').each(function(e) {
 		
-		var t = $("#" + fid).formHash().reqdClr;
-		console.log(t);
+		$("#" + fid).formHash().each(function();
+		//console.log(t);
 		
-		/*
+		
 			var id=this.id;
 			console.log('checking form ' + fid + ' input ' + id);
 			// see if they have something
@@ -76,7 +76,7 @@ FORM FAIL: f1
 			document.getElementById(fid).removeAttribute('onsubmit');
 			$("#" + fid).find("[@type='submit']").val("spiffy!");
 		}
-		*/
+		
 	});
 }
 
