@@ -90,12 +90,15 @@ function clearNewIdBy (n) {
 	var idN = "newIdById_" + n;
 	var vS='idBy_' + n;
 	var iS='newIdById_' + n;
+	var idS = "addNewIdBy_" + n;
 	var v=document.getElementById(vS);
 	var i=document.getElementById(iS)
+	var theES = document.getElementById(idS).style.display='';
 	v.className='';
 	i.className='';
 	v.value='';
 	i.value='';
+	theES.style.display='';
 }
 
 function newIdFormula (f) {
