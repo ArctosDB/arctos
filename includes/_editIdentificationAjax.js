@@ -80,8 +80,8 @@ function addNewIdBy(n) {
 	var iS='newIdById_' + n;
 	var v=document.getElementById(vS);
 	var i=document.getElementById(iS)
-	v.style.className='reqdClr';
-	i.style.className='reqdClr';
+	v.className='reqdClr';
+	i.className='reqdClr';
 		
 					
 }
@@ -92,8 +92,8 @@ function clearNewIdBy (n) {
 	var iS='newIdById_' + n;
 	var v=document.getElementById(vS);
 	var i=document.getElementById(iS)
-	v.style.className='';
-	i.style.className='';
+	v.className='';
+	i.className='';
 	v.value='';
 	i.value='';
 }
@@ -113,9 +113,9 @@ function newIdFormula (f) {
 	} else if (f == 'A' || f == 'A ?' || f == 'A cf.' || f == 'A sp.' || f == 'A aff.' || f == 'A ssp.') {
 		bTr.style.display='none';
 		b_val.style.value='';
-		b_val.style.className='';
+		b_val.className='';
 		b_id.style.value='';
-		b_id.style.className='';
+		b_id.className='';
 		
 	} else {
 		alert("You selected an invalid formula. Please submit a bug report.");
