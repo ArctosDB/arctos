@@ -136,11 +136,22 @@ function checkRequired(){
 			}
 		}
 		console.log('tested form ' + fid );
+		// get the form submit
+		var fSubmit=$("#" + fid).find("[@type='submit']").val();
+		console.log('fSubmit ' + fSubmit);
+		
+		
+		var pwd = $('#' + fid + ' :submit').fieldValue();
+		console.log('pwd ' + pwd);
+		
+		
+		$('#' + fid).find(':input.reqdClr').each(function(e) {
+			
 		if (hasIssues > 0) {
 			console.log('FORM FAIL: ' + fid );
 			// form is NOT ready for submission
 			document.getElementById(fid).setAttribute('onsubmit',"return false");
-			var booger=	$("#" + fid).find("[@type='submit']").val();
+			
 			$("#" + fid).find("[@type='submit']").val("Not ready...");		
 			console.log('booger ' + booger );
 		} else {
