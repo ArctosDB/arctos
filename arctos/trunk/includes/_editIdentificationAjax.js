@@ -93,7 +93,7 @@ function clearNewIdBy (n) {
 	var idS = "addNewIdBy_" + n;
 	var v=document.getElementById(vS);
 	var i=document.getElementById(iS)
-	var theES = document.getElementById(idS).style.display='';
+	var theES = document.getElementById(idS);
 	v.className='';
 	i.className='';
 	v.value='';
