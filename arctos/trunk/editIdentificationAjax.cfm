@@ -5,10 +5,13 @@
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.field.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
+<script type='text/javascript' src='/includes/jquery/datepicker.js'></script>
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
 	//setInterval(checkRequired,500);
-	
+
+	$('._date').datePicker({clickInput:true})
+
 });
 function ihml() {
 	console.log('looping through all forms');
@@ -329,7 +332,7 @@ function removeHelpDiv() {
 			 </div>
 		</td>
         <td>
-			<input type="text" name="made_date" id="made_date">
+			<input type="text" name="made_date" id="made_date" class="_date">
 		</td>
 	</tr>
     <tr> 
@@ -459,39 +462,39 @@ function removeHelpDiv() {
 										onchange="this.className='red';
 											getAgent('IdById_#thisIdentification_id#_#idnum#','IdBy_#thisIdentification_id#_#idnum#','editIdentification',this.value); return false;"
 							 			onKeyPress="return noenter(event);"> 
-										<input type="hidden" 
-											name="IdById_#thisIdentification_id#_#idnum#" 
-											id="IdById_#thisIdentification_id#_#idnum#" value="#agent_id#"
-											class="reqdClr"> 
-										<cfif #idnum# gt 1>
+									<input type="hidden" 
+										name="IdById_#thisIdentification_id#_#idnum#" 
+										id="IdById_#thisIdentification_id#_#idnum#" value="#agent_id#"
+										class="reqdClr"> 
+									<cfif #idnum# gt 1>
 										<img src="/images/del.gif" class="likeLink" 
 											onclick="removeIdentifier('#thisIdentification_id#','#idnum#')" />
-										</cfif>
-				 	</td>
-				 	
-				</tr>
-				<cfset idnum=idnum+1>
-						
-			</cfloop>
-			</tbody>
+									</cfif>
+				 				</td>
+				 			</tr>
+							<cfset idnum=idnum+1>
+						</cfloop>
+					</tbody>
 				</table>
-			
-			
 			</td>
-				</tr>
-				<cfquery name="maxID" dbtype="query">select max(identifier_order) as nid from identifiers</cfquery>
-				<input type="hidden" name="number_of_identifiers" value="#maxID.nid#" />
-              <tr>
-					<td>
+		</tr>
+        <tr>
+			<td>
 				<span class="infoLink" id="addIdentifier_#thisIdentification_id#" 
 					onclick="addIdentifier('#thisIdentification_id#','#idnum#')">Add Identifier</span>
 			</td>	
-				</tr>
-			  <tr> 
-                <td><div align="right">
-				<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_date')">ID Date:</a></td></div></td>
-                <td><input type="text" value="#dateformat(made_date,'dd-mmm-yyyy')#" name="made_date" id="made_date_#thisIdentification_id#" onchange="saveIdDateChange('#thisIdentification_id#', this.value);"> 
-                </td>
+		</tr>
+		<tr> 
+        	<td>
+				<div align="right">
+					<a href="javascript:void(0);" class="novisit" 
+						onClick="getDocs('identification','id_date')">ID Date:</a>
+				</div>
+			</td>
+            <td>
+				<input type="text" value="#dateformat(made_date,'dd-mmm-yyyy')#" name="made_date_#thisIdentification_id#" class="_date"
+				 id="made_date_#thisIdentification_id#"> 
+           </td>
               </tr>
               <tr> 
                 <td><div align="right">
@@ -524,6 +527,11 @@ function removeHelpDiv() {
 					
                   </div></td>
               </tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" class="savBtn" id="editIdentification_submit">
+				</td>
+			</tr>
             </table>
            
       </form>
