@@ -10,7 +10,7 @@
 jQuery( function($) {
 	//setInterval(checkRequired,500);
 
-	$('.date').datePicker({clickInput:true})
+$('.date-pick').datePicker({clickInput:true})
 
 });
 function ihml() {
@@ -332,7 +332,7 @@ function removeHelpDiv() {
 			 </div>
 		</td>
         <td>
-			<input type="text" name="made_date" id="made_date" class="date">
+			<input type="text" name="made_date" id="made_date" class="date-pick">
 		</td>
 	</tr>
     <tr> 
@@ -492,7 +492,7 @@ function removeHelpDiv() {
 				</div>
 			</td>
             <td>
-				<input type="text" value="#dateformat(made_date,'dd-mmm-yyyy')#" name="made_date_#thisIdentification_id#" class="date"
+				<input type="text" value="#dateformat(made_date,'dd-mmm-yyyy')#" name="made_date_#thisIdentification_id#" class="date-pick"
 				 id="made_date_#thisIdentification_id#"> 
            </td>
               </tr>
