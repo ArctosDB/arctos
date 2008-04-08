@@ -1,14 +1,21 @@
 <div id="theHead">
 	<cfinclude template="/includes/_header.cfm">
 </div>
-<style type="text/css">@import url(/includes/jquery/datepicker.css);</style> 
+	<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
+	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+		var cal1 = new CalendarPopup("theCalendar");
+		cal1.showYearNavigation();
+		cal1.showYearNavigationInput();
+	</SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
+
 
 
 <script type='text/javascript' src='/includes/_editIdentificationAjax.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.field.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
-<script type='text/javascript' src='/includes/jquery/datepicker.js'></script>
+
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
 	//setInterval(checkRequired,500);
@@ -335,7 +342,9 @@ function removeHelpDiv() {
 			 </div>
 		</td>
         <td>
-			<input type="text" name="made_date" id="made_date" class="date-pick">
+			<input type="text" name="made_date" id="made_date"
+				onclick="cal1.select(document.newID.made_date,'anchor1','dd-MMM-yyyy');">
+				<a name="anchor1" id="anchor1"></a>						
 		</td>
 	</tr>
     <tr> 
@@ -495,8 +504,10 @@ function removeHelpDiv() {
 				</div>
 			</td>
             <td>
-				<input type="text" value="#dateformat(made_date,'dd-mmm-yyyy')#" name="made_date_#thisIdentification_id#" class="date-pick"
-				 id="made_date_#thisIdentification_id#"> 
+				<input type="text" value="#dateformat(made_date,'dd-mmm-yyyy')#" name="made_date_#thisIdentification_id#"
+				 id="made_date_#thisIdentification_id#"
+				 onclick="cal1.select(document.editIdentification.made_date,'anchor1#thisIdentification_id#','dd-MMM-yyyy');">
+				<a name="anchor1#thisIdentification_id#" id="anchor1#thisIdentification_id#"></a>	> 
            </td>
               </tr>
               <tr> 
