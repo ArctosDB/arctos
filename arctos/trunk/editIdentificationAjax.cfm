@@ -419,6 +419,7 @@ function removeHelpDiv() {
 <form name="editIdentification" id="editIdentification" method="post" action="editIdentificationAjax.cfm">
     <input type="hidden" name="Action" value="saveEdits">
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
+	<input type="hidden" name="number_of_ids" id="number_of_ids" value="#distIds.recordcount#">
 <cfloop query="distIds">
 	<cfquery name="identifiers" dbtype="query">
 		select 
@@ -433,8 +434,9 @@ function removeHelpDiv() {
 		ORDER BY
 			identifier_order
 	</cfquery>
-	
 	<cfset thisIdentification_id = #identification_id#>
+	<input type="hidden" name="number_of_identifiers_#thisIdentification_id#" id="number_of_identifiers_#thisIdentification_id#" 
+			value="#distIds.recordcount#">
 	<table id="mainTable_#thisIdentification_id#">
     	<tr> 
         	<td><div align="right">Scientific Name:</div></td>
