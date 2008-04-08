@@ -417,6 +417,8 @@ function removeHelpDiv() {
 		made_date
 </cfquery>
 <form name="editIdentification" id="editIdentification" method="post" action="editIdentificationAjax.cfm">
+    <input type="hidden" name="Action" value="saveEdits">
+    <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
 <cfloop query="distIds">
 	<cfquery name="identifiers" dbtype="query">
 		select 
@@ -1123,6 +1125,8 @@ function removeHelpDiv() {
 <cfif #Action# is "saveEdits">
 
 <cfoutput>
+	<cfdump var="#form#">
+	<!----
 <cfif #orig_accepted_id_fg# is "0">
 	<cfif #ACCEPTED_ID_FG# is 1>
 		<!--- changing from not accepted to accepted - set all others not accepted --->
@@ -1218,6 +1222,7 @@ function removeHelpDiv() {
 	<cf_logEdit collection_object_id="#collection_object_id#">
 	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
 	--->
+	---->
 </cfoutput>
 </cfif>
 <!---
