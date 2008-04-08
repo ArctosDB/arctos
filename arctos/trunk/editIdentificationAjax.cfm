@@ -1,7 +1,7 @@
 <div id="theHead">
 	<cfinclude template="/includes/_header.cfm">
 </div>
-<style type="text/css">@import url(ui.datepicker.css);</style> 
+<style type="text/css">@import url(/includes/jquery/datepicker.css);</style> 
 
 
 <script type='text/javascript' src='/includes/_editIdentificationAjax.js'></script>
