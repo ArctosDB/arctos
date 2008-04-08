@@ -226,8 +226,7 @@ function removeHelpDiv() {
 <a href="javascript:void(0);" onClick="getDocs('identification')"><img src="/images/info.gif" border="0"></a>
 	</td>
  </tr>
-<form name="newID" id="newID" method="post" action="editIdentification.cfm">
-	<input type="hidden" name="content_url" value="editIdentification.cfm">
+<form name="newID" id="newID" method="post" action="editIdentificationAjax.cfm">
     <input type="hidden" name="Action" value="createNew">
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
     <tr>
@@ -416,7 +415,7 @@ function removeHelpDiv() {
 		accepted_id_fg DESC,
 		made_date
 </cfquery>
-<form name="editIdentification" id="editIdentification" method="post" action="editIdentification.cfm">
+<form name="editIdentification" id="editIdentification" method="post" action="editIdentificationAjax.cfm">
 <cfloop query="distIds">
 	<cfquery name="identifiers" dbtype="query">
 		select 
@@ -441,6 +440,7 @@ function removeHelpDiv() {
         <tr> 
         	<td><div align="right">Accepted?:</div></td>
 			<td>
+				
 				<cfif #accepted_id_fg# is 0>
 					<select name="accepted_id_fg_#thisIdentification_id#" 
 						id="accepted_id_fg_#thisIdentification_id#" size="1" 
@@ -449,11 +449,16 @@ function removeHelpDiv() {
 							<cfif #ACCEPTED_ID_FG# is 1> selected </cfif>>yes</option>
                     	<option 
 							<cfif #accepted_id_fg# is 0> selected </cfif>value="0">no</option>
-                  	</select> 
+						<cfif #ACCEPTED_ID_FG# is 0>
+							<option value="delete">DELETE</option>
+						</cfif>
+                  	</select>
+					<cfif #ACCEPTED_ID_FG# is 0>
+						<span class="infoLink" onclick="document.getElementById('accepted_id_fg_#thisIdentification_id#').value='delete';">Delete</span>
 				<cfelse>
 					<b>Yes</b>
 				</cfif>
-			</td>
+			</td>					
        	</tr>
         <tr>
 			<td colspan="2">
@@ -525,31 +530,20 @@ function removeHelpDiv() {
               </tr>
               <tr> 
                 <td><div align="right">Remarks:</div></td>
-                <td><input type="text" name="identification_remarks" id="identification_remarks_#thisIdentification_id#" value="#identification_remarks#" size="50" onchange="saveIdRemarks('#thisIdentification_id#', this.value);"></td>
+                <td><input type="text" name="identification_remarks_#thisIdentification_id#" id="identification_remarks_#thisIdentification_id#" value="#identification_remarks#" size="50" onchange="saveIdRemarks('#thisIdentification_id#', this.value);"></td>
               </tr>
-              <tr> 
-                <td colspan="2"><div align="center">
-					<cfif #ACCEPTED_ID_FG# is 0>
-						 <input type="button" 
-						 value="Delete" 
-						 class="delBtn"
-						 onmouseover="this.className='delBtn btnhov'" 
-						 onmouseout="this.className='delBtn'"
-						 onClick="deleteIdentification('#thisIdentification_id#');">
-					</cfif>
-					
-                  </div></td>
-              </tr>
-			<tr>
+			
+           
+
+	<cfset i = #i#+1>
+</cfloop>
+<tr>
 				<td colspan="2">
 					<input type="submit" class="savBtn" id="editIdentification_submit">
 				</td>
 			</tr>
             </table>
-           
-      </form>
-<cfset i = #i#+1>
-</cfloop>
+			      </form>
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
