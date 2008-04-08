@@ -227,7 +227,7 @@ function addIdentifier(identification_id,num) {
 	nI.setAttribute('name',idStr);
 	nI.setAttribute('size','50');
 	nI.className='reqdClr';
-	var onchgStr = "getAgent('IdById_"  + identification_id + "_" + num + "','IdBy_" + num + "','id" + identification_id +  num +"',this.value); return false;";
+	var onchgStr = "getAgent('IdById_"  + identification_id + "_" + num + "','IdBy_" + num + "','editIdentification',this.value); return false;";
 	nI.setAttribute('onchange',onchgStr);
 	nI.setAttribute('onKeyPress',"return noenter(event);");
 	
