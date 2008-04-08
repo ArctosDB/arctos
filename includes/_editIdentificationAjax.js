@@ -215,6 +215,10 @@ function addIdentifier(identification_id,num) {
 	var tns = 'identifierTableBody_' + identification_id;
 	var theTable = document.getElementById(tns);
 	
+	var counterS='number_of_identifiers_' + identification_id;
+	var counter = document.getElementById(counterS);
+	counter.value=parseInt(counter.value + 1);
+	
 	var controlS="addIdentifier_" + identification_id;
 	var control=document.getElementById(controlS);
 	var cAtt="addIdentifier('" + identification_id + "','" +  parseInt(num+1) + "')";
