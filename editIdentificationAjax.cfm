@@ -13,7 +13,7 @@
 jQuery( function($) {
 	//setInterval(checkRequired,500);
 
-$('.date-pick').datepicker({showOn: 'focus'});     
+$('.date-pick').datepicker({showOn: 'focus'},{dateFormat: 'd M yy'}});     
 
 });
 function ihml() {
