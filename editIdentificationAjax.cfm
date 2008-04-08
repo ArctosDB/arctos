@@ -477,7 +477,7 @@ function removeHelpDiv() {
 										value="#agent_name#" 
 										class="reqdClr"
 										size="50" 
-										onchange="this.className='red';
+										onchange="
 											getAgent('IdById_#thisIdentification_id#_#idnum#','IdBy_#thisIdentification_id#_#idnum#','editIdentification',this.value); return false;"
 							 			onKeyPress="return noenter(event);"> 
 									<input type="hidden" 
