@@ -134,6 +134,7 @@ function checkRequired(){
 	// loop over all the forms...
 	$('form').each(function(){
 		var fid=this.id;
+		console.log('---------------resetting issues --------------------' );
 		var hasIssues=0;
 		var allFormObjs = $('#' + fid).formSerialize();
 		var AFA=allFormObjs.split('&');
@@ -540,7 +541,7 @@ function removeHelpDiv() {
 </cfloop>
 <tr>
 				<td colspan="2">
-					<input type="submit" class="savBtn" id="editIdentification_submit">
+					<input type="submit" class="savBtn" id="editIdentification_submit" value="Save Changes" title="Save Changes">
 				</td>
 			</tr>
             </table>
