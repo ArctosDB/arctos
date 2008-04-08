@@ -506,7 +506,7 @@ function removeHelpDiv() {
 				<input type="text" value="#dateformat(made_date,'dd-mmm-yyyy')#" name="made_date_#thisIdentification_id#"
 				 id="made_date_#thisIdentification_id#"
 				 onclick="cal1.select(document.editIdentification.made_date_#thisIdentification_id#,'anchor1#thisIdentification_id#','dd-MMM-yyyy');">
-				<a name="anchor1#thisIdentification_id#" id="anchor1#thisIdentification_id#"></a>	> 
+				<a name="anchor1#thisIdentification_id#" id="anchor1#thisIdentification_id#"></a>
            </td>
               </tr>
               <tr> 
