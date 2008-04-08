@@ -455,6 +455,7 @@ function removeHelpDiv() {
                   	</select>
 					<cfif #ACCEPTED_ID_FG# is 0>
 						<span class="infoLink" onclick="document.getElementById('accepted_id_fg_#thisIdentification_id#').value='delete';">Delete</span>
+					</cfif>
 				<cfelse>
 					<b>Yes</b>
 				</cfif>
