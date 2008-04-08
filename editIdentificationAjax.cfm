@@ -1,7 +1,7 @@
 <div id="theHead">
 	<cfinclude template="/includes/_header.cfm">
 </div>
-	<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
+	<script language="JavaScript" src="/includes/CalendarPopup.js" type="text/javascript"></script>
 	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
 		var cal1 = new CalendarPopup("theCalendar");
 		cal1.showYearNavigation();
@@ -1249,3 +1249,4 @@ function removeHelpDiv() {
 </script>
 
 ---->
+<DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>
