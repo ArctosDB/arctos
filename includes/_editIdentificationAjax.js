@@ -217,6 +217,8 @@ function addIdentifier(identification_id,num) {
 	
 	var counterS='number_of_identifiers_' + identification_id;
 	var counter = document.getElementById(counterS);
+	var fuckme=parseInt(num+1);
+	alert(fuckme);
 	counter.value=parseInt(num+1);
 	
 	var controlS="addIdentifier_" + identification_id;
