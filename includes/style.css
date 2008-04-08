@@ -700,7 +700,13 @@ input.insBtn:hover {
 	border-bottom-color:#FF6666 ;
 	cursor:pointer;
 }
-	
+input.savBtn:hover {
+	border-top-color:#FF6633 ;
+	border-left-color:#FF6633 ;
+	border-right-color:#FF6666 ;
+	border-bottom-color:#FF6666 ;
+	cursor:pointer;
+}
 	
 input.picBtn {
 	color:	#666666;
