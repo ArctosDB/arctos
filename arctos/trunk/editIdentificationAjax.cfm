@@ -1,6 +1,9 @@
 <div id="theHead">
 	<cfinclude template="/includes/_header.cfm">
 </div>
+<style type="text/css">@import url(ui.datepicker.css);</style> 
+
+
 <script type='text/javascript' src='/includes/_editIdentificationAjax.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.field.js'></script>
@@ -10,7 +13,7 @@
 jQuery( function($) {
 	//setInterval(checkRequired,500);
 
-$('.date-pick').datePicker({clickInput:true})
+$('.date-pick').datepicker({showOn: 'focus'});     
 
 });
 function ihml() {
