@@ -428,7 +428,7 @@ function removeHelpDiv() {
         	<td><div align="right">Accepted?:</div></td>
 			<td>
 				<cfif #accepted_id_fg# is 0>
-					<select name="ACCEPTED_ID_FG" 
+					<select name="accepted_id_fg_#thisIdentification_id#" 
 						id="accepted_id_fg_#thisIdentification_id#" size="1" 
 						class="reqdClr">
 						<option value="1"
@@ -457,7 +457,7 @@ function removeHelpDiv() {
 										class="reqdClr"
 										size="50" 
 										onchange="this.className='red';
-											getAgent('IdById_#thisIdentification_id#_#idnum#','IdBy_#thisIdentification_id#_#idnum#','id#thisIdentification_id#',this.value); return false;"
+											getAgent('IdById_#thisIdentification_id#_#idnum#','IdBy_#thisIdentification_id#_#idnum#','editIdentification',this.value); return false;"
 							 			onKeyPress="return noenter(event);"> 
 										<input type="hidden" 
 											name="IdById_#thisIdentification_id#_#idnum#" 
@@ -504,12 +504,7 @@ function removeHelpDiv() {
                       <option <cfif #ctnature.nature_of_id# is #thisID#> selected </cfif> value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
                     </cfloop>
                   </select>
-				  <img 
-				class="likeLink" 
-				src="/images/ctinfo.gif"
-				border="0"
-				alt="Code Table Value Definition"
-				onClick="getCtDoc('ctnature_of_id',id#thisIdentification_id#.nature_of_id.value)">
+			<span class="infoLink" onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)">Define</span>
 				</td>
               </tr>
               <tr> 
