@@ -517,12 +517,12 @@ end cmask,
 	<tr>
 		<td valign="top" width="50%">
 			<div class="detailCell">
-				<div class="detailLabel">Taxonomy
+				<div class="detailLabel"><!---Taxonomy--->
 					<cfif #oneOfUs# is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</span>
-					<cfelse>
+					<!---<cfelse>
 						<span class="detailEditCell" onClick="getInfo('identification','#one.collection_object_id#');">Details</span>
-					</cfif>
+					---></cfif>
 				</div>
 				<div class="detailBlock">
 					<span class="detailData">
@@ -557,19 +557,7 @@ end cmask,
 					</div>
 				</cfif>
 			</div>
-<!------------------------------------ accession ---------------------------------------------->
-			<div class="detailCell">
-				<div class="detailLabel">Accession
-					<cfif #oneOfUs# is 1>
-						<span class="detailEditCell" onclick="window.parent.switchIFrame('addAccn');">Edit</span>
-					</cfif>
-				</div>
-				<div class="detailBlock">
-					<span class="detailData">
-						<a href="editAccn.cfm?Action=edit&transaction_id=#one.accn_id#" target="#client.target#">#accession#</a>
-					</span>
-				</div>
-			</div>
+<!------------------------------------ citations ---------------------------------------------->
 			<cfif len(#citations.cited_name#) gt 0>  
 				<div class="detailCell">
 					<div class="detailLabel">Citations</div>
@@ -589,8 +577,9 @@ end cmask,
 					</cfloop>
 				</div>
 			</cfif>
+<!------------------------------------ locality ---------------------------------------------->
 			<div class="detailCell">
-				<div class="detailLabel">Locality
+				<div class="detailLabel"><!---Locality--->
 					<cfif #oneOfUs# is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('specLocality');">Edit</span>
 					</cfif>
@@ -789,6 +778,8 @@ end cmask,
 						</span>
 					</div>
 				</div>
+				
+<!------------------------------------ collectors ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel">Collectors
 					<cfif #oneOfUs# is 1>
@@ -804,6 +795,65 @@ end cmask,
 					</div>
 				</cfloop>
 			</div>
+<!------------------------------------ accession ---------------------------------------------->
+			<div class="detailCell">
+				<div class="detailLabel">Accession
+					<cfif #oneOfUs# is 1>
+						<span class="detailEditCell" onclick="window.parent.switchIFrame('addAccn');">Edit</span>
+					</cfif>
+				</div>
+				<div class="detailBlock">
+					<span class="detailData">
+						<a href="editAccn.cfm?Action=edit&transaction_id=#one.accn_id#" target="#client.target#">#accession#</a>
+					</span>
+				</div>
+			</div>			
+<!------------------------------------ identifiers ---------------------------------------------->
+			<cfif #len(oid.other_id_type)# gt 0>
+				<div class="detailCell">
+					<div class="detailLabel">Identifiers
+						<cfif #oneOfUs# is 1>
+							<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentifiers');">Edit</span>
+						</cfif>						
+					</div>
+						<cfloop query="oid">
+							<div class="detailBlock">
+								<span class="innerDetailLabel">#other_id_type#:</span>
+									<cfif #other_id_type# is "GenBank">
+										<a href="http://www.ncbi.nlm.nih.gov:80/entrez/query.fcgi?cmd=search&db=nucleotide&term=#display_value#&doptcmdl=GenBank" 
+											target="_blank" 
+												>#display_value#</a>
+									<cfelseif #cgi.HTTP_HOST# contains "berkeley.edu" and #other_id_type# is "collector number">		
+										<!---Adding in GReF code --->
+										<cfquery name="gref" datasource="#Application.web_user#">
+											select
+											  book_section.publication_id,page_id
+											from
+											  gref_roi_ng, gref_roi_value_ng, book_section
+											where
+											  book_section.book_id = gref_roi_ng.publication_id
+											  and gref_roi_value_ng.id = gref_roi_ng.ROI_VALUE_NG_ID
+											  and gref_roi_ng.section_number = book_section.book_section_order
+											  and gref_roi_value_ng.collection_object_id = #collection_object_id#
+										</cfquery>
+										<cfif gref.page_id is not "">
+											<!---<cfset isMedia = true>--->
+											#display_value# 
+													(<a class='external'
+									href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationId=#gref.publication_id#" 
+															target="_blank">click here for reference on field notebook page</a>)
+										<cfelse>
+											#display_value#
+										</cfif>
+									<cfelse>
+										#display_value#
+									</cfif>
+								</span>
+							</div>
+						</cfloop>
+				</div>
+			</cfif>
+<!------------------------------------ preparators ---------------------------------------------->
 			<cfif #len(preps.preparators)# gt 0>
 				<div class="detailCell">
 					<div class="detailLabel">Preparators
@@ -821,6 +871,7 @@ end cmask,
 					</cfloop>
 				</div>
 			</cfif>
+<!------------------------------------ relationships ---------------------------------------------->
 			<cfquery name="invRel" datasource="#Application.web_user#">
 				select
 					collection.collection,
@@ -926,6 +977,7 @@ end cmask,
 		</cfquery>
 	
 	
+<!------------------------------------ usage ---------------------------------------------->
 		<cfif isProj.recordcount gt 0 OR isLoan.recordcount gt 0 or (#oneOfUs# is 1 and #isLoanedItem.collection_object_id# gt 0)>
 			<div class="detailCell">
 				<div class="detailLabel">Usage</div>
@@ -958,8 +1010,9 @@ end cmask,
 		</cfif>
 		</td>
 		<td valign="top" width="50%">
+<!------------------------------------ parts ---------------------------------------------->
 			<div class="detailCell">
-				<div class="detailLabel">Parts
+				<div class="detailLabel"><!---Parts--->
 					<cfif #oneOfUs# is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('editParts');">Edit</span>
 						<!---	onclick="window.parent.switchIFrame('Container');"--->
@@ -993,14 +1046,15 @@ end cmask,
 					</span>
 				</div>
 			</div>
+<!------------------------------------ attributes ---------------------------------------------->
 			<cfif len(attribute.attribute_type) gt 0>
 				<div class="detailCell">
-					<div class="detailLabel">Attributes
+					<div class="detailLabel"><!---Attributes--->
 						<cfif #oneOfUs# is 1>
 							<span class="detailEditCell" onclick="window.parent.switchIFrame('editBiolIndiv');">Edit</span>
-						<cfelse>
+						<!---<cfelse>
 							<span class="detailEditCell" onclick="getInfo('attributes','#one.collection_object_id#');">Details</span>
-						</cfif>
+						---></cfif>
 					</div>
 					<cfquery name="sex" dbtype="query">
 						select * from attribute where attribute_type = 'sex'
@@ -1012,7 +1066,7 @@ end cmask,
 									<span class="innerDetailLabel">Sex:</span>
 									#attribute_value#
 										<span class="detailCellSmall">
-										<cfif len(#attributeDeterminer#) gt 0>
+										<!---<cfif len(#attributeDeterminer#) gt 0>
 											<div class="detailBlock">
 												<span class="detailData">
 													&nbsp;&nbsp;<span class="innerDetailLabel">Determined By:</span>
@@ -1035,7 +1089,22 @@ end cmask,
 													#dateformat(determined_date,"dd mmm yyyy")#
 												</span>
 											</div>
+										</cfif>--->
+										<cfif len(#attributeDeterminer#) gt 0>
+											<cfset determination = "#attributeDeterminer#">
+											<cfif len(#determined_date#) gt 0>
+												<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
+											</cfif>
+											<cfif len(#determination_method#) gt 0>,
+												<cfset determination = '#determination#, #determination_method#'>
+											</cfif>
+											<div class="detailBlock">
+												<span class="detailData">
+													#determination#
+												</span>
+											</div>
 										</cfif>
+										
 										<cfif len(#attribute_remark#) gt 0>
 											<div class="detailBlock">
 												<span class="detailData">
@@ -1147,6 +1216,7 @@ end cmask,
 				</div>
 			</div>
 			</cfif>
+<!------------------------------------ cataloged item ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel">Cataloged Item</div>
 					<cfif #one.coll_object_remarks# is not "">
@@ -1196,50 +1266,7 @@ end cmask,
 						</cfif>
 					</cfif>
 				</div>
-			<cfif #len(oid.other_id_type)# gt 0>
-				<div class="detailCell">
-					<div class="detailLabel">Identifiers
-						<cfif #oneOfUs# is 1>
-							<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentifiers');">Edit</span>
-						</cfif>						
-					</div>
-						<cfloop query="oid">
-							<div class="detailBlock">
-								<span class="innerDetailLabel">#other_id_type#:</span>
-									<cfif #other_id_type# is "GenBank">
-										<a href="http://www.ncbi.nlm.nih.gov:80/entrez/query.fcgi?cmd=search&db=nucleotide&term=#display_value#&doptcmdl=GenBank" 
-											target="_blank" 
-												>#display_value#</a>
-									<cfelseif #cgi.HTTP_HOST# contains "berkeley.edu" and #other_id_type# is "collector number">		
-										<!---Adding in GReF code --->
-										<cfquery name="gref" datasource="#Application.web_user#">
-											select
-											  book_section.publication_id,page_id
-											from
-											  gref_roi_ng, gref_roi_value_ng, book_section
-											where
-											  book_section.book_id = gref_roi_ng.publication_id
-											  and gref_roi_value_ng.id = gref_roi_ng.ROI_VALUE_NG_ID
-											  and gref_roi_ng.section_number = book_section.book_section_order
-											  and gref_roi_value_ng.collection_object_id = #collection_object_id#
-										</cfquery>
-										<cfif gref.page_id is not "">
-											<!---<cfset isMedia = true>--->
-											#display_value# 
-													(<a class='external'
-									href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationId=#gref.publication_id#" 
-															target="_blank">click here for reference on field notebook page</a>)
-										<cfelse>
-											#display_value#
-										</cfif>
-									<cfelse>
-										#display_value#
-									</cfif>
-								</span>
-							</div>
-						</cfloop>
-				</div>
-			</cfif>
+<!------------------------------------ binary objects ---------------------------------------------->
 			<cfif #images.recordcount# gt 0>
 				<div class="detailCell">
 					<div class="detailLabel">Binary Objects
