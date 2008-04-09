@@ -57,6 +57,7 @@
 </cfif>
 <!----------------------------------------------------------->
 <cfif #action# is "runSQLUp">
+<cfoutput>
 	<cfif not isdefined("uc1") or not isdefined("uv1") or len(#uc1#) is 0 or len(#uv1#) is 0>
 		Not enough information. <cfabort>
 	</cfif>
@@ -96,7 +97,7 @@
 	</cfif>
 	
 	#preservesinglequotes(sql)#	
-	
+</cfoutput>	
 </cfif>
 <!----------------------------------------------------------->
 <cfif #action# is "sqlTab">
