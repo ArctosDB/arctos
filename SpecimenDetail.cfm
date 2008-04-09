@@ -312,9 +312,9 @@ window.onload=dyniframesize
 								<i>&nbsp;#sciname#</i>
 								</strong>
 							</font>
-				<span class="infoLink" onClick="getInfo('identification','#collection_object_id#');">
+				<!---<span class="infoLink" onClick="getInfo('identification','#collection_object_id#');">
 					Details			  			
-				</span>
+				</span>--->
 				 <cfif 
 							(len(#dec_lat#) gt 0 and 
 							len(#dec_long#) gt 0) 
