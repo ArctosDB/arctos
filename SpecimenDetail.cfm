@@ -292,9 +292,7 @@ window.onload=dyniframesize
 					</cfif>
 				</cfif>
 </cfoutput>
-<table>
-	<tr>
-		<td><div><table><tr>
+<div style="width: 100%;"><table><tr>
 		<td nowrap valign="top">
 			<cfoutput query="detail" group="cat_num">
 				<font size="+1"><B>#collection#&nbsp;#cat_num#</b></font>
@@ -394,13 +392,15 @@ window.onload=dyniframesize
 		<br><a onclick="document.location='SpecimenResults.cfm?#returnURL#'">[Return to results]</a>
 	</cfif>	
 </span>
-</td></tr></table></div></td>
+</td></tr></table></div>
 		</cfoutput>
 		
 		
-	</tr>
+	
 			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+<table>
 	<tr>
+		<td>	<tr>
 		<td colspan="3" align="center">
 		<cfoutput>
 				
