@@ -1091,7 +1091,7 @@ end cmask,
 											</div>
 										</cfif>--->
 										<cfif len(#attributeDeterminer#) gt 0>
-											<cfset determination = "#attributeDeterminer#">
+											<cfset determination = "&nbsp;&nbsp;#attributeDeterminer#">
 											<cfif len(#determined_date#) gt 0>
 												<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
 											</cfif>
@@ -1181,7 +1181,7 @@ end cmask,
 								</cfif>
 								<span class="detailCellSmall">
 										<cfif len(#attributeDeterminer#) gt 0>
-											<cfset determination = "#attributeDeterminer#">
+											<cfset determination = "&nbsp;&nbsp;#attributeDeterminer#">
 											<cfif len(#determined_date#) gt 0>
 												<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
 											</cfif>
