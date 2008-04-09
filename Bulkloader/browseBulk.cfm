@@ -74,6 +74,17 @@
 		<tr>
 		<cfloop query="cNames">
 			<th>#column_name#</th>
+			<cfloop query="data">
+				<tr>
+				<cfquery name="thisRec" dbtype="query">
+					select * from data where collection_object_id=#collection_object_id#
+				</cfquery>
+				<cfloop query="cNames">
+					<cfset thisData = evaluate("thisRec." & column_name)>
+					<td>#thisData#</td>
+				</cfloop>
+				</tr>
+			</cfloop>
 		</cfloop>
 		</tr>
 	</table>
