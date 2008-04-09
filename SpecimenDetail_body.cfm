@@ -1065,7 +1065,6 @@ end cmask,
 								<span class="detailData">
 									<span class="innerDetailLabel">Sex:</span>
 									#attribute_value#
-										<span class="detailCellSmall">
 										<!---<cfif len(#attributeDeterminer#) gt 0>
 											<div class="detailBlock">
 												<span class="detailData">
@@ -1099,7 +1098,7 @@ end cmask,
 												<cfset determination = '#determination#, #determination_method#'>
 											</cfif>
 											<div class="detailBlock">
-												<span class="detailData">
+												<span class="detailCellSmall">
 													#determination#
 												</span>
 											</div>
@@ -1107,13 +1106,12 @@ end cmask,
 										
 										<cfif len(#attribute_remark#) gt 0>
 											<div class="detailBlock">
-												<span class="detailData">
+												<span class="detailCellSmall">
 													&nbsp;&nbsp;<span class="innerDetailLabel">Remark:</span>
 													#attribute_remark#
 												</span>
 											</div>
 										</cfif>	
-									</span>	
 								</span>
 							</div>
 						</cfloop>
@@ -1179,7 +1177,6 @@ end cmask,
 								<cfif len(#attribute_units#) gt 0>
 									#attribute_units#
 								</cfif>
-								<span class="detailCellSmall">
 										<cfif len(#attributeDeterminer#) gt 0>
 											<cfset determination = "&nbsp;&nbsp;#attributeDeterminer#">
 											<cfif len(#determined_date#) gt 0>
@@ -1189,20 +1186,19 @@ end cmask,
 												<cfset determination = '#determination#, #determination_method#'>
 											</cfif>
 											<div class="detailBlock">
-												<span class="detailData">
+												<span class="detailCellSmall">
 													#determination#
 												</span>
 											</div>
 										</cfif>
 									<cfif len(#attribute_remark#) gt 0>
 										<div class="detailBlock">
-											<span class="detailData">
+											<span class="detailCellSmall">
 												&nbsp;&nbsp;<span class="innerDetailLabel">Remark:</span>
 												#attribute_remark#
 											</span>
 										</div>
 									</cfif>	
-								</span>
 							</div> 
 						</span>
 					</cfloop>		
