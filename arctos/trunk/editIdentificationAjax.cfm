@@ -1128,6 +1128,9 @@ function removeHelpDiv() {
 
 <cfoutput>
 	<cfdump var="#form#">
+	<cfloop from="1" to="#NUMBER_OF_IDS#" index="i">
+		
+	</cfloop>
 	<!----
 <cfif #orig_accepted_id_fg# is "0">
 	<cfif #ACCEPTED_ID_FG# is 1>
