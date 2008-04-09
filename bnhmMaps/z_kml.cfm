@@ -49,7 +49,7 @@
 <cfif #action# is "nothing">
 <cfoutput>
         NOTE: Horizontal Datum is NOT transformed correctly. Positions will be misplaced for all non-WGS84 datum points.
-        <form name="prefs" method="post" action="kml.cfm">
+        <form name="prefs" method="post" action="z_kml.cfm">
                 <input type="hidden" name="action" value="make">
                 <input type="hidden" name="table_name" value="#table_name#">
                 <br>Show Error Circles? (Makes big filesizes) <input type="checkbox" name="showErrors" id="showErrors" value="1" checked="checked">
@@ -303,12 +303,12 @@
                         </kml>'>
                         <cffile action="write" file="#dlPath##linkFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
                 <p>
-                </p><a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">Download Entire KML</a> (requires <a href="http://earth.google.com/">Google Earth</a>)
+                </p><a href="z_kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">Download Entire KML</a> (requires <a href="http://earth.google.com/">Google Earth</a>)
                         <blockquote>
                                 Download KML (#dlFile#) including all data to your hard drive
                         </blockquote>
                 <p>
-                <a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">Download KML Link</a> (requires <a href="http://earth.google.com/">Google Earth</a>)
+                <a href="z_kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">Download KML Link</a> (requires <a href="http://earth.google.com/">Google Earth</a>)
                         <blockquote>
                                 Download KML Link data (#linkFile#). Data remains on Arctos and will be refreshed every time you build a KML with the same name.
                                  Data on Arctos will be periodically purged.
