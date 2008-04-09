@@ -94,6 +94,7 @@
 		<cfif isdefined("accn") and len(#accn#) gt 0>
 			<input type="hidden" name="accn" value="#accn#">
 		</cfif>
+		<h2>Create Filter:</h2>
 		<table border>
 			<tr>
 				<th>
@@ -120,7 +121,7 @@
 					</select>
 				</td>
 				<td>
-					<input type="text" name="v1" <cfif isdefined("v1")> value="#v1#"</cfif> >
+					<input type="text" name="v1" <cfif isdefined("v1")> value="#v1#"</cfif> size="50">
 				</td>
 			</tr>
 			<tr>
