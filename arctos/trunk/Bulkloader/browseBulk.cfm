@@ -59,7 +59,7 @@
 <cfif #action# is "sqlTab">
 <cfoutput>
 	<cfset sql = "select * from bulkloader where enteredby IN (#enteredby#)">
-	<cfif len(#accn#) gt 0>
+	<cfif isdefined("accn") and len(#accn#) gt 0>
 		<cfset sql = "#sql# AND accn IN (#accn#)">
 	</cfif>
 	<cfquery name="data" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
@@ -72,7 +72,7 @@
 	<form name="filter" method="post" action="browseBulk.cfm">
 		<input type="hidden" name="action" value="sqlTab">
 		<input type="hidden" name="enteredby" value="#enteredby#">
-		<cfif len(#accn#) gt 0>
+		<cfif isdefined("accn") and len(#accn#) gt 0>
 			<input type="hidden" name="accn" value="#accn#">
 		</cfif>
 		<table border>
