@@ -69,7 +69,47 @@
 		select column_name from user_tab_cols where table_name='BULKLOADER'
 		order by internal_column_id
 	</cfquery>
-
+	<form name="filter" method="post" action="browseBulk.cfm">
+		<input type="hidden" name="action" value="sqlTab">
+		<input type="hidden" name="enteredby" value="#enteredby#">
+		<cfif len(#accn#) gt 0>
+			<input type="hidden" name="accn" value="#accn#">
+		</cfif>
+		<table border>
+			<tr>
+				<th>
+					Column
+				</th>
+				<th>Operator</th>
+				<th>Value</th>
+			</tr>
+			<tr>
+				<td>
+					<select name="c1" size="1">
+						<option value=""></option>
+						<cfloop query="cNames">
+							<option 
+								<cfif isdefined("c1") and #c1# is #column_name#> selected="selected" </cfif>value="#column_name#">#column_name#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+					<select name="op1" size="1">
+						<option value="=">=</option>
+						<option value="like">like</option>
+					</select>
+				</td>
+				<td>
+					<input type="text" name="v1" <cfif isdefined("v1")> value="#v1"</cfif> >
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<input type="submit">
+				</td>
+			</tr>
+		</table>
+	</form>
 	<table border id="t" class="sortable">
 		<tr>
 		<cfloop query="cNames">
