@@ -63,7 +63,7 @@
 		<cfset sql = "#sql# AND accn IN (#accn#)">
 	</cfif>
 	<cfif isdefined("c1") and len(#c1#) gt 0 and isdefined("op1") and len(#op1#) gt 0 and isdefined("v1") and len(#v1#) gt 0>
-		<cfset sql = "#sql# AND #c1# #op1# '%#v1#'%">
+		<cfset sql = "#sql# AND #c1# #op1# '%#v1#%'">
 	</cfif>
 	
 	#preservesinglequotes(sql)#	
