@@ -72,8 +72,8 @@
 
 	<table border id="t" class="sortable">
 		<tr>
-		<cfloop list="#cNames#" index="c">
-			<th>#c#</th>
+		<cfloop query="cNames">
+			<th>#column_name#</th>
 		</cfloop>
 		</tr>
 	</table>
