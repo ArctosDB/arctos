@@ -82,6 +82,16 @@
 			<cfset sql = "#sql# ('#replace(v2,",","','","all")#')">
 		</cfif>		 
 	</cfif>
+	<cfif isdefined("c3") and len(#c3#) gt 0 and isdefined("op3") and len(#op3#) gt 0 and isdefined("v3") and len(#v3#) gt 0>
+		<cfset sql = "#sql# AND #c3# #op3# ">
+		<cfif #op3# is "=">
+			<cfset sql = "#sql# '#v3#'">
+		<cfelseif op3 is "like">
+			<cfset sql = "#sql# '%#v3#%'">
+		<cfelseif op3 is "in">
+			<cfset sql = "#sql# ('#replace(v3,",","','","all")#')">
+		</cfif>		 
+	</cfif>
 	
 	#preservesinglequotes(sql)#	
 	<cfquery name="data" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
@@ -177,7 +187,7 @@
 			</tr>
 			<tr>
 				<td colspan="3">
-					<input type="submit">
+					<input type="submit" value="Filter">
 				</td>
 			</tr>
 		</table>
