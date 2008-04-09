@@ -80,7 +80,7 @@
 					select * from data where collection_object_id=#collection_object_id#
 				</cfquery>
 				<cfloop query="cNames">
-					<cfset thisData = evaluate("thisRec." & column_name)>
+					<cfset thisData = evaluate("thisRec." & cNames.column_name)>
 					<td>#thisData#</td>
 				</cfloop>
 				</tr>
