@@ -183,6 +183,7 @@ a.external:hover:visited:after {
 }
 .detailCellSmall {
 	font-size:.8em;
+	font-weight:normal;
 }
 .detailCell {
 	border:1px dotted gray;
