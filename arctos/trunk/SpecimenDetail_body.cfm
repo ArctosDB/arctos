@@ -795,19 +795,6 @@ end cmask,
 					</div>
 				</cfloop>
 			</div>
-<!------------------------------------ accession ---------------------------------------------->
-			<div class="detailCell">
-				<div class="detailLabel">Accession
-					<cfif #oneOfUs# is 1>
-						<span class="detailEditCell" onclick="window.parent.switchIFrame('addAccn');">Edit</span>
-					</cfif>
-				</div>
-				<div class="detailBlock">
-					<span class="detailData">
-						<a href="editAccn.cfm?Action=edit&transaction_id=#one.accn_id#" target="#client.target#">#accession#</a>
-					</span>
-				</div>
-			</div>			
 <!------------------------------------ identifiers ---------------------------------------------->
 			<cfif #len(oid.other_id_type)# gt 0>
 				<div class="detailCell">
@@ -853,6 +840,19 @@ end cmask,
 						</cfloop>
 				</div>
 			</cfif>
+<!------------------------------------ accession ---------------------------------------------->
+			<div class="detailCell">
+				<div class="detailLabel">Accession
+					<cfif #oneOfUs# is 1>
+						<span class="detailEditCell" onclick="window.parent.switchIFrame('addAccn');">Edit</span>
+					</cfif>
+				</div>
+				<div class="detailBlock">
+					<span class="detailData">
+						<a href="editAccn.cfm?Action=edit&transaction_id=#one.accn_id#" target="#client.target#">#accession#</a>
+					</span>
+				</div>
+			</div>			
 <!------------------------------------ preparators ---------------------------------------------->
 			<cfif #len(preps.preparators)# gt 0>
 				<div class="detailCell">
@@ -1012,7 +1012,7 @@ end cmask,
 		<td valign="top" width="50%">
 <!------------------------------------ parts ---------------------------------------------->
 			<div class="detailCell">
-				<div class="detailLabel"><!---Parts--->
+				<div class="detailLabel">&nbsp;<!---Parts--->
 					<cfif #oneOfUs# is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('editParts');">Edit</span>
 						<!---	onclick="window.parent.switchIFrame('Container');"--->
@@ -1177,30 +1177,20 @@ end cmask,
 								<span class="innerDetailLabel">#attribute_type#:</span>
 								#attribute_value#
 								<span class="detailCellSmall">
-									<cfif len(#attributeDeterminer#) gt 0>
-										<div class="detailBlock">
-											<span class="detailData">
-												&nbsp;&nbsp;<span class="innerDetailLabel">Determined By:</span>
-												#attributeDeterminer#
-											</span>
-										</div>
-									</cfif>
-									<cfif len(#determination_method#) gt 0>
-										<div class="detailBlock">
-											<span class="detailData">
-												&nbsp;&nbsp;<span class="innerDetailLabel">Determination Method:</span>
-												#determination_method#
-											</span>
-										</div>
-									</cfif>
-									<cfif len(#determined_date#) gt 0>
-										<div class="detailBlock">
-											<span class="detailData">
-												&nbsp;&nbsp;<span class="innerDetailLabel">Determination Date:</span>
-												#dateformat(determined_date,"dd mmm yyyy")#
-											</span>
-										</div>
-									</cfif>
+										<cfif len(#attributeDeterminer#) gt 0>
+											<cfset determination = "#attributeDeterminer#">
+											<cfif len(#determined_date#) gt 0>
+												<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
+											</cfif>
+											<cfif len(#determination_method#) gt 0>,
+												<cfset determination = '#determination#, #determination_method#'>
+											</cfif>
+											<div class="detailBlock">
+												<span class="detailData">
+													#determination#
+												</span>
+											</div>
+										</cfif>
 									<cfif len(#attribute_remark#) gt 0>
 										<div class="detailBlock">
 											<span class="detailData">
