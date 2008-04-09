@@ -63,7 +63,15 @@
 		<cfset sql = "#sql# AND accn IN (#accn#)">
 	</cfif>
 	<cfif isdefined("c1") and len(#c1#) gt 0 and isdefined("op1") and len(#op1#) gt 0 and isdefined("v1") and len(#v1#) gt 0>
-		<cfset sql = "#sql# AND #c1# #op1# '%#v1#%'">
+		<cfset sql = "#sql# AND #c1# #op1# ">
+		<cfif #op1# is "=">
+			<cfset sql = "#sql# '#v1#'">
+		<cfelseif op1 is "like">
+			<cfset sql = "#sql# '%#v1#%'">
+		<cfelseif op1 is "in">
+			<cfset sql = "#sql# ('#v1#')">
+		</cfif>
+		 
 	</cfif>
 	
 	#preservesinglequotes(sql)#	
@@ -74,6 +82,12 @@
 		select column_name from user_tab_cols where table_name='BULKLOADER'
 		order by internal_column_id
 	</cfquery>
+	Operator values:
+	<ul>
+		<li>=: single case-sensitive exact match ("something"-->"something")</li>
+		<li>like: partial string match ("somet" --> "something", "somet", "sometime", etc.)</li>
+		<li>in: comma-delimited list ("one,two" --> "one" OR "two")</li>
+	</ul>
 	<form name="filter" method="post" action="browseBulk.cfm">
 		<input type="hidden" name="action" value="sqlTab">
 		<input type="hidden" name="enteredby" value="#enteredby#">
@@ -102,6 +116,7 @@
 					<select name="op1" size="1">
 						<option value="=">=</option>
 						<option value="like">like</option>
+						<option value="in">in</option>
 					</select>
 				</td>
 				<td>
