@@ -295,7 +295,7 @@ window.onload=dyniframesize
 <div style="width: 100%;"><table><tr>
 		<td nowrap valign="top">
 			<cfoutput query="detail" group="cat_num">
-				<font size="+1"><B>#collection#&nbsp;#cat_num#</b></font>
+				<font size="+1"><strong>#collection#&nbsp;#cat_num#</strong></font>
 				<cfif len(#web_link#) gt 0>
 					<a href="#web_link#" target="_blank"><img src="/images/linkOut.gif" border="0" alt="#web_link_text#"></a>
 				</cfif>
@@ -308,9 +308,9 @@ window.onload=dyniframesize
 				
 						<font size="+1">
 						<cfset sciname = '#replace(Scientific_Name," or ","</i>&nbsp;or&nbsp;<i>")#'>
-							<b>
+							<strong>
 								<i>&nbsp;#sciname#</i>
-								</b>
+								</strong>
 							</font>
 				<span class="infoLink" onClick="getInfo('identification','#collection_object_id#');">
 					Details			  			
@@ -335,8 +335,8 @@ window.onload=dyniframesize
 		</td>
 		<td valign="top">
 			
-				<em>#spec_locality#</em>
-				<br>#hg#
+				<strong><em>#spec_locality#</em></strong>
+				<br><strong>#hg#</strong>
 				
 			<cfif #encumbrance_action# does not contain "year collected" OR
 							( isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user"))>					
@@ -361,12 +361,12 @@ window.onload=dyniframesize
 			</cfif>
 			
 		</cfif>
-			<br>#thisDate#
+			<br><strong>#thisDate#</strong>
 		</td>
 		<td valign="top">
 		
 								<font size="-1">
-								#partString#
+								<strong>#partString#</strong>
 								</font>
 								
 		</td>
