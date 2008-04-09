@@ -47,9 +47,17 @@
 				class="lnkBtn"
 				onmouseover="this.className='lnkBtn btnhov'"
 				onmouseout="this.className='lnkBtn'">
+ 	<br/><input type="button" 
+				value="SQL"
+				class="lnkBtn"
+				onclick="f.action.value='sqlTab';f.submit();">
 </form>
 </cfoutput>
 </cfif>
+<cfif #action# is "sqlTab">
+	<cfdump var="#form#">
+</cfif>
+
 <!-------------------------->
 <cfif #action# is "saveGridUpdate">
 <cfoutput>
