@@ -1175,7 +1175,10 @@ end cmask,
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">#attribute_type#:</span>
-								#attribute_value#
+								#attribute_value# 
+								<cfif len(#attribute_units#) gt 0>
+									#attribute_units#
+								</cfif>
 								<span class="detailCellSmall">
 										<cfif len(#attributeDeterminer#) gt 0>
 											<cfset determination = "#attributeDeterminer#">
