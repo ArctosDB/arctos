@@ -100,7 +100,7 @@
 					</select>
 				</td>
 				<td>
-					<input type="text" name="v1" <cfif isdefined("v1")> value="#v1"</cfif> >
+					<input type="text" name="v1" <cfif isdefined("v1")> value="#v1#"</cfif> >
 				</td>
 			</tr>
 			<tr>
