@@ -56,6 +56,49 @@
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------->
+<cfif #action# is "runSQLUp">
+	<cfif not isdefined("uc1") or not isdefined("uv1") or len(#uc1#) is 0 or len(#uv1#) is 0>
+		Not enough information. <cfabort>
+	</cfif>
+	<cfset sql = "update bulkloader set #uc1# = '#uv1#' where enteredby IN (#enteredby#)">
+	<cfif isdefined("accn") and len(#accn#) gt 0>
+		<cfset sql = "#sql# AND accn IN (#accn#)">
+	</cfif>
+	<cfif isdefined("c1") and len(#c1#) gt 0 and isdefined("op1") and len(#op1#) gt 0 and isdefined("v1") and len(#v1#) gt 0>
+		<cfset sql = "#sql# AND #c1# #op1# ">
+		<cfif #op1# is "=">
+			<cfset sql = "#sql# '#v1#'">
+		<cfelseif op1 is "like">
+			<cfset sql = "#sql# '%#v1#%'">
+		<cfelseif op1 is "in">
+			<cfset sql = "#sql# ('#replace(v1,",","','","all")#')">
+		</cfif>		 
+	</cfif>
+	<cfif isdefined("c2") and len(#c2#) gt 0 and isdefined("op2") and len(#op2#) gt 0 and isdefined("v2") and len(#v2#) gt 0>
+		<cfset sql = "#sql# AND #c2# #op2# ">
+		<cfif #op2# is "=">
+			<cfset sql = "#sql# '#v2#'">
+		<cfelseif op2 is "like">
+			<cfset sql = "#sql# '%#v2#%'">
+		<cfelseif op2 is "in">
+			<cfset sql = "#sql# ('#replace(v2,",","','","all")#')">
+		</cfif>		 
+	</cfif>
+	<cfif isdefined("c3") and len(#c3#) gt 0 and isdefined("op3") and len(#op3#) gt 0 and isdefined("v3") and len(#v3#) gt 0>
+		<cfset sql = "#sql# AND #c3# #op3# ">
+		<cfif #op3# is "=">
+			<cfset sql = "#sql# '#v3#'">
+		<cfelseif op3 is "like">
+			<cfset sql = "#sql# '%#v3#%'">
+		<cfelseif op3 is "in">
+			<cfset sql = "#sql# ('#replace(v3,",","','","all")#')">
+		</cfif>		 
+	</cfif>
+	
+	#preservesinglequotes(sql)#	
+	
+</cfif>
+<!----------------------------------------------------------->
 <cfif #action# is "sqlTab">
 <cfoutput>
 	<cfset sql = "select * from bulkloader where enteredby IN (#enteredby#)">
@@ -191,6 +234,53 @@
 				</td>
 			</tr>
 		</table>
+	</form>
+	<h2>Update data in table below:</h2>
+	<form name="up" method="post" action="browseBulk.cfm">
+		<input type="hidden" name="action" value="runSQLUp">
+		<input type="hidden" name="enteredby" value="#enteredby#">
+		<cfif isdefined("accn") and len(#accn#) gt 0>
+			<input type="hidden" name="accn" value="#accn#">
+		</cfif>
+		<cfif isdefined("c1") and len(#c1#) gt 0 and isdefined("op1") and len(#op1#) gt 0 and isdefined("v1") and len(#v1#) gt 0>
+			<input type="hidden" name="c1" value="#c1#">
+			<input type="hidden" name="op1" value="#op1#">
+			<input type="hidden" name="v1" value="#v1#">			
+		</cfif>
+		<cfif isdefined("c2") and len(#c2#) gt 0 and isdefined("op2") and len(#op2#) gt 0 and isdefined("v2") and len(#v2#) gt 0>
+			<input type="hidden" name="c2" value="#c2#">
+			<input type="hidden" name="op2" value="#op2#">
+			<input type="hidden" name="v2" value="#v2#">			
+		</cfif>
+		<cfif isdefined("c3") and len(#c3#) gt 0 and isdefined("op3") and len(#op3#) gt 0 and isdefined("v3") and len(#v3#) gt 0>
+			<input type="hidden" name="c3" value="#c3#">
+			<input type="hidden" name="op3" value="#op3#">
+			<input type="hidden" name="v3" value="#v3#">			
+		</cfif>
+		<table border>
+			<tr>
+				<th>
+					Column
+				</th>
+				<th>Update To</th>
+				<th>Value</th>
+			</tr>
+			<tr>
+				<td>
+					<select name="uc1" size="1">
+						<option value=""></option>
+						<cfloop query="cNames">
+							<option value="#column_name#">#column_name#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+					-->
+				</td>
+				<td>
+					<input type="text" name="uv1" size="50">
+				</td>
+			</tr>
 	</form>
 	<table border id="t" class="sortable">
 		<tr>
