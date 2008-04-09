@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+	<script src="/includes/sorttable.js"></script>
 <cfif #action# IS "nothing">
 <cfoutput>
 <cf_setDataEntryGroups>
@@ -54,10 +55,30 @@
 </form>
 </cfoutput>
 </cfif>
+<!----------------------------------------------------------->
 <cfif #action# is "sqlTab">
-	<cfdump var="#form#">
-</cfif>
+<cfoutput>
+	<cfset sql = "select * from bulkloader where enteredby IN (#enteredby#)">
+	<cfif len(#accn#) gt 0>
+		<cfset sql = "#sql# AND accn IN (#accn#)">
+	</cfif>
+	<cfquery name="data" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		#preservesinglequotes(sql)#	
+	</cfquery>
+	<cfquery name="cNames" datasource="uam_god">
+		select column_name from user_tab_cols where table_name='BULKLOADER'
+		order by internal_column_id
+	</cfquery>
 
+	<table border id="t" class="sortable">
+		<tr>
+		<cfloop list="#cNames#">
+			<th>#column_name#</th>
+		</cfloop>
+		</tr>
+	</table>
+</cfoutput>
+</cfif>
 <!-------------------------->
 <cfif #action# is "saveGridUpdate">
 <cfoutput>
