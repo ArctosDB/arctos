@@ -70,8 +70,17 @@
 			<cfset sql = "#sql# '%#v1#%'">
 		<cfelseif op1 is "in">
 			<cfset sql = "#sql# ('#replace(v1,",","','","all")#')">
-		</cfif>
-		 
+		</cfif>		 
+	</cfif>
+	<cfif isdefined("c2") and len(#c2#) gt 0 and isdefined("op2") and len(#op2#) gt 0 and isdefined("v2") and len(#v2#) gt 0>
+		<cfset sql = "#sql# AND #c2# #op2# ">
+		<cfif #op2# is "=">
+			<cfset sql = "#sql# '#v2#'">
+		<cfelseif op2 is "like">
+			<cfset sql = "#sql# '%#v2#%'">
+		<cfelseif op2 is "in">
+			<cfset sql = "#sql# ('#replace(v2,",","','","all")#')">
+		</cfif>		 
 	</cfif>
 	
 	#preservesinglequotes(sql)#	
@@ -122,6 +131,48 @@
 				</td>
 				<td>
 					<input type="text" name="v1" <cfif isdefined("v1")> value="#v1#"</cfif> size="50">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<select name="c2" size="1">
+						<option value=""></option>
+						<cfloop query="cNames">
+							<option 
+								<cfif isdefined("c2") and #c2# is #column_name#> selected="selected" </cfif>value="#column_name#">#column_name#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+					<select name="op2" size="1">
+						<option <cfif isdefined("op2") and op2 is "="> selected="selected" </cfif>value="=">=</option>
+						<option <cfif isdefined("op2") and op2 is "like"> selected="selected" </cfif>value="like">like</option>
+						<option <cfif isdefined("op2") and op2 is "in"> selected="selected" </cfif>value="in">in</option>
+					</select>
+				</td>
+				<td>
+					<input type="text" name="v2" <cfif isdefined("v2")> value="#v2#"</cfif> size="50">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<select name="c3" size="1">
+						<option value=""></option>
+						<cfloop query="cNames">
+							<option 
+								<cfif isdefined("c3") and #c3# is #column_name#> selected="selected" </cfif>value="#column_name#">#column_name#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+					<select name="op3" size="1">
+						<option <cfif isdefined("op3") and op3 is "="> selected="selected" </cfif>value="=">=</option>
+						<option <cfif isdefined("op3") and op3 is "like"> selected="selected" </cfif>value="like">like</option>
+						<option <cfif isdefined("op3") and op3 is "in"> selected="selected" </cfif>value="in">in</option>
+					</select>
+				</td>
+				<td>
+					<input type="text" name="v3" <cfif isdefined("v3")> value="#v3#"</cfif> size="50">
 				</td>
 			</tr>
 			<tr>
