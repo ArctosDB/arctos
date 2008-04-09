@@ -281,6 +281,11 @@
 					<input type="text" name="uv1" size="50">
 				</td>
 			</tr>
+			<tr>
+				<td colspan="3">
+					<input type="submit" value="Update">
+				</td>
+			</tr>
 	</form>
 	<table border id="t" class="sortable">
 		<tr>
