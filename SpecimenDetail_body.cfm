@@ -1207,7 +1207,7 @@ end cmask,
 			</cfif>
 <!------------------------------------ cataloged item ---------------------------------------------->
 			<div class="detailCell">
-				<div class="detailLabel">Cataloged Item</div>
+				<!---<div class="detailLabel">Cataloged Item</div>--->
 					<cfif #one.coll_object_remarks# is not "">
 						<div class="detailBlock">
 							<span class="detailData">
