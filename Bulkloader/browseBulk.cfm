@@ -69,7 +69,7 @@
 		<cfelseif op1 is "like">
 			<cfset sql = "#sql# '%#v1#%'">
 		<cfelseif op1 is "in">
-			<cfset sql = "#sql# ('#v1#')">
+			<cfset sql = "#sql# ('#replace(v1,",","','","all")#')">
 		</cfif>
 		 
 	</cfif>
@@ -114,9 +114,9 @@
 				</td>
 				<td>
 					<select name="op1" size="1">
-						<option value="=">=</option>
-						<option value="like">like</option>
-						<option value="in">in</option>
+						<option <cfif isdefined("op1") and op1 is "="> selected="selected" </cfif>value="=">=</option>
+						<option <cfif isdefined("op1") and op1 is "like"> selected="selected" </cfif>value="like">like</option>
+						<option <cfif isdefined("op1") and op1 is "in"> selected="selected" </cfif>value="in">in</option>
 					</select>
 				</td>
 				<td>
