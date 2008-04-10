@@ -21,6 +21,7 @@
 	height:40em;
 	overflow:scroll;
 	}
+</style>
 <cfquery name="ctAccn" datasource="#Application.web_user#">
 	select accn from bulkloader where enteredby in (#preservesinglequotes(afg)#) group by accn order by accn
 </cfquery>
