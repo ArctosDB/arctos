@@ -15,7 +15,12 @@
 	You are not an admin for any active groups.
 	<cfabort>
 </cfif>
-
+<style>
+.blTabDiv {
+	width: 40em;
+	height:40em;
+	overflow:scroll;
+	}
 <cfquery name="ctAccn" datasource="#Application.web_user#">
 	select accn from bulkloader where enteredby in (#preservesinglequotes(afg)#) group by accn order by accn
 </cfquery>
@@ -312,7 +317,7 @@
 				</td>
 			</tr>
 	</form>
-	<div style="width: 100%; height:50%; overflow:scroll;">
+	<div class="blTabDiv">
 	<table border id="t" class="sortable">
 		<tr>
 		<cfloop query="cNames">
