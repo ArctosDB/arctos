@@ -1,5 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
-	<script src="/includes/sorttable.js"></script>
+<script src="/includes/sorttable.js"></script>
+<style>
+.blTabDiv {
+	width: 40em;
+	height:40em;
+	overflow:scroll;
+	}
+</style>
 <cfif #action# IS "nothing">
 <cfoutput>
 <cf_setDataEntryGroups>
@@ -15,13 +22,6 @@
 	You are not an admin for any active groups.
 	<cfabort>
 </cfif>
-<style>
-.blTabDiv {
-	width: 40em;
-	height:40em;
-	overflow:scroll;
-	}
-</style>
 <cfquery name="ctAccn" datasource="#Application.web_user#">
 	select accn from bulkloader where enteredby in (#preservesinglequotes(afg)#) group by accn order by accn
 </cfquery>
