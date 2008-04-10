@@ -177,6 +177,114 @@ function removeHelpDiv() {
 	}
 }
 </script>
+<!----------------------------------------------------------------------------------->
+<cfif #Action# is "saveEdits">
+
+<cfoutput>
+	<cfdump var="#form#">
+	<cfloop from="1" to="#NUMBER_OF_IDS#" index="i">
+		<!--- get identification_id --->
+	</cfloop>
+	<!----
+<cfif #orig_accepted_id_fg# is "0">
+	<cfif #ACCEPTED_ID_FG# is 1>
+		<!--- changing from not accepted to accepted - set all others not accepted --->
+		<cftransaction>
+		<cfquery name="upOldID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
+		</cfquery>
+		<cfquery name="newAcceptedId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			UPDATE identification SET ACCEPTED_ID_FG=1 where identification_id = #identification_id#
+		</cfquery>
+		</cftransaction>
+	</cfif>
+</cfif>
+	
+	<cfquery name="updateId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		UPDATE identification SET
+		nature_of_id = '#nature_of_id#'
+		<cfif len(#made_date#) gt 0>
+			,made_date = '#dateformat(made_date,'dd-mmm-yyyy')#'
+		</cfif>
+		<cfif len(#identification_remarks#) gt 0>
+			,identification_remarks = '#identification_remarks#'
+		</cfif>
+	where identification_id=#identification_id#
+</cfquery>
+	<br />there are #number_of_identifiers# identifiers...
+	<cfloop from="1" to="#number_of_identifiers#" index="i">
+		<cfset thisIdId = evaluate("IdById" & i)>
+		<cfif len(#thisIdId#) gt 0>
+			<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				update identification_agent set 
+				agent_id=#thisIdId# where
+				identifier_order=#i# and
+				identification_id=#identification_id#
+			</cfquery>
+		<cfelse>
+			<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				delete from identification_agent
+				where identifier_order=#i# and
+				identification_id=#identification_id#				
+			</cfquery>
+		</cfif>
+		<hr />
+	</cfloop>
+	<cfif len(#newidentifierID#) gt 0>
+		<cfset thisOrder = #number_of_identifiers# + 1>
+		<cfquery name="newIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		insert into identification_agent (
+			identification_id,
+			agent_id,
+			identifier_order) 
+		values (
+			#identification_id#,
+			#newidentifierID#,
+			#thisOrder#
+			)
+		</cfquery>
+	</cfif>
+			
+					
+	<!---
+		<input type="text" name="idBy#identifier_order#" value="#agent_name#" class="reqdClr"
+				 size="50" onchange="getAgent('IdById#identifier_order#','idBy#identifier_order#','id#i#',this.value); return false;"
+				 oonKeyPress="return noenter(event);"> 
+				 <input type="hidden" name="IdById#identifier_order#"> 
+					</td>
+					--->
+<!---
+
+
+
+	<cfquery name="updateId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	UPDATE identification SET
+		identification_id=#identification_id#
+		<cfif len(#newIdById#) gt 0>
+			,id_made_by_agent_id = #newIdById#
+		</cfif>
+		<cfif len(#made_date#) gt 0>
+			,made_date = '#dateformat(made_date,'dd-mmm-yyyy')#'
+		</cfif>
+		<cfif len(#nature_of_id#) gt 0>
+			,nature_of_id = '#nature_of_id#'
+		</cfif>
+		<cfif len(#identification_remarks#) gt 0>
+			,identification_remarks = '#identification_remarks#'
+		</cfif>
+	where identification_id=#identification_id#
+	</cfquery>
+	
+	
+		
+		
+	<cf_logEdit collection_object_id="#collection_object_id#">
+	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
+	--->
+	---->
+</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------------------------------->
 <cfif #Action# is "nothing">
 <cfoutput>
 <cfquery name="ctnature" datasource="#Application.web_user#">
@@ -435,6 +543,7 @@ function removeHelpDiv() {
 			identifier_order
 	</cfquery>
 	<cfset thisIdentification_id = #identification_id#>
+	<input type="hidden" name="identification_id_#thisIdentification_id#" id="identification_id_#thisIdentification_id#" value="#identification_id#">
 	<input type="hidden" name="number_of_identifiers_#thisIdentification_id#" id="number_of_identifiers_#thisIdentification_id#" 
 			value="#distIds.recordcount#">
 	<table id="mainTable_#thisIdentification_id#">
@@ -1123,113 +1232,7 @@ function removeHelpDiv() {
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
-<!----------------------------------------------------------------------------------->
-<cfif #Action# is "saveEdits">
 
-<cfoutput>
-	<cfdump var="#form#">
-	<cfloop from="1" to="#NUMBER_OF_IDS#" index="i">
-		
-	</cfloop>
-	<!----
-<cfif #orig_accepted_id_fg# is "0">
-	<cfif #ACCEPTED_ID_FG# is 1>
-		<!--- changing from not accepted to accepted - set all others not accepted --->
-		<cftransaction>
-		<cfquery name="upOldID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-			UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
-		</cfquery>
-		<cfquery name="newAcceptedId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-			UPDATE identification SET ACCEPTED_ID_FG=1 where identification_id = #identification_id#
-		</cfquery>
-		</cftransaction>
-	</cfif>
-</cfif>
-	
-	<cfquery name="updateId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-		UPDATE identification SET
-		nature_of_id = '#nature_of_id#'
-		<cfif len(#made_date#) gt 0>
-			,made_date = '#dateformat(made_date,'dd-mmm-yyyy')#'
-		</cfif>
-		<cfif len(#identification_remarks#) gt 0>
-			,identification_remarks = '#identification_remarks#'
-		</cfif>
-	where identification_id=#identification_id#
-</cfquery>
-	<br />there are #number_of_identifiers# identifiers...
-	<cfloop from="1" to="#number_of_identifiers#" index="i">
-		<cfset thisIdId = evaluate("IdById" & i)>
-		<cfif len(#thisIdId#) gt 0>
-			<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				update identification_agent set 
-				agent_id=#thisIdId# where
-				identifier_order=#i# and
-				identification_id=#identification_id#
-			</cfquery>
-		<cfelse>
-			<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				delete from identification_agent
-				where identifier_order=#i# and
-				identification_id=#identification_id#				
-			</cfquery>
-		</cfif>
-		<hr />
-	</cfloop>
-	<cfif len(#newidentifierID#) gt 0>
-		<cfset thisOrder = #number_of_identifiers# + 1>
-		<cfquery name="newIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-		insert into identification_agent (
-			identification_id,
-			agent_id,
-			identifier_order) 
-		values (
-			#identification_id#,
-			#newidentifierID#,
-			#thisOrder#
-			)
-		</cfquery>
-	</cfif>
-			
-					
-	<!---
-		<input type="text" name="idBy#identifier_order#" value="#agent_name#" class="reqdClr"
-				 size="50" onchange="getAgent('IdById#identifier_order#','idBy#identifier_order#','id#i#',this.value); return false;"
-				 oonKeyPress="return noenter(event);"> 
-				 <input type="hidden" name="IdById#identifier_order#"> 
-					</td>
-					--->
-<!---
-
-
-
-	<cfquery name="updateId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-	UPDATE identification SET
-		identification_id=#identification_id#
-		<cfif len(#newIdById#) gt 0>
-			,id_made_by_agent_id = #newIdById#
-		</cfif>
-		<cfif len(#made_date#) gt 0>
-			,made_date = '#dateformat(made_date,'dd-mmm-yyyy')#'
-		</cfif>
-		<cfif len(#nature_of_id#) gt 0>
-			,nature_of_id = '#nature_of_id#'
-		</cfif>
-		<cfif len(#identification_remarks#) gt 0>
-			,identification_remarks = '#identification_remarks#'
-		</cfif>
-	where identification_id=#identification_id#
-	</cfquery>
-	
-	
-		
-		
-	<cf_logEdit collection_object_id="#collection_object_id#">
-	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
-	--->
-	---->
-</cfoutput>
-</cfif>
 <!---
 <cfoutput>
 <script type="text/javascript" language="javascript">
