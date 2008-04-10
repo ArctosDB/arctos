@@ -312,6 +312,7 @@
 				</td>
 			</tr>
 	</form>
+	<div style="width: 100%; height:50%; overflow:scroll;">
 	<table border id="t" class="sortable">
 		<tr>
 		<cfloop query="cNames">
@@ -330,6 +331,7 @@
 		</cfloop>
 		</tr>
 	</table>
+	</div>
 </cfoutput>
 </cfif>
 <!-------------------------->
