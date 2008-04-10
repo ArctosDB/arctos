@@ -18,9 +18,7 @@
 
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
-	//setInterval(checkRequired,500);
-
-
+	setInterval(checkRequired,500);
 });
 function ihml() {
 	console.log('looping through all forms');
@@ -328,9 +326,10 @@ NUMBER_OF_IDS
 		
 		
 	<cf_logEdit collection_object_id="#collection_object_id#">
-	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
+
 	--->
 	---->
+	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------->
@@ -372,10 +371,7 @@ NUMBER_OF_IDS
 		ORDER BY accepted_id_fg
 	DESC
 </cfquery>
-<input type="button" onclick="checkRequiredTestThingy()" value="checkRequiredTestThingy">
-<input type="button" onclick="checkRequired()" value="checkRequired">
 
-<input type="button" onclick="ihml()" value="ihml">
 <table class="newRec">
  <tr>
  	<td colspan="2">
