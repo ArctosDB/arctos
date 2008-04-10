@@ -166,9 +166,9 @@
 	that records will never load. Don't.
 	Operator values:
 	<ul>
-		<li>=: single case-sensitive exact match ("something"-->"something")</li>
-		<li>like: partial string match ("somet" --> "something", "somet", "sometime", etc.)</li>
-		<li>in: comma-delimited list ("one,two" --> "one" OR "two")</li>
+		<li>=: single case-sensitive exact match ("something"-->"<strong>something</strong>")</li>
+		<li>like: partial string match ("somet" --> "<strong>somet</strong>hing", "got<strong>somet</strong>oo", "<strong>somet</strong>ime", etc.)</li>
+		<li>in: comma-delimited list ("one,two" --> "<strong>one</strong>" OR "<strong>two</strong>")</li>
 	</ul>
 	</div>
 	<form name="filter" method="post" action="browseBulk.cfm">
