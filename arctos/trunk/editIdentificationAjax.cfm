@@ -186,6 +186,33 @@ function removeHelpDiv() {
 		<!--- get identification_id --->
 	</cfloop>
 	<!----
+	
+	
+	
+	ACCEPTED_ID_FG_346372  	 0
+ACTION 	saveEdits
+COLLECTION_OBJECT_ID 	1235
+FIELDNAMES 	ACTION,COLLECTION_OBJECT_ID,NUMBER_OF_IDS,IDENTIFICATION_ID_835854,NUMBER_OF_IDENTIFIERS_835854,IDBY_835854_1,IDBYID_835854_1,IDBY_835854_2,IDBYID_835854_2,MADE_DATE_835854,NATURE_OF_ID,IDENTIFICATION_REMARKS_835854,IDENTIFICATION_ID_346372,NUMBER_OF_IDENTIFIERS_346372,ACCEPTED_ID_FG_346372,IDBY_346372_1,IDBYID_346372_1,MADE_DATE_346372,IDENTIFICATION_REMARKS_346372
+IDBYID_346372_1 	14238
+IDBYID_835854_1 	11247077
+IDBYID_835854_2 	11247633
+IDBY_346372_1 	Museum of Vertebrate Zoology
+IDBY_835854_1 	Dusty L. McDonald
+IDBY_835854_2 	Lam Voong
+IDENTIFICATION_ID_346372 	346372
+IDENTIFICATION_ID_835854 	835854
+IDENTIFICATION_REMARKS_346372 	[empty string]
+IDENTIFICATION_REMARKS_835854 	[empty string]
+MADE_DATE_346372 	27-Jan-1999
+MADE_DATE_835854 	[empty string]
+NATURE_OF_ID 	legacy,TAXIR
+NUMBER_OF_IDENTIFIERS_346372 	2
+NUMBER_OF_IDENTIFIERS_835854 	2
+NUMBER_OF_IDS 	2
+
+
+
+
 <cfif #orig_accepted_id_fg# is "0">
 	<cfif #ACCEPTED_ID_FG# is 1>
 		<!--- changing from not accepted to accepted - set all others not accepted --->
@@ -543,10 +570,10 @@ function removeHelpDiv() {
 			identifier_order
 	</cfquery>
 	<cfset thisIdentification_id = #identification_id#>
-	<input type="hidden" name="identification_id_#thisIdentification_id#" id="identification_id_#thisIdentification_id#" value="#identification_id#">
-	<input type="hidden" name="number_of_identifiers_#thisIdentification_id#" id="number_of_identifiers_#thisIdentification_id#" 
+	<input type="hidden" name="identification_id_#i#" id="identification_id_#i#" value="#identification_id#">
+	<input type="hidden" name="number_of_identifiers_#i#" id="number_of_identifiers_#i#" 
 			value="#distIds.recordcount#">
-	<table id="mainTable_#thisIdentification_id#">
+	<table id="mainTable_#i#">
     	<tr> 
         	<td><div align="right">Scientific Name:</div></td>
             <td><b><i>#scientific_name#</i></b></td>
@@ -556,8 +583,8 @@ function removeHelpDiv() {
 			<td>
 				
 				<cfif #accepted_id_fg# is 0>
-					<select name="accepted_id_fg_#thisIdentification_id#" 
-						id="accepted_id_fg_#thisIdentification_id#" size="1" 
+					<select name="accepted_id_fg_#i#" 
+						id="accepted_id_fg_#i#" size="1" 
 						class="reqdClr">
 						<option value="1"
 							<cfif #ACCEPTED_ID_FG# is 1> selected </cfif>>yes</option>
@@ -568,7 +595,7 @@ function removeHelpDiv() {
 						</cfif>
                   	</select>
 					<cfif #ACCEPTED_ID_FG# is 0>
-						<span class="infoLink" onclick="document.getElementById('accepted_id_fg_#thisIdentification_id#').value='delete';">Delete</span>
+						<span class="infoLink" onclick="document.getElementById('accepted_id_fg_#i#').value='delete';">Delete</span>
 					</cfif>
 				<cfelse>
 					<b>Yes</b>
@@ -577,29 +604,29 @@ function removeHelpDiv() {
        	</tr>
         <tr>
 			<td colspan="2">
-				<table id="identifierTable_#thisIdentification_id#">
-					<tbody id="identifierTableBody_#thisIdentification_id#">
+				<table id="identifierTable_#i#">
+					<tbody id="identifierTableBody_#i#">
 						<cfset idnum=1>
 						<cfloop query="identifiers">
-							<tr id="IdTr_#thisIdentification_id#_#idnum#">
+							<tr id="IdTr_#i#_#idnum#">
 								<td>Identified By:</td>
 								<td>
 									<input type="text" 
-										name="IdBy_#thisIdentification_id#_#idnum#" 
-										id="IdBy_#thisIdentification_id#_#idnum#" 
+										name="IdBy_#i#_#idnum#" 
+										id="IdBy_#i#_#idnum#" 
 										value="#agent_name#" 
 										class="reqdClr"
 										size="50" 
 										onchange="
-											getAgent('IdById_#thisIdentification_id#_#idnum#','IdBy_#thisIdentification_id#_#idnum#','editIdentification',this.value); return false;"
+											getAgent('IdById_#i#_#idnum#','IdBy_#i#_#idnum#','editIdentification',this.value); return false;"
 							 			onKeyPress="return noenter(event);"> 
 									<input type="hidden" 
-										name="IdById_#thisIdentification_id#_#idnum#" 
-										id="IdById_#thisIdentification_id#_#idnum#" value="#agent_id#"
+										name="IdById_#i#_#idnum#" 
+										id="IdById_#i#_#idnum#" value="#agent_id#"
 										class="reqdClr"> 
 									<cfif #idnum# gt 1>
 										<img src="/images/del.gif" class="likeLink" 
-											onclick="removeIdentifier('#thisIdentification_id#','#idnum#')" />
+											onclick="removeIdentifier('#i#','#idnum#')" />
 									</cfif>
 				 				</td>
 				 			</tr>
@@ -611,8 +638,8 @@ function removeHelpDiv() {
 		</tr>
         <tr>
 			<td>
-				<span class="infoLink" id="addIdentifier_#thisIdentification_id#" 
-					onclick="addIdentifier('#thisIdentification_id#','#idnum#')">Add Identifier</span>
+				<span class="infoLink" id="addIdentifier_#i#" 
+					onclick="addIdentifier('#i#','#idnum#')">Add Identifier</span>
 			</td>	
 		</tr>
 		<tr> 
@@ -623,10 +650,10 @@ function removeHelpDiv() {
 				</div>
 			</td>
             <td>
-				<input type="text" value="#dateformat(made_date,'dd-mmm-yyyy')#" name="made_date_#thisIdentification_id#"
-				 id="made_date_#thisIdentification_id#"
-				 onclick="cal1.select(document.editIdentification.made_date_#thisIdentification_id#,'anchor1#thisIdentification_id#','dd-MMM-yyyy');">
-				<a name="anchor1#thisIdentification_id#" id="anchor1#thisIdentification_id#"></a>
+				<input type="text" value="#dateformat(made_date,'dd-mmm-yyyy')#" name="made_date_#i#"
+				 id="made_date_#i#"
+				 onclick="cal1.select(document.editIdentification.made_date_#i#,'anchor1#i#','dd-MMM-yyyy');">
+				<a name="anchor1#i#" id="anchor1#i#"></a>
            </td>
               </tr>
               <tr> 
@@ -635,7 +662,7 @@ function removeHelpDiv() {
 				</div></td>
                 <td>
 				<cfset thisID = #nature_of_id#>
-				<select name="nature_of_id" id="nature_of_id_#thisIdentification_id#" size="1" class="reqdClr" onchange="saveNatureOfId('#thisIdentification_id#', this.value);">
+				<select name="nature_of_id" id="nature_of_id_#i#" size="1" class="reqdClr" onchange="saveNatureOfId('#i#', this.value);">
                     <cfloop query="ctnature">
                       <option <cfif #ctnature.nature_of_id# is #thisID#> selected </cfif> value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
                     </cfloop>
@@ -645,7 +672,7 @@ function removeHelpDiv() {
               </tr>
               <tr> 
                 <td><div align="right">Remarks:</div></td>
-                <td><input type="text" name="identification_remarks_#thisIdentification_id#" id="identification_remarks_#thisIdentification_id#" value="#identification_remarks#" size="50" onchange="saveIdRemarks('#thisIdentification_id#', this.value);"></td>
+                <td><input type="text" name="identification_remarks_#i#" id="identification_remarks_#i#" value="#identification_remarks#" size="50" onchange="saveIdRemarks('#i#', this.value);"></td>
               </tr>
 			
            
