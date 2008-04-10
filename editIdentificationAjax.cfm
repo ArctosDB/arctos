@@ -216,9 +216,9 @@ function removeHelpDiv() {
 				where identification_id=#thisIdentificationId#
 			</cfquery>
 			<cfloop from="1" to="#thisNumIds#" index="nid">
-				<cfset thisIdId = evaluate("IdById_" & i & "_" & nid)>
+				<cfset thisIdId = evaluate("IdById_" & n & "_" & nid)>
 				<cftry>
-					<cfset thisIdAgntId = evaluate("identification_agent_id_" & i & "_" & nid)>
+					<cfset thisIdAgntId = evaluate("identification_agent_id_" & n & "_" & nid)>
 					<cfcatch>
 						<cfset thisIdAgntId=-1>
 					</cfcatch>
