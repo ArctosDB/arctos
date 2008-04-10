@@ -183,23 +183,13 @@ function removeHelpDiv() {
 <cfoutput>
 	<cfdump var="#form#">
 	<cftransaction>
-		<cfloop from="1" to="#NUMBER_OF_IDS#" index="i">
+		<cfloop from="1" to="#NUMBER_OF_IDS#" index="n">
 			<cfset thisAcceptedIdFg = #evaluate("ACCEPTED_ID_FG_" & n)#>
 			<cfset thisIdentificationId = #evaluate("IDENTIFICATION_ID_" & n)#>
 			<cfset thisIdRemark = #evaluate("IDENTIFICATION_REMARKS_" & n)#>
 			<cfset thisMadeDate = #evaluate("MADE_DATE_" & n)#>
 			<cfset thisNature = #evaluate("NATURE_OF_ID_" & n)#>
 			<cfset thisNumIds = #evaluate("NUMBER_OF_IDENTIFIERS_" & n)#>
-			<cfloop from="1" to="#thisNumIds#" index="n">
-				<!---
-				IDBYID_1_1 	11247077
-				IDBYID_1_2 	11247633
-				IDBYID_2_1 	14238
-				IDBY_1_1 	Dusty L. McDonald
-				IDBY_1_2 	Lam Voong
-				IDBY_2_1 	Museum of Vertebrate Zoology
-				---->
-			</cfloop>
 			
 	
 			<cfif #thisAcceptedIdFg# is 1>
