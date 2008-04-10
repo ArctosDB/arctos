@@ -167,19 +167,19 @@
 		order by internal_column_id
 	</cfquery>
 	<div style="background-color:##C0C0C0; font-size:smaller;">
-	Use the top form to filter the table to the records you are interested in. All values are ANDed together. Everything is case-sensitive.
-	You must provide all three values for the filter to apply.
-	<br>Then use the bottom form to update them. Values are case sensitive. There is no control here - you can easily update such 
-	that records will never load. Don't.
-	<br>Updates will affect only the records visible in the table below, and will affect ALL records in the table in the same way.
-	<br>Click the table headers to sort.
-	<br>
-	Operator values:
-	<ul>
-		<li>=: single case-sensitive exact match ("something"-->"<strong>something</strong>")</li>
-		<li>like: partial string match ("somet" --> "<strong>somet</strong>hing", "got<strong>somet</strong>oo", "<strong>somet</strong>ime", etc.)</li>
-		<li>in: comma-delimited list ("one,two" --> "<strong>one</strong>" OR "<strong>two</strong>")</li>
-	</ul>
+		Use the top form to filter the table to the records you are interested in. All values are ANDed together. Everything is case-sensitive.
+		You must provide all three values for the filter to apply.
+		<br>Then use the bottom form to update them. Values are case sensitive. There is no control here - you can easily update such 
+		that records will never load. Don't.
+		<br>Updates will affect only the records visible in the table below, and will affect ALL records in the table in the same way.
+		<br>Click the table headers to sort.
+		<br>
+		Operator values:
+		<ul>
+			<li>=: single case-sensitive exact match ("something"-->"<strong>something</strong>")</li>
+			<li>like: partial string match ("somet" --> "<strong>somet</strong>hing", "got<strong>somet</strong>oo", "<strong>somet</strong>ime", etc.)</li>
+			<li>in: comma-delimited list ("one,two" --> "<strong>one</strong>" OR "<strong>two</strong>")</li>
+		</ul>
 	</div>
 	<form name="filter" method="post" action="browseBulk.cfm">
 		<input type="hidden" name="action" value="sqlTab">
@@ -317,8 +317,10 @@
 					<input type="submit" value="Update">
 				</td>
 			</tr>
+		</table>
 	</form>
-	<div style="border:3px solid black;padding:10px;">
+	
+	<div class="blTabDiv">
 		<table border id="t" class="sortable">
 			<tr>
 			<cfloop query="cNames">
