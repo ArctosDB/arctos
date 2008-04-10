@@ -153,8 +153,6 @@
 			<cfset sql = "#sql# ('#replace(v3,",","','","all")#')">
 		</cfif>		 
 	</cfif>
-	
-	#preservesinglequotes(sql)#	
 	<cfquery name="data" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		#preservesinglequotes(sql)#	
 	</cfquery>
@@ -162,12 +160,17 @@
 		select column_name from user_tab_cols where table_name='BULKLOADER'
 		order by internal_column_id
 	</cfquery>
+	<div style="background-color:##C0C0C0; font-size:smaller;">
+	Use the top form to filter the table to the records you are interested in. All values are ANDed together. Everything is case-sensitive.
+	<br>Then use the bottom form to update them. Values are case sensitive. There is no control here - you can easily update such 
+	that records will never load. Don't.
 	Operator values:
 	<ul>
 		<li>=: single case-sensitive exact match ("something"-->"something")</li>
 		<li>like: partial string match ("somet" --> "something", "somet", "sometime", etc.)</li>
 		<li>in: comma-delimited list ("one,two" --> "one" OR "two")</li>
 	</ul>
+	</div>
 	<form name="filter" method="post" action="browseBulk.cfm">
 		<input type="hidden" name="action" value="sqlTab">
 		<input type="hidden" name="enteredby" value="#enteredby#">
