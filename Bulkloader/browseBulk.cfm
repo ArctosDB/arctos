@@ -95,8 +95,25 @@
 			<cfset sql = "#sql# ('#replace(v3,",","','","all")#')">
 		</cfif>		 
 	</cfif>
+	<cfquery name="data" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		#preservesinglequotes(sql)#	
+	</cfquery>
+	<cfset rUrl="browseBulk.cfm?enteredby=#enteredby#">
+	<cfif isdefined("accn") and len(#accn#) gt 0>
+		<cfset rUrl="#rUrl#&accn=#accn#">
+	</cfif>
+
+	<cfif isdefined("c1") and len(#c1#) gt 0 and isdefined("op1") and len(#op1#) gt 0 and isdefined("v1") and len(#v1#) gt 0>
+		<cfset rUrl="#rUrl#&c1=#c1#&op1=#op1#&v1=#v1#"> 
+	</cfif>
+	<cfif isdefined("c2") and len(#c2#) gt 0 and isdefined("op2") and len(#op2#) gt 0 and isdefined("v2") and len(#v2#) gt 0>
+		<cfset rUrl="#rUrl#&c2=#c2#&op2=#op2#&v2=#v2#"> 
+	</cfif>
+	<cfif isdefined("c3") and len(#c3#) gt 0 and isdefined("op3") and len(#op3#) gt 0 and isdefined("v3") and len(#v3#) gt 0>
+		<cfset rUrl="#rUrl#&c3=#c3#&op3=#op3#&v3=#v3#"> 
+	</cfif>
+	<cflocation url="#rUrl#" addtoken="false">
 	
-	#preservesinglequotes(sql)#	
 </cfoutput>	
 </cfif>
 <!----------------------------------------------------------->
