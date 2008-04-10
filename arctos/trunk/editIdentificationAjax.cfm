@@ -216,14 +216,21 @@ function removeHelpDiv() {
 				where identification_id=#thisIdentificationId#
 			</cfquery>
 			<cfloop from="1" to="#thisNumIds#" index="nid">
-				<cfset thisIdId = evaluate("IdById_" & n & "_" & nid)>
+				<cftry>
+					<!--- couter does not increment backwards - may be a few empty loops in here ---->
+					<cfset thisIdId = evaluate("IdById_" & n & "_" & nid)>
+					<cfcatch>
+						<cfset thisIdId =-1>
+					</cfcatch>
+				</cftry>
+				
 				<cftry>
 					<cfset thisIdAgntId = evaluate("identification_agent_id_" & n & "_" & nid)>
 					<cfcatch>
 						<cfset thisIdAgntId=-1>
 					</cfcatch>
 				</cftry>
-				<cfif #thisIdAgntId# is -1 and thisIdId is not "delete">
+				<cfif #thisIdAgntId# is -1 and (thisIdId is not "delete" and thisIdId gt 0)>
 					<!--- new identifier --->
 					<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 						insert into identification_agent 
@@ -243,7 +250,7 @@ function removeHelpDiv() {
 							delete from identification_agent
 							where identification_agent_id=#thisIdAgntId#				
 						</cfquery>
-					<cfelse>
+					<cfelseif thisIdId gt 0>
 						<!--- update --->
 						<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 							update identification_agent set 
