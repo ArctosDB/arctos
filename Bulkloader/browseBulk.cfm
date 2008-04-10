@@ -98,7 +98,7 @@
 	<cfquery name="data" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		#preservesinglequotes(sql)#	
 	</cfquery>
-	<cfset rUrl="browseBulk.cfm?enteredby=#enteredby#">
+	<cfset rUrl="browseBulk.cfm?action=sqlTab&enteredby=#enteredby#">
 	<cfif isdefined("accn") and len(#accn#) gt 0>
 		<cfset rUrl="#rUrl#&accn=#accn#">
 	</cfif>
