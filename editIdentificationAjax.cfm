@@ -329,7 +329,7 @@ NUMBER_OF_IDS
 
 	--->
 	---->
-	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
+	<cflocation url="editIdentificationAjax.cfm?collection_object_id=#collection_object_id#">
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------->
