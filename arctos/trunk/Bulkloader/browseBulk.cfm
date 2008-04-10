@@ -2,7 +2,7 @@
 <script src="/includes/sorttable.js"></script>
 <style>
 .blTabDiv {
-	width: 40em;
+	width: 100%;
 	height:40em;
 	overflow:scroll;
 	}
