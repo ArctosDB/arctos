@@ -318,25 +318,25 @@
 				</td>
 			</tr>
 	</form>
-	<div class="blTabDiv">
-	<table border id="t" class="sortable">
-		<tr>
-		<cfloop query="cNames">
-			<th>#column_name#</th>
-		</cfloop>
-		<cfloop query="data">
+	<div style="border:3px solid black;padding:10px;">
+		<table border id="t" class="sortable">
 			<tr>
-			<cfquery name="thisRec" dbtype="query">
-				select * from data where collection_object_id=#data.collection_object_id#
-			</cfquery>
 			<cfloop query="cNames">
-				<cfset thisData = evaluate("thisRec." & cNames.column_name)>
-				<td>#thisData#</td>
+				<th>#column_name#</th>
+			</cfloop>
+			<cfloop query="data">
+				<tr>
+				<cfquery name="thisRec" dbtype="query">
+					select * from data where collection_object_id=#data.collection_object_id#
+				</cfquery>
+				<cfloop query="cNames">
+					<cfset thisData = evaluate("thisRec." & cNames.column_name)>
+					<td>#thisData#</td>
+				</cfloop>
+				</tr>
 			</cfloop>
 			</tr>
-		</cfloop>
-		</tr>
-	</table>
+		</table>
 	</div>
 </cfoutput>
 </cfif>
