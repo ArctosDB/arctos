@@ -598,6 +598,7 @@ NUMBER_OF_IDS 	2
 						<span class="infoLink" onclick="document.getElementById('accepted_id_fg_#i#').value='delete';">Delete</span>
 					</cfif>
 				<cfelse>
+					<input name="accepted_id_fg_#i#" id="accepted_id_fg_#i#" type="hidden" value="1">
 					<b>Yes</b>
 				</cfif>
 			</td>					
