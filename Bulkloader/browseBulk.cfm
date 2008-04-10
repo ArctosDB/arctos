@@ -164,6 +164,7 @@
 	Use the top form to filter the table to the records you are interested in. All values are ANDed together. Everything is case-sensitive.
 	<br>Then use the bottom form to update them. Values are case sensitive. There is no control here - you can easily update such 
 	that records will never load. Don't.
+	<br>Updates will affect only the records visible in the table below, and will affect ALL records in the table in the same way.
 	Operator values:
 	<ul>
 		<li>=: single case-sensitive exact match ("something"-->"<strong>something</strong>")</li>
