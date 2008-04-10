@@ -182,84 +182,106 @@ function removeHelpDiv() {
 
 <cfoutput>
 	<cfdump var="#form#">
-	<cfloop from="1" to="#NUMBER_OF_IDS#" index="i">
-		<cfset thisAcceptedIdFg = #evaluate("ACCEPTED_ID_FG_" & n)#>
-		<cfset thisIdentificationId = #evaluate("IDENTIFICATION_ID_" & n)#>
-		<cfset thisIdRemark = #evaluate("IDENTIFICATION_REMARKS_" & n)#>
-		<cfset thisMadeDate = #evaluate("MADE_DATE_" & n)#>
-		<cfset thisNature = #evaluate("NATURE_OF_ID_" & n)#>
-	</cfloop>
+	<cftransaction>
+		<cfloop from="1" to="#NUMBER_OF_IDS#" index="i">
+			<cfset thisAcceptedIdFg = #evaluate("ACCEPTED_ID_FG_" & n)#>
+			<cfset thisIdentificationId = #evaluate("IDENTIFICATION_ID_" & n)#>
+			<cfset thisIdRemark = #evaluate("IDENTIFICATION_REMARKS_" & n)#>
+			<cfset thisMadeDate = #evaluate("MADE_DATE_" & n)#>
+			<cfset thisNature = #evaluate("NATURE_OF_ID_" & n)#>
+			<cfset thisNumIds = #evaluate("NUMBER_OF_IDENTIFIERS_" & n)#>
+			<cfloop from="1" to="#thisNumIds#" index="n">
+				<!---
+				IDBYID_1_1 	11247077
+				IDBYID_1_2 	11247633
+				IDBYID_2_1 	14238
+				IDBY_1_1 	Dusty L. McDonald
+				IDBY_1_2 	Lam Voong
+				IDBY_2_1 	Museum of Vertebrate Zoology
+				---->
+			</cfloop>
+			
+	
+			<cfif #thisAcceptedIdFg# is 1>
+				<cfquery name="upOldID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
+				</cfquery>
+				<cfquery name="newAcceptedId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					UPDATE identification SET ACCEPTED_ID_FG=1 where identification_id = #thisIdentificationId#
+				</cfquery>
+			</cfif>
+			<cfquery name="updateId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					UPDATE identification SET
+					nature_of_id = '#thisNature#'
+					<cfif len(#thisMadeDate#) gt 0>
+						,made_date = '#dateformat(thisMadeDate,'dd-mmm-yyyy')#'
+					<cfelse>
+						,made_date=NULL
+					</cfif>
+					<cfif len(#thisIdRemark#) gt 0>
+						,identification_remarks = '#thisIdRemark#'
+					<cfelse>
+						,identification_remarks = NULL
+					</cfif>
+				where identification_id=#thisIdentificationId#
+			</cfquery>
+			<cfloop from="1" to="#thisNumIds#" index="nid">
+				<cfset thisIdId = evaluate("IdById_" & i & "_" & nid)>
+				<cftry>
+					<cfset thisIdAgntId = evaluate("identification_agent_id_" & i & "_" & nid)>
+					<cfcatch>
+						<cfset thisIdAgntId=-1>
+					</cfcatch>
+				</cftry>
+				<cfif #thisIdAgntId# is -1 and thisIdId is not "delete">
+					<!--- new identifier --->
+					<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						insert into identification_agent 
+							( IDENTIFICATION_ID,AGENT_ID,IDENTIFIER_ORDER)
+						values 
+							(
+								#thisIdentificationId#,
+								#thisIdId#,
+								#nid#
+							)
+					</cfquery>
+				<cfelse>
+					<!--- update or delete --->
+					<cfif #thisIdId# is "delete">
+						<!--- delete --->
+						<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+							delete from identification_agent
+							where identification_agent_id=#thisIdAgntId#				
+						</cfquery>
+					<cfelse>
+						<!--- update --->
+						<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+							update identification_agent set 
+								agent_id=#thisIdId#,
+								identifier_order=#nid#
+							 where
+							 	identification_agent_id=#thisIdAgntId#
+						</cfquery>
+					</cfif>
+				</cfif>
+			</cfloop>
+		</cfloop>
+	</cftransaction>
 	<!----
 	
 	
+
+
+
+_1 	2
+NUMBER_OF_IDENTIFIERS_2 	2
+NUMBER_OF_IDS
+
+
 	
-
-COLLECTION_OBJECT_ID 	1235
-FIELDNAMES 	ACTION,COLLECTION_OBJECT_ID,NUMBER_OF_IDS,IDENTIFICATION_ID_835854,NUMBER_OF_IDENTIFIERS_835854,IDBY_835854_1,IDBYID_835854_1,IDBY_835854_2,IDBYID_835854_2,MADE_DATE_835854,NATURE_OF_ID,IDENTIFICATION_REMARKS_835854,IDENTIFICATION_ID_346372,NUMBER_OF_IDENTIFIERS_346372,ACCEPTED_ID_FG_346372,IDBY_346372_1,IDBYID_346372_1,MADE_DATE_346372,IDENTIFICATION_REMARKS_346372
-IDBYID_346372_1 	14238
-IDBYID_835854_1 	11247077
-IDBYID_835854_2 	11247633
-IDBY_346372_1 	Museum of Vertebrate Zoology
-IDBY_835854_1 	Dusty L. McDonald
-IDBY_835854_2 	Lam Voong
-346372 	346372
-IDENTIFICATION_ID_835854 	835854
-346372 	[empty string]
-IDENTIFICATION_REMARKS_835854 	[empty string]
-346372 	27-Jan-1999
-MADE_DATE_835854 	[empty string]
- 	legacy,TAXIR
-NUMBER_OF_IDENTIFIERS_346372 	2
-NUMBER_OF_IDENTIFIERS_835854 	2
-NUMBER_OF_IDS 	2
-
-
-
-
-<cfif #orig_accepted_id_fg# is "0">
-	<cfif #ACCEPTED_ID_FG# is 1>
-		<!--- changing from not accepted to accepted - set all others not accepted --->
-		<cftransaction>
-		<cfquery name="upOldID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-			UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
-		</cfquery>
-		<cfquery name="newAcceptedId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-			UPDATE identification SET ACCEPTED_ID_FG=1 where identification_id = #identification_id#
-		</cfquery>
-		</cftransaction>
-	</cfif>
-</cfif>
 	
-	<cfquery name="updateId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-		UPDATE identification SET
-		nature_of_id = '#nature_of_id#'
-		<cfif len(#made_date#) gt 0>
-			,made_date = '#dateformat(made_date,'dd-mmm-yyyy')#'
-		</cfif>
-		<cfif len(#identification_remarks#) gt 0>
-			,identification_remarks = '#identification_remarks#'
-		</cfif>
-	where identification_id=#identification_id#
-</cfquery>
 	<br />there are #number_of_identifiers# identifiers...
-	<cfloop from="1" to="#number_of_identifiers#" index="i">
-		<cfset thisIdId = evaluate("IdById" & i)>
-		<cfif len(#thisIdId#) gt 0>
-			<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				update identification_agent set 
-				agent_id=#thisIdId# where
-				identifier_order=#i# and
-				identification_id=#identification_id#
-			</cfquery>
-		<cfelse>
-			<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				delete from identification_agent
-				where identifier_order=#i# and
-				identification_id=#identification_id#				
-			</cfquery>
-		</cfif>
-		<hr />
-	</cfloop>
+	
 	<cfif len(#newidentifierID#) gt 0>
 		<cfset thisOrder = #number_of_identifiers# + 1>
 		<cfquery name="newIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
@@ -622,12 +644,14 @@ NUMBER_OF_IDS 	2
 										class="reqdClr"
 										size="50" 
 										onchange="
-											getAgent('IdById_#i#_#idnum#','IdBy_#i#_#idnum#','editIdentification',this.value); return false;"
+										getAgent('IdById_#i#_#idnum#','IdBy_#i#_#idnum#','editIdentification',this.value); return false;"
 							 			onKeyPress="return noenter(event);"> 
 									<input type="hidden" 
 										name="IdById_#i#_#idnum#" 
 										id="IdById_#i#_#idnum#" value="#agent_id#"
-										class="reqdClr"> 
+										class="reqdClr">
+									<input type="hidden" name="identification_agent_id_#i#_#idnum#" id="identification_agent_id_#i#_#idnum#"
+										value="#identification_agent_id#">
 									<cfif #idnum# gt 1>
 										<img src="/images/del.gif" class="likeLink" 
 											onclick="removeIdentifier('#i#','#idnum#')" />
