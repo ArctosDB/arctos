@@ -3,7 +3,6 @@
 <style>
 .blTabDiv {
 	width: 100%;
-	height:40em;
 	overflow:scroll;
 	}
 </style>
