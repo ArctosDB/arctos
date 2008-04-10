@@ -183,14 +183,17 @@ function removeHelpDiv() {
 <cfoutput>
 	<cfdump var="#form#">
 	<cfloop from="1" to="#NUMBER_OF_IDS#" index="i">
-		<!--- get identification_id --->
+		<cfset thisAcceptedIdFg = #evaluate("ACCEPTED_ID_FG_" & n)#>
+		<cfset thisIdentificationId = #evaluate("IDENTIFICATION_ID_" & n)#>
+		<cfset thisIdRemark = #evaluate("IDENTIFICATION_REMARKS_" & n)#>
+		<cfset thisMadeDate = #evaluate("MADE_DATE_" & n)#>
+		<cfset thisNature = #evaluate("NATURE_OF_ID_" & n)#>
 	</cfloop>
 	<!----
 	
 	
 	
-	ACCEPTED_ID_FG_346372  	 0
-ACTION 	saveEdits
+
 COLLECTION_OBJECT_ID 	1235
 FIELDNAMES 	ACTION,COLLECTION_OBJECT_ID,NUMBER_OF_IDS,IDENTIFICATION_ID_835854,NUMBER_OF_IDENTIFIERS_835854,IDBY_835854_1,IDBYID_835854_1,IDBY_835854_2,IDBYID_835854_2,MADE_DATE_835854,NATURE_OF_ID,IDENTIFICATION_REMARKS_835854,IDENTIFICATION_ID_346372,NUMBER_OF_IDENTIFIERS_346372,ACCEPTED_ID_FG_346372,IDBY_346372_1,IDBYID_346372_1,MADE_DATE_346372,IDENTIFICATION_REMARKS_346372
 IDBYID_346372_1 	14238
@@ -199,13 +202,13 @@ IDBYID_835854_2 	11247633
 IDBY_346372_1 	Museum of Vertebrate Zoology
 IDBY_835854_1 	Dusty L. McDonald
 IDBY_835854_2 	Lam Voong
-IDENTIFICATION_ID_346372 	346372
+346372 	346372
 IDENTIFICATION_ID_835854 	835854
-IDENTIFICATION_REMARKS_346372 	[empty string]
+346372 	[empty string]
 IDENTIFICATION_REMARKS_835854 	[empty string]
-MADE_DATE_346372 	27-Jan-1999
+346372 	27-Jan-1999
 MADE_DATE_835854 	[empty string]
-NATURE_OF_ID 	legacy,TAXIR
+ 	legacy,TAXIR
 NUMBER_OF_IDENTIFIERS_346372 	2
 NUMBER_OF_IDENTIFIERS_835854 	2
 NUMBER_OF_IDS 	2
@@ -663,7 +666,7 @@ NUMBER_OF_IDS 	2
 				</div></td>
                 <td>
 				<cfset thisID = #nature_of_id#>
-				<select name="nature_of_id" id="nature_of_id_#i#" size="1" class="reqdClr" onchange="saveNatureOfId('#i#', this.value);">
+				<select name="nature_of_id_#i#" id="nature_of_id_#i#" size="1" class="reqdClr" onchange="saveNatureOfId('#i#', this.value);">
                     <cfloop query="ctnature">
                       <option <cfif #ctnature.nature_of_id# is #thisID#> selected </cfif> value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
                     </cfloop>
