@@ -78,6 +78,11 @@
 			<cfset sql = "#sql# '%#v1#%'">
 		<cfelseif op1 is "in">
 			<cfset sql = "#sql# ('#replace(v1,",","','","all")#')">
+		<cfelseif op1 is "between">
+			<cfset dash = find("-",v1)>
+				<cfset f = left(v1,dash-1)>
+				<cfset t = mid(v1,dash+1,len(v1))>
+			<cfset sql = "#sql# between #f# and #t# ">
 		</cfif>		 
 	</cfif>
 	<cfif isdefined("c2") and len(#c2#) gt 0 and isdefined("op2") and len(#op2#) gt 0 and isdefined("v2") and len(#v2#) gt 0>
@@ -178,6 +183,7 @@
 			<li>=: single case-sensitive exact match ("something"-->"<strong>something</strong>")</li>
 			<li>like: partial string match ("somet" --> "<strong>somet</strong>hing", "got<strong>somet</strong>oo", "<strong>somet</strong>ime", etc.)</li>
 			<li>in: comma-delimited list ("one,two" --> "<strong>one</strong>" OR "<strong>two</strong>")</li>
+			<li>between: range ("1-5" --> "1,2...5") Works only when ALL values are numeric (not only those you see in the current table)</li>	
 		</ul>
 	</div>
 	<form name="filter" method="post" action="browseBulk.cfm">
@@ -210,6 +216,7 @@
 						<option <cfif isdefined("op1") and op1 is "="> selected="selected" </cfif>value="=">=</option>
 						<option <cfif isdefined("op1") and op1 is "like"> selected="selected" </cfif>value="like">like</option>
 						<option <cfif isdefined("op1") and op1 is "in"> selected="selected" </cfif>value="in">in</option>
+						<option <cfif isdefined("op1") and op1 is "between"> selected="selected" </cfif>value="between">between</option>
 					</select>
 				</td>
 				<td>
@@ -231,6 +238,7 @@
 						<option <cfif isdefined("op2") and op2 is "="> selected="selected" </cfif>value="=">=</option>
 						<option <cfif isdefined("op2") and op2 is "like"> selected="selected" </cfif>value="like">like</option>
 						<option <cfif isdefined("op2") and op2 is "in"> selected="selected" </cfif>value="in">in</option>
+						<option <cfif isdefined("op2") and op2 is "between"> selected="selected" </cfif>value="between">between</option>
 					</select>
 				</td>
 				<td>
@@ -252,6 +260,7 @@
 						<option <cfif isdefined("op3") and op3 is "="> selected="selected" </cfif>value="=">=</option>
 						<option <cfif isdefined("op3") and op3 is "like"> selected="selected" </cfif>value="like">like</option>
 						<option <cfif isdefined("op3") and op3 is "in"> selected="selected" </cfif>value="in">in</option>
+						<option <cfif isdefined("op3") and op3 is "between"> selected="selected" </cfif>value="between">between</option>
 					</select>
 				</td>
 				<td>
