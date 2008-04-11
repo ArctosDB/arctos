@@ -185,6 +185,9 @@
 		<cfif not isdefined("client.showObservations")>
 			<cfset client.showObservations="">
 		</cfif>
+		<cfif not isdefined("client.result_sort")>
+			<cfset client.result_sort="">
+		</cfif>
 		<cfif not isdefined("client.username")>
 			<cfset client.username="">
 		</cfif>
