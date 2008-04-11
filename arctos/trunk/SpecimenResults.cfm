@@ -4,7 +4,34 @@
 <cf_get_header collection_id="#exclusive_collection_id#">
 --->
 <script type='text/javascript' src='/includes/_specimenResults.js'></script>
+<script type='text/javascript' src='/includes/jquery/jquery.js'></script>
+<script type="text/javascript" language="javascript">
+jQuery( function($) {
 
+	$("#sPrefs").click(function(e){
+		var id=this.id;
+		var theDiv = document.createElement('div');
+		theDiv.id = 'helpDiv';
+		theDiv.className = 'helpBox';
+		theDiv.innerHTML='<br>Loading...';
+		document.body.appendChild(theDiv);
+		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
+
+	});
+	
+	$("#c_identifiers_cust").click(function(e){
+		var cDiv = document.createElement('div');
+		cDiv.id = 'customDiv';
+		cDiv.className = 'sscustomBox';
+		cDiv.innerHTML='<br>Loading...';
+		document.body.appendChild(cDiv);
+		var ptl="/includes/SpecSearch/customIDs.cfm";
+		$(cDiv).load(ptl);
+		$(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
+	});
+});
+
+</script>
 <div id="loading" style="position:absolute;top:50%;right:50%;z-index:999;background-color:green;color:white;font-size:large;font-weight:bold;padding:15px;">
 	Page loading....
 </div>
@@ -313,6 +340,9 @@
 				onclick="document.getElementById('page_record').selectedIndex=0;
 					var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;
 					getSpecResultsData(1,#client.displayrows#,obv,'DESC');">&darr;</span>
+		</td>
+		<td>
+			<span id="sPrefs" class="infoLink">Save...</span>
 		</td>
 		<td><div style="width:100px;">&nbsp;</div></td>
 		<td>

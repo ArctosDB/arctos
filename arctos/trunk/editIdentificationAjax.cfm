@@ -214,6 +214,7 @@ function removeHelpDiv() {
 				where identification_id=#thisIdentificationId#
 			</cfquery>
 			<cfloop from="1" to="#thisNumIds#" index="nid">
+				<hr>
 				<cftry>
 					<!--- couter does not increment backwards - may be a few empty loops in here ---->
 					<cfset thisIdId = evaluate("IdById_" & n & "_" & nid)>
@@ -221,15 +222,17 @@ function removeHelpDiv() {
 						<cfset thisIdId =-1>
 					</cfcatch>
 				</cftry>
-				
+				thisIdId: #thisIdId#<br>
 				<cftry>
 					<cfset thisIdAgntId = evaluate("identification_agent_id_" & n & "_" & nid)>
 					<cfcatch>
 						<cfset thisIdAgntId=-1>
 					</cfcatch>
 				</cftry>
+				thisIdAgntId: #thisIdAgntId#<br>
 				<cfif #thisIdAgntId# is -1 and (thisIdId is not "delete" and thisIdId gt 0)>
 					<!--- new identifier --->
+					insert<br>
 					<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 						insert into identification_agent 
 							( IDENTIFICATION_ID,AGENT_ID,IDENTIFIER_ORDER)
@@ -242,6 +245,7 @@ function removeHelpDiv() {
 					</cfquery>
 				<cfelse>
 					<!--- update or delete --->
+					delete<br>
 					<cfif #thisIdId# is "delete">
 						<!--- delete --->
 						<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
@@ -250,6 +254,7 @@ function removeHelpDiv() {
 						</cfquery>
 					<cfelseif thisIdId gt 0>
 						<!--- update --->
+						update<br>
 						<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 							update identification_agent set 
 								agent_id=#thisIdId#,
@@ -327,9 +332,9 @@ NUMBER_OF_IDS
 		
 	<cf_logEdit collection_object_id="#collection_object_id#">
 
-	--->
-	---->
 	<cflocation url="editIdentificationAjax.cfm?collection_object_id=#collection_object_id#">
+	---->
+
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------->
