@@ -112,6 +112,9 @@ hi
 			<cfset sql = "#sql# ('#replace(v3,",","','","all")#')">
 		</cfif>		 
 	</cfif>
+	
+		#preservesinglequotes(sql)#	
+	<!---
 	<cfquery name="data" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		#preservesinglequotes(sql)#	
 	</cfquery>
@@ -130,7 +133,7 @@ hi
 		<cfset rUrl="#rUrl#&c3=#c3#&op3=#op3#&v3=#v3#"> 
 	</cfif>
 	<cflocation url="#rUrl#" addtoken="false">
-	
+	--->
 </cfoutput>	
 </cfif>
 <!----------------------------------------------------------->
