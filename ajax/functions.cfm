@@ -650,7 +650,7 @@
 	<cftry>
 			<cfquery name="up" datasource="#Application.web_user#">
 				UPDATE cf_users SET
-					result_sort = #tgt#
+					result_sort = '#tgt#'
 				WHERE username = '#client.username#'
 			</cfquery>
 			<cfset client.result_sort = "#tgt#">
