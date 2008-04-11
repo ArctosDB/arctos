@@ -87,7 +87,7 @@ hi
 			<cfset t = mid(v1,dash+1,len(v1))>
 			dash: #f#<br>
 			dash: #t#<br>
-			<cfset sql = "#sql# between #f# and #t# ">
+			<cfset sql = "#sql# #f# and #t# ">
 			sql:#sql#
 		</cfif>		 
 	</cfif>
@@ -158,7 +158,7 @@ hi
 			<cfset t = mid(v1,dash+1,len(v1))>
 			dash: #f#<br>
 			dash: #t#<br>
-			<cfset sql = "#sql# between #f# and #t# ">
+			<cfset sql = "#sql# #f# and #t# ">
 			sql:#sql#
 		</cfif>		 
 	</cfif>
