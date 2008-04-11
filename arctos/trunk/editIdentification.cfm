@@ -175,6 +175,7 @@ function removeHelpDiv() {
 	}
 }
 </script>
+</div><!--- kill content div --->
 <!----------------------------------------------------------------------------------->
 <cfif #Action# is "saveEdits">
 
