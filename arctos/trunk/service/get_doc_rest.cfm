@@ -18,5 +18,5 @@
 	<cfhttpparam type="url" name="addCtl" value="#addCtl#">
 </cfhttp>
 <cfoutput>
-		enterdocs:#cfhttp.fileContent#</cfoutput>
+		#cfhttp.fileContent#</cfoutput>
 </cfif>
