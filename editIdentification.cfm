@@ -236,9 +236,7 @@ function checkRequired(){
 	</tr>
     <tr> 
     	<td>
-			<div align="right">
-				<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','nature_of_id')"> Nature of ID:</a>
-			</div>
+			<div class="helpLink" id="nature_of_id">Nature of ID</div>
 		</td>
 		<td>
 			<select name="nature_of_id" id="nature_of_id" size="1" class="reqdClr">
@@ -251,7 +249,7 @@ function checkRequired(){
 	</tr>
     <tr> 
     	<td>
-			<div align="right">Remarks:</div>
+			<div class="helpLink" id="identification_remarks">Remarks:</div>
 		</td>
         <td>
 			<input type="text" name="identification_remarks" id="identification_remarks" size="50">
@@ -407,10 +405,7 @@ function checkRequired(){
 		</tr>
 		<tr> 
         	<td>
-				<div align="right">
-					<a href="javascript:void(0);" class="novisit" 
-						onClick="getDocs('identification','id_date')">ID Date:</a>
-				</div>
+				<div class="helpLink" id="identification.made_date">ID Date:</div>
 			</td>
             <td>
 				<input type="text" value="#dateformat(made_date,'dd-mmm-yyyy')#" name="made_date_#i#"
@@ -421,9 +416,7 @@ function checkRequired(){
 		</tr>
         <tr> 
 	        <td>
-				<div align="right">
-					<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','nature_of_id')"> Nature of ID:</a>
-				</div>
+				<div class="helpLink" id="nature_of_id">Nature of ID:</div>
 			</td>
 	        <td>
 				<cfset thisID = #nature_of_id#>
