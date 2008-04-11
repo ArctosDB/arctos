@@ -31,35 +31,7 @@ function success_saveIdentifierChange (result){
 		alert(msg);
 	}
 }
-function deleteIdentification (identification_id) {
-		var temp = window.confirm('Are you sure you want to delete this Identification?');
-		if (temp == true) {
-			var t = "mainTable_" + identification_id;
-			document.getElementById(t).className='red';
-		}
-	
-}
 
-
-
-function flippedAccepted (accepted_id_fg,collection_object_id,identification_id) {
-	DWREngine._execute(_cfscriptLocation, null, 'flippedAccepted', accepted_id_fg,collection_object_id,identification_id, success_flippedAccepted);
-}
-
-function success_flippedAccepted (result) {
-	//alert(result);
-	var statAry=result.split('|');
-	var status=statAry[0];
-	var msg=statAry[1];
-	if (status == 'success') {
-		var msgAry=msg.split('::');
-		var collection_object_id = msgAry[1];
-		var u = '/editIdentification.cfm?collection_object_id=' + collection_object_id;
-		document.location=u;
-	} else {	
-		alert(msg);
-	}
-}
 
 function addNewIdBy(n) {
 	var idS = "addNewIdBy_" + n;
