@@ -165,7 +165,7 @@ function checkRequired(){
 	</tr>     
 	<tr> 
     	<td>
-			<span class="helpLink" id="scientific_name">Taxon A:</span>
+			<div class="helpLink" id="scientific_name">Taxon A:</div>
 		</td>
          <td>
 		  	<input type="text" name="taxa_a" id="taxa_a" class="reqdClr" size="50" 
