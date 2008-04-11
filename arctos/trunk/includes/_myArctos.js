@@ -78,3 +78,14 @@ function success_changedisplayRows (result) {
 		alert('An error occured: ' + result);
 	}
 }
+
+function changeresultSort (tgt) {
+	DWREngine._execute(_cfscriptLocation, null, 'changeresultSort',tgt, success_changeresultSort);
+}
+function success_changeresultSort (result) {
+	if (result == 'success') {
+		var e = document.getElementById('result_sort').className='';
+	} else {
+		alert('An error occured: ' + result);
+	}
+}

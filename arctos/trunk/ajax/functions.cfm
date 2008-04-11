@@ -650,6 +650,23 @@
 	<cftry>
 			<cfquery name="up" datasource="#Application.web_user#">
 				UPDATE cf_users SET
+					result_sort = #tgt#
+				WHERE username = '#client.username#'
+			</cfquery>
+			<cfset client.result_sort = "#tgt#">
+		<cfset result="success">
+	<cfcatch>
+		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
+	</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
+<!------------------------------------->
+<cffunction name="changedisplayRows" returntype="string">
+	<cfargument name="tgt" type="string" required="yes">
+	<cftry>
+			<cfquery name="up" datasource="#Application.web_user#">
+				UPDATE cf_users SET
 					displayrows = #tgt#
 				WHERE username = '#client.username#'
 			</cfquery>
