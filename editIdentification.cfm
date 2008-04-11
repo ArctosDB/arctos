@@ -324,7 +324,6 @@ function checkRequired(){
     	<tr> 
         	<td><div align="right">Scientific Name:</div></td>
             <td><b><i>#scientific_name#</i></b>
-			<span class="infoLink red" onclick="deleteIdentification('#identification_id#');">Delete</span>
 			</td>
         </tr>
         <tr> 
@@ -344,7 +343,7 @@ function checkRequired(){
 						</cfif>
                   	</select>
 					<cfif #ACCEPTED_ID_FG# is 0>
-						<span class="infoLink" onclick="document.getElementById('accepted_id_fg_#i#').value='delete';">Delete</span>
+						<span class="infoLink red" onclick="document.getElementById('accepted_id_fg_#i#').value='delete';">Delete</span>
 					</cfif>
 				<cfelse>
 					<input name="accepted_id_fg_#i#" id="accepted_id_fg_#i#" type="hidden" value="1">
@@ -416,7 +415,7 @@ function checkRequired(){
 			</td>
 	        <td>
 				<cfset thisID = #nature_of_id#>
-				<select name="nature_of_id_#i#" id="nature_of_id_#i#" size="1" class="reqdClr" onchange="saveNatureOfId('#i#', this.value);">
+				<select name="nature_of_id_#i#" id="nature_of_id_#i#" size="1" class="reqdClr">
 	            	<cfloop query="ctnature">
 	                	<option <cfif #ctnature.nature_of_id# is #thisID#> selected </cfif> value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
 	                </cfloop>
@@ -426,7 +425,10 @@ function checkRequired(){
         </tr>
         <tr> 
           	<td><div align="right">Remarks:</div></td>
-         	 <td><input type="text" name="identification_remarks_#i#" id="identification_remarks_#i#" value="#identification_remarks#" size="50" onchange="saveIdRemarks('#i#', this.value);"></td>
+         	 <td>
+				<input type="text" name="identification_remarks_#i#" id="identification_remarks_#i#" 
+					value="#identification_remarks#" size="50">
+			</td>
         </tr>
 	</table>
   <cfset i = #i#+1>
