@@ -20,119 +20,10 @@
 jQuery( function($) {
 	setInterval(checkRequired,500);
 });
-function ihml() {
-	console.log('looping through all forms');
-	$('form').each(function(){
-		var fid=this.id;
-		console.log('checking form ' + fid);
-		var queryString = $('#' + fid).formSerialize();
-		console.log('...formSerialize: ' + queryString);
-		var fs = $('#' + fid + ' .reqdClr').fieldSerialize();
-		console.log('...fieldSerialize: ' + fs);
-		
-	});
-}
-function checkRequiredTestThingy(){	
-	// loop over all the forms...
-	$('form').each(function(){
-		var fid=this.id;
-		console.log('checking form ' + fid);
-		// and all the className=reqdClr elements
-		var hasIssues=0;
-		/*
-		$('form#login')
-    // hide all the labels inside the form with the 'optional' class
-    .find('label.optional').hide().end()
-
-    // add a red border to any password fields in the form
-    .find('input:password').css('border', '1px solid red').end()
-
-    // add a submit handler to the form
-    .submit(function(){
-        return confirm('Are you sure you want to submit?');
-    });
-    
-    
-    checking form newID
-checking form newID input f1_1
-FAIL: newID input f1_1
-checking form newID input f1_2
-FAIL: newID input f1_2
-checking form newID input f1_3
-FAIL: newID input f1_3
-checking form newID input taxa_formula
-checking form newID input taxa_a
-FAIL: newID input taxa_a
-checking form newID input TaxonAID
-FAIL: newID input TaxonAID
-ZMFG!!!: newID
-checking form f1
-FORM FAIL: f1
-    */
-			
-		//finds only DIRECT children, not stuff in form>table>.....>input  
-		//$('#' + fid + ' > :input.reqdClr').each(function(e) {
-		// also finds only DIRECT children $('#' + fid).find(' > :input.reqdClr').each(function(e) {
-		// finds everygoddamed thing, once for each form $('#' + fid).find(':input.reqdClr').each(function(e) {
-		
-		// gets what we want, but doesn't seem to be chainable -shiat...
-		// uhmmm - nevermind - does not return (at least) SELECTs - what the FUCK...
-		//var fA=$("#" + fid).formHash();
-		//console.log(fA);
-		
-		//for (var name in fA) {
-		//	console.log('name:' + name + ":" + fA[name]);
-		//}
-		// FORM plugin...
-		//fieldSerioalize is stoopid,but formSerialize seems to work -so far....
-		var allFormObjs = $('#' + fid).formSerialize();
-		var AFA=allFormObjs.split('&');
-		var hasIssues=0;
-		for (i=0;i<AFA.length;i++){
-
-			console.log(AFA[i]);
-			var fp=AFA[i].split('=');
-			var ffName=fp[0];
-			var ffVal=fp[1];
-			console.log('Field Name: ' + ffName);
-			console.log('Field Value: ' + ffVal);
-			var ffClass=$("#" + ffName).attr('class');
-			console.log('Field Class: ' + ffClass);
-			if (ffClass=='reqdClr' && ffVal==''){
-				hasIssues+=1;
-				console.log(':::::::FORM ' + fid + 'field ' + ffName + ' has a issues');
-			}
-		}
-		console.log('------FORM' + fid + 'has a hasIssues value of ' + hasIssues);
-		/*
-			var id=this.id;
-			console.log('checking form ' + fid + ' input ' + id);
-			// see if they have something
-			if (document.getElementById(id).value.length == 0) {
-				hasIssues+=1;
-				console.log('FAIL: ' + fid + ' input ' + id);
-			} 
-		});
-		if (hasIssues == 0) {
-			// form is NOT ready for submission
-			console.log('FORM FAIL: ' + fid );
-			document.getElementById(fid).setAttribute('onsubmit',"return false");
-			$("#" + fid).find("[@type='submit']").val("Not ready...");			
-		} else {
-			console.log('ZMFG!!!: ' + fid );
-			document.getElementById(fid).removeAttribute('onsubmit');
-			$("#" + fid).find("[@type='submit']").val("spiffy!");
-		}
-		*/
-	});
-}
-
-
 function checkRequired(){	
 	// loop over all the forms...
 	$('form').each(function(){
 		var fid=this.id;
-		console.log('---------------resetting issues --------------------' );
 		var hasIssues=0;
 		var allFormObjs = $('#' + fid).formSerialize();
 		var AFA=allFormObjs.split('&');
@@ -145,18 +36,13 @@ function checkRequired(){
 				hasIssues+=1;
 			}
 		}
-		console.log('tested form ' + fid );
 		// get the form submit
 		// REQUIREMENT: form dubmit button has id of formID + _submit
 		//REQUIREMENT: form submit has a title
 		var sbmBtnStr=fid + "_submit";
-		console.log('sbmBtnStr ' + sbmBtnStr);
 		var sbmBtn=document.getElementById(sbmBtnStr);
 		var v=sbmBtn.value;
-		
-				console.log('v ' + v);
 		if (hasIssues > 0) {
-			console.log('FORM FAIL: ' + fid );
 			// form is NOT ready for submission
 			document.getElementById(fid).setAttribute('onsubmit',"return false");
 			sbmBtn.value="Not ready...";		
@@ -168,12 +54,6 @@ function checkRequired(){
 }
 
 
-
-function removeHelpDiv() {
-	if (document.getElementById('helpDiv')) {
-		$('#helpDiv').remove();
-	}
-}
 </script>
 </div><!--- kill content div --->
 <!----------------------------------------------------------------------------------->
