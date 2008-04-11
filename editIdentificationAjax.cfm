@@ -565,7 +565,7 @@ function removeHelpDiv() {
 	</cfquery>
 	<cfset thisIdentification_id = #identification_id#>
 	<input type="hidden" name="identification_id_#i#" id="identification_id_#i#" value="#identification_id#">
-	<input type="hidden" name="number_of_identifiers_#i#" id="number_of_identifiers_#i#" 
+	<input type="text" name="number_of_identifiers_#i#" id="number_of_identifiers_#i#" 
 			value="#distIds.recordcount#">
 	<table id="mainTable_#i#">
     	<tr> 
