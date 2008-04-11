@@ -19,7 +19,7 @@ jQuery( function($) {
 		theDiv.innerHTML+='<select name="displayRows" id="displayRows" onchange="this.className=' + "'red'" + ';changedisplayRows(this.value);" size="1"><option  <cfif #client.displayRows# is "10"> selected </cfif> value="10">10</option><option  <cfif #client.displayRows# is "20"> selected </cfif> value="20" >20</option><option  <cfif #client.displayRows# is "50"> selected </cfif> value="50">50</option><option  <cfif #client.displayRows# is "100"> selected </cfif> value="100">100</option></select>';
 		var resultList=document.getElementById('resultList').value;
 		theDiv.innerHTML+='<label for="result_sort">Primary Sort</label>';
-		var temp=<select name="result_sort" id="result_sort" onchange="this.className=' + "'red'" + ';changeresultSort(this.value);" size="1">';
+		var temp='<select name="result_sort" id="result_sort" onchange="this.className=' + "'red'" + ';changeresultSort(this.value);" size="1">';
 		var rAry=resultList.split(',');
 		for (i = 0; i < rAry.length; i++) {
 			temp+='<option <cfif #client.result_sort# is "' + i + '"> selected </cfif> value="' + i + '">' + i + '</option>
