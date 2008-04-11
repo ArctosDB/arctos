@@ -179,10 +179,8 @@ function removeHelpDiv() {
 <cfif #Action# is "saveEdits">
 
 <cfoutput>
-	<cfdump var="#form#">
 	<cftransaction>
 		<cfloop from="1" to="#NUMBER_OF_IDS#" index="n">
-			<hr>
 			<cfset thisAcceptedIdFg = #evaluate("ACCEPTED_ID_FG_" & n)#>
 			<cfset thisIdentificationId = #evaluate("IDENTIFICATION_ID_" & n)#>
 			<cfset thisIdRemark = #evaluate("IDENTIFICATION_REMARKS_" & n)#>
@@ -215,7 +213,6 @@ function removeHelpDiv() {
 				where identification_id=#thisIdentificationId#
 			</cfquery>
 			<cfloop from="1" to="#thisNumIds#" index="nid">
-				<br>----------------agents-------------
 				<cftry>
 					<!--- couter does not increment backwards - may be a few empty loops in here ---->
 					<cfset thisIdId = evaluate("IdById_" & n & "_" & nid)>
@@ -223,17 +220,14 @@ function removeHelpDiv() {
 						<cfset thisIdId =-1>
 					</cfcatch>
 				</cftry>
-				thisIdId: #thisIdId#<br>
 				<cftry>
 					<cfset thisIdAgntId = evaluate("identification_agent_id_" & n & "_" & nid)>
 					<cfcatch>
 						<cfset thisIdAgntId=-1>
 					</cfcatch>
 				</cftry>
-				thisIdAgntId: #thisIdAgntId#<br>
 				<cfif #thisIdAgntId# is -1 and (thisIdId is not "delete" and thisIdId gt 0)>
 					<!--- new identifier --->
-					insert<br>
 					<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 						insert into identification_agent 
 							( IDENTIFICATION_ID,AGENT_ID,IDENTIFIER_ORDER)
@@ -248,14 +242,12 @@ function removeHelpDiv() {
 					<!--- update or delete --->
 					<cfif #thisIdId# is "delete">
 						<!--- delete --->
-						delete<br>
 						<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 							delete from identification_agent
 							where identification_agent_id=#thisIdAgntId#				
 						</cfquery>
 					<cfelseif thisIdId gt 0>
 						<!--- update --->
-						update<br>
 						<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 							update identification_agent set 
 								agent_id=#thisIdId#,
@@ -269,37 +261,10 @@ function removeHelpDiv() {
 		</cfloop>
 	</cftransaction>
 
-					
 
-<!---
-
-
-
-	<cfquery name="updateId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-	UPDATE identification SET
-		identification_id=#identification_id#
-		<cfif len(#newIdById#) gt 0>
-			,id_made_by_agent_id = #newIdById#
-		</cfif>
-		<cfif len(#made_date#) gt 0>
-			,made_date = '#dateformat(made_date,'dd-mmm-yyyy')#'
-		</cfif>
-		<cfif len(#nature_of_id#) gt 0>
-			,nature_of_id = '#nature_of_id#'
-		</cfif>
-		<cfif len(#identification_remarks#) gt 0>
-			,identification_remarks = '#identification_remarks#'
-		</cfif>
-	where identification_id=#identification_id#
-	</cfquery>
-	
-	
-		
-		
-	<cf_logEdit collection_object_id="#collection_object_id#">
 
 	<cflocation url="editIdentificationAjax.cfm?collection_object_id=#collection_object_id#">
-	---->
+
 
 </cfoutput>
 </cfif>
@@ -540,7 +505,6 @@ function removeHelpDiv() {
 		accepted_id_fg DESC,
 		made_date
 </cfquery>
-<cfdump var=#distIds#>
 <form name="editIdentification" id="editIdentification" method="post" action="editIdentificationAjax.cfm">
     <input type="hidden" name="Action" value="saveEdits">
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
@@ -566,7 +530,7 @@ function removeHelpDiv() {
 	</cfquery>
 	<cfset thisIdentification_id = #identification_id#>
 	<input type="hidden" name="identification_id_#i#" id="identification_id_#i#" value="#identification_id#">
-	<input type="text" name="number_of_identifiers_#i#" id="number_of_identifiers_#i#" 
+	<input type="hidden" name="number_of_identifiers_#i#" id="number_of_identifiers_#i#" 
 			value="#identifiers.recordcount#">
 	<table id="mainTable_#i#">
     	<tr> 
