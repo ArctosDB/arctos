@@ -62,6 +62,7 @@ jquery suggest stuff
 .helpLink {
 	cursor:pointer;
 	color: blue;
+	text-align:right;
 }
 .helpLink:hover {
 	color: #CC0000;

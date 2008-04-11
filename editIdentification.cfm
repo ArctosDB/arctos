@@ -26,7 +26,7 @@ jQuery( function($) {
 		theDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(theDiv);
 		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
-		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
+		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1, action: "enterDocs"});
 	});
 });
 function removeHelpDiv() {
@@ -124,7 +124,7 @@ function checkRequired(){
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
     <tr>
 		<td>
-			<span class="helpLink" id="taxa_formula">ID Formula:</span>
+			<div class="helpLink" id="taxa_formula">ID Formula:</div>
 		</td>
 		<td>
 			<cfif not isdefined("taxa_formula")>
