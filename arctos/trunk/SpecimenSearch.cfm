@@ -275,7 +275,7 @@
 	<table class="ssrch">
 		<tr>
 			<td colspan="2" class="secHead">
-					<span class="secLabel">Collecting Event</span>
+					<span class="secLabel">Date/Collector</span>
 					<span class="secControl" id="c_collevent"
 						onclick="showHide('collevent',1)">Show More Options</span>
 			</td>
