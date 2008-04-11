@@ -17,7 +17,23 @@
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
 	setInterval(checkRequired,500);
+	$(".helpLink").click(function(e){
+		var id=this.id;
+		removeHelpDiv();
+		var theDiv = document.createElement('div');
+		theDiv.id = 'helpDiv';
+		theDiv.className = 'helpBox';
+		theDiv.innerHTML='<br>Loading...';
+		document.body.appendChild(theDiv);
+		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
+		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
+	});
 });
+function removeHelpDiv() {
+	if (document.getElementById('helpDiv')) {
+		$('#helpDiv').remove();
+	}
+}
 function checkRequired(){	
 	// loop over all the forms...
 	$('form').each(function(){
@@ -108,7 +124,7 @@ function checkRequired(){
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
     <tr>
 		<td>
-			<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_formula')">ID Formula:</a>
+			<span class="helpLink" id="id_formula">ID Formula:</span>
 		</td>
 		<td>
 			<cfif not isdefined("taxa_formula")>
