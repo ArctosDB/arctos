@@ -320,10 +320,12 @@ function checkRequired(){
 	<input type="hidden" name="identification_id_#i#" id="identification_id_#i#" value="#identification_id#">
 	<input type="hidden" name="number_of_identifiers_#i#" id="number_of_identifiers_#i#" 
 			value="#identifiers.recordcount#">
-	<table id="mainTable_#i#">
+	<table id="mainTable_#identification_id#">
     	<tr> 
         	<td><div align="right">Scientific Name:</div></td>
-            <td><b><i>#scientific_name#</i></b></td>
+            <td><b><i>#scientific_name#</i></b>
+			<span class="infoLink red" onclick="deleteIdentification('#identification_id#');">Delete</span>
+			</td>
         </tr>
         <tr> 
         	<td><div align="right">Accepted?:</div></td>
@@ -405,39 +407,38 @@ function checkRequired(){
 				 onclick="cal1.select(document.editIdentification.made_date_#i#,'anchor1#i#','dd-MMM-yyyy');">
 				<a name="anchor1#i#" id="anchor1#i#"></a>
            </td>
-              </tr>
-              <tr> 
-                <td><div align="right">
-				<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','nature_of_id')"> Nature of ID:</a></td>
-				</div></td>
-                <td>
+		</tr>
+        <tr> 
+	        <td>
+				<div align="right">
+					<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','nature_of_id')"> Nature of ID:</a>
+				</div>
+			</td>
+	        <td>
 				<cfset thisID = #nature_of_id#>
 				<select name="nature_of_id_#i#" id="nature_of_id_#i#" size="1" class="reqdClr" onchange="saveNatureOfId('#i#', this.value);">
-                    <cfloop query="ctnature">
-                      <option <cfif #ctnature.nature_of_id# is #thisID#> selected </cfif> value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
-                    </cfloop>
-                  </select>
-			<span class="infoLink" onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)">Define</span>
-				</td>
-              </tr>
-              <tr> 
-                <td><div align="right">Remarks:</div></td>
-                <td><input type="text" name="identification_remarks_#i#" id="identification_remarks_#i#" value="#identification_remarks#" size="50" onchange="saveIdRemarks('#i#', this.value);"></td>
-              </tr>
-			</table>
-           
-
-	<cfset i = #i#+1>
-	</td></tr>
+	            	<cfloop query="ctnature">
+	                	<option <cfif #ctnature.nature_of_id# is #thisID#> selected </cfif> value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
+	                </cfloop>
+	           	</select>
+				<span class="infoLink" onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)">Define</span>
+			</td>
+        </tr>
+        <tr> 
+          	<td><div align="right">Remarks:</div></td>
+         	 <td><input type="text" name="identification_remarks_#i#" id="identification_remarks_#i#" value="#identification_remarks#" size="50" onchange="saveIdRemarks('#i#', this.value);"></td>
+        </tr>
+	</table>
+  <cfset i = #i#+1>
+</td></tr>
 </cfloop>
 <tr>
-				<td>
-					<input type="submit" class="savBtn" id="editIdentification_submit" value="Save Changes" title="Save Changes">
-				</td>
-			</tr>
-            </table>
-			      </form>
-			      
+	<td>
+		<input type="submit" class="savBtn" id="editIdentification_submit" value="Save Changes" title="Save Changes">
+	</td>
+</tr>
+</table>
+</form>			      
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
