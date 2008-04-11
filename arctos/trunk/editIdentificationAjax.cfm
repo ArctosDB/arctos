@@ -555,6 +555,11 @@ function removeHelpDiv() {
 			getID
 		WHERE
 			identification_id=#identification_id#
+		group by
+			agent_name,
+			identifier_order,
+			agent_id,
+			identification_agent_id
 		ORDER BY
 			identifier_order
 	</cfquery>
