@@ -79,9 +79,13 @@
 		<cfelseif op1 is "in">
 			<cfset sql = "#sql# ('#replace(v1,",","','","all")#')">
 		<cfelseif op1 is "between">
+			op1: #op1#<br>
 			<cfset dash = find("-",v1)>
+			dash: #dash#<br>
 			<cfset f = left(v1,dash-1)>
 			<cfset t = mid(v1,dash+1,len(v1))>
+			dash: #f#<br>
+			dash: #t#<br>
 			<cfset sql = "#sql# between #f# and #t# ">
 		</cfif>		 
 	</cfif>
