@@ -567,7 +567,7 @@ function removeHelpDiv() {
 	<cfset thisIdentification_id = #identification_id#>
 	<input type="hidden" name="identification_id_#i#" id="identification_id_#i#" value="#identification_id#">
 	<input type="text" name="number_of_identifiers_#i#" id="number_of_identifiers_#i#" 
-			value="#distIds.recordcount#">
+			value="#identifiers.recordcount#">
 	<table id="mainTable_#i#">
     	<tr> 
         	<td><div align="right">Scientific Name:</div></td>
