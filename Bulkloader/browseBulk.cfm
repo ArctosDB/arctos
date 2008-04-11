@@ -87,6 +87,8 @@
 			dash: #f#<br>
 			dash: #t#<br>
 			<cfset sql = "#sql# between #f# and #t# ">
+			sql:#sql#
+			<cfabort>
 		</cfif>		 
 	</cfif>
 	<cfif isdefined("c2") and len(#c2#) gt 0 and isdefined("op2") and len(#op2#) gt 0 and isdefined("v2") and len(#v2#) gt 0>
