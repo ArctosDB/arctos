@@ -645,7 +645,7 @@
 	<cfreturn result>
 </cffunction>
 <!------------------------------------->
-<cffunction name="changedisplayRows" returntype="string">
+<cffunction name="changeresultSort" returntype="string">
 	<cfargument name="tgt" type="string" required="yes">
 	<cftry>
 			<cfquery name="up" datasource="#Application.web_user#">
