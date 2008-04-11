@@ -15,7 +15,9 @@ jQuery( function($) {
 		var theDiv = document.createElement('div');
 		theDiv.id = 'helpDiv';
 		theDiv.className = 'helpBox';
-		theDiv.innerHTML='<label for="displayRows">Rows Per Page</label>';
+		theDiv.innerHTML='<span onclick="removeHelpDiv()" class="docControl">X</span>';
+
+		theDiv.innerHTML+='<label for="displayRows">Rows Per Page</label>';
 		theDiv.innerHTML+='<select name="displayRows" id="displayRows" onchange="this.className=' + "'red'" + ';changedisplayRows(this.value);" size="1"><option  <cfif #client.displayRows# is "10"> selected </cfif> value="10">10</option><option  <cfif #client.displayRows# is "20"> selected </cfif> value="20" >20</option><option  <cfif #client.displayRows# is "50"> selected </cfif> value="50">50</option><option  <cfif #client.displayRows# is "100"> selected </cfif> value="100">100</option></select>';
 		var resultList=document.getElementById('resultList').value;
 		var customID=document.getElementById('customID').value;
@@ -40,7 +42,11 @@ jQuery( function($) {
 
 	});
 });
-
+function removeHelpDiv() {
+	if (document.getElementById('helpDiv')) {
+		$('#helpDiv').remove();
+	}
+}
 </script>
 </cfoutput>
 <div id="loading" style="position:absolute;top:50%;right:50%;z-index:999;background-color:green;color:white;font-size:large;font-weight:bold;padding:15px;">
