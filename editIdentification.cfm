@@ -187,9 +187,7 @@ function checkRequired(){
   	</tr>
     <tr> 
     	<td>
-			<div align="right">
-				<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_by')">ID By:</a>
-			</div>
+			<div class="helpLink" id="id_by">ID By:</div>
 		</td>
         <td>
 			<input type="text" name="idBy" id="idBy" class="reqdClr" size="50" 
@@ -228,9 +226,7 @@ function checkRequired(){
     </tr>
     <tr> 
     	<td>
-			<div align="right">
-				<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_date')">ID Date:</a></td>
-			 </div>
+			<div class="helpLink" id="identification.made_date">ID Date:</div>
 		</td>
         <td>
 			<input type="text" name="made_date" id="made_date"
