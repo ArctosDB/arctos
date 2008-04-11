@@ -26,7 +26,7 @@ jQuery( function($) {
 		theDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(theDiv);
 		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
-		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1, action: "enterDocs"});
+		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1, action: "noHint"});
 	});
 });
 function removeHelpDiv() {
