@@ -17,7 +17,8 @@ jQuery( function($) {
 		theDiv.className = 'helpBox';
 		theDiv.innerHTML='<label for="displayRows">Rows Per Page</label>';
 		theDiv.innerHTML+='<select name="displayRows" id="displayRows" onchange="this.className=' + "'red'" + ';changedisplayRows(this.value);" size="1"><option  <cfif #client.displayRows# is "10"> selected </cfif> value="10">10</option><option  <cfif #client.displayRows# is "20"> selected </cfif> value="20" >20</option><option  <cfif #client.displayRows# is "50"> selected </cfif> value="50">50</option><option  <cfif #client.displayRows# is "100"> selected </cfif> value="100">100</option></select>';
-		
+		var resultList=document.getElementById('resultList').value;
+		theDiv.innerHTML='<label for="result_sort">Primary Sort</label>';
 		document.body.appendChild(theDiv);
 		$("##helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 
@@ -253,6 +254,8 @@ jQuery( function($) {
 </cfif>
 
 <form name="controls">
+	<!--- keep around for JS to get at --->
+	<input type="hidden" name="resultList" id="resultList" value="#resultList#">
 <strong>#mappable.cnt#</strong> of these <strong>#summary.recordcount#</strong> records have coordinates and can be displayed with 
 				<span class="controlButton" 
 				onmouseover="this.className='controlButton btnhov'" 
@@ -300,11 +303,11 @@ jQuery( function($) {
 			<select name="orderBy1" id="orderBy1" size="1">
 				<!--- prepend their CustomID and integer sort of their custom ID to the list --->
 				<cfif isdefined("customOtherIdentifier") and len(#Client.CustomOtherIdentifier#) gt 0>
-					<option value="CustomID">#Client.CustomOtherIdentifier#</option>
+					<option <cfif #client.result_sort# is "custom_id">selected="selected" </cfif>value="CustomID">#Client.CustomOtherIdentifier#</option>
 					<option value="CustomIDInt">#Client.CustomOtherIdentifier# (INT)</option>
 				</cfif>
 				<cfloop list="#resultList#" index="i">
-					<option value="#i#">#i#</option>
+					<option <cfif #client.result_sort# is #i#>selected="selected" </cfif>value="#i#">#i#</option>
 				</cfloop>
 			</select>
 			

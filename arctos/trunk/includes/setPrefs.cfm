@@ -36,6 +36,11 @@
 	<cfelse>
 		<cfset client.fancyCOID = "">
 	</cfif>
+	<cfif len(#result_sort#) gt 0>
+		<cfset client.result_sort = "#result_sort#">
+	<cfelse>
+		<cfset client.result_sort = "">
+	</cfif>	
 	<cfif len(#CustomOtherIdentifier#) gt 0>
 		<cfset client.customOtherIdentifier = "#CustomOtherIdentifier#">
 	<cfelse>
