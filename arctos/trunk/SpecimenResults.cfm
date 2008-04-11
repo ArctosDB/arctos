@@ -5,6 +5,7 @@
 --->
 <script type='text/javascript' src='/includes/_specimenResults.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
+<script type='text/javascript' src='/includes/_myArctos.js'></script>
 <cfoutput>
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
