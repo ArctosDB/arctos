@@ -62,6 +62,7 @@
 </cfif>
 <!----------------------------------------------------------->
 <cfif #action# is "runSQLUp">
+hi
 <cfoutput>
 	<cfif not isdefined("uc1") or not isdefined("uv1") or len(#uc1#) is 0 or len(#uv1#) is 0>
 		Not enough information. <cfabort>
