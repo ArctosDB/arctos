@@ -1,53 +1,282 @@
 <div id="theHead">
-	<cfinclude template="includes/_header.cfm">
+	<cfinclude template="/includes/_header.cfm">
 </div>
+	<script language="JavaScript" src="/includes/CalendarPopup.js" type="text/javascript"></script>
+	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+		var cal1 = new CalendarPopup("theCalendar");
+		cal1.showYearNavigation();
+		cal1.showYearNavigationInput();
+	</SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
 
-<!---
-	NEW TABLE:
-	CREATE TABLE identification_agent (
-		identification_id NUMBER NOT NULL,
-		agent_id NUMBER NOT NULL,
-		identifier_order NUMBER NOT NULL
-		);
-	insert into identification_agent (
-		identification_id,
-		agent_id,
-		identifier_order)
-		select 
-		identification_id,
-		ID_MADE_BY_AGENT_ID,
-		1
-		FROM
-		identification
-		;
+
+
+<script type='text/javascript' src='/includes/_editIdentification.js'></script>
+<script type='text/javascript' src='/includes/jquery/jquery.js'></script>
+<script type='text/javascript' src='/includes/jquery/jquery.field.js'></script>
+<script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
+
+<script type="text/javascript" language="javascript">
+jQuery( function($) {
+	setInterval(checkRequired,500);
+});
+function ihml() {
+	console.log('looping through all forms');
+	$('form').each(function(){
+		var fid=this.id;
+		console.log('checking form ' + fid);
+		var queryString = $('#' + fid).formSerialize();
+		console.log('...formSerialize: ' + queryString);
+		var fs = $('#' + fid + ' .reqdClr').fieldSerialize();
+		console.log('...fieldSerialize: ' + fs);
 		
-	ALTER TABLE identification_agent add CONSTRAINT fk_id_identi_id  FOREIGN KEY (identification_id)
-  		REFERENCES identification (identification_id);
-	ALTER TABLE identification_agent add CONSTRAINT fk_id_agnt_id  FOREIGN KEY (agent_id)
-  		REFERENCES agent (agent_id);
-	CREATE UNIQUE INDEX u_identification_agent ON identification_agent (identification_id,agent_id);
-	CREATE public synonym identification_agent FOR identification_agent;
-	GRANT select ON identification_agent TO uam_query;
-	GRANT select,update,insert,delete ON identification_agent TO uam_update;	
+	});
+}
+function checkRequiredTestThingy(){	
+	// loop over all the forms...
+	$('form').each(function(){
+		var fid=this.id;
+		console.log('checking form ' + fid);
+		// and all the className=reqdClr elements
+		var hasIssues=0;
+		/*
+		$('form#login')
+    // hide all the labels inside the form with the 'optional' class
+    .find('label.optional').hide().end()
 
-	 alter table identification modify ID_MADE_BY_AGENT_ID number null; -- keep this around, just in case
+    // add a red border to any password fields in the form
+    .find('input:password').css('border', '1px solid red').end()
 
+    // add a submit handler to the form
+    .submit(function(){
+        return confirm('Are you sure you want to submit?');
+    });
+    
+    
+    checking form newID
+checking form newID input f1_1
+FAIL: newID input f1_1
+checking form newID input f1_2
+FAIL: newID input f1_2
+checking form newID input f1_3
+FAIL: newID input f1_3
+checking form newID input taxa_formula
+checking form newID input taxa_a
+FAIL: newID input taxa_a
+checking form newID input TaxonAID
+FAIL: newID input TaxonAID
+ZMFG!!!: newID
+checking form f1
+FORM FAIL: f1
+    */
+			
+		//finds only DIRECT children, not stuff in form>table>.....>input  
+		//$('#' + fid + ' > :input.reqdClr').each(function(e) {
+		// also finds only DIRECT children $('#' + fid).find(' > :input.reqdClr').each(function(e) {
+		// finds everygoddamed thing, once for each form $('#' + fid).find(':input.reqdClr').each(function(e) {
+		
+		// gets what we want, but doesn't seem to be chainable -shiat...
+		// uhmmm - nevermind - does not return (at least) SELECTs - what the FUCK...
+		//var fA=$("#" + fid).formHash();
+		//console.log(fA);
+		
+		//for (var name in fA) {
+		//	console.log('name:' + name + ":" + fA[name]);
+		//}
+		// FORM plugin...
+		//fieldSerioalize is stoopid,but formSerialize seems to work -so far....
+		var allFormObjs = $('#' + fid).formSerialize();
+		var AFA=allFormObjs.split('&');
+		var hasIssues=0;
+		for (i=0;i<AFA.length;i++){
+
+			console.log(AFA[i]);
+			var fp=AFA[i].split('=');
+			var ffName=fp[0];
+			var ffVal=fp[1];
+			console.log('Field Name: ' + ffName);
+			console.log('Field Value: ' + ffVal);
+			var ffClass=$("#" + ffName).attr('class');
+			console.log('Field Class: ' + ffClass);
+			if (ffClass=='reqdClr' && ffVal==''){
+				hasIssues+=1;
+				console.log(':::::::FORM ' + fid + 'field ' + ffName + ' has a issues');
+			}
+		}
+		console.log('------FORM' + fid + 'has a hasIssues value of ' + hasIssues);
+		/*
+			var id=this.id;
+			console.log('checking form ' + fid + ' input ' + id);
+			// see if they have something
+			if (document.getElementById(id).value.length == 0) {
+				hasIssues+=1;
+				console.log('FAIL: ' + fid + ' input ' + id);
+			} 
+		});
+		if (hasIssues == 0) {
+			// form is NOT ready for submission
+			console.log('FORM FAIL: ' + fid );
+			document.getElementById(fid).setAttribute('onsubmit',"return false");
+			$("#" + fid).find("[@type='submit']").val("Not ready...");			
+		} else {
+			console.log('ZMFG!!!: ' + fid );
+			document.getElementById(fid).removeAttribute('onsubmit');
+			$("#" + fid).find("[@type='submit']").val("spiffy!");
+		}
+		*/
+	});
+}
+
+
+function checkRequired(){	
+	// loop over all the forms...
+	$('form').each(function(){
+		var fid=this.id;
+		console.log('---------------resetting issues --------------------' );
+		var hasIssues=0;
+		var allFormObjs = $('#' + fid).formSerialize();
+		var AFA=allFormObjs.split('&');
+		for (i=0;i<AFA.length;i++){
+			var fp=AFA[i].split('=');
+			var ffName=fp[0];
+			var ffVal=fp[1];
+			var ffClass=$("#" + ffName).attr('class');
+			if (ffClass=='reqdClr' && ffVal==''){
+				hasIssues+=1;
+			}
+		}
+		console.log('tested form ' + fid );
+		// get the form submit
+		// REQUIREMENT: form dubmit button has id of formID + _submit
+		//REQUIREMENT: form submit has a title
+		var sbmBtnStr=fid + "_submit";
+		console.log('sbmBtnStr ' + sbmBtnStr);
+		var sbmBtn=document.getElementById(sbmBtnStr);
+		var v=sbmBtn.value;
+		
+				console.log('v ' + v);
+		if (hasIssues > 0) {
+			console.log('FORM FAIL: ' + fid );
+			// form is NOT ready for submission
+			document.getElementById(fid).setAttribute('onsubmit',"return false");
+			sbmBtn.value="Not ready...";		
+		} else {
+			document.getElementById(fid).removeAttribute('onsubmit');
+			sbmBtn.value=sbmBtn.title;	
+		}
+	});
+}
+
+
+
+function removeHelpDiv() {
+	if (document.getElementById('helpDiv')) {
+		$('#helpDiv').remove();
+	}
+}
+</script>
+<!----------------------------------------------------------------------------------->
+<cfif #Action# is "saveEdits">
+
+<cfoutput>
+	<cftransaction>
+		<cfloop from="1" to="#NUMBER_OF_IDS#" index="n">
+			<cfset thisAcceptedIdFg = #evaluate("ACCEPTED_ID_FG_" & n)#>
+			<cfset thisIdentificationId = #evaluate("IDENTIFICATION_ID_" & n)#>
+			<cfset thisIdRemark = #evaluate("IDENTIFICATION_REMARKS_" & n)#>
+			<cfset thisMadeDate = #evaluate("MADE_DATE_" & n)#>
+			<cfset thisNature = #evaluate("NATURE_OF_ID_" & n)#>
+			<cfset thisNumIds = #evaluate("NUMBER_OF_IDENTIFIERS_" & n)#>
+			
 	
---->	
+			<cfif #thisAcceptedIdFg# is 1>
+				<cfquery name="upOldID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
+				</cfquery>
+				<cfquery name="newAcceptedId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					UPDATE identification SET ACCEPTED_ID_FG=1 where identification_id = #thisIdentificationId#
+				</cfquery>
+			</cfif>
+			<cfquery name="updateId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					UPDATE identification SET
+					nature_of_id = '#thisNature#'
+					<cfif len(#thisMadeDate#) gt 0>
+						,made_date = '#dateformat(thisMadeDate,'dd-mmm-yyyy')#'
+					<cfelse>
+						,made_date=NULL
+					</cfif>
+					<cfif len(#thisIdRemark#) gt 0>
+						,identification_remarks = '#thisIdRemark#'
+					<cfelse>
+						,identification_remarks = NULL
+					</cfif>
+				where identification_id=#thisIdentificationId#
+			</cfquery>
+			<cfloop from="1" to="#thisNumIds#" index="nid">
+				<cftry>
+					<!--- couter does not increment backwards - may be a few empty loops in here ---->
+					<cfset thisIdId = evaluate("IdById_" & n & "_" & nid)>
+					<cfcatch>
+						<cfset thisIdId =-1>
+					</cfcatch>
+				</cftry>
+				<cftry>
+					<cfset thisIdAgntId = evaluate("identification_agent_id_" & n & "_" & nid)>
+					<cfcatch>
+						<cfset thisIdAgntId=-1>
+					</cfcatch>
+				</cftry>
+				<cfif #thisIdAgntId# is -1 and (thisIdId is not "delete" and thisIdId gt 0)>
+					<!--- new identifier --->
+					<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						insert into identification_agent 
+							( IDENTIFICATION_ID,AGENT_ID,IDENTIFIER_ORDER)
+						values 
+							(
+								#thisIdentificationId#,
+								#thisIdId#,
+								#nid#
+							)
+					</cfquery>
+				<cfelse>
+					<!--- update or delete --->
+					<cfif #thisIdId# is "delete">
+						<!--- delete --->
+						<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+							delete from identification_agent
+							where identification_agent_id=#thisIdAgntId#				
+						</cfquery>
+					<cfelseif thisIdId gt 0>
+						<!--- update --->
+						<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+							update identification_agent set 
+								agent_id=#thisIdId#,
+								identifier_order=#nid#
+							 where
+							 	identification_agent_id=#thisIdAgntId#
+						</cfquery>
+					</cfif>
+				</cfif>
+			</cfloop>
+		</cfloop>
+	</cftransaction>
 
 
-	<script type='text/javascript' src='/includes/_editIdentification.js'></script>
-<cfquery name="ctFormula" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-	select taxa_formula from cttaxa_formula order by taxa_formula
-</cfquery>
-<!--------------------------------------------------------------------------------------------------->
 
-</div><!--- kill content div --->
+	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
+
+
+</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------------------------------->
 <cfif #Action# is "nothing">
+<cfoutput>
 <cfquery name="ctnature" datasource="#Application.web_user#">
 	select nature_of_id from ctnature_of_id
 </cfquery>
-<cfoutput>
+<cfquery name="ctFormula" datasource="#Application.web_user#">
+	select taxa_formula from cttaxa_formula order by taxa_formula
+</cfquery>
 <cfquery name="getID" datasource="#Application.web_user#">
 	SELECT
 		identification.identification_id,
@@ -61,7 +290,8 @@
 		made_date,
 		nature_of_id, 
 		accepted_id_fg, 
-		identification_remarks
+		identification_remarks,
+		identification_agent_id
 	FROM 
 		cataloged_item, 
 		identification,
@@ -78,9 +308,6 @@
 	DESC
 </cfquery>
 
-  
-</cfoutput>
-<cfoutput>
 <table class="newRec">
  <tr>
  	<td colspan="2">
@@ -89,22 +316,21 @@
 <a href="javascript:void(0);" onClick="getDocs('identification')"><img src="/images/info.gif" border="0"></a>
 	</td>
  </tr>
-<form name="newID" method="post" action="editIdentification.cfm">
-	      <input type="hidden" name="content_url" value="editIdentification.cfm">
-            <input type="hidden" name="Action" value="createNew">
-            <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
-    		<tr>
-				<td>
-				<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_formula')">ID Formula:</a></td>
-				
-				<td>
-					<cfif not isdefined("taxa_formula")>
-						<cfset taxa_formula='A'>
-					</cfif>
-					<cfset thisForm = "#taxa_formula#">
-					<select name="taxa_formula" size="1" class="reqdClr"
-					onchange="newIdFormula(this.value);">
-						<cfloop query="ctFormula">
+<form name="newID" id="newID" method="post" action="editIdentification.cfm">
+    <input type="hidden" name="Action" value="createNew">
+    <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
+    <tr>
+		<td>
+			<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_formula')">ID Formula:</a>
+		</td>
+		<td>
+			<cfif not isdefined("taxa_formula")>
+				<cfset taxa_formula='A'>
+			</cfif>
+			<cfset thisForm = "#taxa_formula#">
+			<select name="taxa_formula" id="taxa_formula" size="1" class="reqdClr"
+				onchange="newIdFormula(this.value);">
+					<cfloop query="ctFormula">
 						<cfif #ctFormula.taxa_formula# is "A">
 							<cfset thisDispVal = "one taxon">
 						<cfelseif #ctFormula.taxa_formula# is "A ?">
@@ -128,113 +354,126 @@
 						<cfelse>
 							<cfset thisDispVal = "ERROR!!!">
 						</cfif>
-							<option 
-								<cfif #thisForm# is "#ctFormula.taxa_formula#"> selected </cfif>value="#ctFormula.taxa_formula#">#thisDispVal#</option>
-						</cfloop>
-					</select>
-				</td>
-			</tr>     
-	         
-            <tr> 
-              <td><div align="right">Taxon A:</div></td>
-              <td>
-			  	<input type="text" name="taxa_a" class="reqdClr" size="50" 
+						<option 
+							<cfif #thisForm# is "#ctFormula.taxa_formula#"> selected </cfif>value="#ctFormula.taxa_formula#">#thisDispVal#</option>
+					</cfloop>
+			</select>
+		</td>
+	</tr>     
+	<tr> 
+    	<td>
+			<div align="right">Taxon A:</div>
+		</td>
+         <td>
+		  	<input type="text" name="taxa_a" id="taxa_a" class="reqdClr" size="50" 
 				onChange="taxaPick('TaxonAID','taxa_a','newID',this.value); return false;"
 				onKeyPress="return noenter(event);">
-				<input type="hidden" name="TaxonAID"> 
-			  </td>
-            </tr>
-			<tr id="taxon_b_row" style="display:none;"> 
-              <td><div align="right">Taxon B:</div></td>
-              <td>
-			  	<input type="text" name="taxa_b" id="taxa_b" class="reqdClr" size="50" 
-					onChange="taxaPick('TaxonBID','taxa_b','newID',this.value); return false;"
-					onKeyPress="return noenter(event);">
-				<input type="hidden" name="TaxonBID" id="TaxonBID">
-			  </td>
-            </tr>
-            <tr> 
-              <td><div align="right">
-			  <a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_by')">ID By:</a>
-				
-							 </div></td>
-              <td><input type="text" name="idBy" class="reqdClr" size="50" 
-			 		 onchange="getAgent('newIdById','idBy','newID',this.value); return false;"
-			  		 onkeypress="return noenter(event);"> 
-                <input type="hidden" name="newIdById"> 
-				<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
-				
+			<input type="hidden" name="TaxonAID" id="TaxonAID" class="reqdClr"> 
+		</td>
+  	</tr>
+	<tr id="taxon_b_row" style="display:none;"> 
+    	<td>
+			<div align="right">Taxon B:</div>
+		</td>
+        <td>
+			<input type="text" name="taxa_b" id="taxa_b"  size="50" 
+				onChange="taxaPick('TaxonBID','taxa_b','newID',this.value); return false;"
+				onKeyPress="return noenter(event);">
+			<input type="hidden" name="TaxonBID" id="TaxonBID">
+		</td>
+  	</tr>
+    <tr> 
+    	<td>
+			<div align="right">
+				<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_by')">ID By:</a>
+			</div>
+		</td>
+        <td>
+			<input type="text" name="idBy" id="idBy" class="reqdClr" size="50" 
+				onchange="getAgent('newIdById','idBy','newID',this.value); return false;"
+			  	onkeypress="return noenter(event);"> 
+            <input type="hidden" name="newIdById" id="newIdById" class="reqdClr"> 
+			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
+		</td>
+	</tr>
+	<tr id="addNewIdBy_two" style="display:none;"> 
+    	<td>
+			<div align="right">
+				ID By:<span class="infoLink" onclick="clearNewIdBy('two');"> remove</span>	
+			</div>
+		</td>
+        <td>
+			<input type="text" name="idBy_two" id="idBy_two" size="50" 
+				onchange="getAgent('newIdById_two','idBy_two','newID',this.value); return false;"
+			  	onkeypress="return noenter(event);"> 
+            <input type="hidden" name="newIdById_two" id="newIdById_two"> 
+			<span class="infoLink" onclick="addNewIdBy('three');">more...</span>			
+		 </td>
+	</tr>
+    <tr id="addNewIdBy_three" style="display:none;"> 
+    	<td>
+			<div align="right">
+				ID By:<span class="infoLink" onclick="clearNewIdBy('three');"> remove</span>	
+			</div>
+		</td>
+        <td>
+			<input type="text" name="idBy_three" id="idBy_three"  size="50" 
+			 	onchange="getAgent('newIdById_three','idBy_three','newID',this.value); return false;"
+			 	onkeypress="return noenter(event);"> 
+            <input type="hidden" name="newIdById_three" id="newIdById_three"> 			
+		 </td>
+    </tr>
+    <tr> 
+    	<td>
+			<div align="right">
+				<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_date')">ID Date:</a></td>
+			 </div>
+		</td>
+        <td>
+			<input type="text" name="made_date" id="made_date"
+				onclick="cal1.select(document.newID.made_date,'anchor1','dd-MMM-yyyy');">
+				<a name="anchor1" id="anchor1"></a>						
+		</td>
+	</tr>
+    <tr> 
+    	<td>
+			<div align="right">
+				<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','nature_of_id')"> Nature of ID:</a>
+			</div>
+		</td>
+		<td>
+			<select name="nature_of_id" id="nature_of_id" size="1" class="reqdClr">
+            	<cfloop query="ctnature">
+                	<option  value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
+                </cfloop>
+            </select>
+			<span class="infoLink" onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)">Define</span>
+		</td>
+	</tr>
+    <tr> 
+    	<td>
+			<div align="right">Remarks:</div>
+		</td>
+        <td>
+			<input type="text" name="identification_remarks" id="identification_remarks" size="50">
+		</td>
+    </tr>
+    <tr>
+		<td colspan="2">
+			<div align="center"> 
+            	<input type="submit" id="newID_submit" value="Create" class="insBtn" title="Create Identification">	
+             </div>
+		</td>
+    </tr>
+</form>
+</table>
 
-			 </td>
-            </tr>
-			<tr id="addNewIdBy_two" style="display:none;"> 
-              	<td>
-					<div align="right">
-						ID By:<span class="infoLink" onclick="clearNewIdBy('two');"> clear</span>	
-					</div>
-				</td>
-              	<td>
-					<input type="text" name="idBy_two" id="idBy_two" class="reqdClr" size="50" 
-			 		 	onchange="getAgent('newIdById_two','idBy_two','newID',this.value); return false;"
-			  		 	onkeypress="return noenter(event);"> 
-                	<input type="hidden" name="newIdById_two" id="newIdById_two"> 
-					<span class="infoLink" onclick="addNewIdBy('three');">more...</span>			
 
-			 </td>
-            </tr>
-           <tr id="addNewIdBy_three" style="display:none;"> 
-              	<td>
-					<div align="right">
-						ID By:<span class="infoLink" onclick="clearNewIdBy('three');"> clear</span>	
-					</div>
-				</td>
-              	<td>
-					<input type="text" name="idBy_three" id="idBy_three" class="reqdClr" size="50" 
-			 		 	onchange="getAgent('newIdById_three','idBy_three','newID',this.value); return false;"
-			  		 	onkeypress="return noenter(event);"> 
-                	<input type="hidden" name="newIdById_three" id="newIdById_three"> 			
 
-			 </td>
-            </tr>
-            <tr> 
-              <td><div align="right">
-			  <a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_date')">ID Date:</a></td>
-			  </div></td>
-              <td><input type="text" name="made_date"></td>
-            </tr>
-            <tr> 
-              <td><div align="right">
-			  <a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','nature_of_id')"> Nature of ID:</a></td>
-			
-			 </div></td>
-              <td><select name="nature_of_id" size="1" class="reqdClr">
-                  <cfloop query="ctnature">
-                    <option  value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
-                  </cfloop>
-                </select>
-				<img 
-				class="likeLink" 
-				src="/images/ctinfo.gif"
-				border="0"
-				alt="Code Table Value Definition"
-				onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)"></td>
-            </tr>
-            <tr> 
-              <td><div align="right">Remarks:</div></td>
-              <td><input type="text" name="identification_remarks" size="50"></td>
-            </tr>
-            <tr> 
-              <td colspan="2"><div align="center"> 
-                    <input type="submit" value="Create" class="insBtn"
-   onmouseover="this.className='insBtn btnhov';this.focus();" onmouseout="this.className='insBtn'">	
 
-                </div></td>
-            </tr>
-    </table>
-          
-        </form>
 
-<p>
+
+
 <strong><font size="+1">Edit an Existing Determination</font></strong>
 <img src="/images/info.gif" border="0" onClick="getDocs('identification')" class="likeLink">
 </p>
@@ -266,119 +505,118 @@
 		accepted_id_fg DESC,
 		made_date
 </cfquery>
+<form name="editIdentification" id="editIdentification" method="post" action="editIdentification.cfm">
+    <input type="hidden" name="Action" value="saveEdits">
+    <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
+	<input type="hidden" name="number_of_ids" id="number_of_ids" value="#distIds.recordcount#">
 <cfloop query="distIds">
 	<cfquery name="identifiers" dbtype="query">
 		select 
 			agent_name,
 			identifier_order,
-			agent_id
+			agent_id,
+			identification_agent_id
 		FROM
 			getID
 		WHERE
 			identification_id=#identification_id#
+		group by
+			agent_name,
+			identifier_order,
+			agent_id,
+			identification_agent_id
 		ORDER BY
 			identifier_order
 	</cfquery>
 	<cfset thisIdentification_id = #identification_id#>
-	
-<form name="id#thisIdentification_id#" method="post" action="editIdentification.cfm"  onSubmit="return gotAgentId(this.newIdById.value)">
-	       
-          
-            <table id="mainTable_#thisIdentification_id#">
-              <tr> 
-                <td><div align="right">Scientific Name:</div></td>
-                <td><b><i>#scientific_name#</i></b>
+	<input type="hidden" name="identification_id_#i#" id="identification_id_#i#" value="#identification_id#">
+	<input type="hidden" name="number_of_identifiers_#i#" id="number_of_identifiers_#i#" 
+			value="#identifiers.recordcount#">
+	<table id="mainTable_#i#">
+    	<tr> 
+        	<td><div align="right">Scientific Name:</div></td>
+            <td><b><i>#scientific_name#</i></b></td>
+        </tr>
+        <tr> 
+        	<td><div align="right">Accepted?:</div></td>
+			<td>
 				
-				  
-			    </td>
-              </tr>
-              <tr> 
-                <td><div align="right">Accepted?:</div></td>
-				<td>
 				<cfif #accepted_id_fg# is 0>
-				<select name="ACCEPTED_ID_FG" id="accepted_id_fg_#thisIdentification_id#"size="1" class="reqdClr" onchange="flippedAccepted(this.value,'#collection_object_id#','#thisIdentification_id#');this.className='red';">
-                    <option value="1"
+					<select name="accepted_id_fg_#i#" 
+						id="accepted_id_fg_#i#" size="1" 
+						class="reqdClr">
+						<option value="1"
 							<cfif #ACCEPTED_ID_FG# is 1> selected </cfif>>yes</option>
-                    <option 
+                    	<option 
 							<cfif #accepted_id_fg# is 0> selected </cfif>value="0">no</option>
-                  </select> 
-				  <cfelse>
-				  	<b>Yes</b>
-				  </cfif>
-				  
-			    </td>
-              </tr>
-              <!---
-			  <tr> 
-                <td><div align="right"> <a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_by')">ID By:</a>
-				</div></td>
-                <td><input type="text" name="idBy" value="#getID.agent_name#" class="reqdClr"
-				 size="50" onchange="getAgent('newIdById','idBy','id#i#',this.value); return false;"
-				 oonKeyPress="return noenter(event);"> 
-                <input type="hidden" name="newIdById"> 
-				
-				
-			</td>
-              </tr>
-			  --->
-			  
-			  <tr>
-					<td colspan="2">
-					<table id="identifierTable_#thisIdentification_id#">
-					<tbody id="identifierTableBody_#thisIdentification_id#">
-			 <cfloop query="identifiers">
-				<!--- this needs to be a table with an ID so we can get at it via the DOM --->
-				
-				
-				<tr id="IdTr_#thisIdentification_id#_#agent_id#">
-					<td>
-						Identified By:
-					</td>
-					<td>
-						<input type="text" 
-							name="IdBy_#thisIdentification_id#_#agent_id#" 
-							id="IdBy_#thisIdentification_id#_#agent_id#" 
-							value="#agent_name#" 
-							class="reqdClr"
-							size="50" 
-							onchange="this.className='red';getAgent('IdById_#thisIdentification_id#_#agent_id#','IdBy_#thisIdentification_id#_#agent_id#','id#thisIdentification_id#',this.value); return false;"
-				 			onKeyPress="return noenter(event);"> 
-							<!---
-							<img src="/images/down.gif" class="likeLink" onclick="rearrangeIdentifiers('down','#thisIdentification_id#','#agent_id#');" />
-							<img src="/images/up.gif" class="likeLink" onclick="rearrangeIdentifiers('up','#thisIdentification_id#','#agent_id#');" />
-							--->
-				 <input type="hidden" name="IdById_#thisIdentification_id#_#agent_id#" id="IdById_#thisIdentification_id#_#agent_id#" value="#agent_id#"> 
-				<img src="/images/del.gif" class="likeLink" onclick="removeIdentifier('#thisIdentification_id#','#agent_id#')" />
-				 <img src="/images/save.gif" id="saveButton#thisIdentification_id#_#agent_id#" class="likeLink" onclick="saveIdentifierChange('IdBy_#thisIdentification_id#_#agent_id#');" />
-					</td>
-				</tr>
-				
-			</cfloop>
-			</tbody>
+						<cfif #ACCEPTED_ID_FG# is 0>
+							<option value="delete">DELETE</option>
+						</cfif>
+                  	</select>
+					<cfif #ACCEPTED_ID_FG# is 0>
+						<span class="infoLink" onclick="document.getElementById('accepted_id_fg_#i#').value='delete';">Delete</span>
+					</cfif>
+				<cfelse>
+					<input name="accepted_id_fg_#i#" id="accepted_id_fg_#i#" type="hidden" value="1">
+					<b>Yes</b>
+				</cfif>
+			</td>					
+       	</tr>
+        <tr>
+			<td colspan="2">
+				<table id="identifierTable_#i#">
+					<tbody id="identifierTableBody_#i#">
+						<cfset idnum=1>
+						<cfloop query="identifiers">
+							<tr id="IdTr_#i#_#idnum#">
+								<td>Identified By:</td>
+								<td>
+									<input type="text" 
+										name="IdBy_#i#_#idnum#" 
+										id="IdBy_#i#_#idnum#" 
+										value="#agent_name#" 
+										class="reqdClr"
+										size="50" 
+										onchange="
+										getAgent('IdById_#i#_#idnum#','IdBy_#i#_#idnum#','editIdentification',this.value); return false;"
+							 			onKeyPress="return noenter(event);"> 
+									<input type="hidden" 
+										name="IdById_#i#_#idnum#" 
+										id="IdById_#i#_#idnum#" value="#agent_id#"
+										class="reqdClr">
+									<input type="hidden" name="identification_agent_id_#i#_#idnum#" id="identification_agent_id_#i#_#idnum#"
+										value="#identification_agent_id#">
+									<cfif #idnum# gt 1>
+										<img src="/images/del.gif" class="likeLink" 
+											onclick="removeIdentifier('#i#','#idnum#')" />
+									</cfif>
+				 				</td>
+				 			</tr>
+							<cfset idnum=idnum+1>
+						</cfloop>
+					</tbody>
 				</table>
-				</td>
-				</tr>
-				<cfquery name="maxID" dbtype="query">select max(identifier_order) as nid from identifiers</cfquery>
-				<input type="hidden" name="number_of_identifiers" value="#maxID.nid#" />
-              <tr>
-					<td>
-						Add Identifier:
-					</td>
-					<td>
-						<input type="text" 
-							name="newidentifier_#thisIdentification_id#" 
-							id="newidentifier_#thisIdentification_id#" 
-							size="50" onchange="getAgent('newidentifierID_#thisIdentification_id#','newidentifier_#thisIdentification_id#','id#thisIdentification_id#',this.value); return false;"
-				 oonKeyPress="return noenter(event);"> 
-				 <img src="/images/save.gif" class="likeLink" onclick="addIdentifier('newidentifier_#thisIdentification_id#','#thisIdentification_id#',document.getElementById('newidentifierID_#thisIdentification_id#').value);" />
-				 <input type="hidden" name="newidentifierID_#thisIdentification_id#" id="newidentifierID_#thisIdentification_id#"> 
-					</td>
-				</tr>
-			  <tr> 
-                <td><div align="right">
-				<a href="javascript:void(0);" class="novisit" onClick="getDocs('identification','id_date')">ID Date:</a></td></div></td>
-                <td><input type="text" value="#dateformat(made_date,'dd-mmm-yyyy')#" name="made_date" id="made_date_#thisIdentification_id#" onchange="saveIdDateChange('#thisIdentification_id#', this.value);"> 
-                </td>
+			</td>
+		</tr>
+        <tr>
+			<td>
+				<span class="infoLink" id="addIdentifier_#i#" 
+					onclick="addIdentifier('#i#','#idnum#')">Add Identifier</span>
+			</td>	
+		</tr>
+		<tr> 
+        	<td>
+				<div align="right">
+					<a href="javascript:void(0);" class="novisit" 
+						onClick="getDocs('identification','id_date')">ID Date:</a>
+				</div>
+			</td>
+            <td>
+				<input type="text" value="#dateformat(made_date,'dd-mmm-yyyy')#" name="made_date_#i#"
+				 id="made_date_#i#"
+				 onclick="cal1.select(document.editIdentification.made_date_#i#,'anchor1#i#','dd-MMM-yyyy');">
+				<a name="anchor1#i#" id="anchor1#i#"></a>
+           </td>
               </tr>
               <tr> 
                 <td><div align="right">
@@ -386,42 +624,30 @@
 				</div></td>
                 <td>
 				<cfset thisID = #nature_of_id#>
-				<select name="nature_of_id" id="nature_of_id_#thisIdentification_id#" size="1" class="reqdClr" onchange="saveNatureOfId('#thisIdentification_id#', this.value);">
+				<select name="nature_of_id_#i#" id="nature_of_id_#i#" size="1" class="reqdClr" onchange="saveNatureOfId('#i#', this.value);">
                     <cfloop query="ctnature">
                       <option <cfif #ctnature.nature_of_id# is #thisID#> selected </cfif> value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
                     </cfloop>
                   </select>
-				  <img 
-				class="likeLink" 
-				src="/images/ctinfo.gif"
-				border="0"
-				alt="Code Table Value Definition"
-				onClick="getCtDoc('ctnature_of_id',id#thisIdentification_id#.nature_of_id.value)">
+			<span class="infoLink" onClick="getCtDoc('ctnature_of_id',newID.nature_of_id.value)">Define</span>
 				</td>
               </tr>
               <tr> 
                 <td><div align="right">Remarks:</div></td>
-                <td><input type="text" name="identification_remarks" id="identification_remarks_#thisIdentification_id#" value="#identification_remarks#" size="50" onchange="saveIdRemarks('#thisIdentification_id#', this.value);"></td>
+                <td><input type="text" name="identification_remarks_#i#" id="identification_remarks_#i#" value="#identification_remarks#" size="50" onchange="saveIdRemarks('#i#', this.value);"></td>
               </tr>
-              <tr> 
-                <td colspan="2"><div align="center">
-					<cfif #ACCEPTED_ID_FG# is 0>
-						 <input type="button" 
-						 value="Delete" 
-						 class="delBtn"
-						 onmouseover="this.className='delBtn btnhov'" 
-						 onmouseout="this.className='delBtn'"
-						 onClick="deleteIdentification('#thisIdentification_id#');">
-					</cfif>
-					
-                  </div></td>
-              </tr>
-            </table>
+			
            
-      </form>
-<cfset i = #i#+1>
+
+	<cfset i = #i#+1>
 </cfloop>
- 
+<tr>
+				<td colspan="2">
+					<input type="submit" class="savBtn" id="editIdentification_submit" value="Save Changes" title="Save Changes">
+				</td>
+			</tr>
+            </table>
+			      </form>
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
@@ -995,115 +1221,15 @@
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
-<!----------------------------------------------------------------------------------->
-<cfif #Action# is "saveEdits">
-
-<cfoutput>
-<cfif #orig_accepted_id_fg# is "0">
-	<cfif #ACCEPTED_ID_FG# is 1>
-		<!--- changing from not accepted to accepted - set all others not accepted --->
-		<cftransaction>
-		<cfquery name="upOldID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-			UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
-		</cfquery>
-		<cfquery name="newAcceptedId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-			UPDATE identification SET ACCEPTED_ID_FG=1 where identification_id = #identification_id#
-		</cfquery>
-		</cftransaction>
-	</cfif>
-</cfif>
-	
-	<cfquery name="updateId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-		UPDATE identification SET
-		nature_of_id = '#nature_of_id#'
-		<cfif len(#made_date#) gt 0>
-			,made_date = '#dateformat(made_date,'dd-mmm-yyyy')#'
-		</cfif>
-		<cfif len(#identification_remarks#) gt 0>
-			,identification_remarks = '#identification_remarks#'
-		</cfif>
-	where identification_id=#identification_id#
-</cfquery>
-	<br />there are #number_of_identifiers# identifiers...
-	<cfloop from="1" to="#number_of_identifiers#" index="i">
-		<cfset thisIdId = evaluate("IdById" & i)>
-		<cfif len(#thisIdId#) gt 0>
-			<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				update identification_agent set 
-				agent_id=#thisIdId# where
-				identifier_order=#i# and
-				identification_id=#identification_id#
-			</cfquery>
-		<cfelse>
-			<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				delete from identification_agent
-				where identifier_order=#i# and
-				identification_id=#identification_id#				
-			</cfquery>
-		</cfif>
-		<hr />
-	</cfloop>
-	<cfif len(#newidentifierID#) gt 0>
-		<cfset thisOrder = #number_of_identifiers# + 1>
-		<cfquery name="newIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-		insert into identification_agent (
-			identification_id,
-			agent_id,
-			identifier_order) 
-		values (
-			#identification_id#,
-			#newidentifierID#,
-			#thisOrder#
-			)
-		</cfquery>
-	</cfif>
-			
-					
-	<!---
-		<input type="text" name="idBy#identifier_order#" value="#agent_name#" class="reqdClr"
-				 size="50" onchange="getAgent('IdById#identifier_order#','idBy#identifier_order#','id#i#',this.value); return false;"
-				 oonKeyPress="return noenter(event);"> 
-				 <input type="hidden" name="IdById#identifier_order#"> 
-					</td>
-					--->
-<!---
 
 
-
-	<cfquery name="updateId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-	UPDATE identification SET
-		identification_id=#identification_id#
-		<cfif len(#newIdById#) gt 0>
-			,id_made_by_agent_id = #newIdById#
-		</cfif>
-		<cfif len(#made_date#) gt 0>
-			,made_date = '#dateformat(made_date,'dd-mmm-yyyy')#'
-		</cfif>
-		<cfif len(#nature_of_id#) gt 0>
-			,nature_of_id = '#nature_of_id#'
-		</cfif>
-		<cfif len(#identification_remarks#) gt 0>
-			,identification_remarks = '#identification_remarks#'
-		</cfif>
-	where identification_id=#identification_id#
-	</cfquery>
-	
-	
-		
-		
-	<cf_logEdit collection_object_id="#collection_object_id#">
-	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
-	--->
-</cfoutput>
-</cfif>
-<!---
 <cfoutput>
 <script type="text/javascript" language="javascript">
 	changeStyle('#getID.institution_acronym#');
 	parent.dyniframesize();
 </script>
 </cfoutput>
---->
+
 <div id="theFoot">
 	<cfinclude template="includes/_footer.cfm">
 </div>
@@ -1114,6 +1240,9 @@
 		document.getElementById("theHead").style.display='none';
 		document.getElementById("theFoot").style.display='none';
 		changeStyle('#getID.institution_acronym#');
-		parent.dyniframesize();
+		//parent.dyniframesize();
 	}
 </script>
+
+
+<DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>
