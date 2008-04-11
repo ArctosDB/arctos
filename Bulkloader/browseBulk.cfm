@@ -62,7 +62,6 @@
 </cfif>
 <!----------------------------------------------------------->
 <cfif #action# is "runSQLUp">
-hi
 <cfoutput>
 	<cfif not isdefined("uc1") or not isdefined("uv1") or len(#uc1#) is 0 or len(#uv1#) is 0>
 		Not enough information. <cfabort>
@@ -80,15 +79,10 @@ hi
 		<cfelseif op1 is "in">
 			<cfset sql = "#sql# ('#replace(v1,",","','","all")#')">
 		<cfelseif op1 is "between">
-			op1: #op1#<br>
 			<cfset dash = find("-",v1)>
-			dash: #dash#<br>
 			<cfset f = left(v1,dash-1)>
 			<cfset t = mid(v1,dash+1,len(v1))>
-			dash: #f#<br>
-			dash: #t#<br>
 			<cfset sql = "#sql# #f# and #t# ">
-			sql:#sql#
 		</cfif>		 
 	</cfif>
 	<cfif isdefined("c2") and len(#c2#) gt 0 and isdefined("op2") and len(#op2#) gt 0 and isdefined("v2") and len(#v2#) gt 0>
@@ -99,6 +93,11 @@ hi
 			<cfset sql = "#sql# '%#v2#%'">
 		<cfelseif op2 is "in">
 			<cfset sql = "#sql# ('#replace(v2,",","','","all")#')">
+		<cfelseif op2 is "between">
+			<cfset dash = find("-",v2)>
+			<cfset f = left(v2,dash-1)>
+			<cfset t = mid(v2,dash+1,len(v2))>
+			<cfset sql = "#sql# #f# and #t# ">
 		</cfif>		 
 	</cfif>
 	<cfif isdefined("c3") and len(#c3#) gt 0 and isdefined("op3") and len(#op3#) gt 0 and isdefined("v3") and len(#v3#) gt 0>
@@ -109,11 +108,13 @@ hi
 			<cfset sql = "#sql# '%#v3#%'">
 		<cfelseif op3 is "in">
 			<cfset sql = "#sql# ('#replace(v3,",","','","all")#')">
-		</cfif>		 
+		<cfelseif op3 is "between">
+			<cfset dash = find("-",v3)>
+			<cfset f = left(v3,dash-1)>
+			<cfset t = mid(v3,dash+1,len(v3))>
+			<cfset sql = "#sql# #f# and #t# ">
+		</cfif>	 
 	</cfif>
-	
-		#preservesinglequotes(sql)#	
-	<!---
 	<cfquery name="data" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		#preservesinglequotes(sql)#	
 	</cfquery>
@@ -132,7 +133,6 @@ hi
 		<cfset rUrl="#rUrl#&c3=#c3#&op3=#op3#&v3=#v3#"> 
 	</cfif>
 	<cflocation url="#rUrl#" addtoken="false">
-	--->
 </cfoutput>	
 </cfif>
 <!----------------------------------------------------------->
@@ -151,15 +151,10 @@ hi
 		<cfelseif op1 is "in">
 			<cfset sql = "#sql# ('#replace(v1,",","','","all")#')">
 		<cfelseif op1 is "between">
-			op1: #op1#<br>
 			<cfset dash = find("-",v1)>
-			dash: #dash#<br>
 			<cfset f = left(v1,dash-1)>
 			<cfset t = mid(v1,dash+1,len(v1))>
-			dash: #f#<br>
-			dash: #t#<br>
 			<cfset sql = "#sql# #f# and #t# ">
-			sql:#sql#
 		</cfif>		 
 	</cfif>
 	<cfif isdefined("c2") and len(#c2#) gt 0 and isdefined("op2") and len(#op2#) gt 0 and isdefined("v2") and len(#v2#) gt 0>
@@ -170,6 +165,11 @@ hi
 			<cfset sql = "#sql# '%#v2#%'">
 		<cfelseif op2 is "in">
 			<cfset sql = "#sql# ('#replace(v2,",","','","all")#')">
+		<cfelseif op2 is "between">
+			<cfset dash = find("-",v2)>
+			<cfset f = left(v2,dash-1)>
+			<cfset t = mid(v2,dash+1,len(v2))>
+			<cfset sql = "#sql# #f# and #t# ">
 		</cfif>		 
 	</cfif>
 	<cfif isdefined("c3") and len(#c3#) gt 0 and isdefined("op3") and len(#op3#) gt 0 and isdefined("v3") and len(#v3#) gt 0>
@@ -180,6 +180,11 @@ hi
 			<cfset sql = "#sql# '%#v3#%'">
 		<cfelseif op3 is "in">
 			<cfset sql = "#sql# ('#replace(v3,",","','","all")#')">
+		<cfelseif op3 is "between">
+			<cfset dash = find("-",v3)>
+			<cfset f = left(v3,dash-1)>
+			<cfset t = mid(v3,dash+1,len(v3))>
+			<cfset sql = "#sql# #f# and #t# ">
 		</cfif>		 
 	</cfif>
 	<cfquery name="data" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
