@@ -18,15 +18,24 @@ jQuery( function($) {
 		theDiv.innerHTML='<label for="displayRows">Rows Per Page</label>';
 		theDiv.innerHTML+='<select name="displayRows" id="displayRows" onchange="this.className=' + "'red'" + ';changedisplayRows(this.value);" size="1"><option  <cfif #client.displayRows# is "10"> selected </cfif> value="10">10</option><option  <cfif #client.displayRows# is "20"> selected </cfif> value="20" >20</option><option  <cfif #client.displayRows# is "50"> selected </cfif> value="50">50</option><option  <cfif #client.displayRows# is "100"> selected </cfif> value="100">100</option></select>';
 		var resultList=document.getElementById('resultList').value;
+		var customID=document.getElementById('customID').value;
+		var result_sort=document.getElementById('result_sort').value;
+		var displayRows=document.getElementById('displayRows').value;		
+		
 		theDiv.innerHTML+='<label for="result_sort">Primary Sort</label>';
 		var temp='<select name="result_sort" id="result_sort" onchange="this.className=' + "'red'" + ';changeresultSort(this.value);" size="1">';
+		if (customID.length > 0) {
+			temp+='<option value="' + customID + '">' + customID + '</option>';			
+		}
 		var rAry=resultList.split(',');
 		for (i = 0; i < rAry.length; i++) {
-			temp+='<option <cfif #client.result_sort# is "' + rAry[i] + '"> selected </cfif> value="' + rAry[i] + '">' + rAry[i] + '</option>';
+			temp+='<option value="' + rAry[i] + '">' + rAry[i] + '</option>';
 		}	
-		temp+='</select>';	
+		temp+='</select>';
 		theDiv.innerHTML+=temp;
 		document.body.appendChild(theDiv);
+		document.getElementById('result_sort').value=result_sort;
+		document.getElementById('displayRows').value=displayRows;
 		$("##helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 
 	});
@@ -261,8 +270,11 @@ jQuery( function($) {
 </cfif>
 
 <form name="controls">
-	<!--- keep around for JS to get at --->
+	<!--- keep stuff around for JS to get at --->
 	<input type="hidden" name="resultList" id="resultList" value="#resultList#">
+	<input type="hidden" name="customID" id="customID" value="#client.customOtherIdentifier#">
+	<input type="hidden" name="result_sort" id="result_sort" value="#client.result_sort#">
+	<input type="hidden" name="displayRows" id="displayRows" value="#client.displayRows#">
 <strong>#mappable.cnt#</strong> of these <strong>#summary.recordcount#</strong> records have coordinates and can be displayed with 
 				<span class="controlButton" 
 				onmouseover="this.className='controlButton btnhov'" 
