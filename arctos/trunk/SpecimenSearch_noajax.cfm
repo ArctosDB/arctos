@@ -82,7 +82,7 @@ function changeGrp(tid) {
 					from collection where
 					collection_id=#exclusive_collection_id#
 				</cfquery>
-				<cfoutput>#coll.institution_acronym# #coll.collection_cde#</cfoutput>
+				<cfoutput>#coll.collection#</cfoutput>
 			records, or <a href="searchAll.cfm">all collections</a>.
 			<cfelse>
 			records.
@@ -275,7 +275,8 @@ function changeGrp(tid) {
 						SELECT institution_acronym, collection, collection_id FROM collection
 						<cfif len(#exclusive_collection_id#) gt 0>
 							WHERE collection_id = #exclusive_collection_id#
-						</cfif>						
+						</cfif>
+						order by collection
 					</cfquery>
 			
 					<cfif isdefined("collection_id") and len(#collection_id#) gt 0>
@@ -1219,6 +1220,7 @@ function changeGrp(tid) {
 									<select name="type_status" size="1">
 										<option value=""></option>
 										<option value="any">Any</option>
+										<option value="type">Any TYPE</option>
 										<cfoutput query="ctTypeStatus">
 											<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
 										</cfoutput>
