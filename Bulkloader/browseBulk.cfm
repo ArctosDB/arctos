@@ -80,8 +80,8 @@
 			<cfset sql = "#sql# ('#replace(v1,",","','","all")#')">
 		<cfelseif op1 is "between">
 			<cfset dash = find("-",v1)>
-				<cfset f = left(v1,dash-1)>
-				<cfset t = mid(v1,dash+1,len(v1))>
+			<cfset f = left(v1,dash-1)>
+			<cfset t = mid(v1,dash+1,len(v1))>
 			<cfset sql = "#sql# between #f# and #t# ">
 		</cfif>		 
 	</cfif>
