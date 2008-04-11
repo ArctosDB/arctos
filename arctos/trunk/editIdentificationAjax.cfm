@@ -540,6 +540,7 @@ function removeHelpDiv() {
 		accepted_id_fg DESC,
 		made_date
 </cfquery>
+<cfdump var=#distIds#>
 <form name="editIdentification" id="editIdentification" method="post" action="editIdentificationAjax.cfm">
     <input type="hidden" name="Action" value="saveEdits">
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
