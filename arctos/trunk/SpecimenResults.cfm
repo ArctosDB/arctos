@@ -44,7 +44,7 @@ jQuery( function($) {
 });
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {
-		$('#helpDiv').remove();
+		$('##helpDiv').remove();
 	}
 }
 </script>
