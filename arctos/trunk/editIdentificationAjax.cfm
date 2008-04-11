@@ -267,44 +267,9 @@ function removeHelpDiv() {
 			</cfloop>
 		</cfloop>
 	</cftransaction>
-	<!----
-	
-	
 
-
-
-_1 	2
-NUMBER_OF_IDENTIFIERS_2 	2
-NUMBER_OF_IDS
-
-
-	
-	
-	<br />there are #number_of_identifiers# identifiers...
-	
-	<cfif len(#newidentifierID#) gt 0>
-		<cfset thisOrder = #number_of_identifiers# + 1>
-		<cfquery name="newIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-		insert into identification_agent (
-			identification_id,
-			agent_id,
-			identifier_order) 
-		values (
-			#identification_id#,
-			#newidentifierID#,
-			#thisOrder#
-			)
-		</cfquery>
-	</cfif>
-			
 					
-	<!---
-		<input type="text" name="idBy#identifier_order#" value="#agent_name#" class="reqdClr"
-				 size="50" onchange="getAgent('IdById#identifier_order#','idBy#identifier_order#','id#i#',this.value); return false;"
-				 oonKeyPress="return noenter(event);"> 
-				 <input type="hidden" name="IdById#identifier_order#"> 
-					</td>
-					--->
+
 <!---
 
 
