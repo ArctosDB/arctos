@@ -1222,17 +1222,18 @@ function removeHelpDiv() {
 </cfif>
 <!----------------------------------------------------------------------------------->
 
-
+<!---
 <cfoutput>
 <script type="text/javascript" language="javascript">
 	changeStyle('#getID.institution_acronym#');
 	parent.dyniframesize();
 </script>
 </cfoutput>
-
+--->
 <div id="theFoot">
 	<cfinclude template="includes/_footer.cfm">
 </div>
+
 <script>
 	var thePar = parent.location.href;
 	var isFrame = thePar.indexOf('Locality.cfm');
