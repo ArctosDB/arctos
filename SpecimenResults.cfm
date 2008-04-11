@@ -13,7 +13,26 @@ jQuery( function($) {
 		var theDiv = document.createElement('div');
 		theDiv.id = 'helpDiv';
 		theDiv.className = 'helpBox';
-		theDiv.innerHTML='<br>Loading...';
+		theDiv.innerHTML='<label for="displayRows">Rows Per Page</label>';
+		theDiv.innerHTML+='<select name="displayRows" id="displayRows"';
+		theDiv.innerHTML+='onchange="this.className='''red''';changedisplayRows(this.value);" size="1">';
+		/*
+		theDiv.innerHTML+='
+		theDiv.innerHTML+='
+		theDiv.innerHTML+='
+		theDiv.innerHTML+='
+		theDiv.innerHTML+='
+		theDiv.innerHTML+='
+		
+		
+						onchange="this.className='red'
+						  <option  <cfif #displayRows# is "10"> selected </cfif> value="10">10</option>
+						  <option  <cfif #displayRows# is "20"> selected </cfif> value="20" >20</option>
+						  <option  <cfif #displayRows# is "50"> selected </cfif> value="50">50</option>
+						  <option  <cfif #displayRows# is "100"> selected </cfif> value="100">100</option>
+						</select> ';
+						
+						*/
 		document.body.appendChild(theDiv);
 		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 
