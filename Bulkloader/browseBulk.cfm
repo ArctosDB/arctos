@@ -89,7 +89,6 @@ hi
 			dash: #t#<br>
 			<cfset sql = "#sql# between #f# and #t# ">
 			sql:#sql#
-			<cfabort>
 		</cfif>		 
 	</cfif>
 	<cfif isdefined("c2") and len(#c2#) gt 0 and isdefined("op2") and len(#op2#) gt 0 and isdefined("v2") and len(#v2#) gt 0>
@@ -151,6 +150,16 @@ hi
 			<cfset sql = "#sql# '%#v1#%'">
 		<cfelseif op1 is "in">
 			<cfset sql = "#sql# ('#replace(v1,",","','","all")#')">
+		<cfelseif op1 is "between">
+			op1: #op1#<br>
+			<cfset dash = find("-",v1)>
+			dash: #dash#<br>
+			<cfset f = left(v1,dash-1)>
+			<cfset t = mid(v1,dash+1,len(v1))>
+			dash: #f#<br>
+			dash: #t#<br>
+			<cfset sql = "#sql# between #f# and #t# ">
+			sql:#sql#
 		</cfif>		 
 	</cfif>
 	<cfif isdefined("c2") and len(#c2#) gt 0 and isdefined("op2") and len(#op2#) gt 0 and isdefined("v2") and len(#v2#) gt 0>
