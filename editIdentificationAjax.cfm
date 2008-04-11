@@ -182,6 +182,7 @@ function removeHelpDiv() {
 	<cfdump var="#form#">
 	<cftransaction>
 		<cfloop from="1" to="#NUMBER_OF_IDS#" index="n">
+			<hr>
 			<cfset thisAcceptedIdFg = #evaluate("ACCEPTED_ID_FG_" & n)#>
 			<cfset thisIdentificationId = #evaluate("IDENTIFICATION_ID_" & n)#>
 			<cfset thisIdRemark = #evaluate("IDENTIFICATION_REMARKS_" & n)#>
@@ -214,7 +215,7 @@ function removeHelpDiv() {
 				where identification_id=#thisIdentificationId#
 			</cfquery>
 			<cfloop from="1" to="#thisNumIds#" index="nid">
-				<hr>
+				<br>----------------agents-------------
 				<cftry>
 					<!--- couter does not increment backwards - may be a few empty loops in here ---->
 					<cfset thisIdId = evaluate("IdById_" & n & "_" & nid)>
@@ -245,9 +246,9 @@ function removeHelpDiv() {
 					</cfquery>
 				<cfelse>
 					<!--- update or delete --->
-					delete<br>
 					<cfif #thisIdId# is "delete">
 						<!--- delete --->
+						delete<br>
 						<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 							delete from identification_agent
 							where identification_agent_id=#thisIdAgntId#				
