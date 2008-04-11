@@ -22,7 +22,7 @@ jQuery( function($) {
 		var temp='<select name="result_sort" id="result_sort" onchange="this.className=' + "'red'" + ';changeresultSort(this.value);" size="1">';
 		var rAry=resultList.split(',');
 		for (i = 0; i < rAry.length; i++) {
-			temp+='<option <cfif #client.result_sort# is "' + i + '"> selected </cfif> value="' + i + '">' + i + '</option>
+			temp+='<option <cfif #client.result_sort# is "' + i + '"> selected </cfif> value="' + i + '">' + i + '</option>';
 		}	
 		temp+='</select>';	
 		theDiv.innerHTML+=temp;
