@@ -5,40 +5,31 @@
 --->
 <script type='text/javascript' src='/includes/_specimenResults.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
+<cfoutput>
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
 
-	$("#sPrefs").click(function(e){
+	$("##sPrefs").click(function(e){
 		var id=this.id;
 		var theDiv = document.createElement('div');
 		theDiv.id = 'helpDiv';
 		theDiv.className = 'helpBox';
 		theDiv.innerHTML='<label for="displayRows">Rows Per Page</label>';
 		theDiv.innerHTML+='<select name="displayRows" id="displayRows" onchange="this.className=' + "'red'" + ';changedisplayRows(this.value);" size="1">';
-		theDiv.innerHTML+='<option  <cfif #displayRows# is "10"> selected </cfif> value="10">10</option>';
-		theDiv.innerHTML+='<option  <cfif #displayRows# is "20"> selected </cfif> value="20" >20</option>';
-		theDiv.innerHTML+='<option  <cfif #displayRows# is "50"> selected </cfif> value="50">50</option>';
-		theDiv.innerHTML+='<option  <cfif #displayRows# is "100"> selected </cfif> value="100">100</option>';
+		theDiv.innerHTML+='<option  <cfif #client.displayRows# is "10"> selected </cfif> value="10">10</option>';
+		theDiv.innerHTML+='<option  <cfif #client.displayRows# is "20"> selected </cfif> value="20" >20</option>';
+		theDiv.innerHTML+='<option  <cfif #client.displayRows# is "50"> selected </cfif> value="50">50</option>';
+		theDiv.innerHTML+='<option  <cfif #client.displayRows# is "100"> selected </cfif> value="100">100</option>';
 		theDiv.innerHTML+='</select>';
 		
 		document.body.appendChild(theDiv);
-		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
+		$("##helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 
-	});
-	
-	$("#c_identifiers_cust").click(function(e){
-		var cDiv = document.createElement('div');
-		cDiv.id = 'customDiv';
-		cDiv.className = 'sscustomBox';
-		cDiv.innerHTML='<br>Loading...';
-		document.body.appendChild(cDiv);
-		var ptl="/includes/SpecSearch/customIDs.cfm";
-		$(cDiv).load(ptl);
-		$(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
 	});
 });
 
 </script>
+</cfoutput>
 <div id="loading" style="position:absolute;top:50%;right:50%;z-index:999;background-color:green;color:white;font-size:large;font-weight:bold;padding:15px;">
 	Page loading....
 </div>
