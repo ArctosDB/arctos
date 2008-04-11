@@ -1238,7 +1238,7 @@ function removeHelpDiv() {
 	var thePar = parent.location.href;
 	var isFrame = thePar.indexOf('Locality.cfm');
 	if (isFrame == -1) {
-		document.getElementById("theHead").style.display='none';
+		//document.getElementById("theHead").style.display='none';
 		document.getElementById("theFoot").style.display='none';
 		changeStyle('#getID.institution_acronym#');
 		//parent.dyniframesize();
