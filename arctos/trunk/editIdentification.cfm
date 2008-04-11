@@ -124,7 +124,7 @@ function checkRequired(){
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
     <tr>
 		<td>
-			<span class="helpLink" id="id_formula">ID Formula:</span>
+			<span class="helpLink" id="taxa_formula">ID Formula:</span>
 		</td>
 		<td>
 			<cfif not isdefined("taxa_formula")>
@@ -165,7 +165,7 @@ function checkRequired(){
 	</tr>     
 	<tr> 
     	<td>
-			<div align="right">Taxon A:</div>
+			<span class="helpLink" id="scientific_name">Taxon A:</span>
 		</td>
          <td>
 		  	<input type="text" name="taxa_a" id="taxa_a" class="reqdClr" size="50" 
