@@ -34,22 +34,10 @@ function success_saveIdentifierChange (result){
 function deleteIdentification (identification_id) {
 		var temp = window.confirm('Are you sure you want to delete this Identification?');
 		if (temp == true) {
-			DWREngine._execute(_cfscriptLocation, null, 'deleteIdentification',identification_id, success_deleteIdentificationd);
+			var t = "mainTable_" + identification_id;
+			document.getElementById(t).className='red';
 		}
 	
-}
-function success_deleteIdentificationd (result) {
-	//alert(result);
-	var statAry=result.split('|');
-	var status=statAry[0];
-	var msg=statAry[1];
-	if (status == 'success') {
-		var identification_id = msg;
-		var t = "mainTable_" + identification_id;
-		document.getElementById(t).style.display='none';
-	} else {	
-		alert(msg);
-	}
 }
 
 
