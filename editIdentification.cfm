@@ -264,7 +264,7 @@ function checkRequired(){
 <strong><font size="+1">Edit an Existing Determination</font></strong>
 <img src="/images/info.gif" border="0" onClick="getDocs('identification')" class="likeLink">
 <cfset i = 1>
-<table><tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#><td>
+<table border>
 <cfquery name="distIds" dbtype="query">
 	SELECT
 		identification_id,
@@ -297,6 +297,7 @@ function checkRequired(){
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
 	<input type="hidden" name="number_of_ids" id="number_of_ids" value="#distIds.recordcount#">
 <cfloop query="distIds">
+	<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#><td>
 	<cfquery name="identifiers" dbtype="query">
 		select 
 			agent_name,
@@ -423,19 +424,20 @@ function checkRequired(){
                 <td><div align="right">Remarks:</div></td>
                 <td><input type="text" name="identification_remarks_#i#" id="identification_remarks_#i#" value="#identification_remarks#" size="50" onchange="saveIdRemarks('#i#', this.value);"></td>
               </tr>
-			
+			</table>
            
 
 	<cfset i = #i#+1>
+	</td></tr>
 </cfloop>
 <tr>
-				<td colspan="2">
+				<td>
 					<input type="submit" class="savBtn" id="editIdentification_submit" value="Save Changes" title="Save Changes">
 				</td>
 			</tr>
             </table>
 			      </form>
-			      </td></tr></table>
+			      
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
