@@ -294,37 +294,6 @@
 	</table>
 	<div id="e_collevent"></div>
 </div>
-<div class="secDiv">
-	<table class="ssrch">
-		<tr>
-			<td colspan="2" class="secHead">
-					<span class="secLabel">Usage</span>
-					<span class="secControl" id="c_usage"
-						onclick="showHide('usage',1)">Show More Options</span>
-			</td>
-		</tr>
-		<tr>
-			<td class="lbl">
-				<span class="helpLink" id="type_status">Type Status:</span>
-			</td>
-			<td class="srch">
-				<cfquery name="ctTypeStatus" datasource="#Application.web_user#">
-					select type_status from ctcitation_type_status
-				</cfquery>
-				<select name="type_status" size="1">
-					<option value=""></option>
-					<option value="any">Any</option>
-					<option value="type">Any TYPE</option>
-					<cfloop query="ctTypeStatus">
-						<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
-					</cfloop>
-				</select>
-				<span class="infoLink" onclick="getCtDoc('ctcitation_type_status',SpecData.phylclass.value);">Define</span>	
-			</td>
-		</tr>
-	</table>
-	<div id="e_usage"></div>
-</div>
 <cfquery name="Part" datasource="#Application.web_user#">
 	select part_name from 
 		<cfif len(#exclusive_collection_id#) gt 0>cctspecimen_part_name#exclusive_collection_id#<cfelse>ctspecimen_part_name</cfif>
@@ -367,6 +336,37 @@
 		</tr>
 	</table>
 	<div id="e_biolindiv"></div>
+</div>
+<div class="secDiv">
+	<table class="ssrch">
+		<tr>
+			<td colspan="2" class="secHead">
+					<span class="secLabel">Usage</span>
+					<span class="secControl" id="c_usage"
+						onclick="showHide('usage',1)">Show More Options</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="lbl">
+				<span class="helpLink" id="type_status">Type Status:</span>
+			</td>
+			<td class="srch">
+				<cfquery name="ctTypeStatus" datasource="#Application.web_user#">
+					select type_status from ctcitation_type_status
+				</cfquery>
+				<select name="type_status" size="1">
+					<option value=""></option>
+					<option value="any">Any</option>
+					<option value="type">Any TYPE</option>
+					<cfloop query="ctTypeStatus">
+						<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
+					</cfloop>
+				</select>
+				<span class="infoLink" onclick="getCtDoc('ctcitation_type_status',SpecData.phylclass.value);">Define</span>	
+			</td>
+		</tr>
+	</table>
+	<div id="e_usage"></div>
 </div>
 <cfif listcontainsnocase(client.roles,"coldfusion_user")>
 	<div class="secDiv">
