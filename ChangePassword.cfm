@@ -112,7 +112,7 @@ You are logged in as #client.username#. You must change your password every #App
 			<cfabort>
 		<cfelse>
 			<cfquery name="dbUser" datasource="uam_god">
-				alter user #client.username# identified by #newpassword#
+				alter user #client.username# identified by "#newpassword#"
 			</cfquery>
 			<cfquery name="setPass" datasource="#Application.uam_dbo#">
 				UPDATE cf_users SET password = '#hash(newpassword)#'
