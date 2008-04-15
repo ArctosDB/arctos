@@ -424,7 +424,11 @@ Review items in loan<b>
 			&nbsp;
 		</td>
 		<td>
-			#Condition#&nbsp;<span class="infoLink" onClick="chgCondition('#partID#')">Update</span>
+			<input name="condition#partID#" 
+				id="condition#partID#"
+				onchange="this.className='changing';updateCondition('#partID#')"
+				value="#condition#">
+				<span class="infoLink" onClick="chgCondition('#partID#')">History</span>
 		</td>
 		<td>
 			<cfif len(#sampled_from_obj_id#) gt 0>
