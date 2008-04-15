@@ -17,12 +17,7 @@ Retrieving map data - please wait....
 			spec_locality,
 			dec_lat,
 			dec_long,
-			decode(max_error_units,
-				'm',max_error_distance,
-				'ft',max_error_distance * 3.28,
-				'km',max_error_distance * 1000,
-				'mi',max_error_distance * 1609.3,
-				'yd',max_error_distance * .9144) max_error_meters,
+			to_meters(max_error_distance,max_error_units) max_error_meters,
 			datum
 		FROM lat_long,locality
 		WHERE
