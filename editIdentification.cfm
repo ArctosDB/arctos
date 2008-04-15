@@ -480,7 +480,6 @@ function checkRequired(){
 					<cfquery name="deleteTId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 						DELETE FROM identification_taxonomy WHERE identification_id = #identification_id#
 					</cfquery>
-				</cftransaction>
 			<cfelse>
 				<cfquery name="updateId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 						UPDATE identification SET
