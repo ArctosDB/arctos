@@ -175,7 +175,7 @@ function removeIdentifier ( identification_id,num  ) {
 	var affElem = document.getElementById(affElemS);
 	var affElemIdS = "IdById_" + identification_id + "_" + num;
 	var affElemId = document.getElementById(affElemIdS);
-	affElemId.value='delete'
+	affElemId.value='DELETE'
 	affElemId.className='';
 	affElem.className='';
 	affElem.value='';											

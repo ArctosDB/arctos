@@ -353,7 +353,7 @@ function checkRequired(){
 						</cfif>
                   	</select>
 					<cfif #ACCEPTED_ID_FG# is 0>
-						<span class="infoLink red" onclick="document.getElementById('accepted_id_fg_#i#').value='delete';">Delete</span>
+						<span class="infoLink red" onclick="document.getElementById('accepted_id_fg_#i#').value='DELETE';">Delete</span>
 					</cfif>
 				<cfelse>
 					<input name="accepted_id_fg_#i#" id="accepted_id_fg_#i#" type="hidden" value="1">
@@ -470,7 +470,7 @@ function checkRequired(){
 					UPDATE identification SET ACCEPTED_ID_FG=1 where identification_id = #thisIdentificationId#
 				</cfquery>
 			</cfif>
-			<cfif #thisAcceptedIdFg# is "delete">
+			<cfif #thisAcceptedIdFg# is "DELETE">
 					<cfquery name="deleteId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 						DELETE FROM identification_agent WHERE identification_id = #thisIdentificationId#
 					</cfquery>
@@ -511,7 +511,7 @@ function checkRequired(){
 							<cfset thisIdAgntId=-1>
 						</cfcatch>
 					</cftry>
-					<cfif #thisIdAgntId# is -1 and (thisIdId is not "delete" and thisIdId gt 0)>
+					<cfif #thisIdAgntId# is -1 and (thisIdId is not "DELETE" and thisIdId gt 0)>
 						<!--- new identifier --->
 						<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 							insert into identification_agent 
@@ -525,7 +525,7 @@ function checkRequired(){
 						</cfquery>
 					<cfelse>
 						<!--- update or delete --->
-						<cfif #thisIdId# is "delete">
+						<cfif #thisIdId# is "DELETE">
 							<!--- delete --->
 							<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 								delete from identification_agent
