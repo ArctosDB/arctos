@@ -1,3 +1,23 @@
+function updateCondition (partID) {
+var s = "document.getElementById('condition" + partID + "').value";
+	var condition = eval(s);
+	var transaction_id = document.getElementById('transaction_id').value;
+	//alert(item_instructions);
+	DWREngine._execute(_cfscriptLocation, null, 'updateCondition', partID,condition, success_updateCondition);
+}
+function success_updateCondition (result) {
+	var partID = result[0].PART_ID;
+	var message = result[0].MESSAGE;
+	//alert(partID);
+	//alert(message);
+	if (message == 'success') {
+		var ins = "document.getElementById('condition" + partID + "')";
+		var condition = eval(ins);
+		condition.className = '';
+	} else {
+		alert('An error occured: \n' + message);
+	}
+}
 
 function updateLoanItemRemarks ( partID ) {
 	var s = "document.getElementById('loan_Item_Remarks" + partID + "').value";

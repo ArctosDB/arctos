@@ -72,7 +72,7 @@
 				<input type="hidden" name="transaction_id" value="#transaction_id#" />
 				<input type="hidden" name="item_instructions" value="#item_instructions#" />
 				<input type="hidden" name="loan_item_remarks" value="#loan_item_remarks#" />
-				<input type="hidden" name="partID" value="#partID#" />
+				<input type="hidden" name="partID" id="partID" value="#partID#" />
 				<input type="hidden" name="spRedirAction" value="delete" />
 				<br />Change disposition to: <select name="coll_obj_disposition" size="1">
 					<cfloop query="ctDisp">
