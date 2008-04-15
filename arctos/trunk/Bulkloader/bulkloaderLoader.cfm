@@ -240,7 +240,11 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 			<cfinclude template="getBulkloaderStageRecs.cfm">
 				#anyBads.cnt# of #allData.cnt# records will not successfully load. 
 				Click <a href="bulkloader.txt" target="_blank">here</a> 
-				to retrieve all data including error messages.
+				to retrieve all data including error messages. Fix them up and reload them.
+				<p>
+				Click <a href="bulkloaderLoader.cfm?action=loadAnyway">here</a> to load them to the
+				bulkloader anyway. Use Arctos to fix them up and load them. You'll need Data Entry Admin permissions to use this option.
+				</p>
 	<cfelse>
 		<cfquery name="allId" datasource="#Application.web_user#">
 			select collection_object_id from bulkloader_stage
@@ -322,6 +326,29 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 			</cfif>
 		</cfoutput>
 		--->
+</cfif>
+<!---------------------------------------->
+<cfif #action# is "loadAnyway">
+<cfoutput>
+	<cfquery name="allId" datasource="#Application.web_user#">
+		select collection_object_id from bulkloader_stage
+	</cfquery>
+	<cfloop query="allId">
+		<cfquery name="newID" datasource="#Application.web_user#">
+			update bulkloader_stage set collection_object_id=bulkloader_pkey.nextval
+			where collection_object_id=#collection_object_id#
+		</cfquery>
+	</cfloop>
+	<cfquery name="flag" datasource="#Application.web_user#">
+		update bulkloader_stage set loaded = 'BULKLOADED RECORD'
+	</cfquery>
+	<cfquery name="moveEm" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		insert into bulkloader select * from bulkloader_stage
+	</cfquery>
+	Your records have been checked and are now in table Bulkloader and flagged as
+		loaded='BULKLOADED RECORD'. A data administrator can un-flag
+		and load them.
+</cfoutput>
 </cfif>
 <!---------------------------------------->
 <cfif #action# is "logs">
