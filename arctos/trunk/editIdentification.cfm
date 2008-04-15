@@ -472,13 +472,13 @@ function checkRequired(){
 			</cfif>
 			<cfif #thisAcceptedIdFg# is "delete">
 					<cfquery name="deleteId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-						DELETE FROM identification_agent WHERE identification_id = #identification_id#
+						DELETE FROM identification_agent WHERE identification_id = #thisIdentificationId#
 					</cfquery>
 					<cfquery name="deleteId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-						DELETE FROM identification WHERE identification_id = #identification_id#
+						DELETE FROM identification WHERE identification_id = #thisIdentificationId#
 					</cfquery>
 					<cfquery name="deleteTId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-						DELETE FROM identification_taxonomy WHERE identification_id = #identification_id#
+						DELETE FROM identification_taxonomy WHERE identification_id = #thisIdentificationId#
 					</cfquery>
 			<cfelse>
 				<cfquery name="updateId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
