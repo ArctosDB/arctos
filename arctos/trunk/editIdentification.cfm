@@ -353,7 +353,7 @@ function checkRequired(){
 						</cfif>
                   	</select>
 					<cfif #ACCEPTED_ID_FG# is 0>
-						<span class="infoLink red" onclick="document.getElementById('accepted_id_fg_#i#').value='DELETE';flippedAccepted('#i#');>Delete</span>
+						<span class="infoLink red" onclick="document.getElementById('accepted_id_fg_#i#').value='DELETE';flippedAccepted('#i#');">Delete</span>
 					</cfif>
 				<cfelse>
 					<input name="accepted_id_fg_#i#" id="accepted_id_fg_#i#" type="hidden" value="1">
