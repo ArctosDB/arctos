@@ -117,6 +117,7 @@
 	
 
 	<cffile action="READ" file="#filename#" variable="fileContent"  charset="iso-8859-1" >
+	 	<cfset fileContent=replace(fileContent,chr(13),chr(10),"all")>
 	 	<cfset ColumnList = listgetat(#filecontent#,1,"#chr(10)#")>
 	 	
 	 	
