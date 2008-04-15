@@ -424,10 +424,10 @@ Review items in loan<b>
 			&nbsp;
 		</td>
 		<td>
-			<input name="condition#partID#" 
+			<textarea name="condition#partID#" 
+				rows="2" cols="20"
 				id="condition#partID#"
-				onchange="this.className='changing';updateCondition('#partID#')"
-				value="#condition#">
+				onchange="this.className='changing';updateCondition('#partID#')">#condition#</textarea>
 				<span class="infoLink" onClick="chgCondition('#partID#')">History</span>
 		</td>
 		<td>
