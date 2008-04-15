@@ -29,12 +29,7 @@
 			'none' spec_locality,
 			dec_lat,
 			dec_long,
-			decode(max_error_units,
-				'm',max_error_distance,
-				'ft',max_error_distance * 3.28,
-				'km',max_error_distance * 1000,
-				'mi',max_error_distance * 1609.3,
-				'yd',max_error_distance * .9144) max_error_meters,
+			to_meters(max_error_distance,max_error_units) max_error_meters,
 			datum,
 			'000000' collection_object_id
 		FROM lat_long WHERE
@@ -58,12 +53,7 @@
 			spec_locality,
 			dec_lat,
 			dec_long,
-			decode(max_error_units,
-				'm',max_error_distance,
-				'ft',max_error_distance * 3.28,
-				'km',max_error_distance * 1000,
-				'mi',max_error_distance * 1609.3,
-				'yd',max_error_distance * .9144) max_error_meters,
+			to_meters(max_error_distance,max_error_units) max_error_meters,
 			datum,
 			cataloged_item.collection_object_id
 		FROM
