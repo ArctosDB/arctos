@@ -1,3 +1,15 @@
+function flippedAccepted(c) {
+	var cvs='accepted_id_fg_'+c;
+	var cv=document.getElementById(cvs).value;
+	var ts='mainTable_'+c;
+	var t=document.getElementById(ts);
+	if (cv=='DELETE') {
+		t.className='red';
+	} else {
+		t.className='';
+	}
+}
+
 function saveIdentifierChange (idId) {
 	//alert(idId);
 	elAry = idId.split("_");

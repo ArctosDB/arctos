@@ -330,7 +330,7 @@ function checkRequired(){
 	<input type="hidden" name="identification_id_#i#" id="identification_id_#i#" value="#identification_id#">
 	<input type="hidden" name="number_of_identifiers_#i#" id="number_of_identifiers_#i#" 
 			value="#identifiers.recordcount#">
-	<table id="mainTable_#identification_id#">
+	<table id="mainTable_#i#">
     	<tr> 
         	<td><div align="right">Scientific Name:</div></td>
             <td><b><i>#scientific_name#</i></b>
@@ -343,13 +343,13 @@ function checkRequired(){
 				<cfif #accepted_id_fg# is 0>
 					<select name="accepted_id_fg_#i#" 
 						id="accepted_id_fg_#i#" size="1" 
-						class="reqdClr">
+						class="reqdClr" onchange="flippedAccepted('#i#')">
 						<option value="1"
 							<cfif #ACCEPTED_ID_FG# is 1> selected </cfif>>yes</option>
                     	<option 
 							<cfif #accepted_id_fg# is 0> selected </cfif>value="0">no</option>
 						<cfif #ACCEPTED_ID_FG# is 0>
-							<option value="delete">DELETE</option>
+							<option value="DELETE">DELETE</option>
 						</cfif>
                   	</select>
 					<cfif #ACCEPTED_ID_FG# is 0>
@@ -474,12 +474,13 @@ function checkRequired(){
 					<cfquery name="deleteId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 						DELETE FROM identification_agent WHERE identification_id = #thisIdentificationId#
 					</cfquery>
-					<cfquery name="deleteId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-						DELETE FROM identification WHERE identification_id = #thisIdentificationId#
-					</cfquery>
 					<cfquery name="deleteTId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 						DELETE FROM identification_taxonomy WHERE identification_id = #thisIdentificationId#
 					</cfquery>
+					<cfquery name="deleteId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						DELETE FROM identification WHERE identification_id = #thisIdentificationId#
+					</cfquery>
+					
 			<cfelse>
 				<cfquery name="updateId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 						UPDATE identification SET
