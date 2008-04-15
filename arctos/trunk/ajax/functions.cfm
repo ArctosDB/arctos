@@ -979,6 +979,33 @@
 		<cfreturn result>
 </cffunction>
 <!------------------------------------------->
+<cffunction name="updateCondition" returntype="query">
+	<cfargument name="part_id" type="numeric" required="yes">
+	<cfargument name="condition" type="string" required="yes">
+	<cftry>
+		<cftransaction>
+			<cfquery name="upIns" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				update coll_object set
+				condition = '#condition#'
+				where
+				COLLECTION_OBJECT_ID = #part_id#
+			</cfquery>
+		</cftransaction>
+		<cfset result = querynew("part_id,message")>
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "part_id", "#part_id#", 1)>
+		<cfset temp = QuerySetCell(result, "message", "success", 1)>
+	<cfcatch>
+		<cfset result = querynew("part_id,message")>
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "part_id", "#part_id#", 1)>
+		<cfset temp = QuerySetCell(result, "message", "A query error occured: #cfcatch.Message# #cfcatch.Detail#", 1)>
+	</cfcatch>
+	
+	</cftry>
+		<cfreturn result>
+</cffunction>
+<!------------------------------------------->
 <cffunction name="updateInstructions" returntype="query">
 	<cfargument name="part_id" type="numeric" required="yes">
 	<cfargument name="transaction_id" type="numeric" required="yes">
