@@ -470,67 +470,80 @@ function checkRequired(){
 					UPDATE identification SET ACCEPTED_ID_FG=1 where identification_id = #thisIdentificationId#
 				</cfquery>
 			</cfif>
-			<cfquery name="updateId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-					UPDATE identification SET
-					nature_of_id = '#thisNature#'
-					<cfif len(#thisMadeDate#) gt 0>
-						,made_date = '#dateformat(thisMadeDate,'dd-mmm-yyyy')#'
-					<cfelse>
-						,made_date=NULL
-					</cfif>
-					<cfif len(#thisIdRemark#) gt 0>
-						,identification_remarks = '#thisIdRemark#'
-					<cfelse>
-						,identification_remarks = NULL
-					</cfif>
-				where identification_id=#thisIdentificationId#
-			</cfquery>
-			<cfloop from="1" to="#thisNumIds#" index="nid">
-				<cftry>
-					<!--- couter does not increment backwards - may be a few empty loops in here ---->
-					<cfset thisIdId = evaluate("IdById_" & n & "_" & nid)>
-					<cfcatch>
-						<cfset thisIdId =-1>
-					</cfcatch>
-				</cftry>
-				<cftry>
-					<cfset thisIdAgntId = evaluate("identification_agent_id_" & n & "_" & nid)>
-					<cfcatch>
-						<cfset thisIdAgntId=-1>
-					</cfcatch>
-				</cftry>
-				<cfif #thisIdAgntId# is -1 and (thisIdId is not "delete" and thisIdId gt 0)>
-					<!--- new identifier --->
-					<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-						insert into identification_agent 
-							( IDENTIFICATION_ID,AGENT_ID,IDENTIFIER_ORDER)
-						values 
-							(
-								#thisIdentificationId#,
-								#thisIdId#,
-								#nid#
-							)
+			<cfif #thisAcceptedIdFg# is "delete">
+					<cfquery name="deleteId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						DELETE FROM identification_agent WHERE identification_id = #identification_id#
 					</cfquery>
-				<cfelse>
-					<!--- update or delete --->
-					<cfif #thisIdId# is "delete">
-						<!--- delete --->
+					<cfquery name="deleteId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						DELETE FROM identification WHERE identification_id = #identification_id#
+					</cfquery>
+					<cfquery name="deleteTId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						DELETE FROM identification_taxonomy WHERE identification_id = #identification_id#
+					</cfquery>
+				</cftransaction>
+			<cfelse>
+				<cfquery name="updateId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						UPDATE identification SET
+						nature_of_id = '#thisNature#'
+						<cfif len(#thisMadeDate#) gt 0>
+							,made_date = '#dateformat(thisMadeDate,'dd-mmm-yyyy')#'
+						<cfelse>
+							,made_date=NULL
+						</cfif>
+						<cfif len(#thisIdRemark#) gt 0>
+							,identification_remarks = '#thisIdRemark#'
+						<cfelse>
+							,identification_remarks = NULL
+						</cfif>
+					where identification_id=#thisIdentificationId#
+				</cfquery>
+				<cfloop from="1" to="#thisNumIds#" index="nid">
+					<cftry>
+						<!--- couter does not increment backwards - may be a few empty loops in here ---->
+						<cfset thisIdId = evaluate("IdById_" & n & "_" & nid)>
+						<cfcatch>
+							<cfset thisIdId =-1>
+						</cfcatch>
+					</cftry>
+					<cftry>
+						<cfset thisIdAgntId = evaluate("identification_agent_id_" & n & "_" & nid)>
+						<cfcatch>
+							<cfset thisIdAgntId=-1>
+						</cfcatch>
+					</cftry>
+					<cfif #thisIdAgntId# is -1 and (thisIdId is not "delete" and thisIdId gt 0)>
+						<!--- new identifier --->
 						<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-							delete from identification_agent
-							where identification_agent_id=#thisIdAgntId#				
+							insert into identification_agent 
+								( IDENTIFICATION_ID,AGENT_ID,IDENTIFIER_ORDER)
+							values 
+								(
+									#thisIdentificationId#,
+									#thisIdId#,
+									#nid#
+								)
 						</cfquery>
-					<cfelseif thisIdId gt 0>
-						<!--- update --->
-						<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-							update identification_agent set 
-								agent_id=#thisIdId#,
-								identifier_order=#nid#
-							 where
-							 	identification_agent_id=#thisIdAgntId#
-						</cfquery>
+					<cfelse>
+						<!--- update or delete --->
+						<cfif #thisIdId# is "delete">
+							<!--- delete --->
+							<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+								delete from identification_agent
+								where identification_agent_id=#thisIdAgntId#				
+							</cfquery>
+						<cfelseif thisIdId gt 0>
+							<!--- update --->
+							<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+								update identification_agent set 
+									agent_id=#thisIdId#,
+									identifier_order=#nid#
+								 where
+								 	identification_agent_id=#thisIdAgntId#
+							</cfquery>
+						</cfif>
 					</cfif>
-				</cfif>
-			</cfloop>
+				</cfloop>
+			</cfif>			
 		</cfloop>
 	</cftransaction>
 	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
@@ -543,14 +556,7 @@ function checkRequired(){
 		<font color="#FF0000" size="+1">You can't delete the accepted identification!</font> 
 		<cfabort>
     </cfif>
-	<cftransaction>
-		<cfquery name="deleteId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-			DELETE FROM identification WHERE identification_id = #identification_id#
-		</cfquery>
-		<cfquery name="deleteTId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-			DELETE FROM identification_taxonomy WHERE identification_id = #identification_id#
-		</cfquery>
-	</cftransaction>
+	
 	<cf_logEdit collection_object_id="#collection_object_id#">
   <cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
 </cfif>
