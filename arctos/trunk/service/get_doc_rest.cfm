@@ -1,5 +1,5 @@
 <cfparam name="action" default="nothing">
-<cfparam name="addCtl" default="1">
+<cfparam name="addCtl" default="0">
 <cfif #action# is "nothing">
 <!--- include search hint --->
 <!---
@@ -15,7 +15,7 @@
 
 <cfhttp url="http://g-arctos.appspot.com/ws" charset="utf-8" method="get">
 	<cfhttpparam type="url" name="q" value="#fld#">
-	<cfhttpparam type="url" name="addCtl" value="#addCtl#">
+	<cfhttpparam type="url" name="ctl" value="#addCtl#">
 </cfhttp>
 <cfoutput>
 		#cfhttp.fileContent#</cfoutput>
