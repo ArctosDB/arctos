@@ -32,7 +32,5 @@ bla
 <div id="test">
 
 </div>
+<span onclick="ahah('http://g-arctos.appspot.com/ws?q=elevation','test');">aha</span>
 
-<script>
-	ahah('http://g-arctos.appspot.com/ws?q=elevation','test');
-</script>
