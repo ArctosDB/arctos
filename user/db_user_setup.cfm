@@ -58,7 +58,7 @@
 						<hr>
 						<cfdump var="#CGI#" label="CGI">
 					</cfsavecontent>
-					<cfmail subject="Error" to="lkv@berkeley.edu" from="SomethingBroke@#Application.fromEmail#" type="html">
+					<cfmail subject="Error" to="#Application.PageProblemEmail#" from="SomethingBroke@#Application.fromEmail#" type="html">
 						#errortext#
 					</cfmail>	
 					<h3>Error in creating user.</h3>
