@@ -148,29 +148,9 @@ td.lbl {
 }
 
 /*
-	/SpecimenSearch stuff 
+	/SpecimenDetail stuff 
 */
 
-.external:after {
-	text-decoration: none !important;
-	content: " " url(/images/linkOut.gif);
-	}
-a.external:link:after {
-	text-decoration: none !important;
-	content: " " url(/images/linkOut.gif);
-	}
-a.external:hover:after {
-	text-decoration: none !important;
-	content: " " url(/images/linkOutHover.gif);
-	}
-a.external:visited:after {
-	text-decoration: none !important;
-	content: " " url(/images/linkOutVisited.gif);
-	}
-a.external:hover:visited:after {
-	text-decoration: none !important;
-	content: " " url(/images/linkOutHover.gif);
-	}
 .detailBlock{
 }
 .innerDetailLabel{
@@ -217,7 +197,7 @@ a.external:hover:visited:after {
 	color:#FF0000;
 	text-decoration: underline;
 	}
-	
+	/* End SpecimenDetail */
 	
 	
 	
@@ -803,3 +783,23 @@ pre {text-indent: 30px}
 .style5 {font-size: large;}
 .style6 {font-family: Arial, Helvetica, sans-serif;}
 .style8 {font-family: Arial, Helvetica, sans-serif; font-size: small; }
+.external:after {
+	text-decoration: none !important;
+	content: " " url(/images/linkOut.gif);
+	}
+a.external:link:after {
+	text-decoration: none !important;
+	content: " " url(/images/linkOut.gif);
+	}
+a.external:hover:after {
+	text-decoration: none !important;
+	content: " " url(/images/linkOutHover.gif);
+	}
+a.external:visited:after {
+	text-decoration: none !important;
+	content: " " url(/images/linkOutVisited.gif);
+	}
+a.external:hover:visited:after {
+	text-decoration: none !important;
+	content: " " url(/images/linkOutHover.gif);
+	}
