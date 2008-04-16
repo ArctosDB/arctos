@@ -1,5 +1,5 @@
 
-<script type="javascript">
+<script language="javascript" type="text/javascript">
     function ahah(url, target, delay) {
       var req;
       document.getElementById(target).innerHTML = 'Fetching Data...';
