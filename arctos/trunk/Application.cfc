@@ -19,6 +19,15 @@
 
 	<cfif #showerr# is 1>
 		<cfsavecontent variable="errortext">
+			<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and #len(CGI.HTTP_X_Forwarded_For)# gt 0>
+				<CFSET ipaddress="#CGI.HTTP_X_Forwarded_For#">
+			<CFELSEif  isdefined("CGI.Remote_Addr") and #len(CGI.Remote_Addr)# gt 0>
+				<CFSET ipaddress="#CGI.Remote_Addr#">
+			<cfelse>
+				<cfset ipaddress='unknown'>
+			</CFIF>
+			<p>ipaddress: <cfoutput><a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#</a></cfoutput></p>
+			<hr>
 			Exceptions:
 			<hr>
 			<cfdump var="#exception#" label="exception">
@@ -37,14 +46,6 @@
 			CGI Dump:
 			<hr>
 			<cfdump var="#CGI#" label="CGI">
-			<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and #len(CGI.HTTP_X_Forwarded_For)# gt 0>
-				<CFSET ipaddress="#CGI.HTTP_X_Forwarded_For#">
-			<CFELSEif  isdefined("CGI.Remote_Addr") and #len(CGI.Remote_Addr)# gt 0>
-				<CFSET ipaddress="#CGI.Remote_Addr#">
-			<cfelse>
-				<cfset ipaddress='unknown'>
-			</CFIF>
-			<p>ipaddress: <cfoutput>#ipaddress#</cfoutput></p>
 		</cfsavecontent>
 		<cfif isdefined("client.username") and #client.username# is "fselm10" or
 			#client.username# is "brandy" or
