@@ -1064,7 +1064,7 @@ end cmask,
 						<cfloop query="sex">
 							<div class="detailBlock">
 								<span class="detailData">
-									<span class="innerDetailLabel">Sex:</span>
+									<span class="innerDetailLabel">sex:</span>
 									#attribute_value#
 										<!---<cfif len(#attributeDeterminer#) gt 0>
 											<div class="detailBlock">
