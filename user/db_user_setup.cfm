@@ -57,7 +57,8 @@
 				<cfmail subject="Error" to="lkv@berkeley.edu" from="SomethingBroke@#Application.fromEmail#" type="html">
 			#errortext#
 		</cfmail>	
-		Error in creating user. #cfcatch.Message# #cfcatch.Detail#
+			<CFSET error_message="Error in creating user. #cfcatch.Message# #cfcatch.Detail#">
+			<cfabort showError = "error_message">
 					</cfcatch>	
 				</cftry>
 				
