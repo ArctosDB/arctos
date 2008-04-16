@@ -53,6 +53,7 @@ Disallow: /favicon.ico
 Disallow: /fix/
 Disallow: /getDetails.cfm
 Disallow: /info/
+Disallow: /includes/
 Disallow: /internalLoanItemReview.cfm
 Disallow: /LoadBarcodes.cfm
 Disallow: /Locality.cfm
