@@ -58,7 +58,7 @@
 			#errortext#
 		</cfmail>	
 			<CFSET error_message="Error in creating user. #cfcatch.Message# #cfcatch.Detail#">
-			<cfabort showError = "error_message">
+			<cfabort showError = "#error_message#">
 					</cfcatch>	
 				</cftry>
 				
