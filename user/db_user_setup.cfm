@@ -16,7 +16,7 @@
 		<cfif passwordCheck(pw)>
 				<cfif isnumeric(left(pw,1))>
 					Passwords may not begin with an integer.
-					<br />
+					<br>
 					<a href="/ChangePassword.cfm">Change your password</a>
 					<cfabort>
 				</cfif>
@@ -35,14 +35,14 @@
 					<cfcatch>
 								<cfsavecontent variable="errortext">
 									Error in creating user.
-			Client Dump:
+			<p>Client Dump:</p>
 			<hr>
 			<cfdump var="#client#" label="client">
 			<hr>
-			URL Dump:
+			<p>URL Dump:</p>
 			<hr>
 			<cfdump var="#url#" label="url">
-			CGI Dump:
+			<p>CGI Dump:</p>
 			<hr>
 			<cfdump var="#CGI#" label="CGI">
 			<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and #len(CGI.HTTP_X_Forwarded_For)# gt 0>
@@ -57,8 +57,8 @@
 				<cfmail subject="Error" to="lkv@berkeley.edu" from="SomethingBroke@#Application.fromEmail#" type="html">
 			#errortext#
 		</cfmail>	
-			<CFSET error_message="Error in creating user. #cfcatch.Message# #cfcatch.Detail#">
-			<cfabort showError = "#error_message#">
+			Error in creating user. #cfcatch.Message# #cfcatch.Detail#"
+			<cfabort>
 					</cfcatch>	
 				</cftry>
 				
