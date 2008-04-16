@@ -1162,6 +1162,20 @@ end cmask,
 											<td>#weight.attribute_value# #weight.attribute_units#&nbsp;</td>
 										</tr>
 									</table>
+									<cfif len(#attributeDeterminer#) gt 0>
+											<cfset determination = "&nbsp;&nbsp;#attributeDeterminer#">
+											<cfif len(#determined_date#) gt 0>
+												<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
+											</cfif>
+											<cfif len(#determination_method#) gt 0>,
+												<cfset determination = '#determination#, #determination_method#'>
+											</cfif>
+											<div class="detailBlock">
+												<span class="detailCellSmall">
+													#determination#
+												</span>
+											</div>
+										</cfif>
 								</span>
 							</div>
 						</cfif>
