@@ -44,7 +44,7 @@
 						<cfelse>
 							<cfset ipaddress='unknown'>
 						</CFIF>
-						<p>ipaddress: <cfoutput><a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#"</a></cfoutput></p>
+						<p>ipaddress: <cfoutput><a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#</a></cfoutput></p>
 						<p>Client Dump:</p>
 						<hr>
 						<cfdump var="#client#" label="client">
@@ -56,7 +56,7 @@
 						<hr>
 						<cfdump var="#CGI#" label="CGI">
 					</cfsavecontent>
-					<cfmail subject="Error" to="lkv@berkeley.edu" from="SomethingBroke@#Application.fromEmail#" type="html">
+					<cfmail subject="Error" to="lkv@berkeley.edu,dustymc@gmail.com" from="SomethingBroke@#Application.fromEmail#" type="html">
 						#errortext#
 					</cfmail>	
 					<h3>Error in creating user.</h3>
