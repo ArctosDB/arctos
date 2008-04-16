@@ -15,7 +15,7 @@
 
 <cfhttp url="http://g-arctos.appspot.com/ws" charset="utf-8" method="get">
 	<cfhttpparam type="url" name="q" value="#fld#">
-	<cfhttpparam type="url" name="ctl" value="#addCtl#">
+	<cfhttpparam type="url" name="ctl" value="1">
 </cfhttp>
 <cfoutput>
 		#cfhttp.fileContent#</cfoutput>
