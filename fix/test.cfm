@@ -26,6 +26,7 @@
 	        }
          }
     }
+    function wtf(){alert('wtf')}
 </script>
 
 bla
@@ -33,4 +34,4 @@ bla
 
 </div>
 <span onclick="ahah('http://g-arctos.appspot.com/ws?q=elevation','test');">aha</span>
-
+<span onclick="wtf()">wtf</span>
