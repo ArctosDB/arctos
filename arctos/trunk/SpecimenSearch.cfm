@@ -283,7 +283,6 @@
 		<tr>
 			<td class="lbl">
 				<span class="helpLink" id="year_collected">Year Collected:</span>
-				</a>
 			</td>
 			<td class="srch">
 				<input name="begYear" type="text" size="6">&nbsp;
