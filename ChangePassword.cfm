@@ -128,7 +128,6 @@ You are logged in as #client.username#. You must change your password every #App
 						<h3>Error in creating user.</h3>
 						<p>#cfcatch.Message#</p>
 						<p>#cfcatch.Detail#"</p>
-						<hr>
 						<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and #len(CGI.HTTP_X_Forwarded_For)# gt 0>
 							<CFSET ipaddress="#CGI.HTTP_X_Forwarded_For#">
 						<CFELSEif  isdefined("CGI.Remote_Addr") and #len(CGI.Remote_Addr)# gt 0>
@@ -137,6 +136,7 @@ You are logged in as #client.username#. You must change your password every #App
 							<cfset ipaddress='unknown'>
 						</CFIF>
 						<p>ipaddress: <cfoutput><a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#</a></cfoutput></p>
+						<hr>
 						<p>Client Dump:</p>
 						<hr>
 						<cfdump var="#client#" label="client">
@@ -148,7 +148,7 @@ You are logged in as #client.username#. You must change your password every #App
 						<hr>
 						<cfdump var="#CGI#" label="CGI">
 					</cfsavecontent>
-					<cfmail subject="Error" to="lkv@berkeley.edu" from="SomethingBroke@#Application.fromEmail#" type="html">
+					<cfmail subject="Error" to="#Application.PageProblemEmail#" from="SomethingBroke@#Application.fromEmail#" type="html">
 						#errortext#
 					</cfmail>	
 					<h3>Error in changing password user.</h3>
