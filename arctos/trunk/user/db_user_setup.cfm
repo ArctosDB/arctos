@@ -20,15 +20,46 @@
 					<a href="/ChangePassword.cfm">Change your password</a>
 					<cfabort>
 				</cfif>
-				<cfquery name="makeUser" datasource="uam_god">
-					create user #un# identified by "#pw#"
-				</cfquery>
+				<cftry>
+					<cftransaction action = "begin">
+					<cfquery name="makeUser" datasource="uam_god">
+						create user #un# identified by "#pw#"
+					</cfquery>
 				<cfquery name="grantConn" datasource="uam_god">
-					grant create session to #un#
+					grant makeUsercreate session to #un#
 				</cfquery>
 				<cfquery name="makeUser" datasource="uam_god">
 					update temp_allow_cf_user set allow=2 where user_id=#c.user_id#
 				</cfquery>
+				</cftransaction>
+					<cfcatch>
+								<cfsavecontent variable="errortext">
+									Error in creating user.
+			Client Dump:
+			<hr>
+			<cfdump var="#client#" label="client">
+			<hr>
+			URL Dump:
+			<hr>
+			<cfdump var="#url#" label="url">
+			CGI Dump:
+			<hr>
+			<cfdump var="#CGI#" label="CGI">
+			<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and #len(CGI.HTTP_X_Forwarded_For)# gt 0>
+				<CFSET ipaddress="#CGI.HTTP_X_Forwarded_For#">
+			<CFELSEif  isdefined("CGI.Remote_Addr") and #len(CGI.Remote_Addr)# gt 0>
+				<CFSET ipaddress="#CGI.Remote_Addr#">
+			<cfelse>
+				<cfset ipaddress='unknown'>
+			</CFIF>
+			<p>ipaddress: <cfoutput>#ipaddress#</cfoutput></p>
+		</cfsavecontent>
+				<cfmail subject="Error" to="lkv@berkeley.edu" from="SomethingBroke@#Application.fromEmail#" type="html">
+			#errortext#
+		</cfmail>	
+		Error in creating user. #cfcatch.Message# #cfcatch.Detail#
+					</cfcatch>	
+				</cftry>
 				
 			
 			<cflocation url="/myArctos.cfm">
