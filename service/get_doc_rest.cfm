@@ -1,5 +1,5 @@
 <cfparam name="action" default="nothing">
-<cfparam name="addCtl" default="0">
+<cfparam name="addCtl" default="1">
 <cfif #action# is "nothing">
 <!--- include search hint --->
 <!---
