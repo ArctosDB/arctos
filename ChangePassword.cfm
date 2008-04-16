@@ -126,6 +126,8 @@ You are logged in as #client.username#. You must change your password every #App
 								<cfcatch>
 					<cfsavecontent variable="errortext">
 						<h3>Error in creating user.</h3>
+						<p>#cfcatch.Message#</p>
+						<p>#cfcatch.Detail#"</p>
 						<hr>
 						<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and #len(CGI.HTTP_X_Forwarded_For)# gt 0>
 							<CFSET ipaddress="#CGI.HTTP_X_Forwarded_For#">
