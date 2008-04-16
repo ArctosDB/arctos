@@ -54,6 +54,9 @@ isValid.recordcount: #isValid.recordcount#;
 <cfif isdefined("badyou")>
 	<cfset badguy = "#cgi.HTTP_X_Forwarded_For##chr(9)##remote_host##chr(9)##cgi.SCRIPT_NAME##chr(9)##dateformat(now(),'dd-mmm-yyyy')# #TimeFormat(Now(),'HH:mm:ss')#">
 	<cffile action='append' file='#logfile#' addnewline='yes' output='#badguy#'>
+    <!--- log them out --->
+    <cfcookie name="ArctosSession" value="-" expires="NOW" domain="#Application.domain#" path="/">
+	
 	<cfmail subject="Access Violation" to="#Application.technicalEmail#" from="Security@#Application.fromEmail#" type="html">
 		IP address (#cgi.HTTP_X_Forwarded_For# - #remote_host#) tried to access
 		#escapeGoofyInstall#
