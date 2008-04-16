@@ -558,26 +558,6 @@ end cmask,
 					</div>
 				</cfif>
 			</div>
-<!------------------------------------ citations ---------------------------------------------->
-			<cfif len(#citations.cited_name#) gt 0>  
-				<div class="detailCell">
-					<div class="detailLabel">Citations</div>
-					<cfloop query="citations">
-						<div class="detailBlock">
-							<span class="detailData">
-								<a href="PublicationResults.cfm?publication_id=#publication_id#" 
-									target="_mainFrame">
-										#formatted_publication#</a>, 
-								<cfif len(#occurs_page_number#) gt 0>
-									Page #occurs_page_number#,
-								</cfif>
-								#type_status# of 
-								<a href="TaxonomyDetails.cfm?taxon_name_id=#cited_name_id#" target="_mainFrame"><i>#replace(cited_name," ","&nbsp;","all")#</i></a>
-							</span>
-						</div>
-					</cfloop>
-				</div>
-			</cfif>
 <!------------------------------------ locality ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel"><!---Locality--->
@@ -953,39 +933,25 @@ end cmask,
 		</cfquery>
 	
 	
-<!------------------------------------ usage ---------------------------------------------->
-		<cfif isProj.recordcount gt 0 OR isLoan.recordcount gt 0 or (#oneOfUs# is 1 and #isLoanedItem.collection_object_id# gt 0)>
-			<div class="detailCell">
-				<div class="detailLabel">Usage</div>
-					<cfloop query="isProj">
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">Contributed By Project:</span>
-									<a href="ProjectDetail.cfm?src=proj&project_id=#isProj.project_id#" target="#client.target#">#isProj.project_name#</a>
-							</span>
-						</div>
-					</cfloop>
-					<cfloop query="isLoan">
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">Used By Project:</span>
-		 						<a href="ProjectDetail.cfm?src=proj&project_id=#isLoan.project_id#" target="_mainFrame">#isLoan.project_name#</a>
-							</span>
-						</div>
-					</cfloop>
-					<cfif #isLoanedItem.collection_object_id# gt 0 and #oneOfUs# is 1>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">Loan History:</span>
-									<a href="Loan.cfm?action=listLoans&collection_object_id=#valuelist(isLoanedItem.collection_object_id)#" 
-										target="_mainFrame">Click for loan list</a>
-							</span>
-						</div>
-					</cfif>
-				</div>
-		</cfif>
+
 		</td>
 		<td valign="top" width="50%">
+<!------------------------------------ collectors ---------------------------------------------->
+			<div class="detailCell">
+				<div class="detailLabel">Collectors
+					<cfif #oneOfUs# is 1>
+						<span class="detailEditCell" onclick="window.parent.switchIFrame('editColls');">Edit</span>
+					</cfif>
+				</div>
+				<cfloop query="colls">
+					<div class="detailBlock">
+						<span class="detailData">
+							<span class="innerDetailLabel"></span>
+							#collectors#
+						</span>
+					</div>
+				</cfloop>
+			</div>
 <!------------------------------------ identifiers ---------------------------------------------->
 			<cfif #len(oid.other_id_type)# gt 0>
 				<div class="detailCell">
@@ -1031,22 +997,6 @@ end cmask,
 						</cfloop>
 				</div>
 			</cfif>
-<!------------------------------------ collectors ---------------------------------------------->
-			<div class="detailCell">
-				<div class="detailLabel">Collectors
-					<cfif #oneOfUs# is 1>
-						<span class="detailEditCell" onclick="window.parent.switchIFrame('editColls');">Edit</span>
-					</cfif>
-				</div>
-				<cfloop query="colls">
-					<div class="detailBlock">
-						<span class="detailData">
-							<span class="innerDetailLabel"></span>
-							#collectors#
-						</span>
-					</div>
-				</cfloop>
-			</div>
 <!------------------------------------ attributes ---------------------------------------------->
 			<cfif len(attribute.attribute_type) gt 0>
 				<div class="detailCell">
@@ -1270,6 +1220,26 @@ end cmask,
 						</cfif>
 					</cfif>
 				</div>
+<!------------------------------------ citations ---------------------------------------------->
+			<cfif len(#citations.cited_name#) gt 0>  
+				<div class="detailCell">
+					<div class="detailLabel">Citations</div>
+					<cfloop query="citations">
+						<div class="detailBlock">
+							<span class="detailData">
+								<a href="PublicationResults.cfm?publication_id=#publication_id#" 
+									target="_mainFrame">
+										#formatted_publication#</a>, 
+								<cfif len(#occurs_page_number#) gt 0>
+									Page #occurs_page_number#,
+								</cfif>
+								#type_status# of 
+								<a href="TaxonomyDetails.cfm?taxon_name_id=#cited_name_id#" target="_mainFrame"><i>#replace(cited_name," ","&nbsp;","all")#</i></a>
+							</span>
+						</div>
+					</cfloop>
+				</div>
+			</cfif>
 <!------------------------------------ binary objects ---------------------------------------------->
 			<cfif #images.recordcount# gt 0>
 				<div class="detailCell">
@@ -1319,6 +1289,37 @@ end cmask,
 						</cfloop>
 					</div>
 				</cfif>
+<!------------------------------------ usage ---------------------------------------------->
+		<cfif isProj.recordcount gt 0 OR isLoan.recordcount gt 0 or (#oneOfUs# is 1 and #isLoanedItem.collection_object_id# gt 0)>
+			<div class="detailCell">
+				<div class="detailLabel">Usage</div>
+					<cfloop query="isProj">
+						<div class="detailBlock">
+							<span class="detailData">
+								<span class="innerDetailLabel">Contributed By Project:</span>
+									<a href="ProjectDetail.cfm?src=proj&project_id=#isProj.project_id#" target="#client.target#">#isProj.project_name#</a>
+							</span>
+						</div>
+					</cfloop>
+					<cfloop query="isLoan">
+						<div class="detailBlock">
+							<span class="detailData">
+								<span class="innerDetailLabel">Used By Project:</span>
+		 						<a href="ProjectDetail.cfm?src=proj&project_id=#isLoan.project_id#" target="_mainFrame">#isLoan.project_name#</a>
+							</span>
+						</div>
+					</cfloop>
+					<cfif #isLoanedItem.collection_object_id# gt 0 and #oneOfUs# is 1>
+						<div class="detailBlock">
+							<span class="detailData">
+								<span class="innerDetailLabel">Loan History:</span>
+									<a href="Loan.cfm?action=listLoans&collection_object_id=#valuelist(isLoanedItem.collection_object_id)#" 
+										target="_mainFrame">Click for loan list</a>
+							</span>
+						</div>
+					</cfif>
+				</div>
+		</cfif>
 <!--- Idea scrapped for now.
 
 Adding media block of information. 
