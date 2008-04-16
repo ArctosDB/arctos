@@ -22,12 +22,12 @@
 				<cfabort>
 			</cfif>
 			<cftry>
-				<cftransaction action = "begin">
+				<cftransaction>
 					<cfquery name="makeUser" datasource="uam_god">
 						create user #un# identified by "#pw#"
 					</cfquery>
 					<cfquery name="grantConn" datasource="uam_god">
-						grant makeUsercreate session to #un#
+						grant create session to #un#
 					</cfquery>
 					<cfquery name="makeUser" datasource="uam_god">
 						update temp_allow_cf_user set allow=2 where user_id=#c.user_id#
@@ -36,6 +36,8 @@
 				<cfcatch>
 					<cfsavecontent variable="errortext">
 						<h3>Error in creating user.</h3>
+						<p>#cfcatch.Message#</p>
+						<p>#cfcatch.Detail#</p>
 						<hr>
 						<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and #len(CGI.HTTP_X_Forwarded_For)# gt 0>
 							<CFSET ipaddress="#CGI.HTTP_X_Forwarded_For#">
@@ -56,12 +58,12 @@
 						<hr>
 						<cfdump var="#CGI#" label="CGI">
 					</cfsavecontent>
-					<cfmail subject="Error" to="lkv@berkeley.edu,dustymc@gmail.com" from="SomethingBroke@#Application.fromEmail#" type="html">
+					<cfmail subject="Error" to="lkv@berkeley.edu" from="SomethingBroke@#Application.fromEmail#" type="html">
 						#errortext#
 					</cfmail>	
 					<h3>Error in creating user.</h3>
 					<p>#cfcatch.Message#</p>
-					<p>#cfcatch.Detail#"</p>
+					<p>#cfcatch.Detail#</p>
 					<cfabort>
 				</cfcatch>	
 			</cftry>
