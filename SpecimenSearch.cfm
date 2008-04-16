@@ -362,7 +362,7 @@
 						<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
 					</cfloop>
 				</select>
-				<span class="infoLink" onclick="getCtDoc('ctcitation_type_status',SpecData.phylclass.value);">Define</span>	
+				<span class="infoLink" onclick="getCtDoc('ctcitation_type_status',SpecData.type_status.value);">Define</span>	
 			</td>
 		</tr>
 	</table>
