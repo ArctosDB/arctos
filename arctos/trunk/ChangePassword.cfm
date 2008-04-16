@@ -111,13 +111,50 @@ You are logged in as #client.username#. You must change your password every #App
 			</span>
 			<cfabort>
 		<cfelse>
-			<cfquery name="dbUser" datasource="uam_god">
-				alter user #client.username# identified by "#newpassword#"
-			</cfquery>
-			<cfquery name="setPass" datasource="#Application.uam_dbo#">
-				UPDATE cf_users SET password = '#hash(newpassword)#'
-				WHERE username = '#client.username#'
-			</cfquery>
+			<cftry>
+				<cftransaction>
+					<cfquery name="dbUser" datasource="uam_god">
+						alter user #client.username# 
+						identified by "#newpassword#"
+					</cfquery>
+					<cfquery name="setPass" datasource="#Application.uam_dbo#">
+						UPDATE cf_users 
+						SET password = '#hash(newpassword)#'
+						WHERE username = '#client.username#'
+					</cfquery>
+				<cftransaction>
+								<cfcatch>
+					<cfsavecontent variable="errortext">
+						<h3>Error in creating user.</h3>
+						<hr>
+						<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and #len(CGI.HTTP_X_Forwarded_For)# gt 0>
+							<CFSET ipaddress="#CGI.HTTP_X_Forwarded_For#">
+						<CFELSEif  isdefined("CGI.Remote_Addr") and #len(CGI.Remote_Addr)# gt 0>
+							<CFSET ipaddress="#CGI.Remote_Addr#">
+						<cfelse>
+							<cfset ipaddress='unknown'>
+						</CFIF>
+						<p>ipaddress: <cfoutput><a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#</a></cfoutput></p>
+						<p>Client Dump:</p>
+						<hr>
+						<cfdump var="#client#" label="client">
+						<hr>
+						<p>URL Dump:</p>
+						<hr>
+						<cfdump var="#url#" label="url">
+						<p>CGI Dump:</p>
+						<hr>
+						<cfdump var="#CGI#" label="CGI">
+					</cfsavecontent>
+					<cfmail subject="Error" to="lkv@berkeley.edu" from="SomethingBroke@#Application.fromEmail#" type="html">
+						#errortext#
+					</cfmail>	
+					<h3>Error in changing password user.</h3>
+					<p>#cfcatch.Message#</p>
+					<p>#cfcatch.Detail#"</p>
+					<cfabort>
+				</cfcatch>	
+			</cftry>
 			<cfset client.epw = encrypt(newpassword,cfid)>
 		</cfif>
 	</cfif>	
