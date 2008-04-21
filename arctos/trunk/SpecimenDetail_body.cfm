@@ -1111,7 +1111,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 										</tr>
 									</table>
 									<cfif len(#attributeDeterminer#) gt 0>
-											<cfset determination = "&nbsp;&nbsp;#attributeDeterminer#">
+											<cfset determination = "#attributeDeterminer#">
 											<cfif len(#determined_date#) gt 0>
 												<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
 											</cfif>
