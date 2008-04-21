@@ -721,7 +721,7 @@ end cmask,
 							<cfif len(#one.latLongDeterminedDate#) gt 0>
 								<cfset determination = '#determination#, #dateformat(one.latLongDeterminedDate,"dd mmm yyyy")#'>
 							</cfif>
-							<cfif len(#one.lat_long_ref_source#) gt 0>,
+							<cfif len(#one.lat_long_ref_source#) gt 0>
 								<cfset determination = '#determination#, #one.lat_long_ref_source#'>
 							</cfif>
 							<div class="detailBlock">
@@ -1043,7 +1043,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 											<cfif len(#determined_date#) gt 0>
 												<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
 											</cfif>
-											<cfif len(#determination_method#) gt 0>,
+											<cfif len(#determination_method#) gt 0>
 												<cfset determination = '#determination#, #determination_method#'>
 											</cfif>
 											<div class="detailBlock">
@@ -1115,7 +1115,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 											<cfif len(#determined_date#) gt 0>
 												<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
 											</cfif>
-											<cfif len(#determination_method#) gt 0>,
+											<cfif len(#determination_method#) gt 0>
 												<cfset determination = '#determination#, #determination_method#'>
 											</cfif>
 											<div class="detailBlock">
