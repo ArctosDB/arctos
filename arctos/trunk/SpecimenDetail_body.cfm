@@ -717,7 +717,7 @@ end cmask,
 						</cfif>
 						<!--- determination --->
 						<cfif len(#one.latLongDeterminer#) gt 0>
-							<cfset determination = "&nbsp;&nbsp;#one.latLongDeterminer#">
+							<cfset determination = "#one.latLongDeterminer#">
 							<cfif len(#one.latLongDeterminedDate#) gt 0>
 								<cfset determination = '#determination#, #dateformat(one.latLongDeterminedDate,"dd mmm yyyy")#'>
 							</cfif>
@@ -1039,7 +1039,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 									#attribute_value#
 									<!--- determination --->
 										<cfif len(#attributeDeterminer#) gt 0>
-											<cfset determination = "&nbsp;&nbsp;#attributeDeterminer#">
+											<cfset determination = "#attributeDeterminer#">
 											<cfif len(#determined_date#) gt 0>
 												<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
 											</cfif>
@@ -1056,7 +1056,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 										<cfif len(#attribute_remark#) gt 0>
 											<div class="detailBlock">
 												<span class="detailCellSmall">
-													&nbsp;&nbsp;<span class="innerDetailLabel">Remark:</span>
+													<span class="innerDetailLabel">Remark:</span>
 													#attribute_remark#
 												</span>
 											</div>
