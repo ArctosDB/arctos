@@ -700,7 +700,7 @@ end cmask,
 							<span class="detailData">
 								<span class="innerDetailLabel">Coordinates:</span>
 								#one.VerbatimLatitude# #one.verbatimLongitude#
-								<cfif> len(#one.datum#) gt 0>
+								<cfif len(#one.datum#) gt 0>
 									(#one.datum#)
 								</cfif>
 							</span>
