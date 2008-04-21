@@ -715,9 +715,24 @@ end cmask,
 								</span>
 							</div>
 						</cfif>
+						<!--- determination --->
 						<cfif len(#one.latLongDeterminer#) gt 0>
+							<cfset determination = "&nbsp;&nbsp;#attributeDeterminer#">
+							<cfif len(#one.latLongDeterminedDate#) gt 0>
+								<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
+							</cfif>
+							<cfif len(#one.lat_long_ref_source#) gt 0>,
+								<cfset determination = '#determination#, #determination_method#'>
+							</cfif>
 							<div class="detailBlock">
-								<span class="detailData">
+								<span class="detailCellSmall">
+									#determination#
+								</span>
+							</div>
+						</cfif>
+						<!---<cfif len(#one.latLongDeterminer#) gt 0>
+							<div class="detailBlock">
+								<span class="detailCellSmall">
 									<span class="innerDetailLabel">Coordinate Determiner:</span>
 									#one.latLongDeterminer#
 								</span>
@@ -725,7 +740,7 @@ end cmask,
 						</cfif>
 						<cfif len(#one.latLongDeterminedDate#) gt 0>
 							<div class="detailBlock">
-								<span class="detailData">
+								<span class="detailCellSmall">
 									<span class="innerDetailLabel">Coordinate Determined Date:</span>
 									#dateformat(one.latLongDeterminedDate,"dd mmm yyyy")#
 								</span>
@@ -738,10 +753,10 @@ end cmask,
 									#one.lat_long_ref_source#
 								</span>
 							</div>
-						</cfif>
+						</cfif>--->
 						<cfif len(#one.lat_long_remarks#) gt 0>
 							<div class="detailBlock">
-								<span class="detailData">
+								<span class="detailCellSmall">
 									<span class="innerDetailLabel">Coordinate Remarks:</span>
 									#one.lat_long_remarks#
 								</span>
@@ -1022,30 +1037,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 								<span class="detailData">
 									<span class="innerDetailLabel">sex:</span>
 									#attribute_value#
-										<!---<cfif len(#attributeDeterminer#) gt 0>
-											<div class="detailBlock">
-												<span class="detailData">
-													&nbsp;&nbsp;<span class="innerDetailLabel">Determined By:</span>
-													#attributeDeterminer#
-												</span>
-											</div>
-										</cfif>
-										<cfif len(#determination_method#) gt 0>
-											<div class="detailBlock">
-												<span class="detailData">
-													&nbsp;&nbsp;<span class="innerDetailLabel">Determination Method:</span>
-													#determination_method#
-												</span>
-											</div>
-										</cfif>
-										<cfif len(#determined_date#) gt 0>
-											<div class="detailBlock">
-												<span class="detailData">
-													&nbsp;&nbsp;<span class="innerDetailLabel">Determination Date:</span>
-													#dateformat(determined_date,"dd mmm yyyy")#
-												</span>
-											</div>
-										</cfif>--->
+									<!--- determination --->
 										<cfif len(#attributeDeterminer#) gt 0>
 											<cfset determination = "&nbsp;&nbsp;#attributeDeterminer#">
 											<cfif len(#determined_date#) gt 0>
