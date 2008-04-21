@@ -197,6 +197,14 @@ td.lbl {
 	color:#FF0000;
 	text-decoration: underline;
 	}
+td.specDetailLeft {
+	display: td;
+	font-align: right;
+	}
+td.specDetailLeft {
+	display: td;
+	font-align: left;
+	}
 	/* End SpecimenDetail */
 	
 	
