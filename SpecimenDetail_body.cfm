@@ -717,12 +717,12 @@ end cmask,
 						</cfif>
 						<!--- determination --->
 						<cfif len(#one.latLongDeterminer#) gt 0>
-							<cfset determination = "&nbsp;&nbsp;#attributeDeterminer#">
+							<cfset determination = "&nbsp;&nbsp;#one.latLongDeterminer#">
 							<cfif len(#one.latLongDeterminedDate#) gt 0>
-								<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
+								<cfset determination = '#determination#, #dateformat(one.latLongDeterminedDate,"dd mmm yyyy")#'>
 							</cfif>
 							<cfif len(#one.lat_long_ref_source#) gt 0>,
-								<cfset determination = '#determination#, #determination_method#'>
+								<cfset determination = '#determination#, #one.lat_long_ref_source#'>
 							</cfif>
 							<div class="detailBlock">
 								<span class="detailCellSmall">
