@@ -524,9 +524,7 @@ end cmask,
 				<div class="detailLabel">
 					<cfif #oneOfUs# is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</span>
-					<!---<cfelse>
-						<span class="detailEditCell" onClick="getInfo('identification','#one.collection_object_id#');">Details</span>
-					---></cfif>
+					</cfif>
 				</div>
 				<div class="detailBlock">
 					<span class="detailData">
