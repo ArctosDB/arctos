@@ -984,7 +984,7 @@ end cmask,
 											<!---<cfset isMedia = true>--->
 											#display_value# 
 													(<a class='external'
-									href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationId=#gref.publication_id#" 
+href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationId=#gref.publication_id#&otherid=#collection_object_id#&otheridtype=collection_object" 
 															target="_blank">click here for reference on field notebook page</a>)
 										<cfelse>
 											#display_value#
