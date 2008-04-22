@@ -531,7 +531,7 @@ end cmask,
 				<tr>
 				<div class="detailBlock">
 					<span class="detailData">
-						<td.specDetailLeft><span class="innerDetailLabel">Identified As:</span></td.specDetailLeft>
+						<td.specDetailLeft><span class="innerDetailLabel">Identified As:</span></td.specDetailLeft><br>
 						<td.specDetailRight><i>#scientific_name#</i></td.specDetailRight>
 					</span>
 				</div>
