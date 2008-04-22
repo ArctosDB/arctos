@@ -527,8 +527,8 @@ end cmask,
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</span>
 					</cfif>
 				</div>
-				<ta>
-				
+				<table>
+				<tr>
 				<div class="detailBlock">
 					<span class="detailData">
 						<td.specDetailLeft><span class="innerDetailLabel">Identified As:</span></td.specDetailLeft>
