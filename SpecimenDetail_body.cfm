@@ -520,50 +520,36 @@ end cmask,
 	<tr>
 		<td valign="top" width="50%">
 <!------------------------------------ Taxonomy ---------------------------------------------->
-			<div class="detailCell">
+			<tableSD class="detailCell">
 			
-				<div class="detailLabel">
+				<trSD class="detailLabel">
 					<cfif #oneOfUs# is 1>
-						<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</span>
+						<tdSDCellRight class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</tdSDCellRight>
 					</cfif>
-				</div>
-				<table>
-				<tr>
-				<div class="detailBlock">
-					<span class="detailData">
-						<td.specDetailLeft><span class="innerDetailLabel">Identified As:</span></td.specDetailLeft><br>
-						<td.specDetailRight><i>#scientific_name#</i></td.specDetailRight>
-					</span>
-				</div>
-				</tr>
-				</table>
-				<div class="detailBlock">					
-					<span class="detailData">
-						<span class="innerDetailLabel">Identifier:</span>
-						#valuelist(identifiers.id_by)#
-					</span>
-				</div>
-				<div class="detailBlock">					
-					<span class="detailData">
-						<span class="innerDetailLabel">Date Identified:</span>
-						#dateformat(made_date,"dd mmm yyyy")#
-					</span>
-				</div>
-				<div class="detailBlock">
-					<span class="detailData">
-						<span class="innerDetailLabel">Nature of Identification:</span>
-						#nature_of_id#
-					</span>
-				</div>
+				</trSD>
+				<trSD class="detailData">
+						<tdSDCellLeft class="innerDetailLabel">Identified As:</tdSDCellLeft>
+						<tdSDCellRight><i>#scientific_name#</i></tdSDCellRight>
+				</trSD>
+				<trSD class="detailData">		
+						<tdSDCellLeft class="innerDetailLabel">Identifier:</tdSDCellLeft>
+						<tdSDCellRight>#valuelist(identifiers.id_by)#</tdSDCellRight>
+				</trSD>
+				<trSD class="detailData">					
+						<tdSDCellLeft class="innerDetailLabel">Date Identified:</tdSDCellLeft>
+						<tdSDCellRight>#dateformat(made_date,"dd mmm yyyy")#</tdSDCellRight>
+				</trSD>
+				<trSD class="detailData">
+						<tdSDCellLeft class="innerDetailLabel">Nature of Identification:</tdSDCellLeft>
+						<tdSDCellRight>#nature_of_id#</tdSDCellRight>
+				</trSD>
 				<cfif len(#identification_remarks#) gt 0>
-					<div class="detailBlock">
-						<span class="detailData">
-							<span class="innerDetailLabel">Identification Remarks:</span>
-							#identification_remarks#
-						</span>
-					</div>
+					<trSD class="detailData">
+							<tdSDCellLeft class="innerDetailLabel">Identification Remarks:</tdSDCellLeft>
+							<tdSDCellRight>#identification_remarks#</tdSDCellRight>
+					</trSD>
 				</cfif>
-			</div>
+			</tableSD>
 <!------------------------------------ locality ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel"><!---Locality--->
