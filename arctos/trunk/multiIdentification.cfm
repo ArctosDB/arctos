@@ -22,6 +22,9 @@
 <cfquery name="ctnature" datasource="#Application.web_user#">
 	select nature_of_id from ctnature_of_id
 </cfquery>
+<cfquery name="ctFormula" datasource="#Application.web_user#">
+	select taxa_formula from cttaxa_formula order by taxa_formula
+</cfquery>
 <cfoutput>
 <cfquery name="getID" datasource="#Application.web_user#">
 	SELECT
