@@ -198,22 +198,12 @@ td.lbl {
 	text-decoration: underline;
 	}
 	
-tableSD {
-	display: table;
-	}
-
-trSD {
-	display: table-row;
-	}
-	
-tdSDCellLeft{
-	display: table-cell;
+td#SDCellLeft{
 	text-align: right;
 	padding: 3px;
 	}
 	
-tdSDCellRight{
-	display: table-cell;
+td#SDCellRight{
 	text-align: Left;
 	padding: 3px;
 	}
