@@ -520,36 +520,35 @@ end cmask,
 	<tr>
 		<td valign="top" width="50%">
 <!------------------------------------ Taxonomy ---------------------------------------------->
-			<tableSD class="detailCell">
-			
-				<trSD class="detailLabel">
+			<table class="detailCell">			
+				<tr class="detailLabel">
 					<cfif #oneOfUs# is 1>
-						<tdSDCellRight class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</tdSDCellRight>
+						<td id="SDCellRight" class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</td>
 					</cfif>
-				</trSD>
-				<trSD class="detailData">
-						<tdSDCellLeft class="innerDetailLabel">Identified As:</tdSDCellLeft>
-						<tdSDCellRight><i>#scientific_name#</i></tdSDCellRight>
-				</trSD>
-				<trSD class="detailData">		
-						<tdSDCellLeft class="innerDetailLabel">Identifier:</tdSDCellLeft>
-						<tdSDCellRight>#valuelist(identifiers.id_by)#</tdSDCellRight>
-				</trSD>
-				<trSD class="detailData">					
-						<tdSDCellLeft class="innerDetailLabel">Date Identified:</tdSDCellLeft>
-						<tdSDCellRight>#dateformat(made_date,"dd mmm yyyy")#</tdSDCellRight>
-				</trSD>
-				<trSD class="detailData">
-						<tdSDCellLeft class="innerDetailLabel">Nature of Identification:</tdSDCellLeft>
-						<tdSDCellRight>#nature_of_id#</tdSDCellRight>
-				</trSD>
+				</tr>
+				<tr class="detailData">
+						<td id="SDCellLeft" class="innerDetailLabel">Identified As:</td>
+						<td id="SDCellRight"><i>#scientific_name#</i></td>
+				</tr>
+				<tr class="detailData">		
+						<td id="SDCellLeft" class="innerDetailLabel">Identifier:</td>
+						<td id="SDCellRight">#valuelist(identifiers.id_by)#</td>
+				</tr>
+				<tr class="detailData">					
+						<td id="SDCellLeft" class="innerDetailLabel">Date Identified:</td>
+						<td id="SDCellRight">#dateformat(made_date,"dd mmm yyyy")#</td>
+				</tr>
+				<tr class="detailData">
+						<td id="SDCellLeft" class="innerDetailLabel">Nature of Identification:</td>
+						<td id="SDCellRight">#nature_of_id#</td>
+				</tr>
 				<cfif len(#identification_remarks#) gt 0>
-					<trSD class="detailData">
-							<tdSDCellLeft class="innerDetailLabel">Identification Remarks:</tdSDCellLeft>
-							<tdSDCellRight>#identification_remarks#</tdSDCellRight>
-					</trSD>
+					<tr class="detailData">
+							<td id="SDCellLeft" class="innerDetailLabel">Identification Remarks:</td>
+							<td id="SDCellRight">#identification_remarks#</td>
+					</tr>
 				</cfif>
-			</tableSD>
+			</table>
 <!------------------------------------ locality ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel"><!---Locality--->
@@ -1333,7 +1332,8 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#page_id#&publicationId=#pu
 			</div>
 		</cfloop>
 		<!--- Insert here more media in detail blocks here --->
-</cfif>--->
+</cfif>
+--->
 	<!---------------------------------------------------------------------------
 
 	 
