@@ -197,16 +197,28 @@ td.lbl {
 	color:#FF0000;
 	text-decoration: underline;
 	}
-td.specDetailLeft {
-	display: td;
-	text-align: right;
-	}
-td.specDetailRight {
-	display: td;
-	text-align: left;
-	}
-	/* End SpecimenDetail */
 	
+tableSD {
+	display: table;
+	}
+
+trSD {
+	display: table-row;
+	}
+	
+tdSDCellLeft{
+	display: table-cell;
+	text-align: right;
+	padding: 3px;
+	}
+	
+tdSDCellRight{
+	display: table-cell;
+	text-align: Left;
+	padding: 3px;
+	}
+
+/* End SpecimenDetail */
 	
 	
 .sessionTimer{
