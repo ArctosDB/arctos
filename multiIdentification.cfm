@@ -402,24 +402,6 @@
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	<cfinclude template="includes/_footer.cfm">
 
 <DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>
