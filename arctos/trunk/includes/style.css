@@ -199,11 +199,11 @@ td.lbl {
 	}
 td.specDetailLeft {
 	display: td;
-	font-align: right;
+	text-align: right;
 	}
-td.specDetailLeft {
+td.specDetailRight {
 	display: td;
-	font-align: left;
+	text-align: left;
 	}
 	/* End SpecimenDetail */
 	
