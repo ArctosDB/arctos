@@ -397,7 +397,7 @@
 	</cftransaction>
 </cfloop>
 
-	<cflocation url="multiIdentification.cfm?collection_object_id=#collection_object_id#&Action=multi" addtoken="no">
+	<cflocation url="multiIdentification.cfm?collection_object_id=#collection_object_id#" addtoken="no">
 	
 </cfoutput>
 </cfif>
