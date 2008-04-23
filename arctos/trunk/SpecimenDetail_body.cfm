@@ -520,14 +520,11 @@ end cmask,
 	<tr>
 		<td valign="top" width="50%">
 <!------------------------------------ Taxonomy ---------------------------------------------->
-			<table id="SD" "class="detailCell">			
-
-					<cfif #oneOfUs# is 1>
-						<tr class="detailLabel">
-							<td class="detailEditCell" colspan="100%" onclick="window.parent.switchIFrame('editIdentification');">Edit</td>
-						</tr>
-					</cfif>
-				
+<div class="detailCell">				
+				<cfif #oneOfUs# is 1>
+						<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</td>
+				</cfif>
+				<table id="SD">		
 				<tr>
 						<td id="SDCellLeft" class="innerDetailLabel">Identified As:</td>
 						<td id="SDCellRight"><i>#scientific_name#</i></td>
@@ -551,6 +548,7 @@ end cmask,
 					</tr>
 				</cfif>
 			</table>
+</div>
 <!------------------------------------ locality ---------------------------------------------->
 			<div class="detailCell">
 				<div class="detailLabel"><!---Locality--->

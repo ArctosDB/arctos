@@ -184,16 +184,16 @@ td.lbl {
 	font-size:1em;
 	}
 .detailEditCell {
-	/*float:right;
-	left:100%;
+	float:right;
+	right:2px;
 	top:0px;;
-	position: relative;*/
-	text-align:right;
+	position: absolute;
 	cursor:pointer;
 	color:#2B547E;
 	font-size:.6em;
 	font-family:Arial, Helvetica, sans-serif;
 	}
+	
 .detailEditCell:hover {
 	color:#FF0000;
 	text-decoration: underline;
