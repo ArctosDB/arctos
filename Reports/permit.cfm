@@ -205,6 +205,11 @@ the option to choose these parameters.  in that case, remove these lines--->
 <cfset curRow = 0>
 <cfset curRecord = 0>
 <cfset maxRecord = data.recordcount>
+<cfloop query="data">
+	<cfif not isdefined('$#collection_object_id#$')>
+		<cfset maxRecord = maxRecord - 1>
+	</cfif>
+</cfloop>
 <!---I don't use these... but they may be useful later.
 <cfset height = 140>
 <cfset pageHeight=975>
