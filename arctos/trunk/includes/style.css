@@ -197,7 +197,10 @@ td.lbl {
 	color:#FF0000;
 	text-decoration: underline;
 	}
-	
+
+table#SD {
+	border-collapse: collapse;
+}
 td#SDCellLeft{
 	text-align: right;
 	}
