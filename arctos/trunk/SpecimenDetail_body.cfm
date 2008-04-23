@@ -526,24 +526,24 @@ end cmask,
 						<td id="SDCellRight" class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</td>
 					</cfif>
 				</tr>
-				<tr class="detailData">
+				<tr>
 						<td id="SDCellLeft" class="innerDetailLabel">Identified As:</td>
 						<td id="SDCellRight"><i>#scientific_name#</i></td>
 				</tr>
-				<tr class="detailData">		
+				<tr>		
 						<td id="SDCellLeft" class="innerDetailLabel">Identifier:</td>
 						<td id="SDCellRight">#valuelist(identifiers.id_by)#</td>
 				</tr>
-				<tr class="detailData">					
+				<tr>					
 						<td id="SDCellLeft" class="innerDetailLabel">Date Identified:</td>
 						<td id="SDCellRight">#dateformat(made_date,"dd mmm yyyy")#</td>
 				</tr>
-				<tr class="detailData">
+				<tr>
 						<td id="SDCellLeft" class="innerDetailLabel">Nature of Identification:</td>
 						<td id="SDCellRight">#nature_of_id#</td>
 				</tr>
 				<cfif len(#identification_remarks#) gt 0>
-					<tr class="detailData">
+					<tr>
 							<td id="SDCellLeft" class="innerDetailLabel">Identification Remarks:</td>
 							<td id="SDCellRight">#identification_remarks#</td>
 					</tr>
