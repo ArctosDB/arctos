@@ -602,6 +602,7 @@
    <br />
    Print: <select name="redir" size="1" onchange="if(this.value.length>0){window.open(this.value,'_blank')};">
    			<option value=""></option>
+   			<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemLabels">Item Slips</option>
 			<cfif #cgi.HTTP_HOST# contains "arctos.database">
 				<option value="/Reports/UAMMammLoanInvoice.cfm?transaction_id=#transaction_id#">UAM Mammal Invoice Header</option>
 				<option value="/Reports/UAMMammLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemList">UAM Mammal Item Invoice</option>
@@ -621,7 +622,6 @@
 				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#">Invoice Header</option>
 				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemList">Item Invoice</option>
 				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=showCondition">Item Conditions</option>
-				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemLabels">Item Slips</option>
 				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=shippingLabel">MVZ shipping label</option>
 			</cfif>
 		</select>
