@@ -211,6 +211,9 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 <cfquery name="curatorial" dbtype="query">
 	select * from poss where category IN ('curatorial','specimen')
 </cfquery>
+<cfquery name="link" dbtype="query">
+	select * from poss where category='links'
+</cfquery>
 <cfoutput>
 
 
@@ -234,6 +237,11 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 				Attributes
 				<span class="infoLink" onclick="checkAllById('#lcase(valuelist(attribute.column_name))#')">[check all]</span>
 				<span class="infoLink" onclick="uncheckAllById('#lcase(valuelist(attribute.column_name))#')">[check none]</span>
+			</td>
+			<td align="center">
+				Links
+				<span class="infoLink" onclick="checkAllById('#lcase(valuelist(link.column_name))#')">[check all]</span>
+				<span class="infoLink" onclick="uncheckAllById('#lcase(valuelist(link.column_name))#')">[check none]</span>
 			</td>
 		</tr>
 		<tr>
@@ -280,6 +288,28 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 			<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
 			<table cellpadding="0" cellspacing="0">
 				<cfloop query="attribute">
+					<tr><td nowrap="nowrap">
+						<cfif left(column_name,1) is "_">
+							#right(column_name,len(column_name)-1)#
+						<cfelse>
+							#column_name#
+						</cfif>
+						<input type="checkbox" 
+							name="#column_name#"
+							id="#lcase(column_name)#"
+							<cfif listfindnocase(client.resultColumnList,column_name)> 
+							checked="checked"</cfif>
+							onchange="if(this.checked==true){crcloo(this.name,'in')}else{crcloo(this.name,'out')};">
+						</td></tr>					
+					</cfloop>
+				
+				</table>
+				</div>
+			</td>
+			<td valign="top" nowrap="nowrap">
+			<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
+			<table cellpadding="0" cellspacing="0">
+				<cfloop query="link">
 					<tr><td nowrap="nowrap">
 						<cfif left(column_name,1) is "_">
 							#right(column_name,len(column_name)-1)#
