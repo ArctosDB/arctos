@@ -520,7 +520,7 @@ end cmask,
 	<tr>
 		<td valign="top" width="50%">
 <!------------------------------------ Taxonomy ---------------------------------------------->
-			<table class="detailCell">			
+			<table id="SD" "class="detailCell">			
 				<tr class="detailLabel">
 					<cfif #oneOfUs# is 1>
 						<td id="SDCellRight" class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</td>
