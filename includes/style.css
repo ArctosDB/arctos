@@ -184,10 +184,11 @@ td.lbl {
 	font-size:1em;
 	}
 .detailEditCell {
-	float:right;
-	right:2px;
+	/*float:right;
+	left:100%;
 	top:0px;;
-	position:absolute;
+	position: relative;*/
+	text-align:right;
 	cursor:pointer;
 	color:#2B547E;
 	font-size:.6em;
