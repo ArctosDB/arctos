@@ -683,9 +683,10 @@ end cmask,
 							<cfif len(#one.lat_long_ref_source#) gt 0>
 								<cfset determination = '#determination#, #one.lat_long_ref_source#'>
 							</cfif>
-								<tr class="detailCellSmall">
-									<td>
-									#determination#
+								<tr>
+									<td></td>
+									<td id="SDCellRight" class="detailCellSmall">
+									S#determination#
 									</td>
 								</tr>
 						</cfif>
