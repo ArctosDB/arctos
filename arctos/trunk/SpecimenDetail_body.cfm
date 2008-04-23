@@ -716,8 +716,10 @@ end cmask,
 						</cfif>--->
 						<cfif len(#one.lat_long_remarks#) gt 0>
 								<tr class="detailCellSmall">
-									<td id="SDCellLeft" class="innerDetailLabel">Coordinate Remarks:</td>
-									<td id="SDCellRight">#one.lat_long_remarks#</td>
+									<td></td>
+									<td class="innerDetailLabel">Coordinate Remarks:
+										#one.lat_long_remarks#
+									</td>
 								</tr>
 						</cfif>
 					</cfif>
