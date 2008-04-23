@@ -1,10 +1,6 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <script src="/includes/sorttable.js"></script>
-<!--- no security --->
-<cfif #client.username# is not "gordon" and #client.username# is not "dlm" and #client.username# is not "dusty">
-	Not yours. Go away.
-	<cfabort>
-</cfif>
+
 	<form name="srch" method="post" action="sqlTaxonomy_browse.cfm">
 				<input type="hidden" name="action" value="findem">
 <table>
