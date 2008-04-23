@@ -76,6 +76,8 @@ put in unneeded select statements here
 
 put in unneeded from statements here
 		LEFT OUTER JOIN accn ON (cataloged_item.accn_id=accn.transaction_id)
+		LEFT OUTER JOIN event_location ON (event_location.collecting_event_id = cataloged_item.collecting_event_id)
+		
 
 put in unneeded where statements here
 
@@ -124,7 +126,6 @@ put in unneeded where statements here
 		INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)
 		INNER JOIN geog_auth_rec ON (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)
 		LEFT OUTER JOIN accepted_lat_long ON (locality.locality_id = accepted_lat_long.locality_id)
-		LEFT OUTER JOIN event_location ON (event_location.collecting_event_id = cataloged_item.collecting_event_id)
 		LEFT OUTER JOIN coll_object_remark ON (coll_object_remark.collection_object_id = cataloged_item.collection_object_id)
 	WHERE
 		accepted_id_fg=1 AND
