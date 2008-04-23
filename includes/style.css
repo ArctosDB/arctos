@@ -200,12 +200,10 @@ td.lbl {
 	
 td#SDCellLeft{
 	text-align: right;
-	padding: 3px;
 	}
 	
 td#SDCellRight{
 	text-align: left;
-	padding: 3px;
 	}
 
 /* End SpecimenDetail */
