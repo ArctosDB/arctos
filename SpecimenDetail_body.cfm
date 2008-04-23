@@ -520,7 +520,7 @@ end cmask,
 	<tr>
 		<td valign="top" width="50%">
 <!------------------------------------ Taxonomy ---------------------------------------------->
-<div class="detailCell">				
+			<div class="detailCell">				
 				<div class="detailLabel">
 					<cfif #oneOfUs# is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</span>
@@ -549,161 +549,130 @@ end cmask,
 							<td id="SDCellRight">#identification_remarks#</td>
 					</tr>
 				</cfif>
-			</table>
-</div>
+				</table>
+			</div>
 <!------------------------------------ locality ---------------------------------------------->
-			<div class="detailCell">
-				<div class="detailLabel"><!---Locality--->
+<div class="detailCell">
+				<div class="detailLabel">
 					<cfif #oneOfUs# is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('specLocality');">Edit</span>
 					</cfif>
 				</div>
-				<cfif len(#one.continent_ocean#) gt 0>						
-					<div class="detailBlock">
-						<span class="detailData">
-							<span class="innerDetailLabel">Continent/Ocean:</span>
-							#one.continent_ocean#
-						</span>
-					</div>
+				<table id="SD">
+					<cfif len(#one.continent_ocean#) gt 0>						
+						<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Continent/Ocean:</td>
+								<td id="SDCellRight">#one.continent_ocean#</td>
+						</tr>
 					</cfif>
-					<cfif len(#one.sea#) gt 0>						
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">Sea:</span>
-								#one.sea#
-							</span>
-						</div>
+					<cfif len(#one.sea#) gt 0>			
+						<tr class="detailData">
+							<td id="SDCellLeft" class="innerDetailLabel">Sea:</td>
+							<td id="SDCellRight">#one.sea#</td>
+						</tr>
 					</cfif>
 					<cfif len(#one.country#) gt 0>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">Country:</span>
-								#one.country#
-							</span>
-						</div>
+						<tr class="detailData">
+							<td id="SDCellLeft" class="innerDetailLabel">Country:</td>
+							<td id="SDCellRight">#one.country#</td>
+						</tr>
 					</cfif>
-					<cfif len(#one.state_prov#) gt 0>						
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">State/Province:</span>
-								#one.state_prov#
-							</span>
-						</div>
+					<cfif len(#one.state_prov#) gt 0>	
+						<tr class="detailData">
+							<td id="SDCellLeft" class="innerDetailLabel">State/Province:</td>
+							<td id="SDCellRight">#one.state_prov#</td>
+						</tr>
 					</cfif>
-					<cfif len(#one.feature#) gt 0>						
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">Feature:</span>
-								#one.feature#
-							</span>
-						</div>
+					<cfif len(#one.feature#) gt 0>	
+						<tr class="detailData">
+							<td id="SDCellLeft" class="innerDetailLabel">Feature:</td>
+							<td id="SDCellRight">#one.feature#</td>
+						</tr>
 					</cfif>
 					<cfif len(#one.county#) gt 0>
-							<div class="detailBlock"><span class="detailData">
-								<span class="innerDetailLabel">County:</span>
-								#one.county#
-							</span>
-						</div>
+						<tr class="detailData">
+							<td id="SDCellLeft" class="innerDetailLabel">County:</td>
+							<td id="SDCellRight">#one.county#</td>
+						</tr>
 					</cfif>
-					<cfif len(#one.island_group#) gt 0>						
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">Island Group:</span>
-								#one.island_group#
-							</span>
-						</div>
+					<cfif len(#one.island_group#) gt 0>	
+						<tr class="detailData">
+							<td id="SDCellLeft" class="innerDetailLabel">Island Group:</td>
+							<td id="SDCellRight">#one.island_group#</td>
+						</tr>
 					</cfif>
 					<cfif len(#one.island#) gt 0>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">Island:</span>
-								#one.island#
-							</span>
-						</div>
+						<tr class="detailData">
+							<td id="SDCellLeft" class="innerDetailLabel">Island:</td>
+							<td id="SDCellRight">#one.island#</td>
+						</tr>
 					</cfif>
 					<cfif len(#one.quad#) gt 0>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">USGS Quad:</span>
-								#one.quad#
-							</span>
-						</div>
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">USGS Quad:</td>
+								<td id="SDCellRight">#one.quad#</td>
+							</tr>
 					</cfif>					
 					<cfif len(#one.spec_locality#) gt 0>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">Specific Locality:</span>
-								#one.spec_locality#
-							</span>
-						</div>
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Specific Locality:</td>
+								<td id="SDCellRight">#one.spec_locality#</td>
+							</tr>
 					</cfif>
 					<cfif #one.verbatim_locality# is not #one.spec_locality#>
 						<cfif len(#one.verbatim_locality#) gt 0>
-							<div class="detailBlock">
-								<span class="detailData">
-									<span class="innerDetailLabel">Verbatim Locality:</span>
-									#one.verbatim_locality#
-								</span>
-							</div>
+								<tr class="detailData">
+									<td id="SDCellLeft" class="innerDetailLabel">Verbatim Locality:</td>
+									<td id="SDCellRight">#one.verbatim_locality#</td>
+								</tr>
 						</cfif>
 					</cfif>					
 					<cfif len(#one.locality_remarks#) gt 0>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">Locality Remarks:</span>
-								#one.locality_remarks#
-							</span>
-						</div>
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Locality Remarks:</td>
+								<td id="SDCellRight">#one.locality_remarks#</td>
+							</tr>
 					</cfif>
 					<cfif len(#one.habitat_desc#) gt 0>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">General Habitat:</span>
-								#one.habitat_desc#
-							</span>
-						</div>
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">General Habitat:</td>
+								<td id="SDCellRight">#one.habitat_desc#</td>
+							</tr>
 					</cfif>
 					<cfif len(#one.habitat#) gt 0>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">Microhabitat:</span>
-								#one.habitat#
-							</span>
-						</div>
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Microhabitat:</td>
+								<td id="SDCellRight">#one.habitat#</td>
+							</tr>
 					</cfif>
 					<cfif len(#one.associated_species#) gt 0>
 						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">Associated Species:</span>
-								#one.associated_species#
-							</span>
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Associated Species:</td>
+								<td id="SDCellRight">#one.associated_species#</td>
+							</tr>
 						</div>
 					</cfif>
 					<cfif len(#one.minimum_elevation#) gt 0>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">Elevation:</span>
-								#one.minimum_elevation# to #one.maximum_elevation# #one.orig_elev_units#
-							</span>
-						</div>
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Elevation:</td>
+								<td id="SDCellRight">#one.minimum_elevation# to #one.maximum_elevation# #one.orig_elev_units#</td>
+							</tr>
 					</cfif>
 					<cfif (len(#verbatimLatitude#) gt 0 and len(#verbatimLongitude#) gt 0)>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">Coordinates:</span>
-								#one.VerbatimLatitude# #one.verbatimLongitude#
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Coordinates:</td>
+								<td id="SDCellRight">#one.VerbatimLatitude# #one.verbatimLongitude#
 								<cfif len(#one.datum#) gt 0>
 									(#one.datum#)
 								</cfif>
-							</span>
-						</div>
+								</td>
+							</tr>
 						<cfif len(#one.max_error_distance#) gt 0>
-							<div class="detailBlock">
-								<span class="detailData">
-									<span class="innerDetailLabel">Error:</span>
-									#one.max_error_distance# #one.max_error_units#
-								</span>
-							</div>
+								<tr class="detailData">
+									<td id="SDCellLeft" class="innerDetailLabel">Error:</td>
+									<td id="SDCellRight">#one.max_error_distance# #one.max_error_units#</td>
+								</tr>
 						</cfif>
 						<!--- determination --->
 						<cfif len(#one.latLongDeterminer#) gt 0>
@@ -714,11 +683,11 @@ end cmask,
 							<cfif len(#one.lat_long_ref_source#) gt 0>
 								<cfset determination = '#determination#, #one.lat_long_ref_source#'>
 							</cfif>
-							<div class="detailBlock">
-								<span class="detailCellSmall">
+								<tr class="detailCellSmall">
+									<td>
 									#determination#
-								</span>
-							</div>
+									</td>
+								</tr>
 						</cfif>
 						<!---<cfif len(#one.latLongDeterminer#) gt 0>
 							<div class="detailBlock">
@@ -745,12 +714,10 @@ end cmask,
 							</div>
 						</cfif>--->
 						<cfif len(#one.lat_long_remarks#) gt 0>
-							<div class="detailBlock">
-								<span class="detailCellSmall">
-									<span class="innerDetailLabel">Coordinate Remarks:</span>
-									#one.lat_long_remarks#
-								</span>
-							</div>
+								<tr class="detailCellSmall">
+									<td id="SDCellLeft" class="innerDetailLabel">Coordinate Remarks:</td>
+									<td id="SDCellRight">#one.lat_long_remarks#</td>
+								</tr>
 						</cfif>
 					</cfif>
 					<cfif (#one.verbatim_date# is #one.began_date#) AND (#one.verbatim_date# is #one.ended_date#)>
@@ -763,12 +730,11 @@ end cmask,
 					<cfelse>
 						<cfset thisDate = "#one.verbatim_date# (#dateformat(one.began_date,"dd mmm yyyy")# - #dateformat(one.ended_date,"dd mmm yyyy")#)">
 					</cfif>
-					<div class="detailBlock">
-						<span class="detailData">
-							<span class="innerDetailLabel">Collecting Date:</span>
-							#thisDate#
-						</span>
-					</div>
+						<tr class="detailData">
+							<td id="SDCellLeft" class="innerDetailLabel">Collecting Date:</td>
+							<td id="SDCellRight">#thisDate#</td>
+						</tr>
+					</table>
 				</div>
 				
 <!------------------------------------ parts ---------------------------------------------->
