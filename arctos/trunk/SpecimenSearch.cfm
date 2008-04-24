@@ -361,7 +361,7 @@
 						<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
 					</cfloop>
 				</select>
-				<span class="infoLink" onclick="getCtDoc('ctcitation_type_status',SpecData.type_status.value);">Define</span>	
+				<span class="infoLink" onclick="getCtDoc('ctcitation_type_status', SpecData.type_status.value);">Define</span>	
 			</td>
 		</tr>
 	</table>
@@ -450,6 +450,20 @@
 	changeGrp('groupBy');
 	// make an ajax call to get preferences, then turn stuff on
 	DWREngine._execute(_cfscriptLocation, null, 'getSpecSrchPref', r_getSpecSrchPref);
+	
+	function getComplete (getResult) {
+;
+		if (getResult == "cookie") {
+			var cookie = readCookie("specsrchprefs");
+			if (cookie != null) {
+				r_getSpecSrchPref(cookie);
+			}
+			//else cookie does not exist = nothing to turn on
+		}
+		else
+			r_getSpecSrchPref(getResult);
+	}
+	
 	function r_getSpecSrchPref (result){
 		//alert(result);
 		var j=result.split(',');
