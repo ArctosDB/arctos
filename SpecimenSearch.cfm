@@ -449,7 +449,7 @@
 	changeTarget('tgtForm',tval);
 	changeGrp('groupBy');
 	// make an ajax call to get preferences, then turn stuff on
-	DWREngine._execute(_cfscriptLocation, null, 'getSpecSrchPref', r_getSpecSrchPref);
+	DWREngine._execute(_cfscriptLocation, null, 'getSpecSrchPref', getComplete);
 	
 	function getComplete (getResult) {
 ;

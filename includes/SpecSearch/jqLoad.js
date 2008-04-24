@@ -102,6 +102,11 @@ function showHide(id,onOff) {
 }
 
 function saveComplete(savedStr){
+	var savedArray = savedStr.split(",");
+	var result = savedArray[0];
+	var id = savedArray[1];
+	var onOff = savedArray[2];
+	
 	var cCookie = readCookie("specsrchprefs");
 	var idFound = -1;
 	if (cCookie != null) // cookie for specsrchprefs exists already
@@ -115,9 +120,8 @@ function saveComplete(savedStr){
 	}
 	else
 		var cookieArray = new Array();
-	
-	
-	if (savedStr == "cookie") { //need to add id to cookie
+		
+	if (result == "cookie") { //need to add id to cookie
 		if (onOff) { //showHide On			
 			if (idFound == -1) { // no current id in cookie
 				cookieArray = cookieArray.push(id);
