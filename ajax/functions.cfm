@@ -38,8 +38,9 @@
 			</cfquery>
 			<cfcatch><!-- nada --></cfcatch>
 		</cftry>
+		<cfreturn "saved">
 	</cfif>
-	<cfreturn "">
+	<cfreturn "cookie">
 </cffunction>
 <!-------------------------------------------->
 <cffunction name="getSpecSrchPref" returntype="string">
@@ -53,7 +54,7 @@
 			<cfcatch><!-- nada --></cfcatch>
 		</cftry>
 	</cfif>
-	<cfreturn "null">	
+	<cfreturn "cookie">	
 </cffunction>
 
 <!-------------------------------------------->

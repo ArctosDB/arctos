@@ -24,8 +24,6 @@ jQuery( function($) {
 	});
 });
 
-
-
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {
 		$('#helpDiv').remove();
@@ -76,6 +74,7 @@ function changeGrp(tid) {
 	}
 }
 function nada(){var a=1;}
+
 function showHide(id,onOff) {
 	var t='e_' + id;
 	var z='c_' + id;	
@@ -91,8 +90,6 @@ function showHide(id,onOff) {
 			ctl.innerHTML='Show Fewer Options';
 			// flipping retarded, but try this here
 			
-			
-	
 	
 		} else {
 			tab.innerHTML='';
@@ -100,9 +97,67 @@ function showHide(id,onOff) {
 			ctl.innerHTML='Show More Options';
 		} 
 		// see if we can save it to their preferences
-		DWREngine._execute(_cfscriptLocation, null, 'saveSpecSrchPref', id, onOff,nada);
+		DWREngine._execute(_cfscriptLocation, null, 'saveSpecSrchPref', id, onOff, saveComplete);
 	}
 }
+
+function saveComplete(savedStr){
+	var cCookie = readCookie("specsrchprefs");
+	var idFound = -1;
+	if (cCookie != null) // cookie for specsrchprefs exists already
+	{
+		var cookieArray = cCookie.split(","); // turn cookie string to array
+		for (int i = 0; cookieArray[i]!= null; i++) { // see if id already exists
+			if (cookieArray[i] == id) {
+				idFound = i;
+			}
+		}
+	}
+	else
+		var cookieArray = new Array();
+	
+	
+	if (savedStr == "cookie") { //need to add id to cookie
+		if (onOff) { //showHide On			
+			if (idFound == -1) { // no current id in cookie
+				cookieArray = cookieArray.push(id);
+			}
+			// else nothing needs to be done
+		}
+		else { //showHide Off
+			if (idFound != -1) // id exists in cookie
+				cookieArray = cookieArray.remove(id);
+			// else nothing needs to be done
+		}
+	}
+	
+	var nCookie = cookieArray.join(",");
+	
+	createCookie(specsrchprefs, nCookie, 0);
+}
+
+function createCookie(name,value,days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	}
+	else var expires = "";
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+
+
 function multi (id){
 	alert('mult');
 	var id=document.getElementById(id);
