@@ -107,21 +107,21 @@ function saveComplete(savedStr){
 	var id = savedArray[1];
 	var onOff = savedArray[2];
 	
-	var cCookie = readCookie("specsrchprefs");
-	var idFound = -1;
-	if (cCookie != null) // cookie for specsrchprefs exists already
-	{
-		var cookieArray = cCookie.split(","); // turn cookie string to array
-		for (i = 0; i<cookieArray.length; i++) { // see if id already exists
-			if (cookieArray[i] == id) {
-				idFound = i;
+	if (result == "cookie") { //need to add id to cookie
+		var cCookie = readCookie("specsrchprefs");
+		var idFound = -1;
+		if (cCookie != null) // cookie for specsrchprefs exists already
+		{
+			var cookieArray = cCookie.split(","); // turn cookie string to array
+			for (i = 0; i<cookieArray.length; i++) { // see if id already exists
+				if (cookieArray[i] == id) {
+					idFound = i;
+				}
 			}
 		}
-	}
-	else
-		var cookieArray = new Array();
-		
-	if (result == "cookie") { //need to add id to cookie
+		else
+			var cookieArray = new Array();
+			
 		if (onOff) { //showHide On			
 			if (idFound == -1) { // no current id in cookie
 				cookieArray = cookieArray.push(id);
@@ -133,11 +133,10 @@ function saveComplete(savedStr){
 				cookieArray = cookieArray.remove(id);
 			// else nothing needs to be done
 		}
+	
+		var nCookie = cookieArray.join(",");	
+		createCookie("specsrchprefs", nCookie, 0);
 	}
-	
-	var nCookie = cookieArray.join(",");
-	
-	createCookie(specsrchprefs, nCookie, 0);
 }
 
 function createCookie(name,value,days) {
