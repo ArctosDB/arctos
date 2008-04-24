@@ -40,7 +40,7 @@
 		</cftry>
 		<cfreturn "saved">
 	</cfif>
-	<cfreturn "cookie">
+	<cfreturn "cookie,#id#,#onOff#">
 </cffunction>
 <!-------------------------------------------->
 <cffunction name="getSpecSrchPref" returntype="string">
