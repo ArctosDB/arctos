@@ -107,7 +107,7 @@ function saveComplete(savedStr){
 	if (cCookie != null) // cookie for specsrchprefs exists already
 	{
 		var cookieArray = cCookie.split(","); // turn cookie string to array
-		for (int i = 0; cookieArray[i]!= null; i++) { // see if id already exists
+		for (i = 0; i<cookieArray.length; i++) { // see if id already exists
 			if (cookieArray[i] == id) {
 				idFound = i;
 			}
