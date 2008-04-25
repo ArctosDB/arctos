@@ -130,7 +130,7 @@ function saveComplete(savedStr){
 		}
 		else { //showHide Off
 			if (idFound != -1) // id exists in cookie
-				cookieArray = cookieArray.remove(id);
+				cookieArray = cookieArray.splice(idFound,1);
 			// else nothing needs to be done
 		}
 	
