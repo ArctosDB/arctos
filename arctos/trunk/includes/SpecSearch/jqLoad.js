@@ -134,7 +134,8 @@ function saveComplete(savedStr){
 			// else nothing needs to be done
 		}
 	
-		var nCookie = cookieArray.join(",");
+		var nCookie;
+		nCookie = cookieArray.join(",");
 		createCookie("specsrchprefs", nCookie, 0);
 	}
 }
