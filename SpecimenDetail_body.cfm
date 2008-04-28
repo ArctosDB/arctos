@@ -692,7 +692,7 @@ end cmask,
 								</cfif>
 								</td>
 							</tr>
-					</cfif>
+					
 						
 						<!--- determination --->
 						<cfif len(#one.latLongDeterminer#) gt 0>
