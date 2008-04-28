@@ -610,6 +610,9 @@ function success_getSpecResultsData(result){
 			if (result[0].COLUMNLIST.indexOf('DEC_LONG')> -1) {
 				theInnerHtml += '<th>Dec.&nbsp;Long.</th>';
 			}
+			if (result[0].COLUMNLIST.indexOf('GREF_LINK') > -1) {
+				theInnerHtml += '<th>Gref&nbsp;Link</th>';
+			}
 		theInnerHtml += '</tr>';
 		// get an ordered list of collection_object_ids to pass on to 
 		// SpecimenDetail for browsing
@@ -917,6 +920,9 @@ function success_getSpecResultsData(result){
 				}
 				if (result[0].COLUMNLIST.indexOf('DEC_LONG')> -1) {
 					theInnerHtml += '<td style="font-size:small">' + result[i].DEC_LONG + '&nbsp;</td>';
+				}
+				if (result[0].COLUMNLIST.indexOf('GREF_LINK') > -1) {
+					theInnerHtml += '<td>' + result[i].GREF_LINK + '"&nbsp;</td>';
 				}
 			theInnerHtml += '</tr>';
 		}

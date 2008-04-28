@@ -130,7 +130,12 @@ function removeHelpDiv() {
 <cfif ListContainsNoCase(client.resultColumnList,"_original_elevation")>
 	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
 </cfif>
-
+<cfif ListContainsNoCase(client.resultColumnList,"_gref_link")>
+	<cf_grefLink>
+	<cfif len(grefLink) gt 0>
+		<cfset basSelect = "#basSelect#,'<a href=''#grefLink#''>Field Notebook Page</a>' as gref_link">
+	</cfif>
+</cfif>
 
 	
 	<cfset basFrom = " FROM #flatTableName#">
@@ -155,7 +160,7 @@ function removeHelpDiv() {
 		</cfif>
 
 <!-------------------------- dlkm debug -----------------<--------------------->	
-	<cfif isdefined("client.username") and (#client.username# is "dlm" or #client.username# is "dusty" or #client.username# is "lam")>
+	<cfif isdefined("client.username") and (#client.username# is "dlm" or #client.username# is "dusty" or #client.username# is "lam" or #client.username# is "pdevore")>
 		
 	<cfoutput>
 	#preserveSingleQuotes(SqlString)#
