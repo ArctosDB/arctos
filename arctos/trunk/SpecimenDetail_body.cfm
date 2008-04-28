@@ -24,7 +24,7 @@ end cmask,
 --->
 
 
-<cfset detSelectf = "
+<cfset detSelect = "
 	SELECT
 		cataloged_item.collection_object_id as collection_object_id,
 		collection.collection_cde,
@@ -551,26 +551,6 @@ end cmask,
 				</cfif>
 				</table>
 			</div>
-<!------------------------------------ citations ---------------------------------------------->
-			<cfif len(#citations.cited_name#) gt 0>  
-				<div class="detailCell">
-					<div class="detailLabel">Citations</div>
-					<cfloop query="citations">
-						<div class="detailBlock">
-							<span class="detailData">
-								<a href="PublicationResults.cfm?publication_id=#publication_id#" 
-									target="_mainFrame">
-										#formatted_publication#</a>, 
-								<cfif len(#occurs_page_number#) gt 0>
-									Page #occurs_page_number#,
-								</cfif>
-								#type_status# of 
-								<a href="TaxonomyDetails.cfm?taxon_name_id=#cited_name_id#" target="_mainFrame"><i>#replace(cited_name," ","&nbsp;","all")#</i></a>
-							</span>
-						</div>
-					</cfloop>
-				</div>
-			</cfif>
 <!------------------------------------ locality ---------------------------------------------->
 <div class="detailCell">
 				<div class="detailLabel">
@@ -778,7 +758,7 @@ end cmask,
 								<th><span class="innerDetailLabel">Condition</span></th>
 								<th><span class="innerDetailLabel">Disposition</span></th>
 								<th><span class="innerDetailLabel">##</span></th>
-								<th><span class="innerDetailLabel">Remarks</span></th>
+								<th><span class="innerDetailLabel">Tiss?</span></th>
 							</tr>
 							<cfloop query="parts">
 								<tr>
@@ -789,13 +769,26 @@ end cmask,
 									<td>#part_condition#</td>
 									<td>#part_disposition#</td>
 									<td>#lot_count#</td>
-									<td><cfif #is_tissue# is 1>yes<cfelse>no</cfif></td>	
+									<td><cfif #is_tissue# is 1>yes<cfelse>no</cfif></td>
 								</tr>
 							</cfloop>
 						</table>
 					</span>
 				</div>
-			</div>	
+			</div>
+<!------------------------------------ accession ---------------------------------------------->
+			<div class="detailCell">
+				<div class="detailLabel">Accession
+					<cfif #oneOfUs# is 1>
+						<span class="detailEditCell" onclick="window.parent.switchIFrame('addAccn');">Edit</span>
+					</cfif>
+				</div>
+				<div class="detailBlock">
+					<span class="detailData">
+						<a href="editAccn.cfm?Action=edit&transaction_id=#one.accn_id#" target="#client.target#">#accession#</a>
+					</span>
+				</div>
+			</div>			
 <!------------------------------------ preparators ---------------------------------------------->
 			<cfif #len(preps.preparators)# gt 0>
 				<div class="detailCell">
@@ -1184,25 +1177,30 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 						</cfif>
 					</cfif>
 				</div>
-				
-<!------------------------------------ accession ---------------------------------------------->
-			<div class="detailCell">
-				<div class="detailLabel">Accession
-					<cfif #oneOfUs# is 1>
-						<span class="detailEditCell" onclick="window.parent.switchIFrame('addAccn');">Edit</span>
-					</cfif>
+<!------------------------------------ citations ---------------------------------------------->
+			<cfif len(#citations.cited_name#) gt 0>  
+				<div class="detailCell">
+					<div class="detailLabel">Citations</div>
+					<cfloop query="citations">
+						<div class="detailBlock">
+							<span class="detailData">
+								<a href="PublicationResults.cfm?publication_id=#publication_id#" 
+									target="_mainFrame">
+										#formatted_publication#</a>, 
+								<cfif len(#occurs_page_number#) gt 0>
+									Page #occurs_page_number#,
+								</cfif>
+								#type_status# of 
+								<a href="TaxonomyDetails.cfm?taxon_name_id=#cited_name_id#" target="_mainFrame"><i>#replace(cited_name," ","&nbsp;","all")#</i></a>
+							</span>
+						</div>
+					</cfloop>
 				</div>
-				<div class="detailBlock">
-					<span class="detailData">
-						<a href="editAccn.cfm?Action=edit&transaction_id=#one.accn_id#" target="#client.target#">#accession#</a>
-					</span>
-				</div>
-			</div>		
-
-<!------------------------------------ Media ---------------------------------------------->
+			</cfif>
+<!------------------------------------ binary objects ---------------------------------------------->
 			<cfif #images.recordcount# gt 0>
 				<div class="detailCell">
-					<div class="detailLabel">Media
+					<div class="detailLabel">Binary Objects
 						<cfif #oneOfUs# is 1>
 							<span class="detailEditCell" onclick="window.parent.switchIFrame('editImages');">Edit</span>
 						</cfif>						
