@@ -1246,6 +1246,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 									<span style="font-size:small"><br>#description# (#sizeInK#)</span>
 								</div>
 							</span>
+						</div>
 						</cfloop>
 					</div>
 				</cfif>
