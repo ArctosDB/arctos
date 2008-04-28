@@ -110,6 +110,7 @@ function saveComplete(savedStr){
 	if (result == "cookie") { //need to add id to cookie
 		var cCookie = readCookie("specsrchprefs");
 		var idFound = -1;
+		var cookieArray = new Array();
 		if (cCookie != null) // cookie for specsrchprefs exists already
 		{
 			var cookieArray = cCookie.split(","); // turn cookie string to array
@@ -119,8 +120,6 @@ function saveComplete(savedStr){
 				}
 			}
 		}
-		else
-			var cookieArray = new Array();
 			
 		if (onOff) { //showHide On			
 			if (idFound == -1) { // no current id in cookie
@@ -133,9 +132,8 @@ function saveComplete(savedStr){
 				cookieArray = cookieArray.splice(idFound,1);
 			// else nothing needs to be done
 		}
-	
-		var nCookie;
-		nCookie = cookieArray.join(",");
+		
+		var nCookie = cookieArray.join(",");
 		createCookie("specsrchprefs", nCookie, 0);
 	}
 }
