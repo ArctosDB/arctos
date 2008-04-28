@@ -21,6 +21,11 @@ http://bg.berkeley.edu/gref/Client.html?pageid=5929&publicationid=1911&otherid=1
 		  and gref_roi_value_ng.id = gref_roi_ng.ROI_VALUE_NG_ID
 		  and gref_roi_ng.section_number = book_section.book_section_order
 		  and gref_roi_value_ng.#caller.oidtype#_id = #caller.oid#;">
+	<cfif (#client.username# is 'pdevore')>
+		<cfoutput>
+			GrefLink SQL: #sql#<br/>
+		</cfoutput>
+	</cfif>
 	<cfquery name='grefLink' datasource='#Application.web_user#'>
 		#preservesinglequotes(sql)#
 	</cfquery>
