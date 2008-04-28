@@ -106,14 +106,14 @@ function saveComplete(savedStr){
 	var result = savedArray[0];
 	var id = savedArray[1];
 	var onOff = savedArray[2];
+	var cookieArray = new Array();
 	
 	if (result == "cookie") { //need to add id to cookie
 		var cCookie = readCookie("specsrchprefs");
 		var idFound = -1;
-		var cookieArray = new Array();
-	/*	if (cCookie != null) // cookie for specsrchprefs exists already
+		if (cCookie != null) // cookie for specsrchprefs exists already
 		{
-			var cookieArray = cCookie.split(","); // turn cookie string to array
+			cookieArray = cCookie.split(","); // turn cookie string to array
 			for (i = 0; i<cookieArray.length; i++) { // see if id already exists
 				if (cookieArray[i] == id) {
 					idFound = i;
@@ -131,7 +131,7 @@ function saveComplete(savedStr){
 			if (idFound != -1) // id exists in cookie
 				cookieArray = cookieArray.splice(idFound,1);
 			// else nothing needs to be done
-		}*/
+		}
 		
 		var nCookie = cookieArray.join(",");
 		createCookie("specsrchprefs", nCookie, 0);
