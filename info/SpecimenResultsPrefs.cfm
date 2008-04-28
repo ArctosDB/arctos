@@ -212,8 +212,26 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 	select * from poss where category IN ('curatorial','specimen')
 </cfquery>
 <cfquery name="link" dbtype="query">
-	select * from poss where category='links'
+	select * from poss where category='link'
 </cfquery>
+<cffunction name="displayColumn">
+	<cfargument name="column_name">
+	<cfargument name="resultColList">
+	<cfset retval = "<tr><td nowrap="nowrap">">
+	<cfif left(column_name,1) is "_">
+		<cfset retval = "#retval##right(column_name,len(column_name)-1)#">
+	<cfelse>
+		<cfset retval = "#retval##column_name#">
+	</cfif>
+	<cfset retval = '#retval#<input type="checkbox" 
+			name="#column_name#"
+			id="#lcase(column_name)#"'>
+	<cfif listfindnocase(resultColList,column_name)> 
+		<cfset retval = '#retval#checked="checked"'>
+	</cfif>
+	<cfset retval = '#retval#onchange="if(this.checked==true){crcloo(this.name,''in'')}else{crcloo(this.name,''out'')};"></td></tr>'>
+	<cfreturn retval>
+</cffunction>
 <cfoutput>
 
 
@@ -247,85 +265,38 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 		<tr>
 			<td valign="top" nowrap="nowrap">
 				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
-					<cfloop query="locality">
-						<br>
-						<cfif left(column_name,1) is "_">
-							#right(column_name,len(column_name)-1)#
-						<cfelse>
-							#column_name#
-						</cfif>
-						
-							
-							<input type="checkbox" 
-							name="#column_name#"
-							id="#lcase(column_name)#"
-							<cfif listfindnocase(client.resultColumnList,column_name)> 
-							checked="checked"</cfif>
-							onchange="if(this.checked==true){crcloo(this.name,'in')}else{crcloo(this.name,'out')};">
-												
-					</cfloop>
+			<table cellpadding="0" cellspacing="0">
+				<cfloop query="locality">
+					#displayColumn(column_name,client.resultColumnList)#
+				</cfloop>
+			</table>
 				</div>
 			</td>
 			<td valign="top" nowrap="nowrap">
 				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
-					<cfloop query="curatorial">
-						<br>
-						<cfif left(column_name,1) is "_">
-							#right(column_name,len(column_name)-1)#
-						<cfelse>
-							#column_name#
-						</cfif>
-						<input type="checkbox" 
-							name="#column_name#"
-							id="#lcase(column_name)#" 
-							<cfif listfindnocase(client.resultColumnList,column_name)> 
-							checked="checked"</cfif>
-							onchange="if(this.checked==true){crcloo(this.name,'in')}else{crcloo(this.name,'out')};">					
-					</cfloop>
-				</div>
-			</td>
-			<td valign="top" nowrap="nowrap">
-			<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
 			<table cellpadding="0" cellspacing="0">
-				<cfloop query="attribute">
-					<tr><td nowrap="nowrap">
-						<cfif left(column_name,1) is "_">
-							#right(column_name,len(column_name)-1)#
-						<cfelse>
-							#column_name#
-						</cfif>
-						<input type="checkbox" 
-							name="#column_name#"
-							id="#lcase(column_name)#"
-							<cfif listfindnocase(client.resultColumnList,column_name)> 
-							checked="checked"</cfif>
-							onchange="if(this.checked==true){crcloo(this.name,'in')}else{crcloo(this.name,'out')};">
-						</td></tr>					
-					</cfloop>
-				
-				</table>
+				<cfloop query="curatorial">
+					#displayColumn(column_name,client.resultColumnList)#					
+				</cfloop>
+			</table>
 				</div>
 			</td>
 			<td valign="top" nowrap="nowrap">
-			<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
+				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
+			<table cellpadding="0" cellspacing="0">
+				<cfloop query="attribute">	
+					#displayColumn(column_name,client.resultColumnList)#			
+				</cfloop>
+			</table>
+				</div>
+			</td>
+			<td valign="top" nowrap="nowrap">
+				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
 			<table cellpadding="0" cellspacing="0">
 				<cfloop query="link">
-					<tr><td nowrap="nowrap">
-						<cfif left(column_name,1) is "_">
-							#right(column_name,len(column_name)-1)#
-						<cfelse>
-							#column_name#
-						</cfif>
-						<input type="checkbox" 
-							name="#column_name#"
-							id="#lcase(column_name)#"
-							<cfif listfindnocase(client.resultColumnList,column_name)> 
-							checked="checked"</cfif>
-							onchange="if(this.checked==true){crcloo(this.name,'in')}else{crcloo(this.name,'out')};">
-						</td></tr>					
-					</cfloop>
-				
-				</table>
+					#displayColumn(column_name,client.resultColumnList)#				
+				</cfloop>
+			</table>
 				</div>
 			</td>
 		</tr>
