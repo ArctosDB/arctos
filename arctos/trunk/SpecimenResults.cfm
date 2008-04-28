@@ -133,6 +133,11 @@ function removeHelpDiv() {
 </cfif>
 <cfif ListContainsNoCase(client.resultColumnList,"_gref_link")>
 	<cf_grefLink>
+	<cfif #client.username# is 'pdevore'>
+		<cfoutput>
+			grefLinkSQL
+		</cfoutput>
+	</cfif>
 	<cfif len(grefLink) gt 0>
 		<cfset basSelect = "#basSelect#,'<a href=''#grefLink#''>Field Notebook Page</a>' as gref_link">
 	</cfif>
