@@ -124,6 +124,7 @@ function removeHelpDiv() {
 </cfloop>
 
 <!--- things that start with _ need special handling --->
+<!--- this special handling is how to add it to the select statement --->
 <cfif ListContainsNoCase(client.resultColumnList,"_elev_in_m")>
 	<cfset basSelect = "#basSelect#,min_elev_in_m,max_elev_in_m">
 </cfif>
@@ -279,6 +280,15 @@ function removeHelpDiv() {
 	<cfcatch></cfcatch>
 	</cftry>
 </cfif>
+<cfif ListContainsNoCase(resultList,"_gref_link")>
+	<cfif len(grefLink) gt 0>
+		<cftry>
+		<cfset resultList = ListDeleteAt(resultList, ListFindNoCase(resultList,"_gref_link"))>
+		<cfcatch></cfcatch>
+		</cftry>
+	</cfif>
+</cfif>
+
 
 <form name="controls">
 	<!--- keep stuff around for JS to get at --->
