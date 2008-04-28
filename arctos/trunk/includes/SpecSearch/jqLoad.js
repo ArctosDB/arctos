@@ -126,15 +126,15 @@ function saveComplete(savedStr){
 		if (onOff) { //showHide On			
 			if (idFound == -1) { // no current id in cookie
 			alert("hi4");
-				cookieArray = cookieArray.push(id);
-				alert(id);
+				cookieArray.push(id);
+				//alert(id);
 			}
 			// else nothing needs to be done
 		}
 		else { //showHide Off
 		alert("hi5");
 			if (idFound != -1) // id exists in cookie
-				cookieArray = cookieArray.splice(idFound,1);
+				cookieArray.splice(idFound,1);
 			// else nothing needs to be done
 		}
 		alert("hi6");
