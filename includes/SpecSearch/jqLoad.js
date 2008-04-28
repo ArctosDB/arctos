@@ -106,9 +106,8 @@ function saveComplete(savedStr){
 	var result = savedArray[0];
 	var id = savedArray[1];
 	var onOff = savedArray[2];
-	alert("hi");
 	if (result == "cookie") { //need to add id to cookie
-		alert("hi1");
+		//alert("hi1");
 		var cookieArray = new Array();
 		var cCookie = readCookie("specsrchprefs");
 		var idFound = -1;
@@ -128,6 +127,7 @@ function saveComplete(savedStr){
 			if (idFound == -1) { // no current id in cookie
 			alert("hi4");
 				cookieArray = cookieArray.push(id);
+				alert(id);
 			}
 			// else nothing needs to be done
 		}
