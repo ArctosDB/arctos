@@ -687,10 +687,10 @@ end cmask,
 								<cfif len(#one.datum#) gt 0>
 									(#one.datum#)
 								</cfif>
-								</td>
 								<cfif len(#one.max_error_distance#) gt 0>
-									<td id="SDCellLeft" class="innerDetailLabel">, Error:</td>
-									<td id="SDCellRight">#one.max_error_distance# #one.max_error_units#</td>
+									, Error:
+									#one.max_error_distance# #one.max_error_units#
+								</td>
 						</cfif>
 							</tr>
 						
