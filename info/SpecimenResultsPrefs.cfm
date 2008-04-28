@@ -217,7 +217,7 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 <cffunction name="displayColumn">
 	<cfargument name="column_name">
 	<cfargument name="resultColList">
-	<cfset retval = "<tr><td nowrap="nowrap">">
+	<cfset retval = "<tr><td nowrap='nowrap'>">
 	<cfif left(column_name,1) is "_">
 		<cfset retval = "#retval##right(column_name,len(column_name)-1)#">
 	<cfelse>
@@ -262,6 +262,7 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 				<span class="infoLink" onclick="uncheckAllById('#lcase(valuelist(link.column_name))#')">[check none]</span>
 			</td>
 		</tr>
+		<script>alert("in spec results prefs");</script>
 		<tr>
 			<td valign="top" nowrap="nowrap">
 				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
@@ -299,6 +300,7 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 			</table>
 				</div>
 			</td>
+		<script>alert("survived spec results prefs");</script>
 		</tr>
 	</table>
 
