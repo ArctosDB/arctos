@@ -686,14 +686,14 @@ end cmask,
 								<cfif len(#one.datum#) gt 0>
 									(#one.datum#)
 								</cfif>
-								<cfif len(#one.max_error_distance#) gt 0>
-										<td id="SDCellLeft" class="innerDetailLabel">Error:</td>
-										<td id="SDCellRight">#one.max_error_distance# #one.max_error_units#</td>
-								</cfif>
 								</td>
 							</tr>
-					
-						
+						<cfif len(#one.max_error_distance#) gt 0>
+								<tr class="detailData">
+									<td id="SDCellLeft" class="innerDetailLabel">Error:</td>
+									<td id="SDCellRight">#one.max_error_distance# #one.max_error_units#</td>
+								</tr>
+						</cfif>
 						<!--- determination --->
 						<cfif len(#one.latLongDeterminer#) gt 0>
 							<cfset determination = "#one.latLongDeterminer#">
