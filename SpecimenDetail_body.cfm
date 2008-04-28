@@ -698,15 +698,15 @@ end cmask,
 						<cfif len(#one.latLongDeterminer#) gt 0>
 							<cfset determination = "#one.latLongDeterminer#">
 							<cfif len(#one.latLongDeterminedDate#) gt 0>
-								<cfset determination = '#determination#, #dateformat(one.latLongDeterminedDate,"dd mmm yyyy")#'>
+								<cfset determination = '#determination#; #dateformat(one.latLongDeterminedDate, "dd mmm yyyy")#'>
 							</cfif>
 							<cfif len(#one.lat_long_ref_source#) gt 0>
-								<cfset determination = '#determination#, #one.lat_long_ref_source#'>
+								<cfset determination = '#determination#; #one.lat_long_ref_source#'>
 							</cfif>
 								<tr>
 									<td></td>
 									<td id="SDCellRight" class="detailCellSmall">
-									S#determination#
+									#determination#
 									</td>
 								</tr>
 						</cfif>
