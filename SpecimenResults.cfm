@@ -135,7 +135,7 @@ function removeHelpDiv() {
 	<cf_grefLink>
 	<cfif #client.username# is 'pdevore'>
 		<cfoutput>
-			grefLinkSQL
+			grefLinkSQL: #grefLinkSQL#<br/>
 		</cfoutput>
 	</cfif>
 	<cfif len(grefLink) gt 0>
