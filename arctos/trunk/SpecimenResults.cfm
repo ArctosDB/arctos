@@ -132,8 +132,10 @@ function removeHelpDiv() {
 	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
 </cfif>
 <cfif ListContainsNoCase(client.resultColumnList,"_gref_link")>
+	<cfset oidtype = "collection_object">
+	<cfset oid = "#flatTableName#.collection_object_id">
 	<cf_grefLink>
-	<cfif #client.username# is 'pdevore'>
+	<cfif #client.username# is 'pdevore' and isdefined('greflinksql')>
 		<cfoutput>
 			grefLinkSQL: #grefLinkSQL#<br/>
 		</cfoutput>

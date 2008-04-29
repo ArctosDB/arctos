@@ -262,7 +262,6 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 				<span class="infoLink" onclick="uncheckAllById('#lcase(valuelist(link.column_name))#')">[check none]</span>
 			</td>
 		</tr>
-		<script>alert("in spec results prefs");</script>
 		<tr>
 			<td valign="top" nowrap="nowrap">
 				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
@@ -300,7 +299,6 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 			</table>
 				</div>
 			</td>
-		<script>alert("survived spec results prefs");</script>
 		</tr>
 	</table>
 
