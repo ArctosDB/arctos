@@ -1034,7 +1034,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 
 					<cfif #one.collection_cde# is "Mamm">
 						<cfquery name="total_length" dbtype="query">
-							select * from attributes where attribute_type = 'total length'
+							select * from attribute where attribute_type = 'total length'
 						</cfquery>
 						<cfquery name="tail_length" dbtype="query">
 							select * from attribute where attribute_type = 'tail length'
@@ -1247,7 +1247,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 							</span>
 						</div>
 						</cfloop>
-					<cfquery >
+					
 					</div>
 				</cfif>
 <!------------------------------------ usage ---------------------------------------------->
