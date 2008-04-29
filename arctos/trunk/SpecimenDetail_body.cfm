@@ -502,6 +502,15 @@ end cmask,
 	start with derived_from_coll_obj is null
 </cfquery>
 
+<cfquery name="media" datasource="#Application.web_user#">
+	SELECT
+		media_id,
+		media_uri,
+		media_,
+	FROM
+		media
+</cfquery>
+
 
 <!---
 				
@@ -777,7 +786,7 @@ end cmask,
 								<th><span class="innerDetailLabel">Condition</span></th>
 								<th><span class="innerDetailLabel">Disposition</span></th>
 								<th><span class="innerDetailLabel">##</span></th>
-								<!-- <th><span class="innerDetailLabel">Tiss?</span></th> -->
+								<th><span class="innerDetailLabel">Remarks</span></th>
 							</tr>
 							<cfloop query="parts">
 								<tr>
@@ -788,7 +797,7 @@ end cmask,
 									<td>#part_condition#</td>
 									<td>#part_disposition#</td>
 									<td>#lot_count#</td>
-									<!-- <td><cfif #is_tissue# is 1>yes<cfelse>no</cfif></td> -->
+									<td><cfif #is_tissue# is 1>yes<cfelse>no</cfif></td>
 								</tr>
 							</cfloop>
 						</table>
@@ -1247,16 +1256,14 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 						</div>
 						</cfloop>
 					<table id="SD" border="1">
-						<tr class="detailData" border="1">
+						<tr class="detailData">
 							<td class="innerDetailLabel">URL</td>
 						</tr>
 						
-						<tr class="detailData" border="1">
-							<td>
-								<cfquery name="URL" datasource="#Application.web_user#">
-									select  MEDIA_URI from MEDIA
-								</cfquery>
-							</td>
+						<tr class="detailData">
+							<cfloop query="media">
+								<td>#media_uri#</td>
+							</cfloop>
 						</tr>
 					</table>
 					</div>
