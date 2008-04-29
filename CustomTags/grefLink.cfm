@@ -6,6 +6,7 @@ Returns: grefLink
 Example return:
 http://bg.berkeley.edu/gref/Client.html?pageid=5929&publicationid=1911&otherid=116677&otheridtype=collection_object
 --->
+<cfset Application.gref_base_url = "http://bg.berkeley.edu/gref/">
 <cfif isdefined('Application.gref_base_url') and len(Application.gref_base_url) gt 0>
 	<cfset sql = 
 	"set scan off
