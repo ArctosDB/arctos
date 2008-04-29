@@ -1253,7 +1253,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 						
 						<tr class="detailData">
 							<td>
-								<cfquery name="URL" dbtype="#Application.web_user#">
+								<cfquery name="URL" datasource="#Application.web_user#">
 									select media_url from media
 								</cfquery>
 							</td>
