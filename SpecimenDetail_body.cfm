@@ -996,7 +996,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 						---></cfif>
 					</div>
 					<cfquery name="sex" dbtype="query">
-						select * from attributes where attribute_type = 'sex'
+						select * from attribute where attribute_type = 'sex'
 					</cfquery>
 					<div class="detailBlock">
 						<cfloop query="sex">
@@ -1247,7 +1247,19 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 							</span>
 						</div>
 						</cfloop>
-					
+					<table id="SD">
+						<tr class="detailData">
+							<td class="innerDetailLabel">URL</td>
+						</tr>
+						
+						<tr class="detailData">
+							<td>
+								<cfquery name="URL" dbtype="query">
+									select media_ from media
+								</cfquery>
+							</td>
+						</tr>
+					</table>
 					</div>
 				</cfif>
 <!------------------------------------ usage ---------------------------------------------->
