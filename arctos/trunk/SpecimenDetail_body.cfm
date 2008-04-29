@@ -1247,11 +1247,11 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 						</div>
 						</cfloop>
 					<table id="SD">
-						<tr class="detailData">
+						<tr class="detailData" border="1">
 							<td class="innerDetailLabel">URL</td>
 						</tr>
 						
-						<tr class="detailData">
+						<tr class="detailData" border="1">
 							<td>
 								<cfquery name="URL" datasource="#Application.web_user#">
 									select  MEDIA_URI from MEDIA
