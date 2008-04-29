@@ -484,22 +484,6 @@ end cmask,
 		part_name
 </cfquery>
 
-<cfquery name="media" dbtype="query">
-	SELECT
-		media_id,
-		media_url,
-		media_type
-	FROM
-		detail
-	GROUP BY
-		media_id,
-		media_url,
-		media_type
-	order by
-		media_id
-</cfquery>
-
-
 
 
 <cfquery name="images" datasource="#Application.web_user#">
