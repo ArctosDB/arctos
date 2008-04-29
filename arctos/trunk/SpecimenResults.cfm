@@ -141,7 +141,7 @@ function removeHelpDiv() {
 		</cfoutput>
 	</cfif>
 	<cfif len(grefLink) gt 0>
-		<cfset basSelect = "#basSelect#,'<a href=''#grefLink#''>Field Notebook Page</a>' as gref_link">
+		<cfset basSelect = "#basSelect#,'<a href=' || #grefLink# || '>Field Notebook Page</a>' as gref_link">
 	</cfif>
 </cfif>
 
