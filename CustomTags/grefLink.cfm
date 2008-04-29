@@ -10,8 +10,8 @@ Returns: grefLink
 	"(select
 		'#Application.gref_base_url#Client.html?pageid=' || gref_roi_ng.page_id 
 	  || '&publicationid=' || book_section.publication_id 
-	  || '&otherid=' || oid
-	  || '&otheridtype=' || oidtype as the_link
+	  || '&otherid=' || #caller.oid#
+	  || '&otheridtype=' || #caller.oidtype# as the_link
 		from
 		  gref_roi_ng, gref_roi_value_ng, book_section
 		where
