@@ -1246,7 +1246,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 							</span>
 						</div>
 						</cfloop>
-					<table id="SD">
+					<table id="SD" border="1">
 						<tr class="detailData" border="1">
 							<td class="innerDetailLabel">URL</td>
 						</tr>
