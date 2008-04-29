@@ -135,7 +135,7 @@ function removeHelpDiv() {
 	<cfset oidtype = "collection_object">
 	<cfset oid = "#flatTableName#.collection_object_id">
 	<cf_grefLink>
-	<cfif #client.username# is 'pdevore' and isdefined('greflinksql')>
+	<cfif #client.username# is 'pdevore' and isdefined('grefLink')>
 		<cfoutput>
 			grefLinkSQL: #grefLinkSQL#<br/>
 		</cfoutput>
