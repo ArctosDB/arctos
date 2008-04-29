@@ -506,7 +506,7 @@ end cmask,
 	SELECT
 		media_id,
 		media_uri,
-		media_,
+		MIME_TYPE
 	FROM
 		media
 </cfquery>
@@ -1259,12 +1259,11 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 						<tr class="detailData">
 							<td class="innerDetailLabel">URL</td>
 						</tr>
-						
-						<tr class="detailData">
-							<cfloop query="media">
+						<cfloop query="media">
+							<tr class = "detailData">
 								<td>#media_uri#</td>
-							</cfloop>
-						</tr>
+							</tr>
+						</cfloop>
 					</table>
 					</div>
 				</cfif>
