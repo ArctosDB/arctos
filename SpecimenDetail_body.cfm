@@ -484,6 +484,21 @@ end cmask,
 		part_name
 </cfquery>
 
+<cfquery name="media" dbtype="query">
+	SELECT
+		media_id,
+		media_url,
+		media_type
+	FROM
+		detail
+	GROUP BY
+		media_id,
+		media_url,
+		media_type
+	order by
+		media_id
+</cfquery>
+
 
 
 
@@ -1254,8 +1269,8 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 						
 						<tr class="detailData">
 							<td>
-								<cfquery name="URL" dbtype="query">
-									select media_ from media
+								<cfquery name="URL" dbtype="#Application.web_user#">
+									select media_url from media
 								</cfquery>
 							</td>
 						</tr>
