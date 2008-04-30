@@ -467,7 +467,7 @@ end cmask,
 		cataloged_item
     WHERE
 		coll_object_remark.collection_object_id = specimen_part.collection_object_id AND
-		specimen_part.derived_from_cat_item = cataloged_item.collection_object_id) parts_remarks
+		specimen_part.derived_from_cat_item = cataloged_item.collection_object_id
 </cfquery>
 						
 <cfquery name="parts"  dbtype="query">
