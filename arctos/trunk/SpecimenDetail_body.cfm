@@ -458,6 +458,16 @@ end cmask,
 </cfquery>
 
 <cfquery name="parts_remarks" datasource="#Application.web_user#">
+	SELECT
+   		*
+    FROM
+		coll_object_remark,
+        coll_object,
+		specimen_part,
+		cataloged_item
+    WHERE
+		coll_object_remark.collection_object_id = specimen_part.collection_object_id AND
+		specimen_part.derived_from_cat_item = cataloged_item.collection_object_id) parts_remarks
 </cfquery>
 						
 <cfquery name="parts"  dbtype="query">
@@ -474,16 +484,7 @@ end cmask,
 		parts_remarks.coll_object_remarks
 	FROM
 		detail,
-		(select
-   		   *
-    	from
-			coll_object_remark,
-        	coll_object,
-			specimen_part,
-			cataloged_item
-    	where
-			coll_object_remark.collection_object_id = specimen_part.collection_object_id AND
-			specimen_part.derived_from_cat_item = cataloged_item.collection_object_id) parts_remarks
+		parts_remarks
 	GROUP BY
 		part_id,
 		part_name,
