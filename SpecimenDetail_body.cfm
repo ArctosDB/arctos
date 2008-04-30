@@ -468,19 +468,19 @@ end cmask,
 		part_disposition,
 		part_condition,
 		lot_count,
-		coll_object_remark.coll_object_remarks
+		parts_remarks.coll_object_remarks
 	FROM
 		detail,
-		select
-			coll_object_remark.coll_object_remarks
-		from
+		(select
+   		   *
+    	from
 			coll_object_remark,
-			coll_object,
+        	coll_object,
 			specimen_part,
 			cataloged_item
-		where
+    	where
 			coll_object_remark.collection_object_id = specimen_part.collection_object_id AND
-			specimen_part.derived_from_cat_item = cataloged_item.collection_object_id
+			specimen_part.derived_from_cat_item = cataloged_item.collection_object_id) parts_remarks;
 	GROUP BY
 		part_id,
 		part_name,
@@ -808,7 +808,7 @@ end cmask,
 									<td>#part_condition#</td>
 									<td>#part_disposition#</td>
 									<td>#lot_count#</td>
-									<td>#coll_object_remark.coll_object_remarks#
+									<td>#parts_remarks.coll_object_remarks#
 								</tr>
 							</cfloop>
 						</table>
