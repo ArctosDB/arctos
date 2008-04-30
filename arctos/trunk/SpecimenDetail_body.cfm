@@ -456,6 +456,9 @@ end cmask,
 	order by
 		formatted_publication
 </cfquery>
+
+<cfquery name="parts_remarks" datasource="#Application.web_user#">
+</cfquery>
 						
 <cfquery name="parts"  dbtype="query">
 	SELECT 
@@ -480,7 +483,7 @@ end cmask,
 			cataloged_item
     	where
 			coll_object_remark.collection_object_id = specimen_part.collection_object_id AND
-			specimen_part.derived_from_cat_item = cataloged_item.collection_object_id) parts_remarks;
+			specimen_part.derived_from_cat_item = cataloged_item.collection_object_id) parts_remarks
 	GROUP BY
 		part_id,
 		part_name,
