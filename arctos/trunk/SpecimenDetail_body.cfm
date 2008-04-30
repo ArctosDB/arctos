@@ -494,7 +494,8 @@ end cmask,
 		is_tissue,
 		part_disposition,
 		part_condition,
-		lot_count
+		lot_count,
+		parts_remarks.coll_object_remarks
 	order by
 		part_name
 </cfquery>
