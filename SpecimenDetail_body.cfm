@@ -459,7 +459,7 @@ end cmask,
 
 <cfquery name="parts_remarks" datasource="#Application.web_user#">
 	SELECT
-   		*
+   		coll_object_remark.coll_object_remarks
     FROM
 		coll_object_remark,
         coll_object,
