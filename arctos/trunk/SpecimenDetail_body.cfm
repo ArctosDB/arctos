@@ -471,7 +471,7 @@ end cmask,
 		coll_object_remark.coll_object_remarks
 	FROM
 		detail,
-		(select
+		select
 			coll_object_remark.coll_object_remarks
 		from
 			coll_object_remark,
@@ -480,7 +480,7 @@ end cmask,
 			cataloged_item
 		where
 			coll_object_remark.collection_object_id = specimen_part.collection_object_id AND
-			specimen_part.derived_from_cat_item = cataloged_item.collection_object_id)
+			specimen_part.derived_from_cat_item = cataloged_item.collection_object_id
 	GROUP BY
 		part_id,
 		part_name,
