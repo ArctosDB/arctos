@@ -470,7 +470,7 @@ end cmask,
 		lot_count,
 		coll_object_remark.coll_object_remarks
 	FROM
-		detail 
+		detail,
 		(select
 			coll_object_remark.coll_object_remarks
 		from
