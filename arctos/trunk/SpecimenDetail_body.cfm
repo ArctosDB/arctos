@@ -473,7 +473,8 @@ end cmask,
 		is_tissue,
 		part_disposition,
 		part_condition,
-		lot_count
+		lot_count,
+		parts_coll_object_remark.coll_object_remarks
 	FROM
 		detail 
 	GROUP BY
@@ -485,7 +486,8 @@ end cmask,
 		is_tissue,
 		part_disposition,
 		part_condition,
-		lot_count
+		lot_count,
+		parts_coll_object_remark.coll_object_remarks
 	order by
 		part_name
 </cfquery>
