@@ -130,8 +130,8 @@ function removeHelpDiv() {
 </cfif>
 <cfif ListContainsNoCase(client.resultColumnList,"_original_elevation")>
 	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
-</cfif>
-<cfif ListContainsNoCase(client.resultColumnList,"_gref_link")
+</cfif> 
+<cfif ListContainsNoCase(client.resultColumnList,"_gref_link")>
 	<cfif #client.username# is 'pdevore' and isdefined('grefLink')>
 		<cfoutput>
 			grefLink: #grefLink#<br/>
