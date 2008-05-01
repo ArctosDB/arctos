@@ -242,7 +242,8 @@ end cmask,
 		specimen_part.collection_object_id = part_object.collection_object_id (+) and
 		cataloged_item.collection_object_id = #collection_object_id# AND
 		parts_coll_object_remark.collection_object_id = s_part.collection_object_id AND
-		parts_coll_object.collection_object_id = s_part.collection_object_id
+		parts_coll_object.collection_object_id = s_part.collection_object_id AND
+		s_part.derived_from_cat_item = cataloged_item.collection_object_id
 	">
 
 <cfquery name="detail" datasource = "#Application.web_user#">
