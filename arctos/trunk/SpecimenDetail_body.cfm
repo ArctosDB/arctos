@@ -171,8 +171,7 @@ end cmask,
 		concatencumbrances(cataloged_item.collection_object_id) concatenatedEncumbrances,
 		concatEncumbranceDetails(cataloged_item.collection_object_id) encumbranceDetail,
 		locality.locality_remarks,
-		verbatim_locality,
-		parts_coll_object_remark.coll_object_remarks
+		verbatim_locality	
 	FROM 
 		cataloged_item,
 		collection,
@@ -204,10 +203,7 @@ end cmask,
 		cataloged_item related_cat_item,
 		collection related_coll,
 		specimen_part,
-		coll_object part_object,
-		coll_object_remark parts_coll_object_remark,
-	 	coll_object parts_coll_object,
-		specimen_part s_part
+		coll_object part_object
 	WHERE 
 		cataloged_item.collection_id = collection.collection_id AND
 		cataloged_item.collection_object_id = identification.collection_object_id AND
@@ -240,10 +236,7 @@ end cmask,
 		related_cat_item.collection_id = related_coll.collection_id (+) and
 		cataloged_item.collection_object_id = specimen_part.derived_from_cat_item (+) and
 		specimen_part.collection_object_id = part_object.collection_object_id (+) and
-		cataloged_item.collection_object_id = #collection_object_id# AND
-		parts_coll_object_remark.collection_object_id = s_part.collection_object_id AND
-		parts_coll_object.collection_object_id = s_part.collection_object_id AND
-		s_part.derived_from_cat_item = cataloged_item.collection_object_id
+	cataloged_item.collection_object_id = #collection_object_id#
 	">
 
 <cfquery name="detail" datasource = "#Application.web_user#">
@@ -474,8 +467,7 @@ end cmask,
 		is_tissue,
 		part_disposition,
 		part_condition,
-		lot_count,
-		parts_coll_object_remark.coll_object_remarks
+		lot_count
 	FROM
 		detail 
 	GROUP BY
@@ -487,8 +479,7 @@ end cmask,
 		is_tissue,
 		part_disposition,
 		part_condition,
-		lot_count,
-		parts_coll_object_remark.coll_object_remarks
+		lot_count
 	order by
 		part_name
 </cfquery>
@@ -806,7 +797,7 @@ end cmask,
 									<td>#part_condition#</td>
 									<td>#part_disposition#</td>
 									<td>#lot_count#</td>
-									<td>#parts_coll_object_remark.coll_object_remarks#</td>
+									<td><cfif #is_tissue# is 1>yes<cfelse>no</cfif></td>
 								</tr>
 							</cfloop>
 						</table>
