@@ -171,7 +171,8 @@ end cmask,
 		concatencumbrances(cataloged_item.collection_object_id) concatenatedEncumbrances,
 		concatEncumbranceDetails(cataloged_item.collection_object_id) encumbranceDetail,
 		locality.locality_remarks,
-		verbatim_locality	
+		verbatim_locality,
+		parts_coll_object_remark.coll_object_remarks
 	FROM 
 		cataloged_item,
 		collection,
@@ -203,7 +204,10 @@ end cmask,
 		cataloged_item related_cat_item,
 		collection related_coll,
 		specimen_part,
-		coll_object part_object
+		coll_object part_object,
+		coll_object_remark parts_coll_object_remark,
+	 	coll_object parts_coll_object,
+		specimen_part s_part
 	WHERE 
 		cataloged_item.collection_id = collection.collection_id AND
 		cataloged_item.collection_object_id = identification.collection_object_id AND
@@ -236,7 +240,9 @@ end cmask,
 		related_cat_item.collection_id = related_coll.collection_id (+) and
 		cataloged_item.collection_object_id = specimen_part.derived_from_cat_item (+) and
 		specimen_part.collection_object_id = part_object.collection_object_id (+) and
-	cataloged_item.collection_object_id = #collection_object_id#
+		cataloged_item.collection_object_id = #collection_object_id# AND
+		parts_coll_object_remark.collection_object_id = s_part.collection_object_id AND
+		parts_coll_object.collection_object_id = s_part.collection_object_id
 	">
 
 <cfquery name="detail" datasource = "#Application.web_user#">
@@ -797,7 +803,7 @@ end cmask,
 									<td>#part_condition#</td>
 									<td>#part_disposition#</td>
 									<td>#lot_count#</td>
-									<td><cfif #is_tissue# is 1>yes<cfelse>no</cfif></td>
+									<td>#parts_coll_object_remark.coll_object_remarks#</td>
 								</tr>
 							</cfloop>
 						</table>
