@@ -131,17 +131,14 @@ function removeHelpDiv() {
 <cfif ListContainsNoCase(client.resultColumnList,"_original_elevation")>
 	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
 </cfif>
-<cfif ListContainsNoCase(client.resultColumnList,"_gref_link")>
-	<cfset oidtype = "collection_object">
-	<cfset oid = "#flatTableName#.collection_object_id">
-	<cf_grefLink>
+<cfif ListContainsNoCase(client.resultColumnList,"_gref_link")
 	<cfif #client.username# is 'pdevore' and isdefined('grefLink')>
 		<cfoutput>
 			grefLink: #grefLink#<br/>
 		</cfoutput>
 	</cfif>
 	<cfif len(grefLink) gt 0>
-		<cfset basSelect = "#basSelect#,'<a href=' || #grefLink# || '>Field Notebook Page</a>' as gref_link">
+		<cfset basSelect = "#basSelect#,concatGrefLinksCollObj(#Application.gref_base_url#,#flatTableName#.collection_object_id) as gref_link">
 	</cfif>
 </cfif>
 

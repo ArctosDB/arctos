@@ -922,7 +922,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td style="font-size:small">' + result[i].DEC_LONG + '&nbsp;</td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('GREF_LINK') > -1) {
-					theInnerHtml += '<td>' + result[i].GREF_LINK + '"&nbsp;</td>';
+					theInnerHtml += '<td>' + parseGrefLinks(result[i].GREF_LINK) + '"&nbsp;</td>';
 				}
 			theInnerHtml += '</tr>';
 		}
@@ -938,6 +938,18 @@ function success_getSpecResultsData(result){
 	
 }
 
+function parseGrefLinks(concatedGrefLinks) {
+	var linksArr = concatedGrefLinks.split(",");
+	var retval = "";
+	for (var i = 0; i < linksArr.length; i++) {
+		retval += " <a class='external' href='" + linksArr[i] + "'>" + (i+1) + "</a>";
+	}
+	if (retval.equals("")) {
+	} else {
+		retval = "Field Notebook Pages:" + retval;
+	}
+	return retval;
+}
 
 function ssvar (startrow,maxrows) {
 	alert(startrow + ' ' + maxrows);
