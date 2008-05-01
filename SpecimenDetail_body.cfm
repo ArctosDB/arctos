@@ -456,19 +456,6 @@ end cmask,
 	order by
 		formatted_publication
 </cfquery>
-
-<cfquery name="parts_remarks" datasource="#Application.web_user#">
-	SELECT
-   		coll_object_remark.coll_object_remarks
-    FROM
-		coll_object_remark,
-        coll_object,
-		specimen_part,
-		cataloged_item
-    WHERE
-		coll_object_remark.collection_object_id = specimen_part.collection_object_id AND
-		specimen_part.derived_from_cat_item = cataloged_item.collection_object_id
-</cfquery>
 						
 <cfquery name="parts"  dbtype="query">
 	SELECT 
@@ -480,11 +467,9 @@ end cmask,
 		is_tissue,
 		part_disposition,
 		part_condition,
-		lot_count,
-		parts_remarks.coll_object_remarks
+		lot_count
 	FROM
-		detail,
-		parts_remarks
+		detail 
 	GROUP BY
 		part_id,
 		part_name,
@@ -494,8 +479,7 @@ end cmask,
 		is_tissue,
 		part_disposition,
 		part_condition,
-		lot_count,
-		parts_remarks.coll_object_remarks
+		lot_count
 	order by
 		part_name
 </cfquery>
@@ -813,7 +797,7 @@ end cmask,
 									<td>#part_condition#</td>
 									<td>#part_disposition#</td>
 									<td>#lot_count#</td>
-									<td></td>
+									<td><cfif #is_tissue# is 1>yes<cfelse>no</cfif></td>
 								</tr>
 							</cfloop>
 						</table>
