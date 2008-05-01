@@ -813,7 +813,7 @@ end cmask,
 									<td>#part_condition#</td>
 									<td>#part_disposition#</td>
 									<td>#lot_count#</td>
-									<td>#parts_remarks.coll_object_remarks#
+									<td></td>
 								</tr>
 							</cfloop>
 						</table>
