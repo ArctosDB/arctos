@@ -1370,6 +1370,6 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#page_id#&publicationId=#pu
 </cfoutput>
 </cfif>
 	</table>
-	--->
+	---> 
  	
 <cf_customizeIFrame>
