@@ -377,7 +377,7 @@
                     <form name="addCodes" action="" method="post">
                         <input type="hidden" name="action" value="addCodes">
                         <input type="hidden" name="collection_object_id" value="#data.collection_object_id#">
-                        <textarea name="newCodes" rows="5" cols="30"></textarea>
+                        <textarea name="newCodes" rows="5" cols="30" wrap="soft"></textarea>
                         <input type="submit" value="Create Clones">
                     </form>
                 </td>
