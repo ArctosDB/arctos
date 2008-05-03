@@ -146,19 +146,30 @@ grant all on bulkloader_clone to coldfusion_user;
     <cfoutput>
         <cftransaction>
             newCodes: #newCodes#
-	        <cfset bc=listgetat(newCodes,1)>
-            <cfset newCodes=listdeleteat(newCodes,1)>
-            <br>deleted first element:
-            <br>newCodes: #newCodes#
-            <cfquery name="cleanup" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	         <cfquery name="cleanup" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 	            delete from bulkloader_clone
             </cfquery>
             <cfloop list="#newCodes#" index="i">
-	            <cfquery name="cleanup" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-	                insert into bulkloader_clone (select * from bulkloader where collection_object_id=#collection_object_id#)
+	            <cfquery name="ins" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	                insert into bulkloader_clone 
+                    (select * from bulkloader where collection_object_id=#collection_object_id#)
+                </cfquery>
+                <!--- should now have ONE record in clone with passed-in coid --->
+                <cfquery name="fix" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	                update
+                        bulkloader_clone
+                    set 
+                        collection_object_id=bulkloader_pkey.nextval,
+                        PART_BARCODE_1='#trim(i)#',
+                        PART_CONTAINER_LABEL_1='#trim(i)#'
+                    where
+                        collection_object_id=#collection_object_id#
                 </cfquery>
 	        </cfloop>
-	    </cftransaction>
+            <cfquery name="move" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+                insert into bulkloader (select * from bulkloader_clone)
+            </cfquery>	        
+        </cftransaction>
         <!--- get the existing record from the bulkloader --->
         
     </cfoutput>
