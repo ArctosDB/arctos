@@ -136,11 +136,33 @@
 <cfif #action# is "addCodes">
     <cfoutput>
         collection_object_id: #collection_object_id#<br>
-        ids:
-        <br>
-        <cfloop list="#newCodes#" index="i">
-            #i#<br>
-        </cfloop> 
+        Number barcodes: #listlen(newCodes)#<br>
+        <table border>
+	        <tr>
+	             <th>Barcode</th>
+	             <th>Status</th>
+	         </tr>
+             <cfset status=0>
+	        <cfloop list="#newCodes#" index="i">
+	            <cfquery name="data" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+                    select * from container where barcode='#trim(i)#'
+                </cfquery>
+                <tr>
+                    <td>#i#</td>
+                    <td>
+                        <cfif data.recordcount is 0>
+                            Not found.
+                            <cfset status=status+1>
+                        <cfelseif data.container_type is "label">
+                            Cannot put stuff into labels.
+                            <cfset status=status+1>
+                        <cfelse>
+                            #data.container_type#
+                        </cfif>                        
+                    </td>
+                </tr>
+            </cfloop>
+        </table>
     </cfoutput>
 </cfif>
 <!----------------------------------------------------------->
