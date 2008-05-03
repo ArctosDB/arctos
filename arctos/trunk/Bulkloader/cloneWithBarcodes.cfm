@@ -157,12 +157,19 @@
                             Cannot put stuff into labels.
                             <cfset status=status+1>
                         <cfelse>
-                            #data.container_type#
+                            <span style="color:green">
+                                #data.container_type#
+                            </span>
                         </cfif>                        
                     </td>
                 </tr>
             </cfloop>
         </table>
+        <cfif #status# is 0>
+            spiffy, here's a button.
+        <cfelse>
+            There are problems with the barcodes you entered. You must fix this issue before continueing.
+        </cfif>
     </cfoutput>
 </cfif>
 <!----------------------------------------------------------->
