@@ -103,6 +103,10 @@ Some Totally Random String Data .....
 		<li>Blue Screen: you are editing an unloaded record that you've previously entered.</li>
 		<li>Yellow Screen: A record has been saved but has errors that must be corrected. Fix and save to continue.</li>
 	</ul>
+    
+    <p>
+        <a href="cloneWithBarcodes.cfm">Clone records by Barcode</a>
+    </p>
 				<cfquery datasource="#Application.web_user#" name="theirLast">
 					select 
 						max(collection_object_id) theId,
