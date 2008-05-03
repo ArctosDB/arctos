@@ -133,6 +133,17 @@
 </cfoutput>	
 </cfif>
 <!----------------------------------------------------------->
+<cfif #action# is "addCodes">
+    <cfoutput>
+        collection_object_id: #collection_object_id#<br>
+        ids:
+        <br>
+        <cfloop list="#newCodes#" index="i">
+            #i#<br>
+        </cfloop> 
+    </cfoutput>
+</cfif>
+<!----------------------------------------------------------->
 <cfif #action# is "sqlTab">
 <cfoutput>
 	<cfset sql = "select * from bulkloader where enteredby IN (#enteredby#)">
@@ -365,8 +376,9 @@
                 <td>
                     <form name="addCodes" action="" method="post">
                         <input type="hidden" name="action" value="addCodes">
-                        <textarea name="newCodes" rows="30" cols="5"></textarea>
-                        <input type="submit">
+                        <input type="hidden" name="collection_object_id" value="#data.collection_object_id#">
+                        <textarea name="newCodes" rows="5" cols="30"></textarea>
+                        <input type="submit" value="Create Clones">
                     </form>
                 </td>
 				<cfloop query="cNames">
