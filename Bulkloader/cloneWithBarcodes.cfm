@@ -295,6 +295,7 @@
 			</tr>
 		</table>
 	</form>
+    <!---
 	<h2>Update data in table below:</h2>
 	<form name="up" method="post" action="browseBulk.cfm">
 		<input type="hidden" name="action" value="runSQLUp">
@@ -348,10 +349,11 @@
 			</tr>
 		</table>
 	</form>
-	
+	---->
 	<div class="blTabDiv">
 		<table border id="t" class="sortable">
 			<tr>
+                <th>New Barcodes(comma-separated)</th>
 			<cfloop query="cNames">
 				<th>#column_name#</th>
 			</cfloop>
@@ -360,6 +362,13 @@
 				<cfquery name="thisRec" dbtype="query">
 					select * from data where collection_object_id=#data.collection_object_id#
 				</cfquery>
+                <td>
+                    <form name="addCodes" action="" method="post">
+                        <input type="hidden" name="action" value="addCodes">
+                        <textarea name="newCodes" rows="30" cols="5"></textarea>
+                        <input type="submit">
+                    </form>
+                </td>
 				<cfloop query="cNames">
 					<cfset thisData = evaluate("thisRec." & cNames.column_name)>
 					<td>#thisData#</td>
