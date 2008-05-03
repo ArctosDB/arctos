@@ -32,8 +32,8 @@
 <p>Filter records in bulkloader to:</p>
 
 
-<form name="f" method="post" action="browseBulk.cfm">
-	<input type="hidden" name="action" value="viewTable" />
+<form name="f" method="post" action="cloneWithBarcodes.cfm">
+	<input type="hidden" name="action" value="sqlTab" />
 	<label for="enteredby">Entered By</label>
 	<select name="enteredby" multiple="multiple" size="4" id="enteredby">
 		<option value="#afg#" selected="selected">All</option>
@@ -49,14 +49,11 @@
 		</cfloop>
 	</select>
 	<br /><input type="submit" 
-				value="View Table"
+				value="Add Barcodes"
 				class="lnkBtn"
 				onmouseover="this.className='lnkBtn btnhov'"
 				onmouseout="this.className='lnkBtn'">
- 	<br/><input type="button" 
-				value="SQL"
-				class="lnkBtn"
-				onclick="f.action.value='sqlTab';f.submit();">
+ 
 </form>
 </cfoutput>
 </cfif>
