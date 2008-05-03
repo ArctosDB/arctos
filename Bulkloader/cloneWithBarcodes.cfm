@@ -1,4 +1,13 @@
 <cfinclude template="/includes/_header.cfm">
+
+<!---- relies on table bulkloader_clone
+
+create table bulkloader_clone as select * from bulkloader where 1=0;
+create public synonym bulkloader_clone for bulkloader_clone;
+grant all on bulkloader_clone to coldfusion_user;
+
+
+---->
 <script src="/includes/sorttable.js"></script>
 <style>
 .blTabDiv {
@@ -133,6 +142,29 @@
 </cfoutput>	
 </cfif>
 <!----------------------------------------------------------->
+<cfif #action# is "saveCodes">
+    <cfoutput>
+        <cftransaction>
+            newCodes: #newCodes#
+	        <cfset bc=listgetat(newCodes,1)>
+            <cfset newCodes=listdeleteat(newCodes,1)>
+            <br>deleted first element:
+            <br>newCodes: #newCodes#
+            <cfquery name="cleanup" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	            delete from bulkloader_clone
+            </cfquery>
+            <cfloop list="#newCodes#" index="i">
+	            <cfquery name="cleanup" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	                insert into bulkloader_clone (select * from bulkloader where collection_object_id=#collection_object_id#)
+                </cfquery>
+	        </cfloop>
+	    </cftransaction>
+        <!--- get the existing record from the bulkloader --->
+        
+    </cfoutput>
+</cfif>
+            <a href="cloneWithBarcodes.cfm?action=&collection_object_id=#collection_object_id#&newCodes=#newCodes#">here</a>
+<!----------------------------------------------------------->
 <cfif #action# is "addCodes">
     <cfoutput>
         collection_object_id: #collection_object_id#<br>
@@ -166,9 +198,11 @@
             </cfloop>
         </table>
         <cfif #status# is 0>
-            spiffy, here's a button.
+            Yay! Looks like this will work. Click
+            <a href="cloneWithBarcodes.cfm?action=saveCodes&collection_object_id=#collection_object_id#&newCodes=#newCodes#">here</a>
+            to continue.
         <cfelse>
-            There are problems with the barcodes you entered. You must fix this issue before continueing.
+            There are problems with the barcodes you entered. Everything above must be green to continue.
         </cfif>
     </cfoutput>
 </cfif>
