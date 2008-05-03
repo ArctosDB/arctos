@@ -166,15 +166,19 @@ grant all on bulkloader_clone to coldfusion_user;
                         collection_object_id=#collection_object_id#
                 </cfquery>
 	        </cfloop>
+            <!--- move the new stuff over --->
             <cfquery name="move" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
                 insert into bulkloader (select * from bulkloader_clone)
-            </cfquery>	        
+            </cfquery>
+            <!--- kill the original ---->
+            <cfquery name="move" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+                delete from bulkloader where collection_object_id=#collection_object_id#
+            </cfquery>            
         </cftransaction>
-        <!--- get the existing record from the bulkloader --->
-        
+        <!--- outa here..... ---->
+        <cflocation url="cloneWithBarcodes.cfm">
     </cfoutput>
 </cfif>
-            <a href="cloneWithBarcodes.cfm?action=&collection_object_id=#collection_object_id#&newCodes=#newCodes#">here</a>
 <!----------------------------------------------------------->
 <cfif #action# is "addCodes">
     <cfoutput>
