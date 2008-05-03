@@ -105,7 +105,7 @@ Some Totally Random String Data .....
 	</ul>
     
     <p>
-        <a href="cloneWithBarcodes.cfm">Clone records by Barcode</a>
+        <a href="/Bulkloader/cloneWithBarcodes.cfm">Clone records by Barcode</a>
     </p>
 				<cfquery datasource="#Application.web_user#" name="theirLast">
 					select 
