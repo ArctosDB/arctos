@@ -124,7 +124,7 @@ grant all on bulkloader_clone to coldfusion_user;
 	<cfquery name="data" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		#preservesinglequotes(sql)#	
 	</cfquery>
-	<cfset rUrl="browseBulk.cfm?action=sqlTab&enteredby=#enteredby#">
+	<cfset rUrl="cloneWithBarcodes.cfm?action=sqlTab&enteredby=#enteredby#">
 	<cfif isdefined("accn") and len(#accn#) gt 0>
 		<cfset rUrl="#rUrl#&accn=#accn#">
 	</cfif>
@@ -176,7 +176,9 @@ grant all on bulkloader_clone to coldfusion_user;
             </cfquery>            
         </cftransaction>
         <!--- outa here..... ---->
-        <cflocation url="cloneWithBarcodes.cfm">
+        Created #newcodes.listLen# clones.
+        
+        <a href="cloneWithBarcodes.cfm">Click to continue.</a>
     </cfoutput>
 </cfif>
 <!----------------------------------------------------------->
@@ -281,22 +283,17 @@ grant all on bulkloader_clone to coldfusion_user;
 		order by internal_column_id
 	</cfquery>
 	<div style="background-color:##C0C0C0; font-size:smaller;">
-		Use the top form to filter the table to the records you are interested in. All values are ANDed together. Everything is case-sensitive.
-		You must provide all three values for the filter to apply.
-		<br>Then use the bottom form to update them. Values are case sensitive. There is no control here - you can easily update such 
-		that records will never load. Don't.
-		<br>Updates will affect only the records visible in the table below, and will affect ALL records in the table in the same way.
-		<br>Click the table headers to sort.
+		Use the top form to filter the table
 		<br>
-		Operator values:
-		<ul>
-			<li>=: single case-sensitive exact match ("something"-->"<strong>something</strong>")</li>
-			<li>like: partial string match ("somet" --> "<strong>somet</strong>hing", "got<strong>somet</strong>oo", "<strong>somet</strong>ime", etc.)</li>
-			<li>in: comma-delimited list ("one,two" --> "<strong>one</strong>" OR "<strong>two</strong>")</li>
-			<li>between: range ("1-5" --> "1,2...5") Works only when ALL values are numeric (not only those you see in the current table)</li>	
-		</ul>
+        Add a comma-delimited list of barcodes to the record you wish to clone
+        <br>Submit to:
+        <ol>
+            <li>check barcodes</li>
+            <li>Create a clone of the row for each barcode you entered</li>
+            <li>Delete the original</li>
+        </ol>
 	</div>
-	<form name="filter" method="post" action="browseBulk.cfm">
+	<form name="filter" method="post" action="cloneWithBarcodes.cfm">
 		<input type="hidden" name="action" value="sqlTab">
 		<input type="hidden" name="enteredby" value="#enteredby#">
 		<cfif isdefined("accn") and len(#accn#) gt 0>
@@ -386,7 +383,7 @@ grant all on bulkloader_clone to coldfusion_user;
 	</form>
     <!---
 	<h2>Update data in table below:</h2>
-	<form name="up" method="post" action="browseBulk.cfm">
+	<form name="up" method="post" action="cloneWithBarcodes.cfm">
 		<input type="hidden" name="action" value="runSQLUp">
 		<input type="hidden" name="enteredby" value="#enteredby#">
 		<cfif isdefined("accn") and len(#accn#) gt 0>
@@ -498,7 +495,7 @@ grant all on bulkloader_clone to coldfusion_user;
 		#preservesinglequotes(sql)#
 	</cfquery>
 </cfloop>
-<cflocation url="browseBulk.cfm?action=viewTable&enteredby=#enteredby#&accn=#accn#">
+<cflocation url="cloneWithBarcodes.cfm?action=viewTable&enteredby=#enteredby#&accn=#accn#">
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------->
@@ -529,7 +526,7 @@ grant all on bulkloader_clone to coldfusion_user;
 		</cfquery>
 	</cfif>
 
-<cflocation url="browseBulk.cfm?action=viewTable&enteredby=#enteredby#&accn=#accn#">
+<cflocation url="cloneWithBarcodes.cfm?action=viewTable&enteredby=#enteredby#&accn=#accn#">
 		
 </cfoutput>
 </cfif>
@@ -564,7 +561,7 @@ grant all on bulkloader_clone to coldfusion_user;
 Roll yer own:
 <cfset columnList = "SPEC_LOCALITY,HIGHER_GEOG,ENTEREDBY,LOADED,ACCN,OTHER_ID_NUM_5">
 
-<form name="bulkStuff" method="post" action="browseBulk.cfm">
+<form name="bulkStuff" method="post" action="cloneWithBarcodes.cfm">
 	<input type="hidden" name="action" value="upBulk" />
 	<input type="hidden" name="enteredby" value="#enteredby#" />
 	<input type="hidden" name="accn" value="#accn#" />
@@ -597,7 +594,7 @@ Roll yer own:
 <cfset ColNameList = replace(ColNameList,"ENTEREDBY","","all")>
 --->
 <hr />There are #data.recordcount# records in this view.
-<cfform method="post" action="browseBulk.cfm">
+<cfform method="post" action="cloneWithBarcodes.cfm">
 	<cfinput type="hidden" name="action" value="saveGridUpdate">
 	<cfinput type="hidden" name="enteredby" value="#enteredby#">
 	<cfinput type="hidden" name="accn" value="#accn#">
