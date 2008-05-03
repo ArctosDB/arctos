@@ -27,8 +27,8 @@ grant all on bulkloader_clone to coldfusion_user;
 	</cfif>
 </cfloop>
 <cfif len(#afg#) is 0>
-	You are not an admin for any active groups.
-	<cfabort>
+	<!--- for this form, let them "admin" their own records --->
+    <cfset afg=client.username>
 </cfif>
 <cfquery name="ctAccn" datasource="#Application.web_user#">
 	select accn from bulkloader where enteredby in (#preservesinglequotes(afg)#) group by accn order by accn
