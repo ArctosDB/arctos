@@ -176,7 +176,7 @@ grant all on bulkloader_clone to coldfusion_user;
             </cfquery>            
         </cftransaction>
         <!--- outa here..... ---->
-        Created #newcodes.listLen# clones.
+        Created #listLen(newCodes)# clones.
         
         <a href="cloneWithBarcodes.cfm">Click to continue.</a>
     </cfoutput>
