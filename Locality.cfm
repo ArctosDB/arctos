@@ -509,7 +509,7 @@
 		ENDED_DATE,
 		VERBATIM_DATE,
 		dateDet.agent_name as date_determiner,
-		dateDet.agent_id AS DATE_DETERMINED_BY_AGENT_ID,
+		dateDet.agent_id AS DATE_DETERMINED_BY_AGENT_ID,0
 		COLL_EVENT_REMARKS,
 		COLLECTING_SOURCE,
 		COLLECTING_METHOD,
@@ -672,6 +672,22 @@
 				</table>
 			</td>
 		</tr>
+		<cfif isdefined('Application.gref_base_url')>
+			<!---<cfquery name='gref_collevent'> 
+				select 
+					concatGrefLinks('#Application.gref_base_url#',
+						'collecting_event',
+						#collecting_event_id#)
+				from
+					dual
+			</cfquery>--->
+			<tr>
+				<td>
+					Field notebook page: 
+					<a class='external' href='http://www.google.com/'>dummy</a>
+				</td>
+			</tr>
+		</cfif>
 		<tr>
 			<td colspan="2" nowrap valign="middle">
 				<table width="100%" cellpadding="0" cellspacing="0">
