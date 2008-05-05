@@ -610,7 +610,7 @@ function success_getSpecResultsData(result){
 			if (result[0].COLUMNLIST.indexOf('DEC_LONG')> -1) {
 				theInnerHtml += '<th>Dec.&nbsp;Long.</th>';
 			}
-			if (result[0].COLUMNLIST.indexOf('GREF_LINK') > -1) {
+			if (result[0].COLUMNLIST.indexOf('GREF_COLLNUM') > -1) {
 				theInnerHtml += '<th>Gref&nbsp;Link</th>';
 			}
 		theInnerHtml += '</tr>';
@@ -921,8 +921,8 @@ function success_getSpecResultsData(result){
 				if (result[0].COLUMNLIST.indexOf('DEC_LONG')> -1) {
 					theInnerHtml += '<td style="font-size:small">' + result[i].DEC_LONG + '&nbsp;</td>';
 				}
-				if (result[0].COLUMNLIST.indexOf('GREF_LINK') > -1) {
-					theInnerHtml += '<td>' + parseGrefLinks(result[i].GREF_LINK) + '&nbsp;</td>';
+				if (result[0].COLUMNLIST.indexOf('GREF_COLLNUM') > -1) {
+					theInnerHtml += '<td>' + parseGrefLinks(result[i].GREF_COLLNUM) + '&nbsp;</td>';
 				}
 			theInnerHtml += '</tr>';
 		}
