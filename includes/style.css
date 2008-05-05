@@ -798,21 +798,21 @@ pre {text-indent: 30px}
 .style8 {font-family: Arial, Helvetica, sans-serif; font-size: small; }
 .external:after {
 	text-decoration: none !important;
-	content: " " url(/images/linkOut.gif);
+	content: "&nbsp;" url(/images/linkOut.gif);
 	}
 a.external:link:after {
 	text-decoration: none !important;
-	content: " " url(/images/linkOut.gif);
+	content: "&nbsp;" url(/images/linkOut.gif);
 	}
 a.external:hover:after {
 	text-decoration: none !important;
-	content: " " url(/images/linkOutHover.gif);
+	content: "&nbsp;" url(/images/linkOutHover.gif);
 	}
 a.external:visited:after {
 	text-decoration: none !important;
-	content: " " url(/images/linkOutVisited.gif);
+	content: "&nbsp;" url(/images/linkOutVisited.gif);
 	}
 a.external:hover:visited:after {
 	text-decoration: none !important;
-	content: " " url(/images/linkOutHover.gif);
+	content: "&nbsp;" url(/images/linkOutHover.gif);
 	}
