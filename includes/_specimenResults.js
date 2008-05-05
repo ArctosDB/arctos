@@ -944,7 +944,7 @@ function parseGrefLinks(concatedGrefLinks) {
 	for (var i = 0; i < linksArr.length; i++) {
 		retval += " <a class='external' href='" + linksArr[i] + "'>" + (i+1) + "</a>";
 	}
-	if (retval.equals("")) {
+	if (retval == "") {
 	} else {
 		retval = "Field Notebook Pages:" + retval;
 	}
