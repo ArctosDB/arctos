@@ -137,7 +137,7 @@ function removeHelpDiv() {
 			grefLink: #grefLink#<br/>
 		</cfoutput>
 	</cfif>
-	<cfif len(grefLink) gt 0>
+	<cfif isdefined('grefLink') and len(grefLink) gt 0>
 		<cfset basSelect = "#basSelect#,concatGrefLinksCollObj(#Application.gref_base_url#,#flatTableName#.collection_object_id) as gref_link">
 	</cfif>
 </cfif>
