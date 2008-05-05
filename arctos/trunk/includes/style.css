@@ -796,23 +796,24 @@ pre {text-indent: 30px}
 .style5 {font-size: large;}
 .style6 {font-family: Arial, Helvetica, sans-serif;}
 .style8 {font-family: Arial, Helvetica, sans-serif; font-size: small; }
+/* \a0 is the iso8859-1 encoding for nbsp */
 .external:after {
 	text-decoration: none !important;
-	content: "\00c2a0" url(/images/linkOut.gif);
+	content: "\a0" url(/images/linkOut.gif);
 	}
 a.external:link:after {
 	text-decoration: none !important;
-	content: "\00c2a0" url(/images/linkOut.gif);
+	content: "\a0" url(/images/linkOut.gif);
 	}
 a.external:hover:after {
 	text-decoration: none !important;
-	content: "\00c2a0" url(/images/linkOutHover.gif);
+	content: "\a0" url(/images/linkOutHover.gif);
 	}
 a.external:visited:after {
 	text-decoration: none !important;
-	content: "\00c2a0" url(/images/linkOutVisited.gif);
+	content: "\a0" url(/images/linkOutVisited.gif);
 	}
 a.external:hover:visited:after {
 	text-decoration: none !important;
-	content: "\00c2a0" url(/images/linkOutHover.gif);
+	content: "\a0" url(/images/linkOutHover.gif);
 	}
