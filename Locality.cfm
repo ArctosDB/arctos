@@ -684,7 +684,7 @@
 			<tr>
 				<td>
 					Field notebook page: 
-					<a class='external' href='http://www.google.com/'>dummy</a>
+					<a class='external' href='http://www.google.com/' target='gref'>dummy</a>
 				</td>
 			</tr>
 		</cfif>
