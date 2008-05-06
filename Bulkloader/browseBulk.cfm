@@ -66,7 +66,12 @@
 	<cfif not isdefined("uc1") or not isdefined("uv1") or len(#uc1#) is 0 or len(#uv1#) is 0>
 		Not enough information. <cfabort>
 	</cfif>
-	<cfset sql = "update bulkloader set #uc1# = '#uv1#' where enteredby IN (#enteredby#)">
+	<cfif uv1 is "NULL">
+        <cfset sql = "update bulkloader set #uc1# = NULL where enteredby IN (#enteredby#)">
+    <cfelse>
+        <cfset sql = "update bulkloader set #uc1# = '#uv1#' where enteredby IN (#enteredby#)">
+    </cfif>
+
 	<cfif isdefined("accn") and len(#accn#) gt 0>
 		<cfset sql = "#sql# AND accn IN (#accn#)">
 	</cfif>
