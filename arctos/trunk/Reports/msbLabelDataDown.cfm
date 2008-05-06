@@ -73,6 +73,7 @@
 	<cfset dAr = ArrayNew(1)>
 	<cfset i=1>
 	<cfloop query="data">
+        <cfset geog="">
 		<cfif #country# is "United States">
 			<cfset geog="USA">
 		<cfelse>
