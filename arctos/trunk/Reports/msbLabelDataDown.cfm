@@ -8,8 +8,8 @@
     <form name="a" method="post" action="">
         <input type="hidden" name="action" value="getData">
         <input type="hidden" name="collection_object_id" value="#collection_object_id#">
-        <label for="otherID">Other ID</label>
-        <select name="otherID" id="otherID" size="1">
+        <label for="user_otherID">Other ID</label>
+        <select name="user_otherID" id="user_otherID" size="1">
             <option value="">None</option>
             <cfloop query="ctOtherIdType">
                 <option value="#other_id_type#">#other_id_type#</option>
@@ -25,7 +25,9 @@
 <cfoutput>	
 <cfset sql="
 	select
-		scientific_name,
+	    concatsingleotherid(cataloged_item.collection_object_id,'#user_otherID#') collector_number,
+        '#line3#' line3,
+        scientific_name,
 		decode(trim(ConcatAttributeValue(cataloged_item.collection_object_id,'sex')),
 			'male','M',
 			'female','F',
