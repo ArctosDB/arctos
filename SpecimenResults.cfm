@@ -425,8 +425,11 @@ function removeHelpDiv() {
 					<option value="MSBMammLabels.cfm?collection_object_id=#collObjIdList#">
 						MSB Mammals Labels
 					</option>
-					<option value="/Reports/msbLabels.cfm?collection_object_id=#collObjIdList#">
+					<!---<option value="/Reports/msbLabels.cfm?collection_object_id=#collObjIdList#">
 						MSB  Labels
+					</option>--->
+                    <option value="/Reports/msbLabelDataDown.cfm?collection_object_id=#collObjIdList#">
+						Label Data Download
 					</option>
 					<option value="narrowLabels.cfm?collection_object_id=#collObjIdList#">
 						MVZ narrow Labels
