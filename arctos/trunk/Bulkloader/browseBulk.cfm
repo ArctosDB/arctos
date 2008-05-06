@@ -346,7 +346,8 @@
 					-->
 				</td>
 				<td>
-					<input type="text" name="uv1" size="50">
+					<input type="text" name="uv1" id="uv1" size="50">
+                    <span class="infoLink" onclick="document.getElementById('uv1').value='NULL';">NULL</span>
 				</td>
 			</tr>
 			<tr>
