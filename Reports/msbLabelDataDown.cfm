@@ -25,7 +25,7 @@
 <cfoutput>	
 <cfset sql="
 	select
-	    concatsingleotherid(cataloged_item.collection_object_id,'#user_otherID#') collector_number,
+	    concatsingleotherid(cataloged_item.collection_object_id,'#user_otherID#') user_id_num,
         '#line3#' line3,
         scientific_name,
 		decode(trim(ConcatAttributeValue(cataloged_item.collection_object_id,'sex')),
