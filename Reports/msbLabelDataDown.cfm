@@ -1,5 +1,26 @@
 <cfinclude template="/includes/_header.cfm">
-
+<cfif #action# is "nothing">
+    <cfoutput>
+    <cfquery name="ctOtherIdType" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+		SELECT distinct(other_id_type) other_id_type FROM ctColl_Other_id_type
+			order by other_id_type
+       </cfquery>
+    <form name="a" method="post" action="">
+        <input type="hidden" name="action" value="getData">
+        <input type="hidden" name="collection_object_id" value="#collection_object_id#">
+        <label for="otherID">Other ID</label>
+        <select name="otherID" id="otherID" size="1">
+            <cfloop query="ctOtherIdType">
+                <option value="#other_id_type#">#other_id_type#</option>
+            </cfloop>
+        </select>
+        <label for="line3">Line 3</label>
+        <input type="text" id="line3" name="line3">
+        <input type="submit">
+    </form>
+    </cfoutput>
+</cfif>
+<cfif #action# is "getData">
 <cfoutput>	
 <cfset sql="
 	select
@@ -152,3 +173,4 @@
 		</cfloop>
 		<a href="#Application.serverRootUrl#/#fileName#">Right-click to save your download.</a>
 </cfoutput>
+</cfif>
