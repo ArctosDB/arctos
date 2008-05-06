@@ -10,6 +10,7 @@
         <input type="hidden" name="collection_object_id" value="#collection_object_id#">
         <label for="otherID">Other ID</label>
         <select name="otherID" id="otherID" size="1">
+            <option value="">None</option>
             <cfloop query="ctOtherIdType">
                 <option value="#other_id_type#">#other_id_type#</option>
             </cfloop>
