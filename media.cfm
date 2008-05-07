@@ -86,8 +86,9 @@
 	<cfif len(#thisRelationship#) gt 0>
 		<cfset srch="#srch# AND q_media_relations(media.media_id) like '%#thisRelationship#%'">
 	</cfif>
+    
 	<cfif len(#thisRelatedItem#) gt 0>
-		<cfset srch="#srch# AND q_media_relations(media.media_id) like '%#thisRelatedItem#%'">
+		<cfset srch="#srch# AND upper(q_media_relations(media.media_id)) like '%#ucase(thisRelatedItem)#%'">
 	</cfif>
 	<cfif 1 is 2>
 		<cfif #thisTableName# is "agent">
