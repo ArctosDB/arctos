@@ -62,7 +62,7 @@
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "search">
 <cfoutput>
-<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type "> 
+<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type "> 
 <cfset frm="from media">
 
 			
@@ -117,7 +117,9 @@
 	<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td>
 			URI: #media_uri# 
-			<br>MIME Type: #mime_type# <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">edit</a>
+			<br>MIME Type: #mime_type# 
+            <br>Media Type: #media_type#
+            <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">edit</a>
 			<cfquery name="labels"  datasource="#application.web_user#">
 				select
 					media_label,
@@ -288,7 +290,12 @@
 						<option <cfif #media.mime_type# is #ctmime_type.mime_type#> selected="selected"</cfif> value="#mime_type#">#mime_type#</option>
 					</cfloop>
 			</select>
-			
+			<label for="media_type">Media Type</label>
+			<select name="media_type" id="media_type">
+					<cfloop query="ctmedia_type">
+						<option <cfif #media.media_type# is #ctmedia_type.media_type#> selected="selected"</cfif> value="#media_type#">#media_type#</option>
+					</cfloop>
+			</select>
 			<label for="relationships">Media Relationships</label>
 			<div id="relationships" style="border:1px dashed red;">
 				<cfset i=1>
