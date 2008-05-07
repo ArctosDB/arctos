@@ -82,10 +82,9 @@
 <cfloop from="1" to="#number_of_relations#" index="n">
 	<cfset thisRelationship = #evaluate("relationship__" & n)#>
 	<cfset thisRelatedItem = #evaluate("related_value__" & n)#>
-	<cfset sel=" #sel#, q_media_relations(media.media_id) q_media_relations#n#">
 	
 	<cfif len(#thisRelationship#) gt 0>
-		<cfset srch="#srch# AND q_media_relations#n# like '%#thisRelationship#%'">
+		<cfset srch="#srch# AND q_media_relations(media.media_id) like '%#thisRelationship#%'">
 	</cfif>
 	<cfif len(#thisRelatedItem#) gt 0>
 		<cfset srch="#srch# AND q_media_relations#n# like '%#thisRelatedItem#%'">
