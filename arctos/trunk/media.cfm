@@ -97,11 +97,13 @@
 	<cfloop from="1" to="#number_of_labels#" index="n">
 		<cfset thisLabel = #evaluate("label__" & n)#>
 		<cfset thisLabelValue = #evaluate("label_value__" & n)#>
-		<cfif len(#thisLabel#) gt 0>
-			<cfset srch="#srch# AND media_label = '#thisLabel#'">
+		<cfset frm="#frm#,media_labels media_labels#n#">
+	    <cfset whr="#whr# and media.media_id=media_labels#n#.media_id">
+        <cfif len(#thisLabel#) gt 0>
+			<cfset srch="#srch# AND media_labels#n#.media_label = '#thisLabel#'">
 		</cfif>
 		<cfif len(#thisLabelValue#) gt 0>
-			<cfset srch="#srch# AND upper(label_value) like '%#ucase(thisLabelValue)#%'">
+			<cfset srch="#srch# AND upper(media_labels#n#.label_value) like '%#ucase(thisLabelValue)#%'">
 		</cfif>
 	</cfloop>
 <cfset ssql="#sel# #frm# #whr# #srch#">
