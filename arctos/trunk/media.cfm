@@ -441,6 +441,12 @@
 						<option value="#mime_type#">#mime_type#</option>
 					</cfloop>
 			</select>
+            <label for="media_type">Media Type</label>
+			<select name="media_type" id="media_type" class="reqdClr">
+					<cfloop query="ctmedia_type">
+						<option value="#media_type#">#media_type#</option>
+					</cfloop>
+			</select>
 			<label for="relationships">Media Relationships</label>
 			<div id="relationships" style="border:1px dashed red;">
 				<select name="relationship__1" id="relationship__1" size="1" onchange="pickedRelationship(this.id)">
@@ -487,7 +493,8 @@
 		</cfquery>
 		<cfset media_id=mid.nv>
 		<cfquery name="makeMedia" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-			insert into media (media_id,media_uri,mime_type) values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#')
+			insert into media (media_id,media_uri,mime_type,media_type)
+            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#')
 		</cfquery>
 	<br>
 	<cfloop from="1" to="#number_of_relations#" index="n">
