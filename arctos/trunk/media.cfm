@@ -53,6 +53,9 @@
 <cfquery name="ctmedia_label" datasource="#application.web_user#">
 	select media_label from ctmedia_label order by media_label
 </cfquery>
+<cfquery name="ctmedia_type" datasource="#application.web_user#">
+	select media_type from ctmedia_type order by media_type
+</cfquery>
 <cfquery name="ctmime_type" datasource="#application.web_user#">
 	select mime_type from ctmime_type order by mime_type
 </cfquery>
@@ -378,6 +381,13 @@
 				<option value=""></option>
 					<cfloop query="ctmime_type">
 						<option value="#mime_type#">#mime_type#</option>
+					</cfloop>
+			</select>
+            <label for="media_type">Media Type</label>
+			<select name="media_type" id="media_type">
+				<option value=""></option>
+					<cfloop query="ctmedia_type">
+						<option value="#media_type#">#media_type#</option>
 					</cfloop>
 			</select>
 			<label for="relationships">Media Relationships</label>
