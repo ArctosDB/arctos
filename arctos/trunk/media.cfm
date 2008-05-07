@@ -252,9 +252,9 @@
 			</cfif>		
 		</cfif>
 	</cfloop>
-	<!---
+
 	<cflocation url="media.cfm?action=edit&media_id=#media_id#" addtoken="false">
-	---->
+
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------------->
@@ -518,7 +518,7 @@
 		</cfif>
 	</cfloop>
 		</cftransaction>
-		spiffiriffic!
+			<cflocation url="media.cfm?action=edit&media_id=#media_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
