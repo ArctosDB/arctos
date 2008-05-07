@@ -168,7 +168,8 @@
 	<cfquery name="makeMedia" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		update media set
 		media_uri='#escapeQuotes(media_uri)#',
-		mime_type='#mime_type#'
+		mime_type='#mime_type#',
+        media_type='#media_type#'
 		where media_id=#media_id#
 	</cfquery>
 	<!--- relations --->
