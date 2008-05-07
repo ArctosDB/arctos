@@ -91,7 +91,7 @@
     
 	<cfif len(#thisRelatedItem#) gt 0>
 		<cfset srch="#srch# AND upper(media_relation_summary(media_relations#n#.media_relations_id))
-            like '%#ucase(thisRelationship)#%'">
+            like '%#ucase(thisRelatedItem)#%'">
 	</cfif>
 </cfloop>
 	<cfloop from="1" to="#number_of_labels#" index="n">
