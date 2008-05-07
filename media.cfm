@@ -1,3 +1,8 @@
+<script>
+    function getMediaRelations(media_id) {
+        alert('this will be a popup.');
+    }
+</script>
 <cffunction name="getMediaRelations" access="public" output="false" returntype="Query">
 	<cfargument name="media_id" required="true" type="numeric">
 	<cfquery name="relns" datasource="#application.web_user#">
@@ -145,9 +150,8 @@
 					</cfloop>
 				</ul>
 			</cfif>
-			<br>Relationships:
+			<br>Relationships: <span class="infoLink" onclick="getMediaRelations('#media_id#')">Details</span>
 			<cfset mrel=getMediaRelations(#media_id#)>
-            <cfdump var=#mrel#>
 			<ul>
 			<cfloop query="mrel">
 				<li>#media_relationship#: #summary#</li>
