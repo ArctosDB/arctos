@@ -123,7 +123,8 @@ function removeHelpDiv() {
 	</cfif>
 </cfloop>
 
-<!--- things that start with _ need special handling --->
+<!--- things that start with _ need special handling 
+they also need special handling at TAG:SORTRESULT (do find in this document)--->
 <!--- this special handling is how to add it to the select statement --->
 <cfif ListContainsNoCase(client.resultColumnList,"_elev_in_m")>
 	<cfset basSelect = "#basSelect#,min_elev_in_m,max_elev_in_m">
@@ -260,6 +261,10 @@ function removeHelpDiv() {
 	</cfif>
 </cfloop>
 <!--- things that start with _ require special handling here as well --->
+<!--- TAG:SORTRESULT
+if you have an item that starts with _, you must change how it is sorted!
+For example, if your item cannot be sorted, then remove it from resultList.
+If your item needs to be sorted in a special way, then do that here. --->
 <cfif ListContainsNoCase(resultList,"_elev_in_m")>
 <cfflush>
 	<cftry>
@@ -278,9 +283,9 @@ function removeHelpDiv() {
 	<cfcatch></cfcatch>
 	</cftry>
 </cfif>
-<cfif ListContainsNoCase(resultList,"_gref_link")>
+<cfif ListContainsNoCase(resultList,"_gref_collnum")>
 	<cftry>
-		<cfset resultList = ListDeleteAt(resultList, ListFindNoCase(resultList,"_gref_link"))>
+		<cfset resultList = ListDeleteAt(resultList, ListFindNoCase(resultList,"_gref_collnum"))>
 		<cfcatch></cfcatch>
 	</cftry>
 </cfif>
