@@ -62,7 +62,7 @@
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "search">
 <cfoutput>
-<cfset sel="select media.media_id,media.media_uri,media.mime_type "> 
+<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type "> 
 <cfset frm="from media">
 
 			
