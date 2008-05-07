@@ -147,6 +147,7 @@
 			</cfif>
 			<br>Relationships:
 			<cfset mrel=getMediaRelations(#media_id#)>
+            <cfdump var=#mrel#>
 			<ul>
 			<cfloop query="mrel">
 				<li>#media_relationship#: #summary#</li>
