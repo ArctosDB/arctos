@@ -82,28 +82,17 @@
 <cfloop from="1" to="#number_of_relations#" index="n">
 	<cfset thisRelationship = #evaluate("relationship__" & n)#>
 	<cfset thisRelatedItem = #evaluate("related_value__" & n)#>
-	
+	<cfset frm="#frm#,media_relations media_relations#n#">
+	<cfset whr="#whr# and media.media_id=media_relations#n#.media_id">
+    
 	<cfif len(#thisRelationship#) gt 0>
-		<cfset srch="#srch# AND q_media_relations(media.media_id) like '%#thisRelationship#%'">
+		<cfset srch="#srch# AND media_relations#n#.media_relationship like '%#thisRelationship#%'">
 	</cfif>
     
 	<cfif len(#thisRelatedItem#) gt 0>
-		<cfset srch="#srch# AND upper(q_media_relations(media.media_id)) like '%#ucase(thisRelatedItem)#%'">
+		<cfset srch="#srch# AND upper(media_relation_summary(media_relations#n#.media_relations_id))
+            like '%#ucase(thisRelationship)#%'">
 	</cfif>
-	<cfif 1 is 2>
-		<cfif #thisTableName# is "agent">
-			<cfset frm="#frm#,preferred_agent_name preferred_agent_name_#n#">
-			<cfset whr="#whr# AND media_relations.related_agent_id=preferred_agent_name_#n#.agent_id">
-			<cfset srch="#srch# AND upper(preferred_agent_name_#n#.agent_name) like '%#ucase(thisRelatedId)#%'">
-		<cfelseif #thisTableName# is "locality">
-			<cfset frm="#frm#,locality locality_#n#">
-			<cfset whr="#whr# AND media_relations.locality_id=locality_#n#.locality_id">
-			<cfset srch="#srch# AND upper(locality_#n#.spec_locality) like '%#ucase(thisRelatedId)#%'">
-		<cfelse>
-			Table name not found or handled. Aborting..............
-		</cfif>
-		<cfset srch="#srch# AND media_relations.media_relationship = '#thisRelationship#'">
-	</cfif>	
 </cfloop>
 	<cfloop from="1" to="#number_of_labels#" index="n">
 		<cfset thisLabel = #evaluate("label__" & n)#>
