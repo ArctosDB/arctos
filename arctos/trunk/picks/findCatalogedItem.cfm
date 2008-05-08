@@ -72,9 +72,6 @@
 	<cfquery name="getItems" datasource="#Application.web_user#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-    <hr>
-    #preservesinglequotes(sql)#
-	<hr>	
         <cfif #getItems.recordcount# is 0>
 			-foundNothing-
 		<cfelseif #getItems.recordcount# is 1>
