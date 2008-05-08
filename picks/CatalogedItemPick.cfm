@@ -7,7 +7,6 @@
     select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
 </cfquery>
 <!----------------------------------------------------------->
-<cfif #action# is "nothing">
 	Search for Cataloged Items:
 	<cfoutput>
 	<form name="findCatItem" method="post" action="CatalogedItemPick.cfm">
@@ -38,7 +37,6 @@
 		<input type="submit" value="Search" class="schBtn">
 	</form>
 	</cfoutput>
-</cfif>
 <!------------------------------------------------------------->
 <cfif #Action# is "findItems">
     <cfset sql = "SELECT
