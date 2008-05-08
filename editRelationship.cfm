@@ -164,7 +164,8 @@ None
 </form>
 ---->
 <cfquery name="thisCollId" datasource="#Application.web_user#">
-	select collection_id from cataloged_item where collection_object_id=#collection_object_id#
+	select collection from cataloged_item,collection where cataloged_item.collection_id=collection.collection_id and
+    collection_object_id=#collection_object_id#
 </cfquery>
 <table class="newRec">
 	<tr>
@@ -207,8 +208,8 @@ None
 				<select name="collection" size="1">
 					<cfloop query="ctColl">
 						<option 
-							<cfif #thisCollId.collection_id# is "#ctColl.collection_id#"> selected </cfif>
-							value="#ctColl.collection_id#">#ctColl.institution_acronym# #ctColl.collection_cde#</option>
+							<cfif #thisCollId.collection# is "#ctColl.collection#"> selected </cfif>
+							value="#ctColl.collection#">#ctColl.collection#</option>
 					</cfloop>
 				</select>
 		  </td>
