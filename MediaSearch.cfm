@@ -119,7 +119,7 @@
     <cfif isdefined("client.roles") and listcontainsnocase(client.roles,"manage_media")>
         OR <a href="media.cfm?action=newMedia">Create media</a>
     </cfif>
-		<form name="newMedia" method="post" action="media.cfm">
+		<form name="newMedia" method="post" action="">
 			<input type="hidden" name="action" value="search">
 			<input type="hidden" id="number_of_relations" name="number_of_relations" value="1">
 			<input type="hidden" id="number_of_labels" name="number_of_labels" value="1">
