@@ -13,7 +13,7 @@
         <input type="hidden" name="formName" value="#formName#">
         <input type="hidden" name="oidType" value="#oidType#">
         <input type="hidden" name="oidNum" value="#oidNum#">
-        <input type="hidden" name="collCde" value="#collCde#">
+        <input type="hidden" name="collID" value="#collID#">
   
 		
 		<label for="collection">Collection</label>
