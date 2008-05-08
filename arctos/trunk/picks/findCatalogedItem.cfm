@@ -7,29 +7,31 @@
     select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
 </cfquery>
 <cfoutput>
-	<form name="findCatItem" method="post" action="CatalogedItemPick.cfm">
+	<form name="findCatItem" method="post" action="">
         <input type="hidden" name="collIdFld" value="#collIdFld#">
-        <input type="hidden" name="catNumFld" value="#catNumFld#">
+        <input type="hidden" name="CatCollFld" value="#CatCollFld#">
         <input type="hidden" name="formName" value="#formName#">
-        <input type="hidden" name="sciNameFld" value="#sciNameFld#">	  
-		<label for="cat_num">Catalog Number</label>
-        <input type="text" name="cat_num" id="cat_num">
+        <input type="hidden" name="oidType" value="#oidType#">
+        <input type="hidden" name="oidNum" value="#oidNum#">
+        <input type="hidden" name="collCde" value="#collCde#">
+  
+		
 		<label for="collection">Collection</label>
         <select name="collection" id="collection" size="1">
 		    <option value="">Any</option>
 			<cfloop query="ctcollection">
-				<option value="#ctcollection.collection#">#ctcollection.collection#</option>
+				<option <cfif #collCde# is #collection#> selected </cfif>value="#ctcollection.collection#">#ctcollection.collection#</option>
 			</cfloop>
 		</select>
 		<label for="other_id_type">Other ID Type</label>
         <select name="other_id_type" id="other_id_type" size="1">
-			<option value=""></option>
+			<option <cfif #oidType# is "catalog_number"> selected </cfif>value="catalog_number">Catalog Number</option>
 			<cfloop query="ctOtherIdType">
-				<option value="#ctOtherIdType.other_id_type#">#ctOtherIdType.other_id_type#</option>
+				<option <cfif #oidType# is #other_id_type#> selected </cfif>value="#ctOtherIdType.other_id_type#">#ctOtherIdType.other_id_type#</option>
 			</cfloop>
 		</select>
 		<label for="other_id_num">Other ID Num</label>
-        <input type="text" name="other_id_num" id="other_id_num">
+        <input type="text" name="other_id_num" id="other_id_num" value="#oidNum#">
         <br>
 		<input type="submit" value="Search" class="schBtn">
 	</form>
@@ -45,12 +47,13 @@
 </cfloop>
 	<cfset sql = "SELECT
 						cat_num, 
-						collection_cde,
+						collection,
 						cataloged_item.collection_object_id,
 						scientific_name
 					 FROM 
 						cataloged_item,
-						identification">
+						identification,
+                        collection">
 	
 	<cfif #oidType# is "catalog_number">
 		<!--- nothing ---->
@@ -60,6 +63,7 @@
 	</cfif>
 	<cfset sql = "#sql#  WHERE 
 					  cataloged_item.collection_object_id = identification.collection_object_id AND
+                      cataloged_item.collection_id=collection.collection_id and
 					  identification.accepted_id_fg = 1">
 	<cfif #oidType# is "catalog_number">
 		<!--- nothing ---->
@@ -73,8 +77,7 @@
 			AND other_id_num IN ( #oidNumList# )">
 	</cfif>
 	
-		<cfset sql = "#sql#
-			AND collection_id='#collID#'">
+		<cfset sql = "#sql# AND collection='#collection#'">
 	
 					
 	

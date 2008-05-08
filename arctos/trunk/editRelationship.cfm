@@ -200,11 +200,11 @@ None
 		  </td>
 		  <td>
 		  		<cfquery name="ctColl" datasource="#Application.web_user#">
-					select collection_id,collection_cde,institution_acronym from collection 
-					group by collection_id,collection_cde,institution_acronym
+					select collection from collection 
+					group by collection order by collection
 				</cfquery>
 				<font size="-2">Collection:<br></font>
-				<select name="collection_id" size="1">
+				<select name="collection" size="1">
 					<cfloop query="ctColl">
 						<option 
 							<cfif #thisCollId.collection_id# is "#ctColl.collection_id#"> selected </cfif>
@@ -227,7 +227,7 @@ None
 		  <td>
 				<font size="-2">Other ID Num:<br></font>		
 				<input type="text" name="oidNumber" class="reqdClr" size="8" 
-					onChange="findCatalogedItem('related_coll_object_id','catColl','newRelationship',other_id_type.value,this.value,collection_id.value); return false;"
+					onChange="findCatalogedItem('related_coll_object_id','catColl','newRelationship',other_id_type.value,this.value,collection.value); return false;"
 					onKeyPress="return noenter(event);">
 		  </td>
 		  <td id="saveNewCell" style="display:none;">
