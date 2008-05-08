@@ -1,6 +1,11 @@
 <script>
     function getMediaRelations(media_id) {
-        alert('this will be a popup.');
+        var url="/info/media_relations.cfm";
+        var oawin=url+"?media_id="+media_id;
+        agentpickwin=window.open(oawin,"","width=400,height=338, resizable,scrollbars");
+}
+
+alert('this will be a popup.');
     }
 </script>
 <cffunction name="getMediaRelations" access="public" output="false" returntype="Query">
