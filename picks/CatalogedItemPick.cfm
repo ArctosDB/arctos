@@ -55,6 +55,7 @@
 	</cfif>
 	<cfset sql = "#sql#  WHERE 
 					  cataloged_item.collection_object_id = identification.collection_object_id AND
+                      cataloged_item.collection_id=collection.collection_id and
 					  identification.accepted_id_fg = 1">
 	<cfif len(#other_id_type#) gt 0 OR len(#other_id_num#) gt 0>
 		<cfset sql = "#sql#
