@@ -81,7 +81,10 @@ window.setInterval("chkVal()",1000);
 						class="picBtn"
    						onmouseover="this.className='picBtn btnhov'" 
 						onmouseout="this.className='picBtn'"
-   						onclick="CatItemPick('related_coll_object_id','related_cat_num','reln#i#','scientific_name');return false;">
+   						onChange="findCatalogedItem('related_coll_object_id','related_cat_num','reln#i#'); return false;">
+   						<!---
+   							onclick="CatItemPick('related_coll_object_id','related_cat_num','reln#i#','scientific_name');return false;">
+   						--->
 					<input type="button" 
 					 	value="Save" 
 						class="savBtn"
