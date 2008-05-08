@@ -1,63 +1,7 @@
-
-<cffunction name="getMediaRelations" access="public" output="false" returntype="Query">
-	<cfargument name="media_id" required="true" type="numeric">
-	<cfquery name="relns" datasource="#application.web_user#">
-		select * from media_relations,
-		preferred_agent_name
-		where
-		media_relations.created_by_agent_id = preferred_agent_name.agent_id and
-		media_id=#media_id#
-	</cfquery>
-	<cfset result = querynew("media_relations_id,media_relationship,created_agent_name,related_primary_key,summary,link")>
-	<cfset i=1>
-	<cfloop query="relns">
-		<cfset temp = queryaddrow(result,1)>
-		
-		<cfset temp = QuerySetCell(result, "media_relations_id", "#media_relations_id#", i)>	
-		<cfset temp = QuerySetCell(result, "media_relationship", "#media_relationship#", i)>
-		<cfset temp = QuerySetCell(result, "created_agent_name", "#agent_name#", i)>
-		<cfset temp = QuerySetCell(result, "related_primary_key", "#related_primary_key#", i)>
-		
-		<cfset table_name = listlast(media_relationship," ")>
-		<cfif #table_name# is "locality">
-			<cfquery name="d" datasource="#application.web_user#">
-				select spec_locality data from #table_name# where locality_id=#related_primary_key#
-			</cfquery>
-			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
-            <cfset temp = QuerySetCell(result, "link", "/SpecimenResults.cfm?locality_id=#related_primary_key#", i)>
-		<cfelseif #table_name# is "agent">
-			<cfquery name="d" datasource="#application.web_user#">
-				select agent_name data from preferred_agent_name where agent_id=#related_primary_key#
-			</cfquery>
-			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
-            <cfset temp = QuerySetCell(result, "link", "/SpecimenResults.cfm?coll=#d.data#", i)>
-		<cfelseif #table_name# is "collecting_event">
-			<cfquery name="d" datasource="#application.web_user#">
-				select verbatim_locality || ' (' || verbatim_date || ')' data from 
-				collecting_event where collecting_event_id=#related_primary_key#
-			</cfquery>
-			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
-            <cfset temp = QuerySetCell(result, "link", "/SpecimenResults.cfm?collecting_event_id=#related_primary_key#", i)>
-		<cfelse>
-			<cfset temp = QuerySetCell(result, "summary", "#table_name# is not currently supported.", i)>
-		</cfif>
-		<cfset i=i+1>
-	</cfloop>
-	<cfreturn result>
-</cffunction>
-
-
+<cfset title="Manage Media">
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/includes/functionLib.cfm">
-<cfset title="Manage Media">
 <script type='text/javascript' src='/includes/media.js'></script>
-<script type="text/javascript" language="javascript">
-    function getMediaRelations(media_id) {
-        var url="/info/media_relations.cfm";
-        var oawin=url+"?media_id="+media_id;
-        agentpickwin=window.open(oawin,"","width=400,height=338, resizable,scrollbars");
-    }
-</script>
 <cfquery name="ctmedia_relationship" datasource="#application.web_user#">
 	select media_relationship from ctmedia_relationship order by media_relationship
 </cfquery>
@@ -71,111 +15,6 @@
 	select mime_type from ctmime_type order by mime_type
 </cfquery>
 <!----------------------------------------------------------------------------------------->
-<cfif #action# is "search">
-<cfoutput>
-<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type "> 
-<cfset frm="from media">
-
-			
-<cfset whr=" where media.media_id > 0">
-
-
-<cfset srch=" ">		
-<cfif isdefined("media_uri") and len(#media_uri#) gt 0>
-	<cfset srch="#srch# AND upper(media_uri) like '%#ucase(media_uri)#%'">
-</cfif>
-<cfif isdefined("media_type") and len(#media_type#) gt 0>
-	<cfset srch="#srch# AND upper(media_type) like '%#ucase(media_type)#%'">
-</cfif>
-<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
-	<cfset srch="#srch# AND mime_type = '#mime_type#'">
-</cfif>
-<cfloop from="1" to="#number_of_relations#" index="n">
-	<cfset thisRelationship = #evaluate("relationship__" & n)#>
-	<cfset thisRelatedItem = #evaluate("related_value__" & n)#>
-	<cfset frm="#frm#,media_relations media_relations#n#">
-	<cfset whr="#whr# and media.media_id=media_relations#n#.media_id">
-    
-	<cfif len(#thisRelationship#) gt 0>
-		<cfset srch="#srch# AND media_relations#n#.media_relationship like '%#thisRelationship#%'">
-	</cfif>
-    
-	<cfif len(#thisRelatedItem#) gt 0>
-		<cfset srch="#srch# AND upper(media_relation_summary(media_relations#n#.media_relations_id))
-            like '%#ucase(thisRelatedItem)#%'">
-	</cfif>
-</cfloop>
-	<cfloop from="1" to="#number_of_labels#" index="n">
-		<cfset thisLabel = #evaluate("label__" & n)#>
-		<cfset thisLabelValue = #evaluate("label_value__" & n)#>
-		<cfset frm="#frm#,media_labels media_labels#n#">
-	    <cfset whr="#whr# and media.media_id=media_labels#n#.media_id">
-        <cfif len(#thisLabel#) gt 0>
-			<cfset srch="#srch# AND media_labels#n#.media_label = '#thisLabel#'">
-		</cfif>
-		<cfif len(#thisLabelValue#) gt 0>
-			<cfset srch="#srch# AND upper(media_labels#n#.label_value) like '%#ucase(thisLabelValue)#%'">
-		</cfif>
-	</cfloop>
-<cfset ssql="#sel# #frm# #whr# #srch#">
-<hr>#ssql#<hr>
-<cfquery name="findIDs" datasource="#application.web_user#">
-	#preservesinglequotes(ssql)#
-</cfquery>
-<table>
-<cfset i=1>
-<cfloop query="findIDs">
-	<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-		<td>
-			URI: #media_uri# 
-			<br>MIME Type: #mime_type# 
-            <br>Media Type: #media_type#
-            <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">edit</a>
-			<cfquery name="labels"  datasource="#application.web_user#">
-				select
-					media_label,
-					label_value,
-					agent_name
-				from
-					media_labels,
-					preferred_agent_name
-				where
-					media_labels.assigned_by_agent_id=preferred_agent_name.agent_id (+) and
-					media_id=#media_id#
-			</cfquery>
-			<br>Labels:	
-			<cfif labels.recordcount gt 0>
-				<ul>
-					<cfloop query="labels">
-						<li>
-							#media_label#: #label_value#
-							<cfif len(#agent_name#) gt 0>
-								(Assigned by #agent_name#)
-							</cfif>
-						</li>
-					</cfloop>
-				</ul>
-			</cfif>
-			<br>Relationships:
-			<cfset mrel=getMediaRelations(#media_id#)>
-			<ul>
-			<cfloop query="mrel">
-				<li>#media_relationship#: #summary# 
-                    <cfif len(#link#) gt 0>
-                        <a class="infoLink" href="#link#" target="_blank">Specimens</a>
-                    </cfif>
-                </li>
-			</cfloop>
-			</ul>
-		</td>
-	</tr>
-	<cfset i=i+1>
-</cfloop>
-</table>
-</cfoutput>
-</cfif>
-<!----------------------------------------------------------------------------------------->
-
 <cfif #action# is "saveEdit">
 	<cfoutput>
 	<cfdump var="#form#">
@@ -224,7 +63,6 @@
 			</cfif>	
 		</cfif>
 	</cfloop>
-	<!--- labels --->
 	<cfloop from="1" to="#number_of_labels#" index="n">
 		<cfset thisLabel = #evaluate("label__" & n)#>
 		<cfset thisLabelValue = #evaluate("label_value__" & n)#>
@@ -233,7 +71,6 @@
 		<cfelse>
 			<cfset thisLabelID=-1>
 		</cfif>
-		---thisLabelID: #thisLabelID#----
 		<cfif thisLabelID is -1>
 			<cfquery name="makeLabel" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 				insert into media_labels (media_id,media_label,label_value)
@@ -254,22 +91,11 @@
 						media_label='#thisLabel#',
 						label_value='#thisLabelValue#'
 					where media_label_id=#thisLabelID#
-				</cfquery>
-				
-				update 
-						media_labels
-					set
-						media_label='#thisLabel#',
-						label_value='#thisLabelValue#'
-					where media_label_id=#thisLabelID#
-					
-					
+				</cfquery>					
 			</cfif>		
 		</cfif>
 	</cfloop>
-
 	<cflocation url="media.cfm?action=edit&media_id=#media_id#" addtoken="false">
-
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------------->
@@ -378,67 +204,7 @@
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------------->
-<cfif #action# is "nothing">
-	<cfoutput>
-	Search for Media OR <a href="media.cfm?action=newMedia">Create media</a>
-		<form name="newMedia" method="post" action="media.cfm">
-			<input type="hidden" name="action" value="search">
-			<input type="hidden" id="number_of_relations" name="number_of_relations" value="1">
-			<input type="hidden" id="number_of_labels" name="number_of_labels" value="1">
-			<label for="media_uri">Media URI</label>
-			<input type="text" name="media_uri" id="media_uri" size="90">
-			<label for="mime_type">MIME Type</label>
-			<select name="mime_type" id="mime_type">
-				<option value=""></option>
-					<cfloop query="ctmime_type">
-						<option value="#mime_type#">#mime_type#</option>
-					</cfloop>
-			</select>
-            <label for="media_type">Media Type</label>
-			<select name="media_type" id="media_type">
-				<option value=""></option>
-					<cfloop query="ctmedia_type">
-						<option value="#media_type#">#media_type#</option>
-					</cfloop>
-			</select>
-			<label for="relationships">Media Relationships</label>
-			<div id="relationships" style="border:1px dashed red;">
-				<select name="relationship__1" id="relationship__1" size="1">
-					<option value=""></option>
-					<cfloop query="ctmedia_relationship">
-						<option value="#media_relationship#">#media_relationship#</option>
-					</cfloop>
-				</select>:&nbsp;<input type="text" name="related_value__1" id="related_value__1" size="80">
-				<input type="hidden" name="related_id__1" id="related_id__1">
-				<br><span class="infoLink" id="addRelationship" onclick="addRelation(2)">Add Relationship</span>
-			</div>
-			<br>
-			<label for="labels">Media Labels</label>
-			<div id="labels" style="border:1px dashed red;">
-				<div id="labelsDiv__1">
-				<select name="label__1" id="label__1" size="1">
-					<option value=""></option>
-					<cfloop query="ctmedia_label">
-						<option value="#media_label#">#media_label#</option>
-					</cfloop>
-				</select>:&nbsp;<input type="text" name="label_value__1" id="label_value__1" size="80">
-				</div>
-				<span class="infoLink" id="addLabel" onclick="addLabel(2)">Add Label</span>
-			</div>
-			<br>
-			<input type="submit" 
-				value="Find Media" 
-				class="insBtn"
-				onmouseover="this.className='insBtn btnhov'" 
-				onmouseout="this.className='insBtn'">
-		</form>
-		</cfoutput>
-</cfif>
-
-<!----------------------------------------------------------------------------------------->
-
 <cfif #action# is "newMedia">
-	
 	<cfoutput>
 		<form name="newMedia" method="post" action="media.cfm">
 			<input type="hidden" name="action" value="saveNew">
