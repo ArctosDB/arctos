@@ -30,6 +30,12 @@
 <cfif isdefined("mime_type") and len(#mime_type#) gt 0>
 	<cfset srch="#srch# AND mime_type = '#mime_type#'">
 </cfif>
+<cfif not isdefined("number_of_relations")>
+    <cfset number_of_relations=1>
+</cfif>
+<cfif not isdefined("number_of_labels")>
+    <cfset number_of_labels=1>
+</cfif>
 <cfloop from="1" to="#number_of_relations#" index="n">
 	<cfif isdefined(evaluate("relationship__" & n))>
         <cfset thisRelationship = #evaluate("relationship__" & n)#>
