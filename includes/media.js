@@ -36,7 +36,7 @@ function pickedRelationship (id){
 	} else if (relatedTable=='collecting_event'){
 		findCollEvent(idInputName,'newMedia',dispInputName);
 	} else if (relatedTable=='cataloged_item'){
-		findCatalogedItem(dispInputName,dispInputName,'newMedia'); return false;">
+		findCatalogedItem(dispInputName,dispInputName,'newMedia');
 	} else if (relatedTable=='delete'){
 		document.getElementById(dispInputName).value='Marked for deletion.....';
 	} else {
