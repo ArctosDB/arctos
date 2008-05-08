@@ -80,7 +80,7 @@
 	</cfquery>
 	<cfoutput>
 		<cfloop query="getItems">
-			<br><a href="javascript: opener.document.#formName#.#collIdFld#.value='#collection_object_id#';opener.document.#formName#.#catNumFld#.value='#cat_num#';opener.document.#formName#.#sciNameFld#.value='#scientific_name#';self.close();">#collection_cde# #cat_num# #scientific_name#</a>
+			<br><a href="javascript: opener.document.#formName#.#collIdFld#.value='#collection_object_id#';opener.document.#formName#.#catNumFld#.value='#cat_num#';opener.document.#formName#.#sciNameFld#.value='#scientific_name#';self.close();">#collection# #cat_num# #scientific_name#</a>
 		</cfloop>
     </cfoutput>
 
