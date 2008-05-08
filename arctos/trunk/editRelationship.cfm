@@ -99,7 +99,7 @@ window.setInterval("chkVal()",1000);
 						onclick="reln#i#.action.value='deleReln'; confirmDelete('reln#i#','this relationship');">
 			</td>
 			<td valign="middle">
-				<a href="SpecimenDetail.cfm?collection_object_id=#getRelns.collection_object_id#" target="#client.target#"><img src="/images/info.gif"></a>
+				<a href="SpecimenDetail.cfm?collection_object_id=#getRelns.collection_object_id#" target="#client.target#" class="infoLink">Related Specimen</a>
 				<cfif #biol_indiv_relationship# is "parent of" and (#scientific_name# neq #CatItemSciName#)>
 					<a href="/tools/parent_child_taxonomy.cfm?collection_object_id=#thisCollObjId#" target="#client.target#">
 						<img src="/images/oops.gif" border="0" height="20"/>
