@@ -23,7 +23,7 @@
 			<cfquery name="d" datasource="#application.web_user#">
 				select spec_locality data from #table_name# where locality_id=#related_primary_key#
 			</cfquery>
-			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
+			<cfset temp = QuerySetCell(result, "summary", "<a href=""/SpecimenResults.cfm?lcoality_id=#related_primary_key#"">#d.data#</a>", i)>
 		<cfelseif #table_name# is "agent">
 			<cfquery name="d" datasource="#application.web_user#">
 				select agent_name data from preferred_agent_name where agent_id=#related_primary_key#
