@@ -14,8 +14,6 @@
         <input type="hidden" name="oidType" value="#oidType#">
         <input type="hidden" name="oidNum" value="#oidNum#">
         <input type="hidden" name="collID" value="#collID#">
-  
-		
 		<label for="collID">Collection</label>
         <select name="collID" id="collID" size="1">
 		    <option value="">Any</option>
@@ -35,7 +33,6 @@
         <br>
 		<input type="submit" value="Search" class="schBtn">
 	</form>
-	</cfoutput>
  
  <Cfset oidNumList = "">
  <cfloop list="#oidNum#" index="v" delimiters=",">
@@ -55,22 +52,16 @@
 						identification,
                         collection">
 	
-	<cfif #oidType# is "catalog_number">
-		<!--- nothing ---->
-	<cfelse>
-		<cfset sql = "#sql#
-			,coll_obj_other_id_num">
+	<cfif #oidType# is not "catalog_number">
+		<cfset sql = "#sql#	,coll_obj_other_id_num">
 	</cfif>
 	<cfset sql = "#sql#  WHERE 
 					  cataloged_item.collection_object_id = identification.collection_object_id AND
                       cataloged_item.collection_id=collection.collection_id and
 					  identification.accepted_id_fg = 1">
 	<cfif #oidType# is "catalog_number">
-		<!--- nothing ---->
-		<cfset sql = "#sql#
-			AND cat_num IN ( #replace(oidNumList,"'","","all")# )">
+		<cfset sql = "#sql#	AND cat_num IN ( #replace(oidNumList,"'","","all")# )">
 	<cfelse>
-		
 		<cfset sql = "#sql#
 			AND cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id
 			AND other_id_type = '#oidType#'
@@ -85,9 +76,8 @@
 		#preservesinglequotes(sql)#
 	</cfquery>
     #preservesinglequotes(sql)#
-	<cfoutput>
 		<cfif #getItems.recordcount# is 0>
-			Nothing matched
+			--
 		<cfelseif #getItems.recordcount# is 1>
 			<script>
 				opener.document.#formName#.#collIdFld#.value='#getItems.collection_object_id#';
