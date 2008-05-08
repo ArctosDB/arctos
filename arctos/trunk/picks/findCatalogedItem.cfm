@@ -11,9 +11,6 @@
         <input type="hidden" name="collIdFld" value="#collIdFld#">
         <input type="hidden" name="CatNumStrFld" value="#CatNumStrFld#">
         <input type="hidden" name="formName" value="#formName#">
-        <input type="hidden" name="oidType" value="#oidType#">
-        <input type="hidden" name="oidNum" value="#oidNum#">
-        <input type="hidden" name="collID" value="#collID#">
 		<label for="collID">Collection</label>
         <select name="collID" id="collID" size="1">
 		    <option value="">Any</option>
@@ -21,15 +18,15 @@
 				<option <cfif #collID# is #collection#> selected="selected" </cfif>value="#collection#">#collection#</option>
 			</cfloop>
 		</select>
-		<label for="other_id_type">Other ID Type</label>
-        <select name="other_id_type" id="other_id_type" size="1">
+		<label for="oidType">Other ID Type</label>
+        <select name="oidType" id="oidType" size="1">
 			<option <cfif #oidType# is "catalog_number"> selected </cfif>value="catalog_number">Catalog Number</option>
 			<cfloop query="ctOtherIdType">
 				<option <cfif #oidType# is #other_id_type#> selected </cfif>value="#ctOtherIdType.other_id_type#">#ctOtherIdType.other_id_type#</option>
 			</cfloop>
 		</select>
-		<label for="other_id_num">Other ID Num</label>
-        <input type="text" name="other_id_num" id="other_id_num" value="#oidNum#">
+		<label for="oidNum">Other ID Num</label>
+        <input type="text" name="oidNum" id="oidNum" value="#oidNum#">
         <br>
 		<input type="submit" value="Search" class="schBtn">
 	</form>
