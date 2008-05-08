@@ -515,8 +515,8 @@ window.onload=dyniframesize
 				class="likeLink" id="editIdentifiersSpan">Other IDs</span>
 		</li>
 		<li>
-			<span onclick="switchIFrame('editImages')"
-				class="likeLink" id="editImagesSpan">Images</span>
+			<span onclick="switchIFrame('media')"
+				class="likeLink" id="editImagesSpan">Media</span>
 		</li>
 		<li>
 			<span onclick="switchIFrame('Encumbrances')"
