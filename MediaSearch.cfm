@@ -33,6 +33,7 @@
 <cfloop from="1" to="#number_of_relations#" index="n">
 	<cfset thisRelationship = #evaluate("relationship__" & n)#>
 	<cfset thisRelatedItem = #evaluate("related_value__" & n)#>
+    <cfset thisRelatedKey = #evaluate("related_primary_key__" & n)#>
 	<cfset frm="#frm#,media_relations media_relations#n#">
 	<cfset whr="#whr# and media.media_id=media_relations#n#.media_id">
 	<cfif len(#thisRelationship#) gt 0>

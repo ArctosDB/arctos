@@ -1,5 +1,7 @@
 <cfset title="Manage Media">
-<cfinclude template="/includes/_header.cfm">
+<div id="_header">
+    <cfinclude template="/includes/_header.cfm">
+</div>
 <cfinclude template="/includes/functionLib.cfm">
 <script type='text/javascript' src='/includes/media.js'></script>
 <cfquery name="ctmedia_relationship" datasource="#application.web_user#">
@@ -17,7 +19,6 @@
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "saveEdit">
 	<cfoutput>
-	<cfdump var="#form#">
 	<!--- update media --->
 	<cfquery name="makeMedia" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		update media set
@@ -35,13 +36,11 @@
 		<cfelse>
 			<cfset thisRelationID=-1>
 		</cfif>
-				thisRelationID: #thisRelationID#----
 		<cfif thisRelationID is -1>
 			<cfquery name="makeRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				insert into 
-					media_relations (
+				insert into media_relations (
 					media_id,media_relationship,related_primary_key
-				)values (
+				) values (
 					#media_id#,'#thisRelationship#',#thisRelatedId#)
 			</cfquery>
 		<cfelse>
@@ -128,15 +127,15 @@
 			<input type="text" name="media_uri" id="media_uri" size="90" value="#media.media_uri#">
 			<label for="mime_type">MIME Type</label>
 			<select name="mime_type" id="mime_type">
-					<cfloop query="ctmime_type">
-						<option <cfif #media.mime_type# is #ctmime_type.mime_type#> selected="selected"</cfif> value="#mime_type#">#mime_type#</option>
-					</cfloop>
+				<cfloop query="ctmime_type">
+				    <option <cfif #media.mime_type# is #ctmime_type.mime_type#> selected="selected"</cfif> value="#mime_type#">#mime_type#</option>
+				</cfloop>
 			</select>
 			<label for="media_type">Media Type</label>
 			<select name="media_type" id="media_type">
-					<cfloop query="ctmedia_type">
-						<option <cfif #media.media_type# is #ctmedia_type.media_type#> selected="selected"</cfif> value="#media_type#">#media_type#</option>
-					</cfloop>
+				<cfloop query="ctmedia_type">
+					<option <cfif #media.media_type# is #ctmedia_type.media_type#> selected="selected"</cfif> value="#media_type#">#media_type#</option>
+				</cfloop>
 			</select>
 			<label for="relationships">Media Relationships</label>
 			<div id="relationships" style="border:1px dashed red;">
@@ -144,7 +143,7 @@
 				<cfloop query="relns">
 					<cfset d=media_relationship>
 					<input type="hidden" id="media_relations_id__#i#" name="media_relations_id__#i#" value="#media_relations_id#">
-					<select name="relationship__#i#" id="relationship__#i#" size="1"  onchange="pickedRelationship(this.id)">>
+					<select name="relationship__#i#" id="relationship__#i#" size="1"  onchange="pickedRelationship(this.id)">
 						<option value="delete">delete</option>
 						<cfloop query="ctmedia_relationship">
 							<option <cfif #d# is #media_relationship#> selected="selected" </cfif>value="#media_relationship#">#media_relationship#</option>
@@ -273,33 +272,34 @@
 			insert into media (media_id,media_uri,mime_type,media_type)
             values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#')
 		</cfquery>
-	<br>
-	<cfloop from="1" to="#number_of_relations#" index="n">
-		<cfset thisRelationship = #evaluate("relationship__" & n)#>
-		<cfset thisRelatedId = #evaluate("related_id__" & n)#>
-		<cfset thisTableName=ListLast(thisRelationship," ")>
-		<cfif len(#thisRelationship#) gt 0 and len(#thisRelatedId#) gt 0>
-			<cfquery name="makeRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				insert into 
-					media_relations (
-					media_id,media_relationship,related_primary_key
-					)values (
-					#media_id#,'#thisRelationship#',#thisRelatedId#)
-			</cfquery>
-		</cfif>	
-	</cfloop>
-	<cfloop from="1" to="#number_of_labels#" index="n">
-		<cfset thisLabel = #evaluate("label__" & n)#>
-		<cfset thisLabelValue = #evaluate("label_value__" & n)#>
-		<cfif len(#thisLabel#) gt 0 and len(#thisLabelValue#) gt 0>
-			<cfquery name="makeRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				insert into media_labels (media_id,media_label,label_value)
-				values (#media_id#,'#thisLabel#','#thisLabelValue#')
-			</cfquery>
-		</cfif>
-	</cfloop>
-		</cftransaction>
-			<cflocation url="media.cfm?action=edit&media_id=#media_id#" addtoken="false">
+		<cfloop from="1" to="#number_of_relations#" index="n">
+			<cfset thisRelationship = #evaluate("relationship__" & n)#>
+			<cfset thisRelatedId = #evaluate("related_id__" & n)#>
+			<cfset thisTableName=ListLast(thisRelationship," ")>
+			<cfif len(#thisRelationship#) gt 0 and len(#thisRelatedId#) gt 0>
+				<cfquery name="makeRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					insert into 
+						media_relations (
+						media_id,media_relationship,related_primary_key
+						)values (
+						#media_id#,'#thisRelationship#',#thisRelatedId#)
+				</cfquery>
+			</cfif>	
+		</cfloop>
+		<cfloop from="1" to="#number_of_labels#" index="n">
+			<cfset thisLabel = #evaluate("label__" & n)#>
+			<cfset thisLabelValue = #evaluate("label_value__" & n)#>
+			<cfif len(#thisLabel#) gt 0 and len(#thisLabelValue#) gt 0>
+				<cfquery name="makeRelation" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					insert into media_labels (media_id,media_label,label_value)
+					values (#media_id#,'#thisLabel#','#thisLabelValue#')
+				</cfquery>
+			</cfif>
+		</cfloop>
+	</cftransaction>
+<cflocation url="media.cfm?action=edit&media_id=#media_id#" addtoken="false">
 </cfoutput>
 </cfif>
+<div id="_footer">
 <cfinclude template="/includes/_footer.cfm">
+</div>
