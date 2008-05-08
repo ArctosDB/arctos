@@ -31,10 +31,20 @@
 	<cfset srch="#srch# AND mime_type = '#mime_type#'">
 </cfif>
 <cfloop from="1" to="#number_of_relations#" index="n">
-	<cfset thisRelationship = #evaluate("relationship__" & n)#>
-	<cfset thisRelatedItem = #evaluate("related_value__" & n)#>
-    <cfif isdefined(evaluate("related_value__" & n))>
+	<cfif isdefined(evaluate("relationship__" & n))>
+        <cfset thisRelationship = #evaluate("relationship__" & n)#>
+	<cfelse>
+        <cfset thisRelationship = "">
+    </cfif>
+	<cfif isdefined(evaluate("related_value__" & n))>
+        <cfset thisRelatedItem = #evaluate("related_value__" & n)#>
+	<cfelse>
+        <cfset thisRelatedItem = "">
+	</cfif>
+    <cfif isdefined(evaluate("related_primary_key__" & n))>
         <cfset thisRelatedKey = #evaluate("related_primary_key__" & n)#>
+	<cfelse>
+        <cfset thisRelatedKey = "">
 	</cfif>
     <cfset frm="#frm#,media_relations media_relations#n#">
 	<cfset whr="#whr# and media.media_id=media_relations#n#.media_id">
