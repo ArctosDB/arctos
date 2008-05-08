@@ -24,7 +24,7 @@
 				select spec_locality data from #table_name# where locality_id=#related_primary_key#
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
-            <cfset temp = QuerySetCell(result, "link", "/SpecimenResults.cfm?lcoality_id=#related_primary_key#", i)>
+            <cfset temp = QuerySetCell(result, "link", "/SpecimenResults.cfm?locality_id=#related_primary_key#", i)>
 		<cfelseif #table_name# is "agent">
 			<cfquery name="d" datasource="#application.web_user#">
 				select agent_name data from preferred_agent_name where agent_id=#related_primary_key#
@@ -158,7 +158,11 @@
 			<cfset mrel=getMediaRelations(#media_id#)>
 			<ul>
 			<cfloop query="mrel">
-				<li>#media_relationship#: #summary# <a class="infoLink" href="#link#" target="_blank">Specimens</a></li>
+				<li>#media_relationship#: #summary# 
+                    <cfif len(#link#) gt 0>
+                        <a class="infoLink" href="#link#" target="_blank">Specimens</a>
+                    </cfif>
+                </li>
 			</cfloop>
 			</ul>
 		</td>
