@@ -16,8 +16,8 @@
         <input type="hidden" name="collID" value="#collID#">
   
 		
-		<label for="collection">Collection</label>
-        <select name="collection" id="collection" size="1">
+		<label for="collID">Collection</label>
+        <select name="collID" id="collID" size="1">
 		    <option value="">Any</option>
 			<cfloop query="ctcollection">
 				<option <cfif #collID# is #collection#> selected="selected" </cfif>value="#collection#">#collection#</option>
@@ -77,7 +77,7 @@
 			AND other_id_num IN ( #oidNumList# )">
 	</cfif>
 	
-		<cfset sql = "#sql# AND collection='#collection#'">
+		<cfset sql = "#sql# AND collection='#collID#'">
 	
 					
 	
