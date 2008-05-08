@@ -9,7 +9,7 @@
 <cfoutput>
 	<form name="findCatItem" method="post" action="">
         <input type="hidden" name="collIdFld" value="#collIdFld#">
-        <input type="hidden" name="CatCollFld" value="#CatCollFld#">
+        <input type="hidden" name="CatNumStrFld" value="#CatNumStrFld#">
         <input type="hidden" name="formName" value="#formName#">
         <input type="hidden" name="oidType" value="#oidType#">
         <input type="hidden" name="oidNum" value="#oidNum#">
