@@ -104,6 +104,7 @@
 		select * from media where media_id=#media_id#
 	</cfquery>
 	<cfset relns=getMediaRelations(#media_id#)>
+    <cfdump var="relns">
 	<cfquery name="labels"  datasource="#application.web_user#">
 		select
 			media_label,
