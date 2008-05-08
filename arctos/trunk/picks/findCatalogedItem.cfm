@@ -90,7 +90,7 @@
 		<cfelseif #getItems.recordcount# is 1>
 			<script>
 				opener.document.#formName#.#collIdFld#.value='#getItems.collection_object_id#';
-				opener.document.#formName#.#CatNumStrFld#.value='#getItems.collection_cde# #getItems.cat_num# (#getItems.scientific_name#)'
+				opener.document.#formName#.#CatNumStrFld#.value='#getItems.collection# #getItems.cat_num# (#getItems.scientific_name#)'
 				;self.close();
 			</script>
 		<cfelse>
@@ -110,7 +110,7 @@
 			</p>
 			<cfloop query="getItems">
 				<br><a href="javascript: opener.document.#formName#.#collIdFld#.value='#collection_object_id#';
-				opener.document.#formName#.#CatNumStrFld#.value='#collection_cde# #cat_num# (#scientific_name#)';self.close();">#collection_cde# #cat_num# #scientific_name#</a>
+				opener.document.#formName#.#CatNumStrFld#.value='#collection# #cat_num# (#scientific_name#)';self.close();">#collection# #cat_num# #scientific_name#</a>
 			</cfloop>
 			
 			
