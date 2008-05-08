@@ -163,7 +163,7 @@ td.lbl {
 	/*font-weight:bold;*/
 }
 .detailCellSmall {
-	font-size:.8em;
+	font-size:.6em;
 	font-weight:normal;
 	color: #444444;
 	
@@ -205,10 +205,12 @@ table#SD {
 }
 td#SDCellLeft{
 	text-align: right;
+	row-span: 1;
 	}
 	
 td#SDCellRight{
 	text-align: left;
+	row-span: 1;
 	}
 
 /* End SpecimenDetail */
