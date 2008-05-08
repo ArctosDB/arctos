@@ -7,7 +7,7 @@
     select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
 </cfquery>
 <cfoutput>
-	<form name="findCatItem" method="post" action="">
+	<form name="findCatItem" method="post" action="findCatalogedItem.cfm">
         <input type="hidden" name="collIdFld" value="#collIdFld#">
         <input type="hidden" name="CatNumStrFld" value="#CatNumStrFld#">
         <input type="hidden" name="formName" value="#formName#">
