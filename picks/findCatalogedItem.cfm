@@ -1,6 +1,39 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 <cfset title = "Cat Item Pick">
- 
+<cfquery name="ctcollection" datasource="#Application.web_user#">
+	select distinct(collection) from collection order by collection
+</cfquery>
+<cfquery name="ctOtherIdType" datasource="#Application.web_user#">
+    select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
+</cfquery>
+<cfoutput>
+	<form name="findCatItem" method="post" action="CatalogedItemPick.cfm">
+        <input type="hidden" name="collIdFld" value="#collIdFld#">
+        <input type="hidden" name="catNumFld" value="#catNumFld#">
+        <input type="hidden" name="formName" value="#formName#">
+        <input type="hidden" name="sciNameFld" value="#sciNameFld#">	  
+		<label for="cat_num">Catalog Number</label>
+        <input type="text" name="cat_num" id="cat_num">
+		<label for="collection">Collection</label>
+        <select name="collection" id="collection" size="1">
+		    <option value="">Any</option>
+			<cfloop query="ctcollection">
+				<option value="#ctcollection.collection#">#ctcollection.collection#</option>
+			</cfloop>
+		</select>
+		<label for="other_id_type">Other ID Type</label>
+        <select name="other_id_type" id="other_id_type" size="1">
+			<option value=""></option>
+			<cfloop query="ctOtherIdType">
+				<option value="#ctOtherIdType.other_id_type#">#ctOtherIdType.other_id_type#</option>
+			</cfloop>
+		</select>
+		<label for="other_id_num">Other ID Num</label>
+        <input type="text" name="other_id_num" id="other_id_num">
+        <br>
+		<input type="submit" value="Search" class="schBtn">
+	</form>
+	</cfoutput>
  
  <Cfset oidNumList = "">
  <cfloop list="#oidNum#" index="v" delimiters=",">
