@@ -36,7 +36,7 @@ function pickedRelationship (id){
 	} else if (relatedTable=='collecting_event'){
 		findCollEvent(idInputName,'newMedia',dispInputName);
 	} else if (relatedTable=='cataloged_item'){
-		CatItemPick(idInputName,dispInputName,'newMedia',dispInputName){
+		CatItemPick(idInputName,dispInputName,'newMedia',dispInputName)
 	} else if (relatedTable=='delete'){
 		document.getElementById(dispInputName).value='Marked for deletion.....';
 	} else {
