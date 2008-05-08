@@ -76,14 +76,15 @@
 			AND other_id_type = '#oidType#'
 			AND other_id_num IN ( #oidNumList# )">
 	</cfif>
-	
-		<cfset sql = "#sql# AND collection='#collID#'">
-	
+	<cfif len(#collID#) gt 0>
+        <cfset sql = "#sql# AND collection='#collID#'">
+    </cfif>
 					
 	
 	<cfquery name="getItems" datasource="#Application.web_user#">
 		#preservesinglequotes(sql)#
 	</cfquery>
+    #preservesinglequotes(sql)#
 	<cfoutput>
 		<cfif #getItems.recordcount# is 0>
 			Nothing matched
