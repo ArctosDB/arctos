@@ -1,13 +1,4 @@
-<script>
-    function getMediaRelations(media_id) {
-        var url="/info/media_relations.cfm";
-        var oawin=url+"?media_id="+media_id;
-        agentpickwin=window.open(oawin,"","width=400,height=338, resizable,scrollbars");
-}
 
-alert('this will be a popup.');
-    }
-</script>
 <cffunction name="getMediaRelations" access="public" output="false" returntype="Query">
 	<cfargument name="media_id" required="true" type="numeric">
 	<cfquery name="relns" datasource="#application.web_user#">
@@ -57,6 +48,13 @@ alert('this will be a popup.');
 <cfinclude template="/includes/functionLib.cfm">
 <cfset title="Manage Media">
 <script type='text/javascript' src='/includes/media.js'></script>
+<script type="text/javascript" language="javascript">
+    function getMediaRelations(media_id) {
+        var url="/info/media_relations.cfm";
+        var oawin=url+"?media_id="+media_id;
+        agentpickwin=window.open(oawin,"","width=400,height=338, resizable,scrollbars");
+    }
+</script>
 <cfquery name="ctmedia_relationship" datasource="#application.web_user#">
 	select media_relationship from ctmedia_relationship order by media_relationship
 </cfquery>
