@@ -20,7 +20,7 @@
         <select name="collection" id="collection" size="1">
 		    <option value="">Any</option>
 			<cfloop query="ctcollection">
-				<option <cfif #collCde# is #collection#> selected </cfif>value="#ctcollection.collection#">#ctcollection.collection#</option>
+				<option <cfif #collID# is #collection#> selected="selected" </cfif>value="#collection#">#collection#</option>
 			</cfloop>
 		</select>
 		<label for="other_id_type">Other ID Type</label>
