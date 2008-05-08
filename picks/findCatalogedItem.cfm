@@ -22,7 +22,7 @@
         <select name="oidType" id="oidType" size="1">
 			<option <cfif #oidType# is "catalog_number"> selected </cfif>value="catalog_number">Catalog Number</option>
 			<cfloop query="ctOtherIdType">
-				<option <cfif #oidType# is #other_id_type#> selected </cfif>value="#ctOtherIdType.other_id_type#">#ctOtherIdType.other_id_type#</option>
+				<option <cfif #oidType# is #other_id_type#> selected </cfif>value="#other_id_type#">#other_id_type#</option>
 			</cfloop>
 		</select>
 		<label for="oidNum">Other ID Num</label>
@@ -72,9 +72,11 @@
 	<cfquery name="getItems" datasource="#Application.web_user#">
 		#preservesinglequotes(sql)#
 	</cfquery>
+    <hr>
     #preservesinglequotes(sql)#
-		<cfif #getItems.recordcount# is 0>
-			--
+	<hr>	
+        <cfif #getItems.recordcount# is 0>
+			-foundNothing-
 		<cfelseif #getItems.recordcount# is 1>
 			<script>
 				opener.document.#formName#.#collIdFld#.value='#getItems.collection_object_id#';
