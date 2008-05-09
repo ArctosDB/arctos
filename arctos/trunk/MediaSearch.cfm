@@ -65,8 +65,18 @@
 	</cfif>
 </cfloop>
 	<cfloop from="1" to="#number_of_labels#" index="n">
-		<cfset thisLabel = #evaluate("label__" & n)#>
-		<cfset thisLabelValue = #evaluate("label_value__" & n)#>
+		<cftry>
+	        <cfset thisLabel = #evaluate("label__" & n)#>
+		    <cfcatch>
+	            <cfset thisLabel = "">
+		    </cfcatch>
+        </cftry>
+        <cftry>
+	        <cfset thisLabelValue = #evaluate("label_value__" & n)#>
+		    <cfcatch>
+	            <cfset thisLabelValue = "">
+		    </cfcatch>
+        </cftry>		
 		<cfset frm="#frm#,media_labels media_labels#n#">
 	    <cfset whr="#whr# and media.media_id=media_labels#n#.media_id">
         <cfif len(#thisLabel#) gt 0>
