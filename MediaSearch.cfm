@@ -1,5 +1,10 @@
 <cfset title="Media">
 <cfinclude template="/includes/_header.cfm">
+<cfif isdefined("url.collection_object_id")>
+    <cfoutput>
+    <cflocation url="MediaSearch.cfm?action=search&relationship__1=cataloged_item&related_primary_key__1=#url.collection_object_id#" addtoken="false">
+    </cfoutput>
+</cfif>
 <cfinclude template="/includes/functionLib.cfm">
 <script type='text/javascript' src='/includes/media.js'></script>
 <cfquery name="ctmedia_relationship" datasource="#application.web_user#">
