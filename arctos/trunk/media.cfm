@@ -254,10 +254,9 @@
 				onmouseover="this.className='insBtn btnhov'" 
 				onmouseout="this.className='insBtn'">
 		</form>
-        
         <cfscript>
-	        r="im r!"
-	    </cfscript>
+            r="34"
+        </cfscript>
                      r is #r#
 	</cfoutput>
 	<script>
