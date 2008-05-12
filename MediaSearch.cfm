@@ -87,6 +87,9 @@
 </cfquery>
 <table>
 <cfset i=1>
+<cfif isdefined("client.roles") and listcontainsnocase(client.roles,"manage_media")>
+    <a href="media.cfm?action=newMedia">Create media</a>
+</cfif>
 <cfloop query="findIDs">
 	<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td>
