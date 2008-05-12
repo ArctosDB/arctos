@@ -2,7 +2,6 @@
 <div id="_header">
     <cfinclude template="/includes/_header.cfm">
 </div>
----this is visible, eh?
 <cfif isdefined("url.collection_object_id")>
     <cfoutput>
     <cflocation url="MediaSearch.cfm?action=search&relationship__1=cataloged_item&related_primary_key__1=#url.collection_object_id#" addtoken="false">
@@ -10,18 +9,6 @@
 </cfif>
 <cfinclude template="/includes/functionLib.cfm">
 <script type='text/javascript' src='/includes/media.js'></script>
-<cfquery name="ctmedia_relationship" datasource="#application.web_user#">
-	select media_relationship from ctmedia_relationship order by media_relationship
-</cfquery>
-<cfquery name="ctmedia_label" datasource="#application.web_user#">
-	select media_label from ctmedia_label order by media_label
-</cfquery>
-<cfquery name="ctmedia_type" datasource="#application.web_user#">
-	select media_type from ctmedia_type order by media_type
-</cfquery>
-<cfquery name="ctmime_type" datasource="#application.web_user#">
-	select mime_type from ctmime_type order by mime_type
-</cfquery>
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "search">
 <cfoutput>
@@ -155,6 +142,18 @@
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
 	<cfoutput>
+    <cfquery name="ctmedia_relationship" datasource="#application.web_user#">
+		select media_relationship from ctmedia_relationship order by media_relationship
+	</cfquery>
+	<cfquery name="ctmedia_label" datasource="#application.web_user#">
+		select media_label from ctmedia_label order by media_label
+	</cfquery>
+	<cfquery name="ctmedia_type" datasource="#application.web_user#">
+		select media_type from ctmedia_type order by media_type
+	</cfquery>
+	<cfquery name="ctmime_type" datasource="#application.web_user#">
+		select mime_type from ctmime_type order by mime_type
+	</cfquery>
 	Search for Media 
     <cfif isdefined("client.roles") and listcontainsnocase(client.roles,"manage_media")>
         OR <a href="media.cfm?action=newMedia">Create media</a>
@@ -220,5 +219,6 @@
     if (top.location!=document.location) {
     	document.getElementById('_header').style.display='none';
 		document.getElementById('_footer').style.display='none';
+		parent.dyniframesize();
 	}
 </script>
