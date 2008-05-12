@@ -377,7 +377,7 @@ window.onload=dyniframesize
 			select count(*) cnt from specimen_annotations
 			where collection_object_id = #collection_object_id#
 		</cfquery>
-		<a onclick="openAnnotation('#collection_object_id#')">
+		<a href="openAnnotation('#collection_object_id#')">
 			[Annotate]
 		</a>
 		<cfif #existingAnnotations.cnt# gt 0>
@@ -566,7 +566,7 @@ window.onload=dyniframesize
 	<cfset log.reported_count = 1>
 	<cfinclude template="/includes/activityLog.cfm">
 	<cfif isdefined("showAnnotation") and #showAnnotation# is "true">
-		<script>
+		<script language="javascript" type="text/javascript">
 			openAnnotation('#collection_object_id#');
 		</script>		
 	</cfif>
