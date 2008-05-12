@@ -262,6 +262,7 @@
     <cfdump var=#variables#>
     <cfdump var=#form#>
     <cfdump var=#url#>
+     <cfdump var=#cgi#>
     <cfif isdefined("url.collection_object_id")>
         found a collection object id: 
         <cfoutput>
