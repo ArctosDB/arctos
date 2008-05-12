@@ -190,8 +190,6 @@ window.onload=dyniframesize
 		/*height:1000px;*/
 		}
 </style>
-<!---- kill the class=content div and replace it with a 95% pagewidth div --->
-</div>
 <div style="padding-left:25px; ">
 	<!----
 <cfif len(#client.username#) gt 0>
