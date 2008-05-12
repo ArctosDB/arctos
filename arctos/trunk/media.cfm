@@ -259,7 +259,10 @@
 		var elem = document.getElementById('uploadMedia');
 		elem.addEventListener('click',clickUpload,false);
 	</script>
- 
+     <cfscript>
+        var r=top.location;
+        alert(r)
+    </cfscript>
     <cfif isdefined("url.collection_object_id")>
         found a collection object id: 
         <cfoutput>
@@ -317,8 +320,6 @@
     	document.getElementById('_header').style.display='none';
 		document.getElementById('_footer').style.display='none';
 		parent.dyniframesize();
-		var parentURL=top.location;
-		alert(parentURL)
 	}
 </script>
 <cfoutput>
