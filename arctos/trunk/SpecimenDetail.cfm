@@ -190,7 +190,7 @@ window.onload=dyniframesize
 		/*height:1000px;*/
 		}
 </style>
-<div style="padding-left:25px; ">
+<div style="background-color:blue;">
 	<!----
 <cfif len(#client.username#) gt 0>
 	<cfquery name="existingAnnotations" datasource="#Application.web_user#">
