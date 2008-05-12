@@ -254,26 +254,17 @@
 				onmouseover="this.className='insBtn btnhov'" 
 				onmouseout="this.className='insBtn'">
 		</form>
+        
+        <cfscript>
+	        r="im r!"
+	    </cfscript>
+                     r is #r#
 	</cfoutput>
 	<script>
 		var elem = document.getElementById('uploadMedia');
 		elem.addEventListener('click',clickUpload,false);
 	</script>
-     <cfscript>
-        r="im r!"
-    </cfscript>
-    <cfoutput>
     
-    r is #r#
-    
-    </cfoutput>
-    <cfif isdefined("url.collection_object_id")>
-        found a collection object id: 
-        <cfoutput>
-        
-        #url.collection_object_id#
-        </cfoutput>
-    </cfif>
 </cfif>
 <!------------------------------------------------------------------------------------------>
 <cfif #action# is "saveNew">
