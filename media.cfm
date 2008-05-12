@@ -259,7 +259,7 @@
 		var elem = document.getElementById('uploadMedia');
 		elem.addEventListener('click',clickUpload,false);
 	</script>
-    <cfif isdefined("url.collection_object_id">
+    <cfif isdefined("url.collection_object_id")>
         found a collection object id: 
         <cfoutput>
         
