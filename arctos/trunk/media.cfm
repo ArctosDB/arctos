@@ -317,7 +317,8 @@
     	document.getElementById('_header').style.display='none';
 		document.getElementById('_footer').style.display='none';
 		parent.dyniframesize();
-		<cfset parentURL=top.location>
+		var parentURL=top.location;
+		alert(parentURL)
 	}
 </script>
 <cfoutput>
