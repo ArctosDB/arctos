@@ -308,5 +308,6 @@
     if (top.location!=document.location) {
     	document.getElementById('_header').style.display='none';
 		document.getElementById('_footer').style.display='none';
+		parent.dyniframesize();
 	}
 </script>
