@@ -45,7 +45,7 @@
     <meta name="description" content="#Client.meta_description#">
     <LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico">
     <cfinclude template="/includes/alwaysInclude.cfm"><!--- keep this stuff accessible from non-header-having files --->
-    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <cfset ssName = replace(Client.stylesheet,".css","","all")>
     <link rel="alternate stylesheet" type="text/css" href="/includes/css/#Client.stylesheet#" title="#ssName#">
     <META http-equiv="Default-Style" content="#ssName#">
