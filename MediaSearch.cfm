@@ -2,6 +2,7 @@
 <div id="_header">
     <cfinclude template="/includes/_header.cfm">
 </div>
+---this is visible, eh?
 <cfif isdefined("url.collection_object_id")>
     <cfoutput>
     <cflocation url="MediaSearch.cfm?action=search&relationship__1=cataloged_item&related_primary_key__1=#url.collection_object_id#" addtoken="false">
