@@ -183,13 +183,6 @@ window.onload=dyniframesize
 		dyniframesize();
 	}
 </script>
-<style>
-	.thisFrame {
-		border:0px;
-		width:100%;
-		/*height:1000px;*/
-		}
-</style>
 <div style="background-color:blue;">
 	<!----
 <cfif len(#client.username#) gt 0>
