@@ -255,7 +255,7 @@
 				onmouseout="this.className='insBtn'">
 		</form>
         <cfscript>
-            r="34";
+            r=top.location;
         </cfscript>
                      r is #r#
 	</cfoutput>
