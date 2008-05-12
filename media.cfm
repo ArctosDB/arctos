@@ -306,11 +306,12 @@
 <cfinclude template="/includes/_footer.cfm">
 </div>
 <!--- deal with the possibility of being called in a frame from SpecimenDetail --->
+<cfoutput>
 <script language="javascript" type="text/javascript">
     function idInTop( name )
 	{
 	  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-	  var regexS = "[\\?&]"+name+"=([^&#]*)";
+	  var regexS = "[\\?&]"+name+"=([^&##]*)";
 	  var regex = new RegExp( regexS );
 	  var results = regex.exec( top.location.href );
 	  if( results == null )
@@ -330,6 +331,5 @@ if (top.location!=document.location) {
 		}
 	}
 </script>
-<cfoutput>
-    <cfif isdefined("parentURL")>---------#parentURL#--------</cfif>
+
 </cfoutput>
