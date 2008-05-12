@@ -323,7 +323,7 @@ if (top.location!=document.location) {
 		document.getElementById('_footer').style.display='none';
 		parent.dyniframesize();
 		var tl=idInTop("collection_object_id")
-		if '#action#'=='newMedia' && tl.length>0 {
+		if ('#action#'=='newMedia' && tl.length>0) {
 		    alert('gonna do some stuff...')
 		}
 	}
