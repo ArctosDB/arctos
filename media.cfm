@@ -254,10 +254,7 @@
 				onmouseover="this.className='insBtn btnhov'" 
 				onmouseout="this.className='insBtn'">
 		</form>
-        <cfscript>
-            r=top.location;
-        </cfscript>
-                     r is #r#
+   
 	</cfoutput>
 	<script>
 		var elem = document.getElementById('uploadMedia');
@@ -310,10 +307,23 @@
 </div>
 <!--- deal with the possibility of being called in a frame from SpecimenDetail --->
 <script language="javascript" type="text/javascript">
-    if (top.location!=document.location) {
+    function gup( name )
+	{
+	  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+	  var regexS = "[\\?&]"+name+"=([^&#]*)";
+	  var regex = new RegExp( regexS );
+	  var results = regex.exec( window.location.href );
+	  if( results == null )
+	    return "";
+	  else
+	    return results[1];
+	}
+if (top.location!=document.location) {
     	document.getElementById('_header').style.display='none';
 		document.getElementById('_footer').style.display='none';
 		parent.dyniframesize();
+		var tl=gup("collection_object_id")
+		alert(tl)
 	}
 </script>
 <cfoutput>
