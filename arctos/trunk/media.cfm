@@ -303,3 +303,10 @@
 <div id="_footer">
 <cfinclude template="/includes/_footer.cfm">
 </div>
+<!--- deal with the possibility of being called in a frame from SpecimenDetail --->
+<script language="javascript" type="text/javascript">
+    if (top.location!=document.location) {
+    	document.getElementById('_header').style.display='none';
+		document.getElementById('_footer').style.display='none';
+	}
+</script>

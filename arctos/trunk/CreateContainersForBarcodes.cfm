@@ -66,6 +66,7 @@
 <cfset barcode = "#beginBarcode#">
 <cfoutput>
 <cfset num = #num# + 1>
+<cftransaction>
 <cfloop index="index" from="1" to = "#num#">
 <cfquery name="AddLabels" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 	INSERT INTO container (container_id, parent_container_id, container_type, barcode, label, container_remarks,locked_position,institution_acronym)
@@ -75,7 +76,7 @@
 		<cfset barcode = #barcode# + 1>
 		<cfset newid = #newid# + 1>
 </cfloop>	
-	
+</cftransaction>
 	<br> The series of barcodes from #beginBarcode# to #endBarcode# have been uploaded.
 	
   

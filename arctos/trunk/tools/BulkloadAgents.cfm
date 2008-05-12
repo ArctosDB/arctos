@@ -1,4 +1,6 @@
 <!---
+drop table cf_temp_agents;
+
 create table cf_temp_agents (
 	key number not null,
 	agent_type varchar2(255),
@@ -6,18 +8,22 @@ create table cf_temp_agents (
 	first_name varchar2(255),
 	middle_name varchar2(255),
 	last_name varchar2(255),
-	birth_date date(255),
-	death_date date(255),
+	birth_date date,
+	death_date date,
 	agent_remark varchar2(255),
 	prefix varchar2(255),
 	suffix varchar2(255),
 	other_name_type varchar2(255),
 	other_name varchar2(255),
-	status varchar2(255)
+	status varchar2(255),
+    other_name_type_2 varchar2(255),
+    other_name_2 varchar2(255),
+    other_name_type_3 varchar2(255),
+    other_name_3 varchar2(255)    
 	);
 	
 create public synonym cf_temp_agents for cf_temp_agents;
-grant all on cf_temp_agents to uam_update;
+grant all on cf_temp_agents to coldfusion_user;
 grant select on cf_temp_agents to public;
 
  CREATE OR REPLACE TRIGGER cf_temp_agents_key                                         
@@ -30,6 +36,8 @@ grant select on cf_temp_agents to public;
     end;                                                                                            
 /
 sho err
+
+
 --->
 
 <cfinclude template="/includes/functionLib.cfm">
@@ -40,7 +48,7 @@ Include column headings, spelled exactly as below.
 <br><span class="likeLink" onclick="document.getElementById('template').style.display='block';">view template</span>
 	<div id="template" style="display:none;">
 		<label for="t">Copy and save as a .csv file</label>
-		<textarea rows="2" cols="80" id="t">agent_type,preferred_name,first_name,middle_name,last_name,birth_date,death_date,agent_remark,prefix,suffix,other_name_type,other_name</textarea>
+		<textarea rows="2" cols="80" id="t">agent_type,preferred_name,first_name,middle_name,last_name,birth_date,death_date,agent_remark,prefix,suffix,other_name_type,other_name,other_name_2,other_name_type_2,other_name_3,other_name_type_3</textarea>
 	</div> 
 <p></p>
 
@@ -60,7 +68,11 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<li>prefix (agent_type="person" only)</li>
 	<li>suffix (agent_type="person" only)</li>
 	<li>other_name_type (second name type)</li>
-	<li>other_name (second name)</li>				 
+	<li>other_name (second name)</li>
+    <li>other_name_type_2</li>
+	<li>other_name_2</li>
+    <li>other_name_type_3</li>
+	<li>other_name_3</li>				 
 </ul>
 
 <cfform name="atts" method="post" enctype="multipart/form-data">
@@ -189,6 +201,18 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	other_name is not null and other_name_type is not null and
 	other_name_type not in (select agent_name_type from ctagent_name_type)
 </cfquery>
+<cfquery name="setStatus3" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	update cf_temp_agents set status='bad_name_type'
+	where status is null AND 
+	other_name_2 is not null and other_name_type_2 is not null and
+	other_name_type_2 not in (select agent_name_type from ctagent_name_type)
+</cfquery>
+<cfquery name="setStatus4" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	update cf_temp_agents set status='bad_name_type'
+	where status is null AND 
+	other_name_3 is not null and other_name_type_3 is not null and
+	other_name_type_3 not in (select agent_name_type from ctagent_name_type)
+</cfquery>
 <cfquery name="bads" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 	select * from cf_temp_agents where status is not null
 </cfquery>
@@ -246,6 +270,20 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			<cfquery name="newAgentName" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 				insert into agent_name ( AGENT_NAME_ID,AGENT_ID,AGENT_NAME_TYPE,AGENT_NAME )
 				values (#agent_name_id#,#agent_id#,'#OTHER_NAME_TYPE#','#OTHER_NAME#')
+			</cfquery>
+		</cfif>
+        <cfif len(#OTHER_NAME_2#) gt 0>
+			<cfset agent_name_id = #agent_name_id# + 1>
+			<cfquery name="newAgentName" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				insert into agent_name ( AGENT_NAME_ID,AGENT_ID,AGENT_NAME_TYPE,AGENT_NAME )
+				values (#agent_name_id#,#agent_id#,'#OTHER_NAME_TYPE_2#','#OTHER_NAME_2#')
+			</cfquery>
+		</cfif>
+        <cfif len(#OTHER_NAME_3#) gt 0>
+			<cfset agent_name_id = #agent_name_id# + 1>
+			<cfquery name="newAgentName" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				insert into agent_name ( AGENT_NAME_ID,AGENT_ID,AGENT_NAME_TYPE,AGENT_NAME )
+				values (#agent_name_id#,#agent_id#,'#OTHER_NAME_TYPE_3#','#OTHER_NAME_3#')
 			</cfquery>
 		</cfif>
 		<cfset agent_name_id = #agent_name_id# + 1>

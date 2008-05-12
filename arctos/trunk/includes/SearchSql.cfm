@@ -198,17 +198,13 @@
 		</cfif>
 		
 		
-		<cfif isdefined("collection_id") AND isnumeric(#collection_id#)>
+		
+        <cfif isdefined("collection_id") AND isnumeric(#collection_id#)>
 			<cfset basQual = "#basQual#  AND #flatTableName#.collection_id = #collection_id#" >
 			<cfset mapurl = "#mapurl#&collection_id=#collection_id#">
-		<cfelse>
-			<!--- allow over-ride of collection in preferences if they specify a collection 
-			at specimensearch --->
-			<cfif isdefined("exclusive_collection_id") and len(#exclusive_collection_id#) gt 0>
+		<cfelseif isdefined("exclusive_collection_id") and len(#exclusive_collection_id#) gt 0>
 				<cfset basQual = "#basQual#  AND cataloged_item.collection_id = #exclusive_collection_id#" >
 				<cfset mapurl = "#mapurl#&exclusive_collection_id=#exclusive_collection_id#">
-			</cfif>	
-			
 		</cfif>
 		
 		<cfif isdefined("Client.collection") and len(#Client.collection#) gt 0>
