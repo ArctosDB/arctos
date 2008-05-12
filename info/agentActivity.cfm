@@ -71,8 +71,8 @@ Back to <a href="/editAllAgent.cfm?agent_id=#agent_id#">Agent Details</a><table 
 	<cfquery name="collector" datasource="#Application.web_user#">
 		select 
 			count(distinct(collector.collection_object_id)) cnt,
-			collection.collection_cde ,
-			institution_acronym
+			collection.collection,
+            collection.collection_id
 		from 
 			collector,
 			cataloged_item,
@@ -82,8 +82,8 @@ Back to <a href="/editAllAgent.cfm?agent_id=#agent_id#">Agent Details</a><table 
 			cataloged_item.collection_id = collection.collection_id AND
 			agent_id=#agent_id#
 		group by
-			collection.collection_cde,
-			institution_acronym
+			collection.collection,
+            collection.collection_id
 	</cfquery>
 	
 			<li>
@@ -92,7 +92,7 @@ Back to <a href="/editAllAgent.cfm?agent_id=#agent_id#">Agent Details</a><table 
 			<ul>
 				<CFLOOP query="collector">
 					<li>
-						<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_cde=#collector.collection_cde#" target="#thisTarget#">#collector.cnt# #collector.institution_acronym# #collector.collection_cde#</a> specimens
+						<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#" target="#thisTarget#">#collector.cnt# #collector.collection#</a> specimens
 					</li>
 			  </CFLOOP>
 			</ul>
@@ -149,7 +149,12 @@ Back to <a href="/editAllAgent.cfm?agent_id=#agent_id#">Agent Details</a><table 
 			  </li>
 	
 	<cfquery name="identification" datasource="#Application.web_user#">
-		select count(*) cnt, count(distinct(collection_object_id)) specs from identification where id_made_by_agent_id=#agent_id#
+		select count(*) cnt, count(distinct(collection_object_id)) specs from 
+        identification,
+        identification_agent
+         where 
+         identification.identification_id=identification_agent.identification_id and
+         agent_id=#agent_id#
 	</cfquery>
 	 
 						</li>
