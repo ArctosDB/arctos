@@ -212,6 +212,10 @@ td#SDCellRight{
 	text-align: left;
 	row-span: 1;
 	}
+	
+.detailElements{
+	font-size:1em;
+}
 
 /* End SpecimenDetail */
 	

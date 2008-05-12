@@ -171,7 +171,8 @@ end cmask,
 		concatencumbrances(cataloged_item.collection_object_id) concatenatedEncumbrances,
 		concatEncumbranceDetails(cataloged_item.collection_object_id) encumbranceDetail,
 		locality.locality_remarks,
-		verbatim_locality	
+		verbatim_locality,
+		parts_coll_object_remark.coll_object_remarks
 	FROM 
 		cataloged_item,
 		collection,
@@ -203,7 +204,10 @@ end cmask,
 		cataloged_item related_cat_item,
 		collection related_coll,
 		specimen_part,
-		coll_object part_object
+		coll_object part_object,
+		coll_object_remark parts_coll_object_remark,
+	 	coll_object parts_coll_object,
+		specimen_part s_part
 	WHERE 
 		cataloged_item.collection_id = collection.collection_id AND
 		cataloged_item.collection_object_id = identification.collection_object_id AND
@@ -535,26 +539,14 @@ end cmask,
 					</cfif>
 				</div>
 				<table id="SD">		
-				<tr>
-						<td id="SDCellLeft" class="innerDetailLabel">Identified As:</td>
-						<td id="SDCellRight"><i>#scientific_name#</i></td>
+				<tr><td id="SDCellRight"><i>#scientific_name#</i></td>
 				</tr>
-				<tr>		
-						<td id="SDCellLeft" class="innerDetailLabel">Identifier:</td>
-						<td id="SDCellRight">#valuelist(identifiers.id_by)#</td>
+				<tr><td id="SDCellRight">Determined by #valuelist(identifiers.id_by)#, #dateformat(made_date,"dd mmm yyyy")#</td>
 				</tr>
-				<tr>					
-						<td id="SDCellLeft" class="innerDetailLabel">Date Identified:</td>
-						<td id="SDCellRight">#dateformat(made_date,"dd mmm yyyy")#</td>
-				</tr>
-				<tr>
-						<td id="SDCellLeft" class="innerDetailLabel">Nature of Identification:</td>
-						<td id="SDCellRight">#nature_of_id#</td>
+				<tr><td id="SDCellRight" class="detailElements">#nature_of_id#</td>
 				</tr>
 				<cfif len(#identification_remarks#) gt 0>
-					<tr>
-							<td id="SDCellLeft" class="innerDetailLabel">Identification Remarks:</td>
-							<td id="SDCellRight">#identification_remarks#</td>
+					<tr><td id="SDCellRight" class="detailElements">#identification_remarks#</td>
 					</tr>
 				</cfif>
 				</table>
@@ -1261,7 +1253,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 						</tr>
 						<cfloop query="media">
 							<tr class = "detailData">
-								<td>#media_uri#</td>
+								<td><a href=#media_uri#>#media_uri#</a></td>
 							</tr>
 						</cfloop>
 					</table>
