@@ -1,5 +1,7 @@
 <cfset title="Media">
-<cfinclude template="/includes/_header.cfm">
+<div id="_header">
+    <cfinclude template="/includes/_header.cfm">
+</div>
 <cfif isdefined("url.collection_object_id")>
     <cfoutput>
     <cflocation url="MediaSearch.cfm?action=search&relationship__1=cataloged_item&related_primary_key__1=#url.collection_object_id#" addtoken="false">
@@ -209,4 +211,13 @@
 		</form>
 		</cfoutput>
 </cfif>
+<div id="_footer">
 <cfinclude template="/includes/_footer.cfm">
+</div>
+<!--- deal with the possibility of being called in a frame from SpecimenDetail --->
+<script language="javascript" type="text/javascript">
+    if (top.location!=document.location) {
+    	document.getElementById('_header').style.display='none';
+		document.getElementById('_footer').style.display='none';
+	}
+</script>
