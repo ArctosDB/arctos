@@ -260,9 +260,13 @@
 		elem.addEventListener('click',clickUpload,false);
 	</script>
      <cfscript>
-        var r=top.location;
-        alert(r)
+        r="im r!"
     </cfscript>
+    <cfoutput>
+    
+    r is #r#
+    
+    </cfoutput>
     <cfif isdefined("url.collection_object_id")>
         found a collection object id: 
         <cfoutput>
