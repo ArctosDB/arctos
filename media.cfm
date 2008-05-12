@@ -324,10 +324,11 @@ if (top.location!=document.location) {
 		document.getElementById('_footer').style.display='none';
 		parent.dyniframesize();
 		var tl=idInTop("collection_object_id")
-		alert('#action#')
-		alert(tl.length)
 		if ('#action#'=='newMedia' && tl.length>0) {
 		    alert('gonna do some stuff...')
+		    	document.getElementById('relationship__1').value="shows cataloged_item";
+		    	document.getElementById('related_value__1').value="This Specimen";
+		    	document.getElementById('related_id__1').value=tl;
 		}
 	}
 </script>
