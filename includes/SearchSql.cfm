@@ -354,7 +354,7 @@
 				INNER JOIN identification_agent ON 
 				(identification.identification_id = identification_agent.identification_id)	">
 			</cfif>
-			<cfset basQual = " #basQual# AND identification_agent.id_made_by_agent_id = #identified_agent_id#">			
+			<cfset basQual = " #basQual# AND identification_agent.agent_id = #identified_agent_id#">			
 		</cfif>
 		<cfif isdefined("nature_of_id") AND len(#nature_of_id#) gt 0>
 			<cfset mapurl = "#mapurl#&nature_of_id=#nature_of_id#">
