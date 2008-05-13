@@ -124,7 +124,7 @@
 			</td>
 		</tr>
 	</table>	
-	<div style="float:right;position:absolute;top:0px;right:0px;clear:both; font-size:smaller;">
+	<div style="float:right;position:absolute;top:0px;right:0px;clear:both;">
 	    <cfif len(#client.username#) gt 0>
 			<a target="_top" href="/login.cfm?action=signOut">Log out #client.username#</a>
 			<cfif isdefined("client.last_login") and len(#client.last_login#) gt 0>
