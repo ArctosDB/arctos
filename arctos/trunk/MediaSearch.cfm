@@ -96,8 +96,10 @@
 <cfloop query="findIDs">
 	<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td>
-			URI: #media_uri# 
-            <br>Preview URI: #preview_uri# 
+			URI: #media_uri#
+            <cfif len(#preview_uri#) gt 0>
+                <br>Preview URI: #preview_uri#
+            </cfif> 
 			<br>MIME Type: #mime_type# 
             <br>Media Type: #media_type#
              <cfif isdefined("client.roles") and listcontainsnocase(client.roles,"manage_media")>
