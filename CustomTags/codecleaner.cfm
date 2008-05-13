@@ -54,6 +54,7 @@ just escape all tags so that <table> becomes &lt;table&gt; etc.
 	<cfparam name="attributes.removeDangerousHTMLtags" default="yes" type="boolean">
 	<cfparam name="attributes.removeHTMLformTags" default="yes" type="boolean">
 	<cfparam name="attributes.removeDOMeventHandlers" default="yes" type="boolean">
+    <cfparam name="attributes.removeSqlNoNo" default="yes" type="boolean">
 	<cfcatch>
 		<cfthrow type="CustomTags.CodeCleaner" message="Required attributes not defined or error in attributes formating.">
 	</cfcatch>
@@ -70,6 +71,9 @@ just escape all tags so that <table> becomes &lt;table&gt; etc.
 		tmp = Replace(tmp, ">", "&gt;", "ALL");
 	} else {
 		// Remove CF tags
+		if (attributes.removeSqlNoNo)
+			tmp = REReplaceNoCase(tmp, "(</?(update|insert|delete|drop|create|alter|dba_|user_|all_|set|execute|exec|begin|end|declare)[^>]*>)", "", "ALL");
+		
 		if (attributes.removeCFtags)
 			tmp = REReplaceNoCase(tmp, "(<CF[^>]*>)(.*(</CF[^>]*>))?", "", "ALL");
 		

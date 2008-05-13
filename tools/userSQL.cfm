@@ -13,9 +13,12 @@
 	    
 	    <cfif #action# is "run">
 	       <hr>
+           <cf_codecleaner input=#sql#>
+           ---#clean_code#-------
            <!--- check the SQL to see if they're doing anything naughty --->
+           <!---
            <cfset nono="update,insert,delete,drop,create,alter,dba_,user_,all_,set,execute,exec,begin,end,declare">
-           <cfset dels=";,|">
+           <cfset dels="';','|',">
            <cfset safe=0>
            <cfloop list="#nono#" index="i">
                 <cfloop list="#dels#" index="d">
@@ -51,7 +54,7 @@
 	            </cftry>
             </cfif>
            
-           
+           --->
 	    </cfif>
     </cfoutput>
 <cfinclude template = "/includes/_footer.cfm">
