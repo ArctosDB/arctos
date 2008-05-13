@@ -42,7 +42,25 @@
 		                #preservesinglequotes(sql)#
 		            </cfquery>
                     <cfif #format# is "csv">
-                        csv this....
+                        <cfset ac = valuelist(user_sql.column_name)>
+                        <cfset fileDir = "#Application.webDirectory#">
+				        <cfset fileName = "/download/ArctosUserSql_#cfid#_#cftoken#.csv">
+				        <cfset header=#trim(ac)#>
+				        <cffile action="write" file="#fileDir##fileName#" addnewline="yes" output="#header#">
+				        <cfloop query="user_sql">
+					        <cfset oneLine = "">
+					        <cfloop list="#ac#" index="c">
+						        <cfset thisData = #evaluate(c)#>
+								<cfif len(#oneLine#) is 0>
+									<cfset oneLine = '"#thisData#"'>
+								<cfelse>
+									<cfset oneLine = '#oneLine#,"#thisData#"'>
+								</cfif>
+					        </cfloop>
+					        <cfset oneLine = trim(oneLine)>
+					        <cffile action="append" file="#fileDir##fileName#" addnewline="yes" output="#oneLine#">
+				        </cfloop>
+				        <a href="#Application.serverRootUrl#/#fileName#">Right-click to save your download.</a>
                     <cfelse>
                         <cfdump var=#user_sql#>
                     </cfif>
