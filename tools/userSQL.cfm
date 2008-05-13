@@ -18,7 +18,7 @@
            <cfset dels="chr(13),chr(10),;,|">
            <cfset safe=0>
            <cfloop list="#nono#" index="i">
-                <cfloop list="dels" index="d">
+                <cfloop list="#dels#" index="d">
                     <cfif ListContainsNoCase(sql,i,d)>
                         <br>found #d# in #i#
                         <cfset safe=safe+1>
