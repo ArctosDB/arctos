@@ -467,9 +467,10 @@
 	<table width="100%">
 		<tr>
 			<td>
-				<div id="fHolder" style="border:none;width:100%;">
+				<div id="fHolder">
 					<iframe class="thisFrame" 
-						id="theFrame" 
+						style="border:none;width:100%;"
+                        id="theFrame" 
 						name="theFrame" 
 						src="SpecimenDetail_body.cfm?collection_object_id=#collection_object_id#">
 					</iframe>
