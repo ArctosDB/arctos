@@ -12,10 +12,9 @@
 	
 	    <cfif #action# is "run">
 	        <!--- check the SQL to see if they're doing anything naughty --->
-	       <cf_codecleaner input=#sql#>
            <cfset nono="update|insert|delete|drop|create|alter">
            <cfloop list="#nono#" index="i">
-                <cfset clean_code=replacenocase(clean_code,i,"--stripped--","all")>
+                <cfset clean_code=replacenocase(sql,i,"--stripped--","all")>
             </cfloop>
 	       --------#clean_code#-------
 	    </cfif>
