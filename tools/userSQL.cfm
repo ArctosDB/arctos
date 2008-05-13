@@ -19,10 +19,20 @@
             <div style="font-size:smaller;background-color:lightgray">
                 #sql#
             </div>
-            <cfquery name="user_sql" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-                #preservesinglequotes(sql)#
-            </cfquery>
-            <cfdump var=#user_sql#>
+            <cftry>
+                 <cfquery name="user_sql" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	                #preservesinglequotes(sql)#
+	            </cfquery>
+	            <cfdump var=#user_sql#>
+            <cfcatch>
+                <div class="error">
+                    #cfcatch.error#
+                    <br>
+                    #cfcatch.detail#
+                </div>
+            </cfcatch>
+            </cftry>
+           
 	    </cfif>
     </cfoutput>
 <cfinclude template = "/includes/_footer.cfm">
