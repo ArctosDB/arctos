@@ -211,6 +211,8 @@
 			<input type="hidden" id="number_of_labels" name="number_of_labels" value="1">
 			<label for="media_uri">Media URI</label>
 			<input type="text" name="media_uri" id="media_uri" size="90" class="reqdClr"><span class="infoLink" id="uploadMedia">Upload</span>
+			<label for="preview_uri">Preview URI</label>
+			<input type="text" name="preview_uri" id="preview_uri" size="90"><span class="infoLink" id="uploadMediaPreview">Upload</span>
 			<label for="mime_type">MIME Type</label>
 			<select name="mime_type" id="mime_type" class="reqdClr">
 					<cfloop query="ctmime_type">

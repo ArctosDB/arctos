@@ -20,9 +20,6 @@
 </cfif>
 <cfif #action# is "getFile">
 <cfoutput>
-	<cfquery name="validExtension" datasource="#application.web_user#">
-		select media_type from ctmedia_type
-	</cfquery>
 	<cffile action="upload"
     	destination="#Application.webDirectory#/temp/"
       	nameConflict="overwrite"
@@ -38,19 +35,6 @@
 		<cfabort>   
 	</cfif>
 	<!----This name contains only alphanumeric characters, check the extension---->
-	<cfset ext=right(extension,len(extension)-1)>
-	<cfif REFind("[^A-Za-z]",ext,1) gt 0>
-		The extension you provided contains inappropriate characters.
-		Please rename your file and <a href="javascript:back()">try again</a>.
-		<cfabort>
-	</cfif>
-	<cfset goodExtensions=valuelist(validExtension.media_type)>
-	<cfif not listfindnocase(goodExtensions,ext,",")>
-		The extension you provided is not acceptable. Acceptable extensions are: #goodExtensions#
-		Please <a href="/info/bugs.cfm">file a bug report</a> if you feel that this message is in error, or
-		<a href="javascript:back()">try again</a>.
-		<cfabort>
-	</cfif>
 	<cfset loadPath = "#Application.webDirectory#/mediaUploads/#client.username#">
 	<cftry>
 		<cfdirectory action="create" directory="#loadPath#">

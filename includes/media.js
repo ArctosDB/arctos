@@ -13,7 +13,15 @@ function clickUpload(){
 	var guts = "/info/upMedia.cfm";
 	theDiv.src=guts;
 }
-
+function clickUploadPreview(){
+	var theDiv = document.createElement('iFrame');
+	theDiv.id = 'uploadDiv';
+	theDiv.name = 'uploadDiv';
+	theDiv.className = 'uploadMediaDiv';
+	document.body.appendChild(theDiv);
+	var guts = "/info/upMedia.cfm";
+	theDiv.src=guts;
+}
 function pickedRelationship (id){
 	var relationship=document.getElementById(id).value;
 	var ddPos = id.lastIndexOf('__');
