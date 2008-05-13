@@ -12,7 +12,7 @@
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "search">
 <cfoutput>
-<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type "> 
+<cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
 <cfset frm="from media">			
 <cfset whr=" where media.media_id > 0">
 <cfset srch=" ">		
@@ -97,6 +97,7 @@
 	<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td>
 			URI: #media_uri# 
+            <br>Preview URI: #preview_uri# 
 			<br>MIME Type: #mime_type# 
             <br>Media Type: #media_type#
              <cfif isdefined("client.roles") and listcontainsnocase(client.roles,"manage_media")>
