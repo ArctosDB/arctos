@@ -15,15 +15,21 @@
 	       <hr>
            <!--- check the SQL to see if they're doing anything naughty --->
            <cfset nono="update,insert,delete,drop,create,alter,dba_,user_,all_,set,execute,exec,begin,end,declare">
+           <cfset dels="chr(13),chr(10),;,|">
+           <cfset safe=0>
            <cfloop list="#nono#" index="i">
-                <cfset sql=replacenocase(sql,i,"::stripped::","all")>
+                <cfloop list="dels" index="d">
+                    <cfif ListContainsNoCase(sql,i,d)>
+                        <cfset safe=safe+1>
+                    </cfif>
+                </cfloop>
             </cfloop>
             <div style="font-size:smaller;background-color:lightgray">
                 SQL:<br>
                 #sql#
             </div>
             Result:<br>
-            <cfif #sql# contains "::stripped::">
+            <cfif safe gt 0>
                <div class="error">
                     The code you submitted contains illegal characters.
                 </div> 
