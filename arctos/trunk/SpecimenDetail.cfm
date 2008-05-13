@@ -247,7 +247,6 @@
 				<cfset hg="#quad# Quad">
 			</cfif>
 		</cfif>
-        <br>
 	    <table >
 	        <tr>
 			    <td nowrap valign="top">
