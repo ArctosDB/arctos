@@ -467,7 +467,7 @@
 	<table width="100%">
 		<tr>
 			<td>
-				<div id="fHolder">
+				<div id="fHolder" style="border:none;width:100%;">
 					<iframe class="thisFrame" 
 						id="theFrame" 
 						name="theFrame" 
