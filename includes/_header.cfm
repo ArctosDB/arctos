@@ -340,7 +340,7 @@
 		<ul>
 			<li><h2 onclick="document.location='/myArctos.cfm';">My Stuff</h2>
 				<ul>
-					<li><a target="_top" href="/myArctos.cfm">Preferences</a></li>
+					<li><a target="_top" href="/myArctos.cfm">Profile</a></li>
 					<li><a target="_top" href="##" onClick="getInstDocs('GENERIC','index')">Help</a></li>
 					<li><a target="_top" href="/home.cfm">Home</a></li>
 					<li><a target="_top" href="/Collections/index.cfm">Collections</a></li>

@@ -239,7 +239,7 @@
 						
 					</li>
 					<li>
-						Review some <a href="http://curator.museum.uaf.edu/UAM/" target="_blank">sample searches</a> to learn about the power of Arctos.
+						Review some <a href="http://g-arctos.appspot.com/arctosdoc/search_examples_TOC.html" target="_blank">sample searches</a> to learn about the power of Arctos.
 					</li>
 				</ul>
 				
