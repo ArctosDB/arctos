@@ -263,8 +263,6 @@
 						#client.username# has set up an Oracle account and awaits blessings.
 					</cfmail>			
 				</cfif>
-	
-	<br>Changing values on this form will affect your search screen, results, and how data are presented.
 			
 			<!----
 				<a href="/user/user_project.cfm">loans</a>
