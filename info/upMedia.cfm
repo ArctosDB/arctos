@@ -70,9 +70,12 @@
             </span>
             <cfabort>
         </cfif>
+        <cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#client.username#/#fileName#">
+    <cfelse>
+         <cfset preview_uri = "">
     </cfif>
 	
-<script>parent.closeUpload('#media_uri#');</script>
+<script>parent.closeUpload('#media_uri#','#preview_uri#');</script>
 </cfoutput>
 </cfif>
  
