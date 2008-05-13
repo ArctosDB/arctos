@@ -82,6 +82,8 @@
 		</cfif>
 	</cfloop>
 <cfset ssql="#sel# #frm# #whr# #srch#">
+
+#preservesinglequotes(ssql)#
 <cfquery name="findIDs" datasource="#application.web_user#">
 	#preservesinglequotes(ssql)#
 </cfquery>
