@@ -14,9 +14,9 @@
 	        <!--- check the SQL to see if they're doing anything naughty --->
            <cfset nono="update,insert,delete,drop,create,alter">
            <cfloop list="#nono#" index="i">
-                <cfset clean_code=replacenocase(sql,i,"--stripped--","all")>
+                <cfset sql=replacenocase(sql,i,"--stripped--","all")>
             </cfloop>
-	       --------#clean_code#-------
+	       --------#sql#-------
 	    </cfif>
     </cfoutput>
 <cfinclude template = "/includes/_footer.cfm">
