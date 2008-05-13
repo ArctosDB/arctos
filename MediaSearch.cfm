@@ -26,7 +26,7 @@
 	<cfset srch="#srch# AND mime_type = '#mime_type#'">
 </cfif>
 <cfif not isdefined("number_of_relations")>
-    <cfset number_of_relations=1>
+    <cfset number_of_relations=0>
 </cfif>
 <cfif not isdefined("number_of_labels")>
     <cfset number_of_labels=0>
