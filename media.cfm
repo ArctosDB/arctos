@@ -325,10 +325,9 @@ if (top.location!=document.location) {
 		parent.dyniframesize();
 		var tl=idInTop("collection_object_id")
 		if ('#action#'=='newMedia' && tl.length>0) {
-		    alert('gonna do some stuff...')
-		    	document.getElementById('relationship__1').value="shows cataloged_item";
-		    	document.getElementById('related_value__1').value="This Specimen";
-		    	document.getElementById('related_id__1').value=tl;
+	    	document.getElementById('relationship__1').value="shows cataloged_item";
+	    	document.getElementById('related_value__1').value="This Specimen";
+	    	document.getElementById('related_id__1').value=tl;
 		}
 	}
 </script>
