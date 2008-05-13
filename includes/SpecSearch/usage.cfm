@@ -1,10 +1,25 @@
 <script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>	
-<cfquery name="ctSubject" datasource="#Application.web_user#">
-	select subject from ctbin_obj_subject
+<cfquery name="ctmedia_type" datasource="#Application.web_user#">
+	select media_type from ctmedia_type order by media_type
 </cfquery>
 <cfoutput>
 <table id="t_identifiers" class="ssrch">
 	<tr>
+        <td class="lbl">
+            <span class="helpLink" id="media_type">Media Type:</span>
+        </td>
+        <td class="srch">
+			<select name="media_type" size="1">
+				<option value=""></option>
+                <option value="any">Any</option>
+				<cfloop query="ctmedia_type">
+					<option value="#ctmedia_type.media_type#">#ctmedia_type.media_type#</option>
+				</cfloop>
+			</select>
+		</td>
+    </tr>
+    <!------
+    <tr>
 		<td class="lbl">
 			<span class="helpLink" id="images">Find items with images:</span>
 		</td>
@@ -34,6 +49,7 @@
 			<input type="text" name="imgDescription" size="50">
 		</td>
 	</tr>
+    --->
 	<tr>
 		<td class="lbl">
 			<span class="helpLink" id="accessioned_by_project">Accessioned By Project Name:</span>
