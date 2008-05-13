@@ -142,7 +142,20 @@
 			<label for="relationships">Media Relationships</label>
 			<div id="relationships" style="border:1px dashed red;">
 				<cfset i=1>
-				<cfloop query="relns">
+				<cfif relns.recordcount is 0>
+				<!--- seed --->
+                <div id="seedMedia" style="display:none">
+                    <input type="hidden" id="media_relations_id__0" name="media_relations_id__0">
+					<select name="relationship__0" id="relationship__0" size="1"  onchange="pickedRelationship(this.id)">
+						<option value="delete">delete</option>
+						<cfloop query="ctmedia_relationship">
+							<option <cfif #d# is #media_relationship#> selected="selected" </cfif>value="#media_relationship#">#media_relationship#</option>
+						</cfloop>
+					</select>:&nbsp;<input type="text" name="related_value__0" id="related_value__0" size="80">
+					<input type="hidden" name="related_id__0" id="related_id__0">
+                </div>
+                </cfif>
+                <cfloop query="relns">
 					<cfset d=media_relationship>
 					<input type="hidden" id="media_relations_id__#i#" name="media_relations_id__#i#" value="#media_relations_id#">
 					<select name="relationship__#i#" id="relationship__#i#" size="1"  onchange="pickedRelationship(this.id)">
