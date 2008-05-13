@@ -178,8 +178,10 @@
 			dyniframesize();
 	}
 </script>
+<!---
 <div style="background-color:blue;">
-	</cfoutput>
+	--->
+    </cfoutput>
 	<cfoutput query="detail" group="cat_num">
 	    <cfset hg="">
 		<cfif len(#continent_ocean#) gt 0>
@@ -474,7 +476,9 @@
 			</td>
 		</tr>
 	</table>
+    <!---
 </div>
+--->
 <cfset exclusive_collection_id="#detail.collection_id#">
 <cfinclude template="/includes/_footer.cfm">
 
