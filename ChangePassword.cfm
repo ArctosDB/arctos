@@ -1,16 +1,6 @@
 <cfinclude template = "includes/_header.cfm">
 <cfif #action# is "nothing">
-<!---- this is an internal use page and needs a (light) security wrapper --->
-<cfif len(#client.username#) lt 1>
-	You must log in first.
-	<cfabort>
-</cfif>
-
 <cfset title = "Change Password">
-<cfif not isdefined("URL.action")>
-	<cfset url.action = "set">
-</cfif>
-
 <cfoutput>
 	<cfquery name="pwExp" datasource="#Application.web_user#">
 		select pw_change_date from cf_users where username = '#client.username#'
@@ -122,8 +112,8 @@ You are logged in as #client.username#. You must change your password every #App
 						SET password = '#hash(newpassword)#'
 						WHERE username = '#client.username#'
 					</cfquery>
-				<cftransaction>
-								<cfcatch>
+				</cftransaction>
+					<cfcatch>
 					<cfsavecontent variable="errortext">
 						<h3>Error in creating user.</h3>
 						<p>#cfcatch.Message#</p>
