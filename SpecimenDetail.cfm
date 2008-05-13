@@ -248,7 +248,7 @@
 			</cfif>
 		</cfif>
         <br>
-	    <table border>
+	    <table >
 	        <tr>
 			    <td nowrap valign="top">
 					<font size="+1"><strong>#collection#&nbsp;#cat_num#</strong></font>
