@@ -146,7 +146,8 @@
 				<!--- seed --->
                 <div id="seedMedia" style="display:none">
                     <input type="hidden" id="media_relations_id__0" name="media_relations_id__0">
-					<select name="relationship__0" id="relationship__0" size="1"  onchange="pickedRelationship(this.id)">
+					<cfset d="">
+                    <select name="relationship__0" id="relationship__0" size="1"  onchange="pickedRelationship(this.id)">
 						<option value="delete">delete</option>
 						<cfloop query="ctmedia_relationship">
 							<option <cfif #d# is #media_relationship#> selected="selected" </cfif>value="#media_relationship#">#media_relationship#</option>
