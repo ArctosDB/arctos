@@ -62,10 +62,10 @@
 			<a href="javascript:back()">Go Back</a>
 			<cfabort>   
 		</cfif>
-        <cfset acceptablePreviewExtensions="jpg,jpeg,gif,png">
+        <cfset acceptablePreviewExtensions=".jpg,.jpeg,.gif,.png">
 	    <cfif not listfindnocase(acceptablePreviewExtensions,extension)>
             <span class="error">
-                Preview (#extension#) must be one of:
+                Preview extension (#extension#) must be one of:
                 #acceptablePreviewExtensions# 
             </span>
             <cfabort>
