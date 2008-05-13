@@ -20,8 +20,9 @@
            <cfset dels="';','|',">
            <cfset safe=0>
            <cfloop index="i" list="#sql#" delimiters=" .,?!;:%$&""'/|[]{}()">
+               element:#i#<br>
                <cfif ListFindNoCase(nono, i)>
-                   #i#
+                   found:#i#<br>
                 </cfif>
             </cfloop>
             <!---
