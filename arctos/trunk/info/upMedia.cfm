@@ -4,6 +4,8 @@
 		<input type="hidden" name="action" value="getFile">
 		  <label for="FiletoUpload">Browse...</label>
 		  <input type="file" name="FiletoUpload" id="FiletoUpload" size="90">
+          <label for="PreviewToUpload">Preview...</label>
+		  <input type="file" name="PreviewToUpload" id="PreviewToUpload" size="90">
    
       <input type="submit" 
 				value="Upload" 
