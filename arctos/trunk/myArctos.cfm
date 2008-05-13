@@ -272,7 +272,8 @@
 			---->
 			
 	<table cellspacing="0" cellpadding="0">
-		<tr>
+		<!---
+        <tr>
 			<td>
 			
 				
@@ -288,7 +289,6 @@
 
 <tr>
 	<td colspan="3"><!--- upper cell --->
-	
 	
 		<table>
 			<tr>
@@ -426,6 +426,7 @@
 			
 			
 	</table>
+
 	</td>
 	
 </tr>
@@ -750,6 +751,7 @@
 </tr>
 </table>
 </td>
+--->
 <td valign="top">
 <cfquery name="getUserData" datasource="#Application.web_user#">
 	SELECT   
