@@ -29,7 +29,7 @@
     <cfset number_of_relations=1>
 </cfif>
 <cfif not isdefined("number_of_labels")>
-    <cfset number_of_labels=1>
+    <cfset number_of_labels=0>
 </cfif>
 <cfloop from="1" to="#number_of_relations#" index="n">
 	<cftry>
