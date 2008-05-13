@@ -19,22 +19,18 @@
 		<cfif len(#c.collection_object_id#) gt 0>
 			<cfset collection_object_id=#c.collection_object_id#>
 		<cfelse>
-			<p style="color:#FF0000; font-size:14px;">
+			<p class="error">
 				Unable to resolve GUID. Aborting.....
 			</p>
 			<cfabort>	
 		</cfif>
 	<cfelse>
-		<p style="color:#FF0000; font-size:14px;">
+		<p class="error">
 			Did not get a collection_object_id - aborting....
 		</p>
 		<cfabort>
 	</cfif>
 </cfif>
-<cfif (not isdefined("content_url")) or (len(#content_url#) is 0)>
-		<cfset content_url = "SpecimenDetail_body.cfm">
-</cfif>
-
 <cfset detSelect = "
 	SELECT DISTINCT
 		institution_acronym,
@@ -93,7 +89,7 @@
 
 <cfoutput>
 <cf_customizeHeader collection_id=#detail.collection_id#>
-<script>
+<script type="text/javascript" language="javascript">
 		
 /***********************************************
 * IFrame SSI script- © Dynamic Drive DHTML code library (http://www.dynamicdrive.com)
@@ -184,38 +180,6 @@ window.onload=dyniframesize
 	}
 </script>
 <div style="background-color:blue;">
-	<!----
-<cfif len(#client.username#) gt 0>
-	<cfquery name="existingAnnotations" datasource="#Application.web_user#">
-		select count(*) cnt from specimen_annotations
-		where collection_object_id = #collection_object_id#
-	</cfquery>
-	
-
-	<span class="pageHelp infoLink" style="border:1px dotted green;" onclick="openAnnotation('#collection_object_id#')">
-		Annotate
-		<cfif #existingAnnotations.cnt# gt 0>
-			<br>(#existingAnnotations.cnt# existing)
-		</cfif>
-		
-	</span>
-<cfelse>
-	<a href="/login.cfm" class="pageHelp infoLink">Login or Create Account</a>
-</cfif>	
-
-
-<cfif isdefined("returnURL") and #len(returnURL)# gt 0>
-	<br><a href="SpecimenResultsss.cfm?#returnURL#" class="pageHelp infoLink">Return to Results</a>&nbsp;
-</cfif>
----->
-
-	<script type="text/javascript" language="javascript">
-		//changeStyle('#detail.institution_acronym#');
-		// set this as a variable
-		//var thisStyle = '#detail.institution_acronym#';
-		// define stylesheet
-		parent.window.document.title = "#detail.institution_acronym# #detail.collection_cde# #detail.cat_num#";
-	</script>
 </cfoutput>
 <cfoutput query="detail" group="cat_num">
 <cfset hg="">
@@ -397,7 +361,6 @@ window.onload=dyniframesize
 				
 		<form name="incPg" method="post" action="SpecimenDetail.cfm">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-					<input type="hidden" name="content_url" value="#content_url#">
 					<input type="hidden" name="suppressHeader" value="true">
 					<input type="hidden" name="action" value="nothing">
 					<input type="hidden" name="Srch" value="Part">
