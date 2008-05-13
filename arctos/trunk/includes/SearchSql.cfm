@@ -74,7 +74,19 @@
 		</cfif>
 	<cfset entered_by_id = #enteredPersonID.agent_id# >
 </cfif>
-
+<cfif isdefined("media_type") AND len(#media_type#) gt 0>
+	<cfif #basJoin# does not contain "media_relations">
+		<cfset basJoin = " #basJoin# INNER JOIN media_relations ON 
+			(cataloged_item.collection_object_id = media_relations.related_primary_key)">
+	</cfif>
+	<cfset basQual = "#basQual#  AND media_relations.media_relationship like '%cataloged_item%'" >
+    <cfif media_type is not "any">
+        <cfset basJoin = " #basJoin# INNER JOIN media ON 
+			(media_relations.media_id = media.media_id)">
+        <cfset basQual = "#basQual#  AND media.media_type = '#media_type#'" >
+    </cfif>
+	<cfset mapurl = "#mapurl#&media_type=#media_type#">
+</cfif>
 <cfif isdefined("entered_by_id") AND len(#entered_by_id#) gt 0><!--- will also fire if null ---->
 	<cfif #basJoin# does not contain "CatItemCollObject">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_object CatItemCollObject ON 
