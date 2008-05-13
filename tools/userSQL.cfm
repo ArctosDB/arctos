@@ -37,7 +37,8 @@
                     The code you submitted contains illegal characters.
                 </div> 
             <cfelse>
-	             <cftry>
+	            
+                                                    <!--- <cftry>---->
 	                 <cfquery name="user_sql" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		                #preservesinglequotes(sql)#
 		            </cfquery>
@@ -64,7 +65,7 @@
                     <cfelse>
                         <cfdump var=#user_sql#>
                     </cfif>
-		            
+		       <!--     
 	            <cfcatch>
 	                <div class="error">
 	                    #cfcatch.message#
@@ -72,7 +73,8 @@
 	                    #cfcatch.detail#
 	                </div>
 	            </cfcatch>
-	            </cftry>
+                                                   
+	            </cftry> --->
             </cfif>
 	    </cfif>
     </cfoutput>
