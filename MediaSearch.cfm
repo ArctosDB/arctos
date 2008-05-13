@@ -58,6 +58,9 @@
 	<cfif len(#thisRelatedItem#) gt 0>
 		<cfset srch="#srch# AND upper(media_relation_summary(media_relations#n#.media_relations_id)) like '%#ucase(thisRelatedItem)#%'">
 	</cfif>
+    <cfif len(#thisRelatedKey#) gt 0>
+		<cfset srch="#srch# AND media_relations#n#.related_primary_key = #thisRelatedKey#">
+	</cfif>
 </cfloop>
 	<cfloop from="1" to="#number_of_labels#" index="n">
 		<cftry>
