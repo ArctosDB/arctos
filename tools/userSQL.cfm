@@ -41,10 +41,10 @@
 	                 <cfquery name="user_sql" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		                #preservesinglequotes(sql)#
 		            </cfquery>
-                    <cfif #result# is "table">
-                        <cfdump var=#user_sql#>
-                    <cfelse>
+                    <cfif #format# is "csv">
                         csv this....
+                    <cfelse>
+                        <cfdump var=#user_sql#>
                     </cfif>
 		            
 	            <cfcatch>
