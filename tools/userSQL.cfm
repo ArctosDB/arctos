@@ -26,7 +26,7 @@
 	            <cfdump var=#user_sql#>
             <cfcatch>
                 <div class="error">
-                    #cfcatch.error#
+                    #cfcatch.message#
                     <br>
                     #cfcatch.detail#
                 </div>
