@@ -1,58 +1,54 @@
 <cfinclude template = "includes/_header.cfm">
+<!---------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
-<cfset title = "Change Password">
-<cfoutput>
-	<cfquery name="pwExp" datasource="#Application.web_user#">
-		select pw_change_date from cf_users where username = '#client.username#'
-	</cfquery>
-	<cfset pwtime =  round(now() - pwExp.pw_change_date)>
-	<cfset pwage = Application.max_pw_age - pwtime>
-
-	
-<cfif #client.username# is "guest">
-	Guests are not allowed to change passwords.<cfabort>
-</cfif>
-<table cellpadding="20"><tr><td valign="top">
-You are logged in as #client.username#. You must change your password every #Application.max_pw_age# days. 
-	Your password is #pwtime# days old.
- <form action="ChangePassword.cfm?action=update" method="post">
-	<table>
-		<tr>
-			<td align="right">Old password: </td>
-			<td><input name="oldpassword" type="password"></td>
-		</tr>
-		<tr>
-			<td align="right">New Password: </td>
-			<td><input name="newpassword" type="password"></td>
-		</tr>
-		<tr>
-			<td align="right">Retype New Password: </td>
-			<td><input name="newpassword2" type="password"></td>
-		</tr>
-		<tr>
-			<td align="center" colspan="2"> <input type="submit" value="Save Password Change" class="savBtn"
-   onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">	</td>
-			
-		</tr>
-	</table>
-	</form>
-	</td>
-	<td valign="top">
-	Lost your password? Passwords are stored in an encrypted format and cannot be recovered. 
-<br>If you have saved your email address in your profile, enter it here to reset your password. 
-<br>If you have not saved your email address, please submit a bug report to that effect and we will reset your password for you.
-
-	<form name="pw" method="post" action="?action=findPass">
-	Username:&nbsp;<input type="text" name="username" />
-	Email Address:&nbsp;<input type="text" name="email">
-	 <input type="submit" value="Request Password" class="lnkBtn"
-   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
-</form>
-</td></tr></table>
-</cfoutput>
+    <cfset title = "Change Password">
+    <cfif len(#client.username#) is 0>
+        <cflocation url="ChangePassword.cfm?action=lostPass" addtoken="false">
+    </cfif>
+    <cfoutput>
+	 	<cfquery name="pwExp" datasource="#Application.web_user#">
+			select pw_change_date from cf_users where username = '#client.username#'
+		</cfquery>
+		<cfset pwtime =  round(now() - pwExp.pw_change_date)>
+		<cfset pwage = Application.max_pw_age - pwtime>
+		<cfif #client.username# is "guest">
+			Guests are not allowed to change passwords.<cfabort>
+		</cfif>
+	    You are logged in as #client.username#. 
+	    You must change your password every #Application.max_pw_age# days. 
+	    Your password is #pwtime# days old.
+		<form action="ChangePassword.cfm" method="post">
+	        <input type="hidden" name="action" value="update">
+			<label for="oldpassword">Old password</label>
+	        <input name="oldpassword" id="oldpassword" type="password">
+			<label for="newpassword">New password</label>
+	        <input name="newpassword" id="newpassword" type="password">
+			<label for="newpassword2">Retype new password</label>
+	        <input name="newpassword2" id="newpassword2" type="password">
+			<br>
+	        <input type="submit" value="Save Password Change" class="savBtn">
+	    </form>
+	</cfoutput>
 </cfif>
 <!----------------------------------------------------------->
-<cfif #url.action# is "update">
+<cfif #action# is "lostPass">
+	Lost your password? Passwords are stored in an encrypted format and cannot be recovered. 
+<br>If you have saved your email address in your profile, enter it here to reset your password. 
+<br>If you have not saved your email address, please submit a bug report to that effect 
+    and we will reset your password for you.
+
+	<form name="pw" method="post" action="ChangePassword.cfm">
+        <input type="hidden" name="action" value="findPass">
+        <label for="username">Username</label>
+	    <input type="text" name="username" id="username">
+        <label for="email">Email Address</label>
+	    <input type="text" name="email" id="email">
+        <br>
+	    <input type="submit" value="Request Password" class="lnkBtn">	
+    </form>
+</cfif>
+<!-------------------------------------------------------------------->
+<cfif #action# is "update">
 	<cfoutput>
 	<cfquery name="getPass" datasource="#Application.uam_dbo#">
 		select password from cf_users where username = '#client.username#'
