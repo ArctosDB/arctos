@@ -72,7 +72,7 @@ just escape all tags so that <table> becomes &lt;table&gt; etc.
 	} else {
 		// Remove CF tags
 		if (attributes.removeSqlNoNo)
-			tmp = REReplaceNoCase(tmp, "(</?(update|insert|delete|drop|create|alter|dba_|user_|all_|set|execute|exec|begin|end|declare)[^>]*>)", "", "ALL");
+			tmp = REReplaceNoCase(tmp, "(/?(update|insert|delete|drop|create|alter|dba_|user_|all_|set|execute|exec|begin|end|declare)[^>]*)", "", "ALL");
 		
 		if (attributes.removeCFtags)
 			tmp = REReplaceNoCase(tmp, "(<CF[^>]*>)(.*(</CF[^>]*>))?", "", "ALL");
