@@ -126,7 +126,7 @@
 	</table>	
 	<div style="float:right;position:absolute;top:0px;right:0px;clear:both; font-size:smaller;">
 	    <cfif len(#client.username#) gt 0>
-			<a target="_top" href="/myArctos.cfm">Preferences</a>&nbsp;|&nbsp;<a target="_top" href="/login.cfm?action=signOut">Log out #client.username#</a>
+			<a target="_top" href="/login.cfm?action=signOut">Log out #client.username#</a>
 			<cfif isdefined("client.last_login") and len(#client.last_login#) gt 0>
 				<span style="font-size:smaller">(Last login: #dateformat(last_login, "mmm d yyyy")#)</span>&nbsp;
 			</cfif>
@@ -143,7 +143,7 @@
 							</td>
 							<td>
                                 <input type="text" name="password" value="Password" title="Password"  size="12"
-								  	class="loginTxt" 	onfocus="if(this.value==this.title){this.value='';this.type='password'};">
+								  	class="loginTxt" onfocus="if(this.value==this.title){this.value='';this.type='password'};">
 							</td>
 						</tr>
 						<tr>
