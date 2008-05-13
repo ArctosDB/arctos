@@ -298,6 +298,18 @@
 				</cfif>			
 				WHERE username = '#orig_username#'
 		</cfquery>
+        <cfif len(#password#) gt 0>
+            <cftry>
+	            <cfquery name="g" datasource="uam_god">
+					alter user #username# identified by "#password#" 
+				</cfquery>
+                <cfcatch>
+                    There may have been a problem updating this user's Oracle password.
+                    <cfabort>
+                </cfcatch>
+	        </cftry>
+        </cfif>
+        
 		<cflocation url="AdminUsers.cfm?Action=edit&username=#username#">
 	</cfif>
 	
