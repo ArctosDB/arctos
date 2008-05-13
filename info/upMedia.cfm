@@ -47,6 +47,10 @@
 		source="#Application.webDirectory#/temp/#fileName#" 
     	destination="#loadPath#"
       	nameConflict="error">
+    <cfif len(#PreviewToUpload#) gt 0>
+        got a preview....
+        <cfabort>
+    </cfif>
 	
 <script>parent.closeUpload('#media_uri#');</script>
 </cfoutput>
