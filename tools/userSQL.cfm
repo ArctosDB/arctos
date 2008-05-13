@@ -7,7 +7,7 @@
 	        <input type="hidden" name="action" value="run">
 	        <label for="sql">SQL</label>
 	        <textarea name="sql" id="sql" rows="10" cols="80" wrap="soft">#sql#</textarea>
-	        <br>Result: Table:<input type="radio" name="format" value="table" selected="selected">
+	        <br>Result: Table:<input type="radio" name="format" value="table" checked="checked">
                         CSV:<input type="radio" name="format" value="csv">
             <br>
             <input type="submit" value="Run Query" class="lnkBtn">
@@ -41,7 +41,12 @@
 	                 <cfquery name="user_sql" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		                #preservesinglequotes(sql)#
 		            </cfquery>
-		            <cfdump var=#user_sql#>
+                    <cfif #result# is "table">
+                        <cfdump var=#user_sql#>
+                    <cfelse>
+                        csv this....
+                    </cfif>
+		            
 	            <cfcatch>
 	                <div class="error">
 	                    #cfcatch.message#
