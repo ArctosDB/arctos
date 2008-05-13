@@ -24,7 +24,8 @@
 		update media set
 		media_uri='#escapeQuotes(media_uri)#',
 		mime_type='#mime_type#',
-        media_type='#media_type#'
+        media_type='#media_type#',
+        preview_uri='#preview_uri#'
 		where media_id=#media_id#
 	</cfquery>
 	<!--- relations --->
