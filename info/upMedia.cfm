@@ -70,6 +70,14 @@
             </span>
             <cfabort>
         </cfif>
+        <cftry>
+			<cfdirectory action="create" directory="#loadPath#">
+			<cfcatch><!--- it already exists, do nothing---></cfcatch>
+		</cftry>
+        <cffile action="move"
+			source="#Application.webDirectory#/temp/#fileName#" 
+	    	destination="#loadPath#"
+	      	nameConflict="error">
         <cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#client.username#/#fileName#">
     <cfelse>
          <cfset preview_uri = "">
