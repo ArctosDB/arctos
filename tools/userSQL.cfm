@@ -20,12 +20,11 @@
            <cfset dels="';','|',">
            <cfset safe=0>
            <cfloop index="i" list="#sql#" delimiters=" .,?!;:%$&""'/|[]{}()">
-               element:#i#<br>
                <cfif ListFindNoCase(nono, i)>
-                   found:#i#<br>
+                   <cfset safe=1>
                 </cfif>
             </cfloop>
-            <!---
+
             <div style="font-size:smaller;background-color:lightgray">
                 SQL:<br>
                 #sql#
@@ -50,8 +49,6 @@
 	            </cfcatch>
 	            </cftry>
             </cfif>
-           
-           --->
 	    </cfif>
     </cfoutput>
 <cfinclude template = "/includes/_footer.cfm">
