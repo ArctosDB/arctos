@@ -12,7 +12,7 @@
 	
 	    <cfif #action# is "run">
 	        <!--- check the SQL to see if they're doing anything naughty --->
-           <cfset nono="update,insert,delete,drop,create,alter,dba_,user_,set,execute,exec">
+           <cfset nono="update,insert,delete,drop,create,alter,dba_,user_,all_,set,execute,exec">
            <cfloop list="#nono#" index="i">
                 <cfset sql=replacenocase(sql,i,"--stripped--","all")>
             </cfloop>
