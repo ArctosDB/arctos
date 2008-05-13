@@ -48,8 +48,28 @@
     	destination="#loadPath#"
       	nameConflict="error">
     <cfif len(#PreviewToUpload#) gt 0>
-        got a preview....
-        <cfabort>
+        <cffile action="upload"
+	    	destination="#Application.webDirectory#/temp/"
+	      	nameConflict="overwrite"
+	      	fileField="Form.PreviewToUpload" mode="777">
+	    <cfset fileName=#cffile.serverfile#>
+	    <cfset dotPos=find(".",fileName)>
+		<cfset name=left(fileName,dotPos-1)>
+		<cfset extension=right(fileName,len(fileName)-dotPos+1)>
+		<cfif REFind("[^A-Za-z0-9_]",name,1) gt 0>
+			<font color="##FF0000" size="+2">The filename (<strong>#fileName#</strong>) you entered contains characters that are not alphanumeric.
+			Please rename your file and try again.</font>
+			<a href="javascript:back()">Go Back</a>
+			<cfabort>   
+		</cfif>
+        <cfset acceptablePreviewExtensions="jpg,jpeg,gif,png">
+	    <cfif not listfindnocase(acceptablePreviewExtensions,extension)>
+            <span class="error">
+                Preview must be one of:
+                #acceptablePreviewExtensions# 
+            </span>
+            <cfabort>
+        </cfif>
     </cfif>
 	
 <script>parent.closeUpload('#media_uri#');</script>
