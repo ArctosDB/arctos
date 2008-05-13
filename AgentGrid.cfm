@@ -86,6 +86,9 @@
 		<cfquery name="getAgents" datasource="#Application.web_user#">
 			#preservesinglequotes(sql)#
 		</cfquery>
+<cfif getAgents.recordcount is 0>
+    <span class="error">Nothing Matched.</span>
+</cfif>
 <cfloop query="getAgents">
 	 <a href="editAllAgent.cfm?agent_id=#agent_id#" 
 	 	target="_person">#agent_name#</a> <font size="-1">(#agent_type#: #agent_id#)</font> 
