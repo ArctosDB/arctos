@@ -65,7 +65,7 @@
         <cfset acceptablePreviewExtensions="jpg,jpeg,gif,png">
 	    <cfif not listfindnocase(acceptablePreviewExtensions,extension)>
             <span class="error">
-                Preview must be one of:
+                Preview (#extension#) must be one of:
                 #acceptablePreviewExtensions# 
             </span>
             <cfabort>
