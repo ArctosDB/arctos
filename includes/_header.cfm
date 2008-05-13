@@ -167,6 +167,7 @@
 					<li><a target="_top" href="/SpecimenSearch.cfm">Specimens</a></li>
 					<li><a target="_top" href="/SpecimenUsage.cfm">Projects</a></li>
 					<li><a target="_top" href="/TaxonomySearch.cfm">Taxonomy</a></li>
+                    <li><a target="_top" href="/MediaSearch.cfm">Media</a></li>
 				</ul>
 			</li> 
 		</ul>
