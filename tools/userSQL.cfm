@@ -15,12 +15,13 @@
 	       <hr>
            <!--- check the SQL to see if they're doing anything naughty --->
            <cfset nono="update,insert,delete,drop,create,alter,dba_,user_,all_,set,execute,exec,begin,end,declare">
-           <cfset dels="chr(13),chr(10),;,|">
+           <cfset dels=";,|">
            <cfset safe=0>
            <cfloop list="#nono#" index="i">
                 <cfloop list="#dels#" index="d">
                     <cfif ListContainsNoCase(sql,i,d)>
                         <br>found #d# in #i#
+                        ----#ListFindNoCase(sql,i,d)#--
                         <cfset safe=safe+1>
                     </cfif>
                 </cfloop>
