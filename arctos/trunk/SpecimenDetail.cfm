@@ -247,7 +247,7 @@
 				<cfset hg="#quad# Quad">
 			</cfif>
 		</cfif>
-	    <table>
+	    <table border>
 	        <tr>
 			    <td nowrap valign="top">
 					<font size="+1"><strong>#collection#&nbsp;#cat_num#</strong></font>
