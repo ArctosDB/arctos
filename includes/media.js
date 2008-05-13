@@ -3,11 +3,7 @@ function closeUpload(media_uri,preview_uri) {
 	var theDiv = document.getElementById('uploadDiv');
 	document.body.removeChild(theDiv);
 	document.getElementById('media_uri').value=media_uri;
-	if (preview_uri.length > 0) {
-		alert(preview_uri)
-	} else {
-		alert('none')
-	}
+	document.getElementById('preview_uri').value=preview_uri;
 }
 function clickUpload(){
 	var theDiv = document.createElement('iFrame');
