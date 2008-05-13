@@ -183,3 +183,11 @@ function customizeIdentifiers() {
 			})
 		$(theDiv).css({position:"absolute", top: data.pageY, left: data.pageX});
 }
+function changeshowObservations (tgt) {
+	DWREngine._execute(_cfscriptLocation, null, 'changeshowObservations',tgt, success_changeshowObservations);
+}
+function success_changeshowObservations (result) {
+	if (result != 'success') {
+		alert('An error occured: ' + result);
+	}
+}

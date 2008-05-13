@@ -125,12 +125,12 @@
 				</select>
 			</div>
 		</td>
-		 <cfif #client.showObservations# is not 1>
-			<td>
+		<td>
 				Show&nbsp;<span class="helpLink" id="observations">Observations?</span>
-				<input type="checkbox" name="showObservations" value="true">
-			</td>
-		</cfif>
+				<input type="checkbox" name="showObservations" value="1"
+                    onchange="changeshowObservations(this.checked);"
+                        <cfif #client.showObservations# eq 1> checked="checked" </cfif>>
+		</td>
 		<td>
 			<span class="helpLink" id="is_tissue">Tissues&nbsp;Only?</span>
 			<input type="checkbox" name="is_tissue" value="1">
