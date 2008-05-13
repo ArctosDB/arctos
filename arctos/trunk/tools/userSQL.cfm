@@ -13,22 +13,18 @@
 	    
 	    <cfif #action# is "run">
 	       <hr>
-           <cf_codecleaner input=#sql#>
-           ---#clean_code#-------
+
            <!--- check the SQL to see if they're doing anything naughty --->
-           <!---
+
            <cfset nono="update,insert,delete,drop,create,alter,dba_,user_,all_,set,execute,exec,begin,end,declare">
            <cfset dels="';','|',">
            <cfset safe=0>
-           <cfloop list="#nono#" index="i">
-                <cfloop list="#dels#" index="d">
-                    <cfif ListFindNoCase(sql,i,d) gt 0>
-                        <br>found #d# in #i#
-                        ----#ListFindNoCase(sql,i,d)#--
-                        <cfset safe=safe+1>
-                    </cfif>
-                </cfloop>
+           <cfloop index="i" list="#sql#" delimiters=" .,?!;:%$&""'/|[]{}()">
+               <cfif not ListFindNoCase(nono, i)>
+                   #i#
+                </cfif>
             </cfloop>
+            <!---
             <div style="font-size:smaller;background-color:lightgray">
                 SQL:<br>
                 #sql#
