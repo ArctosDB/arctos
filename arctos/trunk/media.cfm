@@ -273,8 +273,8 @@
 		</cfquery>
 		<cfset media_id=mid.nv>
 		<cfquery name="makeMedia" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-			insert into media (media_id,media_uri,mime_type,media_type)
-            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#')
+			insert into media (media_id,media_uri,mime_type,media_type,preview_uri)
+            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#')
 		</cfquery>
 		<cfloop from="1" to="#number_of_relations#" index="n">
 			<cfset thisRelationship = #evaluate("relationship__" & n)#>
