@@ -14,24 +14,31 @@
 	        <!--- check the SQL to see if they're doing anything naughty --->
            <cfset nono="update,insert,delete,drop,create,alter,dba_,user_,all_,set,execute,exec">
            <cfloop list="#nono#" index="i">
-                <cfset sql=replacenocase(sql,i,"--stripped--","all")>
+                <cfset sql=replacenocase(sql,i,"::stripped::","all")>
             </cfloop>
             <div style="font-size:smaller;background-color:lightgray">
                 #sql#
             </div>
-            <cftry>
-                 <cfquery name="user_sql" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-	                #preservesinglequotes(sql)#
-	            </cfquery>
-	            <cfdump var=#user_sql#>
-            <cfcatch>
-                <div class="error">
-                    #cfcatch.message#
-                    <br>
-                    #cfcatch.detail#
-                </div>
-            </cfcatch>
-            </cftry>
+            <cfif #sql# contains "::stripped::">
+               <div class="error">
+                    The code you submitted contains illegal characters.
+                </div> 
+            <cfelse>
+	             <cftry>
+	                 <cfquery name="user_sql" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		                #preservesinglequotes(sql)#
+		            </cfquery>
+		            <cfdump var=#user_sql#>
+	            <cfcatch>
+	                <div class="error">
+	                    #cfcatch.message#
+	                    <br>
+	                    #cfcatch.detail#
+	                </div>
+	            </cfcatch>
+	            </cftry>
+            </cfif>
+           
            
 	    </cfif>
     </cfoutput>
