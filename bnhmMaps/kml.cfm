@@ -146,10 +146,11 @@
 	        <open>1</open>'>
         <cfloop query="species">
             <cfset thisName=replace(scientific_name," ","_","all")>
-            <cfset kml='#kml#
+            <cfset thisColor=randomHexColor()> 
+             <cfset kml='#kml#
                  <Style id="icon_#thisName#">
 			      <IconStyle>
-			          <colorMode>random</colorMode>
+			          <color>#thisColor#</color>
 			         <scale>1.1</scale>
 			         <Icon>
 			            <href>#application.serverRootUrl#/images/whiteBalloon.png</href>
