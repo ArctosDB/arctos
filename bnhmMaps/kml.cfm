@@ -203,7 +203,7 @@
 			</cfquery>
             <cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		    <cfloop query="loc">
-			    <cfset kml='<Placemark><name>#collection# #cat_num#</name>
+			    <cfset kml='<Placemark><name>#collection# #cat_num# (#scientific_name#)</name>
 			        <visibility>1</visibility>
                     <styleUrl>##icon_#thisName#</styleUrl><description>
 			        <Timespan><begin>#began_date#</begin><end>#ended_date#</end></Timespan>
