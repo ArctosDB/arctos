@@ -143,7 +143,7 @@ select
           section_page_order, 
           min(section_page_order)
 		from
-		  gref_roi_ng, gref_roi_value_ng, book_section, page
+		  gref_roi_ng, gref_roi_value_ng, book_section, page, #flatTableName#
 		where
 		  book_section.book_id = gref_roi_ng.publication_id
 		  and gref_roi_value_ng.id = gref_roi_ng.ROI_VALUE_NG_ID
