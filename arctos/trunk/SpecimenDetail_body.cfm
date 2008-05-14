@@ -204,6 +204,7 @@ end cmask,
 		cataloged_item related_cat_item,
 		collection related_coll,
 		specimen_part,
+		coll_object part_object,
 		coll_object_remark parts_coll_object_remark
 	WHERE 
 		cataloged_item.collection_id = collection.collection_id AND
@@ -236,6 +237,7 @@ end cmask,
 		biol_indiv_relations.related_coll_object_id = related_cat_item.collection_object_id (+) AND
 		related_cat_item.collection_id = related_coll.collection_id (+) and
 		parts_coll_object_remark.COLLECTION_OBJECT_ID = specimen_part.COLLECTION_OBJECT_ID (+) and
+		part_object.collection_object_id = specimen_part.collection_object_id (+) and
 		cataloged_item.collection_object_id = specimen_part.derived_from_cat_item (+) and
 	cataloged_item.collection_object_id = #collection_object_id#
 	">
