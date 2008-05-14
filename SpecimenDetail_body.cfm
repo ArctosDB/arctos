@@ -506,6 +506,7 @@ end cmask,
 	start with derived_from_coll_obj is null
 </cfquery>
 
+<!---
 <cfquery name="media" datasource="#Application.web_user#">
 	SELECT
 		media_id,
@@ -516,7 +517,6 @@ end cmask,
 </cfquery>
 
 
-<!---
 				
 				--->
 				
