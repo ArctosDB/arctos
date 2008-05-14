@@ -68,7 +68,7 @@
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------->
-<cfif #speciesKML# is "make">
+<cfif #action# is "speciesKML">
 <cfoutput>
     <cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
 		<cfset flatTableName = "flat">
@@ -81,6 +81,39 @@
 	<cfelse>
 		<cfset dlFile = "kmlfile#cfid##cftoken#.kml">
 	</cfif>
+    <cfquery name="data" datasource="#Application.web_user#">
+			select 
+				#flatTableName#.collection_object_id,
+				#flatTableName#.cat_num,
+				to_char(#flatTableName#.began_date,'yyyy-mm-dd') began_date,
+				to_char(#flatTableName#.ended_date,'yyyy-mm-dd') ended_date,
+				lat_long.dec_lat,
+				lat_long.dec_long,
+				decode(lat_long.accepted_lat_long_fg,
+					1,'yes',
+					0,'no') isAcceptedLatLong,
+				round(to_meters(lat_long.max_error_distance,lat_long.max_error_units)) errorInMeters,
+				lat_long.datum,
+				#flatTableName#.scientific_name,
+				#flatTableName#.collection,
+				#flatTableName#.spec_locality,
+				#flatTableName#.locality_id,
+				#flatTableName#.verbatimLatitude,
+				#flatTableName#.verbatimLongitude,
+				lat_long.lat_long_id
+			 from 
+			 	#flatTableName#,
+			 	lat_long,
+			 	#table_name#
+			 where
+			 	#flatTableName#.locality_id = lat_long.locality_id and
+			 	<cfif isdefined("showOnlyAccepted") and #showOnlyAccepted# is 1>
+			 		lat_long.accepted_lat_long_fg = 1 AND
+			 	</cfif>
+			 	lat_long.dec_lat is not null and 
+			 	lat_long.dec_long is not null and
+			 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
+		</cfquery>
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------->
