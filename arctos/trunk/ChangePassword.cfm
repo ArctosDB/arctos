@@ -103,7 +103,7 @@
 						alter user #client.username# 
 						identified by "#newpassword#"
 					</cfquery>
-					<cfquery name="setPass" datasource="#Application.uam_dbo#">
+					<cfquery name="setPass" datasource="uam_god">
 						UPDATE cf_users 
 						SET password = '#hash(newpassword)#'
 						WHERE username = '#client.username#'
