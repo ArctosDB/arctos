@@ -120,7 +120,7 @@
 							</a>
 						</td>
                         <td>
-	                              <div style="border:1px solid red;">
+	                              <div style="border:1px solid red;padding:5px;">
                                       Arctos will be unavailable for approximately two hours beginning
                                       Thursday, May 15 at 9AM Alaska time.  
                                   </div>  			
