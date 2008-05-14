@@ -218,7 +218,22 @@
 		
 		<cfset kml = "</Folder>"><!--- close collection folder --->
 		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
-        <p>
+        <cfset kml='</Document></kml>'><!--- close specimens folder --->
+			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+			
+			<cfset linkFile = "link_#dlFile#">
+			<cfset kml='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.0">
+				<NetworkLink>
+				  <name>Arctos Locations</name>
+				  <visibility>1</visibility>
+				  <open>1</open>
+					<Url>
+			    <href>#Application.ServerRootUrl#/bnhmMaps/#dlFile#</href>
+			    </Url>
+			</NetworkLink>
+			</kml>'>
+			<cffile action="write" file="#dlPath##linkFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
+		<p>
 		</p><a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">Download Entire KML</a> (requires <a href="http://earth.google.com/">Google Earth</a>)
 			<blockquote>
 				Download KML (#dlFile#) including all data to your hard drive
