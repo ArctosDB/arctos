@@ -1,5 +1,3 @@
-Please fix me.
-<cfabort>
 <cfinclude template="/includes/_frameHeader.cfm">
 	<script type='text/javascript' src='/includes/annotate.js'></script>
 	<link rel="stylesheet" type="text/css" href="/includes/annotate.css">
@@ -174,7 +172,7 @@ end cmask,
 		concatEncumbranceDetails(cataloged_item.collection_object_id) encumbranceDetail,
 		locality.locality_remarks,
 		verbatim_locality,
-		parts_coll_object_remark.coll_object_remarks
+		parts_coll_object_remark.coll_object_remarks part_remarks
 	FROM 
 		cataloged_item,
 		collection,
@@ -206,10 +204,7 @@ end cmask,
 		cataloged_item related_cat_item,
 		collection related_coll,
 		specimen_part,
-		coll_object part_object,
-		coll_object_remark parts_coll_object_remark,
-	 	coll_object parts_coll_object,
-		specimen_part s_part
+		coll_object_remark parts_coll_object_remark
 	WHERE 
 		cataloged_item.collection_id = collection.collection_id AND
 		cataloged_item.collection_object_id = identification.collection_object_id AND
@@ -240,8 +235,8 @@ end cmask,
 		cataloged_item.collection_object_id = biol_indiv_relations.collection_object_id (+) AND
 		biol_indiv_relations.related_coll_object_id = related_cat_item.collection_object_id (+) AND
 		related_cat_item.collection_id = related_coll.collection_id (+) and
+		parts_coll_object_remark.COLLECTION_OBJECT_ID = specimen_part.COLLECTION_OBJECT_ID (+) and
 		cataloged_item.collection_object_id = specimen_part.derived_from_cat_item (+) and
-		specimen_part.collection_object_id = part_object.collection_object_id (+) and
 	cataloged_item.collection_object_id = #collection_object_id#
 	">
 
@@ -473,7 +468,8 @@ end cmask,
 		is_tissue,
 		part_disposition,
 		part_condition,
-		lot_count
+		lot_count,
+		part_remarks
 	FROM
 		detail 
 	GROUP BY
@@ -485,7 +481,8 @@ end cmask,
 		is_tissue,
 		part_disposition,
 		part_condition,
-		lot_count
+		lot_count,
+		part_remarks
 	order by
 		part_name
 </cfquery>
@@ -791,7 +788,7 @@ end cmask,
 									<td>#part_condition#</td>
 									<td>#part_disposition#</td>
 									<td>#lot_count#</td>
-									<td><cfif #is_tissue# is 1>yes<cfelse>no</cfif></td>
+									<td><cfif #is_tissue# is 1>yes<cfelse>no</cfif>#part_remarks#</td>
 								</tr>
 							</cfloop>
 						</table>
