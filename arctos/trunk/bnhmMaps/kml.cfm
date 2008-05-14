@@ -67,6 +67,36 @@
 	</form>
 </cfoutput>
 </cfif>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-------------------------------------------------------------------------->
 <cfif #action# is "speciesKML">
 <cfoutput>
@@ -113,10 +143,10 @@
             select scientific_name from data group by scientific_name
         </cfquery>
         <cfset kml='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Document><name>Localities</name>
-	<open>1</open>'>
-    <cfloop query="species">
-        <cfset thisName=replace(scientific_name," ","_","all")>
-        <cfset kml='#kml#
+	        <open>1</open>'>
+        <cfloop query="species">
+            <cfset thisName=replace(scientific_name," ","_","all")>
+            <cfset kml='#kml#
                  <Style id="icon_#thisName#">
 			      <IconStyle>
 			          <colorMode>random</colorMode>
@@ -125,79 +155,75 @@
 			            <href>#application.serverRootUrl#/images/whiteBalloon.png</href>
 			         </Icon>
 			      </IconStyle>
-			   </Style>'>
-    </cfloop>
-    <cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
-	<cfloop query="species">
-		<cfquery name="loc" dbtype="query">
-			select 
-				dec_lat,
-				dec_long,
-				errorInMeters,
-				datum,
-				spec_locality,
-				locality_id,
-				verbatimLatitude,
-				verbatimLongitude,
-				lat_long_id,
-				began_date,
-				ended_date,
-                collection_object_id,
-				cat_num,
-				scientific_name,
-				collection
-			from
-				data
-			where
-				scientific_name='#scientific_name#'
-			group by
-				dec_lat,
-				dec_long,
-				errorInMeters,
-				datum,
-				spec_locality,
-				locality_id,
-				verbatimLatitude,
-				verbatimLongitude,
-				lat_long_id,
-				began_date,
-				ended_date,
-                collection_object_id,
-				cat_num,
-				scientific_name,
-				collection
-		</cfquery>
-        <cfset thisName=replace(scientific_name," ","_","all")>
-		<cfset kml = "<Folder><name>#thisName#</name><visibility>1</visibility>">
-		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
-		<cfloop query="loc">
-			<cfset kml='<Placemark><name>#kmlStripper(spec_locality)# (#locality_id#)</name>
-			<visibility>1</visibility>
-            <styleUrl>##icon_#thisName#</styleUrl><description>
-			<Timespan><begin>#began_date#</begin><end>#ended_date#</end></Timespan>
-			<![CDATA[Datum: #datum#<br/>
-			Error: #errorInMeters# m<br/>'>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
-				<cfset kml='#kml#<p><a href="#application.serverRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>'>
-			</cfif>
-			<cfloop query="sdet">
-				<cfset kml='#kml#<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
-					#collection# #cat_num# (<em>#scientific_name#</em>)
-				</a><br/>'>
-			</cfloop>
-			<cfset kml='#kml#]]></description>
-			<Point>
-	      	<coordinates>#dec_long#,#dec_lat#,0</coordinates>
-	    	</Point>'>
-	    	<cfset kml='#kml#</Placemark>'>
-	  		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
-		</cfloop>
-		
-		<cfset kml = "</Folder>"><!--- close collection folder --->
-		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
-        <cfset kml='</Document></kml>'><!--- close specimens folder --->
+			   </Style>
+            '>
+        </cfloop>
+        <cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
+	    <cfloop query="species">
+			<cfset thisName=replace(scientific_name," ","_","all")>
+		    <cfset kml = "<Folder><name>#thisName#</name><visibility>1</visibility>">
+		    
+            <cfquery name="loc" dbtype="query">
+				select 
+					dec_lat,
+					dec_long,
+					errorInMeters,
+					datum,
+					spec_locality,
+					locality_id,
+					verbatimLatitude,
+					verbatimLongitude,
+					lat_long_id,
+					began_date,
+					ended_date,
+	                collection_object_id,
+					cat_num,
+					scientific_name,
+					collection
+				from
+					data
+				where
+					scientific_name='#scientific_name#'
+				group by
+					dec_lat,
+					dec_long,
+					errorInMeters,
+					datum,
+					spec_locality,
+					locality_id,
+					verbatimLatitude,
+					verbatimLongitude,
+					lat_long_id,
+					began_date,
+					ended_date,
+	                collection_object_id,
+					cat_num,
+					scientific_name,
+					collection
+			</cfquery>
+            <cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+		    <cfloop query="loc">
+			    <cfset kml='<Placemark><name>#collection# #cat_num#</name>
+			        <visibility>1</visibility>
+                    <styleUrl>##icon_#thisName#</styleUrl><description>
+			        <Timespan><begin>#began_date#</begin><end>#ended_date#</end></Timespan>
+			        <![CDATA[Datum: #datum#<br/>
+			        Error: #errorInMeters# m<br/>
+                '>
+			    <cfset kml='#kml#]]></description>
+			        <Point>
+	      	            <coordinates>#dec_long#,#dec_lat#,0</coordinates>
+	    	        </Point>
+                '>
+	    	    <cfset kml='#kml#</Placemark>'>
+	  		    <cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+		          <cfset kml = "</Folder>"><!--- close collection folder --->
+		        <cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+             </cfloop>
+            <cfset kml='</Document></kml>'><!--- close specimens folder --->
+              </cfloop>
 			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
-			
+            
 			<cfset linkFile = "link_#dlFile#">
 			<cfset kml='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.0">
 				<NetworkLink>
@@ -207,8 +233,9 @@
 					<Url>
 			    <href>#Application.ServerRootUrl#/bnhmMaps/#dlFile#</href>
 			    </Url>
-			</NetworkLink>
-			</kml>'>
+			    </NetworkLink>
+			    </kml>
+            '>
 			<cffile action="write" file="#dlPath##linkFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
 		<p>
 		</p><a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">Download Entire KML</a> (requires <a href="http://earth.google.com/">Google Earth</a>)
@@ -225,9 +252,36 @@
 		<p>
 			View in <a href="http://maps.google.com/maps?q=#Application.ServerRootUrl#/bnhmMaps/#dlFile#" target="_blank">Google Maps</a>
 		</p>
-	</cfloop>
 </cfoutput>
 </cfif>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-------------------------------------------------------------------------->
 <cfif #action# is "make">
 <cfoutput>
