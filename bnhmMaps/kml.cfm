@@ -117,8 +117,8 @@
         <cfquery name="species" dbtype="query">
             select scientific_name from data group by scientific_name
         </cfquery>
-        <cfset kml="<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Document><name>Localities</name>
-	<open>1</open>">
+        <cfset kml='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Document><name>Localities</name>
+	<open>1</open>'>
     <cfloop query="species">
         <cfset thisName=replace(scientific_name," ","_","all")>
         <cfset kml="#kml#
