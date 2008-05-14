@@ -127,7 +127,7 @@
 			          <colorMode>random</colorMode>
 			         <scale>1.1</scale>
 			         <Icon>
-			            <href>#serverRootUrl#/images/whiteBalloon.png</href>
+			            <href>#application.serverRootUrl#/images/whiteBalloon.png</href>
 			         </Icon>
 			      </IconStyle>
 			   </Style>'>
