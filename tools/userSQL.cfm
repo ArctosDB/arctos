@@ -3,7 +3,7 @@
         <cfset sql = "SELECT 'test' FROM dual">
     </cfif>
     <cfif not isdefined("format")>
-        <cfset sql = "table">
+        <cfset format = "table">
     </cfif>
 	    <cfoutput>
 	    <form method="post" action="">
