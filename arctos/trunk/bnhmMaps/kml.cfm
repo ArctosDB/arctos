@@ -220,7 +220,7 @@
              </cfloop>
 
 		        
-            <cfset kml='</Folder><'><!--- close specimens folder --->
+            <cfset kml='</Folder>'><!--- close specimens folder --->
             <cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
               </cfloop>
              <cfset kml='</Document></kml>'>
