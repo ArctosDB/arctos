@@ -150,7 +150,7 @@
              <cfset kml='#kml#
                  <Style id="icon_#thisName#">
 			      <IconStyle>
-			          <color>#thisColor#</color>
+			          <color>ff#thisColor#</color>
 			         <scale>1.1</scale>
 			         <Icon>
 			            <href>#application.serverRootUrl#/images/whiteBalloon.png</href>
