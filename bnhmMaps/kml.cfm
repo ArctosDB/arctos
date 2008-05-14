@@ -63,7 +63,13 @@
 		
 		<input type="submit" value="get KML" class="lnkBtn"
    					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
-   		<input type="button" value="species KML" class="lnkBtn" onclick="document.getElementById('action').value='speciesKML';submit();">	
+   					<hr>
+   					OR download the
+   					
+   		<input type="button" value="species KML" class="lnkBtn" onclick="document.getElementById('action').value='speciesKML';submit();">
+   		file. This file will contain points colored randomly 
+   		(you may need to reload/download a few times if the colors are too similar)
+   		by scientific name.
 	</form>
 </cfoutput>
 </cfif>
