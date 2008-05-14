@@ -2,13 +2,17 @@
     <cfif not isdefined("sql")>
         <cfset sql = "SELECT 'test' FROM dual">
     </cfif>
+    <cfif not isdefined("format")>
+        <cfset sql = "table">
+    </cfif>
 	    <cfoutput>
 	    <form method="post" action="">
 	        <input type="hidden" name="action" value="run">
 	        <label for="sql">SQL</label>
 	        <textarea name="sql" id="sql" rows="10" cols="80" wrap="soft">#sql#</textarea>
-	        <br>Result: Table:<input type="radio" name="format" value="table" checked="checked">
-                        CSV:<input type="radio" name="format" value="csv">
+	        <br>Result: 
+            Table:<input type="radio" name="format" value="table" <cfif #format# is "table"> checked="checked" </cfif>>
+                        CSV:<input type="radio" name="format" value="csv" <cfif #format# is "csv"> checked="checked" </cfif>>
             <br>
             <input type="submit" value="Run Query" class="lnkBtn">
 	    </form>
