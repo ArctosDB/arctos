@@ -22,7 +22,7 @@
 
            <!--- check the SQL to see if they're doing anything naughty --->
 
-           <cfset nono="update,insert,delete,drop,create,alter,set,execute,exec,begin,end,declare">
+           <cfset nono="update,insert,delete,drop,create,alter,set,execute,exec,begin,end,declare,all_tables">
            <cfset dels="';','|',">
            <cfset safe=0>
            <cfloop index="i" list="#sql#" delimiters=" .,?!;:%$&""'/|[]{}()">
