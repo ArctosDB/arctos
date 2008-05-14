@@ -790,7 +790,7 @@ end cmask,
 									<td>#part_condition#</td>
 									<td>#part_disposition#</td>
 									<td>#lot_count#</td>
-									<td><cfif #is_tissue# is 1>yes<cfelse>no</cfif>#part_remarks#</td>
+									<td>#part_remarks#</td>
 								</tr>
 							</cfloop>
 						</table>
