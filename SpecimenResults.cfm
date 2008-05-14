@@ -134,6 +134,7 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 </cfif> 
 <cfif ListContainsNoCase(client.resultColumnList,"_gref_collnum")>
 	<!---<cfset basSelect = "#basSelect#,concatGrefLinksCollObj(#Application.gref_base_url#,#flatTableName#.collection_object_id) as gref_collnum">--->
+	<!---TODO: Implement this in media table so that you no longer have to rely on this hardcoded link generation. --->
 	<cfset basSelect = "#basSelect#,(select the_link from (
 select
 		'http://bg.berkeley.edu/gref/Client.html?pageid=' || gref_roi_ng.page_id 
@@ -151,7 +152,7 @@ select
                   and page.page_id = gref_roi_ng.page_id
                   and page.PUBLICATION_ID = book_section.PUBLICATION_ID
 and gref_roi_value_ng.collection_object_id = #flatTableName#.collection_object_id
-group by gref_roi_ng.page_id, book_section.publication_id , gref_roi_value_ng.collection_object_id , section_page_order 
+group by gref_roi_ng.page_id, book_section.publication_id, gref_roi_value_ng.collection_object_id , section_page_order, #flatTableName#.collection_object_id
 having min(section_page_order) = section_page_order)) as gref_collnum">
 </cfif>
 
