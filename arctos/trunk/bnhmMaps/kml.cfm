@@ -121,7 +121,7 @@
 	<open>1</open>'>
     <cfloop query="species">
         <cfset thisName=replace(scientific_name," ","_","all")>
-        <cfset kml="#kml#
+        <cfset kml='#kml#
                  <Style id="icon_#thisName#">
 			      <IconStyle>
 			          <colorMode>random</colorMode>
@@ -130,7 +130,7 @@
 			            <href>#serverRootUrl#/images/whiteBalloon.png</href>
 			         </Icon>
 			      </IconStyle>
-			   </Style>">
+			   </Style>'>
     </cfloop>
     <cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
 	<cfquery name="colln" dbtype="query">
