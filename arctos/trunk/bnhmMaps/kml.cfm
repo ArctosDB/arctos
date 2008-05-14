@@ -217,10 +217,10 @@
                 '>
 	    	    <cfset kml='#kml#</Placemark>'>
 	  		    <cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
-		          <cfset kml = "</Folder>"><!--- close collection folder --->
-		        <cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
              </cfloop>
-            <cfset kml='</Document></kml>'><!--- close specimens folder --->
+
+		        
+            <cfset kml='</Folder>"></Document></kml>'><!--- close specimens folder --->
               </cfloop>
 			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
             
