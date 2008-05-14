@@ -89,9 +89,6 @@
 				to_char(#flatTableName#.ended_date,'yyyy-mm-dd') ended_date,
 				lat_long.dec_lat,
 				lat_long.dec_long,
-				decode(lat_long.accepted_lat_long_fg,
-					1,'yes',
-					0,'no') isAcceptedLatLong,
 				round(to_meters(lat_long.max_error_distance,lat_long.max_error_units)) errorInMeters,
 				lat_long.datum,
 				#flatTableName#.scientific_name,
@@ -107,9 +104,7 @@
 			 	#table_name#
 			 where
 			 	#flatTableName#.locality_id = lat_long.locality_id and
-			 	<cfif isdefined("showOnlyAccepted") and #showOnlyAccepted# is 1>
-			 		lat_long.accepted_lat_long_fg = 1 AND
-			 	</cfif>
+			 	lat_long.accepted_lat_long_fg = 1 AND
 			 	lat_long.dec_lat is not null and 
 			 	lat_long.dec_long is not null and
 			 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
@@ -133,15 +128,11 @@
 			   </Style>'>
     </cfloop>
     <cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
-	<cfquery name="colln" dbtype="query">
-		select collection from data group by collection
-	</cfquery>
-	<cfloop query="colln">
+	<cfloop query="species">
 		<cfquery name="loc" dbtype="query">
 			select 
 				dec_lat,
 				dec_long,
-				isAcceptedLatLong,
 				errorInMeters,
 				datum,
 				spec_locality,
@@ -150,15 +141,18 @@
 				verbatimLongitude,
 				lat_long_id,
 				began_date,
-				ended_date
+				ended_date,
+                collection_object_id,
+				cat_num,
+				scientific_name,
+				collection
 			from
 				data
 			where
-				collection='#collection#'
+				scientific_name='#scientific_name#'
 			group by
 				dec_lat,
 				dec_long,
-				isAcceptedLatLong,
 				errorInMeters,
 				datum,
 				spec_locality,
@@ -167,29 +161,19 @@
 				verbatimLongitude,
 				lat_long_id,
 				began_date,
-				ended_date
+				ended_date,
+                collection_object_id,
+				cat_num,
+				scientific_name,
+				collection
 		</cfquery>
-		<cfset kml = "<Folder><name>#collection#</name><visibility>1</visibility>">
+        <cfset thisName=replace(scientific_name," ","_","all")>
+		<cfset kml = "<Folder><name>#thisName#</name><visibility>1</visibility>">
 		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		<cfloop query="loc">
-			<cfquery name="sdet" dbtype="query">
-				select 
-					collection_object_id,
-					cat_num,
-					scientific_name,
-					collection
-				from
-					data
-				where
-					locality_id = #locality_id#
-				group by
-					collection_object_id,
-					cat_num,
-					scientific_name,
-					collection
-			</cfquery>
 			<cfset kml='<Placemark><name>#kmlStripper(spec_locality)# (#locality_id#)</name>
-			<visibility>1</visibility><description>
+			<visibility>1</visibility>
+            <styleUrl>##icon_#thisName#</styleUrl><description>
 			<Timespan><begin>#began_date#</begin><end>#ended_date#</end></Timespan>
 			<![CDATA[Datum: #datum#<br/>
 			Error: #errorInMeters# m<br/>'>
@@ -205,13 +189,6 @@
 			<Point>
 	      	<coordinates>#dec_long#,#dec_lat#,0</coordinates>
 	    	</Point>'>
-	    	<cfif #isAcceptedLatLong# is "yes">
-	    		<cfset kml='#kml#<styleUrl>##green-star</styleUrl>
-					<Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href></Icon>'>
-	    	<cfelse>
-	    	<cfset kml='#kml#<styleUrl>##red-star</styleUrl>
-				<Icon><href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href></Icon>'>
-	    	</cfif>
 	    	<cfset kml='#kml#</Placemark>'>
 	  		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
 		</cfloop>
