@@ -60,6 +60,28 @@
 </cffunction>
 <!----------------------------------------------------------------------------------------->
 <cfscript>
+    /**
+        * Returns a random hexadecimal color    
+        * @return Returns a string.    
+        * @author andy matthews (andy@icglink.com)    
+        * @version 1, 7/22/2005    
+    */   
+    function randomHexColor() {
+    	var chars = "0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f";
+    	var totalChars = 6;
+    	var hexCode = '';     
+    	for ( step=1;step LTE totalChars; step = step + 1) {
+    		hexCode = hexCode & ListGetAt(chars,RandRange(1,ListLen(chars)));     
+    	}
+        return hexCode;
+    }
+</cfscript>
+          
+          
+          
+          
+<!----------------------------------------------------------------------------------------->
+<cfscript>
 /**
  * Returns the last index of an occurrence of a substring in a string from a specified starting position.
  * Big update by Shawn Seley (shawnse@aol.com) -
