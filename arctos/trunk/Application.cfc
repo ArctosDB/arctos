@@ -162,7 +162,6 @@
 		<cfset Application.InstitutionBlurb = "<a href=""#Application.serverRootUrl#"">Collections Database, Museum of Vertebrate Zoology, UC Berkeley</a>">
 		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
 		<cfset Application.PageProblemEmail = "dustymc@gmail.com,lkv@berkeley.edu,ccicero@berkeley.edu">
-		<cfset Application.gref_base_url = "http://bg.berkeley.edu/gref/">
 	</cfif>
 	<cfreturn true>
 </cffunction>
