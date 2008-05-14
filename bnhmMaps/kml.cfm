@@ -114,6 +114,111 @@
 			 	lat_long.dec_long is not null and
 			 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
 		</cfquery>
+        <cfquery name="species" dbtype="query">
+            select scientific_name from data group by scientific_name
+        </cfquery>
+        <cfset kml="<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Document><name>Localities</name>
+	<open>1</open>">
+    <cfloop query="species">
+        <cfset thisName=replace(scientific_name," ","_","all")>
+        <cfset kml="#kml#
+                 <Style id="icon_#thisName#">
+			      <IconStyle>
+			          <colorMode>random</colorMode>
+			         <scale>1.1</scale>
+			         <Icon>
+			            <href>#serverRootUrl#/images/whiteBalloon.png</href>
+			         </Icon>
+			      </IconStyle>
+			   </Style>">
+    </cfloop>
+    <cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
+	<cfquery name="colln" dbtype="query">
+		select collection from data group by collection
+	</cfquery>
+	<cfloop query="colln">
+		<cfquery name="loc" dbtype="query">
+			select 
+				dec_lat,
+				dec_long,
+				isAcceptedLatLong,
+				errorInMeters,
+				datum,
+				spec_locality,
+				locality_id,
+				verbatimLatitude,
+				verbatimLongitude,
+				lat_long_id,
+				began_date,
+				ended_date
+			from
+				data
+			where
+				collection='#collection#'
+			group by
+				dec_lat,
+				dec_long,
+				isAcceptedLatLong,
+				errorInMeters,
+				datum,
+				spec_locality,
+				locality_id,
+				verbatimLatitude,
+				verbatimLongitude,
+				lat_long_id,
+				began_date,
+				ended_date
+		</cfquery>
+		<cfset kml = "<Folder><name>#collection#</name><visibility>1</visibility>">
+		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+		<cfloop query="loc">
+			<cfquery name="sdet" dbtype="query">
+				select 
+					collection_object_id,
+					cat_num,
+					scientific_name,
+					collection
+				from
+					data
+				where
+					locality_id = #locality_id#
+				group by
+					collection_object_id,
+					cat_num,
+					scientific_name,
+					collection
+			</cfquery>
+			<cfset kml='<Placemark><name>#kmlStripper(spec_locality)# (#locality_id#)</name>
+			<visibility>1</visibility><description>
+			<Timespan><begin>#began_date#</begin><end>#ended_date#</end></Timespan>
+			<![CDATA[Datum: #datum#<br/>
+			Error: #errorInMeters# m<br/>'>
+			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
+				<cfset kml='#kml#<p><a href="#application.serverRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>'>
+			</cfif>
+			<cfloop query="sdet">
+				<cfset kml='#kml#<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
+					#collection# #cat_num# (<em>#scientific_name#</em>)
+				</a><br/>'>
+			</cfloop>
+			<cfset kml='#kml#]]></description>
+			<Point>
+	      	<coordinates>#dec_long#,#dec_lat#,0</coordinates>
+	    	</Point>'>
+	    	<cfif #isAcceptedLatLong# is "yes">
+	    		<cfset kml='#kml#<styleUrl>##green-star</styleUrl>
+					<Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href></Icon>'>
+	    	<cfelse>
+	    	<cfset kml='#kml#<styleUrl>##red-star</styleUrl>
+				<Icon><href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href></Icon>'>
+	    	</cfif>
+	    	<cfset kml='#kml#</Placemark>'>
+	  		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+		</cfloop>
+		
+		<cfset kml = "</Folder>"><!--- close collection folder --->
+		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+	</cfloop>
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------->
