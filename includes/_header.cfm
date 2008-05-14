@@ -346,6 +346,9 @@
 					<li><a target="_top" href="/Collections/index.cfm">Collections</a></li>
 					<li><a target="_top" href="/siteMap.cfm">Site Map</a></li>
 					<li><a target="_top" href="/user_loan_request.cfm">Use Specimens</a></li>
+                    <cfif listfind(formList,"/tools/userSQL.cfm")>
+					    <li><a target="_top" href="tools/userSQL.cfm">Write SQL</a></li>
+                    </cfif>
 				</ul>
 			</li>		
 		</ul>
