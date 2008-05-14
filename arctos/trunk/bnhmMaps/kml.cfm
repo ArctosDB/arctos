@@ -49,8 +49,8 @@
 <cfif #action# is "nothing">
 <cfoutput>
 	NOTE: Horizontal Datum is NOT transformed correctly. Positions will be misplaced for all non-WGS84 datum points.
-	<form name="prefs" method="post" action="kml.cfm">
-		<input type="hidden" name="action" value="make">
+	<form name="prefs" id="prefs" method="post" action="kml.cfm">
+		<input type="hidden" name="action" id="action" value="make">
 		<input type="hidden" name="table_name" value="#table_name#">
 		<br>Show Error Circles? (Makes big filesizes) <input type="checkbox" name="showErrors" id="showErrors" value="1" checked="checked">
 		<br>Show all specimens at each locality represented by query?
@@ -62,8 +62,25 @@
 		<br>
 		
 		<input type="submit" value="get KML" class="lnkBtn"
-   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
+   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
+   		<input type="button" value="species KML" class="lnkBtn" onclick="document.getElementById('action').value='speciesKML';submit();">	
 	</form>
+</cfoutput>
+</cfif>
+<!-------------------------------------------------------------------------->
+<cfif #speciesKML# is "make">
+<cfoutput>
+    <cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
+		<cfset flatTableName = "flat">
+	<cfelse>
+		<cfset flatTableName = "filtered_flat">
+	</cfif>
+	<cfset dlPath = "#Application.webDirectory#/bnhmMaps/">
+	<cfif isdefined("userFileName") and len(#userFileName#) gt 0>
+		<cfset dlFile = "#userFileName#.kml">
+	<cfelse>
+		<cfset dlFile = "kmlfile#cfid##cftoken#.kml">
+	</cfif>
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------->
