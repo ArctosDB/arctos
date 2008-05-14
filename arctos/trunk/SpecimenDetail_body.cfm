@@ -237,7 +237,7 @@ end cmask,
 		biol_indiv_relations.related_coll_object_id = related_cat_item.collection_object_id (+) AND
 		related_cat_item.collection_id = related_coll.collection_id (+) and
 		parts_coll_object_remark.COLLECTION_OBJECT_ID = specimen_part.COLLECTION_OBJECT_ID (+) and
-		specimen_part.collection_object_id =  part_object.collection_object_id(+) and
+		specimen_part.collection_object_id = part_object.collection_object_id and
 		cataloged_item.collection_object_id = specimen_part.derived_from_cat_item (+) and
 	cataloged_item.collection_object_id = #collection_object_id#
 	">
