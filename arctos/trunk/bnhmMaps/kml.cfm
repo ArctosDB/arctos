@@ -220,8 +220,10 @@
              </cfloop>
 
 		        
-            <cfset kml='</Folder></Document></kml>'><!--- close specimens folder --->
+            <cfset kml='</Folder><'><!--- close specimens folder --->
+            <cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
               </cfloop>
+             <cfset kml='</Document></kml>'>
 			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
             
 			<cfset linkFile = "link_#dlFile#">
