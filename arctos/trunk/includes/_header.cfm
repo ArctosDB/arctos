@@ -119,6 +119,7 @@
 								</span>
 							</a>
 						</td>
+                        <td>here I am now</td>
 					</tr>			 
 				</table>
 			</td>
