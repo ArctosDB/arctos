@@ -41,8 +41,10 @@
                     The code you submitted contains illegal characters.
                 </div> 
             <cfelse>
-	            
-                                                    <!--- <cftry>---->
+                <cftry>
+                    <cfif client.username is "uam" or client.username is "uam_update">
+                        <cfabort>
+                    </cfif>
 	                 <cfquery name="user_sql" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 		                #preservesinglequotes(sql)#
 		            </cfquery>
@@ -69,16 +71,14 @@
                     <cfelse>
                         <cfdump var=#user_sql#>
                     </cfif>
-		       <!---     
-	            <cfcatch>
+		        <cfcatch>
 	                <div class="error">
 	                    #cfcatch.message#
 	                    <br>
 	                    #cfcatch.detail#
 	                </div>
 	            </cfcatch>
-                                                   
-	            </cftry> --->
+                </cftry>
             </cfif>
 	    </cfif>
     </cfoutput>
