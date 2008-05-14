@@ -132,7 +132,7 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 <cfif ListContainsNoCase(client.resultColumnList,"_original_elevation")>
 	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
 </cfif> 
-<cfif ListContainsNoCase(client.resultColumnList,"_gref_link")>
+<cfif ListContainsNoCase(client.resultColumnList,"_gref_collnum")>
 	<!---<cfset basSelect = "#basSelect#,concatGrefLinksCollObj(#Application.gref_base_url#,#flatTableName#.collection_object_id) as gref_collnum">--->
 	<cfset basSelect = "#basSelect#,'http://bg.berkeley.edu/testlink1,http://www.google.com/testlink2' as gref_collnum">
 </cfif>
