@@ -43,9 +43,7 @@
 		                #preservesinglequotes(sql)#
 		            </cfquery>
                     <cfif #format# is "csv">
-                        <cfscript>
-                            ac = user_sql.GetColumnNames();
-                        </cfscript>
+                        <cfset ac = user_sql.columnlist>
                         <cfset fileDir = "#Application.webDirectory#">
 				        <cfset fileName = "/download/ArctosUserSql_#cfid#_#cftoken#.csv">
 				        <cfset header=#trim(ac)#>
