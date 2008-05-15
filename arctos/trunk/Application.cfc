@@ -3,60 +3,6 @@
 <cfset This.SessionManagement="True">
 <cfset This.ClientManagement="True">
 
- <cffunction
-    name="OnRequestStart"
-     access="public"
-     returntype="boolean"
-     output="true"
-     hint="Fires at the beginning of a page requested before the requested template is processed.">
-      
-     <!--- Define arguments. --->
-     <cfargument
-     name="TargetPage"
-     type="string"
-     required="true"
-     hint="The template that was requested by the user."
-     />
-      
-     <!--- Define the local scope. --->
-     <cfset var LOCAL = StructNew() />
-      
-      
-     <!--- Set header code. --->
-     <cfheader
-     statuscode="503"
-     statustext="Service Temporarily Unavailable"
-     />
-      
-     <!--- Set retry time. --->
-     <cfheader
-     name="retry-after"
-     value="3600"
-     />
-      
-      
-     <h1>
-     Down For Maintenance
-     </h1>
-      
-     <p>
-     The web site is current down for maintenance.
-     <br>
-     We'll be back about 11AM Alaska Time.
-     <br>
-      Sorry for the inconvenience.
-     </p>
-      
-      
-     <!---
-  By returning false, the rest of the page
-   * rendering will hault.
-   * --->
-     <cfreturn false />
-     </cffunction>
-    
-    
-<!---
 <cffunction name="onError">
     <cfargument name="exception" required="true">
     <cfargument name="EventName" type="String" required="true">
@@ -297,5 +243,4 @@
 			</cfif>
 	<cfreturn true>
 </cffunction>
----->
 </cfcomponent>
