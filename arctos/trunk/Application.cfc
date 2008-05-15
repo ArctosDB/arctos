@@ -3,6 +3,10 @@
 <cfset This.SessionManagement="True">
 <cfset This.ClientManagement="True">
 
+ 
+    
+    
+<!---
 <cffunction name="onError">
     <cfargument name="exception" required="true">
     <cfargument name="EventName" type="String" required="true">
@@ -243,4 +247,5 @@
 			</cfif>
 	<cfreturn true>
 </cffunction>
+---->
 </cfcomponent>
