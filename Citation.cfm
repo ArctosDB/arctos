@@ -23,8 +23,10 @@
 						var c = document.getElementById('collection');
 						var cn = document.getElementById('cat_num');
 						cn.className='';
-						var cusn = document.getElementById('custom_id');
-						cusn.className='';
+						if (document.getElementById('custom_id')) {
+						    var cusn = document.getElementById('custom_id');
+						    cusn.className='';
+						}
 						co.value=collection_object_id;
 						sn.value=scientific_name;
 						//c.style.background-color='green';
