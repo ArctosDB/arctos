@@ -89,6 +89,10 @@
 		dec_long,
 		max_error_distance,
 		max_error_units,
+        latLongDeterminer.agent_name lat_long_determiner,
+        ACCEPTED_LAT_LONG.determined_date latLongDeterminedDate,
+        lat_long_ref_source,
+		lat_long_remarks,            
 		concatsingleotherid(cataloged_item.collection_object_id,'AF Num') af_num,
 		trans.INSTITUTION_ACRONYM || ' ' || 
 			decode(accn_num_prefix,
@@ -99,10 +103,6 @@
 				null,'',
 				'.' || accn_num_suffix)
 			AS accession,
-		latLongDeterminer.agent_name lat_long_determiner,
-			ACCEPTED_LAT_LONG.determined_date latLongDeterminedDate,
-			lat_long_ref_source,
-			lat_long_remarks,
 			habitat_desc,
 			coll_object_remark.associated_species,
 			coll_object_remark.habitat,
@@ -403,8 +403,10 @@
 				<span style="font-size:12px; font-weight:600;">
 				<strong>Locality:</strong> #higher_geog#
 				<br /><i>#spec_locality#</i>
-				<br />#VerbatimLatitude# #VerbatimLongitude#
-				</span>
+				<br />#VerbatimLatitude# #VerbatimLongitude# Error: #max_error_distance# #max_error_units#
+                by #lat_long_determiner# on #dateformat(latLongDeterminedDate,"dd mmm yyyy")# using
+                #lat_long_ref_source# <cfif len(#lat_long_remarks#) gt 0>Remark: #lat_long_remarks#</cfif>
+            	</span>
 			</td>
 		</tr>
 	</table>

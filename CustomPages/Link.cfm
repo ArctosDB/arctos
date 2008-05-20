@@ -1070,7 +1070,7 @@
 <!---- end action not download ---->
 <cfif #Action# is "download">
 
-<cfset dlPath = "/var/www/html/download/">
+<cfset dlPath = "#application.webDirectory#/download/">
 <cfset dlFile = "UAMData_#cfid##cftoken#.txt">
 <cfif #detail_level# gte 1>
 	<cfset header = "Catalog_Number#chr(9)#Scientific_Name">
