@@ -1034,7 +1034,7 @@ Some Totally Random String Data .....
 				<td>
 					<input type="text" 
 						 name="determined_date" 
-						class="d11a"
+						class="d11a reqdClr"
 						value="#determined_date#"
 						id="determined_date">
 					<img src="images/pick.gif" 

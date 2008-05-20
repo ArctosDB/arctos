@@ -58,7 +58,7 @@ Return TempList;
 
 
 
-  <cfset filename = "/var/www/html/temp/newbars.txt">
+  <cfset filename = "#application.webDirectory#/temp/newbars.txt">
 <!----
   <cfif #Action# is "nothing">
   <cfoutput> 

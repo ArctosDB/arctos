@@ -1,5 +1,5 @@
 <cfparam name="attributes.barcode" default="-blank-">
-<cfif not fileexists("/var/www/html/temp/#attributes.barcode#.jpg")>
+<cfif not fileexists("#application.webDirectory#/temp/#attributes.barcode#.jpg")>
 	<cfscript>
 		thisBC = "#attributes.barcode#";
 		thisBC = toString(thisBC);

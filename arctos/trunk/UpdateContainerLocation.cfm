@@ -58,7 +58,7 @@ Return TempList;
 
 
 
-  <cfset filename = "/var/www/html/temp/newbars.txt">
+  <cfset filename = "#application.webDirectory#/temp/newbars.txt">
   
   <cfif #Action# is "nothing">
   <cfoutput> 
@@ -115,7 +115,7 @@ Return TempList;
 	
   <cfif #action# is "newScans">
     <cffile action="upload"
-      destination="/var/www/html/temp/"
+      destination="#application.webDirectory#/temp/"
       nameConflict="overwrite"
       fileField="Form.FiletoUpload">
     <!--- reload this form --->
