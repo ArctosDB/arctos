@@ -187,7 +187,7 @@
 	<cfset sql = "#sql# AND locality.locality_id NOT IN (select locality_id from lat_long)">
 </cfif>
 <cfif isdefined("coordinateDeterminer") and len(#coordinateDeterminer#) gt 0>
-	<cfset sql = "#sql# AND upper(agent_name) like '%ucase(#coordinateDeterminer#)%'">
+	<cfset sql = "#sql# AND upper(agent_name) like '%#ucase(coordinateDeterminer)#%'">
 </cfif>
 
 <cfif right(sql,4) is " (+)">
