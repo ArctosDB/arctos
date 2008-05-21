@@ -105,9 +105,9 @@
 			</select>
 			</td>
 			<td nowrap="nowrap">
-				<input type="text" value="#oids.other_id_prefix#" size="6" name="other_id_prefix">
-				<input type="text" value="#oids.other_id_number#" size="6" name="other_id_number">
-				<input type="text" value="#oids.other_id_suffix#" size="6"  name="other_id_suffix">		
+				<input type="text" value="#oids.other_id_prefix#" size="12" name="other_id_prefix">
+				<input type="text" value="#oids.other_id_number#" size="12" name="other_id_number">
+				<input type="text" value="#oids.other_id_suffix#" size="12"  name="other_id_suffix">		
 			</td>
 			<td nowrap="nowrap">
 			<input type="button" 
