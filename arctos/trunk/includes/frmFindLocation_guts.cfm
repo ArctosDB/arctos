@@ -325,6 +325,12 @@
 					</select>
 				</td>
 			</tr>
+            <tr>
+				<td>
+					<label for="coordinateDeterminer">Coordinate Determiner</label>
+					<input type="text" name="coordinateDeterminer" size="50" id="coordinateDeterminer">
+				</td>
+			</tr>
 		</table>
 	</div>	
 	</div>

@@ -35,11 +35,13 @@
 		geog_auth_rec,
 		locality,
 		accepted_lat_long,
+        preferred_agent_name coordinateDeterminer,
 		collecting_event,
 		geology_attributes
 	where
 		geog_auth_rec.geog_auth_rec_id = locality.geog_auth_rec_id (+) and
 		locality.locality_id = accepted_lat_long.locality_id (+) and
+        accepted_lat_long.determined_by_agent_id =  coordinateDeterminer.agent_id (+) and
 		locality.locality_id=collecting_event.locality_id (+) and
 		locality.locality_id = geology_attributes.locality_id (+) ">
 
@@ -184,6 +186,10 @@
 <cfif isdefined("findNoGeoRef") and len(#findNoGeoRef#) gt 0>
 	<cfset sql = "#sql# AND locality.locality_id NOT IN (select locality_id from lat_long)">
 </cfif>
+<cfif isdefined("coordinateDeterminer") and len(#coordinateDeterminer#) gt 0>
+	<cfset sql = "#sql# AND upper(agent_name) like '%ucase(#coordinateDeterminer#)%'">
+</cfif>
+
 <cfif right(sql,4) is " (+)">
 	<span class="error">You must enter search criteria.</span>
 	<cfabort>
