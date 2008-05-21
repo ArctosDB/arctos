@@ -28,20 +28,22 @@
 		max_error_distance,
 		max_error_units,
 		lat_long_ref_source,
+        determined_date,
 		minimum_elevation,
 		maximum_elevation,
-		orig_elev_units
+		orig_elev_units,
+        coordDet.agent_name coordinateDeterminer
 	from 
 		geog_auth_rec,
 		locality,
 		accepted_lat_long,
-        preferred_agent_name coordinateDeterminer,
+        preferred_agent_name coordDet,
 		collecting_event,
 		geology_attributes
 	where
 		geog_auth_rec.geog_auth_rec_id = locality.geog_auth_rec_id (+) and
 		locality.locality_id = accepted_lat_long.locality_id (+) and
-        accepted_lat_long.determined_by_agent_id =  coordinateDeterminer.agent_id (+) and
+        accepted_lat_long.determined_by_agent_id = coordDet.agent_id (+) and
 		locality.locality_id=collecting_event.locality_id (+) and
 		locality.locality_id = geology_attributes.locality_id (+) ">
 
