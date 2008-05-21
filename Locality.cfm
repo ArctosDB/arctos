@@ -2063,10 +2063,28 @@ INSERT INTO geog_auth_rec (
 	<!--- need to filter out distinct --->
 	<cfquery name="localityResults" dbtype="query">
 		select 
-			locality_id,geog_auth_rec_id,locality_id,spec_locality,higher_geog,verbatimLatitude,verbatimLongitude,NoGeorefBecause
+			locality_id,
+            geog_auth_rec_id,
+            spec_locality,
+            higher_geog,
+            verbatimLatitude,
+            verbatimLongitude,
+            NoGeorefBecause,
+            coordinateDeterminer,
+            lat_long_ref_source,
+            determined_date            
 		from localityResults
 		group by
-			locality_id,geog_auth_rec_id,locality_id,spec_locality,higher_geog,verbatimLatitude,verbatimLongitude,NoGeorefBecause
+            locality_id,
+            geog_auth_rec_id,
+            spec_locality,
+            higher_geog,
+            verbatimLatitude,
+            verbatimLongitude,
+            NoGeorefBecause,
+            coordinateDeterminer,
+            lat_long_ref_source,
+            determined_date
 	</cfquery>
 <cfif #localityResults.recordcount# lt 1000>
 	<cfset thisLocId="">
@@ -2114,6 +2132,7 @@ INSERT INTO geog_auth_rec (
             <cfelse>
             <b>NoGeorefBecause: #NoGeorefBecause#</b> 
           </cfif>
+          Determined by #coordinateDeterminer# on #dateformat(determined_date,"dd mmm yyyy")# using #lat_long_ref_source#
           </font> </td>
       </tr>
 	  <cfset i=#i#+1>
