@@ -107,6 +107,7 @@
                       <cfimage
                           action = "resize"
                             height = "100"
+                                width="100"
     source = "#media_uri#"
     name = "testImage">
                     trying cfimage....
