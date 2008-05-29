@@ -119,7 +119,7 @@
 
             
 
-<cfimage action="resize"  height="100" width="100" 
+<cfimage action="resize"  height="30%" width="" 
                     source="#media_uri#" name="MyImage">
      <cfimage source="#MyImage#" action="writeToBrowser"/>
     <!---name="nImage2" 
