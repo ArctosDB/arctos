@@ -104,11 +104,11 @@
             <cfelse>
                 <!--- see if we can make a preview --->
                 <cfif media_uri contains application.serverRootUrl>
-                   <cfimage action="resize"
-				     height="100" 
-				     width="100" 
-				     source="#media_uri#"
-					name="test">
+                      <cfimage
+                          action = "resize"
+                            height = "100"
+    source = "#media_uri#"
+    name = "testImage">
                     trying cfimage....
                 </cfif>
             </cfif>
