@@ -103,7 +103,7 @@
                 <img src="#preview_uri#">
             <cfelse>
                 <!--- see if we can make a preview --->
-                <cfif media_uri contains serverRootUrl>
+                <cfif media_uri contains application.serverRootUrl>
                     trying cfimage....
                 </cfif>
             </cfif>
