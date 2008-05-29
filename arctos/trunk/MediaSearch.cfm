@@ -104,12 +104,15 @@
             <cfelse>
                 <!--- see if we can make a preview --->
                 <cfif media_uri contains application.serverRootUrl>
-                      <cfimage
+                      <!---<cfimage
                           action = "resize"
                             height = "100"
                                 width="100"
     source = "#media_uri#"
     destination="#application.webdirectory#/temp/test.jpg">
+    
+    --->
+    <cfset test=imageResize(media_uri,"","100")>
                     trying cfimage....
                 </cfif>
             </cfif>
