@@ -491,35 +491,6 @@ end cmask,
 
 
 
-<cfquery name="images" datasource="#Application.web_user#">
-	SELECT
-		level,
-		full_url,
-		thumbnail_url,
-		subject,
-		description,
-		aspect
-	FROM
-		binary_object
-	WHERE
-		derived_from_cat_item = #collection_object_id#
-	connect by prior binary_object.collection_object_id = derived_from_coll_obj
-	start with derived_from_coll_obj is null
-</cfquery>
-
-<!---
-<cfquery name="media" datasource="#Application.web_user#">
-	SELECT
-		media_id,
-		media_uri,
-		MIME_TYPE
-	FROM
-		media
-</cfquery>
-
-
-				
-				--->
 				
 <cfoutput query="one">
 <form name="editStuffLinks" method="post" action="SpecimenDetail.cfm">
@@ -1201,7 +1172,95 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 			</div>		
 
 <!------------------------------------ Media ---------------------------------------------->
-			<cfif #images.recordcount# gt 0>
+<cfquery name="media" datasource="#Application.web_user#">
+    select distinct 
+        media.media_id,
+        media.media_uri,
+        media.mime_type,
+        media.media_type,
+        media.preview_uri
+     from
+         media,
+         media_relations
+     where
+         media_relations.media_relationship like '%cataloged_item' and
+         media_relations.related_primary_key = #collection_object_id#
+</cfquery>
+<table>
+<cfset i=1>
+<cfif isdefined("client.roles") and listcontainsnocase(client.roles,"manage_media")>
+    <a href="media.cfm?action=newMedia">Create media</a>
+</cfif>
+<cfloop query="findIDs">
+	<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+		<td>
+			URI: #media_uri#
+            <cfif len(#preview_uri#) gt 0>
+                <br>Preview URI: #preview_uri#
+            </cfif> 
+			<br>MIME Type: #mime_type# 
+            <br>Media Type: #media_type#
+             <cfif isdefined("client.roles") and listcontainsnocase(client.roles,"manage_media")>
+		        <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">edit</a>
+		    </cfif>            
+			<cfquery name="labels"  datasource="#application.web_user#">
+				select
+					media_label,
+					label_value,
+					agent_name
+				from
+					media_labels,
+					preferred_agent_name
+				where
+					media_labels.assigned_by_agent_id=preferred_agent_name.agent_id (+) and
+					media_id=#media_id#
+			</cfquery>
+			<br>Labels:	
+			<cfif labels.recordcount gt 0>
+				<ul>
+					<cfloop query="labels">
+						<li>
+							#media_label#: #label_value#
+							<cfif len(#agent_name#) gt 0>
+								(Assigned by #agent_name#)
+							</cfif>
+						</li>
+					</cfloop>
+				</ul>
+			</cfif>
+			<br>Relationships:
+			<cfset mrel=getMediaRelations(#media_id#)>
+			<ul>
+			<cfloop query="mrel">
+				<li>#media_relationship#: #summary# 
+                    <cfif len(#link#) gt 0>
+                        <a class="infoLink" href="#link#" target="_blank">Specimens</a>
+                    </cfif>
+                </li>
+			</cfloop>
+			</ul>
+		</td>
+	</tr>
+	<cfset i=i+1>
+</cfloop>
+</table>
+</cfoutput>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <cfif #images.recordcount# gt 0>
 				<div class="detailCell">
 					<div class="detailLabel">Media
 						<cfif #oneOfUs# is 1>
