@@ -119,8 +119,8 @@
 
             
 
-<cfimage action="convert"  
-                    source="#media_uri#" destination="#application.webdirectory#/temp/test.jpg"
+<cfimage action="resize"  width="100" height="100"
+                    source="#media_uri#" destination="#application.webdirectory#/temp/test.png"
                         overwrite="true">
 
     <!---
