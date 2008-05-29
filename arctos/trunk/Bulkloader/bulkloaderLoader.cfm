@@ -59,7 +59,7 @@
 	 
 	 
 	 <cfif #cgi.HTTP_HOST# contains "database.museum">
-		<cfset sqlldrScript = "/opt/coldfusionmx7/runtime/bin/runSqlldr">	
+		<cfset sqlldrScript = "/opt/coldfusion8/runtime/bin/runSqlldr">	
 	<cfelse>
 		 <cfset sqlldrScript = "/users/mvzarctos/bin/runSqlldr">
 		 

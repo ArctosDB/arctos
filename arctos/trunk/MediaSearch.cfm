@@ -99,7 +99,8 @@
 			URI: #media_uri#
             <cfif len(#preview_uri#) gt 0>
                 <br>Preview URI: #preview_uri#
-            </cfif> 
+            </cfif>
+            <br>pretty picture here!
 			<br>MIME Type: #mime_type# 
             <br>Media Type: #media_type#
              <cfif isdefined("client.roles") and listcontainsnocase(client.roles,"manage_media")>
