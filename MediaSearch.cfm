@@ -110,11 +110,11 @@
                                 width="100"
     source = "#media_uri#"
     destination="#application.webdirectory#/temp/test.jpg">
-    
-    --->
-    <cfset myImage=ImageNew("#media_uri#")>
+      <cfset myImage=ImageNew("#media_uri#")>
 
     <cfset test=imageResize(myImage,"","100")>
+    --->
+  
                     trying cfimage....
                 </cfif>
             </cfif>
