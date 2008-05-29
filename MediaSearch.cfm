@@ -120,7 +120,7 @@
             
 
 <cfimage action="convert"  
-                    source="#media_uri#" destination="/temp/test.jpg">
+                    source="#media_uri#" destination="#application.webdirectory#/temp/test.jpg">
 
     <!---
     
