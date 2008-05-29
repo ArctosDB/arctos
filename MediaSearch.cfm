@@ -99,6 +99,8 @@
 			URI: #media_uri#
             <cfif len(#preview_uri#) gt 0>
                 <br>Preview URI: #preview_uri#
+                <br>
+                <img src="#preview_uri#">
             </cfif>
             <br>pretty picture here!
 			<br>MIME Type: #mime_type# 
