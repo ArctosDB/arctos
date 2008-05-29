@@ -109,7 +109,7 @@
                             height = "100"
                                 width="100"
     source = "#media_uri#"
-    name = "testImage">
+    destination="#application.webdirectory#/temp/test.jpg">
                     trying cfimage....
                 </cfif>
             </cfif>
