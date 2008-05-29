@@ -101,6 +101,11 @@
                 <br>Preview URI: #preview_uri#
                 <br>
                 <img src="#preview_uri#">
+            <cfelse>
+                <!--- see if we can make a preview --->
+                <cfif media_uri contains serverRootUrl>
+                    trying cfimage....
+                </cfif>
             </cfif>
             <br>pretty picture here!
 			<br>MIME Type: #mime_type# 
