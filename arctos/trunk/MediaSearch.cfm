@@ -114,9 +114,9 @@
 
     <cfset test=imageResize(myImage,"","100")>
     --->
-    <cfimage action="resize">
+    <cfimage action="resize"  height="100" width="100" source="#application.webdirectory#/mediaUploads/dlm/screenshot_1.png" >
     
-    <!--- height="100" width="100" name="nImage2" 
+    <!---name="nImage2" 
             source="#application.webdirectory#/mediaUploads/dlm/screenshot_1.png" 
                destination="#application.webdirectory#/temp/test.png" overwrite="yes">
   --->
