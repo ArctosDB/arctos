@@ -114,10 +114,12 @@
 
     <cfset test=imageResize(myImage,"","100")>
     --->
-    <cfimage action="resize" height="100" width="100" name="nImage2" 
+    <cfimage action="resize">
+    
+    <!--- height="100" width="100" name="nImage2" 
             source="#application.webdirectory#/mediaUploads/dlm/screenshot_1.png" 
                destination="#application.webdirectory#/temp/test.png" overwrite="yes">
-  
+  --->
                     trying cfimage....
                 </cfif>
             </cfif>
