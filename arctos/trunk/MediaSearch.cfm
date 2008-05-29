@@ -119,10 +119,14 @@
 
             
 
-<cfimage action="resize"  height="30%" width="" 
-                    source="#media_uri#" name="MyImage">
-     <cfimage source="#MyImage#" action="writeToBrowser"/>
-    <!---name="nImage2" 
+<cfimage action="convert"  
+                    source="#media_uri#" name="/temp/test.jpg">
+
+    <!---
+    
+         <cfimage source="#MyImage#" action="writeToBrowser"/>
+         
+         name="nImage2" 
             source="#application.webdirectory#/mediaUploads/dlm/screenshot_1.png" 
                destination="#application.webdirectory#/temp/test.png" overwrite="yes">
   --->
