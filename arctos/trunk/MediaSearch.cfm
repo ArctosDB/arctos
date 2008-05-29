@@ -116,7 +116,7 @@
         <cfimage action="resize"  height="100" width="100" source="#application.webdirectory#/mediaUploads/dlm/screenshot_1.png" name="test">
     --->
 
-    <cfimage source="http://farm1.static.flickr.com/97/232021390_ad47422845_o.jpg" name="MyImage"/>
+    <cfimage source="#media_uri#" name="MyImage"/>
 <cfimage source="#MyImage#" action="writeToBrowser"/>
     <!---name="nImage2" 
             source="#application.webdirectory#/mediaUploads/dlm/screenshot_1.png" 
