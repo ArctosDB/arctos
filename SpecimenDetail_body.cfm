@@ -1200,6 +1200,16 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
             <span class="detailData">			
 				<table>
                 <cfloop query="media">
+                    <cfquery name="labels"  datasource="#application.web_user#">
+						select
+							media_label,
+							label_value
+						from
+							media_labels
+						where
+							media_id=#media_id#
+					</cfquery>
+                    <cfset mrel=getMediaRelations(#media_id#)>
                     <tr>
                     <cfif len(#preview_uri#) gt 0>
                         <td>
@@ -1213,6 +1223,18 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
                     </cfif>
                     <td style="font-size:.8em">
                         #media_type# (#mime_type#)
+                        <cfif #labels.recordcount# gt 0>
+                            <br>Labels:
+                            <cfloop query="labels">
+                                <br>#media_label#: #label_value#
+                            </cfloop>
+                        </cfif>
+                        <cfif #mrel.recordcount# gt 0>
+                            <br>Relations:
+                            <cfloop query="labels">
+                                <br>#media_relationship#: #summary#
+                            </cfloop>
+                        </cfif>
                     </td>
                     </tr>
                 </cfloop>
