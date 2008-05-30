@@ -108,18 +108,13 @@
                     <cfset tc=GetTickCount()>
                     <cfimage action="convert" source="#media_uri#" name="theJPG" 
                             destination="#application.webdirectory#/temp/cv_#tc#.jpg">
-                      <!---<cfimage
+                    <cfimage
                           action = "resize"
                             height = "100"
                                 width="100"
-    source = "#media_uri#"
-    destination="#application.webdirectory#/temp/test.jpg">
-      <cfset myImage=ImageNew("#media_uri#")>
-
-    <cfset test=imageResize(myImage,"","100")>
-        <cfimage action="resize"  height="100" width="100" source="#application.webdirectory#/mediaUploads/dlm/screenshot_1.png" name="test">
-    --->
-
+    source = "#theJPG#"
+name="theThumb">
+      
 
             
 
