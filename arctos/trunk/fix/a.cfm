@@ -52,9 +52,10 @@
             action="read"
             source="#application.webdirectory#/mediaUploads/dlm/screenshot_1.png" 
             name="tttt">
-            rad png worked
+            read png worked
             <cfflush>
             
+            <cfimage action="writeToBrowser" source="#tttt#">
             
             
             
