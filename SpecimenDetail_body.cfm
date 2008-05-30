@@ -1199,7 +1199,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 		</div>
 		<div class="detailBlock">
             <span class="detailData">			
-				<table>
+				<table border="1">
                 <cfloop query="media">
                     <cfquery name="labels"  datasource="#application.web_user#">
 						select
@@ -1227,13 +1227,13 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
                         <cfif #labels.recordcount# gt 0>
                             <br>Labels:
                             <cfloop query="labels">
-                                <br>#media_label#: #label_value#
+                                <br style="padding-left:20px;">#media_label#: #label_value#
                             </cfloop>
                         </cfif>
                         <cfif #mrel.recordcount# gt 0>
                             <br>Relations:
                             <cfloop query="mrel">
-                                <br>#media_relationship#: #summary#
+                                <br style="padding-left:20px;">#media_relationship#: #summary#
                             </cfloop>
                         </cfif>
                     </td>
