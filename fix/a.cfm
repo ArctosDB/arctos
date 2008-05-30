@@ -13,7 +13,7 @@
             action="resize"  
             width="100"
             height="100"
-            source="#application.webdirectory#/imediaUploads/dlm/screenshot_1.png " 
+            source="#application.webdirectory#/mediaUploads/dlm/screenshot_1.png " 
             destination="#application.webdirectory#/temp/test2.png"
             overwrite="true">
             resize png worked
