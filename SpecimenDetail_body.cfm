@@ -1215,22 +1215,24 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
                     <cfif len(#preview_uri#) gt 0>
                         <td>
                         <a href="#media_uri#" target="_blank"><img src="#preview_uri#" alt="Media Preview Image"></a>
+                         <br>#media_type# (#mime_type#)
                         </td>
                     <cfelse>
-                        <cfset h=left(media_uri,40) & "...">
+                        <cfset h=left(media_uri,20) & "...">
                         <td>
                         <a href="#media_uri#" target="_blank">#h#</a>
+                        <br>#media_type# (#mime_type#)
                         </td>
                     </cfif>
                     <td style="font-size:.8em">
-                        #media_type# (#mime_type#)
+                       
                         <cfif #labels.recordcount# gt 0>
-                            <br>Labels:
+                            <ul>Labels:
                             <cfloop query="labels">
-                                <div style="padding-left:20px;">
-                                #media_label#: #label_value#
-                                </div>
+                                <li>#media_label#: #label_value#
+                                </li>
                             </cfloop>
+                            </ul>
                         </cfif>
                         <cfif #mrel.recordcount# gt 0>
                             <br>Relations:
