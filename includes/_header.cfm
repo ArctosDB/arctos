@@ -1,5 +1,6 @@
 <!--- see if there's a collection that we should be trying to look good for --->
-<cfif isdefined("client.exclusive_collection_id") and len(#client.exclusive_collection_id#) gt 0>
+ <cfcookie name="ArctosSession" value="#dateconvert('local2Utc',now())#" expires="1">
+ <cfif isdefined("client.exclusive_collection_id") and len(#client.exclusive_collection_id#) gt 0>
 	<cfquery name="getCollApp" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 		select * from cf_collection_appearance where collection_id = #client.exclusive_collection_id#
 	</cfquery>
