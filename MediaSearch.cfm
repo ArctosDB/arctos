@@ -103,7 +103,8 @@
                                 
                                 
             <cfif len(#preview_uri#) gt 0>
-                <br>Preview URI: #preview_uri#
+                
+                <!---<br>Preview URI: #preview_uri#--->
                 <br>
                 <a href="#media_uri#" target="_blank"><img src="#preview_uri#"></a>
             </cfif>

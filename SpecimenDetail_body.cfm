@@ -1181,8 +1181,11 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
         media.preview_uri
      from
          media,
-         media_relations
+         media_relations,
+         media_labels
      where
+         media.media_id=media_relations.media_id and
+         media.media_id=media_labels.media_id (+) and
          media_relations.media_relationship like '%cataloged_item' and
          media_relations.related_primary_key = #collection_object_id#
 </cfquery>
@@ -1196,7 +1199,12 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 		<div class="detailBlock">
 			<span class="detailData">
 				<cfloop query="media">
-                    #media_id#: #media_uri#<br>
+                    <cfif len(#preview_uri#) gt 0>
+                        <img src="#preview_uri#">
+                    <cfelse>
+                        #media_uri#
+                    </cfif>
+                    <br>
                 </cfloop>
 			</span>
 		</div>
