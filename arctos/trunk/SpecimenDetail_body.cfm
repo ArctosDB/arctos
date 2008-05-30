@@ -1198,21 +1198,25 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 		</div>
 		<div class="detailBlock">
             <span class="detailData">			
-				<cfloop query="media">
+				<table>
+                <cfloop query="media">
+                    <tr>
                     <cfif len(#preview_uri#) gt 0>
+                        <td>
                         <a href="#media_uri#" target="_blank"><img src="#preview_uri#" alt="Media Preview Image"></a>
+                        </td>
                     <cfelse>
-                        <cfset h=left(media_uri,80) & "...">
+                        <cfset h=left(media_uri,40) & "...">
+                        <td>
                         <a href="#media_uri#" target="_blank">#h#</a>
+                        </td>
                     </cfif>
-                    
-                    <br>
-                    <span style="font-size:.8em">
+                    <td style="font-size:.8em">
                         #media_type# (#mime_type#)
-                    </span>
-                    
-                    <br>
+                    </td>
+                    </tr>
                 </cfloop>
+                </table>
 	        </span>		
 		</div>
 	</div>		
