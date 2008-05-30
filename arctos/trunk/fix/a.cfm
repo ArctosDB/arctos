@@ -57,6 +57,12 @@
             
             <cfimage action="writeToBrowser" source="#tttt#">
             
+            wrote
+            <cfflush>
+            <cfimage action="resize" width="100" height="" source="#tttt#" name="l">
+            resize in memory
+            <cfflush>
+                        <cfimage action="writeToBrowser" source="#l#">
             
             
             </cfoutput>   
