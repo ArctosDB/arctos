@@ -1227,7 +1227,8 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
                     <td style="font-size:.8em">
                        
                         <cfif #labels.recordcount# gt 0>
-                            <ul>Labels:
+                            Labels:
+                            <ul>
                             <cfloop query="labels">
                                 <li>#media_label#: #label_value#
                                 </li>
