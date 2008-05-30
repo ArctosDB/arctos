@@ -1197,16 +1197,18 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 			</cfif>
 		</div>
 		<div class="detailBlock">
-			<span class="detailData">
+			
 				<cfloop query="media">
+                    <span class="detailData">
                     <cfif len(#preview_uri#) gt 0>
                         <img src="#preview_uri#">
                     <cfelse>
                         #media_uri#
                     </cfif>
                     <br>
+                    </span>
                 </cfloop>
-			</span>
+			
 		</div>
 	</div>		
 </cfif>
