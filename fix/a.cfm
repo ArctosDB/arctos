@@ -18,7 +18,18 @@
             overwrite="true">
             resize jpg worked
             <cfflush>
+           
+           
+             <cfimage 
+            action="convert"  
+            source="#application.webdirectory#/mediaUploads/dlm/screenshot_1.png" 
+            destination="#application.webdirectory#/temp/testc.jpg"
+            overwrite="true">
+            convert png worked
+            <cfflush>
             
+            
+             
              <cfimage 
             action="resize"  
             width="100"
