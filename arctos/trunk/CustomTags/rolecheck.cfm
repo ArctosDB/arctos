@@ -137,9 +137,6 @@ isValid.recordcount: #isValid.recordcount#;
 		Refresh their timeout and set up a timer to remind them of expiring sessions 
 	--->
 	<span class="sessionTimer" id="sessionTimer"></span>
-	<cfcookie name="ArctosSession" value="-" expires="NOW" domain="#Application.domain#" path="/">
-	<cfcookie name="ArctosSession" value='#dateconvert("local2Utc",now())#' expires="1" domain="#Application.domain#" path="/">
-
     <script type="text/javascript">
 		function showSessionTimeLeft () {
 			//alert('get timeout')

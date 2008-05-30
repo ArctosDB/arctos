@@ -105,7 +105,7 @@
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
 	<cfset Application.fromEmail = "#HTTP_HOST#">
 		
-	<cfif #cgi.HTTP_HOST# contains "database.museum">		
+	<cfif #cgi.HTTP_HOST# contains "arctos.database.museum">		
 		<cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/var/www/html">
 		<cfset Application.SpecimenDownloadPath = "/var/www/html/download/">
@@ -122,7 +122,24 @@
 		<cfset Application.InstitutionBlurb = "">
 		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
 		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
-	<cfelseif #cgi.HTTP_HOST# contains "harvard.edu">
+	<cfelseif #cgi.HTTP_HOST# contains "arctos-test.database.museum">
+        <cfset Application.svn = "/usr/local/bin/svn">
+		<cfset Application.webDirectory = "/var/www/html">
+		<cfset Application.SpecimenDownloadPath = "/var/www/html/download/">
+		<cfset Application.bugReportEmail = "dustymc@gmail.com,fnghj@uaf.edu">
+		<cfset Application.technicalEmail = "dustymc@gmail.com,fnghj@uaf.edu">
+		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
+		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
+		<cfset Application.genBankPrid = "3849">
+		<cfset Application.genBankUsername="uam">
+		<cfset Application.convertPath = "/usr/local/bin/convert">
+		<cfset Application.genBankPwd=encrypt("bU7$f%Nu","genbank")>
+		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
+		<cfset Application.Google_uacct = "UA-315170-1">
+		<cfset Application.InstitutionBlurb = "">
+		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
+		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
+    <cfelseif #cgi.HTTP_HOST# contains "harvard.edu">
 		<cfset Application.svn = "/usr/bin/svn">
 		<cfset Application.webDirectory = "/var/www/html/arctosv.2.2.2">
 		<cfset Application.SpecimenDownloadPath = "/var/www/html/arctosv.2.2.2/download/">
