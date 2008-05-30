@@ -1186,6 +1186,22 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
          media_relations.media_relationship like '%cataloged_item' and
          media_relations.related_primary_key = #collection_object_id#
 </cfquery>
+<cfif #media.recordcount# gt 0>
+    <div class="detailCell">
+		<div class="detailLabel">Media
+			<cfif #oneOfUs# is 1>
+				<span class="detailEditCell" onclick="window.parent.switchIFrame('addAccn');">Edit</span>
+			</cfif>
+		</div>
+		<div class="detailBlock">
+			<span class="detailData">
+				boogity!
+			</span>
+		</div>
+	</div>		
+</cfif>
+
+<!-----
 <table>
 <cfset i=1>
 <cfif isdefined("client.roles") and listcontainsnocase(client.roles,"manage_media")>
@@ -1319,6 +1335,9 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 					</table>
 					</div>
 				</cfif>
+                
+                
+                ---->
 <!------------------------------------ usage ---------------------------------------------->
 		<cfif isProj.recordcount gt 0 OR isLoan.recordcount gt 0 or (#oneOfUs# is 1 and #isLoanedItem.collection_object_id# gt 0)>
 			<div class="detailCell">
