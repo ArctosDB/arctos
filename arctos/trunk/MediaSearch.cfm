@@ -120,7 +120,7 @@
                     <br>
                     <a href="#media_uri#" target="_blank"><img src="/temp/cv_tn_#tc#.jpg"></a>
                     convert
-                    <cflush>
+                    <cfflush>
                     <cfexecute name="#Application.convertPath#" 
 				        arguments="-thumbnail 250x250 #media_uri# #application.webdirectory#/temp/cv_tn_c__#tc#.jpg">
 			        </cfexecute>
