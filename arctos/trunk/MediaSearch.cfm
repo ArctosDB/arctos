@@ -119,7 +119,7 @@
                             source = "#application.webdirectory#/temp/cv_#tc#.jpg"
                             destination="#application.webdirectory#/temp/cv_tn_#tc#.jpg">
                     <br>
-                    <a href="#media_uri#" target="_blank"><img src="#application.webdirectory#/temp/cv_tn_#tc#.jpg"></a>
+                    <a href="#media_uri#" target="_blank"><img src="/temp/cv_tn_#tc#.jpg"></a>
                 </cfif>
             </cfif>
 			<br>MIME Type: #mime_type# 
