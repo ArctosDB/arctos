@@ -29,6 +29,24 @@
             <cfflush>
             
             
+              <cfimage 
+            action="convert"  
+            source="#application.webdirectory#/temp/testc.jpg" 
+            destination="#application.webdirectory#/temp/testc.png"
+            overwrite="true">
+            back to png
+            <cfflush>
+            
+               <cfimage 
+            action="resize"  
+            width="100"
+            height="100"
+            source="#application.webdirectory#/temp/testc.png" 
+            destination="#application.webdirectory#/temp/testcs.png"
+            overwrite="true">
+            resize made png worked....
+            <cfflush>
+            
              
              <cfimage 
             action="resize"  
