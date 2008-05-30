@@ -114,7 +114,7 @@
                                 width="100"
     source = "#application.webdirectory#/temp/cv_#tc#.jpg"
 name="theThumb">
-      
+      <cfimage action="writetobrowser" source="#theThumb#">
 
             
     <!---
