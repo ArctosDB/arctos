@@ -1201,9 +1201,10 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 				<cfloop query="media">
                     <span class="detailData">
                     <cfif len(#preview_uri#) gt 0>
-                        <img src="#preview_uri#">
+                        <a href="#media_uri#" target="_blank"><img src="#preview_uri#" alt="Media Preview Image"></a>
                     <cfelse>
-                        #media_uri#
+                        <cfset h=left(media_uri,40) & "...")>
+                        <a href="#media_uri#" target="_blank">#h#</a>
                     </cfif>
                     <br>
                     </span>

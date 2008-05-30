@@ -106,7 +106,7 @@
                 
                 <!---<br>Preview URI: #preview_uri#--->
                 <br>
-                <a href="#media_uri#" target="_blank"><img src="#preview_uri#"></a>
+                <a href="#media_uri#" target="_blank"><img src="#preview_uri#" alt="Media Preview Image"></a>
             </cfif>
 			<br>MIME Type: #mime_type# 
             <br>Media Type: #media_type#
