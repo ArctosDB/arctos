@@ -1190,6 +1190,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
          media_relations.related_primary_key = #collection_object_id#
 </cfquery>
 <cfif #media.recordcount# gt 0>
+    <cfinclude template="/includes/functionLib.cfm">
     <div class="detailCell">
 		<div class="detailLabel">Media
 			<cfif #oneOfUs# is 1>
