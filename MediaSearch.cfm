@@ -103,7 +103,9 @@
                 <img src="#preview_uri#">
             <cfelse>
                 <!--- see if we can make a preview --->
-                <cfif media_uri contains application.serverRootUrl>
+                <cfif mime_type contains "image">
+                    <!--- resize PNG does not work for some reason..---->
+                    <cfimage action="convert" source="#media_uri#" name="theJPG">
                       <!---<cfimage
                           action = "resize"
                             height = "100"
