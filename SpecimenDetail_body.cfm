@@ -1227,13 +1227,13 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
                         <cfif #labels.recordcount# gt 0>
                             <br>Labels:
                             <cfloop query="labels">
-                                <br style="padding-left:20px;">#media_label#: #label_value#
+                                <br>&nbsp;&nbsp;&nbsp;#media_label#: #label_value#
                             </cfloop>
                         </cfif>
                         <cfif #mrel.recordcount# gt 0>
                             <br>Relations:
                             <cfloop query="mrel">
-                                <br style="padding-left:20px;">#media_relationship#: #summary#
+                                <br>&nbsp;&nbsp;&nbsp;#media_relationship#: #summary#
                             </cfloop>
                         </cfif>
                     </td>
