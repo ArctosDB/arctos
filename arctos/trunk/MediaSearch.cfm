@@ -88,6 +88,8 @@
 <cfquery name="findIDs" datasource="#application.web_user#">
 	#preservesinglequotes(ssql)#
 </cfquery>
+
+	#preservesinglequotes(ssql)#
 <table>
 <cfset i=1>
 <cfif isdefined("client.roles") and listcontainsnocase(client.roles,"manage_media")>
