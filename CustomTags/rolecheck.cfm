@@ -1,4 +1,5 @@
 <cfoutput>
+
 <cfset escapeGoofyInstall=replace(cgi.SCRIPT_NAME,"/cfusion","","all")>
 <!--- check password --->
 <cfif isdefined("client.force_password_change") and 
@@ -14,6 +15,7 @@
 	select ROLE_NAME from cf_form_permissions 
 	where form_path = '#escapeGoofyInstall#'
 </cfquery>
+
 <!---
 <hr>
 escapeGoofyInstall: #escapeGoofyInstall#
@@ -46,18 +48,19 @@ isValid.recordcount: #isValid.recordcount#;
 			<cfset badYou = "yes">
 		</cfif>
 	<cfelse>
-		<!--- username but no cookie? BAD! --->
-		<cfset badYou = "yes">
+		<!--- username but no cookie? BAD! 
+        <cfset badYou = "yes">
+       --->
+
+			
 	</cfif>
 </cfif>
 <br>
 <cfif isdefined("badyou")>
 	<cfset badguy = "#cgi.HTTP_X_Forwarded_For##chr(9)##remote_host##chr(9)##cgi.SCRIPT_NAME##chr(9)##dateformat(now(),'dd-mmm-yyyy')# #TimeFormat(Now(),'HH:mm:ss')#">
 	<cffile action='append' file='#logfile#' addnewline='yes' output='#badguy#'>
-    <!--- log them out --->
-    <cfcookie name="ArctosSession" value="-" expires="NOW" domain="#Application.domain#" path="/">
-	
-	<cfmail subject="Access Violation" to="#Application.technicalEmail#" from="Security@#Application.fromEmail#" type="html">
+	<cfcookie name="ArctosSession" value="-" expires="NOW" domain="#Application.domain#" path="/">
+    <cfmail subject="Access Violation" to="#Application.technicalEmail#" from="Security@#Application.fromEmail#" type="html">
 		IP address (#cgi.HTTP_X_Forwarded_For# - #remote_host#) tried to access
 		#escapeGoofyInstall#
 		<p>
@@ -136,17 +139,18 @@ isValid.recordcount: #isValid.recordcount#;
 	<span class="sessionTimer" id="sessionTimer"></span>
 	<cfcookie name="ArctosSession" value="-" expires="NOW" domain="#Application.domain#" path="/">
 	<cfcookie name="ArctosSession" value='#dateconvert("local2Utc",now())#' expires="1" domain="#Application.domain#" path="/">
-	<script type="text/javascript">
+
+    <script type="text/javascript">
 		function showSessionTimeLeft () {
 			//alert('get timeout')
 			DWREngine._execute(_cfscriptLocation, null, 'getSessionTimeout',showSessionTimeLeft_Result);					
 		}
 		function showSessionTimeLeft_Result (result) {
-			//alert('got it')
+			//alert('got it: ' + result.length + ':' + result)
 			if (result.length > 0) {
 				if (result <= 0) {
 					// too late, bye now...
-					alert('Your session has expired. You must log in to continue. \n Please close any other open windows.');
+					//alert('Your session has expired. You must log in to continue.');
 					document.location='/login.cfm?action=signOut';
 				} else if (result <= 10) {
 					var st = document.getElementById('sessionTimer');
@@ -163,5 +167,6 @@ isValid.recordcount: #isValid.recordcount#;
 		}
 		 setTimeout('showSessionTimeLeft()', 10);
 	</script>
+
 </cfif>
 </cfoutput>
