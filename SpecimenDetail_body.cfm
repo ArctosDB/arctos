@@ -1190,12 +1190,14 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
     <div class="detailCell">
 		<div class="detailLabel">Media
 			<cfif #oneOfUs# is 1>
-				<span class="detailEditCell" onclick="window.parent.switchIFrame('addAccn');">Edit</span>
+				<span class="detailEditCell" onclick="window.parent.switchIFrame('MediaSearch');">Edit</span>
 			</cfif>
 		</div>
 		<div class="detailBlock">
 			<span class="detailData">
-				boogity!
+				<cfloop query="media">
+                    #media_uri#<br>
+                </cfloop>
 			</span>
 		</div>
 	</div>		
