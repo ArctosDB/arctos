@@ -1227,16 +1227,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
                         </td>
                     </cfif>
                     <td style="font-size:.8em">
-                       
-                        <cfif #labels.recordcount# gt 0>
-                            Labels:
-                            <ul>
-                            <cfloop query="labels">
-                                <li>#media_label#: #label_value#</li>
-                            </cfloop>
-                            </ul>
-                        </cfif>
-                        <cfif #mrel.recordcount# gt 0>
+                       <cfif #mrel.recordcount# gt 0>
                             Relations:
                              <ul>
                             <cfloop query="mrel">
@@ -1244,6 +1235,14 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
                             </cfloop>
                             </ul>
                         </cfif>
+                        <cfif #labels.recordcount# gt 0>
+                            Labels:
+                            <ul>
+                            <cfloop query="labels">
+                                <li>#media_label#: #label_value#</li>
+                            </cfloop>
+                            </ul>
+                        </cfif>                        
                     </td>
                     </tr>
                 </cfloop>
