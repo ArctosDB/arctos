@@ -1205,10 +1205,13 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
                         <cfset h=left(media_uri,80) & "...">
                         <a href="#media_uri#" target="_blank">#h#</a>
                     </cfif>
+                    
                     <br>
                     <span style="font-size:.8em">
                         #media_type# (#mime_type#)
                     </span>
+                    
+                    <br>
                 </cfloop>
 	        </span>		
 		</div>
