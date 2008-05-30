@@ -105,7 +105,9 @@
                 <!--- see if we can make a preview --->
                 <cfif mime_type contains "image">
                     <!--- resize PNG does not work for some reason..---->
-                    <cfimage action="convert" source="#media_uri#" name="theJPG">
+                    <cfset tc=GetTickCount()>
+                    <cfimage action="convert" source="#media_uri#" name="theJPG" 
+                            destination="#application.webdirectory#/temp/cv_#tc#.jpg">
                       <!---<cfimage
                           action = "resize"
                             height = "100"
