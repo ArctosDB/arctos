@@ -51,7 +51,7 @@
 	    </cfcatch>
     </cftry>
     <cfset frm="#frm#,media_relations media_relations#n#">
-	<cfset whr="#whr# and media.media_id=media_relations#n#.media_id">
+	<cfset whr="#whr# and media.media_id=media_relations#n#.media_id (+)">
 	<cfif len(#thisRelationship#) gt 0>
 		<cfset srch="#srch# AND media_relations#n#.media_relationship like '%#thisRelationship#%'">
 	</cfif>
@@ -76,7 +76,7 @@
 		    </cfcatch>
         </cftry>		
 		<cfset frm="#frm#,media_labels media_labels#n#">
-	    <cfset whr="#whr# and media.media_id=media_labels#n#.media_id">
+	    <cfset whr="#whr# and media.media_id=media_labels#n#.media_id (+)">
         <cfif len(#thisLabel#) gt 0>
 			<cfset srch="#srch# AND media_labels#n#.media_label = '#thisLabel#'">
 		</cfif>
