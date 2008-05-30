@@ -119,9 +119,13 @@
 
             
 
-<cfimage action="resize"  width="100" height="100"
-                    source="#media_uri#" destination="#application.webdirectory#/temp/test.png"
-                        overwrite="true">
+    <cfimage 
+            action="resize"  
+            width="100"
+            height="100"
+            source="#application.webdirectory#/images/genericHeaderIcon.gif" 
+            destination="#application.webdirectory#/temp/test.gif"
+            overwrite="true">
 
     <!---
     
