@@ -115,7 +115,7 @@
 		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
 		<cfset Application.genBankPrid = "3849">
 		<cfset Application.genBankUsername="uam">
-		<cfset Application.convertPath = "/usr/bin/convert">
+		<cfset Application.convertPath = "/usr/local/bin/convert">
 		<cfset Application.genBankPwd=encrypt("bU7$f%Nu","genbank")>
 		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
 		<cfset Application.Google_uacct = "UA-315170-1">
