@@ -1232,7 +1232,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
                         </cfif>
                         <cfif #mrel.recordcount# gt 0>
                             <br>Relations:
-                            <cfloop query="labels">
+                            <cfloop query="mrel">
                                 <br>#media_relationship#: #summary#
                             </cfloop>
                         </cfif>
