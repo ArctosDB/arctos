@@ -351,7 +351,7 @@
 				<cfset basJoin = " #basJoin# INNER JOIN taxonomy ON 
 				(identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id)">
 			</cfif>
-			<cfset basQual = " #basQual# AND Phylclass = '#Phylclass#'">
+			<cfset basQual = " #basQual# AND taxonomy.Phylclass = '#Phylclass#'">
 		</cfif>
 		<cfif isdefined("any_taxa_term") AND len(#any_taxa_term#) gt 0>
 			<cfset mapurl = "#mapurl#&any_taxa_term=#any_taxa_term#">
