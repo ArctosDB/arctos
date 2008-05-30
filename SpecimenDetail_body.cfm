@@ -1215,13 +1215,15 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
                     <cfif len(#preview_uri#) gt 0>
                         <td>
                         <a href="#media_uri#" target="_blank"><img src="#preview_uri#" alt="Media Preview Image"></a>
-                         <br>#media_type# (#mime_type#)
+                        <div style="font-size:.8em">#media_type# (#mime_type#)</div>
                         </td>
                     <cfelse>
                         <cfset h=left(media_uri,20) & "...">
                         <td>
-                        <a href="#media_uri#" target="_blank">#h#</a>
-                        <br>#media_type# (#mime_type#)
+                        
+                        <div style="font-size:.8em">
+                            <a href="#media_uri#" target="_blank">#h#</a>
+                            <br>#media_type# (#mime_type#)</div>
                         </td>
                     </cfif>
                     <td style="font-size:.8em">
@@ -1230,18 +1232,17 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
                             Labels:
                             <ul>
                             <cfloop query="labels">
-                                <li>#media_label#: #label_value#
-                                </li>
+                                <li>#media_label#: #label_value#</li>
                             </cfloop>
                             </ul>
                         </cfif>
                         <cfif #mrel.recordcount# gt 0>
-                            <br>Relations:
+                            Relations:
+                             <ul>
                             <cfloop query="mrel">
-                                <div style="padding-left:20px;">
-                                    #media_relationship#: #summary#
-                                </div>
+                                <li>#media_relationship#: #summary#</li>
                             </cfloop>
+                            </ul>
                         </cfif>
                     </td>
                     </tr>
