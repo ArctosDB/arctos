@@ -96,11 +96,15 @@
 <cfloop query="findIDs">
 	<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td>
-			URI: #media_uri#
+			URI: 
+            <a href="#media_uri#" target="_blank">#media_uri#</a>
+                                
+                                
             <cfif len(#preview_uri#) gt 0>
                 <br>Preview URI: #preview_uri#
                 <br>
-                <img src="#preview_uri#">
+                <a href="#media_uri#" target="_blank"><img src="#preview_uri#"></a>
+                <img src="##">
             <cfelse>
                 <!--- see if we can make a preview --->
                 <cfif mime_type contains "image">
@@ -111,20 +115,11 @@
                     <cfimage
                           action = "resize"
                             height = "100"
-                                width="100"
-    source = "#application.webdirectory#/temp/cv_#tc#.jpg"
-name="theThumb">
-<img src="#theThumb#">
-            
-    <!---
-    
-         <cfimage source="#MyImage#" action="writeToBrowser"/>
-         
-         name="nImage2" 
-            source="#application.webdirectory#/mediaUploads/dlm/screenshot_1.png" 
-               destination="#application.webdirectory#/temp/test.png" overwrite="yes">
-  --->
-                    trying cfimage....
+                            width="100"
+                            source = "#application.webdirectory#/temp/cv_#tc#.jpg"
+                            destination="#application.webdirectory#/temp/cv_tn_#tc#.jpg">
+                    <br>
+                    <a href="#media_uri#" target="_blank"><img src="#application.webdirectory#/temp/cv_tn_#tc#.jpg"></a>
                 </cfif>
             </cfif>
 			<br>MIME Type: #mime_type# 
