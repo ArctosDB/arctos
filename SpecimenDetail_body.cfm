@@ -1196,7 +1196,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 		<div class="detailBlock">
 			<span class="detailData">
 				<cfloop query="media">
-                    #media_uri#<br>
+                    #media_id#: #media_uri#<br>
                 </cfloop>
 			</span>
 		</div>
