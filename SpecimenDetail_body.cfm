@@ -1218,7 +1218,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
                         <div style="font-size:.8em">#media_type# (#mime_type#)</div>
                         </td>
                     <cfelse>
-                        <cfset h=left(media_uri,20) & "...">
+                        <cfset h=left(media_uri,40) & "...">
                         <td>
                         
                         <div style="font-size:.8em">
