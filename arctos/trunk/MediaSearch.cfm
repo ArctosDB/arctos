@@ -112,20 +112,11 @@
                           action = "resize"
                             height = "100"
                                 width="100"
-    source = "#theJPG#"
+    source = "#application.webdirectory#/temp/cv_#tc#.jpg"
 name="theThumb">
       
 
             
-
-    <cfimage 
-            action="resize"  
-            width="100"
-            height="100"
-            source="#application.webdirectory#/images/genericHeaderIcon.gif" 
-            destination="#application.webdirectory#/temp/test.gif"
-            overwrite="true">
-
     <!---
     
          <cfimage source="#MyImage#" action="writeToBrowser"/>
@@ -137,7 +128,6 @@ name="theThumb">
                     trying cfimage....
                 </cfif>
             </cfif>
-            <br>pretty picture here!
 			<br>MIME Type: #mime_type# 
             <br>Media Type: #media_type#
              <cfif isdefined("client.roles") and listcontainsnocase(client.roles,"manage_media")>
