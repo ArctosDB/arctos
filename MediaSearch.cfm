@@ -104,28 +104,6 @@
                 <br>Preview URI: #preview_uri#
                 <br>
                 <a href="#media_uri#" target="_blank"><img src="#preview_uri#"></a>
-            <cfelse>
-                <!--- see if we can make a preview --->
-                <cfif mime_type contains "image">
-                    <!--- resize PNG does not work for some reason..---->
-                    <cfset tc=GetTickCount()>
-                    <cfimage action="convert" source="#media_uri#" name="theJPG" 
-                            destination="#application.webdirectory#/temp/cv_#tc#.jpg">
-                    <cfimage
-                          action = "resize"
-                            height = "100"
-                            width="100"
-                            source = "#application.webdirectory#/temp/cv_#tc#.jpg"
-                            destination="#application.webdirectory#/temp/cv_tn_#tc#.jpg">
-                    <br>
-                    <a href="#media_uri#" target="_blank"><img src="/temp/cv_tn_#tc#.jpg"></a>
-                    convert
-                    <cfflush>
-                    <cfexecute name="#Application.convertPath#" 
-				        arguments="-thumbnail 250x250 #media_uri# #application.webdirectory#/temp/cv_tn_c__#tc#.jpg">
-			        </cfexecute>
-                    <a href="#media_uri#" target="_blank"><img src="/temp/cv_tn_c__#tc#.jpg"></a>
-                </cfif>
             </cfif>
 			<br>MIME Type: #mime_type# 
             <br>Media Type: #media_type#
