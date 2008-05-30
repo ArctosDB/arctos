@@ -124,6 +124,7 @@
                     <cfexecute name="#Application.convertPath#" 
 				        arguments="-thumbnail 250x250 #media_uri# #application.webdirectory#/temp/cv_tn_c__#tc#.jpg">
 			        </cfexecute>
+                    <a href="#media_uri#" target="_blank"><img src="/temp/cv_tn_c__#tc#.jpg"></a>
                 </cfif>
             </cfif>
 			<br>MIME Type: #mime_type# 
