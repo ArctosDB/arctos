@@ -1212,38 +1212,34 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 					</cfquery>
                     <cfset mrel=getMediaRelations(#media_id#)>
                     <tr>
-                    <cfif len(#preview_uri#) gt 0>
-                        <td>
-                        <a href="#media_uri#" target="_blank"><img src="#preview_uri#" alt="Media Preview Image"></a>
-                        <div style="font-size:.8em">#media_type# (#mime_type#)</div>
+                        <td align="center" style="font-size:.8em">
+                            <cfif len(#preview_uri#) gt 0>
+                                <a href="#media_uri#" target="_blank"><img src="#preview_uri#" alt="Media Preview Image"></a>
+                                <br>#media_type# (#mime_type#)
+                            <cfelse>
+                                <cfset h=left(media_uri,40) & "...">
+                                <a href="#media_uri#" target="_blank">#h#</a>
+                                <br>#media_type# (#mime_type#)
+                            </cfif>
                         </td>
-                    <cfelse>
-                        <cfset h=left(media_uri,40) & "...">
-                        <td>
-                        
-                        <div style="font-size:.8em">
-                            <a href="#media_uri#" target="_blank">#h#</a>
-                            <br>#media_type# (#mime_type#)</div>
+                        <td style="font-size:.8em">
+                            <cfif #mrel.recordcount# gt 0>
+                                Relations:
+                                <ul>
+	                                <cfloop query="mrel">
+	                                    <li>#media_relationship#: #summary#</li>
+	                                </cfloop>
+                                </ul>
+                            </cfif>
+                            <cfif #labels.recordcount# gt 0>
+                                Labels:
+                                <ul>
+		                            <cfloop query="labels">
+		                                <li>#media_label#: #label_value#</li>
+		                            </cfloop>
+                                </ul>
+                            </cfif>
                         </td>
-                    </cfif>
-                    <td style="font-size:.8em">
-                       <cfif #mrel.recordcount# gt 0>
-                            Relations:
-                             <ul>
-                            <cfloop query="mrel">
-                                <li>#media_relationship#: #summary#</li>
-                            </cfloop>
-                            </ul>
-                        </cfif>
-                        <cfif #labels.recordcount# gt 0>
-                            Labels:
-                            <ul>
-                            <cfloop query="labels">
-                                <li>#media_label#: #label_value#</li>
-                            </cfloop>
-                            </ul>
-                        </cfif>                        
-                    </td>
                     </tr>
                 </cfloop>
                 </table>
@@ -1251,144 +1247,6 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 		</div>
 	</div>		
 </cfif>
-
-<!-----
-<table>
-<cfset i=1>
-<cfif isdefined("client.roles") and listcontainsnocase(client.roles,"manage_media")>
-    <a href="media.cfm?action=newMedia">Create media</a>
-</cfif>
-<cfloop query="findIDs">
-	<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-		<td>
-			URI: #media_uri#
-            <cfif len(#preview_uri#) gt 0>
-                <br>Preview URI: #preview_uri#
-            </cfif> 
-			<br>MIME Type: #mime_type# 
-            <br>Media Type: #media_type#
-             <cfif isdefined("client.roles") and listcontainsnocase(client.roles,"manage_media")>
-		        <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">edit</a>
-		    </cfif>            
-			<cfquery name="labels"  datasource="#application.web_user#">
-				select
-					media_label,
-					label_value,
-					agent_name
-				from
-					media_labels,
-					preferred_agent_name
-				where
-					media_labels.assigned_by_agent_id=preferred_agent_name.agent_id (+) and
-					media_id=#media_id#
-			</cfquery>
-			<br>Labels:	
-			<cfif labels.recordcount gt 0>
-				<ul>
-					<cfloop query="labels">
-						<li>
-							#media_label#: #label_value#
-							<cfif len(#agent_name#) gt 0>
-								(Assigned by #agent_name#)
-							</cfif>
-						</li>
-					</cfloop>
-				</ul>
-			</cfif>
-			<br>Relationships:
-			<cfset mrel=getMediaRelations(#media_id#)>
-			<ul>
-			<cfloop query="mrel">
-				<li>#media_relationship#: #summary# 
-                    <cfif len(#link#) gt 0>
-                        <a class="infoLink" href="#link#" target="_blank">Specimens</a>
-                    </cfif>
-                </li>
-			</cfloop>
-			</ul>
-		</td>
-	</tr>
-	<cfset i=i+1>
-</cfloop>
-</table>
-</cfoutput>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            <cfif #images.recordcount# gt 0>
-				<div class="detailCell">
-					<div class="detailLabel">Media
-						<cfif #oneOfUs# is 1>
-							<span class="detailEditCell" onclick="window.parent.switchIFrame('editImages');">Edit</span>
-						</cfif>						
-					</div>
-					<cfloop query="images">
-						<cfif #full_url# contains #Application.ServerRootUrl#>
-							<!--- get filesize --->
-							<cfset thisImgFile = "#Application.webDirectory##right(full_url,len(full_url) - len(Application.serverRootUrl))#">
-							<!--- how the server gets to the image --->
-							<cfset imgDir = #left(thisImgFile,len(thisImgFile) - find("/",reverse(thisImgFile)))#>
-							<!--- directory the image is in --->
-							<cfset thisFileName = #right(thisImgFile,find("/",reverse(thisImgFile))-1)#>
-							<!--- name of the file - everything after the last / in full_url ---->
-							<cfset thisExtension = #right(thisImgFile,find(".",reverse(thisImgFile)))#>
-							<!--- grab the extension, just cuz we can --->
-							<cfset thisRelativePath = replace(full_url,Application.serverRootUrl,"")>
-							<cfset thisRelativePath = replace(thisRelativePath,thisFileName,"")>
-							<cfdirectory action="list" name="thisDir" directory="#imgDir#" filter="#thisFileName#">
-							<cfset thisAspect = #aspect#>
-							<cfif #thisDir.size# gt 0>
-								<cfset sizeInK = #round(thisDir.size / 1024)#>
-								<cfset sizeInK="#sizeInK#&nbsp;K&nbsp;#thisExtension#">
-							<cfelse>
-								<cfset sizeInK='unknown K'>
-							</cfif>
-						<cfelse>
-							<cfset sizeInK='external link'>
-						</cfif>
-						<div class="detailBlock">
-							<span class="innerDetailLabel"></span>
-								<cfset thisPad = (level - 1) * 50>
-								<div style="padding-left:#thisPad#px;">
-									<cfif len(#thumbnail_url#) gt 0>
-										<a href="#images.full_url#"  target="_blank">
-											<img src="#thumbnail_url#" alt="#description#"></a>
-									<cfelse>
-										<a href="#images.full_url#"  target="_blank">
-											<img src="/images/noThumb.jpg" alt="#description#"></a>
-									</cfif>
-									<span style="font-size:small"><br>#description# (#sizeInK#)</span>
-								</div>
-							</span>
-						</div>
-						</cfloop>
-					<table id="SD" border="1">
-						<tr class="detailData">
-							<td class="innerDetailLabel">URL</td>
-						</tr>
-						<cfloop query="media">
-							<tr class = "detailData">
-								<td><a href=#media_uri#>#media_uri#</a></td>
-							</tr>
-						</cfloop>
-					</table>
-					</div>
-				</cfif>
-                
-                
-                ---->
 <!------------------------------------ usage ---------------------------------------------->
 		<cfif isProj.recordcount gt 0 OR isLoan.recordcount gt 0 or (#oneOfUs# is 1 and #isLoanedItem.collection_object_id# gt 0)>
 			<div class="detailCell">
