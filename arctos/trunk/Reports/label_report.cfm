@@ -34,6 +34,17 @@
             <option value="#other_id_type#">#other_id_type#</option>
         </cfloop>
     </select>
+    
+  <label for="include_island">include_island?</label>
+    <input type="checkbox" value="1" name="include_island" id="include_island"
+         <cfif #include_island# is "1"> checked="checked" </cfif>>
+    <label for="include_island_group">include_island_group?</label>
+    <input type="checkbox" value="1" name="include_island_group" id="include_island_group"
+         <cfif #include_island_group# is "1"> checked="checked" </cfif>>
+    <label for="include_feature">include_feature?</label>
+    <input type="checkbox" value="1" name="include_feature" id="include_feature"
+         <cfif #include_feature# is "1"> checked="checked" </cfif>>
+                
     <label for="sort_order">Sort Order</label>
     <select name="sort_order" id="sort_order" size="1">
         <option value="cat_num">cat_num</option>
