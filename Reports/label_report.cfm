@@ -7,7 +7,7 @@
     SELECT distinct(other_id_type) other_id_type FROM ctColl_Other_id_type
 	order by other_id_type
 </cfquery>
-
+<cfif #action# is "nothing">
 <cfset options=queryNew("sort_by")>
 
 
@@ -25,6 +25,7 @@
 </cfif>    
     
 <form name="custom" method="post" action="label_report.cfm">
+    <input type="hidden" name="action" value="print">
     <input type="hidden" name="collection_object_id" value="#collection_object_id#">
     <label for="user_otherID">Other ID</label>
        <select name="user_otherID" id="user_otherID" size="1">
@@ -35,7 +36,8 @@
        </select>
     <input type="submit" value="Go">
 </form>
-
+</cfif>
+<cfif #action# is "print">
 <cfset sql="
 	select
 		get_scientific_name_auths(cataloged_item.collection_object_id) sci_name_with_auth,
@@ -256,5 +258,6 @@
 <a href="/temp/alaLabel.pdf">Download the PDF</a>
 ---->
 <cfdump var="#d#">
+</cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
