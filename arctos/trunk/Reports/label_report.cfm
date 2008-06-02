@@ -219,7 +219,7 @@
 		</cfif>
         <cfset locAry[i] = "#locality#">
         
-	    <cfset collector="#collectors# #fieldnum#">
+	    <cfset collector="#collectors#">
         <cfset colAry[i] = "#collector#">
                 
 	    <cfset determiner="">
