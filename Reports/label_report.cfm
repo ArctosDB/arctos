@@ -47,7 +47,7 @@
 	select
 		get_scientific_name_auths(cataloged_item.collection_object_id) sci_name_with_auth,
 		concatAcceptedIdentifyingAgent(cataloged_item.collection_object_id) identified_by,
-        identification.scientifif_name identified_as,
+        identification.scientific_name identified_as,
 		get_taxonomy(cataloged_item.collection_object_id,'family') family,
 		get_taxonomy(cataloged_item.collection_object_id,'scientific_name') tsname,
 		get_taxonomy(cataloged_item.collection_object_id,'author_text') author_text,
@@ -90,7 +90,7 @@
 		associated_species,
 		project_name,
         concatsingleotherid(cataloged_item.collection_object_id,'#user_otherID#') user_id_num,
-        '#user_otherID#',
+        '#user_otherID#'
 	FROM
 		cataloged_item,
 		identification,
