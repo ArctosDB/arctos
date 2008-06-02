@@ -29,7 +29,7 @@
     <input type="hidden" name="collection_object_id" value="#collection_object_id#">
     <label for="user_otherID">Other ID</label>
     <select name="user_otherID" id="user_otherID" size="1">
-        <option value="">None</option>
+        <option value="noID">None</option>
         <cfloop query="ctOtherIdType">
             <option value="#other_id_type#">#other_id_type#</option>
         </cfloop>
@@ -90,7 +90,7 @@
 		associated_species,
 		project_name,
         concatsingleotherid(cataloged_item.collection_object_id,'#user_otherID#') user_id_num,
-        '#user_otherID#' user_id_type,
+        '#user_otherID#',
 	FROM
 		cataloged_item,
 		identification,
