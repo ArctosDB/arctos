@@ -3,6 +3,11 @@
 	<cfabort>
 </cfif>	
 <cfinclude template="/includes/_header.cfm">
+<cfquery name="ctOtherIdType" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+    SELECT distinct(other_id_type) other_id_type FROM ctColl_Other_id_type
+	order by other_id_type
+</cfquery>
+
 <cfset options=queryNew("sort_by")>
 
 
