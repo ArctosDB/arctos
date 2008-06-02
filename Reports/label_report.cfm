@@ -163,6 +163,8 @@
         <cfset coordAry[i] = "#coordinates#">
         
 		<cfset locality="">
+        
+                <!---
         <cfif include_island is 1>
             <cfif len(#locality#) gt 0>
                 <cfset locality = "#locality#, #island#">
@@ -171,7 +173,7 @@
             </cfif>            
 		</cfif>
        
-        
+
         <cfif include_island_group is 1>
             <cfif len(#locality#) gt 0>
                 <cfset locality = "#locality#, #island_group#">
@@ -186,7 +188,7 @@
                 <cfset locality = "#feature#">
             </cfif>            
 		</cfif>
-        
+        ---->
 		<cfif len(#quad#) gt 0>
 			<cfif len(#locality#) gt 0>
                 <cfset locality = "#locality#, #quad# Quad.:">
