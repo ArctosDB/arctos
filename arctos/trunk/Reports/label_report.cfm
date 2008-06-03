@@ -259,13 +259,13 @@
         format = "#e.report_format#"
         query="d"
         template = "#Application.webDirectory#/Reports/templates/#e.report_template#"
-        filename = "#Application.webDirectory#/temp/#e.report_name#.pdf"
+        filename = "#Application.webDirectory#/temp/booger.pdf"
         overwrite = "yes">
     </cfreport>
 
-<a href="/temp/#e.report_name#.pdf">Download the PDF</a>
+<a href="/temp/booger.pdf">Download the PDF</a>
 
-<cfdump var="#d#">
+
 </cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
