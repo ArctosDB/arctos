@@ -32,9 +32,7 @@
     </cfquery>
     <cflocation url="label_report.cfm?action=edit&report_id=#report_id#&collection_object_id=#collection_object_id#">
 </cfif>
-
-
-
+<!--------------------------------------------------------------------------------------->
 <cfif #action# is "edit">
     <cfif not isdefined("report_id")>
 	    <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
@@ -170,12 +168,16 @@
 	            <cfelse>
 	                <td><a href="label_report.cfm?action=newHandler&report_template=#report_template#&collection_object_id=#collection_object_id#">Create Handler</a></td>
 	            </cfif>
-	            <td><a href="label_report.cfm?action=download&name=#report_name#&collection_object_id=#collection_object_id#">Download Report</a></td>
+	            <td><a href="label_report.cfm?action=download&report_template=#report_template#&collection_object_id=#collection_object_id#">Download Report</a></td>
 	        </tr>
         </cfloop>
       
     </cfloop>
     </table>
+</cfif>
+<!-------------------------------------------------------------->
+<cfif #action# is "download">
+    <a href="/Reports/templates/#report_template#">Here it is.</a>
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "nothing">
