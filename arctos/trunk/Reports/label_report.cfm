@@ -4,7 +4,7 @@
 
 <cfif #action# is "edit">
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-        select * from cf_report_sql where report_name='#name#'
+        select * from cf_report_sql where report_name='#q#'
     </cfquery>
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
     <cfdump var=#e#>
@@ -14,11 +14,10 @@
         <label for="report_name">Report Name</label>
         <input type="text" name="report_name" id="report_name" value="#e.report_name#">
         <label for="report_template">Report Template</label>
-        <cfset ct=e.report_template>
         <select name="report_template" id="report_template">
             <option value="-notfound-">ERROR: Not found!</option>
             <cfloop query="reportList">
-                <option <cfif ct is e.report_template> selected="selected" </cfif>value="#name#">#name#</option>
+                <option <cfif name is e.report_template> selected="selected" </cfif>value="#name#">#name#</option>
             </cfloop>
         </select>
         <label for="sql_text">SQL</label>
@@ -46,7 +45,7 @@
             '#name#',
             '#ns#')
     </cfquery>
-    <cflocation url="label_report.cfm?action=edit&name=#nn#">
+    <cflocation url="label_report.cfm?action=edit&q=#nn#">
 </cfif>
 <cfif #action# is "listReports">
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
