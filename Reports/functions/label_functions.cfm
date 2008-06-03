@@ -4,7 +4,7 @@
 	<cfset gAr = ArrayNew(1)>
 	<cfset dAr = ArrayNew(1)>
 	<cfset i=1>
-	<cfloop query="data">
+	<cfloop query="d">
        
         <cfset geog="">
         <cfif #country# is "United States">
