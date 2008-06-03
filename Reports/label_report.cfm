@@ -14,7 +14,7 @@
 
 <cfif #action# is "saveEdit">
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-        update cf_report_sql set     report_id number not null,
+        update cf_report_sql set     
         report_name ='#report_name#',
         report_template  ='#report_template#',
         sql_text ='#sql_text#'
