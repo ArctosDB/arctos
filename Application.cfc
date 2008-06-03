@@ -105,7 +105,7 @@
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
 	<cfset Application.fromEmail = "#HTTP_HOST#">
 		
-	<cfif #cgi.HTTP_HOST# contains "arctos.database.museum">		
+	<cfif #cgi.HTTP_HOST# is "arctos.database.museum">		
 		<cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/opt/coldfusion8/wwwroot">
 		<cfset Application.SpecimenDownloadPath = "/opt/coldfusion8/wwwroot/download/">
@@ -122,7 +122,7 @@
 		<cfset Application.InstitutionBlurb = "">
 		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
 		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
-	<cfelseif #cgi.HTTP_HOST# contains "arctos-test.database.museum">
+	<cfelseif #cgi.HTTP_HOST# is "arctos-test.arctos.database.museum">
         <cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/var/ww/html">
 		<cfset Application.SpecimenDownloadPath = "#Application.webDirectory#/download/">
