@@ -202,7 +202,7 @@
 	</cfquery>
     
     <cfreport
-        format = "flashPaper""
+        format = "flashPaper"
         query="d"
         template = "#Application.webDirectory#/Reports/templates/#report_template#"
         encryption = "none"
