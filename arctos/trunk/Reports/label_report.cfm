@@ -62,8 +62,14 @@
        <tr>
             <td>#name#</td>
             <td>#h.report_name#</td>
-            <td><a href="label_report.cfm?action=edit&name=#name#">Edit Handler</a></td>
-            <td><a href="label_report.cfm?action=clone&name=#name#">Clone/Create Handler</a></td>
+            <cfif len(#h.report_name#) gt 0>
+                <td><a href="label_report.cfm?action=edit&q=#name#">Edit Handler</a></td>
+                <td><a href="label_report.cfm?action=clone&name=#name#">Clone Handler</a></td>
+            <cfelse>
+                <td><a href="label_report.cfm?action=clone&name=#name#">Create Handler</a></td>
+            </cfif>
+            
+            
             <td><a href="label_report.cfm?action=download&name=#name#">Download Report</a></td>
         </tr>
     </cfloop>
