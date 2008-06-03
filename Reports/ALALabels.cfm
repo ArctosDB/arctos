@@ -252,6 +252,7 @@
     <cfset temp = QueryAddColumn(d, "formatted_attributes", "VarChar",attAry)>
     <cfset temp = QueryAddColumn(d, "identification", "VarChar",identAry)>
      
+     
     <cfreport
         format = "PDF"
         query="d"
