@@ -2,15 +2,36 @@
 
 <cfinclude template="/includes/_header.cfm">
 
-<cfif #action# is "edit">
+<cfif #action# is "saveEdit">
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-        select * from cf_report_sql where report_name='#q#'
+        update cf_report_sql set     report_id number not null,
+        report_name ='#report_name#',
+        report_template  ='#report_template#',
+        sql_text ='#sql_text#'
+        where report_id=#report_id#
+    </cfquery>
+    <cflocation url="label_report.cfm?action=edit&report_id=#report_id#">
+</cfif>
+
+
+
+<cfif #action# is "edit">
+    <cfif not isdefined("report_id")>
+	    <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	        select report_id from cf_report_sql where report_name='#q#'
+	    </cfquery>
+    </cfif>
+    <cflocation url="label_report.cfm?report_id=#e.report_id#">
+    <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+        select report_id from cf_report_sql where report_id='#report_id#'
     </cfquery>
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
     <cfdump var=#e#>
     <cfdump var=#reportList#>
     
-    <form>
+    <form method="post" action="label_report.cfm">
+        <input type="hidden" name="action" value="saveEdit">
+        <input type="hidden" name="report_id" value="#e.report_id#">
         <label for="report_name">Report Name</label>
         <input type="text" name="report_name" id="report_name" value="#e.report_name#">
         <label for="report_template">Report Template</label>
@@ -21,7 +42,10 @@
             </cfloop>
         </select>
         <label for="sql_text">SQL</label>
-        <textarea name="sql_text" rows="20" cols="60" wrap="soft">#e.sql_text#</textarea>
+        <textarea name="sql_text" rows="40" cols="120" wrap="soft">#e.sql_text#</textarea>
+        <br>
+        <input type="submit">
+        
     </form>
 </cfif>
 <cfif #action# is "clone">
@@ -34,7 +58,7 @@
     <cfelse>
         <cfset nn='Clone Of #e.report_name#'>
         <cfset ns=e.sql_text>
-    </cfif>  
+    </cfif> 
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
         insert into cf_report_sql (
             report_name,
@@ -45,7 +69,7 @@
             '#name#',
             '#ns#')
     </cfquery>
-    <cflocation url="label_report.cfm?action=edit&q=#nn#">
+    <cflocation url="label_report.cfm?action=edit&report_name=#nn#">
 </cfif>
 <cfif #action# is "listReports">
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
