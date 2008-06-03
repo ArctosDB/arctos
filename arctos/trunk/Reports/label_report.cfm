@@ -67,7 +67,7 @@
            <input type="hidden" name="action" value="run">
 	       <input type="hidden" name="sql" id="sql">
            <input type="hidden" name="format" id="format" value="table">
-           <input type="button" value="Test SQL" onclick="this.sql.value=document.getElementById('sql_text').value;
+           <input type="button" value="Test SQL" onclick="document.getElementById('sql').value=document.getElementById('sql_text').value;
                 this.submit();" class="lnkBtn">
     </form>
 </cfif>
