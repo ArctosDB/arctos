@@ -57,7 +57,7 @@
         </tr>
     <cfloop query="reportList">
 	<cfquery name="h" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-        select * from cf_report_sql where report_template='#name#.cfr'
+        select * from cf_report_sql where report_template='#name#'
     </cfquery>
        <tr>
             <td>#name#</td>
@@ -88,7 +88,7 @@
     );
     create or replace public synonym cf_report_sql for cf_report_sql;
 
-    create index u_cf_report_sql_name on cf_report_sql(report_name);
+    create unique index u_cf_report_sql_name on cf_report_sql(report_name);
     
     ALTER TABLE cf_report_sql
         add CONSTRAINT pk_cf_report_sql
