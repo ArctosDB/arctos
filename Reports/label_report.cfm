@@ -258,7 +258,7 @@
     <cfreport
         format = "pdf"
         query="d"
-        template = "#Application.webDirectory#/Reports/templates/#e.report_template#"
+        template = "#Application.webDirectory#/Reports/templates/alaLabel.cfr"
         filename = "#Application.webDirectory#/temp/booger.pdf"
         overwrite = "yes">
     </cfreport>
