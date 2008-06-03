@@ -86,7 +86,7 @@
             '#e.report_template#',
             '#e.sql_text#')
     </cfquery>
-    <cflocation url="label_report.cfm?action=edit&report_name=#nn#">
+    <cflocation url="label_report.cfm?action=edit&report_name=Clone Of #e.report_name#">
 </cfif>
 <cfif #action# is "listReports">
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
