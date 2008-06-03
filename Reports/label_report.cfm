@@ -63,11 +63,12 @@
         <br>
         <input type="submit" value="save handler" class="savBtn">
     </form>
+    <cfset j=JSStringFormat(e.sql_text)>
     <script>
-        var a = escape("#e.sql_text#");
-        alert(a);
+        //var a = escape("#e.sql_text#");
+        alert("#j#");
         var b=document.getElementById('sql_text');
-        b.value=a;
+        b.value="#j#";
     </script>
        <form method="post" action="label_report.cfm" target="_blank">
            <input type="hidden" name="action" value="testSQL">           
