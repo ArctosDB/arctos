@@ -258,7 +258,7 @@
         query="d"
         template = "#Application.webDirectory#/Reports/templates/alaLabel.cfr"
         encryption = "none"
-        filename = "#Application.webDirectory#/temp/alaLabel.pdf"
+        filename = "#Application.webDirectory#/temp/alaLabelthisone.pdf"
         overwrite = "yes">
     </cfreport>
 
