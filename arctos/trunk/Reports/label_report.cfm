@@ -110,7 +110,8 @@
              The code you submitted contains illegal characters.
          </div>
          <cfabort>
-         <cftry>
+    </cfif>
+    <cftry>
          <cfset sql=replace(e.test_sql,"##collection_object_id##",#collection_object_id#)>
          <cfquery name="user_sql" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
              #preservesinglequotes(sql)#
@@ -123,8 +124,7 @@
                  #cfcatch.detail#
              </div>
          </cfcatch>
-         </cftry>
-    </cfif>
+     </cftry>
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "listReports">
