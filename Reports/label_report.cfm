@@ -26,8 +26,8 @@
         report_name ='#report_name#',
         report_template  ='#report_template#',
         sql_text ='#escapeQuotes(sql_text)#',
-        sql_text ='#pre_function#',
-        sql_text ='#report_format#'
+        pre_function ='#pre_function#',
+        report_format ='#report_format#'
         where report_id=#report_id#
     </cfquery>
     <cflocation url="label_report.cfm?action=edit&report_id=#report_id#&collection_object_id=#collection_object_id#">
