@@ -3,10 +3,33 @@
 <cfinclude template="/includes/_header.cfm">
 
 <cfif #action# is "edit">
-    edit
+    <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+        select * from cf_report_sql where report_name='#name#'
+    </cfquery>
+    <cfdump var=#e#>
 </cfif>
 <cfif #action# is "clone">
-    clone
+    <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+        select * from cf_report_sql where report_template='#name#'
+    </cfquery>
+    <cfif e.recordcount is 0>
+        <cfset nn='[ New Report ]'>
+        <cfset ns='select 1 from dual'>
+    <cfelse>
+        <cfset nn='Clone Of #e.report_name#'>
+        <cfset ns=e.sql_text>
+    </cfif>  
+    <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+        insert into cf_report_sql (
+            report_name,
+            report_template,
+            sql_text)
+        values (
+            '#nn#',
+            '#name#',
+            '#ns#')
+    </cfquery>
+    <cflocation url="label_report.cfm?action=edit&name=#name#">
 </cfif>
 <cfif #action# is "listReports">
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
@@ -32,14 +55,19 @@
 </cfif>
 <cfif #action# is "nothing">
 <!----
+
+    drop table cf_report_sql;
+    
     create table cf_report_sql (
         report_id number not null,
-        report_name varchar2(38),
-        report_template  varchar2(38),
-        SQL varchar2(4000)
+        report_name varchar2(38) not null,
+        report_template  varchar2(38) not null,
+        sql_text varchar2(4000) not null
     );
     create or replace public synonym cf_report_sql for cf_report_sql;
 
+    create index u_cf_report_sql_name on cf_report_sql(report_name);
+    
     ALTER TABLE cf_report_sql
         add CONSTRAINT pk_cf_report_sql
         PRIMARY  KEY (report_id);
