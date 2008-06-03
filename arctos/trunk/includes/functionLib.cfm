@@ -8,7 +8,7 @@
 	        <cfset safe=1>
 	    </cfif>
     </cfloop>
-    <cfif safe is 0>
+    <cfif safe gt 0>
         <cfreturn true>
     <cfelse>
         <cfreturn false>
