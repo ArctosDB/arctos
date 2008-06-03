@@ -59,6 +59,13 @@
 		<cfquery name="h" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 	        select * from cf_report_sql where report_template='#name#'
 	    </cfquery>
+        <cfif h.recordcount is 0>
+            <cfquery name="h" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		        select '#reportList.name#' report_template,
+                ' ' report_name
+                from dual
+		    </cfquery>
+        </cfif>
 	    <cfloop query="h">
              <tr>
 	            <td>#report_template#</td>
