@@ -163,7 +163,7 @@
         <cfabort>
 	</cfif>
 	<!--- good extension, see if it matches what we'll accept ---->
-	<cflocation url="label_report.cfm?collection_object_id=#collection_object_id#">
+	<cflocation url="label_report.cfm?action=listReports&collection_object_id=#collection_object_id#">
 
 </cfif>
 <!-------------------------------------------------------------->
