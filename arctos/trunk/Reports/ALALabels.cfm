@@ -252,7 +252,7 @@
     <cfset temp = QueryAddColumn(d, "formatted_attributes", "VarChar",attAry)>
     <cfset temp = QueryAddColumn(d, "identification", "VarChar",identAry)>
      
-     
+     <!----
     <cfreport
         format = "PDF"
         query="d"
@@ -261,6 +261,8 @@
         filename = "#Application.webDirectory#/temp/test.pdf"
         overwrite = "yes">
     </cfreport>
+    
+    ---->
 
 <a href="/temp/alaLabel.pdf">Download the PDF</a>
 </cfoutput>
