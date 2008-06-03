@@ -2,9 +2,21 @@
 
 <cfinclude template="/includes/_header.cfm">
 
-<cfif #action# is "manage">
+<cfif #action# is "edit">
+    edit
+</cfif>
+<cfif #action# is "clone">
+    clone
+</cfif>
+<cfif #action# is "listReports">
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
-    <cfdump var=#reportList#>
+    <cfif #mode# is "list">
+        <cfloop query="reportList">
+            #name# <a href="labelReport.cfm?action=manage&mode=edit&name=#name#">Edit</a>
+                   <a href="labelReport.cfm?action=manage&mode=clone&name=#name#">Clone</a>
+                   <br>
+        </cfloop>
+    </cfif>
     <form name="rept" method="post" action="">
         
     </form>
@@ -34,7 +46,7 @@
 		sho err
   
 ---->
-<a href="label_report.cfm?action=manage" target="_blank">Manage Reports</a>
+<a href="label_report.cfm?action=listReports" target="_blank">Manage Reports</a>
 
     <cfif not isdefined("collection_object_id")>
 	<cfabort>
