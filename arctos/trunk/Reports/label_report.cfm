@@ -59,12 +59,12 @@
             </cfloop>
         </select>
         <label for="sql_text">SQL</label>
-        <textarea name="sql_text" id="sql_text" rows="40" cols="120" wrap="soft">#e.sql_text#</textarea>
+        <textarea name="sql_text" id="sql_text" rows="40" cols="120" wrap="soft"></textarea>
         <br>
         <input type="submit" value="save handler" class="savBtn">
     </form>
     <script>
-        alert("#e.sql_text#")
+        document.getElementById('sql_text').value="#e.sql_text#";
     </script>
        <form method="post" action="label_report.cfm" target="_blank">
            <input type="hidden" name="action" value="testSQL">           
