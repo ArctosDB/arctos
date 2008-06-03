@@ -260,7 +260,7 @@
             template="#application.webDirectory#/Reports/templates/#e.report_template#"
             query="d" 
            overwrite="true"
-           filename="#application.webDirectory#/temp/#e.report_name#"></cfreport>
+           filename="#application.webDirectory#/temp/#e.report_name#.pdf"></cfreport>
 
             <a href="/temp/#e.report_name#.pdf">Download the PDF</a>
     <cfelse>
