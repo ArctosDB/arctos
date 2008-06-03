@@ -6,7 +6,20 @@
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
         select * from cf_report_sql where report_name='#name#'
     </cfquery>
-    <cfdump var=#e#>
+    <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
+    <form>
+        <label for="report_name">Report Name</label>
+        <input type="text" name="report_name" id="report_name" value="#e.report_name#">
+        <label for="report_name">Report Template</label>
+        <select name="report_name" id="report_name">
+            <option value="-notfound-">ERROR: Not found!</option>
+            <cfloop query="reportList">
+                <option <cfif name is e.report_name> selected="selected" </cfif>value="#name#">#name#</option>
+            </cfloop>
+        </select>
+        <label for="sql_text">SQL</label>
+        <textarea name="sql_text" rows="60" cols="20" wrap="soft">#sql_text#</textarea>
+    </form>
 </cfif>
 <cfif #action# is "clone">
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
