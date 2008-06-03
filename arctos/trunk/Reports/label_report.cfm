@@ -112,7 +112,7 @@
          <cfabort>
     </cfif>
     <cftry>
-         <cfset sql=replace(e.test_sql,"##collection_object_id##",#collection_object_id#)>
+         <cfset sql=replace(test_sql,"##collection_object_id##",#collection_object_id#)>
          <cfquery name="user_sql" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
              #preservesinglequotes(sql)#
          </cfquery>
