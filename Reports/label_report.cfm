@@ -111,20 +111,13 @@
          </div>
          <cfabort>
     </cfif>
-    <cftry>
+
          <cfset sql=replace(test_sql,"##collection_object_id##",#collection_object_id#)>
          <cfquery name="user_sql" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
              #preservesinglequotes(sql)#
          </cfquery>
          <cfdump var=#user_sql#>
-         <cfcatch>
-             <div class="error">
-                 #cfcatch.message#
-                 <br>
-                 #cfcatch.detail#
-             </div>
-         </cfcatch>
-     </cftry>
+        
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "listReports">
