@@ -17,7 +17,7 @@
         update cf_report_sql set     
         report_name ='#report_name#',
         report_template  ='#report_template#',
-        sql_text ='#sql_text#'
+        sql_text ='#escapeQuotes(sql_text)#'
         where report_id=#report_id#
     </cfquery>
     <cflocation url="label_report.cfm?action=edit&report_id=#report_id#">
