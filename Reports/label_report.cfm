@@ -255,19 +255,13 @@
     <cfif len(e.pre_function) gt 0>
         <cfset d=evaluate(e.pre_function & "(d)")>
     </cfif>
-    <cfif e.report_format is "PDF">
+
         <cfreport format="#e.report_format#" 
             template="#application.webDirectory#/Reports/templates/#e.report_template#"
             query="d" 
            overwrite="true"></cfreport>
 
-            <a href="/temp/#e.report_name#.pdf">Download the PDF</a>
-    <cfelse>
-        <cfreport format="#e.report_format#" 
-            template="#application.webDirectory#/Reports/templates/#e.report_template#"
-            query="d" 
-           overwrite="true"></cfreport>
-    </cfif>
+    
 
 </cfif>
 </cfoutput>
