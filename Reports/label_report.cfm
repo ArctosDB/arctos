@@ -68,7 +68,7 @@
         var a = escape("#j#");
         alert(a);
         var b=document.getElementById('sql_text');
-        b.value=a;
+        b.value=unescape(a);
     </script>
        <form method="post" action="label_report.cfm" target="_blank">
            <input type="hidden" name="action" value="testSQL">           
