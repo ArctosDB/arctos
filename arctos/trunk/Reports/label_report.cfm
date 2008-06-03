@@ -24,7 +24,7 @@
             <td>#name#</td>
             <td>#h.report_name#</td>
             <td><a href="label_report.cfm?action=edit&name=#name#">Edit Handler</a></td>
-            <td><a href="label_report.cfm?action=clone&name=#name#">Clone Handler</a>&nbsp;~&nbsp;  </td>
+            <td><a href="label_report.cfm?action=clone&name=#name#">Clone/Create Handler</a></td>
             <td><a href="label_report.cfm?action=download&name=#name#">Download Report</a></td>
         </tr>
     </cfloop>
