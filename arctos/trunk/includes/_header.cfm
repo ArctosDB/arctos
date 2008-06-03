@@ -334,7 +334,7 @@
 							<li><a target="_top" href="/tools/findGap.cfm">Catalog Number Gaps</a></li>
 							<li><a target="_top" href="/tools/downloadData.cfm">Download Tables</a></li>
                              <cfif listfind(formList,"/tools/userSQL.cfm")>
-							    <li><a target="_top" href="tools/userSQL.cfm">Write SQL</a></li>
+							    <li><a target="_top" href="/tools/userSQL.cfm">Write SQL</a></li>
 		                    </cfif>
 						</ul>
 					</li>

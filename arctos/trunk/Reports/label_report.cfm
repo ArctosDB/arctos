@@ -1,5 +1,9 @@
 <cfoutput>
-
+<script language="javascript" type="text/javascript">
+    function sqlTest(){
+         
+    }
+</script>
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/includes/functionLib.cfm">
 <cfif #action# is "delete">
@@ -55,10 +59,16 @@
             </cfloop>
         </select>
         <label for="sql_text">SQL</label>
-        <textarea name="sql_text" rows="40" cols="120" wrap="soft">#e.sql_text#</textarea>
+        <textarea name="sql_text" id="sql_text" rows="40" cols="120" wrap="soft">#e.sql_text#</textarea>
         <br>
-        <input type="submit">
-        
+        <input type="submit" value="save handler" class="savBtn">
+    </form>
+       <form method="post" action="/tools/userSQL.cfm" target="_blank">
+           <input type="hidden" name="action" value="run">
+	       <input type="hidden" name="sql" id="sql">
+           <input type="hidden" name="format" id="format" value="table">
+           <input type="button" value="Test SQL" onclick="this.sql.value=document.getElementById('sql_text').value;
+                this.submit();" class="lnkBtn">
     </form>
 </cfif>
 
