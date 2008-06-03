@@ -1,6 +1,6 @@
 <cffunction name="unsafeSql" access="public" output="false" returntype="boolean">
     <cfargument name="sql" required="true" type="string">
-    <cfset nono="update,insert,delete,drop,create,alter,set,execute,exec,begin,end,declare,all_tables,v$session">
+    <cfset nono="update,insert,delete,drop,create,alter,set,execute,exec,begin,declare,all_tables,v$session">
     <cfset dels="';','|',">
     <cfset safe=0>
     <cfloop index="i" list="#sql#" delimiters=" .,?!;:%$&""'/|[]{}()#chr(10)##chr(13)##chr(9)#">
