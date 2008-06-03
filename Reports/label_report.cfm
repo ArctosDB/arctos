@@ -198,7 +198,7 @@
 ---->
 
 
-<a href="label_report.cfm?action=listReports" target="_blank">Manage Reports</a>
+<a href="label_report.cfm?action=listReports&collection_object_id=#collection_object_id#" target="_blank">Manage Reports</a>
 <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
     select * from cf_report_sql order by report_name
 </cfquery>
