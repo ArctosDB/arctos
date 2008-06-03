@@ -1,6 +1,8 @@
 <cfoutput>
 <cfif not isdefined("collection_object_id")>
-    Need collection_object_id; aborting<cfabort>
+    Need a random collection object ID to test?
+   <br> <a href="label_report.cfm?action=listReports&collection_object_id=12">Try this one</a>
+    <br>aborting....<cfabort>
 </cfif>	
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/includes/functionLib.cfm">
