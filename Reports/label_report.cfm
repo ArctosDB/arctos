@@ -182,7 +182,7 @@
  
 <form name="print" method="post" action="label_report.cfm">
     <input type="hidden" name="action" value="print">
-    <input type="hidden" name="collection_object_id" value="#collection_object_id#">
+    <input type="hidden" name="rats" value="#collection_object_id#">
     <label for="report_id">Print....</label>
         <select name="report_id" id="report_id">
             <cfloop query="e">
