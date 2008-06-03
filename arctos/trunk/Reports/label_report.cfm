@@ -210,9 +210,9 @@
     <cfreport
         format = "flashPaper"
         query="d"
-        template = "#Application.webDirectory#/Reports/templates/#report_template#"
+        template = "#Application.webDirectory#/Reports/templates/#e.report_template#"
         encryption = "none"
-        filename = "#Application.webDirectory#/temp/#report_name#.pdf"
+        filename = "#Application.webDirectory#/temp/#e.report_name#.pdf"
         overwrite = "yes">
     </cfreport>
 
