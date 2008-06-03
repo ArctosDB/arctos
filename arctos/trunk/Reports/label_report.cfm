@@ -56,22 +56,25 @@
             <td>Handler Name</td>
         </tr>
     <cfloop query="reportList">
-	<cfquery name="h" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-        select * from cf_report_sql where report_template='#name#'
-    </cfquery>
-       <tr>
-            <td>#name#</td>
-            <td>#h.report_name#</td>
-            <cfif len(#h.report_name#) gt 0>
-                <td><a href="label_report.cfm?action=edit&q=#name#">Edit Handler</a></td>
-                <td><a href="label_report.cfm?action=clone&name=#name#">Clone Handler</a></td>
-            <cfelse>
-                <td><a href="label_report.cfm?action=clone&name=#name#">Create Handler</a></td>
-            </cfif>
-            
-            
-            <td><a href="label_report.cfm?action=download&name=#name#">Download Report</a></td>
-        </tr>
+		<cfquery name="h" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	        select * from cf_report_sql where report_template='#name#'
+	    </cfquery>
+	    <cfloop query="h">
+             <tr>
+	            <td>#name#</td>
+	            <td>#h.report_name#</td>
+	            <cfif len(#h.report_name#) gt 0>
+	                <td><a href="label_report.cfm?action=edit&q=#name#">Edit Handler</a></td>
+	                <td><a href="label_report.cfm?action=clone&name=#name#">Clone Handler</a></td>
+	            <cfelse>
+	                <td><a href="label_report.cfm?action=clone&name=#name#">Create Handler</a></td>
+	            </cfif>
+	            
+	            
+	            <td><a href="label_report.cfm?action=download&name=#name#">Download Report</a></td>
+	        </tr>
+        </cfloop>
+      
     </cfloop>
     </table>
 </cfif>
