@@ -59,7 +59,7 @@
             </cfloop>
         </select>
         <label for="sql_text">SQL</label>
-        <textarea name="sql_text" id="sql_text" rows="40" cols="120" wrap="soft">#tostring(e.sql_text)#</textarea>
+        <textarea name="sql_text" id="sql_text" rows="40" cols="120" wrap="soft">#tostring(tobinary(e.sql_text))#</textarea>
         <br>
         <input type="submit" value="save handler" class="savBtn">
     </form>
