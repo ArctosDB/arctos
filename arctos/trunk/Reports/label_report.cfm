@@ -64,7 +64,10 @@
         <input type="submit" value="save handler" class="savBtn">
     </form>
     <script>
-        unescape(document.getElementById('sql_text').value)=escape("#e.sql_text#");
+        var a = escape("#e.sql_text#");
+        alert(a);
+        var b=document.getElementById('sql_text');
+        b.value=a;
     </script>
        <form method="post" action="label_report.cfm" target="_blank">
            <input type="hidden" name="action" value="testSQL">           
