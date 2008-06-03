@@ -97,11 +97,11 @@
             report_template,
             sql_text)
         values (
-            '[ New Report ]',
+            'New_Report',
             '#report_template#',
             'select 1 from dual')
     </cfquery>
-    <cflocation url="label_report.cfm?action=edit&report_name=[ New Report ]&collection_object_id=#collection_object_id#">
+    <cflocation url="label_report.cfm?action=edit&report_name=New_Report&collection_object_id=#collection_object_id#">
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "clone">
