@@ -65,10 +65,10 @@
     </form>
     <cfset j=JSStringFormat(e.sql_text)>
     <script>
-        //var a = escape("#e.sql_text#");
-        alert("#j#");
+        var a = escape("#j#");
+        alert(a);
         var b=document.getElementById('sql_text');
-        b.value="#j#";
+        b.value=a;
     </script>
        <form method="post" action="label_report.cfm" target="_blank">
            <input type="hidden" name="action" value="testSQL">           
