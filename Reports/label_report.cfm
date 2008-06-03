@@ -1,7 +1,7 @@
 <cfoutput>
 
 <cfinclude template="/includes/_header.cfm">
-
+<cfinclude template="/includes/functionLib.cfm">
 <cfif #action# is "delete">
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
         delete from cf_report_sql 
