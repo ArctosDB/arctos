@@ -2,7 +2,6 @@
     <cfargument name="d" required="true" type="query">
 
     <cfset geogAry = ArrayNew(1)>
-    <cfset coordAry = ArrayNew(1)>
     <cfset locAry = ArrayNew(1)>
     <cfset colAry = ArrayNew(1)>
     <cfset detrAry = ArrayNew(1)>
@@ -25,15 +24,7 @@
 		</cfif>
         <cfset geogAry[i] = "#geog#">
         
-	    <cfset coordinates = "">
-		<cfif len(#verbatimLatitude#) gt 0 AND len(#verbatimLongitude#) gt 0>
-			<cfset coordinates = "#verbatimLatitude# / #verbatimLongitude#">
-			<cfset coordinates = replace(coordinates,"d","&##176;","all")>
-			<cfset coordinates = replace(coordinates,"m","'","all")>
-			<cfset coordinates = replace(coordinates,"s","''","all")>
-		</cfif>
-        <cfset coordAry[i] = "#coordinates#">
-        
+	    
 		<cfset locality="">
         <cfif include_island is 1>
             <cfif len(#locality#) gt 0>
@@ -125,7 +116,6 @@
 	</cfloop>
     
     <cfset temp = QueryAddColumn(d, "geog", "VarChar",geogAry)>
-    <cfset temp = QueryAddColumn(d, "coordinates", "VarChar",coordAry)>
     <cfset temp = QueryAddColumn(d, "locality", "VarChar",locAry)>
     <cfset temp = QueryAddColumn(d, "collector", "VarChar",colAry)>
     <cfset temp = QueryAddColumn(d, "determiner", "VarChar",detrAry)>
