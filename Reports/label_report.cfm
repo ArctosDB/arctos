@@ -63,6 +63,9 @@
         <br>
         <input type="submit" value="save handler" class="savBtn">
     </form>
+    <script>
+        alert('#e.sql_text#')
+    </script>
        <form method="post" action="label_report.cfm" target="_blank">
            <input type="hidden" name="action" value="testSQL">           
             <input type="hidden" name="collection_object_id" value="#collection_object_id#">
