@@ -137,8 +137,46 @@
         
 </cfif>
 <!-------------------------------------------------------------->
+<cfif #action# is "loadTemplate">
+    <cffile action="upload"
+    	destination="#Application.webDirectory#/Reports/templates/"
+      	nameConflict="overwrite"
+      	fileField="Form.FiletoUpload" mode="777">
+	<cfset fileName=#cffile.serverfile#>
+	<cfset dotPos=find(".",fileName)>
+	<cfset name=left(fileName,dotPos-1)>
+	<cfset extension=right(fileName,len(fileName)-dotPos+1)>
+	<cfif REFind("[^A-Za-z0-9_]",name,1) gt 0>
+		<font color="##FF0000" size="+2">The filename (<strong>#fileName#</strong>) you entered contains characters that are not alphanumeric.
+		Please rename your file and try again.</font>
+		<a href="javascript:back()">Go Back</a>
+		<cffile action="delete"
+	    	file="#Application.webDirectory#/Reports/templates/#fileName#">
+        <cfabort>   
+	</cfif>
+	<!----This name contains only alphanumeric characters, check the extension---->
+	<cfset ext=right(extension,len(extension)-1)>
+	<cfif ext is not "cfr">
+		The extension you provided contains inappropriate characters.
+		Please rename your file and <a href="javascript:back()">try again</a>.
+		<cffile action="delete"
+	    	file="#Application.webDirectory#/Reports/templates/#fileName#">
+        <cfabort>
+	</cfif>
+	<!--- good extension, see if it matches what we'll accept ---->
+	<cflocation url="label_report.cfm?collection_object_id=#collection_object_id#">
+
+</cfif>
+<!-------------------------------------------------------------->
 <cfif #action# is "listReports">
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
+    Load a new template (will overwrite old templates). .cfr files only.
+    <form name="n" method="post" enctype="multipart/form-data" action="label_report.cfm">
+        <input type="hidden" name="action" value="loadTemplate">
+        <input type="hidden" name="collection_object_id" value="#collection_object_id#">
+        <input type="file" name="FiletoUpload" id="FiletoUpload" size="45">
+        <input type="submit" class="savBtn" value="Upload File">
+    </form>
     Existing Reports:<br>
     <table border>
          <tr>
