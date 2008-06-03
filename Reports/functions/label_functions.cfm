@@ -1,7 +1,6 @@
 <cffunction name="format_ala" access="public" returntype="Query">
     <cfargument name="d" required="true" type="query">
 
-    <cfset geogAry = ArrayNew(1)>
     <cfset locAry = ArrayNew(1)>
     <cfset colAry = ArrayNew(1)>
     <cfset detrAry = ArrayNew(1)>
@@ -16,13 +15,6 @@
 	    <cfset identification = replace(sci_name_with_auth,"&","&amp;","all")>
         <cfset identAry[i] = "#identification#">
         
-        <cfset geog="#ucase(state_prov)#">
-		<cfif #country# is "United States">
-			<cfset geog="#geog#, USA">
-		<cfelse>
-			<cfset geog="#geog#, #ucase(country)#">
-		</cfif>
-        <cfset geogAry[i] = "#geog#">
         
 	    
 		<cfset locality="">
@@ -109,7 +101,6 @@
         <cfset i=i+1>
 	</cfloop>
     
-    <cfset temp = QueryAddColumn(d, "geog", "VarChar",geogAry)>
     <cfset temp = QueryAddColumn(d, "locality", "VarChar",locAry)>
     <cfset temp = QueryAddColumn(d, "collector", "VarChar",colAry)>
     <cfset temp = QueryAddColumn(d, "determiner", "VarChar",detrAry)>
