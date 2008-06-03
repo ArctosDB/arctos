@@ -52,7 +52,8 @@
 			#client.username# is "dlm" or
 			#client.username# is "sumy" or
 			#client.username# is "Rhiannon" or
-				#client.username# is "dusty">
+			#client.username# is "dusty" or
+				#client.username# is "dkt">
 			<cfoutput>
 				#errortext#
 			</cfoutput>		
