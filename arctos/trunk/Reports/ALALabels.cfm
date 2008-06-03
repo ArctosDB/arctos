@@ -252,6 +252,10 @@
     <cfset temp = QueryAddColumn(d, "formatted_attributes", "VarChar",attAry)>
     <cfset temp = QueryAddColumn(d, "identification", "VarChar",identAry)>
      
+    <cfreport format="FlashPaper" 
+        template="#application.webDirectory#/Reports/templates/alaLabel.cfr"
+        query="d" 
+       overwrite="true"></cfreport>
      <!----
     <cfreport
         format = "PDF"
