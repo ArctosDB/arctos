@@ -2,6 +2,16 @@
 
 <cfinclude template="/includes/_header.cfm">
 
+<cfif #action# is "delete">
+    <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+        delete from cf_report_sql 
+        where report_id=#report_id#
+    </cfquery>
+    <cflocation url="label_report.cfm?action=listReports">
+</cfif>
+
+
+
 <cfif #action# is "saveEdit">
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
         update cf_report_sql set     report_id number not null,
@@ -97,8 +107,9 @@
 	            <td>#report_template#</td>
 	            <td>#report_name#</td>
 	            <cfif report_id gt 1>
-	                <td><a href="label_report.cfm?action=edit&q=#report_name#">Edit Handler</a></td>
+	                <td><a href="label_report.cfm?action=edit&report_id=#report_id#">Edit Handler</a></td>
 	                <td><a href="label_report.cfm?action=clone&name=#report_name#">Clone Handler</a></td>
+                    <td><a href="label_report.cfm?action=delete&report_id=#report_id#">Delete Handler</a></td>
 	            <cfelse>
 	                <td><a href="label_report.cfm?action=clone&name=#report_name#">Create Handler</a></td>
 	            </cfif>
