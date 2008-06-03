@@ -199,8 +199,12 @@
  <hr>
  #preservesinglequotes(e.sql_text)#
  <hr>
+ <cfset sql=replace(e.sql_text,"##collection_object_id##",#collection_object_id#)>
+ <hr>
+ #preservesinglequotes(sql)#
+ <hr>
 	<cfquery name="d" datasource="#Application.web_user#">
-		#preservesinglequotes(e.sql_text)#
+		#preservesinglequotes(sql)#
 	</cfquery>
     
     <cfreport
