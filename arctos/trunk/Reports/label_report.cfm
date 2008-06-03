@@ -24,7 +24,7 @@
         update cf_report_sql set     
         report_name ='#report_name#',
         report_template  ='#report_template#',
-        sql_text ='#toBase64(escapeQuotes(sql_text))#'
+        sql_text ='#escapeQuotes(sql_text)#'
         where report_id=#report_id#
     </cfquery>
     <cflocation url="label_report.cfm?action=edit&report_id=#report_id#&collection_object_id=#collection_object_id#">
@@ -45,7 +45,7 @@
     </cfquery>
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
    
-    <form method="post" action="label_report.cfm">
+    <form method="post" action="label_report.cfm" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="action" value="saveEdit">
         <input type="hidden" name="collection_object_id" value="#collection_object_id#">
         <input type="hidden" name="report_id" value="#e.report_id#">
@@ -59,7 +59,7 @@
             </cfloop>
         </select>
         <label for="sql_text">SQL</label>
-        <textarea name="sql_text" id="sql_text" rows="40" cols="120" wrap="soft">#tostring(tobinary(e.sql_text))#</textarea>
+        <textarea name="sql_text" id="sql_text" rows="40" cols="120" wrap="soft">#e.sql_text#</textarea>
         <br>
         <input type="submit" value="save handler" class="savBtn">
     </form>
