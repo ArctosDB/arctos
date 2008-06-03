@@ -117,7 +117,7 @@
 	                <td><a href="label_report.cfm?action=clone&report_id=#report_id#">Clone Handler</a></td>
                     <td><a href="label_report.cfm?action=delete&report_id=#report_id#">Delete Handler</a></td>
 	            <cfelse>
-	                <td><a href="label_report.cfm?action=create&report_template=#report_template#">Create Handler</a></td>
+	                <td><a href="label_report.cfm?action=newHandler&report_template=#report_template#">Create Handler</a></td>
 	            </cfif>
 	            
 	            
