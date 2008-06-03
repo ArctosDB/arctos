@@ -12,14 +12,13 @@
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
     <cfif #mode# is "list">
         <cfloop query="reportList">
-            #name# <a href="labelReport.cfm?action=manage&mode=edit&name=#name#">Edit</a>
-                   <a href="labelReport.cfm?action=manage&mode=clone&name=#name#">Clone</a>
+            #name# <a href="labelReport.cfm?action=edit&name=#name#">Edit</a>
+                   <a href="labelReport.cfm?action=clone&name=#name#">Clone</a>                   
+                   <a href="labelReport.cfm?action=download&name=#name#">Download</a>
                    <br>
         </cfloop>
     </cfif>
-    <form name="rept" method="post" action="">
-        
-    </form>
+  
 </cfif>
 <cfif #action# is "nothing">
 <!----
