@@ -47,7 +47,7 @@
                         <cfabort>
                     </cfif>
 	                 <cfquery name="user_sql" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-		                #preservesinglequotes(sanitizeSql(sql))#
+		                #preservesinglequotes(sql)#
 		            </cfquery>
                     <cfif #format# is "csv">
                         <cfset ac = user_sql.columnlist>
