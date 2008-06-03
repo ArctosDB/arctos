@@ -64,7 +64,7 @@
         <input type="submit" value="save handler" class="savBtn">
     </form>
     <script>
-        alert('#e.sql_text#')
+        alert("#e.sql_text#")
     </script>
        <form method="post" action="label_report.cfm" target="_blank">
            <input type="hidden" name="action" value="testSQL">           
