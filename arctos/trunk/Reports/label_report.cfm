@@ -18,7 +18,7 @@
             </cfloop>
         </select>
         <label for="sql_text">SQL</label>
-        <textarea name="sql_text" rows="60" cols="20" wrap="soft">#sql_text#</textarea>
+        <textarea name="sql_text" rows="20" cols="60" wrap="soft">#e.sql_text#</textarea>
     </form>
 </cfif>
 <cfif #action# is "clone">
