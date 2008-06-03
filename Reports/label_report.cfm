@@ -7,6 +7,9 @@
         select * from cf_report_sql where report_name='#name#'
     </cfquery>
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
+    <cfdump var=#e#>
+    <cfdump var=#reportList#>
+    
     <form>
         <label for="report_name">Report Name</label>
         <input type="text" name="report_name" id="report_name" value="#e.report_name#">
