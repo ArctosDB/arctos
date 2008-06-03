@@ -82,7 +82,7 @@
             report_template,
             sql_text)
         values (
-            '#Clone Of #e.report_name##',
+            'Clone Of #e.report_name#',
             '#e.report_template#',
             '#e.sql_text#')
     </cfquery>
