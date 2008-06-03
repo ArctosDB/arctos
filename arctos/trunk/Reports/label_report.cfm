@@ -29,7 +29,7 @@
             '#name#',
             '#ns#')
     </cfquery>
-    <cflocation url="label_report.cfm?action=edit&name=#name#">
+    <cflocation url="label_report.cfm?action=edit&name=#nn#">
 </cfif>
 <cfif #action# is "listReports">
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
