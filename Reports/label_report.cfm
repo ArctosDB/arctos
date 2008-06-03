@@ -45,7 +45,7 @@
     </cfquery>
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
    
-    <form method="post" action="label_report.cfm" enctype="text/plain">
+    <form method="post" action="label_report.cfm">
         <input type="hidden" name="action" value="saveEdit">
         <input type="hidden" name="collection_object_id" value="#collection_object_id#">
         <input type="hidden" name="report_id" value="#e.report_id#">
