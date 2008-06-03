@@ -1,7 +1,5 @@
 <cfoutput>
-<cfif not isdefined("collection_object_id")>
-	<cfabort>
-</cfif>	
+
 <cfinclude template="/includes/_header.cfm">
 
 <cfif #action# is "manage">
@@ -38,7 +36,9 @@
 ---->
 <a href="label_report.cfm?action=manage" target="_blank">Manage Reports</a>
 
-    
+    <cfif not isdefined("collection_object_id")>
+	<cfabort>
+</cfif>	
 <form name="custom" method="post" action="label_report.cfm">
     <input type="hidden" name="action" value="print">
     <input type="hidden" name="collection_object_id" value="#collection_object_id#">
@@ -64,8 +64,7 @@
     <select name="sort_order" id="sort_order" size="1">
         <option value="cat_num">cat_num</option>
     </select>
-       Min
-    <input type="submit" value="Go">
+         <input type="submit" value="Go">
 </form>
 </cfif>
 <cfif #action# is "print">
