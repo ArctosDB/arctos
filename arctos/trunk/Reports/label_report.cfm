@@ -255,13 +255,11 @@
     <cfif len(e.pre_function) gt 0>
         <cfset d=evaluate(e.pre_function & "(d)")>
     </cfif>
-    <cfreport
-        format = "pdf"
-        query="d"
-        template = "#Application.webDirectory#/Reports/templates/alaLabel.cfr"
-        filename = "#Application.webDirectory#/temp/booger.pdf"
-        overwrite = "yes">
-    </cfreport>
+    
+    <cfreport format="FlashPaper" 
+        template="#application.webDirectory#/Reports/templates/alaLabel.cfr"
+        query="d" 
+       overwrite="true"></cfreport>
 
 <a href="/temp/booger.pdf">Download the PDF</a>
 
