@@ -13,7 +13,7 @@
 
 
 <cfif #action# is "saveEdit">
-    <cfif unsafeSql(sql)>
+    <cfif unsafeSql(sql_text)>
         Your SQL is not acceptable.
         <cfabort>
     </cfif>
@@ -41,9 +41,7 @@
         select * from cf_report_sql where report_id='#report_id#'
     </cfquery>
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
-    <cfdump var=#e#>
-    <cfdump var=#reportList#>
-    
+   
     <form method="post" action="label_report.cfm">
         <input type="hidden" name="action" value="saveEdit">
         <input type="hidden" name="report_id" value="#e.report_id#">
