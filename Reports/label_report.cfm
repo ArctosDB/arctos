@@ -59,6 +59,8 @@
         
     </form>
 </cfif>
+
+
 <cfif #action# is "newHandler">
      <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
         insert into cf_report_sql (
@@ -70,7 +72,7 @@
             '#report_template#',
             'select 1 from dual')
     </cfquery>
-    <cflocation url="label_report.cfm?action=edit&report_name=#nn#">
+    <cflocation url="label_report.cfm?action=edit&report_name=[ New Report ]">
 </cfif>
 <cfif #action# is "clone">
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
