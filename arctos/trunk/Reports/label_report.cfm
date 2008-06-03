@@ -61,17 +61,17 @@
 	    </cfquery>
 	    <cfloop query="h">
              <tr>
-	            <td>#name#</td>
-	            <td>#h.report_name#</td>
-	            <cfif len(#h.report_name#) gt 0>
-	                <td><a href="label_report.cfm?action=edit&q=#name#">Edit Handler</a></td>
-	                <td><a href="label_report.cfm?action=clone&name=#name#">Clone Handler</a></td>
+	            <td>#report_template#</td>
+	            <td>#report_name#</td>
+	            <cfif len(#report_name#) gt 0>
+	                <td><a href="label_report.cfm?action=edit&q=#report_name#">Edit Handler</a></td>
+	                <td><a href="label_report.cfm?action=clone&name=#report_name#">Clone Handler</a></td>
 	            <cfelse>
-	                <td><a href="label_report.cfm?action=clone&name=#name#">Create Handler</a></td>
+	                <td><a href="label_report.cfm?action=clone&name=#report_name#">Create Handler</a></td>
 	            </cfif>
 	            
 	            
-	            <td><a href="label_report.cfm?action=download&name=#name#">Download Report</a></td>
+	            <td><a href="label_report.cfm?action=download&name=#report_name#">Download Report</a></td>
 	        </tr>
         </cfloop>
       
