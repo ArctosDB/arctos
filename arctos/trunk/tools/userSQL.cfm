@@ -37,7 +37,6 @@
                 #sql#
             </div>
             Result:<br>
-            unsafeSql(sql): #unsafeSql(sql)#
             <cfif unsafeSql(sql)>
                <div class="error">
                     The code you submitted contains illegal characters.

@@ -13,6 +13,10 @@
 
 
 <cfif #action# is "saveEdit">
+    <cfif unsafeSql(sql)>
+        Your SQL is not acceptable.
+        <cfabort>
+    </cfif>
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
         update cf_report_sql set     
         report_name ='#report_name#',
