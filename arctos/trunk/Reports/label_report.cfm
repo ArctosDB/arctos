@@ -157,8 +157,7 @@
 	<!----This name contains only alphanumeric characters, check the extension---->
 	<cfset ext=right(extension,len(extension)-1)>
 	<cfif ext is not "cfr">
-		The extension you provided contains inappropriate characters.
-		Please rename your file and <a href="javascript:back()">try again</a>.
+		Only .cfr files are accepted.
 		<cffile action="delete"
 	    	file="#Application.webDirectory#/Reports/templates/#fileName#">
         <cfabort>
