@@ -18,7 +18,7 @@
         <select name="report_template" id="report_template">
             <option value="-notfound-">ERROR: Not found!</option>
             <cfloop query="reportList">
-                <option <cfif ct is e.report_template> selected="selected" </cfif>value="#report_template#">#report_template#</option>
+                <option <cfif ct is e.report_template> selected="selected" </cfif>value="#name#">#name#</option>
             </cfloop>
         </select>
         <label for="sql_text">SQL</label>
