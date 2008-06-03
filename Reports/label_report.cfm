@@ -59,26 +59,32 @@
         
     </form>
 </cfif>
+<cfif #action# is "newHandler">
+     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+        insert into cf_report_sql (
+            report_name,
+            report_template,
+            sql_text)
+        values (
+            '[ New Report ]',
+            '#report_template#',
+            'select 1 from dual')
+    </cfquery>
+    <cflocation url="label_report.cfm?action=edit&report_name=#nn#">
+</cfif>
 <cfif #action# is "clone">
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-        select * from cf_report_sql where report_template='#name#'
+        select * from cf_report_sql where report_id='#report_id#'
     </cfquery>
-    <cfif e.recordcount is 0>
-        <cfset nn='[ New Report ]'>
-        <cfset ns='select 1 from dual'>
-    <cfelse>
-        <cfset nn='Clone Of #e.report_name#'>
-        <cfset ns=e.sql_text>
-    </cfif> 
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
         insert into cf_report_sql (
             report_name,
             report_template,
             sql_text)
         values (
-            '#nn#',
-            '#name#',
-            '#ns#')
+            '#Clone Of #e.report_name##',
+            '#e.report_template#',
+            '#e.sql_text#')
     </cfquery>
     <cflocation url="label_report.cfm?action=edit&report_name=#nn#">
 </cfif>
@@ -108,10 +114,10 @@
 	            <td>#report_name#</td>
 	            <cfif report_id gt 1>
 	                <td><a href="label_report.cfm?action=edit&report_id=#report_id#">Edit Handler</a></td>
-	                <td><a href="label_report.cfm?action=clone&name=#report_name#">Clone Handler</a></td>
+	                <td><a href="label_report.cfm?action=clone&report_id=#report_id#">Clone Handler</a></td>
                     <td><a href="label_report.cfm?action=delete&report_id=#report_id#">Delete Handler</a></td>
 	            <cfelse>
-	                <td><a href="label_report.cfm?action=clone&name=#report_name#">Create Handler</a></td>
+	                <td><a href="label_report.cfm?action=create&report_template=#report_template#">Create Handler</a></td>
 	            </cfif>
 	            
 	            
