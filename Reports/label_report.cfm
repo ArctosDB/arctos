@@ -3,26 +3,41 @@
 	<cfabort>
 </cfif>	
 <cfinclude template="/includes/_header.cfm">
-<cfquery name="ctOtherIdType" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-    SELECT distinct(other_id_type) other_id_type FROM ctColl_Other_id_type
-	order by other_id_type
-</cfquery>
+
+<cfif #action# is "manage">
+    <cfdirectory action="list" directory="#Application.webDirectory#" filter="*.cfr" name="reportList">
+    <cfdump var=#reportList#>
+    <form name="rept" method="post" action="">
+        
+    </form>
+</cfif>
 <cfif #action# is "nothing">
-<cfset options=queryNew("sort_by")>
+<!----
+    create table cf_report_sql (
+        report_id number not null,
+        report_name varchar2(38),
+        report_template  varchar2(38),
+        SQL varchar2(4000)
+    );
+    create or replace public synonym cf_report_sql for cf_report_sql;
 
+    ALTER TABLE SQL
+        add CONSTRAINT pk_cf_report_sql
+        PRIMARY  KEY (report_id);
+     CREATE OR REPLACE TRIGGER cf_report_sql_key                                         
+         before insert  ON cf_report_sql  
+		 for each row 
+		    begin     
+		    	if :NEW.report_id is null then                                                                                      
+		    		select somerandomsequence.nextval into :new.report_id from dual;
+		    	end if;                                
+		    end;                                                                                            
+		/
+		sho err
+  
+---->
+<a href="label_report.cfm?action=manage" target="_blank">Manage Reports</a>
 
-  <cfif not isdefined("sort_order")>
-	<cfset sort_order="concatsingleotherid(cataloged_item.collection_object_id,'ALAAC')">
-</cfif>
-<cfif not isdefined("include_island")>
-	<cfset include_island="0">
-</cfif>
-<cfif not isdefined("include_island_group")>
-	<cfset include_island_group="0">
-</cfif>
-<cfif not isdefined("include_feature")>
-	<cfset include_feature="0">
-</cfif>    
     
 <form name="custom" method="post" action="label_report.cfm">
     <input type="hidden" name="action" value="print">
@@ -229,11 +244,11 @@
         <cfset detrAry[i] = "#determiner#">
         
 		<cfset project="#project_name#">	
-		<cfif len(#npsa#) gt 0 or len(#npsc#) gt 0>
+		<cfif len(#nps_accn#) gt 0 or len(#npsc#) gt 0>
 			<cfif len(#project#) gt 0>
 				<cfset project="#project#<br/>">
 			</cfif>
-			<cfset project="#project#NPS: #npsa# #npsc#">
+			<cfset project="#project#NPS: #nps_accn# #npsc#">
 		</cfif>    
         <cfset projAry[i] = "#project#">
     
