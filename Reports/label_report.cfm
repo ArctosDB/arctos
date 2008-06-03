@@ -13,11 +13,12 @@
     <form>
         <label for="report_name">Report Name</label>
         <input type="text" name="report_name" id="report_name" value="#e.report_name#">
-        <label for="report_name">Report Template</label>
-        <select name="report_name" id="report_name">
+        <label for="report_template">Report Template</label>
+        <cfset ct=e.report_template>
+        <select name="report_template" id="report_template">
             <option value="-notfound-">ERROR: Not found!</option>
             <cfloop query="reportList">
-                <option <cfif name is e.report_name> selected="selected" </cfif>value="#name#">#name#</option>
+                <option <cfif ct is e.report_template> selected="selected" </cfif>value="#report_template#">#report_template#</option>
             </cfloop>
         </select>
         <label for="sql_text">SQL</label>
