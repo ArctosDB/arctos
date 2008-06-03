@@ -253,7 +253,7 @@
         Can call a custom function here to transform the query
     --->
     <cfif len(e.pre_function) gt 0>
-        <cfset d=#e.pre_function#(d)>
+        <cfset d=evaluate(e.pre_function & "(d)")>
     </cfif>
     <cfreport
         format = "#e.format#"
