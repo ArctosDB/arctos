@@ -56,9 +56,9 @@
 		
 	</cfloop>
 		
-	<cfset temp=queryAddColumn(data,"locality","VarChar",lAr)>
-	<cfset temp=queryAddColumn(data,"geog","VarChar",gAr)>
-	<cfset temp=queryAddColumn(data,"formatted_date","VarChar",dAr)>
+	<cfset temp=queryAddColumn(d,"locality","VarChar",lAr)>
+	<cfset temp=queryAddColumn(d,"geog","VarChar",gAr)>
+	<cfset temp=queryAddColumn(d,"formatted_date","VarChar",dAr)>
   <cfreturn d>
 </cffunction>
 <!------------------------------>  
