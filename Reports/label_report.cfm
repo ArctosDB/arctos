@@ -1,17 +1,18 @@
 <cfoutput>
-
+<cfif not isdefined("collection_object_id")>
+    Need collection_object_id; aborting<cfabort>
+</cfif>	
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/includes/functionLib.cfm">
+<!-------------------------------------------------------------->
 <cfif #action# is "delete">
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
         delete from cf_report_sql 
         where report_id=#report_id#
     </cfquery>
-    <cflocation url="label_report.cfm?action=listReports">
+    <cflocation url="label_report.cfm?action=listReports&collection_object_id=#collection_object_id#">
 </cfif>
-
-
-
+<!-------------------------------------------------------------->
 <cfif #action# is "saveEdit">
     <cfif unsafeSql(sql_text)>
         Your SQL is not acceptable.
@@ -24,7 +25,7 @@
         sql_text ='#escapeQuotes(sql_text)#'
         where report_id=#report_id#
     </cfquery>
-    <cflocation url="label_report.cfm?action=edit&report_id=#report_id#">
+    <cflocation url="label_report.cfm?action=edit&report_id=#report_id#&collection_object_id=#collection_object_id#">
 </cfif>
 
 
@@ -44,6 +45,7 @@
    
     <form method="post" action="label_report.cfm">
         <input type="hidden" name="action" value="saveEdit">
+        <input type="hidden" name="collection_object_id" value="#collection_object_id#">
         <input type="hidden" name="report_id" value="#e.report_id#">
         <label for="report_name">Report Name</label>
         <input type="text" name="report_name" id="report_name" value="#e.report_name#">
@@ -59,16 +61,16 @@
         <br>
         <input type="submit" value="save handler" class="savBtn">
     </form>
-       <form method="post" action="/tools/userSQL.cfm" target="_blank">
-           <input type="hidden" name="action" value="run">
-	       <input type="hidden" name="sql" id="sql">
+       <form method="post" action="label_report.cfm" target="_blank">
+           <input type="hidden" name="action" value="testSQL">           
+            <input type="hidden" name="collection_object_id" value="#collection_object_id#">
+	       <input type="hidden" name="test_sql" id="test_sql">
            <input type="hidden" name="format" id="format" value="table">
-           <input type="button" value="Test SQL" onclick="document.getElementById('sql').value=document.getElementById('sql_text').value;
+           <input type="button" value="Test SQL" onclick="document.getElementById('test_sql').value=document.getElementById('sql_text').value;
                 submit();" class="lnkBtn">
     </form>
 </cfif>
-
-
+<!-------------------------------------------------------------->
 <cfif #action# is "newHandler">
      <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
         insert into cf_report_sql (
@@ -80,8 +82,9 @@
             '#report_template#',
             'select 1 from dual')
     </cfquery>
-    <cflocation url="label_report.cfm?action=edit&report_name=[ New Report ]">
+    <cflocation url="label_report.cfm?action=edit&report_name=[ New Report ]&collection_object_id=#collection_object_id#">
 </cfif>
+<!-------------------------------------------------------------->
 <cfif #action# is "clone">
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
         select * from cf_report_sql where report_id='#report_id#'
@@ -96,8 +99,32 @@
             '#e.report_template#',
             '#e.sql_text#')
     </cfquery>
-    <cflocation url="label_report.cfm?action=listReports">
+    <cflocation url="label_report.cfm?action=listReports&collection_object_id=#collection_object_id#">
 </cfif>
+<!-------------------------------------------------------------->
+<cfif #action# is "testSQL">
+    <cfif unsafeSql(test_sql)>
+        <div class="error">
+             The code you submitted contains illegal characters.
+         </div>
+         <cfabort>
+         <cftry>
+         <cfset sql=replace(e.test_sql,"##collection_object_id##",#collection_object_id#)>
+         <cfquery name="user_sql" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+             #preservesinglequotes(sql)#
+         </cfquery>
+         <cfdump var=#user_sql#>
+         <cfcatch>
+             <div class="error">
+                 #cfcatch.message#
+                 <br>
+                 #cfcatch.detail#
+             </div>
+         </cfcatch>
+         </cftry>
+    </cfif>
+</cfif>
+<!-------------------------------------------------------------->
 <cfif #action# is "listReports">
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
     Existing Reports:<br>
@@ -123,15 +150,13 @@
 	            <td>#report_template#</td>
 	            <td>#report_name#</td>
 	            <cfif report_id gt 1>
-	                <td><a href="label_report.cfm?action=edit&report_id=#report_id#">Edit Handler</a></td>
-	                <td><a href="label_report.cfm?action=clone&report_id=#report_id#">Clone Handler</a></td>
-                    <td><a href="label_report.cfm?action=delete&report_id=#report_id#">Delete Handler</a></td>
+	                <td><a href="label_report.cfm?action=edit&report_id=#report_id#&collection_object_id=#collection_object_id#">Edit Handler</a></td>
+	                <td><a href="label_report.cfm?action=clone&report_id=#report_id#&collection_object_id=#collection_object_id#">Clone Handler</a></td>
+                    <td><a href="label_report.cfm?action=delete&report_id=#report_id#&collection_object_id=#collection_object_id#">Delete Handler</a></td>
 	            <cfelse>
-	                <td><a href="label_report.cfm?action=newHandler&report_template=#report_template#">Create Handler</a></td>
+	                <td><a href="label_report.cfm?action=newHandler&report_template=#report_template#&collection_object_id=#collection_object_id#">Create Handler</a></td>
 	            </cfif>
-	            
-	            
-	            <td><a href="label_report.cfm?action=download&name=#report_name#">Download Report</a></td>
+	            <td><a href="label_report.cfm?action=download&name=#report_name#&collection_object_id=#collection_object_id#">Download Report</a></td>
 	        </tr>
         </cfloop>
       
@@ -172,9 +197,7 @@
   grant all on cf_report_sql to coldfusion_user;
 ---->
 
-<cfif not isdefined("collection_object_id")>
-	<cfabort>
-</cfif>	
+
 <a href="label_report.cfm?action=listReports" target="_blank">Manage Reports</a>
 <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
     select * from cf_report_sql order by report_name
