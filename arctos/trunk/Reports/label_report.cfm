@@ -11,12 +11,24 @@
 <cfif #action# is "listReports">
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
     Existing Reports:<br>
+    <table border>
+         <tr>
+            <td>Report Template</td>
+            <td>Handler Name</td>
+        </tr>
     <cfloop query="reportList">
-        #name# <a href="label_report.cfm?action=edit&name=#name#">Edit</a>
-               <a href="label_report.cfm?action=clone&name=#name#">Clone</a>                   
-               <a href="label_report.cfm?action=download&name=#name#">Download</a>
-               <br>
+	<cfquery name="h" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+        select * from cf_report_sql where report_template='#name#.cfr'
+    </cfquery>
+       <tr>
+            <td>#name#</td>
+            <td>#h.report_name#</td>
+            <td><a href="label_report.cfm?action=edit&name=#name#">Edit Handler</a></td>
+            <td><a href="label_report.cfm?action=clone&name=#name#">Clone Handler</a>&nbsp;~&nbsp;  </td>
+            <td><a href="label_report.cfm?action=download&name=#name#">Download Report</a></td>
+        </tr>
     </cfloop>
+    </table>
 </cfif>
 <cfif #action# is "nothing">
 <!----
@@ -28,9 +40,11 @@
     );
     create or replace public synonym cf_report_sql for cf_report_sql;
 
-    ALTER TABLE SQL
+    ALTER TABLE cf_report_sql
         add CONSTRAINT pk_cf_report_sql
         PRIMARY  KEY (report_id);
+        
+        
      CREATE OR REPLACE TRIGGER cf_report_sql_key                                         
          before insert  ON cf_report_sql  
 		 for each row 
@@ -41,7 +55,7 @@
 		    end;                                                                                            
 		/
 		sho err
-  
+  grant all on cf_report_sql to coldfusion_user;
 ---->
 <a href="label_report.cfm?action=listReports" target="_blank">Manage Reports</a>
 
