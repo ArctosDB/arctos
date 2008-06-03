@@ -20,10 +20,11 @@
 	    <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 	        select report_id from cf_report_sql where report_name='#q#'
 	    </cfquery>
+        <cflocation url="label_report.cfm?action=edit&report_id=#e.report_id#">
     </cfif>
-    <cflocation url="label_report.cfm?action=edit&report_id=#e.report_id#">
+
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-        select report_id from cf_report_sql where report_id='#report_id#'
+        select * from cf_report_sql where report_id='#report_id#'
     </cfquery>
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
     <cfdump var=#e#>
