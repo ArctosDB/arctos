@@ -129,9 +129,17 @@
         
         <cfset geog="#ucase(state_prov)#">
 		<cfif #country# is "United States">
-			<cfset geog="#geog#, USA">
+			<cfif len(geog) is 0>
+                <cfset geog="USA">
+            <cfelse>
+                <cfset geog="#geog#, USA">
+            </cfif>            
 		<cfelse>
-			<cfset geog="#geog#, #ucase(country)#">
+			<cfif len(geog) is 0>
+                <cfset geog="#ucase(country)#">
+            <cfelse>
+                <cfset geog="#geog#, #ucase(country)#">
+            </cfif>            
 		</cfif>
         <cfset geogAry[i] = "#geog#">
         
