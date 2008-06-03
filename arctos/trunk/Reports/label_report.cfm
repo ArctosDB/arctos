@@ -61,7 +61,8 @@
 	    </cfquery>
         <cfif h.recordcount is 0>
             <cfquery name="h" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-		        select '#reportList.name#' report_template,
+		        select 0 report_id,
+                '#reportList.name#' report_template,
                 ' ' report_name
                 from dual
 		    </cfquery>
@@ -70,7 +71,7 @@
              <tr>
 	            <td>#report_template#</td>
 	            <td>#report_name#</td>
-	            <cfif len(#report_name#) gt 0>
+	            <cfif report_id gt 1>
 	                <td><a href="label_report.cfm?action=edit&q=#report_name#">Edit Handler</a></td>
 	                <td><a href="label_report.cfm?action=clone&name=#report_name#">Clone Handler</a></td>
 	            <cfelse>
