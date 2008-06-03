@@ -1,3 +1,67 @@
+<cffunction name="format_msb" access="public" returntype="Query">
+    <cfargument name="d" required="true" type="query">
+    <cfset lAr = ArrayNew(1)>
+	<cfset gAr = ArrayNew(1)>
+	<cfset dAr = ArrayNew(1)>
+	<cfset i=1>
+	<cfloop query="data">
+       
+        <cfset geog="">
+        <cfif #country# is "United States">
+			<cfset geog="USA">
+		<cfelse>
+			<cfset geog="#country#">
+		</cfif>
+		<cfset geog="#geog#: #state_prov#">
+		<cfif len(#county#) gt 0>
+			<cfset geog="#geog#; #replace(county,'County','Co.')#">
+		</cfif>
+		<cfset coordinates = "">
+		<cfif len(#verbatimLatitude#) gt 0 AND len(#verbatimLongitude#) gt 0>
+			<cfset coordinates = "#verbatimLatitude# / #verbatimLongitude#">
+			<!---
+			<cfset coordinates = replace(coordinates,"d","&##176;","all")>
+			<cfset coordinates = replace(coordinates,"m","'","all")>
+			<cfset coordinates = replace(coordinates,"s","''","all")>
+			--->
+		</cfif>
+		<cfset locality="#geog#,">
+		<cfif len(#quad#) gt 0>
+			<cfset locality = "#quad# Quad.:">
+		</cfif>
+		<cfif len(#spec_locality#) gt 0>
+			<cfset locality = "#locality# #spec_locality#">
+		</cfif>
+		<cfif len(#coordinates#) gt 0>
+		 	<cfset locality = "#locality#, #coordinates#">
+		 </cfif>
+		  <cfif len(#ORIG_ELEV_UNITS#) gt 0>
+		 	<cfset locality = "#locality#. Elev. #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#">
+		 </cfif>
+		 <cfif len(#habitat#) gt 0>
+		 	<cfset locality = "#locality#, #habitat#">
+		 </cfif>
+		 <cfif right(locality,1) is not ".">
+			 <cfset locality = "#locality#.">
+		</cfif>
+		<cfset lAr[i] = #locality#>
+		<cftry>
+			<cfset dAr[i] = #dateformat(verbatim_date,"dd mmmm yyyy")#>
+			<cfcatch>
+				<cfset dAr[i] = #verbatim_date#>
+			</cfcatch>
+		</cftry>
+		
+		<cfset i=i+1>
+		
+	</cfloop>
+		
+	<cfset temp=queryAddColumn(data,"locality","VarChar",lAr)>
+	<cfset temp=queryAddColumn(data,"geog","VarChar",gAr)>
+	<cfset temp=queryAddColumn(data,"formatted_date","VarChar",dAr)>
+  <cfreturn d>
+</cffunction>
+<!------------------------------>  
 <cffunction name="format_ala" access="public" returntype="Query">
     <cfargument name="d" required="true" type="query">
 
