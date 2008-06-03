@@ -6,6 +6,7 @@
 </cfif>	
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/includes/functionLib.cfm">
+<cfinclude template="/Reports/functions/label_functions.cfm">
 <!-------------------------------------------------------------->
 <cfif #action# is "delete">
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
@@ -24,7 +25,9 @@
         update cf_report_sql set     
         report_name ='#report_name#',
         report_template  ='#report_template#',
-        sql_text ='#escapeQuotes(sql_text)#'
+        sql_text ='#escapeQuotes(sql_text)#',
+        sql_text ='#pre_function#',
+        sql_text ='#report_format#'
         where report_id=#report_id#
     </cfquery>
     <cflocation url="label_report.cfm?action=edit&report_id=#report_id#&collection_object_id=#collection_object_id#">
@@ -58,6 +61,16 @@
                 <option <cfif name is e.report_template> selected="selected" </cfif>value="#name#">#name#</option>
             </cfloop>
         </select>
+        <label for="pre_function">Pre-Function</label>
+        <input type="text" name="pre_function" id="pre_function" value="#e.pre_function#">
+        <label for="report_format">Report Format</label>
+        <cfset fmt="PDF,FlashPaper">
+
+        <select name="report_format" id="report_format">
+            <cfloop list="#fmt#" index="f">
+                <option <cfif f is e.report_format> selected="selected" </cfif>value="#f#">#f#</option>
+            </cfloop>
+        </select>
         <label for="sql_text">SQL</label>
         <textarea name="sql_text" id="sql_text" rows="40" cols="120" wrap="soft"></textarea>
         <br>
@@ -66,7 +79,6 @@
     <cfset j=JSStringFormat(e.sql_text)>
     <script>
         var a = escape("#j#");
-        alert(a);
         var b=document.getElementById('sql_text');
         b.value=unescape(a);
     </script>
@@ -177,6 +189,12 @@
         report_template  varchar2(38) not null,
         sql_text varchar2(4000) not null
     );
+    
+    alter table cf_report_sql add pre_function varchar2(50);
+    alter table cf_report_sql add report_format varchar2(50) default 'PDF';
+    update cf_report_sql set report_format='PDF';
+    alter table cf_report_sql modify report_format not null;
+    
     create or replace public synonym cf_report_sql for cf_report_sql;
 
     create unique index u_cf_report_sql_name on cf_report_sql(report_name);
@@ -231,17 +249,21 @@
 	<cfquery name="d" datasource="#Application.web_user#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-    
+    <!--- 
+        Can call a custom function here to transform the query
+    --->
+    <cfif len(e.pre_function) gt 0>
+        <cfset d=#e.pre_function#(d)>
+    </cfif>
     <cfreport
-        format = "flashPaper"
+        format = "#e.format#"
         query="d"
         template = "#Application.webDirectory#/Reports/templates/#e.report_template#"
-        encryption = "none"
         filename = "#Application.webDirectory#/temp/#e.report_name#.pdf"
         overwrite = "yes">
     </cfreport>
 
-<a href="/temp/alaLabel.pdf">Download the PDF</a>
+<a href="/temp/#e.report_name#.pdf">Download the PDF</a>
 
 <cfdump var="#d#">
 </cfif>
