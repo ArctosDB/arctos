@@ -26,29 +26,23 @@
         
 	    
 		<cfset locality="">
-        <cfif include_island is 1>
             <cfif len(#locality#) gt 0>
                 <cfset locality = "#locality#, #island#">
             <cfelse>
                 <cfset locality = "#island#">
             </cfif>            
-		</cfif>
        
         
-        <cfif include_island_group is 1>
             <cfif len(#locality#) gt 0>
                 <cfset locality = "#locality#, #island_group#">
             <cfelse>
                 <cfset locality = "#island_group#">
             </cfif>            
-		</cfif>
-        <cfif include_feature is 1>
             <cfif len(#locality#) gt 0>
                 <cfset locality = "#locality#, #feature#">
             <cfelse>
                 <cfset locality = "#feature#">
             </cfif>            
-		</cfif>
         
 		<cfif len(#quad#) gt 0>
 			<cfif len(#locality#) gt 0>
