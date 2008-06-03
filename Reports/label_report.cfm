@@ -10,10 +10,11 @@
 </cfif>
 <cfif #action# is "listReports">
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
+    Existing Reports:<br>
     <cfloop query="reportList">
-        #name# <a href="labelReport.cfm?action=edit&name=#name#">Edit</a>
-               <a href="labelReport.cfm?action=clone&name=#name#">Clone</a>                   
-               <a href="labelReport.cfm?action=download&name=#name#">Download</a>
+        #name# <a href="label_report.cfm?action=edit&name=#name#">Edit</a>
+               <a href="label_report.cfm?action=clone&name=#name#">Clone</a>                   
+               <a href="label_report.cfm?action=download&name=#name#">Download</a>
                <br>
     </cfloop>
 </cfif>
