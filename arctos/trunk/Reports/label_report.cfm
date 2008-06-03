@@ -3,7 +3,7 @@
 <cfinclude template="/includes/_header.cfm">
 
 <cfif #action# is "manage">
-    <cfdirectory action="list" directory="#Application.webDirectory#" filter="*.cfr" name="reportList">
+    <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
     <cfdump var=#reportList#>
     <form name="rept" method="post" action="">
         
