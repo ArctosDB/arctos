@@ -255,7 +255,7 @@
     <cfif len(e.pre_function) gt 0>
         <cfset d=evaluate(e.pre_function & "(d)")>
     </cfif>
-    <cfif report_format is "PDF">
+    <cfif e.report_format is "PDF">
         <cfreport format="#e.report_format#" 
             template="#application.webDirectory#/Reports/templates/#e.report_template#"
             query="d" 
