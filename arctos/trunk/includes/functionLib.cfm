@@ -1,3 +1,20 @@
+<cffunction name="unsafeSql" access="public" output="false" returntype="boolean">
+    <cfargument name="sql" required="true" type="string">
+    <cfset nono="update,insert,delete,drop,create,alter,set,execute,exec,begin,end,declare,all_tables,v$session">
+    <cfset dels="';','|',">
+    <cfset safe=0>
+    <cfloop index="i" list="#sql#" delimiters=" .,?!;:%$&""'/|[]{}()">
+	    <cfif ListFindNoCase(nono, i)>
+	        <cfset safe=1>
+	    </cfif>
+    </cfloop>
+    <cfif safe is 0>
+        <cfreturn true>
+    <cfelse>
+        <cfreturn false>
+    </cfif>
+</cffunction>
+
 <cffunction name="getMediaRelations" access="public" output="false" returntype="Query">
 	<cfargument name="media_id" required="true" type="numeric">
 	<cfquery name="relns" datasource="#application.web_user#">

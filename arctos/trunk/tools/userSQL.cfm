@@ -1,4 +1,5 @@
 <cfinclude template = "/includes/_header.cfm">
+<cfinclude template = "/includes/functionLib.cfm">
     <cfif not isdefined("sql")>
         <cfset sql = "SELECT 'test' FROM dual">
     </cfif>
@@ -36,7 +37,7 @@
                 #sql#
             </div>
             Result:<br>
-            <cfif safe gt 0>
+            <cfif unsafeSql(sql)>
                <div class="error">
                     The code you submitted contains illegal characters.
                 </div> 
@@ -46,7 +47,7 @@
                         <cfabort>
                     </cfif>
 	                 <cfquery name="user_sql" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-		                #preservesinglequotes(sql)#
+		                #preservesinglequotes(sanitizeSql(sql))#
 		            </cfquery>
                     <cfif #format# is "csv">
                         <cfset ac = user_sql.columnlist>
