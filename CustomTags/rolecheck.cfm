@@ -148,7 +148,7 @@ isValid.recordcount: #isValid.recordcount#;
 				if (result <= 0) {
 					// too late, bye now...
 					//alert('Your session has expired. You must log in to continue.');
-					document.location='/login.cfm?action=signOut';
+					//document.location='/login.cfm?action=signOut';
 				} else if (result <= 10) {
 					var st = document.getElementById('sessionTimer');
 					st.innerHTML='Session expires in ' + result + 'm';
