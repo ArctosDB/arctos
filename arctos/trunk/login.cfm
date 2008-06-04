@@ -94,7 +94,11 @@
 		<!--- flush whatever they had & send them back--->
 		<cfset client.username = "">
 		<cfset client.epw = "">
+        
+        here we are now
+        <!---
 		<cflocation url="login.cfm?badPW=true&username=#username#">
+        ---->
 	</cfif>
 <!--- they made it this far, they are valid users. assign some client stuff to valid users --->
 	<cfset client.username = "#getPrefs.username#">
