@@ -501,6 +501,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="/tools/bulkPart.cfm?table_name=#thisTableName#">
 						Add Parts
 					</option>
+                    <option value="/Reports/report_printer.cfm?collection_object_id=#collObjIdList#">
+						Print Any Report
+					</option>
 				</select>
 				<input type="button" 
 					value="Go" 

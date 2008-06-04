@@ -81,6 +81,14 @@
            <input type="button" value="Test SQL" onclick="document.getElementById('test_sql').value=document.getElementById('sql_text').value;
                 submit();" class="lnkBtn">
     </form>
+    <div style="background-color:gray;font-size:smaller;">
+        To print reports, your SQL will need to include the following:
+        <br><strong>AND collection_object_id IN (##collection_object_id##)</strong>
+        <br>
+        For testing purposes, that will default to 12, or you can replace <strong>(##collection_object_id##)</strong>
+        with a comma-separated list of collection_object_ids, eg:
+        <strong>(1,5,874,2355,4)</strong>
+    </div>
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "newHandler">
