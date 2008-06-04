@@ -1,9 +1,4 @@
-<cfoutput>
-<cfif not isdefined("collection_object_id")>
-    Need a random collection object ID to test?
-   <br> <a href="reporter.cfm?action=listReports&collection_object_id=12">Try this one</a>
-    <br>aborting....<cfabort>
-</cfif>	
+<cfoutput>	
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/includes/functionLib.cfm">
 <cfinclude template="/Reports/functions/label_functions.cfm">
@@ -13,7 +8,7 @@
         delete from cf_report_sql 
         where report_id=#report_id#
     </cfquery>
-    <cflocation url="reporter.cfm?action=listReports&collection_object_id=#collection_object_id#">
+    <cflocation url="reporter.cfm">
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "saveEdit">
@@ -118,7 +113,7 @@
             '#e.report_template#',
             '#e.sql_text#')
     </cfquery>
-    <cflocation url="reporter.cfm?action=listReports&collection_object_id=#collection_object_id#">
+    <cflocation url="reporter.cfm">
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "testSQL">
@@ -154,7 +149,6 @@
 	    	file="#Application.webDirectory#/Reports/templates/#fileName#">
         <cfabort>   
 	</cfif>
-	<!----This name contains only alphanumeric characters, check the extension---->
 	<cfset ext=right(extension,len(extension)-1)>
 	<cfif ext is not "cfr">
 		Only .cfr files are accepted.
@@ -162,12 +156,11 @@
 	    	file="#Application.webDirectory#/Reports/templates/#fileName#">
         <cfabort>
 	</cfif>
-	<!--- good extension, see if it matches what we'll accept ---->
-	<cflocation url="reporter.cfm?action=listReports&collection_object_id=#collection_object_id#">
+	<cflocation url="reporter.cfm">
 
 </cfif>
 <!-------------------------------------------------------------->
-<cfif #action# is "listReports">
+<cfif #action# is "nothing">
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
     Load a new template (will overwrite old templates). .cfr files only.
     <form name="n" method="post" enctype="multipart/form-data" action="reporter.cfm">
@@ -217,91 +210,5 @@
     <a href="/Reports/templates/#report_template#">Here it is.</a>
 </cfif>
 <!-------------------------------------------------------------->
-<cfif #action# is "nothing">
-<!----
-
-    drop table cf_report_sql;
-    
-    create table cf_report_sql (
-        report_id number not null,
-        report_name varchar2(38) not null,
-        report_template  varchar2(38) not null,
-        sql_text varchar2(4000) not null,
-        pre_function varchar2(50),
-        report_format varchar2(50) not null
-    );
-    
-   
-     alter table cf_report_sql modify report_format default 'PDF';
-     
-    create or replace public synonym cf_report_sql for cf_report_sql;
-
-    create unique index u_cf_report_sql_name on cf_report_sql(report_name);
-    
-    ALTER TABLE cf_report_sql
-        add CONSTRAINT pk_cf_report_sql
-        PRIMARY  KEY (report_id);
-        
-        
-     CREATE OR REPLACE TRIGGER cf_report_sql_key                                         
-         before insert  ON cf_report_sql  
-		 for each row 
-		    begin     
-		    	if :NEW.report_id is null then                                                                                      
-		    		select somerandomsequence.nextval into :new.report_id from dual;
-		    	end if;                                
-		    end;                                                                                            
-		/
-		sho err
-  grant all on cf_report_sql to coldfusion_user;
----->
-
-
-<a href="reporter.cfm?action=listReports&collection_object_id=#collection_object_id#" target="_blank">Manage Reports</a>
-<cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-    select * from cf_report_sql order by report_name
-</cfquery>
- 
-<form name="print" method="post" action="reporter.cfm">
-    <input type="hidden" name="action" value="print">
-    <input type="hidden" name="collection_object_id" value="#collection_object_id#">
-    <label for="report_id">Print....</label>
-        <select name="report_id" id="report_id">
-            <cfloop query="e">
-                <option value="#report_id#">#report_name# (#report_template#)</option>
-            </cfloop>
-        </select>
-         <input type="submit" value="Print Report">
-</form>
-</cfif>
-<cfif #action# is "print">
-<cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-    select * from cf_report_sql where report_id=#report_id#
-</cfquery>
- <hr>
- #preservesinglequotes(e.sql_text)#
- <hr>
- <cfset sql=replace(e.sql_text,"##collection_object_id##",#collection_object_id#)>
- <hr>
- #preservesinglequotes(sql)#
- <hr>
-	<cfquery name="d" datasource="#Application.web_user#">
-		#preservesinglequotes(sql)#
-	</cfquery>
-    <!--- 
-        Can call a custom function here to transform the query
-    --->
-    <cfif len(e.pre_function) gt 0>
-        <cfset d=evaluate(e.pre_function & "(d)")>
-    </cfif>
-
-        <cfreport format="#e.report_format#" 
-            template="#application.webDirectory#/Reports/templates/#e.report_template#"
-            query="d" 
-           overwrite="true"></cfreport>
-
-    
-
-</cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
