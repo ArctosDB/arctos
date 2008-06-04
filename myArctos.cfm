@@ -1,18 +1,11 @@
-<cfif isdefined("beingCalled") and #beingCalled# is "t">
-	<!--- this form is being called by SpecimenSearch --->
-	<cfinclude template = "includes/_frameHeader.cfm">
-<cfelse>
-	<cfinclude template = "includes/_header.cfm">
-</cfif>
+<cfinclude template = "includes/_header.cfm">
+
+
 
 
 <cfif len(#client.username#) is 0>
-	<cfif isdefined("beingCalled") and #beingCalled# is "t">
 		You must log in to customize Arctos.		
-	<cfelse>
-        alnvajkhbvasdnvlkajsnd<cfabort>
-		<cflocation url="login.cfm">
-	</cfif>
+	    <cfabort>
 </cfif>
 
 
