@@ -43,7 +43,6 @@
    
     <form method="get" action="reporter.cfm" enctype="text/plain">
         <input type="hidden" name="action" value="saveEdit">
-        <input type="hidden" name="collection_object_id" value="#collection_object_id#">
         <input type="hidden" name="report_id" value="#e.report_id#">
         <label for="report_name">Report Name</label>
         <input type="text" name="report_name" id="report_name" value="#e.report_name#">
@@ -77,7 +76,6 @@
     </script>
        <form method="post" action="reporter.cfm" target="_blank">
            <input type="hidden" name="action" value="testSQL">           
-            <input type="hidden" name="collection_object_id" value="#collection_object_id#">
 	       <input type="hidden" name="test_sql" id="test_sql">
            <input type="hidden" name="format" id="format" value="table">
            <input type="button" value="Test SQL" onclick="document.getElementById('test_sql').value=document.getElementById('sql_text').value;
@@ -124,7 +122,7 @@
          <cfabort>
     </cfif>
 
-         <cfset sql=replace(test_sql,"##collection_object_id##",#collection_object_id#)>
+         <cfset sql=replace(test_sql,"##collection_object_id##",12)>
          <cfquery name="user_sql" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
              #preservesinglequotes(sql)#
          </cfquery>
@@ -165,7 +163,6 @@
     Load a new template (will overwrite old templates). .cfr files only.
     <form name="n" method="post" enctype="multipart/form-data" action="reporter.cfm">
         <input type="hidden" name="action" value="loadTemplate">
-        <input type="hidden" name="collection_object_id" value="#collection_object_id#">
         <input type="file" name="FiletoUpload" id="FiletoUpload" size="45">
         <input type="submit" class="savBtn" value="Upload File">
     </form>
