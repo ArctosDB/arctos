@@ -25,7 +25,7 @@
         report_format ='#report_format#'
         where report_id=#report_id#
     </cfquery>
-    <cflocation url="reporter.cfm?action=edit&report_id=#report_id#&collection_object_id=#collection_object_id#">
+    <cflocation url="reporter.cfm?action=edit&report_id=#report_id#">
 </cfif>
 <!--------------------------------------------------------------------------------------->
 <cfif #action# is "edit">
@@ -33,7 +33,7 @@
 	    <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 	        select report_id from cf_report_sql where report_name='#report_name#'
 	    </cfquery>
-        <cflocation url="reporter.cfm?action=edit&report_id=#e.report_id#&collection_object_id=#collection_object_id#">
+        <cflocation url="reporter.cfm?action=edit&report_id=#e.report_id#">
     </cfif>
 
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
@@ -96,7 +96,7 @@
             '#report_template#',
             'select 1 from dual')
     </cfquery>
-    <cflocation url="reporter.cfm?action=edit&report_name=New_Report&collection_object_id=#collection_object_id#">
+    <cflocation url="reporter.cfm?action=edit&report_name=New_Report">
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "clone">
@@ -192,13 +192,13 @@
 	            <td>#report_template#</td>
 	            <td>#report_name#</td>
 	            <cfif report_id gt 1>
-	                <td><a href="reporter.cfm?action=edit&report_id=#report_id#&collection_object_id=#collection_object_id#">Edit Handler</a></td>
-	                <td><a href="reporter.cfm?action=clone&report_id=#report_id#&collection_object_id=#collection_object_id#">Clone Handler</a></td>
-                    <td><a href="reporter.cfm?action=delete&report_id=#report_id#&collection_object_id=#collection_object_id#">Delete Handler</a></td>
+	                <td><a href="reporter.cfm?action=edit&report_id=#report_id#">Edit Handler</a></td>
+	                <td><a href="reporter.cfm?action=clone&report_id=#report_id#">Clone Handler</a></td>
+                    <td><a href="reporter.cfm?action=delete&report_id=#report_id#">Delete Handler</a></td>
 	            <cfelse>
-	                <td><a href="reporter.cfm?action=newHandler&report_template=#report_template#&collection_object_id=#collection_object_id#">Create Handler</a></td>
+	                <td><a href="reporter.cfm?action=newHandler&report_template=#report_template#">Create Handler</a></td>
 	            </cfif>
-	            <td><a href="reporter.cfm?action=download&report_template=#report_template#&collection_object_id=#collection_object_id#">Download Report</a></td>
+	            <td><a href="reporter.cfm?action=download&report_template=#report_template#">Download Report</a></td>
 	        </tr>
         </cfloop>
       
