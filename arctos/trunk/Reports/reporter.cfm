@@ -92,30 +92,32 @@
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "newHandler">
+     <cfset tc=getTickCount()>
      <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
         insert into cf_report_sql (
             report_name,
             report_template,
             sql_text)
         values (
-            'New_Report',
+            'New_Report_#tc#',
             '#report_template#',
             'select 1 from dual')
     </cfquery>
-    <cflocation url="reporter.cfm?action=edit&report_name=New_Report">
+    <cflocation url="reporter.cfm?action=edit&report_name=New_Report_#tc#">
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "clone">
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
         select * from cf_report_sql where report_id='#report_id#'
     </cfquery>
+    <cfset tc=getTickCount()>
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
         insert into cf_report_sql (
             report_name,
             report_template,
             sql_text)
         values (
-            'Clone Of #e.report_name#',
+            'Clone Of #e.report_name#_#tc#',
             '#e.report_template#',
             '#e.sql_text#')
     </cfquery>
