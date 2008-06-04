@@ -208,7 +208,6 @@
 		 username = '#username#' order by cf_users.user_id
 	</cfquery>
 	<cfif getPrefs.recordcount is 0>
-        ajvnaijsd<cfabort>
 		<cflocation url="login.cfm?action=signOut">
 	</cfif>
 <!---- set preferences --->

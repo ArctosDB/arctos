@@ -132,7 +132,6 @@
 			<cfset gotopage = "myArctos.cfm">
 		</cfif>
 		<cfoutput>
-            Got your prefs and sending you to #gotopage#<cfabort>
 			<cflocation url="#gotopage#" addtoken="no">
 		</cfoutput>
 </cfif>
