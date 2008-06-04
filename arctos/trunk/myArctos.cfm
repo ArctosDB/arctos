@@ -10,6 +10,7 @@
 	<cfif isdefined("beingCalled") and #beingCalled# is "t">
 		You must log in to customize Arctos.		
 	<cfelse>
+        alnvajkhbvasdnvlkajsnd<cfabort>
 		<cflocation url="login.cfm">
 	</cfif>
 </cfif>
@@ -214,6 +215,7 @@
 		 username = '#username#' order by cf_users.user_id
 	</cfquery>
 	<cfif getPrefs.recordcount is 0>
+        ajvnaijsd<cfabort>
 		<cflocation url="login.cfm?action=signOut">
 	</cfif>
 <!---- set preferences --->
