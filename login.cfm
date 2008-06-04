@@ -88,7 +88,7 @@
 <CFIF  #action# is "signIn">
 <!---- start by making sure they are a registered user --->	
 	<cfquery name="getPrefs" datasource="#Application.web_user#">
-		select * from cf_users where username = '#form.username#' and password='#hash(form.password)#'
+		select * from cf_users where username = '#username#' and password='#hash(password)#'
 	</cfquery>
 	<cfif getPrefs.recordcount is 0>
 		<!--- flush whatever they had & send them back--->
