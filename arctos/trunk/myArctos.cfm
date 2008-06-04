@@ -214,10 +214,7 @@
 		 username = '#username#' order by cf_users.user_id
 	</cfquery>
 	<cfif getPrefs.recordcount is 0>
-		bonk
-        <cfabort><!----
-        <cflocation url="login.cfm?action=signOut">
-        ---->
+		<cflocation url="login.cfm?action=signOut">
 	</cfif>
 <!---- set preferences --->
 <cfinclude template="/includes/setPrefs.cfm">
