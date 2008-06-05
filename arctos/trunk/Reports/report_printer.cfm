@@ -54,20 +54,14 @@
         <!--- need soemthing to pass to the function --->
         <cfset d="">
     </cfif>
-    <!--- 
-        Can call a custom function here to transform the query
-    --->
+    <!---  Can call a custom function here to transform the query --->
     <cfif len(e.pre_function) gt 0>
         <cfset d=evaluate(e.pre_function & "(d)")>
     </cfif>
-
-        <cfreport format="#e.report_format#" 
-            template="#application.webDirectory#/Reports/templates/#e.report_template#"
-            query="d" 
-           overwrite="true"></cfreport>
-
-    
-
+    <cfreport format="#e.report_format#" 
+    	template="#application.webDirectory#/Reports/templates/#e.report_template#"
+        query="d" 
+        overwrite="true"></cfreport>
 </cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">

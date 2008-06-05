@@ -16,6 +16,10 @@
         Your SQL is not acceptable.
         <cfabort>
     </cfif>
+	<cfif REFind("[^A-Za-z0-9_]",report_name,1) gt 0>
+		report_name must contain only alphanumeric cahracters and underscore.
+		<cfabort>
+	</cfif>
     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
         update cf_report_sql set     
         report_name ='#report_name#',
@@ -82,7 +86,8 @@
                 submit();" class="lnkBtn">
     </form>
     <div style="background-color:gray;font-size:smaller;">
-        To print reports, your SQL will need to include the following:
+        The reports
+		To print reports, your SQL will need to include the following:
         <br><strong>AND collection_object_id IN (##collection_object_id##)</strong>
         <br>
         For testing purposes, that will default to 12, or you can replace <strong>(##collection_object_id##)</strong>
@@ -117,7 +122,7 @@
             report_template,
             sql_text)
         values (
-            'Clone Of #e.report_name#_#tc#',
+            'Clone_Of_#e.report_name#_#tc#',
             '#e.report_template#',
             '#e.sql_text#')
     </cfquery>
