@@ -436,63 +436,63 @@ If your item needs to be sorted in a special way, then do that here. --->
 		<td nowrap="nowrap">
 			<cfif summary.recordcount lt 1000 and (isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user"))>					
 				<label for="goWhere">Manage...</label>
-				<select name="goWhere" id="goWhere" size="1" target="#client.target#">
-					<option value="Encumbrances.cfm?collection_object_id=#collObjIdList#">
+				<select name="goWhere" id="goWhere" size="1">
+					<option value="Encumbrances.cfm">
 						Encumbrances
 					</option>
-					<option value="UamMammalVialLabels_pdffile.cfm?collection_object_id=#collObjIdList#">
+					<option value="UamMammalVialLabels_pdffile.cfm">
 						UAM Mammals Vial Labels
 					</option>
-					<option value="/Reports/mammalLabels.cfm?collection_object_id=#collObjIdList#&action=box">
+					<option value="/Reports/mammalLabels.cfm">
 						UAM Mammals Box Labels
 					</option>
-					<option value="MSBMammLabels.cfm?collection_object_id=#collObjIdList#">
+					<option value="MSBMammLabels.cfm">
 						MSB Mammals Labels
 					</option>
 					<!---<option value="/Reports/msbLabels.cfm?collection_object_id=#collObjIdList#">
 						MSB  Labels
 					</option>--->
-                    <option value="/Reports/msbLabelDataDown.cfm?collection_object_id=#collObjIdList#">
+                    <option value="/Reports/msbLabelDataDown.cfm">
 						Label Data Download
 					</option>
-					<option value="narrowLabels.cfm?collection_object_id=#collObjIdList#">
+					<option value="narrowLabels.cfm">
 						MVZ narrow Labels
 					</option>
-					<option value="wideLabels.cfm?collection_object_id=#collObjIdList#">
+					<option value="wideLabels.cfm">
 						MVZ wide Labels
 					</option>
 					<cfif isdefined('accn_number') and len(accn_number) gt 0>
-						<option value="Reports/ledger.cfm?collection_object_id=#collObjIdList#&accn_number=#accn_number#">
+						<option value="Reports/ledger.cfm">
 							MVZ Ledger
 						</option>
 					</cfif>
 					<cfif isdefined('permit_num') and len(permit_num) gt 0>
-						<option value="Reports/permit.cfm?collection_object_id=#collObjIdList#&permit_num=#permit_num#">
+						<option value="Reports/permit.cfm">
 							MVZ Permit Report
 						</option>
 					</cfif>
-					<option value="tissueParts.cfm?collection_object_id=#collObjIdList#">
+					<option value="tissueParts.cfm">
 						Flag Parts as Tissues
 					</option>
-					<option value="editIdentification.cfm?collection_object_id=#collObjIdList#&Action=multi">
+					<option value="editIdentification.cfm">
 						Identification
 					</option>
-					<option value="location_tree.cfm?collection_object_id=#collObjIdList#&srch=part">
+					<option value="location_tree.cfm">
 						Part Locations
 					</option>
-					<option value="bulkCollEvent.cfm?collection_object_id=#collObjIdList#">
+					<option value="bulkCollEvent.cfm">
 						Collecting Events
 					</option>
-					<option value="addAccn.cfm?collection_object_id=#collObjIdList#">
+					<option value="addAccn.cfm">
 						Accession
 					</option>
-					<option value="compDGR.cfm?collection_object_id=#collObjIdList#">
+					<option value="compDGR.cfm">
 						MSB<->DGR
 					</option>
-					<option value="/Reports/print_nk.cfm?collection_object_id=#collObjIdList#">
+					<option value="/Reports/print_nk.cfm">
 						Print NK pages
 					</option>
-					<option value="/Reports/report_printer.cfm?collection_object_id=#collObjIdList#&report=ala_label">
+					<option value="/Reports/report_printer.cfm?report=ala_label">
 						ALA Labels
 					</option>
 					<option value="/bnhmMaps/SpecimensByLocality.cfm?table_name=#thisTableName#">
@@ -510,7 +510,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 					class="lnkBtn"
 		   			onmouseover="this.className='lnkBtn btnhov'" 
 					onmouseout="this.className='lnkBtn'"
-					onClick="window.open(document.getElementById('goWhere').value,'#client.target#');">
+					onClick="reporter();">
 			</cfif>
 		</td>
 	</tr>
@@ -521,6 +521,25 @@ If your item needs to be sorted in a special way, then do that here. --->
 <div id="resultsGoHere"></div>
 <script>
 	getSpecResultsData(1,#client.displayrows#);
+</script>
+<script>
+	function reporter() {
+
+	var f=document.getElementById('goWhere').value;
+	var i='#collObjIdList#';
+	var t='#thisTableName#';
+	var s=document.getElementById('result_sort').value;
+	var u = f;
+	var sep="?";
+	if (f.indexOf('?') > 0) {
+		sep='&';
+	}
+	u += sep + 'collection_object_id=' + i;
+	u += '&table_name=' + t;
+	u += '&sort=' + s;
+	
+	var reportWin=window.open(u,'#client.target#');
+}
 </script>
 </cfoutput>
 <cf_get_footer collection_id="#exclusive_collection_id#">
