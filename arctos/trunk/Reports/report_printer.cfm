@@ -72,10 +72,18 @@
     <cfif len(e.pre_function) gt 0>
         <cfset d=evaluate(e.pre_function & "(d)")>
     </cfif>
+	<cfif e.report_format is "pdf">
+		<cfset extension="pdf">
+	<cfelse>
+		<cfset extension="swf">
+	</cfif>
     <cfreport format="#e.report_format#" 
     	template="#application.webDirectory#/Reports/templates/#e.report_template#"
-        query="d" 
+        query="d"
+		filename="#application.webDirectory#/temp/#e.report_name#.#extension#"
         overwrite="true"></cfreport>
+	<cfheader name="Content-Disposition" value="attachment; filename=#e.report_name#.#extension#">
+	<cfcontent type="application/vnd.#extension#" file="#application.webDirectory#/temp/#e.report_name#.#extension#">
 </cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
