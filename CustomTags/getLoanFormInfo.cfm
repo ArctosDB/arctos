@@ -24,7 +24,9 @@
 				shipped_date,
 				ship_to_addr.formatted_addr  shipped_to_address   ,
 				ship_from_addr.formatted_addr  shipped_from_address  ,
-				processed_by.agent_name processed_by_name   
+				processed_by.agent_name processed_by_name,
+				sponsor_name.agent_name project_sponsor_name,
+				acknowledgement   
         FROM
                 loan,
 				trans,
@@ -39,7 +41,10 @@
 				shipment,
 				addr ship_to_addr,
 				addr ship_from_addr,
-				preferred_agent_name processed_by
+				preferred_agent_name processed_by,
+				project_trans,
+				project_sponsor,
+				agent_name sponsor_name
         WHERE
                 loan.transaction_id = trans.transaction_id and
 				trans.transaction_id = inside_trans_agent.transaction_id and				
@@ -55,20 +60,23 @@
 				loan.transaction_id = shipment.transaction_id (+) and
 				shipment.SHIPPED_TO_ADDR_ID	= ship_to_addr.addr_id (+) and
 				shipment.SHIPPED_FROM_ADDR_ID	= ship_from_addr.addr_id (+) and
-				shipment.PACKED_BY_AGENT_ID = 	processed_by.agent_id (+) and					
+				shipment.PACKED_BY_AGENT_ID = 	processed_by.agent_id (+) and
+				trans.transaction_id = 	project_trans.transaction_id (+) and
+				project_trans.project_id =	project_sponsor.project_id (+) and
+				project_sponsor.agent_name_id = sponsor_name.agent_name_id (+) and				
 				loan.transaction_id=#transaction_id#
 		group by
 			 	trans_date,
-    concattransagent(trans.transaction_id, 'authorized by'),
-    concattransagent(trans.transaction_id, 'received by')  ,
-    outside_contact.agent_name,
-    inside_contact.agent_name ,
-	outside_addr.job_title  ,
-	inside_addr.job_title  ,
-	get_address(inside_trans_agent.agent_id),
-	get_address(outside_trans_agent.agent_id),
-	inside_email.address ,
-	outside_email.address ,
+			    concattransagent(trans.transaction_id, 'authorized by'),
+			    concattransagent(trans.transaction_id, 'received by')  ,
+			    outside_contact.agent_name,
+			    inside_contact.agent_name ,
+				outside_addr.job_title  ,
+				inside_addr.job_title  ,
+				get_address(inside_trans_agent.agent_id),
+				get_address(outside_trans_agent.agent_id),
+				inside_email.address ,
+				outside_email.address ,
                return_due_date,
                 nature_of_material,
                 trans_remarks,
@@ -80,6 +88,8 @@
 				shipped_date,
 				ship_to_addr.formatted_addr     ,
 				ship_from_addr.formatted_addr ,
-				processed_by.agent_name             
+				processed_by.agent_name ,
+				sponsor_name.agent_name,
+				acknowledgement            
 </cfquery>
 </cfoutput>
