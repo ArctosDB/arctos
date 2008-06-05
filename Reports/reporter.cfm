@@ -220,7 +220,7 @@
 <!-------------------------------------------------------------->
 <cfif #action# is "download">
 	<cfheader name="Content-Disposition" value="attachment; filename=#report_template#">
-	<cfcontent type="application/vnd.coldfusion-reporter" file="#Application.webDirectory#//Reports/templates/#report_template#">
+	<cfcontent type="application/vnd.coldfusion-reporter" file="#Application.webDirectory#/Reports/templates/#report_template#">
 </cfif>
 <!-------------------------------------------------------------->
 </cfoutput>
