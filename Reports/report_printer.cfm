@@ -80,7 +80,6 @@
     <cfreport format="#e.report_format#" 
     	template="#application.webDirectory#/Reports/templates/#e.report_template#"
         query="d"
-		name="#e.report_name#"
         overwrite="true"></cfreport>
 </cfif>
 </cfoutput>
