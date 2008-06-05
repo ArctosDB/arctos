@@ -66,7 +66,7 @@
         <label for="sql_text">SQL</label>
         <textarea name="sql_text" id="sql_text" rows="40" cols="120" wrap="soft"></textarea>
         <br>
-        <input type="submit" value="save handler" class="savBtn">
+        <input type="submit" value="Save Handler" class="savBtn">
     </form>
     <cfset j=JSStringFormat(e.sql_text)>
     <script>

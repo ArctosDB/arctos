@@ -1,3 +1,11 @@
+<cffunction name="get_loan" access="public" returntype="Query">
+    <cf_getLoanFormInfo>
+    <cfquery name="d" dbtype="query">
+        select * from getLoan
+    </cfquery>
+    <cfreturn d>
+</cffunction>
+<!-------------------------------------------------------------->
 <cffunction name="format_msb" access="public" returntype="Query">
     <cfargument name="d" required="true" type="query">
     <cfset lAr = ArrayNew(1)>
