@@ -53,6 +53,8 @@
 		<cfif len(#sort#) gt 0 and #sql# does not contain "order by">
 			<cfset sql=sql & " order by #sort#">
 		</cfif>
+		#preservesinglequotes(sql)#
+		<cfabort>
 	 	<cfquery name="d" datasource="#Application.web_user#">
 			#preservesinglequotes(sql)#
 		</cfquery>
