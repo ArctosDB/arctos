@@ -12,7 +12,7 @@
 <cfif #action# is "nothing">
 	<cfif isdefined("report") and len(#report#) gt 0>
 		<cfquery name="id" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-			select report_id from report where upper(report_name)='#case(report)#'
+			select report_id from report where upper(report_name)='#ucase(report)#'
 		</cfquery>
 		<cfif id.recordcount is 1 and id.report_id gt 0>
 			<cflocation url='report_printer.cfm?action=print&report_id=#id.report_id#&collection_object_id=#collection_object_id#&transaction_id=#transaction_id#'>
