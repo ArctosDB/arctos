@@ -47,7 +47,7 @@
 	</cfquery>
 	<cfif len(e.sql_text) gt 0>
         <cfset sql=replace(e.sql_text,"##collection_object_id##",#collection_object_id#)>
-		<cfif isdefined("sort") and len(#sort#) gt 0 and sql does not contain "order by">
+		<cfif isdefined("sort") and len(#sort#) gt 0 and #sql# does not contain "order by">
 			<cfset sql=sql & " order by #sort#">
 		</cfif>
 		#preservesinglequotes(sql)#
