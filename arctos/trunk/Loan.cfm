@@ -604,7 +604,7 @@
    			<option value=""></option>
    			<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemLabels">Item Slips</option>
 			<cfif #cgi.HTTP_HOST# contains "arctos.database">
-				<option value="/Reports/UAMMammLoanInvoice.cfm?transaction_id=#transaction_id#">UAM Mammal Invoice Header</option>
+				<option value="/Reports/report_printer.cfm?transaction_id=#transaction_id#&report=uam_mamm_loan_head">UAM Mammal Invoice Header</option>
 				<option value="/Reports/UAMMammLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemList">UAM Mammal Item Invoice</option>
 				<option value="/Reports/UAMMammLoanInvoice.cfm?transaction_id=#transaction_id#&Action=showCondition">UAM Mammal Item Conditions</option>
 				
