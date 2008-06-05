@@ -51,13 +51,19 @@
 	<cfif len(e.sql_text) gt 0>
         <cfset sql=replace(e.sql_text,"##collection_object_id##",#collection_object_id#)>
 		<cfif len(#sort#) gt 0 and #sql# does not contain "order by">
-			<cfset sql=sql & " order by #sort#">
+			<cfset ssql=sql & " order by #sort#">
 		</cfif>
-		#preservesinglequotes(sql)#
-		<cfabort>
-	 	<cfquery name="d" datasource="#Application.web_user#">
-			#preservesinglequotes(sql)#
-		</cfquery>
+	 	<cftry>
+			<cfquery name="d" datasource="#Application.web_user#">
+				#preservesinglequotes(ssql)#
+			</cfquery>
+		<cfcatch>
+			<!--- sort can screw the pooch if they try to sort by things that aren't in the query --->
+			<cfquery name="d" datasource="#Application.web_user#">
+				#preservesinglequotes(sql)#
+			</cfquery>
+		</cfcatch>
+		</cftry>
     <cfelse>
         <!--- need soemthing to pass to the function --->
         <cfset d="">
