@@ -492,7 +492,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="/Reports/print_nk.cfm?collection_object_id=#collObjIdList#">
 						Print NK pages
 					</option>
-					<option value="/Reports/ALALabels.cfm?collection_object_id=#collObjIdList#">
+					<option value="/Reports/report_printer.cfm?collection_object_id=#collObjIdList#&report=ala_label">
 						ALA Labels
 					</option>
 					<option value="/bnhmMaps/SpecimensByLocality.cfm?table_name=#thisTableName#">

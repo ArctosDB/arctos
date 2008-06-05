@@ -90,23 +90,10 @@
         
 	    
 		<cfset locality="">
-            <cfif len(#locality#) gt 0>
-                <cfset locality = "#locality#, #island#">
-            <cfelse>
-                <cfset locality = "#island#">
-            </cfif>            
-       
+		
         
-            <cfif len(#locality#) gt 0>
-                <cfset locality = "#locality#, #island_group#">
-            <cfelse>
-                <cfset locality = "#island_group#">
-            </cfif>            
-            <cfif len(#locality#) gt 0>
-                <cfset locality = "#locality#, #feature#">
-            <cfelse>
-                <cfset locality = "#feature#">
-            </cfif>            
+                        
+                   
         
 		<cfif len(#quad#) gt 0>
 			<cfif len(#locality#) gt 0>
@@ -115,8 +102,33 @@
                  <cfset locality = "#quad# Quad.:">
             </cfif>          
 		</cfif>
+			<cfif len(#island#) gt 0>
+				 <cfif len(#locality#) gt 0>
+		            <cfset locality = "#locality#, #island#">
+		        <cfelse>
+		            <cfset locality = "#island#">
+		        </cfif>    
+			</cfif>
+			<cfif len(#island_group#) gt 0>
+				<cfif len(#locality#) gt 0>
+	                <cfset locality = "#locality#, #island_group#">
+	            <cfelse>
+	                <cfset locality = "#island_group#">
+	            </cfif>
+			</cfif>
+			<cfif len(#feature#) gt 0>
+				<cfif len(#locality#) gt 0>
+	                <cfset locality = "#locality#, #feature#">
+	            <cfelse>
+	                <cfset locality = "#feature#">
+	            </cfif>     
+			</cfif>
 		<cfif len(#spec_locality#) gt 0>
-			<cfset locality = "#locality# #spec_locality#">
+			<cfif len(#locality#) gt 0>
+	               <cfset locality = "#locality#, #spec_locality#">
+	        <cfelse>
+	            <cfset locality = "#spec_locality#">
+	        </cfif>     
 		</cfif>
 		<cfif len(#coordinates#) gt 0>
 		 	<cfset locality = "#locality#, #coordinates#">
@@ -136,6 +148,7 @@
 		 <cfif right(locality,1) is not ".">
 			 <cfset locality = "#locality#.">
 		</cfif>
+				<cfset locality = replace(locality,".:,",".: ","all")>
         <cfset locAry[i] = "#locality#">
         
 	    <cfset collector="#collectors# #fieldnum#">
