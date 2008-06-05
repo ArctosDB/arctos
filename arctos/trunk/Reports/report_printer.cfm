@@ -46,8 +46,11 @@
 	    select * from cf_report_sql where report_id=#report_id#
 	</cfquery>
 	<cfif len(e.sql_text) gt 0>
+	got some sql
         <cfset sql=replace(e.sql_text,"##collection_object_id##",#collection_object_id#)>
+		variables in
 		<cfif isdefined("sort") and len(#sort#) gt 0 and #sql# does not contain "order by">
+			sort thingy
 			<cfset sql=sql & " order by #sort#">
 		</cfif>
 		#preservesinglequotes(sql)#
