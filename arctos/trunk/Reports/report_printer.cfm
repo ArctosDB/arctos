@@ -4,6 +4,9 @@
 </cfif>
 <cfif not isdefined("transaction_id")>
     <cfset transaction_id="">
+</cfif>
+<cfif not isdefined("sort")>
+    <cfset sort="">
 </cfif>	
 <cfinclude template="/includes/_header.cfm">
 <cfinclude template="/includes/functionLib.cfm">
@@ -15,7 +18,7 @@
 			select report_id from cf_report_sql where upper(report_name)='#ucase(report)#'
 		</cfquery>
 		<cfif id.recordcount is 1 and id.report_id gt 0>
-			<cflocation url='report_printer.cfm?action=print&report_id=#id.report_id#&collection_object_id=#collection_object_id#&transaction_id=#transaction_id#'>
+			<cflocation url='report_printer.cfm?action=print&report_id=#id.report_id#&collection_object_id=#collection_object_id#&transaction_id=#transaction_id#&sort=#sort#'>
 		<cfelse>
 			<div class="error">
 				You tried to call this page with a report name, but that failed.
@@ -46,15 +49,10 @@
 	    select * from cf_report_sql where report_id=#report_id#
 	</cfquery>
 	<cfif len(e.sql_text) gt 0>
-	got some sql
         <cfset sql=replace(e.sql_text,"##collection_object_id##",#collection_object_id#)>
-		variables in
-		<cfif isdefined("sort") and len(#sort#) gt 0 and #sql# does not contain "order by">
-			sort thingy
+		<cfif len(#sort#) gt 0 and #sql# does not contain "order by">
 			<cfset sql=sql & " order by #sort#">
 		</cfif>
-		#preservesinglequotes(sql)#
-		<cfabort>
 	 	<cfquery name="d" datasource="#Application.web_user#">
 			#preservesinglequotes(sql)#
 		</cfquery>
