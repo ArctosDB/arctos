@@ -39,6 +39,9 @@
 	 	<cfquery name="d" datasource="#Application.web_user#">
 			#preservesinglequotes(sql)#
 		</cfquery>
+    <cfelse>
+        <!--- need soemthing to pass to the function --->
+        <cfset d="">
     </cfif>
     <!--- 
         Can call a custom function here to transform the query
