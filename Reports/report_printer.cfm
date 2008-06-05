@@ -82,8 +82,6 @@
         query="d"
 		name="#e.report_name#"
         overwrite="true"></cfreport>
-	<cfheader name="Content-Disposition" value="attachment; filename=#e.report_name#.#extension#">
-	<cfcontent type="application/vnd.#extension#" file="#e.report_name#">
 </cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
