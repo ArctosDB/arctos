@@ -80,10 +80,10 @@
     <cfreport format="#e.report_format#" 
     	template="#application.webDirectory#/Reports/templates/#e.report_template#"
         query="d"
-		filename="#application.webDirectory#/temp/#e.report_name#.#extension#"
+		name="#e.report_name#"
         overwrite="true"></cfreport>
 	<cfheader name="Content-Disposition" value="attachment; filename=#e.report_name#.#extension#">
-	<cfcontent type="application/vnd.#extension#" file="#application.webDirectory#/temp/#e.report_name#.#extension#">
+	<cfcontent type="application/vnd.#extension#" file="#e.report_name#">
 </cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
