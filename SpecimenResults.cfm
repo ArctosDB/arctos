@@ -528,7 +528,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 	var f=document.getElementById('goWhere').value;
 	var i='#collObjIdList#';
 	var t='#thisTableName#';
-	var s=document.getElementById('result_sort').value;
+	var o1=document.getElementById('orderBy1').value;
+	var o2=document.getElementById('orderBy2').value;
+	var s=o1 + ',' + o2;
 	var u = f;
 	var sep="?";
 	if (f.indexOf('?') > 0) {
