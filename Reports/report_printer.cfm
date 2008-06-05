@@ -10,7 +10,7 @@
 <cfinclude template="/Reports/functions/label_functions.cfm">
 
 <cfif #action# is "nothing">
-	<cfif isdefined("report") and len(#report#) gt0>
+	<cfif isdefined("report") and len(#report#) gt 0>
 		<cfquery name="id" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 			select report_id from report where upper(report_name)='#case(report)#'
 		</cfquery>
