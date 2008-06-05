@@ -32,10 +32,12 @@
 	<cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
 	    select * from cf_report_sql where report_id=#report_id#
 	</cfquery>
-	<cfset sql=replace(e.sql_text,"##collection_object_id##",#collection_object_id#)>
- 	<cfquery name="d" datasource="#Application.web_user#">
-		#preservesinglequotes(sql)#
-	</cfquery>
+	<cfif len(e.sql_text) gt 0>
+        <cfset sql=replace(e.sql_text,"##collection_object_id##",#collection_object_id#)>
+	 	<cfquery name="d" datasource="#Application.web_user#">
+			#preservesinglequotes(sql)#
+		</cfquery>
+    </cfif>
     <!--- 
         Can call a custom function here to transform the query
     --->
