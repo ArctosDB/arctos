@@ -47,9 +47,11 @@
 			<cfif len(#island#) gt 0>
 				<cfset geog = "#geog#, #island#">
 			</cfif>
+			<!---
 			<cfif len(#quad#) gt 0>
 				<cfset geog = "#geog#, #quad# Quad">
 			</cfif>
+			---->
 			<cfif len(#feature#) gt 0>
 				<cfset geog = "#geog#, #feature#">
 			</cfif>
