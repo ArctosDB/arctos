@@ -153,27 +153,29 @@ select
 
 		<cfloop list="#attributes#" index="attind" delimiters=";">
 			attind: #attind#<br>
-			<cfset sPos=find(attind,":")>
+			<cfset sPos=find(":",attind)>
 			sPos: #sPos#<br>
-			<cfset att=left(attind,sPos)>
-			att: #att#<br>
-			<cfset aVal=right(attind,len(attind)-sPos)>
-			aVal: #aVal#<br>
-			<cfif #att# is "total length">
-				<cfset totlen = "#aVal#">
-			</cfif>
-			<cfif #att# is "tail length">
-				<cfset taillen = "#aVal#">
-			</cfif>
-			<cfif #att# is "hind foot with claw">
-				<cfset hf = "#aVal#">
-			</cfif>
-			<cfif #att# is "ear from notch">
-
-				<cfset efn = "#aVal#">
-			</cfif>
-			<cfif #att# is "weight">
-				<cfset weight = "#aVal#">
+			<cfif sPos gt 0>
+				<cfset att=left(attind,sPos)>
+				att: #att#<br>
+				<cfset aVal=right(attind,len(attind)-sPos)>
+				aVal: #aVal#<br>
+				<cfif #att# is "total length">
+					<cfset totlen = "#aVal#">
+				</cfif>
+				<cfif #att# is "tail length">
+					<cfset taillen = "#aVal#">
+				</cfif>
+				<cfif #att# is "hind foot with claw">
+					<cfset hf = "#aVal#">
+				</cfif>
+				<cfif #att# is "ear from notch">
+	
+					<cfset efn = "#aVal#">
+				</cfif>
+				<cfif #att# is "weight">
+					<cfset weight = "#aVal#">
+				</cfif>
 			</cfif>
 		</cfloop>
 		<cfif len(#totlen#) gt 0>
