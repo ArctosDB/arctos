@@ -250,7 +250,7 @@ select
 		<cfset temp=queryAddColumn(d,"locality","VarChar",lAr)>
 		<cfset temp=queryAddColumn(d,"sexcode","VarChar",sAr)>
 		<cfset temp=queryAddColumn(d,"idNum","VarChar",idAr)>
-		<cfset temp=queryAddColumn(d,"collectors","VarChar",cAr)>
+		<cfset temp=queryAddColumn(d,"formatted_collectors","VarChar",cAr)>
 		<cfset temp=queryAddColumn(d,"measurements","VarChar",aAr)>	
 		
 		<cfdump var=#d#>
