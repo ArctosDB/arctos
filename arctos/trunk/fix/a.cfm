@@ -157,7 +157,7 @@ select
 			sPos: #sPos#<br>
 			<cfif sPos gt 0>
 				<cfset att=left(attind,sPos-2)>
-				att: #att#<br>
+				att: '#att#'<br>
 				<cfset aVal=right(attind,len(attind)-sPos-1)>
 				aVal: #aVal#<br>
 				<cfif #trim(att)# is "total length">
@@ -199,6 +199,7 @@ select
 			<cfset meas = "#meas#=X">
 		</cfif>
 		<cfset meas=replace(meas,"mm","","all")>
+		-----#meas#-------------<br>
 		<cfset aAr[i] = #meas#>
 			
 			
@@ -248,7 +249,7 @@ select
 		<cfset temp=queryAddColumn(d,"idNum","VarChar",idAr)>
 		<cfset temp=queryAddColumn(d,"formatted_collectors","VarChar",cAr)>
 		<cfset temp=queryAddColumn(d,"measurements","VarChar",aAr)>	
-		
+		<!---
 		<cfdump var=#d#>
-		
+		--->
 		</cfoutput>
