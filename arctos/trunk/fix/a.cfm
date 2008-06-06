@@ -160,19 +160,15 @@ select
 				att: #att#<br>
 				<cfset aVal=right(attind,len(attind)-sPos-1)>
 				aVal: #aVal#<br>
-				<cfif #att# is "total length">
+				<cfif #trim(att)# is "total length">
 					<cfset totlen = "#aVal#">
-				</cfif>
-				<cfif #att# is "tail length">
+				<cfelseif #trim(att)# is "tail length">
 					<cfset taillen = "#aVal#">
-				</cfif>
-				<cfif #att# is "hind foot with claw">
+				<cfelseif #trim(att)# is "hind foot with claw">
 					<cfset hf = "#aVal#">
-				</cfif>
-				<cfif #att# is "ear from notch">	
+				<cfelseif #trim(att)# is "ear from notch">	
 					<cfset efn = "#aVal#">
-				</cfif>
-				<cfif #att# is "weight">
+				<cfelseif #trim(att)# is "weight">
 					<cfset weight = "#aVal#">
 				</cfif>
 			</cfif>
