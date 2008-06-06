@@ -162,9 +162,9 @@
 			<cfset meas = "#meas#-X">
 		</cfif>
 		<cfif len(#weight#) gt 0>
-			<cfset meas = "#meas#=#weight#">
+			<cfset meas = "#meas#&##8801;#weight#">
 		<cfelse>
-			<cfset meas = "#meas#=X">
+			<cfset meas = "#meas#&##8801;X">
 		</cfif>
 		<cfset meas=replace(meas,"mm","","all")>
 		<cfset meas=replace(meas,"g","","all")>
