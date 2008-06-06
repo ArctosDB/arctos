@@ -199,7 +199,7 @@
 				<cfset thisDate = #verbatim_date#>
 			</cfcatch>
 		</cftry>
-		<cfset dAr[i] = #stripParts#>
+		<cfset pAr[i] = #stripParts#>
 			<cfset i=i+1>
 		</cfloop>
 		<cfset temp=queryAddColumn(d,"locality","VarChar",lAr)>
