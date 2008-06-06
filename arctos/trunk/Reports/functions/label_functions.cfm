@@ -76,14 +76,24 @@
 		
 		<cfset idNum = "">
 		<cfset af = "">
+		<cfset id = "">
+		<cfset lo = "">
 		<cfloop list="#other_ids#" index="val" delimiters=";">
-			<cfif #val# contains "Field Num=">
-				<cfset idNum = "Field##: #replace(val,"Field Num=","")#">
-			</cfif>
-			<cfif #val# contains "AF=">
+			<cfif #val# contains "original identifier=">
+				<cfset id = "Field##: #replace(val,"Field Num=","")#">
+			<cfelseif #val# contains "AF=">
 				<cfset af = "#replace(val,"="," ")#">
+			<cfelse>
+				<cfset lo="#replace(val,"="," ")#">
 			</cfif>
 		</cfloop>
+		<cfif len(af) gt 0>
+			<cfset idNum=af>
+		<cfelseif len(id) gt 0>
+			<cfset idnum=id>
+		<cfelseif len(lo) gt 0>
+			<cfset idnum=lo>
+		</cfif>
 		<cfset idAr[i] = #idNum#>
 				
 		
@@ -163,9 +173,9 @@
 		<cfset stripParts = "">
 		<cfset tiss = "">
 		<cfloop list="#parts#" delimiters=";" index="p">
-			<cfif #p# contains "(frozen)">
+			<cfif #p# contains "(">
 				<cfset tiss="tissues (frozen)">
-			<cfelseif #p# does not contain "ethanol">
+			<cfelse>
 				<cfif len(#stripParts#) is 0>
 					<cfset stripParts = #p#>
 				<cfelse>
