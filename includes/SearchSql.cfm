@@ -616,6 +616,23 @@
 			<cfset mapurl = "#mapurl#&exactAccnNumMatch=#exactAccnNumMatch#">
 		</cfif>
 		
+		<cfif isdefined("accn_list") and len(#accn_list#) gt 0>
+			<cfset mapurl = "#mapurl#&accn_list=#accn_list#">
+			<cfif #basJoin# does not contain " accn ">
+				<cfset basJoin = " #basJoin# INNER JOIN accn ON 
+				(cataloged_item.accn_id = accn.transaction_id)">
+			</cfif>
+			<cfset qal="">
+			<cfloop list="#accn_list#" index="a" delimiters=",">
+				<cfif len(#qal#) is 0>
+					<cfset qal="'#a#'">
+				<cfelse>
+					<cfset qal="#qal#,'#a#'">
+				</cfif>
+			</cfloop>
+			<cfset basQual = " #basQual# AND upper(accn.accn_number) IN (#qal#)'">				
+		</cfif>
+		
 		<cfif isdefined("accn_prefix") and len(#accn_prefix#) gt 0>
 			<cfset mapurl = "#mapurl#&accn_prefix=#accn_prefix#">
 			<cfif #basJoin# does not contain " accn ">

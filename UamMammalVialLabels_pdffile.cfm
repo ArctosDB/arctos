@@ -224,7 +224,6 @@ select
 			</cfif>
 		</cfif>
 		<cfset FieldNum = "">
-		<cfset af = "">
 		<cfloop list="#other_ids#" index="val" delimiters=";">
 			<cfif #val# contains "Field Num=">
 				<cfset FieldNum = "Field##: #replace(val,"Field Num=","")#">
