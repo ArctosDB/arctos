@@ -1,3 +1,4 @@
+<cfinclude template="/includes/_header.cfm">
 <cfif not isdefined("collection_object_id")>
 		<cfabort>
 	</cfif>
