@@ -630,7 +630,7 @@
 					<cfset qal="#qal#,'#a#'">
 				</cfif>
 			</cfloop>
-			<cfset basQual = " #basQual# AND upper(accn.accn_number) IN (#qal#)'">				
+			<cfset basQual = " #basQual# AND upper(accn.accn_number) IN (#ucase(qal)#)">				
 		</cfif>
 		
 		<cfif isdefined("accn_prefix") and len(#accn_prefix#) gt 0>
