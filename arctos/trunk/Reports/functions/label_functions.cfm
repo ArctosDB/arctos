@@ -65,9 +65,9 @@
 		<cfset sexcode = "">
 		<cfif len(#trim(sex)#) gt 0>
 			<cfif #trim(sex)# is "male">
-				<cfset sexcode = "M">
+				<cfset sexcode = "&##9794;">
 			<cfelseif #trim(sex)# is "female">
-				<cfset sexcode = "F">
+				<cfset sexcode = "&##9792;">
 			<cfelse>
 				<cfset sexcode = "?">
 			</cfif>
