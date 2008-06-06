@@ -45,8 +45,10 @@ select
 	<cfset lAr = ArrayNew(1)>
 	<cfset sAr = ArrayNew(1)>
 	<cfset idAr = ArrayNew(1)>
-	<cfset cAr = ArrayNew(1)>	
+	<cfset cAr = ArrayNew(1)>
 	<cfset aAr = ArrayNew(1)>
+	<cfset pAr = ArrayNew(1)>
+	<cfset dAr = ArrayNew(1)>
 	<cfset i=1>
 	<cfloop query="d">
 		<cfset geog = "">
@@ -152,14 +154,10 @@ select
 			
 
 		<cfloop list="#attributes#" index="attind" delimiters=";">
-			attind: #attind#<br>
 			<cfset sPos=find(":",attind)>
-			sPos: #sPos#<br>
 			<cfif sPos gt 0>
 				<cfset att=left(attind,sPos-1)>
-				att: '#att#'<br>
 				<cfset aVal=right(attind,len(attind)-sPos-1)>
-				aVal: #aVal#<br>
 				<cfif #trim(att)# is "total length">
 					<cfset totlen = "#aVal#">
 				<cfelseif #trim(att)# is "tail length">
@@ -200,21 +198,7 @@ select
 		</cfif>
 		<cfset meas=replace(meas,"mm","","all")>
 		<cfset meas=replace(meas,"g","","all")>
-		-----#meas#-------------<br>
 		<cfset aAr[i] = #meas#>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			
 		<cfset stripParts = "">
 		<cfset tiss = "">
@@ -229,13 +213,15 @@ select
 				</cfif>
 			</cfif>
 		</cfloop>
-		<cfset accn = replace(accn_number,".Mamm","","all")>
+		
 		<cfif len(#tiss#) gt 0>
 			<cfset stripParts = "#stripParts#; #tiss#">
 		</cfif>
 		<cfif left(stripParts,2) is "; ">
 			<cfset stripParts = right(stripParts,len(stripParts) - 2)>
 		</cfif>
+		<cfset pAr[i] = #stripParts#>
+	
 		<cfset thisDate = "">
 		<cftry>
 			<cfset thisDate = #dateformat(verbatim_date,"dd mmm yyyy")#>
@@ -243,13 +229,16 @@ select
 				<cfset thisDate = #verbatim_date#>
 			</cfcatch>
 		</cftry>
+		<cfset dAr[i] = #stripParts#>
 			<cfset i=i+1>
 		</cfloop>
 		<cfset temp=queryAddColumn(d,"locality","VarChar",lAr)>
 		<cfset temp=queryAddColumn(d,"sexcode","VarChar",sAr)>
 		<cfset temp=queryAddColumn(d,"idNum","VarChar",idAr)>
 		<cfset temp=queryAddColumn(d,"formatted_collectors","VarChar",cAr)>
-		<cfset temp=queryAddColumn(d,"measurements","VarChar",aAr)>	
+		<cfset temp=queryAddColumn(d,"measurements","VarChar",aAr)>
+		<cfset temp=queryAddColumn(d,"formatted_parts","VarChar",pAr)>	
+		<cfset temp=queryAddColumn(d,"formatted_date","VarChar",dAr)>	
 		<!---
 
 		--->
