@@ -1,10 +1,12 @@
 <cffunction name="format_uam" access="public" returntype="Query">
     <cfargument name="d" required="true" type="query">
-	<cfset gAr = ArrayNew(1)>
+	<cfset lAr = ArrayNew(1)>
 	<cfset sAr = ArrayNew(1)>
 	<cfset idAr = ArrayNew(1)>
-	<cfset cAr = ArrayNew(1)>	
+	<cfset cAr = ArrayNew(1)>
 	<cfset aAr = ArrayNew(1)>
+	<cfset pAr = ArrayNew(1)>
+	<cfset dAr = ArrayNew(1)>
 	<cfset i=1>
 	<cfloop query="d">
 		<cfset geog = "">
@@ -56,7 +58,7 @@
 			</cfif>
 		</cfif>
 		<cfset geog=replace(geog,": , ",": ","all")>
-		<cfset gAr[i] = #geog#>
+		<cfset lAr[i] = #geog#>
 	
 		<cfset sexcode = "">
 		<cfif len(#trim(sex)#) gt 0>
@@ -110,122 +112,51 @@
 			
 
 		<cfloop list="#attributes#" index="attind" delimiters=";">
-			<cfset sPos=find(attind,":")>
-			<cfset att=left(attind,sPos)>
-			<cfset aVal=right(attind,len(attind)-sPos)>
-			
-			<cfif #att# is "total length">
-				<cfset totlen = "#aVal#">
-			</cfif>
-			<cfif #att# is "tail length">
-				<cfset taillen = "#aVal#">
-			</cfif>
-			<cfif #att# is "hind foot with claw">
-				<cfset hf = "#aVal#">
-			</cfif>
-			<cfif #att# is "ear from notch">
-
-				<cfset efn = "#aVal#">
-			</cfif>
-			<cfif #att# is "weight">
-				<cfset weight = "#aVal#">
+			<cfset sPos=find(":",attind)>
+			<cfif sPos gt 0>
+				<cfset att=left(attind,sPos-1)>
+				<cfset aVal=right(attind,len(attind)-sPos-1)>
+				<cfif #trim(att)# is "total length">
+					<cfset totlen = "#aVal#">
+				<cfelseif #trim(att)# is "tail length">
+					<cfset taillen = "#aVal#">
+				<cfelseif #trim(att)# is "hind foot with claw">
+					<cfset hf = "#aVal#">
+				<cfelseif #trim(att)# is "ear from notch">	
+					<cfset efn = "#aVal#">
+				<cfelseif #trim(att)# is "weight">
+					<cfset weight = "#aVal#">
+				</cfif>
 			</cfif>
 		</cfloop>
 		<cfif len(#totlen#) gt 0>
-			<cfif #trim(totlen)# contains " ">
-				<cfset spacePos = find(" ",totlen)>
-				<cfset totlen_val = trim(left(totlen,#spacePos#))>
-				<cfset totlen_Units = trim(right(totlen,len(totlen) - #spacePos#))>
-			</cfif>		
+			<cfset meas = #totlen#>
+		<cfelse>
+			<cfset meas="X">
 		</cfif>
 		<cfif len(#taillen#) gt 0>
-			<cfif #trim(taillen)# contains " ">
-				<cfset spacePos = find(" ",taillen)>
-				<cfset taillen_val = trim(left(taillen,#spacePos#))>
-				<cfset taillen_Units = trim(right(taillen,len(taillen) - #spacePos#))>
-			</cfif>		
+			<cfset meas = "#meas#-#taillen#">
+		<cfelse>
+			<cfset meas = "#meas#-X">
 		</cfif>
 		<cfif len(#hf#) gt 0>
-			<cfif #trim(hf)# contains " ">
-				<cfset spacePos = find(" ",hf)>
-				<cfset hf_val = trim(left(hf,#spacePos#))>
-				<cfset hf_Units = trim(right(hf,len(hf) - #spacePos#))>
-			</cfif>		
+			<cfset meas = "#meas#-#hf#">
+		<cfelse>
+			<cfset meas = "#meas#-X">
 		</cfif>
 		<cfif len(#efn#) gt 0>
-			<cfif trim(#efn#) contains " ">
-				<cfset spacePos = find(" ",efn)>
-				<cfset efn_val = trim(left(efn,#spacePos#))>
-				<cfset efn_Units = trim(right(efn,len(efn) - #spacePos#))>
-			</cfif>		
+			<cfset meas = "#meas#-#efn#">
+		<cfelse>
+			<cfset meas = "#meas#-X">
 		</cfif>
 		<cfif len(#weight#) gt 0>
-			<cfif trim(#weight#) contains " ">
-				<cfset spacePos = find(" ",weight)>
-				<cfset weight_val = trim(left(weight,#spacePos#))>
-				<cfset weight_Units = trim(right(weight,len(weight) - #spacePos#))>
-			</cfif>		
+			<cfset meas = "#meas#=#weight#">
+		<cfelse>
+			<cfset meas = "#meas#=X">
 		</cfif>
-		
-			<cfif len(#totlen#) gt 0>
-				<cfif #totlen_Units# is "mm">
-					<cfset meas = "#totlen_val#-">
-				<cfelse>
-					<cfset meas = "#totlen_val# #totlen_units#-">
-				</cfif>
-			<cfelse>
-				<cfset meas="X-">
-			</cfif>
-			
-			<cfif len(#taillen#) gt 0>
-				<cfif #taillen_Units# is "mm">
-					<cfset meas = "#meas##taillen_val#-">
-				<cfelse>
-					<cfset meas = "#meas##taillen_val# #taillen_Units#-">
-				</cfif>
-			<cfelse>
-				<cfset meas="#meas#X-">
-			</cfif>
-			
-			<cfif len(#hf#) gt 0>
-				<cfif #hf_Units# is "mm">
-					<cfset meas = "#meas##hf_val#-">
-				<cfelse>
-					<cfset meas = "#meas##hf_val# #hf_Units#-">
-				</cfif>
-			<cfelse>
-				<cfset meas="#meas#X-">
-			</cfif>
-	
-			<cfif len(#efn#) gt 0>
-				<cfif #efn_Units# is "mm">
-					<cfset meas = "#meas##efn_val#=">
-				<cfelse>
-					<cfset meas = "#meas##efn_val# #efn_Units#=">
-				</cfif>
-			<cfelse>
-				<cfset meas="#meas#X=">
-			</cfif>
-			
-			<cfif len(#weight#) gt 0>
-				<cfset meas = "#meas##weight_val# #weight_Units#">
-			<cfelse>
-				<cfset meas="#meas#X">
-			</cfif>
-			<cfset aAr[i] = #meas#>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+		<cfset meas=replace(meas,"mm","","all")>
+		<cfset meas=replace(meas,"g","","all")>
+		<cfset aAr[i] = #meas#>
 			
 		<cfset stripParts = "">
 		<cfset tiss = "">
@@ -240,13 +171,15 @@
 				</cfif>
 			</cfif>
 		</cfloop>
-		<cfset accn = replace(accn_number,".Mamm","","all")>
+		
 		<cfif len(#tiss#) gt 0>
 			<cfset stripParts = "#stripParts#; #tiss#">
 		</cfif>
 		<cfif left(stripParts,2) is "; ">
 			<cfset stripParts = right(stripParts,len(stripParts) - 2)>
 		</cfif>
+		<cfset pAr[i] = #stripParts#>
+	
 		<cfset thisDate = "">
 		<cftry>
 			<cfset thisDate = #dateformat(verbatim_date,"dd mmm yyyy")#>
@@ -254,12 +187,16 @@
 				<cfset thisDate = #verbatim_date#>
 			</cfcatch>
 		</cftry>
+		<cfset dAr[i] = #stripParts#>
 			<cfset i=i+1>
 		</cfloop>
 		<cfset temp=queryAddColumn(d,"locality","VarChar",lAr)>
 		<cfset temp=queryAddColumn(d,"sexcode","VarChar",sAr)>
 		<cfset temp=queryAddColumn(d,"idNum","VarChar",idAr)>
-		<cfset temp=queryAddColumn(d,"collectors","VarChar",cAr)>		
+		<cfset temp=queryAddColumn(d,"formatted_collectors","VarChar",cAr)>
+		<cfset temp=queryAddColumn(d,"measurements","VarChar",aAr)>
+		<cfset temp=queryAddColumn(d,"formatted_parts","VarChar",pAr)>	
+		<cfset temp=queryAddColumn(d,"formatted_date","VarChar",dAr)>		
 
 	 <cfreturn d>
 </cffunction>
