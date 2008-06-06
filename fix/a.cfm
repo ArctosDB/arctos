@@ -199,6 +199,7 @@ select
 			<cfset meas = "#meas#=X">
 		</cfif>
 		<cfset meas=replace(meas,"mm","","all")>
+		<cfset meas=replace(meas,"g","","all")>
 		-----#meas#-------------<br>
 		<cfset aAr[i] = #meas#>
 			
@@ -250,6 +251,7 @@ select
 		<cfset temp=queryAddColumn(d,"formatted_collectors","VarChar",cAr)>
 		<cfset temp=queryAddColumn(d,"measurements","VarChar",aAr)>	
 		<!---
-		<cfdump var=#d#>
+
 		--->
+				<cfdump var=#d#>
 		</cfoutput>
