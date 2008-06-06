@@ -160,7 +160,7 @@ select
 				att: #att#<br>
 				<cfset aVal=right(attind,len(attind)-sPos-1)>
 				aVal: #aVal#<br>
-				<cfif #att# is "total length">
+				<cfif #att# c "total length">
 					<cfset totlen = "#aVal#">
 				</cfif>
 				<cfif #att# is "tail length">
@@ -169,8 +169,7 @@ select
 				<cfif #att# is "hind foot with claw">
 					<cfset hf = "#aVal#">
 				</cfif>
-				<cfif #att# is "ear from notch">
-	
+				<cfif #att# is "ear from notch">	
 					<cfset efn = "#aVal#">
 				</cfif>
 				<cfif #att# is "weight">
@@ -179,86 +178,31 @@ select
 			</cfif>
 		</cfloop>
 		<cfif len(#totlen#) gt 0>
-			<cfif #trim(totlen)# contains " ">
-				<cfset spacePos = find(" ",totlen)>
-				<cfset totlen_val = trim(left(totlen,#spacePos#))>
-				<cfset totlen_Units = trim(right(totlen,len(totlen) - #spacePos#))>
-			</cfif>		
+			<cfset meas = #totlen#>
+		<cfelse>
+			<cfset meas="X">
 		</cfif>
 		<cfif len(#taillen#) gt 0>
-			<cfif #trim(taillen)# contains " ">
-				<cfset spacePos = find(" ",taillen)>
-				<cfset taillen_val = trim(left(taillen,#spacePos#))>
-				<cfset taillen_Units = trim(right(taillen,len(taillen) - #spacePos#))>
-			</cfif>		
+			<cfset meas = "#meas#-#taillen#">
+		<cfelse>
+			<cfset meas = "#meas#-X">
 		</cfif>
 		<cfif len(#hf#) gt 0>
-			<cfif #trim(hf)# contains " ">
-				<cfset spacePos = find(" ",hf)>
-				<cfset hf_val = trim(left(hf,#spacePos#))>
-				<cfset hf_Units = trim(right(hf,len(hf) - #spacePos#))>
-			</cfif>		
+			<cfset meas = "#meas#-#hf#">
+		<cfelse>
+			<cfset meas = "#meas#-X">
 		</cfif>
 		<cfif len(#efn#) gt 0>
-			<cfif trim(#efn#) contains " ">
-				<cfset spacePos = find(" ",efn)>
-				<cfset efn_val = trim(left(efn,#spacePos#))>
-				<cfset efn_Units = trim(right(efn,len(efn) - #spacePos#))>
-			</cfif>		
+			<cfset meas = "#meas#-#efn#">
+		<cfelse>
+			<cfset meas = "#meas#-X">
 		</cfif>
 		<cfif len(#weight#) gt 0>
-			<cfif trim(#weight#) contains " ">
-				<cfset spacePos = find(" ",weight)>
-				<cfset weight_val = trim(left(weight,#spacePos#))>
-				<cfset weight_Units = trim(right(weight,len(weight) - #spacePos#))>
-			</cfif>		
+			<cfset meas = "#meas#=#weight#">
+		<cfelse>
+			<cfset meas = "#meas#=X">
 		</cfif>
-		
-			<cfif len(#totlen#) gt 0>
-				<cfif #totlen_Units# is "mm">
-					<cfset meas = "#totlen_val#-">
-				<cfelse>
-					<cfset meas = "#totlen_val# #totlen_units#-">
-				</cfif>
-			<cfelse>
-				<cfset meas="X-">
-			</cfif>
-			
-			<cfif len(#taillen#) gt 0>
-				<cfif #taillen_Units# is "mm">
-					<cfset meas = "#meas##taillen_val#-">
-				<cfelse>
-					<cfset meas = "#meas##taillen_val# #taillen_Units#-">
-				</cfif>
-			<cfelse>
-				<cfset meas="#meas#X-">
-			</cfif>
-			
-			<cfif len(#hf#) gt 0>
-				<cfif #hf_Units# is "mm">
-					<cfset meas = "#meas##hf_val#-">
-				<cfelse>
-					<cfset meas = "#meas##hf_val# #hf_Units#-">
-				</cfif>
-			<cfelse>
-				<cfset meas="#meas#X-">
-			</cfif>
-	
-			<cfif len(#efn#) gt 0>
-				<cfif #efn_Units# is "mm">
-					<cfset meas = "#meas##efn_val#=">
-				<cfelse>
-					<cfset meas = "#meas##efn_val# #efn_Units#=">
-				</cfif>
-			<cfelse>
-				<cfset meas="#meas#X=">
-			</cfif>
-			
-			<cfif len(#weight#) gt 0>
-				<cfset meas = "#meas##weight_val# #weight_Units#">
-			<cfelse>
-				<cfset meas="#meas#X">
-			</cfif>
+		<cfset meas=replace(meas,"mm","","all")>
 			<cfset aAr[i] = #meas#>
 			
 			
