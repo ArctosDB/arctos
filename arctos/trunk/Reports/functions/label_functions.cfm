@@ -65,9 +65,9 @@
 		<cfset sexcode = "">
 		<cfif len(#trim(sex)#) gt 0>
 			<cfif #trim(sex)# is "male">
-				<cfset sexcode = "&##9794;">
+				<cfset sexcode = "M">
 			<cfelseif #trim(sex)# is "female">
-				<cfset sexcode = "&##9792;">
+				<cfset sexcode = "F">
 			<cfelse>
 				<cfset sexcode = "?">
 			</cfif>
@@ -162,9 +162,9 @@
 			<cfset meas = "#meas#-X">
 		</cfif>
 		<cfif len(#weight#) gt 0>
-			<cfset meas = "#meas#&##8801;#weight#">
+			<cfset meas = "#meas#=#weight#">
 		<cfelse>
-			<cfset meas = "#meas#&##8801;X">
+			<cfset meas = "#meas#=X">
 		</cfif>
 		<cfset meas=replace(meas,"mm","","all")>
 		<cfset meas=replace(meas,"g","","all")>
@@ -232,9 +232,9 @@
        <cfset sexcode = "">
 		<cfif len(#trim(sex)#) gt 0>
 			<cfif #trim(sex)# is "male">
-				<cfset sexcode = "&##9794;">
+				<cfset sexcode = "M">
 			<cfelseif #trim(sex)# is "female">
-				<cfset sexcode = "&##9792;">
+				<cfset sexcode = "F">
 			<cfelse>
 				<cfset sexcode = "?">
 			</cfif>
