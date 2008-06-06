@@ -519,10 +519,10 @@ If your item needs to be sorted in a special way, then do that here. --->
 </form>
 
 <div id="resultsGoHere"></div>
-<script>
+<script language="javascript" type="text/javascript">
 	getSpecResultsData(1,#client.displayrows#);
 </script>
-<script>
+<script language="javascript" type="text/javascript">
 	function reporter() {
 
 	var f=document.getElementById('goWhere').value;
