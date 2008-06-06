@@ -191,7 +191,6 @@
 			<cfset stripParts = right(stripParts,len(stripParts) - 2)>
 		</cfif>
 		<cfset pAr[i] = #stripParts#>
-	
 		<cfset thisDate = "">
 		<cftry>
 			<cfset thisDate = #dateformat(verbatim_date,"dd mmm yyyy")#>
@@ -199,7 +198,8 @@
 				<cfset thisDate = #verbatim_date#>
 			</cfcatch>
 		</cftry>
-		<cfset pAr[i] = #stripParts#>
+		<cfset dAr[i] = thisDate>
+
 			<cfset i=i+1>
 		</cfloop>
 		<cfset temp=queryAddColumn(d,"locality","VarChar",lAr)>
@@ -270,12 +270,12 @@
 		</cfif>
 		<cfset lAr[i] = #locality#>
 		<cftry>
-			<cfset dAr[i] = #dateformat(verbatim_date,"dd mmmm yyyy")#>
+			<cfset fd = #dateformat(verbatim_date,"dd mmmm yyyy")#>
 			<cfcatch>
-				<cfset dAr[i] = #verbatim_date#>
+				<cfset fd = #verbatim_date#>
 			</cfcatch>
 		</cftry>
-		
+		<cfset dAr[i] = fd>
 		<cfset i=i+1>
 		
 	</cfloop>
