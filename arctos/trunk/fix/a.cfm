@@ -1,3 +1,4 @@
+<cfoutput>
 <cfquery name="d" datasource="#Application.web_user#">
 select
 			cataloged_item.collection_object_id,
@@ -304,3 +305,5 @@ select
 		<cfset temp=queryAddColumn(d,"collectors","VarChar",cAr)>	
 		
 		<cfdump var=#d#>
+		
+		</cfoutput>
