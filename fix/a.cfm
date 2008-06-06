@@ -156,7 +156,7 @@ select
 			<cfset sPos=find(":",attind)>
 			sPos: #sPos#<br>
 			<cfif sPos gt 0>
-				<cfset att=left(attind,sPos)>
+				<cfset att=left(attind,sPos-1)>
 				att: #att#<br>
 				<cfset aVal=right(attind,len(attind)-sPos-1)>
 				aVal: #aVal#<br>
