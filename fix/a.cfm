@@ -42,7 +42,7 @@ select
 		<cfdump var=#d#>
 
 --->
-<cfset gAr = ArrayNew(1)>
+	<cfset lAr = ArrayNew(1)>
 	<cfset sAr = ArrayNew(1)>
 	<cfset idAr = ArrayNew(1)>
 	<cfset cAr = ArrayNew(1)>	
@@ -98,7 +98,7 @@ select
 			</cfif>
 		</cfif>
 		<cfset geog=replace(geog,": , ",": ","all")>
-		<cfset gAr[i] = #geog#>
+		<cfset lAr[i] = #geog#>
 	
 		<cfset sexcode = "">
 		<cfif len(#trim(sex)#) gt 0>
@@ -203,7 +203,7 @@ select
 			<cfset meas = "#meas#=X">
 		</cfif>
 		<cfset meas=replace(meas,"mm","","all")>
-			<cfset aAr[i] = #meas#>
+		<cfset aAr[i] = #meas#>
 			
 			
 			
@@ -250,7 +250,8 @@ select
 		<cfset temp=queryAddColumn(d,"locality","VarChar",lAr)>
 		<cfset temp=queryAddColumn(d,"sexcode","VarChar",sAr)>
 		<cfset temp=queryAddColumn(d,"idNum","VarChar",idAr)>
-		<cfset temp=queryAddColumn(d,"collectors","VarChar",cAr)>	
+		<cfset temp=queryAddColumn(d,"collectors","VarChar",cAr)>
+		<cfset temp=queryAddColumn(d,"measurements","VarChar",aAr)>	
 		
 		<cfdump var=#d#>
 		
