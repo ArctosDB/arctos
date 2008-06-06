@@ -158,7 +158,7 @@ select
 			<cfif sPos gt 0>
 				<cfset att=left(attind,sPos)>
 				att: #att#<br>
-				<cfset aVal=right(attind,len(attind)-sPos)>
+				<cfset aVal=right(attind,len(attind)-sPos-1)>
 				aVal: #aVal#<br>
 				<cfif #att# is "total length">
 					<cfset totlen = "#aVal#">
