@@ -80,7 +80,7 @@
 		<cfset lo = "">
 		<cfloop list="#other_ids#" index="val" delimiters=";">
 			<cfif #val# contains "original identifier=">
-				<cfset id = "Field##: #replace(val,"Field Num=","")#">
+				<cfset id = "Field##: #replace(val,"original identifier=","")#">
 			<cfelseif #val# contains "AF=">
 				<cfset af = "#replace(val,"="," ")#">
 			<cfelse>
