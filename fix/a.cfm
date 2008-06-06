@@ -154,9 +154,11 @@ select
 		<cfloop list="#attributes#" index="attind" delimiters=";">
 			attind: #attind#<br>
 			<cfset sPos=find(attind,":")>
+			sPos: #sPos#<br>
 			<cfset att=left(attind,sPos)>
+			att: #att#<br>
 			<cfset aVal=right(attind,len(attind)-sPos)>
-			
+			aVal: #aVal#<br>
 			<cfif #att# is "total length">
 				<cfset totlen = "#aVal#">
 			</cfif>
