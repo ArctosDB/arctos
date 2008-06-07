@@ -1,4 +1,4 @@
-<cffunction name="format_uam" access="public" returntype="Query">
+<cffunction name="format_uam_box" access="public" returntype="Query">
     <cfargument name="d" required="true" type="query">
 	<cfset lAr = ArrayNew(1)>
 	<cfset sAr = ArrayNew(1)>
@@ -25,6 +25,221 @@
 						<cfset geog = "#geog#, #quad# Quad">
 					</cfif>
 			</cfif>
+		<cfif len(#feature#) gt 0>
+				<cfset geog = "#geog#, #feature#">
+			</cfif>
+			<cfif len(#spec_locality#) gt 0>
+				<cfset geog = "#geog#; #spec_locality#">
+			</cfif>
+		<cfelse>
+		  	<cfif len(#country#) gt 0>
+				<cfif #country# is "United States">
+					<cfset geog = "USA: ">
+				</cfif>
+				<cfset geog = "#country#: ">
+			</cfif>
+			<cfif len(#sea#) gt 0>
+				<cfset geog = "#geog#, #sea#">
+			</cfif>
+			<cfif len(#state_prov#) gt 0>
+				<cfset geog = "#geog#, #state_prov#">
+			</cfif>
+			<cfif len(#island#) gt 0>
+				<cfset geog = "#geog#, #island#">
+			</cfif>
+			<cfif len(#quad#) gt 0>
+				<cfset geog = "#geog#, #quad# Quad">
+			</cfif>
+			<cfif len(#feature#) gt 0>
+				<cfset geog = "#geog#, #feature#">
+			</cfif>
+			<cfif len(#spec_locality#) gt 0>
+				<cfset geog = "#geog#; #spec_locality#">
+			</cfif>
+		</cfif>
+		<cfset geog=replace(geog,": , ",": ","all")>
+		<cfset lAr[i] = #geog#>
+	
+		<cfset sexcode = "">
+		<cfif len(#trim(sex)#) gt 0>
+			<cfif #trim(sex)# is "male">
+				<cfset sexcode = "M">
+			<cfelseif #trim(sex)# is "female">
+				<cfset sexcode = "F">
+			<cfelse>
+				<cfset sexcode = "?">
+			</cfif>
+		</cfif>
+		<cfset sAr[i] = #sexcode#>
+		
+		<cfset idNum = "">
+		<cfset af = "">
+		<cfset id = "">
+		<cfset lo = "">
+		<cfloop list="#other_ids#" index="val" delimiters=";">
+			<cfif #val# contains "original identifier=">
+				<cfset id = "Field##: #replace(val,"original identifier=","")#">
+			<cfelseif #val# contains "AF=">
+				<cfset af = "#replace(val,"="," ")#">
+			<cfelse>
+				<cfset lo="#replace(val,"="," ")#">
+			</cfif>
+		</cfloop>
+		<cfif len(af) gt 0>
+			<cfset idNum=af>
+		<cfelseif len(id) gt 0>
+			<cfset idnum=id>
+		<cfelseif len(lo) gt 0>
+			<cfset idnum=lo>
+		</cfif>
+		<cfset idAr[i] = #idNum#>
+				
+		
+		<cfif #collectors# contains ",">
+			<Cfset spacePos = find(",",collectors)>
+			<cfset thisColl = left(collectors,#SpacePos# - 1)>
+			<cfset thisColl = "#thisColl# et al.">
+		<cfelse>
+			<cfset thisColl = #collectors#>
+		</cfif>
+		<cfset cAr[i] = #collectors#>
+		
+		<cfset totlen = "">
+		<cfset taillen = "">
+		<cfset hf = "">
+		<cfset efn = "">
+		<cfset weight = "">
+		<cfset totlen_val = "">
+		<cfset taillen_val = "">
+		<cfset hf_val = "">
+		<cfset efn_val = "">
+		<cfset weight_val = "">
+		<cfset totlen_units = "">
+		<cfset taillen_units = "">
+		<cfset hf_units = "">
+		<cfset efn_units = "">
+		<cfset weight_units = "">
+			
+
+		<cfloop list="#attributes#" index="attind" delimiters=";">
+			<cfset sPos=find(":",attind)>
+			<cfif sPos gt 0>
+				<cfset att=left(attind,sPos-1)>
+				<cfset aVal=right(attind,len(attind)-sPos-1)>
+				<cfif #trim(att)# is "total length">
+					<cfset totlen = "#aVal#">
+				<cfelseif #trim(att)# is "tail length">
+					<cfset taillen = "#aVal#">
+				<cfelseif #trim(att)# is "hind foot with claw">
+					<cfset hf = "#aVal#">
+				<cfelseif #trim(att)# is "ear from notch">	
+					<cfset efn = "#aVal#">
+				<cfelseif #trim(att)# is "weight">
+					<cfset weight = "#aVal#">
+				</cfif>
+			</cfif>
+		</cfloop>
+		<cfif len(#totlen#) gt 0>
+			<cfset meas = #totlen#>
+		<cfelse>
+			<cfset meas="X">
+		</cfif>
+		<cfif len(#taillen#) gt 0>
+			<cfset meas = "#meas#-#taillen#">
+		<cfelse>
+			<cfset meas = "#meas#-X">
+		</cfif>
+		<cfif len(#hf#) gt 0>
+			<cfset meas = "#meas#-#hf#">
+		<cfelse>
+			<cfset meas = "#meas#-X">
+		</cfif>
+		<cfif len(#efn#) gt 0>
+			<cfset meas = "#meas#-#efn#">
+		<cfelse>
+			<cfset meas = "#meas#-X">
+		</cfif>
+		<cfif len(#weight#) gt 0>
+			<cfset meas = "#meas#=#weight#">
+		<cfelse>
+			<cfset meas = "#meas#=X">
+		</cfif>
+		<cfset meas=replace(meas,"mm","","all")>
+		<cfset meas=replace(meas,"g","","all")>
+		<cfset aAr[i] = #meas#>
+			
+		<cfset stripParts = "">
+		<cfset tiss = "">
+		<cfloop list="#parts#" delimiters=";" index="p">
+			<cfif #p# contains "(">
+				<cfset tiss="tissues (frozen)">
+			<cfelse>
+				<cfif len(#stripParts#) is 0>
+					<cfset stripParts = #p#>
+				<cfelse>
+					<cfset stripParts = "#stripParts#; #p#">
+				</cfif>
+			</cfif>
+		</cfloop>
+		
+		<cfif len(#tiss#) gt 0>
+			<cfset stripParts = "#stripParts#; #tiss#">
+		</cfif>
+		<cfif left(stripParts,2) is "; ">
+			<cfset stripParts = right(stripParts,len(stripParts) - 2)>
+		</cfif>
+		<cfset pAr[i] = #stripParts#>
+		<cfset thisDate = "">
+		<cftry>
+			<cfset thisDate = #dateformat(verbatim_date,"dd mmm yyyy")#>
+			<cfcatch>
+				<cfset thisDate = #verbatim_date#>
+			</cfcatch>
+		</cftry>
+		<cfset dAr[i] = thisDate>
+
+			<cfset i=i+1>
+		</cfloop>
+		<cfset temp=queryAddColumn(d,"locality","VarChar",lAr)>
+		<cfset temp=queryAddColumn(d,"sexcode","VarChar",sAr)>
+		<cfset temp=queryAddColumn(d,"idNum","VarChar",idAr)>
+		<cfset temp=queryAddColumn(d,"formatted_collectors","VarChar",cAr)>
+		<cfset temp=queryAddColumn(d,"measurements","VarChar",aAr)>
+		<cfset temp=queryAddColumn(d,"formatted_parts","VarChar",pAr)>	
+		<cfset temp=queryAddColumn(d,"formatted_date","VarChar",dAr)>		
+
+	 <cfreturn d>
+</cffunction>
+
+<cffunction name="format_uam_vial" access="public" returntype="Query">
+    <cfargument name="d" required="true" type="query">
+	<cfset lAr = ArrayNew(1)>
+	<cfset sAr = ArrayNew(1)>
+	<cfset idAr = ArrayNew(1)>
+	<cfset cAr = ArrayNew(1)>
+	<cfset aAr = ArrayNew(1)>
+	<cfset pAr = ArrayNew(1)>
+	<cfset dAr = ArrayNew(1)>
+	<cfset i=1>
+	<cfloop query="d">
+		<cfset geog = "">
+		<cfif #state_prov# is "Alaska">
+			<cfset geog = "USA: Alaska">
+			<cfif len(#island#) gt 0>
+				<cfset geog = "#geog#, #island#">
+			</cfif>
+			<cfif len(#sea#) gt 0>
+				<cfif len(#quad#) is 0>
+					<cfset geog = "#geog#, #sea#">
+				</cfif>
+			</cfif>
+			<!---
+			<cfif len(#quad#) gt 0>
+					<cfif not #geog# contains " Quad">
+						<cfset geog = "#geog#, #quad# Quad">
+					</cfif>
+			</cfif>
+			---->
 			<cfif len(#feature#) gt 0>
 				<cfset geog = "#geog#, #feature#">
 			</cfif>
