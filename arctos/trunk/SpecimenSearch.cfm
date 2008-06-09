@@ -315,7 +315,7 @@
 				<hr>
 				#valuelist(Part.part_name)#
 				<hr>
-				<cfinput type="text" autosuggest="#valuelist(Part.part_name)#" name="partnametest">
+				<cfinput type="text" autosuggest="#valuelist(Part.part_name)#" name="partname">
 				
 				<cfinput type="text" 
     autosuggest="Alabama,Alaska,Arkansas,Arizona,Maryland,Minnesota,Missouri"
