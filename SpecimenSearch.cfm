@@ -315,7 +315,7 @@
 				<hr>
 				#valuelist(Part.part_name)#
 				<hr>
-				<cfinput type="text" autosuggest="#valuelist(Part.part_name)#" name="part_name">
+				<cfinput type="text" autosuggest="DNA,antler,astragulus,auditory bulla,baculum,baleen plate,blood,blood plasma,blood serum,blood serum, muscle,blubber,body mount,bone marrow,brain,bulla,calcaneum,carcass,carpal,cestode,claw,coccidia,cranium,dentary,diaphragm,ear clip,ectoparasite(s),egg,egg case,egg contents,egg shell,embryo,endoparasite(s),eye,fat,feather,feces,femur,fibula,foot,forelimb,frontal bone,gastrointestinal tract,gonads,hair,hard palate,head,head mount,heart,heart, kidney,heart, kidney, liver,heart, kidney, liver, lung, spleen,heart, kidney, liver, spleen,heart, kidney, lung,heart, kidney, lung, spleen,heart, kidney, spleen,heart, liver,heart, liver, muscle,heart, lung,heart, lung, spleen,heart, muscle,hindquarters,horn,humerus,hyoid,innominate,interparietal bone,intestine,karyotype,kidney,kidney, liver,kidney, liver, spleen,kidney, muscle,leg bones,liver,liver, muscle,lung,lymph node(s),mammary tissue,mandible,marrow,maxilla,metacarpal,metatarsal,muscle,muscle, eye,muscle, spleen,nematode,nematode(s),nest,observation,oral swab,ovary,pelvis,penis,periosteum,photograph,placenta,podials,postcranial skeleton,radius,reproductive tract,rib,rostrum,sacrum,scapula,serum,skeleton,skin,skull,spleen,spleen, lung,sternum,stomach,tail,tarsal,testis,tibia,tissue,tissues,tissues only,toe clip,tooth,trematode(s),ulna,umbilical cord,unknown,uterus,vertebra,vibrissa,viscera,whole organism,wing,zygomatic arch" name="part_name">
 				
 				<cfinput type="text" 
     autosuggest="Alabama,Alaska,Arkansas,Arizona,Maryland,Minnesota,Missouri"
