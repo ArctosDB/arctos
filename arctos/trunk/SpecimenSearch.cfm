@@ -8,10 +8,10 @@
 <cfoutput>
 <cfquery name="getCount" datasource="#Application.web_user#">
 	select count(collection_object_id) as cnt from cataloged_item
-	<cfif len(#session.exclusive_collection_id#) gt 0>
+	<cfif len(#session.session.exclusive_collection_id#) gt 0>
 		,collection
 		WHERE cataloged_item.collection_id = collection.collection_id AND
-		cataloged_item.collection_id = #exclusive_collection_id#
+		cataloged_item.collection_id = #session.exclusive_collection_id#
 	</cfif>
 </cfquery>
 <cfquery name="hasCanned" datasource="#Application.web_user#">
@@ -28,11 +28,11 @@
 	<tr>
 		<td>
 			Access to #getCount.cnt#
-			<cfif len(#exclusive_collection_id#) gt 0>
+			<cfif len(#session.exclusive_collection_id#) gt 0>
 				<cfquery name="coll" datasource="#Application.web_user#">
 					select collection
 					from collection where
-					collection_id=#exclusive_collection_id#
+					collection_id=#session.exclusive_collection_id#
 				</cfquery>
 				<strong>#coll.collection#</strong>
 			records. <a href="searchAll.cfm">Search all collections</a>.
@@ -142,8 +142,8 @@
 <div class="secDiv">
 	<cfquery name="ctInst" datasource="#Application.web_user#">
 		SELECT institution_acronym, collection, collection_id FROM collection
-		<cfif len(#exclusive_collection_id#) gt 0>
-			WHERE collection_id = #exclusive_collection_id#
+		<cfif len(#session.exclusive_collection_id#) gt 0>
+			WHERE collection_id = #session.exclusive_collection_id#
 		</cfif>
 		order by collection
 	</cfquery>
@@ -168,7 +168,7 @@
 			</td>
 			<td class="srch">
 				<select name="collection_id" size="1">
-					<cfif len(#exclusive_collection_id#) is 0>
+					<cfif len(#session.exclusive_collection_id#) is 0>
 						<option value="">All</option>
 					</cfif>
 					<cfloop query="ctInst">
@@ -295,7 +295,7 @@
 </div>
 <cfquery name="Part" datasource="#Application.web_user#">
 	select part_name from 
-		<cfif len(#exclusive_collection_id#) gt 0>cctspecimen_part_name#exclusive_collection_id#<cfelse>ctspecimen_part_name</cfif>
+		<cfif len(#session.exclusive_collection_id#) gt 0>cctspecimen_part_name#session.exclusive_collection_id#<cfelse>ctspecimen_part_name</cfif>
 		group by part_name order by part_name
 </cfquery>
 <div class="secDiv">
