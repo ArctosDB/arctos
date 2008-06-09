@@ -76,7 +76,7 @@
 
 
 	
-<form method="post" action="SpecimenResults.cfm" name="SpecData">
+<cfform method="post" action="SpecimenResults.cfm" name="SpecData">
 
 <table border="0">
 	<tr>
@@ -312,7 +312,9 @@
 				<span class="helpLink" id="part_name">Part:</span>
 			</td>
 			<td class="srch">
+				
 				<input type="text" name="part_name" id="tpart_name" size="50">
+				<cfinput type="text" autosuggest="#Part#">
 				<!----
 				<span onclick="multi('part_name')">m</span>
 				<span onclick="singl('part_name')">s</span>
@@ -442,7 +444,7 @@
 	<input type="hidden" name="transaction_id" value="#transaction_id#">
 </cfif>
 <input type="hidden" name="newQuery" value="1"><!--- pass this to the next form so we clear the cache and run the proper queries--->
-</form>
+</cfform>
 </cfoutput> 
 <script type='text/javascript' language='javascript'>
 	var tval = document.getElementById('tgtForm').value;
