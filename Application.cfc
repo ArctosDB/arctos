@@ -47,13 +47,14 @@
 			<hr>
 			<cfdump var="#CGI#" label="CGI">
 		</cfsavecontent>
-		<cfif isdefined("session.username") and #session.username# is "fselm10" or
+		<cfif isdefined("session.username") and 
+			(#session.username# is "fselm10" or
 			#session.username# is "brandy" or
 			#session.username# is "dlm" or
 			#session.username# is "sumy" or
 			#session.username# is "Rhiannon" or
 			#session.username# is "dusty" or
-				#session.username# is "dkt">
+				#session.username# is "dkt")>
 			<cfoutput>
 				#errortext#
 			</cfoutput>		
