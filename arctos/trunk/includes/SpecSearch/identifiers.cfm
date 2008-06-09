@@ -1,7 +1,7 @@
 <script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>	
 <table id="t_identifiers" class="ssrch">	
-	<cfif len(#exclusive_collection_id#) gt 0>
-		<cfset oidTable = "cCTCOLL_OTHER_ID_TYPE#exclusive_collection_id#">
+	<cfif len(#session.exclusive_collection_id#) gt 0>
+		<cfset oidTable = "cCTCOLL_OTHER_ID_TYPE#session.exclusive_collection_id#">
 	<cfelse>
 		<cfset oidTable = "CTCOLL_OTHER_ID_TYPE">
 	</cfif>
