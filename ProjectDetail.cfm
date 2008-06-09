@@ -134,15 +134,15 @@
 				<blockquote>
 				<cfoutput query="pubJour">
 					<p>#formatted_publication#<br>
-					<a href="PublicationResults.cfm?publication_id=#publication_id#" target="#client.target#">More Information</a>
+					<a href="PublicationResults.cfm?publication_id=#publication_id#" target="#session.target#">More Information</a>
 				</cfoutput>
 				<cfoutput query="pubBook">
 					<p>#formatted_publication#<br>
-					<a href="PublicationResults.cfm?publication_id=#publication_id#" target="#client.target#">More Information</a>
+					<a href="PublicationResults.cfm?publication_id=#publication_id#" target="#session.target#">More Information</a>
 				</cfoutput>
 				<cfoutput query="pubBookSec">
 					<p>#formatted_publication#<br>
-					<a href="PublicationResults.cfm?publication_id=#publication_id#" target="#client.target#">More Information</a>
+					<a href="PublicationResults.cfm?publication_id=#publication_id#" target="#session.target#">More Information</a>
 				</cfoutput>
 				</blockquote>
 		</cfif>
@@ -173,7 +173,7 @@
 				Click the title to open that project in a new window.<br>
 			<ul>
 			<cfoutput query="getUsers" group="project_id">
-				<li><a href="ProjectDetail.cfm?project_id=#project_id#" target="#client.target#">#project_name#</a></li>
+				<li><a href="ProjectDetail.cfm?project_id=#project_id#" target="#session.target#">#project_name#</a></li>
 			</cfoutput>
 			</ul>
 		</cfif>
@@ -250,7 +250,7 @@
 		<cfoutput>
 			<cfif #numItems# gt 0>
 				This project used <cfoutput>#numItems#</cfoutput> specimens. 
-				<form action="SpecimenResults.cfm" method="post"  target="#client.target#">
+				<form action="SpecimenResults.cfm" method="post"  target="#session.target#">
 				<input type="submit" value="View Specimen Details" class="lnkBtn"
    onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
    
@@ -329,7 +329,7 @@
 				project.project_id = #project_id#
 		</cfquery>
 			<cfif getContSpecs.recordcount gt 0>
-				<cfif client.target is "_blank">
+				<cfif session.target is "_blank">
 					<cfoutput>
 						<script>
 							nw = window.open("SpecimenResults.cfm?project_id=#project_id#","_blank") ;

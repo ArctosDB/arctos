@@ -6,7 +6,7 @@
 		cf_user_loan,cf_users where
 		cf_user_loan.user_id=cf_users.user_id and
 		IS_ACTIVE=1
-		and username='#client.username#'
+		and username='#session.username#'
 	</cfquery>
 	<cfif len(#active_loan_id.USER_LOAN_ID#) is 0>
 		You don't have an active loan!

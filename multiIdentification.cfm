@@ -203,7 +203,7 @@
 	 SELECT 
 	 	cataloged_item.collection_object_id as collection_object_id, 
 		cat_num,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#Client.CustomOtherIdentifier#') AS CustomID,
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		scientific_name,
 		country,
 		state_prov,
@@ -234,7 +234,7 @@
 <table width="95%" border="1">
 <tr>
 	<td><strong>Catalog Number</strong></td>
-	<td><strong><cfoutput>#Client.CustomOtherIdentifier#</cfoutput></strong></td>
+	<td><strong><cfoutput>#session.CustomOtherIdentifier#</cfoutput></strong></td>
 	<td><strong>Accepted Scientific Name</strong></td>
 	<td><strong>Country</strong></td>
 	<td><strong>State</strong></td>
@@ -296,13 +296,13 @@
 <!--- looop through the collection_object_list and update things one at a time--->
 <cfloop list="#collection_object_id#" index="i">
 	<cftransaction>
-		<cfquery name="nextID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="nextID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			select max(identification_id) + 1 as nextID from identification
 		</cfquery>
-		<cfquery name="upOldID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="upOldID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #i#
 		</cfquery>
-		<cfquery name="newID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="newID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO identification (
 				IDENTIFICATION_ID,
 				COLLECTION_OBJECT_ID
@@ -332,7 +332,7 @@
 				,'#scientific_name#',
 				#newIdById#)
 			</cfquery>
-			<cfquery name="newIdAgent" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="newIdAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				insert into identification_agent (
 					identification_id,
 					agent_id,
@@ -344,7 +344,7 @@
 					)
 			</cfquery>
 			 <cfif len(#newIdById_two#) gt 0>
-				<cfquery name="newIdAgent" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="newIdAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					insert into identification_agent (
 						identification_id,
 						agent_id,
@@ -357,7 +357,7 @@
 				</cfquery>
 			 </cfif>
 			 <cfif len(#newIdById_three#) gt 0>
-				<cfquery name="newIdAgent" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="newIdAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					insert into identification_agent (
 						identification_id,
 						agent_id,
@@ -369,7 +369,7 @@
 						)
 				</cfquery>
 			 </cfif>
-			 <cfquery name="newId2" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			 <cfquery name="newId2" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO identification_taxonomy (
 					identification_id,
 					taxon_name_id,
@@ -380,7 +380,7 @@
 					'A')
 			 </cfquery>
 			 <cfif #taxa_formula# contains "B">
-				 <cfquery name="newId3" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				 <cfquery name="newId3" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					INSERT INTO identification_taxonomy (
 						identification_id,
 						taxon_name_id,
@@ -391,7 +391,7 @@
 						'B')
 				 </cfquery>
 			 </cfif>
-			 <cfquery name="oneAcc" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			 <cfquery name="oneAcc" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				update identification set ACCEPTED_ID_FG=1 where identification_id=#nextID.nextID#
 			</cfquery>	
 	</cftransaction>

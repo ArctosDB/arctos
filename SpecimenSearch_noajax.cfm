@@ -91,7 +91,7 @@ function changeGrp(tid) {
 	select SEARCH_NAME,URL
 	from cf_canned_search,cf_users
 	where cf_users.user_id=cf_canned_search.user_id
-	and username='#client.username#'
+	and username='#session.username#'
 	order by search_name
 </cfquery>
 <cfif #hasCanned.recordcount# gt 0>
@@ -128,7 +128,7 @@ function changeGrp(tid) {
 </cfif>
 		</td></tr>
 </table>
-<cfif #len(client.username)# is 0>
+<cfif #len(session.username)# is 0>
 	<form name="logIn" method="post" action="/login.cfm">
 	<input type="hidden" name="action" value="signIn">
 	<input type="hidden" name="gotopage" value="SpecimenSearch.cfm">
@@ -195,10 +195,10 @@ function changeGrp(tid) {
 				<option  value="/bnhmMaps/bnhmMapData.cfm">BerkeleyMapper Map</option>
 				<option value="SpecimenResultsSummary.cfm">Specimen Summary</option>
 				<option  value="SpecimenGraph.cfm">Graph</option>
-				<cfif isdefined("client.username") AND (#client.username# is "link" OR #client.username# is "dusty")>
+				<cfif isdefined("session.username") AND (#session.username# is "link" OR #session.username# is "dusty")>
 				<option  value="/CustomPages/Link.cfm">Link's Form</option>
 				</cfif>
-				<cfif isdefined("client.username") AND (#client.username# is "cindy" OR #client.username# is "dusty")>
+				<cfif isdefined("session.username") AND (#session.username# is "cindy" OR #session.username# is "dusty")>
 				<option  value="/CustomPages/CindyBats.cfm">Cindy's Form</option>
 				</cfif>
 			</select>
@@ -236,7 +236,7 @@ function changeGrp(tid) {
 		<tr>
 			<td>
 			<table>
-				 <cfif #client.showObservations# is not 1>
+				 <cfif #session.showObservations# is not 1>
 				<tr>
 					<td><strong>Show 
 					<a href="javascript:void(0);" 
@@ -309,19 +309,19 @@ function changeGrp(tid) {
 						Catalog Number:&nbsp;
 					</td>
 					<td align="left">
-						<cfif #ListContains(client.searchBy, 'bigsearchbox')# gt 0>
+						<cfif #ListContains(session.searchBy, 'bigsearchbox')# gt 0>
 							<textarea name="listcatnum" rows="6" cols="40" wrap="soft"></textarea>
 						<cfelse>
 							<input type="text" name="listcatnum" size="21">
 						</cfif>
 					</td>
 				</tr>	
-				<cfif len(#Client.CustomOtherIdentifier#) gt 0>
+				<cfif len(#session.CustomOtherIdentifier#) gt 0>
 					<tr>
 						<td align="right" width="250">
 							<a href="javascript:void(0);" 
 								onClick="pageHelp('SpecimenSearchFldDef','custom_identifier');">
-								<cfoutput>#Client.CustomOtherIdentifier#:</cfoutput>
+								<cfoutput>#session.CustomOtherIdentifier#:</cfoutput>
 							</a>&nbsp;
 							</td>
 							<td align="left">
@@ -409,14 +409,14 @@ function changeGrp(tid) {
 							<option value="" selected="selected">contains</option>
 							<option value="IS">is</option>
 						  </select>
-							<cfif #ListContains(client.searchBy, 'bigsearchbox')# gt 0>
+							<cfif #ListContains(session.searchBy, 'bigsearchbox')# gt 0>
 								<textarea name="OIDNum" rows="6" cols="30" wrap="soft"></textarea>
 							<cfelse>
 								<input type="text" name="OIDNum" size="34">
 							</cfif>
 						</td>
 					</tr>
-					<cfif #ListContains(client.searchBy, 'accn_num')# gt 0>	
+					<cfif #ListContains(session.searchBy, 'accn_num')# gt 0>	
 						<tr>
 							<td align="right" width="250">
 								<a href="javascript:void(0);" 
@@ -454,7 +454,7 @@ function changeGrp(tid) {
 							<input type="text" name="any_taxa_term" size="28">
 						</td>
 					</tr>
-					<cfif #ListContains(client.searchBy, 'scientific_name')# gt 0>
+					<cfif #ListContains(session.searchBy, 'scientific_name')# gt 0>
 					<tr>
 						<td align="right" width="250">
 							<a href="javascript:void(0);" 
@@ -464,7 +464,7 @@ function changeGrp(tid) {
 				  			</a>
 						</td>
 						<td align="left">
-							<cfif #ListContains(client.searchBy, 'scinameoperator')# gt 0>
+							<cfif #ListContains(session.searchBy, 'scinameoperator')# gt 0>
 								<select name="sciNameOper" size="1">
 									<option value="">contains</option>
 									<option value="NOT LIKE">does not contain</option>
@@ -476,7 +476,7 @@ function changeGrp(tid) {
 						</td>
 					</tr>
 					</cfif>
-					<cfif #ListContains(client.searchBy, 'scinameoperator')# gt 0>
+					<cfif #ListContains(session.searchBy, 'scinameoperator')# gt 0>
 					<tr>
 						<td align="right"  width="250"><a href="javascript:void(0);" 
 								onClick="getHelp('higher_taxa'); return false;"
@@ -533,7 +533,7 @@ function changeGrp(tid) {
 						</td>
 					</tr>
 					</cfif>
-					<cfif #ListContains(client.searchBy, 'identifier')# gt 0>
+					<cfif #ListContains(session.searchBy, 'identifier')# gt 0>
 					<tr>
 						<td align="right" width="250">
 								<a href="javascript:void(0);" 
@@ -557,7 +557,7 @@ function changeGrp(tid) {
 			<td>
 				<div class="group">
 				<table cellpadding="0" cellspacing="0" width="100%">
-					<cfif #ListContains(client.searchBy, 'locality')# gt 0>
+					<cfif #ListContains(session.searchBy, 'locality')# gt 0>
 						<cfquery name="ContOcean" datasource="#Application.web_user#">
 							select continent_ocean from ctContinent ORDER BY continent_ocean
 						</cfquery>
@@ -713,7 +713,7 @@ function changeGrp(tid) {
 						</td>
 					</tr>
 						
-					<cfif #ListContains(client.searchBy, 'collecting_source')# gt 0>	
+					<cfif #ListContains(session.searchBy, 'collecting_source')# gt 0>	
 						<tr>
 							<td align="right" width="250">
 								<a href="javascript:void(0);" 
@@ -735,7 +735,7 @@ function changeGrp(tid) {
 							</td>
 						</tr>
 					</cfif>
-					<cfif #ListContains(client.searchBy, 'max_error_in_meters')# gt 0>
+					<cfif #ListContains(session.searchBy, 'max_error_in_meters')# gt 0>
 						<tr>
 							<td align="right" width="250">
 								<a href="javascript:void(0);" 
@@ -752,7 +752,7 @@ function changeGrp(tid) {
 				</div>
 			</td>
 		</tr>
-		<cfif #ListContains(client.searchBy, 'boundingbox')# gt 0>
+		<cfif #ListContains(session.searchBy, 'boundingbox')# gt 0>
 			<tr>
 				<td>
 					<div class="group">
@@ -792,7 +792,7 @@ function changeGrp(tid) {
 			<td>
 				<div class="group">
 					<table cellpadding="0" cellspacing="0" width="100%">
-						<cfif #ListContains(client.searchBy, 'colls')# gt 0>			
+						<cfif #ListContains(session.searchBy, 'colls')# gt 0>			
 							<tr>
 								<td align="right" width="250">
 										<a href="javascript:void(0);" 
@@ -834,7 +834,7 @@ function changeGrp(tid) {
 								</table>
 							</td>
 						</tr>
-						<cfif #ListContains(client.searchBy, 'dates')# gt 0>
+						<cfif #ListContains(session.searchBy, 'dates')# gt 0>
 						<tr>
 							<td align="right" width="250">
 								<a href="javascript:void(0);"
@@ -1014,7 +1014,7 @@ function changeGrp(tid) {
 		</tr>
 		
 		
-		<cfif #ListContains(client.searchBy, 'parts')# gt 0>
+		<cfif #ListContains(session.searchBy, 'parts')# gt 0>
 			<cfif len(#exclusive_collection_id#) gt 0>
 				<cfset partTable = "cctspecimen_part_name#exclusive_collection_id#">
 				<cfset presTable = "cCTSPECIMEN_PRESERV_METHOD#exclusive_collection_id#">
@@ -1042,7 +1042,7 @@ function changeGrp(tid) {
 			<td>
 				<div class="group">
 					<table cellpadding="0" cellspacing="0" width="100%">
-						<cfif isdefined("client.username") and (#client.username# is "dlm" OR #client.username# is "gordon")>
+						<cfif isdefined("session.username") and (#session.username# is "dlm" OR #session.username# is "gordon")>
 							<tr>
 								<td align="right" width="250">
 									Secret Part Searcher Thingy
@@ -1061,7 +1061,7 @@ function changeGrp(tid) {
 							</td>
 							<td align="left">
 								<select name="part_name"  
-									<cfif #ListContains(client.searchBy, 'bigsearchbox')# gt 0>
+									<cfif #ListContains(session.searchBy, 'bigsearchbox')# gt 0>
 										multiple="multiple" size="5"
 									<cfelse>
 										size="1"
@@ -1106,7 +1106,7 @@ function changeGrp(tid) {
 			</td>
 		</tr>
 		</cfif>
-		<cfif #ListContains(client.searchBy, 'images')# gt 0>
+		<cfif #ListContains(session.searchBy, 'images')# gt 0>
 			<cfquery name="ctSubject" datasource="#Application.web_user#">
 				select subject from ctbin_obj_subject
 			</cfquery>
@@ -1149,7 +1149,7 @@ function changeGrp(tid) {
 			</div>
 		</cfif>
 		<!----
-		<cfif #ListContains(client.searchBy, 'permit')# gt 0>
+		<cfif #ListContains(session.searchBy, 'permit')# gt 0>
 			<tr>
 				<td>
 					<div class="group">
@@ -1204,7 +1204,7 @@ function changeGrp(tid) {
 			</tr>
 		</cfif>
 		---->
-		<cfif #ListContains(client.searchBy, 'citation')# gt 0>
+		<cfif #ListContains(session.searchBy, 'citation')# gt 0>
 			<tr>
 				<td>
 					<div class="group">
@@ -1234,7 +1234,7 @@ function changeGrp(tid) {
 				</td>
 			</tr>
 		</cfif>
-		<cfif #ListContains(client.searchBy, 'miscellaneous')# gt 0>
+		<cfif #ListContains(session.searchBy, 'miscellaneous')# gt 0>
 			<tr>
 				<td>
 					<div class="group">
@@ -1273,7 +1273,7 @@ function changeGrp(tid) {
 				</td>
 			</tr>
 		</cfif>
-		<cfif #ListContains(client.searchBy, 'project')# gt 0>
+		<cfif #ListContains(session.searchBy, 'project')# gt 0>
 			<tr>
 				<td>
 					<div class="group">
@@ -1309,7 +1309,7 @@ function changeGrp(tid) {
 				</td>
 			</tr>
 		</cfif>
-		<cfif #ListContains(client.searchBy, 'curatorial_stuff')# gt 0>
+		<cfif #ListContains(session.searchBy, 'curatorial_stuff')# gt 0>
 			<tr>
 				<td>
 					<div class="group">
@@ -1444,7 +1444,7 @@ function changeGrp(tid) {
 				</td>
 			</tr>
 		</cfif>
-		<cfif #ListContains(client.searchBy, 'attributes')# gt 0>
+		<cfif #ListContains(session.searchBy, 'attributes')# gt 0>
 			<tr>
 				<td align="center">
 				<div class="group">
@@ -1576,10 +1576,10 @@ function changeGrp(tid) {
 				<option  value="/bnhmMaps/bnhmMapData.cfm">BerkeleyMapper Map</option>
 				<option value="SpecimenResultsSummary.cfm">Specimen Summary</option>
 				<option  value="SpecimenGraph.cfm">Graph</option>
-				<cfif isdefined("client.username") AND (#client.username# is "link" OR #client.username# is "dusty")>
+				<cfif isdefined("session.username") AND (#session.username# is "link" OR #session.username# is "dusty")>
 				<option  value="/CustomPages/Link.cfm">Link's Form</option>
 				</cfif>
-				<cfif isdefined("client.username") AND (#client.username# is "cindy" OR #client.username# is "dusty")>
+				<cfif isdefined("session.username") AND (#session.username# is "cindy" OR #session.username# is "dusty")>
 				<option  value="/CustomPages/CindyBats.cfm">Cindy's Form</option>
 				</cfif>
 			</select>

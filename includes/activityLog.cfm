@@ -40,8 +40,8 @@ sho err
 <cfparam name="log.reported_count" default="-1">
 <cfparam name="log.access_date" default="#dateformat(now(),'dd-mmm-yyyy')#">
 <cfset log.query_string = replace(log.query_string,"'","''","all")>
-<cfif isdefined("client.username") and len(#client.username#) gt 0>
-	<cfset log.username=#client.username#>
+<cfif isdefined("session.username") and len(#session.username#) gt 0>
+	<cfset log.username=#session.username#>
 <cfelse>
 	<cfif len(#cgi.HTTP_X_FORWARDED_FOR#) gt 0>
 		<cfset log.username = #cgi.HTTP_X_FORWARDED_FOR#>

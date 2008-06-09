@@ -27,8 +27,8 @@ window.setInterval("chkVal()",1000);
 	biol_indiv_relationship,
 	thisSpecimenId.scientific_name scientific_name,
 	relatedSpecimenId.scientific_name CatItemSciName
-	<cfif isdefined("customOtherIdentifier") and len(#Client.CustomOtherIdentifier#) gt 0>
-		,concatSingleOtherId(cataloged_item.collection_object_id,'#Client.CustomOtherIdentifier#')	CustomID
+	<cfif isdefined("customOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
+		,concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#')	CustomID
 	</cfif>
 	 FROM 
 	cataloged_item,
@@ -70,8 +70,8 @@ window.setInterval("chkVal()",1000);
 			</td>
 			<td>
 			Cat ## <input type="text" name="related_cat_num" readonly="yes" class="readClr" size="6" value="#getRelns.cat_num#">
-			<cfif isdefined("customOtherIdentifier") and len(#Client.CustomOtherIdentifier#) gt 0>
-				(#Client.CustomOtherIdentifier# = #CustomID#)
+			<cfif isdefined("customOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
+				(#session.CustomOtherIdentifier# = #CustomID#)
 			</cfif>
 				<input type="text" size="20" name="scientific_name" readonly="yes" class="readClr" value="#getRelns.scientific_name#">
 				
@@ -99,9 +99,9 @@ window.setInterval("chkVal()",1000);
 						onclick="reln#i#.action.value='deleReln'; confirmDelete('reln#i#','this relationship');">
 			</td>
 			<td valign="middle">
-				<a href="SpecimenDetail.cfm?collection_object_id=#getRelns.collection_object_id#" target="#client.target#" class="infoLink">Related Specimen</a>
+				<a href="SpecimenDetail.cfm?collection_object_id=#getRelns.collection_object_id#" target="#session.target#" class="infoLink">Related Specimen</a>
 				<cfif #biol_indiv_relationship# is "parent of" and (#scientific_name# neq #CatItemSciName#)>
-					<a href="/tools/parent_child_taxonomy.cfm?collection_object_id=#thisCollObjId#" target="#client.target#">
+					<a href="/tools/parent_child_taxonomy.cfm?collection_object_id=#thisCollObjId#" target="#session.target#">
 						<img src="/images/oops.gif" border="0" height="20"/>
 					</a>
 				</cfif>

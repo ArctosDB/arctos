@@ -6,7 +6,7 @@
 
 <cfoutput>
 	<cfquery name="me" datasource="#Application.web_user#">
-		select user_id from cf_users where username='#client.username#'
+		select user_id from cf_users where username='#session.username#'
 	</cfquery>
 	<cfif len(#me.user_id#) is 0>
 		<p>	
@@ -57,7 +57,7 @@
 	select SEARCH_NAME,URL,canned_id
 	from cf_canned_search,cf_users
 	where cf_users.user_id=cf_canned_search.user_id
-	and username = '#client.username#'
+	and username = '#session.username#'
 	order by search_name
 </cfquery>
 <script>

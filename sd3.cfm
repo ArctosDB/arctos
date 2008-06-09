@@ -179,7 +179,7 @@
 							len(#dec_long#) gt 0) 
 						>
 						<cfif #encumbrance_action# does not contain "coordinates" OR
-							(isdefined("client.rights") AND #client.rights# contains "student0")>
+							(isdefined("session.rights") AND #session.rights# contains "student0")>
 								
 							<cfset bnhmUrl="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#">
 							<br><input type="button" 
@@ -223,7 +223,7 @@
 		
 		
 	</tr>
-	<cfif isdefined("client.rights") and #client.rights# contains "student1">
+	<cfif isdefined("session.rights") and #session.rights# contains "student1">
 	<tr>
 		<td colspan="3" align="center">
 		<cfoutput>

@@ -9,7 +9,7 @@
 		where
 			grp.agent_id=group_member.GROUP_AGENT_ID and
 			group_member.MEMBER_AGENT_ID = usr.agent_id and
-			usr.agent_name='#client.username#' and
+			usr.agent_name='#session.username#' and
 			grp.agent_name like '% Data Admin Group'
 </cfquery>
 <cfset admGrps = "">
@@ -32,7 +32,7 @@
 		where
 			grp.agent_id=group_member.GROUP_AGENT_ID and
 			group_member.MEMBER_AGENT_ID = usr.agent_id and
-			usr.agent_name='#client.username#' and
+			usr.agent_name='#session.username#' and
 			grp.agent_name like '% Data Entry Group'
 </cfquery>
 <cfif len(#valuelist(get_admin_group.agent_id)#) gt 0>

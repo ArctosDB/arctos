@@ -44,7 +44,7 @@
 				<option value="" selected="selected">contains</option>
 				<option value="IS">is</option>
 			</select>
-			<cfif #ListContains(client.searchBy, 'bigsearchbox')# gt 0>
+			<cfif #ListContains(session.searchBy, 'bigsearchbox')# gt 0>
 				<textarea name="OIDNum" rows="6" cols="30" wrap="soft"></textarea>
 			<cfelse>
 				<input type="text" name="OIDNum" size="34">

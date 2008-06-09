@@ -751,7 +751,7 @@
 
 	
 	<!----
-	<cfif #client.username# is "dlm">
+	<cfif #session.username# is "dlm">
 		#preservesinglequotes(sql)#
 		<cfabort>
 	</cfif>
@@ -762,7 +762,7 @@
 
 <cfset sql = "#sql# WHERE collection_object_id = #collection_object_id#">
 
-		<cfquery name="upCollLocLatLong" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="upCollLocLatLong" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
 

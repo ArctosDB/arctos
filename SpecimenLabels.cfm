@@ -305,14 +305,14 @@ WHERE locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id
 		<cfoutput>
 			<cfif OIDLoop lt #numOID#>
 				<cfif #other_id_type# is "GenBank sequence accession">
-					<cfset OIDString = "#OIDString# <a href=""http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Search&db=Nucleotide&term=#other_id_num#&doptcmdl=GenBank"" Target=""#client.target#"">#other_id_num# (#other_id_type#)</a>;">
+					<cfset OIDString = "#OIDString# <a href=""http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Search&db=Nucleotide&term=#other_id_num#&doptcmdl=GenBank"" Target=""#session.target#"">#other_id_num# (#other_id_type#)</a>;">
 				<cfelse>
 					<cfset OIDString = "#OIDString# #other_id_num# (#other_id_type#);">
 				</cfif>
 				<cfset OIDLString = "#OIDLString# #other_id_num# (#other_id_type#);">
 			<cfelse>
 				<cfif #other_id_type# is "GenBank sequence accession">
-					<cfset OIDString = "#OIDString# <a href=""http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Search&db=Nucleotide&term=#other_id_num#&doptcmdl=GenBank"" Target=""#client.target#"">#other_id_num# (#other_id_type#)</a>">
+					<cfset OIDString = "#OIDString# <a href=""http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Search&db=Nucleotide&term=#other_id_num#&doptcmdl=GenBank"" Target=""#session.target#"">#other_id_num# (#other_id_type#)</a>">
 				<cfelse>
 					<cfset OIDString = "#OIDString# #other_id_num# (#other_id_type#)">
 				</cfif>
@@ -747,9 +747,9 @@ WHERE locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id
 				
 	  <tr>
   	    <td nowrap valign="top">
-			<a href="SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="#client.target#"><strong>#collection_cde# #cat_num#</strong></a>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
-				(<a href="SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="#client.target#">edit</a>)
+			<a href="SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="#session.target#"><strong>#collection_cde# #cat_num#</strong></a>
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
+				(<a href="SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="#session.target#">edit</a>)
 			</cfif>
 		</td>
 	    <td nowrap valign="top">

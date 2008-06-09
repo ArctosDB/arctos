@@ -18,7 +18,7 @@ jQuery( function($) {
 		theDiv.innerHTML='<span onclick="removeHelpDiv()" class="docControl">X</span>';
 
 		theDiv.innerHTML+='<label for="displayRows">Rows Per Page</label>';
-		theDiv.innerHTML+='<select name="displayRows" id="displayRows" onchange="this.className=' + "'red'" + ';changedisplayRows(this.value);" size="1"><option  <cfif #client.displayRows# is "10"> selected </cfif> value="10">10</option><option  <cfif #client.displayRows# is "20"> selected </cfif> value="20" >20</option><option  <cfif #client.displayRows# is "50"> selected </cfif> value="50">50</option><option  <cfif #client.displayRows# is "100"> selected </cfif> value="100">100</option></select>';
+		theDiv.innerHTML+='<select name="displayRows" id="displayRows" onchange="this.className=' + "'red'" + ';changedisplayRows(this.value);" size="1"><option  <cfif #session.displayRows# is "10"> selected </cfif> value="10">10</option><option  <cfif #session.displayRows# is "20"> selected </cfif> value="20" >20</option><option  <cfif #session.displayRows# is "50"> selected </cfif> value="50">50</option><option  <cfif #session.displayRows# is "100"> selected </cfif> value="100">100</option></select>';
 		var resultList=document.getElementById('resultList').value;
 		var customID=document.getElementById('customID').value;
 		var result_sort=document.getElementById('result_sort').value;
@@ -54,20 +54,20 @@ function removeHelpDiv() {
 </div>
 <cfflush>
 	<cfoutput>
-<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
+<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 	<cfset flatTableName = "flat">
 <cfelse>
 	<cfset flatTableName = "filtered_flat">
 </cfif>
 <cfif not isdefined("detail_level") OR len(#detail_level#) is 0>
-	<cfif isdefined("client.detailLevel") AND #client.detailLevel# gt 0>
-		<cfset detail_level = #client.detailLevel#>
+	<cfif isdefined("session.detailLevel") AND #session.detailLevel# gt 0>
+		<cfset detail_level = #session.detailLevel#>
 	<cfelse>
 		<cfset detail_level = 1>
 	</cfif>	
 </cfif>
 <cfif not isdefined("displayrows")>
-	<cfset displayrows = client.displayrows>
+	<cfset displayrows = session.displayrows>
 </cfif>
 <cfif not isdefined("SearchParams")>
 	<cfset SearchParams = "">
@@ -88,9 +88,9 @@ function removeHelpDiv() {
 	<cfset detail_level = #left(detail_level,find(",",detail_level)-1)#>
 </cfif>
 
-<!--- make sure client.resultColumnList has all the required stuff here --->
-<cfif not isdefined("client.resultColumnList")>
-	<cfset client.resultColumnList=''>
+<!--- make sure session.resultColumnList has all the required stuff here --->
+<cfif not isdefined("session.resultColumnList")>
+	<cfset session.resultColumnList=''>
 </cfif>
 <cfquery name="r_d" datasource="#Application.web_user#">
 	select * from cf_spec_res_cols order by disp_order
@@ -100,8 +100,8 @@ function removeHelpDiv() {
 </cfquery>
 
 <cfloop query="reqd">
-	<cfif not ListContainsNoCase(client.resultColumnList,COLUMN_NAME)>
-		<cfset client.resultColumnList = ListAppend(client.resultColumnList, COLUMN_NAME)>
+	<cfif not ListContainsNoCase(session.resultColumnList,COLUMN_NAME)>
+		<cfset session.resultColumnList = ListAppend(session.resultColumnList, COLUMN_NAME)>
 	</cfif>
 </cfloop>
 
@@ -110,15 +110,15 @@ function removeHelpDiv() {
 
 ---->
 <cfset basSelect = " SELECT distinct #flatTableName#.collection_object_id">
-<cfif len(#Client.CustomOtherIdentifier#) gt 0>
+<cfif len(#session.CustomOtherIdentifier#) gt 0>
 		<cfset basSelect = "#basSelect# 
-			,concatSingleOtherId(#flatTableName#.collection_object_id,'#Client.CustomOtherIdentifier#') AS CustomID,
-			'#Client.CustomOtherIdentifier#' as myCustomIdType,
-			to_number(ConcatSingleOtherIdInt(#flatTableName#.collection_object_id,'#Client.CustomOtherIdentifier#')) AS CustomIDInt">
+			,concatSingleOtherId(#flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+			'#session.CustomOtherIdentifier#' as myCustomIdType,
+			to_number(ConcatSingleOtherIdInt(#flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
 	</cfif>
 <cfloop query="r_d">
 	<cfif left(column_name,1) is not "_" and (
-		ListContainsNoCase(client.resultColumnList,column_name) OR category is 'required')>
+		ListContainsNoCase(session.resultColumnList,column_name) OR category is 'required')>
 		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #column_name#">
 	</cfif>
 </cfloop>
@@ -126,18 +126,18 @@ function removeHelpDiv() {
 <!--- things that start with _ need special handling 
 they also need special handling at TAG:SORTRESULT (do find in this document)--->
 <!--- this special handling is how to add it to the select statement --->
-<cfif ListContainsNoCase(client.resultColumnList,"_elev_in_m")>
+<cfif ListContainsNoCase(session.resultColumnList,"_elev_in_m")>
 	<cfset basSelect = "#basSelect#,min_elev_in_m,max_elev_in_m">
 </cfif>
-<cfif ListContainsNoCase(client.resultColumnList,"_original_elevation")>
+<cfif ListContainsNoCase(session.resultColumnList,"_original_elevation")>
 	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
 </cfif> 
-<cfif ListContainsNoCase(client.resultColumnList,"_gref_collnum")>
+<cfif ListContainsNoCase(session.resultColumnList,"_gref_collnum")>
 	<!---<cfset basSelect = "#basSelect#,concatGrefLinksCollObj(#Application.gref_base_url#,#flatTableName#.collection_object_id) as gref_collnum">--->
 	<!---TODO: Implement this in media table so that you no longer have to rely on this hardcoded link generation. --->
 	<cfset basSelect = "#basSelect#,(select the_link from (
 select
-		'http://bg.berkeley.edu/gref/Client.html?pageid=' || gref_roi_ng.page_id 
+		'http://bg.berkeley.edu/gref/session.html?pageid=' || gref_roi_ng.page_id 
 	  || Chr(38) ||'publicationid=' || book_section.publication_id 
 	  || Chr(38) || 'otherid=' || #flatTableName#.collection_object_id
 	  || Chr(38) || 'otheridtype=' || gref_roi_value_ng.collection_object_id as the_link, 
@@ -179,7 +179,7 @@ having min(section_page_order) = section_page_order)) as gref_collnum">
 		</cfif>
 
 <!-------------------------- dlkm debug -----------------<--------------------->	
-	<cfif isdefined("client.username") and (#client.username# is "dlm" or #client.username# is "dusty" or #client.username# is "lam" or #client.username# is "pdevore")>
+	<cfif isdefined("session.username") and (#session.username# is "dlm" or #session.username# is "dusty" or #session.username# is "lam" or #session.username# is "pdevore")>
 		
 	<cfoutput>
 	#preserveSingleQuotes(SqlString)#
@@ -188,10 +188,10 @@ having min(section_page_order) = section_page_order)) as gref_collnum">
 	
 	<!-------------------------- / dlm debug ----------------------
 	
-	<cfif isdefined("client.username") and (#client.username# is "dlm" or #client.username# is "dusty")>
+	<cfif isdefined("session.username") and (#session.username# is "dlm" or #session.username# is "dusty")>
 		
 	<cfoutput>
-	--#client.username#--
+	--#session.username#--
 	#preserveSingleQuotes(SqlString)#
 	<br>ReturnURL: #returnURL#
 	<br>MapURL: #mapURL#
@@ -225,8 +225,8 @@ having min(section_page_order) = section_page_order)) as gref_collnum">
 </cfquery>
 <cfoutput>
 <form name="defaults">
-	<input type="hidden" name="killrow" id="killrow" value="#client.killrow#">
-	<input type="hidden" name="displayrows" id="displayrows" value="#client.displayrows#">
+	<input type="hidden" name="killrow" id="killrow" value="#session.killrow#">
+	<input type="hidden" name="displayrows" id="displayrows" value="#session.displayrows#">
 	<input type="hidden" name="action" id="action" value="#action#">
 	<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
 	<cfif isdefined("transaction_id")>
@@ -245,7 +245,7 @@ having min(section_page_order) = section_page_order)) as gref_collnum">
 		Your query returned no results.
 		<ul>
 			<li>
-				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" target="#client.target#" class="novisit">Arctos Taxonomy</a>.
+				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" target="#session.target#" class="novisit">Arctos Taxonomy</a>.
 			</li>
 			<li>
 				Try broadening your search criteria. Try the next-higher geographic element, remove criteria, etc. Don't assume we've accurately or predictably recorded data!
@@ -313,9 +313,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 <form name="controls">
 	<!--- keep stuff around for JS to get at --->
 	<input type="hidden" name="resultList" id="resultList" value="#resultList#">
-	<input type="hidden" name="customID" id="customID" value="#client.customOtherIdentifier#">
-	<input type="hidden" name="result_sort" id="result_sort" value="#client.result_sort#">
-	<input type="hidden" name="displayRows" id="displayRows" value="#client.displayRows#">
+	<input type="hidden" name="customID" id="customID" value="#session.customOtherIdentifier#">
+	<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
+	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
 <strong>#mappable.cnt#</strong> of these <strong>#summary.recordcount#</strong> records have coordinates and can be displayed with 
 				<span class="controlButton" 
 				onmouseover="this.className='controlButton btnhov'" 
@@ -337,22 +337,22 @@ If your item needs to be sorted in a special way, then do that here. --->
 		<td>
 		<!--- the function accepts:
 				startrow <- first record of the page we want to view
-				numRecs <- client.displayrows
+				numRecs <- session.displayrows
 				orderBy < current values from dropdown
 		--->
-		<cfset numPages= ceiling(summary.recordcount/client.displayrows)>
+		<cfset numPages= ceiling(summary.recordcount/session.displayrows)>
 		<cfset loopTo=numPages-2>
 		<label for="page_record">Records...</label>
 		<select name="page_record" id="page_record" size="1" onchange="getSpecResultsData(this.value);">
 			<cfloop from="0" to="#loopTo#" index="i">
-				<cfset bDispVal = (i * client.displayrows + 1)>
-				<cfset eDispval = (i + 1) * client.displayrows>
-				<option value="#bDispVal#,#client.displayrows#">#bDispVal# - #eDispval#</option>
+				<cfset bDispVal = (i * session.displayrows + 1)>
+				<cfset eDispval = (i + 1) * session.displayrows>
+				<option value="#bDispVal#,#session.displayrows#">#bDispVal# - #eDispval#</option>
 			</cfloop>
 			<!--- last set of records --->
-			<cfset bDispVal = ((loopTo + 1) * client.displayrows )+ 1>
+			<cfset bDispVal = ((loopTo + 1) * session.displayrows )+ 1>
 			<cfset eDispval = summary.recordcount>
-			<option value="#bDispVal#,#client.displayrows#">#bDispVal# - #eDispval#</option>
+			<option value="#bDispVal#,#session.displayrows#">#bDispVal# - #eDispval#</option>
 			<!--- all records --->
 			<option value="1,#summary.recordcount#">1 - #summary.recordcount#</option>
 		</select>
@@ -362,12 +362,12 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<label for="orderBy1">Primary Order</label>
 			<select name="orderBy1" id="orderBy1" size="1">
 				<!--- prepend their CustomID and integer sort of their custom ID to the list --->
-				<cfif isdefined("customOtherIdentifier") and len(#Client.CustomOtherIdentifier#) gt 0>
-					<option <cfif #client.result_sort# is "custom_id">selected="selected" </cfif>value="CustomID">#Client.CustomOtherIdentifier#</option>
-					<option value="CustomIDInt">#Client.CustomOtherIdentifier# (INT)</option>
+				<cfif isdefined("customOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
+					<option <cfif #session.result_sort# is "custom_id">selected="selected" </cfif>value="CustomID">#session.CustomOtherIdentifier#</option>
+					<option value="CustomIDInt">#session.CustomOtherIdentifier# (INT)</option>
 				</cfif>
 				<cfloop list="#resultList#" index="i">
-					<option <cfif #client.result_sort# is #i#>selected="selected" </cfif>value="#i#">#i#</option>
+					<option <cfif #session.result_sort# is #i#>selected="selected" </cfif>value="#i#">#i#</option>
 				</cfloop>
 			</select>
 			
@@ -387,7 +387,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 				onmouseout="this.className='controlButton'"
 				onclick="document.getElementById('page_record').selectedIndex=0;
 					var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;
-					getSpecResultsData(1,#client.displayrows#,obv,'ASC');">&uarr;</span>
+					getSpecResultsData(1,#session.displayrows#,obv,'ASC');">&uarr;</span>
 		</td>
 		<td>
 			<label for="">&nbsp;</label>
@@ -396,7 +396,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 				onmouseout="this.className='controlButton'"
 				onclick="document.getElementById('page_record').selectedIndex=0;
 					var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;
-					getSpecResultsData(1,#client.displayrows#,obv,'DESC');">&darr;</span>
+					getSpecResultsData(1,#session.displayrows#,obv,'DESC');">&darr;</span>
 		</td>
 		<td>
 			<span id="sPrefs" class="infoLink">Save...</span>
@@ -434,7 +434,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 				onclick="saveSearch();">Save&nbsp;Search</span>
 		</td>
 		<td nowrap="nowrap">
-			<cfif summary.recordcount lt 1000 and (isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user"))>					
+			<cfif summary.recordcount lt 1000 and (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>					
 				<label for="goWhere">Manage...</label>
 				<select name="goWhere" id="goWhere" size="1">
 					<option value="Encumbrances.cfm">
@@ -520,7 +520,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 
 <div id="resultsGoHere"></div>
 <script language="javascript" type="text/javascript">
-	getSpecResultsData(1,#client.displayrows#);
+	getSpecResultsData(1,#session.displayrows#);
 </script>
 <script language="javascript" type="text/javascript">
 	function reporter() {
@@ -540,7 +540,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 	u += '&table_name=' + t;
 	u += '&sort=' + s;
 	//alert(u);	
-	var reportWin=window.open(u,'#client.target#');
+	var reportWin=window.open(u,'#session.target#');
 }
 </script>
 </cfoutput>

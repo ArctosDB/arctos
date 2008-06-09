@@ -2,7 +2,7 @@
 
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
-	Current version: #client.arctos_version#
+	Current version: #session.arctos_version#
 </cfoutput>
 <cfif #action# is "nothing">
 <cfquery name="vsns" datasource="#Application.web_user#">

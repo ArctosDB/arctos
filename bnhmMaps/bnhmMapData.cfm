@@ -5,7 +5,7 @@
 	</span>
 </div>
 <cfflush>
-<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
+<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 	<cfset flatTableName = "flat">
 <cfelse>
 	<cfset flatTableName = "filtered_flat">
@@ -131,7 +131,7 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 
 <!---cfset SqlString = "select distinct(other_id_type) from coll_obj_other_id_num where other_id_type like 'GenBank%'"
 
-<cfif isdefined("client.username") and #client.username# is "dusty">
+<cfif isdefined("session.username") and #session.username# is "dusty">
 <cfoutput>
 #preserveSingleQuotes(SqlString)#
 </cfoutput>
@@ -462,7 +462,7 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 	#bnhmUrl#
 	<cfabort>
 	
-	<cfif isdefined("client.username") and #client.username# is "dlm">
+	<cfif isdefined("session.username") and #session.username# is "dlm">
 	<cfdump var="#variables#">
 	
 	<cfabort></cfif>

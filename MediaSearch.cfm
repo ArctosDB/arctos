@@ -92,7 +92,7 @@
 	#preservesinglequotes(ssql)#
 <table>
 <cfset i=1>
-<cfif isdefined("client.roles") and listcontainsnocase(client.roles,"manage_media")>
+<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
     <a href="media.cfm?action=newMedia">Create media</a>
 </cfif>
 <cfloop query="findIDs">
@@ -110,7 +110,7 @@
             </cfif>
 			<br>MIME Type: #mime_type# 
             <br>Media Type: #media_type#
-             <cfif isdefined("client.roles") and listcontainsnocase(client.roles,"manage_media")>
+             <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 		        <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">edit</a>
 		    </cfif>            
 			<cfquery name="labels"  datasource="#application.web_user#">
@@ -172,7 +172,7 @@
 		select mime_type from ctmime_type order by mime_type
 	</cfquery>
 	Search for Media 
-    <cfif isdefined("client.roles") and listcontainsnocase(client.roles,"manage_media")>
+    <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
         OR <a href="media.cfm?action=newMedia">Create media</a>
     </cfif>
 		<form name="newMedia" method="post" action="">

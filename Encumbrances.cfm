@@ -34,13 +34,13 @@
 	<br> OR  
 	 <input type="button" value="Find Specimens to encumber" class="lnkBtn"
    onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-   onClick="window.open('SpecimenSearch.cfm?Action=encumber','#client.target#');">	
+   onClick="window.open('SpecimenSearch.cfm?Action=encumber','#session.target#');">	
 
 	
 	<br> OR 
 	<input type="button" value="Create A New Encumbrance" class="insBtn"
    onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'"
-   onClick="window.open('newEncumbrance.cfm','#client.target#')">	
+   onClick="window.open('newEncumbrance.cfm','#session.target#')">	
 
 </strong>
 
@@ -231,14 +231,14 @@
 		class="lnkBtn"
 		onmouseover="this.className='lnkBtn btnhov'"
 		onmouseout="this.className='lnkBtn'"
-		onClick="document.location='/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#','#client.target#'">
+		onClick="document.location='/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#','#session.target#'">
 		
 		<input type="button" 
 		value="Delete Encumbered Specimens" 
 		class="delBtn"
 		onmouseover="this.className='delBtn btnhov'"
 		onmouseout="this.className='delBtn'"
-		onClick="document.location='/Admin/deleteSpecByEncumbrance.cfm?encumbrance_id=#encumbrance_id#','#client.target#'">
+		onClick="document.location='/Admin/deleteSpecByEncumbrance.cfm?encumbrance_id=#encumbrance_id#','#session.target#'">
 		</form>
 		<cfset i = #i#+1>
 	</cfoutput>
@@ -261,7 +261,7 @@
 		list="#collection_object_id#" 
 		delimiters=",">
 	
-	<cfquery name="encSpecs" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="encSpecs" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM coll_object_encumbrance
 		WHERE
 		encumbrance_id = #encumbrance_id# AND
@@ -284,7 +284,7 @@
 <cfset title = "Update Encumbrance">
 Edit Encumbrance:
 <cfoutput>
-<cfquery name="encDetails" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="encDetails" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	SELECT
 		 * 
 	FROM
@@ -384,7 +384,7 @@ Edit Encumbrance:
 	<cfoutput>
 
 
-<cfquery name="newEncumbrance" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="newEncumbrance" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 UPDATE encumbrance SET
 	encumbrance_id = #encumbrance_id#
 	<cfif len(#encumberingAgentId#) gt 0>
@@ -419,13 +419,13 @@ UPDATE encumbrance SET
 	<cfif len(#encumbrance_id#) is 0>
 		Didn't get an encumbrance_id!!<cfabort>
 	</cfif>
-	<cfquery name="isUsed" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="isUsed" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		select count(*) as cnt from coll_object_encumbrance where encumbrance_id=#encumbrance_id#
 	</cfquery>
 	<cfif #isUsed.cnt# gt 0>
 		You can't delete this encumbrance because specimens are using it!<cfabort>
 	</cfif>
-	<cfquery name="deleteEnc" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="deleteEnc" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM encumbrance WHERE encumbrance_id = #encumbrance_id#
 	</cfquery>
 </cfoutput>	
@@ -448,7 +448,7 @@ UPDATE encumbrance SET
 		list="#collection_object_id#" 
 		delimiters=",">
 	
-	<cfquery name="encSpecs" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="encSpecs" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO coll_object_encumbrance (encumbrance_id, collection_object_id)
 		VALUES (#encumbrance_id#, #i#)
 	</cfquery>

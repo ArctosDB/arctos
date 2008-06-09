@@ -264,7 +264,7 @@ select
 		cataloged_item.collection_object_id,
 		collection.collection_cde,
 		collection.institution_acronym,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#Client.CustomOtherIdentifier#') AS CustomID,
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		concatattributevalue(cataloged_item.collection_object_id,'sex') as sex,
 		decode (sampled_from_obj_id,
 			null,part_name,
@@ -489,7 +489,7 @@ select
 			<span class="times12b">CN</span>
 		</td>
 		<td align="center">
-			<span class="times12b">#Client.CustomOtherIdentifier#</span>
+			<span class="times12b">#session.CustomOtherIdentifier#</span>
 		</td>
 		<td align="center">
 			<span class="times12b">Scientific Name</span>
@@ -655,7 +655,7 @@ select
 			<span class="times12b">CN</span>
 		</td>
 		<td align="center">
-			<span class="times12b">#Client.CustomOtherIdentifier#</span>
+			<span class="times12b">#session.CustomOtherIdentifier#</span>
 		</td>
 		<td align="center">
 			<span class="times12b">Scientific Name</span>
@@ -709,7 +709,7 @@ select
 
 select 
 		cat_num, 
-		concatSingleOtherId(cataloged_item.collection_object_id,'#Client.CustomOtherIdentifier#') AS CustomID,
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		collection_cde,
 		part_name,
 		 part_modifier,
@@ -772,7 +772,7 @@ select
 			<span class="times12b">CN</span>
 		</td>
 		<td align="center">
-			<span class="times12b">#Client.CustomOtherIdentifier#</span>
+			<span class="times12b">#session.CustomOtherIdentifier#</span>
 		</td>
 		<td align="center">
 			<span class="times12b">Item</span>

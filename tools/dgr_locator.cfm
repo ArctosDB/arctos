@@ -8,7 +8,7 @@
 	 gn.agent_name = 'DGR Users' and
 	 ln.agent_id = m.MEMBER_AGENT_ID and
 	 ln.agent_name_type = 'login' and
-	 ln.agent_name = '#client.username#'
+	 ln.agent_name = '#session.username#'
 </cfquery>
 <cfif isGoodUser.cnt lt 1>
 	You are not allowed to access this form.
@@ -403,7 +403,7 @@
 		</cfstoredproc>
 	<!----
 	
-	<cfquery name="makeFreezer" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="makeFreezer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			exec makeDGRFreezerPositions (#freezer#,#numrack#,#numBox#)
 		</cfquery>
 		
@@ -420,7 +420,7 @@
 	<cfset sc = 1><!--- current slot count --->
 	<cftransaction>
 	<cfloop from="1" to="#numSlots#" index="s">
-		<cfquery name="ns" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="ns" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		insert into dgr_locator (
 			LOCATOR_ID,
 			FREEZER,
@@ -830,7 +830,7 @@
 			<br /><a href="dgr_locator.cfm?action=boxView&freezer=#oldFreezer#&rack=#oldRack#&box=#oldBox#">Return</a> to freezer #oldFreezer#, rack #oldRack#, box #oldBox#
 		<cfelse>
 			<!--- switch the old out to the (empty) new, then the new out to the empty old --->
-			<cfquery name="contents" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="contents" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				select * from dgr_locator where 
 				freezer=#oldFreezer# and
 					rack=#oldRack# and
@@ -843,14 +843,14 @@
 					If there's one or the other, die --->
 					<cfif len(#NK#) gt 0 and len(#TISSUE_TYPE#) gt 0>
 						<!--- spiffy --->
-						<cfquery name="old" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						<cfquery name="old" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						update dgr_locator set NK=null, tissue_type=null where
 						LOCATOR_ID=#LOCATOR_ID#
 						</cfquery>
 						update dgr_locator set NK=null, tissue_type=null where
 						LOCATOR_ID=#LOCATOR_ID#
 						<br />
-						<cfquery name="new" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						<cfquery name="new" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						update dgr_locator set nk=#nk#,tissue_type='#tissue_type#'
 						where freezer=#theNewFreezer# and
 						rack=#theNewRack# and
@@ -872,7 +872,7 @@
 			</cfloop>
 			</cftransaction>
 			<!---
-			<cfquery name="moveBox" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="moveBox" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				UPDATE dgr_locator
 					set freezer=#freezer#,
 					rack=#rack#,
@@ -883,7 +883,7 @@
 					box=#oldBox#
 			</cfquery>
 			<!--- and make an empty replacement --->
-			<cfquery name="newLoc" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="newLoc" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				insert into dgr_locator (
 					LOCATOR_ID,
 					FREEZER,
@@ -918,7 +918,7 @@
 <cfif #action# is "test">
 <cfoutput>
 <cftransaction>
-	<cfquery name="newLoc" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="newLoc" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		insert into dgr_locator (
 			LOCATOR_ID,
 			FREEZER,

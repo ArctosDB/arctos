@@ -17,7 +17,7 @@
 	
 </cfif>
 <cffile action="read" file="/var/www/html/testFile.cfm" variable="theFile">
-<cfset theNewFile = replace(theFile,'datasource="##Application.uam_dbo##">','datasource="user_login" username="##client.username##" password="##decrypt(client.epw,cfid)##">',"all")>
+<cfset theNewFile = replace(theFile,'datasource="##Application.uam_dbo##">','datasource="user_login" username="##session.username##" password="##decrypt(session.epw,cfid)##">',"all")>
 #theFile#
 <cffile action="write" file="/var/www/html/someTest.cfm" nameconflict="error" output="#theNewFile#">
 <hr><hr>#theNewFile#
@@ -65,7 +65,7 @@
 
 <cfif #action# is "doThisOne">
 	<cffile action="read" file="#f#" variable="theFile">
-<cfset theNewFile = replace(theFile,'datasource="##Application.uam_dbo##">','datasource="user_login" username="##client.username##" password="##decrypt(client.epw,cfid)##">',"all")>
+<cfset theNewFile = replace(theFile,'datasource="##Application.uam_dbo##">','datasource="user_login" username="##session.username##" password="##decrypt(session.epw,cfid)##">',"all")>
 
 <cffile action="write" file="#f#" nameconflict="overwrite" output="#theNewFile#">
 spiffy

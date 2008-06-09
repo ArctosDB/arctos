@@ -24,10 +24,10 @@ Edit code table #tbl#
 <cfif #tbl# is "ctattribute_code_tables">
 <!--- special section to handle the one extremely funky code table --->
 
-	<cfquery name="ctAttribute_type" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="ctAttribute_type" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		select distinct(attribute_type) from ctAttribute_type
 	</cfquery>
-	<cfquery name="thisRec" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="thisRec" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		Select * from ctattribute_code_tables
 		order by attribute_type
 	</cfquery>
@@ -176,12 +176,12 @@ Edit code table #tbl#
 	</table>
 <cfelseif #tbl# is "ctspecimen_part_list_order">
 <!--- special section to handle  another  funky code table --->
-<cfquery name="thisRec" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="thisRec" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	select * from ctspecimen_part_list_order order by
 	list_order,partname
 </cfquery>
 
-<cfquery name="ctspecimen_part_name" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	select collection_cde, part_name partname from ctspecimen_part_name
 </cfquery>
 <cfquery name="mo" dbtype="query">
@@ -590,7 +590,7 @@ This is a customized code table editor to handle container sizes.
 <cfif #Action# is "ctattribute_code_tables">
 <cfoutput>
 	<cfif #meth# is "save">
-		<cfquery name="sav" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="sav" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			UPDATE ctattribute_code_tables SET
 				Attribute_type = '#Attribute_type#',
 				value_code_table = '#value_code_table#',
@@ -614,7 +614,7 @@ This is a customized code table editor to handle container sizes.
 				<cfif len(#oldunits_code_table#) gt 0>
 					AND	units_code_table = '#oldunits_code_table#'
 				</cfif> 
-		<cfquery name="del" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="del" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM ctattribute_code_tables
 			WHERE
 				Attribute_type = '#oldAttribute_type#' 
@@ -629,7 +629,7 @@ This is a customized code table editor to handle container sizes.
 	</cfif>
 	
 	<cfif #meth# is "insert">
-		<cfquery name="new" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="new" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO ctattribute_code_tables (
 				Attribute_type
 				<cfif len(#value_code_table#) gt 0>
@@ -668,7 +668,7 @@ This is a customized code table editor to handle container sizes.
 		<!----
 		--save--
 	<cfabort>
-		<cfquery name="sav" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="sav" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			UPDATE ctcontainer_type_size SET
 				container_type = '#container_type#',
 				container_size = #container_size#
@@ -689,7 +689,7 @@ This is a customized code table editor to handle container sizes.
 	
 	<cfif #meth# is "delete">
 		<!----
-		<cfquery name="del" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="del" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM ctcontainer_type_size
 			WHERE
 				container_type = '#oldcontainer_type#' AND
@@ -714,7 +714,7 @@ This is a customized code table editor to handle container sizes.
 			)
 			<cfabort>
 		<!----
-		<cfquery name="new" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="new" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO ctcontainer_type_size (
 			container_type,
 			container_size)
@@ -738,7 +738,7 @@ This is a customized code table editor to handle container sizes.
 <cfif #Action# is "ctspecimen_part_list_order">
 <cfoutput>
 	<cfif #meth# is "save">
-		<cfquery name="sav" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="sav" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			UPDATE ctspecimen_part_list_order SET
 				partname = '#partname#',
 				list_order = '#list_order#'
@@ -751,7 +751,7 @@ This is a customized code table editor to handle container sizes.
 	<cfif #meth# is "delete">
 	
 	
-		<cfquery name="del" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="del" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM ctspecimen_part_list_order
 			WHERE
 				partname = '#oldpartname#' AND
@@ -760,7 +760,7 @@ This is a customized code table editor to handle container sizes.
 	</cfif>
 	
 	<cfif #meth# is "insert">
-		<cfquery name="new" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="new" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO ctspecimen_part_list_order (
 				partname,
 				list_order
@@ -782,7 +782,7 @@ This is a customized code table editor to handle container sizes.
 <!----------------------------------->
 <cfif #Action# is "save#tbl#">
 <cfoutput>
-<cfquery name="up" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="up" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	UPDATE #tbl# SET #fld# = '#thisField#'
 	<cfif #collcde# is "y">
 		,collection_cde='#collection_cde#'
@@ -803,7 +803,7 @@ This is a customized code table editor to handle container sizes.
 <!----------------------------------->
 <cfif #Action# is "dele#tbl#">
 <cfoutput>
-<cfquery name="del" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="del" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	DELETE FROM #tbl# 
 	where #fld# = '#origData#'
 	<cfif #collcde# is "y">
@@ -817,7 +817,7 @@ This is a customized code table editor to handle container sizes.
 <!----------------------------------->
 <cfif #Action# is "inst#tbl#">
 <cfoutput>
-<cfquery name="new" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="new" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 INSERT INTO #tbl# 
 	(#fld#
 	<cfif #collcde# is "y">

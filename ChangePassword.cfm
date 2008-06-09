@@ -2,19 +2,19 @@
 <!---------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
     <cfset title = "Change Password">
-    <cfif len(#client.username#) is 0>
+    <cfif len(#session.username#) is 0>
         <cflocation url="ChangePassword.cfm?action=lostPass" addtoken="false">
     </cfif>
     <cfoutput>
 	 	<cfquery name="pwExp" datasource="#Application.web_user#">
-			select pw_change_date from cf_users where username = '#client.username#'
+			select pw_change_date from cf_users where username = '#session.username#'
 		</cfquery>
 		<cfset pwtime =  round(now() - pwExp.pw_change_date)>
 		<cfset pwage = Application.max_pw_age - pwtime>
-		<cfif #client.username# is "guest">
+		<cfif #session.username# is "guest">
 			Guests are not allowed to change passwords.<cfabort>
 		</cfif>
-	    You are logged in as #client.username#. 
+	    You are logged in as #session.username#. 
 	    You must change your password every #Application.max_pw_age# days. 
 	    Your password is #pwtime# days old.
 		<form action="ChangePassword.cfm" method="post">
@@ -51,7 +51,7 @@
 <cfif #action# is "update">
 	<cfoutput>
 	<cfquery name="getPass" datasource="#Application.uam_dbo#">
-		select password from cf_users where username = '#client.username#'
+		select password from cf_users where username = '#session.username#'
 	</cfquery>
 	<cfif hash(oldpassword) is not getpass.password>
 		<span style="background-color:red;">
@@ -72,12 +72,12 @@
 	<!--- Passwords check out for public users, now see if they're a database user --->
 	<cfquery name="isDb" datasource="uam_god">
 		select * from all_users where
-		username='#ucase(client.username)#'
+		username='#ucase(session.username)#'
 	</cfquery>
 	<cfif #isDb.recordcount# is 0>
 		<cfquery name="setPass" datasource="#Application.uam_dbo#">
 			UPDATE cf_users SET password = '#hash(newpassword)#'
-			WHERE username = '#client.username#'
+			WHERE username = '#session.username#'
 		</cfquery>
 	<cfelse>
 		<cfinclude template="/includes/functionLib.cfm">
@@ -100,13 +100,13 @@
 			<cftry>
 				<cftransaction>
 					<cfquery name="dbUser" datasource="uam_god">
-						alter user #client.username# 
+						alter user #session.username# 
 						identified by "#newpassword#"
 					</cfquery>
 					<cfquery name="setPass" datasource="uam_god">
 						UPDATE cf_users 
 						SET password = '#hash(newpassword)#'
-						WHERE username = '#client.username#'
+						WHERE username = '#session.username#'
 					</cfquery>
 				</cftransaction>
 					<cfcatch>
@@ -143,12 +143,12 @@
 					<cfabort>
 				</cfcatch>	
 			</cftry>
-			<cfset client.epw = encrypt(newpassword,cfid)>
+			<cfset session.epw = encrypt(newpassword,cfid)>
 		</cfif>
 	</cfif>	
 	Your password has successfully been changed.
-	<cfset client.password = #hash(newpassword)#>
-	<cfset client.force_password_change = "">
+	<cfset session.password = #hash(newpassword)#>
+	<cfset session.force_password_change = "">
 	You will be redirected soon, or you may use the menu above now.	
 	<script>
 		setTimeout("go_now()",5000);

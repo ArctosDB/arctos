@@ -1,4 +1,4 @@
-<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
+<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 	<cfset flatTableName = "flat">
 <cfelse>
 	<cfset flatTableName = "filtered_flat">
@@ -219,8 +219,8 @@
 				<cfset mapurl = "#mapurl#&exclusive_collection_id=#exclusive_collection_id#">
 		</cfif>
 		
-		<cfif isdefined("Client.collection") and len(#Client.collection#) gt 0>
-			<cfset collection_cde=#client.collection#>		
+		<cfif isdefined("session.collection") and len(#session.collection#) gt 0>
+			<cfset collection_cde=#session.collection#>		
 		</cfif>
 		
 		
@@ -686,7 +686,7 @@
 				(cataloged_item.collection_object_id = customIdentifier.collection_object_id)">
 			</cfif>
 			<cfif #basQual# does not contain "customIdentifier.other_id_type">
-				<cfset basQual = " #basQual# AND customIdentifier.other_id_type = '#Client.CustomOtherIdentifier#'">
+				<cfset basQual = " #basQual# AND customIdentifier.other_id_type = '#session.CustomOtherIdentifier#'">
 			</cfif>
 			<cfset basQual = " #basQual# AND upper(customIdentifier.other_id_prefix) LIKE '%#ucase(custom_id_prefix)#%'">
 		</cfif>
@@ -697,7 +697,7 @@
 				(cataloged_item.collection_object_id = customIdentifier.collection_object_id)">
 			</cfif>
 			<cfif #basQual# does not contain "customIdentifier.other_id_type">
-				<cfset basQual = " #basQual# AND customIdentifier.other_id_type = '#Client.CustomOtherIdentifier#'">
+				<cfset basQual = " #basQual# AND customIdentifier.other_id_type = '#session.CustomOtherIdentifier#'">
 			</cfif>
 			<cfset basQual = " #basQual# AND upper(customIdentifier.other_id_suffix) LIKE '%#ucase(custom_id_suffixid_prefix)#%'">
 		</cfif>
@@ -708,7 +708,7 @@
 				(cataloged_item.collection_object_id = customIdentifier.collection_object_id)">
 			</cfif>
 			<cfif #basQual# does not contain "customIdentifier.other_id_type">
-				<cfset basQual = " #basQual# AND customIdentifier.other_id_type = '#Client.CustomOtherIdentifier#'">
+				<cfset basQual = " #basQual# AND customIdentifier.other_id_type = '#session.CustomOtherIdentifier#'">
 			</cfif>
 			<cfif #custom_id_number# contains "-">
 				<!--- range --->
@@ -751,7 +751,7 @@
 				(cataloged_item.collection_object_id = customIdentifier.collection_object_id)">
 			</cfif>
 			<cfif #basQual# does not contain "customIdentifier.other_id_type">
-				<cfset basQual = " #basQual# AND customIdentifier.other_id_type = '#Client.CustomOtherIdentifier#'">
+				<cfset basQual = " #basQual# AND customIdentifier.other_id_type = '#session.CustomOtherIdentifier#'">
 			</cfif>
 			<cfif #CustomOidOper# is "IS">
 				<cfset basQual = " #basQual# AND customIdentifier.DISPLAY_VALUE = '#CustomIdentifierValue#'">

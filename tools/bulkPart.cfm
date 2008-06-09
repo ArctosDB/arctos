@@ -141,7 +141,7 @@
 				<cfset thisCondition = #evaluate("condition_" & n)#>
 				<cfset thisRemark = #evaluate("coll_object_remarks_" & n)#>
 				<cfif len(#thisPartName#) gt 0>
-					<cfquery name="insCollPart" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					<cfquery name="insCollPart" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						INSERT INTO coll_object (
 							COLLECTION_OBJECT_ID,
 							COLL_OBJECT_TYPE,
@@ -155,15 +155,15 @@
 						VALUES (
 							#thisPartId#,
 							'SP',
-							#client.myAgentId#,
+							#session.myAgentId#,
 							'#thisDate#',
-							#client.myAgentId#,
+							#session.myAgentId#,
 							'#thisDisposition#',
 							#thisLotCount#,
 							'#thisCondition#',
 							0 )		
 					</cfquery>
-					<cfquery name="newTiss" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					<cfquery name="newTiss" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						INSERT INTO specimen_part (
 							  COLLECTION_OBJECT_ID,
 							  PART_NAME
@@ -188,7 +188,7 @@
 								#thisIsTissue# )
 					</cfquery>
 					<cfif len(#thisRemark#) gt 0>
-						<cfquery name="newCollRem" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						<cfquery name="newCollRem" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 							INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
 							VALUES (#thisPartId#, '#thisRemark#')
 						</cfquery>

@@ -4,7 +4,7 @@
  <div style="float:right; position:absolute; right:0; top:0;">
 	<cfinclude template="container_nav.cfm">
 </div>
-<cfif #client.target# is "_self">
+<cfif #session.target# is "_self">
 	<cfset thisTarget = "_top">
 <cfelse>
 	<cfset thisTarget = "_blank">

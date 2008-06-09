@@ -120,7 +120,7 @@
 			<cfset sql = "#sql# #f# and #t# ">
 		</cfif>	 
 	</cfif>
-	<cfquery name="data" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="data" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#	
 	</cfquery>
 	<cfset rUrl="browseBulk.cfm?action=sqlTab&enteredby=#enteredby#">
@@ -192,7 +192,7 @@
 			<cfset sql = "#sql# #f# and #t# ">
 		</cfif>		 
 	</cfif>
-	<cfquery name="data" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="data" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#	
 	</cfquery>
 	<cfquery name="cNames" datasource="uam_god">
@@ -404,7 +404,7 @@
 	</cfloop>
 	
 		<cfset sql ="#sql# WHERE collection_object_id = #thisCollObjId#">
-	<cfquery name="up" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="up" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 </cfloop>
@@ -434,7 +434,7 @@
 		
 		<cfabort>
 		--->
-		<cfquery name="upBulk" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="upBulk" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
 	</cfif>
@@ -463,7 +463,7 @@
 	<cfset sql = "#sql# AND accn IN (#accn#)">
 	
 </cfif>
-<cfquery name="data" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="data" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#	
 </cfquery>
 <cfquery name="cNames" datasource="uam_god">

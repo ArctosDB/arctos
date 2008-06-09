@@ -9,22 +9,22 @@
 	Page loading....
 </div>
 <cfflush>
-<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
+<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 	<cfset flatTableName = "flat">
 <cfelse>
 	<cfset flatTableName = "filtered_flat">
 </cfif>
 
 <cfif not isdefined("detail_level") OR len(#detail_level#) is 0>
-	<cfif isdefined("client.detailLevel") AND #client.detailLevel# gt 0>
-		<cfset detail_level = #client.detailLevel#>
+	<cfif isdefined("session.detailLevel") AND #session.detailLevel# gt 0>
+		<cfset detail_level = #session.detailLevel#>
 	<cfelse>
 		<cfset detail_level = 1>
 	</cfif>	
 </cfif>
 
 <cfif not isdefined("displayrows")>
-	<cfset displayrows = client.displayrows>
+	<cfset displayrows = session.displayrows>
 </cfif>
 <cfif not isdefined("SearchParams")>
 	<cfset SearchParams = "">
@@ -45,9 +45,9 @@
 	<cfset detail_level = #left(detail_level,find(",",detail_level)-1)#>
 </cfif>
 
-<!--- make sure client.resultColumnList has all the required stuff here --->
-<cfif not isdefined("client.resultColumnList")>
-	<cfset client.resultColumnList=''>
+<!--- make sure session.resultColumnList has all the required stuff here --->
+<cfif not isdefined("session.resultColumnList")>
+	<cfset session.resultColumnList=''>
 </cfif>
 <cfquery name="r_d" datasource="#Application.web_user#">
 	select * from cf_spec_res_cols order by column_name
@@ -56,30 +56,30 @@
 	select * from r_d where category='required'
 </cfquery>
 <cfloop query="reqd">
-	<cfif not ListContainsNoCase(client.resultColumnList,column_name)>
-		<cfset client.resultColumnList = ListAppend(client.resultColumnList, column_name)>
+	<cfif not ListContainsNoCase(session.resultColumnList,column_name)>
+		<cfset session.resultColumnList = ListAppend(session.resultColumnList, column_name)>
 	</cfif>
 </cfloop>
 <cfset basSelect = " SELECT distinct #flatTableName#.collection_object_id">
 <cfloop query="r_d">
-	<cfif left(column_name,1) is not "_" and ListContainsNoCase(client.resultColumnList,column_name)>
+	<cfif left(column_name,1) is not "_" and ListContainsNoCase(session.resultColumnList,column_name)>
 		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #column_name#">
 	</cfif>
 </cfloop>
 <!--- things that start with _ need special handling --->
-<cfif ListContainsNoCase(client.resultColumnList,"_elev_in_m")>
+<cfif ListContainsNoCase(session.resultColumnList,"_elev_in_m")>
 	<cfset basSelect = "#basSelect#,min_elev_in_m,max_elev_in_m">
 </cfif>
-<cfif ListContainsNoCase(client.resultColumnList,"_original_elevation")>
+<cfif ListContainsNoCase(session.resultColumnList,"_original_elevation")>
 	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
 </cfif>
 
 
-	<cfif len(#Client.CustomOtherIdentifier#) gt 0>
+	<cfif len(#session.CustomOtherIdentifier#) gt 0>
 		<cfset basSelect = "#basSelect# 
-			,concatSingleOtherId(#flatTableName#.collection_object_id,'#Client.CustomOtherIdentifier#') AS CustomID,
-			'#Client.CustomOtherIdentifier#' as myCustomIdType,
-			to_number(ConcatSingleOtherIdInt(#flatTableName#.collection_object_id,'#Client.CustomOtherIdentifier#')) AS CustomIDInt">
+			,concatSingleOtherId(#flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+			'#session.CustomOtherIdentifier#' as myCustomIdType,
+			to_number(ConcatSingleOtherIdInt(#flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
 	</cfif>
 	<cfset basFrom = " FROM #flatTableName#">
 	<cfset basJoin = "INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
@@ -105,7 +105,7 @@
 		</cfif>
 		</cfoutput>
 <!-------------------------- dlkm debug -----------------<--------------------->	
-	<cfif isdefined("client.username") and (#client.username# is "dlm" or #client.username# is "dusty" or #client.username# is "lam")>
+	<cfif isdefined("session.username") and (#session.username# is "dlm" or #session.username# is "dusty" or #session.username# is "lam")>
 		
 	<cfoutput>
 	#preserveSingleQuotes(SqlString)#
@@ -114,10 +114,10 @@
 	
 	<!-------------------------- / dlm debug ----------------------
 	
-	<cfif isdefined("client.username") and (#client.username# is "dlm" or #client.username# is "dusty")>
+	<cfif isdefined("session.username") and (#session.username# is "dlm" or #session.username# is "dusty")>
 		
 	<cfoutput>
-	--#client.username#--
+	--#session.username#--
 	#preserveSingleQuotes(SqlString)#
 	<br>ReturnURL: #returnURL#
 	<br>MapURL: #mapURL#
@@ -150,8 +150,8 @@
 </cfquery>
 <cfoutput>
 <form name="defaults">
-	<input type="hidden" name="killrow" id="killrow" value="#client.killrow#">
-	<input type="hidden" name="displayrows" id="displayrows" value="#client.displayrows#">
+	<input type="hidden" name="killrow" id="killrow" value="#session.killrow#">
+	<input type="hidden" name="displayrows" id="displayrows" value="#session.displayrows#">
 	<input type="hidden" name="action" id="action" value="#action#">
 	<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
 	<cfif isdefined("transaction_id")>
@@ -170,7 +170,7 @@
 		Your query returned no results.
 		<ul>
 			<li>
-				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" target="#client.target#" class="novisit">Arctos Taxonomy</a>.
+				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" target="#session.target#" class="novisit">Arctos Taxonomy</a>.
 			</li>
 			<li>
 				Try broadening your search criteria. Try the next-higher geographic element, remove criteria, etc. Don't assume we've accurately or predictably recorded data!
@@ -188,7 +188,7 @@
 
 <script>
 	hidePageLoad();
-	getSpecResultsData(1,#client.displayrows#);
+	getSpecResultsData(1,#session.displayrows#);
 </script>
 <cfquery name="mappable" datasource="#Application.web_user#">
 	select count(distinct(collection_object_id)) cnt from #thisTableName# where dec_lat is not null and dec_long is not null
@@ -245,22 +245,22 @@
 		<td>
 		<!--- the function accepts:
 				startrow <- first record of the page we want to view
-				numRecs <- client.displayrows
+				numRecs <- session.displayrows
 				orderBy < current values from dropdown
 		--->
-		<cfset numPages= ceiling(summary.recordcount/client.displayrows)>
+		<cfset numPages= ceiling(summary.recordcount/session.displayrows)>
 		<cfset loopTo=numPages-2>
 		<label for="page_record">Records...</label>
 		<select name="page_record" id="page_record" size="1" onchange="getSpecResultsData(this.value);">
 			<cfloop from="0" to="#loopTo#" index="i">
-				<cfset bDispVal = (i * client.displayrows + 1)>
-				<cfset eDispval = (i + 1) * client.displayrows>
-				<option value="#bDispVal#,#client.displayrows#">#bDispVal# - #eDispval#</option>
+				<cfset bDispVal = (i * session.displayrows + 1)>
+				<cfset eDispval = (i + 1) * session.displayrows>
+				<option value="#bDispVal#,#session.displayrows#">#bDispVal# - #eDispval#</option>
 			</cfloop>
 			<!--- last set of records --->
-			<cfset bDispVal = ((loopTo + 1) * client.displayrows )+ 1>
+			<cfset bDispVal = ((loopTo + 1) * session.displayrows )+ 1>
 			<cfset eDispval = summary.recordcount>
-			<option value="#bDispVal#,#client.displayrows#">#bDispVal# - #eDispval#</option>
+			<option value="#bDispVal#,#session.displayrows#">#bDispVal# - #eDispval#</option>
 			<!--- all records --->
 			<option value="1,#summary.recordcount#">1 - #summary.recordcount#</option>
 		</select>
@@ -270,9 +270,9 @@
 			<label for="orderBy1">Primary Order</label>
 			<select name="orderBy1" id="orderBy1" size="1">
 				<!--- prepend their CustomID and integer sort of their custom ID to the list --->
-				<cfif isdefined("customOtherIdentifier") and len(#Client.CustomOtherIdentifier#) gt 0>
-					<option value="CustomID">#Client.CustomOtherIdentifier#</option>
-					<option value="CustomIDInt">#Client.CustomOtherIdentifier# (INT)</option>
+				<cfif isdefined("customOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
+					<option value="CustomID">#session.CustomOtherIdentifier#</option>
+					<option value="CustomIDInt">#session.CustomOtherIdentifier# (INT)</option>
 				</cfif>
 				<cfloop list="#resultList#" index="i">
 					<option value="#i#">#i#</option>
@@ -295,7 +295,7 @@
 				onmouseout="this.className='controlButton'"
 				onclick="document.getElementById('page_record').selectedIndex=0;
 					var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;
-					getSpecResultsData(1,#client.displayrows#,obv,'ASC');">&uarr;</span>
+					getSpecResultsData(1,#session.displayrows#,obv,'ASC');">&uarr;</span>
 		</td>
 		<td>
 			<label for="">&nbsp;</label>
@@ -304,7 +304,7 @@
 				onmouseout="this.className='controlButton'"
 				onclick="document.getElementById('page_record').selectedIndex=0;
 					var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;
-					getSpecResultsData(1,#client.displayrows#,obv,'DESC');">&darr;</span>
+					getSpecResultsData(1,#session.displayrows#,obv,'DESC');">&darr;</span>
 		</td>
 		<td><div style="width:100px;">&nbsp;</div></td>
 		<td>
@@ -339,10 +339,10 @@
 				onclick="saveSearch();">Save&nbsp;Search</span>
 		</td>
 		<td nowrap="nowrap">
-			<cfif #client.rights# contains "student" and summary.recordcount lt 1000>
+			<cfif #session.rights# contains "student" and summary.recordcount lt 1000>
 				<cfset collObjIdList = valuelist(summary.collection_object_id)>
 				<label for="goWhere">Manage...</label>
-				<select name="goWhere" id="goWhere" size="1" target="#client.target#">
+				<select name="goWhere" id="goWhere" size="1" target="#session.target#">
 					<option value="Encumbrances.cfm?collection_object_id=#collObjIdList#">
 						Encumbrances
 					</option>
@@ -407,7 +407,7 @@
 					class="lnkBtn"
 		   			onmouseover="this.className='lnkBtn btnhov'" 
 					onmouseout="this.className='lnkBtn'"
-					onClick="window.open(document.getElementById('goWhere').value,'#client.target#');">
+					onClick="window.open(document.getElementById('goWhere').value,'#session.target#');">
 			</cfif>
 		</td>
 	</tr>

@@ -15,7 +15,7 @@
 <cfoutput>
 <cfquery name="data" datasource="#Application.web_user#">
 	select * from bulkloader
-	where enteredby = '#client.username#'
+	where enteredby = '#session.username#'
 	ORDER BY #order_by# #order_order#
 </cfquery>
 

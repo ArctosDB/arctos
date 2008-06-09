@@ -65,7 +65,7 @@
 		citation_remarks,
 		publication_title,
 		cited_taxon_name_id,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#Client.CustomOtherIdentifier#') AS CustomID
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID
 	FROM 
 		citation, 
 		cataloged_item,
@@ -90,7 +90,7 @@
 <table border cellpadding="0" cellspacing="0"><tr>
 	<td>&nbsp;</td>
 	<td nowrap>Cat Num</td>
-	<td nowrap>#Client.CustomOtherIdentifier#</td>
+	<td nowrap>#session.CustomOtherIdentifier#</td>
 	<td nowrap>
 	Cited As
 	</td>
@@ -147,7 +147,7 @@
 	</td>
 	<td>
 		<a href="/SpecimenDetail.cfm?collection_object_id=#getCited.collection_object_id#"
-			target="#client.target#">
+			target="#session.target#">
 			#getCited.collection#&nbsp;#getCited.cat_num#</a></td>
 	<td nowrap="nowrap">#customID#</td>
 	<td nowrap><i>#getCited.citSciName#</i>&nbsp;</td>
@@ -188,10 +188,10 @@
 		<label for="cat_num">Catalog Number</label>
 		<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation(this.id,'cat_num')">
 	</td>
-	<cfif len(Client.CustomOtherIdentifier) gt 0>
+	<cfif len(session.CustomOtherIdentifier) gt 0>
 		<td>
-			<label for="custom_id">#Client.CustomOtherIdentifier#</label>
-			<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#Client.CustomOtherIdentifier#')">
+			<label for="custom_id">#session.CustomOtherIdentifier#</label>
+			<input type="text" name="custom_id" id="custom_id" onchange="getCatalogedItemCitation(this.id,'#session.CustomOtherIdentifier#')">
 		</td>
 	</cfif>
 </tr>
@@ -258,7 +258,7 @@
 <!------------------------------------------------------------------------------->
 <cfif #Action# is "newCitation">
 	<cfoutput>
-	<cfquery name="newCite" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="newCite" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO citation (
 			publication_id,
 			collection_object_id,
@@ -338,7 +338,7 @@
 <!------------------------------------------------------------------------------->
 <cfif #Action# is "saveEdits">
 	<cfoutput>
-	<cfquery name="edCit" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="edCit" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		UPDATE citation SET
 			cit_current_fg = 1
 			<cfif len(#cited_taxon_name_id#) gt 0>
@@ -514,7 +514,7 @@
 <!------------------------------------------------------------------------------->
 <cfif #Action# is "deleCitation">
 <cfoutput>
-	<cfquery name="deleCit" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="deleCit" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	delete from citation where collection_object_id = #collection_object_id# and publication_id = #publication_id#
 	</cfquery>
 	<cf_ActivityLog sql="delete from citation where collection_object_id = #collection_object_id# and publication_id = #publication_id#">

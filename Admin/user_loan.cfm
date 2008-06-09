@@ -489,10 +489,10 @@ starting 1<cfflush>
 			select max(transaction_id) + 1 as nextTransactionId from trans
 		</cfquery>
 		<cfquery name="TRANS_ENTERED_AGENT_ID" datasource="#Application.web_user#">
-			select agent_id from agent_name where agent_name = '#client.username#'
+			select agent_id from agent_name where agent_name = '#session.username#'
 		</cfquery>
 		<cfif len(#TRANS_ENTERED_AGENT_ID.agent_id#) is 0>
-			You are not logged in as a recognized agent. Your login ID (#client.username#)
+			You are not logged in as a recognized agent. Your login ID (#session.username#)
 			must be entered in the agent names table as type 'login'.
 		</cfif>
 		<!------#loan_type# - #loan_num# - #initiating_date# - #loan_num_suffix# - #rec_agent_id# - #loan_num# - #auth_agent_id#---

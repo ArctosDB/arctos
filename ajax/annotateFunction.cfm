@@ -26,7 +26,7 @@
 	</cfif>
 	<cfset sql = "#sql# ) values (
 			#collection_object_id#,
-			'#client.username#'">
+			'#session.username#'">
 	
 	
 	<cfif len(#higher_geography#) gt 0 and #higher_geography# is not "Annotate">
@@ -69,7 +69,7 @@
 
 	
 	<cfmail to="#mailTo#" from="annotation@#Application.fromEmail#" subject="Annotation Submitted" type="html">
-		Arctos User #client.username# has submitted a specimen annotation. View details at
+		Arctos User #session.username# has submitted a specimen annotation. View details at
 		<a href="#Application.ServerRootUrl#/info/annotate.cfm?action=show&collection_object_id=#collection_object_id#">
 		#Application.ServerRootUrl#/info/annotate.cfm?action=show&collection_object_id=#collection_object_id#
 		</a>

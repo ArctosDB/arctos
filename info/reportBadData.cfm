@@ -135,9 +135,9 @@
 <cfif #action# is "save">
 <cfoutput>
 <cfset user_id=0>
-<cfif isdefined("client.username") and len(#client.username#) gt 0>
+<cfif isdefined("session.username") and len(#session.username#) gt 0>
 	<cfquery name="isUser" datasource="#Application.web_user#">
-		SELECT user_id FROM cf_users WHERE username = '#client.username#'
+		SELECT user_id FROM cf_users WHERE username = '#session.username#'
 	</cfquery>
 	<cfset user_id = #isUser.user_id#>
 </cfif>
@@ -202,7 +202,7 @@
 	</cfloop>
 	
 	<cfmail to="#thisAddress#" subject="ColdFusion Bad Data Report" from="BadData@#Application.fromEmail#" type="html">
-		<p>Reported Name: #reported_name# (AKA #client.username#) submitted a data report on #thisDate#.</p>
+		<p>Reported Name: #reported_name# (AKA #session.username#) submitted a data report on #thisDate#.</p>
 		
 		<P>Solution: #suggested_solution#</P>
 		

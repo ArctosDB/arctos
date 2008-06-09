@@ -2,8 +2,8 @@
 
 <cfset escapeGoofyInstall=replace(cgi.SCRIPT_NAME,"/cfusion","","all")>
 <!--- check password --->
-<cfif isdefined("client.force_password_change") and 
-	#client.force_password_change# is "yes" and 
+<cfif isdefined("session.force_password_change") and 
+	#session.force_password_change# is "yes" and 
 	#escapeGoofyInstall# is not "/ChangePassword.cfm">
 	<cflocation url="/ChangePassword.cfm">	
 </cfif>
@@ -27,17 +27,17 @@ isValid.recordcount: #isValid.recordcount#;
 <cfif #isValid.recordcount# is 0>
 	This form is not controlled. Add it to Form Permissions or get ready to see it go bye-bye.
 	<cfmail subject="Uncontrolled Form" to="#Application.technicalEmail#" from="Security@#Application.fromEmail#" type="html">
-		Form #escapeGoofyInstall# needs some control. Found by #client.username# (#cgi.HTTP_X_Forwarded_For# - #remote_host#)
+		Form #escapeGoofyInstall# needs some control. Found by #session.username# (#cgi.HTTP_X_Forwarded_For# - #remote_host#)
 	</cfmail>
 <cfelse>
 	<cfloop query="isValid">
-		<cfif not listfindnocase(client.roles,role_name)>
+		<cfif not listfindnocase(session.roles,role_name)>
 			<cfset badYou = "yes">
 		</cfif>
 	</cfloop>
 </cfif>
 <!--- if they are logged in, check their cookie to see if they've been idle for >90m (ie, with browser not running) ---->
-<cfif isdefined("cookie.username") and len(#client.username#) gt 0>
+<cfif isdefined("cookie.username") and len(#session.username#) gt 0>
 	<cfif isdefined("cookie.ArctosSession")>
 		<cfset thisTime = #dateconvert('local2Utc',now())#>
 		<cfset cookieTime = #cookie.ArctosSession#>		

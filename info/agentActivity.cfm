@@ -1,8 +1,8 @@
 <cfinclude template = "/includes/_frameHeader.cfm">
-<cfif #client.target# is "_self">
+<cfif #session.target# is "_self">
 	<cfset thisTarget = "_top">
 <cfelse>
-	<cfset thisTarget = #client.target#>
+	<cfset thisTarget = #session.target#>
 </cfif>
 <cfset title = "Agent Activity">
 <cfoutput>

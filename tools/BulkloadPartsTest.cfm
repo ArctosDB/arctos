@@ -382,7 +382,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		select * from cf_temp_parts
 	</cfquery>
 	<cfquery name= "getEntBy" datasource="#Application.uam_dbo#">
-		SELECT agent_id FROM agent_name WHERE agent_name = '#client.username#' 
+		SELECT agent_id FROM agent_name WHERE agent_name = '#session.username#' 
 	</cfquery>
 	<cfif getEntBy.recordcount is 0>
 		<cfabort showerror = "You aren't a recognized agent!">

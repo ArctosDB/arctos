@@ -1,12 +1,12 @@
-<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 	<cfset flatTableName = "flat">
 <cfelse>
 	<cfset flatTableName = "filtered_flat">
 </cfif>
 
 <cfif not isdefined("detail_level") OR len(#detail_level#) is 0>
-	<cfif isdefined("client.detailLevel") AND #client.detailLevel# gt 0>
-		<cfset detail_level = #client.detailLevel#>
+	<cfif isdefined("session.detailLevel") AND #session.detailLevel# gt 0>
+		<cfset detail_level = #session.detailLevel#>
 	<cfelse>
 		<cfset detail_level = 1>
 	</cfif>	
@@ -15,7 +15,7 @@
 <cfinclude template = "includes/_header.cfm">
 <cfset title="Specimen Results">
 <cfif not isdefined("displayrows")>
-	<cfset displayrows = client.displayrows>
+	<cfset displayrows = session.displayrows>
 </cfif>
 <cfif not isdefined("SearchParams")>
 	<cfset SearchParams = "">
@@ -210,7 +210,7 @@
 		<p>Some possibilities include:</p>
 		<ul>
 			<li>
-				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" target="#client.target#" class="novisit">Arctos Taxonomy</a>.			</li>
+				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" target="#session.target#" class="novisit">Arctos Taxonomy</a>.			</li>
 			<li>
 				Try broadening your search criteria. Try the next-higher geographic element, remove criteria, etc.			</li>
 			<li>
@@ -387,7 +387,7 @@
 <cfoutput query="getBasic">
  
     <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-	 <form name="theseSpecs#i#" method="post" action="/SpecimenResults.cfm" target="#client.target#">
+	 <form name="theseSpecs#i#" method="post" action="/SpecimenResults.cfm" target="#session.target#">
 	 #searchparams#
 	  	<input type="hidden" name="Scientific_Name" value="#Scientific_Name#">
 		<input type="hidden" name="sciNameOper" value="=">
@@ -523,7 +523,7 @@
 
 
 <cfset dlPath = "#Application.SpecimenDownloadPath#">
-<cfset dlFile = "#Client.SpecimenDownloadFileName#">
+<cfset dlFile = "#session.SpecimenDownloadFileName#">
  <cfset header ="Count#chr(9)#Scientific_Name">
 	<cfif #groupBy# contains "continent_ocean">
 		 <cfset header = "#header##chr(9)#continent_ocean">

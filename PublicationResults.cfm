@@ -122,7 +122,7 @@
 	select distinct(publication_id) from getPubs
 </cfquery>
 <cfparam name="StartRow" default="1">
-<CFSET ToRow = StartRow + (Client.DisplayRows - 1)>
+<CFSET ToRow = StartRow + (session.DisplayRows - 1)>
 <CFIF ToRow GT count.RecordCount>
 	<CFSET ToRow = count.RecordCount>
 </CFIF><CFOUTPUT>
@@ -134,8 +134,8 @@
 </CFOUTPUT>
 <form name="form2">
 	 <!--- update the values for the next and previous rows to be returned --->
-	<CFSET Next = StartRow + client.DisplayRows>
-	<CFSET Previous = StartRow - client.DisplayRows>
+	<CFSET Next = StartRow + session.DisplayRows>
+	<CFSET Previous = StartRow - session.DisplayRows>
 	<cf_log cnt=#count.RecordCount# coll=na>	 
 	<!--- Create a previous records link if the records being displayed aren't the
 		  first set --->	
@@ -150,14 +150,14 @@
 				
 				<input name="toproject_id" type="hidden" value="#toproject_id#">
 				<input type="submit" 
-					value="Previous #client.DisplayRows# Records" 
+					value="Previous #session.DisplayRows# Records" 
 					class="lnkBtn"
 					onmouseover="this.className='lnkBtn btnhov'" 
 					onmouseout="this.className='lnkBtn'">
 			
 				<input name="StartRow" type="hidden" value="#Previous#">
 				<input name="NewQuery" type="hidden" value="0">
-				<input name="displayRows" type="hidden" value="#client.DisplayRows#">
+				<input name="displayRows" type="hidden" value="#session.DisplayRows#">
 				</form>
 	</CFIF></td>
 		<td><!--- Create a next records link if there are more records in the record set 
@@ -165,14 +165,14 @@
 	<CFIF Next LTE getPubs.RecordCount>
 				<form name="form4" action="PublicationResults.cfm">
 				<input type="submit" 
-					value="Next #client.DisplayRows# Records" 
+					value="Next #session.DisplayRows# Records" 
 					class="lnkBtn"
 					onmouseover="this.className='lnkBtn btnhov'" 
 					onmouseout="this.className='lnkBtn'">
 				<input name="StartRow" type="hidden" value="#Next#">
 				<input name="toproject_id" type="hidden" value="#toproject_id#">
 				<input name="NewQuery" type="hidden" value="0">
-				<input name="client.displayRows" type="hidden" value="#client.DisplayRows#">
+				<input name="session.displayRows" type="hidden" value="#session.DisplayRows#">
 				</form>
 	</CFIF>
 	</td>
@@ -181,11 +181,11 @@
 	</table>
 </form>
 <table border="1">
-	<cfoutput query="getPubs"  StartRow="#StartRow#" MaxRows="#client.DisplayRows#" group="publication_id">
+	<cfoutput query="getPubs"  StartRow="#StartRow#" MaxRows="#session.DisplayRows#" group="publication_id">
 		<tr #iif(currentrow MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<td valign="top">
 				<table>
-					<form action="ProjectList.cfm?src=pubs" method="post" target="#client.target#">
+					<form action="ProjectList.cfm?src=pubs" method="post" target="#session.target#">
 							<input name="toproject_id" type="hidden" value="#toproject_id#">
 							<input name="Action" type="hidden">
 							<input type="hidden" name="publication_id" value="#publication_id#">
@@ -199,7 +199,7 @@
 						</td>
 					</tr>
 					</form>
-					<form action="SpecimenResults.cfm" method="post" target="#client.target#">
+					<form action="SpecimenResults.cfm" method="post" target="#session.target#">
 							<input name="Action" type="hidden">
 							<input name="toproject_id" type="hidden" value="#toproject_id#">
 							<input type="hidden" name="publication_id" value="#publication_id#">
@@ -215,7 +215,7 @@
 						</tr>
 						</form>
 						<cfif #toproject_id# gt 0>
-						<form action="Project.cfm" method="post" target="#client.target#">
+						<form action="Project.cfm" method="post" target="#session.target#">
 							<input name="project_id" type="hidden" value="#toproject_id#">
 							<input type="hidden" name="Action" value="addPub">
 							<input type="hidden" name="publication_id" value="#publication_id#">
@@ -230,8 +230,8 @@
 					</tr>
 					</form>
 					</cfif>
-					<cfif  isdefined("client.roles") and listfindnocase(client.roles,"MANAGE_PUBLICATIONS")>
-						<form action="Publication.cfm" method="post" target="#client.target#">
+					<cfif  isdefined("session.roles") and listfindnocase(session.roles,"MANAGE_PUBLICATIONS")>
+						<form action="Publication.cfm" method="post" target="#session.target#">
 									<input type="hidden" name="publication_id" value="#publication_id#">
 										<cfif #publication_type# is "Book">
 											<cfset thisAction = "editBook">
@@ -252,7 +252,7 @@
 							</td>
 						</tr>
 						</form>
-						<form action="Citation.cfm" method="post" target="#client.target#">
+						<form action="Citation.cfm" method="post" target="#session.target#">
 									<input type="hidden" name="publication_id" value="#publication_id#">
 						<tr>
 							<td valign="top">
@@ -293,8 +293,8 @@
 
 <form name="form2">
 	 <!--- update the values for the next and previous rows to be returned --->
-	<CFSET Next = StartRow + client.DisplayRows>
-	<CFSET Previous = StartRow - client.DisplayRows>	 
+	<CFSET Next = StartRow + session.DisplayRows>
+	<CFSET Previous = StartRow - session.DisplayRows>	 
 	<!--- Create a previous records link if the records being displayed aren't the
 		  first set --->	
 	<table>
@@ -304,13 +304,13 @@
 				<form name="form3" action="PublicationResults.cfm">
 				
 				<input type="submit" 
-					value="Previous #client.DisplayRows# Records" 
+					value="Previous #session.DisplayRows# Records" 
 					class="lnkBtn"
 					onmouseover="this.className='lnkBtn btnhov'" 
 					onmouseout="this.className='lnkBtn'">
 				<input name="StartRow" type="hidden" value="#Previous#">
 				<input name="NewQuery" type="hidden" value="0">
-				<input name="displayRows" type="hidden" value="#client.DisplayRows#">
+				<input name="displayRows" type="hidden" value="#session.DisplayRows#">
 				</form>
 	</CFIF></td>
 		<td><!--- Create a next records link if there are more records in the record set 
@@ -319,13 +319,13 @@
 				<form name="form4" action="PublicationResults.cfm">
 				
 				<input type="submit" 
-					value="Next #client.DisplayRows# Records" 
+					value="Next #session.DisplayRows# Records" 
 					class="lnkBtn"
 					onmouseover="this.className='lnkBtn btnhov'" 
 					onmouseout="this.className='lnkBtn'">
 				<input name="StartRow" type="hidden" value="#Next#">
 				<input name="NewQuery" type="hidden" value="0">
-				<input name="client.displayRows" type="hidden" value="#client.DisplayRows#">
+				<input name="session.displayRows" type="hidden" value="#session.DisplayRows#">
 				</form>
 	</CFIF>
 	</td>

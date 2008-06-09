@@ -137,7 +137,7 @@ To use this form, all of the following must be true:
 	<hr>
 	<cftransaction>
 	<cfloop query="contID">
-		<cfquery name="upCont" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="upCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			update container set container_type='#newContType#'
 			where container_id=#container_id#
 		</cfquery>
@@ -178,7 +178,7 @@ To use this form, all of the following must be true:
 	</cfquery>
 	<cftransaction>
 	<cfloop query="contID">
-		<cfquery name="upCont" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="upCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			update container set container_type='#newContType#'
 			<cfif len(#DESCRIPTION#) gt 0>
 				,DESCRIPTION='#DESCRIPTION#'

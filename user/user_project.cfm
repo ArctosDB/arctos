@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<cfif len(#client.username#) is 0>
+<cfif len(#session.username#) is 0>
 	You aren't a registered user. Please sign in.
 	<cfabort>
 </cfif>
@@ -70,14 +70,14 @@
 <!---- see if they've been pre-approved ---->
 <cfquery name="isGood" datasource="#Application.web_user#">
 	select approved_to_request_loans from cf_users where 
-	username = '#client.username#'
+	username = '#session.username#'
 </cfquery>
 <cfif #isGood.approved_to_request_loans# neq 1>
 <cfoutput>
 	You haven't been approved to request loans.
 	<br>The curators of the collection(s) from which you wish to borrow specimens must pre-approve your request.
 	<br>Please contact the appropriate curator(s) for instructions on how to proceed with your loan request. You will need to include 
-	your Arctos user name (#client.username#) in your request.
+	your Arctos user name (#session.username#) in your request.
 	
 	#contactTable#
 	</cfoutput>
@@ -120,7 +120,7 @@
 		cf_users.user_id = cf_user_data.user_id (+) AND
 		cf_users.user_id = cf_project.user_id (+) AND
 		cf_project.trans_id = cf_loan.trans_id (+) AND
-		cf_users.username = '#client.username#'
+		cf_users.username = '#session.username#'
 </cfquery>
 <cfquery name="user" dbtype="query">
 	select username, first_name, last_name, affiliation, email from getUser
@@ -403,7 +403,7 @@
 		</td>
 		<td>
 		
-	<cfif #loan_id# is "#client.active_loan_id#">
+	<cfif #loan_id# is "#session.active_loan_id#">
 		Yes, you may now add parts via <a href="/SpecimenSearch.cfm">SpecimenSearch</a>.
 		<br><input type="button" value="Make Inactive" class="savBtn"
 				onmouseover="this.className='savBtn btnhov'" 
@@ -633,9 +633,9 @@ Review loan items for <a href="user_project.cfm?action=manageLoans&trans_id=#tra
 <cfoutput>
 <cfquery name="edProj" datasource="#uam_dbo#">
 	UPDATE cf_users SET active_loan_id = #loan_id#
-	where username = '#client.username#'
+	where username = '#session.username#'
 </cfquery>
-<cfset client.active_loan_id = #loan_id#>
+<cfset session.active_loan_id = #loan_id#>
 <cflocation url="user_project.cfm?action=manageLoans&trans_id=#trans_id#">
 </cfoutput>
 </cfif>
@@ -644,9 +644,9 @@ Review loan items for <a href="user_project.cfm?action=manageLoans&trans_id=#tra
 <cfoutput>
 <cfquery name="edProj" datasource="#uam_dbo#">
 	UPDATE cf_users SET active_loan_id = null
-	where username = '#client.username#'
+	where username = '#session.username#'
 </cfquery>
-<cfset client.active_loan_id = "">
+<cfset session.active_loan_id = "">
 <cflocation url="user_project.cfm?action=manageLoans&trans_id=#trans_id#">
 </cfoutput>
 </cfif>

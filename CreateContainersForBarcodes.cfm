@@ -55,7 +55,7 @@
 
 <!----------------------------------------------------------------------------------->
 <cfif URL.action is "create">
-<cfquery name="nextContainerId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="nextContainerId" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	SELECT max((container_id) + 1) as next_id from container
 </cfquery>
 <cfoutput query="nextContainerID">
@@ -68,7 +68,7 @@
 <cfset num = #num# + 1>
 <cftransaction>
 <cfloop index="index" from="1" to = "#num#">
-<cfquery name="AddLabels" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="AddLabels" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO container (container_id, parent_container_id, container_type, barcode, label, container_remarks,locked_position,institution_acronym)
 		VALUES (#newid#, 0, '#container_type#', '#prefix##barcode##suffix#', '#label_prefix##barcode##label_suffix#','#remarks#',0,'#institution_acronym#')
 </cfquery>

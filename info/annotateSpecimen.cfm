@@ -42,7 +42,7 @@
 <cfquery name="hasEmail" datasource="#Application.web_user#">
 	select email from cf_user_data,cf_users
 	where cf_user_data.user_id = cf_users.user_id and
-	cf_users.username='#client.username#'
+	cf_users.username='#session.username#'
 </cfquery>
 <cfif #hasEmail.recordcount# is 0 OR #len(hasEmail.email)# is 0>
 	<div class="error">

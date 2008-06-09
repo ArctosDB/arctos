@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_helpHeader.cfm">
 <cfquery name="isAuth" datasource="#Application.web_user#">
-	select privs from cf_auth_arctosdoc where username='#client.username#'
+	select privs from cf_auth_arctosdoc where username='#session.username#'
 </cfquery>
 <cfif #len(isAuth.privs)# is 0>
 	not authorized.
@@ -318,7 +318,7 @@ function success_deleteOne (result) {
 				privs
 			) values (
 				'#newUser#',
-				'#client.username#',
+				'#session.username#',
 				'#newPrivs#')
 		</cfquery>
 		<cflocation url="enterEditDocs.cfm?action=manageAccess">

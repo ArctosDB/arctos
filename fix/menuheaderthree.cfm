@@ -1,5 +1,5 @@
 <!--- see if there's a collection that we should be trying to look good for --->
-<cfif isdefined("client.exclusive_collection_id") and len(#client.exclusive_collection_id#) gt 0>
+<cfif isdefined("session.exclusive_collection_id") and len(#session.exclusive_collection_id#) gt 0>
 	<!--- 
 		create table cf_collection_appearance (
 			collection_id number not null,
@@ -22,43 +22,43 @@
   		FOREIGN KEY (collection_id)
   		REFERENCES collection(collection_id);
 	--->
-	<cfif not isdefined("Client.header_color") or len(#Client.header_color#) is 0>
+	<cfif not isdefined("session.header_color") or len(#session.header_color#) is 0>
 		<!--- assign client variables - otherwise, no reason to repeat --->
 		<cfquery name="getCollApp" datasource="#Application.web_user#">
-			select * from collection_appearance where collection_id = #client.exclusive_collection_id#
+			select * from collection_appearance where collection_id = #session.exclusive_collection_id#
 		</cfquery>
 		<cfif #getCollApp.recordcount# gt 0>
 			<!--- they have an entry --->
-			<cfset Client.header_color = getCollApp.header_color>
-			<cfset Client.header_image = getCollApp.header_image>
-			<cfset Client.collection_url = getCollApp.collection_url>
-			<cfset Client.collection_link_text = getCollApp.collection_link_text>
-			<cfset Client.institution_url = getCollApp.institution_url>
-			<cfset Client.institution_link_text = getCollApp.institution_link_text>
-			<cfset Client.meta_description = getCollApp.meta_description>
-			<cfset Client.meta_keywords = getCollApp.meta_keywords>
+			<cfset session.header_color = getCollApp.header_color>
+			<cfset session.header_image = getCollApp.header_image>
+			<cfset session.collection_url = getCollApp.collection_url>
+			<cfset session.collection_link_text = getCollApp.collection_link_text>
+			<cfset session.institution_url = getCollApp.institution_url>
+			<cfset session.institution_link_text = getCollApp.institution_link_text>
+			<cfset session.meta_description = getCollApp.meta_description>
+			<cfset session.meta_keywords = getCollApp.meta_keywords>
 		<cfelse>
 			<!--- collection has not set up customization --->
-			<cfset Client.header_color = Application.header_color>
-			<cfset Client.header_image = Application.header_image>
-			<cfset Client.collection_url = Application.collection_url>
-			<cfset Client.collection_link_text = Application.collection_link_text>
-			<cfset Client.institution_url = Application.institution_url>
-			<cfset Client.institution_link_text = Application.institution_link_text>
-			<cfset Client.meta_description = Application.meta_description>
-			<cfset Client.meta_keywords = Application.meta_keywords>
+			<cfset session.header_color = Application.header_color>
+			<cfset session.header_image = Application.header_image>
+			<cfset session.collection_url = Application.collection_url>
+			<cfset session.collection_link_text = Application.collection_link_text>
+			<cfset session.institution_url = Application.institution_url>
+			<cfset session.institution_link_text = Application.institution_link_text>
+			<cfset session.meta_description = Application.meta_description>
+			<cfset session.meta_keywords = Application.meta_keywords>
 		</cfif>
 	</cfif>		
 <cfelse>
 			<!--- collection has not set up customization --->
-			<cfset Client.header_color = Application.header_color>
-			<cfset Client.header_image = Application.header_image>
-			<cfset Client.collection_url = Application.collection_url>
-			<cfset Client.collection_link_text = Application.collection_link_text>
-			<cfset Client.institution_url = Application.institution_url>
-			<cfset Client.institution_link_text = Application.institution_link_text>
-			<cfset Client.meta_description = Application.meta_description>
-			<cfset Client.meta_keywords = Application.meta_keywords>
+			<cfset session.header_color = Application.header_color>
+			<cfset session.header_image = Application.header_image>
+			<cfset session.collection_url = Application.collection_url>
+			<cfset session.collection_link_text = Application.collection_link_text>
+			<cfset session.institution_url = Application.institution_url>
+			<cfset session.institution_link_text = Application.institution_link_text>
+			<cfset session.meta_description = Application.meta_description>
+			<cfset session.meta_keywords = Application.meta_keywords>
 </cfif> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -122,11 +122,11 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 			</font>
 		</div>
 	</cfif>
-<div style='background-color:#Client.header_color#;'>
+<div style='background-color:#session.header_color#;'>
 	<table width="95%" cellpadding="0" cellspacing="0">
 		<tr>
 			<td width="95" nowrap>
-				<a href="#client.collection_url#"><img src="#Client.header_image#" alt="Arctos" border="0"></a>
+				<a href="#session.collection_url#"><img src="#session.header_image#" alt="Arctos" border="0"></a>
 			</td>
 			<td align="left">
 				<table>
@@ -139,14 +139,14 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 					</tr>
 					<tr>
 						<td align="left" nowrap>
-							<a href="#client.collection_url#" class="novisit">
+							<a href="#session.collection_url#" class="novisit">
 										<span style="font-family:Arial, Helvetica, sans-serif;  font-size:24px; color:##000066;">
 										Arctos</span>
 							</a>
 							<br>
-							<a href="#client.institution_url#" class="novisit">
+							<a href="#session.institution_url#" class="novisit">
 							<span style="font-family:Arial, Helvetica, sans-serif;color:##000066; font-weight:bold;">
-								#client.institution_link_text#</span>
+								#session.institution_link_text#</span>
 							</a>
 						</td>
 					</tr>			 
@@ -355,8 +355,8 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 <ul>
 	<li><h2>My Stuff</h2>
 		<ul>
-			<cfif len(#client.username#) gt 0>
-				<li><a href="/login.cfm?action=signOut">Log Out #client.username#</a></li>
+			<cfif len(#session.username#) gt 0>
+				<li><a href="/login.cfm?action=signOut">Log Out #session.username#</a></li>
 				<li><a href="/myArctos.cfm">Preferences</a></li>
 			<cfelse>
 				<li><a href="/login.cfm">Log In</a></li>
@@ -529,8 +529,8 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 <ul>
 	<li><h2>My Stuff</h2>
 		<ul>
-			<cfif len(#client.username#) gt 0>
-				<li><a href="/login.cfm?action=signOut">Log Out #client.username#</a></li>
+			<cfif len(#session.username#) gt 0>
+				<li><a href="/login.cfm?action=signOut">Log Out #session.username#</a></li>
 				<li><a href="/myArctos.cfm">Preferences</a></li>
 			<cfelse>
 				<li><a href="/login.cfm">Log In</a></li>

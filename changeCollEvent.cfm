@@ -292,7 +292,7 @@
 <!--------------------------------------------------------------------------------------->
 <cfif #action# is "makeSaveGoNow">
 <cfoutput>
-	<cfquery name="upCollEvent" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="upCollEvent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		UPDATE cataloged_item SET collecting_event_id = #collecting_event_id# where collection_object_id = #collection_object_id#
 	</cfquery>
 		<cf_logEdit collection_object_id="#collection_object_id#">

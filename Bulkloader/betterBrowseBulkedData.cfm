@@ -1,6 +1,6 @@
 <cfif #action# is "saveGridUpdate">
 <cfoutput>
-<cfquery name="cNames" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="cNames" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	select column_name from user_tab_cols where table_name='BULKLOADER'
 </cfquery>
 <cfset ColNameList = valuelist(cNames.column_name)>
@@ -21,7 +21,7 @@
 	</cfloop>
 	
 		<cfset sql ="#sql# WHERE collection_object_id = #thisCollObjId#">
-	<cfquery name="up" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="up" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 </cfloop>
@@ -42,7 +42,7 @@
 		<!---
 		
 		--->
-		<cfquery name="upBulk" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="upBulk" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
 	</cfif>
@@ -65,7 +65,7 @@
 		where
 		grp.agent_id=group_member.GROUP_AGENT_ID and
 		group_member.MEMBER_AGENT_ID = usr.agent_id and
-		usr.agent_name='#client.username#' and
+		usr.agent_name='#session.username#' and
 		grp.agent_name like '%Data Admin%'
 </cfquery>
 <cfif #u.recordcount# is 1>
@@ -105,10 +105,10 @@
 </span>
 <cfset sql = "select * from bulkloader
 	where enteredby IN (#entBy#)">
-<cfquery name="data" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="data" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#	
 </cfquery>
-<cfquery name="cNames" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="cNames" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	select column_name from user_tab_cols where table_name='BULKLOADER'
 	order by internal_column_id
 </cfquery>

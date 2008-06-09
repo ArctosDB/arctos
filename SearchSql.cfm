@@ -1,5 +1,5 @@
 <cfif not isdefined("displayrows")>
-	<cfset displayrows = client.displayrows>
+	<cfset displayrows = session.displayrows>
 </cfif>
 <cfif not isdefined("maskedcolls")>
 	<cfset maskedcolls = "">
@@ -147,8 +147,8 @@
 			<cfset basQual = " #basQual# AND cat_num IN ( #listcatnum# ) " >
 		</cfif>
 		</cfif>
-		<cfif isdefined("Client.collection") and len(#Client.collection#) gt 0>
-			<cfset collection_cde=#client.collection#>		
+		<cfif isdefined("session.collection") and len(#session.collection#) gt 0>
+			<cfset collection_cde=#session.collection#>		
 		</cfif>
 		<cfif isdefined("collection_cde") and len(#collection_cde#) gt 0>
 			<cfset collcde = "">
@@ -163,9 +163,9 @@
 			<cfset basQual = "#basQual#  AND cataloged_item.collection_cde IN (#collcde#)" >
 			<cfset mapurl = "#mapurl#&collection_cde=#collection_cde#">
 		<!----
-		<cfelseif isdefined("Client.collection") and len(#Client.collection#) gt 0>
-			<cfset basQual = "#basQual#  AND cataloged_item.collection_cde IN (#client.collection#)" >
-			<cfset mapurl = "#mapurl#&collection_cde=#client.collection#">
+		<cfelseif isdefined("session.collection") and len(#session.collection#) gt 0>
+			<cfset basQual = "#basQual#  AND cataloged_item.collection_cde IN (#session.collection#)" >
+			<cfset mapurl = "#mapurl#&collection_cde=#session.collection#">
 			---->
 		</cfif>	
 		<cfif isdefined("listafnum") and len(#listafnum#) gt 0>

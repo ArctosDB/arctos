@@ -104,7 +104,7 @@
 			) values (
 				#aid.agent_id#,
 				'verbatim agent',
-				'Created #dateformat(now(),"dd-mmm-yyyy")# by login #client.username#.',
+				'Created #dateformat(now(),"dd-mmm-yyyy")# by login #session.username#.',
 				#anid.agent_name_id#)
 		</cfquery>
 		<cfquery name="newAgntName" datasource="#Application.uam_dbo#">

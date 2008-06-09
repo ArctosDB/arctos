@@ -4,7 +4,7 @@
 <cfinclude template="/Reports/functions/label_functions.cfm">
 <!-------------------------------------------------------------->
 <cfif #action# is "delete">
-    <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+    <cfquery name="e" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
         delete from cf_report_sql 
         where report_id=#report_id#
     </cfquery>
@@ -20,7 +20,7 @@
 		report_name must contain only alphanumeric cahracters and underscore.
 		<cfabort>
 	</cfif>
-    <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+    <cfquery name="e" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
         update cf_report_sql set     
         report_name ='#report_name#',
         report_template  ='#report_template#',
@@ -34,13 +34,13 @@
 <!--------------------------------------------------------------------------------------->
 <cfif #action# is "edit">
     <cfif not isdefined("report_id")>
-	    <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	    <cfquery name="e" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	        select report_id from cf_report_sql where report_name='#report_name#'
 	    </cfquery>
         <cflocation url="reporter.cfm?action=edit&report_id=#e.report_id#">
     </cfif>
 
-    <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+    <cfquery name="e" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
         select * from cf_report_sql where report_id='#report_id#'
     </cfquery>
     <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
@@ -98,7 +98,7 @@
 <!-------------------------------------------------------------->
 <cfif #action# is "newHandler">
      <cfset tc=getTickCount()>
-     <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+     <cfquery name="e" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
         insert into cf_report_sql (
             report_name,
             report_template,
@@ -112,11 +112,11 @@
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "clone">
-    <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+    <cfquery name="e" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
         select * from cf_report_sql where report_id='#report_id#'
     </cfquery>
     <cfset tc=getTickCount()>
-    <cfquery name="e" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+    <cfquery name="e" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
         insert into cf_report_sql (
             report_name,
             report_template,
@@ -138,7 +138,7 @@
     </cfif>
 
          <cfset sql=replace(test_sql,"##collection_object_id##",12)>
-         <cfquery name="user_sql" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+         <cfquery name="user_sql" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
              #preservesinglequotes(sql)#
          </cfquery>
          <cfdump var=#user_sql#>
@@ -188,11 +188,11 @@
             <td>Handler Name</td>
         </tr>
     <cfloop query="reportList">
-		<cfquery name="h" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="h" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	        select * from cf_report_sql where report_template='#name#'
 	    </cfquery>
         <cfif h.recordcount is 0>
-            <cfquery name="h" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+            <cfquery name="h" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		        select 0 report_id,
                 '#reportList.name#' report_template,
                 ' ' report_name

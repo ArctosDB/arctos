@@ -105,10 +105,10 @@
 <cfif #action# is "makeNewCollection">
 <cfoutput>
 	<cftransaction>
-	<cfquery name="nextCollCde" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="nextCollCde" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		select max(collection_id) + 1 as newID from collection
 	</cfquery>
-	<cfquery name="newColl" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="newColl" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO collection (
 			 COLLECTION_CDE,
 			 INSTITUTION_ACRONYM,
@@ -426,7 +426,7 @@
 <!------------------------------------------------------------------------------------->
 <cfif #action# is "updateContact">
 	<cfoutput>
-		<cfquery name="changeContact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="changeContact" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		UPDATE collection_contacts SET
 			contact_role = '#contact_role#',
 			contact_agent_id = #contact_agent_id#
@@ -439,7 +439,7 @@
 <!------------------------------------------------------------------------------------->
 <cfif #action# is "deleteContact">
 	<cfoutput>
-		<cfquery name="killContact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="killContact" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM collection_contacts
 		WHERE
 			collection_contact_id = #collection_contact_id#
@@ -451,7 +451,7 @@
 
 <cfif #action# is "deleteAppearance">
 <cfoutput>
-	 <cfquery name="killOld" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	 <cfquery name="killOld" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	 	delete from cf_collection_appearance where collection_id = #collection_id#
 	 </cfquery>
 	<cflocation url="Collection.cfm?action=findColl&collection_id=#collection_id#">
@@ -459,10 +459,10 @@
 </cfif>
 <cfif #action# is "changeAppearance">
 <cfoutput>
-	 <cfquery name="killOld" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	 <cfquery name="killOld" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	 	delete from cf_collection_appearance where collection_id = #collection_id#
 	 </cfquery>
-	 <cfquery name="insApp" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	 <cfquery name="insApp" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
  		INSERT INTO cf_collection_appearance (
  			collection_id,
  			HEADER_COLOR,
@@ -494,11 +494,11 @@
 <cfif #action# is "newContact">
 	<cfoutput>
 	<cftransaction>
-	<cfquery name="nid" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="nid" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		select max(collection_contact_id) nxid from collection_contacts
 	</cfquery>
 	<cfset nextID = #nid.nxid# + 1>
-	<cfquery name="newContact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="newContact" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO collection_contacts (
 			collection_contact_id,
 			collection_id,
@@ -519,7 +519,7 @@
 <cfoutput>
 	<cftransaction>
 	
-	<cfquery name="modColl" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="modColl" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		UPDATE collection SET 
 		COLLECTION_CDE = '#collection_cde#'
 		,COLLECTION = '#collection#'

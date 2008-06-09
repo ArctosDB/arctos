@@ -172,7 +172,7 @@
 </cfif>
 <cfif #action# is "saveChange">
 	<cfoutput>
-		<cfquery name="upPart" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="upPart" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			update specimen_part set is_tissue=1 where collection_object_id IN (#is_tissue#)
 		</cfquery>
 		All spiffy, go away now....

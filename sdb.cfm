@@ -244,7 +244,7 @@
 		<tr>
 			<td valign="top" width="50%" align="center">
 				<table><!--- left column --->
-					<cfif #client.rights# contains "student1">
+					<cfif #session.rights# contains "student1">
 						<tr>
 							<td colspan="2">
 								
@@ -274,7 +274,7 @@
 						</tr>
 </cfif>
 <!------------------------------------ accession ---------------------------------------------->
-<cfif #client.rights# contains "student1">
+<cfif #session.rights# contains "student1">
 							<cfset accn="#accn_num_prefix#.#numberformat(accn_num,000)#">
 							<cfif len(#accn_num_suffix#) gt 0>
 								<cfset accn="#accn#.#accn_num_suffix#">
@@ -331,7 +331,7 @@
 
 <tr>
 	<td colspan="2" nowrap>
-<cfif #client.rights# contains "student0">
+<cfif #session.rights# contains "student0">
 		<div class="HalfAButton"
 			onmouseover="this.className='HalfAButton btnhov'" 
 			onmouseout="this.className='HalfAButton'"
@@ -468,7 +468,7 @@
 	</td>
 	<td>	
 		<cfif #encumbrance_action# does not contain "coordinates" OR
-							(isdefined("client.rights") AND #client.rights# contains "student0")>
+							(isdefined("session.rights") AND #session.rights# contains "student0")>
 		
 		<a href="javascript:void(0);" 
 			onClick="getInfo('lat_long','#locality_id#'); return false;"
@@ -486,7 +486,7 @@
 	</td>
 </tr>
  
-<cfif #client.rights# contains "student0">
+<cfif #session.rights# contains "student0">
 		<tr>
 			<td align="right"><b>Determined By:</b></td>
 			<td>
@@ -542,7 +542,7 @@
 	
 	<cfoutput>
 		<div class="isAButton"
-			<cfif #client.rights# contains "student0">
+			<cfif #session.rights# contains "student0">
 			onmouseover="this.className='isAButton btnhov'" 
 			onmouseout="this.className='isAButton'"
 			onclick="editStuffLinks.content_url.value='editColls.cfm';editStuffLinks.submit();"
@@ -563,7 +563,7 @@
  						<td valign="top">
 							<cfoutput query="colls" group="collector">
 								<cfif #encumbrance_action# does not contain 'mask collector' 
-									OR #client.rights# contains "student0">
+									OR #session.rights# contains "student0">
 									#collector#<br>
 								<cfelse>
 									Anonymous<br>
@@ -590,7 +590,7 @@
 <td>
 <cfoutput query="preps" group="collector">
 	<cfif  #encumbrance_action# does not contain 'mask preparator'
-		OR #client.rights# contains "student0">
+		OR #session.rights# contains "student0">
 			#collector#<br>
 	<cfelse>
 			Anonymous<br>
@@ -599,7 +599,7 @@
 	</td>
 	</tr>
 </cfif>
-<cfif #client.rights# contains "student0">
+<cfif #session.rights# contains "student0">
 <cfoutput>
 		<tr>
 	<td colspan="2">
@@ -614,7 +614,7 @@
 	</td>
 </tr>
 		</cfoutput>
-<cfelseif #client.rights# does not contain "student0"
+<cfelseif #session.rights# does not contain "student0"
 	AND len(#relns.related_coll_object_id#) gt 0>
 	<tr>
 	<td colspan="2">
@@ -659,7 +659,7 @@
 <tr>
 	<td colspan="2">
 		<cfoutput>
-							<a href="SpecimenResults.cfm?collection_object_id=#relatedCollObjList#" target="#client.target#">Related Specimens List</a>
+							<a href="SpecimenResults.cfm?collection_object_id=#relatedCollObjList#" target="#session.target#">Related Specimens List</a>
 							</cfoutput>
 	</td>
 </tr>
@@ -706,12 +706,12 @@
 			<ul>
 			<cfloop query="isProj">
 			<li>
-				 <a href="ProjectDetail.cfm?src=proj&project_id=#isProj.project_id#" target="#client.target#">#isProj.project_name#</a>
+				 <a href="ProjectDetail.cfm?src=proj&project_id=#isProj.project_id#" target="#session.target#">#isProj.project_name#</a>
 			</li>
 			</cfloop>
 			</ul>
 		<cfelse>
-			<a href="ProjectDetail.cfm?src=proj&project_id=#isProj.project_id#" target="#client.target#">#isProj.project_name#</a>
+			<a href="ProjectDetail.cfm?src=proj&project_id=#isProj.project_id#" target="#session.target#">#isProj.project_name#</a>
 		</cfif>
 		
 	</td>
@@ -752,10 +752,10 @@
 <table><!---- right table ---->
 <tr>
 	<td colspan="2" >
-	<cfif #client.rights# contains "student1">
+	<cfif #session.rights# contains "student1">
 	<cfoutput>
 			<div class="HalfAButton"
-			<cfif #client.rights# contains "student0">
+			<cfif #session.rights# contains "student0">
 			onmouseover="this.className='HalfAButton btnhov'" 
 			onmouseout="this.className='HalfAButton'"
 			onclick="editStuffLinks.content_url.value='editParts.cfm';editStuffLinks.submit();"
@@ -764,7 +764,7 @@
 									<strong>Parts</strong>
 								</div> 
 			<div class="HalfAButton"
-			<cfif #client.rights# contains "student0">
+			<cfif #session.rights# contains "student0">
 			onmouseover="this.className='HalfAButton btnhov'" 
 			onmouseout="this.className='HalfAButton'"
 			onclick="window.open('Locations.cfm?srch=Part&cat_num=#detail.cat_num#&collection_cde=#detail.collection_cde#', '_blank');"
@@ -801,7 +801,7 @@
 		<tr>
 			<td colspan="2">
 	<div class="isAButton"
-			<cfif #client.rights# contains "student0">
+			<cfif #session.rights# contains "student0">
 			onmouseover="this.className='isAButton btnhov'" 
 			onmouseout="this.className='isAButton'"
 			onclick="editStuffLinks.content_url.value='editBiolIndiv.cfm';editStuffLinks.submit();"
@@ -951,7 +951,7 @@
    	 <td>#coll_object_remarks#</td>
 	</cfif>
   </tr>
-  <cfif #client.rights# contains "student0">
+  <cfif #session.rights# contains "student0">
   <tr>
     <td align="right"><b>Disposition:</b></td>
     <td>
@@ -965,7 +965,7 @@
 			<td colspan="2">
 			<cfoutput>
 				<div class="isAButton"
-			<cfif #client.rights# contains "student0">
+			<cfif #session.rights# contains "student0">
 			onmouseover="this.className='isAButton btnhov'" 
 			onmouseout="this.className='isAButton'"
 			onclick="editStuffLinks.content_url.value='editIdentifiers.cfm';editStuffLinks.submit();"
@@ -997,7 +997,7 @@
 			<cfelse>
 				<cfif #encumbrance_action# contains "mask original field number" 
 					AND #other_id_type# is "original field number"
-					AND #client.rights# does not contain "student0">
+					AND #session.rights# does not contain "student0">
 					<tr>
     <td valign="top" align="right" nowrap><b>Original field number:</b></td>
 	<td>
@@ -1022,7 +1022,7 @@
 
 
 
- <cfif #client.rights# contains "student0">
+ <cfif #session.rights# contains "student0">
 		<tr>
 			<td colspan="2">
 			<cfoutput>
@@ -1037,7 +1037,7 @@
 		</tr>
 	</cfif>
  <cfif #images.recordcount# gt 0>
-  <cfif #client.rights# does not contain "student0">
+  <cfif #session.rights# does not contain "student0">
    		<tr>
 			<td colspan="2">
 			 
@@ -1089,7 +1089,7 @@
 								</cfoutput>
 							
 	  </cfif>
-  	<cfif #client.rights# contains "student0">
+  	<cfif #session.rights# contains "student0">
  <tr>
 	<td colspan="2">
 		<div class="isAButton">

@@ -87,8 +87,8 @@ A publication might also be linked to the project from which it resulted.  We ma
 			<option value="">All</option>
 			<cfloop query="ctColl">
 				<option 
-					<cfif isdefined("client.exclusive_collection_id") and
-						#client.exclusive_collection_id# is #collection_id#> selected="selected"</cfif>
+					<cfif isdefined("session.exclusive_collection_id") and
+						#session.exclusive_collection_id# is #collection_id#> selected="selected"</cfif>
 					value="#collection_id#">#collection#</option>
 			</cfloop>
 		</select>
@@ -112,7 +112,7 @@ A publication might also be linked to the project from which it resulted.  We ma
 	
 </cfoutput>
 </form>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 <table bgcolor="#CCCCCC"><tr><td colspan="2">
 <cfoutput>
 Curatorial Links:

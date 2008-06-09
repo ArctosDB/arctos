@@ -5,7 +5,7 @@
 	Find a user: <input name="username">&nbsp;<input type="submit" value="Find">
 </form>
 <cfif #Action# is "list">
-	<cfquery name="getUsers" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="getUsers" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 			username,
 			upper(username) as ucasename,
@@ -52,7 +52,7 @@
 </cfif>
 <!-------------------------------------------------->
 <cfif #Action# is "edit">
-	<cfquery name="getUsers" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="getUsers" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		SELECT * FROM cf_users
 		left outer join cf_user_data on (cf_users.user_id = cf_user_data.user_id)
 		 where username = '#username#'
@@ -130,10 +130,10 @@
 </table>
 </form>
 
-<cfquery name="isDbUser" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="isDbUser" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	select username from all_users where username='#ucase(username)#'
 </cfquery>
-<cfquery name="hasInvite" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="hasInvite" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	select user_id,allow from temp_allow_cf_user where user_id=#getUsers.user_id#
 </cfquery>
 		</td>
@@ -205,7 +205,7 @@
 
 <cfif #Action# is "adminSet">
 	<cfoutput>
-		<cfquery name="gpw" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="gpw" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			delete from temp_allow_cf_user where user_id=#user_id#
 		</cfquery>
 		<cflocation url="AdminUsers.cfm?Action=edit&username=#username#">
@@ -215,7 +215,7 @@
 
 <cfif #Action# is "makeNewDbUser">
 	<cfoutput>
-		<cfquery name="gpw" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="gpw" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			insert into temp_allow_cf_user (user_id,allow) values (#user_id#,1)
 		</cfquery>
 		<cflocation url="AdminUsers.cfm?Action=edit&username=#username#">
@@ -267,7 +267,7 @@
 <cfif #Action# is "runUpdate">
 	<cfoutput>
 	<cfif isdefined("delete") AND #delete# is "delete">
-		<cfquery name="deleteUser" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="deleteUser" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM cf_users where username = '#username#'
 		</cfquery>
 		<cftry>
@@ -283,7 +283,7 @@
 		</cftry>
 		<cflocation url="AdminUsers.cfm">
 	<cfelse>
-		<cfquery name="updateUser" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="updateUser" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			UPDATE cf_users SET
 				<cfif len(#username#) gt 0>
 					username = '#username#'

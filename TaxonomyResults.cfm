@@ -152,7 +152,7 @@
 	select count(*) cnt from #thisTableName#
 </cfquery>
 <cfif not isdefined("goTo") or len(#goTo#) is 0 or #goTo# lte #startAt#>
-	<cfset goTo = StartAt + client.displayrows>
+	<cfset goTo = StartAt + session.displayrows>
 </cfif>
 <cfquery name="getTaxa" datasource="#Application.web_user#">
 	Select * from (
@@ -165,21 +165,21 @@
 <CFOUTPUT>
 <H4>
 Found #summary.cnt# records.
-<cfset numPages= ceiling(summary.cnt/client.displayrows)>
+<cfset numPages= ceiling(summary.cnt/session.displayrows)>
 		<cfset loopTo=numPages-2>
 		<label for="page_record">Records...</label>
 		<select name="page_record" id="page_record" size="1" onchange="getTaxaResultsData(this.value);">
 			<cfloop from="0" to="#loopTo#" index="i">
-				<cfset bDispVal = (i * client.displayrows + 1)>
-				<cfset eDispval = (i + 1) * client.displayrows>
-				<option value="#bDispVal#,#client.displayrows#"
+				<cfset bDispVal = (i * session.displayrows + 1)>
+				<cfset eDispval = (i + 1) * session.displayrows>
+				<option value="#bDispVal#,#session.displayrows#"
 					<cfif #bDispVal# is #startAt#> selected="selected" </cfif>
 							>#bDispVal# - #eDispval#</option>
 			</cfloop>
 			<!--- last set of records --->
-			<cfset bDispVal = ((loopTo + 1) * client.displayrows )+ 1>
+			<cfset bDispVal = ((loopTo + 1) * session.displayrows )+ 1>
 			<cfset eDispval = summary.cnt>
-			<option value="#bDispVal#,#client.displayrows#"
+			<option value="#bDispVal#,#session.displayrows#"
 					<cfif #bDispVal# is #startAt#> selected="selected" </cfif>>#bDispVal# - #eDispval#</option>
 			<!--- all records --->
 			<option 
@@ -228,19 +228,19 @@ Found #summary.cnt# records.
 								<em>#scientific_name#</em>&nbsp;#author_text#
 							</h2>
 						<ul>
-							<cfif isdefined("client.roles") and listfindnocase(client.roles,"manage_taxonomy")>
+							<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 								<li>
 									<a href="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#"
-										target="#client.target#">Edit</a>					
+										target="#session.target#">Edit</a>					
 								</li>
 							</cfif>
 							<li>
 								<a href="TaxonomyDetails.cfm?&taxon_name_id=#taxon_name_id#"
-									target="#client.target#">Details</a>
+									target="#session.target#">Details</a>
 							</li>
 							<li>
 								<a href="SpecimenResults.cfm?&taxon_name_id=#taxon_name_id#"
-									target="#client.target#">Specimens</a>
+									target="#session.target#">Specimens</a>
 							</li>
 							<li>
 								<a href="http://images.google.com/images?q=#thisSearch#"

@@ -464,7 +464,7 @@ where
 <cfif not isdefined("permit_id") OR len(#permit_id#) is 0>
 	Something bad happened. You didn't pass this form a permit_id. Go back and try again.<cfabort>
 </cfif>
-<cfquery name="permitInfo" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="permitInfo" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	select permit.permit_id,
 	issuedBy.agent_name as IssuedByAgent,
 	issuedBy.agent_id as IssuedByAgentID,
@@ -578,7 +578,7 @@ where
 <!--------------------------------------------------------------------------------------------------->
 <cfif #Action# is "saveChanges">
 <cfoutput>
-<cfquery name="updatePermit" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="updatePermit" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 UPDATE permit SET
 	permit_id = #permit_id#
 	<cfif len(#issuedByAgentId#) gt 0>
@@ -619,11 +619,11 @@ UPDATE permit SET
 <!--------------------------------------------------------------------------------------------------->
 <cfif #Action# is "createPermit">
 <cfoutput>
-<cfquery name="nextPermit" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="nextPermit" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	select max(permit_id) + 1 as nextPermit from permit
 </cfquery>
 <cftry>
-<cfquery name="newPermit" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="newPermit" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 INSERT INTO permit (
 	 PERMIT_ID,
 	 ISSUED_BY_AGENT_ID
@@ -686,7 +686,7 @@ VALUES (
 <cfif #Action# is "deletePermit">
 <cfoutput>
 <cftry>
-<cfquery name="deletePermit" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="deletePermit" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 DELETE FROM permit WHERE permit_id = #permit_id#
 </cfquery>
 	<cfcatch>

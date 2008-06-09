@@ -16,7 +16,7 @@
 	</cfoutput>
 </cfif>
 <!---
-<cfquery name="getTissLoanRequests" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="getTissLoanRequests" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	select * from 
 		user_loan_item, 
 		user_loan_request,
@@ -41,7 +41,7 @@
 	 user_loan_item.loan_request_id = #loan_request_id#
 </cfquery>
 --->
-<cfquery name="getPartLoanRequests" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="getPartLoanRequests" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	select * from 
 		user_loan_item, 
 		user_loan_request,

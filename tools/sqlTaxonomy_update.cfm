@@ -200,7 +200,7 @@ sho err
  
 <cfinclude template="/includes/_frameHeader.cfm">
 <!--- no security --->
-<cfif #client.username# is not "gordon" and #client.username# is not "dlm" and #client.username# is not "dusty">
+<cfif #session.username# is not "gordon" and #session.username# is not "dlm" and #session.username# is not "dusty">
 	Not yours. Go away.
 	<cfabort>
 </cfif>
@@ -308,7 +308,7 @@ sho err
 </cfif>
 <cfif #action# is "makeUpdate">
 	<cfoutput>
-		<cfquery name="updatetaxa" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="updatetaxa" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(theSql)#
 		</cfquery>			
 		<CFLOCATION url="sqlTaxonomy_update.cfm">

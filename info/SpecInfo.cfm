@@ -182,7 +182,7 @@
 			<td><b>Condition</b></td>
 			<td><b>Disposition</b></td>
 			<td><b>Cnt</b></td>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 				<td><b>Entered By</b></td>
 				<td><b>Edited By</b></td>
 			</cfif>
@@ -198,7 +198,7 @@
 				<td>#condition#</td>
 				<td>#coll_obj_disposition#&nbsp;</td>
 				<td>#lot_count#&nbsp;</td>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 					<td>#enteredBy# on #dateformat(coll_object_entered_date,"dd mmm yyyy")#</td>
 					
 					<td>#editedBy# on #dateformat(last_edit_date,"dd mmm yyyy")#</td>

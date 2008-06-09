@@ -5,7 +5,7 @@
 </head>			
 <body>
 <cfoutput>
-<div id="header_color" style='background-color:#Client.header_color#;height:50px;'>
+<div id="header_color" style='background-color:#session.header_color#;height:50px;'>
 	<a target="_top" href="/SpecimenSearch.cfm">Specimens</a>&nbsp;~&nbsp;
 	<a target="_top" href="/SpecimenUsage.cfm">Projects</a>&nbsp;~&nbsp;
 	<a target="_top" href="/TaxonomySearch.cfm">Taxonomy</a>&nbsp;~&nbsp;

@@ -135,7 +135,7 @@ Add all the items listed below to accession:
 		<cfif accn.recordcount is 1>
 			<cftransaction>
 			<cfloop list="#collection_object_id#" index="i">
-				<cfquery name="upAccn" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="upAccn" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					UPDATE cataloged_item SET accn_id = #accn.transaction_id# where collection_object_id = #i#
 				</cfquery>
 			</cfloop>

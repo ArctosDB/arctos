@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 	<script type='text/javascript' src='/includes/annotate.js'></script>
 	<link rel="stylesheet" type="text/css" href="/includes/annotate.css">
-<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
+<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 	<cfset oneOfUs = 1>
 	<cfset isClicky = "likeLink">
 <cfelse>
@@ -812,7 +812,7 @@ end cmask,
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">#biol_indiv_relationship#</span>
-								<a href="/SpecimenDetail.cfm?collection_object_id=#related_coll_object_id#" target="#client.target#">
+								<a href="/SpecimenDetail.cfm?collection_object_id=#related_coll_object_id#" target="#session.target#">
 									#related_collection# #related_cat_num#
 								</a>
 							</span>
@@ -823,7 +823,7 @@ end cmask,
 							<span class="detailData">
 								<span class="innerDetailLabel"></span>
 									&nbsp;&nbsp;&nbsp;<a href="SpecimenResults.cfm?collection_object_id=#valuelist(relns.related_coll_object_id)#" 
-											target="#client.target#">"Related To" Specimens List</a>										
+											target="#session.target#">"Related To" Specimens List</a>										
 							</span>
 						</div>
 					</cfif>
@@ -841,7 +841,7 @@ end cmask,
 							<span class="detailData">
 								<span class="innerDetailLabel"></span>
 								&nbsp;&nbsp;&nbsp;<a href="SpecimenResults.cfm?collection_object_id=#valuelist(invRel.collection_object_id)#" 
-											target="#client.target#">"Related IS" Specimens List</a>
+											target="#session.target#">"Related IS" Specimens List</a>
 							</span>
 						</div>
 					</cfif>
@@ -944,7 +944,7 @@ end cmask,
 											<!---<cfset isMedia = true>--->
 											#display_value# 
 													(<a class='external'
-href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationId=#gref.publication_id#&otherid=#collection_object_id#&otheridtype=collection_object" 
+href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publicationId=#gref.publication_id#&otherid=#collection_object_id#&otheridtype=collection_object" 
 															target="_blank">click here for reference on field notebook page</a>)
 										<cfelse>
 											#display_value#
@@ -1166,7 +1166,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 				</div>
 				<div class="detailBlock">
 					<span class="detailData">
-						<a href="editAccn.cfm?Action=edit&transaction_id=#one.accn_id#" target="#client.target#">#accession#</a>
+						<a href="editAccn.cfm?Action=edit&transaction_id=#one.accn_id#" target="#session.target#">#accession#</a>
 					</span>
 				</div>
 			</div>		
@@ -1255,7 +1255,7 @@ href="http://bg.berkeley.edu/gref/Client.html?pageId=#gref.page_id#&publicationI
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">Contributed By Project:</span>
-									<a href="ProjectDetail.cfm?src=proj&project_id=#isProj.project_id#" target="#client.target#">#isProj.project_name#</a>
+									<a href="ProjectDetail.cfm?src=proj&project_id=#isProj.project_id#" target="#session.target#">#isProj.project_name#</a>
 							</span>
 						</div>
 					</cfloop>
@@ -1299,7 +1299,7 @@ or cfloop with name="your query".
 			<div class="detailBlock">
 				<span class="innerDetailLabel">Field Notebook Page:</span>
 				<a 
-href="http://bg.berkeley.edu/gref/Client.html?pageId=#page_id#&publicationId=#publication_id#" 
+href="http://bg.berkeley.edu/gref/session.html?pageId=#page_id#&publicationId=#publication_id#" 
 						target="_blank">click here</a>
 			</div>
 		</cfloop>

@@ -13,7 +13,7 @@
 	<cfelse><!--- loan item approved ---->
 	
 		<cfquery name="recBy" datasource="#Application.uam_dbo#">
-			select agent_id from agent_name where agent_name = '#client.username#'
+			select agent_id from agent_name where agent_name = '#session.username#'
 		</cfquery>
 		<cfif #recBy.recordcount# is not 1>
 			Something hinky happened with your username!

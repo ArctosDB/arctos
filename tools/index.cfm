@@ -138,7 +138,7 @@
 				<li>
 					<a href="/tools/parent_child_taxonomy.cfm">Sync parent/child taxonomy</a>
 				</li>
-				<cfif #client.rights# contains "Admin">
+				<cfif #session.rights# contains "Admin">
 				<li>
 					<a href="/Admin/killBadAgentDups.cfm">Clean up 'bad duplicate of' agents</a>
 				</li>
@@ -171,13 +171,13 @@
 			</ul>
 		</td>
 	</tr>	
-	<cfif #client.rights# contains "Update">
+	<cfif #session.rights# contains "Update">
 		<!--- no security --->
 		<tr>
 			<td valign="top"><strong>Administrative Stuff</strong></td>
 			<td>
 				<ul>
-					<cfif #client.rights# contains "Admin">
+					<cfif #session.rights# contains "Admin">
 						<!--- no security --->
 						<li>
 							<a href="/Admin/form_roles.cfm">Form Permissions</a>

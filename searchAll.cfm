@@ -1,2 +1,2 @@
-<cfset client.exclusive_collection_id = "">
+<cfset session.exclusive_collection_id = "">
 <cflocation url="SpecimenSearch.cfm">

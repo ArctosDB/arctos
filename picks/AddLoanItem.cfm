@@ -7,12 +7,12 @@
 	<cfset Action = "nothing">
 </cfif>
 
-<cfif  isdefined("client.loan_request_id")>
+<cfif  isdefined("session.loan_request_id")>
 
 <cfif #Action# is "nothing">
 <cfoutput>
 <cfquery name="getLoan" datasource="#Application.web_user#">
-	select project_title from user_loan_request where loan_request_id = #client.loan_request_id#
+	select project_title from user_loan_request where loan_request_id = #session.loan_request_id#
 </cfquery>
 
 Add #collection_cde# #cat_num# #item# to loan #getLoan.project_title#
@@ -58,7 +58,7 @@ Add #collection_cde# #cat_num# #item# to loan #getLoan.project_title#
 			,REMARKS
 		</cfif> )
 	VALUES (
-		#client.loan_request_id#,
+		#session.loan_request_id#,
 		#collection_object_id#,
 		'#dateformat(now(),"dd-mmm-yyyy")#',
 		'#volume#' 

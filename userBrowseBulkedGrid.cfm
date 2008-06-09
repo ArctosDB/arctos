@@ -9,7 +9,7 @@
 <cfoutput>
 <cfquery name="data" datasource="#Application.web_user#">
 	select * from bulkloader
-	where enteredby = '#client.username#'
+	where enteredby = '#session.username#'
 </cfquery>
 <cfset ColNameList = valuelist(getCols.column_name)>
 <cfset ColNameList = replace(ColNameList,"COLLECTION_OBJECT_ID","","all")>

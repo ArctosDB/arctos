@@ -1,54 +1,54 @@
 <!--- see if there's a collection that we should be trying to look good for --->
  <cfcookie name="ArctosSession" value="#dateconvert('local2Utc',now())#" expires="1">
- <cfif isdefined("client.exclusive_collection_id") and len(#client.exclusive_collection_id#) gt 0>
+ <cfif isdefined("session.exclusive_collection_id") and len(#session.exclusive_collection_id#) gt 0>
 	<cfquery name="getCollApp" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
-		select * from cf_collection_appearance where collection_id = #client.exclusive_collection_id#
+		select * from cf_collection_appearance where collection_id = #session.exclusive_collection_id#
 	</cfquery>
 	<cfif #getCollApp.recordcount# gt 0>
 		<!--- they have an entry --->
-		<cfset Client.header_color = getCollApp.header_color>
-		<cfset Client.header_image = getCollApp.header_image>
-		<cfset Client.collection_url = getCollApp.collection_url>
-		<cfset Client.collection_link_text = getCollApp.collection_link_text>
-		<cfset Client.institution_url = getCollApp.institution_url>
-		<cfset Client.institution_link_text = getCollApp.institution_link_text>
-		<cfset Client.meta_description = getCollApp.meta_description>
-		<cfset Client.meta_keywords = getCollApp.meta_keywords>
-		<cfset Client.stylesheet = getCollApp.stylesheet>
+		<cfset session.header_color = getCollApp.header_color>
+		<cfset session.header_image = getCollApp.header_image>
+		<cfset session.collection_url = getCollApp.collection_url>
+		<cfset session.collection_link_text = getCollApp.collection_link_text>
+		<cfset session.institution_url = getCollApp.institution_url>
+		<cfset session.institution_link_text = getCollApp.institution_link_text>
+		<cfset session.meta_description = getCollApp.meta_description>
+		<cfset session.meta_keywords = getCollApp.meta_keywords>
+		<cfset session.stylesheet = getCollApp.stylesheet>
 	<cfelse>
 		<!--- collection has not set up customization --->
-		<cfset Client.header_color = Application.header_color>
-		<cfset Client.header_image = Application.header_image>
-		<cfset Client.collection_url = Application.collection_url>
-		<cfset Client.collection_link_text = Application.collection_link_text>
-		<cfset Client.institution_url = Application.institution_url>
-		<cfset Client.institution_link_text = Application.institution_link_text>
-		<cfset Client.meta_description = Application.meta_description>
-		<cfset Client.meta_keywords = Application.meta_keywords>
-		<cfset Client.stylesheet = Application.stylesheet>
+		<cfset session.header_color = Application.header_color>
+		<cfset session.header_image = Application.header_image>
+		<cfset session.collection_url = Application.collection_url>
+		<cfset session.collection_link_text = Application.collection_link_text>
+		<cfset session.institution_url = Application.institution_url>
+		<cfset session.institution_link_text = Application.institution_link_text>
+		<cfset session.meta_description = Application.meta_description>
+		<cfset session.meta_keywords = Application.meta_keywords>
+		<cfset session.stylesheet = Application.stylesheet>
 	</cfif>
 <cfelse>
 		<!--- collection has not set up customization --->
-		<cfset Client.header_color = Application.header_color>
-		<cfset Client.header_image = Application.header_image>
-		<cfset Client.collection_url = Application.collection_url>
-		<cfset Client.collection_link_text = Application.collection_link_text>
-		<cfset Client.institution_url = Application.institution_url>
-		<cfset Client.institution_link_text = Application.institution_link_text>
-		<cfset Client.meta_description = Application.meta_description>
-		<cfset Client.meta_keywords = Application.meta_keywords>
-		<cfset Client.stylesheet = Application.stylesheet>
+		<cfset session.header_color = Application.header_color>
+		<cfset session.header_image = Application.header_image>
+		<cfset session.collection_url = Application.collection_url>
+		<cfset session.collection_link_text = Application.collection_link_text>
+		<cfset session.institution_url = Application.institution_url>
+		<cfset session.institution_link_text = Application.institution_link_text>
+		<cfset session.meta_description = Application.meta_description>
+		<cfset session.meta_keywords = Application.meta_keywords>
+		<cfset session.stylesheet = Application.stylesheet>
 </cfif> 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
 <head>
 <cfoutput>
-    <meta name="keywords" content="#Client.meta_keywords#">
-    <meta name="description" content="#Client.meta_description#">
+    <meta name="keywords" content="#session.meta_keywords#">
+    <meta name="description" content="#session.meta_description#">
     <LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico">
     <cfinclude template="/includes/alwaysInclude.cfm"><!--- keep this stuff accessible from non-header-having files --->
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <cfset ssName = replace(Client.stylesheet,".css","","all")>
-    <link rel="alternate stylesheet" type="text/css" href="/includes/css/#Client.stylesheet#" title="#ssName#">
+    <cfset ssName = replace(session.stylesheet,".css","","all")>
+    <link rel="alternate stylesheet" type="text/css" href="/includes/css/#session.stylesheet#" title="#ssName#">
     <META http-equiv="Default-Style" content="#ssName#">
     <style type="text/css" media="screen"> 
         @import "/includes/mainMenu.css"; 
@@ -89,12 +89,12 @@
 			</font>
 		</div>
 	</cfif>
-<div id="header_color" style='background-color:#Client.header_color#;'>
+<div id="header_color" style='background-color:#session.header_color#;'>
 	<!--- allow option for header that doesn't eat a bunch of screen space --->
 	<table width="95%" cellpadding="0" cellspacing="0" border="0" id="headerContent">
 		<tr>
 			<td width="95" nowrap="nowrap" class="headerImageCell" id="headerImageCell">
-				<a target="_top" href="#client.collection_url#"><img src="#Client.header_image#" alt="Arctos" border="0"></a>
+				<a target="_top" href="#session.collection_url#"><img src="#session.header_image#" alt="Arctos" border="0"></a>
 			</td>
 			<td align="left">
 				<table>
@@ -108,15 +108,15 @@
 					</tr>
 					<tr>
 						<td align="left" nowrap="nowrap" id="collectionCell" class="collectionCell">
-							<a target="_top" href="#client.collection_url#" class="novisit">
+							<a target="_top" href="#session.collection_url#" class="novisit">
 								<span class="headerCollectionText">
-										#client.collection_link_text#
+										#session.collection_link_text#
 								</span>
 							</a>
 							<br>
-							<a target="_top" href="#client.institution_url#" class="novisit">
+							<a target="_top" href="#session.institution_url#" class="novisit">
 								<span class="headerInstitutionText">
-									#client.institution_link_text#
+									#session.institution_link_text#
 								</span>
 							</a>
 						</td>
@@ -126,9 +126,9 @@
 		</tr>
 	</table>	
 	<div style="float:right;position:absolute;top:0px;right:0px;clear:both;">
-	    <cfif len(#client.username#) gt 0>
-			<a target="_top" href="/login.cfm?action=signOut">Log out #client.username#</a>
-			<cfif isdefined("client.last_login") and len(#client.last_login#) gt 0>
+	    <cfif len(#session.username#) gt 0>
+			<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
+			<cfif isdefined("session.last_login") and len(#session.last_login#) gt 0>
 				<span style="font-size:smaller">(Last login: #dateformat(last_login, "mmm d yyyy")#)</span>&nbsp;
 			</cfif>
 		<cfelse>
@@ -172,9 +172,9 @@
 				</ul>
 			</li> 
 		</ul>
-		<cfif client.roles is not "public">
+		<cfif session.roles is not "public">
 			<!--- see what forms this user gets access to --->
-			<cfset r = replace(client.roles,",","','","all")>
+			<cfset r = replace(session.roles,",","','","all")>
 			<cfset r = "'#r#'">
 			<!---    --->
 			<cfquery name="roles" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">

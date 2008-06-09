@@ -1,13 +1,13 @@
 <cfinclude template="/includes/_header.cfm">
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 	<cfset flatTableName = "flat">
 <cfelse>
 	<cfset flatTableName = "filtered_flat">
 </cfif>
 
 <cfif not isdefined("detail_level") OR len(#detail_level#) is 0>
-	<cfif isdefined("client.detailLevel") AND #client.detailLevel# gt 0>
-		<cfset detail_level = #client.detailLevel#>
+	<cfif isdefined("session.detailLevel") AND #session.detailLevel# gt 0>
+		<cfset detail_level = #session.detailLevel#>
 	<cfelse>
 		<cfset detail_level = 1>
 	</cfif>	
@@ -16,7 +16,7 @@
 </cfoutput>
 <cfset title="Specimen Results">
 <cfif not isdefined("displayrows")>
-	<cfset displayrows = client.displayrows>
+	<cfset displayrows = session.displayrows>
 </cfif>
 <cfif not isdefined("SearchParams")>
 	<cfset SearchParams = "">
@@ -56,10 +56,10 @@
 		#flatTableName#.spec_locality,
 		#flatTableName#.verbatim_date
 		">
-	<cfif len(#Client.CustomOtherIdentifier#) gt 0>
+	<cfif len(#session.CustomOtherIdentifier#) gt 0>
 		<cfset basSelect = "#basSelect# 
-			,concatSingleOtherId(#flatTableName#.collection_object_id,'#Client.CustomOtherIdentifier#') AS CustomID,
-			to_number(ConcatSingleOtherIdInt(#flatTableName#.collection_object_id,'#Client.CustomOtherIdentifier#')) AS CustomIDInt">
+			,concatSingleOtherId(#flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+			to_number(ConcatSingleOtherIdInt(#flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
 	</cfif>
 	<cfset basFrom = " FROM #flatTableName#">
 	<cfset basJoin = "INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
@@ -205,10 +205,10 @@
 <!-------------------------- dlkm debug --
 
 
-<cfif isdefined("client.username") and (#client.username# is "dlm" or #client.username# is "dusty")>
+<cfif isdefined("session.username") and (#session.username# is "dlm" or #session.username# is "dusty")>
 		
 	<cfoutput>
-	--#client.username#--
+	--#session.username#--
 	#preserveSingleQuotes(SqlString)#
 	<br>ReturnURL: #returnURL#
 	<br>MapURL: #mapURL#
@@ -254,7 +254,7 @@
 		<p>Some possibilities include:</p>
 		<ul>
 			<li>
-				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" target="#client.target#" class="novisit">Arctos Taxonomy</a>.
+				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" target="#session.target#" class="novisit">Arctos Taxonomy</a>.
 			</li>
 			<li>
 				Try broadening your search criteria. Try the next-higher geographic element, remove criteria, etc. Don't assume we've accurately or predictably recorded data!
@@ -424,7 +424,7 @@ document.getElementById('saveme').submit();
 				<input type="hidden" name="collobjidlist" value="#collobjidlist#">
 				<input type="hidden" name="order_by" value="#order_by#">
 				<input type="hidden" name="order_order" value="#order_order#">
-				<input type="hidden" name="displayRows" value="#client.displayRows#">
+				<input type="hidden" name="displayRows" value="#session.displayRows#">
 				</form>
 				
 				
@@ -462,7 +462,7 @@ document.getElementById('saveme').submit();
 	<CFIF displayrows is getBasic.RecordCount>
 		<td>
 			<span class="infoLink" onclick="document.browse.StartRow.value='1';
-				document.browse.displayRows.value='#client.displayRows#';
+				document.browse.displayRows.value='#session.displayRows#';
 				document.browse.submit();">View&nbsp;Pages</span>
 		</td>	
 	</CFIF>
@@ -521,20 +521,20 @@ document.getElementById('saveme').submit();
 	<!---- always on --->
 <cfif #detail_level# gte 1>
 
-<cfif #client.killrow# is 1>
+<cfif #session.killrow# is 1>
 	<td nowrap>
 	<form name="UpSubRem" method="post" action="SpecimenResults.cfm">
 		<img src="/images/delete.gif" border="0" width="24" onClick="reloadThis.submit();">
 	</form>
 	</td>
 </cfif>
-<cfif isdefined("client.loan_request_coll_id") and #client.loan_request_coll_id# gt 0>
+<cfif isdefined("session.loan_request_coll_id") and #session.loan_request_coll_id# gt 0>
 	<cfquery name="active_loan_id" datasource="#Application.web_user#">
 		select  USER_LOAN_ID from 
 		cf_user_loan,cf_users where
 		cf_user_loan.user_id=cf_users.user_id and
 		IS_ACTIVE=1
-		and username='#client.username#'
+		and username='#session.username#'
 	</cfquery>
 	<cfif len(#active_loan_id.USER_LOAN_ID#) is 0>
 		<cfset thisLoanId = "-1">
@@ -546,14 +546,14 @@ document.getElementById('saveme').submit();
 </cfif>
 	<td nowrap><strong>Catalog ##</strong>
 	<cfif 
-		(isdefined("client.username") AND #detail_level# gte 2)
+		(isdefined("session.username") AND #detail_level# gte 2)
 			and (
-				#client.username# is "cindy" 
-				OR #client.username# is "dusty"
-				OR #client.username# is "ahope"
-				OR #client.username# is "jmalaney"
-				OR #client.username# is "rsampson"
-				OR #client.username# is "cmcclarin"
+				#session.username# is "cindy" 
+				OR #session.username# is "dusty"
+				OR #session.username# is "ahope"
+				OR #session.username# is "jmalaney"
+				OR #session.username# is "rsampson"
+				OR #session.username# is "cmcclarin"
 				)
 		>
 		<a href="##" 
@@ -572,9 +572,9 @@ document.getElementById('saveme').submit();
 		onmouseout="self.status='';catdn.src='/images/down.gif';return true;">
 		<img src="/images/down.gif" border="0" name="catdn"></a>
 	</td>
-	<cfif len(#Client.CustomOtherIdentifier#) gt 0>
+	<cfif len(#session.CustomOtherIdentifier#) gt 0>
 		<td nowrap>
-			<strong>#Client.CustomOtherIdentifier#</strong>
+			<strong>#session.CustomOtherIdentifier#</strong>
 			<cfset thisTerm = "CustomID">
 			<cfset thisName = #replace(thisTerm,",","_","all")#>
 			<a href="##" 
@@ -934,7 +934,7 @@ document.getElementById('saveme').submit();
  
     <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 	
-<cfif #client.killrow# is 1>
+<cfif #session.killrow# is 1>
 <td>
 
 <form name="remove#i#" action="SpecimenResults.cfm" method="post">
@@ -943,9 +943,9 @@ document.getElementById('saveme').submit();
 	
 	</td>
 </cfif>	
-<cfif isdefined("client.loan_request_coll_id") and #client.loan_request_coll_id# gt 0>
+<cfif isdefined("session.loan_request_coll_id") and #session.loan_request_coll_id# gt 0>
 	<td>
-	<cfif listfind(#client.loan_request_coll_id#,#collection_id#,",")>
+	<cfif listfind(#session.loan_request_coll_id#,#collection_id#,",")>
 	
 		<!--- see if they've already got a part --->
 		<cfquery name="isThere" datasource="#Application.web_user#">
@@ -982,7 +982,7 @@ document.getElementById('saveme').submit();
 								</div></a>
   	   
       	</td>
-		<cfif len(#Client.CustomOtherIdentifier#) gt 0>
+		<cfif len(#session.CustomOtherIdentifier#) gt 0>
 		<td>
 			#CustomID#
 		</td>
@@ -1229,7 +1229,7 @@ document.getElementById('saveme').submit();
   
   <cfset i=#I#+1>
   </cfoutput>
-<cfif #client.killrow# is 1>
+<cfif #session.killrow# is 1>
   <tr>
   	
 	<td>
@@ -1281,7 +1281,7 @@ document.getElementById('saveme').submit();
 	<CFIF displayrows is getBasic.RecordCount>
 		<td>
 			<span class="infoLink" onclick="document.browse.StartRow.value='1';
-				document.browse.displayRows.value='#client.displayRows#';
+				document.browse.displayRows.value='#session.displayRows#';
 				document.browse.submit();">View&nbsp;Pages</span>
 		</td>	
 	</CFIF>
@@ -1482,7 +1482,7 @@ document.getElementById('saveme').submit();
 					<input type="hidden" name="transaction_id" value="#transaction_id#">
 				</cfif>
 				---->
-				<cfif isdefined("client.username") and len(#client.username#) gt 0>
+				<cfif isdefined("session.username") and len(#session.username#) gt 0>
 					<input type="submit" value="Download" class="lnkBtn"
 	   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
    				<cfelse>
@@ -1492,7 +1492,7 @@ document.getElementById('saveme').submit();
 </cfoutput>
 <!-----			one-size fits all management widget				------>
 <cfif getBasic.recordcount lt 1000>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 	<cfoutput>
 		<!---
 			<option  value="/CustomPages/ALALabels.cfm">ALA Labels</option>
@@ -1560,10 +1560,10 @@ document.getElementById('saveme').submit();
 <cfif #Action# is "download">
 
 <cfset dlPath = "#Application.SpecimenDownloadPath#">
-<cfset dlFile = "#Client.SpecimenDownloadFileName#">
+<cfset dlFile = "#session.SpecimenDownloadFileName#">
 	<cfset header = "Catalog_Number">
-	<cfif len(#Client.CustomOtherIdentifier#) gt 0>
-		<cfset header = "#header##chr(9)##Client.CustomOtherIdentifier#">
+	<cfif len(#session.CustomOtherIdentifier#) gt 0>
+		<cfset header = "#header##chr(9)##session.CustomOtherIdentifier#">
 	</cfif>
 	<cfset header = "#header##chr(9)#Identified_As">
 <cfif #detail_level# gte 3>
@@ -1620,7 +1620,7 @@ document.getElementById('saveme').submit();
 
  <cfoutput query="getBasic" group="collection_object_id">
  	<cfset oneLine = "#institution_acronym# #collection_cde# #cat_num#">
-	<cfif len(#Client.CustomOtherIdentifier#) gt 0>
+	<cfif len(#session.CustomOtherIdentifier#) gt 0>
 		<cfset oneLine = "#oneLine##chr(9)##CustomID#">
 	</cfif>
 	<cfset oneLine = "#oneLine##chr(9)##Scientific_Name#">
@@ -1693,7 +1693,7 @@ document.getElementById('saveme').submit();
 <cfif #Action# is "labels">
 
 <cfset dlPath = "#Application.SpecimenDownloadPath#">
-<cfset dlFile = "#Client.SpecimenDownloadFileName#">
+<cfset dlFile = "#session.SpecimenDownloadFileName#">
 	<cfset header = "CatalogNumber#chr(9)#ScientificName#chr(9)#AfNumber#chr(9)#LatLong#chr(9)#Geog#chr(9)#VerbatimDate#chr(9)#Sex#chr(9)#Collectors#chr(9)#Parts#chr(9)#FieldNumber#chr(9)#Measurements#chr(9)#Accn#chr(9)#">
 
 <cfset header=#trim(header)#>

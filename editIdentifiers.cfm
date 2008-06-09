@@ -169,7 +169,7 @@
 <cfif #Action# is "saveCatEdits">
 <cfoutput>
 	<cftransaction>
-	<cfquery name="upCat" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="upCat" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	UPDATE cataloged_item SET 
 		cat_num = #cat_num#,
 		collection_id=#collection_id#		
@@ -188,7 +188,7 @@
 	<cftry>
 		
 	
-	<cfquery name="upOIDt" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="upOIDt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		UPDATE 
 			coll_obj_other_id_num 
 		SET 
@@ -208,7 +208,7 @@
 	</cfcatch>
 	</cftry>
 	--->
-	<cfquery name="upOIDt" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="upOIDt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		UPDATE 
 			coll_obj_other_id_num 
 		SET 
@@ -244,7 +244,7 @@
 <cfoutput>
 
 
-<cfquery name="delOIDt" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="delOIDt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	DELETE FROM 
 		coll_obj_other_id_num 
 	WHERE 
@@ -260,7 +260,7 @@
 <!-------------------------------------------------------->
 <cfif #Action# is "newOID">
 <cfoutput>
-	<cfquery name="newOIDt" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="newOIDt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO coll_obj_other_id_num 
 		(collection_object_id,
 		other_id_type,

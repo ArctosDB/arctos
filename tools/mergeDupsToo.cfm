@@ -11,7 +11,7 @@
 			cataloged_item.collection_object_id,
 			collection,
 			cat_num,
-			concatSingleOtherId(cataloged_item.collection_object_id,'#client.customotheridentifier#') AS CustomID,
+			concatSingleOtherId(cataloged_item.collection_object_id,'#session.customotheridentifier#') AS CustomID,
 			concatencumbrances(cataloged_item.collection_object_id) encumbrances,
 			scientific_name,
 			RELATED_COLL_OBJECT_ID,
@@ -69,7 +69,7 @@
 					cataloged_item.collection_object_id,
 					collection,
 					cat_num,
-					concatSingleOtherId(cataloged_item.collection_object_id,'#client.customOtherIdentifier#') AS CustomID,
+					concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#') AS CustomID,
 					concatencumbrances(cataloged_item.collection_object_id) encumbrances,
 					scientific_name,
 					flags,
@@ -111,9 +111,9 @@
 					cataloged_item.collection_object_id = #RELATED_COLL_OBJECT_ID#
 			</cfquery>
 			<tr>
-				<td><a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection# #cat_num#</a> (#client.customOtherIdentifier# #CustomID#) <em>#scientific_name#</em></td>
+				<td><a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection# #cat_num#</a> (#session.customOtherIdentifier# #CustomID#) <em>#scientific_name#</em></td>
 				<td><a href="/SpecimenDetail.cfm?collection_object_id=#dupRec.collection_object_id#">#dupRec.collection# #dupRec.cat_num#</a>
-					(#client.customOtherIdentifier# #dupRec.CustomID#) 
+					(#session.customOtherIdentifier# #dupRec.CustomID#) 
 					<em>#dupRec.scientific_name#</em>
 				</td>
 				<td>#sheetBarcode# - #dupRec.sheetBarcode#</td>
@@ -149,7 +149,7 @@
 </cfif>
 <cfif #action# is "delOne">
 	<cfoutput>
-	<cfquery name="upAccn" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="upAccn" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	insert into coll_object_encumbrance (ENCUMBRANCE_ID,COLLECTION_OBJECT_ID) 
 	values (1000025,#id2#)	
 	</cfquery>

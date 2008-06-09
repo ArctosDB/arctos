@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 
-<cfif len(#client.username#) is 0>
+<cfif len(#session.username#) is 0>
 		You aren't a registered user. Please sign in.
 		<cfabort>
 </cfif>
@@ -42,7 +42,7 @@ Your address is required before you accept a loan.
 	FROM
 		cf_address, cf_users where
 		cf_users.user_id = cf_address.user_id (+) and
-		username='#client.username#'
+		username='#session.username#'
 </cfquery>
 <cfoutput>
 <cfset i=1>
@@ -158,7 +158,7 @@ Your address is required before you accept a loan.
 </table>
 </cfif>
 <table class="newRec"><tr><td>
-Add Address for <b>#client.username#</b>:		
+Add Address for <b>#session.username#</b>:		
 		
 			<cfform name="newAddress" method="post" action="user_addr.cfm">
 				<input type="hidden" name="Action" value="newAddress">

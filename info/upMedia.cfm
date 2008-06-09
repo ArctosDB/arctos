@@ -37,12 +37,12 @@
 		<cfabort>   
 	</cfif>
 	<!----This name contains only alphanumeric characters, check the extension---->
-	<cfset loadPath = "#Application.webDirectory#/mediaUploads/#client.username#">
+	<cfset loadPath = "#Application.webDirectory#/mediaUploads/#session.username#">
 	<cftry>
 		<cfdirectory action="create" directory="#loadPath#">
 		<cfcatch><!--- it already exists, do nothing---></cfcatch>
 	</cftry>
-	<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#client.username#/#fileName#">
+	<cfset media_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
 	<cffile action="move"
 		source="#Application.webDirectory#/temp/#fileName#" 
     	destination="#loadPath#"
@@ -78,7 +78,7 @@
 			source="#Application.webDirectory#/temp/#fileName#" 
 	    	destination="#loadPath#"
 	      	nameConflict="error">
-        <cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#client.username#/#fileName#">
+        <cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/#fileName#">
     <cfelse>
          <cfset preview_uri = "">
     </cfif>

@@ -58,11 +58,11 @@
 					disable for testing
 					
 					---->
-					<cfquery name="newparent" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					<cfquery name="newparent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						UPDATE container SET container_type = '#new_container_type#' WHERE
 						container_id=#isGoodParent.container_id#
 					</cfquery>
-					<cfquery name="moveIt" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					<cfquery name="moveIt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						UPDATE container SET parent_container_id = #isGoodParent.container_id# WHERE
 						container_id=#cont.container_id#
 					</cfquery>
@@ -278,7 +278,7 @@ Upload a file:
 		GRANT select,insert,update,delete ON cf_temp_barcode_parts to uam_update;
 	---->
 
-	<cfquery name="killOld" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		delete from cf_temp_barcode_parts
 	</cfquery>
 	
@@ -311,7 +311,7 @@ Upload a file:
 			VALUES (
 				#preservesinglequotes(sql)#
 				)	
-		<cfquery name="newRec"	 datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="newRec"	 datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO cf_temp_barcode_parts (
 				 KEY,
 				 INSTITutION_ACRONYM,
@@ -341,7 +341,7 @@ Upload a file:
 <cfif #action# is "validateFromFile">
 You should get a list of messages below. Anything in <font color="#FF0000" size="+1">red</font>
 failed loading and you must deal with it.
-<cfquery name="data" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="data" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	select  KEY,
 			INSTITutION_ACRONYM,
 			COLLECTION_CDE,
@@ -368,7 +368,7 @@ failed loading and you must deal with it.
 		<cfloop query="data">
 			<!--- find the collection object ---->
 		<cfif #other_id_type# is "catalog number">
-			<cfquery name="coll_obj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="coll_obj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				select specimen_part.collection_object_id FROM
 					cataloged_item,
 					specimen_part,
@@ -382,7 +382,7 @@ failed loading and you must deal with it.
 					part_name='#part_name#'
 			</cfquery>
 		<cfelse>
-			<cfquery name="coll_obj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="coll_obj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				select specimen_part.collection_object_id FROM
 					cataloged_item,
 					specimen_part,
@@ -401,13 +401,13 @@ failed loading and you must deal with it.
 		</cfif>
 		<cfif #coll_obj.recordcount# is 1>
 			<!--- see if they gave a valid parent container ---->
-			<cfquery name="isGoodParent" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="isGoodParent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				select container_id from container where container_type <> 'collection object'
 				and barcode='#parent_barcode#'
 			</cfquery>
 			<cfif #isGoodParent.recordcount# is 1>
 				<!---- Find coll obj container ---->
-				<cfquery name="cont" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="cont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					select container_id FROM coll_obj_cont_hist where
 					collection_object_id=#coll_obj.collection_object_id#
 				</cfquery>
@@ -416,20 +416,20 @@ failed loading and you must deal with it.
 					disable for testing
 					
 						---->
-						<cfquery name="flagIT" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						<cfquery name="flagIT" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 							update container set print_fg=#print_fg#,container_type='#NEW_CONTAINER_TYPE#'
 							where container_id = #isGoodParent.container_id#						
 						</cfquery>
 						<cftransaction action="commit">
 						
-						<cfquery name="moveIt" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						<cfquery name="moveIt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 							UPDATE container SET parent_container_id = #isGoodParent.container_id#
 							 WHERE
 							container_id=#cont.container_id#
 						</cfquery>
 					
 						
-						<cfquery name="catcollobj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						<cfquery name="catcollobj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 							select distinct(derived_from_cat_item) FROM
 								specimen_part
 							WHERE

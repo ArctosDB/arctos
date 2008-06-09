@@ -39,9 +39,9 @@
 	<cfloop query="localityResults">
 		<tr>
 			<td> <a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#" 
-					target="#client.target#">#geog_auth_rec_id#</a></td>
+					target="#session.target#">#geog_auth_rec_id#</a></td>
 			<td><a href="editLocality.cfm?locality_id=#locality_id#" 
-					target="#client.target#">#locality_id#</a></td>
+					target="#session.target#">#locality_id#</a></td>
 			<td>
 			<form name="coll#i#" method="post" action="bulkCollEvent.cfm">
 				<input type="hidden" name="collection_object_id" value="#collection_object_id#">
@@ -77,7 +77,7 @@
 	 SELECT 
 	 	cataloged_item.collection_object_id as collection_object_id, 
 		cat_num,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#Client.CustomOtherIdentifier#') AS CustomID,
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		scientific_name,
 		spec_locality,
 		country,
@@ -112,7 +112,7 @@
 	<td><strong>Catalog Number</strong></td>
 	<td>
 		<cfoutput>
-			<strong>#Client.CustomOtherIdentifier#</strong>
+			<strong>#session.CustomOtherIdentifier#</strong>
 		</cfoutput>
 	</td>
 	<td><strong>Accepted Scientific Name</strong></td>
@@ -152,7 +152,7 @@
 <cfif #action# is "updateCollEvent">
 <cfoutput>
 	<cfquery name="user" datasource="#Application.uam_dbo#">
-		select agent_id from agent_name where agent_name = '#client.username#'
+		select agent_id from agent_name where agent_name = '#session.username#'
 	</cfquery>
 	<cfif len(#user.agent_id#) lt 1>
 		You aren't a recognized agent!
@@ -161,11 +161,11 @@
 	<cfset thisDate = #dateformat(now(),"dd-mmm-yyyy")#>
 	<cftransaction>
 		<cfloop list="#collection_object_id#" index="i">
-			<cfquery name="newCollEvent" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="newCollEvent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				UPDATE cataloged_item SET collecting_event_id = #collecting_event_id# WHERE
 				collection_object_id=#i#
 			</cfquery>
-			<cfquery name="upEd" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="upEd" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				UPDATE coll_object SET
 					last_edited_person_id=#user.agent_id#,
 					last_edit_date='#thisDate#'
