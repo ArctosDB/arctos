@@ -186,22 +186,7 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onSessionStart" returnType="boolean" output="false">
-	
-		<cfreturn true>
-</cffunction>
-<!-------------------------------------------------------------->
-<cffunction name="onRequestStart" returnType="boolean" output="false">
-	<cfset currentPath=GetDirectoryFromPath(GetTemplatePath())> 
-	<cfif currentPath contains "/CustomTags/" OR
-		currentPath contains "/binary_stuff/" OR
-		currentPath contains "/log/">
-		<cflocation url="/errors/forbidden.cfm" addtoken="false">
-	</cfif>
-		
-		
-			
-			<!--- may need to go to onSessoinStart ---->
-		<cfset session.SpecimenDownloadFileName = "ArctosData_#cfid##cftoken#.txt">
+	<cfset session.SpecimenDownloadFileName = "ArctosData_#cfid##cftoken#.txt">
 		<cfif not isdefined("session.target")>
 			<cfset session.target="_self">
 		</cfif>
@@ -259,6 +244,21 @@
 				<cfset session.myAgentId=#gcid.agent_id#>
 			</cfif>
 		</cfif>
+		<cfreturn true>
+</cffunction>
+<!-------------------------------------------------------------->
+<cffunction name="onRequestStart" returnType="boolean" output="false">
+	<cfset currentPath=GetDirectoryFromPath(GetTemplatePath())> 
+	<cfif currentPath contains "/CustomTags/" OR
+		currentPath contains "/binary_stuff/" OR
+		currentPath contains "/log/">
+		<cflocation url="/errors/forbidden.cfm" addtoken="false">
+	</cfif>
+		
+		
+			
+			<!--- may need to go to onSessoinStart ---->
+		
 		
 		
 		
