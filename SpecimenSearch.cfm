@@ -8,7 +8,7 @@
 <cfoutput>
 <cfquery name="getCount" datasource="#Application.web_user#">
 	select count(collection_object_id) as cnt from cataloged_item
-	<cfif len(#session.session.exclusive_collection_id#) gt 0>
+	<cfif len(#session.exclusive_collection_id#) gt 0>
 		,collection
 		WHERE cataloged_item.collection_id = collection.collection_id AND
 		cataloged_item.collection_id = #session.exclusive_collection_id#
