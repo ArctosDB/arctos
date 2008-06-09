@@ -314,6 +314,12 @@
 			<td class="srch">
 				
 				<cfinput type="text" autosuggest="#valuelist(Part.part_name)#" name="part_name" delimiter=",">
+				
+				<cfinput type="text" 
+    autosuggest="Alabama,Alaska,Arkansas,Arizona,Maryland,Minnesota,Missouri"
+    name="city" delimiter="\">
+	
+	
 				<!----
 				<span onclick="multi('part_name')">m</span>
 				<span onclick="singl('part_name')">s</span>
