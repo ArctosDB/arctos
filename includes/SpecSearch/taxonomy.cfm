@@ -26,7 +26,7 @@
 			<span class="helpLink" id="full_taxon_name">Taxonomy:</span>
 		</td>
 		<td class="srch">
-			<input type="text" name="HighTaxa" size="50">
+			<input type="text" name="HighTaxa" id="HighTaxa" size="50">
 		</td>
 	</tr>
 	<tr>
