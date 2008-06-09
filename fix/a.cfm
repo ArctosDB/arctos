@@ -43,6 +43,11 @@
 </cfloop>
 </cfloop>
 <!Ñ We can do things like calculate the percentage of time left until expiry Ñ>
-<cfquery name="qSess" dbtype="query">
+<cfquery name="qSess2" dbtype="query">
 SELECT *, lastAccess / maxInterval / 100 AS percent FROM qSess ORDER BY lastAccess DESC
 </cfquery>
+
+sess: <cfdump var=#sess#>
+apps:<cfdump var=#apps#>
+qSess:<cfdump var=#qSess#>
+qSess2:<cfdump var=#qSess2#>
