@@ -200,7 +200,7 @@
 		<cfquery name="getPrefs" datasource="#Application.web_user#">
 		select * from cf_users, user_loan_request
 		 where  cf_users.user_id = user_loan_request.user_id (+) and
-		 username = '#username#' order by cf_users.user_id
+		 username = '#session.username#' order by cf_users.user_id
 	</cfquery>
 	<cfif getPrefs.recordcount is 0>
 		<cflocation url="login.cfm?action=signOut">
