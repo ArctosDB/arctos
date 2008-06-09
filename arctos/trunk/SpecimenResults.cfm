@@ -544,4 +544,4 @@ If your item needs to be sorted in a special way, then do that here. --->
 }
 </script>
 </cfoutput>
-<cf_get_footer collection_id="#exclusive_collection_id#">
+<cf_get_footer collection_id="#session.exclusive_collection_id#">
