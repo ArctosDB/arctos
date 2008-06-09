@@ -47,13 +47,13 @@
 			<hr>
 			<cfdump var="#CGI#" label="CGI">
 		</cfsavecontent>
-		<cfif isdefined("client.username") and #client.username# is "fselm10" or
-			#client.username# is "brandy" or
-			#client.username# is "dlm" or
-			#client.username# is "sumy" or
-			#client.username# is "Rhiannon" or
-			#client.username# is "dusty" or
-				#client.username# is "dkt">
+		<cfif isdefined("session.username") and #session.username# is "fselm10" or
+			#session.username# is "brandy" or
+			#session.username# is "dlm" or
+			#session.username# is "sumy" or
+			#session.username# is "Rhiannon" or
+			#session.username# is "dusty" or
+				#session.username# is "dkt">
 			<cfoutput>
 				#errortext#
 			</cfoutput>		
@@ -184,6 +184,68 @@
 	<cfreturn true>
 </cffunction>
 <!-------------------------------------------------------------->
+<cffunction name="onSessionStart" returnType="boolean" output="false">
+	<cfset session.SpecimenDownloadFileName = "ArctosData_#cfid##cftoken#.txt">
+		<cfif not isdefined("session.target")>
+			<cfset session.target="_self">
+		</cfif>
+		<cfif not isdefined("session.mapSize")>
+			<cfset session.mapSize="">
+		</cfif>
+		<cfif not isdefined("session.roles")>
+			<cfset session.roles="public">
+		</cfif>
+		<cfif not isdefined("session.showObservations")>
+			<cfset session.showObservations="">
+		</cfif>
+		<cfif not isdefined("session.result_sort")>
+			<cfset session.result_sort="">
+		</cfif>
+		<cfif not isdefined("session.username")>
+			<cfset session.username="">
+		</cfif>
+		<cfif not isdefined("session.killrow")>
+			<cfset session.killrow="0">
+		</cfif>
+		<cfif not isdefined("session.searchBy")>
+			<cfset session.searchBy="">
+		</cfif>
+		<cfif not isdefined("session.exclusive_collection_id")>
+			<cfset session.exclusive_collection_id="">
+		</cfif>
+		<cfif not isdefined("session.fancyCOID")>
+			<cfset session.fancyCOID="">
+		</cfif>
+		<cfif not isdefined("session.last_login")>
+			<cfset session.last_login="">
+		</cfif>
+		<cfif not isdefined("session.customOtherIdentifier")>
+			<cfset session.customOtherIdentifier="">
+		</cfif>
+		<cfif not isdefined("session.displayrows") or len(session.displayrows) is 0>
+			<cfset session.displayrows="20">
+		</cfif>
+		<cfif not isdefined("session.loan_request_coll_id")>
+			<cfset session.loan_request_coll_id="">
+		</cfif>
+		<cfif not isdefined("session.resultColumnList")>
+			<cfset session.resultColumnList="">
+		</cfif>
+		<cfif not isdefined("session.LastLogin")>
+			<cfset session.LastLogin="">
+		</cfif>
+		<cfif len(#session.username#) gt 0>
+			<cfquery name="gcid" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+				select agent_id from agent_name where agent_name='#session.username#'
+				and agent_name_type='login'
+			</cfquery>
+			<cfif gcid.recordcount is 1>
+				<cfset session.myAgentId=#gcid.agent_id#>
+			</cfif>
+		</cfif>
+		<cfreturn true>
+</cffunction>
+<!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="false">
 	<cfset currentPath=GetDirectoryFromPath(GetTemplatePath())> 
 	<cfif currentPath contains "/CustomTags/" OR
@@ -191,66 +253,9 @@
 		currentPath contains "/log/">
 		<cflocation url="/errors/forbidden.cfm" addtoken="false">
 	</cfif>
-		<cfset Client.SpecimenDownloadFileName = "ArctosData_#cfid##cftoken#.txt">
-		<cfif not isdefined("client.target")>
-			<cfset client.target="_self">
-		</cfif>
-		<cfif not isdefined("client.mapSize")>
-			<cfset client.mapSize="">
-		</cfif>
-		<cfif not isdefined("client.roles")>
-			<cfset client.roles="public">
-		</cfif>
-		<cfif not isdefined("client.showObservations")>
-			<cfset client.showObservations="">
-		</cfif>
-		<cfif not isdefined("client.result_sort")>
-			<cfset client.result_sort="">
-		</cfif>
-		<cfif not isdefined("client.username")>
-			<cfset client.username="">
-		</cfif>
-		<cfif not isdefined("client.killrow")>
-			<cfset client.killrow="0">
-		</cfif>
-		<cfif not isdefined("client.searchBy")>
-			<cfset client.searchBy="">
-		</cfif>
-		<cfif not isdefined("client.exclusive_collection_id")>
-			<cfset client.exclusive_collection_id="">
-		</cfif>
-		<cfif not isdefined("client.fancyCOID")>
-			<cfset client.fancyCOID="">
-		</cfif>
-		<cfif not isdefined("client.last_login")>
-			<cfset client.last_login="">
-		</cfif>
-		<cfif not isdefined("client.customOtherIdentifier")>
-			<cfset client.customOtherIdentifier="">
-		</cfif>
-		<cfif not isdefined("client.displayrows") or len(client.displayrows) is 0>
-			<cfset client.displayrows="20">
-		</cfif>
-		<cfif not isdefined("client.loan_request_coll_id")>
-			<cfset client.loan_request_coll_id="">
-		</cfif>
-		<cfif not isdefined("client.resultColumnList")>
-			<cfset client.resultColumnList="">
-		</cfif>
-		<cfif not isdefined("client.LastLogin")>
-			<cfset client.LastLogin="">
-		</cfif>
-		<cfif len(#client.username#) gt 0>
-			<cfquery name="gcid" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
-				select agent_id from agent_name where agent_name='#client.username#'
-				and agent_name_type='login'
-			</cfquery>
-			<cfif gcid.recordcount is 1>
-				<cfset client.myAgentId=#gcid.agent_id#>
-			</cfif>
-		</cfif>
+		
 		<!--- protect "us" directories --->
-		<cfif #client.roles# is "public" and 
+		<cfif #session.roles# is "public" and 
 				(currentPath contains "/Admin/" or
 				currentPath contains "/ALA_Imaging/" or
 				currentPath contains "/Bulkloader/" or
