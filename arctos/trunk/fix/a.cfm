@@ -1,246 +1,48 @@
-<cfoutput>
-<cfquery name="d" datasource="#Application.web_user#">
-select
-			cataloged_item.collection_object_id,
-			cat_num,
-			scientific_name,
-			state_prov,
-			country,
-			quad,
-			county,
-			island,
-			sea,
-			feature,
-			spec_locality,
-			'test' Coordinates,
-			concatColl(cataloged_item.collection_object_id) as collectors,
-			ConcatAttributeValue(cataloged_item.collection_object_id,'sex') as sex,
-			concatotherid(cataloged_item.collection_object_id) as other_ids,
-			concatparts(cataloged_item.collection_object_id) as parts,
-			verbatim_date,
-			accn_number,
-			CONCATATTRIBUTE(cataloged_item.collection_object_id) attributes
-		FROM
-			cataloged_item,
-			identification,
-			collecting_event,
-			locality,
-			geog_auth_rec,
-			accepted_lat_long,
-			accn
-		where
-			cataloged_item.collection_object_id = identification.collection_object_id and
-			cataloged_item.collecting_event_id = collecting_event.collecting_event_id and
-			collecting_event.locality_id = locality.locality_id and
-			locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id and
-			locality.locality_id = accepted_lat_long.locality_id (+) and
-			cataloged_item.accn_id=accn.transaction_id and
-			accepted_id_fg=1 AND 
-			cataloged_item.collection_object_id IN (514750,514756,2318419,2627207,1757973,2291559,2274437,2279418,2591330,2494874,516404,2627199,537906,2420764,2291565,307533,1757986,279798,517436,1,537684,2279415,514768,307531,2279400,540778,65967,2274441,764386,2318423,2494864,2588314,2274439,2494868,531870,2274443,2593671,2627201,525396,514765,764396,2494856,539064,2291562,2593421,2588318,764355,540776,2275167,250477,517556,538348,540794,478388,517890,2494862,2593415,516396,540786,2318425,2275371,2291296,67022,6,517842,2291291,514753,2275173,764394,2279421,2627211,2591014,250510,764398,2292327,514759,2274435,2593412,519200,538128,2593418,2279427,56055,478400,2279424,2,67040,532350,2291571,60638,2275169,533288,2591010,4,2494872,516390,2279412,529780,2274445,478392,2494870,307524,478398,540788,2593409,5,2591182,764392,2591012,2275175,2588302,1757966,279719,521340,2591008,2627224,2798156,307529,2274429,1757969,2494860,514762,307535,2274447,516388,279758,518084,2494866,2627217,2376721,8,2591180,2588316,2588320,2593404,2588306,764388,478394,519202,2588308,514771,2588322,539066,2274433,1757971,2588312,2591388,516398,2279406,540790,2591404,2627209,518082,516402,2279409,540792,67041,2593674,534276,2279403,2318417,478390,65968,540780,540784,517832,538778,514777,478402,517766,66840,517870,279814,514774,516386,478406,1757963,523386,540782,7,2318427,2275163,764358,2591236,1757990,3,516394,2318415,2588304,2291556,1757977,2494858,2275373,2798154,536400,538562,2593335,2291293,2274431,478396,2627213,1757981,516400,2275165,2627203,764390,9,10,2593406,478404,532562,516392,1757984,2627222,2376723,517912,2318421,2291568,764400)
+<!--- Use an array to setup some Java reflection --->
+<cfset a = ArrayNew(1) />
+<cfset sessionClass = a.getClass().forName('coldfusion.runtime.SessionScope') />
+<cfset sess = StructNew() />
+<!--- These methods can be used without updating the Last access time --->
+<cfset sess.elapsedTime = sessionClass.getMethod('getElapsedTime', a) />
+<cfset sess.lastAccess = sessionClass.getMethod('getTimeSinceLastAccess', a) />
+<cfset sess.maxInterval = sessionClass.getMethod('getMaxInactiveInterval', a) />
+<cfset sess.expired = sessionClass.getMethod('expired', a) />
+
+<!--- Grab a list of application names --->
+<cfset apps = StructNew() />
+<cfset appTracker = CreateObject("java", "coldfusion.runtime.ApplicationScopeTracker") />
+<cfset oApps = appTracker.getApplicationKeys() />
+<cfloop condition="#oApps.hasMoreElements()#">
+<cfset apps[oApps.nextElement()] = StructNew() />
+</cfloop>
+
+<!Ñ Setup the Session Tracker Ñ>
+
+<cfset jTracker = CreateObject('java', 'coldfusion.runtime.SessionTracker') />
+
+<!Ñ Loop through each application Ñ>
+<cfloop collection="#apps#" item="app">
+<!Ñ Grab a reference to the sessions Ñ>
+<cfset sessions = jTracker.getSessionCollection(app) />
+<!Ñ We'll store the session information in a query Ñ>
+<cfset qSess = QueryNew('sessionId,elapsedTime,lastAccess,maxInterval,expired') />
+<cfloop item="sid" collection="#sessions#">
+<cfset QueryAddRow(qSess, 1) />
+<!Ñ sid = Session ID Ñ>
+<cfset QuerySetCell(qSess, 'sessionId', sid, qSess.recordCount) />
+<cftry>
+<!Ñ elapsedTime and lastAccess are in ms, maxInterval is in seconds, expired is tinyint Ñ>
+<cfset QuerySetCell(qSess, 'elapsedTime', sess.elapsedTime.invoke(sessions[sid], a), qSess.recordCount) />
+<cfset QuerySetCell(qSess, 'lastAccess', sess.lastAccess.invoke(sessions[sid], a), qSess.recordCount) />
+<cfset QuerySetCell(qSess, 'maxInterval', sess.maxInterval.invoke(sessions[sid], a) * 1000, qSess.recordCount) />
+<cfset QuerySetCell(qSess, 'expired', sess.expired.invoke(sessions[sid], a), qSess.recordCount) />
+<cfcatch type="any">
+<!Ñ Something went wrong with this session, leave the values blank apart from the sessionID Ñ>
+</cfcatch>
+</cftry>
+</cfloop>
+</cfloop>
+<!Ñ We can do things like calculate the percentage of time left until expiry Ñ>
+<cfquery name="qSess" dbtype="query">
+SELECT *, lastAccess / maxInterval / 100 AS percent FROM qSess ORDER BY lastAccess DESC
 </cfquery>
-<!---
-		<cfdump var=#d#>
-
---->
-	<cfset lAr = ArrayNew(1)>
-	<cfset sAr = ArrayNew(1)>
-	<cfset idAr = ArrayNew(1)>
-	<cfset cAr = ArrayNew(1)>
-	<cfset aAr = ArrayNew(1)>
-	<cfset pAr = ArrayNew(1)>
-	<cfset dAr = ArrayNew(1)>
-	<cfset i=1>
-	<cfloop query="d">
-		<cfset geog = "">
-		<cfif #state_prov# is "Alaska">
-			<cfset geog = "USA: Alaska">
-			<cfif len(#island#) gt 0>
-				<cfset geog = "#geog#, #island#">
-			</cfif>
-			<cfif len(#sea#) gt 0>
-				<cfif len(#quad#) is 0>
-					<cfset geog = "#geog#, #sea#">
-				</cfif>
-			</cfif>
-			<cfif len(#quad#) gt 0>
-					<cfif not #geog# contains " Quad">
-						<cfset geog = "#geog#, #quad# Quad">
-					</cfif>
-			</cfif>
-			<cfif len(#feature#) gt 0>
-				<cfset geog = "#geog#, #feature#">
-			</cfif>
-			<cfif len(#spec_locality#) gt 0>
-				<cfset geog = "#geog#; #spec_locality#">
-			</cfif>
-		<cfelse>
-		  	<cfif len(#country#) gt 0>
-				<cfif #country# is "United States">
-					<cfset geog = "USA: ">
-				</cfif>
-				<cfset geog = "#country#: ">
-			</cfif>
-			<cfif len(#sea#) gt 0>
-				<cfset geog = "#geog#, #sea#">
-			</cfif>
-			<cfif len(#state_prov#) gt 0>
-				<cfset geog = "#geog#, #state_prov#">
-			</cfif>
-			<cfif len(#island#) gt 0>
-				<cfset geog = "#geog#, #island#">
-			</cfif>
-			<cfif len(#quad#) gt 0>
-				<cfset geog = "#geog#, #quad# Quad">
-			</cfif>
-			<cfif len(#feature#) gt 0>
-				<cfset geog = "#geog#, #feature#">
-			</cfif>
-			<cfif len(#spec_locality#) gt 0>
-				<cfset geog = "#geog#; #spec_locality#">
-			</cfif>
-		</cfif>
-		<cfset geog=replace(geog,": , ",": ","all")>
-		<cfset lAr[i] = #geog#>
-	
-		<cfset sexcode = "">
-		<cfif len(#trim(sex)#) gt 0>
-			<cfif #trim(sex)# is "male">
-				<cfset sexcode = "M">
-			<cfelseif #trim(sex)# is "female">
-				<cfset sexcode = "F">
-			<cfelse>
-				<cfset sexcode = "?">
-			</cfif>
-		</cfif>
-		<cfset sAr[i] = #sexcode#>
-		
-		<cfset idNum = "">
-		<cfset af = "">
-		<cfloop list="#other_ids#" index="val" delimiters=";">
-			<cfif #val# contains "Field Num=">
-				<cfset idNum = "Field##: #replace(val,"Field Num=","")#">
-			</cfif>
-			<cfif #val# contains "AF=">
-				<cfset af = "#replace(val,"="," ")#">
-			</cfif>
-		</cfloop>
-		<cfset idAr[i] = #idNum#>
-				
-		
-		<cfif #collectors# contains ",">
-			<Cfset spacePos = find(",",collectors)>
-			<cfset thisColl = left(collectors,#SpacePos# - 1)>
-			<cfset thisColl = "#thisColl# et al.">
-		<cfelse>
-			<cfset thisColl = #collectors#>
-		</cfif>
-		<cfset cAr[i] = #collectors#>
-		
-		<cfset totlen = "">
-		<cfset taillen = "">
-		<cfset hf = "">
-		<cfset efn = "">
-		<cfset weight = "">
-		<cfset totlen_val = "">
-		<cfset taillen_val = "">
-		<cfset hf_val = "">
-		<cfset efn_val = "">
-		<cfset weight_val = "">
-		<cfset totlen_units = "">
-		<cfset taillen_units = "">
-		<cfset hf_units = "">
-		<cfset efn_units = "">
-		<cfset weight_units = "">
-			
-
-		<cfloop list="#attributes#" index="attind" delimiters=";">
-			<cfset sPos=find(":",attind)>
-			<cfif sPos gt 0>
-				<cfset att=left(attind,sPos-1)>
-				<cfset aVal=right(attind,len(attind)-sPos-1)>
-				<cfif #trim(att)# is "total length">
-					<cfset totlen = "#aVal#">
-				<cfelseif #trim(att)# is "tail length">
-					<cfset taillen = "#aVal#">
-				<cfelseif #trim(att)# is "hind foot with claw">
-					<cfset hf = "#aVal#">
-				<cfelseif #trim(att)# is "ear from notch">	
-					<cfset efn = "#aVal#">
-				<cfelseif #trim(att)# is "weight">
-					<cfset weight = "#aVal#">
-				</cfif>
-			</cfif>
-		</cfloop>
-		<cfif len(#totlen#) gt 0>
-			<cfset meas = #totlen#>
-		<cfelse>
-			<cfset meas="X">
-		</cfif>
-		<cfif len(#taillen#) gt 0>
-			<cfset meas = "#meas#-#taillen#">
-		<cfelse>
-			<cfset meas = "#meas#-X">
-		</cfif>
-		<cfif len(#hf#) gt 0>
-			<cfset meas = "#meas#-#hf#">
-		<cfelse>
-			<cfset meas = "#meas#-X">
-		</cfif>
-		<cfif len(#efn#) gt 0>
-			<cfset meas = "#meas#-#efn#">
-		<cfelse>
-			<cfset meas = "#meas#-X">
-		</cfif>
-		<cfif len(#weight#) gt 0>
-			<cfset meas = "#meas#=#weight#">
-		<cfelse>
-			<cfset meas = "#meas#=X">
-		</cfif>
-		<cfset meas=replace(meas,"mm","","all")>
-		<cfset meas=replace(meas,"g","","all")>
-		<cfset aAr[i] = #meas#>
-			
-		<cfset stripParts = "">
-		<cfset tiss = "">
-		<cfloop list="#parts#" delimiters=";" index="p">
-			<cfif #p# contains "(frozen)">
-				<cfset tiss="tissues (frozen)">
-			<cfelseif #p# does not contain "ethanol">
-				<cfif len(#stripParts#) is 0>
-					<cfset stripParts = #p#>
-				<cfelse>
-					<cfset stripParts = "#stripParts#; #p#">
-				</cfif>
-			</cfif>
-		</cfloop>
-		
-		<cfif len(#tiss#) gt 0>
-			<cfset stripParts = "#stripParts#; #tiss#">
-		</cfif>
-		<cfif left(stripParts,2) is "; ">
-			<cfset stripParts = right(stripParts,len(stripParts) - 2)>
-		</cfif>
-		<cfset pAr[i] = #stripParts#>
-	
-		<cfset thisDate = "">
-		<cftry>
-			<cfset thisDate = #dateformat(verbatim_date,"dd mmm yyyy")#>
-			<cfcatch>
-				<cfset thisDate = #verbatim_date#>
-			</cfcatch>
-		</cftry>
-		<cfset dAr[i] = #stripParts#>
-			<cfset i=i+1>
-		</cfloop>
-		<cfset temp=queryAddColumn(d,"locality","VarChar",lAr)>
-		<cfset temp=queryAddColumn(d,"sexcode","VarChar",sAr)>
-		<cfset temp=queryAddColumn(d,"idNum","VarChar",idAr)>
-		<cfset temp=queryAddColumn(d,"formatted_collectors","VarChar",cAr)>
-		<cfset temp=queryAddColumn(d,"measurements","VarChar",aAr)>
-		<cfset temp=queryAddColumn(d,"formatted_parts","VarChar",pAr)>	
-		<cfset temp=queryAddColumn(d,"formatted_date","VarChar",dAr)>	
-		<!---
-
-		--->
-				<cfdump var=#d#>
-		</cfoutput>
