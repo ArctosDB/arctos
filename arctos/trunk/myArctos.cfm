@@ -1,11 +1,6 @@
 <cfinclude template = "includes/_header.cfm">
-
-
-
-
 <cfif len(#session.username#) is 0>
-		You must log in to customize Arctos.		
-	    <cfabort>
+		<cflocation url="/login.cfm">
 </cfif>
 
 
