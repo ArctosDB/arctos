@@ -313,7 +313,6 @@
 			</td>
 			<td class="srch">
 				
-				<input type="text" name="part_name" id="tpart_name" size="50">
 				<cfinput type="text" autosuggest="#valuelist(Part.part_name)#" name="part_name">
 				<!----
 				<span onclick="multi('part_name')">m</span>
