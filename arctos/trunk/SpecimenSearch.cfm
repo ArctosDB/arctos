@@ -312,12 +312,14 @@
 				<span class="helpLink" id="part_name">Part:</span>
 			</td>
 			<td class="srch">
-				
-				<cfinput type="text" autosuggest="#valuelist(Part.part_name)#" name="part_name" delimiter=",">
+				<hr>
+				#valuelist(Part.part_name)#
+				<hr>
+				<cfinput type="text" autosuggest="#valuelist(Part.part_name)#" name="part_name">
 				
 				<cfinput type="text" 
     autosuggest="Alabama,Alaska,Arkansas,Arizona,Maryland,Minnesota,Missouri"
-    name="city" delimiter="\">
+    name="city" >
 	
 	
 				<!----
