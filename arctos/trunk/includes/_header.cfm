@@ -129,7 +129,7 @@
 	    <cfif len(#session.username#) gt 0>
 			<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
 			<cfif isdefined("session.last_login") and len(#session.last_login#) gt 0>
-				<span style="font-size:smaller">(Last login: #dateformat(last_login, "mmm d yyyy")#)</span>&nbsp;
+				<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "mmm d yyyy")#)</span>&nbsp;
 			</cfif>
 		<cfelse>
 			<cfset escapeGoofyInstall=replace(cgi.SCRIPT_NAME,"/cfusion","","all")>
