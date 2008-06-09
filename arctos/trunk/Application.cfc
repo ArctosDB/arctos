@@ -185,7 +185,31 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onSessionStart" returnType="boolean" output="false">
-	<cfset session.SpecimenDownloadFileName = "ArctosData_#cfid##cftoken#.txt">
+	
+		<cfreturn true>
+</cffunction>
+<!-------------------------------------------------------------->
+<cffunction name="onRequestStart" returnType="boolean" output="false">
+	<cfset currentPath=GetDirectoryFromPath(GetTemplatePath())> 
+	<cfif currentPath contains "/CustomTags/" OR
+		currentPath contains "/binary_stuff/" OR
+		currentPath contains "/log/">
+		<cflocation url="/errors/forbidden.cfm" addtoken="false">
+	</cfif>
+		
+		<!--- protect "us" directories --->
+		<cfif #session.roles# is "public" and 
+				(currentPath contains "/Admin/" or
+				currentPath contains "/ALA_Imaging/" or
+				currentPath contains "/Bulkloader/" or
+				currentPath contains "/fix/" or
+				currentPath contains "/picks/" or
+				currentPath contains "/tools/")>
+				<cflocation url="/errors/forbidden.cfm" addtoken="false">
+			</cfif>
+			
+			<!--- may need to go to onSessoinStart ---->
+			<cfset session.SpecimenDownloadFileName = "ArctosData_#cfid##cftoken#.txt">
 		<cfif not isdefined("session.target")>
 			<cfset session.target="_self">
 		</cfif>
@@ -243,27 +267,7 @@
 				<cfset session.myAgentId=#gcid.agent_id#>
 			</cfif>
 		</cfif>
-		<cfreturn true>
-</cffunction>
-<!-------------------------------------------------------------->
-<cffunction name="onRequestStart" returnType="boolean" output="false">
-	<cfset currentPath=GetDirectoryFromPath(GetTemplatePath())> 
-	<cfif currentPath contains "/CustomTags/" OR
-		currentPath contains "/binary_stuff/" OR
-		currentPath contains "/log/">
-		<cflocation url="/errors/forbidden.cfm" addtoken="false">
-	</cfif>
 		
-		<!--- protect "us" directories --->
-		<cfif #session.roles# is "public" and 
-				(currentPath contains "/Admin/" or
-				currentPath contains "/ALA_Imaging/" or
-				currentPath contains "/Bulkloader/" or
-				currentPath contains "/fix/" or
-				currentPath contains "/picks/" or
-				currentPath contains "/tools/")>
-				<cflocation url="/errors/forbidden.cfm" addtoken="false">
-			</cfif>
 	<cfreturn true>
 </cffunction>
 </cfcomponent>
