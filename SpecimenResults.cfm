@@ -272,7 +272,7 @@ having min(section_page_order) = section_page_order)) as gref_collnum">
 	<input type="hidden" name="returnURL" value="#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#" />
 </form>
 <!--- clean up things we'll let them sort by --->
-<cfset resultList = resultColumnList>
+<cfset resultList = session.resultColumnList>
 <cfset tabooItems="institution_acronym,collection_id,collection_cde">
 <cfloop list="#tabooItems#" index="item">
 		<cfif ListContainsNoCase(resultList,item)>
