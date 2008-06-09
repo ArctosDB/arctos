@@ -209,7 +209,7 @@
 				</cfif>
 			</cfloop>
 			<!---- made it through the checks, now actually do stuff --->
-			<cfquery name="positionContents" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="positionContents" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				select 
 					posCon.container_id ,
 					posCon.label contentLabel,
@@ -304,7 +304,7 @@
 	<cfoutput>
 		<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 		<cfset oops = "">
-		<cfquery name="cleanup" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="cleanup" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			delete from cf_temp_container_location
 		</cfquery>
 		<cftransaction>
@@ -315,7 +315,7 @@
 				<cfset thisParentId = #evaluate("position_id" & bc)#>
 				<cfif len(#thisBarcode#) gt 0>
 					
-						<cfquery name="thisID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						<cfquery name="thisID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 							select container_id from container where barcode='#thisBarcode#'
 							<!--- we should only be putting cyrovials in box positions ---->
 							AND container_type = 'cryovial'						
@@ -323,13 +323,13 @@
 							
 						<cfif #thisID.recordcount# is 0>
 								<!--- see if it's a label --->
-								<cfquery name="isLabel" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+								<cfquery name="isLabel" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 									select container_id from container where barcode='#thisBarcode#'
 									AND container_type = 'cryovial label'
 								</cfquery>
 								<cfif #isLabel.recordcount# is 1>
 									<!--- switch --->
-									<cfquery name="update" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+									<cfquery name="update" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 										update container set container_type='cryovial'
 										where container_id=#isLabel.container_id#
 									</cfquery>
@@ -344,7 +344,7 @@
 						
 					<cfif len(#thisContainerId#) gt 0>
 						
-						<cfquery name="putItIn" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						<cfquery name="putItIn" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 							INSERT INTO cf_temp_container_location (
 								CONTAINER_ID,
 								PARENT_CONTAINER_ID,
@@ -363,7 +363,7 @@
 		</cftransaction>
 		<CFIF LEN(#oops#) gt 0>
 			<!--- cleanup on isle no container.... ---->
-			<cfquery name="cleanup" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="cleanup" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				delete from cf_temp_container_location
 			</cfquery>
 			<hr><font color="##FF0000">#oops#</font>			
@@ -408,14 +408,14 @@
 		<!--- there is nothing in this box, make all positions ---->
 		<cftransaction>
 			<!---- next container ID ---->
-			<cfquery name="nid" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="nid" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				select max(container_id) container_id from container
 			</cfquery>
 			<cfset contID = #nid.container_id# + 1>
 			<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 			<!--- make number_positions new containers, lock them, and put them in this box ---->
 			<cfloop from="1" to="#number_positions#" index="i">
-				<cfquery name="new" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="new" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO container (
 					CONTAINER_ID,
 					PARENT_CONTAINER_ID,

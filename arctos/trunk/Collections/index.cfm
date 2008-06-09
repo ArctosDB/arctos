@@ -50,7 +50,7 @@ SpecimenSearch and results of specimen queries.
 	</td>
 </tr>
 <cfoutput query="colls">
-	<tr <cfif #client.exclusive_collection_id# is #collection_id#>style="background-color:##CCFF33" </cfif>>
+	<tr <cfif #session.exclusive_collection_id# is #collection_id#>style="background-color:##CCFF33" </cfif>>
 		<td>
 			#COLLECTION_CDE#
 		</td>

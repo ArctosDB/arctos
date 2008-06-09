@@ -160,7 +160,7 @@ Create Hierarchies:
 <!---------------------------------------------------->
 <cfif #action# is "delete">
 	<cfoutput>
-		<cfquery name="killGeog" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="killGeog" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			delete from  geology_attribute_hierarchy where geology_attribute_hierarchy_id=#geology_attribute_hierarchy_id#
 		</cfquery>
 		<cflocation url="geol_hierarchy.cfm" addtoken="false">
@@ -171,7 +171,7 @@ Create Hierarchies:
 <cfif #action# is "saveEdit">
 	<cfoutput>
 
-	<cfquery name="changeGeog" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="changeGeog" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		update geology_attribute_hierarchy set
 		attribute='#attribute#',
 		attribute_value='#attribute_value#',
@@ -187,7 +187,7 @@ Create Hierarchies:
 <cfif #action# is "newTerm">
 	<cfoutput>
 
-	<cfquery name="changeGeog" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="changeGeog" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		insert into geology_attribute_hierarchy (attribute,attribute_value,usable_value_fg,description) 
 		values
 		 ('#attribute#','#attribute_value#',#usable_value_fg#,'#description#')
@@ -198,7 +198,7 @@ Create Hierarchies:
 <!---------------------------------------------------->
 <cfif #action# is "newReln">
 	<cfoutput>
-	<cfquery name="changeGeog" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="changeGeog" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		update geology_attribute_hierarchy set parent_id=<cfif parent is "">NULL<cfelse>#parent#</cfif> where geology_attribute_hierarchy_id=#child#
 	</cfquery>
 	<cflocation url="geol_hierarchy.cfm" addtoken="false">

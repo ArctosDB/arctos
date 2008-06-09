@@ -63,7 +63,7 @@
 	  <cfif #VALID_CATALOG_TERM_FG# is 1>
 	      <font size="+1"	>
 		      <a href="SpecimenResults.cfm?taxon_name_id=#taxon_name_id#" 
-		      	target="#client.target#"><I><B>#SCIENTIFIC_NAME#</B></I></a>
+		      	target="#session.target#"><I><B>#SCIENTIFIC_NAME#</B></I></a>
 			    
 		</font>
 		
@@ -108,7 +108,7 @@
 		Links:
 		<ul>
 			<li>
-				<a href="SpecimenResults.cfm?taxon_name_id=#taxon_name_id#" target="#client.target#">
+				<a href="SpecimenResults.cfm?taxon_name_id=#taxon_name_id#" target="#session.target#">
 					Search Arctos for <I>#SCIENTIFIC_NAME#</I></a>
 			</li>
 			<li>
@@ -118,16 +118,16 @@
 			
 			<li>
 				<cfset srchName = #replace(scientific_name," ","%20","all")#>
-				<a href="http://www.itis.usda.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all" target="#client.target#"><img src="/images/itis.gif" border="0" width="30">&nbsp;ITIS</a>
+				<a href="http://www.itis.usda.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all" target="#session.target#"><img src="/images/itis.gif" border="0" width="30">&nbsp;ITIS</a>
 			</li>
 			<li>
 				<cfset srchName = #replace(scientific_name," ","%20","all")#>
-				<a href="http://www.unep-wcmc.org/isdb/CITES/Taxonomy/tax-species-result.cfm?displaylanguage=eng&Genus=%25#genus#%25&source=animals&Species=#species#" target="#client.target#"><img src="/images/UNEP.jpg" border="0" width="30">&nbsp;UNEP</a>
+				<a href="http://www.unep-wcmc.org/isdb/CITES/Taxonomy/tax-species-result.cfm?displaylanguage=eng&Genus=%25#genus#%25&source=animals&Species=#species#" target="#session.target#"><img src="/images/UNEP.jpg" border="0" width="30">&nbsp;UNEP</a>
 			</li>
 			
 			<li>
 				<cfset srchName = #replace(scientific_name," ","+","all")#>
-				<a href="http://darwin.zoology.gla.ac.uk/~rpage/portal/main.php?taxon_name=#srchName#&Submit=Go" target="#client.target#">TSE</a>
+				<a href="http://darwin.zoology.gla.ac.uk/~rpage/portal/main.php?taxon_name=#srchName#&Submit=Go" target="#session.target#">TSE</a>
 			</li>
 		</ul>
 			

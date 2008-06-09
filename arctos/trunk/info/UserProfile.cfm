@@ -2,7 +2,7 @@
 <cfset title="User Profile">
 <!--- make sure they have an account --->
 
-<cfif not isdefined("client.username") OR len(#client.username#) is 0>
+<cfif not isdefined("session.username") OR len(#session.username#) is 0>
 	<span style="color: #FF0000">You must be a registered user to create a profile!</span>  <br>
 	Click <a href="/login.cfm">here</a> to log in or create a user account.
 	<cfabort>
@@ -22,7 +22,7 @@
 		cf_users
 	WHERE
 		cf_users.user_id = cf_user_data.user_id (+) AND
-		username = '#client.username#'
+		username = '#session.username#'
 </cfquery>
 <cfoutput>
 <table>

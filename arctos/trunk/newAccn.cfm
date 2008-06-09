@@ -249,14 +249,14 @@
 			select max(transaction_id) + 1 as nextTrans from trans
 		</cfquery>
 		<cfquery name="TRANS_ENTERED_AGENT_ID" datasource="#Application.web_user#">
-			select agent_id from agent_name where agent_name = '#client.username#'
+			select agent_id from agent_name where agent_name = '#session.username#'
 		</cfquery>
 		
 		
 	
 	<cftransaction>
 	
-		<cfquery name="newTrans" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="newTrans" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO trans (
 			TRANSACTION_ID,
 			TRANS_DATE,
@@ -289,7 +289,7 @@
 			</cfif>)
 		</cfquery>
 		
-		<cfquery name="newAccn" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="newAccn" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO accn (
 			TRANSACTION_ID,
 			ACCN_TYPE
@@ -305,7 +305,7 @@
 			'#accn_status#' 
 			)
 		</cfquery>
-		<cfquery name="newAgent" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="newAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			insert into trans_agent (
 				transaction_id,
 				agent_id,

@@ -11,7 +11,7 @@
 			cataloged_item.collection_object_id,
 			collection,
 			cat_num,
-			concatSingleOtherId(cataloged_item.collection_object_id,'#client.customotheridentifier#') AS CustomID,
+			concatSingleOtherId(cataloged_item.collection_object_id,'#session.customotheridentifier#') AS CustomID,
 			concatencumbrances(cataloged_item.collection_object_id) encumbrances,
 			scientific_name,
 			RELATED_COLL_OBJECT_ID,
@@ -47,7 +47,7 @@
 					cataloged_item.collection_object_id,
 					collection,
 					cat_num,
-					concatSingleOtherId(cataloged_item.collection_object_id,'#client.customOtherIdentifier#') AS CustomID,
+					concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#') AS CustomID,
 					concatencumbrances(cataloged_item.collection_object_id) encumbrances,
 					scientific_name,
 					flags
@@ -65,9 +65,9 @@
 					cataloged_item.collection_object_id = #RELATED_COLL_OBJECT_ID#
 			</cfquery>
 			<tr>
-				<td><a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection# #cat_num#</a> (#client.customOtherIdentifier# #CustomID#) <em>#scientific_name#</em></td>
+				<td><a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection# #cat_num#</a> (#session.customOtherIdentifier# #CustomID#) <em>#scientific_name#</em></td>
 				<td><a href="/SpecimenDetail.cfm?collection_object_id=#dupRec.collection_object_id#">#dupRec.collection# #dupRec.cat_num#</a>
-					(#client.customOtherIdentifier# #dupRec.CustomID#) 
+					(#session.customOtherIdentifier# #dupRec.CustomID#) 
 					<em>#dupRec.scientific_name#</em>
 				</td>
 				<td>
@@ -98,7 +98,7 @@
 				cataloged_item.collection_object_id,
 				collection,
 				cat_num,
-				concatSingleOtherId(cataloged_item.collection_object_id,'#client.customOtherIdentifier#') AS CustomID,
+				concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#') AS CustomID,
 				concatencumbrances(cataloged_item.collection_object_id) encumbrances,
 				scientific_name,
 				accepted_id_fg,

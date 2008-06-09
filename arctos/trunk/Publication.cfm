@@ -177,12 +177,12 @@
 <cfif #Action# is "makeJournalArticle">
 <cfoutput>
 
-<cfquery name="nextPub" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="nextPub" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	select max(publication_id) + 1 as nextID from publication
 </cfquery>
 <cfset thisID = #nextPub.nextID#>
 <cftransaction>
-<cfquery name="newJA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="newJA" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 INSERT INTO journal_article (
 PUBLICATION_ID ,
 JOURNAL_ID
@@ -215,7 +215,7 @@ JOURNAL_ID
 </cfif>
 )
 </cfquery>
-<cfquery name="newJAP" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="newJAP" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 INSERT INTO publication (
 PUBLICATION_ID,
 PUBLICATION_TYPE
@@ -252,7 +252,7 @@ values (
 	<cfquery name="nextJID" datasource="#Application.web_user#">
 		select max(journal_id) + 1 as nextid from journal
 	</cfquery>
-	<cfquery name="newJ" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="newJ" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO journal (
 	 JOURNAL_ID,
 	 JOURNAL_ABBREVIATION,
@@ -314,11 +314,11 @@ values (
 <cfif #Action# is "makeBook1">
 <cfoutput>
 
-<cfquery name="nextPub" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="nextPub" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	select max(publication_id) + 1 as nextID from publication
 </cfquery>
 <cftransaction>
-<cfquery name="nextBP" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="nextBP" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 INSERT INTO publication (
 PUBLICATION_ID,
 PUBLICATION_TYPE
@@ -343,7 +343,7 @@ values (
 )
 </cfquery>
 
-<cfquery name="nextB" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="nextB" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 INSERT INTO book (
 PUBLICATION_ID ,
 EDITED_WORK_FG
@@ -1088,7 +1088,7 @@ VALUES (
 <cfif #Action# is "deleteLink">
 	
 	<cfoutput>
-	<cfquery name="newLink" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="newLink" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM publication_url
 		WHERE
 		publication_url_id = #publication_url_id#
@@ -1102,11 +1102,11 @@ VALUES (
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
 <cfif #Action# is "updateLink">
-	<cfquery name="nextID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="nextID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		select max(publication_url_id) + 1 as nextID from publication_url
 	</cfquery>
 	<cfoutput>
-	<cfquery name="newLink" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="newLink" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		UPDATE publication_url SET
 		link = '#link#',
 		description = '#description#'
@@ -1122,11 +1122,11 @@ VALUES (
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
 <cfif #Action# is "newLink">
-	<cfquery name="nextID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="nextID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		select max(publication_url_id) + 1 as nextID from publication_url
 	</cfquery>
 	<cfoutput>
-	<cfquery name="newLink" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="newLink" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO publication_url (
 		publication_url_id,
 		publication_id,
@@ -1150,7 +1150,7 @@ VALUES (
 <cfif #Action# is "SaveJournArtChanges">
 	<cfoutput>
 	<cftransaction>
-	<cfquery name="uJ" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="uJ" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	UPDATE journal_article SET publication_id=#publication_id#
 		<cfif len(journal_id) gt 0>
 			,journal_id=#journal_id#
@@ -1174,7 +1174,7 @@ VALUES (
 		where publication_id=#publication_id#
 		</cfquery>
 		
-		<cfquery name="uJP" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="uJP" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	UPDATE publication SET publication_id=#publication_id#
 		<cfif len(#Remarks#) gt 0>
 			,publication_remarks='#Remarks#'
@@ -1202,7 +1202,7 @@ VALUES (
 <!---------------------------------------------------------------------------->
 <cfif #Action# is "saveJourEdit">
 	<cfoutput>
-	<cfquery name="uJ" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="uJ" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	UPDATE journal SET  
 	journal_name = '#journal_name#'
 	<cfif len(#journal_abbreviation#) gt 0>
@@ -1220,7 +1220,7 @@ VALUES (
 <!---------------------------------------------------------------------------->
 <cfif #Action# is "delPubAuth">
 	<cfoutput>
-	<cfquery name="dp" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="dp" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	delete from publication_author_name where publication_id=#publication_id# and
 	agent_name_id = #agent_name_id#
 	</cfquery>
@@ -1232,7 +1232,7 @@ VALUES (
 <cfif #Action# is "SaveBookChanges">
 	<cfoutput>
 	<cftransaction>
-	<cfquery name="ub" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="ub" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	UPDATE book SET publication_id=#publication_id#
 		<cfif len(Volume) gt 0>
 			,volume_number='#Volume#'
@@ -1248,7 +1248,7 @@ VALUES (
 		</cfif>
 		where publication_id=#publication_id#
 		</cfquery>
-	<cfquery name="ubp" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="ubp" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	UPDATE publication SET publication_id=#publication_id#
 		<cfif len(Remarks) gt 0>
 			,publication_remarks='#Remarks#'
@@ -1265,7 +1265,7 @@ VALUES (
 <cfif #Action# is "saveSectionEdits">
 	<cfoutput>
 	<cftransaction>
-	<cfquery name="ubs" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="ubs" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	UPDATE book_section SET publication_id=#publication_id#
 		<cfif len(book_section_type) gt 0>
 			,book_section_type='#book_section_type#'
@@ -1281,7 +1281,7 @@ VALUES (
 		</cfif>
 		where publication_id=#publication_id#
 		</cfquery>
-		<cfquery name="ubsp" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="ubsp" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			
 	
 	UPDATE publication SET publication_id=#publication_id#
@@ -1312,11 +1312,11 @@ VALUES (
 <cfif #Action# is "newbooksec">
 	<cfoutput>
 	<cftransaction>
-		<cfquery name="nextPub" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="nextPub" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			select max(publication_id) + 1 as nextID from publication
 		</cfquery>
 	
-	<cfquery name="nbsP" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="nbsP" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO publication (
 				publication_id
 				,publication_type
@@ -1339,7 +1339,7 @@ VALUES (
 				</cfif>)
 
 	</cfquery>
-	<cfquery name="nbs" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="nbs" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO book_section (
 		PUBLICATION_ID,
 		book_id,
@@ -1378,7 +1378,7 @@ VALUES (
 <!---------------------------------------------------------------------------->
 <cfif #Action# is "changePubAuth">
 	<cfoutput>
-	<cfquery name="upa" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="upa" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	UPDATE publication_author_name SET 
 	<cfif len(#newagent_name_id#) gt 0>
 		agent_name_id=#newagent_name_id#,
@@ -1397,13 +1397,13 @@ VALUES (
 <cfif #Action# is "killJournalArticle">
 	<cfoutput>
 	<cftransaction>
-		<cfquery name="killja" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="killja" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			delete from journal_article where publication_id = #publication_id#
 		</cfquery>
-		<cfquery name="killpub" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="killpub" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			delete from publication where publication_id = #publication_id#
 		</cfquery>
-		<cfquery name="killpubauth" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="killpubauth" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			delete from publication_author_name where publication_id = #publication_id#
 		</cfquery>
 	</cftransaction>
@@ -1418,7 +1418,7 @@ VALUES (
 <!---------------------------------------------------------------------------->
 <cfif #Action# is "newPubAuth">
 	<cfoutput>
-	<cfquery name="npa" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="npa" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO  publication_author_name (publication_id,agent_name_id,author_position)
 		VALUES (#publication_id#,#newAuthId#,#author_position#)
 	</cfquery>

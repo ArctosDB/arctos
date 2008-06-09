@@ -109,7 +109,7 @@
 <!-------------------------------------------------------------------------->
 <cfif #action# is "speciesKML">
 <cfoutput>
-    <cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
+    <cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 		<cfset flatTableName = "flat">
 	<cfelse>
 		<cfset flatTableName = "filtered_flat">
@@ -297,7 +297,7 @@
 <!-------------------------------------------------------------------------->
 <cfif #action# is "make">
 <cfoutput>
-	<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
+	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 		<cfset flatTableName = "flat">
 	<cfelse>
 		<cfset flatTableName = "filtered_flat">
@@ -463,7 +463,7 @@
 			<Timespan><begin>#began_date#</begin><end>#ended_date#</end></Timespan>
 			<![CDATA[Datum: #datum#<br/>
 			Error: #errorInMeters# m<br/>'>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 				<cfset kml='#kml#<p><a href="#application.serverRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>'>
 			</cfif>
 			<cfloop query="sdet">

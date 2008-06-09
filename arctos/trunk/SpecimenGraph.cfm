@@ -154,7 +154,7 @@
 <!------------------------------------------------------------------->
 <cfif #action# is "getGraph">
 <cfoutput>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 	<cfset flatTableName = "flat">
 <cfelse>
 	<cfset flatTableName = "filtered_flat">

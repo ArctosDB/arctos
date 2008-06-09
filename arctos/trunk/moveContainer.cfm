@@ -42,7 +42,7 @@
 <!----------------->
 <cfif #action# is "moveIt">
 <cfoutput>
-	<cfquery name="timeFormat" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="timeFormat" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		ALTER SESSION SET nls_date_format = 'DD-Mon-YYYY hh24:mi:ss' 
 	</cfquery>
 	<cfparam name="locked_position" default="">
@@ -54,12 +54,12 @@
 		select container_id from container where barcode = '#parent_barcode#'
 	</cfquery>
 <!---
-<cfquery name="cleanup" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="cleanup" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	delete from cf_temp_container_location
 </cfquery>
 --->
 	<cfif #c.recordcount# is 1 AND #p.recordcount# is 1>
-		<cfquery name="new" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="new" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO cf_temp_container_location (
 			container_id,
 			parent_container_id,
@@ -78,14 +78,14 @@
 	</cfif>
 </cfoutput>
 	 <!---
-		<cfquery name="getDump" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="getDump" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				SELECT container_id, parent_container_id, timestamp FROM cf_temp_container_location
 	group by
 	container_id, parent_container_id, timestamp
 		</cfquery>
 		<cfloop query="getDump">
 			<!---- don't do anything if it's already been done ---->
-			<cfquery name="itsThere" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="itsThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				select count(*) cnt from container where
 				parent_container_id = #parent_container_id# and
 				to_char(parent_install_date,'DD-Mon-YYYY')='#dateformat(timeStamp,"dd-mmm-yyyy")#' and
@@ -95,7 +95,7 @@
 				<!--- format the timestamp ---->
 				<cfset ts = '#dateformat(timestamp,"dd-mmm-yyyy")# #timeformat(timestamp,"HH:mm:ss")#'>
 				
-						<cfquery name="upCont" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						<cfquery name="upCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					UPDATE container SET
 						parent_container_id = #parent_container_id#,
 						parent_install_date='#ts#'

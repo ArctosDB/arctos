@@ -1,6 +1,6 @@
 <cfif not isdefined("detail_level") OR len(#detail_level#) is 0>
-	<cfif isdefined("client.detailLevel") AND #client.detailLevel# gt 0>
-		<cfset detail_level = #client.detailLevel#>
+	<cfif isdefined("session.detailLevel") AND #session.detailLevel# gt 0>
+		<cfset detail_level = #session.detailLevel#>
 	<cfelse>
 		<cfset detail_level = 1>
 	</cfif>	
@@ -9,7 +9,7 @@
 <cfinclude template = "/includes/_header.cfm">
 <cfset title="Specimen Results">
 <cfif not isdefined("displayrows")>
-	<cfset displayrows = client.displayrows>
+	<cfset displayrows = session.displayrows>
 </cfif>
 <cfif not isdefined("SearchParams")>
 	<cfset SearchParams = "">
@@ -181,7 +181,7 @@
 		<p>Some possibilities include:</p>
 		<ul>
 			<li>
-				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" target="#client.target#" class="novisit">Arctos Taxonomy</a>.
+				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" target="#session.target#" class="novisit">Arctos Taxonomy</a>.
 			</li>
 			<li>
 				Try broadening your search criteria. Try the next-higher geographic element, remove criteria, etc.
@@ -199,7 +199,7 @@
 	</cfif>
 	
 <cfset maskThis = "">
-<cfif #client.rights# does not contain "student0">
+<cfif #session.rights# does not contain "student0">
 <!--- find records that we should have masked collector for --->
 	<cfif isdefined("coll") AND len(#coll#) gt 0 AND #coll_role# is "c">
 		<cfloop query="getData">
@@ -237,7 +237,7 @@
 </cfif>
 <!---- mask data for users who aren't at least student0 rated ---->
 <cfset basicSql = "select * from getData">
-<cfif #client.rights# does not contain "student0">
+<cfif #session.rights# does not contain "student0">
 	<cfset basicSql = "#basicSql# where encumbrance_action not in ('mask record')">
 	<cfif len(#maskThis#) gt 0>
 		<cfset basicSql = "#basicSql# AND collection_object_id NOT IN (#maskThis#)">
@@ -421,10 +421,10 @@
 	<cfset mapCount = 0>
 </cfif>
 <cfset cbifurl="/cbifMap.cfm?#mapurl#">
-<cfset berkUrl = "http://elib.cs.berkeley.edu:8080/cgi-bin/uam_query?#client.mapSize##mapurl#">
-<br><a href="#berkUrl#" target="#client.target#" class="novisit">Map #mapCount# of these #cnt.RecordCount# records at DLP</a>
+<cfset berkUrl = "http://elib.cs.berkeley.edu:8080/cgi-bin/uam_query?#session.mapSize##mapurl#">
+<br><a href="#berkUrl#" target="#session.target#" class="novisit">Map #mapCount# of these #cnt.RecordCount# records at DLP</a>
 
-<br><a href="#cbifurl#" target="#client.target#" class="novisit">Map #mapCount# of these #cnt.RecordCount# records at CBIF</a>
+<br><a href="#cbifurl#" target="#session.target#" class="novisit">Map #mapCount# of these #cnt.RecordCount# records at CBIF</a>
 <br><a href="javascript:void(0);"
 												onClick="getHelp('map'); return false;"
 												onMouseOver="self.status='Click for Map help.';return true;"
@@ -443,19 +443,19 @@
 	<CFOUTPUT>
 	
 	<!--- update the values for the next and previous rows to be returned --->
-	<CFSET Next = StartRow + client.DisplayRows>
-	<CFSET Previous = StartRow - client.DisplayRows>
-	<cfif  #cnt.RecordCount# - #toRow#  lt #client.DisplayRows#>
+	<CFSET Next = StartRow + session.DisplayRows>
+	<CFSET Previous = StartRow - session.DisplayRows>
+	<cfif  #cnt.RecordCount# - #toRow#  lt #session.DisplayRows#>
 		<cfset nextRows = #cnt.RecordCount# - #torow#>
 	  <cfelse>
-		<cfset nextRows = #client.DisplayRows#>
+		<cfset nextRows = #session.DisplayRows#>
 	</cfif>
 
 	  <tr>
 		<td><CFIF Previous GTE 1>
 				<form name="form3" action="Link.cfm" method="post">
 				#searchparams#
-				<input type="submit" value="Previous #client.DisplayRows# Records" class="lnkBtn"
+				<input type="submit" value="Previous #session.DisplayRows# Records" class="lnkBtn"
    onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
 				
 				<input type="hidden" name="searchParams" value='#searchParams#'>
@@ -561,7 +561,7 @@
 </cfloop>
 	<!---- always on --->
 <cfif #detail_level# gte 1>
-<cfif isdefined("client.active_loan_id") and #client.active_loan_id# gt 0>
+<cfif isdefined("session.active_loan_id") and #session.active_loan_id# gt 0>
 	<td><b>Request</b></td>
 </cfif>
 	<td nowrap><strong>Catalog Number</strong>
@@ -698,10 +698,10 @@
 </tr>
 <cfset i=1>
 
-<cfoutput query="getBasic" StartRow="#StartRow#" MaxRows="#client.DisplayRows#" group="collection_object_id">
+<cfoutput query="getBasic" StartRow="#StartRow#" MaxRows="#session.DisplayRows#" group="collection_object_id">
  
     <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-	<cfif isdefined("client.active_loan_id") and #client.active_loan_id# gt 0>
+	<cfif isdefined("session.active_loan_id") and #session.active_loan_id# gt 0>
 	<td>
 	<cfquery name="isLoanItem" datasource="#Application.web_user#">
 		select part_name from specimen_part, 
@@ -905,7 +905,7 @@
 				<form name="form3" action="Link.cfm" method="post">
 				#searchParams#
 				<input type="hidden" name="searchParams" value='#searchParams#'>
-				<input type="submit" value="Previous #client.DisplayRows# Records" class="lnkBtn"
+				<input type="submit" value="Previous #session.DisplayRows# Records" class="lnkBtn"
    onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
 				<input name="mapurl" type="hidden" value="#mapurl#">
 				<input name="maskThis" type="hidden" value="#maskThis#">				

@@ -257,7 +257,7 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 						<input type="checkbox" 
 							name="#column_name#"
 							id="#lcase(column_name)#"
-							<cfif listfindnocase(client.resultColumnList,column_name)> 
+							<cfif listfindnocase(session.resultColumnList,column_name)> 
 							checked="checked"</cfif>
 							onchange="if(this.checked==true){crcloo(this.name,'in')}else{crcloo(this.name,'out')};">						
 					</cfloop>
@@ -270,7 +270,7 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 						<input type="checkbox" 
 							name="#column_name#"
 							id="#lcase(column_name)#" 
-							<cfif listfindnocase(client.resultColumnList,column_name)> 
+							<cfif listfindnocase(session.resultColumnList,column_name)> 
 							checked="checked"</cfif>
 							onchange="if(this.checked==true){crcloo(this.name,'in')}else{crcloo(this.name,'out')};">					
 					</cfloop>
@@ -286,7 +286,7 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 						<input type="checkbox" 
 							name="#column_name#"
 							id="#lcase(column_name)#"
-							<cfif listfindnocase(client.resultColumnList,column_name)> 
+							<cfif listfindnocase(session.resultColumnList,column_name)> 
 							checked="checked"</cfif>
 							onchange="if(this.checked==true){crcloo(this.name,'in')}else{crcloo(this.name,'out')};">
 						</td></tr>					

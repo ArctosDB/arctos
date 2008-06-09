@@ -101,7 +101,7 @@
 	select distinct(project_id) from proj
 </cfquery>
 <cfparam name="StartRow" default="1">
-<CFSET ToRow = StartRow + (Client.DisplayRows - 1)>
+<CFSET ToRow = StartRow + (session.DisplayRows - 1)>
 <CFIF ToRow GT cnt.RecordCount>
 	<CFSET ToRow = cnt.RecordCount>
 </CFIF><CFOUTPUT>
@@ -117,8 +117,8 @@
 
 <form name="form2">
 	 <!--- update the values for the next and previous rows to be returned --->
-	<CFSET Next = StartRow + client.DisplayRows>
-	<CFSET Previous = StartRow - client.DisplayRows>
+	<CFSET Next = StartRow + session.DisplayRows>
+	<CFSET Previous = StartRow - session.DisplayRows>
 	 
 	<!--- Create a previous records link if the records being displayed aren't the
 		  first set --->
@@ -128,14 +128,14 @@
 		<td><CFIF Previous GTE 1>
 				<form name="form3" action="ProjectList.cfm">
 				<input type="submit" 
-					value="Previous #client.DisplayRows# Records" 
+					value="Previous #session.DisplayRows# Records" 
 					class="lnkBtn"
 					onmouseover="this.className='lnkBtn btnhov'" 
 					onmouseout="this.className='lnkBtn'">
 	
 				<input name="StartRow" type="hidden" value="#Previous#">
 				<input name="NewQuery" type="hidden" value="0">
-				<input name="displayRows" type="hidden" value="#client.DisplayRows#">
+				<input name="displayRows" type="hidden" value="#session.DisplayRows#">
 				</form>
 	</CFIF></td>
 		<td><!--- Create a next records link if there are more records in the record set 
@@ -143,13 +143,13 @@
 	<CFIF Next LTE cnt.RecordCount>
 				<form name="form4" action="ProjectList.cfm">
 				<input type="submit" 
-					value="Next #client.DisplayRows# Records" 
+					value="Next #session.DisplayRows# Records" 
 					class="lnkBtn"
 					onmouseover="this.className='lnkBtn btnhov'" 
 					onmouseout="this.className='lnkBtn'">
 				<input name="StartRow" type="hidden" value="#Next#">
 				<input name="NewQuery" type="hidden" value="0">
-				<input name="client.displayRows" type="hidden" value="#client.DisplayRows#">
+				<input name="session.displayRows" type="hidden" value="#session.DisplayRows#">
 				</form>
 	</CFIF>
 	</td>
@@ -159,23 +159,23 @@
 </form>
 
 <table border="1">
- <cfoutput query="ProjDet" StartRow="#StartRow#" MaxRows="#client.DisplayRows#">
+ <cfoutput query="ProjDet" StartRow="#StartRow#" MaxRows="#session.DisplayRows#">
   <tr>
 	<td>
-		<form action="ProjectDetail.cfm" method="post" target="#client.target#">
+		<form action="ProjectDetail.cfm" method="post" target="#session.target#">
 		<input type="submit" 
 					value="View Project" 
 					class="lnkBtn"
 					onmouseover="this.className='lnkBtn btnhov'" 
 					onmouseout="this.className='lnkBtn'">
 		<input type="hidden" name="project_id" value="#project_id#">
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 			<br><input type="button" 
 					value="Select for Edits" 
 					class="lnkBtn"
 					onmouseover="this.className='lnkBtn btnhov'" 
 					onmouseout="this.className='lnkBtn'"
-					onClick="window.open('Project.cfm?Action=editProject&project_id=#project_id#','#client.target#');">
+					onClick="window.open('Project.cfm?Action=editProject&project_id=#project_id#','#session.target#');">
 							
 		</cfif>
 		</form>
@@ -218,8 +218,8 @@
 
 <form name="form2">
 	 <!--- update the values for the next and previous rows to be returned --->
-	<CFSET Next = StartRow + client.DisplayRows>
-	<CFSET Previous = StartRow - client.DisplayRows>
+	<CFSET Next = StartRow + session.DisplayRows>
+	<CFSET Previous = StartRow - session.DisplayRows>
 	 
 	<!--- Create a previous records link if the records being displayed aren't the
 		  first set --->
@@ -229,10 +229,10 @@
 	  <tr>
 		<td><CFIF Previous GTE 1>
 				<form name="form3" action="ProjectList.cfm">
-				<input name="previous" type="submit" value="Previous #client.DisplayRows# Records">
+				<input name="previous" type="submit" value="Previous #session.DisplayRows# Records">
 				<input name="StartRow" type="hidden" value="#Previous#">
 				<input name="NewQuery" type="hidden" value="0">
-				<input name="displayRows" type="hidden" value="#client.DisplayRows#">
+				<input name="displayRows" type="hidden" value="#session.DisplayRows#">
 				</form>
 	</CFIF></td>
 		<td><!--- Create a next records link if there are more records in the record set 
@@ -240,14 +240,14 @@
 	<CFIF Next LTE cnt.RecordCount>
 				<form name="form4" action="ProjectList.cfm">
 				<input type="submit" 
-					value="Next #client.DisplayRows# Records" 
+					value="Next #session.DisplayRows# Records" 
 					class="lnkBtn"
 					onmouseover="this.className='lnkBtn btnhov'" 
 					onmouseout="this.className='lnkBtn'">
 				
 				<input name="StartRow" type="hidden" value="#Next#">
 				<input name="NewQuery" type="hidden" value="0">
-				<input name="client.displayRows" type="hidden" value="#client.DisplayRows#">
+				<input name="session.displayRows" type="hidden" value="#session.DisplayRows#">
 				</form>
 	</CFIF>
 	</td>

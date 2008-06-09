@@ -6,7 +6,7 @@
 		institution_acronym,
 		collection.collection_cde,
 		cataloged_item.collection_object_id,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#Client.customOtherIdentifier#') CustomID
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#') CustomID
 	FROM	
 		loan_item,
 		specimen_part,
@@ -22,7 +22,7 @@
 		institution_acronym,
 		collection.collection_cde,
 		cataloged_item.collection_object_id,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#Client.customOtherIdentifier#')
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#')
 	ORDER BY cat_num
 </cfquery>
 <cfset a=1>
@@ -31,7 +31,7 @@
 		Cataloged Item
 	</th>
 	<th>
-		#Client.customOtherIdentifier#
+		#session.customOtherIdentifier#
 	</th>
 	<th>
 		Part Name

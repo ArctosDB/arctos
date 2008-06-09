@@ -215,7 +215,7 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 		click <a href="/Bulkloader/bulkloaderLoader.cfm?action=checkStaged" target="_self">here</a> 
 		to continue.
 		 It'll take awhile. Maybe a long while. Mashing the button more than once will make it take longer.
-		 Don't do that. You'll probably break something. This means you. Yea, you. #client.username#. <<-- that you.
+		 Don't do that. You'll probably break something. This means you. Yea, you. #session.username#. <<-- that you.
 		 
 		 <p>
 			NOTE: If you're loading a lot of records - more than a few hundred - you may need help from
@@ -259,7 +259,7 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 		<cfquery name="flag" datasource="#Application.web_user#">
 			update bulkloader_stage set loaded = 'BULKLOADED RECORD'
 		</cfquery>
-		<cfquery name="moveEm" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="moveEm" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			insert into bulkloader select * from bulkloader_stage
 		</cfquery>
 		Your records have been checked and are now in table Bulkloader and flagged as
@@ -343,7 +343,7 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 	<cfquery name="flag" datasource="#Application.web_user#">
 		update bulkloader_stage set loaded = 'BULKLOADED RECORD'
 	</cfquery>
-	<cfquery name="moveEm" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="moveEm" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		insert into bulkloader select * from bulkloader_stage
 	</cfquery>
 	Your records have been checked and are now in table Bulkloader and flagged as

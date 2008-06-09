@@ -225,7 +225,7 @@ select
 		 dec_long,
 		 max_error_distance,
 		 max_error_units,
-		 concatSingleOtherId(cataloged_item.collection_object_id,'#Client.CustomOtherIdentifier#') AS CustomID
+		 concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID
 	 from 
 		loan_item, 
 		loan,
@@ -280,7 +280,7 @@ select
 			<b>CN</b>
 		</td>
 		<td align="center">
-			<b>#Client.CustomOtherIdentifier#</b>
+			<b>#session.CustomOtherIdentifier#</b>
 		</td>
 		<td align="center">
 			<b>Scientific Name</b>
@@ -414,7 +414,7 @@ select
 		 preserve_method,
 		condition,
 		loan_number,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#Client.CustomOtherIdentifier#') AS CustomID
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID
 	 from 
 		loan_item, 
 		loan,
@@ -451,7 +451,7 @@ Loan ## #getItems.loan_number#
 			<b>CN</b>
 		</td>
 		<td align="center">
-			<b>#Client.CustomOtherIdentifier#</b>
+			<b>#session.CustomOtherIdentifier#</b>
 		</td>
 		<td align="center">
 			<b>Item</b>

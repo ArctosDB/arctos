@@ -26,7 +26,7 @@
 		<li>
 			<a href="/PublicationSearch.cfm">Publications</a>
 		</li>
-<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 		<form name="adminLinks" method="post" action="SpecimenUsage.cfm">
 		
 			<li>
@@ -229,7 +229,7 @@
 			&nbsp;&nbsp;&nbsp;#agent_name# (#project_agent_role#)<br>
 		</cfloop>
 		&nbsp;&nbsp;&nbsp;#dateformat(start_date,"dd mmm yyyy")# - #dateformat(end_date,"dd mmm yyyy")#
-<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 			<br>&nbsp;&nbsp;&nbsp;<input type="button" 
 					value="Edit" 
 					class="lnkBtn"
@@ -335,7 +335,7 @@
 					onmouseover="this.className='lnkBtn btnhov'" 
 					onmouseout="this.className='lnkBtn'"
 					onclick="document.location='/SpecimenResults.cfm?publication_id=#publication_id#';">
-		<cfif isdefined("client.roles") and listfindnocase(client.roles,"manage_publications")>
+		<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
 			<cfif #publication_type# is "Book">
 				<cfset thisAction = "editBook">
 		 	<cfelseif #publication_type# is "Book Section">

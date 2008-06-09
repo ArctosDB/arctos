@@ -18,7 +18,7 @@
 	select SEARCH_NAME,URL
 	from cf_canned_search,cf_users
 	where cf_users.user_id=cf_canned_search.user_id
-	and username='#client.username#'
+	and username='#session.username#'
 	order by search_name
 </cfquery>
 
@@ -98,10 +98,10 @@
 				<option  value="/bnhmMaps/bnhmMapData.cfm">BerkeleyMapper Map</option>
 				<option value="SpecimenResultsSummary.cfm">Specimen Summary</option>
 				<option  value="SpecimenGraph.cfm">Graph</option>
-				<cfif isdefined("client.username") AND (#client.username# is "link" OR #client.username# is "dusty")>
+				<cfif isdefined("session.username") AND (#session.username# is "link" OR #session.username# is "dusty")>
 				<option  value="/CustomPages/Link.cfm">Link's Form</option>
 				</cfif>
-				<cfif isdefined("client.username") AND (#client.username# is "cindy" OR #client.username# is "dusty")>
+				<cfif isdefined("session.username") AND (#session.username# is "cindy" OR #session.username# is "dusty")>
 				<option  value="/CustomPages/CindyBats.cfm">Cindy's Form</option>
 				</cfif>
 			</select>
@@ -129,7 +129,7 @@
 				Show&nbsp;<span class="helpLink" id="observations">Observations?</span>
 				<input type="checkbox" name="showObservations" value="1"
                     onchange="changeshowObservations(this.checked);"
-                        <cfif #client.showObservations# eq 1> checked="checked" </cfif>>
+                        <cfif #session.showObservations# eq 1> checked="checked" </cfif>>
 		</td>
 		<td>
 			<span class="helpLink" id="is_tissue">Tissues&nbsp;Only?</span>
@@ -179,17 +179,17 @@
 					</cfloop>
 				</select>
 				<span class="helpLink" id="cat_num">Number:</span>
-				<cfif #ListContains(client.searchBy, 'bigsearchbox')# gt 0>
+				<cfif #ListContains(session.searchBy, 'bigsearchbox')# gt 0>
 				<textarea name="listcatnum" rows="6" cols="40" wrap="soft"></textarea>
 			<cfelse>
 				<input type="text" name="listcatnum" size="21">
 			</cfif>			
 			</td>
 		</tr>
-	<cfif isdefined("Client.CustomOtherIdentifier") and len(#Client.CustomOtherIdentifier#) gt 0>
+	<cfif isdefined("session.CustomOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="custom_identifier">#replace(Client.CustomOtherIdentifier," ","&nbsp;","all")#:</span>
+				<span class="helpLink" id="custom_identifier">#replace(session.CustomOtherIdentifier," ","&nbsp;","all")#:</span>
 			</td>
 			<td class="srch">
 				<label for="CustomOidOper">Display Value</label>
@@ -203,7 +203,7 @@
 		</tr>
 		<tr>
 		<td class="lbl">
-		<cfif isdefined("Client.fancyCOID") and #Client.fancyCOID# is 1>
+		<cfif isdefined("session.fancyCOID") and #session.fancyCOID# is 1>
 			&nbsp;
 		</td>
 			<td class="srch">
@@ -318,7 +318,7 @@
 				<span onclick="singl('part_name')">s</span>
 			
 				<select name="part_name" id="part_name"  
-					<cfif #ListContains(client.searchBy, 'bigsearchbox')# gt 0>
+					<cfif #ListContains(session.searchBy, 'bigsearchbox')# gt 0>
 						multiple="multiple" size="5"
 					<cfelse>
 						size="1"
@@ -367,7 +367,7 @@
 	</table>
 	<div id="e_usage"></div>
 </div>
-<cfif listcontainsnocase(client.roles,"coldfusion_user")>
+<cfif listcontainsnocase(session.roles,"coldfusion_user")>
 	<div class="secDiv">
 		<table class="ssrch">
 			<tr>
@@ -409,10 +409,10 @@
 				<option  value="/bnhmMaps/bnhmMapData.cfm">BerkeleyMapper Map</option>
 				<option value="SpecimenResultsSummary.cfm">Specimen Summary</option>
 				<option  value="SpecimenGraph.cfm">Graph</option>
-				<cfif isdefined("client.username") AND (#client.username# is "link" OR #client.username# is "dusty")>
+				<cfif isdefined("session.username") AND (#session.username# is "link" OR #session.username# is "dusty")>
 				<option  value="/CustomPages/Link.cfm">Link's Form</option>
 				</cfif>
-				<cfif isdefined("client.username") AND (#client.username# is "cindy" OR #client.username# is "dusty")>
+				<cfif isdefined("session.username") AND (#session.username# is "cindy" OR #session.username# is "dusty")>
 				<option  value="/CustomPages/CindyBats.cfm">Cindy's Form</option>
 				</cfif>
 			</select>

@@ -57,7 +57,7 @@
 					</td>
 					<td>
 						<a href="javascript:void(0)" onClick="taxa.we_have_some.checked=true;"><b>Find only taxa for which specimens exist?</b></a>
-						<cfif isdefined("client.username") and #client.username# is "gordon">
+						<cfif isdefined("session.username") and #session.username# is "gordon">
 							<script type="text/javascript" language="javascript">
 								document.getElementById('we_have_some').checked=false;
 							</script>

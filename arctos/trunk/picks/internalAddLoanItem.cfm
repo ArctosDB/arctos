@@ -60,10 +60,10 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 		specimen_part.collection_object_id = #collection_object_id#
 	</cfquery>
 	<cfquery name="RECONCILED_BY_PERSON_ID" datasource="#Application.web_user#">
-			select agent_id from agent_name where agent_name = '#client.username#'
+			select agent_id from agent_name where agent_name = '#session.username#'
 		</cfquery>
 		<cfif len(#RECONCILED_BY_PERSON_ID.agent_id#) is 0>
-			You are not logged in as a recognized agent. Your login ID (#client.username#)
+			You are not logged in as a recognized agent. Your login ID (#session.username#)
 			must be entered in the agent names table as type 'login'.
 			<cfabort>
 		</cfif>

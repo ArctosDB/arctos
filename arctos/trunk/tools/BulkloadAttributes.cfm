@@ -61,7 +61,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <cfif #action# is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
-	<cfquery name="killOld" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		delete from cf_temp_attributes
 	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
@@ -85,7 +85,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		</cfif>	
 		<cfif len(#colVals#) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
-			<cfquery name="ins" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="ins" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				insert into cf_temp_attributes (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
@@ -128,7 +128,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			VALUES (
 				#preservesinglequotes(sql)#
 				)	 
-		<cfquery name="newRec"	 datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="newRec"	 datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO cf_temp_attributes (
 				 KEY,
 				 COLLECTION_CDE,
@@ -160,7 +160,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <cfif #action# is "validate">
 <cfoutput>
 
-	<cfquery name="data" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="data" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_temp_attributes
 	</cfquery>
 	<cfloop query="data">
@@ -182,7 +182,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		</cfif>
 		
 		<cfif #other_id_type# is "catalog number">
-			<cfquery name="collObj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="collObj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					SELECT 
 						collection_object_id
 					FROM
@@ -195,7 +195,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 						cat_num=#other_id_number#
 				</cfquery>
 			<cfelse>
-				<cfquery name="collObj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="collObj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					SELECT 
 						coll_obj_other_id_num.collection_object_id
 					FROM
@@ -218,7 +218,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					<br>You must fix the original file and start over.
 					<cfabort>
 			</cfif>
-			<cfquery name="insColl" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="insColl" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				UPDATE cf_temp_attributes SET collection_object_id = #collObj.collection_object_id# where
 				key = #key#
 			</cfquery>
@@ -230,7 +230,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					<br>You must fix the original file and start over.
 					<cfabort>
 			</cfif>
-			<cfquery name="isAtt" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="isAtt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					select attribute_type from ctattribute_type where attribute_type='#attribute#'
 					AND collection_cde='#collection_cde#'
 			</cfquery>
@@ -240,13 +240,13 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					does not match code table values for collection #collection_cde#.">
 			</cfif>	
 			<!---- see if it  should be code-table controlled ---->
-			<cfquery name="isValCt" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="isValCt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				SELECT value_code_table FROM ctattribute_code_tables WHERE
 				attribute_type = '#trim(attribute)#'
 			</cfquery>
 					<cfif isdefined("isValCt.value_code_table") and len(#isValCt.value_code_table#) gt 0>
 								<br>!-- there's a code table ---
-							<cfquery name="valCT" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+							<cfquery name="valCT" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 								select * from #isValCt.value_code_table#
 							</cfquery>			
 							<!---- get column names --->
@@ -290,12 +290,12 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 							</cfif>
 						
 					<cfif len(#attribute_units#) gt 0>
-						<cfquery name="isUnitCt" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						<cfquery name="isUnitCt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 							SELECT units_code_table FROM ctattribute_code_tables WHERE
 							attribute_type = '#attribute#'
 						</cfquery>
 						<cfif #isUnitCt.recordcount# gt 0 AND len(#isUnitCt.units_code_table#) gt 0>
-							<cfquery name="unitCT" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+							<cfquery name="unitCT" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 								select * from #isUnitCt.units_code_table#
 							</cfquery>
 							<!---- get column names --->
@@ -377,7 +377,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 						<cfset attributedetmeth1 = "'#attribute_meth#'">					
 					</cfif>
 					<cfif len(#determiner#) gt 0>
-						<cfquery name="attDet1" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						<cfquery name="attDet1" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 							SELECT agent_id FROM agent_name WHERE agent_name = '#determiner#'
 						</cfquery>
 						<cfif #attDet1.recordcount# is 0>
@@ -387,7 +387,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 							<cfabort showerror="Attribute Determiner (#determiner#)
 							 matched more than one existing agent name.">
 						</cfif>
-						<cfquery name="gotDet" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						<cfquery name="gotDet" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 							UPDATE cf_temp_attributes SET determined_by_agent_id = #attDet1.agent_id#
 							where key=#key#
 						</cfquery>
@@ -404,16 +404,16 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <cfoutput>
 	
 		
-	<cfquery name="getTempData" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="getTempData" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_temp_attributes
 	</cfquery>
-	<cfquery name="nid" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="nid" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		select max(attribute_id) + 1 as nextID from attributes
 	</cfquery>
 	<cfset attID = #nid.nextID#>
 	<cftransaction>
 	<cfloop query="getTempData">
-		<cfquery name="newAtt" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="newAtt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO attributes (
 			attribute_id,
 			collection_object_id,

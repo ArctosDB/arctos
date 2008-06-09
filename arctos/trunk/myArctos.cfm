@@ -3,7 +3,7 @@
 
 
 
-<cfif len(#client.username#) is 0>
+<cfif len(#session.username#) is 0>
 		You must log in to customize Arctos.		
 	    <cfabort>
 </cfif>
@@ -25,15 +25,15 @@
 <!------------------------------------------------------>
 	<cfif #action# is "update">
 	<!---- clear client settings --->
-	<cfset client.target = "">
-	<cfset client.displayrows = "">
-	<cfset client.mapSize = "">
-	<cfset client.searchBy="">
-	<cfset client.killrow="">
-	<cfset client.showObservations="">
-	<cfset client.active_loan_id="">
-	<cfset client.customOtherIdentifier="">
-	<cfset client.exclusive_collection_id="">
+	<cfset session.target = "">
+	<cfset session.displayrows = "">
+	<cfset session.mapSize = "">
+	<cfset session.searchBy="">
+	<cfset session.killrow="">
+	<cfset session.showObservations="">
+	<cfset session.active_loan_id="">
+	<cfset session.customOtherIdentifier="">
+	<cfset session.exclusive_collection_id="">
 	
 	<!--- update user_prefs then re-query to get fresh data for display --->
 		<cfoutput>
@@ -168,7 +168,7 @@
 						,scientific_name=null
 					</cfif>	
 					<cfif isdefined("customOtherIdentifier")>
-						,customOtherIdentifier = '#Client.CustomOtherIdentifier#'
+						,customOtherIdentifier = '#session.CustomOtherIdentifier#'
 					<cfelse>
 						,customOtherIdentifier=null
 					</cfif>	
@@ -223,7 +223,7 @@
 						<cfset pwtime =  round(now() - getPrefs.pw_change_date)>
 						<cfset pwage = Application.max_pw_age - pwtime>
 						<cfif pwage lte 0>
-							<cfset client.force_password_change = "yes">
+							<cfset session.force_password_change = "yes">
 							<cflocation url="ChangePassword.cfm">
 						<cfelseif pwage lte 10>
 							<span style="color:red;font-weight:bold;">
@@ -254,7 +254,7 @@
 						You have successfully authenticated your Arctos username. We'll take care of the rest. Thank you!
 					</div>
 					<cfmail to="dustymc@gmail.com" from="oracleuser@#Application.fromEmail#" subject="account needed">
-						#client.username# has set up an Oracle account and awaits blessings.
+						#session.username# has set up an Oracle account and awaits blessings.
 					</cfmail>			
 				</cfif>
 			
@@ -323,8 +323,8 @@
 				<cfset allCollections = "#valuelist(collections.coll,",")#">
 			   <cfif len(#getPrefs.exclusive_collection_id#) gt 0>
 			   		<cfset thisCollId = #getPrefs.exclusive_collection_id#>
-				<cfelseif len(#client.exclusive_collection_id#) gt 0>
-					<cfset thisCollId = #client.exclusive_collection_id#>
+				<cfelseif len(#session.exclusive_collection_id#) gt 0>
+					<cfset thisCollId = #session.exclusive_collection_id#>
 				<cfelse>
 					<cfset thisCollId = "">
 			   </cfif>
@@ -363,7 +363,7 @@
 			  			<option value="">None</option>
 						 <cfloop query="ctOtherIdType">
 						 	<option 
-								<cfif #Client.CustomOtherIdentifier# is #other_id_type#>
+								<cfif #session.CustomOtherIdentifier# is #other_id_type#>
 									selected 
 								</cfif>value="#other_id_type#">#other_id_type#</option>
 						 </cfloop>
@@ -723,7 +723,7 @@
 				  	name="attributes" value="1"<cfif #attributes# eq 1> CHECKED </cfif> >
 				</td>
 			</tr>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 				<tr>
 					<td align="right">
 						Curatorial Stuff
@@ -758,7 +758,7 @@
 		cf_users
 	WHERE
 		cf_users.user_id = cf_user_data.user_id (+) AND
-		username = '#client.username#'
+		username = '#session.username#'
 </cfquery>
 <form method="post" action="myArctos.cfm" name="dlForm">
 	<input type="hidden" name="user_id" value="#getUserData.user_id#">
@@ -822,7 +822,7 @@
 <cfquery name="loan" datasource="#Application.web_user#">
 	select * from cf_user_loan
 	inner join cf_users on (cf_user_loan.user_id = cf_users.user_id)
-	where username='#client.username#'
+	where username='#session.username#'
 	order by IS_ACTIVE DESC
 </cfquery>
 

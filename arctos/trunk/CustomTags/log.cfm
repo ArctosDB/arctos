@@ -22,8 +22,8 @@
 		'#remote_host#',
 		'#script_name#',
 		'#tmstmp#',
-		<cfif isdefined("client.username")>
-			'#client.username#',
+		<cfif isdefined("session.username")>
+			'#session.username#',
 		<cfelse>
 			'guest user',
 		</cfif>

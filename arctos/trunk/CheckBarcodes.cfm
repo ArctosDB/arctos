@@ -166,7 +166,7 @@ Return TempList;
 	make date and time into something more useful--->
     <cfoutput>
 		
-		 <cfquery name="timeFormat" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		 <cfquery name="timeFormat" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			  ALTER SESSION SET nls_date_format = 'DD-Mon-YYYY hh24:mi:ss' 
 	  </cfquery>
 			  
@@ -193,7 +193,7 @@ Return TempList;
 				date format.">  
 			</cfif>
 		 	<!---- get container IDs ---->
-			<cfquery name="pcid" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="pcid" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				SELECT container_id FROM container WHERE
 				barcode='#trim(parent)#'
 			</cfquery>
@@ -207,7 +207,7 @@ Return TempList;
 				  <cfelseif pcid.recordcount is 1>
 				  	<cfset parent_container_id = #pcid.container_id#>				  
 				</cfif>
-			<cfquery name="ccid" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="ccid" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				SELECT container_id FROM container WHERE
 				barcode='#trim(child)#'
 			</cfquery>

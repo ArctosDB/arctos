@@ -594,7 +594,7 @@
 		</cfquery>
 		<cfif isdefined("isValCt.value_code_table") and len(#isValCt.value_code_table#) gt 0>
 			<!-- there's a code table --->
-			<cfquery name="valCT" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="valCT" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				select * from #isValCt.value_code_table#
 			</cfquery>
 			
@@ -654,7 +654,7 @@
 		<cfif isdefined("isUnitCt.units_code_table") and len(#isUnitCt.units_code_table#) gt 0>
 			<!-- there's a code table --->
 			<!---- get the data --->
-			<cfquery name="unitCT" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="unitCT" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				select * from #isUnitCt.units_code_table#
 			</cfquery>
 			<!---- get column names --->

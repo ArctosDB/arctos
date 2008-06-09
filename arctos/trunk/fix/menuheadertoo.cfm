@@ -235,8 +235,8 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 <ul>
 	<li><h2>My Stuff</h2>
 		<ul>
-			<cfif len(#client.username#) gt 0>
-				<li><a href="/login.cfm?action=signOut">Log Out #client.username#</a></li>
+			<cfif len(#session.username#) gt 0>
+				<li><a href="/login.cfm?action=signOut">Log Out #session.username#</a></li>
 				<li><a href="/myArctos.cfm">Preferences</a></li>
 			<cfelse>
 				<li><a href="/login.cfm">Log In</a></li>

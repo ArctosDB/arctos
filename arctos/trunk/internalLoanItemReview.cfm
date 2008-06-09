@@ -12,7 +12,7 @@
 	<cfoutput>
 	<cfif isdefined("coll_obj_disposition") AND #coll_obj_disposition# is "on loan">
 		<!--- see if it's a subsample --->
-		<cfquery name="isSSP" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="isSSP" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			select SAMPLED_FROM_OBJ_ID from specimen_part where collection_object_id = #partID#
 		</cfquery>
 		<cfif #isSSP.SAMPLED_FROM_OBJ_ID# gt 0>
@@ -88,7 +88,7 @@
 			<cfabort>
 		</cfif>
 	</cfif>
-	<cfquery name="deleLoanItem" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="deleLoanItem" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	DELETE FROM loan_item where collection_object_id = #partID#
 		and transaction_id = #transaction_id#
 	</cfquery>
@@ -100,31 +100,31 @@
 <cfif #Action# is "killSS">
 	<cfoutput>
 <cftransaction>
-	<cfquery name="deleLoan" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="deleLoan" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM loan_item WHERE collection_object_id = #partID#
 		and transaction_id=#transaction_id#
 	</cfquery>
-	<cfquery name="delePart" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="delePart" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM specimen_part WHERE collection_object_id = #partID#
 	</cfquery>
-	<cfquery name="delePartCollObj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="delePartCollObj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM coll_object WHERE collection_object_id = #partID#
 	</cfquery>
-	<cfquery name="delePartRemark" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="delePartRemark" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM coll_object_remark WHERE collection_object_id = #partID#
 	</cfquery>
-	<cfquery name="getContID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="getContID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		select container_id from coll_obj_cont_hist where
 		collection_object_id = #partID#
 	</cfquery>
 	
-	<cfquery name="deleCollCont" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="deleCollCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM coll_obj_cont_hist WHERE collection_object_id = #partID#
 	</cfquery>
-	<cfquery name="deleCont" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="deleCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM container_history WHERE container_id = #getContID.container_id#
 	</cfquery>
-	<cfquery name="deleCont" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="deleCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM container WHERE container_id = #getContID.container_id#
 	</cfquery>
 </cftransaction>
@@ -136,11 +136,11 @@
 
 <cfif #Action# is "BulkUpdateDisp">
 	<cfoutput>
-		<cfquery name="getCollObjId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="getCollObjId" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			select collection_object_id FROM loan_item where transaction_id=#transaction_id#
 		</cfquery>
 		<cfloop query="getCollObjId">
-			<cfquery name="upDisp" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="upDisp" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			UPDATE coll_object SET coll_obj_disposition = '#coll_obj_disposition#'
 			where collection_object_id = #collection_object_id#
 			</cfquery>
@@ -153,11 +153,11 @@
 <cfif #Action# is "saveDisp">
 	<cfoutput>
 	<cftransaction>
-		<cfquery name="upDisp" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="upDisp" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			UPDATE coll_object SET coll_obj_disposition = '#coll_obj_disposition#'
 			where collection_object_id = #partID#
 		</cfquery>
-		<cfquery name="upItem" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="upItem" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			UPDATE loan_item SET
 				 transaction_id=#transaction_id#
 				<cfif len(#item_instructions#) gt 0>
@@ -185,7 +185,7 @@
 </cfif>
 <!-------------------------------------------------------------------------------->
 <!---
-<cfquery name="getTissLoanRequests" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="getTissLoanRequests" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	select * from 
 		loan_item, 
 		loan,
@@ -211,7 +211,7 @@
 </cfquery>
 --->
 <cfif #action# is "nothing">
-<cfquery name="getPartLoanRequests" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="getPartLoanRequests" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	select 
 		cat_num, 
 		cataloged_item.collection_object_id,
@@ -260,7 +260,7 @@
 	 ORDER BY af_num,cat_num
 </cfquery>
 <!--- handle legacy loans with cataloged items as the item --->
-<cfquery name="getCatItemLoanRequests" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="getCatItemLoanRequests" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	select 
 		cat_num, 
 		cataloged_item.collection_object_id,
@@ -448,7 +448,7 @@ Review items in loan<b>
 
 	<tr>
 		<td>
-			<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="#client.target#">#collection_cde# #cat_num#</a>
+			<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="#session.target#">#collection_cde# #cat_num#</a>
 			
 		</td>
 		<td>
@@ -468,7 +468,7 @@ Review items in loan<b>
 			<cfif len(#preserve_method#) gt 0>
 				<cfset thisPart="#thisPart# (#preserve_method#)">
 			</cfif>
-			<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#&content_url=editParts.cfm" target="#client.target#">#thisPart#</a>
+			<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#&content_url=editParts.cfm" target="#session.target#">#thisPart#</a>
 			&nbsp;
 		</td>
 		<td>
@@ -518,7 +518,7 @@ Review items in loan<b>
 			#Encumbrance# <cfif len(#agent_name#) gt 0> by #agent_name#</cfif>&nbsp;
 		</td>
 		<td>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 			 <input type="button" value="Remove" class="delBtn"
    onmouseover="this.className='delBtn btnhov'" onmouseout="this.className='delBtn'"
      onClick="disp#i#.Action.value='delete';submit();">	
@@ -576,7 +576,7 @@ Review items in loan<b>
 			#Encumbrance# <cfif len(#agent_name#) gt 0> by #agent_name#</cfif>&nbsp;
 		</td>
 		<td>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 			<form name="remItem" action="internalLoanItemReview.cfm" method="post">
 				<input type="hidden" name="Action" value="delete">
 				<input type="hidden" name="partID" value="#collection_object_id#">
@@ -594,7 +594,7 @@ Review items in loan<b>
 </cfoutput>
 </table>
 <cfoutput>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 	<br><a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">Back to Edit Loan</a>
 </cfif>
 </cfoutput>

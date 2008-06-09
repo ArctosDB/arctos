@@ -38,7 +38,7 @@
 		SAMPLED_FROM_OBJ_ID,
 		PRESERVE_METHOD,
 		IS_TISSUE,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#Client.CustomOtherIdentifier#') AS CustomID,
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		concatEncumbrances(cataloged_item.collection_object_id) as encumbrance_action
 	from
 		cataloged_item,
@@ -53,7 +53,7 @@
 </cfquery>
 <div style="font-size:.8em;">
 Specimen: <a href="/SpecimenDetails.cfm?collection_object_id=#collection_object_id#" target="_blank"></a>#details.COLLECTION# #details.CAT_NUM#
-<br>#Client.CustomOtherIdentifier#: <strong>#details.CustomID#</strong>
+<br>#session.CustomOtherIdentifier#: <strong>#details.CustomID#</strong>
 <br>Encumbrances: <strong>#details.encumbrance_action#</strong>
 <br>Loan: <strong>#thisLoan#</strong>
 </div>
@@ -149,10 +149,10 @@ Specimen: <a href="/SpecimenDetails.cfm?collection_object_id=#collection_object_
 	<cfoutput>
 		<cfif isdefined("isSubsample") and #isSubsample# is "y">
 		<!--- make a subsample --->
-		<cfquery name="nextID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="nextID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			select max(collection_object_id) + 1 as nextID from coll_object
 		</cfquery>
-		<cfquery name="parentData" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="parentData" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				coll_obj_disposition, 
 				condition,
@@ -167,7 +167,7 @@ Specimen: <a href="/SpecimenDetails.cfm?collection_object_id=#collection_object_
 				coll_object.collection_object_id = specimen_part.collection_object_id AND
 				coll_object.collection_object_id = #partID#
 		</cfquery>
-		<cfquery name="newCollObj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="newCollObj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO coll_object (
 				COLLECTION_OBJECT_ID,
 				COLL_OBJECT_TYPE,
@@ -181,15 +181,15 @@ Specimen: <a href="/SpecimenDetails.cfm?collection_object_id=#collection_object_
 			VALUES
 				(#nextID.nextID#,
 				'SS',
-				#client.myAgentId#,
+				#session.myAgentId#,
 				sysdate,
-				#client.myAgentId#,
+				#session.myAgentId#,
 				sysdate,
 				'#parentData.coll_obj_disposition#',
 				1,
 				'#parentData.condition#')
 		</cfquery>
-		<cfquery name="newPart" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="newPart" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO specimen_part (
 				COLLECTION_OBJECT_ID
 				,PART_NAME
@@ -219,7 +219,7 @@ Specimen: <a href="/SpecimenDetails.cfm?collection_object_id=#collection_object_
 	
 	</cfif>
 
-		<cfquery name="addLoanItem" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">	
+		<cfquery name="addLoanItem" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">	
 	INSERT INTO loan_item (
 		TRANSACTION_ID,
 		COLLECTION_OBJECT_ID,
@@ -240,7 +240,7 @@ Specimen: <a href="/SpecimenDetails.cfm?collection_object_id=#collection_object_
 		<cfelse>
 			#partID#,
 		</cfif>		
-		#client.myAgentId#,
+		#session.myAgentId#,
 		sysdate,
 		'#collection# #cat_num# #part_name#'
 		<cfif isdefined("ITEM_INSTRUCTIONS") AND len(#ITEM_INSTRUCTIONS#) gt 0>
@@ -251,7 +251,7 @@ Specimen: <a href="/SpecimenDetails.cfm?collection_object_id=#collection_object_
 		</cfif>
 		)
 		</cfquery>
-		<cfquery name="setDisp" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">			
+		<cfquery name="setDisp" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">			
 			UPDATE coll_object SET coll_obj_disposition = 'on loan'
 			where collection_object_id = 
 		<cfif isdefined("isSubsample") and #isSubsample# is "y">

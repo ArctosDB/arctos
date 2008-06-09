@@ -1,5 +1,5 @@
 <cfinclude template = "includes/_header.cfm">
-<cfif isdefined("client.username") and len(#client.username#) gt 0 and #action# neq "signOut">
+<cfif isdefined("session.username") and len(#session.username#) gt 0 and #action# neq "signOut">
 	<cflocation url="myArctos.cfm">
 </cfif>
 <span class="pageHelp">
@@ -21,7 +21,7 @@
 	</cfloop>
 	<cflogout>
 	<!---- defeat goofy BUG that puts 500 NULL at the bottom of every page --->
-	<cfset client.HitCount=0>
+	<cfset session.HitCount=0>
 	<cflocation url="login.cfm">
 </cfif>
 <!------------------------------------------------------------>
@@ -57,7 +57,7 @@
 		<cfif len(#exclusive_collection_id#) gt 0>
 			<cfset sql = "INSERT INTO cf_users (user_id, username, password,exclusive_collection_id,PW_CHANGE_DATE,last_login) VALUES
 			(#nextUserID.nextid#, '#username#', '#hash(password)#',#exclusive_collection_id#,sysdate,sysdate)">
-			<cfset client.exclusive_collection_id = "#exclusive_collection_id#">
+			<cfset session.exclusive_collection_id = "#exclusive_collection_id#">
 		<cfelse>
 			<cfset sql = "INSERT INTO cf_users (user_id, username, password,PW_CHANGE_DATE,last_login) VALUES
 			(#nextUserID.nextid#, '#username#', '#hash(password)#',sysdate,sysdate)">
@@ -92,15 +92,15 @@
 	</cfquery>
 	<cfif getPrefs.recordcount is 0>
 		<!--- flush whatever they had & send them back--->
-		<cfset client.username = "">
-		<cfset client.epw = "">
+		<cfset session.username = "">
+		<cfset session.epw = "">
         
        	<cflocation url="login.cfm?badPW=true&username=#username#">
 
 	</cfif>
 <!--- they made it this far, they are valid users. assign some client stuff to valid users --->
-	<cfset client.username = "#getPrefs.username#">
-	<cfset client.epw = encrypt(password,cfid)>
+	<cfset session.username = "#getPrefs.username#">
+	<cfset session.epw = encrypt(password,cfid)>
 	<!--- get their DB roles --->
 
 	<cfquery name="dbrole" datasource="uam_god">
@@ -113,20 +113,20 @@
          upper(grantee) = '#ucase(getPrefs.username)#'
 	</cfquery>
 	
-	<cfset client.roles = ''>
-	<cfset client.roles = valuelist(dbrole.role_name)>
-	<cfset client.roles=listappend(client.roles,"public")>
+	<cfset session.roles = ''>
+	<cfset session.roles = valuelist(dbrole.role_name)>
+	<cfset session.roles=listappend(session.roles,"public")>
 <!--- redirect to personal home --->
 <cfinclude template="/includes/setPrefs.cfm">
 <!--- don't let them log in without a password change --->
 <cfset pwtime =  round(now() - getPrefs.pw_change_date)>
 <cfset pwage = Application.max_pw_age - pwtime>
 <cfif pwage lte 0>
-	<cfset client.force_password_change = "yes">
+	<cfset session.force_password_change = "yes">
 	<cflocation url="ChangePassword.cfm">
 </cfif>
 <cfquery name="logLog" datasource="#Application.web_user#">
-	update cf_users set last_login = sysdate where username = '#client.username#'
+	update cf_users set last_login = sysdate where username = '#session.username#'
 </cfquery>
 		<cfif not isdefined("gotopage") or len(#gotopage#) is 0>
 			<cfset gotopage = "myArctos.cfm">

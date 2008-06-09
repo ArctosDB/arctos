@@ -41,7 +41,7 @@
    onmouseover="this.className='schBtn btnhov'" onmouseout="this.className='schBtn'">	
 		
 	</form>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 		<form action="/loanBulkload.cfm" method="post">
 		<input type="submit" value="Bulk Add Loan Items" class="insBtn"
    onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'">	
@@ -594,11 +594,11 @@
 
  <input type="button" value="Add Items" class="lnkBtn"
    onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-   onClick="window.open('SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#','#client.target#');">
+   onClick="window.open('SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#','#session.target#');">
    
    <input type="button" value="Review Items" class="lnkBtn"
    onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-   onClick="window.open('a_loanItemReview.cfm?transaction_id=#transaction_id#','#client.target#');">
+   onClick="window.open('a_loanItemReview.cfm?transaction_id=#transaction_id#','#session.target#');">
    <br />
    Print: <select name="redir" size="1" onchange="if(this.value.length>0){window.open(this.value,'_blank')};">
    			<option value=""></option>
@@ -852,7 +852,7 @@ Shipment Information:
 <!-------------------------------------------------------------------------------------------------->
 
 <cfif #Action# is "delePermit">
-<cfquery name="killPerm" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="killPerm" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM permit_trans WHERE transaction_id = #transaction_id# and 
 			permit_id=#permit_id#
 		</cfquery>
@@ -866,7 +866,7 @@ Shipment Information:
 		</cfquery>
 		<cfif #isShip.recordcount# is 0>
 			<!--- new record --->
-			<cfquery name="newShip" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="newShip" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO shipment (
 					 TRANSACTION_ID
 					 ,PACKED_BY_AGENT_ID
@@ -923,7 +923,7 @@ Shipment Information:
 			</cfquery>
 		  <cfelse>
 		  	<!--- update --->
-			<cfquery name="upShip" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="upShip" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				 UPDATE shipment SET
 					PACKED_BY_AGENT_ID = #PACKED_BY_AGENT_ID#
 					,SHIPPED_CARRIER_METHOD = '#SHIPPED_CARRIER_METHOD#'
@@ -977,7 +977,7 @@ Shipment Information:
 
 	<cfoutput>
 		<cftransaction>
-			<cfquery name="upTrans" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="upTrans" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				UPDATE  trans  SET 
 					institution_acronym='#institution_acronym#',
 					transaction_id = #transaction_id#,
@@ -991,7 +991,7 @@ Shipment Information:
 				where 
 					transaction_id = #transaction_id#
 			</cfquery>
-			<cfquery name="upLoan" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="upLoan" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				 UPDATE loan SET 
 					TRANSACTION_ID = #TRANSACTION_ID#,
 					LOAN_TYPE = '#LOAN_TYPE#',
@@ -1017,7 +1017,7 @@ Shipment Information:
 					where transaction_id = #transaction_id#
 				</cfquery>
 				<cfif isdefined("project_id") and len(#project_id#) gt 0>
-					<cfquery name="newProj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					<cfquery name="newProj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						INSERT INTO project_trans (
 							project_id, transaction_id)
 							VALUES (
@@ -1026,10 +1026,10 @@ Shipment Information:
 				</cfif>
 				<cfif isdefined("saveNewProject") and saveNewProject is "yes">
 					<!--- create a new project based on this loan --->
-					<cfquery name="nextID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					<cfquery name="nextID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						select max(project_id) + 1 as nextid from project
 					</cfquery>
-					<cfquery name="newProj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					<cfquery name="newProj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						INSERT INTO project (
 							PROJECT_ID,
 							PROJECT_NAME
@@ -1064,7 +1064,7 @@ Shipment Information:
 							</cfif>
 							 )   
 					</cfquery>  
-					<cfquery name="newProjAgnt" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					<cfquery name="newProjAgnt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						 INSERT INTO project_agent (
 							 PROJECT_ID,
 							 AGENT_NAME_ID,
@@ -1077,26 +1077,26 @@ Shipment Information:
 							 1                   
 							)                 
 					</cfquery>
-					<cfquery name="newTrans" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					<cfquery name="newTrans" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						INSERT INTO project_trans (project_id, transaction_id) values (#nextID.nextid#, #transaction_id#)
 					</cfquery>
 				</cfif>
 				<!--- get the stuff that's already in there as agents and loop over it to evaluate what happened --->
-				<cfquery name="wutsThere" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="wutsThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					select * from trans_agent where transaction_id=#transaction_id#
 					and trans_agent_role !='entered by'
 				</cfquery>
 				<cfloop query="wutsThere">
 					<!--- first, see if the deleted - if so, nothing else matters --->
 					<cfif isdefined("del_agnt_#trans_agent_id#")>
-						<cfquery name="wutsThere" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						<cfquery name="wutsThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 							delete from trans_agent where trans_agent_id=#trans_agent_id#
 						</cfquery>
 					<cfelse>
 						<!--- update, just in case --->
 						<cfset thisAgentId = evaluate("trans_agent_id_" & trans_agent_id)>
 						<cfset thisRole = evaluate("trans_agent_role_" & trans_agent_id)>
-						<cfquery name="wutsThere" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						<cfquery name="wutsThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 							update trans_agent set
 								agent_id = #thisAgentId#,
 								trans_agent_role = '#thisRole#'
@@ -1106,7 +1106,7 @@ Shipment Information:
 					</cfif>
 				</cfloop>
 				<cfif isdefined("new_trans_agent_id") and len(#new_trans_agent_id#) gt 0>
-					<cfquery name="newAgent" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					<cfquery name="newAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						insert into trans_agent (
 							transaction_id,
 							agent_id,
@@ -1158,7 +1158,7 @@ Shipment Information:
 			<cfset outside_contact_agent_id=#REC_AGENT_ID#>
 		</cfif>	
 	<cftransaction>
-			<cfquery name="newLoanTrans" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="newLoanTrans" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO trans (
 					TRANSACTION_ID,
 					TRANS_DATE,
@@ -1181,7 +1181,7 @@ Shipment Information:
 					</cfif>
 					)
 			</cfquery> 
-			<cfquery name="newLoan" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="newLoan" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO loan (
 					TRANSACTION_ID,
 					LOAN_TYPE,
@@ -1217,7 +1217,7 @@ Shipment Information:
 					</cfif>
 					)
 			</cfquery>
-			<cfquery name="authBy" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="authBy" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO trans_agent (
 				    transaction_id,
 				    agent_id,
@@ -1227,7 +1227,7 @@ Shipment Information:
 					#auth_agent_id#,
 					'authorized by')
 			</cfquery>
-			<cfquery name="in_house_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="in_house_contact" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO trans_agent (
 				    transaction_id,
 				    agent_id,
@@ -1237,7 +1237,7 @@ Shipment Information:
 					#in_house_contact_agent_id#,
 					'in-house contact')
 			</cfquery>
-			<cfquery name="outside_contact" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="outside_contact" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO trans_agent (
 				    transaction_id,
 				    agent_id,
@@ -1247,7 +1247,7 @@ Shipment Information:
 					#outside_contact_agent_id#,
 					'outside contact')
 			</cfquery>
-			<cfquery name="newLoan" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="newLoan" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO trans_agent (
 				    transaction_id,
 				    agent_id,
@@ -1565,7 +1565,7 @@ Shipment Information:
 		collection_contacts
 		where
 		collection.collection_id = collection_contacts.collection_id and
-		contact_agent_id = #client.myAgentId#
+		contact_agent_id = #session.myAgentId#
 		group by institution_acronym
 	</cfquery>
 	<cfif okInst.recordcount is 0>
@@ -1739,10 +1739,10 @@ ORDER BY loan_number">
 								<td align="left">
 									<a href="a_loanItemReview.cfm?transaction_id=#transaction_id#">Review Items</a>
 								</td>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 									<td>
 										<a href="SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#" 
-										target="#client.target#">Add Items</a>
+										target="#session.target#">Add Items</a>
 									</td>
 									<td>
 										<a href="Loan.cfm?transaction_id=#transaction_id#&Action=editLoan">Edit Loan</a>

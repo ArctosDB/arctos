@@ -3,7 +3,7 @@
 	Eventually, reduce the mailings to only bad
 ---->
 <cfoutput>
-<cfset client.username="dusty">
+<cfset session.username="dusty">
 <cfset startTime=gettickcount()>
 <cfflush>
 <!---- load a fair-sized static page and see what happens ---->

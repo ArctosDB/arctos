@@ -109,9 +109,9 @@
 <cfif #action# is "save">
 <cfoutput>
 <cfset user_id=0>
-<cfif isdefined("client.username") and len(#client.username#) gt 0>
+<cfif isdefined("session.username") and len(#session.username#) gt 0>
 	<cfquery name="isUser" datasource="#Application.web_user#">
-		SELECT user_id FROM cf_users WHERE username = '#client.username#'
+		SELECT user_id FROM cf_users WHERE username = '#session.username#'
 	</cfquery>
 	<cfset user_id = #isUser.user_id#>
 </cfif>
@@ -160,7 +160,7 @@
 	</cfquery>
 	
 	<cfmail to="#Application.bugReportEmail#" subject="ColdFusion bug report submitted" from="BugReport@#Application.fromEmail#" type="html">
-		<p>Reported Name: #reported_name# (AKA #client.username#) submitted a bug report on #thisDate#.</p>
+		<p>Reported Name: #reported_name# (AKA #session.username#) submitted a bug report on #thisDate#.</p>
 		
 		<P>Form: #form_name#</P>
 		
@@ -278,7 +278,7 @@
 				</select>
 				</td>
 			</tr>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 			<tr>
 				<td align="right"><font color="#FF0000">username</font>: </td>
 				<td><input type="text" name="cf_username" size="60"></td>
@@ -387,7 +387,7 @@
 			<cfif #solved_fg# is 1>
 				<font color="##00FF00" size="+1">Resolved</font>			
 			</cfif>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 					<br>
 					<font color="##FF0000"><i>username: #username#
 					<br>email: #user_email#
@@ -399,7 +399,7 @@
 			<br><i><b>Suggested Solution:</b></i> #suggested_solution#
 			<br>
 			<font color="##0000FF"><i><b>Our Solution:</b></i> #admin_solution#</font>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 				<br>
 				<font color="##FF0000"><i>Update admin solution to:</i></font>
 				<br>
@@ -408,7 +408,7 @@
 			<br><i><b>Submitted Priority:</b></i> #user_priority#
 			<br>
 			<font color="##0000FF"><i><b>Our Priority:</b></i> #admin_priority#</font>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 				<font color="##FF0000"><i>Update admin priority to:</i></font>
 				<select name="admin_priority" size="1" style="background-color:##00FF00">
 					<option value="0" 
@@ -431,18 +431,18 @@
 			</cfif>
 			<br><i><b>Submitted Remarks:</b></i> #user_remarks#
 			<br><i><b>Our Remarks:</b></i> #admin_remarks#
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 					
 				<br><textarea name="admin_remarks" rows="6" cols="50">#admin_remarks#</textarea>
 			</cfif>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 				<input type="hidden" name="solved_fg" value="0">
 				<br><input type="submit" value="update">
 				<br><input type="button" value="Update and Mark Resolved" onclick="admin#CurrentRow#.solved_fg.value=1;submit();">
 				
 			</cfif>
 	  </form>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 				<form name="killit#CurrentRow#" method="post" action="bugs.cfm">
 					<input type="hidden" name="action" value="killit">
 					<input type="hidden" name="bug_id" value="#bug_id#">

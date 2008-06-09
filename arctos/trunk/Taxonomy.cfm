@@ -495,7 +495,7 @@ New Common Name:
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "newCommon">
 <cfoutput>
-	<cfquery name="newCommon" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="newCommon" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO common_name (common_name, taxon_name_id)
 		VALUES ('#common_name#', #taxon_name_id#)
 	</cfquery>
@@ -506,7 +506,7 @@ New Common Name:
 
 <cfif #Action# is "deleTaxa">
 <cfoutput>
-	<cfquery name="deleTaxa" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="deleTaxa" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM 
 			taxonomy
 		WHERE 
@@ -519,7 +519,7 @@ New Common Name:
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "deleteCommon">
 <cfoutput>
-	<cfquery name="killCommon" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="killCommon" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM 
 			common_name
 		WHERE 
@@ -532,7 +532,7 @@ New Common Name:
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "saveCommon">
 <cfoutput>
-	<cfquery name="upCommon" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="upCommon" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		UPDATE
 			common_name
 		SET 
@@ -757,7 +757,7 @@ New Common Name:
 <cfquery name="nextID" datasource="#Application.web_user#">
 	select max(taxon_name_id) +1 as nextID from taxonomy
 </cfquery>
-	<cfquery name="newTaxa" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="newTaxa" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO taxonomy (
 		taxon_name_id
 		,valid_catalog_term_fg
@@ -885,7 +885,7 @@ New Common Name:
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "newTaxaRelation">
 <cfoutput>
-	<cfquery name="newReln" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="newReln" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO taxon_relations (
 		 TAXON_NAME_ID,
 		 RELATED_TAXON_NAME_ID,
@@ -910,7 +910,7 @@ New Common Name:
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "deleReln">
 <cfoutput>
-<cfquery name="deleReln" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="deleReln" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	DELETE FROM 
 		taxon_relations
 	WHERE
@@ -925,7 +925,7 @@ New Common Name:
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "saveRelnEdit">
 <cfoutput>
-<cfquery name="edRel" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="edRel" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	UPDATE taxon_relations SET
 		taxon_relationship = '#taxon_relationship#'
 		<cfif len(#newRelatedId#) gt 0>
@@ -954,13 +954,13 @@ New Common Name:
 <cfoutput>
 <cftransaction>
 <!----
-<cfif #client.username# is "steffi">
-username='#client.username#'
- password="#decrypt(client.epw,cfid)#"
+<cfif #session.username# is "steffi">
+username='#session.username#'
+ password="#decrypt(session.epw,cfid)#"
 <cfflush>
 		</cfif>
 	---->
-	<cfquery name="edTaxa" datasource="user_login" username='#client.username#' password="#decrypt(client.epw,cfid)#">
+	<cfquery name="edTaxa" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
 	UPDATE taxonomy SET 
 		valid_catalog_term_fg=#valid_catalog_term_fg#
 		,source_authority = '#source_authority#'

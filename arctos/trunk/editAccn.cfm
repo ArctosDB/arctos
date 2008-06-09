@@ -235,7 +235,7 @@
 		
 		 <input type="button" value="Specimen List" class="lnkBtn"
    onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-   onclick = "window.open('SpecimenResults.cfm?accn_trans_id=#transaction_id#','#client.target#');">	
+   onclick = "window.open('SpecimenResults.cfm?accn_trans_id=#transaction_id#','#session.target#');">	
    
     <input type="button" value="BerkeleyMapper" class="lnkBtn"
    onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
@@ -490,7 +490,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 
 <input type="button" value="Add Specimens to an Accn" class="lnkBtn"
    onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-   onclick = "window.open('SpecimenSearch.cfm?Action=addAccn','#client.target#');">	
+   onclick = "window.open('SpecimenSearch.cfm?Action=addAccn','#session.target#');">	
 
 	
 		</td>
@@ -685,10 +685,10 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 								class="lnkBtn"
 								onmouseover="this.className='lnkBtn btnhov'" 
 								onmouseout="this.className='lnkBtn'"
-								 onclick = "window.open('Project.cfm?Action=addTrans&project_id=#project_id#&transaction_id=#transaction_id#','#client.target#');">	
+								 onclick = "window.open('Project.cfm?Action=addTrans&project_id=#project_id#&transaction_id=#transaction_id#','#session.target#');">	
 						<cfelse>
 							<a href="editAccn.cfm?Action=edit&transaction_id=#transaction_id#"  
-								target="#client.target#"><strong>#institution_acronym# #accn_number#</strong></a>
+								target="#session.target#"><strong>#institution_acronym# #accn_number#</strong></a>
 							<font size="-1">(#accn_status#)</font>
 						</cfif> 
 					</td>
@@ -733,7 +733,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "delePermit">
 	<cfoutput>
-		<cfquery name="killPerm" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="killPerm" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM permit_trans WHERE transaction_id = #transaction_id# and 
 			permit_id=#permit_id#
 		</cfquery>
@@ -746,14 +746,14 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 		<cftransaction>
 			<!--- see if they're adding project --->
 			<cfif isdefined("project_id") and len(#project_id#) gt 0>
-				<cfquery name="newProj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="newProj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					INSERT INTO project_trans (
 						project_id, transaction_id)
 					VALUES (
 						#project_id#,#transaction_id#)
 				</cfquery>
 			</cfif>
-			<cfquery name="updateAccn" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="updateAccn" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				UPDATE accn SET
 					ACCN_TYPE = '#accn_type#',
 					ACCN_NUMber = '#ACCN_NUMber#',
@@ -761,7 +761,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 					ACCN_STATUS = '#accn_status#' 
 					WHERE transaction_id = #transaction_id#
 			</cfquery>
-			<cfquery name="updateTrans" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="updateTrans" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				UPDATE trans SET
 			 		transaction_id = #transaction_id#
 					,TRANSACTION_TYPE = 'accn'
@@ -775,21 +775,21 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 					</cfif> 
 				WHERE transaction_id = #transaction_id#
 			</cfquery>
-			<cfquery name="wutsThere" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="wutsThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				select * from trans_agent where transaction_id=#transaction_id#
 				and trans_agent_role !='entered by'
 			</cfquery>
 			<cfloop query="wutsThere">
 				<!--- first, see if the deleted - if so, nothing else matters --->
 				<cfif isdefined("del_agnt_#trans_agent_id#")>
-					<cfquery name="wutsThere" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					<cfquery name="wutsThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						delete from trans_agent where trans_agent_id=#trans_agent_id#
 					</cfquery>
 				<cfelse>
 					<!--- update, just in case --->
 					<cfset thisAgentId = evaluate("trans_agent_id_" & trans_agent_id)>
 					<cfset thisRole = evaluate("trans_agent_role_" & trans_agent_id)>
-					<cfquery name="wutsThere" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					<cfquery name="wutsThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						update trans_agent set
 							agent_id = #thisAgentId#,
 							trans_agent_role = '#thisRole#'
@@ -799,7 +799,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 				</cfif>
 			</cfloop>
 			<cfif isdefined("new_trans_agent_id") and len(#new_trans_agent_id#) gt 0>
-				<cfquery name="newAgent" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="newAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					insert into trans_agent (
 						transaction_id,
 						agent_id,

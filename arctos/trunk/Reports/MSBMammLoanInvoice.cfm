@@ -223,7 +223,7 @@ select
 		 dec_long,
 		 max_error_distance,
 		 max_error_units,
- 		concatSingleOtherId(cataloged_item.collection_object_id,'#Client.CustomOtherIdentifier#') AS CustomID
+ 		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID
 	 from 
 		loan_item, 
 		loan,
@@ -278,7 +278,7 @@ select
 			<b>CN</b>
 		</td>
 		<td align="center">
-			<b>#Client.CustomOtherIdentifier#</b>&nbsp;
+			<b>#session.CustomOtherIdentifier#</b>&nbsp;
 		</td>
 		
 		<td align="center">
@@ -408,7 +408,7 @@ select
 select 
 		cat_num, 
 		collection,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#Client.CustomOtherIdentifier#') AS CustomID,
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		part_name,
 		 part_modifier,
 		 preserve_method,
@@ -452,7 +452,7 @@ Loan ## #getItems.loan_number#
 			<b>CN</b>
 		</td>
 		<td align="center">
-			<b>#Client.CustomOtherIdentifier#</b>
+			<b>#session.CustomOtherIdentifier#</b>
 		</td>
 		<td align="center">
 			<b>Item</b>

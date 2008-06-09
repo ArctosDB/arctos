@@ -41,13 +41,13 @@ function success_changefancyCOID (result) {
 
 </script>
 <cfoutput>
-<cfif len(#client.exclusive_collection_id#) gt 0>
+<cfif len(#session.exclusive_collection_id#) gt 0>
 	<cfset oidTable = "cCTCOLL_OTHER_ID_TYPE#exclusive_collection_id#">
 <cfelse>
 	<cfset oidTable = "CTCOLL_OTHER_ID_TYPE">
 </cfif>
-<cfset myId=client.CustomOtherIdentifier>
-<cfset mcid=client.exclusive_collection_id>
+<cfset myId=session.CustomOtherIdentifier>
+<cfset mcid=session.exclusive_collection_id>
 <cfquery name="OtherIdType" datasource="#Application.web_user#">
 	select distinct(other_id_type) FROM #oidTable# ORDER BY other_Id_Type
 </cfquery>
@@ -86,8 +86,8 @@ function success_changefancyCOID (result) {
 		<td class="srch">
 			<select name="fancyCOID" id="fancyCOID"
 				size="1" onchange="this.className='red';changefancyCOID(this.value);">
-				<option <cfif #client.fancyCOID# is not 1>selected="selected"</cfif> value="">No</option>
-				<option <cfif #client.fancyCOID# is 1>selected="selected"</cfif> value="1">Yes</option>
+				<option <cfif #session.fancyCOID# is not 1>selected="selected"</cfif> value="">No</option>
+				<option <cfif #session.fancyCOID# is 1>selected="selected"</cfif> value="1">Yes</option>
 			</select>
 		</td>
 	</tr>

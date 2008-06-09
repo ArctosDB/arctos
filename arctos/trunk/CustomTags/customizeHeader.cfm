@@ -1,4 +1,4 @@
-<cfset client.currentStyleSheet = ''>
+<cfset session.currentStyleSheet = ''>
 <cfif isdefined("attributes.collection_id") and len(attributes.collection_id) gt 0>
 	<cfquery name="getCollApp" datasource="#Application.web_user#">
 		select * from cf_collection_appearance where collection_id = #attributes.collection_id#
@@ -21,7 +21,7 @@
 				collectionCell.innerHTML=contents;
 				changeStyle('#ssName#');
 			</script>
-			<cfset client.currentStyleSheet = '#ssName#'>
+			<cfset session.currentStyleSheet = '#ssName#'>
 		</cfoutput>
 	<cfelse>
 		<!--- no collection-specific settings, they may have an exclusive_collection_id set and we do NOT want

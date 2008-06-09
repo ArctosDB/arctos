@@ -267,7 +267,7 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
 			<table cellpadding="0" cellspacing="0">
 				<cfloop query="locality">
-					#displayColumn(column_name,client.resultColumnList)#
+					#displayColumn(column_name,session.resultColumnList)#
 				</cfloop>
 			</table>
 				</div>
@@ -276,7 +276,7 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
 			<table cellpadding="0" cellspacing="0">
 				<cfloop query="curatorial">
-					#displayColumn(column_name,client.resultColumnList)#					
+					#displayColumn(column_name,session.resultColumnList)#					
 				</cfloop>
 			</table>
 				</div>
@@ -285,7 +285,7 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
 			<table cellpadding="0" cellspacing="0">
 				<cfloop query="attribute">	
-					#displayColumn(column_name,client.resultColumnList)#			
+					#displayColumn(column_name,session.resultColumnList)#			
 				</cfloop>
 			</table>
 				</div>
@@ -294,7 +294,7 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
 			<table cellpadding="0" cellspacing="0">
 				<cfloop query="link">
-					#displayColumn(column_name,client.resultColumnList)#				
+					#displayColumn(column_name,session.resultColumnList)#				
 				</cfloop>
 			</table>
 				</div>

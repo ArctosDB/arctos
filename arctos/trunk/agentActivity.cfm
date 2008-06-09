@@ -83,7 +83,7 @@
 			<ul>
 				<CFLOOP query="collector">
 					<li>
-						<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_cde=#collector.collection_cde#" target="#client.target#">#collector.cnt# #collector.collection_cde#</a> specimens
+						<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_cde=#collector.collection_cde#" target="#session.target#">#collector.cnt# #collector.collection_cde#</a> specimens
 					</li>
 					</CFLOOP>
 			</ul>
@@ -106,7 +106,7 @@
 	</cfquery>
 				<li>
 					Determined #attributes.cnt# attributes for <a href="/SpecimenResults.cfm?attributed_determiner_agent_id=#agent_id#" 
-						target="#client.target#">#attributes.specs# specimens</a> 
+						target="#session.target#">#attributes.specs# specimens</a> 
 				 </li>
 			
 	
@@ -119,7 +119,7 @@
 	</cfquery>
 			<li>
 				Made #binary_object.cnt# binary objects for <a href="/SpecimenResults.cfm?binary_object_made_by_id=#agent_id#" 
-						target="#client.target#">#binary_object.specs# specimens</a> 
+						target="#session.target#">#binary_object.specs# specimens</a> 
 			</li>
 	
 	<cfquery name="electronic_address" datasource="#Application.web_user#">
@@ -136,7 +136,7 @@
 	</cfquery>
 		<li>Created #encumbrance.cnt# encumbrances 
 				covering <a href="/SpecimenResults.cfm?encumbering_agent_id=#agent_id#" 
-						target="#client.target#">#coll_object_encumbrance.cnt# specimens</a> 
+						target="#session.target#">#coll_object_encumbrance.cnt# specimens</a> 
 						</li>
 	
 	<cfquery name="identification" datasource="#Application.web_user#">
@@ -146,7 +146,7 @@
 						</li>
 						
 		<li>Made #identification.cnt# identifications for <a href="/SpecimenResults.cfm?identified_agent_id=#agent_id#" 
-						target="#client.target#">#identification.specs# specimens</a></li>
+						target="#session.target#">#identification.specs# specimens</a></li>
 		
 	<cfquery name="lat_long" datasource="#Application.web_user#">
 		select count(*) cnt from lat_long where determined_by_agent_id=#agent_id#
@@ -168,7 +168,7 @@
 		
 		<li>Involved in 
 	<a href="/ProjectList.cfm?project_agent_name_id=#agent_id#" 
-						target="#client.target#">##project_agent.cnt# projects</a>
+						target="#session.target#">##project_agent.cnt# projects</a>
 						</li>
 	<cfquery name="shipment" datasource="#Application.web_user#">
 		select count(*) cnt from shipment where PACKED_BY_AGENT_ID=#agent_id#

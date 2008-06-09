@@ -105,7 +105,7 @@
 	select max(encumbrance_id) +1 as nextEncumbrance from encumbrance
 </cfquery>
 
-<cfquery name="newEncumbrance" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="newEncumbrance" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 INSERT INTO encumbrance (
 	ENCUMBRANCE_ID,
 	ENCUMBERING_AGENT_ID,

@@ -1,5 +1,5 @@
-<cfif isdefined("client.username")>
-	<cfset username = #client.username#>
+<cfif isdefined("session.username")>
+	<cfset username = #session.username#>
 </cfif>
 <cfquery name="getPrefs" datasource="#Application.web_user#">
 		select * from cf_users
@@ -7,115 +7,115 @@
 		 username = '#username#' order by cf_users.user_id
 	</cfquery>
 	<cfquery name="id" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
-		select agent_id from agent_name where agent_name='#client.username#'
+		select agent_id from agent_name where agent_name='#session.username#'
 		and agent_name_type='login'
 	</cfquery>
 	<cfif id.recordcount is 1>
-		<cfset client.myAgentId=#id.agent_id#>
+		<cfset session.myAgentId=#id.agent_id#>
 	</cfif>
 	<cfoutput query="getPrefs" group="user_id">
 	<!--- set session variables with all their stored values --->
-	<cfset client.last_login = "#last_login#">
-	<cfset client.target = "#target#">
-	<cfset client.displayrows = "#displayRows#">
-	<cfset client.mapSize = "#mapSize#">
-	<cfset client.showObservations = "#showObservations#">
-	<cfset client.resultcolumnlist = "#resultcolumnlist#">
+	<cfset session.last_login = "#last_login#">
+	<cfset session.target = "#target#">
+	<cfset session.displayrows = "#displayRows#">
+	<cfset session.mapSize = "#mapSize#">
+	<cfset session.showObservations = "#showObservations#">
+	<cfset session.resultcolumnlist = "#resultcolumnlist#">
 	<cfif len(#active_loan_id#) gt 0>
-		<cfset client.active_loan_id = "#active_loan_id#">
+		<cfset session.active_loan_id = "#active_loan_id#">
 	<cfelse>
-		<cfset client.loan_request_id = "-1">
+		<cfset session.loan_request_id = "-1">
 	</cfif>
 	<cfif len(#exclusive_collection_id#) gt 0>
-		<cfset client.exclusive_collection_id = "#exclusive_collection_id#">
+		<cfset session.exclusive_collection_id = "#exclusive_collection_id#">
 	<cfelse>
-		<cfset client.exclusive_collection_id = "">
+		<cfset session.exclusive_collection_id = "">
 	</cfif>
 	<cfif len(#fancyCOID#) gt 0>
-		<cfset client.fancyCOID = "#fancyCOID#">
+		<cfset session.fancyCOID = "#fancyCOID#">
 	<cfelse>
-		<cfset client.fancyCOID = "">
+		<cfset session.fancyCOID = "">
 	</cfif>
 	<cfif len(#result_sort#) gt 0>
-		<cfset client.result_sort = "#result_sort#">
+		<cfset session.result_sort = "#result_sort#">
 	<cfelse>
-		<cfset client.result_sort = "">
+		<cfset session.result_sort = "">
 	</cfif>	
 	<cfif len(#CustomOtherIdentifier#) gt 0>
-		<cfset client.customOtherIdentifier = "#CustomOtherIdentifier#">
+		<cfset session.customOtherIdentifier = "#CustomOtherIdentifier#">
 	<cfelse>
-		<cfset client.customOtherIdentifier = "">
+		<cfset session.customOtherIdentifier = "">
 	</cfif>
-	<cfset client.searchBy=""><!--- Clear anything they might have had hang around --->
+	<cfset session.searchBy=""><!--- Clear anything they might have had hang around --->
 		<cfif #parts# is 1>
-			<cfset client.searchBy="#client.searchBy#,parts">
+			<cfset session.searchBy="#session.searchBy#,parts">
 		</cfif>
 		<cfif #miscellaneous# is 1>
-			<cfset client.searchBy="#client.searchBy#,miscellaneous">
+			<cfset session.searchBy="#session.searchBy#,miscellaneous">
 		</cfif>
 		<cfif #images# is 1>
-			<cfset client.searchBy="#client.searchBy#,images">
+			<cfset session.searchBy="#session.searchBy#,images">
 		</cfif>
 		<cfif #Accn_Num# is 1>
-			<cfset client.searchBy="#client.searchBy#,accn_num">
+			<cfset session.searchBy="#session.searchBy#,accn_num">
 		</cfif>
 		<cfif #locality# is 1>
-			<cfset client.searchBy="#client.searchBy#,locality">
+			<cfset session.searchBy="#session.searchBy#,locality">
 		</cfif>
 		<cfif #permit# is 1>
-			<cfset client.searchBy="#client.searchBy#,permit">
+			<cfset session.searchBy="#session.searchBy#,permit">
 		</cfif>
 		<cfif #citation# is 1>
-			<cfset client.searchBy="#client.searchBy#,citation">
+			<cfset session.searchBy="#session.searchBy#,citation">
 		</cfif>
 		<cfif #project# is 1>
-			<cfset client.searchBy="#client.searchBy#,project">
+			<cfset session.searchBy="#session.searchBy#,project">
 		</cfif>
 		<cfif #attributes# is 1>
-			<cfset client.searchBy="#client.searchBy#,attributes">
+			<cfset session.searchBy="#session.searchBy#,attributes">
 		</cfif>
 		<cfif #Colls# is 1>
-			<cfset client.searchBy="#client.searchBy#,colls">
+			<cfset session.searchBy="#session.searchBy#,colls">
 		</cfif>
 		<cfif #phylclass# is 1>
-			<cfset client.searchBy="#client.searchBy#,phylclass">
+			<cfset session.searchBy="#session.searchBy#,phylclass">
 		</cfif>
 		<cfif #scinameoperator# is 1>
-			<cfset client.searchBy="#client.searchBy#,scinameoperator">
+			<cfset session.searchBy="#session.searchBy#,scinameoperator">
 		</cfif>
 		<cfif #dates# is 1>
-			<cfset client.searchBy="#client.searchBy#,dates">
+			<cfset session.searchBy="#session.searchBy#,dates">
 		</cfif>
 		<cfif #curatorial_stuff# is 1>
-			<cfset client.searchBy="#client.searchBy#,curatorial_stuff">
+			<cfset session.searchBy="#session.searchBy#,curatorial_stuff">
 		</cfif>
 		<cfif #higher_taxa# is 1>
-			<cfset client.searchBy="#client.searchBy#,higher_taxa">
+			<cfset session.searchBy="#session.searchBy#,higher_taxa">
 		</cfif>
 		<cfif #identifier# is 1>
-			<cfset client.searchBy="#client.searchBy#,identifier">
+			<cfset session.searchBy="#session.searchBy#,identifier">
 		</cfif>
 		<cfif #boundingbox# is 1>
-			<cfset client.searchBy="#client.searchBy#,boundingbox">
+			<cfset session.searchBy="#session.searchBy#,boundingbox">
 		</cfif>	
 		<cfif #bigsearchbox# is 1>
-			<cfset client.searchBy="#client.searchBy#,bigsearchbox">
+			<cfset session.searchBy="#session.searchBy#,bigsearchbox">
 		</cfif>	
 		<cfif #collecting_source# is 1>
-			<cfset client.searchBy="#client.searchBy#,collecting_source">
+			<cfset session.searchBy="#session.searchBy#,collecting_source">
 		</cfif>	
 		<cfif #scientific_name# is 1>
-			<cfset client.searchBy="#client.searchBy#,scientific_name">
+			<cfset session.searchBy="#session.searchBy#,scientific_name">
 		</cfif>
 		<cfif #max_error_in_meters# is 1>
-			<cfset client.searchBy="#client.searchBy#,max_error_in_meters">
+			<cfset session.searchBy="#session.searchBy#,max_error_in_meters">
 		</cfif>
 		<cfif #killRow# is 1>
-			<cfset client.killRow="1">
+			<cfset session.killRow="1">
 		<cfelse>
-			<cfset client.killRow="0">
+			<cfset session.killRow="0">
 		</cfif>		
 		<cfif #detail_level# gt 0>
-			<cfset client.detailLevel="#detail_level#">
+			<cfset session.detailLevel="#detail_level#">
 		</cfif>
 	</cfoutput>

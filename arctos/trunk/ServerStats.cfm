@@ -46,7 +46,7 @@
 		
 	</cfloop>
 </table>
-			<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 <cfquery name="uniqueUser" dbtype="query">
 	select ip, host from getStats group by ip, host
 </cfquery>

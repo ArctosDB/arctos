@@ -463,26 +463,26 @@ function checkRequired(){
 			
 	
 			<cfif #thisAcceptedIdFg# is 1>
-				<cfquery name="upOldID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="upOldID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
 				</cfquery>
-				<cfquery name="newAcceptedId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="newAcceptedId" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					UPDATE identification SET ACCEPTED_ID_FG=1 where identification_id = #thisIdentificationId#
 				</cfquery>
 			</cfif>
 			<cfif #thisAcceptedIdFg# is "DELETE">
-					<cfquery name="deleteId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					<cfquery name="deleteId" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						DELETE FROM identification_agent WHERE identification_id = #thisIdentificationId#
 					</cfquery>
-					<cfquery name="deleteTId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					<cfquery name="deleteTId" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						DELETE FROM identification_taxonomy WHERE identification_id = #thisIdentificationId#
 					</cfquery>
-					<cfquery name="deleteId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					<cfquery name="deleteId" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						DELETE FROM identification WHERE identification_id = #thisIdentificationId#
 					</cfquery>
 					
 			<cfelse>
-				<cfquery name="updateId" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="updateId" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						UPDATE identification SET
 						nature_of_id = '#thisNature#'
 						<cfif len(#thisMadeDate#) gt 0>
@@ -513,7 +513,7 @@ function checkRequired(){
 					</cftry>
 					<cfif #thisIdAgntId# is -1 and (thisIdId is not "DELETE" and thisIdId gt 0)>
 						<!--- new identifier --->
-						<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+						<cfquery name="updateIdA" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 							insert into identification_agent 
 								( IDENTIFICATION_ID,AGENT_ID,IDENTIFIER_ORDER)
 							values 
@@ -527,13 +527,13 @@ function checkRequired(){
 						<!--- update or delete --->
 						<cfif #thisIdId# is "DELETE">
 							<!--- delete --->
-							<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+							<cfquery name="updateIdA" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 								delete from identification_agent
 								where identification_agent_id=#thisIdAgntId#				
 							</cfquery>
 						<cfelseif thisIdId gt 0>
 							<!--- update --->
-							<cfquery name="updateIdA" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+							<cfquery name="updateIdA" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 								update identification_agent set 
 									agent_id=#thisIdId#,
 									identifier_order=#nid#
@@ -610,11 +610,11 @@ function checkRequired(){
 
 
 <cftransaction>
-	<cfquery name="upOldID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="upOldID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
 	</cfquery>
 	
-	<cfquery name="newID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="newID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO identification (
 		IDENTIFICATION_ID,
 		COLLECTION_OBJECT_ID
@@ -644,7 +644,7 @@ function checkRequired(){
 		,'#scientific_name#',
 		#newIdById#)
 		 </cfquery>
-		<cfquery name="newIdAgent" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="newIdAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			insert into identification_agent (
 				identification_id,
 				agent_id,
@@ -656,7 +656,7 @@ function checkRequired(){
 				)
 		</cfquery>
 		 <cfif len(#newIdById_two#) gt 0>
-		 	<cfquery name="newIdAgent" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		 	<cfquery name="newIdAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				insert into identification_agent (
 					identification_id,
 					agent_id,
@@ -669,7 +669,7 @@ function checkRequired(){
 			</cfquery>
 		 </cfif>
 		 <cfif len(#newIdById_three#) gt 0>
-		 	<cfquery name="newIdAgent" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		 	<cfquery name="newIdAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				insert into identification_agent (
 					identification_id,
 					agent_id,
@@ -682,7 +682,7 @@ function checkRequired(){
 			</cfquery>
 		 </cfif>
 		
-		 <cfquery name="newId2" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		 <cfquery name="newId2" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		 	INSERT INTO identification_taxonomy (
 				identification_id,
 				taxon_name_id,
@@ -694,7 +694,7 @@ function checkRequired(){
 		 </cfquery>
 		
 		 <cfif #taxa_formula# contains "B">
-			 <cfquery name="newId3" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			 <cfquery name="newId3" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO identification_taxonomy (
 					identification_id,
 					taxon_name_id,
@@ -707,7 +707,7 @@ function checkRequired(){
 		 </cfif>
 		
 		<!--- make the newest ID accepted --->
-		<cfquery name="oneAcc" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="oneAcc" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			update identification set ACCEPTED_ID_FG=1 where identification_id=#nextID.nextID#
 		</cfquery>	 
 </cftransaction>

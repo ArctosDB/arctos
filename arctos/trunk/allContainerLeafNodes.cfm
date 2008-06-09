@@ -73,7 +73,7 @@
 			<td>#container_remarks#&nbsp;</td>
 			<td>#specData.part_name#</td>
 			<td>
-				<a href="/SpecimenDetail.cfm?collection_object_id=#specData.collection_object_id#" target="#client.target#">
+				<a href="/SpecimenDetail.cfm?collection_object_id=#specData.collection_object_id#" target="#session.target#">
 					#specData.institution_acronym# #specData.collection_cde# #specData.cat_num#
 				</a>
 			</td>

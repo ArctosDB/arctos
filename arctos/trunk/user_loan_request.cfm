@@ -39,7 +39,7 @@
 
 <!------------------------------------------------------->
 <!--- see if they've been approved for an active loan--->
-	<cfif not isdefined("client.username") or len(#client.username#) is 0>
+	<cfif not isdefined("session.username") or len(#session.username#) is 0>
 		You must sign in before using this form. 
 		You may <a href="login.cfm">create an Arctos account here</a>.
 		<cfabort>
@@ -54,15 +54,15 @@
 			cf_user_data
 		where
 			cf_users.user_id = cf_user_data.user_id and
-			username='#client.username#' 
+			username='#session.username#' 
 	</cfquery>
 	<cfif not isdefined("isApp.email") or len(#isApp.email#) is 0>
 		You must provide contact information, including an email address, before using this form.  
 		You may <a href="myArctos.cfm">fill out your profile here</a>.
 		<cfabort>
 	</cfif>
-	<cfset client.loan_request_coll_id = #isApp.loan_request_coll_id#>
-	<cfset loan_request_coll_id = #client.loan_request_coll_id#>
+	<cfset session.loan_request_coll_id = #isApp.loan_request_coll_id#>
+	<cfset loan_request_coll_id = #session.loan_request_coll_id#>
 	
 	<!----
 	<cflocation addtoken="no" url="user_loan_request.cfm?loan_request_coll_id=#loan_request_coll_id#">
@@ -70,7 +70,7 @@
 	
 	<cfoutput>select loan_request_coll_id from 
 		cf_users,cf_user_loan where
-		username='#client.username#' and
+		username='#session.username#' and
 		cf_users.user_id = cf_user_loan.user_id and
 		is_active = 1
 ---------#loan_request_coll_id#---------
@@ -93,7 +93,7 @@ All your loans:
 		PROJECT_DESCRIPTION 
 		 from 
 		cf_users,cf_user_loan where
-		username='#client.username#' and
+		username='#session.username#' and
 		cf_users.user_id = cf_user_loan.user_id 
 </cfquery>
 <cfoutput>
@@ -177,9 +177,9 @@ All your loans:
 				subject="Arctos: Finalize this Loan Request Authorization" 
 				from="LoanAuthorizationRequest@#Application.fromEmail#" 
 				type="html">
-				<br />A user, <B><I>#client.username#</I></B>, wishes to finalize their user loan request and activate a Museum loan.
+				<br />A user, <B><I>#session.username#</I></B>, wishes to finalize their user loan request and activate a Museum loan.
 				<br />Log into Arctos and click 
-				<a href="#Application.ServerRootUrl#/Admin/manage_user_loan_request.cfm?action=manageSpecs&req_name=#client.username#">
+				<a href="#Application.ServerRootUrl#/Admin/manage_user_loan_request.cfm?action=manageSpecs&req_name=#session.username#">
 				this link</a> to review their request.
 				<cfif len(#userInput#) gt 0>
 					The user provided these comments:
@@ -314,7 +314,7 @@ All your loans:
 			where 
 			cf_users.user_id=cf_user_loan.user_id and
 			is_active=1 and
-			username='#client.username#'
+			username='#session.username#'
 		</cfquery>
 		<cfquery name="whatColls" datasource="#Application.web_user#">
 			select institution_acronym,collection_cde from collection
@@ -470,7 +470,7 @@ All your loans:
 		<cfabort>
 	</cfif>
 	<cfquery name="userid" datasource="#Application.web_user#">
-		select user_id from cf_users where username='#client.username#'
+		select user_id from cf_users where username='#session.username#'
 	</cfquery>
 	<cfquery name="addOne" datasource="#Application.uam_dbo#">
 		insert into cf_user_loan (
@@ -514,11 +514,11 @@ All your loans:
 			subject="Arctos Loan Request Authorization" 
 			from="LoanAuthorizationRequest@#Application.fromEmail#" 
 			type="html">		
-		An Arctos user, <b><i>#client.username#</i></b>, wishes to borrow material from the following collection(s):
+		An Arctos user, <b><i>#session.username#</i></b>, wishes to borrow material from the following collection(s):
 		#collections# 
 		for which you have been designated loan request contact.
 			<p>
-				<a href="#Application.ServerRootUrl#/Admin/manage_user_loan_request.cfm?req_name=#client.username#&action=manage">
+				<a href="#Application.ServerRootUrl#/Admin/manage_user_loan_request.cfm?req_name=#session.username#&action=manage">
 					Go the the User Loan Request form
 				</a>
 			</p>

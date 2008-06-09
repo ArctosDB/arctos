@@ -24,7 +24,7 @@
    			onmouseover="this.className='schBtn btnhov'" 
 			onmouseout="this.className='schBtn'">
 	</form>
-<cfif #client.rights# contains "admin">
+<cfif #session.rights# contains "admin">
 <table class="newRec">
 	<tr>
 		<td>
@@ -70,7 +70,7 @@
 				<th>Change Type</th>
 				<th>Note</th>
 				<th>Code</th>
-				<cfif #client.rights# contains "admin">
+				<cfif #session.rights# contains "admin">
 					<th>&nbsp;</th>
 				</cfif>
 			</tr>
@@ -81,7 +81,7 @@
 				<td>#change_type#</td>
 				<td>#release_note#</td>
 				<td>#code_change#</td>
-				<cfif #client.rights# contains "admin">
+				<cfif #session.rights# contains "admin">
 					<td><a href="release_notes.cfm?action=edit&release_note_id=#release_note_id#">edit</a></td>
 				</cfif>				
 			</tr>

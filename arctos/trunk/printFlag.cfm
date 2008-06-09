@@ -39,7 +39,7 @@ function setAll(val) {
 		parentContainer.print_fg,
 		coll_object_remarks,
 		is_tissue,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#Client.CustomOtherIdentifier#')  CustomID
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#')  CustomID
 	FROM
 		cataloged_item
 		INNER JOIN collection ON (cataloged_item.collection_id = collection.collection_id)
@@ -62,7 +62,7 @@ function setAll(val) {
 			Cat Num
 		</th>
 		<th>
-			#Client.CustomOtherIdentifier#
+			#session.CustomOtherIdentifier#
 		</th>
 		<th>Part Name</th>
 		<th>
@@ -122,7 +122,7 @@ function setAll(val) {
 			<cfif left(i,8) is "print_fg">
 				<cfset thisPartId = replace(lcase(i),"print_fg","","all")>
 				<cfset thisPrintFlag = evaluate("#i#")>
-				<cfquery name="upCont" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="upCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					update container set print_fg = #thisPrintFlag#
 					where container_id = (select parent_container_id from 
 					container,coll_obj_cont_hist where

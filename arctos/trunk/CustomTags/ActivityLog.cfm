@@ -1,6 +1,6 @@
 <cfset web_user = "MCAT_WU">
 <cfquery name="userid" datasource="#Application.web_user#">
-	select user_id from cf_users where username = '#client.username#'
+	select user_id from cf_users where username = '#session.username#'
 </cfquery>
 <cfquery name="activID" datasource="#Application.web_user#">
 	select max(activity_id) + 1 as nextID from cf_database_activity

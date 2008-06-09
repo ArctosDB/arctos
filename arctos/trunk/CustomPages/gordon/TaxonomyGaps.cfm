@@ -15,7 +15,7 @@
 		<tr>
 			
 			<td>
-			<a href="http://arctos.database.museum/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" target="#client.target#">#scientific_name#</a>
+			<a href="http://arctos.database.museum/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" target="#session.target#">#scientific_name#</a>
 			</td>
 			<td>#phylclass#</td>
 			<td>#phylorder#</td>

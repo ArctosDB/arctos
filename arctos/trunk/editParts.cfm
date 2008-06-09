@@ -55,7 +55,7 @@
 <b>Edit #getParts.recordcount# Specimen Parts</b>
 &nbsp;
 <a href="javascript:void(0);" onClick="getDocs('parts')"><img src="/images/info.gif" border="0"></a>
-<br><a href="Container.cfm?srch=Part&collection_object_id=#collection_object_id#" target="#client.target#">Part Locations</a>
+<br><a href="Container.cfm?srch=Part&collection_object_id=#collection_object_id#" target="#session.target#">Part Locations</a>
 <br><a href="##newPart">New</a>
 <cfset i = 1>
 <cfset listedParts = "">
@@ -259,7 +259,7 @@
 <a name="newPart"></a>
 
 <table class="newRec"><tr><td>
-<b>Add Specimen Part for <a href="SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="#client.target#">#getParts.collection_cde# #GETpARTS.CAT_NUM#</a>:</b>
+<b>Add Specimen Part for <a href="SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="#session.target#">#getParts.collection_cde# #GETpARTS.CAT_NUM#</a>:</b>
 <form name="newPart" method="post" action="editParts.cfm">
 	<input type="hidden" name="Action" value="newPart">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
@@ -347,28 +347,28 @@
 	
 	
 	<cftransaction>
-	<cfquery name="delePart" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="delePart" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM specimen_part WHERE collection_object_id = #partID#
 	</cfquery>
 	<!---
-	<cfquery name="delePartCollObj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="delePartCollObj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM coll_object WHERE collection_object_id = #partID#
 	</cfquery>
-	<cfquery name="delePartRemark" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="delePartRemark" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM coll_object_remark WHERE collection_object_id = #partID#
 	</cfquery>
-	<cfquery name="getContID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="getContID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		select container_id from coll_obj_cont_hist where
 		collection_object_id = #partID#
 	</cfquery>
 	
-	<cfquery name="deleCollCont" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="deleCollCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM coll_obj_cont_hist WHERE collection_object_id = #partID#
 	</cfquery>
-	<cfquery name="deleCont" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="deleCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM container_history WHERE container_id = #getContID.container_id#
 	</cfquery>
-	<cfquery name="deleCont" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="deleCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM container WHERE container_id = #getContID.container_id#
 	</cfquery>
 	--->
@@ -402,8 +402,8 @@
 <!----------------------------------------------------------------------------------->
 <cfif #Action# is "saveEdits">
 <cfoutput>
-	<cfquery name= "getEntBy" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-		SELECT agent_id FROM agent_name WHERE agent_name = '#client.username#' group by agent_id
+	<cfquery name= "getEntBy" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		SELECT agent_id FROM agent_name WHERE agent_name = '#session.username#' group by agent_id
 	</cfquery>
 	<cfif getEntBy.recordcount is 0>
 		<cfabort showerror = "You aren't a recognized agent!">
@@ -428,7 +428,7 @@
 	<cfset thispartContainerId = #evaluate("partContainerId" & n)#>
 	<cfset thisIsTissue = #evaluate("is_tissue" & n)#>
 	
-	<cfquery name="upPart" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="upPart" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		UPDATE specimen_part SET 
 			Part_name = '#thisPartName#',
 			is_tissue = #thisIsTissue#
@@ -445,7 +445,7 @@
 		WHERE collection_object_id = #thisPartId#
 	</cfquery>
 	
-	<cfquery name="upPartCollObj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="upPartCollObj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		UPDATE coll_object SET 
 			coll_obj_disposition = '#thisDisposition#'
 			,condition = '#thisCondition#',
@@ -454,26 +454,26 @@
 	</cfquery>
 	
 	<cfif len(#thiscoll_object_remarks#) gt 0>
-		<cfquery name="ispartRem" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="ispartRem" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			select coll_object_remarks from coll_object_remark where
 			collection_object_id = #thisPartId#
 		</cfquery>
 		<cfif ispartRem.recordcount is 0>
 				<!---- new remark --->
-				<cfquery name="newCollRem" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="newCollRem" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
 					VALUES (#thisPartId#, '#thiscoll_object_remarks#')
 				</cfquery>
 			<cfelse>
 				<!--- update remark ---->
-				<cfquery name="updateCollRem" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="updateCollRem" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					UPDATE coll_object_remark SET
 					coll_object_remarks = '#thiscoll_object_remarks#'
 					 WHERE collection_object_id = #thisPartId#
 				</cfquery>
 			</cfif>
 		<cfelse>
-				<cfquery name="killRem" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="killRem" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					UPDATE coll_object_remark SET
 					coll_object_remarks = null
 					 WHERE collection_object_id = #thisPartId#
@@ -482,7 +482,7 @@
 	
 	<cfif len(#thisnewCode#) gt 0>
 		<!---- make sure it is valid ---->
-		<cfquery name="isCont" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="isCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			SELECT
 				container_id, container_type, parent_container_id
 			FROM
@@ -493,7 +493,7 @@
 				AND institution_acronym = '#institution_acronym#'
 		</cfquery>
 		<cfif #isCont.container_type# is 'cryovial label'>
-			<cfquery name="upCont" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="upCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				update container set container_type='cryovial'
 				where container_id=#isCont.container_id# and
 				container_type='cryovial label'
@@ -502,7 +502,7 @@
 		<cfif #isCont.recordcount# is 1>
 			<!--- they are using an existing unique container
 				, build the container and put the part in it. --->
-			<cfquery name="thisCollCont" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="thisCollCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				SELECT 
 					container_id 
 				FROM 
@@ -512,7 +512,7 @@
 			</cfquery>
 			
 			<!--- update the part --->
-			<cfquery name="upPartBC" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="upPartBC" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				UPDATE 
 					container
 				SET
@@ -523,7 +523,7 @@
 			</cfquery>
 			<!--- update the label print flag --->
 			
-				<cfquery name="upPartPLF" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="upPartPLF" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					UPDATE container SET print_fg = #thisprint_fg# WHERE
 					container_id = #isCont.container_id#
 				</cfquery>
@@ -544,7 +544,7 @@
 	
 	<cfif len(#thislabel#) gt 0>
 			
-				<cfquery name="upPartPLF" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="upPartPLF" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					UPDATE container SET print_fg = #thisprint_fg# WHERE
 					container_id = #thisparentContainerId#
 				</cfquery>
@@ -674,7 +674,7 @@
 	
 	<cfif len(#thislabel#) gt 0>
 			
-				<cfquery name="upPartPLF" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="upPartPLF" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					UPDATE container SET print_fg = #thisprint_fg# WHERE
 					container_id = #thisparentContainerId#
 				</cfquery>
@@ -703,8 +703,8 @@
 <!----------------------------------------------------------------------------------->
 <!----------------------------------------------------------------------------------->
 <cfif #Action# is "newpart">
-	<cfquery name= "getEntBy" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-		SELECT agent_id FROM agent_name WHERE agent_name = '#client.username#'  group by agent_id
+	<cfquery name= "getEntBy" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		SELECT agent_id FROM agent_name WHERE agent_name = '#session.username#'  group by agent_id
 	</cfquery>
 				<cfif getEntBy.recordcount is 0>
 					<cfabort showerror = "You aren't a recognized agent!">
@@ -718,7 +718,7 @@
 	</cfquery>
 	
 	<cftransaction>
-	<cfquery name="updateColl" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="updateColl" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO coll_object (
 			COLLECTION_OBJECT_ID,
 			COLL_OBJECT_TYPE,
@@ -740,7 +740,7 @@
 			'#condition#',
 			0 )		
 	</cfquery>
-	<cfquery name="newTiss" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="newTiss" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO specimen_part (
 			  COLLECTION_OBJECT_ID,
 			  PART_NAME
@@ -765,13 +765,13 @@
 				#is_tissue# )
 	</cfquery>
 	<!---
-	<cfquery name="nextCont" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="nextCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		select max(container_id) +1 as nextCont from container
 	</cfquery>
-	<cfquery name="getLbl" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="getLbl" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		select cat_num, collection_cde from cataloged_item WHERE collection_object_id = #collection_object_id#
 	</cfquery>
-	<cfquery name="newCont" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="newCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO container (
 			CONTAINER_ID,
 			PARENT_CONTAINER_ID,
@@ -789,7 +789,7 @@
 			)			
 	</cfquery>
 
-	<cfquery name="newCollCont" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="newCollCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO coll_obj_cont_hist (
 			COLLECTION_OBJECT_ID,
 			CONTAINER_ID,
@@ -804,7 +804,7 @@
 	---->
 	<cfif len(#coll_object_remarks#) gt 0>
 			<!---- new remark --->
-			<cfquery name="newCollRem" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="newCollRem" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
 				VALUES (#nextID.nextID#, '#coll_object_remarks#')
 			</cfquery>

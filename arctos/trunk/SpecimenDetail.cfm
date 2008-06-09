@@ -62,9 +62,9 @@
 		concatEncumbrances(cataloged_item.collection_object_id) as encumbrance_action,
 		dec_lat,
 		dec_long">
-		<cfif len(#Client.CustomOtherIdentifier#) gt 0>
+		<cfif len(#session.CustomOtherIdentifier#) gt 0>
 			<cfset detSelect = "#detSelect#
-			,concatSingleOtherId(cataloged_item.collection_object_id,'#Client.CustomOtherIdentifier#') as	CustomID">
+			,concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') as	CustomID">
 		</cfif>		
 <cfset detSelect = "#detSelect#	
 	FROM 
@@ -254,8 +254,8 @@
 					<cfif len(#web_link#) gt 0>
 						<a href="#web_link#" target="_blank"><img src="/images/linkOut.gif" border="0" alt="#web_link_text#"></a>
 					</cfif>
-					<cfif len(#Client.CustomOtherIdentifier#) gt 0>
-						<br>&nbsp;&nbsp;&nbsp;#Client.CustomOtherIdentifier#: #CustomID#
+					<cfif len(#session.CustomOtherIdentifier#) gt 0>
+						<br>&nbsp;&nbsp;&nbsp;#session.CustomOtherIdentifier#: #CustomID#
 					</cfif>						
 					<br>
 					<font size="+1">
@@ -272,7 +272,7 @@
 						len(#dec_long#) gt 0) 
 					>
 					    <cfif #encumbrance_action# does not contain "coordinates" OR
-							(isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user"))>						
+							(isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>						
 						    	<cfset bnhmUrl="/bnhmMaps/bnhmMapData.cfm?collection_object_id=#collection_object_id#">
 						    	<br><input type="button" 
 									value="BerkeleyMapper" 
@@ -288,7 +288,7 @@
 				    <strong><em>#spec_locality#</em></strong>
 					<br><strong>#hg#</strong>
 					<cfif #encumbrance_action# does not contain "year collected" OR
-						( isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user"))>					
+						( isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>					
 				        <cfif (#verbatim_date# is #began_date#) AND
 				 		    (#verbatim_date# is #ended_date#)>
 						    <cfset thisDate = #dateformat(began_date,"dd mmm yyyy")#>
@@ -318,7 +318,7 @@
 				</td>
 			    <td valign="top">
 			        <span class="annotateSpace">
-						<cfif len(#client.username#) gt 0>
+						<cfif len(#session.username#) gt 0>
 							<cfquery name="existingAnnotations" datasource="#Application.web_user#">
 								select count(*) cnt from specimen_annotations
 								where collection_object_id = #collection_object_id#
@@ -344,7 +344,7 @@
 	<cfelse>
 		<cfset isMS = "f">
 	</cfif>
-	<cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>					
+	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 	    <table>
 		    <tr>
 			    <td align="center">

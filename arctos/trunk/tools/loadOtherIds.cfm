@@ -45,7 +45,7 @@ The data from Access table OtherIdentifiers are presented below. Before you may 
 <!--- see if we can get a collection_object_id for these cataloged items --->
 <!--- 1st option: We got a cat number and a collection code --->
 <cfif len(#catalogNumber#) gt 0 AND len(#collectionCode#) gt 0>
-	<cfquery name="CatColl" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="CatColl" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		select collection_object_id FROM cataloged_item WHERE cat_num=#catalogNumber# and collection_cde='#collectionCode#'
 	</cfquery>
 	<cfif len(#CatColl.collection_object_id#) gt 0>
@@ -60,7 +60,7 @@ The data from Access table OtherIdentifiers are presented below. Before you may 
 </cfif>
 <!--- 2nd option: We got a collection code, and other id type, and an other ID number --->
 <cfif len(#collectionCode#) gt 0 AND len(#FindCatByIdentifierNumber#) gt 0 AND len(#FindCatByIdentifierType#) gt 0>
-	<cfquery name="OtherID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="OtherID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		select cataloged_item.collection_object_id 
 		FROM cataloged_item,coll_obj_other_id_num
 		WHERE 
@@ -106,7 +106,7 @@ The data from Access table OtherIdentifiers are presented below. Before you may 
 	<td>#FindCatByIdentifierType#</td>
 	<td>#FindCatByidentifierNumber#</td>
 	<td>
-		<cfquery name="isCt" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="isCt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			select other_id_type from ctcoll_other_id_type
 			where other_id_type='#LoadIdentifierType#'
 			AND collection_cde='#collectionCode#'
@@ -147,7 +147,7 @@ The data from Access table OtherIdentifiers are presented below. Before you may 
 	<cfloop query="genbank">
 	<!--- check data once more --->
 		<!--- code-table values ---->
-		<cfquery name="isGoodType" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="isGoodType" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			select other_id_type from ctcoll_other_id_type
 			where other_id_type='#LoadIdentifierType#'
 			AND collection_cde='#collectionCode#'
@@ -164,7 +164,7 @@ The data from Access table OtherIdentifiers are presented below. Before you may 
 				<cfabort>
 		</cfif>
 		<!---- looks like this record exists --->
-		<cfquery name="isCat" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="isCat" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			select cat_num from cataloged_item 
 			where collection_object_id = #OracleCollectionObjectId#
 			and collection_cde = '#collectionCode#'
@@ -178,7 +178,7 @@ The data from Access table OtherIdentifiers are presented below. Before you may 
 <!--- loop through again and load each record --->
 	<cfloop query="genbank">
 		
-		<cfquery name="load" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="load" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO coll_obj_other_id_num (collection_object_id, other_id_type, other_id_num)
 			VALUES (#OracleCollectionObjectId#, '#LoadIdentifierType#', '#loadidentifierNumber#')
 		</cfquery>

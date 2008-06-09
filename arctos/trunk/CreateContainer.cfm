@@ -31,7 +31,7 @@
 <cfoutput>
 		
 	<cfif #mkCont# is "valid" and #mkFluid# is "noTry">
-			<cfquery name="nextContainer" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="nextContainer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				SELECT (max(container_id) + 1) AS newid FROM container
 			</cfquery>
 			<cfset container_id = "#nextContainer.newid#">
@@ -75,7 +75,7 @@
 				<cfset number_positions = "null">
 				<cfelse><cfset number_positions = "#number_positions#">
 			</cfif>
-      <cfquery name="setDate" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+      <cfquery name="setDate" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					alter session set nls_date_format = 'DD-Mon-YYYY HH24:MI:SS'	
 		</cfquery>
 	  <cfset newContainerSQL="INSERT INTO 
@@ -110,7 +110,7 @@
 						0,
 						'#institution_acronym#')">
 				<cftransaction>
-					<cfquery name="newContainer" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					<cfquery name="newContainer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						#preservesinglequotes(newContainerSQL)#
 					</cfquery>
 				</cftransaction>
@@ -126,7 +126,7 @@
 			
 		<cfif #mkCont# is "valid" and #mkFluid# is "valid">
 			<!--- Get the next container_id --->
-			<cfquery name="nextContainer" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="nextContainer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				SELECT (max(container_id) + 1) AS newid FROM container
 			</cfquery>
 			<cfset container_id = "#nextContainer.newid#">
@@ -214,10 +214,10 @@
 						#concentration#,
 						#fluid_remarks#)">
 	<cftransaction>
-	 	<cfquery name="newFluidContainer" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	 	<cfquery name="newFluidContainer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				#preservesinglequotes(newFlSql)#
 		</cfquery>
-		<cfquery name="newContainer" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="newContainer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						#preservesinglequotes(newContainerSQL)#
 					</cfquery>
 	</cftransaction>

@@ -10,17 +10,17 @@ e:<input type="text" name="ColumnList">
 </form>
 <cfif #action# is "go">
 <hr>
-#client.resultColumnList#
+#session.resultColumnList#
 <hr>
 <cfif in_or_out is "in">
 in<br>
 		<cfloop list="#ColumnList#" index="i">
 		i=#i#<br>
-		<cfif not ListFindNoCase(client.resultColumnList,i,",")>
+		<cfif not ListFindNoCase(session.resultColumnList,i,",")>
 			not there<br>
-			<cfset client.resultColumnList = ListAppend(client.resultColumnList, i,",")>
+			<cfset session.resultColumnList = ListAppend(session.resultColumnList, i,",")>
 		<cfelse>
-			<cfset nothere=ListFindNoCase(client.resultColumnList,i,",")>
+			<cfset nothere=ListFindNoCase(session.resultColumnList,i,",")>
 			nothere:#nothere#<br>
 		</cfif>
 		</cfloop>
@@ -28,14 +28,14 @@ in<br>
 	out<br>
 		<cfloop list="#ColumnList#" index="i">
 		i=#i#<br>
-		<cfif ListFindNoCase(client.resultColumnList,i,",")>
+		<cfif ListFindNoCase(session.resultColumnList,i,",")>
 			is there <br>
-			<cfset client.resultColumnList = ListDeleteAt(client.resultColumnList, ListFindNoCase(client.resultColumnList,i,","),",")>
+			<cfset session.resultColumnList = ListDeleteAt(session.resultColumnList, ListFindNoCase(session.resultColumnList,i,","),",")>
 		</cfif>
 		</cfloop>
 	</cfif>
 <hr>
-#client.resultColumnList#
+#session.resultColumnList#
 <hr>
 </cfif>
 

@@ -140,7 +140,7 @@
 
 <cfoutput>
 
-        <cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
+        <cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 
                 <cfset flatTableName = "flat">
 
@@ -484,7 +484,7 @@
 
                         Error: <br> #errorInMeters# m<br/>'>
 
-                        <cfif isdefined("client.roles") and listfindnocase(client.roles,"coldfusion_user")>
+                        <cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 
                                 <cfset kml='#kml#<p><a href="#application.serverRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>'>
 

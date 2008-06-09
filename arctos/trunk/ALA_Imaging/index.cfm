@@ -136,7 +136,7 @@ sho err
 					'#thisNumType#',
 					'#thisNum#',
 					'#thisBarcode#',
-					'#client.username#',
+					'#session.username#',
 					sysdate
 				)
 			</cfquery>				

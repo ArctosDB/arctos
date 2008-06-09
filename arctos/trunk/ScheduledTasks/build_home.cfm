@@ -13,7 +13,7 @@
 			<cfdirectory action = "create" directory = "#cDir#" >
 		</cfif>
 		<!--- just rebuild guts --->
-		<cfset fc = "<cfset client.exclusive_collection_id = ""#collection_id#"">
+		<cfset fc = "<cfset session.exclusive_collection_id = ""#collection_id#"">
 			<cflocation url=""/SpecimenSearch.cfm"">">
 		<cffile action="write" file="#cDir#/index.cfm" nameconflict="overwrite" output="#fc#">
 	</cfloop>

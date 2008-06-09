@@ -18,7 +18,7 @@ order by scientific_name
 		<tr>
 			
 			<td>
-			<a href="#Application.ServerRootUrl#/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" target="#client.target#">#scientific_name#</a>
+			<a href="#Application.ServerRootUrl#/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" target="#session.target#">#scientific_name#</a>
 			</td>
 			<td>#phylclass#</td>
 			<td>#phylorder#</td>

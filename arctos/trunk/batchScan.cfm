@@ -127,15 +127,15 @@
 			<!--- only deal with things that have a pair of values --->
 			<cfif len(#thisChildBarcode#) gt 0 AND len(#thisParentBarcode#) gt 0>
 				<!--- check to make sure both are valid containers --->
-				<cfquery name="childID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="childID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					select container_id from container where barcode='#thisChildBarcode#'
 				</cfquery>
-				<cfquery name="parentID" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="parentID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					select container_id from container where barcode='#thisParentBarcode#'
 				</cfquery>
 				<cfif #childID.recordcount# is 1 and #parentID.recordcount# is 1>
 					<!--- ok, proceed to load them --->
-					<cfquery name="putItIn" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+					<cfquery name="putItIn" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 						INSERT INTO cf_temp_container_location (
 							CONTAINER_ID,
 							PARENT_CONTAINER_ID,

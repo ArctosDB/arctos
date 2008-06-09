@@ -305,7 +305,7 @@
 <cfif #action# is "update">
 <cfoutput>
 <cftransaction>
-	<cfquery name="setBorrow" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="setBorrow" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			UPDATE borrow SET
 				LENDERS_INVOICE_RETURNED_FG = #LENDERS_INVOICE_RETURNED_FG#,
 				<cfif len(#LENDERS_TRANS_NUM_CDE#) gt 0>
@@ -337,7 +337,7 @@
 			WHERE
 				TRANSACTION_ID=#TRANSACTION_ID#
 		</cfquery>
-		<cfquery name="setTrans" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="setTrans" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			UPDATE trans SET
 				NATURE_OF_MATERIAL = '#NATURE_OF_MATERIAL#',
 				<cfif len(#TRANS_REMARKS#) gt 0>
@@ -348,21 +348,21 @@
 			WHERE
 				TRANSACTION_ID=#TRANSACTION_ID#
 		</cfquery>
-		<cfquery name="wutsThere" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="wutsThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			select * from trans_agent where transaction_id=#transaction_id#
 			and trans_agent_role !='entered by'
 		</cfquery>
 		<cfloop query="wutsThere">
 			<!--- first, see if the deleted - if so, nothing else matters --->
 			<cfif isdefined("del_agnt_#trans_agent_id#")>
-				<cfquery name="wutsThere" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="wutsThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					delete from trans_agent where trans_agent_id=#trans_agent_id#
 				</cfquery>
 			<cfelse>
 				<!--- update, just in case --->
 				<cfset thisAgentId = evaluate("trans_agent_id_" & trans_agent_id)>
 				<cfset thisRole = evaluate("trans_agent_role_" & trans_agent_id)>
-				<cfquery name="wutsThere" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+				<cfquery name="wutsThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					update trans_agent set
 						agent_id = #thisAgentId#,
 						trans_agent_role = '#thisRole#'
@@ -372,7 +372,7 @@
 			</cfif>
 		</cfloop>
 		<cfif isdefined("new_trans_agent_id") and len(#new_trans_agent_id#) gt 0>
-			<cfquery name="newAgent" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="newAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				insert into trans_agent (
 					transaction_id,
 					agent_id,
@@ -531,10 +531,10 @@
 <cfoutput>
 	
 	<cftransaction>
-	<cfquery name="killBorrow" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="killBorrow" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			delete from borrow where transaction_id=#transaction_id#
 		</cfquery>
-		<cfquery name="killTrans" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="killTrans" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			delete from trans where transaction_id=#transaction_id#
 		</cfquery>
 		</cftransaction>
@@ -555,7 +555,7 @@
 	<cfset nextBorrowNum = #nextBorrow.borrow_num# + 1>
 	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 	<cftransaction>
-	<cfquery name="newTrans" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="newTrans" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO trans (
 				 TRANSACTION_ID,
 				<cfif len(#TRANS_DATE#) gt 0>
@@ -579,7 +579,7 @@
 				'#NATURE_OF_MATERIAL#',
 				'#institution_acronym#')
 		</cfquery>
-		<cfquery name="newBorrow" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="newBorrow" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO borrow (
 				TRANSACTION_ID,
 				<cfif len(#LENDERS_TRANS_NUM_CDE#) gt 0>
@@ -621,7 +621,7 @@
 				</cfif>
                  '#BORROW_STATUS#')
 		</cfquery>
-		<cfquery name="authBy" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="authBy" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO trans_agent (
 				    transaction_id,
 				    agent_id,
@@ -631,7 +631,7 @@
 					#AUTH_AGENT_ID#,
 					'authorized by')
 			</cfquery>
-			<cfquery name="newLoan" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="newLoan" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO trans_agent (
 				    transaction_id,
 				    agent_id,

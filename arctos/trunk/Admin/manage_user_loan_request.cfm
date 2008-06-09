@@ -93,7 +93,7 @@
 	agent_name
 	where
 	contact_agent_id=agent_id and
-	agent_name='#client.username#' and
+	agent_name='#session.username#' and
 	contact_role='loan request'		
 </cfquery>
 <cfif #whoAreYou.recordcount# is 0>
@@ -108,7 +108,7 @@
 		<cfquery name="rec" datasource="#Application.web_user#">
 			select agent_id from agent_name where 
 			agent_name_type='login' and 
-			agent_name='#client.username#'
+			agent_name='#session.username#'
 		</cfquery>
 		<cfif #rec.recordcount# is 1>
 			<cfset RECONCILED_BY_PERSON_ID = #rec.agent_id#>
@@ -432,7 +432,7 @@
 			contact_role='loan request' and
 			address_type='e-mail'
 	</cfquery>
-	You are logged in as #client.username#, the loan request contact for collection(s):
+	You are logged in as #session.username#, the loan request contact for collection(s):
 	<br /><span style="font-size:12px; font-style:italic;">
 		Note: if you see nothing below, you may not have an email address on file.
 	</span>

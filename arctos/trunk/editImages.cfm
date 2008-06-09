@@ -288,13 +288,13 @@ Existing Images:
 <cfif #Action# is "deleteImage">
 <cfoutput>
 	<cftransaction>
-		<cfquery name="predeleImg" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="predeleImg" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			select * from binary_object where collection_object_id=#imageID#
 		</cfquery>
-		<cfquery name="deleImgObj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="deleImgObj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			delete from coll_object where collection_object_id=#imageID#
 		</cfquery>
-		<cfquery name="deleImg" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="deleImg" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			delete from binary_object where collection_object_id=#imageID#
 		</cfquery>
 	</cftransaction>
@@ -308,7 +308,7 @@ Existing Images:
 		</cfif>
 		<cfif #predeleImg.thumbnail_url# contains #Application.ServerRootUrl#>
 			<!--- thumbnails are sometimes shared --->
-			<cfquery name="sharedTN" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+			<cfquery name="sharedTN" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				select count(*) cnt from binary_object where collection_object_id != #imageID#
 				and thumbnail_url='#predeleImg.thumbnail_url#'
 			</cfquery>
@@ -333,7 +333,7 @@ Existing Images:
 	<cfquery name="viewer_id" datasource="#Application.web_user#">
 		select viewer_id from viewer where viewer='#viewer#'
 	</cfquery>
-	<cfquery name="upBin" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="upBin" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	UPDATE binary_object SET
 		viewer_id=#viewer_id.viewer_id#
 		,made_date='#dateformat(made_date,"dd-mmm-yyyy")#'
@@ -352,12 +352,12 @@ Existing Images:
 	WHERE
 		collection_object_id=#imageID#
 		</cfquery>
-			<cfquery name="upColObj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				update coll_object set LAST_EDITED_PERSON_ID=#client.myAgentId#,LAST_EDIT_DATE=sysdate
+			<cfquery name="upColObj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				update coll_object set LAST_EDITED_PERSON_ID=#session.myAgentId#,LAST_EDIT_DATE=sysdate
 				where collection_object_id=#imageID#
 			</cfquery>
-			<cfquery name="upSpecColObj" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
-				update coll_object set LAST_EDITED_PERSON_ID=#client.myAgentId#,LAST_EDIT_DATE=sysdate
+			<cfquery name="upSpecColObj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				update coll_object set LAST_EDITED_PERSON_ID=#session.myAgentId#,LAST_EDIT_DATE=sysdate
 				where collection_object_id=#collection_object_id#
 			</cfquery>
 		<cf_logEdit collection_object_id="#collection_object_id#">
@@ -585,7 +585,7 @@ Edit Image:
 			<cfset preview_url="">
 		</cfcatch>
 	</cftry>
-	<cfset enteredbyid = client.myAgentId>
+	<cfset enteredbyid = session.myAgentId>
 	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 	<cfquery name="nextID" datasource="#Application.web_user#">
 		select max(collection_object_id) + 1 as nextID from coll_object
@@ -594,7 +594,7 @@ Edit Image:
 		select viewer_id from viewer where viewer = '#viewer#'
 	</cfquery>
 	<cftransaction>
-	<cfquery name="updateColl" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="updateColl" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO coll_object (
 			collection_object_id,
 			coll_object_type,
@@ -616,7 +616,7 @@ Edit Image:
 			'not applicable',
 			0 )
 	</cfquery>
-	<cfquery name="instImage" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+	<cfquery name="instImage" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO binary_object (
 			 COLLECTION_OBJECT_ID,
 			 VIEWER_ID,
@@ -651,7 +651,7 @@ Edit Image:
 	</cfquery>
 	<cfif len(#preview_url#) gt 0>
 		<cfset thisCollObjId = #nextID.nextID# + 1>
-		<cfquery name="updateColl" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="updateColl" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO coll_object (
 				collection_object_id,
 				coll_object_type,
@@ -673,7 +673,7 @@ Edit Image:
 				'not applicable',
 				0 )
 		</cfquery>
-		<cfquery name="instImage" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+		<cfquery name="instImage" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO binary_object (
 				 COLLECTION_OBJECT_ID,
 				 DERIVED_FROM_COLL_OBJ,

@@ -202,8 +202,8 @@
 				<ul>
 					<li><a href="/myArctos.cfm">Preferences</a></li>
 					<li><a href="/user_loan_request.cfm">Use Specimens</a></li>
-					<cfif len(#client.username#) gt 0>
-						<li><a href="/login.cfm?action=signOut">Log Out #client.username#</a></li>
+					<cfif len(#session.username#) gt 0>
+						<li><a href="/login.cfm?action=signOut">Log Out #session.username#</a></li>
 					<cfelse>
 						<li><a href="/login.cfm">Log In</a></li>
 					</cfif>
@@ -394,8 +394,8 @@
 				<ul>
 					<li><a href="/myArctos.cfm">Preferences</a></li>
 					<li><a href="/user_loan_request.cfm">Use Specimens</a></li>
-					<cfif len(#client.username#) gt 0>
-						<li><a href="/login.cfm?action=signOut">Log Out #client.username#</a></li>
+					<cfif len(#session.username#) gt 0>
+						<li><a href="/login.cfm?action=signOut">Log Out #session.username#</a></li>
 					<cfelse>
 						<li><a href="/login.cfm">Log In</a></li>
 					</cfif>

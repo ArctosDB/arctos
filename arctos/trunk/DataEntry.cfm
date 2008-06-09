@@ -52,7 +52,7 @@ Some Totally Random String Data .....
 <!------------ default page --------------------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
 <!--- prime the bulkloader table with templates for each collection ---->
-<cfquery name="c" datasource="user_login" username="#client.username#" password="#decrypt(client.epw,cfid)#">
+<cfquery name="c" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	select * from collection ORDER BY COLLECTION_ID
 </cfquery>
 <cfoutput>
@@ -97,7 +97,7 @@ Some Totally Random String Data .....
 		</cfif>
 	</cfloop>
 	
-	Welcome to the enter and edit unbulked data application, #client.username# 
+	Welcome to the enter and edit unbulked data application, #session.username# 
 	<ul>
 		<li>Green Screen: You are entering data to a new record.</li>
 		<li>Blue Screen: you are editing an unloaded record that you've previously entered.</li>
@@ -112,7 +112,7 @@ Some Totally Random String Data .....
 						max(collection_object_id) theId,
 						collection_cde collnCde,
 						institution_acronym instAc
-					from bulkloader where enteredby = '#client.username#'
+					from bulkloader where enteredby = '#session.username#'
 					GROUP BY
 						collection_cde,
 						institution_acronym
@@ -280,7 +280,7 @@ Some Totally Random String Data .....
 	 from ctattribute_code_tables
 </cfquery>
 <!----------------- end dropdowns --------------------->
-<cfset thisUser = "#client.username#">
+<cfset thisUser = "#session.username#">
 <cfset sql = "select collection_object_id from bulkloader
 	where collection_object_id > 10">
 	
@@ -364,9 +364,9 @@ Some Totally Random String Data .....
 							id="other_id_num_5" class="d11a">
 					</cfif>
 					---->
-					<cfif isdefined("client.CustomOtherIdentifier") and len(#client.CustomOtherIdentifier#) gt 0>
-						<span class="f11a">#client.CustomOtherIdentifier#</span>
-							<input type="hidden" name="other_id_num_type_5" value="#client.CustomOtherIdentifier#" id="other_id_num_type_5" />
+					<cfif isdefined("session.CustomOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
+						<span class="f11a">#session.CustomOtherIdentifier#</span>
+							<input type="hidden" name="other_id_num_type_5" value="#session.CustomOtherIdentifier#" id="other_id_num_type_5" />
 							<input type="text" name="other_id_num_5" value="#other_id_num_5#" 
 								size="8"
 								id="other_id_num_5" class="d11a">
@@ -1952,12 +1952,12 @@ Some Totally Random String Data .....
 							<cfif #ImAGod# is not "yes"><input type="hidden"
 								name="enteredby" 
 								
-								value="#client.username#"
+								value="#session.username#"
 								
 								id="enteredby"
 								class="d11a readClr"/>
 								
-							<input type="text" name="fake" value="#client.username#" disabled="disabled" /> 
+							<input type="text" name="fake" value="#session.username#" disabled="disabled" /> 
 								<cfelseif #ImAGod# is "yes">
 								<input type="text"
 								name="enteredby" 
@@ -3242,7 +3242,7 @@ Some Totally Random String Data .....
 				<td width="16%">	
 					<input type="button" value="Table View" class="lnkBtn"
 						   	onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-							onclick="window.open('userBrowseBulkedGrid.cfm','#client.target#');" />
+							onclick="window.open('userBrowseBulkedGrid.cfm','#session.target#');" />
 				</td>
 				<td align="right" width="16%" nowrap="nowrap">
 					<span id="browseThingy">
@@ -3351,7 +3351,7 @@ Some Totally Random String Data .....
 	</cftransaction>
 	<cfquery name="next" datasource="#Application.web_user#">
 		select max(collection_object_id) as collection_object_id from bulkloader 
-		where enteredby = '#client.username#'
+		where enteredby = '#session.username#'
 	</cfquery>
 	<cfif #len(next.collection_object_id)# is 0>
 		<cflocation url="DataEntry.cfm">
