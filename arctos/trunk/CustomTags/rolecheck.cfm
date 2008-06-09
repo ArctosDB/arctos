@@ -59,7 +59,6 @@ isValid.recordcount: #isValid.recordcount#;
 <cfif isdefined("badyou")>
 	<cfset badguy = "#cgi.HTTP_X_Forwarded_For##chr(9)##remote_host##chr(9)##cgi.SCRIPT_NAME##chr(9)##dateformat(now(),'dd-mmm-yyyy')# #TimeFormat(Now(),'HH:mm:ss')#">
 	<cffile action='append' file='#logfile#' addnewline='yes' output='#badguy#'>
-	<cfcookie name="ArctosSession" value="-" expires="NOW" domain="#Application.domain#" path="/">
     <cfmail subject="Access Violation" to="#Application.technicalEmail#" from="Security@#Application.fromEmail#" type="html">
 		IP address (#cgi.HTTP_X_Forwarded_For# - #remote_host#) tried to access
 		#escapeGoofyInstall#
@@ -136,7 +135,8 @@ isValid.recordcount: #isValid.recordcount#;
 		They have permissions to be here.
 		Refresh their timeout and set up a timer to remind them of expiring sessions 
 	--->
-	<span class="sessionTimer" id="sessionTimer"></span>
+		<!----
+			<span class="sessionTimer" id="sessionTimer"></span>
     <script type="text/javascript">
 		function showSessionTimeLeft () {
 			//alert('get timeout')
@@ -163,7 +163,9 @@ isValid.recordcount: #isValid.recordcount#;
 			}
 		}
 		 setTimeout('showSessionTimeLeft()', 10);
+		 
 	</script>
+	---->
 
 </cfif>
 </cfoutput>
