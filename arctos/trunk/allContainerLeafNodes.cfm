@@ -14,15 +14,17 @@
 	<cfquery name="leaf" datasource="#Application.web_user#">
 		select 
 			container.container_id, 
-			container_type,
-			label,
-			description,
-			barcode,
-			container_remarks
+			container.container_type,
+			container.label,
+			container.description,
+			p.barcode,
+			container.container_remarks
 		from 
-			container
+			container,
+			container p
 		where 
-			container_type='collection object'
+			container.parent_container_id=p.container_id (+) and
+			container.container_type='collection object'
 		start with 
 			container.container_id=#container_id#
 		connect by 
@@ -35,7 +37,7 @@
 		<tr>
 			<td><strong>Label</strong></td>
 			<td><strong>Description</strong></td>
-			<td><strong>Barcode</strong></td>
+			<td><strong>In Barcode</strong></td>
 			<td><strong>Remarks</strong></td>
 			<td><strong>Part Name</strong></td>
 			<td><strong>Cat Num</strong></td>

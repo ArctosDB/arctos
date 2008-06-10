@@ -30,6 +30,7 @@
 		coll_obj_cont_hist.collection_object_id = specimen_part.collection_object_id (+) AND 
 		specimen_part.derived_from_cat_item = cataloged_item.collection_object_id   (+) AND 
 		cataloged_item.collection_object_id = identification.collection_object_id (+) AND
+		identification.accepted_id_fg=1 and
 		container.container_id=#container_id#
 </cfquery>
 <font size="+1"><strong> Container Details</strong></font>
