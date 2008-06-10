@@ -53,7 +53,7 @@ function showSpecTreeOnly (colobjid) {
 	
 	var q="collection_object_id=" + colobjid;
 
-	//DWREngine._execute(_containerTree_func, null,'get_containerTree',q,loadTree_success);
+	DWREngine._execute(_containerTree_func, null,'get_containerTree',q,loadTree_success);
 }
 
 function loadTree_success(result) {
