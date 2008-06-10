@@ -90,7 +90,7 @@ function expandNode_success (result) {
 
 function checkHandler (id){
 	newTree.setCheck(id,0)
-	var rootsAr = newTree.getSubItems(0).split(",")
+	var rootsAr = newTree.getAllRowIds().split(",")
 	for(var i=0;i<rootsAr.length;i++){ 
 		//newTree.setItemColor(rootsAr[i],'purple','green') 
 		alert(rootsAr[i]);
