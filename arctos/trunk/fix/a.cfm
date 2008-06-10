@@ -1,3 +1,4 @@
+<cfform >
 <cfinput type="text" 
     autosuggest="Alabama,Alaska,Arkansas,Arizona,Maryland,Minnesota,Missouri"
     name="city">
@@ -5,6 +6,8 @@
 	<cfinput type="text" 
     autosuggest="Alabama,Alaska,Arkansas,Arizona,Maryland,Minnesota,Missouri"
     name="ci_ty">
+	
+	</cfform>
 <!--- Use an array to setup some Java reflection --->
 <cfset a = ArrayNew(1) />
 <cfset sessionClass = a.getClass().forName('coldfusion.runtime.SessionScope') />
