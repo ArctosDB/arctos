@@ -96,10 +96,12 @@
 </div>
 
 <cfif isdefined("url.collection_object_id") and len(#url.collection_object_id#) gt 0>
+	found a collobjid inthe url
 	<script language="javascript" type="text/javascript">
 		showSpecTreeOnly('#url.collection_object_id#');
 	</script>
 <cfelse>
+	nuthin to see here
 	<cfset autoSubmit=false>
 	<cfloop list="#StructKeyList(url)#" index="key">
 	<cfif len(#url[key]#) gt 0>
