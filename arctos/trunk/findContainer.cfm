@@ -68,6 +68,7 @@
 				</select>	
 				<label for="other_id_value">OID Value (% for wildcard)</label>
 				<input type="text" name="other_id_value" id="other_id_value" />
+				<input type="hidden" name="collection_object_id" id="collection_object_id" />
 				<br>
 				<input type="submit" value="Search"
 					class="schBtn">
