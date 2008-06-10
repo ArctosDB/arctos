@@ -11,7 +11,9 @@ function loadTree () {
 	var q;
 	for (f in arrFld) {
 		if (document.getElementById(f)){
+			alert(f);
 			var v = document.getElementById(f).value;
+			alert('v'+v)
 			if (v.length > 0) {
 				var n = f + '=' + v;
 				if (q.length==0) {
