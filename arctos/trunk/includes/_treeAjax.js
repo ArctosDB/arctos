@@ -145,7 +145,6 @@ function checkHandler (id){
 }
 
 function downloadTree () {
-	/*
 	var fatAr = newTree.getAllFatItems().split(",")
 	var leafAr = newTree.getAllLeafs().split(",")
 	var rootsAr = fatAr.concat(leafAr);
@@ -155,11 +154,7 @@ function downloadTree () {
 	}
 	var cutAr=cidAr.slice(1);
 	var cid=cutAr.join(",");
-	alert(cid);
-	*/
-	var a=newTree.serializeTreeToJSON();
-	var detailPane = document.getElementById('detailPane');
-	detailPane.innerHTML=a;
+	window.open('locDownload.cfm?container_id=' + cid);
 }
 
 
