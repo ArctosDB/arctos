@@ -1,13 +1,223 @@
 
 <cfinclude template="/ajax/core/cfajax.cfm">
-
-<cffunction name="test" returntype="string">
-		<cfset result="test alkjsgfhalkjh">
-		<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
+<!-------------------------------------------------------------->
+<cffunction name="get_containerTree" returntype="query">
+	<cfargument name="cat_num" required="yes" type="string">
+	<cfargument name="barcode" required="yes" type="string">
+	<cfargument name="container_label" required="yes" type="string">
+	<cfargument name="description" required="yes" type="string">
+	<cfargument name="container_type" required="yes" type="string">
+	<cfargument name="part_name" required="yes" type="string">
+	<cfargument name="collection_id" required="yes" type="string">
+	<cfargument name="other_id_type" required="yes" type="string">
+	<cfargument name="other_id_value" required="yes" type="string">
+	
+	<cfif len(#cat_num#) is 0 AND
+		len(#barcode#) is 0 AND
+		len(#container_label#) is 0 AND
+		len(#description#) is 0 AND
+		len(#container_type#) is 0 AND
+		len(#part_name#) is 0 AND
+		len(#collection_id#) is 0 and
+		len(#other_id_type#) is 0 and
+		len(#other_id_value#) is 0
+		>
+		
+		 <cfset result = querynew("container_id")>
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "container_id", "You must enter search criteria.", 1)>
 		<cfreturn result>
-</cffunction>
-
-
+		<cfabort>
+	</cfif>
+	
+	<cfset sel = "SELECT container.container_id">
+	<cfset frm = " FROM container ">
+	<cfif len(#cat_num#) gt 0 and #cat_num# neq "-1">
+		<cfif #frm# does not contain " coll_obj_cont_hist ">
+			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
+		</cfif>
+		<cfif #frm# does not contain " specimen_part ">
+			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
+		</cfif>
+		<cfif #frm# does not contain " cataloged_item ">
+			<cfset frm = "#frm# inner join cataloged_item on (specimen_part.derived_from_cat_item=cataloged_item.collection_object_id)">
+		</cfif>
+		<cfset whr = "#whr# AND cataloged_item.cat_num IN (#cat_num#)">
+	 </cfif>
+	<cfif len(#other_id_type#) gt 0 and #other_id_type# neq "-1">
+		<cfif #frm# does not contain " coll_obj_cont_hist ">
+			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
+		</cfif>
+		<cfif #frm# does not contain " specimen_part ">
+			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
+		</cfif>
+		<cfif #frm# does not contain " cataloged_item ">
+			<cfset frm = "#frm# inner join cataloged_item on (specimen_part.derived_from_cat_item=cataloged_item.collection_object_id)">
+		</cfif>
+		<cfif #frm# does not contain " coll_obj_other_id_num ">
+			<cfset frm = "#frm# inner join coll_obj_other_id_num on (cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id)">
+		</cfif>
+		<cfset whr = "#whr# AND OTHER_ID_TYPE = '#other_id_type#'">
+	 </cfif>
+	 <cfif len(#other_id_value#) gt 0 and #other_id_value# neq "-1">
+		<cfif #frm# does not contain " coll_obj_cont_hist ">
+			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
+		</cfif>
+		<cfif #frm# does not contain " specimen_part ">
+			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
+		</cfif>
+		<cfif #frm# does not contain " cataloged_item ">
+			<cfset frm = "#frm# inner join cataloged_item on (specimen_part.derived_from_cat_item=cataloged_item.collection_object_id)">
+		</cfif>
+		<cfif #frm# does not contain " coll_obj_other_id_num ">
+			<cfset frm = "#frm# inner join coll_obj_other_id_num on (cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id)">
+		</cfif>		
+		<cfset whr = "#whr# AND upper(display_value) like '%#ucase(other_id_value)#%'">
+	 </cfif>
+	 <cfif len(#barcode#) gt 0 and #barcode# neq "-1">
+	 	<cfset bclist = "">
+		<cfloop list="#barcode#" index="i">
+			<cfif len(#bclist#) is 0>
+				<cfset bclist = "'#i#'">
+			<cfelse>
+				<cfset bclist = "#bclist#,'#i#'">
+			</cfif>
+		</cfloop>
+		<cfset whr = "#whr# AND barcode IN (#bclist#)">
+	</cfif>
+	<cfif len(#container_label#) gt 0 and #container_label# neq "-1">
+		<cfset whr = "#whr# AND label = '#container_label#'">
+	 </cfif>
+	  <cfif len(#description#) gt 0 and #description# neq "-1">
+		<cfset whr = "#whr# AND upper(description) LIKE '%#ucase(description)#%'">
+	 </cfif>
+	  <cfif len(#container_type#) gt 0 and #container_type# neq "-1">
+		<cfset whr = "#whr# AND container_type='#container_type#'">
+	 </cfif>
+	 <cfif len(#part_name#) gt 0 and #part_name# neq "-1">
+		<cfif #frm# does not contain " coll_obj_cont_hist ">
+			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
+		</cfif>
+		<cfif #frm# does not contain " specimen_part ">
+			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
+		</cfif>
+		<cfset whr = "#whr# AND specimen_part.part_Name='#part_Name#'">
+	 </cfif>
+	<cfif len(#collection_id#) gt 0 and #collection_id# neq "-1">
+		<cfif #frm# does not contain " coll_obj_cont_hist ">
+			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
+		</cfif>
+		<cfif #frm# does not contain " specimen_part ">
+			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
+		</cfif>
+		<cfif #frm# does not contain " cataloged_item ">
+			<cfset frm = "#frm# inner join cataloged_item on (specimen_part.derived_from_cat_item=cataloged_item.collection_object_id)">
+		</cfif>
+		<cfset whr = "#whr# AND cataloged_item.collection_id = #collection_id#">
+	 </cfif>
+	<cfif len(#contr_id#) gt 0 and #contr_id# neq "-1">
+		<cfset whr = "#whr# AND container.container_id = #contr_id#">
+	 </cfif>
+	 
+	
+	
+		<cfset sql = "#sel# #frm# #whr#">
+		<!---
+		<cfset result = querynew("treeID,container_id")>
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "treeID", "-1", 1)>
+		<cfset temp = QuerySetCell(result,"container_id", "#sql#", 1)>
+		<cfreturn result>
+		<cfabort>
+		--->
+		<cfset thisSql = "
+				SELECT 
+					CONTAINER_ID,
+				PARENT_CONTAINER_ID,
+				CONTAINER_TYPE,
+				DESCRIPTION,
+				PARENT_INSTALL_DATE,
+				CONTAINER_REMARKS,
+				someRandomSequence.nextval ID,
+				label
+				 from container
+				start with container_id IN (
+					#sql#
+				)
+				connect by prior parent_container_id = container_id
+			">
+					
+			 <cftry>
+			 	 <cfquery name="queriedFor" datasource="#Application.web_user#" timeout="60">
+					#preservesinglequotes(thisSql)#
+				 </cfquery>
+				<cfcatch>
+					<cfset result = querynew("treeID,container_id")>
+					<cfset temp = queryaddrow(result,1)>
+					<cfset temp = QuerySetCell(result, "treeID", "-1", 1)>
+					<cfset temp = QuerySetCell(result, "container_id", "A query error occured: #cfcatch.Message# #cfcatch.Detail# -#thisSql#-", 1)>
+					<cfreturn result>
+					<cfabort>
+				</cfcatch>
+			 </cftry>
+			
+		 	<cfif #queriedFor.recordcount# is 0>
+				<cfset result = querynew("treeID,container_id")>
+				<cfset temp = queryaddrow(result,1)>
+				<cfset temp = QuerySetCell(result, "treeID", "-1", 1)>
+				<cfset temp = QuerySetCell(result, "container_id", "No records were found.", 1)>
+				<cfreturn result>
+				<cfabort>
+	   		</cfif>
+				 <cfquery name="ro" dbtype="query">
+					select 
+						CONTAINER_ID,
+						PARENT_CONTAINER_ID,
+						CONTAINER_TYPE,
+						DESCRIPTION,
+						PARENT_INSTALL_DATE,
+						CONTAINER_REMARKS,
+						label,
+						id
+					 from queriedFor
+					group by
+						CONTAINER_ID,
+						PARENT_CONTAINER_ID,
+						CONTAINER_TYPE,
+						DESCRIPTION,
+						PARENT_INSTALL_DATE,
+						CONTAINER_REMARKS,
+						label,
+						id
+						order by id desc
+				 </cfquery>
+	 			<cfset alreadyGotOne = "-1">
+				<cfset i=1>
+				<cfset result = querynew("treeID,container_id,parent_container_id,label,container_type")>
+	  			<cfloop query="ro">
+	  				<cfif not listfind(alreadyGotOne,CONTAINER_ID)>
+						<cfif #PARENT_CONTAINER_ID# is 0>
+							<cfset thisParent = "container0">
+						<cfelse>
+							<cfset thisParent = #PARENT_CONTAINER_ID#>
+						</cfif>
+						<cfset temp = queryaddrow(result,1)>
+						<cfset temp = QuerySetCell(result, "treeID", "#treeID#", #i#)>
+						<cfset temp = QuerySetCell(result, "container_id", "#container_id#", #i#)>
+						<cfset temp = QuerySetCell(result, "parent_container_id", "#thisParent#", #i#)>
+						<cfset temp = QuerySetCell(result, "label", "#label#", #i#)>
+						<cfset temp = QuerySetCell(result, "container_type", "#ro.container_type#", #i#)>
+						<!---
+						<cfset theString = '#theString#tree_#treeID#.insertNewChild("#thisParent#",#CONTAINER_ID#,"#label# (#ro.CONTAINER_TYPE#)",0,0,0,0,"",1);'>
+					--->
+						<cfset alreadyGotOne = "#alreadyGotOne#,#CONTAINER_ID#">
+						<cfset i=#i#+1>
+					</cfif>
+					
+	  			</cfloop>
+		<cfreturn result>
+</cffunction>	
+<!-------------------------------------------------------------->
 
 <!-------------------------------------------------------------->
 
@@ -180,7 +390,7 @@
 
 
 <!-------------------------------------------------------------->
-<cffunction name="get_containerTree" returntype="query">
+<cffunction name="get_containerTree_old" returntype="query">
 	<cfargument name="treeID" required="yes" type="string">
 	<cfargument name="srch" required="yes" type="string">
 	<cfargument name="cat_num" required="yes" type="string">
