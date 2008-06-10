@@ -23,9 +23,10 @@
 		len(#other_id_value#) is 0
 		>
 		
-		 <cfset result = querynew("container_id")>
+		 <cfset result = querynew("container_id,msg")>
 		<cfset temp = queryaddrow(result,1)>
-		<cfset temp = QuerySetCell(result, "container_id", "You must enter search criteria.", 1)>
+		<cfset temp = QuerySetCell(result, "container_id", "-1", 1)>
+		<cfset temp = QuerySetCell(result, "msg", "You must enter search criteria.", 1)>
 		<cfreturn result>
 	</cfif>
 	
@@ -151,20 +152,20 @@
 					#preservesinglequotes(thisSql)#
 				 </cfquery>
 				<cfcatch>
-					<cfset result = querynew("treeID,container_id")>
+					<cfset result = querynew("container_id,msg")>
 					<cfset temp = queryaddrow(result,1)>
-					<cfset temp = QuerySetCell(result, "treeID", "-1", 1)>
-					<cfset temp = QuerySetCell(result, "container_id", "A query error occured: #cfcatch.Message# #cfcatch.Detail# -#thisSql#-", 1)>
+					<cfset temp = QuerySetCell(result, "container_id", "-1", 1)>
+					<cfset temp = QuerySetCell(result, "msg", "A query error occured: #cfcatch.Message# #cfcatch.Detail# -#thisSql#-", 1)>
 					<cfreturn result>
 					<cfabort>
 				</cfcatch>
 			 </cftry>
 			
 		 	<cfif #queriedFor.recordcount# is 0>
-				<cfset result = querynew("treeID,container_id")>
+				<cfset result = querynew("container_id,msg")>
 				<cfset temp = queryaddrow(result,1)>
-				<cfset temp = QuerySetCell(result, "treeID", "-1", 1)>
-				<cfset temp = QuerySetCell(result, "container_id", "No records were found.", 1)>
+				<cfset temp = QuerySetCell(result, "container_id", "-1", 1)>
+				<cfset temp = QuerySetCell(result, "msg", "No records were found.", 1)>
 				<cfreturn result>
 				<cfabort>
 	   		</cfif>
@@ -192,7 +193,7 @@
 				 </cfquery>
 	 			<cfset alreadyGotOne = "-1">
 				<cfset i=1>
-				<cfset result = querynew("treeID,container_id,parent_container_id,label,container_type")>
+				<cfset result = querynew("container_id,parent_container_id,label,container_type")>
 	  			<cfloop query="ro">
 	  				<cfif not listfind(alreadyGotOne,CONTAINER_ID)>
 						<cfif #PARENT_CONTAINER_ID# is 0>
@@ -201,7 +202,6 @@
 							<cfset thisParent = #PARENT_CONTAINER_ID#>
 						</cfif>
 						<cfset temp = queryaddrow(result,1)>
-						<cfset temp = QuerySetCell(result, "treeID", "#treeID#", #i#)>
 						<cfset temp = QuerySetCell(result, "container_id", "#container_id#", #i#)>
 						<cfset temp = QuerySetCell(result, "parent_container_id", "#thisParent#", #i#)>
 						<cfset temp = QuerySetCell(result, "label", "#label#", #i#)>
