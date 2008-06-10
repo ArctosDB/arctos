@@ -34,10 +34,29 @@
 	<cfreturn result>
 </cffunction>	
 
-
-
+<!-------------------------------------------------------------->
+<cffunction name="test" returntype="string">
+	<cfargument name="q" type="string" required="true">
+	<!--- accept a url-type argument, parse it out here --->
+	<cfset r="">
+	<cfloop list="#StructKeyList(q)#" index="key">
+		<cfif len(#url[key]#) gt 0>
+			<cfset r="#r#;#url[key]#">
+		</cfif>
+	</cfloop>
+	<cfreturn r>
+</cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="get_containerTree" returntype="query">
+	<cfargument name="q" type="string" required="true">
+	<!--- accept a url-type argument, parse it out here --->
+	<cfset r="">
+	<cfloop list="#StructKeyList(q)#" index="key">
+		<cfif len(#url[key]#) gt 0>
+			<cfset r="#r#;#url[key]#">
+		</cfif>
+	</cfloop>
+	<cfreturn r>
 	<cfargument name="cat_num" required="yes" type="string">
 	<cfargument name="barcode" required="yes" type="string">
 	<cfargument name="container_label" required="yes" type="string">
