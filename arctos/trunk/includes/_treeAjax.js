@@ -91,6 +91,11 @@ function expandNode_success (result) {
 		}
 	}
 }	
+function loadEdit(cid) {
+	var u='EditContainer.cfm?container_id=' + cid;
+	ahah(u,'detailPane',3);
+}
+
 
 function checkHandler (id){
 	var guts = "/ContDet.cfm?container_id=" + id;

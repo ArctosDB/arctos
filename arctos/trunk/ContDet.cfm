@@ -122,7 +122,7 @@ admH.innerHTML = '<a href="/EditContainer.cfm?container_id=' + container_id + '"
 			</td>
 			</tr>
 			<tr>
-				<td><a href="javascript:ahah('EditContainer.cfm?container_id=#container_id#&nohead=1','detailPane');">Edit this container</a>
+				<td><a href="javascript:loadEdit('#container_id#');">Edit this container</a>
 				 <a href="javascript:void(0);" onClick="getDocs('edit_container')"><img src="/images/info.gif" border="0"></a>
 			</td>
 			</tr>
