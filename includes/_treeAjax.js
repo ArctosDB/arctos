@@ -70,7 +70,7 @@ function loadTree_success(result) {
 		newTree.setImagePath("/images/dhtmlxTree/");
 		newTree.insertNewItem("0","container0","Parentless Void",0,0,0,0,"SELECT");
 		newTree.enableCheckBoxes(1);
-		newTree.enableDragAndDrop(true);
+		newTree.enableDragAndDrop(1);
 		newTree.attachEvent("onDblClick","expandNode")
 		newTree.attachEvent("onCheck","checkHandler")
 
