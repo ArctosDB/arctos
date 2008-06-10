@@ -38,16 +38,13 @@
 <cffunction name="testFunction" returntype="string">
 	<cfargument name="q" type="string" required="true">
 	<!--- accept a url-type argument, parse it out here --->
-	<cfreturn q>
-	<!---
 	<cfset r="">
 	<cfloop list="#q#" index="p" delimiters="&">
 		<cfset k=listgetat(p,1,"=")>
 		<cfset v=listgetat(p,2,"=")>
-		<cfset r="#r#----#p#">
+		<cfset r="#r#----#p#-#k#==#v#">
 	</cfloop>
 	<cfreturn r>
-	--->
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="get_containerTree" returntype="query">
