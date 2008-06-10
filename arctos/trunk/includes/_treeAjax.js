@@ -11,8 +11,8 @@ function loadTree () {
 	var q;
 	alert('l' + arrFld.length);
 	for (f in arrFld) {
-		alert('loopy');
-		if (document.getElementById(f)){
+		alert('f: ' + f);
+		if (eval(document.getElementById(f))){
 			alert(f);
 			var v = document.getElementById(f).value;
 			alert('v'+v)
