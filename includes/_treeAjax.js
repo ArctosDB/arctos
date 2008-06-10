@@ -89,10 +89,11 @@ function expandNode_success (result) {
 }	
 
 function checkHandler (id){
-	newTree.setCheck(id,0)
-	var rootsAr = newTree.getAllRowIds().split(",")
+	newTree.setCheck(id,0);
+	//container0
+	var rootsAr = newTree.getSubItems('0').split(",")
 	for(var i=0;i<rootsAr.length;i++){ 
-		//newTree.setItemColor(rootsAr[i],'purple','green') 
+		//newTree.getSubItems(rootsAr[i],'purple','green') 
 		alert(rootsAr[i]);
 	} 	
 	newTree.setItemColor(id,'blue','red');
