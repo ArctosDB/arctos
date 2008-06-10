@@ -161,12 +161,12 @@ function downloadTree () {
 function showTreeOnly(){
 	var theTreeDiv = document.getElementById('treePane');
 	theTreeDiv.className='';
-	
+	newTree.enableDragAndDrop(1);
 	document.getElementById('thisfooter').style.display='none';
 	document.getElementById('header_color').style.display='none';
 	document.getElementById('searchPane').style.display='none';	
 	document.getElementById('detailPane').style.display='none';
-	alert('reload to get your stuff back');
+	alert('reload to get your stuff back. Drag things around if you want.');
 }
 
 
