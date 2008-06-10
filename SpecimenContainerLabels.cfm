@@ -6,25 +6,6 @@
 	<form name="labels" method="post" action="SpecimenContainerLabels.cfm">
 		<input type="hidden" name="action">
 		<input type="button" 
-			value="Download Box Labels" 
-			class="lnkBtn"
-   			onmouseover="this.className='lnkBtn btnhov'" 
-			onmouseout="this.className='lnkBtn'"
-			onClick="window.open('/SpecimenResults.cfm?print_fg=1&detail_level=4&action=labels');">	
-		<input type="button" 
-			value="Print Vial Labels" 
-			class="lnkBtn"
-   			onmouseover="this.className='lnkBtn btnhov'" 
-			onmouseout="this.className='lnkBtn'"
-			onClick="window.open('/SpecimenResults.cfm?print_fg=2&detail_level=4&action=labels');">	
-   	<input type="button" 
-			value="Print Box Labels online" 
-			class="lnkBtn"
-   			onmouseover="this.className='lnkBtn btnhov'" 
-			onmouseout="this.className='lnkBtn'"
-			onClick="window.open('/SpecimenResults.cfm?print_fg=1&detail_level=4&action=flashyLabelyThingys');">	
-			
-		<input type="button" 
 			value="Clear Vial Labels" 
 			class="delBtn"
    			onmouseover="this.className='delBtn btnhov'" 

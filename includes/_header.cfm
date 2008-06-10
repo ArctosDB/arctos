@@ -191,8 +191,7 @@
 								<cfif listfind(formList,"/DataEntry.cfm")>
 									<li><a target="_top" href="/DataEntry.cfm">Data Entry</a></li>
 								</cfif>
-								<cfif listfind(formList,"/Bulkloader/Bulkloader.cfm")>
-									<li><a target="_top" href="/Bulkloader/Bulkloader.cfm">Bulkloader</a></li>
+								<cfif listfind(formList,"/Bulkloader/bulkloader_status.cfm")>
 									<li><a target="_top" href="/Bulkloader/bulkloaderLoader.cfm">Bulkload Specimens</a></li>
 									<li><a target="_top" href="/Bulkloader/bulkloader_status.cfm">Bulkloader Status</a></li>
 									<li><a target="_top" href="/Bulkloader/accessBL.cfm">Bulkloader Templates</a></li>
@@ -252,21 +251,17 @@
 										<li><a target="_top" href="/tools/dgr_locator.cfm">DGR Locator</a></li>
 									</cfif>
 									<cfif listfind(formList,"/EditContainer.cfm")>
-										<li><a target="_top" href="/LoadBarcodes.cfm">Load Labels</a></li>
+										<li><a target="_top" href="/LoadBarcodes.cfm">Upload Scan File</a></li>
 										<li><a target="_top" href="/EditContainer.cfm?action=newContainer">Create container</a></li>
-										<li><a target="_top" href="/SpecimenContainerLabels.cfm">Print label data</a></li>
-										<li><a target="_top" href="/CreateContainersForBarcodes.cfm?action=set">Load Specimen Labels</a></li>
+										<li><a target="_top" href="/SpecimenContainerLabels.cfm">Clear part Flags</a></li>
+										<li><a target="_top" href="/CreateContainersForBarcodes.cfm?action=set">Create Labels</a></li>
 									</cfif>
 									<cfif listfind(formList,"/moveContainer.cfm")>
-										<li><a target="_top" href="/batchScan.cfm">Scan Container</a></li>
-										<li><a target="_top" href="/moveContainer.cfm">Move container (old)</a></li>
-										<li><a target="_top" href="/a_moveContainer.cfm">Move container (boring)</a></li>
-										<li><a target="_top" href="/dragContainer.cfm">Move container (AJAX)</a></li>
+										<li><a target="_top" href="/a_moveContainer.cfm">Move container</a></li>
 										<li><a target="_top" href="/labels2containers.cfm">Label>Container</a></li>
-										<li><a target="_top" href="/bits2containers.cfm">Object>>Container</a></li>
 										<li><a target="_top" href="/aps.cfm">Object+BC>>Container</a></li>
-										<li><a target="_top" href="/containerContainer.cfm">Find Containers (AJAX)</a></li>
-										<li><a target="_top" href="/start.cfm?action=container">Find Containers (HTML)</a></li>
+										<li><a target="_top" href="/containerContainer.cfm">Find Containers</a></li>
+										<li><a target="_top" href="/start.cfm?action=container">--deleteFind Containers (HTML)--</a></li>
 									</cfif>		
 								</ul>
 							</li>
