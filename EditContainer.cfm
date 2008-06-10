@@ -1,10 +1,5 @@
-<cfif isdefined("url.nohead")>
-	<div style="display:none">
 <cfinclude template="includes/_header.cfm">
-</div>
-<cfelse>
-<cfinclude template="includes/_header.cfm">
-</cfif>
+
 <!--- 
 	add container check
 	2 Aug 2007 - DLM

@@ -117,19 +117,14 @@ admH.innerHTML = '<a href="/EditContainer.cfm?container_id=' + container_id + '"
 			</tr>
 		<cfelse>
 			<tr>
-				<td><a href="EditContainer.cfm?container_id=#container_id#">Edit this container</a>
-				 <a href="javascript:void(0);" onClick="getDocs('edit_container')"><img src="/images/info.gif" border="0"></a>
-			</td>
-			</tr>
-			<tr>
-				<td><a href="javascript:loadEdit('#container_id#');">Edit this container</a>
+				<td><a href="EditContainer.cfm?container_id=#container_id#" target="_blank">Edit this container</a> (new window)
 				 <a href="javascript:void(0);" onClick="getDocs('edit_container')"><img src="/images/info.gif" border="0"></a>
 			</td>
 			</tr>
 		</cfif>
 		<tr>
 			<td>
-				<a href="allContainerLeafNodes.cfm?container_id=#container_id#" target="#session.target#">
+				<a href="allContainerLeafNodes.cfm?container_id=#container_id#" target="_blank">
 						See all collection objects in this container</a>
 				<a href="javascript:void(0);" 
 					onClick="getDocs('location_tree','see_leaf')"><img src="/images/info.gif" border="0"></a>
