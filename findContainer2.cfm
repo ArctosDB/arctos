@@ -1,11 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
- 
+<cfset title='Find Containers'>
 <script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
 <script type="text/javascript" src="/includes/dhtmlxcommon.js"></script>
-<script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxtree.css">
 
-<script type='text/javascript' src='/includes/wz_dragdrop.js'></script>
+
 
 <script type='text/javascript' src='/includes/_treeAjax.js'></script>
 
