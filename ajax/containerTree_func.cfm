@@ -39,6 +39,7 @@
 	<cfargument name="q" type="string" required="true">
 	<!--- accept a url-type argument, parse it out here --->
 	<cfreturn q>
+	<!---
 	<cfset r="">
 	<cfloop list="#q#" index="p" delimiters="&">
 		<!---
@@ -48,6 +49,7 @@
 		<cfset r="#r#----#p#">
 	</cfloop>
 	<cfreturn r>
+	--->
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="get_containerTree" returntype="query">
