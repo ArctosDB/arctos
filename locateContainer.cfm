@@ -23,7 +23,7 @@ select
 	connect by prior parent_container_id = container_id 
 	</cfquery>
  <cfform name="myform2">
-      <cftree name="treeTest2" height="400" width="200" format="html" query="test">
+      <cftree name="treeTest2" height="400" width="200" format="html">
 			<cftreeitem display="boogity: #label#" query="test">
       </cftree>
    </cfform>
