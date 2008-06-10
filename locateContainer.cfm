@@ -1,5 +1,4 @@
-<cfinclude template="includes/_header.cfm">
-<CFCOMponent>
+<cfcomponent>
 <cffunction name="getNodes" access="remote" returntype="array">
    <cfargument name="path" type="String" required="false" default=""/>
    <cfargument name="value" type="String" required="true" default=""/>
@@ -32,7 +31,10 @@
       </cfif>
    <cfreturn result/>
 </cffunction>
-</CFCOMponent>
+</cfcomponent>
+
+<cfinclude template="includes/_header.cfm">
+
 
 <cfoutput>
    <cfform name="myform">
