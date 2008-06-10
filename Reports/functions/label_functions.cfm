@@ -165,7 +165,6 @@
 			<cfset meas = "#meas#=X">
 		</cfif>
 		<cfset meas=replace(meas,"mm","","all")>
-		<cfset meas=replace(meas,"g","","all")>
 		<cfset aAr[i] = #meas#>
 			
 		<cfset stripParts = "">
@@ -210,7 +209,7 @@
 
 	 <cfreturn d>
 </cffunction>
-
+<!---------------------------------------------------------------------->
 <cffunction name="format_uam_vial" access="public" returntype="Query">
     <cfargument name="d" required="true" type="query">
 	<cfset lAr = ArrayNew(1)>
@@ -382,7 +381,6 @@
 			<cfset meas = "#meas#=X">
 		</cfif>
 		<cfset meas=replace(meas,"mm","","all")>
-		<cfset meas=replace(meas,"g","","all")>
 		<cfset aAr[i] = #meas#>
 			
 		<cfset stripParts = "">
@@ -484,8 +482,12 @@
 		<cfif len(#coordinates#) gt 0>
 		 	<cfset locality = "#locality#, #coordinates#">
 		 </cfif>
-		  <cfif len(#ORIG_ELEV_UNITS#) gt 0>
-		 	<cfset locality = "#locality#. Elev. #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#">
+		 <cfif len(#ORIG_ELEV_UNITS#) gt 0>
+		 	<cfif MINIMUM_ELEVATION is MAXIMUM_ELEVATION>
+				<cfset locality = "#locality#. Elev. #MINIMUM_ELEVATION# #ORIG_ELEV_UNITS#">
+			<cfelse>
+				<cfset locality = "#locality#. Elev. #MINIMUM_ELEVATION#-#MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#">
+			</cfif>
 		 </cfif>
 		 <cfif len(#habitat#) gt 0>
 		 	<cfset locality = "#locality#, #habitat#">
