@@ -13,13 +13,12 @@ function loadTree () {
 	var other_id_value = document.getElementById('other_id_value').value;
 
 	//alert(treeID + " " + srch + " " + cat_num + " " + barcode + " " + container_label + " " + description + " " + container_type);
-	DWREngine._execute(_containerTree_func, null,'get_containerTree',cat_num,barcode,container_label,description, 
-		container_type,part_name,collection_id,other_id_type,other_id_value,  loadTree_success);
+	DWREngine._execute(_containerTree_func, null,'get_containerTree',cat_num,barcode,container_label,description,container_type,part_name,collection_id,other_id_type,other_id_value,  loadTree_success);
 	
 }
 
 function loadTree_success(result) {
-	//alert(result);
+	alert(result);
 	var error = result[0].CONTAINER_ID;
 	if (error==-1) {
 		alert(error);
