@@ -86,7 +86,6 @@
 	<cfset other_id_type="">
 	<cfset other_id_value="">
 	<cfset collection_object_id="">
-	<cfset parent_freezer="">
 	
 	<cfloop list="#q#" index="p" delimiters="&">
 		<cfset k=listgetat(p,1,"=")>
@@ -227,10 +226,7 @@
 				CONTAINER_REMARKS,
 				someRandomSequence.nextval ID,
 				label
-				 from container">
-  	<cfif len(#parent_freezer#) gt 0>
-	
-	</cfif>
+				 from container
 				start with container_id IN (
 					#sql#
 				)
