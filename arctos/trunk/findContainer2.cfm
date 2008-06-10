@@ -88,8 +88,15 @@
 		</td>
 	</tr>
 </table>
+<cfset autoSubmit=false>
 <cfloop list="#StructKeyList(url)#" index="key">
- <cfif len(#url[key]#) gt 0>
+<cfif len(#url[key]#) gt 0>
+	<cfset autoSubmit=true>
+	<script language="javascript" type="text/javascript">
+		if (document.getElementById(lower('#key#''))) {
+			document.getElementById(lower('#key#''))).value='#url[key]#';
+		}
+	</script>
 	 #key#=#url[key]#<br>
 </cfif>
 </cfloop>
