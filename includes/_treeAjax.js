@@ -64,7 +64,7 @@ function loadTree_success(result) {
 		theTreeDiv.className="error";
 		theTreeDiv.innerHTML = error;
 	} else{
-		theTreeDiv.className="";
+		theTreeDiv.className="cTreePane";
 		theTreeDiv.innerHTML = '';
 		newTree=new dhtmlXTreeObject("treePane","100%","100%;",0);
 		newTree.setImagePath("/images/dhtmlxTree/");
