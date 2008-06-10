@@ -146,6 +146,7 @@ function checkHandler (id){
 	} 	
 	newTree.setItemColor(id,'red','red');
 	newTree.setCheck(id,1);
+	newTree.findItem(id);
 }
 
 
