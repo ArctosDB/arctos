@@ -1,6 +1,4 @@
-<div id="_header">
 <cfinclude template="/includes/_header.cfm">
-</div>
 <cfset title='Find Containers'>
 <script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
 <script type="text/javascript" src="/includes/dhtmlxcommon.js"></script>

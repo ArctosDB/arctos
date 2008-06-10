@@ -46,14 +46,10 @@ function showSpecTreeOnly (colobjid) {
 	var theTreeDiv = document.getElementById('treePane');
 	theTreeDiv.className="";
 	theTreeDiv.innerHTML = 'Fetching data...';
-	var detailPane = document.getElementById('detailPane');
-	detailPane.style.diplay='none';
-	var _footer = document.getElementById('_footer');
-	_footer.style.diplay='none';
-	var header_color = document.getElementById('header_color');
-	header_color.style.diplay='none';
-	var partSearchPane = document.getElementById('partSearchPane');
-	partSearchPane.style.diplay='none';
+	document.getElementById('detailPane').style.diplay='none';
+	document.getElementById('_footer').style.diplay='none';
+	document.getElementById('header_color').style.display='none';
+	document.getElementById('partSearchPane').style.diplay='none';
 	
 	var q="collection_object_id=" + colobjid;
 
