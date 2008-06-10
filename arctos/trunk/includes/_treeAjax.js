@@ -70,12 +70,10 @@ function loadTree_success(result) {
 		newTree.setImagePath("/images/dhtmlxTree/");
 		newTree.insertNewItem("0","container0","Parentless Void",0,0,0,0,"SELECT");
 		newTree.enableCheckBoxes(1);
-		//newTree.setOnDblClickHandler('expandNode');
+
 		newTree.attachEvent("onDblClick","expandNode")
 		newTree.attachEvent("onCheck","checkHandler")
-		//newTree.attachEvent("onSelect","selectHandler")
-				
-		//newTree.setOnCheckHandler('checkHandler');	
+
 		for (i = 0; i < result.length; i++) { 
 		 	var CONTAINER_ID = result[i].CONTAINER_ID;
 			var PARENT_CONTAINER_ID = result[i].PARENT_CONTAINER_ID;
@@ -138,15 +136,15 @@ function checkHandler (id){
 	ahah(guts,'detailPane');
 	var rootsAr = newTree.getAllFatItems().split(",")
 	for(var i=0;i<rootsAr.length;i++){ 
-		newTree.setItemColor(rootsAr[i],'black','black');
+		newTree.setItemColor(rootsAr[i],'black','green');
 		newTree.setCheck(rootsAr[i],0) 
 	}
 	var rootsAr = newTree.getAllLeafs().split(",")
 	for(var i=0;i<rootsAr.length;i++){ 
-		newTree.setItemColor(rootsAr[i],'black','black');
+		newTree.setItemColor(rootsAr[i],'black','green');
 		newTree.setCheck(rootsAr[i],0);
 	} 	
-	newTree.setItemColor(id,'red','red');
+	newTree.setItemColor(id,'red','green');
 	newTree.setCheck(id,1);
 }
 
