@@ -90,6 +90,11 @@
 		</td>
 	</tr>
 </table>
+
+<div id="_footer">
+	<cfinclude template="/includes/_footer.cfm">
+</div>
+
 <cfif isdefined("url.collection_object_id") and len(#url.collection_object_id#) gt 0>
 	<script language="javascript" type="text/javascript">
 		showSpecTreeOnly('#url.collection_object_id#');
@@ -113,6 +118,3 @@
 	</cfif>
 </cfif> 
 </cfoutput>
-<div id="_footer">
-	<cfinclude template="/includes/_footer.cfm">
-</div>
