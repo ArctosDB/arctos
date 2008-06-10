@@ -26,7 +26,6 @@ function loadTree () {
 			}
 		}
 	}
-	alert('q: '+q);
 	/*
 	var cat_num = document.getElementById('cat_num').value;
 	var barcode = document.getElementById('barcode').value;
@@ -40,7 +39,7 @@ function loadTree () {
 	*/
 	
 	//alert(treeID + " " + srch + " " + cat_num + " " + barcode + " " + container_label + " " + description + " " + container_type);
-	DWREngine._execute(_containerTree_func, null,'testFunction',q,loadTree_success);
+	DWREngine._execute(_containerTree_func, null,'get_containerTree',q,loadTree_success);
 }
 
 function loadTree_success(result) {
