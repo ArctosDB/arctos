@@ -46,9 +46,9 @@
 		</cfif>
 		<cfset whr = "#whr# AND cataloged_item.cat_num IN (#cat_num#)">
 	 </cfif>
-		 <cfreturn 'binky'> 
+
 	 
-	<cfif len(#other_id_type#) gt 0 and #other_id_type# neq "-1">
+	<cfif len(#other_id_type#) gt 0>
 		<cfif #frm# does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
 		</cfif>
@@ -63,7 +63,7 @@
 		</cfif>
 		<cfset whr = "#whr# AND OTHER_ID_TYPE = '#other_id_type#'">
 	 </cfif>
-	 <cfif len(#other_id_value#) gt 0 and #other_id_value# neq "-1">
+	 <cfif len(#other_id_value#) gt 0>
 		<cfif #frm# does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
 		</cfif>
@@ -78,7 +78,7 @@
 		</cfif>		
 		<cfset whr = "#whr# AND upper(display_value) like '%#ucase(other_id_value)#%'">
 	 </cfif>
-	 <cfif len(#barcode#) gt 0 and #barcode# neq "-1">
+	 <cfif len(#barcode#) gt 0>
 	 	<cfset bclist = "">
 		<cfloop list="#barcode#" index="i">
 			<cfif len(#bclist#) is 0>
@@ -89,16 +89,16 @@
 		</cfloop>
 		<cfset whr = "#whr# AND barcode IN (#bclist#)">
 	</cfif>
-	<cfif len(#container_label#) gt 0 and #container_label# neq "-1">
+	<cfif len(#container_label#) gt 0>
 		<cfset whr = "#whr# AND label = '#container_label#'">
 	 </cfif>
-	  <cfif len(#description#) gt 0 and #description# neq "-1">
+	  <cfif len(#description#) gt 0>
 		<cfset whr = "#whr# AND upper(description) LIKE '%#ucase(description)#%'">
 	 </cfif>
-	  <cfif len(#container_type#) gt 0 and #container_type# neq "-1">
+	  <cfif len(#container_type#) gt 0>
 		<cfset whr = "#whr# AND container_type='#container_type#'">
 	 </cfif>
-	 <cfif len(#part_name#) gt 0 and #part_name# neq "-1">
+	 <cfif len(#part_name#) gt 0>
 		<cfif #frm# does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
 		</cfif>
@@ -107,6 +107,7 @@
 		</cfif>
 		<cfset whr = "#whr# AND specimen_part.part_Name='#part_Name#'">
 	 </cfif>
+
 	<cfif len(#collection_id#) gt 0 and #collection_id# neq "-1">
 		<cfif #frm# does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
@@ -119,10 +120,11 @@
 		</cfif>
 		<cfset whr = "#whr# AND cataloged_item.collection_id = #collection_id#">
 	 </cfif>
+	 	 <!----
 	<cfif len(#contr_id#) gt 0 and #contr_id# neq "-1">
 		<cfset whr = "#whr# AND container.container_id = #contr_id#">
 	 </cfif>
-	 
+	 --->
 
 	 		
 	 		
