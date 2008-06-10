@@ -11,6 +11,7 @@
 	<cfdump var=#s#>
 	<cfloop list="#StructKeyList(s)#" index="key">
 		<cfif len(#s[key]#) gt 0>
+			-----------#key# = #s[key]#-----------------
 		<cfset #key# = s[key]>
 			
 </cfif>
