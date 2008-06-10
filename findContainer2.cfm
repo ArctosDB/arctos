@@ -26,7 +26,7 @@
 <cfoutput>
 <table border>
 	<tr>
-		<td><!--------------------------- search pane ----------------------------->
+		<td valign="top"><!--------------------------- search pane ----------------------------->
 			<div id="partSearchPane">
 				<label for="cat_num">Cat Num</label>
 				<input type="text" name="cat_num" id="cat_num"  />
