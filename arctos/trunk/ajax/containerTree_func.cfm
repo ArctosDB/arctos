@@ -86,7 +86,6 @@
 	<cfset other_id_type="">
 	<cfset other_id_value="">
 	
-	<cfset r="">
 	<cfloop list="#q#" index="p" delimiters="&">
 		<cfset k=listgetat(p,1,"=")>
 		<cfset v=listgetat(p,2,"=")>
