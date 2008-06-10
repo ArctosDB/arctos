@@ -302,6 +302,7 @@
 		</cfif>
 	group by part_name order by part_name
 </cfquery>
+<cfdump var="#part#">
 <div class="secDiv">
 	<table class="ssrch">
 		<tr>
