@@ -1,5 +1,5 @@
 function loadTree () {
-	var theTreeDiv = document.getElementById(treePane);
+	var theTreeDiv = document.getElementById('treePane');
 	theTreeDiv.innerHTML = '';
 	
 	var cat_num = document.getElementById('cat_num').value;
