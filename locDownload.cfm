@@ -27,7 +27,7 @@
 		<td>4th level location</td>
 	</tr>
 	---->
-<cfset dlPath = "#application.webDirectory#">
+<cfset dlPath = "#application.webDirectory#/temp/">
 <cfset dlFile = "containerDownload.txt">
 <cfset dlHeader="
 ContainerType#chr(9)#Label#chr(9)#Description#chr(9)#Barcode#chr(9)#InstallDate#chr(9)#1_parent#chr(9)#2_parent#chr(9)#3_parent#chr(9)#4_parent#chr(9)#5_parent#chr(9)#6_parent">
