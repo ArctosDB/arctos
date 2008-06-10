@@ -136,15 +136,15 @@ function checkHandler (id){
 	ahah(guts,'detailPane');
 	var rootsAr = newTree.getAllFatItems().split(",")
 	for(var i=0;i<rootsAr.length;i++){ 
-		newTree.setItemColor(rootsAr[i],'black','green');
+		newTree.setItemColor(rootsAr[i],'black','black');
 		newTree.setCheck(rootsAr[i],0) 
 	}
 	var rootsAr = newTree.getAllLeafs().split(",")
 	for(var i=0;i<rootsAr.length;i++){ 
-		newTree.setItemColor(rootsAr[i],'black','green');
+		newTree.setItemColor(rootsAr[i],'black','black');
 		newTree.setCheck(rootsAr[i],0);
 	} 	
-	newTree.setItemColor(id,'red','green');
+	newTree.setItemColor(id,'red','red');
 	newTree.setCheck(id,1);
 }
 
