@@ -97,10 +97,13 @@
 			document.getElementById('#lcase(key)#').value='#url[key]#';
 		}
 	</script>
-	 #key#=#url[key]#<br>
 </cfif>
 </cfloop>
-		
+<cfif autoSubmit is true>
+	<script language="javascript" type="text/javascript">
+		loadTree();
+	</script>
+</cfif>
 
 <div id="containerDetails" name="containerDetails" style="display:none; position:absolute; border:2px solid ##666666; background-color:##CCCCCC; padding:20px;">
 	<div id="k" name="k" style="position:absolute; right:0; top:0; width:20px; height:20px; clear:both;">
