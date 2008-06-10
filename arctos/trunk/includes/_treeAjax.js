@@ -1,3 +1,60 @@
+function loadTree () {
+	var theTreeDiv = document.getElementById('treePane');
+	theTreeDiv.innerHTML = '';
+	
+	var cat_num = document.getElementById('cat_num').value;
+	var barcode = document.getElementById('barcode').value;
+	var container_label = document.getElementById('container_label').value;
+	var description = document.getElementById('description').value;
+	var container_type = document.getElementById('container_type').value;
+	var part_name = document.getElementById('part_name').value;
+	var collection_id = document.getElementById('collection_id').value;
+	var other_id_type = document.getElementById('other_id_type').value;
+	var other_id_value = document.getElementById('other_id_value').value;
+
+	//alert(treeID + " " + srch + " " + cat_num + " " + barcode + " " + container_label + " " + description + " " + container_type);
+	DWREngine._execute(_containerTree_func, null,'get_containerTree',cat_num,barcode,container_label,description, 
+		container_type,part_name,collection_id,other_id_type,other_id_value,  loadTree_success);
+	
+}
+
+function loadTree_success(result) {
+	//alert(result);
+	var error = result[0].CONTAINER_ID;
+	if (error==-1) {
+		alert(error);
+	} else{
+		var theTreeDiv = document.getElementById('treePane');
+		theTreeDiv.innerHTML = '';
+		newTree=new dhtmlXTreeObject("treePane","100%","100%;",0);
+		newTree.insertNewItem("0","container0","Parentless Void",0,0,0,0,"SELECT");
+		newTree.enableCheckBoxes(1);
+		newTree.setOnDblClickHandler(n_expandNode);
+		newTree.setOnCheckHandler(n_toncheck);	
+		for (i = 0; i < result.length; i++) { 
+		 	var CONTAINER_ID = result[i].CONTAINER_ID;
+			var PARENT_CONTAINER_ID = result[i].PARENT_CONTAINER_ID;
+			var CONTAINER_TYPE = result[i].CONTAINER_TYPE;
+			var LABEL = result[i].LABEL;
+			//alert(CONTAINER_TYPE);
+			var thisIns = 'newTree.insertNewChild("' + PARENT_CONTAINER_ID + '","' + CONTAINER_ID + '","' + LABEL + ' (' + CONTAINER_TYPE + ')",0,0,0,0,"",1)';
+			//alert('this line of code is: \n ' + thisIns);
+			eval(thisIns);
+		 }
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
 if(window.Event && document.captureEvents)
 document.captureEvents(Event.MOUSEMOVE);
 document.onmousemove = getMousePos;
@@ -109,57 +166,6 @@ function lxml () {
 	tree.loadXML("temp/leftContainer_3723816230877.xml");//load root level from xml
 }
 
-function loadTree (formName) {
-	//alert('search thingy');
-	if (formName == 'loadLeftTreeForm') {
-		var thePrefix = "l_";
-	} else if (formName == 'loadRightTreeForm') {
-		var thePrefix = 'r_';
-	} else if (formName == 'loadFindTreeForm') {
-		var thePrefix = 'n_';
-	} else {
-		alert('Bad Form!');
-		return false;
-	}
-	//alert(thePrefix);
-	
-	thisVar = thePrefix + 'treeID';
-	//alert(thisVar);
-	var treeID = document.getElementById(thisVar).value;
-	// clear out whatever's in there now
-	var theTreeDiv = document.getElementById(treeID);
-	theTreeDiv.innerHTML = '';
-	thisVar = thePrefix + 'srch';
-	var srch = document.getElementById(thisVar).value;
-	
-	thisVar = thePrefix + 'cat_num';
-	var cat_num = document.getElementById(thisVar).value;
-	
-	thisVar = thePrefix + 'other_id_type';
-	var other_id_type = document.getElementById(thisVar).value;
-	
-	thisVar = thePrefix + 'other_id_value';
-	var other_id_value = document.getElementById(thisVar).value;
-	
-	thisVar = thePrefix + 'barcode';
-	var barcode = document.getElementById(thisVar).value;
-	
-	thisVar = thePrefix + 'container_label';
-	var container_label = document.getElementById(thisVar).value;
-	
-	thisVar = thePrefix + 'description';
-	var description = document.getElementById(thisVar).value;
-	thisVar = thePrefix + 'container_type';
-	var container_type = document.getElementById(thisVar).value;
-	thisVar = thePrefix + 'part_name';
-	var part_name = document.getElementById(thisVar).value;
-	
-	thisVar = thePrefix + 'collection_id';
-	var collection_id = document.getElementById(thisVar).value;
-	//alert(treeID + " " + srch + " " + cat_num + " " + barcode + " " + container_label + " " + description + " " + container_type);
-	DWREngine._execute(_containerTree_func, null,'get_containerTree',treeID,srch,cat_num,barcode,container_label,description, container_type,part_name,collection_id,other_id_type,other_id_value,"-1",  loadTree_success);
-	
-}
 function focusDefault() {
 	//alert('focusy thingy');
 	if (document.getElementById('n_barcode')) {
@@ -178,62 +184,6 @@ function focusDefault() {
 				//alert('catnum');
 		}
 		
-	}
-}
-function loadTree_success(result) {
-	//alert(result);
-	var treeID = result[0].TREEID;
-	//alert(treeID);
-	if (treeID == '-1') {
-		// error
-		var error = result[0].CONTAINER_ID;
-		alert(error);
-	} else{
-		// happy
-		 var theTreeName = "tree_" + treeID;
-		 //alert('build tree in ' + treeID);
-		 	var theTreeDiv = document.getElementById(treeID);
-			theTreeDiv.innerHTML = '';
-			//alert('cleared');
-			eval(theTreeName + '=new dhtmlXTreeObject("' + treeID + '","100%","100%;",0)');
-			//alert('initiated tree');
-			eval(theTreeName + '.insertNewItem("0","container0","Parentless Void",0,0,0,0,"SELECT")');
-			//alert('added item');
-			eval(theTreeName + '.enableDragAndDrop(1)');
-			//alert('enabled drag and drop');
-			eval(theTreeName + '.enableCheckBoxes(1)');
-			//eval(theTreeName + '.enableRadioButtons(1,true)');
-			//alert('enabled checkboxes');
-			if (treeID == 'leftTreeBox') {
-				eval(theTreeName + '.setDragHandler(l_tondrag)');
-				eval(theTreeName + '.setOnDblClickHandler(l_expandNode)');
-				eval(theTreeName + '.setOnCheckHandler(l_toncheck)');
-			} else if (treeID == 'rightTreeBox') {
-				eval(theTreeName + '.setDragHandler(r_tondrag)');
-				eval(theTreeName + '.setOnDblClickHandler(r_expandNode)');
-				eval(theTreeName + '.setOnCheckHandler(r_toncheck)');		
-			}	else if (treeID == 'findTreeBox') {
-				//alert('findTreeBox div IF met');
-				eval(theTreeName + '.enableDragAndDrop(0)');
-				//alert('disabled drag and drop');
-				eval(theTreeName + '.setOnDblClickHandler(n_expandNode)');
-				//alert('set expand function');
-				eval(theTreeName + '.setOnCheckHandler(n_toncheck)');	
-				//alert(' set oncheck function');
-			} else {
-				alert('tree div not recognized! File a bug report...');
-			}
-			//alert('looping....');
-		 for (i = 0; i < result.length; i++) { 
-		 	var CONTAINER_ID = result[i].CONTAINER_ID;
-			var PARENT_CONTAINER_ID = result[i].PARENT_CONTAINER_ID;
-			var CONTAINER_TYPE = result[i].CONTAINER_TYPE;
-			var LABEL = result[i].LABEL;
-			//alert(CONTAINER_TYPE);
-			var thisIns = theTreeName + '.insertNewChild("' + PARENT_CONTAINER_ID + '","' + CONTAINER_ID + '","' + LABEL + ' (' + CONTAINER_TYPE + ')",0,0,0,0,"",1)';
-			//alert('this line of code is: \n ' + thisIns);
-			eval(thisIns);
-		 }
 	}
 }
 function doPartSearch(side,srchType) {
