@@ -35,7 +35,7 @@
 </cffunction>	
 
 <!-------------------------------------------------------------->
-<cffunction name="testFunction" returntype="string">
+<cffunction name="testFunction" returntype="string" output="true">
 	<cfargument name="q" type="string" required="true">
 	<!--- accept a url-type argument, parse it out here --->
 	<cfset cat_num="">
@@ -55,8 +55,9 @@
 		<cfset r="#r#----#p#-#k#==#v#">
 		<cfset #k#=v>
 	</cfloop>
-	
-
+	==#cat_num#==
+	-#k#-
+	=#v#=
 		<!---
 		
 		---->
