@@ -37,36 +37,36 @@
 	
 
 	
-	<table>
+	<table border="1">
 		<tr>
 		   <td class="lbl">Container Type:</td>
 			<td>#container_type#</td>
 		</tr>
 		<tr>
-			<td> Label:</td>
+			<td class="lbl">Label:</td>
 			<td> #label#</td>
 		</tr>
 		<cfif len(#description#) gt 0>
 		  <tr>
-			<td> Description:</td>
+			<td class="lbl"> Description:</td>
 			<td> #description#</td>
 		  </tr>
 		</cfif>
 		<cfif len(#container_remarks#) gt 0>
 		  <tr>
-			<td>Container Remarks:</td>
+			<td class="lbl">Container Remarks:</td>
 			<td>#container_remarks#</td>
 		  </tr>
 		</cfif>
 		<cfif len(#barcode#) gt 0>
 		  <tr>
-			<td>Barcode:</td>
+			<td class="lbl">Barcode:</td>
 			<td>#barcode#</td>
 		  </tr>
 		</cfif>
 		<cfif len(#parent_install_date#) gt 0>
 		  <tr>
-			<td>Install Date:</td>
+			<td class="lbl">Install Date:</td>
 			<td>#dateformat(parent_install_date,"dd mmm yyyy")#
 			&nbsp;
 			#timeformat(parent_install_date,"hh:mm:ss")#</td>
@@ -74,53 +74,51 @@
 		</cfif>
 		<cfif len(#part_name#) gt 0>
 		  <tr>
-			<td>Part Name:</td>
+			<td class="lbl">Part Name:</td>
 			<td>#part_name#</td>
 		  </tr>
 		  <tr>
-			<td>Catalog Number:</td>
+			<td class="lbl">Catalog Number:</td>
 			<td>#cat_num# </td>
 		  </tr>
-		  <cfif len(#part_name#) gt 0>
+		  <cfif len(#CustomID#) gt 0>
 		  <tr>
-			<td>#session.CustomOtherIdentifier#:</td>
+			<td class="lbl">#session.CustomOtherIdentifier#:</td>
 			<td>#CustomID#</td>
 		  </tr>
 		  </cfif>
 		  <tr>
-			<td>Scientific Name: </td>
+			<td class="lbl">Scientific Name: </td>
 			<td><em>#scientific_name#</em></td>
 		  </tr>
 		</cfif>
 		<cfif len(#WIDTH#) gt 0 OR len(#HEIGHT#) gt 0 OR len(#length#) gt 0>
 		  <tr>
-			<td>Dimensions (W x H x D): </td>
+			<td class="lbl">Dimensions (W x H x D): </td>
 			<td> #WIDTH# x #HEIGHT# x #length# CM</td>
 		  </tr>
 		</cfif>
 		<cfif len(#NUMBER_POSITIONS#) gt 0>
 		  <tr>
-			<td>Number of Positions: </td>
+			<td class="lbl">Number of Positions: </td>
 			<td> #NUMBER_POSITIONS#</td>
 		  </tr>
 		</cfif>
-	</table> 
-	<p>
-	<table cellpadding="0" cellspacing="0">
 		<cfif len(#collection_object_id#) gt 0>
 			<tr>
-				<td><a href="SpecimenDetail.cfm?ccollection_object_id=#collection_object_id#" 
+				<td colspan="2"><a href="SpecimenDetail.cfm?ccollection_object_id=#collection_object_id#" 
 				target="_blank">Specimen</a>(new window)</td>
 			</tr>
 		<cfelse>
 			<tr>
-				<td><a href="EditContainer.cfm?container_id=#container_id#" target="_blank">Edit this container</a> (new window)
+				<td colspan="2">
+					<a href="EditContainer.cfm?container_id=#container_id#" target="_blank">Edit this container</a> (new window)
 				 <a href="javascript:void(0);" onClick="getDocs('edit_container')"><img src="/images/info.gif" border="0"></a>
 			</td>
 			</tr>
 		</cfif>
 		<tr>
-			<td>
+			<td colspan="2">
 				<a href="allContainerLeafNodes.cfm?container_id=#container_id#" target="_blank">
 						See all collection objects in this container</a>
 				<a href="javascript:void(0);" 
@@ -128,13 +126,13 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td colspan="2">
 				<a href="/containerPositions.cfm?container_id=#container_id#" 
 					target="_blank">Positions</a><font size="-1">(new window)</font>
 			</td>
 			</tr>
 			<tr>
-				<td>
+				<td colspan="2">
 					<a href="javascript:void(0)" onClick="getHistory('#container_id#'); return false;">History</a>
 				</td>
 			</tr>
