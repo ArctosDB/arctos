@@ -986,6 +986,6 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 <cfinclude template="/includes/_pickFooter.cfm">
 <div>
 <script language="javascript" type="text/javascript">
-	alert('frames?');
+	console.log 'im loading....
 	checkFrame();
 </script>
