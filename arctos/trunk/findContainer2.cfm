@@ -1,4 +1,6 @@
+<div id="_header">
 <cfinclude template="/includes/_header.cfm">
+</div>
 <cfset title='Find Containers'>
 <script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
 <script type="text/javascript" src="/includes/dhtmlxcommon.js"></script>
@@ -24,9 +26,7 @@
 	order by OTHER_ID_TYPE
 </cfquery>
 <cfoutput>
-<cfif isdefined("url.collection_object_id") and len(#url.collection_object_id#) gt 0>
-	got a colobjid....
-</cfif> 
+
 <table border width="100%">
 	<tr>
 		<td valign="top"><!--------------------------- search pane ----------------------------->
@@ -90,53 +90,29 @@
 		</td>
 	</tr>
 </table>
-<cfset autoSubmit=false>
-<cfloop list="#StructKeyList(url)#" index="key">
-<cfif len(#url[key]#) gt 0>
+<cfif isdefined("url.collection_object_id") and len(#url.collection_object_id#) gt 0>
+	<script language="javascript" type="text/javascript">
+		showSpecTreeOnly('#url.collection_object_id#');
+	</script>
+<cfelse>
+	<cfset autoSubmit=false>
+	<cfloop list="#StructKeyList(url)#" index="key">
+	<cfif len(#url[key]#) gt 0>
 	<cfset autoSubmit=true>
 	<script language="javascript" type="text/javascript">
 		if (document.getElementById('#lcase(key)#')) {
 			document.getElementById('#lcase(key)#').value='#url[key]#';
 		}
 	</script>
-</cfif>
-</cfloop>
-<cfif autoSubmit is true>
+	</cfif>
+	</cfloop>
+	<cfif autoSubmit is true>
 	<script language="javascript" type="text/javascript">
 		loadTree();
 	</script>
-</cfif>
-
-<div id="containerDetails" name="containerDetails" style="display:none; position:absolute; border:2px solid ##666666; background-color:##CCCCCC; padding:20px;">
-	<div id="k" name="k" style="position:absolute; right:0; top:0; width:20px; height:20px; clear:both;">
-		<img src="/images/del.gif" class="likeLink" onclick="closeDetails();" />
-	</div >
-	<input type="hidden" name="noMoveNow" id="noMoveNow" value="0" />
-	<table>
-		<tr>
-			<td align="right" nowrap="nowrap">Container Type:</td>
-			<td><div id="dis_container_type"></div></td>
-		</tr>
-		<tr>
-			<td align="right">Description:</td>
-			<td><div id="dis_description"></div></td>
-		</tr>
-		<tr>
-			<td align="right">Install Date:</td>
-			<td><div id="dis_parent_install_date"></div></td>
-		</tr>
-		<tr>
-			<td align="right">Remarks:</td>
-			<td><div id="dis_container_remarks"></div></td>
-		</tr>
-		<tr>
-			<td align="right">Label:</td>
-			<td><div id="dis_label"></div></td>
-		</tr>
-		<tr>
-			<td align="right" valign="top">Admin:</td>
-			<td><div id="dis_admin"></div></td>
-		</tr>
-	</table>
-</div>
+	</cfif>
+</cfif> 
 </cfoutput>
+<div id="_footer">
+	<cfinclude template="/includes/_footer.cfm">
+</div>
