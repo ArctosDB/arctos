@@ -21,7 +21,7 @@ function loadTree () {
 				if (q.length==0) {
 					q=n;
 				} else {
-					q += "&" + n
+					q += "|" + n
 				}
 			}
 		}
