@@ -24,7 +24,7 @@
 	order by OTHER_ID_TYPE
 </cfquery>
 <cfoutput>
-<table border>
+<table border width="100%">
 	<tr>
 		<td valign="top"><!--------------------------- search pane ----------------------------->
 			<div id="partSearchPane">
