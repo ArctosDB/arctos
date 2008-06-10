@@ -312,33 +312,10 @@
 				<span class="helpLink" id="part_name">Part:</span>
 			</td>
 			<td class="srch">
-				<hr>
-				#valuelist(Part.part_name)#
-				<hr>
-				<cfinput type="text" autosuggest="#valuelist(Part.part_name)#" name="part_name">
+				<cfinput type="text" autosuggest="#valuelist(Part.part_name)#" name="partname">
 				
-				<cfinput type="text" 
-    autosuggest="Alabama,Alaska,Arkansas,Arizona,Maryland,Minnesota,Missouri"
-    name="city" >
 	
-	
-				<!----
-				<span onclick="multi('part_name')">m</span>
-				<span onclick="singl('part_name')">s</span>
-			
-				<select name="part_name" id="part_name"  
-					<cfif #ListContains(session.searchBy, 'bigsearchbox')# gt 0>
-						multiple="multiple" size="5"
-					<cfelse>
-						size="1"
-					</cfif>>
-					<option value=""></option>
-						<cfloop query="Part"> 
-							<option value="#Part.Part_Name#">#Part.Part_Name#</option>
-						</cfloop>
-				</select>
-				---->
-				<span class="infoLink" onclick="getCtDoc('ctspecimen_part_name',SpecData.part_name.value);">Define</span>
+				<span class="infoLink" onclick="getCtDoc('ctspecimen_part_name',SpecData.partname.value);">Define</span>
 				
 			</td>
 		</tr>
