@@ -160,8 +160,7 @@ function downloadTree () {
 
 function showTreeOnly(){
 	var theTreeDiv = document.getElementById('treePane');
-	theTreeDiv.style.width='';
-	theTreeDiv.style.height='';
+	theTreeDiv.className='';
 	
 	document.getElementById('thisfooter').style.display='none';
 	document.getElementById('header_color').style.display='none';
