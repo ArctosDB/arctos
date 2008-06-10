@@ -113,7 +113,7 @@ admH.innerHTML = '<a href="/EditContainer.cfm?container_id=' + container_id + '"
 		<cfif len(#collection_object_id#) gt 0>
 			<tr>
 				<td><a href="SpecimenDetail.cfm?ccollection_object_id=#collection_object_id#" 
-				target="#thisTarget#">Specimen</a></td>
+				target="#session.target#">Specimen</a></td>
 			</tr>
 		<cfelse>
 			<tr>
