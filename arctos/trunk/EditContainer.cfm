@@ -982,10 +982,13 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 </cfif>
 <!---------------------------------------------->
 <!---------------------------------------------------->
-<div id="_foot">
+<div id="_footTest">
 <cfinclude template="/includes/_pickFooter.cfm">
 <div>
+<cfif isdefined("url.nohead")>
 <script language="javascript" type="text/javascript">
 	console.log ('im loading....');
+	document.getElementById('_footTest').style.display='none';
 	checkFrame();
 </script>
+</cfif>
