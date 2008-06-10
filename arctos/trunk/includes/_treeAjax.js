@@ -33,7 +33,7 @@ function loadTree_success(result) {
 		//newTree.setOnDblClickHandler('expandNode');
 		newTree.attachEvent("onDblClick","expandNode")
 		newTree.attachEvent("onCheck","checkHandler")
-		newTree.attachEvent("onSelect","selectHandler")
+		//newTree.attachEvent("onSelect","selectHandler")
 				
 		//newTree.setOnCheckHandler('checkHandler');	
 		for (i = 0; i < result.length; i++) { 
@@ -51,9 +51,6 @@ function loadTree_success(result) {
 function expandNode (id) {
 	//alert ('expandNode:' + id);
 	DWREngine._execute(_containerTree_func, null,'get_containerContents',id,expandNode_success);
-}
-function selectHandler (id) {
-	alert ('selectHandler:' + id);
 }
 
 
@@ -92,6 +89,7 @@ function expandNode_success (result) {
 }	
 
 function checkHandler (id){
+	newTree.setCheck(id,0)
 	alert('checky: ' + id);
 }
 
