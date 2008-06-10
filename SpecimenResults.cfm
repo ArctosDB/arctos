@@ -477,7 +477,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="editIdentification.cfm">
 						Identification
 					</option>
-					<option value="location_tree.cfm">
+					<option value="findContainer.cfm?showControl=1">
 						Part Locations
 					</option>
 					<option value="bulkCollEvent.cfm">

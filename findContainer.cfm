@@ -94,7 +94,7 @@
 	<cfinclude template="/includes/_footer.cfm">
 </div>
 
-<cfif isdefined("url.collection_object_id") and len(#url.collection_object_id#) gt 0>
+<cfif isdefined("url.collection_object_id") and len(#url.collection_object_id#) gt 0 and not isdefined("url.showControl")>
 	<script language="javascript" type="text/javascript">
 		showSpecTreeOnly('#url.collection_object_id#');
 	</script>
