@@ -30,11 +30,11 @@
 		<td valign="top"><!--------------------------- search pane ----------------------------->
 			<div id="partSearchPane">
 				<form onSubmit="loadTree();return false;">
-				<label for="cat_num">Cat Num</label>
+				<label for="cat_num">Cat Num (comma-list OK)</label>
 				<input type="text" name="cat_num" id="cat_num"  />
-				<label for="barcode">Barcode</label>
+				<label for="barcode">Barcode (comma-list OK)</label>
 				<input type="text" name="barcode" id="barcode"  />
-				<label for="container_label">Label</label>
+				<label for="container_label">Label (% for wildcard)</label>
 				<input type="text" name="container_label" id="container_label"  />
 				<label for="collection_id">Collection</label>
 				<select name="collection_id" id="collection_id" size="1">
@@ -66,15 +66,14 @@
 						<option value="#ctcoll_other_id_type.other_id_type#">#ctcoll_other_id_type.other_id_type#</option>
 					</cfloop>
 				</select>	
-				<label for="other_id_value">OID Value</label>
+				<label for="other_id_value">OID Value (% for wildcard)</label>
 				<input type="text" name="other_id_value" id="other_id_value" />
 				<br>
 				<input type="submit" value="Search"
 					class="schBtn">
 				&nbsp;&nbsp;&nbsp;
 				<input class="clrBtn"
-					type="reset" value="Clear"/>
-				
+					type="reset" value="Clear"/>				
 				</form>
 			</div>
 				
@@ -89,7 +88,10 @@
 		</td>
 	</tr>
 </table>
-
+<cfdump var=#url#>
+<cfif isdefined("URL.run") and len(#URL.run#) gt 0>
+	<!--- see if we can get anything out of the URL, dump it into the form, and submit --->
+</cfif>
 
 <div id="containerDetails" name="containerDetails" style="display:none; position:absolute; border:2px solid ##666666; background-color:##CCCCCC; padding:20px;">
 	<div id="k" name="k" style="position:absolute; right:0; top:0; width:20px; height:20px; clear:both;">

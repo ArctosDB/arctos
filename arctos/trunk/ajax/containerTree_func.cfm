@@ -112,7 +112,7 @@
 		<cfif #frm# does not contain " coll_obj_other_id_num ">
 			<cfset frm = "#frm# inner join coll_obj_other_id_num on (cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id)">
 		</cfif>		
-		<cfset whr = "#whr# AND upper(display_value) like '%#ucase(other_id_value)#%'">
+		<cfset whr = "#whr# AND upper(display_value) like '#ucase(other_id_value)#'">
 	 </cfif>
 	 <cfif len(#barcode#) gt 0>
 	 	<cfset bclist = "">
@@ -126,7 +126,7 @@
 		<cfset whr = "#whr# AND barcode IN (#bclist#)">
 	</cfif>
 	<cfif len(#container_label#) gt 0>
-		<cfset whr = "#whr# AND label = '#container_label#'">
+		<cfset whr = "#whr# AND upper(label) like '#container_label#'">
 	 </cfif>
 	  <cfif len(#description#) gt 0>
 		<cfset whr = "#whr# AND upper(description) LIKE '%#ucase(description)#%'">
@@ -144,7 +144,7 @@
 		<cfset whr = "#whr# AND specimen_part.part_Name='#part_Name#'">
 	 </cfif>
 
-	<cfif len(#collection_id#) gt 0 and #collection_id# neq "-1">
+	<cfif len(#collection_id#) gt 0>
 		<cfif #frm# does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
 		</cfif>
@@ -156,25 +156,8 @@
 		</cfif>
 		<cfset whr = "#whr# AND cataloged_item.collection_id = #collection_id#">
 	 </cfif>
-	 	 <!----
-	<cfif len(#contr_id#) gt 0 and #contr_id# neq "-1">
-		<cfset whr = "#whr# AND container.container_id = #contr_id#">
-	 </cfif>
-	 --->
-
-	 		
-	 		
 	 <cfset sql = "#sel# #frm# #whr#">
-
-		<!---
-		<cfset result = querynew("treeID,container_id")>
-		<cfset temp = queryaddrow(result,1)>
-		<cfset temp = QuerySetCell(result, "treeID", "-1", 1)>
-		<cfset temp = QuerySetCell(result,"container_id", "#sql#", 1)>
-		<cfreturn result>
-		<cfabort>
-		--->
-		<cfset thisSql = "
+	<cfset thisSql = "
 				SELECT 
 					CONTAINER_ID,
 				PARENT_CONTAINER_ID,
