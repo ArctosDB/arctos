@@ -43,6 +43,17 @@ function loadTree_success(result) {
 		 }
 	}
 }
+function expandNode (id) {
+	alert ('expandNode:' + id);
+	
+	DWREngine._execute(_containerTree_func, null,'get_containerContents',id,expandNode_success);
+}
+
+
+
+
+
+
 
 
 
@@ -267,11 +278,7 @@ function n_expandNode (id) {
 	expandNode(id,treeID);
 }
 
-function expandNode (id) {
-	//alert ('expandNode:' + id + ' ' + treeID);
-	
-	DWREngine._execute(_containerTree_func, null,'get_containerContents',id,  expandNode_success);
-}
+
 
 function expandNode_success (result) {
 	alert(result);
