@@ -12,7 +12,7 @@ function loadTree () {
 	//alert('l' + arrFld.length);
 	for (f in arrFld) {
 		if (document.getElementById(arrFld[f])){
-			alert(arrFld[f]);
+			//alert(arrFld[f]);
 			var v = document.getElementById(arrFld[f]).value;
 			//alert('v'+v)
 			if (v.length > 0) {
