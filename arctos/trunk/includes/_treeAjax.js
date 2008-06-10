@@ -92,7 +92,8 @@ function checkHandler (id){
 	newTree.setCheck(id,0)
 	var rootsAr = newTree.getSubItems(0).split(",")
 	for(var i=0;i<rootsAr.length;i++){ 
-		newTree.setItemColor(rootsAr[i],'purple','green') 
+		//newTree.setItemColor(rootsAr[i],'purple','green') 
+		alert(rootsAr[i]);
 	} 	
 	newTree.setItemColor(id,'blue','red');
 	//alert('checky: ' + id);
