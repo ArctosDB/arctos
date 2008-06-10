@@ -33,7 +33,7 @@
 
 	<cfset sel = "SELECT container.container_id">
 	<cfset frm = " FROM container ">
-	<cfset whr=" 1=1 ">
+	<cfset whr=" where 1=1 ">
 	<cfif len(#cat_num#) gt 0>
 		<cfif #frm# does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
