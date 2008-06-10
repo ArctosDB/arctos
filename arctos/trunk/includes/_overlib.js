@@ -55,6 +55,7 @@ return false;
 // IF in a frame, remove header
 function checkFrame() {
 	if (top.location!=document.location) {
+		alert('breakout');
 		document.getElementById('header_color').style.display='none';
 	}
 }
