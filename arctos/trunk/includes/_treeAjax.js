@@ -1,4 +1,5 @@
 function loadTree () {
+	alert('loadTree');
 	var theTreeDiv = document.getElementById('treePane');
 	theTreeDiv.innerHTML = '';
 	
