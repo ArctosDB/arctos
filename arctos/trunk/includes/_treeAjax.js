@@ -150,7 +150,7 @@ function downloadTree () {
 	var rootsAr = fatAr.concat(leafAr);
 	var cidAr= new Array;
 	for(var i=0;i<rootsAr.length;i++){ 
-		cid.push(rootsAr[i]); 
+		cidAr.push(rootsAr[i]); 
 	}
 	var cid=cidAr.join(",");
 	alert(cid);
