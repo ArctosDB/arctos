@@ -91,7 +91,7 @@ function expandNode_success (result) {
 function checkHandler (id){
 	newTree.setCheck(id,0)
 	alert('checky: ' + id);
-	$("#containerDetails").css({display:"block", position:"absolute", top: pageY, left: pageX});
+	$("#containerDetails").innerHTML='checked me! ' id;
 }
 
 
