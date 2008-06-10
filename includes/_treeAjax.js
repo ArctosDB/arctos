@@ -152,7 +152,7 @@ function downloadTree () {
 	for(var i=0;i<rootsAr.length;i++){ 
 		cidAr.push(rootsAr[i]); 
 	}
-	cidAr.slice(1);
+	cidAr.slice(2);
 	var cid=cidAr.join(",");
 	alert(cid);
 }
