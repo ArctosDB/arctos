@@ -26,7 +26,58 @@
 <cfoutput>
 <table border>
 	<tr>
-		<td>left</td>
+		<td><!--------------------------- search pane ----------------------------->
+			<div id="partSearchPane">
+				<label for="cat_num">Cat Num</label>
+				<input type="text" name="cat_num" id="cat_num"  />
+				<label for="barcode">Barcode</label>
+				<input type="text" name="barcode" id="barcode"  />
+				<label for="container_label">Label</label>
+				<input type="text" name="container_label" id="container_label"  />
+				<label for="collection_id">Collection</label>
+				<select name="collection_id" id="collection_id" size="1">
+					<option value=""></option>
+						<cfloop query="collections"> 
+							<option value="#collection_id#">#coll#</option>
+				  		</cfloop>
+				</select>
+				<label for="description">Description</label>
+				<input type="text" name="description" id="description"  />
+				<label for="part_name">Part</label>
+				<select name="part_name" id="part_name" size="1">
+					<option value=""></option>
+						  <cfloop query="partName"> 
+							<option value="#partName.part_name#">#partName.part_name#</option>
+						  </cfloop>
+				</select>
+				<label for="container_type">Container Type</label>
+				<select name="container_type" id="container_type" size="1">
+					<option value=""></option>
+					  <cfloop query="contType"> 
+						<option value="#contType.container_type#">#contType.container_type#</option>
+					  </cfloop>
+				</select>
+				<label for="other_id_type">OID Type</label>
+				<select name="other_id_type" id="other_id_type" size="1">
+					<option value=""></option>
+					<cfloop query="ctcoll_other_id_type"> 
+						<option value="#ctcoll_other_id_type.other_id_type#">#ctcoll_other_id_type.other_id_type#</option>
+					</cfloop>
+				</select>	
+				<label for="other_id_value">OID Value</label>
+				<input type="text" name="other_id_value" id="other_id_value" />
+				<br>
+				<input class="clrBtn"
+				type="button" value="Clear"
+				onclick="loadFindTreeForm.reset();focusDefault();" />
+				<br>
+				<input type="submit" value="Search"
+					class="schBtn" onclick="loadTree('loadFindTreeForm');" />
+						
+			</div>
+				
+				
+		</td><!--------------------------------- end search pane ------------------------------------->
 		<td>Middle</td>
 		<td>Right</td>
 	</tr>
