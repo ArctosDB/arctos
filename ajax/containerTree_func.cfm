@@ -53,7 +53,7 @@
 		<cfset k=listgetat(p,1,"=")>
 		<cfset v=listgetat(p,2,"=")>
 		<cfset r="#r#----#p#-#k#==#v#">
-		<cfset evaluate(k)=v>
+		<cfset #k#=v>
 	</cfloop>
 	
 
