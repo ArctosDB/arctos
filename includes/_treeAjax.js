@@ -17,7 +17,7 @@ function loadTree () {
 			//alert('v'+v)
 			if (v.length > 0) {
 				var n = arrFld[f] + '=' + v;
-				if (q) {
+				if (q=='undefined') {
 					var q=n;
 				} else {
 					q += "&" + n
