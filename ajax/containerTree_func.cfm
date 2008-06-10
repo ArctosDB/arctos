@@ -46,7 +46,7 @@
 		</cfif>
 		<cfset whr = "#whr# AND cataloged_item.cat_num IN (#cat_num#)">
 	 </cfif>
-	 
+		 <cfreturn 'binky'> 
 	 
 	<cfif len(#other_id_type#) gt 0 and #other_id_type# neq "-1">
 		<cfif #frm# does not contain " coll_obj_cont_hist ">
@@ -123,7 +123,7 @@
 		<cfset whr = "#whr# AND container.container_id = #contr_id#">
 	 </cfif>
 	 
-	 		<cfreturn 'binky'>
+
 	 		
 	 		
 	 <cfset sql = "#sel# #frm# #whr#">
