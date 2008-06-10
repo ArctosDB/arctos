@@ -91,13 +91,18 @@ function expandNode_success (result) {
 function checkHandler (id){
 	newTree.setCheck(id,0);
 	//container0
-	//tree.getAllFatItems(); //Get all nodes without childs tree.getAllLeafs();
+	//tree.getAllFatItems(); //Get all nodes without childs tree.();
 	var rootsAr = newTree.getAllFatItems().split(",")
 	for(var i=0;i<rootsAr.length;i++){ 
-		newTree.setItemColor(rootsAr[i],'purple','green') 
+		newTree.setItemColor(rootsAr[i],'black') 
+		//alert(rootsAr[i]);
+	}
+	var rootsAr = newTree.getAllLeafs().split(",")
+	for(var i=0;i<rootsAr.length;i++){ 
+		newTree.setItemColor(rootsAr[i],'black') 
 		//alert(rootsAr[i]);
 	} 	
-	newTree.setItemColor(id,'blue','red');
+	newTree.setItemColor(id,'blue');
 	//alert('checky: ' + id);
 	var guts = "/ContDet.cfm?container_id=" + id;
 	ahah(guts,'detailPane');
