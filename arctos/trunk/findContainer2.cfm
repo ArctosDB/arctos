@@ -29,6 +29,7 @@
 	<tr>
 		<td valign="top"><!--------------------------- search pane ----------------------------->
 			<div id="partSearchPane">
+				<form onSubmit="loadTree()">
 				<label for="cat_num">Cat Num</label>
 				<input type="text" name="cat_num" id="cat_num"  />
 				<label for="barcode">Barcode</label>
@@ -68,13 +69,13 @@
 				<label for="other_id_value">OID Value</label>
 				<input type="text" name="other_id_value" id="other_id_value" />
 				<br>
-				<input class="clrBtn"
-				type="button" value="Clear"
-				onclick="loadFindTreeForm.reset();focusDefault();" />
-				<br>
 				<input type="submit" value="Search"
-					class="schBtn" onclick="loadTree('loadFindTreeForm');" />
-						
+					class="schBtn" onclick="loadTree();" />
+				&nbsp;&nbsp;&nbsp;
+				<input class="clrBtn"
+					type="reset" value="Clear"/>
+				
+				</form>
 			</div>
 				
 				
