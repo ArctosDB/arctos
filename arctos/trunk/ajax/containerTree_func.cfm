@@ -40,9 +40,11 @@
 	<!--- accept a url-type argument, parse it out here --->
 	<cfset r="">
 	<cfloop list="#q#" index="p" delimiters="&">
+		<!---
 		<cfset k=listgetat(p,1,"=")>
 		<cfset v=listgetat(p,2,"=")>
-		<cfset r="#r#----#k# is #v#">
+		--->
+		<cfset r="#r#----#p#">
 	</cfloop>
 	<cfreturn r>
 </cffunction>
