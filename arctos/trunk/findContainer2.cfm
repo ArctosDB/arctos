@@ -93,8 +93,8 @@
 <cfif len(#url[key]#) gt 0>
 	<cfset autoSubmit=true>
 	<script language="javascript" type="text/javascript">
-		if (document.getElementById(lower('#key#''))) {
-			document.getElementById(lower('#key#''))).value='#url[key]#';
+		if (document.getElementById(lower('#key#'))) {
+			document.getElementById(lower('#key#'))).value='#url[key]#';
 		}
 	</script>
 	 #key#=#url[key]#<br>
