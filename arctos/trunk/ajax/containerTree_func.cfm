@@ -52,16 +52,10 @@
 	<cfloop list="#q#" index="p" delimiters="&">
 		<cfset k=listgetat(p,1,"=")>
 		<cfset v=listgetat(p,2,"=")>
-		<cfset r="#r#----#p#-#k#==#v#">
-		#r#
-		<cfset #k#=v>
+		<cfset variables[ k ] = v >
 	</cfloop>
-	==#cat_num#==
-	-#k#-
-	=#v#=
-		<!---
-		
-		---->
+	
+	
 
 	<cfreturn cat_num>
 	
