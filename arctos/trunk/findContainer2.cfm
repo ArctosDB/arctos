@@ -24,6 +24,9 @@
 	order by OTHER_ID_TYPE
 </cfquery>
 <cfoutput>
+<cfif isdefined("url.collection_object_id") and len(#url.collection_object_id#) gt 0>
+	got a colobjid....
+</cfif> 
 <table border width="100%">
 	<tr>
 		<td valign="top"><!--------------------------- search pane ----------------------------->
