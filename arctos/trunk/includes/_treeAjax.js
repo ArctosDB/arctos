@@ -31,7 +31,8 @@ function loadTree_success(result) {
 		newTree.enableCheckBoxes(1);
 		//newTree.setOnDblClickHandler('expandNode');
 		newTree.attachEvent("onDblClick","expandNode")
-		newTree.setOnCheckHandler('checkHandler');	
+		newTree.attachEvent("onCheck","checkHandler")
+		//newTree.setOnCheckHandler('checkHandler');	
 		for (i = 0; i < result.length; i++) { 
 		 	var CONTAINER_ID = result[i].CONTAINER_ID;
 			var PARENT_CONTAINER_ID = result[i].PARENT_CONTAINER_ID;
@@ -84,7 +85,9 @@ function expandNode_success (result) {
 	}
 }	
 
-
+function checkHandler (id){
+	alert('checky: ' + id);
+}
 
 
 
