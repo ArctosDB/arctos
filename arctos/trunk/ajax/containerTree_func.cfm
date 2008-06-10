@@ -12,7 +12,7 @@
 	<cfargument name="other_id_type" required="yes" type="string">
 	<cfargument name="other_id_value" required="yes" type="string">
 	
-	<cfreturn 'binky'>
+
 	<cfif len(#cat_num#) is 0 AND
 		len(#barcode#) is 0 AND
 		len(#container_label#) is 0 AND
@@ -30,7 +30,7 @@
 		<cfset temp = QuerySetCell(result, "msg", "You must enter search criteria.", 1)>
 		<cfreturn result>
 	</cfif>
-	
+		<cfreturn 'binky'>
 	<cfset sel = "SELECT container.container_id">
 	<cfset frm = " FROM container ">
 	<cfif len(#cat_num#) gt 0 and #cat_num# neq "-1">
