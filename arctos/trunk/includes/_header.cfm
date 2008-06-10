@@ -260,8 +260,7 @@
 										<li><a target="_top" href="/a_moveContainer.cfm">Move container</a></li>
 										<li><a target="_top" href="/labels2containers.cfm">Label>Container</a></li>
 										<li><a target="_top" href="/aps.cfm">Object+BC>>Container</a></li>
-										<li><a target="_top" href="/containerContainer.cfm">Find Containers</a></li>
-										<li><a target="_top" href="/start.cfm?action=container">--deleteFind Containers (HTML)--</a></li>
+										<li><a target="_top" href="/findContainer.cfm">Find Containers</a></li>
 									</cfif>		
 								</ul>
 							</li>

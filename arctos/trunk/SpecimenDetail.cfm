@@ -430,8 +430,8 @@
 							</li>
 							
 							<li>
-								<span onclick="switchIFrame('findContainer2')"
-									class="likeLink" id="ContainerSpan">Part Locn.</span>
+								<span onclick="switchIFrame('findContainer')"
+									class="likeLink" id="findContainerSpan">Part Locn.</span>
 							</li>
 							<li>
 								<span onclick="switchIFrame('editBiolIndiv')"
