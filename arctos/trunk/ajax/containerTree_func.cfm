@@ -30,7 +30,7 @@
 		<cfset temp = QuerySetCell(result, "msg", "You must enter search criteria.", 1)>
 		<cfreturn result>
 	</cfif>
-		<cfreturn 'binky'>
+
 	<cfset sel = "SELECT container.container_id">
 	<cfset frm = " FROM container ">
 	<cfif len(#cat_num#) gt 0 and #cat_num# neq "-1">
@@ -119,6 +119,10 @@
 	<cfif len(#contr_id#) gt 0 and #contr_id# neq "-1">
 		<cfset whr = "#whr# AND container.container_id = #contr_id#">
 	 </cfif>
+	 
+	 		<cfreturn 'binky'>
+	 		
+	 		
 	 <cfset sql = "#sel# #frm# #whr#">
 					<cfreturn sql>	
 					<cfabort>
