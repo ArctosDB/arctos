@@ -93,7 +93,7 @@ function checkHandler (id){
 	//container0
 	var rootsAr = newTree.getSubItems('container0').split(",")
 	for(var i=0;i<rootsAr.length;i++){ 
-		//newTree.getSubItems(rootsAr[i],'purple','green') 
+		newTree.setItemColor(rootsAr[i],'purple','green') 
 		alert(rootsAr[i]);
 	} 	
 	newTree.setItemColor(id,'blue','red');
