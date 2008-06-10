@@ -83,7 +83,9 @@
 			<div id="treePane" style="height:600px;"></div>
 		</td><!------------------------------------- end tree pane --------------------------------------------->
 		
-		<td valign="top">Right</td>
+		<td valign="top">
+			<div id="detailPane"></div>
+		</td>
 	</tr>
 </table>
 
