@@ -33,11 +33,11 @@
 
 	<cfset sel = "SELECT container.container_id">
 	<cfset frm = " FROM container ">
+	<cfset whr=" 1=1 ">
 	<cfif len(#cat_num#) gt 0>
 		<cfif #frm# does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
 		</cfif>
-			<cfreturn 'booger'>
 		<cfif #frm# does not contain " specimen_part ">
 			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
 		</cfif>
