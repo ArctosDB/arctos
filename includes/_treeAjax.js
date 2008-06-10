@@ -27,6 +27,7 @@ function loadTree_success(result) {
 		var theTreeDiv = document.getElementById('treePane');
 		theTreeDiv.innerHTML = '';
 		newTree=new dhtmlXTreeObject("treePane","100%","100%;",0);
+		newTree.setImagePath("/images/dhtmlxTree/");
 		newTree.insertNewItem("0","container0","Parentless Void",0,0,0,0,"SELECT");
 		newTree.enableCheckBoxes(1);
 		//newTree.setOnDblClickHandler('expandNode');
