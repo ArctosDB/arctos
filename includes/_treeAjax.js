@@ -90,6 +90,10 @@ function expandNode_success (result) {
 
 function checkHandler (id){
 	newTree.setCheck(id,0)
+	var rootsAr = newTree.getSubItems(0).split(",")
+	for(var i=0;i<rootsAr.length;i++){ 
+		newTree.setItemColor(rootsAr[i],'purple','green') 
+	} 	
 	newTree.setItemColor(id,'blue','red');
 	//alert('checky: ' + id);
 	var guts = "/ContDet.cfm?container_id=" + id;
