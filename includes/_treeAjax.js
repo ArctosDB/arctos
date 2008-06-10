@@ -18,7 +18,7 @@ function loadTree () {
 }
 
 function loadTree_success(result) {
-	alert(result);
+	//alert(result);
 	var oops = result[0].CONTAINER_ID;
 	if (oops==-1) {
 		var error = result[0].MSG;
@@ -29,8 +29,9 @@ function loadTree_success(result) {
 		newTree=new dhtmlXTreeObject("treePane","100%","100%;",0);
 		newTree.insertNewItem("0","container0","Parentless Void",0,0,0,0,"SELECT");
 		newTree.enableCheckBoxes(1);
-		newTree.setOnDblClickHandler('expandNode');
-		newTree.setOnCheckHandler(n_toncheck);	
+		//newTree.setOnDblClickHandler('expandNode');
+		newTree.attachEvent("onDblClick","expandNode")
+		newTree.setOnCheckHandler('checkHandler');	
 		for (i = 0; i < result.length; i++) { 
 		 	var CONTAINER_ID = result[i].CONTAINER_ID;
 			var PARENT_CONTAINER_ID = result[i].PARENT_CONTAINER_ID;
@@ -44,17 +45,14 @@ function loadTree_success(result) {
 	}
 }
 function expandNode (id) {
-	alert ('expandNode:' + id);
-	
+	//alert ('expandNode:' + id);
 	DWREngine._execute(_containerTree_func, null,'get_containerContents',id,expandNode_success);
 }
 
 
 function expandNode_success (result) {
-	alert(result);
+	//alert(result);
 	var ok = result[0].CONTAINER_ID;
-	
-
 	//alert(treeID);
 	if (ok == '-1') {
 		var error = result[0].MSG;
