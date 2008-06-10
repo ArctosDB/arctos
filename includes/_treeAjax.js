@@ -21,7 +21,7 @@ function loadTree_success(result) {
 	var oops = result[0].CONTAINER_ID;
 	if (oops==-1) {
 		var error = result[0].MSG;
-		alert(error);
+		alert('this: ' + error);
 	} else{
 		var theTreeDiv = document.getElementById('treePane');
 		theTreeDiv.innerHTML = '';
