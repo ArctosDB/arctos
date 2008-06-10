@@ -50,6 +50,42 @@ function expandNode (id) {
 }
 
 
+function expandNode_success (result) {
+	alert(result);
+	var ok = result[0].CONTAINER_ID;
+	
+
+	//alert(treeID);
+	if (ok == '-1') {
+		var error = result[0].MSG;
+		alert(error);
+	} else{
+		// happy
+			var didSomething = "";
+		 for (i = 0; i < result.length; i++) { 
+		 	var CONTAINER_ID = result[i].CONTAINER_ID;
+			//alert(CONTAINER_ID);
+			var n = "newTree.getLevel('" + CONTAINER_ID + "')";
+			var nE = eval(n);
+			if (nE == 0) {
+				var PARENT_CONTAINER_ID = result[i].PARENT_CONTAINER_ID;
+				var CONTAINER_TYPE = result[i].CONTAINER_TYPE;
+				var DESCRIPTION = result[i].DESCRIPTION;
+				var PARENT_INSTALL_DATE = result[i].PARENT_INSTALL_DATE;
+				var CONTAINER_REMARKS = result[i].CONTAINER_REMARKS;
+				var LABEL = result[i].LABEL;
+				var thisIns = 'newTree.insertNewChild("' + PARENT_CONTAINER_ID + '","' + CONTAINER_ID + '","' + LABEL + ' (' + CONTAINER_TYPE + ')",0,0,0,0,"",1)';
+				eval(thisIns);
+				didSomething = 'yep';
+			}						
+		 }
+		// alert('tree_' + treeID);
+		if (didSomething == '') {
+			alert('This container is already expanded.');
+		}
+	}
+}	
+
 
 
 
@@ -279,44 +315,6 @@ function n_expandNode (id) {
 }
 
 
-
-function expandNode_success (result) {
-	alert(result);
-	var treeID = result[0].TREEID;
-	//alert(treeID);
-	if (treeID == '-1') {
-		// error
-		var error = result[0].CONTAINER_ID;
-		alert(error);
-	} else{
-		// happy
-			var didSomething = "";
-		 for (i = 0; i < result.length; i++) { 
-		 	var CONTAINER_ID = result[i].CONTAINER_ID;
-			var PARENT_CONTAINER_ID = result[i].PARENT_CONTAINER_ID;
-			var CONTAINER_TYPE = result[i].CONTAINER_TYPE;
-			var DESCRIPTION = result[i].DESCRIPTION;
-			var PARENT_INSTALL_DATE = result[i].PARENT_INSTALL_DATE;
-			var CONTAINER_REMARKS = result[i].CONTAINER_REMARKS;
-			var LABEL = result[i].LABEL;
-			//alert(CONTAINER_ID);
-			
-			var thisIns = "tree_" + treeID + '.insertNewChild("' + PARENT_CONTAINER_ID + '","' + CONTAINER_ID + '","' + LABEL + ' (' + CONTAINER_TYPE + ')",0,0,0,0,"",1)';
-			// see if it's already there
-			var n = "tree_" + treeID + ".getLevel('" + CONTAINER_ID + "')";
-			var nE = eval(n);
-			//alert(nE);
-			if (nE == 0) {
-				eval(thisIns);
-				didSomething = 'yep';
-			}
-		 }
-		// alert('tree_' + treeID);
-		if (didSomething == '') {
-			alert('This container is already expanded.');
-		}
-	}
-}	
 
 
 function l_tondrag (id, pid) {
