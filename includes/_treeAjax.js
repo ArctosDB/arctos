@@ -5,6 +5,24 @@ function loadTree () {
 	var detailPane = document.getElementById('detailPane');
 	theTreeDiv.innerHTML = 'Fetching data...';
 	detailPane.innerHTML = '';
+	
+	var flds="cat_num,barcode,container_label,description,container_type,part_name,collection_id,other_id_type,other_id_value">
+	var arrFld = flds.split( "," );
+	var q;
+	for (f in arrFld) {
+		if (document.getElementById(f)){
+			var v = document.getElementById(f).value;
+			if (v.length > 0) {
+				var n = f + '=' + v;
+				if (q.length==0) {
+					q=n;
+				} else {
+					q += "&" + n
+				}
+			}
+		}
+	}
+	/*
 	var cat_num = document.getElementById('cat_num').value;
 	var barcode = document.getElementById('barcode').value;
 	var container_label = document.getElementById('container_label').value;
@@ -14,13 +32,14 @@ function loadTree () {
 	var collection_id = document.getElementById('collection_id').value;
 	var other_id_type = document.getElementById('other_id_type').value;
 	var other_id_value = document.getElementById('other_id_value').value;
-
+	*/
+	
 	//alert(treeID + " " + srch + " " + cat_num + " " + barcode + " " + container_label + " " + description + " " + container_type);
-	DWREngine._execute(_containerTree_func, null,'get_containerTree',cat_num,barcode,container_label,description,container_type,part_name,collection_id,other_id_type,other_id_value,  loadTree_success);
+	DWREngine._execute(_containerTree_func, null,'test',q,  loadTree_success);
 }
 
 function loadTree_success(result) {
-	//alert(result);
+	alert(result);
 	var theTreeDiv = document.getElementById('treePane');
 	var oops = result[0].CONTAINER_ID;
 	if (oops==-1) {
