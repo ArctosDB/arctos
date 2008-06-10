@@ -59,7 +59,7 @@
 					  </cfloop>
 				</select>
 				<label for="other_id_type">OID Type</label>
-				<select name="other_id_type" id="other_id_type" size="1" style="width:60px;">
+				<select name="other_id_type" id="other_id_type" size="1" style="width:120px;">
 					<option value=""></option>
 					<cfloop query="ctcoll_other_id_type"> 
 						<option value="#ctcoll_other_id_type.other_id_type#">#ctcoll_other_id_type.other_id_type#</option>
