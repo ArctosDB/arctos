@@ -91,7 +91,8 @@ function expandNode_success (result) {
 function checkHandler (id){
 	newTree.setCheck(id,0)
 	alert('checky: ' + id);
-	$("#detailPane").innerHTML='checked me! ' + id;
+	var guts = "/ContDet.cfm?container_id=" + id;
+	ahah(guts,'detailPane');
 }
 
 
