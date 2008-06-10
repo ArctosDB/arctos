@@ -1,4 +1,8 @@
-<cfif not isdefined("url.nohead")>
+<cfif isdefined("url.nohead")>
+	<div style="display:none">
+<cfinclude template="includes/_header.cfm">
+</div>
+<cfelse>
 <cfinclude template="includes/_header.cfm">
 </cfif>
 <!--- 
@@ -982,6 +986,4 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 </cfif>
 <!---------------------------------------------->
 <!---------------------------------------------------->
-<cfif not isdefined("url.nohead")>
 <cfinclude template="/includes/_pickFooter.cfm">
-</cfif>
