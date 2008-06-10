@@ -1,19 +1,18 @@
 <cfinclude template="/includes/_header.cfm">
-<cflayout type="border">
-
-  <cflayoutarea position="top" title="Top Layout Area">
-  This is the top layout area.
-  </cflayoutarea>
+here we go now<cflayout type="border">
 
   <cflayoutarea position="center">
   This is the center layout area.
   </cflayoutarea>
 
-  <cflayoutarea position="bottom" title="Bottom Layout Area">
-  This is the bottom layout area.
+  <cflayoutarea position="left" title="Menu" splitter="true" collapsible="true" size="200" maxsize="200">
+  <p>
+  <a href="">Link One</a><br />
+  <a href="">Link Two</a><br />
+  <a href="">Link Three</a><br />
+  </p>
   </cflayoutarea>
 
 </cflayout>
-
 
 <cfinclude template="/includes/_footer.cfm">
