@@ -38,6 +38,7 @@
 <cffunction name="test" returntype="string">
 	<cfargument name="q" type="string" required="true">
 	<!--- accept a url-type argument, parse it out here --->
+	<cfreturn q>
 	<cfset r="">
 	<cfloop list="#q#" index="p" delimiters="&">
 		<!---
