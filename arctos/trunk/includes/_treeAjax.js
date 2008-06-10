@@ -91,7 +91,8 @@ function expandNode_success (result) {
 function checkHandler (id){
 	newTree.setCheck(id,0);
 	//container0
-	var rootsAr = newTree.getItems('container0').split(",")
+	//tree.getAllFatItems(); //Get all nodes without childs tree.getAllLeafs();
+	var rootsAr = newTree.getAllFatItems().split(",")
 	for(var i=0;i<rootsAr.length;i++){ 
 		newTree.setItemColor(rootsAr[i],'purple','green') 
 		//alert(rootsAr[i]);
