@@ -3,7 +3,9 @@
 <script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
 <script type="text/javascript" src="/includes/dhtmlxcommon.js"></script>
 <link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxtree.css">
-
+<style >
+	.cTreePane {height:400px;border:1px solid red;overflow-x: hidden;overflow-y: scroll;}
+</style>
 
 
 <script type='text/javascript' src='/includes/_treeAjax.js'></script>
@@ -85,7 +87,7 @@
 				
 		</td><!--------------------------------- end search pane ------------------------------------->
 		<td><!------------------------------------- tree pane --------------------------------------------->
-			<div id="treePane" style="height:400px;border:1px solid red;overflow-x: hidden;overflow-y: scroll;"></div>
+			<div id="treePane" class="cTreePane"></div>
 		</td><!------------------------------------- end tree pane --------------------------------------------->
 		
 		<td valign="top">
