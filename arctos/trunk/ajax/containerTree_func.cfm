@@ -75,7 +75,9 @@
 	<cfloop list="#q#" index="p" delimiters="&">
 		<cfset k=listgetat(p,1,"=")>
 		<cfset v=listgetat(p,2,"=")>
+		<!---
 		<cfset evaluate("variables." & k)=v>
+		---->
 	</cfloop>
 	<cfreturn cat_num>
 	<cfif len(#cat_num#) is 0 AND
