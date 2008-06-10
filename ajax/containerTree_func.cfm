@@ -35,7 +35,7 @@
 </cffunction>	
 
 <!-------------------------------------------------------------->
-<cffunction name="test" returntype="string">
+<cffunction name="testFunction" returntype="string">
 	<cfargument name="q" type="string" required="true">
 	<!--- accept a url-type argument, parse it out here --->
 	<cfreturn q>
