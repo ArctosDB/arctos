@@ -39,10 +39,10 @@
 	<cfargument name="q" type="string" required="true">
 	<!--- accept a url-type argument, parse it out here --->
 	<cfset r="">
-	<cfloop list="#StructKeyList(q)#" index="key">
-		<cfif len(#url[key]#) gt 0>
-			<cfset r="#r#;#url[key]#">
-		</cfif>
+	<cfloop list="#q(q)#" index="p" delimiters="&">
+		<cfset k=listgetat(p,1,"=")>
+		<cfset v=listgetat(p,2,"=")>
+		<cfset r="#r#----#k# is #v#">
 	</cfloop>
 	<cfreturn r>
 </cffunction>
