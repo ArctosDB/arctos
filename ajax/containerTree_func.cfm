@@ -1,5 +1,41 @@
-
 <cfinclude template="/ajax/core/cfajax.cfm">
+
+<!-------------------------------------------------------------->
+<cffunction name="get_containerContents" returntype="query">
+	<cfargument name="contr_id" required="yes" type="string"><!--- ID of div, just gets passed back --->
+	<cftry>
+		<cfquery name="result" datasource="#Application.web_user#" timeout="60">
+			SELECT 
+				CONTAINER_ID,
+				PARENT_CONTAINER_ID,
+				CONTAINER_TYPE,
+				DESCRIPTION,
+				PARENT_INSTALL_DATE,
+				CONTAINER_REMARKS,
+				label
+			from container
+			where parent_container_id = #contr_id#
+		</cfquery>
+		<cfcatch>
+			<cfset result = querynew("container_id,msg")>
+			<cfset temp = queryaddrow(result,1)>
+			<cfset temp = QuerySetCell(result, "container_id", "-1", 1)>
+			<cfset temp = QuerySetCell(result, "msg", "A query error occured: #cfcatch.Message# #cfcatch.Detail#", 1)>
+			<cfreturn result>
+		</cfcatch>
+	 </cftry>
+ 	<cfif #result.recordcount# is 0>
+		<cfset result = querynew("container_id,msg")>
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "container_id", "-1", 1)>
+		<cfset temp = QuerySetCell(result, "msg", "No records were found.", 1)>
+		<cfreturn result>
+	</cfif>
+	<cfreturn result>
+</cffunction>	
+
+
+
 <!-------------------------------------------------------------->
 <cffunction name="get_containerTree" returntype="query">
 	<cfargument name="cat_num" required="yes" type="string">
@@ -289,59 +325,6 @@
 
 <!-------------------------------------------------------------->
 
-<!-------------------------------------------------------------->
-<cffunction name="get_containerContents" returntype="query">
-	<cfargument name="treeID" required="yes" type="string">
-	<cfargument name="contr_id" required="yes" type="string"><!--- ID of div, just gets passed back --->
-	<!--- require some search terms --->
-	
-	<cfif len(#contr_id#) is 0 OR  len(#treeID#) is 0>
-		<cfset result = querynew("treeID,container_id")>
-		<cfset temp = queryaddrow(result,1)>
-		<cfset temp = QuerySetCell(result, "treeID", "-1", 1)>
-		<cfset temp = QuerySetCell(result, "container_id", "You must enter search criteria.", 1)>
-		<cfreturn result>
-		<cfabort>
-	</cfif>
-			 <cftry>
-			 	 <cfquery name="result" datasource="#Application.web_user#" timeout="60">
-					SELECT 
-						'#treeID#' as treeID,
-						CONTAINER_ID,
-						PARENT_CONTAINER_ID,
-						CONTAINER_TYPE,
-						DESCRIPTION,
-						PARENT_INSTALL_DATE,
-						CONTAINER_REMARKS,
-						label
-						 from container
-						where parent_container_id = #contr_id#
-				 </cfquery>
-				<cfcatch>
-					<cfset result = querynew("treeID,container_id")>
-					<cfset temp = queryaddrow(result,1)>
-					<cfset temp = QuerySetCell(result, "treeID", "-1", 1)>
-					<cfset temp = QuerySetCell(result, "container_id", "A query error occured: #cfcatch.Message# #cfcatch.Detail#", 1)>
-					<cfreturn result>
-					<cfabort>
-				</cfcatch>
-			 </cftry>
-			
-		 	<cfif #result.recordcount# is 0>
-				<cfset result = querynew("treeID,container_id")>
-				<cfset temp = queryaddrow(result,1)>
-				<cfset temp = QuerySetCell(result, "treeID", "-1", 1)>
-				<cfset temp = QuerySetCell(result, "container_id", "No records were found.", 1)>
-				<cfreturn result>
-				<cfabort>
-	   		</cfif>
-		<cfreturn result>
-		---->
-</cffunction>	
-
-
-
-<!-------------------------------------------------------------->
 <cffunction name="getContChildren" returntype="string">
 	<cfargument name="treeID" required="yes" type="string">
 	<cfargument name="contr_id" required="no" type="string">
