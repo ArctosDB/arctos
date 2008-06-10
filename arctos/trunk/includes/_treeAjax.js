@@ -49,11 +49,11 @@ function showSpecTreeOnly (colobjid) {
 	var detailPane = document.getElementById('detailPane');
 	detailPane.style.diplay='none';
 	var _footer = document.getElementById('_footer');
-	_footer.style.diplay="none";
+	_footer.style.diplay='none';
 	var _header = document.getElementById('_header');
-	_header.style.diplay="none";
+	_header.style.diplay='none';
 	var partSearchPane = document.getElementById('partSearchPane');
-	partSearchPane.style.diplay="none";
+	partSearchPane.style.diplay='none';
 	
 	var q="collection_object_id=" + colobjid;
 
