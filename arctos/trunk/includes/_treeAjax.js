@@ -19,8 +19,9 @@ function loadTree () {
 
 function loadTree_success(result) {
 	alert(result);
-	var error = result[0].CONTAINER_ID;
-	if (error==-1) {
+	var oops = result[0].CONTAINER_ID;
+	if (oops==-1) {
+		var error = result[0].MSG;
 		alert(error);
 	} else{
 		var theTreeDiv = document.getElementById('treePane');
