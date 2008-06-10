@@ -102,14 +102,14 @@
 <cfelse>
 	<cfset autoSubmit=false>
 	<cfloop list="#StructKeyList(url)#" index="key">
-	<cfif len(#url[key]#) gt 0>
-	<cfset autoSubmit=true>
-	<script language="javascript" type="text/javascript">
-		if (document.getElementById('#lcase(key)#')) {
-			document.getElementById('#lcase(key)#').value='#url[key]#';
-		}
-	</script>
-	</cfif>
+		<cfif len(#url[key]#) gt 0>
+			<cfset autoSubmit=true>
+			<script language="javascript" type="text/javascript">
+				if (document.getElementById('#lcase(key)#')) {
+					document.getElementById('#lcase(key)#').value='#url[key]#';
+				}
+			</script>
+		</cfif>
 	</cfloop>
 	<cfif autoSubmit is true>
 	<script language="javascript" type="text/javascript">
