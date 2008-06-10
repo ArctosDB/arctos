@@ -6,7 +6,7 @@ function loadTree () {
 	theTreeDiv.innerHTML = 'Fetching data...';
 	detailPane.innerHTML = '';
 	
-	var flds="cat_num,barcode,container_label,description,container_type,part_name,collection_id,other_id_type,other_id_value">
+	var flds="cat_num,barcode,container_label,description,container_type,part_name,collection_id,other_id_type,other_id_value";
 	var arrFld = flds.split( "," );
 	var q;
 	for (f in arrFld) {
