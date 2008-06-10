@@ -94,7 +94,7 @@
 	<cfset autoSubmit=true>
 	<script language="javascript" type="text/javascript">
 		if (document.getElementById('#lcase(key)#')) {
-			document.getElementById('#lcase(key)#')).value='#url[key]#';
+			document.getElementById('#lcase(key)#').value='#url[key]#';
 		}
 	</script>
 	 #key#=#url[key]#<br>
