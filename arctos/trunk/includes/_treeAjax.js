@@ -10,6 +10,7 @@ function loadTree () {
 	var arrFld = flds.split( "," );
 
 	//alert('l' + arrFld.length);
+	var q="";
 	for (f in arrFld) {
 		if (document.getElementById(arrFld[f])){
 			//alert(arrFld[f]);
@@ -17,8 +18,8 @@ function loadTree () {
 			//alert('v'+v)
 			if (v.length > 0) {
 				var n = arrFld[f] + '=' + v;
-				if (q=='undefined') {
-					var q=n;
+				if (q.length==0) {
+					q=n;
 				} else {
 					q += "&" + n
 				}
