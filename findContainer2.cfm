@@ -88,10 +88,12 @@
 		</td>
 	</tr>
 </table>
-<cfdump var=#url#>
-<cfif isdefined("URL.run") and len(#URL.run#) gt 0>
-	<!--- see if we can get anything out of the URL, dump it into the form, and submit --->
+<cfloop list="#StructKeyList(url)#" index="key">
+ <cfif len(#url[key]#) gt 0>
+	 #key#=#url[key]#<br>
 </cfif>
+</cfloop>
+		
 
 <div id="containerDetails" name="containerDetails" style="display:none; position:absolute; border:2px solid ##666666; background-color:##CCCCCC; padding:20px;">
 	<div id="k" name="k" style="position:absolute; right:0; top:0; width:20px; height:20px; clear:both;">
