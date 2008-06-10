@@ -5,7 +5,7 @@
 <cfoutput>
    <cfform name="myform">
       <cftree name="treeTest" height="400" width="200" format="html">
-         <cftreeitem bind="cfc:test:getNodes({cftreeitempath},{cftreeitemvalue})">
+         <cftreeitem bind="cfc:test.getNodes({cftreeitempath},{cftreeitemvalue})">
       </cftree>
    </cfform>
 </cfoutput>
