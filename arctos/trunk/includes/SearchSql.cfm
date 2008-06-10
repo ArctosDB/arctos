@@ -1032,6 +1032,9 @@
 			also go to the table if searching multiple part names, which should get
 			here as a comma-separated list
 		--->
+		<cfif isdefined("partname") AND len(#partname#) gt 0>
+			<cfset part_name=partname>
+		</cfif>		
 		<cfif isdefined("part_name") AND len(#part_name#) gt 0>
 			<cfset mapurl = "#mapurl#&part_name=#part_name#">
 			<cfif 
@@ -1052,7 +1055,7 @@
 					<cfset i=i+1>
 				</cfloop>
 			<cfelse><!--- part name only --->		
-				<cfset basQual = " #basQual# AND PARTS LIKE '%#part_name#%'">
+				<cfset basQual = " #basQual# AND upper(PARTS) LIKE '%#part_name#%'">
 			</cfif>
 		</cfif>
 		<cfif isdefined("is_tissue") AND #is_tissue# is 1>
