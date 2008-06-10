@@ -1,5 +1,4 @@
 
-<cfinclude template="includes/_header.cfm">
 <cflayout name="outerlayout" type="vbox">
     <cflayoutarea style="height:400;">
         <cflayout name="thelayout" type="border">
@@ -49,5 +48,3 @@
     </cflayoutarea>
 </cflayout>
 
-
- <cfinclude template="includes/_footer.cfm">
