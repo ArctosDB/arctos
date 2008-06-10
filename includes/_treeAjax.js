@@ -8,7 +8,7 @@ function loadTree () {
 	
 	var flds="cat_num,barcode,container_label,description,container_type,part_name,collection_id,other_id_type,other_id_value";
 	var arrFld = flds.split( "," );
-	var q;
+
 	//alert('l' + arrFld.length);
 	for (f in arrFld) {
 		if (document.getElementById(arrFld[f])){
@@ -17,8 +17,8 @@ function loadTree () {
 			//alert('v'+v)
 			if (v.length > 0) {
 				var n = arrFld[f] + '=' + v;
-				if (q.length==0) {
-					q=n;
+				if (q) {
+					var q=n;
 				} else {
 					q += "&" + n
 				}
