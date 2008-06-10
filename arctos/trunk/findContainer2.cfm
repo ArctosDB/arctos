@@ -70,7 +70,7 @@
 				<input type="text" name="other_id_value" id="other_id_value" />
 				<br>
 				<input type="submit" value="Search"
-					class="schBtn" onclick="loadTree();" />
+					class="schBtn">
 				&nbsp;&nbsp;&nbsp;
 				<input class="clrBtn"
 					type="reset" value="Clear"/>
