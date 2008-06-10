@@ -384,6 +384,9 @@
 									<cfset isNext = "yes">
 								</cfif>
 							</cfif>
+						<cfelse>
+							<cfset isNext="">
+							<cfset isPrev="">
 						</cfif>
 		                <ul id="navbar">
 							<cfif #isPrev# is "yes">
