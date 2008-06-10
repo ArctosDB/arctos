@@ -46,7 +46,6 @@ function showSpecTreeOnly (colobjid) {
 	var theTreeDiv = document.getElementById('treePane');
 	theTreeDiv.className="";
 	theTreeDiv.innerHTML = 'Fetching data...';
-	document.getElementById('detailPane').style.diplay='none';
 	document.getElementById('thisfooter').style.display='none';
 	document.getElementById('header_color').style.display='none';
 	document.getElementById('searchPane').style.display='none';
