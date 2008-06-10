@@ -89,23 +89,20 @@ function expandNode_success (result) {
 }	
 
 function checkHandler (id){
-	newTree.setCheck(id,0);
-	//container0
-	//tree.getAllFatItems(); //Get all nodes without childs tree.();
+	var guts = "/ContDet.cfm?container_id=" + id;
+	ahah(guts,'detailPane');
 	var rootsAr = newTree.getAllFatItems().split(",")
 	for(var i=0;i<rootsAr.length;i++){ 
-		newTree.setItemColor(rootsAr[i],'black','black') 
-		//alert(rootsAr[i]);
+		newTree.setItemColor(rootsAr[i],'black','black');
+		newTree.setCheck(rootsAr[i],0) 
 	}
 	var rootsAr = newTree.getAllLeafs().split(",")
 	for(var i=0;i<rootsAr.length;i++){ 
-		newTree.setItemColor(rootsAr[i],'black','black') 
-		//alert(rootsAr[i]);
+		newTree.setItemColor(rootsAr[i],'black','black');
+		newTree.setCheck(rootsAr[i],0);
 	} 	
 	newTree.setItemColor(id,'red','red');
-	//alert('checky: ' + id);
-	var guts = "/ContDet.cfm?container_id=" + id;
-	ahah(guts,'detailPane');
+	newTree.setCheck(id,1);
 }
 
 
