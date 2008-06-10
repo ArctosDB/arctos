@@ -125,10 +125,6 @@ function expandNode_success (result) {
 		}
 	}
 }	
-function loadEdit(cid) {
-	var u='EditContainer.cfm?nohead=1&container_id=' + cid;
-	ahah(u,'detailPane',3);
-}
 
 
 function checkHandler (id){
@@ -148,7 +144,17 @@ function checkHandler (id){
 	newTree.setCheck(id,1);
 }
 
-
+function downloadTree () {
+	var fatAr = newTree.getAllFatItems().split(",")
+	var leafAr = newTree.getAllLeafs().split(",")
+	var rootsAr = fatAr.concat(leafAr);
+	var cidAr= new Array;
+	for(var i=0;i<rootsAr.length;i++){ 
+		cid.push(rootsAr[i]); 
+	}
+	var cid=cidAr.join(",");
+	alert(cid);
+}
 
 
 

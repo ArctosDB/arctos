@@ -75,6 +75,7 @@
 				<input class="clrBtn"
 					type="reset" value="Clear"/>				
 				</form>
+				<span class="likeLink" onclick="downloadTree()">Flatten and Download</span>
 			</div>
 				
 				
