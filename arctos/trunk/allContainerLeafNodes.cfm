@@ -226,7 +226,7 @@ SELECT
 </cfif>
 
  <cfform name="TissTree" enablecab="yes">
-	<cftree name="tt" height="600" width="400" border="yes" hscroll="yes" vscroll="yes" highlighthref="yes">
+	<cftree name="tt" height="600" width="400" border="yes" hscroll="yes" vscroll="yes" highlighthref="yes" format="html">
 	<cftreeitem value="0" expand="yes" display="Location">
 	<!--- set up a list to keep track of the container_ids that we've put in the tree --->
 	<cfset placedContainers = "">
