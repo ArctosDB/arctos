@@ -1,25 +1,11 @@
-
-<!---
- 
- --->
- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
- <cfinclude template="/includes/alwaysInclude.cfm">
-<div style="float:right; position:absolute; right:0; top:100; z-index:1">
-	<cfinclude template="container_nav.cfm">
-</div>
-
+<cfinclude template="/includes/_header.cfm">
  
 <script type='text/javascript' src='/includes/dhtmlXTree.js'><!-- --></script>
 <script type="text/javascript" src="/includes/dhtmlXCommon.js"></script>
 <link rel="STYLESHEET" type="text/css" href="/includes/dhtmlXTree.css">
 
-<script type='text/javascript' src='/ajax/core/engine.js'></script>
 <script type='text/javascript' src='/includes/wz_dragdrop.js'></script>
 
-
-	<script type='text/javascript' src='/ajax/core/util.js'></script>
-	<script type='text/javascript' src='/ajax/core/settings.js'></script>
-	<cfinclude template="/ajax/core/cfajax.cfm">
 <script type='text/javascript' src='/includes/_treeAjax.js'></script>
 
 <cfquery name="contType" datasource="#Application.web_user#">
