@@ -152,8 +152,8 @@ function downloadTree () {
 	for(var i=0;i<rootsAr.length;i++){ 
 		cidAr.push(rootsAr[i]); 
 	}
-	cidAr.slice(2);
-	var cid=cidAr.join(",");
+	var cutAr=cidAr.slice(1);
+	var cid=cutAr.join(",");
 	alert(cid);
 }
 
