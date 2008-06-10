@@ -1,7 +1,7 @@
 
 <cfinclude template="/ajax/core/cfajax.cfm">
 <!-------------------------------------------------------------->
-<cffunction name="get_containerTree" returntype="string">
+<cffunction name="get_containerTree" returntype="query">
 	<cfargument name="cat_num" required="yes" type="string">
 	<cfargument name="barcode" required="yes" type="string">
 	<cfargument name="container_label" required="yes" type="string">
@@ -129,8 +129,7 @@
 	 		
 	 		
 	 <cfset sql = "#sel# #frm# #whr#">
-					<cfreturn sql>	
-					<cfabort>
+
 		<!---
 		<cfset result = querynew("treeID,container_id")>
 		<cfset temp = queryaddrow(result,1)>
