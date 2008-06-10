@@ -88,7 +88,6 @@
 <!---------------- start search by container ---------------->
 <cfif #action# is "nothing">
 <cfif not isdefined ("srch")>
-	waiting...
 	<cfabort>
 </cfif>
 <cfset sel = "
