@@ -33,7 +33,7 @@
 
 	<cfset sel = "SELECT container.container_id">
 	<cfset frm = " FROM container ">
-	<cfif len(#cat_num#) gt 0 and #cat_num# neq "-1">
+	<cfif len(#cat_num#) gt 0>
 		<cfif #frm# does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
 		</cfif>
@@ -45,6 +45,8 @@
 		</cfif>
 		<cfset whr = "#whr# AND cataloged_item.cat_num IN (#cat_num#)">
 	 </cfif>
+	 
+	 <cfreturn 'booger'>
 	<cfif len(#other_id_type#) gt 0 and #other_id_type# neq "-1">
 		<cfif #frm# does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
