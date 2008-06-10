@@ -254,7 +254,7 @@
 										<li><a target="_top" href="/LoadBarcodes.cfm">Upload Scan File</a></li>
 										<li><a target="_top" href="/EditContainer.cfm?action=newContainer">Create container</a></li>
 										<li><a target="_top" href="/SpecimenContainerLabels.cfm">Clear part Flags</a></li>
-										<li><a target="_top" href="/CreateContainersForBarcodes.cfm?action=set">Create Labels</a></li>
+										<li><a target="_top" href="/CreateContainersForBarcodes.cfm">Create Labels</a></li>
 									</cfif>
 									<cfif listfind(formList,"/moveContainer.cfm")>
 										<li><a target="_top" href="/a_moveContainer.cfm">Move container</a></li>
