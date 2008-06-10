@@ -24,7 +24,7 @@ select
 	</cfquery>
  <cfform name="myform2">
       <cftree name="treeTest2" height="400" width="200" format="html">
-			<cftreeitem display="boogity" query="test">
+			<cftreeitem display="boogity" value="test.label" query="test">
       </cftree>
    </cfform>
 </cfoutput>
