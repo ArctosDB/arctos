@@ -1,7 +1,7 @@
 
 <cfinclude template="/ajax/core/cfajax.cfm">
 <!-------------------------------------------------------------->
-<cffunction name="get_containerTree" returntype="query">
+<cffunction name="get_containerTree" returntype="string">
 	<cfargument name="cat_num" required="yes" type="string">
 	<cfargument name="barcode" required="yes" type="string">
 	<cfargument name="container_label" required="yes" type="string">
@@ -146,7 +146,7 @@
 				)
 				connect by prior parent_container_id = container_id
 			">
-					
+				<cfreturn thisSql>	
 			 <cftry>
 			 	 <cfquery name="queriedFor" datasource="#Application.web_user#" timeout="60">
 					#preservesinglequotes(thisSql)#
