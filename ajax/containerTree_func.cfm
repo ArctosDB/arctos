@@ -12,6 +12,7 @@
 	<cfargument name="other_id_type" required="yes" type="string">
 	<cfargument name="other_id_value" required="yes" type="string">
 	
+	<cfreturn 'binky'>
 	<cfif len(#cat_num#) is 0 AND
 		len(#barcode#) is 0 AND
 		len(#container_label#) is 0 AND
