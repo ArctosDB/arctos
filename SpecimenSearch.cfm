@@ -317,7 +317,7 @@
 				<span class="helpLink" id="part_name">Part:</span>
 			</td>
 			<td class="srch">
-				<cfinput type="text" autosuggest="#valuelist(Part.part_name)#" name="partname">
+				<cfinput type="text" autosuggest="#valuelist(Part.part_name,"|")#" name="partname" delimiter="|">
 				
 	
 				<span class="infoLink" onclick="getCtDoc('ctspecimen_part_name',SpecData.partname.value);">Define</span>
