@@ -302,7 +302,6 @@
 		</cfif>
 	group by part_name order by part_name
 </cfquery>
-<cfdump var="#part#">
 <cfset partlist=#valuelist(Part.part_name,"\")#>
 <div class="secDiv">
 	<table class="ssrch">
