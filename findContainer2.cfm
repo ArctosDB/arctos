@@ -2,6 +2,7 @@
  
 <script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
 <script type="text/javascript" src="/includes/dhtmlxcommon.js"></script>
+<script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxtree.css">
 
 <script type='text/javascript' src='/includes/wz_dragdrop.js'></script>
@@ -82,11 +83,11 @@
 			<div id="treePane" style="height:600px;"></div>
 		</td><!------------------------------------- end tree pane --------------------------------------------->
 		
-		<td>Right</td>
+		<td valign="top">Right</td>
 	</tr>
 </table>
 
-<!---------
+
 <div id="containerDetails" name="containerDetails" style="display:none; position:absolute; border:2px solid ##666666; background-color:##CCCCCC; padding:20px;">
 	<div id="k" name="k" style="position:absolute; right:0; top:0; width:20px; height:20px; clear:both;">
 		<img src="/images/del.gif" class="likeLink" onclick="closeDetails();" />
@@ -119,6 +120,7 @@
 		</tr>
 	</table>
 </div>
+<!---
 <table width="100%" border="1">
 <tr>
 	<td>
