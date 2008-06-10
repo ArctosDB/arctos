@@ -118,10 +118,9 @@
 	<cfif len(#contr_id#) gt 0 and #contr_id# neq "-1">
 		<cfset whr = "#whr# AND container.container_id = #contr_id#">
 	 </cfif>
-	 
-	
-	
-		<cfset sql = "#sel# #frm# #whr#">
+	 <cfset sql = "#sel# #frm# #whr#">
+					<cfreturn sql>	
+					<cfabort>
 		<!---
 		<cfset result = querynew("treeID,container_id")>
 		<cfset temp = queryaddrow(result,1)>
@@ -146,7 +145,7 @@
 				)
 				connect by prior parent_container_id = container_id
 			">
-				<cfreturn thisSql>	
+
 			 <cftry>
 			 	 <cfquery name="queriedFor" datasource="#Application.web_user#" timeout="60">
 					#preservesinglequotes(thisSql)#
