@@ -1,7 +1,7 @@
 function loadTree () {
 	//alert('loadTree');
 	var theTreeDiv = document.getElementById('treePane');
-	theTreeDiv.innerHTML = '';
+	theTreeDiv.innerHTML = 'Fetching data...';
 	
 	var cat_num = document.getElementById('cat_num').value;
 	var barcode = document.getElementById('barcode').value;
