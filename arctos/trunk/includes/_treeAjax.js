@@ -90,7 +90,8 @@ function expandNode_success (result) {
 
 function checkHandler (id){
 	newTree.setCheck(id,0)
-	alert('checky: ' + id);
+	newTree.setItemColor(id,'','red');
+	//alert('checky: ' + id);
 	var guts = "/ContDet.cfm?container_id=" + id;
 	ahah(guts,'detailPane');
 }
