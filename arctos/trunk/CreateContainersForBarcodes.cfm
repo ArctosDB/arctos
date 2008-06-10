@@ -2,59 +2,61 @@
 <!---- this is an internal use page and needs a security wrapper --->
 <!--- no security --->
 
-<cfif URL.action is "set">
+<cfif action is "nothing">
 <cfquery name="ctContainer_Type" datasource="#Application.web_user#">
 	select container_type from ctcontainer_type order by container_type
 </cfquery>
-<body>
-
-
+<cfquery name="ctinstitution_acronym" datasource="#Application.web_user#">
+	select institution_acronym from collection group by institution_acronym order by institution_acronym
+</cfquery>
+Containers (things that you can stick barcode to) in Arctos must exist (generally as some type of
+ label) before they may be used.
+<br>
+This form allows creation of series of containers. You should use this form if you:
+<ul>
+	<li>Have placed, will place, and perhaps have considered placing an order for preprinted-labels.</li>
+	<li>Have printed or intend to print your own series of labels.</li>
+	<li>Wish to reserve a series of labels for any other reason.</li>
+</ul>
+This form does nothing to labels that already exist. Don't try.
+ <p>The barcode label will be {prefix}{number}{suffix}. For example, prefix=' 
+      a', number = 1, suffix=' b' will produce barcode ' a1 b'. Make sure you 
+      enter <strong>exactly</strong> what the scanner 
+      will read, including all spaces!</p>
 <form name="form1" method="post" action="CreateContainersForBarcodes.cfm?action=create">
-   Institution Acronym:<input type="text" name="institution_acronym">
-    <p>Low number in series: 
-      <input type="text" name="beginBarcode">
-      <br>
-      High number in series: 
-      <input type="text" name="endBarcode">
-      <br>
-      Barcode Prefix (non-numeric leading bit-include spaces if you want them) 
-      <input type="text" name="prefix">
-      <br>
-      Barcode Suffix (non-numeric trailing bit-include spaces if you want them) 
-      <input type="text" name="suffix">
-	   <br>
-      Label Prefix (non-numeric leading bit-include spaces if you want them) 
-      <input type="text" name="label_prefix">
-      <br>
-      Label Suffix (non-numeric trailing bit-include spaces if you want them) 
-      <input type="text" name="label_suffix">
-      <br>
-      Container Type: 
-      <select name="container_type" size="1">
+	<label for="institution_acronym">Institution Acronym</label>
+    <select name="institution_acronym" id="institution_acronym" class="reqdClr">
+		<cfloop query="ctinstitution_acronym">
+			<option value="#institution_acronym#">#institution_acronym#</option>
+		</cfloop>
+	</select> 
+    <label for="beginBarcode">Low number in series</label>
+    <input type="text" name="beginBarcode" id="beginBarcode">
+    <label for="endBarcode">High number in series</label>
+   	<input type="text" name="endBarcode" id="endBarcode">
+    <label for="prefix">Barcode Prefix (non-numeric leading bit-include spaces if you want them)</label>
+   	<input type="text" name="prefix" id="prefix">
+    <label for="suffix">Barcode Suffix (non-numeric trailing bit-include spaces if you want them) </label>
+   	<input type="text" name="suffix" id="suffix">
+	<label for="label_prefix">Label Prefix (non-numeric leading bit-include spaces if you want them)</label>
+    <input type="text" name="label_prefix" id="label_prefix">
+    <label for="label_suffix">Label Suffix (non-numeric trailing bit-include spaces if you want them)</label>
+    <input type="text" name="label_suffix" id="label_suffix">
+    <label for="container_type">Container Type</label>
+    <select name="container_type" size="1" id="container_type">
         <cfoutput query="ctContainer_Type"> 
           <option value="#ctContainer_Type.Container_Type#">#ctContainer_Type.Container_Type#</option>
         </cfoutput> 
-      </select>
-	  <br>
-     Remarks
-      <input type="text" name="remarks">
-	  <cfoutput>
-	    <input type="submit" value="Create Series" class="insBtn"
-   onmouseover="this.className='insBtn btnhov'" onMouseOut="this.className='insBtn'">	
-
-	  </cfoutput>
-    </p>
-    <p>The barcode label will be {prefix}{number}{suffix}. For example, prefix=' 
-      a', number = 1, suffix=' b' will produce barcode ' a1 b'. Make sure you 
-      enter <font color="#FF0000"><strong>exactly</strong></font> what the scanner 
-      will read, including all spaces!</p>
-   
+     </select>
+	<label for="remarks">Remarks</label>
+    <input type="text" name="remarks" id="remarks">
+	<input type="submit" value="Create Series" class="insBtn">	
     </form>
 </cfif>
 <!----------------------------------------------------------------------------------->
 
 <!----------------------------------------------------------------------------------->
-<cfif URL.action is "create">
+<cfif action is "create">
 <cfquery name="nextContainerId" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	SELECT max((container_id) + 1) as next_id from container
 </cfquery>
