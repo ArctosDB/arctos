@@ -77,6 +77,9 @@
 					type="reset" value="Clear"/>				
 				</form>
 				<span class="likeLink" onclick="downloadTree()">Flatten and Download</span>
+				<br><span class="likeLink" onclick="showTreeOnly()">showTreeOnly</span>
+				
+				showTreeOnly
 			</div>
 				
 				
