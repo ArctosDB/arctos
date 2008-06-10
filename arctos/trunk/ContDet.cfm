@@ -113,7 +113,6 @@
 			<tr>
 				<td colspan="2">
 					<a href="EditContainer.cfm?container_id=#container_id#" target="_blank">Edit this container</a> (new window)
-				 <a href="javascript:void(0);" onClick="getDocs('edit_container')"><img src="/images/info.gif" border="0"></a>
 			</td>
 			</tr>
 		</cfif>
@@ -121,8 +120,6 @@
 			<td colspan="2">
 				<a href="allContainerLeafNodes.cfm?container_id=#container_id#" target="_blank">
 						See all collection objects in this container</a>
-				<a href="javascript:void(0);" 
-					onClick="getDocs('location_tree','see_leaf')"><img src="/images/info.gif" border="0"></a>
 			</td>
 		</tr>
 		<tr>

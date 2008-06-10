@@ -430,7 +430,7 @@
 							</li>
 							
 							<li>
-								<span onclick="switchIFrame('location_tree')"
+								<span onclick="switchIFrame('findContainer2')"
 									class="likeLink" id="ContainerSpan">Part Locn.</span>
 							</li>
 							<li>
