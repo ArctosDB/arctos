@@ -14,7 +14,7 @@ function loadTree () {
 
 	//alert(treeID + " " + srch + " " + cat_num + " " + barcode + " " + container_label + " " + description + " " + container_type);
 	DWREngine._execute(_containerTree_func, null,'get_containerTree',cat_num,barcode,container_label,description,container_type,part_name,collection_id,other_id_type,other_id_value,  loadTree_success);
-	
+	return false;
 }
 
 function loadTree_success(result) {
