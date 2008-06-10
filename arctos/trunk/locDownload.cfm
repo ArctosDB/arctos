@@ -192,7 +192,6 @@ ContainerType#chr(9)#Label#chr(9)#Description#chr(9)#Barcode#chr(9)#InstallDate#
  <cfset oneLine = trim(#oneLine#)>
 	<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#oneLine#">
  </cfloop>
- <cflocation url="/temp/containerDownload.txt">
  <a href="/temp/containerDownload.txt">Download</a>
 
  
