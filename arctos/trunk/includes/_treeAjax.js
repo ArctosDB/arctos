@@ -24,7 +24,7 @@ function loadTree () {
 			}
 		}
 	}
-	alert(q);
+	alert('q'+q);
 	/*
 	var cat_num = document.getElementById('cat_num').value;
 	var barcode = document.getElementById('barcode').value;
