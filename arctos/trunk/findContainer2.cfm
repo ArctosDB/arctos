@@ -29,7 +29,7 @@
 	<tr>
 		<td valign="top"><!--------------------------- search pane ----------------------------->
 			<div id="partSearchPane">
-				<form onSubmit="loadTree()">
+				<form onSubmit="loadTree();return false;">
 				<label for="cat_num">Cat Num</label>
 				<input type="text" name="cat_num" id="cat_num"  />
 				<label for="barcode">Barcode</label>
