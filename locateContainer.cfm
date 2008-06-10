@@ -1,3 +1,5 @@
+ <cfinclude template="includes/_header.cfm">
+
 <cflayout type="hbox">
 
    <cflayoutarea name="randomlayout">
@@ -9,3 +11,5 @@
    </cflayoutarea>
 
 </cflayout>
+
+ <cfinclude template="includes/_footer.cfm">
