@@ -91,10 +91,10 @@ function expandNode_success (result) {
 function checkHandler (id){
 	newTree.setCheck(id,0);
 	//container0
-	var rootsAr = newTree.getSubItems('container0').split(",")
+	var rootsAr = newTree.getItems('container0').split(",")
 	for(var i=0;i<rootsAr.length;i++){ 
 		newTree.setItemColor(rootsAr[i],'purple','green') 
-		alert(rootsAr[i]);
+		//alert(rootsAr[i]);
 	} 	
 	newTree.setItemColor(id,'blue','red');
 	//alert('checky: ' + id);
