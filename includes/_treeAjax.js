@@ -1,6 +1,7 @@
 function loadTree () {
 	//alert('loadTree');
 	var theTreeDiv = document.getElementById('treePane');
+	theTreeDiv.className="";
 	var detailPane = document.getElementById('detailPane');
 	theTreeDiv.innerHTML = 'Fetching data...';
 	detailPane.innerHTML = '';
@@ -20,12 +21,14 @@ function loadTree () {
 
 function loadTree_success(result) {
 	//alert(result);
+	var theTreeDiv = document.getElementById('treePane');
 	var oops = result[0].CONTAINER_ID;
 	if (oops==-1) {
 		var error = result[0].MSG;
-		alert(error);
+		theTreeDiv.className="error";
+		theTreeDiv.innerHTML = error;
 	} else{
-		var theTreeDiv = document.getElementById('treePane');
+		theTreeDiv.className="";
 		theTreeDiv.innerHTML = '';
 		newTree=new dhtmlXTreeObject("treePane","100%","100%;",0);
 		newTree.setImagePath("/images/dhtmlxTree/");
