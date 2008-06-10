@@ -38,16 +38,6 @@
 <cffunction name="testFunction" returntype="string">
 	<cfargument name="q" type="string" required="true">
 	<!--- accept a url-type argument, parse it out here --->
-	<cfset r="">
-	<cfloop list="#q#" index="p" delimiters="&">
-		<cfset k=listgetat(p,1,"=")>
-		<cfset v=listgetat(p,2,"=")>
-		<cfset r="#r#----#p#-#k#==#v#">
-	</cfloop>
-	<cfreturn r>
-</cffunction>
-<!-------------------------------------------------------------->
-<cffunction name="get_containerTree" returntype="query">
 	<cfset cat_num="">
 	<cfset barcode="">
 	<cfset container_label="">
@@ -58,8 +48,26 @@
 	<cfset other_id_type="">
 	<cfset other_id_value="">
 	
+	<cfset r="">
+	<cfloop list="#q#" index="p" delimiters="&">
+		<cfset k=listgetat(p,1,"=")>
+		<cfset v=listgetat(p,2,"=")>
+		<cfset r="#r#----#p#-#k#==#v#">
+	</cfloop>
 	
-	<!---<cfargument name="cat_num" required="yes" type="string">
+
+		<!---
+		<cfset evaluate("variables." & k)=v>
+		---->
+
+	<cfreturn cat_num>
+	
+	
+	<cfreturn r>
+</cffunction>
+<!-------------------------------------------------------------->
+<cffunction name="get_containerTree" returntype="query">
+	<cfargument name="cat_num" required="yes" type="string">
 	<cfargument name="barcode" required="yes" type="string">
 	<cfargument name="container_label" required="yes" type="string">
 	<cfargument name="description" required="yes" type="string">
@@ -68,18 +76,7 @@
 	<cfargument name="collection_id" required="yes" type="string">
 	<cfargument name="other_id_type" required="yes" type="string">
 	<cfargument name="other_id_value" required="yes" type="string">
-	--->
-	<cfargument name="q" type="string" required="true">
-	<!--- accept a url-type argument, parse it out here --->
-	<cfset r="">
-	<cfloop list="#q#" index="p" delimiters="&">
-		<cfset k=listgetat(p,1,"=")>
-		<cfset v=listgetat(p,2,"=")>
-		<!---
-		<cfset evaluate("variables." & k)=v>
-		---->
-	</cfloop>
-	<cfreturn cat_num>
+	
 	<cfif len(#cat_num#) is 0 AND
 		len(#barcode#) is 0 AND
 		len(#container_label#) is 0 AND
