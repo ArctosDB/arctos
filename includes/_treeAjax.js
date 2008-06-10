@@ -160,10 +160,14 @@ function downloadTree () {
 
 function showTreeOnly(){
 	var theTreeDiv = document.getElementById('treePane');
+	theTreeDiv.style.width='100%';
+	theTreeDiv.style.height='100%';
+	
 	document.getElementById('thisfooter').style.display='none';
 	document.getElementById('header_color').style.display='none';
 	document.getElementById('searchPane').style.display='none';	
 	document.getElementById('detailPane').style.display='none';
+	alert('reload to get your stuff back');
 }
 
 
