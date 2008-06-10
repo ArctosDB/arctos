@@ -236,6 +236,7 @@ First, make sure that this is a fluid container--->
 </cfif>
 <!---------------------------------------------------------------->
 <cfif #action# is "nothing">
+<cfset title="Edit Container">
 <!---Get the data to fill this page --->
 <cfset getCD="
 SELECT 
@@ -602,9 +603,9 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 	</cfif>
 </cfif>
 <!----------------------------->
-<cfset title="Create Container">
-<cfif #action# is "CreateNew">
 
+<cfif #action# is "CreateNew">
+<cfset title="Create Container">
 <!--- Make sure we have required values--->
 <cfif #container_type# is not ""><!--- always required-got that, so we can make the container--->
 <cfset mkCont = "valid">

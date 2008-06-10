@@ -35,14 +35,11 @@
 <font size="+1"><strong> Container Details</strong></font>
 <cfoutput query="Detail">
 	
-admH.innerHTML = '<a href="/EditContainer.cfm?container_id=' + container_id + '" target="_detail" onclick="closeDetails()">Edit</a>';
-	admH.innerHTML += '<br><a href="/info/ContHistory.cfm?container_id=' + container_id + '" target="_detail" onclick="closeDetails()">History</a>';
-	admH.innerHTML += '<br><a href="/containerPositions.cfm?container_id=' + container_id + '" target="_blank" onclick="closeDetails()">Positions</a>';
-	admH.innerHTML += '<br><a href="/allContainerLeafNodes.cfm?container_id=' + container_id + '" target="_detail" onclick="closeDetails()">Leaf Nodes</a>';
+
 	
-	<table border="1">
+	<table>
 		<tr>
-		   <td align="right">Container Type:</td>
+		   <td class="lbl">Container Type:</td>
 			<td>#container_type#</td>
 		</tr>
 		<tr>
