@@ -3,6 +3,7 @@
 <!--- no security --->
 
 <cfif action is "nothing">
+<cfoutput>
 <cfquery name="ctContainer_Type" datasource="#Application.web_user#">
 	select container_type from ctcontainer_type order by container_type
 </cfquery>
@@ -52,6 +53,7 @@ This form does nothing to labels that already exist. Don't try.
     <input type="text" name="remarks" id="remarks">
 	<input type="submit" value="Create Series" class="insBtn">	
     </form>
+	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
 
