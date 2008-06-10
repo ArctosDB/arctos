@@ -80,7 +80,7 @@
 				
 		</td><!--------------------------------- end search pane ------------------------------------->
 		<td><!------------------------------------- tree pane --------------------------------------------->
-			<div id="treePane" style="height:400px;border:1px solid red;overflow:auto;"></div>
+			<div id="treePane" style="height:400px;border:1px solid red;overflow-x: hidden;overflow-y: scroll;"></div>
 		</td><!------------------------------------- end tree pane --------------------------------------------->
 		
 		<td valign="top">
