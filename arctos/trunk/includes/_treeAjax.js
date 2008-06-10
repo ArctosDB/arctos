@@ -11,13 +11,12 @@ function loadTree () {
 	var q;
 	alert('l' + arrFld.length);
 	for (f in arrFld) {
-		alert('f: ' + f);
-		if (eval(document.getElementById(f))){
-			alert(f);
-			var v = document.getElementById(f).value;
+		if (document.getElementById(arrFld[f])){
+			alert(arrFld[f]);
+			var v = document.getElementById(arrFld[f]).value;
 			alert('v'+v)
 			if (v.length > 0) {
-				var n = f + '=' + v;
+				var n = arrFld[f] + '=' + v;
 				if (q.length==0) {
 					q=n;
 				} else {
