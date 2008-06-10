@@ -125,8 +125,8 @@ function getDocs(url,anc) {
 function getDocs(url,anc) {
 	var url;
 	var anc;
-	var baseUrl = "/arctosdoc/";
-	var extension = ".cfm";
+	var baseUrl = "http://g-arctos.appspot.com/arctosdoc";
+	var extension = ".html";
 	var fullURL = baseUrl + url + extension;
 		if (anc != null) {
 			fullURL += "#" + anc;
