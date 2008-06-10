@@ -1,16 +1,3 @@
-jQuery( function($) {
-	$(".helpLink").click(function(e){
-		var id=this.id;
-		removeHelpDiv();
-		var theDiv = document.createElement('div');
-		theDiv.id = 'helpDiv';
-		theDiv.className = 'helpBox';
-		theDiv.innerHTML='<br>Loading...';
-		document.body.appendChild(theDiv);
-		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
-		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
-	});
-});
 function loadTree () {
 	var theTreeDiv = document.getElementById('treePane');
 	theTreeDiv.innerHTML = '';
@@ -104,7 +91,7 @@ function expandNode_success (result) {
 function checkHandler (id){
 	newTree.setCheck(id,0)
 	alert('checky: ' + id);
-	$("#containerDetails").css({display:"block", position:"absolute", top: e.pageY, left: e.pageX});
+	$("#containerDetails").css({display:"block", position:"absolute", top: pageY, left: pageX});
 }
 
 
