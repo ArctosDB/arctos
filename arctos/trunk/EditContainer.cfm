@@ -1,4 +1,6 @@
+<div id="_head">
 <cfinclude template="includes/_header.cfm">
+</div>
 <script language="javascript" type="text/javascript">
 	checkFrame();
 </script>
@@ -983,4 +985,6 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 </cfif>
 <!---------------------------------------------->
 <!---------------------------------------------------->
+<div id="_foot">
 <cfinclude template="/includes/_pickFooter.cfm">
+<div>

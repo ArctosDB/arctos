@@ -54,8 +54,8 @@ return false;
 }
 // IF in a frame, remove header
 function checkFrame() {
+	alert('top' + top.location + ';d: ' + document.location);
 	if (top.location!=document.location) {
-		alert('breakout');
 		document.getElementById('header_color').style.display='none';
 	}
 }
