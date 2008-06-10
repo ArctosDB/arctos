@@ -6,16 +6,10 @@
 	<cfloop list="#q#" index="p" delimiters="&">
 		<cfset k=listgetat(p,1,"=")>
 		<cfset v=listgetat(p,2,"=")>
-		<cfset temp=StructInsert(s, k, v)>
+		<cfset variables[ k ] = v >
 	</cfloop>
-	<cfdump var=#s#>
-	<cfloop list="#StructKeyList(s)#" index="key">
-		<cfif len(#s[key]#) gt 0>
-			-----------#key# = #s[key]#-----------------
-		<cfset #key# = s[key]>
-			
-</cfif>
-</cfloop>
+
+	
 
 	==#cat_num#==
 	-#k#-
