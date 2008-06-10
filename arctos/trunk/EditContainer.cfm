@@ -1,6 +1,6 @@
-<div id="_head">
+<cfif not isdefined("url.nohead")>
 <cfinclude template="includes/_header.cfm">
-</div>
+</cfif>
 <!--- 
 	add container check
 	2 Aug 2007 - DLM
@@ -982,13 +982,6 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 </cfif>
 <!---------------------------------------------->
 <!---------------------------------------------------->
-<div id="_footTest">
+<cfif not isdefined("url.nohead")>
 <cfinclude template="/includes/_pickFooter.cfm">
-<div>
-<cfif isdefined("url.nohead")>
-<script language="javascript" type="text/javascript">
-	console.log ('im loading....');
-	document.getElementById('_footTest').style.display='none';
-	checkFrame();
-</script>
 </cfif>

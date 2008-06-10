@@ -92,7 +92,7 @@ function expandNode_success (result) {
 	}
 }	
 function loadEdit(cid) {
-	var u='EditContainer.cfm?container_id=' + cid;
+	var u='EditContainer.cfm?nohead=1&container_id=' + cid;
 	ahah(u,'detailPane',3);
 }
 
