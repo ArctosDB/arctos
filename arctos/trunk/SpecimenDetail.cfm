@@ -145,7 +145,7 @@
 			var col = document.getElementById("editCollsSpan");
 			var rel = document.getElementById("editRelationshipSpan");
 			var par = document.getElementById("editPartsSpan");
-			var ctron = document.getElementById("ContainerSpan");
+			var ctron = document.getElementById("findContainerSpan");
 			var bi = document.getElementById("editBiolIndivSpan");
 			var oid = document.getElementById("editIdentifiersSpan");
 			var img = document.getElementById("editImagesSpan");
