@@ -27,7 +27,6 @@
 		<cfset temp = queryaddrow(result,1)>
 		<cfset temp = QuerySetCell(result, "container_id", "You must enter search criteria.", 1)>
 		<cfreturn result>
-		<cfabort>
 	</cfif>
 	
 	<cfset sel = "SELECT container.container_id">
