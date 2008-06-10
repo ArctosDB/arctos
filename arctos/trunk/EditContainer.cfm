@@ -1,9 +1,6 @@
 <div id="_head">
 <cfinclude template="includes/_header.cfm">
 </div>
-<script language="javascript" type="text/javascript">
-	checkFrame();
-</script>
 <!--- 
 	add container check
 	2 Aug 2007 - DLM
@@ -988,3 +985,7 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 <div id="_foot">
 <cfinclude template="/includes/_pickFooter.cfm">
 <div>
+<script language="javascript" type="text/javascript">
+	alert('frames?');
+	checkFrame();
+</script>
