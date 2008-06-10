@@ -1,8 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
  
-<script type='text/javascript' src='/includes/dhtmlXTree.js'><!-- --></script>
-<script type="text/javascript" src="/includes/dhtmlXCommon.js"></script>
-<link rel="STYLESHEET" type="text/css" href="/includes/dhtmlXTree.css">
+<script type='text/javascript' src='/includes/dhtmlxtree.js'><!-- --></script>
+<script type="text/javascript" src="/includes/dhtmlxcommon.js"></script>
+<link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxtree.css">
 
 <script type='text/javascript' src='/includes/wz_dragdrop.js'></script>
 
