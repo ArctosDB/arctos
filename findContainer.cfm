@@ -28,7 +28,7 @@
 <table border width="100%">
 	<tr>
 		<td valign="top"><!--------------------------- search pane ----------------------------->
-			<div id="partSearchPane">
+			<div id="searchPane">
 				<form onSubmit="loadTree();return false;">
 				<label for="cat_num">Cat Num (comma-list OK)</label>
 				<input type="text" name="cat_num" id="cat_num"  />
@@ -89,7 +89,7 @@
 	</tr>
 </table>
 
-<div id="_footer">
+<div id="thisfooter">
 	<cfinclude template="/includes/_footer.cfm">
 </div>
 
