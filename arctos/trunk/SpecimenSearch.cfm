@@ -295,8 +295,12 @@
 </div>
 <cfquery name="Part" datasource="#Application.web_user#">
 	select part_name from 
-		<cfif len(#session.exclusive_collection_id#) gt 0>cctspecimen_part_name#session.exclusive_collection_id#<cfelse>ctspecimen_part_name</cfif>
-		group by part_name order by part_name
+		<cfif len(#session.exclusive_collection_id#) gt 0>
+			cctspecimen_part_name#session.exclusive_collection_id#
+		<cfelse>
+			ctspecimen_part_name
+		</cfif>
+	group by part_name order by part_name
 </cfquery>
 <div class="secDiv">
 	<table class="ssrch">
