@@ -10,18 +10,16 @@
 		overflow-y:scroll;
 	}
 	.ajaxWorking{ 
-		top: 10%; 
+		top: 20%; 
 		color: green; 
-		text-align: center; 
-		width: 100%; 
+		text-align: center;
 		margin: auto;
 		position:absolute;
 		max-width: 50%;
-		right:5%;
+		right:2%;
 		background-color:white;
 		padding:1em;
 		border:1px solid;
-		height:.5em;
 		overflow:hidden;		
 		}
 	.ajaxDone {display:none}
