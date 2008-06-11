@@ -1,7 +1,7 @@
 function loading(msg,sev) {
 	alert('loading');
-	alert(msg);
-	if (msg=='undefiend') {
+	//alert(msg);
+	if (msg=='undefined') {
 		alert('no msg');
 		var msg="Working...";
 	}
@@ -66,7 +66,7 @@ function showSpecTreeOnly (colobjid) {
 }
 
 function loadTree_success(result) {
-	alert(result);
+	//alert(result);
 	var theTreeDiv = document.getElementById('treePane');
 	var oops = result[0].CONTAINER_ID;
 	if (oops==-1) {
