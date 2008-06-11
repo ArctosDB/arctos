@@ -102,19 +102,18 @@ function loadTree_success(result) {
 	}
 }
 function expandNode (id) {
-	post();
+	post(1);
 	DWREngine._execute(_containerTree_func, null,'get_containerContents',id,expandNode_success);
 }
 
 
 function expandNode_success (result) {
-	post(0);
 	//alert(result);
 	var ok = result[0].CONTAINER_ID;
 	//alert(treeID);
 	if (ok == '-1') {
 		var error = result[0].MSG;
-		loading(error);
+		post(0,error);
 	} else{
 		// happy
 			var didSomething = "";
@@ -137,29 +136,37 @@ function expandNode_success (result) {
 		 }
 		// alert('tree_' + treeID);
 		if (didSomething == '') {
-			alert('This container is already expanded.');
+			post(0,'This container is already expanded.');
 		}
+		post();
 	}
 }	
 
 
 function checkHandler (id){
-	var guts = "/ContDet.cfm?container_id=" + id;
-	ahah(guts,'detailPane');
-	var fatAr = newTree.getAllFatItems().split(",")
-	var leafAr = newTree.getAllLeafs().split(",")
-	var rootsAr = fatAr.concat(leafAr);
-	for(var i=0;i<rootsAr.length;i++){ 
-		newTree.setItemColor(rootsAr[i],'black','black');
-		newTree.setCheck(rootsAr[i],0) 
+	post(1);
+	try {
+		var guts = "/ContDet.cfm?container_id=" + id;
+		ahah(guts,'detailPane');
+		var fatAr = newTree.getAllFatItems().split(",")
+		var leafAr = newTree.getAllLeafs().split(",")
+		var rootsAr = fatAr.concat(leafAr);
+		for(var i=0;i<rootsAr.length;i++){ 
+			newTree.setItemColor(rootsAr[i],'black','black');
+			newTree.setCheck(rootsAr[i],0) 
+		}
+		
+		newTree.setItemColor(id,'red','red');
+		newTree.setCheck(id,1);
+		post();
+	} catch(err){
+		post(0,'Error: No tree?');
 	}
-	
-	newTree.setItemColor(id,'red','red');
-	newTree.setCheck(id,1);
 }
 
 function downloadTree () {
-	if (isdefined('newTree')) {
+	post(1);
+	try {
 		var fatAr = newTree.getAllFatItems().split(",")
 		var leafAr = newTree.getAllLeafs().split(",")
 		var rootsAr = fatAr.concat(leafAr);
@@ -170,14 +177,14 @@ function downloadTree () {
 		var cutAr=cidAr.slice(1);
 		var cid=cutAr.join(",");
 		window.open('locDownload.cfm?container_id=' + cid);
-	} else {
-		alert('Gotta have a tree first.')
+	} catch(err){
+		post(0,'Error: No tree?');
 	}
 }
 
 
 function showTreeOnly(){
-	if (isdefined('newTree')) {
+	try {
 		var theTreeDiv = document.getElementById('treePane');
 		theTreeDiv.className='';
 		newTree.enableDragAndDrop("true");
@@ -186,8 +193,8 @@ function showTreeOnly(){
 		document.getElementById('searchPane').style.display='none';	
 		document.getElementById('detailPane').style.display='none';
 		alert('reload to get your stuff back. Drag things around if you want.');
-	} else {
-		alert('Gotta have a tree first.')
+	} catch(err){
+		post(0,'Error: No tree?');
 	}
 }
 
