@@ -10,7 +10,7 @@ function loading(msg,sev) {
 	var m = document.getElementById('ajaxMsg');
 	if (msg.length > 50) {
 		var fullMsg=msg;
-		fullMsg=fullMsg.replace(/'/g,"&apos;");
+		fullMsg=fullMsg.replace(/"'"/g,"&apos;");
 		msg=msg.substring(0,30) + '...' ;
 		var alrt='<span class="infoLink" onclick="alert(' + "'" + fullMsg + "'" + ')">Expand</span>';
 		msg +=alrt;
