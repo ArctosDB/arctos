@@ -130,7 +130,7 @@ function checkHandler (id){
 }
 
 function downloadTree () {
-	if (isDefined(newTree)) {
+	if (isdefined(newTree)) {
 		alert('k')
 		} else{
 		alert('nogo')
