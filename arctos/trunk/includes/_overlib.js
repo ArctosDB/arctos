@@ -9,6 +9,10 @@
 	DO NOT OVERWRITE THIS FILE WITH OBFUSCATED CODE!
 
 */
+function isdefined( variable)
+{
+    return (typeof(window[variable]) == "undefined")?  false: true;
+}
 function ahah(url, target, delay) {
   //alert('ahah');
 
