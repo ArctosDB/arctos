@@ -1,10 +1,6 @@
-
-<div style="float:right; position:absolute; right:0; top:100; z-index:1">
-	<cfinclude template="container_nav.cfm">
-</div>
-	<script type='text/javascript' src='/ajax/core/engine.js'></script>
-	<script type='text/javascript' src='/ajax/core/util.js'></script>
-	<script type='text/javascript' src='/ajax/core/settings.js'></script>	
+<script type='text/javascript' src='/ajax/core/engine.js'></script>
+<script type='text/javascript' src='/ajax/core/util.js'></script>
+<script type='text/javascript' src='/ajax/core/settings.js'></script>	
 <cfinclude template="/includes/_header.cfm">
 <style>
 	input.activeCell {
