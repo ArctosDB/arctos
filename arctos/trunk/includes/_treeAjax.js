@@ -12,7 +12,7 @@ function loading(msg,sev) {
 		var fullMsg=msg;
 		msg=msg.substring(0,30) + '...' ;
 		var alrt='<span class="infoLink" onclick="alert(' + "'" + fullMsg + "'" + ')">Expand</span>';
-		msg +=altr;
+		msg +=alrt;
 	}
 	m.innerHTML=msg;
 	m.className='ajaxWorking ' + sev;
