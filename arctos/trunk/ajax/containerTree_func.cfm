@@ -33,35 +33,6 @@
 	</cfif>
 	<cfreturn result>
 </cffunction>	
-
-<!-------------------------------------------------------------->
-<cffunction name="testFunction" returntype="string" output="true">
-	<cfargument name="q" type="string" required="true">
-	<!--- accept a url-type argument, parse it out here --->
-	<cfset cat_num="">
-	<cfset barcode="">
-	<cfset container_label="">
-	<cfset description="">
-	<cfset container_type="">
-	<cfset part_name="">
-	<cfset collection_id="">
-	<cfset other_id_type="">
-	<cfset other_id_value="">
-	
-	<cfset r="">
-	<cfloop list="#q#" index="p" delimiters="&">
-		<cfset k=listgetat(p,1,"=")>
-		<cfset v=listgetat(p,2,"=")>
-		<cfset variables[ k ] = v >
-	</cfloop>
-	
-	
-
-	<cfreturn cat_num>
-	
-	
-	<cfreturn r>
-</cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="get_containerTree" returntype="query">
 	<!---<cfargument name="cat_num" required="yes" type="string">
@@ -243,7 +214,6 @@
 					<cfset temp = QuerySetCell(result, "container_id", "-1", 1)>
 					<cfset temp = QuerySetCell(result, "msg", "A query error occured: #cfcatch.Message# #cfcatch.Detail# -#thisSql#-", 1)>
 					<cfreturn result>
-					<cfabort>
 				</cfcatch>
 			 </cftry>
 			
