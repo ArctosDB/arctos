@@ -5,7 +5,7 @@ function loading(msg,sev) {
 		alert('no msg');
 		var msg="Working...";
 	}
-	if (! isdefined(sev)) {
+	if (sev=='undefined') {
 		var sev="ajaxMessage";
 	}
 	alert(msg);
@@ -72,8 +72,8 @@ function loadTree_success(result) {
 	if (oops==-1) {
 		alert('got oops');
 		var errr = result[0].MSG;
-		alert(errr);
-		loading('boogity!!','ajaxError');
+		//alert(errr);
+		loading(error,'ajaxError');
 		//theTreeDiv.className="error";
 		//theTreeDiv.innerHTML = error;
 	} else{
