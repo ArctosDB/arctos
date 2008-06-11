@@ -6,6 +6,8 @@ function loading(msg,sev) {
 	if (isdefined(sev)==false) {
 		var sev="ajaxMessage";
 	}
+	alert(msg);
+	alert(sev);
 	var m = document.getElementById('ajaxMsg');
 	m.innerHTML=msg;
 	m.className='ajaxWorking ' + sev;
