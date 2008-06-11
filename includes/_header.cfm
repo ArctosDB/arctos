@@ -250,18 +250,19 @@
 									<cfif listfind(formList,"/tools/dgr_locator.cfm")>
 										<li><a target="_top" href="/tools/dgr_locator.cfm">DGR Locator</a></li>
 									</cfif>
-									<cfif listfind(formList,"/EditContainer.cfm")>
-										<li><a target="_top" href="/LoadBarcodes.cfm">Upload Scan File</a></li>
-										<li><a target="_top" href="/EditContainer.cfm?action=newContainer">Create container</a></li>
-										<li><a target="_top" href="/SpecimenContainerLabels.cfm">Clear part Flags</a></li>
-										<li><a target="_top" href="/CreateContainersForBarcodes.cfm">Create Labels</a></li>
-									</cfif>
 									<cfif listfind(formList,"/moveContainer.cfm")>
-										<li><a target="_top" href="/a_moveContainer.cfm">Move container</a></li>
+										<li><a target="_top" href="/findContainer.cfm">Find Container</a></li>
+										<li><a target="_top" href="/moveContainer.cfm">Move Container</a></li>
 										<li><a target="_top" href="/labels2containers.cfm">Label>Container</a></li>
 										<li><a target="_top" href="/aps.cfm">Object+BC>>Container</a></li>
-										<li><a target="_top" href="/findContainer.cfm">Find Containers</a></li>
-									</cfif>		
+									</cfif>	
+									<cfif listfind(formList,"/EditContainer.cfm")>
+										<li><a target="_top" href="/LoadBarcodes.cfm">Upload Scan File</a></li>
+										<li><a target="_top" href="/EditContainer.cfm?action=newContainer">Create Container</a></li>
+										<li><a target="_top" href="/CreateContainersForBarcodes.cfm">Create Container Series</a></li>
+										<li><a target="_top" href="/SpecimenContainerLabels.cfm">Clear Part Flags</a></li>
+									</cfif>
+										
 								</ul>
 							</li>
 						</cfif>
