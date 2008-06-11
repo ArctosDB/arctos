@@ -1,13 +1,12 @@
 function post(onOff,msg) {
+	document.body.style.cursor = "";
 	var m = document.getElementById('ajaxMsg');
 	if (onOff==1) {
 		if (typeof msg == 'undefined') {
 			var msg="Working...";
-			//alert('no msg');
-			document.body.style.cursor = "";
+			document.body.style.cursor = "wait";
 		} else {
 			// got a message passed in, make it ugly...
-			document.body.style.cursor = "wait";
 			var sev="ajaxError";
 			if (msg.length > 50) {
 				var fullMsg=msg;
@@ -23,7 +22,6 @@ function post(onOff,msg) {
 	} else {
 		m.className='ajaxDone';
 		var msg="";
-		document.body.style.cursor = "";
 	}
 }
 
