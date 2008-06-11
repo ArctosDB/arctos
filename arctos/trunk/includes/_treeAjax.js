@@ -1,7 +1,9 @@
 function loading(msg,sev) {
 	//alert('loading');
-	if (typeof msg != 'undefined') 
-		{var msg="Working...";}
+	if (typeof msg != 'undefined') {
+		var msg="Working...";
+		alert('no msg');
+	}
 	if (typeof sev != 'undefined') 
 		{var sev="";}
 	//alert();
