@@ -17,7 +17,9 @@
 		right:5%;
 		background-color:white;
 		padding:1em;
-		border:1px solid; 		
+		border:1px solid;
+		height:.8em;
+		overflow:hidden;		
 		}
 	.ajaxDone {display:none}
 	.ajaxMessage {color:green;}
