@@ -74,7 +74,7 @@ function loadTree_success(result) {
 		//alert('got oops');
 		var errr = result[0].MSG;
 		//alert(error);
-		post(0,errr);
+		post(1,errr);
 		//theTreeDiv.className="error";
 		//theTreeDiv.innerHTML = error;
 	} else{
