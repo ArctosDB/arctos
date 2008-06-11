@@ -4,8 +4,11 @@
 <script type="text/javascript" src="/includes/dhtmlxcommon.js"></script>
 <link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxtree.css">
 <style >
-	.cTreePane {height:400px;border:1px solid red;overflow-x: hidden;overflow-y: scroll;}
-	
+	.cTreePane {
+		height:400px;
+		overflow-x:hidden;
+		overflow-y:scroll;
+	}
 	.ajaxWorking{ 
 		top: 10%; 
 		color: green; 
@@ -18,7 +21,7 @@
 		background-color:white;
 		padding:1em;
 		border:1px solid;
-		height:.8em;
+		height:.5em;
 		overflow:hidden;		
 		}
 	.ajaxDone {display:none}

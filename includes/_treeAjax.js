@@ -29,12 +29,7 @@ function done() {
 function loadTree () {
 	loading();
 	//alert('loadTree');
-	var theTreeDiv = document.getElementById('treePane');
-	theTreeDiv.className="";
-	var detailPane = document.getElementById('detailPane');
-	theTreeDiv.innerHTML = 'Fetching data...';
-	detailPane.innerHTML = '';
-	
+	var theTreeDiv = document.getElementById('treePane');	
 	var flds="cat_num,barcode,container_label,description,container_type,part_name,collection_id,other_id_type,other_id_value,collection_object_id";
 	var arrFld = flds.split( "," );
 
