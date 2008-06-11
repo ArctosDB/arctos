@@ -1,6 +1,6 @@
 function loading(msg,sev) {
-	alert('loading');
-	//alert(msg);
+	//alert('loading');
+	alert(msg);
 	if (msg=='undefined') {
 		alert('not the string...');
 		var msg="Working...";
@@ -19,7 +19,7 @@ function loading(msg,sev) {
 		var sev="ajaxMessage";
 	}
 	alert(msg);
-	alert(sev);
+	//alert(sev);
 	var m = document.getElementById('ajaxMsg');
 	m.innerHTML=msg;
 	m.className='ajaxWorking ' + sev;
