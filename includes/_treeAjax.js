@@ -113,7 +113,7 @@ function expandNode_success (result) {
 	//alert(treeID);
 	if (ok == '-1') {
 		var error = result[0].MSG;
-		post(0,error);
+		post(1,error);
 	} else{
 		// happy
 			var didSomething = "";
@@ -136,7 +136,7 @@ function expandNode_success (result) {
 		 }
 		// alert('tree_' + treeID);
 		if (didSomething == '') {
-			post(0,'This container is already expanded.');
+			post(1,'This container is already expanded.');
 		}
 		post();
 	}
@@ -176,9 +176,10 @@ function downloadTree () {
 		}
 		var cutAr=cidAr.slice(1);
 		var cid=cutAr.join(",");
+		post();
 		window.open('locDownload.cfm?container_id=' + cid);
 	} catch(err){
-		post(0,'Error: No tree?');
+		post(1,'Error: No tree?');
 	}
 }
 
@@ -194,7 +195,7 @@ function showTreeOnly(){
 		document.getElementById('detailPane').style.display='none';
 		alert('reload to get your stuff back. Drag things around if you want.');
 	} catch(err){
-		post(0,'Error: No tree?');
+		post(1,'Error: No tree?');
 	}
 }
 
