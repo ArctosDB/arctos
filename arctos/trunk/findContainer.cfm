@@ -79,9 +79,7 @@
 					type="reset" value="Clear"/>				
 				</form>
 				<span class="likeLink" onclick="downloadTree()">Flatten and Download</span>
-				<br><span class="likeLink" onclick="showTreeOnly()">showTreeOnly</span>
-				
-				showTreeOnly
+				<br><span class="likeLink" onclick="showTreeOnly()">Drag/Print</span>
 			</div>
 				
 				
@@ -102,6 +100,11 @@
 
 <cfif isdefined("url.collection_object_id") and len(#url.collection_object_id#) gt 0 and not isdefined("url.showControl")>
 	<script language="javascript" type="text/javascript">
+		try {
+			parent.dyniframesize();
+		} catch(err) {
+			// not where we think we are, maybe....
+		}
 		showSpecTreeOnly('#url.collection_object_id#');
 	</script>
 <cfelse>
