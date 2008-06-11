@@ -7,12 +7,18 @@
 	.cTreePane {height:400px;border:1px solid red;overflow-x: hidden;overflow-y: scroll;}
 	
 	.ajaxWorking{ 
-		top: 20%; 
+		top: 10%; 
 		color: green; 
 		text-align: center; 
 		width: 100%; 
 		margin: auto;
-		position:absolute;}
+		position:absolute;
+		max-width: 50%;
+		right:5%;
+		background-color:white;
+		padding:1em;
+		border:1px solid; 		
+		}
 	.ajaxDone {display:none}
 	.ajaxMessage {color:green;}
 	.ajaxError {color:red;}
