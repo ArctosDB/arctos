@@ -1,11 +1,11 @@
 function loading(msg,sev) {
 	alert('loading');
 	alert(msg);
-	if (! isdefined(msg) || msg.length==0) {
+	if (! isdefined(msg)) {
 		alert('no msg');
 		var msg="Working...";
 	}
-	if (! isdefined(sev) || sev.length==0) {
+	if (! isdefined(sev)) {
 		var sev="ajaxMessage";
 	}
 	alert(msg);
