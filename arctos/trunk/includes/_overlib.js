@@ -9,9 +9,9 @@
 	DO NOT OVERWRITE THIS FILE WITH OBFUSCATED CODE!
 
 */
-function isdefined( variable)
+function isdefined(variable)
 {
-    return (typeof(window[variable]) == "undefined")?  false: true;
+return (!(!(document.getElementById(variable))))
 }
 function ahah(url, target, delay) {
   //alert('ahah');
