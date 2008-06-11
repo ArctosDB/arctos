@@ -1,7 +1,7 @@
 function loading(msg,sev) {
 	alert('loading');
 	alert(msg);
-	if (! isdefined(msg)) {
+	if (! isdefined('msg')) {
 		alert('no msg');
 		var msg="Working...";
 	}
