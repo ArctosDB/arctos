@@ -8,6 +8,12 @@ function loading(msg,sev) {
 		{var sev="";}
 	//alert();
 	var m = document.getElementById('ajaxMsg');
+	if (msg.length > 50) {
+		var fullMsg=msg;
+		msg=msg.substring(0,30) + '...' ;
+		var alrt='<span class="infoLink" onclick="alert(' + "'" + fullMsg + "'" + ')">Expand</span>';
+		msg +=altr;
+	}
 	m.innerHTML=msg;
 	m.className='ajaxWorking ' + sev;
 }
