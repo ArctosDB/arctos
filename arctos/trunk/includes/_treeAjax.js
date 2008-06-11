@@ -1,28 +1,8 @@
 function loading(msg,sev) {
 	//alert('loading');
-	var msg;
-	if (typeof msg != 'undefined') {alert('typeof')}
-	if (msg=='undefined') {
-		alert('not the string...');
-		var msg="Working...";
-	}
-	if (isdefined('msg')) {
-		alert('..is isdefined');
-		var msg="Working...";
-	}
-	if (!isdefined('msg')) {
-		alert('..is !isdefined');
-		var msg="Working...";
-	}
-	if (msg.length==0) {
-		alert('0 length...');
-	}
-	
-	if (sev=='undefined') {
-		var sev="ajaxMessage";
-	}
-	alert(msg);
-	//alert(sev);
+	if (typeof msg != 'undefined') var msg="Working...";}
+	if (typeof sev != 'undefined') var sev="";}
+	//alert();
 	var m = document.getElementById('ajaxMsg');
 	m.innerHTML=msg;
 	m.className='ajaxWorking ' + sev;
