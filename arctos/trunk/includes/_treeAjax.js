@@ -18,9 +18,11 @@ function post(onOff,msg) {
 		}
 		m.innerHTML=msg;
 		m.className='ajaxWorking ' + sev;
+		document.body.style.cursor = "wait";
 	} else {
 		m.className='ajaxDone';
 		var msg="";
+		document.body.style.cursor = "";
 	}
 }
 
