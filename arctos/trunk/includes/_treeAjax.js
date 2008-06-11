@@ -160,7 +160,7 @@ function checkHandler (id){
 		newTree.setCheck(id,1);
 		post();
 	} catch(err){
-		post(0,'Error: No tree?');
+		post(1,err);
 	}
 }
 
