@@ -57,7 +57,7 @@ function loadTree_success(result) {
 		newTree.setImagePath("/images/dhtmlxTree/");
 		newTree.insertNewItem("0","container0","Parentless Void",0,0,0,0,"SELECT");
 		newTree.enableCheckBoxes(1);
-		newTree.enableDragAndDrop(false);
+		newTree.enableDragAndDrop("temporary_disabled");
 		newTree.attachEvent("onDblClick","expandNode")
 		newTree.attachEvent("onCheck","checkHandler")
 
@@ -146,7 +146,7 @@ function downloadTree () {
 function showTreeOnly(){
 	var theTreeDiv = document.getElementById('treePane');
 	theTreeDiv.className='';
-	newTree.enableDragAndDrop(true);
+	newTree.enableDragAndDrop("true");
 	document.getElementById('thisfooter').style.display='none';
 	document.getElementById('header_color').style.display='none';
 	document.getElementById('searchPane').style.display='none';	
