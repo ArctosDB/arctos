@@ -1,6 +1,6 @@
 function loading(msg,sev) {
 	//alert('loading');
-	if (typeof msg != 'undefined') {
+	if (typeof msg == 'undefined') {
 		var msg="Working...";
 		alert('no msg');
 	}
