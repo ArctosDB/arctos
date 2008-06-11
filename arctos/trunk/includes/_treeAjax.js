@@ -1,4 +1,6 @@
 function loadTree () {
+	var m = document.getElementById('ajaxMsg');
+	m.innerHTML="Fetching data....";
 	//alert('loadTree');
 	var theTreeDiv = document.getElementById('treePane');
 	theTreeDiv.className="";
@@ -131,32 +133,35 @@ function checkHandler (id){
 
 function downloadTree () {
 	if (isdefined('newTree')) {
-		alert('k')
-		} else{
-		alert('nogo')
+		var fatAr = newTree.getAllFatItems().split(",")
+		var leafAr = newTree.getAllLeafs().split(",")
+		var rootsAr = fatAr.concat(leafAr);
+		var cidAr= new Array;
+		for(var i=0;i<rootsAr.length;i++){ 
+			cidAr.push(rootsAr[i]); 
 		}
-	var fatAr = newTree.getAllFatItems().split(",")
-	var leafAr = newTree.getAllLeafs().split(",")
-	var rootsAr = fatAr.concat(leafAr);
-	var cidAr= new Array;
-	for(var i=0;i<rootsAr.length;i++){ 
-		cidAr.push(rootsAr[i]); 
+		var cutAr=cidAr.slice(1);
+		var cid=cutAr.join(",");
+		window.open('locDownload.cfm?container_id=' + cid);
+	} else {
+		alert('Gotta have a tree first.')
 	}
-	var cutAr=cidAr.slice(1);
-	var cid=cutAr.join(",");
-	window.open('locDownload.cfm?container_id=' + cid);
 }
 
 
 function showTreeOnly(){
-	var theTreeDiv = document.getElementById('treePane');
-	theTreeDiv.className='';
-	newTree.enableDragAndDrop("true");
-	document.getElementById('thisfooter').style.display='none';
-	document.getElementById('header_color').style.display='none';
-	document.getElementById('searchPane').style.display='none';	
-	document.getElementById('detailPane').style.display='none';
-	alert('reload to get your stuff back. Drag things around if you want.');
+	if (isdefined('newTree')) {
+		var theTreeDiv = document.getElementById('treePane');
+		theTreeDiv.className='';
+		newTree.enableDragAndDrop("true");
+		document.getElementById('thisfooter').style.display='none';
+		document.getElementById('header_color').style.display='none';
+		document.getElementById('searchPane').style.display='none';	
+		document.getElementById('detailPane').style.display='none';
+		alert('reload to get your stuff back. Drag things around if you want.');
+	} else {
+		alert('Gotta have a tree first.')
+	}
 }
 
 
