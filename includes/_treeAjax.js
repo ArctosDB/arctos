@@ -130,6 +130,11 @@ function checkHandler (id){
 }
 
 function downloadTree () {
+	if (newTree) {
+		alert('k')
+		} else{
+		alert('nogo')
+		}
 	var fatAr = newTree.getAllFatItems().split(",")
 	var leafAr = newTree.getAllLeafs().split(",")
 	var rootsAr = fatAr.concat(leafAr);
