@@ -67,14 +67,14 @@ function loadTree_success(result) {
 	var theTreeDiv = document.getElementById('treePane');
 	var oops = result[0].CONTAINER_ID;
 	if (oops==-1) {
-		alert('got oops');
+		//alert('got oops');
 		var errr = result[0].MSG;
 		//alert(error);
 		loading(errr,'ajaxError');
 		//theTreeDiv.className="error";
 		//theTreeDiv.innerHTML = error;
 	} else{
-		alert('yay');
+		//alert('yay');
 		theTreeDiv.className="cTreePane";
 		theTreeDiv.innerHTML = '';
 		newTree=new dhtmlXTreeObject("treePane","100%","100%;",0);

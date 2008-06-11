@@ -6,7 +6,13 @@
 <style >
 	.cTreePane {height:400px;border:1px solid red;overflow-x: hidden;overflow-y: scroll;}
 	
-	.ajaxWorking{ top: 20%; color: blue; text-align: center; width: 100%; margin: auto;}
+	.ajaxWorking{ 
+		top: 20%; 
+		color: green; 
+		text-align: center; 
+		width: 100%; 
+		margin: auto;
+		position:absolute;}
 	.ajaxDone {display:none}
 	.ajaxMessage {color:green;}
 	.ajaxError {color:red;}
