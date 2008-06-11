@@ -1,5 +1,6 @@
 function loading(msg,sev) {
 	//alert('loading');
+	var msg;
 	alert(msg);
 	if (msg=='undefined') {
 		alert('not the string...');
@@ -13,7 +14,9 @@ function loading(msg,sev) {
 		alert('..is !isdefined');
 		var msg="Working...";
 	}
-	
+	if (msg.length==0) {
+		alert('0 length...');
+	}
 	
 	if (sev=='undefined') {
 		var sev="ajaxMessage";
