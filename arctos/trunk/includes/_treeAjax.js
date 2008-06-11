@@ -1,4 +1,5 @@
 function post(onOff,msg) {
+	var m = document.getElementById('ajaxMsg');
 	if (onOff==1) {
 		if (typeof msg == 'undefined') {
 			var msg="Working...";
@@ -19,7 +20,6 @@ function post(onOff,msg) {
 		m.className='ajaxDone';
 		var msg="";
 	}
-	var m = document.getElementById('ajaxMsg');
 	m.innerHTML=msg;
 	m.className='ajaxWorking ' + sev;
 }
