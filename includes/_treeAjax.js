@@ -1,6 +1,22 @@
-function loadTree () {
+function loading(msg,sev) {
+	if (isdefined(msg)==false) {
+		var msg="Working...";
+	}
+	if (isdefined(sev)==false) {
+		var sev="ajaxMessage";
+	}
 	var m = document.getElementById('ajaxMsg');
-	m.innerHTML="Fetching data....";
+	m.innerHTML=msg;
+	m.className='ajaxWorking ' + sev;
+}
+function done() {
+	var m = document.getElementById('ajaxMsg');
+	m.innerHTML="";
+	m.className='ajaxDone';	
+}
+
+function loadTree () {
+	loading();
 	//alert('loadTree');
 	var theTreeDiv = document.getElementById('treePane');
 	theTreeDiv.className="";
@@ -31,10 +47,10 @@ function loadTree () {
 	DWREngine._execute(_containerTree_func, null,'get_containerTree',q,loadTree_success);
 }
 function showSpecTreeOnly (colobjid) {
+	loading();
 	//alert('loadTree');
 	var theTreeDiv = document.getElementById('treePane');
 	theTreeDiv.className="";
-	theTreeDiv.innerHTML = 'Fetching data...';
 	document.getElementById('thisfooter').style.display='none';
 	document.getElementById('header_color').style.display='none';
 	document.getElementById('searchPane').style.display='none';
@@ -50,8 +66,9 @@ function loadTree_success(result) {
 	var oops = result[0].CONTAINER_ID;
 	if (oops==-1) {
 		var error = result[0].MSG;
-		theTreeDiv.className="error";
-		theTreeDiv.innerHTML = error;
+		loading(error,'ajaxError');
+		//theTreeDiv.className="error";
+		//theTreeDiv.innerHTML = error;
 	} else{
 		theTreeDiv.className="cTreePane";
 		theTreeDiv.innerHTML = '';
@@ -73,7 +90,9 @@ function loadTree_success(result) {
 			//alert('this line of code is: \n ' + thisIns);
 			eval(thisIns);
 		 }
+		 done();
 	}
+	
 }
 function expandNode (id) {
 	//alert ('expandNode:' + id);
