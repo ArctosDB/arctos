@@ -1,7 +1,9 @@
 function loading(msg,sev) {
 	//alert('loading');
-	if (typeof msg != 'undefined') var msg="Working...";}
-	if (typeof sev != 'undefined') var sev="";}
+	if (typeof msg != 'undefined') 
+		{var msg="Working...";}
+	if (typeof sev != 'undefined') 
+		{var sev="";}
 	//alert();
 	var m = document.getElementById('ajaxMsg');
 	m.innerHTML=msg;
