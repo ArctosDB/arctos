@@ -83,7 +83,7 @@ function loadTree_success(result) {
 		alert('got oops');
 		var errr = result[0].MSG;
 		//alert(error);
-		loading(error,'ajaxError');
+		loading(errr,'ajaxError');
 		//theTreeDiv.className="error";
 		//theTreeDiv.innerHTML = error;
 	} else{
