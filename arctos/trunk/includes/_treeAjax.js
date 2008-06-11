@@ -2,9 +2,19 @@ function loading(msg,sev) {
 	alert('loading');
 	//alert(msg);
 	if (msg=='undefined') {
-		alert('no msg');
+		alert('not the string...');
 		var msg="Working...";
 	}
+	if (isdefined('msg')) {
+		alert('..is isdefined');
+		var msg="Working...";
+	}
+	if (!isdefined('msg')) {
+		alert('..is !isdefined');
+		var msg="Working...";
+	}
+	
+	
 	if (sev=='undefined') {
 		var sev="ajaxMessage";
 	}
@@ -72,7 +82,7 @@ function loadTree_success(result) {
 	if (oops==-1) {
 		alert('got oops');
 		var errr = result[0].MSG;
-		//alert(errr);
+		//alert(error);
 		loading(error,'ajaxError');
 		//theTreeDiv.className="error";
 		//theTreeDiv.innerHTML = error;
