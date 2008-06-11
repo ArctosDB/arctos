@@ -65,11 +65,13 @@ function loadTree_success(result) {
 	var theTreeDiv = document.getElementById('treePane');
 	var oops = result[0].CONTAINER_ID;
 	if (oops==-1) {
+		alert('got oops');
 		var error = result[0].MSG;
 		loading(error,'ajaxError');
 		//theTreeDiv.className="error";
 		//theTreeDiv.innerHTML = error;
 	} else{
+		alert('yay');
 		theTreeDiv.className="cTreePane";
 		theTreeDiv.innerHTML = '';
 		newTree=new dhtmlXTreeObject("treePane","100%","100%;",0);
