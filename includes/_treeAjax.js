@@ -70,8 +70,9 @@ function loadTree_success(result) {
 	var oops = result[0].CONTAINER_ID;
 	if (oops==-1) {
 		alert('got oops');
-		var error = result[0].MSG;
-		loading(error,'ajaxError');
+		var errr = result[0].MSG;
+		alert(errr);
+		loading(errr,'ajaxError');
 		//theTreeDiv.className="error";
 		//theTreeDiv.innerHTML = error;
 	} else{
