@@ -16,12 +16,12 @@ function post(onOff,msg) {
 				msg +=alrt;
 			}
 		}
+		m.innerHTML=msg;
+		m.className='ajaxWorking ' + sev;
 	} else {
 		m.className='ajaxDone';
 		var msg="";
 	}
-	m.innerHTML=msg;
-	m.className='ajaxWorking ' + sev;
 }
 
 function loadTree () {
