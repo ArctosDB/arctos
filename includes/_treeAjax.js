@@ -1,32 +1,31 @@
-function loading(msg,sev) {
-	//alert('loading');
-	if (typeof msg == 'undefined') {
-		var msg="Working...";
-		//alert('no msg');
+function post(onOff,msg) {
+	if (onOff==1) {
+		if (typeof msg == 'undefined') {
+			var msg="Working...";
+			//alert('no msg');
+		} else {
+			// got a message passed in, make it ugly...
+			var sev="ajaxError";
+			if (msg.length > 50) {
+				var fullMsg=msg;
+				fullMsg=fullMsg.replace(/'/g,"`");
+				fullMsg =fullMsg.replace(/[\r\n]+/g, " ");
+				msg=msg.substring(0,30) + '...' ;
+				var alrt='<span class="infoLink" onclick="alert(' + "'" + fullMsg + "'" + ')">View Full Error</span>';
+				msg +=alrt;
+			}
+		}
+	} else {
+		m.className='ajaxDone';
+		var msg=""'
 	}
-	if (typeof sev == 'undefined') 
-		{var sev="";}
-	//alert();
 	var m = document.getElementById('ajaxMsg');
-	if (msg.length > 50) {
-		var fullMsg=msg;
-		fullMsg=fullMsg.replace(/'/g,"`");
-		fullMsg =fullMsg.replace(/[\r\n]+/g, " ");
-		msg=msg.substring(0,30) + '...' ;
-		var alrt='<span class="infoLink" onclick="alert(' + "'" + fullMsg + "'" + ')">View Full Error</span>';
-		msg +=alrt;
-	}
 	m.innerHTML=msg;
 	m.className='ajaxWorking ' + sev;
 }
-function done() {
-	var m = document.getElementById('ajaxMsg');
-	m.innerHTML="";
-	m.className='ajaxDone';	
-}
 
 function loadTree () {
-	loading();
+	post(1);
 	//alert('loadTree');
 	var theTreeDiv = document.getElementById('treePane');	
 	var flds="cat_num,barcode,container_label,description,container_type,part_name,collection_id,other_id_type,other_id_value,collection_object_id";
@@ -52,7 +51,7 @@ function loadTree () {
 	DWREngine._execute(_containerTree_func, null,'get_containerTree',q,loadTree_success);
 }
 function showSpecTreeOnly (colobjid) {
-	loading();
+	post(1);
 	//alert('loadTree');
 	var theTreeDiv = document.getElementById('treePane');
 	theTreeDiv.className="";
@@ -73,7 +72,7 @@ function loadTree_success(result) {
 		//alert('got oops');
 		var errr = result[0].MSG;
 		//alert(error);
-		loading(errr,'ajaxError');
+		post(1,errr);
 		//theTreeDiv.className="error";
 		//theTreeDiv.innerHTML = error;
 	} else{
@@ -87,7 +86,6 @@ function loadTree_success(result) {
 		newTree.enableDragAndDrop("temporary_disabled");
 		newTree.attachEvent("onDblClick","expandNode")
 		newTree.attachEvent("onCheck","checkHandler")
-
 		for (i = 0; i < result.length; i++) { 
 		 	var CONTAINER_ID = result[i].CONTAINER_ID;
 			var PARENT_CONTAINER_ID = result[i].PARENT_CONTAINER_ID;
@@ -97,24 +95,24 @@ function loadTree_success(result) {
 			var thisIns = 'newTree.insertNewChild("' + PARENT_CONTAINER_ID + '","' + CONTAINER_ID + '","' + LABEL + ' (' + CONTAINER_TYPE + ')",0,0,0,0,"",1)';
 			//alert('this line of code is: \n ' + thisIns);
 			eval(thisIns);
-		 }
-		 done();
+		}
+		post();
 	}
-	
 }
 function expandNode (id) {
-	//alert ('expandNode:' + id);
+	post();
 	DWREngine._execute(_containerTree_func, null,'get_containerContents',id,expandNode_success);
 }
 
 
 function expandNode_success (result) {
+	post(0);
 	//alert(result);
 	var ok = result[0].CONTAINER_ID;
 	//alert(treeID);
 	if (ok == '-1') {
 		var error = result[0].MSG;
-		alert(error);
+		loading(error);
 	} else{
 		// happy
 			var didSomething = "";
