@@ -18,7 +18,8 @@
 		background-color:white;
 		padding:1em;
 		border:1px solid;
-		overflow:hidden;		
+		overflow:hidden;
+		z-index:1;		
 		}
 	.ajaxDone {display:none}
 	.ajaxMessage {color:green;}
