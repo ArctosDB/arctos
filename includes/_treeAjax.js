@@ -1,7 +1,7 @@
 function loading(msg,sev) {
 	//alert('loading');
 	var msg;
-	if (msg.length){alert(msg.length);}
+	if (typeof msg != 'undefined') {alert('typeof')}
 	if (msg=='undefined') {
 		alert('not the string...');
 		var msg="Working...";
