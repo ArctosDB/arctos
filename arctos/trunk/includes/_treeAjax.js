@@ -10,8 +10,8 @@ function loading(msg,sev) {
 	var m = document.getElementById('ajaxMsg');
 	if (msg.length > 50) {
 		var fullMsg=msg;
-		fullMsg=fullMsg.replace(/'/g,"--boogity---");
-		fullMsg =fullMsg.replace(/[\r\n]+/g, "--breakey--");
+		fullMsg=fullMsg.replace(/'/g,"\'");
+		fullMsg =fullMsg.replace(/[\r\n]+/g, "\n");
 		alert(fullMsg);
 		msg=msg.substring(0,30) + '...' ;
 		var alrt='<span class="infoLink" onclick="alert(' + "'" + fullMsg + "'" + ')">Expand</span>';
