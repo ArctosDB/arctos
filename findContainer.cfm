@@ -6,8 +6,6 @@
 <style >
 	.cTreePane {
 		height:400px;
-		overflow-x:hidden;
-		overflow-y:scroll;
 	}
 	.ajaxWorking{ 
 		top: 20%; 
