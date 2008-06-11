@@ -1,10 +1,10 @@
 function loading(msg,sev) {
 	alert('loading');
-	if (isdefined(msg)==false) {
+	if (msg.length==0) {
 		alert('no msg');
 		var msg="Working...";
 	}
-	if (isdefined(sev)==false) {
+	if (sev.length==0) {
 		var sev="ajaxMessage";
 	}
 	alert(msg);
