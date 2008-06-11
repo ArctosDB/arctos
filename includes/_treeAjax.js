@@ -61,7 +61,7 @@ function showSpecTreeOnly (colobjid) {
 }
 
 function loadTree_success(result) {
-	//alert(result);
+	alert(result);
 	var theTreeDiv = document.getElementById('treePane');
 	var oops = result[0].CONTAINER_ID;
 	if (oops==-1) {
