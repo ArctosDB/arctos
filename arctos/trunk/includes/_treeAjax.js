@@ -26,19 +26,6 @@ function loadTree () {
 			}
 		}
 	}
-	/*
-	var cat_num = document.getElementById('cat_num').value;
-	var barcode = document.getElementById('barcode').value;
-	var container_label = document.getElementById('container_label').value;
-	var description = document.getElementById('description').value;
-	var container_type = document.getElementById('container_type').value;
-	var part_name = document.getElementById('part_name').value;
-	var collection_id = document.getElementById('collection_id').value;
-	var other_id_type = document.getElementById('other_id_type').value;
-	var other_id_value = document.getElementById('other_id_value').value;
-	*/
-	
-	//alert(treeID + " " + srch + " " + cat_num + " " + barcode + " " + container_label + " " + description + " " + container_type);
 	DWREngine._execute(_containerTree_func, null,'get_containerTree',q,loadTree_success);
 }
 function showSpecTreeOnly (colobjid) {
@@ -130,16 +117,14 @@ function expandNode_success (result) {
 function checkHandler (id){
 	var guts = "/ContDet.cfm?container_id=" + id;
 	ahah(guts,'detailPane');
-	var rootsAr = newTree.getAllFatItems().split(",")
+	var fatAr = newTree.getAllFatItems().split(",")
+	var leafAr = newTree.getAllLeafs().split(",")
+	var rootsAr = fatAr.concat(leafAr);
 	for(var i=0;i<rootsAr.length;i++){ 
 		newTree.setItemColor(rootsAr[i],'black','black');
 		newTree.setCheck(rootsAr[i],0) 
 	}
-	var rootsAr = newTree.getAllLeafs().split(",")
-	for(var i=0;i<rootsAr.length;i++){ 
-		newTree.setItemColor(rootsAr[i],'black','black');
-		newTree.setCheck(rootsAr[i],0);
-	} 	
+	
 	newTree.setItemColor(id,'red','red');
 	newTree.setCheck(id,1);
 }
@@ -161,7 +146,7 @@ function downloadTree () {
 function showTreeOnly(){
 	var theTreeDiv = document.getElementById('treePane');
 	theTreeDiv.className='';
-	newTree.enableDragAndDrop(1);
+	newTree.enableDragAndDrop(true);
 	document.getElementById('thisfooter').style.display='none';
 	document.getElementById('header_color').style.display='none';
 	document.getElementById('searchPane').style.display='none';	
