@@ -2,9 +2,9 @@ function loading(msg,sev) {
 	//alert('loading');
 	if (typeof msg == 'undefined') {
 		var msg="Working...";
-		alert('no msg');
+		//alert('no msg');
 	}
-	if (typeof sev != 'undefined') 
+	if (typeof sev == 'undefined') 
 		{var sev="";}
 	//alert();
 	var m = document.getElementById('ajaxMsg');
