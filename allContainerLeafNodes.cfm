@@ -1,15 +1,7 @@
-
-<!---- this is an internal use page and needs a security wrapper --->
- <cfinclude template="includes/_frameHeader.cfm">
- <!--- no security --->
-  <div style="float:right; position:absolute; right:0; top:0;">
-	<cfinclude template="container_nav.cfm">
-</div>
-
- <cfset title = "Container Locations">
- 
+<cfinclude template="includes/_header.cfm">
+<script src="/includes/sorttable.js"></script>
+<cfset title = "Container Locations">
 <cfoutput>
-
 <cfif isdefined("container_id")>
 	<cfquery name="leaf" datasource="#Application.web_user#">
 		select 
@@ -33,7 +25,7 @@
 	<strong>
 	<a href="ContDet.cfm?container_id=#container_id#" target="_detail">Container #container_id#</a>
 	 has #leaf.recordcount# leaf containers:</strong>
-	<table border>
+	<table border id="t" class="sortable">
 		<tr>
 			<td><strong>Label</strong></td>
 			<td><strong>Description</strong></td>
@@ -83,10 +75,12 @@
 		</tr>
 		</cfloop>
 	</table>
-<cfelse>
-	<br>There is no container id!! Die!!!!!!
 </cfif>
-</cfoutput><body bgcolor="#FFFBF0" text="midnightblue" link="blue" vlink="midnightblue">
+</cfoutput>
+
+
+
+
 <!---------------- start search by container ---------------->
 <cfif #action# is "nothing">
 <cfif not isdefined ("srch")>
