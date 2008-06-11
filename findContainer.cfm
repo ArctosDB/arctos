@@ -5,6 +5,8 @@
 <link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxtree.css">
 <style >
 	.cTreePane {height:400px;border:1px solid red;overflow-x: hidden;overflow-y: scroll;}
+	#ajaxMsg{ top: 20%; color: blue; text-align: center; width: 100%; margin: auto;}
+
 </style>
 
 
@@ -26,7 +28,7 @@
 	order by OTHER_ID_TYPE
 </cfquery>
 <cfoutput>
-
+<div id="ajaxMsg"></div>
 <table border width="100%">
 	<tr>
 		<td valign="top"><!--------------------------- search pane ----------------------------->
