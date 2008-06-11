@@ -17,7 +17,7 @@ function post(onOff,msg) {
 		}
 	} else {
 		m.className='ajaxDone';
-		var msg=""'
+		var msg="";
 	}
 	var m = document.getElementById('ajaxMsg');
 	m.innerHTML=msg;
