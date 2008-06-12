@@ -1555,7 +1555,7 @@ Shipment Information:
 	<cfif isdefined("notClosed") AND len(#notClosed#) gt 0>
 		<cfset sql = "#sql# AND loan_status <> 'closed'">
 	</cfif>
-		<cfif not isdefined("myAgentId") or len(#myAgentId#) is 0>
+		<cfif not isdefined("session.myAgentId") or len(#session.myAgentId#) is 0>
 			You are not a contact for any collection. This form will never return anything.
 			<cfabort>
 		</cfif>
