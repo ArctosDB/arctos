@@ -11,10 +11,9 @@
 <cfset whr=" WHERE cataloged_item.collection_id = collection.collection_id">	
 <cfset grp=" GROUP BY
 		cat_num,
-		institution_acronym,
-		collection.collection_cde,
+		collection.collection,
 		cataloged_item.collection_object_id,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#')">
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#') CustomID">
 		
 <cfif isdefined("transaction_id") and len(#transaction_id#) gt 0>
 	<cfset frm="#frm# ,loan_item,specimen_part">
@@ -70,7 +69,7 @@
 		</cfquery>
 	
 		<td rowspan="#thisItems.recordcount#">
-			#institution_acronym# #collection_cde# #cat_num#
+			#collection# #cat_num#
 		</td>
 		<td rowspan="#thisItems.recordcount#">
 			#CustomID#
