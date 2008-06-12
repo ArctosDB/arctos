@@ -1,46 +1,34 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfoutput>
-	
 <cfset sel="select 
 		cat_num,
-		institution_acronym,
-		collection.collection_cde,
+		collection.collection,
 		cataloged_item.collection_object_id,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#') CustomID,
-		part_name,
-		coll_obj_cont_hist.container_id,
-		decode(loan_item.collection_object_id,
-			NULL,'no',
-				'yes') is_loan_item,
-		decode(SAMPLED_FROM_OBJ_ID,
-			NULL,'no',
-			'yes') is_subsample								
-	FROM">
-<cfset frm=" specimen_part,
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#') CustomID">
+<cfset frm=" FROM
 		cataloged_item,
-		collection,
-		coll_obj_cont_hist,
-		loan_item">
-<cfset whr=" WHERE cataloged_item.collection_id = collection.collection_id AND
-		cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
-		specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id and
-		specimen_part.collection_object_id = loan_item.collection_object_id (+)">
-		
+		collection">		
+<cfset whr=" WHERE cataloged_item.collection_id = collection.collection_id">	
 <cfset grp=" GROUP BY
 		cat_num,
 		institution_acronym,
 		collection.collection_cde,
 		cataloged_item.collection_object_id,
 		concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#')">
+		
 <cfif isdefined("transaction_id") and len(#transaction_id#) gt 0>
-	<cfset whr="#whr# AND loan_item.transaction_id = #transaction_id#">
+	<cfset frm="#frm# ,loan_item,specimen_part">
+	<cfset whr="#whr# AND cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
+			specimen_part.collection_object_id = loan_item.collection_object_id and
+			loan_item.transaction_id = #transaction_id#">
 <cfelseif isdefined("container_id") and len(#container_id#) gt 0>
-	<cfset whr="#whr# AND coll_obj_cont_hist.container_id in (#container_id#)">
+	<cfset frm="#frm# ,coll_obj_cont_hist">
+	<cfset whr="#whr# AND specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id and
+			coll_obj_cont_hist.container_id in (#container_id#)">
 <cfelseif isdefined("collection_object_id") and len(#collection_object_id#) gt 0>
 	<cfset whr="#whr# AND cataloged_item.collection_object_id in (#container_id#)">
-</cfif>
-
-<cfset sql="#sel# #frm# #whr#">
+</cfif>		
+<cfset sql="#sel# #frm# #whr# #grp#">
 <cfquery name="allCatItems" datasource="#Application.web_user#">
 	#preservesinglequotes(sql)#
 </cfquery>
@@ -50,7 +38,7 @@
 		Cataloged Item
 	</th>
 	<th>
-		#session.customOtherIdentifier#
+		#Client.customOtherIdentifier#
 	</th>
 	<th>
 		Part Name
@@ -60,21 +48,24 @@
 	</th>
 <cfloop query="allCatItems">
 	 <tr	#iif(a MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-		<cfquery name="thisItems" dbtype="query">
+		<cfquery name="thisItems" datasource="#Application.web_user#">
 			select
 				part_name,
-				container_id,
-				is_loan_item,
-				is_subsample			
+				coll_obj_cont_hist.container_id,
+				decode(loan_item.collection_object_id,
+					NULL,'no',
+					'yes') is_loan_item,
+				decode(SAMPLED_FROM_OBJ_ID,
+					NULL,'no',
+					'yes') is_subsample			
 			FROM
-				allCatItems
+				specimen_part,
+				coll_obj_cont_hist,
+				(select collection_object_id,transaction_id from loan_item where transaction_id = #transaction_id#) loan_item
 			WHERE
-				collection_object_id = #collection_object_id#
-			group by
-				part_name,
-				container_id,
-				is_loan_item,
-				is_subsample
+				specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id AND
+				specimen_part.collection_object_id = loan_item.collection_object_id (+) AND
+				specimen_part.derived_from_cat_item = #collection_object_id#	
 		</cfquery>
 	
 		<td rowspan="#thisItems.recordcount#">
