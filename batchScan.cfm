@@ -3,7 +3,7 @@
 <cfif #action# is "nothing">
 <cfoutput>
 	<cfset numberFolders = 99>
-	<cfset colCount=3>
+	<cfset colCount=5>
 	<form name="pd" method="post" action="batchScan.cfm">
 		<input type="hidden" name="action" value="save">
 		<input type="hidden" name="numberFolders" value="#numberFolders#">
@@ -35,7 +35,7 @@
 							<tr>
 						</cfif>
 							<td>
-								<input type="text" name="barcode_#i#" id="barcode_#i#" size="20" class="reqdClr">	
+								<input type="text" name="barcode_#i#" id="barcode_#i#" size="20" class="reqdClr">&nbsp;&nbsp;	
 							</td>
 						<cfset c=c+1>
 						<cfif c is colCount+1>
