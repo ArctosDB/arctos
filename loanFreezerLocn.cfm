@@ -60,9 +60,11 @@
 					'yes') is_subsample			
 			FROM
 				specimen_part,
-				coll_obj_cont_hist
+				coll_obj_cont_hist,
+				loan_item
 			WHERE
 				specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id AND
+				specimen_part.collection_object_id = loan_item.collection_object_id AND
 				specimen_part.derived_from_cat_item = #collection_object_id#	
 		</cfquery>
 	
