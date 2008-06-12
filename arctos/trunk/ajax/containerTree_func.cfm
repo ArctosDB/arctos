@@ -57,6 +57,8 @@
 	<cfset other_id_type="">
 	<cfset other_id_value="">
 	<cfset collection_object_id="">
+	<cfset loan_trans_id="">
+	
 	
 	<cfloop list="#q#" index="p" delimiters="&">
 		<cfset k=listgetat(p,1,"=")>
@@ -73,7 +75,8 @@
 		len(#collection_id#) is 0 and
 		len(#other_id_type#) is 0 and
 		len(#other_id_value#) is 0 and
-		len(#collection_object_id#) is 0
+		len(#collection_object_id#) is 0and
+		len(#loan_trans_id#) is 0
 		>
 		
 		 <cfset result = querynew("container_id,msg")>
@@ -86,7 +89,7 @@
 	<cfset sel = "SELECT container.container_id">
 	<cfset frm = " FROM container ">
 	<cfset whr=" where 1=1 ">
-	
+
 	<cfif len(#collection_object_id#) gt 0>
 		<cfif #frm# does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
@@ -164,6 +167,7 @@
 	  <cfif len(#container_type#) gt 0>
 		<cfset whr = "#whr# AND container_type='#container_type#'">
 	 </cfif>
+	 
 	 <cfif len(#part_name#) gt 0>
 		<cfif #frm# does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
@@ -172,6 +176,18 @@
 			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
 		</cfif>
 		<cfset whr = "#whr# AND specimen_part.part_Name='#part_Name#'">
+	 </cfif>
+	  <cfif len(#loan_trans_id#) gt 0>
+		<cfif #frm# does not contain " coll_obj_cont_hist ">
+			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
+		</cfif>
+		<cfif #frm# does not contain " specimen_part ">
+			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
+		</cfif>
+		<cfif #frm# does not contain " loan_item ">
+			<cfset frm = "#frm# inner join loan_item on (specimen_part.collection_object_id=loan_item.collection_object_id)">
+		</cfif>
+		<cfset whr = "#whr# AND loan_item.transaction_id = #loan_trans_id#">
 	 </cfif>
 
 	<cfif len(#collection_id#) gt 0>

@@ -335,7 +335,7 @@ Review items in loan<b>
    onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">	
 	</form>
 	<p>
-		<form name="showMeDaParts" method="post" action="Container.cfm">
+		<form name="showMeDaParts" method="post" action="findContainer.cfm">
 		<br>View part location of these items:
 		<input type="hidden" name="srch" value="part">
 			<input type="hidden" name="loan_trans_id" value="#transaction_id#">
