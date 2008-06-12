@@ -22,8 +22,9 @@
 			specimen_part.collection_object_id = loan_item.collection_object_id and
 			loan_item.transaction_id = #transaction_id#">
 <cfelseif isdefined("container_id") and len(#container_id#) gt 0>
-	<cfset frm="#frm# ,coll_obj_cont_hist">
-	<cfset whr="#whr# AND specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id and
+	<cfset frm="#frm# ,coll_obj_cont_hist,specimen_part">
+	<cfset whr="#whr# AND cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
+			specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id and
 			coll_obj_cont_hist.container_id in (#container_id#)">
 <cfelseif isdefined("collection_object_id") and len(#collection_object_id#) gt 0>
 	<cfset whr="#whr# AND cataloged_item.collection_object_id in (#container_id#)">
