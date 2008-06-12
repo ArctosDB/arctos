@@ -111,9 +111,7 @@
 			</cfloop>
 			</td>
 			<td>#coll_obj_disposition#</td>
-			<cfif #i# gt 1>
-				</tr>
-			</cfif>
+			</tr>
 			<cfset i=#i#+1>
 		</cfloop>
 	</tr>
