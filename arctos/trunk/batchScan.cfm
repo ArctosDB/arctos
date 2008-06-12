@@ -28,14 +28,19 @@
 					<tr>						
 						<th>Barcode</th>
 					</tr>
-					<cfset i=1>
+					<cfset c=1>
 					<cfloop from="1" to="#numberFolders#" index="i">
-						<tr>
+						<cfif c is 1>
+							<tr>
+						</cfif>
 							<td>
 								<input type="text" name="barcode_#i#" id="barcode_#i#" size="20" class="reqdClr">	
-							</td>												
-						</tr>
-						<cfset i=i+1>
+							</td>
+						<cfif c is numRows>
+							</tr>
+							<cfset c=1>
+						</cfif>
+						<cfset c=c+1>															
 					</cfloop>					
 				</table>
 			</div>
