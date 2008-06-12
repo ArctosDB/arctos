@@ -72,7 +72,7 @@
 			#collection# #cat_num#
 		</td>
 		<td rowspan="#thisItems.recordcount#">
-			#CustomID#
+			#CustomID#&nbsp;
 		</td>
 		<cfset i=1>
 		<cfloop query="thisItems">
