@@ -69,7 +69,12 @@
 			FROM
 				allCatItems
 			WHERE
-				collection_object_id = #collection_object_id#	
+				collection_object_id = #collection_object_id#
+			group by
+				part_name,
+				container_id,
+				is_loan_item,
+				is_subsample
 		</cfquery>
 	
 		<td rowspan="#thisItems.recordcount#">
