@@ -40,7 +40,7 @@
 	<cfset whr="#whr# AND cataloged_item.collection_object_id in (#container_id#)">
 </cfif>
 
-<cfset sql="#sel# #frm# #whr# #grp#">
+<cfset sql="#sel# #frm# #whr#">
 <cfquery name="allCatItems" datasource="#Application.web_user#">
 	#preservesinglequotes(sql)#
 </cfquery>
