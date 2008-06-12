@@ -38,7 +38,7 @@
 		Cataloged Item
 	</th>
 	<th>
-		#Client.customOtherIdentifier#
+		#session.customOtherIdentifier#
 	</th>
 	<th>
 		Part Name
