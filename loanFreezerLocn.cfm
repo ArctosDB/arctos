@@ -1,5 +1,4 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
-<script src="/includes/sorttable.js"></script>
 <cfoutput>
 <cfset sel="select 
 		cat_num,
@@ -34,7 +33,7 @@
 	#preservesinglequotes(sql)#
 </cfquery>
 <cfset a=1>
-<table border id="t" class="sortable">
+<table border="1">
 	<th>
 		Cataloged Item
 	</th>
