@@ -91,9 +91,6 @@
 					connect by prior parent_container_id = container_id 
 					order by level DESC
 			</cfquery>
-			<cfif #i# gt 1>
-				<tr	#iif(a MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-			</cfif>
 				<td>
 						#part_name# <cfif #is_subsample# is "yes">(subsample)</cfif>
 				</td>
