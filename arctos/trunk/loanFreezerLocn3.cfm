@@ -5,7 +5,7 @@
 		cat_num,
 		collection.collection,
 		cataloged_item.collection_object_id,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#') CustomID.
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#') CustomID,
 		part_name,
 		coll_obj_cont_hist.container_id,
 		COLL_OBJ_DISPOSITION,
