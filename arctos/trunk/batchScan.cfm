@@ -37,11 +37,12 @@
 							<td>
 								<input type="text" name="barcode_#i#" id="barcode_#i#" size="20" class="reqdClr">	
 							</td>
-						<cfif c is colCount>
+						<cfset c=c+1>
+						<cfif c is colCount+1>
 							</tr>
 							<cfset c=1>
 						</cfif>
-						<cfset c=c+1>															
+																				
 					</cfloop>					
 				</table>
 			</div>
