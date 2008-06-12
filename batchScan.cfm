@@ -1,6 +1,4 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
-<html><head><title>glish.com : CSS layout techniques : 3 columns, the holy grail</title>
 
 <style type="text/css">
 	#leftcontent {
@@ -26,8 +24,7 @@
 	
 	
 </style>
-</head><body>
-<div id="banner"><h1><a href="home.asp">LAYOUT TECHNIQUES</a>: 3 columns, the holy grail</h1></div>
+
 <div id="leftcontent">
 	<h1>leftcontent</h1>
 <pre>#leftcontent {
@@ -97,8 +94,7 @@ border:1px solid #000;
 	</p>
 </div>
 
-</body>
-</html>
+
 
 
 <!----
