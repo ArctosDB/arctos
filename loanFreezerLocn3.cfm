@@ -21,7 +21,7 @@
 <cfset whr=" WHERE cataloged_item.collection_id = collection.collection_id AND
 		cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
 		specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id and
-		specimen_part.collection_object_id = coll_object.collection_object_id AND">	
+		specimen_part.collection_object_id = coll_object.collection_object_id ">	
 
 		
 <cfif isdefined("transaction_id") and len(#transaction_id#) gt 0>
