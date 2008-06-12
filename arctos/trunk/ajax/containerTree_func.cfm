@@ -75,7 +75,7 @@
 		len(#collection_id#) is 0 and
 		len(#other_id_type#) is 0 and
 		len(#other_id_value#) is 0 and
-		len(#collection_object_id#) is 0and
+		len(#collection_object_id#) is 0 and
 		len(#loan_trans_id#) is 0
 		>
 		
