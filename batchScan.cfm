@@ -3,101 +3,27 @@
 <html><head><title>glish.com : CSS layout techniques : 3 columns, the holy grail</title>
 
 <style type="text/css">
-	@import "all.css"; /* just some basic formatting, no layout stuff */
-	
-	body {
-		margin:10px 10px 0px 10px;
-		padding:0px;
-		}
-	
 	#leftcontent {
 		position: absolute;
 		left:10px;
 		top:50px;
-		width:200px;
-		background:#fff;
+		width:30%;
 		border:1px solid #000;
 		}
 
 	#centercontent {
-		background:#fff;
-   		margin-left: 199px;
-   		margin-right:199px;
+   		margin-left: 30%;
+   		margin-right:30%;
 		border:1px solid #000;
-		/*
-		IE5x PC mis-implements the box model. Because of that we sometimes have
-		to perform a little CSS trickery to get pixel-perfect display across browsers.
-		The following bit of code was proposed by Tantek Celik, and it preys upon a CSS
-		parsing bug in IE5x PC that will prematurly close a style rule when it runs
-		into the string "\"}\"". After that string appears in a rule, then, we can override
-		previously set attribute values and only browsers without the parse bug will
-		recognize the new values. So any of the name-value pairs above this comment
-		that we need to override for browsers with correct box-model implementations
-		will be listed below.
-		
-		We use the voice-family property because it is likely to be used very infrequently,
-		and where it is used it will be set on the body tag. So the second voice-family value 
-		of "inherit" will override our bogus "\"}\"" value and allow the proper value to
-		cascade down from the body tag.
-
-		The style rule immediately following this rule offers another chance for CSS2
-		aware browsers to pick up the values meant for correct box-model implementations.
-		It uses a CSS2 selector that will be ignored by IE5x PC.
-		
-		Read more at http://www.glish.com/css/hacks.asp
-		*/
-		
-		voice-family: "\"}\"";
-		voice-family: inherit;
-   		margin-left: 201px;
-   		margin-right:201px;
-		}
-	html>body #centercontent {
-   		margin-left: 201px;
-   		margin-right:201px;
-		}
 
 	#rightcontent {
 		position: absolute;
 		right:10px;
 		top:50px;
-		width:200px;
-		background:#fff;
+		width:30%;
 		border:1px solid #000;
 		}
 	
-	#banner {
-		background:#fff;
-		height:40px;
-		border-top:1px solid #000;
-		border-right:1px solid #000;
-		border-left:1px solid #000;
-		voice-family: "\"}\"";
-		voice-family: inherit;
-		height:39px;
-		}
-	html>body #banner {
-		height:39px;
-		}
-		
-	p,h1,pre {
-		margin:0px 10px 10px 10px;
-		}
-		
-	h1 {
-		font-size:14px;
-		padding-top:10px;
-		}
-		
-	#banner h1 {
-		font-size:14px;
-		padding:10px 10px 0px 10px;
-		margin:0px;
-		}
-	
-	#rightcontent p {
-		font-size:10px
-		}
 	
 </style>
 </head><body>
