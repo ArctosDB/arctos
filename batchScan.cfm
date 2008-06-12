@@ -13,22 +13,19 @@
 					class="savBtn"
 					onmouseover="this.className='savBtn btnhov'" 
 	   				onmouseout="this.className='savBtn'"
-					value="Save to Database">
-				<p>
+					value="Save">
+					&nbsp;&nbsp;&nbsp;
 				<input type="reset" 
 					class="clrBtn"
 					onmouseover="this.className='clrBtn btnhov'" 
 	   				onmouseout="this.className='clrBtn'"
-					value="Clear Form">ins
-					
+					value="Clear Form">
+					<hr>
 					
 		<label for="sheets">Child Barcodes</label>		
 		<cfset numCols="3">		
 			<div style="border:1px solid green; padding:10px;" id="sheets">
-				<table border>
-					<tr>						
-						<th>Barcode</th>
-					</tr>
+				<table>
 					<cfset c=1>
 					<cfloop from="1" to="#numberFolders#" index="i">
 						<cfif c is 1>
