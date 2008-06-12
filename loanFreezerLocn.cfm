@@ -6,13 +6,25 @@
 		institution_acronym,
 		collection.collection_cde,
 		cataloged_item.collection_object_id,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#') CustomID
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#') CustomID,
+		part_name,
+		coll_obj_cont_hist.container_id,
+		decode(loan_item.collection_object_id,
+			NULL,'no',
+				'yes') is_loan_item,
+		decode(SAMPLED_FROM_OBJ_ID,
+			NULL,'no',
+			'yes') is_subsample								
 	FROM">
 <cfset frm=" specimen_part,
 		cataloged_item,
-		collection">
+		collection,
+		coll_obj_cont_hist,
+		loan_item">
 <cfset whr=" WHERE cataloged_item.collection_id = collection.collection_id AND
-		cataloged_item.collection_object_id = specimen_part.derived_from_cat_item">
+		cataloged_item.collection_object_id = specimen_part.derived_from_cat_item and
+		specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id and
+		specimen_part.collection_object_id = loan_item.collection_object_id (+)">
 		
 <cfset grp=" GROUP BY
 		cat_num,
@@ -21,13 +33,9 @@
 		cataloged_item.collection_object_id,
 		concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#')">
 <cfif isdefined("transaction_id") and len(#transaction_id#) gt 0>
-	<cfset frm="#frm#,loan_item">
-	<cfset whr="#whr# AND loan_item.collection_object_id = specimen_part.collection_object_id
-			and loan_item.transaction_id = #transaction_id#">
+	<cfset whr="#whr# AND loan_item.transaction_id = #transaction_id#">
 <cfelseif isdefined("container_id") and len(#container_id#) gt 0>
-	<cfset frm="#frm#,coll_obj_cont_hist">
-	<cfset whr="#whr# AND specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id
-			and coll_obj_cont_hist.container_id in (#container_id#)">
+	<cfset whr="#whr# AND coll_obj_cont_hist.container_id in (#container_id#)">
 <cfelseif isdefined("collection_object_id") and len(#collection_object_id#) gt 0>
 	<cfset whr="#whr# AND cataloged_item.collection_object_id in (#container_id#)">
 </cfif>
