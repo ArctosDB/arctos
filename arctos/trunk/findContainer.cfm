@@ -5,7 +5,10 @@
 <link rel="STYLESHEET" type="text/css" href="/includes/dhtmlxtree.css">
 <style >
 	.cTreePane {
-		height:400px;
+		height:400px;	
+overflow-y:scroll;
+overflow-x:auto;
+padding-right:10px;	
 	}
 	.ajaxWorking{ 
 		top: 20%; 
@@ -19,7 +22,8 @@
 		padding:1em;
 		border:1px solid;
 		overflow:hidden;
-		z-index:1;		
+		z-index:1;
+		overflow-y:scroll;	
 		}
 	.ajaxDone {display:none}
 	.ajaxMessage {color:green;}
