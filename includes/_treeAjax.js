@@ -30,7 +30,7 @@ function loadTree () {
 	post(1);
 	//alert('loadTree');
 	var theTreeDiv = document.getElementById('treePane');	
-	var flds="cat_num,barcode,container_label,description,container_type,part_name,collection_id,other_id_type,other_id_value,collection_object_id";
+	var flds="cat_num,barcode,container_label,description,container_type,part_name,collection_id,other_id_type,other_id_value,collection_object_id,loan_trans_id";
 	var arrFld = flds.split( "," );
 
 	//alert('l' + arrFld.length);
