@@ -58,39 +58,28 @@
 	<th>
 		Location
 	</th>
-			<cfset i=1>
 <cfloop query="allCatItems">
 	 <tr	#iif(a MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-		<!---<cfquery name="thisItems" datasource="#Application.web_user#">
+		<cfquery name="thisItems" dbtype="query">
 			select
 				part_name,
-				coll_obj_cont_hist.container_id,
-				decode(loan_item.collection_object_id,
-					NULL,'no',
-					'yes') is_loan_item,
-				decode(SAMPLED_FROM_OBJ_ID,
-					NULL,'no',
-					'yes') is_subsample			
+				container_id,
+				is_loan_item,
+				is_subsample			
 			FROM
-				specimen_part,
-				coll_obj_cont_hist,
-				(select collection_object_id,transaction_id from loan_item where transaction_id = #transaction_id#) loan_item
+				allCatItems
 			WHERE
-				specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id AND
-				specimen_part.collection_object_id = loan_item.collection_object_id (+) AND
-				specimen_part.derived_from_cat_item = #collection_object_id#	
+				collection_object_id = #collection_object_id#	
 		</cfquery>
-	--->
+	
 		<td rowspan="#thisItems.recordcount#">
 			#institution_acronym# #collection_cde# #cat_num#
 		</td>
 		<td rowspan="#thisItems.recordcount#">
 			#CustomID#
 		</td>
-
-		<!---
+		<cfset i=1>
 		<cfloop query="thisItems">
-		--->
 			<cfquery name="freezer" datasource="#Application.web_user#">
 				select 
 					CONTAINER_ID,
@@ -138,11 +127,10 @@
 				</tr>
 			</cfif>
 			<cfset i=#i#+1>
-
+		</cfloop>
 	</tr>
-
-</cfloop>
 	<cfset a=#a#+1>
+</cfloop>
 </table>
 	</cfoutput>
 	
