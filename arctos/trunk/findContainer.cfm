@@ -98,7 +98,7 @@
 				<input class="clrBtn"
 					type="reset" value="Clear"/>				
 				</form>
-				<span class="likeLink" onclick="downloadTree()">Flatten and Download</span>
+				<span class="likeLink" onclick="downloadTree()">Flatten Part Locations</span>
 				<br><span class="likeLink" onclick="showTreeOnly()">Drag/Print</span>
 			</div>
 				
