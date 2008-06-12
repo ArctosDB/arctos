@@ -1,9 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<!----------------->
-<div style="float:right; position:absolute; right:0; top:100;">
-	<cfinclude template="container_nav.cfm">
-	<cfset title="Move a container">
-</div>
+<cfset title="Move a container">
 <style>
 	.red {background-color:#FF0000;
 	}

@@ -1,4 +1,4 @@
-<cfinclude template="/includes/alwaysInclude.cfm">
+<cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfoutput>
 <cfset sel="select 
