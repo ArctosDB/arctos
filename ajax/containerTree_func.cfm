@@ -35,7 +35,6 @@
 </cffunction>	
 <!-------------------------------------------------------------->
 <cffunction name="get_containerTree" returntype="query">
-	<cfabort>
 	<cfsetting requesttimeout="10" /> 
 	<!---<cfargument name="cat_num" required="yes" type="string">
 	<cfargument name="barcode" required="yes" type="string">
