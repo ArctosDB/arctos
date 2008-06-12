@@ -13,7 +13,7 @@
 		cat_num,
 		collection.collection,
 		cataloged_item.collection_object_id,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#') CustomID">
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#')">
 		
 <cfif isdefined("transaction_id") and len(#transaction_id#) gt 0>
 	<cfset frm="#frm# ,loan_item,specimen_part">
