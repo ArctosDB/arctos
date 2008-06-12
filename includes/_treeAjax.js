@@ -177,7 +177,7 @@ function downloadTree () {
 		var cutAr=cidAr.slice(1);
 		var cid=cutAr.join(",");
 		post();
-		window.open('locDownload.cfm?container_id=' + cid);
+		window.open('loanFreezerLocn.cfm?container_id=' + cid);
 	} catch(err){
 		post(1,'Error: No tree?');
 	}

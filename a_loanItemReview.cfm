@@ -337,7 +337,7 @@ Review items in loan<b>
 	<p>
 		View 
 		<a href="/findContainer.cfm?loan_trans_id=#transaction_id#">Part Locations</a>
-		or <a href="/findContainer.cfm?loanFreezerLocn=#transaction_id#">Print Freezer Locations</a>
+		or <a href="loanFreezerLocn.cfm?transaction_id=#transaction_id#">Print Freezer Locations</a>
 	</p>
 
 <table border id="t" class="sortable">
