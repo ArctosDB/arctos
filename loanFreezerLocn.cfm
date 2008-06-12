@@ -1,4 +1,5 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
+<script src="/includes/sorttable.js"></script>
 <cfoutput>
 <cfset sel="select 
 		cat_num,
@@ -33,7 +34,7 @@
 	#preservesinglequotes(sql)#
 </cfquery>
 <cfset a=1>
-<table border="1">
+<table border id="t" class="sortable">
 	<th>
 		Cataloged Item
 	</th>
@@ -67,10 +68,10 @@
 				specimen_part.derived_from_cat_item = #collection_object_id#	
 		</cfquery>
 	
-		<td rowspan="#thisItems.recordcount#">
+		<td>
 			#collection# #cat_num#
 		</td>
-		<td rowspan="#thisItems.recordcount#">
+		<td>
 			#CustomID#&nbsp;
 		</td>
 		<cfset i=1>
