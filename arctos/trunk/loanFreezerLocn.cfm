@@ -49,70 +49,59 @@
 	</th>
 	<th>Disposition</th>
 <cfloop query="allCatItems">
-	 <tr	#iif(a MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-		<cfquery name="thisItems" datasource="#Application.web_user#">
-			select
-				part_name,
-				coll_obj_cont_hist.container_id,
-				COLL_OBJ_DISPOSITION,
-				decode(SAMPLED_FROM_OBJ_ID,
-					NULL,'no',
-					'yes') is_subsample			
-			FROM
-				specimen_part,
-				coll_obj_cont_hist,
-				coll_object
-			WHERE
-				specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id AND
-				specimen_part.collection_object_id = coll_object.collection_object_id AND
-				specimen_part.derived_from_cat_item = #collection_object_id#	
+	<cfquery name="thisItems" datasource="#Application.web_user#">
+		select
+			part_name,
+			coll_obj_cont_hist.container_id,
+			COLL_OBJ_DISPOSITION,
+			decode(SAMPLED_FROM_OBJ_ID,
+				NULL,'no',
+				'yes') is_subsample			
+		FROM
+			specimen_part,
+			coll_obj_cont_hist,
+			coll_object
+		WHERE
+			specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id AND
+			specimen_part.collection_object_id = coll_object.collection_object_id AND
+			specimen_part.derived_from_cat_item = #collection_object_id#	
+	</cfquery>
+	<cfloop query="thisItems">
+		<cfquery name="freezer" datasource="#Application.web_user#">
+			select 
+				CONTAINER_ID,
+				PARENT_CONTAINER_ID,
+				CONTAINER_TYPE,
+				DESCRIPTION,
+				PARENT_INSTALL_DATE,
+				CONTAINER_REMARKS,
+				label,
+				level
+			 from container
+			start with container_id=#container_id#
+			connect by prior parent_container_id = container_id 
+			order by level DESC
 		</cfquery>
-	
-		<td>
-			#collection# #cat_num#
-		</td>
-		<td>
-			#CustomID#&nbsp;
-		</td>
-		<cfset i=1>
-		<cfloop query="thisItems">
-			<cfquery name="freezer" datasource="#Application.web_user#">
-				select 
-					CONTAINER_ID,
-					PARENT_CONTAINER_ID,
-					CONTAINER_TYPE,
-					DESCRIPTION,
-					PARENT_INSTALL_DATE,
-					CONTAINER_REMARKS,
-					label,
-					level
-					 from container
-					start with container_id=#container_id#
-					connect by prior parent_container_id = container_id 
-					order by level DESC
-			</cfquery>
-				<td>
-						#part_name# <cfif #is_subsample# is "yes">(subsample)</cfif>
-				</td>
-				<td>
-			<cfloop query="freezer">
-				
+		<tr	#iif(a MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
+			<td>#collection# #cat_num#</td>
+			<td>#CustomID#&nbsp;</td>
+			<td>
+				#part_name# <cfif #is_subsample# is "yes">(subsample)</cfif>
+			</td>
+			<td>
+				<cfloop query="freezer">
 					<cfif #CONTAINER_TYPE# is "position">
-						<span style="font-weight:bold;">
+						<span style="font-weight:bold;">[#label#]</span>
+					<cfelse>
+						[#label#]
 					</cfif>
-							[#label#]
-					<cfif #CONTAINER_TYPE# is "position">
-						</span>
-					</cfif>
-				
-			</cfloop>
+				</cfloop>
 			</td>
 			<td>#coll_obj_disposition#</td>
-			</tr>
-			<cfset i=#i#+1>
-		</cfloop>
-	</tr>
-	<cfset a=#a#+1>
+		</tr>
+	</cfloop>
+</tr>
+<cfset a=#a#+1>
 </cfloop>
 </table>
 	</cfoutput>
