@@ -94,18 +94,10 @@
 			<cfif #i# gt 1>
 				<tr	#iif(a MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 			</cfif>
-				<cfif #is_loan_item# is "yes">
-					<cfset thisStyle = "">
-				<cfelse>
-					<cfset thisStyle = 'style="font-size:small;font-style:italic;"'>
-				</cfif>
 				<td>
-					<span #thisStyle#>
 						#part_name# <cfif #is_subsample# is "yes">(subsample)</cfif>
-					</span>
 				</td>
 				<td>
-					<span #thisStyle#>
 			<cfloop query="freezer">
 				
 					<cfif #CONTAINER_TYPE# is "position">
@@ -117,7 +109,6 @@
 					</cfif>
 				
 			</cfloop>
-				</span>
 			</td>
 			<td>#coll_obj_disposition#</td>
 			<cfif #i# gt 1>
