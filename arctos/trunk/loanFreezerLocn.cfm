@@ -1,29 +1,40 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfoutput>
-<cfquery name="allCatItems" datasource="#Application.web_user#">
-	select 
+	
+<cfset sel="select 
 		cat_num,
 		institution_acronym,
 		collection.collection_cde,
 		cataloged_item.collection_object_id,
 		concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#') CustomID
-	FROM	
-		loan_item,
-		specimen_part,
+	FROM">
+<cfset frm=" specimen_part,
 		cataloged_item,
-		collection
-	where 
-		cataloged_item.collection_id = collection.collection_id AND
-		cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
-		loan_item.collection_object_id = specimen_part.collection_object_id AND
-		loan_item.transaction_id = #transaction_id#
-	GROUP BY
+		collection">
+<cfset whr=" WHERE cataloged_item.collection_id = collection.collection_id AND
+		cataloged_item.collection_object_id = specimen_part.derived_from_cat_item">
+		
+<cfset grp=" GROUP BY
 		cat_num,
 		institution_acronym,
 		collection.collection_cde,
 		cataloged_item.collection_object_id,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#')
-	ORDER BY cat_num
+		concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#')">
+<cfif isdefined("transaction_id") and len(#transaction_id#) gt 0>
+	<cfset frm="#frm#,loan_item">
+	<cfset whr="#whr# AND loan_item.collection_object_id = specimen_part.collection_object_id
+			and loan_item.transaction_id = #transaction_id#">
+<cfelseif isdefined("container_id") and len(#container_id#) gt 0>
+	<cfset frm="#frm#,coll_obj_cont_hist">
+	<cfset whr="#whr# AND specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id
+			and coll_obj_cont_hist.container_id in (#container_id#)">
+<cfelseif isdefined("collection_object_id") and len(#collection_object_id#) gt 0>
+	<cfset whr="#whr# AND cataloged_item.collection_object_id in (#container_id#)">
+</cfif>
+
+<cfset sql="#sel# #frm# #whr# #grp#">
+<cfquery name="allCatItems" datasource="#Application.web_user#">
+	#preservesinglequotes(sql)#
 </cfquery>
 <cfset a=1>
 <table border="1">
