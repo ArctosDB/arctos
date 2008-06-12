@@ -335,16 +335,9 @@ Review items in loan<b>
    onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">	
 	</form>
 	<p>
-		<form name="showMeDaParts" method="post" action="findContainer.cfm">
-		<br>View part location of these items:
-		<input type="hidden" name="srch" value="part">
-			<input type="hidden" name="loan_trans_id" value="#transaction_id#">
-			<input type="submit" value="Locations" class="lnkBtn"
-   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
-   <input type="button" value="Freezer Locations" onclick="document.location='loanFreezerLocn.cfm?transaction_id=#transaction_id#';"
-   class="lnkBtn"
-   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'" />
-	</form>
+		View 
+		<a href="/findContainer.cfm?loan_trans_id=#transaction_id#">Part Locations</a>
+		or <a href="/findContainer.cfm?loanFreezerLocn=#transaction_id#">Print Freezer Locations</a>
 	</p>
 
 <table border id="t" class="sortable">
