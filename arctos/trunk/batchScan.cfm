@@ -2,7 +2,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif #action# is "nothing">
 <cfoutput>
-	<cfset numberFolders = 40>
+	<cfset numberFolders = 99>
 	<cfset colCount=3>
 	<form name="pd" method="post" action="batchScan.cfm">
 		<input type="hidden" name="action" value="save">
