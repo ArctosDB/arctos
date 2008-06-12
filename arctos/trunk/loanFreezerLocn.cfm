@@ -1,4 +1,5 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
+<script src="/includes/sorttable.js"></script>
 <cfoutput>
 <cfset sel="select 
 		cat_num,
@@ -33,7 +34,7 @@
 	#preservesinglequotes(sql)#
 </cfquery>
 <cfset a=1>
-<table border="1">
+<table border id="t" class="sortable">
 	<th>
 		Cataloged Item
 	</th>
@@ -46,25 +47,24 @@
 	<th>
 		Location
 	</th>
+	<th>Disposition</th>
 <cfloop query="allCatItems">
 	 <tr	#iif(a MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 		<cfquery name="thisItems" datasource="#Application.web_user#">
 			select
 				part_name,
 				coll_obj_cont_hist.container_id,
-				decode(loan_item.collection_object_id,
-					NULL,'no',
-					'yes') is_loan_item,
+				COLL_OBJ_DISPOSITION,
 				decode(SAMPLED_FROM_OBJ_ID,
 					NULL,'no',
 					'yes') is_subsample			
 			FROM
 				specimen_part,
 				coll_obj_cont_hist,
-				loan_item
+				coll_object
 			WHERE
 				specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id AND
-				specimen_part.collection_object_id = loan_item.collection_object_id (+) AND
+				specimen_part.collection_object_id = loan_item.coll_object AND
 				specimen_part.derived_from_cat_item = #collection_object_id#	
 		</cfquery>
 	
@@ -101,7 +101,7 @@
 				</cfif>
 				<td>
 					<span #thisStyle#>
-						#part_name# <cfif #is_subsample# is "yes">subsample</cfif>
+						#part_name# <cfif #is_subsample# is "yes">(subsample)</cfif>
 					</span>
 				</td>
 				<td>
@@ -119,6 +119,7 @@
 			</cfloop>
 				</span>
 			</td>
+			<td>#coll_obj_disposition#</td>
 			<cfif #i# gt 1>
 				</tr>
 			</cfif>
