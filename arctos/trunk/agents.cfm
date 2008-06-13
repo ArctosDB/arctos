@@ -73,18 +73,22 @@ window.onload=resizeCaller
 
 
 </script>
+
+			<iframe src="/AgentSearch.cfm" id="_search" name="_search" width="100%"></iframe>
+						<iframe src="/editAllAgent.cfm" name="_person" id="_person" width="100%"></iframe>
+									<iframe src="/AgentGrid.cfm" name="_pick" id="_pick" width="100%"></iframe>
 <table>
 	<tr>
 		<td width="25%">
-			<iframe src="/AgentSearch.cfm" id="_search" name="_search" width="100%"></iframe>
+
 		</td>
 		<td rowspan="2">
-			<iframe src="/editAllAgent.cfm" name="_person" id="_person" width="100%"></iframe>
+
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<iframe src="/AgentGrid.cfm" name="_pick" id="_pick" width="100%"></iframe>
+
 		</td>
 	</tr>
 </table>
