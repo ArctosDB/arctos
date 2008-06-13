@@ -133,4 +133,7 @@ Search for an agent:
 </table>
 </form>
 </cfoutput>	
+<script>
+	parent.dyniframesize();
+	</script>
 <cfinclude template="includes/_pickFooter.cfm">
