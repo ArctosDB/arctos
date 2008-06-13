@@ -70,6 +70,7 @@
 						dual
 						-----------------------------
 				<cfdump var=#chk#>
+				<br>Parent: #parent_barcode#; Child: #thisBarcode#; Error: #chk.cmvt#
 				<cfif chk.cmvt is 'pass'>
 					<cfquery name="ins" datasource="#Application.uam_dbo#">
 						update container set 
@@ -80,17 +81,13 @@
 							barcode='#thisBarcode#'
 					</cfquery>	
 				<cfelse>
-					Bad container: Parent: #parent_barcode#; Child: #thisBarcode#; Error: #chk.cmvt#
 					<cftransaction action="rollback" />
 					<cfabort>
 				</cfif>
 			</cfif>
 		</cfloop>
 		</cftransaction>
-		relocate.....
-		<!---
-		<cflocation url="index.cfm">
-		--->
+		<cflocation url="batchScan.cfm">
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
