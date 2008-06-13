@@ -1945,5 +1945,8 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
 		
 	</cfoutput>
 </cfif>
+<script>
+	parent.resizeCaller();
+</script>
 <!------------------------------------------------------------------------------------------------------------->
 <cfinclude template="includes/_pickFooter.cfm">
