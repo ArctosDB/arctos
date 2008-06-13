@@ -73,58 +73,22 @@ window.onload=resizeCaller
 
 
 </script>
-<style>
-	#srch{
-		position:relative;
-		top:0px;
-		left:0px;
-		width:25%;
-		height:300px;
-		}
-	#reslts{
-		position:relative;
-		top:0px;
-		right:0px;
-		width:74%;
-		}
-	#grid{
-		position:relative;
-		top:301px;
-		left:0px;
-		width:25%;
-		}
-	#wrap{
-		position:relative;
-		width:100%;
-		border:1px solid red;
-		}
-</style>
+
 
 <cfoutput>
-<div id="wrap">
-<div id="srch">
 
-</div>
-<div id="grid">
-	
-</div>
-<div id="reslts">
-	
-</div>	
-
-</div>
 <table>
 	<tr>
 		<td width="25%">
 			<iframe src="/AgentSearch.cfm" id="_search" name="_search" width="100%"></iframe>
 		</td>
 		<td rowspan="2">
-			<iframe src="/AgentGrid.cfm" name="_pick" id="_pick" width="100%"></iframe>
+			<iframe src="/editAllAgent.cfm" name="_person" id="_person" width="100%"></iframe>			
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<iframe src="/editAllAgent.cfm" name="_person" id="_person" width="100%"></iframe>
+			<iframe src="/AgentGrid.cfm" name="_pick" id="_pick" width="100%"></iframe>
 		</td>
 	</tr>
 </table>
