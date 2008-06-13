@@ -31,20 +31,32 @@
 	        }
 	    }
 	}
+	
+
+function autofitIframe(id){
+	if (!window.opera && !document.mimeType && document.all && document.getElementById){
+		parent.document.getElementById(id).style.height=this.document.body.offsetHeight+"px";
+	} else if(document.getElementById) {
+		parent.document.getElementById(id).style.height=this.document.body.scrollHeight+"px"
+	}
+} 
 </script>
 <table>
 	<tr>
 		<td>
-			<iframe src="/AgentSearch.cfm"></iframe>
+			<iframe src="/AgentSearch.cfm" id="_search" name="_search"></iframe>
 		</td>
 		<td colspan="2">
-			<iframe src="/editAllAgent.cfm" name="_person"></iframe>
+			<iframe src="/editAllAgent.cfm" name="_person" id="_person"></iframe>
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<iframe src="/AgentGrid.cfm" name="_pick"></iframe>
+			<iframe src="/AgentGrid.cfm" name="_pick" id="_pick"></iframe>
 		</td>
 	</tr>
 </table>
+<span onclick="autofitIframe('_search')">_search</span>
+<span onclick="autofitIframe('_person')">_person</span>
+<span onclick="autofitIframe('_pick')">_pick</span>
 </cfoutput>
