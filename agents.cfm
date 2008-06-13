@@ -5,13 +5,37 @@
 <cfset title='Manage Agents'>
 <cfoutput>
 <script>
+	function dyniframesize() {
 	
+	var iframeids=["theFrame"]
+	var iframehide="yes"
+	var getFFVersion=navigator.userAgent.substring(navigator.userAgent.indexOf("Firefox")).split("/")[1]
+	var FFextraHeight=parseFloat(getFFVersion)>=0.1? 18 : 0 //extra height in px to add to iframe in FireFox 1.0+ browsers
+	FFextraHeight = 60; // DLM - sometimes it doesn't fit
+	
+	var dyniframe=new Array()
+	for (i=0; i<iframeids.length; i++){
+	    if (document.getElementById){ //begin resizing iframe procedure
+	        dyniframe[dyniframe.length] = document.getElementById(iframeids[i]);
+	        if (dyniframe[i] && !window.opera){
+	            dyniframe[i].style.display="block"
+	            if (dyniframe[i].contentDocument && dyniframe[i].contentDocument.body.offsetHeight) //ns6 syntax
+	                dyniframe[i].height = dyniframe[i].contentDocument.body.offsetHeight+FFextraHeight;
+	            else if (dyniframe[i].Document && dyniframe[i].Document.body.scrollHeight) //ie5+ syntax
+	                dyniframe[i].height = dyniframe[i].Document.body.scrollHeight;
+	            }
+	        }
+	        if ((document.all || document.getElementById) && iframehide=="no"){
+	            var tempobj=document.all? document.all[iframeids[i]] : document.getElementById(iframeids[i])
+	            tempobj.style.display="block"
+	        }
+	    }
+	}
 </script>
 <table>
 	<tr>
 		<td>
 			<iframe src="/AgentSearch.cfm"></iframe>
-			search
 		</td>
 		<td colspan="2">
 			<iframe src="/editAllAgent.cfm" name="_person"></iframe>
