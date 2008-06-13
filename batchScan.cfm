@@ -69,6 +69,18 @@
 						c.barcode='#thisBarcode#' and
 						p.barcode='#parent_barcode#'
 				</cfquery>
+				----------------------
+				select 
+						c.container_id cid,
+						p.container_id pid,
+						checkContainerMovement('#parent_barcode#','#thisBarcode#') cmvt
+	 				from
+						container c,
+						container p
+					where
+						c.barcode='#thisBarcode#' and
+						p.barcode='#parent_barcode#'
+						-----------------------------
 				<cfdump var=#chk#>
 				<cfif len(chk.cmvt) is 0>
 					<cfquery name="ins" datasource="#Application.uam_dbo#">
