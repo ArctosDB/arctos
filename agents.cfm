@@ -10,31 +10,17 @@
 <table>
 	<tr>
 		<td>
+			<iframe src="/AgentSearch.cfm"></iframe>
 			search
 		</td>
 		<td colspan="2">
-			edit thingy
+			<iframe src="/AgentSearch.cfm" name="aEdit"></iframe>
 		</td>
 	</tr>
 	<tr>
 		<td>
-			result		
+			<iframe src="/AgentGrid.cfm" name="_pick"></iframe>
 		</td>
 	</tr>
 </table>
-<frameset rows="40,*">
-	<frame src="/includes/_agentSearchFrameHeader.cfm" name="_header" noresize scrolling="no">
-	<frameset cols="310,*">
-		<frameset rows="295,*">
- 			<frame src="/AgentSearch.cfm" name="_search">
- 			<frame src="/AgentGrid.cfm" name="_pick">
-		</frameset>
-		<frameset rows="100%,*">
-			<frame src="/editAllAgent.cfm?agent_id=#agent_id#" name="_person" >
-		<frame src="/UntitledFrame-3"></frameset>
-	</frameset>
-</frameset>
-<noframes>
-gotta have frames
-</noframes>
 </cfoutput>
