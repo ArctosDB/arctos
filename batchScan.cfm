@@ -72,7 +72,7 @@
 				<cfif len(chk.cmvt) is 0>
 					<cfquery name="ins" datasource="#Application.uam_dbo#">
 						update container set 
-							parent_conainer_id=#chk.pid#,
+							parent_container_id=#chk.pid#,
 							PARENT_INSTALL_DATE=sysdate
 						where
 							container_id=#chk.cid#
