@@ -16,7 +16,7 @@
 
 //Input the IDs of the IFRAMES you wish to dynamically resize to match its content height:
 //Separate each ID with a comma. Examples: ["myframe1", "myframe2"] or ["myframe"] or [] for none:
-var iframeids=["myframe"]
+var iframeids=["_search","_person","_pick"]
 
 //Should script hide iframe from browsers that don't support this script (non IE5+/NS6+ browsers. Recommended):
 var iframehide="yes"
