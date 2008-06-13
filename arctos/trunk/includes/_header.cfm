@@ -253,6 +253,7 @@
 									<cfif listfind(formList,"/moveContainer.cfm")>
 										<li><a target="_top" href="/findContainer.cfm">Find Container</a></li>
 										<li><a target="_top" href="/moveContainer.cfm">Move Container</a></li>
+										<li><a target="_top" href="/batchScan.cfm">Batch Scan</a></li>
 										<li><a target="_top" href="/labels2containers.cfm">Label>Container</a></li>
 										<li><a target="_top" href="/aps.cfm">Object+BC>>Container</a></li>
 									</cfif>	
