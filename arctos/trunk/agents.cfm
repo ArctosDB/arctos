@@ -3,7 +3,7 @@
 </cfif>
 <cfinclude template="/includes/_header.cfm">
 <cfset title='Manage Agents'>
-<cfoutput>
+
 <script type="text/javascript">
 
 /***********************************************
@@ -99,6 +99,8 @@ window.onload=resizeCaller
 		border:1px solid red;
 		}
 </style>
+
+<cfoutput>
 <div id="wrap">
 <div id="srch">
 	<iframe src="/AgentSearch.cfm" id="_search" name="_search" width="100%"></iframe>
