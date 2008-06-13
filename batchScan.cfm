@@ -53,6 +53,9 @@
 <!------------------------------------------------------------------------------->
 <cfif #action# is "save">
 	<cfoutput>
+		<hr>Scans are being processed. If you don't see a success message and a link at the bottom of this page, it
+		probably didn't work.
+		<hr>
 		<cfset pf="">
 		<cftransaction>
 		<cfloop from="1" to ="#numberFolders#" index="i">
@@ -85,7 +88,7 @@
 		</cftransaction>
 		<cfif listcontains(pf,'f')>
 			<div class="error">
-			Something hinky happened. Scans were not saved. See log above.
+				Something hinky happened. Scans were not saved. See log above.
 			</div>
 		<cfelse>
 			Success. <a href="batchScan.cfm">Scan more</a>
