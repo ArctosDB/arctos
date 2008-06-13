@@ -20,7 +20,7 @@ var iframeids=["_search","_person","_pick"]
 var iframehide="yes"
 
 var getFFVersion=navigator.userAgent.substring(navigator.userAgent.indexOf("Firefox")).split("/")[1]
-var FFextraHeight=parseFloat(getFFVersion)>=0.1? 16 : 0 //extra height in px to add to iframe in FireFox 1.0+ browsers
+var FFextraHeight=parseFloat(getFFVersion)>=0.1? 60 : 0 //extra height in px to add to iframe in FireFox 1.0+ browsers
 
 function resizeCaller() {
 var dyniframe=new Array()
@@ -73,22 +73,30 @@ window.onload=resizeCaller
 
 
 </script>
-
+<style>
+.isIFrame {border:1px solid red;}
+</style>
 
 <cfoutput>
 
 <table>
 	<tr>
 		<td width="35%" valign="top">
+			<div class="isIFrame">
 			<iframe src="/AgentSearch.cfm" id="_search" name="_search" width="100%"></iframe>
+			</div>
 		</td>
 		<td rowspan="2" valign="top">
-			<iframe src="/editAllAgent.cfm" name="_person" id="_person" width="100%"></iframe>			
+						<div class="isIFrame">
+			<iframe src="/editAllAgent.cfm" name="_person" id="_person" width="100%"></iframe>		
+						</div>	
 		</td>
 	</tr>
 	<tr>
 		<td valign="top">
+						<div class="isIFrame">
 			<iframe src="/AgentGrid.cfm" name="_pick" id="_pick" width="100%"></iframe>
+						</div>
 		</td>
 	</tr>
 </table>
