@@ -59,36 +59,25 @@
 			<cfif len(#thisBarcode#) gt 0>
 				<cfquery name="chk" datasource="#Application.uam_dbo#">
 					select 
-						c.container_id cid,
-						p.container_id pid,
 						checkContainerMovement('#parent_barcode#','#thisBarcode#') cmvt
 	 				from
-						container c,
-						container p
-					where
-						c.barcode='#thisBarcode#' and
-						p.barcode='#parent_barcode#'
+						dual
 				</cfquery>
 				----------------------
 				select 
-						c.container_id cid,
-						p.container_id pid,
 						checkContainerMovement('#parent_barcode#','#thisBarcode#') cmvt
 	 				from
-						container c,
-						container p
-					where
-						c.barcode='#thisBarcode#' and
-						p.barcode='#parent_barcode#'
+						dual
 						-----------------------------
 				<cfdump var=#chk#>
 				<cfif chk.cmvt is 'pass'>
 					<cfquery name="ins" datasource="#Application.uam_dbo#">
 						update container set 
-							parent_container_id=#chk.pid#,
+							parent_container_id=
+								(select container_id from container where barcode='#parent_barcode#'),
 							PARENT_INSTALL_DATE=sysdate
 						where
-							container_id=#chk.cid#
+							barcode='#thisBarcode#'
 					</cfquery>	
 				<cfelse>
 					Bad container: Parent: #parent_barcode#; Child: #thisBarcode#; Error: #chk.cmvt#
