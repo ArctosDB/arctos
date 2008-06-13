@@ -133,4 +133,6 @@ window.onload=resizeCaller
 <span onclick="autofitIframe('_search')">_search</span>
 <span onclick="autofitIframe('_person')">_person</span>
 <span onclick="autofitIframe('_pick')">_pick</span>
+<span onclick="autofitIframe('resizeCaller')">resizeCaller</span>
+
 </cfoutput>
