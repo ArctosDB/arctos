@@ -14,7 +14,7 @@
 			search
 		</td>
 		<td colspan="2">
-			<iframe src="/AgentSearch.cfm" name="aEdit"></iframe>
+			<iframe src="/editAllAgent.cfm" name="_person"></iframe>
 		</td>
 	</tr>
 	<tr>
