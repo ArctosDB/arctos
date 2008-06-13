@@ -63,13 +63,6 @@
 	 				from
 						dual
 				</cfquery>
-				----------------------
-				select 
-						checkContainerMovement('#parent_barcode#','#thisBarcode#') cmvt
-	 				from
-						dual
-						-----------------------------
-				<cfdump var=#chk#>
 				<br>Parent: #parent_barcode#; Child: #thisBarcode#; Error: #chk.cmvt#
 				<cfif chk.cmvt is 'pass'>
 					<cfquery name="ins" datasource="#Application.uam_dbo#">
