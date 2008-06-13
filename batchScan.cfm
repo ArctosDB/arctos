@@ -57,29 +57,31 @@
 		<cfloop from="1" to ="#numberFolders#" index="i">
 			<cfset thisBarcode=evaluate("barcode_" & i)>
 			<cfif len(#thisBarcode#) gt 0>
-			<cfquery name="chk" datasource="#Application.uam_dbo#">
-				select 
-					c.container_id cid,
-					p.container_id pid,
-					checkContainerMovement('#parent_barcode#','#thisBarcode#') cmvt
- 				from
-					container c,
-					container p
-				where
-					c.barcode='#thisBarcode#' and
-					p.barcode='#parent_barcode#'
-			</cfquery>
-			<cfif len(chk.cmvt) is 0>
-				<cfquery name="ins" datasource="#Application.uam_dbo#">
-					update container set 
-						parent_conainer_id=#chk.pid#,
-						PARENT_INSTALL_DATE=sysdate
+				<cfquery name="chk" datasource="#Application.uam_dbo#">
+					select 
+						c.container_id cid,
+						p.container_id pid,
+						checkContainerMovement('#parent_barcode#','#thisBarcode#') cmvt
+	 				from
+						container c,
+						container p
 					where
-						container_id=#chk.cid#
-				</cfquery>	
-			<cfelse>
-				Bad container: Parent: #parent_barcode#; Child: #thisBarcode#;E Error: #chk.cmvt#
-				<cfabort>
+						c.barcode='#thisBarcode#' and
+						p.barcode='#parent_barcode#'
+				</cfquery>
+				<cfif len(chk.cmvt) is 0>
+					<cfquery name="ins" datasource="#Application.uam_dbo#">
+						update container set 
+							parent_conainer_id=#chk.pid#,
+							PARENT_INSTALL_DATE=sysdate
+						where
+							container_id=#chk.cid#
+					</cfquery>	
+				<cfelse>
+					Bad container: Parent: #parent_barcode#; Child: #thisBarcode#;E Error: #chk.cmvt#
+					<cftransaction action="rollback" />
+					<cfabort>
+				</cfif>
 			</cfif>
 		</cfloop>
 		</cftransaction>
