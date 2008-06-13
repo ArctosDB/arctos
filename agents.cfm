@@ -4,8 +4,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title='Manage Agents'>
 <cfoutput>
-<script>
-
 <script type="text/javascript">
 
 /***********************************************
@@ -72,12 +70,6 @@ else if (window.attachEvent)
 window.attachEvent("onload", resizeCaller)
 else
 window.onload=resizeCaller
-
-</script>
-
-
-
-
 
 
 </script>
