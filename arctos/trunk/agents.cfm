@@ -81,7 +81,7 @@ function resizeIframe(frameid){
 		currentfr.style.display="block"
 		if (currentfr.contentDocument && currentfr.contentDocument.body.offsetHeight) {//ns6 syntax
 			currentfr.height = currentfr.contentDocument.body.offsetHeight+FFextraHeight;
-			currentfr.width = currentfr.contentDocument.body.offsetWidth+FFextraHeight;
+			currentfr.width = currentfr.contentDocument.body.offsetWidth+200;
 		} else if (currentfr.Document && currentfr.Document.body.scrollHeight) {//ie5+ syntax
 			currentfr.height = currentfr.Document.body.scrollHeight;
 			currentfr.width = currentfr.Document.body.scrollWidth;
