@@ -82,7 +82,7 @@
 						p.barcode='#parent_barcode#'
 						-----------------------------
 				<cfdump var=#chk#>
-				<cfif len(chk.cmvt) is 0>
+				<cfif chk.cmvt is 'pass'>
 					<cfquery name="ins" datasource="#Application.uam_dbo#">
 						update container set 
 							parent_container_id=#chk.pid#,
