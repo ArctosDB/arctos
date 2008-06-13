@@ -69,6 +69,7 @@
 						c.barcode='#thisBarcode#' and
 						p.barcode='#parent_barcode#'
 				</cfquery>
+				<cfdump var=#chk#>
 				<cfif len(chk.cmvt) is 0>
 					<cfquery name="ins" datasource="#Application.uam_dbo#">
 						update container set 
@@ -78,14 +79,17 @@
 							container_id=#chk.cid#
 					</cfquery>	
 				<cfelse>
-					Bad container: Parent: #parent_barcode#; Child: #thisBarcode#;E Error: #chk.cmvt#
+					Bad container: Parent: #parent_barcode#; Child: #thisBarcode#; Error: #chk.cmvt#
 					<cftransaction action="rollback" />
 					<cfabort>
 				</cfif>
 			</cfif>
 		</cfloop>
 		</cftransaction>
+		relocate.....
+		<!---
 		<cflocation url="index.cfm">
+		--->
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
