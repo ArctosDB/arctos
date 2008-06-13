@@ -53,6 +53,7 @@
 <!------------------------------------------------------------------------------->
 <cfif #action# is "save">
 	<cfoutput>
+		<cfset pf="">
 		<cftransaction>
 		<cfloop from="1" to ="#numberFolders#" index="i">
 			<cfset thisBarcode=evaluate("barcode_" & i)>
@@ -65,6 +66,7 @@
 				</cfquery>
 				<br>Parent: #parent_barcode#; Child: #thisBarcode#; Error: #chk.cmvt#
 				<cfif chk.cmvt is 'pass'>
+					<cfset pf=listappend(pf,"p")>
 					<cfquery name="ins" datasource="#Application.uam_dbo#">
 						update container set 
 							parent_container_id=
@@ -74,13 +76,20 @@
 							barcode='#thisBarcode#'
 					</cfquery>	
 				<cfelse>
+					<cfset pf=listappend(pf,"f")>
 					<cftransaction action="rollback" />
 					<cfabort>
 				</cfif>
 			</cfif>
 		</cfloop>
 		</cftransaction>
-		<cflocation url="batchScan.cfm">
+		<cfif listcontains(pf,'f')>
+			<div class="error">
+			Something hinky happened. Scans were not saved. See log above.
+			</div>
+		<cfelse>
+			Success. <a href="batchScan.cfm">Scan more</a>
+		</cfif>
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
