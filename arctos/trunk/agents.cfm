@@ -60,7 +60,7 @@ var iframeids=["_search","_person","_pick"]
 var iframehide="yes"
 
 var getFFVersion=navigator.userAgent.substring(navigator.userAgent.indexOf("Firefox")).split("/")[1]
-var FFextraHeight=parseFloat(getFFVersion)>=0.1? 16 : 0 //extra height in px to add to iframe in FireFox 1.0+ browsers
+var FFextraHeight=parseFloat(getFFVersion)>=0.1? 60 : 0 //extra height in px to add to iframe in FireFox 1.0+ browsers
 
 function resizeCaller() {
 var dyniframe=new Array()
@@ -80,9 +80,11 @@ var currentfr=document.getElementById(frameid)
 if (currentfr && !window.opera){
 currentfr.style.display="block"
 if (currentfr.contentDocument && currentfr.contentDocument.body.offsetHeight) //ns6 syntax
-currentfr.height = currentfr.contentDocument.body.offsetHeight+FFextraHeight; 
+currentfr.height = currentfr.contentDocument.body.offsetHeight+FFextraHeight;
+currentfr.width = currentfr.contentDocument.body.offsetWidth+FFextraHeight;
 else if (currentfr.Document && currentfr.Document.body.scrollHeight) //ie5+ syntax
 currentfr.height = currentfr.Document.body.scrollHeight;
+currentfr.width = currentfr.Document.body.scrollWidth;
 if (currentfr.addEventListener)
 currentfr.addEventListener("load", readjustIframe, false)
 else if (currentfr.attachEvent){
