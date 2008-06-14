@@ -2,7 +2,7 @@
 	<cfset agent_id=-1>
 </cfif>
 <cfoutput>
-<frameset rows="40,*">
+<frameset rows="200,*">
 	<frame src="/includes/_agentSearchFrameHeader.cfm" name="_header" noresize scrolling="no">
 	<frameset cols="310,*">
 		<frameset rows="295,*">
