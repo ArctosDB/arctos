@@ -1,7 +1,194 @@
 
 <cfinclude template="/ajax/core/cfajax.cfm">
 
-
+<!-------------------------------------------->
+<cffunction name="addPartToContainer" returntype="String">
+	<cfargument name="collection_id" type="numeric" required="yes">
+	<cfargument name="other_id_type" type="string" required="yes">
+	<cfargument name="oidnum" type="string" required="yes">
+	<cfargument name="part_name" type="string" required="yes">
+	<cfargument name="part_name_2" type="string" required="yes">
+	<cfargument name="parent_barcode" type="string" required="yes">
+	<cfargument name="new_container_type" type="string" required="yes">
+	<cfoutput>
+	<cfif #other_id_type# is "catalog_number">
+		<cfquery name="coll_obj" datasource="#Application.web_user#">
+			select 
+				cat_num,
+				collection,
+				collection.collection_cde,
+				institution_acronym,
+				scientific_name,
+				specimen_part.collection_object_id 
+			FROM
+				cataloged_item,
+				specimen_part,
+				collection,
+				identification
+			WHERE
+				cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
+				cataloged_item.collection_id=collection.collection_id and
+				cataloged_item.collection_object_id = identification.collection_object_id and
+				accepted_id_fg=1 and
+				collection_id=#collection_id# AND
+				cat_num=#oidnum# AND
+				part_name='#part_name#'
+			</cfquery>
+		<cfelse>
+			<cfquery name="coll_obj" datasource="#Application.web_user#">
+				select 
+					cat_num,
+					collection,
+					collection.collection_cde,
+					institution_acronym,
+					scientific_name,
+					specimen_part.collection_object_id 
+				FROM
+					cataloged_item,
+					specimen_part,
+					coll_obj_other_id_num,
+					collection,
+					identification
+				WHERE
+					cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
+					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id AND
+					cataloged_item.collection_id=collection.collection_id and
+					cataloged_item.collection_object_id = identification.collection_object_id and
+					accepted_id_fg=1 and
+					collection_id=#collection_id# AND
+					other_id_type='#other_id_type#' AND
+					display_value= '#oidnum#' AND
+					part_name='#part_name#'
+			</cfquery>
+		</cfif>
+		<cfif len(#part_name_2#) gt 0>
+			<cfif #other_id_type# is "catalog_number">
+				<cfquery name="coll_obj2" datasource="#Application.web_user#">
+					select 
+						cat_num,
+						collection,
+						collection.collection_cde,
+						institution_acronym,
+						scientific_name,
+						specimen_part.collection_object_id 
+					FROM
+						cataloged_item,
+						specimen_part,
+						collection,
+						identification
+					WHERE
+						cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
+						cataloged_item.collection_id=collection.collection_id and
+						cataloged_item.collection_object_id = identification.collection_object_id and
+						accepted_id_fg=1 and
+						collection_id=#collection_id# AND
+						cat_num=#oidnum# AND
+						part_name='#part_name_2#'
+				</cfquery>
+			<cfelse>
+				<cfquery name="coll_obj2" datasource="#Application.web_user#">
+					select 
+						cat_num,
+						collection,
+						collection.collection_cde,
+						institution_acronym,
+						scientific_name,
+						specimen_part.collection_object_id 
+					FROM
+						cataloged_item,
+						specimen_part,
+						coll_obj_other_id_num,
+						collection,
+						identification
+					WHERE
+						cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
+						cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id AND
+						cataloged_item.collection_id=collection.collection_id and
+						cataloged_item.collection_object_id = identification.collection_object_id and
+						accepted_id_fg=1 and
+						collection_id=#collection_id# AND
+						other_id_type='#other_id_type#' AND
+						display_value= '#oidnum#' AND
+						part_name='#part_name_2#'
+				</cfquery>
+			</cfif>
+		</cfif>
+			
+		<cfif #coll_obj.recordcount# is not 1>
+			<cfreturn "0|#coll_obj.recordcount# cataloged items matched #other_id_type# #oidnum# #part_name#.">
+		</cfif>
+		<cfif len(#part_name_2#) gt 0 and #coll_obj2.recordcount# is not 1>
+			<cfreturn "0|#coll_obj.recordcount# cataloged items matched #other_id_type# #oidnum# #part_name#.">
+		</cfif>
+		<cfquery name="isGoodParent" datasource="#Application.web_user#">
+			select container_id from container where container_type <> 'collection object'
+			and barcode='#parent_barcode#'
+		</cfquery>
+		<cfif #isGoodParent.recordcount# is not 1>
+			<cfreturn "0|Parent container (barcode #parent_barcode#) not found.">
+		</cfif>
+		<cfquery name="cont" datasource="#Application.web_user#">
+			select container_id FROM coll_obj_cont_hist where
+			collection_object_id=#coll_obj.collection_object_id#
+		</cfquery>
+		<cfif #cont.recordcount# is not 1>
+			<cfreturn "0|Yikes! A part is not a container.">
+		</cfif>
+		
+		<cfif len(#part_name_2#) gt 0>
+			<cfquery name="cont2" datasource="#Application.web_user#">
+				select container_id FROM coll_obj_cont_hist where
+				collection_object_id=#coll_obj2.collection_object_id#
+			</cfquery>
+			<cfif #cont2.recordcount# is not 1>
+				<cfreturn "0|Yikes! A part is not a container.">
+			</cfif>
+		</cfif>
+		
+		
+		<cftry>
+			<cfquery name="newparent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				UPDATE container SET container_type = '#new_container_type#' WHERE
+					container_id=#isGoodParent.container_id#
+			</cfquery>
+			<cfquery name="moveIt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				UPDATE container SET parent_container_id = #isGoodParent.container_id# WHERE
+				container_id=#cont.container_id#
+			</cfquery>
+			<cfif len(#part_name_2#) gt 0>
+				<cfquery name="moveIt2" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+					UPDATE container SET parent_container_id = #isGoodParent.container_id# WHERE
+					container_id=#cont2.container_id#
+				</cfquery>
+			</cfif>
+			<cfcatch>
+				<cfreturn "0|#cfcatch.message#: #cfcatch.detail#">
+			</cfcatch>
+		</cftry>
+		<cfset r='Moved <a href="/SpecimenDetail.cfm?guid=#coll_obj.institution_acronym#:#coll_obj.collection_cde#:#coll_obj.cat_num#"'>
+		<cfset r="#r##coll_obj.collection# #coll_obj.cat_num#">
+		<cfif #other_id_type# is not "catalog_number">
+			<cfset r="#r# (#other_id_type# #oidnum#)">
+		</cfif>
+		<cfset r="#r#</a> (<i>#coll_obj.scientific_name#</i>) #part_name#">
+		<cfif len(#part_name_2#) gt 0>
+			<cfset r="#r# and #part_name_2#">
+		</cfif>
+		<cfset r="#r# to container barcode #parent_barcode# (#new_container_type#)">
+		<cfreturn '1|#r#'>
+	</cfoutput>	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</cffunction>
+<!----------------------------------------------------------------->
 <cffunction name="getDocsById" returntype="xml">
 	<cfargument name="id" type="string" required="yes">
 	<cfinvoke 
