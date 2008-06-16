@@ -3,7 +3,10 @@
 		<!--- pending relationships that have been in the table for >30d ---->
 		<cfquery name="contacts" datasource="#Application.web_user#">
 			select 
-				distinct(ADDRESS)
+				count(*) ,
+				insert_date,
+				(sysdate - insert_date) gap,
+				ADDRESS
 			from
 				cf_temp_relations,
 				cataloged_item,
@@ -19,6 +22,9 @@
 				sysdate - insert_date  >30 and
 				related_collection_object_id is null and
 				ADDRESS_TYPE='e-mail'
+			group by insert_date,
+				(sysdate - insert_date),
+				ADDRESS
 		</cfquery>
 		<cfdump var="#contacts#">
 		
