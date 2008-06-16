@@ -153,7 +153,7 @@
 			</td>
 			<td>
 				<label for="other_id_type">ID Type</label>
-				<select name="other_id_type" id="other_id_type" size="1">
+				<select name="other_id_type" id="other_id_type" size="1" style="width:120px;">
 					<option value="catalog_number">Catalog Number</option>
 					<cfloop query="ctOtherIdType">
 						<option value="#other_id_type#">#other_id_type#</option>
@@ -166,7 +166,7 @@
 			</td>
 			<td>
 				<label for="part_name">Part Name</label>
-				<select name="part_name" id="part_name" size="1">
+				<select name="part_name" id="part_name" size="1" style="width:120px;">
 					<cfloop query="ctPartName">
 						<option value="#part_name#">#part_name#</option>
 					</cfloop>
@@ -174,7 +174,7 @@
 			</td>
 			<td>
 				<label for="part_name_2">Part Name 2</label>
-				<select name="part_name_2" id="part_name_2" size="1">
+				<select name="part_name_2" id="part_name_2" size="1" style="width:120px;">
 					<cfloop query="ctPartName">
 						<option value="#part_name#">#part_name#</option>
 					</cfloop>
