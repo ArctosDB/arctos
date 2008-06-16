@@ -25,6 +25,9 @@
 				related_collection_object_id is null and
 				ADDRESS_TYPE='e-mail'
 			group by insert_date,
+				collection,
+				insert_date,
+				LASTTRYDATE,
 				(sysdate - insert_date),
 				ADDRESS
 		</cfquery>
