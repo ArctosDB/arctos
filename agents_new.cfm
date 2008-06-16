@@ -86,7 +86,7 @@ window.onload=resizeCaller
 		</td>
 		
 		<td valign="top">
-			<iframe src="/editAllAgent.cfm" name="_person" id="_person" width="100%"></iframe>
+			<iframe src="/editAllAgent.cfm" name="_person" id="_person" width="100%" height="600"></iframe>
 		</td>
 	</tr>
 </table>
