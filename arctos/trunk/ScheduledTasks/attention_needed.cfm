@@ -16,6 +16,7 @@
 				collection.collection_id=collection_contacts.collection_id and
 				collection_contacts.CONTACT_AGENT_ID=electronic_address.AGENT_ID and
 				CONTACT_ROLE='data quality' and
+				sysdate - insert_date  >30 and
 				related_collection_object_id is null and
 				ADDRESS_TYPE='e-mail'
 		</cfquery>
