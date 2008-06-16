@@ -159,7 +159,7 @@
 		<cfset whr = "#whr# AND barcode IN (#bclist#)">
 	</cfif>
 	<cfif len(#container_label#) gt 0>
-		<cfset whr = "#whr# AND upper(label) like '#container_label#'">
+		<cfset whr = "#whr# AND upper(label) like '#ucase(container_label)#'">
 	 </cfif>
 	  <cfif len(#description#) gt 0>
 		<cfset whr = "#whr# AND upper(description) LIKE '%#ucase(description)#%'">
