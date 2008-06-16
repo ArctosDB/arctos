@@ -3,8 +3,10 @@
 		<!--- pending relationships that have been in the table for >30d ---->
 		<cfquery name="contacts" datasource="#Application.web_user#">
 			select 
-				count(*) ,
+				count(*) c,
+				collection,
 				insert_date,
+				LASTTRYDATE,
 				(sysdate - insert_date) gap,
 				ADDRESS
 			from
@@ -26,7 +28,14 @@
 				(sysdate - insert_date),
 				ADDRESS
 		</cfquery>
-		<cfdump var="#contacts#">
+		<cfloop query="contacts">
+			You are receiving this message because you are listed as a contact for Arctos collection #collection#.
+			<br>
+			There are #c# #collection# items in the Pending Relationships table that have been processing for more than
+			30 days. These probably require your attention.
+			<br>
+			See http://arctos-test.arctos.database.museum/tools/pendingRelations.cfm?action=showStatus for more detail.
+		</cfloop>
 		
 	</cfoutput>
 	
