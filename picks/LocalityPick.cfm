@@ -34,12 +34,18 @@
 		select 
 			locality_id,geog_auth_rec_id,locality_id,spec_locality,higher_geog,
 			verbatimLatitude,verbatimLongitude,NoGeorefBecause,
-			minimum_elevation,maximum_elevation,orig_elev_units
+			minimum_elevation,maximum_elevation,orig_elev_units,
+			coordinateDeterminer,
+			determined_date,
+			lat_long_ref_source
 		from localityResults
 		group by
 			locality_id,geog_auth_rec_id,locality_id,spec_locality,higher_geog,verbatimLatitude,
 			verbatimLongitude,NoGeorefBecause,
-			minimum_elevation,maximum_elevation,orig_elev_units
+			minimum_elevation,maximum_elevation,orig_elev_units,
+			coordinateDeterminer,
+			determined_date,
+			lat_long_ref_source
 	</cfquery>
 	<table border>
     	<tr> 
@@ -58,14 +64,23 @@
 						self.close();">
 				</td>
 				<td> 
-          			#localityResults.spec_locality#
-		  			<br>
-		  			<font size="-2">#higher_geog#
-						<cfif len(#orig_elev_units#) gt 0>
-							&nbsp;&nbsp;&nbsp;Elevation: #minimum_elevation#-#maximum_elevation# #orig_elev_units#
+          			<span style="font-size:.6em">#higher_geog#: </span>
+					#localityResults.spec_locality#
+					<br>
+					<span style="font-size:.6em">
+						<cfif len(#verbatimLatitude#) gt 0 and len(#verbatimLongitude#) gt 0>
+							#verbatimLatitude# #verbatimLongitude# 
+							(#coordinateDeterminer# on #dateformat(determined_date,"dd mmm yyyy")# ref. #lat_long_ref_source#)
+						<cfelse>
+							#NoGeorefBecause#
 						</cfif>
-					</font>
-					<br><font size="-2">#verbatimLatitude# #verbatimLongitude#</font>
+					</span>
+		  			<cfif len(#orig_elev_units#) gt 0>
+						<br>
+						<span style="font-size:.6em">
+							Elevation: #minimum_elevation#-#maximum_elevation# #orig_elev_units#
+						</span>
+					</cfif>
 				</td>
 				
 </tr>   
