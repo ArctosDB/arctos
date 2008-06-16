@@ -8,7 +8,7 @@
 		var part_name_2=document.getElementById('part_name_2').value;
 		var parent_barcode=document.getElementById('parent_barcode').value;
 		var new_container_type=document.getElementById('new_container_type').value;
-		
+		alert('here we gonow....');
 		DWREngine._execute(_cfscriptLocation, null, 'addPartToContainer',collection_id,other_id_type,oidnum,part_name,part_name_2,parent_barcode,new_container_type,success_addPartToContainer);
 		
 		//
@@ -139,7 +139,7 @@
 		(ie, original field number=1 probably won't work) and the barcode of the 
 		container you'd like to put the object into.
 	</p>
-	<table border>
+	<table border id="pTable">
 	<form name="scans" method="post" action="aps.cfm" id="scans">
 		<input type="hidden" name="action" value="validate">
 		<tr>
@@ -175,6 +175,7 @@
 			<td>
 				<label for="part_name_2">Part Name 2</label>
 				<select name="part_name_2" id="part_name_2" size="1" style="width:120px;">
+					<option value=""></option>
 					<cfloop query="ctPartName">
 						<option value="#part_name#">#part_name#</option>
 					</cfloop>
