@@ -64,8 +64,8 @@
 						self.close();">
 				</td>
 				<td> 
-          			<span style="font-size:.6em">#higher_geog#: </span>
-					#localityResults.spec_locality#
+          			<span style="font-size:.6em">#higher_geog#</span>
+					<br>#localityResults.spec_locality#
 					<br>
 					<span style="font-size:.6em">
 						<cfif len(#verbatimLatitude#) gt 0 and len(#verbatimLongitude#) gt 0>
