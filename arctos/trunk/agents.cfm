@@ -86,13 +86,8 @@ window.onload=resizeCaller
 		</td>
 		
 		<td valign="top">
-			<iframe src="/editAllAgent.cfm" name="_person" id="_person" width="100%" height="600"></iframe>
+			<iframe src="/editAllAgent.cfm?agent_id=#agent_id#" name="_person" id="_person" width="100%" height="600"></iframe>
 		</td>
 	</tr>
 </table>
-<span onclick="autofitIframe('_search')">_search</span>
-<span onclick="autofitIframe('_person')">_person</span>
-<span onclick="autofitIframe('_pick')">_pick</span>
-<span onclick="autofitIframe('resizeCaller')">resizeCaller</span>
-
 </cfoutput>
