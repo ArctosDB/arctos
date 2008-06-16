@@ -68,7 +68,7 @@ padding-right:10px;
 							<option value="#collection_id#">#coll#</option>
 				  		</cfloop>
 				</select>
-				<label for="description">Description</label>
+				<label for="description">Description (% for wildcard)</label>
 				<input type="text" name="description" id="description"  />
 				<label for="part_name">Part</label>
 				<select name="part_name" id="part_name" size="1">
