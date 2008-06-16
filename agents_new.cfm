@@ -79,12 +79,13 @@ window.onload=resizeCaller
 
 <cfoutput>
 
-<table>
+<table border>
 	<tr>
 		<td width="35%" valign="top">
 			<div class="isIFrame">
 			<iframe src="/AgentSearch.cfm" id="_search" name="_search" width="100%"></iframe>
 			</div>
+			<br>
 			<div class="isIFrame">
 			<iframe src="/editAllAgent.cfm" name="_person" id="_person" width="100%"></iframe>		
 						</div>	
