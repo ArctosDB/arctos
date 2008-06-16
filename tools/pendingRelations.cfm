@@ -32,6 +32,7 @@ Pending Relationships
 		<td>
 			Related Number
 		</td>
+		<td>Start Date</td>
 		<td>
 			Last Try Date
 		</td>
@@ -57,6 +58,9 @@ Pending Relationships
 				</td>
 				<td>
 					#related_to_num_type# #related_to_number# 
+				</td>
+				<td>
+					#dateformat(insert_date,"dd mmm yyyy")#
 				</td>
 				<td>
 					#dateformat(lasttrydate,"dd mmm yyyy")#
