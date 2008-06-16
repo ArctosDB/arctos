@@ -32,7 +32,7 @@
 				ADDRESS
 		</cfquery>
 		<cfloop query="contacts">
-			You are receiving this message because you are listed as a contact for Arctos collection #collection#.
+			#ADDRESS#: You are receiving this message because you are listed as a contact for Arctos collection #collection#.
 			<br>
 			There are #c# #collection# items in the Pending Relationships table that have been processing for more than
 			30 days. These probably require your attention.
