@@ -64,10 +64,10 @@
 						self.close();">
 				</td>
 				<td> 
-          			<span style="font-size:.6em">#higher_geog#</span>
+          			<span style="font-size:.7em">#higher_geog#</span>
 					<br>#localityResults.spec_locality#
 					<br>
-					<span style="font-size:.6em">
+					<span style="font-size:.7em">
 						<cfif len(#verbatimLatitude#) gt 0 and len(#verbatimLongitude#) gt 0>
 							#verbatimLatitude# #verbatimLongitude# 
 							(#coordinateDeterminer# on #dateformat(determined_date,"dd mmm yyyy")# ref. #lat_long_ref_source#)
@@ -77,7 +77,7 @@
 					</span>
 		  			<cfif len(#orig_elev_units#) gt 0>
 						<br>
-						<span style="font-size:.6em">
+						<span style="font-size:.7em">
 							Elevation: #minimum_elevation#-#maximum_elevation# #orig_elev_units#
 						</span>
 					</cfif>
