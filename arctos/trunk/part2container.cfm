@@ -78,6 +78,7 @@
 		(ie, original field number=1 probably won't work) and the barcode of the 
 		container you'd like to put the object into.
 	</p>
+	Submit form with Parent Barcode change: <input type="checkbox" name="submitOnChange" id="submitOnChange">
 	<table border id="pTable">
 	<form name="scans" method="post" action="aps.cfm" id="scans">
 		<input type="hidden" name="action" value="validate">
@@ -121,7 +122,7 @@
 				</select>
 			</td>
 			<td>
-				<label for="parent_barcode">Parent Barcode&nbsp;Autosubmit?<input type="checkbox" name="submitOnChange" id="submitOnChange"></label>
+				<label for="parent_barcode">Parent Barcode</label>
 				<input type="text" name="parent_barcode" id="parent_barcode" onchange="checkSubmit()">
 			</td>
 			<td>
@@ -137,8 +138,8 @@
 				<input type="button" value="Move it" class="savBtn" onclick="addPartToContainer()">
 			</td>
 		</tr>
-	</form>
 	</table>
+	</form>
 	<div id="msgs"></div>
 	<div id="msgs_hist" class="messageDiv"></div>
 </cfoutput>
