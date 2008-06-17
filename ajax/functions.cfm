@@ -10,6 +10,7 @@
 	<cfargument name="part_name_2" type="string" required="yes">
 	<cfargument name="parent_barcode" type="string" required="yes">
 	<cfargument name="new_container_type" type="string" required="yes">
+	<cfreturn new_container_type>
 	<cfoutput>
 	<cfif #other_id_type# is "catalog_number">
 		<cfquery name="coll_obj" datasource="#Application.web_user#">
