@@ -49,7 +49,7 @@
 				TRIBE,
 				INFRASPECIFIC_RANK
 			 from taxonomy, common_name
-				WHERE taxonomy.taxon_name_id = common_name.taxon_name_id (+)">
+				WHERE rownum<1000 and taxonomy.taxon_name_id = common_name.taxon_name_id (+)">
 		<cfif isdefined("common_name") AND len(#common_name#) gt 0>
 			<CFSET SQL = "#SQL# AND upper(common_name) LIKE '%#ucase(common_name)#%'">
 			<cfset stringOfStuffToClean = "#stringOfStuffToClean##common_name#">
@@ -164,7 +164,7 @@
 
 <CFOUTPUT>
 <H4>
-Found #summary.cnt# records.
+Found #summary.cnt# records.<cfif #summary.cnt# gt 999>(Possibly filtered).</cfif>
 <cfset numPages= ceiling(summary.cnt/session.displayrows)>
 		<cfset loopTo=numPages-2>
 		<label for="page_record">Records...</label>
