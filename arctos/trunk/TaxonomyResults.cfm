@@ -136,7 +136,6 @@
 	<cfcatch><!--- not there, so what? ---></cfcatch>
 </cftry>
 	<cftry>
-		-----#preservesinglequotes(SQL)#----
 		<cfquery name="makeTable" datasource="#Application.web_user#">
 			#preservesinglequotes(SQL)#
 		</cfquery>
@@ -165,7 +164,7 @@
 
 <CFOUTPUT>
 <H4>
-Found #summary.cnt# records.<cfif #summary.cnt# gt 999>(Possibly filtered).</cfif>
+Found #summary.cnt# records. (Note: This form will not return >1000 records; you may need to narrow your search to return all matches.)
 <cfset numPages= ceiling(summary.cnt/session.displayrows)>
 		<cfset loopTo=numPages-2>
 		<label for="page_record">Records...</label>
