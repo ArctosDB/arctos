@@ -36,21 +36,74 @@
 			'image',
 			'#THUMBNAIL_URL#')
 			<br>
-			
+		insert into media_relations (
+    		media_id,
+			media_relationship,
+			created_by_agent_id,
+			related_primary_key
+		) values (
+			#mid#,
+			'shows cataloged_item',
+			2072,
+			#DERIVED_FROM_COLL_OBJ#
+		)
+		<br>
+		insert into media_relations (
+    		media_id,
+			media_relationship,
+			created_by_agent_id,
+			related_primary_key
+		) values (
+			#mid#,
+			'created by agent',
+			2072,
+			#MADE_AGENT_ID#
+		)
+		<br>
+		insert into media_labels (
+    		media_id,
+			media_label,
+			label_value
+		) values (
+			#mid#,
+			'made date',
+			'#dateformat(MADE_DATE,"dd mmm yyyy")#'
+		)
+		<br>
+		insert into media_labels (
+    		media_id,
+			media_label,
+			label_value
+		) values (
+			#mid#,
+			'subject',
+			'#SUBJECT#'
+		)
+		<cfif len(#DESCRIPTION#) gt 0>
+			<br>
+			insert into media_labels (
+	    		media_id,
+				media_label,
+				label_value
+			) values (
+				#mid#,
+				'description',
+				'#DESCRIPTION#'
+			)
+		</cfif>
+		<cfif len(#ASPECT#) gt 0>
+			<br>
+			insert into media_labels (
+	    		media_id,
+				media_label,
+				label_value
+			) values (
+				#mid#,
+				'aspect',
+				'#ASPECT#'
+			)
+		</cfif>
 			<hr>
 			<cfset mid=mid+1>
-	</cfloop>
-	
-	
-	 COLLECTION_OBJECT_ID                                  NOT NULL NUMBER
- VIEWER_ID                                             NOT NULL NUMBER
- DERIVED_FROM_CAT_ITEM                                 NOT NULL NUMBER
- DERIVED_FROM_COLL_OBJ                                          NUMBER
- MADE_DATE                                             NOT NULL DATE
- SUBJECT                                               NOT NULL VARCHAR2(50)
- ASPECT                                                         VARCHAR2(30)
- DESCRIPTION                                                    VARCHAR2(255)
-                                               NOT NULL VARCHAR2(255)
- MADE_AGENT_ID                                         NOT NULL NUMBER
- 
+	</cfloop> 
 </cfoutput>
