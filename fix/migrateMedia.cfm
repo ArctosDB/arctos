@@ -9,7 +9,7 @@
 <cfset mid=ms.nv>
 <cfoutput>
 	<cfloop query="m">
-		<cfset dotPos=find(".",full_url)>
+		<cfset dotPos=find(".",full_url,"last")>
 		<cfset ext=right(full_url,len(full_url)-dotPos)>
 		insert into media (
 			media_id,
@@ -25,6 +25,7 @@
 			'#THUMBNAIL_URL#'
 			
 			<hr>
+			<cfset mid=mid+1>
 	</cfloop>
 	
 	
