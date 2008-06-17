@@ -37,12 +37,17 @@
 <style>
 		.messageDiv {
 			background-color:lightgray;
-			font-size:.8em;}
+			text-align:center;
+			font-size:.8em;
+			margin:0em .5em 0em .5em;}
 		.successDiv {
 			color:green;
 			border:1px solid;
 			padding:.5em;
+			margin:.5em;
+			text-align:center;
 			}	
+			
 </style>
 <!------------------------------------------------------------------->
 <cfif #action# is "nothing">
