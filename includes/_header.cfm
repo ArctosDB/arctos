@@ -211,6 +211,7 @@
 									<li><a target="_top" href="/tools/BulkloadOtherId.cfm">Bulkload Identifiers</a></li>
 									<li><a target="_top" href="/tools/loanBulkload.cfm">Bulkload Loan Items</a></li>
 									<li><li><a target="_top" href="/tools/BulkloadAgents.cfm">Bulkload Agents</a></li></li>
+									<li><li><a target="_top" href="/tools/BulkloadPartContainer.cfm">Parts>>Containers</a></li></li>		
 								</ul>
 							</li>
 						</cfif>
@@ -255,7 +256,7 @@
 										<li><a target="_top" href="/moveContainer.cfm">Move Container</a></li>
 										<li><a target="_top" href="/batchScan.cfm">Batch Scan</a></li>
 										<li><a target="_top" href="/labels2containers.cfm">Label>Container</a></li>
-										<li><a target="_top" href="/aps.cfm">Object+BC>>Container</a></li>
+										<li><a target="_top" href="/part2container.cfm">Object+BC>>Container</a></li>
 									</cfif>	
 									<cfif listfind(formList,"/EditContainer.cfm")>
 										<li><a target="_top" href="/LoadBarcodes.cfm">Upload Scan File</a></li>
