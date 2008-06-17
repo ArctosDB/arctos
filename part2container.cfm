@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <script language="javascript" type="text/javascript">
 	function addPartToContainer () {
-		document.getElementById('pTable').style.background-color='red';
+		document.getElementById('pTable').className='red';
 		var collection_id=document.getElementById('collection_id').value;
 		var other_id_type=document.getElementById('other_id_type').value;
 		var oidnum=document.getElementById('oidnum').value;
