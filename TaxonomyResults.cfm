@@ -136,6 +136,7 @@
 	<cfcatch><!--- not there, so what? ---></cfcatch>
 </cftry>
 	<cftry>
+		-----#preservesinglequotes(SQL)#----
 		<cfquery name="makeTable" datasource="#Application.web_user#">
 			#preservesinglequotes(SQL)#
 		</cfquery>
