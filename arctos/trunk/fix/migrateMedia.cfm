@@ -45,7 +45,7 @@
 			#mid#,
 			'shows cataloged_item',
 			2072,
-			#DERIVED_FROM_COLL_OBJ#
+			#DERIVED_FROM_CAT_ITEM#
 		)
 		<br>
 		insert into media_relations (
