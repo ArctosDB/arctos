@@ -121,7 +121,7 @@
 				</select>
 			</td>
 			<td>
-				<label for="parent_barcode">Parent Barcode</label>
+				<label for="parent_barcode">Parent Barcode&nbsp;Autosubmit?<input type="checkbox" name="submitOnChange" id="submitOnChange"></label>
 				<input type="text" name="parent_barcode" id="parent_barcode" onchange="checkSubmit()">
 			</td>
 			<td>
@@ -135,10 +135,6 @@
 			</td>
 	  		<td>
 				<input type="button" value="Move it" class="savBtn" onclick="addPartToContainer()">
-			</td>
-			<td>
-				<label for="submitOnChange">Submit w/ barcode change?</label>
-				<input type="checkbox" name="submitOnChange" id="submitOnChange">
 			</td>
 		</tr>
 	</form>
