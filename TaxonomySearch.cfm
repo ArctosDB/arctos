@@ -173,6 +173,8 @@
 <input type="hidden" name="action" value="search"><br><font size=-1>All fields accept partial matches.</font>
 </cfoutput>
 </form></table>
+<br>
+Note: This form will not return >1000 records; you may need to narrow your search to return all matches.
 
 
 
