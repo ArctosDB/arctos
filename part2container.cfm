@@ -78,7 +78,9 @@
 		(ie, original field number=1 probably won't work) and the barcode of the 
 		container you'd like to put the object into.
 	</p>
-	Submit form with Parent Barcode change: <input type="checkbox" name="submitOnChange" id="submitOnChange">
+	<p style="font-size:.8em;">
+		Check to submit the form with Parent Barcode change: <input type="checkbox" name="submitOnChange" id="submitOnChange">
+	</p>
 	<table border id="pTable">
 	<form name="scans" method="post" action="aps.cfm" id="scans">
 		<input type="hidden" name="action" value="validate">
