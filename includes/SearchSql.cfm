@@ -104,7 +104,7 @@
 	<cfset basQual = "#basQual#  AND CatItemCollObject.flags = '#coll_obj_flags#'" >
 	<cfset mapurl = "#mapurl#&coll_obj_flags=#coll_obj_flags#">
 </cfif>
-		
+
 		<cfif isdefined("beg_entered_date") AND len(#beg_entered_date#) gt 0>
 			<cfif not isdefined("end_entered_date") or len(#end_entered_date#) is 0>
 				<cfset end_entered_date = #beg_entered_date#>
