@@ -15,7 +15,7 @@
 		//
 	}
 	function success_addPartToContainer(result) {
-		alert(result);
+		//alert(result);
 		statAry=result.split("|");
 		var status=statAry[0];
 		var msg=statAry[1];
@@ -40,6 +40,8 @@
 			font-size:.8em;}
 		.successDiv {
 			color:green;
+			border:1px solid;
+			padding:.5em;
 			}	
 </style>
 <!------------------------------------------------------------------->
