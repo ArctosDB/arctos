@@ -11,6 +11,18 @@
 	<cfloop query="m">
 		<cfset dotPos=find(".",reverse(full_url))>
 		<cfset ext=right(full_url,dotPos)>
+		<cfif ext is ".jpeg" or ext is ".jpg" or ext is ".JPG" or ext is ".JPEG">
+			<cfset mtype="image/jpeg">
+		<cfelseif ext is ".TIFF" or ext is ".tiff">
+			<cfset mtype="image/tiff">
+		<cfelseif left(ext,4) is ".net">
+			<cfset mtype="text/html">
+		<cfelse>
+			-----------badext: #ext#-----------
+			<cfabort>
+		</cfif>
+		
+		
 		insert into media (
 			media_id,
 			media_uri,
@@ -20,9 +32,10 @@
 		) values (
 			#mid#,
 			'#FULL_URL#',
-			<br>---------#ext#----------
+			'#mtype#',
+			'image',
+			'#THUMBNAIL_URL#')
 			<br>
-			'#THUMBNAIL_URL#'
 			
 			<hr>
 			<cfset mid=mid+1>
