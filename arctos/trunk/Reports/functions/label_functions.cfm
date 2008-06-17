@@ -76,18 +76,11 @@
 		<cfset af = "">
 		<cfset id = "">
 		<cfset lo = "">
-		<cfset nk = "">
-		<cfset ifnum = "">
-		
 		<cfloop list="#other_ids#" index="val" delimiters=";">
 			<cfif #val# contains "original identifier=">
 				<cfset id = "Field##: #replace(val,"original identifier=","")#">
 			<cfelseif #val# contains "AF=">
 				<cfset af = "#replace(val,"="," ")#">
-			<cfelseif #val# contains "NK=">
-				<cfset nk = "#replace(val,"="," ")#">
-			<cfelseif #val# contains "IF=">
-				<cfset ifnum = "#replace(val,"="," ")#">
 			<cfelse>
 				<cfset lo="#replace(val,"="," ")#">
 			</cfif>
@@ -96,10 +89,6 @@
 			<cfset idNum=af>
 		<cfelseif len(id) gt 0>
 			<cfset idnum=id>
-		<cfelseif len(nk) gt 0>
-			<cfset idnum=nk>
-		<cfelseif len(ifnum) gt 0>
-			<cfset idnum=ifnum>
 		<cfelseif len(lo) gt 0>
 			<cfset idnum=lo>
 		</cfif>
@@ -303,18 +292,11 @@
 		<cfset af = "">
 		<cfset id = "">
 		<cfset lo = "">
-		<cfset nk = "">
-		<cfset ifnum = "">
-		
 		<cfloop list="#other_ids#" index="val" delimiters=";">
 			<cfif #val# contains "original identifier=">
 				<cfset id = "Field##: #replace(val,"original identifier=","")#">
 			<cfelseif #val# contains "AF=">
 				<cfset af = "#replace(val,"="," ")#">
-			<cfelseif #val# contains "NK=">
-				<cfset nk = "#replace(val,"="," ")#">
-			<cfelseif #val# contains "IF=">
-				<cfset ifnum = "#replace(val,"="," ")#">
 			<cfelse>
 				<cfset lo="#replace(val,"="," ")#">
 			</cfif>
@@ -323,10 +305,6 @@
 			<cfset idNum=af>
 		<cfelseif len(id) gt 0>
 			<cfset idnum=id>
-		<cfelseif len(nk) gt 0>
-			<cfset idnum=nk>
-		<cfelseif len(ifnum) gt 0>
-			<cfset idnum=ifnum>
 		<cfelseif len(lo) gt 0>
 			<cfset idnum=lo>
 		</cfif>
