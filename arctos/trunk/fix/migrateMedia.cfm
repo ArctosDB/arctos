@@ -66,22 +66,26 @@
 			insert into media_labels (
 	    		media_id,
 				media_label,
-				label_value
+				label_value,
+				assigned_by_agent_id
 			) values (
 				#mid#,
 				'made date',
-				'#dateformat(MADE_DATE,"dd mmm yyyy")#'
+				'#dateformat(MADE_DATE,"dd mmm yyyy")#',
+				2072
 			)
 		</cfquery>
 		<cfquery name="l2" datasource="uam_god">
 			insert into media_labels (
 	    		media_id,
 				media_label,
-				label_value
+				label_value,
+				assigned_by_agent_id
 			) values (
 				#mid#,
 				'subject',
-				'#SUBJECT#'
+				'#SUBJECT#',
+				2072
 			)
 		</cfquery>
 		<cfif len(#DESCRIPTION#) gt 0>
@@ -89,11 +93,13 @@
 				insert into media_labels (
 		    		media_id,
 					media_label,
-					label_value
+					label_value,
+					assigned_by_agent_id
 				) values (
 					#mid#,
 					'description',
-					'#DESCRIPTION#'
+					'#DESCRIPTION#',
+					2072
 				)
 			</cfquery>
 		</cfif>
@@ -102,11 +108,13 @@
 				insert into media_labels (
 		    		media_id,
 					media_label,
-					label_value
+					label_value,
+					assigned_by_agent_id
 				) values (
 					#mid#,
 					'aspect',
-					'#ASPECT#'
+					'#ASPECT#',
+					2072
 				)
 			</cfquery>
 		</cfif>
