@@ -149,7 +149,7 @@
 				<cfreturn "0|#cfcatch.message#: #cfcatch.detail#">
 			</cfcatch>
 		</cftry>
-		<cfset r='Moved <a href="/SpecimenDetail.cfm?guid=#coll_obj.institution_acronym#:#coll_obj.collection_cde#:#coll_obj.cat_num#"'>
+		<cfset r='Moved <a href="/SpecimenDetail.cfm?guid=#coll_obj.institution_acronym#:#coll_obj.collection_cde#:#coll_obj.cat_num#">'>
 		<cfset r="#r##coll_obj.collection# #coll_obj.cat_num#">
 		<cfif #other_id_type# is not "catalog_number">
 			<cfset r="#r# (#other_id_type# #oidnum#)">
