@@ -211,9 +211,6 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 <cfquery name="curatorial" dbtype="query">
 	select * from poss where category IN ('curatorial','specimen')
 </cfquery>
-<cfquery name="link" dbtype="query">
-	select * from poss where category='link'
-</cfquery>
 <cffunction name="displayColumn">
 	<cfargument name="column_name">
 	<cfargument name="resultColList">
@@ -256,11 +253,6 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 				<span class="infoLink" onclick="checkAllById('#lcase(valuelist(attribute.column_name))#')">[check all]</span>
 				<span class="infoLink" onclick="uncheckAllById('#lcase(valuelist(attribute.column_name))#')">[check none]</span>
 			</td>
-			<td align="center">
-				Links
-				<span class="infoLink" onclick="checkAllById('#lcase(valuelist(link.column_name))#')">[check all]</span>
-				<span class="infoLink" onclick="uncheckAllById('#lcase(valuelist(link.column_name))#')">[check none]</span>
-			</td>
 		</tr>
 		<tr>
 			<td valign="top" nowrap="nowrap">
@@ -286,15 +278,6 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 			<table cellpadding="0" cellspacing="0">
 				<cfloop query="attribute">	
 					#displayColumn(column_name,session.resultColumnList)#			
-				</cfloop>
-			</table>
-				</div>
-			</td>
-			<td valign="top" nowrap="nowrap">
-				<div style="height:350px; text-align:right; overflow:scroll;position:relative;">
-			<table cellpadding="0" cellspacing="0">
-				<cfloop query="link">
-					#displayColumn(column_name,session.resultColumnList)#				
 				</cfloop>
 			</table>
 				</div>
