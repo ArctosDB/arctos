@@ -8,6 +8,7 @@
 </cfquery>
 <cfset mid=ms.nv>
 <cfoutput>
+	<cftransaction>
 	<cfloop query="m">
 		<cfset dotPos=find(".",reverse(full_url))>
 		<cfset ext=right(full_url,dotPos)>
@@ -21,89 +22,95 @@
 			-----------badext: #ext#-----------
 			<cfabort>
 		</cfif>
-		
-		
-		insert into media (
-			media_id,
-			media_uri,
-			mime_type,
-			media_type,
-			preview_uri
-		) values (
-			#mid#,
-			'#FULL_URL#',
-			'#mtype#',
-			'image',
-			'#THUMBNAIL_URL#')
-			<br>
-		insert into media_relations (
-    		media_id,
-			media_relationship,
-			created_by_agent_id,
-			related_primary_key
-		) values (
-			#mid#,
-			'shows cataloged_item',
-			2072,
-			#DERIVED_FROM_CAT_ITEM#
-		)
-		<br>
-		insert into media_relations (
-    		media_id,
-			media_relationship,
-			created_by_agent_id,
-			related_primary_key
-		) values (
-			#mid#,
-			'created by agent',
-			2072,
-			#MADE_AGENT_ID#
-		)
-		<br>
-		insert into media_labels (
-    		media_id,
-			media_label,
-			label_value
-		) values (
-			#mid#,
-			'made date',
-			'#dateformat(MADE_DATE,"dd mmm yyyy")#'
-		)
-		<br>
-		insert into media_labels (
-    		media_id,
-			media_label,
-			label_value
-		) values (
-			#mid#,
-			'subject',
-			'#SUBJECT#'
-		)
-		<cfif len(#DESCRIPTION#) gt 0>
-			<br>
+		<cfquery name="nm" datasource="uam_god">
+			insert into media (
+				media_id,
+				media_uri,
+				mime_type,
+				media_type,
+				preview_uri
+			) values (
+				#mid#,
+				'#FULL_URL#',
+				'#mtype#',
+				'image',
+				'#THUMBNAIL_URL#')
+		</cfquery>
+		<cfquery name="r1" datasource="uam_god">
+			insert into media_relations (
+	    		media_id,
+				media_relationship,
+				created_by_agent_id,
+				related_primary_key
+			) values (
+				#mid#,
+				'shows cataloged_item',
+				2072,
+				#DERIVED_FROM_CAT_ITEM#
+			)
+		</cfquery>
+		<cfquery name="r2" datasource="uam_god">
+			insert into media_relations (
+	    		media_id,
+				media_relationship,
+				created_by_agent_id,
+				related_primary_key
+			) values (
+				#mid#,
+				'created by agent',
+				2072,
+				#MADE_AGENT_ID#
+			)
+		</cfquery>
+		<cfquery name="l1" datasource="uam_god">
 			insert into media_labels (
 	    		media_id,
 				media_label,
 				label_value
 			) values (
 				#mid#,
-				'description',
-				'#DESCRIPTION#'
+				'made date',
+				'#dateformat(MADE_DATE,"dd mmm yyyy")#'
 			)
+		</cfquery>
+		<cfquery name="l2" datasource="uam_god">
+			insert into media_labels (
+	    		media_id,
+				media_label,
+				label_value
+			) values (
+				#mid#,
+				'subject',
+				'#SUBJECT#'
+			)
+		</cfquery>
+		<cfif len(#DESCRIPTION#) gt 0>
+			<cfquery name="l3" datasource="uam_god">
+				insert into media_labels (
+		    		media_id,
+					media_label,
+					label_value
+				) values (
+					#mid#,
+					'description',
+					'#DESCRIPTION#'
+				)
+			</cfquery>
 		</cfif>
 		<cfif len(#ASPECT#) gt 0>
-			<br>
-			insert into media_labels (
-	    		media_id,
-				media_label,
-				label_value
-			) values (
-				#mid#,
-				'aspect',
-				'#ASPECT#'
-			)
+			<cfquery name="l3" datasource="uam_god">
+				insert into media_labels (
+		    		media_id,
+					media_label,
+					label_value
+				) values (
+					#mid#,
+					'aspect',
+					'#ASPECT#'
+				)
+			</cfquery>
 		</cfif>
-			<hr>
-			<cfset mid=mid+1>
-	</cfloop> 
+		<cfset mid=mid+1>
+	</cfloop>
+	</cftransaction>
 </cfoutput>
