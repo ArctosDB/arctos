@@ -28,7 +28,7 @@
 		if (status==0){
 			mDiv.className='error';
 		} else {
-			mDiv.className='messageDiv';
+			mDiv.className='successDiv';
 		}
 		//alert(status);
 		//alert(msg);
@@ -37,7 +37,10 @@
 <style>
 		.messageDiv {
 			background-color:lightgray;
-			font-size:.8em;	
+			font-size:.8em;}
+		.successDiv {
+			color:green;
+			}	
 </style>
 <!------------------------------------------------------------------->
 <cfif #action# is "nothing">
