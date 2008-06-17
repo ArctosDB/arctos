@@ -10,8 +10,8 @@
 	<cfargument name="part_name_2" type="string" required="yes">
 	<cfargument name="parent_barcode" type="string" required="yes">
 	<cfargument name="new_container_type" type="string" required="yes">
-	<cfreturn new_container_type>
 	<cfoutput>
+	<cftry>
 	<cfif #other_id_type# is "catalog_number">
 		<cfquery name="coll_obj" datasource="#Application.web_user#">
 			select 
@@ -31,7 +31,7 @@
 				cataloged_item.collection_id=collection.collection_id and
 				cataloged_item.collection_object_id = identification.collection_object_id and
 				accepted_id_fg=1 and
-				collection_id=#collection_id# AND
+				collection.collection_id=#collection_id# AND
 				cat_num=#oidnum# AND
 				part_name='#part_name#'
 			</cfquery>
@@ -56,7 +56,7 @@
 					cataloged_item.collection_id=collection.collection_id and
 					cataloged_item.collection_object_id = identification.collection_object_id and
 					accepted_id_fg=1 and
-					collection_id=#collection_id# AND
+					collection.collection_id=#collection_id# AND
 					other_id_type='#other_id_type#' AND
 					display_value= '#oidnum#' AND
 					part_name='#part_name#'
@@ -66,22 +66,12 @@
 			<cfif #other_id_type# is "catalog_number">
 				<cfquery name="coll_obj2" datasource="#Application.web_user#">
 					select 
-						cat_num,
-						collection,
-						collection.collection_cde,
-						institution_acronym,
-						scientific_name,
 						specimen_part.collection_object_id 
 					FROM
 						cataloged_item,
-						specimen_part,
-						collection,
-						identification
+						specimen_part
 					WHERE
 						cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
-						cataloged_item.collection_id=collection.collection_id and
-						cataloged_item.collection_object_id = identification.collection_object_id and
-						accepted_id_fg=1 and
 						collection_id=#collection_id# AND
 						cat_num=#oidnum# AND
 						part_name='#part_name_2#'
@@ -89,24 +79,14 @@
 			<cfelse>
 				<cfquery name="coll_obj2" datasource="#Application.web_user#">
 					select 
-						cat_num,
-						collection,
-						collection.collection_cde,
-						institution_acronym,
-						scientific_name,
 						specimen_part.collection_object_id 
 					FROM
 						cataloged_item,
 						specimen_part,
-						coll_obj_other_id_num,
-						collection,
-						identification
+						coll_obj_other_id_num
 					WHERE
 						cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
 						cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id AND
-						cataloged_item.collection_id=collection.collection_id and
-						cataloged_item.collection_object_id = identification.collection_object_id and
-						accepted_id_fg=1 and
 						collection_id=#collection_id# AND
 						other_id_type='#other_id_type#' AND
 						display_value= '#oidnum#' AND
@@ -114,7 +94,10 @@
 				</cfquery>
 			</cfif>
 		</cfif>
-			
+		<cfcatch>
+			<cfreturn "0|#cfcatch.message#: #cfcatch.detail#">
+		</cfcatch>	
+		</cftry>
 		<cfif #coll_obj.recordcount# is not 1>
 			<cfreturn "0|#coll_obj.recordcount# cataloged items matched #other_id_type# #oidnum# #part_name#.">
 		</cfif>
