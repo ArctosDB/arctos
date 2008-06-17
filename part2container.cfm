@@ -15,113 +15,30 @@
 		//
 	}
 	function success_addPartToContainer(result) {
-		alert(result);
+		//alert(result);
 		statAry=result.split("|");
 		var status=statAry[0];
 		var msg=statAry[1];
-		alert(status);
-		alert(msg);
+		document.getElementById('pTable').className='';
+		var mDiv=document.getElementById('msgs');
+		var mhDiv=document.getElementById('msgs_hist');
+		var mh=mDiv.innerHTML + '<hr>' + mhDiv.innerHTML;
+		mhDiv.innerHTML=mh;
+		mDiv.innerHTML=msg;
+		if (status==0){
+			mDiv.className='error';
+		} else {
+			mDiv.className='messageDiv';
+		}
+		//alert(status);
+		//alert(msg);
 	}
 </script>
-<!--------------------------------------------------------------------------->
-<cfif #action# is "validate">
-<!--- they can do several things here
-	1) If they supplied a cat_num, a part, and a parent barcode:
-		a) create a new part for that specimen and put it in the parent, or
-		b) put existing part in new parent
-	2) If they supplied a barcode and a parent barcode:
-		a) move the part to the new parent
----->		
-	<cfoutput>
-		<cfset back = '<a href="aps.cfm?lastPart=#part_name#&lastColl=#collection_id#
-			&lastParent=#parent_barcode#
-			&lastCat=#oidnum#&lastType=#other_id_type#&lastNewType=#new_container_type#">Go Back</a>'>
-			<!--- find the collection object ---->
-		<cfif #other_id_type# is "catalog_number">
-			<cfquery name="coll_obj" datasource="#Application.web_user#">
-				select specimen_part.collection_object_id FROM
-					cataloged_item,
-					specimen_part
-				WHERE
-					cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
-					collection_id=#collection_id# AND
-					cat_num=#oidnum# AND
-					part_name='#part_name#'
-			</cfquery>
-		<cfelse>
-			<cfquery name="coll_obj" datasource="#Application.web_user#">
-				select specimen_part.collection_object_id FROM
-					cataloged_item,
-					specimen_part,
-					coll_obj_other_id_num
-				WHERE
-					cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
-					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id AND
-					collection_id=#collection_id# AND
-					other_id_type='#other_id_type#' AND
-					other_id_num= '#oidnum#' AND
-					part_name='#part_name#'
-			</cfquery>
-		</cfif>
-		<cfif #coll_obj.recordcount# is 1>
-			<!--- see if they gave a valid parent container ---->
-			<cfquery name="isGoodParent" datasource="#Application.web_user#">
-				select container_id from container where container_type <> 'collection object'
-				and barcode='#parent_barcode#'
-			</cfquery>
-			<cfif #isGoodParent.recordcount# is 1>
-				<!---- Find coll obj container ---->
-				<cfquery name="cont" datasource="#Application.web_user#">
-					select container_id FROM coll_obj_cont_hist where
-					collection_object_id=#coll_obj.collection_object_id#
-				</cfquery>
-				<cfif #cont.recordcount# is 1>
-					
-					<!-----
-					disable for testing
-					
-					---->
-					<cfquery name="newparent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-						UPDATE container SET container_type = '#new_container_type#' WHERE
-						container_id=#isGoodParent.container_id#
-					</cfquery>
-					<cfquery name="moveIt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-						UPDATE container SET parent_container_id = #isGoodParent.container_id# WHERE
-						container_id=#cont.container_id#
-					</cfquery>
-					
-					<cfquery name="catcollobj" datasource="#Application.web_user#">
-							select distinct(derived_from_cat_item) FROM
-								specimen_part
-							WHERE
-								collection_object_id=#coll_obj.collection_object_id#
-				  </cfquery>
-					
-					You just put 
-					<a href="/SpecimenDetail.cfm?collection_object_id=#catcollobj.derived_from_cat_item#">
-					#other_id_type# #oidnum#</a>'s #part_name# 
-					into container 
-					<a href="/Container.cfm?barcode=#parent_barcode#&srch=container">#parent_barcode#</a>
-					
-				<cfelse>
-					The part you tried to move doesn't exist as a container. That probably isn't your fault!
-					Email <a href="mailto:fndlm@uaf.edu">dusty</a>. Now!
-				</cfif>
-				
-			<cfelse>
-				The parent barcode you entered doesn't resolve to a valid barcode, or it's a collection object.
-				Barcoded containers must exist before you put things in them, and you can't put collection 
-				objects into other collection objects.
-			</cfif>
-			
-		<cfelseif #coll_obj.recordcount# is 0>
-			The part you entered doesn't exist!
-		<cfelse>#coll_obj.recordcount#
-				The part you entered exists #coll_obj.recordcount# times. That may be good data, but this form can't
-				handle it!
-		</cfif>
-	</cfoutput>
-</cfif>
+<style>
+		.messageDiv {
+			background-color:lightgray;
+			font-size:.8em;	
+</style>
 <!------------------------------------------------------------------->
 <cfif #action# is "nothing">
 	<cfoutput>
@@ -207,6 +124,7 @@
 	</form>
 	</table>
 	<div id="msgs"></div>
+	<div id="msgs_hist" class="messageDiv"></div>
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm"/>
