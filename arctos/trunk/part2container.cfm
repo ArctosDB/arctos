@@ -1,5 +1,11 @@
 <cfinclude template="/includes/_header.cfm">
 <script language="javascript" type="text/javascript">
+	function checkSubmit() {
+		var c=document.getElementById('submitOnChange').checked;
+		if (c==true) {
+			addPartToContainer();
+		}
+	}
 	function addPartToContainer () {
 		document.getElementById('pTable').className='red';
 		var collection_id=document.getElementById('collection_id').value;
@@ -116,7 +122,7 @@
 			</td>
 			<td>
 				<label for="parent_barcode">Parent Barcode</label>
-				<input type="text" name="parent_barcode" id="parent_barcode">
+				<input type="text" name="parent_barcode" id="parent_barcode" onchange="checkSubmit()">
 			</td>
 			<td>
 				<label for="new_container_type">Parent Cont Type</label>
@@ -129,6 +135,10 @@
 			</td>
 	  		<td>
 				<input type="button" value="Move it" class="savBtn" onclick="addPartToContainer()">
+			</td>
+			<td>
+				<label for="submitOnChange">Submit w/ barcode change?</label>
+				<input type="checkbox" name="submitOnChange" id="submitOnChange">
 			</td>
 		</tr>
 	</form>
