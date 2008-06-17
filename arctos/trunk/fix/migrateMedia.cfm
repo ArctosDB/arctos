@@ -9,7 +9,7 @@
 <cfset mid=ms.nv>
 <cfoutput>
 	<cfloop query="m">
-		<cfset dotPos=refind(.$,full_url)>
+		<cfset dotPos=find(".",reverse(full_url))>
 		<cfset ext=right(full_url,len(full_url)-dotPos)>
 		insert into media (
 			media_id,
