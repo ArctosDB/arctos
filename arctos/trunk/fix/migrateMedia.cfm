@@ -1,4 +1,4 @@
-<cfinclude template-"/includes/_header.cfm">
+<cfinclude template="/includes/_header.cfm">
 
 <cfquery name="m" datasource="uam_god">
 	select * from binary_object
