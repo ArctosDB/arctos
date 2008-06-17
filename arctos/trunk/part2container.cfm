@@ -15,6 +15,11 @@
 	}
 	function success_addPartToContainer(result) {
 		alert(result);
+		statAry=result.split("|");
+		var status=statAry[0];
+		var msg=statAry[1];
+		alert(status);
+		alert(msg);
 	}
 </script>
 <!--------------------------------------------------------------------------->
