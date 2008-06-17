@@ -102,7 +102,7 @@
 			<cfreturn "0|#coll_obj.recordcount# cataloged items matched #other_id_type# #oidnum# #part_name#.">
 		</cfif>
 		<cfif len(#part_name_2#) gt 0 and #coll_obj2.recordcount# is not 1>
-			<cfreturn "0|#coll_obj.recordcount# cataloged items matched #other_id_type# #oidnum# #part_name#.">
+			<cfreturn "0|#coll_obj2.recordcount# cataloged items matched #other_id_type# #oidnum# #part_name_2#.">
 		</cfif>
 		<cfquery name="isGoodParent" datasource="#Application.web_user#">
 			select container_id from container where container_type <> 'collection object'
