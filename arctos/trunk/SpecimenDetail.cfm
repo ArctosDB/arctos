@@ -3,20 +3,35 @@
 <script type='text/javascript' src='/includes/annotate.js'></script>
 <cfif not isdefined("collection_object_id")>
 	<cfif isdefined("guid")>
-		<cfset institution_acronym = listgetat(guid,1,":")>
-		<cfset collection_cde = listgetat(guid,2,":")>
-		<cfset cat_num = listgetat(guid,3,":")>
-		<cfquery name="c" datasource="#Application.web_user#">
-			select collection_object_id from 
-				cataloged_item,
-				collection
-			WHERE
-				cataloged_item.collection_id = collection.collection_id AND
-				cat_num = #cat_num# AND
-				collection.collection_cde='#collection_cde#' AND
-				collection.institution_acronym='#institution_acronym#'
-		</cfquery>
-		<cfif len(#c.collection_object_id#) gt 0>
+		<cfif guid contains ":">
+			<cfset institution_acronym = listgetat(guid,1,":")>
+			<cfset collection_cde = listgetat(guid,2,":")>
+			<cfset cat_num = listgetat(guid,3,":")>
+			<cfquery name="c" datasource="#Application.web_user#">
+				select collection_object_id from 
+					cataloged_item,
+					collection
+				WHERE
+					cataloged_item.collection_id = collection.collection_id AND
+					cat_num = #cat_num# AND
+					collection.collection_cde='#collection_cde#' AND
+					collection.institution_acronym='#institution_acronym#'
+			</cfquery>
+		<cfelseif guid contains " ">
+			<cfset spos=find(" ",reverse(guid))>
+			<cfset cc=left(guid,len(guid)-spos)>
+			<cfset cn=right(guid,spos)>
+			<cfquery name="c" datasource="#Application.web_user#">
+				select collection_object_id from 
+					cataloged_item,
+					collection
+				WHERE
+					cataloged_item.collection_id = collection.collection_id AND
+					cat_num = #cn# AND
+					collection.collection='#cc#' AND
+			</cfquery>
+		</cfif>
+		<cfif not isdefined("c.collection_object_id") or len(#c.collection_object_id#) gt 0>
 			<cfset collection_object_id=#c.collection_object_id#>
 		<cfelse>
 			<p class="error">
