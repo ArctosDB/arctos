@@ -474,7 +474,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="tissueParts.cfm">
 						Flag Parts as Tissues
 					</option>
-					<option value="editIdentification.cfm">
+					<option value="multiIdentification.cfm">
 						Identification
 					</option>
 					<option value="findContainer.cfm?showControl=1">
