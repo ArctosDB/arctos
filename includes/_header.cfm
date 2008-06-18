@@ -340,7 +340,11 @@
 		<ul>
 			<li><h2 onclick="document.location='/myArctos.cfm';">My Stuff</h2>
 				<ul>
-					<li><a target="_top" href="/myArctos.cfm">Profile</a></li>
+					<cfif len(session.username) gt 0>
+						<li><a target="_top" href="/myArctos.cfm">Profile</a></li>
+					<cfelse>
+						<li><a target="_top" href="/myArctos.cfm">Log In</a></li>
+					</cfif>
 					<li><a target="_top" href="##" onClick="getInstDocs('GENERIC','index')">Site Help</a></li>
 					<li><a target="_top" href="/home.cfm">Home</a></li>
 					<li><a target="_top" href="/Collections/index.cfm">Collections (Loans)</a></li>
