@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
-<cfset title="User Loans">
+
+<div style="padding:10px;">
 <script>
 	function changeStatus(id,status) {
 		var pidstr = 'partID' + id;
@@ -86,26 +87,19 @@
 	}
 </script>
 <cfquery name="whoAreYou" datasource="#Application.web_user#">
-	select 
-		collection,
-		contact_agent_id
-	from 
-		collection,
-		collection_contacts,
-		agent_name
+	select contact_agent_id from 
+	collection_contacts,
+	agent_name
 	where
-		collection.collection_id=collection_contacts.collection_id and
-		contact_agent_id=agent_id and
-		agent_name='#session.username#' and
-		contact_role='loan request'		
+	contact_agent_id=agent_id and
+	agent_name='#session.username#' and
+	contact_role='loan request'		
 </cfquery>
 <cfif #whoAreYou.recordcount# is 0>
 	You are not a loan request contact!
 	<p>
 		Aborting....<cfabort>
 	</p>
-<cfelse>
-	You are a loan request contact for collection(s): #valuelist(whoAreYou.collection)#
 </cfif>
 <!-------------------->
 <cfif #action# is "reallyMoveEmNow">
