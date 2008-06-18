@@ -52,7 +52,6 @@
 			#COLLECTION#
 		</td>
 		<td>
-		<td>
 			#DESCR#
 		</td>
 		<td>
