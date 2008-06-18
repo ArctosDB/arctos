@@ -210,7 +210,7 @@
 		county,
 		quad,
 		institution_acronym,
-		collection.collection_cde
+		collection.collection
 	FROM 
 		identification, 
 		collecting_event,
@@ -244,7 +244,7 @@
  <cfoutput query="specimenList" group="collection_object_id">
     <tr>
 	  <td>
-	  	#collection_cde#&nbsp;#cat_num#
+	  	#collection#&nbsp;#cat_num#
 	  </td>
 	<td>
 		#CustomID#&nbsp;
