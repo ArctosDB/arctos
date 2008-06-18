@@ -14,17 +14,15 @@
 <cfif #action# is "signOut">
 <!--- Clear anything they might have had hang around 	--->
 	<cfloop collection="#session#" item="i">
-		<cfset temp = StructDelete(session,i)>
-	</cfloop>
-	<cfloop collection="#client#" item="i">
-		<cfset temp = StructDelete(client,i)>
+		<cfset session[i]="">
 	</cfloop>
 	<cflogout>
 	<!---- defeat goofy BUG that puts 500 NULL at the bottom of every page --->
 	<cfset session.HitCount=0>
 <cfdump var="#session#">
-	
+	<!---
 	<cflocation url="login.cfm">
+	---->
 </cfif>
 <!------------------------------------------------------------>
 
