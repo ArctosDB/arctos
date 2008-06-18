@@ -7,17 +7,16 @@
 		descr,
 		web_link,
 		web_link_text,
-		count(cat_num) as cnt,
-		loan_policy_url
+		loan_policy_url,
+		count(cat_num) as cnt
 	from 
 		collection,
 		cataloged_item
 	where
 		collection.collection_id = cataloged_item.collection_id
 	group by
-		collection.collection_cde,
-		collection.collection_id,		
-		institution_acronym,
+		collection.collection,
+		collection.collection_id,
 		descr,
 		web_link,
 		web_link_text,
