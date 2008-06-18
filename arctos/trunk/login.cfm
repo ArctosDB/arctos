@@ -17,11 +17,9 @@
 		<cfset session[i]="">
 	</cfloop>
 	<cflogout>
-	<!---- defeat goofy BUG that puts 500 NULL at the bottom of every page --->
-	<cfset session.HitCount=0>
+
+	<cflocation url="login.cfm">	<!---
 <cfdump var="#session#">
-	<!---
-	<cflocation url="login.cfm">
 	---->
 </cfif>
 <!------------------------------------------------------------>
