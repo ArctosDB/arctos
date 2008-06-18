@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
-<cf_showMenuOnly>
 <cfset title="Save Searches">
 <cfif #action# is "nothing">
+<cf_showMenuOnly>
 "Can" the dynamic page that you are currently on to quickly return later. Results are data-based, so you may get different results the next time you visit; only your criteria are stored.
 
 <cfoutput>
@@ -50,16 +50,6 @@
 
 <cfif #action# is "manage">
 <script type='text/javascript' src='/includes/_treeAjax.js'></script>
-
-
-<cfoutput>
-	<cfquery name="hasCanned" datasource="#Application.web_user#">
-	select SEARCH_NAME,URL,canned_id
-	from cf_canned_search,cf_users
-	where cf_users.user_id=cf_canned_search.user_id
-	and username = '#session.username#'
-	order by search_name
-</cfquery>
 <script>
 	function killMe(canned_id) {
 		//alert(canned_id);
@@ -78,6 +68,19 @@
 			}
 		}
 </script>
+
+<cfoutput>
+	<cfquery name="hasCanned" datasource="#Application.web_user#">
+	select SEARCH_NAME,URL,canned_id
+	from cf_canned_search,cf_users
+	where cf_users.user_id=cf_canned_search.user_id
+	and username = '#session.username#'
+	order by search_name
+</cfquery>
+<cfif hasCanned.recordcount is 0>
+	You may save searches from Specimen Results for later reference.
+<cfelse>
+
 <table border>
 	<tr>
 		<td>&nbsp;</td>
@@ -98,6 +101,7 @@
 	</tr>
 </cfloop>
 </table>
+</cfif>
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">

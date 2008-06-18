@@ -341,11 +341,11 @@
 			<li><h2 onclick="document.location='/myArctos.cfm';">My Stuff</h2>
 				<ul>
 					<li><a target="_top" href="/myArctos.cfm">Profile</a></li>
-					<li><a target="_top" href="##" onClick="getInstDocs('GENERIC','index')">Help</a></li>
+					<li><a target="_top" href="##" onClick="getInstDocs('GENERIC','index')">Site Help</a></li>
 					<li><a target="_top" href="/home.cfm">Home</a></li>
-					<li><a target="_top" href="/Collections/index.cfm">Collections</a></li>
-					<li><a target="_top" href="/siteMap.cfm">Site Map</a></li>
-					<li><a target="_top" href="/user_loan_request.cfm">Use Specimens</a></li>
+					<li><a target="_top" href="/Collections/index.cfm">Collections (Loans)</a></li>
+					<li><a target="_top" href="/saveSearch.cfm?action=manage">Saved Searches</a></li>
+					
 				</ul>
 			</li>		
 		</ul>
