@@ -12,7 +12,7 @@
 <!------------------------------------------------------------>
 <!--- sign them out and start over --->
 <cfif #action# is "signOut">
-<!--- Clear anything they might have had hang around --->
+<!--- Clear anything they might have had hang around 
 	<cfloop collection="#session#" item="i">
 		<cfset temp = StructDelete(session,i)>
 	</cfloop>
@@ -22,6 +22,11 @@
 	<cflogout>
 	<!---- defeat goofy BUG that puts 500 NULL at the bottom of every page --->
 	<cfset session.HitCount=0>
+	--->
+	<cfscript>
+		StructClear(session);
+	</cfscript>
+	<cflogout>
 	<cflocation url="login.cfm">
 </cfif>
 <!------------------------------------------------------------>
