@@ -124,17 +124,16 @@
 				</select>
 			</td>
 			<td>
-				<label for="parent_barcode">Parent Barcode</label>
-				<input type="text" name="parent_barcode" id="parent_barcode" onchange="checkSubmit()">
-			</td>
-			<td>
 				<label for="new_container_type">Parent Cont Type</label>
 				<select name = "new_container_type" id="new_container_type" size="1" class="reqdClr">
 					<cfloop query="ctContType">
 						<option value="#container_type#">#container_type#</option>
 					</cfloop>
 				</select>
-		
+			</td>
+			<td>
+				<label for="parent_barcode">Parent Barcode</label>
+				<input type="text" name="parent_barcode" id="parent_barcode" onchange="checkSubmit()">
 			</td>
 	  		<td>
 				<input type="button" value="Move it" class="savBtn" onclick="addPartToContainer()">
