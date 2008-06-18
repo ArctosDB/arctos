@@ -12,12 +12,10 @@
 <!------------------------------------------------------------>
 <!--- sign them out and start over --->
 <cfif #action# is "signOut">
-<!--- Clear anything they might have had hang around 	
+<!--- Clear anything they might have had hang around 	--->
 	<cfloop collection="#session#" item="i">
 		<cfset session[i]="">
 	</cfloop>
-	--->
-	<cfset structclear(session)>
 	<cflogout>
 
 	<cflocation url="login.cfm">	<!---
