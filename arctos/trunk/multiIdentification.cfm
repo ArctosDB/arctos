@@ -294,8 +294,8 @@
 	<cfabort>
 </cfif>
 <!--- looop through the collection_object_list and update things one at a time--->
-<cfloop list="#collection_object_id#" index="i">
 	<cftransaction>
+		<cfloop list="#collection_object_id#" index="i">
 		<cfquery name="nextID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 			select max(identification_id) + 1 as nextID from identification
 		</cfquery>
@@ -394,9 +394,9 @@
 			 <cfquery name="oneAcc" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				update identification set ACCEPTED_ID_FG=1 where identification_id=#nextID.nextID#
 			</cfquery>	
-	</cftransaction>
-</cfloop>
 
+</cfloop>
+	</cftransaction>
 	<cflocation url="multiIdentification.cfm?collection_object_id=#collection_object_id#" addtoken="no">
 	
 </cfoutput>
