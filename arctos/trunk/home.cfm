@@ -68,6 +68,9 @@
 										<cfif len(#WEB_LINK#) gt 0>
 											<br><a href="#WEB_LINK#" target="_blank">Collection Home Page <img src="/images/linkOut.gif" border="0"></a>
 										</cfif>
+										<cfif len(#loan_policy_url#) gt 0>
+											<br><a href="#loan_policy_url#" target="_blank">Collection Loan Policy <img src="/images/linkOut.gif" border="0"></a>
+										</cfif>
 									</div>
 							</li>
 						</cfloop>

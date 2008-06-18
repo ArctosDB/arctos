@@ -208,7 +208,7 @@
 			Collection:&nbsp;
 			</td>
 			<td>
-			<input type="text" name="collection" value="#colls.collection#">
+			<input type="text" name="collection" value="#colls.collection#" size="50">
 			</td>
 		</tr>
 		<tr>
@@ -216,7 +216,7 @@
 			Description:&nbsp;
 			</td>
 			<td>
-			<input type="text" name="descr" value="#colls.descr#">
+			<input type="text" name="descr" value="#colls.descr#" size="50">
 			</td>
 		</tr>
 		<tr>
