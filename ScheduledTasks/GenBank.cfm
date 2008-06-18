@@ -12,9 +12,10 @@
 	select
 		display_value,
 		a.collection_object_id,
-		cat_num,
+		c.INSTITUTION_ACRONYM,
+		c.collection,
 		c.collection_cde,
-		c.INSTITUTION_ACRONYM
+		c.institution_acronym
 	FROM
 		cataloged_item a,
 		coll_obj_other_id_num b,
@@ -29,7 +30,7 @@
 <cffile action="write" file="#Application.webDirectory#/temp/nucleotide.ft" addnewline="no" output="#header#">
 <cfset i=1>
 <cfloop query="nucleotide">
-	<cfset oneLine="#chr(10)#------------------------------------------------#chr(10)#linkid: #i##chr(10)#query: #display_value##chr(10)#base: &base.url;#chr(10)#rule: collection_object_id=#collection_object_id##chr(10)#name: #institution_acronym# #collection_cde# #cat_num#">
+	<cfset oneLine="#chr(10)#------------------------------------------------#chr(10)#linkid: #i##chr(10)#query: #display_value##chr(10)#base: &base.url;#chr(10)#rule: collection_object_id=#collection_object_id##chr(10)#name: #collection# #cat_num#">
 		<cfset i=#i#+1>
 		<cffile action="append" file="#Application.webDirectory#/temp/nucleotide.ft" addnewline="no" output="#oneLine#">
 </cfloop>
