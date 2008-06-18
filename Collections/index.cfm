@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
+<cfset title="Arctos Holdings">
 <cfquery name="colls" datasource="#Application.web_user#">
 	select 
 		collection.collection,
@@ -43,7 +44,7 @@
 		<strong>Loan Policy</strong>
 	</th>
 	<th>
-		<strong>Specimen Count</strong>
+		<strong>Specimens</strong>
 	</th>
 </tr>
 <cfoutput query="colls">
