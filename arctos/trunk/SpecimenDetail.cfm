@@ -14,8 +14,8 @@
 				WHERE
 					cataloged_item.collection_id = collection.collection_id AND
 					cat_num = #cat_num# AND
-					lcase(collection.collection_cde)='#lower(collection_cde)#' AND
-					lcase(collection.institution_acronym)='#lower(institution_acronym)#'
+					lower(collection.collection_cde)='#lcase(collection_cde)#' AND
+					lower(collection.institution_acronym)='#lcase(institution_acronym)#'
 			</cfquery>
 		<cfelseif guid contains " ">
 			<cfset spos=find(" ",reverse(guid))>
@@ -28,7 +28,7 @@
 				WHERE
 					cataloged_item.collection_id = collection.collection_id AND
 					cat_num = #cn# AND
-					lcase(collection.collection)='#lower(cc)#' AND
+					lower(collection.collection)='#lcase(cc)#' AND
 			</cfquery>
 		</cfif>
 		<cfif not isdefined("c.collection_object_id") or len(#c.collection_object_id#) gt 0>
