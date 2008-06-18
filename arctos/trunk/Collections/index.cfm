@@ -1,13 +1,14 @@
 <cfinclude template="/includes/_header.cfm">
+<script src="/includes/sorttable.js"></script>
 <cfquery name="colls" datasource="#Application.web_user#">
 	select 
-		collection.collection_cde,
+		collection.collection,
 		collection.collection_id,
-		institution_acronym,
 		descr,
 		web_link,
 		web_link_text,
-		count(cat_num) as cnt
+		count(cat_num) as cnt,
+		loan_policy_url
 	from 
 		collection,
 		cataloged_item
@@ -19,50 +20,52 @@
 		institution_acronym,
 		descr,
 		web_link,
-		web_link_text
+		web_link_text,
+		loan_policy_url
 	order by collection_id
 </cfquery>
-<cfif #cgi.HTTP_HOST# contains "harvard.edu">
-	<span style="font-size:24px; font-weight:bold;">MCZ Holdings</span>
-<cfelse>
-	<span style="font-size:24px; font-weight:bold;">Arctos Holdings</span>
-</cfif>
-<br />You may choose to set your default collection in <a href="/login.cfm">Advanced Features</a>. 
-<br />Doing so will affect the appearance of
-SpecimenSearch and results of specimen queries. 
-<br />You may return to "generic view" at any time, also by changing your <a href="/login.cfm">Advanced Features</a>. 
-<table border>
+
+	<h2>Arctos Holdings</h2>
+
+<br />You may choose to set your default collection in your <a href="/myArctos.cfm">Preferences</a>. 
+
+<table border id="t" class="sortable">
 <tr>
-	<td>
-		<strong>Collection Code</strong>
-	</td>
-	<td>
-		<strong>Institution Acronym</strong>
-	</td>
-	<td>
+	<th>
+		<strong>Collection</strong>
+	</th>
+	<th>
 		<strong>Description</strong>
-	</td>
-	<td>
+	</th>
+	<th>
 		<strong>Website</strong>
-	</td>
-	<td>
-		<strong>Specimens</strong>
-	</td>
+	</th>
+	<th>
+		<strong>Loan Policy</strong>
+	</th>
+	<th>
+		<strong>Specimen Count</strong>
+	</th>
 </tr>
 <cfoutput query="colls">
 	<tr <cfif #session.exclusive_collection_id# is #collection_id#>style="background-color:##CCFF33" </cfif>>
 		<td>
-			#COLLECTION_CDE#
+			#COLLECTION#
 		</td>
 		<td>
-			#INSTITUTION_ACRONYM#
-		</td>
 		<td>
 			#DESCR#
 		</td>
 		<td>
 			<cfif len(#WEB_LINK#) gt 0 and len(#WEB_LINK_TEXT#) gt 0>
 				<a href="#WEB_LINK#" target="_blank">#WEB_LINK_TEXT#</a>
+			<cfelse>
+				None
+			</cfif>
+		</td>
+		<td>
+			<cfif len(#loan_policy_url#) gt 0 and len(#loan_policy_url#) gt 0>
+				<a href="#loan_policy_url#" target="_blank">Loan Policy</a>
 			<cfelse>
 				None
 			</cfif>

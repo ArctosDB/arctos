@@ -17,7 +17,7 @@
 		<cfset session[i]="">
 	</cfloop>
 	<cflogout>
-
+	<fset session.roles="public">
 	<cflocation url="login.cfm">	<!---
 <cfdump var="#session#">
 	---->
