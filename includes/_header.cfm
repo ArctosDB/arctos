@@ -171,7 +171,7 @@
 				</ul>
 			</li> 
 		</ul>
-		<cfif session.roles is not "public">
+		<cfif len(session.roles) gt 0 and session.roles is not "public">
 			<!--- see what forms this user gets access to --->
 			<cfset r = replace(session.roles,",","','","all")>
 			<cfset r = "'#r#'">
