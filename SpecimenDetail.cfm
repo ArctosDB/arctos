@@ -28,7 +28,7 @@
 				WHERE
 					cataloged_item.collection_id = collection.collection_id AND
 					cat_num = #cn# AND
-					lower(collection.collection)='#lcase(cc)#' AND
+					lower(collection.collection)='#lcase(cc)#'
 			</cfquery>
 		</cfif>
 		<cfif not isdefined("c.collection_object_id") or len(#c.collection_object_id#) gt 0>
