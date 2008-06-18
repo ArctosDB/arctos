@@ -84,7 +84,15 @@
 			<td>
 			<input type="text" name="web_link_text" >
 			</td>
+		</tr><tr>
+			<td align="right">
+			Link Text:&nbsp;
+			</td>
+			<td>
+			<input type="text" name="web_link_text" >
+			</td>
 		</tr>
+		
 		<tr>
 			<td colspan="2">
 			<input type="submit" value="Create Collection" class="insBtn"
@@ -224,6 +232,39 @@
 			<input type="text" name="web_link_text" value='#colls.web_link_text#' size="50">
 			</td>
 		</tr>
+		<tr>
+			<td align="right">
+			GenBank PRID:&nbsp;
+			</td>
+			<td>
+			<input type="text" name="genbank_prid" value='#colls.genbank_prid#' size="50">
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+			GenBank Username:&nbsp;
+			</td>
+			<td>
+			<input type="text" name="genbank_username" value='#colls.genbank_username#' size="50">
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+			GenBank Password:&nbsp;
+			</td>
+			<td>
+			<input type="text" name="genbank_pwd" value='#colls.genbank_pwd#' size="50">
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+			Loan Policy URL:&nbsp;
+			</td>
+			<td>
+			<input type="text" name="loan_policy_url" value='#colls.loan_policy_url#' size="50">
+			</td>
+		</tr>
+			
 		<tr>
 			<td colspan="2">
 			
@@ -538,6 +579,26 @@
 			,web_link_text='#web_link_text#'
 		<cfelse>
 			,web_link_text=NULL
+		</cfif>
+		<cfif len(#genbank_prid#) gt 0>
+			,genbank_prid=#genbank_prid#
+		<cfelse>
+			,genbank_prid=NULL
+		</cfif>
+		<cfif len(#genbank_username#) gt 0>
+			,genbank_username='#genbank_username#'
+		<cfelse>
+			,genbank_username=NULL
+		</cfif>
+		<cfif len(#genbank_pwd#) gt 0>
+			,genbank_pwd='#genbank_pwd#'
+		<cfelse>
+			,genbank_pwd=NULL
+		</cfif>
+		<cfif len(#loan_policy_url#) gt 0>
+			,loan_policy_url='#loan_policy_url#'
+		<cfelse>
+			,loan_policy_url=NULL
 		</cfif>
 		WHERE COLLECTION_ID = #collection_id#
 	</cfquery>
