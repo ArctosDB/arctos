@@ -160,14 +160,18 @@
 			COLLECTION,
 			COLLECTION_ID,
 			WEB_LINK,
-			WEB_LINK_TEXT
+			WEB_LINK_TEXT,
+			genbank_prid,
+			genbank_username,
+			genbank_pwd,
+			loan_policy_url
  		from collection
   		where
    		collection_id = #collection_id#
 	</cfquery>
 	<table border>
 		<tr>
-			<td>
+			<td valign="top">
 			
 	<form name="editCollection" method="post" action="Collection.cfm">
 <input type="hidden" name="action" value="modifyCollection">
