@@ -255,7 +255,7 @@
 		<cflocation url="/errors/forbidden.cfm" addtoken="false">
 	</cfif>
 	<!--- protect "us" directories --->
-	<cfif #session.roles# is "public" and 
+	<cfif (not isdefined("session.roles") or #session.roles# is "public") and 
 		(currentPath contains "/Admin/" or
 		currentPath contains "/ALA_Imaging/" or
 		currentPath contains "/Bulkloader/" or
