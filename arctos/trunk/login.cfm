@@ -135,9 +135,6 @@
 			</div>
 			<cfabort>
 		</cfif>
-		<cfoutput>
-		---#ckUserName.agent_id#---
-		</cfoutput>
 		<!--- 
 			make sure they have a valid email address 
 			If not, let them in for now, but set variable for use in annoying
@@ -178,9 +175,7 @@
 			<cfset gotopage = "myArctos.cfm">
 		</cfif>
 		<cfoutput>
-			<!---
 			<cflocation url="#gotopage#" addtoken="no">
-			---->
 		</cfoutput>
 </cfif>
 <!------------------------------------------------------------>
