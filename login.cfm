@@ -136,7 +136,7 @@
 			<cfabort>
 		</cfif>
 		<cfoutput>
-		---ckUserName.agent_id---
+		---#ckUserName.agent_id#---
 		</cfoutput>
 		<!--- 
 			make sure they have a valid email address 
