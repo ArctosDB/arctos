@@ -130,7 +130,7 @@
 			<cfif isdefined("session.last_login") and len(#session.last_login#) gt 0>
 				<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "mmm d yyyy")#)</span>&nbsp;
 			</cfif>
-			<cfif isdefined(session.needEmailAddr) and session.needEmailAddr is 1>
+			<cfif isdefined("session.needEmailAddr") and session.needEmailAddr is 1>
 				<br>
 				<span style="color:red;font-size:smaller;">
 					You have no email address in your profile. Please correct.
