@@ -114,7 +114,51 @@
 	<cfset session.roles = ''>
 	<cfset session.roles = valuelist(dbrole.role_name)>
 	<cfset session.roles=listappend(session.roles,"public")>
-<!--- redirect to personal home --->
+	<cfif session.roles contains "coldfusion_user">
+		<!--- see if their password is valid --->
+		<cftry>
+			<cfquery name="ckUserName" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				select agent_id from agent_name where agent_name='#session.username#'
+			</cfquery>
+			<cfcatch>
+				<div class="error">
+					Your Oracle login has issues. Contact a DBA.
+				</div>
+				<cfabort>
+			</cfcatch>
+		</cftry>
+		<!--- make sure they have a good agent name --->
+		<cfif len(ckUserName.agent_id) is 0>
+			<div class="error">
+				You must have an agent_name of type login that matches your Arctos username.
+			</div>
+			<cfabort>
+		</cfif>
+		<!--- 
+			make sure they have a valid email address 
+			If not, let them in for now, but set variable for use in annoying
+			them in _header.cfm
+		--->
+		<cfquery name="getUserData" datasource="#Application.web_user#">
+			SELECT   
+				cf_users.user_id,
+				first_name,
+		        middle_name,
+		        last_name,
+		        affiliation,
+				email
+			FROM 
+				cf_user_data,
+				cf_users
+			WHERE
+				cf_users.user_id = cf_user_data.user_id (+) AND
+				username = '#session.username#'
+		</cfquery>
+		<cfif len(getUserData.email) is 0>
+			<cfset session.needEmailAddr=1>
+		</cfif>
+	</cfif>
+	<!--- redirect to personal home --->
 <cfinclude template="/includes/setPrefs.cfm">
 <!--- don't let them log in without a password change --->
 <cfset pwtime =  round(now() - getPrefs.pw_change_date)>
