@@ -399,9 +399,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 				onclick="var pr=document.getElementById('page_record');
 					var c=pr.value;
 						alert(c + '::#summary.recordcount#');
-						document.getElementById('page_record').selectedIndex=0;
 					var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;
-					if (c=='1,#summary.recordcount#'){var numRec=#summary.recordcount#}else{var numRec=#session.displayrows#};
+					if (c=='1,#summary.recordcount#'){var numRec=#summary.recordcount#}else{var numRec=#session.displayrows#;pr.selectedIndex=0;};
 					getSpecResultsData(1,numRec,obv,'DESC');">&darr;</span>
 		</td>
 		<td>
