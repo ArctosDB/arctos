@@ -29,24 +29,20 @@
 	<cfquery name="uUser" datasource="#Application.uam_dbo#">
 		select * from cf_users where username = '#username#'
 	</cfquery>
+	<cfset err="">
 	<cfif len(#password#) is 0>
-			Your password must be at least one character long. 
-			Please click <a href="login.cfm">here</a> or use your browser's back button and select another.
-			<p>
-				To create an account, just enter a username and password in the previous form and click Create Account.
-			</p>
-		<cfabort>
+		<cfset err="Your password must be at least one character long.">
 	</cfif>
 	<cfif len(#username#) is 0>
-			Your user name must be at least one character long. 
-			Please click <a href="login.cfm">here</a> or use your browser's back button and select another.
-		<cfabort>
+			<cfset err="Your user name must be at least one character long.">
 	</cfif>	
 	<cfif #uUser.recordcount# gt 0>
-		That username is already in use. Please click <a href="login.cfm">here</a> or use your browser's back button and select another user name.
-		<cfabort>
+		<cfset err="That username is already in use.">
 	</cfif>
 	<!--- create their account --->
+	<cfif len(err) gt 0>
+		<cflocation url="login.cfm?username=#username#&badPW=true&err=#err#" Addtoken="false">
+	</cfif>
 	<cfquery name="nextUserID" datasource="#Application.web_user#">
 		select max(user_id) + 1 as nextid from cf_users
 	</cfquery>
@@ -214,8 +210,11 @@
 					<td valign="top">Password:</td>
 					<td valign="top"><input name="password" type="password" tabindex="2" value="" id="password">
 					<cfif isdefined("badPW") and #badPW# is "true">
+						<cfif not isdefined("err") or len(err) is 0>
+							<cfset err="Your username or password was not recognized. Please try again.">
+						</cfif>
 						<div style="background-color:##FF0000; font-size:smaller; font-style:italic;">
-							Your username or password was not recognized. Please try again.
+							#err#
 							<script>
 								var un  = document.getElementById('username');
 								var ps = document.getElementById('password');
