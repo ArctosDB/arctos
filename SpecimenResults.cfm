@@ -396,11 +396,12 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<span class="controlButton"
 				onmouseover="this.className='controlButton btnhov'" 
 				onmouseout="this.className='controlButton'"
-				onclick="document.getElementById('page_record').selectedIndex=0;
-					var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;
-					var c=document.getElementById('page_record').value;
+				onclick="var pr=document.getElementById('page_record');
+					var c=pr.value;
 						alert(c + '::#summary.recordcount#');
-						if (c=='1,#summary.recordcount#'){var numRec=#summary.recordcount#}else{var numRec=#session.displayrows#};
+						document.getElementById('page_record').selectedIndex=0;
+					var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;
+					if (c=='1,#summary.recordcount#'){var numRec=#summary.recordcount#}else{var numRec=#session.displayrows#};
 					getSpecResultsData(1,numRec,obv,'DESC');">&darr;</span>
 		</td>
 		<td>
