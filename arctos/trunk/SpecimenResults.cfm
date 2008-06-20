@@ -7,6 +7,7 @@
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/_myArctos.js'></script>
 <cfoutput>
+	<cfif isdefined("mapurl")>-------#mapurl#------</cfif>
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
 
@@ -132,29 +133,7 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 <cfif ListContainsNoCase(session.resultColumnList,"_original_elevation")>
 	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
 </cfif> 
-<cfif ListContainsNoCase(session.resultColumnList,"_gref_collnum")>
-	<!---<cfset basSelect = "#basSelect#,concatGrefLinksCollObj(#Application.gref_base_url#,#flatTableName#.collection_object_id) as gref_collnum">--->
-	<!---TODO: Implement this in media table so that you no longer have to rely on this hardcoded link generation. --->
-	<cfset basSelect = "#basSelect#,(select the_link from (
-select
-		'http://bg.berkeley.edu/gref/session.html?pageid=' || gref_roi_ng.page_id 
-	  || Chr(38) ||'publicationid=' || book_section.publication_id 
-	  || Chr(38) || 'otherid=' || #flatTableName#.collection_object_id
-	  || Chr(38) || 'otheridtype=' || gref_roi_value_ng.collection_object_id as the_link, 
-          section_page_order, 
-          min(section_page_order)
-		from
-		  gref_roi_ng, gref_roi_value_ng, book_section, page, #flatTableName#
-		where
-		  book_section.book_id = gref_roi_ng.publication_id
-		  and gref_roi_value_ng.id = gref_roi_ng.ROI_VALUE_NG_ID
-		  and gref_roi_ng.section_number = book_section.book_section_order
-                  and page.page_id = gref_roi_ng.page_id
-                  and page.PUBLICATION_ID = book_section.PUBLICATION_ID
-and gref_roi_value_ng.collection_object_id = #flatTableName#.collection_object_id
-group by gref_roi_ng.page_id, book_section.publication_id, gref_roi_value_ng.collection_object_id , section_page_order, #flatTableName#.collection_object_id
-having min(section_page_order) = section_page_order)) as gref_collnum">
-</cfif>
+
 
 	
 	<cfset basFrom = " FROM #flatTableName#">
@@ -300,12 +279,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<cfset resultList = listappend(resultList,"orig_elev_units")>
 	<cfset resultList = ListDeleteAt(resultList, ListFindNoCase(resultList,"_original_elevation"))>
 	<cfcatch></cfcatch>
-	</cftry>
-</cfif>
-<cfif ListContainsNoCase(resultList,"_gref_collnum")>
-	<cftry>
-		<cfset resultList = ListDeleteAt(resultList, ListFindNoCase(resultList,"_gref_collnum"))>
-		<cfcatch></cfcatch>
 	</cftry>
 </cfif>
 
