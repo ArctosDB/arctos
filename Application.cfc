@@ -126,7 +126,7 @@
 		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
 	<cfelseif #cgi.HTTP_HOST# is "arctos-test.arctos.database.museum">
         <cfset Application.svn = "/usr/local/bin/svn">
-		<cfset Application.webDirectory = "/var/www/html">
+		<cfset Application.webDirectory = "/usr/local/apache2/htdocs">
 		<cfset Application.SpecimenDownloadPath = "#Application.webDirectory#/download/">
 		<cfset Application.bugReportEmail = "dustymc@gmail.com,fnghj@uaf.edu">
 		<cfset Application.technicalEmail = "dustymc@gmail.com,fnghj@uaf.edu">
