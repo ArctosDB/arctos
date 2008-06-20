@@ -252,7 +252,7 @@
 	<cfif currentPath contains "/CustomTags/" OR
 		currentPath contains "/binary_stuff/" OR
 		currentPath contains "/log/">
-		<cflocation url="/errors/forbidden.cfm" addtoken="false">
+			<cflocation url="/errors/forbidden.cfm?ref=#replace(currentPath,application.webDirectory,"")#" addtoken="false">
 	</cfif>
 	<!--- protect "us" directories --->
 	<cfif (not isdefined("session.roles") or #session.roles# is "public") and 
