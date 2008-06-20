@@ -252,7 +252,8 @@
 	<cfif currentPath contains "/CustomTags/" OR
 		currentPath contains "/binary_stuff/" OR
 		currentPath contains "/log/">
-			<cflocation url="/errors/forbidden.cfm?ref=#replace(currentPath,application.webDirectory,"")#" addtoken="false">
+			<cfset r=replace(currentPath,application.webDirectory,"")>
+			<cflocation url="/errors/forbidden.cfm?ref=#r#" addtoken="false">
 	</cfif>
 	<!--- protect "us" directories --->
 	<cfif (not isdefined("session.roles") or #session.roles# is "public") and 
@@ -262,7 +263,8 @@
 		currentPath contains "/fix/" or
 		currentPath contains "/picks/" or
 		currentPath contains "/tools/")>
-			<cflocation url="/errors/forbidden.cfm?ref=#replace(currentPath,application.webDirectory,"")#" addtoken="false">
+			<cfset r=replace(currentPath,application.webDirectory,"")>
+			<cflocation url="/errors/forbidden.cfm?ref=#r#" addtoken="false">
 	</cfif>
 	<cfreturn true>
 </cffunction>
