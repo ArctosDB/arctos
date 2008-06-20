@@ -385,11 +385,12 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<span class="controlButton" 
 				onmouseover="this.className='controlButton btnhov'" 
 				onmouseout="this.className='controlButton'"
-				onclick="document.getElementById('page_record').selectedIndex=0;
+				onclick="var pr=document.getElementById('page_record');
+					var c=pr.value;
 					var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;
-					var c=document.getElementById('page_record').value;
-					if (c=='1,#summary.recordcount#'){var numRec=#summary.recordcount#}else{var numRec=#session.displayrows#};
-					getSpecResultsData(1,numRec,obv,'ASC');">&uarr;</span>
+					if (c=='1,#summary.recordcount#')
+						{var numRec=#summary.recordcount#}else{var numRec=#session.displayrows#;pr.selectedIndex=0;};
+						getSpecResultsData(1,numRec,obv,'ASC');">&uarr;</span>
 		</td>
 		<td>
 			<label for="">&nbsp;</label>
@@ -398,9 +399,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 				onmouseout="this.className='controlButton'"
 				onclick="var pr=document.getElementById('page_record');
 					var c=pr.value;
-						alert(c + '::#summary.recordcount#');
 					var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;
-					if (c=='1,#summary.recordcount#'){var numRec=#summary.recordcount#}else{var numRec=#session.displayrows#;pr.selectedIndex=0;};
+					if (c=='1,#summary.recordcount#')
+						{var numRec=#summary.recordcount#}else{var numRec=#session.displayrows#;pr.selectedIndex=0;};
 					getSpecResultsData(1,numRec,obv,'DESC');">&darr;</span>
 		</td>
 		<td>
