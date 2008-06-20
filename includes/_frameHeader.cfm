@@ -4,4 +4,6 @@
 	<title></title>
 </head>			
 <body>
+<cf_rolecheck>	
 	<div class="content">
+	
