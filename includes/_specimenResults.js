@@ -215,6 +215,8 @@ function removeItems() {
 	var currentLocn = document.getElementById('mapURL').value;
 	if(currentLocn.indexOf('exclCollObjId') > 0){
 		alert('already removed some');
+	} else {
+		alert('nuthin')
 	}
 	
 	document.location='SpecimenResults.cfm?' + currentLocn + '&exclCollObjId=' + theList;
