@@ -398,7 +398,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 				onmouseout="this.className='controlButton'"
 				onclick="document.getElementById('page_record').selectedIndex=0;
 					var obv=document.getElementById('orderBy1').value + ',' + document.getElementById('orderBy2').value;
-					alert(c + '::#summary.recordcount#');
+					var c=document.getElementById('page_record').value;
+						alert(c + '::#summary.recordcount#');
 						if (c=='1,#summary.recordcount#'){var numRec=#summary.recordcount#}else{var numRec=#session.displayrows#};
 					getSpecResultsData(1,numRec,obv,'DESC');">&darr;</span>
 		</td>
