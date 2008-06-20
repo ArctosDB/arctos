@@ -262,7 +262,7 @@
 		currentPath contains "/fix/" or
 		currentPath contains "/picks/" or
 		currentPath contains "/tools/")>
-			<cflocation url="/errors/forbidden.cfm?ref=#currentPath#" addtoken="false">
+			<cflocation url="/errors/forbidden.cfm?ref=#replace(currentPath,application.webDirectory,"")#" addtoken="false">
 	</cfif>
 	<cfreturn true>
 </cffunction>
