@@ -4,7 +4,9 @@
 </div>
 <cfsavecontent variable="errortext">
 	<cfoutput>
-		<cfdump var="#cgi#">
+		<cfloop list="#StructKeyList(cgi)#" index="key">
+			<br>#key#: #cgi[key]#
+		</cfloop>
 	</cfoutput>
 </cfsavecontent>
 <cfthrow 
