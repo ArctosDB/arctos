@@ -213,13 +213,6 @@ function goPickParts (collection_object_id,transaction_id) {
 function removeItems() {
 	var theList = document.getElementById('killRowList').value;
 	var currentLocn = document.getElementById('mapURL').value;
-	alert(currentLocn);
-	if(currentLocn.indexOf('exclCollObjId') > 0){
-		alert('already removed some');
-	} else {
-		alert('nuthin')
-	}
-	
 	document.location='SpecimenResults.cfm?' + currentLocn + '&exclCollObjId=' + theList;
 }
 function toggleKillrow(id,status) {
