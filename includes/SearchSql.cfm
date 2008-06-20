@@ -1514,7 +1514,8 @@
 		</cfif>
 		
   <cfif isdefined("exclCollObjId") and len(#exclCollObjId#) gt 0>
-  		<!---- need to strip out any extra commas before we do anything ---->
+  		<cfset mapurl = "#mapurl#&exclCollObjId=#exclCollObjId#">
+		<!---- need to strip out any extra commas before we do anything ---->
 		<cfset exclCollObjId = trim(exclCollObjId)>
 		<cfif left(exclCollObjId,1) is ",">
 			<cfset exclCollObjId = right(exclCollObjId,len(exclCollObjId)-1)>
