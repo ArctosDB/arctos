@@ -2,11 +2,10 @@
 <div class="error">
  Access denied.
 </div>
+<cfif not isdefined("url.ref"><cfset url.ref=""></cfif>
 <cfsavecontent variable="errortext">
 	<cfoutput>
-		<cfloop list="#StructKeyList(cgi)#" index="key">
-			<br>#key#: #cgi[key]#
-		</cfloop>
+		 Referrer: #url.ref#
 	</cfoutput>
 </cfsavecontent>
 <cfthrow 
