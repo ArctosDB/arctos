@@ -2,10 +2,11 @@
 <div class="error">
  Access denied.
 </div>
-<cfif not isdefined("url.ref"><cfset url.ref=""></cfif>
+<cfif not isdefined("url.ref")><cfset url.ref=""></cfif>
+<cfset r=replace(url.ref,application.webDirectory,"")>
 <cfsavecontent variable="errortext">
 	<cfoutput>
-		 Referrer: #url.ref#
+		 Referrer: #r#
 	</cfoutput>
 </cfsavecontent>
 <cfthrow 
