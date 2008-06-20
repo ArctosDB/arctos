@@ -46,9 +46,7 @@
 				select 
 					loan.transaction_id,
 					RETURN_DUE_DATE,
-					LOAN_NUM_PREFIX,
-					LOAN_NUM,
-					LOAN_NUM_SUFFIX,
+					LOAN_NUMBER,
 					agent_name,
 					address,
 					AUTH_AGENT_ID,
@@ -79,7 +77,7 @@
 					<p>
 						<cfloop query="expLoanIndiv">
 							<a href="#Application.ServerRootUrl#/Loan.cfm?Action=editLoan&transaction_id=#transaction_id#">
-								Loan##: #LOAN_NUM_PREFIX#-#LOAN_NUM#-#LOAN_NUM_SUFFIX#</a> to #agent_name# is due on #dateformat(RETURN_DUE_DATE,'dd mmm yyyy')# (#expires_in_days# days)<br>
+								Loan##: #LOAN_NUMBER#</a> to #agent_name# is due on #dateformat(RETURN_DUE_DATE,'dd mmm yyyy')# (#expires_in_days# days)<br>
 						</cfloop>
 					</p>
 				</cfmail>

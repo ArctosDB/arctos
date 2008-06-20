@@ -26,28 +26,6 @@
 	select taxa_formula from cttaxa_formula order by taxa_formula
 </cfquery>
 <cfoutput>
-<cfquery name="getID" datasource="#Application.web_user#">
-	SELECT
-		identification_id, 
-		identification.scientific_name, 
-		cat_num, 
-		collection_cde, 
-		agent_name, 
-		made_date,
-		nature_of_id, 
-		accepted_id_fg, 
-		identification_remarks
-	FROM 
-		cataloged_item, 
-		identification, 
-		preferred_agent_name
-	WHERE 
-		identification.collection_object_id = cataloged_item.collection_object_id AND
-		identification.id_made_by_agent_id = preferred_agent_name.agent_id AND
-		cataloged_item.collection_object_id IN ( #collection_object_id# )
-	ORDER BY accepted_id_fg
-	DESC
-</cfquery>
 </cfoutput> <cfoutput> <strong>Add Identification For <font size="+1"><i>All</i></font> 
   specimens listed below:</strong> 
   <table>
@@ -223,6 +201,7 @@
 		AND collecting_event.locality_id = locality.locality_id 
 		AND cataloged_item.collecting_event_id = collecting_event.collecting_event_id 
 		AND cataloged_item.collection_object_id = identification.collection_object_id 
+		and accepted_id_fg=1
 		AND cataloged_item.collection_id = collection.collection_id
 		AND cataloged_item.collection_object_id IN (#collection_object_id#)
 	ORDER BY 
