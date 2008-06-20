@@ -7,7 +7,6 @@
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/_myArctos.js'></script>
 <cfoutput>
-	<cfif isdefined("mapurl")>-------#mapurl#------</cfif>
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
 
@@ -203,6 +202,8 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 	#preserveSingleQuotes(SqlString)#
 </cfquery>
 <cfoutput>
+	
+		<cfif isdefined("mapurl")>-------#mapurl#------</cfif>
 <form name="defaults">
 	<input type="hidden" name="killrow" id="killrow" value="#session.killrow#">
 	<input type="hidden" name="displayrows" id="displayrows" value="#session.displayrows#">
