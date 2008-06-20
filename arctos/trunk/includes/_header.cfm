@@ -148,8 +148,8 @@
 									class="loginTxt" onfocus="if(this.value==this.title){this.value=''};">
 							</td>
 							<td>
-                                <input type="text" name="password" value="Password" title="Password"  size="12"
-								  	class="loginTxt" onfocus="if(this.value==this.title){this.value='';this.type='password'};">
+                                <input type="password" name="password" value="Password" title="Password"  size="12"
+								  	class="loginTxt" onfocus="if(this.value==this.title){this.value='';};">
 							</td>
 						</tr>
 						<tr>
