@@ -5,7 +5,7 @@
 <cfif not isdefined("url.ref")><cfset url.ref=""></cfif>
 <cfsavecontent variable="errortext">
 	<cfoutput>
-		 Referrer: #r#
+		 Referrer: #url.ref#
 	</cfoutput>
 </cfsavecontent>
 <cfthrow 
