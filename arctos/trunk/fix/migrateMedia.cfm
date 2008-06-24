@@ -2,8 +2,8 @@
 
 <cfquery name="m" datasource="uam_god">
 	select * from binary_object
-	where collection_object_id > 0
-	and collection_object_id < 11309000
+	where collection_object_id > 11308999
+	and collection_object_id < 11310000
 </cfquery>
 <cfquery name="ms" datasource="uam_god">
 	select seq_media.nextval nv from dual
