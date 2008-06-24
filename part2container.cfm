@@ -36,6 +36,7 @@
 		} else {
 			mDiv.className='successDiv';
 			document.getElementById('oidnum').focus();
+			document.getElementById('oidnum').select();
 		}
 		//alert(status);
 		//alert(msg);
