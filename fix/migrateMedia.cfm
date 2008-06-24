@@ -18,6 +18,8 @@
 			<cfset mtype="image/tiff">
 		<cfelseif left(ext,4) is ".net">
 			<cfset mtype="text/html">
+		<cfelseif left(ext,4) is ".edu">
+			<cfset mtype="text/html">
 		<cfelse>
 			-----------badext: #ext#-----------
 			<cfabort>
