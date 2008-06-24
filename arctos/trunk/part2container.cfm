@@ -35,6 +35,7 @@
 			mDiv.className='error';
 		} else {
 			mDiv.className='successDiv';
+			document.getElementById('oidnum').focus();
 		}
 		//alert(status);
 		//alert(msg);
