@@ -1,4 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
+<cfif len(session.displayrows) is 0>
+	<cfset session.displayrows=20>
+</cfif>
 <cfhtmlhead text="<title>Specimen Results</title>">
 <!--- must process the title before FLUSHing 
 <cf_get_header collection_id="#exclusive_collection_id#">
