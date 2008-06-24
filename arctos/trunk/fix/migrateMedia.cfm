@@ -34,7 +34,7 @@
 				media_type,
 				preview_uri
 			) values (
-				#msmid#,
+				#mid#,
 				'#FULL_URL#',
 				'#mtype#',
 				'image',
