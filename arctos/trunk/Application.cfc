@@ -32,6 +32,9 @@
 			<hr>
 			<cfdump var="#exception#" label="exception">
 			<hr>
+			Session Dump:
+			<hr>
+			<cfdump var="#session#" label="session">
 			Client Dump:
 			<hr>
 			<cfdump var="#client#" label="client">
@@ -223,7 +226,7 @@
 		<cfif not isdefined("session.customOtherIdentifier")>
 			<cfset session.customOtherIdentifier="">
 		</cfif>
-		<cfif not isdefined("session.displayrows") or len(session.displayrows) is 0>
+		<cfif not isdefined("session.displayrows") or len(session.displayrows) is 0 or not isnumeric(session.displayrows) or session.displayrows lt 10>
 			<cfset session.displayrows="20">
 		</cfif>
 		<cfif not isdefined("session.loan_request_coll_id")>
