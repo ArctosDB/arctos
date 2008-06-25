@@ -205,8 +205,6 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 	#preserveSingleQuotes(SqlString)#
 </cfquery>
 <cfoutput>
-	
-		<cfif isdefined("mapurl")>-------#mapurl#------</cfif>
 <form name="defaults">
 	<input type="hidden" name="killrow" id="killrow" value="#session.killrow#">
 	<input type="hidden" name="displayrows" id="displayrows" value="#session.displayrows#">

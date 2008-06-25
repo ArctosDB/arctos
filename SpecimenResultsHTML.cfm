@@ -1931,4 +1931,4 @@ document.getElementById('saveme').submit();
 		<cfinclude template="/includes/activityLog.cfm">
 	</cfif>
 	
-<cf_get_footer collection_id="#exclusive_collection_id#">
+<cf_get_footer collection_id="#session.exclusive_collection_id#">
