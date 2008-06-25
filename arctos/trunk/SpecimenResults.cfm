@@ -418,24 +418,42 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<cfif summary.recordcount lt 1000 and (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>					
 				<label for="goWhere">Manage...</label>
 				<select name="goWhere" id="goWhere" size="1">
+					<option value="">::Change Stuff::</option>
 					<option value="Encumbrances.cfm">
 						Encumbrances
 					</option>
-					<option value="UamMammalVialLabels_pdffile.cfm">
+					<option value="tissueParts.cfm">
+						Flag Parts as Tissues
+					</option>
+					<option value="editIdentification.cfm">
+						Identification
+					</option>
+					<option value="location_tree.cfm">
+						Part Locations
+					</option>
+					<option value="bulkCollEvent.cfm">
+						Collecting Events
+					</option>
+					<option value="addAccn.cfm">
+						Accession
+					</option>
+					<option value="compDGR.cfm">
+						MSB<->DGR
+					</option>
+					<option value="/tools/bulkPart.cfm?table_name=#thisTableName#">
+						Add Parts
+					</option>
+					
+					<option value="">::Print Stuff::</option>
+					<option value="/Reports/report_printer.cfm?report=uam_mamm_vial">
 						UAM Mammals Vial Labels
 					</option>
-					<option value="/Reports/mammalLabels.cfm">
+					<option value="/Reports/report_printer.cfm?report=uam_mamm_box">
 						UAM Mammals Box Labels
-					</option>
-					<option value="MSBMammLabels.cfm">
-						MSB Mammals Labels
-					</option>
-					<!---<option value="/Reports/msbLabels.cfm?collection_object_id=#collObjIdList#">
-						MSB  Labels
-					</option>--->
-                    <option value="/Reports/msbLabelDataDown.cfm">
-						Label Data Download
-					</option>
+					</option>					
+					<option value="/Reports/report_printer.cfm?report=MSB_vial_label">
+						MSB Mammals Vial Labels
+					</option>					
 					<option value="narrowLabels.cfm">
 						MVZ narrow Labels
 					</option>
@@ -451,25 +469,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 						<option value="Reports/permit.cfm">
 							MVZ Permit Report
 						</option>
-					</cfif>
-					<option value="tissueParts.cfm">
-						Flag Parts as Tissues
-					</option>
-					<option value="multiIdentification.cfm">
-						Identification
-					</option>
-					<option value="findContainer.cfm?showControl=1">
-						Part Locations
-					</option>
-					<option value="bulkCollEvent.cfm">
-						Collecting Events
-					</option>
-					<option value="addAccn.cfm">
-						Accession
-					</option>
-					<option value="compDGR.cfm">
-						MSB<->DGR
-					</option>
+					</cfif>					
 					<option value="/Reports/print_nk.cfm">
 						Print NK pages
 					</option>
@@ -478,9 +478,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 					</option>
 					<option value="/bnhmMaps/SpecimensByLocality.cfm?table_name=#thisTableName#">
 						Map By Locality
-					</option>
-					<option value="/tools/bulkPart.cfm?table_name=#thisTableName#">
-						Add Parts
 					</option>
                     <option value="/Reports/report_printer.cfm?collection_object_id=#collObjIdList#">
 						Print Any Report
