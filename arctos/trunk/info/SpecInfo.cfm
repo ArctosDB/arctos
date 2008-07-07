@@ -83,10 +83,8 @@
 			identification.identification_id,
 			accepted_id_fg
 		FROM
-			identification,
-			preferred_agent_name 
+			identification 
 		WHERE
-			identification.id_made_by_agent_id = preferred_agent_name.agent_id AND
 			identification.collection_object_id = #thisId# 
 		ORDER BY accepted_id_fg DESC
 	</cfquery>

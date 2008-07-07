@@ -508,8 +508,6 @@
 		BEGAN_DATE,
 		ENDED_DATE,
 		VERBATIM_DATE,
-		dateDet.agent_name as date_determiner,
-		dateDet.agent_id AS DATE_DETERMINED_BY_AGENT_ID,0
 		COLL_EVENT_REMARKS,
 		COLLECTING_SOURCE,
 		COLLECTING_METHOD,
@@ -532,7 +530,6 @@
 		inner join collecting_event on ( locality.locality_id=collecting_event.locality_id )
 		left outer join accepted_lat_long on (locality.locality_id=accepted_lat_long.locality_id)
 		left outer join preferred_agent_name on (accepted_lat_long.determined_by_agent_id = preferred_agent_name.agent_id)
-		left outer join preferred_agent_name dateDet on (collecting_event.DATE_DETERMINED_BY_AGENT_ID = dateDet.agent_id)
 	where collecting_event.collecting_event_id=#collecting_event_id# 
     </cfquery>
  
@@ -672,22 +669,6 @@
 				</table>
 			</td>
 		</tr>
-		<cfif isdefined('Application.gref_base_url')>
-			<!---<cfquery name='gref_collevent'> 
-				select 
-					concatGrefLinks('#Application.gref_base_url#',
-						'collecting_event',
-						#collecting_event_id#)
-				from
-					dual
-			</cfquery>--->
-			<tr>
-				<td>
-					Field notebook page: 
-					<a class='external' href='http://www.google.com/' target='gref'>dummy</a>
-				</td>
-			</tr>
-		</cfif>
 		<tr>
 			<td colspan="2" nowrap valign="middle">
 				<table width="100%" cellpadding="0" cellspacing="0">
@@ -784,20 +765,7 @@
 			</td>
 		 
           
-        </tr>
-      <tr>
-	  	<td><div align="right">Date Determiner:</div></td>
-		<td>
-			<input 
-				type="text" 
-				name="date_determiner" 
-				value="#date_determiner#" 
-				onchange="getAgent('DATE_DETERMINED_BY_AGENT_ID','date_determiner','locality',this.value);" />
-			<input type="hidden" name="DATE_DETERMINED_BY_AGENT_ID" value="#DATE_DETERMINED_BY_AGENT_ID#" />
-				
-		</td>
-	  </tr>
-       
+        </tr>       
         <tr> 
           <td><div align="right">Remarks:</div></td>
           <td><input type="text" name="COLL_EVENT_REMARKS" value="#COLL_EVENT_REMARKS#" size="50"></td>
@@ -872,9 +840,6 @@
 					<input type="hidden" name="ENDED_DATE" value="#dateformat(ENDED_DATE,'dd-mmm-yyyy')#">
 					<input type="hidden" name="VERBATIM_DATE" value="#VERBATIM_DATE#">
 					<input type="hidden" name="COLL_EVENT_REMARKS" value="#COLL_EVENT_REMARKS#">
-					
-						<input type="hidden" name="DATE_DETERMINED_BY_AGENT_ID" value="#DATE_DETERMINED_BY_AGENT_ID#">
-						<input type="hidden" name="date_determiner" value="#date_determiner#">
 					<input type="hidden" name="COLLECTING_SOURCE" value="#COLLECTING_SOURCE#">
 					<input type="hidden" name="COLLECTING_METHOD" value="#COLLECTING_METHOD#">
 					<input type="hidden" name="HABITAT_DESC" value="#HABITAT_DESC#">
@@ -959,22 +924,6 @@
 			</cfif>
 			></td>
         </tr>
-        <tr>
-			<td align="right">Date Determiner:</td>
-			<td>
-			<input type="hidden" name="DATE_DETERMINED_BY_AGENT_ID"
-				<cfif isdefined("DATE_DETERMINED_BY_AGENT_ID")>
-					value="#DATE_DETERMINED_BY_AGENT_ID#"
-				</cfif>  />
-			<input type="text" 
-					name="date_determiner" 
-					<cfif isdefined("date_determiner")>
-						value="#date_determiner#"
-					</cfif> 
-					class="reqdClr" 
-					onchange="getAgent('DATE_DETERMINED_BY_AGENT_ID','date_determiner','newCollEvnt',this.value); return false;"
-					id="collector_agent_1"></td>
-		</tr>
         <tr> 
           <td><div align="right">Remarks:</div></td>
           <td><input type="text" name="COLL_EVENT_REMARKS" 
@@ -1230,8 +1179,7 @@ You deleted a collecting event.
 		BEGAN_DATE = '#BEGAN_DATE#'
 		,ENDED_DATE = '#ENDED_DATE#'
 		,VERBATIM_DATE = '#VERBATIM_DATE#'
-		,COLLECTING_SOURCE = '#COLLECTING_SOURCE#'
-		,DATE_DETERMINED_BY_AGENT_ID = #DATE_DETERMINED_BY_AGENT_ID#">
+		,COLLECTING_SOURCE = '#COLLECTING_SOURCE#'">
 	<cfif len(#verbatim_locality#) gt 0>
 		<cfset sql = "#sql#,verbatim_locality = '#escapeQuotes(verbatim_locality)#'">
 	<cfelse>
@@ -1428,7 +1376,6 @@ INSERT INTO geog_auth_rec (
 		,ENDED_DATE
 		,VERBATIM_DATE
 		,COLLECTING_SOURCE
-		,DATE_DETERMINED_BY_AGENT_ID
 		,VERBATIM_LOCALITY
 		,COLL_EVENT_REMARKS
 		,COLLECTING_METHOD
@@ -1441,7 +1388,6 @@ INSERT INTO geog_auth_rec (
 		,'#ENDED_DATE#'
 		,'#VERBATIM_DATE#'
 		,'#COLLECTING_SOURCE#'
-		,#DATE_DETERMINED_BY_AGENT_ID#
 		<cfif len(#VERBATIM_LOCALITY#) gt 0>
 			,'#VERBATIM_LOCALITY#'
 		<cfelse>
