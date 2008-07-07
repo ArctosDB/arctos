@@ -338,7 +338,7 @@
 								select count(*) cnt from specimen_annotations
 								where collection_object_id = #collection_object_id#
 							</cfquery>
-							<a href="openAnnotation('#collection_object_id#')">
+							<a href="javascript: openAnnotation('#collection_object_id#')">
 								[Annotate]
 							</a>
 							<cfif #existingAnnotations.cnt# gt 0>
