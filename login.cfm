@@ -48,7 +48,7 @@
 	</cfquery>
 	<!--- handle collection-specific links to this page --->
 	<cfoutput>
-		<cfif len(#exclusive_collection_id#) gt 0>
+		<cfif isdefined("EXCLUSIVE_COLLECTION_ID") and len(#exclusive_collection_id#) gt 0>
 			<cfset sql = "INSERT INTO cf_users (user_id, username, password,exclusive_collection_id,PW_CHANGE_DATE,last_login) VALUES
 			(#nextUserID.nextid#, '#username#', '#hash(password)#',#exclusive_collection_id#,sysdate,sysdate)">
 			<cfset session.exclusive_collection_id = "#exclusive_collection_id#">
