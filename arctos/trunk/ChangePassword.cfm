@@ -182,7 +182,6 @@
 				<cfset thisCharNum = RandRange(1,listlen(cList))>
 				<cfset thisChar = ListGetAt(cList,#thisCharNum#)>
 				<cfset newPass = "#thisChar##newPass#">
-				newPass: #newPass#<br>
 				<cfflush>
 				<cfset i=i+1>
 				<cfif passwordCheck(newPass)>
@@ -193,10 +192,8 @@
 					<cfset i=1>
 				</cfif>
 			</cfloop>	
-			<br>yippee: #newPass#
 			<cfquery name="setNewPass" datasource="uam_god">
-				UPDATE cf_users SET password = '#hash(newPass)#',
-				pw_change_date=(sysdate-91)
+				UPDATE cf_users SET password = '#hash(newPass)#'
 				where user_id = #isGoodEmail.user_id#
 			</cfquery>
 			<cfquery name="db" datasource="uam_god">
@@ -204,7 +201,11 @@
 			</cfquery>
 			
 			<cfmail to="#email#" subject="Arctos password" from="LostFound@#Application.fromEmail#" type="text">
-				Your Arctos username/password is #username#/#newPass#. You will be required to change your password 
+				Your Arctos username/password is 
+				
+				#username#/#newPass#
+				
+				You will be required to change your password 
 				after logging in.
 			
 				#Application.ServerRootUrl#/login.cfm
