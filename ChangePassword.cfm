@@ -182,12 +182,14 @@
 				<cfset thisCharNum = RandRange(1,listlen(cList))>
 				<cfset thisChar = ListGetAt(cList,#thisCharNum#)>
 				<cfset newPass = "#thisChar##newPass#">
+				newPass: #newPass#<br>
+				<cfflush>
 				<cfset i=i+1>
 				<cfif passwordCheck(newPass)>
 					<cfset c=1>
 				</cfif>
 			</cfloop>	
-			
+			<br>yippee: #newPass#
 			<cfquery name="setNewPass" datasource="#uam_god#">
 				UPDATE cf_users SET password = '#hash(newPass)#',
 				pw_change_date=(sysdate-91)
