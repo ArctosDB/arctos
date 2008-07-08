@@ -1,4 +1,5 @@
 <cfinclude template = "includes/_header.cfm">
+<cfinclude template="/includes/functionLib.cfm">
 <!---------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
     <cfset title = "Change Password">
@@ -80,7 +81,6 @@
 			WHERE username = '#session.username#'
 		</cfquery>
 	<cfelse>
-		<cfinclude template="/includes/functionLib.cfm">
 		<cfif not passwordCheck(newpassword)>
 			<span style="background-color:red;">
 			Your password is not complex enough, or contains special characters not allowed by Oracle.
