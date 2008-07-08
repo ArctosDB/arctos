@@ -189,8 +189,7 @@
 					<cfset c=2>
 				</cfif>
 				<cfif i gt 20>
-					<cfset c=2>
-					didnt work<cfabort>
+					<cfset newPass="">
 				</cfif>
 			</cfloop>	
 			<br>yippee: #newPass#
@@ -200,7 +199,7 @@
 				where user_id = #isGoodEmail.user_id#
 			</cfquery>
 			<cfquery name="db" datasource="uam_god">
-				alter user #isGoodEmail.user_id# identified by "#newPass#"
+				alter user #isGoodEmail.username# identified by "#newPass#"
 			</cfquery>
 			
 			<cfmail to="#email#" subject="Arctos password" from="LostFound@#Application.fromEmail#" type="text">
