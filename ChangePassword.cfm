@@ -190,6 +190,7 @@
 				</cfif>
 				<cfif i gt 20>
 					<cfset newPass="">
+					<cfset i=1>
 				</cfif>
 			</cfloop>	
 			<br>yippee: #newPass#
