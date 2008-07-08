@@ -174,10 +174,12 @@
 			<cfset charList = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,z,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,1,2,3,4,5,6,7,8,9,0">
 			<cfset newPass = "">
 			<cfset c=0>
-			<cfloop index="i" condition="c lt 1">
+			<cfset i=1>
+			<cfloop condition="c lt 1">
 				<cfset thisCharNum = RandRange(1,listlen(cList))>
 				<cfset thisChar = ListGetAt(cList,#thisCharNum#)>
 				<cfset newPass = "#thisChar##newPass#">
+				<cfset i=i+1>
 				<cfif passwordCheck(newpassword)>
 					<cfset c=1>
 				</cfif>
