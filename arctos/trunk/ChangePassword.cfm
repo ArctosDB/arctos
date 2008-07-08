@@ -178,7 +178,7 @@
 			<cfset cList="#charList#,#numList#,#specList#">
 			<cfset c=0>
 			<cfset i=1>
-			<cfloop condition="c lt 1">
+			<cfloop condition="c LESS THAN 1">
 				<cfset thisCharNum = RandRange(1,listlen(cList))>
 				<cfset thisChar = ListGetAt(cList,#thisCharNum#)>
 				<cfset newPass = "#thisChar##newPass#">
