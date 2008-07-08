@@ -193,12 +193,12 @@
 				</cfif>
 			</cfloop>	
 			<br>yippee: #newPass#
-			<cfquery name="setNewPass" datasource="#uam_god#">
+			<cfquery name="setNewPass" datasource="uam_god">
 				UPDATE cf_users SET password = '#hash(newPass)#',
 				pw_change_date=(sysdate-91)
 				where user_id = #isGoodEmail.user_id#
 			</cfquery>
-			<cfquery name="db" datasource="#uam_god#">
+			<cfquery name="db" datasource="uam_god">
 				alter user #isGoodEmail.user_id# identified by "#newPass#"
 			</cfquery>
 			

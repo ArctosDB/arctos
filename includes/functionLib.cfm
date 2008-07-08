@@ -373,8 +373,8 @@ function ProperMod(y,x) {
 <cffunction name="passwordCheck">
 	<cfargument name="password" required="true" type="string">
 	<cfargument name="CharOpts" required="false" type="string" default="alpha,digit,punct">
-	<cfargument name="typesRequired" required="false" type="numeric" default="2">
-	<cfargument name="length" required="false" type="numeric" default="6">
+	<cfargument name="typesRequired" required="false" type="numeric" default="3">
+	<cfargument name="length" required="false" type="numeric" default="8">
 
 
 	<!--- Initialize variables --->
