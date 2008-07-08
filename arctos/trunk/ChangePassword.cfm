@@ -186,10 +186,11 @@
 				<cfflush>
 				<cfset i=i+1>
 				<cfif passwordCheck(newPass)>
-					<cfset c=1>
+					<cfset c=2>
 				</cfif>
-				<cfif 1 gt 20>
-					<cfset c=1>
+				<cfif i gt 20>
+					<cfset c=2>
+					didnt work<cfabort>
 				</cfif>
 			</cfloop>	
 			<br>yippee: #newPass#
