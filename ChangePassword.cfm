@@ -188,6 +188,9 @@
 				<cfif passwordCheck(newPass)>
 					<cfset c=1>
 				</cfif>
+				<cfif 1 gt 20>
+					<cfset c=1>
+				</cfif>
 			</cfloop>	
 			<br>yippee: #newPass#
 			<cfquery name="setNewPass" datasource="#uam_god#">
