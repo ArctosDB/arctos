@@ -183,7 +183,7 @@
 				<cfset thisChar = ListGetAt(cList,#thisCharNum#)>
 				<cfset newPass = "#thisChar##newPass#">
 				<cfset i=i+1>
-				<cfif passwordCheck(newpassword)>
+				<cfif passwordCheck(newPass)>
 					<cfset c=1>
 				</cfif>
 			</cfloop>	
