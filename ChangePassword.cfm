@@ -173,22 +173,30 @@
 	  <cfelse>
 			<cfset charList = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,z,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,1,2,3,4,5,6,7,8,9,0">
 			<cfset newPass = "">
-			<cfloop index="i" from="1" to ="10">
-				<cfset thisCharNum = RandRange(1,listlen(charList))>
-				<cfset thisChar = ListGetAt(charList,#thisCharNum#)>
-				<cfset newPass = "#newPass##thisChar#">
-			</cfloop>
-			<cfquery name="setNewPass" datasource="#Application.uam_dbo#">
-				UPDATE cf_users SET password = '#hash(newPass)#'
+			<cfset c=0>
+			<cfloop index="i" condition="c lt 1">
+				<cfset thisCharNum = RandRange(1,listlen(cList))>
+				<cfset thisChar = ListGetAt(cList,#thisCharNum#)>
+				<cfset newPass = "#thisChar##newPass#">
+				<cfif passwordCheck(newpassword)>
+					<cfset c=1>
+				</cfif>
+			</cfloop>	
+			
+			<cfquery name="setNewPass" datasource="#uam_god#">
+				UPDATE cf_users SET password = '#hash(newPass)#',
+				pw_change_date=(sysdate-91)
 				where user_id = #isGoodEmail.user_id#
+			</cfquery>
+			<cfquery name="db" datasource="#uam_god#">
+				alter user #isGoodEmail.user_id# identified by "#newPass#"
 			</cfquery>
 			
 			<cfmail to="#email#" subject="Arctos password" from="LostFound@#Application.fromEmail#" type="text">
-				Your Arctos username/password is #username#/#newPass#. Log in, then change it at:
+				Your Arctos username/password is #username#/#newPass#. You will be required to change your password 
+				after logging in.
 			
-				#Application.ServerRootUrl#/ChangePassword.cfm
-				
-				or from your Preferences.
+				#Application.ServerRootUrl#/login.cfm
 				
 				If you did not request this change, please reply to #Application.technicalEmail#.
 			</cfmail>
