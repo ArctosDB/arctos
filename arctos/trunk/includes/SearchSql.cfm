@@ -281,11 +281,11 @@
 				<cfset sciNameOper = "LIKE">
 			</cfif>
 			<cfif #sciNameOper# is "LIKE">
-				<cfset basQual = " #basQual# AND upper(scientific_name) LIKE '%#ucase(scientific_name)#%'">					
+				<cfset basQual = " #basQual# AND upper(#flatTableName#.scientific_name) LIKE '%#ucase(scientific_name)#%'">					
 			<cfelseif #sciNameOper# is "=">
-				<cfset basQual = " #basQual# AND scientific_name = '#scientific_name#'">
+				<cfset basQual = " #basQual# AND #flatTableName#.scientific_name = '#scientific_name#'">
 			<cfelseif #sciNameOper# is "NOT LIKE">
-				<cfset basQual = " #basQual# AND upper(scientific_name) NOT LIKE '%#ucase(scientific_name)#%'">
+				<cfset basQual = " #basQual# AND upper(#flatTableName#.scientific_name) NOT LIKE '%#ucase(scientific_name)#%'">
 			</cfif>
 		</cfif>
 		
