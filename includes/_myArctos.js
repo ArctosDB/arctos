@@ -73,7 +73,7 @@ function changedisplayRows (tgt) {
 }
 function success_changedisplayRows (result) {
 	if (result == 'success') {
-		var e = document.getElementById('displayRows').className='';
+		document.getElementById('displayRows').className='';
 	} else {
 		alert('An error occured: ' + result);
 	}
