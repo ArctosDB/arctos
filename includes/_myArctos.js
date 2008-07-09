@@ -82,7 +82,7 @@ function success_changedisplayRows (result) {
 function changekillRows (tgt) {
 	DWREngine._execute(_cfscriptLocation, null, 'changekillRows',tgt, success_changekillRows);
 }
-function success_changekillRows(r){
+function success_changekillRows(result){
 	if (result != 'success') {
 		alert('An error occured: ' + result);
 	}
