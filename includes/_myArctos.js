@@ -79,9 +79,13 @@ function success_changedisplayRows (result) {
 	}
 }
 
-function changekillRows (tgt) {
-	var e = document.getElementById('killRows').checked;
-	alert(e);
+function changekillRows () {
+	if (document.getElementById('killRows').checked){
+		var tgt=1;
+	} else {
+		var tgt=0;
+	}
+	alert(tgt);
 	DWREngine._execute(_cfscriptLocation, null, 'changekillRows',tgt, success_changekillRows);
 }
 function success_changekillRows(result){
