@@ -203,12 +203,6 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 		where encumbering_agent_id = #bads.agent_id#
 	</cfquery>
 	got encumbrance<br><cfflush>
-	<cfquery name="identification" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-		update identification set
-		id_made_by_agent_id = #bads.related_agent_id#
-		where id_made_by_agent_id = #bads.agent_id#
-	</cfquery>
-	got ID<br><cfflush>
 	<cfquery name="identification_agent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 		update identification_agent set
 		agent_id = #bads.related_agent_id#

@@ -191,15 +191,24 @@
 					<cfset newPass="">
 					<cfset i=1>
 				</cfif>
-			</cfloop>	
-			<cfquery name="setNewPass" datasource="uam_god">
-				UPDATE cf_users SET password = '#hash(newPass)#'
-				where user_id = #isGoodEmail.user_id#
-			</cfquery>
-			<cfquery name="db" datasource="uam_god">
-				alter user #isGoodEmail.username# identified by "#newPass#"
-			</cfquery>
+			</cfloop>
 			
+			<cftransaction>
+				<cfquery name="stopTrg" datasource="uam_god">
+					alter trigger CF_PW_CHANGE disable
+				</cfquery>
+				<cfquery name="setNewPass" datasource="uam_god">
+					UPDATE cf_users SET password = '#hash(newPass)#',
+					pw_change_date=sysdate-91
+					where user_id = #isGoodEmail.user_id#
+				</cfquery>
+				<cfquery name="db" datasource="uam_god">
+					alter user #isGoodEmail.username# identified by "#newPass#"
+				</cfquery>
+				<cfquery name="stopTrg" datasource="uam_god">
+					alter trigger CF_PW_CHANGE enable
+				</cfquery>
+			</cftransaction>	
 			<cfmail to="#email#" subject="Arctos password" from="LostFound@#Application.fromEmail#" type="text">
 				Your Arctos username/password is 
 				
