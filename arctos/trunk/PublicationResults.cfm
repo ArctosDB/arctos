@@ -36,7 +36,9 @@
 		<cfset basWhere = "#basWhere# AND UPPER(publication_title) LIKE '%#ucase(pubTitle)#%'">
 	</cfif>
 	<cfif isdefined("onlyCitePubs") AND #onlyCitePubs# gt 0>
-		<cfset basFrom = "#basFrom#,citation">
+		<cfif #basFrom# does not contain "citation">
+			<cfset basFrom = "#basFrom#,citation">
+		</cfif>
 		<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id">
 	</cfif>
 	<cfif isdefined("pubAuthor") AND len(#pubAuthor#) gt 0>
@@ -83,8 +85,10 @@
 			upper(journal_name) #jnOper# #jname#">
 	</cfif>
 	<cfif isdefined("collection_id") AND len(#collection_id#) gt 0>
-		<cfset basFrom = "#basFrom# ,
-			citation,cataloged_item">
+		<cfset basFrom = "#basFrom#,cataloged_item">
+		<cfif #basFrom# does not contain "citation">
+			<cfset basFrom = "#basFrom#,citation">
+		</cfif>
 		<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id 
 			AND citation.collection_object_id = cataloged_item.collection_object_id AND
 			cataloged_item.collection_id = #collection_id#">
