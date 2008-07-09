@@ -42,7 +42,7 @@ jQuery( function($) {
 		theDiv.innerHTML+='<label for="result_sort">Remove Rows</label>';
 		var temp='<input type="checkbox" name="killRows" id="killRows" onchange=";changekillRows();" <cfif session.killrow is 1>checked="checked"</cfif>>';
 		theDiv.innerHTML+=temp;
-		
+		theDiv.innerHTML+='(Requires Refresh)';
 		
 		document.body.appendChild(theDiv);
 		document.getElementById('result_sort').value=result_sort;
@@ -386,7 +386,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 					getSpecResultsData(1,numRec,obv,'DESC');">&darr;</span>
 		</td>
 		<td>
-			<span id="sPrefs" class="infoLink">Save...</span>
+			<span id="sPrefs" class="infoLink">Settings...</span>
 		</td>
 		<td><div style="width:100px;">&nbsp;</div></td>
 		<td>
