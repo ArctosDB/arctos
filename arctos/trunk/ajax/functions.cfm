@@ -3,6 +3,9 @@
 <cffunction name="changekillRows" returntype="string">
 	<cfargument name="tgt" type="string" required="yes">
 	<cftry>
+			<cfif tgt is not 1>
+				<cfset tgt=0>
+			</cfif>
 			<cfquery name="up" datasource="#Application.web_user#">
 				UPDATE cf_users SET
 					KILLROW = #tgt#
