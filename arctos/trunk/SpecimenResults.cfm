@@ -42,7 +42,7 @@ jQuery( function($) {
 		theDiv.innerHTML+='<label for="result_sort">Remove Rows</label>';
 		var temp='<input type="checkbox" name="killRows" id="killRows" onchange=";changekillRows();" <cfif session.killrow is 1>checked="checked"</cfif>>';
 		theDiv.innerHTML+=temp;
-		theDiv.innerHTML+='(Requires Refresh)';
+		theDiv.innerHTML+='<span style="font-size:small">(Requires Refresh)</span>';
 		
 		document.body.appendChild(theDiv);
 		document.getElementById('result_sort').value=result_sort;
