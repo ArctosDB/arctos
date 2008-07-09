@@ -1114,7 +1114,7 @@
 				(identification_taxonomy.taxon_name_id = common_name.taxon_name_id)">
 			</cfif>
 			<cfset basQual = " #basQual# AND identification.accepted_id_fg = 1 AND
-				 UPPER(Common_Name) LIKE '%#ucase(replace(Common_Name,"'","''","all"))#%'">
+				 UPPER(common_name.Common_Name) LIKE '%#ucase(stripQuotes(Common_Name))#%'">
 			<cfset mapurl = "#mapurl#&Common_Name=#Common_Name#">
 		</cfif>
 		
