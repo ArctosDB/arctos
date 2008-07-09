@@ -40,7 +40,7 @@ jQuery( function($) {
 		theDiv.innerHTML+=temp;
 		
 		theDiv.innerHTML+='<label for="result_sort">Remove Rows</label>';
-		var temp='<input type="checkbox" name="killRows" id="killRows" onchange=";changekillRows();">';
+		var temp='<input type="checkbox" name="killRows" id="killRows" onchange=";changekillRows();" <cfif session.killrow is 1>checked="checked"</cfif>>';
 		theDiv.innerHTML+=temp;
 		
 		
