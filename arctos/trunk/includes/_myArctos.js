@@ -80,7 +80,7 @@ function success_changedisplayRows (result) {
 }
 
 function changekillRows (tgt) {
-	var e = document.getElementById('killRows').value;
+	var e = document.getElementById('killRows').checked;
 	alert(e);
 	DWREngine._execute(_cfscriptLocation, null, 'changekillRows',tgt, success_changekillRows);
 }
