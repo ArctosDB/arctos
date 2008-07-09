@@ -356,7 +356,7 @@
 		<cfif isdefined("any_taxa_term") AND len(#any_taxa_term#) gt 0>
 			<cfset mapurl = "#mapurl#&any_taxa_term=#any_taxa_term#">
 			<cfset basJoin = " #basJoin# inner join taxa_terms on (#flatTableName#.collection_object_id = taxa_terms.collection_object_id)">
-			<cfset basQual = " #basQual# AND taxa_terms.taxa_term like '%#ucase(any_taxa_term)#%'">		
+			<cfset basQual = " #basQual# AND taxa_terms.taxa_term like '%#escapeQuotes(ucase(any_taxa_term))#%'">		
 		</cfif>
 		<cfif isdefined("identified_agent_id") AND len(#identified_agent_id#) gt 0>
 			<cfset mapurl = "#mapurl#&identified_agent_id=#identified_agent_id#">
