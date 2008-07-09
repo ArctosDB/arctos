@@ -21,14 +21,14 @@ jQuery( function($) {
 		theDiv.innerHTML='<span onclick="removeHelpDiv()" class="docControl">X</span>';
 
 		theDiv.innerHTML+='<label for="displayRows">Rows Per Page</label>';
-		theDiv.innerHTML+='<select name="displayRows" id="displayRows" onchange="this.className=' + "'red'" + ';changedisplayRows(this.value);" size="1"><option  <cfif #session.displayRows# is "10"> selected </cfif> value="10">10</option><option  <cfif #session.displayRows# is "20"> selected </cfif> value="20" >20</option><option  <cfif #session.displayRows# is "50"> selected </cfif> value="50">50</option><option  <cfif #session.displayRows# is "100"> selected </cfif> value="100">100</option></select>';
+		theDiv.innerHTML+='<select name="displayRows" id="displayRows" onchange="changedisplayRows(this.value);" size="1"><option <cfif #session.displayRows# is "10"> selected </cfif> value="10">10</option><option  <cfif #session.displayRows# is "20"> selected </cfif> value="20" >20</option><option  <cfif #session.displayRows# is "50"> selected </cfif> value="50">50</option><option  <cfif #session.displayRows# is "100"> selected </cfif> value="100">100</option></select>';
 		var resultList=document.getElementById('resultList').value;
 		var customID=document.getElementById('customID').value;
 		var result_sort=document.getElementById('result_sort').value;
 		var displayRows=document.getElementById('displayRows').value;		
 		
 		theDiv.innerHTML+='<label for="result_sort">Primary Sort</label>';
-		var temp='<select name="result_sort" id="result_sort" onchange="this.className=' + "'red'" + ';changeresultSort(this.value);" size="1">';
+		var temp='<select name="result_sort" id="result_sort" onchange=";changeresultSort(this.value);" size="1">';
 		if (customID.length > 0) {
 			temp+='<option value="' + customID + '">' + customID + '</option>';			
 		}
@@ -38,6 +38,12 @@ jQuery( function($) {
 		}	
 		temp+='</select>';
 		theDiv.innerHTML+=temp;
+		
+		theDiv.innerHTML+='<label for="result_sort">Remove Rows</label>';
+		var temp='<input type="checkbox" name="killRows" id="killRows" onchange=";changekillRows(this.value);">';
+		theDiv.innerHTML+=temp;
+		
+		
 		document.body.appendChild(theDiv);
 		document.getElementById('result_sort').value=result_sort;
 		document.getElementById('displayRows').value=displayRows;

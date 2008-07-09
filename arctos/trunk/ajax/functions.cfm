@@ -1,6 +1,21 @@
-
 <cfinclude template="/ajax/core/cfajax.cfm">
-
+<!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="changekillRows" returntype="string">
+	<cfargument name="tgt" type="string" required="yes">
+	<cftry>
+			<cfquery name="up" datasource="#Application.web_user#">
+				UPDATE cf_users SET
+					KILLROW = #tgt#
+				WHERE username = '#session.username#'
+			</cfquery>
+			<cfset session.KILLROW = "#tgt#">
+		<cfset result="success">
+	<cfcatch>
+		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
+	</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
 <!-------------------------------------------->
 <cffunction name="addPartToContainer" returntype="String">
 	<cfargument name="collection_id" type="numeric" required="yes">
