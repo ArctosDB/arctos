@@ -85,7 +85,6 @@ function changekillRows () {
 	} else {
 		var tgt=0;
 	}
-	alert(tgt);
 	DWREngine._execute(_cfscriptLocation, null, 'changekillRows',tgt, success_changekillRows);
 }
 function success_changekillRows(result){
