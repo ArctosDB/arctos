@@ -62,7 +62,11 @@
 				<tr>
 					<td align="left" width="60%">
 						<blockquote>
-							#replace(getLoan.outside_address,"#chr(10)#","<br>","all")#
+							#getLoan.recAgentName#
+							<br>
+							<cfif len(#getLoan.outside_contact_name#) gt 0>
+								ATTN: #replace(getLoan.outside_address,"#chr(10)#","<br>","all")#
+							</cfif>
 						</blockquote>
 					</td>
 					<td align="right" valign="top">
