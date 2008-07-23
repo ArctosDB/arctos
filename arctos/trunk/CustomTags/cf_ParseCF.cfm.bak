@@ -1,0 +1,9 @@
+<cf_ParseCF var="myOutput">
+    
+     
+     <cfoutput query="getDM">
+     #cat_num# - #scientific_name#<br>
+     </cfoutput>
+     
+    
+</cf_ParseCF>

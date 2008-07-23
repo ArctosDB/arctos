@@ -1,0 +1,11 @@
+<!--#set var="thisTaxon" value="Alces alces" -->
+<!--#include virtual="/includes/_akmammHeader.shtml" -->
+<TABLE WIDTH=600><TR><TD>
+<font size=+2><B><I>Alces alces</I> (Linnaeus, 1758)</B></font>
+<table width=600 border=1><tr><td align=left><B>Subspecies</b></td><td align=right><B>Type Locality</b></td></tr>
+<tr>
+<td align=left><I>Alces alces gigas</I> Miller</td><td align=right>N side Tustumena Lake, Kenai Peninsula</td></tr>
+</table>
+</TD></TR></TABLE>
+</center>
+<!--#include virtual="/includes/_akmammFooter.shtml" -->
