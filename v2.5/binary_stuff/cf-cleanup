@@ -1,0 +1,33 @@
+#!/bin/sh
+#==============================================================================
+#
+# CVS: "$Id: cf-cleanup,v 1.1 2005/10/12 00:14:22 rdr Exp $"
+#      "$Name:  $"
+#
+# BY:
+#     Lewis Burgess - (27-Sep-05)
+#
+# DESCRIPTION:
+#	This script cleans the coldfusion installation under tomcat.
+#
+#==============================================================================
+
+#------------------------------------------------------------------------------
+# globals
+#------------------------------------------------------------------------------
+
+DUPLOGDIR=${HOME}/tomcat/webapps/cfusion/WEB-INF
+VERITYDIR=${HOME}/tomcat/webapps/cfusion/WEB-INF/cfusion/lib
+VERITY_JAR=${HOME}/lib/verity.jar
+
+#------------------------------------------------------------------------------
+# begin
+#------------------------------------------------------------------------------
+
+# make sure the new fixed verity.jar is in place
+echo "::::::: Copying verity.jar file into place"
+cp -p ${VERITY_JAR} ${VERITYDIR}/
+
+# remove coldfusions log jars (use those that come with java)
+echo "::::::: removing duplicate common-logging jars in CF hierarchy"
+find ${DUPLOGDIR} -name 'commons-logging*jar' | xargs rm

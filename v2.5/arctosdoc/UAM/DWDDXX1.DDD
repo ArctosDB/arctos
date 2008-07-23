@@ -1,0 +1,41 @@
+<!--#set var="title" value="Help" -->
+<!--#include virtual="../includes/_header.shtml" -->
+
+<font size="+2">Help: Table of Contents</font>
+<p><strong><a href="../UAM/search_examples_TOC.shtml">Examples of Searches</a></strong></p>
+<p><strong>Public Help</strong> (You can reach appropriate help pages from the icon
+<img src="../images/what.gif" width="18" height="18" border="0" align="top" alt="question-mark icon">
+on many forms.)</p>
+		<ul>
+			<li><a href="../pageHelp/searching.shtml"><strong> Specimen Search</strong></a></li>
+			<li><a href="../pageHelp/specimen_results.shtml"><strong> Specimen List</strong></a></li>
+			<li><a href="../pageHelp/resultsearch.shtml"><strong> Publication/Project Search</strong></a></li>
+			<li><a href="../pageHelp/customize.shtml"><strong> Advanced Features</strong></a></li>
+		</ul>
+<p><strong>Operator Help</strong></p>
+	<ul>
+		<li><a href="../Bulkloader/index.shtml"><strong>Add New Records</strong></a> (Bulk-loading)</li>
+	</ul>
+	
+<p><a href="../pageHelp/about.shtml#requirements">
+<strong>System Requirements</strong></a></p>
+
+<p><a href="../pageHelp/about.shtml#browser_compatiblity">
+<strong>Browser Compatibility</strong></a></p>
+
+<p><a href="http://www.uaf.edu/museum/af/using.html">
+<strong>Specimen Use Policy</strong></a></p>
+
+<p><a href="../pageHelp/about.shtml#suggest">
+<strong>Suggestions</strong></a></p>
+
+<p><a href="http://arctos.database.museum/info/bugs.cfm" target="_blank">
+<strong>Report Bugs</strong></a></p>
+
+<p><a href="../arctosdoc/definitions_standards_index.shtml">
+<strong>Definitions and Standards</strong></a></p>
+
+<!--
+<p><strong>Report Crummy Data</strong></p>
+-->
+<!--#include virtual="/includes/_footer.shtml" -->

@@ -1,0 +1,13 @@
+<!--#set var="title" value="Examples of Searches on BUENO (Index)" -->
+<!--#include virtual="/includes/_header.shtml" -->
+
+<font size="-2"><a href="../GENERIC/index.shtml">Help</a> >> <strong>Examples of Searches on BUENO (Index)</strong></font><br />
+<a href="search_examples.shtml"><font size="+2">Examples of Searches on BUENO</font></a> <font size="+2">(Index)</font>
+<ul>
+	<li><a href="http://curator.museum.uaf.edu/MSB/search_examples.shtml#polar_bear">Map spotted bats from New Mexico</a></li>
+	<li><a href="http://curator.museum.uaf.edu/MSB/search_examples.shtml#collared_lemming">Brown bats (<i>Myotis</i> for which there is DNA sequence</a></li>
+	<li><a href="http://curator.museum.uaf.edu/MSB/search_examples.shtml#brown_lemming">Collared peccaries which include frozen tissues</a></li> 
+	<li><a href="http://curator.museum.uaf.edu/MSB/search_examples.shtml#willow"><i>Myotis californicus</i> collected between 10 October and the end of December</a></li>
+</ul>
+
+<!--#include virtual="/includes/_footer.shtml" -->
