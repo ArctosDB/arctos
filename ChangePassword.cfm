@@ -1,5 +1,4 @@
 <cfinclude template = "includes/_header.cfm">
-<cfinclude template="/includes/functionLib.cfm">
 <!---------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
     <cfset title = "Change Password">
@@ -81,6 +80,7 @@
 			WHERE username = '#session.username#'
 		</cfquery>
 	<cfelse>
+		<cfinclude template="/includes/functionLib.cfm">
 		<cfif not passwordCheck(newpassword)>
 			<span style="background-color:red;">
 			Your password is not complex enough, or contains special characters not allowed by Oracle.
@@ -172,52 +172,23 @@
 		<cfabort>
 	  <cfelse>
 			<cfset charList = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,z,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,1,2,3,4,5,6,7,8,9,0">
-			<cfset numList="1,2,3,4,5,6,7,8,9,0">
-			<cfset specList=".">
 			<cfset newPass = "">
-			<cfset cList="#charList#,#numList#,#specList#">
-			<cfset c=0>
-			<cfset i=1>
-			<cfloop condition="c LESS THAN 1">
-				<cfset thisCharNum = RandRange(1,listlen(cList))>
-				<cfset thisChar = ListGetAt(cList,#thisCharNum#)>
-				<cfset newPass = "#thisChar##newPass#">
-				<cfflush>
-				<cfset i=i+1>
-				<cfif passwordCheck(newPass)>
-					<cfset c=2>
-				</cfif>
-				<cfif i gt 20>
-					<cfset newPass="">
-					<cfset i=1>
-				</cfif>
+			<cfloop index="i" from="1" to ="10">
+				<cfset thisCharNum = RandRange(1,listlen(charList))>
+				<cfset thisChar = ListGetAt(charList,#thisCharNum#)>
+				<cfset newPass = "#newPass##thisChar#">
 			</cfloop>
+			<cfquery name="setNewPass" datasource="#Application.uam_dbo#">
+				UPDATE cf_users SET password = '#hash(newPass)#'
+				where user_id = #isGoodEmail.user_id#
+			</cfquery>
 			
-			<cftransaction>
-				<cfquery name="stopTrg" datasource="uam_god">
-					alter trigger CF_PW_CHANGE disable
-				</cfquery>
-				<cfquery name="setNewPass" datasource="uam_god">
-					UPDATE cf_users SET password = '#hash(newPass)#',
-					pw_change_date=sysdate-91
-					where user_id = #isGoodEmail.user_id#
-				</cfquery>
-				<cfquery name="db" datasource="uam_god">
-					alter user #isGoodEmail.username# identified by "#newPass#"
-				</cfquery>
-				<cfquery name="stopTrg" datasource="uam_god">
-					alter trigger CF_PW_CHANGE enable
-				</cfquery>
-			</cftransaction>	
 			<cfmail to="#email#" subject="Arctos password" from="LostFound@#Application.fromEmail#" type="text">
-				Your Arctos username/password is 
-				
-				#username#/#newPass#
-				
-				You will be required to change your password 
-				after logging in.
+				Your Arctos username/password is #username#/#newPass#. Log in, then change it at:
 			
-				#Application.ServerRootUrl#/login.cfm
+				#Application.ServerRootUrl#/ChangePassword.cfm
+				
+				or from your Preferences.
 				
 				If you did not request this change, please reply to #Application.technicalEmail#.
 			</cfmail>

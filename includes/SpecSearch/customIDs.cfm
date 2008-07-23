@@ -42,7 +42,7 @@ function success_changefancyCOID (result) {
 </script>
 <cfoutput>
 <cfif len(#session.exclusive_collection_id#) gt 0>
-	<cfset oidTable = "cCTCOLL_OTHER_ID_TYPE#exclusive_collection_id#">
+	<cfset oidTable = "cCTCOLL_OTHER_ID_TYPE#session.exclusive_collection_id#">
 <cfelse>
 	<cfset oidTable = "CTCOLL_OTHER_ID_TYPE">
 </cfif>

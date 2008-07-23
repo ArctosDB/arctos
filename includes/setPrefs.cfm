@@ -1,13 +1,25 @@
+<cfif isdefined("session.username")>
+	<cfset username = #session.username#>
+</cfif>
 <cfquery name="getPrefs" datasource="#Application.web_user#">
-	select * from cf_users
-	 where 
-	 username = '#session.username#' order by cf_users.user_id
-</cfquery>
-<cfoutput query="getPrefs" group="user_id">
+		select * from cf_users
+		 where 
+		 username = '#username#' order by cf_users.user_id
+	</cfquery>
+	<cfquery name="id" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+		select agent_id from agent_name where agent_name='#session.username#'
+		and agent_name_type='login'
+	</cfquery>
+	<cfif id.recordcount is 1>
+		<cfset session.myAgentId=#id.agent_id#>
+	</cfif>
+	<cfoutput query="getPrefs" group="user_id">
 	<!--- set session variables with all their stored values --->
 	<cfset session.last_login = "#last_login#">
 	<cfset session.target = "#target#">
-	<cfset session.displayrows = "#displayRows#">
+	<cfif len(displayRows) gt 0 and displayRows gt 0>
+		<cfset session.displayrows = "#displayRows#">
+	</cfif>
 	<cfset session.mapSize = "#mapSize#">
 	<cfset session.showObservations = "#showObservations#">
 	<cfset session.resultcolumnlist = "#resultcolumnlist#">

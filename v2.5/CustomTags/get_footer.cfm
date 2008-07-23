@@ -1,1 +1,0 @@
-<cfinclude template="/includes/_footer.cfm">

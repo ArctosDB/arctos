@@ -1055,7 +1055,7 @@
 					<cfset i=i+1>
 				</cfloop>
 			<cfelse><!--- part name only --->		
-				<cfset basQual = " #basQual# AND upper(PARTS) LIKE '%#part_name#%'">
+				<cfset basQual = " #basQual# AND upper(PARTS) LIKE '%#ucase(part_name)#%'">
 			</cfif>
 		</cfif>
 		<cfif isdefined("is_tissue") AND #is_tissue# is 1>

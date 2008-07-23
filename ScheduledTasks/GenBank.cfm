@@ -15,7 +15,8 @@
 		c.INSTITUTION_ACRONYM,
 		c.collection,
 		c.collection_cde,
-		c.institution_acronym
+		c.institution_acronym,
+		a.cat_num
 	FROM
 		cataloged_item a,
 		coll_obj_other_id_num b,

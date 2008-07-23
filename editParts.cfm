@@ -55,7 +55,8 @@
 <b>Edit #getParts.recordcount# Specimen Parts</b>
 &nbsp;
 <a href="javascript:void(0);" onClick="getDocs('parts')"><img src="/images/info.gif" border="0"></a>
-<br><a href="Container.cfm?srch=Part&collection_object_id=#collection_object_id#" target="#session.target#">Part Locations</a>
+<br>
+<a href="/findContainer.cfm?collection_object_id=#collection_object_id#">Part Locations</a>
 <br><a href="##newPart">New</a>
 <cfset i = 1>
 <cfset listedParts = "">

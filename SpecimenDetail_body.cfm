@@ -1049,6 +1049,9 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 											<td>#weight.attribute_value# #weight.attribute_units#&nbsp;</td>
 										</tr>
 									</table>
+									<!----
+									Not sure what the hell this should be doing, but its not scoping variables correctly.
+									Disabing it - DLM
 									<cfif len(#attributeDeterminer#) gt 0>
 											<cfset determination = "#attributeDeterminer#">
 											<cfif len(#determined_date#) gt 0>
@@ -1063,6 +1066,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 												</span>
 											</div>
 										</cfif>
+										---->
 								</span>
 							</div>
 						</cfif>

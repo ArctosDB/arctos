@@ -133,6 +133,11 @@
 </cfif>
 <!------------------------------------------------------------>
 <cfif #action# is "save">
+<!--- turns out they can uncheck all and STILL submit... --->
+<cfif not isdefined("newCollObjId")>
+	<cfset newCollObjId=-1>
+</cfif>
+
 <cfoutput>
 <cfset user_id=0>
 <cfif isdefined("session.username") and len(#session.username#) gt 0>

@@ -47,8 +47,8 @@
     <cfinclude template="/includes/alwaysInclude.cfm"><!--- keep this stuff accessible from non-header-having files --->
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <cfset ssName = replace(session.stylesheet,".css","","all")>
-    <link rel="alternate stylesheet" type="text/css" href="/includes/css/#session.stylesheet#" title="#ssName#">
-    <META http-equiv="Default-Style" content="#ssName#">
+	<link rel="alternate stylesheet" type="text/css" href="/includes/css/#session.stylesheet#" title="#ssName#">
+	<META http-equiv="Default-Style" content="#ssName#">
     <style type="text/css" media="screen"> 
         @import "/includes/mainMenu.css"; 
     </style>

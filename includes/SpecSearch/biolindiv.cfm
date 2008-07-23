@@ -1,9 +1,9 @@
 <script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>	
 <cfoutput>
-<cfif len(#exclusive_collection_id#) gt 0>
-	<cfset partTable = "cctspecimen_part_name#exclusive_collection_id#">
-	<cfset presTable = "cCTSPECIMEN_PRESERV_METHOD#exclusive_collection_id#">
-	<cfset pmodTable = "cCTSPECIMEN_PART_MODIFIER#exclusive_collection_id#">
+<cfif len(#session.exclusive_collection_id#) gt 0>
+	<cfset partTable = "cctspecimen_part_name#session.exclusive_collection_id#">
+	<cfset presTable = "cCTSPECIMEN_PRESERV_METHOD#session.exclusive_collection_id#">
+	<cfset pmodTable = "cCTSPECIMEN_PART_MODIFIER#session.exclusive_collection_id#">
 <cfelse>
 	<cfset partTable = "ctspecimen_part_name">
 	<cfset presTable = "CTSPECIMEN_PRESERV_METHOD">

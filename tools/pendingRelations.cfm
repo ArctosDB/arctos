@@ -137,7 +137,7 @@ Pending Relationships
 			<cfelse>
 				<cfquery name="isOne" datasource="#Application.web_user#">
 					select collection_object_id FROM coll_obj_other_id_num
-					where other_id_type = '#related_to_num_type#' and other_id_num = '#related_to_number#'
+					where other_id_type = '#related_to_num_type#' and display_value = '#related_to_number#'
 				</cfquery>			
 			</cfif>
 			
@@ -164,6 +164,7 @@ Pending Relationships
 						relationship = '#relationship#'
 				</cfquery>
 			<cfelseif #isOne.recordcount# is 1>
+				<cftry>
 				<cfquery name="insNew" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 					INSERT INTO
 						 BIOL_INDIV_RELATIONS (
@@ -183,6 +184,19 @@ Pending Relationships
 						related_to_num_type = '#related_to_num_type#' and
 						relationship = '#relationship#'
 				</cfquery>
+				<cfcatch>
+					<cfquery name="toomany" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+						update cf_temp_relations set 
+							lasttrydate='#dateformat(now(),"dd-mmm-yyyy")#',
+							fail_reason='DB Error. #cfcatch.detail#'
+						WHERE
+							collection_object_id=#collection_object_id# and
+							related_to_number = '#related_to_number#' and
+							related_to_num_type = '#related_to_num_type#' and
+							relationship = '#relationship#'
+					</cfquery>
+				</cfcatch>
+				</cftry>
 				<!---- insert into relationships ---->
 			<cfelse>
 				<cfquery name="toomany" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">

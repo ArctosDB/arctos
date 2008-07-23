@@ -50,6 +50,14 @@
 <cfset temp = QuerySetCell(TblCtblFld, "code_table_name", "ctagent_relationship", #i#)>
 <cfset temp = QuerySetCell(TblCtblFld, "field_name", "agent_relationship", #i#)>
 <cfset i=#i#+1>
+
+<cfset newrows = queryaddrow(TblCtblFld, 1)>
+<cfset temp = QuerySetCell(TblCtblFld, "table_name", "permit", #i#)>
+<cfset temp = QuerySetCell(TblCtblFld, "code_table_name", "ctpermit_type", #i#)>
+<cfset temp = QuerySetCell(TblCtblFld, "field_name", "permit_type", #i#)>
+<cfset i=#i#+1>
+
+
 </cfoutput>
 <!----
 <cfset newrows = queryaddrow(TblCtblFld, 1)>

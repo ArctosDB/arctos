@@ -182,6 +182,30 @@
 </cfquery>
 <cfset thisID = #nextPub.nextID#>
 <cftransaction>
+<cfquery name="newJAP" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+INSERT INTO publication (
+PUBLICATION_ID,
+PUBLICATION_TYPE
+<cfif len(#PUBLISHED_YEAR#) gt 0>
+	,PUBLISHED_YEAR
+</cfif>
+,publication_title
+<cfif len(#PUBLICATION_REMARKS#) gt 0>
+	,PUBLICATION_REMARKS
+</cfif>
+)
+values (
+#thisID#,
+'Journal Article'
+<cfif len(#PUBLISHED_YEAR#) gt 0>
+	,#PUBLISHED_YEAR#
+</cfif>
+,'#publication_title#'
+<cfif len(#PUBLICATION_REMARKS#) gt 0>
+	,'#PUBLICATION_REMARKS#'
+</cfif>
+)
+</cfquery>
 <cfquery name="newJA" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 INSERT INTO journal_article (
 PUBLICATION_ID ,
@@ -215,30 +239,7 @@ JOURNAL_ID
 </cfif>
 )
 </cfquery>
-<cfquery name="newJAP" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-INSERT INTO publication (
-PUBLICATION_ID,
-PUBLICATION_TYPE
-<cfif len(#PUBLISHED_YEAR#) gt 0>
-	,PUBLISHED_YEAR
-</cfif>
-,publication_title
-<cfif len(#PUBLICATION_REMARKS#) gt 0>
-	,PUBLICATION_REMARKS
-</cfif>
-)
-values (
-#thisID#,
-'Journal Article'
-<cfif len(#PUBLISHED_YEAR#) gt 0>
-	,#PUBLISHED_YEAR#
-</cfif>
-,'#publication_title#'
-<cfif len(#PUBLICATION_REMARKS#) gt 0>
-	,'#PUBLICATION_REMARKS#'
-</cfif>
-)
-</cfquery>
+
 </cftransaction>
 
 <cflocation url="Publication.cfm?Action=editJournalArt&publication_id=#thisID#">

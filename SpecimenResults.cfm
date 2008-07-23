@@ -343,7 +343,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<label for="orderBy1">Primary Order</label>
 			<select name="orderBy1" id="orderBy1" size="1">
 				<!--- prepend their CustomID and integer sort of their custom ID to the list --->
-				<cfif isdefined("customOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
+				<cfif len(#session.CustomOtherIdentifier#) gt 0>
 					<option <cfif #session.result_sort# is "custom_id">selected="selected" </cfif>value="CustomID">#session.CustomOtherIdentifier#</option>
 					<option value="CustomIDInt">#session.CustomOtherIdentifier# (INT)</option>
 				</cfif>
@@ -431,10 +431,10 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="tissueParts.cfm">
 						Flag Parts as Tissues
 					</option>
-					<option value="editIdentification.cfm">
+					<option value="multiIdentification.cfm">
 						Identification
 					</option>
-					<option value="location_tree.cfm">
+					<option value="findContainer.cfm?showControl=1">
 						Part Locations
 					</option>
 					<option value="bulkCollEvent.cfm">
@@ -482,7 +482,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="/Reports/report_printer.cfm?report=ala_label">
 						ALA Labels
 					</option>
-					<option value="/bnhmMaps/SpecimensByLocality.cfm?table_name=#thisTableName#">
+					<option value="/bnhmMaps/SpecimensByLocality.cfm">
 						Map By Locality
 					</option>
                     <option value="/Reports/report_printer.cfm?collection_object_id=#collObjIdList#">

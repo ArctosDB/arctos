@@ -45,7 +45,7 @@
 	</cfif>
 	<cfquery name="getMapData" datasource="#Application.web_user#">
 		SELECT DISTINCT 
-			institution_acronym||' '||collection.collection_cde Collection_cde,
+			collection.collection Collection_cde,
 			collection.collection_id,
 			cat_num,
 			identification.scientific_name,
@@ -106,8 +106,8 @@ FROM
 <cfset basJoin = "INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)
 INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_id = flatCollEvent.collecting_event_id)">	
 <cfset basWhere = " WHERE 
-	dec_lat is not null AND
-	dec_long is not null AND
+	#flatTableName#.dec_lat is not null AND
+	#flatTableName#.dec_long is not null AND
 	flatCollEvent.collecting_source = 'wild caught' ">			
 <cfset basQual = "">
 <cfif not isdefined("basJoin")>

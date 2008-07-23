@@ -279,11 +279,6 @@ To you programmers, that means DON'T TOUCH THE MARGINS!!!--->
                 other_id_type='collector number'
                 and collection_object_id=#collection_object_id#
         </cfquery>
-		<cfquery name="tPLC" datasource="#Application.web_user#">
-                select other_id_number from coll_obj_other_id_num where
-                other_id_type='MVZ Prep Lab Catalog'
-                and collection_object_id=#collection_object_id#
-        </cfquery>
         <cfset coordinates = "">
         <cfif len(#verbatimLatitude#) gt 0 AND len(#verbatimLongitude#) gt 0>
                 <cfset coordinates = "#verbatimLatitude# / #verbatimLongitude#">
@@ -323,8 +318,6 @@ To you programmers, that means DON'T TOUCH THE MARGINS!!!--->
 		
 		<cfif len(#tCollNum.other_id_number#) gt 0>
 			<cfset oin = "Orig#tCollNum.other_id_number#">
-		<cfelseif len(#tPLC.other_id_number#) gt 0>
-			<cfset oin = "PLC#tPLC.other_id_number#">
 		<cfelse>
 			<cfset oin = "">
 		</cfif>

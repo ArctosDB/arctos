@@ -32,11 +32,9 @@ Retrieving map data - please wait....
 		 where
 		 	#flatTableName#.locality_id = lat_long.locality_id and
 		 	#flatTableName#.locality_id IN (
-		 		select #flatTableName#.locality_id from #tabName#,#flatTableName#
-		 		where #flatTableName#.collection_object_id = #tabName#.collection_object_id)
+		 		select #flatTableName#.locality_id from #table_name#,#flatTableName#
+		 		where #flatTableName#.collection_object_id = #table_name#.collection_object_id)
 	</cfquery>
-	<cfdump var=#data#>
-	table_name: #tabName#
 	<cfquery name="loc" dbtype="query">
 		select 
 			dec_lat,

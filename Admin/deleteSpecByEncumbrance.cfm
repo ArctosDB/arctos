@@ -83,6 +83,7 @@
 			coll_object_encumbrance.collection_object_id = specimen_part.derived_from_cat_item AND
 			encumbrance_id=#encumbrance_id#
 	</cfquery>
+	<cfset catIdList = valuelist(CatCllobjIds.collection_object_id)>		
 	<cfset partIdList = valuelist(PartCollobjIds.collection_object_id)>		
 <cftransaction>
 <cfquery name="coll_obj_other_id_num" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
@@ -101,6 +102,20 @@
 </cfquery>
 <cfquery name="collector" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 	delete from collector where collection_object_id IN 
+		(
+			select collection_object_id FROM coll_object_encumbrance WHERE
+			encumbrance_id = #encumbrance_id#
+		)
+</cfquery>
+<cfquery name="relations" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">	
+	delete from BIOL_INDIV_RELATIONS where collection_object_id IN 
+		(
+			select collection_object_id FROM coll_object_encumbrance WHERE
+			encumbrance_id = #encumbrance_id#
+		)
+</cfquery>
+<cfquery name="relations_related" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">	
+	delete from BIOL_INDIV_RELATIONS where RELATED_COLL_OBJECT_ID IN 
 		(
 			select collection_object_id FROM coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
@@ -159,18 +174,16 @@
 			encumbrance_id = #encumbrance_id#
 		)
 </cfquery>
-<cfquery name="coll_object" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">	
-	delete from coll_object where collection_object_id IN 
-		(
-			select collection_object_id FROM coll_object_encumbrance WHERE
-			encumbrance_id = #encumbrance_id#
-		)
-</cfquery>
-
 <cfquery name="coll_object_encumbrance" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">	
 	delete from coll_object_encumbrance where 
 		encumbrance_id = #encumbrance_id#
 </cfquery>
+<cfquery name="coll_object" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">	
+	delete from coll_object where collection_object_id IN 
+		(#catIdList#)
+</cfquery>
+
+
 </cftransaction>
 spiffy
 

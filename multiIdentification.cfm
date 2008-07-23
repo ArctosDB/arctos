@@ -294,8 +294,7 @@
 					,IDENTIFICATION_REMARKS
 				</cfif>
 				,taxa_formula
-				,scientific_name,
-				id_made_by_agent_id)
+				,scientific_name)
 			VALUES (
 				#nextID.nextID#,
 				#i#
@@ -308,8 +307,7 @@
 					,'#IDENTIFICATION_REMARKS#'
 				</cfif>
 				,'#taxa_formula#'
-				,'#scientific_name#',
-				#newIdById#)
+				,'#scientific_name#')
 			</cfquery>
 			<cfquery name="newIdAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
 				insert into identification_agent (

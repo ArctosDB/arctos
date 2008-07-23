@@ -446,7 +446,7 @@
 				<cfif len(#parentData.PART_MODIFIER#) gt 0>
 					,'#parentData.PART_MODIFIER#'
 				</cfif>
-				,#meta.collection_object_id#
+				,#partID#
 				<cfif len(#parentData.PRESERVE_METHOD#) gt 0>
 					,'#parentData.PRESERVE_METHOD#'
 				</cfif>

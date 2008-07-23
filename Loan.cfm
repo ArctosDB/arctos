@@ -209,7 +209,7 @@
 			<input type="hidden" name="auth_agent_id">
 		</td>
 		<td>
-			<label for="rec_agent_name"><a href="javascript:void(0);" onClick="getDocs('loan','to')">Loan Recipients:</a></label>
+			<label for="rec_agent_name"><a href="javascript:void(0);" onClick="getDocs('loan','to')">To:</a></label>
 			<input type="text" name="rec_agent_name" class="reqdClr" size="40" 
 			  onchange="getAgent('rec_agent_id','rec_agent_name','newloan',this.value); return false;"
 			  onKeyPress="return noenter(event);"> 			  
