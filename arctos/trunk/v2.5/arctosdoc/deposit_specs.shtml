@@ -1,0 +1,85 @@
+<strong><font size="+1">So you wanna kill a rat...</font></strong>
+<p>
+The future usefullness of any specimen is directly related to the quality of the data accompanying that specimen. Arctos has the power to deal with almost anything related to a biological specimen; this ain't your typical museum spreadsheet "database"! It is well worth utilizing that capability by recording additional information about your specimens. We hope to illustrate some of that capability here, but this is by no means all-inclusive. If you have data about a specimen that you think is important, it probably is and we'll find a way to record it. You'll never record too much information.
+</p>
+<p>
+
+Utility of scientific specimens is a product of the quality of data accompanying them. Because we cannot anticipate future uses of our collections, maximum precision and maximum information are an assurance of future utility. Future utility, of course, must be balanced against the present effort necessary to capture and record data. For example several hundred specimens with minimal data may allow more powerful tests of some hypotheses than a smaller number of meticulously documented specimens. The Museum's database has been designed to store important measures of precision and to tolerate missing information. This document describes attributes of the database that contributors to the Museum's collections should consider in optimizing their data-collection efforts.
+
+</p>
+<a name="menu"></a>
+Basic data consists of:
+<ul>
+	<li><a href="#colls">Collectors and preparators</a></li>
+	<li><a href="#locality">Locality</a> and <a href="#coordinates">coordinates</a></li>
+	<li><a href="#collecting_event">Collecting Event</a></li>
+	<li><a href="#identification">Identification</a></li>
+	<li><a href="#attributes">Attributes</a></li>
+	<li></li>
+</ul>
+<!------------------------- collectors ------------------------------->
+<P>
+
+<b>Collectors and Preparators</b> <a name="colls" href="#menu"><font size="-1">top</font></a>
+<p>Record the name of anyone involved in collecting or preparing the specimen. Format isn't important, but record enough information to positively identify the collector. There are likely to be lots of "J. Smith"s in the database; "John P. Smith" is a better value. 
+<!------------------------- locality ------------------------------->
+<p>
+<b>Locality</b> <a name="locality" href="#menu"><font size="-1">top</font></a>
+<p>
+Traditional descriptions of locality are obviously still useful and important, and the database accomodates them as both "specific locality" and "verbatim locality." If geographic coordinates have not been provided, then someone will have to estimate them from a map, and estimate the maximum possible error. Higher Geography will be parsed out to existing formats. Record enough higher geography information for data entry personell to know exacty where you are collecting. "Fairbanks Quad" might be sufficient for Alaskan specimens, but "Fairbanks Creek" certainly isn't.
+
+<!------------------------- coordinates ---------- --------------------->
+<P>
+<b>Coordinates</b> <a name="coordinates" href="#menu"><font size="-1">top</font></a>
+A location must be definable as a point in two-dimensional space, plus a measurement of error. The point is conveniently described with measures of geographic latitude and longitude. Geographic coordinates are established relative to a particular geographic standard called a datum. Authoritative maps cite a datum and GPS units allow the user to select a datum appropriate for a particular map. One datum may differ from another by as much as half a kilometer. The measurement of error is recorded in linear units such as meters, kilometers, or miles. Thus, the minimal coordinate data are
+<ul>
+	<li>latitude and longitude</li>
+	<li>maximum error</li>
+	<li>datum (If the datum is unknown, the maximum error may be increased.)</li>
+</ul>
+
+Additionally, record the error estimate provided by your GPS unit, length of your trapline if coordinates are for many specimens, map scale, and any other information that will allow data entry personell to assign the coordinates a small maximum error radius. Note that the maximum error ultimately assigned to a specimen is not simply what your GPS may report (the exception being a corrected, through WAAS or other means, point and associated reported error).
+
+
+<!------------------------- collecting_event ------------------------------->
+<P>
+<b>Collecting Event</b> <a name="collecting_event" href="#menu"><font size="-1">top</font></a>
+<p></p>
+Collecting events have a beginning time and an ending time. Nevertheless, they are commonly treated as instantaneous with these two values equal. In practice, the two values allow us to accomodate any amount of imprecision. A worst-case example would be an incoming specimen with no date. The current date, or the date the specimen was recieved, would be entered in the ending time and the beginning time would be left blank. The verbatim date might be "before 8 June 2001." (Minimally, we always know that a specimen was collected before the present.)
+<p>
+Dates are generally recorded to the nearest day, but we can record collecting events to the nearest tenth of a second if such precision is warranted.
+<p>
+A method of collection is an attribute of the collecting event. The values for this field are specific to individual disciplines and collections, and have not been commonly included as "catalog data" in vertebrate collections. One method that is now being included for vertebrates is "biopsy." It is important to know, particularly for samples from small populations, if sampling was by removal or with replacement.
+<p>
+Defining collecting events
+Collecting events can be quite general, e.g. Alaska, summer of 2001, maximum error = 2000 km. With cheap and reliable GPS technology, data can be gathered with precision that many field workers find burdensome. Does a collecting event include all the specimens taken on single day from single campsite with a maximum error of two kilometers? Or does it include all the specimens taken from single sampling grid with a maximum error of 200 meters? Or does it include only the specimens taken from a particular device with a maximum error of a few meters? The answers depend on the immediate purpose of the sampling effort and on the effort the collectors are willing to invest in the future utility of the samples. (And on their skills at reducing the effort necessary to collect data.)
+<!------------------------- identification ------------------------------->
+<P>
+<b>Identification</b> <a name="identification" href="#menu"><font size="-1">top</font></a>
+<p>
+Record as precise an identification as you are capable of making given the circumstances. "Small brown mouse" is much more useful than nothing. The database keeps a history of identification including the identifier and the methods used to determine the identification. If you are an expert in the taxa and have positively identified the specimen, record that information. 
+<!------------------------- attributes ------------------------------->
+<P>
+<b>Attributes</b> <a name="attributes" href="#menu"><font size="-1">top</font></a>
+<p>
+Attributes include traditional biological information - length, weight, etc. - and may include anything deemed worthy of recording. Colors, fat indices, curvilinear length, and ages are all attributes. Record the method and determiner, particularly if the attribute was determined in a non-typical manner. "Sex determined by skull morphology" is worth recording.
+
+<hr>
+leftovers:
+<p></p>
+
+
+Essential Specimen Data
+the collecting event
+
+In general, we need to capture information about the specimen that cannot be derived from the specimen itself. Although different disciplines and different methods of preparation dictate various measurements and annotation, all specimens require data describing where they came from and when. Thus, a collecting event consists of a location, a time, and (optionally) a method.
+
+
+
+
+
+Museum collectors should be willing to invest in future utility. Non-museum collectors archiving in museums should at least consider future utility. All collectors must provide estimates of maximum error or assume that generous estimates will be applied after the fact. Geographic Information Systems now permit us to easily map collecting events over other geographic data that are gathered and displayed with substantial precision. The use of archived specimens and their derived data will rely increasingly on such tools.
+
+Gordon H. Jarrell - 8 June 2001
+The University of Alaska Museum at the University of Alaska Fairbanks, Fairbanks, AK 99775-6960.
+Last modified 8 June 2001 by Gordon Jarrell.

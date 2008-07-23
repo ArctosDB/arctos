@@ -1,0 +1,71 @@
+<!---
+
+	CF Custom tag that checks user login for a page. 
+	Doesn't do anything (except let users continue)
+	if the login bits come back happy. Chokes and
+	dies (plus logs an access violation attempt)
+	if unauthorized users try something they shouldn't.
+	
+	We can pretty much treat any access violation as a
+	hack attempt since users must be logged in to get
+	a link to controlled forms.
+	
+--->
+<cfoutput>
+
+<cfset logfile = "C:\JRun4\servers\cfusion\cfusion-ear\cfusion-war\Public\UnauthAccess.log">
+<cfset access_level = #Attributes.access_level#>
+<cfset badguy = "#cgi.remote_addr##chr(9)##remote_host##chr(9)##cgi.SCRIPT_NAME##chr(9)##dateformat(now(),'dd-mmm-yyyy')# #TimeFormat(Now(),'HH:mm:ss')#">
+
+<!--- validate users for forms whose access level is "update"--->
+update
+<cfif #access_level# is "update">
+	<cfif not (isdefined("client.rights"))>
+	not def
+		<font color="##FF0000">#cgi.SCRIPT_NAME# may only be accessed by logged in users with 
+		the proper rights. <br>
+		Your IP address (#cgi.remote_addr#) has been logged. <br>
+		Click <a href="login.cfm">here</a> to log in.</font> 
+		<cffile action='append' file='#logfile#' addnewline='yes' output='#badguy#'>
+		<cfabort>
+	</cfif>
+	<cfif not client.rights contains "update">
+	contains
+		<font color="##FF0000">#cgi.SCRIPT_NAME# may only be accessed by logged in users with 
+		the proper rights. <br>
+		Your IP address (#cgi.remote_addr# - #remote_host#) has been logged. <br>
+		Click <a href="login.cfm">here</a> to log in.---#client.rights#---</font> 
+		<cffile action='append' file='#logfile#' addnewline='yes' output='#badguy#'>
+		<cfabort>
+	</cfif>
+</cfif>
+
+<!--- validate users for forms whose access level is "admin"--->
+<cfif not (isdefined("client.rights"))>
+	<font color="##FF0000">#cgi.SCRIPT_NAME# may only be accessed by logged in users with 
+		the proper rights. <br>
+		Your IP address (#cgi.remote_addr#) has been logged. <br>
+		Click <a href="login.cfm">here</a> to log in.</font> 
+		<cffile action='append' file='#logfile#' addnewline='yes' output='#badguy#'>
+		<cfabort>
+</cfif>
+<cfif not client.rights contains "Admin">
+	<font color="##FF0000">#cgi.SCRIPT_NAME# may only be accessed by logged in users with 
+		the proper rights. <br>
+		Your IP address (#cgi.remote_addr# - #remote_host#) has been logged. <br>
+		Click <a href="login.cfm">here</a> to log in.</font> 
+		<cffile action='append' file='#logfile#' addnewline='yes' output='#badguy#'>
+		<cfabort>
+</cfif>
+
+
+<!--- validate users for forms whose access level is "admin"--->
+<cfif not (isdefined("client.rights"))>
+	<font color="##FF0000">#cgi.SCRIPT_NAME# may only be accessed by logged in users with 
+		the proper rights. <br>
+		Your IP address (#cgi.remote_addr#) has been logged. <br>
+		Click <a href="login.cfm">here</a> to log in.</font> 
+		<cffile action='append' file='#logfile#' addnewline='yes' output='#badguy#'>
+		<cfabort>
+</cfif>
+</cfoutput>
