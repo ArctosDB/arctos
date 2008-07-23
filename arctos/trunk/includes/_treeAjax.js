@@ -83,7 +83,7 @@ function loadTree_success(result) {
 		theTreeDiv.innerHTML = '';
 		newTree=new dhtmlXTreeObject("treePane","100%","100%;",0);
 		newTree.setImagePath("/images/dhtmlxTree/");
-		newTree.insertNewItem("0","container0","Parentless Void",0,0,0,0,"SELECT");
+		newTree.insertNewItem("container0","Parentless Void",0,0,0,0,"SELECT");
 		newTree.enableCheckBoxes(1);
 		newTree.enableDragAndDrop("temporary_disabled");
 		newTree.attachEvent("onDblClick","expandNode")
