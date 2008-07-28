@@ -10,7 +10,6 @@
 		select agent_id from agent_name where agent_name='#session.username#'
 		and agent_name_type='login'
 	</cfquery>
-	<cfdump var=#id#>
 	<cfif id.recordcount is 1>
 		<cfset session.myAgentId=#id.agent_id#>
 	</cfif>
