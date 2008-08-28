@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfif #action# is "nothing">
-	<form name="uploadFile" method="post" enctype="multipart/form-data" action="upMedia.cfm">
+	<form name="uploadFile" method="post" enctype="multipart/form-data" action="upMediaPreview.cfm">
 		<input type="hidden" name="action" value="getFile">
 		  <label for="PreviewToUpload">Preview...</label>
 		  <input type="file" name="PreviewToUpload" id="PreviewToUpload" size="90">
