@@ -27,7 +27,7 @@ Based on:
 
 <cfoutput>
 	<cfinclude template="/includes/_header.cfm">
-	<cf_customizeHeader collection_id="#exclusive_collection_id#">
+	<cf_customizeHeader collection_id=#session.exclusive_collection_id#>
 </cfoutput>
 <cfif not isdefined("accn_number") and not isdefined("collection_object_id")>
 	Need an accession number and specimens for the ledger!
