@@ -61,7 +61,7 @@
          <cfset preview_uri = "">
     </cfif>
 	
-<script>parent.closeUpload('#media_uri#','#preview_uri#');</script>
+<script>parent.closePreviewUpload('#preview_uri#');</script>
 </cfoutput>
 </cfif>
  

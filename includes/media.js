@@ -5,6 +5,12 @@ function closeUpload(media_uri,preview_uri) {
 	document.getElementById('media_uri').value=media_uri;
 	document.getElementById('preview_uri').value=preview_uri;
 }
+
+function closePreviewUpload(preview_uri) {
+	var theDiv = document.getElementById('uploadDiv');
+	document.body.removeChild(theDiv);
+	document.getElementById('preview_uri').value=preview_uri;
+}
 function clickUpload(){
 	var theDiv = document.createElement('iFrame');
 	theDiv.id = 'uploadDiv';
