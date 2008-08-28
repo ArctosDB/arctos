@@ -26,7 +26,8 @@ Based on:
 </cfif>
 
 <cfoutput>
-	<cf_get_header collection_id="#exclusive_collection_id#">
+	<cfinclude template="/includes/_header.cfm">
+	<cf_customizeHeader collection_id=#exclusive_collection_id#>
 </cfoutput>
 <cfif not isdefined("accn_number") and not isdefined("collection_object_id")>
 	Need an accession number and specimens for the ledger!
@@ -57,6 +58,7 @@ returns it as the attribute_type.--->
 	<cfset thisName = #replace(thisName," ","_","all")#>
 	<cfset thisName = #replace(thisName,"-","_","all")#>
 	<cfset thisName = #left(thisName,20)#>
+
 	<cfif #thisName# is not "sex"><!--- already got it --->
 		<cfset seleAttributes = "#seleAttributes#,ConcatAttributeValue(cataloged_item.collection_object_id,'#ctAtt.attribute_type#')
 				as #thisName#">
@@ -219,7 +221,7 @@ deprecated: see NOTE1*--->
 	</cfif>
 	<cfif accn_number is not ''>
 		<cfset temp = rereplace(accn_number," "," Accession ")>
-		<cfset headerText = '#headerText# #temp#'>
+		<cfset headerText = '#headerText#, Accession #accn_number#'>
 	</cfif>
 <cfset headerTextSize = '8'>
 <cfset headerTextSizeModifier = 'pt'>
