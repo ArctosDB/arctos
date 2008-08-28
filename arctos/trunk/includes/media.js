@@ -20,7 +20,7 @@ function clickUploadPreview(){
 	theDiv.name = 'uploadDiv';
 	theDiv.className = 'uploadMediaDiv';
 	document.body.appendChild(theDiv);
-	var guts = "/info/upMedia.cfm";
+	var guts = "/info/upMediaPreview.cfm";
 	theDiv.src=guts;
 }
 function pickedRelationship (id){
