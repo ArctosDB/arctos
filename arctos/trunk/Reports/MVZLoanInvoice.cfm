@@ -62,7 +62,14 @@
 				<tr>
 					<td align="left" width="60%">
 						<blockquote>
-							#replace(getLoan.outside_address,"#chr(10)#","<br>","all")#
+							<cfif len(getLoan.outside_contact_name) is not 0> <!-->There is an outside contact<-->
+								#getLoan.recAgentName#  <!-->Loan Recipient's Name<-->
+								#getLoan.outside_contact_name# <!--> Outside Contact Name <-->
+								replace(getLoan.outside_address, "#getLoan.recAgentName#", "", "all") <!--> Removes Loan Recipient's name from full address <-->
+							</cfif>
+							
+							#replace(getLoan.outside_address,"#chr(10)#","<br>","all")#	
+									
 						</blockquote>
 					</td>
 					<td align="right" valign="top">
