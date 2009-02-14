@@ -1,1 +1,0 @@
-These frames have nothing to do with each other. Don't get confused and break stuff. Left side is browse. Right is update.
