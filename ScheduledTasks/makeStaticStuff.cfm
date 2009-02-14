@@ -56,7 +56,7 @@
 
 <!--------------- publications ------------------------->
 <cfset thisFile = "UAM_Publications.html">
-<cfquery name="pub" datasource="#Application.web_user#">
+<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select formatted_publication,publication_id from formatted_publication where format_style='full citation'
 	order by formatted_publication
 </cfquery>
@@ -80,7 +80,7 @@ Static list of publications in <a href=""http://arctos.database.museum/home.cfm"
 
 <!---------------- taxonomy ---------------------->
 <cfset thisFile = "UAM_Taxonomy.html">
-<cfquery name="taxa" datasource="#Application.web_user#">
+<cfquery name="taxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		taxonomy.taxon_name_id, 
 		taxonomy.scientific_name, 
@@ -127,7 +127,7 @@ Static list of taxonomy in <a href=""http://arctos.database.museum/home.cfm"">Ar
 <cffile action="append" file="#thisPath##thisFile#" addnewline="yes" output="#footer#">
 
 <!------------------- images ------------------------->
-<cfquery name="images" datasource="#Application.web_user#">
+<cfquery name="images" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		cat_num, 
 		cataloged_item.collection_object_id,

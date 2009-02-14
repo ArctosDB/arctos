@@ -21,14 +21,12 @@ Based on:
 	narrowLabels.cfm and wideLabels.cfm for its queries.
 --->
 
+<cfinclude template="/includes/_header.cfm">
+
 <cfif not isdefined("institution_appearance")>
 	<cfset institution_appearance = "">
 </cfif>
 
-<cfoutput>
-	<cfinclude template="/includes/_header.cfm">
-	<cf_customizeHeader collection_id=#session.exclusive_collection_id#>
-</cfoutput>
 <cfif not isdefined("accn_number") and not isdefined("collection_object_id")>
 	Need an accession number and specimens for the ledger!
 	<cfabort>
@@ -58,7 +56,6 @@ returns it as the attribute_type.--->
 	<cfset thisName = #replace(thisName," ","_","all")#>
 	<cfset thisName = #replace(thisName,"-","_","all")#>
 	<cfset thisName = #left(thisName,20)#>
-
 	<cfif #thisName# is not "sex"><!--- already got it --->
 		<cfset seleAttributes = "#seleAttributes#,ConcatAttributeValue(cataloged_item.collection_object_id,'#ctAtt.attribute_type#')
 				as #thisName#">
@@ -105,11 +102,8 @@ returns it as the attribute_type.--->
 		concatotherid(cataloged_item.collection_object_id) as other_ids,
 		concatparts(cataloged_item.collection_object_id) as parts,
 		verbatim_date,
-		accn_num_prefix,
-		accn_num,
-		accn_num_suffix,
-		concatotherid(cataloged_item.collection_object_id) as other_id_list,
-			
+		accn_number printThis,
+		concatotherid(cataloged_item.collection_object_id) as other_id_list,			
 		orig_elev_units,
 		MAXIMUM_ELEVATION,
 		MINIMUM_ELEVATION,
@@ -132,9 +126,10 @@ returns it as the attribute_type.--->
 		cataloged_item.collection_object_id IN (#collection_object_id#)
 		#order_by#
 ">
-<cfquery name="data" datasource="#Application.web_user#" result="resultSet">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
+
 <!----------------------------------------------------------------->
 <cfoutput>
 <!--- filling in values for modularity 
@@ -158,7 +153,8 @@ the option to choose these parameters.  in that case, remove these lines--->
         marginleft=".25"
         marginright=".25"
 		unit="in"
-        orientation="landscape" filename="#Application.webDirectory#/temp/ledger_#cfid#_#cftoken#.pdf" overwrite="true">
+        orientation="landscape" 
+		filename="#Application.webDirectory#/temp/ledger_#cfid#_#cftoken#.pdf" overwrite="true">
 
 <!---<link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">--->
 
@@ -219,10 +215,9 @@ deprecated: see NOTE1*--->
 	<cfelse>
 		<cfset headerText = replace(headerText, '$ ', '')>
 	</cfif>
-	<cfif accn_number is not ''>
-		<cfset temp = rereplace(accn_number," "," Accession ")>
-		<cfset headerText = '#headerText#, Accession #accn_number#'>
-	</cfif>
+
+		<cfset headerText = '#headerText#, Accession #data.printThis#'>
+
 <cfset headerTextSize = '8'>
 <cfset headerTextSizeModifier = 'pt'>
 <cfset headerTextFont = 'Times New Roman'>
@@ -542,8 +537,4 @@ is 1 inch, even => bottom side is 1 inch. --->
 </table>
 </cfoutput>
 </cfif>
-<cfif len(#institution_appearance#) gt 0>
-	<cf_get_footer institution="#institution_appearance#">
-<cfelse>
-	<cfinclude template = "../includes/_footer.cfm">
-</cfif>
+	<cfinclude template = "/includes/_footer.cfm">

@@ -33,16 +33,16 @@ padding-right:10px;
 
 <script type='text/javascript' src='/includes/_treeAjax.js'></script>
 
-<cfquery name="contType" datasource="#Application.web_user#">
+<cfquery name="contType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select container_type from ctContainer_Type order by container_type
 </cfquery>
- <cfquery name="PartName" datasource="#Application.web_user#">
+ <cfquery name="PartName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct part_name from specimen_part ORDER BY part_name
 </cfquery>
-<cfquery name="collections" datasource="#Application.web_user#">
+<cfquery name="collections" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection_id, institution_acronym || ' ' || collection_cde coll from collection
 </cfquery>
-<cfquery name="ctcoll_other_id_type" datasource="#Application.web_user#">
+<cfquery name="ctcoll_other_id_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select OTHER_ID_TYPE from
 	ctcoll_other_id_type
 	group by OTHER_ID_TYPE
@@ -84,6 +84,13 @@ padding-right:10px;
 						<option value="#contType.container_type#">#contType.container_type#</option>
 					  </cfloop>
 				</select>
+				<label for="in_container_type">Contained By Container Type</label>
+				<select name="in_container_type" id="in_container_type" size="1">
+					<option value=""></option>
+					  <cfloop query="contType"> 
+						<option value="#contType.container_type#">#contType.container_type#</option>
+					  </cfloop>
+				</select>
 				<label for="other_id_type">OID Type</label>
 				<select name="other_id_type" id="other_id_type" size="1" style="width:120px;">
 					<option value=""></option>
@@ -95,6 +102,7 @@ padding-right:10px;
 				<input type="text" name="other_id_value" id="other_id_value" />
 				<input type="hidden" name="collection_object_id" id="collection_object_id" />
 				<input type="hidden" name="loan_trans_id" id="loan_trans_id" />
+				<input type="text" name="table_name" id="table_name" />
 				<br>
 				<input type="submit" value="Search"
 					class="schBtn">
@@ -104,6 +112,7 @@ padding-right:10px;
 				</form>
 				<span class="likeLink" onclick="downloadTree()">Flatten Part Locations</span>
 				<br><span class="likeLink" onclick="showTreeOnly()">Drag/Print</span>
+				<br><span class="likeLink" onclick="printLabels()">Print Labels</span>
 			</div>
 				
 				

@@ -73,7 +73,7 @@
 
 <cfif #Action# is "findem">
 	<cfoutput>
-		<cfquery name="getData" datasource="#Application.web_user#">
+		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from taxonomy where
 			1=1
 			<cfif isdefined("TAXON_NAME_ID") and len(#TAXON_NAME_ID#) gt 0>

@@ -7,7 +7,6 @@
     <cflocation url="MediaSearch.cfm?action=search&relationship__1=cataloged_item&related_primary_key__1=#url.collection_object_id#" addtoken="false">
     </cfoutput>
 </cfif>
-<cfinclude template="/includes/functionLib.cfm">
 <script type='text/javascript' src='/includes/media.js'></script>
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "search">
@@ -21,6 +20,9 @@
 </cfif>
 <cfif isdefined("media_type") and len(#media_type#) gt 0>
 	<cfset srch="#srch# AND upper(media_type) like '%#ucase(media_type)#%'">
+</cfif>
+<cfif isdefined("media_id") and len(#media_id#) gt 0>
+	<cfset whr="#whr# AND media.media_id in (#media_id#)">
 </cfif>
 <cfif isdefined("mime_type") and len(#mime_type#) gt 0>
 	<cfset srch="#srch# AND mime_type = '#mime_type#'">
@@ -85,18 +87,16 @@
 		</cfif>
 	</cfloop>
 <cfset ssql="#sel# #frm# #whr# #srch#">
-<cfquery name="findIDs" datasource="#application.web_user#">
+<cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(ssql)#
 </cfquery>
-
-	#preservesinglequotes(ssql)#
 <table>
-<cfset i=1>
+<cfset r=1>
 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
     <a href="media.cfm?action=newMedia">Create media</a>
 </cfif>
 <cfloop query="findIDs">
-	<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+	<tr #iif(r MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td>
 			URI: 
             <a href="#media_uri#" target="_blank">#media_uri#</a>
@@ -113,7 +113,7 @@
              <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 		        <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">edit</a>
 		    </cfif>            
-			<cfquery name="labels"  datasource="#application.web_user#">
+			<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select
 					media_label,
 					label_value,
@@ -151,7 +151,7 @@
 			</ul>
 		</td>
 	</tr>
-	<cfset i=i+1>
+	<cfset r=r+1>
 </cfloop>
 </table>
 </cfoutput>
@@ -159,16 +159,16 @@
 <!----------------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
 	<cfoutput>
-    <cfquery name="ctmedia_relationship" datasource="#application.web_user#">
+    <cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select media_relationship from ctmedia_relationship order by media_relationship
 	</cfquery>
-	<cfquery name="ctmedia_label" datasource="#application.web_user#">
+	<cfquery name="ctmedia_label" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select media_label from ctmedia_label order by media_label
 	</cfquery>
-	<cfquery name="ctmedia_type" datasource="#application.web_user#">
+	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select media_type from ctmedia_type order by media_type
 	</cfquery>
-	<cfquery name="ctmime_type" datasource="#application.web_user#">
+	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select mime_type from ctmime_type order by mime_type
 	</cfquery>
 	Search for Media 

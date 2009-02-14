@@ -171,7 +171,7 @@ Return TempList;
 		parents are in the scan dump, show a table of them and do nothing else. Otherwise, run some SQL to 
 		load scans into the DB 
 	--->
-    <cfquery name="getBarcodes" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+    <cfquery name="getBarcodes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
     select distinct(barcode) as barcode from container 
     </cfquery>
     <cfset OldCodes = ValueList(getbarcodes.barcode)>
@@ -185,7 +185,7 @@ Return TempList;
     <!--- Find any existing child containers --->
     <cfoutput> 
       <cfset getChildSql = "select container_id, barcode from container where barcode IN ( #childcode# )">
-      <cfquery name="getChildId" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+      <cfquery name="getChildId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
       #preservesinglequotes(getChildSql)# 
       </cfquery>
     </cfoutput> 
@@ -251,13 +251,13 @@ Return TempList;
       <P>&nbsp;</P>
       <cfflush>
       <!--- alter the session to get minutes in--->
-      <cfquery name="timeFormat" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+      <cfquery name="timeFormat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
       ALTER SESSION SET nls_date_format = 'DD-Mon-YYYY hh24:mi:ss' 
       </cfquery>
       <!--- find stuff that already exists in container_history --->
       <br>
       Looking for existing containers... 
-      <cfquery name="exists" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+      <cfquery name="exists" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
       SELECT container_id||'-'||parent_container_id||'-'||install_date as pkey 
       from container_history 
       </cfquery>
@@ -271,7 +271,7 @@ Return TempList;
 		--->
       <cfoutput> 
         <cfset getParentSql = "select container_id, barcode from container where barcode IN ( #parentcode# )">
-        <cfquery name="getParentId" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+        <cfquery name="getParentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
         #preservesinglequotes(getParentSql)# 
         </cfquery>
       </cfoutput> 
@@ -299,23 +299,23 @@ Return TempList;
         <cftransaction>
           <cfoutput> 
             <!--- set parent_container_id and parent_install_date --->
-            <cfquery name="setParents" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+            <cfquery name="setParents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
             UPDATE container SET parent_container_id = #parent_container_id#, 
             parent_install_date = '#timestmp#' WHERE container_id = #container_id# 
             </cfquery>
             <!--- update labels to unknown scans --->
-            <cfquery name=setType datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+            <cfquery name=setType datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
             UPDATE container SET container_type = 'unknown scan' WHERE container_id 
             = #container_id# AND container_type = 'cryovial label' 
             </cfquery>
             <!--- update history table --->
             <!--- See if the value we want is already there --->
-            <cfquery name="isThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+            <cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
             SELECT * FROM container_history WHERE container_id = #container_id# 
             AND parent_container_id = #parent_container_id# AND install_date='#timestmp#' 
             </cfquery>
             <cfif #isThere.recordcount# is 0>
-              <cfquery name="setHistory" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+              <cfquery name="setHistory" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
               INSERT INTO container_history ( container_id, parent_container_id, 
               install_date ) VALUES ( #container_id#, #parent_container_id#, '#timestmp#') 
               </cfquery>

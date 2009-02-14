@@ -22,7 +22,7 @@
 
 <cfif isdefined("collection_object_id")>
 	<!--- get summary data ---->
-	<cfquery name="data" datasource="#Application.web_user#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			cataloged_item.collection_object_id id,
 			scientific_name, 
@@ -133,20 +133,15 @@
 </cfif>
 <!------------------------------------------------------------>
 <cfif #action# is "save">
-<!--- turns out they can uncheck all and STILL submit... --->
-<cfif not isdefined("newCollObjId")>
-	<cfset newCollObjId=-1>
-</cfif>
-
 <cfoutput>
 <cfset user_id=0>
 <cfif isdefined("session.username") and len(#session.username#) gt 0>
-	<cfquery name="isUser" datasource="#Application.web_user#">
+	<cfquery name="isUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT user_id FROM cf_users WHERE username = '#session.username#'
 	</cfquery>
 	<cfset user_id = #isUser.user_id#>
 </cfif>
-	<cfquery name="bugID" datasource="#Application.web_user#">
+	<cfquery name="bugID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select max(bug_id) + 1 as id from cf_bugs
 	</cfquery>
 	<cfset thisDate = #dateformat(now(),"dd-mmm-yyyy")#>
@@ -187,7 +182,7 @@
 	</cfquery>
 	
 	<!--- get the proper emails to report this to --->
-	<cfquery name="whatEmails" datasource="#Application.web_user#">
+	<cfquery name="whatEmails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select address from
 			electronic_address,
 			collection_contacts,

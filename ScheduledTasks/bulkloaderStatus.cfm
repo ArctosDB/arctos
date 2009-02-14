@@ -1,13 +1,13 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>
-		<cfquery name="coll" datasource="#Application.web_user#">
+		<cfquery name="coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select
 				*
 			from
 				collection
 		</cfquery>
 		<cfloop query="coll">
-			<cfquery name="members" datasource="#Application.web_user#">
+			<cfquery name="members" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select
 					mem.agent_name
 				from
@@ -20,7 +20,7 @@
 					group_member.group_agent_id = grp.agent_id and
 					grp.agent_name = '#institution_acronym# #collection_cde# Data Entry Group'
 			</cfquery>
-			<cfquery name="admins" datasource="#Application.web_user#">
+			<cfquery name="admins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select
 					mem.agent_name
 				from
@@ -49,7 +49,7 @@
 				</cfif>
 			</cfloop>
 			<cfif len(#users#) gt 0>
-				<cfquery name="bl" datasource="#Application.web_user#">
+				<cfquery name="bl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select 
 						loaded,
 						collection_object_id,
@@ -59,7 +59,7 @@
 					enteredby in (#preservesinglequotes(users)#)
 					order by enteredby, loaded, collection_object_id
 				</cfquery>
-				<cfquery name="addrs" datasource="#Application.web_user#">
+				<cfquery name="addrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select address 
 					from
 						electronic_address,

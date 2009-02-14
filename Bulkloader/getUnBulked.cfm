@@ -18,7 +18,7 @@ General Access import guidelines:
 	where table_name='BULKLOADER'
 	order by internal_column_id
 </cfquery>
-<cfquery name="data" datasource="#Application.web_user#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from bulkloader where 
 	 (
 		loaded <> 'Success!' OR loaded is null)

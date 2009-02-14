@@ -1,7 +1,7 @@
 
 
 
- <cfquery name="allRecords" datasource="#Application.web_user#">
+ <cfquery name="allRecords" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
  	select * from container where container_id in (#container_id#)
  </cfquery>
 
@@ -38,7 +38,7 @@ ContainerType#chr(9)#Label#chr(9)#Description#chr(9)#Barcode#chr(9)#InstallDate#
 
  <cfloop query="allRecords">
  	<cfset oneLine = ""><!--- kill anything that's hanging on from the last loop --->
- 	<cfquery name="thisRecord" datasource="#Application.web_user#">
+ 	<cfquery name="thisRecord" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 		CONTAINER_ID,
 		PARENT_CONTAINER_ID,
@@ -71,7 +71,7 @@ ContainerType#chr(9)#Label#chr(9)#Description#chr(9)#Barcode#chr(9)#InstallDate#
 				<td>
 				---->
 					<!--- get the parent for the container in thisRecord --->
-					<cfquery name="p1" datasource="#Application.web_user#">
+					<cfquery name="p1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select 
 						CONTAINER_ID,
 						PARENT_CONTAINER_ID,
@@ -92,7 +92,7 @@ ContainerType#chr(9)#Label#chr(9)#Description#chr(9)#Barcode#chr(9)#InstallDate#
 					<cfset oneLine = "#oneLine##p1.label##chr(9)#">
 				</cfif>
 					<cfif len(#p1id#) gt 0>
-						<cfquery name="p2" datasource="#Application.web_user#">
+						<cfquery name="p2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 								select 
 								CONTAINER_ID,
 								PARENT_CONTAINER_ID,
@@ -112,7 +112,7 @@ ContainerType#chr(9)#Label#chr(9)#Description#chr(9)#Barcode#chr(9)#InstallDate#
 						</cfif>
 					</td>
 				<td><cfif len(#p2id#) gt 0>
-					<cfquery name="p3" datasource="#Application.web_user#">
+					<cfquery name="p3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 								select 
 								CONTAINER_ID,
 								PARENT_CONTAINER_ID,
@@ -134,7 +134,7 @@ ContainerType#chr(9)#Label#chr(9)#Description#chr(9)#Barcode#chr(9)#InstallDate#
 					<td>
 					
 					<cfif len(#p3id#) gt 0>
-						<cfquery name="p4" datasource="#Application.web_user#">
+						<cfquery name="p4" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 								select 
 								CONTAINER_ID,
 								PARENT_CONTAINER_ID,
@@ -152,7 +152,7 @@ ContainerType#chr(9)#Label#chr(9)#Description#chr(9)#Barcode#chr(9)#InstallDate#
 							 <cfset p4id = #p4.PARENT_CONTAINER_ID#>
 						</cfif>
 						<cfif len(#p4id#) gt 0>
-						<cfquery name="p5" datasource="#Application.web_user#">
+						<cfquery name="p5" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 								select 
 								CONTAINER_ID,
 								PARENT_CONTAINER_ID,
@@ -170,7 +170,7 @@ ContainerType#chr(9)#Label#chr(9)#Description#chr(9)#Barcode#chr(9)#InstallDate#
 							 <cfset p5id = #p5.PARENT_CONTAINER_ID#>
 						</cfif>
 						<cfif len(#p5id#) gt 0>
-						<cfquery name="p6" datasource="#Application.web_user#">
+						<cfquery name="p6" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 								select 
 								CONTAINER_ID,
 								PARENT_CONTAINER_ID,

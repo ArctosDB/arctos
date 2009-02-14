@@ -42,7 +42,7 @@
 
 	</script>
 	
-<cfquery name="ctTypeStatus" datasource="#Application.web_user#">
+<cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select type_status from ctcitation_type_status order by type_status
 </cfquery>
 <!--- get all cited specimens --->
@@ -52,7 +52,7 @@
 <cfset title="Manage Citations">
 <cfoutput>
 
-<cfquery name="getCited" datasource="#Application.web_user#">
+<cfquery name="getCited" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT
 		citation.publication_id,
 		citation.collection_object_id,
@@ -146,8 +146,7 @@
 		</table>
 	</td>
 	<td>
-		<a href="/SpecimenDetail.cfm?collection_object_id=#getCited.collection_object_id#"
-			target="#session.target#">
+		<a href="/SpecimenDetail.cfm?collection_object_id=#getCited.collection_object_id#">
 			#getCited.collection#&nbsp;#getCited.cat_num#</a></td>
 	<td nowrap="nowrap">#customID#</td>
 	<td nowrap><i>#getCited.citSciName#</i>&nbsp;</td>
@@ -161,7 +160,7 @@
 	<cfset i=#i#+1>
 </cfloop>
 </tr></table>
-<cfquery name="ctcollection" datasource="#Application.web_user#">
+<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection_id,collection from collection
 	order by collection
 </cfquery>
@@ -258,7 +257,7 @@
 <!------------------------------------------------------------------------------->
 <cfif #Action# is "newCitation">
 	<cfoutput>
-	<cfquery name="newCite" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newCite" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO citation (
 			publication_id,
 			collection_object_id,
@@ -294,42 +293,6 @@
 			</cfif>
 			) 
 			</cfquery>
-			<cf_ActivityLog sql="
-			INSERT INTO citation (
-			publication_id,
-			collection_object_id,
-			cit_current_fg
-			<cfif len(#cited_taxon_name_id#) gt 0>
-				,cited_taxon_name_id
-			</cfif>
-			<cfif len(#occurs_page_number#) gt 0>
-				,occurs_page_number
-			</cfif>
-			<cfif len(#type_status#) gt 0>
-				,type_status
-			</cfif>
-			<cfif len(#citation_remarks#) gt 0>
-				,citation_remarks
-			</cfif>
-			) 
-			VALUES (
-			#publication_id#,
-			#collection_object_id#,
-			1
-			<cfif len(#cited_taxon_name_id#) gt 0>
-				,#cited_taxon_name_id#
-			</cfif>
-			<cfif len(#occurs_page_number#) gt 0>
-				,#occurs_page_number#
-			</cfif>
-			<cfif len(#type_status#) gt 0>
-				,'#type_status#'
-			</cfif>
-			<cfif len(#citation_remarks#) gt 0>
-				,'#citation_remarks#'
-			</cfif>
-			) 
-			">
 			<cflocation url="Citation.cfm?publication_id=#publication_id#">
 	</cfoutput>
 
@@ -338,7 +301,7 @@
 <!------------------------------------------------------------------------------->
 <cfif #Action# is "saveEdits">
 	<cfoutput>
-	<cfquery name="edCit" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="edCit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		UPDATE citation SET
 			cit_current_fg = 1
 			<cfif len(#cited_taxon_name_id#) gt 0>
@@ -406,7 +369,7 @@
 <cfset title="Edit Citations">
 <cfoutput>
 
-<cfquery name="getCited" datasource="#Application.web_user#">
+<cfquery name="getCited" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT
 		citation.publication_id,
 		citation.collection_object_id,
@@ -514,7 +477,7 @@
 <!------------------------------------------------------------------------------->
 <cfif #Action# is "deleCitation">
 <cfoutput>
-	<cfquery name="deleCit" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="deleCit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	delete from citation where collection_object_id = #collection_object_id# and publication_id = #publication_id#
 	</cfquery>
 	<cf_ActivityLog sql="delete from citation where collection_object_id = #collection_object_id# and publication_id = #publication_id#">

@@ -2,9 +2,9 @@
 
 <cfset escapeGoofyInstall=replace(cgi.SCRIPT_NAME,"/cfusion","","all")>
 <!--- check password --->
-<cfif isdefined("session.force_password_change") and 
+<cfif (isdefined("session.roles") and session.roles contains "coldfusion_user") and (isdefined("session.force_password_change") and 
 	#session.force_password_change# is "yes" and 
-	#escapeGoofyInstall# is not "/ChangePassword.cfm">
+	#escapeGoofyInstall# is not "/ChangePassword.cfm")>
 	<cflocation url="/ChangePassword.cfm">	
 </cfif>
 

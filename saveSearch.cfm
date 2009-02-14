@@ -5,7 +5,7 @@
 "Can" the dynamic page that you are currently on to quickly return later. Results are data-based, so you may get different results the next time you visit; only your criteria are stored.
 
 <cfoutput>
-	<cfquery name="me" datasource="#Application.web_user#">
+	<cfquery name="me" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select user_id from cf_users where username='#session.username#'
 	</cfquery>
 	<cfif len(#me.user_id#) is 0>
@@ -70,7 +70,7 @@
 </script>
 
 <cfoutput>
-	<cfquery name="hasCanned" datasource="#Application.web_user#">
+	<cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select SEARCH_NAME,URL,canned_id
 	from cf_canned_search,cf_users
 	where cf_users.user_id=cf_canned_search.user_id

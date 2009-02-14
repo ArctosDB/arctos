@@ -1,7 +1,6 @@
 <div id="theHead">
 	<cfinclude template="includes/_header.cfm">
 </div>
-<cfinclude template="/includes/functionLib.cfm">
 <cfoutput>
 <!--- see if action is duplicated --->
 <cfif #action# contains ",">
@@ -33,7 +32,7 @@
 </cfif>
 <cfif #action# is "findCollEventIdForSpecDetail">
 	<!--- get a collecting event ID and relocate to editCollEvnt --->
-	<cfquery name="ceid" datasource="#Application.web_user#">
+	<cfquery name="ceid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collecting_event_id from cataloged_item where
 		collection_object_id=#collection_object_id#
 	</cfquery>
@@ -52,25 +51,25 @@
 		   </cfif>
 <!--------------------------- Code-table queries --------------------------------------------------> 
 
-<cfquery name="ctIslandGroup" datasource="#Application.web_user#">
+<cfquery name="ctIslandGroup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select island_group from ctisland_group order by island_group
 </cfquery>
-<cfquery name="ctGeogSrcAuth" datasource="#Application.web_user#">
+<cfquery name="ctGeogSrcAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select source_authority from ctgeog_source_authority order by source_authority
 </cfquery>
-<cfquery name="ctElevUnit" datasource="#Application.web_user#">
+<cfquery name="ctElevUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select orig_elev_units from ctorig_elev_units order by orig_elev_units
 </cfquery>
-<cfquery name="ctCollecting_Source" datasource="#Application.web_user#">
+<cfquery name="ctCollecting_Source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collecting_source from ctCollecting_Source order by collecting_source
 </cfquery>
-<cfquery name="ctFeature" datasource="#Application.web_user#">
+<cfquery name="ctFeature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(feature) from ctfeature order by feature
 </cfquery>
-	<cfquery name="ctGeorefMethod" datasource="#Application.web_user#">
+	<cfquery name="ctGeorefMethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select georefMethod from ctgeorefmethod order by georefMethod
 </cfquery>
-<cfquery name="ctVerificationStatus" datasource="#Application.web_user#">
+<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select VerificationStatus from ctVerificationStatus order by VerificationStatus
 </cfquery>
 
@@ -301,22 +300,22 @@
 <cfif #Action# is "editGeog">
 <cfset title = "Edit Geography">
   <cfoutput> 
-          <cfquery name="geogDetails" datasource="#Application.web_user#">
+          <cfquery name="geogDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
          	 select * from geog_auth_rec where geog_auth_rec_id = #geog_auth_rec_id# 
           </cfquery>
 		<font size="+1"><strong>Edit Higher Geography</strong></font>
 		  <a href="javascript:void(0);" onClick="getDocs('higher_geography')"><img src="/images/info.gif" border="0"></a>
 		 
-		<cfquery name="localities" datasource="#Application.web_user#">
+		<cfquery name="localities" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select count(*) c from locality where geog_auth_rec_id=#geog_auth_rec_id#
 		</cfquery>
-		<cfquery name="collecting_events" datasource="#Application.web_user#">
+		<cfquery name="collecting_events" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select count(*) c from locality,collecting_event
 			where
 			locality.locality_id = collecting_event.locality_id AND
 			 geog_auth_rec_id=#geog_auth_rec_id#
 		</cfquery>
-		<cfquery name="specimen" datasource="#Application.web_user#">
+		<cfquery name="specimen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select count(*) c from locality,collecting_event,cataloged_item
 			where
 			locality.locality_id = collecting_event.locality_id AND
@@ -498,7 +497,7 @@
 <cfif #Action# is "editCollEvnt">
 <cfset title="Edit Collecting Event">
 <cfoutput> 
-      <cfquery name="locDet" datasource="#Application.web_user#">
+      <cfquery name="locDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
     select 
 		higher_geog,
 		spec_locality,
@@ -533,7 +532,7 @@
 	where collecting_event.collecting_event_id=#collecting_event_id# 
     </cfquery>
  
-  <cfquery name="whatSpecs" datasource="#Application.web_user#">
+  <cfquery name="whatSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
   	SELECT count(cat_num) as numOfSpecs, collection_cde
 	from cataloged_item WHERE
 	collecting_event_id=#collecting_event_id# 
@@ -558,7 +557,7 @@
 		<font color="##FF0000"><strong>
 		<a href="javascript:void(0);" onClick="getDocs('collecting_event')"><img src="/images/info.gif" border="0"></a>
 		contains #whatSpecs.numOfSpecs# #whatSpecs.collection_cde#
-		<a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#" target="#session.target#">specimens</a>.</strong></font>	
+		<a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#">specimens</a>.</strong></font>	
 	<cfelse>
 		<font color="##FF0000"><strong>This Collecting Event 
 		 </strong></font>	
@@ -567,7 +566,7 @@
 		</span>
 		<font color="##FF0000"><strong>
 		<a href="javascript:void(0);" onClick="getDocs('collecting_event')"><img src="/images/info.gif" border="0"></a>
-		contains the following <a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#" target="#session.target#">specimens</a>:</strong></font>	  
+		contains the following <a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#">specimens</a>:</strong></font>	  
 		<ul>	
 			<cfloop query="whatSpecs">
 				<li><font color="##FF0000"><strong>#numOfSpecs# #collection_cde#</strong></font></li>
@@ -866,11 +865,11 @@
   <!--- see if we're creating clone --->
   
  
-  	<cfquery name="getLoc"	 datasource="#Application.web_user#">
+  	<cfquery name="getLoc"	 datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select  spec_locality, geog_auth_rec_id from locality 
 		where locality_id=#locality_id#
 	</cfquery>
-	<cfquery name="getGeo" datasource="#Application.web_user#">
+	<cfquery name="getGeo" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select higher_geog from geog_auth_rec where
 		geog_auth_rec_id=#getLoc.geog_auth_rec_id#
 	</cfquery>
@@ -1003,7 +1002,7 @@
 <cfif #Action# is "newLocality">
 <!--- see if this is a copy --->
 <cfif isdefined('geog_auth_rec_id')>
-	<cfquery name="getHG" datasource="#Application.web_user#">
+	<cfquery name="getHG" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select higher_geog from geog_auth_rec where geog_auth_rec_id=#geog_auth_rec_id#
 	</cfquery>
 </cfif>
@@ -1119,7 +1118,7 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "deleteGeog">
 <cfoutput>
-	<cfquery name="isLocality" datasource="#Application.web_user#">
+	<cfquery name="isLocality" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select geog_auth_rec_id from locality where geog_auth_rec_id=#geog_auth_rec_id#
 	</cfquery>
 <cfif len(#isLocality.geog_auth_rec_id#) gt 0>
@@ -1127,7 +1126,7 @@
 	<br><a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">Return</a> to editing.
 	<cfabort>
 <cfelseif len(#isLocality.geog_auth_rec_id#) is 0>
-	<cfquery name="deleGeog" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="deleGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	delete from geog_auth_rec where geog_auth_rec_id=#geog_auth_rec_id#
 	</cfquery>
 	<cf_ActivityLog sql="delete from geog_auth_rec where geog_auth_rec_id=#geog_auth_rec_id#">
@@ -1139,7 +1138,7 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "deleteCollEvent">
 <cfoutput>
-	<cfquery name="isSpec" datasource="#Application.web_user#">
+	<cfquery name="isSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection_object_id from cataloged_item where collecting_event_id=#collecting_event_id#
 	</cfquery>
 <cfif len(#isSpec.collection_object_id#) gt 0>
@@ -1148,7 +1147,7 @@
 	<br><a href="Locality.cfm?Action=editCollEvent&collecting_event_id=#collecting_event_id#">Return</a> to editing.
 	<cfabort>
 <cfelseif len(#isSpec.collection_object_id#) is 0>
-	<cfquery name="deleCollEv" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="deleCollEv" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	delete from collecting_event where collecting_event_id=#collecting_event_id#
 	</cfquery>
 	<cf_ActivityLog sql="delete from collecting_event where collecting_event_id=#collecting_event_id#">
@@ -1161,7 +1160,7 @@ You deleted a collecting event.
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "changeLocality">
 <cfoutput>
-	<cfquery name="upColl" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="upColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		UPDATE collecting_event SET locality_id=#locality_id# where collecting_event_id=#collecting_event_id#
 	</cfquery>
 	<cf_ActivityLog sql="UPDATE collecting_event SET locality_id=#locality_id# where collecting_event_id=#collecting_event_id#">
@@ -1201,7 +1200,7 @@ You deleted a collecting event.
 		<cfset sql = "#sql#,HABITAT_DESC = null">
 	</cfif>
 	<cfset sql = "#sql# where collecting_event_id = #collecting_event_id#">
-	<cfquery name="upColl" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="upColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#		
 	</cfquery>
 	<cf_ActivityLog sql="#sql#">
@@ -1274,7 +1273,7 @@ You deleted a collecting event.
 		<cfset sql = "#sql#,sea = null">
 	</cfif>
 	<cfset sql = "#sql# where geog_auth_rec_id = #geog_auth_rec_id#">
-	<cfquery name="edGe" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="edGe" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#		
 	</cfquery>
 	<cf_ActivityLog sql="#sql#">
@@ -1286,12 +1285,12 @@ You deleted a collecting event.
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "makeGeog">
 <cfoutput>
-<cfquery name="nextGEO" datasource="#Application.web_user#">
-	select max(geog_auth_rec_id) +1 as nextid from geog_auth_rec
+<cfquery name="nextGEO" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select sq_geog_auth_rec_id.nextval nextid from dual
 </cfquery>
 
 
-<cfquery name="newGeog" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="newGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 INSERT INTO geog_auth_rec (
 	geog_auth_rec_id
 	<cfif len(#continent_ocean#) gt 0>
@@ -1364,11 +1363,11 @@ INSERT INTO geog_auth_rec (
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "newColl">
 <cfoutput>
-	<cfquery name="nextColl" datasource="#Application.web_user#">
-		select max(collecting_event_id) +1 as nextColl from collecting_event
+	<cfquery name="nextColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select sq_collecting_event_id.nextval nextColl from dual
 	</cfquery>
 	
-	<cfquery name="newCollEvent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newCollEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO collecting_event (
 		collecting_event_id,
 		LOCALITY_ID
@@ -1424,10 +1423,10 @@ INSERT INTO geog_auth_rec (
 	<cfif not isdefined("cloneCoords") or #cloneCoords# is not "yes">
 		<cfset cloneCoords = "no">
 	</cfif>
-	<cfquery name="nextLoc" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-		select max(locality_id) + 1 as nextLoc from locality
+	<cfquery name="nextLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select sq_locality_id.nextval nextLoc from dual
 	</cfquery>
-	<cfquery name="newLocality" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newLocality" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO locality (
 		LOCALITY_ID,
 		GEOG_AUTH_REC_ID
@@ -1468,15 +1467,12 @@ INSERT INTO geog_auth_rec (
 		,0 )
 		</cfquery>
 		<cfif #cloneCoords# is "yes">
-			<cfquery name="cloneCoordinates" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="cloneCoordinates" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select * from lat_long where locality_id = #locality_id#
 			</cfquery>
 			<cfloop query="cloneCoordinates">
-				<cfquery name="llID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-					select max(lat_long_id) as mLatLongId from lat_long
-				</cfquery>
 				<cfset thisLatLongId = #llID.mLatLongId# + 1>
-				<cfquery name="newLL" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="newLL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					INSERT INTO lat_long (
 						LAT_LONG_ID,
 						LOCALITY_ID
@@ -1512,7 +1508,7 @@ INSERT INTO geog_auth_rec (
 						,GEOREFMETHOD
 						,VERIFICATIONSTATUS)
 					VALUES (
-						#thisLatLongId#,
+						sq_lat_long_id.nextval,
 						#nextLoc.nextLoc#
 						<cfif len(#LAT_DEG#) gt 0>
 							,#LAT_DEG#
@@ -1657,7 +1653,41 @@ INSERT INTO geog_auth_rec (
 		<form name="tools" method="post" action="Locality.cfm">
 			<input type="hidden" name="action" value="massMoveCollEvent" />
 			<cf_findLocality>
-			
+			<cfquery name="localityResults" dbtype="query">
+				select
+					collecting_event_id,
+					higher_geog,
+					geog_auth_rec_id,
+					spec_locality,
+					geolAtts,
+					VerbatimLatitude,
+					VerbatimLongitude,
+					nogeorefbecause,
+					locality_id,
+					verbatim_locality,
+					began_date,
+					ended_date,
+					verbatim_date,
+					collecting_source,
+					collecting_method
+				from localityResults
+				group by 
+					collecting_event_id,
+					higher_geog,
+					geog_auth_rec_id,
+					spec_locality,
+					geolAtts,
+					VerbatimLatitude,
+					VerbatimLongitude,
+					nogeorefbecause,
+					locality_id,
+					verbatim_locality,
+					began_date,
+					ended_date,
+					verbatim_date,
+					collecting_source,
+					collecting_method
+			</cfquery>
 	
 <table border>
 	<tr>
@@ -1674,20 +1704,18 @@ INSERT INTO geog_auth_rec (
 		<input type="hidden" name="collecting_event_id" value="#collecting_event_id#" />
 		<tr>
 			<td> <div class="smaller">#higher_geog#
-				(<a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#" 
-					target="#session.target#">#geog_auth_rec_id#</a>)
+				(<a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#geog_auth_rec_id#</a>)
 				</div>
 			</td>
 			<td>
 				 <div class="smaller">
-				 #spec_locality#
+				 #spec_locality# <cfif len(geolAtts) gt 0>[#geolAtts#]</cfif>
 					<cfif len(#VerbatimLatitude#) gt 0>
 						<br>#VerbatimLatitude#/#VerbatimLongitude#
 					<cfelse>
 						<br>#nogeorefbecause#
 					</cfif> 
-					(<a href="editLocality.cfm?locality_id=#locality_id#" 
-						target="#session.target#">#locality_id#</a>)
+					(<a href="editLocality.cfm?locality_id=#locality_id#">#locality_id#</a>)
 				</div>
 			<!---&nbsp;<a href="/fix/DupLocs.cfm?action=killDups&locid=#locality_id#" target="_blank"><font size="-2"><i>kill dups</i></font></a>---></td>
 			<td>
@@ -1839,7 +1867,7 @@ INSERT INTO geog_auth_rec (
 			<Cfoutput>
 				#preservesinglequotes(sql)#
 			</Cfoutput>
-	<cfquery name="getCollEvent" datasource="#Application.web_user#">
+	<cfquery name="getCollEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 	
@@ -1898,7 +1926,7 @@ INSERT INTO geog_auth_rec (
 		
 		
 		
-  <cfquery name="whatSpecs" datasource="#Application.web_user#">
+  <cfquery name="whatSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
   	SELECT count(cat_num) as numOfSpecs, 
 	collection.collection_cde,
 	collection.institution_acronym
@@ -1926,7 +1954,7 @@ INSERT INTO geog_auth_rec (
 		<font color="##FF0000"><strong>
 		<a href="javascript:void(0);" onClick="getDocs('collecting_event')"><img src="/images/info.gif" border="0"></a>
 		contains #whatSpecs.numOfSpecs# #whatSpecs.collection_cde#
-		<a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#" target="#session.target#">specimens</a>.</strong></font>	
+		<a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#">specimens</a>.</strong></font>	
 	<cfelse>
 		<font color="##FF0000"><strong>These #numCollEvents# Collecting Events
 		 </strong></font>	
@@ -1935,7 +1963,7 @@ INSERT INTO geog_auth_rec (
 		</span>
 		<font color="##FF0000"><strong>
 		<a href="javascript:void(0);" onClick="getDocs('collecting_event')"><img src="/images/info.gif" border="0"></a>
-		contains the following <a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#" target="#session.target#">specimens</a>:</strong></font>	  
+		contains the following <a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#">specimens</a>:</strong></font>	  
 		<ul>	
 			<cfloop query="whatSpecs">
 				<li><font color="##FF0000"><strong>#numOfSpecs# #collection_cde#</strong></font></li>
@@ -1943,7 +1971,7 @@ INSERT INTO geog_auth_rec (
 		</ul>
   </cfif>
   
-  <cfquery name="cd" datasource="#Application.web_user#">
+  <cfquery name="cd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
   	select * from collecting_event
 	inner join locality on (collecting_event.locality_id = locality.locality_id)
 	inner join geog_auth_rec on (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)
@@ -1991,7 +2019,7 @@ INSERT INTO geog_auth_rec (
 	<cfoutput>
 		<cftransaction>
 		<cfloop list="#collecting_event_id#" index="ceid">
-			<cfquery name="upCollLoc" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="upCollLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update collecting_event set locality_id = #locality_id#
 			where collecting_event_id = #ceid#
 			</cfquery>
@@ -2018,7 +2046,8 @@ INSERT INTO geog_auth_rec (
             NoGeorefBecause,
             coordinateDeterminer,
             lat_long_ref_source,
-            determined_date            
+            determined_date,
+			geolAtts           
 		from localityResults
 		group by
             locality_id,
@@ -2030,7 +2059,8 @@ INSERT INTO geog_auth_rec (
             NoGeorefBecause,
             coordinateDeterminer,
             lat_long_ref_source,
-            determined_date
+            determined_date,
+			geolAtts
 	</cfquery>
 <cfif #localityResults.recordcount# lt 1000>
 	<cfset thisLocId="">
@@ -2065,7 +2095,9 @@ INSERT INTO geog_auth_rec (
 		  <!----&nbsp;<a href="/fix/DupLocs.cfm?action=killDups&locid=#locality_id#" target="_blank"><font size="-2"><i>kill dups</i></font>----></a>
 		  </td>
         <td> 
-          #spec_locality# </td>
+          #spec_locality#
+		<cfif len(geolAtts) gt 0>[#geolAtts#]</cfif>
+		</td>
 		  
 		  <td rowspan="2">#higher_geog#</td>
       </tr>

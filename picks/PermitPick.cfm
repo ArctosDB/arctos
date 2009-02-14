@@ -7,7 +7,7 @@
 </cfif>
 
 
-<cfquery name="ctPermitType" datasource="#Application.web_user#">
+<cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from ctpermit_type
 </cfquery>
 <cfoutput>
@@ -123,7 +123,7 @@ Search for permits. Any part of dates and names accepted, case isn't important.<
 <cfif #sql# is "select * from permit, agent_name issuedTo, agent_name issuedBy where permit.issued_by_agent_id = issuedBy.agent_id and permit.issued_to_agent_id = issuedTo.agent_id ">
 	Enter some criteria.<cfabort>
 </cfif>
-<cfquery name="matchPermit" datasource="#Application.web_user#">
+<cfquery name="matchPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 

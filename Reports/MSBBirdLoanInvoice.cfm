@@ -190,7 +190,7 @@ website: http://msb.unm.edu<br>
 <!------------------------------------------------------------------->
 <cfif #Action# is "itemList">
 <cfoutput>
-<cfquery name="getItems" datasource="#Application.web_user#">
+<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 
 select 
 		cat_num, 
@@ -266,7 +266,7 @@ select
     <b><font face="Arial, Helvetica, sans-serif">SPECIMEN&nbsp;&nbsp;INVOICE <br>
     <font size="+2"> BIRD&nbsp;&nbsp;COLLECTION <br>
     UNIVERSITY&nbsp;&nbsp;OF&nbsp;&nbsp;NEW&nbsp;MEXICO&nbsp;&nbsp;MUSEUM</font></font></b> <br>
-	<cfquery name="shipDate" datasource="#Application.web_user#">
+	<cfquery name="shipDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select shipped_date from shipment where transaction_id=#transactioN_id#
 	</cfquery>
    <b> #dateformat(shipDate.shipped_date,"dd mmmm yyyy")#</b>
@@ -404,7 +404,7 @@ select
 <!------------------------------------------------------------------->
 <cfif #Action# is "showCondition">
 <cfoutput>
-<cfquery name="getItems" datasource="#Application.web_user#">
+<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 
 select 
 		cat_num, 
@@ -437,7 +437,7 @@ Loan ## #getItems.loan_number#
     <b><font face="Arial, Helvetica, sans-serif">SPECIMEN&nbsp;&nbsp;INVOICE <br>
     <font size="+2"> BIRD&nbsp;&nbsp;COLLECTION <br>
     UNIVERSITY&nbsp;&nbsp;OF&nbsp;&nbsp;ALASKA&nbsp;&nbsp;MUSEUM</font></font></b> <br>
-	<cfquery name="shipDate" datasource="#Application.web_user#">
+	<cfquery name="shipDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select shipped_date from shipment where transaction_id=#transactioN_id#
 	</cfquery>
    <b> #dateformat(shipDate.shipped_date,"dd mmmm yyyy")#</b>

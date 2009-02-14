@@ -1,3 +1,5 @@
+<cf_
+<!---
 <cfdocument 
 	format="pdf"
 	pagetype="letter"
@@ -10,7 +12,7 @@
 	
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 
-<cfquery name="getLoan" datasource="#Application.web_user#">
+<cfquery name="getLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
         SELECT
                 authAgent.agent_name  authAgentName,
                 trans_date,
@@ -38,7 +40,7 @@
                 loan.transaction_id=#transaction_id# and
                 authAddrEmail.address_type ='e-mail'
 </cfquery>
-	<cfquery name="shipTo" datasource="#Application.web_user#">
+	<cfquery name="shipTo" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select formatted_addr from addr, shipment
 		where addr.addr_id = shipment.shipped_to_addr_id AND
 		shipment.transaction_id=#transaction_id#
@@ -136,3 +138,5 @@
 </cfdocument>
 
 	<A href="/temp/loanShipLabel.pdf">Get the PDF</a>
+	
+	--->

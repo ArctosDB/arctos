@@ -33,7 +33,7 @@ Search for species by year. Matches began_date; may not find some specimens wher
 		<cfset skull="0">
 	</cfif>
 	
-	<cfquery name="spyr" datasource="#Application.web_user#">
+	<cfquery name="spyr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			count(cat_num) cnt,
 			to_char(began_date,'yyyy') yy

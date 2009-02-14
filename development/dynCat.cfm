@@ -311,7 +311,7 @@
 	   <cfquery name="ctdatum" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select datum from ctdatum order by datum
       </cfquery>
-        <cfquery name="ctrefsrc" datasource="#Application.web_user#">
+        <cfquery name="ctrefsrc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
         select lat_long_ref_source from ctlat_long_ref_source
 		order by  lat_long_ref_source
         </cfquery>
@@ -594,7 +594,7 @@
 		</cfquery>
 		<cfif isdefined("isValCt.value_code_table") and len(#isValCt.value_code_table#) gt 0>
 			<!-- there's a code table --->
-			<cfquery name="valCT" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select * from #isValCt.value_code_table#
 			</cfquery>
 			
@@ -654,7 +654,7 @@
 		<cfif isdefined("isUnitCt.units_code_table") and len(#isUnitCt.units_code_table#) gt 0>
 			<!-- there's a code table --->
 			<!---- get the data --->
-			<cfquery name="unitCT" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="unitCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select * from #isUnitCt.units_code_table#
 			</cfquery>
 			<!---- get column names --->

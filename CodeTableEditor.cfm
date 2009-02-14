@@ -2,32 +2,28 @@
 <cfif #tbl# is "CTGEOLOGY_ATTRIBUTE">
 	<cflocation url="/info/geol_hierarchy.cfm">
 </cfif>
-
-<!---- variables we'll use to build dynamic update query 
- Must pass in table, field name, and y/n for collection cde via URL, ie:
- 
- http://hispida.museum.uaf.edu:8080/Public/CodeTableEditor.cfm?Action=CTACCN_STATUS&fld=status&collcde=n
-	
-<!---<
-<cfset fld="#fld#">
-<cfset collcde="#collcde">--->
- end vars ------------------->
-<br>This is a dynamically-generated form. Collection Code, if used in this table, is on the left and the code table value is on the right. DO NOT edit any existing values without talking to Dusty first; values already used in the database MUST be manually updated whenever anything changes in the code tables.
-<p>&nbsp;</p>
-<cfquery name="ctcollcde" datasource="#Application.web_user#">
-	select collection_cde from ctcollection_cde
+<cfif not isdefined("hasDescn")>
+	<cfset hasDescn="">
+</cfif>
+<cfif not isdefined("fld")>
+	<cfset fld="">
+</cfif>
+<cfif not isdefined("collcde")>
+	<cfset collcde="">
+</cfif>
+<cfquery name="ctcollcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select distinct collection_cde from ctcollection_cde
 </cfquery>
 <cfoutput>
-
-Edit code table #tbl#
-<cfset title = "Edit #tbl#">
+	Edit code table #tbl#
+	<cfset title = "Edit #tbl#">
+	
+	
 <cfif #tbl# is "ctattribute_code_tables">
-<!--- special section to handle the one extremely funky code table --->
-
-	<cfquery name="ctAttribute_type" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct(attribute_type) from ctAttribute_type
 	</cfquery>
-	<cfquery name="thisRec" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		Select * from ctattribute_code_tables
 		order by attribute_type
 	</cfquery>
@@ -40,8 +36,8 @@ Edit code table #tbl#
 			<td>Value Code Table</td>
 			<td>Units Code Table</td>
 		</tr>
-	<cfset i=1>
-	<cfloop query="thisRec">
+		<cfset i=1>
+		<cfloop query="thisRec">
 			<form name="att#i#" method="post" action="CodeTableEditor.cfm">
 				<input type="hidden" name="action" value="ctattribute_code_tables">
 				<input type="hidden" name="tbl" value="#tbl#">
@@ -49,83 +45,66 @@ Edit code table #tbl#
 				<input type="hidden" name="oldAttribute_type" value="#Attribute_type#">
 				<input type="hidden" name="oldvalue_code_table" value="#value_code_table#">
 				<input type="hidden" name="oldunits_code_table" value="#units_code_table#">
-			<tr>
-				<td>
-				<cfset thisAttType = #thisRec.attribute_type#>
-				<select name="attribute_type" size="1">
-					<option value=""></option>
-					<cfloop query="ctAttribute_type">
-					<option 
-								<cfif #thisAttType# is "#ctAttribute_type.attribute_type#"> selected </cfif>value="#ctAttribute_type.attribute_type#">#ctAttribute_type.attribute_type#</option>
-					</cfloop>
-				</select>
-				
-				</td>
-				<td>
-				<cfset thisValueTable = #thisRec.value_code_table#>
-				<select name="value_code_table" size="1">
-					<option value="">none</option>
-					<cfloop query="allCTs">
-					<option 
-					<cfif #thisValueTable# is "#allCTs.tablename#"> selected </cfif>value="#allCTs.tablename#">#allCTs.tablename#</option>
-					</cfloop>
-				</select>
-				
-				</td>
-				<td>
-				<cfset thisUnitsTable = #thisRec.units_code_table#>
-				<select name="units_code_table" size="1">
-					<option value="">none</option>
-					<cfloop query="allCTs">
-					<option 
-					<cfif #thisUnitsTable# is "#allCTs.tablename#"> selected </cfif>value="#allCTs.tablename#">#allCTs.tablename#</option>
-					</cfloop>
-				</select>
-				</td>
-			</tr>
-			
 				<tr>
-				<td colspan="3">
-				<input type="button" 
-	value="Save" 
-	class="savBtn"
-   	onmouseover="this.className='savBtn btnhov'" 
-   	onmouseout="this.className='savBtn'"
-	onclick="att#i#.meth.value='save';submit();">	
-	
-	<input type="button" 
-	value="Delete" 
-	class="delBtn"
-   	onmouseover="this.className='delBtn btnhov'" 
-   	onmouseout="this.className='delBtn'"
-	onclick="att#i#.meth.value='delete';submit();">	
-	
-				</td>
-			</tr>
-				
-				
-				
-				
+					<td>
+						<cfset thisAttType = #thisRec.attribute_type#>
+							<select name="attribute_type" size="1">
+								<option value=""></option>
+								<cfloop query="ctAttribute_type">
+								<option 
+											<cfif #thisAttType# is "#ctAttribute_type.attribute_type#"> selected </cfif>value="#ctAttribute_type.attribute_type#">#ctAttribute_type.attribute_type#</option>
+								</cfloop>
+							</select>
+					</td>
+					<td>
+						<cfset thisValueTable = #thisRec.value_code_table#>
+						<select name="value_code_table" size="1">
+							<option value="">none</option>
+							<cfloop query="allCTs">
+							<option 
+							<cfif #thisValueTable# is "#allCTs.tablename#"> selected </cfif>value="#allCTs.tablename#">#allCTs.tablename#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<cfset thisUnitsTable = #thisRec.units_code_table#>
+						<select name="units_code_table" size="1">
+							<option value="">none</option>
+							<cfloop query="allCTs">
+							<option 
+							<cfif #thisUnitsTable# is "#allCTs.tablename#"> selected </cfif>value="#allCTs.tablename#">#allCTs.tablename#</option>
+							</cfloop>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<input type="button" 
+							value="Save" 
+							class="savBtn"
+						 	onclick="att#i#.meth.value='save';submit();">	
+						<input type="button" 
+							value="Delete" 
+							class="delBtn"
+						  	onclick="att#i#.meth.value='delete';submit();">	
+					</td>
+				</tr>
 			</form>
-			<cfset i=#i#+1>
+		<cfset i=#i#+1>
 	</cfloop>
-	</table>
-	<table class="newRec" border>
+</table>
+<table class="newRec" border>
 	<tr>
-			<td>Attribute</td>
-			<td>Value Code Table</td>
-			<td>Units Code Table</td>
-		</tr>
-	
-
-			<form method="post" action="CodeTableEditor.cfm">
-				<input type="hidden" name="action" value="ctattribute_code_tables">
-				<input type="hidden" name="tbl" value="#tbl#">
-				<input type="hidden" name="meth" value="insert">
-			<tr>
-				<td>
-				
-				
+		<td>Attribute</td>
+		<td>Value Code Table</td>
+		<td>Units Code Table</td>
+	</tr>
+	<form method="post" action="CodeTableEditor.cfm">
+		<input type="hidden" name="action" value="ctattribute_code_tables">
+		<input type="hidden" name="tbl" value="#tbl#">
+		<input type="hidden" name="meth" value="insert">
+		<tr>
+			<td>				
 				<select name="attribute_type" size="1">
 					<option value=""></option>
 					<cfloop query="ctAttribute_type">
@@ -133,9 +112,8 @@ Edit code table #tbl#
 								value="#ctAttribute_type.attribute_type#">#ctAttribute_type.attribute_type#</option>
 					</cfloop>
 				</select>
-				
-				</td>
-				<td>
+			</td>
+			<td>
 				<cfset thisValueTable = #thisRec.value_code_table#>
 				<select name="value_code_table" size="1">
 					<option value="">none</option>
@@ -143,10 +121,9 @@ Edit code table #tbl#
 					<option 
 					value="#allCTs.tablename#">#allCTs.tablename#</option>
 					</cfloop>
-				</select>
-				
-				</td>
-				<td>
+				</select>			
+			</td>
+			<td>
 				<cfset thisUnitsTable = #thisRec.units_code_table#>
 				<select name="units_code_table" size="1">
 					<option value="">none</option>
@@ -155,33 +132,104 @@ Edit code table #tbl#
 					value="#allCTs.tablename#">#allCTs.tablename#</option>
 					</cfloop>
 				</select>
-				</td>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<input type="submit" 
+					value="Create" 
+					class="insBtn">	
+			</td>
+		</tr>
+	</form>
+</table>
+<cfelseif #tbl# is "ctcoll_other_id_type">
+<!--------------------------------------------------------------->
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from ctcoll_other_id_type order by other_id_type
+	</cfquery>	
+	<form name="newData" method="post" action="CodeTableEditor.cfm">
+		<input type="hidden" name="action" value="i_ctcoll_other_id_type">
+		<input type="hidden" name="tbl" value="ctcoll_other_id_type">
+		<table class="newRec">
+			<tr>
+				<th>ID Type</th>
+				<th>Description</th>
+				<th>Base URL</th>
+				<th></th>
 			</tr>
 			<tr>
-				<td colspan="3">
-				<input type="submit" 
-	value="Create" 
-	class="insBtn"
-   	onmouseover="this.className='insBtn btnhov'" 
-   	onmouseout="this.className='insBtn'">	
-	
+				<td>
+					<input type="text" name="newData" >
+				</td>
+				<td>
+					<textarea name="description" rows="4" cols="40"></textarea>
+				</td>
+				<td>
+					<input type="text" name="base_url" size="50">
+				</td>
+				<td>
+					<input type="submit" 
+						value="Insert" 
+						class="insBtn">	
+					<input type="button" 
+						value="Quit" 
+						class="qutBtn"
+						onClick="document.location='CodeTableButtons.cfm';">	
+				
 				</td>
 			</tr>
-				
-				
-				
-				
-				
-			</form>
+		</table>
+	</form>
+	<cfset i = 1>
+	<table>
+		<tr>
+			<th>Type</th>
+			<th>Description</th>
+			<th>Base URL</th>
+		</tr>
+		<cfloop query="q">
+			<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+				<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
+					<input type="hidden" name="action" value="">
+					<input type="hidden" name="tbl" value="ctcoll_other_id_type">
+					<input type="hidden" name="origData" value="#other_id_type#">
+					<td>
+						<input type="text" name="other_id_type" value="#other_id_type#" size="50">
+					</td>
+					<td>
+						<textarea name="description" rows="4" cols="40">#description#</textarea>
+					</td>
+					<td>
+						<textarea name="base_url" rows="4" cols="40">#base_url#</textarea>
+					</td>				
+					<td>
+						<input type="button" 
+							value="Save" 
+							class="savBtn"
+						   	onclick="#tbl##i#.action.value='u_ctcoll_other_id_type';submit();">	
+		
+						<input type="button" 
+							value="Delete" 
+							class="delBtn"
+						   	onmouseover="this.className='delBtn btnhov'" 
+						   	onmouseout="this.className='delBtn'"
+							onclick="#tbl##i#.action.value='d_ctcoll_other_id_type';submit();">	
+		
+					</td>
+				</form>
+			</tr>
+			<cfset i = #i#+1>
+		</cfloop>
 	</table>
 <cfelseif #tbl# is "ctspecimen_part_list_order">
 <!--- special section to handle  another  funky code table --->
-<cfquery name="thisRec" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from ctspecimen_part_list_order order by
 	list_order,partname
 </cfquery>
 
-<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection_cde, part_name partname from ctspecimen_part_name
 </cfquery>
 <cfquery name="mo" dbtype="query">
@@ -326,145 +374,9 @@ Edit code table #tbl#
 			</form>
 			
 	</table>
-	
-	<!----
-<cfelseif #tbl# is "ctcontainer_type">
-<!--- special section to handle  one more  funky code table --->
-This is a customized code table editor to handle container sizes. 
-<cfquery name="q" datasource="#Application.web_user#">
-	select * from ctcontainer_type
-	order by container_size DESC
-</cfquery>
-
-<cfset maxSpacerWidth = 100>
-<cfquery name="ctcontTypes" datasource="#Application.web_user#">
-	select container_type from ctcontainer_type
-</cfquery>
-<p><hr></p>
-<cfset i=1>
-<table>
-<cfloop query="q">
-	<form name="contSize#i#" method="post" action="CodeTableEditor.cfm">
-	<input type="hidden" name="action" value="ctcontainer_type">
-	<input type="hidden" name="tbl" value="#tbl#">
-	<input type="hidden" name="meth">
-	<input type="hidden" name="oldcontainer_type" value="#container_type#">
-	<input type="hidden" name="oldcontainer_size" value="#container_size#">
-	
-	<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-		<td>	<!---- this image is used to
-				stagger the rows according to container_size---->
-				<cfif len(#container_size#) gt 0>
-					<cfset thisWidth = #maxSpacerWidth# - (#container_size#)>
-				<cfelse>
-					<cfset thisWidth = 0>
-				</cfif>
-				
-				#thisWidth#
-				<img src="/images/black.gif" width="#thisWidth#" height="0">
-			<select name="container_type" size="1">
-					<cfset thisType = "#container_type#">
-					<cfloop query="ctcontTypes">
-							<option 
-							value="#container_type#"
-							<cfif #thisType# is #container_type#> selected </cfif>>#container_type#</option>
-							</cfloop>
-				</select>
-		</td>
-		<td>
-			<cfset thisSize = #container_size#>
-			<input type="text" name="container_size" size="6" value="#container_size#"> CM
-						
-		</td>
-		<td>
-			<td colspan="3">
-				<input type="button" 
-	value="Save" 
-	class="savBtn"
-   	onmouseover="this.className='savBtn btnhov'" 
-   	onmouseout="this.className='savBtn'"
-	onclick="contSize#i#.meth.value='save';submit();">	
-	
-	<input type="button" 
-	value="Delete" 
-	class="delBtn"
-   	onmouseover="this.className='delBtn btnhov'" 
-   	onmouseout="this.className='delBtn'"
-	onclick="contSize#i#.meth.value='delete';submit();">	
-	
-				</td>
-		</td>
-	</tr>
-	</form>
-<cfset i=#i#+1>
-</cfloop>
-</table>
-
-<table border class="newRec">
-
-<form name="newSize" method="post" action="CodeTableEditor.cfm">
-				<input type="hidden" name="action" value="ctcontainer_type">
-				<input type="hidden" name="tbl" value="#tbl#">
-				<input type="hidden" name="meth" value="insert">
-			<tr>
-				
-				
-				<td>
-				<!--- 
-					don't show things that we've already used
-					First, make a list of everything that has a size
-					<cfset weHaveIt = "">
-				<cfloop query="q">
-					<cfset wehaveIt="#weHaveIt#,#container_type#">
-				</cfloop>
-				<cfif not listcontains(wehaveIt,#container_type#,",")>
-				</cfif>
-				---->
-				
-				<select name="container_type" size="1">
-					<cfloop query="ctcontTypes">
-					
-						<!--- put it in the list ---->
-						<option 
-						value="#container_type#">#container_type#</option>
-					
-					</cfloop>
-				</select>
-				</td>
-				
-				<td>
-					
-					<input type="text" name="container_size" size="6"> CM
-						
-				
-				</td>
-			</tr>
-			
-				<tr>
-				<td colspan="3">
-				<input type="submit" 
-	value="Create" 
-	class="insBtn"
-   	onmouseover="this.className='insBtn btnhov'" 
-   	onmouseout="this.className='insBtn'">	
-	<input type="button" 
-	value="Quit" 
-	class="qutBtn"
-   	onmouseover="this.className='qutBtn btnhov'" 
-   	onmouseout="this.className='qutBtn'"
-	onClick="document.location='CodeTableButtons.cfm';">	
-	
-				</td>
-			</tr>
-				
-				
-				
-				
-			</form>
----->
 <cfelse><!---------------------------- normal CTs --------------->
 
-	<cfquery name="q" datasource="#Application.web_user#">
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select #fld# as data 
 		<cfif #collcde# is "y">
 			,collection_cde
@@ -586,11 +498,52 @@ This is a customized code table editor to handle container sizes.
 	</cfif>
 	</cfoutput>
 <!----------------------------------->
+<cfif #Action# is "i_ctcoll_other_id_type">
+<cfoutput>
+	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		insert into ctcoll_other_id_type (
+			OTHER_ID_TYPE,
+			DESCRIPTION,
+			base_URL
+		) values (
+			'#newData#',
+			'#description#',
+			'#base_url#'
+		)
+	</cfquery>
+	<cflocation url="CodeTableEditor.cfm?tbl=ctcoll_other_id_type&fld=no&collcde=n&hasDescn=">
+</cfoutput>
+</cfif>
+<!----------------------------------->
+<cfif #Action# is "u_ctcoll_other_id_type">
+<cfoutput>
+	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		update ctcoll_other_id_type set 
+			OTHER_ID_TYPE='#other_id_type#',
+			DESCRIPTION='#description#',
+			base_URL='#base_url#'
+		where
+			OTHER_ID_TYPE='#origData#'
+	</cfquery>
+	<cflocation url="CodeTableEditor.cfm?tbl=ctcoll_other_id_type&fld=no&collcde=n&hasDescn=">
+</cfoutput>
+</cfif>
+<!----------------------------------->
+<cfif #Action# is "d_ctcoll_other_id_type">
+<cfoutput>
+	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		delete from ctcoll_other_id_type
+		where
+			OTHER_ID_TYPE='#origData#'
+	</cfquery>
+	<cflocation url="CodeTableEditor.cfm?tbl=ctcoll_other_id_type">
+</cfoutput>
+</cfif>
 <!----------------------------------->
 <cfif #Action# is "ctattribute_code_tables">
 <cfoutput>
 	<cfif #meth# is "save">
-		<cfquery name="sav" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE ctattribute_code_tables SET
 				Attribute_type = '#Attribute_type#',
 				value_code_table = '#value_code_table#',
@@ -614,7 +567,7 @@ This is a customized code table editor to handle container sizes.
 				<cfif len(#oldunits_code_table#) gt 0>
 					AND	units_code_table = '#oldunits_code_table#'
 				</cfif> 
-		<cfquery name="del" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM ctattribute_code_tables
 			WHERE
 				Attribute_type = '#oldAttribute_type#' 
@@ -629,7 +582,7 @@ This is a customized code table editor to handle container sizes.
 	</cfif>
 	
 	<cfif #meth# is "insert">
-		<cfquery name="new" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO ctattribute_code_tables (
 				Attribute_type
 				<cfif len(#value_code_table#) gt 0>
@@ -668,7 +621,7 @@ This is a customized code table editor to handle container sizes.
 		<!----
 		--save--
 	<cfabort>
-		<cfquery name="sav" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE ctcontainer_type_size SET
 				container_type = '#container_type#',
 				container_size = #container_size#
@@ -689,7 +642,7 @@ This is a customized code table editor to handle container sizes.
 	
 	<cfif #meth# is "delete">
 		<!----
-		<cfquery name="del" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM ctcontainer_type_size
 			WHERE
 				container_type = '#oldcontainer_type#' AND
@@ -714,7 +667,7 @@ This is a customized code table editor to handle container sizes.
 			)
 			<cfabort>
 		<!----
-		<cfquery name="new" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO ctcontainer_type_size (
 			container_type,
 			container_size)
@@ -738,7 +691,7 @@ This is a customized code table editor to handle container sizes.
 <cfif #Action# is "ctspecimen_part_list_order">
 <cfoutput>
 	<cfif #meth# is "save">
-		<cfquery name="sav" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE ctspecimen_part_list_order SET
 				partname = '#partname#',
 				list_order = '#list_order#'
@@ -751,7 +704,7 @@ This is a customized code table editor to handle container sizes.
 	<cfif #meth# is "delete">
 	
 	
-		<cfquery name="del" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM ctspecimen_part_list_order
 			WHERE
 				partname = '#oldpartname#' AND
@@ -760,7 +713,7 @@ This is a customized code table editor to handle container sizes.
 	</cfif>
 	
 	<cfif #meth# is "insert">
-		<cfquery name="new" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO ctspecimen_part_list_order (
 				partname,
 				list_order
@@ -782,7 +735,7 @@ This is a customized code table editor to handle container sizes.
 <!----------------------------------->
 <cfif #Action# is "save#tbl#">
 <cfoutput>
-<cfquery name="up" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="up" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	UPDATE #tbl# SET #fld# = '#thisField#'
 	<cfif #collcde# is "y">
 		,collection_cde='#collection_cde#'
@@ -795,7 +748,7 @@ This is a customized code table editor to handle container sizes.
 		 AND collection_cde='#origcollection_cde#'
 	</cfif>
 </cfquery>
-<cflocation url="CodeTableEditor.cfm?tbl=#tbl#&fld=#fld#&collcde=#collcde#&hasDescn=#hasDescn#">
+<cflocation url="CodeTableEditor.cfm?tbl=ctcoll_other_id_type&fld=#fld#&collcde=#collcde#&hasDescn=#hasDescn#">
 		
 </cfoutput>
 </cfif>
@@ -803,21 +756,21 @@ This is a customized code table editor to handle container sizes.
 <!----------------------------------->
 <cfif #Action# is "dele#tbl#">
 <cfoutput>
-<cfquery name="del" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	DELETE FROM #tbl# 
 	where #fld# = '#origData#'
 	<cfif #collcde# is "y">
 		 AND collection_cde='#origcollection_cde#'
 	</cfif>
 	</cfquery>
-	<cflocation url="CodeTableEditor.cfm?tbl=#tbl#&fld=#fld#&collcde=#collcde#&hasDescn=#hasDescn#">
+	<cflocation url="CodeTableEditor.cfm?tbl=ctcoll_other_id_type&fld=#fld#&collcde=#collcde#&hasDescn=#hasDescn#">
 </cfoutput>
 </cfif>
 <!----------------------------------->
 <!----------------------------------->
 <cfif #Action# is "inst#tbl#">
 <cfoutput>
-<cfquery name="new" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 INSERT INTO #tbl# 
 	(#fld#
 	<cfif #collcde# is "y">

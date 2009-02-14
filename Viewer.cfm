@@ -1,5 +1,5 @@
 <cfinclude template="includes/_header.cfm">
-<cfquery name="getViewers" datasource="#Application.web_user#">
+<cfquery name="getViewers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from viewer
 </cfquery>
 <br>Existing Viewers:
@@ -30,7 +30,7 @@
 
 <cfif #Action# is "newViewer">
 <cfoutput>
-	<cfquery name="nextViewer" datasource="#Application.web_user#">
+	<cfquery name="nextViewer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select max(viewer_id) +1 as nextViewer from viewer
 	</cfquery>
 	<cfquery name="newViewer" datasource="#Application.uam_dbo#">

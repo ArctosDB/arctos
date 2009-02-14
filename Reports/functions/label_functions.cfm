@@ -1,3 +1,21 @@
+<cffunction name="get_loan_trunc" access="public" returntype="Query">
+    <cf_getLoanFormInfo>
+    <cfquery name="d" dbtype="query">
+        select * from getLoan
+    </cfquery>
+	<cfset instrLen=75>
+	<cfset snip="<i>... {see attached}</i>">
+	<!--- chop off everything right of the first linefeed --->
+	<cfif find(chr(10),d.loan_instructions)>
+		<cfset d.loan_instructions = left(d.loan_instructions,find(chr(10),d.loan_instructions)-2) & snip>
+	</cfif>
+	<cfif d.loan_instructions gt instrLen>
+		<cfset d.loan_instructions = replace(d.loan_instructions,snip,"")>
+		<cfset d.loan_instructions=left(d.loan_instructions,instrLen) & snip>
+	</cfif>
+    <cfreturn d>
+</cffunction>
+<!-------------------------------------------------------------->
 <cffunction name="format_uam_box" access="public" returntype="Query">
     <cfargument name="d" required="true" type="query">
 	<cfset lAr = ArrayNew(1)>
@@ -474,7 +492,7 @@
 		</cfif>
 		<cfset locality="#geog#,">
 		<cfif len(#quad#) gt 0>
-			<cfset locality = "#quad# Quad.:">
+			<cfset locality = "#locality# #quad# Quad.:">
 		</cfif>
 		<cfif len(#spec_locality#) gt 0>
 			<cfset locality = "#locality# #spec_locality#">
@@ -617,7 +635,7 @@
             
 		<cfset sAtt="">
 		<cfloop list="#attributes#" index="att">
-			<cfif att does not contain "abundance">
+			<cfif att does not contain "abundance" and att does not contain "number of labels">
 				<cfif att contains "diploid number">
 					<cfset att=replace(att,"diploid number: ","2n=","all")>
 				</cfif>

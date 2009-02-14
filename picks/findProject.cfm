@@ -7,7 +7,7 @@
 		<cfabort>
 	</cfif>
 	
-		<cfquery name="getProj" datasource="#Application.web_user#">
+		<cfquery name="getProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT project_name, project_id from project where
 				UPPER(project_name) LIKE '%#ucase(project_name)#%'
 		</cfquery>

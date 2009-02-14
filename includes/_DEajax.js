@@ -119,6 +119,31 @@ function unpickLocality () {
 	document.getElementById('localityUnPicker').style.display='none';
 	document.getElementById('pickedSomething').style.display='none';	
 	document.getElementById('localityPicker').style.display='';
+	try {
+		for (i=0;i<6;i++) {
+			var eNum=parseInt(i+1);
+			var aID='geology_attribute_' + eNum;
+			var vID='geo_att_value_' + eNum;
+			var dID='geo_att_determiner_' + eNum;
+			var ddID='geo_att_determined_date_' + eNum;
+			var mID='geo_att_determined_method_' + eNum;
+			var rID='geo_att_remark_' + eNum;
+			document.getElementById(aID).className='d11a reqdClr';
+			document.getElementById(aID).removeAttribute('readonly');
+			document.getElementById(vID).className='d11a reqdClr';
+			document.getElementById(vID).removeAttribute('readonly');
+			document.getElementById(dID).className='d11a';
+			document.getElementById(dID).removeAttribute('readonly');
+			document.getElementById(ddID).className='d11a';
+			document.getElementById(ddID).removeAttribute('readonly');
+			document.getElementById(mID).className='d11a';
+			document.getElementById(mID).removeAttribute('readonly');
+			document.getElementById(rID).className='d11a';
+			document.getElementById(rID).removeAttribute('readonly');
+		}
+	} catch(err) {
+		// whatever
+	}
 
 }
 function pickedLocality () {
@@ -133,9 +158,10 @@ function success_pickedLocality (result) {
 	//alert('at success_pickedLocality: ' + result);
 	var locality_id=result[0].LOCALITY_ID;
 	if (locality_id < 0) {
-		alert('Oops! Something bad happend with the locality pick. Try again.....');
+		alert('Oops! Something bad happend with the locality pick. ' + result[0].MSG);
 	} else {
 		//alert('good');
+		// "one" stuff will be in result[0]; need to loop for geology stuff
 		var HIGHER_GEOG = result[0].HIGHER_GEOG;
 		var MAXIMUM_ELEVATION = result[0].MAXIMUM_ELEVATION;
 		var MINIMUM_ELEVATION = result[0].MINIMUM_ELEVATION;
@@ -307,8 +333,69 @@ function success_pickedLocality (result) {
 		document.getElementById('localityPicker').style.display='none';
 		document.getElementById('pickedSomething').style.display='none';
 		document.getElementById('localityUnPicker').style.display='';
-
 		
+		// now geology loop
+		if (result.length > 6) {
+			alert('Whoa! That is a lot of geology attribtues. They will not all be displayed here, but the locality will still have them.');
+		}
+		// this stuff will all fail most of the time, for those collections that don't use geology
+		try {
+			// clean up and lock everything
+			for (i=0;i<6;i++) {
+				var eNum=parseInt(i+1);
+				var aID='geology_attribute_' + eNum;
+				var vID='geo_att_value_' + eNum;
+				var dID='geo_att_determiner_' + eNum;
+				var ddID='geo_att_determined_date_' + eNum;
+				var mID='geo_att_determined_method_' + eNum;
+				var rID='geo_att_remark_' + eNum;
+				document.getElementById(aID).value = '';
+				document.getElementById(vID).value = '';
+				document.getElementById(dID).value = '';
+				document.getElementById(ddID).value = '';
+				document.getElementById(mID).value = '';
+				document.getElementById(rID).value = '';
+				document.getElementById(aID).className='d11a readClr';
+				document.getElementById(aID).setAttribute('readonly','readonly');
+				document.getElementById(vID).className='d11a readClr';
+				document.getElementById(vID).setAttribute('readonly','readonly');
+				document.getElementById(dID).className='d11a readClr';
+				document.getElementById(dID).setAttribute('readonly','readonly');
+				document.getElementById(ddID).className='d11a readClr';
+				document.getElementById(ddID).setAttribute('readonly','readonly');
+				document.getElementById(mID).className='d11a readClr';
+				document.getElementById(mID).setAttribute('readonly','readonly');
+				document.getElementById(rID).className='d11a readClr';
+				document.getElementById(rID).setAttribute('readonly','readonly');
+			}
+			for (i=0;i<result.length;i++) {
+				if (i<5) {
+					// don't try to create stuff when we have no room for it
+					var eNum=parseInt(i+1);
+					var aID='geology_attribute_' + eNum;
+					var vID='geo_att_value_' + eNum;
+					var dID='geo_att_determiner_' + eNum;
+					var ddID='geo_att_determined_date_' + eNum;
+					var mID='geo_att_determined_method_' + eNum;
+					var rID='geo_att_remark_' + eNum;
+					var aV=result[i].GEOLOGY_ATTRIBUTE;
+					var vV=result[i].GEO_ATT_VALUE;
+					var dV=result[i].GEO_ATT_DETERMINER;
+					var ddV=result[i].GEO_ATT_DETERMINED_DATE;
+					var mV=result[i].GEO_ATT_DETERMINED_METHOD;
+					var rV=result[i].GEO_ATT_REMARK;
+					document.getElementById(aID).value = aV;
+					document.getElementById(vID).value = vV;
+					document.getElementById(dID).value = dV;
+					document.getElementById(ddID).value = ddV;
+					document.getElementById(mID).value = mV;
+					document.getElementById(rID).value = rV;
+				}
+			}
+			
+		} catch(err) {
+			// whatever
+		}		
 	}
 }
 function catNumSeq () {

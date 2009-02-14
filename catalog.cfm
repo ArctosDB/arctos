@@ -45,7 +45,7 @@
 		enteredPerson.agent_name EnteredBy,
 		editedPerson.agent_name EditedBy,
 		other_id_type,
-		other_id_num,
+		display_value,
 		colls.agent_name as collector,
 		collector_role,
 		coll_order,
@@ -93,16 +93,8 @@
         ACCEPTED_LAT_LONG.determined_date latLongDeterminedDate,
         lat_long_ref_source,
 		lat_long_remarks,            
-		concatsingleotherid(cataloged_item.collection_object_id,'AF Num') af_num,
-		trans.INSTITUTION_ACRONYM || ' ' || 
-			decode(accn_num_prefix,
-				null,'',
-				accn_num_prefix || '.')
-			|| lpad(accn_num,3,'0') || 
-			decode(accn_num_suffix,
-				null,'',
-				'.' || accn_num_suffix)
-			AS accession,
+		concatsingleotherid(cataloged_item.collection_object_id,'AF') af_num,
+		accn_number	AS accession,
 			habitat_desc,
 			coll_object_remark.associated_species,
 			coll_object_remark.habitat,
@@ -189,7 +181,7 @@
 	ORDER BY
 		cat_num">
 
-<cfquery name="detail" datasource = "#Application.web_user#">
+<cfquery name="detail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(detSelect)#
 </cfquery>
 <cfquery name="colls"  dbtype="query">
@@ -297,7 +289,7 @@
 	   <cfquery name="ctdatum" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select datum from ctdatum order by datum
       </cfquery>
-        <cfquery name="ctrefsrc" datasource="#Application.web_user#">
+        <cfquery name="ctrefsrc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
         select lat_long_ref_source from ctlat_long_ref_source
 		order by  lat_long_ref_source
         </cfquery>
@@ -316,7 +308,6 @@
         </cfquery>
 		<cfquery name="ctOtherIdType" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT distinct(other_id_type) FROM ctColl_Other_id_type
-				WHERE collection_cde='#collection_cde#'
 				order by other_id_type
         </cfquery>
 		<cfquery name="ctSex_Cde" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">

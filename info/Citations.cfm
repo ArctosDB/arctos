@@ -12,7 +12,7 @@
 	
 		<td>
 		
-	<cfquery name="cit" datasource="#Application.web_user#">
+	<cfquery name="cit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 			count(citation.collection_object_id) as cnt,
 			identification.scientific_name scientific_name,
@@ -54,7 +54,7 @@
 	</cfloop>
 	</table>
 	
-	<cfquery name="citColl" datasource="#Application.web_user#">
+	<cfquery name="citColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 			count(citation.collection_object_id) as cnt,
 			collection.collection_cde,

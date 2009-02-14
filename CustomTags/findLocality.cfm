@@ -32,7 +32,8 @@
 		minimum_elevation,
 		maximum_elevation,
 		orig_elev_units,
-        coordDet.agent_name coordinateDeterminer
+        coordDet.agent_name coordinateDeterminer,
+		concatGeologyAttributeDetail(locality.locality_id) geolAtts
 	from 
 		geog_auth_rec,
 		locality,
@@ -201,7 +202,7 @@
 	spec_locality,
 	verbatim_locality,
 	verbatimLatitude">
-<cfquery name="caller.localityResults" datasource="#Application.web_user#">
+<cfquery name="caller.localityResults" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 <cfif caller.localityResults.recordcount is 0>

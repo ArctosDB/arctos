@@ -6,9 +6,6 @@
 		cal1.showYearNavigationInput();
 	</SCRIPT>
 	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
-
-
-
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
 
 
@@ -19,10 +16,10 @@
 	<!--- edit IDs for a list of specimens passed in from specimenresults --->
 	<!--- no security --->
 <cfset title = "Edit Identification">
-<cfquery name="ctnature" datasource="#Application.web_user#">
+<cfquery name="ctnature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select nature_of_id from ctnature_of_id
 </cfquery>
-<cfquery name="ctFormula" datasource="#Application.web_user#">
+<cfquery name="ctFormula" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select taxa_formula from cttaxa_formula order by taxa_formula
 </cfquery>
 <cfoutput>
@@ -177,7 +174,7 @@
   
   
 
-<cfquery name="specimenList" datasource="#Application.web_user#">
+<cfquery name="specimenList" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	 SELECT 
 	 	cataloged_item.collection_object_id as collection_object_id, 
 		cat_num,
@@ -275,13 +272,10 @@
 <!--- looop through the collection_object_list and update things one at a time--->
 	<cftransaction>
 		<cfloop list="#collection_object_id#" index="i">
-		<cfquery name="nextID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-			select max(identification_id) + 1 as nextID from identification
-		</cfquery>
-		<cfquery name="upOldID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #i#
 		</cfquery>
-		<cfquery name="newID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO identification (
 				IDENTIFICATION_ID,
 				COLLECTION_OBJECT_ID
@@ -296,7 +290,7 @@
 				,taxa_formula
 				,scientific_name)
 			VALUES (
-				#nextID.nextID#,
+				sq_identification_id.nextval,
 				#i#
 				<cfif len(#MADE_DATE#) gt 0>
 					,'#dateformat(MADE_DATE,"dd-mmm-yyyy")#'
@@ -304,74 +298,70 @@
 				,'#NATURE_OF_ID#'
 				 ,1
 				 <cfif len(#IDENTIFICATION_REMARKS#) gt 0>
-					,'#IDENTIFICATION_REMARKS#'
+					,'#stripQuotes(IDENTIFICATION_REMARKS)#'
 				</cfif>
 				,'#taxa_formula#'
 				,'#scientific_name#')
 			</cfquery>
-			<cfquery name="newIdAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				insert into identification_agent (
 					identification_id,
 					agent_id,
 					identifier_order) 
 				values (
-					#nextID.nextID#,
+					sq_identification_id.currval,
 					#newIdById#,
 					1
 					)
 			</cfquery>
 			 <cfif len(#newIdById_two#) gt 0>
-				<cfquery name="newIdAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					insert into identification_agent (
 						identification_id,
 						agent_id,
 						identifier_order) 
 					values (
-						#nextID.nextID#,
+						sq_identification_id.currval,
 						#newIdById_two#,
 						2
 						)
 				</cfquery>
 			 </cfif>
 			 <cfif len(#newIdById_three#) gt 0>
-				<cfquery name="newIdAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					insert into identification_agent (
 						identification_id,
 						agent_id,
 						identifier_order) 
 					values (
-						#nextID.nextID#,
+						sq_identification_id.currval,
 						#newIdById_three#,
 						3
 						)
 				</cfquery>
 			 </cfif>
-			 <cfquery name="newId2" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			 <cfquery name="newId2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO identification_taxonomy (
 					identification_id,
 					taxon_name_id,
 					variable)
 				VALUES (
-					#nextID.nextID#,
+					sq_identification_id.currval,
 					#TaxonAID#,
 					'A')
 			 </cfquery>
 			 <cfif #taxa_formula# contains "B">
-				 <cfquery name="newId3" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				 <cfquery name="newId3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					INSERT INTO identification_taxonomy (
 						identification_id,
 						taxon_name_id,
 						variable)
 					VALUES (
-						#nextID.nextID#,
+						sq_identification_id.currval,
 						#TaxonBID#,
 						'B')
 				 </cfquery>
 			 </cfif>
-			 <cfquery name="oneAcc" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-				update identification set ACCEPTED_ID_FG=1 where identification_id=#nextID.nextID#
-			</cfquery>	
-
 </cfloop>
 	</cftransaction>
 	<cflocation url="multiIdentification.cfm?collection_object_id=#collection_object_id#" addtoken="no">

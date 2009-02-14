@@ -84,7 +84,7 @@
 	'>
 	<cfset data = '#data#<metadata>
 		'>
-	<cfquery name="TechContact" datasource="#application.web_user#">
+	<cfquery name="TechContact" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			agent_name,
 			ADDRESS
@@ -111,7 +111,7 @@
 		<cfset data = '#data#</contact>
 		'>
 	</cfloop>
-	<cfquery name="AdminContact" datasource="#application.web_user#">
+	<cfquery name="AdminContact" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			agent_name,
 			ADDRESS
@@ -169,4 +169,30 @@
 	'>
 	<cffile action="write" file="#application.webDirectory##fileName#" addnewline="yes" output="#data#" mode="777">
 </cfloop>
+
+<!--- now make the static stuff --->
+<!--- start with providerMeta ---> 
+<cfset pm="<metadata>
+				<name>Arctos</name>
+				<accessPoint>! set by application !</accessPoint>
+				<implementation>! set by application !</implementation>
+				<host>
+					  <name>Arctos</name>
+					  <code>Arctos</code>
+					  <relatedInformation>#Application.serverRootUrl#/home.cfm</relatedInformation>
+					    <contact type="administrative">
+					  		<name>Dusty L. McDonald</name>
+					  		<title>Programmer</title>
+					  	</contact>
+					  	<contact type="technical">
+					  		<name>Dusty L. McDonald</name>
+					  		<title>Programmer</title>
+					  	</contact>
+					  	<abstract>
+					  		Arctos is an ongoing effort to integrate access to specimen data, collection-management tools, and external resources on the Web.
+					  	</abstract>
+				  	</host>
+				</metadata>
+			">
+<cffile action="write" file="#application.webDirectory##filePath#/providerMeta.xml" addnewline="yes" output="#pm#" mode="777">
 </cfoutput>

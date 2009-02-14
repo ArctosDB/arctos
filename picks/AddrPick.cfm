@@ -7,7 +7,7 @@
 <form name="searchForAgent" action="AddrPick.cfm" method="post">
 	<br>Agent Name: <input type="text" name="agentname">
 	<br><input type="submit" value="Find Matches">
-	<input type="hidden" name="search" value="true">
+	<input type="hidden" name="search" value="true" class="lnkBtn">
 	<cfoutput>
 		<input type="hidden" name="addrIdFld" value="#addrIdFld#">
 		<input type="hidden" name="addrFld" value="#addrFld#">
@@ -21,8 +21,8 @@
 		<cfabort>
 	</cfif>
 	<cfoutput>
-		<cfquery name="getAgentId" datasource="#Application.web_user#">
-			SELECT agent_name, preferred_agent_name.agent_id, formatted_addr, addr_id from 
+		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			SELECT agent_name, preferred_agent_name.agent_id, formatted_addr, addr_id,VALID_ADDR_FG from 
 			preferred_agent_name, addr
 			 where 
 			 preferred_agent_name.agent_id = addr.agent_id (+) AND
@@ -39,7 +39,8 @@
 <cfset addr = #replace(addr,"#chr(10)#","-","ALL")#>
 <cfset addr = #replace(addr,"#chr(13)#","-","ALL")#>
 <cfset addr=trim(addr)>
-<a href="##" onClick="javascript: opener.document.#formName#.#addrFld#.value='#addr#';opener.document.#formName#.#addrIdFld#.value='#addr_id#';self.close();">#addr#</a>
+<a href="##" onClick="javascript: opener.document.#formName#.#addrFld#.value='#addr#';opener.document.#formName#.#addrIdFld#.value='#addr_id#';self.close();">
+	<cfif VALID_ADDR_FG is 0><span class="red">#addr#</span><cfelse>#addr#</cfif></a>
 <br>
       <a href="/agents.cfm?agent_id=#agent_id#" target="_blank"><font color="##00FF66">Add 
       address for #agent_name# <font size="-2">(new window)</font></font></a> 

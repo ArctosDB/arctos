@@ -6,23 +6,23 @@
 </cfif>
 Your address is required before you accept a loan.
 
-<cfquery name="ctNameType" datasource="#Application.web_user#">
+<cfquery name="ctNameType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select storedvalue as agent_name_type from ctagent_name_type
 </cfquery>
-<cfquery name="ctAddrType" datasource="#Application.web_user#">
+<cfquery name="ctAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select addr_type from ctaddr_type
 </cfquery>
-<cfquery name="ctElecAddrType" datasource="#Application.web_user#">
+<cfquery name="ctElecAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select electronic_addr_type from ctelectronic_addr_type
 </cfquery>
-<cfquery name="ctprefix" datasource="#Application.web_user#">
+<cfquery name="ctprefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select prefix from ctprefix order by prefix
 </cfquery>
-<cfquery name="ctsuffix" datasource="#Application.web_user#">
+<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select suffix from ctsuffix order by suffix
 </cfquery>
 
-<cfquery name="addr" datasource="#Application.web_user#">
+<cfquery name="addr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
 		 ADDR_ID,
 		 STREET_ADDR1,
@@ -264,7 +264,7 @@ Add Address for <b>#session.username#</b>:
 <!------------------------------------------------------------------------------>
 <cfif #Action# is "newAddress">
 	<cfoutput>
-		<cfquery name="nextAddr" datasource="#Application.web_user#">
+		<cfquery name="nextAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select max(addr_id) + 1 as nextAddrId from cf_address
 		</cfquery>
 		<cfquery name="prefName" datasource="#uam_dbo#">

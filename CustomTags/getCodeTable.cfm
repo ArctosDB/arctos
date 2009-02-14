@@ -8,7 +8,7 @@
 	<cfset format = attributes.format>
 </cfif>
 <cfoutput>
-	<cfquery name="d" datasource="#Application.web_user#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from #table#
 	</cfquery>
 	<cfset colList = ucase(d.columnlist)>

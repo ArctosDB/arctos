@@ -22,7 +22,46 @@ jQuery( function($) {
 		$(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
 	});
 });
+function setPrevSearch(){
+	DWREngine._execute(_cfscriptLocation, null, 'getSetPrevSearch', setPrevSearch_result);
+}
+function setPrevSearch_result(schParam){
+	 	var sp='#session.schParam#';
+	 	var pAry=schParam.split("|");
+	 	for (var i=0; i<pAry.length; i++) {
+	 		var eAry=pAry[i].split("::");
+	 		var eName=eAry[0];
+	 		var eVl=eAry[1];
+	 		if (document.getElementById(eName)){
+				document.getElementById(eName).value=eVl;
+			}
+	 	}
+ }
+function getFormValues() {
+ 	var theForm=document.getElementById('SpecData');
+ 	var nval=theForm.length;
+ 	var spAry = new Array();
+ 	for (var i=0; i<nval; i++) {
+		var theElement = theForm.elements[i];
+		var element_name = theElement.name;
+		var element_value = theElement.value;
+		if (element_name.length>0 && element_value.length>0) {
+			var thisPair=element_name + '::' + element_value;
+			if (spAry.indexOf(thisPair)==-1) {
+				spAry.push(thisPair);
+				//console.log(thisPair);			
+			}
+		}
+	}
+	var str=spAry.join("|");
+	DWREngine._execute(_cfscriptLocation, null, 'setSchParam', str, nada);
+	//console.log('-------------------');
+	//alert(str);
+	//alert('shipped....');
+	//return false;
+ }
 
+ 
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {
 		$('#helpDiv').remove();
@@ -72,8 +111,10 @@ function changeGrp(tid) {
 		}
 	}
 }
-function nada(){var a=1;}
-
+function nada(){
+ //console.log('nada');
+	return false;
+}
 function showHide(id,onOff) {
 	var t='e_' + id;
 	var z='c_' + id;	
@@ -86,10 +127,7 @@ function showHide(id,onOff) {
 			 $(tab).html(data);
 			})
 			ctl.setAttribute("onclick","showHide('" + id + "',0)");
-			ctl.innerHTML='Show Fewer Options';
-			// flipping retarded, but try this here
-			
-	
+			ctl.innerHTML='Show Fewer Options';	
 		} else {
 			tab.innerHTML='';
 			ctl.setAttribute("onclick","showHide('" + id + "',1)");
@@ -118,8 +156,7 @@ function saveComplete(savedStr){
 				}
 			}
 		}
-			
-		if (onOff) { //showHide On			
+		if (onOff==1) { //showHide On			
 			if (idFound == -1) { // no current id in cookie
 				cookieArray.push(id);
 			}
@@ -134,7 +171,6 @@ function saveComplete(savedStr){
 		createCookie("specsrchprefs", nCookie, 0);
 	}
 }
-
 function createCookie(name,value,days) {
 	if (days) {
 		var date = new Date();

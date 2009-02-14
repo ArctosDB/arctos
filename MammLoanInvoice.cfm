@@ -1,7 +1,7 @@
 <cfinclude template="includes/_pickHeader.cfm">
 <!------------------------------------------------------------------->
 <cfif #Action# is "nothing">
-<cfquery name="getLoan" datasource="#Application.web_user#">
+<cfquery name="getLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
 		authAgent.agent_name as authAgentName,
 		trans_date,
@@ -30,7 +30,7 @@
 </cfquery>
 
 <cfoutput>
-	<cfquery name="shipDate" datasource="#Application.web_user#">
+	<cfquery name="shipDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select shipped_date from shipment where transaction_id=#transactioN_id#
 	</cfquery>
 <center>
@@ -65,7 +65,7 @@
 <p>
 <table width="100%"><tr>
 <td align="left" width="60%">
-<cfquery name="shipTo" datasource="#Application.web_user#">
+<cfquery name="shipTo" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select formatted_addr from addr, shipment
 	where addr.addr_id = shipment.shipped_to_addr_id AND
 	shipment.transaction_id=#transaction_id#
@@ -166,7 +166,7 @@
    <table width="100%"><tr><td align="left">
     <font size="1">Printed #dateformat(now(),"dd mmmm yyyy")#</font> 
    </td>
-  <td><cfquery name="procBy" datasource="#Application.web_user#">
+  <td><cfquery name="procBy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select agent_name from preferred_agent_name, shipment
 	where preferred_agent_name.agent_id = shipment.packed_by_agent_id AND
 	shipment.transaction_id=#transaction_id#
@@ -195,7 +195,7 @@
 <!------------------------------------------------------------------->
 <cfif #Action# is "itemList">
 <cfoutput>
-<cfquery name="getItems" datasource="#Application.web_user#">
+<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 
 select 
 		cat_num, 
@@ -276,7 +276,7 @@ select
     <b><font face="Arial, Helvetica, sans-serif">SPECIMEN&nbsp;&nbsp;INVOICE <br>
     <font size="+2"> MAMMAL&nbsp;&nbsp;COLLECTION <br>
     UNIVERSITY&nbsp;&nbsp;OF&nbsp;&nbsp;ALASKA&nbsp;&nbsp;MUSEUM</font></font></b> <br>
-	<cfquery name="shipDate" datasource="#Application.web_user#">
+	<cfquery name="shipDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select shipped_date from shipment where transaction_id=#transactioN_id#
 	</cfquery>
    <b> #dateformat(shipDate.shipped_date,"dd mmmm yyyy")#</b>
@@ -418,7 +418,7 @@ select
 <!------------------------------------------------------------------->
 <cfif #Action# is "showCondition">
 <cfoutput>
-<cfquery name="getItems" datasource="#Application.web_user#">
+<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 
 select 
 		cat_num, 
@@ -455,7 +455,7 @@ Loan ## #getItems.loan_num_prefix#.#getItems.loan_num# #getItems.loan_num_suffix
     <b><font face="Arial, Helvetica, sans-serif">SPECIMEN&nbsp;&nbsp;INVOICE <br>
     <font size="+2"> MAMMAL&nbsp;&nbsp;COLLECTION <br>
     UNIVERSITY&nbsp;&nbsp;OF&nbsp;&nbsp;ALASKA&nbsp;&nbsp;MUSEUM</font></font></b> <br>
-	<cfquery name="shipDate" datasource="#Application.web_user#">
+	<cfquery name="shipDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select shipped_date from shipment where transaction_id=#transactioN_id#
 	</cfquery>
    <b> #dateformat(shipDate.shipped_date,"dd mmmm yyyy")#</b>

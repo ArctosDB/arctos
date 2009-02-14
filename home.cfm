@@ -6,7 +6,14 @@
 		border:1px dotted green;
 		font-size:small;
 		margin-left:20px;
-		}
+	}
+	.q {
+		font-variant: small-caps;
+	}
+	.a {
+		font-size:smaller;
+		margin-bottom:1em;
+	}
 </style>
 <script>
 	function showDet(collection_id) {
@@ -35,8 +42,9 @@
 </script>
 <cfset title="Arctos Home">
 <cfinclude template="/includes/_header.cfm">
-<cfquery  name="coll" datasource="#Application.web_user#">
-	select * from collection order by collection
+<cfquery  name="coll" datasource="uam_god">
+	select * from cf_collection,collection
+	where cf_collection.collection_id=collection.collection_id (+) order by cf_collection.collection
 </cfquery>
 <table width="90%" border="0" cellpadding="10" cellspacing="10">
 	<tr>
@@ -46,24 +54,23 @@
 			<li><a href="#requirements">System Requirements</a></li>
 			<li><a href="#browser_compatiblity">Browser Compatability</a></li>
 			<li><a href="#data_usage">Data Usage</a></li>
+			<li><a href="#faq">FAQ</a></li>
 			<li><a href="#suggest">Suggestions?</a></li>
 			<li>Search:
 				<ul>
-					<li>
-						<a href="searchAll.cfm" target="_top">All Collections</a>
-					</li>
 					<cfoutput >
 						<cfloop query="coll">
-							<cfset coll_dir_name = "#lcase(institution_acronym)#_#lcase(collection_cde)#">
+							<cfset coll_dir_name = "#lcase(portal_name)#">
 							<li>
 									<a href="/#coll_dir_name#" target="_top">
 											#collection#</a>
-									<span id="plus_minus_#collection_id#" 
+									<cfif len(descr) gt 0>
+									<span id="plus_minus_#cf_collection_id#" 
 										class="infoLink"
-										onclick="showDet('#collection_id#')" >
+										onclick="showDet('#cf_collection_id#')" >
 										more...
 									</span>
-									<div id="det_div_#collection_id#" class="noshow">
+									<div id="det_div_#cf_collection_id#" class="noshow">
 										#descr#
 										<cfif len(#WEB_LINK#) gt 0>
 											<br><a href="#WEB_LINK#" target="_blank">Collection Home Page <img src="/images/linkOut.gif" border="0"></a>
@@ -72,6 +79,7 @@
 											<br><a href="#loan_policy_url#" target="_blank">Collection Loan Policy <img src="/images/linkOut.gif" border="0"></a>
 										</cfif>
 									</div>
+									</cfif>
 							</li>
 						</cfloop>
 					</cfoutput>
@@ -81,7 +89,20 @@
 		</td>
 		<td valign="top">
 			<!---<iframe src="http://curator.museum.uaf.edu/arctos_home.html" width="1000" height="1000" frameborder="0"></iframe>--->
-			
+		
+<div style="border:1px dashed green; padding:50px; margin:30px;">
+	Arctos v3: VPD
+	<br>
+	This version of Arctos introduced Virtual Private Databases (VPD), also known as Row-Level Security (RLS). 
+	Public users who've not set a collection in their preferences should see no change. 
+	Public users who have set a collection in their preferences should see less "intruding" data as they explore Arctos.
+	Internal users, those with Oracle accounts, will not see data that does not belong to their collection 
+	(or group of collections).*
+	<p style="font-size:small">
+			* High-level users with access to things like Taxonomy and Geography are currently an exception to this rule. 
+	</p>
+
+</div>	
 <p>
 Arctos is an ongoing effort to integrate access 
 to specimen data, collection-management tools, and 
@@ -92,6 +113,7 @@ encumbered for proprietary reasons, data are open to the public.
 </p>
 <p><strong >Features:</strong>
 <ul>
+	<li>Vaporware-free since 2001.</li>
 	<li>Everything is over the web in real time, and 
 		independent of client-side operating systems. 
 		You need moderate band-width, a reasonably modern browser, 
@@ -129,20 +151,19 @@ encumbered for proprietary reasons, data are open to the public.
 </ul>
 </p>
 <p><a name="participation"><strong>Participation</strong></a><br/>
-Arctos is currently three systems sharing the same code. 
+Arctos is currently two systems sharing the same code. 
 One is a 
 <a href="http://arctos.database.museum/SpecimenSearch.cfm" target="_blank">multi-hosting version</a> 
 that includes collections 
 at the 
 <a href="http://www.uaf.edu/museum" target="_blank">University of Alaska Museum of the North</a>, 
 the 
-<a href="http://www.msb.unm.edu/" target="_blank">University of New Mexico's Museum of Southwestern Biology</a>, 
-and 
-<a href="http://www.wnmu.edu/" target="_blank">Western New Mexico State University</a>.  
-A second server in Berkeley is run by the 
-<a href="http://mvz.berkeley.edu/" target="_blank">Museum of Vertebrate Zoology</a>, 
-and a third is under development by the 
-<a href="http://www.mcz.harvard.edu/" target="_blank">Harvard Museum of Comparative Zoology</a>.</p>
+<a href="http://www.msb.unm.edu/" target="_blank">University of New Mexico's Museum of Southwestern Biology</a>,  
+<a href="http://www.wnmu.edu/" target="_blank">Western New Mexico State University</a>, and
+the 
+<a href="http://mvz.berkeley.edu/" target="_blank">Museum of Vertebrate Zoology</a>. A second server at the
+<a href="http://mczbase.mcz.harvard.edu" target="_blank">Harvard Museum of Comparative Zoology</a> hosts 
+MCZ's Herp collection, with more collections coming soon.</p>
 
 <p>Arctos is rooted in the 
 <a href="http://mvz.berkeley.edu/cis/index.html" target="_blank">Collections Information System</a> at MVZ.  
@@ -166,24 +187,25 @@ but we have made some exceptions:
 	 We use cookies only to set and preserve user preferences and user rights. 
 	 In order to benefit from all but the most basic public features, 
 	 you must enable cookies.</li>
+	 <li><strong>Popups:</strong>
+		Users may wish to enable popups. Some informational windows use popups. We promise to only pop up things you ask for.
+		<br>
+		Operators must enable popups. Many browsers block this, sometimes cyrptically, by default. Pick windows will not function
+		if your browser is blocking popups.
+	</li>
 </ul></p>
 
 <p><a name="browser_compatiblity"><strong>Browser Compatibility</strong></a>
 <ul>
 	<li><strong>Mozilla Firefox:</strong> 
-		All applications have been tested in Firefox.</li>
-	<li><strong>Microsoft Internet Explorer:</strong> 
-    	While we've attempted to support IE, we've chosen to follow 
-		<a href="http://www.w3.org/" target="_blank">W3C</a> 
-		standards as closely as possible. 
-		Microsoft is not always standards-compliant, 
-		and some features of this site may not work in IE.
-		<cfoutput><a href="#Application.ServerRootUrl#/info/bugs.cfm" target="_blank">Let us know</a> if
-		</cfoutput>
-		you have trouble accessing this site via IE. We'll fix it if we can.</li>
-		<li><strong>Safari:</strong>
-		Public applications are fully supported.  
-		Some AJAX applications for data operators do not work.</li>
+		All applications have been tested in Firefox. We highly recommend all users upgrade to the latest release
+		of Firefox,
+		 available at <a href="http://www.mozilla.com/firefox/" target="_blank">Mozilla</a>.</li>
+	<li><strong>The Rest:</strong> 
+    	Most of Arctos should work most of the time in most other browsers.
+		<cfoutput><a href="#Application.ServerRootUrl#/info/bugs.cfm" target="_blank">Let us know</a></cfoutput> if
+		you have trouble accessing this site in your browser, and we'll fix it if we can.
+	</li>
 </ul></p>
 
 <p><a name="data_usage"><strong>Data Usage</strong></a><br/>
@@ -198,6 +220,48 @@ Those wishing to include these data in analyses or reports must acknowledge the 
 These are secondary data, and their accuracy is not guaranteed. 
 Citation of Arctos is no substitute for examination of specimens. 
 The data providers are not responsible for loss or damages due to use of these data.</p>
+
+<p><a name="faq"><strong>FAQ</strong></a><br/>
+
+<div class="q">
+	Q: Are these live data?
+</div>
+<div class="a">
+	A: Almost. Live data are stored in a <a href="http://arctos.googlecode.com/files/Arctos_1page.pdf" class="external" target="_blank">
+	highly normalized relational structure</a> - fabulous for 
+	organization, not so hot for query. Data are then transformed to a flat structure and optimized for 
+	query performance by way or Database Triggers. Data are generally less than one minute stale. Exceptions sometimes
+	occur, as when large numbers of data are updated or changed.
+</div>
+<div class="q">
+	Q: Is there a limit on the number of records I can return in a search?
+</div>
+<div class="a">
+	A: We impose no strict limits. Queries almost always take less than 5 seconds. Getting the data to your browser often then
+	becomes a bottleneck. If you have a reasonably fast browser and connection, it should be possible to return 
+	at least 100,000 records with a single query. We have no idea why you'd want to. <a href="info/bugs.cfm" target="_blank">Let us know</a> 
+	if you find something excessively slow.
+</div>
+<div class="q">
+	Q: What's a VPD?
+</div>
+<div class="a">
+	A: A Virtual Private Database allows us to share resources, like programmers and hardware, along with some data,
+	such as Taxonomy. We all end up with more than we could afford by ourselves, and operators generally can't tell that
+	they're in a shared environment.
+</div>
+<div class="q">
+	Q: What's Media? Can I store images or video in Arctos?
+</div>
+<div class="a">
+	Media, loosely defined, is anything you can produce a URI for. Web pages, Internet-accessable images, and 
+	documents stored on FTP sites are all potentially Media. Media may form relationships with any "node" in Arctos.
+	<br>
+	Arctos proper offers little in the way of storage. However, we have a partnership with the
+	<a href="http://www.tacc.utexas.edu/" class="external" target="_blank">
+	Texas Advanced Computing Center</a> which povides us access to essentially unlimited storage space. Arctos currently
+	links to around 10 terabytes of high-resolution images of ALA herbarium sheets on TACC's servers.	
+</div>
 
 <p><a name="suggest"><strong>Suggestions?</strong></a><br/>
  The utility of Arctos results from user input.

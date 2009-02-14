@@ -2,17 +2,15 @@
 <cfif len(session.displayrows) is 0>
 	<cfset session.displayrows=20>
 </cfif>
+<cfset btime=now()>
+
 <cfhtmlhead text="<title>Specimen Results</title>">
-<!--- must process the title before FLUSHing 
-<cf_get_header collection_id="#exclusive_collection_id#">
---->
 <script type='text/javascript' src='/includes/_specimenResults.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/_myArctos.js'></script>
 <cfoutput>
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
-
 	$("##sPrefs").click(function(e){
 		var id=this.id;
 		var theDiv = document.createElement('div');
@@ -26,7 +24,6 @@ jQuery( function($) {
 		var customID=document.getElementById('customID').value;
 		var result_sort=document.getElementById('result_sort').value;
 		var displayRows=document.getElementById('displayRows').value;		
-		
 		theDiv.innerHTML+='<label for="result_sort">Primary Sort</label>';
 		var temp='<select name="result_sort" id="result_sort" onchange=";changeresultSort(this.value);" size="1">';
 		if (customID.length > 0) {
@@ -38,17 +35,14 @@ jQuery( function($) {
 		}	
 		temp+='</select>';
 		theDiv.innerHTML+=temp;
-		
 		theDiv.innerHTML+='<label for="result_sort">Remove Rows</label>';
 		var temp='<input type="checkbox" name="killRows" id="killRows" onchange=";changekillRows();" <cfif session.killrow is 1>checked="checked"</cfif>>';
 		theDiv.innerHTML+=temp;
 		theDiv.innerHTML+='<span style="font-size:small">(Requires Refresh)</span>';
-		
 		document.body.appendChild(theDiv);
 		document.getElementById('result_sort').value=result_sort;
 		document.getElementById('displayRows').value=displayRows;
 		$("##helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
-
 	});
 });
 function removeHelpDiv() {
@@ -58,7 +52,7 @@ function removeHelpDiv() {
 }
 </script>
 </cfoutput>
-<div id="loading" style="position:absolute;top:50%;right:50%;z-index:999;background-color:green;color:white;font-size:large;font-weight:bold;padding:15px;">
+<div id="loading" class="status">
 	Page loading....
 </div>
 <cfflush>
@@ -67,13 +61,6 @@ function removeHelpDiv() {
 	<cfset flatTableName = "flat">
 <cfelse>
 	<cfset flatTableName = "filtered_flat">
-</cfif>
-<cfif not isdefined("detail_level") OR len(#detail_level#) is 0>
-	<cfif isdefined("session.detailLevel") AND #session.detailLevel# gt 0>
-		<cfset detail_level = #session.detailLevel#>
-	<cfelse>
-		<cfset detail_level = 1>
-	</cfif>	
 </cfif>
 <cfif not isdefined("displayrows")>
 	<cfset displayrows = session.displayrows>
@@ -93,15 +80,12 @@ function removeHelpDiv() {
 <cfif #action# contains ",">
 	<cfset action = #left(action,find(",",action)-1)#>
 </cfif>
-<cfif #detail_level# contains ",">
-	<cfset detail_level = #left(detail_level,find(",",detail_level)-1)#>
-</cfif>
 
 <!--- make sure session.resultColumnList has all the required stuff here --->
 <cfif not isdefined("session.resultColumnList")>
 	<cfset session.resultColumnList=''>
 </cfif>
-<cfquery name="r_d" datasource="#Application.web_user#">
+<cfquery name="r_d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from cf_spec_res_cols order by disp_order
 </cfquery>
 <cfquery name="reqd" dbtype="query">
@@ -154,63 +138,45 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 	<!--- wrap everything up in a string --->
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
 	
-	<cfset sqlstring = replace(sqlstring,"flatTableName","#flatTableName#","all")>	
-
-	<!--- define the list of search paramaters that we need to get back here --->
-
-		<cfif len(#basQual#) is 0 AND basFrom does not contain "binary_object">
-			<CFSETTING ENABLECFOUTPUTONLY=0>
-			
+	<cfset sqlstring = replace(sqlstring,"flatTableName","#flatTableName#","all")>
+		<cfif len(#mapurl#) is 0>
+			<CFSETTING ENABLECFOUTPUTONLY=0>			
 			<font color="##FF0000" size="+2">You must enter some search criteria!</font>	  
 			<cfabort>
 		</cfif>
-
-<!-------------------------- dlkm debug -----------------<--------------------->	
-	<cfif isdefined("session.username") and (#session.username# is "dlm" or #session.username# is "dusty" or #session.username# is "lam" or #session.username# is "pdevore")>
-		
-	<cfoutput>
-	#preserveSingleQuotes(SqlString)#
-	</cfoutput>
-	</cfif>
-	
-	<!-------------------------- / dlm debug ----------------------
-	
-	<cfif isdefined("session.username") and (#session.username# is "dlm" or #session.username# is "dusty")>
-		
-	<cfoutput>
-	--#session.username#--
-	#preserveSingleQuotes(SqlString)#
-	<br>ReturnURL: #returnURL#
-	<br>MapURL: #mapURL#
-	<cfdump var=#variables#>
-	</cfoutput>
-	</cfif>
-	
-	<cfdump var=#variables#>
-<cfdump var=#client#>
-<cfoutput>
-	#preserveSingleQuotes(SqlString)#
-	</cfoutput>
----------------->
-
 <cfset thisTableName = "SearchResults_#cfid#_#cftoken#">	
-		</cfoutput>
 <!--- try to kill any old tables that they may have laying around --->
 <cftry>
-	<cfquery name="die" datasource="#Application.web_user#">
-		drop table #thisTableName#
+	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		drop table #session.SpecSrchTab#
 	</cfquery>
-	<cfcatch><!--- not there, so what? ---></cfcatch>
+	<cfcatch><!--- not there, so what? --->
+	</cfcatch>
 </cftry>
 <!---- build a temp table --->
-<Cfset SqlString = "create table #thisTableName# AS #SqlString#">
+<cfset checkSql(SqlString)>	
+<cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
 
-
-
-<cfquery name="buildIt" datasource="#Application.web_user#">
+<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preserveSingleQuotes(SqlString)#
 </cfquery>
-<cfoutput>
+<!----
+<CFSTOREDPROC PROCEDURE="logThingee" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+  <CFPROCPARAM  
+    VALUE="#session.SpecSrchTab#" 
+    CFSQLTYPE="CF_SQL_VARCHAR">
+</CFSTOREDPROC>
+---->
+<!---------------------------------------- debug widget --------------------------------------------------->
+<cfif isdefined("session.username") and 
+	(#session.username# is "dlm" or #session.username# is "dusty" or #session.username# is "ccicero")>
+	#preserveSingleQuotes(SqlString)#
+	<cfset etime=now()>
+	<cfset tt=DateDiff("s", btime, etime)>
+	<br>Runtime: #tt#
+</cfif>
+<!---------------------------------------- /debug widget --------------------------------------------------->
+	
 <form name="defaults">
 	<input type="hidden" name="killrow" id="killrow" value="#session.killrow#">
 	<input type="hidden" name="displayrows" id="displayrows" value="#session.displayrows#">
@@ -224,15 +190,15 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 	</cfif>
 	
 </form>
-<cfquery name="summary" datasource="#Application.web_user#">
-	select distinct collection_object_id from #thisTableName#
+<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select distinct collection_object_id from #session.SpecSrchTab#
 </cfquery>
 <cfif #summary.recordcount# is 0>
-	<div id="loading" style="position:absolute;top:50%;right:50%;z-index:999;background-color:green;color:white;font-size:large;font-weight:bold;padding:15px;">
+	<div id="loading" class="status">
 		Your query returned no results.
 		<ul>
 			<li>
-				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" target="#session.target#" class="novisit">Arctos Taxonomy</a>.
+				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" class="novisit">Arctos Taxonomy</a>.
 			</li>
 			<li>
 				Try broadening your search criteria. Try the next-higher geographic element, remove criteria, etc. Don't assume we've accurately or predictably recorded data!
@@ -251,8 +217,8 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 <script>
 	hidePageLoad();
 </script>
-<cfquery name="mappable" datasource="#Application.web_user#">
-	select count(distinct(collection_object_id)) cnt from #thisTableName# where dec_lat is not null and dec_long is not null
+<cfquery name="mappable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select count(distinct(collection_object_id)) cnt from #session.SpecSrchTab# where dec_lat is not null and dec_long is not null
 </cfquery>
 
 <form name="saveme" id="saveme" method="post" action="saveSearch.cfm" target="myWin">
@@ -305,10 +271,10 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<span class="infoLink" onclick="getDocs('maps');">
 				What's this?
 			</span>
-			<a href="bnhmMaps/kml.cfm?table_name=#thisTableName#">Google Earth/Maps</a>
+			<a href="bnhmMaps/kml.cfm?table_name=#session.SpecSrchTab#">Google Earth/Maps</a>
 			<a href="SpecimenResultsHTML.cfm?#mapurl#" class="infoLink">&nbsp;&nbsp;&nbsp;Problems viewing this page? Click for HTML version</a>
 			&nbsp;&nbsp;&nbsp;<a class="infoLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a>	
-<div style="border:2px solid blue;">
+<div style="border:2px solid blue;" id="ssControl">
 <cfif isdefined("transaction_id")>
 	<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
 </cfif>
@@ -411,17 +377,17 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<span class="controlButton"
 				onmouseover="this.className='controlButton btnhov'" 
 				onmouseout="this.className='controlButton'"
-				onclick="window.open('/SpecimenResultsDownload.cfm?tableName=#thisTableName#','_blank');">Download</span>
+				onclick="window.open('/SpecimenResultsDownload.cfm?tableName=#session.SpecSrchTab#','_blank');">Download</span>
 		</td>
 		<td>
 			<label for="">&nbsp;</label>
 			<span class="controlButton"
 				onmouseover="this.className='controlButton btnhov'" 
 				onmouseout="this.className='controlButton'"
-				onclick="saveSearch();">Save&nbsp;Search</span>
+				onclick="saveSearch('#Application.ServerRootUrl#/SpecimenResults.cfm?#mapURL#');">Save&nbsp;Search</span>
 		</td>
 		<td nowrap="nowrap">
-			<cfif summary.recordcount lt 1000 and (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>					
+			<cfif (isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user"))>					
 				<label for="goWhere">Manage...</label>
 				<select name="goWhere" id="goWhere" size="1">
 					<option value="">::Change Stuff::</option>
@@ -446,7 +412,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="compDGR.cfm">
 						MSB<->DGR
 					</option>
-					<option value="/tools/bulkPart.cfm?table_name=#thisTableName#">
+					<option value="/tools/bulkPart.cfm">
 						Add Parts
 					</option>
 					
@@ -511,7 +477,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 
 	var f=document.getElementById('goWhere').value;
 	var i='#collObjIdList#';
-	var t='#thisTableName#';
+	var t='#session.SpecSrchTab#';
 	var o1=document.getElementById('orderBy1').value;
 	var o2=document.getElementById('orderBy2').value;
 	var s=o1 + ',' + o2;
@@ -524,8 +490,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 	u += '&table_name=' + t;
 	u += '&sort=' + s;
 	//alert(u);	
-	var reportWin=window.open(u,'#session.target#');
+	var reportWin=window.open(u);
 }
 </script>
 </cfoutput>
-<cf_get_footer collection_id="#session.exclusive_collection_id#">
+<cfinclude template="/includes/_footer.cfm">

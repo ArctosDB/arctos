@@ -1,34 +1,25 @@
 <script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>	
 <cfoutput>
-<cfif len(#session.exclusive_collection_id#) gt 0>
-	<cfset partTable = "cctspecimen_part_name#session.exclusive_collection_id#">
-	<cfset presTable = "cCTSPECIMEN_PRESERV_METHOD#session.exclusive_collection_id#">
-	<cfset pmodTable = "cCTSPECIMEN_PART_MODIFIER#session.exclusive_collection_id#">
-<cfelse>
-	<cfset partTable = "ctspecimen_part_name">
-	<cfset presTable = "CTSPECIMEN_PRESERV_METHOD">
-	<cfset pmodTable = "CTSPECIMEN_PART_MODIFIER">
-</cfif>
-<cfquery name="pres" datasource="#Application.web_user#">
-	select distinct(preserve_method) from #presTable#
+<cfquery name="pres" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select distinct(preserve_method) from CTSPECIMEN_PRESERV_METHOD
 	ORDER BY preserve_method
 </cfquery>
-<cfquery name="ctpart_mod" datasource="#Application.web_user#">
-	select distinct part_modifier from #pmodTable# order by part_modifier
+<cfquery name="ctpart_mod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select distinct part_modifier from CTSPECIMEN_PART_MODIFIER order by part_modifier
 </cfquery>
-<cfquery name="ctbiol_relations" datasource="#Application.web_user#">
+<cfquery name="ctbiol_relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select biol_indiv_relationship  from ctbiol_relations
 </cfquery>
-<cfquery name="ctAttributeType" datasource="#Application.web_user#">
+<cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(attribute_type) from ctattribute_type order by attribute_type
 </cfquery>				
 <table id="t_identifiers" class="ssrch">
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="preserve_method">Preservation Method:</span>
+			<span class="helpLink" id="_preserve_method">Preservation Method:</span>
 		</td>
 		<td class="srch">
-			<select name="preserv_method" size="1">
+			<select name="preserv_method" id="preserv_method" size="1">
 				<option value=""></option>
 				<cfloop query="pres"> 
 					<option value="#pres.preserve_method#">#pres.preserve_method#</option>
@@ -39,10 +30,10 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="part_modifier">Part Modifier:</span>
+			<span class="helpLink" id="_part_modifier">Part Modifier:</span>
 		</td>
 		<td class="srch">
-			<select name="part_modifier" size="1">
+			<select name="part_modifier" id="part_modifier" size="1">
 				<option value=""></option>
 				<cfloop query="ctpart_mod"> 
 					<option value="#ctpart_mod.part_modifier#">#ctpart_mod.part_modifier#</option>
@@ -55,7 +46,7 @@
 			<span class="helpLink" id="biol_indiv_relationship">Relationship:</span>
 		</td>
 		<td class="srch">
-			<select name="relationship" size="1">
+			<select name="relationship" id="relationship" size="1">
 				<option value=""></option>
 				<cfloop query="ctbiol_relations">
 					<option value="#ctbiol_relations.biol_indiv_relationship#">
@@ -66,10 +57,10 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="derived_relationship">Derived Relationship:</span>
+			<span class="helpLink" id="_derived_relationship">Derived Relationship:</span>
 		</td>
 		<td class="srch">
-			<select name="derived_relationship" size="1">
+			<select name="derived_relationship" id="derived_relationship" size="1">
 				<option value=""></option>
 					<option value="offspring of">offspring of</option>
 			</select>	
@@ -78,7 +69,7 @@
 	<tr>
 		<td class="lbl">
 			<span class="helpLink infoLink" id="attribute_type">Help</span>
-			<select name="attribute_type_1" size="1">
+			<select name="attribute_type_1" id="attribute_type_1" size="1">
 				<option selected value=""></option>
 					<cfloop query="ctAttributeType">
 						<option value="#ctAttributeType.attribute_type#">#ctAttributeType.attribute_type#</option>
@@ -86,7 +77,7 @@
 			  </select>
 		</td>
 		<td class="srch">
-			<select name="attOper_1" size="1">
+			<select name="attOper_1" id="attOper_1" size="1">
 				<option selected value="">equals</option>
 				<option value="like">contains</option>
 				<option value="greater">greater than</option>

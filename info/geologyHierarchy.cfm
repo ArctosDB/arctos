@@ -67,7 +67,7 @@
 		</style>
 		
 <!----
-<cfquery name="data" datasource="#application.web_user#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	 SELECT  
 	 	level,
 	 	geology_attribute_hierarchy_id,
@@ -79,10 +79,10 @@
 		geology_attribute_hierarchy_id = parent_id
 </cfquery>
 ---->
-<cfquery name="ctgeology_attribute"  datasource="#application.web_user#">
+<cfquery name="ctgeology_attribute"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select geology_attribute from ctgeology_attribute  order by geology_attribute
 </cfquery>
-<cfquery name="cData" datasource="#application.web_user#">
+<cfquery name="cData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	 SELECT  
 	 	level,
 	 	geology_attribute_hierarchy_id,

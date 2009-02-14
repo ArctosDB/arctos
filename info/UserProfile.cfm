@@ -9,7 +9,7 @@
 </cfif>
 
 <cfif #action# is "nothing">
-<cfquery name="getUserData" datasource="#Application.web_user#">
+<cfquery name="getUserData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT   
 		cf_users.user_id,
 		first_name,
@@ -86,7 +86,7 @@
 	</cfif>
 	<cfset thisDate = #dateformat(now(),"dd-mmm-yyyy")#>
 	
-	<cfquery name="isUser" datasource="#Application.web_user#">
+	<cfquery name="isUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_user_data where user_id=#user_id#
 	</cfquery>
 		<!---- already have a user_data entry --->

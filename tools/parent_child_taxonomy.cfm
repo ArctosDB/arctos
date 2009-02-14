@@ -21,7 +21,7 @@ Use this to synchronize child ID to parent's. Check the boxes and click submit t
 	<cfset customOtherIdentifier = '--'>
 <cfelse>
 </cfif>
-<cfquery name="whatIDs" datasource="#Application.web_user#">
+<cfquery name="whatIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		pID.scientific_name as parentname,
 		cID.scientific_name as childname,
@@ -108,14 +108,10 @@ Use this to synchronize child ID to parent's. Check the boxes and click submit t
 <!--------------------------------------------------------->
 <cfif #action# is "upThese">
 	<cfoutput>
-		<cfquery name="whodunit" datasource="#Application.web_user#">
-			select agent_id from agent_name where agent_name='#session.username#'
-		</cfquery>
-		
 		<cfloop list="#child_coll_obj_id#" index="i">
 			<!--- make sure the child only has one parent --->
 			<cftransaction>
-			<cfquery name="numP" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="numP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select count(*) c from biol_indiv_relations where
 				BIOL_INDIV_RELATIONSHIP='parent of' AND
 				RELATED_COLL_OBJECT_ID = #i#
@@ -126,36 +122,31 @@ Use this to synchronize child ID to parent's. Check the boxes and click submit t
 				 seems to have #numP.c# parents! That may be good data, but I can't handle it here. Update the ID from the link.
 				<cfabort>
 			</cfif>
-			<cfquery name="pData" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="pData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select * from identification where
 				identification.accepted_id_fg=1 and collection_object_id IN (
 				select collection_object_id from biol_indiv_relations where
 				BIOL_INDIV_RELATIONSHIP='parent of' AND
 				RELATED_COLL_OBJECT_ID = #i#)
 			</cfquery>
-			<cfquery name="remOldIf" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="remOldIf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				update identification set accepted_id_fg=0 where collection_object_id=#i#
 			</cfquery>
-			<cfquery name="idta" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="idta" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select * from identification_taxonomy where identification_id=#pData.identification_id#
 			</cfquery>
-			<cfquery name="nIDid" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-				select max(identification_id) + 1 as nid from identification
-			</cfquery>
-			<cfquery name="newID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			insert into identification (
 				 IDENTIFICATION_ID,
 				 COLLECTION_OBJECT_ID,
-				 ID_MADE_BY_AGENT_ID,
 				 MADE_DATE,
 				 NATURE_OF_ID,
 				 ACCEPTED_ID_FG,
 				 TAXA_FORMULA,
 				 SCIENTIFIC_NAME
 				 ) values (
-				 #nIDid.nid#,
+				 q_identification_id.nextval,
 				 #i#,
-				 #whodunit.agent_id#,
 				 '#dateformat(now(),"dd-mmm-yyyy")#',
 				 'ID of kin',
 				 1,
@@ -163,17 +154,28 @@ Use this to synchronize child ID to parent's. Check the boxes and click submit t
 				 '#pData.SCIENTIFIC_NAME#')
 				 </cfquery>
 				 <cfloop query="idta">
-				 	<cfquery name="newTID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				 	<cfquery name="newTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					insert into identification_taxonomy (
 						 IDENTIFICATION_ID ,
 						 TAXON_NAME_ID,
 						 VARIABLE)
 						 values (
-						 	#nIDid.nid#,
+						 	q_identification_id.currval,
 							#TAXON_NAME_ID#,
 							'#VARIABLE#')
 					 </cfquery>
 				 </cfloop>
+				 <cfquery name="insertida1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					insert into identification_agent (
+						IDENTIFICATION_ID,
+						AGENT_ID,
+						IDENTIFIER_ORDER
+					) values (
+						q_identification_id.currval,
+						#session.myAgentId#,
+						1
+					)
+				</cfquery>
 			</cftransaction>
 				<!----where identification.identification_id = identification_taxonomy.identification_id and
 			#SCIENTIFIC_NAME# #TAXA_FORMULA# ## ##

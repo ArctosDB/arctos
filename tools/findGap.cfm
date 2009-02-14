@@ -9,10 +9,10 @@
 
 <cfif #action# is "nothing">
 	Find gaps in catalog numbers:
-	<cfquery name="oidnum" datasource="#Application.web_user#">
+	<cfquery name="oidnum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct(other_id_type) from coll_obj_other_id_num
 	</cfquery>
-	<cfquery name="collection_id" datasource="#Application.web_user#">
+	<cfquery name="collection_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select institution_acronym||' '||collection_cde CID, collection_id from collection
 		group by institution_acronym||' '||collection_cde,collection_id
 	</cfquery>
@@ -43,17 +43,17 @@
 <cfif #action# is "cat_num">
 <!--- max catnum --->
 <!--- a little info --->
-<cfquery name="what" datasource="#Application.web_user#">
+<cfquery name="what" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection_cde,institution_acronym from collection where collection_id=#collection_id#
 </cfquery>
 <cfoutput>
 <b>The following catalog number are not used in the #what.institution_acronym# #what.collection_cde# collection:</b>
 <br>
 </cfoutput>
-<cfquery name="a" datasource="#Application.web_user#">
+<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select max(cat_num) mc from cataloged_item where collection_id IN (#collection_id#)
 </cfquery>
-<cfquery name="b" datasource="#Application.web_user#">
+<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		num
 	from 
@@ -82,7 +82,7 @@ select max(to_number(other_id_num)) mc from
 		cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
 		 collection_id =#collection_id# and
 		 other_id_type='#action#'
-<cfquery name="a" datasource="#Application.web_user#">
+<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select max(to_number(other_id_num)) mc from 
 		cataloged_item,coll_obj_other_id_num where
 		cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
@@ -90,7 +90,7 @@ select max(to_number(other_id_num)) mc from
 		 other_id_type='#action#'
 </cfquery>
 --_#a.mc#
-<cfquery name="b" datasource="#Application.web_user#">
+<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		num
 	from 

@@ -7,7 +7,7 @@
 	<cfset Action = "nothing">
 </cfif>
 
-<cfquery name="thisLoan" datasource="#Application.web_user#">
+<cfquery name="thisLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from loan, trans where loan.transaction_id = trans.transaction_id and trans.transaction_id=#transaction_id#
 	</cfquery>
 	
@@ -20,7 +20,7 @@
 		<input type="hidden" name="transaction_id" value="#transaction_id#">
 		<input type="hidden" name="action" value="search">
 		</cfoutput>
-		<cfquery name="collections" datasource="#Application.web_user#">
+		<cfquery name="collections" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select collection_cde from ctCollection_Cde order by collection_cde
 		</cfquery>
 		<p>Collection: <select name="collection_cde" size="1">
@@ -32,7 +32,7 @@
 		<br>Cat Num:<input type="text" name="catnum" value="50000">
 		<br>AF Num:<input type="text" name="afnum">
 		<br>Part Name:
-			<cfquery name="Part" datasource="#Application.web_user#">
+			<cfquery name="Part" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select distinct(part_name) from specimen_part order by part_name
 			</cfquery>
 			<select name="Part_name" size="1">

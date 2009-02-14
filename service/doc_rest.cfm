@@ -1,5 +1,5 @@
 <cfif #action# is "getDefinition">
-	<cfquery name="data" datasource="#application.web_user#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
 			colname,
 			definition,
@@ -22,7 +22,7 @@
 <cfcomponent style="document">
 	<cffunction name="getDefinition" access="remote" output="true" returntype="String">
 	<cfargument required="true" name="fld" type="string">
-	<cfquery name="data" datasource="#application.web_user#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
 			colname,
 			definition,
@@ -56,7 +56,7 @@
 		<cffunction name="getDefinitionByDispName" access="remote" returntype="string" output="no">
 	    	<cfargument name="fld" type="string" required="true">
 	   		 <cftry>
-				<cfquery name="data" datasource="#application.web_user#">
+				<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select colname, definition,display_name, more_info from documentation where
 					lower(display_name) IN ( '#lcase(replace(fld,",","','","all"))#' )
 				</cfquery>
@@ -90,7 +90,7 @@
 		<cffunction name="getDefinition" access="remote" returntype="string" output="no">
 	    	<cfargument name="fld" type="string" required="true">
 	   		 <cftry>
-				<cfquery name="data" datasource="#application.web_user#">
+				<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select colname, definition,display_name, more_info from documentation where
 					lower(colname) IN ( '#lcase(replace(fld,",","','","all"))#' )
 				</cfquery>

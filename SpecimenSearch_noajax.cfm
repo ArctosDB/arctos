@@ -55,7 +55,7 @@ function changeGrp(tid) {
 
 
 
-<cfquery name="getCount" datasource="#Application.web_user#">
+<cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select count(collection_object_id) as cnt from cataloged_item
 	<cfif len(#exclusive_collection_id#) gt 0>
 		,collection
@@ -77,7 +77,7 @@ function changeGrp(tid) {
 			</a> 
 			</font>
 			<cfif len(#exclusive_collection_id#) gt 0>
-				<cfquery name="coll" datasource="#Application.web_user#">
+				<cfquery name="coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select collection,institution_acronym,collection_cde
 					from collection where
 					collection_id=#exclusive_collection_id#
@@ -87,7 +87,7 @@ function changeGrp(tid) {
 			<cfelse>
 			records.
 			</cfif>
-<cfquery name="hasCanned" datasource="#Application.web_user#">
+<cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select SEARCH_NAME,URL
 	from cf_canned_search,cf_users
 	where cf_users.user_id=cf_canned_search.user_id
@@ -229,7 +229,7 @@ function changeGrp(tid) {
 <input type="hidden" name="exclusive_collection_id" value="#exclusive_collection_id#">
 
 </cfoutput>
-<cfquery name="collections" datasource="#Application.web_user#">
+<cfquery name="collections" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection_cde from ctCollection_Cde order by collection_cde
 </cfquery>
 <table width="75%" cellspacing="2" cellpadding="4"><!--- outer table --->
@@ -271,7 +271,7 @@ function changeGrp(tid) {
 				<div class="group" align="left">
 				<table cellpadding="0" cellspacing="0" width="100%">
 					<tr>
-					<cfquery name="ctInst" datasource="#Application.web_user#">
+					<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						SELECT institution_acronym, collection, collection_id FROM collection
 						<cfif len(#exclusive_collection_id#) gt 0>
 							WHERE collection_id = #exclusive_collection_id#
@@ -364,7 +364,7 @@ function changeGrp(tid) {
 						<cfset oidTable = "CTCOLL_OTHER_ID_TYPE">
 					</cfif>
 					<cfoutput>
-					<cfquery name="OtherIdType" datasource="#Application.web_user#">
+					<cfquery name="OtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select distinct(other_id_type) FROM #oidTable# ORDER BY other_Id_Type
 					</cfquery>
 					</cfoutput>
@@ -394,7 +394,7 @@ function changeGrp(tid) {
 					  				onclick="getCtDoc('ctcoll_other_id_type',SpecData.OIDType.value);">Define</span>
 						</td>
 					</tr>
-					<cfquery name="OtherIdType" datasource="#Application.web_user#">
+					<cfquery name="OtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
 					</cfquery>
 					<tr>
@@ -484,7 +484,7 @@ function changeGrp(tid) {
 								onmouseout="self.status='';return true;">Taxonomy:&nbsp;</a></td>
 						<td align="left"><input type="text" name="HighTaxa" size="50"></td>
 					</tr>
-						<cfquery name="ctClass" datasource="#Application.web_user#">
+						<cfquery name="ctClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							SELECT DISTINCT(phylclass) FROM ctclass ORDER BY phylclass
 						</cfquery>
 					<tr>
@@ -513,7 +513,7 @@ function changeGrp(tid) {
 							<input name="Common_Name" type="text" size="50">
 						</td>
 					</tr>
-						<cfquery name="ctNatureOfId" datasource="#Application.web_user#">
+						<cfquery name="ctNatureOfId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							SELECT DISTINCT(nature_of_id) FROM ctnature_of_id ORDER BY nature_of_id
 						</cfquery>
 					<tr>
@@ -558,7 +558,7 @@ function changeGrp(tid) {
 				<div class="group">
 				<table cellpadding="0" cellspacing="0" width="100%">
 					<cfif #ListContains(session.searchBy, 'locality')# gt 0>
-						<cfquery name="ContOcean" datasource="#Application.web_user#">
+						<cfquery name="ContOcean" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							select continent_ocean from ctContinent ORDER BY continent_ocean
 						</cfquery>
 						<tr>
@@ -574,7 +574,7 @@ function changeGrp(tid) {
 							</td>
 						</tr>
 						
-						<cfquery name="Country" datasource="#Application.web_user#">
+						<cfquery name="Country" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							select distinct(country) from geog_auth_rec order by country
 						</cfquery>
 						<tr>
@@ -625,7 +625,7 @@ function changeGrp(tid) {
 								<input type="text" name="County" size="50">
 							</td>
 						</tr>
-						<cfquery name="IslGrp" datasource="#Application.web_user#">
+						<cfquery name="IslGrp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							select island_group from ctIsland_Group order by Island_Group
 						</cfquery>
 						<tr>
@@ -652,7 +652,7 @@ function changeGrp(tid) {
 								<input type="text" name="Island" size="50">
 							</td>
 						</tr>
-						<cfquery name="Feature" datasource="#Application.web_user#">
+						<cfquery name="Feature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							select distinct(Feature) from geog_auth_rec order by Feature
 						</cfquery>
 						<tr>
@@ -687,7 +687,7 @@ function changeGrp(tid) {
 								Elevation:&nbsp;
 							</td>
 							<td align="left">
-								<cfquery name="ctElevUnits" datasource="#Application.web_user#">
+								<cfquery name="ctElevUnits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 									select orig_elev_units from CTORIG_ELEV_UNITS
 								</cfquery>
 								<input type="text" name="minimum_elevation" size="5"> - 
@@ -722,7 +722,7 @@ function changeGrp(tid) {
 										onmouseout="self.status='';return true;">Collecting Source:&nbsp;</a>									
 							</td>
 							<td align="left">
-								<cfquery name="ctcollecting_source" datasource="#Application.web_user#">
+								<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 									select collecting_source from ctcollecting_source
 								</cfquery>
 								<select name="collecting_source" size="1">
@@ -1026,15 +1026,15 @@ function changeGrp(tid) {
 			</cfif>
 			
 			<cfoutput>
-			<cfquery name="Part" datasource="#Application.web_user#">
+			<cfquery name="Part" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select part_name from #partTable# group by part_name order by part_name
 			</cfquery>
 			
-			<cfquery name="pres" datasource="#Application.web_user#">
+			<cfquery name="pres" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select distinct(preserve_method) from #presTable#
 				ORDER BY preserve_method
 			</cfquery>
-			<cfquery name="ctpart_mod" datasource="#Application.web_user#">
+			<cfquery name="ctpart_mod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select distinct part_modifier from #pmodTable# order by part_modifier
 			</cfquery>
 			</cfoutput>
@@ -1107,7 +1107,7 @@ function changeGrp(tid) {
 		</tr>
 		</cfif>
 		<cfif #ListContains(session.searchBy, 'images')# gt 0>
-			<cfquery name="ctSubject" datasource="#Application.web_user#">
+			<cfquery name="ctSubject" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select subject from ctbin_obj_subject
 			</cfquery>
 		<tr>
@@ -1175,7 +1175,7 @@ function changeGrp(tid) {
 									Permit Type:&nbsp;
 								</td>
 								<td align="left">
-									<cfquery name="ctPermitType" datasource="#Application.web_user#">
+									<cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 												select * from ctpermit_type
 											</cfquery>
 											<select name="permit_Type" size="1">
@@ -1214,7 +1214,7 @@ function changeGrp(tid) {
 									Type Status:&nbsp;
 								</td>
 								<td align="left">
-									<cfquery name="ctTypeStatus" datasource="#Application.web_user#">
+									<cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 										select type_status from ctcitation_type_status
 									</cfquery>
 									<select name="type_status" size="1">
@@ -1244,7 +1244,7 @@ function changeGrp(tid) {
 									Relationship:&nbsp;
 								</td>
 								<td align="left">
-									<cfquery name="ctbiol_relations" datasource="#Application.web_user#">
+									<cfquery name="ctbiol_relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 										select biol_indiv_relationship  from ctbiol_relations
 									</cfquery>
 									<select name="relationship" size="1">
@@ -1335,7 +1335,7 @@ function changeGrp(tid) {
 									Permit Type:&nbsp;
 								</td>
 								<td align="left">
-									<cfquery name="ctPermitType" datasource="#Application.web_user#">
+									<cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 												select * from ctpermit_type
 											</cfquery>
 											<select name="permit_Type" size="1">
@@ -1387,7 +1387,7 @@ function changeGrp(tid) {
 								<td align="right" width="250">
 									Disposition:&nbsp;
 								</td>
-								<cfquery name="ctCollObjDisp" datasource="#Application.web_user#">
+								<cfquery name="ctCollObjDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 									select coll_obj_disposition from ctcoll_obj_disp
 								</cfquery>
 								<td align="left" nowrap>
@@ -1426,7 +1426,7 @@ function changeGrp(tid) {
 							<tr>
 								<td align="right" width="250">Missing:&nbsp;</td>
 								<td>
-									<cfquery name="ctFlags" datasource="#Application.web_user#">
+									<cfquery name="ctFlags" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 										select flags from ctflags
 									</cfquery>
 									<select name="coll_obj_flags" size="1">
@@ -1462,7 +1462,7 @@ function changeGrp(tid) {
 							</tr>
 							<tr>
 						  
-						  <cfquery name="ctAttributeType" datasource="#Application.web_user#">
+						  <cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							select distinct(attribute_type) from ctattribute_type order by attribute_type
 						  </cfquery>
 						  <td>

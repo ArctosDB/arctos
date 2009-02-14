@@ -19,7 +19,7 @@ someBigStaticPage.html loaded in #HtmlLoadTime# MS.
 	query health
 ---->
 <cfloop from="1" to="500" index="n">
-	<cfquery name="stoopidQuery#n#" datasource="#Application.web_user#">
+	<cfquery name="stoopidQuery#n#" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT
 			collection_object_id 
 		FROM 
@@ -34,7 +34,7 @@ someBigStaticPage.html loaded in #HtmlLoadTime# MS.
 <br>The query ran 500 times in #queryTime# MS
 <cfflush>
 <!--- run another query to get some data to process ---->
-	<cfquery name="stoopidQuery" datasource="#Application.web_user#">
+	<cfquery name="stoopidQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT
 			collection_object_id 
 		FROM 

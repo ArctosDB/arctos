@@ -1,12 +1,12 @@
 <cfinclude template = "includes/_header.cfm">
-<cfif not isdefined("project_id")>
+<cfif not isdefined("project_id") or not isnumeric(#project_id#)>
 	<p style="color:#FF0000; font-size:14px;">
 		Did not get a project ID - aborting....
 	</p>
 	<cfabort>
 </cfif>
 <cfset title = "Project Detail">
-<cfquery name="proj" datasource="#Application.web_user#">
+<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT project.project_id,project_name,project_description,start_date,end_date,agent_name, agent_position,
 	project_agent_role FROM project,project_agent,agent_name WHERE project.project_id = #project_id# 
 	AND project.project_id = project_agent.project_id AND 
@@ -82,7 +82,7 @@
 	</cfif>
 	<cfif #Action# is "viewPubs">
 		<cfoutput>
-			<cfquery name="pubJour" datasource="#Application.web_user#">
+			<cfquery name="pubJour" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				SELECT 
 					formatted_publication, formatted_publication.publication_id  
 				FROM 
@@ -96,7 +96,7 @@
 					format_style = 'full citation' AND
 					publication_type='Journal Article'
 			</cfquery>
-			<cfquery name="pubBook" datasource="#Application.web_user#">
+			<cfquery name="pubBook" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				SELECT 
 					formatted_publication, formatted_publication.publication_id 
 				FROM 
@@ -110,7 +110,7 @@
 					format_style = 'full citation' AND
 					publication_type='Book'
 			</cfquery>
-			<cfquery name="pubBookSec" datasource="#Application.web_user#">
+			<cfquery name="pubBookSec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				SELECT 
 					formatted_publication, formatted_publication.publication_id 
 				FROM 
@@ -134,22 +134,22 @@
 				<blockquote>
 				<cfoutput query="pubJour">
 					<p>#formatted_publication#<br>
-					<a href="PublicationResults.cfm?publication_id=#publication_id#" target="#session.target#">More Information</a>
+					<a href="PublicationResults.cfm?publication_id=#publication_id#">More Information</a>
 				</cfoutput>
 				<cfoutput query="pubBook">
 					<p>#formatted_publication#<br>
-					<a href="PublicationResults.cfm?publication_id=#publication_id#" target="#session.target#">More Information</a>
+					<a href="PublicationResults.cfm?publication_id=#publication_id#">More Information</a>
 				</cfoutput>
 				<cfoutput query="pubBookSec">
 					<p>#formatted_publication#<br>
-					<a href="PublicationResults.cfm?publication_id=#publication_id#" target="#session.target#">More Information</a>
+					<a href="PublicationResults.cfm?publication_id=#publication_id#">More Information</a>
 				</cfoutput>
 				</blockquote>
 		</cfif>
 		
 	</cfif>
 	<cfif #Action# is "viewUser">
-		<cfquery name="getUsers" datasource="#Application.web_user#">
+		<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT project.project_id,project_name FROM project,
 			project_agent,agent_name WHERE project.project_id = project_agent.project_id AND
 			 project_agent.agent_name_id = agent_name.agent_name_id AND project.project_id 
@@ -173,7 +173,7 @@
 				Click the title to open that project in a new window.<br>
 			<ul>
 			<cfoutput query="getUsers" group="project_id">
-				<li><a href="ProjectDetail.cfm?project_id=#project_id#" target="#session.target#">#project_name#</a></li>
+				<li><a href="ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
 			</cfoutput>
 			</ul>
 		</cfif>
@@ -181,7 +181,7 @@
 	</cfif>
 	<cfif #Action# is "viewUsed"><!---Specimens Used--->
 		<!--- get specimen parts --->
-		<cfquery name="getUsedParts" datasource="#Application.web_user#">
+		<cfquery name="getUsedParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				cat_num, cataloged_item.collection_object_id
 			FROM 
@@ -197,7 +197,7 @@
 		</cfquery>
 		<!--- get specimen tissues --->
 		<!---
-		<cfquery name="getUsedTiss" datasource="#Application.web_user#">
+		<cfquery name="getUsedTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				cat_num, cataloged_item.collection_object_id
 			FROM 
@@ -213,7 +213,7 @@
 		</cfquery>
 		--->
 		<!--- get cataloged items that have been loaned --->
-		<cfquery name="getUsedSpecs" datasource="#Application.web_user#">
+		<cfquery name="getUsedSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				cat_num, loan_item.collection_object_id
 			FROM 
@@ -250,7 +250,7 @@
 		<cfoutput>
 			<cfif #numItems# gt 0>
 				This project used <cfoutput>#numItems#</cfoutput> specimens. 
-				<form action="SpecimenResults.cfm" method="post"  target="#session.target#">
+				<form action="SpecimenResults.cfm" method="post" >
 				<input type="submit" value="View Specimen Details" class="lnkBtn"
    onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
    
@@ -268,7 +268,7 @@
 	</cfif>
 		<cfif #Action# is "viewCont">
 		
-			<cfquery name="getContributors" datasource="#Application.web_user#">
+			<cfquery name="getContributors" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				SELECT project.project_id,project_name,start_date,end_date,agent_name,project_agent_role 
 				FROM project,project_agent,agent_name WHERE project.project_id = project_agent.project_id AND
 				project_agent.agent_name_id = agent_name.agent_name_id AND project.project_id IN 
@@ -317,7 +317,7 @@
 			
 	</cfif>
 	<cfif #Action# is "viewSpec">
-		<cfquery name="getContSpecs" datasource="#Application.web_user#">
+		<cfquery name="getContSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				cat_num,cataloged_item.collection_object_id 
 			FROM 
@@ -329,19 +329,9 @@
 				project.project_id = #project_id#
 		</cfquery>
 			<cfif getContSpecs.recordcount gt 0>
-				<cfif session.target is "_blank">
-					<cfoutput>
-						<script>
-							nw = window.open("SpecimenResults.cfm?project_id=#project_id#","_blank") ;
-						</script>
-					</cfoutput>
-				A new window displaying specimens contributed by this project has opened.
-				<cfelse><cflocation url="SpecimenResults.cfm?project_id=#project_id#">
-				</cfif>
-				
-				
-				<!---form action="SpecimenResults.cfm" method="post" target="_blank"><input name="here" type="submit" value="View Specimen Data"><cfoutput query="getContSpecs"><input type="hidden" name="collection_object_id" value="#collection_object_id#"></cfoutput><input type="hidden" name="newQuery" value="1"><input type="hidden" name="displayRows" value="25"><!--- just show them 25 rows ---></form--->
-			<cfelse>This project contributed no specimens.<br>
+				<cflocation url="SpecimenResults.cfm?project_id=#project_id#">
+			<cfelse>
+				This project contributed no specimens.<br>
 			</cfif>
 		
 	</cfif>

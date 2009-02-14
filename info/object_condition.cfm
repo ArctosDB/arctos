@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_pickHeader.cfm">
 <cfoutput>
 <!---- see what we're getting a condition of ---->
-<cfquery name="itemDetails" datasource="#Application.web_user#">
+<cfquery name="itemDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		'cataloged item' part_name,
 		cat_num,
@@ -37,7 +37,7 @@
 
 <strong>Condition History of #itemDetails.collection# #itemDetails.cat_num#
 (<i>#itemDetails.scientific_name#</i>) #itemDetails.part_name#</strong>
-<cfquery name="cond" datasource="#Application.web_user#">
+<cfquery name="cond" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		object_condition_id,
 		determined_agent_id,

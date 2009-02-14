@@ -1,32 +1,22 @@
+<cfset btime=now()>
 <cfinclude template="/includes/_header.cfm">
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>	
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
 <cf_showMenuOnly>
-<cfinclude template="/includes/functionLib.cfm">
 <!--- 
 Group Setup:
-
 Two groups are required to complete data entry using this form:
-
 	x Data Entry Group, and
 	x Data Admin Group
-	
 x can be any string. There must be a space between x and "Data." Acceptable entries:
-
 UAM Mammals Data.....
 UAM Data .....
 Some Totally Random String Data .....
-
-
 --->
 <cf_setDataEntryGroups>
-
-
 <cfif not isdefined("ImAGod") or len(#ImAGod#) is 0>
 	<cfset ImAGod = "no">
 </cfif>
-
-<!---- end imagod --->
 <cfif isdefined("CFGRIDKEY") and not isdefined("collection_object_id")>
 	<cfset collection_object_id = #CFGRIDKEY#>
 </cfif>
@@ -45,25 +35,23 @@ Some Totally Random String Data .....
 		cal1.showYearNavigationInput();
 	</SCRIPT>
 	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
-
 <cfset title="Data Entry">
-
 <cfset thisDate = #dateformat(now(),"dd mmm yyyy")#>
 <!------------ default page --------------------------------------------------------------------------------------------->
 <cfif #action# is "nothing">
 <!--- prime the bulkloader table with templates for each collection ---->
-<cfquery name="c" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from collection ORDER BY COLLECTION_ID
 </cfquery>
 <cfoutput>
 	<cfloop query="c">
 		<!--- see if the template already exists --->
-		<cfquery  name="isBL" datasource="#Application.web_user#">
+		<cfquery  name="isBL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from bulkloader where collection_object_id = #collection_id#
 		</cfquery>
 		<cfif #isBl.recordcount# is 0>
 			<!--- re-create the template --->
-			<cfquery name="prime" datasource="#Application.web_user#">
+			<cfquery name="prime" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				insert into bulkloader (
 					collection_object_id, 
 					institution_acronym,
@@ -78,11 +66,11 @@ Some Totally Random String Data .....
 		<!--- see if it's our template --->
 			<cfif #isBL.loaded# is not "#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE">
 				<!--- shiyite - move the barged-in record and create template --->
-				<cfquery name="move" datasource="#Application.web_user#">
+				<cfquery name="move" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update bulkloader set collection_object_id = bulkloader_PKEY.nextval
 					where collection_object_id = #collection_id#
 				</cfquery>
-				<cfquery name="prime" datasource="#Application.web_user#">
+				<cfquery name="prime" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					insert into bulkloader (
 						collection_object_id, 
 						institution_acronym,
@@ -96,14 +84,12 @@ Some Totally Random String Data .....
 			</cfif>
 		</cfif>
 	</cfloop>
-	
-	Welcome to the enter and edit unbulked data application, #session.username# 
+	Welcome to Data Entry, #session.username# 
 	<ul>
 		<li>Green Screen: You are entering data to a new record.</li>
 		<li>Blue Screen: you are editing an unloaded record that you've previously entered.</li>
 		<li>Yellow Screen: A record has been saved but has errors that must be corrected. Fix and save to continue.</li>
 	</ul>
-    
     <p>
         <a href="/Bulkloader/cloneWithBarcodes.cfm">Clone records by Barcode</a>
     </p>
@@ -117,7 +103,6 @@ Some Totally Random String Data .....
 						collection_cde,
 						institution_acronym
 				</cfquery>
-				
 				Begin at....<br>	
 					<form name="begin" method="post" action="DataEntry.cfm">
 						<input type="hidden" name="action" value="editEnterData" />
@@ -135,20 +120,19 @@ Some Totally Random String Data .....
 							onmouseout="this.className='lnkBtn'"
 							type="submit" value="Enter Data"/>
 					</form>
-</cfoutput>
-
-	
+</cfoutput>	
 </cfif>
 <!------------ editEnterData --------------------------------------------------------------------------------------------->
-<cfif #action# is "editEnterData">
+<cfif action is "editEnterData">
+<cfoutput>
 <cfif not isdefined("collection_object_id") or len(#collection_object_id#) is 0>
 	you don't have an ID. <cfabort>
 </cfif>
-<cfquery name="data" datasource="#Application.web_user#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from bulkloader where collection_object_id=#collection_object_id#
 </cfquery>
 <!------------------- check these data ------------------->
-<cfif #collection_OBJECT_ID# GT 30>
+<cfif #collection_OBJECT_ID# GT 50>
 	<cfquery name="oneRecord" dbtype="query">
 		select * from data
 	</cfquery>
@@ -156,10 +140,9 @@ Some Totally Random String Data .....
 <cfelse>
 	<cfset loadedMsg = "">
 </cfif>
+</cfoutput>
 <!------------------- end check these data ------------------->
 <cfoutput query="data">
-
-
 	<!---- get data for dropdowns; cache it to speed up the form; refresh every hour---->
 	<cfquery name="ctInst" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
 		SELECT institution_acronym || ' ' || collection_cde as instcoll, collection_id FROM collection
@@ -170,120 +153,106 @@ Some Totally Random String Data .....
 	<cfquery name="ctnature" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select nature_of_id from ctnature_of_id order by nature_of_id
 	</cfquery>
-	<!----
-	<cfquery name="ctGeog" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select distinct(higher_geog) from geog_auth_rec
-	</cfquery>
-	---->
 	<cfquery name="ctunits" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-        select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS order by orig_lat_long_units
-     </cfquery>
-	 <cfquery name="ctflags" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-        select flags from ctflags order by flags
-     </cfquery>
-	 <cfquery name="CTCOLL_OBJ_DISP" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-        select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP order by coll_obj_DISPOSITION
-     </cfquery>
-	 
-	  <cfquery name="cterror" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-      		select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS order by lat_long_error_units
-      </cfquery>
-	   <cfquery name="ctdatum" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select datum from ctdatum order by datum
-      </cfquery>
-       
-		<cfquery name="ctgeorefmethod" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-        	select georefmethod from ctgeorefmethod order by georefmethod
-        </cfquery>
-		<cfquery name="ctverificationstatus" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-        	select verificationstatus from ctverificationstatus order by verificationstatus
-        </cfquery>
-		<cfquery name="ctcollecting_source" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-        	select collecting_source from ctcollecting_source order by collecting_source
-        </cfquery>			
-        <cfquery name="ctew" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-       		select e_or_w from ctew order by e_or_w
-        </cfquery>
-        <cfquery name="ctns" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-        	select n_or_s from ctns order by n_or_s
-        </cfquery>
-		<cfquery name="ctOtherIdType" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-			SELECT distinct(other_id_type) FROM ctColl_Other_id_type
-				<cfif len(#collection_cde#) gt 0>
-					WHERE collection_cde='#collection_cde#'
-				</cfif>
-				order by other_id_type
-        </cfquery>
-		<!--- --->
-		<cfquery name="ctSex_Cde" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-			SELECT distinct(sex_cde) as sex_cde FROM ctSex_Cde
-				<cfif len(#collection_cde#) gt 0>
-					WHERE collection_cde='#collection_cde#'
-				</cfif>
-				order by sex_cde
-        </cfquery>
-		<cfquery name="ctOrigElevUnits" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-        	select orig_elev_units from ctorig_elev_units
-        </cfquery>
-		<cfquery name="ctbiol_relations" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-        	select BIOL_INDIV_RELATIONSHIP from ctbiol_relations
-			order by BIOL_INDIV_RELATIONSHIP
-        </cfquery>
-		<cfquery name="ctPartName" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-			SELECT distinct(part_name) FROM ctSpecimen_part_name
-				<cfif len(#collection_cde#) gt 0>
-					WHERE collection_cde='#collection_cde#'
-				</cfif>
-				order by part_name
-        </cfquery>
-		<cfquery name="ctPartModifier" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-			SELECT distinct(part_modifier) FROM ctSpecimen_part_modifier
-			order by part_modifier
-        </cfquery>
-		<cfquery name="ctPresMeth" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select preserve_method from ctspecimen_preserv_method
-				<cfif len(#collection_cde#) gt 0>
-					WHERE collection_cde='#collection_cde#'
-				</cfif>
-				order by preserve_method
-		</cfquery>
-		<!-------->
-		<cfquery name="ctAttributeType" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select distinct(attribute_type) from ctattribute_type
-				<cfif len(#collection_cde#) gt 0>
-					WHERE collection_cde='#collection_cde#'
-				</cfif>
-				order by attribute_type
-		</cfquery>
-		<cfquery name="ctLength_Units" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select length_units from ctLength_Units order by length_units
-		</cfquery>
-		<cfquery name="ctWeight_Units" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select Weight_Units from ctWeight_Units order by weight_units
-		</cfquery>
-		<cfquery name="ctattribute_type" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-			SELECT attribute_type FROM ctattribute_type 
-			<cfif len(#collection_cde#) gt 0>
-					WHERE collection_cde='#collection_cde#'
-			</cfif>
-			order by attribute_type
-		</cfquery>
-		<cfquery name="ctgeology_attribute" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-			select geology_attribute from ctgeology_attribute order by geology_attribute
-		</cfquery>
-		
-<cfquery name="ctCodes" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
-	select 
-		attribute_type,
-		value_code_table,
-		units_code_table
-	 from ctattribute_code_tables
-</cfquery>
+       select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS order by orig_lat_long_units
+    </cfquery>
+	<cfquery name="ctflags" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+       select flags from ctflags order by flags
+    </cfquery>
+	<cfquery name="CTCOLL_OBJ_DISP" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+       select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP order by coll_obj_DISPOSITION
+    </cfquery>	 
+	<cfquery name="cterror" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+    	select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS order by lat_long_error_units
+    </cfquery>
+	<cfquery name="ctdatum" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select datum from ctdatum order by datum
+    </cfquery>    
+	<cfquery name="ctgeorefmethod" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+       	select georefmethod from ctgeorefmethod order by georefmethod
+    </cfquery>
+	<cfquery name="ctverificationstatus" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+       	select verificationstatus from ctverificationstatus order by verificationstatus
+    </cfquery>
+	<cfquery name="ctcollecting_source" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+       	select collecting_source from ctcollecting_source order by collecting_source
+    </cfquery>			
+    <cfquery name="ctew" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+    	select e_or_w from ctew order by e_or_w
+    </cfquery>
+    <cfquery name="ctns" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+       	select n_or_s from ctns order by n_or_s
+    </cfquery>
+	<cfquery name="ctOtherIdType" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+		SELECT distinct(other_id_type) FROM ctColl_Other_id_type
+		order by other_id_type
+    </cfquery>
+	<cfquery name="ctSex_Cde" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+		SELECT distinct(sex_cde) as sex_cde FROM ctSex_Cde
+		<cfif len(#collection_cde#) gt 0>
+			WHERE collection_cde='#collection_cde#'
+		</cfif>
+		order by sex_cde
+	</cfquery>
+	<cfquery name="ctOrigElevUnits" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+       	select orig_elev_units from ctorig_elev_units
+    </cfquery>
+	<cfquery name="ctbiol_relations" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+      	select BIOL_INDIV_RELATIONSHIP from ctbiol_relations
+		order by BIOL_INDIV_RELATIONSHIP
+    </cfquery>
+	<cfquery name="ctPartName" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+		SELECT distinct(part_name) FROM ctSpecimen_part_name
+		<cfif len(#collection_cde#) gt 0>
+			WHERE collection_cde='#collection_cde#'
+		</cfif>
+		order by part_name
+    </cfquery>
+	<cfquery name="ctPartModifier" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+		SELECT distinct(part_modifier) FROM ctSpecimen_part_modifier
+		order by part_modifier
+    </cfquery>
+	<cfquery name="ctPresMeth" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select preserve_method from ctspecimen_preserv_method
+		<cfif len(#collection_cde#) gt 0>
+			WHERE collection_cde='#collection_cde#'
+		</cfif>
+		order by preserve_method
+	</cfquery>
+	<cfquery name="ctAttributeType" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select distinct(attribute_type) from ctattribute_type
+		<cfif len(#collection_cde#) gt 0>
+			WHERE collection_cde='#collection_cde#'
+		</cfif>
+		order by attribute_type
+	</cfquery>
+	<cfquery name="ctLength_Units" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select length_units from ctLength_Units order by length_units
+	</cfquery>
+	<cfquery name="ctWeight_Units" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select Weight_Units from ctWeight_Units order by weight_units
+	</cfquery>
+	<cfquery name="ctattribute_type" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+		SELECT attribute_type FROM ctattribute_type 
+		<cfif len(#collection_cde#) gt 0>
+			WHERE collection_cde='#collection_cde#'
+		</cfif>
+		order by attribute_type
+	</cfquery>
+	<cfquery name="ctgeology_attribute" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select geology_attribute from ctgeology_attribute order by geology_attribute
+	</cfquery>
+	<cfquery name="ctCodes" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select 
+			attribute_type,
+			value_code_table,
+			units_code_table
+	 	from ctattribute_code_tables
+	</cfquery>
 <!----------------- end dropdowns --------------------->
 <cfset thisUser = "#session.username#">
 <cfset sql = "select collection_object_id from bulkloader
 	where collection_object_id > 10">
-	
 	<cfif #ImAGod# is "no">
 		 <cfset sql = "#sql# AND enteredby = '#thisUser#'">
 	<cfelse>
@@ -298,7 +267,7 @@ Some Totally Random String Data .....
 		<cfset sql = "#sql# AND enteredby IN (#afg#)">
 	</cfif>
 	<cfset sql = "#sql# order by collection_object_id">
-<cfquery name="whatIds" datasource="#Application.web_user#">
+<cfquery name="whatIds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 <cfset idList = "">
@@ -317,7 +286,6 @@ Some Totally Random String Data .....
 	You have group issues! You must be in a Data Entry group to use this form.
 	<cfabort>
 </cfif>
-	
 <div align="center">
 <div id="splash"align="center">
 	<span style="background-color:##FF0000; font-size:large;">
@@ -328,8 +296,7 @@ Some Totally Random String Data .....
 <table width="100%" cellspacing="0" cellpadding="0" id="theTable" style="display:none;"> <!--- whole page table --->
 	<tr>
 		<td colspan="2" style="border-bottom: 1px solid black; " align="center">
-			<div id="pageTitle"><strong>#pageTitle#</strong></div>
-			
+			<div id="pageTitle"><strong>#pageTitle#</strong></div>	
 		</td>
 	</tr>
 	<tr>
@@ -349,23 +316,8 @@ Some Totally Random String Data .....
 					<span class="f11a">Cat##</span>
 					<input type="text" name="cat_num" value="#cat_num#"  size="6"
 						id="cat_num" class="d11a">
-					<!----
-					<cfif #thisEntryGroup# is "UAM">
-						<span class="f11a">AF##</span>
-						<input type="hidden" name="other_id_num_type_5" id="other_id_num_type_5" value="AF" />
-						<input type="text" name="other_id_num_5" value="#other_id_num_5#" 
-							size="6"
-							id="other_id_num_5" class="d11a">
-					<cfelseif #thisEntryGroup# is "MSB">
-						<span class="f11a">NK Number</span>
-						<input type="hidden" name="other_id_num_type_5" value="NK Number" id="other_id_num_type_5" />
-						<input type="text" name="other_id_num_5" value="#other_id_num_5#" 
-							size="6"
-							id="other_id_num_5" class="d11a">
-					</cfif>
-					---->
-					<cfif isdefined("session.CustomOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
-						<span class="f11a">#session.CustomOtherIdentifier#</span>
+						<cfif isdefined("session.CustomOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
+							<span class="f11a">#session.CustomOtherIdentifier#</span>
 							<input type="hidden" name="other_id_num_type_5" value="#session.CustomOtherIdentifier#" id="other_id_num_type_5" />
 							<input type="text" name="other_id_num_5" value="#other_id_num_5#" 
 								size="8"
@@ -1306,7 +1258,7 @@ Some Totally Random String Data .....
 	</table>
 <!-------------------------------------------------- /coordinates --------------------------------------------------->
 <!-------------------------------------------------- geology --------------------------------------------------->
-<cfif #collection_cde# is "VPal" or #collection_cde# is "IPal">
+<cfif #collection_cde# is "ES">
 <div id="geolCell">
 	<table cellpadding="0" cellspacing="0" class="fs">
 		<tr>
@@ -1421,7 +1373,8 @@ Some Totally Random String Data .....
 	<tr>
 		<td>
 		<cfif #collection_cde# is not "Crus" and #collection_cde# is not "Herb"
-			and #collection_cde# is not "VPal" and #collection_cde# is not "IPal">
+			and #collection_cde# is not "ES" and #collection_cde# is not "Fish"
+			and #collection_cde# is not "Para">
 		<table cellpadding="0" cellspacing="0">
 		<tr>
 			<td rowspan="99" valign="top">
@@ -3242,7 +3195,7 @@ Some Totally Random String Data .....
 				<td width="16%">	
 					<input type="button" value="Table View" class="lnkBtn"
 						   	onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-							onclick="window.open('userBrowseBulkedGrid.cfm','#session.target#');" />
+							onclick="window.open('userBrowseBulkedGrid.cfm','_browseDE');" />
 				</td>
 				<td align="right" width="16%" nowrap="nowrap">
 					<span id="browseThingy">
@@ -3312,7 +3265,7 @@ Some Totally Random String Data .....
 <script language="javascript" type="text/javascript">
 	switchActive('#orig_lat_long_units#');
 	// loadedMsg, with ::field_name:: format, can be used to highlight goofy stuff
-	highlightErrors('#loadedMsg#');
+	highlightErrors('#trim(loadedMsg)#');
 	// SEE WHAT mod ewe're in
 	changeMode('#pMode#');
 	pickedLocality();
@@ -3345,11 +3298,11 @@ Some Totally Random String Data .....
 <cfif #action# is "deleteThisRec">
 	<cfoutput>
 	<cftransaction>
-	<cfquery name="kill" datasource="#Application.web_user#">
+	<cfquery name="kill" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		delete from bulkloader where collection_object_id = #collection_object_id#
 	</cfquery>
 	</cftransaction>
-	<cfquery name="next" datasource="#Application.web_user#">
+	<cfquery name="next" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select max(collection_object_id) as collection_object_id from bulkloader 
 		where enteredby = '#session.username#'
 	</cfquery>
@@ -3386,7 +3339,7 @@ Some Totally Random String Data .....
 	<cfset sql = "#SQL# where collection_object_id = #collection_object_id#">
 	<!--- KILL THE first comma in sql --->
 	<cfset sql = replace(sql,"UPDATE bulkloader SET ,","UPDATE bulkloader SET ")>
-	<cfquery name="new" datasource="#Application.web_user#">
+	<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 	<cfif #imAGod# is "yes">
@@ -3431,10 +3384,10 @@ Some Totally Random String Data .....
 	<cfset flds = "collection_object_id,#flds#">
 	<cfset data = "bulkloader_PKEY.nextval,#data#">
 	<cfset sql = "insert into bulkloader (#flds#) values (#data#)">	
-	<cfquery name="new" datasource="#Application.web_user#">
+	<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-	<cfquery name="tVal" datasource="#Application.web_user#">
+	<cfquery name="tVal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select bulkloader_PKEY.currval as currval from dual
 	</cfquery>
 	<cfif #imAGod# is "yes">

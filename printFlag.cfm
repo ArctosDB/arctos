@@ -18,7 +18,7 @@ function setAll(val) {
 <cfset title = "Manage Print Flag">
 <cfoutput>
 	<h4>Update Print Flags</h4>
-	<cfquery name="getStuff" datasource="#Application.web_user#">
+	<cfquery name="getStuff" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT
 		cataloged_item.collection_object_id catItemId,
 		specimen_part.collection_object_id as partID,
@@ -122,7 +122,7 @@ function setAll(val) {
 			<cfif left(i,8) is "print_fg">
 				<cfset thisPartId = replace(lcase(i),"print_fg","","all")>
 				<cfset thisPrintFlag = evaluate("#i#")>
-				<cfquery name="upCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update container set print_fg = #thisPrintFlag#
 					where container_id = (select parent_container_id from 
 					container,coll_obj_cont_hist where

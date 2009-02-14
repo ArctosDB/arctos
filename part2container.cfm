@@ -1,75 +1,33 @@
 <cfinclude template="/includes/_header.cfm">
-<script language="javascript" type="text/javascript">
-	function checkSubmit() {
-		var c=document.getElementById('submitOnChange').checked;
-		if (c==true) {
-			addPartToContainer();
-		}
-	}
-	function addPartToContainer () {
-		document.getElementById('pTable').className='red';
-		var collection_id=document.getElementById('collection_id').value;
-		var other_id_type=document.getElementById('other_id_type').value;
-		var oidnum=document.getElementById('oidnum').value;
-		var part_name=document.getElementById('part_name').value;
-		var part_name_2=document.getElementById('part_name_2').value;
-		var parent_barcode=document.getElementById('parent_barcode').value;
-		var new_container_type=document.getElementById('new_container_type').value;
-		//alert('here we gonow....');
-		DWREngine._execute(_cfscriptLocation, null, 'addPartToContainer',collection_id,other_id_type,oidnum,part_name,part_name_2,parent_barcode,new_container_type,success_addPartToContainer);
-		
-		//
-	}
-	function success_addPartToContainer(result) {
-		//alert(result);
-		statAry=result.split("|");
-		var status=statAry[0];
-		var msg=statAry[1];
-		document.getElementById('pTable').className='';
-		var mDiv=document.getElementById('msgs');
-		var mhDiv=document.getElementById('msgs_hist');
-		var mh=mDiv.innerHTML + '<hr>' + mhDiv.innerHTML;
-		mhDiv.innerHTML=mh;
-		mDiv.innerHTML=msg;
-		if (status==0){
-			mDiv.className='error';
-		} else {
-			mDiv.className='successDiv';
-			document.getElementById('oidnum').focus();
-			document.getElementById('oidnum').select();
-		}
-		//alert(status);
-		//alert(msg);
-	}
-</script>
+<script type='text/javascript' src='/includes/ajax.js'></script>
 <style>
-		.messageDiv {
-			background-color:lightgray;
-			text-align:center;
-			font-size:.8em;
-			margin:0em .5em 0em .5em;}
-		.successDiv {
-			color:green;
-			border:1px solid;
-			padding:.5em;
-			margin:.5em;
-			text-align:center;
-			}	
-			
+	.messageDiv {
+		background-color:lightgray;
+		text-align:center;
+		font-size:.8em;
+		margin:0em .5em 0em .5em;
+	}
+	.successDiv {
+		color:green;
+		border:1px solid;
+		padding:.5em;
+		margin:.5em;
+		text-align:center;
+	}		
 </style>
 <!------------------------------------------------------------------->
 <cfif #action# is "nothing">
 	<cfoutput>
-	<cfquery name="ctCollection" datasource="#Application.web_user#">
+	<cfquery name="ctCollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection, collection_id FROM collection order by collection
 	</cfquery>
-	<cfquery name="ctPartName" datasource="#Application.web_user#">
+	<cfquery name="ctPartName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct(part_name) FROM ctspecimen_part_name order by part_name
 	</cfquery>
-	<cfquery name="ctOtherIdType" datasource="#Application.web_user#">
+	<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct(other_id_type) FROM ctcoll_other_id_type order by other_id_type
 	</cfquery>	
-	<cfquery name="ctContType" datasource="#Application.web_user#">
+	<cfquery name="ctContType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select container_type from ctcontainer_type
 		order by container_type
 	</cfquery>
@@ -81,7 +39,15 @@
 		container you'd like to put the object into.
 	</p>
 	<p style="font-size:.8em;">
-		Submit form with Parent Barcode change? <input type="checkbox" name="submitOnChange" id="submitOnChange">
+		<span style="border:1px solid blue; padding:5px;margin:5px;">
+			Submit form with Parent Barcode change? <input type="checkbox" name="submitOnChange" id="submitOnChange">
+		</span>
+		<span style="border:1px solid blue; padding:5px;margin:5px;">
+			Filter for un-barcoded parts? <input type="checkbox" name="noBarcode" id="noBarcode"  onchange="getParts()">
+		</span>
+		<span style="border:1px solid blue; padding:5px;margin:5px;">
+			Exclude subsamples? <input type="checkbox" name="noSubsample" id="noSubsample"  onchange="getParts()">
+		</span>
 	</p>
 	<table border id="pTable">
 	<form name="scans" method="post" id="scans">
@@ -89,7 +55,7 @@
 		<tr>
 			<td>
 				<label for="collection_id">Collection</label>
-				<select name="collection_id" id="collection_id" size="1">
+				<select name="collection_id" id="collection_id" size="1" onchange="getParts()">
 					<cfloop query="ctCollection">
 						<option value="#collection_id#">#collection#</option>
 					</cfloop>
@@ -97,7 +63,7 @@
 			</td>
 			<td>
 				<label for="other_id_type">ID Type</label>
-				<select name="other_id_type" id="other_id_type" size="1" style="width:120px;">
+				<select name="other_id_type" id="other_id_type" size="1" style="width:120px;" onchange="getParts()">
 					<option value="catalog_number">Catalog Number</option>
 					<cfloop query="ctOtherIdType">
 						<option value="#other_id_type#">#other_id_type#</option>
@@ -106,7 +72,7 @@
 			</td>
 			<td>
 				<label for="oidnum">ID Number</label>
-				<input type="text" name="oidnum" class="reqdClr" id="oidnum">
+				<input type="text" name="oidnum" class="reqdClr" id="oidnum" onchange="getParts()">
 			</td>
 			<td>
 				<label for="part_name">Part Name</label>
@@ -115,6 +81,7 @@
 						<option value="#part_name#">#part_name#</option>
 					</cfloop>
 				</select>
+				<span class="infoLink"  onclick="getParts()">Refresh</span>
 			</td>
 			<td>
 				<label for="part_name_2">Part Name 2</label>
@@ -140,11 +107,19 @@
 	  		<td>
 				<input type="button" value="Move it" class="savBtn" onclick="addPartToContainer()">
 			</td>
+			<td>
+				<input type="button" value="New Part" class="insBtn" onclick="clonePart()">
+			</td>
 		</tr>
 	</table>
 	</form>
+	<div id="thisSpecimen" style="border:1px solid green;font-size:smaller;"></div>
 	<div id="msgs"></div>
 	<div id="msgs_hist" class="messageDiv"></div>
+	<script>
+		document.getElementById('oidnum').focus();
+		document.getElementById('oidnum').select();
+	</script>
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm"/>

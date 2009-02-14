@@ -1,7 +1,7 @@
 <cfif not isdefined("collection_object_id")>
 		<cfabort>
 	</cfif>
-	<cfquery name="ctAtt" datasource="#Application.web_user#">
+	<cfquery name="ctAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(attribute_type) from ctAttribute_type order by attribute_type
 </cfquery>
 <cfset attList = "">
@@ -70,7 +70,7 @@ select
 		WHERE
 			accepted_id_fg=1 AND cataloged_item.collection_object_id IN (#collection_object_id#)		
 			">
-	<cfquery name="data" datasource="#Application.web_user#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 
@@ -109,7 +109,7 @@ select
 <cfset rc = data.recordcount>
 
  <cfloop query="data">
- 	<cfquery name="tCollNum" datasource="#Application.web_user#">
+ 	<cfquery name="tCollNum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select display_value from coll_obj_other_id_num where
 		other_id_type='NK'
 		and collection_object_id=#collection_object_id#

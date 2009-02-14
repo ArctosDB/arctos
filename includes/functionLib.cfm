@@ -1,3 +1,259 @@
+<!------------------------------------------------------------------------------------->
+<cffunction name="findN" access="public" output="true" returntype="any" description="ssb,s,n: returns nth ssb in s">
+    <cfargument name="ssb" required="true" type="string">
+    <cfargument name="s" required="true" type="string">
+    <cfargument name="n" required="true" type="numeric">
+	<cfset p=0>
+
+	
+	<br>ssb: #ssb#
+	<br>s: #s#
+	<br>n: #n#
+	<cfset ts=s>
+	
+	<cfset test=find(ssb,s)>
+	<br>test: #test#
+	<cfloop from="1" to="#n#" index="l">
+		<br> loop #l#
+		<br>ssb: #ssb#
+		<br>ts: #ts#
+		<br>p: #p#
+		<cfset tp = find(ssb,ts)>
+		<br>set tp: #tp#
+		<cfif tp is 0>
+			<br>-- tp is 0; there are not enough occurrences; return 0---
+			<cfreturn 0>
+		</cfif>
+		<cfset p = p + tp>
+		<br>--- added tp to p
+		<cfif n is l>
+			<br>----p is #p#-----
+			<cfreturn p>
+		</cfif>
+		<br>cutting ts up again - want everything right of (tp || ssb)
+		<br>ts: #ts#
+		<cfset numChars=len(ts)-tp-len(ssb)+1>
+		<br>numChars: #numChars#
+		<cfif numChars lte 0>
+			<br>nothing left to look at
+			<cfreturn 0>
+		</cfif>
+		<cfset ts=right(ts,numChars)>
+		<br>ts: #ts#
+		<hr>
+	</cfloop>
+	<cfdump var="#variables#">
+	--noloop: p is #p#--
+	<cfreturn p> 	
+</cffunction>
+<!------------------------------------------------------------------------------------->
+<cffunction name="checkSql" access="public" output="true" returntype="boolean">
+    <cfargument name="sql" required="true" type="string">
+    <cfset nono="update,insert,delete,drop,create,alter,set,execute,exec,begin,declare,all_tables,v$session,cast">
+    <cfset dels="';','|',">
+    <cfset safe=0>
+    <cfloop index="i" list="#sql#" delimiters=" .,?!;:%$&""'/|[]{}()#chr(10)##chr(13)##chr(9)#@">
+	    <cfif ListFindNoCase(nono, i)>
+	        <cfset safe=1>
+	    </cfif>
+    </cfloop>
+    <cfif safe is 0>
+        <cfreturn true>
+    <cfelse>
+        <div class="error">
+			Your query contains invalid characters. If you believe you have received this message in error, 
+			please file a <a href="/info/bugs.cfm">bug report</a>.
+		</div>
+		<cfmail subject="check SQL" to="#Application.PageProblemEmail#" from="sqlCheck@#Application.fromEmail#" type="html">
+			<br>
+			The following SQL failed:
+			<br>
+			#sql#
+			<br>Session: <cfdump var="#session#">
+			<br>CGI: <cfdump var="#cgi#">
+		</cfmail>	
+		<cfabort>
+    </cfif>
+</cffunction>
+<!--------------------------------------------------------------------->
+<cffunction name="setDbUser" output="true" returntype="boolean">
+	<cfargument name="portal_id" type="string" required="false">
+	<cfif isdefined("portal_id")>
+		<cfset session.hereItIs=portal_id>
+	</cfif>
+	<cfif not isdefined("portal_id") or len(portal_id) is 0 or not isnumeric(portal_id)>
+		<cfset portal_id=0>
+	</cfif>
+	<!--- get the information for the portal --->
+	<cfquery name="portalInfo" datasource="cf_dbuser">
+		select * from cf_collection where cf_collection_id = #portal_id#
+	</cfquery>
+	<cfset session.exclusive_collection_id=portalInfo.collection_id>
+	<cfif session.roles does not contain "coldfusion_user">
+		<cfset session.dbuser=portalInfo.dbusername>
+		<cfset session.epw = encrypt(portalInfo.dbpwd,cfid)>
+	</cfif>
+	<cfif portal_id gt 0>
+		<cfset session.portal_id=portal_id>
+	<cfelse>
+		<cfset session.exclusive_collection_id="">
+	</cfif>
+	<!--- may need to get generic appearance --->
+	<cfif portalInfo.recordcount is 0 or
+		len(portalInfo.header_color) is 0 or
+		len(portalInfo.header_image) is 0 or
+		len(portalInfo.collection_url) is 0 or
+		len(portalInfo.collection_link_text) is 0 or
+		len(portalInfo.institution_url) is 0 or
+		len(portalInfo.institution_link_text) is 0>
+		<cfquery name="portalInfo" datasource="cf_dbuser">
+			select * from cf_collection where cf_collection_id = 0
+		</cfquery>
+	</cfif>
+	<cfquery name="getPrefs" datasource="cf_dbuser">
+		update cf_users set exclusive_collection_id=
+		<cfif len(#session.exclusive_collection_id#) gt 0>
+			#session.exclusive_collection_id#
+		<cfelse>
+			NULL
+		</cfif> where username = '#session.username#'
+	</cfquery>
+			
+	<cfset session.header_color = portalInfo.header_color>
+	<cfset session.header_image = portalInfo.header_image>
+	<cfset session.collection_url = portalInfo.collection_url>
+	<cfset session.collection_link_text = portalInfo.collection_link_text>
+	<cfset session.institution_url = portalInfo.institution_url>
+	<cfset session.institution_link_text = portalInfo.institution_link_text>
+	<cfset session.meta_description = portalInfo.meta_description>
+	<cfset session.meta_keywords = portalInfo.meta_keywords>
+	<cfset session.stylesheet = portalInfo.stylesheet>
+	<cfset session.header_credit = portalInfo.header_credit>
+	<cfreturn true>
+</cffunction>
+<!----------------------------------------------------------->
+<cffunction name="initSession" output="false" returntype="boolean">
+	<cfargument name="username" type="string" required="false">
+	<cfargument name="pwd" type="string" required="false">
+	<cfoutput>
+	<!------------------------ logout ------------------------------------>
+	<cfset StructClear(Session)>
+	<cflogout>
+	<cfset session.SpecimenDownloadFileName = "ArctosData_#cfid##cftoken#.txt">
+	<cfset session.roles="public">
+	<cfset session.showObservations="">
+	<cfset session.result_sort="">
+	<cfset session.username="">
+	<cfset session.killrow="0">
+	<cfset session.searchBy="">
+	<cfset session.exclusive_collection_id="">
+	<cfset session.fancyCOID="">
+	<cfset session.last_login="">
+	<cfset session.customOtherIdentifier="">
+	<cfset session.displayrows="20">
+	<cfset session.loan_request_coll_id="">
+	<cfset session.resultColumnList="">
+	<cfset session.schParam = "">
+	<cfset temp=cfid & '_' & cftoken & '_' & RandRange(0, 10000)>
+	<cfset session.SpecSrchTab="SpecSrch" & temp>
+	<cfset session.TaxSrchTab="TaxSrch" & temp>
+
+	<!---------------------------- login ------------------------------------------------>
+	<cfif isdefined("username") and len(username) gt 0 and isdefined("pwd") and len(pwd) gt 0>
+		<cfquery name="getPrefs" datasource="cf_dbuser">
+			select * from cf_users where username = '#username#' and password='#hash(password)#'
+		</cfquery>
+		<cfif getPrefs.recordcount is 0>
+			<cfset session.username = "">
+			<cfset session.epw = "">
+       		<cflocation url="login.cfm?badPW=true&username=#username#">
+		</cfif>
+		<cfset session.username=username>
+		<cfquery name="dbrole" datasource="uam_god">
+			 select upper(granted_role) role_name
+	         	from 
+	         dba_role_privs,
+	         cf_ctuser_roles
+	         	where
+	         upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
+	         upper(grantee) = '#ucase(getPrefs.username)#'
+		</cfquery>
+		<cfset session.roles = valuelist(dbrole.role_name)>
+		<cfset session.roles=listappend(session.roles,"public")>
+		<cfset session.last_login = "#getPrefs.last_login#">
+		<cfset session.displayrows = "#getPrefs.displayRows#">
+		<cfset session.showObservations = "#getPrefs.showObservations#">
+		<cfset session.resultcolumnlist = "#getPrefs.resultcolumnlist#">
+		<cfif len(#getPrefs.fancyCOID#) gt 0>
+			<cfset session.fancyCOID = "#getPrefs.fancyCOID#">
+		<cfelse>
+			<cfset session.fancyCOID = "">
+		</cfif>
+		<cfif len(#getPrefs.result_sort#) gt 0>
+			<cfset session.result_sort = "#getPrefs.result_sort#">
+		<cfelse>
+			<cfset session.result_sort = "">
+		</cfif>	
+		<cfif len(#getPrefs.CustomOtherIdentifier#) gt 0>
+			<cfset session.customOtherIdentifier = "#getPrefs.CustomOtherIdentifier#">
+		<cfelse>
+			<cfset session.customOtherIdentifier = "">
+		</cfif>
+		<cfif #getPrefs.bigsearchbox# is 1>
+			<cfset session.searchBy="bigsearchbox">
+		<cfelse>
+			<cfset session.searchBy="">
+		</cfif>	
+		<cfif #getPrefs.killRow# is 1>
+			<cfset session.killRow="1">
+		<cfelse>
+			<cfset session.killRow="0">
+		</cfif>
+		<cfset session.locSrchPrefs=getPrefs.locSrchPrefs>
+		<cfquery name="logLog" datasource="cf_dbuser">
+			update cf_users set last_login = sysdate where username = '#session.username#'
+		</cfquery>
+		<cfif listcontainsnocase(session.roles,"coldfusion_user")>
+			<cfset session.dbuser = "#getPrefs.username#">
+			<cfset session.epw = encrypt(password,cfid)>
+			<cftry>
+				<cfquery name="ckUserName" datasource="#application.web_user#">
+					select agent_id from agent_name where agent_name='#session.username#' and
+					agent_name_type='login'
+				</cfquery>
+				<cfcatch>
+					<div class="error">
+						Your Oracle login has issues. Contact a DBA.
+					</div>
+					<cfabort>
+				</cfcatch>
+			</cftry>
+			<cfif len(ckUserName.agent_id) is 0>
+				<div class="error">
+					You must have an agent_name of type login that matches your Arctos username.
+				</div>
+				<cfabort>
+			</cfif>
+			<cfset session.myAgentId=#ckUserName.agent_id#>		
+		</cfif>
+		<cfset pwtime =  round(now() - getPrefs.pw_change_date)>
+		<cfset pwage = Application.max_pw_age - pwtime>
+		<cfif pwage lte 0>
+			<cfset session.force_password_change = "yes">
+			<cflocation url="ChangePassword.cfm">
+		</cfif>
+	</cfif>
+	<cfif isdefined("getPrefs.exclusive_collection_id") and len(#getPrefs.exclusive_collection_id#) gt 0>
+		<cfset ecid="#getPrefs.exclusive_collection_id#">
+	<cfelse>
+		<cfset ecid="">
+	</cfif>
+	<cfset setDbUser(#ecid#)>
+	<cfset session.ecid=ecid>
+	</cfoutput>
+	<cfreturn true>
+</cffunction>
+<!------------------------------------------------------------------------------------->
 <cffunction name="unsafeSql" access="public" output="false" returntype="boolean">
     <cfargument name="sql" required="true" type="string">
     <cfset nono="update,insert,delete,drop,create,alter,set,execute,exec,begin,declare,all_tables,v$session">
@@ -14,10 +270,10 @@
         <cfreturn false>
     </cfif>
 </cffunction>
-
+<!----------------------------------------------------->
 <cffunction name="getMediaRelations" access="public" output="false" returntype="Query">
 	<cfargument name="media_id" required="true" type="numeric">
-	<cfquery name="relns" datasource="#application.web_user#">
+	<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from media_relations,
 		preferred_agent_name
 		where
@@ -36,26 +292,29 @@
 		
 		<cfset table_name = listlast(media_relationship," ")>
 		<cfif #table_name# is "locality">
-			<cfquery name="d" datasource="#application.web_user#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select spec_locality data from #table_name# where locality_id=#related_primary_key#
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
             <cfset temp = QuerySetCell(result, "link", "/SpecimenResults.cfm?locality_id=#related_primary_key#", i)>
 		<cfelseif #table_name# is "agent">
-			<cfquery name="d" datasource="#application.web_user#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select agent_name data from preferred_agent_name where agent_id=#related_primary_key#
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
             <cfset temp = QuerySetCell(result, "link", "/SpecimenResults.cfm?coll=#d.data#", i)>
 		<cfelseif #table_name# is "collecting_event">
-			<cfquery name="d" datasource="#application.web_user#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select verbatim_locality || ' (' || verbatim_date || ')' data from 
 				collecting_event where collecting_event_id=#related_primary_key#
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
             <cfset temp = QuerySetCell(result, "link", "/SpecimenResults.cfm?collecting_event_id=#related_primary_key#", i)>
 		<cfelseif #table_name# is "cataloged_item">
-			<cfquery name="d" datasource="#application.web_user#">
+		<!--- upping this to uam_god for now - see Issue 135
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		---->
+			<cfquery name="d" datasource="uam_god">
 				select collection || ' ' || cat_num || ' (' || scientific_name || ')' data from 
 				cataloged_item,
                 collection,
@@ -68,6 +327,12 @@
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
             <cfset temp = QuerySetCell(result, "link", "/SpecimenResults.cfm?collection_object_id=#related_primary_key#", i)>
+		<cfelseif #table_name# is "media">
+			<cfquery name="d" datasource="uam_god">
+				select media_uri data from media where media_id=#related_primary_key#
+			</cfquery>
+			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
+            <cfset temp = QuerySetCell(result, "link", "/media.cfm?action=edit&media_id=#related_primary_key#", i)>
 		<cfelse>
 			<cfset temp = QuerySetCell(result, "summary", "#table_name# is not currently supported.", i)>
 		</cfif>
@@ -373,8 +638,8 @@ function ProperMod(y,x) {
 <cffunction name="passwordCheck">
 	<cfargument name="password" required="true" type="string">
 	<cfargument name="CharOpts" required="false" type="string" default="alpha,digit,punct">
-	<cfargument name="typesRequired" required="false" type="numeric" default="2">
-	<cfargument name="length" required="false" type="numeric" default="6">
+	<cfargument name="typesRequired" required="false" type="numeric" default="3">
+	<cfargument name="length" required="false" type="numeric" default="8">
 
 
 	<!--- Initialize variables --->

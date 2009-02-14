@@ -15,7 +15,7 @@
 
 
 
-<cfquery name="partTree" datasource="#Application.web_user#">
+<cfquery name="partTree" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
 		part_id,
 		parent_part_id,

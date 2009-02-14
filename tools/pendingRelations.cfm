@@ -3,7 +3,7 @@
 <cfif #action# is "showStatus">
 
 <cfset title="Pending Relationships">
-<cfquery name="getRels" datasource="#Application.web_user#">
+<cfquery name="getRels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from cf_temp_relations
 	<cfif #filterForPending# is "true">
 		where related_collection_object_id is null
@@ -43,7 +43,7 @@ Pending Relationships
 	<cfoutput>
 		<cfloop query="getRels">
 			<tr>
-				<cfquery name="thisSpec" datasource="#Application.web_user#">
+				<cfquery name="thisSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select cat_num,institution_acronym,cataloged_item.collection_cde from
 					cataloged_item,collection where
 					cataloged_item.collection_id = collection.collection_id
@@ -87,7 +87,7 @@ Pending Relationships
 </cfif>
 <cfif #action# is "nothing">
 <!--- always try to resolve these things at load --->
-	<cfquery name="getRels" datasource="#Application.web_user#">
+	<cfquery name="getRels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_temp_relations
 	</cfquery>
 	<cfoutput>
@@ -108,7 +108,7 @@ Pending Relationships
 				coll: #coll#<br>
 				<cfset cnum = trim(right(rem,len(rem)-spos))>
 				cnum: #cnum#<br>
-				<cfquery name="isOne" datasource="#Application.web_user#">
+				<cfquery name="isOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select 
 						collection_object_id 
 					FROM 
@@ -121,7 +121,7 @@ Pending Relationships
 						cat_num = #cnum#
 				</cfquery>
 				<cfcatch>
-					<cfquery name="nope" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="nope" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						update cf_temp_relations set 
 							lasttrydate='#dateformat(now(),"dd-mmm-yyyy")#',
 							fail_reason='Catalog Number does not exist or is not in UAM Mamm 1234 format'
@@ -135,14 +135,14 @@ Pending Relationships
 				</cfcatch>
 				</cftry>
 			<cfelse>
-				<cfquery name="isOne" datasource="#Application.web_user#">
+				<cfquery name="isOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select collection_object_id FROM coll_obj_other_id_num
 					where other_id_type = '#related_to_num_type#' and display_value = '#related_to_number#'
 				</cfquery>			
 			</cfif>
 			
 			<cfif #isOne.recordcount# is 0>
-				<cfquery name="nope" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="nope" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update cf_temp_relations set 
 						lasttrydate='#dateformat(now(),"dd-mmm-yyyy")#',
 						fail_reason='Related cataloged item does not exist.'
@@ -153,7 +153,7 @@ Pending Relationships
 						relationship = '#relationship#'
 				</cfquery>
 			<cfelseif #isOne.recordcount# gt 1>
-				<cfquery name="toomany" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="toomany" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update cf_temp_relations set 
 						lasttrydate='#dateformat(now(),"dd-mmm-yyyy")#',
 						fail_reason='More than one cataloged item matched.'
@@ -165,7 +165,7 @@ Pending Relationships
 				</cfquery>
 			<cfelseif #isOne.recordcount# is 1>
 				<cftry>
-				<cfquery name="insNew" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="insNew" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					INSERT INTO
 						 BIOL_INDIV_RELATIONS (
 						 	COLLECTION_OBJECT_ID,
@@ -176,7 +176,7 @@ Pending Relationships
 						 	#isOne.collection_object_id#,
 						 	'#relationship#' )
 				</cfquery>
-				<cfquery name="justRight" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="justRight" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					DELETE FROM cf_temp_relations 
 					WHERE
 						collection_object_id=#collection_object_id# and
@@ -185,7 +185,7 @@ Pending Relationships
 						relationship = '#relationship#'
 				</cfquery>
 				<cfcatch>
-					<cfquery name="toomany" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="toomany" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						update cf_temp_relations set 
 							lasttrydate='#dateformat(now(),"dd-mmm-yyyy")#',
 							fail_reason='DB Error. #cfcatch.detail#'
@@ -199,7 +199,7 @@ Pending Relationships
 				</cftry>
 				<!---- insert into relationships ---->
 			<cfelse>
-				<cfquery name="toomany" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="toomany" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update cf_temp_relations set 
 						lasttrydate='#dateformat(now(),"dd-mmm-yyyy")#',
 						fail_reason='unknown failure!'

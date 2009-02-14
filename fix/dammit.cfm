@@ -10,7 +10,7 @@ I can change things at will. That's new!
 		whatever
 	</cfquery>
 </cfoutput>
-<cfquery name="t" datasource="#Application.web_user#">
+<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select goofytiss.af,cnt,freezer,found,r1,b1,r2,b2,
 	cat_num,collection_cde,
 	concatpartswithloc(cataloged_item.collection_object_id) as part

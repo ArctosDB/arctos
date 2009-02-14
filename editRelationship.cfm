@@ -13,14 +13,14 @@ theSaveButton.style.display='';
 window.setInterval("chkVal()",1000);
 </script>
 <cfoutput>
-<cfquery name="thisRec" datasource="#Application.web_user#">
+<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT cat_num, cataloged_item.collection_cde,
 	institution_acronym from cataloged_item,
 	collection WHERE 
 	cataloged_item.collection_id = collection.collection_id AND
 	collection_object_id=#collection_object_id#
 </cfquery>
-<cfquery name="getRelns" datasource="#Application.web_user#">
+<cfquery name="getRelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT cat_num, 
 	cataloged_item.collection_object_id,
 	cataloged_item.collection_cde, 
@@ -48,7 +48,7 @@ window.setInterval("chkVal()",1000);
 <cfset thisCollObjId = #collection_object_id#>
 <br>Current Relationships:
 <cfif #getRelns.recordcount# gt 0>
-<cfquery name="ctReln" datasource="#Application.web_user#">
+<cfquery name="ctReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select biol_indiv_relationship from ctbiol_relations
 </cfquery>
 <cfset i=1>
@@ -99,9 +99,9 @@ window.setInterval("chkVal()",1000);
 						onclick="reln#i#.action.value='deleReln'; confirmDelete('reln#i#','this relationship');">
 			</td>
 			<td valign="middle">
-				<a href="SpecimenDetail.cfm?collection_object_id=#getRelns.collection_object_id#" target="#session.target#" class="infoLink">Related Specimen</a>
+				<a href="SpecimenDetail.cfm?collection_object_id=#getRelns.collection_object_id#" class="infoLink">Related Specimen</a>
 				<cfif #biol_indiv_relationship# is "parent of" and (#scientific_name# neq #CatItemSciName#)>
-					<a href="/tools/parent_child_taxonomy.cfm?collection_object_id=#thisCollObjId#" target="#session.target#">
+					<a href="/tools/parent_child_taxonomy.cfm?collection_object_id=#thisCollObjId#">
 						<img src="/images/oops.gif" border="0" height="20"/>
 					</a>
 				</cfif>
@@ -120,7 +120,7 @@ window.setInterval("chkVal()",1000);
 <cfelse>
 None
 </cfif>
-<cfquery name="ctReln" datasource="#Application.web_user#">
+<cfquery name="ctReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select biol_indiv_relationship from ctbiol_relations
 </cfquery>
 
@@ -163,7 +163,7 @@ None
 	</table>
 </form>
 ---->
-<cfquery name="thisCollId" datasource="#Application.web_user#">
+<cfquery name="thisCollId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection from cataloged_item,collection where cataloged_item.collection_id=collection.collection_id and
     collection_object_id=#collection_object_id#
 </cfquery>
@@ -200,7 +200,7 @@ None
 						
 		  </td>
 		  <td>
-		  		<cfquery name="ctColl" datasource="#Application.web_user#">
+		  		<cfquery name="ctColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select collection from collection 
 					group by collection order by collection
 				</cfquery>
@@ -214,7 +214,7 @@ None
 				</select>
 		  </td>
 		  <td>
-		  	<cfquery name="ctOtherIdType" datasource="#Application.web_user#">
+		  	<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select distinct(other_id_type) FROM ctColl_Other_Id_Type ORDER BY other_Id_Type
 		</cfquery>
 		<font size="-2">Other ID Type:<br></font>

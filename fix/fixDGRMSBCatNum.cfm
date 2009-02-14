@@ -1,10 +1,10 @@
 
 <cfabort>
 
-<cfquery name="a" datasource="#Application.web_user#">
+<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select max(cat_num) mc from cataloged_item where collection_id =1000002
 </cfquery>
-<cfquery name="toChange" datasource="#Application.web_user#">
+<cfquery name="toChange" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select cat_num,collection.collection_cde,institution_acronym, coll_obj_other_id_num.collection_object_id from coll_obj_other_id_num,cataloged_item,collection
 	where 
 	coll_obj_other_id_num.collection_object_id=cataloged_item.collection_object_id and

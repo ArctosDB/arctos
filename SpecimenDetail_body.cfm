@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_frameHeader.cfm">
+<cfset btime=now()>
 	<script type='text/javascript' src='/includes/annotate.js'></script>
 	<link rel="stylesheet" type="text/css" href="/includes/annotate.css">
 <cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
@@ -8,22 +9,6 @@
 	<cfset oneOfUs = 0>
 	<cfset isClicky = "">
 </cfif>
-<!---
-<cfquery name="detail" datasource = "#Application.web_user#">
-	select 
-	case when 
-		#oneOfUs# != 1 and concatencumbrances(cataloged_item.collection_object_id) like '%record%' then 'masky'
-else 'nomasky'
-end cmask,
-	decode(concatencumbrances(cataloged_item.collection_object_id),
-		'%record%','masked',
-		'not masked') mask,
-	concatencumbrances(cataloged_item.collection_object_id) from cataloged_item where
-	collection_object_id in (6237,1,4,2494856)
-</cfquery>
---->
-
-
 <cfset detSelect = "
 	SELECT
 		cataloged_item.collection_object_id as collection_object_id,
@@ -137,16 +122,7 @@ end cmask,
 			#oneOfUs# != 1 and concatencumbrances(cataloged_item.collection_object_id) like '%mask preparator%' then 'Anonymous'
 		else 
 			preps.agent_name  
-		end preparators,					
-		coll_obj_other_id_num.other_id_type,
-		case when 
-			#oneOfUs# != 1 and 
-				concatencumbrances(cataloged_item.collection_object_id) like '%mask original field number%' and
-				coll_obj_other_id_num.other_id_type = 'original identifier'				
-			then 'Masked'
-		else
-			coll_obj_other_id_num.display_value  
-		end display_value,
+		end preparators,
 		attributes.attribute_type,
 		attributes.attribute_value,
 		attributes.attribute_units,
@@ -154,25 +130,20 @@ end cmask,
 		attributes.determination_method,
 		attributes.determined_date,
 		attribute_determiner.agent_name attributeDeterminer,
-		trans.institution_acronym || ' ' || accn_number accession,
+		accn_number accession,
 		biol_indiv_relations.biol_indiv_relationship, 
 		biol_indiv_relations.related_coll_object_id,
 		related_cat_item.cat_num related_cat_num,
 		related_coll.collection as related_collection,
-		specimen_part.collection_object_id part_id,
-		specimen_part.part_name,
-		specimen_part.part_modifier,
-		specimen_part.sampled_from_obj_id,
-		specimen_part.preserve_method,
-		specimen_part.is_tissue,
-		part_object.coll_obj_disposition part_disposition,
-		part_object.condition part_condition,
-		part_object.lot_count,
 		concatencumbrances(cataloged_item.collection_object_id) concatenatedEncumbrances,
 		concatEncumbranceDetails(cataloged_item.collection_object_id) encumbranceDetail,
 		locality.locality_remarks,
 		verbatim_locality,
-		parts_coll_object_remark.coll_object_remarks part_remarks
+		min_depth,
+		max_depth,
+		depth_units,
+		collecting_method,
+		collecting_source
 	FROM 
 		cataloged_item,
 		collection,
@@ -195,17 +166,13 @@ end cmask,
 		preferred_agent_name colls,
 		(select * from collector where collector_role='p') preparator,
 		preferred_agent_name preps,
-		coll_obj_other_id_num,
 		attributes,
 		preferred_agent_name attribute_determiner,
 		accn,
 		trans,
 		biol_indiv_relations,
 		cataloged_item related_cat_item,
-		collection related_coll,
-		specimen_part,
-		coll_object part_object,
-		coll_object_remark parts_coll_object_remark
+		collection related_coll
 	WHERE 
 		cataloged_item.collection_id = collection.collection_id AND
 		cataloged_item.collection_object_id = identification.collection_object_id AND
@@ -221,14 +188,13 @@ end cmask,
 		citation.cited_taxon_name_id = cited_taxa.taxon_name_id (+) AND
 		citation.publication_id = formatted_publication.publication_id (+) AND
 		cataloged_item.collection_object_id = coll_object.collection_object_id AND
-		cataloged_item.collection_object_id = coll_object_remark.collection_object_id (+) AND
+		coll_object.collection_object_id = coll_object_remark.collection_object_id (+) AND
 		coll_object.entered_person_id = enteredPerson.agent_id AND
 		coll_object.last_edited_person_id = editedPerson.agent_id (+) AND
 		cataloged_item.collection_object_id = collector.collection_object_id (+) AND
 		collector.agent_id = colls.agent_id (+) AND
 		cataloged_item.collection_object_id = preparator.collection_object_id (+) AND	
 		preparator.agent_id = preps.agent_id (+) AND
-		cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id (+) AND
 		cataloged_item.collection_object_id=attributes.collection_object_id (+) AND
 		attributes.determined_by_agent_id = attribute_determiner.agent_id (+) and
 		cataloged_item.accn_id =  accn.transaction_id  AND
@@ -236,15 +202,18 @@ end cmask,
 		cataloged_item.collection_object_id = biol_indiv_relations.collection_object_id (+) AND
 		biol_indiv_relations.related_coll_object_id = related_cat_item.collection_object_id (+) AND
 		related_cat_item.collection_id = related_coll.collection_id (+) and
-		specimen_part.COLLECTION_OBJECT_ID = parts_coll_object_remark.COLLECTION_OBJECT_ID (+) and
-		specimen_part.collection_object_id = part_object.collection_object_id (+) and
-		cataloged_item.collection_object_id = specimen_part.derived_from_cat_item (+) and
 	cataloged_item.collection_object_id = #collection_object_id#
 	">
-
-<cfquery name="detail" datasource = "#Application.web_user#">
+<cfset checkSql(detSelect)>
+<cfquery name="detail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(detSelect)#
 </cfquery>
+<cfoutput>
+	<cfset etime=now()>
+	<cfset tt=DateDiff("s", btime, etime)>
+	<br>Runtime: #tt#
+	
+</cfoutput>
 <cfif #detail.concatenatedEncumbrances# contains "mask record" and #oneOfUs# neq 1>
 	Record masked.
 	<cfabort>
@@ -304,7 +273,12 @@ end cmask,
 		accession,
 		encumbranceDetail,
 		locality_remarks,
-		verbatim_locality
+		verbatim_locality,
+		min_depth,
+		max_depth,
+		depth_units,
+		collecting_method,
+		collecting_source
 	from
 		detail
 	group by
@@ -360,7 +334,12 @@ end cmask,
 		accession,
 		encumbranceDetail,
 		locality_remarks,
-		verbatim_locality
+		verbatim_locality,
+		min_depth,
+		max_depth,
+		depth_units,
+		collecting_method,
+		collecting_source
 </cfquery>
 <cfquery name="colls"  dbtype="query">
 	SELECT 
@@ -391,19 +370,6 @@ end cmask,
 		id_by
 	ORDER BY 
 		identifier_order
-</cfquery>
-<cfquery name="oid" dbtype="query">
-	SELECT 
-		display_value,
-		other_id_type
-	FROM
-		detail
-	GROUP BY
-		display_value,
-		other_id_type
-	ORDER BY
-		display_value,
-		other_id_type
 </cfquery>
 <cfquery name="attribute"  dbtype="query">
 	SELECT 
@@ -459,35 +425,7 @@ end cmask,
 	order by
 		formatted_publication
 </cfquery>
-						
-<cfquery name="parts"  dbtype="query">
-	SELECT 
-		part_id,
-		part_name,
-		part_modifier,
-		sampled_from_obj_id,
-		preserve_method,
-		is_tissue,
-		part_disposition,
-		part_condition,
-		lot_count,
-		part_remarks
-	FROM
-		detail 
-	GROUP BY
-		part_id,
-		part_name,
-		part_modifier,
-		sampled_from_obj_id,
-		preserve_method,
-		is_tissue,
-		part_disposition,
-		part_condition,
-		lot_count,
-		part_remarks
-	order by
-		part_name
-</cfquery>
+
 
 
 
@@ -646,10 +584,32 @@ end cmask,
 							</tr>
 						</div>
 					</cfif>
+					<cfif len(#one.collecting_method#) gt 0>
+						<div class="detailBlock">
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Collecting&nbsp;Method:</td>
+								<td id="SDCellRight">#one.collecting_method#</td>
+							</tr>
+						</div>
+					</cfif>
+					<div class="detailBlock">
+						<tr class="detailData">
+							<td id="SDCellLeft" class="innerDetailLabel">Collecting&nbsp;Source:</td>
+							<td id="SDCellRight">#one.collecting_source#</td>
+						</tr>
+					</div>
 					<cfif len(#one.minimum_elevation#) gt 0>
 							<tr class="detailData">
 								<td id="SDCellLeft" class="innerDetailLabel">Elevation:</td>
 								<td id="SDCellRight">#one.minimum_elevation# to #one.maximum_elevation# #one.orig_elev_units#</td>
+							</tr>
+					</cfif>
+					
+					<cfif len(#one.depth_units#) gt 0>
+							<tr class="detailData">
+								<td id="SDCellLeft" class="innerDetailLabel">Depth:</td>
+								<td id="SDCellRight">#one.min_depth#
+									<cfif #one.min_depth# neq  #one.max_depth#>to #one.max_depth# </cfif> #one.depth_units#</td>
 							</tr>
 					</cfif>
 					<cfif (len(#verbatimLatitude#) gt 0 and len(#verbatimLongitude#) gt 0)>
@@ -682,6 +642,41 @@ end cmask,
 									</td>
 								</tr>
 						</cfif>
+						<cfquery name="geology" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							select * from 
+							geology_attributes,
+							preferred_agent_name
+							where
+							geology_attributes.GEO_ATT_DETERMINER_ID=preferred_agent_name.agent_id (+) and
+							 locality_id=#one.locality_id#
+						</cfquery>
+						<cfloop query="geology">
+							 <td id="SDCellLeft" class="innerDetailLabel">#GEOLOGY_ATTRIBUTE#:</td>
+							 <td id="SDCellRight">
+								 #GEO_ATT_VALUE#								 
+							</td>
+							<tr>
+								<td></td>
+								<td id="SDCellRight" class="detailCellSmall">
+									Determined by 
+									<cfif len(agent_name) gt 0>
+										#agent_name#
+									<cfelse>
+										unknown
+									</cfif>
+									<cfif len(GEO_ATT_DETERMINED_DATE) gt 0>
+										on #dateformat(GEO_ATT_DETERMINED_DATE,"dd mmm yyyy")#
+									</cfif>
+									<cfif len(GEO_ATT_DETERMINED_METHOD) gt 0>
+										Method: #GEO_ATT_DETERMINED_METHOD#
+									</cfif>
+									<cfif len(GEO_ATT_REMARK) gt 0>
+										Remark: #GEO_ATT_REMARK#
+									</cfif>
+									
+								</td>
+							</tr>
+						</cfloop>
 						<!---<cfif len(#one.latLongDeterminer#) gt 0>
 							<div class="detailBlock">
 								<span class="detailCellSmall">
@@ -733,6 +728,39 @@ end cmask,
 				</div>
 				
 <!------------------------------------ parts ---------------------------------------------->
+	
+
+<cfquery name="parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select
+		specimen_part.collection_object_id part_id,
+		pc.label,
+		part_name,
+		part_modifier,
+		sampled_from_obj_id,
+		preserve_method,
+		is_tissue,
+		coll_object.COLL_OBJ_DISPOSITION part_disposition,
+		coll_object.CONDITION part_condition,
+		lot_count,
+		coll_object_remarks part_remarks
+	from
+		specimen_part,
+		coll_object,
+		coll_object_remark,
+		coll_obj_cont_hist,
+		container oc,
+		container pc
+	where
+		specimen_part.collection_object_id=coll_object.collection_object_id and
+		coll_object.collection_object_id=coll_obj_cont_hist.collection_object_id and
+		coll_object.collection_object_id=coll_object_remark.collection_object_id (+) and
+		coll_obj_cont_hist.container_id=oc.container_id and
+		oc.parent_container_id=pc.container_id (+) and
+		specimen_part.derived_from_cat_item=#one.collection_object_id#
+</cfquery>
+<cfquery name="mPart" dbtype="query">
+	select * from parts where sampled_from_obj_id is null order by part_name
+</cfquery>
 			<div class="detailCell">
 				<div class="detailLabel">&nbsp;<!---Parts--->
 					<cfif #oneOfUs# is 1>
@@ -750,19 +778,36 @@ end cmask,
 								<th><span class="innerDetailLabel">Condition</span></th>
 								<th><span class="innerDetailLabel">Disposition</span></th>
 								<th><span class="innerDetailLabel">##</span></th>
+								<th><span class="innerDetailLabel">Label</span></th>
 								<th><span class="innerDetailLabel">Remarks</span></th>
 							</tr>
-							<cfloop query="parts">
+							<cfloop query="mPart">
 								<tr>
 									<td>
 										#part_modifier# #part_name#
-										<cfif len(#sampled_from_obj_id#) gt 0>&nbsp;subsample</cfif>
 									</td>
 									<td>#part_condition#</td>
 									<td>#part_disposition#</td>
 									<td>#lot_count#</td>
+									<td>#label#</td>
 									<td>#part_remarks#</td>
 								</tr>
+								<cfquery name="sPart" dbtype="query">
+									select * from parts where sampled_from_obj_id=#part_id#
+								</cfquery>
+								<cfloop query="sPart">
+									<tr>
+										<td>
+											&nbsp;&nbsp;&nbsp;
+											#part_modifier# #part_name#
+										</td>
+										<td>#part_condition#</td>
+										<td>#part_disposition#</td>
+										<td>#lot_count#</td>
+										<td>#label#</td>
+										<td>#part_remarks#</td>
+									</tr>
+								</cfloop>
 							</cfloop>
 						</table>
 					</span>
@@ -788,7 +833,7 @@ end cmask,
 				</div>
 			</cfif>
 <!------------------------------------ relationships ---------------------------------------------->
-			<cfquery name="invRel" datasource="#Application.web_user#">
+			<cfquery name="invRel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select
 					collection.collection,
 					cat_num,
@@ -812,7 +857,7 @@ end cmask,
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">#biol_indiv_relationship#</span>
-								<a href="/SpecimenDetail.cfm?collection_object_id=#related_coll_object_id#" target="#session.target#">
+								<a href="/SpecimenDetail.cfm?collection_object_id=#related_coll_object_id#">
 									#related_collection# #related_cat_num#
 								</a>
 							</span>
@@ -823,7 +868,7 @@ end cmask,
 							<span class="detailData">
 								<span class="innerDetailLabel"></span>
 									&nbsp;&nbsp;&nbsp;<a href="SpecimenResults.cfm?collection_object_id=#valuelist(relns.related_coll_object_id)#" 
-											target="#session.target#">"Related To" Specimens List</a>										
+											>"Related To" Specimens List</a>										
 							</span>
 						</div>
 					</cfif>
@@ -841,13 +886,13 @@ end cmask,
 							<span class="detailData">
 								<span class="innerDetailLabel"></span>
 								&nbsp;&nbsp;&nbsp;<a href="SpecimenResults.cfm?collection_object_id=#valuelist(invRel.collection_object_id)#" 
-											target="#session.target#">"Related IS" Specimens List</a>
+											>"Related IS" Specimens List</a>
 							</span>
 						</div>
 					</cfif>
 				</div>
 			</cfif>
-			<cfquery name="isProj" datasource="#Application.web_user#">
+			<cfquery name="isProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				SELECT project_name, project.project_id project_id FROM 
 				project, project_trans
 				WHERE 
@@ -855,7 +900,7 @@ end cmask,
 				project_trans.transaction_id=#detail.accn_id#
 				GROUP BY project_name, project.project_id
 		  </cfquery>
-		  <cfquery name="isLoan" datasource="#Application.web_user#">
+		  <cfquery name="isLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		  		SELECT project_name, project.project_id FROM 
 					loan_item,
 					project,
@@ -880,7 +925,7 @@ end cmask,
 				GROUP BY 
 					project_name, project.project_id		
 		</cfquery>
-		<cfquery name="isLoanedItem" datasource="#Application.web_user#">
+		<cfquery name="isLoanedItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT loan_item.collection_object_id FROM
 			loan_item,specimen_part
 			WHERE loan_item.collection_object_id=specimen_part.collection_object_id AND
@@ -913,6 +958,31 @@ end cmask,
 				</cfloop>
 			</div>
 <!------------------------------------ identifiers ---------------------------------------------->
+			<cfquery name="oid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				SELECT 
+					case when #oneOfUs# != 1 and 
+						concatencumbrances(coll_obj_other_id_num.collection_object_id) like '%mask original field number%' and
+						coll_obj_other_id_num.other_id_type = 'original identifier'				
+						then 'Masked'
+					else
+						coll_obj_other_id_num.display_value  
+					end display_value,
+					coll_obj_other_id_num.other_id_type,
+					case when base_url is not null then
+						ctcoll_other_id_type.base_url || coll_obj_other_id_num.display_value
+					else
+						null
+					end link
+				FROM
+					coll_obj_other_id_num,
+					ctcoll_other_id_type
+				where
+					collection_object_id=#one.collection_object_id# and
+					coll_obj_other_id_num.other_id_type=ctcoll_other_id_type.other_id_type (+)
+				ORDER BY
+					other_id_type,
+					display_value
+			</cfquery>
 			<cfif #len(oid.other_id_type)# gt 0>
 				<div class="detailCell">
 					<div class="detailLabel">Identifiers
@@ -923,13 +993,9 @@ end cmask,
 						<cfloop query="oid">
 							<div class="detailBlock">
 								<span class="innerDetailLabel">#other_id_type#:</span>
-									<cfif #other_id_type# is "GenBank">
-										<a href="http://www.ncbi.nlm.nih.gov:80/entrez/query.fcgi?cmd=search&db=nucleotide&term=#display_value#&doptcmdl=GenBank" 
-											target="_blank" 
-												>#display_value#</a>
-									<cfelseif #cgi.HTTP_HOST# contains "berkeley.edu" and #other_id_type# is "collector number">		
+									<cfif #other_id_type# is "collector number">		
 										<!---Adding in GReF code --->
-										<cfquery name="gref" datasource="#Application.web_user#">
+										<cfquery name="gref" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 											select
 											  book_section.publication_id,page_id
 											from
@@ -950,7 +1016,11 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 											#display_value#
 										</cfif>
 									<cfelse>
-										#display_value#
+										<cfif len(link) gt 0>
+											<a class="external" href="#link#" target="_blank">#display_value#</a>
+										<cfelse>
+											#display_value#
+										</cfif>
 									</cfif>
 								</span>
 							</div>
@@ -1049,10 +1119,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 											<td>#weight.attribute_value# #weight.attribute_units#&nbsp;</td>
 										</tr>
 									</table>
-									<!----
-									Not sure what the hell this should be doing, but its not scoping variables correctly.
-									Disabing it - DLM
-									<cfif len(#attributeDeterminer#) gt 0>
+									<cfif isdefined("attributeDeterminer") and len(#attributeDeterminer#) gt 0>
 											<cfset determination = "#attributeDeterminer#">
 											<cfif len(#determined_date#) gt 0>
 												<cfset determination = '#determination#, #dateformat(determined_date,"dd mmm yyyy")#'>
@@ -1066,7 +1133,6 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 												</span>
 											</div>
 										</cfif>
-										---->
 								</span>
 							</div>
 						</cfif>
@@ -1114,6 +1180,11 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 <!------------------------------------ cataloged item ---------------------------------------------->
 			<div class="detailCell">
 				<!---<div class="detailLabel">Cataloged Item</div>--->
+				<div class="detailLabel"><!---Attributes--->
+					<cfif #oneOfUs# is 1>
+						<span class="detailEditCell" onclick="window.parent.switchIFrame('editBiolIndiv');">Edit</span>
+					</cfif>
+					</div>	
 					<cfif #one.coll_object_remarks# is not "">
 						<div class="detailBlock">
 							<span class="detailData">
@@ -1170,13 +1241,18 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 				</div>
 				<div class="detailBlock">
 					<span class="detailData">
-						<a href="editAccn.cfm?Action=edit&transaction_id=#one.accn_id#" target="#session.target#">#accession#</a>
+						<cfif #oneOfUs# is 1>
+							<a href="editAccn.cfm?Action=edit&transaction_id=#one.accn_id#" target="_blank">#accession#</a>
+						<cfelse>
+							#accession#
+						</cfif>
+
 					</span>
 				</div>
 			</div>		
 
 <!------------------------------------ Media ---------------------------------------------->
-<cfquery name="media" datasource="#Application.web_user#">
+<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
     select distinct 
         media.media_id,
         media.media_uri,
@@ -1194,7 +1270,6 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
          media_relations.related_primary_key = #collection_object_id#
 </cfquery>
 <cfif #media.recordcount# gt 0>
-    <cfinclude template="/includes/functionLib.cfm">
     <div class="detailCell">
 		<div class="detailLabel">Media
 			<cfif #oneOfUs# is 1>
@@ -1205,7 +1280,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
             <span class="detailData">			
 				<table border="1">
                 <cfloop query="media">
-                    <cfquery name="labels"  datasource="#application.web_user#">
+                    <cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select
 							media_label,
 							label_value
@@ -1259,7 +1334,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">Contributed By Project:</span>
-									<a href="ProjectDetail.cfm?src=proj&project_id=#isProj.project_id#" target="#session.target#">#isProj.project_name#</a>
+									<a href="ProjectDetail.cfm?src=proj&project_id=#isProj.project_id#">#isProj.project_name#</a>
 							</span>
 						</div>
 					</cfloop>

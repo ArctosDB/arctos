@@ -12,7 +12,7 @@
 <!------------------------------>
 
 <cfif #action# is "afnum">
-	<cfquery name="afnum" datasource="#Application.web_user#">
+	<cfquery name="afnum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select other_id_num as af from coll_obj_other_id_num where other_id_type='AF'
 	</cfquery>
 	<cffile action="write" file="/var/www/html/temp/afnum.txt" addnewline="yes" output="afnum">
@@ -23,7 +23,7 @@
 	<a href="/temp/afnum.txt">download afnum</a>
 </cfif>
 <cfif #action# is "taxonomy">
-	<cfquery name="taxonomy" datasource="#Application.web_user#">
+	<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select scientific_name from taxonomy
 	</cfquery>
 	<cffile action="write" file="/var/www/html/temp/taxonomy.txt" addnewline="yes" output="scientific_name">
@@ -36,7 +36,7 @@
 <!------------------------------>
 
 <cfif #action# is "agentnames">
-	<cfquery name="agentnames" datasource="#Application.web_user#">
+	<cfquery name="agentnames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select agent_name from agent_name
 	</cfquery>
 	<cffile action="write" file="/var/www/html/temp/agentnames.txt" addnewline="yes" output="agent_name">
@@ -48,7 +48,7 @@
 </cfif>
 <!------------------------------>
 <cfif #action# is "highergeog">
-	<cfquery name="geog" datasource="#Application.web_user#">
+	<cfquery name="geog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select higher_geog from geog_auth_rec
 	</cfquery>
 	<cffile action="write" file="/var/www/html/temp/geog.txt" addnewline="yes" output="higher_geog">

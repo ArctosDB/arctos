@@ -1,10 +1,10 @@
 <cfinclude template = "includes/_header.cfm">
 <cfset title = "Search for Taxa">
 <!--- no security required to access this page --->
-<cfquery name="class" datasource="#Application.web_user#">
+<cfquery name="class" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select phylclass from ctclass order by phylclass
 </cfquery>
-<cfquery name="getCount" datasource="#Application.web_user#">
+<cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select count(*) as cnt from taxonomy
 </cfquery>
 
@@ -123,7 +123,7 @@
 </td><td><input size="25" name="phylum" maxlength="40"></td></tr>
 <tr><td align="right"><b><nobr>Class:</nobr></b></td>
 <td>
-<cfquery name="ctClass" datasource="#Application.web_user#">
+<cfquery name="ctClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(phylclass) from taxonomy order by phylclass
 </cfquery>
 <select name="phylclass" size="1">

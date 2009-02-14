@@ -16,17 +16,16 @@
 
 
 <cf_getLoanFormInfo>
-
 <cfoutput>
-	<cfquery name="shipDate" datasource="#Application.web_user#">
+	<cfquery name="shipDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select shipped_date from shipment where transaction_id=#transactioN_id#
 	</cfquery>
-	<cfquery name="shipTo" datasource="#Application.web_user#">
+	<cfquery name="shipTo" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select formatted_addr from addr, shipment
 		where addr.addr_id = shipment.shipped_to_addr_id AND
 		shipment.transaction_id=#transaction_id#
 	</cfquery>
-	<cfquery name="procBy" datasource="#Application.web_user#">
+	<cfquery name="procBy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select agent_name from preferred_agent_name, shipment
 		where preferred_agent_name.agent_id = shipment.packed_by_agent_id AND
 		shipment.transaction_id=#transaction_id#
@@ -62,14 +61,22 @@
 				<tr>
 					<td align="left" width="60%">
 						<blockquote>
-							<cfif len(getLoan.outside_contact_name) is not 0> <!--There is an outside contact-->
-								#getLoan.recAgentName#  <!--Loan Recipient's Name-->
-								#getLoan.outside_contact_name# <!-- Outside Contact Name -->
-								replace(getLoan.outside_address, "#getLoan.recAgentName#", "", "all") <!--Removes Loan Recipient's name from full address-->
+							<!---
+							<cfif len(getLoan.outside_contact_name) is not 0 AND getLoan.outside_contact_name is not getLoan.recAgentName> <!--There is an outside contact-->
+
+								<cfset rec_address_pos = find("#chr(10)#", getLoan.shipped_to_address)> <!--position of the actual address in shipped_to_address-->
+								
+								<cfset name_title = mid(getLoan.shipped_to_address, 1, rec_address_pos)>
+								#replace(name_title, "<br>", "", "all")#<!--Loan Recipient's Name-->
+								<br>	
+								<!--- #getLoan.recAgentName# --->
+								Attn: #getLoan.outside_contact_name# <!--Outside Contact Name-->
+								#rereplace(getLoan.shipped_to_address, "#name_title#|#chr(10)#", "<br>", "all")# <!--Removes Loan Recipient's name from full address-->
+							<cfelse>
+								#replace(getLoan.shipped_to_address,"#chr(10)#","<br>","all")#
 							</cfif>
-							
-							#replace(getLoan.outside_address,"#chr(10)#","<br>","all")#	
-									
+							--->
+							#replace(getLoan.shipped_to_address,"#chr(10)#","<br>","all")#
 						</blockquote>
 					</td>
 					<td align="right" valign="top">
@@ -80,7 +87,7 @@
 								   <br>&nbsp;
 								   <br>&nbsp;
 								   <hr>
-								   #getLoan.authAgentName#<!---, #getLoan.contact_title# --->
+								   #getLoan.authAgentName#<!--- #getLoan.contact_title# --->
 								 </td>
 							</tr>
 						 </table>
@@ -225,7 +232,6 @@
 
 
 <cfif #Action# is "itemLabels">
-<cfinclude template='../includes/_header.cfm'>
 <!---
 For this action:
 Author: Peter DeVore, based on work by Dusty
@@ -252,7 +258,7 @@ Change to: <select name="format">
 	<input type='submit' value='Change Format' />
 </form>
 </cfoutput>
-<cfquery name="getItems" datasource="#Application.web_user#">
+<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		cataloged_item.cat_num, 
 		cataloged_item.collection_object_id,
@@ -496,17 +502,17 @@ Based on:
 <cfparam name="shipped_to_addr_id" default = "">
 <cfparam name="shipped_from_addr" default = "">
 <cfparam name="shipped_from_addr_id" default = "">
-<cfquery name="ship" datasource="#Application.web_user#">
+<cfquery name="ship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from shipment where transaction_id = #transaction_id#
 </cfquery>
 <!--- Test to see if there are shipping addresses. --->
 <cfif ship.recordcount gt 0>
-	<cfquery name="shipped_to_addr_id" datasource="#Application.web_user#">
+	<cfquery name="shipped_to_addr_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select formatted_addr from addr where 
 		addr_id = #ship.shipped_to_addr_id#
 	</cfquery>
 		<cfset shipped_to_addr = "#shipped_to_addr_id.formatted_addr#">
-	<cfquery name="shipped_from_addr_id" datasource="#Application.web_user#">
+	<cfquery name="shipped_from_addr_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select formatted_addr from addr where 
 		addr_id = #ship.shipped_from_addr_id#
 	</cfquery>
@@ -632,8 +638,7 @@ Number of rows to print per page:
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 
 <cfoutput>
-<cfquery name="getItems" datasource="#Application.web_user#">
-
+<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 select 
 		cat_num, 
 		cataloged_item.collection_object_id,
@@ -1072,8 +1077,7 @@ select
 	fontembed="yes" >
 	
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
-<cfquery name="getItems" datasource="#Application.web_user#">
-
+<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 select 
 		cat_num, 
 		collection,
@@ -1127,7 +1131,7 @@ select
          <b><font face="Arial, Helvetica, sans-serif">SPECIMEN&nbsp;&nbsp;INVOICE <br>
    <font size="+2"> Museum of Vertebrate Zoology <br>
     University of California, Berkeley</font></font></b> <br>
-        <cfquery name="shipDate" datasource="#Application.web_user#">
+        <cfquery name="shipDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
                 select shipped_date from shipment where transaction_id=#transactioN_id#
         </cfquery>
    <b> #dateformat(shipDate.shipped_date,"dd mmmm yyyy")#</b>

@@ -30,7 +30,7 @@ function loadTree () {
 	post(1);
 	//alert('loadTree');
 	var theTreeDiv = document.getElementById('treePane');	
-	var flds="cat_num,barcode,container_label,description,container_type,part_name,collection_id,other_id_type,other_id_value,collection_object_id,loan_trans_id";
+	var flds="cat_num,barcode,container_label,description,container_type,part_name,collection_id,other_id_type,other_id_value,collection_object_id,loan_trans_id,table_name,in_container_type";
 	var arrFld = flds.split( "," );
 
 	//alert('l' + arrFld.length);
@@ -183,7 +183,24 @@ function downloadTree () {
 	}
 }
 
-
+function printLabels () {
+	post(1);
+	try {
+		var fatAr = newTree.getAllFatItems().split(",")
+		var leafAr = newTree.getAllLeafs().split(",")
+		var rootsAr = fatAr.concat(leafAr);
+		var cidAr= new Array;
+		for(var i=0;i<rootsAr.length;i++){ 
+			cidAr.push(rootsAr[i]); 
+		}
+		var cutAr=cidAr.slice(1);
+		var cid=cutAr.join(",");
+		post();
+		window.open('Reports/report_printer.cfm?container_id=' + cid);
+	} catch(err){
+		post(1,'Error: No tree?');
+	}
+}
 function showTreeOnly(){
 	try {
 		var theTreeDiv = document.getElementById('treePane');

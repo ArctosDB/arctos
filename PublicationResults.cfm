@@ -36,7 +36,9 @@
 		<cfset basWhere = "#basWhere# AND UPPER(publication_title) LIKE '%#ucase(pubTitle)#%'">
 	</cfif>
 	<cfif isdefined("onlyCitePubs") AND #onlyCitePubs# gt 0>
-		<cfset basFrom = "#basFrom#,citation">
+		<cfif #basFrom# does not contain "citation">
+			<cfset basFrom = "#basFrom#,citation">
+		</cfif>
 		<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id">
 	</cfif>
 	<cfif isdefined("pubAuthor") AND len(#pubAuthor#) gt 0>
@@ -83,8 +85,10 @@
 			upper(journal_name) #jnOper# #jname#">
 	</cfif>
 	<cfif isdefined("collection_id") AND len(#collection_id#) gt 0>
-		<cfset basFrom = "#basFrom# ,
-			citation,cataloged_item">
+		<cfset basFrom = "#basFrom#,cataloged_item">
+		<cfif #basFrom# does not contain "citation">
+			<cfset basFrom = "#basFrom#,citation">
+		</cfif>
 		<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id 
 			AND citation.collection_object_id = cataloged_item.collection_object_id AND
 			cataloged_item.collection_id = #collection_id#">
@@ -185,7 +189,7 @@
 		<tr #iif(currentrow MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<td valign="top">
 				<table>
-					<form action="ProjectList.cfm?src=pubs" method="post" target="#session.target#">
+					<form action="ProjectList.cfm?src=pubs" method="post">
 							<input name="toproject_id" type="hidden" value="#toproject_id#">
 							<input name="Action" type="hidden">
 							<input type="hidden" name="publication_id" value="#publication_id#">
@@ -199,7 +203,7 @@
 						</td>
 					</tr>
 					</form>
-					<form action="SpecimenResults.cfm" method="post" target="#session.target#">
+					<form action="SpecimenResults.cfm" method="post">
 							<input name="Action" type="hidden">
 							<input name="toproject_id" type="hidden" value="#toproject_id#">
 							<input type="hidden" name="publication_id" value="#publication_id#">
@@ -215,7 +219,7 @@
 						</tr>
 						</form>
 						<cfif #toproject_id# gt 0>
-						<form action="Project.cfm" method="post" target="#session.target#">
+						<form action="Project.cfm" method="post">
 							<input name="project_id" type="hidden" value="#toproject_id#">
 							<input type="hidden" name="Action" value="addPub">
 							<input type="hidden" name="publication_id" value="#publication_id#">
@@ -231,7 +235,7 @@
 					</form>
 					</cfif>
 					<cfif  isdefined("session.roles") and listfindnocase(session.roles,"MANAGE_PUBLICATIONS")>
-						<form action="Publication.cfm" method="post" target="#session.target#">
+						<form action="Publication.cfm" method="post">
 									<input type="hidden" name="publication_id" value="#publication_id#">
 										<cfif #publication_type# is "Book">
 											<cfset thisAction = "editBook">
@@ -252,7 +256,7 @@
 							</td>
 						</tr>
 						</form>
-						<form action="Citation.cfm" method="post" target="#session.target#">
+						<form action="Citation.cfm" method="post">
 									<input type="hidden" name="publication_id" value="#publication_id#">
 						<tr>
 							<td valign="top">

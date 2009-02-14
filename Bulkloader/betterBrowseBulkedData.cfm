@@ -1,6 +1,6 @@
 <cfif #action# is "saveGridUpdate">
 <cfoutput>
-<cfquery name="cNames" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="cNames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select column_name from user_tab_cols where table_name='BULKLOADER'
 </cfquery>
 <cfset ColNameList = valuelist(cNames.column_name)>
@@ -21,7 +21,7 @@
 	</cfloop>
 	
 		<cfset sql ="#sql# WHERE collection_object_id = #thisCollObjId#">
-	<cfquery name="up" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="up" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 </cfloop>
@@ -42,7 +42,7 @@
 		<!---
 		
 		--->
-		<cfquery name="upBulk" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="upBulk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
 	</cfif>
@@ -56,7 +56,7 @@
 <cfoutput>
 <cfinclude template="/includes/_header.cfm">
 <!--- no security --->
-<cfquery name="u" datasource="#Application.web_user#">
+<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select grp.agent_name
 	from
 		preferred_agent_name grp,
@@ -75,7 +75,7 @@
 	--->
 	<cfset DEgrp = left(u.agent_name,8)>
 	<cfset DEgrp = "#DEgrp# Entry">
-	<cfquery name="entGrp" datasource="#Application.web_user#">
+	<cfquery name="entGrp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select usr.agent_name
 	from
 		preferred_agent_name grp,
@@ -105,10 +105,10 @@
 </span>
 <cfset sql = "select * from bulkloader
 	where enteredby IN (#entBy#)">
-<cfquery name="data" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#	
 </cfquery>
-<cfquery name="cNames" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="cNames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select column_name from user_tab_cols where table_name='BULKLOADER'
 	order by internal_column_id
 </cfquery>

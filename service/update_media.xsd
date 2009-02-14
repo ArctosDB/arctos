@@ -1,0 +1,20 @@
+<xs:element name="media">
+    <xs:element name="media_uri" type="xs:string" minOccurs="1" maxOccurs="1" />
+    <xs:element name="preview_uri" type="xs:string" minOccurs="1" maxOccurs="1" />
+	<xs:element name="media_relation" minOccurs="0" maxOccurs="unbounded">
+		<xs:complexType>		
+			<xs:sequence> 
+            	<xs:element name="media_relationship" type="xs:string" />
+        		<xs:element name="related_pkey" type="xs:int" /> 
+        	</xs:sequence> 
+        </xs:complexType>
+	</xs:element>
+	<xs:element name="media_label" minOccurs="0" maxOccurs="unbounded">
+		<xs:complexType>		
+			<xs:sequence> 
+            	<xs:element name="media_label" type="xs:string" />
+        		<xs:element name="label_value" type="xs:int" /> 
+        	</xs:sequence> 
+        </xs:complexType>
+	</xs:element>
+</xs:element> 

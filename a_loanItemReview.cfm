@@ -2,13 +2,12 @@
  <cfinclude template="includes/_header.cfm">
 	<script type='text/javascript' src='/includes/_loanReview.js'></script>
 	<script src="/includes/sorttable.js"></script>
-
 <style>
 	.changing {
 		background-color:#FF0000;
 		}
 </style>
-<cfquery name="ctDisp" datasource="#Application.web_user#">
+<cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select coll_obj_disposition from ctcoll_obj_disp
 </cfquery>
 <cfif not isdefined("transaction_id")>
@@ -19,7 +18,7 @@
 	<cfoutput>
 	<cfif isdefined("coll_obj_disposition") AND #coll_obj_disposition# is "on loan">
 		<!--- see if it's a subsample --->
-		<cfquery name="isSSP" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="isSSP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select SAMPLED_FROM_OBJ_ID from specimen_part where collection_object_id = #partID#
 		</cfquery>
 		<cfif #isSSP.SAMPLED_FROM_OBJ_ID# gt 0>
@@ -95,7 +94,7 @@
 			<cfabort>
 		</cfif>
 	</cfif>
-	<cfquery name="deleLoanItem" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="deleLoanItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM loan_item where collection_object_id = #partID#
 		and transaction_id = #transaction_id#
 	</cfquery>
@@ -107,31 +106,31 @@
 <cfif #Action# is "killSS">
 	<cfoutput>
 <cftransaction>
-	<cfquery name="deleLoan" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="deleLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM loan_item WHERE collection_object_id = #partID#
 		and transaction_id=#transaction_id#
 	</cfquery>
-	<cfquery name="delePart" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="delePart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM specimen_part WHERE collection_object_id = #partID#
 	</cfquery>
-	<cfquery name="delePartCollObj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="delePartCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM coll_object WHERE collection_object_id = #partID#
 	</cfquery>
-	<cfquery name="delePartRemark" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="delePartRemark" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM coll_object_remark WHERE collection_object_id = #partID#
 	</cfquery>
-	<cfquery name="getContID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="getContID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select container_id from coll_obj_cont_hist where
 		collection_object_id = #partID#
 	</cfquery>
 	
-	<cfquery name="deleCollCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="deleCollCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM coll_obj_cont_hist WHERE collection_object_id = #partID#
 	</cfquery>
-	<cfquery name="deleCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM container_history WHERE container_id = #getContID.container_id#
 	</cfquery>
-	<cfquery name="deleCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM container WHERE container_id = #getContID.container_id#
 	</cfquery>
 </cftransaction>
@@ -143,11 +142,11 @@
 
 <cfif #Action# is "BulkUpdateDisp">
 	<cfoutput>
-		<cfquery name="getCollObjId" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="getCollObjId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select collection_object_id FROM loan_item where transaction_id=#transaction_id#
 		</cfquery>
 		<cfloop query="getCollObjId">
-			<cfquery name="upDisp" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="upDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE coll_object SET coll_obj_disposition = '#coll_obj_disposition#'
 			where collection_object_id = #collection_object_id#
 			</cfquery>
@@ -160,11 +159,11 @@
 <cfif #Action# is "saveDisp">
 	<cfoutput>
 	<cftransaction>
-		<cfquery name="upDisp" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="upDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE coll_object SET coll_obj_disposition = '#coll_obj_disposition#'
 			where collection_object_id = #partID#
 		</cfquery>
-		<cfquery name="upItem" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="upItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE loan_item SET
 				 transaction_id=#transaction_id#
 				<cfif len(#item_instructions#) gt 0>
@@ -193,7 +192,7 @@
 <!-------------------------------------------------------------------------------->
 
 <cfif #action# is "nothing">
-<cfquery name="getPartLoanRequests" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="getPartLoanRequests" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		cat_num, 
 		cataloged_item.collection_object_id,
@@ -393,7 +392,7 @@ Review items in loan<b>
 
 	<tr id="rowNum#partID#">
 		<td>
-			<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="#session.target#">#collection# #cat_num#</a>
+			<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection# #cat_num#</a>
 			
 		</td>
 		<td>
@@ -413,7 +412,7 @@ Review items in loan<b>
 			<cfif len(#preserve_method#) gt 0>
 				<cfset thisPart="#thisPart# (#preserve_method#)">
 			</cfif>
-			<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#&content_url=editParts.cfm" target="#session.target#">#thisPart#</a>
+			<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#&content_url=editParts.cfm">#thisPart#</a>
 			&nbsp;
 		</td>
 		<td>

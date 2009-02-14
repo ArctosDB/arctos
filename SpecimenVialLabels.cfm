@@ -3,7 +3,7 @@
 <cfoutput>
 
 <!--- find print_fg'd containers --->
-<cfquery name="print_fg" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="print_fg" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select container_id from container where print_fg > 0
 </cfquery>
 <cfset flagged_cont_id = "">
@@ -15,7 +15,7 @@
 	</cfif>
 </cfloop>
 <!--- get the container (coll_obj) that is in these flagged containers --->
-<cfquery name="flagItems" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="flagItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT
 		container.container_id,
 		collection_object_id
@@ -34,7 +34,7 @@
 	  	<cfset partID = "#flagItems.collection_object_id#">
 	</cfif>
 </cfloop>
-<cfquery name="getCollObjIds" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="getCollObjIds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		cataloged_item.collection_object_id 
 	FROM
@@ -414,7 +414,7 @@ WHERE locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id
 		</cfquery>
 	
 			<!----------------- vial labels ------------------------------->
-<cfquery name="getLabel" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="getLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT
 			part_name,
 			parentContainer.label,
@@ -606,9 +606,9 @@ WHERE locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id
 				
 	  <tr>
   	    <td nowrap valign="top">
-			<a href="SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="#session.target#"><strong>#collection_cde# #cat_num#</strong></a>
+			<a href="SpecimenDetail.cfm?collection_object_id=#collection_object_id#"><strong>#collection_cde# #cat_num#</strong></a>
 <cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
-				(<a href="SpecimenEdit.cfm?collection_object_id=#collection_object_id#" target="#session.target#">edit</a>)
+				(<a href="SpecimenEdit.cfm?collection_object_id=#collection_object_id#">edit</a>)
 			</cfif>
 		</td>
 	    <td nowrap valign="top">

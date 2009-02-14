@@ -3,7 +3,7 @@
 <div align="left">
 <cfif #subject# is "lat_long">
 	<cfset title="Lat Long Details">
-	<cfquery name="getLL" datasource="#Application.web_user#">
+	<cfquery name="getLL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			decode(orig_lat_long_units,
 				'decimal degrees',to_char(dec_lat) || 'd',
@@ -73,7 +73,7 @@
 
 <!--------------------------------------------------------------------------------------------->
 <cfif #subject# is "identification">
-<cfquery name="identification" datasource="#Application.web_user#">
+<cfquery name="identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT
 			identification.scientific_name,
 			concatidagent(identification.identification_id) agent_name,
@@ -107,7 +107,7 @@
               <font color="##FF0000">No</font> 
             </cfif></td>
 				<td nowrap>
-				<cfquery name="getTaxa" datasource="#Application.web_user#">
+				<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select 
 						taxonomy.taxon_name_id,
 						scientific_name,
@@ -147,7 +147,7 @@
 <!--------------------------------------------------------------------------------------------->
 
 <cfif #subject# is "parts">
-<cfquery name="id" datasource="#Application.web_user#">
+<cfquery name="id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT
 			part_name,
 			part_modifier,
@@ -207,7 +207,7 @@
 	</table>
 </cfif>
 <cfif #subject# is "attributes">
-<cfquery name="atts" datasource="#Application.web_user#">
+<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT
 			*
 		FROM

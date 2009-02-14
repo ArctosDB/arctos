@@ -9,18 +9,21 @@
 		}
 </style>
 <script>
+
+	function nada(){}
 	function toggleGeogDetail(onOff) {
 		var e = document.getElementById('geogDetail');
 		var c = document.getElementById('geogDetailCtl');
 		if (onOff==0) {
 			e.className='noShow'
 			c.setAttribute('onCLick','toggleGeogDetail(1)');
-			c.innerHTML='Show More Options';
+			c.innerHTML='Show More Options';	
 		} else {
 			e.className='';
 			c.setAttribute('onCLick','toggleGeogDetail(0)');
 			c.innerHTML='Show Fewer Options';
 		}
+		DWREngine._execute(_cfscriptLocation, null, 'saveLocSrchPref','GeogDetail',onOff,nada);
 	}
 	function toggleLocDetail(onOff) {
 		var e = document.getElementById('locDetail');
@@ -34,6 +37,7 @@
 			c.setAttribute('onCLick','toggleLocDetail(0)');
 			c.innerHTML='Show Fewer Options';
 		}
+		DWREngine._execute(_cfscriptLocation, null, 'saveLocSrchPref','LocDetail',onOff,nada);
 	}
 	function toggleGeorefDetail(onOff) {
 		var e = document.getElementById('georefDetail');
@@ -47,6 +51,7 @@
 			c.setAttribute('onCLick','toggleGeorefDetail(0)');
 			c.innerHTML='Hide Georeference Options';
 		}
+		DWREngine._execute(_cfscriptLocation, null, 'saveLocSrchPref','GeorefDetail',onOff,nada);
 	}
 	function toggleEventDetail(onOff) {
 		var e = document.getElementById('eventDetail');
@@ -60,6 +65,7 @@
 			c.setAttribute('onCLick','toggleEventDetail(0)');
 			c.innerHTML='Show Fewer Options';
 		}
+		DWREngine._execute(_cfscriptLocation, null, 'saveLocSrchPref','EventDetail',onOff,nada);
 	}
 	
 </script>
@@ -434,4 +440,13 @@
 	</tr>
 </table>
 </td></tr></table>
+<cfif isdefined("session.locSrchPrefs") and len(session.locSrchPrefs) gt 0>
+	<cfloop list="#session.locSrchPrefs#" index="i">
+		<cfset r='toggle' & i>	
+		<script type="text/javascript" language="javascript">
+			#r#(1);
+		</script>
+	</cfloop>
+</cfif>
+
 </cfoutput>

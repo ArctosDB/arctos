@@ -8,6 +8,8 @@
 <cfargument name="higher_geography" type="string" required="yes">
 <cfargument name="specific_locality" type="string" required="yes">
 <cfargument name="annotation_remarks" type="string" required="yes">
+
+<cfinclude template="/includes/functionLib.cfm">
 <cftry>
 	<cfset sql = "insert into specimen_annotations (
 			collection_object_id,
@@ -30,22 +32,22 @@
 	
 	
 	<cfif len(#higher_geography#) gt 0 and #higher_geography# is not "Annotate">
-		<cfset sql = "#sql#,'#replace(higher_geography,"'","''","all")#'">
+		<cfset sql = "#sql#,'#stripQuotes(urldecode(higher_geography))#'">
 	</cfif>
 	<cfif len(#scientific_name#) gt 0 and #scientific_name# is not "Annotate">
-		<cfset sql = "#sql#,'#scientific_name#'">
+		<cfset sql = "#sql#,'#stripQuotes(urldecode(scientific_name))#'">
 	</cfif>
 	<cfif len(#specific_locality#) gt 0 and #specific_locality# is not "Annotate">
-		<cfset sql = "#sql#,'#replace(specific_locality,"'","''","all")#'">
+		<cfset sql = "#sql#,'#stripQuotes(urldecode(specific_locality))#'">
 	</cfif>
 	<cfif len(#annotation_remarks#) gt 0 and #annotation_remarks# is not "Annotate">
-		<cfset sql = "#sql#,'#replace(annotation_remarks,"'","''","all")#'">
+		<cfset sql = "#sql#,'#stripQuotes(urldecode(annotation_remarks))#'">
 	</cfif>	
 	<cfset sql = "#sql# )">
-	<cfquery name="insAnn" datasource="#Application.web_user#">
+	<cfquery name="insAnn" datasource="uam_god">
 		#preservesinglequotes(sql)#
 	</cfquery>
-	<cfquery name="whoTo" datasource="#Application.web_user#">
+	<cfquery name="whoTo" datasource="uam_god">
 		select
 			address
 		FROM
@@ -76,7 +78,7 @@
 	</cfmail>
 
 <cfcatch>
-	<cfset result = "A database error occured: #cfcatch.message# #cfcatch.detail# #sql#.">
+	<cfset result = "A database error occured: #cfcatch.message# #cfcatch.detail# #sql#">
 	<cfreturn result>
 </cfcatch>
 </cftry>

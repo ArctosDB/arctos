@@ -1,28 +1,48 @@
- <cfinclude template="includes/_header.cfm">
+<cfinclude template="includes/_header.cfm">
 <cfif not isdefined("project_id")>
 	<cfset project_id = -1>
 </cfif>
-<cfquery name="ctLoanType" datasource="#Application.web_user#">
+<cfquery name="ctLoanType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select loan_type from ctloan_type order by loan_type
 </cfquery>
-<cfquery name="ctLoanStatus" datasource="#Application.web_user#">
+<cfquery name="ctLoanStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select loan_status from ctloan_status order by loan_status
 </cfquery>
-<cfquery name="ctcoll" datasource="#Application.web_user#">
+<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection_cde from ctcollection_cde order by collection_cde
 </cfquery>
-<cfquery name="ctInst" datasource="#Application.web_user#">
-	select distinct(institution_acronym)  from collection order by institution_acronym
-</cfquery>
-<cfquery name="cttrans_agent_role" datasource="#Application.web_user#">
+<cfquery name="cttrans_agent_role" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(trans_agent_role)  from cttrans_agent_role order by trans_agent_role
 </cfquery>
+<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select * from collection order by collection
+</cfquery>
+<style>
+	.cntr {font-size:.7em;}
+</style>
 <script>
 	function setAccnNum(i,v) {
 		var e = document.getElementById('loan_number');
 		e.value=v;
-		var inst = document.getElementById('institution_acronym');
+		var inst = document.getElementById('collection_id');
 		inst.value=i;	
+	}
+	function dCount() {
+		var countThingees=new Array();
+		countThingees.push('nature_of_material');
+		countThingees.push('loan_description');
+		countThingees.push('loan_instructions');
+		countThingees.push('trans_remarks');
+		for (i=0;i<countThingees.length;i++) {
+			var els = countThingees[i];
+			var el=document.getElementById(els);
+			var elVal=el.value;
+			var ds='lbl_'+els;				
+			var d=document.getElementById(ds);
+			var lblVal=d.innerHTML;
+			d.innerHTML=elVal.length + " characters";
+		}
+		var t=setTimeout("dCount()",500);
 	}
 </script>
 <!-------------------------------------------------------------------------------------------------->
@@ -55,20 +75,19 @@
 <cfif  #action# is "newLoan">
 <cfset title="New Loan">
 	Initiate a loan: <span class="infoLink" onClick="getDocs('loan')">Help</span>
-
-	
 	<cfoutput>
 		<form name="newloan" action="Loan.cfm" method="post" onSubmit="return noenter();">
 			<input type="hidden" name="action" value="makeLoan">
 			<!--- set loan_number - same code works for accn_num --->
 <table border>
+
 	<tr>
 		<td>
-			<label for="institution_acronym">Institution
+			<label for="collection_id">Collection
 			</label>
-			<select name="institution_acronym" size="1" id="institution_acronym">
-				<cfloop query="ctInst">
-					<option value="#ctInst.institution_acronym#">#ctInst.institution_acronym#</option>
+			<select name="collection_id" size="1" id="collection_id">
+				<cfloop query="ctcollection">
+					<option value="#ctcollection.collection_id#">#ctcollection.collection#</option>
 				</cfloop>
 			</select>
 		</td>
@@ -79,125 +98,67 @@
 		<td rowspan="99" valign="top">
 			Next Available Loan Number:
 			<br>
-			
-			<cfif #cgi.HTTP_HOST# contains "database.museum">
-				<ul>
-					<li>
-						<cfquery name="uam_mamm" datasource="#Application.web_user#">
-							select lpad(max(to_number(substr(loan_number,6,3))) + 1,3,0) nn from loan,trans where
-							loan.transaction_id = trans.transaction_id and
-							substr(loan_number,1,4)='#dateformat(now(),"yyyy")#' and
-							institution_acronym='UAM' and
-							substr(loan_number,10,4)='Mamm'
+			<cfquery name="all_coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select * from collection order by collection
+			</cfquery>
+			<cfloop query="all_coll">
+				<cfif (institution_acronym is 'UAM' and collection_cde is 'Mamm')>
+					<!---- yyyy.nnn.CCDE format --->
+					<cfset stg="'#dateformat(now(),"yyyy")#.' || lpad(max(to_number(substr(loan_number,6,3))) + 1,3,0) || '.#collection_cde#'">
+					<cfset whr=" AND substr(loan_number, 1,4) ='#dateformat(now(),"yyyy")#'">
+				<cfelseif (institution_acronym is 'UAM' and collection_cde is 'Herb') OR
+					(institution_acronym is 'MSB') OR
+					(institution_acronym is 'DGR')>
+					<!---- yyyy.n.CCDE format --->
+					<cfset stg="'#dateformat(now(),"yyyy")#.' || max(to_number(substr(loan_number,instr(loan_number,'.')+1,instr(loan_number,'.',1,2)-instr(loan_number,'.')-1) + 1)) || '.#collection_cde#'">
+					<cfset whr=" AND substr(loan_number, 1,4) ='#dateformat(now(),"yyyy")#'">
+				<cfelseif (institution_acronym is 'MVZ' or institution_acronym is 'MVZObs')>
+					<cfset stg="'#dateformat(now(),"yyyy")#.' || (max(to_number(substr(loan_number,6,4))) + 1) || '.#collection_cde#'">
+					<cfset whr=" and collection.institution_acronym in ('MVZ','MVZObs')">
+				<cfelse>
+					<!--- n format --->
+					<cfset stg="'#dateformat(now(),"yyyy")#.' || max(to_number(substr(loan_number,instr(loan_number,'.')+1,instr(loan_number,'.',1,2)-instr(loan_number,'.')-1) + 1)) || '.#collection_cde#'">
+					<cfset whr=" AND is_number(loan_number)=1 and substr(loan_number, 1,4) ='#dateformat(now(),"yyyy")#'">
+				</cfif>
+				<hr>
+				<cftry>
+					<cfquery name="thisq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select 
+							 #preservesinglequotes(stg)# nn 
+						from 
+							loan,
+							trans,
+							collection
+						where 
+							loan.transaction_id=trans.transaction_id and
+							trans.collection_id=collection.collection_id
+							<cfif institution_acronym is not "MVZ" and institution_acronym is not "MVZObs">
+								and	collection.collection_id=#collection_id#
+							</cfif>
+							#preservesinglequotes(whr)#
+					</cfquery>
+					<cfcatch>
+						<hr>
+						#cfcatch.detail#
+						<br>
+						#cfcatch.message#
+						<cfquery name="thisq" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							select 
+								 'check data' nn 
+							from 
+								dual
 						</cfquery>
-						<cfif #uam_mamm.recordcount# is 0>
-							<!--- new year, prolly --->
-							<cfset thisNum = '#dateformat(now(),"yyyy")#.001.Mamm'>
-						<cfelse>
-							<cfset thisNum = '#dateformat(now(),"yyyy")#.#uam_mamm.nn#.Mamm'>
-						</cfif>
-						<span class="likeLink" onclick="setAccnNum('UAM','#thisNum#')">UAM #thisNum#</span>
-					</li>
-					<li>
-						<cfquery name="msb_mamm" datasource="#Application.web_user#">
-							select max(to_number(substr(loan_number,
-							(instr(loan_number,'.',1,1)+1),
-							(instr(loan_number,'.',1,2) - instr(loan_number,'.',1,1) - 1)))) + 1 nn from loan,trans where
-							loan.transaction_id = trans.transaction_id and
-							substr(loan_number,1,4)='#dateformat(now(),"yyyy")#' and
-							institution_acronym='MSB' and
-							substr(loan_number,10,4)='Mamm'
-						</cfquery>
-						<cfif #msb_mamm.recordcount# is 0>
-							<!--- new year, prolly --->
-							<cfset thisNum = '#dateformat(now(),"yyyy")#.1.Mamm'>
-						<cfelse>
-							<cfset thisNum = '#dateformat(now(),"yyyy")#.#msb_mamm.nn#.Mamm'>
-						</cfif>
-						<span class="likeLink" onclick="setAccnNum('MSB','#thisNum#')">MSB #thisNum#</span>
-					</li>
-					<li>
-						<cfquery name="msb_bird" datasource="#Application.web_user#">
-							select loan_number from loan,trans where
-							loan.transaction_id = trans.transaction_id and
-							loan_number like '#dateformat(now(),"yyyy")#%' and
-							institution_acronym='MSB' and
-							loan_number like '%Bird'
-						</cfquery>
-						<cfif #msb_bird.recordcount# is 0>
-							<!--- new year, prolly --->
-							<cfset thisNum = '#dateformat(now(),"yyyy")#.1.Bird'>
-						<cfelse>
-							<cfset r=msb_bird.loan_number>
-							<cfset temp=replace(r,'.Bird','','all')>
-							<cfset temp=replace(temp,"#dateformat(now(),"yyyy")#.","","all")>
-							<cfset temp=temp+1>
-							<cfset thisNum = '#dateformat(now(),"yyyy")#.#temp#.Bird'>
-						</cfif>
-						<span class="likeLink" onclick="setAccnNum('MSB','#thisNum#')">MSB #thisNum#</span>
-					</li>
-					<li>
-						<cfquery name="dgr_mamm" datasource="#Application.web_user#">
-							select max(to_number(substr(loan_number,
-							(instr(loan_number,'.',1,1)+1),
-							(instr(loan_number,'.',1,2) - instr(loan_number,'.',1,1) - 1)))) + 1 nn from loan,trans where
-							loan.transaction_id = trans.transaction_id and
-							substr(loan_number,1,4)='#dateformat(now(),"yyyy")#' and
-							institution_acronym='DGR' and
-							substr(loan_number,10,4)='Mamm'
-						</cfquery>
-						<cfif #dgr_mamm.recordcount# is 0>
-							<!--- new year, prolly --->
-							<cfset thisNum = '#dateformat(now(),"yyyy")#.1.Mamm'>
-						<cfelse>
-							<cfset thisNum = '#dateformat(now(),"yyyy")#.#dgr_mamm.nn#.Mamm'>
-						</cfif>
-						<span class="likeLink" onclick="setAccnNum('DGR','#thisNum#')">DGR #thisNum#</span>
-					</li>
-					<li>
-						<cfquery name="dgr_bird" datasource="#Application.web_user#">
-							select max(to_number(substr(loan_number,
-							(instr(loan_number,'.',1,1)+1),
-							(instr(loan_number,'.',1,2) - instr(loan_number,'.',1,1) - 1)))) + 1 nn from loan,trans where
-							loan.transaction_id = trans.transaction_id and
-							substr(loan_number,1,4)='#dateformat(now(),"yyyy")#' and
-							institution_acronym='DGR' and
-							substr(loan_number,10,4)='Bird'
-						</cfquery>
-						<cfif #dgr_bird.recordcount# is 0>
-							<!--- new year, prolly --->
-							<cfset thisNum = '#dateformat(now(),"yyyy")#.1.Bird'>
-						<cfelse>
-							<cfset thisNum = '#dateformat(now(),"yyyy")#.#dgr_bird.nn#.Bird'>
-						</cfif>
-						<span class="likeLink" onclick="setAccnNum('DGR','#thisNum#')">DGR #thisNum#</span>
-					</li>
-				</ul>
-			<cfelseif #cgi.HTTP_HOST# contains "berkeley.edu">
-				<!--- all collection share loan number and never start over --->
-				<cfquery name="mvz_mamm" datasource="#Application.web_user#">
-					select 
-						max(to_number(substr(loan_number,
-							(instr(loan_number,'.',1,1)+1),
-							(instr(loan_number,'.',1,2) - instr(loan_number,'.',1,1) - 1)))) + 1 nn 
-					from loan,trans where
-					loan.transaction_id = trans.transaction_id
-				</cfquery>
-				<ul>
-					<li>
-						<cfset thisNum = '#dateformat(now(),"yyyy")#.#mvz_mamm.nn#.Bird'>
-						<span class="likeLink" onclick="setAccnNum('MVZ','#thisNum#')">MVZ #thisNum#</span>
-					</li>
-					<li>
-						<cfset thisNum = '#dateformat(now(),"yyyy")#.#mvz_mamm.nn#.Herp'>
-						<span class="likeLink" onclick="setAccnNum('MVZ','#thisNum#')">MVZ #thisNum#</span>
-					</li>
-					<li>
-						<cfset thisNum = '#dateformat(now(),"yyyy")#.#mvz_mamm.nn#.Mamm'>
-						<span class="likeLink" onclick="setAccnNum('MVZ','#thisNum#')">MVZ #thisNum#</span>
-					</li>
-				</ul>
-			</cfif>
+					</cfcatch>
+				</cftry>
+				<cfif len(thisQ.nn) gt 0>
+					<span class="likeLink" onclick="setAccnNum('#collection_id#','#thisQ.nn#')">#collection# #thisQ.nn#</span>
+				<cfelse>
+					<span style="font-size:x-small">
+						No data available for #collection#.
+					</span>
+				</cfif>
+				<br>
+			</cfloop>
 		</td>
 	</tr>
 	<tr>
@@ -209,7 +170,7 @@
 			<input type="hidden" name="auth_agent_id">
 		</td>
 		<td>
-			<label for="rec_agent_name"><a href="javascript:void(0);" onClick="getDocs('loan','to')">Loan Recipient:</a></label>
+			<label for="rec_agent_name"><a href="javascript:void(0);" onClick="getDocs('loan','to')">To:</a></label>
 			<input type="text" name="rec_agent_name" class="reqdClr" size="40" 
 			  onchange="getAgent('rec_agent_id','rec_agent_name','newloan',this.value); return false;"
 			  onKeyPress="return noenter(event);"> 			  
@@ -306,7 +267,7 @@
 <!-------------------------------------------------------------------------------------------------->
 <cfif #Action# is "editLoan">
 <cfset title="Edit Loan">
-	<cfquery name="loanDetails" datasource="#Application.web_user#">
+	<cfquery name="loanDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			trans.transaction_id,
 			trans_date,
@@ -318,16 +279,19 @@
 			nature_of_material,
 			trans_remarks,
 			return_due_date,
-			institution_acronym,
+			trans.collection_id,
+			collection.collection,
 			concattransagent(trans.transaction_id,'entered by') enteredby
 		 from 
 			loan, 
-			trans
+			trans,
+			collection
 		where 
 			loan.transaction_id = trans.transaction_id AND
+			trans.collection_id=collection.collection_id and
 			trans.transaction_id = #transaction_id#
 	</cfquery>
-	<cfquery name="loanAgents" datasource="#Application.web_user#">
+	<cfquery name="loanAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			trans_agent_id,
 			trans_agent.agent_id, 
@@ -352,10 +316,10 @@
 	<tr>
 		<td align="right"><strong>Edit Loan:</strong> </td>
 		<td>
-			<cfset tIA=#institution_acronym#>
-			<select name="institution_acronym" size="1">
-						<cfloop query="ctInst">
-							<option <cfif #ctInst.institution_acronym# is #tIA#> selected </cfif>value="#ctInst.institution_acronym#">#ctInst.institution_acronym#</option>
+			<cfset tIA=#collection_id#>
+			<select name="collection_id" size="1">
+						<cfloop query="ctcollection">
+							<option <cfif #ctcollection.collection_id# is #tIA#> selected </cfif>value="#ctcollection.collection_id#">#ctcollection.collection#</option>
 						</cfloop>
 				</select>
 			
@@ -366,7 +330,7 @@
 			
 			<strong>Projects associated with this loan:</strong>
 			<p>
-				<cfquery name="projs" datasource="#Application.web_user#">
+				<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select project_name, project.project_id from project,
 					project_trans where 
 					project_trans.project_id =  project.project_id
@@ -419,7 +383,7 @@
 						<!--- need agent_name_id here --->
 						<input type="hidden" name="newAgent_name_id" value="">
 					</td>
-					<cfquery name="ctProjAgRole" datasource="#Application.web_user#">
+					<cfquery name="ctProjAgRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select project_agent_role from ctproject_agent_role
 					</cfquery>
 					<td>
@@ -449,7 +413,9 @@
 					<td align="right">
 						<a href="javascript:void(0);" onClick="getDocs('project','description')">Description</a>
 					</td>
-					<td colspan="3"><textarea name="project_description" cols="50" rows="6">#loan_description#</textarea></td>
+					<td colspan="3"><textarea name="project_description" 
+								id="project_description" cols="50" rows="6">#loan_description#</textarea>
+					</td>
 				</tr>
 				<tr>
 					<td align="right">Remarks</td>
@@ -557,7 +523,7 @@
 					</cfloop>
 				</select>
 	</td>
-	</tr>
+	</tr>	
 	<tr>
 		<td align="right">Transaction Date: </td>
 		<td><input type="text" name="initiating_date" value="#dateformat(trans_date,"dd-mmm-yyyy")#" class="reqdClr">
@@ -565,21 +531,21 @@
 		</td>
 	</tr>
 	<tr>
-		<td align="right">Nature of Material:</td>
-		<td><textarea name="nature_of_material" rows="7" cols="60" class="reqdClr">#nature_of_material#</textarea></td>
+		<td align="right">Nature of Material:<br><span class="cntr" id="lbl_nature_of_material"></span></td>
+		<td><textarea name="nature_of_material" id="nature_of_material" rows="7" cols="60" class="reqdClr">#nature_of_material#</textarea></td>
 	</tr>
 	<tr>
-		<td align="right">Description:</td>
-		<td><textarea name="loan_description" rows="7" cols="60">#loan_description#</textarea></td>
+		<td align="right">Description:<br><span class="cntr" id="lbl_loan_description"></span></td>
+		<td><textarea name="loan_description" id="loan_description" rows="7" cols="60">#loan_description#</textarea></td>
 	</tr>
 	<tr>
-		<td align="right">Instructions:</td>
-		<td><textarea name="loan_instructions" rows="7" cols="60">#loan_instructions#</textarea></td>
+		<td align="right">Instructions:<br><span class="cntr" id="lbl_loan_instructions"></span></td>
+		<td><textarea name="loan_instructions" id="loan_instructions" rows="7" cols="60">#loan_instructions#</textarea></td>
 	</tr>
 	
 	<tr>
-		<td align="right">Remarks: </td>
-		<td><textarea name="trans_remarks" rows="7" cols="60">#trans_remarks#</textarea></td>
+		<td align="right">Remarks:<br><span class="cntr" id="lbl_trans_remarks"></span></td>
+		<td><textarea name="trans_remarks" id="trans_remarks" rows="7" cols="60">#trans_remarks#</textarea></td>
 	</tr>
 	<tr>
 		<td colspan="2" align="center">
@@ -594,16 +560,15 @@
 
  <input type="button" value="Add Items" class="lnkBtn"
    onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-   onClick="window.open('SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#','#session.target#');">
+   onClick="window.open('SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#');">
    
    <input type="button" value="Review Items" class="lnkBtn"
    onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-   onClick="window.open('a_loanItemReview.cfm?transaction_id=#transaction_id#','#session.target#');">
+   onClick="window.open('a_loanItemReview.cfm?transaction_id=#transaction_id#');">
    <br />
    Print: <select name="redir" size="1" onchange="if(this.value.length>0){window.open(this.value,'_blank')};">
    			<option value=""></option>
    			<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemLabels">Item Slips</option>
-			<cfif #cgi.HTTP_HOST# contains "arctos.database">
 				<option value="/Reports/report_printer.cfm?transaction_id=#transaction_id#&report=uam_mamm_loan_head">UAM Mammal Invoice Header</option>
 				<option value="/Reports/UAMMammLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemList">UAM Mammal Item Invoice</option>
 				<option value="/Reports/UAMMammLoanInvoice.cfm?transaction_id=#transaction_id#&Action=showCondition">UAM Mammal Item Conditions</option>
@@ -617,13 +582,14 @@
 				<option value="/Reports/UAMLoanInvoice.cfm?transaction_id=#transaction_id#">UAM Generic Invoice Header</option>
 				<option value="/Reports/UAMLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemList">UAM Generic Item Invoice</option>
 				<option value="/Reports/UAMLoanInvoice.cfm?transaction_id=#transaction_id#&Action=showCondition">UAM Generic Item Conditions</option>
-				<option value="/Reports/loanShipLabel.cfm?transaction_id=#transaction_id#">Shipping Label</option>
-   			<cfelse>
-				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#">Invoice Header</option>
-				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemList">Item Invoice</option>
-				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=showCondition">Item Conditions</option>
+				<option value="/Reports/report_printer.cfm?transaction_id=#transaction_id#&report=loan_instructions">Instructions Appendix</option>
+				<option value="/Reports/report_printer.cfm?transaction_id=#transaction_id#&report=shipping_label">Shipping Label</option>
+				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#">MVZ Invoice Header</option>
+				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemList">MVZ Item Invoice</option>
+				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=showCondition">MVZ Item Conditions</option>
+				<!---
 				<option value="/Reports/MVZLoanInvoice.cfm?transaction_id=#transaction_id#&Action=shippingLabel">MVZ shipping label</option>
-			</cfif>
+				--->
 		</select>
 		
    
@@ -637,15 +603,15 @@
 	</cfoutput>
 	
 	
-<cfquery name="ship" datasource="#Application.web_user#">
+<cfquery name="ship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from shipment where transaction_id = #transaction_id#
 </cfquery>
-<cfquery name="ctShip" datasource="#Application.web_user#">
+<cfquery name="ctShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select shipped_carrier_method from ctshipped_carrier_method
 </cfquery>
 <cfif ship.recordcount gt 0>
 	<!--- get some other info --->
-	<cfquery name="packed_by_agent" datasource="#Application.web_user#">
+	<cfquery name="packed_by_agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select agent_name from preferred_agent_name where 
 		agent_id = #ship.packed_by_agent_id#
 	</cfquery>
@@ -660,13 +626,13 @@
 		<cfset shipment_remarks = #ship.shipment_remarks#>
 		<cfset contents = #ship.contents#>
 		<cfset FOREIGN_SHIPMENT_FG = #ship.FOREIGN_SHIPMENT_FG#>
-	<cfquery name="shipped_to_addr_id" datasource="#Application.web_user#">
+	<cfquery name="shipped_to_addr_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select formatted_addr from addr where 
 		addr_id = #ship.shipped_to_addr_id#
 	</cfquery>
 		<cfset shipped_to_addr = "#shipped_to_addr_id.formatted_addr#">
 		<cfset shipped_to_addr_id = #ship.shipped_to_addr_id#>
-	<cfquery name="shipped_from_addr_id" datasource="#Application.web_user#">
+	<cfquery name="shipped_from_addr_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select formatted_addr from addr where 
 		addr_id = #ship.shipped_from_addr_id#
 	</cfquery>
@@ -796,7 +762,7 @@ Shipment Information:
 </cfoutput>
 </table>
 
-<cfquery name="getPermits" datasource="#Application.web_user#">
+<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
 		permit.permit_id,
 		issuedBy.agent_name as IssuedByAgent,
@@ -847,12 +813,14 @@ Shipment Information:
 'resizable,scrollbars=yes,width=600,height=600')">	
 </form>
 </cfoutput>
-
+<script>
+	dCount();
+</script>
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
 
 <cfif #Action# is "delePermit">
-<cfquery name="killPerm" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="killPerm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM permit_trans WHERE transaction_id = #transaction_id# and 
 			permit_id=#permit_id#
 		</cfquery>
@@ -861,12 +829,12 @@ Shipment Information:
 <!-------------------------------------------------------------------------------------------------->
 <cfif #Action# is "saveShip">
 	<cfoutput>
-		<cfquery name="isShip" datasource="#Application.web_user#">
+		<cfquery name="isShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from shipment where transaction_id = #transaction_id#
 		</cfquery>
 		<cfif #isShip.recordcount# is 0>
 			<!--- new record --->
-			<cfquery name="newShip" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="newShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO shipment (
 					 TRANSACTION_ID
 					 ,PACKED_BY_AGENT_ID
@@ -923,7 +891,7 @@ Shipment Information:
 			</cfquery>
 		  <cfelse>
 		  	<!--- update --->
-			<cfquery name="upShip" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="upShip" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				 UPDATE shipment SET
 					PACKED_BY_AGENT_ID = #PACKED_BY_AGENT_ID#
 					,SHIPPED_CARRIER_METHOD = '#SHIPPED_CARRIER_METHOD#'
@@ -977,10 +945,9 @@ Shipment Information:
 
 	<cfoutput>
 		<cftransaction>
-			<cfquery name="upTrans" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="upTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				UPDATE  trans  SET 
-					institution_acronym='#institution_acronym#',
-					transaction_id = #transaction_id#,
+					collection_id=#collection_id#,
 					TRANS_DATE = '#dateformat(initiating_date,"dd-mmm-yyyy")#'
 					,NATURE_OF_MATERIAL = '#NATURE_OF_MATERIAL#'
 					<cfif len(#trans_remarks#) gt 0>
@@ -991,7 +958,7 @@ Shipment Information:
 				where 
 					transaction_id = #transaction_id#
 			</cfquery>
-			<cfquery name="upLoan" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="upLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				 UPDATE loan SET 
 					TRANSACTION_ID = #TRANSACTION_ID#,
 					LOAN_TYPE = '#LOAN_TYPE#',
@@ -1017,7 +984,7 @@ Shipment Information:
 					where transaction_id = #transaction_id#
 				</cfquery>
 				<cfif isdefined("project_id") and len(#project_id#) gt 0>
-					<cfquery name="newProj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="newProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						INSERT INTO project_trans (
 							project_id, transaction_id)
 							VALUES (
@@ -1025,11 +992,7 @@ Shipment Information:
 					</cfquery>
 				</cfif>
 				<cfif isdefined("saveNewProject") and saveNewProject is "yes">
-					<!--- create a new project based on this loan --->
-					<cfquery name="nextID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-						select max(project_id) + 1 as nextid from project
-					</cfquery>
-					<cfquery name="newProj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="newProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						INSERT INTO project (
 							PROJECT_ID,
 							PROJECT_NAME
@@ -1047,7 +1010,7 @@ Shipment Information:
 							</cfif>
 							 )
 						VALUES ( 
-							#nextID.nextid#,
+							sq_project_id.nextval,
 							'#PROJECT_NAME#'
 							<cfif len(#START_DATE#) gt 0>
 								,'#dateformat(START_DATE,"dd-mmm-yyyy")#'
@@ -1064,39 +1027,39 @@ Shipment Information:
 							</cfif>
 							 )   
 					</cfquery>  
-					<cfquery name="newProjAgnt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="newProjAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						 INSERT INTO project_agent (
 							 PROJECT_ID,
 							 AGENT_NAME_ID,
 							 PROJECT_AGENT_ROLE,
 							 AGENT_POSITION )
 						VALUES (
-							#nextID.nextid#,
+							sq_project_id.currval,
 							 #newAgent_name_id#,
 							 '#project_agent_role#',
 							 1                   
 							)                 
 					</cfquery>
-					<cfquery name="newTrans" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-						INSERT INTO project_trans (project_id, transaction_id) values (#nextID.nextid#, #transaction_id#)
+					<cfquery name="newTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						INSERT INTO project_trans (project_id, transaction_id) values (sq_project_id.currval, #transaction_id#)
 					</cfquery>
 				</cfif>
 				<!--- get the stuff that's already in there as agents and loop over it to evaluate what happened --->
-				<cfquery name="wutsThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select * from trans_agent where transaction_id=#transaction_id#
 					and trans_agent_role !='entered by'
 				</cfquery>
 				<cfloop query="wutsThere">
 					<!--- first, see if the deleted - if so, nothing else matters --->
 					<cfif isdefined("del_agnt_#trans_agent_id#")>
-						<cfquery name="wutsThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+						<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							delete from trans_agent where trans_agent_id=#trans_agent_id#
 						</cfquery>
 					<cfelse>
 						<!--- update, just in case --->
 						<cfset thisAgentId = evaluate("trans_agent_id_" & trans_agent_id)>
 						<cfset thisRole = evaluate("trans_agent_role_" & trans_agent_id)>
-						<cfquery name="wutsThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+						<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							update trans_agent set
 								agent_id = #thisAgentId#,
 								trans_agent_role = '#thisRole#'
@@ -1106,7 +1069,7 @@ Shipment Information:
 					</cfif>
 				</cfloop>
 				<cfif isdefined("new_trans_agent_id") and len(#new_trans_agent_id#) gt 0>
-					<cfquery name="newAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						insert into trans_agent (
 							transaction_id,
 							agent_id,
@@ -1130,12 +1093,9 @@ Shipment Information:
 
 <!-------------------------------------------------------------------------------------------------->
 <!-------------------------------------------------------------------------------------------------->
-<cfif isdefined("Action") AND #action# is "makeLoan">
+<cfif action is "makeLoan">
 	<cfoutput>
 		<!--- get the next loan_number --->
-		<cfquery name="nextTransId" datasource="#Application.web_user#">
-			select max(transaction_id) + 1 as nextTransactionId from trans
-		</cfquery>
 		<!------#loan_type# - #loan_num# - #initiating_date# - #loan_num_suffix# - #rec_agent_id# - #loan_num# - #auth_agent_id#---
 		<cfabort>--->
 		<!--- make sure they filled in all the good stuff. --->
@@ -1158,30 +1118,30 @@ Shipment Information:
 			<cfset outside_contact_agent_id=#REC_AGENT_ID#>
 		</cfif>	
 	<cftransaction>
-			<cfquery name="newLoanTrans" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="newLoanTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO trans (
 					TRANSACTION_ID,
 					TRANS_DATE,
 					CORRESP_FG,
 					TRANSACTION_TYPE,
 					NATURE_OF_MATERIAL,
-					institution_acronym
+					collection_id
 					<cfif len(#trans_remarks#) gt 0>
 						,trans_remarks
 					</cfif>)
 				VALUES (
-					#nextTransId.nextTransactionId#,
+					sq_transaction_id.nextval,
 					'#initiating_date#',
 					0,
 					'loan',
 					'#NATURE_OF_MATERIAL#',
-					'#institution_acronym#'
+					#collection_id#
 					<cfif len(#trans_remarks#) gt 0>
 						,'#trans_remarks#'
 					</cfif>
 					)
 			</cfquery> 
-			<cfquery name="newLoan" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="newLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO loan (
 					TRANSACTION_ID,
 					LOAN_TYPE,
@@ -1200,7 +1160,7 @@ Shipment Information:
 					</cfif>
 					 )
 				values (
-					#nextTransId.nextTransactionId#,
+					sq_transaction_id.currval,
 					'#loan_type#',
 					'#loan_number#'
 					<cfif len(#loan_status#) gt 0>
@@ -1217,45 +1177,48 @@ Shipment Information:
 					</cfif>
 					)
 			</cfquery>
-			<cfquery name="authBy" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="authBy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO trans_agent (
 				    transaction_id,
 				    agent_id,
 				    trans_agent_role
 				) values (
-					#nextTransId.nextTransactionId#,
+					sq_transaction_id.currval,
 					#auth_agent_id#,
 					'authorized by')
 			</cfquery>
-			<cfquery name="in_house_contact" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="in_house_contact" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO trans_agent (
 				    transaction_id,
 				    agent_id,
 				    trans_agent_role
 				) values (
-					#nextTransId.nextTransactionId#,
+					sq_transaction_id.currval,
 					#in_house_contact_agent_id#,
 					'in-house contact')
 			</cfquery>
-			<cfquery name="outside_contact" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="outside_contact" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO trans_agent (
 				    transaction_id,
 				    agent_id,
 				    trans_agent_role
 				) values (
-					#nextTransId.nextTransactionId#,
+					sq_transaction_id.currval,
 					#outside_contact_agent_id#,
 					'outside contact')
 			</cfquery>
-			<cfquery name="newLoan" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="newLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO trans_agent (
 				    transaction_id,
 				    agent_id,
 				    trans_agent_role
 				) values (
-					#nextTransId.nextTransactionId#,
+					sq_transaction_id.currval,
 					#REC_AGENT_ID#,
 					'received by')
+			</cfquery>
+			<cfquery name="nextTransId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select sq_transaction_id.currval nextTransactionId from dual
 			</cfquery>
 		</cftransaction>	
 		<cflocation url="Loan.cfm?Action=editLoan&transaction_id=#nextTransId.nextTransactionId#">
@@ -1276,15 +1239,11 @@ Shipment Information:
    onmouseover="this.className='schBtn btnhov'" onmouseout="this.className='schBtn'">	
 			</form>
 		</div>
-	<cfquery name="ctType" datasource="#Application.web_user#">
+	<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select loan_type from ctloan_type
 	</cfquery>
-	<cfquery name="ctStatus" datasource="#Application.web_user#">
+	<cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select loan_status from ctloan_status
-	</cfquery>
-	<cfquery name="ctInst" datasource="#Application.web_user#">
-		select distinct(institution_acronym) from collection
-		order by institution_acronym
 	</cfquery>
 	<br><form name="SpecData" action="Loan.cfm" method="post">
 			<input type="hidden" name="Action" value="listLoans">
@@ -1295,10 +1254,10 @@ Shipment Information:
 	<tr>
 		<td align="right"><strong>Find Loan:</strong> </td>
 		<td>
-		<select name="institution_acronym" size="1">
+		<select name="collection_id" size="1">
 			<option value=""></option>
-			<cfloop query="ctInst">
-				<option value="#institution_acronym#">#institution_acronym#</option>
+			<cfloop query="ctcollection">
+				<option value="#collection_id#">#collection#</option>
 			</cfloop>
 		</select>
 		<input type="text" name="loan_number">
@@ -1439,16 +1398,18 @@ Shipment Information:
 					trans_date,
 					project_name,
 					project.project_id pid,
-					institution_acronym">
+					collection">
 <cfset frm = " from 
 				loan, 
 				trans,
 				project_trans,
 				project,
 				permit_trans,
-				permit">
+				permit,
+				collection">
 <cfset sql = "where 
 				loan.transaction_id = trans.transaction_id AND
+				trans.collection_id = collection.collection_id AND
 				trans.transaction_id = project_trans.transaction_id (+) AND
 				project_trans.project_id = project.project_id (+) AND
 				loan.transaction_id = permit_trans.transaction_id (+) AND
@@ -1502,8 +1463,8 @@ Shipment Information:
 	<cfif isdefined("permit_num") AND len(#permit_num#) gt 0>
 		<cfset sql = "#sql# AND PERMIT_NUM = '#PERMIT_NUM#'">
 	</cfif>
-	<cfif isdefined("institution_acronym") AND len(#institution_acronym#) gt 0>
-		<cfset sql = "#sql# AND institution_acronym = '#institution_acronym#'">
+	<cfif isdefined("collection_id") AND len(#collection_id#) gt 0>
+		<cfset sql = "#sql# AND trans.collection_id = #collection_id#">
 	</cfif>
 	<cfif isdefined("loan_type") AND len(#loan_type#) gt 0>
 		<cfset sql = "#sql# AND loan_type = '#loan_type#'">
@@ -1555,32 +1516,6 @@ Shipment Information:
 	<cfif isdefined("notClosed") AND len(#notClosed#) gt 0>
 		<cfset sql = "#sql# AND loan_status <> 'closed'">
 	</cfif>
-		<cfif not isdefined("session.myAgentId") or len(#session.myAgentId#) is 0>
-			You are not a contact for any collection. This form will never return anything.
-			<cfabort>
-		</cfif>
-		<cfquery name="okInst" datasource="#Application.web_user#">
-		select institution_acronym from
-		collection,
-		collection_contacts
-		where
-		collection.collection_id = collection_contacts.collection_id and
-		contact_agent_id = #session.myAgentId#
-		group by institution_acronym
-	</cfquery>
-	<cfif okInst.recordcount is 0>
-		You are not a contact for any collection. This form will never return anything.
-		<cfabort>
-	</cfif>
-	<cfset instList = "">
-	<cfloop query="okInst">
-		<cfif len(#instList#) is 0>
-			<cfset instList = "'#institution_acronym#'">
-		<cfelse>
-			<cfset instList = "#instList#,'#institution_acronym#'">
-		</cfif>
-	</cfloop>
-	<cfset sql = "#sql# AND trans.institution_acronym IN (#instList#)">
 	<cfset sql ="#sel# #frm# #sql# 				
 				 group by
    trans.transaction_id, 
@@ -1598,12 +1533,12 @@ concattransagent(trans.transaction_id,'authorized by'),
   trans_date,
    project_name, 
  project.project_id, 
- institution_acronym
+ collection
 ORDER BY loan_number">
 				<cfoutput>
 				<hr>#sql#<hr>
 				</cfoutput>
-	<cfquery name="allLoans" datasource="#Application.web_user#">
+	<cfquery name="allLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 	
@@ -1612,8 +1547,12 @@ ORDER BY loan_number">
 		Nothing matched your search criteria.
 	<cfelse>
 		<cfoutput>
-		<a href="/SpecimenResults.cfm?loan_permit_trans_id=#valuelist(allLoans.transaction_id)#">
-			View all items in these loans</a>
+			Go to....<select name="nav" id="nav" onchange="document.location=this.value">
+				<option value=""></option>
+				<option value="/SpecimenResults.cfm?loan_permit_trans_id=#valuelist(allLoans.transaction_id)#">Specimen Results</option>
+				<option value="/Reports/report_printer.cfm?report=multi_loan_report&transaction_id=#valuelist(allLoans.transaction_id)#">UAM Mammals report</option>
+				<option value="/Reports/report_printer.cfm?transaction_id=#valuelist(allLoans.transaction_id)#">Reporter</option>
+			</select>
 		</cfoutput>
 	</cfif>
 	
@@ -1640,12 +1579,12 @@ ORDER BY loan_number">
 		<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 			<td>
 				<table>
-				<cfquery name="c" datasource="#Application.web_user#">
+				<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select count(*) c from loan_item where transaction_id=#transaction_id#
 				</cfquery>
 					<tr>
 						<td colspan="3">
-							<strong>#institution_acronym# #loan_number#</strong>
+							<strong>#collection# #loan_number#</strong>
 							<cfif #c.c# gt 0>(#c.c# items)</cfif>
 						</td>
 					</tr>
@@ -1741,8 +1680,7 @@ ORDER BY loan_number">
 								</td>
 			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 									<td>
-										<a href="SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#" 
-										target="#session.target#">Add Items</a>
+										<a href="SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#">Add Items</a>
 									</td>
 									<td>
 										<a href="Loan.cfm?transaction_id=#transaction_id#&Action=editLoan">Edit Loan</a>

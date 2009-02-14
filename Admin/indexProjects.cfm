@@ -1,4 +1,4 @@
-	<cfquery name="data" datasource="#Application.web_user#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 		project.project_id,
 		project_name,

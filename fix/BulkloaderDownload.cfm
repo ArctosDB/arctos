@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 
-		<cfquery name="getData" datasource="#Application.web_user#">
+		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from bulkloader where enteredby in ('pepe82','mmcguire')
 		</cfquery>
 		<cfset ac = #getData.columnList#>

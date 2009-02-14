@@ -45,7 +45,7 @@
 		<cfabort>
 	</cfif>
 	
-	<cfquery name="isApp" datasource="#Application.web_user#">
+	<cfquery name="isApp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			loan_request_coll_id,
 			email
@@ -85,7 +85,7 @@
 <!------------------------------------------------------->
 <cfif #action# is "allLoans">
 All your loans:
-<cfquery name="allLoans" datasource="#Application.web_user#">
+<cfquery name="allLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		cf_user_loan.user_loan_id,
 		IS_ACTIVE,
@@ -119,7 +119,7 @@ All your loans:
 <!-------------------------------------------->
 <cfif #action# is "finalize">
 	<cfoutput>
-	<cfquery name="who" datasource="#Application.web_user#">
+	<cfquery name="who" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 					agent_name,
 					address,
@@ -213,7 +213,7 @@ All your loans:
 	<li>
 		Be sure to submit your request to the proper collection!
 	</li>
-</ul>		<cfquery name="instcoll" datasource="#Application.web_user#">
+</ul>		<cfquery name="instcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				collection_id,
 				collection_cde,
@@ -236,7 +236,7 @@ All your loans:
 				<input type="hidden" name="action" value="submitLoanAuthReq" />
 				<input type="hidden" name="collections" id="collections"/>
 		<cfloop query="instcoll">
-			<cfquery name="contacts" datasource="#Application.web_user#">
+			<cfquery name="contacts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					agent_name,
 					address					
@@ -308,7 +308,7 @@ All your loans:
 		<cflocation url="user_loan_request.cfm?action=makeReq">
 	</cfif>
 	<!-----------------------------they've been approved for something -------------------------->
-		<cfquery name="meta" datasource="#Application.web_user#">
+		<cfquery name="meta" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from cf_user_loan,
 			cf_users
 			where 
@@ -316,7 +316,7 @@ All your loans:
 			is_active=1 and
 			username='#session.username#'
 		</cfquery>
-		<cfquery name="whatColls" datasource="#Application.web_user#">
+		<cfquery name="whatColls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select institution_acronym,collection_cde from collection
 			where collection_id IN (#isApp.loan_request_coll_id#) 
 		</cfquery>
@@ -353,7 +353,7 @@ All your loans:
 				</form>
 			</table>
 			<!--- specimens they've already selected --->
-			<cfquery name="specs" datasource="#Application.web_user#">
+			<cfquery name="specs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					institution_acronym,
 					cataloged_item.collection_cde,
@@ -453,7 +453,7 @@ All your loans:
 <!-------------------------------------------->
 <cfif #action# is "delete">
 	<cfoutput>
-	<cfquery name="killOne" datasource="#Application.web_user#">
+	<cfquery name="killOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		delete from cf_loan_item where  
 			USER_LOAN_ID = #USER_LOAN_ID# AND
  			COLLECTION_OBJECT_ID = #partID#    
@@ -469,7 +469,7 @@ All your loans:
 		You must supply a Project Title and Project Description.
 		<cfabort>
 	</cfif>
-	<cfquery name="userid" datasource="#Application.web_user#">
+	<cfquery name="userid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select user_id from cf_users where username='#session.username#'
 	</cfquery>
 	<cfquery name="addOne" datasource="#Application.uam_dbo#">

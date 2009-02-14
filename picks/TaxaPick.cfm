@@ -8,10 +8,42 @@
 		<cfabort>
 	</cfif>
 	<cfoutput>
-		<cfquery name="getTaxa" datasource="#Application.web_user#">
-			SELECT scientific_name, taxon_name_id, valid_catalog_term_fg from taxonomy where
+		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			SELECT 
+				scientific_name, 
+				taxon_name_id, 
+				valid_catalog_term_fg
+			from 
+				taxonomy
+			where
 				UPPER(scientific_name) LIKE '%#ucase(scientific_name)#%'
-				ORDER BY scientific_name
+			UNION
+			SELECT 
+				a.scientific_name, 
+				a.taxon_name_id, 
+				a.valid_catalog_term_fg
+			from 
+				taxonomy a,
+				taxon_relations,
+				taxonomy b
+			where
+				a.taxon_name_id = taxon_relations.taxon_name_id (+) and
+				taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
+				UPPER(B.scientific_name) LIKE '%#ucase(scientific_name)#%'
+			UNION
+			SELECT 
+				a.scientific_name, 
+				a.taxon_name_id, 
+				a.valid_catalog_term_fg
+			from 
+				taxonomy a,
+				taxon_relations,
+				taxonomy b
+			where
+				a.taxon_name_id = taxon_relations.taxon_name_id (+) and
+				taxon_relations.related_taxon_name_id = b.taxon_name_id (+) and
+				UPPER(a.scientific_name) LIKE '%#ucase(scientific_name)#%'
+			ORDER BY scientific_name
 		</cfquery>
 	</cfoutput>
 	<cfif #getTaxa.recordcount# is 1>

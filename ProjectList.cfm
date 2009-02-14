@@ -5,7 +5,7 @@
 </cfif>
 <cfif #newQuery# is 1>
 <cfif url.src is "pubs"><!--- find using publication ID --->
-	<cfquery name="ProjDB" datasource="#Application.web_user#">
+	<cfquery name="ProjDB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT project.project_id,project_name,start_date,end_date,agent_name,project_agent_role,
 		agent_position 
 		FROM project,project_agent,agent_name,project_publication 
@@ -30,7 +30,7 @@
 	<cfset q = "">
 			
 	<cfif isdefined("projTitle") AND len(#projTitle#) gt 0>
-		<cfset q = "#q# AND upper(project_name) like '%#ucase(projTitle)#%'">
+		<cfset q = "#q# AND upper(project_name) like '%#ucase(escapeQuotes(projTitle))#%'">
 	</cfif>
 	<cfif isdefined("projParticipant") AND len(#projParticipant#) gt 0>		
 		<cfset q = "#q# AND upper(projAgentName.agent_name) like '%#ucase(projParticipant)#%'">
@@ -61,7 +61,7 @@
 		<cfset q = "#q# AND upper(projSponsorName.agent_name) like '%#ucase(sponsor)#%'">
 	</cfif>
 	<cfset sql = "#l# #t# #w# #q#">
-<cfquery name="ProjDB" datasource="#Application.web_user#">
+<cfquery name="ProjDB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 </cfif>
@@ -162,7 +162,7 @@
  <cfoutput query="ProjDet" StartRow="#StartRow#" MaxRows="#session.DisplayRows#">
   <tr>
 	<td>
-		<form action="ProjectDetail.cfm" method="post" target="#session.target#">
+		<form action="ProjectDetail.cfm" method="post">
 		<input type="submit" 
 					value="View Project" 
 					class="lnkBtn"
@@ -175,7 +175,7 @@
 					class="lnkBtn"
 					onmouseover="this.className='lnkBtn btnhov'" 
 					onmouseout="this.className='lnkBtn'"
-					onClick="window.open('Project.cfm?Action=editProject&project_id=#project_id#','#session.target#');">
+					onClick="window.open('Project.cfm?Action=editProject&project_id=#project_id#');">
 							
 		</cfif>
 		</form>

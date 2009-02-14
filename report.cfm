@@ -38,7 +38,7 @@ Based on:
 </cfif>
 
 <cfif #action# is 'generatePDF'>
-<cfquery name="ctAtt" datasource="#Application.web_user#">
+<cfquery name="ctAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(attribute_type) from ctAttribute_type order by attribute_type
 </cfquery>
 <cfset attList = "">
@@ -131,7 +131,7 @@ returns it as the attribute_type.--->
 		cataloged_item.collection_object_id IN (#collection_object_id#)
 		#order_by#
 ">
-<cfquery name="data" datasource="#Application.web_user#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 <!----------------------------------------------------------------->
@@ -288,7 +288,7 @@ deprecated: see NOTE1*--->
 <!--- end major variables for format and layout --->
 
  <cfloop query="data">
-        <cfquery name="tCollNum" datasource="#Application.web_user#">
+        <cfquery name="tCollNum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
                 select other_id_number from coll_obj_other_id_num where
                 other_id_type='collector number'
                 and collection_object_id=#collection_object_id#

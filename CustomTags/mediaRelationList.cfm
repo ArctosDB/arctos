@@ -11,7 +11,7 @@
 	<cfset format=attributes.format>
 </cfif>
 
-<cfquery name="relns" datasource="#application.web_user#">
+<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from media_relations where media_id=#attributes.media_id#
 </cfquery>
 <cfoutput>
@@ -20,14 +20,14 @@
 	<cfloop query="relns">
 		<cfset table_name = listlast(media_relationship," ")>
 		<cfif #table_name# is "locality">
-			<cfquery name="d" datasource="#application.web_user#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select spec_locality data from #table_name# where locality_id=#related_primary_key#
 			</cfquery>
 			<li>
 				#media_relationship#: #d.data#
 			</li>
 		<cfelseif #table_name# is "agent">
-			<cfquery name="d" datasource="#application.web_user#">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select agent_name data from preferred_agent_name where agent_id=#related_primary_key#
 			</cfquery>
 			<li>

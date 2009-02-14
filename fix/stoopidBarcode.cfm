@@ -5,7 +5,7 @@
 	and barcode is not null
 </cfquery>
 <cfoutput>
-	<cfquery name="m" datasource="#Application.web_user#">
+	<cfquery name="m" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select max(container_id) container_id from container
 	</cfquery>
 	<cfset cid=#m.container_id# + 1>

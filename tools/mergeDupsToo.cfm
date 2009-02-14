@@ -6,7 +6,7 @@
 <cfif #action# is "nothing">
 <a href="mergeDupsToo.cfm?autorun=yep">Autorun</a>
  <p>First Hundred Duplicates:
-	<cfquery name="findAllDups" datasource="#Application.web_user#">
+	<cfquery name="findAllDups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			cataloged_item.collection_object_id,
 			collection,
@@ -64,7 +64,7 @@
 			</tr>
 
 		<cfloop query="findAllDups">
-			<cfquery name="dupRec" datasource="#Application.web_user#">
+			<cfquery name="dupRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					cataloged_item.collection_object_id,
 					collection,
@@ -149,7 +149,7 @@
 </cfif>
 <cfif #action# is "delOne">
 	<cfoutput>
-	<cfquery name="upAccn" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="upAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	insert into coll_object_encumbrance (ENCUMBRANCE_ID,COLLECTION_OBJECT_ID) 
 	values (1000025,#id2#)	
 	</cfquery>

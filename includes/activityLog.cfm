@@ -65,7 +65,7 @@ sho err
 			#log.reported_count#,
 			'#log.referring_url#')">
 		<cftry>
-		<cfquery name="log_this" datasource="#Application.web_user#">
+		<cfquery name="log_this" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
 		<cfcatch>

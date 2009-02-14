@@ -1,5 +1,4 @@
 <cfinclude template = "/includes/_header.cfm">
-<cfinclude template = "/includes/functionLib.cfm">
     <cfif not isdefined("sql")>
         <cfset sql = "SELECT 'test' FROM dual">
     </cfif>
@@ -46,7 +45,7 @@
                     <cfif session.username is "uam" or session.username is "uam_update">
                         <cfabort>
                     </cfif>
-	                 <cfquery name="user_sql" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	                 <cfquery name="user_sql" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		                #preservesinglequotes(sql)#
 		            </cfquery>
                     <cfif #format# is "csv">
@@ -57,8 +56,8 @@
 				        <cffile action="write" file="#fileDir##fileName#" addnewline="yes" output="#header#">
 				        <cfloop query="user_sql">
 					        <cfset oneLine = "">
-					        <cfloop list="#ac#" index="c">
-						        <cfset thisData = #evaluate(c)#>
+					        <cfloop list="#ac#" index="z">
+						        <cfset thisData = #evaluate(z)#>
 								<cfif len(#oneLine#) is 0>
 									<cfset oneLine = '"#thisData#"'>
 								<cfelse>

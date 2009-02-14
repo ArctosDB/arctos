@@ -1,5 +1,4 @@
 <cfinclude template="/includes/_frameHeader.cfm">
-<cfinclude template="/includes/functionLib.cfm">
 <cfif #action# is "nothing">
 <!----
 create table cf_spec_res_cols (
@@ -198,7 +197,7 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 	</tr>
 </table>
 	
-<cfquery name="poss" datasource="#Application.web_user#">
+<cfquery name="poss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from cf_spec_res_cols order by column_name
 </cfquery>
 <cfquery name="attribute" dbtype="query">

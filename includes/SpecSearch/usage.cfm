@@ -1,15 +1,15 @@
 <script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>	
-<cfquery name="ctmedia_type" datasource="#Application.web_user#">
+<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select media_type from ctmedia_type order by media_type
 </cfquery>
 <cfoutput>
 <table id="t_identifiers" class="ssrch">
 	<tr>
         <td class="lbl">
-            <span class="helpLink" id="media_type">Media Type:</span>
+            <span class="helpLink" id="_media_type">Media Type:</span>
         </td>
         <td class="srch">
-			<select name="media_type" size="1">
+			<select name="media_type" id="media_type" size="1">
 				<option value=""></option>
                 <option value="any">Any</option>
 				<cfloop query="ctmedia_type">
@@ -55,7 +55,7 @@
 			<span class="helpLink" id="accessioned_by_project">Accessioned By Project Name:</span>
 		</td>
 		<td class="srch">
-			<input type="text" name="project_name" size="50">					
+			<input type="text" name="project_name" id="project_name" size="50">					
 			<span class="infoLink" onclick="getHelp('get_proj_name');">Pick</span>	
 		</td>
 	</tr>	
@@ -64,15 +64,15 @@
 			<span class="helpLink" id="loaned_to_project">Loaned To Project Name:</span>
 		</td>
 		<td class="srch">
-			<input type="text" name="loan_project_name" size="50">
+			<input type="text" name="loan_project_name" id="loan_project_name" size="50">
 		</td>
 	</tr>		
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="project_sponsor">Project Sponsor:</span>
+			<span class="helpLink" id="_project_sponsor">Project Sponsor:</span>
 		</td>
 		<td class="srch">
-			<input type="text" name="project_sponsor" size="50">
+			<input type="text" name="project_sponsor" id="project_sponsor" size="50">
 		</td>
 	</tr>		
 </table>

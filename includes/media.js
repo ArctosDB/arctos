@@ -1,3 +1,18 @@
+function generateMD5() {
+	var theImageFile=document.getElementById('media_uri').value;
+	DWREngine._execute(_cfscriptLocation, null, 'genMD5', theImageFile, success_generateMD5);
+}
+function success_generateMD5(result){
+	var cc=document.getElementById('number_of_labels').value;
+	cc=parseInt(cc)+parseInt(1);
+	addLabel(cc);
+	var lid='label__' + cc;
+	var lvid='label_value__' + cc;
+	var nl=document.getElementById(lid);
+	var nlv=document.getElementById(lvid);
+	nl.value='MD5 checksum';
+	nlv.value=result;
+}
 
 function closeUpload(media_uri,preview_uri) {
 	var theDiv = document.getElementById('uploadDiv');
@@ -5,7 +20,6 @@ function closeUpload(media_uri,preview_uri) {
 	document.getElementById('media_uri').value=media_uri;
 	document.getElementById('preview_uri').value=preview_uri;
 }
-
 function closePreviewUpload(preview_uri) {
 	var theDiv = document.getElementById('uploadDiv');
 	document.body.removeChild(theDiv);

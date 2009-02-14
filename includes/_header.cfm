@@ -1,43 +1,7 @@
-<!--- see if there's a collection that we should be trying to look good for --->
- <cfif isdefined("session.exclusive_collection_id") and len(#session.exclusive_collection_id#) gt 0>
-	<cfquery name="getCollApp" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
-		select * from cf_collection_appearance where collection_id = #session.exclusive_collection_id#
-	</cfquery>
-	<cfif #getCollApp.recordcount# gt 0>
-		<!--- they have an entry --->
-		<cfset session.header_color = getCollApp.header_color>
-		<cfset session.header_image = getCollApp.header_image>
-		<cfset session.collection_url = getCollApp.collection_url>
-		<cfset session.collection_link_text = getCollApp.collection_link_text>
-		<cfset session.institution_url = getCollApp.institution_url>
-		<cfset session.institution_link_text = getCollApp.institution_link_text>
-		<cfset session.meta_description = getCollApp.meta_description>
-		<cfset session.meta_keywords = getCollApp.meta_keywords>
-		<cfset session.stylesheet = getCollApp.stylesheet>
-	<cfelse>
-		<!--- collection has not set up customization --->
-		<cfset session.header_color = Application.header_color>
-		<cfset session.header_image = Application.header_image>
-		<cfset session.collection_url = Application.collection_url>
-		<cfset session.collection_link_text = Application.collection_link_text>
-		<cfset session.institution_url = Application.institution_url>
-		<cfset session.institution_link_text = Application.institution_link_text>
-		<cfset session.meta_description = Application.meta_description>
-		<cfset session.meta_keywords = Application.meta_keywords>
-		<cfset session.stylesheet = Application.stylesheet>
-	</cfif>
-<cfelse>
-		<!--- collection has not set up customization --->
-		<cfset session.header_color = Application.header_color>
-		<cfset session.header_image = Application.header_image>
-		<cfset session.collection_url = Application.collection_url>
-		<cfset session.collection_link_text = Application.collection_link_text>
-		<cfset session.institution_url = Application.institution_url>
-		<cfset session.institution_link_text = Application.institution_link_text>
-		<cfset session.meta_description = Application.meta_description>
-		<cfset session.meta_keywords = Application.meta_keywords>
-		<cfset session.stylesheet = Application.stylesheet>
-</cfif> 
+<cfinclude template="/includes/functionLib.cfm">
+<cfif not isdefined("session.header_color")>
+	<cfset setDbUser()>
+</cfif>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
 <head>
 <cfoutput>
@@ -47,7 +11,7 @@
     <cfinclude template="/includes/alwaysInclude.cfm"><!--- keep this stuff accessible from non-header-having files --->
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <cfset ssName = replace(session.stylesheet,".css","","all")>
-	<link rel="alternate stylesheet" type="text/css" href="/includes/css/#session.stylesheet#" title="#ssName#">
+    <link rel="alternate stylesheet" type="text/css" href="/includes/css/#session.stylesheet#" title="#ssName#">
 	<META http-equiv="Default-Style" content="#ssName#">
     <style type="text/css" media="screen"> 
         @import "/includes/mainMenu.css"; 
@@ -71,23 +35,11 @@
     <![endif]-->
 </head>
 <body>
-<cfif #cgi.HTTP_USER_AGENT# contains "4.7">
-		<font color="##FF0000">
-			<i>
-				This page does not function properly with Netscape 4.7.
-				<br>Please see our <a target="_top" href="/About.cfm?Action=sys">System Requirements</a>.
-			</i>
-		</font>
-	<cfelseif #cgi.HTTP_USER_AGENT# contains "MSIE">
-		<div align="center">
-			<font color="##FF0000"  size="-1">
-				<i>
-					Some features of this site may not work in your browser. We recommend 
-					<a target="_top" href="http://www.mozilla.org/products/firefox/">FireFox</a>.
-				</i>
-			</font>
-		</div>
-	</cfif>
+<cfif cgi.HTTP_USER_AGENT does not contain "Firefox">
+	<div class="browserCheck">
+		Some features of this site may not work in your browser. <a href="/home.cfm##requirements">Learn more</a>
+	</div>
+</cfif>
 <div id="header_color" style='background-color:#session.header_color#;'>
 	<!--- allow option for header that doesn't eat a bunch of screen space --->
 	<table width="95%" cellpadding="0" cellspacing="0" border="0" id="headerContent">
@@ -97,14 +49,6 @@
 			</td>
 			<td align="left">
 				<table>
-					<tr>
-						<td rowspan="2">
-							<img src="/images/nada.gif" width="15px" border="0" alt="spacer">
-						</td>
-						<td align="left" nowrap>
-							&nbsp;
-						</td>
-					</tr>
 					<tr>
 						<td align="left" nowrap="nowrap" id="collectionCell" class="collectionCell">
 							<a target="_top" href="#session.collection_url#" class="novisit">
@@ -119,7 +63,14 @@
 								</span>
 							</a>
 						</td>
-					</tr>			 
+					</tr>	
+					<tr>
+						<td colspan="2" id="creditCell">
+							<span  class="hdrCredit">
+								#session.header_credit#
+							</span>
+						</td>
+					</tr>		 
 				</table>
 			</td>
 		</tr>
@@ -140,7 +91,7 @@
 			<cfset escapeGoofyInstall=replace(cgi.SCRIPT_NAME,"/cfusion","","all")>
 			<form name="logIn" method="post" action="/login.cfm">
 				<input type="hidden" name="action" value="signIn">
-				<input type="hidden" name="gotopage" value="#escapeGoofyInstall#">
+				<!---<input type="hidden" name="gotopage" value="#escapeGoofyInstall#">--->
 					<table border="0" cellpadding="0" cellspacing="0">
 						<tr>
 							<td>
@@ -174,6 +125,7 @@
 					<li><a target="_top" href="/SpecimenUsage.cfm">Projects</a></li>
 					<li><a target="_top" href="/TaxonomySearch.cfm">Taxonomy</a></li>
                     <li><a target="_top" href="/MediaSearch.cfm">Media</a></li>
+                    <li><a target="_top" href="/document.cfm">Documents (BETA)</a></li>
 				</ul>
 			</li> 
 		</ul>
@@ -212,12 +164,15 @@
 							<li><a target="_top" href="##" class="x">Bulkloaders</a>
 								<ul>
 									<li><a target="_top" href="/tools/BulkloadParts.cfm">Bulkload Parts</a></li>
+									<li><a target="_top" href="/tools/BulkPartSample.cfm">Bulkload Part Subsamples (Lots)</a></li>
 									<li><a target="_top" href="/tools/BulkloadAttributes.cfm">Bulkload Attributes</a></li>
 									<li><a target="_top" href="/tools/BulkloadCitations.cfm">Bulkload Citations</a></li>
 									<li><a target="_top" href="/tools/BulkloadOtherId.cfm">Bulkload Identifiers</a></li>
 									<li><a target="_top" href="/tools/loanBulkload.cfm">Bulkload Loan Items</a></li>
-									<li><li><a target="_top" href="/tools/BulkloadAgents.cfm">Bulkload Agents</a></li></li>
-									<li><li><a target="_top" href="/tools/BulkloadPartContainer.cfm">Parts>>Containers</a></li></li>		
+									<li><a target="_top" href="/tools/BulkloadAgents.cfm">Bulkload Agents</a></li>
+									<li><a target="_top" href="/tools/BulkloadPartContainer.cfm">Parts>>Containers</a></li>
+									<li><a target="_top" href="/tools/BulkloadIdentification.cfm">Identifications</a></li>
+									<li><a target="_top" href="/tools/BulkloadContEditParent.cfm">Bulk Edit Container</a></li>
 								</ul>
 							</li>
 						</cfif>

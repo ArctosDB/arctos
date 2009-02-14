@@ -122,7 +122,7 @@
 	
 	<cfset basSql = "#basSQL# #basFrom# #basWhere# ORDER BY publication.publication_id">
 	
-	<cfquery name="getPubsDB" datasource="#Application.web_user#">
+	<cfquery name="getPubsDB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(basSQL)#
 	</cfquery>
 	

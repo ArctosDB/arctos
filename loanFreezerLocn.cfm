@@ -34,7 +34,7 @@
 	<cfset whr="#whr# AND cataloged_item.collection_object_id in (#container_id#)">
 </cfif>		
 <cfset sql="#sel# #frm# #whr#">
-<cfquery name="allCatItems" datasource="#Application.web_user#">
+<cfquery name="allCatItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 <cfset a=1>
@@ -53,7 +53,7 @@
 	</th>
 	<th>Disposition</th>
 <cfloop query="allCatItems">
-	<cfquery name="freezer" datasource="#Application.web_user#">
+	<cfquery name="freezer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			CONTAINER_ID,
 			PARENT_CONTAINER_ID,

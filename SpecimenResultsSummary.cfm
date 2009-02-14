@@ -4,14 +4,6 @@
 	<cfset flatTableName = "filtered_flat">
 </cfif>
 
-<cfif not isdefined("detail_level") OR len(#detail_level#) is 0>
-	<cfif isdefined("session.detailLevel") AND #session.detailLevel# gt 0>
-		<cfset detail_level = #session.detailLevel#>
-	<cfelse>
-		<cfset detail_level = 1>
-	</cfif>	
-</cfif>
-
 <cfinclude template = "includes/_header.cfm">
 <cfset title="Specimen Results">
 <cfif not isdefined("displayrows")>
@@ -41,9 +33,6 @@
 </cfif>
 <cfif #action# contains ",">
 	<cfset action = #left(action,find(",",action)-1)#>
-</cfif>
-<cfif #detail_level# contains ",">
-	<cfset detail_level = #left(detail_level,find(",",detail_level)-1)#>
 </cfif>
 
 
@@ -113,7 +102,7 @@
 	
 	
 <!--------------------------------------------------------------->
-	<cfset basQual = "">
+	<cfset basQual = " where 1=1 ">
 	
 	<cfset mapurl="">
 	<cfinclude template="includes/SearchSql.cfm">
@@ -160,7 +149,6 @@
 					and #key# is not "ORDER_BY"
 					and #key# is not "newsearch"
 					and #key# is not "STARTROW"
-					and #key# is not "detail_level"
 					and #key# is not "sciNameOper"
 					and #key# is not "scientific_name">
 					<cfif len(#searchParams#) is 0>
@@ -183,7 +171,6 @@
 					and #key# is not "ORDER_BY"
 					and #key# is not "newsearch"
 					and #key# is not "STARTROW"
-					and #key# is not "detail_level"					
 					and #key# is not "sciNameOper"
 					and #key# is not "scientific_name">
 					<cfif len(#searchParams#) is 0>
@@ -199,10 +186,9 @@
 	</cfoutput>
 	
 	
-	<cfquery name="getData" datasource = "#Application.web_user#" >
+<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
-	
 	<cfif getData.recordcount is 0>
 	<CFSETTING ENABLECFOUTPUTONLY=0>
 			<cfoutput>
@@ -210,7 +196,7 @@
 		<p>Some possibilities include:</p>
 		<ul>
 			<li>
-				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" target="#session.target#" class="novisit">Arctos Taxonomy</a>.			</li>
+				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" class="novisit">Arctos Taxonomy</a>.			</li>
 			<li>
 				Try broadening your search criteria. Try the next-higher geographic element, remove criteria, etc.			</li>
 			<li>
@@ -387,7 +373,7 @@
 <cfoutput query="getBasic">
  
     <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-	 <form name="theseSpecs#i#" method="post" action="/SpecimenResults.cfm" target="#session.target#">
+	 <form name="theseSpecs#i#" method="post" action="/SpecimenResults.cfm">
 	 #searchparams#
 	  	<input type="hidden" name="Scientific_Name" value="#Scientific_Name#">
 		<input type="hidden" name="sciNameOper" value="=">
@@ -420,42 +406,42 @@
 				<input type="hidden" name="state_prov" value="NULL">
 			</cfif>
 		</cfif>
-		<cfif #groupBy# contains "county" and searchparams does not contain 'name="county"'>>
+		<cfif #groupBy# contains "county" and searchparams does not contain 'name="county"'>
 			<cfif len(#county#) gt 0>
 				<input type="hidden" name="county" value="#county#">
 			<cfelse>
 				<input type="hidden" name="county" value="NULL">
 			</cfif>
 		</cfif>
-		<cfif #groupBy# contains "quad" and searchparams does not contain 'name="quad"'>>
+		<cfif #groupBy# contains "quad" and searchparams does not contain 'name="quad"'>
 			<cfif len(#quad#) gt 0>
 				<input type="hidden" name="quad" value="#quad#">
 			<cfelse>
 				<input type="hidden" name="quad" value="NULL">
 			</cfif>
 		</cfif>
-		<cfif #groupBy# contains "feature" and searchparams does not contain 'name="feature"'>>
+		<cfif #groupBy# contains "feature" and searchparams does not contain 'name="feature"'>
 			<cfif len(#feature#) gt 0>
 				<input type="hidden" name="feature" value="#feature#">
 			<cfelse>
 				<input type="hidden" name="feature" value="NULL">
 			</cfif>
 		</cfif>
-		<cfif #groupBy# contains "isl_group" and searchparams does not contain 'name="island_group"'>>
+		<cfif #groupBy# contains "isl_group" and searchparams does not contain 'name="island_group"'>
 			<cfif len(#island_group#) gt 0>
 				<input type="hidden" name="island_group" value="#island_group#">
 			<cfelse>
 				<input type="hidden" name="island_group" value="NULL">
 			</cfif>
 		</cfif>
-		<cfif #groupBy# contains "island" and searchparams does not contain 'name="island"'>>
+		<cfif #groupBy# contains "island" and searchparams does not contain 'name="island"'>
 			<cfif len(#island#) gt 0>
 				<input type="hidden" name="island" value="#island#">
 			<cfelse>
 				<input type="hidden" name="island" value="NULL">
 			</cfif>
 		</cfif>
-		<cfif #groupBy# contains "sea" and searchparams does not contain 'name="sea"'>>
+		<cfif #groupBy# contains "sea" and searchparams does not contain 'name="sea"'>
 			<cfif len(#sea#) gt 0>
 				<input type="hidden" name="sea" value="#sea#">
 			<cfelse>

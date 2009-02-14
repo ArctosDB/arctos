@@ -30,7 +30,7 @@ grant all on bulkloader_clone to coldfusion_user;
 	<!--- for this form, let them "admin" their own records --->
     <cfset afg="'#session.username#'">
 </cfif>
-<cfquery name="ctAccn" datasource="#Application.web_user#">
+<cfquery name="ctAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select accn from bulkloader where enteredby in (#preservesinglequotes(afg)#) group by accn order by accn
 </cfquery>
 <span style="font-size:smaller; font-style:italic;">
@@ -121,7 +121,7 @@ grant all on bulkloader_clone to coldfusion_user;
 			<cfset sql = "#sql# #f# and #t# ">
 		</cfif>	 
 	</cfif>
-	<cfquery name="data" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#	
 	</cfquery>
 	<cfset rUrl="cloneWithBarcodes.cfm?action=sqlTab&enteredby=#enteredby#">
@@ -146,16 +146,16 @@ grant all on bulkloader_clone to coldfusion_user;
     <cfoutput>
         <cftransaction>
             newCodes: #newCodes#
-	         <cfquery name="cleanup" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	         <cfquery name="cleanup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	            delete from bulkloader_clone
             </cfquery>
             <cfloop list="#newCodes#" index="i">
-	            <cfquery name="ins" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	            <cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	                insert into bulkloader_clone 
                     (select * from bulkloader where collection_object_id=#collection_object_id#)
                 </cfquery>
                 <!--- should now have ONE record in clone with passed-in coid --->
-                <cfquery name="fix" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+                <cfquery name="fix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	                update
                         bulkloader_clone
                     set 
@@ -167,11 +167,11 @@ grant all on bulkloader_clone to coldfusion_user;
                 </cfquery>
 	        </cfloop>
             <!--- move the new stuff over --->
-            <cfquery name="move" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+            <cfquery name="move" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
                 insert into bulkloader (select * from bulkloader_clone)
             </cfquery>
             <!--- kill the original ---->
-            <cfquery name="move" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+            <cfquery name="move" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
                 delete from bulkloader where collection_object_id=#collection_object_id#
             </cfquery>            
         </cftransaction>
@@ -193,7 +193,7 @@ grant all on bulkloader_clone to coldfusion_user;
 	         </tr>
              <cfset status=0>
 	        <cfloop list="#newCodes#" index="i">
-	            <cfquery name="data" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	            <cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
                     select * from container where barcode='#trim(i)#'
                 </cfquery>
                 <tr>
@@ -275,7 +275,7 @@ grant all on bulkloader_clone to coldfusion_user;
 			<cfset sql = "#sql# #f# and #t# ">
 		</cfif>		 
 	</cfif>
-	<cfquery name="data" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#	
 	</cfquery>
 	<cfquery name="cNames" datasource="uam_god">
@@ -491,7 +491,7 @@ grant all on bulkloader_clone to coldfusion_user;
 	</cfloop>
 	
 		<cfset sql ="#sql# WHERE collection_object_id = #thisCollObjId#">
-	<cfquery name="up" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="up" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 </cfloop>
@@ -521,7 +521,7 @@ grant all on bulkloader_clone to coldfusion_user;
 		
 		<cfabort>
 		--->
-		<cfquery name="upBulk" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="upBulk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
 	</cfif>
@@ -550,7 +550,7 @@ grant all on bulkloader_clone to coldfusion_user;
 	<cfset sql = "#sql# AND accn IN (#accn#)">
 	
 </cfif>
-<cfquery name="data" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#	
 </cfquery>
 <cfquery name="cNames" datasource="uam_god">

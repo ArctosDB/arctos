@@ -1,25 +1,71 @@
 <cfinclude template="/includes/_frameHeader.cfm">
-<cfquery name="ctNameType" datasource="#Application.web_user#">
+<cfquery name="ctNameType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select agent_name_type as agent_name_type from ctagent_name_type
 </cfquery>
-<cfquery name="ctAgentType" datasource="#Application.web_user#">
+<cfquery name="ctAgentType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select agent_type from ctagent_type
 </cfquery>
-<cfquery name="ctAddrType" datasource="#Application.web_user#">
+<cfquery name="ctAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select addr_type from ctaddr_type
 </cfquery>
-<cfquery name="ctElecAddrType" datasource="#Application.web_user#">
+<cfquery name="ctElecAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select address_type from ctelectronic_addr_type
 </cfquery>
-<cfquery name="ctprefix" datasource="#Application.web_user#">
+<cfquery name="ctprefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select prefix from ctprefix order by prefix
 </cfquery>
-<cfquery name="ctsuffix" datasource="#Application.web_user#">
+<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select suffix from ctsuffix order by suffix
 </cfquery>
 <cfif not isdefined("agent_id")>
 	<cfset agent_id = -1>
 </cfif>
+<script language="javascript" type="text/javascript">
+	function suggestName(ntype){
+		try {
+			var fName=document.getElementById('first_name').value;
+			var mName=document.getElementById('middle_name').value;
+			var lName=document.getElementById('last_name').value;
+			var name='';
+			if (ntype=='initials plus last'){
+				if (fName.length>0){
+					name=fName.substring(0,1) + '. ';
+				}
+				if (mName.length>0){
+					name+=mName.substring(0,1) + '. ';
+				}
+				if (lName.length>0){
+					name+=lName;
+				} else {
+					name='';
+				}
+			}
+			if (ntype=='last plus initials'){
+				if (lName.length>0){
+					name=lName + ', ';
+					if (fName.length>0){
+						name+=fName.substring(0,1) + '. ';
+					}
+					if (mName.length>0){
+						name+=mName.substring(0,1) + '. ';
+					}
+				} else {
+					name='';
+				}				
+			}
+			if (name.length>0){
+				var rf=document.getElementById('agent_name');
+				var tName=name.replace(/^\s+|\s+$/g,""); // trim spaces
+				if (rf.value.length==0){
+					rf.value=tName;
+				}
+			}
+		}
+		catch(e){
+			console.log('Error with suggestName: ' + e);
+		}
+	}
+</script>
 <!------------------------------------------------------------------------------------------------------------->
 <cfif #Action# is "newOtherAgent">
 <cfoutput>
@@ -79,7 +125,7 @@
 	id to be passed in ---->
 	<cfabort>
 </cfif>
-	<cfquery name="person" datasource="#Application.web_user#">
+	<cfquery name="person" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				agent_id,
 				person_id,
@@ -147,7 +193,7 @@
 						<cfset nameStr="#nameStr# - unknown)">
 					</cfif>
 				<cfelse>
-						<cfquery name="getName" datasource="#Application.web_user#">
+						<cfquery name="getName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							select agent_name from agent_name where agent_id=#agent_id#
 							and agent_name_type='preferred'
 						</cfquery>
@@ -165,12 +211,12 @@
 		</td>
 	</tr>
 </cfoutput>
-<cfquery name="agentAddrs" datasource="#Application.web_user#">
+<cfquery name="agentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from addr
 			where 
 			agent_id = #person.agent_id#
 </cfquery>
-<cfquery name="elecagentAddrs" datasource="#Application.web_user#">
+<cfquery name="elecagentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from electronic_address
 			where 
 			agent_id = #person.agent_id#
@@ -343,9 +389,9 @@
 						</cfloop> 
 					</select>
 				</td>
-				<td><input type="text" name="first_name" value="#first_name#"></td>
-				<td><input type="text" name="middle_name" value="#middle_name#"></td>
-				<td><input type="text" name="last_name" value="#last_name#"></td>
+				<td><input type="text" name="first_name" id="first_name" value="#first_name#"></td>
+				<td><input type="text" name="middle_name" id="middle_name" value="#middle_name#"></td>
+				<td><input type="text" name="last_name" id="last_name" value="#last_name#"></td>
 				<td>
 					<select name="suffix" size="1">
 						<option value=""></option>
@@ -387,7 +433,7 @@
 <cfif #person.agent_type# is "group">
 	<tr>
 		<td>
-			<cfquery name="grpMem" datasource="#Application.web_user#">
+			<cfquery name="grpMem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					MEMBER_AGENT_ID,
 					MEMBER_ORDER,
@@ -473,7 +519,7 @@
 <!---------------------------- / group handling ------------------------------>
 	
 
-		<cfquery name="names" datasource="#Application.web_user#">
+		<cfquery name="names" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from agent_name where agent_id=#agent_id#
 		</cfquery>
 	</cfoutput>
@@ -555,10 +601,10 @@
 			 <input type="hidden" name="agent_id" value="#person.agent_id#">
 			<tr>
 				<td>
-					<input type="text" name="agent_name">
+					<input type="text" name="agent_name" id="agent_name">
 				</td>
 				<td>
-					 <select name="agent_name_type">
+					 <select name="agent_name_type" onchange="suggestName(this.value);">
 						<cfloop query="ctNameType">
 							<option value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
 						</cfloop>
@@ -577,7 +623,7 @@
 		</table>
   	</td> 
 </tr>
-<cfquery name="relns" datasource="#Application.web_user#">
+<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select agent_relationship, agent_name, related_agent_id
 		 from agent_relations, agent_name
 		  where 
@@ -585,7 +631,7 @@
 		  and agent_name_type = 'preferred' and
 		  agent_relations.agent_id=#person.agent_id#
 	</cfquery>
-		<cfquery name="ctRelns" datasource="#Application.web_user#">
+		<cfquery name="ctRelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select AGENT_RELATIONSHIP from CTAGENT_RELATIONSHIP
 	</cfquery>
 <cfif #relns.recordcount# gt 0>
@@ -870,7 +916,7 @@
 <!------------------------------------------------------------------------------------------------------------->
 <cfif #Action# is "saveEditElecAddr">
 	<cfoutput>
-		<cfquery name="upElecAddr" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="upElecAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE electronic_address SET
 				address_type = '#address_type#',
 				address = '#address#'
@@ -896,7 +942,7 @@
 <!------------------------------------------------------------------------------------------------------------->
 <cfif #Action# is "deleElecAddr">
 	<cfoutput>
-		<cfquery name="deleElecAddr" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="deleElecAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from electronic_address where
 				agent_id=#agent_id#
 				and address_type='#address_type#'
@@ -1014,7 +1060,7 @@ Edit This Address:
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "saveEditsAddr">
 	<cfoutput>
-		<cfquery name="editAddr" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="editAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE addr SET 
 				STREET_ADDR1 = '#STREET_ADDR1#'
 				<cfif len(#STREET_ADDR2#) gt 0>
@@ -1068,7 +1114,7 @@ Edit This Address:
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "deleteAddr">
 	<cfoutput>
-		<cfquery name="killAddr" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="killAddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from addr where addr_id=#addr_id#
 		</cfquery>
 		<cf_ActivityLog sql="delete from addr where addr_id=#addr_id#">
@@ -1079,12 +1125,8 @@ Edit This Address:
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "saveCurrentAddress">
 	<cfoutput>
-		
-		<cfquery name="nextAddr" datasource="#Application.web_user#">
-			select max(addr_id) + 1 as nextAddrId from addr
-		</cfquery>
 	<cftransaction>
-	<cfquery name="addr" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="addr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE addr SET 
 				addr_id = #addr_id#
 			 <cfif len(#STREET_ADDR1#) gt 0>
@@ -1116,7 +1158,7 @@ Edit This Address:
 			 </cfif>
 			 where addr_id = #addr_id#
 	</cfquery>	
-		<cfquery name="elecaddr" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="elecaddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				UPDATE electronic_address 
 			 SET AGENT_ID = #agent_id#
 			 <cfif len(#ELECTRONIC_ADDR#) gt 0>
@@ -1129,47 +1171,6 @@ Edit This Address:
 			AGENT_ID = #agent_id#
 		</cfquery>
 		</cftransaction>
-		<cf_ActivityLog sql="UPDATE addr SET 
-				addr_id = #addr_id#
-			 <cfif len(#STREET_ADDR1#) gt 0>
-			 	,STREET_ADDR1 = '#STREET_ADDR1#'
-			 </cfif>
-			 <cfif len(#institution#) gt 0>
-			 	,institution = '#institution#'
-			 </cfif>
-			 <cfif len(#department#) gt 0>
-			 	,department = '#department#'
-			 </cfif>
-			 <cfif len(#STREET_ADDR2#) gt 0>
-			 	,STREET_ADDR2 = '#STREET_ADDR2#'
-			 </cfif>
-			 <cfif len(#CITY#) gt 0>
-			 	,CITY = '#CITY#'
-			 </cfif>
-			 <cfif len(#state#) gt 0>
-			 	,state = '#state#'
-			 </cfif>
-			 <cfif len(#ZIP#) gt 0>
-				,ZIP = '#ZIP#'
-			 </cfif>
-			 <cfif len(#COUNTRY_CDE#) gt 0>
-			 	,COUNTRY_CDE = '#COUNTRY_CDE#'
-			 </cfif>
-			 <cfif len(#MAIL_STOP#) gt 0>
-			 	,MAIL_STOP = '#MAIL_STOP#'
-			 </cfif>
-			 where addr_id = #addr_id#">
-			<cf_ActivityLog
-			 sql="UPDATE electronic_address 
-			 SET AGENT_ID = #agent_id#
-			 <cfif len(#ELECTRONIC_ADDR#) gt 0>
-			 ,ELECTRONIC_ADDR = '#ELECTRONIC_ADDR#'	
-			 </cfif>
-			 <cfif len(#address_type#) gt 0>
-			 	,address_type='#address_type#'	
-			 </cfif>
-			where
-			AGENT_ID = #agent_id#">
 			
 <cflocation url="editAllAgent.cfm?agent_id=#agent_id#">
 </cfoutput>
@@ -1179,7 +1180,7 @@ Edit This Address:
 <!------------------------------------------------------------------------------------------------------------>
 <cfif #Action# is "newElecAddr">
 	<cfoutput>
-	<cfquery name="elecaddr" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="elecaddr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO electronic_address (
 			 AGENT_ID
 			 ,address_type
@@ -1210,14 +1211,11 @@ Edit This Address:
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "newAddress">
 	<cfoutput>
-		<cfquery name="nextAddr" datasource="#Application.web_user#">
-			select max(addr_id) + 1 as nextAddrId from addr
-		</cfquery>
-		<cfquery name="prefName" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="prefName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select agent_name from preferred_agent_name where agent_id=#agent_id#
 		</cfquery>
 	<cftransaction>
-	<cfquery name="addr" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="addr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO addr (
 			 ADDR_ID
 			 <cfif len(#STREET_ADDR1#) gt 0>
@@ -1264,7 +1262,7 @@ Edit This Address:
 			 </cfif>
 			  )
 			VALUES (
-			 #nextAddr.nextAddrId#
+			 sq_addr_id.nextval
 			 <cfif len(#STREET_ADDR1#) gt 0>
 			 	,'#STREET_ADDR1#'
 			 </cfif>
@@ -1310,96 +1308,6 @@ Edit This Address:
 		)
 	</cfquery>
 	</cftransaction>
-	<cf_ActivityLog sql="INSERT INTO addr (
-			 ADDR_ID
-			 <cfif len(#STREET_ADDR1#) gt 0>
-			 	,STREET_ADDR1
-			 </cfif>
-			 <cfif len(#STREET_ADDR2#) gt 0>
-			 	,STREET_ADDR2
-			 </cfif>
-			 <cfif len(#institution#) gt 0>
-			 	,institution
-			 </cfif>
-			 <cfif len(#department#) gt 0>
-			 	,department
-			 </cfif>
-			 <cfif len(#CITY#) gt 0>
-			 	,CITY
-			 </cfif>
-			 <cfif len(#state#) gt 0>
-			 	,state
-			 </cfif>
-			 <cfif len(#ZIP#) gt 0>
-			 	,ZIP
-			 </cfif>
-			 <cfif len(#COUNTRY_CDE#) gt 0>
-			 	,COUNTRY_CDE
-			 </cfif>
-			 <cfif len(#MAIL_STOP#) gt 0>
-			 	,MAIL_STOP
-			 </cfif>
-			 <cfif len(#agent_id#) gt 0>
-			 	,agent_id
-			 </cfif>
-			 <cfif len(#addr_type#) gt 0>
-			 	,addr_type
-			 </cfif>
-			 <cfif len(#job_title#) gt 0>
-			 	,job_title
-			 </cfif>
-			 <cfif len(#valid_addr_fg#) gt 0>
-			 	,valid_addr_fg
-			 </cfif>
-			  <cfif len(#addr_remarks#) gt 0>
-			 	,addr_remarks
-			 </cfif>
-			  )
-			VALUES (
-			 #nextAddr.nextAddrId#
-			 <cfif len(#STREET_ADDR1#) gt 0>
-			 	,'#STREET_ADDR1#'
-			 </cfif>
-			 <cfif len(#STREET_ADDR2#) gt 0>
-			 	,'#STREET_ADDR2#'
-			 </cfif>
-			 <cfif len(#institution#) gt 0>
-			 	,'#institution#'
-			 </cfif>
-			 <cfif len(#department#) gt 0>
-			 	,'#department#'
-			 </cfif>
-			 <cfif len(#CITY#) gt 0>
-			 	,'#CITY#'
-			 </cfif>
-			  <cfif len(#state#) gt 0>
-			 	,'#state#'
-			 </cfif>
-			 <cfif len(#ZIP#) gt 0>
-			 	,'#ZIP#'
-			 </cfif>
-			 <cfif len(#COUNTRY_CDE#) gt 0>
-			 	,'#COUNTRY_CDE#'
-			 </cfif>
-			 <cfif len(#MAIL_STOP#) gt 0>
-			 	,'#MAIL_STOP#'
-			 </cfif>
-			 <cfif len(#agent_id#) gt 0>
-			 	,#agent_id#
-			 </cfif>
-			 <cfif len(#addr_type#) gt 0>
-			 	,'#addr_type#'
-			 </cfif>
-			 <cfif len(#job_title#) gt 0>
-			 	,'#job_title#'
-			 </cfif>
-			 <cfif len(#valid_addr_fg#) gt 0>
-			 	,#valid_addr_fg#
-			 </cfif>
-			  <cfif len(#addr_remarks#) gt 0>
-			 	,'#addr_remarks#'
-			 </cfif>
-		)">
 		<cflocation url="editAllAgent.cfm?agent_id=#agent_id#">
 </cfoutput>
 </cfif>
@@ -1412,7 +1320,7 @@ Edit This Address:
 	Pick an agent, then click the button.
 	<cfabort>
 </cfif>
-<cfquery name="newReln" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO agent_relations (
 		AGENT_ID,
 		RELATED_AGENT_ID,
@@ -1438,7 +1346,7 @@ Edit This Address:
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "deleteRelated">
 	<cfoutput>
-	<cfquery name="killRel" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="killRel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		delete from agent_relations where
 			agent_id = #agent_id#
 			and related_agent_id = #related_agent_id#
@@ -1456,7 +1364,7 @@ Edit This Address:
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "deleteGroupMember">
 	<cfoutput>
-	<cfquery name="killGrpMem" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="killGrpMem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM group_member WHERE 
 		GROUP_AGENT_ID =#agent_id# AND
 		MEMBER_AGENT_ID = #MEMBER_AGENT_ID#
@@ -1472,7 +1380,7 @@ Edit This Address:
 	<!----
 	
 	---->
-	<cfquery name="changeRelated" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="changeRelated" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 UPDATE agent_relations SET
 	related_agent_id = 
 		<cfif len(#newRelatedAgentId#) gt 0>
@@ -1507,23 +1415,12 @@ UPDATE agent_relations SET
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "newName">
 	<cfoutput>
-	
-	<!--- get next agent_id --->
-	<cfquery name="agentNameID" datasource="#Application.web_user#">
-		select max(agent_name_id) + 1 as nextAgentNameId from agent_name
-	</cfquery>
-	<cfquery name="updateName" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="updateName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO agent_name (
 			agent_name_id, agent_id, agent_name_type, agent_name)
 		VALUES (
-			#agentNameID.nextAgentNameId#, #agent_id#, '#agent_name_type#','#agent_name#')
-		</cfquery>
-
-		<cf_ActivityLog sql="INSERT INTO agent_name (
-			agent_name_id, agent_id, agent_name_type, agent_name)
-		VALUES (
-			#agentNameID.nextAgentNameId#, #agent_id#, '#agent_name_type#','#agent_name#')">
-			
+			sq_agent_name_id.nextval, #agent_id#, '#agent_name_type#','#agent_name#')
+		</cfquery>			
 		<cflocation url="editAllAgent.cfm?agent_id=#agent_id#">
 	</cfoutput>
 </cfif>
@@ -1532,7 +1429,7 @@ UPDATE agent_relations SET
 <!------------------------------------------------------------------------------------------------------------->	
 <cfif #Action# is "updateName">
 	<cfoutput>
-		<cfquery name="updateName" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="updateName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE agent_name SET agent_name = '#agent_name#', agent_name_type='#agent_name_type#'
 			where agent_name_id = #agent_name_id#
 		</cfquery>
@@ -1547,7 +1444,7 @@ UPDATE agent_relations SET
 <cfif #Action# is "deleteName">
 	<cfoutput>
 	
-	<cfquery name="delId" datasource="#Application.web_user#">
+	<cfquery name="delId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 SELECT 
 	PROJECT_AGENT.AGENT_NAME_ID,
 	PUBLICATION_AUTHOR_NAME.AGENT_NAME_ID
@@ -1564,7 +1461,7 @@ WHERE
 <cfif #delId.recordcount# gt 1>
 	The agent you are trying to delete has active agent names. Delete denied.<cfabort>
 </cfif>
-	<cfquery name="deleteAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="deleteAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#
 	</cfquery>
 <cf_ActivityLog
@@ -1583,13 +1480,13 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
 	
 	<cfoutput>
 		<cftransaction>
-			<cfquery name="deleNames" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="deleNames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				DELETE FROM agent_name WHERE agent_id = #agent_id#
 			</cfquery>
-			<cfquery name="delePerson" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="delePerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM person WHERE person_id = #agent_id#
 			</cfquery>
-			<cfquery name="deleAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="deleAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM agent WHERE agent_id = #agent_id#
 			</cfquery>
 		</cftransaction>
@@ -1610,7 +1507,7 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
 <cfif #Action# is "editPerson">
 	<cfoutput>
 		<cftransaction>
-		<cfquery name="editPerson" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="editPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		UPDATE person SET
 			person_id=#agent_id#
 			<cfif len(#first_name#) gt 0>
@@ -1652,7 +1549,7 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
 				person_id=#agent_id#
 			</cfquery>	
 			
-		<cfquery name="updateAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="updateAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE agent SET 
 				<cfif len(#agent_remarks#) gt 0>
 					agent_remarks = '#agent_remarks#'
@@ -1709,7 +1606,7 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
 
 <!------------------------------------------------------------------------------------------------------------->
 <cfif #action# is "makeNewGroupMemeber">
-	<cfquery name="newGroupMember" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newGroupMember" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO group_member (GROUP_AGENT_ID, MEMBER_AGENT_ID, MEMBER_ORDER)
 		values (#agent_id#,#member_id#,#MEMBER_ORDER#)
 	</cfquery>
@@ -1728,16 +1625,10 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
 			<cfabort>
 		</cfif>
 		<!--- get the next agent_id --->
-		<cfquery name="agentID" datasource="#Application.web_user#">
-			select max(agent_id) + 1 as nextAgentId from agent
-		</cfquery>
-		<!--- get the next agent_name_id --->
-		<cfquery name="agentNameID" datasource="#Application.web_user#">
-			select max(agent_name_id) + 1 as nextAgentNameId from agent_name
-		</cfquery>
-		
-		
-		<cfquery name="insPerson" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select sq_agent_id.nextval nextAgentId from dual
+		</cfquery>		
+		<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO agent (
 				agent_id,
 				agent_type,
@@ -1749,7 +1640,7 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
 				)
 			</cfquery>
 			
-		<cfquery name="insPerson" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="insPerson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO person ( 
 			PERSON_ID
 			<cfif len(#prefix#) gt 0>
@@ -1807,7 +1698,7 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
 					<cfset name = #trim(name)#>
 				
 			
-			<cfquery name="insName" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO agent_name (
 				agent_name_id,
 				agent_id,
@@ -1815,7 +1706,7 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
 				agent_name,
 				donor_card_present_fg)
 			VALUES (
-				#agentNameID.nextAgentNameId#,
+				sq_agent_name_id.nextval,
 				#agentID.nextAgentId#,
 				'preferred',
 				'#name#',
@@ -1823,19 +1714,7 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
 				)
 			</cfquery>
 			
-				<cf_ActivityLog sql="INSERT INTO agent_name (
-				agent_name_id,
-				agent_id,
-				agent_name_type,
-				agent_name,
-				donor_card_present_fg)
-			VALUES (
-				#agentNameID.nextAgentNameId#,
-				#agentID.nextAgentId#,
-				'preferred',
-				'#name#',
-				0
-				)">
+				
 				<cf_ActivityLog sql="INSERT INTO person ( 
 			PERSON_ID
 			<cfif len(#prefix#) gt 0>
@@ -1893,19 +1772,13 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
 
 
 	<cfoutput>
-		<!--- we need at least a first or last name to proceed --->
+		<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select sq_agent_id.nextval nextAgentId from dual
+		</cfquery>
 		
-		<!--- get the next agent_id --->
-		<cfquery name="agentID" datasource="#Application.web_user#">
-			select max(agent_id) + 1 as nextAgentId from agent
-		</cfquery>
-		<!--- get the next agent_name_id --->
-		<cfquery name="agentNameID" datasource="#Application.web_user#">
-			select max(agent_name_id) + 1 as nextAgentNameId from agent_name
-		</cfquery>
 		
 	
-			<cfquery name="insAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="insAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			
 			INSERT INTO agent (
 				agent_id,
@@ -1924,7 +1797,7 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
 				</cfif>
 				)
 			</cfquery>
-			<cfquery name="insName" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO agent_name (
 				agent_name_id,
 				agent_id,
@@ -1932,7 +1805,7 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
 				agent_name,
 				donor_card_present_fg)
 			VALUES (
-				#agentNameID.nextAgentNameId#,
+				sq_agent_name_id.nextval,
 				#agentID.nextAgentId#,
 				'preferred',
 				'#agent_name#',

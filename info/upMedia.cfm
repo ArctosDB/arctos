@@ -22,12 +22,19 @@
 </cfif>
 <cfif #action# is "getFile">
 <cfoutput>
+	<cftry>
 	<cffile action="upload"
     	destination="#Application.webDirectory#/temp/"
       	nameConflict="overwrite"
       	fileField="Form.FiletoUpload" mode="777">
 	<cfset fileName=#cffile.serverfile#>
 	<cfset dotPos=find(".",fileName)>
+	<cfif dotPos lte 1>
+		<font color="##FF0000" size="+2">The filename (<strong>#fileName#</strong>) you entered does not seem to have an extension.
+		Please rename your file and try again.</font>
+		<a href="javascript:back()">Go Back</a>
+		<cfabort> 
+	</cfif>
 	<cfset name=left(fileName,dotPos-1)>
 	<cfset extension=right(fileName,len(fileName)-dotPos+1)>
 	<cfif REFind("[^A-Za-z0-9_]",name,1) gt 0>
@@ -82,7 +89,12 @@
     <cfelse>
          <cfset preview_uri = "">
     </cfif>
-	
+	<cfcatch>
+		<font color="##FF0000" size="+2">Error: #cfcatch.message#</font>
+			<a href="javascript:back()">Go Back</a>
+			<cfabort>   
+	</cfcatch>
+	</cftry>
 <script>parent.closeUpload('#media_uri#','#preview_uri#');</script>
 </cfoutput>
 </cfif>

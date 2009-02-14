@@ -16,7 +16,7 @@
 </cffunction>
 
 <cfif #action# is 'generatePDF'>
-<cfquery name="ctAtt" datasource="#Application.web_user#">
+<cfquery name="ctAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(attribute_type) from ctAttribute_type order by attribute_type
 </cfquery>
 <cfset attList = "">
@@ -92,7 +92,7 @@ following SQL query. --->
 	ORDER BY
 		cat_num
 ">
-<cfquery name="data" datasource="#Application.web_user#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 <!------------------------------->
@@ -274,7 +274,7 @@ To you programmers, that means DON'T TOUCH THE MARGINS!!!--->
 	<cftry><cfif not isdefined('$#collection_object_id#$')>
 		<cfthrow type='continue'>
 	</cfif>
-        <cfquery name="tCollNum" datasource="#Application.web_user#">
+        <cfquery name="tCollNum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
                 select other_id_number from coll_obj_other_id_num where
                 other_id_type='collector number'
                 and collection_object_id=#collection_object_id#
@@ -848,7 +848,7 @@ function addNewGeogMod() {
 	WHERE
 		accepted_id_fg=1 AND cataloged_item.collection_object_id IN (#collection_object_id#)
 ">
-<cfquery name="geogQuery" datasource="#Application.web_user#">
+<cfquery name="geogQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#
 </cfquery>--->
 <!--- No longer need geography query because new idea does not require the
@@ -870,7 +870,7 @@ specific geography information. --->
 	ORDER BY
 		cat_num
 ">
-<cfquery name="partsQuery" datasource="#Application.web_user#">
+<cfquery name="partsQuery" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
 <!--- end get data for parts--->

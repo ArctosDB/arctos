@@ -29,7 +29,7 @@ function sTest () {
 <cfoutput>
 <form action="inquiry.cfm" method="post" name="inq">
 <input type="hidden" name="action" value="sendMail" />
-<cfquery name="ctContactRole" datasource="#Application.web_user#">
+<cfquery name="ctContactRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select contact_role from ctcoll_contact_role
 </cfquery>
 <tr>
@@ -52,7 +52,7 @@ function sTest () {
 		<input type="subName" type="text" size="40" />
 	</td>
 </tr>
-	<cfquery name="collections" datasource="#Application.web_user#">
+	<cfquery name="collections" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection_cde,institution_acronym,collection_id
 		from collection
 		order by institution_acronym,collection
@@ -94,7 +94,7 @@ function sTest () {
 <cfoutput>
 #collection_id#
 <!--- see what we got --->
-<cfquery name="whatC" datasource="#Application.web_user#">
+<cfquery name="whatC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		address,institution_acronym,collection_cde
 	from
@@ -109,7 +109,7 @@ function sTest () {
 		collection.collection_id IN (#collection_id#)
 </cfquery>
 <!--- get names of collections with no contact info --->
-<cfquery name="whatCollNames" datasource="#Application.web_user#">
+<cfquery name="whatCollNames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select institution_acronym,collection_cde
 	from
 		collection
@@ -125,12 +125,12 @@ function sTest () {
 <!---
 <cfset user_id=0>
 <cfif isdefined("session.username") and len(#session.username#) gt 0>
-	<cfquery name="isUser" datasource="#Application.web_user#">
+	<cfquery name="isUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT user_id FROM cf_users WHERE username = '#session.username#'
 	</cfquery>
 	<cfset user_id = #isUser.user_id#>
 </cfif>
-	<cfquery name="bugID" datasource="#Application.web_user#">
+	<cfquery name="bugID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select max(bug_id) + 1 as id from cf_bugs
 	</cfquery>
 	<cfset thisDate = #dateformat(now(),"dd-mmm-yyyy")#>
@@ -157,7 +157,7 @@ function sTest () {
 	</cfquery>
 	
 	<!--- get the proper emails to report this to --->
-	<cfquery name="whatEmails" datasource="#Application.web_user#">
+	<cfquery name="whatEmails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select address from
 			electronic_address,
 			collection_contacts,

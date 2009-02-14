@@ -3,7 +3,7 @@
 <cfif #action# is "nothing">
 <cfoutput>
 	Find Collection:
-	<cfquery name="ctcoll" datasource="#Application.web_user#">
+	<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from collection
 	</cfquery>
 	<form name="coll" method="post" action="Collection.cfm">
@@ -28,7 +28,7 @@
 <cfoutput>
 <form name="addCollection" method="post" action="Collection.cfm">
 <input type="hidden" name="action" value="makeNewCollection">
-	<cfquery name="ctCollCde" datasource="#Application.web_user#">
+	<cfquery name="ctCollCde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection_cde from ctcollection_cde
 	</cfquery>
 	<table>
@@ -113,10 +113,10 @@
 <cfif #action# is "makeNewCollection">
 <cfoutput>
 	<cftransaction>
-	<cfquery name="nextCollCde" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-		select max(collection_id) + 1 as newID from collection
+	<cfquery name="nextCollCde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select sq_collection.nextval as newID from dual
 	</cfquery>
-	<cfquery name="newColl" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO collection (
 			 COLLECTION_CDE,
 			 INSTITUTION_ACRONYM,
@@ -149,10 +149,10 @@
 <!------------------------------------------------------------------------------------->
 <cfif #action# is "findColl">
 <cfoutput>
-	<cfquery name="app" datasource="#Application.web_user#">
-		select * from cf_collection_appearance where collection_id=#collection_id#
+	<cfquery name="app" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from cf_collection where collection_id=#collection_id#
 	</cfquery>
-	<cfquery name="colls" datasource="#Application.web_user#">
+	<cfquery name="colls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select  
 			COLLECTION_CDE,
 			INSTITUTION_ACRONYM,
@@ -176,7 +176,7 @@
 	<form name="editCollection" method="post" action="Collection.cfm">
 <input type="hidden" name="action" value="modifyCollection">
 <input type="hidden" name="collection_id" value="#collection_id#">
-	<cfquery name="ctCollCde" datasource="#Application.web_user#">
+	<cfquery name="ctCollCde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection_cde from ctcollection_cde
 	</cfquery>
 	<table>
@@ -287,7 +287,7 @@
 </form>
 </td>
 <td valign="top">
-	<cfquery name="contact" datasource="#Application.web_user#">
+	<cfquery name="contact" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			collection_contact_id,
 			contact_role,
@@ -301,7 +301,7 @@
 			collection_id = #collection_id#
 		ORDER BY contact_name,contact_role
 	</cfquery>
-	<cfquery name="ctContactRole" datasource="#Application.web_user#">
+	<cfquery name="ctContactRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select contact_role from ctcoll_contact_role
 	</cfquery>
 	<cfset i=1>
@@ -387,8 +387,11 @@
 		<input type="hidden" name="collection_id" value="#collection_id#">
 		<table border>
 			<tr>
-				<td colspan="2">Collection Appearance
-				<span style="font-size:small">You must specify all values if you specify any.</span>
+				<td colspan="2">Portal 
+					<span style="font-size:smaller">(You may need DBA help to set this up properly for new collections. 
+					Your settings will be ignored if you don't include enough information. With the help of a DBA, you may also create "portals"
+					for things other than collections - e.g., all mammal collections, or all collections within an institution, or whatever)
+					</span>
 				</td>
 			</tr>
 			<tr>
@@ -405,6 +408,14 @@
 					<input type="text" name="HEADER_IMAGE" id="HEADER_IMAGE" class="reqdClr" value="#app.HEADER_IMAGE#">
 				</td>
 			</tr>
+			<td>
+				<td>
+					<label for="HEADER_CREDIT">
+						HEADER_CREDIT
+					</label>
+					<input type="text" name="HEADER_CREDIT" id="HEADER_CREDIT" class="reqdClr" value="#app.HEADER_CREDIT#">
+				</td>
+			</td>
 			<tr>
 				<td>
 					<label for="COLLECTION_URL">COLLECTION_URL</label>
@@ -455,11 +466,6 @@
 					<input type="submit" value="Save" class="savBtn"
    					onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">
 				</td>
-				<td>
-					<input type="button" value="Delete Customizations" class="delBtn"
-   					onmouseover="this.className='delBtn btnhov'" onmouseout="this.className='delBtn'"
-					onclick="document.appearance.action.value='deleteAppearance';submit();">
-				</td>
 			</tr>
 		</table>
 	</form>
@@ -471,7 +477,7 @@
 <!------------------------------------------------------------------------------------->
 <cfif #action# is "updateContact">
 	<cfoutput>
-		<cfquery name="changeContact" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="changeContact" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		UPDATE collection_contacts SET
 			contact_role = '#contact_role#',
 			contact_agent_id = #contact_agent_id#
@@ -484,7 +490,7 @@
 <!------------------------------------------------------------------------------------->
 <cfif #action# is "deleteContact">
 	<cfoutput>
-		<cfquery name="killContact" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="killContact" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM collection_contacts
 		WHERE
 			collection_contact_id = #collection_contact_id#
@@ -493,44 +499,22 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------->
-
-<cfif #action# is "deleteAppearance">
-<cfoutput>
-	 <cfquery name="killOld" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-	 	delete from cf_collection_appearance where collection_id = #collection_id#
-	 </cfquery>
-	<cflocation url="Collection.cfm?action=findColl&collection_id=#collection_id#">
-</cfoutput>
-</cfif>
 <cfif #action# is "changeAppearance">
 <cfoutput>
-	 <cfquery name="killOld" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-	 	delete from cf_collection_appearance where collection_id = #collection_id#
-	 </cfquery>
-	 <cfquery name="insApp" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
- 		INSERT INTO cf_collection_appearance (
- 			collection_id,
- 			HEADER_COLOR,
- 			HEADER_IMAGE,
- 			COLLECTION_URL,
- 			COLLECTION_LINK_TEXT,
- 			INSTITUTION_URL,
- 			INSTITUTION_LINK_TEXT,
- 			META_DESCRIPTION,
- 			META_KEYWORDS,
-			STYLESHEET
- 		) values (
- 			#collection_id#,
- 			'#HEADER_COLOR#',
- 			'#HEADER_IMAGE#',
- 			'#COLLECTION_URL#',
- 			'#COLLECTION_LINK_TEXT#',
- 			'#INSTITUTION_URL#',
- 			'#INSTITUTION_LINK_TEXT#',
- 			'#META_DESCRIPTION#',
- 			'#META_KEYWORDS#',
-			'#STYLESHEET#'
-		)    
+
+	 <cfquery name="insApp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+ 		update cf_collection set
+ 			HEADER_COLOR='#HEADER_COLOR#',
+ 			HEADER_IMAGE='#HEADER_IMAGE#',
+ 			COLLECTION_URL='#COLLECTION_URL#',
+ 			COLLECTION_LINK_TEXT='#COLLECTION_LINK_TEXT#',
+ 			INSTITUTION_URL='#INSTITUTION_URL#',
+ 			INSTITUTION_LINK_TEXT='#INSTITUTION_LINK_TEXT#',
+ 			META_DESCRIPTION='#META_DESCRIPTION#',
+ 			META_KEYWORDS='#META_KEYWORDS#',
+			STYLESHEET='#STYLESHEET#',
+			header_credit='#header_credit#'
+ 		where collection_id=#collection_id#
  	</cfquery>
 	<cflocation url="Collection.cfm?action=findColl&collection_id=#collection_id#">
 </cfoutput>
@@ -539,18 +523,14 @@
 <cfif #action# is "newContact">
 	<cfoutput>
 	<cftransaction>
-	<cfquery name="nid" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-		select max(collection_contact_id) nxid from collection_contacts
-	</cfquery>
-	<cfset nextID = #nid.nxid# + 1>
-	<cfquery name="newContact" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newContact" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO collection_contacts (
 			collection_contact_id,
 			collection_id,
 			contact_role,
 			contact_agent_id)
 		VALUES (
-			#nextID#,
+			sq_collection_contact_id.nextval,
 			#collection_id#,
 			'#contact_role#',
 			#contact_agent_id#)
@@ -564,7 +544,7 @@
 <cfoutput>
 	<cftransaction>
 	
-	<cfquery name="modColl" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="modColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		UPDATE collection SET 
 		COLLECTION_CDE = '#collection_cde#'
 		,COLLECTION = '#collection#'

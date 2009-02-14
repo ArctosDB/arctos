@@ -1,5 +1,5 @@
 <cfoutput>
-<cfquery name="killOld" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		insert into CF_TEMP_GEOREF (
 			KEY_IDENTIFIER,
 			KEY_IDENTIFIER_TYPE,

@@ -29,7 +29,7 @@
       <td><div align="right">Catalog Number:</div></td>
       <td><input type="text" name="cat_num"></td>
     </tr>
-	<cfquery name="collections" datasource="#Application.web_user#">
+	<cfquery name="collections" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection_cde from ctCollection_Cde order by collection_cde
 	</cfquery>
 	<tr><td align="right">
@@ -43,7 +43,7 @@
     </select>
 	</td></tr>
 	
-    <cfquery name="PartName" datasource="#Application.web_user#">
+    <cfquery name="PartName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct part_name from specimen_part ORDER BY part_name
 	</cfquery>
     <tr> 
@@ -126,7 +126,7 @@
       <td><div align="right">Remarks:</div></td>
       <td><input type="text" name="container_remarks">(any substring)</td>
     </tr>
-	<cfquery name="contType" datasource="#Application.web_user#">
+	<cfquery name="contType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 select container_type from ctContainer_Type order by container_type
 </cfquery>
 	

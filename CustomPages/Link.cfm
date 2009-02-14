@@ -181,7 +181,7 @@
 		<p>Some possibilities include:</p>
 		<ul>
 			<li>
-				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" target="#session.target#" class="novisit">Arctos Taxonomy</a>.
+				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" class="novisit">Arctos Taxonomy</a>.
 			</li>
 			<li>
 				Try broadening your search criteria. Try the next-higher geographic element, remove criteria, etc.
@@ -369,7 +369,7 @@
 		  </cfoutput>
 		
 		 <cfoutput> 
-<cfquery name="#theseRecs#" datasource="#Application.web_user#">
+<cfquery name="#theseRecs#" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT collection_object_id FROM
 			cataloged_item,
 			collecting_event,
@@ -422,9 +422,9 @@
 </cfif>
 <cfset cbifurl="/cbifMap.cfm?#mapurl#">
 <cfset berkUrl = "http://elib.cs.berkeley.edu:8080/cgi-bin/uam_query?#session.mapSize##mapurl#">
-<br><a href="#berkUrl#" target="#session.target#" class="novisit">Map #mapCount# of these #cnt.RecordCount# records at DLP</a>
+<br><a href="#berkUrl#" class="novisit">Map #mapCount# of these #cnt.RecordCount# records at DLP</a>
 
-<br><a href="#cbifurl#" target="#session.target#" class="novisit">Map #mapCount# of these #cnt.RecordCount# records at CBIF</a>
+<br><a href="#cbifurl#" class="novisit">Map #mapCount# of these #cnt.RecordCount# records at CBIF</a>
 <br><a href="javascript:void(0);"
 												onClick="getHelp('map'); return false;"
 												onMouseOver="self.status='Click for Map help.';return true;"
@@ -536,7 +536,7 @@
 					<input type="hidden" name="transaction_id" value="#transaction_id#">
 				</cfif>
 				---->
-<cfquery name="ctAtt" datasource="#Application.web_user#">
+<cfquery name="ctAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(attribute_type) from ctAttribute_type order by attribute_type
 </cfquery>
 <cfset attList = "">
@@ -548,7 +548,7 @@
 	</cfif>
 </cfloop>
 
-<cfquery name="ctOID" datasource="#Application.web_user#">
+<cfquery name="ctOID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(other_id_type) from ctcoll_other_id_type order by other_id_type
 </cfquery>
 <cfset OIDlist = "">
@@ -703,7 +703,7 @@
     <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 	<cfif isdefined("session.active_loan_id") and #session.active_loan_id# gt 0>
 	<td>
-	<cfquery name="isLoanItem" datasource="#Application.web_user#">
+	<cfquery name="isLoanItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select part_name from specimen_part, 
 		cf_loan_item
 		where specimen_part.collection_object_id = cf_loan_item.collection_object_id and

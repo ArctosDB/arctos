@@ -2,7 +2,7 @@
 	<cfoutput>
 		<cfset cInt = "365,180,30,0">
 		<cfloop list="#cInt#" index="inDays">
-			<cfquery name="permitExpOneYear" datasource="#Application.web_user#">
+			<cfquery name="permitExpOneYear" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select
 					permit_id,
 					EXP_DATE,
@@ -42,7 +42,7 @@
 			</cfloop>
 		</cfloop>	
 
-			<cfquery name="expLoan" datasource="#Application.web_user#">
+			<cfquery name="expLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					loan.transaction_id,
 					RETURN_DUE_DATE,

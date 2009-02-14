@@ -117,7 +117,7 @@ SELECT
  <cfoutput>
  #preservesinglequotes(sql)#
  </cfoutput>
- <cfquery name="allRecords" datasource="#Application.web_user#">
+ <cfquery name="allRecords" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
  	#preservesinglequotes(sql)#
  </cfquery>
 </cfif>
@@ -130,7 +130,7 @@ SELECT
 	container
 	WHERE
 	parent_container_id=#container_id#">
-<cfquery name="allRecords" datasource="#Application.web_user#">
+<cfquery name="allRecords" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
  	#preservesinglequotes(sql)#
  </cfquery>
 </cfif>
@@ -151,7 +151,7 @@ SELECT
 
  <cfloop query="allRecords">
  
-	<cfquery name="thisRecord" datasource="#Application.web_user#">
+	<cfquery name="thisRecord" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 	CONTAINER_ID,
 	PARENT_CONTAINER_ID,
@@ -169,7 +169,7 @@ SELECT
 				<cfif not listfind(placedContainers,#thisRecord.container_id#)>
 					<cfif #thisRecord.container_type# is "collection object">
 					<!--- get the collection_object-id --->
-					<!---<cfquery name="collobjid" datasource="#Application.web_user#">
+					<!---<cfquery name="collobjid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select 
 							a.derived_from_biol_indiv,
 							c.derived_from_biol_indv

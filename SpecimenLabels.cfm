@@ -747,9 +747,9 @@ WHERE locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id
 				
 	  <tr>
   	    <td nowrap valign="top">
-			<a href="SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="#session.target#"><strong>#collection_cde# #cat_num#</strong></a>
+			<a href="SpecimenDetail.cfm?collection_object_id=#collection_object_id#"><strong>#collection_cde# #cat_num#</strong></a>
 			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
-				(<a href="SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="#session.target#">edit</a>)
+				(<a href="SpecimenDetail.cfm?collection_object_id=#collection_object_id#">edit</a>)
 			</cfif>
 		</td>
 	    <td nowrap valign="top">

@@ -201,7 +201,7 @@
 		<p>Some possibilities include:</p>
 		<ul>
 			<li>
-				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" target="#session.target#" class="novisit">Arctos Taxonomy</a>.
+				If you searched by taxonomy, please consult <a href="/TaxonomySearch.cfm" class="novisit">Arctos Taxonomy</a>.
 			</li>
 			<li>
 				Try broadening your search criteria. Try the next-higher geographic element, remove criteria, etc.
@@ -373,7 +373,7 @@
 <cfoutput query="getBasic">
  
     <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-	 <form name="theseSpecs#i#" method="post" action="/SpecimenResults.cfm" target="#session.target#">
+	 <form name="theseSpecs#i#" method="post" action="/SpecimenResults.cfm">
 	 #searchparams#
 	  	<input type="hidden" name="Scientific_Name" value="#Scientific_Name#">
 		<input type="hidden" name="sciNameOper" value="=">

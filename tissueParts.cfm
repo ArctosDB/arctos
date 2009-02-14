@@ -30,26 +30,26 @@
 <!---
 <!--- no security --->
 --->
-<cfquery name="ctcoll" datasource="#Application.web_user#">
+<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection_cde from ctcollection_cde
 </cfquery>
-<cfquery name="ctStatus" datasource="#Application.web_user#">
+<cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select accn_status from ctaccn_status
 </cfquery>
-<cfquery name="ctType" datasource="#Application.web_user#">
+<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select accn_type from ctaccn_type
 </cfquery>
-<cfquery name="ctPermitType" datasource="#Application.web_user#">
+<cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from ctpermit_type
 </cfquery>
-<cfquery name="ctInst" datasource="#Application.web_user#">
+<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(institution_acronym)  from collection
 </cfquery>
 <!-------------------------------------------------------------------->
 <cfif #Action# is "nothing">
 	<cfoutput>
 	<cfset title="Make Tissues">
-		<cfquery name="specData" datasource="#Application.web_user#">
+		<cfquery name="specData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT
 				cataloged_item.collection_object_id,
 				collection.institution_acronym,
@@ -172,7 +172,7 @@
 </cfif>
 <cfif #action# is "saveChange">
 	<cfoutput>
-		<cfquery name="upPart" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="upPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update specimen_part set is_tissue=1 where collection_object_id IN (#is_tissue#)
 		</cfquery>
 		All spiffy, go away now....

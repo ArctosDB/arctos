@@ -9,11 +9,11 @@
 
 <cfif #Action# is "nothing">
 <cfoutput>
-<cfquery name="getLoan" datasource="#Application.web_user#">
+<cfquery name="getLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select loan_num_prefix, loan_num, loan_num_suffix from loan where transaction_id = #transaction_id#
 </cfquery>
 <cfset thisLoan = "#getLoan.loan_num_prefix# #getLoan.loan_num# #getLoan.loan_num_suffix#">
-<cfquery name="details" datasource="#Application.web_user#">
+<cfquery name="details" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection_cde, cat_num from cataloged_item, specimen_part where
 	cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
 	specimen_part.collection_object_id = #collection_object_id#
@@ -54,12 +54,12 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 
 <cfif #Action# is "AddItem">
 	<cfoutput>
-	<cfquery name="details" datasource="#Application.web_user#">
+	<cfquery name="details" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection_cde, cat_num from cataloged_item, specimen_part where
 		cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
 		specimen_part.collection_object_id = #collection_object_id#
 	</cfquery>
-	<cfquery name="RECONCILED_BY_PERSON_ID" datasource="#Application.web_user#">
+	<cfquery name="RECONCILED_BY_PERSON_ID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select agent_id from agent_name where agent_name = '#session.username#'
 		</cfquery>
 		<cfif len(#RECONCILED_BY_PERSON_ID.agent_id#) is 0>
@@ -72,9 +72,6 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 
 	<cfif #isSubsample# is "y">
 		<!--- make a subsample --->
-		<cfquery name="nextID" datasource="#Application.uam_dbo#">
-			select max(collection_object_id) + 1 as nextID from coll_object
-		</cfquery>
 		<cfquery name="parentData" datasource="#Application.uam_dbo#">
 			SELECT 
 				coll_obj_disposition, 
@@ -101,7 +98,7 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 				LOT_COUNT,
 				CONDITION)
 			VALUES
-				(#nextID.nextID#,
+				(sq_collection_object_id.nextval,
 				'SS',
 				#RECONCILED_BY_PERSON_ID.agent_id#,
 				'#RECONCILED_DATE#',
@@ -124,7 +121,7 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 				</cfif>
 				,DERIVED_FROM_CAT_ITEM)
 			VALUES (
-				#nextID.nextID#
+				sq_collection_object_id.currval
 				,'#parentData.part_name#'
 				<cfif len(#parentData.PART_MODIFIER#) gt 0>
 					,'#parentData.PART_MODIFIER#'

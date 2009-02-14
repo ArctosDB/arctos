@@ -138,8 +138,7 @@
 				</cfif>
 				<cfquery name="isGoodRelOID" datasource="#mcat#">
 					select other_id_type from ctcoll_other_id_type
-					where collection_cde='#collection_cde#' and
-					other_id_type='#related_to_num_type#'
+					where other_id_type='#related_to_num_type#'
 				</cfquery>
 				<cfif len(#isGoodRelOID.other_id_type#) is 0>
 					<cfset loadedMsg = "#loadedMsg#; #related_to_num_type# is not a valid ID type and cannot be in a ::relationship::.">
@@ -696,7 +695,6 @@
 			</cfif>
 			<cfquery name="oidType" datasource="#mcat#">
 				select * from ctcoll_other_id_type where other_id_type = '#thisIDTypeValue#'
-				AND collection_cde = '#collection_cde#'
 			</cfquery>
 			<cfif oidType.recordcount is 0>
 				<cfset loadedMsg = "#loadedMsg#; ::#thisIDType#:: (#thisIDTypeValue#) is not in the code table.">
@@ -812,41 +810,44 @@
 		</cfif>
 	</cfif>
 </cfloop>
-		<cfif len(#accn#) is 0>
-			<cfset loadedMsg = "#loadedMsg#;  ::accn:: may not be null.">
-		</cfif>
+	
+	<cfset ccSQL = "SELECT collection_id from collection 
+		WHERE collection_cde = '#collection_cde#' AND institution_acronym = '#institution_acronym#'">
+	<cfquery name="getCollID" datasource="#mcat#">
+		#preservesinglequotes(ccSQL)#
+	</cfquery>
+	<cfset collectionid = #getCollID.collection_id#>
+	
 		
-		<cfif #accn# contains "[" and #accn# contains "]">
-		<cfset p = find(']',accn)>
-		<cfset ia = mid(accn,2,p-2)>
-		
-		<cfset ac = mid(accn,p+1,len(accn))>
-		<!----
-		<cfset result = "-p:-#p#-ia-#ia#-ac-#ac#">
-		<cfreturn result>
-		---->
-	<cfelse>
-		<cfset ac=#accn#>
-		<cfset ia=#institution_acronym#>
+	<cfif len(#accn#) is 0>
+		<cfset loadedMsg = "#loadedMsg#;  ::accn:: may not be null.">
 	</cfif>
-	<cfquery name="getTrans" datasource="#Application.web_user#">
+	<cfif #accn# contains "[" and #accn# contains "]">
+		<cfset p = find(']',accn)>
+		<cfset ia = mid(accn,2,p-2)>	
+		<cfset ac = mid(accn,p+1,len(accn))>
+	<cfelse>
+		<cfset ac=accn>
+		<cfset ia=institution_acronym>
+	</cfif>		
+	<cfquery name="getTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			accn.transaction_id
 		FROM
 			accn,
-			trans
+			trans,
+			collection
 		WHERE
 			accn.transaction_id = trans.transaction_id AND
+			trans.collection_id=collection.collection_id and
 			accn.accn_number = '#ac#' and
-			trans.institution_acronym = '#ia#'
+			collection.institution_acronym = '#ia#'
 	</cfquery>
-	
-	
-		<cfif #len(getTrans.transaction_id)# gt 0>
-			<cfset transactionid = getTrans.transaction_id>
-		<cfelse>
-			<cfset loadedMsg = "#loadedMsg#; You must specify a valid, pre-existing ::accn:: number.">		
-		</cfif>
+	<cfif #len(getTrans.transaction_id)# gt 0>
+		<cfset transactionid = getTrans.transaction_id>
+	<cfelse>
+		<cfset loadedMsg = "#loadedMsg#; You must specify a valid, pre-existing ::accn:: number.">		
+	</cfif>
 			
 			<cfif len(#enteredby#) is 0>
 				<cfset loadedMsg = "#loadedMsg#;  enteredby may not be null.">
@@ -863,12 +864,6 @@
 						<cfset enteredbyid = getEntBy.agent_id>
 				
 			
-			<cfset ccSQL = "SELECT collection_id from collection 
-			WHERE collection_cde = '#collection_cde#' AND institution_acronym = '#institution_acronym#'">
-			<cfquery name="getCollID" datasource="#mcat#">
-				#preservesinglequotes(ccSQL)#
-			</cfquery>
-			<cfset collectionid = #getCollID.collection_id#>
 			
 			
 			<cfif len(#flags#) gt 0>

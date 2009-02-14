@@ -184,11 +184,11 @@
 				 TIMESTAMP
 		</cfquery>
 	</cftransaction>
-	<cfquery name="ctcontainer_type" datasource="#Application.web_user#">
+	<cfquery name="ctcontainer_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select container_type from ctcontainer_type
 		where container_type <> 'collection object'
 	</cfquery>
-<cfquery name="isChildLabel" datasource="#Application.web_user#">
+<cfquery name="isChildLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		container_type,
 		container.container_id,
@@ -232,7 +232,7 @@
 	</cfif>
 	<hr />
 	
-	<cfquery name="isParentLabel" datasource="#Application.web_user#">
+	<cfquery name="isParentLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select container_type,container.container_id,label
 	 from cf_temp_container_location,container
 	  where container.container_id = cf_temp_container_location.parent_container_id
@@ -264,7 +264,7 @@
 
 
 
-<cfquery name="dups" datasource="#Application.web_user#">
+<cfquery name="dups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		CONTAINER_ID,
 		count(CONTAINER_ID)
@@ -276,7 +276,7 @@
 <cfset dupId = valuelist(dups.container_id)>
 <cfif #dups.recordcount# gt 0>
 	You may continue, but there are no guarantees about where they'll end up! Locations are NOT sorted by date.
-	<cfquery name="dupDetail" datasource="#Application.web_user#">
+	<cfquery name="dupDetail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 		CONTAINER_ID,
 		get_container_barcode(container_id) child_barcode,
@@ -306,12 +306,12 @@
 
 
 
-<cfquery name="howMany" datasource="#Application.web_user#">
+<cfquery name="howMany" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT container_id, parent_container_id, timestamp FROM cf_temp_container_location
 	group by
 	container_id, parent_container_id, timestamp 
 </cfquery>
-<cfquery name="isMatches" datasource="#Application.web_user#">
+<cfquery name="isMatches" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		cf_temp_container_location.container_id,
 		cf_temp_container_location.parent_container_id,
@@ -387,7 +387,7 @@
 		<td>Delete</td>
 	</tr>
 	<cfset globalError = "">
-<cfquery name="scans" datasource="#Application.web_user#">
+<cfquery name="scans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT container_id, parent_container_id, 
 	to_char(timestamp,'DD-MON-YYYY HH24:MI:SS') timestamp	
 	 FROM cf_temp_container_location
@@ -401,10 +401,10 @@
 	<!--- we already have container_ids and a timestamp in date format;
 		don't worry about checking that ---->
 	<!--- get container info and check standard stoopidity ---->
-	<cfquery name="child" datasource="#Application.web_user#">
+	<cfquery name="child" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from container where container_id = #container_id#
 	</cfquery>
-	<cfquery name="parent" datasource="#Application.web_user#">
+	<cfquery name="parent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from container where container_id = #parent_container_id#
 	</cfquery>
 	

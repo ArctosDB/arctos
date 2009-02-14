@@ -1,7 +1,7 @@
 <cfparam name="collection_cde" default="Mamm">
 <cfparam name="institution_acronym" default="UAM">
 
-<cfquery name="collection_id" datasource="#Application.web_user#">
+<cfquery name="collection_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection_id from collection where
 	collection_cde='#collection_cde#' and
 	institution_acronym = '#institution_acronym#'
@@ -12,7 +12,7 @@
 </cfif>
 
 <!--- max catnum --->
-<cfquery name="a" datasource="#Application.web_user#">
+<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select max(cat_num) mc from cataloged_item where collection_id=#collection_id.collection_id#
 </cfquery>
 <cfquery name="b" datasource="uam_god">

@@ -1,6 +1,6 @@
 <cfinclude template="includes/_header.cfm">
 <cfset title = "ColdFusion Server Statistics">
-<cfquery name="getStats" datasource="#Application.web_user#">
+<cfquery name="getStats" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from cf_user_log
 	ORDER BY
 		datestamp desc,

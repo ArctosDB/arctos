@@ -1,19 +1,11 @@
-<cfinclude template="/includes/alwaysInclude.cfm">
-		<html>
-			<head>
-				<LINK REL="SHORTCUT ICON"
-       				HREF="/images/favicon.ico">
-				<meta name="keywords" content="boreal biodiversity, arctic biodiversity, northern biodiversity,
-                                                boreal biota, arctic biota, northern biota,
-                                                boreal flora, arctic flora, northern flora
-                                                boreal fauna, arctic fauna, northern fauna">
-				<meta name="description" content="Arctos is a biological specimen database at the University of Alaska's 
-				Museum of the North.">
-				
-			</head>			
-			<body>
-					<div class="content">
-									
-									
-									<p>
-									
+<cfinclude template="/includes/functionLib.cfm">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<head>
+<cfinclude template="/includes/alwaysInclude.cfm"><!--- keep this stuff accessible from non-header-having files --->
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<cfset ssName = replace(session.stylesheet,".css","","all")>
+<link rel="alternate stylesheet" type="text/css" href="/includes/css/#session.stylesheet#" title="#ssName#">
+<META http-equiv="Default-Style" content="#ssName#">
+</head>
+<body>
+<cf_rolecheck>

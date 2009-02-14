@@ -35,7 +35,7 @@
 </script>
 <cfset title="Arctos Home">
 <cfinclude template="/includes/_header.cfm">
-<cfquery  name="coll" datasource="#Application.web_user#">
+<cfquery  name="coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from collection order by collection
 </cfquery>
 <table width="90%" border="0" cellpadding="10" cellspacing="10">

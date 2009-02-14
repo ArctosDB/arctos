@@ -11,19 +11,20 @@
 </span>
 <!------------------------------------------------------------>
 <!--- sign them out and start over --->
+
+<!------------------------------------------------------------>
 <cfif #action# is "signOut">
+
 <!--- Clear anything they might have had hang around 	--->
-	<cfloop collection="#session#" item="i">
-		<cfset session[i]="">
-	</cfloop>
-	<cflogout>
-	<fset session.roles="public">
-	<cflocation url="login.cfm">	<!---
+	<cfset initSession()>
+	you are logged out.
+				<cflocation url="login.cfm">
+				<!---
+
 <cfdump var="#session#">
 	---->
 </cfif>
 <!------------------------------------------------------------>
-
 <cfif  #action# is "newUser">
 	<!--- see if they selected a valid user name --->
 	<cfquery name="uUser" datasource="#Application.uam_dbo#">
@@ -43,22 +44,21 @@
 	<cfif len(err) gt 0>
 		<cflocation url="login.cfm?username=#username#&badPW=true&err=#err#" Addtoken="false">
 	</cfif>
-	<cfquery name="nextUserID" datasource="#Application.web_user#">
+	<cfquery name="nextUserID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select max(user_id) + 1 as nextid from cf_users
 	</cfquery>
 	<!--- handle collection-specific links to this page --->
 	<cfoutput>
-		<cfif isdefined("EXCLUSIVE_COLLECTION_ID") and len(#exclusive_collection_id#) gt 0>
+		<cfif len(session.exclusive_collection_id) gt 0>
 			<cfset sql = "INSERT INTO cf_users (user_id, username, password,exclusive_collection_id,PW_CHANGE_DATE,last_login) VALUES
-			(#nextUserID.nextid#, '#username#', '#hash(password)#',#exclusive_collection_id#,sysdate,sysdate)">
-			<cfset session.exclusive_collection_id = "#exclusive_collection_id#">
+			(#nextUserID.nextid#, '#username#', '#hash(password)#',#session.exclusive_collection_id#,sysdate,sysdate)">
 		<cfelse>
 			<cfset sql = "INSERT INTO cf_users (user_id, username, password,PW_CHANGE_DATE,last_login) VALUES
 			(#nextUserID.nextid#, '#username#', '#hash(password)#',sysdate,sysdate)">
 		</cfif>
 	
 	
-		<cfquery name="newUser" datasource="#Application.web_user#">
+		<cfquery name="newUser" datasource="cf_dbuser">
 			#preservesinglequotes(sql)#
 		</cfquery>
 		
@@ -80,63 +80,15 @@
 <!------------------------------------------------------------>
 
 <CFIF  #action# is "signIn">
-<!---- start by making sure they are a registered user --->	
-	<cfquery name="getPrefs" datasource="#Application.web_user#">
-		select * from cf_users where username = '#username#' and password='#hash(password)#'
-	</cfquery>
-	<cfif getPrefs.recordcount is 0>
-		<!--- flush whatever they had & send them back--->
-		<cfset session.username = "">
-		<cfset session.epw = "">
-        
-       	<cflocation url="login.cfm?badPW=true&username=#username#">
-
-	</cfif>
-<!--- they made it this far, they are valid users. assign some client stuff to valid users --->
-	<cfset session.username = "#getPrefs.username#">
-	<cfset session.epw = encrypt(password,cfid)>
-	<!--- get their DB roles --->
-
-	<cfquery name="dbrole" datasource="uam_god">
-		 select upper(granted_role) role_name
-         	from 
-         dba_role_privs,
-         cf_ctuser_roles
-         	where
-         upper(dba_role_privs.granted_role) = upper(cf_ctuser_roles.role_name) and
-         upper(grantee) = '#ucase(getPrefs.username)#'
-	</cfquery>
-	
-	<cfset session.roles = ''>
-	<cfset session.roles = valuelist(dbrole.role_name)>
-	<cfset session.roles=listappend(session.roles,"public")>
+	<cfoutput>
+	<cfset initSession('#username#','#password#')>
 	<cfif session.roles contains "coldfusion_user">
-		<!--- see if their password is valid --->
-		<cftry>
-			<cfquery name="ckUserName" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-				select agent_id from agent_name where agent_name='#session.username#' and
-				agent_name_type='login'
-			</cfquery>
-			<cfcatch>
-				<div class="error">
-					Your Oracle login has issues. Contact a DBA.
-				</div>
-				<cfabort>
-			</cfcatch>
-		</cftry>
-		<!--- make sure they have a good agent name --->
-		<cfif len(ckUserName.agent_id) is 0>
-			<div class="error">
-				You must have an agent_name of type login that matches your Arctos username.
-			</div>
-			<cfabort>
-		</cfif>
 		<!--- 
 			make sure they have a valid email address 
 			If not, let them in for now, but set variable for use in annoying
 			them in _header.cfm
 		--->
-		<cfquery name="getUserData" datasource="#Application.web_user#">
+		<cfquery name="getUserData" datasource="#application.web_user#">
 			SELECT   
 				cf_users.user_id,
 				first_name,
@@ -156,26 +108,32 @@
 		</cfif>
 	</cfif>
 	<!--- redirect to personal home --->
-<cfinclude template="/includes/setPrefs.cfm">
-<!--- don't let them log in without a password change --->
-<cfset pwtime =  round(now() - getPrefs.pw_change_date)>
-<cfset pwage = Application.max_pw_age - pwtime>
-<cfif pwage lte 0>
-	<cfset session.force_password_change = "yes">
-	<cflocation url="ChangePassword.cfm">
-</cfif>
-<cfquery name="logLog" datasource="#Application.web_user#">
-	update cf_users set last_login = sysdate where username = '#session.username#'
-</cfquery>
-		<cfif not isdefined("gotopage") or len(#gotopage#) is 0>
-			<cfset gotopage = "myArctos.cfm">
+	<cfif not isdefined("gotopage") or len(#gotopage#) is 0>
+		<cfif isdefined("cgi.HTTP_REFERER") and left(cgi.HTTP_REFERER,(len(application.serverRootUrl))) is application.serverRootUrl>
+			<cfset gotopage=replace(cgi.HTTP_REFERER,application.serverRootUrl,'')>
+			<cfset junk="CFID,CFTOKEN">
+			<cfloop list="#gotopage#" index="e" delimiters="?&">
+				<cfloop list="#junk#" index="j">
+					<cfif left(e,len(j)) is j>
+						<cfset rurl=replace(gotopage,e,'','all')>
+					</cfif>
+				</cfloop>
+			</cfloop>
+			<cfset t=1>
+			<cfset rurl=replace(gotopage,"?&","?","all")>
+			<cfset rurl=replace(gotopage,"&&","&","all")>
+			<cfset nogo="login.cfm,errors/">
+			<cfloop list="#nogo#" index="n">
+				<cfif gotopage contains n>
+					<cfset gotopage = "/SpecimenSearch.cfm">
+				</cfif>
+			</cfloop>
+		<cfelse>
+			<cfset gotopage = "/SpecimenSearch.cfm">
 		</cfif>
-		<cfoutput>
-						<cflocation url="#gotopage#" addtoken="no">
-			<!---
-
-			--->
-		</cfoutput>
+	</cfif>
+	<cflocation url="#gotopage#" addtoken="no">
+	</cfoutput>
 </cfif>
 <!------------------------------------------------------------>
 

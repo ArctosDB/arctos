@@ -14,6 +14,10 @@
 </cfif>
 
 <cfhttp url="http://g-arctos.appspot.com/ws" charset="utf-8" method="get">
+	<!--- some fields are prefixed with _ (underscore) to create unique IDs - strip that crap off... --->
+	<cfif left(fld,1) is "_">
+		<cfset fld=right(fld,len(fld)-1)>
+	</cfif>
 	<cfhttpparam type="url" name="q" value="#fld#">
 	<cfhttpparam type="url" name="c" value="#addCtl#">
 </cfhttp>

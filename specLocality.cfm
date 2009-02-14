@@ -1,5 +1,8 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfinclude template="/includes/functionLib.cfm">
+<script type='text/javascript' src='/includes/jquery/jquery.js'></script>	
+<script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
+<cf_showMenuOnly>
 <script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
 	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
 		var cal1 = new CalendarPopup("theCalendar");
@@ -51,49 +54,181 @@
 </script>
 <cfif #Action# is "nothing">
 <cfoutput> 
-	<cfquery name="l" datasource="#Application.web_user#">
+	<cfquery name="l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
     	select 
-			*
+			collection_object_id,
+			collecting_event_id,
+			LOCALITY_ID,
+			geog_auth_rec_id,
+			MAXIMUM_ELEVATION,
+			MINIMUM_ELEVATION,
+			ORIG_ELEV_UNITS,
+			SPEC_LOCALITY,
+			LOCALITY_REMARKS,
+			DEPTH_UNITS,
+			MIN_DEPTH,
+			MAX_DEPTH,
+			NOGEOREFBECAUSE,
+			LAT_LONG_ID,
+			LAT_DEG,
+			DEC_LAT_MIN,
+			LAT_MIN,
+			LAT_SEC,
+			LAT_DIR,
+			LONG_DEG,
+			DEC_LONG_MIN,
+			LONG_MIN,
+			LONG_SEC,
+			LONG_DIR,
+			DEC_LAT,
+			DEC_LONG,
+			UTM_ZONE,
+			UTM_EW,
+			UTM_NS,				
+			DATUM,
+			ORIG_LAT_LONG_UNITS,
+			DETERMINED_BY_AGENT_ID,
+			coordinate_determiner,
+			DETERMINED_DATE,
+			LAT_LONG_REMARKS,
+			MAX_ERROR_DISTANCE,
+			MAX_ERROR_UNITS,
+			ACCEPTED_LAT_LONG_FG,
+			EXTENT,
+			GPSACCURACY,
+			GEOREFMETHOD,
+			VERIFICATIONSTATUS,
+			LAT_LONG_REF_SOURCE,
+			HIGHER_GEOG,
+			BEGAN_DATE,
+			ENDED_DATE,
+			VERBATIM_DATE,
+			VERBATIM_LOCALITY,
+			COLL_EVENT_REMARKS,
+			COLLECTING_SOURCE,
+			COLLECTING_METHOD,
+			HABITAT_DESC
 		from 
 			spec_with_loc
 		where 
 			collection_object_id = #collection_object_id#
+		group by
+			collection_object_id,
+			collecting_event_id,
+			LOCALITY_ID,
+			geog_auth_rec_id,
+			MAXIMUM_ELEVATION,
+			MINIMUM_ELEVATION,
+			ORIG_ELEV_UNITS,
+			SPEC_LOCALITY,
+			LOCALITY_REMARKS,
+			DEPTH_UNITS,
+			MIN_DEPTH,
+			MAX_DEPTH,
+			NOGEOREFBECAUSE,
+			LAT_LONG_ID,
+			LAT_DEG,
+			DEC_LAT_MIN,
+			LAT_MIN,
+			LAT_SEC,
+			LAT_DIR,
+			LONG_DEG,
+			DEC_LONG_MIN,
+			LONG_MIN,
+			LONG_SEC,
+			LONG_DIR,
+			DEC_LAT,
+			DEC_LONG,
+			UTM_ZONE,
+			UTM_EW,
+			UTM_NS,				
+			DATUM,
+			ORIG_LAT_LONG_UNITS,
+			DETERMINED_BY_AGENT_ID,
+			coordinate_determiner,
+			DETERMINED_DATE,
+			LAT_LONG_REMARKS,
+			MAX_ERROR_DISTANCE,
+			MAX_ERROR_UNITS,
+			ACCEPTED_LAT_LONG_FG,
+			EXTENT,
+			GPSACCURACY,
+			GEOREFMETHOD,
+			VERIFICATIONSTATUS,
+			LAT_LONG_REF_SOURCE,
+			HIGHER_GEOG,
+			BEGAN_DATE,
+			ENDED_DATE,
+			VERBATIM_DATE,
+			VERBATIM_LOCALITY,
+			COLL_EVENT_REMARKS,
+			COLLECTING_SOURCE,
+			COLLECTING_METHOD,
+			HABITAT_DESC
 	</cfquery>
-	<cfquery name="ctElevUnit" datasource="#Application.web_user#">
+	<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select
+			GEOLOGY_ATTRIBUTE_ID,
+			GEOLOGY_ATTRIBUTE,
+			GEO_ATT_VALUE,
+			GEO_ATT_DETERMINER_ID,
+			geo_att_determiner,
+			GEO_ATT_DETERMINED_DATE,
+			GEO_ATT_DETERMINED_METHOD,
+			GEO_ATT_REMARK
+		from
+			spec_with_loc
+		where 
+			collection_object_id = #collection_object_id# and
+			GEOLOGY_ATTRIBUTE is not null
+		group by
+			GEOLOGY_ATTRIBUTE_ID,
+			GEOLOGY_ATTRIBUTE,
+			GEO_ATT_VALUE,
+			GEO_ATT_DETERMINER_ID,
+			geo_att_determiner,
+			GEO_ATT_DETERMINED_DATE,
+			GEO_ATT_DETERMINED_METHOD,
+			GEO_ATT_REMARK
+	</cfquery>
+	<cfquery name="ctElevUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select orig_elev_units from ctorig_elev_units
 	</cfquery>
-	<cfquery name="ctdepthUnit" datasource="#Application.web_user#">
+	<cfquery name="ctdepthUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select depth_units from ctdepth_units
 	</cfquery>
-     <cfquery name="ctdatum" datasource="#Application.web_user#">
+     <cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
         select datum from ctdatum 
      </cfquery>
-     <cfquery name="ctrefsrc" datasource="#Application.web_user#">
+     <cfquery name="ctrefsrc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
         select lat_long_ref_source from ctlat_long_ref_source 
      </cfquery>
-	<cfquery name="ctGeorefMethod" datasource="#Application.web_user#">
+	<cfquery name="ctGeorefMethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select georefMethod from ctgeorefmethod
 	</cfquery>
-	<cfquery name="ctVerificationStatus" datasource="#Application.web_user#">
+	<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select VerificationStatus from ctVerificationStatus
 	</cfquery>
-     <cfquery name="cterror" datasource="#Application.web_user#">
+     <cfquery name="cterror" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
         select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS 
      </cfquery>
-     <cfquery name="ctew" datasource="#Application.web_user#">
+     <cfquery name="ctew" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
         select e_or_w from ctew 
      </cfquery>
-     <cfquery name="ctns" datasource="#Application.web_user#">
+     <cfquery name="ctns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
         select n_or_s from ctns 
      </cfquery>
-     <cfquery name="ctunits" datasource="#Application.web_user#">
+     <cfquery name="ctunits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
         select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS 
      </cfquery>
-	<cfquery name="ctcollecting_source" datasource="#Application.web_user#">
+	<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
         select COLLECTING_SOURCE from ctcollecting_source 
      </cfquery>
-	
-	<form name="loc" method="post" action="specLocality.cfm">
+	<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select geology_attribute from ctgeology_attribute order by geology_attribute
+	</cfquery>
+		
+	<cfform name="loc" method="post" action="specLocality.cfm">
 		<input type="hidden" name="action" value="saveChange">
 		<input type="hidden" name="nothing" id="nothing">
 		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
@@ -123,11 +258,13 @@
 					<a href="editLocality.cfm?locality_id=#l.locality_id#" target="_blank">
 						Edit Locality</a>
 				</label>
-				<input type="text" 
+				<cfinput type="text" 
 					name="spec_locality" 
 					id="spec_locality"
 					value="#stripQuotes(l.spec_locality)#"  
-					size="75">
+					size="75" 
+					required="true" 
+					message="Specific Locality is required.">
 			</td>
 		</tr>
 		<tr>
@@ -135,12 +272,17 @@
 				<label for="verbatim_locality">
 					<a href="javascript:void(0);" onClick="getDocs('locality','verbatim_locality')">
 						Verbatim Locality</a>
+						&nbsp;&nbsp;
+					<a href="Locality.cfm?Action=editCollEvnt&collecting_event_id=#l.collecting_event_id#" target="_blank">
+						Edit Collecting Event</a>
 				</label>
-				<input type="text" 
+				<cfinput type="text" 
 					name="verbatim_locality" 
 					id="verbatim_locality"
 					value="#stripQuotes(l.verbatim_locality)#"  
-					size="75">
+					size="75"
+					required="true" 
+					message="Verbatim Locality is required.">
 			</td>
 		</tr>
 		<tr>
@@ -149,11 +291,13 @@
 						<a href="javascript:void(0);" onClick="getDocs('locality','verbatim_date')">
 							Verbatim Date</a>
 				</label>
-				<input type="text" 
+				<cfinput type="text" 
 					name="verbatim_date"
 					id="verbatim_date" 
 					value="#stripQuotes(l.verbatim_date)#"  
-					size="75">
+					size="75"
+					required="true" 
+					message="Verbatim Date is a required text field.">
 			</td>
 		</tr>
 		<tr>
@@ -162,11 +306,13 @@
 					<td>
 							<label for="began_date"><a href="javascript:void(0);" onClick="getDocs('locality','began_date')">
 								Began Date</a></label>
-							<input type="text" 
+							<cfinput type="text"  
 								name="began_date"
 								id="began_date"
 								value="#dateformat(l.began_date,'dd mmm yyyy')#"
-								class="reqdClr">		
+								class="reqdClr"
+								required="true" 
+								message="Began Date is a required Date field.">		
 								<span class="infoLink"
 										name="anchor1"
 										id="anchor1"
@@ -180,11 +326,13 @@
 								<a href="javascript:void(0);" onClick="getDocs('locality','ended_date')">
 									Ended Date</a>
 							</label>
-							<input type="text" 
+							<cfinput type="text" 
 								name="ended_date"
 								id="ended_date" 
 								value="#dateformat(l.ended_date,'dd mmm yyyy')#"
-								class="reqdClr">
+								class="reqdClr"
+								required="true" 
+								message="Ended Date is a required Date field.">	
 								<span class="infoLink"
 										name="anchor2"
 										id="anchor2"
@@ -196,21 +344,6 @@
 				</table>
 			</td>
 		</tr>
-		<!---
-		<tr>
-			<td>
-				<label for="date_determiner">
-					<a href="javascript:void(0);" 
-						onClick="getDocs('collecting_source','date_determiner')">Date Determiner</a>
-				</label>
-				<input type="text" 
-					name="date_determiner" id="date_determiner" class="reqdClr" value="#l.date_determiner#" size="40"
-					 onchange="getAgent('DATE_DETERMINED_BY_AGENT_ID','date_determiner','loc',this.value); return false;"
-					 onKeyPress="return noenter(event);">
-					<input type="hidden" name="DATE_DETERMINED_BY_AGENT_ID" value="#l.DATE_DETERMINED_BY_AGENT_ID#">
-			</td>
-		</tr>
-		--->
 		<tr>
 			<td>
 				<label for="coll_event_remarks">
@@ -272,15 +405,27 @@
 								<a href="javascript:void(0);" class="novisit" onClick="getDocs('locality','elevation')">
 									Minimum Elevation</a>
 							</label>
-							<input type="text" name="minimum_elevation" id="minimum_elevation" value="#l.MINIMUM_ELEVATION#" size="3">
+							<cfinput 
+								type="text"
+								name="minimum_elevation"
+								id="minimum_elevation"
+								value="#l.MINIMUM_ELEVATION#"
+								size="5" 
+								validate="numeric"
+								message="Minimum Elevation is a number.">
 						</td>
 						<td>
 							<label for="maximum_elevation">
 								<a href="javascript:void(0);" class="novisit" onClick="getDocs('locality','elevation')">
 									Maximum Elevation</a>
 							</label>
-							<input type="text" id="maximum_elevation" name="maximum_elevation" 
-								value="#l.MAXIMUM_ELEVATION#" size="3">
+							<cfinput type="text" 
+								id="maximum_elevation"
+								name="maximum_elevation" 
+								value="#l.MAXIMUM_ELEVATION#" 
+								size="5" 
+								validate="numeric"
+								message="Maximum Elevation is a number.">
 						</td>
 						<td>
 							<label for="orig_elev_units">
@@ -307,14 +452,18 @@
 							<label for="min_depth" onClick="getDocs('locality','depth')" class="likeLink">
 									Minimum Depth
 							</label>
-							<input type="text" name="min_depth" id="min_depth" value="#l.min_depth#" size="3">
+							<cfinput type="text" name="min_depth" id="min_depth" value="#l.min_depth#" size="3"									
+								validate="numeric"
+								message="Minimum Depth is a number.">
 						</td>
 						<td>
 							<label for="max_depth"  onClick="getDocs('locality','depth')" class="likeLink">
 									Maximum Depth
 							</label>
-							<input type="text" id="max_depth" name="max_depth" 
-								value="#l.max_depth#" size="3">
+							<cfinput type="text" id="max_depth" name="max_depth" 
+								value="#l.max_depth#" size="3"								
+								validate="numeric"
+								message="Maximum Depth is a number.">
 						</td>
 						<td>
 							<label for="depth_units" onClick="getDocs('locality','depth')" class="likeLink">
@@ -500,11 +649,23 @@
 		<tr> 
 			<td>
 				<label for="dec_lat">Decimal Latitude</label>
-				<input type="text" name="DEC_LAT" id="dec_lat" value="#l.DEC_LAT#" class="reqdClr">
+				<cfinput 
+					type="text"
+					name="dec_lat"
+					id="dec_lat"
+					value="#l.dec_lat#"
+					class="reqdClr"
+					validate="numeric">
 			</td>
 			<td>
 				<label for="dec_long">Decimal Longitude</label>
-				<input type="text" name="DEC_LONG" value="#l.DEC_LONG#" id="dec_long" class="reqdClr">
+				<cfinput
+					type="text" 
+					name="DEC_LONG"
+					value="#l.DEC_LONG#"
+					id="dec_long"
+					class="reqdClr"
+					validate="numeric">
 			</td>
 		</tr>
 	</table>
@@ -512,15 +673,18 @@
 		<tr> 
 			<td>
 				<label for="lat_deg">Lat. Deg.</label>
-				<input type="text" name="LAT_DEG" value="#l.LAT_DEG#" size="4" id="lat_deg" class="reqdClr">
+				<cfinput type="text" name="LAT_DEG" value="#l.LAT_DEG#" size="4" id="lat_deg" class="reqdClr"
+					validate="numeric">
 			</td>
 			<td>
 				<label for="lat_min">Lat. Min.</label>
-				<input type="text" name="LAT_MIN" value="#l.LAT_MIN#" size="4" id="lat_min" class="reqdClr">
+				<cfinput type="text" name="LAT_MIN" value="#l.LAT_MIN#" size="4" id="lat_min" class="reqdClr"
+					validate="numeric">
 			</td>
 			<td>
 				<label for="lat_sec">Lat. Sec.</label>
-				<input type="text" name="LAT_SEC" value="#l.LAT_SEC#" id="lat_sec" class="reqdClr">
+				<cfinput type="text" name="LAT_SEC" value="#l.LAT_SEC#" id="lat_sec" class="reqdClr"
+					validate="numeric">
 			</td>
 			<td>
 				<label for="lat_dir">Lat. Dir.</label>
@@ -534,15 +698,18 @@
 		<tr>
 			<td>
 				<label for="long_deg">Long. Deg.</label>
-				<input type="text" name="LONG_DEG" value="#l.LONG_DEG#" size="4" id="long_deg" class="reqdClr">
+				<cfinput type="text" name="LONG_DEG" value="#l.LONG_DEG#" size="4" id="long_deg" class="reqdClr"
+					validate="numeric">
 			</td>
 			<td>
 				<label for="long_min">Long. Min.</label>
-				<input type="text" name="LONG_MIN" value="#l.LONG_MIN#" size="4" id="long_min" class="reqdClr">
+				<cfinput type="text" name="LONG_MIN" value="#l.LONG_MIN#" size="4" id="long_min" class="reqdClr"
+					validate="numeric">
 			</td>
 			<td>
 				<label for="long_sec">Long. Sec.</label>
-				<input type="text" name="LONG_SEC" value="#l.LONG_SEC#" id="long_sec"  class="reqdClr">
+				<cfinput type="text" name="LONG_SEC" value="#l.LONG_SEC#" id="long_sec"  class="reqdClr"
+					validate="numeric">
 			</td>
 			<td>
 				<label for="long_dir">Long. Dir.</label>
@@ -562,7 +729,8 @@
 			</td>
 			<td>
 				<label for="dec_lat_min">Lat. Dec. Min.<label>
-				<input type="text" name="DEC_LAT_MIN" value="#l.DEC_LAT_MIN#" id="dec_lat_min" class="reqdClr">
+				<cfinput type="text" name="DEC_LAT_MIN" value="#l.DEC_LAT_MIN#" id="dec_lat_min" class="reqdClr"
+					validate="numeric">
 			</td>
 			<td>
 				<label for="dmlat_dir">Lat. Dir.<label>
@@ -576,11 +744,13 @@
 		<tr>
 			<td>
 				<label for="dmlong_deg">Long. Deg.<label>
-				<input type="text" name="dmLONG_DEG" value="#l.LONG_DEG#" size="4" id="dmlong_deg" class="reqdClr">
+				<cfinput type="text" name="dmLONG_DEG" value="#l.LONG_DEG#" size="4" id="dmlong_deg" class="reqdClr"
+					validate="numeric">
 			</td>
 			<td>
 				<label for="dec_long_min">Long. Dec. Min.<label>
-				<input type="text" name="DEC_LONG_MIN" value="#l.DEC_LONG_MIN#" id="dec_long_min" class="reqdClr">
+				<cfinput type="text" name="DEC_LONG_MIN" value="#l.DEC_LONG_MIN#" id="dec_long_min" class="reqdClr"
+					validate="numeric">
 			</td>
 			<td>
 				<label for="dmlong_dir">Long. Dir.<label>
@@ -596,18 +766,136 @@
 		<tr> 
 			<td>
 				<label for="utm_zone">UTM Zone<label>
-				<input type="text" name="UTM_ZONE" value="#l.UTM_ZONE#" id="utm_zone" class="reqdClr">
+				<cfinput type="text" name="UTM_ZONE" value="#l.UTM_ZONE#" id="utm_zone" class="reqdClr"
+					validate="numeric">
 			</td>
 			<td>
 				<label for="utm_ew">UTM East/West<label>
-				<input type="text" name="UTM_EW" value="#l.UTM_EW#" id="utm_ew" class="reqdClr">
+				<cfinput type="text" name="UTM_EW" value="#l.UTM_EW#" id="utm_ew" class="reqdClr"
+					validate="numeric">
 			</td>
 			<td>
 				<label for="utm_ns">UTM North/South<label>
-				<input type="text" name="UTM_NS" value="#l.UTM_NS#" id="utm_ns" class="reqdClr">
+				<cfinput type="text" name="UTM_NS" value="#l.UTM_NS#" id="utm_ns" class="reqdClr"
+					validate="numeric">
 			</td>
 		</tr>
 	</td>
+</table>
+<label for="gTab">Geology<label>
+<table id="gTab" border="1" cellpadding="0" cellspacing="0">
+	<tr>
+		<td>Attribute</td>
+		<td>Value</td>
+		<td>Determiner</td>
+		<td>Date</td>	
+		<td>Method</td>
+		<td>Remark</td>
+		<td></td>
+	</tr>
+	<cfloop query="g">
+	<tr>
+		<td>
+			<cfset thisAttribute=g.geology_attribute>
+			<select name="geology_attribute__#geology_attribute_id#" 
+				id="geology_attribute__#geology_attribute_id#" size="1" class="reqdClr">
+				<option value="">DELETE THIS ROW</option>
+				<cfloop query="ctgeology_attribute">
+					<option 
+					<cfif thisAttribute is geology_attribute> selected="selected" </cfif>
+						value="#geology_attribute#">#geology_attribute#</option>
+				</cfloop>
+			</select>			
+		</td>
+		<td>
+			<input type="text" id="geo_att_value__#geology_attribute_id#" class="reqdClr"
+				name="geo_att_value__#geology_attribute_id#" value="#geo_att_value#">
+		</td>
+		<td>
+			<input type="text" id="geo_att_determiner__#geology_attribute_id#"
+				name="geo_att_determiner__#geology_attribute_id#" value="#geo_att_determiner#"
+				size="15"
+				onchange="getAgent('geo_att_determiner_id__#geology_attribute_id#','geo_att_determiner__#geology_attribute_id#','loc',this.value); return false;">
+			<input type="hidden" name="geo_att_determiner_id__#geology_attribute_id#"
+				id="geo_att_determiner_id__#geology_attribute_id#" value="#geo_att_determiner_id#">
+		</td>
+		<td>
+			<input type="text" id="geo_att_determined_date__#geology_attribute_id#"
+				name="geo_att_determined_date__#geology_attribute_id#" 
+				value="#dateformat(geo_att_determined_date,'dd mmm yyyy')#"
+				size="10"
+				onclick="cal1.select(document.loc.geo_att_determined_date__#geology_attribute_id#,'anchor1#geology_attribute_id#','dd-MMM-yyyy');">
+				<a name="anchor1#geology_attribute_id#" id="anchor1#geology_attribute_id#"></a>
+		</td>	
+		<td>
+			<input type="text" id="geo_att_determined_method__#geology_attribute_id#"
+				name="geo_att_determined_method__#geology_attribute_id#" value="#geo_att_determined_method#"
+				size="10">
+				
+		</td>
+		<td>
+			
+			<input type="text" id="geo_att_remark__#geology_attribute_id#"
+				name="geo_att_remark__#geology_attribute_id#" value="#geo_att_remark#"
+				size="10">		
+		</td>
+		<td>
+			<img src="/images/del.gif" class="likeLink" onclick="document.getElementById('geology_attribute__#geology_attribute_id#').value='';">
+		</td>
+		<script>
+			jQuery("##geo_att_value__#geology_attribute_id#").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"geology_attribute__#geology_attribute_id#"});
+		</script>
+	</tr>
+		</cfloop>
+	<tr class="newRec">
+		<td colspan="6">New Geology Attribute</td>
+	</tr>
+	<tr  class="newRec">
+		<td>
+			<select name="geology_attribute" 
+				id="geology_attribute" size="1" class="reqdClr">
+				<option value=""></option>
+				<cfloop query="ctgeology_attribute">
+					<option value="#geology_attribute#">#geology_attribute#</option>
+				</cfloop>
+			</select>			
+		</td>
+		<td>
+			<input type="text" id="geo_att_value" class="reqdClr"
+				name="geo_att_value">
+		</td>
+		<td>
+			<input type="text" id="geo_att_determiner"
+				name="geo_att_determiner"
+				size="15"
+				onchange="getAgent('geo_att_determiner_id','geo_att_determiner','loc',this.value); return false;">
+			<input type="hidden" name="geo_att_determiner_id"
+				id="geo_att_determiner_id">
+		</td>
+		<td>
+			<input type="text" id="geo_att_determined_date"
+				name="geo_att_determined_date" 
+				size="10"
+				onclick="cal1.select(document.loc.geo_att_determined_date,'anchor1t','dd-MMM-yyyy');">
+				<a name="anchor1t" id="anchor1t"></a>
+		</td>	
+		<td>
+			<input type="text" id="geo_att_determined_method"
+				name="geo_att_determined_method"
+				size="10">	
+		</td>
+		<td>
+			<input type="text" id="geo_att_remark"
+				name="geo_att_remark"
+				size="10">		
+		</td>
+		<script>
+			jQuery("##geo_att_value").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"geology_attribute"});
+		</script>
+
+	</tr>
+
+
 </table>
 </td>
 	</tr>
@@ -620,7 +908,7 @@
 </table> 
   	
 	
-	</form>
+	</cfform>
 	<script>
 		showLLFormat('#l.ORIG_LAT_LONG_UNITS#');	
 	</script>
@@ -629,149 +917,541 @@
       <!---------------------------------------------------------------------------------------------------->
 <cfif #action# is "saveChange">
 <cfoutput>
-	<cfset sql = "UPDATE spec_with_loc SET
-		higher_geog = '#higher_geog#',
-		spec_locality = '#escapeQuotes(spec_locality)#'">
-		<cfif len(#MINIMUM_ELEVATION#) is 0>
-			<cfset sql = "#sql# ,MINIMUM_ELEVATION = NULL">
-		<cfelse>
-			<cfset sql = "#sql# ,MINIMUM_ELEVATION = #MINIMUM_ELEVATION#">
-		</cfif>
-		<cfif len(#MAXIMUM_ELEVATION#) is 0>
-			<cfset sql = "#sql# ,MAXIMUM_ELEVATION = NULL">
-		<cfelse>
-			<cfset sql = "#sql# ,MAXIMUM_ELEVATION = #MAXIMUM_ELEVATION#">
-		</cfif>
-		<cfset sql = "#sql# ,orig_elev_units = '#orig_elev_units#'">
-		<cfif len(#min_depth#) is 0>
-			<cfset sql = "#sql# ,min_depth = NULL">
-		<cfelse>
-			<cfset sql = "#sql# ,min_depth = #min_depth#">
-		</cfif>
-		<cfif len(#max_depth#) is 0>
-			<cfset sql = "#sql# ,max_depth = NULL">
-		<cfelse>
-			<cfset sql = "#sql# ,max_depth = #max_depth#">
-		</cfif>
-		<cfset sql = "#sql# ,depth_units = '#depth_units#',
-		LOCALITY_REMARKS = '#escapeQuotes(locality_remarks)#',
-		verbatim_locality = '#escapeQuotes(verbatim_locality)#',
-		verbatim_date = '#escapeQuotes(verbatim_date)#',
-		began_date = '#dateformat(began_date,"dd-mmm-yyyy")#',
-		ended_date = '#dateformat(ended_date,"dd-mmm-yyyy")#',
-		COLL_EVENT_REMARKS = '#escapeQuotes(COLL_EVENT_REMARKS)#',
-		COLLECTING_SOURCE = '#COLLECTING_SOURCE#',
-		COLLECTING_METHOD = '#escapeQuotes(COLLECTING_METHOD)#',
-		habitat_desc = '#escapeQuotes(habitat_desc)#',
-		NoGeorefBecause='#escapeQuotes(NoGeorefBecause)#'
-			">	
-		
-	<cfif len(#ORIG_LAT_LONG_UNITS#) gt 0>
-		<cfset sql = "#sql#, ORIG_LAT_LONG_UNITS = '#ORIG_LAT_LONG_UNITS#',
-			DETERMINED_DATE = '#DETERMINED_DATE#',
-			DETERMINED_BY_AGENT_ID = #DETERMINED_BY_AGENT_ID#,
-			MAX_ERROR_UNITS = '#MAX_ERROR_UNITS#',
-			DATUM = '#DATUM#',
-			georefMethod = '#georefMethod#'">
-			<cfif len(#MAX_ERROR_DISTANCE#) gt 0>
-				<cfset sql = "#sql#,MAX_ERROR_DISTANCE = #MAX_ERROR_DISTANCE#">
-			<cfelse>
-				<cfset sql = "#sql#,MAX_ERROR_DISTANCE = NULL">
-			</cfif>
-			<cfif len(#GpsAccuracy#) gt 0>
-				<cfset sql = "#sql#,GpsAccuracy = #GpsAccuracy#">
-			<cfelse>
-				<cfset sql = "#sql#,GpsAccuracy = NULL">
-			</cfif>
-			<cfif len(#extent#) gt 0>
-				<cfset sql = "#sql#,extent = #extent#">
-			<cfelse>
-				<cfset sql = "#sql#,extent = NULL">
-			</cfif>
-			<cfset sql = "#sql#,VerificationStatus = '#VerificationStatus#',
-			LAT_LONG_REF_SOURCE = '#escapeQuotes(LAT_LONG_REF_SOURCE)#',
-			LAT_LONG_REMARKS = '#escapeQuotes(LAT_LONG_REMARKS)#'">
-		<cfif #ORIG_LAT_LONG_UNITS# is "decimal degrees">
-			<cfset sql = "#sql#,
-				DEC_LAT = #DEC_LAT#,
-				DEC_LONG = #DEC_LONG#">
-		<cfelseif #ORIG_LAT_LONG_UNITS# is "UTM">
-			<cfset sql = "#sql#,
-				UTM_ZONE = '#UTM_ZONE#',
-				UTM_EW = #UTM_EW#,
-				UTM_NS = #UTM_NS#">
-		<cfelseif #ORIG_LAT_LONG_UNITS# is "degrees dec. minutes">
-			<cfset sql = "#sql#,
-				LAT_DEG = #dmLAT_DEG#,
-				DEC_LAT_MIN = #DEC_LAT_MIN#,
-				LAT_DIR = '#dmLAT_DIR#',
-				LONG_DEG = #dmLONG_DEG#,
-				DEC_LONG_MIN = #DEC_LONG_MIN#,
-				LONG_DIR = '#dmLONG_DIR#'">
-		<cfelseif #ORIG_LAT_LONG_UNITS# is "deg. min. sec.">
-			<cfset sql = "#sql#,
-				LAT_DEG = #LAT_DEG#,
-				LAT_MIN = #LAT_MIN#,
-				LAT_SEC = #LAT_SEC#,
-				LAT_DIR = '#LAT_DIR#',
-				LONG_DEG = #LONG_DEG#,
-				LONG_MIN = #LONG_MIN#,
-				LONG_SEC = #LONG_SEC#,
-				LONG_DIR = '#LONG_DIR#'">		
-		</cfif>
-	<cfelse>
-		<cfset sql = "#sql#,
-			ORIG_LAT_LONG_UNITS = NULL,
-			DETERMINED_DATE = NULL,
-			MAX_ERROR_DISTANCE = NULL,
-			MAX_ERROR_UNITS = NULL,
-			DATUM = NULL,
-			georefMethod = NULL,
-			extent = NULL,
-			GpsAccuracy = NULL,
-			VerificationStatus = NULL,
-			LAT_LONG_REF_SOURCE = NULL,
-			LAT_LONG_REMARKS = NULL,
-			DEC_LAT = NULL,
-			DEC_LONG = NULL,
-			LAT_DEG = NULL,
-			LAT_MIN = NULL,
-			LAT_SEC = NULL,
-			LAT_DIR = NULL,
-			LONG_DEG = NULL,
-			LONG_MIN = NULL,
-			LONG_SEC = NULL,
-			LONG_DIR = NULL,
-			DEC_LAT_MIN = NULL,
-			DEC_LONG_MIN = NULL,
-			UTM_ZONE = NULL,
-			UTM_EW = NULL,
-			UTM_NS = NULL">
-	</cfif>
-
 	
-	<!----
-	<cfif #session.username# is "dlm">
-		#preservesinglequotes(sql)#
-		<cfabort>
-	</cfif>
-		#preservesinglequotes(sql)#
-	<cfabort>
+<cfset btime=now()>
 	
----->
-
-<cfset sql = "#sql# WHERE collection_object_id = #collection_object_id#">
-
-		<cfquery name="upCollLocLatLong" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-			#preservesinglequotes(sql)#
+	<cfset maxNumGeolAtts=10><!--- wild overestimation of the maximum number of geologic attributes; guess high or this form dies --->
+	<cftransaction>
+		<cfquery name="old"  datasource="uam_god">
+			SELECT 
+				locality_id, 
+				collecting_event_id 
+			FROM
+	    		spec_with_loc 
+	    	WHERE collection_object_id=#collection_object_id#
 		</cfquery>
+		<cfquery name="geog"  datasource="uam_god">
+			select min(geog_auth_rec_id) geog_auth_rec_id from geog_auth_rec where higher_geog = '#escapeQuotes(higher_geog)#'
+		</cfquery>
+		<cfif len(geog.geog_auth_rec_id) is 0>
+			<div class="error">Geography not found.</div>
+			<cfabort>
+		<cfelse>
+			<cfset nGeogId=geog.geog_auth_rec_id>
+		</cfif>
+		<cfset fLocS="select min(locality_id) locality_id 
+				FROM 
+					loc_acc_lat_long
+				WHERE
+    				geog_auth_rec_id = #nGeogId# AND
+    				NVL(MAXIMUM_ELEVATION,-1) = NVL('#maximum_elevation#',-1) AND
+					NVL(MINIMUM_ELEVATION,-1) = NVL('#minimum_elevation#',-1) AND
+					NVL(ORIG_ELEV_UNITS,'NULL') = NVL('#orig_elev_units#','NULL') AND
+					NVL(MIN_DEPTH,-1) = nvl('#min_depth#',-1) AND
+					NVL(MAX_DEPTH,-1) = nvl('#max_depth#',-1) AND
+					NVL(SPEC_LOCALITY,'NULL') = NVL('#escapeQuotes(spec_locality)#','NULL') AND
+					NVL(LOCALITY_REMARKS,'NULL') = NVL('#escapeQuotes(locality_remarks)#','NULL') AND
+					NVL(DEPTH_UNITS,'NULL') = NVL('#depth_units#','NULL') AND 
+					NVL(NOGEOREFBECAUSE,'NULL') = NVL('#escapeQuotes(nogeorefbecause)#','NULL')  AND
+					NVL(orig_lat_long_units,'NULL') = NVL('#orig_lat_long_units#','NULL') AND
+					NVL(datum,'NULL') = NVL('#datum#','NULL') AND
+					NVL(determined_by_agent_id,-1) = nvl('#determined_by_agent_id#',-1) AND
+					NVL(determined_date,'1-JAN-1600') = NVL(to_date('#determined_date#'),'1-JAN-1600') AND 
+					NVL(lat_long_ref_source,'NULL') = NVL('#escapeQuotes(lat_long_ref_source)#','NULL') AND 
+					NVL(lat_long_remarks,'NULL') = NVL('#escapeQuotes(lat_long_remarks)#','NULL')  AND 
+					NVL(max_error_distance,-1) = nvl('#max_error_distance#',-1) AND
+					NVL(max_error_units,'NULL') = NVL('#max_error_units#','NULL') AND 
+					NVL(extent,-1) = nvl('#extent#',-1) AND
+					NVL(gpsaccuracy,-1) = nvl('#gpsaccuracy#',-1) AND
+					NVL(georefmethod,'NULL') = NVL('#georefmethod#','NULL')  AND 
+					NVL(verificationstatus,'NULL') = NVL('#escapeQuotes(verificationstatus)#','NULL') AND 
+					NVL(DEC_LAT,-1) = nvl('#DEC_LAT#',-1) AND
+					NVL(DEC_LONG,-1) = nvl('#DEC_LONG#',-1) AND
+					NVL(UTM_EW,-1) = nvl('#UTM_EW#',-1) AND
+					NVL(UTM_NS,-1) = nvl('#UTM_NS#',-1) AND
+					NVL(UTM_ZONE,'NULL') = NVL('#UTM_ZONE#','NULL') AND
+					NVL(LAT_DEG,-1) = nvl('#LAT_DEG#',-1) AND
+					NVL(DEC_LAT_MIN,-1) = nvl('#DEC_LAT_MIN#',-1) AND
+					NVL(LAT_DIR,'NULL') = NVL('#LAT_DIR#','NULL') AND
+					NVL(LONG_DEG,-1) = nvl('#LONG_DEG#',-1) AND
+					NVL(DEC_LONG_MIN,-1) = nvl('#DEC_LONG_MIN#',-1) AND
+					NVL(LONG_DIR,'NULL') = NVL('#LONG_DIR#','NULL') AND
+					NVL(LAT_MIN,-1) = nvl('#LAT_MIN#',-1) AND
+					NVL(LAT_SEC,-1) = nvl('#LAT_SEC#',-1) AND
+					NVL(LONG_MIN,-1) = nvl('#LONG_MIN#',-1) AND
+					NVL(LONG_SEC,-1) = nvl('#LONG_SEC#',-1)
+		">
+		<!--- see if there are any geology attributes to deal with --->
+		<!---
+		<cfdump var="#form#">
+		<cfdump var="#variables#">
+		--->
+		<cfset ffldn=form.fieldnames>
+		<cfdump var="#ffldn#">
+		<cfset hasGeol=0>
+		<cfset gattlst="">
+		<cfloop from="1" to="#maxNumGeolAtts#" index="i">
+			<cfset isGeo=ListContainsNoCase(ffldn,"GEOLOGY_ATTRIBUTE__")>
+			<cfif isGeo gt 0>
+				<cfset hasGeol=1>
+				<cfset geo=listgetat(ffldn,isGeo)>
+				<cfset thisGeoAttId=replace(geo,"GEOLOGY_ATTRIBUTE__","")>
+				<cfset thisGeoAtt=evaluate("GEOLOGY_ATTRIBUTE__" & thisGeoAttId)>
+				<cfset thisGeoAttValue=evaluate("GEO_ATT_VALUE__" & thisGeoAttId)>
+				<cfset thisGeoDeterminerId=evaluate("GEO_ATT_DETERMINER_id__" & thisGeoAttId)>
+				<cfset thisGeoAttDate=evaluate("GEO_ATT_DETERMINED_DATE__" & thisGeoAttId)>
+				<cfset thisGeoAttMeth=evaluate("GEO_ATT_DETERMINED_METHOD__" & thisGeoAttId)>
+				<cfset thisGeoAttRemark=evaluate("GEO_ATT_REMARK__" & thisGeoAttId)>
+				<cfquery name="gatt"  datasource="uam_god">
+					select min(GEOLOGY_ATTRIBUTE_ID) GEOLOGY_ATTRIBUTE_ID from geology_attributes where
+						GEOLOGY_ATTRIBUTE='#thisGeoAtt#' and
+						GEO_ATT_VALUE='#escapeQuotes(thisGeoAttValue)#' and
+						nvl(GEO_ATT_DETERMINER_ID,-1)=nvl('#thisGeoDeterminerId#',-1) and
+						NVL(GEO_ATT_DETERMINED_DATE,'1-JAN-1600') = NVL(to_date('#thisGeoAttDate#'),'1-JAN-1600') AND 
+						NVL(GEO_ATT_DETERMINED_METHOD,'NULL') = NVL('#escapeQuotes(thisGeoAttMeth)#','NULL') AND
+						NVL(GEO_ATT_REMARK,'NULL') = NVL('#escapeQuotes(thisGeoAttRemark)#','NULL')
+				</cfquery>
+				<cfif len(gatt.GEOLOGY_ATTRIBUTE_ID) is 0>
+					<!--- no such attribute already esists, make sure we return nothing --->
+					<cfset gattlst=listappend(gattlst,-1)>
+				<cfelse>
+					<cfset gattlst=listappend(gattlst,gatt.GEOLOGY_ATTRIBUTE_ID)>
+					<cfset fLocS=fLocS & " and loc_acc_lat_long.locality_id IN (select locality_id from 
+						geology_attributes where GEOLOGY_ATTRIBUTE_ID=#gatt.GEOLOGY_ATTRIBUTE_ID#)">
+				</cfif>
+				<cfloop from="1" to="#isGeo#" index="l">
+					<cfset ffldn=listdeleteat(ffldn,1)>
+				</cfloop>
+			</cfif>
+		</cfloop>
+		<cfif len(geology_attribute) gt 0><!--- new attribute --->
+			<cfset hasGeol=1>
+			<cfquery name="gatt"  datasource="uam_god">
+				select min(GEOLOGY_ATTRIBUTE_ID) GEOLOGY_ATTRIBUTE_ID from geology_attributes where
+					GEOLOGY_ATTRIBUTE='#escapeQuotes(geology_attribute)#' and
+					GEO_ATT_VALUE='#escapeQuotes(geo_att_value)#' and
+					nvl(GEO_ATT_DETERMINER_ID,-1)=nvl('#geo_att_determiner_id#',-1) and
+					NVL(GEO_ATT_DETERMINED_DATE,'1-JAN-1600') = NVL(to_date('#geo_att_determined_date#'),'1-JAN-1600') AND 
+					NVL(GEO_ATT_DETERMINED_METHOD,'NULL') = NVL('#escapeQuotes(geo_att_determined_method)#','NULL') AND
+					NVL(GEO_ATT_REMARK,'NULL') = NVL('#escapeQuotes(geo_att_remark)#','NULL')
+			</cfquery>
+			<cfif len(gatt.GEOLOGY_ATTRIBUTE_ID) is 0>
+				<!--- no such attribute already esists, make sure we return nothing --->
+				<cfset gattlst=listappend(gattlst,-1)>
+			<cfelse>
+				<cfset gattlst=listappend(gattlst,gatt.GEOLOGY_ATTRIBUTE_ID)>
+				<cfset fLocS=fLocS & " and loc_acc_lat_long.locality_id IN (select locality_id from 
+					geology_attributes where GEOLOGY_ATTRIBUTE_ID=#gatt.GEOLOGY_ATTRIBUTE_ID#)">
+			</cfif>
+		</cfif>
+			
+		<cfif hasGeol is 0>
+			<cfset fLocS=fLocS & " and loc_acc_lat_long.locality_id NOT IN (select locality_id from 
+				geology_attributes)">
+		<cfelse>
+			<cfset fLocS=fLocS & " and loc_acc_lat_long.locality_id NOT IN (select locality_id from 
+				geology_attributes where GEOLOGY_ATTRIBUTE_ID not in (#gattlst#))">
+		</cfif>
+		<cfquery name="isLoc"  datasource="uam_god">
+			#preservesinglequotes(fLocS)#
+		</cfquery>
+		ran the query....
+		<cfset nLocalityId=isLoc.locality_id>
+		<cfif len(nLocalityId) is 0>
+makin a locality....
+<cfset etime=now()>
+<cfset tt=DateDiff("s", btime, etime)>
+<br>Runtime: #tt#
 
-		<cf_ActivityLog sql="#sql#">
+
+			<!--- need to make a locality --->
+			<cfquery name="nlid" datasource="uam_god">
+				select sq_locality_id.nextval nlid from dual
+			</cfquery>
+			
+got locid
+<cfset etime=now()>
+<cfset tt=DateDiff("s", btime, etime)>
+<br>Runtime: #tt#
+
+			
+			<cfset nLocalityId=nlid.nlid>
+			<cfquery name="nLoc" datasource="uam_god">
+				insert into locality (
+					LOCALITY_ID,
+					GEOG_AUTH_REC_ID,
+					MAXIMUM_ELEVATION,
+					MINIMUM_ELEVATION,
+					ORIG_ELEV_UNITS,
+					SPEC_LOCALITY,
+					LOCALITY_REMARKS,
+					DEPTH_UNITS,
+					MIN_DEPTH,
+					MAX_DEPTH,
+					NOGEOREFBECAUSE
+				) values (
+					#nlid.nlid#,
+					#nGeogId#,
+					<cfif len(MAXIMUM_ELEVATION) gt 0>
+						#MAXIMUM_ELEVATION#,
+					<cfelse>
+						NULL,
+					</cfif>
+					<cfif len(MINIMUM_ELEVATION) gt 0>
+						#MINIMUM_ELEVATION#,
+					<cfelse>
+						NULL,
+					</cfif>
+					'#ORIG_ELEV_UNITS#',
+					'#escapeQuotes(SPEC_LOCALITY)#',
+					'#escapeQuotes(LOCALITY_REMARKS)#',
+					'#DEPTH_UNITS#',
+					<cfif len(MIN_DEPTH) gt 0>
+						#MIN_DEPTH#,
+					<cfelse>
+						NULL,
+					</cfif>
+					<cfif len(MAX_DEPTH) gt 0>
+						#MAX_DEPTH#,
+					<cfelse>
+						NULL,
+					</cfif>
+					'#escapeQuotes(NOGEOREFBECAUSE)#'
+				)
+			</cfquery>
+made loc....
+<cfset etime=now()>
+<cfset tt=DateDiff("s", btime, etime)>
+<br>Runtime: #tt#
+
+
+			<!--- and new geology.... --->
+			<cfset ffldn=form.fieldnames>
+			<cfloop from="1" to="#maxNumGeolAtts#" index="i">
+			<cfset isGeo=ListContainsNoCase(ffldn,"GEOLOGY_ATTRIBUTE__")>
+			<cfif isGeo gt 0>
+geology loop....			
+				<cfset geo=listgetat(ffldn,isGeo)>
+				<cfset thisGeoAttId=replace(geo,"GEOLOGY_ATTRIBUTE__","")>
+				<cfset thisGeoAtt=evaluate("GEOLOGY_ATTRIBUTE__" & thisGeoAttId)>
+				<cfset thisGeoAttValue=evaluate("GEO_ATT_VALUE__" & thisGeoAttId)>
+				<cfset thisGeoDeterminerId=evaluate("GEO_ATT_DETERMINER_id__" & thisGeoAttId)>
+				<cfset thisGeoAttDate=evaluate("GEO_ATT_DETERMINED_DATE__" & thisGeoAttId)>
+				<cfset thisGeoAttMeth=evaluate("GEO_ATT_DETERMINED_METHOD__" & thisGeoAttId)>
+				<cfset thisGeoAttRemark=evaluate("GEO_ATT_REMARK__" & thisGeoAttId)>
+				<cfif len(thisGeoAtt) gt 0><!--- NULL=delete attribute --->
+					<cfquery name="newGeo"  datasource="uam_god">
+						insert into geology_attributes (
+							locality_id,
+							GEOLOGY_ATTRIBUTE,
+							GEO_ATT_VALUE,
+							GEO_ATT_DETERMINER_ID,
+							GEO_ATT_DETERMINED_DATE,
+							GEO_ATT_DETERMINED_METHOD,
+							GEO_ATT_REMARK
+						) values (
+							#nlid.nlid#,
+							'#thisGeoAtt#',
+							'#escapeQuotes(thisGeoAttValue)#',
+							<cfif len(thisGeoDeterminerId) gt 0>
+								#thisGeoDeterminerId#,
+							<cfelse>
+								NULL,
+							</cfif>
+							to_date('#dateformat(thisGeoAttDate,"dd-mmm-yyyy")#'),
+							'#escapeQuotes(thisGeoAttMeth)#',
+							'#escapeQuotes(thisGeoAttRemark)#'
+						)
+					</cfquery>
+
+				</cfif>				
+				<cfloop from="1" to="#isGeo#" index="l">
+					<cfset ffldn=listdeleteat(ffldn,1)>
+				</cfloop>
+			</cfif>
+		</cfloop>
 		
+		<cfif len(geology_attribute) gt 0><!--- new attribute --->
+				<cfquery name="newGeo"  datasource="uam_god">
+					insert into geology_attributes (
+						locality_id,
+						GEOLOGY_ATTRIBUTE,
+						GEO_ATT_VALUE,
+						GEO_ATT_DETERMINER_ID,
+						GEO_ATT_DETERMINED_DATE,
+						GEO_ATT_DETERMINED_METHOD,
+						GEO_ATT_REMARK
+					) values (
+						#nlid.nlid#,
+						'#geology_attribute#',
+						'#escapeQuotes(geo_att_value)#',
+						<cfif len(geo_att_determiner_id) gt 0>
+							#geo_att_determiner_id#,
+						<cfelse>
+							NULL,
+						</cfif>
+						to_date('#dateformat(geo_att_determined_date,"dd-mmm-yyyy")#'),
+						'#escapeQuotes(geo_att_determined_method)#',
+						'#escapeQuotes(geo_att_remark)#'
+					)
+				</cfquery>	
 
-	<cflocation url="specLocality.cfm?collection_object_id=#collection_object_id#">
+			</cfif>
+			
+			
+			
+			<cfif len(orig_lat_long_units) gt 0>
+coordinates.....
+<cfset etime=now()>
+<cfset tt=DateDiff("s", btime, etime)>
+<br>Runtime: #tt#
+				
+got llid....
+<cfset etime=now()>
+<cfset tt=DateDiff("s", btime, etime)>
+<br>Runtime: #tt#
+<br>
+gonna try this:
 
-	
+				<cfquery name="newCoor" datasource="uam_god">
+					INSERT INTO lat_long (
+						LAT_LONG_ID,
+						LOCALITY_ID,
+						LAT_DEG,
+						DEC_LAT_MIN,
+						LAT_MIN,
+						LAT_SEC,
+						LAT_DIR,
+						LONG_DEG,
+						DEC_LONG_MIN,
+						LONG_MIN,
+						LONG_SEC,
+						LONG_DIR,
+						DEC_LAT,
+						DEC_LONG,
+						DATUM,
+						UTM_ZONE,
+						UTM_EW,
+						UTM_NS,
+						ORIG_LAT_LONG_UNITS,
+						DETERMINED_BY_AGENT_ID,
+						DETERMINED_DATE,
+						LAT_LONG_REF_SOURCE,
+						LAT_LONG_REMARKS,
+						MAX_ERROR_DISTANCE,
+						MAX_ERROR_UNITS,
+						ACCEPTED_LAT_LONG_FG,
+						EXTENT,
+						GPSACCURACY,
+						GEOREFMETHOD,
+						VERIFICATIONSTATUS
+					) values (
+						sq_lat_long_id.nextval,
+						#nlid.nlid#,
+						<cfif len(LAT_DEG) gt 0>
+							#LAT_DEG#,
+						<cfelse>
+							NULL,
+						</cfif>
+						<cfif len(DEC_LAT_MIN) gt 0>
+							#DEC_LAT_MIN#,
+						<cfelse>
+							NULL,
+						</cfif>
+						<cfif len(LAT_MIN) gt 0>
+							#LAT_MIN#,
+						<cfelse>
+							NULL,
+						</cfif>
+						<cfif len(LAT_SEC) gt 0>
+							#LAT_SEC#,
+						<cfelse>
+							NULL,
+						</cfif>
+						'#LAT_DIR#',
+						<cfif len(LONG_DEG) gt 0>
+							#LONG_DEG#,
+						<cfelse>
+							NULL,
+						</cfif>
+						<cfif len(DEC_LONG_MIN) gt 0>
+							#DEC_LONG_MIN#,
+						<cfelse>
+							NULL,
+						</cfif>
+						<cfif len(LONG_MIN) gt 0>
+							#LONG_MIN#,
+						<cfelse>
+							NULL,
+						</cfif>
+						<cfif len(LONG_SEC) gt 0>
+							#LONG_SEC#,
+						<cfelse>
+							NULL,
+						</cfif>
+						'#LONG_DIR#',
+						<cfif len(DEC_LAT) gt 0>
+							#DEC_LAT#,
+						<cfelse>
+							NULL,
+						</cfif>
+						<cfif len(DEC_LONG) gt 0>
+							#DEC_LONG#,
+						<cfelse>
+							NULL,
+						</cfif>
+						'#DATUM#',
+						'#UTM_ZONE#',
+						<cfif len(UTM_EW) gt 0>
+							#UTM_EW#,
+						<cfelse>
+							NULL,
+						</cfif>
+						<cfif len(UTM_NS) gt 0>
+							#UTM_NS#,
+						<cfelse>
+							NULL,
+						</cfif>
+						'#ORIG_LAT_LONG_UNITS#',
+						<cfif len(DETERMINED_BY_AGENT_ID) gt 0>
+							#DETERMINED_BY_AGENT_ID#,
+						<cfelse>
+							NULL,
+						</cfif>
+						to_date('#DETERMINED_DATE#'),
+						'#escapeQuotes(LAT_LONG_REF_SOURCE)#',
+						'#escapeQuotes(LAT_LONG_REMARKS)#',
+						<cfif len(MAX_ERROR_DISTANCE) gt 0>
+							#MAX_ERROR_DISTANCE#,
+						<cfelse>
+							NULL,
+						</cfif>
+						'#MAX_ERROR_UNITS#',
+						1,
+						<cfif len(EXTENT) gt 0>
+							#EXTENT#,
+						<cfelse>
+							NULL,
+						</cfif>
+						<cfif len(GPSACCURACY) gt 0>
+							#GPSACCURACY#,
+						<cfelse>
+							NULL,
+						</cfif>
+						'#escapeQuotes(GEOREFMETHOD)#',
+						'#escapeQuotes(VERIFICATIONSTATUS)#'
+					)
+				</cfquery>
+inserted coordinates......
+<cfset etime=now()>
+<cfset tt=DateDiff("s", btime, etime)>
+<br>Runtime: #tt#
+			</cfif>
+		</cfif><!--- end make new locality --->
+		<!--- we now have a locality --->
+		<cfquery name="hasColl" datasource="uam_god">
+			select 
+	 			nvl(min(collecting_event_id),-1) collecting_event_id
+			FROM 
+				collecting_event 
+			WHERE
+				locality_id = #nLocalityId# AND
+				NVL(VERBATIM_DATE,'NULL') = NVL('#VERBATIM_DATE#','NULL') AND
+				NVL(BEGAN_DATE,'1-JAN-1600') = NVL(to_date('#BEGAN_DATE#'),'1-JAN-1600') AND 
+				NVL(ENDED_DATE,'1-JAN-1600') = NVL(to_date('#ENDED_DATE#'),'1-JAN-1600') AND 
+				NVL(VERBATIM_LOCALITY,'NULL') = NVL('#escapeQuotes(VERBATIM_LOCALITY)#','NULL') AND
+				NVL(COLL_EVENT_REMARKS,'NULL') = NVL('#escapeQuotes(COLL_EVENT_REMARKS)#','NULL') AND
+				NVL(COLLECTING_SOURCE,'NULL') = NVL('#escapeQuotes(COLLECTING_SOURCE)#','NULL') AND
+				NVL(COLLECTING_METHOD,'NULL') = NVL('#escapeQuotes(COLLECTING_METHOD)#','NULL') AND
+				NVL(HABITAT_DESC,'NULL') = NVL('#escapeQuotes(HABITAT_DESC)#','NULL')
+		</cfquery>
+gor event....
+		<cfif hasColl.collecting_event_id is -1>
+			<!--- need a collecting event --->
+			<cfquery name="ncid" datasource="uam_god">
+				select sq_collecting_event_id.nextval from dual
+			 </cfquery>
+			 <cfset ncollecting_event_id=ncid.ncid>
+making event....
+			<cfquery name="newEvent" datasource="uam_god">
+				INSERT INTO collecting_event (
+					COLLECTING_EVENT_ID,
+					LOCALITY_ID,
+					BEGAN_DATE,
+					ENDED_DATE,
+					VERBATIM_DATE,
+					VERBATIM_LOCALITY,
+					COLL_EVENT_REMARKS,
+					COLLECTING_SOURCE,
+					COLLECTING_METHOD,
+					HABITAT_DESC
+				) values (
+					#ncollecting_event_id#,
+					#nLocalityId#,
+					to_date('#dateformat(began_date,"dd-mmm-yyyy")#'),
+					to_date('#dateformat(ended_date,"dd-mmm-yyyy")#'),
+					'#escapeQuotes(verbatim_date)#',
+					'#escapeQuotes(verbatim_locality)#',
+					'#escapeQuotes(coll_event_remarks)#',
+					'#escapeQuotes(collecting_source)#',
+					'#escapeQuotes(collecting_method)#',
+					'#escapeQuotes(habitat_desc)#'
+				)
+			</cfquery>	
+		<cfelse>
+			<cfset ncollecting_event_id=hasColl.collecting_event_id>
+		</cfif>
+event spiffy....
+		<cfquery name="upCatItem" datasource="uam_god">
+			update cataloged_item set 
+    			collecting_event_id = #ncollecting_event_id# 
+    		where collection_object_id = #collection_object_id#
+		</cfquery>
+updated catitem....	
+		<cfquery name="canKill"  datasource="uam_god">
+			SELECT COUNT(*) c 
+			FROM 
+				cataloged_item,
+				collecting_event,
+				locality
+ 			WHERE
+				cataloged_item.collecting_event_id=collecting_event.collecting_event_id AND
+ 				collecting_event.locality_id = locality.locality_id AND
+ 				locality.locality_id=#old.locality_id#
+		</cfquery>
+got cankill.....
+		<cfif canKill.c is 0>
+			<cftry>
+				<cfquery name="killEvnt"  datasource="uam_god">
+					DELETE FROM collecting_event WHERE collecting_event_id=#old.collecting_event_id#
+				</cfquery>
+			<cfcatch></cfcatch>
+			</cftry>
+			<cftry>
+				<cfquery name="killLatLong"  datasource="uam_god">
+					DELETE FROM lat_long WHERE locality_id=#old.locality_id#
+				</cfquery>
+			<cfcatch></cfcatch>
+			</cftry>
+			<cftry>
+				<cfquery name="killGeol"  datasource="uam_god">
+					DELETE FROM geology_attributes WHERE locality_id=#old.locality_id#
+				</cfquery>
+			<cfcatch></cfcatch>
+			</cftry>
+			<cftry>
+				<cfquery name="killLoc"  datasource="uam_god">
+					DELETE FROM locality WHERE locality_id=#old.locality_id#
+				</cfquery>
+			<cfcatch></cfcatch>
+			</cftry>	
+		</cfif>
+	</cftransaction>
+done.....
+	<cflocation url="specLocality.cfm?collection_object_id=#collection_object_id#">		
+<!---
+
+	--->
 </cfoutput>
 </cfif>	 
 <DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV> 

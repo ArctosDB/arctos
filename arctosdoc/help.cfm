@@ -140,7 +140,7 @@ Common Names have been opportunistically entered into Arctos. Common Name entrie
 <!----------------------------------------------------------------------------------------------------->
 <cfif #content# is "CollStats">
 	<cfset title="Collection Stats">
-	<cfquery name="stat" datasource="#Application.web_user#">
+	<cfquery name="stat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 			institution_acronym,
 			collection.collection_cde,
@@ -161,10 +161,10 @@ Common Names have been opportunistically entered into Arctos. Common Name entrie
 			web_link_text
 		ORDER BY cnt DESC
 	</cfquery>
-	<cfquery name="cnt" datasource="#Application.web_user#">
+	<cfquery name="cnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) as cnt from cataloged_item
 	</cfquery>
-	<cfquery name="numColl" datasource="#Application.web_user#">
+	<cfquery name="numColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(distinct(collection_id)) as cnt from collection
 	</cfquery>
 	Summary of specimens represented in Arctos:
@@ -243,7 +243,7 @@ Common Names have been opportunistically entered into Arctos. Common Name entrie
 <!----------------------------------------------------------------------------------------------------->
 <cfif #content# is "Citation">
 	<cfset title="Citation Statistics">
-	<cfquery name="cit" datasource="#Application.web_user#">
+	<cfquery name="cit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 			count(citation.collection_object_id) as cnt,
 			taxonomy.scientific_name as scientific_name,
@@ -280,7 +280,7 @@ Common Names have been opportunistically entered into Arctos. Common Name entrie
 	</cfloop>
 	</table>
 	<br>Citations by Collection:
-	<cfquery name="citColl" datasource="#Application.web_user#">
+	<cfquery name="citColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 			count(citation.collection_object_id) as cnt,
 			collection.collection_cde,
@@ -548,7 +548,7 @@ this window</A>
 <!----------------------------------------------------------------------------------------------------->
 <cfif #content# is "get_proj_name">
 	<cfset title="Find Project Name">
-	<cfquery name="projName" datasource="#Application.web_user#">
+	<cfquery name="projName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct(project_name) from project order by project_name
 	</cfquery>
 	Click a Project Name to select.
@@ -584,7 +584,7 @@ this window</A>
 		</tr>
 	</form>
 	</table>
-	<cfquery name="perm" datasource="#Application.web_user#">
+	<cfquery name="perm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			ISSUED_BY.agent_name issuer,
 			ISSUED_DATE,

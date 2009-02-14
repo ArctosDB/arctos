@@ -137,7 +137,7 @@
 					project.project_id = project_agent.project_id (+) AND 
 					project_agent.agent_name_id = agent_name.agent_name_id (+)">
 	<cfif isdefined("p_title") AND len(#p_title#) gt 0>
-		<cfset sql = "#sql# AND upper(project_name) like '%#ucase(p_title)#%'">
+		<cfset sql = "#sql# AND upper(project_name) like '%#ucase(escapeQuotes(p_title))#%'">
 	</cfif>
 	<cfif isdefined("keyword") AND len(#keyword#) gt 0>
 		<cfset sql = "#sql# AND 
@@ -160,7 +160,7 @@
 	</cfif>
 	<cfset sql = "#sql# ORDER BY project_name">
 <cftry>
-	<cfquery name="projects" datasource="#Application.web_user#">
+	<cfquery name="projects" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 	<cfcatch>
@@ -269,7 +269,7 @@
 		AND formatted_publication.format_style = 'full citation'">
 		
 	<cfif isdefined("p_title") AND len(#p_title#) gt 0>
-		<cfset basWhere = "#basWhere# AND UPPER(publication_title) LIKE '%#ucase(p_title)#%'">
+		<cfset basWhere = "#basWhere# AND UPPER(publication_title) LIKE '%#ucase(escapeQuotes(p_title))#%'">
 	</cfif>
 	<cfif isdefined("keyword") AND len(#keyword#) gt 0>
 		<cfset basWhere = "#basWhere# AND 
@@ -285,7 +285,7 @@
 	</cfif>
 	<cfset basSql = "#basSQL# #basFrom# #basWhere# ORDER BY formatted_publication,publication_id">
 <cftry>
-	<cfquery name="publication" datasource="#Application.web_user#">
+	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(basSQL)#
 	</cfquery>
 	<cfcatch>

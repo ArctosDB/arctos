@@ -60,6 +60,7 @@
 			<td rowspan="3">
 				<font size="-2">
 					#spec_locality# 
+					<cfif len(geolAtts) gt 0>[#geolAtts#]</cfif>
 					(<a href="/Locality.cfm?Action=editLocality&locality_id=#locality_id#" 
 						target="_blank">#locality_id#</a>)
 				</font>
@@ -142,10 +143,10 @@
 <!----------------------------------------------------------------------->
 <cfif #action# is "cloneCollEvent">
 	<cfoutput>
-		<cfquery name="ctCollecting_Source" datasource="#Application.web_user#">
+		<cfquery name="ctCollecting_Source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select collecting_source from ctCollecting_Source
 		</cfquery>
-		<cfquery name="details" datasource="#Application.web_user#">
+		<cfquery name="details" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				decode(orig_lat_long_units,
 					'decimal degrees',to_char(dec_lat) || '&deg; ',
@@ -271,7 +272,7 @@
 		<cftransaction>
 		<!--- create a coll event --->
 			<cfquery name="n" datasource="#Application.uam_dbo#">
-				select max(collecting_event_id) + 1 as nid from collecting_event
+				select sq_collecting_event_id.nextval nid from dual
 			</cfquery>
 			<cfquery name="newCollEvent" datasource="#Application.uam_dbo#">
 				INSERT INTO collecting_event (

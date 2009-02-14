@@ -1,17 +1,20 @@
 <div id="theHead">
 	<cfinclude template="includes/_header.cfm">
 </div>
-</div><!--- kill content div --->
-<cfquery name="ctSuff" datasource="#Application.web_user#">
+<script type='text/javascript' src='/includes/ajax.js'></script>
+<cfquery name="ctSuff" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection_cde from ctcollection_cde
 </cfquery>
-<cfquery name="ctinst" datasource="#Application.web_user#">
+<cfquery name="ctinst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(institution_acronym) as institution_acronym from collection
+</cfquery>
+<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select collection, collection_id from collection order by collection
 </cfquery>
 <!--------------------------------------------------------------------------------->
 <cfif #Action# is "nothing">
 <cfoutput>
-<cfquery name="getItems" datasource="#Application.web_user#">
+<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT
 		cataloged_item.collection_object_id,
 		cat_num,
@@ -24,7 +27,9 @@
 		scientific_name,
 		collection.institution_acronym,
 		trans.institution_acronym transInst,
-		trans.transaction_id		
+		trans.transaction_id,
+		collection.collection,
+		a_coll.collection accnColln
 	FROM
 		cataloged_item,
 		accn,
@@ -35,10 +40,12 @@
 		collector,
 		preferred_agent_name,
 		identification,
-		collection
+		collection,
+		collection a_coll
 	WHERE
 		cataloged_item.accn_id = accn.transaction_id AND
 		accn.transaction_id = trans.transaction_id AND
+		trans.collection_id=a_coll.collection_id and
 		cataloged_item.collection_object_id = collector.collection_object_id AND
 		collector.agent_id = preferred_agent_name.agent_id AND
 		collector_role='c' AND
@@ -51,35 +58,39 @@
 		cataloged_item.collection_object_id IN (#collection_object_id#)
 	ORDER BY cataloged_item.collection_object_id
 	</cfquery>
-Add all the items listed below to accession:
-
-	<table border="1">
+	Add all the items listed below to accession:
 	<form name="addItems" method="post" action="addAccn.cfm">
 		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 		<input type="hidden" name="Action" value="addItems">
-	<tr>
-		<td><font size="-1">Institution</font></td>
-      <td><font size="-1">Accn Number</font></td>
-	</tr>
-	<tr>
-		<td>
-			<select name="institution_acronym" size="1">
-				<cfloop query="ctinst">
-					<option value="#institution_acronym#">#institution_acronym#</option>
-				</cfloop>
-			</select>
-			
-		</td>
-		<td><input type="text" name="accn_number"></td>
-	
-	</tr>
-	<tr>
-		<td colspan="2"><input type="submit" value="Add Items"></td>
-	</tr>	
-</form>
-<tr>
-
-<td colspan="2">
+		<table border="1">
+			<tr>
+				<td>
+					<label for="collection_id">Collection</label>
+					<select name="collection_id" id="collection_id" size="1" onchange="findAccession();">
+						<cfloop query="ctcoll">
+							<option value="#collection_id#">#collection#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+					<label for="accn_number">Accession</label>
+					<input type="text" name="accn_number" id="accn_number" onchange="findAccession();">
+				</td>
+				<td>
+					<input type="button" id="a_lkup" value="lookup" class="lnkBtn" onclick="findAccession();">
+				</td>
+     			<td>
+					<div id="g_num" class="noShow">
+						<input type="submit" id="s_btn" value="Add Items" class="savBtn">
+					</div>
+					<div id="b_num">
+						Pick a valid Accession
+					</div>
+					
+				</td>
+			</tr>
+		</table>	
+	</form>
 <table border>
 	<tr>
 		<td>Cat Num</td>
@@ -92,11 +103,11 @@ Add all the items listed below to accession:
 		
 	</tr>
 	</cfoutput>
-<cfoutput query="getItems" group="collection_object_id">
+	<cfoutput query="getItems" group="collection_object_id">
 	<tr>
-		<td>#cat_num#</td>
+		<td>#collection# #cat_num#</td>
 		<td>#scientific_name#</td>
-		<td><a href="SpecimenResults.cfm?Accn_trans_id=#transaction_id#">#transInst# #Accn_number#</a></td>
+		<td><a href="SpecimenResults.cfm?Accn_trans_id=#transaction_id#">#accnColln# #Accn_number#</a></td>
 		<td>
 			<cfquery name="getAgent" dbtype="query">
 				select agent_name, coll_order from getItems where collection_object_id = #getItems.collection_object_id#
@@ -117,8 +128,6 @@ Add all the items listed below to accession:
 	</tr>
 </cfoutput>
 </table>
-</td></tr>
-</table>
 </cfif>
 <!--------------------------------------------------------------------------------->
 
@@ -126,26 +135,26 @@ Add all the items listed below to accession:
 <cfif #Action# is "addItems">
 	<cfoutput>
 		
-		<cfquery name="accn" datasource="#Application.web_user#">
+		<cfquery name="accn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT accn.TRANSACTION_ID FROM accn,trans WHERE
 			accn.TRANSACTION_ID=trans.TRANSACTION_ID AND
 			accn_number = '#accn_number#' 
-			and institution_acronym = '#institution_acronym#'			
+			and collection_id = #collection_id#			
 		</cfquery>
-		<cfif accn.recordcount is 1>
+		<cfif accn.recordcount is 1 and accn.transaction_id gt 0>
 			<cftransaction>
 			<cfloop list="#collection_object_id#" index="i">
-				<cfquery name="upAccn" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="upAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					UPDATE cataloged_item SET accn_id = #accn.transaction_id# where collection_object_id = #i#
 				</cfquery>
 			</cfloop>
 			</cftransaction>
 		<cfelse>
       <font color="##FF0000" size="+2">That accn was not found! 
-	  SELECT accn.TRANSACTION_ID FROM accn,trans WHERE
+	 SELECT accn.TRANSACTION_ID FROM accn,trans WHERE
 			accn.TRANSACTION_ID=trans.TRANSACTION_ID AND
-			accn_number = #accn_number# 
-			and institution_acronym = '#institution_acronym#'		
+			accn_number = '#accn_number#' 
+			and collection_id = '#collection_id#'	
       <cfabort>
 		</cfif>
 		

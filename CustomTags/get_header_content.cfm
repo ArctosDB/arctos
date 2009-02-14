@@ -1,7 +1,7 @@
 <cfset institution = "">
 <cfset collection = "">
 <cfif isdefined("attributes.collection_id") AND len (#attributes.collection_id#) gt 0>
-	<cfquery name="whatColl" datasource="#Application.web_user#">
+	<cfquery name="whatColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection_cde, institution_acronym
 		from collection where collection_id = #attributes.collection_id#
 	</cfquery>

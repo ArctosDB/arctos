@@ -88,7 +88,7 @@
       fileField="Form.FiletoUpload">
 
 	 <!---- see if the bulkloader is deletable ---->
-	 <cfquery name="remOld" datasource="#Application.web_user#">
+	 <cfquery name="remOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	 	delete from bulkloader_stage
 	 </cfquery>
 	
@@ -194,7 +194,7 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 <!---------------------------------------->
 <cfif #action# is "inStage">
 	<cfoutput>
-	<cfquery name="c" datasource="#Application.web_user#">
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) as cnt from bulkloader_stage
 	</cfquery>
 	You successfully loaded #c.cnt# records into the <em><strong>staging</strong></em> table. They have not been checked or processed yet. You aren't done here!
@@ -229,11 +229,11 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 <cfif #action# is "checkStaged">
 	<cfstoredproc datasource="#Application.web_user#" procedure="bulkloader_stage_check">
 	</cfstoredproc>
-	<cfquery name="anyBads" datasource="#Application.web_user#">
+	<cfquery name="anyBads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) as cnt from bulkloader_stage
 		where loaded is not null
 	</cfquery>
-	<cfquery name="allData" datasource="#Application.web_user#">
+	<cfquery name="allData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) as cnt from bulkloader_stage
 	</cfquery>
 	<cfoutput>
@@ -247,19 +247,19 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 				bulkloader anyway. Use Arctos to fix them up and load them. You'll need Data Entry Admin permissions to use this option.
 				</p>
 	<cfelse>
-		<cfquery name="allId" datasource="#Application.web_user#">
+		<cfquery name="allId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select collection_object_id from bulkloader_stage
 		</cfquery>
 		<cfloop query="allId">
-			<cfquery name="newID" datasource="#Application.web_user#">
+			<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				update bulkloader_stage set collection_object_id=bulkloader_pkey.nextval
 				where collection_object_id=#collection_object_id#
 			</cfquery>
 		</cfloop>
-		<cfquery name="flag" datasource="#Application.web_user#">
+		<cfquery name="flag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update bulkloader_stage set loaded = 'BULKLOADED RECORD'
 		</cfquery>
-		<cfquery name="moveEm" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="moveEm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			insert into bulkloader select * from bulkloader_stage
 		</cfquery>
 		Your records have been checked and are now in table Bulkloader and flagged as
@@ -290,15 +290,15 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 		
 	</cfoutput>
 		<!---
-	<cfquery name="b" datasource="#Application.web_user#">
+	<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update bulkloader_stage set loaded = 'UNCHECKED BULKLOADED RECORD' 
 	</cfquery>
 	<cftry>
-	<cfquery name="i" datasource="#Application.web_user#">
+	<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		insert into bulkloader select * from bulkloader_stage
 	</cfquery>
 		<cfcatch>
-			<cfquery name="u" datasource="#Application.web_user#">
+			<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				delete from bulkloader where loaded = 'UNCHECKED BULKLOADED RECORD' 
 			</cfquery>
 		</cfcatch>
@@ -331,19 +331,19 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 <!---------------------------------------->
 <cfif #action# is "loadAnyway">
 <cfoutput>
-	<cfquery name="allId" datasource="#Application.web_user#">
+	<cfquery name="allId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection_object_id from bulkloader_stage
 	</cfquery>
 	<cfloop query="allId">
-		<cfquery name="newID" datasource="#Application.web_user#">
+		<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update bulkloader_stage set collection_object_id=bulkloader_pkey.nextval
 			where collection_object_id=#collection_object_id#
 		</cfquery>
 	</cfloop>
-	<cfquery name="flag" datasource="#Application.web_user#">
+	<cfquery name="flag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update bulkloader_stage set loaded = 'BULKLOADED RECORD'
 	</cfquery>
-	<cfquery name="moveEm" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="moveEm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		insert into bulkloader select * from bulkloader_stage
 	</cfquery>
 	Your records have been checked and are now in table Bulkloader and flagged as
@@ -373,7 +373,7 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 	<p>
 		The generated control file is <a href="/Bulkloader/bulkData.ctl" target="_blank">here</a>.
 	</p>
-	<cfquery name="whatsThere" datasource="#Application.web_user#">
+	<cfquery name="whatsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) cnt from bulkloader
 	</cfquery>
 	<p>

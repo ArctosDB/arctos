@@ -68,7 +68,7 @@
 	</table>
 	'>
 <!---- see if they've been pre-approved ---->
-<cfquery name="isGood" datasource="#Application.web_user#">
+<cfquery name="isGood" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select approved_to_request_loans from cf_users where 
 	username = '#session.username#'
 </cfquery>
@@ -95,7 +95,7 @@
 			
 
 <cfif #action# is "nothing">
-<cfquery name="getUser" datasource="#Application.web_user#">
+<cfquery name="getUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		username,
 		cf_users.user_id,
@@ -325,7 +325,7 @@
 <!------------------------------------------------------------------------------------->
 <cfif #action# is "manageLoans">
 <cfoutput>
-<cfquery name="data" datasource="#Application.web_user#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
 		proj_title,
 		proj_desc,
@@ -494,12 +494,12 @@
 <cfif #action# is "items">
 
 <cfoutput>
-<cfquery name="loan" datasource="#Application.web_user#">
+<cfquery name="loan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select loan_name from cf_loan where loan_id = #loan_id#
 </cfquery>
 
 Review loan items for <a href="user_project.cfm?action=manageLoans&trans_id=#trans_id#">#loan.loan_name#</a>.
-<cfquery name="items" datasource="#Application.web_user#">
+<cfquery name="items" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
 			part_name, part_modifier, preserve_method,
 			condition,
@@ -527,7 +527,7 @@ Review loan items for <a href="user_project.cfm?action=manageLoans&trans_id=#tra
 			loan_id = #loan_id#
 			order by cat_num
 </cfquery>
-<cfquery name="ctUse" datasource="#Application.web_user#">
+<cfquery name="ctUse" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from ctcf_loan_use_type
 </cfquery>
 <table border>
@@ -613,7 +613,7 @@ Review loan items for <a href="user_project.cfm?action=manageLoans&trans_id=#tra
 <!------------------------------------------------------------------------------------->
 <cfif #action# is "editLoan">
 <cfoutput>
-<cfquery name="edProj" datasource="#Application.web_user#">
+<cfquery name="edProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	UPDATE CF_LOAN
 		SET
 		loan_name = '#loan_name#',
@@ -670,10 +670,10 @@ Review loan items for <a href="user_project.cfm?action=manageLoans&trans_id=#tra
 <!------------------------------------------------------------------------------------->
 <cfif #action# is "newLoan">
 <cfoutput>
-<cfquery name="nid" datasource="#Application.web_user#">
+<cfquery name="nid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select max(loan_id) + 1 as nid from cf_loan
 </cfquery>
-<cfquery name="edProj" datasource="#Application.web_user#">
+<cfquery name="edProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO CF_LOAN (
 		loan_id,
 		trans_id,
@@ -695,7 +695,7 @@ Review loan items for <a href="user_project.cfm?action=manageLoans&trans_id=#tra
 <cfif #action# is "saveEdits">
 <cfoutput>
 
-<cfquery name="edProj" datasource="#Application.web_user#">
+<cfquery name="edProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	UPDATE cf_project SET		
 		proj_title = '#proj_title#',
 		proj_desc = '#proj_desc#',
@@ -736,10 +736,10 @@ Review loan items for <a href="user_project.cfm?action=manageLoans&trans_id=#tra
 <!------------------------------------------------------------------------------------->
 <cfif #action# is "newProject">
 <cfoutput>
-<cfquery name="nid" datasource="#Application.web_user#">
+<cfquery name="nid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select max(trans_id) + 1 as nid from cf_project
 </cfquery>
-<cfquery name="newProj" datasource="#Application.web_user#">
+<cfquery name="newProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO cf_project (
 		trans_id,
 		user_id,

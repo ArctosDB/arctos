@@ -1,7 +1,7 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 <cfif #action# is "nothing">
 <cfoutput>
-	<cfquery name="active_loan_id" datasource="#Application.web_user#">
+	<cfquery name="active_loan_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select  USER_LOAN_ID from 
 		cf_user_loan,cf_users where
 		cf_user_loan.user_id=cf_users.user_id and
@@ -18,7 +18,7 @@
 		<cfabort>
 	</cfif>
 	<cfset thisLoanId = #active_loan_id.USER_LOAN_ID#>
-	<cfquery name="parts" datasource="#Application.web_user#">
+	<cfquery name="parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
 			part_name, part_modifier, preserve_method,
 			condition,
@@ -66,11 +66,11 @@
 		<td>&nbsp;</td>
 	</tr>
 <cfset p=1>
-<cfquery name="ctUse" datasource="#Application.web_user#">
+<cfquery name="ctUse" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from ctcf_loan_use_type
 </cfquery>
 <cfloop query="parts">
-	<cfquery name="isBorrowed" datasource="#Application.web_user#">
+	<cfquery name="isBorrowed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select USER_LOAN_ID,
 		REMARK,
 		USE_TYPE,
@@ -130,7 +130,7 @@
 </cfif>
 <cfif #action# is "delete">
 <cfoutput>
-	<cfquery name="item" datasource="#Application.web_user#">
+	<cfquery name="item" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	delete from cf_loan_item
 	where
 		USER_LOAN_ID=#thisLoanId# and
@@ -146,7 +146,7 @@
 </cfif>
 <cfif #action# is "insert">
 <cfoutput>
-	<cfquery name="item" datasource="#Application.web_user#">
+	<cfquery name="item" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO cf_loan_item (
 		USER_LOAN_ID,
 		collection_object_id,

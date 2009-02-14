@@ -1,14 +1,14 @@
 <cfif #action# is "remTheseLoaded">
 	<cfif isdefined("collection_object_id") and len(#collection_object_id#) gt 0>
 	<cfoutput>
-		<cfquery name="clearFlag" datasource="#Application.web_user#">
+		<cfquery name="clearFlag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update bulkloader set loaded = null where collection_object_id IN ( #collection_object_id# )
 		</cfquery>
 	</cfoutput>	
 	</cfif>
 	<cfif isdefined("remThisId") and len(#remThisId#) gt 0>
 	<cfoutput>
-		<cfquery name="MAKEfLAG" datasource="#Application.web_user#">
+		<cfquery name="MAKEfLAG" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update bulkloader set loaded = 'FLAGGED BY BULKLOADER EDITOR' where collection_object_id IN ( #remThisId# )
 		</cfquery>		
 	</cfoutput>	
@@ -39,7 +39,7 @@
 
 <cfinclude template="/includes/_pickHeader.cfm">
 <!--- no security --->
-<cfquery name="u" datasource="#Application.web_user#">
+<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select grp.agent_name
 	from
 		preferred_agent_name grp,
@@ -59,7 +59,7 @@
 	--->
 	<cfset DEgrp = left(u.agent_name,8)>
 	<cfset DEgrp = "#DEgrp# Entry">
-	<cfquery name="entGrp" datasource="#Application.web_user#">
+	<cfquery name="entGrp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select usr.agent_name
 	from
 		preferred_agent_name grp,
@@ -145,7 +145,7 @@ Roll yer own:
 	where enteredby IN (#entBy#)">
 <cfset sql = "#sql# 	 
 	ORDER BY #order_by# #order_order#">
-<cfquery name="data" datasource="#Application.web_user#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#	
 </cfquery>
 <cfset rowNum = 1>

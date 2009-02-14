@@ -8,7 +8,7 @@
 	
 	<cfset result="success">
 	<cftry>
-	<cfquery name="upLoan" datasource="#Application.web_user#">
+	<cfquery name="upLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_loan_item set
 		APPROVAL_STATUS='#status#'
 		where USER_LOAN_ID = #loanid# and
@@ -28,7 +28,7 @@
 	
 	<cfset result="success">
 	<cftry>
-	<cfquery name="upLoan" datasource="#Application.web_user#">
+	<cfquery name="upLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_loan_item set
 		ADMIN_REMARK='#remark#'
 		where USER_LOAN_ID = #loanid# and
@@ -47,7 +47,7 @@
 	<cfargument name="num" type="numeric" required="yes">
 	<cfargument name="suf" type="string" required="no">
 	<cftry>
-		<cfquery name="result" datasource="#Application.web_user#">
+		<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				trans.transaction_id as transaction_id, 
 				loan_type, 
@@ -83,20 +83,20 @@
 				</cfif>
 		</cfquery>
 		<cfif #result.recordcount# is 0>
-			<cfquery name="result" datasource="#Application.web_user#">
+			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 				0 as transaction_id
 				from dual
 			</cfquery>
 		<cfelseif #result.recordcount# gt 1>
-			<cfquery name="result" datasource="#Application.web_user#">
+			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 				-99999 as transaction_id
 				from dual
 			</cfquery>
 		</cfif>
 		<cfcatch>
-			<cfquery name="result" datasource="#Application.web_user#">
+			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 				-1 as transaction_id
 				from dual
@@ -113,7 +113,7 @@
 	<cfargument name="prefx" type="string" required="yes">
 	
 	<cfset y = "#dateformat(now(), "yyyy")#">
-	<cfquery name="result" datasource="#Application.web_user#">
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			'#y#' as accn_num_prefix,
 			decode(max(accn_num),NULL,'1',max(accn_num) + 1) as nan
@@ -134,7 +134,7 @@
 <cffunction name="getLoan" returntype="query">
 	<cfargument name="inst" type="string" required="yes">
 	<cfset y = "#dateformat(now(), "yyyy")#">
-	<cfquery name="result" datasource="#Application.web_user#">
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			'#y#' as loan_num_prefix,
 			decode(max(loan_num),NULL,'1',max(loan_num) + 1) as nln
@@ -324,7 +324,7 @@
 <!------------------------------------->
 
 <cffunction name="getContacts" returntype="string">
-	<cfquery name="contacts" datasource="#Application.web_user#">
+	<cfquery name="contacts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			collection_contact_id,
 			contact_role,
@@ -346,7 +346,7 @@
 <cffunction name="getCollInstFromCollId" returntype="string">
 	<cfargument name="collid" type="numeric" required="yes">
 	<cftry>
-		<cfquery name="getCollId" datasource="#Application.web_user#">
+		<cfquery name="getCollId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select collection_cde, institution_acronym from
 			collection where collection_id = #collid#
 		</cfquery>
@@ -372,7 +372,7 @@
 	<cfset theCollObjId = mid(theName,hPos + 2,len(theName) - hPos)>
 	<cfset result="#theName#">
 	<cftry>
-		<cfquery name="upBulk" datasource="#Application.web_user#">
+		<cfquery name="upBulk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE bulkloader SET #theField# = '#theValue#'
 			WHERE collection_object_id = #theCollObjId#
 		</cfquery>

@@ -72,7 +72,7 @@ sho err
 <CFINclude template="/includes/functionLib.cfm">
 <!--- no security --->
 <cfif #action# is "nothing">
-<cfquery name="t" datasource="#Application.web_user#">
+<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select column_name from all_tab_cols where 
 	table_name='CF_TEMP_GEOREF' 
 	and column_name not in (
@@ -119,7 +119,7 @@ Step 1: Upload a comma-delimited text file (csv). Save the following code as a C
 <cfif #action# is "getFile">
 <cfoutput>
 	<!--- put this in a temp table --->
-	<cfquery name="killOld" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		delete from CF_TEMP_GEOREF
 	</cfquery>
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
@@ -141,7 +141,7 @@ Step 1: Upload a comma-delimited text file (csv). Save the following code as a C
 		</cfif>	
 		<cfif len(#colVals#) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
-			<cfquery name="ins" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				insert into CF_TEMP_GEOREF (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
@@ -161,12 +161,12 @@ Step 1: Upload a comma-delimited text file (csv). Save the following code as a C
 <!------------------------------------------------------->
 <cfif #action# is "validate">
 <cfoutput>
-	<cfquery name="ins" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update CF_TEMP_GEOREF set status='invalid ACCEPTED_LAT_LONG_FG'
 		where ACCEPTED_LAT_LONG_FG not in (1,0)
 	</cfquery>
 	
-	<cfquery name="data" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from  CF_TEMP_GEOREF where status is null
 	</cfquery>
 	<cfloop query="data">
@@ -174,7 +174,7 @@ Step 1: Upload a comma-delimited text file (csv). Save the following code as a C
 		<br>trim:max_error_distance:#trim(max_error_distance)#<br>
 		<cfset problem="">
 		<cfif #other_id_type# is not "catalog number">
-			<cfquery name="collObj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					SELECT 
 						coll_obj_other_id_num.collection_object_id
 					FROM
@@ -190,7 +190,7 @@ Step 1: Upload a comma-delimited text file (csv). Save the following code as a C
 						display_value = '#trim(other_id_number)#'
 				</cfquery>
 			<cfelse>
-				<cfquery name="collObj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					SELECT 
 						collection_object_id
 					FROM
@@ -217,12 +217,12 @@ Step 1: Upload a comma-delimited text file (csv). Save the following code as a C
 					<cfset problem = "#data.institution_acronym# #data.collection_cde# #data.other_id_type# #data.other_id_number# matched #collObj.recordcount# records.">
 				</cfif>
 			<cfelse>
-				<cfquery name="insColl" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					UPDATE CF_TEMP_GEOREF SET collection_object_id = #collObj.collection_object_id# where
 					key = #key#
 				</cfquery>
 			</cfif>
-			<cfquery name="q" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select distinct agent_id from agent_name where agent_name='#DETERMINED_BY_AGENT#'
 			</cfquery>
 			<cfif #q.recordcount# is 0>
@@ -232,12 +232,12 @@ Step 1: Upload a comma-delimited text file (csv). Save the following code as a C
 					<cfset problem = "#problem#; #DETERMINED_BY_AGENT# matched #q.recordcount# records">
 				</cfif>
 			<cfelse>
-				<cfquery name="insColl" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					UPDATE CF_TEMP_GEOREF SET DETERMINED_BY_AGENT_ID = #q.agent_id# where
 					key = #key#
 				</cfquery>
 			</cfif>
-            <cfquery name="q" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+            <cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select count(*) c from ctdatum where datum='#datum#'
 			</cfquery>            
 			<cfif #q.c# neq 1>
@@ -247,7 +247,7 @@ Step 1: Upload a comma-delimited text file (csv). Save the following code as a C
 					<cfset problem = "#problem#; #datum# matched #q.c# records">
 				</cfif>
 			</cfif>
-			<cfquery name="q" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select count(*) c from ctlat_long_error_units where LAT_LONG_ERROR_UNITS='#MAX_ERROR_UNITS#'
 			</cfquery>            
 			<cfif #q.c# neq 1>
@@ -257,7 +257,7 @@ Step 1: Upload a comma-delimited text file (csv). Save the following code as a C
 					<cfset problem = "#problem#; #MAX_ERROR_UNITS# matched #q.c# records">
 				</cfif>
 			</cfif>
-			<cfquery name="q" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select count(*) c from ctGEOREFMETHOD where GEOREFMETHOD='#GEOREFMETHOD#'
 			</cfquery>            
 			<cfif #q.c# neq 1>
@@ -267,7 +267,7 @@ Step 1: Upload a comma-delimited text file (csv). Save the following code as a C
 					<cfset problem = "#problem#; #GEOREFMETHOD# matched #q.c# records">
 				</cfif>
 			</cfif>
-			<cfquery name="q" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select count(*) c from ctVERIFICATIONSTATUS where VERIFICATIONSTATUS='#VERIFICATIONSTATUS#'
 			</cfquery>     
 			<cfif #q.c# neq 1>
@@ -327,14 +327,14 @@ Step 1: Upload a comma-delimited text file (csv). Save the following code as a C
 				</cfif>
 			</cfif>
 			<cfif len(#problem#) gt 0>
-				<cfquery name="insColl" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					UPDATE CF_TEMP_GEOREF SET status = '#problem#' where
 					key = #key#
 				</cfquery>
 			</cfif>
 			
 		</cfloop>
-	<cfquery name="done" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="done" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from  CF_TEMP_GEOREF
 	</cfquery>
 	<cfdump var=#done#>
@@ -352,14 +352,14 @@ Step 1: Upload a comma-delimited text file (csv). Save the following code as a C
 <cfoutput>
 	
 		
-	<cfquery name="getTempData" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from CF_TEMP_GEOREF
 	</cfquery>
 	
 	<cftransaction>
 	<cfloop query="getTempData">
 		<!--- get locality data from the current locality --->
-		<cfquery name="cd" datasource="#Application.web_user#">
+		<cfquery name="cd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				locality.LOCALITY_ID,
 				GEOG_AUTH_REC_ID,
@@ -434,7 +434,7 @@ Step 1: Upload a comma-delimited text file (csv). Save the following code as a C
 			 MAX_ERROR_UNITS ||':'|| EXTENT ||':'|| GPSACCURACY ||':'|| SPATIALFIT ||':' = '#coordStatStr#'">
 			 <br>
 			 sql:#sql#<br>
-		<cfquery name="itsThere" datasource="#Application.web_user#">
+		<cfquery name="itsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
 		<cfif isdefined("itsThere.locality_id") and len(#itsThere.locality_id#) gt 0>

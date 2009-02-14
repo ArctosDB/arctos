@@ -12,5 +12,5 @@
    type = "Access_Violation"
    message = "Forbidden"
    detail = "Someone found a locked form."
-   errorCode = "99928786513 "
+   errorCode = "403 "
    extendedInfo = "#errortext#">

@@ -39,6 +39,7 @@
 			//alert(status);
 			var currentStatus= theStatusBox.innerHTML;
 			if (status == 'success') {
+				document.getElementById('counter').innerHTML=parseInt(document.getElementById('counter').innerHTML)+1;
 				//alert('yippee'+status);
 				//theStatusBox.className='green';
 				theStatusBox.innerHTML = '<div class="green">' + message + '</div>' + currentStatus;
@@ -104,7 +105,7 @@
 		}
 </script>
 <cfoutput>
-
+Containers Moved:<span id="counter" style="background-color:green">0</span>
 <table>
 	<tr>
 	<form name="moveIt" onsubmit="moveThisOne(); return false;">

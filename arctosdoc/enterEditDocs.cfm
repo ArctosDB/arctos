@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_helpHeader.cfm">
-<cfquery name="isAuth" datasource="#Application.web_user#">
+<cfquery name="isAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select privs from cf_auth_arctosdoc where username='#session.username#'
 </cfquery>
 <cfif #len(isAuth.privs)# is 0>
@@ -216,10 +216,10 @@ function success_deleteOne (result) {
 <cfif #action# is "manageAccess">
 	<cfoutput>
 	<a href="enterEditDocs.cfm">Manage Data</a>
-		<cfquery name="u" datasource="#Application.web_user#">
+		<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from cf_auth_arctosdoc order by username
 		</cfquery>
-		<cfquery name="ctu" datasource="#Application.web_user#">
+		<cfquery name="ctu" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select username from cf_users
 			where username not in (select username from cf_auth_arctosdoc)
 			order by username

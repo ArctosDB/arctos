@@ -82,7 +82,7 @@
 					</cfif>
 				</cfloop>
 				<font color="##FF0000">Multiple agents matched the name you typed. Some possibilities are:</font>			  
-				<cfquery name="findNames" datasource="#Application.web_user#">
+				<cfquery name="findNames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					SELECT 
 						agent_name, 
 						agent_name_type,

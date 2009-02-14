@@ -41,17 +41,10 @@ function success_changefancyCOID (result) {
 
 </script>
 <cfoutput>
-<cfif len(#session.exclusive_collection_id#) gt 0>
-	<cfset oidTable = "cCTCOLL_OTHER_ID_TYPE#session.exclusive_collection_id#">
-<cfelse>
-	<cfset oidTable = "CTCOLL_OTHER_ID_TYPE">
-</cfif>
-<cfset myId=session.CustomOtherIdentifier>
-<cfset mcid=session.exclusive_collection_id>
-<cfquery name="OtherIdType" datasource="#Application.web_user#">
-	select distinct(other_id_type) FROM #oidTable# ORDER BY other_Id_Type
+<cfquery name="OtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select distinct(other_id_type) FROM CTCOLL_OTHER_ID_TYPE ORDER BY other_Id_Type
 </cfquery>
-<cfquery name="collid" datasource="#Application.web_user#">
+<cfquery name="collid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection_id,collection  from collection
 	order by collection
 </cfquery>
@@ -73,7 +66,7 @@ function success_changefancyCOID (result) {
 				<option value="">None</option>
 				<cfloop query="OtherIdType">
 					<option 
-						<cfif myId is other_id_type>selected="selected"</cfif>
+						<cfif session.CustomOtherIdentifier is other_id_type>selected="selected"</cfif>
 						value="#other_id_type#">#other_id_type#</option>
 				</cfloop> 
 			</select>
@@ -100,7 +93,7 @@ function success_changefancyCOID (result) {
 				onchange="this.className='red';changeexclusive_collection_id(this.value);" size="1">
 			 	<option value="">All</option>
 			  	<cfloop query="collid"> 
-					<option <cfif #mcid# is "#collection_id#"> selected=selected </cfif> value="#collection_id#">#collection#</option>
+					<option <cfif session.exclusive_collection_id is "#collection_id#"> selected="selected" </cfif> value="#collection_id#">#collection#</option>
 			  	</cfloop> 
 			</select>
 		</td>

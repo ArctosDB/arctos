@@ -3,29 +3,26 @@
 <cfif not isdefined("project_id")>
 	<cfset project_id = -1>
 </cfif>
-<cfquery name="cttrans_agent_role" datasource="#Application.web_user#">
+<cfquery name="cttrans_agent_role" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(trans_agent_role)  from cttrans_agent_role order by trans_agent_role
 </cfquery>
-<cfquery name="ctcoll" datasource="#Application.web_user#">
-	select collection_cde from ctcollection_cde
+<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select collection,collection_id from collection order by collection
 </cfquery>
-<cfquery name="ctStatus" datasource="#Application.web_user#">
-	select accn_status from ctaccn_status
+<cfquery name="ctStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select accn_status from ctaccn_status order by accn_status
 </cfquery>
-<cfquery name="ctType" datasource="#Application.web_user#">
-	select accn_type from ctaccn_type
+<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select accn_type from ctaccn_type order by accn_type
 </cfquery>
-<cfquery name="ctPermitType" datasource="#Application.web_user#">
-	select * from ctpermit_type
-</cfquery>
-<cfquery name="ctInst" datasource="#Application.web_user#">
-	select distinct(institution_acronym)  from collection
+<cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select * from ctpermit_type order by permit_type
 </cfquery>
 <!-------------------------------------------------------------------->
 <cfif #Action# is "edit">
 	<cfoutput>
 	<cfset title="Edit Accession">
-		<cfquery name="accnData" datasource="#Application.web_user#">
+		<cfquery name="accnData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT
 				trans.transaction_id,
 				accn_number,
@@ -36,17 +33,20 @@
 				received_agent_id,
 				trans_remarks,
 				trans_date,
-				institution_acronym,
+				collection,
+				trans.collection_id,
 				CORRESP_FG,
 				concattransagent(trans.transaction_id,'entered by') enteredby
 			FROM
 				trans, 
-				accn
+				accn,
+				collection
 			WHERE
 				trans.transaction_id = accn.transaction_id AND
+				trans.collection_id=collection.collection_id and
 				trans.transaction_id = #transaction_id#
 		</cfquery>
-		<cfquery name="transAgents" datasource="#Application.web_user#">
+		<cfquery name="transAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				trans_agent_id,
 				trans_agent.agent_id, 
@@ -72,16 +72,15 @@
 <form action="editAccn.cfm" method="post" name="editAccn">
 <input type="hidden" name="Action" value="saveChanges">
 <input type="hidden" name="transaction_id" value="#transaction_id#">
-
-		<cfset tIA=#institution_acronym#>
+<cfset tIA=collection_id>
 <table>
 	<tr>
 		<td align="right">
-			<label for="institution_acronym">Institution:</label>
-			<select name="institution_acronym" size="1"  class="reqdClr" id="institution_acronym">
-				<cfloop query="ctInst">
-					<option <cfif #ctInst.institution_acronym# is #tIA#> selected </cfif>
-					value="#ctInst.institution_acronym#">#ctInst.institution_acronym#</option>
+			<label for="collection_id">Collection:</label>
+			<select name="collection_id" size="1"  class="reqdClr" id="collection_id">
+				<cfloop query="ctcoll">
+					<option <cfif #ctcoll.collection_id# is #tIA#> selected </cfif>
+					value="#ctcoll.collection_id#">#ctcoll.collection#</option>
 				</cfloop>
 			</select>
 		</td>
@@ -114,7 +113,7 @@
 		<td rowspan="99" valign="top">
 			<strong>Projects associated with this Accn:</strong>
 			<ul>
-				<cfquery name="projs" datasource="#Application.web_user#">
+				<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select project_name, project.project_id from project,
 					project_trans where 
 					project_trans.project_id =  project.project_id
@@ -235,7 +234,7 @@
 		
 		 <input type="button" value="Specimen List" class="lnkBtn"
    onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-   onclick = "window.open('SpecimenResults.cfm?accn_trans_id=#transaction_id#','#session.target#');">	
+   onclick = "window.open('SpecimenResults.cfm?accn_trans_id=#transaction_id#');">	
    
     <input type="button" value="BerkeleyMapper" class="lnkBtn"
    onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
@@ -246,7 +245,7 @@
 
 </form>
 </cfoutput>
-<cfquery name="getPermits" datasource="#Application.web_user#">
+<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
 		permit.permit_id,
 		issuedBy.agent_name as IssuedByAgent,
@@ -316,11 +315,11 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 			<span class="smaller">&nbsp;Exact Match?</span> <input type="checkbox" name="exactAccnNumMatch" value="1">
 		</td>
 		<td align="right">
-			<label  for="institution_acronym">Institution</label>
-			<select name="institution_acronym" size="1" id="institution_acronym">
+			<label  for="collection_id">Collection</label>
+			<select name="collection_id" size="1" id="collection_id">
 				<option value=""></option>
-					<cfloop query="ctInst">
-						<option value="#ctInst.institution_acronym#">#ctInst.institution_acronym#</option>
+					<cfloop query="ctcoll">
+						<option value="#ctcoll.collection_id#">#ctcoll.collection#</option>
 					</cfloop>
 			</select>
 		</td>
@@ -490,7 +489,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 
 <input type="button" value="Add Specimens to an Accn" class="lnkBtn"
    onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-   onclick = "window.open('SpecimenSearch.cfm?Action=addAccn','#session.target#');">	
+   onclick = "window.open('SpecimenSearch.cfm?Action=addAccn');">	
 
 	
 		</td>
@@ -515,7 +514,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 		trans_remarks,
 		issuedTo.agent_name as issuedTo,
 		issuedBy.agent_name as issuedBy,
-		institution_acronym,
+		collection,
 		concattransagent(trans.transaction_id,'entered by') ENTAGENT,
 		concattransagent(trans.transaction_id,'received from') RECFROMAGENT">
 	<cfset frm=" from 
@@ -524,13 +523,15 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 		permit_trans,
 		permit,
 		preferred_agent_name issuedBy,
-		preferred_agent_name issuedTo
+		preferred_agent_name issuedTo,
+		collection
 		">
 	<cfset sql = "where accn.transaction_id = trans.transaction_id
 		and trans.transaction_id = permit_trans.transaction_id (+)
 		and permit_trans.permit_id = permit.permit_id (+)
 		and permit.issued_by_agent_id = issuedBy.agent_id (+)
 		and permit.issued_to_agent_id = issuedTo.agent_id (+)
+		and trans.collection_id=collection.collection_id
 	">
 		
 	<cfif isdefined("trans_agent_role_1") AND len(#trans_agent_role_1#) gt 0>
@@ -576,8 +577,8 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 		<cfset sql = "#sql# AND upper(trans_agent_name_3.agent_name) like '%#ucase(agent_3)#%'">
 	</cfif>
 	
-		<cfif isdefined("institution_acronym") and len(#institution_acronym#) gt 0>
-			<cfset sql = "#sql# AND institution_acronym = '#institution_acronym#'">
+		<cfif isdefined("collection_id") and len(#collection_id#) gt 0>
+			<cfset sql = "#sql# AND trans.collection_id = #collection_id#">
 		</cfif>
 		<cfif  isdefined("accn_number") and len(#accn_number#) gt 0>
 			<cfif isdefined("exactAccnNumMatch") and #exactAccnNumMatch# is 1>
@@ -659,7 +660,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 <hr />	
 --->
 
-	<cfquery name="getAccns" datasource="#Application.web_user#">
+	<cfquery name="getAccns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(thisSQL)#
 	</cfquery>
 		
@@ -669,7 +670,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 		Nothing matched your search criteria.
 	<cfelse>
 		<cfoutput>
-		<a href="/SpecimenResults.cfm?accn_permit_trans_id=#valuelist(getAccns.transaction_id)#">
+		<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(getAccns.transaction_id)#">
 			View all items in these Accessions</a>
 		</cfoutput>
 	</cfif>
@@ -685,10 +686,10 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 								class="lnkBtn"
 								onmouseover="this.className='lnkBtn btnhov'" 
 								onmouseout="this.className='lnkBtn'"
-								 onclick = "window.open('Project.cfm?Action=addTrans&project_id=#project_id#&transaction_id=#transaction_id#','#session.target#');">	
+								 onclick = "window.open('Project.cfm?Action=addTrans&project_id=#project_id#&transaction_id=#transaction_id#');">	
 						<cfelse>
-							<a href="editAccn.cfm?Action=edit&transaction_id=#transaction_id#"  
-								target="#session.target#"><strong>#institution_acronym# #accn_number#</strong></a>
+							<a href="editAccn.cfm?Action=edit&transaction_id=#transaction_id#"
+								><strong>#collection# #accn_number#</strong></a>
 							<font size="-1">(#accn_status#)</font>
 						</cfif> 
 					</td>
@@ -733,7 +734,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "delePermit">
 	<cfoutput>
-		<cfquery name="killPerm" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="killPerm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM permit_trans WHERE transaction_id = #transaction_id# and 
 			permit_id=#permit_id#
 		</cfquery>
@@ -746,14 +747,14 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 		<cftransaction>
 			<!--- see if they're adding project --->
 			<cfif isdefined("project_id") and len(#project_id#) gt 0>
-				<cfquery name="newProj" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="newProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					INSERT INTO project_trans (
 						project_id, transaction_id)
 					VALUES (
 						#project_id#,#transaction_id#)
 				</cfquery>
 			</cfif>
-			<cfquery name="updateAccn" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="updateAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				UPDATE accn SET
 					ACCN_TYPE = '#accn_type#',
 					ACCN_NUMber = '#ACCN_NUMber#',
@@ -761,10 +762,11 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 					ACCN_STATUS = '#accn_status#' 
 					WHERE transaction_id = #transaction_id#
 			</cfquery>
-			<cfquery name="updateTrans" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="updateTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				UPDATE trans SET
 			 		transaction_id = #transaction_id#
-					,TRANSACTION_TYPE = 'accn'
+					,TRANSACTION_TYPE = 'accn',
+					collection_id=#collection_id#
 					<cfif len(#NATURE_OF_MATERIAL#) gt 0>
 						,NATURE_OF_MATERIAL = '#NATURE_OF_MATERIAL#'
 					</cfif>
@@ -775,21 +777,21 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 					</cfif> 
 				WHERE transaction_id = #transaction_id#
 			</cfquery>
-			<cfquery name="wutsThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select * from trans_agent where transaction_id=#transaction_id#
 				and trans_agent_role !='entered by'
 			</cfquery>
 			<cfloop query="wutsThere">
 				<!--- first, see if the deleted - if so, nothing else matters --->
 				<cfif isdefined("del_agnt_#trans_agent_id#")>
-					<cfquery name="wutsThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						delete from trans_agent where trans_agent_id=#trans_agent_id#
 					</cfquery>
 				<cfelse>
 					<!--- update, just in case --->
 					<cfset thisAgentId = evaluate("trans_agent_id_" & trans_agent_id)>
 					<cfset thisRole = evaluate("trans_agent_role_" & trans_agent_id)>
-					<cfquery name="wutsThere" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						update trans_agent set
 							agent_id = #thisAgentId#,
 							trans_agent_role = '#thisRole#'
@@ -799,7 +801,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 				</cfif>
 			</cfloop>
 			<cfif isdefined("new_trans_agent_id") and len(#new_trans_agent_id#) gt 0>
-				<cfquery name="newAgent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					insert into trans_agent (
 						transaction_id,
 						agent_id,

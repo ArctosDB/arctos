@@ -1,11 +1,12 @@
 <cfinclude template = "includes/_header.cfm">
+<script src="/includes/sorttable.js"></script>
 <cfset title="Administer Users">
 <form action="AdminUsers.cfm" method="post">
 	<input type="hidden" name="Action" value="list">
 	Find a user: <input name="username">&nbsp;<input type="submit" value="Find">
 </form>
 <cfif #Action# is "list">
-	<cfquery name="getUsers" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 			username,
 			upper(username) as ucasename,
@@ -22,10 +23,26 @@
 			rights, ucasename
 	</cfquery>
 	<br>Select a user to administer<br>
-	<table>
+<table border="1" id="t" class="sortable">
+		<tr>
+			<th>Username</th>
+			<th>Collections</th>
+			<th>Info</th>
+		</tr>
 	<cfoutput query="getUsers">
-		  <tr>
+		  <cfquery name="roles" datasource="uam_god">
+			select 
+				granted_role role_name
+			from 
+				dba_role_privs,
+				collection
+			where
+				upper(dba_role_privs.granted_role) = upper(collection.institution_acronym) || '_' || upper(collection.collection_cde) and
+				upper(grantee) = '#ucasename#'
+		</cfquery>
+		<tr>
 			 	<td><a href="AdminUsers.cfm?action=edit&username=#username#">#username#</a></td>
+			 	<td>#valuelist(roles.role_name)#</td>
 				<td>#FIRST_NAME# #MIDDLE_NAME# #LAST_NAME#: #AFFILIATION# (#EMAIL#)</td>
 			 </tr>
 	</cfoutput>
@@ -52,7 +69,7 @@
 </cfif>
 <!-------------------------------------------------->
 <cfif #Action# is "edit">
-	<cfquery name="getUsers" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT * FROM cf_users
 		left outer join cf_user_data on (cf_users.user_id = cf_user_data.user_id)
 		 where username = '#username#'
@@ -84,7 +101,7 @@
 		<input type="hidden" name="orig_username" value="#getUsers.username#">
 <table>
 	<tr>
-		<td>
+		<td valign="top">
 		
 <table border="1">
   <tr>
@@ -130,10 +147,10 @@
 </table>
 </form>
 
-<cfquery name="isDbUser" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="isDbUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select username from all_users where username='#ucase(username)#'
 </cfquery>
-<cfquery name="hasInvite" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="hasInvite" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select user_id,allow from temp_allow_cf_user where user_id=#getUsers.user_id#
 </cfquery>
 		</td>
@@ -172,16 +189,15 @@
 							</cfloop>
 						</select>
 				</td>
-				<td><input type="submit" 
-					value="Grant Role" 
-					class="savBtn"
-					onmouseover="this.className='savBtn btnhov'"
-					onmouseout="this.className='savBtn'">
+				<td>
+					<input type="submit" 
+						value="Grant Role" 
+						class="savBtn"
+						onmouseover="this.className='savBtn btnhov'"
+						onmouseout="this.className='savBtn'">
 					<a href="Admin/user_roles.cfm"><img src="/images/info.gif" border="0" /></a>
-					
 				</td>
-				
-					</form>
+			</form>
 			</tr>
 			<cfloop query="roles">
 				<tr>
@@ -195,6 +211,63 @@
 			</cfloop>
 		</table>
 		</td>
+		<cfquery name="user_croles" datasource="uam_god">
+			select granted_role role_name
+			from 
+			dba_role_privs,
+			cf_collection
+			where
+			upper(dba_role_privs.granted_role) = upper(cf_collection.portal_name) and
+			upper(grantee) = '#ucase(username)#'
+			order by granted_role
+		</cfquery>
+		<cfquery name="croles" datasource="uam_god">
+			select granted_role role_name
+			from 
+			dba_role_privs,
+			cf_collection
+			where
+			upper(dba_role_privs.granted_role) = upper(cf_collection.portal_name)
+			group by granted_role
+			order by granted_role
+		</cfquery>
+		<td valign="top">
+			<table border>
+				<tr>
+					<th>Collection</th>
+					<th>Access</th>
+				</tr>
+				
+				<form name="ar" method="post" action="AdminUsers.cfm">
+					<input type="hidden" name="action" value="addRole" />
+					<input type="hidden" name="username" value="#getUsers.username#" />
+					<tr>
+						<td>
+							<select name="role_name" size="1">
+								<cfloop query="croles">
+									<cfif not listfindnocase(valuelist(user_croles.role_name),role_name)>
+										<option value="#role_name#">#role_name#</option>
+									</cfif>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<input type="submit" 
+								value="Grant Access" 
+								class="savBtn">							
+						</td>
+					</tr>
+				</form>
+				<cfloop query="user_croles">
+						<tr>
+							<td>#role_name#</td>
+							<td>
+								<a href="AdminUsers.cfm?action=remrole&role_name=#role_name#&username=#username#&user_id=#getUsers.user_id#"><img src="/images/del.gif" border="0" /></a>
+							</td>
+						</tr>
+				</cfloop>					
+			</table>
+		</td>
 	</tr>
 </table>
 	</cfoutput>
@@ -202,27 +275,24 @@
 </cfif>
 
 <!---------------------------------------------------->
-
 <cfif #Action# is "adminSet">
 	<cfoutput>
-		<cfquery name="gpw" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="gpw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from temp_allow_cf_user where user_id=#user_id#
 		</cfquery>
 		<cflocation url="AdminUsers.cfm?Action=edit&username=#username#">
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------->
-
 <cfif #Action# is "makeNewDbUser">
 	<cfoutput>
-		<cfquery name="gpw" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="gpw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			insert into temp_allow_cf_user (user_id,allow) values (#user_id#,1)
 		</cfquery>
 		<cflocation url="AdminUsers.cfm?Action=edit&username=#username#">
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------->
-
 <cfif #Action# is "dbRole">
 	<cfoutput>
 	<a href="AdminUsers.cfm?action=edit&username=#username#">back</a>
@@ -267,7 +337,7 @@
 <cfif #Action# is "runUpdate">
 	<cfoutput>
 	<cfif isdefined("delete") AND #delete# is "delete">
-		<cfquery name="deleteUser" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="deleteUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM cf_users where username = '#username#'
 		</cfquery>
 		<cftry>
@@ -283,7 +353,7 @@
 		</cftry>
 		<cflocation url="AdminUsers.cfm">
 	<cfelse>
-		<cfquery name="updateUser" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="updateUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE cf_users SET
 				<cfif len(#username#) gt 0>
 					username = '#username#'
@@ -309,11 +379,8 @@
                 </cfcatch>
 	        </cftry>
         </cfif>
-        
 		<cflocation url="AdminUsers.cfm?Action=edit&username=#username#">
 	</cfif>
-	
-	
 	</cfoutput>
 </cfif>
 <cfinclude template = "includes/_footer.cfm">

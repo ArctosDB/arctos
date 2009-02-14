@@ -17,7 +17,7 @@
 <cfset p_maxIF = #maxIF#>
 <cfset p_minNK = #minNK#>
 <cfset p_maxNK = #maxNK#>
-	<cfquery name="d" datasource="#Application.web_user#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 		collection_object_id, other_id_num_1,other_id_num_type_1, other_id_num_5,other_id_num_type_5
 		from bulkloader 
@@ -58,7 +58,7 @@
 
 
 <cfif #action# is "doIt">
-	<cfquery name="d" datasource="#Application.web_user#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 		collection_object_id, other_id_num_1,other_id_num_type_1, other_id_num_5,other_id_num_type_5
 		from bulkloader 

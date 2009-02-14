@@ -31,8 +31,8 @@
 <cfoutput>
 		
 	<cfif #mkCont# is "valid" and #mkFluid# is "noTry">
-			<cfquery name="nextContainer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-				SELECT (max(container_id) + 1) AS newid FROM container
+			<cfquery name="nextContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				SELECT sq_container_id.nextval newid FROM dual
 			</cfquery>
 			<cfset container_id = "#nextContainer.newid#">
 			<!--- clean up nulls --->
@@ -75,7 +75,7 @@
 				<cfset number_positions = "null">
 				<cfelse><cfset number_positions = "#number_positions#">
 			</cfif>
-      <cfquery name="setDate" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+      <cfquery name="setDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					alter session set nls_date_format = 'DD-Mon-YYYY HH24:MI:SS'	
 		</cfquery>
 	  <cfset newContainerSQL="INSERT INTO 
@@ -110,7 +110,7 @@
 						0,
 						'#institution_acronym#')">
 				<cftransaction>
-					<cfquery name="newContainer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="newContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						#preservesinglequotes(newContainerSQL)#
 					</cfquery>
 				</cftransaction>
@@ -126,8 +126,8 @@
 			
 		<cfif #mkCont# is "valid" and #mkFluid# is "valid">
 			<!--- Get the next container_id --->
-			<cfquery name="nextContainer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-				SELECT (max(container_id) + 1) AS newid FROM container
+			<cfquery name="nextContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				SELECT sq_container_id.nextval newid FROM dual
 			</cfquery>
 			<cfset container_id = "#nextContainer.newid#">
 			<!--- clean up nulls --->
@@ -214,10 +214,10 @@
 						#concentration#,
 						#fluid_remarks#)">
 	<cftransaction>
-	 	<cfquery name="newFluidContainer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	 	<cfquery name="newFluidContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				#preservesinglequotes(newFlSql)#
 		</cfquery>
-		<cfquery name="newContainer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="newContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						#preservesinglequotes(newContainerSQL)#
 					</cfquery>
 	</cftransaction>
@@ -252,10 +252,10 @@
 
 
 
-<cfquery name="ContType" datasource="#Application.web_user#">
+<cfquery name="ContType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 select container_type as ctContType from ctcontainer_type
 </cfquery>
-<cfquery name="FluidType" datasource="#Application.web_user#">
+<cfquery name="FluidType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 select fluid_type from ctFluid_Type ORDER BY fluid_type
 </cfquery>
 

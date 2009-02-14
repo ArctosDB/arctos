@@ -87,7 +87,7 @@ Then click Save. Changes will process overnight.
 	<input type="hidden" name="action" value="setID">
 	<cfset i=1>
 <cfloop query="folder_identification">
-<cfquery name="g" datasource="#Application.web_user#">
+<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select taxon_name_id from taxonomy where scientific_name='#trim(folder_identification)#'
 </cfquery>
 	<input type="hidden" name="folder_identification_#i#" value="#folder_identification#">

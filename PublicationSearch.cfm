@@ -78,7 +78,7 @@ A publication might also be linked to the project from which it resulted.  We ma
 	<td align="right">
 		Cites&nbsp;Collection:
 	</td>
-	<cfquery name="ctColl" datasource="#Application.web_user#">
+	<cfquery name="ctColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection,collection_id from collection order by collection_id
 	</cfquery>
 	<td>

@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 	<cfoutput>
-			<cfquery name="annotations" datasource="#Application.web_user#">
+			<cfquery name="annotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select
 					permit_id,
 					EXP_DATE,
@@ -40,7 +40,7 @@
 				</cfmail>
 			</cfloop>
 			
-			<cfquery name="expLoan" datasource="#Application.web_user#">
+			<cfquery name="expLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					loan.transaction_id,
 					RETURN_DUE_DATE,

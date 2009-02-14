@@ -111,7 +111,7 @@ into
 	ORDER BY
 		concatsingleotherid(cataloged_item.collection_object_id,'original identifier')
 			">
-	<cfquery name="data" datasource="#Application.web_user#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 

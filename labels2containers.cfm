@@ -15,7 +15,7 @@ To use this form, all of the following must be true:
 </ul>
 	<cfoutput>
 	<table border>
-		<cfquery name="ctContainerType" datasource="#Application.web_user#">
+		<cfquery name="ctContainerType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select distinct(container_type) container_type from ctcontainer_type
 			where container_type <> 'collection object'
 		</cfquery>
@@ -131,13 +131,13 @@ To use this form, all of the following must be true:
 	<cfif len(#barcode_prefix#) gt 0>
 			<cfset sql="#sql# and barcode LIKE '#barcode_prefix#%'">
 		</cfif>
-	<cfquery name="contID" datasource="#Application.web_user#">
+	<cfquery name="contID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 	<hr>
 	<cftransaction>
 	<cfloop query="contID">
-		<cfquery name="upCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update container set container_type='#newContType#'
 			where container_id=#container_id#
 		</cfquery>
@@ -173,12 +173,12 @@ To use this form, all of the following must be true:
 		container_type='#origContType#' AND
 		barcode IN (#inBarcode#)">
 	
-	<cfquery name="contID" datasource="#Application.web_user#">
+	<cfquery name="contID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 	<cftransaction>
 	<cfloop query="contID">
-		<cfquery name="upCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update container set container_type='#newContType#'
 			<cfif len(#DESCRIPTION#) gt 0>
 				,DESCRIPTION='#DESCRIPTION#'

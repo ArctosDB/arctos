@@ -89,7 +89,7 @@ function ahahDone(req, url, target, delay) {
 
 
 
-<cfquery name="session.bob" datasource="#Application.web_user#">
+<cfquery name="session.bob" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT flat.collection_object_id, flat.cat_num, flat.institution_acronym, flat.collection_cde, flat.collection_id, flat.parts, flat.sex, flat.scientific_name, flat.country, flat.state_prov, flat.spec_locality, flat.verbatim_date ,concatSingleOtherId(flat.collection_object_id,'ALAAC') AS CustomID, to_number(ConcatSingleOtherIdInt(flat.collection_object_id,'ALAAC')) AS CustomIDInt,dec_lat,dec_long FROM flat INNER JOIN cataloged_item ON (flat.collection_object_id =cataloged_item.collection_object_id) inner join taxa_terms on (flat.collection_object_id = taxa_terms.collection_object_id) WHERE
 	 flat.collection_object_id IS NOT NULL AND taxa_terms.taxa_term like '%PHOCA HISPIDA%'
 	 and cataloged_item.cat_num < 10000 and  cataloged_item.cat_num > 1

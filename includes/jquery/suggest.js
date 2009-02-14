@@ -118,19 +118,20 @@
 					
 					cached = checkCache(q);
 					
-					if (cached) {
+					//if (cached) {
 					
-						displayItems(cached['items']);
+					//	displayItems(cached['items']);
 						
-					} else {
+					//} else {
 						if (options.typeField) {
 							var typeValue=document.getElementById(options.typeField).value;
-							var newSource=options.source + '?t=' + typeValue;
+							var newSource=options.source + '&t=' + typeValue;
 						} else if(options.ctName && options.ctField){
-							var newSource=options.source + '?t=' + options.ctName + '&f=' + options.ctField;
+							var newSource=options.source + '&t=' + options.ctName + '&f=' + options.ctField;
 						} else {
 							var newSource=options.source;
 						}
+						//alert(options.typeField + '::' + newSource);
 						//$.get(options.source, {q: q}, function(txt) {
 						$.get(newSource, {q: q}, function(txt) {
 							$results.hide();
@@ -142,7 +143,7 @@
 							
 						});
 						
-					}
+					//}
 					
 				} else {
 				

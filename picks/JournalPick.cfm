@@ -40,7 +40,7 @@
 		</cfif>
 		
 		
-		<cfquery name="getJournal" datasource="#Application.web_user#">
+		<cfquery name="getJournal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
 		</cfoutput>

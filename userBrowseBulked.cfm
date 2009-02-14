@@ -13,7 +13,7 @@
 	<cfset order_order = "ASC">
 </cfif>
 <cfoutput>
-<cfquery name="data" datasource="#Application.web_user#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from bulkloader
 	where enteredby = '#session.username#'
 	ORDER BY #order_by# #order_order#

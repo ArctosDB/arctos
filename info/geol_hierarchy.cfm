@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif #action# is "edit">
 <cfoutput>
-	<cfquery name="c"  datasource="#application.web_user#">
+	<cfquery name="c"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from geology_attribute_hierarchy where geology_attribute_hierarchy_id=#geology_attribute_hierarchy_id#
 	</cfquery>
 	<form name="ins" method="post" action="geol_hierarchy.cfm">
@@ -48,7 +48,7 @@
 
 <cfif #action# is "nothing">
 <cfset title="Geology Attribute Hierarchy">
-<cfquery name="cData" datasource="#application.web_user#">
+<cfquery name="cData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	 SELECT  
 	 	level,
 	 	geology_attribute_hierarchy_id,
@@ -61,7 +61,7 @@
 	CONNECT BY PRIOR 
 		geology_attribute_hierarchy_id = parent_id
 </cfquery>
-<cfquery name="terms"  datasource="#application.web_user#">
+<cfquery name="terms"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select geology_attribute_hierarchy_id,
 	attribute_value || ' (' || attribute || ')' attribute
 	 from geology_attribute_hierarchy  order by attribute
@@ -160,7 +160,7 @@ Create Hierarchies:
 <!---------------------------------------------------->
 <cfif #action# is "delete">
 	<cfoutput>
-		<cfquery name="killGeog" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="killGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from  geology_attribute_hierarchy where geology_attribute_hierarchy_id=#geology_attribute_hierarchy_id#
 		</cfquery>
 		<cflocation url="geol_hierarchy.cfm" addtoken="false">
@@ -171,7 +171,7 @@ Create Hierarchies:
 <cfif #action# is "saveEdit">
 	<cfoutput>
 
-	<cfquery name="changeGeog" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="changeGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update geology_attribute_hierarchy set
 		attribute='#attribute#',
 		attribute_value='#attribute_value#',
@@ -187,7 +187,7 @@ Create Hierarchies:
 <cfif #action# is "newTerm">
 	<cfoutput>
 
-	<cfquery name="changeGeog" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="changeGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		insert into geology_attribute_hierarchy (attribute,attribute_value,usable_value_fg,description) 
 		values
 		 ('#attribute#','#attribute_value#',#usable_value_fg#,'#description#')
@@ -198,7 +198,7 @@ Create Hierarchies:
 <!---------------------------------------------------->
 <cfif #action# is "newReln">
 	<cfoutput>
-	<cfquery name="changeGeog" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="changeGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update geology_attribute_hierarchy set parent_id=<cfif parent is "">NULL<cfelse>#parent#</cfif> where geology_attribute_hierarchy_id=#child#
 	</cfquery>
 	<cflocation url="geol_hierarchy.cfm" addtoken="false">

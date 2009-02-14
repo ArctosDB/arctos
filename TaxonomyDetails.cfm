@@ -8,7 +8,7 @@
 <cfset title="Taxon Detail">
 <!--- get taxon name ID if we're passed a scientific name --->
 <cfif isdefined("scientific_name") and len(#scientific_name#) gt 0>
-	<cfquery name="getTID" datasource="#Application.web_user#">
+	<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT taxon_name_id FROM taxonomy WHERE upper(scientific_name)
 		LIKE '#ucase(scientific_name)#'
 	</cfquery>
@@ -21,7 +21,7 @@
 	</cfif>
 </cfif>
 
-<cfquery name="getDetails" datasource="#Application.web_user#">
+<cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
 		taxonomy.TAXON_NAME_ID,
 		taxonomy.VALID_CATALOG_TERM_FG,
@@ -62,8 +62,7 @@
 	<div align="left">
 	  <cfif #VALID_CATALOG_TERM_FG# is 1>
 	      <font size="+1"	>
-		      <a href="SpecimenResults.cfm?taxon_name_id=#taxon_name_id#" 
-		      	target="#session.target#"><I><B>#SCIENTIFIC_NAME#</B></I></a>
+		      <a href="SpecimenResults.cfm?taxon_name_id=#taxon_name_id#"><I><B>#SCIENTIFIC_NAME#</B></I></a>
 			    
 		</font>
 		
@@ -108,7 +107,7 @@
 		Links:
 		<ul>
 			<li>
-				<a href="SpecimenResults.cfm?taxon_name_id=#taxon_name_id#" target="#session.target#">
+				<a href="SpecimenResults.cfm?taxon_name_id=#taxon_name_id#">
 					Search Arctos for <I>#SCIENTIFIC_NAME#</I></a>
 			</li>
 			<li>
@@ -118,16 +117,16 @@
 			
 			<li>
 				<cfset srchName = #replace(scientific_name," ","%20","all")#>
-				<a href="http://www.itis.usda.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all" target="#session.target#"><img src="/images/itis.gif" border="0" width="30">&nbsp;ITIS</a>
+				<a href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all"><img src="/images/itis.gif" border="0" width="30">&nbsp;ITIS</a>
 			</li>
 			<li>
 				<cfset srchName = #replace(scientific_name," ","%20","all")#>
-				<a href="http://www.unep-wcmc.org/isdb/CITES/Taxonomy/tax-species-result.cfm?displaylanguage=eng&Genus=%25#genus#%25&source=animals&Species=#species#" target="#session.target#"><img src="/images/UNEP.jpg" border="0" width="30">&nbsp;UNEP</a>
+				<a href="http://www.unep-wcmc.org/isdb/CITES/Taxonomy/tax-species-result.cfm?displaylanguage=eng&Genus=%25#genus#%25&source=animals&Species=#species#"><img src="/images/UNEP.jpg" border="0" width="30">&nbsp;UNEP</a>
 			</li>
 			
 			<li>
 				<cfset srchName = #replace(scientific_name," ","+","all")#>
-				<a href="http://darwin.zoology.gla.ac.uk/~rpage/portal/main.php?taxon_name=#srchName#&Submit=Go" target="#session.target#">TSE</a>
+				<a href="http://darwin.zoology.gla.ac.uk/~rpage/portal/main.php?taxon_name=#srchName#&Submit=Go">TSE</a>
 			</li>
 		</ul>
 			

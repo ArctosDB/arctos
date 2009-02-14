@@ -16,7 +16,7 @@
 	</table>
 	<!--- see if we have docs yet, die if not
 	<cftry>
-		<cfquery name="isThere" datasource="#Application.web_user#">
+		<cfquery name="isThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select description from #table#
 		</cfquery>
 		<cfcatch>
@@ -26,7 +26,7 @@
 		</cfcatch>
 	</cftry>
 	 ---->
-	<cfquery name="docs" datasource="#Application.web_user#">
+	<cfquery name="docs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from #table#
 	</cfquery>
 	<!--- figure out the name of the field they want info about - already have the table name,

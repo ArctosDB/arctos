@@ -1,4 +1,4 @@
-<cfquery name="relns" datasource="#application.web_user#">
+<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from media_relations,
 	preferred_agent_name
 	where

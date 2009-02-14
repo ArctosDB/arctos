@@ -6,7 +6,6 @@
 </cfif>
 <!----------------------------------------------------------------->
 <cfinclude  template="/includes/_header.cfm"> 
-<cfinclude  template="/includes/functionLib.cfm"> 
 <cffunction name="kmlCircle" access="public" returntype="string" output="false">
      <cfargument
 	     name="centerlat_form"
@@ -120,7 +119,7 @@
 	<cfelse>
 		<cfset dlFile = "kmlfile#cfid##cftoken#.kml">
 	</cfif>
-    <cfquery name="data" datasource="#Application.web_user#">
+    <cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				#flatTableName#.collection_object_id,
 				#flatTableName#.cat_num,
@@ -309,7 +308,7 @@
 		<cfset dlFile = "kmlfile#cfid##cftoken#.kml">
 	</cfif>	
 	<cfif isdefined("mapByLocality") and #mapByLocality# is 1>
-		<cfquery name="data" datasource="#Application.web_user#">
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				#flatTableName#.collection_object_id,
 				#flatTableName#.cat_num,
@@ -343,7 +342,7 @@
 			 		where #flatTableName#.collection_object_id = #table_name#.collection_object_id)
 		</cfquery>
 	<cfelse>
-		<cfquery name="data" datasource="#Application.web_user#">
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				#flatTableName#.collection_object_id,
 				#flatTableName#.cat_num,

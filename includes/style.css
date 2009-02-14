@@ -1,3 +1,76 @@
+.noShow {
+	display:none;
+}
+.doShow {
+	display:block;
+}
+.browserCheck {
+	text-align:center;
+	border:1px dotted #CC0000;
+	font-size:smaller;	
+}
+.goodPW {
+	font-size:smaller;
+	background-color:green;
+	margin-left:.1em;
+	padding:.2em;
+}
+.badPW {
+	font-size:smaller;
+	background-color:red;
+	margin-left:.1em;
+	padding:.2em;
+}
+.showType {
+	font-size:small;
+	color:green;
+	border:1px dotted green;
+	padding-left:5px;
+}
+.pickBox {
+	border:2px solid green;	
+	z-index:2001;
+	background-color:gray;
+	position:absolute;
+	width:50%;
+	top:20%;
+	padding: 12px;
+	left:20%;
+}
+
+.bgDiv {
+	background:#024;
+	height:100%;
+	width:100%;
+	position:absolute;
+	top:0;
+	left:0;
+	opacity:0.8;
+	z-index:2000;
+}
+.mediaLink {
+	padding-left:5px;	
+	color:#2B547E;
+	font-size:small;
+	font-family:Arial, Helvetica, sans-serif;
+	display:block;
+}
+.mediaLink:hover {
+	color:#FF0000;
+	text-decoration: underline;
+}
+.mediaLink:visited {
+	color:#2B547E;
+}
+.ajaxStatus{
+	background-color:yellow;
+	position:absolute;top:5em;right:0%;
+	font-size:small;
+	padding:5px;
+}
+.hdrCredit {
+	font-size:small;
+}
 /*
 jquery suggest stuff
 */
@@ -261,7 +334,16 @@ td#SDCellRight{
 	font-size: small;
 	border:none;	
 }
-
+.popDivControl {
+	position:absolute;
+	top:0px;
+	right:0px;
+	cursor:pointer;
+	color:#2B547E;
+	font-size:.85em;
+	padding:3px;
+	border:1px solid red;
+}
 .windowCloser {
 	float:right;
 	clear:left;
@@ -379,11 +461,25 @@ redCheck{
 	float:right;
 	}
 .error {
+	position:relative;
 	font-size:2em;
 	color:red;
 	border:2px solid red;
 	padding:10px;
-	margin:10px;}
+	margin:10px;
+	background-color:white;
+	z-index:999;}
+.status {
+	position:absolute;
+	top:50%;
+	right:50%;
+	z-index:998;
+	background-color:green;
+	color:white;
+	font-size:large;
+	font-weight:bold;
+	padding:15px;
+}
 #navbar {
 	color: green;
 	border-bottom: 2px solid black;

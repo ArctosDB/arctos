@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfset title="Arctos Holdings">
-<cfquery name="colls" datasource="#Application.web_user#">
+<cfquery name="colls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		collection.collection,
 		collection.collection_id,
@@ -27,7 +27,7 @@
 
 	<h2>Arctos Holdings</h2>
 
-<br />You may choose to set your default collection in your <a href="/myArctos.cfm">Preferences</a>. 
+<br />You may pick a default collection using the Customize link on SpecimenSearch. 
 
 <table border id="t" class="sortable">
 <tr>

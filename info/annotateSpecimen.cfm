@@ -37,9 +37,8 @@
 		
 		
 
-	<cfinclude template="/includes/functionLib.cfm">
 <span onclick="closeAnnotation()" class="windowCloser">Close Annotation Window</span>
-<cfquery name="hasEmail" datasource="#Application.web_user#">
+<cfquery name="hasEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select email from cf_user_data,cf_users
 	where cf_user_data.user_id = cf_users.user_id and
 	cf_users.username='#session.username#'
@@ -54,7 +53,7 @@
 	</div>
 	<cfabort>
 </cfif>
-<cfquery name="d" datasource="#Application.web_user#">
+<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		cataloged_item.collection_object_id,
 		cat_num,
@@ -80,7 +79,7 @@
 		locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id AND
 		cataloged_item.collection_object_id=#collection_object_id#
 </cfquery>
-<cfquery name="prevAnn" datasource="#Application.web_user#">
+<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from specimen_annotations where collection_object_id=#collection_object_id#
 </cfquery>
 <cfloop list="#prevAnn.columnlist#" index="cname">
@@ -98,6 +97,9 @@ Create Annotations for #d.institution_acronym# #d.collection_cde# #d.cat_num#
 <cfset theList = ListDeleteAt(theList, ListFindNoCase(theList,"cf_username"))>
 <cfset theList = ListDeleteAt(theList, ListFindNoCase(theList,"collection_object_id"))>	
 <cfset theList = ListDeleteAt(theList, ListFindNoCase(theList,"annotate_date"))>	
+<cfset theList = ListDeleteAt(theList, ListFindNoCase(theList,"reviewer_agent_id"))>	
+<cfset theList = ListDeleteAt(theList, ListFindNoCase(theList,"reviewed_fg"))>	
+<cfset theList = ListDeleteAt(theList, ListFindNoCase(theList,"reviewer_comment"))>	
 <cfset theList = lcase(theList)	>
 
 <form name="annotate" method="post" action="/info/annotateSpecimen.cfm">
@@ -125,7 +127,7 @@ Create Annotations for #d.institution_acronym# #d.collection_cde# #d.cat_num#
 		</tr>
 		<tr>
 			<td>
-				<div id="p_#element#" class="noshow prevAnnList">
+				<div id="p_#element#" class="noShow prevAnnList">
 					<cfloop query="prevQueryName">
 						#prev_data#<br>
 					</cfloop>
@@ -217,7 +219,7 @@ Create Annotations for #d.institution_acronym# #d.collection_cde# #d.cat_num#
 </cfif>
 <cfif #action# is "insert">
 <cfoutput>
-	<cfquery name="insAnn" datasource="#Application.web_user#">
+	<cfquery name="insAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	insert into specimen_annotations (
 		collection_object_id,
 		scientific_name)

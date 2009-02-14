@@ -5,7 +5,7 @@
 	Current version: #session.arctos_version#
 </cfoutput>
 <cfif #action# is "nothing">
-<cfquery name="vsns" datasource="#Application.web_user#">
+<cfquery name="vsns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from cf_version order by release_date desc
 </cfquery>
 <cfoutput>
@@ -35,7 +35,7 @@
 </cfif>
 <cfif #action# is "edit">
 <cfoutput>
-	<cfquery name="d" datasource="#Application.web_user#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			cf_version.version_id,
 			version_number,

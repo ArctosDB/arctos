@@ -6,7 +6,7 @@
 		<cfif #dayOfMonth# is not 1>
 			This script only runs on the first of the month.
 		<cfelse>
-			<cfquery name="permitExp" datasource="#Application.web_user#">
+			<cfquery name="permitExp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					permit_id,
 					EXP_DATE,
@@ -32,7 +32,7 @@
 				</cfif>
 				<cfif len(#whine#) gt 0>
 					<cfif len(#CONTACT_AGENT_ID#) gt 0>
-						<cfquery name="email" datasource="#Application.web_user#">
+						<cfquery name="email" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							SELECT
 								ADDRESS
 							FROM

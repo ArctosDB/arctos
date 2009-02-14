@@ -3,41 +3,31 @@
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>
 <script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>
-
-
-<cfoutput>
-<cfquery name="getCount" datasource="#Application.web_user#">
+<cfoutput>	
+<cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select count(collection_object_id) as cnt from cataloged_item
-	<cfif len(#session.exclusive_collection_id#) gt 0>
-		,collection
-		WHERE cataloged_item.collection_id = collection.collection_id AND
-		cataloged_item.collection_id = #session.exclusive_collection_id#
-	</cfif>
 </cfquery>
-<cfquery name="hasCanned" datasource="#Application.web_user#">
+<cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select SEARCH_NAME,URL
 	from cf_canned_search,cf_users
 	where cf_users.user_id=cf_canned_search.user_id
 	and username='#session.username#'
 	order by search_name
 </cfquery>
-
-
-
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
 			Access to #getCount.cnt#
 			<cfif len(#session.exclusive_collection_id#) gt 0>
-				<cfquery name="coll" datasource="#Application.web_user#">
+				<cfquery name="coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select collection
 					from collection where
 					collection_id=#session.exclusive_collection_id#
 				</cfquery>
 				<strong>#coll.collection#</strong>
-			records. <a href="searchAll.cfm">Search all collections</a>.
+				records. <a href="all_all">Search all collections</a>.
 			<cfelse>
-			records.
+				records.
 			</cfif>
 		</td>
 		<td style="padding-left:2em;padding-right:2em;">
@@ -72,21 +62,18 @@
 			</span>
 		</td>
 	</tr>
-</table>
-
-
-	
-<cfform method="post" action="SpecimenResults.cfm" name="SpecData">
-
+</table>	
+<cfform method="post" action="SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues()">
 <table border="0">
 	<tr>
 		<td valign="top">
-			<input type="submit" value="Search" class="schBtn"
-				onmouseover="this.className='schBtn btnhov'" onmouseout="this.className='schBtn'">	
+			<input type="submit" value="Search" class="schBtn" onmouseover="this.className='schBtn btnhov'" onmouseout="this.className='schBtn'">
 		</td>
 		<td valign="top">
-			<input type="reset" name="Reset" value="Clear Form" class="clrBtn"
-   				onmouseover="this.className='clrBtn btnhov'" onmouseout="this.className='clrBtn'">
+			<input type="reset" name="Reset" value="Clear Form" class="clrBtn"	onmouseover="this.className='clrBtn btnhov'" onmouseout="this.className='clrBtn'">
+		</td>
+		<td valign="top">
+			<input type="button" name="Previous" value="Use Last Values" class="lnkBtn"	onclick="setPrevSearch()">
 		</td>
 		<td align="right" valign="top">
 			<b>See&nbsp;results&nbsp;as:</b>
@@ -99,10 +86,10 @@
 				<option value="SpecimenResultsSummary.cfm">Specimen Summary</option>
 				<option  value="SpecimenGraph.cfm">Graph</option>
 				<cfif isdefined("session.username") AND (#session.username# is "link" OR #session.username# is "dusty")>
-				<option  value="/CustomPages/Link.cfm">Link's Form</option>
+					<option  value="/CustomPages/Link.cfm">Link's Form</option>
 				</cfif>
 				<cfif isdefined("session.username") AND (#session.username# is "cindy" OR #session.username# is "dusty")>
-				<option  value="/CustomPages/CindyBats.cfm">Cindy's Form</option>
+					<option  value="/CustomPages/CindyBats.cfm">Cindy's Form</option>
 				</cfif>
 			</select>
 		</td>
@@ -126,25 +113,24 @@
 			</div>
 		</td>
 		<td>
-				Show&nbsp;<span class="helpLink" id="observations">Observations?</span>
-				<input type="checkbox" name="showObservations" value="1"
-                    onchange="changeshowObservations(this.checked);"
-                        <cfif #session.showObservations# eq 1> checked="checked" </cfif>>
+			Show&nbsp;<span class="helpLink" id="observations">Observations?</span>
+			<input type="checkbox" name="showObservations" id="showObservations" value="1" onchange="changeshowObservations(this.checked);"<cfif #session.showObservations# eq 1> checked="checked" </cfif>>
 		</td>
 		<td>
-			<span class="helpLink" id="is_tissue">Tissues&nbsp;Only?</span>
-			<input type="checkbox" name="is_tissue" value="1">
+			<span class="helpLink" id="_is_tissue">Tissues&nbsp;Only?</span>
+			<input type="checkbox" name="is_tissue" id="is_tissue" value="1">
 		</td>
 	</tr>
 </table>
 <input type="hidden" name="Action" value="#Action#">
-
 <div class="secDiv">
-	<cfquery name="ctInst" datasource="#Application.web_user#">
+	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT institution_acronym, collection, collection_id FROM collection
+		<!---
 		<cfif len(#session.exclusive_collection_id#) gt 0>
 			WHERE collection_id = #session.exclusive_collection_id#
 		</cfif>
+		--->
 		order by collection
 	</cfquery>
 	<cfif isdefined("collection_id") and len(#collection_id#) gt 0>
@@ -155,11 +141,9 @@
 	<table class="ssrch">
 		<tr>
 			<td colspan="2" class="secHead">
-					<span class="secLabel">Identifiers</span>
-					
-					<span class="secControl" id="c_identifiers"
-						onclick="showHide('identifiers',1)">Show More Options</span>
-					<span class="secControl" id="c_identifiers_cust">Customize</span>
+				<span class="secLabel">Identifiers</span>
+				<span class="secControl" id="c_identifiers"	onclick="showHide('identifiers',1)">Show More Options</span>
+				<span class="secControl" id="c_identifiers_cust">Customize</span>
 			</td>
 		</tr>
 		<tr>
@@ -167,7 +151,7 @@
 				<span class="helpLink" id="collection">Institutional Catalog</span>:
 			</td>
 			<td class="srch">
-				<select name="collection_id" size="1">
+				<select name="collection_id" id="collection_id" size="1">
 					<cfif len(#session.exclusive_collection_id#) is 0>
 						<option value="">All</option>
 					</cfif>
@@ -180,10 +164,10 @@
 				</select>
 				<span class="helpLink" id="cat_num">Number:</span>
 				<cfif #ListContains(session.searchBy, 'bigsearchbox')# gt 0>
-				<textarea name="listcatnum" rows="6" cols="40" wrap="soft"></textarea>
-			<cfelse>
-				<input type="text" name="listcatnum" size="21">
-			</cfif>			
+					<textarea name="listcatnum" id="listcatnum" rows="6" cols="40" wrap="soft"></textarea>
+				<cfelse>
+					<input type="text" name="listcatnum" id="listcatnum" size="21" value="">
+				</cfif>			
 			</td>
 		</tr>
 	<cfif isdefined("session.CustomOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
@@ -193,18 +177,18 @@
 			</td>
 			<td class="srch">
 				<label for="CustomOidOper">Display Value</label>
-				<select name="CustomOidOper" size="1">
+				<select name="CustomOidOper" id="CustomOidOper" size="1">
 					<option value="IS">is</option>
 					<option value="" selected="selected">contains</option>
 					<option value="LIST">in list</option>
 					<option value="BETWEEN">in range</option>								
-				</select>&nbsp;<input type="text" name="CustomIdentifierValue" size="50">
+				</select>&nbsp;<input type="text" name="CustomIdentifierValue" id="CustomIdentifierValue" size="50">
 			</td>
 		</tr>
 		<tr>
 		<td class="lbl">
-		<cfif isdefined("session.fancyCOID") and #session.fancyCOID# is 1>
-			&nbsp;
+			<cfif isdefined("session.fancyCOID") and #session.fancyCOID# is 1>
+				&nbsp;
 		</td>
 			<td class="srch">
 				<table cellpadding="0" cellspacing="0">
@@ -228,24 +212,22 @@
 		</tr>
 	</cfif>
 </table>
-
 <div id="e_identifiers"></div>
 </div>
 <div class="secDiv">
 	<table class="ssrch">
 		<tr>
 			<td colspan="2" class="secHead">
-					<span class="secLabel">Identification and Taxonomy</span>
-					<span class="secControl" id="c_taxonomy"
-						onclick="showHide('taxonomy',1)">Show More Options</span>
+				<span class="secLabel">Identification and Taxonomy</span>
+				<span class="secControl" id="c_taxonomy" onclick="showHide('taxonomy',1)">Show More Options</span>
 			</td>
 		</tr>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="any_taxa_term">Any Taxonomic Element:</span>
+				<span class="helpLink" id="_any_taxa_term">Any Taxonomic Element:</span>
 			</td>
 			<td class="srch">
-				<input type="text" name="any_taxa_term" size="28">
+				<input type="text" name="any_taxa_term" id="any_taxa_term" size="28">
 			</td>
 		</tr>
 	</table>
@@ -255,9 +237,8 @@
 	<table class="ssrch">
 		<tr>
 			<td colspan="2" class="secHead">
-					<span class="secLabel">Locality</span>
-					<span class="secControl" id="c_locality"
-						onclick="showHide('locality',1)">Show More Options</span>
+				<span class="secLabel">Locality</span>
+				<span class="secControl" id="c_locality" onclick="showHide('locality',1)">Show More Options</span>
 			</td>
 		</tr>
 		<tr>
@@ -265,7 +246,7 @@
 				<span class="helpLink" id="any_geog_term">Any&nbsp;Geographic&nbsp;Element:</span>
 			</td>
 			<td class="srch">
-				<input type="text" name="any_geog" size="50">
+				<input type="text" name="any_geog" id="any_geog" size="50">
 			</td>
 		</tr>
 	</table>
@@ -275,9 +256,8 @@
 	<table class="ssrch">
 		<tr>
 			<td colspan="2" class="secHead">
-					<span class="secLabel">Date/Collector</span>
-					<span class="secControl" id="c_collevent"
-						onclick="showHide('collevent',1)">Show More Options</span>
+				<span class="secLabel">Date/Collector</span>
+				<span class="secControl" id="c_collevent" onclick="showHide('collevent',1)">Show More Options</span>
 			</td>
 		</tr>
 		<tr>
@@ -285,31 +265,30 @@
 				<span class="helpLink" id="year_collected">Year Collected:</span>
 			</td>
 			<td class="srch">
-				<input name="begYear" type="text" size="6">&nbsp;
+				<input name="begYear" id="begYear" type="text" size="6">&nbsp;
 				<span class="infoLink" onclick="SpecData.endYear.value=SpecData.begYear.value">-->&nbsp;Copy&nbsp;--></span>
-				&nbsp;<input name="endYear" type="text" size="6">
+				&nbsp;<input name="endYear" id="endYear" type="text" size="6">
 			</td>
 		</tr>
 	</table>
 	<div id="e_collevent"></div>
 </div>
-<cfquery name="Part" datasource="#Application.web_user#">
+<cfquery name="Part" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select part_name from 
-		<cfif len(#session.exclusive_collection_id#) gt 0>
-			cctspecimen_part_name#session.exclusive_collection_id#
-		<cfelse>
-			ctspecimen_part_name
-		</cfif>
+		ctspecimen_part_name
 	group by part_name order by part_name
 </cfquery>
+<!--- no values messes with cfsuggest --->
 <cfset partlist=#valuelist(Part.part_name,"\")#>
+<cfif len(partlist) is 0>
+	<cfset partlist="--empty--">
+</cfif>
 <div class="secDiv">
 	<table class="ssrch">
 		<tr>
 			<td colspan="2" class="secHead">
-					<span class="secLabel">Biological Individual</span>
-					<span class="secControl" id="c_biolindiv"
-						onclick="showHide('biolindiv',1)">Show More Options</span>
+				<span class="secLabel">Biological Individual</span>
+				<span class="secControl" id="c_biolindiv" onclick="showHide('biolindiv',1)">Show More Options</span>
 			</td>
 		</tr>
 		<tr>
@@ -317,11 +296,8 @@
 				<span class="helpLink" id="part_name">Part:</span>
 			</td>
 			<td class="srch">
-				<cfinput type="text" autosuggest="#partlist#" name="partname" delimiter="\">
-				
-	
+				<cfinput type="text" autosuggest="#partlist#" name="partname" id="partname" delimiter="\">
 				<span class="infoLink" onclick="getCtDoc('ctspecimen_part_name',SpecData.partname.value);">Define</span>
-				
 			</td>
 		</tr>
 	</table>
@@ -331,20 +307,19 @@
 	<table class="ssrch">
 		<tr>
 			<td colspan="2" class="secHead">
-					<span class="secLabel">Usage</span>
-					<span class="secControl" id="c_usage"
-						onclick="showHide('usage',1)">Show More Options</span>
+				<span class="secLabel">Usage</span>
+				<span class="secControl" id="c_usage" onclick="showHide('usage',1)">Show More Options</span>
 			</td>
 		</tr>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="type_status">Type Status:</span>
+				<span class="helpLink" id="_type_status">Type Status:</span>
 			</td>
 			<td class="srch">
-				<cfquery name="ctTypeStatus" datasource="#Application.web_user#">
+				<cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select type_status from ctcitation_type_status
 				</cfquery>
-				<select name="type_status" size="1">
+				<select name="type_status" id="type_status" size="1">
 					<option value=""></option>
 					<option value="any">Any</option>
 					<option value="type">Any TYPE</option>
@@ -363,9 +338,8 @@
 		<table class="ssrch">
 			<tr>
 				<td colspan="2" class="secHead">
-						<span class="secLabel">Curatorial</span>
-						<span class="secControl" id="c_curatorial"
-							onclick="showHide('curatorial',1)">Show More Options</span>
+					<span class="secLabel">Curatorial</span>
+					<span class="secControl" id="c_curatorial" onclick="showHide('curatorial',1)">Show More Options</span>
 				</td>
 			</tr>
 			<tr>
@@ -373,7 +347,7 @@
 					Barcode:
 				</td>
 				<td class="srch">
-					<input type="text" name="barcode" size="50">
+					<input type="text" name="barcode" id="barcode" size="50">
 				</td>
 			</tr>
 		</table>
@@ -389,6 +363,9 @@
 		<td valign="top">
 			<input type="reset" name="Reset" value="Clear Form" class="clrBtn"
    				onmouseover="this.className='clrBtn btnhov'" onmouseout="this.className='clrBtn'">
+		</td>
+		<td valign="top">
+			<input type="button" name="Previous" value="Use Last Values" class="lnkBtn"	onclick="setPrevSearch()">
 		</td>
 		<td valign="top" align="right">
 			<b>See results as:</b>
@@ -441,9 +418,7 @@
 	changeGrp('groupBy');
 	// make an ajax call to get preferences, then turn stuff on
 	DWREngine._execute(_cfscriptLocation, null, 'getSpecSrchPref', getComplete);
-	
 	function getComplete (getResult) {
-;
 		if (getResult == "cookie") {
 			var cookie = readCookie("specsrchprefs");
 			if (cookie != null) {
@@ -454,7 +429,6 @@
 		else
 			r_getSpecSrchPref(getResult);
 	}
-	
 	function r_getSpecSrchPref (result){
 		//alert(result);
 		var j=result.split(',');
@@ -465,5 +439,12 @@
 			}
 		}
 	}
+	// for the stuff that's already here...
+</script>
+
+<script>
+	function timey(){alert('timey');}
+	//setTimeout("timey();",12500);
+	
 </script>
 <cfinclude template = "includes/_footer.cfm">

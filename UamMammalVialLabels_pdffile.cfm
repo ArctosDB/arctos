@@ -12,7 +12,7 @@
 </cfif>
 <cfif #action# is "print">
 
-	<cfquery name="ctAtt" datasource="#Application.web_user#">
+	<cfquery name="ctAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(attribute_type) from ctAttribute_type order by attribute_type
 </cfquery>
 <cfset attList = "">
@@ -101,7 +101,7 @@ select
 
 
 			---->
-	<cfquery name="data" datasource="#Application.web_user#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 	

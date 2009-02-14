@@ -1,4 +1,4 @@
-	<cfquery name="data" datasource="#Application.web_user#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select a.formatted_publication shortcit,
 b.formatted_publication longcit, a.publication_id
 from formatted_publication a, formatted_publication b

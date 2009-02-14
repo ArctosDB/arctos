@@ -17,7 +17,7 @@
 		#name# contains ".cfm">
 	<cfset thisPath=replace(directory,"/users/mvzarctos/tomcat/webapps/cfusion","","all")>
 	<cfset thisName="#thisPath#/#name#">
-	<cfquery name="current" datasource="#Application.web_user#">
+	<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) c from cf_form_permissions where form_path='#thisName#'
 	</cfquery>
 		<tr>

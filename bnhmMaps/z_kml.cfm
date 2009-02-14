@@ -164,7 +164,7 @@
 
         <cfif isdefined("mapByLocality") and #mapByLocality# is 1>
 
-                <cfquery name="data" datasource="#Application.web_user#">
+                <cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 
                         select 
 
@@ -234,7 +234,7 @@
 
         <cfelse>
 
-                <cfquery name="data" datasource="#Application.web_user#">
+                <cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 
                         select 
 

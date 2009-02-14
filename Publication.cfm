@@ -5,11 +5,11 @@
 <cfif #Action# is "editBookSection">
 	<!--- get the book data and relocate to editBook --->
 	
-	<cfquery name="getBook" datasource="#Application.web_user#">
+	<cfquery name="getBook" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select book_id from book_section where publication_id=#publication_id#
 	</cfquery>
 	<cfoutput>
-		<cflocation url="Publication.cfm?Action=editBook&publication_id=#getBook.book_id#">
+		<cflocation url="editBook.cfm?publication_id=#getBook.book_id#">
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------->
@@ -177,12 +177,12 @@
 <cfif #Action# is "makeJournalArticle">
 <cfoutput>
 
-<cfquery name="nextPub" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-	select max(publication_id) + 1 as nextID from publication
+<cfquery name="nextPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select sq_publication_id.nextval nextID from dual
 </cfquery>
 <cfset thisID = #nextPub.nextID#>
 <cftransaction>
-<cfquery name="newJAP" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newJAP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 INSERT INTO publication (
 PUBLICATION_ID,
 PUBLICATION_TYPE
@@ -206,7 +206,7 @@ values (
 </cfif>
 )
 </cfquery>
-<cfquery name="newJA" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="newJA" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 INSERT INTO journal_article (
 PUBLICATION_ID ,
 JOURNAL_ID
@@ -250,10 +250,10 @@ JOURNAL_ID
 <!---------------------------------------------------------------------------->
 <cfif #Action# is "makeJournal">
 <cfoutput>
-	<cfquery name="nextJID" datasource="#Application.web_user#">
-		select max(journal_id) + 1 as nextid from journal
+	<cfquery name="nextJID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select sq_journal_id nextid from dual
 	</cfquery>
-	<cfquery name="newJ" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newJ" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO journal (
 	 JOURNAL_ID,
 	 JOURNAL_ABBREVIATION,
@@ -315,11 +315,11 @@ JOURNAL_ID
 <cfif #Action# is "makeBook1">
 <cfoutput>
 
-<cfquery name="nextPub" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-	select max(publication_id) + 1 as nextID from publication
+<cfquery name="nextPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select sq_publication_id.nextval nextID from dual
 </cfquery>
 <cftransaction>
-<cfquery name="nextBP" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="nextBP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 INSERT INTO publication (
 PUBLICATION_ID,
 PUBLICATION_TYPE
@@ -344,7 +344,7 @@ values (
 )
 </cfquery>
 
-<cfquery name="nextB" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="nextB" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 INSERT INTO book (
 PUBLICATION_ID ,
 EDITED_WORK_FG
@@ -381,353 +381,9 @@ VALUES (
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
 <cfif #Action# is "editBook">
-<cfset title="Edit Book">
-	<cfoutput>
-		<cfquery name="getBook" datasource="#Application.web_user#">
-			 SELECT * from 
-			 book, 
-			 publication, 
-			 publication_author_name, 
-			 agent_name
-			 where book.publication_id=publication.publication_id and
-			 publication.publication_id = publication_author_name.publication_id (+) and
-			 publication_author_name.agent_name_id = agent_name.agent_name_id (+) and
-			 book.publication_id=#publication_id#
-		</cfquery>
-		<cfquery name="getBookSec" datasource="#Application.web_user#">
-			select 
-				book_section.publication_id, 
-				publication_title,
-				book_id,
-				book_section_type,
-				begins_page_number,
-				ends_page_number,
-				book_section_order,
-				publication_remarks,
-				agent_name,
-				agent_name.agent_name_id,
-				author_position,
-				published_year
-			 from book_section, publication, publication_author_name, agent_name
-			 where book_section.publication_id=publication.publication_id and
-			 publication.publication_id = publication_author_name.publication_id (+) and
-			 publication_author_name.agent_name_id = agent_name.agent_name_id (+) and
-			 book_id=#publication_id#
-			 order by publication_id
-			 
-		</cfquery>
-		<cfquery name="distSecs" dbtype="query">
-			select 
-				publication_id, 
-				book_id,
-				book_section_type,
-				begins_page_number,
-				ends_page_number,
-				book_section_order,
-				publication_remarks,
-				publication_title,
-				published_year
-			FROM 
-				getBookSec
-			GROUP BY
-				publication_id, 
-				book_id,
-				book_section_type,
-				begins_page_number,
-				ends_page_number,
-				book_section_order,
-				publication_remarks,
-				publication_title,
-				published_year
-		</cfquery>
-		<cfquery name="getAuths" dbtype="query">
-			select agent_name, agent_name_id, author_position from getBook
-			order by author_position
-		</cfquery>
-		
-	<table border>
-		<cfform name="bookDetails" method="post" action="Publication.cfm">
-		<input type="hidden" name="Action" value="SaveBookChanges">
-		<input type="hidden" name="publication_id" value="#getBook.publication_id#">
-		<tr>
-			<td valign="top" align="right">Book:</td>
-		<td>
-			<table>
-				<tr>
-					<td>Title:</td>
-					<td>
-						<textarea name="publication_title" cols="45" rows="3" class="reqdClr">#getBook.publication_title#</textarea>
-					</td>
-				</tr>
-				<tr>
-					<td>Publisher:</td>
-					<td><input type="text" name="Publisher" value="#getBook.publisher_name#" size="60"></td>
-				</tr>
-				
-				
-				<tr>
-					<td>Remarks:</td>
-					<td><input type="text" name="Remarks" value="#getBook.publication_remarks#" size="60"></td>
-				</tr>
-				<tr>
-					<td>Edited:</td>
-					<td><select name="Edited" size="1" class="reqdClr">
-			<option value="1">yes</option>
-			<option <cfif #getBook.edited_work_fg# is "0"> selected </cfif>value="0">no</option>
-		</select>&nbsp;&nbsp;&nbsp;
-		Volume:<input type="text" name="Volume" value="#getBook.volume_number#" size="5">
-		&nbsp;&nbsp;&nbsp;
-		Pages:<input type="text" name="Pages" value="#getBook.page_total#" size="4">
-		</td>
-				
-				</tr>
-				<tr>
-					<td colspan="2" align="center">
-						<input type="submit" 
-							value="Save Edits" 
-							class="savBtn"
-							onmouseover="this.className='savBtn btnhov'" 
-							onmouseout="this.className='savBtn'">
-						<input type="button"
-							value="Quit"
-							class="qutBtn"
-							onmouseover="this.className='qutBtn btnhov'"
-							onmouseout="this.className='qutBtn'"
-							onClick="document.location='Publication.cfm';">
-					</td>
-				</tr>
-			</table>
-			
-		</td>		
-		</tr> 
-		<tr><td colspan="2"></td></tr>
-		
-		</cfform>
-		<tr><td>Book Authors:</td>
-		<td>
-		<table>
-		<cfset i=1>
-			<cfloop query="getAuths">
-				<cfif len(#getAuths.agent_name#) gt 0>
-				<cfform name="author#i#" method="post" action="Publication.cfm">
-				<input type="hidden" name="Action" value="changePubAuth">
-				<input type="hidden" name="caller" value="#Action#">
-				<input type="hidden" name="publication_id" value="#getBook.publication_id#">
-				<tr><td>Author ##<select name="author_position" class="reqdClr">
-					<cfset num = 1>
-					<cfloop condition="#num# lt 26">
-						<option <cfif #num# is "#getAuths.author_position#"> selected </cfif>value="#num#">#num#</option>
-						<cfset num=#num#+1>
-					</cfloop>
-						</select>
-				
-				</td><td>
-				
-				<input type="text" name="authorName" value="#getAuths.agent_name#" class="reqdClr" 
-		onchange="findAgentName('newagent_name_id','authorName','author#i#',this.value); return false;"
-		 onKeyPress="return noenter(event);">
-		 
-		 			<input type="hidden" name="agent_name_id" value="#getAuths.agent_name_id#">
-					<input type="hidden" name="newagent_name_id">
-					
-					<input type="button" 
-						value="Delete"
-						class="delBtn"
-						onmouseover="this.className='delBtn btnhov'"
-						onmouseout="this.className='delBtn'"
-						onClick="document.location='Publication.cfm?Action=delPubAuth&publication_id=#getBook.publication_id#&agent_name_id=#getAuths.agent_name_id#';">
-
-				<cfset i = #i#+1>
-				<input type="submit" 
-					value="Save" 
-					class="savBtn"
-					onmouseover="this.className='savBtn btnhov'" 
-					onmouseout="this.className='savBtn'">	
-
-				</td></tr>
-			</cfform>
-			</cfif>
-			</cfloop>
-			</table>
-			<cfform name="newAuthor"  method="post" action="Publication.cfm">
-			<input type="hidden" name="Action" value="newPubAuth">
-			<input type="hidden" name="caller" value="#Action#">
-				<input type="hidden" name="publication_id" value="#getBook.publication_id#">
-			<br>Add Author: ##<select name="author_position" class="reqdClr">
-					<cfset num = 1>
-					<cfloop condition="#num# lt 26">
-						<option value="#num#">#num#</option>
-						<cfset num=#num#+1>
-					</cfloop>
-						</select>
-					<input type="text" name="newBookAuth"  class="reqdClr" 
-		onchange="findAgentName('newAuthId','newBookAuth','newAuthor',this.value); return false;"
-		 onKeyPress="return noenter(event);">
-						
-				<input type="hidden" name="newAuthId">
-				
-				<input type="submit" 
-					value="Save" 
-					class="savBtn"
-					onmouseover="this.className='savBtn btnhov'" 
-					onmouseout="this.className='savBtn'">
-			
-			</cfform>		
-					</td></tr>
-<tr><td>Book Sections: </td>
-
-		<cfset o=1>
-		<cfloop query="distSecs">
-		<tr><td>&nbsp;</td><td><cfform name="book" method="post" action="Publication.cfm">
-			<input type="hidden" name="publication_id" value="#distSecs.publication_id#">
-			<input type="hidden" name="Action" value="saveSectionEdits">
-			
-			<br>Title:
-			<textarea name="publication_title" rows="4" cols="50" class="reqdClr">#distSecs.publication_title#</textarea>
-				<br>Year: <input type="text" name="published_year" value="#distSecs.published_year#">
-			
-			<br>Remarks:<input type="text" name="Remarks" value="#distSecs.publication_remarks#">
-			<br>Type: <input type="text" name="book_section_type" value="#distSecs.book_section_type#">
-			<br>Pages: <input type="text" name="begins_page_number" value="#distSecs.begins_page_number#">
-			to <input type="text" name="ends_page_number" value="#distSecs.ends_page_number#">
-			<br>Order: <input type="text" name="book_section_order" value="#distSecs.book_section_order#">
-			
-			<br>
-			<input type="submit" 
-					value="Save Edits" 
-					class="savBtn"
-					onmouseover="this.className='savBtn btnhov'" 
-					onmouseout="this.className='savBtn'">
-					
-	
-		</cfform></td>
-		</tr>
-		<tr><td>Section Authors:</td></tr>
-		
-		<cfquery name="getSecAuths" dbtype="query">
-				select agent_name, author_position, agent_name_id from getBookSec
-				where publication_id=#getBookSec.publication_id#
-				order by author_position
-			</cfquery>
-			<cfset i=1>
-			<cfloop query="getSecAuths">
-			<cfif len(#getSecAuths.agent_name#) gt 0>
-			<tr><td>&nbsp;</td>
-			
-				<td>
-				<table><tr>
-				<cfform name="secauthor#i##o#" method="post" action="Publication.cfm">
-				<input type="hidden" name="Action" value="changePubAuth">
-				<input type="hidden" name="caller" value="#Action#">
-				<input type="hidden" name="publication_id" value="#getBookSec.publication_id#">
-				<td>Author ##<select name="author_position" class="reqdClr">
-					<cfset num = 1>
-					<cfloop condition="#num# lt 26">
-						<option <cfif #num# is "#getSecAuths.author_position#"> selected </cfif>value="#num#">#num#</option>
-						<cfset num=#num#+1>
-					</cfloop>
-						</select>
-						</td>
-				<td>
-				
-				<input type="text" name="authorName" value="#getSecAuths.agent_name#" class="reqdClr" 
-		onchange="findAgentName('newagent_name_id','authorName','secauthor#i##o#',this.value); return false;"
-		 onKeyPress="return noenter(event);">
-		 
-				
-					<input type="hidden" name="agent_name_id" value="#getSecAuths.agent_name_id#">
-					<input type="hidden" name="newagent_name_id">
-				
-						
-				<cfset i = #i#+1>
-				<input type="button" 
-					value="Delete"
-					class="delBtn"
-					onmouseover="this.className='delBtn btnhov'"
-					onmouseout="this.className='delBtn'"
-					onClick="document.location='Publication.cfm?Action=delPubAuth&publication_id=#distSecs.publication_id#&agent_name_id=#getSecAuths.agent_name_id#';">
-			<input type="submit" 
-					value="Save" 
-					class="savBtn"
-					onmouseover="this.className='savBtn btnhov'" 
-					onmouseout="this.className='savBtn'">	
-				</td>
-			</cfform>
-			</tr></table>
-			
-			
-			
-			</td>
-				</tr>
-				<tr></tr>
-				<cfset i = #i#+1>
-				</cfif>
-			</cfloop>
-			<cfform name="newAuthor#o#"  method="post" action="Publication.cfm">
-			<input type="hidden" name="Action" value="newPubAuth">
-			<input type="hidden" name="caller" value="#Action#">
-			<input type="hidden" name="publication_id" value="#distSecs.publication_id#">
-			<cfquery name="nextAuth" dbtype="query">
-				select max(author_position) + 1 as nextAuth from getSecAuths
-			</cfquery>
-			<cfif len(#nextAuth.nextAuth#) gt 0>
-				<cfset nextAuthPos = #nextAuth.nextAuth#>
-			  <cfelse>
-			  	<cfset nextAuthPos = 1>	
-			</cfif>
-			
-			<td>Add Author## <select name="author_position" class="reqdClr">
-					<cfset num = 1>
-					<cfloop condition="#num# lt 26">
-						<option 
-							<cfif #nextAuthPos# is #num#> selected </cfif>value="#num#">#num#</option>
-						<cfset num=#num#+1>
-					</cfloop>
-						</select></td>: <td>
-					<input type="text" name="newBookAuth" class="reqdClr" 
-		onchange="findAgentName('newAuthId','newBookAuth','newAuthor#o#',this.value); return false;"
-		 onKeyPress="return noenter(event);">
-		 
-		 
-				<input type="hidden" name="newAuthId">
-				
-				<input type="submit" 
-					value="Save" 
-					class="savBtn"
-					onmouseover="this.className='savBtn btnhov'" 
-					onmouseout="this.className='savBtn'"></td>
-			</cfform>
-			<cfset o=#o#+1>
-	</cfloop>
-	<tr class="newRec">
-		<td>New Section:</td>
-		<td><tr class="newRec"><td>&nbsp;</td><td>
-		<form name="newbooksec" method="post" action="Publication.cfm">
-			<input type="hidden" name="Action" value="newbooksec">
-			<input type="hidden" name="book_id" value="#getBook.publication_id#">
-			
-			<br>Title:
-			<textarea name="publication_title" rows="4" cols="50" class="reqdClr"></textarea>
-				<br>Year: <input type="text" name="published_year">
-			
-			<br>Remarks:<input type="text" name="publication_remarks">
-			<br>Pages: <input type="text" name="begins_page_number">
-			to <input type="text" name="ends_page_number">
-			<br>Order: <input type="text" name="book_section_order">
-			
-			<br>
-			<input type="submit" 
-					value="Create Section" 
-					class="insBtn"
-					onmouseover="this.className='insBtn btnhov'" 
-					onmouseout="this.className='insBtn'">
-					
-	
-		</form></td>
-		</tr></td>
-	</tr>
-	</cfoutput>
-	</table>
+<cfoutput>
+	<cflocation url="editBook.cfm?publication_id=#publication_id#" addtoken="false">
+</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------->
 
@@ -746,7 +402,7 @@ VALUES (
 		</cfif>
 		
 		<cfoutput>#preservesinglequotes(sql)#</cfoutput>
-		<cfquery name="getJournal" datasource="#Application.web_user#">
+		<cfquery name="getJournal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
 		</cfoutput>
@@ -772,7 +428,7 @@ VALUES (
 <cfif #Action# is "editJournal">
 <cfset title="Edit Journal">
 	<cfoutput>
-		<cfquery name="jdet" datasource="#Application.web_user#">
+		<cfquery name="jdet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from journal where journal_id=#journal_id#
 		</cfquery>
 	</cfoutput>
@@ -809,7 +465,7 @@ VALUES (
 <cfif #Action# is "editJournalArt">
 <cfset title="Edit Journal Article">
 	<cfoutput>
-		<cfquery name="getJournalArt" datasource="#Application.web_user#">
+		<cfquery name="getJournalArt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			 SELECT * from journal_article, journal, publication, publication_author_name, agent_name,
 			 publication_url
 			 where 
@@ -1089,7 +745,7 @@ VALUES (
 <cfif #Action# is "deleteLink">
 	
 	<cfoutput>
-	<cfquery name="newLink" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newLink" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM publication_url
 		WHERE
 		publication_url_id = #publication_url_id#
@@ -1103,11 +759,8 @@ VALUES (
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
 <cfif #Action# is "updateLink">
-	<cfquery name="nextID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-		select max(publication_url_id) + 1 as nextID from publication_url
-	</cfquery>
 	<cfoutput>
-	<cfquery name="newLink" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newLink" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		UPDATE publication_url SET
 		link = '#link#',
 		description = '#description#'
@@ -1123,27 +776,21 @@ VALUES (
 <!---------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------->
 <cfif #Action# is "newLink">
-	<cfquery name="nextID" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-		select max(publication_url_id) + 1 as nextID from publication_url
-	</cfquery>
 	<cfoutput>
-	<cfquery name="newLink" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newLink" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO publication_url (
 		publication_url_id,
 		publication_id,
 		link,
 		description)
 		values (
-		#nextID.nextID#,
+		sq_publication_url_id.nextval,
 		#publication_id#,
 		'#link#',
 		'#description#'
 		)
-	</cfquery>
-	
-	
+	</cfquery>	
 	<cflocation url="Publication.cfm?Action=editJournalArt&publication_id=#publication_id#">
-	
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------->
@@ -1151,7 +798,7 @@ VALUES (
 <cfif #Action# is "SaveJournArtChanges">
 	<cfoutput>
 	<cftransaction>
-	<cfquery name="uJ" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="uJ" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	UPDATE journal_article SET publication_id=#publication_id#
 		<cfif len(journal_id) gt 0>
 			,journal_id=#journal_id#
@@ -1175,7 +822,7 @@ VALUES (
 		where publication_id=#publication_id#
 		</cfquery>
 		
-		<cfquery name="uJP" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="uJP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	UPDATE publication SET publication_id=#publication_id#
 		<cfif len(#Remarks#) gt 0>
 			,publication_remarks='#Remarks#'
@@ -1203,7 +850,7 @@ VALUES (
 <!---------------------------------------------------------------------------->
 <cfif #Action# is "saveJourEdit">
 	<cfoutput>
-	<cfquery name="uJ" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="uJ" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	UPDATE journal SET  
 	journal_name = '#journal_name#'
 	<cfif len(#journal_abbreviation#) gt 0>
@@ -1221,7 +868,7 @@ VALUES (
 <!---------------------------------------------------------------------------->
 <cfif #Action# is "delPubAuth">
 	<cfoutput>
-	<cfquery name="dp" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="dp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	delete from publication_author_name where publication_id=#publication_id# and
 	agent_name_id = #agent_name_id#
 	</cfquery>
@@ -1233,7 +880,7 @@ VALUES (
 <cfif #Action# is "SaveBookChanges">
 	<cfoutput>
 	<cftransaction>
-	<cfquery name="ub" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	UPDATE book SET publication_id=#publication_id#
 		<cfif len(Volume) gt 0>
 			,volume_number='#Volume#'
@@ -1249,7 +896,7 @@ VALUES (
 		</cfif>
 		where publication_id=#publication_id#
 		</cfquery>
-	<cfquery name="ubp" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ubp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	UPDATE publication SET publication_id=#publication_id#
 		<cfif len(Remarks) gt 0>
 			,publication_remarks='#Remarks#'
@@ -1266,7 +913,7 @@ VALUES (
 <cfif #Action# is "saveSectionEdits">
 	<cfoutput>
 	<cftransaction>
-	<cfquery name="ubs" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ubs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	UPDATE book_section SET publication_id=#publication_id#
 		<cfif len(book_section_type) gt 0>
 			,book_section_type='#book_section_type#'
@@ -1282,7 +929,7 @@ VALUES (
 		</cfif>
 		where publication_id=#publication_id#
 		</cfquery>
-		<cfquery name="ubsp" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="ubsp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			
 	
 	UPDATE publication SET publication_id=#publication_id#
@@ -1313,11 +960,11 @@ VALUES (
 <cfif #Action# is "newbooksec">
 	<cfoutput>
 	<cftransaction>
-		<cfquery name="nextPub" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-			select max(publication_id) + 1 as nextID from publication
+		<cfquery name="nextPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select sq_publication_id.nextval nextID from dual
 		</cfquery>
 	
-	<cfquery name="nbsP" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="nbsP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO publication (
 				publication_id
 				,publication_type
@@ -1340,7 +987,7 @@ VALUES (
 				</cfif>)
 
 	</cfquery>
-	<cfquery name="nbs" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="nbs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO book_section (
 		PUBLICATION_ID,
 		book_id,
@@ -1379,7 +1026,7 @@ VALUES (
 <!---------------------------------------------------------------------------->
 <cfif #Action# is "changePubAuth">
 	<cfoutput>
-	<cfquery name="upa" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="upa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	UPDATE publication_author_name SET 
 	<cfif len(#newagent_name_id#) gt 0>
 		agent_name_id=#newagent_name_id#,
@@ -1398,13 +1045,13 @@ VALUES (
 <cfif #Action# is "killJournalArticle">
 	<cfoutput>
 	<cftransaction>
-		<cfquery name="killja" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="killja" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from journal_article where publication_id = #publication_id#
 		</cfquery>
-		<cfquery name="killpub" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="killpub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from publication where publication_id = #publication_id#
 		</cfquery>
-		<cfquery name="killpubauth" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="killpubauth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from publication_author_name where publication_id = #publication_id#
 		</cfquery>
 	</cftransaction>
@@ -1419,7 +1066,7 @@ VALUES (
 <!---------------------------------------------------------------------------->
 <cfif #Action# is "newPubAuth">
 	<cfoutput>
-	<cfquery name="npa" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="npa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO  publication_author_name (publication_id,agent_name_id,author_position)
 		VALUES (#publication_id#,#newAuthId#,#author_position#)
 	</cfquery>

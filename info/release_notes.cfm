@@ -7,7 +7,7 @@
 		<a href="http://arctos.database.museum/tools/release_notes.cfm">Click here</a> to use it.
 		<cfabort>
 	</cfif>
-	<cfquery name="ctrn" datasource="#Application.web_user#">
+	<cfquery name="ctrn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct(release_number) from cfrelease_notes order by release_number
 	</cfquery>
 	<form name="f" method="post" action="release_notes.cfm">
@@ -57,7 +57,7 @@
 </cfif>
 <cfif #action# is "find">
 	<cfoutput>
-		<cfquery name="d" datasource="#Application.web_user#">
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from cfrelease_notes
 			<cfif isdefined("release_number") and len(#release_number#) gt 0>
 				where release_number = '#release_number#'
@@ -92,7 +92,7 @@
 </cfif>
 <cfif #action# is "edit">
 <cfoutput>
-	<cfquery name="d" datasource="#Application.web_user#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from cfrelease_notes
 				where release_note_id = #release_note_id#
 		</cfquery>

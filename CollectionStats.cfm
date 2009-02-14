@@ -7,7 +7,7 @@
   <div align="center">
     <font size="+2"><b>Specimen Holdings</b></font>
   </div>
-  <cfquery name="SpecColl" datasource="#Application.web_user#">
+  <cfquery name="SpecColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 	collection.institution_acronym||' '||collection.collection_cde as collection_cde,
 count(cataloged_item.collection_object_id) as cnt
@@ -37,7 +37,7 @@ ORDER BY cnt
 	</cfchart>	
 	
 	
-	<cfquery name="AccnByCollYear" datasource="#Application.web_user#">
+	<cfquery name="AccnByCollYear" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 	collection.collection_id as collection_id,
 	collection.institution_acronym||' '||collection.collection_cde as collection_cde,
@@ -116,7 +116,7 @@ order by tdate
 	
 
 <!---- specimens by loan ---->
-<cfquery name="Loans" datasource="#Application.web_user#">
+<cfquery name="Loans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 	collection.institution_acronym||' '||collection.collection_cde as collection_cde,
 to_char(trans_date, 'yyyy') tdate,
@@ -165,7 +165,7 @@ collection.institution_acronym||' '||collection.collection_cde
 	
 	
 	<!---- number of  loan ---->
-<cfquery name="Loans" datasource="#Application.web_user#">
+<cfquery name="Loans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 	collection.institution_acronym||' '||collection.collection_cde as collection_cde,
 to_char(trans_date, 'yyyy') tdate,
@@ -219,7 +219,7 @@ collection.institution_acronym||' '||collection.collection_cde
   </div>
 	<!--- first, get all loans and their associated specimens --->
 	<!--- legacy loan specimens --->
-	<cfquery name="loanSpec" datasource="#Application.web_user#">
+	<cfquery name="loanSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			loan_num_prefix||'.'||loan_num as loan
 			, 
@@ -234,7 +234,7 @@ collection.institution_acronym||' '||collection.collection_cde
 			and coll_object.coll_object_type = 'CI'
 	</cfquery>
 	<!--- loaned parts ---->
-	<cfquery name="loanItem" datasource="#Application.web_user#">
+	<cfquery name="loanItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			loan_num_prefix||'.'||loan_num as loan,
 			 specimen_part.derived_from_cat_item AS collection_object_id 
@@ -265,7 +265,7 @@ collection.institution_acronym||' '||collection.collection_cde
 			<cfset i=#i#+1>
 		</cfloop>
 	<!--- get citations --->
-	<cfquery name="cit" datasource="#Application.web_user#">
+	<cfquery name="cit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT collection_object_id FROM citation
 	</cfquery>
 	<!--- combine the results sets ---->
@@ -298,7 +298,7 @@ collection.institution_acronym||' '||collection.collection_cde
 			loan.transaction_id = loan_item.transaction_id AND
 			loan_num_prefix||'.'||loan_num IN (#loanList#)
 		GROUP BY loan_num_prefix||'.'||loan_num">
-	<cfquery name="numBorrowed" datasource="#Application.web_user#">
+	<cfquery name="numBorrowed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 	<cfquery name="allLoan" dbtype="query">
@@ -337,7 +337,7 @@ collection.institution_acronym||' '||collection.collection_cde
 	<!---------------------------->
 	---->
 	
-	<cfquery name="Citation" datasource="#Application.web_user#">
+	<cfquery name="Citation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
 			count(citation.collection_object_id) as cnt, 
 			collection.institution_acronym||' '||collection.collection_cde as collection_cde
@@ -384,7 +384,7 @@ collection.institution_acronym||' '||collection.collection_cde
 	<p>
   </div>
 
-<cfquery name="genbank" datasource="#Application.web_user#">
+<cfquery name="genbank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
 			count(coll_obj_other_id_num.collection_object_id) as cnt, 
 			collection.institution_acronym||' '||collection.collection_cde as collection_cde

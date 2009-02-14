@@ -7,25 +7,25 @@
 	<cfif not isdefined("table_name")>
 		Bad call.<cfabort>
 	</cfif>
-<cfquery name="colcde" datasource="#Application.web_user#">
+<cfquery name="colcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(collection_cde) from #table_name#
 </cfquery>
 <cfset colcdes = valuelist(colcde.collection_cde)>
 <cfset colcdes = "'#replace(colcdes,",","','","all")#'">
-<cfquery name="Part" datasource="#Application.web_user#">
+<cfquery name="Part" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(part_name) from ctspecimen_part_name 
 	where collection_cde in (#preservesinglequotes(colcdes)#)
 	order by part_name
 </cfquery>
-<cfquery name="ctDisp" datasource="#Application.web_user#">
+<cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select coll_obj_disposition from ctcoll_obj_disp
 </cfquery>
-<cfquery name="ctPresMeth" datasource="#Application.web_user#">
+<cfquery name="ctPresMeth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(preserve_method) from ctspecimen_preserv_method
 	where collection_cde in (#preservesinglequotes(colcdes)#)
 	order by preserve_method
 </cfquery>
-<cfquery name="ctPartMod" datasource="#Application.web_user#">
+<cfquery name="ctPartMod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select part_modifier from ctspecimen_part_modifier
 	order by part_modifier
 </cfquery>
@@ -121,13 +121,9 @@
 <!---------------------------------------------------------------------------->
 <cfif #action# is "newPart">
 <cfoutput>
-	<cfquery name="ids" datasource="#Application.web_user#">
+	<cfquery name="ids" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct collection_object_id from #table_name#
 	</cfquery>
-	<cfquery name="nextID" datasource="#Application.web_user#">
-		select max(collection_object_id) + 1 as nextID from coll_object
-	</cfquery>
-	<cfset thisPartId = #nextID.nextID#>
 	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 	<cftransaction>
 		<cfloop query="ids">
@@ -141,7 +137,7 @@
 				<cfset thisCondition = #evaluate("condition_" & n)#>
 				<cfset thisRemark = #evaluate("coll_object_remarks_" & n)#>
 				<cfif len(#thisPartName#) gt 0>
-					<cfquery name="insCollPart" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="insCollPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						INSERT INTO coll_object (
 							COLLECTION_OBJECT_ID,
 							COLL_OBJECT_TYPE,
@@ -153,7 +149,7 @@
 							CONDITION,
 							FLAGS )
 						VALUES (
-							#thisPartId#,
+							sq_collection_object_id.nextval,
 							'SP',
 							#session.myAgentId#,
 							'#thisDate#',
@@ -163,7 +159,7 @@
 							'#thisCondition#',
 							0 )		
 					</cfquery>
-					<cfquery name="newTiss" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						INSERT INTO specimen_part (
 							  COLLECTION_OBJECT_ID,
 							  PART_NAME
@@ -176,7 +172,7 @@
 								,DERIVED_FROM_cat_item,
 								is_tissue )
 							VALUES (
-								#thisPartId#,
+								sq_collection_object_id.currval,
 							  '#thisPartName#'
 							  <cfif len(#thisPartModifier#) gt 0>
 							  		,'#thisPartModifier#'
@@ -188,9 +184,9 @@
 								#thisIsTissue# )
 					</cfquery>
 					<cfif len(#thisRemark#) gt 0>
-						<cfquery name="newCollRem" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+						<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
-							VALUES (#thisPartId#, '#thisRemark#')
+							VALUES sq_collection_object_id.currval, '#thisRemark#')
 						</cfquery>
 					</cfif>
 					<cfset thisPartId = thisPartId + 1>

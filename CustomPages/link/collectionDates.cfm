@@ -1,5 +1,5 @@
 <cfoutput>
-	<cfquery name="ed" datasource="#Application.web_user#">
+	<cfquery name="ed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
     count(cat_num) as cnt,
     to_char(COLL_OBJECT_ENTERED_DATE,'YYYY') as yr
@@ -69,7 +69,7 @@ RECEIVED_DATE
 		<li>Received Date is not a date-format field, so CF magic to produce data below dropped some specimens</li>
 	</ul>
    </p>
-<cfquery name="rd" datasource="#Application.web_user#">
+<cfquery name="rd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 count(cat_num) as cnt,
 RECEIVED_DATE
@@ -112,7 +112,7 @@ RECEIVED_DATE
 </cfloop>
 </table>
 
-<cfquery name="cd" datasource="#Application.web_user#">
+<cfquery name="cd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		count(cat_num) as cnt,
 		to_char(began_date,'yyyy') as yr

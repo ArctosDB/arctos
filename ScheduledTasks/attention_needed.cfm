@@ -5,7 +5,7 @@
 	</cfif>
 	<cfoutput>
 		<!--- pending relationships that have been in the table for >30d ---->
-		<cfquery name="contacts" datasource="#Application.web_user#">
+		<cfquery name="contacts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				count(*) c,
 				collection,
@@ -36,13 +36,13 @@
 				ADDRESS
 		</cfquery>
 		<cfloop query="contacts">
-			<cfmail to="#ADDRESS#" subject="Expiring Permits" from="reminder@#Application.fromEmail#" type="html">
+			<cfmail to="#ADDRESS#" subject="Pending Relationships" from="reminder@#Application.fromEmail#" type="html">
 				You are receiving this message because you are listed as a contact for Arctos collection #collection#.
 				<br>
 				There are #c# #collection# items in the Pending Relationships table that have been processing for more than
 				30 days. These probably require your attention.
 				<br>
-				See http://arctos-test.arctos.database.museum/tools/pendingRelations.cfm?action=showStatus for more detail.
+				See #application.serverRootUrl#/tools/pendingRelations.cfm?action=showStatus for more detail.
 			</cfmail>
 		</cfloop>
 		

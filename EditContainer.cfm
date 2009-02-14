@@ -98,11 +98,11 @@ sho err
 
 <cfif #Action# is "update">
 <!--- set date format --->
-<cfquery name="timeFormat" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="timeFormat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
       ALTER SESSION SET nls_date_format = 'DD-Mon-YYYY' 
 </cfquery>
 <cfif len(#newParentBarcode#) gt 0>
-	<cfquery name="isGoodParent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="isGoodParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select container_id from  container where 
 		barcode = '#newParentBarcode#'
 	</cfquery>
@@ -175,7 +175,7 @@ sho err
 <cfset contSqlStr="#uds# #udQual# #udWhere#">
 <!--- Now build SQL to update Fluid_Container_History
 First, make sure that this is a fluid container--->
-<cfquery name="isFluid" datasource="#Application.web_user#">
+<cfquery name="isFluid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT * FROM fluid_container_history WHERE container_id = #container_id#
 </cfquery>
 <cfif #isFluid.recordcount# gt 0 AND len(#isFluid.container_id#) gt 0>
@@ -195,7 +195,7 @@ First, make sure that this is a fluid container--->
 		</cfif>
 		<cfset chWhere = "WHERE container_id = #container_id#">
 		<cfset chSqlStr = "#chUp# #chQual# #chWhere#">
-		<cfquery name="updateFluidContainer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="updateFluidContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				#preservesinglequotes(chSqlStr)#
 		</cfquery>
 	<cfelse>
@@ -218,7 +218,7 @@ First, make sure that this is a fluid container--->
 			<cfset #fch# = "#fch# , '#Fluid_Remarks#'">
 		</cfif>
 		<cfset #fch# = "#fch# )">
-		<cfquery name="updateContainer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="updateContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(fch)#
 		</cfquery>
 		</cfif>
@@ -227,7 +227,7 @@ First, make sure that this is a fluid container--->
 
 
 
-	<cfquery name="updateContainer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="updateContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(contsqlStr)#
 	</cfquery>
 	<cflocation url="EditContainer.cfm?container_id=#container_id#">
@@ -265,17 +265,17 @@ container.container_id = fluid_container_history.container_id (+) AND
 container.container_id = #container_id#
 ">
 
-<cfquery name="getCont" datasource="#Application.web_user#">
+<cfquery name="getCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(getCD)#
 </cfquery>
 
-<cfquery name="ContType" datasource="#Application.web_user#">
+<cfquery name="ContType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 select container_type from ctcontainer_type
 </cfquery>
-<cfquery name="FluidType" datasource="#Application.web_user#">
+<cfquery name="FluidType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 select fluid_type from ctFluid_Type ORDER BY fluid_type
 </cfquery>
-<cfquery name="ctConc" datasource="#Application.web_user#">
+<cfquery name="ctConc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from ctfluid_concentration
 </cfquery>
 	<cfoutput>
@@ -304,7 +304,7 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
          			 </cfloop> 
 				</select>
 				<cfelse>
-					<cfquery name="findItem" datasource="#Application.web_user#">
+					<cfquery name="findItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select 
 							cataloged_item.collection_object_id,
 							cat_num,
@@ -444,6 +444,12 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 					<tr>
 						<td>
 							<input type="button"
+								value="Print" 
+								class="lnkBtn"
+								onclick="window.open('Reports/report_printer.cfm?container_id=#getCont.container_id#');">
+						</td>
+						<td>
+							<input type="button"
 								value="Update" 
 								class="savBtn"
 								onmouseover="this.className='savBtn btnhov'"
@@ -491,7 +497,7 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 		</tr>
 </table>
 </form>
-<cfquery name="me" datasource="#Application.web_user#">
+<cfquery name="me" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select preferred_agent_name.agent_name,preferred_agent_name.agent_id from preferred_agent_name,
 	agent_name
 	where preferred_agent_name.agent_id = agent_name.agent_id and
@@ -532,7 +538,7 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 		</tr>
 	</table>
 
-<cfquery name="checked" datasource="#Application.web_user#">
+<cfquery name="checked" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from container_check,
 	preferred_agent_name
 	 where 
@@ -564,7 +570,7 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 <!-------------------------------------------------------------->
 <cfif #Action# is "saveChecked">
 	<cfoutput>
-		<cfquery name="saveCheck" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="saveCheck" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			insert into container_check ( 
 				CONTAINER_ID,
 				CHECK_DATE,
@@ -583,7 +589,7 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 
 <!-------------------------------------------------------------->
 <cfif #Action# is "delete">
-	<cfquery name="isUsed" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="isUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from container where parent_container_id=#container_id#
 	</cfquery>
 	<cfif isUsed.recordcount gt 0>
@@ -593,10 +599,10 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
       doing!</font> </div>
     <cfabort>
 	<cfelseif isUsed.recordcount is 0>
-	<cfquery name="deleContHist" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="deleContHist" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM container_history WHERE container_id = #container_id#
 	</cfquery>
-	<cfquery name="deleCont" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM container WHERE container_id = #container_id#
 	</cfquery>
 	<div align="center"><font color="#0066FF" size="+6">You've deleted this container!</font> </div>
@@ -627,11 +633,11 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 <cfoutput>
 		
 	<cfif #mkCont# is "valid" and #mkFluid# is "noTry">
-			<cfquery name="nextContainer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-				SELECT (max(container_id) + 1) AS newid FROM container
+			<cfquery name="nextContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				SELECT sq_container_id.nextval newid FROM dual
 			</cfquery>
 			<cfif len(#new_parent_barcode#) gt 0>
-				<cfquery name="gpid" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="gpid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select container_id from container where barcode='#new_parent_barcode#'
 				</cfquery>
 			</cfif>
@@ -684,7 +690,7 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 				<cfset number_positions = "null">
 				<cfelse><cfset number_positions = "'#number_positions#'">
 			</cfif>
-      <cfquery name="setDate" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+      <cfquery name="setDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					alter session set nls_date_format = 'DD-Mon-YYYY HH24:MI:SS'	
 		</cfquery>
 	  <cfset newContainerSQL="INSERT INTO 
@@ -728,15 +734,15 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 							<cfset newContainerSQL="#newContainerSQL# ,0)">
 						</cfif>
 				<cftransaction>
-					<cfquery name="newContainer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+					<cfquery name="newContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						#preservesinglequotes(newContainerSQL)#
 					</cfquery>
 				</cftransaction>
 		</cfif>			
 		<cfif #mkCont# is "valid" and #mkFluid# is "valid">
 			<!--- Get the next container_id --->
-			<cfquery name="nextContainer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
-				SELECT (max(container_id) + 1) AS newid FROM container
+			<cfquery name="nextContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				SELECT sq_container_id.nextval newid FROM dual
 			</cfquery>
 			<cfset container_id = "#nextContainer.newid#">
 			<!--- clean up nulls --->
@@ -824,10 +830,10 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 						#fluid_remarks#)">
 				
 	<cftransaction>
-	 	<cfquery name="newFluidContainer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	 	<cfquery name="newFluidContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				#preservesinglequotes(newFlSql)#
 		</cfquery>
-		<cfquery name="newContainer" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="newContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						#preservesinglequotes(newContainerSQL)#
 					</cfquery>
 	</cftransaction>
@@ -850,10 +856,10 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 
 <cfoutput>
 
-<cfquery name="ContType" datasource="#Application.web_user#">
+<cfquery name="ContType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 select container_type as ctContType from ctcontainer_type
 </cfquery>
-<cfquery name="FluidType" datasource="#Application.web_user#">
+<cfquery name="FluidType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 select fluid_type from ctFluid_Type ORDER BY fluid_type
 </cfquery>
 

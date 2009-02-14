@@ -110,12 +110,12 @@
 <cfoutput>
 <cfset user_id=0>
 <cfif isdefined("session.username") and len(#session.username#) gt 0>
-	<cfquery name="isUser" datasource="#Application.web_user#">
+	<cfquery name="isUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT user_id FROM cf_users WHERE username = '#session.username#'
 	</cfquery>
 	<cfset user_id = #isUser.user_id#>
 </cfif>
-	<cfquery name="bugID" datasource="#Application.web_user#">
+	<cfquery name="bugID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select max(bug_id) + 1 as id from cf_bugs
 	</cfquery>
 	<cfset thisDate = #dateformat(now(),"dd-mmm-yyyy")#>
@@ -369,7 +369,7 @@
 		
 	<cfset sql = "#sql# order by submission_date DESC">
 		
-		<cfquery name="getBug" datasource="#Application.web_user#">
+		<cfquery name="getBug" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			 #preservesinglequotes(sql)#
 		</cfquery>
 		

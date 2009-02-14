@@ -7,7 +7,7 @@
 	order by internal_column_id
 </cfquery>
 <cfoutput>
-<cfquery name="data" datasource="#Application.web_user#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from bulkloader
 	where enteredby = '#session.username#'
 </cfquery>

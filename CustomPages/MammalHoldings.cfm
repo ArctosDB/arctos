@@ -1,4 +1,4 @@
-<cfquery name="mammByOrder" datasource="#Application.web_user#">
+<cfquery name="mammByOrder" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select phylorder,
 	count(distinct(cat_num)) cnt,
 	sum(distinct(cat_num)) sum
@@ -19,7 +19,7 @@
 <cfoutput query="mammByOrder">
 	#phylorder# #cnt# <br>
 </cfoutput>
-<cfquery name="MammSpecByState" datasource="#Application.web_user#">
+<cfquery name="MammSpecByState" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
 		count(distinct(cat_num)) cnt,
 		continent_ocean,
@@ -52,7 +52,7 @@
 
 </cfoutput>
 <hr>
-<cfquery name="MammSpecAK" datasource="#Application.web_user#">
+<cfquery name="MammSpecAK" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
 		count(distinct(cat_num)) cnt,
 		continent_ocean,

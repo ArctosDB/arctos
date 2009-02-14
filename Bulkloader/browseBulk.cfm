@@ -21,7 +21,7 @@
 	You are not an admin for any active groups.
 	<cfabort>
 </cfif>
-<cfquery name="ctAccn" datasource="#Application.web_user#">
+<cfquery name="ctAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select accn from bulkloader where enteredby in (#preservesinglequotes(afg)#) group by accn order by accn
 </cfquery>
 <span style="font-size:smaller; font-style:italic;">
@@ -120,7 +120,7 @@
 			<cfset sql = "#sql# #f# and #t# ">
 		</cfif>	 
 	</cfif>
-	<cfquery name="data" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#	
 	</cfquery>
 	<cfset rUrl="browseBulk.cfm?action=sqlTab&enteredby=#enteredby#">
@@ -192,7 +192,8 @@
 			<cfset sql = "#sql# #f# and #t# ">
 		</cfif>		 
 	</cfif>
-	<cfquery name="data" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfset sql="#sql# and rownum<500">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#	
 	</cfquery>
 	<cfquery name="cNames" datasource="uam_god">
@@ -214,6 +215,9 @@
 			<li>in: comma-delimited list ("one,two" --> "<strong>one</strong>" OR "<strong>two</strong>")</li>
 			<li>between: range ("1-5" --> "1,2...5") Works only when ALL values are numeric (not only those you see in the current table)</li>	
 		</ul>
+		<p>
+			NOTE: This form will load at most 500 records. Your browser will thank me.
+		</p>
 	</div>
 	<form name="filter" method="post" action="browseBulk.cfm">
 		<input type="hidden" name="action" value="sqlTab">
@@ -404,7 +408,7 @@
 	</cfloop>
 	
 		<cfset sql ="#sql# WHERE collection_object_id = #thisCollObjId#">
-	<cfquery name="up" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="up" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 </cfloop>
@@ -434,7 +438,7 @@
 		
 		<cfabort>
 		--->
-		<cfquery name="upBulk" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="upBulk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
 	</cfif>
@@ -463,7 +467,7 @@
 	<cfset sql = "#sql# AND accn IN (#accn#)">
 	
 </cfif>
-<cfquery name="data" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#	
 </cfquery>
 <cfquery name="cNames" datasource="uam_god">

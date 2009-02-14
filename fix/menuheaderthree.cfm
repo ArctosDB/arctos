@@ -24,7 +24,7 @@
 	--->
 	<cfif not isdefined("session.header_color") or len(#session.header_color#) is 0>
 		<!--- assign client variables - otherwise, no reason to repeat --->
-		<cfquery name="getCollApp" datasource="#Application.web_user#">
+		<cfquery name="getCollApp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from collection_appearance where collection_id = #session.exclusive_collection_id#
 		</cfquery>
 		<cfif #getCollApp.recordcount# gt 0>
@@ -170,7 +170,7 @@ font: bold 0.7em/1.4em arial, helvetica, sans-serif;
 	<cfset r = replace(session.roles,",","','","all")>
 	<cfset r = "'#r#'">
 	<!---  cachedWithin="#CreateTimeSpan(0,1,0,0)#" --->
-<cfquery name="roles" datasource="#Application.web_user#">
+<cfquery name="roles" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select form_path from cf_form_permissions 
 	where upper(role_name) IN (#ucase(preservesinglequotes(r))#)
 </cfquery>

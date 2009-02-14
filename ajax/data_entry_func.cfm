@@ -39,16 +39,18 @@
 		<cfset ac=#accn#>
 		<cfset ia=#institution_acronym#>
 	</cfif>
-	<cfquery name="q" datasource="#Application.web_user#">
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			count(*) cnt
 		FROM
 			accn,
-			trans
+			trans,
+			collection
 		WHERE
 			accn.transaction_id = trans.transaction_id AND
+			trans.collection_id=collection.collection_id and
 			accn.accn_number = '#ac#' and
-			trans.institution_acronym = '#ia#'
+			collection.institution_acronym = '#ia#'
 	</cfquery>
 		<cfset result = "#q.cnt#">
 	<cfcatch>
@@ -59,9 +61,63 @@
 </cffunction>
 <cffunction name="get_picked_locality" returntype="query">
 	<cfargument name="locality_id" type="numeric" required="yes">
-
 	<cftry>
-	<cfquery name="result" datasource="#Application.web_user#">
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select 
+			locality.locality_id,
+			geog_auth_rec.HIGHER_GEOG,
+			locality.MAXIMUM_ELEVATION,
+			locality.MINIMUM_ELEVATION,
+			locality.ORIG_ELEV_UNITS,
+			locality.SPEC_LOCALITY,
+			locality.LOCALITY_REMARKS,
+			accepted_lat_long.LAT_DEG,			
+			accepted_lat_long.DEC_LAT_MIN,
+			accepted_lat_long.LAT_MIN,
+			accepted_lat_long.LAT_SEC,
+			accepted_lat_long.LAT_DIR,			
+			accepted_lat_long.LONG_DEG,
+			accepted_lat_long.DEC_LONG_MIN,
+			accepted_lat_long.LONG_MIN,
+			accepted_lat_long.LONG_SEC,			
+			accepted_lat_long.LONG_DIR,
+			accepted_lat_long.DEC_LAT,
+			accepted_lat_long.DEC_LONG,
+			accepted_lat_long.DATUM,
+			accepted_lat_long.ORIG_LAT_LONG_UNITS,
+			llAgnt.agent_name DETERMINED_BY,
+			to_char(accepted_lat_long.DETERMINED_DATE,'dd-Mon-yyyy') DETERMINED_DATE,
+			accepted_lat_long.LAT_LONG_REF_SOURCE,
+			accepted_lat_long.LAT_LONG_REMARKS,
+			accepted_lat_long.MAX_ERROR_DISTANCE,
+			accepted_lat_long.MAX_ERROR_UNITS,
+			accepted_lat_long.EXTENT,
+			accepted_lat_long.GPSACCURACY,
+			accepted_lat_long.GEOREFMETHOD,
+			accepted_lat_long.VERIFICATIONSTATUS,
+			GEOLOGY_ATTRIBUTE,
+			GEO_ATT_VALUE,
+			geoAgnt.agent_name GEO_ATT_DETERMINER,
+			to_char(GEO_ATT_DETERMINED_DATE,'dd-Mon-yyyy') GEO_ATT_DETERMINED_DATE,
+			GEO_ATT_DETERMINED_METHOD,
+			GEO_ATT_REMARK 
+		FROM
+			geog_auth_rec,
+			locality,
+			accepted_lat_long,
+			preferred_agent_name llAgnt,
+			geology_attributes,
+			preferred_agent_name geoAgnt
+		WHERE
+			locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id and
+			locality.LOCALITY_ID = accepted_lat_long.LOCALITY_ID (+) AND
+			locality.LOCALITY_ID = geology_attributes.LOCALITY_ID (+) AND
+			geology_attributes.GEO_ATT_DETERMINER_ID = geoAgnt.agent_id (+) AND
+			accepted_lat_long.DETERMINED_BY_AGENT_ID = llAgnt.agent_id (+) AND
+			locality.locality_id = #locality_id#
+	</cfquery>
+	<!---
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			locality.locality_id,
 			geog_auth_rec.HIGHER_GEOG,
@@ -105,24 +161,21 @@
 			accepted_lat_long.DETERMINED_BY_AGENT_ID = preferred_agent_name.agent_id (+) AND
 			locality.locality_id = #locality_id#
 	</cfquery>
+	--->
 	<cfcatch>
-		
-	<cfset result = QueryNew("locality_id")>
+	<cfset result = QueryNew("locality_id,msg")>
 	<cfset temp = QueryAddRow(result, 1)>
 	<cfset temp = QuerySetCell(result, "locality_id", "-1",1)>
+	<cfset temp = QuerySetCell(result, "msg", "#cfcatch.detail#",1)>
 	</cfcatch>
-	</cftry>
-	
-	
-
-	
+	</cftry>	
 	<cfreturn result>
 </cffunction>
 <cffunction name="getAttCodeTbl" returntype="query">
 	<cfargument name="attribute" type="string" required="yes">
 	<cfargument name="collection_cde" type="string" required="yes">
 	<cfargument name="element" type="string" required="yes">
-	<cfquery name="isCtControlled" datasource="#Application.web_user#">
+	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select VALUE_CODE_TABLE,UNITS_CODE_TABLE from ctattribute_code_tables where attribute_type='#attribute#'
 	</cfquery>
 	<cfif #isCtControlled.recordcount# is 1>
@@ -133,7 +186,7 @@
 				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.value_code_table)#'
 				and column_name <> 'DESCRIPTION'
 			</cfquery>
-			<cfquery name="valCT" datasource="#Application.web_user#">
+			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select * from #isCtControlled.value_code_table#
 			</cfquery>
 			<cfset collCode = "">
@@ -174,7 +227,7 @@
 				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.UNITS_CODE_TABLE)#'
 				and column_name <> 'DESCRIPTION'
 			</cfquery>
-			<cfquery name="valCT" datasource="#Application.web_user#">
+			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select * from #isCtControlled.UNITS_CODE_TABLE#
 			</cfquery>
 			<cfset collCode = "">
@@ -258,18 +311,18 @@
 	<cfset collcde = trim(mid(coll,theSpace,len(coll)))>
 	
 	
-	<cfquery name="collID" datasource="#Application.web_user#">
+	<cfquery name="collID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection_id from collection where
 		institution_acronym='#inst#' and
 		collection_cde='#collcde#'
 	</cfquery>
-	<cfquery name="q" datasource="#Application.web_user#">
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select max(cat_num + 1) as nextnum
 		from cataloged_item 
 		where 
 		collection_id=#collID.collection_id# 
 	</cfquery>
-	<cfquery name="b" datasource="#Application.web_user#">
+	<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select max(to_number(cat_num) + 1) as nextnum from bulkloader
 		where
 		institution_acronym='#inst#' and
@@ -293,12 +346,12 @@
 	<cfset inst = trim(left(coll,theSpace))>
 	<cfset coll = trim(mid(coll,theSpace,len(coll)))>
 	
-	<cfquery name="collID" datasource="#Application.web_user#">
+	<cfquery name="collID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection_id from collection where
 		institution_acronym='#inst#' and
 		collection_cde='#coll#'
 	</cfquery>
-	<cfquery name="q" datasource="#Application.web_user#">
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select min(cat_num + 1) as missingnum
 		from cataloged_item t1
 		where 
@@ -316,7 +369,7 @@
 		<cfif #q.recordcount# is 1>
 			<cfset result = #q.missingmnum#>
 		<cfelse>
-			<cfquery name="q" datasource="#Application.web_user#">
+			<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select max(cat_num) + 1 as nextnum from cataloged_item where
 				collection_id=#coll_id#
 			</cfquery>
@@ -326,7 +379,7 @@
 		<cfif #q.recordcount# is 1>
 			<cfset result = "#q.missingnum#">
 		<cfelse>
-			<cfquery name="q" datasource="#Application.web_user#">
+			<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select max(cat_num) + 1 as nextnum from cataloged_item where
 				collection_id=#coll_id#
 			</cfquery>
@@ -341,7 +394,7 @@
 	<cfargument name="prefx" type="string" required="yes">
 	
 	<cfset y = "#dateformat(now(), "yyyy")#">
-	<cfquery name="result" datasource="#Application.web_user#">
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			'#y#' as accn_num_prefix,
 			decode(max(accn_num),NULL,'1',max(accn_num) + 1) as nan
@@ -362,7 +415,7 @@
 <cffunction name="getLoan" returntype="query">
 	<cfargument name="inst" type="string" required="yes">
 	<cfset y = "#dateformat(now(), "yyyy")#">
-	<cfquery name="result" datasource="#Application.web_user#">
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			'#y#' as loan_num_prefix,
 			decode(max(loan_num),NULL,'1',max(loan_num) + 1) as nln
@@ -385,7 +438,7 @@
 	<cfif #box# is 1>
 		<cfif #rack# is 1>
 			<cfif #freezer# is 1>
-				<cfquery name="result" datasource="#Application.web_user#">
+				<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select 
 						0 as freezer,
 						0 as box,
@@ -394,16 +447,16 @@
 				</cfquery>
 			<cfelse>
 				<cfset tf = #freezer# -1 >
-				<cfquery name="pf" datasource="#Application.web_user#">
+				<cfquery name="pf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select distinct(freezer) from 
 					dgr_locator where freezer = #tf#
 				</cfquery>
 				<cfif #pf.recordcount# is 1>
-					<cfquery name="r" datasource="#Application.web_user#">
+					<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select max(rack) as mrack from dgr_locator where 
 						freezer = #tf#
 					</cfquery>
-					<cfquery name="result" datasource="#Application.web_user#">
+					<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select 
 							freezer,
 							rack,
@@ -552,7 +605,7 @@
 <!------------------------------------->
 
 <cffunction name="getContacts" returntype="string">
-	<cfquery name="contacts" datasource="#Application.web_user#">
+	<cfquery name="contacts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			collection_contact_id,
 			contact_role,
@@ -574,7 +627,7 @@
 <cffunction name="getCollInstFromCollId" returntype="string">
 	<cfargument name="collid" type="numeric" required="yes">
 	<cftry>
-		<cfquery name="getCollId" datasource="#Application.web_user#">
+		<cfquery name="getCollId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select collection_cde, institution_acronym from
 			collection where collection_id = #collid#
 		</cfquery>
@@ -600,7 +653,7 @@
 	<cfset theCollObjId = mid(theName,hPos + 2,len(theName) - hPos)>
 	<cfset result="#theName#">
 	<cftry>
-		<cfquery name="upBulk" datasource="#Application.web_user#">
+		<cfquery name="upBulk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE bulkloader SET #theField# = '#theValue#'
 			WHERE collection_object_id = #theCollObjId#
 		</cfquery>

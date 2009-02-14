@@ -9,7 +9,7 @@
 <SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
 
 
-<cfquery name="ctEncAct" datasource="#Application.web_user#">
+<cfquery name="ctEncAct" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select encumbrance_action from ctencumbrance_action
 </cfquery>
 
@@ -101,11 +101,11 @@
 <cfif #Action# is "createEncumbrance">
 	
 	<cfoutput>
-<cfquery name="nextEncumbrance" datasource="#Application.web_user#">
-	select max(encumbrance_id) +1 as nextEncumbrance from encumbrance
+<cfquery name="nextEncumbrance" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select sq_encumbrance_id.nextval nextEncumbrance from dual
 </cfquery>
 
-<cfquery name="newEncumbrance" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="newEncumbrance" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 INSERT INTO encumbrance (
 	ENCUMBRANCE_ID,
 	ENCUMBERING_AGENT_ID,
@@ -192,7 +192,7 @@ VALUES (
 		<cfset sql = "#sql# AND upper(remarks) like '%#ucase(remarks)#%'">	
 	</cfif>
 	
-	<cfquery name="getEnc" datasource="#Application.web_user#">
+	<cfquery name="getEnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 	</cfoutput>
@@ -239,7 +239,7 @@ VALUES (
 <!-------------------------------------------------------------------------------------------->
 <cfoutput>
 
-<cfquery name="getData" datasource="#Application.web_user#">
+<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
  SELECT 
  	cataloged_item.collection_object_id as collection_object_id, 
 	cat_num, 

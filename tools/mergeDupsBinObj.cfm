@@ -6,7 +6,7 @@
 <cfif #action# is "nothing">
 <a href="mergeDupsBinObj.cfm?autorun=yep">Autorun</a>
  <p>First Hundred Duplicates:
-	<cfquery name="findAllDups" datasource="#Application.web_user#">
+	<cfquery name="findAllDups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			cataloged_item.collection_object_id,
 			collection,
@@ -45,7 +45,7 @@
 			</tr>
 
 		<cfloop query="findAllDups">
-			<cfquery name="dupRec" datasource="#Application.web_user#">
+			<cfquery name="dupRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					cataloged_item.collection_object_id,
 					collection,

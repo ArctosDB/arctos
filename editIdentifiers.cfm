@@ -1,6 +1,6 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfset title = "Edit Identifiers">
-<cfquery name="getIDs" datasource="#Application.web_user#">
+<cfquery name="getIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		COLL_OBJ_OTHER_ID_NUM_ID,
 		cat_num,
@@ -20,9 +20,8 @@
 		cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id (+) and 
 		cataloged_item.collection_object_id=#collection_object_id#
 </cfquery>
-<cfquery name="ctType" datasource="#Application.web_user#">
-	select other_id_type from ctcoll_other_id_type where
-	collection_cde='#getIDs.collection_cde#'
+<cfquery name="ctType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select other_id_type from ctcoll_other_id_type order by other_id_type
 </cfquery>
 
 <cfquery name="cataf" dbtype="query">
@@ -45,7 +44,7 @@
 		other_id_suffix,
 		other_id_type
 </cfquery>
-<cfquery name="ctcoll_cde" datasource="#Application.web_user#">
+<cfquery name="ctcoll_cde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		institution_acronym,
 		collection_cde,
@@ -169,7 +168,7 @@
 <cfif #Action# is "saveCatEdits">
 <cfoutput>
 	<cftransaction>
-	<cfquery name="upCat" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="upCat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	UPDATE cataloged_item SET 
 		cat_num = #cat_num#,
 		collection_id=#collection_id#		
@@ -188,7 +187,7 @@
 	<cftry>
 		
 	
-	<cfquery name="upOIDt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="upOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		UPDATE 
 			coll_obj_other_id_num 
 		SET 
@@ -208,7 +207,7 @@
 	</cfcatch>
 	</cftry>
 	--->
-	<cfquery name="upOIDt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="upOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		UPDATE 
 			coll_obj_other_id_num 
 		SET 
@@ -244,7 +243,7 @@
 <cfoutput>
 
 
-<cfquery name="delOIDt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="delOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	DELETE FROM 
 		coll_obj_other_id_num 
 	WHERE 
@@ -260,7 +259,7 @@
 <!-------------------------------------------------------->
 <cfif #Action# is "newOID">
 <cfoutput>
-	<cfquery name="newOIDt" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="newOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO coll_obj_other_id_num 
 		(collection_object_id,
 		other_id_type,

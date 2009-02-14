@@ -3,8 +3,6 @@
 	<cfinclude template="includes/_header.cfm">
 </div>
 </div><!--- kill content div --->
-
-<!---><cfinclude template="/includes/functionLib.cfm">--->
 <script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
 <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
 	var cal1 = new CalendarPopup("theCalendar");
@@ -16,9 +14,8 @@
 <cfset title = "Search for specimens or encumbrances">
 <cfif not isdefined("collection_object_id")>
 	<cfset collection_object_id=-1>
-	<cfobjectcache action="clear">
 </cfif>
-<cfquery name="ctEncAct" datasource="#Application.web_user#">
+<cfquery name="ctEncAct" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select encumbrance_action from ctencumbrance_action
 </cfquery>
 <cfif #action# is "nothing">
@@ -34,13 +31,13 @@
 	<br> OR  
 	 <input type="button" value="Find Specimens to encumber" class="lnkBtn"
    onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-   onClick="window.open('SpecimenSearch.cfm?Action=encumber','#session.target#');">	
+   onClick="window.open('SpecimenSearch.cfm?Action=encumber');">	
 
 	
 	<br> OR 
 	<input type="button" value="Create A New Encumbrance" class="insBtn"
    onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'"
-   onClick="window.open('newEncumbrance.cfm','#session.target#')">	
+   onClick="window.open('newEncumbrance.cfm')">	
 
 </strong>
 
@@ -182,7 +179,7 @@
 		<cfset sql = "#sql# AND upper(remarks) like '%#ucase(remarks)#%'">	
 	</cfif>
 	<hr>#preservesinglequotes(sql)#<hr>
-	<cfquery name="getEnc" datasource="#Application.web_user#">
+	<cfquery name="getEnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 	</cfoutput>
@@ -231,14 +228,14 @@
 		class="lnkBtn"
 		onmouseover="this.className='lnkBtn btnhov'"
 		onmouseout="this.className='lnkBtn'"
-		onClick="document.location='/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#','#session.target#'">
+		onClick="document.location='/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#'">
 		
 		<input type="button" 
 		value="Delete Encumbered Specimens" 
 		class="delBtn"
 		onmouseover="this.className='delBtn btnhov'"
 		onmouseout="this.className='delBtn'"
-		onClick="document.location='/Admin/deleteSpecByEncumbrance.cfm?encumbrance_id=#encumbrance_id#','#session.target#'">
+		onClick="document.location='/Admin/deleteSpecByEncumbrance.cfm?encumbrance_id=#encumbrance_id#'">
 		</form>
 		<cfset i = #i#+1>
 	</cfoutput>
@@ -261,7 +258,7 @@
 		list="#collection_object_id#" 
 		delimiters=",">
 	
-	<cfquery name="encSpecs" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="encSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM coll_object_encumbrance
 		WHERE
 		encumbrance_id = #encumbrance_id# AND
@@ -284,7 +281,7 @@
 <cfset title = "Update Encumbrance">
 Edit Encumbrance:
 <cfoutput>
-<cfquery name="encDetails" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="encDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT
 		 * 
 	FROM
@@ -384,7 +381,7 @@ Edit Encumbrance:
 	<cfoutput>
 
 
-<cfquery name="newEncumbrance" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="newEncumbrance" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 UPDATE encumbrance SET
 	encumbrance_id = #encumbrance_id#
 	<cfif len(#encumberingAgentId#) gt 0>
@@ -419,13 +416,13 @@ UPDATE encumbrance SET
 	<cfif len(#encumbrance_id#) is 0>
 		Didn't get an encumbrance_id!!<cfabort>
 	</cfif>
-	<cfquery name="isUsed" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="isUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) as cnt from coll_object_encumbrance where encumbrance_id=#encumbrance_id#
 	</cfquery>
 	<cfif #isUsed.cnt# gt 0>
 		You can't delete this encumbrance because specimens are using it!<cfabort>
 	</cfif>
-	<cfquery name="deleteEnc" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="deleteEnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM encumbrance WHERE encumbrance_id = #encumbrance_id#
 	</cfquery>
 </cfoutput>	
@@ -448,7 +445,7 @@ UPDATE encumbrance SET
 		list="#collection_object_id#" 
 		delimiters=",">
 	
-	<cfquery name="encSpecs" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="encSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO coll_object_encumbrance (encumbrance_id, collection_object_id)
 		VALUES (#encumbrance_id#, #i#)
 	</cfquery>
@@ -463,11 +460,11 @@ UPDATE encumbrance SET
 <cfif #collection_object_id# gt 0>
 	<Cfset title = "Encumber these specimens">
 		<cfoutput>
-			<cfquery name="getData" datasource="#Application.web_user#">
+			<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				 SELECT 
 					cataloged_item.collection_object_id as collection_object_id, 
 					cat_num, 
-					af_num.af_num, 
+					concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 					identification.scientific_name, 
 					country, 
 					state_prov, 
@@ -496,8 +493,7 @@ UPDATE encumbrance SET
 					specimen_part, 
 					coll_object_encumbrance, 
 					encumbrance, 
-					preferred_agent_name encumbering_agent,
-					af_num
+					preferred_agent_name encumbering_agent
 				WHERE 
 					locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id AND 
 					collecting_event.locality_id = locality.locality_id AND 
@@ -507,7 +503,6 @@ UPDATE encumbrance SET
 					cataloged_item.collection_object_id = specimen_part.derived_from_cat_item (+) AND 
 					cataloged_item.collection_id = collection.collection_id AND 
 					cataloged_item.collection_object_id=coll_object_encumbrance.collection_object_id (+) AND 
-					cataloged_item.collection_object_id=af_num.collection_object_id (+) AND 
 					coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id (+) AND 
 					encumbrance.encumbering_agent_id = encumbering_agent.agent_id (+) AND 
 					cataloged_item.collection_object_id 
@@ -517,13 +512,13 @@ UPDATE encumbrance SET
 					cataloged_item.collection_object_id
 
 			</cfquery>
-		</cfoutput>
+
 		<hr>
 		<br><strong>Cataloged Items being encumbered:</strong>
 			<table width="95%" border="1">
 				<tr>
 					<td><strong>Catalog Number</strong></td>
-					<td><strong>AF Number</strong></td>
+					<td><strong>#session.CustomOtherIdentifier#</strong></td>
 					<td><strong>Scientific Name</strong></td>
 					<td><strong>Country</strong></td>
 					<td><strong>State</strong></td>
@@ -532,13 +527,14 @@ UPDATE encumbrance SET
 					<td><strong>Part</strong></td>
 					<td><strong>Existing Encumbrances</strong></td>
 				</tr>
+						</cfoutput>
 		<cfoutput query="getData" group="collection_object_id">
 			<tr>
 				<td>
 					<a href="SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
 					#collection_cde#&nbsp;#cat_num#</a><br>
 				</td>
-				<td>#af_num#&nbsp;</td>
+				<td>#CustomID#&nbsp;</td>
 				<td><i>#Scientific_Name#</i></td>
 				<td>#Country#&nbsp;</td>
 				<td>#State_Prov#&nbsp;</td>

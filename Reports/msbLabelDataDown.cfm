@@ -90,7 +90,7 @@
 		accepted_id_fg=1 AND cataloged_item.collection_object_id IN (#collection_object_id#)
 	ORDER BY
 		cat_num">
-	<cfquery name="data" datasource="#Application.web_user#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 	<cfset lAr = ArrayNew(1)>

@@ -58,8 +58,8 @@
 	<cfset other_id_value="">
 	<cfset collection_object_id="">
 	<cfset loan_trans_id="">
-	
-	
+	<cfset table_name="">
+	<cfset in_container_type="">
 	<cfloop list="#q#" index="p" delimiters="&">
 		<cfset k=listgetat(p,1,"=")>
 		<cfset v=listgetat(p,2,"=")>
@@ -76,7 +76,9 @@
 		len(#other_id_type#) is 0 and
 		len(#other_id_value#) is 0 and
 		len(#collection_object_id#) is 0 and
-		len(#loan_trans_id#) is 0
+		len(#loan_trans_id#) is 0 and
+		len(#table_name#) is 0 and
+		len(#in_container_type#) is 0
 		>
 		
 		 <cfset result = querynew("container_id,msg")>
@@ -89,7 +91,15 @@
 	<cfset sel = "SELECT container.container_id">
 	<cfset frm = " FROM container ">
 	<cfset whr=" where 1=1 ">
-
+	<cfif len(#table_name#) gt 0>
+		<cfif #frm# does not contain " coll_obj_cont_hist ">
+			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
+		</cfif>
+		<cfif #frm# does not contain " specimen_part ">
+			<cfset frm = "#frm# inner join specimen_part on (coll_obj_cont_hist.collection_object_id=specimen_part.collection_object_id)">
+		</cfif>
+		<cfset frm = "#frm# inner join #session.username#.#table_name# #table_name# on (#table_name#.collection_object_id=specimen_part.derived_from_cat_item)">
+	</cfif>
 	<cfif len(#collection_object_id#) gt 0>
 		<cfif #frm# does not contain " coll_obj_cont_hist ">
 			<cfset frm = "#frm# inner join coll_obj_cont_hist on (container.container_id=coll_obj_cont_hist.container_id)">
@@ -206,13 +216,14 @@
 	<cfset thisSql = "
 				SELECT 
 					CONTAINER_ID,
-				PARENT_CONTAINER_ID,
+					nvl(PARENT_CONTAINER_ID,0) PARENT_CONTAINER_ID,
 				CONTAINER_TYPE,
 				DESCRIPTION,
 				PARENT_INSTALL_DATE,
 				CONTAINER_REMARKS,
 				someRandomSequence.nextval ID,
-				label
+				label,
+				SYS_CONNECT_BY_PATH(container_type,':') thepath
 				 from container
 				start with container_id IN (
 					#sql#
@@ -221,7 +232,7 @@
 			">
 
 			 <cftry>
-			 	 <cfquery name="queriedFor" datasource="#Application.web_user#" timeout="60">
+			 	 <cfquery name="queriedFor" datasource="#Application.uam_dbo#" timeout="60">
 					#preservesinglequotes(thisSql)#
 				 </cfquery>
 				<cfcatch>
@@ -240,6 +251,18 @@
 				<cfset temp = QuerySetCell(result, "msg", "No records were found.", 1)>
 				<cfreturn result>
 	   		</cfif>
+	   		<!---
+	   		 does NOT work - removes rows that are IN container but don't CONTAIN container so
+	   		 FREEZER 2
+	   		 	MOUSE 1
+	   		 	returns only FREEZER 2 when filter=FREEZER
+	   		
+	   		<cfif len(#in_container_type#) gt 0>
+				<cfquery name="queriedFor" dbtype="query">
+					select * from queriedFor where thepath like '%#in_container_type#%'
+				</cfquery>
+			</cfif>
+	   		---->
 				 <cfquery name="ro" dbtype="query">
 					select 
 						CONTAINER_ID,

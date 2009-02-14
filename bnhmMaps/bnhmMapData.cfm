@@ -19,7 +19,7 @@
 		<cfabort>
 	</cfif>
 	<cfoutput>
-	<cfquery name="getMapData" datasource="#Application.web_user#">
+	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT
 			'All collections' Collection_cde,
 			0 collection_id,
@@ -43,9 +43,9 @@
 		You didn't pass a loan ID!
 		<cfabort>
 	</cfif>
-	<cfquery name="getMapData" datasource="#Application.web_user#">
+	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT DISTINCT 
-			collection.collection Collection_cde,
+			institution_acronym||' '||collection.collection_cde Collection_cde,
 			collection.collection_id,
 			cat_num,
 			identification.scientific_name,
@@ -106,8 +106,8 @@ FROM
 <cfset basJoin = "INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)
 INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_id = flatCollEvent.collecting_event_id)">	
 <cfset basWhere = " WHERE 
-	#flatTableName#.dec_lat is not null AND
-	#flatTableName#.dec_long is not null AND
+	dec_lat is not null AND
+	dec_long is not null AND
 	flatCollEvent.collecting_source = 'wild caught' ">			
 <cfset basQual = "">
 <cfif not isdefined("basJoin")>
@@ -175,7 +175,7 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 			select institution_acronym from getMapData group by institution_acronym
 		</cfquery>
 		<!--- get contacts --->
-		<cfquery name="whatEmails" datasource="#Application.web_user#">
+		<cfquery name="whatEmails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select address from
 				electronic_address,
 				collection_contacts,
@@ -208,7 +208,7 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 	<cfset theseCollectionIds = valuelist(collID.collection_id)>
 	<cfset thisAddress = #Application.DataProblemReportEmail#>
 	<cfif len(#theseCollectionIds#) gt 0>
-	<cfquery name="whatEmails" datasource="#Application.web_user#">
+	<cfquery name="whatEmails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select address from
 			electronic_address,
 			collection_contacts

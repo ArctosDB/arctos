@@ -1,7 +1,7 @@
 <cfoutput>
 <cfset transaction_id=caller.transaction_id>
-<cfquery name="caller.getLoan" datasource="#Application.web_user#">
-       SELECT
+<cfquery name="caller.getLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+    SELECT
 	trans_date,
     concattransagent(trans.transaction_id, 'authorized by') authAgentName,
     concattransagent(trans.transaction_id, 'received by')   recAgentName,
@@ -13,20 +13,24 @@
 	get_address(outside_trans_agent.agent_id) outside_address,
 	inside_email.address inside_email_address,
 	outside_email.address outside_email_address,
-               return_due_date,
-                nature_of_material,
-                trans_remarks,
-                loan_instructions,
-                loan_description,
-                loan_type,
-                loan_number,
-                loan_status,
-				shipped_date,
-				ship_to_addr.formatted_addr  shipped_to_address   ,
-				ship_from_addr.formatted_addr  shipped_from_address  ,
-				processed_by.agent_name processed_by_name,
-				sponsor_name.agent_name project_sponsor_name,
-				acknowledgement   
+	return_due_date,
+	nature_of_material,
+	trans_remarks,
+	loan_instructions,
+	loan_description,
+	loan_type,
+	loan_number,
+	loan_status,
+	shipped_date,
+	case when  concattransagent(trans.transaction_id, 'received by') !=  outside_contact.agent_name then
+		'Attn: ' || outside_contact.agent_name || '<br>' || ship_to_addr.formatted_addr
+	else
+		ship_to_addr.formatted_addr
+	end  shipped_to_address,
+	ship_from_addr.formatted_addr  shipped_from_address  ,
+	processed_by.agent_name processed_by_name,
+	sponsor_name.agent_name project_sponsor_name,
+	acknowledgement   
         FROM
                 loan,
 				trans,

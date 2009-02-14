@@ -1,7 +1,7 @@
 hi there, I'm an attribute picky thingy
 
 <cfoutput>
-	<cfquery name="whatIsIt" datasource="#Application.web_user#">
+	<cfquery name="whatIsIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
 			VALUE_CODE_TABLE,
 			UNITS_CODE_TABLE

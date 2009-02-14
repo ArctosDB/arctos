@@ -40,18 +40,18 @@
 		<cfabort>
 	</cfif>
 	<cfoutput>
-		<cfquery name="getAgentId" datasource="#Application.web_user#">
+		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT agent_id from agent_name where
 				UPPER(agent_name) LIKE '%#ucase(agentname)#%'
 				AND agent_name_type = 'preferred'
 		</cfquery>
-		<cfquery name="names" datasource="#Application.web_user#">
+		<cfquery name="names" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT agent_name, agent_name_id from agent_name where 
 			agent_id = #getAgentId.agent_id#
 		</cfquery>
 	
 	<cfloop query="getAgentId">
-		<cfquery name="names" datasource="#Application.web_user#">
+		<cfquery name="names" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT agent_name, agent_name_id from agent_name where 
 			agent_id = #getAgentId.agent_id#
 		</cfquery>

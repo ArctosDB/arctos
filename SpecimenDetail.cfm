@@ -7,28 +7,32 @@
 			<cfset institution_acronym = listgetat(guid,1,":")>
 			<cfset collection_cde = listgetat(guid,2,":")>
 			<cfset cat_num = listgetat(guid,3,":")>
-			<cfquery name="c" datasource="#Application.web_user#">
-				select collection_object_id from 
+			<cfset sql="select collection_object_id from 
 					cataloged_item,
 					collection
 				WHERE
 					cataloged_item.collection_id = collection.collection_id AND
 					cat_num = #cat_num# AND
 					lower(collection.collection_cde)='#lcase(collection_cde)#' AND
-					lower(collection.institution_acronym)='#lcase(institution_acronym)#'
+					lower(collection.institution_acronym)='#lcase(institution_acronym)#'">
+			<cfset checkSql(sql)>
+			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				#preservesinglequotes(sql)#
 			</cfquery>
 		<cfelseif guid contains " ">
 			<cfset spos=find(" ",reverse(guid))>
 			<cfset cc=left(guid,len(guid)-spos)>
 			<cfset cn=right(guid,spos)>
-			<cfquery name="c" datasource="#Application.web_user#">
-				select collection_object_id from 
+			<cfset sql="select collection_object_id from 
 					cataloged_item,
 					collection
 				WHERE
 					cataloged_item.collection_id = collection.collection_id AND
 					cat_num = #cn# AND
-					lower(collection.collection)='#lcase(cc)#'
+					lower(collection.collection)='#lcase(cc)#'">
+			<cfset checkSql(sql)>
+			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				#preservesinglequotes(sql)#
 			</cfquery>
 		</cfif>
 		<cfif not isdefined("c.collection_object_id") or len(#c.collection_object_id#) gt 0>
@@ -41,11 +45,14 @@
 		</cfif>
 	<cfelse>
 		<p class="error">
-			Did not get a collection_object_id - aborting....
+			Did not get an ID: aborting....
 		</p>
 		<cfabort>
 	</cfif>
 </cfif>
+<cfif isdefined("orderedCollObjIdList") and listlen(#orderedCollObjIdList#) gt 200>
+	<cfset orderedCollObjIdList = "">
+</cfif> 
 <cfset detSelect = "
 	SELECT DISTINCT
 		institution_acronym,
@@ -71,8 +78,6 @@
 		ended_date,
 		sea,
 		feature,
-		other_id_type,
-		other_id_num,
 		concatparts(cataloged_item.collection_object_id) as partString,
 		concatEncumbrances(cataloged_item.collection_object_id) as encumbrance_action,
 		dec_lat,
@@ -90,19 +95,31 @@
 	INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)
 	INNER JOIN geog_auth_rec ON (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)
 	INNER JOIN Coll_object ON (cataloged_item.collection_object_id = coll_object.collection_object_id)
-	LEFT OUTER JOIN coll_obj_other_id_num ON (cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id)
 	LEFT OUTER JOIN accepted_lat_long ON (locality.locality_id = accepted_lat_long.locality_id)
 	WHERE 
 		identification.accepted_id_fg = 1 AND
 		cataloged_item.collection_object_id = #collection_object_id#
 	ORDER BY
 		cat_num">
-
-<cfquery name="detail" datasource = "#Application.web_user#">
+<cfset checkSql(detSelect)>	
+<cfquery name="detail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(detSelect)#
 </cfquery>
-
 <cfoutput>
+<cfif detail.recordcount lt 1>
+	<div class="error">
+		Oops! No specimen was found for that URL.
+		<ul>
+			<li>Did you mis-type the URL?</li>
+			<li>
+				Did you click a link? <a href="/info/bugs.cfm">Tell us about it</a>.
+			</li>
+			<li>
+				You may need to log out or change your preferences to access all public data.
+			</li>
+		</ul>
+	</div>
+</cfif>
 <cfset title="#detail.collection# #detail.cat_num#">
 <cf_customizeHeader collection_id=#detail.collection_id#>
 <script type="text/javascript" language="javascript">
@@ -334,16 +351,16 @@
 			    <td valign="top">
 			        <span class="annotateSpace">
 						<cfif len(#session.username#) gt 0>
-							<cfquery name="existingAnnotations" datasource="#Application.web_user#">
+							<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 								select count(*) cnt from specimen_annotations
 								where collection_object_id = #collection_object_id#
 							</cfquery>
 							<a href="javascript: openAnnotation('#collection_object_id#')">
-								[Annotate]
-							</a>
+								[Annotate]							
 							<cfif #existingAnnotations.cnt# gt 0>
 								<br>(#existingAnnotations.cnt# existing)
 							</cfif>
+							</a>
 						<cfelse>
 							<a href="/login.cfm">Login or Create Account</a>
 						</cfif>
@@ -498,7 +515,6 @@
     <!---
 </div>
 --->
-<cfset exclusive_collection_id="#detail.collection_id#">
 <cfinclude template="/includes/_footer.cfm">
 
 	

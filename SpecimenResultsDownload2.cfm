@@ -11,7 +11,7 @@
 </cfif>
 
 <cfif #action# is "nothing">
-<cfquery name="getUserData" datasource="#Application.web_user#">
+<cfquery name="getUserData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT   
 		cf_users.user_id,
 		first_name,
@@ -60,7 +60,7 @@
 	</tr>
 	<tr>
 		<td align="right">Purpose of Download</td>
-		<cfquery name="ctPurpose" datasource="#Application.web_user#">
+		<cfquery name="ctPurpose" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from ctdownload_purpose
 		</cfquery>
 		<td>
@@ -157,7 +157,7 @@ do not agree</font>.</a>
 			'#agree#')
 	</cfquery>
 	
-	<cfquery name="isUser" datasource="#Application.web_user#">
+	<cfquery name="isUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_user_data where user_id=#user_id#
 	</cfquery>
 		<!---- already have a user_data entry ---->
@@ -208,7 +208,7 @@ do not agree</font>.</a>
 	<!--- if they agree to the terms, send them to their download --->
 	--->
 	<cfif #agree# is "yes">
-		<cfquery name="cols" datasource="#Application.web_user#">
+		<cfquery name="cols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			 select 
 			 	user_tab_cols.column_name 
 			 from 
@@ -222,7 +222,7 @@ do not agree</font>.</a>
 		</cfquery>
 		<cfdump var=#cols#>
 		<cfabort>
-		<cfquery name="getData" datasource="#Application.web_user#">
+		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from #tableName#
 		</cfquery>
 		<cfset ac = valuelist(cols.column_name)>

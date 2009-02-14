@@ -1,5 +1,5 @@
 <cfif #action# is "suggestGeologyAttVal">
-	<cfquery name="ins" datasource="#Application.web_user#">
+	<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 			attribute_value
 		FROM 
@@ -9,6 +9,6 @@
 			<cfif isdefined("t") and len(#t#) gt 0>and attribute='#t#'</cfif>
 			group by attribute_value
 	</cfquery>
-	<cfoutput query="ins">#attribute_value#
+	<cfoutput query="ins">#attribute_value##chr(10)#
 	</cfoutput>
 </cfif>

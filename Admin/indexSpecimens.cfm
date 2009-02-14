@@ -6,7 +6,7 @@
 	<cfset startWith = 0>
 </cfif>	
 <cfif not isdefined("stopAt")>
-	<cfquery name="c" datasource="#Application.web_user#">
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select max(collection_object_id) as mcid from flat
 	</cfquery>
 	<cfset stopAt = c.mcid>
@@ -18,7 +18,7 @@
 </cfif>
 	<cfset p1k = #startWith# + 5000>
 	<cfoutput>-- getting #startWith# to #p1k# --<cfflush></cfoutput>
-	<cfquery name="data" datasource="#Application.web_user#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 			flat.collection_object_id,
 			collection_cde,

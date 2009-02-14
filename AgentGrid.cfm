@@ -1,5 +1,4 @@
 <cfinclude template="includes/_pickHeader.cfm">
-<cfinclude template="includes/functionLib.cfm">
 
 <cfif not isdefined("Action") OR not #action# is "search">
 	<!---- waiting for something to search --->
@@ -38,6 +37,7 @@
 					LEFT OUTER JOIN person ON (agent.agent_id = person.person_id)
 				WHERE 
 					agent.agent_id > -1
+					and rownum<500 -- some throttle control
 					">
 					<!---
 					agent_name_type='preferred'
@@ -83,7 +83,7 @@
 					preferred_agent_name.agent_name,
 					agent_type">
 <cfset sql = "#sql# ORDER BY preferred_agent_name.agent_name">
-		<cfquery name="getAgents" datasource="#Application.web_user#">
+		<cfquery name="getAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
 <cfif getAgents.recordcount is 0>

@@ -25,7 +25,11 @@
 
 <!--- check for crap - do NOT allow single-quotes, etc.
 --->
-<cfset thisTableName = "TaxaResults_#cfid#_#cftoken#">	
+<cfif isdefined("session.displayrows") and isnumeric(session.displayrows) and session.displayrows gt 0>
+	<cfset dr=session.displayrows>
+<cfelse>
+	<cfset dr=20>
+</cfif>
 <cfif not isdefined("startAt") or len(#startAt#) is 0>
 <cfset stringOfStuffToClean = "">
 
@@ -127,18 +131,21 @@
 			You searched for an illegal character.
 			<cfabort>
 		</cfif>
-
-<CFSET SQL = "create table #thisTableName# as #SQL#">
+<cfset checkSql(SQL)>	
+<CFSET SQL = "create table #session.TaxSrchTab# as #SQL#">
 <cftry>
-	<cfquery name="die" datasource="#Application.web_user#">
-		drop table #thisTableName#
+	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		drop table #session.TaxSrchTab#
 	</cfquery>
 	<cfcatch><!--- not there, so what? ---></cfcatch>
 </cftry>
 	<cftry>
-		<cfquery name="makeTable" datasource="#Application.web_user#">
+		<cfquery name="makeTable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(SQL)#
 		</cfquery>
+		<cfoutput>
+		#sql#
+		</cfoutput>
 	<cfcatch>
 		<cfset sql=cfcatch.sql>
 		<cfset message=cfcatch.message>
@@ -148,16 +155,16 @@
 </cftry>
 <cfset startAt=1>
 </cfif>
-<cfquery name="summary" datasource="#Application.web_user#">
-	select count(*) cnt from #thisTableName#
+<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select count(*) cnt from #session.TaxSrchTab#
 </cfquery>
 <cfif not isdefined("goTo") or len(#goTo#) is 0 or #goTo# lte #startAt#>
-	<cfset goTo = StartAt + session.displayrows>
+	<cfset goTo = StartAt + dr>
 </cfif>
-<cfquery name="getTaxa" datasource="#Application.web_user#">
+<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	Select * from (
 				Select a.*, rownum rnum From (
-					select * from #thisTableName# order by scientific_name
+					select * from #session.TaxSrchTab# order by scientific_name
 				) a where rownum <= #goTo#
 			) where rnum >= #startAt#
 </cfquery>
@@ -165,28 +172,28 @@
 <CFOUTPUT>
 <H4>
 Found #summary.cnt# records. (Note: This form will not return >1000 records; you may need to narrow your search to return all matches.)
-<cfset numPages= ceiling(summary.cnt/session.displayrows)>
+<cfset numPages= ceiling(summary.cnt/dr)>
 		<cfset loopTo=numPages-2>
 		<label for="page_record">Records...</label>
 		<select name="page_record" id="page_record" size="1" onchange="getTaxaResultsData(this.value);">
 			<cfloop from="0" to="#loopTo#" index="i">
-				<cfset bDispVal = (i * session.displayrows + 1)>
-				<cfset eDispval = (i + 1) * session.displayrows>
-				<option value="#bDispVal#,#session.displayrows#"
+				<cfset bDispVal = (i * dr + 1)>
+				<cfset eDispval = (i + 1) * dr>
+				<option value="#bDispVal#,#dr#"
 					<cfif #bDispVal# is #startAt#> selected="selected" </cfif>
 							>#bDispVal# - #eDispval#</option>
 			</cfloop>
 			<!--- last set of records --->
-			<cfset bDispVal = ((loopTo + 1) * session.displayrows )+ 1>
+			<cfset bDispVal = ((loopTo + 1) * dr )+ 1>
 			<cfset eDispval = summary.cnt>
-			<option value="#bDispVal#,#session.displayrows#"
+			<option value="#bDispVal#,#dr#"
 					<cfif #bDispVal# is #startAt#> selected="selected" </cfif>>#bDispVal# - #eDispval#</option>
 			<!--- all records --->
 			<option 
 					<cfif #startAt# is 1 and #goTo# is #summary.cnt#> selected="selected"</cfif>
 						value="1,#summary.cnt#">1 - #summary.cnt#</option>
 		</select>
-		<a href="SpecimenResultsDownload.cfm?tableName=#thisTableName#">Download</a>
+		<a href="SpecimenResultsDownload.cfm?tableName=#session.TaxSrchTab#">Download</a>
 </H4>
 </CFOUTPUT>
 
@@ -208,7 +215,7 @@ Found #summary.cnt# records. (Note: This form will not return >1000 records; you
     </tr>
   <cfset i=1>
   <cfoutput query="getTaxa">
-	<cfquery name="cName" datasource="#Application.web_user#">
+	<cfquery name="cName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select common_name from common_name where
 		taxon_name_id = #taxon_name_id#
 	</cfquery>
@@ -230,17 +237,14 @@ Found #summary.cnt# records. (Note: This form will not return >1000 records; you
 						<ul>
 							<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 								<li>
-									<a href="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#"
-										target="#session.target#">Edit</a>					
+									<a href="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">Edit</a>					
 								</li>
 							</cfif>
 							<li>
-								<a href="TaxonomyDetails.cfm?&taxon_name_id=#taxon_name_id#"
-									target="#session.target#">Details</a>
+								<a href="TaxonomyDetails.cfm?&taxon_name_id=#taxon_name_id#">Details</a>
 							</li>
 							<li>
-								<a href="SpecimenResults.cfm?&taxon_name_id=#taxon_name_id#"
-									target="#session.target#">Specimens</a>
+								<a href="SpecimenResults.cfm?&taxon_name_id=#taxon_name_id#">Specimens</a>
 							</li>
 							<li>
 								<a href="http://images.google.com/images?q=#thisSearch#"

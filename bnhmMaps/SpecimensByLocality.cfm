@@ -8,7 +8,7 @@ Retrieving map data - please wait....
 	</cfif>
 	<cfset dlPath = "#Application.webDirectory#/bnhmMaps/">
 	<cfset dlFile = "tabfile#cfid##cftoken#.txt">
-	<cfquery name="data" datasource="#Application.web_user#">
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			#flatTableName#.collection_object_id,
 			#flatTableName#.cat_num,

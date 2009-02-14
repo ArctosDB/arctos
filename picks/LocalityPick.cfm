@@ -10,8 +10,6 @@
 	}
 </script>
 <cfset title = "Locality Pick Search">
-
-
 <cfif #Action# is "nothing">
 <cfoutput>
 <cfset showLocality=1>
@@ -37,7 +35,8 @@
 			minimum_elevation,maximum_elevation,orig_elev_units,
 			coordinateDeterminer,
 			determined_date,
-			lat_long_ref_source
+			lat_long_ref_source,
+			geolAtts
 		from localityResults
 		group by
 			locality_id,geog_auth_rec_id,locality_id,spec_locality,higher_geog,verbatimLatitude,
@@ -45,7 +44,8 @@
 			minimum_elevation,maximum_elevation,orig_elev_units,
 			coordinateDeterminer,
 			determined_date,
-			lat_long_ref_source
+			lat_long_ref_source,
+			geolAtts
 	</cfquery>
 	<table border>
     	<tr> 
@@ -55,8 +55,7 @@
     	 <cfloop query="localityResults"> 
       		<tr #iif(currentrow MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
        			<td>
-		  			<cfset thisValue=#replace(spec_locality,"'","`","all")#>
-		  			<cfset thisValue=#replace(thisValue,'"','``',"all")#>
+		  			<cfset thisValue=#stripQuotes(spec_locality)#>
 		  			<input type="button" value="Accept" class="lnkBtn"
    						onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
   						onClick="javascript: opener.document.#formName#.#localityIdFld#.value='#locality_id#';
@@ -66,6 +65,7 @@
 				<td> 
           			<span style="font-size:.7em">#higher_geog#</span>
 					<br>#localityResults.spec_locality#
+					<cfif len(geolAtts) gt 0> [#geolAtts#] </cfif>
 					<br>
 					<span style="font-size:.7em">
 						<cfif len(#verbatimLatitude#) gt 0 and len(#verbatimLongitude#) gt 0>

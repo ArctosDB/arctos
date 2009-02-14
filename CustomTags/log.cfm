@@ -7,7 +7,7 @@
 	<cfset script_name = #cgi.SCRIPT_NAME#>
 </cfif>
 <cfset tmstmp = "#dateformat(now(),'dd-mmm-yyyy')#">
-<cfquery name="updateLog" datasource="#Application.web_user#">
+<cfquery name="updateLog" datasource="cf_dbuser">
 	INSERT INTO cf_user_log (
 		IP,
 		HOST,

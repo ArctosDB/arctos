@@ -5,9 +5,12 @@ function saveThisAnnotation() {
 	var specific_locality = document.getElementById("specific_locality").value;
 	var annotation_remarks = document.getElementById("annotation_remarks").value;
 
-	annotation_remarks=annotation_remarks.replace('"','""');
-	specific_locality=specific_locality.replace('"','&quot;');
-	higher_geography=higher_geography.replace('"','&quot;');
+	//annotation_remarks=annotation_remarks.replace('"','""');
+	//specific_locality=specific_locality.replace('"','&quot;');
+	//higher_geography=higher_geography.replace('"','&quot;');
+	annotation_remarks=escape(annotation_remarks);
+		higher_geography=escape(higher_geography);
+			specific_locality=escape(specific_locality);
 	DWREngine._execute(_annotateFunction, null, 'addAnnotation', 
 		collection_object_id,
 		scientific_name,
@@ -59,7 +62,7 @@ function closeAnnotation() {
 		var theDiv = document.createElement('div');
 		theDiv.id = 'annotateDiv';
 		theDiv.className = 'annotateBox';
-		theDiv.innerHTML='<br>hi I an a div.';
+		theDiv.innerHTML='<br>hi I am a div.';
 		
 		theDiv.src = "";
 		

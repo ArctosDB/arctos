@@ -1,7 +1,7 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfif #action# IS "nothing">
 <cfoutput>
-<cfquery name="u" datasource="#Application.web_user#">
+<cfquery name="u" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select grp.agent_name
 	from
 		preferred_agent_name grp,
@@ -20,7 +20,7 @@
 	--->
 	<cfset DEgrp = left(u.agent_name,8)>
 	<cfset DEgrp = "#DEgrp# Entry">
-	<cfquery name="entGrp" datasource="#Application.web_user#">
+	<cfquery name="entGrp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select usr.agent_name
 	from
 		preferred_agent_name grp,
@@ -46,7 +46,7 @@
 	</cfif>
 </cfloop>
 
-<cfquery name="ctAccn" datasource="#Application.web_user#">
+<cfquery name="ctAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select accn from bulkloader where enteredby in (#preservesinglequotes(entBy)#) group by accn order by accn
 </cfquery>
 <span style="font-size:smaller; font-style:italic;">

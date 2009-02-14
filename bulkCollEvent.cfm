@@ -1,7 +1,4 @@
 <cfinclude template="includes/_header.cfm">
-<cfinclude template="includes/functionLib.cfm">
-
-
 <!--------------------------------------------------------------------------------------------------->
 <cfif #Action# is "nothing">
 <cfset title = "Change Coll Event">
@@ -38,10 +35,8 @@
 	<cfset i = 1>
 	<cfloop query="localityResults">
 		<tr>
-			<td> <a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#" 
-					target="#session.target#">#geog_auth_rec_id#</a></td>
-			<td><a href="editLocality.cfm?locality_id=#locality_id#" 
-					target="#session.target#">#locality_id#</a></td>
+			<td> <a href="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">#geog_auth_rec_id#</a></td>
+			<td><a href="editLocality.cfm?locality_id=#locality_id#">#locality_id#</a></td>
 			<td>
 			<form name="coll#i#" method="post" action="bulkCollEvent.cfm">
 				<input type="hidden" name="collection_object_id" value="#collection_object_id#">
@@ -73,7 +68,7 @@
 
 
 
-<cfquery name="specimenList" datasource="#Application.web_user#">
+<cfquery name="specimenList" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	 SELECT 
 	 	cataloged_item.collection_object_id as collection_object_id, 
 		cat_num,
@@ -161,11 +156,11 @@
 	<cfset thisDate = #dateformat(now(),"dd-mmm-yyyy")#>
 	<cftransaction>
 		<cfloop list="#collection_object_id#" index="i">
-			<cfquery name="newCollEvent" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="newCollEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				UPDATE cataloged_item SET collecting_event_id = #collecting_event_id# WHERE
 				collection_object_id=#i#
 			</cfquery>
-			<cfquery name="upEd" datasource="user_login" username="#session.username#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="upEd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				UPDATE coll_object SET
 					last_edited_person_id=#user.agent_id#,
 					last_edit_date='#thisDate#'

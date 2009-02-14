@@ -23,6 +23,7 @@
 	
 <!--- start buildig SQL --->
 <cfif isdefined("listcatnum") and len(#listcatnum#) gt 0>
+	<cfset listcatnum=replace(listcatnum," ","","all")>
 	<cfset mapurl = "#mapurl#&listcatnum=#listcatnum#">
 	<!--- handle 'from-to' queries --->
 	<cfif #listcatnum# contains "-">
@@ -60,10 +61,50 @@
 		<cfset basQual = " #basQual# AND #flatTableName#.cat_num IN ( #listcatnum# ) " >
 	</cfif>
 </cfif>	
-		
+<cfif isdefined("geology_attribute") AND len(#geology_attribute#) gt 0>
+	<cfset mapurl = "#mapurl#&geology_attribute=#geology_attribute#">
+	<cfif #basJoin# does not contain " geology_attributes ">
+		<cfset basJoin = " #basJoin# INNER JOIN geology_attributes ON 
+			(flat.locality_id = geology_attributes.locality_id)">
+	</cfif>	
+	<cfif isdefined("geology_hierarchies") and #geology_hierarchies# is 1>
+		<cfset basQual = "#basQual# AND geology_attributes.geology_attribute IN (
+				SELECT  
+	 				attribute	
+	 			FROM
+					geology_attribute_hierarchy
+				start with 
+					attribute = '#geology_attribute#'
+				CONNECT BY PRIOR 
+					geology_attribute_hierarchy_id = parent_id
+				)">
+	<cfelse>
+		<cfset basQual = "#basQual# AND geology_attributes.geology_attribute = '#geology_attribute#'">
+	</cfif>				
+</cfif>		
+<cfif isdefined("geology_attribute_value") AND len(#geology_attribute_value#) gt 0>
+	<cfset mapurl = "#mapurl#&geology_attribute_value=#geology_attribute_value#">
+	<cfif #basJoin# does not contain " geology_attributes ">
+		<cfset basJoin = " #basJoin# INNER JOIN geology_attributes ON 
+			(flat.locality_id = geology_attributes.locality_id)">
+	</cfif>	
+	<cfif isdefined("geology_hierarchies") and #geology_hierarchies# is 1>
+		<cfset basQual = "#basQual# AND geology_attributes.geo_att_value IN (
+				SELECT  
+	 				attribute_value	
+	 			FROM
+					geology_attribute_hierarchy
+				start with 
+					upper(attribute_value) like '%#ucase(geology_attribute_value)#%'
+				CONNECT BY PRIOR 
+					geology_attribute_hierarchy_id = parent_id
+				)">
+	<cfelse>
+		<cfset basQual = "#basQual# AND upper(geology_attributes.geo_att_value) like '%#ucase(geology_attribute_value)#%'">
+	</cfif>				
+</cfif>		
 <cfif isdefined("entered_by") AND len(#entered_by#) gt 0>
-	
-		<cfquery name="enteredPersonID" datasource="#Application.web_user#">
+		<cfquery name="enteredPersonID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT agent_id FROM agent_name WHERE upper(agent_name) LIKE '%#ucase(entered_by)#%'
 		</cfquery>
 		<cfif #enteredPersonID.recordcount# neq 1>
@@ -94,8 +135,7 @@
 	</cfif>
 	<cfset basQual = "#basQual#  AND CatItemCollObject.entered_person_id = #entered_by_id#" >
 	<cfset mapurl = "#mapurl#&entered_by_id=#entered_by_id#">
-</cfif>
-		
+</cfif>		
 <cfif isdefined("coll_obj_flags") AND len(#coll_obj_flags#) gt 0>
 	<cfif #basJoin# does not contain "CatItemCollObject">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_object CatItemCollObject ON 
@@ -104,21 +144,20 @@
 	<cfset basQual = "#basQual#  AND CatItemCollObject.flags = '#coll_obj_flags#'" >
 	<cfset mapurl = "#mapurl#&coll_obj_flags=#coll_obj_flags#">
 </cfif>
-
-		<cfif isdefined("beg_entered_date") AND len(#beg_entered_date#) gt 0>
-			<cfif not isdefined("end_entered_date") or len(#end_entered_date#) is 0>
-				<cfset end_entered_date = #beg_entered_date#>
-			</cfif>
-			<cfset beEntDate = dateformat(beg_entered_date,"dd-mmm-yyyy")>
-			<cfset edEntDate = dateformat(end_entered_date,"dd-mmm-yyyy")>
-			<cfif #basJoin# does not contain "CatItemCollObject">
-				<cfset basJoin = " #basJoin# INNER JOIN coll_object CatItemCollObject ON 
-				(cataloged_item.collection_object_id = CatItemCollObject.collection_object_id)">
-			</cfif>
-			<cfset basQual = "#basQual#  AND CatItemCollObject.COLL_OBJECT_ENTERED_DATE BETWEEN '#beEntDate#' and '#edEntDate#'" >
-			<cfset mapurl = "#mapurl#&beg_entered_date=#beg_entered_date#">
-			<cfset mapurl = "#mapurl#&end_entered_date=#end_entered_date#">
-		</cfif>
+<cfif isdefined("beg_entered_date") AND len(#beg_entered_date#) gt 0>
+	<cfif not isdefined("end_entered_date") or len(#end_entered_date#) is 0>
+		<cfset end_entered_date = #beg_entered_date#>
+	</cfif>
+	<cfset beEntDate = dateformat(beg_entered_date,"dd-mmm-yyyy")>
+	<cfset edEntDate = dateformat(end_entered_date,"dd-mmm-yyyy")>
+	<cfif #basJoin# does not contain "CatItemCollObject">
+		<cfset basJoin = " #basJoin# INNER JOIN coll_object CatItemCollObject ON 
+			(cataloged_item.collection_object_id = CatItemCollObject.collection_object_id)">
+	</cfif>
+	<cfset basQual = "#basQual#  AND CatItemCollObject.COLL_OBJECT_ENTERED_DATE BETWEEN '#beEntDate#' and '#edEntDate#'" >
+	<cfset mapurl = "#mapurl#&beg_entered_date=#beg_entered_date#">
+	<cfset mapurl = "#mapurl#&end_entered_date=#end_entered_date#">
+</cfif>
 <cfif isdefined("print_fg") AND len(#print_fg#) gt 0>
 	<!---- get data for printing labels ---->
 	<cfset basQual = "#basQual#  AND cataloged_item.collection_object_id IN (
@@ -137,10 +176,8 @@
 		" >
 	<cfset mapurl = "#mapurl#&print_fg=#print_fg#">
 </cfif>
-	
-	<cfif isdefined("barcode") AND len(#barcode#) gt 0>
+<cfif isdefined("barcode") AND len(#barcode#) gt 0>
 	<cfset thisBC = #replace(barcode,",","','","all")#>
-	<!---- get data for printing labels ---->
 	<cfset basQual = "#basQual#  AND cataloged_item.collection_object_id IN (
 		SELECT
 			derived_from_cat_item
@@ -157,19 +194,12 @@
 		" >
 	<cfset mapurl = "#mapurl#&barcode=#barcode#">
 </cfif>	
-		<cfif isdefined("ShowObservations") AND #ShowObservations# is "true">
-			<cfset mapurl = "#mapurl#&ShowObservations=#ShowObservations#">
-			<!--- 
-				Kludgey manual filtering against observations
-				Default is on; don't show them.
-				At some point, we'll probably want to make
-				cataloged_item.cataloged_item_type the filter here.
-				For now, just catch it by Institution_Acronym and call
-				it good.
-			---->
-		<cfelse>
-			<cfset basQual = "#basQual#  AND cataloged_item.collection_id <> 13" >
-		</cfif>
+<cfif isdefined("ShowObservations") AND (#ShowObservations# is "true" or #ShowObservations# is "1")>
+	<cfset mapurl = "#mapurl#&ShowObservations=#ShowObservations#">
+<cfelse>
+	<cfset mapurl = "#mapurl#&ShowObservations=false">
+	<cfset basQual = "#basQual#  AND lower( #flatTableName#.institution_acronym) not like '%obs'" >
+</cfif>
 		<cfif isdefined("edited_by_id") AND len(#edited_by_id#) gt 0>
 			<cfif #basJoin# does not contain "CatItemCollObject">
 				<cfset basJoin = " #basJoin# INNER JOIN coll_object CatItemCollObject ON 
@@ -214,9 +244,6 @@
         <cfif isdefined("collection_id") AND isnumeric(#collection_id#)>
 			<cfset basQual = "#basQual#  AND #flatTableName#.collection_id = #collection_id#" >
 			<cfset mapurl = "#mapurl#&collection_id=#collection_id#">
-		<cfelseif isdefined("exclusive_collection_id") and len(#exclusive_collection_id#) gt 0>
-				<cfset basQual = "#basQual#  AND cataloged_item.collection_id = #exclusive_collection_id#" >
-				<cfset mapurl = "#mapurl#&exclusive_collection_id=#exclusive_collection_id#">
 		</cfif>
 		
 		<cfif isdefined("session.collection") and len(#session.collection#) gt 0>
@@ -412,10 +439,10 @@
 				<cfset mapurl = "#mapurl#&endYear=#endYear#">
 				<cfset basQual = " #basQual#
 						AND ( 
-					TO_CHAR(began_date, 'yyyy') BETWEEN '#begYear#' AND '#endYear#'
-					OR TO_CHAR(ended_date, 'yyyy') BETWEEN   '#begYear#' AND '#endYear#'
-					OR ( '#begYear#' BETWEEN TO_CHAR(began_date, 'yyyy') AND TO_CHAR(ended_date, 'yyyy')
-					AND '#endYear#' BETWEEN TO_CHAR(began_date, 'yyyy') AND TO_CHAR(ended_date, 'yyyy')
+					TO_CHAR(#flatTableName#.began_date, 'yyyy') BETWEEN '#begYear#' AND '#endYear#'
+					OR TO_CHAR(#flatTableName#.ended_date, 'yyyy') BETWEEN   '#begYear#' AND '#endYear#'
+					OR ( '#begYear#' BETWEEN TO_CHAR(#flatTableName#.began_date, 'yyyy') AND TO_CHAR(ended_date, 'yyyy')
+					AND '#endYear#' BETWEEN TO_CHAR(#flatTableName#.began_date, 'yyyy') AND TO_CHAR(ended_date, 'yyyy')
 					))
 					">			
 			</cfif>
@@ -434,18 +461,18 @@
 			<cfif #inclDateSearch# is "yes">
 				<cfset basQual = " #basQual#
 						AND ( 
-					TO_NUMBER(TO_CHAR(began_date, 'mm')) >= #begMon#
-					AND TO_NUMBER(TO_CHAR(ended_date, 'mm')) <= #endMon#
+					TO_NUMBER(TO_CHAR(#flatTableName#.began_date, 'mm')) >= #begMon#
+					AND TO_NUMBER(TO_CHAR(#flatTableName#.ended_date, 'mm')) <= #endMon#
 					)
 					">			
 			<cfelse>
 				
 				<cfset basQual = " #basQual# 
 					AND ( 
-					TO_CHAR(began_date, 'mm') BETWEEN '#begMon#' AND '#endMon#'
-					OR TO_CHAR(ended_date, 'mm') BETWEEN   '#begMon#' AND '#endMon#'
-					OR ( '#begMon#' BETWEEN TO_CHAR(began_date, 'mm') AND TO_CHAR(ended_date, 'mm')
-					AND '#endMon#' BETWEEN TO_CHAR(began_date, 'mm') AND TO_CHAR(ended_date, 'mm')
+					TO_CHAR(#flatTableName#.began_date, 'mm') BETWEEN '#begMon#' AND '#endMon#'
+					OR TO_CHAR(#flatTableName#.ended_date, 'mm') BETWEEN   '#begMon#' AND '#endMon#'
+					OR ( '#begMon#' BETWEEN TO_CHAR(#flatTableName#.began_date, 'mm') AND TO_CHAR(#flatTableName#.ended_date, 'mm')
+					AND '#endMon#' BETWEEN TO_CHAR(#flatTableName#.began_date, 'mm') AND TO_CHAR(#flatTableName#.ended_date, 'mm')
 					))">
 				</cfif>
 		</cfif>
@@ -462,17 +489,17 @@
 				<cfif #inclDateSearch# is "yes">
 				<cfset basQual = " #basQual#
 						AND ( 
-					TO_NUMBER(TO_CHAR(began_date, 'dd')) >= #begDay#
-					AND TO_NUMBER(TO_CHAR(ended_date, 'dd')) <= #endDay#
+					TO_NUMBER(TO_CHAR(#flatTableName#.began_date, 'dd')) >= #begDay#
+					AND TO_NUMBER(TO_CHAR(#flatTableName#.ended_date, 'dd')) <= #endDay#
 					)
 					">			
 					<cfelse>
 						<cfset basQual = " #basQual# 
 						AND ( 
-							TO_CHAR(began_date, 'dd') BETWEEN '#begDay#' AND '#endDay#'
-							OR TO_CHAR(ended_date, 'dd') BETWEEN   '#begDay#' AND '#endDay#'
-							OR ( '#begDay#' BETWEEN TO_CHAR(began_date, 'dd') AND TO_CHAR(ended_date, 'dd')
-							AND '#endDay#' BETWEEN TO_CHAR(began_date, 'dd') AND TO_CHAR(ended_date, 'dd')
+							TO_CHAR(#flatTableName#.began_date, 'dd') BETWEEN '#begDay#' AND '#endDay#'
+							OR TO_CHAR(#flatTableName#.ended_date, 'dd') BETWEEN   '#begDay#' AND '#endDay#'
+							OR ( '#begDay#' BETWEEN TO_CHAR(#flatTableName#.began_date, 'dd') AND TO_CHAR(#flatTableName#.ended_date, 'dd')
+							AND '#endDay#' BETWEEN TO_CHAR(#flatTableName#.began_date, 'dd') AND TO_CHAR(#flatTableName#.ended_date, 'dd')
 							))">
 				</cfif>
 		</cfif>
@@ -524,24 +551,24 @@
 				<cfset mapurl = "#mapurl#&inclDateSearch=#inclDateSearch#">
 				<cfset basQual = " #basQual#
 						AND ( 
-					TO_NUMBER(TO_CHAR(began_date, 'j')) >= #round(Request.GetJulianDay(begDate))#
-					AND TO_NUMBER(TO_CHAR(ended_date, 'j')) <= #round(Request.GetJulianDay(endDate))#
+					TO_NUMBER(TO_CHAR(#flatTableName#.began_date, 'j')) >= #round(Request.GetJulianDay(begDate))#
+					AND TO_NUMBER(TO_CHAR(#flatTableName#.ended_date, 'j')) <= #round(Request.GetJulianDay(endDate))#
 					)
 					">			
 			<cfelse>
 			<cfset basQual = " #basQual# 
 				AND ( 
-					began_date BETWEEN '#dateformat(begDate,"dd-mmm-yyyy")#' AND '#dateformat(endDate,"dd-mmm-yyyy")#'
-					OR ended_date BETWEEN  '#dateformat(begDate,"dd-mmm-yyyy")#' AND '#dateformat(endDate,"dd-mmm-yyyy")#'
-					OR ( '#dateformat(begDate,"dd-mmm-yyyy")#' BETWEEN began_date AND ended_date
-					AND '#dateformat(endDate,"dd-mmm-yyyy")#' BETWEEN began_date AND ended_date)
+					#flatTableName#.began_date BETWEEN '#dateformat(begDate,"dd-mmm-yyyy")#' AND '#dateformat(endDate,"dd-mmm-yyyy")#'
+					OR #flatTableName#.ended_date BETWEEN  '#dateformat(begDate,"dd-mmm-yyyy")#' AND '#dateformat(endDate,"dd-mmm-yyyy")#'
+					OR ( '#dateformat(begDate,"dd-mmm-yyyy")#' BETWEEN #flatTableName#.began_date AND #flatTableName#.ended_date
+					AND '#dateformat(endDate,"dd-mmm-yyyy")#' BETWEEN #flatTableName#.began_date AND #flatTableName#.ended_date)
 					)">
   </cfif>
 		</cfif>
 		
 		<cfif isdefined("inMon") AND len(#inMon#) gt 0>
 			<cfset mapurl = "#mapurl#&inMon=#inMon#">
-			<cfset basQual = " #basQual# AND TO_CHAR(began_date, 'mm') IN (#inMon#)">
+			<cfset basQual = " #basQual# AND TO_CHAR(#flatTableName#.began_date, 'mm') IN (#inMon#)">
 		</cfif>
 		
 		<cfif isdefined("verbatim_date") AND len(#verbatim_date#) gt 0>
@@ -549,13 +576,13 @@
 			<cfset basQual = " #basQual# AND upper(verbatim_date) LIKE '%#ucase(verbatim_date)#%'">
 		</cfif>
 		
-		<cfif isdefined("Accn_trans_id") AND len(#Accn_trans_id#) gt 0>
-			<cfset mapurl = "#mapurl#&Accn_trans_id=#Accn_trans_id#">
+		<cfif isdefined("accn_trans_id") AND len(#accn_trans_id#) gt 0>
+			<cfset mapurl = "#mapurl#&accn_trans_id=#accn_trans_id#">
 			<cfif #basJoin# does not contain " accn ">
 				<cfset basJoin = " #basJoin# INNER JOIN accn ON 
 				(cataloged_item.accn_id = accn.transaction_id)">
 			</cfif>
-			<cfset basQual = " #basQual# AND accn.transaction_id = #Accn_trans_id#">
+			<cfset basQual = " #basQual# AND accn.transaction_id IN (#accn_trans_id#)">
 		</cfif>	
 		
 		<cfif isdefined("Accn") AND #Accn# IS NOT "">
@@ -826,7 +853,7 @@
 			<cfif #compare(continent_ocean,"NULL")# is 0>
 				<cfset basQual = " #basQual# AND continent_ocean is null">
 			<cfelse>
-				<cfset basQual = " #basQual# AND continent_ocean LIKE '#continent_ocean#'">
+				<cfset basQual = " #basQual# AND continent_ocean = '#continent_ocean#'">
 			</cfif>					
 			<cfset mapurl = "#mapurl#&continent_ocean=#continent_ocean#">			
 		</cfif>
@@ -842,7 +869,7 @@
 			<cfif #compare(country,"NULL")# is 0>
 				<cfset basQual = " #basQual# AND country is null">
 			<cfelse>
-				<cfset basQual = " #basQual# AND country LIKE '#Country#'">
+				<cfset basQual = " #basQual# AND country = '#Country#'">
 			</cfif>					
 			<cfset mapurl = "#mapurl#&Country=#Country#">
 		</cfif>
@@ -935,9 +962,9 @@
 		
 		<cfif isdefined("spec_locality") and len(#spec_locality#) gt 0>
 			<cfif #compare(spec_locality,"NULL")# is 0>
-				<cfset basQual = " #basQual# AND spec_locality is null">
+				<cfset basQual = " #basQual# AND #flatTableName#.spec_locality is null">
 			<cfelse>
-				<cfset basQual = " #basQual# AND upper(spec_locality) like '%#ucase(replace(spec_locality,"'","''","all"))#%' " >
+				<cfset basQual = " #basQual# AND upper(#flatTableName#.spec_locality) like '%#ucase(escapeQuotes(spec_locality))#%' " >
 			</cfif>			
 			<cfset mapurl = "#mapurl#&spec_locality=#spec_locality#">
 		</cfif>
@@ -987,7 +1014,7 @@
 			</cfif>
 			<cfset basQual = " #basQual# AND 
 				upper(#flatTableName#.higher_geog) || ' ' || upper(#flatTableName#.spec_locality)
-					|| ' ' || upper(collecting_event.verbatim_locality)  LIKE '%#ucase(any_geog)#%'">
+					|| ' ' || upper(collecting_event.verbatim_locality)  LIKE '%#ucase(escapeQuotes(any_geog))#%'">
 		</cfif>
 		
 		
@@ -1534,7 +1561,7 @@
   </cfif>
   
   <cfif isdefined("institution_appearance") AND len(#institution_appearance#) gt 0>
-	<cfquery name="whatInst" datasource="#Application.web_user#">
+	<cfquery name="whatInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection_id from collection where institution_acronym='#institution_appearance#'
 	</cfquery>
 	<cfset goodCollIds = valuelist(whatInst.collection_id,",")>

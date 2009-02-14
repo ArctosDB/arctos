@@ -641,13 +641,29 @@ function setNewRecDefaults () {
 	if(cc == 'Mamm' && ia == 'UAM') {
 		catNumGap();
 	} else if(cc == 'Bird' && ia == 'MSB') {
-		MSBBirdDefault();	
+		MSBBirdDefault();
+	} else if(cc == 'Fish' && ia == 'UAM') {
+		UAMFishDefault();	
 	} else if(ia == 'MVZ') {
 		MVZDefaults();
 	}	
 }
 
-
+function UAMFishDefault() {
+		var i=1;
+		for (i=1;i<=12;i++){
+			var thisPartConditionString='part_condition_' + i;
+			console.log(i);
+			console.log(thisPartConditionString);
+			if (document.getElementById(thisPartConditionString)) {
+				var thisPartCondition=document.getElementById(thisPartConditionString);
+				var thisPartConditionValue=thisPartCondition.value;
+				if (thisPartConditionValue==''){
+					thisPartCondition.value='unchecked';
+				}
+			}
+		}
+}		
 function copyAllDates(theID) {
 	//alert(':' + theID + ':');
 	var theDate = document.getElementById(theID).value;
@@ -920,7 +936,7 @@ var thisCC = document.getElementById('collection_cde').value;
 		reqdFlds.push('coll_obj_disposition');
 		reqdFlds.push('id_made_by_agent');
 		reqdFlds.push('nature_of_id');
-		if (thisCC != 'Crus' && thisCC != 'Herb' && thisCC != 'VPal'  && thisCC != 'IPal') {
+		if (thisCC != 'Crus' && thisCC != 'Herb' && thisCC != 'ES' && thisCC != 'Fish' && thisCC != 'Para') {
 			// require sex stuff UNLESS Crus or Herb or paleo
 			reqdFlds.push('attribute_value_1');
 			reqdFlds.push('attribute_determiner_1');

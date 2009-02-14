@@ -1,7 +1,14 @@
 <cfcomponent>
 <cfset This.name = "Arctos">
 <cfset This.SessionManagement="True">
-<cfset This.ClientManagement="True">
+<cfset This.ClientManagement="true">
+<cfset This.ClientStorage="Cookie">
+
+<cffunction name="onMissingTemplate" returnType="boolean" output="false">
+   <cfargument name="thePage" type="string" required="true">
+   <cflog file="somefiles" text="#arguments.thePage#">
+   <cflocation url="/errors/404.cfm" addToken="false">
+</cffunction>
 
 <cffunction name="onError">
     <cfargument name="exception" required="true">
@@ -56,13 +63,17 @@
 			#session.username# is "dlm" or
 			#session.username# is "sumy" or
 			#session.username# is "Rhiannon" or
-			#session.username# is "dusty" or
-				#session.username# is "dkt")>
+			#session.username# is "dusty")>
 			<cfoutput>
 				#errortext#
 			</cfoutput>		
 		</cfif>
-		<cfmail subject="Error" to="#Application.PageProblemEmail#" from="SomethingBroke@#Application.fromEmail#" type="html">
+		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
+			<cfset subject="locked form">
+		<cfelse>
+			<cfset subject="Error">
+		</cfif>
+		<cfmail subject="#subject#" to="#Application.PageProblemEmail#" from="SomethingBroke@#Application.fromEmail#" type="html">
 			#errortext#
 		</cfmail>	
 		<table cellpadding="10">
@@ -98,15 +109,6 @@
 	<cfset Application.user_login="user_login">
 	<cfset Application.max_pw_age = 90>
 	<cfset Application.fromEmail = "#HTTP_HOST#">
-	<cfset Application.header_color = "##E7E7E7">
-	<cfset Application.header_image = "/images/genericHeaderIcon.gif">
-	<cfset Application.collection_url = "/">
-	<cfset Application.collection_link_text = "Arctos">
-	<cfset Application.institution_url = "/">
-	<cfset Application.stylesheet = "">
-	<cfset Application.institution_link_text = "Multi-Institution, Multi-Collection Museum Database">
-	<cfset Application.meta_description = "Arctos is a biological specimen database.">
-	<cfset Application.meta_keywords = "museum, collection, management, system">
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
 	<cfset Application.fromEmail = "#HTTP_HOST#">
 		
@@ -114,8 +116,8 @@
 		<cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/opt/coldfusion8/wwwroot">
 		<cfset Application.SpecimenDownloadPath = "/opt/coldfusion8/wwwroot/download/">
-		<cfset Application.bugReportEmail = "dustymc@gmail.com,fnghj@uaf.edu">
-		<cfset Application.technicalEmail = "dustymc@gmail.com,fnghj@uaf.edu">
+		<cfset Application.bugReportEmail = "dustymc@gmail.com,gordon.jarrell@gmail.com">
+		<cfset Application.technicalEmail = "dustymc@gmail.com,gordon.jarrell@gmail.com,lkv@berkeley.edu">
 		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
 		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
 		<cfset Application.genBankPrid = "3849">
@@ -131,8 +133,8 @@
         <cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/usr/local/apache2/htdocs">
 		<cfset Application.SpecimenDownloadPath = "#Application.webDirectory#/download/">
-		<cfset Application.bugReportEmail = "dustymc@gmail.com,fnghj@uaf.edu">
-		<cfset Application.technicalEmail = "dustymc@gmail.com,fnghj@uaf.edu">
+		<cfset Application.bugReportEmail = "dustymc@gmail.com,gordon.jarrell@gmail.com">
+		<cfset Application.technicalEmail = "dustymc@gmail.com,gordon.jarrell@gmail.com,lkv@berkeley.edu">
 		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
 		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
 		<cfset Application.genBankPrid = "3849">
@@ -162,12 +164,6 @@
 		<cfset Application.DataProblemReportEmail = "bhaley@oeb.harvard.edu">
 		<cfset Application.PageProblemEmail = "bhaley@oeb.harvard.edu">
 	<cfelseif #cgi.HTTP_HOST# contains "berkeley.edu">
-		<cfset Application.header_color = "white">
-		<cfset Application.header_image = "/images/MVZ_fancy_logo.jpg">
-		<cfset Application.collection_url = "http://mvz.berkeley.edu">
-		<cfset Application.collection_link_text = "Collections Database">
-		<cfset Application.institution_url = "http://mvz.berkeley.edu">
-		<cfset Application.institution_link_text = "MUSEUM OF VERTEBRATE ZOOLOGY">
 		<cfset Application.svn = "/opt/csw/bin/svn">
 		<cfset Application.webDirectory = "/users/mvzarctos/tomcat/webapps/cfusion">
 		<cfset Application.SpecimenDownloadPath = "/users/mvzarctos/tomcat/webapps/cfusion/download/">
@@ -187,67 +183,11 @@
 	</cfif>
 	<cfreturn true>
 </cffunction>
+
 <!-------------------------------------------------------------->
-<cffunction name="onSessionStart" returnType="boolean" output="false">
-	<cfset session.SpecimenDownloadFileName = "ArctosData_#cfid##cftoken#.txt">
-		<cfif not isdefined("session.target")>
-			<cfset session.target="_self">
-		</cfif>
-		<cfif not isdefined("session.mapSize")>
-			<cfset session.mapSize="">
-		</cfif>
-		<cfif not isdefined("session.roles")>
-			<cfset session.roles="public">
-		</cfif>
-		<cfif not isdefined("session.showObservations")>
-			<cfset session.showObservations="">
-		</cfif>
-		<cfif not isdefined("session.result_sort")>
-			<cfset session.result_sort="">
-		</cfif>
-		<cfif not isdefined("session.username")>
-			<cfset session.username="">
-		</cfif>
-		<cfif not isdefined("session.killrow")>
-			<cfset session.killrow="0">
-		</cfif>
-		<cfif not isdefined("session.searchBy")>
-			<cfset session.searchBy="">
-		</cfif>
-		<cfif not isdefined("session.exclusive_collection_id")>
-			<cfset session.exclusive_collection_id="">
-		</cfif>
-		<cfif not isdefined("session.fancyCOID")>
-			<cfset session.fancyCOID="">
-		</cfif>
-		<cfif not isdefined("session.last_login")>
-			<cfset session.last_login="">
-		</cfif>
-		<cfif not isdefined("session.customOtherIdentifier")>
-			<cfset session.customOtherIdentifier="">
-		</cfif>
-		<cfif not isdefined("session.displayrows") or len(session.displayrows) is 0>
-			<cfset session.displayrows="20">
-		</cfif>
-		<cfif not isdefined("session.loan_request_coll_id")>
-			<cfset session.loan_request_coll_id="">
-		</cfif>
-		<cfif not isdefined("session.resultColumnList")>
-			<cfset session.resultColumnList="">
-		</cfif>
-		<cfif not isdefined("session.LastLogin")>
-			<cfset session.LastLogin="">
-		</cfif>
-		<cfif len(#session.username#) gt 0>
-			<cfquery name="gcid" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
-				select agent_id from agent_name where agent_name='#session.username#'
-				and agent_name_type='login'
-			</cfquery>
-			<cfif gcid.recordcount is 1>
-				<cfset session.myAgentId=#gcid.agent_id#>
-			</cfif>
-		</cfif>
-		<cfreturn true>
+<cffunction name="onSessionStart" output="false">
+	<cfinclude template="/includes/functionLib.cfm">
+	<cfset initSession()>
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="false">

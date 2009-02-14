@@ -4,7 +4,7 @@
 <cfparam name="order_order" default="DESC">
 <cfoutput>
 
-<cfquery name="d" datasource="#Application.web_user#">
+<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from cf_genbank_info
 	ORDER BY #order_by# #order_order#
 </cfquery>
@@ -172,11 +172,11 @@ Existing Publications
 </cfif>
 <!---------------------------------------->
 <cfif #action# is "newRec">
-<cfquery name="nid" datasource="#Application.web_user#">
+<cfquery name="nid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select max(gbi_id) gbi_id from cf_genbank_info
 </cfquery>
 <cfset gbi_id = #nid.gbi_id# + 1>
-<cfquery name="new" datasource="#Application.web_user#">
+<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	insert into cf_genbank_info (
 		gbi_id
 		<cfif len(#citation#) gt 0>
@@ -236,7 +236,7 @@ Existing Publications
 <!---------------------------------------->
 <cfif #action# is "saveChanges">
 <cfoutput>
-	<cfquery name="up" datasource="#Application.web_user#">
+	<cfquery name="up" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_genbank_info set 
 			citation = '#citation#'
 		<cfif len(#PubInArctos#) gt 0>

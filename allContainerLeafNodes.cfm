@@ -3,7 +3,7 @@
 <cfset title = "Container Locations">
 <cfoutput>
 <cfif isdefined("container_id")>
-	<cfquery name="leaf" datasource="#Application.web_user#">
+	<cfquery name="leaf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			container.container_id, 
 			container.container_type,
@@ -36,7 +36,7 @@
 			<td><strong>Scientific Name</strong></td>
 		</tr>
 		<cfloop query="leaf">
-		<cfquery name="specData" datasource="#Application.web_user#">
+		<cfquery name="specData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				cataloged_item.collection_object_id,
 				scientific_name,
@@ -67,7 +67,7 @@
 			<td>#container_remarks#&nbsp;</td>
 			<td>#specData.part_name#</td>
 			<td>
-				<a href="/SpecimenDetail.cfm?collection_object_id=#specData.collection_object_id#" target="#session.target#">
+				<a href="/SpecimenDetail.cfm?collection_object_id=#specData.collection_object_id#">
 					#specData.institution_acronym# #specData.collection_cde# #specData.cat_num#
 				</a>
 			</td>
@@ -196,7 +196,7 @@ SELECT
 </cfoutput>
 
 
- <cfquery name="allRecords" datasource="#Application.web_user#">
+ <cfquery name="allRecords" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
  	#preservesinglequotes(sql)#
  </cfquery>
 </cfif>
@@ -209,7 +209,7 @@ SELECT
 	container
 	WHERE
 	parent_container_id=#container_id#">
-<cfquery name="allRecords" datasource="#Application.web_user#">
+<cfquery name="allRecords" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
  	#preservesinglequotes(sql)#
  </cfquery>
 </cfif>
@@ -230,7 +230,7 @@ SELECT
 
  <cfloop query="allRecords">
  
-	<cfquery name="thisRecord" datasource="#Application.web_user#">
+	<cfquery name="thisRecord" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 	CONTAINER_ID,
 	PARENT_CONTAINER_ID,
@@ -248,7 +248,7 @@ SELECT
 				<cfif not listfind(placedContainers,#thisRecord.container_id#)>
 					<cfif #thisRecord.container_type# is "collection object">
 					<!--- get the collection_object-id --->
-					<!---<cfquery name="collobjid" datasource="#Application.web_user#">
+					<!---<cfquery name="collobjid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select 
 							a.derived_from_biol_indiv,
 							c.derived_from_biol_indv

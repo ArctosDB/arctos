@@ -186,7 +186,7 @@ These include "male ?,"  "fe<b>male</b>," and "fe<b>male</b> ?"</p>
 		</cfquery>
 		<cfif isdefined("isValCt.value_code_table") and len(#isValCt.value_code_table#) gt 0>
 			<!--- there's a code table --->
-			<cfquery name="valCT" datasource="#Application.web_user#">
+			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select * from #isValCt.value_code_table#
 			</cfquery>
 			<!----------------------->
@@ -245,7 +245,7 @@ These include "male ?,"  "fe<b>male</b>," and "fe<b>male</b> ?"</p>
 		
 			<!---- there's a code table --->
 			<!---- get the data --->
-			<cfquery name="unitCT" datasource="#Application.web_user#">
+			<cfquery name="unitCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select * from #isUnitCt.units_code_table#
 			</cfquery>
 			<!---- get column names --->

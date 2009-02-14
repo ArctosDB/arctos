@@ -1,3 +1,84 @@
+function saveSearch(returnURL){
+	var sName=prompt("Name this search", "my search");
+	if (sName!=null){
+		var sn=encodeURIComponent(sName);
+		var ru=encodeURI(returnURL);
+		DWREngine._execute(_cfscriptLocation, null, 'saveSearch', ru,sn, success_saveSearch);
+	}
+}
+function success_saveSearch(r) {
+	if(r!='success'){
+		alert(r);
+	}
+}
+function insertTypes(idList) {
+	var s=document.createElement('DIV');
+	s.id='ajaxStatus';
+	s.className='ajaxStatus';
+	s.innerHTML='Checking for Types...';
+	document.body.appendChild(s);
+	DWREngine._execute(_cfscriptLocation, null, 'getTypes', idList, success_insertTypes);
+}
+function success_insertTypes (result) {
+	var sBox=document.getElementById('ajaxStatus');
+	try{
+	sBox.innerHTML='Processing Types....';
+	for (i=0; i<result.length; ++i) {
+		var sid=result[i].COLLECTION_OBJECT_ID;
+		var tl=result[i].TYPELIST;
+		var sel='CatItem_' + sid;
+		if (sel.length>0){
+			var el=document.getElementById(sel);
+			var ns='<div class="showType">' + tl + '</div>';
+			el.innerHTML+=ns;
+		}
+	}
+	}
+	catch(e){}
+	document.body.removeChild(sBox);
+}
+function insertMedia(idList) {
+	var s=document.createElement('DIV');
+	s.id='ajaxStatus';
+	s.className='ajaxStatus';
+	s.innerHTML='Checking for Media...';
+	document.body.appendChild(s);
+	DWREngine._execute(_cfscriptLocation, null, 'getMedia', idList, success_insertMedia);
+}
+
+
+function success_insertMedia (result) {
+	try{
+	var sBox=document.getElementById('ajaxStatus');
+	sBox.innerHTML='Processing Media....';
+	for (i=0; i<result.length; ++i) {
+		var sel;
+		var sid=result[i].COLLECTION_OBJECT_ID;
+		var mid=result[i].MEDIA_ID;
+		var rel=result[i].MEDIA_RELATIONSHIP;
+		if (rel=='cataloged_item') {
+			sel='CatItem_' + sid;
+		} else if (rel=='collecting_event') {
+			sel='SpecLocality_' + sid;
+		}
+		if (sel.length>0){
+			var el=document.getElementById(sel);
+			var ns='<a href="/MediaSearch.cfm?action=search&media_id='+mid+'" class="mediaLink" target="_blank" id="mediaSpan_'+sid+'">';
+			ns+='Media';
+			ns+='</a>';
+			el.innerHTML+=ns;
+		}
+	}
+	document.body.removeChild(sBox);
+	}
+	catch(e) {
+		var sBox=document.getElementById('ajaxStatus');
+		document.body.removeChild(sBox);
+	}
+}
+function showMediaSpan(id){
+	alert(id);
+	}
 function addPartToLoan(partID) {
 	var rs = "item_remark_" + partID;
 	var is = "item_instructions_" + partID;
@@ -257,11 +338,6 @@ function toggleKillrow(id,status) {
 function hidePageLoad() {
 	document.getElementById('loading').style.display='none';
 	}
-function saveSearch(returnURL){
-	mywin=windowOpener('saveSearch.cfm?returnURL=' + returnURL,'myWin','height=300,width=400,resizable,location,menubar ,scrollbars ,status ,titlebar,toolbar');
-	document.getElementById('saveme').submit();
-}
-
 
 function closePrefs () {
 	alert('close');
@@ -465,6 +541,12 @@ function success_getSpecResultsData(result){
 			if (result[0].COLUMNLIST.indexOf('SPEC_LOCALITY')> -1) {
 				theInnerHtml += '<th>Specific&nbsp;Locality</th>';
 			}
+			
+			if (result[0].COLUMNLIST.indexOf('GEOLOGY_ATTRIBUTES')> -1) {
+				theInnerHtml += '<th>Geology&nbsp;Attributes</th>';
+			}
+			
+			
 			if (result[0].COLUMNLIST.indexOf('VERBATIM_DATE')> -1) {
 				theInnerHtml += '<th>Verbatim&nbsp;Date</th>';
 			}
@@ -559,6 +641,9 @@ function success_getSpecResultsData(result){
 			if (result[0].COLUMNLIST.indexOf('MOLT_CONDITION')> -1) {
 				theInnerHtml += '<th>Molt&nbsp;Condition</th>';
 			}
+			if (result[0].COLUMNLIST.indexOf('ABUNDANCE')> -1) {
+				theInnerHtml += '<th>Abundance</th>';
+			}
 			if (result[0].COLUMNLIST.indexOf('NUMBER_OF_LABELS')> -1) {
 				theInnerHtml += '<th>Number&nbsp;Of&nbsp;Labels</th>';
 			}
@@ -620,7 +705,11 @@ function success_getSpecResultsData(result){
 		for (i=0; i<result.length; ++i) {
 			orderedCollObjIdArray.push(result[i].COLLECTION_OBJECT_ID);
 		}
-		var orderedCollObjIdList = orderedCollObjIdArray.join(",");
+		var orderedCollObjIdList='';
+		if (orderedCollObjIdArray.length < 100) {
+			var orderedCollObjIdList = orderedCollObjIdArray.join(",");
+		}
+
 		
 		for (i=0; i<result.length; ++i) {
 			orderedCollObjIdArray.push(result[i].COLLECTION_OBJECT_ID);
@@ -630,7 +719,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml +=result[i].COLLECTION_OBJECT_ID + "'" + ',this.checked);"></td>';
 				}
 			
-				theInnerHtml += '<td nowrap="nowrap">';
+				theInnerHtml += '<td nowrap="nowrap" id="CatItem_'+result[i].COLLECTION_OBJECT_ID+'">';
 					theInnerHtml += '<a href="SpecimenDetail.cfm?collection_object_id=';
 					theInnerHtml += result[i].COLLECTION_OBJECT_ID;
 					if (mapURL.length > 0) {
@@ -676,7 +765,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '</td>';
 				}
 				theInnerHtml += '<td>';
-					theInnerHtml += '<i>' + spaceStripper(result[i].SCIENTIFIC_NAME) + '</i>';
+					theInnerHtml += '<i><a href="/SpecimenResults.cfm?scientific_name=' + result[i].SCIENTIFIC_NAME + '">' + spaceStripper(result[i].SCIENTIFIC_NAME) + '</a></i>';
 				theInnerHtml += '</td>';
 				if (result[0].COLUMNLIST.indexOf('SCI_NAME_WITH_AUTH')> -1) {
 					theInnerHtml += '<td>';
@@ -774,8 +863,14 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + result[i].ORIG_ELEV_UNITS + '&nbsp;</td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('SPEC_LOCALITY')> -1) {
-					theInnerHtml += '<td>' + result[i].SPEC_LOCALITY + '&nbsp;</td>';
+					theInnerHtml += '<td id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID+'"><a href="/SpecimenResults.cfm?spec_locality=' + result[i].SPEC_LOCALITY + '">' + result[i].SPEC_LOCALITY + '</a>&nbsp;</td>';
 				}
+				
+				if (result[0].COLUMNLIST.indexOf('GEOLOGY_ATTRIBUTES')> -1) {
+					theInnerHtml += '<td>' + result[i].GEOLOGY_ATTRIBUTES + '&nbsp;</td>';
+				}
+				
+			
 				if (result[0].COLUMNLIST.indexOf('VERBATIM_DATE')> -1) {
 					theInnerHtml += '<td>' + result[i].VERBATIM_DATE + '&nbsp;</td>';
 				}
@@ -870,6 +965,9 @@ function success_getSpecResultsData(result){
 				if (result[0].COLUMNLIST.indexOf('MOLT_CONDITION')> -1) {
 					theInnerHtml += '<td>' + result[i].MOLT_CONDITION + '&nbsp;</td>';
 				}
+				if (result[0].COLUMNLIST.indexOf('ABUNDANCE')> -1) {
+					theInnerHtml += '<td>' + result[i].ABUNDANCE + '&nbsp;</td>';
+				}
 				if (result[0].COLUMNLIST.indexOf('NUMBER_OF_LABELS')> -1) {
 					theInnerHtml += '<td>' + result[i].NUMBER_OF_LABELS + '&nbsp;</td>';
 				}
@@ -921,9 +1019,6 @@ function success_getSpecResultsData(result){
 				if (result[0].COLUMNLIST.indexOf('DEC_LONG')> -1) {
 					theInnerHtml += '<td style="font-size:small">' + result[i].DEC_LONG + '&nbsp;</td>';
 				}
-				if (result[0].COLUMNLIST.indexOf('GREF_COLLNUM') > -1) {
-					theInnerHtml += '<td>' + parseGrefLinks(result[i].GREF_COLLNUM) + '&nbsp;</td>';
-				}
 			theInnerHtml += '</tr>';
 		}
 		
@@ -934,20 +1029,9 @@ function success_getSpecResultsData(result){
 		if (action == 'dispCollObj'){
 			makePartThingy();
 		}
+		insertMedia(orderedCollObjIdList);
+		insertTypes(orderedCollObjIdList);
 	}
-	
-}
-
-function parseGrefLinks(concatedGrefLinks) {
-	var linksArr = concatedGrefLinks.split(",");
-	var retval = "";
-	for (var i = 0; i < linksArr.length; i++) {
-		retval += " <a class='external' href='" + linksArr[i] + "'>" + (i+1) + "</a>";
-	}
-	if (retval != "") {
-		retval = "Field Notebook Pages:" + retval;
-	}
-	return retval;
 }
 
 function ssvar (startrow,maxrows) {

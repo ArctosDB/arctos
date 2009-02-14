@@ -1,12 +1,12 @@
 <cfinclude template="../includes/_header.cfm">
-<cfquery name="ctLoanStatus" datasource="#Application.web_user#">
+<cfquery name="ctLoanStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select loan_status from ctloan_status
 </cfquery>
 <cfset thisYear = #dateformat(now(),"yyyy")#>
-			<cfquery name="ctcoll" datasource="#Application.web_user#">
+			<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select collection_cde from ctcollection_cde
 			</cfquery>
-			<cfquery name="ctLoanType" datasource="#Application.web_user#">
+			<cfquery name="ctLoanType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select loan_type from ctloan_type
 			</cfquery>
 <cfif #Action# is "nothing">
@@ -30,7 +30,7 @@
 </cfif>
 
 <cfif #Action# is "viewList">
-<cfquery name="proj" datasource="#Application.web_user#">
+<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT
 		distinct(username)
 	FROM
@@ -70,7 +70,7 @@
 </cfif>
 <!------------------------------------------------->
 <cfif #Action# is "viewProject">
-<cfquery name="proj" datasource="#Application.web_user#">
+<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT
 		username,
 		cf_users.user_id user_id,
@@ -233,7 +233,7 @@ starting 1<cfflush>
 			<!--- set loan_number - same code works for accn_num --->
 			
 
-			<cfquery name="getLoanNum" datasource="#Application.web_user#">
+			<cfquery name="getLoanNum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select max(loan_num) + 1 as nextLoanNum from loan
 				where loan_num_prefix = '#thisYear#'
 			</cfquery>
@@ -342,7 +342,7 @@ starting 1<cfflush>
 			</tr>
 </form>
 					getting specimens<cfflush>
-						<cfquery name="specs" datasource="#Application.web_user#">
+						<cfquery name="specs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select
 							part_name, part_modifier, preserve_method,
 							condition,
@@ -401,13 +401,13 @@ starting 1<cfflush>
 							</tr>
 						<cfloop query="specs">
 							<cfif len(#ArctosLoanId#) gt 0>
-							<cfquery name="thisItemInArctos" datasource="#Application.web_user#">
+							<cfquery name="thisItemInArctos" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 								select * from loan_item where
 								collection_object_id = #collection_object_id# and
 								transaction_id = #ArctosLoanId#
 							</cfquery>
 							<cfelse>
-								<cfquery name="thisItemInArctos" datasource="#Application.web_user#">
+								<cfquery name="thisItemInArctos" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 								select * from loan_item where
 								collection_object_id = #collection_object_id# and
 								transaction_id = 0
@@ -427,7 +427,7 @@ starting 1<cfflush>
 								<td>#preserve_method# #part_modifier# #part_name#</td>
 								<td>#condition#</td>
 								<td>#remark#</td>
-								<cfquery name="ctUse" datasource="#Application.web_user#">
+								<cfquery name="ctUse" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 									select * from ctcf_loan_use_type
 								</cfquery>
 								<td>
@@ -485,10 +485,10 @@ starting 1<cfflush>
 
 	<cfoutput>
 		<!--- get the next loan_number --->
-		<cfquery name="nextTransId" datasource="#Application.web_user#">
+		<cfquery name="nextTransId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select max(transaction_id) + 1 as nextTransactionId from trans
 		</cfquery>
-		<cfquery name="TRANS_ENTERED_AGENT_ID" datasource="#Application.web_user#">
+		<cfquery name="TRANS_ENTERED_AGENT_ID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select agent_id from agent_name where agent_name = '#session.username#'
 		</cfquery>
 		<cfif len(#TRANS_ENTERED_AGENT_ID.agent_id#) is 0>

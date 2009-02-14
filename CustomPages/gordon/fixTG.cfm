@@ -4,7 +4,7 @@ Whoa, big fella....
 
 <cfoutput>
 HI
-<cfquery name="md" datasource="#Application.web_user#">
+<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
  select taxon_name_id, scientific_name, phylclass, phylorder, family, genus from taxonomy where
  (phylclass is null or phylorder is null or family is null and genus is not null) and TAXON_NAME_ID > 0 order by scientific_name
 </cfquery>
@@ -20,7 +20,7 @@ HI
 		<tr>
 			
 			<td>
-			<a href="http://arctos.database.museum/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" target="#session.target#">#scientific_name#</a>
+			<a href="http://arctos.database.museum/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">#scientific_name#</a>
 			</td>
 			<td>#phylclass#</td>
 			<td>#phylorder#</td>
@@ -28,7 +28,7 @@ HI
 			<td>#genus#</td>
 			<td>
 				<cfif len(#phylclass#) is 0>
-					<cfquery name="pc" datasource="#Application.web_user#">
+					<cfquery name="pc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select distinct(phylclass) from taxonomy where genus='#genus#'
 						and phylclass is not null
 					</cfquery>
@@ -52,7 +52,7 @@ HI
 			</td>
 			<td>
 				<cfif len(#phylorder#) is 0>
-					<cfquery name="po" datasource="#Application.web_user#">
+					<cfquery name="po" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select distinct(phylorder) from taxonomy where genus='#genus#'
 						and phylorder is not null
 					</cfquery>
@@ -77,7 +77,7 @@ HI
 			</td>
 			<td>
 				<cfif len(#family#) is 0>
-					<cfquery name="f" datasource="#Application.web_user#">
+					<cfquery name="f" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select distinct(family) from taxonomy where genus='#genus#'
 						and family is not null
 					</cfquery>

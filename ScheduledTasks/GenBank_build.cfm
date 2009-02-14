@@ -8,7 +8,7 @@
 		Application.genBankUsername
 ---->
 <cfoutput>
-<cfquery name="nucleotide" datasource="#Application.web_user#">
+<cfquery name="nucleotide" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
 		display_value,
 		a.collection_object_id,
@@ -36,7 +36,7 @@
 		<cffile action="append" file="#Application.webDirectory#/temp/nucleotide.ft" addnewline="no" output="#oneLine#">
 </cfloop>
 
-<cfquery name="taxonomy" datasource="#Application.web_user#">
+<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		distinct(scientific_name)
 	FROM 
@@ -56,7 +56,7 @@
 	<cfset oneLine="#chr(10)#------------------------------------------------#chr(10)#linkid: #i##chr(10)#query: #scientific_name# [name]#chr(10)#base: &base.url;#chr(10)#rule: scientific_name=#scientific_name##chr(10)#name: #scientific_name# with GenBank sequence accessions">		<cfset i=#i#+1>
 		<cffile action="append" file="#Application.webDirectory#/temp/taxonomy.ft" addnewline="no" output="#oneLine#">
 </cfloop>
-<cfquery name="AllUsedSciNames" datasource="#Application.web_user#">
+<cfquery name="AllUsedSciNames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		distinct(scientific_name) from identification
 </cfquery>
@@ -69,7 +69,7 @@
 		<cffile action="append" file="#Application.webDirectory#/temp/names.ft" addnewline="no" output="#oneLine#">
 </cfloop>
 <!----
-<cfquery name="uamsp2" datasource="#Application.web_user#">
+<cfquery name="uamsp2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		distinct(scientific_name) from taxonomy
 		genus, 
@@ -99,7 +99,7 @@
 		<cfset i=#i#+1>
 		<cffile action="append" file="/var/www/html/temp/uamsp2.ft" addnewline="no" output="#oneLine#">
 </cfloop>
-<cfquery name="uamsp3" datasource="#Application.web_user#">
+<cfquery name="uamsp3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		scientific_name 
 	FROM 

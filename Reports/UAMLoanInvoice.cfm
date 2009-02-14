@@ -15,15 +15,15 @@
 <cf_getLoanFormInfo>
 
 <cfoutput>
-	<cfquery name="shipDate" datasource="#Application.web_user#">
+	<cfquery name="shipDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select shipped_date from shipment where transaction_id=#transactioN_id#
 	</cfquery>
-	<cfquery name="shipTo" datasource="#Application.web_user#">
+	<cfquery name="shipTo" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select formatted_addr from addr, shipment
 		where addr.addr_id = shipment.shipped_to_addr_id AND
 		shipment.transaction_id=#transaction_id#
 	</cfquery>
-	<cfquery name="procBy" datasource="#Application.web_user#">
+	<cfquery name="procBy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select agent_name from preferred_agent_name, shipment
 		where preferred_agent_name.agent_id = shipment.packed_by_agent_id AND
 		shipment.transaction_id=#transaction_id#
@@ -257,7 +257,7 @@ Number of rows to print per page:
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 
 <cfoutput>
-<cfquery name="getItems" datasource="#Application.web_user#">
+<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 
 select 
 		cat_num, 
@@ -476,7 +476,7 @@ select
          <b><font face="Arial, Helvetica, sans-serif">SPECIMEN&nbsp;&nbsp;INVOICE <br>
    	
 	<font size="+2">University of Alaska Museum</font></font></b> <br>
-        <cfquery name="shipDate" datasource="#Application.web_user#">
+        <cfquery name="shipDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
                 select shipped_date from shipment where transaction_id=#transactioN_id#
         </cfquery>
    <b> #dateformat(shipDate.shipped_date,"dd mmmm yyyy")#</b>
@@ -705,7 +705,7 @@ select
 	fontembed="yes" >
 	
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
-<cfquery name="getItems" datasource="#Application.web_user#">
+<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 
 select 
 		cat_num, 
@@ -757,7 +757,7 @@ select
 <div style=" width:100%; " align="center">
          <b><font face="Arial, Helvetica, sans-serif">SPECIMEN&nbsp;&nbsp;INVOICE <br>
    <font size="+2"> University of Alaska Museum</font></b> <br>
-        <cfquery name="shipDate" datasource="#Application.web_user#">
+        <cfquery name="shipDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
                 select shipped_date from shipment where transaction_id=#transactioN_id#
         </cfquery>
    <b> #dateformat(shipDate.shipped_date,"dd mmmm yyyy")#</b>

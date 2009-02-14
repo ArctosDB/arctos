@@ -1,9 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
-<cfinclude template="/includes/functionLib.cfm">
 <!-------------------->
 <cfif #action# is "makeUser">
 	<cfoutput>
-		<cfquery name="c" datasource="#Application.uam_dbo#">
+		<cfquery name="c" datasource="uam_god">
 			select temp_allow_cf_user.user_id,allow 
 			from temp_allow_cf_user,cf_users 
 			where temp_allow_cf_user.user_id=cf_users.user_id 
@@ -24,11 +23,17 @@
 			<cftry>
 				<cftransaction>
 					<cfquery name="makeUser" datasource="uam_god">
-						create user #un# identified by "#pw#"
+						create user #un# identified by "#pw#" profile "ARCTOS_USER" default TABLESPACE users QUOTA 10M on users
 					</cfquery>
 					<cfquery name="grantConn" datasource="uam_god">
 						grant create session to #un#
 					</cfquery>
+					<cfquery name="grantTab" datasource="uam_god">
+						grant create table to #un#
+					</cfquery>
+					<cfquery name="grantVPD" datasource="uam_god">
+						grant execute on sys.app_security_context to #un#
+					</cfquery>					
 					<cfquery name="makeUser" datasource="uam_god">
 						update temp_allow_cf_user set allow=2 where user_id=#c.user_id#
 					</cfquery>

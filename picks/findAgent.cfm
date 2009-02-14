@@ -19,7 +19,7 @@
 		<cfabort>
 	</cfif>
 	
-		<cfquery name="getAgentId" datasource="#Application.web_user#">
+		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				preferred_agent_name.agent_name, agent.agent_id 
 			from 
@@ -87,13 +87,9 @@
 	</cfif>
 </cfif>
 <cfif #action# is "createAgent">
-	<cfinclude template="/includes/functionLib.cfm">
 	<cftransaction>
 		<cfquery name="aid" datasource="#Application.uam_dbo#">
-			select max(agent_id) + 1 agent_id from agent
-		</cfquery>
-		<cfquery name="anid" datasource="#Application.uam_dbo#">
-			select max(agent_name_id) + 1 agent_name_id from agent_name
+			select sq_agent_id.nextval agent_id from dual
 		</cfquery>
 		<cfquery name="newAgnt" datasource="#Application.uam_dbo#">
 			insert into agent (
@@ -114,7 +110,7 @@
 				AGENT_NAME_TYPE,
 				AGENT_NAME
 			) values (
-				#anid.agent_name_id#,
+				sq_agent_name_id.nextval,
 				#aid.agent_id#,
 				'preferred',
 				'#replace(newName,"'","''","all")#')                                 

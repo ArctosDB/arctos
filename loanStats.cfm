@@ -1,4 +1,4 @@
-<cfquery name="loanData" datasource="#Application.web_user#">
+<cfquery name="loanData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
  select 
 	 loan.TRANSACTION_ID,
 	 agent_name loaned_to,
@@ -35,7 +35,7 @@ GROUP BY
 			<td>#LOAN_STATUS#</td>
 			<td>#dateformat(RETURN_DUE_DATE,"dd mmm yyyy")#</td>
 			<td>#numItems#</td>
-			<cfquery name="wtf" datasource="#Application.web_user#">
+			<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select count(distinct(cat_num)) CntCatNum from
 					loan_item,
 					specimen_part,
@@ -54,7 +54,7 @@ GROUP BY
 					transaction_id=#transaction_id#
 					---->
 			</cfquery>
-			<cfquery name="wtf2" datasource="#Application.web_user#">
+			<cfquery name="wtf2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select count(distinct(cat_num)) CntCatNum from
 					loan_item,
 					cataloged_item
