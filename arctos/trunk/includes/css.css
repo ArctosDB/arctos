@@ -1,0 +1,171 @@
+		/*hack for main menu nav*/
+		.mainMenu ul{
+			list-style-type: none;
+			padding: 0px;
+			margin:0px;
+			border-left: 1px solid;
+			display: block;
+			height: .1em;
+		}
+		.mainMenu li{
+			float: left;
+			display: inline;
+		}
+		.mainMenu li a{
+			text-decoration: none;
+			height: 1.2em;
+			float: left;
+			display: block;
+			/*width: 125px;*/
+			width:100%;
+			padding: .1em 1px;
+			border: 1px solid;
+			border-left: none;
+		}
+		.mainMenu li li a{
+			border-top: none;
+			border-left: 1px solid;
+		}
+		.mainMenu li ul{
+			position: absolute; 
+			margin-top: 1.3em;
+			margin-left: -1px;
+			width: 129px;
+			border: none;
+			display: block;
+			height: auto;
+			border-top: 1px solid;
+		}
+		.mainMenu li li ul{
+			position: absolute;
+			margin-top: .1em;
+			margin-left: 125px;
+		}
+		.mainMenu li ul li a{
+		width: 175px;
+		border:1px solid black;
+		}
+		
+		
+		/*this is the css for the vertical version*/
+		.vertical ul{
+			list-style-type: none;
+			padding: 0px;
+			margin:0px;
+			border-top: 1px solid;
+			width: 254px;
+		}
+		.vertical li a{
+			display: block;
+			width: 250px;
+			text-decoration: none;
+			height: 1em;
+			/*
+			padding: .1em 1px;
+			border: 1px solid;
+			*/
+			border-top: 0px;
+		}
+		.vertical li{
+			/*Needed for IE. Don't ask me why, It was a lucky guess.*/
+			display: inline;
+		}
+		.vertical li ul{
+			position: absolute;
+			margin-top: -1.3em;
+			margin-left: 250px;
+		}
+		/*this is the css for the horizontal version*/
+		.horizontal ul{
+			list-style-type: none;
+			padding: 0px;
+			margin:0px;
+			/*border-left: 1px solid;*/
+			display: block;
+			/*height: .1em;*/
+		}
+		.horizontal li{
+			float: left;
+			display: inline;
+		}
+		.horizontal li a{
+			text-decoration: none;
+			/*height: 1.2em;*/
+			float: left;
+			display: block;
+			/*width: 125px;*/
+			width:100%;
+			padding: .1em 1px;
+			/*border: 1px solid;*/
+			border-left: none;
+		}
+		.horizontal li li a{
+			border-top: none;
+			border-left: 1px solid;
+		}
+		.horizontal li ul{
+			position: absolute; 
+			margin-top: 1.3em;
+			margin-left: -1px;
+			width: 129px;
+			border: none;
+			display: block;
+			height: auto;
+			border-top: 1px solid;
+		}
+		.horizontal li li ul{
+			position: absolute;
+			margin-top: .1em;
+			margin-left: 125px;
+		}
+		.horizontal li ul li a{
+		width: 175px;
+		border:1px solid black;
+		}
+		/*This section makes the menu not work in non-javascript enabled browsers by not showing the menu by default-This can be worked around by making top level links point to a sitemap*/
+		/*Not sure if I recommend this or not*/
+		.inaccesible li ul{
+			display: none;
+		}
+		/*Arrow code - looks like <a class="haschild" href="#">Text <span>Arrow</span></a> can be turned on/off with arrow class*/
+		.arrow a span{
+		padding-left: 1em;
+		font-size: 85%;  
+		}
+		.arrow a:hover span{
+		padding-left: 2em;
+		}
+		.arrow a span.noshow{
+			visibility: hidden;
+		}
+		/*Plus code*/
+		.plus a span{
+			padding-left: .5em;
+		}
+		/*colors for menu*/
+		.blackwhite li a{
+			background-color: white;
+			color: black;
+			border-color: black;
+		}
+		.blackwhite li a:hover{
+			background-color: black;
+			color: white;
+			border-color: black;
+		}
+		.blackwhite ul{
+			border-color: black;
+		}
+		.bluewhite li a{
+			background-color: white;
+			color: blue;
+			border-color: #000033;
+		}
+		.bluewhite li a:hover{
+			background-color: #000033;
+			color: white;
+			border-color: #000033;
+		}
+		.bluewhite ul{
+			border-color: #000033;
+		}

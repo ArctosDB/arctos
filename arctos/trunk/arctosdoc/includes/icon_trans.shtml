@@ -1,0 +1,71 @@
+<font size="-1"><table border align="right">
+	<tr>
+		<td align="center"><strong>icon</strong></td>
+		<td align="center"><strong>meaning</strong></td>
+	</tr>
+	<tr>
+		<td align="center"><img src="http://arctos.database.museum/images/linkOut.gif" border="0"></td>
+		<td>external link</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="http://arctos.database.museum/images/info.gif" border="0"></td>
+		<td>help topic</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="http://arctos.database.museum/images/specinfo.gif" border="0"></td>
+		<td>more data</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="http://arctos.database.museum/images/ctinfo.gif" border="0"></td>
+		<td>list definitions</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="http://arctos.database.museum/images/pick.gif" border="0"></td>
+		<td>pick list values</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="http://arctos.database.museum/images/what.gif" border="0"></td>
+		<td>form-level help</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="http://arctos.database.museum/images/rt_arrow.gif" border="0"></td>
+		<td>copy data</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="http://arctos.database.museum/images/plus.gif" border="0"></td>
+		<td>expand</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="http://arctos.database.museum/images/bad.gif" border="0"></td>
+		<td>report improbable data</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="http://arctos.database.museum/images/delete.gif" border="0"></td>
+		<td>remove</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="http://arctos.database.museum/images/up.gif" border="0"></td>
+		<td>sort A-Z</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="http://arctos.database.museum/images/down.gif" border="0"></td>
+		<td>sort Z-A</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="http://arctos.database.museum/images/first.gif" border="0"></td>
+		<td>first record set</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="http://arctos.database.museum/images/previous.gif" border="0"></td>
+		<td>previous record set</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="http://arctos.database.museum/images/next.gif" border="0"></td>
+		<td>next record set</td>
+	</tr>
+	<tr>
+		<td align="center"><img src="http://arctos.database.museum/images/last.gif" border="0"></td>
+		<td>last record set</td>
+	</tr>
+	
+</table></font>

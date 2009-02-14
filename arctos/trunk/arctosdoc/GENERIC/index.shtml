@@ -1,0 +1,52 @@
+<!--#set var="title" value="Arctos Help: Table of Contents" -->
+<!--#include virtual="../includes/_header.shtml" -->
+<p>
+<font size="+2">Arctos Help: Table of Contents</font></p>
+<!--#include virtual="../includes/icon_trans.shtml" -->
+<p><a href="../UAM/search_examples_TOC.shtml"><strong>Examples of Searches</strong></a></p>
+
+<p><strong>Form-level Help:</strong> 
+<ul>
+<li><a href="../pageHelp/searching.shtml"><strong> Specimen Search</strong></a></li>
+<li><a href="../pageHelp/specimen_results.shtml"><strong> Specimen List</strong></a></li>
+<li><a href="../pageHelp/resultsearch.shtml"><strong> Result Search</strong></a></li>
+<li><a href="../pageHelp/customize.shtml"><strong> Advanced Features</strong></a></li>
+</ul></p>
+
+<p><strong>Operator Help:</strong></p>
+<ul>
+<li><a href="../Bulkloader/index.shtml">
+<strong>Add New Records</strong></a> (Bulk-loading)</li>
+<li><a href="../arctosdoc/definitions_standards_index.shtml">
+<strong>Definitions and Standards</strong></a></li>
+</ul>
+
+<p><a href="../pageHelp/about.shtml">
+<strong>About the Database</strong></a></p>
+<ul>	
+	<li><a href="../pageHelp/about.shtml#requirements">
+	<strong>System Requirements</strong></a></li>
+
+	<li><a href="../pageHelp/about.shtml#browser_compatiblity">
+	<strong>Browser Compatibility</strong></a></li>
+	
+	<li><a href="../pageHelp/about.shtml#suggest">
+	<strong>Suggestions</strong></a></li>
+
+	<li><a href="../pageHelp/about.shtml#data_usage">
+	<strong>Data Usage</strong></a></li>
+	
+	<li><a href="http://arctos.database.museum/info/bugs.cfm" target="_blank">
+	<strong>Report Bugs</strong></a></li>
+</ul>	
+
+<p><strong>Specimen-use Policies</strong></p>
+<ul>
+<li><a href="http://www.uaf.edu/museum/af/using.html"><strong>U.A. Museum of the North</strong></a></li>
+<li><a href="http://www.msb.unm.edu/policy.html#2"><strong>U.N.M. Museum of SW Biology</strong></a></li>
+</ul>
+
+<!--
+<p><strong>Report Crummy Data</strong></p>
+-->
+<!--#include virtual="/includes/_footer.shtml" -->

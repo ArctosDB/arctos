@@ -1,0 +1,175 @@
+.headerInstitutionText {
+	font-family:Arial, Helvetica, sans-serif;
+	color:white; 
+	font-weight:bold;
+	font-size:1.2em;
+	text-decoration:none;
+}
+
+.headerCollectionText {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:24px;
+	color:white;
+}
+
+body {
+	background-image:url(/images/white2.jpg);
+	color:black;
+	}
+	A:link {text-decoration: underline; 
+		color: blue;
+		}
+	
+	A:visited:hover {text-decoration: underline;
+			color: #CC0000;
+			}
+	A:visited {
+			text-decoration: underline;
+			color: #6C84BB;
+			}
+	A:hover  {text-decoration: underline;
+			color: #CC0000;
+			}
+			
+/* even and odd row alternating colors 
+	To implement this, use
+	 <tr #iif(currentrow MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+	 */
+tr.evenRow {
+	background-color:#C7D5D6;
+		}
+tr.oddRow {
+	background-color:#F5F5F5;
+		}
+	
+	
+	/* Table background color for new record */
+	td.newRec, tr.newRec {
+		background-color: #99FFFF
+			}
+	
+	/* Nav Bar header table */
+	table.navBar {
+		border-color: #191970;
+		border-style: solid;
+		}
+
+/* Save Changed Button */
+		 input.savBtn {
+			   color:	#666666;
+		    font-size:10pt;
+		   font-weight:bold;
+		    font-family: Arial, Helvetica, sans-serif;
+	 	  background-color:#FBD29B;
+	   border:1px solid;
+	   border-color: #336666;
+		  }
+	  
+/* Link Button */	  
+		input.lnkBtn {
+			   color:	#666666;
+		    font-size:10pt;
+		   font-weight:bold;
+		     font-family: Arial, Helvetica, sans-serif;
+		   background-color: #99CCFF;
+		   border-color: #336666;
+		   border:1px solid;
+		 	  }
+		 	  
+/* Search Button */
+
+		input.schBtn {
+			   color:#666666;
+		    font-size:10pt;
+		   font-weight:bold;
+		     font-family:Arial, Helvetica, sans-serif;
+		   background-color:#CCCC99;
+		   border-color:#336666;
+		   border:1px solid;
+		 	  }
+		 	  
+/* Clear Form Button */
+		input.clrBtn {
+			   color:	#666666;
+		    font-size:10pt;
+		   font-weight:bold;
+		     font-family: Arial, Helvetica, sans-serif;
+		   background-color:#FFCC00;
+		   border-color: #336666;
+		   border:1px solid;
+		 	  }
+		 	  
+/* Insert Button */
+		input.InsBtn {
+			   color:	#666666;
+		    font-size:10pt;
+		   font-weight:bold;
+		     font-family: Arial, Helvetica, sans-serif;
+		   background-color:#99CCCC;
+		   border-color: #336666;
+		   border:1px solid;
+		 	  }
+
+/* Pick Button */
+		input.PicBtn {
+			   color:	#666666;
+		    font-size:10pt;
+		   font-weight:bold;
+		     font-family: Arial, Helvetica, sans-serif;
+		   background-color:#CCCC99;
+		   border-color: #336666;
+		   border:1px solid;
+		 	  }
+
+/* Delete Button */
+		input.delBtn {
+			   color:	#666666;
+		    font-size:10pt;
+		   font-weight:bold;
+		     font-family: Arial, Helvetica, sans-serif;
+		   background-color:#FF9966;
+		   border-color: #336666;
+		   border:1px solid;
+		 	  }
+
+/* Quit Button */
+		input.qutBtn {
+			   color:	#666666;
+		    font-size:10pt;
+		   font-weight:bold;
+		     font-family: Arial, Helvetica, sans-serif;
+		   background-color:#FFFF00  ;
+		   border-color: #336666;
+		   border:1px solid;
+		 	  }
+		 	  
+/* Required Input, select, textarea */
+		input.reqdClr, select.reqdClr, textarea.reqdClr {
+		   background-color:#FFFFCC;
+		 	  }	 	  
+ 	
+ /* Read-only Input, Select */
+		input.readClr, select.readClr {
+		   background-color:#CCCCCC;
+		 	  }	 	  		 	  
+
+/* Mouseover Button */
+	   input.btnhov {
+	      border-top-color:#FF6633 ;
+	   border-left-color:#FF6633 ;
+	   border-right-color:#FF6666 ;
+	   border-bottom-color:#FF6666 ;
+	  }
+
+/* Specimen Detail Pages */
+		input.detLinkBtn {
+			   color:	#666666;
+		    font-size:10pt;
+		   font-weight:bold;
+		     font-family: Arial, Helvetica, sans-serif;
+		   background-color:#99CCFF;
+		   border-color: #336666;
+		   border: 1px solid;
+		   width: 125px;
+		   height: 25px;
+		 	  }

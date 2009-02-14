@@ -1,0 +1,16 @@
+<!--#set var="nothing" value="" -->
+<!--- declare the empty string as a variable to compare against --->
+<!--#if expr="${institute} != ${nothing} " -->
+	<!--- they've already been here and have defined institute --->
+	institute is defined
+<!--#else -->
+	defining institute
+	<!--- they've just come here; define institute --->
+		<!--#if expr="${HTTP_REFERER} = /arctos.database.museum/"-->
+			<!--#set var="institute" value="arctos" -->
+		<!--#elif expr="${HTTP_REFERER} = /nix.msb.unm.edu/"-->
+			<!--#set var="institute" value="msb" -->
+		<!--#else -->
+			<!--#set var="institute" value="arctos" -->
+		<!--#endif -->
+<!--#endif -->
