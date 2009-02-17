@@ -189,12 +189,26 @@ validate
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_temp_cont_edit
 	</cfquery>
+	<cftry>
+	<cftransaction>
+		<cfloop query="getTempData">
+			<cfquery name="updateC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				update container set
+					CONTAINER_TYPE='#CONTAINER_TYPE#'
+				where CONTAINER_ID=#CONTAINER_ID#
+			</cfquery>
+		</cfloop>
+	</cftransaction>
+	<cfcatch>
+		There was a problem updating container types.
+		 <cfrethrow>
+	</cfcatch>
+	</cftry>
 	<cftransaction>
 		<cfloop query="getTempData">
 			<cfquery name="updateC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				update container set
 					label='#label#',
-					CONTAINER_TYPE='#CONTAINER_TYPE#',
 					DESCRIPTION='#DESCRIPTION#',
 					PARENT_INSTALL_DATE=sysdate,
 					CONTAINER_REMARKS='#remarks#'

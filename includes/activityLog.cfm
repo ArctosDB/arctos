@@ -65,11 +65,11 @@ sho err
 			#log.reported_count#,
 			'#log.referring_url#')">
 		<cftry>
-		<cfquery name="log_this" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="log_this" datasource="cf_dbuser">
 			#preservesinglequotes(sql)#
 		</cfquery>
 		<cfcatch>
-			---nada ---
+			<!---nada --->
 		</cfcatch>
 		</cftry>
 	

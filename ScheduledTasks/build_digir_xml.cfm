@@ -1,5 +1,5 @@
 <cfoutput>
-<cfquery name="colls" datasource="#application.uam_dbo#">
+<cfquery name="colls" datasource="uam_god">
 	select * from collection	
 </cfquery>
 <cfset mappings = "GlobalUniqueIdentifier:GUID|DateLastModified:LAST_EDIT_DATE|BasisOfRecord:BASISOFRECORD|InstitutionCode:INSTITUTION_ACRONYM|CollectionCode:COLLECTION_CDE|CatalogNumber:CAT_NUM|CatalogNumberText:CAT_NUM|InformationWithheld:ENCUMBRANCES|Remarks:REMARKS|ScientificName:SCIENTIFIC_NAME|HigherTaxon:FULL_TAXON_NAME|Kingdom:KINGDOM|Phylum:PHYLUM|Class:PHYLCLASS|Order:PHYLORDER|Family:FAMILY|Genus:GENUS|SpecificEpithet:SPECIES|Species:SPECIES|InfraspecificRank:INFRASPECIFIC_RANK|InfraspecificEpithet:SUBSPECIES|AuthorYearOfScientificName:AUTHOR_TEXT|NomenclaturalCode:NOMENCLATURAL_CODE|IdentificationQualifier:IDENTIFICATIONMODIFIER|HigherGeography:HIGHER_GEOG|Continent:CONTINENT_OCEAN|IslandGroup:ISLAND_GROUP|Island:ISLAND|Country:COUNTRY|StateProvince:STATE_PROV|County:COUNTY|Locality:SPEC_LOCALITY|MinimumElevationInMeters:MIN_ELEV_IN_M|MaximumElevationInMeters:MAX_ELEV_IN_M|MinimumDepthInMeters:MIN_DEPTH_IN_M|MaximumDepthInMeters:MAX_DEPTH_IN_M|CollectingMethod:COLLECTING_METHOD|ValidDistributionFlag:COLLECTING_SOURCE|EarliestDateCollected:BEGAN_DATE|LatestDateCollected:ENDED_DATE|DayOfYear:DAYOFYEAR|Collector:COLLECTORS|Sex:SEX|LifeStage:AGE_CLASS|Attributes:ATTRIBUTES|ImageURL:IMAGEURL|RelatedInformation:SPECIMENDETAILURL|CatalogNumberNumeric:CAT_NUM|IdentifiedBy:IDENTIFIEDBY|DateIdentified:MADE_DATE|CollectorNumber:COLLECTORNUMBER|FieldNumber:FIELD_NUM|FieldNotes:FIELDNOTESURL|VerbatimCollectingDate:VERBATIM_DATE|VerbatimElevation:VERBATIMELEVATION|Preparations:PARTS|TypeStatus:TYPESTATUS|GenBankNumber:GENBANKNUM|OtherCatalogNumbers:OTHERCATALOGNUMBERS|RelatedCatalogedItems:RELATEDCATALOGEDITEMS|Disposition:COLL_OBJ_DISPOSITION|IndividualCount:INDIVIDUALCOUNT|DecimalLatitude:DEC_LAT|DecimalLongitude:DEC_LONG|GeodeticDatum:DATUM|CoordinateUncertaintyInMeters:COORDINATEUNCERTAINTYINMETERS|VerbatimLatitude:VERBATIMLATITUDE|VerbatimLongitude:VERBATIMLONGITUDE|VerbatimCoordinateSystem:ORIG_LAT_LONG_UNITS|GeoreferenceProtocol:GEOREFMETHOD|GeoreferenceSources:LAT_LONG_REF_SOURCE|GeoreferenceVerificationStatus:VERIFICATIONSTATUS|GeoreferenceRemarks:LAT_LONG_REMARKS">
@@ -8,7 +8,7 @@
 	<cfset constr = "db.arctos.database.museum:1522">
 	<cfset database = "arctos">
 	<cfset tableName = "DIGIR_FILTERED_FLAT">
-	<cfset filePath = "/DiGIRprov/config/">
+	<cfset filePath = "/../ht_restricted/DiGIRprov/config/">
 <cfelse>
 	<cfabort>
 	<!----------- add collections here ----------------------->
@@ -84,7 +84,7 @@
 	'>
 	<cfset data = '#data#<metadata>
 		'>
-	<cfquery name="TechContact" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="TechContact" datasource="uam_god">
 		select 
 			agent_name,
 			ADDRESS
@@ -111,7 +111,7 @@
 		<cfset data = '#data#</contact>
 		'>
 	</cfloop>
-	<cfquery name="AdminContact" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="AdminContact" datasource="uam_god">
 		select 
 			agent_name,
 			ADDRESS
@@ -172,7 +172,7 @@
 
 <!--- now make the static stuff --->
 <!--- start with providerMeta ---> 
-<cfset pm="<metadata>
+<cfset pm='<metadata>
 				<name>Arctos</name>
 				<accessPoint>! set by application !</accessPoint>
 				<implementation>! set by application !</implementation>
@@ -193,6 +193,6 @@
 					  	</abstract>
 				  	</host>
 				</metadata>
-			">
+			'>
 <cffile action="write" file="#application.webDirectory##filePath#/providerMeta.xml" addnewline="yes" output="#pm#" mode="777">
 </cfoutput>

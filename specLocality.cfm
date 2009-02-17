@@ -1369,7 +1369,7 @@ gor event....
 		<cfif hasColl.collecting_event_id is -1>
 			<!--- need a collecting event --->
 			<cfquery name="ncid" datasource="uam_god">
-				select sq_collecting_event_id.nextval from dual
+				select sq_collecting_event_id.nextval ncid from dual
 			 </cfquery>
 			 <cfset ncollecting_event_id=ncid.ncid>
 making event....

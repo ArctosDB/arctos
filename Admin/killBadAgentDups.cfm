@@ -4,7 +4,7 @@
 
 <!--- first, make VERY SURE this is doing what we want it to - make users read the list before pushing the button! ---->
 
-<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="bads" datasource="uam_god">
 	select 
 		agent_relations.agent_id,
 		badname.agent_name bad_name,
@@ -55,7 +55,7 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 </cfif>
 <cfif #action# is "doIt">
 <cfoutput>
-<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="bads" datasource="uam_god">
 	select 
 		agent_id,
 		related_agent_id
@@ -75,7 +75,7 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 <cftransaction>
 <hr>
 <cfset nogo="false">
-<cfquery name="name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="name" datasource="uam_god">
 	select agent_name_id FROM agent_name where agent_id=#bads.agent_id#
 </cfquery>
 <cfset names="">
@@ -91,7 +91,7 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 	<cfset nogo = "true">
 </cfif>
 <!--- see if we have a good replacement ---->
-<cfquery name="isGoodRelated" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="isGoodRelated" datasource="uam_god">
 	select agent_type 
 	from agent where agent_id=#bads.related_agent_id#
 </cfquery>
@@ -100,14 +100,14 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 	<cfset nogo = "true">
 </cfif>
 <!---- see if the bad has agent_name anywhere. We can't deal with that here ---->
-<cfquery name="project_agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="project_agent" datasource="uam_god">
 	select count(*) cnt from project_agent where agent_name_id IN (#names#)
 </cfquery>
 <cfif #project_agent.cnt# gt 0>
 	<br>Agent ID #bads.agent_id# is a project agent. I can't deal with that here.
 	<cfset nogo = "true">
 </cfif>
-<cfquery name="publication_author_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="publication_author_name" datasource="uam_god">
 	select count(*) cnt from publication_author_name where agent_name_id IN (#names#)
 </cfquery>
 <cfif #publication_author_name.cnt# gt 0>
@@ -120,7 +120,7 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 	related_agent_id = bads.agent_id AND agent_id = bads.related_agent_id AND agent_relationship = 'good duplicate of'
 		-- reciprocal of how we got here
 ---->		
-<cfquery name="agent_relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="agent_relations" datasource="uam_god">
 	select count(*) cnt from agent_relations where 
 		(agent_id=#bads.agent_id# OR related_agent_id = #bads.agent_id#)
 		AND NOT (
@@ -131,7 +131,7 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 <cfif #agent_relations.cnt# gt 0>
 	<br><a href="/agents.cfm?agent_id=#bads.agent_id#">Agent ID #bads.agent_id#</a> is involved in relationships. I can't deal with that here.
 	<br><a href="/agents.cfm?agent_id=#bads.related_agent_id#">Agent ID #bads.related_agent_id# (good agent)</a>
-	<cfquery name="relAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="relAgent" datasource="uam_god">
 		select * from agent_relations where agent_relationship <> 'bad duplicate of'
 		and (agent_id=#bads.agent_id# OR related_agent_id=#bads.agent_id#)
 	</cfquery>
@@ -156,7 +156,7 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 	
 	<cfset nogo = "true">
 </cfif>
-<cfquery name="addr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="addr" datasource="uam_god">
 	select count(*) cnt from addr where agent_id=#bads.agent_id#
 </cfquery>
 <cfif #addr.cnt# gt 0>
@@ -164,7 +164,7 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 	<cfset nogo = "true">
 </cfif>
 
-<cfquery name="electronic_address" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="electronic_address" datasource="uam_god">
 	select count(*) cnt from electronic_address where agent_id=#bads.agent_id#
 </cfquery>
 <cfif #electronic_address.cnt# gt 0>
@@ -182,34 +182,49 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 <cfflush>
 	<!---- names not used anywhere, go ahead and make necessary switches ---->
 	
-	<cfquery name="collector" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="collector" datasource="uam_god">
 		UPDATE collector SET agent_id = #bads.related_agent_id#
 		WHERE agent_id = #bads.agent_id#
 	</cfquery>
 	got collector<br><cfflush>
-	<cfquery name="attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="attributes" datasource="uam_god">
 		update attributes SET determined_by_agent_id=#bads.related_agent_id#
 		where determined_by_agent_id = #bads.agent_id#
 	</cfquery>
 	got attributes<br><cfflush>
-	<cfquery name="binary_object" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="mediarc" datasource="uam_god">
 		UPDATE 
-		binary_object SET made_agent_id=#bads.related_agent_id#
-		where made_agent_id=#bads.agent_id#
+		media_relations SET CREATED_BY_AGENT_ID=#bads.related_agent_id#
+		where CREATED_BY_AGENT_ID=#bads.agent_id#
 	</cfquery>
-		got binobj<br><cfflush>
-	<cfquery name="encumbrance" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	got media 1<br><cfflush>
+	<cfquery name="mediard" datasource="uam_god">
+		UPDATE 
+			media_relations 
+		SET RELATED_PRIMARY_KEY=#bads.related_agent_id#
+		where RELATED_PRIMARY_KEY=#bads.agent_id# and
+		upper(SUBSTR(media_relationship,instr(media_relationship,' ',-1)+1))='AGENT'
+	</cfquery>
+	got media 2<br><cfflush>
+	<cfquery name="medialbl" datasource="uam_god">
+		UPDATE 
+			media_labels 
+		SET ASSIGNED_BY_AGENT_ID=#bads.related_agent_id#
+		where ASSIGNED_BY_AGENT_ID=#bads.agent_id# 
+	</cfquery>
+	got media label<br><cfflush>
+	<cfquery name="encumbrance" datasource="uam_god">
 		UPDATE encumbrance SET encumbering_agent_id = #bads.related_agent_id#
 		where encumbering_agent_id = #bads.agent_id#
 	</cfquery>
 	got encumbrance<br><cfflush>
-	<cfquery name="identification_agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="identification_agent" datasource="uam_god">
 		update identification_agent set
 		agent_id = #bads.related_agent_id#
 		where agent_id = #bads.agent_id#
 	</cfquery>
 	got ID agnt<br><cfflush>
-	<cfquery name="lat_long" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="lat_long" datasource="uam_god">
 		update
 		lat_long set 
 		determined_by_agent_id = #bads.related_agent_id# where
@@ -217,7 +232,7 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 	</cfquery>
 	got latlong<br><cfflush>
 		
-	<cfquery name="permit_to" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="permit_to" datasource="uam_god">
 		update permit set
 			ISSUED_TO_AGENT_ID = #bads.related_agent_id# where
 			ISSUED_TO_AGENT_ID = #bads.agent_id#
@@ -225,78 +240,97 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 	update trans_agent set
 			AGENT_ID = #bads.related_agent_id# where
 			AGENT_ID = #bads.agent_id#killagent<CFFLUSH>
-	<cfquery name="trans_agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="trans_agent" datasource="uam_god">
 		update trans_agent set
 			AGENT_ID = #bads.related_agent_id# where
 			AGENT_ID = #bads.agent_id#
 	</cfquery>
 	got tagent<br><cfflush>
-	<cfquery name="permit_by" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="permit_by" datasource="uam_god">
 		update permit set
 			ISSUED_by_AGENT_ID = #bads.related_agent_id# where
 			ISSUED_by_AGENT_ID = #bads.agent_id#
 	</cfquery>
 	got permit<br><cfflush>
-	<cfquery name="shipment" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="shipment" datasource="uam_god">
 		update shipment set 
 		PACKED_BY_AGENT_ID = #bads.related_agent_id# where
 		PACKED_BY_AGENT_ID = #bads.agent_id#
 	</cfquery>
 	got shipment<br><cfflush>
-	<cfquery name="entered" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="entered" datasource="uam_god">
 		update coll_object set
 		ENTERED_PERSON_ID = #bads.related_agent_id# where
 		ENTERED_PERSON_ID = #bads.agent_id#
 	</cfquery>
 	got collobject<br><cfflush>
-	<cfquery name="last_edit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="last_edit" datasource="uam_god">
 		update coll_object set
 		LAST_EDITED_PERSON_ID = #bads.related_agent_id# where
 		LAST_EDITED_PERSON_ID = #bads.agent_id#
 	</cfquery>
 	got collobjed<br><cfflush>
-	<cfquery name="loan_item" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="loan_item" datasource="uam_god">
 		update loan_item set
 		RECONCILED_BY_PERSON_ID = #bads.related_agent_id# where
 		RECONCILED_BY_PERSON_ID = #bads.agent_id#
 	</cfquery>
 	
-	<cfquery name="media_relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="media_relations" datasource="uam_god">
 		update media_relations set
 		RELATED_PRIMARY_KEY = #bads.related_agent_id# where
 		RELATED_PRIMARY_KEY = #bads.agent_id# and
 		MEDIA_RELATIONSHIP like '% agent'
 	</cfquery>
-	<cfquery name="media_relations_creator" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="media_relations_creator" datasource="uam_god">
 		update media_relations set
 		CREATED_BY_AGENT_ID = #bads.related_agent_id# where
 		CREATED_BY_AGENT_ID = #bads.agent_id#
 	</cfquery>
-	<cfquery name="media_labels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="media_labels" datasource="uam_god">
 		update media_labels set
 		ASSIGNED_BY_AGENT_ID = #bads.related_agent_id# where
 		ASSIGNED_BY_AGENT_ID = #bads.agent_id#
 	</cfquery>
-	got loan<br><cfflush>
+	got media labels<br><cfflush>
+	<cfquery name="group_member" datasource="uam_god">
+		update group_member set
+		MEMBER_AGENT_ID = #bads.related_agent_id# where
+		MEMBER_AGENT_ID = #bads.agent_id#
+	</cfquery>
+	got group_member<br><cfflush>
+	<cfquery name="object_condition" datasource="uam_god">
+		update object_condition set
+		DETERMINED_AGENT_ID = #bads.related_agent_id# where
+		DETERMINED_AGENT_ID = #bads.agent_id#
+	</cfquery>
+	got object_condition<br><cfflush>
+	<cfquery name="collection_contacts" datasource="uam_god">
+		update collection_contacts set
+		CONTACT_AGENT_ID = #bads.related_agent_id# where
+		CONTACT_AGENT_ID = #bads.agent_id#
+	</cfquery>
+	got collection_contacts<br><cfflush>
+	
 	<!---
 	<cftransaction action="commit">
 	---->
-	<cfquery name="related" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="related" datasource="uam_god">
 		DELETE FROM agent_relations WHERE agent_id = #bads.agent_id# OR related_agent_id = #bads.agent_id#
 	</cfquery>
 	del agntreln<br><cfflush>
 	
-	<cfquery name="killnames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="killnames" datasource="uam_god">
 		DELETE FROM agent_name WHERE agent_id = #bads.agent_id#
 	</cfquery>
 	del agntname<br><cfflush>
 	
 	
-	<cfquery name="killperson" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="killperson" datasource="uam_god">
 		DELETE FROM person WHERE person_id = #bads.agent_id#
 	</cfquery>
 	del person<br><cfflush>
-	<cfquery name="killagent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="killagent" datasource="uam_god">
 		DELETE FROM agent WHERE agent_id = #bads.agent_id#
 	</cfquery>
 	del agnt<br><cfflush>
