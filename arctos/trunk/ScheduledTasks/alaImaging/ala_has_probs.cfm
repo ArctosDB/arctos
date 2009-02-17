@@ -1,5 +1,5 @@
 <cfoutput>
-<cfquery name="p" datasource="#Application.uam_dbo#">
+<cfquery name="p" datasource="uam_god">
 		select status,count(*) cnt from ala_plant_imaging 
 		group by status
 	UNION
@@ -29,7 +29,7 @@
 			</tr>
 		<cfelse>
 			<cfif #cnt# lte 999>
-				<cfquery name="link" datasource="#Application.uam_dbo#">
+				<cfquery name="link" datasource="uam_god">
 					select image_id from ala_plant_imaging where status='#status#'
 				</cfquery>
 				<tr>

@@ -5,7 +5,7 @@
 	</cfif>
 	<cfoutput>
 		<!--- pending relationships that have been in the table for >30d ---->
-		<cfquery name="contacts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="contacts" datasource="uam_god">
 			select 
 				count(*) c,
 				collection,
