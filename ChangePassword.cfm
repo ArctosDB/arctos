@@ -116,7 +116,7 @@
 <!-------------------------------------------------------------------->
 <cfif #action# is "update">
 	<cfoutput>
-	<cfquery name="getPass" datasource="#Application.uam_dbo#">
+	<cfquery name="getPass" datasource="cf_dbuser">
 		select password from cf_users where username = '#session.username#'
 	</cfquery>
 	<cfif hash(oldpassword) is not getpass.password>
@@ -141,7 +141,7 @@
 		username='#ucase(session.username)#'
 	</cfquery>
 	<cfif #isDb.recordcount# is 0>
-		<cfquery name="setPass" datasource="#Application.uam_dbo#">
+		<cfquery name="setPass" datasource="cf_dbuser">
 			UPDATE cf_users SET password = '#hash(newpassword)#',
 			PW_CHANGE_DATE=sysdate			
 			WHERE username = '#session.username#'
