@@ -5,6 +5,9 @@
 <script type='text/javascript' src='/includes/_myArctos.js'></script>
 <span class="infoLink pageHelp" onclick="pageHelp('customize');">Page Help</span>
 <!------------------------------------------------------------------->
+<cfif action is "makeUser">
+	<cfdump var=#form#>
+</cfif>
 <cfif #action# is "nothing">
 	<cfquery name="getPrefs" datasource="cf_dbuser">
 		select * from cf_users, user_loan_request
@@ -39,9 +42,13 @@
 	</ul>
 	<cfif #isInv.allow# is 1>
 		<div style="background-color:##FF0000; border:2px solid black; width:75%;">
-			<strong>Attention Power User:</strong>
-			You must <a href="user/db_user_setup.cfm?unm=#username#">follow this link</a>
-			and complete the registration process. You may be required to change your password.
+			You've been invited to become an Operator. Please fill out this form.
+			<form name="getUserData" method="post" action="myArctos.cfm">
+				<input type="hidden" name="action" value="makeUser">
+				<label for="pw">Enter your password:</label>
+				<input type="password" name="pw" id="pw">
+				<br><input type="submit" value="Authenticate">
+			</form>
 		</div>
 	<cfelseif #isInv.allow# is 2>
 		<div style="background-color:##00FF00; border:2px solid black; width:75%;">

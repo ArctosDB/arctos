@@ -286,9 +286,79 @@
 <!---------------------------------------------------->
 <cfif #Action# is "makeNewDbUser">
 	<cfoutput>
-		<cfquery name="gpw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			insert into temp_allow_cf_user (user_id,allow) values (#user_id#,1)
+		<!--- see if they have all the right stuff to be a user --->
+		<!---
+			alter table temp_allow_cf_user add invited_by_email varchar2(255);
+			update temp_allow_cf_user set invited_by_email='dustymc@gmail.com';
+			alter table temp_allow_cf_user modify invited_by_email varchar2(255) not null;
+		--->
+		<cfquery name="getTheirEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			SELECT 
+				EMAIL,
+				username
+			FROM 
+				cf_users
+			where 
+				user_id=#user_id#
 		</cfquery>
+		<cfif getTheirEmail.email is "">
+			<div class="error">
+				The user needs a valid email address in their profile before you can continue.
+			</div>
+			<cfabort>
+		</cfif>
+		<cfquery name="getMyEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			SELECT 
+				EMAIL
+			FROM 
+				cf_users
+			where 
+				username='#session.username#'
+		</cfquery>
+		<cfif getMyEmail.email is "">
+			<div class="error">
+				You need a valid email address in your profile before you can continue.
+			</div>
+			<cfabort>
+		</cfif>
+		<cfquery name="getAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			SELECT 
+				agent_id
+			FROM 
+				agent_name,
+				cf_users
+			where 
+				agent_name.agent_name_type='login' and
+				agent_name.agent_name=cf_users.username and
+				cf_users.user_id=#user_id#
+		</cfquery>
+		<cfif getAgent.agent_id is "" or getAgent.recordcount is not 1>
+			<div class="error">
+				The user needs a unique agent name of type login (found #getAgent.recordcount# matches).
+			</div>
+			<cfabort>
+		</cfif>
+		<cfif len(getTheirEmail.EMAIL) gt 0 and len(getMyEmail.EMAIL) gt 0 and getAgent.recordcount is 1>
+			<cfquery name="gpw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				insert into temp_allow_cf_user (user_id,allow,invited_by_email) 
+				values (#user_id#,1,'#getMyEmail.EMAIL#')
+			</cfquery>
+			<cfmail to="#getTheirEmail.EMAIL#" from="welcome@#Application.fromEmail#" subject="operator invitation" cc="#getMyEmail.EMAIL#,#Application.PageProblemEmail#">
+				Hello, #getTheirEmail.username#.
+				<br>
+				You have been invited to become an Arctos Operator by #session.username#.
+				<br>The next time you log in, your Profile page (#application.serverRootUrl#/myArctos.cfm)
+				will contain an authentication form.
+				<br>You must complete this form. If you password does not meet our rules you may be required
+				to create a new password by following the link from your Profile page. 
+				You will then be required to fill out the authentication form again.
+				The form will be replaced with a message when you have successfully authenticated.
+				<br>
+				Please email #getMyEmail.EMAIL# if you have any questions, or 
+				#Application.PageProblemEmail# if you believe you have received this message in error.
+			</cfmail>
+			An invitation has been sent.			
+		</cfif>
 		<cflocation url="AdminUsers.cfm?Action=edit&username=#username#">
 	</cfoutput>
 </cfif>
