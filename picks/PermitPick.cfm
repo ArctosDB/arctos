@@ -147,7 +147,7 @@ Search for permits. Any part of dates and names accepted, case isn't important.<
 		<cfif not (len(#transaction_id#) gt 0 and len(#permit_id#) gt 0)>
 			something bad happened <cfabort>
 		</cfif>
-		<cfquery name="addPermit" datasource="#Application.uam_dbo#">
+		<cfquery name="addPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO permit_trans (permit_id, transaction_id) VALUES (#permit_id#, #transaction_id#)
 		</cfquery>
 		
