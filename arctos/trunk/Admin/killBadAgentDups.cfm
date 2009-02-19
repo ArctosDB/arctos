@@ -47,26 +47,24 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 <form name="go" method="post" action="killBadAgentDups.cfm">
 	<input type="hidden" name="action" value="doIt">
 	<input type="submit" 
-					 	value="Make the Changes" 
-						class="savBtn"
-   						onmouseover="this.className='savBtn btnhov'" 
-						onmouseout="this.className='savBtn'">
+	 	value="Make the Changes" 
+		class="savBtn">
 </form>
 </cfif>
 <cfif #action# is "doIt">
 <cfoutput>
-<cfquery name="bads" datasource="uam_god">
-	select 
-		agent_id,
-		related_agent_id
-	from
-		agent_relations
-	where 
-		agent_relationship = 'bad duplicate of'
-</cfquery>
-
-<cfloop query="bads">
----#agent_id#-----#related_agent_id#----
+	<cfquery name="bads" datasource="uam_god">
+		select 
+			agent_id,
+			related_agent_id
+		from
+			agent_relations
+		where 
+			agent_relationship = 'bad duplicate of'
+	</cfquery>
+	<cfloop query="bads">
+		agent_id: #agent_id#
+		<br>related_agent_id: #related_agent_id#
 <cfflush>
 <!---------- have to disable triggers outside the transaction ------------------>
 <cfquery name="disableTrig" datasource="uam_god">
