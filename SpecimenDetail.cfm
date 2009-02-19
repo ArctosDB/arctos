@@ -512,13 +512,7 @@
 			</td>
 		</tr>
 	</table>
-    <!---
-</div>
---->
 <cfinclude template="/includes/_footer.cfm">
-
-	
-	
 	<cfset log.query_string="?collection_object_id=#collection_object_id#">
 	<cfset log.reported_count = 1>
 	<cfinclude template="/includes/activityLog.cfm">
