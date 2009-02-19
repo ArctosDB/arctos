@@ -38,7 +38,7 @@
 <!---------------------------------------->
 <cfif #action# is "findem">
 <cfoutput>
-	<cfquery name="f" datasource="#Application.uam_dbo#">
+	<cfquery name="f" datasource="uam_god">
 		select * from ala_plant_imaging
 		where 1=1
 		<cfif isdefined("folder_identification") and len(#folder_identification#) gt 0>
@@ -98,7 +98,7 @@
 <!---------------------------------------->
 <cfif #action# is "editRecord">
 <cfoutput>
-	<cfquery name="f" datasource="#Application.uam_dbo#">
+	<cfquery name="f" datasource="uam_god">
 		select * from ala_plant_imaging
 		where image_id=#image_id#
 	</cfquery>
@@ -138,7 +138,7 @@
 			<cfabort>
 		</cfif>
 		
-			<cfquery name="ins" datasource="#Application.uam_dbo#">
+			<cfquery name="ins" datasource="uam_god">
 				UPDATE ala_plant_imaging SET
 					folder_identification = '#folder_identification#',
 					folder_barcode = '#folder_barcode#',

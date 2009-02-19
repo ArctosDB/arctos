@@ -114,9 +114,9 @@
 		
 	<cfif #cgi.HTTP_HOST# is "arctos.database.museum">		
 		<cfset Application.svn = "/usr/local/bin/svn">
-		<cfset Application.webDirectory = "/opt/coldfusion8/wwwroot">
-		<cfset Application.SpecimenDownloadPath = "/opt/coldfusion8/wwwroot/download/">
-		<cfset Application.bugReportEmail = "dustymc@gmail.com,gordon.jarrell@gmail.com">
+		<cfset Application.webDirectory = "/usr/local/apache2/htdocs">
+		<cfset Application.SpecimenDownloadPath = Application.webDirectory & "/download/">
+		<cfset Application.bugReportEmail = "dustymc@gmail.com,gordon.jarrell@gmail.com,lkv@berkeley.edu">
 		<cfset Application.technicalEmail = "dustymc@gmail.com,gordon.jarrell@gmail.com,lkv@berkeley.edu">
 		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
 		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
@@ -127,8 +127,8 @@
 		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/UamConfig.xml">
 		<cfset Application.Google_uacct = "UA-315170-1">
 		<cfset Application.InstitutionBlurb = "">
-		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
-		<cfset Application.PageProblemEmail = "dustymc@gmail.com">
+		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com,lkv@berkeley.edu">
+		<cfset Application.PageProblemEmail = "dustymc@gmail.com,lkv@berkeley.edu">
 	<cfelseif #cgi.HTTP_HOST# is "arctos-test.arctos.database.museum">
         <cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/usr/local/apache2/htdocs">
@@ -191,6 +191,10 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="false">
+	<cfif not isdefined("session.roles")>
+		<cfinclude template="/includes/functionLib.cfm">
+		<cfset initSession()>
+	</cfif>
 	<cfset currentPath=GetDirectoryFromPath(GetTemplatePath())> 
 	<cfif currentPath contains "/CustomTags/" OR
 		currentPath contains "/binary_stuff/" OR
