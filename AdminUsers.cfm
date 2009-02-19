@@ -301,7 +301,7 @@
 				cf_user_data
 			where 
 				cf_users.user_id=cf_user_data.user_id and
-				user_id=#user_id#
+				cf_users.user_id=#user_id#
 		</cfquery>
 		<cfif getTheirEmail.email is "">
 			<div class="error">
