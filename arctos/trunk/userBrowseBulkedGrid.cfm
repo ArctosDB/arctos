@@ -56,8 +56,7 @@
 	</cfloop>
 	
 		<cfset sql ="#sql# WHERE collection_object_id = #thisCollObjId#">
-
-	<cfquery name="up" datasource="#Application.uam_dbo#">
+<cfquery name="up" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
 	

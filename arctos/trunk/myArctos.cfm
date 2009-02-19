@@ -14,7 +14,7 @@
 	<cfif getPrefs.recordcount is 0>
 		<cflocation url="login.cfm?action=signOut">
 	</cfif>
-	<cfquery name="isInv" datasource="#Application.uam_dbo#">
+	<cfquery name="isInv" datasource="uam_god">
 		select allow from temp_allow_cf_user where user_id=#getPrefs.user_id#
 	</cfquery>
 	<cfoutput query="getPrefs" group="user_id">
@@ -157,7 +157,7 @@
 	</cfquery>
 		<!---- already have a user_data entry --->
 		<cfif #isUser.recordcount# is 1>
-			<cfquery name="upUser" datasource="#Application.uam_dbo#">
+			<cfquery name="upUser" datasource="cf_dbuser">
 				UPDATE cf_user_data SET
 					first_name = '#first_name#',
 					last_name = '#last_name#',
