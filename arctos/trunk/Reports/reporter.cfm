@@ -199,6 +199,7 @@
                 from dual
 		    </cfquery>
         </cfif>
+
 	    <cfloop query="h">
              <tr>
 	            <td>#report_template#</td>

@@ -26,13 +26,32 @@
     requestTimeOut = "600">
 	
 <cfschedule action = "update"
-    task = "GenBank_transfer" 
+    task = "GenBank_transfer_name" 
     operation = "HTTPRequest"
-    url = "http://arctos.database.museum/ScheduledTasks/GenBank_transfer.cfm"
+    url = "http://arctos.database.museum/ScheduledTasks/GenBank_transfer_name.cfm"
     startDate = "1-jan-2008"
     startTime = "10:30 PM"
     interval = "daily"
     requestTimeOut = "600">
+
+<cfschedule action = "update"
+    task = "GenBank_transfer_nuc" 
+    operation = "HTTPRequest"
+    url = "http://arctos.database.museum/ScheduledTasks/GenBank_transfer_nuc.cfm"
+    startDate = "1-jan-2008"
+    startTime = "10:35 PM"
+    interval = "daily"
+    requestTimeOut = "600">
+
+<cfschedule action = "update"
+    task = "GenBank_transfer_tax" 
+    operation = "HTTPRequest"
+    url = "http://arctos.database.museum/ScheduledTasks/GenBank_transfer_tax.cfm"
+    startDate = "1-jan-2008"
+    startTime = "10:40 PM"
+    interval = "daily"
+    requestTimeOut = "600">
+
 
 <cfschedule action = "update"
     task = "CleanTempFiles" 

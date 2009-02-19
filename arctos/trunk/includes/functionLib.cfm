@@ -78,9 +78,6 @@
 <!--------------------------------------------------------------------->
 <cffunction name="setDbUser" output="true" returntype="boolean">
 	<cfargument name="portal_id" type="string" required="false">
-	<cfif isdefined("portal_id")>
-		<cfset session.hereItIs=portal_id>
-	</cfif>
 	<cfif not isdefined("portal_id") or len(portal_id) is 0 or not isnumeric(portal_id)>
 		<cfset portal_id=0>
 	</cfif>
