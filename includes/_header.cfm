@@ -117,6 +117,11 @@
 			</form>
 		</cfif>
 	</div>
+	<!---
+	<div style="border:2px solid red; text-align:center;margin:2px;padding:2px;background-color:white;font-weight:bold;">
+		We're upgrading! Things may be a little goofy until Monday, February 16.
+	</div>
+	--->
     <div id="menu">
 		<ul>
 			<li><h2 onclick="document.location='/SpecimenSearch.cfm';">Search</h2>
@@ -173,6 +178,9 @@
 									<li><a target="_top" href="/tools/BulkloadPartContainer.cfm">Parts>>Containers</a></li>
 									<li><a target="_top" href="/tools/BulkloadIdentification.cfm">Identifications</a></li>
 									<li><a target="_top" href="/tools/BulkloadContEditParent.cfm">Bulk Edit Container</a></li>
+									<cfif listfind(formList,"/tools/BulkloadTaxonomy.cfm")>
+										<li><a target="_top" href="/tools/BulkloadTaxonomy.cfm">Bulk Taxonomy</a></li>
+									</cfif>
 								</ul>
 							</li>
 						</cfif>
