@@ -2,7 +2,7 @@
 <cfif #action# is "nothing">
 <cfoutput>
 
-<cfquery name="folder_identification" datasource="#Application.uam_dbo#">
+<cfquery name="folder_identification" datasource="uam_god">
 	select distinct(folder_identification) folder_identification from ala_plant_imaging where status = 'bad_folder_id'
 	order by folder_identification
 </cfquery>
@@ -134,7 +134,7 @@ Then click Save. Changes will process overnight.
 				<!---
 								update ala_plant_imaging set status=null where status='bad_folder_id' and folder_identification='#id#'		
 				--->		
-				<cfquery name="ss" datasource="#Application.uam_dbo#">
+				<cfquery name="ss" datasource="uam_god">
 					update ala_plant_imaging set status=null where status='bad_folder_id' and folder_identification='#id#'
 				</cfquery>
 
@@ -143,7 +143,7 @@ Then click Save. Changes will process overnight.
 				<!---
 					update ala_plant_imaging set folder_identification = '#nid#',status=NULL where folder_identification = '#id#'
 				--->
-				<cfquery name="nid" datasource="#Application.uam_dbo#">
+				<cfquery name="nid" datasource="uam_god">
 					update ala_plant_imaging set folder_identification = '#trim(nid)#',status=NULL where folder_identification = '#id#'
 				</cfquery>
 

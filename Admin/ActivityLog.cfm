@@ -47,7 +47,7 @@
 		cf_users 
 	where
 		cf_database_activity.user_id = cf_users.user_id
-		<cfif len(#username#) gt 0>
+		<cfif len(#uname#) gt 0>
 			AND upper(username) like '%#ucase(uname)#%'
 		</cfif>
 		<cfif len(#date#) gt 0>

@@ -121,7 +121,7 @@ sho err
 			<cfset thisNum = evaluate("idNum_" & i)>
 			<cfset thisBarcode=evaluate("barcode_" & i)>
 			<cfif len(#thisBarcode#) gt 0>
-			<cfquery name="ins" datasource="#Application.uam_dbo#">
+			<cfquery name="ins" datasource="uam_god">
 				insert into ala_plant_imaging (
 					folder_identification,
 					folder_barcode,
