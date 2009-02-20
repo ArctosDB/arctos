@@ -1,7 +1,10 @@
 <cfinclude template="/ajax/core/cfajax.cfm">
 <cffunction name="pwcheck" access="public" returntype="string">
 	<cfargument name="p" required="true" type="string">
+	<!---
 	<cfargument name="u" required="true" type="string" default="#session.username#">
+	--->
+	<cfset u=session.username>
 <cftry>
 	<cfscript>
 		var regExp = /^[A-Za-z0-9!$%&_?(\-)<>=/:;*\.]$/;

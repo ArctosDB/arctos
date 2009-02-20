@@ -40,7 +40,7 @@
 		DWREngine._execute(_catalog_func, null, 'pwcheck', p, success_upwc);
 	}
 	function success_upwc(r) {
-		alert(r);
+		console.log(r);
 	}
 </script>
 <cfif #action# is "nothing">
