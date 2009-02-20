@@ -9,6 +9,32 @@
 	DO NOT OVERWRITE THIS FILE WITH OBFUSCATED CODE!
 
 */
+function orapwCheck(p,u) {
+	var regExp = /^[A-Za-z0-9!$%&_?(\-)<>=/:;*\.]$/;
+	var minLen=6;
+	var msg='Password is acceptable';
+	if (p.indexOf(u) > -1) {
+		msg='Password may not contain your username.';
+	}
+	if (p.length<minLen || p.length>30) {
+		msg='Password must be between ' + minLen + ' and 30 characters.';
+	}
+	if (!p.match(/[a-zA-Z]/)) {
+		msg='Password must contain at least one letter.'
+	}
+	if (!p.match(/\d+/)) {
+		msg='Password must contain at least one number.'
+	}
+	if (!p.match(/[!,$,%,&,*,?,_,-,(,),<,>,=,/,:,;,.]/) ) {
+		msg='Password must contain at least one of: !,$,%,&,*,?,_,-,(,),<,>,=,/,:,;.';
+	}
+	for(var i = 0; i < p.length; i++) {
+		if (!p.charAt(i).match(regExp)) {
+			msg='Password may contain only A-Z, a-z, 0-9, and !$%&()`*+,-/:;<=>?_.';
+		}
+	}
+	return msg;
+}
 function isdefined(variable)
 {
 return (!(!(document.getElementById(variable))))
