@@ -5,7 +5,6 @@
 	<cfabort>
 </cfif>
 <cfinclude template = "includes/_header.cfm">
-<cfset title="Taxon Detail">
 <!--- get taxon name ID if we're passed a scientific name --->
 <cfif isdefined("scientific_name") and len(#scientific_name#) gt 0>
 	<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -20,7 +19,6 @@
 		<cfabort>
 	</cfif>
 </cfif>
-
 <cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
 		taxonomy.TAXON_NAME_ID,
@@ -49,7 +47,8 @@
 		ORDER BY scientific_name, common_name, related_taxon_name_id
 </cfquery>
 <Cfoutput query="getDetails" group="scientific_name">
-	<cfset thisSearch = "%22#getDetails.scientific_name#%22">
+<cfset title="#getDetails.scientific_name#">
+<cfset thisSearch = "%22#getDetails.scientific_name#%22">
 
 
 <cfoutput group="common_name">

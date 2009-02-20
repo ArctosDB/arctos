@@ -77,3 +77,4 @@ Disallow: /start.cfm
 Disallow: /tools/
 Disallow: /transactions.cfm
 Disallow: /Taxonomy.cfm
+Disallow: /user_loan_request.cfm
