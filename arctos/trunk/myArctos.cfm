@@ -68,10 +68,6 @@
 				You now need to assign them roles and collection access.
 				<br>Contact the Arctos DBA team immediately if you did not invite this user to become an operator.				
 			</cfmail>
-			<!---
-			<cflocation url="myArctos.cfm">
-			---->
-			<cfdump var=#usrInfo#>
 		</cftransaction>
 		<cfcatch>
 			<cfquery name="makeUser" datasource="uam_god">
@@ -109,6 +105,7 @@
 			<cfabort>
 		</cfcatch>	
 	</cftry>
+	<cflocation url="myArctos.cfm">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------->
