@@ -3,7 +3,14 @@
 <script>
 	function pwc(p,u){
 		var r=orapwCheck(p,u);
-		console.log(r);
+		var elem=document.getElementById('pwstatus');
+		if (r=='Password is acceptable'){
+			var clas='goodPW';
+		} else {
+			var clas='badPW';
+		}
+		elem.innerHTML=r;
+		elem.className=clas;
 	}
 
 </script>
