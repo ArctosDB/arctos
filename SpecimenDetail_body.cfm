@@ -15,7 +15,7 @@
 	</cfif>
 	<script>
 		if (top.frames.length == 0) {
-		    document.location='SpecimenDetail.cfm?collection_objectid=#collection_object_id#';
+		    document.location='SpecimenDetail.cfm?collection_object_id=#collection_object_id#';
 	    }
 	</script>
 </cfoutput>
