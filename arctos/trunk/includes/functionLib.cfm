@@ -248,8 +248,7 @@
 	</cfif>
 	<cfset setDbUser(#ecid#)>
 	<cfset session.ecid=ecid>
-	<cfset forbiddenFruit="uam,sys,gref_user,lam">
-	<cfloop list="#forbiddenFruit#" index="i">
+	<cfloop list="#Application.forbiddenUsers#" index="i">
 		<cfif session.username is i>
 			<cfmail subject="Error" to="#Application.PageProblemEmail#" from="not_allowed@#Application.fromEmail#" type="html">
 				Someone tried to log in as #session.username#.
