@@ -139,6 +139,9 @@
 				<br>
 				<span id="savBtn" class="noShow"><input type="submit" value="Authenticate" class="savBtn"></span>
 			</form>
+			<script>
+				document.getElementById(pw).value='';
+			</script>
 		</div>
 	<cfelseif #isInv.allow# is 2>
 		<div style="background-color:##00FF00; border:2px solid black; width:75%;">
