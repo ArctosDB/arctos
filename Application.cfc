@@ -111,7 +111,6 @@
 	<cfset Application.fromEmail = "#HTTP_HOST#">
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
 	<cfset Application.fromEmail = "#HTTP_HOST#">
-	<cfset Application.forbiddenUsers="uam,sys,gref_user,test3">
 	<cfif #cgi.HTTP_HOST# is "arctos.database.museum">		
 		<cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/usr/local/apache2/htdocs">

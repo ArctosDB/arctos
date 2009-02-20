@@ -27,12 +27,18 @@
 <!------------------------------------------------------------>
 <cfif  #action# is "newUser">
 	<!--- see if they selected a valid user name --->
-	<cfquery name="uUser" datasource="#Application.uam_dbo#">
+	<cfquery name="uUser" datasource="cf_dbuser">
 		select * from cf_users where username = '#username#'
 	</cfquery>
 	<cfset err="">
 	<cfif len(#password#) is 0>
 		<cfset err="Your password must be at least one character long.">
+	</cfif>
+	<cfquery name="dbausr" datasource="uam_god">
+		select username from dba_users where username = '#username#'
+	</cfquery>
+	<cfif #dbausr.recordcount# gt 0>
+		<cfset err="That username is not available.">
 	</cfif>
 	<cfif len(#username#) is 0>
 			<cfset err="Your user name must be at least one character long.">
@@ -40,11 +46,6 @@
 	<cfif #uUser.recordcount# gt 0>
 		<cfset err="That username is already in use.">
 	</cfif>
-	<cfloop list="#Application.forbiddenUsers#" index="i">
-		<cfif username is i>
-			<cfset err="That username is not available.">
-		</cfif>
-	</cfloop>
 	<!--- create their account --->
 	<cfif len(err) gt 0>
 		<cflocation url="login.cfm?username=#username#&badPW=true&err=#err#" Addtoken="false">
