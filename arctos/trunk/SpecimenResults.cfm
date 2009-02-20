@@ -139,7 +139,7 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
 	
 	<cfset sqlstring = replace(sqlstring,"flatTableName","#flatTableName#","all")>
-		<cfif len(#mapurl#) is 0>
+		<cfif len(mapurl) is 0 or mapurl is '&ShowObservations=false'>
 			<CFSETTING ENABLECFOUTPUTONLY=0>			
 			<font color="##FF0000" size="+2">You must enter some search criteria!</font>	  
 			<cfabort>
