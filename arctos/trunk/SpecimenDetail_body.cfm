@@ -1,5 +1,23 @@
 <cfinclude template="/includes/_frameHeader.cfm">
-<cfset btime=now()>
+<cfoutput>
+	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
+		<div class="error">
+			Improper call. You will be redirected shortly.....
+		</div>
+		<script>
+			setTimeout("go_now()",1000);
+			function go_now () {
+				document.location='/';
+				//alert('go');
+			}
+		</script>
+	</cfif>
+<script>
+	if (top.frames.length == 0) {
+	    document.location='SpecimenDetail.cfm?collection_objectid=#collection_objectid#';
+    }
+</script>
+</cfoutput>
 	<script type='text/javascript' src='/includes/annotate.js'></script>
 	<link rel="stylesheet" type="text/css" href="/includes/annotate.css">
 <cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
@@ -208,12 +226,6 @@
 <cfquery name="detail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(detSelect)#
 </cfquery>
-<cfoutput>
-	<cfset etime=now()>
-	<cfset tt=DateDiff("s", btime, etime)>
-	<br>Runtime: #tt#
-	
-</cfoutput>
 <cfif #detail.concatenatedEncumbrances# contains "mask record" and #oneOfUs# neq 1>
 	Record masked.
 	<cfabort>
