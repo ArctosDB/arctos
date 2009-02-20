@@ -5,6 +5,7 @@
 	<cfargument name="u" required="true" type="string" default="#session.username#">
 	--->
 	<cfset u=session.username>
+	<cfreturn u>
 <cftry>
 	<cfscript>
 		var regExp = /^[A-Za-z0-9!$%&_?(\-)<>=/:;*\.]$/;
