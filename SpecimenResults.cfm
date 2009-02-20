@@ -144,6 +144,11 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 			<font color="##FF0000" size="+2">You must enter some search criteria!</font>	  
 			<cfabort>
 		</cfif>
+		
+		---#mapurl#---
+		
+		
+		<cfabort>
 <cfset thisTableName = "SearchResults_#cfid#_#cftoken#">	
 <!--- try to kill any old tables that they may have laying around --->
 <cftry>
