@@ -37,11 +37,13 @@
 	<cfquery name="dbausr" datasource="uam_god">
 		select username from dba_users where username = '#username#'
 	</cfquery>
-	<cfif #dbausr.recordcount# gt 0>
+	
+	<cfif len(dbausr.username) gt 0>
 		<cfset err="That username is not available.">
 	</cfif>
+	
 	<cfif len(#username#) is 0>
-			<cfset err="Your user name must be at least one character long.">
+		<cfset err="Your user name must be at least one character long.">
 	</cfif>	
 	<cfif #uUser.recordcount# gt 0>
 		<cfset err="That username is already in use.">
