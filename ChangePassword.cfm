@@ -12,7 +12,6 @@
 		elem.innerHTML=r;
 		elem.className=clas;
 	}
-
 </script>
 <cfif #action# is "nothing">
     <cfset title = "Change Password">
