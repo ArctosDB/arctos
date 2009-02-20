@@ -5,42 +5,33 @@
 		var regExp = /^[A-Za-z0-9!$%&_?(\-)<>=/:;*\.]$/;
 		var minLen=6;
 		var msg='Password is acceptable';
-		var elem=document.getElementById('pwstatus');
-		var clas='goodPW';
 		if (p.indexOf(u) > -1) {
 			msg='Password may not contain your username.';
-			clas='badPW';
 		}
 		if (p.length<minLen || p.length>30) {
 			msg='Password must be between ' + minLen + ' and 30 characters.';
-			clas='badPW';
 		}
 		if (!p.match(/[a-zA-Z]/)) {
 			msg='Password must contain at least one letter.'
-			clas='badPW';
 		}
 		if (!p.match(/\d+/)) {
 			msg='Password must contain at least one number.'
-			clas='badPW';
 		}
 		if (!p.match(/[!,$,%,&,*,?,_,-,(,),<,>,=,/,:,;,.]/) ) {
 			msg='Password must contain at least one of: !,$,%,&,*,?,_,-,(,),<,>,=,/,:,;.';
-			clas='badPW';
 		}
 		for(var i = 0; i < p.length; i++) {
 			if (!p.charAt(i).match(regExp)) {
 				msg='Password may contain only A-Z, a-z, 0-9, and !$%&()`*+,-/:;<=>?_.';
-				clas='badPW';
 			}
 		}
-		elem.innerHTML=msg;
-		elem.className=clas;
+		return msg;
 	}
 	function pwcver(p){
 		return 'boogity!';
 	}
-	function pwc(p){
-		var r=pwcver(p);
+	function pwc(p,u){
+		var r=orapwCheck(p,u);
 		console.log(r);
 		//DWREngine._execute(_cfscriptLocation, null, 'pwcheck', p, success_upwc);
 	}
@@ -97,7 +88,7 @@
 			<label for="newpassword">New password</label>
 	        <input name="newpassword" id="newpassword" type="password"
 	        		<cfif #isDb.cnt# gt 0>
-						onkeyup="pwc(this.value)"
+						onkeyup="pwc(this.value,'#session.username#')"
 					</cfif>	>
 	        <span id="pwstatus"></span>
 			<label for="newpassword2">Retype new password</label>
