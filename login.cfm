@@ -37,11 +37,9 @@
 	<cfquery name="dbausr" datasource="uam_god">
 		select username from dba_users where upper(username) = '#ucase(username)#'
 	</cfquery>
-	<cfdump var=#dbausr#>
 	<cfif len(dbausr.username) gt 0>
 		<cfset err="That username is not available.">
 	</cfif>
-	#err#
 	<cfabort>
 	<cfif len(#username#) is 0>
 		<cfset err="Your user name must be at least one character long.">
