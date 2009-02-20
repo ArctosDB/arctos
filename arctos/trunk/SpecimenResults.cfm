@@ -145,8 +145,11 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 		<cfset tt=listgetat(t,1,"=")>
 		<cfset srchTerms=listappend(srchTerms,tt)>
 	</cfloop>
+	<!--- remove criteria... --->
+	<cfset srchTerms=listdelete(srchTerms,listfindnocase(srchTerms,'ShowObservations'))>
+	<cfset srchTerms=listdelete(srchTerms,listfindnocase(srchTerms,'collection_id'))>
 	srchTerms: #srchTerms#
-	<cfif len(mapurl) is 0 or mapurl is '&ShowObservations=false'>
+	<cfif len(srchTerms) is 0>
 		<CFSETTING ENABLECFOUTPUTONLY=0>			
 		<font color="##FF0000" size="+2">You must enter some search criteria!</font>	  
 		<cfabort>
