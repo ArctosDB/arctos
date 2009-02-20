@@ -462,10 +462,10 @@ redCheck{
 	}
 .error {
 	position:relative;
-	font-size:2em;
+	font-size:1.2em;
 	color:red;
 	border:2px solid red;
-	padding:10px;
+	padding:.5em;
 	margin:10px;
 	background-color:white;
 	z-index:999;}
