@@ -2,6 +2,7 @@
 <cffunction name="pwcheck" access="public" returntype="string">
 	<cfargument name="p" required="true" type="string">
 	<cfargument name="u" required="true" type="string" default="#session.username#">
+	<!---
 	<cfscript>
 		var regExp = /^[A-Za-z0-9!$%&_?(\-)<>=/:;*\.]$/;
 		var minLen=6;
@@ -29,6 +30,8 @@
 		}
 		<cfreturn msg>
 	</cfscript>
+	--->
+	<cfreturn 'k'>
 </cffunction>
 <!------------------------------------>
 <cffunction name="saveSearch" returntype="any">
