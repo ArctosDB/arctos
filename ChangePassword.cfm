@@ -175,6 +175,7 @@
 Your password has successfully been changed.
 <cfset session.password = #hash(newpassword)#>
 <cfset session.force_password_change = "">
+<cfset initSession('#session.username#','#session.epw#')>
 You will be redirected soon, or you may use the menu above now.	
 <script>
 	setTimeout("go_now()",5000);
