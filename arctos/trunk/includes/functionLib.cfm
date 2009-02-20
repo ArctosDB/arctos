@@ -247,18 +247,6 @@
 		<cfset ecid="">
 	</cfif>
 	<cfset setDbUser(#ecid#)>
-	<cfset session.ecid=ecid>
-	<cfloop list="#Application.forbiddenUsers#" index="i">
-		<cfif session.username is i>
-			<cfmail subject="Error" to="#Application.PageProblemEmail#" from="not_allowed@#Application.fromEmail#" type="html">
-				Someone tried to log in as #session.username#.
-			</cfmail>
-			<div class="error">
-				Contact #Application.PageProblemEmail#.
-			</div>
-			<cfabort>
-		</cfif>
-	</cfloop>
 	</cfoutput>
 	<cfreturn true>
 </cffunction>
