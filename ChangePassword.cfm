@@ -37,7 +37,7 @@
 		elem.className=clas;
 	}
 	function pwc(p){
-		DWREngine._execute(_catalog_func, null, 'pwcheck', p, success_upwc);
+		DWREngine._execute(_cfscriptLocation, null, 'pwcheck', p, success_upwc);
 	}
 	function success_upwc(r) {
 		console.log(r);
