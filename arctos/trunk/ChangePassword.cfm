@@ -36,6 +36,12 @@
 		elem.innerHTML=msg;
 		elem.className=clas;
 	}
+	function pwc(p){
+		DWREngine._execute(_catalog_func, null, 'changeAttDetr', p, success_upwc);
+	}
+	function success_upwc(r) {
+		alert(r);
+	}
 </script>
 <cfif #action# is "nothing">
     <cfset title = "Change Password">
@@ -86,7 +92,7 @@
 			<label for="newpassword">New password</label>
 	        <input name="newpassword" id="newpassword" type="password"
 	        		<cfif #isDb.cnt# gt 0>
-						onkeyup="orapwCheck(this.value,'#session.username#')"
+						onkeyup="pwc(this.value)"
 					</cfif>	>
 	        <span id="pwstatus"></span>
 			<label for="newpassword2">Retype new password</label>

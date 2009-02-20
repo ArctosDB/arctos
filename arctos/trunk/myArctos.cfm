@@ -8,6 +8,7 @@
 <cfif action is "makeUser">
 	<cfdump var=#form#>
 </cfif>
+
 <cfif #action# is "nothing">
 	<cfquery name="getPrefs" datasource="cf_dbuser">
 		select * from cf_users, user_loan_request
