@@ -44,10 +44,11 @@
 				grant execute on sys.app_security_context to #session.username#
 			</cfquery>					
 			<cfquery name="usrInfo" datasource="uam_god">
-				select * from temp_allow_cf_user where user_id=#c.user_id#
+				select * from temp_allow_cf_user,cf_users where temp_allow_cf_user.user_id=cf_users.user_id and
+				cf_users.username='#session.username#'
 			</cfquery>
 			<cfquery name="makeUser" datasource="uam_god">
-				update temp_allow_cf_user set allow=2 where user_id=#c.user_id#
+				update temp_allow_cf_user set allow=2 where user_id=#usrInfo.user_id#
 			</cfquery>
 			<cfmail to="#usrInfo.invited_by_email#" from="account_created@#Application.fromEmail#" subject="User Authenticated" cc="#Application.PageProblemEmail#" type="html">
 				Arctos user #session.username# has successfully created an Oracle account.
