@@ -211,9 +211,10 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 
 <cfcatch>
 	<div class="error">
-		Oops! An error occurred. This is usually due to concurrent searches by one user.
+		Oops! An error occurred. This is usually caused by concurrent searches from one user causing database conflicts.
+		<br>Please file a <a href="info/bugs.cfm">bug report</a> detailing how you got here if you feel this message is in error.
+		<br>Otherwise, you may <a href="/SpecimenResults.cfm?#mapurl#">click here to requery</a>.
 	</div>
-	<a href="/SpecimenResults.cfm#mapurl#">redirect.....</a>
 	<cfabort>
 </cfcatch>
 </cftry>
