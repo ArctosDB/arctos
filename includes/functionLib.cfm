@@ -159,7 +159,7 @@
 	<!---------------------------- login ------------------------------------------------>
 	<cfif isdefined("username") and len(username) gt 0 and isdefined("pwd") and len(pwd) gt 0>
 		<cfquery name="getPrefs" datasource="cf_dbuser">
-			select * from cf_users where username = '#username#' and password='#hash(password)#'
+			select * from cf_users where username = '#username#' and password='#hash(pwd)#'
 		</cfquery>
 		<cfif getPrefs.recordcount is 0>
 			<cfset session.username = "">
@@ -213,7 +213,7 @@
 		</cfquery>
 		<cfif listcontainsnocase(session.roles,"coldfusion_user")>
 			<cfset session.dbuser = "#getPrefs.username#">
-			<cfset session.epw = encrypt(password,cfid)>
+			<cfset session.epw = encrypt(pwd,cfid)>
 			<cftry>
 				<cfquery name="ckUserName" datasource="#application.web_user#">
 					select agent_id from agent_name where agent_name='#session.username#' and
