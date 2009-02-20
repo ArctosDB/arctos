@@ -59,6 +59,9 @@
 			<cflocation url="myArctos.cfm">
 		</cftransaction>
 		<cfcatch>
+			<cfquery name="makeUser" datasource="uam_god">
+				drop user #session.username#
+			</cfquery>
 			<cfsavecontent variable="errortext">
 				<h3>Error in creating user.</h3>
 				<p>#cfcatch.Message#</p>
