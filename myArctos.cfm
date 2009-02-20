@@ -56,7 +56,10 @@
 	</ul>
 	<cfif #isInv.allow# is 1>
 		<div style="background-color:##FF0000; border:2px solid black; width:75%;">
-			You've been invited to become an Operator.
+			You've been invited to become an Operator. Password restrictions apply.
+			This form does not change your password,
+			but will provide information about the suitability of your password. You may need to change your password 
+			in order to successfully complete this form.
 			<form name="getUserData" method="post" action="myArctos.cfm">
 				<input type="hidden" name="action" value="makeUser">
 				<label for="pw">Enter your password:</label>
