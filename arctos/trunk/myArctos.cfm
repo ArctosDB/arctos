@@ -22,9 +22,77 @@
 </script>
 <!------------------------------------------------------------------->
 <cfif action is "makeUser">
-	<cfdump var=#form#>
+<cfoutput>
+	<cfif hash(pw) is not session.password>
+		<div class="error">
+			You did not enter the correct password.
+		</div>
+		<cfabort>
+	</cfif>
+	<cftry>
+		<cftransaction>
+			<cfquery name="makeUser" datasource="uam_god">
+				create user #session.username# identified by "#pw#" profile "ARCTOS_USER" default TABLESPACE users QUOTA 1G on users
+			</cfquery>
+			<cfquery name="grantConn" datasource="uam_god">
+				grant create session to #un#
+			</cfquery>
+			<cfquery name="grantTab" datasource="uam_god">
+				grant create table to #un#
+			</cfquery>
+			<cfquery name="grantVPD" datasource="uam_god">
+				grant execute on sys.app_security_context to #un#
+			</cfquery>					
+			<cfquery name="usrInfo" datasource="uam_god">
+				select * from temp_allow_cf_user where user_id=#c.user_id#
+			</cfquery>
+			<cfquery name="makeUser" datasource="uam_god">
+				update temp_allow_cf_user set allow=2 where user_id=#c.user_id#
+			</cfquery>
+			<cfmail to="#usrInfo.invited_by_email#" from="account_created@#Application.fromEmail#" subject="User Authenticated" cc="#Application.PageProblemEmail#" type="html">
+				Arctos user #session.username# has successfully created an Oracle account.
+				<br>
+				You now need to assign them roles and collection access.
+				<br>Contact the Arctos DBA team immediately if you did not invite this user to become an operator.				
+			</cfmail>
+			<cflocation url="myArctos.cfm">
+		</cftransaction>
+		<cfcatch>
+			<cfsavecontent variable="errortext">
+				<h3>Error in creating user.</h3>
+				<p>#cfcatch.Message#</p>
+				<p>#cfcatch.Detail#</p>
+				<hr>
+				<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and #len(CGI.HTTP_X_Forwarded_For)# gt 0>
+					<CFSET ipaddress="#CGI.HTTP_X_Forwarded_For#">
+				<CFELSEif  isdefined("CGI.Remote_Addr") and #len(CGI.Remote_Addr)# gt 0>
+					<CFSET ipaddress="#CGI.Remote_Addr#">
+				<cfelse>
+					<cfset ipaddress='unknown'>
+				</CFIF>
+				<p>ipaddress: <cfoutput><a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#</a></cfoutput></p>
+				<p>Client Dump:</p>
+				<hr>
+				<cfdump var="#client#" label="client">
+				<hr>
+				<p>URL Dump:</p>
+				<hr>
+				<cfdump var="#url#" label="url">
+				<p>CGI Dump:</p>
+				<hr>
+				<cfdump var="#CGI#" label="CGI">
+			</cfsavecontent>
+			<cfmail subject="Error" to="#Application.PageProblemEmail#" from="bad_authentication@#Application.fromEmail#" type="html">
+				#errortext#
+			</cfmail>	
+			<h3>Error in creating user.</h3>
+			<p>#cfcatch.Message#</p>
+			<cfabort>
+		</cfcatch>	
+	</cftry>
+</cfoutput>
 </cfif>
-
+<!------------------------------------------------------------------->
 <cfif #action# is "nothing">
 	<cfquery name="getPrefs" datasource="cf_dbuser">
 		select * from cf_users, user_loan_request
@@ -63,7 +131,7 @@
 			This form does not change your password,
 			but will provide information about the suitability of your password. You may need to change your password 
 			in order to successfully complete this form.
-			<form name="getUserData" method="post" action="myArctos.cfm">
+			<form name="getUserData" method="post" action="myArctos.cfm" onSubmit="return noenter();">
 				<input type="hidden" name="action" value="makeUser">
 				<label for="pw">Enter your password:</label>
 				<input type="password" name="pw" id="pw" onkeyup="pwc(this.value,'#session.username#')">
