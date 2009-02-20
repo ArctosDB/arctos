@@ -36,8 +36,13 @@
 		elem.innerHTML=msg;
 		elem.className=clas;
 	}
+	function pwcver(p){
+		return 'boogity!';
+	}
 	function pwc(p){
-		DWREngine._execute(_cfscriptLocation, null, 'pwcheck', p, success_upwc);
+		var r=pwcver(p);
+		console.log(r);
+		//DWREngine._execute(_cfscriptLocation, null, 'pwcheck', p, success_upwc);
 	}
 	function success_upwc(r) {
 		console.log(r);
