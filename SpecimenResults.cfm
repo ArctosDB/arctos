@@ -204,9 +204,19 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 	</cfif>
 	
 </form>
+<cftry>
 <cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct collection_object_id from #session.SpecSrchTab#
 </cfquery>
+
+<cfcatch>
+	<div class="error">
+		Oops! An error occurred. This is usually due to concurrent searches by one user.
+	</div>
+	<a href="/SpecimenResults.cfm#mapurl#">redirect.....</a>
+	<cfabort>
+</cfcatch>
+</cftry>
 <cfif #summary.recordcount# is 0>
 	<div id="loading" class="status">
 		Your query returned no results.
