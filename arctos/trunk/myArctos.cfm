@@ -4,6 +4,19 @@
 </cfif>
 <script type='text/javascript' src='/includes/_myArctos.js'></script>
 <span class="infoLink pageHelp" onclick="pageHelp('customize');">Page Help</span>
+<script>
+	function pwc(p,u){
+		var r=orapwCheck(p,u);
+		var elem=document.getElementById('pwstatus');
+		if (r=='Password is acceptable'){
+			var clas='goodPW';
+		} else {
+			var clas='badPW';
+		}
+		elem.innerHTML=r;
+		elem.className=clas;
+	}
+</script>
 <!------------------------------------------------------------------->
 <cfif action is "makeUser">
 	<cfdump var=#form#>
@@ -43,11 +56,12 @@
 	</ul>
 	<cfif #isInv.allow# is 1>
 		<div style="background-color:##FF0000; border:2px solid black; width:75%;">
-			You've been invited to become an Operator. Please fill out this form.
+			You've been invited to become an Operator.
 			<form name="getUserData" method="post" action="myArctos.cfm">
 				<input type="hidden" name="action" value="makeUser">
 				<label for="pw">Enter your password:</label>
-				<input type="password" name="pw" id="pw">
+				<input type="password" name="pw" id="pw" onkeyup="pwc(this.value,'#session.username#')">
+				<span id="pwstatus"></span>
 				<br><input type="submit" value="Authenticate">
 			</form>
 		</div>
