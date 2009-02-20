@@ -8,10 +8,13 @@
 	function pwc(p,u){
 		var r=orapwCheck(p,u);
 		var elem=document.getElementById('pwstatus');
+		var pwb=document.getElementById('savBtn');
 		if (r=='Password is acceptable'){
 			var clas='goodPW';
+			pwb.className='doShow';
 		} else {
 			var clas='badPW';
+			pwb.className='noShow';
 		}
 		elem.innerHTML=r;
 		elem.className=clas;
@@ -65,7 +68,8 @@
 				<label for="pw">Enter your password:</label>
 				<input type="password" name="pw" id="pw" onkeyup="pwc(this.value,'#session.username#')">
 				<span id="pwstatus"></span>
-				<br><input type="submit" value="Authenticate">
+				<br>
+				<span id="savBtn" class="noShow"><input type="submit" value="Authenticate" class="savBtn"></span>
 			</form>
 		</div>
 	<cfelseif #isInv.allow# is 2>
