@@ -171,12 +171,9 @@
 			</cfcatch>	
 		</cftry>
 	</cfif>
-Your password has successfully been changed.
-<cfset session.password = #hash(newpassword)#>
 <cfset session.force_password_change = "">
---- going to initsession with: '#session.username#','#newpassword#'
 <cfset initSession('#session.username#','#newpassword#')>
---- back from initsession--
+Your password has successfully been changed.
 You will be redirected soon, or you may use the menu above now.	
 <script>
 	setTimeout("go_now()",5000);
