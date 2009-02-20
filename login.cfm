@@ -40,6 +40,11 @@
 	<cfif #uUser.recordcount# gt 0>
 		<cfset err="That username is already in use.">
 	</cfif>
+	<cfloop list="#Application.forbiddenUsers#" index="i">
+		<cfif username is i>
+			<cfset err="That username is not available.">
+		</cfif>
+	</cfloop>
 	<!--- create their account --->
 	<cfif len(err) gt 0>
 		<cflocation url="login.cfm?username=#username#&badPW=true&err=#err#" Addtoken="false">
