@@ -146,8 +146,12 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 		<cfset srchTerms=listappend(srchTerms,tt)>
 	</cfloop>
 	<!--- remove standard criteria that kill Oracle... --->
-	<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'ShowObservations'))>
-	<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'collection_id'))>
+	<cfif listcontains(srchTerms,ShowObservations)>
+		<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'ShowObservations'))>
+	</cfif>
+	<cfif listcontains(srchTerms,ShowObservations)>
+		<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'collection_id'))>
+	</cfif>
 	<!--- ... and abort if there's nothing left --->
 	<cfif len(srchTerms) is 0>
 		<CFSETTING ENABLECFOUTPUTONLY=0>			
