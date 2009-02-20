@@ -35,13 +35,13 @@
 				create user #session.username# identified by "#pw#" profile "ARCTOS_USER" default TABLESPACE users QUOTA 1G on users
 			</cfquery>
 			<cfquery name="grantConn" datasource="uam_god">
-				grant create session to #un#
+				grant create session to #session.username#
 			</cfquery>
 			<cfquery name="grantTab" datasource="uam_god">
-				grant create table to #un#
+				grant create table to #session.username#
 			</cfquery>
 			<cfquery name="grantVPD" datasource="uam_god">
-				grant execute on sys.app_security_context to #un#
+				grant execute on sys.app_security_context to #session.username#
 			</cfquery>					
 			<cfquery name="usrInfo" datasource="uam_god">
 				select * from temp_allow_cf_user where user_id=#c.user_id#
