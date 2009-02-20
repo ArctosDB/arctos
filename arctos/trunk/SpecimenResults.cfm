@@ -176,7 +176,8 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 	</cfquery>
 <cfcatch>
 	<div class="error">
-		Oops! An error occurred. This is usually caused by concurrent searches from one user causing database conflicts.
+		Oops! An error occurred!
+		<br>This is usually caused by concurrent searches from one user causing database conflicts.
 		This can also cause unexpected data on subsequent pages. It's generally recommended to perform only one search 
 		at a time.
 		<br>Please file a <a href="info/bugs.cfm">bug report</a> detailing how you got here if you feel this 
@@ -215,7 +216,8 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 	</cfquery>
 <cfcatch>
 	<div class="error">
-		Oops! An error occurred. This is usually caused by concurrent searches from one user causing database conflicts.
+		Oops! An error occurred!
+		<br>This is usually caused by concurrent searches from one user causing database conflicts.
 		This can also cause unexpected data on subsequent pages. It's generally recommended to perform only one search 
 		at a time.
 		<br>Please file a <a href="info/bugs.cfm">bug report</a> detailing how you got here if you feel this 
