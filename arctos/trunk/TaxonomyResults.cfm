@@ -16,7 +16,7 @@
 		<![endif]-->
 		
 		---->
-<cfset title = "Taxonomy Results">
+<cfset titleTerms="">
 <!--- 
 	newQuery is a variable that causes the query to fetch from the database 
 	if 1 or from cache if 0 (as in next page browsing). We want it to be 1 if we 
@@ -32,7 +32,6 @@
 </cfif>
 <cfif not isdefined("startAt") or len(#startAt#) is 0>
 <cfset stringOfStuffToClean = "">
-
 		<cfset SQL = "SELECT 
 				taxonomy.TAXON_NAME_ID,
 				phylum,
@@ -57,50 +56,65 @@
 		<cfif isdefined("common_name") AND len(#common_name#) gt 0>
 			<CFSET SQL = "#SQL# AND upper(common_name) LIKE '%#ucase(common_name)#%'">
 			<cfset stringOfStuffToClean = "#stringOfStuffToClean##common_name#">
+			<cfset titleTerms=listappend(titleTerms,'#common_name#')>
 		</cfif>
 		<cfif isdefined("genus") AND len(#genus#) gt 0>
 			<CFSET SQL = "#SQL# AND upper(genus) LIKE '%#ucase(genus)#%'">
+			<cfset titleTerms=listappend(titleTerms,'#genus#')>
 		</cfif>
 		<cfif isdefined("phylum") AND len(#phylum#) gt 0>
 			<CFSET SQL = "#SQL# AND upper(phylum) LIKE '%#ucase(phylum)#%'">
+			<cfset titleTerms=listappend(titleTerms,'#phylum#')>
 		</cfif>
 		<cfif isdefined("species") AND len(#species#) gt 0>
 			<CFSET SQL = "#SQL# AND upper(species) LIKE '%#ucase(species)#%'">
+			<cfset titleTerms=listappend(titleTerms,'#species#')>
 		</cfif>
 		<cfif isdefined("subspecies") AND len(#subspecies#) gt 0>
 			<CFSET SQL = "#SQL# AND upper(subspecies) LIKE '%#ucase(subspecies)#%'">
+			<cfset titleTerms=listappend(titleTerms,'#subspecies#')>
 		</cfif>
 		<cfif isdefined("full_taxon_name") AND len(#full_taxon_name#) gt 0>
 			<CFSET SQL = "#SQL# AND upper(full_taxon_name) LIKE '%#ucase(full_taxon_name)#%'">
 			<cfset stringOfStuffToClean = "#stringOfStuffToClean##full_taxon_name#">
+			<cfset titleTerms=listappend(titleTerms,'#full_taxon_name#')>
 		</cfif>
 		<cfif isdefined("phylclass") AND len(#phylclass#) gt 0>
 			<CFSET SQL = "#SQL# AND upper(phylclass) LIKE '%#ucase(phylclass)#%'">
+			<cfset titleTerms=listappend(titleTerms,'#phylclass#')>
 		</cfif>
 		<cfif isdefined("phylorder") AND len(#phylorder#) gt 0>
 			<CFSET SQL = "#SQL# AND upper(phylorder) LIKE '%#ucase(phylorder)#%'">
+			<cfset titleTerms=listappend(titleTerms,'#phylorder#')>
 		</cfif>
 		<cfif isdefined("suborder") AND len(#suborder#) gt 0>
 			<CFSET SQL = "#SQL# AND upper(suborder) LIKE '%#ucase(suborder)#%'">
+			<cfset titleTerms=listappend(titleTerms,'#suborder#')>
 		</cfif>
 		<cfif isdefined("family") AND len(#family#) gt 0>
 			<CFSET SQL = "#SQL# AND upper(family) LIKE '%#ucase(family)#%'">
+			<cfset titleTerms=listappend(titleTerms,'#family#')>
 		</cfif>
 		<cfif isdefined("subfamily") AND len(#subfamily#) gt 0>
 			<CFSET SQL = "#SQL# AND upper(subfamily) LIKE '%#ucase(subfamily)#%'">
+			<cfset titleTerms=listappend(titleTerms,'#subfamily#')>
 		</cfif>
 		<cfif isdefined("tribe") AND len(#tribe#) gt 0>
 			<CFSET SQL = "#SQL# AND upper(tribe) LIKE '%#ucase(tribe)#%'">
+			<cfset titleTerms=listappend(titleTerms,'#tribe#')>
 		</cfif>
 		<cfif isdefined("subgenus") AND len(#subgenus#) gt 0>
 			<CFSET SQL = "#SQL# AND upper(subgenus) LIKE '%#ucase(subgenus)#%'">
+			<cfset titleTerms=listappend(titleTerms,'#subgenus#')>
 		</cfif>
 		<cfif isdefined("author_text") AND len(#author_text#) gt 0>
 			<CFSET SQL = "#SQL# AND upper(author_text) LIKE '%#ucase(author_text)#%'">
+			<cfset titleTerms=listappend(titleTerms,'#author_text#')>
 		</cfif>
 		<cfif isdefined("scientific_name") AND len(#scientific_name#) gt 0>
 			<CFSET SQL = "#SQL# AND upper(scientific_name) LIKE '%#ucase(scientific_name)#%'">
 			<cfset stringOfStuffToClean = "#stringOfStuffToClean##scientific_name#">
+			<cfset titleTerms=listappend(titleTerms,'#scientific_name#')>
 		</cfif>
 		<cfif isdefined("VALID_CATALOG_TERM_FG") AND len(#VALID_CATALOG_TERM_FG#) gt 0>
 			<CFSET SQL = "#SQL# AND VALID_CATALOG_TERM_FG = #VALID_CATALOG_TERM_FG#">
@@ -131,7 +145,8 @@
 			You searched for an illegal character.
 			<cfabort>
 		</cfif>
-<cfset checkSql(SQL)>	
+<cfset checkSql(SQL)>
+<cfset title = "Taxonomy Results: " & titleTerms>
 <CFSET SQL = "create table #session.TaxSrchTab# as #SQL#">
 <cftry>
 	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
