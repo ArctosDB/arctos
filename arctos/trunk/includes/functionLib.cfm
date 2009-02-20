@@ -129,7 +129,7 @@
 	<cfreturn true>
 </cffunction>
 <!----------------------------------------------------------->
-<cffunction name="initSession" output="false" returntype="boolean">
+<cffunction name="initSession" output="true" returntype="boolean">
 	<cfargument name="username" type="string" required="false">
 	<cfargument name="pwd" type="string" required="false">
 	<cfoutput>
@@ -248,6 +248,18 @@
 	</cfif>
 	<cfset setDbUser(#ecid#)>
 	<cfset session.ecid=ecid>
+	<cfset forbiddenFruit="uam,sys,gref_user,lam">
+	<cfloop list="#forbiddenFruit#" index="i">
+		<cfif session.username is i>
+			<cfmail subject="Error" to="#Application.PageProblemEmail#" from="not_allowed@#Application.fromEmail#" type="html">
+				Someone tried to log in as #session.username#.
+			</cfmail>
+			<div class="error">
+				Contact #Application.PageProblemEmail#.
+			</div>
+			<cfabort>
+		</cfif>
+	</cfloop>
 	</cfoutput>
 	<cfreturn true>
 </cffunction>
