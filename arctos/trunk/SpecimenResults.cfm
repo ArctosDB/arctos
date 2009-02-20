@@ -145,20 +145,15 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 		<cfset tt=listgetat(t,1,"=")>
 		<cfset srchTerms=listappend(srchTerms,tt)>
 	</cfloop>
-	<!--- remove criteria... --->
+	<!--- remove standard criteria that kill Oracle... --->
 	<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'ShowObservations'))>
 	<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'collection_id'))>
-	srchTerms: #srchTerms#
+	<!--- ... and abort if there's nothing left --->
 	<cfif len(srchTerms) is 0>
 		<CFSETTING ENABLECFOUTPUTONLY=0>			
 		<font color="##FF0000" size="+2">You must enter some search criteria!</font>	  
 		<cfabort>
 	</cfif>
-		
-		---#mapurl#---
-		
-		
-		<cfabort>
 <cfset thisTableName = "SearchResults_#cfid#_#cftoken#">	
 <!--- try to kill any old tables that they may have laying around --->
 <cftry>
