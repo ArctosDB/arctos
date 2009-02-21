@@ -12,6 +12,8 @@ To use this form, all of the following must be true:
 		</ul>
 	</li>
 </ul>
+
+Leading zeroes will be ignored.
 <cfoutput>
 	<cfquery name="ctContainerType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct(container_type) container_type from ctcontainer_type
@@ -19,7 +21,7 @@ To use this form, all of the following must be true:
 	</cfquery>
 	<form name="wtf" method="post" action="labels2containers.cfm">
 		<input type="hidden" name="action" value="change">
-		<label for="Original Container Type"></label>
+		<label for="origContType">Original Container Type</label>
 		<select name="origContType" id="origContType" size="1">
 			<cfloop query="ctContainerType">
 				<option value="#container_type#">#container_type#</option>
@@ -33,8 +35,10 @@ To use this form, all of the following must be true:
 		</select>
 		<label for="barcode_prefix">Barcode Prefix</label>
 		<input type="text" name="barcode_prefix" id="barcode_prefix" size="3">
+		<!---
 		<label for="barcode_suffix">Barcode Suffix</label>
 		<input type="text" name="barcode_suffix" id="barcode_suffix" size="3">
+		--->
 		<label for="begin_barcode">Low barcode (integer component)</label>
 		<input type="text" name="begin_barcode" id="begin_barcode">
 		<label for="end_barcode">High barcode (integer component)</label>
@@ -51,11 +55,6 @@ To use this form, all of the following must be true:
 		<input type="text" name="width" id="width">
 		<label for="number_positions">Number of Positions</label>
 		<input type="text" name="number_positions" id="number_positions">
-		<label for="ignore_zero_pad">Ignore leading zeroes?</label>
-		<select name="ignore_zero_pad" id="ignore_zero_pad">
-			<option value="0">no</option>
-			<option value="1">yes</option>
-		</select>
 		<br><input type="submit" value="save" class="savBtn">
 	</form>
 </cfoutput>
@@ -116,38 +115,20 @@ To use this form, all of the following must be true:
 		barcode between #begin_barcode# and #end_barcode#
 	</cfif>
 </cfquery>
+<cfset curl="labels2container.cfm?action=update&origContType=#origContType#&newContType=#newContType#&barcode_prefix=#barcode_prefix#&begin_barcode=#begin_barcode#&end_barcode=#end_barcode#&description=#description#&container_remarks=#container_remarks#&height=#height#&length=#length#&width=#width#&number_positions=#number_positions#">
+
+Your criteria matched #testCont.recordcount# containers. Carefully review what you're about the update in the 
+following table, and <a href="#curl#">click here to continue</a> if it all look good.
 <cfdump var=#testCont#>
-
-
-
-<cfabort>
-<cfset inBarcode = "">
-
-<cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
-	<cfif len(#inBarcode#) gt 0>
-		<cfset inBarcode = "#inBarcode#,'#barcode_prefix##i##barcode_suffix#'">
-	<cfelse>
-		<cfset inBarcode = "'#barcode_prefix##i##barcode_suffix#'">
-	</cfif>
-</cfloop>
-<!---
-<cfif len(#barcode_prefix#) gt 0>
-	<cfset sqlBC = "to_number(TRIM('#barcode_prefix#' FROM barcode))">
-<cfelse>
-	<cfset sqlBC = "to_number(barcode)">
+</cfoutput>
 </cfif>
---->
-<cfset sql="select barcode,container_id from container where 
-		container_type='#origContType#' AND
-		barcode IN (#inBarcode#)">
-	
-	<cfquery name="contID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		#preservesinglequotes(sql)#
-	</cfquery>
+<!------------------------------------------------------->
+<cfif action is "update">
+<cfoutput>
 	<cftransaction>
-	<cfloop query="contID">
-		<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			update container set container_type='#newContType#'
+	<cfquery name="testCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		update container set 
+			container_type='#newContType#'
 			<cfif len(#DESCRIPTION#) gt 0>
 				,DESCRIPTION='#DESCRIPTION#'
 			</cfif>
@@ -166,15 +147,19 @@ To use this form, all of the following must be true:
 			<cfif len(#NUMBER_POSITIONS#) gt 0>
 				,NUMBER_POSITIONS=#NUMBER_POSITIONS#
 			</cfif>
-			where container_id=#container_id#
-		</cfquery>
-	</cfloop>
+		where
+			container_type='#origContType#' and
+			<cfif len(barcode_prefix) gt 0>
+				substr(barcode,1,#len(barcode_prefix)#)='#barcode_prefix#' and
+			</cfif>
+			<cfif len(barcode_prefix) gt 0>
+				substr(barcode,#len(barcode_prefix)#,length(barcode)) between #begin_barcode# and #end_barcode#
+			<cfelse>
+				barcode between #begin_barcode# and #end_barcode#
+			</cfif>
+	</cfquery>
 	</cftransaction>
-	
-	
-	Spiffy, changed #contID.recordcount# #origContType# to #newContType#.
-	<hr>
-	
+	It's done.
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
