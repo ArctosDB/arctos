@@ -1,4 +1,3 @@
-
 <cfinclude template="/includes/_header.cfm">
 <cfif #action# IS "nothing">
 To use this form, all of the following must be true:
@@ -13,103 +12,53 @@ To use this form, all of the following must be true:
 		</ul>
 	</li>
 </ul>
-	<cfoutput>
-	<table border>
-		<cfquery name="ctContainerType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select distinct(container_type) container_type from ctcontainer_type
-			where container_type <> 'collection object'
-		</cfquery>
-		<form name="wtf" method="post" action="labels2containers.cfm">
-			<input type="hidden" name="action" value="change">
-			<tr>
-				<td align="right">Original Container Type</td>
-				<td>
-					<select name="origContType" size="1">
-						<cfloop query="ctContainerType">
-							<option value="#container_type#">#container_type#</option>
-						</cfloop>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td align="right">New Container Type</td>
-				<td>
-					<select name="newContType" size="1">
-						<cfloop query="ctContainerType">
-							<option value="#container_type#">#container_type#</option>
-						</cfloop>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td align="right">Barcode Prefix</td>
-				<td>
-					<input type="text" name="barcode_prefix" size="3">
-				</td>
-			</tr>
-			<tr>
-				<td align="right">Barcode Suffix</td>
-				<td>
-					<input type="text" name="barcode_suffix" size="3">
-				</td>
-			</tr>
-			<tr>
-				<td align="right">Low barcode (integer component)</td>
-				<td>
-					<input type="text" name="begin_barcode">
-				</td>
-			</tr>
-			<tr>
-				<td align="right">High barcode (integer component)</td>
-				<td>
-					<input type="text" name="end_barcode">
-				</td>
-			</tr>
-			<tr>
-				<td align="right">Description:</td>
-				<td>
-					<input type="text" name="DESCRIPTION">
-				</td>
-			</tr>
-			<tr>
-				<td align="right">Remarks:</td>
-				<td>
-					<input type="text" name="CONTAINER_REMARKS">
-				</td>
-			</tr>
-			
-			<tr>
-				<td align="right">HEIGHT:</td>
-				<td>
-					<input type="text" name="HEIGHT">
-				</td>
-			</tr>
-			<tr>
-				<td align="right">LENGTH:</td>
-				<td>
-					<input type="text" name="LENGTH">
-				</td>
-			</tr>
-			<tr>
-				<td align="right">Width:</td>
-				<td>
-					<input type="text" name="WIDTH">
-				</td>
-			</tr>
-			<tr>
-				<td align="right">Number Positions:</td>
-				<td>
-					<input type="text" name="NUMBER_POSITIONS">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="submit">
-				</td>
-			</tr>
-		</form>
-		</table>
-	</cfoutput>
+<cfoutput>
+	<cfquery name="ctContainerType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select distinct(container_type) container_type from ctcontainer_type
+		where container_type <> 'collection object'
+	</cfquery>
+	<form name="wtf" method="post" action="labels2containers.cfm">
+		<input type="hidden" name="action" value="change">
+		<label for="Original Container Type"></label>
+		<select name="origContType" id="origContType" size="1">
+			<cfloop query="ctContainerType">
+				<option value="#container_type#">#container_type#</option>
+			</cfloop>
+		</select>
+		<label for="newContType">New Container Type</label>
+		<select name="newContType" id="newContType" size="1">
+			<cfloop query="ctContainerType">
+				<option value="#container_type#">#container_type#</option>
+			</cfloop>
+		</select>
+		<label for="barcode_prefix">Barcode Prefix</label>
+		<input type="text" name="barcode_prefix" id="barcode_prefix" size="3">
+		<label for="barcode_suffix">Barcode Suffix</label>
+		<input type="text" name="barcode_suffix" id="barcode_suffix" size="3">
+		<label for="begin_barcode">Low barcode (integer component)</label>
+		<input type="text" name="begin_barcode" id="begin_barcode">
+		<label for="end_barcode">High barcode (integer component)</label>
+		<input type="text" name="end_barcode" id="end_barcode">
+		<label for="description">Description</label>
+		<input type="text" name="description" id="description">
+		<label for="container_remarks">Remarks</label>
+		<input type="text" name="container_remarks" id="container_remarks">
+		<label for="height">Height</label>
+		<input type="text" name="height" id="height">
+		<label for="length">Length</label>
+		<input type="text" name="length" id="length">
+		<label for="width">Width</label>
+		<input type="text" name="width" id="width">
+		<label for="number_positions">Number of Positions</label>
+		<input type="text" name="number_positions" id="number_positions">
+		<label for="ignore_zero_pad">Ignore leading zeroes?</label>
+		<select name="ignore_zero_pad" id="ignore_zero_pad">
+			<option value="0">no</option>
+			<option value="1">yes</option>
+		</select>
+		<br><input type="submit" value="save" class="savBtn">
+	</form>
+</cfoutput>
 </cfif>
 <!--------------------------------------->
 <!---
@@ -154,7 +103,26 @@ To use this form, all of the following must be true:
 	You can't use this with #origContType#!
 	<cfabort>
 </cfif>
-	<cfset inBarcode = "">
+<cfset minBcF="">
+<cfquery name="testCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select barcode,container_type from container where
+	container_type='#origContType#' and
+	<cfif len(barcode_prefix) gt 0>
+		substr(barcode,1,#len(barcode_prefix)#)='#barcode_prefix#' and
+	</cfif>
+	<cfif len(barcode_prefix) gt 0>
+		substr(barcode,#len(barcode_prefix)#,length(barcode)) between #begin_barcode# and #end_barcode#
+	<cfelse>
+		barcode between #begin_barcode# and #end_barcode#
+	</cfif>
+</cfquery>
+<cfdump var=#testCont#>
+
+
+
+<cfabort>
+<cfset inBarcode = "">
+
 <cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
 	<cfif len(#inBarcode#) gt 0>
 		<cfset inBarcode = "#inBarcode#,'#barcode_prefix##i##barcode_suffix#'">
