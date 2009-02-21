@@ -159,9 +159,9 @@
 	'>
 	<cfset data = '#data#<minQueryTermLength>1</minQueryTermLength>
 	'>
-	<cfset data = '#data#<maxSearchResponseRecords>1000</maxSearchResponseRecords>
+	<cfset data = '#data#<maxSearchResponseRecords>25000</maxSearchResponseRecords>
 	'>
-	<cfset data = '#data# <maxInventoryResponseRecords>1000</maxInventoryResponseRecords>'>
+	<cfset data = '#data# <maxInventoryResponseRecords>25000</maxInventoryResponseRecords>'>
 	<cfset data = '#data#
 	</metadata>
 	'>
