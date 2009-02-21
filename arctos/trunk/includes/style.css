@@ -373,7 +373,7 @@ td#SDCellRight{
 		width:65%;
 		height:450px;
 		background-color:white;
-		overflow:hidden;
+		overflow:auto;
 	}
 	
 table.specResultTab {
