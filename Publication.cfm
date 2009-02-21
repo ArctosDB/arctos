@@ -251,7 +251,7 @@ JOURNAL_ID
 <cfif #Action# is "makeJournal">
 <cfoutput>
 	<cfquery name="nextJID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select sq_journal_id nextid from dual
+		select sq_journal_id.nextval nextid from dual
 	</cfquery>
 	<cfquery name="newJ" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO journal (
