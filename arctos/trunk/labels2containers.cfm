@@ -115,7 +115,7 @@ Leading zeroes will be ignored.
 		barcode between #begin_barcode# and #end_barcode#
 	</cfif>
 </cfquery>
-<cfset curl="labels2container.cfm?action=update&origContType=#origContType#&newContType=#newContType#&barcode_prefix=#barcode_prefix#&begin_barcode=#begin_barcode#&end_barcode=#end_barcode#&description=#description#&container_remarks=#container_remarks#&height=#height#&length=#length#&width=#width#&number_positions=#number_positions#">
+<cfset curl="labels2containers.cfm?action=update&origContType=#origContType#&newContType=#newContType#&barcode_prefix=#barcode_prefix#&begin_barcode=#begin_barcode#&end_barcode=#end_barcode#&description=#description#&container_remarks=#container_remarks#&height=#height#&length=#length#&width=#width#&number_positions=#number_positions#">
 
 Your criteria matched #testCont.recordcount# containers. Carefully review what you're about the update in the 
 following table, and <a href="#curl#">click here to continue</a> if it all look good.
