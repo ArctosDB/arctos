@@ -22,38 +22,38 @@ Leading zeroes will be ignored.
 	<form name="wtf" method="post" action="labels2containers.cfm">
 		<input type="hidden" name="action" value="change">
 		<label for="origContType">Original Container Type</label>
-		<select name="origContType" id="origContType" size="1">
+		<select name="origContType" id="origContType" size="1" class="reqdClr">
 			<cfloop query="ctContainerType">
 				<option value="#container_type#">#container_type#</option>
 			</cfloop>
 		</select>
 		<label for="newContType">New Container Type</label>
-		<select name="newContType" id="newContType" size="1">
+		<select name="newContType" id="newContType" size="1" class="reqdClr">
 			<cfloop query="ctContainerType">
 				<option value="#container_type#">#container_type#</option>
 			</cfloop>
 		</select>
-		<label for="barcode_prefix">Barcode Prefix</label>
+		<label for="barcode_prefix">Barcode Prefix (include spaces if necessary)</label>
 		<input type="text" name="barcode_prefix" id="barcode_prefix" size="3">
 		<!---
 		<label for="barcode_suffix">Barcode Suffix</label>
 		<input type="text" name="barcode_suffix" id="barcode_suffix" size="3">
 		--->
 		<label for="begin_barcode">Low barcode (integer component)</label>
-		<input type="text" name="begin_barcode" id="begin_barcode">
+		<input type="text" name="begin_barcode" id="begin_barcode" class="reqdClr">
 		<label for="end_barcode">High barcode (integer component)</label>
-		<input type="text" name="end_barcode" id="end_barcode">
-		<label for="description">Description</label>
+		<input type="text" name="end_barcode" id="end_barcode" class="reqdClr">
+		<label for="description">New Description</label>
 		<input type="text" name="description" id="description">
-		<label for="container_remarks">Remarks</label>
+		<label for="container_remarks">New Remark</label>
 		<input type="text" name="container_remarks" id="container_remarks">
-		<label for="height">Height</label>
+		<label for="height">New Height</label>
 		<input type="text" name="height" id="height">
-		<label for="length">Length</label>
+		<label for="length">New Length</label>
 		<input type="text" name="length" id="length">
-		<label for="width">Width</label>
+		<label for="width">New Width</label>
 		<input type="text" name="width" id="width">
-		<label for="number_positions">Number of Positions</label>
+		<label for="number_positions">New Number of Positions</label>
 		<input type="text" name="number_positions" id="number_positions">
 		<br><input type="submit" value="save" class="savBtn">
 	</form>
