@@ -248,7 +248,7 @@ None
 <cfif #Action# is "saveNew">
 <cfoutput>
 	<cfloop list="#related_coll_object_id#" index="relCollObjId" delimiters=",">
-		<cfquery name="newReln" datasource="#Application.uam_dbo#">
+		<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO biol_indiv_relations (
 			 COLLECTION_OBJECT_ID,
 			 RELATED_COLL_OBJECT_ID,
@@ -268,7 +268,7 @@ None
 <!------------------------------------------------------------------------------>
 <cfif #Action# is "saveEdit">
 <cfoutput>
-	<cfquery name="newReln" datasource="#Application.uam_dbo#">
+	<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	UPDATE biol_indiv_relations
 	SET
 	collection_object_id = #collection_object_id#,
@@ -287,7 +287,7 @@ None
 <!------------------------------------------------------------------------------>
 <cfif #Action# is "deleReln">
 <cfoutput>
-	<cfquery name="newReln" datasource="#Application.uam_dbo#">
+	<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	DELETE FROM biol_indiv_relations WHERE
 		collection_object_id = #collection_object_id# AND
 	RELATED_COLL_OBJECT_ID = #origRelCollObjId# AND
