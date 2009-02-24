@@ -30,6 +30,7 @@
 
 
 <cfif isdefined("mime_type") AND len(#mime_type#) gt 0>
+	<cfset mapurl = "#mapurl#&mime_type=#mime_type#">
 	<cfif #basJoin# does not contain "media_relations">
 		<cfset basJoin = " #basJoin# INNER JOIN media_relations ON 
 			(cataloged_item.collection_object_id = media_relations.related_primary_key)">
