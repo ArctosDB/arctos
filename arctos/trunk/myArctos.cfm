@@ -23,7 +23,10 @@
 <!------------------------------------------------------------------->
 <cfif action is "makeUser">
 <cfoutput>
-	<cfif hash(pw) is not session.password>
+	<cfquery name="exPw" datasource="uam_god">
+		select PASSWORD from cf_users where username='#session.username#'
+	</cfquery>
+	<cfif hash(pw) is not exPw.password>
 		<div class="error">
 			You did not enter the correct password.
 		</div>
