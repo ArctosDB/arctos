@@ -22,6 +22,36 @@
 </cfif>
 	
 <!--- start buildig SQL --->
+
+
+
+
+
+
+
+<cfif isdefined("mime_type") AND len(#mime_type#) gt 0>
+	<cfif #basJoin# does not contain "media_relations">
+		<cfset basJoin = " #basJoin# INNER JOIN media_relations ON 
+			(cataloged_item.collection_object_id = media_relations.related_primary_key)">
+	</cfif>
+	<cfset basQual = "#basQual#  AND media_relations.media_relationship like '%cataloged_item%'" >
+   	<cfif basJoin does not contain " media ">
+        <cfset basJoin = " #basJoin# INNER JOIN media ON 
+			(media_relations.media_id = media.media_id)">
+    </cfif>
+	<cfset basQual = "#basQual#  AND media.mime_type = '#mime_type#'" >
+	<cfset mapurl = "#mapurl#&mime_type=#mime_type#">
+</cfif>
+<cfif isdefined("ImgNoConfirm") and len(#ImgNoConfirm#) gt 0>
+	<cfset mapurl = "#mapurl#&ImgNoConfirm=#ImgNoConfirm#">
+   	<cfset basQual = "#basQual#  AND cataloged_item.collection_object_id not in (select 
+			collection_object_id from attributes where attribute_type='image confirmed' and
+				attribute_value='yes')" >
+</cfif>
+
+
+<!---------------------------------------------------------->
+
 <cfif isdefined("listcatnum") and len(#listcatnum#) gt 0>
 	<cfset listcatnum=replace(listcatnum," ","","all")>
 	<cfset mapurl = "#mapurl#&listcatnum=#listcatnum#">
