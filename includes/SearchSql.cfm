@@ -21,15 +21,8 @@
 	<cfset listcatnum = #cat_num#>
 </cfif>
 	
-<!--- start buildig SQL --->
-
-
-
-
-
-
-
-<cfif isdefined("mime_type") AND len(#mime_type#) gt 0>
+<!--- start building SQL --->
+<cfif isdefined("mime_type") AND len(mime_type) gt 0>
 	<cfset mapurl = "#mapurl#&mime_type=#mime_type#">
 	<cfif #basJoin# does not contain "media_relations">
 		<cfset basJoin = " #basJoin# INNER JOIN media_relations ON 
@@ -49,10 +42,6 @@
 			collection_object_id from attributes where attribute_type='image confirmed' and
 				attribute_value='yes')" >
 </cfif>
-
-
-<!---------------------------------------------------------->
-
 <cfif isdefined("listcatnum") and len(#listcatnum#) gt 0>
 	<cfset listcatnum=replace(listcatnum," ","","all")>
 	<cfset mapurl = "#mapurl#&listcatnum=#listcatnum#">
@@ -394,7 +383,26 @@
 							)
 							)">
 		</cfif>
-		
+		<cfif isdefined("genus") AND len(genus) gt 0>
+			<cfset mapurl = "#mapurl#&genus=#genus#">
+			<cfif #basJoin# does not contain " identification ">
+				<cfset basJoin = " #basJoin# INNER JOIN identification ON 
+				(cataloged_item.collection_object_id = identification.collection_object_id)">
+			</cfif>
+			<cfif #basJoin# does not contain " identification_taxonomy ">
+				<cfset basJoin = " #basJoin# INNER JOIN identification_taxonomy ON 
+				(identification.identification_id = identification_taxonomy.identification_id)">
+			</cfif>
+			<cfif #basJoin# does not contain " taxonomy ">
+				<cfset basJoin = " #basJoin# INNER JOIN taxonomy ON 
+				(identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id)">
+			</cfif>
+			<cfif left(genus,1) is '='>
+				<cfset basQual = " #basQual# AND taxonomy.genus = '#right(genus,len(genus)-1)#'">
+			<cfelse>
+				<cfset basQual = " #basQual# AND taxonomy.genus = '#genus#'">
+			</cfif>		
+		</cfif>
 		<cfif isdefined("Phylclass") AND len(#Phylclass#) gt 0>
 			<cfset mapurl = "#mapurl#&Phylclass=#Phylclass#">
 			<cfif #basJoin# does not contain " identification ">
