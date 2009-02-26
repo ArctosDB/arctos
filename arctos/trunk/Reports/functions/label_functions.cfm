@@ -656,3 +656,85 @@
     <cfset temp = QueryAddColumn(d, "identification", "VarChar",identAry)>
     <cfreturn d>
 </cffunction>
+
+<cffunction name="format_ledger" access="public" returntype="Query">
+	<cfargument name="q" required="true" type="query">
+	<!--- Data Manipulation --->
+	<cfloop query="q">
+		
+		<!--- Collectors (collector_id_num) [, second collector (second collector number)] --->
+		<!-- Setting Collector Names --> 
+		<cfset gapPos = find(",", #collectors#)>
+		<cfset firstColl = #collectors#>
+		<cfset secondColl = "">
+		<cfif gapPos gt 0>
+			<cfset firstColl = left(#collectors#, #gapPos#-1)>
+			<cfset secondColl = right (#collectors#, len(#collectors#) - #gapPos#)>
+		</cfif>
+		
+		<!-- Setting Collector Number -->
+		<cfset gapPos = find(";" #other_id_list#)>
+		<cfset firstId = #other_id_list#>
+		<cfset secondId = "">
+		<cfif gapPos gt 0>
+			<cfset firstId = left(#other_id_list#, #gapPos#-1)>
+			<cfset firstId = replace(firstId,"=", ":",one)>
+			<cfset secondId = right (#other_id_list#, len(#other_id_list#) - #gapPos#)>
+			<cfset secondId = replace (secondId, "=", ":", one)>
+		</cfif>
+		
+		<cfset collectors = #firstColl#>
+		<cfif len(#firstId#) gt 0>
+			<cfset collectors = "#collectors# (#firstId#)">
+		</cfif>
+		<cfif len(#secondColl#) gt 0>
+			<cfset collectors = "#collectors#, #secondColl#">
+			<cfif len(#secondId#) gt 0>
+				<cfset collectors = "#collectors#, (#secondId#)">
+			</cfif>
+		</cfif>
+		
+		
+		<!--- Latitude/Longitude (datum) --->
+		<!--- Setting Latitude/Longitidue --->
+        <cfset coordinates = "">
+        <cfif len(#verbatimLatitude#) gt 0 AND len(#verbatimLongitude#) gt 0>
+                <cfset coordinates = "#verbatimLatitude# / #verbatimLongitude#">
+                <cfset coordinates = replace(coordinates,"d","&##176;","all")>
+                <cfset coordinates = replace(coordinates,"m","'","all")>
+                <cfset coordinates = replace(coordinates,"s","''","all")>
+        </cfif>
+		<!--- Setting datum --->
+		<cfif len(datum) gt 0>
+			<cfset coordinates = "#coordinates# (#datum#)">
+		</cfif>
+		
+		<!--- Higher Geography: County; state_prov; County; island)--->
+        <cfset highergeog = "">
+		<cfif len(#country#) gt 0>
+			<cfif len(highergeog) gt 0>
+				<cfset highergeog = "#highergeog#; ">
+			</cfif>
+			<cfset highergeog = "#highergeog##country#">
+		</cfif>
+		<cfif len(#state_prov#) gt 0>
+			<cfif len(highergeog) gt 0>
+				<cfset highergeog = "#highergeog#; ">
+			</cfif>
+			<cfset highergeog = "#highergeog##state_prov#">
+		</cfif>
+          	<cfif len(#county#) gt 0>
+				<cfif len(highergeog) gt 0>
+					<cfset highergeog = "#highergeog#; ">
+				</cfif>
+              	<cfset highergeog = "#highergeog##county#">
+		</cfif>
+          	<cfif len(#island#) gt 0>
+			<cfif len(highergeog) gt 0>
+				<cfset highergeog = "#highergeog#; ">
+			</cfif>
+              	<cfset highergeog = "#highergeog##island#">
+		</cfif>
+		
+	</cfloop>
+</cffunction>
