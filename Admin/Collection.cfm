@@ -113,7 +113,7 @@
 <cfif #action# is "makeNewCollection">
 <cfoutput>
 	<cftransaction>
-	<cfquery name="nextCollCde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="nextCollCde" datasource="uam_god">
 		select sq_collection.nextval as newID from dual
 	</cfquery>
 	
@@ -146,6 +146,7 @@
 	</cftransaction>
 	made #nextCollCde.newID#
 	<!---
+	user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	<cflocation url="Collection.cfm?action=findColl&collection_id=#nextCollCde.newID#">
 	
 --->>>
