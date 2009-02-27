@@ -432,7 +432,7 @@ function checkRequired(){
           	<td><div align="right">Remarks:</div></td>
          	 <td>
 				<input type="text" name="identification_remarks_#i#" id="identification_remarks_#i#" 
-					value="#identification_remarks#" size="50">
+					value="#stripQuotes(identification_remarks)#" size="50">
 			</td>
         </tr>
 	</table>

@@ -59,9 +59,6 @@ This form does nothing to labels that already exist. Don't try.
 
 <!----------------------------------------------------------------------------------->
 <cfif action is "create">
-<cfquery name="nextContainerId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	SELECT sq_container_id.nextval next_id from dual
-</cfquery>
 <cfoutput query="nextContainerID">
 	<cfset newid = "#next_id#">
 </cfoutput>
@@ -74,11 +71,10 @@ This form does nothing to labels that already exist. Don't try.
 <cfloop index="index" from="1" to = "#num#">
 <cfquery name="AddLabels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	INSERT INTO container (container_id, parent_container_id, container_type, barcode, label, container_remarks,locked_position,institution_acronym)
-		VALUES (#newid#, 0, '#container_type#', '#prefix##barcode##suffix#', '#label_prefix##barcode##label_suffix#','#remarks#',0,'#institution_acronym#')
+		VALUES (sq_container_id.nextval, 0, '#container_type#', '#prefix##barcode##suffix#', '#label_prefix##barcode##label_suffix#','#remarks#',0,'#institution_acronym#')
 </cfquery>
 		<cfset num = #num# + 1>
 		<cfset barcode = #barcode# + 1>
-		<cfset newid = #newid# + 1>
 </cfloop>	
 </cftransaction>
 	<br> The series of barcodes from #beginBarcode# to #endBarcode# have been uploaded.
