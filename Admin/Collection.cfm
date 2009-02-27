@@ -143,7 +143,11 @@
 			 </cfif>)			
 	</cfquery>
 	</cftransaction>
+	made #nextCollCde.newID#
+	<!---
 	<cflocation url="Collection.cfm?action=findColl&collection_id=#nextCollCde.newID#">
+	
+--->>>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------->
