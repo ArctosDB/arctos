@@ -664,7 +664,7 @@
 		
 		<!--- Collectors (collector_id_num) [, second collector (second collector number)] --->
 		<!-- Setting Collector Names --> 
-		<cfset gapPos = find(",", #collectors#)>
+		<cfset gapPos = find(",", collectors)>
 		<cfset firstColl = #collectors#>
 		<cfset secondColl = "">
 		<cfif gapPos gt 0>
@@ -673,7 +673,7 @@
 		</cfif>
 		
 		<!-- Setting Collector Number -->
-		<cfset gapPos = find(";" #other_id_list#)>
+		<cfset gapPos = find(";" other_id_list)>
 		<cfset firstId = #other_id_list#>
 		<cfset secondId = "">
 		<cfif gapPos gt 0>
