@@ -673,7 +673,7 @@
 		</cfif>
 		
 		<!-- Setting Collector Number -->
-		<cfset gapPos = find(";" other_ids)>
+		<cfset gapPos = "">
 		<cfset firstId = #other_ids#>
 		<cfset secondId = "">
 		<cfif gapPos gt 0>
