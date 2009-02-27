@@ -67,8 +67,6 @@
 	</cftry>
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
-
-
 <cffunction name="makePart" returntype="any">
 	<cfargument name="collection_object_id" type="string" required="yes">
 	<cfargument name="part_name" type="string" required="yes">
@@ -84,6 +82,9 @@
 	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 	<cftry>
 		<cftransaction>
+			<cfquery name="ccid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select sq_collection_object_id.nextval nv from dual
+			</cfquery>
 			<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO coll_object (
 					COLLECTION_OBJECT_ID,
@@ -96,7 +97,7 @@
 					CONDITION,
 					FLAGS )
 				VALUES (
-					sq_collection_object_id.nextval,
+					#ccid.nv#,
 					'SP',
 					#session.myAgentId#,
 					'#thisDate#',
@@ -119,7 +120,7 @@
 						,DERIVED_FROM_cat_item,
 						is_tissue )
 					VALUES (
-						sq_collection_object_id.currval,
+						#ccid.nv#,
 					  '#PART_NAME#'
 					  <cfif len(#PART_MODIFIER#) gt 0>
 					  		,'#PART_MODIFIER#'
@@ -133,12 +134,12 @@
 			<cfif len(#coll_object_remarks#) gt 0>
 				<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
-					VALUES (sq_collection_object_id.currval, '#coll_object_remarks#')
+					VALUES (s#ccid.nv#, '#coll_object_remarks#')
 				</cfquery>
 			</cfif>
 			<cfif len(barcode) gt 0>
 				<cfquery name="np" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select container_id from coll_obj_cont_hist where collection_object_id=sq_collection_object_id.currval
+					select container_id from coll_obj_cont_hist where collection_object_id=#ccid.nv#
 				</cfquery>
 				<cfquery name="pc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select container_id from container where barcode='#barcode#'
@@ -383,7 +384,6 @@
 	</cftry>
 	<cfreturn result>
 </cffunction>
-
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="changekillRows" returntype="string">
 	<cfargument name="tgt" type="string" required="yes">

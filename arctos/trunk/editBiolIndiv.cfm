@@ -833,7 +833,7 @@ New attribute:
 				<cfquery name="hind_foot_with_claw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					INSERT INTO attributes (
 						ATTRIBUTE_ID
-						COLLECTION_OBJECT_ID
+						,COLLECTION_OBJECT_ID
 						,DETERMINED_BY_AGENT_ID
 						,ATTRIBUTE_TYPE
 						,ATTRIBUTE_VALUE

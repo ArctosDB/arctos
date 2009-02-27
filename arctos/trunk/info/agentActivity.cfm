@@ -185,7 +185,7 @@ Back to <a href="/editAllAgent.cfm?agent_id=#agent_id#">Agent Details</a>
 	</cfquery>
 	<li>Authored <a href="/PublicationResults.cfm?publication_author_id=#names#&src=proj">#publication_author_name.cnt# publications</a> </li>
 	<cfquery name="trans_agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select TRANS_AGENT_ROLE, count(*) cnt from trans_agent where TRANS_AGENT_ID=#agent_id#
+		select TRANS_AGENT_ROLE, count(*) cnt from trans_agent where AGENT_ID=#agent_id#
 		group by TRANS_AGENT_ROLE
 	</cfquery>
 	<li>
