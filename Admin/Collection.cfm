@@ -116,7 +116,8 @@
 	<cfquery name="nextCollCde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select sq_collection.nextval as newID from dual
 	</cfquery>
-	<cfquery name="newColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	
+	<cfquery name="newColl" datasource="uam_god">
 		INSERT INTO collection (
 			 COLLECTION_CDE,
 			 INSTITUTION_ACRONYM,
