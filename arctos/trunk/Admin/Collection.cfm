@@ -113,11 +113,11 @@
 <cfif #action# is "makeNewCollection">
 <cfoutput>
 	<cftransaction>
-	<cfquery name="nextCollCde" datasource="uam_god">
-		select sq_collection.nextval as newID from dual
+	<cfquery name="nextCollCde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select sq_collection_id.nextval as newID from dual
 	</cfquery>
 	
-	<cfquery name="newColl" datasource="uam_god">
+	<cfquery name="newColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO collection (
 			 COLLECTION_CDE,
 			 INSTITUTION_ACRONYM,
@@ -144,12 +144,7 @@
 			 </cfif>)			
 	</cfquery>
 	</cftransaction>
-	made #nextCollCde.newID#
-	<!---
-	user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	<cflocation url="Collection.cfm?action=findColl&collection_id=#nextCollCde.newID#">
-	
---->>>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------->
