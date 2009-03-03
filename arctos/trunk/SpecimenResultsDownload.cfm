@@ -290,9 +290,7 @@ do not agree</font>.</a>
 					<cfset oneLine = trim(oneLine)>
 					<cffile action="append" file="#fileDir##fileName#" addnewline="yes" output="#oneLine#">
 				</cfloop>
-				<CFHEADER NAME="content-disposition" VALUE="attachment;filename=#Application.serverRootUrl#/#fileName#"> 
-				<a href="#Application.serverRootUrl#/#fileName#">Right-click to save your download if it doesn't start automatically.</a>
-			
+				<cflocation url="/download/download.cfm?file=#fileName#&filetype=txt">
 			
 			<cfelseif #fileFormat# is "xml">
 				<cfset fileName = "/download/ArctosData_#cfid#_#cftoken#.xml">
