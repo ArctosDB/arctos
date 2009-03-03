@@ -673,7 +673,7 @@
 			<cfset coll = replace(other_id, "=", ":", "one")>
 			<cfset format_collectors = listappend(format_collectors, coll)>
 		</cfloop>
-		<cfset colAr[i] = #format_collectors#>
+		<cfset colAr[i] = "#format_collectors#">
 		
 		
 		<!--- Latitude/Longitude (datum) --->
@@ -689,7 +689,7 @@
 		<cfif len(datum) gt 0>
 			<cfset coordinates = "#coordinates# (#datum#)">
 		</cfif>
-		<cfset coorAr[i] = #coordinates#>
+		<cfset coorAr[i] = "#coordinates#">
 		
 		<!--- Higher Geography: County; state_prov; County; island)--->
         <cfset highergeog = "">
@@ -717,7 +717,7 @@
 			</cfif>
               	<cfset highergeog = "#highergeog##island#">
 		</cfif>
-		<cfset hAr[i] = #highergeog#>
+		<cfset hAr[i] = "#highergeog#">
 		
 		<cfset i = i +1>
 	</cfloop>
