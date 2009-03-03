@@ -214,8 +214,8 @@
 		" >
 	<cfset mapurl = "#mapurl#&barcode=#barcode#">
 </cfif>	
-<cfif isdefined("ShowObservations") AND (#ShowObservations# is "true" or #ShowObservations# is "1")>
-	<cfset mapurl = "#mapurl#&ShowObservations=#ShowObservations#">
+<cfif isdefined("session.ShowObservations") AND (session.ShowObservations is "true" or session.ShowObservations is "1")>
+	<cfset mapurl = "#mapurl#&ShowObservations=#session.ShowObservations#">
 <cfelse>
 	<cfset mapurl = "#mapurl#&ShowObservations=false">
 	<cfset basQual = "#basQual#  AND lower( #flatTableName#.institution_acronym) not like '%obs'" >
