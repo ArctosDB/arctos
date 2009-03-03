@@ -270,10 +270,10 @@ do not agree</font>.</a>
 				<a href="#Application.serverRootUrl#/#fileName#">Right-click to save your download if it doesn't start automatically.</a>
 				
 			<cfelseif #fileFormat# is "text">
-				<cfset fileName = "/download/ArctosData_#cfid#_#cftoken#.txt">
+				<cfset fileName = "ArctosData_#cfid#_#cftoken#.txt">
 				<cfset header = replace(ac,",","#chr(9)#","all")>
 				<cfset header=#trim(header)#>
-				<cffile action="write" file="#fileDir##fileName#" addnewline="yes" output="#header#">
+				<cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#header#">
 				<cfloop query="getData">
 					<cfset oneLine = "">
 					<cfloop list="#ac#" index="c">
@@ -290,7 +290,7 @@ do not agree</font>.</a>
 					<cfset oneLine = trim(oneLine)>
 					<cffile action="append" file="#fileDir##fileName#" addnewline="yes" output="#oneLine#">
 				</cfloop>
-				<cflocation url="/download/download.cfm?file=#fileName#&filetype=txt">
+				<cflocation url="/download/download.cfm?file=#fileName#">
 			
 			<cfelseif #fileFormat# is "xml">
 				<cfset fileName = "/download/ArctosData_#cfid#_#cftoken#.xml">
