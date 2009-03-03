@@ -400,13 +400,10 @@ VALUES (
 		<cfif len(#publisher_name#) gt 0>
 			<cfset sql = "#sql# AND upper(publisher_name) LIKE '%#ucase(publisher_name)#%'">
 		</cfif>
-		
-		<cfoutput>#preservesinglequotes(sql)#</cfoutput>
 		<cfquery name="getJournal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
-		</cfoutput>
-	
+		</cfoutput>	
 		<table border="1">
 			<tr>
 				<th>Journal Name</th>
@@ -414,20 +411,15 @@ VALUES (
 				<th>Publisher</th>
 				<th>&nbsp;</th>
 			</tr>
-		<cfoutput query="getJournal">
-			<tr>
-				<td>#journal_name#</td>
-				<td><#journal_abbreviation#/td>
-				<td>#publisher_name#</td>
-				<td><a href="Publication.cfm?Action=editJournal&journal_id=#journal_id#">Edit</a></td>
-			</tr>
-		</cfoutput>
-		</table>
-		<cfoutput></cfoutput>
-		
-		
-		
-	
+			<cfoutput query="getJournal">
+				<tr>
+					<td>#journal_name#</td>
+					<td><#journal_abbreviation#/td>
+					<td>#publisher_name#</td>
+					<td><a href="Publication.cfm?Action=editJournal&journal_id=#journal_id#">Edit</a></td>
+				</tr>
+			</cfoutput>
+		</table>	
 </cfif>
 <!---------------------------------------------------------------------------->
 
@@ -444,25 +436,20 @@ VALUES (
 		<cfform name="journal" method="post" action="Publication.cfm">
 			<input type="hidden" name="Action" value="saveJourEdit">
 			<input type="hidden" name="journal_id" value="#journal_id#">
-			<br>Name: <input type="text" name="journal_name" value="#journal_name#">
-			<br>Abbreviation: <input type="text" name="journal_abbreviation" value="#journal_abbreviation#">
-			<br>Publisher: <input type="text" name="publisher_name" value="#publisher_name#">
-			<br>
-			
+			<label for="journal_name">Journal Name</label>
+			<input type="text" name="journal_name" id="journal_name" value="#journal_name#" class="reqdClr" size="50">
+			<label for="journal_abbreviation">Journal Abbreviation</label>
+			<input type="text" name="journal_abbreviation" id="journal_abbreviation" value="#journal_abbreviation#" class="reqdClr">
+			<label for="journal_abbreviation">Publisher</label>
+			<input type="text" name="publisher_name" id="publisher_name" value="#publisher_name#" size="50">
+			<br>	
 			<input type="submit"
 				value="Save"
-				class="savBtn"
-				onmouseover="this.className='savBtn btnhov'"
-				onmouseout="this.className='savBtn'">
-				
-			
+				class="savBtn">			
 			<input type="button"
 				value="Quit"
 				class="qutBtn"
-				onmouseover="this.className='qutBtn btnhov'"
-				onmouseout="this.className='qutBtn'"
-				onClick="document.location='Publication.cfm';">
-				
+				onClick="document.location='Publication.cfm';">				
 		</cfform>
 	</cfoutput>
 </cfif>
