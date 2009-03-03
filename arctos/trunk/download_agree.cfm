@@ -11,7 +11,7 @@
 </cfif>
 
 <cfif #action# is "nothing">
-<cfquery name="getUserData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="getUserData" datasource="cf_dbuser">
 	SELECT   
 		cf_users.user_id,
 		first_name,
@@ -60,7 +60,7 @@
 	</tr>
 	<tr>
 		<td align="right">Purpose of Download</td>
-		<cfquery name="ctPurpose" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="ctPurpose" datasource="cf_dbuser">
 			select * from ctdownload_purpose
 		</cfquery>
 		<td>
@@ -131,7 +131,7 @@ do not agree</font>.</a>
 		<cfabort>
 	</cfif>
 	<cfset thisDate = #dateformat(now(),"dd-mmm-yyyy")#>
-	<cfquery name="dl" datasource="#Application.uam_dbo#">
+	<cfquery name="dl" datasource="cf_dbuser">
 		INSERT INTO cf_download (
 			user_id,
 			download_purpose,
@@ -146,12 +146,12 @@ do not agree</font>.</a>
 			'#agree#')
 	</cfquery>
 	
-	<cfquery name="isUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="isUser" datasource="cf_dbuser">
 		select * from cf_user_data where user_id=#user_id#
 	</cfquery>
 		<!---- already have a user_data entry --->
 		<cfif #isUser.recordcount# is 1>
-			<cfquery name="upUser" datasource="#Application.uam_dbo#">
+			<cfquery name="upUser" datasource="cf_dbuser">
 				UPDATE cf_user_data SET
 					first_name = '#first_name#',
 					last_name = '#last_name#',
@@ -167,7 +167,7 @@ do not agree</font>.</a>
 			</cfquery>
 		</cfif>
 		<cfif #isUser.recordcount# is not 1>
-			<cfquery name="newUser" datasource="#Application.uam_dbo#">
+			<cfquery name="newUser" datasource="cf_dbuser">
 				INSERT INTO cf_user_data (
 					user_id,
 					first_name,
