@@ -756,7 +756,8 @@
 		<cfset i = i +1>
 	</cfloop>
 	
-	<cfset temp=queryAddColumn(q, "coordinates", "VarChar", cAr)>
+	<cfset temp=queryAddColumn(q, "coordinates", "VarChar", coorAr)>
+	<cfset temp=queryAddColumn(q, "format_collectors", "VarChar", colAr)>
 	<cfset temp=queryAddColumn(q, "highergeog", "VarChar", hAr)>
 	
 	<cfreturn q>
