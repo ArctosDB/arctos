@@ -290,7 +290,8 @@ do not agree</font>.</a>
 					<cfset oneLine = trim(oneLine)>
 					<cffile action="append" file="#fileDir##fileName#" addnewline="yes" output="#oneLine#">
 				</cfloop>
-				<a href="#Application.serverRootUrl#/#fileName#">Right-click to save your download.</a>
+				<CFHEADER NAME="content-disposition" VALUE="attachment;filename=#Application.serverRootUrl#/#fileName#"> 
+				<a href="#Application.serverRootUrl#/#fileName#">Right-click to save your download if it doesn't start automatically.</a>
 			
 			
 			<cfelseif #fileFormat# is "xml">
@@ -316,7 +317,8 @@ do not agree</font>.</a>
 				</cfloop>
 				<cfset oneLine = "</result>">
 				<cffile action="append" file="#fileDir##fileName#" addnewline="no" output="#oneLine#">
-				<a href="#Application.serverRootUrl#/#fileName#">Right-click to save your download.</a>
+				<CFHEADER NAME="content-disposition" VALUE="attachment;filename=#Application.serverRootUrl#/#fileName#"> 
+				<a href="#Application.serverRootUrl#/#fileName#">Right-click to save your download if it doesn't start automatically.</a>
 			<cfelse>
 				That file format doesn't seem to be supported yet!
 			</cfif>
