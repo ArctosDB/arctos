@@ -223,7 +223,7 @@
 	
 	
 <cftry>	
-	<cfquery name="getData" datasource = "#Application.web_user#">
+	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
 	<cfcatch>
@@ -1159,7 +1159,7 @@ document.getElementById('saveme').submit();
 		  from getBasic where collection_object_id = #collection_object_id# group by part_name, partID,coll_obj_disposition
 	  </cfquery>
 	  ---->
-	  <cfquery name="getParts" datasource="#Application.uam_dbo#">
+	<cfquery name="getParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 	    select 
 			part_name, 
 			specimen_part.collection_object_id partID, 
