@@ -1465,7 +1465,7 @@ document.getElementById('saveme').submit();
 
 
 <cfoutput>
-<form name="dlData" action="SpecimenResults.cfm" method="post">
+<form name="dlData" action="SpecimenResultsHTML.cfm" method="post">
 			<input type="hidden" name="searchParams" value='#searchParams#'>
 				<input type="hidden" name="detail_level" value="#detail_level#">
 				<input name="mapurl" type="hidden" value="#mapurl#">
