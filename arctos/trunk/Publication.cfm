@@ -407,14 +407,22 @@ VALUES (
 		</cfquery>
 		</cfoutput>
 	
+		<table border="1">
+			<tr>
+				<th>Journal Name</th>
+				<th>Abbreviation</th>
+				<th>Publisher</th>
+				<th>&nbsp;</th>
+			</tr>
 		<cfoutput query="getJournal">
-			
-			<br>#journal_name# (#journal_abbreviation#) published by #publisher_name#
-			
-		<a href="Publication.cfm?Action=editJournal&journal_id=#journal_id#">Edit</a>
-			
-		
+			<tr>
+				<td>#journal_name#</td>
+				<td><#journal_abbreviation#/td>
+				<td>#publisher_name#</td>
+				<td><a href="Publication.cfm?Action=editJournal&journal_id=#journal_id#">Edit</a></td>
+			</tr>
 		</cfoutput>
+		</table>
 		<cfoutput></cfoutput>
 		
 		

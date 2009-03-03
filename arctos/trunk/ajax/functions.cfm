@@ -1037,7 +1037,7 @@
 		</cfif>
 		</cfloop>
 	</cfif>
-	<cfquery name ="upDb" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name ="upDb" datasource="cf_dbuser">
 		update cf_users set resultcolumnlist='#session.resultColumnList#' where
 		username='#session.username#'
 	</cfquery>
@@ -1084,7 +1084,7 @@
 	<cfargument name="name" type="string" required="yes">
 	<cfargument name="tgt" type="numeric" required="yes">
 	<cftry>
-			<cfquery name="up" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="up" datasource="cf_dbuser">
 				UPDATE cf_users SET
 					#name# = 
 					#tgt#
@@ -1110,7 +1110,7 @@
 <cffunction name="changedetail_level" returntype="string">
 	<cfargument name="tgt" type="numeric" required="yes">
 	<cftry>
-			<cfquery name="up" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="up" datasource="cf_dbuser">
 				UPDATE cf_users SET
 					detail_level = 
 					#tgt#
