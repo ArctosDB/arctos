@@ -290,7 +290,7 @@ do not agree</font>.</a>
 					<cfset oneLine = trim(oneLine)>
 					<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#oneLine#">
 				</cfloop>
-				<cflocation url="/download/download.cfm?file=#fileName#">
+				<a href="/download/download.cfm?file=#fileName#">/download/download.cfm?file=#fileName#</a>
 			
 			<cfelseif #fileFormat# is "xml">
 				<cfset fileName = "/download/ArctosData_#cfid#_#cftoken#.xml">
