@@ -288,7 +288,7 @@ do not agree</font>.</a>
 						</cfif>
 					</cfloop>
 					<cfset oneLine = trim(oneLine)>
-					<cffile action="append" file="#fileDir##fileName#" addnewline="yes" output="#oneLine#">
+					<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#oneLine#">
 				</cfloop>
 				<cflocation url="/download/download.cfm?file=#fileName#">
 			
