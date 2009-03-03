@@ -39,58 +39,39 @@
 <cfif #Action# is "newJournalArt">
 <cfoutput>
 <cfset title="Create Journal Article">
-	Create Journal Article:
-	<table>
-		<cfform name="newJournalArt" method="post" action="Publication.cfm">
+	<h2>Create Journal Article</h2>
+	<form name="newJournalArt" method="post" action="Publication.cfm">
 		<input type="hidden" name="Action" value="makeJournalArticle">
-		<tr>
-			<td align="right">
-			<a href="javascript:void(0);" onClick="getDocs('publication','title')">Title:</a>
-			</td>
-			<td><input type="text" name="publication_title" size="70"></td>
-		</tr>
-		<tr>
-			<td align="right">Journal:</td>
-			<td><input type="text" name="journal_name" readonly="yes" size="60">
-				<input type="hidden" name="journal_id">
-				<input type="button" 
-				value="Pick" 
-				class="picBtn"
-				onmouseover="this.className='picBtn btnhov'"
-				onmouseout="this.className='picBtn'"
-				onClick="JournalPick('journal_id','journal_name','newJournalArt'); return false;">
-				
-				</td>
-		</tr>
-		<tr>
-		<td align="right">Page:</td>
-		<td><input type="text" name="begins_page_number" size="4"> to <input type="text" name="ends_page_number" size="4">
-		Volume: <input type="text" name="volume_number" size="4"> Issue: <input type="text" name="issue_number" size="4">
-		<a href="javascript:void(0);" onClick="getDocs('publication','year')">Year:</a> <input type="text" name="published_year" size="4"></td>
-		</tr>
-		
-		<tr>
-		<td align="right">Remarks:</td>
-		<td><input type="text" name="publication_remarks"></td>
-		</tr>
-		<tr>
-		<td colspan="2">
-			<input type="submit" 
-				value="Create Journal Article" 
-				class="insBtn"
-				onmouseover="this.className='insBtn btnhov'" 
-				onmouseout="this.className='insBtn'">
-			<input type="button"
+		<label for="publication_title"><a href="javascript:getDocs('publication','title');" onClick="getDocs('publication','title')">Title:</a></label>
+		<input type="text" name="publication_title" id="publication_title" size="70" class="reqdClr">
+		<label for="journal_name">Journal Name</label>
+		<input type="text" name="journal_name" id="journal_name" readonly="yes" size="60">
+		<input type="hidden" name="journal_id">
+		<input type="button" 
+			value="Pick" 
+			class="picBtn"
+			onClick="JournalPick('journal_id','journal_name','newJournalArt'); return false;">
+		<label for="begins_page_number">Begin Page</label>
+		<input type="text" name="begins_page_number" id="begins_page_number" size="4">
+		<label for="ends_page_number">End Page</label>
+		<input type="text" name="ends_page_number" id="ends_page_number" size="4">
+		<label for="volume_number">Volume</label>
+		<input type="text" name="volume_number" id="volume_number" size="4">
+		<label for="issue_number">Issue</label>
+		<input type="text" name="issue_number" id="issue_number" size="4">
+		<label for="published_year"><a href="javascript:getDocs('publication','year')" onClick="getDocs('publication','year')">Year:</a></label>
+		<input type="text" name="published_year" id="published_year" size="4">
+		<label for="publication_remarks">Remarks</label>
+		<input type="text" name="publication_remarks" id="publication_remarks" size="70">
+		<br>
+		<input type="submit" 
+			value="Create Journal Article" 
+			class="insBtn">
+		<input type="button"
 				value="Quit"
 				class="qutBtn"
-				onmouseover="this.className='qutBtn btnhov'"
-				onmouseout="this.className='qutBtn'"
 				onClick="document.location='Publication.cfm';">
-	
-				</td>
-		</tr>
-		</cfform>
-		</table>
+	</form>
 </cfoutput>
 
 </cfif>
