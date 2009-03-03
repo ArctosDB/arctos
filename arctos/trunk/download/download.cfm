@@ -9,5 +9,5 @@
 	</cfif>
 	<cfset ext=right(url.file,len(url.file)-find(".",url.file))>
 	<cfheader name="Content-Disposition" value="attachment; filename=#url.file#">
-	<cfcontent type="application/#ext#" file="http://arctos-test.arctos.database.museum/download/ArctosData_1136_10759281.txt">
+	<cfcontent type="application/#ext#" file="#Application.webDirectory#/download/ArctosData_1136_10759281.txt">
 </cfoutput>
