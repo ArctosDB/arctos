@@ -114,7 +114,7 @@
 	<cfif #cgi.HTTP_HOST# is "arctos.database.museum">		
 		<cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/usr/local/apache2/htdocs">
-		<cfset Application.SpecimenDownloadPath = Application.webDirectory & "/download/">
+		<cfset Application.DownloadPath = Application.webDirectory & "/download/">
 		<cfset Application.bugReportEmail = "dustymc@gmail.com,gordon.jarrell@gmail.com,lkv@berkeley.edu">
 		<cfset Application.technicalEmail = "dustymc@gmail.com,gordon.jarrell@gmail.com,lkv@berkeley.edu">
 		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
