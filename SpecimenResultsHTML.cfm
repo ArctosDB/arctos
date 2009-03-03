@@ -1558,7 +1558,6 @@ document.getElementById('saveme').submit();
 
 <!------------------------- make download ----------------------------------------------------------->
 <cfif #Action# is "download">
-
 <cfset dlPath = "#Application.DownloadPath#">
 <cfset dlFile = "#session.DownloadFileName#">
 	<cfset header = "Catalog_Number">
