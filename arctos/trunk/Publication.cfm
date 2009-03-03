@@ -17,41 +17,22 @@
 
 <cfif #Action# is "nothing">
 <cfset title="Find Journals">
-
-		Search for a Journal:
+<h2>Find Journal</h2>
 <form name="findJournal" method="post" action="Publication.cfm">
-		<input type="hidden" name="Action" value="findJournal">
-		<table>
-			
-			<tr>
-				<td>Journal Name:</td>
-				<td><input type="text" name="journal_name"></td>
-			</tr>
-			<tr>
-				<td>Abbreviation:</td>
-				<td><input type="text" name="journal_abbreviation"></td>
-			</tr>
-			<tr>
-				<td>Publisher:</td>
-				<td><input type="text" name="publisher_name"></td>
-			</tr>
-			<tr><cfoutput>
-				<td colspan="2" align="center">
-					<input type="submit" 
-						value="Find Journal" 
-						class="schBtn"
-						onmouseover="this.className='schBtn btnhov'" 
-						onmouseout="this.className='schBtn'">	
-					<input type="reset" 
-						value="Clear Form" 
-						class="clrBtn"
-						onmouseover="this.className='clrBtn btnhov'" 
-						onmouseout="this.className='clrBtn'">
-</td>
-			</cfoutput>
-			</tr>
-		</table>
-		
+	<input type="hidden" name="Action" value="findJournal">
+		<label for="journal_name">Journal Name</label>
+		<input type="text" name="journal_name" id="journal_name">
+		<label for="journal_abbreviation">Journal Abbreviation</label>
+		<input type="text" name="journal_abbreviation" id="journal_abbreviation">
+		<label for="journal_abbreviation">Publisher</label>
+		<input type="text" name="publisher_name" id="publisher_name">
+		<br>
+		<input type="submit" 
+			value="Find Journal" 
+			class="schBtn">	
+		<input type="reset" 
+			value="Clear Form" 
+			class="clrBtn">
 	</form>
 	</cfif>
 <!---------------------------------------------------------------------------->
