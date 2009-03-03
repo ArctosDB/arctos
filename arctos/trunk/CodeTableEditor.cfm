@@ -748,7 +748,7 @@
 		 AND collection_cde='#origcollection_cde#'
 	</cfif>
 </cfquery>
-<cflocation url="CodeTableEditor.cfm?tbl=ctcoll_other_id_type&fld=#fld#&collcde=#collcde#&hasDescn=#hasDescn#">
+<cflocation url="CodeTableEditor.cfm?tbl=#tbl#&fld=#fld#&collcde=#collcde#&hasDescn=#hasDescn#">
 		
 </cfoutput>
 </cfif>
