@@ -107,6 +107,7 @@
 			select * from cf_collection where cf_collection_id = 0
 		</cfquery>
 	</cfif>
+	<!---
 	<cfquery name="getPrefs" datasource="cf_dbuser">
 		update cf_users set exclusive_collection_id=
 		<cfif len(#session.exclusive_collection_id#) gt 0>
@@ -115,7 +116,7 @@
 			NULL
 		</cfif> where username = '#session.username#'
 	</cfquery>
-			
+	--->	
 	<cfset session.header_color = portalInfo.header_color>
 	<cfset session.header_image = portalInfo.header_image>
 	<cfset session.collection_url = portalInfo.collection_url>

@@ -26,6 +26,9 @@
 <!------------------------------------------------------------------------------------->
 <cfif #action# is "newColl">
 <cfoutput>
+	Contact the Arctos team.
+</cfoutput>
+	<!----
 <form name="addCollection" method="post" action="Collection.cfm">
 <input type="hidden" name="action" value="makeNewCollection">
 	<cfquery name="ctCollCde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -108,15 +111,16 @@
 	
 </form>
 </cfoutput>
+--->
 </cfif>
 <!------------------------------------------------------------------------------------->
+<!---
 <cfif #action# is "makeNewCollection">
 <cfoutput>
 	<cftransaction>
 	<cfquery name="nextCollCde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select sq_collection_id.nextval as newID from dual
 	</cfquery>
-	
 	<cfquery name="newColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO collection (
 			 COLLECTION_CDE,
@@ -147,6 +151,7 @@
 	<cflocation url="Collection.cfm?action=findColl&collection_id=#nextCollCde.newID#">
 </cfoutput>
 </cfif>
+---->
 <!------------------------------------------------------------------------------------->
 <cfif #action# is "findColl">
 <cfoutput>

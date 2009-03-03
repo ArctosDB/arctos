@@ -11,7 +11,7 @@
 </cfif>
 
 <cfif #action# is "nothing">
-<cfquery name="getUserData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="getUserData" datasource="cf_dbuser">
 	SELECT   
 		cf_users.user_id,
 		first_name,
@@ -266,7 +266,8 @@ do not agree</font>.</a>
 					<cfset oneLine = trim(oneLine)>
 					<cffile action="append" file="#fileDir##fileName#" addnewline="yes" output="#oneLine#">
 				</cfloop>
-				<a href="#Application.serverRootUrl#/#fileName#">Right-click to save your download.</a>
+				<CFHEADER NAME="content-disposition" VALUE="attachment;filename=#Application.serverRootUrl#/#fileName#"> 
+				<a href="#Application.serverRootUrl#/#fileName#">Right-click to save your download if it doesn't start automatically.</a>
 				
 			<cfelseif #fileFormat# is "text">
 				<cfset fileName = "/download/ArctosData_#cfid#_#cftoken#.txt">
