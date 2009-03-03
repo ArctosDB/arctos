@@ -673,17 +673,26 @@
 		</cfif>
 		
 		<!-- Setting Collector Number -->
-		<cfset gapPos = "">
-		<cfset firstId = #other_ids#>
-		<cfset secondId = "">
-		<cfif gapPos gt 0>
-			<cfset firstId = left(#other_ids#, #gapPos#-1)>
-			<cfset firstId = replace(firstId,"=", ":",one)>
-			<cfset secondId = right (#other_ids#, len(#other_ids#) - #gapPos#)>
-			<cfset secondId = replace (secondId, "=", ":", one)>
-		</cfif>
+		<cfset collectors = "">
+		<cfloop list="other_ids" delimiters="," index="other_id">
+	<!--- 		<cfset gapPos = find(";" other_ids)> --->
+			<!--- <cfset firstId = #other_ids#> --->
+<!--- 			<cfset firstId = #gapPos#>
+			<cfset secondId = "">
+			<cfif gapPos gt 0>
+				<cfset firstId = left(#other_ids#, #gapPos#-1)>
+				<cfset firstId = replace(firstId,"=", ":",one)>
+				<cfset secondId = right (#other_ids#, len(#other_ids#) - #gapPos#)>
+				<cfset secondId = replace (secondId, "=", ":", one)>
+			</cfif> --->
+			<cfif collectors gt 0>
+				<cfset collectors = replace(other_id, "=", ":", one)>
+			<cfelse>
+				<cfset collectors = "#collectors#, #replace(other_id, "=", ":", one)#" >
+			</cfif>			
+		</cfloop>
 		
-		<cfset collectors = #firstColl#>
+<!--- 		<cfset collectors = #firstColl#>
 		<cfif len(#firstId#) gt 0>
 			<cfset collectors = "#collectors# (#firstId#)">
 		</cfif>
@@ -692,7 +701,7 @@
 			<cfif len(#secondId#) gt 0>
 				<cfset collectors = "#collectors#, (#secondId#)">
 			</cfif>
-		</cfif>
+		</cfif> --->
 		
 		
 		<!--- Latitude/Longitude (datum) --->
@@ -735,6 +744,11 @@
 			</cfif>
               	<cfset highergeog = "#highergeog##island#">
 		</cfif>
-		
+		<cfset hAr[i] = #highergeog#>
 	</cfloop>
+	
+	<cfset temp=queryAddColumn(q, "coordinates", "VarChar", cAr)>
+	<cfset temp=queryAddColumn(q, "highergeog", "VarChar", hAr)>
+	
+	<cfreturn q>
 </cffunction>
