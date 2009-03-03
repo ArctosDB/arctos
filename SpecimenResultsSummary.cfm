@@ -508,8 +508,8 @@
 <!------------------------------- download --------------------------------->
 
 
-<cfset dlPath = "#Application.SpecimenDownloadPath#">
-<cfset dlFile = "#session.SpecimenDownloadFileName#">
+<cfset dlPath = "#Application.DownloadPath#">
+<cfset dlFile = "#session.DownloadFileName#">
  <cfset header ="Count#chr(9)#Scientific_Name">
 	<cfif #groupBy# contains "continent_ocean">
 		 <cfset header = "#header##chr(9)#continent_ocean">

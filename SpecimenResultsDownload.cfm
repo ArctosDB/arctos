@@ -247,9 +247,9 @@ do not agree</font>.</a>
 		<cfoutput>
 
 			<cfif #fileFormat# is "csv">
-				<cfset fileName = "/download/ArctosData_#cfid#_#cftoken#.csv">
+				<cfset fileName = "ArctosData_#cfid#_#cftoken#.csv">
 				<cfset header=#trim(ac)#>
-				<cffile action="write" file="#fileDir##fileName#" addnewline="yes" output="#header#">
+				<cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#header#">
 				<cfloop query="getData">
 					<cfset oneLine = "">
 					<cfloop list="#ac#" index="c">
@@ -264,10 +264,10 @@ do not agree</font>.</a>
 						</cfif>
 					</cfloop>
 					<cfset oneLine = trim(oneLine)>
-					<cffile action="append" file="#fileDir##fileName#" addnewline="yes" output="#oneLine#">
+					<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#oneLine#">
 				</cfloop>
-				<CFHEADER NAME="content-disposition" VALUE="attachment;filename=#Application.serverRootUrl#/#fileName#"> 
-				<a href="#Application.serverRootUrl#/#fileName#">Right-click to save your download if it doesn't start automatically.</a>
+				<cflocation url="/download/download.cfm?file=#fileName#" addtoken="false">
+				<a href="/download/#fileName#">Click here if your file does not automatically download.</a>
 				
 			<cfelseif #fileFormat# is "text">
 				<cfset fileName = "ArctosData_#cfid#_#cftoken#.txt">
@@ -294,9 +294,9 @@ do not agree</font>.</a>
 				<a href="/download/#fileName#">Click here if your file does not automatically download.</a>
 			
 			<cfelseif #fileFormat# is "xml">
-				<cfset fileName = "/download/ArctosData_#cfid#_#cftoken#.xml">
+				<cfset fileName = "ArctosData_#cfid#_#cftoken#.xml">
 				<cfset header = "<result>">
-				<cffile action="write" file="#fileDir##fileName#" addnewline="no" output="#header#">
+				<cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="no" output="#header#">
 				<cfloop query="getData">
 					<cfset oneLine = "<record>">
 					<cfloop list="#ac#" index="c">
@@ -312,19 +312,12 @@ do not agree</font>.</a>
 					</cfloop>
 					<cfset oneLine = "#oneLine#</record>">
 					<cfset oneLine = trim(oneLine)>
-					<cffile action="append" file="#fileDir##fileName#" addnewline="no" output="#oneLine#">
+					<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="no" output="#oneLine#">
 				</cfloop>
 				<cfset oneLine = "</result>">
-				<cffile action="append" file="#fileDir##fileName#" addnewline="no" output="#oneLine#">
-				
-				<cfset yourFileName="whatever.csv">
-				<cfcontent type="application/x-unknown">
-				<CFHEADER NAME="content-disposition" VALUE="attachment;filename=#Application.serverRootUrl#/#fileName#"> 
-<cfheader name="Content-Description" value="This is a tab-delimited file.">
-<cflocation url="#Application.serverRootUrl#/#fileName#">
-
-
-				<a href="#Application.serverRootUrl#/#fileName#">Right-click to save your download if it doesn't start automatically.</a>
+				<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="no" output="#oneLine#">
+				<cflocation url="/download/download.cfm?file=#fileName#" addtoken="false">
+				<a href="/download/#fileName#">Click here if your file does not automatically download.</a>
 			<cfelse>
 				That file format doesn't seem to be supported yet!
 			</cfif>

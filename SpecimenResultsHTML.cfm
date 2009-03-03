@@ -1559,8 +1559,8 @@ document.getElementById('saveme').submit();
 <!------------------------- make download ----------------------------------------------------------->
 <cfif #Action# is "download">
 
-<cfset dlPath = "#Application.SpecimenDownloadPath#">
-<cfset dlFile = "#session.SpecimenDownloadFileName#">
+<cfset dlPath = "#Application.DownloadPath#">
+<cfset dlFile = "#session.DownloadFileName#">
 	<cfset header = "Catalog_Number">
 	<cfif len(#session.CustomOtherIdentifier#) gt 0>
 		<cfset header = "#header##chr(9)##session.CustomOtherIdentifier#">
@@ -1692,8 +1692,8 @@ document.getElementById('saveme').submit();
 	<!------------------------------------- end download ----------------------------------->
 <cfif #Action# is "labels">
 
-<cfset dlPath = "#Application.SpecimenDownloadPath#">
-<cfset dlFile = "#session.SpecimenDownloadFileName#">
+<cfset dlPath = "#Application.DownloadPath#">
+<cfset dlFile = "#session.DownloadFileName#">
 	<cfset header = "CatalogNumber#chr(9)#ScientificName#chr(9)#AfNumber#chr(9)#LatLong#chr(9)#Geog#chr(9)#VerbatimDate#chr(9)#Sex#chr(9)#Collectors#chr(9)#Parts#chr(9)#FieldNumber#chr(9)#Measurements#chr(9)#Accn#chr(9)#">
 
 <cfset header=#trim(header)#>
