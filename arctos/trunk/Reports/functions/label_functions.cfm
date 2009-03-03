@@ -686,9 +686,9 @@
 				<cfset secondId = replace (secondId, "=", ":", one)>
 			</cfif> --->
 			<cfif collectors gt 0>
-				<cfset collectors = replace(other_id, "=", ":", one)>
+				<cfset collectors = replace(other_id, "=", ":", "one"")>
 			<cfelse>
-				<cfset collectors = "#collectors#, #replace(other_id, "=", ":", one)#" >
+				<cfset collectors = "#collectors#, #replace(other_id, "=", ":", "one")#" >
 			</cfif>			
 		</cfloop>
 		
