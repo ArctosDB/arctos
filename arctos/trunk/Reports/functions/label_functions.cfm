@@ -659,21 +659,26 @@
 
 <cffunction name="format_ledger" access="public" returntype="Query">
 	<cfargument name="q" required="true" type="query">
+	
+	<cfset colAr = ArrayNew(1)>
+	<cfset coorAr = ArrayNew(1)>
+	<cfset hAr = ArrayNew(1)>
 	<!--- Data Manipulation --->
+	<cfset i = 1>
 	<cfloop query="q">
 		
 		<!--- Collectors (collector_id_num) [, second collector (second collector number)] --->
 		<!-- Setting Collector Names --> 
-		<cfset gapPos = find(",", collectors)>
+<!--- 		<cfset gapPos = find(",", collectors)>
 		<cfset firstColl = #collectors#>
 		<cfset secondColl = "">
 		<cfif gapPos gt 0>
 			<cfset firstColl = left(#collectors#, #gapPos#-1)>
 			<cfset secondColl = right (#collectors#, len(#collectors#) - #gapPos#)>
-		</cfif>
+		</cfif> --->
 		
 		<!-- Setting Collector Number -->
-		<cfset collectors = "">
+		<cfset format_collectors = "">
 		<cfloop list="other_ids" delimiters="," index="other_id">
 	<!--- 		<cfset gapPos = find(";" other_ids)> --->
 			<!--- <cfset firstId = #other_ids#> --->
@@ -685,12 +690,13 @@
 				<cfset secondId = right (#other_ids#, len(#other_ids#) - #gapPos#)>
 				<cfset secondId = replace (secondId, "=", ":", one)>
 			</cfif> --->
-			<cfif collectors gt 0>
-				<cfset collectors = replace(other_id, "=", ":", "one")>
+			<cfif format_collectors gt 0>
+				<cfset format_collectors = replace(other_id, "=", ":", "one")>
 			<cfelse>
-				<cfset collectors = "#collectors#, #replace(other_id, "=", ":", "one")#" >
-			</cfif>			
+				<cfset format_collectors = "#format_collectors#, #replace(other_id, "=", ":", "one")#" >
+			</cfif>
 		</cfloop>
+		<cfset colAr[i] = #format_collectors#>
 		
 <!--- 		<cfset collectors = #firstColl#>
 		<cfif len(#firstId#) gt 0>
@@ -717,6 +723,7 @@
 		<cfif len(datum) gt 0>
 			<cfset coordinates = "#coordinates# (#datum#)">
 		</cfif>
+		<cfset coorAr[i] = #coordinates#>
 		
 		<!--- Higher Geography: County; state_prov; County; island)--->
         <cfset highergeog = "">
@@ -745,6 +752,8 @@
               	<cfset highergeog = "#highergeog##island#">
 		</cfif>
 		<cfset hAr[i] = #highergeog#>
+		
+		<cfset i = i +1>
 	</cfloop>
 	
 	<cfset temp=queryAddColumn(q, "coordinates", "VarChar", cAr)>
