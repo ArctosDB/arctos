@@ -668,50 +668,16 @@
 	<cfloop query="q">
 		
 		<!--- Collectors (collector_id_num) [, second collector (second collector number)] --->
-		<!-- Setting Collector Names --> 
-<!--- 		<cfset gapPos = find(",", collectors)>
-		<cfset firstColl = #collectors#>
-		<cfset secondColl = "">
-		<cfif gapPos gt 0>
-			<cfset firstColl = left(#collectors#, #gapPos#-1)>
-			<cfset secondColl = right (#collectors#, len(#collectors#) - #gapPos#)>
-		</cfif> --->
-		
-		<!-- Setting Collector Number -->
 		<cfset format_collectors = "">
 		<cfloop list="other_ids" delimiters="," index="other_id">
-	<!--- 		<cfset gapPos = find(";" other_ids)> --->
-			<!--- <cfset firstId = #other_ids#> --->
-<!--- 			<cfset firstId = #gapPos#>
-			<cfset secondId = "">
-			<cfif gapPos gt 0>
-				<cfset firstId = left(#other_ids#, #gapPos#-1)>
-				<cfset firstId = replace(firstId,"=", ":",one)>
-				<cfset secondId = right (#other_ids#, len(#other_ids#) - #gapPos#)>
-				<cfset secondId = replace (secondId, "=", ":", one)>
-			</cfif> --->
-			<cfif format_collectors gt 0>
-				<cfset format_collectors = replace(other_id, "=", ":", "one")>
-			<cfelse>
-				<cfset format_collectors = "#format_collectors#, #replace(other_id, "=", ":", "one")#" >
-			</cfif>
+			<cfset coll = replace(other_id, "=", ":", "one")>
+			<cfset format_collectors = listappend(format_collectors, coll)>
 		</cfloop>
 		<cfset colAr[i] = #format_collectors#>
 		
-<!--- 		<cfset collectors = #firstColl#>
-		<cfif len(#firstId#) gt 0>
-			<cfset collectors = "#collectors# (#firstId#)">
-		</cfif>
-		<cfif len(#secondColl#) gt 0>
-			<cfset collectors = "#collectors#, #secondColl#">
-			<cfif len(#secondId#) gt 0>
-				<cfset collectors = "#collectors#, (#secondId#)">
-			</cfif>
-		</cfif> --->
-		
 		
 		<!--- Latitude/Longitude (datum) --->
-		<!--- Setting Latitude/Longitidue --->
+		<!-- Setting Latitude/Longitidue -->
         <cfset coordinates = "">
         <cfif len(#verbatimLatitude#) gt 0 AND len(#verbatimLongitude#) gt 0>
                 <cfset coordinates = "#verbatimLatitude# / #verbatimLongitude#">
@@ -719,7 +685,7 @@
                 <cfset coordinates = replace(coordinates,"m","'","all")>
                 <cfset coordinates = replace(coordinates,"s","''","all")>
         </cfif>
-		<!--- Setting datum --->
+		<!-- Setting datum -->
 		<cfif len(datum) gt 0>
 			<cfset coordinates = "#coordinates# (#datum#)">
 		</cfif>
