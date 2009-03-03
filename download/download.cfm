@@ -3,7 +3,6 @@
 	<cfabort>
 </cfif>
 <cfoutput>
-	<cfset fn=evaluate(file)>
 	<cfheader name="Content-Disposition" value="attachment; filename=#url.file#">
 	<cfcontent type="application/#filetype#" file="#Application.serverRootUrl#/download/#fileName#">
 </cfoutput>
