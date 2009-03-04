@@ -32,7 +32,7 @@
 	</cfquery>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="other_id_num">Other&nbsp;Identifying&nbsp;Number:</span>
+			<span class="helpLink" id="other_id_num">Other&nbsp;Identifier:</span>
 		</td>
 		<td class="srch">
 			<select name="oidOper" id="oidOper" size="1">
@@ -53,7 +53,6 @@
 		<td class="srch">
 			<input type="text" name="accn_number" id="accn_number">
 			<span class="infoLink" onclick="var e=document.getElementById('accn_number');e.value='='+e.value;">Add = for exact match</span>
-			<span class="smaller">&nbsp;Exact Match?</span> <input type="checkbox" name="exactAccnNumMatch" value="1">
 		</td>
 	</tr>
 	<tr>

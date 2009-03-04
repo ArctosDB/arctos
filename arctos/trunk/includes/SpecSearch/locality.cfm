@@ -21,6 +21,9 @@
 <cfquery name="ctgeology_attribute_val"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select attribute_value from geology_attribute_hierarchy group by attribute_value order by attribute_value 
 </cfquery>
+<cfquery name="ctmax_error_units"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select max_error_units from ctmax_error_units group by max_error_units order by max_error_units 
+</cfquery>
 <cfoutput>
 <table id="t_identifiers" class="ssrch">
 	<tr>
@@ -168,10 +171,17 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="max_error_distance">Coordinate Error (meters):</span>
+			<span class="helpLink" id="max_error_distance">Maximum Uncertainty:</span>
 		</td>
 		<td class="srch">
-			<input type="text" name="max_error_in_meters" id="max_error_in_meters">
+			<input type="text" name="min_max_error" id="min_max_error" size="5"> - 
+			<input type="text" name="max_max_error" id="max_max_error" size="5">
+			<select name="max_error" id="max_error" size="1">
+				<option value=""></option>
+				<cfloop query="ctmax_error_units">
+					<option value="#ctmax_error_units.max_error_units#">#ctmax_error_units.max_error_units#</option>
+				</cfloop>
+			</select>
 		</td>
 	</tr>
 	<tr>

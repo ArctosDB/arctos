@@ -117,7 +117,7 @@
 			<input type="checkbox" name="showObservations" id="showObservations" value="1" onchange="changeshowObservations(this.checked);"<cfif #session.showObservations# eq 1> checked="checked" </cfif>>
 		</td>
 		<td>
-			<span class="helpLink" id="_is_tissue">Tissues&nbsp;Only?</span>
+			<span class="helpLink" id="_is_tissue">Tissues?</span>
 			<input type="checkbox" name="is_tissue" id="is_tissue" value="1">
 		</td>
 	</tr>
@@ -148,7 +148,7 @@
 		</tr>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="collection">Institutional Catalog</span>:
+				<span class="helpLink" id="collection">Collection</span>:
 			</td>
 			<td class="srch">
 				<select name="collection_id" id="collection_id" size="1">
@@ -293,7 +293,7 @@
 		</tr>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="part_name">Part:</span>
+				<span class="helpLink" id="part_name">Part Name:</span>
 			</td>
 			<td class="srch">
 				<cfinput type="text" autosuggest="#partlist#" name="partname" id="partname" delimiter="\">
@@ -313,7 +313,7 @@
 		</tr>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="_type_status">Type Status:</span>
+				<span class="helpLink" id="_type_status">Basis of Citation:</span>
 			</td>
 			<td class="srch">
 				<cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
