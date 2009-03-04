@@ -176,7 +176,7 @@
 		<td class="srch">
 			<input type="text" name="min_max_error" id="min_max_error" size="5"> - 
 			<input type="text" name="max_max_error" id="max_max_error" size="5">
-			<select name="max_error" id="max_error" size="1">
+			<select name="max_error_units" id="max_error_units" size="1">
 				<option value=""></option>
 				<cfloop query="ctlat_long_error_units">
 					<option value="#ctlat_long_error_units.lat_long_error_units#">#ctlat_long_error_units.lat_long_error_units#</option>

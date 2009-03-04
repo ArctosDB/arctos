@@ -894,6 +894,31 @@
 	<cfset mapurl = "#mapurl#&island=#island#">
 </cfif>
 
+
+<cfif (isdefined("min_max_error") AND len(min_max_error) gt 0) or (isdefined("max_max_error") AND len(max_max_error) gt 0)>
+	<cfif not isdefined("max_error_units") or len(max_error_units) is 0>
+		<cfset max_error_units='m'>
+	</cfif>
+	<cfif not isnumeric(min_max_error) or not isnumeric(max_max_error)>
+		<div class="error">
+			Maximum Error must be numeric.
+		</div>		  
+		<cfabort>
+	</cfif>
+	<cfif len(min_max_error) is 0>
+		<cfset min_max_error=0>
+	</cfif>
+	<cfif len(max_max_error) is 0>
+		<cfset max_max_error=9999999999>
+	</cfif>
+	<cfset mapurl = "#mapurl#&min_max_error=#min_max_error#&max_max_error=#max_max_error#&max_error_units=#max_error_units#">
+	<cfif #basJoin# does not contain " lat_long ">
+		<cfset basJoin = " #basJoin# INNER JOIN lat_long ON (#flatTableName#.locality_id = lat_long.locality_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND lat_long.accepted_lat_long_fg=1">
+	<cfset basQual = " #basQual# AND to_meters(lat_long.max_error_distance,'#max_error_units#') between 
+		to_meters(min_max_error,'#max_error_units#') and to_meters(max_max_error,'#max_error_units#')">
+</cfif>
 <cfif isdefined("max_error_in_meters") AND len(#max_error_in_meters#) gt 0>
 	<cfif not isnumeric(#max_error_in_meters#)>
 		<font color="#FF0000" size="+1">max_error_in_meters must be numeric.</font>			  
