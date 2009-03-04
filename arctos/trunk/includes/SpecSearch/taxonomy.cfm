@@ -58,6 +58,7 @@
 		</td>
 		<td class="srch">
 			<input type="text" name="species" id="species" size="50">
+			<span class="infoLink" onclick="var e=document.getElementById('species');e.value='='+e.value;">Add = for exact match</span>
 		</td>
 	</tr>
 	<tr>
@@ -66,6 +67,7 @@
 		</td>
 		<td class="srch">
 			<input type="text" name="subspecies" id="subspecies" size="50">
+			<span class="infoLink" onclick="var e=document.getElementById('subspecies');e.value='='+e.value;">Add = for exact match</span>
 		</td>
 	</tr>
 	<tr>

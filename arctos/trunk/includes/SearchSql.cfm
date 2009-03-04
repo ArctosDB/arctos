@@ -654,13 +654,11 @@
 </cfif>
 <cfif isdefined("accn_number") and len(#accn_number#) gt 0>
 	<cfset mapurl = "#mapurl#&accn_number=#accn_number#">
-	<cfif isdefined("exactAccnNumMatch") and #exactAccnNumMatch# is 1>
+	<cfif left(accn_number,1) is '='>
 		<cfset basQual = " #basQual# AND #flatTableName#.accession = '#accn_number#'">
 	<cfelse>
-		<cfset exactAccnNumMatch = 0>
-		<cfset basQual = " #basQual# AND upper(#flatTableName#.accession) LIKE '%#ucase(accn_number)#%'">				
+		<cfset basQual = " #basQual# AND upper(#flatTableName#.accession) LIKE '%#ucase(accn_number)#%'">
 	</cfif>
-	<cfset mapurl = "#mapurl#&exactAccnNumMatch=#exactAccnNumMatch#">
 </cfif>
 <cfif isdefined("accn_list") and len(#accn_list#) gt 0>
 	<cfset mapurl = "#mapurl#&accn_list=#accn_list#">

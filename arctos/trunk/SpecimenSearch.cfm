@@ -227,7 +227,7 @@
 				<span class="helpLink" id="_any_taxa_term">Any Taxonomic Element:</span>
 			</td>
 			<td class="srch">
-				<input type="text" name="any_taxa_term" id="any_taxa_term" size="28">
+				<input type="text" name="any_taxa_term" id="any_taxa_term" size="50">
 			</td>
 		</tr>
 	</table>
