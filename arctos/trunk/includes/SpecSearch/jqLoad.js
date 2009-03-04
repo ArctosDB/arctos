@@ -34,15 +34,7 @@ function setPrevSearch_result(schParam){
 				document.getElementById(eName).value=eVl;
 			}
 	 	}
- }
- function get_cookie ( cookie_name ) {
-  var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
-  if ( results )
-    return ( unescape ( results[2] ) );
-  else
-    return null;
-}
- 
+ } 
  function setPrevSearch(){
 	var schParam=get_cookie ('schParams');
 	var pAry=schParam.split("|");
