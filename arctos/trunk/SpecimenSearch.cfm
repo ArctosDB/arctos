@@ -441,10 +441,4 @@
 	}
 	// for the stuff that's already here...
 </script>
-
-<script>
-	function timey(){alert('timey');}
-	//setTimeout("timey();",12500);
-	
-</script>
 <cfinclude template = "includes/_footer.cfm">

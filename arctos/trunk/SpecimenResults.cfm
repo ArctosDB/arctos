@@ -170,23 +170,9 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 <!---- build a temp table --->
 <cfset checkSql(SqlString)>	
 <cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
-<cftry>
 	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
-<cfcatch>
-	<div class="error">
-		Oops! An error occurred!
-		<br>This is usually caused by concurrent searches from one user causing database conflicts.
-		This can also cause unexpected data on subsequent pages. It's generally recommended to perform only one search 
-		at a time.
-		<br>Please file a <a href="info/bugs.cfm">bug report</a> detailing how you got here if you feel this 
-		message is in error.
-		<br>Otherwise, you may <a href="/SpecimenResults.cfm?#mapurl#">click here to requery</a>.
-	</div>
-	<cfabort>
-</cfcatch>
-</cftry>
 <!---------------------------------------- debug widget --------------------------------------------------->
 <cfif isdefined("session.username") and 
 	(#session.username# is "dlm" or #session.username# is "dusty" or #session.username# is "ccicero")>
@@ -210,23 +196,9 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 	</cfif>
 	
 </form>
-<cftry>
 	<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct collection_object_id from #session.SpecSrchTab#
 	</cfquery>
-<cfcatch>
-	<div class="error">
-		Oops! An error occurred!
-		<br>This is usually caused by concurrent searches from one user causing database conflicts.
-		This can also cause unexpected data on subsequent pages. It's generally recommended to perform only one search 
-		at a time.
-		<br>Please file a <a href="info/bugs.cfm">bug report</a> detailing how you got here if you feel this 
-		message is in error.
-		<br>Otherwise, you may <a href="/SpecimenResults.cfm?#mapurl#">click here to requery</a>.
-	</div>
-	<cfabort>
-</cfcatch>
-</cftry>
 <cfif #summary.recordcount# is 0>
 	<div id="loading" class="status">
 		Your query returned no results.
