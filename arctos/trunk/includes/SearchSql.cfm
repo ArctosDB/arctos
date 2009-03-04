@@ -655,7 +655,7 @@
 <cfif isdefined("accn_number") and len(#accn_number#) gt 0>
 	<cfset mapurl = "#mapurl#&accn_number=#accn_number#">
 	<cfif left(accn_number,1) is '='>
-		<cfset basQual = " #basQual# AND #flatTableName#.accession = '#accn_number#'">
+		<cfset basQual = " #basQual# AND upper(#flatTableName#.accession) = '#ucase(right(accn_number,len(accn_number)-1))#'">
 	<cfelse>
 		<cfset basQual = " #basQual# AND upper(#flatTableName#.accession) LIKE '%#ucase(accn_number)#%'">
 	</cfif>
