@@ -152,6 +152,7 @@
 		</td>
 		<td class="srch">
 			<input type="text" name="spec_locality" id="spec_locality" size="50">
+			<span class="infoLink" onclick="var e=document.getElementById('spec_locality');e.value='='+e.value;">Add = for exact match</span>
 		</td>
 	</tr>
 	<tr>
