@@ -398,9 +398,9 @@
 				(identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id)">
 			</cfif>
 			<cfif left(genus,1) is '='>
-				<cfset basQual = " #basQual# AND taxonomy.genus = '#right(genus,len(genus)-1)#'">
+				<cfset basQual = " #basQual# AND upper(taxonomy.genus) = '#ucase(right(genus,len(genus)-1))#'">
 			<cfelse>
-				<cfset basQual = " #basQual# AND taxonomy.genus = '#genus#'">
+				<cfset basQual = " #basQual# AND upper(taxonomy.genus) = '#ucase(genus)#'">
 			</cfif>		
 		</cfif>
 		<cfif isdefined("Phylclass") AND len(#Phylclass#) gt 0>

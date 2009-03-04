@@ -46,7 +46,6 @@ function setPrevSearch_result(schParam){
 			document.getElementById(eName).value=eVl;
 		}
  	}
-	//DWREngine._execute(_cfscriptLocation, null, 'getSetPrevSearch', setPrevSearch_result);
 }
 function getFormValues() {
  	var theForm=document.getElementById('SpecData');
@@ -60,19 +59,11 @@ function getFormValues() {
 			var thisPair=element_name + '::' + element_value;
 			if (spAry.indexOf(thisPair)==-1) {
 				spAry.push(thisPair);
-				//console.log(thisPair);			
 			}
 		}
 	}
 	var str=spAry.join("|");
 	document.cookie = 'schParams=' + str;
-	
-	
-	// try cookies DWREngine._execute(_cfscriptLocation, null, 'setSchParam', str, nada);
-	//console.log('-------------------');
-	//alert(str);
-	//alert('shipped....');
-	//return false;
  }
 
  
