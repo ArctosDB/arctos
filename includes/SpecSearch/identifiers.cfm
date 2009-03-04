@@ -51,7 +51,8 @@
 			<span class="helpLink" id="_accn_number">Accession:</span>
 		</td>
 		<td class="srch">
-			<input type="text" name="accn_number" id="accn_number" >
+			<input type="text" name="accn_number" id="accn_number">
+			<span class="infoLink" onclick="var e=document.getElementById('accn_number');e.value='='+e.value;">Add = for exact match</span>
 			<span class="smaller">&nbsp;Exact Match?</span> <input type="checkbox" name="exactAccnNumMatch" value="1">
 		</td>
 	</tr>
