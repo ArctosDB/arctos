@@ -33,7 +33,18 @@
 			<cfelse>
 				<cfset ipaddress='unknown'>
 			</CFIF>
-			<p>ipaddress: <cfoutput><a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#</a></cfoutput></p>
+			<cfoutput>
+			<p>ipaddress: <a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#</a></p>
+			<cfif isdefined(session.username)>
+				<br>Username: #session.username#
+			</cfif>
+			<cfif isdefined(session.username)>
+				<br>Username: #session.username#
+			</cfif>
+			<cfif isdefined(exception.Sql)>
+				<br>Sql: #exception.Sql#
+			</cfif>			
+			</cfoutput>
 			<hr>
 			Exceptions:
 			<hr>
@@ -71,7 +82,11 @@
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
 			<cfset subject="locked form">
 		<cfelse>
-			<cfset subject="Error">
+			<cfif isdefined(exception.message)>
+				<cfset subject=exception.message>
+			<cfelse>
+				<cfset subject="Unknown Error">
+			</cfif>
 		</cfif>
 		<cfmail subject="#subject#" to="#Application.PageProblemEmail#" from="SomethingBroke@#Application.fromEmail#" type="html">
 			#errortext#
