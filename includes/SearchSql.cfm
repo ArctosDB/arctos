@@ -630,7 +630,7 @@
 </cfif>
 <cfif isdefined("verbatim_date") AND len(#verbatim_date#) gt 0>
 	<cfset mapurl = "#mapurl#&verbatim_date=#verbatim_date#">
-	<cfset basQual = " #basQual# AND upper(verbatim_date) LIKE '%#ucase(verbatim_date)#%'">
+	<cfset basQual = " #basQual# AND upper(verbatim_date) LIKE '%#ucase(escapeQuotes(verbatim_date))#%'">
 </cfif>
 <cfif isdefined("accn_trans_id") AND len(#accn_trans_id#) gt 0>
 	<cfset mapurl = "#mapurl#&accn_trans_id=#accn_trans_id#">
@@ -916,7 +916,7 @@
 		<cfset basJoin = " #basJoin# INNER JOIN lat_long ON (#flatTableName#.locality_id = lat_long.locality_id)">
 	</cfif>
 	<cfset basQual = " #basQual# AND lat_long.accepted_lat_long_fg=1">
-	<cfset basQual = " #basQual# AND to_meters(lat_long.max_error_distance,'#max_error_units#') between 
+	<cfset basQual = " #basQual# AND to_meters(lat_long.max_error_distance,max_error_units) between 
 		to_meters(#min_max_error#,'#max_error_units#') and to_meters(#max_max_error#,'#max_error_units#')">
 </cfif>
 <cfif isdefined("max_error_in_meters") AND len(#max_error_in_meters#) gt 0>
