@@ -397,6 +397,7 @@
 				<cfset basJoin = " #basJoin# INNER JOIN taxonomy ON 
 				(identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id)">
 			</cfif>
+			<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
 			<cfif left(genus,1) is '='>
 				<cfset basQual = " #basQual# AND upper(taxonomy.genus) = '#ucase(right(genus,len(genus)-1))#'">
 			<cfelse>
