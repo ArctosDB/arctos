@@ -973,7 +973,7 @@
 	<cfif #compare(spec_locality,"NULL")# is 0>
 		<cfset basQual = " #basQual# AND #flatTableName#.spec_locality is null">
 	<cfelse>
-		<cfif left(species,1) is '='>
+		<cfif left(spec_locality,1) is '='>
 			<cfset basQual = " #basQual# AND upper(#flatTableName#.spec_locality) = '#ucase(escapeQuotes(right(spec_locality,len(spec_locality)-1)))#'">
 		<cfelse>
 			<cfset basQual = " #basQual# AND upper(#flatTableName#.spec_locality) like '%#ucase(escapeQuotes(spec_locality))#%'">
