@@ -9,6 +9,13 @@
 	DO NOT OVERWRITE THIS FILE WITH OBFUSCATED CODE!
 
 */
+ function get_cookie ( cookie_name ) {
+  var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
+  if ( results )
+    return ( unescape ( results[2] ) );
+  else
+    return null;
+}
 function orapwCheck(p,u) {
 	var regExp = /^[A-Za-z0-9!$%&_?(\-)<>=/:;*\.]$/;
 	var minLen=6;
