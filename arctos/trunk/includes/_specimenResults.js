@@ -1,3 +1,7 @@
+function popNav(elem,val) {
+	console.log('element is ' + elem);
+	console.log('value is ' + val);
+}
 function saveSearch(returnURL){
 	var sName=prompt("Name this search", "my search");
 	if (sName!=null){
@@ -865,7 +869,7 @@ function success_getSpecResultsData(result){
 				if (result[0].COLUMNLIST.indexOf('SPEC_LOCALITY')> -1) {
 					//theInnerHtml += '<td id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID+'"><a href="/SpecimenResults.cfm?spec_locality=' + result[i].SPEC_LOCALITY + '">' + result[i].SPEC_LOCALITY + '</a>&nbsp;</td>';
 					theInnerHtml += '<td id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID+'">' + result[i].SPEC_LOCALITY;
-					theInnerHtml += '<span class="infoLink" onclick="popNav(' + "'" + escape(result[i].SPEC_LOCALITY) + "'" + ')">info</span>'; 
+					theInnerHtml += '<span class="infoLink" onclick="popNav(' + "'spec_locality','" + escape(result[i].SPEC_LOCALITY) + "'" + ')">info</span>'; 
 					theInnerHtml += '</td>';
 				}
 				
