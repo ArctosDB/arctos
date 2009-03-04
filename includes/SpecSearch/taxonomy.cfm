@@ -23,14 +23,6 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="full_taxon_name">Taxonomy:</span>
-		</td>
-		<td class="srch">
-			<input type="text" name="HighTaxa" id="HighTaxa" size="50">
-		</td>
-	</tr>
-	<tr>
-		<td class="lbl">
 			<span class="helpLink" id="_phylclass">Class:</span>
 		</td>
 		<td class="srch">
@@ -94,7 +86,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="identifier">Identifier:</span>
+			<span class="helpLink" id="identifier">Determiner:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="identified_agent" id="identified_agent">

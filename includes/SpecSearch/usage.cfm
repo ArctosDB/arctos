@@ -52,7 +52,7 @@
     --->
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="accessioned_by_project">Accessioned By Project Name:</span>
+			<span class="helpLink" id="accessioned_by_project">Contributed by Project:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="project_name" id="project_name" size="50">					
@@ -61,7 +61,7 @@
 	</tr>	
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="loaned_to_project">Loaned To Project Name:</span>
+			<span class="helpLink" id="loaned_to_project">Used by Project:</span>
 		</td>
 		<td class="srch">
 			<input type="text" name="loan_project_name" id="loan_project_name" size="50">

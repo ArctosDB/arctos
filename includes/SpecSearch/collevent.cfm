@@ -32,7 +32,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="incl_date">Inclusive Date Search?</span>
+			<span class="helpLink" id="incl_date">Strict Date Search?</span>
 		</td>
 		<td class="srch">
 			<input type="checkbox" name="inclDateSearch" id="inclDateSearch" value="yes">
