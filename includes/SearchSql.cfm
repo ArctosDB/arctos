@@ -400,7 +400,7 @@
 			<cfif left(genus,1) is '='>
 				<cfset basQual = " #basQual# AND upper(taxonomy.genus) = '#ucase(right(genus,len(genus)-1))#'">
 			<cfelse>
-				<cfset basQual = " #basQual# AND upper(taxonomy.genus) = '#ucase(genus)#'">
+				<cfset basQual = " #basQual# AND upper(taxonomy.genus) like '%#ucase(genus)#%'">
 			</cfif>		
 		</cfif>
 		<cfif isdefined("Phylclass") AND len(#Phylclass#) gt 0>
