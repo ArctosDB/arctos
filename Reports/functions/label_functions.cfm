@@ -681,7 +681,7 @@
         <cfset coordinates = "">
         <cfif len(#verbatimLatitude#) gt 0 AND len(#verbatimLongitude#) gt 0>
                 <cfset coordinates = "#verbatimLatitude# / #verbatimLongitude#">
-                <cfset coordinates = replace(coordinates,"d","chr(176);","all")>
+                <cfset coordinates = replace(coordinates,"d","#chr(176)#","all")>
                 <cfset coordinates = replace(coordinates,"m","'","all")>
                 <cfset coordinates = replace(coordinates,"s","''","all")>
         </cfif>
