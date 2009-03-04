@@ -35,10 +35,8 @@ function setPrevSearch_result(schParam){
 			}
 	 	}
  }
- function get_cookie ( cookie_name )
-{
+ function get_cookie ( cookie_name ) {
   var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
-
   if ( results )
     return ( unescape ( results[2] ) );
   else
@@ -47,7 +45,6 @@ function setPrevSearch_result(schParam){
  
  function setPrevSearch(){
 	var schParam=get_cookie ('schParams');
-	console.log(schParam);
 	var pAry=schParam.split("|");
  	for (var i=0; i<pAry.length; i++) {
  		var eAry=pAry[i].split("::");
