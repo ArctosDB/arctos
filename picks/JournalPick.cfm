@@ -1,25 +1,21 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 <cfset title = "Journal pick">
-
-<body bgcolor="#FFFBF0" text="midnightblue" link="blue" vlink="midnightblue">
- 
- 
- 
-
-<!--- build an agent id search --->Search for a Journal:
-<cfform name="findJournal" method="post" action="JournalPick.cfm">
-		<cfoutput>
-		<input type="hidden" name="journalIdFld" value="#journalIdFld#">
-		<input type="hidden" name="journalNameFld" value="#journalNameFld#">
-		<input type="hidden" name="formName" value="#formName#">
-	</cfoutput>
+<cfoutput>
+<label for="findJournal">Find Journal</label>
+<form name="findJournal" id="findJournal" method="post" action="JournalPick.cfm">
+	<input type="hidden" name="journalIdFld" value="#journalIdFld#">
+	<input type="hidden" name="journalNameFld" value="#journalNameFld#">
+	<input type="hidden" name="formName" value="#formName#">
 	<input type="hidden" name="search" value="true">
-		<br>Name: <input type="text" name="journal_name">
-		<br>Abbreviation:<input type="text" name="journal_abbreviation">
-		<br>Publisher:<input type="text" name="publisher_name">
-		<br><input type="submit" value="Find Journal">
-	</cfform>
-	
+	<label for="journal_name">Journal Name</label>
+	<input type="text" name="journal_name" id="journal_name">
+	<label for="journal_abbreviation">Journal Abbreviation</label>
+	<input type="text" name="journal_abbreviation" id="journal_abbreviation">
+	<label for="publisher_name">Publisher</label>
+	<input type="text" name="publisher_name" id="publisher_name">
+	<br><input type="submit" value="Find Journal" class="likeLink">
+</form>
+</cfoutput>
 	
 <cfif isdefined("search") and #search# is "true">
 	<!--- make sure we're searching for something --->
