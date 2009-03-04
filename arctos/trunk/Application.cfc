@@ -23,7 +23,6 @@
 		<cfset showErr=0>
 		<cfreturn/>
 	</cfif>
-
 	<cfif #showerr# is 1>
 		<cfsavecontent variable="errortext">
 			<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and #len(CGI.HTTP_X_Forwarded_For)# gt 0>
@@ -35,14 +34,11 @@
 			</CFIF>
 			<cfoutput>
 			<p>ipaddress: <a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#</a></p>
-			<cfif isdefined(session.username)>
+			<cfif isdefined("session.username")>
 				<br>Username: #session.username#
 			</cfif>
-			<cfif isdefined(session.username)>
-				<br>Username: #session.username#
-			</cfif>
-			<cfif isdefined(exception.Sql)>
-				<br>Sql: #exception.Sql#
+			<cfif isdefined("exception.Sql")>
+				<p>Sql: #exception.Sql#</p>
 			</cfif>			
 			</cfoutput>
 			<hr>
@@ -82,8 +78,8 @@
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
 			<cfset subject="locked form">
 		<cfelse>
-			<cfif isdefined(exception.message)>
-				<cfset subject=exception.message>
+			<cfif isdefined("exception.detail")>
+				<cfset subject="#exception.detail#">
 			<cfelse>
 				<cfset subject="Unknown Error">
 			</cfif>
