@@ -968,16 +968,18 @@
 		<cfabort>
 	</cfif>
 </cfif>
-
 <cfif isdefined("spec_locality") and len(#spec_locality#) gt 0>
+	<cfset mapurl = "#mapurl#&spec_locality=#spec_locality#">
 	<cfif #compare(spec_locality,"NULL")# is 0>
 		<cfset basQual = " #basQual# AND #flatTableName#.spec_locality is null">
 	<cfelse>
-		<cfset basQual = " #basQual# AND upper(#flatTableName#.spec_locality) like '%#ucase(escapeQuotes(spec_locality))#%' " >
-	</cfif>			
-	<cfset mapurl = "#mapurl#&spec_locality=#spec_locality#">
+		<cfif left(species,1) is '='>
+			<cfset basQual = " #basQual# AND upper(#flatTableName#.spec_locality) = '#ucase(escapeQuotes(right(spec_locality,len(spec_locality)-1)))#'">
+		<cfelse>
+			<cfset basQual = " #basQual# AND upper(#flatTableName#.spec_locality) like '%#ucase(escapeQuotes(spec_locality))#%'">
+		</cfif>
+	</cfif>	
 </cfif>
-
 <cfif isdefined("minimum_elevation") and len(#minimum_elevation#) gt 0>
 	<cfif not isdefined("orig_elev_units") OR len(#orig_elev_units#) is 0>
 		<font color="#FF0000" size="+1">You must supply units to search by elevation.</font>
