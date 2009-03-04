@@ -387,7 +387,8 @@
 			<cfset mapurl = "#mapurl#&genus=#genus#">
 			<cfif #basJoin# does not contain " identification ">
 				<cfset basJoin = " #basJoin# INNER JOIN identification ON 
-				(cataloged_item.collection_object_id = identification.collection_object_id)">
+					(cataloged_item.collection_object_id = identification.collection_object_id)">
+				<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
 			</cfif>
 			<cfif #basJoin# does not contain " identification_taxonomy ">
 				<cfset basJoin = " #basJoin# INNER JOIN identification_taxonomy ON 
@@ -397,11 +398,52 @@
 				<cfset basJoin = " #basJoin# INNER JOIN taxonomy ON 
 				(identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id)">
 			</cfif>
-			<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
 			<cfif left(genus,1) is '='>
 				<cfset basQual = " #basQual# AND upper(taxonomy.genus) = '#ucase(right(genus,len(genus)-1))#'">
 			<cfelse>
 				<cfset basQual = " #basQual# AND upper(taxonomy.genus) like '%#ucase(genus)#%'">
+			</cfif>
+		</cfif>
+		<cfif isdefined("species") AND len(species) gt 0>
+			<cfset mapurl = "#mapurl#&species=#species#">
+			<cfif #basJoin# does not contain " identification ">
+				<cfset basJoin = " #basJoin# INNER JOIN identification ON 
+					(cataloged_item.collection_object_id = identification.collection_object_id)">
+				<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
+			</cfif>
+			<cfif #basJoin# does not contain " identification_taxonomy ">
+				<cfset basJoin = " #basJoin# INNER JOIN identification_taxonomy ON 
+				(identification.identification_id = identification_taxonomy.identification_id)">
+			</cfif>
+			<cfif #basJoin# does not contain " taxonomy ">
+				<cfset basJoin = " #basJoin# INNER JOIN taxonomy ON 
+				(identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id)">
+			</cfif>
+			<cfif left(species,1) is '='>
+				<cfset basQual = " #basQual# AND upper(taxonomy.species) = '#ucase(right(species,len(species)-1))#'">
+			<cfelse>
+				<cfset basQual = " #basQual# AND upper(taxonomy.species) like '%#ucase(species)#%'">
+			</cfif>		
+		</cfif>
+		<cfif isdefined("subspecies") AND len(subspecies) gt 0>
+			<cfset mapurl = "#mapurl#&subspecies=#subspecies#">
+			<cfif #basJoin# does not contain " identification ">
+				<cfset basJoin = " #basJoin# INNER JOIN identification ON 
+					(cataloged_item.collection_object_id = identification.collection_object_id)">
+				<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 ">
+			</cfif>
+			<cfif #basJoin# does not contain " identification_taxonomy ">
+				<cfset basJoin = " #basJoin# INNER JOIN identification_taxonomy ON 
+				(identification.identification_id = identification_taxonomy.identification_id)">
+			</cfif>
+			<cfif #basJoin# does not contain " taxonomy ">
+				<cfset basJoin = " #basJoin# INNER JOIN taxonomy ON 
+				(identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id)">
+			</cfif>
+			<cfif left(subspecies,1) is '='>
+				<cfset basQual = " #basQual# AND upper(taxonomy.subspecies) = '#ucase(right(subspecies,len(subspecies)-1))#'">
+			<cfelse>
+				<cfset basQual = " #basQual# AND upper(taxonomy.subspecies) like '%#ucase(subspecies)#%'">
 			</cfif>		
 		</cfif>
 		<cfif isdefined("Phylclass") AND len(#Phylclass#) gt 0>

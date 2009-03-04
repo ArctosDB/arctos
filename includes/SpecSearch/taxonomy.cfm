@@ -45,6 +45,30 @@
 	</tr>
 	<tr>
 		<td class="lbl">
+			<span class="helpLink" id="_genus">Genus:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="genus" id="genus" size="50">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_species">Species:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="species" id="species" size="50">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_subspecies">Subspecies:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="subspecies" id="subspecies" size="50">
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
 			<span class="helpLink" id="_common_name">Common Name:</span>
 		</td>
 		<td class="srch">
