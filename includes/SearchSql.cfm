@@ -917,7 +917,7 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND lat_long.accepted_lat_long_fg=1">
 	<cfset basQual = " #basQual# AND to_meters(lat_long.max_error_distance,'#max_error_units#') between 
-		to_meters(min_max_error,'#max_error_units#') and to_meters(max_max_error,'#max_error_units#')">
+		to_meters(#min_max_error#,'#max_error_units#') and to_meters(#max_max_error#,'#max_error_units#')">
 </cfif>
 <cfif isdefined("max_error_in_meters") AND len(#max_error_in_meters#) gt 0>
 	<cfif not isnumeric(#max_error_in_meters#)>
