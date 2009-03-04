@@ -49,6 +49,7 @@
 		</td>
 		<td class="srch">
 			<input type="text" name="genus" id="genus" size="50">
+			<span class="infoLink" onclick="document.getElementById('genus')=e;e.value='='+e.value;">Exact</span>
 		</td>
 	</tr>
 	<tr>
