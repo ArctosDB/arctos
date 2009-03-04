@@ -13,7 +13,7 @@
 	<input type="text" name="journal_abbreviation" id="journal_abbreviation">
 	<label for="publisher_name">Publisher</label>
 	<input type="text" name="publisher_name" id="publisher_name">
-	<br><input type="submit" value="Find Journal" class="likeLink">
+	<br><input type="submit" value="Find Journal" class="lnkBtn">
 </form>
 </cfoutput>
 	
