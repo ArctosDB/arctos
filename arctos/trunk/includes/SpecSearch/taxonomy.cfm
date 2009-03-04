@@ -49,7 +49,7 @@
 		</td>
 		<td class="srch">
 			<input type="text" name="genus" id="genus" size="50">
-			<span class="infoLink" onclick="var e=document.getElementById('genus');e.value='='+e.value;">Exact</span>
+			<span class="infoLink" onclick="var e=document.getElementById('genus');e.value='='+e.value;">Add = for exact match</span>
 		</td>
 	</tr>
 	<tr>
