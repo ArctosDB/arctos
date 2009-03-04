@@ -54,7 +54,10 @@ function getFormValues() {
 		}
 	}
 	var str=spAry.join("|");
-	DWREngine._execute(_cfscriptLocation, null, 'setSchParam', str, nada);
+	document.cookie = 'schParams=' + str;
+	
+	
+	// try cookies DWREngine._execute(_cfscriptLocation, null, 'setSchParam', str, nada);
 	//console.log('-------------------');
 	//alert(str);
 	//alert('shipped....');
