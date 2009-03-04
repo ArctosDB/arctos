@@ -140,9 +140,8 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 </cfif>
 --->
 
-
-<cfquery name="getMapData" datasource = "#Application.uam_dbo#" >
-#preserveSingleQuotes(SqlString)#
+<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	#preserveSingleQuotes(SqlString)#
 </cfquery>
 <cfoutput>
 	<cf_getSearchTerms>
