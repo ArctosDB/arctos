@@ -864,7 +864,7 @@ function success_getSpecResultsData(result){
 				}
 				if (result[0].COLUMNLIST.indexOf('SPEC_LOCALITY')> -1) {
 					//theInnerHtml += '<td id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID+'"><a href="/SpecimenResults.cfm?spec_locality=' + result[i].SPEC_LOCALITY + '">' + result[i].SPEC_LOCALITY + '</a>&nbsp;</td>';
-					theInnerHtml += '<td id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID+'"><span class="resltsBrowse" onclick="resNav("' + "'" + escape(result[i].SPEC_LOCALITY) + "')" + '">'+ result[i].SPEC_LOCALITY + '</span>&nbsp;</td>';
+					theInnerHtml += '<td id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID+'">' + result[i].SPEC_LOCALITY + '&nbsp;</td>';
 				}
 				
 				if (result[0].COLUMNLIST.indexOf('GEOLOGY_ATTRIBUTES')> -1) {
