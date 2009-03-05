@@ -1,3 +1,11 @@
+setInterval ( "checkPicked()", 5000 );
+
+function checkPicked(){
+	var locality_id=document.getElementById('locality_id');
+	if (locality_id.value.lenght)0){
+		pickedLocality();
+	}	
+}						
 function rememberLastOtherId (yesno) {
 	DWREngine._execute(_data_entry_func, null, 'rememberLastOtherId', yesno,success_rememberLastOtherId);
 }

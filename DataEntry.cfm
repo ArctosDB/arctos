@@ -678,6 +678,7 @@ Some Totally Random String Data .....
 							onclick="unpickLocality()">
 								Depick...
 						</span>
+						<!---
 						<span style="display:none;"
 							id="pickedSomething"
 							onclick="pickedLocality()">
@@ -689,6 +690,8 @@ Some Totally Random String Data .....
 									update locality from ID
 								</span>								
 						</span>
+						---->
+						
 				</td>
 			</tr>
 			<tr>
