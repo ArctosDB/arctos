@@ -665,7 +665,7 @@ Some Totally Random String Data .....
 			<tr>
 				<td align="right"><span class="f11a">Existing&nbsp;LocalityID:&nbsp;</span></td>
 				<td>
-					<input type="text" name="locality_id" id="locality_id" value="#locality_id#" readonly="readonly">
+					<input type="text" name="locality_id" id="locality_id" value="#locality_id#" readonly="readonly" class="readClr">
 					<span class="infoLink" 
 							id="localityPicker"
 							onclick="LocalityPick('locality_id','spec_locality','dataEntry','turnSaveOn'); return false;">
