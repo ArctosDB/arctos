@@ -2,7 +2,7 @@ setInterval ( "checkPicked()", 5000 );
 
 function checkPicked(){
 	var locality_id=document.getElementById('locality_id');
-	if (locality_id.value.lenght)0){
+	if (locality_id.value.length>0){
 		pickedLocality();
 	}	
 }						
