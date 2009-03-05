@@ -167,7 +167,22 @@ function pickedEvent () {
 	}
 }
 function success_pickedEvent(r){
-	alert(r);
+	if (result[0]) {
+		var collecting_event_id=result[0].COLLECTING_EVENT_ID;
+		if (collecting_event_id < 0) {
+			alert('Oops! Something bad happend with the collecting_event pick. ' + result[0].MSG);
+		} else {
+			var BEGAN_DATE = result[0].BEGAN_DATE;
+			
+			document.getElementById('began_date').value = BEGAN_DATE;
+			document.getElementById('began_date').className='d11a readClr';
+			document.getElementById('began_date').setAttribute('readonly','readonly');
+		}
+	} else {
+		var collecting_event_id = document.getElementById('collecting_event_id');
+		alert(collecting_event_id.value + ' is not a valid collecting_event_id');
+		collecting_event_id.value='';		
+	}
 }
 function pickedLocality () {
 	//alert('this is data entry pickedLocality');	
@@ -177,6 +192,8 @@ function pickedLocality () {
 		DWREngine._execute(_data_entry_func, null, 'get_picked_locality', locality_id, success_pickedLocality);
 	}
 }
+
+
 function success_pickedLocality (result) {
 	//alert('at success_pickedLocality: ' + result);
 	if (result[0]) {
