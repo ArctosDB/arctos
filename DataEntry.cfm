@@ -697,7 +697,6 @@ Some Totally Random String Data .....
 									</span>
 									<span class="infoLink" 
 										id="checkPickedEvnt"
-										style="display:none;"
 										onclick="checkPickedEvnt()">
 											checkPickedEvnt
 									</span>
