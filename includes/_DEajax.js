@@ -173,7 +173,7 @@ function success_pickedEvent(result){
 			alert('Oops! Something bad happend with the collecting_event pick. ' + result[0].MSG);
 		} else {
 			var BEGAN_DATE = result[0].BEGAN_DATE;
-			
+			console.log(BEGAN_DATE);
 			document.getElementById('began_date').value = BEGAN_DATE;
 			document.getElementById('began_date').className='d11a readClr';
 			document.getElementById('began_date').setAttribute('readonly','readonly');
