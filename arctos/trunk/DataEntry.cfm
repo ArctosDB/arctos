@@ -663,34 +663,41 @@ Some Totally Random String Data .....
 				</td>
 			</tr>
 			<tr>
-				<td align="right"><span class="f11a">Existing&nbsp;LocalityID:&nbsp;</span></td>
-				<td>
-					<input type="text" name="locality_id" id="locality_id" value="#locality_id#" readonly="readonly" class="readClr">
-					<span class="infoLink" 
-							id="localityPicker"
-							onclick="LocalityPick('locality_id','spec_locality','dataEntry','turnSaveOn'); return false;">
-								get loc ID...
-						</span>
-						<span class="infoLink" 
-							id="localityUnPicker"
-							style="display:none;"
-							onclick="unpickLocality()">
-								Depick...
-						</span>
-						<!---
-						<span style="display:none;"
-							id="pickedSomething"
-							onclick="pickedLocality()">
-								<span style="border:2 px solid red;
-									background-color:##FFA07A;
-									font-weight:bold;
-									padding:3px;"
-									class="likeLink">
-									update locality from ID
-								</span>								
-						</span>
-						---->
-						
+				<td colspan="2">
+					<table>
+						<tr>
+							<td align="right"><span class="f11a">Existing&nbsp;LocalityID:&nbsp;</span></td>
+							<td>
+								<input type="text" name="locality_id" id="locality_id" value="#locality_id#" readonly="readonly" class="readClr">
+								<span class="infoLink" 
+										id="localityPicker"
+										onclick="LocalityPick('locality_id','spec_locality','dataEntry','turnSaveOn'); return false;">
+											Pick Locality
+									</span>
+									<span class="infoLink" 
+										id="localityUnPicker"
+										style="display:none;"
+										onclick="unpickLocality()">
+											Depick Locality
+									</span>
+							</td>
+							<td align="right"><span class="f11a">Existing&nbsp;EventID:&nbsp;</span></td>
+							<td>
+								<input type="text" name="collecting_event_id" id="collecting_event_id" value="#collecting_event_id#" readonly="readonly" class="readClr">
+								<span class="infoLink" 
+										id="eventPicker"
+										onclick="EventPick('collecting_event_id','verbatim_locality','dataEntry','turnEventSaveOn'); return false;">
+											Pick Event
+									</span>
+									<span class="infoLink" 
+										id="eventUnPicker"
+										style="display:none;"
+										onclick="unpickEvent()">
+											Depick Event
+									</span>
+							</td>
+						</tr>
+					</table>
 				</td>
 			</tr>
 			<tr>
