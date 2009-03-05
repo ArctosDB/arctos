@@ -164,221 +164,193 @@ function pickedLocality () {
 }
 function success_pickedLocality (result) {
 	//alert('at success_pickedLocality: ' + result);
-	var locality_id=result[0].LOCALITY_ID;
-	if (locality_id < 0) {
-		alert('Oops! Something bad happend with the locality pick. ' + result[0].MSG);
-	} else {
-		//alert('good');
-		// "one" stuff will be in result[0]; need to loop for geology stuff
-		var HIGHER_GEOG = result[0].HIGHER_GEOG;
-		var MAXIMUM_ELEVATION = result[0].MAXIMUM_ELEVATION;
-		var MINIMUM_ELEVATION = result[0].MINIMUM_ELEVATION;
-		var ORIG_ELEV_UNITS = result[0].ORIG_ELEV_UNITS;
-		var SPEC_LOCALITY = result[0].SPEC_LOCALITY;
-		var LOCALITY_REMARKS = result[0].LOCALITY_REMARKS;
-		var LAT_DEG = result[0].LAT_DEG;
-		var DEC_LAT_MIN = result[0].DEC_LAT_MIN;
-		var LAT_MIN = result[0].LAT_MIN;
-		var LAT_SEC = result[0].LAT_SEC;
-		var LAT_DIR = result[0].LAT_DIR;
-		var LONG_DEG = result[0].LONG_DEG;
-		var DEC_LONG_MIN = result[0].DEC_LONG_MIN;
-		var LONG_MIN = result[0].LONG_MIN;
-		var LONG_SEC = result[0].LONG_SEC;
-		var LONG_DIR = result[0].LONG_DIR;
-		var DEC_LAT = result[0].DEC_LAT;
-		var DEC_LONG = result[0].DEC_LONG;		
-		var DATUM = result[0].DATUM;
-		var ORIG_LAT_LONG_UNITS = result[0].ORIG_LAT_LONG_UNITS;
-		var DETERMINED_BY = result[0].DETERMINED_BY;
-		var DETERMINED_DATE = result[0].DETERMINED_DATE;
-		var LAT_LONG_REF_SOURCE = result[0].LAT_LONG_REF_SOURCE;
-		var LAT_LONG_REMARKS = result[0].LAT_LONG_REMARKS;
-		var MAX_ERROR_DISTANCE = result[0].MAX_ERROR_DISTANCE;
-		var MAX_ERROR_UNITS = result[0].MAX_ERROR_UNITS;
-		var EXTENT = result[0].EXTENT;
-		var GPSACCURACY = result[0].GPSACCURACY;
-		var GEOREFMETHOD = result[0].GEOREFMETHOD;
-		var VERIFICATIONSTATUS = result[0].VERIFICATIONSTATUS;
-		
-		
-		document.getElementById('higher_geog').value = HIGHER_GEOG;
-		document.getElementById('higher_geog').className='d11a readClr';
-		document.getElementById('higher_geog').setAttribute('readonly','readonly');
-		
-		document.getElementById('maximum_elevation').value = MAXIMUM_ELEVATION;
-		document.getElementById('maximum_elevation').className='d11a readClr';
-		document.getElementById('maximum_elevation').setAttribute('readonly','readonly');
-		
-		document.getElementById('minimum_elevation').value = MINIMUM_ELEVATION;
-		document.getElementById('minimum_elevation').className='d11a readClr';
-		document.getElementById('minimum_elevation').setAttribute('readonly','readonly');
-		
-		document.getElementById('orig_elev_units').value = ORIG_ELEV_UNITS;
-		document.getElementById('orig_elev_units').className='d11a readClr';
-		document.getElementById('orig_elev_units').setAttribute('readonly','readonly');
-		
-		document.getElementById('spec_locality').value = SPEC_LOCALITY;
-		document.getElementById('spec_locality').className='d11a readClr';
-		document.getElementById('spec_locality').setAttribute('readonly','readonly');
-		
-		document.getElementById('locality_remarks').value = LOCALITY_REMARKS;
-		document.getElementById('locality_remarks').className='d11a readClr';
-		document.getElementById('locality_remarks').setAttribute('readonly','readonly');
-		
-		document.getElementById('latdeg').value = LAT_DEG;
-		document.getElementById('latdeg').className='d11a readClr';
-		document.getElementById('latdeg').setAttribute('readonly','readonly');
-		
-		document.getElementById('decLAT_DEG').value = LAT_DEG;
-		document.getElementById('decLAT_DEG').className='d11a readClr';
-		document.getElementById('decLAT_DEG').setAttribute('readonly','readonly');
-		
-		document.getElementById('latmin').value = LAT_MIN;
-		document.getElementById('latmin').className='d11a readClr';
-		document.getElementById('latmin').setAttribute('readonly','readonly');
-		
-		document.getElementById('latsec').value = LAT_SEC;
-		document.getElementById('latsec').className='d11a readClr';
-		document.getElementById('latsec').setAttribute('readonly','readonly');
-		
-		document.getElementById('latdir').value = LAT_DIR;
-		document.getElementById('latdir').className='d11a readClr';
-		document.getElementById('latdir').setAttribute('readonly','readonly');
-		
-		document.getElementById('longdeg').value = LONG_DEG;
-		document.getElementById('longdeg').className='d11a readClr';
-		document.getElementById('longdeg').setAttribute('readonly','readonly');
-		
-		document.getElementById('longmin').value = LONG_MIN;
-		document.getElementById('longmin').className='d11a readClr';
-		document.getElementById('longmin').setAttribute('readonly','readonly');
-		
-		document.getElementById('longsec').value = LONG_SEC;
-		document.getElementById('longsec').className='d11a readClr';
-		document.getElementById('longsec').setAttribute('readonly','readonly');
-		
-		document.getElementById('longdir').value = LONG_DIR;
-		document.getElementById('longdir').className='d11a readClr';
-		document.getElementById('longdir').setAttribute('readonly','readonly');
-		
-		document.getElementById('dec_lat_min').value = DEC_LAT_MIN;
-		document.getElementById('dec_lat_min').className='d11a readClr';
-		document.getElementById('dec_lat_min').setAttribute('readonly','readonly');
-		
-		document.getElementById('decLAT_DIR').value = LAT_DIR;
-		document.getElementById('decLAT_DIR').className='d11a readClr';
-		document.getElementById('decLAT_DIR').setAttribute('readonly','readonly');
-		
-		document.getElementById('decLONGDEG').value = LONG_DEG;
-		document.getElementById('decLONGDEG').className='d11a readClr';
-		document.getElementById('decLONGDEG').setAttribute('readonly','readonly');
-		
-		document.getElementById('dec_long_min').value = DEC_LONG_MIN;
-		document.getElementById('dec_long_min').className='d11a readClr';
-		document.getElementById('dec_long_min').setAttribute('readonly','readonly');
-		
-		document.getElementById('decLONGDIR').value = LONG_DIR;
-		document.getElementById('decLONGDIR').className='d11a readClr';
-		document.getElementById('decLONGDIR').setAttribute('readonly','readonly');
-		
-		document.getElementById('dec_lat').value = DEC_LAT;
-		document.getElementById('dec_lat').className='d11a readClr';
-		document.getElementById('dec_lat').setAttribute('readonly','readonly');
-		
-		document.getElementById('dec_long').value = DEC_LONG;
-		document.getElementById('dec_long').className='d11a readClr';
-		document.getElementById('dec_long').setAttribute('readonly','readonly');
-		
-		document.getElementById('max_error_distance').value = MAX_ERROR_DISTANCE;
-		document.getElementById('max_error_distance').className='d11a readClr';
-		document.getElementById('max_error_distance').setAttribute('readonly','readonly');		
-		
-		document.getElementById('max_error_units').value = MAX_ERROR_UNITS;
-		document.getElementById('max_error_units').className='d11a readClr';
-		document.getElementById('max_error_units').setAttribute('readonly','readonly');	
-		
-		document.getElementById('extent').value = EXTENT;
-		document.getElementById('extent').className='d11a readClr';
-		document.getElementById('extent').setAttribute('readonly','readonly');
-		
-		document.getElementById('gpsaccuracy').value = GPSACCURACY;
-		document.getElementById('gpsaccuracy').className='d11a readClr';
-		document.getElementById('gpsaccuracy').setAttribute('readonly','readonly');
-		
-		document.getElementById('datum').value = DATUM;
-		document.getElementById('datum').className='d11a readClr';
-		document.getElementById('datum').setAttribute('readonly','readonly');
-		
-		document.getElementById('determined_by_agent').value = DETERMINED_BY;
-		document.getElementById('determined_by_agent').className='d11a readClr';
-		document.getElementById('determined_by_agent').setAttribute('readonly','readonly');		
-		
-		document.getElementById('determined_date').value = DETERMINED_DATE;
-		document.getElementById('determined_date').className='d11a readClr';
-		document.getElementById('determined_date').setAttribute('readonly','readonly');	
-		
-		document.getElementById('lat_long_ref_source').value = LAT_LONG_REF_SOURCE;
-		document.getElementById('lat_long_ref_source').className='d11a readClr';
-		document.getElementById('lat_long_ref_source').setAttribute('readonly','readonly');
-		
-		document.getElementById('georefmethod').value = GEOREFMETHOD;
-		document.getElementById('georefmethod').className='d11a readClr';
-		document.getElementById('georefmethod').setAttribute('readonly','readonly');
-		
-		document.getElementById('verificationstatus').value = VERIFICATIONSTATUS;
-		document.getElementById('verificationstatus').className='d11a readClr';
-		document.getElementById('verificationstatus').setAttribute('readonly','readonly');
-		
-		document.getElementById('lat_long_remarks').value = LAT_LONG_REMARKS;
-		document.getElementById('lat_long_remarks').className='d11a readClr';
-		document.getElementById('lat_long_remarks').setAttribute('readonly','readonly');
-		switchActive(ORIG_LAT_LONG_UNITS);
-		document.getElementById('orig_lat_long_units').value = ORIG_LAT_LONG_UNITS;
-		document.getElementById('orig_lat_long_units').className='d11a readClr';
-		document.getElementById('orig_lat_long_units').setAttribute('readonly','readonly');
-		
-		document.getElementById('localityPicker').style.display='none';
-		//document.getElementById('pickedSomething').style.display='none';
-		document.getElementById('localityUnPicker').style.display='';
-		
-		// now geology loop
-		if (result.length > 6) {
-			alert('Whoa! That is a lot of geology attribtues. They will not all be displayed here, but the locality will still have them.');
-		}
-		// this stuff will all fail most of the time, for those collections that don't use geology
-		try {
-			// clean up and lock everything
-			for (i=0;i<6;i++) {
-				var eNum=parseInt(i+1);
-				var aID='geology_attribute_' + eNum;
-				var vID='geo_att_value_' + eNum;
-				var dID='geo_att_determiner_' + eNum;
-				var ddID='geo_att_determined_date_' + eNum;
-				var mID='geo_att_determined_method_' + eNum;
-				var rID='geo_att_remark_' + eNum;
-				document.getElementById(aID).value = '';
-				document.getElementById(vID).value = '';
-				document.getElementById(dID).value = '';
-				document.getElementById(ddID).value = '';
-				document.getElementById(mID).value = '';
-				document.getElementById(rID).value = '';
-				document.getElementById(aID).className='d11a readClr';
-				document.getElementById(aID).setAttribute('readonly','readonly');
-				document.getElementById(vID).className='d11a readClr';
-				document.getElementById(vID).setAttribute('readonly','readonly');
-				document.getElementById(dID).className='d11a readClr';
-				document.getElementById(dID).setAttribute('readonly','readonly');
-				document.getElementById(ddID).className='d11a readClr';
-				document.getElementById(ddID).setAttribute('readonly','readonly');
-				document.getElementById(mID).className='d11a readClr';
-				document.getElementById(mID).setAttribute('readonly','readonly');
-				document.getElementById(rID).className='d11a readClr';
-				document.getElementById(rID).setAttribute('readonly','readonly');
+	if (result[0].LOCALITY_ID) {
+		var locality_id=result[0].LOCALITY_ID;
+		if (locality_id < 0) {
+			alert('Oops! Something bad happend with the locality pick. ' + result[0].MSG);
+		} else {
+			//alert('good');
+			// "one" stuff will be in result[0]; need to loop for geology stuff
+			var HIGHER_GEOG = result[0].HIGHER_GEOG;
+			var MAXIMUM_ELEVATION = result[0].MAXIMUM_ELEVATION;
+			var MINIMUM_ELEVATION = result[0].MINIMUM_ELEVATION;
+			var ORIG_ELEV_UNITS = result[0].ORIG_ELEV_UNITS;
+			var SPEC_LOCALITY = result[0].SPEC_LOCALITY;
+			var LOCALITY_REMARKS = result[0].LOCALITY_REMARKS;
+			var LAT_DEG = result[0].LAT_DEG;
+			var DEC_LAT_MIN = result[0].DEC_LAT_MIN;
+			var LAT_MIN = result[0].LAT_MIN;
+			var LAT_SEC = result[0].LAT_SEC;
+			var LAT_DIR = result[0].LAT_DIR;
+			var LONG_DEG = result[0].LONG_DEG;
+			var DEC_LONG_MIN = result[0].DEC_LONG_MIN;
+			var LONG_MIN = result[0].LONG_MIN;
+			var LONG_SEC = result[0].LONG_SEC;
+			var LONG_DIR = result[0].LONG_DIR;
+			var DEC_LAT = result[0].DEC_LAT;
+			var DEC_LONG = result[0].DEC_LONG;		
+			var DATUM = result[0].DATUM;
+			var ORIG_LAT_LONG_UNITS = result[0].ORIG_LAT_LONG_UNITS;
+			var DETERMINED_BY = result[0].DETERMINED_BY;
+			var DETERMINED_DATE = result[0].DETERMINED_DATE;
+			var LAT_LONG_REF_SOURCE = result[0].LAT_LONG_REF_SOURCE;
+			var LAT_LONG_REMARKS = result[0].LAT_LONG_REMARKS;
+			var MAX_ERROR_DISTANCE = result[0].MAX_ERROR_DISTANCE;
+			var MAX_ERROR_UNITS = result[0].MAX_ERROR_UNITS;
+			var EXTENT = result[0].EXTENT;
+			var GPSACCURACY = result[0].GPSACCURACY;
+			var GEOREFMETHOD = result[0].GEOREFMETHOD;
+			var VERIFICATIONSTATUS = result[0].VERIFICATIONSTATUS;
+			
+			
+			document.getElementById('higher_geog').value = HIGHER_GEOG;
+			document.getElementById('higher_geog').className='d11a readClr';
+			document.getElementById('higher_geog').setAttribute('readonly','readonly');
+			
+			document.getElementById('maximum_elevation').value = MAXIMUM_ELEVATION;
+			document.getElementById('maximum_elevation').className='d11a readClr';
+			document.getElementById('maximum_elevation').setAttribute('readonly','readonly');
+			
+			document.getElementById('minimum_elevation').value = MINIMUM_ELEVATION;
+			document.getElementById('minimum_elevation').className='d11a readClr';
+			document.getElementById('minimum_elevation').setAttribute('readonly','readonly');
+			
+			document.getElementById('orig_elev_units').value = ORIG_ELEV_UNITS;
+			document.getElementById('orig_elev_units').className='d11a readClr';
+			document.getElementById('orig_elev_units').setAttribute('readonly','readonly');
+			
+			document.getElementById('spec_locality').value = SPEC_LOCALITY;
+			document.getElementById('spec_locality').className='d11a readClr';
+			document.getElementById('spec_locality').setAttribute('readonly','readonly');
+			
+			document.getElementById('locality_remarks').value = LOCALITY_REMARKS;
+			document.getElementById('locality_remarks').className='d11a readClr';
+			document.getElementById('locality_remarks').setAttribute('readonly','readonly');
+			
+			document.getElementById('latdeg').value = LAT_DEG;
+			document.getElementById('latdeg').className='d11a readClr';
+			document.getElementById('latdeg').setAttribute('readonly','readonly');
+			
+			document.getElementById('decLAT_DEG').value = LAT_DEG;
+			document.getElementById('decLAT_DEG').className='d11a readClr';
+			document.getElementById('decLAT_DEG').setAttribute('readonly','readonly');
+			
+			document.getElementById('latmin').value = LAT_MIN;
+			document.getElementById('latmin').className='d11a readClr';
+			document.getElementById('latmin').setAttribute('readonly','readonly');
+			
+			document.getElementById('latsec').value = LAT_SEC;
+			document.getElementById('latsec').className='d11a readClr';
+			document.getElementById('latsec').setAttribute('readonly','readonly');
+			
+			document.getElementById('latdir').value = LAT_DIR;
+			document.getElementById('latdir').className='d11a readClr';
+			document.getElementById('latdir').setAttribute('readonly','readonly');
+			
+			document.getElementById('longdeg').value = LONG_DEG;
+			document.getElementById('longdeg').className='d11a readClr';
+			document.getElementById('longdeg').setAttribute('readonly','readonly');
+			
+			document.getElementById('longmin').value = LONG_MIN;
+			document.getElementById('longmin').className='d11a readClr';
+			document.getElementById('longmin').setAttribute('readonly','readonly');
+			
+			document.getElementById('longsec').value = LONG_SEC;
+			document.getElementById('longsec').className='d11a readClr';
+			document.getElementById('longsec').setAttribute('readonly','readonly');
+			
+			document.getElementById('longdir').value = LONG_DIR;
+			document.getElementById('longdir').className='d11a readClr';
+			document.getElementById('longdir').setAttribute('readonly','readonly');
+			
+			document.getElementById('dec_lat_min').value = DEC_LAT_MIN;
+			document.getElementById('dec_lat_min').className='d11a readClr';
+			document.getElementById('dec_lat_min').setAttribute('readonly','readonly');
+			
+			document.getElementById('decLAT_DIR').value = LAT_DIR;
+			document.getElementById('decLAT_DIR').className='d11a readClr';
+			document.getElementById('decLAT_DIR').setAttribute('readonly','readonly');
+			
+			document.getElementById('decLONGDEG').value = LONG_DEG;
+			document.getElementById('decLONGDEG').className='d11a readClr';
+			document.getElementById('decLONGDEG').setAttribute('readonly','readonly');
+			
+			document.getElementById('dec_long_min').value = DEC_LONG_MIN;
+			document.getElementById('dec_long_min').className='d11a readClr';
+			document.getElementById('dec_long_min').setAttribute('readonly','readonly');
+			
+			document.getElementById('decLONGDIR').value = LONG_DIR;
+			document.getElementById('decLONGDIR').className='d11a readClr';
+			document.getElementById('decLONGDIR').setAttribute('readonly','readonly');
+			
+			document.getElementById('dec_lat').value = DEC_LAT;
+			document.getElementById('dec_lat').className='d11a readClr';
+			document.getElementById('dec_lat').setAttribute('readonly','readonly');
+			
+			document.getElementById('dec_long').value = DEC_LONG;
+			document.getElementById('dec_long').className='d11a readClr';
+			document.getElementById('dec_long').setAttribute('readonly','readonly');
+			
+			document.getElementById('max_error_distance').value = MAX_ERROR_DISTANCE;
+			document.getElementById('max_error_distance').className='d11a readClr';
+			document.getElementById('max_error_distance').setAttribute('readonly','readonly');		
+			
+			document.getElementById('max_error_units').value = MAX_ERROR_UNITS;
+			document.getElementById('max_error_units').className='d11a readClr';
+			document.getElementById('max_error_units').setAttribute('readonly','readonly');	
+			
+			document.getElementById('extent').value = EXTENT;
+			document.getElementById('extent').className='d11a readClr';
+			document.getElementById('extent').setAttribute('readonly','readonly');
+			
+			document.getElementById('gpsaccuracy').value = GPSACCURACY;
+			document.getElementById('gpsaccuracy').className='d11a readClr';
+			document.getElementById('gpsaccuracy').setAttribute('readonly','readonly');
+			
+			document.getElementById('datum').value = DATUM;
+			document.getElementById('datum').className='d11a readClr';
+			document.getElementById('datum').setAttribute('readonly','readonly');
+			
+			document.getElementById('determined_by_agent').value = DETERMINED_BY;
+			document.getElementById('determined_by_agent').className='d11a readClr';
+			document.getElementById('determined_by_agent').setAttribute('readonly','readonly');		
+			
+			document.getElementById('determined_date').value = DETERMINED_DATE;
+			document.getElementById('determined_date').className='d11a readClr';
+			document.getElementById('determined_date').setAttribute('readonly','readonly');	
+			
+			document.getElementById('lat_long_ref_source').value = LAT_LONG_REF_SOURCE;
+			document.getElementById('lat_long_ref_source').className='d11a readClr';
+			document.getElementById('lat_long_ref_source').setAttribute('readonly','readonly');
+			
+			document.getElementById('georefmethod').value = GEOREFMETHOD;
+			document.getElementById('georefmethod').className='d11a readClr';
+			document.getElementById('georefmethod').setAttribute('readonly','readonly');
+			
+			document.getElementById('verificationstatus').value = VERIFICATIONSTATUS;
+			document.getElementById('verificationstatus').className='d11a readClr';
+			document.getElementById('verificationstatus').setAttribute('readonly','readonly');
+			
+			document.getElementById('lat_long_remarks').value = LAT_LONG_REMARKS;
+			document.getElementById('lat_long_remarks').className='d11a readClr';
+			document.getElementById('lat_long_remarks').setAttribute('readonly','readonly');
+			switchActive(ORIG_LAT_LONG_UNITS);
+			document.getElementById('orig_lat_long_units').value = ORIG_LAT_LONG_UNITS;
+			document.getElementById('orig_lat_long_units').className='d11a readClr';
+			document.getElementById('orig_lat_long_units').setAttribute('readonly','readonly');
+			
+			document.getElementById('localityPicker').style.display='none';
+			//document.getElementById('pickedSomething').style.display='none';
+			document.getElementById('localityUnPicker').style.display='';
+			
+			// now geology loop
+			if (result.length > 6) {
+				alert('Whoa! That is a lot of geology attribtues. They will not all be displayed here, but the locality will still have them.');
 			}
-			for (i=0;i<result.length;i++) {
-				if (i<5) {
-					// don't try to create stuff when we have no room for it
+			// this stuff will all fail most of the time, for those collections that don't use geology
+			try {
+				// clean up and lock everything
+				for (i=0;i<6;i++) {
 					var eNum=parseInt(i+1);
 					var aID='geology_attribute_' + eNum;
 					var vID='geo_att_value_' + eNum;
@@ -386,24 +358,58 @@ function success_pickedLocality (result) {
 					var ddID='geo_att_determined_date_' + eNum;
 					var mID='geo_att_determined_method_' + eNum;
 					var rID='geo_att_remark_' + eNum;
-					var aV=result[i].GEOLOGY_ATTRIBUTE;
-					var vV=result[i].GEO_ATT_VALUE;
-					var dV=result[i].GEO_ATT_DETERMINER;
-					var ddV=result[i].GEO_ATT_DETERMINED_DATE;
-					var mV=result[i].GEO_ATT_DETERMINED_METHOD;
-					var rV=result[i].GEO_ATT_REMARK;
-					document.getElementById(aID).value = aV;
-					document.getElementById(vID).value = vV;
-					document.getElementById(dID).value = dV;
-					document.getElementById(ddID).value = ddV;
-					document.getElementById(mID).value = mV;
-					document.getElementById(rID).value = rV;
+					document.getElementById(aID).value = '';
+					document.getElementById(vID).value = '';
+					document.getElementById(dID).value = '';
+					document.getElementById(ddID).value = '';
+					document.getElementById(mID).value = '';
+					document.getElementById(rID).value = '';
+					document.getElementById(aID).className='d11a readClr';
+					document.getElementById(aID).setAttribute('readonly','readonly');
+					document.getElementById(vID).className='d11a readClr';
+					document.getElementById(vID).setAttribute('readonly','readonly');
+					document.getElementById(dID).className='d11a readClr';
+					document.getElementById(dID).setAttribute('readonly','readonly');
+					document.getElementById(ddID).className='d11a readClr';
+					document.getElementById(ddID).setAttribute('readonly','readonly');
+					document.getElementById(mID).className='d11a readClr';
+					document.getElementById(mID).setAttribute('readonly','readonly');
+					document.getElementById(rID).className='d11a readClr';
+					document.getElementById(rID).setAttribute('readonly','readonly');
 				}
-			}
-			
-		} catch(err) {
-			// whatever
-		}		
+				for (i=0;i<result.length;i++) {
+					if (i<5) {
+						// don't try to create stuff when we have no room for it
+						var eNum=parseInt(i+1);
+						var aID='geology_attribute_' + eNum;
+						var vID='geo_att_value_' + eNum;
+						var dID='geo_att_determiner_' + eNum;
+						var ddID='geo_att_determined_date_' + eNum;
+						var mID='geo_att_determined_method_' + eNum;
+						var rID='geo_att_remark_' + eNum;
+						var aV=result[i].GEOLOGY_ATTRIBUTE;
+						var vV=result[i].GEO_ATT_VALUE;
+						var dV=result[i].GEO_ATT_DETERMINER;
+						var ddV=result[i].GEO_ATT_DETERMINED_DATE;
+						var mV=result[i].GEO_ATT_DETERMINED_METHOD;
+						var rV=result[i].GEO_ATT_REMARK;
+						document.getElementById(aID).value = aV;
+						document.getElementById(vID).value = vV;
+						document.getElementById(dID).value = dV;
+						document.getElementById(ddID).value = ddV;
+						document.getElementById(mID).value = mV;
+						document.getElementById(rID).value = rV;
+					}
+				}
+				
+			} catch(err) {
+				// whatever
+			}		
+		}
+	} else {
+		var locality_id = document.getElementById('locality_id');
+		alert(locality_id.value + ' is not a valid locality id');
+		locality_id.value='';		
 	}
 }
 function catNumSeq () {
