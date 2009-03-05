@@ -129,12 +129,12 @@
 			locality.LOCALITY_ID = geology_attributes.LOCALITY_ID (+) AND
 			geology_attributes.GEO_ATT_DETERMINER_ID = geoAgnt.agent_id (+) AND
 			accepted_lat_long.DETERMINED_BY_AGENT_ID = llAgnt.agent_id (+) AND
-			collecting_event.collecting_event_id = #collecting_event#
+			collecting_event.collecting_event_id = #collecting_event_id#
 	</cfquery>
 	<cfcatch>
 	<cfset result = QueryNew("collecting_event,msg")>
 	<cfset temp = QueryAddRow(result, 1)>
-	<cfset temp = QuerySetCell(result, "collecting_event", "-1",1)>
+	<cfset temp = QuerySetCell(result, "collecting_event_id", "-1",1)>
 	<cfset temp = QuerySetCell(result, "msg", "#cfcatch.detail#",1)>
 	</cfcatch>
 	</cftry>	

@@ -167,6 +167,7 @@ function pickedEvent () {
 	}
 }
 function success_pickedEvent(result){
+	alert(result);
 	if (result[0]) {
 		var collecting_event_id=result[0].COLLECTING_EVENT_ID;
 		if (collecting_event_id < 0) {
