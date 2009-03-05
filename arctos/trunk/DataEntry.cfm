@@ -686,7 +686,7 @@ Some Totally Random String Data .....
 								<input type="text" name="collecting_event_id" id="collecting_event_id" value="#collecting_event_id#" readonly="readonly" class="readClr" size="8">
 								<span class="infoLink" 
 										id="eventPicker"
-										onclick="findCollEvent('collecting_event_id','verbatim_locality','dataEntry','turnEventSaveOn'); return false;">
+										onclick="findCollEvent('collecting_event_id','dataEntry','verbatim_locality'); return false;">
 											Pick&nbsp;Event
 									</span>
 									<span class="infoLink" 
