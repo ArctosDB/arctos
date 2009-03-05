@@ -164,7 +164,7 @@ function pickedLocality () {
 }
 function success_pickedLocality (result) {
 	//alert('at success_pickedLocality: ' + result);
-	if (result[0].LOCALITY_ID) {
+	if (result[0]) {
 		var locality_id=result[0].LOCALITY_ID;
 		if (locality_id < 0) {
 			alert('Oops! Something bad happend with the locality pick. ' + result[0].MSG);
