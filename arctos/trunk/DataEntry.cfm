@@ -668,32 +668,32 @@ Some Totally Random String Data .....
 						<tr>
 							<td align="right"><span class="f11a">Existing&nbsp;LocalityID:&nbsp;</span></td>
 							<td>
-								<input type="text" name="locality_id" id="locality_id" value="#locality_id#" readonly="readonly" class="readClr">
+								<input type="text" name="locality_id" id="locality_id" value="#locality_id#" readonly="readonly" class="readClr" size="8">
 								<span class="infoLink" 
 										id="localityPicker"
 										onclick="LocalityPick('locality_id','spec_locality','dataEntry','turnSaveOn'); return false;">
-											Pick Locality
+											Pick&nbsp;Locality
 									</span>
 									<span class="infoLink" 
 										id="localityUnPicker"
 										style="display:none;"
 										onclick="unpickLocality()">
-											Depick Locality
+											Depick&nbsp;Locality
 									</span>
 							</td>
 							<td align="right"><span class="f11a">Existing&nbsp;EventID:&nbsp;</span></td>
 							<td>
-								<input type="text" name="collecting_event_id" id="collecting_event_id" value="#collecting_event_id#" readonly="readonly" class="readClr">
+								<input type="text" name="collecting_event_id" id="collecting_event_id" value="#collecting_event_id#" readonly="readonly" class="readClr" size="8">
 								<span class="infoLink" 
 										id="eventPicker"
-										onclick="EventPick('collecting_event_id','verbatim_locality','dataEntry','turnEventSaveOn'); return false;">
-											Pick Event
+										onclick="findCollEvent('collecting_event_id','verbatim_locality','dataEntry','turnEventSaveOn'); return false;">
+											Pick&nbsp;Event
 									</span>
 									<span class="infoLink" 
 										id="eventUnPicker"
 										style="display:none;"
 										onclick="unpickEvent()">
-											Depick Event
+											Depick&nbsp;Event
 									</span>
 							</td>
 						</tr>
