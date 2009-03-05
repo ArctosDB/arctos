@@ -668,8 +668,7 @@ Some Totally Random String Data .....
 					<input type="text" name="locality_id" id="locality_id" value="#locality_id#" onchange="turnSaveOn()">
 					<span class="infoLink" 
 							id="localityPicker"
-							onclick="document.getElementById('pickedSomething').style.display='';
-								LocalityPick('locality_id','spec_locality','dataEntry','turnSaveOn'); return false;">
+							onclick="LocalityPick('locality_id','spec_locality','dataEntry','turnSaveOn'); return false;">
 								get loc ID...
 						</span>
 						<span class="infoLink" 
