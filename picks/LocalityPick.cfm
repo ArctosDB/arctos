@@ -55,7 +55,8 @@
     	 <cfloop query="localityResults"> 
       		<tr #iif(currentrow MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
        			<td>
-		  			<cfset thisValue=#escapeQuotes(spec_locality)#>
+		  			<cfset thisValue=#stripQuotes(spec_locality)#>
+		  			<cfset thisValue=replace(thisValue,"'","`","all")>
 		  			<input type="button" value="Accept" class="lnkBtn"
    						onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
   						onClick="javascript: opener.document.#formName#.#localityIdFld#.value='#locality_id#';
