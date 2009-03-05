@@ -47,7 +47,7 @@ function turnSaveOn () {
 	//alert('tso');
 	document.getElementById('localityPicker').style.display='none';
 	document.getElementById('localityUnPicker').style.display='none';
-	document.getElementById('pickedSomething').style.display='block';
+	//document.getElementById('pickedSomething').style.display='block';
 }
 								
 function unpickLocality () {
@@ -125,7 +125,7 @@ function unpickLocality () {
 	document.getElementById('locality_id').value='';
 	
 	document.getElementById('localityUnPicker').style.display='none';
-	document.getElementById('pickedSomething').style.display='none';	
+	//document.getElementById('pickedSomething').style.display='none';	
 	document.getElementById('localityPicker').style.display='';
 	try {
 		for (i=0;i<6;i++) {
