@@ -167,7 +167,6 @@ function pickedEvent () {
 	}
 }
 function success_pickedEvent(result){
-	alert(result);
 	if (result[0]) {
 		var collecting_event_id=result[0].COLLECTING_EVENT_ID;
 		if (collecting_event_id < 0) {
@@ -178,6 +177,8 @@ function success_pickedEvent(result){
 			document.getElementById('began_date').value = BEGAN_DATE;
 			document.getElementById('began_date').className='d11a readClr';
 			document.getElementById('began_date').setAttribute('readonly','readonly');
+			
+			success_pickedLocality(result);
 		}
 	} else {
 		var collecting_event_id = document.getElementById('collecting_event_id');
