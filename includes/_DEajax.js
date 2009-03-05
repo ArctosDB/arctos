@@ -166,7 +166,7 @@ function pickedEvent () {
 		DWREngine._execute(_data_entry_func, null, 'get_picked_event', collecting_event_id, success_pickedEvent);
 	}
 }
-function success_pickedEvent(r){
+function success_pickedEvent(result){
 	if (result[0]) {
 		var collecting_event_id=result[0].COLLECTING_EVENT_ID;
 		if (collecting_event_id < 0) {
