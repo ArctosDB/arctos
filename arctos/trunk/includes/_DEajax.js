@@ -5,7 +5,13 @@ function checkPicked(){
 	if (locality_id.value.length>0){
 		pickedLocality();
 	}	
-}						
+}
+function checkPickedEvnt(){
+	var collecting_event_id=document.getElementById('collecting_event_id');
+	if (collecting_event_id.value.length>0){
+		pickedEvent();
+	}	
+}			
 function rememberLastOtherId (yesno) {
 	DWREngine._execute(_data_entry_func, null, 'rememberLastOtherId', yesno,success_rememberLastOtherId);
 }
@@ -153,6 +159,15 @@ function unpickLocality () {
 		// whatever
 	}
 
+}
+function pickedEvent () {
+	var collecting_event_id = document.getElementById('collecting_event_id').value;
+	if (collecting_event_id.length > 0) {
+		DWREngine._execute(_data_entry_func, null, 'get_picked_event', collecting_event_id, success_pickedEvent);
+	}
+}
+function success_pickedEvent(r){
+	alert(r);
 }
 function pickedLocality () {
 	//alert('this is data entry pickedLocality');	
