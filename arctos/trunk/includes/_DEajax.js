@@ -339,7 +339,7 @@ function success_pickedLocality (result) {
 		document.getElementById('orig_lat_long_units').setAttribute('readonly','readonly');
 		
 		document.getElementById('localityPicker').style.display='none';
-		document.getElementById('pickedSomething').style.display='none';
+		//document.getElementById('pickedSomething').style.display='none';
 		document.getElementById('localityUnPicker').style.display='';
 		
 		// now geology loop
