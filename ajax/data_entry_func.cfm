@@ -69,8 +69,8 @@
 	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			collecting_event.COLLECTING_EVENT_ID,
-			BEGAN_DATE,
-			ENDED_DATE,
+			to_char(BEGAN_DATE,'dd-Mon-yyyy') BEGAN_DATE,
+			to_char(ENDED_DATE,'dd-Mon-yyyy') ENDED_DATE,
 			VERBATIM_DATE,
 			VERBATIM_LOCALITY,
 			COLL_EVENT_REMARKS,
