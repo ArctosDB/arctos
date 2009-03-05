@@ -695,6 +695,13 @@ Some Totally Random String Data .....
 										onclick="unpickEvent()">
 											Depick&nbsp;Event
 									</span>
+									<span class="infoLink" 
+										id="checkPickedEvnt"
+										style="display:none;"
+										onclick="checkPickedEvnt()">
+											checkPickedEvnt
+									</span>
+									
 							</td>
 						</tr>
 					</table>

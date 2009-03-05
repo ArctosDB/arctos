@@ -80,7 +80,7 @@
 							onmouseover="this.className='savBtn btnhov'" 
 							onmouseout="this.className='savBtn'"
 							onclick="javascript: opener.document.#formName#.#collIdFld#.value='#collecting_event_id#'; 
-								opener.document.#formName#.#dispField#.value='#vl# (#verbatim_date#)';
+								opener.document.#formName#.#dispField#.value='#vl#';
 								self.close();">
 					</td>
 				</tr>
