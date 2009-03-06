@@ -20,7 +20,7 @@ Art:
 	<br><input type="submit">
 </form>
 
-<cfif save is true>
+<cfif isdefined("save") and save is true>
 	this is the save page.
 </cfif>
 </cfoutput>
