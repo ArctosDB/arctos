@@ -1,10 +1,48 @@
+<!----
+ alter table cf_temp_relations add cf_temp_relations_id number;
+create sequence sq_cf_temp_relations_id;
+
+begin
+for r in (select rowid rid from cf_temp_relations) loop
+	update cf_temp_relations set cf_temp_relations_id = sq_cf_temp_relations_id.nextval where rowid=r.rid;
+end loop;
+end;
+/
+
+alter table cf_temp_relations modify cf_temp_relations_id not null;
+
+
+CREATE OR REPLACE TRIGGER tr_sq_cf_temp_relations_id BEFORE INSERT ON cf_temp_relations
+FOR EACH ROW
+BEGIN
+SELECT sq_cf_temp_relations_id.NEXTVAL into :new.cf_temp_relations_id FROM dual;
+END;
+
+--->
 <cfinclude template="/includes/_header.cfm">
 <cfparam name="filterForPending" default="true">
 <cfif #action# is "showStatus">
 
 <cfset title="Pending Relationships">
 <cfquery name="getRels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select * from cf_temp_relations
+	select 
+		RELATIONSHIP,
+		RELATED_TO_NUMBER,
+		RELATED_TO_NUM_TYPE,
+		LASTTRYDATE,
+		FAIL_REASON,
+		RELATED_COLLECTION_OBJECT_ID,
+		INSERT_DATE,
+		CF_TEMP_RELATIONS_ID,
+		cat_num,
+		collection
+	from 
+		cf_temp_relations,
+		cataloged_item,
+		collection
+	where
+		cf_temp_relations.collection_object_id=cataloged_item.collection_object_id and
+		cataloged_item.collection_id = collection.collection_id
 	<cfif #filterForPending# is "true">
 		where related_collection_object_id is null
 	</cfif>
@@ -43,15 +81,9 @@ Pending Relationships
 	<cfoutput>
 		<cfloop query="getRels">
 			<tr>
-				<cfquery name="thisSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select cat_num,institution_acronym,cataloged_item.collection_cde from
-					cataloged_item,collection where
-					cataloged_item.collection_id = collection.collection_id
-					and collection_object_id = #collection_object_id#
-				</cfquery>
 				<td>
 					<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
-						#thisSpec.institution_acronym# #thisSpec.collection_cde# #thisSpec.cat_num#</a>
+						#collection# #cat_num#</a>
 				</td>
 				<td>
 					#relationship#
