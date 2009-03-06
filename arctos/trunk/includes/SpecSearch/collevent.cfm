@@ -138,6 +138,15 @@
 	</tr>
 	<tr>
 		<td class="lbl">
+			<span class="helpLink" id="_verbatim_locality">Verbatim Locality:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="verbatim_locality" id="verbatim_locality" size="50">
+			<span class="infoLink" onclick="var e=document.getElementById('verbatim_locality');e.value='='+e.value;">Add = for exact match</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
 			<span class="helpLink" id="_chronological_extent">Chronological Extent:</span>
 			</a>
 		</td>

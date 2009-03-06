@@ -980,6 +980,18 @@
 		</cfif>
 	</cfif>	
 </cfif>
+
+<cfif isdefined("verbatim_locality") and len(#verbatim_locality#) gt 0>
+	<cfset mapurl = "#mapurl#&verbatim_locality=#verbatim_locality#">
+	<cfif basJoin does not contain " collecting_event ">
+		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON (cataloged_item.collecting_event_id = collecting_event.collecting_event_id)">
+	</cfif>
+	<cfif left(verbatim_locality,1) is '='>
+		<cfset basQual = " #basQual# AND upper(collecting_event.verbatim_locality) = '#ucase(escapeQuotes(right(verbatim_locality,len(verbatim_locality)-1)))#'">
+	<cfelse>
+		<cfset basQual = " #basQual# AND upper(collecting_event.verbatim_locality) like '%#ucase(escapeQuotes(verbatim_locality))#%'">
+	</cfif>	
+</cfif>
 <cfif isdefined("minimum_elevation") and len(#minimum_elevation#) gt 0>
 	<cfif not isdefined("orig_elev_units") OR len(#orig_elev_units#) is 0>
 		<font color="#FF0000" size="+1">You must supply units to search by elevation.</font>
