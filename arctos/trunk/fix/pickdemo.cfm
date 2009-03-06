@@ -29,14 +29,14 @@
 </script>
 <cfif action is "nothing">
 <cfoutput>
-<form method="post" name="test" action="pickdemo.cfm" onsubmit="checkNames()">
+<form method="post" name="test" action="pickdemo.cfm" onsubmit="return noenter()">
 	<input type="hidden" name="action" value="#action#">
 	<input type="hidden" name="save" value="true">
 	<label for="a">This is the text field</label>
 	<input type="text" name="a" id="a">
 	<label for="b">This is the ID field, and is normally hidden</label>
 	<input type="text" name="b" id="b">
-	<br><input type="submit">
+	<br><input type="button" value="submit" onclick="checkNames()">
 </form>
 
 <cfif isdefined("save") and save is true>
