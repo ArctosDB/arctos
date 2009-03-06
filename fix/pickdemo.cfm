@@ -7,7 +7,7 @@
 		var b=document.getElementById('b');
 		if(a.value.length>0 && b.value.length==0){
 			DWREngine._execute(_cfscriptLocation, null, 'agent_lookup', a.value, success_checkNames);
-			
+
 		} else {
 			return true;
 		}
@@ -24,7 +24,7 @@
 </script>
 <cfif action is "nothing">
 <cfoutput>
-<form method="post" name="test" action="pickdemo.cfm" onsubmit="checkNames()">
+<form method="post" name="test" action="pickdemo.cfm" onsubmit="return checkNames()">
 	<input type="hidden" name="action" value="#action#">
 	<input type="hidden" name="save" value="true">
 	<label for="a">This is the text field</label>
