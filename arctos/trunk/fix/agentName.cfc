@@ -12,7 +12,7 @@
 <cfquery datasource="uam_god" name="data">
 SELECT agent_name || ' (' || agent_id || ')' name
 FROM agent_name
-WHERE UCase(agent_name) LIKE Ucase('#ARGUMENTS.search#%')
+WHERE UCase(agent_name) LIKE ('#ucase(ARGUMENTS.search)#%')
 and rownum<100
 ORDER BY agent_name
 </cfquery>
