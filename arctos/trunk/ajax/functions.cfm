@@ -1,5 +1,24 @@
 <cfinclude template="/ajax/core/cfajax.cfm">
 <!------------------------------------>
+<cffunction name="agent_lookup" returntype="any">
+	<cfargument name="agent_name" type="string" required="yes">
+	<cftry>
+		<cfquery name="aid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			SELECT agent_id
+			FROM agent_name
+			WHERE upper(agent_name) LIKE ('#escapeQuotes(ucase(agent_name))#%')
+		</cfquery>
+		<cfif aid.recordcount is 1>
+			<cfreturn aid.agent_id>
+		<cfelse>
+			<cfreturn -1>
+		</cfif>
+	<cfcatch>
+			<cfreturn -1>
+	</cfcatch>
+	</cftry>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="saveSearch" returntype="any">
 	<cfargument name="returnURL" type="string" required="yes">
 	<cfargument name="srchName" type="string" required="yes">
