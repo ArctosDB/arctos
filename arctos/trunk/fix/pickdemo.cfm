@@ -1,5 +1,15 @@
 <cfinclude template="/includes/_header.cfm">
-
+<style>
+	.saver{
+		border:2px solid red; 
+		width:90%; 
+		height:30%; 
+		left:5%;
+		top:5%;
+		position:absolute;
+		z-index:2001;
+		background-color:white;"
+</style>
 <script>
 	function itsAllDone(vl){
 		
@@ -58,7 +68,7 @@
 		WHERE upper(agent_name) LIKE ('#ucase(a)#%')
 		ORDER BY agent_name
 	</cfquery>
-	<div style="border:2px solid red; width:600px; height:400px; left:50px;top:50px;position:absolute;z-index:2001;background-color:white;">
+	<div class="saver">
 	<cfif data.recordcount is 1>
 		saving....
 	<cfelse>
