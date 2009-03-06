@@ -3,7 +3,7 @@
 <cfform>
 Art:
 <cfinput type="text"
-      name="artname"
+      name="name"
       autosuggest="cfc:agentName.lookupname({cfautosuggestvalue})">
 </cfform>
 
