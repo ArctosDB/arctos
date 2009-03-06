@@ -15,7 +15,7 @@
 			<cfreturn -1>
 		</cfif>
 	<cfcatch>
-			<cfreturn cfcatch.detail>
+			<cfreturn cfcatch.message & cfcatch.detail>
 	</cfcatch>
 	</cftry>
 </cffunction>
