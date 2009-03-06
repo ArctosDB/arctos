@@ -119,7 +119,7 @@ Pending Relationships
 					</cfif>
 				</td>
 				<td>
-					<input type="checkbox" id="r_#CF_TEMP_RELATIONS_ID#" value="#CF_TEMP_RELATIONS_ID#">
+					<input type="checkbox" name="delThis" id="r_#CF_TEMP_RELATIONS_ID#" value="#CF_TEMP_RELATIONS_ID#">
 				</td>
 			</tr>
 		</cfloop>
