@@ -7,7 +7,9 @@
 		top:5%;
 		position:absolute;
 		z-index:2001;
-		background-color:white;"
+		background-color:white;
+		text-align:center;
+	}
 </style>
 <script>
 	function itsAllDone(vl){
