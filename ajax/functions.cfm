@@ -2,12 +2,18 @@
 <!------------------------------------>
 <cffunction name="agent_lookup" returntype="any">
 	<cfargument name="agent_name" type="string" required="yes">
+	<cfargument name="v_f" type="string" required="yes">
+	<cfargument name="i_f" type="string" required="yes">
 	<cfinclude template="/includes/functionLib.cfm">
 	<cftry>
 		<cfquery name="aid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			SELECT distinct(agent_id)
+			SELECT 
+				agent_id,
+				'#v_f#' v_f,
+				'#i_f#' i_f,
 			FROM agent_name
 			WHERE upper(agent_name) LIKE ('#escapeQuotes(ucase(agent_name))#%')
+			group by agent_id
 		</cfquery>
 		<cfif aid.recordcount is 1>
 			<cfreturn aid.agent_id>
@@ -15,7 +21,7 @@
 			<cfreturn -1>
 		</cfif>
 	<cfcatch>
-			<cfreturn cfcatch.message & cfcatch.detail>
+			<cfreturn -2>
 	</cfcatch>
 	</cftry>
 </cffunction>
