@@ -11,6 +11,7 @@
 		text-align:center;
 	}
 </style>
+<script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script>
 	function itsAllDone(vl){
 		
@@ -43,6 +44,40 @@
 			return false;
 		}
 	}
+	
+	function checkRequired(){	
+	// loop over all the forms...
+	$('form').each(function(){
+		var fid=this.id;
+		var hasIssues=0;
+		var allFormObjs = $('#' + fid).formSerialize();
+		var AFA=allFormObjs.split('&');
+		for (i=0;i<AFA.length;i++){
+			var fp=AFA[i].split('=');
+			var ffName=fp[0];
+			var ffVal=fp[1];
+			var ffClass=$("#" + ffName).attr('class');
+			if (ffClass=='reqdClr' && ffVal==''){
+				hasIssues+=1;
+			}
+		}
+		// get the form submit
+		// REQUIREMENT: form submit button has id of formID + _submit
+		//REQUIREMENT: form submit has a title
+		var sbmBtnStr=fid + "_submit";
+		var sbmBtn=document.getElementById(sbmBtnStr);
+		var v=sbmBtn.value;
+		if (hasIssues > 0) {
+			// form is NOT ready for submission
+			document.getElementById(fid).setAttribute('onsubmit',"return false");
+			sbmBtn.value="Not ready...";		
+		} else {
+			document.getElementById(fid).removeAttribute('onsubmit');
+			sbmBtn.value=sbmBtn.title;	
+		}
+	});
+}
+	
 </script>
 <cfif action is "nothing">
 <cfoutput>
@@ -53,7 +88,7 @@
 	<input type="text" name="a" id="a"  onchange="getAgent('b','a','test',this.value);">
 	<label for="b">This is the ID field, and is normally hidden</label>
 	<input type="text" name="b" id="b">
-	<br><input type="submit" value="submit">
+	<br><input type="submit" id="test_submit" title="submit" value="submit">
 </form>
 
 <cfif isdefined("save") and save is true>
