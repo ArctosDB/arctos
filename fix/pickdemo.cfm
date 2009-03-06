@@ -76,7 +76,7 @@
 			sbmBtn.value="Not ready...";		
 		} else {
 			document.getElementById(fid).removeAttribute('onsubmit');
-			sbmBtn.value=sbmBtn.title;	
+			sbmBtn.value=sbmBtn.title + '.';	
 		}
 	});
 }
