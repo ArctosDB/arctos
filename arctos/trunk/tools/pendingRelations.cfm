@@ -44,7 +44,7 @@ END;
 		cf_temp_relations.collection_object_id=cataloged_item.collection_object_id and
 		cataloged_item.collection_id = collection.collection_id
 	<cfif #filterForPending# is "true">
-		where related_collection_object_id is null
+		and related_collection_object_id is null
 	</cfif>
 </cfquery>
 <cfif #getRels.recordcount# is 0>
