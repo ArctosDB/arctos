@@ -1,8 +1,8 @@
 <cfinclude template="/ajax/core/cfajax.cfm">
-<cfinclude template="/includes/functionLib.cfm">
 <!------------------------------------>
 <cffunction name="agent_lookup" returntype="any">
 	<cfargument name="agent_name" type="string" required="yes">
+	<cfinclude template="/includes/functionLib.cfm">
 	<cftry>
 		<cfquery name="aid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT distinct(agent_id)
