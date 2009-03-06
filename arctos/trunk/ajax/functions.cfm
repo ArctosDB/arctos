@@ -14,7 +14,7 @@
 			<cfreturn -1>
 		</cfif>
 	<cfcatch>
-			<cfreturn -1>
+			<cfreturn -5>
 	</cfcatch>
 	</cftry>
 </cffunction>
