@@ -4,7 +4,7 @@
 	<cfargument name="agent_name" type="string" required="yes">
 	<cftry>
 		<cfquery name="aid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			SELECT agent_id
+			SELECT distinct(agent_id)
 			FROM agent_name
 			WHERE upper(agent_name) LIKE ('#escapeQuotes(ucase(agent_name))#%')
 		</cfquery>

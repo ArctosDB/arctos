@@ -2,7 +2,6 @@
 
 <script>
 	function checkNames(){
-
 		var a=document.getElementById('a');
 		var b=document.getElementById('b');
 		if(a.value.length>0 && b.value.length==0){
