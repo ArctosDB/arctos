@@ -633,7 +633,7 @@ Some Totally Random String Data .....
 			<td align="right"><span class="f11a">ID Remk</span></td>
 			<td><input type="text" name="IDENTIFICATION_REMARKS" value="#IDENTIFICATION_REMARKS#"
 				id="IDENTIFICATION_REMARKS"
-				class="d11a" size="40">
+				class="d11a" size="80">
 			</td>
 		</tr>
 	</table>
@@ -826,7 +826,7 @@ Some Totally Random String Data .....
 					<input type="text"  
 							name="associated_species" 
 						class="d11a"
-						size="50"
+						size="80"
 						id="associated_species" value="#associated_species#">
 				</td>
 			</tr>
@@ -835,7 +835,7 @@ Some Totally Random String Data .....
 				<td>
 					<input type="text"  name="COLL_OBJECT_HABITAT"
 						class="d11a"
-						size="50"
+						size="80"
 						id="COLL_OBJECT_HABITAT" value="#COLL_OBJECT_HABITAT#">
 				</td>
 			</tr>
