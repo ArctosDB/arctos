@@ -23,7 +23,10 @@ END;
 <cfparam name="filterForPending" default="true">
 
 <cfif action is "delete">
-	<cfdump var=#form#>
+	<cfquery name="delete" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		delete from cf_temp_relations where CF_TEMP_RELATIONS_ID in (#delthis#)
+	</cfquery>
+	<cflocation url="pendingRelations.cfm">
 </cfif>
 <cfif #action# is "showStatus">
 
@@ -82,6 +85,7 @@ Pending Relationships
 		<td>
 			Status
 		</td>
+		<td>Delete</td>
 	</tr>
 	<form name="d" method="post" action="pendingRelations.cfm">
 		<input type="hidden" name="action" value="delete">
