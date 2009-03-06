@@ -1,25 +1,29 @@
 <cfinclude template="/includes/_header.cfm">
 
 <script>
-	function checkNames(){
-		var a=document.getElementById('a');
-		var b=document.getElementById('b');
+	function checkThisForm(){
+		checkNames('a','b');
+	}
+	function checkNames(v_f,i_f){
+		var a=document.getElementById(v_f);
+		var b=document.getElementById(i_f);
 		if(a.value.length>0 && b.value.length==0){
-			console.log('before call');
-			DWREngine._execute(_cfscriptLocation, null, 'agent_lookup', a.value, success_checkNames);
-			console.log('after call');
-			console.log('after return false');
+			DWREngine._execute(_cfscriptLocation, null, 'agent_lookup', a.value,v_f,i_f success_checkNames);
 		} else {
-			document.getElementById('test').submit();
+			return 'gotboth';
+			alert('submitting now....');
+			//document.getElementById('test').submit();
 		}
 	}
 	function success_checkNames(result){
 		console.log('back');
 		if (result>0) {
 			document.getElementById('b').value=result;
+			return 'spiffy';
 			alert('submitting now....');
 		} else {
 			document.getElementById('a').className='red';
+			return 'unspiffy';
 			return false;
 		}
 	}
