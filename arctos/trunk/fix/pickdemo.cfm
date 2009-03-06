@@ -6,8 +6,11 @@
 		var a=document.getElementById('a');
 		var b=document.getElementById('b');
 		if(a.value.length>0 && b.value.length==0){
+			console.log('before call');
 			DWREngine._execute(_cfscriptLocation, null, 'agent_lookup', a.value, success_checkNames);
-			return false
+			console.log('after call');
+			return false;
+			console.log('after return false');
 		} else {
 			return true;
 		}
