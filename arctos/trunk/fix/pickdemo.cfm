@@ -15,7 +15,9 @@
 <script type='text/javascript' src='/includes/jquery/jquery.field.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
 <script>
+	jQuery( function($) {
 	setInterval(checkRequired,500);
+});
 	function itsAllDone(vl){
 		
 	}
