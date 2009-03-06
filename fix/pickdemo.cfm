@@ -2,11 +2,12 @@
 
 <script>
 	function checkNames(){
+		return false;
 		var a=document.getElementById('a');
 		var b=document.getElementById('b');
 		if(a.value.length>0 && b.value.length==0){
 			DWREngine._execute(_cfscriptLocation, null, 'agent_lookup', a.value, success_checkNames);
-			return false;
+			
 		} else {
 			return true;
 		}
