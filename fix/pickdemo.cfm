@@ -53,6 +53,7 @@
 	function checkRequired(){	
 	// loop over all the forms...
 	$('form').each(function(){
+		var msg='';
 		var fid=this.id;
 		var hasIssues=0;
 		var allFormObjs = $('#' + fid).formSerialize();
@@ -64,6 +65,7 @@
 			var ffClass=$("#" + ffName).attr('class');
 			if (ffClass=='reqdClr' && ffVal==''){
 				hasIssues+=1;
+				msg+=ffName;
 			}
 		}
 		// get the form submit
@@ -75,7 +77,7 @@
 		if (hasIssues > 0) {
 			// form is NOT ready for submission
 			document.getElementById(fid).setAttribute('onsubmit',"return false");
-			sbmBtn.value="Not ready...";		
+			sbmBtn.value="Not ready..." + msg;		
 		} else {
 			document.getElementById(fid).removeAttribute('onsubmit');
 			sbmBtn.value=sbmBtn.title + '.';	
