@@ -173,10 +173,41 @@ function success_pickedEvent(result){
 			alert('Oops! Something bad happend with the collecting_event pick. ' + result[0].MSG);
 		} else {
 			var BEGAN_DATE = result[0].BEGAN_DATE;
-			console.log(BEGAN_DATE);
+			var ENDED_DATE = result[0].ENDED_DATE;
+			var VERBATIM_DATE = result[0].VERBATIM_DATE;
+			var VERBATIM_LOCALITY = result[0].VERBATIM_LOCALITY;
+			var COLL_EVENT_REMARKS = result[0].COLL_EVENT_REMARKS;
+			var COLLECTING_SOURCE = result[0].COLLECTING_SOURCE;
+			var COLLECTING_METHOD = result[0].COLLECTING_METHOD;
+			var HABITAT_DESC = result[0].HABITAT_DESC;
+			
 			document.getElementById('began_date').value = BEGAN_DATE;
 			document.getElementById('began_date').className='d11a readClr';
 			document.getElementById('began_date').setAttribute('readonly','readonly');
+			
+			document.getElementById('ended_date').value = ENDED_DATE;
+			document.getElementById('ended_date').className='d11a readClr';
+			document.getElementById('ended_date').setAttribute('readonly','readonly');
+			
+			document.getElementById('verbatim_date').value = VERBATIM_DATE;
+			document.getElementById('verbatim_date').className='d11a readClr';
+			document.getElementById('verbatim_date').setAttribute('readonly','readonly');
+			
+			document.getElementById('coll_event_remarks').value = COLL_EVENT_REMARKS;
+			document.getElementById('coll_event_remarks').className='d11a readClr';
+			document.getElementById('coll_event_remarks').setAttribute('readonly','readonly');
+			
+			document.getElementById('collecting_source').value = COLLECTING_SOURCE;
+			document.getElementById('collecting_source').className='d11a readClr';
+			document.getElementById('collecting_source').setAttribute('readonly','readonly');
+			
+			document.getElementById('collecting_method').value = COLLECTING_METHOD;
+			document.getElementById('collecting_method').className='d11a readClr';
+			document.getElementById('collecting_method').setAttribute('readonly','readonly');
+			
+			document.getElementById('habitat_desc').value = HABITAT_DESC;
+			document.getElementById('habitat_desc').className='d11a readClr';
+			document.getElementById('habitat_desc').setAttribute('readonly','readonly');
 			
 			success_pickedLocality(result);
 		}
