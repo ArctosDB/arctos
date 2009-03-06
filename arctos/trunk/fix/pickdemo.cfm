@@ -9,15 +9,13 @@
 			console.log('before call');
 			DWREngine._execute(_cfscriptLocation, null, 'agent_lookup', a.value, success_checkNames);
 			console.log('after call');
-			return false;
 			console.log('after return false');
 		} else {
-			return true;
+			document.getElementById('test').submit();
 		}
 	}
 	function success_checkNames(result){
 		console.log('back');
-		return false;
 		if (result>0) {
 			document.getElementById('b').value=result;
 			alert('submitting now....');
@@ -29,7 +27,7 @@
 </script>
 <cfif action is "nothing">
 <cfoutput>
-<form method="post" name="test" action="pickdemo.cfm" onsubmit="return noenter()">
+<form method="post" name="test" id="test" action="pickdemo.cfm" onsubmit="return noenter()">
 	<input type="hidden" name="action" value="#action#">
 	<input type="hidden" name="save" value="true">
 	<label for="a">This is the text field</label>
