@@ -57,7 +57,7 @@ function turnSaveOn () {
 }
 function unpickEvent() {
 	document.getElementById('collecting_event_id').value='';
-	
+	document.getElementById('locality_id').value='';
 	document.getElementById('began_date').className='d11a reqdClr';
 	document.getElementById('began_date').removeAttribute('readonly');
 	
@@ -191,6 +191,7 @@ function unpickLocality () {
 function pickedEvent () {
 	var collecting_event_id = document.getElementById('collecting_event_id').value;
 	if (collecting_event_id.length > 0) {
+		document.getElementById('locality_id').value='';
 		DWREngine._execute(_data_entry_func, null, 'get_picked_event', collecting_event_id, success_pickedEvent);
 	}
 }
@@ -200,6 +201,7 @@ function success_pickedEvent(result){
 		if (collecting_event_id < 0) {
 			alert('Oops! Something bad happend with the collecting_event pick. ' + result[0].MSG);
 		} else {
+			document.getElementById('locality_id').value='';
 			var BEGAN_DATE = result[0].BEGAN_DATE;
 			var ENDED_DATE = result[0].ENDED_DATE;
 			var VERBATIM_DATE = result[0].VERBATIM_DATE;
