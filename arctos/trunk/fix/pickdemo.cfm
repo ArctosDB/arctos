@@ -16,6 +16,8 @@
 		}
 	}
 	function success_checkNames(result){
+		console.log('back');
+		return false;
 		if (result>0) {
 			document.getElementById('b').value=result;
 			alert('submitting now....');
