@@ -253,6 +253,11 @@ function success_pickedEvent(result){
 function pickedLocality () {
 	//alert('this is data entry pickedLocality');	
 	var locality_id = document.getElementById('locality_id').value;
+	var collecting_event_id = document.getElementById('collecting_event_id').value;
+	if (collecting_event_id.length>0){
+		alert('You cannot pick a locality and an event.');
+		return false;
+	}
 	//alert(locality_id);
 	if (locality_id.length > 0) {
 		DWREngine._execute(_data_entry_func, null, 'get_picked_locality', locality_id, success_pickedLocality);
