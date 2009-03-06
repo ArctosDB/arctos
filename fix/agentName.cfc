@@ -19,7 +19,7 @@ ORDER BY agent_name
 
 <!--- Build result array --->
 <cfloop query="data">
-<cfset ArrayAppend(result, agent_name)>
+<cfset ArrayAppend(result, name)>
 </cfloop>
 
       <!--- And return it --->
