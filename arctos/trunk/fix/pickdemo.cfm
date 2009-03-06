@@ -26,8 +26,8 @@
 		WHERE upper(agent_name) LIKE ('#ucase(a)#%')
 		ORDER BY agent_name
 	</cfquery>
-	<div style="border:2px solid red; width:600px; height:400px; left:50px;top:50px;position:absolute">
-	<cfif data.recordcound is 1>
+	<div style="border:2px solid red; width:600px; height:400px; left:50px;top:50px;position:absolute;z-index:2001;">
+	<cfif data.recordcount is 1>
 		saving....
 	<cfelse>
 		pick thingee.....
