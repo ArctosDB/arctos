@@ -13,6 +13,7 @@
 SELECT agent_name || ' (' || agent_id || ')' name
 FROM agent_name
 WHERE UCase(agent_name) LIKE Ucase('#ARGUMENTS.search#%')
+and rownum<100
 ORDER BY agent_name
 </cfquery>
 
