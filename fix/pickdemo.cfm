@@ -30,7 +30,7 @@
 	<input type="hidden" name="action" value="#action#">
 	<input type="hidden" name="save" value="true">
 	<label for="a">This is the text field</label>
-	<input type="text" name="a" id="a">
+	<input type="text" name="a" id="a"  onchange="getAgent('b','a','test',this.value);">
 	<label for="b">This is the ID field, and is normally hidden</label>
 	<input type="text" name="b" id="b">
 	<br><input type="button" value="submit" onclick="checkNames()">
