@@ -1,5 +1,14 @@
 <cfinclude template="/includes/_header.cfm">
 
+<cfform>
+Art:
+<cfinput type="text"
+      name="artname"
+      autosuggest="cfc:agentName.lookupname({cfautosuggestvalue})">
+</cfform>
+
+<hr>
+
 
 <form method="post" name="test" action="pickdemo.cfm">
 	<label for="a">This is the text field</label>
