@@ -67,6 +67,9 @@ function unpickEvent() {
 	document.getElementById('verbatim_date').className='d11a reqdClr';
 	document.getElementById('verbatim_date').removeAttribute('readonly');
 	
+	document.getElementById('verbatim_locality').className='d11a reqdClr';
+	document.getElementById('verbatim_locality').removeAttribute('readonly');
+	
 	document.getElementById('coll_event_remarks').className='d11a';
 	document.getElementById('coll_event_remarks').removeAttribute('readonly');
 	
@@ -218,6 +221,10 @@ function success_pickedEvent(result){
 			document.getElementById('ended_date').value = ENDED_DATE;
 			document.getElementById('ended_date').className='d11a readClr';
 			document.getElementById('ended_date').setAttribute('readonly','readonly');
+			
+			document.getElementById('verbatim_locality').value = VERBATIM_LOCALITY;
+			document.getElementById('verbatim_locality').className='d11a readClr';
+			document.getElementById('verbatim_locality').setAttribute('readonly','readonly');
 			
 			document.getElementById('verbatim_date').value = VERBATIM_DATE;
 			document.getElementById('verbatim_date').className='d11a readClr';
