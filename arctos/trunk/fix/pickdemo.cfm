@@ -3,7 +3,6 @@
 	.saver{
 		border:2px solid red; 
 		width:90%; 
-		height:30%; 
 		left:5%;
 		top:5%;
 		position:absolute;
@@ -73,6 +72,7 @@
 		saving....
 	<cfelse>
 		pick thingee.....
+		<cfdump var=#form#>
 	</cfif>
 	</div>
 </cfif>
