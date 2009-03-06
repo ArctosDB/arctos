@@ -21,6 +21,10 @@ END;
 --->
 <cfinclude template="/includes/_header.cfm">
 <cfparam name="filterForPending" default="true">
+
+<cfif action is "delete">
+	<cfdump var=#form#>
+</cfif>
 <cfif #action# is "showStatus">
 
 <cfset title="Pending Relationships">
@@ -79,6 +83,8 @@ Pending Relationships
 			Status
 		</td>
 	</tr>
+	<form name="d" method="post" action="pendingRelations.cfm">
+		<input type="hidden" name="action" value="delete">
 	<cfoutput>
 		<cfloop query="getRels">
 			<tr>
@@ -112,8 +118,14 @@ Pending Relationships
 						Something hinky is going on. File a <a href="/info/bugs.cfm">bug report</a>. Now!
 					</cfif>
 				</td>
+				<td>
+					<input type="checkbox" id="r_#CF_TEMP_RELATIONS_ID#" value="#CF_TEMP_RELATIONS_ID#">
+				</td>
 			</tr>
 		</cfloop>
+		
+		<input type="submit" value="delete checked relationships" class="delBtn">
+	</form>
 	</cfoutput>
 </table>
 <cfinclude template="/includes/_footer.cfm">
