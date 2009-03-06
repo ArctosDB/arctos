@@ -1,8 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
 
 <script>
+	function itsAllDone(vl){
+		
+	}
 	function checkThisForm(){
-		var c=checkNames('a','b');
+		itsAllDone('a','b');
+		checkNames('a','b');
 		console.log(c);
 	}
 	function checkNames(v_f,i_f){
@@ -31,14 +35,14 @@
 </script>
 <cfif action is "nothing">
 <cfoutput>
-<form method="post" name="test" id="test" action="pickdemo.cfm" onsubmit="return noenter()">
+<form method="post" name="test" id="test" action="pickdemo.cfm">
 	<input type="hidden" name="action" value="#action#">
 	<input type="hidden" name="save" value="true">
 	<label for="a">This is the text field</label>
 	<input type="text" name="a" id="a"  onchange="getAgent('b','a','test',this.value);">
 	<label for="b">This is the ID field, and is normally hidden</label>
 	<input type="text" name="b" id="b">
-	<br><input type="button" value="submit" onclick="checkThisForm()">
+	<br><input type="submit" value="submit">
 </form>
 
 <cfif isdefined("save") and save is true>
