@@ -13,6 +13,7 @@
 </style>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script>
+	setInterval(checkRequired,500);
 	function itsAllDone(vl){
 		
 	}
