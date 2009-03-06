@@ -56,6 +56,8 @@ function turnSaveOn () {
 	//document.getElementById('pickedSomething').style.display='block';
 }
 function unpickEvent() {
+	document.getElementById('collecting_event_id').value='';
+	
 	document.getElementById('began_date').className='d11a reqdClr';
 	document.getElementById('began_date').removeAttribute('readonly');
 	
