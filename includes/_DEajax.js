@@ -1,5 +1,5 @@
 setInterval ( "checkPicked()", 5000 );
-
+setInterval ( "checkPickedEvnt()", 5000 );
 function checkPicked(){
 	var locality_id=document.getElementById('locality_id');
 	if (locality_id.value.length>0){
@@ -55,7 +55,33 @@ function turnSaveOn () {
 	document.getElementById('localityUnPicker').style.display='none';
 	//document.getElementById('pickedSomething').style.display='block';
 }
-								
+function unpickEvent() {
+	document.getElementById('began_date').className='d11a reqdClr';
+	document.getElementById('began_date').removeAttribute('readonly');
+	
+	document.getElementById('ended_date').className='d11a reqdClr';
+	document.getElementById('ended_date').removeAttribute('readonly');
+	
+	document.getElementById('verbatim_date').className='d11a reqdClr';
+	document.getElementById('verbatim_date').removeAttribute('readonly');
+	
+	document.getElementById('coll_event_remarks').className='d11a';
+	document.getElementById('coll_event_remarks').removeAttribute('readonly');
+	
+	document.getElementById('collecting_source').className='d11a reqdClr';
+	document.getElementById('collecting_source').removeAttribute('readonly');
+	
+	document.getElementById('collecting_method').className='d11a';
+	document.getElementById('collecting_method').removeAttribute('readonly');
+	
+	document.getElementById('habitat_desc').className='d11a';
+	document.getElementById('habitat_desc').removeAttribute('readonly');
+	
+	document.getElementById('eventUnPicker').style.display='none';
+	document.getElementById('eventPicker').style.display='';
+	
+	unpickLocality();
+}						
 function unpickLocality () {
 	var u = document.getElementById('orig_lat_long_units').value;
 	switchActive(u);
@@ -208,6 +234,9 @@ function success_pickedEvent(result){
 			document.getElementById('habitat_desc').value = HABITAT_DESC;
 			document.getElementById('habitat_desc').className='d11a readClr';
 			document.getElementById('habitat_desc').setAttribute('readonly','readonly');
+			
+			document.getElementById('eventPicker').style.display='none';
+			document.getElementById('eventUnPicker').style.display='';
 			
 			success_pickedLocality(result);
 		}
