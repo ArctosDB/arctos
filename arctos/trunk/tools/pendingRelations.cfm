@@ -26,6 +26,7 @@ END;
 <cfset title="Pending Relationships">
 <cfquery name="getRels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
+		cataloged_item.collection_object_id,
 		RELATIONSHIP,
 		RELATED_TO_NUMBER,
 		RELATED_TO_NUM_TYPE,
