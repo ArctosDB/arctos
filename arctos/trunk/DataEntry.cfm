@@ -820,10 +820,10 @@ Some Totally Random String Data .....
 				<td align="right"><span class="f11a">Habitat</span></td>
 				<td>
 					<input type="text"  
-							name="HABITAT_DESC" 
+							name="habitat_desc" 
 						class="d11a"
 						size="50"
-						id="HABITAT_DESC" value="#HABITAT_DESC#">
+						id="habitat_desc" value="#habitat_desc#">
 				</td>
 			</tr>
 			<tr>
