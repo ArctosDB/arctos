@@ -2,7 +2,8 @@
 
 <script>
 	function checkThisForm(){
-		checkNames('a','b');
+		var c=checkNames('a','b');
+		console.log(c);
 	}
 	function checkNames(v_f,i_f){
 		var a=document.getElementById(v_f);
