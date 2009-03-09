@@ -430,17 +430,12 @@
 	</cftry>
 	<cfreturn result>
 </cffunction>
-<!-------------------------------------------->
-<cffunction name="addPartToContainer" returntype="String">
+<!-------------------------------------------------------------------->
+<cffunction name="getCollObjByPart" returntype="query">
 	<cfargument name="collection_id" type="numeric" required="yes">
 	<cfargument name="other_id_type" type="string" required="yes">
 	<cfargument name="oidnum" type="string" required="yes">
 	<cfargument name="part_name" type="string" required="yes">
-	<cfargument name="part_name_2" type="string" required="yes">
-	<cfargument name="parent_barcode" type="string" required="yes">
-	<cfargument name="new_container_type" type="string" required="yes">
-	<cfoutput>
-	<cftry>
 	<cfif #other_id_type# is "catalog_number">
 		<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
@@ -491,42 +486,27 @@
 					part_name='#part_name#'
 			</cfquery>
 		</cfif>
+		<cfreturn coll_obj>
+</cffunction>
+<!-------------------------------------------->
+<cffunction name="addPartToContainer" returntype="String">
+	<cfargument name="collection_id" type="numeric" required="yes">
+	<cfargument name="other_id_type" type="string" required="yes">
+	<cfargument name="oidnum" type="string" required="yes">
+	<cfargument name="part_name" type="string" required="yes">
+	<cfargument name="part_name_2" type="string" required="yes">
+	<cfargument name="parent_barcode" type="string" required="yes">
+	<cfargument name="new_container_type" type="string" required="yes">
+	<cfoutput>
+	<cftry>
+		<cfset coll_obj=getCollObjByPart(collection_id,other_id_type,oidnum,part_name)>
 		<cfif len(#part_name_2#) gt 0>
-			<cfif #other_id_type# is "catalog_number">
-				<cfquery name="coll_obj2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select 
-						specimen_part.collection_object_id 
-					FROM
-						cataloged_item,
-						specimen_part
-					WHERE
-						cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
-						collection_id=#collection_id# AND
-						cat_num=#oidnum# AND
-						part_name='#part_name_2#'
-				</cfquery>
-			<cfelse>
-				<cfquery name="coll_obj2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select 
-						specimen_part.collection_object_id 
-					FROM
-						cataloged_item,
-						specimen_part,
-						coll_obj_other_id_num
-					WHERE
-						cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
-						cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id AND
-						collection_id=#collection_id# AND
-						other_id_type='#other_id_type#' AND
-						display_value= '#oidnum#' AND
-						part_name='#part_name_2#'
-				</cfquery>
-			</cfif>
+			<cfset coll_obj=getCollObjByPart(collection_id,other_id_type,oidnum,part_name_2)>
 		</cfif>
-		<cfcatch>
-			<cfreturn "0|#cfcatch.message#: #cfcatch.detail#">
-		</cfcatch>	
-		</cftry>
+	<cfcatch>
+		<cfreturn "0|#cfcatch.message#: #cfcatch.detail#">
+	</cfcatch>	
+	</cftry>
 		<cfif #coll_obj.recordcount# is not 1>
 			<cfreturn "0|#coll_obj.recordcount# cataloged items matched #other_id_type# #oidnum# #part_name#.">
 		</cfif>
