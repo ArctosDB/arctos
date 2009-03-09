@@ -53,7 +53,6 @@
 	function checkRequired(){	
 	// loop over all the forms...
 	$('form').each(function(){
-		var msg='';
 		var fid=this.id;
 		var hasIssues=0;
 		var allFormObjs = $('#' + fid).formSerialize();
@@ -65,7 +64,6 @@
 			var ffClass=$("#" + ffName).attr('class');
 			if (ffClass=='reqdClr' && ffVal==''){
 				hasIssues+=1;
-				msg+=ffName;
 			}
 		}
 		// get the form submit
@@ -80,7 +78,7 @@
 			sbmBtn.value="Not ready..." + msg;		
 		} else {
 			document.getElementById(fid).removeAttribute('onsubmit');
-			sbmBtn.value=sbmBtn.title + '.';	
+			sbmBtn.value=sbmBtn.title;	
 		}
 	});
 }
