@@ -547,7 +547,7 @@
 				collection.collection_cde,
 				institution_acronym,
 				scientific_name,
-				-1 collection_object_id 
+				#coll_obj.part_id# collection_object_id 
 			FROM
 				cataloged_item,
 				specimen_part,
@@ -570,7 +570,7 @@
 				' ' collection_cde,
 				' ' institution_acronym,
 				' ' scientific_name,
-				' ' collection_object_id 
+				'' collection_object_id 
 			FROM
 				dual
 		</cfquery>
@@ -590,7 +590,6 @@
 	<cftry>
 	<cftry>
 		<cfset coll_obj=getCollObjByPart(collection_id,other_id_type,oidnum,part_name)>
-				<cfreturn "0|-->#coll_obj.collection_object_id# number: #coll_obj.recordcount#">
 		<cfif len(#part_name_2#) gt 0>
 			<cfset coll_obj2=getCollObjByPart(collection_id,other_id_type,oidnum,part_name_2)>
 		</cfif>
@@ -601,6 +600,8 @@
 		<cfif #coll_obj.recordcount# gt 1>
 			<!--- see if we can find a suitable uncontainerized tissue --->
 			<cfset coll_obj=getDistNoContainerPartId(collection_id,other_id_type,oidnum,part_name)>
+			
+			<cfreturn "0|-->#coll_obj.collection_object_id# number: #coll_obj.recordcount#">
 			<cfif not isdefined("coll_obj.collection_object_id") or coll_obj.collection_object_id gt 0>
 				<cfreturn "0|#coll_obj.recordcount# cataloged items matched #other_id_type# #oidnum# #part_name#.">
 			</cfif>
