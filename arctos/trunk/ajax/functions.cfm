@@ -590,6 +590,7 @@
 	<cftry>
 	<cftry>
 		<cfset coll_obj=getCollObjByPart(collection_id,other_id_type,oidnum,part_name)>
+		<cfreturn "0|-->#coll_obj.collection_object_id#">
 		<cfif len(#part_name_2#) gt 0>
 			<cfset coll_obj2=getCollObjByPart(collection_id,other_id_type,oidnum,part_name_2)>
 		</cfif>
@@ -617,6 +618,7 @@
 				<cfreturn "0|#coll_obj2.recordcount# cataloged items matched #other_id_type# #oidnum# #part_name#.">
 			</cfif>			
 		</cfif>
+		
 		<cfquery name="isGoodParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select container_id from container where container_type <> 'collection object'
 			and barcode='#parent_barcode#'
@@ -625,8 +627,7 @@
 			<cfreturn "0|Parent container (barcode #parent_barcode#) not found.">
 		</cfif>
 		<cfquery name="cont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select container_id FROM coll_obj_cont_hist where
-			collection_object_id=#coll_obj.collection_object_id#
+			select container_id FROM coll_obj_cont_hist where collection_object_id=#coll_obj.collection_object_id#
 		</cfquery>
 		<cfif #cont.recordcount# is not 1>
 			<cfreturn "0|Yikes! A part is not a container.">
