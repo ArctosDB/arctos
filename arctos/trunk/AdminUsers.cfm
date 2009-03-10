@@ -259,18 +259,17 @@
 						<td>
 							<select name="role_name" size="1">
 								<cfloop query="croles">
-									<cfif not listfindnocase(valuelist(user_croles.role_name),role_name)>
+									<cfif not listfindnocase(valuelist(user_croles.role_name),role_name)
+											and listfindnocase(valuelist(myroles.role_name),role_name)>
 										<option value="#role_name#">#role_name#</option>
 									</cfif>
 								</cfloop>
 							</select>
 						</td>
 						<td>
-							<cfif listfindnocase(valuelist(myroles.role_name),role_name)>
-								<input type="submit" 
-									value="Grant Access" 
-									class="savBtn">
-							</cfif>
+							<input type="submit" 
+								value="Grant Access" 
+								class="savBtn">
 						</td>
 					</tr>
 				</form>
