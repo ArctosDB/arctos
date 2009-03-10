@@ -567,7 +567,7 @@
 			select 
 				-1 cat_num,
 				' ' collection,
-				' ' collection.collection_cde,
+				' ' collection_cde,
 				' ' institution_acronym,
 				' ' scientific_name,
 				' ' collection_object_id 
