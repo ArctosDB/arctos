@@ -607,13 +607,15 @@
 			<cfreturn "0|#coll_obj.recordcount# cataloged items matched #other_id_type# #oidnum# #part_name#.">
 		</cfif>
 		
-		<cfif len(#part_name_2#) gt 0 and #coll_obj2.recordcount# gt 1>
+		<cfif len(#part_name_2#) gt 0 and isdefined("coll_obj2.recordcount") and #coll_obj2.recordcount# gt 1>
 			<cfset coll_obj2=getDistNoContainerPartId(collection_id,other_id_type,oidnum,part_name_2)>
 			<cfif not isdefined("coll_obj2.collection_object_id") or coll_obj2.collection_object_id lte 0>
 				<cfreturn "0|#coll_obj2.recordcount# cataloged items matched #other_id_type# #oidnum# #part_name_2#.">
 			</cfif>
-		<cfelseif #coll_obj2.recordcount# is 0>
+		<cfelseif isdefined("coll_obj2.recordcount") and #coll_obj2.recordcount# is 0>
 			<cfreturn "0|#coll_obj2.recordcount# cataloged items matched #other_id_type# #oidnum# #part_name#.">
+		<cfelse>
+			<cfreturn "0|what the.....">
 		</cfif>
 		<cfquery name="isGoodParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select container_id from container where container_type <> 'collection object'
