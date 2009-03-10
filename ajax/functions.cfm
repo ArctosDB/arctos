@@ -565,12 +565,7 @@
 	<cfelse>
 		<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
-				-1 cat_num,
-				' ' collection,
-				' ' collection_cde,
-				' ' institution_acronym,
-				' ' scientific_name,
-				'' collection_object_id 
+				-1 cat_num
 			FROM
 				dual
 		</cfquery>
@@ -600,7 +595,7 @@
 		<cfif #coll_obj.recordcount# gt 1>
 			<!--- see if we can find a suitable uncontainerized tissue --->
 			<cfset coll_obj=getDistNoContainerPartId(collection_id,other_id_type,oidnum,part_name)>
-			<cfif not isdefined("coll_obj.collection_object_id") or coll_obj.collection_object_id gt 0>
+			<cfif not isdefined("coll_obj.collection_object_id")>
 				<cfreturn "0|here i am now">
 				<cfreturn "0|#coll_obj.recordcount# cataloged items matched #other_id_type# #oidnum# #part_name#.">
 			</cfif>
