@@ -59,10 +59,7 @@
 	 
 	 
 	 <cfif #cgi.HTTP_HOST# contains "database.museum">
-		<cfset sqlldrScript = "/opt/coldfusion8/runtime/bin/runSqlldr">	
-	<cfelse>
-		 <cfset sqlldrScript = "/users/mvzarctos/bin/runSqlldr">
-		 
+		<cfset sqlldrScript = "/opt/coldfusion8/runtime/bin/runSqlldr">
 	</cfif>
 	
 	<cfif FileExists("#filename#")>
