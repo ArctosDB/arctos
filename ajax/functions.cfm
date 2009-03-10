@@ -588,6 +588,7 @@
 	<cfargument name="new_container_type" type="string" required="yes">
 	<cfoutput>
 	<cftry>
+	<cftry>
 		<cfset coll_obj=getCollObjByPart(collection_id,other_id_type,oidnum,part_name)>
 		<cfif len(#part_name_2#) gt 0>
 			<cfset coll_obj2=getCollObjByPart(collection_id,other_id_type,oidnum,part_name_2)>
@@ -670,6 +671,11 @@
 		</cfif>
 		<cfset r="#r# to container barcode #parent_barcode# (#new_container_type#)">
 		<cfreturn '1|#r#'>
+	
+	<cfcatch>
+	<cfreturn "0|#cfcatch.message#: #cfcatch.detail#">
+	</cfcatch>
+	</cftry>
 	</cfoutput>	
 	
 	
