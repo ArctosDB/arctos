@@ -198,7 +198,7 @@
 			<cfset q=queryNew("status,msg")>
 			<cfset t = queryaddrow(q,1)>
 			<cfset t = QuerySetCell(q, "status", "error", 1)>
-			<cfset t = QuerySetCell(q, "msg", "#cfcatch.message# #cfcatch.detail#", 1)>
+			<cfset t = QuerySetCell(q, "msg", "#cfcatch.message# #cfcatch.detail#:: #ccid.nv#", 1)>
 		</cfcatch>
 	</cftry>
 	<cfreturn q>	
