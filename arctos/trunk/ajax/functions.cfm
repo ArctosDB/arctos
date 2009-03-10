@@ -601,6 +601,7 @@
 			<!--- see if we can find a suitable uncontainerized tissue --->
 			<cfset coll_obj=getDistNoContainerPartId(collection_id,other_id_type,oidnum,part_name)>
 			<cfif not isdefined("coll_obj.collection_object_id") or coll_obj.collection_object_id gt 0>
+				<cfreturn "0|here i am now">
 				<cfreturn "0|#coll_obj.recordcount# cataloged items matched #other_id_type# #oidnum# #part_name#.">
 			</cfif>
 		<cfelseif #coll_obj.recordcount#  is 0>
