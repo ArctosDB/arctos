@@ -590,7 +590,7 @@
 	<cftry>
 	<cftry>
 		<cfset coll_obj=getCollObjByPart(collection_id,other_id_type,oidnum,part_name)>
-		<cfreturn "0|-->#coll_obj.collection_object_id#">
+				<cfreturn "0|-->#coll_obj.collection_object_id# number: #coll_obj.recordcount#">
 		<cfif len(#part_name_2#) gt 0>
 			<cfset coll_obj2=getCollObjByPart(collection_id,other_id_type,oidnum,part_name_2)>
 		</cfif>
