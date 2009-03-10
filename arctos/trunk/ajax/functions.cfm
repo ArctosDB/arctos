@@ -673,7 +673,11 @@
 		<cfreturn '1|#r#'>
 	
 	<cfcatch>
-	<cfreturn "0|#cfcatch.message#: #cfcatch.detail#">
+		<cfset r="0|#cfcatch.message#: #cfcatch.detail#">
+		<cfif isdefined(cfcatch.sql)>
+			<cfset r=r & cfcatch.sql>
+		</cfif>
+	<cfreturn r>
 	</cfcatch>
 	</cftry>
 	</cfoutput>	
