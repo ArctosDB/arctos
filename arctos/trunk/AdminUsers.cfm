@@ -266,7 +266,7 @@
 							</select>
 						</td>
 						<td>
-							<cfif listfindnocase(valuelist(myroles.role_name),role_name>
+							<cfif listfindnocase(valuelist(myroles.role_name),role_name)>
 								<input type="submit" 
 									value="Grant Access" 
 									class="savBtn">
