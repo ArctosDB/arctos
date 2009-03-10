@@ -227,12 +227,24 @@
 			dba_role_privs,
 			cf_collection
 			where
-			upper(dba_role_privs.granted_role) = upper(cf_collection.portal_name) and
-			upper(grantee) = '#ucase(session.username)#'
-			and 
+			upper(dba_role_privs.granted_role) = upper(cf_collection.portal_name) 
 			group by granted_role
 			order by granted_role
 		</cfquery>
+		
+		<cfquery name="myroles" datasource="uam_god">
+			select granted_role role_name
+			from 
+			dba_role_privs,
+			cf_collection
+			where
+			upper(dba_role_privs.granted_role) = upper(cf_collection.portal_name) and
+			upper(grantee) = '#ucase(session.username)#'
+			group by granted_role
+			order by granted_role
+		</cfquery>
+		
+		
 		<td valign="top">
 			<table border>
 				<tr>
@@ -254,9 +266,11 @@
 							</select>
 						</td>
 						<td>
-							<input type="submit" 
-								value="Grant Access" 
-								class="savBtn">							
+							<cfif listfindnocase(valuelist(myroles.role_name),role_name>
+								<input type="submit" 
+									value="Grant Access" 
+									class="savBtn">
+							</cfif>
 						</td>
 					</tr>
 				</form>
