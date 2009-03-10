@@ -601,7 +601,6 @@
 		<cfelseif #coll_obj.recordcount#  is 0>
 			<cfreturn "0|#coll_obj.recordcount# cataloged items matched #other_id_type# #oidnum# #part_name#.">
 		</cfif>
-		
 		<cfif len(#part_name_2#) gt 0>
 			<cfif coll_obj2.recordcount gt 1>
 				<cfset coll_obj2=getDistNoContainerPartId(collection_id,other_id_type,oidnum,part_name_2)>
@@ -611,8 +610,7 @@
 			<cfelseif coll_obj2.recordcount is 0>
 				<cfreturn "0|#coll_obj2.recordcount# cataloged items matched #other_id_type# #oidnum# #part_name#.">
 			</cfif>			
-		</cfif>
-		
+		</cfif>		
 		<cfquery name="isGoodParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select container_id from container where container_type <> 'collection object'
 			and barcode='#parent_barcode#'
@@ -678,16 +676,6 @@
 	</cfcatch>
 	</cftry>
 	</cfoutput>	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 </cffunction>
 <!----------------------------------------------------------------->
 <cffunction name="getDocsById" returntype="xml">

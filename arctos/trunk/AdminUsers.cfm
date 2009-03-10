@@ -227,7 +227,9 @@
 			dba_role_privs,
 			cf_collection
 			where
-			upper(dba_role_privs.granted_role) = upper(cf_collection.portal_name)
+			upper(dba_role_privs.granted_role) = upper(cf_collection.portal_name) and
+			upper(grantee) = '#ucase(session.username)#'
+			and 
 			group by granted_role
 			order by granted_role
 		</cfquery>
