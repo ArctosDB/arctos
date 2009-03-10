@@ -160,7 +160,7 @@
 			<cfif len(#coll_object_remarks#) gt 0>
 				<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
-					VALUES (s#ccid.nv#, '#coll_object_remarks#')
+					VALUES (#ccid.nv#, '#coll_object_remarks#')
 				</cfquery>
 			</cfif>
 			<cfif len(barcode) gt 0>
