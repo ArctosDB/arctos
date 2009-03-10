@@ -539,7 +539,7 @@
 				part_name='#part_name#'
 		</cfquery>
 	</cfif>
-	<cfif coll_obj.recordcount is 1>
+	<cfif coll_obj.recordcount is 1 and len(coll_obj.part_id) gt 0>
 		<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				cat_num,
