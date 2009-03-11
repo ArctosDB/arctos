@@ -533,7 +533,7 @@
 				(container.parent_container_id is null or
 				container.parent_container_id=0) and
 				specimen_part.is_tissue=1 and
-				collection.collection_id=#collection_id# AND
+				cataloged_item.collection_id=#collection_id# AND
 				other_id_type='#other_id_type#' AND
 				display_value= '#oidnum#' AND
 				part_name='#part_name#'
