@@ -145,7 +145,6 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 		<cfset colVals="">
 			<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
-				<cfdump var="#arrResult[o]#">
 				 <!---
 				 <cfdump var="#arrResult[o]#">
 				 --->
@@ -155,6 +154,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					<cfset colNames="#colNames#,#thisBit#">
 				<cfelse>
 					<cfset colVals="#colVals#,'#thisBit#'">
+					<br>thisBit: #thisBit#
 				</cfif>
 			</cfloop>
 		<cfif #o# is 1>
