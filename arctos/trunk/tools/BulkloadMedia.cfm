@@ -145,6 +145,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 		<cfset colVals="">
 			<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
+				<cfdump var="#arrResult[o]#">
 				 <!---
 				 <cfdump var="#arrResult[o]#">
 				 --->
@@ -158,7 +159,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			</cfloop>
 		<cfif #o# is 1>
 			<cfset colNames=replace(colNames,",","","first")>
-		</cfif>	
+		</cfif>
 		<cfif len(#colVals#) gt 1>
 			<!--- Excel randomly and unpredictably whacks values off
 				the end when they're NULL. Put NULLs back on as necessary.
