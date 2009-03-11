@@ -8,7 +8,9 @@ create table cf_temp_media (
  MEDIA_URI VARCHAR2(255),
  MIME_TYPE VARCHAR2(255),
  MEDIA_TYPE VARCHAR2(255),
- PREVIEW_URI VARCHAR2(255)
+ PREVIEW_URI VARCHAR2(255),
+MEDIA_RELATIONSHIP VARCHAR2(40),
+ MEDIA_LABEL VARCHAR2(255)
 );
 
 create table cf_temp_media_relations (
@@ -25,7 +27,7 @@ LABEL_VALUE VARCHAR2(255),
  ASSIGNED_BY_AGENT_ID NUMBER
 );
 
-create public synonym cf_temp_media for cf_temp_media;
+create or replace public synonym cf_temp_media for cf_temp_media;
 grant all on cf_temp_media to manage_media;
 grant select on cf_temp_media to public;
 
@@ -167,26 +169,16 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					<cfset colVals = "#colVals#,''">
 				</cfloop>
 			</cfif>
-			<!--- we now have 2 lists - one of column names and one of values --->
-			<cfset lp=1>
-			<cfloop list="#colNames#" index="cn">
-				<cfset thisValue=listgetat(colVals,lp)>
-				<br>#cn#=#thisValue#
-				<cfset lp=lp+1>
-			</cfloop>
-			insert into cf_temp_agents (#colNames#) values (#preservesinglequotes(colVals)#)
-			<br>
-			<!---
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				insert into cf_temp_agents (#colNames#) values (#preservesinglequotes(colVals)#)
+				insert into cf_temp_media (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
-			---->
+
 		</cfif>
 	</cfloop>
 </cfoutput>
-
+	<cflocation url="BulkloadMedia.cfm?action=validate">
  <!---
-	<cflocation url="BulkloadAgents.cfm?action=validate">
+
 ---->
 </cfif>
 <!------------------------------------------------------->
@@ -194,8 +186,14 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <cfif #action# is "validate">
 <cfoutput>
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select * from cf_temp_agents
+	select * from cf_temp_media
 </cfquery>
+<cfdump var=#d#>
+
+<cfabort>
+
+
+
 <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	update cf_temp_agents set status='missing_data'
 	where agent_type is null OR
