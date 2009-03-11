@@ -68,7 +68,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<br>Examples:
 	<ul>
 		<li>
-			Created by agent=Carla Cicero
+			created by agent=Carla Cicero
 		</li>
 		<li>
 			created by agent=Carla Cicero;assigned to project=Vocal variation in Pipilo maculatus
@@ -137,7 +137,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
 	<cfdump var=#arrResult#>
 	
-	<cfabort>
+
 	<cfset numberOfColumns = ArrayLen(arrResult[1])>
 
 	
@@ -170,16 +170,21 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					<cfset colVals = "#colVals#,''">
 				</cfloop>
 			</cfif>
+			
+			insert into cf_temp_agents (#colNames#) values (#preservesinglequotes(colVals)#)
+			<br>
+			<!---
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				insert into cf_temp_agents (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
+			---->
 		</cfif>
 	</cfloop>
 </cfoutput>
 
- 
+ <!---
 	<cflocation url="BulkloadAgents.cfm?action=validate">
-
+---->
 </cfif>
 <!------------------------------------------------------->
 <!------------------------------------------------------->
