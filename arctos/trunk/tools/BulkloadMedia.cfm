@@ -154,16 +154,12 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					<cfset colNames="#colNames#,#thisBit#">
 				<cfelse>
 					<cfset colVals="#colVals#,'#thisBit#'">
-					<br>thisBit: #thisBit#
 				</cfif>
 			</cfloop>
 		<cfif #o# is 1>
 			<cfset colNames=replace(colNames,",","","first")>
 		</cfif>
 		<cfif len(#colVals#) gt 1>
-			<!--- Excel randomly and unpredictably whacks values off
-				the end when they're NULL. Put NULLs back on as necessary.
-				--->
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfif numColsRec lt numberOfColumns>
 				<cfset missingNumber = numberOfColumns - numColsRec>
@@ -171,7 +167,13 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					<cfset colVals = "#colVals#,''">
 				</cfloop>
 			</cfif>
-			
+			<!--- we now have 2 lists - one of column names and one of values --->
+			<cfset lp=1>
+			<cfloop list="#colNames#" index="cn">
+				<cfset thisValue=listgetat(colVals,lp)>
+				<br>#cn#=#thisValue#
+				<cfset lp=lp+1>
+			</cfloop>
 			insert into cf_temp_agents (#colNames#) values (#preservesinglequotes(colVals)#)
 			<br>
 			<!---
