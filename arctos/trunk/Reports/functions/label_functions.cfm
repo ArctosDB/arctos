@@ -661,6 +661,7 @@
 	<cfargument name="q" required="true" type="query">
 	
 	<cfset colAr = ArrayNew(1)>
+	<cfset collectorAr = ArrayNew(1)>
 	<cfset coorAr = ArrayNew(1)>
 	<cfset hAr = ArrayNew(1)>
 	<!--- Data Manipulation --->
@@ -675,6 +676,7 @@
 		</cfloop>
 		<cfset colAr[i] = "#format_collectors#">
 		
+		<cfset collectorAr[i] = "#collectors#">
 		
 		<!--- Latitude/Longitude (datum) --->
 		<!-- Setting Latitude/Longitidue -->
@@ -723,7 +725,8 @@
 	</cfloop>
 	
 	<cfset temp=queryAddColumn(q, "coordinates", "VarChar", coorAr)>
-	<cfset temp=queryAddColumn(q, "format_collectors", "VarChar", colAr)>
+	<cfset temp=queryAddColumn(q, "col", "VarChar", collAr)>
+	<cfset temp=queryAddColumn(q, "format_collectors", "VarChar", collectorAr)>
 	<cfset temp=queryAddColumn(q, "highergeog", "VarChar", hAr)>
 	
 	<cfreturn q>
