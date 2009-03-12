@@ -669,7 +669,7 @@
 		
 		<!--- Collectors (collector_id_num) [, second collector (second collector number)] --->
 		<cfset ids = "#other_ids#">
-		<cfset ids = replace(ids, "=", ":",all)>
+		<cfset ids = replace(ids, "=", ":","all")>
 		<cfset firstId = "">
 		<cfset secondId = "">		
 		<cfset idCommaPos = find (",", ids)>
