@@ -425,7 +425,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 						#media_id#,'#MEDIA_RELATIONSHIP#',#RELATED_PRIMARY_KEY#)
 				</cfquery>
 			</cfloop>
-			<cfquery name="media_labels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="medialabels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					*
 				from 
@@ -433,7 +433,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 				where
 					key=#key#
 			</cfquery>
-			<cfloop query="media_labels">
+			<cfloop query="medialabels">
 				<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					insert into media_labels (media_id,media_label,label_value)
 					values (#media_id#,'#MEDIA_LABEL#','#LABEL_VALUE#')
