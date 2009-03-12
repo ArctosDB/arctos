@@ -21,10 +21,9 @@
 </cfif>
 <cfif action is "show">
 <cfoutput>
-
+<hr>The following specimens have no parts.
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select  
-		count(*) c, 
 		collection.collection,
 		cataloged_item.cat_num
 	from 
@@ -38,13 +37,19 @@
 		<cfif isdefined("collection_id") and collection_id gt 0>
 			and collection.collection_id=#collection_id#
 		</cfif>
-	group by
-		collection.collection,
-		cataloged_item.cat_num
 	order by
 		collection.collection,
 		cat_num
 </cfquery>
+<cfset fileDir = "#Application.webDirectory#">
+<cfset fileName = "ArctosData_#cfid#_#cftoken#.csv">
+<cfset header="collection,cat_num">
+<cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#header#">
+<cfloop query="d">
+	<cfset oneLine = "#collection#,#cat_num#">
+	<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#oneLine#">
+</cfloop>
+<a href="/download.cfm?file=#fileName#">Download as CSV</a>
 <cfdump var=#d#>
 </cfoutput>
 </cfif>
