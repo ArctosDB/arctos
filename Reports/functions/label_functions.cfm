@@ -687,11 +687,11 @@
 		<cfloop list="collectors" delimiters = "," index = "coll">
 			<cfif count eq 1>
 				<cfif firstId is not "">
-					<cfset collector = coll + "(" + firstId + ")">
+					<cfset collector = "#coll# (#firstId#)">
 				</cfif>
 			<cfelseif count eq 2>
 				<cfif secondId is not "">
-					<cfset collector = coll + "(" + secondId + ")">
+					<cfset collector = "#coll# (#secondId#)">
 				</cfif>
 			</cfif>
 						
