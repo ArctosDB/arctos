@@ -348,8 +348,33 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	select * from cf_temp_media where status is not null
 </cfquery>
 <cfif len(bad.key) gt 0>
-	Oops.
+	Oops! You must fix everything below before proceeding (see STATUS column).
 	<cfdump var=#bad#>
+<cfelse>
+	Yay! Everything looks OK. Check it over in the tables below, then 
+	<a href="BulkloadMedia.cfm?action=load">click here</a> to proceed.
+	(Note that the table below is "flattened." Media entried are repeated for every Label and Relationship.)
+	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select 
+			key, 
+			status
+			MEDIA_URI,
+			MIME_TYPE,
+			MEDIA_TYPE,
+			PREVIEW_URI,
+			MEDIA_RELATIONSHIP,
+			RELATED_PRIMARY_KEY,
+			MEDIA_LABEL,
+			LABEL_VALUE
+		from 
+			cf_temp_media,
+			cf_temp_media_labels,
+			cf_temp_media_relations
+		where
+			cf_temp_media.key=cf_temp_media_labels.key (+) and
+			cf_temp_media.key=cf_temp_media_relations.key (+)
+	</cfquery>
+	<cfdump var=#media#>	
 </cfif>
 
 <!----
