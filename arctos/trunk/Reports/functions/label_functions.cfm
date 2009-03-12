@@ -674,11 +674,11 @@
 		<cfset idCommaPos = find (",", ids)>
 		
 		<cfif idCommaPos gt 0>
-			<cfset firstId = left(ids, idCommaPos-1)>
-			<cfset colonPos = find (firstId, "=")>
+			<cfset firstId = left(ids, idCommaPos)>
+			<cfset colonPos = find ("=", firstId)>
 			<cfset firstId = right (firstId, len(firstId)-colonPos)>
 			<cfset secondId = right(ids, len(ids)-idCommaPos)>
-			<cfset colonPos = find (secondId, "=")>
+			<cfset colonPos = find ("=", secondId)>
 			<cfset secondId = right (secondId, len(secondId)-colonPos)>
 		<cfelse>
 			<cfset firstId = "#ids#">
