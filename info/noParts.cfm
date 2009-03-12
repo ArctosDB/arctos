@@ -21,7 +21,7 @@
 </cfif>
 <cfif action is "show">
 <cfoutput>
-<hr>The following specimens have no parts.
+<h2>The following specimens have no parts.</h2>
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select  
 		collection.collection,
@@ -49,6 +49,7 @@
 	<cfset oneLine = "#collection#,#cat_num#">
 	<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#oneLine#">
 </cfloop>
+<br>
 <a href="/download.cfm?file=#fileName#">Download as CSV</a>
 <cfdump var=#d#>
 </cfoutput>
