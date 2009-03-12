@@ -202,7 +202,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 </cfquery>
 <cfdump var=#d#>
 <cfloop query="d">
-	<cfset status="">
+	<cfset rec_stat="">
 	<cfif len(MEDIA_LABELS) gt 0>
 		<cfloop list="#media_labels#" index="l" delimiters=";">
 			<cfset ln=listgetat(l,1,"=")>
@@ -211,7 +211,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 				select MEDIA_LABEL from CTMEDIA_LABEL where MEDIA_LABEL='#ln#'
 			</cfquery>
 			<cfif len(c.MEDIA_LABEL) is 0>
-				<cfset status=listappend(status,'Media label #ln# is invalid',";")>
+				<cfset rec_stat=listappend(rec_stat,'Media label #ln# is invalid',";")>
 			<cfelse>
 				<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					insert into cf_temp_media_labels (
@@ -237,7 +237,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 				select MEDIA_RELATIONSHIP from CTMEDIA_RELATIONSHIP where MEDIA_RELATIONSHIP='#ln#'
 			</cfquery>
 			<cfif len(c.MEDIA_RELATIONSHIP) is 0>
-				<cfset status=listappend(status,'Media relationship #ln# is invalid',";")>
+				<cfset rec_stat=listappend(rec_stat,'Media relationship #ln# is invalid',";")>
 			<cfelse>
 				<cfset table_name = listlast(ln," ")>
 				<cfif table_name is "agent">
@@ -259,7 +259,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 							)
 						</cfquery>
 					<cfelse>
-						<cfset status=listappend(status,'Agent #lv# matched #c.recordcount# records.',";")>
+						<cfset rec_stat=listappend(rec_stat,'Agent #lv# matched #c.recordcount# records.',";")>
 					</cfif>
 				<cfelseif table_name is "project">
 					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -280,7 +280,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 							)
 						</cfquery>
 					<cfelse>
-						<cfset status=listappend(status,'Project #lv# matched #c.recordcount# records.',";")>
+						<cfset rec_stat=listappend(rec_stat,'Project #lv# matched #c.recordcount# records.',";")>
 					</cfif>
 				<cfelseif table_name is "cataloged_item">
 					<cfset institution_acronym = listgetat(lv,1,":")>
@@ -311,10 +311,10 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 							)
 						</cfquery>
 					<cfelse>
-						<cfset status=listappend(status,'Cataloged Item #lv# matched #c.recordcount# records.',";")>
+						<cfset rec_stat=listappend(rec_stat,'Cataloged Item #lv# matched #c.recordcount# records.',";")>
 					</cfif>
 				<cfelse>
-					<cfset status=listappend(status,'Media relationship #ln# is not handled',";")>
+					<cfset rec_stat=listappend(rec_stat,'Media relationship #ln# is not handled',";")>
 				</cfif>
 			</cfif>
 		</cfloop>
@@ -323,28 +323,28 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		select MIME_TYPE from CTMIME_TYPE where MIME_TYPE='#MIME_TYPE#'
 	</cfquery>
 	<cfif len(c.MIME_TYPE) is 0>
-		<cfset status=listappend(status,'MIME_TYPE #MIME_TYPE# is invalid',";")>
+		<cfset rec_stat=listappend(rec_stat,'MIME_TYPE #MIME_TYPE# is invalid',";")>
 	</cfif>
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select MEDIA_TYPE from CTMEDIA_TYPE where MEDIA_TYPE='#MEDIA_TYPE#'
 	</cfquery>
 	<cfif len(c.MEDIA_TYPE) is 0>
-		<cfset status=listappend(status,'MEDIA_TYPE #MEDIA_TYPE# is invalid',";")>
+		<cfset rec_stat=listappend(rec_stat,'MEDIA_TYPE #MEDIA_TYPE# is invalid',";")>
 	</cfif>
 	<cfhttp url="#media_uri#" charset="utf-8" method="get" />
 	<cfdump var=#cfhttp#>
 	<cfif cfhttp.statuscode is not "200">
-		<cfset status=listappend(status,'#media_uri# is invalid',";")>
+		<cfset rec_stat=listappend(rec_stat,'#media_uri# is invalid',";")>
 	<cfelse>
-		<cfset status=listappend(status,'sumthins stoopid: #cfhttp.statuscode#',";")>
+		<cfset rec_stat=listappend(rec_stat,'sumthins stoopid: #cfhttp.statuscode#',";")>
 	</cfif>
 	<cfif len(preview_uri) gt 0>
 		<cfhttp url="#preview_uri#" charset="utf-8" method="get" />
 		<cfif cfhttp.statuscode is not "200">
-			<cfset status=listappend(status,'#preview_uri# is invalid',";")>
+			<cfset rec_stat=listappend(rec_stat,'#preview_uri# is invalid',";")>
 		</cfif>
 	</cfif>
-	status: #status#
+	rec_stat: #rec_stat#
 	<hr>
 </cfloop>
 
