@@ -669,14 +669,17 @@
 		
 		<!--- Collectors (collector_id_num) [, second collector (second collector number)] --->
 		<cfset ids = "#other_ids#">
-		<cfset ids = replace(ids, "=", ":","all")>
 		<cfset firstId = "">
 		<cfset secondId = "">		
 		<cfset idCommaPos = find (",", ids)>
 		
 		<cfif idCommaPos gt 0>
-			<cfset firstId = left(ids, idCommaPos)>
+			<cfset firstId = left(ids, idCommaPos-1)>
+			<cfset colonPos = find (firstId, ":")>
+			<cfset firstId = right (firstId, len(firstId)-colonPos)>
 			<cfset secondId = right(ids, len(ids)-idCommaPos)>
+			<cfset colonPos = find (secondId, ":")>
+			<cfset secondId = right (secondId, len(secondId)-colonPos)>
 		<cfelse>
 			<cfset firstId = "#ids#">
 			<cfset secondId = "">
@@ -686,7 +689,7 @@
 		
 		<cfset collCommaPos = find(",", "#collectors#")>
 		<cfif collCommaPos gt 0>
-			<cfset firstCollector = left ("#collectors#", collCommaPos)>
+			<cfset firstCollector = left ("#collectors#", collCommaPos-1)>
 			<cfset secondCollector = right("#collectors#", len("#collectors#") - collCommaPos)>
 
 			<cfif firstId is not "">
