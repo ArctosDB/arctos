@@ -706,6 +706,7 @@
 				<cfset coll = "#collectors# (#firstId#)">
 			<cfelse>
 				<cfset coll = "#collectors#">
+			</cfif>
 			<cfset format_collectors = listappend(format_collectors, coll)>
 		</cfif>
 		
