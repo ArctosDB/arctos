@@ -266,7 +266,7 @@ do not agree</font>.</a>
 					<cfset oneLine = trim(oneLine)>
 					<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#oneLine#">
 				</cfloop>
-				<cflocation url="/download/download.cfm?file=#fileName#" addtoken="false">
+				<cflocation url="/download.cfm?file=#fileName#" addtoken="false">
 				<a href="/download/#fileName#">Click here if your file does not automatically download.</a>
 				
 			<cfelseif #fileFormat# is "text">
@@ -290,7 +290,7 @@ do not agree</font>.</a>
 					<cfset oneLine = trim(oneLine)>
 					<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#oneLine#">
 				</cfloop>
-				<cflocation url="/download/download.cfm?file=#fileName#" addtoken="false">
+				<cflocation url="/download.cfm?file=#fileName#" addtoken="false">
 				<a href="/download/#fileName#">Click here if your file does not automatically download.</a>
 			
 			<cfelseif #fileFormat# is "xml">
@@ -316,7 +316,7 @@ do not agree</font>.</a>
 				</cfloop>
 				<cfset oneLine = "</result>">
 				<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="no" output="#oneLine#">
-				<cflocation url="/download/download.cfm?file=#fileName#" addtoken="false">
+				<cflocation url="/download.cfm?file=#fileName#" addtoken="false">
 				<a href="/download/#fileName#">Click here if your file does not automatically download.</a>
 			<cfelse>
 				That file format doesn't seem to be supported yet!
