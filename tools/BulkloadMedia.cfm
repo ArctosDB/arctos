@@ -356,7 +356,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	(Note that the table below is "flattened." Media entried are repeated for every Label and Relationship.)
 	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
-			key, 
+			cf_temp_media.key, 
 			status
 			MEDIA_URI,
 			MIME_TYPE,
