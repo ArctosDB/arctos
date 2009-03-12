@@ -178,6 +178,7 @@
 									<li><a target="_top" href="/tools/BulkloadPartContainer.cfm">Parts>>Containers</a></li>
 									<li><a target="_top" href="/tools/BulkloadIdentification.cfm">Identifications</a></li>
 									<li><a target="_top" href="/tools/BulkloadContEditParent.cfm">Bulk Edit Container</a></li>
+									<li><a target="_top" href="/tools/BulkloadMedia.cfm">Bulkload Media</a></li>
 									<cfif listfind(formList,"/tools/BulkloadTaxonomy.cfm")>
 										<li><a target="_top" href="/tools/BulkloadTaxonomy.cfm">Bulk Taxonomy</a></li>
 									</cfif>
