@@ -332,15 +332,12 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		<cfset rec_stat=listappend(rec_stat,'MEDIA_TYPE #MEDIA_TYPE# is invalid',";")>
 	</cfif>
 	<cfhttp url="#media_uri#" charset="utf-8" method="get" />
-	<cfdump var=#cfhttp#>
-	<cfif cfhttp.statuscode is not "200">
+	<cfif left(cfhttp.statuscode,3) is not "200">
 		<cfset rec_stat=listappend(rec_stat,'#media_uri# is invalid',";")>
-	<cfelse>
-		<cfset rec_stat=listappend(rec_stat,'sumthins stoopid: #cfhttp.statuscode#',";")>
 	</cfif>
 	<cfif len(preview_uri) gt 0>
 		<cfhttp url="#preview_uri#" charset="utf-8" method="get" />
-		<cfif cfhttp.statuscode is not "200">
+		<cfif left(cfhttp.statuscode,3) is not "200">
 			<cfset rec_stat=listappend(rec_stat,'#preview_uri# is invalid',";")>
 		</cfif>
 	</cfif>
