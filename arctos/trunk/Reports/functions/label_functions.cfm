@@ -686,25 +686,22 @@
 		
 		<cfset collCommaPos = find(",", "#collectors#")>
 		<cfif collCommaPos gt 0>
-			<cfset count = 1>
-			<cfloop list="collectors" delimiters = "," index = "coll">
-				<cfif count eq 1>
-					<cfif firstId is not "">
-						<cfset collector = "#coll# (#firstId#)">
-					<cfelse>
-						<cfset collector = "#coll#">
-					</cfif>
-				<cfelseif count eq 2>
-					<cfif secondId is not "">
-						<cfset collector = "#coll# (#secondId#)">
-					<cfelse>
-						<cfset collector = "#coll#">
-					</cfif>
-				</cfif>
-							
-				<cfset format_collectors = listappend(format_collectors, collector)>
-				<cfset count = count +1>
-			</cfloop>
+			<cfset firstCollector = left ("#collectors#", collCommaPos)>
+			<cfset secondCollector = right("#collectors#", len("#collectors#") - collCommaPos)>
+
+			<cfif firstId is not "">
+				<cfset collector = "#firstCollector# (#firstId#)">
+			<cfelse>
+				<cfset collector = "#firstCollector#">
+			</cfif>
+			
+			<cfif secondId is not "">
+				<cfset collector = "#collector#, #secondCollector# (#secondId#)">
+			<cfelse>
+				<cfset collector = "#collector#, #secondCollector#">
+			</cfif>
+			
+			<cfset format_collectors = listappend(format_collectors, collector)>
 		<cfelse>
 			<cfif firstId is not "">
 				<cfset coll = "#collectors# (#firstId#)">
