@@ -676,7 +676,11 @@
 		</cfloop>
 		<cfset colAr[i] = "#format_collectors#">
 		
-		<cfset collectorAr[i] = "#collectors#">
+		<cfset format_col = "">
+		<cfloop list="collectors" delimiters="," index = "col">
+			<cfset format_col = listappend(format_col, col)>
+		</cfloop>
+		<cfset collectorAr[i] = "#format_col#">
 		
 		<!--- Latitude/Longitude (datum) --->
 		<!-- Setting Latitude/Longitidue -->
