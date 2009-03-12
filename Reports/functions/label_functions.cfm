@@ -682,6 +682,8 @@
 			<cfset secondId = right (secondId, len(secondId)-colonPos)>
 		<cfelse>
 			<cfset firstId = "#ids#">
+			<cfset colonPos = find ("=", firstId)>
+			<cfset firstId = right (firstId, len(firstId)-colonPos)>
 			<cfset secondId = "">
 		</cfif>
 		
