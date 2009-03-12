@@ -84,7 +84,7 @@
 	<cfset mapurl = "#mapurl#&geology_attribute=#geology_attribute#">
 	<cfif #basJoin# does not contain " geology_attributes ">
 		<cfset basJoin = " #basJoin# INNER JOIN geology_attributes ON 
-			(flat.locality_id = geology_attributes.locality_id)">
+			(#flatTableName#.locality_id = geology_attributes.locality_id)">
 	</cfif>	
 	<cfif isdefined("geology_hierarchies") and #geology_hierarchies# is 1>
 		<cfset basQual = "#basQual# AND geology_attributes.geology_attribute IN (
@@ -105,7 +105,7 @@
 	<cfset mapurl = "#mapurl#&geology_attribute_value=#geology_attribute_value#">
 	<cfif #basJoin# does not contain " geology_attributes ">
 		<cfset basJoin = " #basJoin# INNER JOIN geology_attributes ON 
-			(flat.locality_id = geology_attributes.locality_id)">
+			(#flatTableName#.locality_id = geology_attributes.locality_id)">
 	</cfif>	
 	<cfif isdefined("geology_hierarchies") and #geology_hierarchies# is 1>
 		<cfset basQual = "#basQual# AND geology_attributes.geo_att_value IN (
