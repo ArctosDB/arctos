@@ -223,7 +223,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 						#key#,
 						'#ln#',
 						#session.myAgentId#,
-						#lv#
+						'#lv#'
 					)
 				</cfquery>
 			</cfif>
