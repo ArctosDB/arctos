@@ -353,7 +353,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <cfelse>
 	Yay! Everything looks OK. Check it over in the tables below, then 
 	<a href="BulkloadMedia.cfm?action=load">click here</a> to proceed.
-	(Note that the table below is "flattened." Media entried are repeated for every Label and Relationship.)
+	(Note that the table below is "flattened." Media entries are repeated for every Label and Relationship.)
 	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			cf_temp_media.key, 
@@ -387,139 +387,60 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	</cfquery>
 	<cfdump var=#media#>	
 </cfif>
-
-<!----
-<cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	update cf_temp_agents set status='missing_data'
-	where agent_type is null OR
-	preferred_name is null
-</cfquery>
-<cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	update cf_temp_agents set status='bad_type'
-	where status is null AND (
-		agent_type not in (select agent_type from ctagent_type))
-</cfquery>
-<cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	update cf_temp_agents set status='bad_prefix'
-	where status is null AND 
-	prefix is not null and (
-		prefix not in (select prefix from ctprefix))
-</cfquery>
-<cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	update cf_temp_agents set status='bad_suffix'
-	where status is null AND 
-	suffix is not null and (
-		suffix not in (select suffix from ctsuffix))
-</cfquery>
-<cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	update cf_temp_agents set status='last_name_required'
-	where status is null AND 
-		agent_type ='person' and
-		last_name is null
-</cfquery>
-<cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	update cf_temp_agents set status='not_a_person'
-	where status is null AND 
-	agent_type != 'person' and (
-		suffix is not null OR
-		prefix is not null OR
-		birth_date is not null OR
-		death_date is not null OR
-		first_name is not null OR
-		middle_name is not null OR
-		last_name is not null)
-</cfquery>
-<cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	update cf_temp_agents set status='missing_name_type'
-	where status is null AND 
-	other_name is not null and other_name_type is null
-</cfquery>
-<cfquery name="setStatus2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	update cf_temp_agents set status='bad_name_type'
-	where status is null AND 
-	other_name is not null and other_name_type is not null and
-	other_name_type not in (select agent_name_type from ctagent_name_type)
-</cfquery>
-<cfquery name="setStatus3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	update cf_temp_agents set status='bad_name_type'
-	where status is null AND 
-	other_name_2 is not null and other_name_type_2 is not null and
-	other_name_type_2 not in (select agent_name_type from ctagent_name_type)
-</cfquery>
-<cfquery name="setStatus4" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	update cf_temp_agents set status='bad_name_type'
-	where status is null AND 
-	other_name_3 is not null and other_name_type_3 is not null and
-	other_name_type_3 not in (select agent_name_type from ctagent_name_type)
-</cfquery>
-<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select * from cf_temp_agents where status is not null
-</cfquery>
-
-<cfif bads.recordcount gt 0>
-	Your data will not load! See STATUS column below for more information.
-	<cfdump var=#bads#>
-<cfelse>
-	Review the dump below. If everything seems OK, 
-	<a href="BulkloadAgents.cfm?action=loadData">click here to proceed</a>.
-	<cfdump var=#d#>
-</cfif>
-
----->
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-<cfif #action# is "loadData">
-
+<cfif #action# is "load">
 <cfoutput>
-	
-		
-	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from cf_temp_agents
+	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select 
+			*
+		from 
+			cf_temp_media
 	</cfquery>
 	<cftransaction>
-	<cfloop query="getTempData">
-		<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			insert into agent ( AGENT_ID,AGENT_TYPE ,AGENT_REMARKS , PREFERRED_AGENT_NAME_ID)
-			values (sq_agent_id.nextval,'#agent_type#','#agent_remark#',#agent_name_id#)
-		</cfquery>
-		<cfquery name="newAgentName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			insert into agent_name ( AGENT_NAME_ID,AGENT_ID,AGENT_NAME_TYPE,AGENT_NAME )
-			values (sq_agent_name_id.nextval,sq_agent_id.currval,'preferred','#preferred_name#')
-		</cfquery>
-		
-		<cfif #agent_type# is "person">
-			<cfquery name="newProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				insert into person (PERSON_ID,PREFIX,LAST_NAME,FIRST_NAME,
-					MIDDLE_NAME,SUFFIX,BIRTH_DATE,DEATH_DATE)
-				values (sq_agent_id.currval,'#PREFIX#','#LAST_NAME#','#FIRST_NAME#',
-					'#MIDDLE_NAME#','#SUFFIX#','#dateformat(BIRTH_DATE,"dd-mmm-yyyy")#', '#dateformat(DEATH_DATE,"dd-mmm-yyyy")#')
+		<cfloop query="media">
+			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select seq_media_id.nextval nv from dual
 			</cfquery>
-		</cfif>
-		<cfif len(#OTHER_NAME#) gt 0>
-			<cfset agent_name_id = #agent_name_id# + 1>
-			<cfquery name="newAgentName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				insert into agent_name ( AGENT_NAME_ID,AGENT_ID,AGENT_NAME_TYPE,AGENT_NAME )
-				values (sq_agent_name_id.nextval,sq_agent_id.currval,'#OTHER_NAME_TYPE#','#OTHER_NAME#')
+			<cfset media_id=mid.nv>
+			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				insert into media (media_id,media_uri,mime_type,media_type,preview_uri)
+	            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#')
 			</cfquery>
-		</cfif>
-        <cfif len(#OTHER_NAME_2#) gt 0>
-			<cfset agent_name_id = #agent_name_id# + 1>
-			<cfquery name="newAgentName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				insert into agent_name ( AGENT_NAME_ID,AGENT_ID,AGENT_NAME_TYPE,AGENT_NAME )
-				values (sq_agent_name_id.nextval,sq_agent_id.currval,'#OTHER_NAME_TYPE_2#','#OTHER_NAME_2#')
+			<cfquery name="media_relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					*
+				from 
+					cf_temp_media_relations
+				where
+					key=#key#
 			</cfquery>
-		</cfif>
-        <cfif len(#OTHER_NAME_3#) gt 0>
-			<cfset agent_name_id = #agent_name_id# + 1>
-			<cfquery name="newAgentName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				insert into agent_name ( AGENT_NAME_ID,AGENT_ID,AGENT_NAME_TYPE,AGENT_NAME )
-				values (sq_agent_name_id.nextval,sq_agent_id.currval,'#OTHER_NAME_TYPE_3#','#OTHER_NAME_3#')
+			<cfloop query="media_relations">
+				<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					insert into 
+						media_relations (
+						media_id,media_relationship,related_primary_key
+						)values (
+						#media_id#,'#MEDIA_RELATIONSHIP#',#RELATED_PRIMARY_KEY#)
+				</cfquery>
+			</cfloop>
+			<cfquery name="media_labels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					*
+				from 
+					cf_temp_media_labels
+				where
+					key=#key#
 			</cfquery>
-		</cfif>
-	</cfloop>
+			<cfloop query="media_labels">
+				<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					insert into media_labels (media_id,media_label,label_value)
+					values (#media_id#,'#MEDIA_LABEL#','#LABEL_VALUE#')
+				</cfquery>
+			</cfloop>
+		</cfloop>
 	</cftransaction>
-
 	Spiffy, all done.
 </cfoutput>
 </cfif>
