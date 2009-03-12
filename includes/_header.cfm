@@ -291,6 +291,7 @@
 						<ul>
 							<li><a target="_top" href="/Reports/reporter.cfm">Reporter</a></li>
                             <li><a target="_top" href="/info/annotate.cfm">Annotations</a></li>
+							<li><a target="_top" href="/info/noParts.cfm">Partless Specimens</a></li>
 							<li><a target="_top" href="/Admin/download.cfm">Download Stats</a></li>
 							<li><a target="_top" href="/Admin/ActivityLog.cfm">SQL log</a></li>
 							<li><a target="_top" href="/Admin/cfUserLog.cfm">User access</a></li>
