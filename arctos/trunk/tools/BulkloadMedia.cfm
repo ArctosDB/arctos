@@ -200,7 +200,6 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from cf_temp_media
 </cfquery>
-<cfdump var=#d#>
 <cfloop query="d">
 	<cfset rec_stat="">
 	<cfif len(MEDIA_LABELS) gt 0>
@@ -341,10 +340,17 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			<cfset rec_stat=listappend(rec_stat,'#preview_uri# is invalid',";")>
 		</cfif>
 	</cfif>
-	rec_stat: #rec_stat#
-	<hr>
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		update cf_temp_media set status='#rec_stat#' where key=#key#
+	</cfquery>
 </cfloop>
-
+<cfquery name="bad" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select * from cf_temp_media where status is not null
+</cfquery>
+<cfif len(bad.key) gt 0>
+	Oops.
+	<cfdump var=#bad#>
+</cfif>
 
 <!----
 <cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
