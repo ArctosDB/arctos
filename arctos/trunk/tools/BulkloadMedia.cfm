@@ -357,7 +357,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			cf_temp_media.key, 
-			status
+			status,
 			MEDIA_URI,
 			MIME_TYPE,
 			MEDIA_TYPE,
@@ -373,6 +373,17 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		where
 			cf_temp_media.key=cf_temp_media_labels.key (+) and
 			cf_temp_media.key=cf_temp_media_relations.key (+)
+		group by
+			cf_temp_media.key, 
+			status,
+			MEDIA_URI,
+			MIME_TYPE,
+			MEDIA_TYPE,
+			PREVIEW_URI,
+			MEDIA_RELATIONSHIP,
+			RELATED_PRIMARY_KEY,
+			MEDIA_LABEL,
+			LABEL_VALUE
 	</cfquery>
 	<cfdump var=#media#>	
 </cfif>
