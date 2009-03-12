@@ -33,7 +33,7 @@
 		specimen_part
 	where 
 		collection.collection_id = cataloged_item.collection_id and
-		cataloged_item.collection_object_id=specimen_part.derived_From_cat_item and
+		cataloged_item.collection_object_id=specimen_part.derived_From_cat_item (+) and
 		specimen_part.derived_from_cat_item is null
 		<cfif isdefined("collection_id") and collection_id gt 0>
 			and collection.collection_id=#collection_id#
