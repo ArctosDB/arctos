@@ -691,10 +691,14 @@
 				<cfif count eq 1>
 					<cfif firstId is not "">
 						<cfset collector = "#coll# (#firstId#)">
+					<cfelse>
+						<cfset collector = "#coll#">
 					</cfif>
 				<cfelseif count eq 2>
 					<cfif secondId is not "">
 						<cfset collector = "#coll# (#secondId#)">
+					<cfelse>
+						<cfset collector = "#coll#">
 					</cfif>
 				</cfif>
 							
