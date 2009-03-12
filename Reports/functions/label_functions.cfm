@@ -661,7 +661,6 @@
 	<cfargument name="q" required="true" type="query">
 	
 	<cfset colAr = ArrayNew(1)>
-	<cfset collectorAr = ArrayNew(1)>
 	<cfset coorAr = ArrayNew(1)>
 	<cfset hAr = ArrayNew(1)>
 	<!--- Data Manipulation --->
@@ -669,18 +668,38 @@
 	<cfloop query="q">
 		
 		<!--- Collectors (collector_id_num) [, second collector (second collector number)] --->
-		<cfset format_collectors = "">
-		<cfloop list="other_ids" delimiters="," index="other_id">
-			<cfset coll = replace(other_id, "=", ":", "one")>
-			<cfset format_collectors = listappend(format_collectors, coll)>
-		</cfloop>
-		<cfset colAr[i] = "#format_collectors#">
+		<cfset ids = "#other_ids#">
+		<cfset ids = replace(ids, "=", ":",all)>
+		<cfset firstId = "">
+		<cfset secondId = "">		
+		<cfset idCommaPos = find (",", ids)>
 		
-		<cfset format_col = "">
-		<cfloop list="collectors" delimiters="," index = "col">
-			<cfset format_col = listappend(format_col, col)>
+		<cfif idCommaPos gt 0>
+			<cfset firstId = left(ids, idCommaPos)>
+			<cfset secondId = right(ids, len(ids)-idCommaPos)>
+		<cfelse>
+			<cfset firstId = "#ids#">
+			<cfset secondId = "">
+		</cfif>
+		
+		<cfset count = 1>		
+		<cfset format_collectors = "">
+		<cfloop list="collectors" delimiters = "," index = "coll">
+			<cfif count eq 1>
+				<cfif firstId is not "">
+					<cfset collector = coll + "(" + firstId + ")">
+				</cfif>
+			<cfelseif count eq 2>
+				<cfif secondId is not "">
+					<cfset collector = coll + "(" + secondId + ")">
+				</cfif>
+			</cfif>
+						
+			<cfset format_collectors = listappend(format_collectors, collector)>
+			<cfset count = count +1>
 		</cfloop>
-		<cfset collectorAr[i] = "#format_col#">
+		
+		<cfset colAr[i] = "#format_collectors#">
 		
 		<!--- Latitude/Longitude (datum) --->
 		<!-- Setting Latitude/Longitidue -->
@@ -729,7 +748,6 @@
 	</cfloop>
 	
 	<cfset temp=queryAddColumn(q, "coordinates", "VarChar", coorAr)>
-	<cfset temp=queryAddColumn(q, "col", "VarChar", collectorAr)>
 	<cfset temp=queryAddColumn(q, "format_collectors", "VarChar", colAr)>
 	<cfset temp=queryAddColumn(q, "highergeog", "VarChar", hAr)>
 	
