@@ -332,6 +332,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		<cfset status=listappend(status,'MEDIA_TYPE #MEDIA_TYPE# is invalid',";")>
 	</cfif>
 	<cfhttp url="#media_uri#" charset="utf-8" method="get" />
+	<cfdump var=#cfhttp#>
 	<cfif cfhttp.statuscode is not "200">
 		<cfset status=listappend(status,'#media_uri# is invalid',";")>
 	</cfif>
