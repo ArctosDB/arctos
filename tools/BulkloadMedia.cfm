@@ -239,7 +239,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			<cfif len(c.MEDIA_RELATIONSHIP) is 0>
 				<cfset status=listappend(status,'Media relationship #ln# is invalid',";")>
 			<cfelse>
-				<cfset table_name = listlast(media_relationship," ")>
+				<cfset table_name = listlast(ln," ")>
 				<cfif table_name is "agent">
 					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select distinct(agent_id) agent_id from agent_name where agent_name ='#lv#'
