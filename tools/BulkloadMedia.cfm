@@ -55,7 +55,8 @@ sho err
 
 <cfinclude template="/includes/_header.cfm">
 <cfif #action# is "nothing">
-Step 1: Upload a comma-delimited text file (csv). 
+Step 1: Ensure that Media and objects media will relate to exist.
+Step 2: Upload a comma-delimited text file (csv). 
 Include column headings, spelled exactly as below. 
 <br><span class="likeLink" onclick="document.getElementById('template').style.display='block';">view template</span>
 	<div id="template" style="display:none;">
@@ -96,6 +97,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		<li>Agent Name (must resolve to one agent_id)</li>
 		<li>Project Title (exact string match)</li>
 		<li>Cataloged Item (DWC triplet)</li>
+		<li>Collecting Event (collecting_event_id)</li>
 	</ul>
 	
 </p>
@@ -259,6 +261,27 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 						</cfquery>
 					<cfelse>
 						<cfset rec_stat=listappend(rec_stat,'Agent #lv# matched #c.recordcount# records.',";")>
+					</cfif>
+				<cfelseif table_name is "collecting_event">
+					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select collecting_event_id from collecting_event where collecting_event_id ='#lv#'
+					</cfquery>
+					<cfif c.recordcount is 1 and len(c.collecting_event_id) gt 0>
+						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							insert into cf_temp_media_relations (
+ 								key,
+								MEDIA_RELATIONSHIP,
+								CREATED_BY_AGENT_ID,
+								RELATED_PRIMARY_KEY
+							) values (
+								#key#,
+								'#ln#',
+								#session.myAgentId#,
+								#c.collecting_event_id#
+							)
+						</cfquery>
+					<cfelse>
+						<cfset rec_stat=listappend(rec_stat,'collecting_event #lv# matched #c.recordcount# records.',";")>
 					</cfif>
 				<cfelseif table_name is "project">
 					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
