@@ -305,6 +305,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 						<cfset rec_stat=listappend(rec_stat,'Project #lv# matched #c.recordcount# records.',";")>
 					</cfif>
 				<cfelseif table_name is "cataloged_item">
+					<cftry>
 					<cfset institution_acronym = listgetat(lv,1,":")>
 					<cfset collection_cde = listgetat(lv,2,":")>
 					<cfset cat_num = listgetat(lv,3,":")>
@@ -335,6 +336,10 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					<cfelse>
 						<cfset rec_stat=listappend(rec_stat,'Cataloged Item #lv# matched #c.recordcount# records.',";")>
 					</cfif>
+					<cfcatch>
+						<cfset rec_stat=listappend(rec_stat,'#lv# is not a proper DWC Triplet.',";")>
+					</cfcatch>
+					</cftry>
 				<cfelse>
 					<cfset rec_stat=listappend(rec_stat,'Media relationship #ln# is not handled',";")>
 				</cfif>
