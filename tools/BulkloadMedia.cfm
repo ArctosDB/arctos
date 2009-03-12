@@ -401,7 +401,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cftransaction>
 		<cfloop query="media">
 			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select seq_media_id.nextval nv from dual
+				select sq_media_id.nextval nv from dual
 			</cfquery>
 			<cfset media_id=mid.nv>
 			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
