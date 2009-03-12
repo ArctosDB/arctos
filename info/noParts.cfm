@@ -46,6 +46,6 @@
 		cat_num
 </cfquery>
 <cfdump var=#d#>
-</cfif>
 </cfoutput>
+</cfif>
 <cfinclude template = "/includes/_footer.cfm">
