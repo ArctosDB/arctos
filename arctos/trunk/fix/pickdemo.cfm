@@ -11,7 +11,7 @@
 		text-align:center;
 	}
 	.badPickLbl {
-		color:red;color:green;
+		color:red;
 border:1px solid purple;
 width:2em;
 height:1em;
