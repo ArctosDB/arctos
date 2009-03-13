@@ -12,9 +12,11 @@
 	}
 	.badPickLbl {
 		color:red;
-border:1px solid purple;
-width:2em;
+width:20em;
 height:1em;
+background-image:url('/images/caution.gif');
+background-repeat:no-repeat;
+background-position:right; 
 	}
 </style>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
