@@ -18,11 +18,11 @@ function checkRequired(){
 elementsForms = document.getElementsByTagName("form");  
 for (var f = 0; f < elementsForms.length; f++)  {  
 	var fid = document.forms[f].id;
+	var theForm=document.getElementById(fid);
 	console.log('-------------- here we go on form ' + fid);
 	var hasIssues=0;
-	FormElements = document.getElementById(fid).elements;
-	for (var e = 0; f < FormElements.length; e++)  {  
-		console.log('-------------- here we go on elements ' + e);
+	for(e=0; e<theForm.elements.length; e++){
+		console.log(theForm.elements[e].name);
 	}
 	/*
 	var allFormObjs = $('#' + fid).formSerialize();
