@@ -11,15 +11,14 @@
 		text-align:center;
 	}
 	.badPickLbl {
-		.badPickLbl {
 		color:red;
-width:15em;
-height:2em;
-background-image:url('/images/caution.gif');
-background-repeat:no-repeat;
-background-position:right; 
-display: table-cell; 
-vertical-align: bottom;
+		width:15em;
+		height:2em;
+		background-image:url('/images/caution.gif');
+		background-repeat:no-repeat;
+		background-position:right; 
+		display: table-cell; 
+		vertical-align: bottom;
 	}
 </style>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
