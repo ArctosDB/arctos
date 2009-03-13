@@ -1,29 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
-<style>
-	.saver{
-		border:2px solid red; 
-		width:90%; 
-		left:5%;
-		top:5%;
-		position:absolute;
-		z-index:2001;
-		background-color:white;
-		text-align:center;
-	}
-	.badPickLbl {
-		color:red;
-		width:15em;
-		height:2em;
-		background-image:url('/images/caution.gif');
-		background-repeat:no-repeat;
-		background-position:right; 
-		display: table-cell; 
-		vertical-align: bottom;
-	}
-</style>
+
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.field.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
+<script type='text/javascript' src='/includes/checkForm.js'></script>
+<!---
 <script>
 	jQuery( function($) {
 	setInterval(checkRequired,500);
@@ -117,6 +98,7 @@
 }
 	
 </script>
+---->
 <cfif action is "nothing">
 <cfoutput>
 <form method="post" name="test" id="test" action="pickdemo.cfm">
