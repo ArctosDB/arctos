@@ -13,11 +13,13 @@
 		</script>
 		<cfabort>
 	</cfif>
+	<!---
 	<script>
 		if (top.frames.length == 0) {
 		    document.location='SpecimenDetail.cfm?collection_object_id=#collection_object_id#';
 	    }
 	</script>
+	--->
 </cfoutput>
 	<script type='text/javascript' src='/includes/annotate.js'></script>
 	<link rel="stylesheet" type="text/css" href="/includes/annotate.css">
