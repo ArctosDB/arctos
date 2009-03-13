@@ -14,7 +14,7 @@ function checkRequired(){
 	// REQUIREMENT: required hidden fields have the same ID as their visible field, plus "_id"
 	// 		so, agent + agent_id are treated as a pair (the visual clues go with agent)
   for(i=0; i<document.forms[0].elements.length; i++){
-   alert(document.forms[0].elements[i].id)
+   //alert(document.forms[0].elements[i].id)
    }
 	/*
 		var fid=this.id;
