@@ -13,9 +13,9 @@ function checkRequired(){
 	// REQUIREMENT: form submit has a title
 	// REQUIREMENT: required hidden fields have the same ID as their visible field, plus "_id"
 	// 		so, agent + agent_id are treated as a pair (the visual clues go with agent)
-  for(i=0; i<document.forms[0].elements.length; i++){
+elementsForms = document.getElementsByTagName("form");
    //alert(document.forms[0].elements[i].id)
-   }
+   console.log(elementsForms);
 	/*
 		var fid=this.id;
 		var hasIssues=0;
