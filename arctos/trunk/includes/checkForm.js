@@ -1,3 +1,4 @@
+setInterval(checkRequired,500);
 function getLabelForId(id) {
  	var label, labels = document.getElementsByTagName('label');
  	for (var i = 0; (label = labels[i]); i++) {
@@ -7,10 +8,6 @@ function getLabelForId(id) {
 	}
 	return false;
 } 
-		
-jQuery( function($) {
-	setInterval(checkRequired,500);
-});
 function checkRequired(){
 	// REQUIREMENT: form submit button has id of formID + _submit
 	// REQUIREMENT: form submit has a title
