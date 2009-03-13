@@ -80,7 +80,7 @@
 				} else {
 					var thisElem=ffName;
 				}
-				var lbl=getLabelForId(thisElem).innerText+='XXXX';
+				var lbl=getLabelForId(thisElem).innerHTML+='XXXX';
 				console.log('ffName: ' + ffName + '; thisElem: ' + thisElem);
 				//getLabelForId
 			}
@@ -96,7 +96,7 @@
 		if (hasIssues > 0) {
 			// form is NOT ready for submission
 			document.getElementById(fid).setAttribute('onsubmit',"return false");
-			sbmBtn.value="Not ready..." + msg;		
+			sbmBtn.value="Not ready...";		
 		} else {
 			document.getElementById(fid).removeAttribute('onsubmit');
 			sbmBtn.value=sbmBtn.title;	
