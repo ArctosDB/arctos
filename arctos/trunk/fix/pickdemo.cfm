@@ -77,7 +77,7 @@
 				//console.log('isId: ' + isId);
 				if (isId=='_id') {
 					var thisElem=ffName.substr(0,ffName.length-3);
-				} else
+				} else {
 					var thisElem=ffName;
 				}
 				console.log('ffName: ' + ffName + '; thisElem: ' + thisElem);
