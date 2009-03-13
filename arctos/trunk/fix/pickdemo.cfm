@@ -122,6 +122,10 @@
 	<label for="b">This is the ID field, and is normally hidden</label>
 	<input type="text" name="a_id" id="a_id" class="reqdClr">
 	
+	<label for="b" class="badPickLbl">Demo Thingee</label>
+	<input type="text" name="a_id" id="a_id" class="reqdClr">
+	
+	
 	<br><input type="submit" id="test_submit" title="submit" value="submit">
 </form>
 
