@@ -91,10 +91,10 @@
 				hasIssues+=1;
 				
 
-				//var lbl=getLabelForId(thisElem).className='badPickLbl';
+				var lbl=getLabelForId(thisElem).className='badPickLbl';
 
 			} else {
-				//var lbl=getLabelForId(thisElem).className='';
+				var lbl=getLabelForId(thisElem).className='';
 			}
 		}
 		// get the form submit
