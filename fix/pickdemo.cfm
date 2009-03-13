@@ -65,7 +65,7 @@
 			if (ffClass=='reqdClr' && ffVal==''){
 				hasIssues+=1;
 				var isId=ffName.substr(ffName.length-3,3);
-				console.log('isId: ' isId);
+				console.log('isId: ' + isId);
 			}
 		}
 		// get the form submit
