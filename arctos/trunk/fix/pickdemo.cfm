@@ -11,7 +11,10 @@
 		text-align:center;
 	}
 	.badPickLbl {
-		color:red;
+		color:red;color:green;
+border:1px solid purple;
+width:2em;
+height:1em;
 	}
 </style>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
