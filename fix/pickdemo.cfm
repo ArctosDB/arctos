@@ -84,8 +84,8 @@
 					var thisElem=ffName;
 				}
 				//var lbl=getLabelForId(thisElem).innerHTML+='XXXX';
-				var lbl=getLabelForId(thisElem).className+='badPickLbl';
-				console.log('ffName: ' + ffName + '; thisElem: ' + thisElem);
+				var lbl=getLabelForId(thisElem).className='badPickLbl';
+				//console.log('ffName: ' + ffName + '; thisElem: ' + thisElem);
 				//getLabelForId
 			}
 		}
