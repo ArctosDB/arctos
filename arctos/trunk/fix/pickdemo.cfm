@@ -93,6 +93,9 @@
 ---->
 <cfif action is "nothing">
 <cfoutput>
+	
+	
+	<span onclick="checkRequired()">checkRequired</span>
 <form method="post" name="test" id="test" action="pickdemo.cfm">
 	<input type="hidden" name="action" value="#action#">
 	<input type="hidden" name="save" value="true">
