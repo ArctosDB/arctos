@@ -80,6 +80,7 @@
 				} else {
 					var thisElem=ffName;
 				}
+				var lbl=getLabelForId(thisElem).value+='XXXX';
 				console.log('ffName: ' + ffName + '; thisElem: ' + thisElem);
 				//getLabelForId
 			}
