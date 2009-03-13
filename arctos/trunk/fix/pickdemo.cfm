@@ -10,6 +10,9 @@
 		background-color:white;
 		text-align:center;
 	}
+	.badPickLbl {
+		color:red;
+	}
 </style>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.field.js'></script>
@@ -80,7 +83,8 @@
 				} else {
 					var thisElem=ffName;
 				}
-				var lbl=getLabelForId(thisElem).innerHTML+='XXXX';
+				//var lbl=getLabelForId(thisElem).innerHTML+='XXXX';
+				var lbl=getLabelForId(thisElem).className+='badPickLbl';
 				console.log('ffName: ' + ffName + '; thisElem: ' + thisElem);
 				//getLabelForId
 			}
