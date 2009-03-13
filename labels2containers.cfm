@@ -153,7 +153,7 @@ following table, and <a href="#curl#">click here to continue</a> if it all look 
 				substr(barcode,1,#len(barcode_prefix)#)='#barcode_prefix#' and
 			</cfif>
 			<cfif len(barcode_prefix) gt 0>
-				substr(barcode,#len(barcode_prefix)#,length(barcode)) between #begin_barcode# and #end_barcode#
+				substr(barcode,#len(barcode_prefix)#+1,length(barcode)) between #begin_barcode# and #end_barcode#
 			<cfelse>
 				barcode between #begin_barcode# and #end_barcode#
 			</cfif>
