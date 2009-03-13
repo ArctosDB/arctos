@@ -16,18 +16,17 @@ function checkRequired(){
    //alert(document.forms[0].elements[i].id)
 
 elementsForms = document.getElementsByTagName("form");  
-for (var i = 0; i < elementsForms.length; i++)  {  
-	console.log(i);
-	var thisForm = document.forms[i].id;
-	console.log(thisForm);
-	
-}
-
+for (var f = 0; f < elementsForms.length; f++)  {  
+	var fid = document.forms[f].id;
+	console.log('-------------- here we go on form ' + fid);
+	var hasIssues=0;
+	FormElements = document.getElementById(fid).elements;
+	for (var e = 0; f < FormElements.length; e++)  {  
+		console.log('-------------- here we go on elements ' + e);
+	}
 	/*
-		var fid=this.id;
-		var hasIssues=0;
-		var allFormObjs = $('#' + fid).formSerialize();
-		var AFA=allFormObjs.split('&');
+	var allFormObjs = $('#' + fid).formSerialize();
+	var AFA=allFormObjs.split('&');
 		for (i=0;i<AFA.length;i++){
 			var fp=AFA[i].split('=');
 			var ffName=fp[0];
@@ -61,4 +60,5 @@ for (var i = 0; i < elementsForms.length; i++)  {
 			sbmBtn.value=sbmBtn.title;	
 		}
 		*/
+	}
 }
