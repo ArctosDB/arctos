@@ -15,6 +15,11 @@ function checkRequired(){
 	// 		so, agent + agent_id are treated as a pair (the visual clues go with agent)
    //alert(document.forms[0].elements[i].id)
 
+elementsForms = document.getElementsByTagName("form");  
+for (var i = 0; i < elementsForms.length; i++)  {  
+	console.log(i);  
+}
+
 	/*
 		var fid=this.id;
 		var hasIssues=0;
