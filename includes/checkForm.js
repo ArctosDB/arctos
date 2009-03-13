@@ -1,4 +1,4 @@
-setInterval(checkRequired,500);
+//setInterval(checkRequired,500);
 function getLabelForId(id) {
  	var label, labels = document.getElementsByTagName('label');
  	for (var i = 0; (label = labels[i]); i++) {
