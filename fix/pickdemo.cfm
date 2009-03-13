@@ -74,19 +74,21 @@
 			var ffName=fp[0];
 			var ffVal=fp[1];
 			var ffClass=$("#" + ffName).attr('class');
+			var isId=ffName.substr(ffName.length-3,3);
+			if (isId=='_id') {
+				var thisElem=ffName.substr(0,ffName.length-3);
+			} else {
+				var thisElem=ffName;
+			}
 			if (ffClass=='reqdClr' && ffVal==''){
 				hasIssues+=1;
-				var isId=ffName.substr(ffName.length-3,3);
-				//console.log('isId: ' + isId);
-				if (isId=='_id') {
-					var thisElem=ffName.substr(0,ffName.length-3);
-				} else {
-					var thisElem=ffName;
-				}
+				
 				//var lbl=getLabelForId(thisElem).innerHTML+='XXXX';
 				var lbl=getLabelForId(thisElem).className='badPickLbl';
 				//console.log('ffName: ' + ffName + '; thisElem: ' + thisElem);
 				//getLabelForId
+			} else {
+				var lbl=getLabelForId(thisElem).className='';
 			}
 		}
 		// get the form submit
