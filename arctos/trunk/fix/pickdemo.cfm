@@ -80,7 +80,7 @@
 				} else {
 					var thisElem=ffName;
 				}
-				var lbl=getLabelForId(thisElem).value+='XXXX';
+				var lbl=getLabelForId(thisElem).innerText+='XXXX';
 				console.log('ffName: ' + ffName + '; thisElem: ' + thisElem);
 				//getLabelForId
 			}
