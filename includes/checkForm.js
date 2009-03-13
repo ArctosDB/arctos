@@ -1,3 +1,13 @@
+function getLabelForId(id) {
+ 	var label, labels = document.getElementsByTagName('label');
+ 	for (var i = 0; (label = labels[i]); i++) {
+		if (label.htmlFor == id) {
+	   		return label;
+		}
+	}
+	return false;
+} 
+		
 jQuery( function($) {
 	setInterval(checkRequired,500);
 });
