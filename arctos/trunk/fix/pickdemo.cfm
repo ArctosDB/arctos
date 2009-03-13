@@ -21,6 +21,15 @@
 	function itsAllDone(vl){
 		
 	}
+	function getLabelForId(id) {
+ 		var label, labels = document.getElementsByTagName('label');
+ 		for (var i = 0; (label = labels[i]); i++) {
+	  		if (label.htmlFor == id) {
+	     		return label;
+	   		}
+	 	}
+	 		return false;
+		} 
 	function checkThisForm(){
 		itsAllDone('a','b');
 		checkNames('a','b');
@@ -65,7 +74,14 @@
 			if (ffClass=='reqdClr' && ffVal==''){
 				hasIssues+=1;
 				var isId=ffName.substr(ffName.length-3,3);
-				console.log('isId: ' + isId);
+				//console.log('isId: ' + isId);
+				if (isId=='_id') {
+					var thisElem=ffName.substr(0,ffName.length-3);
+				} else
+					var thisElem=ffName;
+				}
+				console.log('ffName: ' + ffName + '; thisElem: ' + thisElem);
+				//getLabelForId
 			}
 		}
 		// get the form submit
