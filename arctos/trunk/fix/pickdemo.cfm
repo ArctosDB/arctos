@@ -64,11 +64,15 @@
 			var ffClass=$("#" + ffName).attr('class');
 			if (ffClass=='reqdClr' && ffVal==''){
 				hasIssues+=1;
+				var isId=ffName.substr(ffName.length-3,3);
+				console.log('isId: ' isId);
 			}
 		}
 		// get the form submit
 		// REQUIREMENT: form submit button has id of formID + _submit
-		//REQUIREMENT: form submit has a title
+		// REQUIREMENT: form submit has a title
+		// REQUIREMENT: required hidden fields have the same ID as their visible field, plus "_id"
+		// so, agent + agent_id are treated as a pair (the visual clues go with agent)
 		var sbmBtnStr=fid + "_submit";
 		var sbmBtn=document.getElementById(sbmBtnStr);
 		var v=sbmBtn.value;
@@ -90,9 +94,11 @@
 	<input type="hidden" name="action" value="#action#">
 	<input type="hidden" name="save" value="true">
 	<label for="a">This is the text field</label>
-	<input type="text" name="a" id="a"  onchange="getAgent('b','a','test',this.value);" class="reqdClr">
+	
+	<input type="text" name="a" id="a"  onchange="getAgent('a_id','a','test',this.value);" class="reqdClr">
 	<label for="b">This is the ID field, and is normally hidden</label>
-	<input type="text" name="b" id="b" class="reqdClr">
+	<input type="text" name="a_id" id="a_id" class="reqdClr">
+	
 	<br><input type="submit" id="test_submit" title="submit" value="submit">
 </form>
 
