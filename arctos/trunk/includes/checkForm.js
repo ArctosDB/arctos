@@ -17,7 +17,10 @@ function checkRequired(){
 
 elementsForms = document.getElementsByTagName("form");  
 for (var i = 0; i < elementsForms.length; i++)  {  
-	console.log(i);  
+	console.log(i);
+	var thisForm = document.forms[i].id;
+	console.log(thisForm);
+	
 }
 
 	/*
