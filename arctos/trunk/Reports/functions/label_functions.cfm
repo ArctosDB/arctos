@@ -773,3 +773,61 @@
 	
 	<cfreturn q>
 </cffunction>
+
+<cffunction name="format_label" access="public" returnType="Query">
+	<cfargument name="q" required="true" type="query">
+	
+	<cfset geogAr = ArrayNew(1)>
+	<cfset collAr = ArrayNew(1)>
+	<cfset colIdAr = ArrayNew(1)>
+	
+	<!--- Data Manipulation --->
+	<cfset i = 1>
+	<cfloop query="q">
+		<!-- Geography = Spec_Locality + State + county + country + other geography attributes-->
+		<cfset geog = "#spec_locality#">
+		<cfif #country# is "United States">
+			<cfif len(#county#) gt 0>
+				<cfset geog = "#geog#, #county#">
+			</cfif>
+			<cfif len(#state_prov#) gt 0>
+				<cfset geog = "#geog#, #state_prov#">
+			</cfif>
+		<cfelse>
+			<cfif len(#state_prov#) gt 0>
+				<cfset geog = "#geog#, #state_prov#">
+			</cfif>
+			<cfif len(#country#) gt 0>
+				<cfset geog = "#geog#, #country#">
+			</cfif>
+		</cfif>
+		<cfset geog=replace(geog,": , ",": ","all")>
+		<cfset geogAr[i] = "#geog#">
+		
+		<cfif isdefined('labels_agent_name') and len(labels_agent_name) gt 0>
+			<cfset thisColl = labels_agent_name>
+		<cfelse>
+       		<cfif #collectors# contains ",">
+                <Cfset spacePos = find(",",collectors)>
+                <cfset thisColl = left(collectors,#SpacePos# - 1)>
+                <cfset thisColl = "#thisColl# et al.">
+        	<cfelse>
+                <cfset thisColl = #collectors#>
+        	</cfif>
+		</cfif>
+		<cfset collAr[i] = "#thisColl#">
+		
+		<cfset colIdLabel = "">
+		<cfloop list="other_ids" delimiters="," index="id">
+			<cfset colIdLabel = "Orig#id#">
+		</cfloop>
+		<cfset colIdAr[i] = "#colIdLabel#">
+		
+		<cfset i = i+1>
+	</cfloop>
+	
+	<cfset temp = queryAddColumn(q, "geography", "VarChar", geogAr)>
+	<cfset temp = queryAddColumn(q, "agent", "VarChar", collAr)>
+	<cfset temp = queryAddColumn(q, "agent_id", "VarChar", colIdAr)>
+	<cfreturn q>
+</cffunction>
