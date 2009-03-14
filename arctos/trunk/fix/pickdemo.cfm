@@ -111,7 +111,7 @@
 
 	<label for="a3">This is the text field</label>
 	<input type="text" name="a3" id="a3"  onchange="getAgent('a3_id','a3','test',this.value);" class="reqdClr">
-	<input type="text" name="a3_id" id="a3_id" class="reqdClr">
+	<input type="text" name="a3_id" id="a3_id" class="reqdClr red">
 
 
 	
