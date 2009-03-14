@@ -47,7 +47,7 @@ for (var f = 0; f < elementsForms.length; f++)  {
 				}
 			}
 		}
-		if(document.getElementById(theForm.elements[e].type=='submit')){
+		if(theForm.elements[e].type=='submit'){
 			//var sbmBtn=theForm.getElementsByTagName('submit');
 			//alert(sbmBtn);
 			//sbmBtn.value='found you';
