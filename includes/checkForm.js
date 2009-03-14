@@ -46,9 +46,12 @@ for (var f = 0; f < elementsForms.length; f++)  {
 				}
 			}
 		}
-		var sbmBtn=theForm.getElementsByTagName('submit');
-		alert(sbmBtn);
-		sbmBtn.value='found you';
+		if(document.getElementById(theForm.elements[e].typeOf('submit'))){
+			//var sbmBtn=theForm.getElementsByTagName('submit');
+			//alert(sbmBtn);
+			//sbmBtn.value='found you';
+			console.log('found submit');
+		}
 	}
 
 	/*
