@@ -26,42 +26,41 @@ function checkRequired(){
 		for (var f = 0; f < elementsForms.length; f++)  {  
 			var fid = document.forms[f].id;
 			var theForm=document.getElementById(fid);
-			var hasIssues=0;
+			var badElems=new Array();
 			for(e=0; e<theForm.elements.length; e++){
 				if(document.getElementById(theForm.elements[e].id)){
+					try{
+						var lbl=getLabelForId(theForm.elements[e].id).className='';
+					}
+						catch(errr){
+					}
 					var theElem=document.getElementById(theForm.elements[e].id);
 					if(theForm.elements[e].type=='submit'){
 						var sbmBtn=theElem;
 					}
-					var c=theElem.className;
-					if (c.indexOf('reqdClr') >-1){
-						theId=theElem.id;
-						var isId=theId.substr(theId.length-3,3);
-						if (isId=='_id') {
-							var lblElem=theId.substr(0,theId.length-3);
-						} else {
-							var lblElem=theId;
-						}
-						var thisVal=theElem.value;
-						if (thisVal==''){
-							hasIssues+=1;
-							console.log(lblElem + ' is our display element; ' + theId + ' is the problem');
-							console.log('changing to bad label for ' +  lblElem);
-							getLabelForId(lblElem).className='badPickLbl';
-						} else {
-							var lbl=getLabelForId(lblElem).className='';
-							console.log('changing to GOOD label for ' +  lblElem);
-						}
+					if (theElem.className.indexOf('reqdClr')>-1 && theElem.value==''){
+						badElems.push(theElem.id);
 					}
 				}
 			}
-			if (hasIssues > 0) {
+			
+			if (badElems.length>0){
 				sbmBtn.setAttribute('onsubmit',"return false");
-				sbmBtn.value="Not ready...";		
+				sbmBtn.value="Not ready...";	
 			} else {
 				sbmBtn.removeAttribute('onsubmit');
 				sbmBtn.value=sbmBtn.title;	
 			}
+			for (i=0;i<badElems.length;i++){
+				var theId=badElems[i];
+				var isId=theId.substr(theId.length-3,3);
+				if (isId=='_id') {
+					var lblElem=theId.substr(0,theId.length-3);
+				} else {
+					var lblElem=theId;
+				}
+				getLabelForId(lblElem).className='badPickLbl';
+			}			
 		}
 	 } catch(err)
   	{
