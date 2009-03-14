@@ -9,9 +9,14 @@ function getLabelForId(id) {
 	return false;
 } 
 function checkRequired(){
-	// REQUIREMENT: form submit has a title
-	// REQUIREMENT: required hidden fields have the same ID as their visible field, plus "_id"
-	// 		so, agent + agent_id are treated as a pair (the visual clues go with agent)
+	/*
+		REQUIREMENTS:
+			form submit button has a title
+			form submit button has an ID
+			form has an ID
+			required hidden fields have the same ID as their visible field, plus "_id"
+				so, agent + agent_id are treated as a pair (the visual clues go with agent)
+	*/	
 	elementsForms = document.getElementsByTagName("form");  
 	for (var f = 0; f < elementsForms.length; f++)  {  
 		var fid = document.forms[f].id;
