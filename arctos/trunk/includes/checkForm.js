@@ -1,4 +1,4 @@
-//setInterval(checkRequired,500);
+setInterval(checkRequired,500);
 function getLabelForId(id) {
  	var label, labels = document.getElementsByTagName('label');
  	for (var i = 0; (label = labels[i]); i++) {
@@ -16,6 +16,10 @@ function checkRequired(){
 			form has an ID
 			required hidden fields have the same ID as their visible field, plus "_id"
 				so, agent + agent_id are treated as a pair (the visual clues go with agent)
+				
+		Usage:
+		
+		<script type='text/javascript' src='/includes/checkForm.js'></script>
 	*/
 	try {
 		elementsForms = document.getElementsByTagName("form");  
