@@ -9,32 +9,23 @@ function getLabelForId(id) {
 	return false;
 } 
 function checkRequired(){
-	// REQUIREMENT: form submit button has id of formID + _submit
 	// REQUIREMENT: form submit has a title
 	// REQUIREMENT: required hidden fields have the same ID as their visible field, plus "_id"
 	// 		so, agent + agent_id are treated as a pair (the visual clues go with agent)
-   //alert(document.forms[0].elements[i].id)
-
-elementsForms = document.getElementsByTagName("form");  
+	elementsForms = document.getElementsByTagName("form");  
 	for (var f = 0; f < elementsForms.length; f++)  {  
 		var fid = document.forms[f].id;
 		var theForm=document.getElementById(fid);
-		console.log('-------------- here we go on form ' + fid);
 		var hasIssues=0;
-	
 		for(e=0; e<theForm.elements.length; e++){
-			console.log(theForm.elements[e].id);
-			console.log(theForm.elements[e].type);
 			if(document.getElementById(theForm.elements[e].id)){
 				var theElem=document.getElementById(theForm.elements[e].id);
 				if(theForm.elements[e].type=='submit'){
 					var sbmBtn=theElem;
 				}
 				var c=theElem.className;
-				console.log('c=' + c);
 				if (c.indexOf('reqdClr') >-1){
 					theId=theElem.id;
-					console.log(theId + ' is a required element');
 					var isId=theId.substr(theId.length-3,3);
 					if (isId=='_id') {
 						var lblElem=theId.substr(0,theId.length-3);
@@ -52,49 +43,11 @@ elementsForms = document.getElementsByTagName("form");
 			}
 		}
 		if (hasIssues > 0) {
-			// form is NOT ready for submission
 			sbmBtn.setAttribute('onsubmit',"return false");
 			sbmBtn.value="Not ready...";		
 		} else {
 			sbmBtn.removeAttribute('onsubmit');
 			sbmBtn.value=sbmBtn.title;	
 		}
-
-	/*
-	var allFormObjs = $('#' + fid).formSerialize();
-	var AFA=allFormObjs.split('&');
-		for (i=0;i<AFA.length;i++){
-			var fp=AFA[i].split('=');
-			var ffName=fp[0];
-			var ffVal=fp[1];
-			var ffClass=$("#" + ffName).attr('class');
-			var isId=ffName.substr(ffName.length-3,3);
-			if (isId=='_id') {
-				var thisElem=ffName.substr(0,ffName.length-3);
-			} else {
-				var thisElem=ffName;
-			}
-			if (ffClass=='reqdClr' && ffVal==''){
-				hasIssues+=1;
-				
-
-				var lbl=getLabelForId(thisElem).className='badPickLbl';
-
-			} else {
-				var lbl=getLabelForId(thisElem).className='';
-			}
-		}
-		var sbmBtnStr=fid + "_submit";
-		var sbmBtn=document.getElementById(sbmBtnStr);
-		var v=sbmBtn.value;
-		if (hasIssues > 0) {
-			// form is NOT ready for submission
-			document.getElementById(fid).setAttribute('onsubmit',"return false");
-			sbmBtn.value="Not ready...";		
-		} else {
-			document.getElementById(fid).removeAttribute('onsubmit');
-			sbmBtn.value=sbmBtn.title;	
-		}
-		*/
 	}
 }
