@@ -24,7 +24,7 @@ for (var f = 0; f < elementsForms.length; f++)  {
 	
 	for(e=0; e<theForm.elements.length; e++){
 		console.log(theForm.elements[e].id);
-		if(document.getElementById(theForm.elements[e].id){
+		if(document.getElementById(theForm.elements[e].id)){
 			var theElem=document.getElementById(theForm.elements[e].id);
 			var c=theElem.className;
 			console.log('c=' + c);
