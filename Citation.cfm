@@ -1,4 +1,5 @@
 <cfinclude template="includes/_header.cfm">
+<script type='text/javascript' src='/includes/checkForm.js'></script>
 	<script>
 		function getCatalogedItemCitation (id,type) {
 			var collection_id = document.getElementById('collection').value;
@@ -136,7 +137,7 @@
 				class="insBtn"
 				onmouseover="this.className='insBtn btnhov'" 
 				onmouseout="this.className='insBtn'"
-				onclick = "newCitation.citedSciName.value='#getCited.citSciName#';
+				onclick = "newCitation.cited_taxon_name.value='#getCited.citSciName#';
 				newCitation.cited_taxon_name_id.value='#getCited.cited_taxon_name_id#';
 				newCitation.type_status.value='#getCited.type_status#';
 				newCitation.occurs_page_number.value='#getCited.occurs_page_number#';
@@ -164,7 +165,7 @@
 	select collection_id,collection from collection
 	order by collection
 </cfquery>
-<form name="newCitation" method="post" action="Citation.cfm">
+<form name="newCitation" id="newCitation" method="post" action="Citation.cfm">
 		<input type="hidden" name="Action" value="newCitation">
 		<input type="hidden" name="publication_id" value="#publication_id#">
 		<input type="hidden" name="collection_object_id" id="collection_object_id">
@@ -177,7 +178,7 @@
 <tr>
 	<td>
 		<label for="collection">Collection</label>
-		<select name="collection" id="collection" size="1">
+		<select name="collection" id="collection" size="1" class="reqdClr">
 			<cfloop query="ctcollection">
 				<option value="#collection_id#">#collection#</option>
 			</cfloop>
@@ -185,7 +186,7 @@
 	</td>	
 	<td>
 		<label for="cat_num">Catalog Number</label>
-		<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation(this.id,'cat_num')">
+		<input type="text" name="cat_num" id="cat_num" onchange="getCatalogedItemCitation(this.id,'cat_num')" class="reqdClr">
 	</td>
 	<cfif len(session.CustomOtherIdentifier) gt 0>
 		<td>
@@ -202,11 +203,11 @@
 		<input type="text" name="scientific_name" id="scientific_name" readonly="yes" class="readClr" size="50">
 	</td>
 	<td colspan="2">
-		<label for="citedSciName">
+		<label for="cited_taxon_name">
 			<a href="javascript:void(0);" onClick="getDocs('publication','cited_as_taxon')">Cited As</a></label>
-		<input type="text" name="citedSciName" id="citedSciName" class="reqdClr" size="50" onChange="taxaPick('cited_taxon_name_id','citedSciName','newCitation',this.value); return false;">
+		<input type="text" name="cited_taxon_name" id="cited_taxon_name" class="reqdClr" size="50" onChange="taxaPick('cited_taxon_name_id','cited_taxon_name','newCitation',this.value); return false;">
 		<span class="infoLink"
-			onClick = "taxaPick('cited_taxon_name_id','citedSciName','newCitation',document.getElementById('scientific_name').value)">Use Current</span>
+			onClick = "taxaPick('cited_taxon_name_id','cited_taxon_name','newCitation',document.getElementById('scientific_name').value)">Use Current</span>
 		<input type="hidden" name="cited_taxon_name_id">
 	</td>
 </tr>
@@ -240,6 +241,8 @@
 <tr>
 	<td colspan="2" align="center">
 		<input type="submit" 
+			id="submit"
+			title="Insert Citation"
 			value="Insert Citation" 
 			class="insBtn"
 			onmouseover="this.className='insBtn btnhov'" 
@@ -425,14 +428,14 @@
 
 <tr>
 	<td>
-		<label for="citedSciName">Cited As</label>
+		<label for="cited_taxon_name">Cited As</label>
 		<input type="text" 
-			name="citedSciName"
-			id="citedSciName" 
+			name="cited_taxon_name"
+			id="cited_taxon_name" 
 			value="#citSciName#"
 			class="reqdClr" 
 			size="50" 
-			onChange="taxaPick('cited_taxon_name_id','citedSciName','editCitation',this.value); return false;">
+			onChange="taxaPick('cited_taxon_name_id','cited_taxon_name','editCitation',this.value); return false;">
 		<input type="hidden" name="cited_taxon_name_id" value="#cited_taxon_name_id#">
 	</td>
 	<td>

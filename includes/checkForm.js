@@ -11,15 +11,15 @@ function getLabelForId(id) {
 function checkRequired(){
 	/*
 		REQUIREMENTS:
-			form submit button has a title
+			form submit button has a title (this is the default value)
 			form submit button has an ID
 			form has an ID
 			required hidden fields have the same ID as their visible field, plus "_id"
 				so, agent + agent_id are treated as a pair (the visual clues go with agent)
-				
+			Required elements (not of type _id) have a label that refers to their ID
 		Usage:
-		
-		<script type='text/javascript' src='/includes/checkForm.js'></script>
+			Meet the above requirements, and
+			<script type='text/javascript' src='/includes/checkForm.js'></script>
 	*/
 	try {
 		elementsForms = document.getElementsByTagName("form");
@@ -43,7 +43,6 @@ function checkRequired(){
 					}
 				}
 			}
-			
 			if (badElems.length>0){
 				sbmBtn.setAttribute('onsubmit',"return false");
 				sbmBtn.value="Not ready...";	
