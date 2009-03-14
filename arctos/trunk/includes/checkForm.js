@@ -22,7 +22,7 @@ function checkRequired(){
 		<script type='text/javascript' src='/includes/checkForm.js'></script>
 	*/
 	try {
-		elementsForms = document.getElementsByTagName("form");  
+		elementsForms = document.getElementsByTagName("form");
 		for (var f = 0; f < elementsForms.length; f++)  {  
 			var fid = document.forms[f].id;
 			var theForm=document.getElementById(fid);
@@ -45,6 +45,7 @@ function checkRequired(){
 						var thisVal=theElem.value;
 						if (thisVal==''){
 							hasIssues+=1;
+							console.log(lblElem + ' is our display element; ' + theId + ' is the problem'); 
 							getLabelForId(lblElem).className='badPickLbl';
 						} else {
 							var lbl=getLabelForId(lblElem).className='';
