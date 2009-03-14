@@ -16,44 +16,49 @@ function checkRequired(){
    //alert(document.forms[0].elements[i].id)
 
 elementsForms = document.getElementsByTagName("form");  
-for (var f = 0; f < elementsForms.length; f++)  {  
-	var fid = document.forms[f].id;
-	var theForm=document.getElementById(fid);
-	console.log('-------------- here we go on form ' + fid);
-	var hasIssues=0;
+	for (var f = 0; f < elementsForms.length; f++)  {  
+		var fid = document.forms[f].id;
+		var theForm=document.getElementById(fid);
+		console.log('-------------- here we go on form ' + fid);
+		var hasIssues=0;
 	
-	for(e=0; e<theForm.elements.length; e++){
-		console.log(theForm.elements[e].id);
-		console.log(theForm.elements[e].type);
-		if(document.getElementById(theForm.elements[e].id)){
-			var theElem=document.getElementById(theForm.elements[e].id);
-			var c=theElem.className;
-			console.log('c=' + c);
-			if (c.indexOf('reqdClr') >-1){
-				theId=theElem.id;
-				console.log(theId + ' is a required element');
-				var isId=theId.substr(theId.length-3,3);
-				if (isId=='_id') {
-					var lblElem=theId.substr(0,theId.length-3);
-				} else {
-					var lblElem=theId;
+		for(e=0; e<theForm.elements.length; e++){
+			console.log(theForm.elements[e].id);
+			console.log(theForm.elements[e].type);
+			if(document.getElementById(theForm.elements[e].id)){
+				var theElem=document.getElementById(theForm.elements[e].id);
+				if(theForm.elements[e].type=='submit'){
+					var sbmBtn=theElem;
 				}
-				var thisVal=theElem.value;
-				if (thisVal==''){
-					hasIssues+=1;
-					getLabelForId(lblElem).className='badPickLbl';
-				} else {
-					var lbl=getLabelForId(lblElem).className='';
+				var c=theElem.className;
+				console.log('c=' + c);
+				if (c.indexOf('reqdClr') >-1){
+					theId=theElem.id;
+					console.log(theId + ' is a required element');
+					var isId=theId.substr(theId.length-3,3);
+					if (isId=='_id') {
+						var lblElem=theId.substr(0,theId.length-3);
+					} else {
+						var lblElem=theId;
+					}
+					var thisVal=theElem.value;
+					if (thisVal==''){
+						hasIssues+=1;
+						getLabelForId(lblElem).className='badPickLbl';
+					} else {
+						var lbl=getLabelForId(lblElem).className='';
+					}
 				}
 			}
 		}
-		if(theForm.elements[e].type=='submit'){
-			//var sbmBtn=theForm.getElementsByTagName('submit');
-			//alert(sbmBtn);
-			//sbmBtn.value='found you';
-			console.log('found submit');
+		if (hasIssues > 0) {
+			// form is NOT ready for submission
+			sbmBtn.setAttribute('onsubmit',"return false");
+			sbmBtn.value="Not ready...";		
+		} else {
+			sbmBtn.removeAttribute('onsubmit');
+			sbmBtn.value=sbmBtn.title;	
 		}
-	}
 
 	/*
 	var allFormObjs = $('#' + fid).formSerialize();
