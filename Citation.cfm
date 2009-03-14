@@ -23,7 +23,7 @@
 						var co = document.getElementById('collection_object_id');
 						var c = document.getElementById('collection');
 						var cn = document.getElementById('cat_num');
-						cn.className='';
+						cn.className='reqdClr';
 						if (document.getElementById('custom_id')) {
 						    var cusn = document.getElementById('custom_id');
 						    cusn.className='';
