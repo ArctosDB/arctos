@@ -22,7 +22,7 @@ for (var f = 0; f < elementsForms.length; f++)  {
 	console.log('-------------- here we go on form ' + fid);
 	var hasIssues=0;
 	for(e=0; e<theForm.elements.length; e++){
-		console.log(theForm.elements[e].name);
+		console.log(theForm.elements[e].id);
 	}
 	/*
 	var allFormObjs = $('#' + fid).formSerialize();
