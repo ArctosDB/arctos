@@ -45,10 +45,12 @@ function checkRequired(){
 						var thisVal=theElem.value;
 						if (thisVal==''){
 							hasIssues+=1;
-							console.log(lblElem + ' is our display element; ' + theId + ' is the problem'); 
+							console.log(lblElem + ' is our display element; ' + theId + ' is the problem');
+							console.log('changing to bad label for ' +  lblElem);
 							getLabelForId(lblElem).className='badPickLbl';
 						} else {
 							var lbl=getLabelForId(lblElem).className='';
+							console.log('changing to GOOD label for ' +  lblElem);
 						}
 					}
 				}
