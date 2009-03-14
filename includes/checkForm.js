@@ -28,7 +28,7 @@ for (var f = 0; f < elementsForms.length; f++)  {
 			var theElem=document.getElementById(theForm.elements[e].id);
 			var c=theElem.className;
 			console.log('c=' + c);
-			if c.indexOf('reqdClr') >-1){
+			if (c.indexOf('reqdClr') >-1){
 				theId=theElem.id;
 				console.log(theId + ' is a required element');
 			}
