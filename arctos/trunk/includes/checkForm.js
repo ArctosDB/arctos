@@ -35,7 +35,7 @@ for (var f = 0; f < elementsForms.length; f++)  {
 				if (isId=='_id') {
 					var lblElem=theId.substr(0,theId.length-3);
 				} else {
-					var lblElem=ffName;
+					var lblElem=theId;
 				}
 				var thisVal=theElem.value;
 				if (thisVal==''){
