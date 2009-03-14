@@ -45,7 +45,7 @@ for (var f = 0; f < elementsForms.length; f++)  {
 					var lbl=getLabelForId(lblElem).className='';
 				}
 			}
-			var sbmBtn=theForm.getElementsByTagName('input');
+			var sbmBtn=theForm.getElementsByTagName('submit');
 			sbmBtn.value='found you';
 		}
 	}
