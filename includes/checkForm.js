@@ -47,6 +47,7 @@ for (var f = 0; f < elementsForms.length; f++)  {
 			}
 		}
 		var sbmBtn=theForm.getElementsByTagName('submit');
+		alert(sbmBtn);
 		sbmBtn.value='found you';
 	}
 
