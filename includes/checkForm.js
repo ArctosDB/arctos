@@ -31,6 +31,19 @@ for (var f = 0; f < elementsForms.length; f++)  {
 			if (c.indexOf('reqdClr') >-1){
 				theId=theElem.id;
 				console.log(theId + ' is a required element');
+				var isId=theId.substr(theId.length-3,3);
+				if (isId=='_id') {
+					var lblElem=theId.substr(0,theId.length-3);
+				} else {
+					var lblElem=ffName;
+				}
+				var thisVal=theElem.value;
+				if (thisVal==''){
+					hasIssues+=1;
+					getLabelForId(lblElem).className='badPickLbl';
+				} else {
+					var lbl=getLabelForId(lblElem).className='';
+				}
 			}
 		}
 	}
