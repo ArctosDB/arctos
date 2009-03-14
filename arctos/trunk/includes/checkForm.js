@@ -21,9 +21,15 @@ for (var f = 0; f < elementsForms.length; f++)  {
 	var theForm=document.getElementById(fid);
 	console.log('-------------- here we go on form ' + fid);
 	var hasIssues=0;
+	
 	for(e=0; e<theForm.elements.length; e++){
 		console.log(theForm.elements[e].id);
+		var theElem=document.getElementById(theForm.elements[e].id);
+		var c=theElem.className;
+		console.log('c=' + c);
+		
 	}
+
 	/*
 	var allFormObjs = $('#' + fid).formSerialize();
 	var AFA=allFormObjs.split('&');
