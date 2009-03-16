@@ -408,7 +408,7 @@
 <cfoutput query="getCited">
 
 <br>Edit Citation for <b>#getCited.publication_title#</b>:
-<form name="editCitation" method="post" action="Citation.cfm">
+<form name="editCitation" id="editCitation" method="post" action="Citation.cfm">
 		<input type="hidden" name="Action" value="saveEdits">
 		<input type="hidden" name="publication_id" value="#publication_id#">
 
@@ -436,7 +436,7 @@
 			class="reqdClr" 
 			size="50" 
 			onChange="taxaPick('cited_taxon_name_id','cited_taxon_name','editCitation',this.value); return false;">
-		<input type="hidden" name="cited_taxon_name_id" value="#cited_taxon_name_id#">
+		<input type="hidden" name="cited_taxon_name_id" value="#cited_taxon_name_id#" class="reqdClr">
 	</td>
 	<td>
 		<label for="type_status">Citation Type</label>
