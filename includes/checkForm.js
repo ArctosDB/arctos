@@ -1,6 +1,6 @@
 setInterval(checkRequired,500);
 function formNotReady() {
-	alert('All required fields must be populated out before the form will submit.');
+	alert('All required fields must be populated before the form will submit.');
 	return false;
 }
 function getLabelForId(id) {
@@ -51,7 +51,7 @@ function checkRequired(){
 				theForm.setAttribute('onsubmit',"return formNotReady()");
 				sbmBtn.value="Not ready...";	
 			} else {
-				sbmBtn.removeAttribute('onsubmit');
+				theForm.removeAttribute('onsubmit');
 				sbmBtn.value=sbmBtn.title;	
 			}
 			for (i=0;i<badElems.length;i++){
