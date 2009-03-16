@@ -1,11 +1,10 @@
-<script>
+<script language="javascript" type="text/javascript">
 function changecustomOtherIdentifier (tgt) {
 	DWREngine._execute(_cfscriptLocation, null, 'changecustomOtherIdentifier',tgt, success_changecustomOtherIdentifier);
 }
 function success_changecustomOtherIdentifier (result) {
 	if (result == 'success') {
 		document.getElementById('customOtherIdentifier').className='';
-		window.console.log('yay safari...')
 	} else {
 		alert('An error occured: ' + result);
 	}
