@@ -464,6 +464,8 @@
 		<input type="submit" 
 			value="Save Edits" 
 			class="savBtn"
+			id="sBtn"
+			title="Save Edits"
 			onmouseover="this.className='savBtn btnhov'" 
 			onmouseout="this.className='savBtn'">	
 
