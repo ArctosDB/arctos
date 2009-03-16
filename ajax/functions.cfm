@@ -1300,6 +1300,8 @@
 <cffunction name="changeexclusive_collection_id" returntype="string">
 	<cfargument name="tgt" type="string" required="yes">
 	<cftry>
+			<cfset setDbUser(tgt)>
+			<!---
 			<cfquery name="up" datasource="cf_dbuser">
 				UPDATE cf_users SET
 					exclusive_collection_id = 
@@ -1315,6 +1317,7 @@
 			<cfelse>
 				<cfset session.exclusive_collection_id = "">
 			</cfif>
+			--->
 		<cfset result="success">
 	<cfcatch>
 		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
