@@ -86,10 +86,7 @@ A publication might also be linked to the project from which it resulted.  We ma
 		<select name="collection_id" id="collection_id" size="1">
 			<option value="">All</option>
 			<cfloop query="ctColl">
-				<option 
-					<cfif isdefined("session.exclusive_collection_id") and
-						#session.exclusive_collection_id# is #collection_id#> selected="selected"</cfif>
-					value="#collection_id#">#collection#</option>
+				<option value="#collection_id#">#collection#</option>
 			</cfloop>
 		</select>
 		</cfoutput>

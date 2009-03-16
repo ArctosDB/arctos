@@ -1301,24 +1301,17 @@
 	<cfargument name="tgt" type="string" required="yes">
 		<cfinclude template="/includes/functionLib.cfm">
 	<cftry>
-			<cfset setDbUser(tgt)>
-			<!---
-			<cfquery name="up" datasource="cf_dbuser">
-				UPDATE cf_users SET
-					exclusive_collection_id = 
-					<cfif #tgt# gt 0>
-						#tgt#
-					<cfelse>
-						NULL
-					</cfif>
-				WHERE username = '#session.username#'
+		<cfquery name="up" datasource="cf_dbuser">
+			UPDATE cf_users SET
+				exclusive_collection_id = 
+				<cfif #tgt# gt 0>
+					#tgt#
+				<cfelse>
+					NULL
+				</cfif>
+			WHERE username = '#session.username#'
 			</cfquery>
-			<cfif #tgt# gt 0>
-				<cfset session.exclusive_collection_id = "#tgt#">
-			<cfelse>
-				<cfset session.exclusive_collection_id = "">
-			</cfif>
-			--->
+		<cfset setDbUser(tgt)>
 		<cfset result="success">
 	<cfcatch>
 		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
@@ -1587,34 +1580,6 @@
 		<cfreturn result>
 </cffunction>
 <!----------------------------------------->
-<cffunction name="getCollectionData" returntype="query">
-		<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			SELECT institution_acronym, collection, collection_id FROM collection
-			<cfif len(#exclusive_collection_id#) gt 0>
-				WHERE collection_id = #exclusive_collection_id#
-			</cfif>						
-		</cfquery>
-		
-		
-		<cfset result = querynew("name,data,display")>
-		<cfset i=1>
-		<cfloop query="ctInst">
-			<cfset temp = queryaddrow(result,1)>
-			<cfset temp = QuerySetCell(result, "name", "collection_id", #i#)>
-			<cfset temp = QuerySetCell(result, "data", "#collection_id#", #i#)>			
-			<cfset temp = QuerySetCell(result, "display", "#institution_acronym# #collection#", #i#)>
-			<cfset i=#i#+1>
-		</cfloop>
-		<cfreturn result>
-</cffunction>
-<!----------------------------------------->
-
-<cffunction name="testThis" returntype="string">
-		<cfset result="something">
-		<cfreturn result>
-</cffunction>
-<!----------------------------------------->
-
 <cffunction name="updateLoanItemRemarks" returntype="query">
 	<cfargument name="part_id" type="numeric" required="yes">
 	<cfargument name="transaction_id" type="numeric" required="yes">

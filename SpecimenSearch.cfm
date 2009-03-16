@@ -17,17 +17,7 @@
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
-			Access to #getCount.cnt#
-			<cfif len(#session.exclusive_collection_id#) gt 0>
-				<cfquery name="coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select collection
-					from collection where
-					collection_id=#session.exclusive_collection_id#
-				</cfquery>
-				<strong>#coll.collection#</strong>
-				records. <a href="all_all">Search all collections</a>.
-			<cfelse>
-				records.
+			Access to #getCount.cnt# records.
 			</cfif>
 		</td>
 		<td style="padding-left:2em;padding-right:2em;">
@@ -125,13 +115,7 @@
 <input type="hidden" name="Action" value="#Action#">
 <div class="secDiv">
 	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		SELECT institution_acronym, collection, collection_id FROM collection
-		<!---
-		<cfif len(#session.exclusive_collection_id#) gt 0>
-			WHERE collection_id = #session.exclusive_collection_id#
-		</cfif>
-		--->
-		order by collection
+		SELECT institution_acronym, collection, collection_id FROM collection order by collection
 	</cfquery>
 	<cfif isdefined("collection_id") and len(#collection_id#) gt 0>
 		<cfset thisCollId = #collection_id#>
@@ -152,9 +136,7 @@
 			</td>
 			<td class="srch">
 				<select name="collection_id" id="collection_id" size="1">
-					<cfif len(#session.exclusive_collection_id#) is 0>
 						<option value="">All</option>
-					</cfif>
 					<cfloop query="ctInst">
 						<option <cfif #thisCollId# is #ctInst.collection_id#>
 					 		selected </cfif>

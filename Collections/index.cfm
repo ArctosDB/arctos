@@ -48,7 +48,7 @@
 	</th>
 </tr>
 <cfoutput query="colls">
-	<tr <cfif #session.exclusive_collection_id# is #collection_id#>style="background-color:##CCFF33" </cfif>>
+	<tr>
 		<td>
 			#COLLECTION#
 		</td>
