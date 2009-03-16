@@ -1,6 +1,7 @@
 setInterval(checkRequired,500);
 function formNotReady() {
 	alert('formNotReady');
+	return false;
 }
 function getLabelForId(id) {
  	var label, labels = document.getElementsByTagName('label');
