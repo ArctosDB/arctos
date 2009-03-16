@@ -408,7 +408,7 @@
 <cfoutput query="getCited">
 
 <br>Edit Citation for <b>#getCited.publication_title#</b>:
-<form name="editCitation" id="editCitation" method="post" action="Citation.cfm">
+<cfform name="editCitation" id="editCitation" method="post" action="Citation.cfm">
 		<input type="hidden" name="Action" value="saveEdits">
 		<input type="hidden" name="publication_id" value="#publication_id#">
 
@@ -471,7 +471,7 @@
 
 	</td>
 	
-	</form>
+	</cfform>
 </tr></table>
 
 </cfoutput>
