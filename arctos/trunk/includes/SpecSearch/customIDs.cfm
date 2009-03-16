@@ -44,8 +44,8 @@ function success_changefancyCOID (result) {
 <cfquery name="OtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(other_id_type) FROM CTCOLL_OTHER_ID_TYPE ORDER BY other_Id_Type
 </cfquery>
-<cfquery name="collid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select collection_id,collection  from collection
+<cfquery name="collid" datasource="uam_god">
+	select collection_id,collection from collection
 	order by collection
 </cfquery>
 <table class="ssrch">
