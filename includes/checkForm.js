@@ -1,4 +1,7 @@
 setInterval(checkRequired,500);
+function formNotReady() {
+	alert('formNotReady');
+}
 function getLabelForId(id) {
  	var label, labels = document.getElementsByTagName('label');
  	for (var i = 0; (label = labels[i]); i++) {
@@ -25,9 +28,7 @@ function checkRequired(){
 		elementsForms = document.getElementsByTagName("form");
 		for (var f = 0; f < elementsForms.length; f++)  {  
 			var fid = document.forms[f].id;
-			console.log('fid: ' + fid);
 			var theForm=document.getElementById(fid);
-			console.log('theForm: ' + theForm);
 			var badElems=new Array();
 			for(e=0; e<theForm.elements.length; e++){
 				if(document.getElementById(theForm.elements[e].id)){
@@ -46,7 +47,7 @@ function checkRequired(){
 				}
 			}
 			if (badElems.length>0){
-				sbmBtn.setAttribute('onclick',"return false");
+				theForm.setAttribute('onsubmit',"return formNotReady()");
 				sbmBtn.value="Not ready...";	
 			} else {
 				sbmBtn.removeAttribute('onsubmit');
