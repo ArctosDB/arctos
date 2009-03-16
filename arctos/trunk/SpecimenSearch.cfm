@@ -18,7 +18,6 @@
 	<tr>
 		<td>
 			Access to #getCount.cnt# records.
-			</cfif>
 		</td>
 		<td style="padding-left:2em;padding-right:2em;">
 			<span class="infoLink" onClick="getHelp('CollStats');">
