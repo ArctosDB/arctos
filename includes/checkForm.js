@@ -25,9 +25,9 @@ function checkRequired(){
 			Meet the above requirements, and
 			<script type='text/javascript' src='/includes/checkForm.js'></script>
 	*/
-	try {
 		elementsForms = document.getElementsByTagName("form");
 		for (var f = 0; f < elementsForms.length; f++)  {  
+						try {
 			var fid = document.forms[f].id;
 			var theForm=document.getElementById(fid);
 			var badElems=new Array();
@@ -63,7 +63,8 @@ function checkRequired(){
 					var lblElem=theId;
 				}
 				getLabelForId(lblElem).className='badPickLbl';
-			}			
+			}	
+			 } catch(err){}		
 		}
-	 } catch(err){}
+	
 }
