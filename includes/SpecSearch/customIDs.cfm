@@ -5,6 +5,7 @@ function changecustomOtherIdentifier (tgt) {
 function success_changecustomOtherIdentifier (result) {
 	if (result == 'success') {
 		var e = document.getElementById('customOtherIdentifier').className='';
+		window.console.log('yay safari...')
 	} else {
 		alert('An error occured: ' + result);
 	}
