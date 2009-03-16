@@ -1,6 +1,6 @@
 setInterval(checkRequired,500);
 function formNotReady() {
-	alert('formNotReady');
+	alert('All required fields must be populated out before the form will submit.');
 	return false;
 }
 function getLabelForId(id) {
@@ -25,7 +25,7 @@ function checkRequired(){
 			Meet the above requirements, and
 			<script type='text/javascript' src='/includes/checkForm.js'></script>
 	*/
-	//try {
+	try {
 		elementsForms = document.getElementsByTagName("form");
 		for (var f = 0; f < elementsForms.length; f++)  {  
 			var fid = document.forms[f].id;
@@ -65,8 +65,5 @@ function checkRequired(){
 				getLabelForId(lblElem).className='badPickLbl';
 			}			
 		}
-	// } catch(err)
-  	//{
-  	//
-  //	}
+	 } catch(err){}
 }
