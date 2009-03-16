@@ -1,2 +1,2 @@
-<cfset session.exclusive_collection_id = "">
+<cfset setDbUser()>
 <cflocation url="SpecimenSearch.cfm">

@@ -24,10 +24,12 @@ Based on:
 <cfif not isdefined("institution_appearance")>
 	<cfset institution_appearance = "">
 </cfif>
-
+<!---
+DLM: I have no idea what this is trying to do, but it won't work.
 <cfoutput>
 	<cf_get_header collection_id="#exclusive_collection_id#">
 </cfoutput>
+---->
 <cfif not isdefined("collection_object_id")>
 	Need specimens to make a report/ledger!
 	<cfabort>

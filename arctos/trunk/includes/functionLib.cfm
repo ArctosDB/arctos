@@ -85,15 +85,12 @@
 	<cfquery name="portalInfo" datasource="cf_dbuser">
 		select * from cf_collection where cf_collection_id = #portal_id#
 	</cfquery>
-	<cfset session.exclusive_collection_id=portalInfo.collection_id>
 	<cfif session.roles does not contain "coldfusion_user">
 		<cfset session.dbuser=portalInfo.dbusername>
 		<cfset session.epw = encrypt(portalInfo.dbpwd,cfid)>
 	</cfif>
 	<cfif portal_id gt 0>
 		<cfset session.portal_id=portal_id>
-	<cfelse>
-		<cfset session.exclusive_collection_id="">
 	</cfif>
 	<!--- may need to get generic appearance --->
 	<cfif portalInfo.recordcount is 0 or
@@ -144,7 +141,6 @@
 	<cfset session.username="">
 	<cfset session.killrow="0">
 	<cfset session.searchBy="">
-	<cfset session.exclusive_collection_id="">
 	<cfset session.fancyCOID="">
 	<cfset session.last_login="">
 	<cfset session.customOtherIdentifier="">
