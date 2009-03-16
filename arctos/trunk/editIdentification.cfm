@@ -16,7 +16,7 @@
 
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
-	//setInterval(checkRequired,500);
+	setInterval(checkRequired,500);
 	$(".helpLink").click(function(e){
 		var id=this.id;
 		removeHelpDiv();
@@ -34,7 +34,7 @@ function removeHelpDiv() {
 		$('#helpDiv').remove();
 	}
 }
-/*
+
 function checkRequired(){	
 	// loop over all the forms...
 	$('form').each(function(){
@@ -67,7 +67,7 @@ function checkRequired(){
 		}
 	});
 }
-*/
+
 
 </script>
 </div><!--- kill content div --->
@@ -120,7 +120,7 @@ function checkRequired(){
 <a href="javascript:void(0);" onClick="getDocs('identification')"><img src="/images/info.gif" border="0"></a>
 	</td>
  </tr>
-<form name="newID" id="newID" method="post" action="editIdentification.cfm">
+<cfform name="newID" id="newID" method="post" action="editIdentification.cfm">
     <input type="hidden" name="Action" value="createNew">
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
     <tr>
@@ -263,7 +263,7 @@ function checkRequired(){
              </div>
 		</td>
     </tr>
-</form>
+</cfform>
 </table>
 
 
