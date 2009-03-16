@@ -1,5 +1,4 @@
 <cfinclude template="/ajax/core/cfajax.cfm">
-	<cfinclude template="/includes/functionLib.cfm">
 <!------------------------------------>
 <cffunction name="agent_lookup" returntype="any">
 	<cfargument name="agent_name" type="string" required="yes">
@@ -1300,6 +1299,7 @@
 <!------------------------------------------------------------------>
 <cffunction name="changeexclusive_collection_id" returntype="string">
 	<cfargument name="tgt" type="string" required="yes">
+		<cfinclude template="/includes/functionLib.cfm">
 	<cftry>
 			<cfset setDbUser(tgt)>
 			<!---
