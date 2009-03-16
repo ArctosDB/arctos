@@ -44,7 +44,7 @@ function checkRequired(){
 				}
 			}
 			if (badElems.length>0){
-				sbmBtn.setAttribute('onsubmit',"return false");
+				theForm.setAttribute('onsubmit',"return false");
 				sbmBtn.value="Not ready...";	
 			} else {
 				sbmBtn.removeAttribute('onsubmit');
