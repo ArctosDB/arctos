@@ -16,7 +16,7 @@
 
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
-	setInterval(checkRequired,500);
+	//setInterval(checkRequired,500);
 	$(".helpLink").click(function(e){
 		var id=this.id;
 		removeHelpDiv();
@@ -34,6 +34,7 @@ function removeHelpDiv() {
 		$('#helpDiv').remove();
 	}
 }
+/*
 function checkRequired(){	
 	// loop over all the forms...
 	$('form').each(function(){
@@ -66,7 +67,7 @@ function checkRequired(){
 		}
 	});
 }
-
+*/
 
 </script>
 </div><!--- kill content div --->
