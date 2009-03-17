@@ -207,12 +207,16 @@ function addIdentifier(identification_id,num) {
 	nI.setAttribute('onKeyPress',"return noenter(event);");
 	
 	var nid = document.createElement('input');
-	nid.setAttribute('type','hidden');
+	
+	nid.setAttribute('type','text');
+	
 	nid.setAttribute('class','reqdClr');
 	
 	ididStr = 'IdBy_' + identification_id + "_" + num + '_id';
 	nid.id = ididStr;
 	nid.setAttribute('name',ididStr);
+	
+	nid.value=ididStr;
 	
 	r = document.createElement('tr');
 	r.id="IdTr_" + identification_id + "_" + num;
