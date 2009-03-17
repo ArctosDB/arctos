@@ -48,13 +48,35 @@ function success_saveIdentifierChange (result){
 function addNewIdBy(n) {
 	var idS = "addNewIdBy_" + n;
 	var theES = document.getElementById(idS).style.display='';
-	var vS='idBy_' + n;
-	var iS='newIdById_' + n;
+	var vS='newIdBy_' + n;
+	var iS='newIdBy_' + n + '_id';
 	var v=document.getElementById(vS);
 	var i=document.getElementById(iS)
 	v.className='reqdClr';
 	i.className='reqdClr';
-		
+				
+				
+				<input type="text" name="idBy" id="idBy" class="reqdClr" size="50" 
+				onchange="getAgent('newIdById','idBy','newID',this.value); return false;"
+			  	onkeypress="return noenter(event);"> 
+            <input type="hidden" name="newIdById" id="newIdById" class="reqdClr"> 
+			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
+		</td>
+	</tr>
+	<tr id="addNewIdBy_two" style="display:none;"> 
+    	<td>
+			<div align="right">
+				ID By:<span class="infoLink" onclick="clearNewIdBy('two');"> remove</span>	
+			</div>
+		</td>
+        <td>
+			<input type="text" name="idBy_two" id="idBy_two" size="50" 
+				onchange="getAgent('newIdById_two','idBy_two','newID',this.value); return false;"
+			  	onkeypress="return noenter(event);"> 
+            <input type="hidden" name="newIdById_two" id="newIdById_two"> 
+			<span class="infoLink" onclick="addNewIdBy('three');">more...</span>			
+		 </td>
+	</tr>
 					
 }
 function clearNewIdBy (n) {

@@ -55,13 +55,8 @@
 	</cfquery>
 	<!--- handle collection-specific links to this page --->
 	<cfoutput>
-		<cfif len(session.exclusive_collection_id) gt 0>
-			<cfset sql = "INSERT INTO cf_users (user_id, username, password,exclusive_collection_id,PW_CHANGE_DATE,last_login) VALUES
-			(#nextUserID.nextid#, '#username#', '#hash(password)#',#session.exclusive_collection_id#,sysdate,sysdate)">
-		<cfelse>
-			<cfset sql = "INSERT INTO cf_users (user_id, username, password,PW_CHANGE_DATE,last_login) VALUES
+		<cfset sql = "INSERT INTO cf_users (user_id, username, password,PW_CHANGE_DATE,last_login) VALUES
 			(#nextUserID.nextid#, '#username#', '#hash(password)#',sysdate,sysdate)">
-		</cfif>
 	
 	
 		<cfquery name="newUser" datasource="cf_dbuser">

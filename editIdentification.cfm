@@ -14,9 +14,11 @@
 <script type='text/javascript' src='/includes/jquery/jquery.field.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
 
+<script type='text/javascript' src='/includes/checkForm.js'></script>
+
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
-	setInterval(checkRequired,500);
+	//setInterval(checkRequired,500);
 	$(".helpLink").click(function(e){
 		var id=this.id;
 		removeHelpDiv();
@@ -34,7 +36,7 @@ function removeHelpDiv() {
 		$('#helpDiv').remove();
 	}
 }
-
+/*
 function checkRequired(){	
 	// loop over all the forms...
 	$('form').each(function(){
@@ -67,7 +69,7 @@ function checkRequired(){
 		}
 	});
 }
-
+*/
 
 </script>
 </div><!--- kill content div --->
@@ -169,10 +171,10 @@ function checkRequired(){
 			<div class="helpLink" id="scientific_name">Taxon A:</div>
 		</td>
          <td>
-		  	<input type="text" name="taxa_a" id="taxa_a" class="reqdClr" size="50" 
-				onChange="taxaPick('TaxonAID','taxa_a','newID',this.value); return false;"
+		  	<input type="text" name="taxona" id="taxona" class="reqdClr" size="50" 
+				onChange="taxaPick('taxona_id','taxona','newID',this.value); return false;"
 				onKeyPress="return noenter(event);">
-			<input type="hidden" name="TaxonAID" id="TaxonAID" class="reqdClr"> 
+			<input type="hidden" name="taxona_id" id="taxona_id" class="reqdClr"> 
 		</td>
   	</tr>
 	<tr id="taxon_b_row" style="display:none;"> 
@@ -180,10 +182,10 @@ function checkRequired(){
 			<div align="right">Taxon B:</div>
 		</td>
         <td>
-			<input type="text" name="taxa_b" id="taxa_b"  size="50" 
-				onChange="taxaPick('TaxonBID','taxa_b','newID',this.value); return false;"
+			<input type="text" name="taxonb" id="taxonb"  size="50" 
+				onChange="taxaPick('taxonb_id','taxonb','newID',this.value); return false;"
 				onKeyPress="return noenter(event);">
-			<input type="hidden" name="TaxonBID" id="TaxonBID">
+			<input type="hidden" name="taxonb_id" id="taxonb_id">
 		</td>
   	</tr>
     <tr> 
@@ -191,10 +193,10 @@ function checkRequired(){
 			<div class="helpLink" id="id_by">ID By:</div>
 		</td>
         <td>
-			<input type="text" name="idBy" id="idBy" class="reqdClr" size="50" 
-				onchange="getAgent('newIdById','idBy','newID',this.value); return false;"
+			<input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50" 
+				onchange="getAgent('newIdBy_id','newIdBy','newID',this.value); return false;"
 			  	onkeypress="return noenter(event);"> 
-            <input type="hidden" name="newIdById" id="newIdById" class="reqdClr"> 
+            <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr"> 
 			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 		</td>
 	</tr>
@@ -205,10 +207,10 @@ function checkRequired(){
 			</div>
 		</td>
         <td>
-			<input type="text" name="idBy_two" id="idBy_two" size="50" 
-				onchange="getAgent('newIdById_two','idBy_two','newID',this.value); return false;"
+			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50" 
+				onchange="getAgent('newIdBy_two_id','newIdBy_two','newID',this.value); return false;"
 			  	onkeypress="return noenter(event);"> 
-            <input type="hidden" name="newIdById_two" id="newIdById_two"> 
+            <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id"> 
 			<span class="infoLink" onclick="addNewIdBy('three');">more...</span>			
 		 </td>
 	</tr>
@@ -219,10 +221,10 @@ function checkRequired(){
 			</div>
 		</td>
         <td>
-			<input type="text" name="idBy_three" id="idBy_three"  size="50" 
-			 	onchange="getAgent('newIdById_three','idBy_three','newID',this.value); return false;"
+			<input type="text" name="newIdBy_three" id="newIdBy_three"  size="50" 
+			 	onchange="getAgent('newIdBy_three_id','newIdBy_three','newID',this.value); return false;"
 			 	onkeypress="return noenter(event);"> 
-            <input type="hidden" name="newIdById_three" id="newIdById_three"> 			
+            <input type="hidden" name="newIdBy_three_id" id="newIdBy_three_id"> 			
 		 </td>
     </tr>
     <tr> 
@@ -259,7 +261,7 @@ function checkRequired(){
     <tr>
 		<td colspan="2">
 			<div align="center"> 
-            	<input type="submit" id="newID_submit" value="Create" class="insBtn" title="Create Identification">	
+            	<input type="submit" id="newID_submit" value="Create" class="insBtn reqdClr" title="Create Identification">	
              </div>
 		</td>
     </tr>
@@ -647,11 +649,11 @@ function checkRequired(){
 				identifier_order) 
 			values (
 				sq_identification_id.currval,
-				#newIdById#,
+				#newIdBy_id#,
 				1
 				)
 		</cfquery>
-		 <cfif len(#newIdById_two#) gt 0>
+		 <cfif len(#newIdBy_two_id#) gt 0>
 		 	<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				insert into identification_agent (
 					identification_id,
@@ -659,12 +661,12 @@ function checkRequired(){
 					identifier_order) 
 				values (
 					sq_identification_id.currval,
-					#newIdById_two#,
+					#newIdBy_two_id#,
 					2
 					)
 			</cfquery>
 		 </cfif>
-		 <cfif len(#newIdById_three#) gt 0>
+		 <cfif len(#newIdBy_three_id#) gt 0>
 		 	<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				insert into identification_agent (
 					identification_id,
@@ -672,7 +674,7 @@ function checkRequired(){
 					identifier_order) 
 				values (
 					sq_identification_id.currval,
-					#newIdById_three#,
+					#newIdBy_three_id#,
 					3
 					)
 			</cfquery>
@@ -685,7 +687,7 @@ function checkRequired(){
 				variable)
 			VALUES (
 				sq_identification_id.currval,
-				#TaxonAID#,
+				#taxona_id#,
 				'A')
 		 </cfquery>
 		
@@ -697,7 +699,7 @@ function checkRequired(){
 					variable)
 				VALUES (
 					sq_identification_id.currval,
-					#TaxonBID#,
+					#taxonb_id#,
 					'B')
 			 </cfquery>
 		 </cfif>
