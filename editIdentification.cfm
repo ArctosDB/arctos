@@ -313,6 +313,8 @@ function checkRequired(){
 		accepted_id_fg DESC,
 		made_date
 </cfquery>
+<span onclick="document.editIdentification.IdBy_4_3__t_id.value='12345'">document.editIdentification.IdBy_4_3__t_id.value='12345'</span>
+<input id="IdBy_4_3__t_id" class="reqdClr" type="text" name="IdBy_4_3__t_id"/>
 <form name="editIdentification" id="editIdentification" method="post" action="editIdentification.cfm">
     <input type="hidden" name="Action" value="saveEdits">
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
@@ -374,8 +376,7 @@ function checkRequired(){
        	</tr>
         <tr>
 			<td colspan="2">
-			<span onclick="document.editIdentification.IdBy_4_3_id.value='12345'">document.editIdentification.IdBy_4_3_id.value='12345'</span>
-<input id="IdBy_4_3_id" class="reqdClr" type="text" name="IdBy_4_3_id"/>
+			
 				<table id="identifierTable_#i#">
 					<tbody id="identifierTableBody_#i#">
 						<cfset idnum=1>
