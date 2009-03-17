@@ -117,7 +117,7 @@ function checkRequired(){
 <table class="newRec">
  <tr>
  	<td colspan="2">
-	
+	<span onclick="checkRequired()">--------checkRequired-------</span>
 <strong><font size="+1">Add new Determination</font></strong>&nbsp;
 <a href="javascript:void(0);" onClick="getDocs('identification')"><img src="/images/info.gif" border="0"></a>
 	</td>

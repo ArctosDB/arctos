@@ -1,4 +1,4 @@
-setInterval(checkRequired,500);
+/setInterval(checkRequired,500);
 function formNotReady() {
 	alert('All required fields must be populated before the form will submit.');
 	return false;
@@ -27,7 +27,7 @@ function checkRequired(){
 	*/
 		elementsForms = document.getElementsByTagName("form");
 		for (var f = 0; f < elementsForms.length; f++)  {  
-						try {
+		//				try {
 			var fid = document.forms[f].id;
 			var theForm=document.getElementById(fid);
 			var badElems=new Array();
@@ -64,7 +64,7 @@ function checkRequired(){
 				}
 				getLabelForId(lblElem).className='badPickLbl';
 			}	
-			 } catch(err){}		
+		//	 } catch(err){}		
 		}
 	
 }
