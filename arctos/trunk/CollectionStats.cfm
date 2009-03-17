@@ -46,7 +46,7 @@ ORDER BY cnt
 accn.transaction_id = trans.transaction_id and
 cataloged_item.collection_id = collection.collection_id
 group by to_char(trans_date, 'yyyy'),
-collection.institution_acronym||' '||collection.collection_cde,
+collection.collection,
 collection.collection_id
 order by tdate
 	</cfquery>
