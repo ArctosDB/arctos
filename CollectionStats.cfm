@@ -88,7 +88,8 @@
 			cataloged_item.collection_id = collection.collection_id 
 		group by 
 			to_char(trans_date, 'yyyy'),
-			collection
+			collection,
+			tdate
 	</cfquery>
 	<cfquery name="distColl" dbtype="query">
 		select 
@@ -98,8 +99,7 @@
 			Loans
 		group by
 			collection.collection,
-			collection.collection_id,
-			tdate,
+			collection.collection_id
 	</cfquery>
 	<h2>Specimen Loans By Year and Collection</h2>
 	
