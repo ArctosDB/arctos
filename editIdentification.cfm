@@ -375,7 +375,7 @@ function checkRequired(){
         <tr>
 			<td colspan="2">
 			<span onclick="document.editIdentification.IdBy_4_3_id.value='12345'">document.editIdentification.IdBy_4_3_id.value='12345'</span>
-
+<input id="IdBy_4_3_id" class="reqdClr" type="text" name="IdBy_4_3_id"/>
 				<table id="identifierTable_#i#">
 					<tbody id="identifierTableBody_#i#">
 						<cfset idnum=1>
