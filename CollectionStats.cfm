@@ -90,6 +90,29 @@
 			collection.collection,
 			collection.collection_id,
 			to_char(trans_date, 'yyyy')
+		union
+			select 
+			collection.collection,
+			collection.collection_id,
+			to_char(trans_date, 'yyyy') tdate,
+			count(loan_item.collection_object_id) as cnt
+ 		FROM
+			cataloged_item,
+			loan_item,
+			specimen_part,
+			collection,
+			loan,
+			trans
+		WHERE 
+			trans.transaction_id = loan.transaction_id AND
+			loan.transaction_id = loan_item.transaction_id AND
+			loan_item.collection_object_id = specimen_part.collection_object_id AND
+			specimen_part.derived_from_cat_item=cataloged_item.collection_object_id and
+			cataloged_item.collection_id = collection.collection_id 
+		group by 
+			collection.collection,
+			collection.collection_id,
+			to_char(trans_date, 'yyyy')
 	</cfquery>
 	<cfquery name="distColl" dbtype="query">
 		select 
