@@ -95,7 +95,7 @@ function success_changefancyCOID (result) {
 				onchange="this.className='red';changeexclusive_collection_id(this.value);" size="1">
 			 	<option value="">All</option>
 			  	<cfloop query="collid"> 
-					<option <cfif session.exclusive_collection_id is "#collection_id#"> selected="selected" </cfif> value="#collection_id#">#collection#</option>
+					<option value="#collection_id#">#collection#</option>
 			  	</cfloop> 
 			</select>
 		</td>
