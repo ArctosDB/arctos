@@ -51,8 +51,8 @@ collection.collection_id
 order by tdate
 	</cfquery>
 	<cfquery name="distColl" dbtype="query">
-		select collection_id, collection_cde from AccnByCollYear
-		group by collection_id, collection_cde
+		select collection_id, collection from AccnByCollYear
+		group by collection_id, collection
 	</cfquery>
 	<!---
 		<cfchart chartwidth="800" chartheight="500" xaxistitle="Year Accessioned" 
