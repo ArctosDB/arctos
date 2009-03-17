@@ -27,13 +27,13 @@ function checkRequired(){
 	*/
 		elementsForms = document.getElementsByTagName("form");
 		for (var f = 0; f < elementsForms.length; f++)  {  
-		//				try {
-			console.log('f: ' + f);
+			try {
+			//console.log('f: ' + f);
 			var fid = document.forms[f].id;
-			console.log('fid: ' + fid);
+			//console.log('fid: ' + fid);
 			var theForm=document.getElementById(fid);
 			var badElems=new Array();
-			console.log('number of elements: ' + theForm.elements.length);
+			//console.log('number of elements: ' + theForm.elements.length);
 			for(e=0; e<theForm.elements.length; e++){
 				if(document.getElementById(theForm.elements[e].id)){
 					try{
@@ -45,13 +45,9 @@ function checkRequired(){
 					if(theForm.elements[e].type=='submit'){
 						var sbmBtn=theElem;
 					}
-					console.log('theElem: ' + theElem.id);
-					if (theElem.className.indexOf('reqdClr')>-1){
-						console.log('REQUIRED: ' + theElem.id);
-					}
 					if (theElem.className.indexOf('reqdClr')>-1 && theElem.value==''){
 						badElems.push(theElem.id);
-						console.log('REQUIRED and NULL: ' + theElem.id);
+						//console.log('REQUIRED and NULL: ' + theElem.id);
 					}
 				}
 			}
@@ -72,7 +68,7 @@ function checkRequired(){
 				}
 				getLabelForId(lblElem).className='badPickLbl';
 			}	
-		//	 } catch(err){}		
+			} catch(err){}		
 		}
 	
 }
