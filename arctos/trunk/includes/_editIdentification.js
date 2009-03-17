@@ -171,7 +171,7 @@ function removeIdentifier ( identification_id,num  ) {
 	tabCell.style.display='none';
 	var affElemS = "IdBy_" + identification_id + "_" + num;
 	var affElem = document.getElementById(affElemS);
-	var affElemIdS = "IdById_" + identification_id + "_" + num;
+	var affElemIdS = "IdBy_" + identification_id + "_" + num + "_id";
 	var affElemId = document.getElementById(affElemIdS);
 	affElemId.value='DELETE'
 	affElemId.className='';
@@ -202,14 +202,14 @@ function addIdentifier(identification_id,num) {
 	nI.setAttribute('name',idStr);
 	nI.setAttribute('size','50');
 	nI.className='reqdClr';
-	var onchgStr = "getAgent('IdById_"  + identification_id + "_" + num + "','IdBy_" + identification_id + "_" + num + "','editIdentification',this.value); return false;";
+	var onchgStr = "getAgent('IdBy_"  + identification_id + "_" + num + '_id' + "','IdBy_" + identification_id + "_" + num + "','editIdentification',this.value); return false;";
 	nI.setAttribute('onchange',onchgStr);
 	nI.setAttribute('onKeyPress',"return noenter(event);");
 	
 	var nid = document.createElement('input');
 	nid.setAttribute('type','hidden');
 	
-	ididStr = 'IdById_' + identification_id + "_" + num;
+	ididStr = 'IdBy_' + identification_id + "_" + num + '_id';
 	nid.id = ididStr;
 	nid.setAttribute('name',ididStr);
 	

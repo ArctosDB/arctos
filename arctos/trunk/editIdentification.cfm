@@ -274,6 +274,14 @@ function checkRequired(){
 
 
 
+
+
+
+
+
+
+
+
 <strong><font size="+1">Edit an Existing Determination</font></strong>
 <img src="/images/info.gif" border="0" onClick="getDocs('identification')" class="likeLink">
 <cfset i = 1>
@@ -380,11 +388,11 @@ function checkRequired(){
 										class="reqdClr"
 										size="50" 
 										onchange="
-										getAgent('IdById_#i#_#idnum#','IdBy_#i#_#idnum#','editIdentification',this.value); return false;"
+										getAgent('IdBy_#i#_#idnum#_id','IdBy_#i#_#idnum#','editIdentification',this.value); return false;"
 							 			onKeyPress="return noenter(event);"> 
 									<input type="hidden" 
-										name="IdById_#i#_#idnum#" 
-										id="IdById_#i#_#idnum#" value="#agent_id#"
+										name="IdBy_#i#_#idnum#_id" 
+										id="IdBy_#i#_#idnum#_id" value="#agent_id#"
 										class="reqdClr">
 									<input type="hidden" name="identification_agent_id_#i#_#idnum#" id="identification_agent_id_#i#_#idnum#"
 										value="#identification_agent_id#">
@@ -503,7 +511,7 @@ function checkRequired(){
 				<cfloop from="1" to="#thisNumIds#" index="nid">
 					<cftry>
 						<!--- couter does not increment backwards - may be a few empty loops in here ---->
-						<cfset thisIdId = evaluate("IdById_" & n & "_" & nid)>
+						<cfset thisIdId = evaluate("IdBy_" & n & "_" & nid & "_id")>
 						<cfcatch>
 							<cfset thisIdId =-1>
 						</cfcatch>
