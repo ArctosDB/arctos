@@ -97,8 +97,9 @@
 		from 
 			Loans
 		group by
-			collection,
-			collection_id
+			collection.collection,
+			collection.collection_id,
+			tdate,
 	</cfquery>
 	<h2>Specimen Loans By Year and Collection</h2>
 	
