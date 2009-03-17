@@ -403,11 +403,6 @@
 		</cfif>
 		<!--- there is nothing in this box, make all positions ---->
 		<cftransaction>
-			<!---- next container ID ---->
-			<cfquery name="nid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select sq_container_id container_id from dual
-			</cfquery>
-			<cfset contID = #nid.container_id# + 1>
 			<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 			<!--- make number_positions new containers, lock them, and put them in this box ---->
 			<cfloop from="1" to="#number_positions#" index="i">
@@ -425,7 +420,7 @@
 					LOCKED_POSITION,
 					institution_acronym)
 				VALUES (
-					#contID#,
+					sq_container_id.nextval,
 					#container_id#,
 					'#position_label#',
 					'#i#',
@@ -437,7 +432,6 @@
 					1,
 					'UAM')
 					</cfquery>
-					<cfset contID = #contID# + 1>
 			</cfloop>
 		</cftransaction>
 		<cflocation url="containerPositions.cfm?container_id=#container_id#">
