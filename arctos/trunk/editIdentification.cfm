@@ -581,26 +581,26 @@ function checkRequired(){
 <cfif #Action# is "createNew">
 <cfoutput>
 <cfif #taxa_formula# is "A">
-	<cfset scientific_name = "#taxa_a#">
+	<cfset scientific_name = "#taxona#">
 <cfelseif #taxa_formula# is "A or B">
-	<cfset scientific_name = "#taxa_a# or #taxa_b#">
+	<cfset scientific_name = "#taxona# or #taxonb#">
 <cfelseif #taxa_formula# is "A and B">
-	<cfset scientific_name = "#taxa_a# and #taxa_b#">
+	<cfset scientific_name = "#taxona# and #taxonb#">
 <cfelseif #taxa_formula# is "A x B">
-	<cfset scientific_name = "#taxa_a# x #taxa_b#">
+	<cfset scientific_name = "#taxona# x #taxonb#">
 <cfelseif #taxa_formula# is "A ?">
-		<cfset scientific_name = "#taxa_a# ?">
+		<cfset scientific_name = "#taxona# ?">
 <cfelseif #taxa_formula# is "A sp.">
-		<cfset scientific_name = "#taxa_a# sp.">
+		<cfset scientific_name = "#taxona# sp.">
 
 <cfelseif #taxa_formula# is "A ssp.">
-		<cfset scientific_name = "#taxa_a# ssp.">
+		<cfset scientific_name = "#taxona# ssp.">
 <cfelseif #taxa_formula# is "A cf.">
-		<cfset scientific_name = "#taxa_a# cf.">
+		<cfset scientific_name = "#taxona# cf.">
 <cfelseif #taxa_formula# is "A aff.">
-	<cfset scientific_name = "#taxa_a# aff.">
+	<cfset scientific_name = "#taxona# aff.">
 <cfelseif #taxa_formula# is "A / B intergrade">
-	<cfset scientific_name = "#taxa_a# / #taxa_b# intergrade">
+	<cfset scientific_name = "#taxona# / #taxonb# intergrade">
 <cfelse>
 	The taxa formula you entered isn't handled yet! Please submit a bug report.
 	<cfabort>
