@@ -208,7 +208,7 @@ function addIdentifier(identification_id,num) {
 	
 	var nid = document.createElement('input');
 	
-	nid.setAttribute('type','text');
+	nid.setAttribute('type','hidden');
 	
 	nid.setAttribute('class','reqdClr');
 	
@@ -216,7 +216,7 @@ function addIdentifier(identification_id,num) {
 	nid.id = ididStr;
 	nid.setAttribute('name',ididStr);
 	
-	nid.value=ididStr;
+
 	
 	r = document.createElement('tr');
 	r.id="IdTr_" + identification_id + "_" + num;
