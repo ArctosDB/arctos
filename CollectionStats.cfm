@@ -87,9 +87,9 @@
 			loan_item.collection_object_id = cataloged_item.collection_object_id AND
 			cataloged_item.collection_id = collection.collection_id 
 		group by 
-			to_char(trans_date, 'yyyy'),
-			collection,
-			to_char(trans_date, 'yyyy') 
+			collection.collection,
+			collection.collection_id,
+			to_char(trans_date, 'yyyy')
 	</cfquery>
 	<cfquery name="distColl" dbtype="query">
 		select 
