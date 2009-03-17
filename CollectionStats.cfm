@@ -89,7 +89,7 @@
 		group by 
 			to_char(trans_date, 'yyyy'),
 			collection,
-			tdate
+			to_char(trans_date, 'yyyy') 
 	</cfquery>
 	<cfquery name="distColl" dbtype="query">
 		select 
