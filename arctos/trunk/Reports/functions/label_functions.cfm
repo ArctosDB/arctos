@@ -774,7 +774,7 @@
 			<cfelse>
 				<cfset locality = "#locality#; #minimum_elevation#-#maximum_elevation#">
 			</cfif>
-			<cfset locality = "#locality##orig_elev_units#">
+			<cfset locality = "#locality# #orig_elev_units#">
 		</cfif>
 		
 		<cfset locAr[i] = "#locality#">
