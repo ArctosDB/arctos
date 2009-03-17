@@ -160,7 +160,7 @@
 			<cfabort>
 		</cfif>
 	</cfloop>
-	<cfquery name="newBug" datasource="#Application.uam_dbo#">
+	<cfquery name="newBug" datasource="cf_dbuser">
 		INSERT INTO cf_bugs (
 			bug_id,
 			user_id,
