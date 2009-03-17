@@ -44,8 +44,10 @@ function checkRequired(){
 					if(theForm.elements[e].type=='submit'){
 						var sbmBtn=theElem;
 					}
+					console.log('theElem: ' + theElem);
 					if (theElem.className.indexOf('reqdClr')>-1 && theElem.value==''){
 						badElems.push(theElem.id);
+						console.log('REQUIRED: theElem: ' + theElem);
 					}
 				}
 			}
