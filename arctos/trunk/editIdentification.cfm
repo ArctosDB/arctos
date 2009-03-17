@@ -315,10 +315,6 @@ function checkRequired(){
 </cfquery>
 
 <form name="editIdentification" id="editIdentification" method="post" action="editIdentification.cfm">
-	
-	<span onclick="document.editIdentification.IdBy_4_3__t_id.value='12345'">document.editIdentification.IdBy_4_3__t_id.value='12345'</span>
-<input id="IdBy_4_3__t_id" class="reqdClr" type="text" name="IdBy_4_3__t_id"/>getID
-
     <input type="hidden" name="Action" value="saveEdits">
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
 	<input type="hidden" name="number_of_ids" id="number_of_ids" value="#distIds.recordcount#">
