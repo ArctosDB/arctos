@@ -45,9 +45,12 @@ function checkRequired(){
 						var sbmBtn=theElem;
 					}
 					console.log('theElem: ' + theElem.id);
+					if (theElem.className.indexOf('reqdClr')>-1){
+						console.log('REQUIRED: ' + theElem.id);
+					}
 					if (theElem.className.indexOf('reqdClr')>-1 && theElem.value==''){
 						badElems.push(theElem.id);
-						console.log('REQUIRED: theElem: ' + theElem.id);
+						console.log('REQUIRED and NULL: ' + theElem.id);
 					}
 				}
 			}
