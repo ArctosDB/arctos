@@ -765,7 +765,7 @@
 		</cfif>
 		<cfset hAr[i] = "#highergeog#">
 		
-		<cfset locality = "">
+		<cfset locality = "#spec_locality#">
 		<cfif maximum_elevation is not "" and
 				minimum_elevation is not "" and
 				orig_elev_units is not "">
