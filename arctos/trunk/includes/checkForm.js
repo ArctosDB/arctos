@@ -33,6 +33,7 @@ function checkRequired(){
 			console.log('fid: ' + fid);
 			var theForm=document.getElementById(fid);
 			var badElems=new Array();
+			console.log('number of elements: ' + theForm.elements.length);
 			for(e=0; e<theForm.elements.length; e++){
 				if(document.getElementById(theForm.elements[e].id)){
 					try{
