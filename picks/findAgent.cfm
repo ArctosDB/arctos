@@ -39,10 +39,9 @@
 	<cfoutput>
 		<cfset thisName = #replace(getAgentId.agent_name,"'","\'","all")#>
 		<script>
-			//opener.document.#formName#.#agentIdFld#.value='#getAgentId.agent_id#';
-			opener.document.getElementById('#agentIdFld#').value='#getAgentId.agent_id#';
-			opener.document.getElementById('#agentNameFld#').value='#thisName#';
-			opener.document.getElementById('#agentNameFld#').style.background='##8BFEB9';
+			opener.document.#formName#.#agentIdFld#.value='#getAgentId.agent_id#';
+			opener.document.#formName#.#agentNameFld#.value='#thisName#';
+			opener.document.#formName#.#agentNameFld#.style.background='##8BFEB9';
 			self.close();
 		</script>
 	 </cfoutput>
@@ -83,7 +82,7 @@
 		<br>
 		<cfset thisName = #replace(agent_name,"'","\'","all")#>
 
-		<a href="##" onClick="javascript: opener.document.getElementById('#agentIdFld#').value='#agent_id#';opener.document.getElementById('#agentNameFld#').value='#thisName#';opener.document.getElementById('#agentNameFld#').style.background='##8BFEB9';self.close();">#agent_name# (#agent_id#)</a>
+		<a href="##" onClick="javascript: opener.document.#formName#.#agentIdFld#.value='#agent_id#';opener.document.#formName#.#agentNameFld#.value='#thisName#';opener.document.#formName#.#agentNameFld#.style.background='##8BFEB9';self.close();">#agent_name# (#agent_id#)</a>
 	</cfoutput>
 	</cfif>
 </cfif>

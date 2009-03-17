@@ -1,4 +1,4 @@
-//setInterval(checkRequired,500);
+setInterval(checkRequired,500);
 function formNotReady() {
 	alert('All required fields must be populated before the form will submit.');
 	return false;
