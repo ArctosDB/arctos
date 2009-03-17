@@ -83,7 +83,7 @@
 		<br>
 		<cfset thisName = #replace(agent_name,"'","\'","all")#>
 
-		<a href="##" onClick="javascript: opener.document.getElementById('#agentIdFld#').value='#agent_id#';';opener.document.getElementById('#agentNameFld#').value='#thisName#';opener.document.getElementById('#agentNameFld#').style.background='##8BFEB9';self.close();">#agent_name# (#agent_id#)</a>
+		<a href="##" onClick="javascript: opener.document.getElementById('#agentIdFld#').value='#agent_id#';opener.document.getElementById('#agentNameFld#').value='#thisName#';opener.document.getElementById('#agentNameFld#').style.background='##8BFEB9';self.close();">#agent_name# (#agent_id#)</a>
 	</cfoutput>
 	</cfif>
 </cfif>
