@@ -47,7 +47,7 @@ function success_changefancyCOID (result) {
 	select distinct(other_id_type) FROM CTCOLL_OTHER_ID_TYPE ORDER BY other_Id_Type
 </cfquery>
 <cfquery name="collid" datasource="uam_god">
-	select collection_id,collection from collection
+	select cf_collection_id,collection from cf_collection
 	order by collection
 </cfquery>
 <table class="ssrch">
@@ -95,7 +95,7 @@ function success_changefancyCOID (result) {
 				onchange="this.className='red';changeexclusive_collection_id(this.value);" size="1">
 			 	<option value="">All</option>
 			  	<cfloop query="collid"> 
-					<option value="#collection_id#">#collection#</option>
+					<option value="#cf_collection_id#">#collection#</option>
 			  	</cfloop> 
 			</select>
 		</td>
