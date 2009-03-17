@@ -4,32 +4,24 @@
 	<cfset databgcolor="##FFFFFF">
 	
 <cfoutput>	
-  <div align="center">
-    <font size="+2"><b>Specimen Holdings</b></font>
-  </div>
-  <cfquery name="SpecColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select 
-	collection.institution_acronym||' '||collection.collection_cde as collection_cde,
-count(cataloged_item.collection_object_id) as cnt
- from 
-cataloged_item,
-collection
-WHERE 
-cataloged_item.collection_id = collection.collection_id
-group by 
-collection.institution_acronym||' '||collection.collection_cde
-ORDER BY cnt
-  </cfquery>
-	
-	
-
-<br>
-
+ 	<h2>Specimen Holdings</h2>
+ 	<cfquery name="SpecColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select 
+			collection.institution_acronym||' '||collection.collection_cde as collection_cde,
+			count(cataloged_item.collection_object_id) as cnt
+		 from 
+			cataloged_item,
+			collection
+		WHERE 
+			cataloged_item.collection_id = collection.collection_id
+		group by 
+			collection.institution_acronym||' '||collection.collection_cde
+		ORDER BY cnt
+ 	</cfquery>
 	<cfchart chartwidth="800" chartheight="500"  sortxaxis="no" xaxistitle="Collection" yaxistitle="Number Specimens" show3d="yes" backgroundcolor="#bgcolor#" databackgroundcolor="#databgcolor#" >
-		<cfchartseries type="bar" query="SpecColl" itemcolumn="collection_cde" valuecolumn="cnt" seriescolor="##A0B3C5">
-	</cfchart>	
-	
-	
+		<cfchartseries type="bar" query="SpecColl" itemcolumn="collection_cde" valuecolumn="cnt" seriescolor="##A0B3C5" />
+	</cfchart>
+		
 	<cfquery name="AccnByCollYear" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			collection.collection_id,
@@ -42,35 +34,29 @@ ORDER BY cnt
 			trans,
 			collection
 		WHERE 
-		cataloged_item.accn_id = accn.transaction_id and
-accn.transaction_id = trans.transaction_id and
-cataloged_item.collection_id = collection.collection_id
-group by to_char(trans_date, 'yyyy'),
-collection.collection,
-collection.collection_id
-order by tdate
+			cataloged_item.accn_id = accn.transaction_id and
+			accn.transaction_id = trans.transaction_id and
+			cataloged_item.collection_id = collection.collection_id
+		group by 
+			to_char(trans_date, 'yyyy'),
+			collection.collection,
+			collection.collection_id
+		order by 
+			tdate
 	</cfquery>
 	<cfquery name="distColl" dbtype="query">
-		select collection_id, collection from AccnByCollYear
-		group by collection_id, collection
+		select 
+			collection_id, 
+			collection 
+		from 
+			AccnByCollYear
+		group by 
+			collection_id,
+			collection
 	</cfquery>
-	<!---
-		<cfchart chartwidth="800" chartheight="500" xaxistitle="Year Accessioned" 
-			yaxistitle="Number Specimens" show3d="yes" showlegend="yes" >
-			<cfloop query="distColl">
-				<cfquery name="data" dbtype="query">
-					select * from AccnByCollYear where  collection_id = #collection_id#
-				</cfquery>
-				<cfchartseries type="step" serieslabel="#collection_cde#">
-					<cfloop query="data">
-						<cfchartdata item="#tdate#" value="#cnt#">
-					</cfloop>
-				</cfchartseries>
-			</cfloop>
-
-	</cfchart>
-	--->
-	
+	<h2>
+		Specimens Accessioned by Collection and Year
+	</h2>
 	<cfloop query="distColl">
 		<cfquery name="thisData" dbtype="query">
 			select * from AccnByCollYear where collection_id=#collection_id#
@@ -78,43 +64,18 @@ order by tdate
 		<cfchart chartwidth="800" chartheight="500" sortxaxis="yes" title="#thisData.Collection# Accessions" 
 			xaxistitle="Year Accessioned" yaxistitle="Number Specimens" show3d="yes" 
 			backgroundcolor="#bgcolor#" databackgroundcolor="#databgcolor#" showxgridlines="yes">
-		
-			<cfchartseries type="bar" query="thisData" itemcolumn="tdate" valuecolumn="cnt" >
-			</cfchartseries>
-	</cfchart>
+			<cfchartseries type="bar" query="thisData" itemcolumn="tdate" valuecolumn="cnt" />
+		</cfchart>
 	</cfloop>
 	
-<hr>
-<div align="center">
-    <font size="+2"><b>Specimens Accessioned by Collection and Year</b></font>
-	<p>
-  </div>
-  
-  
-<!----
-<cfloop query="distColl">
-			<cfset thisColl = #replace(collection_cde," ","_","all")#>
-			<cfquery name="thisColl" dbtype="query">
-				SELECT * from AccnByCollYear where collection_id=#collection_id#
-			</cfquery>
-			#.# - #.# - #.#
-		</cfloop>
-		
-		
 	
-	---->	
-	
-	
-	
-	
-
-<!---- specimens by loan ---->
-<cfquery name="Loans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select 
-	collection.institution_acronym||' '||collection.collection_cde as collection_cde,
-to_char(trans_date, 'yyyy') tdate,
-count(loan_item.collection_object_id) as cnt
- FROM
+	<cfquery name="Loans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select 
+			collection.collection,
+			collection.collection_id,
+			to_char(trans_date, 'yyyy') tdate,
+			count(loan_item.collection_object_id) as cnt
+ 		FROM
 			cataloged_item,
 			loan_item,
 			collection,
@@ -125,36 +86,34 @@ count(loan_item.collection_object_id) as cnt
 			loan.transaction_id = loan_item.transaction_id AND
 			loan_item.collection_object_id = cataloged_item.collection_object_id AND
 			cataloged_item.collection_id = collection.collection_id 
-		group by to_char(trans_date, 'yyyy'),
-collection.institution_acronym||' '||collection.collection_cde			
-  </cfquery>
-	<cfquery name="distColl" dbtype="query">
-		select distinct(collection_cde) from Loans
+		group by 
+			to_char(trans_date, 'yyyy'),
+			collection
 	</cfquery>
+	<cfquery name="distColl" dbtype="query">
+		select 
+			collection,
+			collection_id
+		from 
+			Loans
+		group by
+			collection,
+			collection_id
+	</cfquery>
+	<h2>Specimen Loans By Year and Collection</h2>
+	
 	<cfloop query="distColl">
-		<cfset thisColl = #replace(collection_cde," ","_","all")#>
-		<cfquery name="#thisColl#" dbtype="query">
-			SELECT * from Loans where collection_cde='#collection_cde#'
+		<cfquery name="thisData" dbtype="query">
+			select * from Loans where collection_id=#collection_id#
 		</cfquery>
+		<cfchart chartwidth="800" chartheight="500" sortxaxis="yes" title="#thisData.Collection# Loans" 
+			xaxistitle="Year Accessioned" yaxistitle="Number Specimens" show3d="yes" 
+			backgroundcolor="#bgcolor#" databackgroundcolor="#databgcolor#" showxgridlines="yes">
+			<cfchartseries type="bar" query="thisData" itemcolumn="tdate" valuecolumn="cnt" />
+		</cfchart>
 	</cfloop>
 	
 
-	<hr>
-	<div align="center">
-    <font size="+2"><b>Specimen Loans By Year and Collection</b></font>
-	<p>
-  </div>
-
-
-	<cfchart chartwidth="800" chartheight="500" sortxaxis="yes" seriesplacement="stacked" xaxistitle="Loan Year" yaxistitle="Number Items Loaned" show3d="yes" showlegend="yes" backgroundcolor="#bgcolor#" databackgroundcolor="#databgcolor#">
-		<cfloop query="distColl">
-			<cfset thisColl = #replace(collection_cde," ","_","all")#>
-			<cfchartseries type="line" query="#thisColl#" itemcolumn="tdate" valuecolumn="cnt" serieslabel="#collection_cde#">
-				
-			</cfchartseries>
-		</cfloop>
-		
-	</cfchart>	
 	
 	
 	<!---- number of  loan ---->
