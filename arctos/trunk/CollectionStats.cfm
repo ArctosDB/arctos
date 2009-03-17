@@ -27,29 +27,22 @@ ORDER BY cnt
 
 	<cfchart chartwidth="800" chartheight="500"  sortxaxis="no" xaxistitle="Collection" yaxistitle="Number Specimens" show3d="yes" backgroundcolor="#bgcolor#" databackgroundcolor="#databgcolor#" >
 		<cfchartseries type="bar" query="SpecColl" itemcolumn="collection_cde" valuecolumn="cnt" seriescolor="##A0B3C5">
-			<!----
-		<cfloop query="distColl">
-			<cfset thisColl = #replace(collection_cde," ","_","all")#>
-			<cfchartseries type="bar" query="#thisColl#" itemcolumn="tdate" valuecolumn="cnt" serieslabel="#collection_cde#">
-			</cfchartseries>
-		</cfloop>
-		--->
 	</cfchart>	
 	
 	
 	<cfquery name="AccnByCollYear" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select 
-	collection.collection_id as collection_id,
-	collection.institution_acronym||' '||collection.collection_cde as collection_cde,
-to_char(trans_date, 'yyyy') tdate,
-count(cataloged_item.collection_object_id) as cnt
- from 
-cataloged_item,
-accn,
-trans,
-collection
-WHERE 
-cataloged_item.accn_id = accn.transaction_id and
+		select 
+			collection.collection_id,
+			collection.collection,
+			to_char(trans_date, 'yyyy') tdate,
+			count(cataloged_item.collection_object_id) as cnt
+ 		from 
+			cataloged_item,
+			accn,
+			trans,
+			collection
+		WHERE 
+		cataloged_item.accn_id = accn.transaction_id and
 accn.transaction_id = trans.transaction_id and
 cataloged_item.collection_id = collection.collection_id
 group by to_char(trans_date, 'yyyy'),
@@ -61,7 +54,7 @@ order by tdate
 		select collection_id, collection_cde from AccnByCollYear
 		group by collection_id, collection_cde
 	</cfquery>
-	
+	<!---
 		<cfchart chartwidth="800" chartheight="500" xaxistitle="Year Accessioned" 
 			yaxistitle="Number Specimens" show3d="yes" showlegend="yes" >
 			<cfloop query="distColl">
@@ -76,13 +69,13 @@ order by tdate
 			</cfloop>
 
 	</cfchart>
-	
+	--->
 	
 	<cfloop query="distColl">
 		<cfquery name="thisData" dbtype="query">
 			select * from AccnByCollYear where collection_id=#collection_id#
 		</cfquery>
-		<cfchart chartwidth="800" chartheight="500" sortxaxis="yes" title="#thisData.Collection_cde# Accessions" 
+		<cfchart chartwidth="800" chartheight="500" sortxaxis="yes" title="#thisData.Collection# Accessions" 
 			xaxistitle="Year Accessioned" yaxistitle="Number Specimens" show3d="yes" 
 			backgroundcolor="#bgcolor#" databackgroundcolor="#databgcolor#" showxgridlines="yes">
 		
