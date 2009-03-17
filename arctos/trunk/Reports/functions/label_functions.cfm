@@ -663,6 +663,7 @@
 	<cfset colAr = ArrayNew(1)>
 	<cfset coorAr = ArrayNew(1)>
 	<cfset hAr = ArrayNew(1)>
+	<cfset locAr = ArrayNew(1)>
 	<!--- Data Manipulation --->
 	<cfset i = 1>
 	<cfloop query="q">
@@ -764,12 +765,26 @@
 		</cfif>
 		<cfset hAr[i] = "#highergeog#">
 		
+		<cfset locality = "">
+		<cfif maximum_elevation is not "" and
+				minimum_elevation is not "" and
+				orig_elev_units is not "">
+			<cfif maximum_elevation is minimum_elevation>
+				<cfset locality = "#locality#; #minimum_elevation#">
+			<cfelse>
+				<cfset locality = "#locality#; #minimum_elevation#-#maximum_elevation#">
+			</cfif>
+			<cfset locality = "#locality##orig_elev_units#">
+		</cfif>
+		
+		<cfset locAr[i] = "#locality#">
 		<cfset i = i +1>
 	</cfloop>
 	
 	<cfset temp=queryAddColumn(q, "coordinates", "VarChar", coorAr)>
 	<cfset temp=queryAddColumn(q, "format_collectors", "VarChar", colAr)>
 	<cfset temp=queryAddColumn(q, "highergeog", "VarChar", hAr)>
+	<cfset temp=queryAddcolumn(q, "locality", "VarChar", locAr)>
 	
 	<cfreturn q>
 </cffunction>
