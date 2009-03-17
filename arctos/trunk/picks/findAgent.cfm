@@ -39,7 +39,8 @@
 	<cfoutput>
 		<cfset thisName = #replace(getAgentId.agent_name,"'","\'","all")#>
 		<script>
-			opener.document.#formName#.#agentIdFld#.value='#getAgentId.agent_id#';
+			//opener.document.#formName#.#agentIdFld#.value='#getAgentId.agent_id#';
+			opener.document.getElementById('#agentIdFld#').value='#getAgentId.agent_id#';
 			opener.document.#formName#.#agentNameFld#.value='#thisName#';
 			opener.document.#formName#.#agentNameFld#.style.background='##8BFEB9';
 			self.close();
