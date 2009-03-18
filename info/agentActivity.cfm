@@ -122,16 +122,30 @@ Address:
 			<li>#formatted_addr#</li>
 		</cfloop>
 	</ul>
-
+Attribute Determiner:
 	<cfquery name="attributes" datasource="uam_god">
 		select 
-			count(distinct(collection_object_id)) specs 
-			,count(attribute_id) cnt 
-			from attributes where determined_by_agent_id=#agent_id#
+			count((collection_object_id) c,
+			collection_id,
+			collection 
+		from
+			attributes,
+			cataloged_item,
+			collection
+		where
+			cataloged_item.collection_object_id=attributes.collection_object_id and
+			cataloged_item.collection_id=collection.collection_id and
+			determined_by_agent_id=#agent_id#
 	</cfquery>
-	<li>
-		Determined #attributes.cnt# attributes for <a href="/SpecimenResults.cfm?attributed_determiner_agent_id=#agent_id#">#attributes.specs# specimens</a> 
-	</li>
+	<ul>
+		<cfloop query="attributes">
+			<li>
+				#c# 
+				<a href="/SpecimenResults.cfm?attributed_determiner_agent_id=#agent_id#&collection_id=#attributes.collection_id#">
+					#attributes.collection#</a>
+			</li>
+		</cfloop>
+	</ul>
 	<cfquery name="binary_object" datasource="uam_god">
 		select count(*) cnt,
 			count(distinct(derived_from_cat_item)) specs 
