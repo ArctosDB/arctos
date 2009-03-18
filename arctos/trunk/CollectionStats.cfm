@@ -155,22 +155,16 @@
 	
 	<h2>Citations by Collection</h2>
 
-<cfset chartType = "bar">
-<p>Chart Type: #chartType#</p>
-	<cfchart chartwidth="800" chartheight="500" sortxaxis="yes" xaxistitle="Collection" yaxistitle="Citations" show3d="yes" showlegend="yes" backgroundcolor="#bgcolor#" databackgroundcolor="#databgcolor#" seriesplacement="stacked">
-		<cfchartseries type="#chartType#" query="Citation" itemcolumn="collection" valuecolumn="cnt" serieslabel="collection" />
-  </cfchart>	
 
-<hr>
-<div align="center">
-    <font size="+2"><b>Specimens with GenBank sequence accessions</b></font>
-	<p>
-  </div>
+	<cfchart chartwidth="800" chartheight="500" sortxaxis="yes" xaxistitle="Collection" yaxistitle="Citations" show3d="yes" showlegend="yes" backgroundcolor="#bgcolor#" databackgroundcolor="#databgcolor#" seriesplacement="stacked">
+		<cfchartseries type="bar" query="Citation" itemcolumn="collection" valuecolumn="cnt" serieslabel="collection" />
+  </cfchart>	
+<h2>Specimens with GenBank sequence accessions</h2>
 
 <cfquery name="genbank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
 			count(coll_obj_other_id_num.collection_object_id) as cnt, 
-			collection.institution_acronym||' '||collection.collection_cde as collection_cde
+			collection.collection
 		FROM
 			cataloged_item,
 			coll_obj_other_id_num,
@@ -179,12 +173,10 @@
 			coll_obj_other_id_num.collection_object_id = cataloged_item.collection_object_id AND
 			coll_obj_other_id_num.other_id_type='GenBank' AND
 			cataloged_item.collection_id = collection.collection_id 
-		GROUP BY collection.institution_acronym||' '||collection.collection_cde	
+		GROUP BY collection	
 </cfquery>
-<cfset chartType = "bar">
-	<cfchart chartwidth="800" chartheight="500" sortxaxis="yes" xaxistitle="Collection" yaxistitle="Genbank Sequence Accessions" show3d="yes" showlegend="yes" databackgroundcolor="#databgcolor#" backgroundcolor="#databgcolor#">
-		<cfchartseries type="#chartType#" query="genbank" itemcolumn="collection_cde" valuecolumn="cnt">
-			</cfchartseries>
+	<cfchart chartwidth="800" chartheight="500" sortxaxis="yes" xaxistitle="Collection" yaxistitle="Citations" show3d="yes" showlegend="yes" backgroundcolor="#bgcolor#" databackgroundcolor="#databgcolor#" seriesplacement="stacked">
+		<cfchartseries type="bar" query="genbank" itemcolumn="collection" valuecolumn="cnt" serieslabel="collection" />
   </cfchart>	
   
   
