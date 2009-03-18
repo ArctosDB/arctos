@@ -79,6 +79,7 @@ Collected or Prepared:
 			</li>
 	  	</CFLOOP>
 	</ul>
+Agent Relationships:
 	<cfquery name="agent_relations" datasource="uam_god">
 		select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
 		from agent_relations,preferred_agent_name
@@ -86,17 +87,11 @@ Collected or Prepared:
 		agent_relations.RELATED_AGENT_ID=preferred_agent_name.agent_id and
 		agent_relations.agent_id=#agent_id#
 	</cfquery>
-	<li>Agent Relationships:</li>
 	<ul>
-		<cfif agent_relations.recordcount is 0>
-			<li>Is related TO no agents</li>
-		<cfelse>
-			<cfloop query="agent_relations">
-				<li>#AGENT_RELATIONSHIP# <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
-			</cfloop>
-		</cfif>
+		<cfloop query="agent_relations">
+			<li>#AGENT_RELATIONSHIP# <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
+		</cfloop>
 	</ul>
-	
 	<cfquery name="agent_relations" datasource="uam_god">
 		select AGENT_RELATIONSHIP,agent_name,preferred_agent_name.agent_id 
 		from agent_relations,preferred_agent_name
@@ -104,30 +99,20 @@ Collected or Prepared:
 		agent_relations.agent_id=preferred_agent_name.agent_id and
 		RELATED_AGENT_ID=#agent_id#
 	</cfquery>
-	<li>Agent Relationships:</li>
 	<ul>
-		<cfif agent_relations.recordcount is 0>
-			<li>Is related OF no agents</li>
-		<cfelse>
-			<cfloop query="agent_relations">
-				<li><a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
-			</cfloop>
-		</cfif>
+		<cfloop query="agent_relations">
+			<li><a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
+		</cfloop>
 	</ul>
-	
+Electronic Addresses:
 	<cfquery name="electronic_address" datasource="uam_god">
 		select * from electronic_address where agent_id=#agent_id#
 	</cfquery>
-	
-		<ul>
-			<cfif electronic_address.recordcount gt 0>
-			<cfloop query="electronic_addressd">
-				<li>#ADDRESS_TYPE#: #ADDRESS#</li>
-			</cfloop>
-			<cfelse>
-				<li>no electronic_address</li>
-			</cfif>
-		</ul>
+	<ul>
+		<cfloop query="electronic_addressd">
+			<li>#ADDRESS_TYPE#: #ADDRESS#</li>
+		</cfloop>
+	</ul>
 	
 	
 	
