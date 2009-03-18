@@ -278,36 +278,104 @@ Projects:
 		</cfloop>
 	</ul>
 Transactions
-	<cfquery name="shipment" datasource="uam_god">
-		select 
-			LOAN_NUMBER,
-			loan.transaction_id,
-			collection
-		from
-			shipment,
-			loan,
-			trans,
-			collection
-		where
-			shipment.transaction_id=loan.transaction_id and
-			loan.transaction_id =trans.transaction_id and
-			trans.collection_id=collection.collection_id and
-			PACKED_BY_AGENT_ID=#agent_id#		
-	</cfquery>
 	<ul>
+		<cfquery name="shipment" datasource="uam_god">
+			select 
+				LOAN_NUMBER,
+				loan.transaction_id,
+				collection
+			from
+				shipment,
+				loan,
+				trans,
+				collection
+			where
+				shipment.transaction_id=loan.transaction_id and
+				loan.transaction_id =trans.transaction_id and
+				trans.collection_id=collection.collection_id and
+				PACKED_BY_AGENT_ID=#agent_id#		
+		</cfquery>
 		<cfloop query="shipment">
 			<li>Packed Shipment for <a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a></li>
 		</cfloop>
+		<cfquery name="trans_agent_l" datasource="uam_god">
+			select 
+				loan.transaction_id,
+				TRANS_AGENT_ROLE,
+				loan_number,
+				collection
+			from
+				trans_agent,
+				loan,
+				trans,
+				collection
+			where
+				trans_agent.transaction_id=loan.transaction_id and
+				loan.transaction_id=trans.transaction_id and
+				trans.collection_id=collection.collection_id and
+				AGENT_ID=#agent_id#
+			group by
+				loan.transaction_id,
+				TRANS_AGENT_ROLE,
+				loan_number,
+				collection
+		</cfquery>
+		<cfloop query="trans_agent_l">
+			<li>#TRANS_AGENT_ROLE# for Loan <a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a></li>
+		</cfloop>
+		<cfquery name="trans_agent_a" datasource="uam_god">
+			select 
+				accn.transaction_id,
+				TRANS_AGENT_ROLE,
+				accn_number,
+				collection
+			from
+				trans_agent,
+				accn,
+				trans,
+				collection
+			where
+				trans_agent.transaction_id=accn.transaction_id and
+				accn.transaction_id=trans.transaction_id and
+				trans.collection_id=collection.collection_id and
+				AGENT_ID=#agent_id#
+			group by
+				accn.transaction_id,
+				TRANS_AGENT_ROLE,
+				accn_number,
+				collection
+		</cfquery>
+		<cfloop query="trans_agent_a">
+			<li>#TRANS_AGENT_ROLE# for Accession <a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #accn_number#</a></li>
+		</cfloop>
+	</ul>
+	
+Publications
+	<cfquery name="publication_author_name" datasource="uam_god">
+		select 
+			publication.PUBLICATION_ID,
+			PUBLICATION_TITLE
+		from
+			publication,
+			publication_author_name,
+			agent_name
+		where
+			publication.publication_id=publication_author_name.publication_id and
+			publication_author_name.agent_name_id=agent_name.agent_name_id and
+			agent_name.agent_id=#agent_id#
+		group by
+			publication.PUBLICATION_ID,
+			PUBLICATION_TITLE
+	</cfquery>
+	<ul>
+		<cfloop query="publication_author_name">
+			<li>
+				<a href="/PublicationResults.cfm?PUBLICATION_ID=#PUBLICATION_ID#">#PUBLICATION_TITLE#</a>
+			</li>
+		</cfloop>
 	</ul>
 
-	<cfquery name="publication_author_name" datasource="uam_god">
-		select count(*) cnt from publication_author_name where agent_name_id IN (#names#)
-	</cfquery>
-	<li>Authored <a href="/PublicationResults.cfm?publication_author_id=#names#&src=proj">#publication_author_name.cnt# publications</a> </li>
-	<cfquery name="trans_agent" datasource="uam_god">
-		select TRANS_AGENT_ROLE, count(*) cnt from trans_agent where AGENT_ID=#agent_id#
-		group by TRANS_AGENT_ROLE
-	</cfquery>
+	
 	<li>
 		Transactions:
 		<ul>
