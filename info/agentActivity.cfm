@@ -209,7 +209,7 @@ Identification:
 		select 
 			count(*) cnt, 
 			count(distinct(identification.collection_object_id)) specs,
-			collection_id,
+			collection.collection_id,
 			collection.collection
 		from 
         	identification,
@@ -222,7 +222,7 @@ Identification:
 			identification.identification_id=identification_agent.identification_id and
         	identification_agent.agent_id=#agent_id#
 		group by
-			collection_id,
+			collection.collection_id,
 			collection.collection
 	</cfquery>
 	<ul>
