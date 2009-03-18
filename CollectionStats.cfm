@@ -158,7 +158,7 @@
 <cfset chartType = "bar">
 <p>Chart Type: #chartType#</p>
 	<cfchart chartwidth="800" chartheight="500" sortxaxis="yes" xaxistitle="Collection" yaxistitle="Citations" show3d="yes" showlegend="yes" backgroundcolor="#bgcolor#" databackgroundcolor="#databgcolor#" seriesplacement="stacked">
-		<cfchartseries type="#chartType#" query="#Citation#" itemcolumn="collection" valuecolumn="cnt" serieslabel="#collection#" />
+		<cfchartseries type="#chartType#" query="Citation" itemcolumn="collection" valuecolumn="cnt" serieslabel="collection" />
   </cfchart>	
 
 <hr>
