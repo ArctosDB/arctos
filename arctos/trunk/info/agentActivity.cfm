@@ -271,7 +271,7 @@ Projects:
 			project.project_id
 	</cfquery>
 	<ul>
-		<cfloop query="">
+		<cfloop query="project_agent">
 			<li>
 				<a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a>
 			</li>
