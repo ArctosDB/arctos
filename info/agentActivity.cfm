@@ -48,53 +48,36 @@ Agent:
 		</tr>
 	</cfif>
 </table>
-<cfset names="">
-<cfloop query="name">
-	<cfif len(#names#) is 0>
-		<cfset names=#agent_name_id#>
-	<cfelse>
-		<cfset names="#names#,#agent_name_id#">
-	</cfif>
-</cfloop>
-<ul>
-	<li>Agent Names:</li>
-		<ul>
-			<cfloop query="name">
-				<li>#name.agent_name# (#agent_name_type#)</li>
-			</cfloop>
-		</ul>
-	<li>
-		Collected or Prepared:
-	</li>
-	
-<cfquery name="collector" datasource="uam_god">
-	select 
-		count(distinct(collector.collection_object_id)) cnt,
-		collection.collection,
-        collection.collection_id
-	from 
-		collector,
-		cataloged_item,
-		collection
-	where 
-		collector.collection_object_id = cataloged_item.collection_object_id AND
-		cataloged_item.collection_id = collection.collection_id AND
-		agent_id=#agent_id#
-	group by
-		collection.collection,
-        collection.collection_id
-</cfquery>
-	
+Agent Names:
 	<ul>
-		<cfif collector.recordcount gt 0>
-			<CFLOOP query="collector">
-				<li>
-					<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#">#collector.cnt# #collector.collection#</a> specimens
-				</li>
+		<cfloop query="name">
+			<li>#name.agent_name# (#agent_name_type#)</li>
+		</cfloop>
+	</ul>
+Collected or Prepared:
+	<cfquery name="collector" datasource="uam_god">
+		select 
+			count(distinct(collector.collection_object_id)) cnt,
+			collection.collection,
+	        collection.collection_id
+		from 
+			collector,
+			cataloged_item,
+			collection
+		where 
+			collector.collection_object_id = cataloged_item.collection_object_id AND
+			cataloged_item.collection_id = collection.collection_id AND
+			agent_id=#agent_id#
+		group by
+			collection.collection,
+	        collection.collection_id
+	</cfquery>
+	<ul>
+		<CFLOOP query="collector">
+			<li>
+				<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#">#collector.cnt# #collector.collection#</a> specimens
+			</li>
 	  	</CFLOOP>
-	  	<cfelse>
-			<li>nothing</li>
-		</cfif>
 	</ul>
 	<cfquery name="agent_relations" datasource="uam_god">
 		select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
