@@ -1,6 +1,7 @@
 <cfinclude template = "/includes/_frameHeader.cfm">
 <cfset title = "Agent Activity">
 <cfoutput>
+Back to <a href="/editAllAgent.cfm?agent_id=#agent_id#">Agent Details</a>
 <cfquery name="agent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * FROM agent where agent_id=#agent_id#
 </cfquery>
@@ -10,24 +11,6 @@
 <cfquery name="name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select agent_name_id, agent_name, agent_name_type FROM agent_name where agent_id=#agent_id#
 </cfquery>
-<cfquery name="collector" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select 
-		count(distinct(collector.collection_object_id)) cnt,
-		collection.collection,
-        collection.collection_id
-	from 
-		collector,
-		cataloged_item,
-		collection
-	where 
-		collector.collection_object_id = cataloged_item.collection_object_id AND
-		cataloged_item.collection_id = collection.collection_id AND
-		agent_id=#agent_id#
-	group by
-		collection.collection,
-        collection.collection_id
-</cfquery>
-Back to <a href="/editAllAgent.cfm?agent_id=#agent_id#">Agent Details</a>
 <table border>
 	<tr>
 		<td align="right"><strong>Agent Type:</strong></td>
@@ -82,6 +65,25 @@ Back to <a href="/editAllAgent.cfm?agent_id=#agent_id#">Agent Details</a>
 	<li>
 		Collected or Prepared:
 	</li>
+	
+<cfquery name="collector" datasource="pub_usr">
+	select 
+		count(distinct(collector.collection_object_id)) cnt,
+		collection.collection,
+        collection.collection_id
+	from 
+		collector,
+		cataloged_item,
+		collection
+	where 
+		collector.collection_object_id = cataloged_item.collection_object_id AND
+		cataloged_item.collection_id = collection.collection_id AND
+		agent_id=#agent_id#
+	group by
+		collection.collection,
+        collection.collection_id
+</cfquery>
+	<cfif collector.recordcount gt 0>
 	<ul>
 		<CFLOOP query="collector">
 			<li>
@@ -89,6 +91,9 @@ Back to <a href="/editAllAgent.cfm?agent_id=#agent_id#">Agent Details</a>
 			</li>
 	  </CFLOOP>
 	</ul>
+	<cfelse>
+		<li>nothing</li>
+	</cfif>
 	<cfquery name="agent_relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) cnt from agent_relations where 	(agent_id=#agent_id# OR related_agent_id = #agent_id#)
 	</cfquery>
