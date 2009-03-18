@@ -2,6 +2,8 @@
 <cfset title = "Agent Activity">
 <cfoutput>
 Back to <a href="/editAllAgent.cfm?agent_id=#agent_id#">Agent Details</a>
+
+<div class="red">Please note: your login may prevent you from seeing some data</div>
 <cfquery name="agent" datasource="uam_god">
 	select * FROM agent where agent_id=#agent_id#
 </cfquery>
@@ -150,44 +152,62 @@ Attribute Determiner:
 			</li>
 		</cfloop>
 	</ul>
-	<cfquery name="binary_object" datasource="uam_god">
-		select count(*) cnt,
-			count(distinct(derived_from_cat_item)) specs 
-			from binary_object,coll_object
-			 where made_agent_id=#agent_id#
-			 and binary_object.collection_object_id = coll_object.collection_object_id
-	</cfquery>
+Media:
 	<cfquery name="media" datasource="uam_god">
 		select media_id from media_relations where media_relationship like '% agent' and
 		related_primary_key=#agent_id#
 	</cfquery>
-	<li>
-		Subject of #media.recordcount# <a href="/MediaSearch.cfm?action=search&related_primary_key__1=#agent_id#"> Media entries.</a>
-	</li>
 	<cfquery name="media_assd_relations" datasource="uam_god">
 		select media_id from media_relations where CREATED_BY_AGENT_ID=#agent_id#
 	</cfquery>
-	<li>
-		Assigned #media_assd_relations.recordcount# Media Relationships.
-	</li>
 	<cfquery name="media_labels" datasource="uam_god">
 		select media_id from media_labels where ASSIGNED_BY_AGENT_ID=#agent_id#
 	</cfquery>
-	<li>
-		Assigned #media_labels.recordcount# Media Labels.
-	</li>
+	<ul>
+		<li>
+			Subject of #media.recordcount# <a href="/MediaSearch.cfm?action=search&related_primary_key__1=#agent_id#"> Media entries.</a>
+		</li>
+		<li>
+			Assigned #media_assd_relations.recordcount# Media Relationships.
+		</li>
+		<li>
+			Assigned #media_labels.recordcount# Media Labels.
+		</li>
+	</ul>
+Encumbrances:
+	<ul>
+		<cfquery name="encumbrance" datasource="uam_god">
+			select count(*) cnt from encumbrance where encumbering_agent_id=#agent_id#
+		</cfquery>
+		<cfquery name="coll_object_encumbrance" datasource="uam_god">
+			select 
+				count(distinct(coll_object_encumbrance.collection_object_id)) specs,
+				collection,
+				collection.collection_id
+			 from 
+			 	encumbrance,
+			 	coll_object_encumbrance,
+			 	cataloged_item,
+			 	collection
+			 where
+			 	encumbrance.encumbrance_id = coll_object_encumbrance.encumbrance_id and
+			 	coll_object_encumbrance.collection_object_id=cataloged_item.collection_object_id and
+			 	cataloged_item.collection_id=collection.collection_id and
+			 	encumbering_agent_id=#agent_id#
+			 group by
+			 	collection,
+				collection.collection_id
+		</cfquery>
+		<li>Owns #encumbrance.cnt# encumbrances</li>
+		<cfloop query="coll_object_encumbrance">
+			<li>Encumbered <a href="/SpecimenResults.cfm?encumbering_agent_id=#agent_id#&collection_id=#collection_id#">
+				#specs# #collection#</a> records</li>
+		</cfloop>
+	</ul>
 	
-	<cfquery name="encumbrance" datasource="uam_god">
-		select count(*) cnt from encumbrance where encumbering_agent_id=#agent_id#
-	</cfquery>
-	<cfquery name="coll_object_encumbrance" datasource="uam_god">
-		select count(*) cnt from encumbrance,coll_object_encumbrance
-		 where encumbering_agent_id=#agent_id#
-		 and encumbrance.encumbrance_id = coll_object_encumbrance.encumbrance_id
-	</cfquery>
-	<li>Created #encumbrance.cnt# encumbrances 
-		covering <a href="/SpecimenResults.cfm?encumbering_agent_id=#agent_id#">#coll_object_encumbrance.cnt# specimens</a> 
-	</li>
+	
+	
+
 	<cfquery name="identification" datasource="uam_god">
 		select count(*) cnt, count(distinct(collection_object_id)) specs from 
         identification,
