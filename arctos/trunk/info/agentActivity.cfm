@@ -428,7 +428,7 @@ Transactions
 				loan_number,
 				collection				
 		</cfquery>
-		<cfloop query="trans_agent_a">
+		<cfloop query="loan_item">
 			<li>Reconciled #cnt# items for Loan 
 				<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a>
 			</li>		
