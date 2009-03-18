@@ -256,7 +256,7 @@ Permits:
 Projects:	
 	<cfquery name="project_agent" datasource="uam_god">
 		select 
-			project_title,
+			project_name,
 			project.project_id
 		from 
 			project_agent,
@@ -267,13 +267,13 @@ Projects:
 			 project_agent.agent_name_id=agent_name.agent_name_id and
 			 agent_name.agent_id=#agent_id#
 		group by
-			project_title,
+			project_name,
 			project.project_id
 	</cfquery>
 	<ul>
 		<cfloop query="">
 			<li>
-				<a href="/ProjectDetail.cfm?project_id=#project_id#">#project_title#</a>
+				<a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a>
 			</li>
 		</cfloop>
 	</ul>
