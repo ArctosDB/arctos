@@ -204,21 +204,36 @@ Encumbrances:
 				#specs# #collection#</a> records</li>
 		</cfloop>
 	</ul>
-	
-	
-	
-
+Identification:
 	<cfquery name="identification" datasource="uam_god">
-		select count(*) cnt, count(distinct(collection_object_id)) specs from 
-        identification,
-        identification_agent
+		select 
+			count(*) cnt, 
+			count(distinct(identification.collection_object_id)) specs,
+			collection_id,
+			collection.collection
+		from 
+        	identification,
+        	identification_agent,
+			cataloged_item,
+			collection
         where 
-        identification.identification_id=identification_agent.identification_id and
-        agent_id=#agent_id#
+        	cataloged_item.collection_id=collection.collection_id and
+			cataloged_item.collection_object_id=identification.collection_object_id and
+			identification.identification_id=identification_agent.identification_id and
+        	identification_agent.agent_id=#agent_id#
+		group by
+			collection_id,
+			collection.collection
 	</cfquery>
-	<li>Made #identification.cnt# identifications for <a href="/SpecimenResults.cfm?identified_agent_id=#agent_id#">
-		#identification.specs# specimens</a>
-	</li>	
+	<ul>
+		<cfloop query="identification">
+			<li>
+				Made #cnt# identifications for <a href="/SpecimenResults.cfm?identified_agent_id=#agent_id#&collection_id=#collection_id#">
+					#specs# #collection#</a> specimens
+			</li>
+		</cfloop>
+	</ul>
+
 	<cfquery name="lat_long" datasource="uam_god">
 		select count(*) cnt from lat_long where determined_by_agent_id=#agent_id#
 	</cfquery>
