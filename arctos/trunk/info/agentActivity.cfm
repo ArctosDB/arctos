@@ -56,31 +56,7 @@ Agent Names:
 			<li>#name.agent_name# (#agent_name_type#)</li>
 		</cfloop>
 	</ul>
-Collected or Prepared:
-	<cfquery name="collector" datasource="uam_god">
-		select 
-			count(distinct(collector.collection_object_id)) cnt,
-			collection.collection,
-	        collection.collection_id
-		from 
-			collector,
-			cataloged_item,
-			collection
-		where 
-			collector.collection_object_id = cataloged_item.collection_object_id AND
-			cataloged_item.collection_id = collection.collection_id AND
-			agent_id=#agent_id#
-		group by
-			collection.collection,
-	        collection.collection_id
-	</cfquery>
-	<ul>
-		<CFLOOP query="collector">
-			<li>
-				<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#">#collector.cnt# #collector.collection#</a> specimens
-			</li>
-	  	</CFLOOP>
-	</ul>
+
 Agent Relationships:
 	<cfquery name="agent_relations" datasource="uam_god">
 		select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
@@ -122,6 +98,81 @@ Address:
 	<ul>
 		<cfloop query="addr">
 			<li>#formatted_addr#</li>
+		</cfloop>
+	</ul>
+Collected or Prepared:
+	<cfquery name="collector" datasource="uam_god">
+		select 
+			count(distinct(collector.collection_object_id)) cnt,
+			collection.collection,
+	        collection.collection_id
+		from 
+			collector,
+			cataloged_item,
+			collection
+		where 
+			collector.collection_object_id = cataloged_item.collection_object_id AND
+			cataloged_item.collection_id = collection.collection_id AND
+			agent_id=#agent_id#
+		group by
+			collection.collection,
+	        collection.collection_id
+	</cfquery>
+	<ul>
+		<CFLOOP query="collector">
+			<li>
+				<a href="/SpecimenResults.cfm?collector_agent_id=#agent_id#&collection_id=#collector.collection_id#">#collector.cnt# #collector.collection#</a> specimens
+			</li>
+	  	</CFLOOP>
+	</ul>
+Entered:
+	<cfquery name="entered" datasource="uam_god">
+		select 
+			count(*) cnt,
+			collection,
+			collection.collection_id
+		from 
+			coll_object,
+			cataloged_item,
+			collection
+		where 
+			coll_object.collection_object_id = cataloged_item.collection_object_id and
+			cataloged_item.collection_id=collection.collection_id and
+			ENTERED_PERSON_ID =#agent_id#
+		group by
+			collection,
+			collection.collection_id
+	</cfquery>
+	<ul>
+		<cfloop query="entered">
+			<li>
+				<a href="/SpecimenResults.cfm?entered_by_id=#agent_id#&collection_id=#collection_id#">#cnt# #collection#</a></li> specimens
+			</li>
+		</cfloop>
+	</ul>
+Edited:	
+	<cfquery name="last_edit" datasource="uam_god">
+		select 
+			count(*) cnt,
+			collection,
+			collection.collection_id
+		from 
+			coll_object,
+			cataloged_item,
+			collection
+		where 
+			coll_object.collection_object_id = cataloged_item.collection_object_id and
+			cataloged_item.collection_id=collection.collection_id and
+			LAST_EDITED_PERSON_ID=#agent_id#
+		group by
+			collection,
+			collection.collection_id
+	</cfquery>
+	<ul>
+		<cfloop query="last_edit">
+			<li>
+				<a href="/SpecimenResults.cfm?edited_by_id=#agent_id#&collection_id=#collection_id#">#cnt# #collection#</a></li> specimens
+			</li>
 		</cfloop>
 	</ul>
 Attribute Determiner:
@@ -319,6 +370,10 @@ Transactions
 				TRANS_AGENT_ROLE,
 				loan_number,
 				collection
+			order by
+				collection,
+				loan_number,
+				TRANS_AGENT_ROLE
 		</cfquery>
 		<cfloop query="trans_agent_l">
 			<li>#TRANS_AGENT_ROLE# for Loan <a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a></li>
@@ -344,12 +399,39 @@ Transactions
 				TRANS_AGENT_ROLE,
 				accn_number,
 				collection
+			order by
+				collection,
+				accn_number,
+				TRANS_AGENT_ROLE
 		</cfquery>
 		<cfloop query="trans_agent_a">
-			<li>#TRANS_AGENT_ROLE# for Accession <a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #accn_number#</a></li>
+			<li>#TRANS_AGENT_ROLE# for Accession <a href="editAccn.cfm?action=edit&transaction_id=#transaction_id#">#collection# #accn_number#</a></li>
 		</cfloop>
-	</ul>
-	
+		<cfquery name="loan_item" datasource="uam_god">
+			select 
+				trans.transaction_id,
+				loan_number,
+				count(*) cnt,
+				collection
+			from
+				trans,
+				loan,
+				collection,
+				loan_item
+			where
+				trans.transaction_id=loan.transaction_id and
+				loan.transaction_id=loan_item.transaction_id and
+				loan.collection_id=collection.collection_id and
+				RECONCILED_BY_PERSON_ID =#agent_id#
+			group by
+				trans.transaction_id,
+				loan_number,
+				collection				
+		</cfquery>
+		<cfloop query="trans_agent_a">
+			<li>Reconciled #cnt# items for Loan 
+				<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a></li>		
+		</cfloop>
 Publications
 	<cfquery name="publication_author_name" datasource="uam_god">
 		select 
@@ -374,31 +456,5 @@ Publications
 			</li>
 		</cfloop>
 	</ul>
-
-	
-	<li>
-		Transactions:
-		<ul>
-			<cfloop query="trans_agent">
-				#TRANS_AGENT_ROLE#: #cnt#
-			</cfloop>
-		</ul>
-	</li>
-	<cfquery name="entered" datasource="uam_god">
-		select count(*) cnt from coll_object,cataloged_item where ENTERED_PERSON_ID =#agent_id#
-		and coll_object.collection_object_id = cataloged_item.collection_object_id
-	</cfquery>
-	<li>Entered <a href="/SpecimenResults.cfm?entered_by_id=#agent_id#">#entered.cnt# specimens</a></li>
-	<cfquery name="last_edit" datasource="uam_god">
-		select count(coll_object.collection_object_id) cnt from coll_object,cataloged_item
-		 where LAST_EDITED_PERSON_ID =#agent_id#
-		 and coll_object.collection_object_id = cataloged_item.collection_object_id
-	</cfquery>
-	<li>Edited <a href="/SpecimenResults.cfm?edited_by_id=#agent_id#">#last_edit.cnt# specimens</a></li>
-	<cfquery name="loan_item" datasource="uam_god">
-		select count(*) cnt from loan_item where RECONCILED_BY_PERSON_ID =#agent_id#
-	</cfquery>
-	<li>Reconciled #loan_item.cnt# loan items</li>
-</ul>	
 </cfoutput>
 <cfinclude template = "/includes/_footer.cfm">
