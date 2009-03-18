@@ -125,7 +125,7 @@ Address:
 Attribute Determiner:
 	<cfquery name="attributes" datasource="uam_god">
 		select 
-			count((collection_object_id) c,
+			count(collection_object_id) c,
 			collection_id,
 			collection 
 		from
