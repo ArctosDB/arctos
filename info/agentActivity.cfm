@@ -115,7 +115,7 @@ Electronic Address:
 	</ul>
 Address:	
 	<cfquery name="addr" datasource="uam_god">
-		select formatted_addr from addr where agent_id=#agent_id#
+		select replace(formatted_addr,chr(10),'<br>') formatted_addr from addr where agent_id=#agent_id#
 	</cfquery>
 	<ul>
 		<cfloop query="addr">
