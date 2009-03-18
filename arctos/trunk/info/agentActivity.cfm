@@ -104,22 +104,25 @@ Agent Relationships:
 			<li><a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
 		</cfloop>
 	</ul>
-Electronic Addresses:
+Electronic Address:
 	<cfquery name="electronic_address" datasource="uam_god">
 		select * from electronic_address where agent_id=#agent_id#
 	</cfquery>
 	<ul>
-		<cfloop query="electronic_addressd">
+		<cfloop query="electronic_address">
 			<li>#ADDRESS_TYPE#: #ADDRESS#</li>
 		</cfloop>
 	</ul>
-	
-	
-	
+Address:	
 	<cfquery name="addr" datasource="uam_god">
-		select count(*) cnt from addr where agent_id=#agent_id#
+		select formatted_addr from addr where agent_id=#agent_id#
 	</cfquery>
-		<li>Has #addr.cnt# address(es)</li>
+	<ul>
+		<cfloop query="addr">
+			<li>#formatted_addr#</li>
+		</cfloop>
+	</ul>
+
 	<cfquery name="attributes" datasource="uam_god">
 		select 
 			count(distinct(collection_object_id)) specs 
