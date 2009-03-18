@@ -125,8 +125,8 @@ Address:
 Attribute Determiner:
 	<cfquery name="attributes" datasource="uam_god">
 		select 
-			count(collection_object_id) c,
-			collection_id,
+			count(attributes.collection_object_id) c,
+			collection.collection_id,
 			collection 
 		from
 			attributes,
@@ -136,6 +136,9 @@ Attribute Determiner:
 			cataloged_item.collection_object_id=attributes.collection_object_id and
 			cataloged_item.collection_id=collection.collection_id and
 			determined_by_agent_id=#agent_id#
+		group by
+			collection.collection_id,
+			collection 
 	</cfquery>
 	<ul>
 		<cfloop query="attributes">
