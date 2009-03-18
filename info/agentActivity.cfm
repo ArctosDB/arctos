@@ -126,6 +126,7 @@ Attribute Determiner:
 	<cfquery name="attributes" datasource="uam_god">
 		select 
 			count(attributes.collection_object_id) c,
+			count(cataloged_item.collection_object_id) s,
 			collection.collection_id,
 			collection 
 		from
@@ -143,9 +144,9 @@ Attribute Determiner:
 	<ul>
 		<cfloop query="attributes">
 			<li>
-				#c# 
+				#c# attributes for #s#
 				<a href="/SpecimenResults.cfm?attributed_determiner_agent_id=#agent_id#&collection_id=#attributes.collection_id#">
-					#attributes.collection#</a>
+					#attributes.collection#</a> specimens
 			</li>
 		</cfloop>
 	</ul>
