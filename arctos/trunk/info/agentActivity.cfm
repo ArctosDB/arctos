@@ -126,7 +126,7 @@ Attribute Determiner:
 	<cfquery name="attributes" datasource="uam_god">
 		select 
 			count(attributes.collection_object_id) c,
-			count(cataloged_item.collection_object_id) s,
+			count(distinct(cataloged_item.collection_object_id)) s,
 			collection.collection_id,
 			collection 
 		from
