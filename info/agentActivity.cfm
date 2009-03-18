@@ -228,34 +228,78 @@ Identification:
 	<ul>
 		<cfloop query="identification">
 			<li>
-				Made #cnt# identifications for <a href="/SpecimenResults.cfm?identified_agent_id=#agent_id#&collection_id=#collection_id#">
+				#cnt# identifications for <a href="/SpecimenResults.cfm?identified_agent_id=#agent_id#&collection_id=#collection_id#">
 					#specs# #collection#</a> specimens
 			</li>
 		</cfloop>
 	</ul>
-
+Coordinates:
 	<cfquery name="lat_long" datasource="uam_god">
-		select count(*) cnt from lat_long where determined_by_agent_id=#agent_id#
+		select 
+			count(*) cnt,
+			count(distinct(locality_id)) locs from lat_long where determined_by_agent_id=#agent_id#
 	</cfquery>
-	<li>Determined #lat_long.cnt# coordinates</li>
+	<ul>
+		<li>Determined #lat_long.cnt# coordinates for #lat_long.locs# localities</li>
+	</ul>
+Permits:	
 	<cfquery name="permit_to" datasource="uam_god">
 		select count(*) cnt from permit where ISSUED_TO_AGENT_ID=#agent_id#
 	</cfquery>
-	<li>Has been issued #permit_to.cnt# permits</li>
 	<cfquery name="permit_by" datasource="uam_god">
 		select count(*) cnt from permit where ISSUED_by_AGENT_ID=#agent_id#
 	</cfquery>
-	<li>Issued #permit_by.cnt# permits</li>
+	<ul>
+		<li>#permit_to.cnt# permits issued to</li>
+		<li>#permit_by.cnt# permits issued by</li>
+	</ul>
+Projects:	
 	<cfquery name="project_agent" datasource="uam_god">
-		select count(*) cnt from project_agent where agent_name_id IN (#names#)
+		select 
+			project_title,
+			project.project_id
+		from 
+			project_agent,
+			project,
+			agent_name
+		where
+			 project.project_id=project_agent.project_id and
+			 project_agent.agent_name_id=agent_name.agent_name_id and
+			 agent_name.agent_id=#agent_id#
+		group by
+			project_title,
+			project.project_id
 	</cfquery>
-	<li>
-		Involved in <a href="/ProjectList.cfm?project_agent_name_id=#names#&src=proj">#project_agent.cnt# projects</a>
-	</li>
+	<ul>
+		<cfloop query="">
+			<li>
+				<a href="/ProjectDetail.cfm?project_id=#project_id#">#project_title#</a>
+			</li>
+		</cfloop>
+	</ul>
+Transactions
 	<cfquery name="shipment" datasource="uam_god">
-		select count(*) cnt from shipment where PACKED_BY_AGENT_ID=#agent_id#
+		select 
+			LOAN_NUMBER,
+			loan.transaction_id,
+			collection
+		from
+			shipment,
+			loan,
+			trans,
+			collection
+		where
+			shipment.transaction_id=loan.transaction_id and
+			loan.transaction_id =trans.transaction_id and
+			trans.collection_id=collection.collection_id and
+			PACKED_BY_AGENT_ID=#agent_id#		
 	</cfquery>
-	<li>Packed #shipment.cnt# shipments</li>
+	<ul>
+		<cfloop query="shipment">
+			<li>Packed Shipment for <a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a></li>
+		</cfloop>
+	</ul>
+
 	<cfquery name="publication_author_name" datasource="uam_god">
 		select count(*) cnt from publication_author_name where agent_name_id IN (#names#)
 	</cfquery>
