@@ -127,25 +127,26 @@ Agent:
 			<li>Is related OF no agents</li>
 		<cfelse>
 			<cfloop query="agent_relations">
-				<li><a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP# of </li>
+				<li><a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
 			</cfloop>
 		</cfif>
 	</ul>
 	
 	<cfquery name="electronic_address" datasource="uam_god">
-		select count(*) cnt from electronic_address where agent_id=#agent_id#
+		select * from electronic_address where agent_id=#agent_id#
 	</cfquery>
-	<li>Has #electronic_address.cnt# electronic address(es)</li>
-	<cfif electronic_address.cnt gt 0>
-		<cfquery name="electronic_addressd" datasource="uam_god">
-			select * from electronic_address where agent_id=#agent_id#
-		</cfquery>
+	
 		<ul>
+			<cfif electronic_address.recordcount gt 0>
 			<cfloop query="electronic_addressd">
 				<li>#ADDRESS_TYPE#: #ADDRESS#</li>
 			</cfloop>
+			<cfelse>
+				<li>no electronic_address</li>
+			</cfif>
 		</ul>
-	</cfif>
+	
+	
 	
 	<cfquery name="addr" datasource="uam_god">
 		select count(*) cnt from addr where agent_id=#agent_id#
