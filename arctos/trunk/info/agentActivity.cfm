@@ -99,7 +99,9 @@ Agent:
 	<cfquery name="agent_relations" datasource="uam_god">
 		select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
 		from agent_relations,preferred_agent_name
-		where 	agent_id=#agent_id#
+		where 	
+		agent_relations.RELATED_AGENT_ID=preferred_agent_name.agent_id and
+		agent_relations.agent_id=#agent_id#
 	</cfquery>
 	<li>Agent Relationships:</li>
 	<ul>
@@ -113,9 +115,11 @@ Agent:
 	</ul>
 	
 	<cfquery name="agent_relations" datasource="uam_god">
-		select AGENT_RELATIONSHIP,agent_name,agent_id 
+		select AGENT_RELATIONSHIP,agent_name,preferred_agent_name.agent_id 
 		from agent_relations,preferred_agent_name
-		where 	RELATED_AGENT_ID=#agent_id#
+		where 
+		agent_relations.agent_id=preferred_agent_name.agent_id and
+		RELATED_AGENT_ID=#agent_id#
 	</cfquery>
 	<li>Agent Relationships:</li>
 	<ul>
