@@ -433,6 +433,7 @@ Transactions
 				<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a>
 			</li>		
 		</cfloop>
+	</ul>
 Publications
 	<cfquery name="publication_author_name" datasource="uam_god">
 		select 
