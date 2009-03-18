@@ -11,6 +11,7 @@ Back to <a href="/editAllAgent.cfm?agent_id=#agent_id#">Agent Details</a>
 <cfquery name="name" datasource="uam_god">
 	select agent_name_id, agent_name, agent_name_type FROM agent_name where agent_id=#agent_id#
 </cfquery>
+Agent:
 <table border>
 	<tr>
 		<td align="right"><strong>Agent Type:</strong></td>
@@ -56,7 +57,7 @@ Back to <a href="/editAllAgent.cfm?agent_id=#agent_id#">Agent Details</a>
 	</cfif>
 </cfloop>
 <ul>
-	<li>Is known as:</li>
+	<li>Agent Names:</li>
 		<ul>
 			<cfloop query="name">
 				<li>#name.agent_name# (#agent_name_type#)</li>
@@ -96,9 +97,52 @@ Back to <a href="/editAllAgent.cfm?agent_id=#agent_id#">Agent Details</a>
 		</cfif>
 	</ul>
 	<cfquery name="agent_relations" datasource="uam_god">
-		select count(*) cnt from agent_relations where 	(agent_id=#agent_id# OR related_agent_id = #agent_id#)
+		select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
+		from agent_relations,preferred_agent_name
+		where 	agent_id=#agent_id#
 	</cfquery>
-	<li>Involved in #agent_relations.cnt# agent relationships</li>
+	<li>Agent Relationships:</li>
+	<ul>
+		<cfif agent_relations.recordcount is 0>
+			<li>Is related TO no agents</li>
+		<cfelse>
+			<cfloop query="agent_relations">
+				<li>AGENT_RELATIONSHIP to <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
+			</cfloop>
+		</cfif>
+	</ul>
+	
+	<cfquery name="agent_relations" datasource="uam_god">
+		select AGENT_RELATIONSHIP,agent_name,agent_id 
+		from agent_relations,preferred_agent_name
+		where 	RELATED_AGENT_ID=#agent_id#
+	</cfquery>
+	<li>Agent Relationships:</li>
+	<ul>
+		<cfif agent_relations.recordcount is 0>
+			<li>Is related OF no agents</li>
+		<cfelse>
+			<cfloop query="agent_relations">
+				<li>AGENT_RELATIONSHIP of <a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a></li>
+			</cfloop>
+		</cfif>
+	</ul>
+	
+	<cfquery name="electronic_address" datasource="uam_god">
+		select count(*) cnt from electronic_address where agent_id=#agent_id#
+	</cfquery>
+	<li>Has #electronic_address.cnt# electronic address(es)</li>
+	<cfif electronic_address.cnt gt 0>
+		<cfquery name="electronic_addressd" datasource="uam_god">
+			select * from electronic_address where agent_id=#agent_id#
+		</cfquery>
+		<ul>
+			<cfloop query="electronic_addressd">
+				<li>#ADDRESS_TYPE#: #ADDRESS#</li>
+			</cfloop>
+		</ul>
+	</cfif>
+	
 	<cfquery name="addr" datasource="uam_god">
 		select count(*) cnt from addr where agent_id=#agent_id#
 	</cfquery>
@@ -138,20 +182,7 @@ Back to <a href="/editAllAgent.cfm?agent_id=#agent_id#">Agent Details</a>
 	<li>
 		Assigned #media_labels.recordcount# Media Labels.
 	</li>
-	<cfquery name="electronic_address" datasource="uam_god">
-		select count(*) cnt from electronic_address where agent_id=#agent_id#
-	</cfquery>
-	<li>Has #electronic_address.cnt# electronic address(es)</li>
-	<cfif electronic_address.cnt gt 0>
-		<cfquery name="electronic_addressd" datasource="uam_god">
-			select * from electronic_address where agent_id=#agent_id#
-		</cfquery>
-		<ul>
-			<cfloop query="electronic_addressd">
-				<li>#ADDRESS_TYPE#: #ADDRESS#</li>
-			</cfloop>
-		</ul>
-	</cfif>
+	
 	<cfquery name="encumbrance" datasource="uam_god">
 		select count(*) cnt from encumbrance where encumbering_agent_id=#agent_id#
 	</cfquery>
