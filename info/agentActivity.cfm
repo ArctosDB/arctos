@@ -109,7 +109,7 @@ Agent:
 			<li>Is related TO no agents</li>
 		<cfelse>
 			<cfloop query="agent_relations">
-				<li>#AGENT_RELATIONSHIP# to <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
+				<li>#AGENT_RELATIONSHIP# <a href="agentActivity.cfm?agent_id=#RELATED_AGENT_ID#">#agent_name#</a></li>
 			</cfloop>
 		</cfif>
 	</ul>
@@ -127,7 +127,7 @@ Agent:
 			<li>Is related OF no agents</li>
 		<cfelse>
 			<cfloop query="agent_relations">
-				<li>#AGENT_RELATIONSHIP# of <a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a></li>
+				<li><a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP# of </li>
 			</cfloop>
 		</cfif>
 	</ul>
