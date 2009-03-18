@@ -146,7 +146,7 @@ Entered:
 	<ul>
 		<cfloop query="entered">
 			<li>
-				<a href="/SpecimenResults.cfm?entered_by_id=#agent_id#&collection_id=#collection_id#">#cnt# #collection#</a></li> specimens
+				<a href="/SpecimenResults.cfm?entered_by_id=#agent_id#&collection_id=#collection_id#">#cnt# #collection#</a> specimens
 			</li>
 		</cfloop>
 	</ul>
@@ -171,7 +171,7 @@ Edited:
 	<ul>
 		<cfloop query="last_edit">
 			<li>
-				<a href="/SpecimenResults.cfm?edited_by_id=#agent_id#&collection_id=#collection_id#">#cnt# #collection#</a></li> specimens
+				<a href="/SpecimenResults.cfm?edited_by_id=#agent_id#&collection_id=#collection_id#">#cnt# #collection#</a> specimens
 			</li>
 		</cfloop>
 	</ul>
@@ -347,7 +347,7 @@ Transactions
 				PACKED_BY_AGENT_ID=#agent_id#		
 		</cfquery>
 		<cfloop query="shipment">
-			<li>Packed Shipment for <a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a></li>
+			<li>Packed Shipment for <a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a></li>
 		</cfloop>
 		<cfquery name="trans_agent_l" datasource="uam_god">
 			select 
@@ -376,7 +376,7 @@ Transactions
 				TRANS_AGENT_ROLE
 		</cfquery>
 		<cfloop query="trans_agent_l">
-			<li>#TRANS_AGENT_ROLE# for Loan <a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a></li>
+			<li>#TRANS_AGENT_ROLE# for Loan <a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a></li>
 		</cfloop>
 		<cfquery name="trans_agent_a" datasource="uam_god">
 			select 
@@ -405,7 +405,7 @@ Transactions
 				TRANS_AGENT_ROLE
 		</cfquery>
 		<cfloop query="trans_agent_a">
-			<li>#TRANS_AGENT_ROLE# for Accession <a href="editAccn.cfm?action=edit&transaction_id=#transaction_id#">#collection# #accn_number#</a></li>
+			<li>#TRANS_AGENT_ROLE# for Accession <a href="/editAccn.cfm?action=edit&transaction_id=#transaction_id#">#collection# #accn_number#</a></li>
 		</cfloop>
 		<cfquery name="loan_item" datasource="uam_god">
 			select 
@@ -421,7 +421,7 @@ Transactions
 			where
 				trans.transaction_id=loan.transaction_id and
 				loan.transaction_id=loan_item.transaction_id and
-				loan.collection_id=collection.collection_id and
+				trans.collection_id=collection.collection_id and
 				RECONCILED_BY_PERSON_ID =#agent_id#
 			group by
 				trans.transaction_id,
@@ -430,7 +430,8 @@ Transactions
 		</cfquery>
 		<cfloop query="trans_agent_a">
 			<li>Reconciled #cnt# items for Loan 
-				<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a></li>		
+				<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a>
+			</li>		
 		</cfloop>
 Publications
 	<cfquery name="publication_author_name" datasource="uam_god">
