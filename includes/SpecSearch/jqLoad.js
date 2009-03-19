@@ -13,10 +13,10 @@ jQuery( function($) {
 	
 	$("#c_identifiers_cust").click(function(e){
 		var bgDiv = document.createElement('div');
-		bDiv.id = 'bgDiv';
+		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
-		bgDiv.setArrtibute('onclick','saveComplete');
-		document.body.appendChild(cDiv);
+		bgDiv.setAttribute('onclick','saveComplete');
+		document.body.appendChild(bgDiv);
 		
 		var cDiv = document.createElement('div');
 		cDiv.id = 'customDiv';
