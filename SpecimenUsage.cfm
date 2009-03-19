@@ -138,6 +138,7 @@
 					project,
 					project_agent,
 					agent_name,
+						project_sponsor,
 					agent_name s_name">
 		<cfset whr="
 				WHERE 
