@@ -126,6 +126,7 @@
 		coll_object.last_edit_date,
 		coll_object.flags,
 		coll_object_remark.coll_object_remarks,
+		coll_object_remark.disposition_remarks,
 		coll_object_remark.associated_species,
 		coll_object_remark.habitat,
 		enteredPerson.agent_name EnteredBy,
