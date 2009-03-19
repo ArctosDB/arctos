@@ -1217,11 +1217,15 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 								<span class="innerDetailLabel">Disposition:</span>
 								#one.coll_obj_disposition#
 							</span>
-							<span class="detailCellSmall">
-								&nbsp;&nbsp;<span class="innerDetailLabel">Remark:</span>
-								#disposition_remarks#
-							</span>
 						</div>
+						<cfif len(one.disposition_remarks) gt 0>
+							<div class="detailBlock">
+								<span class="detailCellSmall">
+									&nbsp;&nbsp;<span class="innerDetailLabel">Disposition Remark:</span>
+									#one.disposition_remarks#
+								</span>
+							</div>
+						</cfif>	
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">Entered By:</span>
