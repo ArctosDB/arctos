@@ -36,16 +36,16 @@ function success_changeexclusive_collection_id (result) {
 		</td>
 	</tr>
 	<tr>
-		<td class="lbl">
-			<label for="yourColl">Your current collections</label>
-			<select name="currColl" id="yourColl" size="6">
+		<td>
+			<label for="yourColl">Your current collection(s)</label>
+			<select name="currColl" id="yourColl" size="6" readonly="readonly">
 				<cfloop query="yourcollid">
 					<option>#collection#</option>
 				</cfloop>
 			</select>
 		</td>
-		<td class="srch">
-			<label for="exclusive_collection_id">Select Your Collection</label>
+		<td valign="top">
+			<label for="exclusive_collection_id">Set your collection(s)</label>
 			<select name="exclusive_collection_id" id="exclusive_collection_id"
 				onchange="this.className='red';changeexclusive_collection_id(this.value);" size="1">
 			 	<option value="">All</option>
