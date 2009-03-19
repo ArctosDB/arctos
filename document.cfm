@@ -1,4 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
+
+
+Nothing to see here yet. Documents are still at <a href="http://bscit.berkeley.edu/mvz/" target="_blank">http://bscit.berkeley.edu/mvz/</a>.
+ 
 <cfif action is 'nothing'>
 <cfoutput>
 	<cfquery name="titles" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
