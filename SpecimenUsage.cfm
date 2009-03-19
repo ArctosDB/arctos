@@ -403,7 +403,6 @@
 			formatted_publication
 	</cfquery>
 	<cfloop query="pubs">
-	<tr>
 		
 		<div #iif(i MOD 2,DE("class='even'"),DE("class='odd'"))#>
 		<p style="text-indent:-2em;padding-left:2em; ">
