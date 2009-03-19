@@ -682,7 +682,8 @@
 				<cfset colId = left(other_ids, colonPos-1)>
 			</cfif>
 		</cfif>
-			
+		<cfset firstId = "">
+		<cfset secondId ="">
 		<cfset commaPos = find (",", colId)>
 		<cfif commaPos gt 0>
 			<cfset firstId = left(colId, commaPos-1)>
