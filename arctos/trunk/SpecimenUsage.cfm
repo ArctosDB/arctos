@@ -114,6 +114,7 @@
 </cfif>
 <!-------------------------------------------------------------------------------------->
 <cfif #action# is "search">
+<cfoutput>
 	<cfset title = "Usage Search Results">
 	<cfif not isdefined("srchType") or srchType is not "publication">
 		<cfset sql = "SELECT 
@@ -181,7 +182,6 @@
 			ORDER BY
 				project_name
 		</cfquery>
-		<cfoutput>
 		<table>
 			<tr>
 				<td colspan="2"><h2>Projects</h2></td>
@@ -372,13 +372,14 @@
 	</cfloop>
 	</cfif>
 	</table>
-</cfoutput>
+
 
 
 	<cf_getSearchTerms>
 	<cfset log.query_string=returnURL>
 	<cfset log.reported_count = #pubs.RecordCount# + #projNames.RecordCount#>
 	<cfinclude template="/includes/activityLog.cfm">
+</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------->
 <cfinclude template = "/includes/_footer.cfm">
