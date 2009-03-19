@@ -1221,8 +1221,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 						<cfif len(one.disposition_remarks) gt 0>
 							<div class="detailBlock">
 								<span class="detailCellSmall">
-									&nbsp;&nbsp;<span class="innerDetailLabel">Disposition Remark:</span>
-									#one.disposition_remarks#
+									&nbsp;&nbsp;#one.disposition_remarks#
 								</span>
 							</div>
 						</cfif>	
