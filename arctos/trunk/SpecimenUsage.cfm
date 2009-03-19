@@ -199,57 +199,65 @@
 			ORDER BY
 				project_name
 		</cfquery>
-		<table>
-			<tr>
-				<td colspan="2"><h2>Projects</h2></td>
-			</tr>
-			<cfif projNames.recordcount is 0>
-				<td colspan="2">
-					<i><font color="##FF0000">&nbsp;&nbsp;&nbsp;No projects matched your criteria.</font></i>
-				</td>
-			</cfif>
-			<cfloop query="projNames">
-				<cfquery name="thisAuth" dbtype="query">
-					SELECT 
-						agent_name, 
-						project_agent_role 
-					FROM 
-						projects 
-					WHERE 
-						project_id = #project_id# 
-					GROUP BY 
-						agent_name, 
-						project_agent_role 
-					ORDER BY 
-						agent_position
-				</cfquery>
-				<tr>
-					<td>
-						<img src="images/nada.gif" width="30">
-					</td>
-					<td #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-						<a href="/ProjectDetail.cfm?project_id=#project_id#">
-							<div style="text-indent:-2em;padding-left:2em; "><b>
-							#project_name#</b></div>
-						</a>		
-						<cfloop query="thisAuth">
-							&nbsp;&nbsp;&nbsp;#agent_name# (#project_agent_role#)<br>
-						</cfloop>
-						&nbsp;&nbsp;&nbsp;#dateformat(start_date,"dd mmm yyyy")# - #dateformat(end_date,"dd mmm yyyy")#
-						<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
-							<br>&nbsp;&nbsp;&nbsp;<input type="button" 
+		<cfif projNames.recordcount is 0>
+			<i><font color="##FF0000">&nbsp;&nbsp;&nbsp;No projects matched your criteria.</font></i>
+		</cfif>
+		<cfloop query="projNames">
+			<cfquery name="thisAuth" dbtype="query">
+				SELECT 
+					agent_name, 
+					project_agent_role 
+				FROM 
+					projects 
+				WHERE 
+					project_id = #project_id# 
+				GROUP BY 
+					agent_name, 
+					project_agent_role 
+				ORDER BY 
+					agent_position
+			</cfquery>
+			<cfquery name="thisSponsor" dbtype="query">
+				SELECT 
+					ACKNOWLEDGEMENT,
+					sponsor_name
+				FROM 
+					projects 
+				WHERE 
+					project_id = #project_id# 
+				GROUP BY 
+					ACKNOWLEDGEMENT,
+					sponsor_name
+				ORDER BY 
+					sponsor_name
+			</cfquery>
+			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+				<a href="/ProjectDetail.cfm?project_id=#project_id#">
+					<div style="text-indent:-2em;padding-left:2em; ">
+						<b>
+							#project_name#
+						</b>
+					</div>
+				</a>
+				<cfloop query="thisAuth">
+					&nbsp;&nbsp;&nbsp;#agent_name# (#project_agent_role#)<br>
+				</cfloop>
+				<cfloop query="thisSponsor">
+					&nbsp;&nbsp;&nbsp;#sponsor_name#: #ACKNOWLEDGEMENT#<br>
+				</cfloop>
+				&nbsp;&nbsp;&nbsp;#dateformat(start_date,"dd mmm yyyy")# - #dateformat(end_date,"dd mmm yyyy")#
+				<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
+					<br>&nbsp;&nbsp;&nbsp;<input type="button" 
 											value="Edit" 
 											class="lnkBtn"
 											onmouseover="this.className='lnkBtn btnhov'" 
 											onmouseout="this.className='lnkBtn'"
 											onclick="document.location='/Project.cfm?Action=editProject&project_id=#project_id#';">
-						</cfif>
-		
-					</td>
-				</tr>
-				<cfset i=#i#+1>
-			</cfloop>
-		</cfif>
+				</cfif>
+			</div>
+			<cfset i=#i#+1>
+		</cfloop>
+	</cfif>
 <cfif not isdefined("srchType") or srchType is not "project">
 <!--- publications --->
 <cfset basSQL = "SELECT DISTINCT 
