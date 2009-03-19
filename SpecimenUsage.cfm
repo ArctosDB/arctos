@@ -233,8 +233,7 @@
 				</tr>
 				<cfset i=#i#+1>
 			</cfloop>
-</cfif>
-</cfif>
+		</cfif>
 <cfif not isdefined("srchType") or srchType is not "project">
 <!--- publications --->
 <cfset basSQL = "SELECT DISTINCT 
