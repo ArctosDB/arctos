@@ -23,7 +23,7 @@ jQuery( function($) {
 		cDiv.className = 'sscustomBox';
 		cDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(cDiv);
-		var ptl="/includes/SpecSearch/customIDs.cfm";
+		var ptl="/includes/SpecSearch/changeCollection.cfm";
 		$(cDiv).load(ptl);
 		$(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
 	});
