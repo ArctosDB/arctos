@@ -785,6 +785,7 @@
 			<cfset cde = "Mammal">
 		</cfif>
 		<cfset cdeAr[i] = "#cde#">
+		
 		<cfset i = i +1>
 	</cfloop>
 	
@@ -792,7 +793,7 @@
 	<cfset temp=queryAddColumn(q, "format_collectors", "VarChar", colAr)>
 	<cfset temp=queryAddColumn(q, "highergeog", "VarChar", hAr)>
 	<cfset temp=queryAddColumn(q, "locality", "VarChar", locAr)>
-	<cfset temp=queryAddColumn(q, "cde", "VarChar", cdeAr))>
+	<cfset temp=queryAddColumn(q, "cde", "VarChar", cdeAr)>
 	
 	<cfreturn q>
 </cffunction>
