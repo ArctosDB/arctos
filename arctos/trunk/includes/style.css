@@ -55,7 +55,7 @@ label.badPickLbl {
 	position:absolute;
 	top:0;
 	left:0;
-	opacity:0.8;
+	opacity:0.2;
 	z-index:2000;
 }
 .mediaLink {
