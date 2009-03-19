@@ -37,7 +37,7 @@ function success_changeexclusive_collection_id (result) {
 	</tr>
 	<tr>
 		<td>
-			<label for="yourColl">Your current collection(s)</label>
+			<label for="yourColl">Your collection(s)</label>
 			<select name="currColl" id="yourColl" size="6" readonly="readonly">
 				<cfloop query="yourcollid">
 					<option>#collection#</option>
@@ -45,6 +45,7 @@ function success_changeexclusive_collection_id (result) {
 			</select>
 		</td>
 		<td valign="top">
+			<cfif len(session.roles) gt 0 and session.roles is "public">
 			<label for="exclusive_collection_id">Set your collection(s)</label>
 			<select name="exclusive_collection_id" id="exclusive_collection_id"
 				onchange="this.className='red';changeexclusive_collection_id(this.value);" size="1">
@@ -53,6 +54,7 @@ function success_changeexclusive_collection_id (result) {
 					<option value="#cf_collection_id#">#collection#</option>
 			  	</cfloop> 
 			</select>
+			</cfif>
 		</td>
 	</tr>
 </table>

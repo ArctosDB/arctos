@@ -90,6 +90,7 @@ function success_changefancyCOID (result) {
 			Filter By Collection
 		</td>
 		<td class="srch">
+			<cfif len(session.roles) gt 0 and session.roles is "public">
 			<select name="exclusive_collection_id" id="exclusive_collection_id"
 				onchange="this.className='red';changeexclusive_collection_id(this.value);" size="1">
 			 	<option value="">All</option>
@@ -97,6 +98,7 @@ function success_changefancyCOID (result) {
 					<option value="#cf_collection_id#">#collection#</option>
 			  	</cfloop> 
 			</select>
+			</cfif>
 		</td>
 	</tr>
 </table>
