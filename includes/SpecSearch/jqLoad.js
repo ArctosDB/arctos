@@ -12,7 +12,7 @@ jQuery( function($) {
 	});
 	
 	$("#c_identifiers_cust").click(function(e){
-		var bDiv = document.createElement('div');
+		var bgDiv = document.createElement('div');
 		bDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
 		bgDiv.setArrtibute('onclick','saveComplete');
