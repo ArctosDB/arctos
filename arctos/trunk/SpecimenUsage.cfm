@@ -90,6 +90,10 @@
     <td align="right">Project Sponsor:</td>
     <td><input name="sponsor" id="sponsor" type="text"></td>
   </tr>
+<tr>
+    <td align="right">Journal:</td>
+    <td><input name="journal" id="journal" type="text"></td>
+  </tr>
  <tr>
     <td align="right">Search for:</td>
     <td>
@@ -99,7 +103,36 @@
 			<option value="publication">Publications</option>
 	</td>
   </tr>
+<tr>
+    <td align="right">
+		<a href="javascript:void(0);" 
+		onClick="getHelp('onlyCited'); return false;"
+		onMouseOver="self.status='Click for Accepted Scientific Name help.';return true;" 
+		onmouseout="self.status='';return true;">Cite specimens only?</a>
+		
+	
+	</td>
+    <td>
+	<input type="checkbox" name="onlyCitePubs" value="1">
+	</td>
+</tr>
 
+ <tr>
+    <td align="right" nowrap><a href="javascript:void(0);" 
+		onClick="getHelp('cited_sci_name'); return false;"
+		onMouseOver="self.status='Click for Cited Scientific Name help.';return true;" 
+		onmouseout="self.status='';return true;">Cited Scientific Name:</a></td>
+    <td><input name="cited_Sci_Name" type="text"></td>
+  </tr>
+  <tr>
+    <td align="right" nowrap>
+	 <a href="javascript:void(0);" 
+		onClick="getHelp('accepted_sci_name'); return false;"
+		onMouseOver="self.status='Click for Accepted Scientific Name help.';return true;" 
+		onmouseout="self.status='';return true;">Accepted Scientific Name:</a>
+		</td>
+    <td><input name="current_Sci_Name" type="text"></td>
+  </tr> 
   <tr>
     <td colspan="2" align="center">
 		<input type="submit" 
@@ -298,6 +331,39 @@
 	<cfif isdefined("year") AND isnumeric(#year#)>
 		<cfset basWhere = "#basWhere# AND PUBLISHED_YEAR = #year#">
 	</cfif>
+	<cfif isdefined("journal") AND len(journal) gt 0>
+		<cfset basFrom = "#basFrom# ,journal,journal_article">
+		<cfset basWhere = "#basWhere# AND publication.publication_id=journal_article.publication_id and
+			journal_article.journal_id=journal.journal_id and
+			upper(journal_name) like '%#ucase(journal)#%'">
+	</cfif>
+	<cfif isdefined("onlyCitePubs") AND #onlyCitePubs# gt 0>
+		<cfif #basFrom# does not contain "citation">
+			<cfset basFrom = "#basFrom#,citation">
+		</cfif>
+		<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id">
+	</cfif>
+	
+	<cfif isdefined("current_Sci_Name") AND len(#current_Sci_Name#) gt 0>
+		<cfset basFrom = "#basFrom# ,
+			citation CURRENT_NAME_CITATION, 
+			cataloged_item,
+			identification catItemTaxa">
+		<cfset basWhere = "#basWhere# AND publication.publication_id = CURRENT_NAME_CITATION.publication_id (+)
+		AND CURRENT_NAME_CITATION.collection_object_id = cataloged_item.collection_object_id (+)
+		AND cataloged_item.collection_object_id = catItemTaxa.collection_object_id
+		AND catItemTaxa.accepted_id_fg = 1
+		AND upper(catItemTaxa.scientific_name) LIKE '%#ucase(current_Sci_Name)#%'">
+	</cfif>
+	<cfif isdefined("cited_Sci_Name") AND len(#cited_Sci_Name#) gt 0>
+		<cfset basFrom = "#basFrom# ,
+			citation CITED_NAME_CITATION, taxonomy CitTaxa">
+			<cfset basWhere = "#basWhere# AND publication.publication_id = CITED_NAME_CITATION.publication_id (+)
+				AND CITED_NAME_CITATION.cited_taxon_name_id = CitTaxa.taxon_name_id (+)
+				AND upper(CitTaxa.scientific_name) LIKE '%#ucase(cited_Sci_Name)#%'">
+	</cfif>
+	
+	
 	<cfset basSql = "#basSQL# #basFrom# #basWhere# ORDER BY formatted_publication,publication_id">
 <cftry>
 	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
