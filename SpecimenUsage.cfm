@@ -162,11 +162,11 @@
 					WHERE agent_name_id IN 
 						( select agent_name_id FROM agent_name WHERE 
 						upper(agent_name) like '%#ucase(keyword)#%' )) OR
-				project.project_id IN 
+				(project.project_id IN 
 				( select project_id FROM project_sponsor
 					WHERE agent_name_id IN 
 						( select agent_name_id FROM agent_name WHERE 
-						upper(agent_name) like '%#ucase(keyword)#%' ))
+						upper(agent_name) like '%#ucase(keyword)#%' )))
 			">
 		</cfif>
 		<cfif isdefined("author") AND len(#author#) gt 0>
