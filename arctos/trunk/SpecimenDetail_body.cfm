@@ -280,6 +280,7 @@
 		flags,
 		coll_object_remarks,
 		associated_species,
+		disposition_remarks,
 		habitat,
 		EnteredBy,
 		EditedBy,
@@ -291,7 +292,8 @@
 		max_depth,
 		depth_units,
 		collecting_method,
-		collecting_source
+		collecting_source,
+		disposition_remarks
 	from
 		detail
 	group by
@@ -340,6 +342,7 @@
 		last_edit_date,
 		flags,
 		coll_object_remarks,
+		disposition_remarks,
 		associated_species,
 		habitat,
 		EnteredBy,
@@ -352,7 +355,8 @@
 		max_depth,
 		depth_units,
 		collecting_method,
-		collecting_source
+		collecting_source,
+		disposition_remarks
 </cfquery>
 <cfquery name="colls"  dbtype="query">
 	SELECT 
@@ -1211,6 +1215,10 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 							<span class="detailData">
 								<span class="innerDetailLabel">Disposition:</span>
 								#one.coll_obj_disposition#
+							</span>
+							<span class="detailCellSmall">
+								&nbsp;&nbsp;<span class="innerDetailLabel">Remark:</span>
+								#disposition_remarks#
 							</span>
 						</div>
 						<div class="detailBlock">
