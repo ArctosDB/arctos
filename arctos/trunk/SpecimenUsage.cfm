@@ -158,8 +158,9 @@
 <cfoutput>
 	<cfset title = "Usage Search Results">
 	<cfset i=1>
-	<table border>
+	<table border width="90%">
 		<tr>
+			<td width="50%">
 	<cfif not isdefined("srchType") or srchType is not "publication">
 		<cfset sel = "
 				SELECT 
@@ -240,7 +241,6 @@
 			ORDER BY
 				project_name
 		</cfquery>
-		<td>
 		<cfif projNames.recordcount is 0>
 			<i><font color="##FF0000">&nbsp;&nbsp;&nbsp;No projects matched your criteria.</font></i>
 		</cfif>
@@ -295,8 +295,10 @@
 			</div>
 			<cfset i=#i#+1>
 		</cfloop>
-		</td>
+
 	</cfif>
+			</td>
+			<td width="50%">
 <cfif not isdefined("srchType") or srchType is not "project">
 <!--- publications --->
 <cfset basSQL = "SELECT DISTINCT 
@@ -381,7 +383,6 @@
 	</cfcatch>
 </cftry>
 
-<td>
 	<h2>
 	Publications
 	</h2>
@@ -457,8 +458,9 @@
 		</div>
 	<cfset i=#i#+1>
 	</cfloop>
-	</td>
+
 	</cfif>
+		</td>
 	</tr>
 	</table>
 
