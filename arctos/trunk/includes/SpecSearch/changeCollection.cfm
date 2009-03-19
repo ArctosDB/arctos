@@ -20,7 +20,7 @@ function success_changeexclusive_collection_id (result) {
 </script>
 <cfoutput>
 <cfquery name="yourcollid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select cf_collection_id,collection from cf_collection
+	select cf_collection_id,collection from collection
 	order by collection
 </cfquery>
 <cfquery name="collid" datasource="uam_god">
