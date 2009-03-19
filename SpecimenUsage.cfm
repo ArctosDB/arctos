@@ -125,10 +125,10 @@
 		<cfset sel = "
 				SELECT 
 					project.project_id,
-					project_name,
-					start_date,
-					end_date,
-					agent_name,
+					project.project_name,
+					project.start_date,
+					project.end_date,
+					agent_name.agent_name,
 					project_agent_role,
 					agent_position,
 					ACKNOWLEDGEMENT,
