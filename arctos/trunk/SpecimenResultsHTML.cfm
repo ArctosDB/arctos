@@ -1930,4 +1930,4 @@ document.getElementById('saveme').submit();
 		<cfinclude template="/includes/activityLog.cfm">
 	</cfif>
 	
-<cfinclude template="/includes_footer.cfm">
+<cfinclude template="/includes/_footer.cfm">
