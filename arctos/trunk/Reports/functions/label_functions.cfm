@@ -672,7 +672,7 @@
 		<!--- Collectors (collector_id_num) [, second collector (second collector number)] --->
 		<cfset firstIdPos = find ("collector number=", other_ids)>
 		<cfset secondIdPos = find ("second collector number=", other_ids)>
-		<cfset colonPos = find (";", other_ids)>
+		<cfset colonPos = find (';', other_ids)>
 		
 		<cfif colonPos gt 0>
 			<cfif firstIdPos gt colonPos>
