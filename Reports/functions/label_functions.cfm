@@ -670,7 +670,47 @@
 	<cfloop query="q">
 		
 		<!--- Collectors (collector_id_num) [, second collector (second collector number)] --->
-		<cfset ids = "#other_ids#">
+		<cfset firstIdPos = find ("collector number=", other_ids))>
+		<cfset secondIdPos = find ("second collector number=", other_ids)>
+		<cfset colonPos = find (";", others_ids)>
+		
+		<cfif colonPos gt 0>
+			<cfif firstIdPos gt colonPos>
+				<cfset colId = right(other_ids, len(other_ids)-colonPos)>
+			<cfelse>
+				<cfset colId = left(other_ids, colonPos-1)>
+			</cfif>
+		</cfif>
+			
+		<cfset commaPos = find (",", colId)>
+		<cfif commaPos gt 0>
+			<cfset firstId = left(colId, commaPos-1)>
+			<cfset secondId = right(colId, len(colId)-commaPos)>
+						
+			<cfset firstIdPos = find("collector number=", firstId)>
+			<cfif firstIdPos gt 0>
+				<cfset firstId = "">
+				<cfset secondId = "">
+			<cfelse>
+				<cfset firstId = right(firstId, len(firstId)-firstIdPos>
+			</cfif>
+			
+			<cfset secondIdPos = find("second collector number=", secondId)>
+			<cfif secondIdPos gt 0>
+				<cfset secondId = "">
+			<cfelse>
+				<cfset secondId = right(secondId, len(secondId)-secondIdPos>
+			</cfif>
+		<cfelse>
+			<cfset firstIdPos = find("collector number=", firstId)>
+			<cfif firstIdPos gt 0>
+				<cfset firstId = "">
+				<cfset secondId = "">
+			<cfelse>
+				<cfset firstId = right(firstId, len(firstId)-firstIdPos>
+			</cfif>
+		</cfif>
+	<!-- 	<cfset ids = "#other_ids#">
 		<cfset firstId = "">
 		<cfset secondId = "">		
 		<cfset idCommaPos = find (",", ids)>
@@ -684,13 +724,17 @@
 			<cfset secondId = right (secondId, len(secondId)-colonPos)>
 		<cfelse>
 			<cfset colonPos = find ("=", "#ids#")>
+			
+			<cfloop condition="#left("#ids#", colonPos-1)# is 'collector number'">
+				
+			</cfloop>
 			<cfif colonPos gt 0>				
 				<cfset firstId = right(ids, len(ids)-colonPos)>
 			<cfelse>
 				<cfset firstId = "">
 			</cfif>
 			<cfset secondId = "">
-		</cfif>
+		</cfif> -->
 		
 		<cfset format_collectors = "">
 		
@@ -760,13 +804,13 @@
 			</cfif>
 			<cfset highergeog = "#highergeog##state_prov#">
 		</cfif>
-          	<cfif len(#county#) gt 0>
+        <cfif len(#county#) gt 0>
 				<cfif len(highergeog) gt 0>
 					<cfset highergeog = "#highergeog#; ">
 				</cfif>
               	<cfset highergeog = "#highergeog##county#">
 		</cfif>
-          	<cfif len(#island#) gt 0>
+        <cfif len(#island#) gt 0>
 			<cfif len(highergeog) gt 0>
 				<cfset highergeog = "#highergeog#; ">
 			</cfif>
