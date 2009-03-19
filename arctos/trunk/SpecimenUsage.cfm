@@ -149,16 +149,16 @@
 					
 					
 		<cfif isdefined("p_title") AND len(#p_title#) gt 0>
-			<cfset whr = "#sql# AND upper(project.project_name) like '%#ucase(escapeQuotes(p_title))#%'">
+			<cfset whr = "#whr# AND upper(project.project_name) like '%#ucase(escapeQuotes(p_title))#%'">
 		</cfif>
 		<cfif isdefined("keyword") AND len(#keyword#) gt 0>
-			<cfset whr = "#sql# AND 
+			<cfset whr = "#whr# AND 
 				(upper(project_name) like '%#ucase(keyword)#%' 
 				OR upper(project_description) like '%#ucase(keyword)#%'
 				OR upper(project_remarks) like '%#ucase(keyword)#%') ">
 		</cfif>
 		<cfif isdefined("author") AND len(#author#) gt 0>
-			<cfset whr = "#sql# AND project.project_id IN 
+			<cfset whr = "#whr# AND project.project_id IN 
 				( select project_id FROM project_agent
 					WHERE agent_name_id IN 
 						( select agent_name_id FROM agent_name WHERE 
@@ -166,7 +166,7 @@
 				
 		</cfif>
 		<cfif isdefined("year") AND isnumeric(#year#)>
-			<cfset whr = "#sql# AND (
+			<cfset whr = "#whr# AND (
 				#year# between to_number(to_char(start_date,'YYYY')) AND to_number(to_char(end_date,'YYYY'))
 				)">
 		</cfif>
