@@ -16,6 +16,7 @@
 				if (result[0]) {	
 					var scientific_name=result[0].SCIENTIFIC_NAME;
 					var collection_object_id=result[0].COLLECTION_OBJECT_ID;
+					var cat_num=result[0].CAT_NUM;
 					if (collection_object_id < 0) {
 						alert('error: ' + scientific_name);
 					} else {
@@ -30,6 +31,7 @@
 						}
 						co.value=collection_object_id;
 						sn.value=scientific_name;
+						cn.value=cat_num;
 						//c.style.background-color='green';
 						//cn.style.background-color='green';
 					}
