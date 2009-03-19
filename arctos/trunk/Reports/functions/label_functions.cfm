@@ -704,12 +704,12 @@
 				<cfset secondId = right(secondId, len(secondId)-secondIdPos)>
 			</cfif>
 		<cfelse>
-			<cfset firstIdPos = find("collector number=", firstId)>
-			<cfif firstIdPos gt 0>
-				<cfset firstId = "">
-				<cfset secondId = "">
+			<cfset firstIdPos = find("collector number=", colId)>
+			<cfif firstIdPos lt 0>
+				<cfset firstId = right(colId, len(colId)-firstIdPos)>
 			<cfelse>
-				<cfset firstId = right(firstId, len(firstId)-firstIdPos)>
+				<cfset firstId = "">
+				<cfset secondId = "">				
 			</cfif>
 		</cfif>
 	<!-- 	<cfset ids = "#other_ids#">
