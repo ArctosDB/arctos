@@ -786,8 +786,9 @@
 			<cfset locality = "#locality# #orig_elev_units#">
 		</cfif>
 		
-		<cfset locAr[i] = "#locality#">
+		<cfset locAr[i] = "#locality#; #coordinates#">
 		
+		<!--- Collection Code: Should display MVZ {Mammal, Bird, Herp...} ... --->
 		<cfset cde = "#collection_cde#">
 		<cfif cde is "Mamm">
 			<cfset cde = "Mammal">
@@ -812,11 +813,12 @@
 	<cfset geogAr = ArrayNew(1)>
 	<cfset collAr = ArrayNew(1)>
 	<cfset colIdAr = ArrayNew(1)>
+	<cfset pAr = ArrayNew(1)>
 	
 	<!--- Data Manipulation --->
 	<cfset i = 1>
 	<cfloop query="q">
-		<!-- Geography = Spec_Locality + State + county + country + other geography attributes-->
+		<!--- Geography = Spec_Locality + State + county + country + other geography attributes--->
 		<cfset geog = "#spec_locality#">
 		<cfif #country# is "United States">
 			<cfif len(#county#) gt 0>
@@ -836,6 +838,7 @@
 		<cfset geog=replace(geog,": , ",": ","all")>
 		<cfset geogAr[i] = "#geog#">
 		
+		<!--- If there is a 'label' type agent_name, use that; else, use collector's preferred name'--->
 		<cfif isdefined('labels_agent_name') and len(labels_agent_name) gt 0>
 			<cfset thisColl = labels_agent_name>
 		<cfelse>
@@ -849,6 +852,7 @@
 		</cfif>
 		<cfset collAr[i] = "#thisColl#">
 		
+		<!--- Orig#collector id#--->
 		<cfset colIdLabel = "">
 		<cfset pos = find("=", "#other_ids#")>
 		<cfset id = "">
@@ -858,11 +862,33 @@
 		<cfset colIdLabel = "Orig#id#">
 		<cfset colIdAr[i] = "#colIdLabel#">
 		
+		<!--- Parts Formatting --->
+		<cfset formatted_parts = "">
+		<!-- Mammals -->
+		<cfif collection_cde is "Mamm">
+			<cfif parts is not "tissues">
+				<cfset formatted_parts = "#parts#">
+			</cfif>
+		<!-- Bird -->
+		<cfelseif collection_cde is "Bird">
+			<cfif parts is not "tissues">
+				<cfset formatted_parts = "#parts#">
+			</cfif>		
+		<!-- Herp -->
+		<cfelseif collection_cde is "Herp">
+			<cfif parts is not "tissues">
+				<cfset formatted_parts = "#parts#">
+			</cfif>
+		</cfif>
+		
+		<cfset pAr[i] = "#parts#">
+		
 		<cfset i = i+1>
 	</cfloop>
 	
 	<cfset temp = queryAddColumn(q, "geography", "VarChar", geogAr)>
 	<cfset temp = queryAddColumn(q, "agent", "VarChar", collAr)>
 	<cfset temp = queryAddColumn(q, "agent_id", "VarChar", colIdAr)>
+	<cfset temp = queryAddColumn(q, "formatted_parts", "VarChar", pAr)>
 	<cfreturn q>
 </cffunction>
