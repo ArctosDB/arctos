@@ -664,6 +664,7 @@
 	<cfset coorAr = ArrayNew(1)>
 	<cfset hAr = ArrayNew(1)>
 	<cfset locAr = ArrayNew(1)>
+	<cfset cdeAr = ArrayNew(1)>
 	<!--- Data Manipulation --->
 	<cfset i = 1>
 	<cfloop query="q">
@@ -778,13 +779,20 @@
 		</cfif>
 		
 		<cfset locAr[i] = "#locality#">
+		
+		<cfset cde = "#collection_cde#">
+		<cfif cde is "Mamm">
+			<cfset cde = "Mammal">
+		</cfif>
+		<cfset cdeAr[i] = "#cde#">
 		<cfset i = i +1>
 	</cfloop>
 	
 	<cfset temp=queryAddColumn(q, "coordinates", "VarChar", coorAr)>
 	<cfset temp=queryAddColumn(q, "format_collectors", "VarChar", colAr)>
 	<cfset temp=queryAddColumn(q, "highergeog", "VarChar", hAr)>
-	<cfset temp=queryAddcolumn(q, "locality", "VarChar", locAr)>
+	<cfset temp=queryAddColumn(q, "locality", "VarChar", locAr)>
+	<cfset temp=queryAddColumn(q, "cde", "VarChar", cdeAr))>
 	
 	<cfreturn q>
 </cffunction>
