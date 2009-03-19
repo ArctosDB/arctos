@@ -116,6 +116,7 @@
 <cfif #action# is "search">
 <cfoutput>
 	<cfset title = "Usage Search Results">
+	<cfset i=1>
 	<cfif not isdefined("srchType") or srchType is not "publication">
 		<cfset sql = "SELECT 
 					project.project_id,
@@ -186,7 +187,6 @@
 			<tr>
 				<td colspan="2"><h2>Projects</h2></td>
 			</tr>
-			<cfset i=1>
 			<cfif projNames.recordcount is 0>
 				<td colspan="2">
 					<i><font color="##FF0000">&nbsp;&nbsp;&nbsp;No projects matched your criteria.</font></i>
@@ -376,7 +376,13 @@
 
 	<cf_getSearchTerms>
 	<cfset log.query_string=returnURL>
-	<cfset log.reported_count = #pubs.RecordCount# + #projNames.RecordCount#>
+	<cfset log.reported_count=0>
+	<cfif isdefined(pubs.RecordCount)>
+		<cfset log.reported_count=log.reported_count+pubs.RecordCount>
+	</cfif>
+	<cfif isdefined(projNames.RecordCount)>
+		<cfset log.reported_count=log.reported_count+projNames.RecordCount>
+	</cfif>
 	<cfinclude template="/includes/activityLog.cfm">
 </cfoutput>
 </cfif>
