@@ -1,4 +1,12 @@
 <cfinclude template = "includes/_header.cfm">
+<style>
+	.even{
+		background-color:#E5E5E5;
+	}
+	.odd{
+		background-color:#F5F5F5;
+	}
+</style>
 <cfif #action# is "nothing">
 	<cfset title = "Search for Results">
 	<span class="infoLink pageHelp" onclick="pageHelp('resultsearch');">Page Help</span>
@@ -82,10 +90,6 @@
     <td align="right">Project Sponsor:</td>
     <td><input name="sponsor" id="sponsor" type="text"></td>
   </tr>
-  <tr>
-    <td align="right">Anything:</td>
-    <td><input name="keyword" type="text"></td>
-  </tr>
  <tr>
     <td align="right">Search for:</td>
     <td>
@@ -151,23 +155,6 @@
 					
 		<cfif isdefined("p_title") AND len(#p_title#) gt 0>
 			<cfset whr = "#whr# AND upper(project.project_name) like '%#ucase(escapeQuotes(p_title))#%'">
-		</cfif>
-		<cfif isdefined("keyword") AND len(#keyword#) gt 0>
-			<cfset whr = "#whr# AND 
-				(upper(project_name) like '%#ucase(keyword)#%' 
-				OR upper(project_description) like '%#ucase(keyword)#%'
-				OR upper(project_remarks) like '%#ucase(keyword)#%') OR
-				(project.project_id IN 
-				( select project_id FROM project_agent
-					WHERE agent_name_id IN 
-						( select agent_name_id FROM agent_name WHERE 
-						upper(agent_name) like '%#ucase(keyword)#%' ))) OR
-				(project.project_id IN 
-				( select project_id FROM project_sponsor
-					WHERE agent_name_id IN 
-						( select agent_name_id FROM agent_name WHERE 
-						upper(agent_name) like '%#ucase(keyword)#%' )))
-			">
 		</cfif>
 		<cfif isdefined("author") AND len(#author#) gt 0>
 			<cfset whr = "#whr# AND project.project_id IN 
@@ -251,7 +238,7 @@
 				ORDER BY 
 					sponsor_name
 			</cfquery>
-			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+			<div #iif(i MOD 2,DE("class='even'"),DE("class='odd'"))#>
 				<a href="/ProjectDetail.cfm?project_id=#project_id#">
 					<div style="text-indent:-2em;padding-left:2em; ">
 						<b>
@@ -303,11 +290,7 @@
 	<cfif isdefined("p_title") AND len(#p_title#) gt 0>
 		<cfset basWhere = "#basWhere# AND UPPER(publication_title) LIKE '%#ucase(escapeQuotes(p_title))#%'">
 	</cfif>
-	<cfif isdefined("keyword") AND len(#keyword#) gt 0>
-		<cfset basWhere = "#basWhere# AND 
-			(upper(publication_title) like '%#ucase(keyword)#%' 
-			OR upper(publication_remarks) like '%#ucase(keyword)#%') ">
-	</cfif>
+
 	<cfif isdefined("author") AND len(#author#) gt 0>
 		<cfset author = #replace(author,"'","''","all")#>
 		<cfset basWhere = "#basWhere# AND UPPER(searchAuth.agent_name) LIKE '%#ucase(author)#%'">
@@ -416,10 +399,10 @@
 	<cf_getSearchTerms>
 	<cfset log.query_string=returnURL>
 	<cfset log.reported_count=0>
-	<cfif isdefined(pubs.RecordCount)>
+	<cfif isdefined("pubs.RecordCount")>
 		<cfset log.reported_count=log.reported_count+pubs.RecordCount>
 	</cfif>
-	<cfif isdefined(projNames.RecordCount)>
+	<cfif isdefined("projNames.RecordCount")>
 		<cfset log.reported_count=log.reported_count+projNames.RecordCount>
 	</cfif>
 	<cfinclude template="/includes/activityLog.cfm">
