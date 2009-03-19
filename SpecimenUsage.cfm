@@ -224,7 +224,8 @@
 				FROM 
 					projects 
 				WHERE 
-					project_id = #project_id# 
+					project_id = #project_id# and
+					sponsor_name is not null
 				GROUP BY 
 					ACKNOWLEDGEMENT,
 					sponsor_name
