@@ -203,11 +203,13 @@
 					project_agent.agent_name_id = agent_name.agent_name_id (+)">
 					
 					
-					
+		<cfset go="no">		
 		<cfif isdefined("p_title") AND len(#p_title#) gt 0>
+			<cfset go="yes">
 			<cfset whr = "#whr# AND upper(project.project_name) like '%#ucase(escapeQuotes(p_title))#%'">
 		</cfif>
 		<cfif isdefined("author") AND len(#author#) gt 0>
+			<cfset go="yes">
 			<cfset whr = "#whr# AND project.project_id IN 
 				( select project_id FROM project_agent
 					WHERE agent_name_id IN 
@@ -216,6 +218,7 @@
 				
 		</cfif>
 		<cfif isdefined("sponsor") AND len(#sponsor#) gt 0>
+			<cfset go="yes">
 			<cfset whr = "#whr# AND project.project_id IN 
 				( select project_id FROM project_sponsor
 					WHERE agent_name_id IN 
@@ -224,9 +227,14 @@
 				
 		</cfif>
 		<cfif isdefined("year") AND isnumeric(#year#)>
+			<cfset go="yes">
 			<cfset whr = "#whr# AND (
 				#year# between to_number(to_char(start_date,'YYYY')) AND to_number(to_char(end_date,'YYYY'))
 				)">
+		</cfif>
+		
+		<cfif go is "no">
+			<cfset whr = "#whr# and 1=2">
 		</cfif>
 		<cfset sql = "#sel# #frm# #whr# ORDER BY project_name">
 		<cftry>
@@ -316,6 +324,7 @@
 			<td width="50%" valign="top">
 
 <!--- publications --->
+<cfset go="no">
 <cfset basSQL = "SELECT DISTINCT 
 			publication.publication_id,
 			publication.publication_type,
@@ -343,8 +352,10 @@
 		
 	<cfif isdefined("p_title") AND len(#p_title#) gt 0>
 		<cfset basWhere = "#basWhere# AND UPPER(publication_title) LIKE '%#ucase(escapeQuotes(p_title))#%'">
+		<cfset go="yes">
 	</cfif>
 	<cfif isdefined("collection_id") AND len(#collection_id#) gt 0>
+		<cfset go="yes">
 		<cfset basFrom = "#basFrom#,cataloged_item">
 		<cfif #basFrom# does not contain "citation">
 			<cfset basFrom = "#basFrom#,citation">
@@ -354,19 +365,23 @@
 			cataloged_item.collection_id = #collection_id#">
 	</cfif>
 	<cfif isdefined("author") AND len(#author#) gt 0>
+		<cfset go="yes">
 		<cfset author = #replace(author,"'","''","all")#>
 		<cfset basWhere = "#basWhere# AND UPPER(searchAuth.agent_name) LIKE '%#ucase(author)#%'">
 	</cfif>
 	<cfif isdefined("year") AND isnumeric(#year#)>
+		<cfset go="yes">
 		<cfset basWhere = "#basWhere# AND PUBLISHED_YEAR = #year#">
 	</cfif>
 	<cfif isdefined("journal") AND len(journal) gt 0>
+		<cfset go="yes">
 		<cfset basFrom = "#basFrom# ,journal,journal_article">
 		<cfset basWhere = "#basWhere# AND publication.publication_id=journal_article.publication_id and
 			journal_article.journal_id=journal.journal_id and
 			upper(journal_name) like '%#ucase(journal)#%'">
 	</cfif>
 	<cfif isdefined("onlyCitePubs") AND #onlyCitePubs# gt 0>
+		<cfset go="yes">
 		<cfif #basFrom# does not contain "citation">
 			<cfset basFrom = "#basFrom#,citation">
 		</cfif>
@@ -374,6 +389,7 @@
 	</cfif>
 	
 	<cfif isdefined("current_Sci_Name") AND len(#current_Sci_Name#) gt 0>
+		<cfset go="yes">
 		<cfset basFrom = "#basFrom# ,
 			citation CURRENT_NAME_CITATION, 
 			cataloged_item,
@@ -385,6 +401,7 @@
 		AND upper(catItemTaxa.scientific_name) LIKE '%#ucase(current_Sci_Name)#%'">
 	</cfif>
 	<cfif isdefined("cited_Sci_Name") AND len(#cited_Sci_Name#) gt 0>
+		<cfset go="yes">
 		<cfset basFrom = "#basFrom# ,
 			citation CITED_NAME_CITATION, taxonomy CitTaxa">
 			<cfset basWhere = "#basWhere# AND publication.publication_id = CITED_NAME_CITATION.publication_id (+)
@@ -392,7 +409,9 @@
 				AND upper(CitTaxa.scientific_name) LIKE '%#ucase(cited_Sci_Name)#%'">
 	</cfif>
 	
-	
+	<cfif go is "no">
+		<cfset basWhere = "#basWhere# AND 1=2">
+	</cfif>
 	<cfset basSql = "#basSQL# #basFrom# #basWhere# ORDER BY formatted_publication,publication_id">
 <cftry>
 	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
