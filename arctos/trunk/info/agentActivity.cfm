@@ -3,7 +3,7 @@
 </div>
 <cfset title = "Agent Activity">
 <cfoutput>
-Back to <a href="/editAllAgent.cfm?agent_id=#agent_id#">Agent Details</a>
+<a href="/agents.cfm?agent_id=#agent_id#" target="_top">Edit Agent</a>
 
 <div class="red">Please note: your login may prevent you from seeing some data</div>
 <cfquery name="agent" datasource="uam_god">
