@@ -1,11 +1,10 @@
 <cfinclude template="includes/_header.cfm">
-
 <cfquery name="ctProjAgRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select project_agent_role from ctproject_agent_role
 </cfquery>
 
 <cfif #Action# is "nothing">
-	<cfset title = "Search for Projects">
+<cfset title = "Search for Projects">
 <table width="75%"><tr valign="top"><td>
 <h2>Project Search</h2>
 <table width="90%" border><tr><td>
