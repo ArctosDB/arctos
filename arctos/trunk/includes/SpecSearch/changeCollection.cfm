@@ -27,7 +27,6 @@ function success_changeexclusive_collection_id (result) {
 	select cf_collection_id,collection from cf_collection
 	order by collection
 </cfquery>
-You currently have access to collection(s): #valuelist(yourcollid.collection," ,")#
 <table class="ssrch">
 	<tr>
 		<td colspan="2" class="secHead">
@@ -38,9 +37,15 @@ You currently have access to collection(s): #valuelist(yourcollid.collection," ,
 	</tr>
 	<tr>
 		<td class="lbl">
-			Filter By Collection
+			<label for="yourColl">Your current collections</label>
+			<select name="currColl" id="yourColl" size="6">
+				<cfloop query="yourcollid">
+					<option>#collection#</option>
+				</cfloop>
+			</select>
 		</td>
 		<td class="srch">
+			<label for="exclusive_collection_id">Select Your Collection</label>
 			<select name="exclusive_collection_id" id="exclusive_collection_id"
 				onchange="this.className='red';changeexclusive_collection_id(this.value);" size="1">
 			 	<option value="">All</option>
