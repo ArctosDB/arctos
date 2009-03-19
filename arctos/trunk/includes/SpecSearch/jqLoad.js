@@ -15,7 +15,7 @@ jQuery( function($) {
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
-		bgDiv.setAttribute('onclick','saveComplete');
+		bgDiv.setAttribute('onclick','console.log("bgdiv clicked")');
 		document.body.appendChild(bgDiv);
 		
 		var cDiv = document.createElement('div');
