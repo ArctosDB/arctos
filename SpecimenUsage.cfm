@@ -78,6 +78,10 @@
     <td align="right">Year:</td>
     <td><input name="year" type="text"></td>
   </tr>
+ <tr>
+    <td align="right">Project Sponsor:</td>
+    <td><input name="sponsor" id="sponsor" type="text"></td>
+  </tr>
   <tr>
     <td align="right">Anything:</td>
     <td><input name="keyword" type="text"></td>
@@ -118,32 +122,43 @@
 	<cfset title = "Usage Search Results">
 	<cfset i=1>
 	<cfif not isdefined("srchType") or srchType is not "publication">
-		<cfset sql = "SELECT 
+		<cfset sel = "
+				SELECT 
 					project.project_id,
 					project_name,
 					start_date,
 					end_date,
 					agent_name,
 					project_agent_role,
-					agent_position
+					agent_position,
+					ACKNOWLEDGEMENT,
+					s_name.agent_name sponsor_name">
+		<cfset frm="
 				FROM 
 					project,
 					project_agent,
-					agent_name
+					agent_name,
+					agent_name s_name">
+		<cfset whr="
 				WHERE 
-					project.project_id = project_agent.project_id (+) AND 
+					project.project_id = project_agent.project_id (+) AND
+					project.project_id = project_sponsor.project_id (+) AND
+					project_sponsor.agent_name_id = s_name.agent_name_id (+) AND	
 					project_agent.agent_name_id = agent_name.agent_name_id (+)">
+					
+					
+					
 		<cfif isdefined("p_title") AND len(#p_title#) gt 0>
-			<cfset sql = "#sql# AND upper(project_name) like '%#ucase(escapeQuotes(p_title))#%'">
+			<cfset whr = "#sql# AND upper(project.project_name) like '%#ucase(escapeQuotes(p_title))#%'">
 		</cfif>
 		<cfif isdefined("keyword") AND len(#keyword#) gt 0>
-			<cfset sql = "#sql# AND 
+			<cfset whr = "#sql# AND 
 				(upper(project_name) like '%#ucase(keyword)#%' 
 				OR upper(project_description) like '%#ucase(keyword)#%'
 				OR upper(project_remarks) like '%#ucase(keyword)#%') ">
 		</cfif>
 		<cfif isdefined("author") AND len(#author#) gt 0>
-			<cfset sql = "#sql# AND project.project_id IN 
+			<cfset whr = "#sql# AND project.project_id IN 
 				( select project_id FROM project_agent
 					WHERE agent_name_id IN 
 						( select agent_name_id FROM agent_name WHERE 
@@ -151,7 +166,7 @@
 				
 		</cfif>
 		<cfif isdefined("year") AND isnumeric(#year#)>
-			<cfset sql = "#sql# AND (
+			<cfset whr = "#sql# AND (
 				#year# between to_number(to_char(start_date,'YYYY')) AND to_number(to_char(end_date,'YYYY'))
 				)">
 		</cfif>
