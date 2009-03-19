@@ -170,7 +170,7 @@
 				#year# between to_number(to_char(start_date,'YYYY')) AND to_number(to_char(end_date,'YYYY'))
 				)">
 		</cfif>
-		<cfset sql = "#sql# ORDER BY project_name">
+		<cfset sql = "#sel# #frm# #whr# ORDER BY project_name">
 		<cftry>
 			<cfquery name="projects" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				#preservesinglequotes(sql)#
