@@ -735,7 +735,7 @@
 		<!-- Setting datum -->
 		<cfif len(datum) gt 0>
 			<cfset datum = #datum#>
-			<cfif datum is "World Geodetic System 1984">
+			<cfif datum is 'World Geodetic System 1984'>
 				<cfset datum = "WGS84">
 			<cfelseif datum is "North American Datum 1927">
 				<cfset datum = "NAD27">
