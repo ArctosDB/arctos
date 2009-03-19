@@ -17,7 +17,8 @@
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
-			Access to #getCount.cnt# records.
+			Access to -------
+			<span class="likeLink" id="c_collection_cust">#getCount.cnt# records</span>
 		</td>
 		<td style="padding-left:2em;padding-right:2em;">
 			<span class="infoLink" onClick="getHelp('CollStats');">
