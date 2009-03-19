@@ -27,6 +27,7 @@ function success_changeexclusive_collection_id (result) {
 	select cf_collection_id,collection from cf_collection
 	order by collection
 </cfquery>
+You currently have access to collection(s): #valuelist(yourcollid.collection," ,")#
 <table class="ssrch">
 	<tr>
 		<td colspan="2" class="secHead">
