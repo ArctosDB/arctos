@@ -691,7 +691,7 @@
 						
 			<cfset firstIdPos = find("collector number=", firstId)>
 			<cfif firstIdPos gt 0>				
-				<cfset firstId = right(firstId, len(firstId)-firstIdPos)>
+				<cfset firstId = right(firstId, len(firstId)-firstIdPos+len("collector number"))>
 			<cfelse>
 				<cfset firstId = "">
 				<cfset secondId = "">
@@ -699,44 +699,19 @@
 			
 			<cfset secondIdPos = find("second collector number=", secondId)>
 			<cfif secondIdPos gt 0>
-				<cfset secondId = right(secondId, len(secondId)-secondIdPos)>
+				<cfset secondId = right(secondId, len(secondId)-secondIdPos+len("second collector number"))>
 			<cfelse>
 				<cfset secondId = "">
 			</cfif>
 		<cfelse>
 			<cfset firstIdPos = find("collector number=", colId)>
 			<cfif firstIdPos gt 0>
-				<cfset firstId = right(colId, len(colId)-firstIdPos)>
+				<cfset firstId = right(colId, len(colId)-firstIdPos+len("collector number"))>
 			<cfelse>
 				<cfset firstId = "">
 				<cfset secondId = "">				
 			</cfif>
 		</cfif>
-	<!-- 	<cfset ids = "#other_ids#">
-		<cfset firstId = "">
-		<cfset secondId = "">		
-		<cfset idCommaPos = find (",", ids)>
-		
-		<cfif idCommaPos gt 0>
-			<cfset firstId = left(ids, idCommaPos)>
-			<cfset colonPos = find ("=", firstId)>
-			<cfset firstId = right (firstId, len(firstId)-colonPos)>
-			<cfset secondId = right(ids, len(ids)-idCommaPos)>
-			<cfset colonPos = find ("=", secondId)>
-			<cfset secondId = right (secondId, len(secondId)-colonPos)>
-		<cfelse>
-			<cfset colonPos = find ("=", "#ids#")>
-			
-			<cfloop condition="#left("#ids#", colonPos-1)# is 'collector number'">
-				
-			</cfloop>
-			<cfif colonPos gt 0>				
-				<cfset firstId = right(ids, len(ids)-colonPos)>
-			<cfelse>
-				<cfset firstId = "">
-			</cfif>
-			<cfset secondId = "">
-		</cfif> -->
 		
 		<cfset format_collectors = "">
 		
@@ -769,6 +744,31 @@
 		
 		<cfset colAr[i] = "#format_collectors#">
 		
+	<!-- 	<cfset ids = "#other_ids#">
+		<cfset firstId = "">
+		<cfset secondId = "">		
+		<cfset idCommaPos = find (",", ids)>
+		
+		<cfif idCommaPos gt 0>
+			<cfset firstId = left(ids, idCommaPos)>
+			<cfset colonPos = find ("=", firstId)>
+			<cfset firstId = right (firstId, len(firstId)-colonPos)>
+			<cfset secondId = right(ids, len(ids)-idCommaPos)>
+			<cfset colonPos = find ("=", secondId)>
+			<cfset secondId = right (secondId, len(secondId)-colonPos)>
+		<cfelse>
+			<cfset colonPos = find ("=", "#ids#")>
+			
+			<cfloop condition="#left("#ids#", colonPos-1)# is 'collector number'">
+				
+			</cfloop>
+			<cfif colonPos gt 0>				
+				<cfset firstId = right(ids, len(ids)-colonPos)>
+			<cfelse>
+				<cfset firstId = "">
+			</cfif>
+			<cfset secondId = "">
+		</cfif> -->
 		<!--- Latitude/Longitude (datum) --->
 		<!-- Setting Latitude/Longitidue -->
         <cfset coordinates = "">
