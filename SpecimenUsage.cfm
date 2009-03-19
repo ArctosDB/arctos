@@ -138,7 +138,7 @@
 					project,
 					project_agent,
 					agent_name,
-						project_sponsor,
+					project_sponsor,
 					agent_name s_name">
 		<cfset whr="
 				WHERE 
@@ -156,7 +156,18 @@
 			<cfset whr = "#whr# AND 
 				(upper(project_name) like '%#ucase(keyword)#%' 
 				OR upper(project_description) like '%#ucase(keyword)#%'
-				OR upper(project_remarks) like '%#ucase(keyword)#%') ">
+				OR upper(project_remarks) like '%#ucase(keyword)#%') OR
+				project.project_id IN 
+				( select project_id FROM project_agent
+					WHERE agent_name_id IN 
+						( select agent_name_id FROM agent_name WHERE 
+						upper(agent_name) like '%#ucase(keyword)#%' )) OR
+				project.project_id IN 
+				( select project_id FROM project_sponsor
+					WHERE agent_name_id IN 
+						( select agent_name_id FROM agent_name WHERE 
+						upper(agent_name) like '%#ucase(keyword)#%' ))
+			">
 		</cfif>
 		<cfif isdefined("author") AND len(#author#) gt 0>
 			<cfset whr = "#whr# AND project.project_id IN 
@@ -164,6 +175,14 @@
 					WHERE agent_name_id IN 
 						( select agent_name_id FROM agent_name WHERE 
 						upper(agent_name) like '%#ucase(author)#%' ))">
+				
+		</cfif>
+		<cfif isdefined("sponsor") AND len(#sponsor#) gt 0>
+			<cfset whr = "#whr# AND project.project_id IN 
+				( select project_id FROM project_sponsor
+					WHERE agent_name_id IN 
+						( select agent_name_id FROM agent_name WHERE 
+						upper(agent_name) like '%#ucase(sponsor)#%' ))">
 				
 		</cfif>
 		<cfif isdefined("year") AND isnumeric(#year#)>
@@ -248,12 +267,7 @@
 				</cfloop>
 				&nbsp;&nbsp;&nbsp;#dateformat(start_date,"dd mmm yyyy")# - #dateformat(end_date,"dd mmm yyyy")#
 				<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
-					<br>&nbsp;&nbsp;&nbsp;<input type="button" 
-											value="Edit" 
-											class="lnkBtn"
-											onmouseover="this.className='lnkBtn btnhov'" 
-											onmouseout="this.className='lnkBtn'"
-											onclick="document.location='/Project.cfm?Action=editProject&project_id=#project_id#';">
+					<br>&nbsp;&nbsp;&nbsp;<a href="/Project.cfm?Action=editProject&project_id=#project_id#">Edit</a>
 				</cfif>
 			</div>
 			<cfset i=#i#+1>
