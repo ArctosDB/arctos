@@ -734,6 +734,14 @@
         </cfif>
 		<!-- Setting datum -->
 		<cfif len(datum) gt 0>
+			<cfset datum = #datum#>
+			<cfif datum is "World Geodetic System 1984">
+				<cfset datum = "WGS84">
+			<cfelseif datum is "North American Datum 1927">
+				<cfset datum = "NAD27">
+			<cfelseif datum is "North American Datum 1983">
+				<cfset datum = "NAD83">
+			</cfif>
 			<cfset coordinates = "#coordinates# (#datum#)">
 		</cfif>
 		<cfset coorAr[i] = "#coordinates#">
