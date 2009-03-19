@@ -833,6 +833,7 @@
 			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					cataloged_item.COLLECTION_OBJECT_ID,
+					cataloged_item.cat_num,
 					scientific_name
 				from
 					cataloged_item,
@@ -847,6 +848,7 @@
 			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					cataloged_item.COLLECTION_OBJECT_ID,
+					cataloged_item.cat_num,
 					scientific_name
 				from
 					cataloged_item,
