@@ -15,7 +15,7 @@ jQuery( function($) {
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
-		bgDiv.setAttribute('onclick','console.log("bgdiv clicked")');
+		bgDiv.setAttribute('onclick','closeCustom()');
 		document.body.appendChild(bgDiv);
 		
 		var cDiv = document.createElement('div');
@@ -28,7 +28,11 @@ jQuery( function($) {
 		$(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
 	});
 });
-
+function closeCustom(){
+	document.location=location.href;
+	var theDiv = document.getElementById('customDiv');
+	document.body.removeChild(theDiv);
+}
 function setPrevSearch_result(schParam){
 	 	var sp='#session.schParam#';
 	 	var pAry=schParam.split("|");
