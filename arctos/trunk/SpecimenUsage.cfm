@@ -104,6 +104,24 @@
 	</td>
   </tr>
 <tr>
+	<td align="right">
+		Cites&nbsp;Collection:
+	</td>
+	<cfquery name="ctColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select collection,collection_id from collection order by collection_id
+	</cfquery>
+	<td>
+		<cfoutput>
+		<select name="collection_id" id="collection_id" size="1">
+			<option value="">All</option>
+			<cfloop query="ctColl">
+				<option value="#collection_id#">#collection#</option>
+			</cfloop>
+		</select>
+		</cfoutput>
+	</td>
+  </tr>
+<tr>
     <td align="right">
 		<a href="javascript:void(0);" 
 		onClick="getHelp('onlyCited'); return false;"
@@ -158,10 +176,7 @@
 <cfoutput>
 	<cfset title = "Usage Search Results">
 	<cfset i=1>
-	<table border width="90%">
-		<tr>
-			<td width="50%">
-	<cfif not isdefined("srchType") or srchType is not "publication">
+	<table border width="90%"><tr><td width="50%" valign="top">
 		<cfset sel = "
 				SELECT 
 					project.project_id,
@@ -296,10 +311,10 @@
 			<cfset i=#i#+1>
 		</cfloop>
 
-	</cfif>
+
 			</td>
-			<td width="50%">
-<cfif not isdefined("srchType") or srchType is not "project">
+			<td width="50%" valign="top">
+
 <!--- publications --->
 <cfset basSQL = "SELECT DISTINCT 
 			publication.publication_id,
@@ -329,7 +344,15 @@
 	<cfif isdefined("p_title") AND len(#p_title#) gt 0>
 		<cfset basWhere = "#basWhere# AND UPPER(publication_title) LIKE '%#ucase(escapeQuotes(p_title))#%'">
 	</cfif>
-
+	<cfif isdefined("collection_id") AND len(#collection_id#) gt 0>
+		<cfset basFrom = "#basFrom#,cataloged_item">
+		<cfif #basFrom# does not contain "citation">
+			<cfset basFrom = "#basFrom#,citation">
+		</cfif>
+		<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id 
+			AND citation.collection_object_id = cataloged_item.collection_object_id AND
+			cataloged_item.collection_id = #collection_id#">
+	</cfif>
 	<cfif isdefined("author") AND len(#author#) gt 0>
 		<cfset author = #replace(author,"'","''","all")#>
 		<cfset basWhere = "#basWhere# AND UPPER(searchAuth.agent_name) LIKE '%#ucase(author)#%'">
@@ -459,7 +482,6 @@
 	<cfset i=#i#+1>
 	</cfloop>
 
-	</cfif>
 		</td>
 	</tr>
 	</table>
