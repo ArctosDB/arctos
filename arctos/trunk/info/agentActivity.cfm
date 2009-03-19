@@ -1,13 +1,6 @@
 <div id="_header">
 <cfinclude template = "/includes/_header.cfm">
 </div>
-
-<script type="text/javascript" language="javascript">
-	if (top.location!=document.location) {
-    	document.getElementById('_header').style.display='none';
-		document.getElementById('_footer').style.display='none';
-	}
-</script>
 <cfset title = "Agent Activity">
 <cfoutput>
 Back to <a href="/editAllAgent.cfm?agent_id=#agent_id#">Agent Details</a>
@@ -471,3 +464,9 @@ Publications
 <div id="_footer">
 <cfinclude template = "/includes/_footer.cfm">
 </div>
+<script type="text/javascript" language="javascript">
+	if (top.location!=document.location) {
+    	document.getElementById('_header').style.display='none';
+		document.getElementById('_footer').style.display='none';
+	}
+</script>
