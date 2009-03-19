@@ -158,6 +158,8 @@
 <cfoutput>
 	<cfset title = "Usage Search Results">
 	<cfset i=1>
+	<table border>
+		<tr>
 	<cfif not isdefined("srchType") or srchType is not "publication">
 		<cfset sel = "
 				SELECT 
@@ -238,6 +240,7 @@
 			ORDER BY
 				project_name
 		</cfquery>
+		<td>
 		<cfif projNames.recordcount is 0>
 			<i><font color="##FF0000">&nbsp;&nbsp;&nbsp;No projects matched your criteria.</font></i>
 		</cfif>
@@ -292,6 +295,7 @@
 			</div>
 			<cfset i=#i#+1>
 		</cfloop>
+		</td>
 	</cfif>
 <cfif not isdefined("srchType") or srchType is not "project">
 <!--- publications --->
@@ -376,11 +380,13 @@
 		<cf_queryError>
 	</cfcatch>
 </cftry>
-	<tr>
-		<td colspan="2"><font size="+2"><b>Publications</b></font></td>
-	</tr>
+
+<td>
+	<h2>
+	Publications
+	</h2>
 	<cfif publication.recordcount is 0>
-		<td colspan="2"><i><font color="##FF0000">&nbsp;&nbsp;&nbsp;No publications matched your criteria.</font></i></td>
+		<i><font color="##FF0000">&nbsp;&nbsp;&nbsp;No publications matched your criteria.</font></i>
 	</cfif>
 	<cfquery name="pubs" dbtype="query">
 		SELECT
@@ -398,10 +404,8 @@
 	</cfquery>
 	<cfloop query="pubs">
 	<tr>
-		<td>
-				<img src="images/nada.gif" width="30">
-			</td>
-		<td #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+		
+		<div #iif(i MOD 2,DE("class='even'"),DE("class='odd'"))#>
 		<p style="text-indent:-2em;padding-left:2em; ">
 		#formatted_publication#
 		<br><input type="button" 
@@ -451,13 +455,12 @@
 			</ul>
 		</cfif>
 			
-		
-		
-		</td>
-	</tr>
+		</div>
 	<cfset i=#i#+1>
 	</cfloop>
+	</td>
 	</cfif>
+	</tr>
 	</table>
 
 
