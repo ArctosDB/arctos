@@ -850,7 +850,7 @@
 		<cfset collAr[i] = "#thisColl#">
 		
 		<cfset colIdLabel = "">
-		<cfset pos = find("=", "#thisColl#")>
+		<cfset pos = find("=", "#other_ids#")>
 		<cfset id = "">
 		<cfif pos gt 0>
 			<cfset id = right(other_ids, len(other_ids) - pos)>
