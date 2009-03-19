@@ -850,12 +850,12 @@
 		<cfset collAr[i] = "#thisColl#">
 		
 		<cfset colIdLabel = "">
-		<cfset commaPos = find(",", "#thisColl#")>
-<!--- 		<cfif commaPos gt 0>
- --->			<cfset colIdLabel = "Orig#other_ids#"><!--- 
-		<cfloop list="other_ids" delimiters="," index="id">
-			<cfset colIdLabel = "Orig#id#">
-		</cfloop> --->
+		<cfset pos = find("=", "#thisColl#")>
+		<cfset id = "">
+		<cfif pos gt 0>
+			<cfset id = right(other_ids, len(other_ids) - pos)>
+		</cfif>
+		<cfset colIdLabel = "Orig#id#">
 		<cfset colIdAr[i] = "#colIdLabel#">
 		
 		<cfset i = i+1>
