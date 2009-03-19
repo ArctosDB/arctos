@@ -243,7 +243,7 @@
 					&nbsp;&nbsp;&nbsp;#agent_name# (#project_agent_role#)<br>
 				</cfloop>
 				<cfloop query="thisSponsor">
-					&nbsp;&nbsp;&nbsp;#sponsor_name#: #ACKNOWLEDGEMENT#<br>
+					&nbsp;&nbsp;&nbsp;Sponsored by #sponsor_name#: #ACKNOWLEDGEMENT#<br>
 				</cfloop>
 				&nbsp;&nbsp;&nbsp;#dateformat(start_date,"dd mmm yyyy")# - #dateformat(end_date,"dd mmm yyyy")#
 				<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
