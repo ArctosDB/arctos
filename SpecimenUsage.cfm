@@ -151,7 +151,11 @@
 				#year# between to_number(to_char(start_date,'YYYY')) AND to_number(to_char(end_date,'YYYY'))
 				)">
 		</cfif>
-		
+		<cfif isdefined("publication_id") AND len(#publication_id#) gt 0>
+			<cfset basWhere = "#basWhere# AND project.project_id in
+				(select project_id from publication_project where publication_id=#publication_id#)">
+			<cfset go="yes">
+		</cfif>
 		<cfif go is "no">
 			<cfset whr = "#whr# and 1=2">
 		</cfif>
@@ -271,7 +275,7 @@
 		<cfset go="yes">
 	</cfif>
 	<cfif isdefined("publication_id") AND len(#publication_id#) gt 0>
-		<cfset basWhere = "#basWhere# AND publication.publication_id=#publication_id#'">
+		<cfset basWhere = "#basWhere# AND publication.publication_id=#publication_id#">
 		<cfset go="yes">
 	</cfif>
 	<cfif isdefined("collection_id") AND len(#collection_id#) gt 0>
