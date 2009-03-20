@@ -20,7 +20,7 @@
 			</cfquery>
 			it's parent
 			<cfdump var=#parent#>
-			now we're going to update the children to have a parent of our container's parent and delete our container
+			now we're going to update the children to have a parent of our container's parent
 			<cfloop query="children">
 				<br>---------------<br>
 				<cfif len(parent.container_id) gt 0>
@@ -42,6 +42,10 @@
 					</cfquery>
 				</Cfif>
 			</cfloop>
+			... and  delete our container
+			<cfquery name="kill" datasource="uam_god">
+				delete from container set where container_id=#data.container_id#
+			</cfquery>
 			<hr>
 		</cftransaction>
 	</cfloop>
