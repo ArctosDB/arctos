@@ -34,65 +34,37 @@
 				</cfif>
 				<td>
 					<h4>Projects and Publication</h4>
-					<label for="p_title" class="h">Title</label>
+					<label for="p_title">Title</label>
 					<input name="p_title" id="p_title" type="text">
-					<label for="author" class="h">Participant</label>
+					<label for="author">Participant</label>
 					<input name="author" id="author" type="text">
+					<label for="year">Year</label>
+					<input name="year" id="year" type="text">
+				</td>
+				<td>
+					<h4>Project</h4>
+					
+					<label for="sponsor">Project Sponsor</label>
+					<input name="sponsor" id="sponsor" type="text">
+				</td>
+				<td>
+					<h4>Publication</h4>
+					<label for="journal">Journal Name</label>
+					<input name="journal" id="journal" type="text">
+					<label for="collection_id">Cites Collection</label>
+					<cfoutput>
+						<select name="collection_id" id="collection_id" size="1">
+							<option value="">All</option>
+							<cfloop query="ctColl">
+								<option value="#collection_id#">#collection#</option>
+							</cfloop>
+						</select>
+					</cfoutput>					
+					<label for="onlyCitePubs"><span class="infoLink" onclick="getHelp('onlyCited');">Cite specimens only?</span></label>
+					<input type="checkbox" name="onlyCitePubs" id="onlyCitePubs" value="1">
 				</td>
 
-					
-
-  <table>
-  <tr>
-    <td align="right">Title:</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td align="right">:</td>
-    <td><input name="" type="text"></td>
-  </tr>
-  <tr>
-    <td align="right">Year:</td>
-    <td><input name="year" type="text"></td>
-  </tr>
- <tr>
-    <td align="right">Project Sponsor:</td>
-    <td><input name="sponsor" id="sponsor" type="text"></td>
-  </tr>
-<tr>
-    <td align="right">Journal:</td>
-    <td><input name="journal" id="journal" type="text"></td>
-  </tr>
-<tr>
-	<td align="right">
-		Cites&nbsp;Collection:
-	</td>
-	
-	<td>
-		<cfoutput>
-		<select name="collection_id" id="collection_id" size="1">
-			<option value="">All</option>
-			<cfloop query="ctColl">
-				<option value="#collection_id#">#collection#</option>
-			</cfloop>
-		</select>
-		</cfoutput>
-	</td>
-  </tr>
-<tr>
-    <td align="right">
-		<a href="javascript:void(0);" 
-		onClick="getHelp('onlyCited'); return false;"
-		onMouseOver="self.status='Click for Accepted Scientific Name help.';return true;" 
-		onmouseout="self.status='';return true;">Cite specimens only?</a>
-		
-	
-	</td>
-    <td>
-	<input type="checkbox" name="onlyCitePubs" value="1">
-	</td>
-</tr>
-
+			
  <tr>
     <td align="right" nowrap><a href="javascript:void(0);" 
 		onClick="getHelp('cited_sci_name'); return false;"
