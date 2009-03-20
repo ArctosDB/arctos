@@ -1275,6 +1275,33 @@
 	<cfset mapurl = "#mapurl#&loan_project_name=#loan_project_name#">
 </cfif>
 
+<cfif isdefined("loan_project_id") AND len(#loan_project_id#) gt 0>
+	<cfset mapurl = "#mapurl#&loan_project_id=#loan_project_id#">
+	<cfset basQual = " #basQual# AND cataloged_item.collection_object_id IN (
+		SELECT 
+			cataloged_item.collection_object_id
+		FROM 
+			cataloged_item,
+			specimen_part,
+			loan_item,
+			project_trans
+		WHERE
+			specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
+			specimen_part.collection_object_id = loan_item.collection_object_id AND
+			loan_item.transaction_id = project_trans.transaction_id AND
+			project_trans.project_id = #loan_project_id#
+		UNION
+		SELECT 
+			cataloged_item.collection_object_id
+		FROM 
+			cataloged_item,
+			loan_item,
+			project_trans
+		WHERE
+			cataloged_item.collection_object_id = loan_item.collection_object_id AND
+			loan_item.transaction_id = project_trans.transaction_id AND
+			project_trans.project_id = #loan_project_id#">
+</cfif>
 <cfif isdefined("project_name") AND len(#project_name#) gt 0>
 	<cfif #basJoin# does not contain " projAccn ">
 		<cfset basJoin = " #basJoin# INNER JOIN accn projAccn ON 
