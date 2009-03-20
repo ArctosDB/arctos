@@ -235,77 +235,144 @@
 				)
 			order by project_name
 	</cfquery>
-		<cfif getUsers.recordcount is 0>
-			<div class="notFound">
-				No projects have used specimens contributed by this project.
-			</div>
-		<cfelse>
-			<ul>
-			<cfloop query="getUsers">
+	<cfif getUsers.recordcount is 0>
+		<div class="notFound">
+			No projects have used specimens contributed by this project.
+		</div>
+	<cfelse>
+		<ul>
+		<cfloop query="getUsers">
+			<li><a href="ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
+		</cfloop>
+		</ul>
+	</cfif>
+	<h2>Specimens Used</h2>
+	<cfquery name="getUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		SELECT 
+			collection.collection,
+			collection.collection_id,
+			count(*) c
+		FROM 
+			cataloged_item,
+			collection,
+			specimen_part,
+			loan_item,
+			project_trans
+		WHERE
+			specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
+			cataloged_item.collection_id=collection.collection_id and
+			specimen_part.collection_object_id = loan_item.collection_object_id AND
+			loan_item.transaction_id = project_trans.transaction_id AND
+			project_trans.project_id = #project_id#
+		group by
+			collection.collection,
+			collection.collection_id
+		UNION
+		SELECT 
+			collection.collection,
+			collection.collection_id,
+			count(*) c
+		FROM 
+			cataloged_item,
+			collection,
+			loan_item,
+			project_trans
+		WHERE
+			cataloged_item.collection_object_id = loan_item.collection_object_id AND
+			cataloged_item.collection_id=collection.collection_id and
+			loan_item.transaction_id = project_trans.transaction_id AND
+			project_trans.project_id = #project_id#
+		group by
+			collection.collection,
+			collection.collection_id
+	</cfquery>
+	<cfquery name="ts" dbtype="query">
+		select sum(c) totspec from getUsed
+	</cfquery>
+	<cfif getUsed.recordcount is 0>
+		<div class="notFound">
+			This project used no specimens.
+		</div>
+	<cfelse>
+		This project used <a href="/SpecimenResults.cfm?loan_project_id=#project_id#">#ts.totspec# Specimens</a>
+		<ul>
+			<cfloop query="getUsed">
+				<li>
+					<a href="/SpecimenResults.cfm?loan_project_id=#project_id#&collection_id=#collection_id#">
+						#c# #collection# Specimens
+					</a>
+				</li>
+			</cfloop>
+		</ul>
+	</cfif>
+	<h2>Projects contributing specimens</h2>
+	<cfquery name="getContributors" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		SELECT 
+			project.project_id,
+			project_name
+		FROM 
+			project,
+			project_agent,
+			agent_name 
+		WHERE 
+			project.project_id = project_agent.project_id AND
+			project.project_id IN (
+				SELECT 
+					project_trans.project_id 
+				FROM 
+					project, 
+					project_trans, 
+					accn, 
+					cataloged_item 
+				where 
+					project_trans.transaction_id = accn.transaction_id AND 
+					accn.transaction_id = cataloged_item.accn_id AND 
+					project_trans.project_id = project.project_id AND 
+					cataloged_item.collection_object_id IN (
+						SELECT 
+							cataloged_item.collection_object_id 
+						FROM 
+							project,
+							project_trans,
+							loan_item,
+							cataloged_item 
+						WHERE 
+							loan_item.collection_object_id = cataloged_item.collection_object_id AND
+							project_trans.transaction_id = loan_item.transaction_id AND 
+							project_trans.project_id = project.project_id AND 
+							project.project_id = #project_id#
+						UNION
+						SELECT 
+							cataloged_item.collection_object_id 
+						FROM 
+							project,
+							project_trans,
+							loan_item,
+							specimen_part,
+							cataloged_item 
+						WHERE 
+							loan_item.collection_object_id = specimen_part.collection_object_id AND
+							specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
+							project_trans.transaction_id = loan_item.transaction_id AND 
+							project_trans.project_id = project.project_id AND 
+							project.project_id = #project_id#
+						)
+					)  
+			ORDER BY 
+				project_name
+	</cfquery>
+	<cfif getContributors.recordcount is 0>
+		<div class="notFound">
+			This project used no specimens contributed by other projects.
+		</div>
+	<cfelse>
+		#getContributors.recordcount# projects contributed specimens used by this project.
+		<ul>
+			<cfloop query="getContributors">
 				<li><a href="ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
 			</cfloop>
-			</ul>
-		</cfif>
-		<h2>Specimens Used</h2>
-		<cfquery name="getUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			SELECT 
-				collection.collection,
-				collection.collection_id,
-				count(*) c
-			FROM 
-				cataloged_item,
-				collection,
-				specimen_part,
-				loan_item,
-				project_trans
-			WHERE
-				specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
-				cataloged_item.collection_id=collection.collection_id and
-				specimen_part.collection_object_id = loan_item.collection_object_id AND
-				loan_item.transaction_id = project_trans.transaction_id AND
-				project_trans.project_id = #project_id#
-			group by
-				collection.collection,
-				collection.collection_id
-			UNION
-			SELECT 
-				collection.collection,
-				collection.collection_id,
-				count(*) c
-			FROM 
-				cataloged_item,
-				collection,
-				loan_item,
-				project_trans
-			WHERE
-				cataloged_item.collection_object_id = loan_item.collection_object_id AND
-				cataloged_item.collection_id=collection.collection_id and
-				loan_item.transaction_id = project_trans.transaction_id AND
-				project_trans.project_id = #project_id#
-			group by
-				collection.collection,
-				collection.collection_id
-		</cfquery>
-		<cfquery name="ts" dbtype="query">
-			select sum(c) totspec from getUsed
-		</cfquery>
-		<cfif getUsed.recordcount is 0>
-			<div class="notFound">
-				This project used no specimens.
-			</div>
-		<cfelse>
-			<ul>
-				<li><a href="/SpecimenResults.cfm?loan_project_id=#project_id#">All #ts.totspec# Specimens</a></li>
-				<cfloop query="getUsed">
-					<li>
-						<a href="/SpecimenResults.cfm?loan_project_id=#project_id#&collection_id=#collection_id#">
-							#c# #collection# Specimens
-						</a>
-					</li>
-				</cfloop>
-			</ul>
-		</cfif>
-		
+		</ul>
+	</cfif>	
 </cfoutput>
 
 
@@ -314,119 +381,6 @@
 
 		
 		
-	<cfif #Action# is "viewUsed"><!---Specimens Used--->
-		<!--- get specimen parts --->
-		
-		<!--- get specimen tissues --->
-		<!---
-		<cfquery name="getUsedTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			SELECT 
-				cat_num, cataloged_item.collection_object_id
-			FROM 
-				cataloged_item,
-				tissue_sample,
-				loan_item,
-				project_trans
-			WHERE
-				tissue_sample.derived_from_biol_indiv = cataloged_item.collection_object_id
-				AND tissue_sample.collection_object_id = loan_item.collection_object_id AND
-				loan_item.transaction_id = project_trans.transaction_id AND
-				project_trans.project_id = #project_id#	
-		</cfquery>
-		--->
-		<!--- get cataloged items that have been loaned --->
-		
-		
-			
-			<cfset collObjIds = "">
-			<cfloop query="getUsedParts">
-				<cfif len(#collObjIds#) is 0>
-					<cfset collObjIds = "#getUsedParts.collection_object_id#">
-				  <cfelse>
-				  	<cfset collObjIds = "#collObjIds#,#getUsedParts.collection_object_id#">
-				</cfif>
-			</cfloop>
-			
-			<cfloop query="getUsedSpecs">
-				<cfif len(#collObjIds#) is 0>
-					<cfset collObjIds = "#getUsedSpecs.collection_object_id#">
-				  <cfelse>
-				  	<cfset collObjIds = "#collObjIds#,#getUsedSpecs.collection_object_id#">
-				</cfif>
-			</cfloop>
-			
-			
-			
-		<cfset numItems = getUsedSpecs.recordcount +  getUsedParts.recordcount>
-		<cfoutput>
-			<cfif #numItems# gt 0>
-				This project used <cfoutput>#numItems#</cfoutput> specimens. 
-				<form action="SpecimenResults.cfm" method="post" >
-				<input type="submit" value="View Specimen Details" class="lnkBtn"
-   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">	
-   
-   
-				
-				<input type="hidden" name="collection_object_id" value="#collObjIds#">
-				
-				<input type="hidden" name="newQuery" value="1">
-				<input type="hidden" name="displayRows" value="10"> <!--- just show them 10 rows --->
-				</form>
-				
-			<cfelse>This project used no specimens.<br>
-			</cfif>
-		</cfoutput>
-	</cfif>
-		<cfif #Action# is "viewCont">
-		
-			<cfquery name="getContributors" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				SELECT project.project_id,project_name,start_date,end_date,agent_name,project_agent_role 
-				FROM project,project_agent,agent_name WHERE project.project_id = project_agent.project_id AND
-				project_agent.agent_name_id = agent_name.agent_name_id AND project.project_id IN 
-				(SELECT project_trans.project_id FROM project, project_trans, accn, cataloged_item 
-				where project_trans.transaction_id = accn.transaction_id AND 
-				accn.transaction_id = cataloged_item.accn_id 
-				AND project_trans.project_id = project.project_id 
-				AND cataloged_item.collection_object_id IN 
-				(
-				SELECT cataloged_item.collection_object_id 
-				FROM project,project_trans,loan_item,cataloged_item 
-				WHERE loan_item.collection_object_id = cataloged_item.collection_object_id AND
-				project_trans.transaction_id = loan_item.transaction_id AND 
-				project_trans.project_id = project.project_id AND project.project_id = #project_id#
-				UNION
-				SELECT 
-					cataloged_item.collection_object_id 
-				FROM 
-					project,
-					project_trans,
-					loan_item,
-					specimen_part,
-					cataloged_item 
-				WHERE 
-					loan_item.collection_object_id = specimen_part.collection_object_id AND
-					specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
-				project_trans.transaction_id = loan_item.transaction_id AND 
-				project_trans.project_id = project.project_id AND project.project_id = #project_id#))  
-				ORDER BY project_name,project_id,agent_position
-		</cfquery>
-			<cfif getContributors.recordcount gt 0>
-			<cfquery name="contCnt" dbtype="query">
-				select distinct(project_id) from getContributors
-			</cfquery>
-				<cfoutput>
-					#contCnt.recordcount# projects contributed specimens used by
-					this project. <br>
-				</cfoutput>
-				<ul>
-				<cfoutput query="getContributors" group="project_id">
-					<li><a href="ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
-				</cfoutput>
-				</ul>
-			<cfelse>No projects contributed specimens used by this project.<br>
-			</cfif>
-			
-	</cfif>
 	<cfif #Action# is "viewSpec">
 		<cfquery name="getContSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
