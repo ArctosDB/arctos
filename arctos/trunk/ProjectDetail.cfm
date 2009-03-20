@@ -249,8 +249,8 @@
 		<h2>Specimens Used</h2>
 		<cfquery name="getUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
-				collection,
-				collection_id,
+				collection.collection,
+				collection.collection_id,
 				count(*) c
 			FROM 
 				cataloged_item,
@@ -265,12 +265,12 @@
 				loan_item.transaction_id = project_trans.transaction_id AND
 				project_trans.project_id = #project_id#
 			group by
-				collection,
-				collection_id
+				collection.collection,
+				collection.collection_id
 			UNION
 			SELECT 
-				collection,
-				collection_id,
+				collection.collection,
+				collection.collection_id,
 				count(*) c
 			FROM 
 				cataloged_item,
@@ -283,8 +283,8 @@
 				loan_item.transaction_id = project_trans.transaction_id AND
 				project_trans.project_id = #project_id#
 			group by
-				collection,
-				collection_id
+				collection.collection,
+				collection.collection_id
 		</cfquery>
 		<cfif getUsed.recordcount is 0>
 			<div class="notFound">
