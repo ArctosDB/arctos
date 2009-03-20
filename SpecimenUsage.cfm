@@ -60,7 +60,9 @@
 							</cfloop>
 						</select>
 					</cfoutput>					
-					<label for="onlyCitePubs"><span class="infoLink" onclick="getHelp('onlyCited');">Cite specimens only?</span></label>
+					<label for="onlyCitePubs">
+						<span class="likeLink" onclick="getHelp('onlyCited');">Cite specimens only?</span>
+					</label>
 					<input type="checkbox" name="onlyCitePubs" id="onlyCitePubs" value="1">
 				</td>
 
