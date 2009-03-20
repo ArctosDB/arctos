@@ -717,7 +717,7 @@
 		<cfset firstId = "">
 		<cfset secondId ="">
 		<cfset commaPos = find (",", colId)>
-		<cfif commaPos gt 0>
+<!--- 		<cfif commaPos gt 0>
 			<cfset firstId = left(colId, commaPos-1)>
 			<cfset secondId = right(colId, len(colId)-commaPos)>
 						
@@ -743,7 +743,7 @@
 				<cfset firstId = "">
 				<cfset secondId = "">				
 			</cfif> --->
-		</cfif>
+		</cfif> --->
 		
 		
 		<cfset format_collectors = "">
