@@ -307,8 +307,10 @@
 					sponsor_name
 			</cfquery>
 			<div #iif(i MOD 2,DE("class='even'"),DE("class='odd'"))#>
-				<a href="/ProjectDetail.cfm?project_id=#project_id#" class="pTitle">
+				<a href="/ProjectDetail.cfm?project_id=#project_id#">
+					<span class="pTitle">
 					#project_name#
+					</span>
 				</a><br>
 				<cfloop query="thisAuth">
 					#agent_name# (#project_agent_role#)<br>
