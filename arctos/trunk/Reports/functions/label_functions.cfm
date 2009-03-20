@@ -716,8 +716,8 @@
 		<cfset colId = #other_ids#>
 		<cfset firstId = "">
 		<cfset secondId ="">
-		<cfset commaPos = find (",", colId)>
-<!--- 		<cfif commaPos gt 0>
+<!--- 		<cfset commaPos = find (",", colId)>
+ ---><!--- 		<cfif commaPos gt 0>
 			<cfset firstId = left(colId, commaPos-1)>
 			<cfset secondId = right(colId, len(colId)-commaPos)>
 						
