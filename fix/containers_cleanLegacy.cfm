@@ -42,7 +42,11 @@
 					</cfquery>
 				</Cfif>
 			</cfloop>
-			... and  delete our container
+			<br>... and  delete our container's history....
+			<cfquery name="reviseHistory" datasource="uam_god">
+				delete from container_history where container_id=#data.container_id#
+			</cfquery>
+			<br>... and delete our container
 			<cfquery name="kill" datasource="uam_god">
 				delete from container where container_id=#data.container_id#
 			</cfquery>
