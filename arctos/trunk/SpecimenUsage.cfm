@@ -64,44 +64,28 @@
 						<span class="likeLink" onclick="getHelp('onlyCited');">Cite specimens only?</span>
 					</label>
 					<input type="checkbox" name="onlyCitePubs" id="onlyCitePubs" value="1">
+					<label for="onlyCitePubs">
+						<span class="likeLink" onclick="getHelp('cited_sci_name');">Cited Scientific Name</span>
+					</label>
+					<input name="cited_sci_Name" id="cited_sci_Name" type="text">
+					<label for="onlyCitePubs">
+						<span class="likeLink" onclick="getHelp('accepted_sci_name');">Accepted Scientific Name</span>
+					</label>
+					<input name="current_sci_Name" id="current_sci_Name" type="text">
 				</td>
-
-			
- <tr>
-    <td align="right" nowrap><a href="javascript:void(0);" 
-		onClick="getHelp('cited_sci_name'); return false;"
-		onMouseOver="self.status='Click for Cited Scientific Name help.';return true;" 
-		onmouseout="self.status='';return true;">Cited Scientific Name:</a></td>
-    <td><input name="cited_Sci_Name" type="text"></td>
-  </tr>
-  <tr>
-    <td align="right" nowrap>
-	 <a href="javascript:void(0);" 
-		onClick="getHelp('accepted_sci_name'); return false;"
-		onMouseOver="self.status='Click for Accepted Scientific Name help.';return true;" 
-		onmouseout="self.status='';return true;">Accepted Scientific Name:</a>
-		</td>
-    <td><input name="current_Sci_Name" type="text"></td>
-  </tr> 
-  <tr>
-    <td colspan="2" align="center">
-		<input type="submit" 
-			value="Search" 
-			class="schBtn"
-			onmouseover="this.className='schBtn btnhov'" 
-			onmouseout="this.className='schBtn'">
-		<input type="reset" 
-			value="Clear Form" 
-			class="clrBtn"
-			onmouseover="this.className='clrBtn btnhov'" 
-			onmouseout="this.className='clrBtn'">
-	</td>
-  </tr>
-</table>
-</form>
-	</td>
-</tr></table>
-</center>
+			</tr>
+			<tr>
+				<td colspan="99" align="center">
+					<input type="submit" 
+						value="Search" 
+						class="schBtn">
+					<input type="reset" 
+						value="Clear Form" 
+						class="clrBtn">
+				</td>
+			</tr>
+		</table>
+	</form>
 </cfif>
 <!-------------------------------------------------------------------------------------->
 <cfif #action# is "search">
