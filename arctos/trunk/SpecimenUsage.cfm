@@ -6,6 +6,13 @@
 	.odd{
 		background-color:#F5F5F5;
 	}
+	.pTitle{
+		text-indent:-2em;
+		padding-left:2em;
+	}
+	.notFound {
+		color:red;
+	}
 </style>
 <cfif #action# is "nothing">
 	<cfset title = "Search for Results">
@@ -265,7 +272,9 @@
 				project_name
 		</cfquery>
 		<cfif projNames.recordcount is 0>
-			<i><font color="##FF0000">&nbsp;&nbsp;&nbsp;No projects matched your criteria.</font></i>
+			<div class="notFound">
+				No projects matched your criteria.
+			</div>
 		</cfif>
 		<cfloop query="projNames">
 			<cfquery name="thisAuth" dbtype="query">
@@ -298,22 +307,18 @@
 					sponsor_name
 			</cfquery>
 			<div #iif(i MOD 2,DE("class='even'"),DE("class='odd'"))#>
-				<a href="/ProjectDetail.cfm?project_id=#project_id#">
-					<div style="text-indent:-2em;padding-left:2em; ">
-						<b>
-							#project_name#
-						</b>
-					</div>
+				<a href="/ProjectDetail.cfm?project_id=#project_id#" class="pTitle">
+					#project_name#
 				</a>
 				<cfloop query="thisAuth">
-					&nbsp;&nbsp;&nbsp;#agent_name# (#project_agent_role#)<br>
+					#agent_name# (#project_agent_role#)<br>
 				</cfloop>
 				<cfloop query="thisSponsor">
-					&nbsp;&nbsp;&nbsp;Sponsored by #sponsor_name#: #ACKNOWLEDGEMENT#<br>
+					Sponsored by #sponsor_name#: #ACKNOWLEDGEMENT#<br>
 				</cfloop>
-				&nbsp;&nbsp;&nbsp;#dateformat(start_date,"dd mmm yyyy")# - #dateformat(end_date,"dd mmm yyyy")#
+				#dateformat(start_date,"dd mmm yyyy")# - #dateformat(end_date,"dd mmm yyyy")#
 				<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
-					<br>&nbsp;&nbsp;&nbsp;<a href="/Project.cfm?Action=editProject&project_id=#project_id#">Edit</a>
+					<br><a href="/Project.cfm?Action=editProject&project_id=#project_id#">Edit</a>
 				</cfif>
 			</div>
 			<cfset i=#i#+1>
@@ -429,7 +434,9 @@
 	Publications
 	</h2>
 	<cfif publication.recordcount is 0>
-		<i><font color="##FF0000">&nbsp;&nbsp;&nbsp;No publications matched your criteria.</font></i>
+		<div class="notFound">
+			No publications matched your criteria.
+		</div>
 	</cfif>
 	<cfquery name="pubs" dbtype="query">
 		SELECT
