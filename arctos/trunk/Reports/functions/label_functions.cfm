@@ -665,12 +665,13 @@
 	<cfset hAr = ArrayNew(1)>
 	<cfset locAr = ArrayNew(1)>
 	<cfset cdeAr = ArrayNew(1)>
+	
 	<!--- Data Manipulation --->
 	<cfset i = 1>
 	<cfloop query="q">
 		
 		<!--- Collectors (collector_id_num) [, second collector (second collector number)] --->
-		<cfset firstIdPos = find ("collector number=", other_ids)>
+		<!--- <cfset firstIdPos = find ("collector number=", other_ids)>
 		<cfset colonPos = find (';', other_ids)>
 		
 		<cfset colId = #other_ids#>
@@ -711,7 +712,38 @@
 				<cfset firstId = "">
 				<cfset secondId = "">				
 			</cfif>
+		</cfif> --->
+		<cfset firstId = "">
+		<cfset secondId ="">
+		<cfset commaPos = find (",", colId)>
+		<cfif commaPos gt 0>
+			<cfset firstId = left(colId, commaPos-1)>
+			<cfset secondId = right(colId, len(colId)-commaPos)>
+						
+			<cfset firstIdPos = find("collector number=", firstId)>
+			<cfif firstIdPos gt 0>				
+				<cfset firstId = right(firstId, len(firstId)-firstIdPos+len("collector number"))>
+			<cfelse>
+				<cfset firstId = "">
+				<cfset secondId = "">
+			</cfif>
+			
+			<cfset secondIdPos = find("second collector number=", secondId)>
+			<cfif secondIdPos gt 0>
+				<cfset secondId = right(secondId, len(secondId)-secondIdPos+len("second collector number"))>
+			<cfelse>
+				<cfset secondId = "">
+			</cfif>
+		<cfelse>
+			<cfset firstIdPos = find("collector number=", colId)>
+			<cfif firstIdPos gt 0>
+				<cfset firstId = right(colId, len(colId)-firstIdPos+len("collector number"))>
+			<cfelse>
+				<cfset firstId = "">
+				<cfset secondId = "">				
+			</cfif>
 		</cfif>
+		
 		
 		<cfset format_collectors = "">
 		
