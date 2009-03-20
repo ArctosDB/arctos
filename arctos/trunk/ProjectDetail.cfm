@@ -74,7 +74,7 @@
 	<cfset title = "Project Detail: #p.project_name#">
 	<h2>#p.project_name#</h2>
 	<cfloop query="s">
-		Sponsored by #sponsor_name# <cfif len(ACKNOWLEDGEMENT) gt 0>: #ACKNOWLEDGEMENT#</cfif><br>
+		Sponsored by #sponsor# <cfif len(ACKNOWLEDGEMENT) gt 0>: #ACKNOWLEDGEMENT#</cfif><br>
 	</cfloop>
 	<cfloop query="a">
 		#agent_name#: #project_agent_role#<br>
