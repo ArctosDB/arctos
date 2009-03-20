@@ -29,6 +29,8 @@
     	console.log('yep');
     	top.location='/agents.cfm?agent_id=#agent_id#';
     	
+	} else {
+		console.log('nope');
 	}
 </script>
 </cfoutput>
