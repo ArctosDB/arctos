@@ -368,7 +368,10 @@
 			 				project.project_id = #project_id#
 			 			)
 			 		)
-			order by project_name
+		group by 
+			project.project_id,
+			project_name
+		order by project_name
 	</cfquery>
 	<cfif getUsers.recordcount is 0>
 		<div class="notFound">
