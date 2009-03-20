@@ -96,24 +96,39 @@
 	<h2>Publications</h2>
 	<cfquery name="pubs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
-			formatted_publication, formatted_publication.publication_id 
+			formatted_publication.publication_id,
+			formatted_publication, 
+			DESCRIPTION,
+			LINK
 		FROM 
 			project_publication,
-			formatted_publication
+			formatted_publication,
+			publication_url
 		WHERE 
-			project_publication.publication_id = formatted_publication.publication_id AND 
+			project_publication.publication_id = formatted_publication.publication_id AND
+			project_publication.publication_id = publication_url.publication_id (+) AND
 			format_style = 'full citation' and
 			project_publication.project_id = #p.project_id#
 		order by
 			formatted_publication
 	</cfquery>
-	<cfif pubs.recordcount is 0>
+	<cfquery name="pub">
+		select
+			formatted_publication
+		from
+			pubs
+		group by 
+			formatted_publication
+		order by
+			formatted_publication
+	</cfquery>
+	<cfif pub.recordcount is 0>
 		<div class="notFound">
 			No publications matched your criteria.
 		</div>
 	<cfelse>
 		<cfset i=1>
-		<cfloop query="pubs">
+		<cfloop query="pub">
 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<p class="indent">
 					#formatted_publication#
@@ -123,7 +138,7 @@
 				<a href="/SpecimenResults.cfm?publication_id=#publication_id#">Cited Specimens</a>
 				<cfquery name="links" dbtype="query">
 					select description,
-					link from publication
+					link from pubs
 					where publication_id=#publication_id#
 				</cfquery>
 				<cfif len(#links.description#) gt 0>
