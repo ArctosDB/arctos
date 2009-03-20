@@ -33,7 +33,7 @@
 					</td>
 				</cfif>
 				<td>
-					<h4>Projects and Publication</h4>
+					<h4>Project or Publication</h4>
 					<label for="p_title">Title</label>
 					<input name="p_title" id="p_title" type="text">
 					<label for="author">Participant</label>
@@ -67,12 +67,11 @@
 						<option value="1">Cites Specimens</option>
 						<option value="0">Cites no Specimens</option>
 					</select>
-					<input type="checkbox" name="" id="onlyCitePubs" value="1">
-					<label for="onlyCitePubs">
+					<label for="cited_sci_Name">
 						<span class="likeLink" onclick="getHelp('cited_sci_name');">Cited Scientific Name</span>
 					</label>
 					<input name="cited_sci_Name" id="cited_sci_Name" type="text">
-					<label for="onlyCitePubs">
+					<label for="current_sci_Name">
 						<span class="likeLink" onclick="getHelp('accepted_sci_name');">Accepted Scientific Name</span>
 					</label>
 					<input name="current_sci_Name" id="current_sci_Name" type="text">
