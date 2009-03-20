@@ -114,11 +114,13 @@
 	</cfquery>
 	<cfquery name="pub" dbtype="query">
 		select
-			formatted_publication
+			formatted_publication,
+			publication_id
 		from
 			pubs
 		group by 
-			formatted_publication
+			formatted_publication,
+			publication_id
 		order by
 			formatted_publication
 	</cfquery>
