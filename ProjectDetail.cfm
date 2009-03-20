@@ -378,10 +378,7 @@
 			No projects have used specimens contributed by this project.
 		</div>
 	<cfelse>
-		<cfquery name="ts" dbtype="query">
-			select sum(c) totspec from getUsers
-		</cfquery>
-		#ts.totspec# Projects used specimens contributed by this project.		
+		#getUsers.recordcount# Projects used specimens contributed by this project.		
 		<ul>
 		<cfloop query="getUsers">
 			<li><a href="ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
