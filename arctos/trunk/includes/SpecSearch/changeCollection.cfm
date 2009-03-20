@@ -49,6 +49,7 @@ function success_changeexclusive_collection_id (result) {
 			<label for="exclusive_collection_id">Set your collection(s)</label>
 			<select name="exclusive_collection_id" id="exclusive_collection_id"
 				onchange="this.className='red';changeexclusive_collection_id(this.value);" size="1">
+			 	<option value=""></option>
 			 	<option value="">All</option>
 			  	<cfloop query="collid"> 
 					<option value="#cf_collection_id#">#collection#</option>
