@@ -234,20 +234,16 @@
 			</div>
 			<cfset i=#i#+1>
 		</cfloop>
-
-
-			</td>
-			<td width="50%" valign="top">
-
-<!--- publications --->
-<cfset go="no">
-<cfset basSQL = "SELECT DISTINCT 
+	</td><td width="50%" valign="top">
+	<cfset i=1>
+	<cfset go="no">
+	<cfset basSQL = "SELECT DISTINCT 
 			publication.publication_id,
 			publication.publication_type,
 			formatted_publication,
 			description,
 			link ">
-		<cfset basFrom = "
+	<cfset basFrom = "
 		FROM 
 			publication,
 			publication_author_name,
@@ -256,7 +252,7 @@
 			agent_name searchAuth,
 			formatted_publication,
 			publication_url">
-		<cfset basWhere = "
+	<cfset basWhere = "
 		WHERE 
 		publication.publication_id = project_publication.publication_id (+) 
 		AND publication.publication_id = publication_author_name.publication_id (+) 
@@ -303,7 +299,6 @@
 		</cfif>
 		<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id">
 	</cfif>
-	
 	<cfif isdefined("current_Sci_Name") AND len(#current_Sci_Name#) gt 0>
 		<cfset go="yes">
 		<cfset basFrom = "#basFrom# ,
@@ -311,10 +306,10 @@
 			cataloged_item,
 			identification catItemTaxa">
 		<cfset basWhere = "#basWhere# AND publication.publication_id = CURRENT_NAME_CITATION.publication_id (+)
-		AND CURRENT_NAME_CITATION.collection_object_id = cataloged_item.collection_object_id (+)
-		AND cataloged_item.collection_object_id = catItemTaxa.collection_object_id
-		AND catItemTaxa.accepted_id_fg = 1
-		AND upper(catItemTaxa.scientific_name) LIKE '%#ucase(current_Sci_Name)#%'">
+			AND CURRENT_NAME_CITATION.collection_object_id = cataloged_item.collection_object_id (+)
+			AND cataloged_item.collection_object_id = catItemTaxa.collection_object_id
+			AND catItemTaxa.accepted_id_fg = 1
+			AND upper(catItemTaxa.scientific_name) LIKE '%#ucase(current_Sci_Name)#%'">
 	</cfif>
 	<cfif isdefined("cited_Sci_Name") AND len(#cited_Sci_Name#) gt 0>
 		<cfset go="yes">
@@ -324,26 +319,22 @@
 				AND CITED_NAME_CITATION.cited_taxon_name_id = CitTaxa.taxon_name_id (+)
 				AND upper(CitTaxa.scientific_name) LIKE '%#ucase(cited_Sci_Name)#%'">
 	</cfif>
-	
 	<cfif go is "no">
 		<cfset basWhere = "#basWhere# AND 1=2">
 	</cfif>
 	<cfset basSql = "#basSQL# #basFrom# #basWhere# ORDER BY formatted_publication,publication_id">
-<cftry>
-	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		#preservesinglequotes(basSQL)#
-	</cfquery>
-	<cfcatch>
-		<cfset sql=cfcatch.sql>
-		<cfset message=cfcatch.message>
-		<cfset queryError=cfcatch.queryError>
-		<cf_queryError>
-	</cfcatch>
-</cftry>
-
-	<h3>
-	Publications
-	</h3>
+	<cftry>
+		<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(basSQL)#
+		</cfquery>
+		<cfcatch>
+			<cfset sql=cfcatch.sql>
+			<cfset message=cfcatch.message>
+			<cfset queryError=cfcatch.queryError>
+			<cf_queryError>
+		</cfcatch>
+	</cftry>
+	<h3>Publications</h3>
 	<cfif publication.recordcount is 0>
 		<div class="notFound">
 			No publications matched your criteria.
@@ -364,67 +355,43 @@
 			formatted_publication
 	</cfquery>
 	<cfloop query="pubs">
-		
 		<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-		<p style="text-indent:-2em;padding-left:2em; ">
-		#formatted_publication#
-		<br><input type="button" 
-					value="Details" 
-					class="lnkBtn"
-					onmouseover="this.className='lnkBtn btnhov'" 
-					onmouseout="this.className='lnkBtn'"
-					onclick="document.location='/PublicationResults.cfm?publication_id=#publication_id#';">
-		<input type="button" 
-					value="Cited Specimens" 
-					class="lnkBtn"
-					onmouseover="this.className='lnkBtn btnhov'" 
-					onmouseout="this.className='lnkBtn'"
-					onclick="document.location='/SpecimenResults.cfm?publication_id=#publication_id#';">
-		<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
-			<cfif #publication_type# is "Book">
-				<cfset thisAction = "editBook">
-		 	<cfelseif #publication_type# is "Book Section">
-				<cfset thisAction = "editBookSection">
-		  	<cfelseif #publication_type# is "Journal Article">
-				<cfset thisAction = "editJournalArt">	
-			</cfif>
-			<input type="button" 
-					value="Edit" 
-					class="lnkBtn"
-					onmouseover="this.className='lnkBtn btnhov'" 
-					onmouseout="this.className='lnkBtn'"
-					onclick="document.location='/Publication.cfm?Action=#thisAction#&publication_id=#publication_id#';">
-			<input type="button" 
-					value="Citations" 
-					class="lnkBtn"
-					onmouseover="this.className='lnkBtn btnhov'" 
-					onmouseout="this.className='lnkBtn'"
-					onclick="document.location='/Citation.cfm?publication_id=#publication_id#';">
-		</cfif>
-		</p>
-		<cfquery name="links" dbtype="query">
-			select description,
-			link from publication
-			where publication_id=#publication_id#
-		</cfquery>
-		<cfif len(#links.description#) gt 0>
-			<ul>
-				<cfloop query="links">
-					<li><a href="#link#" target="_blank">#description#</a></li>
-				</cfloop>
-			</ul>
-		</cfif>
-			
+			<p class="indent">
+				#formatted_publication#
+				<br>
+				<a href="/PublicationResults.cfm?publication_id=#publication_id#">Details</a>
+				&nbsp;~&nbsp;
+				<a href="/SpecimenResults.cfm?publication_id=#publication_id#">Cited Specimens</a>
+				<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
+					<cfif #publication_type# is "Book">
+						<cfset thisAction = "editBook">
+				 	<cfelseif #publication_type# is "Book Section">
+						<cfset thisAction = "editBookSection">
+				  	<cfelseif #publication_type# is "Journal Article">
+						<cfset thisAction = "editJournalArt">	
+					</cfif>
+					&nbsp;~&nbsp;
+					<a href="/Publication.cfm?Action=#thisAction#&publication_id=#publication_id#">Edit</a>
+					&nbsp;~&nbsp;
+					<a href="/Citation.cfm?publication_id=#publication_id#">Citations</a>
+				</cfif>
+			</p>
+			<cfquery name="links" dbtype="query">
+				select description,
+				link from publication
+				where publication_id=#publication_id#
+			</cfquery>
+			<cfif len(#links.description#) gt 0>
+				<ul>
+					<cfloop query="links">
+						<li><a href="#link#" target="_blank">#description#</a></li>
+					</cfloop>
+				</ul>
+			</cfif>			
 		</div>
-	<cfset i=#i#+1>
+		<cfset i=#i#+1>
 	</cfloop>
-
-		</td>
-	</tr>
-	</table>
-
-
-
+</td></tr></table>
 	<cf_getSearchTerms>
 	<cfset log.query_string=returnURL>
 	<cfset log.reported_count=0>
