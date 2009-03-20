@@ -36,6 +36,8 @@
 					<h4>Projects and Publication</h4>
 					<label for="p_title" class="h">Title</label>
 					<input name="p_title" id="p_title" type="text">
+					<label for="author" class="h">Participant</label>
+					<input name="author" id="author" type="text">
 				</td>
 
 					
@@ -46,8 +48,8 @@
     <td></td>
   </tr>
   <tr>
-    <td align="right">Participant:</td>
-    <td><input name="author" type="text"></td>
+    <td align="right">:</td>
+    <td><input name="" type="text"></td>
   </tr>
   <tr>
     <td align="right">Year:</td>
