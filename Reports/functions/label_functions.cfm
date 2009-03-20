@@ -758,10 +758,6 @@
 			<cfset secondId = right (secondId, len(secondId)-colonPos)>
 		<cfelse>
 			<cfset colonPos = find ("=", "#ids#")>
-			
-			<cfloop condition="#left("#ids#", colonPos-1)# is 'collector number'">
-				
-			</cfloop>
 			<cfif colonPos gt 0>				
 				<cfset firstId = right(ids, len(ids)-colonPos)>
 			<cfelse>
