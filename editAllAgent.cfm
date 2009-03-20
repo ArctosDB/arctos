@@ -23,8 +23,12 @@
 </cfif>
 <cfoutput>
 <script type="text/javascript" language="javascript">
+	console.log(top.location);
+	console.log(document.location);
 	if (top.location==document.location) {
+    	console.log('yep');
     	top.location='/agents.cfm?agent_id=#agent_id#';
+    	
 	}
 </script>
 </cfoutput>
