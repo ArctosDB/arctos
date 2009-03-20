@@ -19,6 +19,12 @@
 		</cfquery>
 		it's parent
 		<cfdump var=#parent#>
+		now we're going to update the children to have a parent of our container's parent and delete our container
+		<cfloop query="children">
+			<br>---------------<br>
+			update container set parent_container_id=#parent.parent_container_id#
+			where container_id=#container_id#
+		</cfloop>
 		<hr>
 </cfloop>
 </cfoutput>
