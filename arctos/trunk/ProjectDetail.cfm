@@ -131,6 +131,7 @@
 			This project produced no publications.
 		</div>
 	<cfelse>
+		This project produced #pub.recordcount# publications.
 		<cfset i=1>
 		<cfloop query="pub">
 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
