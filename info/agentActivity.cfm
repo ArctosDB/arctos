@@ -366,7 +366,8 @@ Transactions
 				shipment.transaction_id=loan.transaction_id and
 				loan.transaction_id =trans.transaction_id and
 				trans.collection_id=collection.collection_id and
-				shipment.SHIPPED_TO_ADDR_ID=#agent_id#
+				shipment.SHIPPED_TO_ADDR_ID=addr.addr_id and
+				addr.agent_id=#agent_id#
 		</cfquery>
 		<cfloop query="ship_to">
 			<li><a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a> shipped to addr</li>
@@ -386,7 +387,8 @@ Transactions
 				shipment.transaction_id=loan.transaction_id and
 				loan.transaction_id =trans.transaction_id and
 				trans.collection_id=collection.collection_id and
-				shipment.SHIPPED_FROM_ADDR_ID=#agent_id#
+				shipment.SHIPPED_FROM_ADDR_ID=addr.addr_id and
+				addr.agent_id=#agent_id#
 		</cfquery>
 		<cfloop query="ship_from">
 			<li><a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a> shipped from</li>
