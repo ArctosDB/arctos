@@ -270,6 +270,10 @@
 		<cfset basWhere = "#basWhere# AND UPPER(publication_title) LIKE '%#ucase(escapeQuotes(p_title))#%'">
 		<cfset go="yes">
 	</cfif>
+	<cfif isdefined("publication_id") AND len(#publication_id#) gt 0>
+		<cfset basWhere = "#basWhere# AND publication.publication_id=#publication_id#'">
+		<cfset go="yes">
+	</cfif>
 	<cfif isdefined("collection_id") AND len(#collection_id#) gt 0>
 		<cfset go="yes">
 		<cfset basFrom = "#basFrom#,cataloged_item">
