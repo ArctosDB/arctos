@@ -62,7 +62,12 @@
 					<label for="onlyCitePubs">
 						<span class="likeLink" onclick="getHelp('onlyCited');">Cite specimens only?</span>
 					</label>
-					<input type="checkbox" name="onlyCitePubs" id="onlyCitePubs" value="1">
+					<select name="onlyCitePubs" id="onlyCitePubs">
+						<option value=""></option>
+						<option value="1">Cites Specimens</option>
+						<option value="0">Cites no Specimens</option>
+					</select>
+					<input type="checkbox" name="" id="onlyCitePubs" value="1">
 					<label for="onlyCitePubs">
 						<span class="likeLink" onclick="getHelp('cited_sci_name');">Cited Scientific Name</span>
 					</label>
@@ -292,12 +297,21 @@
 			journal_article.journal_id=journal.journal_id and
 			upper(journal_name) like '%#ucase(journal)#%'">
 	</cfif>
-	<cfif isdefined("onlyCitePubs") AND #onlyCitePubs# gt 0>
+	<cfif isdefined("onlyCitePubs") AND len(onlyCitePubs) gt 0>
 		<cfset go="yes">
-		<cfif #basFrom# does not contain "citation">
-			<cfset basFrom = "#basFrom#,citation">
+		<cfif onlyCitePubs is "0">
+			<cfif #basFrom# does not contain "citation">
+				<cfset basFrom = "#basFrom#,citation">
+			</cfif>
+			<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id (+)
+					and citation.collection_object_id is null">
+		<cfelse>
+			<cfif #basFrom# does not contain "citation">
+				<cfset basFrom = "#basFrom#,citation">
+			</cfif>
+			<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id">
 		</cfif>
-		<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id">
+		
 	</cfif>
 	<cfif isdefined("current_Sci_Name") AND len(#current_Sci_Name#) gt 0>
 		<cfset go="yes">
