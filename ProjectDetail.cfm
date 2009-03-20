@@ -112,7 +112,7 @@
 		order by
 			formatted_publication
 	</cfquery>
-	<cfquery name="pub">
+	<cfquery name="pub" dbtype="query">
 		select
 			formatted_publication
 		from
