@@ -21,19 +21,6 @@
 <cfif not isdefined("agent_id")>
 	<cfset agent_id = -1>
 </cfif>
-<cfoutput>
-<script type="text/javascript" language="javascript">
-	console.log(top.location);
-	console.log(document.location);
-	if (top.location==document.location) {
-    	console.log('yep');
-    	top.location='/agents.cfm?agent_id=#agent_id#';
-    	
-	} else {
-		console.log('nope');
-	}
-</script>
-</cfoutput>
 <script language="javascript" type="text/javascript">
 	function suggestName(ntype){
 		try {
@@ -1841,5 +1828,18 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
 <script>
 	parent.resizeCaller();
 </script>
+<cfoutput>
+<script type="text/javascript" language="javascript">
+	console.log(top.location);
+	console.log(document.location);
+	if (top.location==document.location) {
+    	console.log('yep');
+    	top.location='/agents.cfm?agent_id=#agent_id#';
+    	
+	} else {
+		console.log('nope');
+	}
+</script>
+</cfoutput>
 <!------------------------------------------------------------------------------------------------------------->
 <cfinclude template="includes/_pickFooter.cfm">
