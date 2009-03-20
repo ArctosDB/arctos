@@ -311,11 +311,8 @@
 			project.project_id,
 			project_name
 		FROM 
-			project,
-			project_agent,
-			agent_name 
+			project
 		WHERE 
-			project.project_id = project_agent.project_id AND
 			project.project_id IN (
 				SELECT 
 					project_trans.project_id 
