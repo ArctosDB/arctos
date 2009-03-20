@@ -225,11 +225,11 @@
 					#project_name#
 					</div>
 				</a>
+				<cfloop query="thisSponsor">
+					Sponsored by #sponsor_name# <cfif len(ACKNOWLEDGEMENT) gt 0>: #ACKNOWLEDGEMENT#</cfif><br>
+				</cfloop>
 				<cfloop query="thisAuth">
 					#agent_name# (#project_agent_role#)<br>
-				</cfloop>
-				<cfloop query="thisSponsor">
-					Sponsored by #sponsor_name#: #ACKNOWLEDGEMENT#<br>
 				</cfloop>
 				#dateformat(start_date,"dd mmm yyyy")# - #dateformat(end_date,"dd mmm yyyy")#
 				<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
