@@ -713,6 +713,7 @@
 				<cfset secondId = "">				
 			</cfif>
 		</cfif> --->
+		<cfset colId = #other_ids#>
 		<cfset firstId = "">
 		<cfset secondId ="">
 		<cfset commaPos = find (",", colId)>
