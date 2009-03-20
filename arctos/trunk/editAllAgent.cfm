@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_frameHeader.cfm">
+
 <cfquery name="ctNameType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select agent_name_type as agent_name_type from ctagent_name_type
 </cfquery>
@@ -20,6 +21,13 @@
 <cfif not isdefined("agent_id")>
 	<cfset agent_id = -1>
 </cfif>
+<cfoutput>
+<script type="text/javascript" language="javascript">
+	if (top.location!=document.location) {
+    	document.location='/agents.cfm?agent_id=#agent_id#';
+	}
+</script>
+</cfoutput>
 <script language="javascript" type="text/javascript">
 	function suggestName(ntype){
 		try {
