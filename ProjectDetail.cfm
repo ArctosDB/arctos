@@ -10,6 +10,7 @@
 	.proj_title {font-size:2em;font-weight:900;text-align:center;}
 	.proj_sponsor {font-size:1.5em;font-weight:800;text-align:center;}
 	.proj_agent {font-weight:800;text-align:center;}
+	.cdiv {text-align:center;}
 </style>
 <cfoutput>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -89,90 +90,59 @@
 			#agent_name#: #project_agent_role#
 		</div>
 	</cfloop>
-	#dateformat(p.start_date,"dd mmmm yyyy")# - #dateformat(p.end_date,"dd mmmm yyyy")#
+	<div class="cdiv">
+		#dateformat(p.start_date,"dd mmmm yyyy")# - #dateformat(p.end_date,"dd mmmm yyyy")#
+	</div>
+	<h2>Publications</h2>
+	<cfquery name="pubs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		SELECT 
+			formatted_publication, formatted_publication.publication_id 
+		FROM 
+			project_publication,
+			formatted_publication
+		WHERE 
+			project_publication.publication_id = formatted_publication.publication_id AND 
+			format_style = 'full citation' and
+			project_publication.project_id = #p.project_id#
+		order by
+			formatted_publication
+	</cfquery>
+	<cfif pubs.recordcount is 0>
+		<div class="notFound">
+			No publications matched your criteria.
+		</div>
+	<cfelse>
+		<cfset i=1>
+		<cfloop query="pubs">
+			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+				<p class="indent">
+					#formatted_publication#
+				</p>
+				<a href="/PublicationResults.cfm?publication_id=#publication_id#">Details</a>
+				&nbsp;~&nbsp;
+				<a href="/SpecimenResults.cfm?publication_id=#publication_id#">Cited Specimens</a>
+				<cfquery name="links" dbtype="query">
+					select description,
+					link from publication
+					where publication_id=#publication_id#
+				</cfquery>
+				<cfif len(#links.description#) gt 0>
+					<ul>
+						<cfloop query="links">
+							<li><a href="#link#" target="_blank">#description#</a></li>
+						</cfloop>
+					</ul>
+				</cfif>			
+			</div>
+		</cfloop>
+	</cfif>
 </cfoutput>
 
 
 <hr>
 
-
-	</td>
-    <td width="70%" valign="top">
-	<!--- project description --->
-	<!--- handle button-clicking --->
-	<cfif #Action# is "nothing">
-		<cfoutput query="proj" group="project_id">
-			#project_description#
-		</cfoutput>
-	
 		
-	</cfif>
-	<cfif #Action# is "viewPubs">
-		<cfoutput>
-			<cfquery name="pubJour" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				SELECT 
-					formatted_publication, formatted_publication.publication_id  
-				FROM 
-					project_publication,
-					formatted_publication,
-					publication
-				WHERE 
-					project_publication.project_id = #project_id# AND  
-					project_publication.publication_id = formatted_publication.publication_id AND 
-					project_publication.publication_id = publication.publication_id AND 
-					format_style = 'full citation' AND
-					publication_type='Journal Article'
-			</cfquery>
-			<cfquery name="pubBook" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				SELECT 
-					formatted_publication, formatted_publication.publication_id 
-				FROM 
-					project_publication,
-					formatted_publication,
-					publication
-				WHERE 
-					project_publication.project_id = #project_id# AND  
-					project_publication.publication_id = formatted_publication.publication_id AND 
-					project_publication.publication_id = publication.publication_id AND 
-					format_style = 'full citation' AND
-					publication_type='Book'
-			</cfquery>
-			<cfquery name="pubBookSec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				SELECT 
-					formatted_publication, formatted_publication.publication_id 
-				FROM 
-					project_publication,
-					formatted_publication,
-					publication
-				WHERE 
-					project_publication.project_id = #project_id# AND  
-					project_publication.publication_id = formatted_publication.publication_id AND 
-					project_publication.publication_id = publication.publication_id AND 
-					format_style = 'full citation' AND
-					publication_type='Book Section'
-			</cfquery>
-		</cfoutput>
 		
-		<cfif pubJour.recordcount is 0 AND
-			pubBookSec.recordcount is 0 AND
-			pubBook.recordcount is 0>
-				This project produced no publications.
-		<cfelse>
-				<blockquote>
-				<cfoutput query="pubJour">
-					<p>#formatted_publication#<br>
-					<a href="PublicationResults.cfm?publication_id=#publication_id#">More Information</a>
-				</cfoutput>
-				<cfoutput query="pubBook">
-					<p>#formatted_publication#<br>
-					<a href="PublicationResults.cfm?publication_id=#publication_id#">More Information</a>
-				</cfoutput>
-				<cfoutput query="pubBookSec">
-					<p>#formatted_publication#<br>
-					<a href="PublicationResults.cfm?publication_id=#publication_id#">More Information</a>
-				</cfoutput>
-				</blockquote>
-		</cfif>
 		
 	</cfif>
 	<cfif #Action# is "viewUser">
