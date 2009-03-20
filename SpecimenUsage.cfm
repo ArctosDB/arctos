@@ -33,7 +33,6 @@
 					</td>
 				</cfif>
 				<td>
-					<div style="border:1px solid green">
 					<h4>Projects and Publication</h4>
 					<label for="p_title">Title</label>
 					<input name="p_title" id="p_title" type="text">
@@ -41,17 +40,13 @@
 					<input name="author" id="author" type="text">
 					<label for="year">Year</label>
 					<input name="year" id="year" type="text">
-					</div>
 				</td>
 				<td>
-					<div style="border:1px solid green">
 					<h4>Project</h4>					
 					<label for="sponsor">Project Sponsor</label>
 					<input name="sponsor" id="sponsor" type="text">
-					</div>
 				</td>
 				<td>
-					<div style="border:1px solid green">
 					<h4>Publication</h4>
 					<label for="journal">Journal Name</label>
 					<input name="journal" id="journal" type="text">
@@ -76,7 +71,6 @@
 						<span class="likeLink" onclick="getHelp('accepted_sci_name');">Accepted Scientific Name</span>
 					</label>
 					<input name="current_sci_Name" id="current_sci_Name" type="text">
-					</div>
 				</td>
 			</tr>
 			<tr>
