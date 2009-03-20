@@ -137,7 +137,7 @@
 				<p class="indent">
 					#formatted_publication#
 				</p>
-				<a href="/SpecimenUsage.cfm?publication_id=#publication_id#">Details</a>
+				<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">Details</a>
 				&nbsp;~&nbsp;
 				<a href="/SpecimenResults.cfm?publication_id=#publication_id#">Cited Specimens</a>
 				<cfquery name="links" dbtype="query">
