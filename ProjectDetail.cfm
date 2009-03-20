@@ -128,7 +128,7 @@
 	</cfquery>
 	<cfif pub.recordcount is 0>
 		<div class="notFound">
-			No publications matched your criteria.
+			This project produced no publications.
 		</div>
 	<cfelse>
 		<cfset i=1>
@@ -155,70 +155,6 @@
 			</div>
 			<cfset i=i+1>
 		</cfloop>
-	</cfif>
-	<h2>Projects using contributed specimens</h2>
-	<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		SELECT 
-			project.project_id,
-			project_name 
-		FROM 
-			project,
-			project_agent,
-			agent_name 
-		WHERE 
-			project.project_id = project_agent.project_id AND
-			project_agent.agent_name_id = agent_name.agent_name_id AND 
-			project.project_id IN (
-				SELECT 
-			 		project_trans.project_id 
-			 	FROM 
-			 		project, 
-			 		project_trans, 
-			 		loan_item, 
-			 		cataloged_item 
-			 	where 
-			 		project_trans.transaction_id = loan_item.transaction_id AND 
-			 		loan_item.collection_object_id = cataloged_item.collection_object_id AND 
-			 		project_trans.project_id = project.project_id AND cataloged_item.collection_object_id IN (
-			 			SELECT 
-			 				cataloged_item.collection_object_id 
-			 			FROM 
-			 				project,
-			 				project_trans,
-			 				accn,
-			 				cataloged_item 
-			 			WHERE 
-			 				accn.transaction_id = cataloged_item.accn_id AND 
-			 				project_trans.transaction_id = accn.transaction_id AND 
-			 				project_trans.project_id = project.project_id AND 
-			 				project.project_id = #project_id#
-			 			UNION
-			 			SELECT 
-			 				cataloged_item.collection_object_id 
-			 			FROM 
-			 				project,
-			 				project_trans,
-			 				accn,
-			 				cataloged_item 
-			 			WHERE 
-			 				accn.transaction_id = cataloged_item.accn_id AND 
-			 				project_trans.transaction_id = accn.transaction_id AND 
-			 				project_trans.project_id = project.project_id AND 
-			 				project.project_id = #project_id#
-			 			)
-			 		)
-			order by project_name
-	</cfquery>
-	<cfif getUsers.recordcount is 0>
-		<div class="notFound">
-			No projects have used specimens contributed by this project.
-		</div>
-	<cfelse>
-		<ul>
-		<cfloop query="getUsers">
-			<li><a href="ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
-		</cfloop>
-		</ul>
 	</cfif>
 	<h2>Specimens Used</h2>
 	<cfquery name="getUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -276,6 +212,43 @@
 						#c# #collection# Specimens
 					</a>
 				</li>
+			</cfloop>
+		</ul>
+	</cfif>
+	<h2>Specimens Contributed</h2>
+	<cfquery name="getContSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		SELECT 
+			collection,
+			collection.collection_id,
+			count(*) c
+		FROM 
+			project,
+			project_trans,
+			accn,
+			cataloged_item,
+			collection
+		WHERE 
+			accn.transaction_id = cataloged_item.accn_id AND
+			cataloged_item.collection_id=collection.collection_id and
+			project_trans.transaction_id = accn.transaction_id AND 
+			project.project_id = project_trans.project_id AND 
+			project.project_id = #project_id#
+		group by
+			collection,
+			collection.collection_id
+	</cfquery>
+	<cfif getContSpecs.recordcount is 0>
+		<div class="notFound">
+			This project contributed no specimens.
+		</div>
+	<cfelse>
+		<cfquery name="ts" dbtype="query">
+			select sum(c) totspec from getContSpecs
+		</cfquery>
+		This project contributed <a href="SpecimenResults.cfm?project_id=#project_id#">#ts.totspec# Specimens</a>
+		<ul>
+			<cfloop query="getContSpecs">
+				<li>#c# #collection# <a href="SpecimenResults.cfm?project_id=#project_id#&collection_id=#collection_id#">Specimens</a></li>
 			</cfloop>
 		</ul>
 	</cfif>
@@ -344,41 +317,68 @@
 			</cfloop>
 		</ul>
 	</cfif>
-	<h2>Specimens Contributed</h2>
-	<cfquery name="getContSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<h2>Projects using contributed specimens</h2>
+	<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
-			collection,
-			collection.collection_id,
-			count(*) c
+			project.project_id,
+			project_name 
 		FROM 
 			project,
-			project_trans,
-			accn,
-			cataloged_item,
-			collection
+			project_agent,
+			agent_name 
 		WHERE 
-			accn.transaction_id = cataloged_item.accn_id AND
-			cataloged_item.collection_id=collection.collection_id and
-			project_trans.transaction_id = accn.transaction_id AND 
-			project.project_id = project_trans.project_id AND 
-			project.project_id = #project_id#
-		group by
-			collection,
-			collection.collection_id
+			project.project_id = project_agent.project_id AND
+			project_agent.agent_name_id = agent_name.agent_name_id AND 
+			project.project_id IN (
+				SELECT 
+			 		project_trans.project_id 
+			 	FROM 
+			 		project, 
+			 		project_trans, 
+			 		loan_item, 
+			 		cataloged_item 
+			 	where 
+			 		project_trans.transaction_id = loan_item.transaction_id AND 
+			 		loan_item.collection_object_id = cataloged_item.collection_object_id AND 
+			 		project_trans.project_id = project.project_id AND cataloged_item.collection_object_id IN (
+			 			SELECT 
+			 				cataloged_item.collection_object_id 
+			 			FROM 
+			 				project,
+			 				project_trans,
+			 				accn,
+			 				cataloged_item 
+			 			WHERE 
+			 				accn.transaction_id = cataloged_item.accn_id AND 
+			 				project_trans.transaction_id = accn.transaction_id AND 
+			 				project_trans.project_id = project.project_id AND 
+			 				project.project_id = #project_id#
+			 			UNION
+			 			SELECT 
+			 				cataloged_item.collection_object_id 
+			 			FROM 
+			 				project,
+			 				project_trans,
+			 				accn,
+			 				cataloged_item 
+			 			WHERE 
+			 				accn.transaction_id = cataloged_item.accn_id AND 
+			 				project_trans.transaction_id = accn.transaction_id AND 
+			 				project_trans.project_id = project.project_id AND 
+			 				project.project_id = #project_id#
+			 			)
+			 		)
+			order by project_name
 	</cfquery>
-	<cfif getContSpecs.recordcount is 0>
+	<cfif getUsers.recordcount is 0>
 		<div class="notFound">
-			This project contributed no specimens.
+			No projects have used specimens contributed by this project.
 		</div>
 	<cfelse>
-		<cfquery name="ts" dbtype="query">
-			select sum(c) totspec from getContSpecs
-		</cfquery>
-		This project contributed <a href="SpecimenResults.cfm?project_id=#project_id#">#ts.totspec# Specimens</a>
 		<ul>
-			<cfloop query="getContSpecs">
-				<li>#c# #collection# <a href="SpecimenResults.cfm?project_id=#project_id#&collection_id=#collection_id#">Specimens</a></li>
-			</cfloop>
+		<cfloop query="getUsers">
+			<li><a href="ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
+		</cfloop>
 		</ul>
 	</cfif>
 </cfoutput>
