@@ -5,23 +5,86 @@
 	</p>
 	<cfabort>
 </cfif>
-<cfset title = "Project Detail">
-<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	SELECT project.project_id,project_name,project_description,start_date,end_date,agent_name, agent_position,
-	project_agent_role FROM project,project_agent,agent_name WHERE project.project_id = #project_id# 
-	AND project.project_id = project_agent.project_id AND 
-	project_agent.agent_name_id = agent_name.agent_name_id 
-	ORDER BY project_id,agent_position
-</cfquery>
-<cfoutput query="proj" group="project_id">
-<font size="+2">#project_name#</font><br>
-<cfoutput group="agent_position">
-	<B>#agent_name# (#project_agent_role#)<br>
-	</cfoutput>
-	<cfoutput group="project_id"><br>
-	#dateformat(start_date,"dd mmmm yyyy")# - #dateformat(end_date,"dd mmmm yyyy")#</B>
-	</cfoutput>
+<cfoutput>
+	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		SELECT 
+			project.project_id,
+			project_name,
+			project_description,
+			start_date,
+			end_date,
+			agent_name.agent_name, 
+			agent_position,
+			project_agent_role,
+			ps.agent_name sponsor,
+			acknowledgement
+		FROM 
+			project,
+			project_agent,
+			agent_name,
+			project_sponsor
+			agent_name ps
+		WHERE 
+			project.project_id = project_agent.project_id AND 
+			project_agent.agent_name_id = agent_name.agent_name_id and
+			project.project_id=project_sponsor.project_id (+) and
+			project_sponsor.agent_name_id=ps.agent_name_id and
+			project.project_id = #project_id# AND 
+	</cfquery>
+	<cfquery name="p" dbtype="query">
+		select 
+			project_id,
+			project_name,
+			project_description,
+			start_date,
+			end_date
+		from
+			proj
+		group by
+			project_id,
+			project_name,
+			project_description,
+			start_date,
+			end_date
+	</cfquery>
+	<cfquery name="a" dbtype="query">
+		select
+			agent_name,
+			project_agent_role
+		from 
+			proj
+		group by
+			agent_name,
+			project_agent_role
+		order by 
+			agent_position
+	</cfquery>
+	<cfquery name="s" dbtype="query">
+		select 
+			sponsor,
+			acknowledgement
+		from
+			proj
+		where
+			sponsor is not null
+		group by			
+			sponsor,
+			acknowledgement
+	</cfquery>
+	<cfset title = "Project Detail: #p.project_name#">
+	<h2>#p.project_name#</h2>
+	<cfloop query="s">
+		Sponsored by #sponsor_name# <cfif len(ACKNOWLEDGEMENT) gt 0>: #ACKNOWLEDGEMENT#</cfif><br>
+	</cfloop>
+	<cfloop query="a">
+		#agent_name#: #project_agent_role#<br>
+	</cfloop>
+	#dateformat(p.start_date,"dd mmmm yyyy")# - #dateformat(p.end_date,"dd mmmm yyyy")#
 </cfoutput>
+
+
+<hr>
+<cfoutput query="proj" group="project_id">
 
 <p>&nbsp;</p>
 <table WIDTH="90%">
