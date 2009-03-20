@@ -351,6 +351,46 @@ Transactions
 		<cfloop query="shipment">
 			<li>Packed Shipment for <a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a></li>
 		</cfloop>
+		<cfquery name="ship_to" datasource="uam_god">
+			select 
+				LOAN_NUMBER,
+				loan.transaction_id,
+				collection
+			from
+				shipment,
+				addr,
+				loan,
+				trans,
+				collection
+			where
+				shipment.transaction_id=loan.transaction_id and
+				loan.transaction_id =trans.transaction_id and
+				trans.collection_id=collection.collection_id and
+				shipment.SHIPPED_TO_ADDR_ID=#agent_id#
+		</cfquery>
+		<cfloop query="ship_to">
+			<li><a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a> shipped to addr</li>
+		</cfloop>
+		<cfquery name="ship_from" datasource="uam_god">
+			select 
+				LOAN_NUMBER,
+				loan.transaction_id,
+				collection
+			from
+				shipment,
+				addr,
+				loan,
+				trans,
+				collection
+			where
+				shipment.transaction_id=loan.transaction_id and
+				loan.transaction_id =trans.transaction_id and
+				trans.collection_id=collection.collection_id and
+				shipment.SHIPPED_FROM_ADDR_ID=#agent_id#
+		</cfquery>
+		<cfloop query="ship_from">
+			<li><a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a> shipped from</li>
+		</cfloop>
 		<cfquery name="trans_agent_l" datasource="uam_god">
 			select 
 				loan.transaction_id,
