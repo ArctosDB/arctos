@@ -166,7 +166,7 @@
 			SELECT 
 				collection.collection,
 				collection.collection_id,
-				count(*) c
+				count(distinct(cataloged_item.collection_object_id)) c
 			FROM 
 				cataloged_item,
 				collection,
@@ -186,7 +186,7 @@
 			SELECT 
 				collection.collection,
 				collection.collection_id,
-				count(*) c
+				count(distinct(cataloged_item.collection_object_id)) c
 			FROM 
 				cataloged_item,
 				collection,
