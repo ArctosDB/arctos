@@ -619,6 +619,9 @@ span.lblFont {
 	font-size:9px;
 	font-weight:600;
 	color:#333333;}
+label.h {
+	font-size:12px;
+	font-weight:800;}
 label {
 	display:block;
 	font-size:12px;
@@ -752,10 +755,20 @@ div.rightHome {
 	border-color:#000066;
 	border-style:solid;
 	border-width:2px;}
-tr.evenRow, td.evenRow {
+.evenRow {
 	background-color:#E5E5E5;}
-tr.oddRow, td.oddRow {
+.oddRow {
 	background-color:#F5F5F5;}
+.indent{
+	text-indent:-2em;
+	padding-left:2em;
+}
+.notFound {
+	color:red;
+	font-style:italic;
+	text-align:center;
+	padding:2em;
+}
 .newRec {
 	background-color:#D6F5F2;}
 table.newRec {

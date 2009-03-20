@@ -1,92 +1,49 @@
 <cfinclude template = "includes/_header.cfm">
-<style>
-	.even{
-		background-color:#E5E5E5;
-	}
-	.odd{
-		background-color:#F5F5F5;
-	}
-	.pTitle{
-		text-indent:-2em;
-		padding-left:2em;
-	}
-	.notFound {
-		color:red;
-font-style:italic;
-text-align:center;
-padding:2em;
-	}
-</style>
+
 <cfif #action# is "nothing">
 	<cfset title = "Search for Results">
+	<cfquery name="ctColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select collection,collection_id from collection order by collection_id
+	</cfquery>
 	<span class="infoLink pageHelp" onclick="pageHelp('resultsearch');">Page Help</span>
-	<table width="75%">
-		<tr valign="top">
-			<td width="50%">
-				<h2>Publication / Project Search</h2>
-				<ul>
-					<li>
-						<a href="/ProjectSearch.cfm">Projects</a>
-					</li>
-					<li>
-						<a href="/PublicationSearch.cfm">Publications</a>
-					</li>
-			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
-					<form name="adminLinks" method="post" action="SpecimenUsage.cfm">
-					
-						<li>
-							<input type="button" 
-								value="New Project" 
-								class="lnkBtn"
-								onmouseover="this.className='lnkBtn btnhov'" 
-								onmouseout="this.className='lnkBtn'"
-								onclick="document.location='/Project.cfm?action=makeNew';">
-						</li>
-						<li>
-							<input type="button" 
-								value="New Book" 
-								class="lnkBtn"
-								onmouseover="this.className='lnkBtn btnhov'" 
-								onmouseout="this.className='lnkBtn'"
-								onclick="document.location='/Publication.cfm?action=newBook';">
-						</li>
-						<li>
-							<input type="button" 
-								value="New Journal" 
-								class="lnkBtn"
-								onmouseover="this.className='lnkBtn btnhov'" 
-								onmouseout="this.className='lnkBtn'"
-								onclick="document.location='/Publication.cfm?action=newJournal';">
-						</li>
-						<li>
-							<input type="button" 
-								value="New Journal Article" 
-								class="lnkBtn"
-								onmouseover="this.className='lnkBtn btnhov'" 
-								onmouseout="this.className='lnkBtn'"
-								onclick="document.location='/Publication.cfm?action=newJournalArt';">
-						</li>
-						<li>
-							<input type="button" 
-								value="Edit Journal" 
-								class="lnkBtn"
-								onmouseover="this.className='lnkBtn btnhov'" 
-								onmouseout="this.className='lnkBtn'"
-								onclick="document.location='/Publication.cfm?action=nothing';">
-						</li>		
-					</form>		
+	<h2>Publication / Project Search</h2>
+	<form action="SpecimenUsage.cfm" method="post">
+		<input name="action" type="hidden" value="search">
+		<table width="75%">
+			<tr valign="top">
+				<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
+					<td>
+						<ul>
+							<li>
+								<a href="/Project.cfm?action=makeNew">New Project</a>
+							</li>
+							<li>
+								<a href="/Publication.cfm?action=newBook">New Book</a>
+							</li>
+							<li>
+								<a href="/Publication.cfm?action=newJournal">New Journal</a>
+							</li>
+							<li>
+								<a href="/Publication.cfm?action=newJournalArt">New Journal Article</a>
+							</li>
+							<li>
+								<a href="/Publication.cfm">Edit Journal</a>
+							</li>
+						</ul>
+					</td>
 				</cfif>
-				</ul>
-	
-			</td>
-			<td>
-				<form action="SpecimenUsage.cfm" method="post">
-					<input name="action" type="hidden" value="search">
+				<td>
+					<h4>Projects and Publication</h4>
+					<label for="p_title" class="h">Title</label>
+					<input name="p_title" id="p_title" type="text">
+				</td>
+
+					
 
   <table>
   <tr>
     <td align="right">Title:</td>
-    <td><input name="p_title" type="text"></td>
+    <td></td>
   </tr>
   <tr>
     <td align="right">Participant:</td>
@@ -104,22 +61,11 @@ padding:2em;
     <td align="right">Journal:</td>
     <td><input name="journal" id="journal" type="text"></td>
   </tr>
- <tr>
-    <td align="right">Search for:</td>
-    <td>
-		<select name="srchType" id="srchType">
-			<option value="">Anything</option>
-			<option value="project">Projects</option>
-			<option value="publication">Publications</option>
-	</td>
-  </tr>
 <tr>
 	<td align="right">
 		Cites&nbsp;Collection:
 	</td>
-	<cfquery name="ctColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select collection,collection_id from collection order by collection_id
-	</cfquery>
+	
 	<td>
 		<cfoutput>
 		<select name="collection_id" id="collection_id" size="1">
@@ -274,7 +220,7 @@ padding:2em;
 			ORDER BY
 				project_name
 		</cfquery>
-		<h3>Publications</h3>
+		<h3>Projects</h3>
 		<cfif projNames.recordcount is 0>
 			<div class="notFound">
 				No projects matched your criteria.
@@ -310,9 +256,9 @@ padding:2em;
 				ORDER BY 
 					sponsor_name
 			</cfquery>
-			<div #iif(i MOD 2,DE("class='even'"),DE("class='odd'"))#>
+			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<a href="/ProjectDetail.cfm?project_id=#project_id#">
-					<div class="pTitle">
+					<div class="indent">
 					#project_name#
 					</div>
 				</a>
@@ -460,7 +406,7 @@ padding:2em;
 	</cfquery>
 	<cfloop query="pubs">
 		
-		<div #iif(i MOD 2,DE("class='even'"),DE("class='odd'"))#>
+		<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<p style="text-indent:-2em;padding-left:2em; ">
 		#formatted_publication#
 		<br><input type="button" 
