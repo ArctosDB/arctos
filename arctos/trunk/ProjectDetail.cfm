@@ -243,7 +243,7 @@
 			<ul>
 			<cfloop query="getUsers">
 				<li><a href="ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
-			</cfoutput>
+			</cfloop>
 			</ul>
 		</cfif>
 </cfoutput>
