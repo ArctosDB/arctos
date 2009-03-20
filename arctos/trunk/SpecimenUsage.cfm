@@ -9,7 +9,7 @@
 	<h2>Publication / Project Search</h2>
 	<form action="SpecimenUsage.cfm" method="post">
 		<input name="action" type="hidden" value="search">
-		<table width="75%">
+		<table  border>
 			<tr valign="top">
 				<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 					<td>
