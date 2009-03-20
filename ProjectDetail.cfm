@@ -246,6 +246,59 @@
 			</cfloop>
 			</ul>
 		</cfif>
+		<h2>Specimens Used</h2>
+		<cfquery name="getUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			SELECT 
+				collection,
+				collection_id,
+				count(*) c
+			FROM 
+				cataloged_item,
+				specimen_part,
+				loan_item,
+				project_trans
+			WHERE
+				specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
+				specimen_part.collection_object_id = loan_item.collection_object_id AND
+				loan_item.transaction_id = project_trans.transaction_id AND
+				project_trans.project_id = #project_id#
+			group by
+				collection,
+				collection_id
+			UNION
+			SELECT 
+				collection,
+				collection_id,
+				count(*) c
+			FROM 
+				cataloged_item,
+				loan_item,
+				project_trans
+			WHERE
+				cataloged_item.collection_object_id = loan_item.collection_object_id AND
+				loan_item.transaction_id = project_trans.transaction_id AND
+				project_trans.project_id = #project_id#
+			group by
+				collection,
+				collection_id
+		</cfquery>
+		<cfif getUsed.recordcount is 0>
+			<div class="notFound">
+				This project used no specimens.
+			</div>
+		<cfelse>
+			<ul>
+				<li><a href="/SpecimenDetail.cfm?loan_project_id=#project_id#">All Specimens</a></li>
+				<cfloop query="getUsed">
+					<li>
+						<a href="/SpecimenDetail.cfm?loan_project_id=#project_id#&collection_id=#collection_id#">
+							#collection# Specimens
+						</a>
+					</li>
+				</cfloop>
+			</ul>
+		</cfif>
+		
 </cfoutput>
 
 
@@ -254,28 +307,9 @@
 
 		
 		
-		
-
-	<cfif #Action# is "viewUser">
-		
-		
-	</cfif>
 	<cfif #Action# is "viewUsed"><!---Specimens Used--->
 		<!--- get specimen parts --->
-		<cfquery name="getUsedParts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			SELECT 
-				cat_num, cataloged_item.collection_object_id
-			FROM 
-				cataloged_item,
-				specimen_part,
-				loan_item,
-				project_trans
-			WHERE
-				specimen_part.derived_from_cat_item = cataloged_item.collection_object_id
-				AND specimen_part.collection_object_id = loan_item.collection_object_id AND
-				loan_item.transaction_id = project_trans.transaction_id AND
-				project_trans.project_id = #project_id#	
-		</cfquery>
+		
 		<!--- get specimen tissues --->
 		<!---
 		<cfquery name="getUsedTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -294,18 +328,7 @@
 		</cfquery>
 		--->
 		<!--- get cataloged items that have been loaned --->
-		<cfquery name="getUsedSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			SELECT 
-				cat_num, loan_item.collection_object_id
-			FROM 
-				cataloged_item,
-				loan_item,
-				project_trans
-			WHERE
-				cataloged_item.collection_object_id = loan_item.collection_object_id AND
-				loan_item.transaction_id = project_trans.transaction_id AND
-				project_trans.project_id = #project_id#
-		</cfquery>
+		
 		
 			
 			<cfset collObjIds = "">
