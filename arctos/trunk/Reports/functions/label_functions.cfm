@@ -746,7 +746,7 @@
 						
 			<cfset firstIdPos = find("collector number=", firstId)>
 			<cfif firstIdPos gt 0>				
-				<cfset firstId = right(firstId, len(firstId)-firstIdPos+len("collector number"))>
+				<cfset firstId = right(firstId, len(firstId)-firstIdPos)>
 			<cfelse>
 				<cfset firstId = "">
 				<cfset secondId = "">
@@ -754,14 +754,14 @@
 	
 			<cfset secondIdPos = find("second collector number=", secondId)>
 			<cfif secondIdPos gt 0>
-				<cfset secondId = right(secondId, len(secondId)-secondIdPos+len("second collector number"))>
+				<cfset secondId = right(secondId, len(secondId)-secondIdPos)>
 			<cfelse>
 				<cfset secondId = "">
 			</cfif>
 		<cfelse>
 			<cfset firstIdPos = find("collector number=", colId)>
 			<cfif firstIdPos gt 0>
-				<cfset firstId = right(colId, len(colId)-firstIdPos+len("collector number"))>
+				<cfset firstId = right(colId, len(colId)-firstIdPos)>
 			<cfelse>
 				<cfset firstId = "">
 				<cfset secondId = "">				
