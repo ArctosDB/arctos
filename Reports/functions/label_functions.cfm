@@ -713,9 +713,9 @@
 				<cfset secondId = "">				
 			</cfif>
 		</cfif> --->
-		<cfset colId = #other_ids#>
+		<!--- <cfset colId = #other_ids#>
 		<cfset firstId = "">
-		<cfset secondId ="">
+		<cfset secondId =""> --->
 <!--- 		<cfset commaPos = find (",", colId)>
  ---><!--- 		<cfif commaPos gt 0>
 			<cfset firstId = left(colId, commaPos-1)>
@@ -744,7 +744,31 @@
 				<cfset secondId = "">				
 			</cfif> --->
 		</cfif> --->
+			<!-- 	<cfset ids = "#other_ids#">
+		<cfset firstId = "">
+		<cfset secondId = "">		
+		<cfset idCommaPos = find (",", ids)>
 		
+		<cfif idCommaPos gt 0>
+			<cfset firstId = left(ids, idCommaPos)>
+			<cfset colonPos = find ("=", firstId)>
+			<cfset firstId = right (firstId, len(firstId)-colonPos)>
+			<cfset secondId = right(ids, len(ids)-idCommaPos)>
+			<cfset colonPos = find ("=", secondId)>
+			<cfset secondId = right (secondId, len(secondId)-colonPos)>
+		<cfelse>
+			<cfset colonPos = find ("=", "#ids#")>
+			
+			<cfloop condition="#left("#ids#", colonPos-1)# is 'collector number'">
+				
+			</cfloop>
+			<cfif colonPos gt 0>				
+				<cfset firstId = right(ids, len(ids)-colonPos)>
+			<cfelse>
+				<cfset firstId = "">
+			</cfif>
+			<cfset secondId = "">
+		</cfif> -->
 		
 		<cfset format_collectors = "">
 		
@@ -777,31 +801,7 @@
 		
 		<cfset colAr[i] = "#format_collectors#">
 		
-	<!-- 	<cfset ids = "#other_ids#">
-		<cfset firstId = "">
-		<cfset secondId = "">		
-		<cfset idCommaPos = find (",", ids)>
-		
-		<cfif idCommaPos gt 0>
-			<cfset firstId = left(ids, idCommaPos)>
-			<cfset colonPos = find ("=", firstId)>
-			<cfset firstId = right (firstId, len(firstId)-colonPos)>
-			<cfset secondId = right(ids, len(ids)-idCommaPos)>
-			<cfset colonPos = find ("=", secondId)>
-			<cfset secondId = right (secondId, len(secondId)-colonPos)>
-		<cfelse>
-			<cfset colonPos = find ("=", "#ids#")>
-			
-			<cfloop condition="#left("#ids#", colonPos-1)# is 'collector number'">
-				
-			</cfloop>
-			<cfif colonPos gt 0>				
-				<cfset firstId = right(ids, len(ids)-colonPos)>
-			<cfelse>
-				<cfset firstId = "">
-			</cfif>
-			<cfset secondId = "">
-		</cfif> -->
+
 		<!--- Latitude/Longitude (datum) --->
 		<!-- Setting Latitude/Longitidue -->
         <cfset coordinates = "">
