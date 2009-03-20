@@ -60,7 +60,7 @@
 						</select>
 					</cfoutput>					
 					<label for="onlyCitePubs">
-						<span class="likeLink" onclick="getHelp('onlyCited');">Cite specimens only?</span>
+						<span class="likeLink" onclick="getHelp('onlyCited');">Cites specimens?</span>
 					</label>
 					<select name="onlyCitePubs" id="onlyCitePubs">
 						<option value=""></option>
