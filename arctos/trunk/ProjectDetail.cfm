@@ -29,7 +29,7 @@
 			project_agent.agent_name_id = agent_name.agent_name_id and
 			project.project_id=project_sponsor.project_id (+) and
 			project_sponsor.agent_name_id=ps.agent_name_id and
-			project.project_id = #project_id# AND 
+			project.project_id = #project_id# 
 	</cfquery>
 	<cfquery name="p" dbtype="query">
 		select 
