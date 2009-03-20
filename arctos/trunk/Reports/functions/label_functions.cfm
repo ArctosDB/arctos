@@ -665,6 +665,7 @@
 	<cfset hAr = ArrayNew(1)>
 	<cfset locAr = ArrayNew(1)>
 	<cfset cdeAr = ArrayNew(1)>
+	<cfset rAr = ArrayNew(1)>
 	
 	<!--- Data Manipulation --->
 	<cfset i = 1>
@@ -672,28 +673,6 @@
 		
 		<!--- Collectors (collector_id_num) [, second collector (second collector number)] --->
 		
-		<!--- <cfset ids = "#other_ids#">
-		<cfset firstId = "">
-		<cfset secondId = "">		
-		<cfset idCommaPos = find (",", ids)>
-		
-		<cfif idCommaPos gt 0>
-			<cfset firstId = left(ids, idCommaPos)>
-			<cfset colonPos = find ("=", firstId)>
-			<cfset firstId = right (firstId, len(firstId)-colonPos)>
-			<cfset secondId = right(ids, len(ids)-idCommaPos)>
-			<cfset colonPos = find ("=", secondId)>
-			<cfset secondId = right (secondId, len(secondId)-colonPos)>
-		<cfelse>
-			<cfset colonPos = find ("=", "#ids#")>
-			<cfif colonPos gt 0>				
-				<cfset firstId = right(ids, len(ids)-colonPos)>
-			<cfelse>
-				<cfset firstId = "">
-			</cfif>
-			<cfset secondId = "">
-		</cfif> 
-		 --->
 		<cfset firstIdPos = find ("collector number=", other_ids)>
 		<cfset colonPos = find (';', other_ids)>
 		
@@ -769,6 +748,24 @@
 			</cfif>
 		</cfif> 
 		
+		<!-- Rest of "other_id" type ids -->
+		<cfset firstId = "">
+		<cfset secondId = "">
+		<cfset restIds = "">	
+		<cfloop list="#other_ids#" delimiters=";" index="ids">
+			
+			<cfset firstIdPos = find("collector number=", ids)>
+			<cfset secondIdPos = find("second collector number=", ids)>
+			<cfif secondIdPos gt 0>
+				<cfset secondId = right(ids, len(ids)-secondIdPos-len("collector number"))>
+			<cfelseif firstIdPos gt 0>
+				<cfset firstId = right(ids, len(ids)-firstIdPos-len("collector number"))>
+			<cfelse>
+				<cfset restIds = "#restIds#; #replace(ids, '=', '()', 'one')#)">
+			</cfif>				
+		</cfloop>
+		<cfset rAr[i] = "#restIds#">
+		
 		<cfset format_collectors = "">
 		
 		<cfset collCommaPos = find(",", "#collectors#")>
@@ -799,7 +796,8 @@
 		</cfif>
 		
 		<cfset colAr[i] = "#format_collectors#">
-		
+
+
 
 		<!--- Latitude/Longitude (datum) --->
 		<!-- Setting Latitude/Longitidue -->
@@ -881,7 +879,7 @@
 	<cfset temp=queryAddColumn(q, "highergeog", "VarChar", hAr)>
 	<cfset temp=queryAddColumn(q, "locality", "VarChar", locAr)>
 	<cfset temp=queryAddColumn(q, "cde", "VarChar", cdeAr)>
-	
+	<cfset temp=queryAddColumn(q, "restIds", "VarChar", rAr)>
 	<cfreturn q>
 </cffunction>
 
