@@ -152,7 +152,7 @@
 				)">
 		</cfif>
 		<cfif isdefined("publication_id") AND len(#publication_id#) gt 0>
-			<cfset basWhere = "#basWhere# AND project.project_id in
+			<cfset whr = "#whr# AND project.project_id in
 				(select project_id from publication_project where publication_id=#publication_id#)">
 			<cfset go="yes">
 		</cfif>
