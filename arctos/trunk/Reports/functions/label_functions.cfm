@@ -744,7 +744,7 @@
 				<cfset secondId = "">				
 			</cfif> --->
 		</cfif> --->
-			<!-- 	<cfset ids = "#other_ids#">
+		<cfset ids = "#other_ids#">
 		<cfset firstId = "">
 		<cfset secondId = "">		
 		<cfset idCommaPos = find (",", ids)>
@@ -768,7 +768,7 @@
 				<cfset firstId = "">
 			</cfif>
 			<cfset secondId = "">
-		</cfif> -->
+		</cfif> 
 		
 		<cfset format_collectors = "">
 		
