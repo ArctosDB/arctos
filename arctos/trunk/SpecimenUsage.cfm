@@ -271,6 +271,7 @@
 			ORDER BY
 				project_name
 		</cfquery>
+		<h3>Publications</h3>
 		<cfif projNames.recordcount is 0>
 			<div class="notFound">
 				No projects matched your criteria.
@@ -311,7 +312,7 @@
 					<div class="pTitle">
 					#project_name#
 					</div>
-				</a><br>
+				</a>
 				<cfloop query="thisAuth">
 					#agent_name# (#project_agent_role#)<br>
 				</cfloop>
@@ -432,9 +433,9 @@
 	</cfcatch>
 </cftry>
 
-	<h2>
+	<h3>
 	Publications
-	</h2>
+	</h3>
 	<cfif publication.recordcount is 0>
 		<div class="notFound">
 			No publications matched your criteria.
