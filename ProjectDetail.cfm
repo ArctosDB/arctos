@@ -144,7 +144,7 @@
 		
 		
 		
-	</cfif>
+
 	<cfif #Action# is "viewUser">
 		<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT project.project_id,project_name FROM project,
