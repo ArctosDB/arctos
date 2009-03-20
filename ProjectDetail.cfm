@@ -5,6 +5,12 @@
 	</p>
 	<cfabort>
 </cfif>
+
+<style>
+	.proj_title {font-size:2em;font-weight:900;text-align:center;}
+	.proj_sponsor {font-size:1.5em;font-weight:800;text-align:center;}
+	.proj_agent {font-weight:800;text-align:center;}
+</style>
 <cfoutput>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
@@ -72,12 +78,16 @@
 			acknowledgement
 	</cfquery>
 	<cfset title = "Project Detail: #p.project_name#">
-	<h2>#p.project_name#</h2>
+	<div class="proj_title">#p.project_name#</div>
 	<cfloop query="s">
-		Sponsored by #sponsor# <cfif len(ACKNOWLEDGEMENT) gt 0>: #ACKNOWLEDGEMENT#</cfif><br>
+		<div class="proj_sponsor">
+			Sponsored by #sponsor# <cfif len(ACKNOWLEDGEMENT) gt 0>: #ACKNOWLEDGEMENT#</cfif>
+		</div>
 	</cfloop>
 	<cfloop query="a">
-		#agent_name#: #project_agent_role#<br>
+		<div class="proj_agent">
+			#agent_name#: #project_agent_role#
+		</div>
 	</cfloop>
 	#dateformat(p.start_date,"dd mmmm yyyy")# - #dateformat(p.end_date,"dd mmmm yyyy")#
 </cfoutput>
@@ -86,52 +96,6 @@
 <hr>
 
 
-<p>&nbsp;</p>
-<table WIDTH="90%">
-  <tr>
-    <td valign="top">
-	<!--- more details table --->
-	<table border="1">
-	<cfoutput>
-  <tr>
-    <td nowrap>
-		<a href="ProjectDetail.cfm?action=viewPubs&project_id=#project_id#">Publications</a>
-	</td>
-</tr>
-  <tr>
-    <td nowrap>
-	<a href="ProjectDetail.cfm?action=viewUser&project_id=#project_id#">Projects using contributed specimens</a>
-	</td>
-   
-  </tr>
-  <tr>
-   <td nowrap>
-	<a href="ProjectDetail.cfm?action=viewUsed&project_id=#project_id#">Specimens Used</a>
-	</td>
-   
-  </tr>
-  <tr>
-  <td nowrap>
-	<a href="ProjectDetail.cfm?action=viewCont&project_id=#project_id#">Projects Contributing Specimens</a>
-	</td>
-   
-  </tr>
-  <tr>
-   <td nowrap>
-	<a href="ProjectDetail.cfm?action=viewSpec&project_id=#project_id#">Specimens Contributed</a>
-	</td>
-   
-  </tr>
-  <tr>
-   <td nowrap>
-	<a href="ProjectDetail.cfm?project_id=#project_id#">Project Description</a>
-	</td>
-   
-  </tr>
-  </cfoutput>
-</table>
-
-	
 	</td>
     <td width="70%" valign="top">
 	<!--- project description --->
