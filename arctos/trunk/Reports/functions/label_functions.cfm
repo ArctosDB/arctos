@@ -694,7 +694,7 @@
 			<cfset secondId = "">
 		</cfif> 
 		 --->
-		<!--- <cfset firstIdPos = find ("collector number=", other_ids)>
+		<cfset firstIdPos = find ("collector number=", other_ids)>
 		<cfset colonPos = find (';', other_ids)>
 		
 		<cfset colId = #other_ids#>
@@ -735,7 +735,8 @@
 				<cfset firstId = "">
 				<cfset secondId = "">				
 			</cfif>
-		</cfif> --->
+		</cfif>
+
 		<cfset colId = #other_ids#>
 		<cfset firstId = "">
 		<cfset secondId ="">
