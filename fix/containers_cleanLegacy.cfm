@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
-	<cfloop from="1" to="10" index="i">
+	<cfloop from="1" to="1" index="i">
 		<cfquery name="data" datasource="uam_god">
 			select * from container where container_id in (
 				select min(container_id) container_id from container where
