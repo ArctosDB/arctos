@@ -12,6 +12,9 @@
 	}
 	.notFound {
 		color:red;
+font-style:italic;
+text-align:center;
+padding:2em;
 	}
 </style>
 <cfif #action# is "nothing">
