@@ -728,13 +728,13 @@
 				<cfset firstId = "">
 				<cfset secondId = "">
 			</cfif>
-			
+			<!-- 
 			<cfset secondIdPos = find("second collector number=", secondId)>
 			<cfif secondIdPos gt 0>
 				<cfset secondId = right(secondId, len(secondId)-secondIdPos+len("second collector number"))>
 			<cfelse>
 				<cfset secondId = "">
-			</cfif>
+			</cfif> -->
 <!--- 		<cfelse>
 			<cfset firstIdPos = find("collector number=", colId)>
 			<cfif firstIdPos gt 0>
