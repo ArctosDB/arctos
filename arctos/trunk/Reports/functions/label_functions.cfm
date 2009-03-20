@@ -735,14 +735,14 @@
 			<cfelse>
 				<cfset secondId = "">
 			</cfif>
-		<cfelse>
+<!--- 		<cfelse>
 			<cfset firstIdPos = find("collector number=", colId)>
 			<cfif firstIdPos gt 0>
 				<cfset firstId = right(colId, len(colId)-firstIdPos+len("collector number"))>
 			<cfelse>
 				<cfset firstId = "">
 				<cfset secondId = "">				
-			</cfif>
+			</cfif> --->
 		</cfif>
 		
 		
