@@ -44,7 +44,7 @@
 			</cfloop>
 			... and  delete our container
 			<cfquery name="kill" datasource="uam_god">
-				delete from container set where container_id=#data.container_id#
+				delete from container where container_id=#data.container_id#
 			</cfquery>
 			<hr>
 		</cftransaction>
