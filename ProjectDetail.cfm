@@ -286,17 +286,20 @@
 				collection.collection,
 				collection.collection_id
 		</cfquery>
+		<cfquery name="ts" dbtype="query">
+			select sum(c) totspec from getUsed
+		</cfquery>
 		<cfif getUsed.recordcount is 0>
 			<div class="notFound">
 				This project used no specimens.
 			</div>
 		<cfelse>
 			<ul>
-				<li><a href="/SpecimenDetail.cfm?loan_project_id=#project_id#">All Specimens</a></li>
+				<li><a href="/SpecimenResults.cfm?loan_project_id=#project_id#">All #ts.totspec# Specimens</a></li>
 				<cfloop query="getUsed">
 					<li>
-						<a href="/SpecimenDetail.cfm?loan_project_id=#project_id#&collection_id=#collection_id#">
-							#collection# Specimens
+						<a href="/SpecimenResults.cfm?loan_project_id=#project_id#&collection_id=#collection_id#">
+							#c# #collection# Specimens
 						</a>
 					</li>
 				</cfloop>
