@@ -254,11 +254,13 @@
 				count(*) c
 			FROM 
 				cataloged_item,
+				collection,
 				specimen_part,
 				loan_item,
 				project_trans
 			WHERE
 				specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
+				cataloged_item.collection_id=collection.collection_id and
 				specimen_part.collection_object_id = loan_item.collection_object_id AND
 				loan_item.transaction_id = project_trans.transaction_id AND
 				project_trans.project_id = #project_id#
@@ -272,10 +274,12 @@
 				count(*) c
 			FROM 
 				cataloged_item,
+				collection,
 				loan_item,
 				project_trans
 			WHERE
 				cataloged_item.collection_object_id = loan_item.collection_object_id AND
+				cataloged_item.collection_id=collection.collection_id and
 				loan_item.transaction_id = project_trans.transaction_id AND
 				project_trans.project_id = #project_id#
 			group by
