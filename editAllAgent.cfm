@@ -24,7 +24,7 @@
 <cfoutput>
 <script type="text/javascript" language="javascript">
 	if (top.location!=document.location) {
-    	document.location='/agents.cfm?agent_id=#agent_id#';
+    	top.location='/agents.cfm?agent_id=#agent_id#';
 	}
 </script>
 </cfoutput>
