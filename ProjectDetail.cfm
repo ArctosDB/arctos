@@ -84,7 +84,7 @@
 
 
 <hr>
-<cfoutput query="proj" group="project_id">
+
 
 <p>&nbsp;</p>
 <table WIDTH="90%">
