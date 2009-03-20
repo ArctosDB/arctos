@@ -22,7 +22,7 @@
 			project,
 			project_agent,
 			agent_name,
-			project_sponsor
+			project_sponsor,
 			agent_name ps
 		WHERE 
 			project.project_id = project_agent.project_id AND 
