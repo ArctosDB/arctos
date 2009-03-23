@@ -843,80 +843,64 @@ function highlightErrors (loadedMsg) {
 }
 
 function cleanup () {
-var thisCC = document.getElementById('collection_cde').value;
+	var thisCC = document.getElementById('collection_cde').value;
 	if (thisCC == 'Mamm') {	
-	//alert('Mamm');
-	/******************************** Mammal Routine ************************************************/
+		/******************************** Mammal Routine ************************************************/
 		var Att2UnitVal = document.getElementById('attribute_units_2').value; //total length & "standard"
-			//alert('Att2UnitVal: ' + Att2UnitVal);	
 		var Att3UnitVal = document.getElementById('attribute_units_3'); //tail length
 		var Att4UnitVal = document.getElementById('attribute_units_4'); //HF length
 		var Att5UnitVal = document.getElementById('attribute_units_5'); //EFN length
-
-		
-		
-			Att3UnitVal.value = Att2UnitVal;
-			Att4UnitVal.value = Att2UnitVal;
-			Att5UnitVal.value = Att2UnitVal;
+		Att3UnitVal.value = Att2UnitVal;
+		Att4UnitVal.value = Att2UnitVal;
+		Att5UnitVal.value = Att2UnitVal;
 		var Det2UnitVal = document.getElementById('attribute_determiner_2').value; //total length
-			var Det3UnitVal = document.getElementById('attribute_determiner_3'); //tail length
-			var Det4UnitVal = document.getElementById('attribute_determiner_4'); //HF length
-			var Det5UnitVal = document.getElementById('attribute_determiner_5'); //EFN length
-			var Det6UnitVal = document.getElementById('attribute_determiner_6'); //weight
-			Det3UnitVal.value = Det2UnitVal;
-			Det4UnitVal.value = Det2UnitVal;
-			Det5UnitVal.value = Det2UnitVal;
-			Det6UnitVal.value = Det2UnitVal;
+		var Det3UnitVal = document.getElementById('attribute_determiner_3'); //tail length
+		var Det4UnitVal = document.getElementById('attribute_determiner_4'); //HF length
+		var Det5UnitVal = document.getElementById('attribute_determiner_5'); //EFN length
+		var Det6UnitVal = document.getElementById('attribute_determiner_6'); //weight
+		Det3UnitVal.value = Det2UnitVal;
+		Det4UnitVal.value = Det2UnitVal;
+		Det5UnitVal.value = Det2UnitVal;
+		Det6UnitVal.value = Det2UnitVal;
 		var Date2UnitVal = document.getElementById('attribute_date_2').value; //total length
-			var Date3UnitVal = document.getElementById('attribute_date_3'); //tail length
-			var Date4UnitVal = document.getElementById('attribute_date_4'); //HF length
-			var Date5UnitVal = document.getElementById('attribute_date_5'); //EFN length
-			var Date6UnitVal = document.getElementById('attribute_date_6'); //weight
-			Date3UnitVal.value = Date2UnitVal;
-			Date4UnitVal.value = Date2UnitVal;
-			Date5UnitVal.value = Date2UnitVal;
-			Date6UnitVal.value = Date2UnitVal;	
-	
+		var Date3UnitVal = document.getElementById('attribute_date_3'); //tail length
+		var Date4UnitVal = document.getElementById('attribute_date_4'); //HF length
+		var Date5UnitVal = document.getElementById('attribute_date_5'); //EFN length
+		var Date6UnitVal = document.getElementById('attribute_date_6'); //weight
+		Date3UnitVal.value = Date2UnitVal;
+		Date4UnitVal.value = Date2UnitVal;
+		Date5UnitVal.value = Date2UnitVal;
+		Date6UnitVal.value = Date2UnitVal;	
 	} else if (thisCC == 'Bird') {
 		/************************************************** Bird Routine **************************************************/
-		//var Att2UnitVal = document.getElementById('attribute_units_2').value; //total length & "standard"
-		//var Att3UnitVal = document.getElementById('attribute_units_3'); //tail length
-		//var Att4UnitVal = document.getElementById('attribute_units_4'); //HF length
-		//var Att5UnitVal = document.getElementById('attribute_units_5'); //EFN length
-		//	Att3UnitVal.value = Att2UnitVal;
-		//	Att4UnitVal.value = Att2UnitVal;
-		//	Att5UnitVal.value = Att2UnitVal;
 		var Det2UnitVal = document.getElementById('attribute_determiner_2').value; //age & standard
-			var Det3UnitVal = document.getElementById('attribute_determiner_3'); //fat
-			var Det4UnitVal = document.getElementById('attribute_determiner_4'); //molt
-			var Det5UnitVal = document.getElementById('attribute_determiner_5'); //skull
-			var Det6UnitVal = document.getElementById('attribute_determiner_6'); //weight
-			Det3UnitVal.value = Det2UnitVal;
-			Det4UnitVal.value = Det2UnitVal;
-			Det5UnitVal.value = Det2UnitVal;
-			Det6UnitVal.value = Det2UnitVal;
+		var Det3UnitVal = document.getElementById('attribute_determiner_3'); //fat
+		var Det4UnitVal = document.getElementById('attribute_determiner_4'); //molt
+		var Det5UnitVal = document.getElementById('attribute_determiner_5'); //skull
+		var Det6UnitVal = document.getElementById('attribute_determiner_6'); //weight
+		Det3UnitVal.value = Det2UnitVal;
+		Det4UnitVal.value = Det2UnitVal;
+		Det5UnitVal.value = Det2UnitVal;
+		Det6UnitVal.value = Det2UnitVal;
 		var Date2UnitVal = document.getElementById('attribute_date_2').value; //age & standard
-			var Date3UnitVal = document.getElementById('attribute_date_3'); //fat
-			var Date4UnitVal = document.getElementById('attribute_date_4'); //molt
-			var Date5UnitVal = document.getElementById('attribute_date_5'); //skull
-			var Date6UnitVal = document.getElementById('attribute_date_6'); //weight
-			Date3UnitVal.value = Date2UnitVal;
-			Date4UnitVal.value = Date2UnitVal;
-			Date5UnitVal.value = Date2UnitVal;
-			Date6UnitVal.value = Date2UnitVal;
-		// ask if they want to NOT enter a coll number and prep number, which is what oid 1 and 2 are defaulted to
+		var Date3UnitVal = document.getElementById('attribute_date_3'); //fat
+		var Date4UnitVal = document.getElementById('attribute_date_4'); //molt
+		var Date5UnitVal = document.getElementById('attribute_date_5'); //skull
+		var Date6UnitVal = document.getElementById('attribute_date_6'); //weight
+		Date3UnitVal.value = Date2UnitVal;
+		Date4UnitVal.value = Date2UnitVal;
+		Date5UnitVal.value = Date2UnitVal;
+		Date6UnitVal.value = Date2UnitVal;
 		var oid1 = document.getElementById('other_id_num_type_1');
 		var oid2 = document.getElementById('other_id_num_type_2');
 		var theMsg = "";
 		if (oid1.value == 'collector number') {
-			// it's still default
 			var oidv1 = document.getElementById('other_id_num_1').value;
 			if (oidv1.length == 0) {
 				theMsg = "You did not enter a collector number";
 			}			
 		}
 		if (oid2.value == 'preparator number') {
-			// it's still default
 			var oidv2 = document.getElementById('other_id_num_2').value;
 			if (oidv2.length == 0) {
 				theMsg += "\nYou did not enter a preparator number";
@@ -931,147 +915,110 @@ var thisCC = document.getElementById('collection_cde').value;
 				return true;
 			}
 		}
-}// end collection specific thingy
-/******************************************************************** Any Collection ***************************************/
-// make an array of required values and loop through the array checking them
+	}// end collection specific thingy
+	/******************************************************************** Any Collection ***************************************/
+	// make an array of required values and loop through the array checking them
 	// this must always happen at the bottom of function cleanup - some of these things
 	// may be populated by this function
-
-		var reqdFlds = new Array();
-		var missingData = "";
-		// these fields are always required
-		reqdFlds.push('accn');
-		reqdFlds.push('collector_agent_1');
-		reqdFlds.push('higher_geog');
-		reqdFlds.push('spec_locality');
-		reqdFlds.push('verbatim_locality');
-		reqdFlds.push('verbatim_date');
-		reqdFlds.push('began_date');
-		reqdFlds.push('ended_date');
-		reqdFlds.push('taxon_name');
-		reqdFlds.push('condition');
-		reqdFlds.push('coll_obj_disposition');
-		reqdFlds.push('id_made_by_agent');
-		reqdFlds.push('nature_of_id');
-		console.log(thisCC);
-		if (thisCC != 'Crus' && thisCC != 'Herb' && thisCC != 'ES' && thisCC != 'Fish' && thisCC != 'Para' && thisCC != 'Art') {
-			// require sex stuff UNLESS Crus or Herb or paleo
-			reqdFlds.push('attribute_value_1');
-			reqdFlds.push('attribute_determiner_1');
+	var reqdFlds = new Array();
+	var missingData = "";
+	// these fields are always required
+	reqdFlds.push('accn');
+	reqdFlds.push('collector_agent_1');
+	reqdFlds.push('higher_geog');
+	reqdFlds.push('spec_locality');
+	reqdFlds.push('verbatim_locality');
+	reqdFlds.push('verbatim_date');
+	reqdFlds.push('began_date');
+	reqdFlds.push('ended_date');
+	reqdFlds.push('taxon_name');
+	reqdFlds.push('condition');
+	reqdFlds.push('coll_obj_disposition');
+	reqdFlds.push('id_made_by_agent');
+	reqdFlds.push('nature_of_id');
+	console.log('this CC is ' + thisCC);
+	if (thisCC != 'Crus' && thisCC != 'Herb' && thisCC != 'ES' && thisCC != 'Fish' && thisCC != 'Para' && thisCC != 'Art') {
+		reqdFlds.push('attribute_value_1');
+		reqdFlds.push('attribute_determiner_1');
+	}
+	reqdFlds.push('part_condition_1');
+	var llUnit=document.getElementById('orig_lat_long_units').value;
+	if (llUnit.length > 0) {
+		reqdFlds.push('datum');
+		reqdFlds.push('determined_by_agent');
+		reqdFlds.push('determined_date');
+		reqdFlds.push('lat_long_ref_source');
+		reqdFlds.push('georefmethod');
+		reqdFlds.push('verificationstatus');
+		if (llUnit == 'deg. min. sec.') {
+			reqdFlds.push('latdeg');
+			reqdFlds.push('latmin');
+			reqdFlds.push('latsec');
+			reqdFlds.push('latdir');
+			reqdFlds.push('longdeg');
+			reqdFlds.push('longmin');
+			reqdFlds.push('longsec');
+			reqdFlds.push('longdir');
 		}
-		reqdFlds.push('part_condition_1');
-		// now, handle conditionally-required stuff
-		var llUnit=document.getElementById('orig_lat_long_units').value;
-		if (llUnit.length > 0) {
-			// got a lat_long units, check fields required for all LL entries first
-			//reqdFlds.push('max_error_distance');
-			//reqdFlds.push('max_error_units');
-			reqdFlds.push('datum');
-			reqdFlds.push('determined_by_agent');
-			reqdFlds.push('determined_date');
-			reqdFlds.push('lat_long_ref_source');
-			reqdFlds.push('georefmethod');
-			reqdFlds.push('verificationstatus');
-			// now, add specific fields based on the units
-			if (llUnit == 'deg. min. sec.') {
-				reqdFlds.push('latdeg');
-				reqdFlds.push('latmin');
-				reqdFlds.push('latsec');
-				reqdFlds.push('latdir');
-				reqdFlds.push('longdeg');
-				reqdFlds.push('longmin');
-				reqdFlds.push('longsec');
-				reqdFlds.push('longdir');
+		if (llUnit == 'decimal degrees') {
+			reqdFlds.push('dec_lat');
+			reqdFlds.push('dec_long');
+		}
+		if (llUnit == 'degrees dec. minutes') {
+			reqdFlds.push('decLAT_DEG');
+			reqdFlds.push('dec_lat_min');
+			reqdFlds.push('decLAT_DIR');
+			reqdFlds.push('decLONGDEG');
+			reqdFlds.push('DEC_LONG_MIN');
+			reqdFlds.push('decLONGDIR');
+		}
+		if (llUnit == 'UTM') {
+			reqdFlds.push('utm_zone');
+			reqdFlds.push('utm_ns');
+			reqdFlds.push('utm_ew');
+		}
+	}
+	for (i=0;i<reqdFlds.length;i++) {
+		try {
+			var thisFld = document.getElementById(reqdFlds[i]).value;
+			if (thisFld.length == 0) {
+				var thisFldName = document.getElementById(reqdFlds[i]).name;
+				missingData = missingData + "\n" + thisFldName;					}
 			}
-			if (llUnit == 'decimal degrees') {
-				reqdFlds.push('dec_lat');
-				reqdFlds.push('dec_long');
-			}
-			if (llUnit == 'degrees dec. minutes') {
-				reqdFlds.push('decLAT_DEG');
-				reqdFlds.push('dec_lat_min');
-				reqdFlds.push('decLAT_DIR');
-				reqdFlds.push('decLONGDEG');
-				reqdFlds.push('DEC_LONG_MIN');
-				reqdFlds.push('decLONGDIR');
-			}
-			if (llUnit == 'UTM') {
-				reqdFlds.push('utm_zone');
-				reqdFlds.push('utm_ns');
-				reqdFlds.push('utm_ew');
-			}
+		catch ( err ){// nothing, just ignore 
 		}
-		// now loop through the array and make sure these fields exist
-		for (i=0;i<reqdFlds.length;i++) {
-			try {
-					var thisFld = document.getElementById(reqdFlds[i]).value;
-					if (thisFld.length == 0) {
-						//alert(reqdFlds[i]);
-						var thisFldName = document.getElementById(reqdFlds[i]).name;
-						missingData = missingData + "\n" + thisFldName;
-						//alert(thisFldName + ' is required');
-						//abort();
-					}
-				}
-				catch ( err ){// nothing, just ignore 
-				}
-			
+	}
+	if (missingData.length > 0) {
+		alert('You must enter data in required fields: ' + missingData + "\n Aborting Save!");
+		return false;
+	}
+	var dateFields = new Array();
+	var badDates = "";
+	dateFields.push('made_date');
+	dateFields.push('began_date');
+	dateFields.push('ended_date');
+	dateFields.push('determined_date');
+	dateFields.push('attribute_date_1');
+	dateFields.push('attribute_date_2');
+	dateFields.push('attribute_date_3');
+	dateFields.push('attribute_date_4');
+	dateFields.push('attribute_date_5');
+	dateFields.push('attribute_date_6');
+	dateFields.push('attribute_date_7');
+	dateFields.push('attribute_date_8');
+	dateFields.push('attribute_date_9');
+	dateFields.push('attribute_date_10');
+	for (i=0;i<dateFields.length;i++) {
+		var thisFld = document.getElementById(dateFields[i]).value;
+		if (thisFld.length > 0 && isValidDate(thisFld) == false) {
+			badDates += ' ' + thisFld + '\n';
 		}
-		// if anything is missing show an alert and abort
-		if (missingData.length > 0) {
-			alert('You must enter data in required fields: ' + missingData + "\n Aborting Save!");
-			return false;
-		}
-		var dateFields = new Array();
-		var badDates = "";
-		dateFields.push('made_date');
-		dateFields.push('began_date');
-		dateFields.push('ended_date');
-		dateFields.push('determined_date');
-		dateFields.push('attribute_date_1');
-		dateFields.push('attribute_date_2');
-		dateFields.push('attribute_date_3');
-		dateFields.push('attribute_date_4');
-		dateFields.push('attribute_date_5');
-		dateFields.push('attribute_date_6');
-		dateFields.push('attribute_date_7');
-		dateFields.push('attribute_date_8');
-		dateFields.push('attribute_date_9');
-		dateFields.push('attribute_date_10');
-		for (i=0;i<dateFields.length;i++) {
-			var thisFld = document.getElementById(dateFields[i]).value;
-				//alert(thisFld);
-				if (thisFld.length > 0 && isValidDate(thisFld) == false) {
-					badDates += ' ' + thisFld + '\n';
-				}
-				
-		}
-		if (badDates.length > 0) {
-			alert('The following dates are not in a recognized format, or are not valid dates: \n' + badDates);
-			return false;
-		}
-		
-		// make sure no elements are marked invalid
-		/*
-		var probs = "";
-		for(i=0; i<document.dataEntry.elements.length; i++)
-			{
-				var elem = document.dataEntry.elements[i];
-				if (elem.className.indexOf('hasProbs') > -1) {
-					probs += '\n' + elem.id;
-				}
-			}
-		if (probs.length > 0) {
-			alert('The folowing elements have problems and must be fixed before saving: ' + probs);
-			return false;
-		}
-		*/
-		return true;
-
-	
-		
-		
-// end function cleanup	
+	}
+	if (badDates.length > 0) {
+		alert('The following dates are not in a recognized format, or are not valid dates: \n' + badDates);
+		return false;
+	}
+	return true;
 }		
 
 
