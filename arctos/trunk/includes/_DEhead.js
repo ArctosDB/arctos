@@ -953,6 +953,7 @@ var thisCC = document.getElementById('collection_cde').value;
 		reqdFlds.push('coll_obj_disposition');
 		reqdFlds.push('id_made_by_agent');
 		reqdFlds.push('nature_of_id');
+		console.log(thisCC);
 		if (thisCC != 'Crus' && thisCC != 'Herb' && thisCC != 'ES' && thisCC != 'Fish' && thisCC != 'Para' && thisCC != 'Art') {
 			// require sex stuff UNLESS Crus or Herb or paleo
 			reqdFlds.push('attribute_value_1');
