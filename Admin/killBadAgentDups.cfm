@@ -251,6 +251,11 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 			ISSUED_by_AGENT_ID = #bads.related_agent_id# where
 			ISSUED_by_AGENT_ID = #bads.agent_id#
 	</cfquery>
+	<cfquery name="permit_contact" datasource="uam_god">
+		update permit set
+			CONTACT_AGENT_ID = #bads.related_agent_id# where
+			CONTACT_AGENT_ID = #bads.agent_id#
+	</cfquery>
 	got permit<br><cfflush>
 	<cfquery name="shipment" datasource="uam_god">
 		update shipment set 
