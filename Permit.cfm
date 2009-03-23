@@ -112,6 +112,16 @@ where
 <cfif len(#IssuedByAgent#) gt 0>
 	<cfset sql = "#sql# AND upper(issuedBy.agent_name) like '%#ucase(IssuedByAgent)#%'">
 </cfif>
+<cfif isdefined("ISSUED_BY_AGENT_ID") and len(#ISSUED_BY_AGENT_ID#) gt 0>
+	<cfset sql = "#sql# AND ISSUED_BY_AGENT_ID = #ISSUED_BY_AGENT_ID#">
+</cfif>
+<cfif isdefined("ISSUED_TO_AGENT_ID") and len(#ISSUED_TO_AGENT_ID#) gt 0>
+	<cfset sql = "#sql# AND ISSUED_TO_AGENT_ID = #ISSUED_TO_AGENT_ID#">
+</cfif>
+<cfif isdefined("CONTACT_AGENT_ID") and len(#CONTACT_AGENT_ID#) gt 0>
+	<cfset sql = "#sql# AND CONTACT_AGENT_ID = #CONTACT_AGENT_ID#">
+</cfif>
+
 <cfif len(#IssuedToAgent#) gt 0>
 	<cfset sql = "#sql# AND upper(issuedTo.agent_name) like '%#ucase(IssuedToAgent)#%'">
 </cfif>

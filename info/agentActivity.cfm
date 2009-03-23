@@ -297,14 +297,46 @@ Coordinates:
 	</ul>
 Permits:	
 	<cfquery name="permit_to" datasource="uam_god">
-		select count(*) cnt from permit where ISSUED_TO_AGENT_ID=#agent_id#
-	</cfquery>
-	<cfquery name="permit_by" datasource="uam_god">
-		select count(*) cnt from permit where ISSUED_by_AGENT_ID=#agent_id#
+		select 
+			PERMIT_NUM,
+			PERMIT_TYPE 
+		from 
+			permit 
+		where 
+			ISSUED_TO_AGENT_ID=#agent_id#
 	</cfquery>
 	<ul>
-		<li>#permit_to.cnt# permits issued to</li>
-		<li>#permit_by.cnt# permits issued by</li>
+		<cfloop query="permit_to">
+			<li>
+				<a href="/Permit.cfm?action=search&ISSUED_TO_AGENT_ID=#agent_id#">#PERMIT_NUM#: #PERMIT_TYPE#</a>
+			</li>
+		</cfloop>
+		<cfquery name="permit_by" datasource="uam_god">
+			select 
+				PERMIT_NUM,
+				PERMIT_TYPE 
+			from 
+				permit 
+			where ISSUED_by_AGENT_ID=#agent_id#
+		</cfquery>
+		<cfloop query="permit_by">
+			<li>
+				<a href="/Permit.cfm?action=search&ISSUED_by_AGENT_ID=#agent_id#">#PERMIT_NUM#: #PERMIT_TYPE#</a>
+			</li>
+		</cfloop>
+		<cfquery name="permit_contact" datasource="uam_god">
+			select 
+				PERMIT_NUM,
+				PERMIT_TYPE 
+			from 
+				permit 
+			where CONTACT_AGENT_ID=#agent_id#
+		</cfquery>
+		<cfloop query="permit_by">
+			<li>
+				<a href="/Permit.cfm?action=search&CONTACT_AGENT_ID=#agent_id#">#PERMIT_NUM#: #PERMIT_TYPE#</a>
+			</li>
+		</cfloop>
 	</ul>
 Projects:	
 	<cfquery name="project_agent" datasource="uam_god">
