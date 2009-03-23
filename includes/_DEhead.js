@@ -654,8 +654,8 @@ function UAMArtDefaults() {
 		var i=1;
 		for (i=1;i<=12;i++){
 			var thisPartConditionString='part_condition_' + i;
-			console.log(i);
-			console.log(thisPartConditionString);
+			//console.log(i);
+			//console.log(thisPartConditionString);
 			if (document.getElementById(thisPartConditionString)) {
 				var thisPartCondition=document.getElementById(thisPartConditionString);
 				var thisPartConditionValue=thisPartCondition.value;
@@ -670,8 +670,8 @@ function UAMFishDefault() {
 		var i=1;
 		for (i=1;i<=12;i++){
 			var thisPartConditionString='part_condition_' + i;
-			console.log(i);
-			console.log(thisPartConditionString);
+			//console.log(i);
+			//console.log(thisPartConditionString);
 			if (document.getElementById(thisPartConditionString)) {
 				var thisPartCondition=document.getElementById(thisPartConditionString);
 				var thisPartConditionValue=thisPartCondition.value;
