@@ -308,7 +308,7 @@ Permits:
 	<ul>
 		<cfloop query="permit_to">
 			<li>
-				<a href="/Permit.cfm?action=search&ISSUED_TO_AGENT_ID=#agent_id#">#PERMIT_NUM#: #PERMIT_TYPE#</a>
+				Permit <a href="/Permit.cfm?action=search&ISSUED_TO_AGENT_ID=#agent_id#">#PERMIT_NUM#: #PERMIT_TYPE#</a> was issued to
 			</li>
 		</cfloop>
 		<cfquery name="permit_by" datasource="uam_god">
@@ -321,7 +321,7 @@ Permits:
 		</cfquery>
 		<cfloop query="permit_by">
 			<li>
-				<a href="/Permit.cfm?action=search&ISSUED_by_AGENT_ID=#agent_id#">#PERMIT_NUM#: #PERMIT_TYPE#</a>
+				Issued Permit <a href="/Permit.cfm?action=search&ISSUED_by_AGENT_ID=#agent_id#">#PERMIT_NUM#: #PERMIT_TYPE#</a>
 			</li>
 		</cfloop>
 		<cfquery name="permit_contact" datasource="uam_god">
@@ -334,7 +334,7 @@ Permits:
 		</cfquery>
 		<cfloop query="permit_by">
 			<li>
-				<a href="/Permit.cfm?action=search&CONTACT_AGENT_ID=#agent_id#">#PERMIT_NUM#: #PERMIT_TYPE#</a>
+				Contact for Permit <a href="/Permit.cfm?action=search&CONTACT_AGENT_ID=#agent_id#">#PERMIT_NUM#: #PERMIT_TYPE#</a>
 			</li>
 		</cfloop>
 	</ul>
