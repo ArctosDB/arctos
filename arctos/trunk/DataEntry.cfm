@@ -1383,7 +1383,7 @@ Some Totally Random String Data .....
 		<td>
 		<cfif #collection_cde# is not "Crus" and #collection_cde# is not "Herb"
 			and #collection_cde# is not "ES" and #collection_cde# is not "Fish"
-			and #collection_cde# is not "Para">
+			and #collection_cde# is not "Para" and #collection_cde# is not "Art">
 		<table cellpadding="0" cellspacing="0">
 		<tr>
 			<td rowspan="99" valign="top">
