@@ -644,9 +644,26 @@ function setNewRecDefaults () {
 		MSBBirdDefault();
 	} else if(cc == 'Fish' && ia == 'UAM') {
 		UAMFishDefault();	
+	} else if(ia == 'UAM' && cc=='Art') {
+		UAMArtDefaults();
 	} else if(ia == 'MVZ') {
 		MVZDefaults();
 	}	
+}
+function UAMArtDefaults() {
+		var i=1;
+		for (i=1;i<=12;i++){
+			var thisPartConditionString='part_condition_' + i;
+			console.log(i);
+			console.log(thisPartConditionString);
+			if (document.getElementById(thisPartConditionString)) {
+				var thisPartCondition=document.getElementById(thisPartConditionString);
+				var thisPartConditionValue=thisPartCondition.value;
+				if (thisPartConditionValue==''){
+					thisPartCondition.value='unchecked';
+				}
+			}
+		}
 }
 
 function UAMFishDefault() {
@@ -936,7 +953,7 @@ var thisCC = document.getElementById('collection_cde').value;
 		reqdFlds.push('coll_obj_disposition');
 		reqdFlds.push('id_made_by_agent');
 		reqdFlds.push('nature_of_id');
-		if (thisCC != 'Crus' && thisCC != 'Herb' && thisCC != 'ES' && thisCC != 'Fish' && thisCC != 'Para') {
+		if (thisCC != 'Crus' && thisCC != 'Herb' && thisCC != 'ES' && thisCC != 'Fish' && thisCC != 'Para' && thisCC != 'Art') {
 			// require sex stuff UNLESS Crus or Herb or paleo
 			reqdFlds.push('attribute_value_1');
 			reqdFlds.push('attribute_determiner_1');
