@@ -488,12 +488,23 @@ VALUES (
 			group by agent_name, author_position, agent_name_id
 			order by author_position
 		</cfquery>
-		<h2>Edit Journal Article</h2>
-		<div style="position:absolute;top:10%;right:10%;border:1px dotted green;width:20%;">	
-			<span class="likeLink" onClick="getDocs('publication')">Help</span>
-			<br>
-			<a href="/Citation.cfm?publication_id=#distJourArt.publication_id#">Manage Citations</a>
-		</div>
+		<table width="100%">
+			<tr>
+				<td width="50%">
+					<span style="font-size:2em;font-weight:bold;">
+						Edit Journal Article
+					</span>
+				</td>
+				<td align="right">
+					<div style="border:1px dotted green;">	
+						<span class="likeLink" onClick="getDocs('publication')">Help</span>
+						<br>
+						<a href="/Citation.cfm?publication_id=#distJourArt.publication_id#">Manage Citations</a>
+					</div>
+				</td>
+			</tr>
+		</table>
+		
 		<cfform name="journArtDet" method="post" action="Publication.cfm" id="journArtDet">
 			<input type="hidden" name="Action" value="SaveJournArtChanges">
 			<input type="hidden" name="publication_id" value="#distJourArt.publication_id#">
