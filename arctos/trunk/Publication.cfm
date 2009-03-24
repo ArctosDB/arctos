@@ -488,8 +488,8 @@ VALUES (
 			group by agent_name, author_position, agent_name_id
 			order by author_position
 		</cfquery>
-		<div>
-			<h2>Edit Journal Article</h2>
+		<h2>Edit Journal Article</h2>
+		<div style="position:absolute;top:10%;right:10%;">	
 			<span class="likeLink" onClick="getDocs('publication')">Help</span>
 			<a href="/Citation.cfm?publication_id=#distJourArt.publication_id#">Manage Citations</a>
 		</div>
