@@ -499,7 +499,7 @@ VALUES (
 				id="journal"
 				value="#distJourArt.journal#" 
 				class="reqdClr"
-				size="70"
+				size="80"
 				onchange="findJournal('journal_id','journal','journArtDet',this.value); return false;"
 				onKeyPress="return noenter(event);">
 			<input type="hidden" name="journal_id" id="journal_id" class="reqdClr">
@@ -530,73 +530,54 @@ VALUES (
 				</tr>
 			</table>
 			<label for="remarks">Remarks</label>
-			<input type="text" name="remarks" id="remarks" size="60" value="#distJourArt.publication_remarks#">
+			<input type="text" name="remarks" id="remarks" size="80" value="#distJourArt.publication_remarks#">
 			<br>		
 			<input type="submit" value="Save Edits" class="savBtn">	
-			<input type="button" value="Quit" class="qutBtn" onClick="document.location='Publication.cfm';">	
+			<input type="button" value="Quit" class="qutBtn" onClick="document.location='Publication.cfm';">
+			<input type="button" value="Delete" class="deBtn" 
+				onClick="document.location='Publication.cfm?action=killJournalArticle&publication_id=#distJourArt.publication_id#';">
 		</cfform>
-
-	<span style="float:right;  ">
-					<form name="killJA" action="Publication.cfm" method="post">
-			<input type="hidden" name="Action" value="killJournalArticle">
-			<input type="hidden" name="publication_id" value="#distJourArt.publication_id#">
-			<input type="submit" value="Delete" class="delBtn"
-   					onmouseover="this.className='delBtn btnhov'" onmouseout="this.className='delBtn'">	
-			
-			
-		</form>
-					</span>
-		
-		
-		</td></tr>
-		
-		<tr><td><a href="javascript:void(0);" onClick="getDocs('publication','author')">Authors:</a>
-					</td>
-		<td>
-		<table>
+		<label for="authsT" class="likeLink" onClick="getDocs('publication','author')">Authors</label>
+		<table id="authsT">
+			<tr>
+				<th>Author Position</th>
+				<th>Author Name</th>
+				<th>&nbsp;</th>
+			</tr>
 		<cfset i=1>
-			<cfloop query="journArtAuth">
+		<cfloop query="journArtAuth">
 			<cfif len(#journArtAuth.agent_name_id#) gt 0>
-				<form name="author#i#" method="post" action="Publication.cfm">
-				<input type="hidden" name="Action" value="changePubAuth">
-				<input type="hidden" name="publication_id" value="#distJourArt.publication_id#">
-				<input type="hidden" name="caller" value="#Action#">
-				<tr><td>Author ##<select name="author_position">
-					<cfset num = 1>
-					<cfloop condition="#num# lt 26">
-						<option <cfif #num# is "#journArtAuth.author_position#"> selected </cfif>value="#num#">#num#</option>
-						<cfset num=#num#+1>
-					</cfloop>
-						</select>
-				
-				</td><td>
-				
-				
-				
-				<input type="text" name="authorName" value="#journArtAuth.agent_name#" class="reqdClr" 
-		onchange="findAgentName('newagent_name_id','authorName','author#i#',this.value); return false;"
-		 onKeyPress="return noenter(event);">
-		 
-		 
-					<input type="hidden" name="agent_name_id" value="#journArtAuth.agent_name_id#">
-					<input type="hidden" name="newagent_name_id">
-				
-				
-				
-				
-				<input type="button" value="Save" class="savBtn"
-   					onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'"
-					onClick="submit();">	
-				<input type="button" value="Delete" class="delBtn"
-   					onmouseover="this.className='delBtn btnhov'" onmouseout="this.className='delBtn'"
-					onClick="author#i#.Action.value='delPubAuth';submit();">	
-					<cfset i = #i#+1>
-					
-					</td></tr>
-			</form>
+				<form name="author#i#" id="author#i#" method="post" action="Publication.cfm">
+					<input type="hidden" name="Action" value="changePubAuth">
+					<input type="hidden" name="publication_id" value="#distJourArt.publication_id#">
+					<input type="hidden" name="caller" value="#Action#">
+					<tr>
+						<td>
+							<select name="author_position">
+								<cfloop from="1" to="25" index="num">
+									<option <cfif #num# is "#journArtAuth.author_position#"> selected </cfif>value="#num#">#num#</option>
+									<cfset num=#num#+1>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<input type="text" name="authorName" value="#journArtAuth.agent_name#" class="reqdClr" 
+								onchange="findAgentName('newagent_name_id','authorName','author#i#',this.value); return false;"
+		 						onKeyPress="return noenter(event);">
+		 					<input type="hidden" name="agent_name_id" value="#journArtAuth.agent_name_id#">
+							<input type="hidden" name="newagent_name_id">
+						</td>
+						<td>
+							<input type="submit" value="Save" class="savBtn">
+							<input type="button" value="Delete" class="delBtn"
+								onClick="author#i#.Action.value='delPubAuth';submit();">	
+						</td>
+						<cfset i = #i#+1>
+					</tr>
+				</form>
 			</cfif>
-			</cfloop>
-			</table>
+		</cfloop>
+	</table>
 			<table class="newRec"><tr><td>
 			<cfform name="newAuthor"  method="post" action="Publication.cfm">
 			<input type="hidden" name="Action" value="newPubAuth">
