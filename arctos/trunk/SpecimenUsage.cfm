@@ -156,6 +156,10 @@
 				(select project_id from project_publication where publication_id=#publication_id#)">
 			<cfset go="yes">
 		</cfif>
+		<cfif isdefined("project_id") AND len(#project_id#) gt 0>
+			<cfset whr = "#whr# AND project.project_id = #project_id#">
+			<cfset go="yes">
+		</cfif>
 		<cfif go is "no">
 			<cfset whr = "#whr# and 1=2">
 		</cfif>
