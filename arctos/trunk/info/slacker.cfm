@@ -35,7 +35,9 @@
 				<p class="indent">
 					#project_name#
 					<br>
-					<a href="/SpecimenUsage.cfm?action=search&project_id=#project_id#">Project Details</a>
+					<a href="/ProjectDetail.cfm?project_id=#project_id#">Project Details</a>
+					<br>
+					<a href="/Project.cfm?action=editProject&project_id=#project_id#">Edit Project</a>
 				</p>
 			</div>
 			<cfset i=i+1>
