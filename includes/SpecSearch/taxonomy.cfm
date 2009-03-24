@@ -92,5 +92,13 @@
 			<input type="text" name="identified_agent" id="identified_agent">
 		</td>
 	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="_identification_remarks">ID Remarks:</span>
+		</td>
+		<td class="srch">
+			<input type="text" name="identification_remarks" id="identification_remarks">
+		</td>
+	</tr>
 </table>
 </cfoutput>	
