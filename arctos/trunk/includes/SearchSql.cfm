@@ -462,6 +462,15 @@
 	</cfif>
 	<cfset basQual = " #basQual# AND identification_agent.agent_id = #identified_agent_id#">			
 </cfif>
+<cfif isdefined("identification_remarks") AND len(identification_remarks) gt 0>
+	<cfset mapurl = "#mapurl#&identification_remarks=#identification_remarks#">
+	<cfif #basJoin# does not contain " identification ">
+		<cfset basJoin = " #basJoin# INNER JOIN identification ON 
+		(cataloged_item.collection_object_id = identification.collection_object_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND identification.accepted_id_fg=1 AND 
+		upper(identification.identification_remarks) like '%#ucase(identification_remarks)#%'">			
+</cfif>
 <cfif isdefined("nature_of_id") AND len(#nature_of_id#) gt 0>
 	<cfset mapurl = "#mapurl#&nature_of_id=#nature_of_id#">
 	<cfif #basJoin# does not contain " identification ">

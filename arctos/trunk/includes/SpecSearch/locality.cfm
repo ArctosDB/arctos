@@ -175,7 +175,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			<span class="helpLink" id="max_error_distance">Verification Status:</span>
+			<span class="helpLink" id="_verificationstatus">Verification Status:</span>
 		</td>
 		<td class="srch">
 			<select name="verificationstatus" id="verificationstatus" size="1">
