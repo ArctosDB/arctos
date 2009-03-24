@@ -7,13 +7,14 @@
 </cfif>
 <cfif action is "loanNoSpec">
 	<cfquery name="data" datasource="uam_god">
-		select collection,loan_number,loan.transaction_id
+		select 
+			collection,loan_number,loan.transaction_id
 		from
 		loan,trans,collection
 		where
 		loan.transaction_id=trans.transaction_id and
 		trans.collection_id=collection.collection_id and
-		transaction_id not in (select transaction_id from loan_item)
+		trans.transaction_id not in (select transaction_id from loan_item)
 		order by collection,loan_number
 	</cfquery>
 	<cfoutput>
