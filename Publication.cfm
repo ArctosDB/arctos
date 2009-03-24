@@ -504,34 +504,38 @@ VALUES (
 				onKeyPress="return noenter(event);">
 			<input type="hidden" name="journal_id" id="journal_id" class="reqdClr">
 			<label for="publication_title" class="likeLink" onClick="getDocs('publication','title')">Title</label>
-			<textarea name="publication_title" id="publication_title" class="reqdClr" rows="3" cols="40">#distJourArt.publication_title#</textarea>
-				
+			<textarea name="publication_title" id="publication_title" class="reqdClr" rows="3" cols="80">#distJourArt.publication_title#</textarea>
+			<table>
 				<tr>
-
-					<td align="right">Page:</td>
-					<td><input type="text" name="begins_page_number" value="#distJourArt.begins_page_number#" size="6">&nbsp;
-						TO&nbsp;<input type="text" name="ends_page_number" value="#distJourArt.ends_page_number#" size="6">
+					<td>
+						<label for="begins_page_number">Begin Page</label>
+						<input type="text" name="begins_page_number" id="begins_page_number" value="#distJourArt.begins_page_number#" size="6">
 					</td>
-					<td colspan="2">Volume:&nbsp;<input type="text" name="volume_number" value="#distJourArt.volume_number#" size="6">
-					&nbsp;Issue:&nbsp;<input type="text" name="issue_number" value="#distJourArt.issue_number#" size="6"></td>
-				</tr>
-				<tr>
-					<td align="right">Remarks:</td>
-					<td colspan="3"><input type="text" name="remarks" size="60" value="#distJourArt.publication_remarks#"></td>
+					<td>
+						<label for="ends_page_number">End Page</label>
+						<input type="text" name="ends_page_number" id="ends_page_number" value="#distJourArt.ends_page_number#" size="6">
+					</td>
+					<td>
+						<label for="volume_number">Volume</label>
+						<input type="text" name="volume_number" id="volume_number" value="#distJourArt.volume_number#" size="6">
+					</td>
+					<td>
+						<label for="issue_number">Issue</label>
+						<input type="text" name="issue_number" id="issue_number" value="#distJourArt.issue_number#" size="6">
+					</td>
+					<td>
+						<label for="published_year">Year</label>
+						<input type="text" name="published_year" id="published_year" value="#distJourArt.published_year#" size="6">
+					</td>
 				</tr>
 			</table>
-		</td>		
-		</tr> 
-		<tr><td colspan="2" nowrap>
-		
-		<div align="left" style="float:left ">
-		<input type="submit" value="Save Edits" class="savBtn"
-   					onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">	
-		<input type="button" value="Quit" class="qutBtn"
-   					onmouseover="this.className='qutBtn btnhov'" onmouseout="this.className='qutBtn'"
-					onClick="document.location='Publication.cfm';">	
-					</cfform>
-	</div>
+			<label for="remarks">Remarks</label>
+			<input type="text" name="remarks" id="remarks" size="60" value="#distJourArt.publication_remarks#">
+			<br>		
+			<input type="submit" value="Save Edits" class="savBtn">	
+			<input type="button" value="Quit" class="qutBtn" onClick="document.location='Publication.cfm';">	
+		</cfform>
+
 	<span style="float:right;  ">
 					<form name="killJA" action="Publication.cfm" method="post">
 			<input type="hidden" name="Action" value="killJournalArticle">
