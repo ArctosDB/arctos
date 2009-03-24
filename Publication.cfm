@@ -488,7 +488,7 @@ VALUES (
 			group by agent_name, author_position, agent_name_id
 			order by author_position
 		</cfquery>
-		<table width="100%">
+		<table width="90%">
 			<tr>
 				<td width="50%">
 					<span style="font-size:2em;font-weight:bold;">
@@ -496,11 +496,11 @@ VALUES (
 					</span>
 				</td>
 				<td align="right">
-					<div style="border:1px dotted green;">	
+					<span style="border:1px dotted green;">	
 						<span class="likeLink" onClick="getDocs('publication')">Help</span>
 						<br>
 						<a href="/Citation.cfm?publication_id=#distJourArt.publication_id#">Manage Citations</a>
-					</div>
+					</span>
 				</td>
 			</tr>
 		</table>
