@@ -464,14 +464,15 @@ VALUES (
 			group by agent_name, author_position, agent_name_id
 			order by author_position
 		</cfquery>
-	
-	<table border>
+	<h2>Edit Journal Article<span class="infoLink" onClick="getDocs('publication')">help</span> </h2>
+	<a href="javascript:void(0);" ><img src="/images/info.gif" border="0"></a>
+	<table>
 		<cfform name="journArtDet" method="post" action="Publication.cfm">
 		<input type="hidden" name="Action" value="SaveJournArtChanges">
 		<input type="hidden" name="publication_id" value="#distJourArt.publication_id#">
 		<tr>
 			<td valign="top" align="right">Journal&nbsp;Article:
-			<br><a href="javascript:void(0);" onClick="getDocs('publication')"><img src="/images/info.gif" border="0"></a></td>
+			<br></td>
 		<td>
 			<table>
 				<tr>
