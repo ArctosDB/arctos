@@ -290,20 +290,25 @@
 					<li><h2>Reports</h2>
 						<ul>
 							<li><a target="_top" href="/Reports/reporter.cfm">Reporter</a></li>
-                            <li><a target="_top" href="/info/annotate.cfm">Annotations</a></li>
-							<li><a target="_top" href="/info/slacker.cfm">Suspect Data</a></li>
-							<li><a target="_top" href="/info/noParts.cfm">Partless Specimens</a></li>
+							<li><a target="_top" href="/info/annotate.cfm">Annotations</a></li>
 							<li><a target="_top" href="/Admin/download.cfm">Download Stats</a></li>
 							<li><a target="_top" href="/Admin/ActivityLog.cfm">SQL log</a></li>
 							<li><a target="_top" href="/Admin/cfUserLog.cfm">User access</a></li>
-							<li><a target="_top" href="/info/UserSearchHits.cfm">Some random stats</a></li>
-							<li><a target="_top" href="/info/CodeTableValuesVersusTableValues.cfm">CT vs Data</a></li>
-							<li><a target="_top" href="/tools/TaxonomyGaps.cfm">Messy Taxonomy</a></li>
-							<li><a target="_top" href="/tools/findGap.cfm">Catalog Number Gaps</a></li>
+							<li><a target="_top" href="/info/UserSearchHits.cfm">Some random stats</a></li>							
 							<li><a target="_top" href="/tools/downloadData.cfm">Download Tables</a></li>
                              <cfif listfind(formList,"/tools/userSQL.cfm")>
 							    <li><a target="_top" href="/tools/userSQL.cfm">Write SQL</a></li>
 		                    </cfif>
+		                    <li><a target="_top" href="##" class="x">Funky Data</a>
+								<ul>
+									<li><a target="_top" href="/info/slacker.cfm">Suspect Data</a></li>
+									<li><a target="_top" href="/info/noParts.cfm">Partless Specimens</a></li>
+									<li><a target="_top" href="/info/CodeTableValuesVersusTableValues.cfm">CT vs Data</a></li>
+									<li><a target="_top" href="/tools/TaxonomyGaps.cfm">Messy Taxonomy</a></li>
+									<li><a target="_top" href="/tools/findGap.cfm">Catalog Number Gaps</a></li>
+									<li><a target="_top" href="/info/CodeTableValuesVersusTableValues.cfm">CT vs Data</a></li>
+								</ul>
+							</li>
 						</ul>
 					</li>
 				</ul>
