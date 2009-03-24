@@ -11,12 +11,13 @@
 			formatted_publication
 		where
 			publication_id not in (
-				select publication_id from citatin
+				select publication_id from citation
 			)
 		order by
 			formatted_publication
 	</cfquery>
 	<cfoutput>
+		<h2>Publications with no Citations</h2>
 		<cfloop query="data">
 			<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">#formatted_publication#</a>
 		</cfloop>
