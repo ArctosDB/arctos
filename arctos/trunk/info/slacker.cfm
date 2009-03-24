@@ -35,7 +35,7 @@
 				<p class="indent">
 					#project_name#
 					<br>
-					<a href="/ProjectDetail.cfm.cfm?project_id=#project_id#">Project Details</a>
+					<a href="/ProjectDetail.cfm?project_id=#project_id#">Project Details</a>
 				</p>
 			</div>
 			<cfset i=i+1>
