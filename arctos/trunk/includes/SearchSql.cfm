@@ -624,6 +624,10 @@
 			)">
 	</cfif>
 </cfif>
+<cfif isdefined("verificationstatus") AND len(verificationstatus) gt 0>
+	<cfset mapurl = "#mapurl#&verificationstatus=#verificationstatus#">
+	<cfset basQual = " #basQual# AND #flatTableName#.verificationstatus='#verificationstatus#'">
+</cfif>
 <cfif isdefined("inMon") AND len(#inMon#) gt 0>
 	<cfset mapurl = "#mapurl#&inMon=#inMon#">
 	<cfset basQual = " #basQual# AND TO_CHAR(#flatTableName#.began_date, 'mm') IN (#inMon#)">

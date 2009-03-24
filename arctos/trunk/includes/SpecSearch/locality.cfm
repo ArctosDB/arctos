@@ -24,6 +24,9 @@
 <cfquery name="ctlat_long_error_units"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select lat_long_error_units from ctlat_long_error_units group by lat_long_error_units order by lat_long_error_units 
 </cfquery>
+<cfquery name="ctverificationstatus"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select verificationstatus from ctverificationstatus group by verificationstatus order by verificationstatus 
+</cfquery>
 <cfoutput>
 <table id="t_identifiers" class="ssrch">
 	<tr>
@@ -166,6 +169,19 @@
 				<option value=""></option>
 				<cfloop query="ctElevUnits">
 					<option value="#ctElevUnits.orig_elev_units#">#ctElevUnits.orig_elev_units#</option>
+				</cfloop>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
+			<span class="helpLink" id="max_error_distance">Verification Status:</span>
+		</td>
+		<td class="srch">
+			<select name="verificationstatus" id="verificationstatus" size="1">
+				<option value=""></option>
+				<cfloop query="ctverificationstatus">
+					<option value="#ctverificationstatus.verificationstatus#">#ctverificationstatus.verificationstatus#</option>
 				</cfloop>
 			</select>
 		</td>
