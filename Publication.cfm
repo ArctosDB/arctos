@@ -438,7 +438,8 @@ VALUES (
 			 	publication_url.PUBLICATION_URL_ID,
 			 	publication_url.LINK,
 			 	publication_author_name.author_position,
-			 	agent_name
+			 	agent_name.agent_name,
+			 	agent_name.agent_name_id
 			 from 
 			 	journal_article, 
 			 	journal,
