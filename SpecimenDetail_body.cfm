@@ -1299,6 +1299,18 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 		<div class="detailLabel">Media
 			<cfif #oneOfUs# is 1>
 				<span class="detailEditCell" onclick="window.parent.switchIFrame('MediaSearch');">Edit</span>
+				<cfquery name="isConf"  dbtype="query">
+					SELECT count(*) c
+					FROM
+						attribute 
+					where attribute_type='image confirmed'
+				</cfquery>
+				<CFIF isConf.c is "">
+				<span class="infoLink" 
+					id="ala_image_confirm" onclick='windowOpener("/ALA_Imaging/confirmImage.cfm?collection_object_id=#collection_object_id#","alaWin","width=700,height=400, resizable,scrollbars,location,toolbar");'>
+					Confirm Image IDs
+				</span> 
+				</CFIF>
 			</cfif>
 		</div>
 		<div class="detailBlock">
