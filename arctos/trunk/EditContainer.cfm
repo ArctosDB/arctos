@@ -98,9 +98,6 @@ sho err
 
 <cfif #Action# is "update">
 <!--- set date format --->
-<cfquery name="timeFormat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-      ALTER SESSION SET nls_date_format = 'DD-Mon-YYYY' 
-</cfquery>
 <cfif len(#newParentBarcode#) gt 0>
 	<cfquery name="isGoodParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select container_id from  container where 
