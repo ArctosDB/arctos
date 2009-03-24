@@ -1,6 +1,5 @@
 <cfinclude template="includes/_header.cfm">
 <cfset title = "Edit Publication">
-
 <!----------------------------------------------------------------------------->
 <cfif #Action# is "editBookSection">
 	<!--- get the book data and relocate to editBook --->
@@ -16,6 +15,28 @@
 
 
 <cfif #Action# is "nothing">
+	<cfoutput>
+		<cfif isdefined("publication_id") and len(publication_id) gt 0>
+			<!--- passing this form only a publication_id redirects to editing --->
+			<cfquery name="getPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select PUBLICATION_TYPE from publication where publication_id=#publication_id#
+			</cfquery>
+			<cfif getPub.recordcount is not 1>
+				<cfthrow detail="publication ID #publication_id# not found at Publication.cfm" errorcode="9000" message="Publication Not Found">
+			<cfelse>
+				<cfif getPub.PUBLICATION_TYPE is "journal article">
+					<cflocation url="Publication.cfm?publication_id=#publication_id#&action=editJournalArt" addtoken="false">
+				<cfelseif getPub.PUBLICATION_TYPE is "journal">
+					<cflocation url="Publication.cfm?journal_id=#publication_id#&action=editJournal" addtoken="false">
+				<cfelseif getPub.PUBLICATION_TYPE is "book">
+					<cflocation url="Publication.cfm?publication_id=#publication_id#&action=editBook" addtoken="false">
+				<cfelse>
+				<cfthrow detail="publication ID #publication_id# is type #getPub.PUBLICATION_TYPE#" 
+					errorcode="9000" 
+					message="I have no idea what to do with a #getPub.PUBLICATION_TYPE#.">
+				</cfif>
+			</cfif>
+		</cfif>
 <cfset title="Find Journals">
 <h2>Find Journal</h2>
 <form name="findJournal" method="post" action="Publication.cfm">
@@ -34,6 +55,7 @@
 			value="Clear Form" 
 			class="clrBtn">
 	</form>
+	</cfoutput>
 	</cfif>
 <!---------------------------------------------------------------------------->
 <cfif #Action# is "newJournalArt">
