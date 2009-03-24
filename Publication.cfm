@@ -488,8 +488,11 @@ VALUES (
 			group by agent_name, author_position, agent_name_id
 			order by author_position
 		</cfquery>
-		<h2>Edit Journal Article</h2>
-		<span class="infoLink" onClick="getDocs('publication')">help</span>
+		<div>
+			<h2>Edit Journal Article</h2>
+			<span class="likeLink" onClick="getDocs('publication')">Help</span>
+			<a href="/Citation.cfm?publication_id=#distJourArt.publication_id#">Manage Citations</a>
+		</div>
 		<cfform name="journArtDet" method="post" action="Publication.cfm" id="journArtDet">
 			<input type="hidden" name="Action" value="SaveJournArtChanges">
 			<input type="hidden" name="publication_id" value="#distJourArt.publication_id#">
@@ -504,7 +507,7 @@ VALUES (
 				onKeyPress="return noenter(event);">
 			<input type="hidden" name="journal_id" id="journal_id" class="reqdClr">
 			<label for="publication_title" class="likeLink" onClick="getDocs('publication','title')">Title</label>
-			<textarea name="publication_title" id="publication_title" class="reqdClr" rows="3" cols="80">#distJourArt.publication_title#</textarea>
+			<textarea name="publication_title" id="publication_title" class="reqdClr" rows="3" cols="70">#distJourArt.publication_title#</textarea>
 			<table>
 				<tr>
 					<td>
@@ -534,7 +537,7 @@ VALUES (
 			<br>		
 			<input type="submit" value="Save Edits" class="savBtn">	
 			<input type="button" value="Quit" class="qutBtn" onClick="document.location='Publication.cfm';">
-			<input type="button" value="Delete" class="deBtn" 
+			<input type="button" value="Delete" class="delBtn" 
 				onClick="document.location='Publication.cfm?action=killJournalArticle&publication_id=#distJourArt.publication_id#';">
 		</cfform>
 		<label for="authsT" class="likeLink" onClick="getDocs('publication','author')">Authors</label>
