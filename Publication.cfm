@@ -30,6 +30,11 @@
 					<cflocation url="Publication.cfm?journal_id=#publication_id#&action=editJournal" addtoken="false">
 				<cfelseif getPub.PUBLICATION_TYPE is "book">
 					<cflocation url="Publication.cfm?publication_id=#publication_id#&action=editBook" addtoken="false">
+				<cfelseif getPub.PUBLICATION_TYPE is "book section">
+					<cfquery name="getPub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select BOOK_ID from book_section where publication_id=#publication_id#
+					</cfquery>
+					<cflocation url="Publication.cfm?publication_id=#getPub.BOOK_ID#" addtoken="false">
 				<cfelse>
 				<cfthrow detail="publication ID #publication_id# is type #getPub.PUBLICATION_TYPE#" 
 					errorcode="9000" 
