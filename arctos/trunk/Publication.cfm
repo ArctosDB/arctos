@@ -489,8 +489,9 @@ VALUES (
 			order by author_position
 		</cfquery>
 		<h2>Edit Journal Article</h2>
-		<div style="position:absolute;top:10%;right:10%;">	
+		<div style="position:absolute;top:10%;right:10%;border:1px dotted green;width:20%;">	
 			<span class="likeLink" onClick="getDocs('publication')">Help</span>
+			<br>
 			<a href="/Citation.cfm?publication_id=#distJourArt.publication_id#">Manage Citations</a>
 		</div>
 		<cfform name="journArtDet" method="post" action="Publication.cfm" id="journArtDet">
