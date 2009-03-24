@@ -18,8 +18,16 @@
 	</cfquery>
 	<cfoutput>
 		<h2>Publications with no Citations</h2>
+		<cfset i=1>
 		<cfloop query="data">
-			<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">#formatted_publication#</a>
+			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+				<p class="indent">
+					#formatted_publication#
+					<br>
+					<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">Details</a>
+				</p>
+			</div>
+			<cfset i=i+1>
 		</cfloop>
 	</cfoutput>
 </cfif>
