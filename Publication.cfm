@@ -431,7 +431,7 @@ VALUES (
 			 	journal_article.VOLUME_NUMBER,
 			 	journal_article.ISSUE_NUMBER,
 			 	journal.journal_name journal,
-			 	publication,PUBLISHED_YEAR,
+			 	publication.PUBLISHED_YEAR,
 			 	publication.PUBLICATION_TITLE,
 			 	publication.PUBLICATION_REMARKS,
 			 	publication_url.DESCRIPTION,
