@@ -432,10 +432,16 @@
 		update 
 			book
 		set
-			EDITED_WORK_FG=#EDITED#,
-			VOLUME_NUMBER=#VOLUME#,
-			PAGE_TOTAL='#PAGES#',
-			PUBLISHER_NAME='#PUBLISHER#'
+			EDITED_WORK_FG=#EDITED#
+			<cfif len(VOLUME) gt 0>
+				,VOLUME_NUMBER=#VOLUME#
+			</cfif>
+			<cfif len(PAGES) gt 0>
+				,PAGE_TOTAL='#PAGES#'
+			</cfif>
+			<cfif len(PUBLISHER) gt 0>
+				,PUBLISHER_NAME='#PUBLISHER#'
+			</cfif>
 		where
 			PUBLICATION_ID=#PUBLICATION_ID#
 	</cfquery>
