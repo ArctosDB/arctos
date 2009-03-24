@@ -496,11 +496,9 @@ VALUES (
 					</span>
 				</td>
 				<td align="right">
-					<span style="border:1px dotted green;">	
-						<span class="likeLink" onClick="getDocs('publication')">Help</span>
-						<br>
-						<a href="/Citation.cfm?publication_id=#distJourArt.publication_id#">Manage Citations</a>
-					</span>
+					<span class="likeLink" onClick="getDocs('publication')">Help</span>
+					<br>
+					<a href="/Citation.cfm?publication_id=#distJourArt.publication_id#">Manage Citations</a>
 				</td>
 			</tr>
 		</table>
