@@ -891,9 +891,13 @@
 						</div>
 					</cfif>
 					<cfloop query="invRel">
+						<cfset invReln=BIOL_INDIV_RELATIONSHIP>
+						<cfset invReln=replace(invReln," of"," IS","all")>
+						<cfset invReln=replace(invReln,"ate","eaten by","all")>
+						
 						<div class="detailBlock">
 							<span class="detailData">
-								<span class="innerDetailLabel">#replace(invRel.BIOL_INDIV_RELATIONSHIP," of"," IS","all")#</span>
+								<span class="innerDetailLabel">#invReln#</span>
 								<a href="SpecimenDetail.cfm?collection_object_id=#invRel.collection_object_id#" 
 									target="_top">#invRel.collection# #invRel.cat_num#</a>
 							</span>
