@@ -423,37 +423,60 @@ VALUES (
 <cfset title="Edit Journal Article">
 	<cfoutput>
 		<cfquery name="getJournalArt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			 SELECT * from journal_article, journal, publication, publication_author_name, agent_name,
-			 publication_url
+			SELECT 
+				journal_article.PUBLICATION_ID,
+			 	journal_article.JOURNAL_ID,
+			 	journal_article.BEGINS_PAGE_NUMBER,
+			 	journal_article.ENDS_PAGE_NUMBER,
+			 	journal_article.VOLUME_NUMBER,
+			 	journal_article.ISSUE_NUMBER,
+			 	journal.journal_name journal,
+			 	publication,PUBLISHED_YEAR,
+			 	publication.PUBLICATION_TITLE,
+			 	publication.PUBLICATION_REMARKS,
+			 	publication_url.DESCRIPTION,
+			 	publication_url.PUBLICATION_URL_ID,
+			 	publication_url.LINK,
+			 	publication_author_name.author_position,
+			 	agent_name
+			 from 
+			 	journal_article, 
+			 	journal,
+			 	publication,
+			 	publication_author_name,
+			 	agent_name,
+			 	publication_url
 			 where 
-			 journal_article.publication_id=publication.publication_id and
-			 journal_article.journal_id=journal.journal_id and
-			 publication.publication_id = publication_url.publication_id (+) and
-			 publication.publication_id = publication_author_name.publication_id (+) and
-			 publication_author_name.agent_name_id = agent_name.agent_name_id (+)
-			 and publication.publication_id=#publication_id#
-		</cfquery>
-		
+			 	journal_article.publication_id=publication.publication_id and
+			 	journal_article.journal_id=journal.journal_id and
+			 	publication.publication_id = publication_url.publication_id (+) and
+			 	publication.publication_id = publication_author_name.publication_id (+) and
+			 	publication_author_name.agent_name_id = agent_name.agent_name_id (+) and 
+			 	publication.publication_id=#publication_id#
+		</cfquery>		
 		<cfquery name="distJourArt" dbtype="query">
-			select published_year, publication_id,publication_title, 
-		journal_name,
-		journal_abbreviation,
-		publisher_name,
-		begins_page_number,
-		ends_page_number,
-		volume_number,
-		issue_number,
-		publication_remarks
-		 from getJournalArt group  by
-		published_year, publication_id, publication_title, 
-		journal_name,
-		journal_abbreviation,
-		publisher_name,
-		begins_page_number,
-		ends_page_number,
-		volume_number,
-		issue_number,
-		publication_remarks
+			select 
+				published_year,
+				publication_id,
+				publication_title, 
+				journal,
+				begins_page_number,
+				ends_page_number,
+				volume_number,
+				issue_number,
+				publication_remarks
+			 from 
+			 	getJournalArt 
+			 group  by
+				published_year, 
+				publication_id, 
+				publication_title, 
+				journal,
+				begins_page_number,
+				ends_page_number,
+				volume_number,
+				issue_number,
+				publication_remarks
 		</cfquery>
 		<cfquery name="distUrl" dbtype="query">
 			select publication_id, link, description,publication_url_id from getJournalArt 
@@ -464,44 +487,24 @@ VALUES (
 			group by agent_name, author_position, agent_name_id
 			order by author_position
 		</cfquery>
-	<h2>Edit Journal Article<span class="infoLink" onClick="getDocs('publication')">help</span> </h2>
-	<a href="javascript:void(0);" ><img src="/images/info.gif" border="0"></a>
-	<table>
-		<cfform name="journArtDet" method="post" action="Publication.cfm">
-		<input type="hidden" name="Action" value="SaveJournArtChanges">
-		<input type="hidden" name="publication_id" value="#distJourArt.publication_id#">
-		<tr>
-			<td valign="top" align="right">Journal&nbsp;Article:
-			<br></td>
-		<td>
-			<table>
-				<tr>
-					<td align="right" valign="top">
-					<a href="javascript:void(0);" onClick="getDocs('publication','title')">Title:</a>
-					</td>
-					<td colspan="3">
-					<textarea name="publication_title" rows="3" cols="40">#distJourArt.publication_title#</textarea>
-					</td>
-				</tr>
-				<tr>
-					<td align="right">Journal Name:</td>
-					<td colspan="3">
-					<input type="text" 
-						name="journal_name" 
-						value="#distJourArt.journal_name#" 
-						class="reqdClr"
-						size="70"
-						onchange="findJournal('journal_id','journal_name','journArtDet',this.value); return false;"
-		 				onKeyPress="return noenter(event);">
-		 
-		 
-					
-							<input type="hidden" name="journal_id">
-							
-							
-							
-					</td>
-				</tr>
+		<h2>Edit Journal Article</h2>
+		<span class="infoLink" onClick="getDocs('publication')">help</span>
+		<cfform name="journArtDet" method="post" action="Publication.cfm" id="journArtDet">
+			<input type="hidden" name="Action" value="SaveJournArtChanges">
+			<input type="hidden" name="publication_id" value="#distJourArt.publication_id#">
+			<label for="journal">Journal Name</label>
+			<input type="text" 
+				name="journal"
+				id="journal"
+				value="#distJourArt.journal#" 
+				class="reqdClr"
+				size="70"
+				onchange="findJournal('journal_id','journal','journArtDet',this.value); return false;"
+				onKeyPress="return noenter(event);">
+			<input type="hidden" name="journal_id" id="journal_id" class="reqdClr">
+			<label for="publication_title" class="likeLink" onClick="getDocs('publication','title')">Title</label>
+			<textarea name="publication_title" id="publication_title" class="reqdClr" rows="3" cols="40">#distJourArt.publication_title#</textarea>
+				
 				<tr>
 
 					<td align="right">Page:</td>
