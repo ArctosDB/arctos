@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "nothing">
 	<a href="slacker.cfm?action=pubNoAuth">Publications without Authors</a>
-	<a href="slacker.cfm?action=pubNoCit">Publications without Citations</a>
+	<br><a href="slacker.cfm?action=pubNoCit">Publications without Citations</a>
 </cfif>
 <cfif action is "pubNoAuth">
 	<cfquery name="data" datasource="uam_god">
@@ -17,7 +17,7 @@
 		<h2>Publications with no Authors</h2>
 		<cfset i=1>
 		<cfloop query="data">
-			<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">#publication_type#: #publication_id#</a>
+			<a href="/Publication.cfm?publication_id=#publication_id#">#publication_type#: #publication_id#</a>
 			<br>
 			<cfset i=i+1>
 		</cfloop>
