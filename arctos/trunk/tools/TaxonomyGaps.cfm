@@ -1,10 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
  <cfoutput>
-Note: This form will return a maximum of 1,000 records.
+Note: This form will return a maximum of 5,000 records.
 <cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
  select taxon_name_id, scientific_name, phylclass, phylorder, family from taxonomy where
- phylclass is null or phylorder is null or family is null 
-and rownum < 1000
+ (phylclass is null or phylorder is null or family is null)
+and rownum < 5000
 order by scientific_name
 </cfquery>
 <table border>
@@ -16,7 +16,6 @@ order by scientific_name
 	</tr>
 	<cfloop query="md">
 		<tr>
-			
 			<td>
 			<a href="#Application.ServerRootUrl#/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">#scientific_name#</a>
 			</td>
