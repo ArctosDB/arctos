@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="Suspect Data">
 <cfif action is "nothing">
 	<a href="slacker.cfm?action=pubNoAuth">Publications without Authors</a>
 	<br><a href="slacker.cfm?action=pubNoCit">Publications without Citations</a>
