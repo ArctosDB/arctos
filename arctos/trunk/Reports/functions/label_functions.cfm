@@ -686,12 +686,12 @@
 			<cfelseif firstIdPos gt 0>
 				<cfset firstId = right(ids, len(ids)-firstIdPos-len("collector number"))>
 			<cfelse>
-				<cfif restIds gt 0>					
-					<cfif genbankPos is 0>
+				<cfif genbankPos is 0>
+					<cfif restIds gt 0>			
 						<cfset restIds = "#restIds#; #replace(ids, '=', '(', 'one')#)">
+					<cfelse>
+						<cfset restIds = "#replace(ids, '=', '(', 'one')#)">
 					</cfif>
-				<cfelse>
-					<cfset restIds = "#replace(ids, '=', '(', 'one')#)">
 				</cfif>
 			</cfif>				
 		</cfloop>
