@@ -685,8 +685,12 @@
 			<cfelseif firstIdPos gt 0>
 				<cfset firstId = right(ids, len(ids)-firstIdPos-len("collector number"))>
 			<cfelse>
+				<cfset genbankPos = find("GenBank", restIds)>
 				<cfif restIds gt 0>
-					<cfset restIds = "#restIds#; #replace(ids, '=', '(', 'one')#)">
+					<cfset genbankPos = find("GenBank", restIds)>
+					<cfif genbankPos gt 0>
+						<cfset restIds = "#restIds#; #replace(ids, '=', '(', 'one')#)">
+					</cfif>
 				<cfelse>
 					<cfset restIds = "#replace(ids, '=', '(', 'one')#)">
 				</cfif>
@@ -875,12 +879,12 @@
 			</cfif>
 		<!-- Bird -->
 		<cfelseif collection_cde is "Bird">
-			<cfif parts is not "tissues">
+			<cfif parts is not "tissues" or parts is not "tissue">
 				<cfset formatted_parts = "#parts#">
 			</cfif>		
 		<!-- Herp -->
-		<cfelseif collection_cde is "Herp">
-			<cfif parts is not "tissues">
+		<cfelseif collection_cde is "Herp" >
+			<cfif parts is not "tissues" or parts is not "whole organism">
 				<cfset formatted_parts = "#parts#">
 			</cfif>
 		</cfif>
