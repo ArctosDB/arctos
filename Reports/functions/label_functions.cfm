@@ -899,3 +899,89 @@
 	<cfset temp = queryAddColumn(q, "formatted_parts", "VarChar", pAr)>
 	<cfreturn q>
 </cffunction>
+
+<cffunction name="format_label_mammal" access="public" returnType="Query">
+	<cfargument name="q" required="true" type="query">
+	
+	<cfset geogAr = ArrayNew(1)>
+	<cfset collAr = ArrayNew(1)>
+	<cfset colIdAr = ArrayNew(1)>
+	<cfset pAr = ArrayNew(1)>
+	
+	<!--- Data Manipulation --->
+	<cfset i = 1>
+	<cfloop query="q">
+		<!--- Geography = Spec_Locality + State + county + country + other geography attributes--->
+		<cfset geog = "#spec_locality#">
+		<cfif #country# is "United States">
+			<cfif len(#county#) gt 0>
+				<cfset geog = "#geog#, #county#">
+			</cfif>
+			<cfif len(#state_prov#) gt 0>
+				<cfset geog = "#geog#, #state_prov#">
+			</cfif>
+		<cfelse>
+			<cfif len(#state_prov#) gt 0>
+				<cfset geog = "#geog#, #state_prov#">
+			</cfif>
+			<cfif len(#country#) gt 0>
+				<cfset geog = "#geog#, #country#">
+			</cfif>
+		</cfif>
+		<cfset geog=replace(geog,": , ",": ","all")>
+		<cfset geogAr[i] = "#geog#">
+		
+		<!--- If there is a 'label' type agent_name, use that; else, use collector's preferred name'--->
+		<cfif isdefined('labels_agent_name') and len(labels_agent_name) gt 0>
+			<cfset thisColl = labels_agent_name>
+		<cfelse>
+       		<cfif #collectors# contains ",">
+                <Cfset spacePos = find(",",collectors)>
+                <cfset thisColl = left(collectors,#SpacePos# - 1)>
+                <cfset thisColl = "#thisColl# et al.">
+        	<cfelse>
+                <cfset thisColl = #collectors#>
+        	</cfif>
+		</cfif>
+		<cfset collAr[i] = "#thisColl#">
+		
+		<!--- Orig#collector id#--->
+		<cfset colIdLabel = "">
+		<cfloop list="#othercatalognumbers#" delimiters=";" index="ids">
+			<cfset pos = find("collector number=", ids)>
+			<cfif pos gt 0>
+				<cfset colIdLabel = "Orig#right(ids, len(ids)-pos-len("collector number"))#">
+			</cfif>			
+		</cfloop>
+		<cfset colIdAr[i] = "#colIdLabel#">
+		
+		<!--- Parts Formatting --->
+		<cfset formatted_parts = "">
+		<!-- Mammals -->
+		<cfif collection_cde is "Mamm">
+			<cfif parts is not "tissues">
+				<cfset formatted_parts = "#parts#">
+			</cfif>
+		<!-- Bird -->
+		<cfelseif collection_cde is "Bird">
+			<cfif parts is not "tissues" or parts is not "tissue">
+				<cfset formatted_parts = "#parts#">
+			</cfif>		
+		<!-- Herp -->
+		<cfelseif collection_cde is "Herp" >
+			<cfif parts is not "tissues" or parts is not "whole organism">
+				<cfset formatted_parts = "#parts#">
+			</cfif>
+		</cfif>
+		
+		<cfset pAr[i] = "#parts#">
+		
+		<cfset i = i+1>
+	</cfloop>
+	
+	<cfset temp = queryAddColumn(q, "geography", "VarChar", geogAr)>
+	<cfset temp = queryAddColumn(q, "agent", "VarChar", collAr)>
+	<cfset temp = queryAddColumn(q, "agent_id", "VarChar", colIdAr)>
+	<cfset temp = queryAddColumn(q, "formatted_parts", "VarChar", pAr)>
+	<cfreturn q>
+</cffunction>
