@@ -688,7 +688,7 @@
 				<cfset genbankPos = find("GenBank", restIds)>
 				<cfif restIds gt 0>
 					<cfset genbankPos = find("GenBank", restIds)>
-					<cfif genbankPos gt 0>
+					<cfif genbankPos is 0>
 						<cfset restIds = "#restIds#; #replace(ids, '=', '(', 'one')#)">
 					</cfif>
 				<cfelse>
