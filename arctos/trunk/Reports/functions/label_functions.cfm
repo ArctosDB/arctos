@@ -861,12 +861,12 @@
 		
 		<!--- Orig#collector id#--->
 		<cfset colIdLabel = "">
-		<cfset pos = find("=", "#other_ids#")>
-		<cfset id = "">
-		<cfif pos gt 0>
-			<cfset id = right(other_ids, len(other_ids) - pos)>
-		</cfif>
-		<cfset colIdLabel = "Orig#id#">
+		<cfloop list="#other_ids#" delimiters=";" index="ids">
+			<cfset pos = find("collector number=", ids)>
+			<cfif pos gt 0>
+				<cfset colIdLabel = "Orig#right(other_ids, len(other_ids) - pos)#">
+			</cfif>			
+		</cfloop>
 		<cfset colIdAr[i] = "#colIdLabel#">
 		
 		<!--- Parts Formatting --->
