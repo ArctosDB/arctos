@@ -680,14 +680,14 @@
 			
 			<cfset firstIdPos = find("collector number=", ids)>
 			<cfset secondIdPos = find("second collector number=", ids)>
+			<cfset genbankPos = find("GenBank=", ids)>
 			<cfif secondIdPos gt 0>
 				<cfset secondId = right(ids, len(ids)-secondIdPos-len("collector number"))>
 			<cfelseif firstIdPos gt 0>
 				<cfset firstId = right(ids, len(ids)-firstIdPos-len("collector number"))>
 			<cfelse>
-				<cfif restIds gt 0>
-					<cfset genbankPos = find("GenBank", ids)>
-					<cfif genbankPos lte 0>
+				<cfif restIds gt 0>					
+					<cfif genbankPos is 0>
 						<cfset restIds = "#restIds#; #replace(ids, '=', '(', 'one')#)">
 					</cfif>
 				<cfelse>
