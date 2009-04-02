@@ -864,7 +864,7 @@
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
 			<cfset pos = find("collector number=", ids)>
 			<cfif pos gt 0>
-				<cfset colIdLabel = "Orig#right(ids, len(ids) - pos)#">
+				<cfset colIdLabel = "Orig#right(ids, 2)#">
 			</cfif>			
 		</cfloop>
 		<cfset colIdAr[i] = "#colIdLabel#">
