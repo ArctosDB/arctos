@@ -686,8 +686,8 @@
 				<cfset firstId = right(ids, len(ids)-firstIdPos-len("collector number"))>
 			<cfelse>
 				<cfif restIds gt 0>
-					<cfset genbankPos = find("GenBank", restIds)>
-					<cfif genbankPos lt 0>
+					<cfset genbankPos = find("GenBank", ids)>
+					<cfif genbankPos lte 0>
 						<cfset restIds = "#restIds#; #replace(ids, '=', '(', 'one')#)">
 					</cfif>
 				<cfelse>
