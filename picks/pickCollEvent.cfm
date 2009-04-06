@@ -271,10 +271,10 @@
 	<cfoutput>
 		<cftransaction>
 		<!--- create a coll event --->
-			<cfquery name="n" datasource="#Application.uam_dbo#">
+			<cfquery name="n" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select sq_collecting_event_id.nextval nid from dual
 			</cfquery>
-			<cfquery name="newCollEvent" datasource="#Application.uam_dbo#">
+			<cfquery name="newCollEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO collecting_event (
 				collecting_event_id,
 				LOCALITY_ID

@@ -224,7 +224,7 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 </cfif>
 <!---------------------------------------->
 <cfif #action# is "checkStaged">
-	<cfstoredproc datasource="#Application.web_user#" procedure="bulkloader_stage_check">
+	<cfstoredproc datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" procedure="bulkloader_stage_check">
 	</cfstoredproc>
 	<cfquery name="anyBads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) as cnt from bulkloader_stage

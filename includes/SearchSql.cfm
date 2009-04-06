@@ -1117,6 +1117,14 @@
 			<cfset basQual = " #basQual# AND sp#i#.part_name = '#p#'">
 			<cfset i=i+1>
 		</cfloop>
+	<cfelseif left(part_name,1) is '='>
+		<cfif #basJoin# does not contain " specimen_part ">
+			<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON 
+			(cataloged_item.collection_object_id = specimen_part.derived_from_cat_item)">
+		</cfif>
+		<cfset basQual = " #basQual# AND specimen_part.part_name = '#right(part_name,len(part_name)-1)#'">
+		
+		(spec_localit)
 	<cfelse><!--- part name only --->		
 		<cfset basQual = " #basQual# AND upper(PARTS) LIKE '%#ucase(part_name)#%'">
 	</cfif>
