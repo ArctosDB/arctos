@@ -4,7 +4,9 @@
 <hr>
 <cfdump var="#url#">
 
-
+<cfoutput>
+	#cgi.request_uri#
+</cfoutput>
 <cfdump var="#server#">
 <cfdump var="#request#">
 <!-------------
