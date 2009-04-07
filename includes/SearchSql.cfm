@@ -1467,11 +1467,7 @@
 
 <cfif isdefined("collecting_source") AND len(#collecting_source#) gt 0>
 	<cfset mapurl = "#mapurl#&collecting_source=#collecting_source#">
-	<cfset basQual = " #basQual# AND collecting_source='#collecting_source#'">
-	<cfif #basJoin# does not contain " collecting_event ">
-		<cfset basJoin = " #basJoin# INNER JOIN collecting_event ON 
-		(cataloged_item.collecting_event_id = collecting_event.collecting_event_id)">
-	</cfif>
+	<cfset basQual = " #basQual# AND #flatTableName#.collecting_source='#collecting_source#'">
 </cfif>
 	
 <cfif isdefined("remark") AND len(#remark#) gt 0>
