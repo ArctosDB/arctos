@@ -6,6 +6,9 @@
 
 <cfoutput>
 	#cgi.request_uri#
+	
+	<br>
+	#cgi.REDIRECT_URL#
 </cfoutput>
 <cfdump var="#server#">
 <cfdump var="#request#">
