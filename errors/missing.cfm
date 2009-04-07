@@ -19,10 +19,15 @@
 			</cfcatch>
 		</cftry>
 		<hr>
-		
+		<cfset attrCollection1 = StructNew()>
+    <cfparam name="attrCollection1.guid" default="#i#:#c#:#n#">
+<!--- Call the tag with CFMODULE with Name--->
+<cfmodule
+    Template="/SpecimenDetail.cfm" 
+    attributeCollection=#attrCollection1# >
+
 		"/SpecimenDetail.cfm?guid=#i#:#c#:#n#"
 		<hr>
-		<cfinclude template="/SpecimenDetail.cfm">
 	<cfelse>
 		we tried - bye....
 	</cfif>
