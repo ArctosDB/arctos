@@ -22,7 +22,7 @@
 		
 		"/SpecimenDetail.cfm?guid=#i#:#c#:#n#"
 		<hr>
-		<cfinclude template="/SpecimenDetail.cfm?guid=#i#:#c#:#n#">
+		<cfinclude template="/SpecimenDetail.cfm">
 	<cfelse>
 		we tried - bye....
 	</cfif>
