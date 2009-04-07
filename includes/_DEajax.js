@@ -263,7 +263,7 @@ function pickedLocality () {
 	var locality_id = document.getElementById('locality_id').value;
 	var collecting_event_id = document.getElementById('collecting_event_id').value;
 	if (collecting_event_id.length>0){
-		alert('You cannot pick a locality and an event.');
+		//alert('You cannot pick a locality and an event.');
 		locality_id.value='';
 		return false;
 	}
