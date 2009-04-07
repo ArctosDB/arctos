@@ -6,6 +6,7 @@
 
 
 <cfdump var="#server#">
+<cfdump var="#request#">
 <!-------------
 <cfheader statuscode="404" statustext="Page Missing">
 <cfoutput>
