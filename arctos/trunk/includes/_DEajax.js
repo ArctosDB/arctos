@@ -9,6 +9,7 @@ function checkPicked(){
 function checkPickedEvnt(){
 	var collecting_event_id=document.getElementById('collecting_event_id');
 	if (collecting_event_id.value.length>0){
+		document.getElementById('locality_id').value='';
 		pickedEvent();
 	}	
 }			
