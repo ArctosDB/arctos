@@ -1,6 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
 <!--- first, see if we can find what they're looking for --->
 <cfdump var="#cgi#">
+
+
+
+
+
+<!-------------
 <cfheader statuscode="404" statustext="Page Missing">
 <cfoutput>
 <table cellpadding="10">
@@ -48,4 +54,5 @@
 </table>
 </cfoutput>
 <hr>
+-------------->
 <cfinclude template="/includes/_footer.cfm">
