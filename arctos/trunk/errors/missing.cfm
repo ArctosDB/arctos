@@ -18,6 +18,10 @@
 				<cfdump var=#cfcatch#>
 			</cfcatch>
 		</cftry>
+		<hr>
+		
+		"/SpecimenDetail.cfm?guid=#i#:#c#:#n#"
+		<hr>
 		<cfinclude template="/SpecimenDetail.cfm?guid=#i#:#c#:#n#">
 	<cfelse>
 		we tried - bye....
