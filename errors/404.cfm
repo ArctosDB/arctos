@@ -1,8 +1,8 @@
 <cfinclude template="/includes/_header.cfm">
 <!--- first, see if we can find what they're looking for --->
 <cfdump var="#cgi#">
-
-
+<hr>
+<cfdump var="#url#">
 
 
 
