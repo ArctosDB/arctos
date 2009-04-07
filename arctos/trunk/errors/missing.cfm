@@ -7,7 +7,7 @@
 			<cfset	i = listgetat(cgi.REDIRECT_URL,gPos+1,"/")>
 			<cfset	c = listgetat(cgi.REDIRECT_URL,gPos+2,"/")>
 			<cfset	n = listgetat(cgi.REDIRECT_URL,gPos+3,"/")>
-			
+			<cfset guid="#i#:#c#:#n#">
 
 			i: #i#
 							c: #c#
@@ -19,13 +19,7 @@
 			</cfcatch>
 		</cftry>
 		<hr>
-		<cfset attrCollection1 = StructNew()>
-    <cfparam name="attrCollection1.guid" default="#i#:#c#:#n#">
-<!--- Call the tag with CFMODULE with Name--->
-<cfmodule
-    Template="/SpecimenDetail.cfm" 
-    attributeCollection=#attrCollection1# >
-
+		<cfinclude template="/SpecimenDetail.cfm">
 		"/SpecimenDetail.cfm?guid=#i#:#c#:#n#"
 		<hr>
 	<cfelse>
