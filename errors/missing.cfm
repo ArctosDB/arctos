@@ -14,7 +14,8 @@
 												n: #n#
 			<!--- we'll accept URLs like .../bla/whatever/guid/{institution}/{collection}/{catnum} --->
 				<cfcatch>
-					fail...
+					fail...@ 
+					<cfdump var=#cfcatch#>
 				</cfcatch>
 			</cftry>
 			
