@@ -1,35 +1,19 @@
 <cfinclude template="/includes/_header.cfm">
-<!--- first, see if we can find what they're looking for --->
-<cfdump var="#cgi#">
-<hr>
-<cfdump var="#url#">
-
-<cfoutput>
-	#cgi.request_uri#
-	
-	<br>
-	#cgi.REDIRECT_URL#
-</cfoutput>
-<cfdump var="#server#">
-<cfdump var="#request#">
-<!-------------
-<cfheader statuscode="404" statustext="Page Missing">
-<cfoutput>
-<table cellpadding="10">
-	<tr><td valign="top"><img src="/images/oops.gif"></td>
-	<td>
 <font color="##FF0000" size="+1">The page you tried to access does not exist.</font>
-
 <p>&nbsp;</p>
-<cfif len(#cgi.HTTP_REFERER#) gt 0>
-	<br>The last page you visited was #cgi.HTTP_REFERER#.
-	<cfif #cgi.HTTP_REFERER# contains "#Application.ServerRootUrl#">
+<cfset lref=cgi.HTTP_REFERER>
+<cfif isdefined("url.ref") and len(url.ref) gt 0>
+	<cfset lref=url.ref>
+</cfif>	
+	
+	<br>The last page you visited was #lref#.
+	<cfif #lref# contains "#Application.ServerRootUrl#">
 		<br>The link seems to be internal. Please submit a 
 		<a href="/info/bugs.cfm">bug report</a> containing any information 
 		that might help us resolve this issue.
 	<cfelse>
-		<br>The referral seems to be external. Click <a href="#cgi.HTTP_REFERER#" target="_blank">here</a>
-		to return to #cgi.HTTP_REFERER#, and please ask them to fix this problem! 
+		<br>The referral seems to be external. Click <a href="#lref#" target="_blank">here</a>
+		to return to #lref#, and please ask them to fix this problem! 
 		<font size="-1">Link opens in a new window.</font>	
 	</cfif>
 <cfelse>
@@ -58,6 +42,14 @@
 		 </p>
 		 </td></tr>
 </table>
+	</cfif>
+	
+</cfoutput>
+
+<!-------------
+
+<cfoutput>
+
 </cfoutput>
 <hr>
 -------------->
