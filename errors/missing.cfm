@@ -6,9 +6,9 @@
 			guid is in the string....
 			<cftry>
 				<cfset gPos=listfindnocase(cgi.REDIRECT_URL,"guid","/")>
-				<cfset	i = listgetat(cgi.REDIRECT_URL,gPos+1)>
-				<cfset	c = listgetat(cgi.REDIRECT_URL,gPos+2)>
-				<cfset	n = listgetat(cgi.REDIRECT_URL,gPos+3)>
+				<cfset	i = listgetat(cgi.REDIRECT_URL,gPos+1,"/")>
+				<cfset	c = listgetat(cgi.REDIRECT_URL,gPos+2,"/")>
+				<cfset	n = listgetat(cgi.REDIRECT_URL,gPos+3,"/")>
 				i: #i#
 								c: #c#
 												n: #n#
