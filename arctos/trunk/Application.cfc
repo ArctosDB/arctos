@@ -4,12 +4,13 @@
 <cfset This.ClientManagement="true">
 <cfset This.ClientStorage="Cookie">
 
+<!---
 <cffunction name="onMissingTemplate" returnType="boolean" output="false">
    <cfargument name="thePage" type="string" required="true">
    <cflog file="somefiles" text="#arguments.thePage#">
    <cflocation url="/errors/404.cfm" addToken="false">
 </cffunction>
-
+---->
 <cffunction name="onError">
     <cfargument name="exception" required="true">
     <cfargument name="EventName" type="String" required="true">

@@ -2,6 +2,9 @@
 The page you tried to access does not exist.
 <p>&nbsp;</p>
 <cfoutput>
+	<cfif len(cgi.REDIRECT_URL) is 0>
+		<cfset rUrl=
+	</cfif>
 	<cfdump var=#cgi#>
 	cgi.REDIRECT_URL: #cgi.REDIRECT_URL#
 <cfset lref=cgi.HTTP_REFERER>
