@@ -1079,6 +1079,10 @@
 				) a where rownum <= #stoprow#
 			) where rnum >= #startrow#
 		</cfquery>
+		
+		<cfset collObjIdList = valuelist(result.collection_object_id)>
+		<cfset session.collObjIdList=collObjIdList>
+		
 		<cfquery name="cols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			 select column_name from user_tab_cols where 
 			 upper(table_name)=upper('#session.SpecSrchTab#') order by internal_column_id

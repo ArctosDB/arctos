@@ -221,7 +221,6 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 	<cfabort>
 </cfif>
 <cfset collObjIdList = valuelist(summary.collection_object_id)>
-<cfset session.collObjIdList=collObjIdList>
 <script>
 	hidePageLoad();
 </script>
