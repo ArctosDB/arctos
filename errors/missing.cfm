@@ -20,7 +20,7 @@
 	<cfelseif listfindnocase(cgi.REDIRECT_URL,'guid',"/")>
 		<cftry>
 			<cfset gPos=listfindnocase(cgi.REDIRECT_URL,"guid","/")>
-			<cfset	guid = listgetat(cgi.REDIRECT_URL,gPos+1,"/")>
+			<cfset guid = listgetat(cgi.REDIRECT_URL,gPos+1,"/")>
 			<cfinclude template="/SpecimenDetail.cfm">
 			<cfcatch>
 				<cfinclude template="/errors/404.cfm">
