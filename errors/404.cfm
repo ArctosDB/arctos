@@ -5,7 +5,7 @@
 <cfif isdefined("url.ref") and len(url.ref) gt 0>
 	<cfset lref=url.ref>
 </cfif>	
-	
+	<cfif len(lref) gt 0>
 	<br>The last page you visited was #lref#.
 	<cfif #lref# contains "#Application.ServerRootUrl#">
 		<br>The link seems to be internal. Please submit a 
