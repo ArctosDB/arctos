@@ -383,7 +383,7 @@
 						<input type="hidden" name="action" value="nothing">
 						<input type="hidden" name="Srch" value="Part">
 						<input type="hidden" name="collecting_event_id" value="#detail.collecting_event_id#">
-						<cfif isdefined("session.mapURL") and len(#session.mapURL#) gt 0>
+						<cfif isdefined("session.collObjIdList") and len(session.collObjIdList) gt 0>
 						    <cfset isPrev = "no">
 							<cfset isNext = "no">
 							<cfset currPos = 0>
@@ -393,17 +393,17 @@
 							<cfset prevID = #collection_object_id#>
 							<cfset lastID = #collection_object_id#>
 							<!--- see where we are currently --->
-							<cfset currPos = listfind(session.mapURL,collection_object_id)>
-							<cfset lenOfIdList = listlen(session.mapURL)>
+							<cfset currPos = listfind(session.collObjIdList,collection_object_id)>
+							<cfset lenOfIdList = listlen(session.collObjIdList)>
 							<!--- get IDs to browse to --->
-							<cfset firstID = listGetAt(session.mapURL,1)>
+							<cfset firstID = listGetAt(session.collObjIdList,1)>
 							<cfif #currPos# lt #lenOfIdList#>
-								<cfset nextID = listGetAt(session.mapURL,currPos + 1)>
+								<cfset nextID = listGetAt(session.collObjIdList,currPos + 1)>
 							</cfif>
 							<cfif #currPos# gt 1>
-								<cfset prevID = listGetAt(session.mapURL,currPos - 1)>
+								<cfset prevID = listGetAt(session.collObjIdList,currPos - 1)>
 							</cfif>	
-							<cfset lastID = listGetAt(session.mapURL,lenOfIdList)>
+							<cfset lastID = listGetAt(session.collObjIdList,lenOfIdList)>
 							<!--- should we have first? --->
 							<cfif #lenOfIdList# gt 1>
 								<cfif #currPos# gt 1>
