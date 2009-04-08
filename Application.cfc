@@ -4,13 +4,11 @@
 <cfset This.ClientManagement="true">
 <cfset This.ClientStorage="Cookie">
 
-
-<cffunction name="onMissingTemplate" output="true">
-	<cfargument name="targetPage" type="string" required=true/>
-   <cfinclude template="/errors/404.cfm">
+<cffunction name="onMissingTemplate" returnType="boolean" output="false">
+   	<cfargument name="thePage" type="string" required="true">
+   	<cfinclude template="/errors/404.cfm">
 	<cfreturn false>
 </cffunction>
-
 <cffunction name="onError">
     <cfargument name="exception" required="true">
     <cfargument name="EventName" type="String" required="true">
