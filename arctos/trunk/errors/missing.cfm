@@ -10,7 +10,6 @@
 		<!--- we'll accept URLs like .../bla/whatever/specimen/{institution}/{collection}/{catnum} --->
 			<cfcatch>
 				fail...@ 
-				<cfdump var=#cfcatch#>
 			</cfcatch>
 		</cftry>
 		<cfinclude template="/SpecimenDetail.cfm">
@@ -26,4 +25,3 @@
 	--->
 	bye.....
 </cfif>
-</cfoutput>
