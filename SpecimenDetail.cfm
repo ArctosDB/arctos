@@ -506,7 +506,7 @@
 						style="border:none;width:100%;"
                         id="theFrame" 
 						name="theFrame" 
-						src="SpecimenDetail_body.cfm?collection_object_id=#collection_object_id#">
+						src="/SpecimenDetail_body.cfm?collection_object_id=#collection_object_id#">
 					</iframe>
 				</div>
 			</td>
