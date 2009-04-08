@@ -1,7 +1,12 @@
 <cfinclude template="/includes/_header.cfm">	
 <link rel="stylesheet" type="text/css" href="/includes/annotate.css">
 <script type='text/javascript' src='/includes/annotate.js'></script>
-<cfif not isdefined("collection_object_id")>
+<cfif isdefined("collection_object_id")>
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select GUID from flat where collection_object_id=#collection_object_id# 
+	</cfquery>
+	<cflocation url="/guid/#c.guid#">
+</cfif>
 	<cfif isdefined("guid")>
 		<cfif guid contains ":">
 			<cfset institution_acronym = listgetat(guid,1,":")>
@@ -49,7 +54,6 @@
 		</p>
 		<cfabort>
 	</cfif>
-</cfif>
 <cfset detSelect = "
 	SELECT DISTINCT
 		institution_acronym,
