@@ -1,6 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <font color="##FF0000" size="+1">The page you tried to access does not exist.</font>
 <p>&nbsp;</p>
+<cfoutput>
 <cfset lref=cgi.HTTP_REFERER>
 <cfif isdefined("url.ref") and len(url.ref) gt 0>
 	<cfset lref=url.ref>
@@ -40,7 +41,6 @@
 		 </p>
 		 </td></tr>
 </table>
-	</cfif>
 	
 </cfoutput>
 
