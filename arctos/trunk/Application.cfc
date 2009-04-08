@@ -8,6 +8,7 @@
 <cffunction name="onMissingTemplate" output="true">
 	<cfargument name="targetPage" type="string" required=true/>
    <cfinclude template="/errors/404.cfm">
+	<cfreturn false>
 </cffunction>
 
 <cffunction name="onError">
