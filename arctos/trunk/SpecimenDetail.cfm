@@ -167,7 +167,7 @@
 				} else {
 				id = "collection_object_id";
 			}
-			var theURL = page + theExt + "?" + id + "=" + theID;
+			var theURL = '/' + page + theExt + "?" + id + "=" + theID;
 			theFrame.src=theURL;
 			var ms = document.getElementById("SpecimenDetail_bodySpan");
 			var ids = document.getElementById("editIdentificationSpan");
