@@ -12,10 +12,8 @@
 			<cfset	c = listgetat(cgi.REDIRECT_URL,gPos+2,"/")>
 			<cfset	n = listgetat(cgi.REDIRECT_URL,gPos+3,"/")>
 			<cfset guid=i & ":" & c & ":" & n>
-			including specdetail....
 			<cfinclude template="/SpecimenDetail.cfm">
 			<cfcatch>
-				including error.....
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>

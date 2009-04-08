@@ -12,7 +12,7 @@
 		<cfset rUrl=cgi.REDIRECT_URL>
 	</cfif>
 	<p>
-		If you followed a link from Arctos, please <a href="/info/bugs.cfm">submit a bug report</a>
+		If you followed a link from within Arctos, please <a href="/info/bugs.cfm">submit a bug report</a>
 	 	containing any information that might help us resolve this issue.
 	</p>
 	<p>
@@ -27,8 +27,8 @@
 					<ul>
 						<li>
 							#Application.serverRootUrl#/SpecimenDetail.cfm?guid={institution}:{collection}:{catnum}
-							<br style="padding-left:1em;">Example: #Application.serverRootUrl#/SpecimenDetail.cfm?guid=UAM:Mamm:1
-							<br>
+							<br>Example: #Application.serverRootUrl#/SpecimenDetail.cfm?guid=UAM:Mamm:1
+							<br>&nbsp;
 						</li>
 						<li>
 							#Application.serverRootUrl#/guid/{institution}:{collection}:{catnum}
