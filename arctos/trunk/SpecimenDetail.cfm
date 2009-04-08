@@ -50,9 +50,6 @@
 		<cfabort>
 	</cfif>
 </cfif>
-<cfif isdefined("orderedCollObjIdList") and listlen(#orderedCollObjIdList#) gt 200>
-	<cfset orderedCollObjIdList = "">
-</cfif> 
 <cfset detSelect = "
 	SELECT DISTINCT
 		institution_acronym,
@@ -386,7 +383,7 @@
 						<input type="hidden" name="action" value="nothing">
 						<input type="hidden" name="Srch" value="Part">
 						<input type="hidden" name="collecting_event_id" value="#detail.collecting_event_id#">
-						<cfif isdefined("orderedCollObjIdList") and len(#orderedCollObjIdList#) gt 0>
+						<cfif isdefined("session.mapURL") and len(#session.mapURL#) gt 0>
 						    <cfset isPrev = "no">
 							<cfset isNext = "no">
 							<cfset currPos = 0>
@@ -396,17 +393,17 @@
 							<cfset prevID = #collection_object_id#>
 							<cfset lastID = #collection_object_id#>
 							<!--- see where we are currently --->
-							<cfset currPos = listfind(orderedCollObjIdList,collection_object_id)>
-							<cfset lenOfIdList = listlen(orderedCollObjIdList)>
+							<cfset currPos = listfind(session.mapURL,collection_object_id)>
+							<cfset lenOfIdList = listlen(session.mapURL)>
 							<!--- get IDs to browse to --->
-							<cfset firstID = listGetAt(orderedCollObjIdList,1)>
+							<cfset firstID = listGetAt(session.mapURL,1)>
 							<cfif #currPos# lt #lenOfIdList#>
-								<cfset nextID = listGetAt(orderedCollObjIdList,currPos + 1)>
+								<cfset nextID = listGetAt(session.mapURL,currPos + 1)>
 							</cfif>
 							<cfif #currPos# gt 1>
-								<cfset prevID = listGetAt(orderedCollObjIdList,currPos - 1)>
+								<cfset prevID = listGetAt(session.mapURL,currPos - 1)>
 							</cfif>	
-							<cfset lastID = listGetAt(orderedCollObjIdList,lenOfIdList)>
+							<cfset lastID = listGetAt(session.mapURL,lenOfIdList)>
 							<!--- should we have first? --->
 							<cfif #lenOfIdList# gt 1>
 								<cfif #currPos# gt 1>
@@ -422,8 +419,8 @@
 						</cfif>
 		                <ul id="navbar">
 							<cfif #isPrev# is "yes">
-								<img src="/images/first.gif" class="likeLink" onclick="document.location='SpecimenDetail.cfm?orderedCollObjIdList=#orderedCollObjIdList#&collection_object_id=#firstID#'" />
-								<img src="/images/previous.gif" class="likeLink"  onclick="document.location='SpecimenDetail.cfm?orderedCollObjIdList=#orderedCollObjIdList#&collection_object_id=#prevID#'" />
+								<img src="/images/first.gif" class="likeLink" onclick="document.location='SpecimenDetail.cfm?collection_object_id=#firstID#'" />
+								<img src="/images/previous.gif" class="likeLink"  onclick="document.location='SpecimenDetail.cfm?collection_object_id=#prevID#'" />
 							<cfelse>
 								<img src="/images/no_first.gif"  />
 								<img src="/images/no_previous.gif" />
@@ -486,8 +483,8 @@
 									class="likeLink" id="catalogSpan">Catalog</span>
 							</li>
 							<cfif #isNext# is "yes">
-								<img src="/images/next.gif" class="likeLink"   onclick="document.location='SpecimenDetail.cfm?orderedCollObjIdList=#orderedCollObjIdList#&collection_object_id=#nextID#'"/>
-								<img src="/images/last.gif"  class="likeLink"   onclick="document.location='SpecimenDetail.cfm?orderedCollObjIdList=#orderedCollObjIdList#&collection_object_id=#lastID#'"/>
+								<img src="/images/next.gif" class="likeLink"   onclick="document.location='SpecimenDetail.cfm?collection_object_id=#nextID#'"/>
+								<img src="/images/last.gif"  class="likeLink"   onclick="document.location='SpecimenDetail.cfm?collection_object_id=#lastID#'"/>
 							<cfelse>
 								<img src="/images/no_next.gif" />
 								<img src="/images/no_last.gif" />

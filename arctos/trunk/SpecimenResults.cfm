@@ -188,6 +188,7 @@ they also need special handling at TAG:SORTRESULT (do find in this document)--->
 	<input type="hidden" name="displayrows" id="displayrows" value="#session.displayrows#">
 	<input type="hidden" name="action" id="action" value="#action#">
 	<input type="hidden" name="mapURL" id="mapURL" value="#mapURL#">
+	<cfset session.mapURL = mapURL>
 	<cfif isdefined("transaction_id")>
 			<input type="hidden" name="transaction_id" id="transaction_id" value="#transaction_id#">
 	</cfif>
