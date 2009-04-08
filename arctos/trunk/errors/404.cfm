@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 	<p>
-		The page you tried to access does not exist.
+		404! OH NOES! The page you tried to access does not exist.
 	</p>
 	<cfif len(cgi.SCRIPT_NAME) gt 0>
 		<cfset rUrl=cgi.SCRIPT_NAME>
@@ -10,7 +10,7 @@
 		<cfset rUrl=cgi.REDIRECT_URL>
 	</cfif>
 	<p>
-		If you followed a link from Arctos, please <
+		If you followed a link from Arctos, please <a href="/info/bugs.cfm">submit a bug report</a>
 	 	containing any information that might help us resolve this issue.
 	</p>
 	<p>
@@ -57,8 +57,7 @@
 	</cfmail>
 		 <p>A message has been sent to the site administrator.</p>
 		 <p>
-		 	Use the tabs in the header to navigate Arctos.
+		 	Use the tabs in the header to continue navigating Arctos.
 		 </p>
 </cfoutput>
--------------->
 <cfinclude template="/includes/_footer.cfm">
