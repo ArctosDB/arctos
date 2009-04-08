@@ -1,4 +1,6 @@
-<cfinclude template="/includes/_header.cfm">
+<cfif not isdefined("toProperCase")>
+	<cfinclude template="/includes/_header.cfm">
+</cfif>
 <cfoutput>
 	<p>
 		404! OH NOES! The page you tried to access does not exist.
