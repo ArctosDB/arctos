@@ -1,12 +1,6 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfoutput>
 	
-	<cfdump var="#url#">
-	
-	<cfdump var="#form#">
-	
-	<cfdump var="#cgi#">
-	<cfabort>
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
 			Improper call. You will be redirected shortly.....
