@@ -5,7 +5,7 @@
 <cfset This.ClientStorage="Cookie">
 
 
-<cffunction name="onMissingTemplate" returnType="boolean" output="false">
+<cffunction name="onMissingTemplate" output="true">
    <cfinclude template="/errors/404.cfm">
 </cffunction>
 
