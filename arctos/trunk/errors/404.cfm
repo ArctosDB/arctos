@@ -2,9 +2,9 @@
 	<cfinclude template="/includes/_header.cfm">
 </cfif>
 <cfoutput>
-	<p>
-		404! OH NOES! The page you tried to access does not exist.
-	</p>
+	<h2>
+		404! The page you tried to access does not exist.
+	</h2>
 	<cfif len(cgi.SCRIPT_NAME) gt 0>
 		<cfset rUrl=cgi.SCRIPT_NAME>
 	</cfif>
@@ -27,7 +27,7 @@
 					<ul>
 						<li>
 							#Application.serverRootUrl#/SpecimenDetail.cfm?guid={institution}:{collection}:{catnum}
-							<br>Example: #Application.serverRootUrl#/SpecimenDetail.cfm?guid=UAM:Mamm:1
+							<br style="padding-left:1em;">Example: #Application.serverRootUrl#/SpecimenDetail.cfm?guid=UAM:Mamm:1
 							<br>
 						</li>
 						<li>
