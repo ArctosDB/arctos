@@ -5,7 +5,6 @@
 <cfif isdefined("url.ref") and len(url.ref) gt 0>
 	<cfset lref=url.ref>
 </cfif>	
-	<cfif len(lref) gt 0>
 	<br>The last page you visited was #lref#.
 	<cfif #lref# contains "#Application.ServerRootUrl#">
 		<br>The link seems to be internal. Please submit a 
@@ -16,11 +15,10 @@
 		to return to #lref#, and please ask them to fix this problem! 
 		<font size="-1">Link opens in a new window.</font>	
 	</cfif>
-<cfelse>
+
 	<br>You probably typed the address incorrectly. If you came from another page, please ask
 	them to fix the problem. If you came from somewhere on Arctos, please submit a
 	<a href="/info/bugs.cfm">bug report</a>.
-</cfif>
 		<cfmail subject="Dead Link" to="#Application.PageProblemEmail#" from="dead.link@#application.fromEmail#" type="html">
 			A user found a dead link! The referring site was #cgi.HTTP_REFERER#.
 			<cfif isdefined("CGI.script_name")>
