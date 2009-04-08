@@ -5,55 +5,55 @@
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select GUID from flat where collection_object_id=#collection_object_id# 
 	</cfquery>
-	<cflocation url="/guid/#c.guid#">
+	<cflocation url="/guid/#c.guid#" addtoken="false">
 </cfif>
-	<cfif isdefined("guid")>
-		<cfif guid contains ":">
-			<cfset institution_acronym = listgetat(guid,1,":")>
-			<cfset collection_cde = listgetat(guid,2,":")>
-			<cfset cat_num = listgetat(guid,3,":")>
-			<cfset sql="select collection_object_id from 
-					cataloged_item,
-					collection
-				WHERE
-					cataloged_item.collection_id = collection.collection_id AND
-					cat_num = #cat_num# AND
-					lower(collection.collection_cde)='#lcase(collection_cde)#' AND
-					lower(collection.institution_acronym)='#lcase(institution_acronym)#'">
-			<cfset checkSql(sql)>
-			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				#preservesinglequotes(sql)#
-			</cfquery>
-		<cfelseif guid contains " ">
-			<cfset spos=find(" ",reverse(guid))>
-			<cfset cc=left(guid,len(guid)-spos)>
-			<cfset cn=right(guid,spos)>
-			<cfset sql="select collection_object_id from 
-					cataloged_item,
-					collection
-				WHERE
-					cataloged_item.collection_id = collection.collection_id AND
-					cat_num = #cn# AND
-					lower(collection.collection)='#lcase(cc)#'">
-			<cfset checkSql(sql)>
-			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				#preservesinglequotes(sql)#
-			</cfquery>
-		</cfif>
-		<cfif not isdefined("c.collection_object_id") or len(#c.collection_object_id#) gt 0>
-			<cfset collection_object_id=#c.collection_object_id#>
-		<cfelse>
-			<p class="error">
-				Unable to resolve GUID. Aborting.....
-			</p>
-			<cfabort>	
-		</cfif>
+<cfif isdefined("guid")>
+	<cfif guid contains ":">
+		<cfset institution_acronym = listgetat(guid,1,":")>
+		<cfset collection_cde = listgetat(guid,2,":")>
+		<cfset cat_num = listgetat(guid,3,":")>
+		<cfset sql="select collection_object_id from 
+				cataloged_item,
+				collection
+			WHERE
+				cataloged_item.collection_id = collection.collection_id AND
+				cat_num = #cat_num# AND
+				lower(collection.collection_cde)='#lcase(collection_cde)#' AND
+				lower(collection.institution_acronym)='#lcase(institution_acronym)#'">
+		<cfset checkSql(sql)>
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(sql)#
+		</cfquery>
+	<cfelseif guid contains " ">
+		<cfset spos=find(" ",reverse(guid))>
+		<cfset cc=left(guid,len(guid)-spos)>
+		<cfset cn=right(guid,spos)>
+		<cfset sql="select collection_object_id from 
+				cataloged_item,
+				collection
+			WHERE
+				cataloged_item.collection_id = collection.collection_id AND
+				cat_num = #cn# AND
+				lower(collection.collection)='#lcase(cc)#'">
+		<cfset checkSql(sql)>
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(sql)#
+		</cfquery>
+	</cfif>
+	<cfif not isdefined("c.collection_object_id") or len(#c.collection_object_id#) gt 0>
+		<cfset collection_object_id=#c.collection_object_id#>
 	<cfelse>
 		<p class="error">
-			Did not get an ID: aborting....
+			Unable to resolve GUID. Aborting.....
 		</p>
-		<cfabort>
+		<cfabort>	
 	</cfif>
+<cfelse>
+	<p class="error">
+		Did not get an ID: aborting....
+	</p>
+	<cfabort>
+</cfif>
 <cfset detSelect = "
 	SELECT DISTINCT
 		institution_acronym,
