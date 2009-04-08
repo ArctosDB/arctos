@@ -17,7 +17,7 @@
 			</cfcatch>
 		</cftry>
 		<cfinclude template="/SpecimenDetail.cfm">
-	<cfif listfindnocase(cgi.REDIRECT_URL,'guid',"/")>
+	<cfelseif listfindnocase(cgi.REDIRECT_URL,'guid',"/")>
 		<cftry>
 			<cfset gPos=listfindnocase(cgi.REDIRECT_URL,"guid","/")>
 			<cfset	guid = listgetat(cgi.REDIRECT_URL,gPos+1,"/")>
