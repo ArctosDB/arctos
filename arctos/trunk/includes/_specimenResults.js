@@ -726,7 +726,7 @@ function success_getSpecResultsData(result){
 				theInnerHtml += '<td nowrap="nowrap" id="CatItem_'+result[i].COLLECTION_OBJECT_ID+'">';
 					theInnerHtml += '<a href="SpecimenDetail.cfm?collection_object_id=';
 					theInnerHtml += result[i].COLLECTION_OBJECT_ID;
-					
+					// this is a friggin comment, yo
 					//if (mapURL.length > 0) {
 					//	theInnerHtml += "&returnURL=" + escape(mapURL);
 					//}
