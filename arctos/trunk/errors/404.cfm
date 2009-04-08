@@ -19,6 +19,8 @@
 		If you followed an external link, please use your back button and tell the webmaster that
 		something is broken, or <a href="/info/bugs.cfm">submit a bug report</a> telling us how you got this error.
 	</p>
+	<p><a href="/TaxonomySearch.cfm">Search for it taxon names here</a></p>
+	<p><a href="/SpecimenUsage.cfm">Search for it Projects and Publications here</a></p>
 	<p>
 		If you're trying to find specimens, you may:
 			<ul>
@@ -33,7 +35,7 @@
 						<li>
 							#Application.serverRootUrl#/guid/{institution}:{collection}:{catnum}
 							<br>Example: #Application.serverRootUrl#/guid/UAM:Mamm:1
-							<br>
+							<br>&nbsp;
 						</li>
 						<li>
 							#Application.serverRootUrl#/specimen/{institution}/{collection}/{catnum}
