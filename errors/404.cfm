@@ -25,15 +25,18 @@
 					<ul>
 						<li>
 							#Application.serverRootUrl#/SpecimenDetail.cfm?guid={institution}:{collection}:{catnum}
-							<p>Example: #Application.serverRootUrl#/SpecimenDetail.cfm?guid=UAM:Mamm:1</p>
+							<br>Example: #Application.serverRootUrl#/SpecimenDetail.cfm?guid=UAM:Mamm:1
+							<br>
 						</li>
 						<li>
 							#Application.serverRootUrl#/guid/{institution}:{collection}:{catnum}
-							<p>Example: #Application.serverRootUrl#/guid/UAM:Mamm:1</p>
+							<br>Example: #Application.serverRootUrl#/guid/UAM:Mamm:1
+							<br>
 						</li>
 						<li>
 							#Application.serverRootUrl#/specimen/{institution}/{collection}/{catnum}
-							<p>Example: #Application.serverRootUrl#/specimen/UAM/Mamm/1</p>
+							<br>Example: #Application.serverRootUrl#/specimen/UAM/Mamm/1
+							<br>
 						</li>
 					</ul>
 				</li>
