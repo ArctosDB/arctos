@@ -13,7 +13,7 @@
 			<cfset	n = listgetat(cgi.REDIRECT_URL,gPos+3,"/")>
 			<cfset guid=i & ":" & c & ":" & n>
 			<cfcatch>
-				<cflocation url="/errors/404.cfm" addtoken="false">
+				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
 		<cfinclude template="/SpecimenDetail.cfm">
@@ -29,13 +29,6 @@
 	<cfelse>
 		<cflocation url="/errors/404.cfm" addtoken="false">
 	</cfif>
-	
 <cfelse>
 	<cflocation url="/errors/404.cfm" addtoken="false">
-	<!--- standard go away page 
-	
-	
-	
-	--->
-	bye.....
 </cfif>
