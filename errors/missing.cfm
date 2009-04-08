@@ -12,23 +12,23 @@
 			<cfset	c = listgetat(cgi.REDIRECT_URL,gPos+2,"/")>
 			<cfset	n = listgetat(cgi.REDIRECT_URL,gPos+3,"/")>
 			<cfset guid=i & ":" & c & ":" & n>
+			<cfinclude template="/SpecimenDetail.cfm">
 			<cfcatch>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
-		<cfinclude template="/SpecimenDetail.cfm">
 	<cfelseif listfindnocase(cgi.REDIRECT_URL,'guid',"/")>
 		<cftry>
 			<cfset gPos=listfindnocase(cgi.REDIRECT_URL,"guid","/")>
 			<cfset	guid = listgetat(cgi.REDIRECT_URL,gPos+1,"/")>
+			<cfinclude template="/SpecimenDetail.cfm">
 			<cfcatch>
-				<cflocation url="/errors/404.cfm" addtoken="false">
+				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
-		</cftry>
-				<cfinclude template="/SpecimenDetail.cfm">
+		</cftry>				
 	<cfelse>
-		<cflocation url="/errors/404.cfm" addtoken="false">
+		<cfinclude template="/errors/404.cfm">
 	</cfif>
 <cfelse>
-	<cflocation url="/errors/404.cfm" addtoken="false">
+	<cfinclude template="/errors/404.cfm">
 </cfif>
