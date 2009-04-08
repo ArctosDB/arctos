@@ -10,20 +10,12 @@
 
 
 
-<!---  --->
+<!---   cachedWithin="#CreateTimeSpan(0,1,0,0)#"  --->
 <cfdump var=#cgi#>
-<cfquery name="isValid" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+<cfquery name="isValid" datasource="#Application.web_user#">
 	select ROLE_NAME from cf_form_permissions 
 	where form_path = '#escapeGoofyInstall#'
 </cfquery>
-<cfif #isValid.recordcount# is 0>
-	trying with cgi.REDIRECT_URL: #cgi.REDIRECT_URL#
-	<cfquery name="isValid" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
-		select ROLE_NAME from cf_form_permissions 
-		where form_path = '#cgi.REDIRECT_URL#'
-	</cfquery>
-</cfif>
-
 <cfif #isValid.recordcount# is 0>
 	This form is not controlled. Add it to Form Permissions or get ready to see it go bye-bye.
 	<cfmail subject="Uncontrolled Form" to="#Application.technicalEmail#" from="Security@#Application.fromEmail#" type="html">
