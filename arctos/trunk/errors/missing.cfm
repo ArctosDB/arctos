@@ -13,7 +13,7 @@
 			<cfset	n = listgetat(cgi.REDIRECT_URL,gPos+3,"/")>
 			<cfset guid=i & ":" & c & ":" & n>
 			<cfcatch>
-				fail...@ 
+				<cflocation url="/errors/404.cfm" addtoken="false">
 			</cfcatch>
 		</cftry>
 		<cfinclude template="/SpecimenDetail.cfm">
@@ -22,18 +22,19 @@
 			<cfset gPos=listfindnocase(cgi.REDIRECT_URL,"guid","/")>
 			<cfset	guid = listgetat(cgi.REDIRECT_URL,gPos+1,"/")>
 			<cfcatch>
-				fail...@ 
+				<cflocation url="/errors/404.cfm" addtoken="false">
 			</cfcatch>
 		</cftry>
 				<cfinclude template="/SpecimenDetail.cfm">
 	<cfelse>
-		we tried - bye....
+		<cflocation url="/errors/404.cfm" addtoken="false">
 	</cfif>
 	
 <cfelse>
+	<cflocation url="/errors/404.cfm" addtoken="false">
 	<!--- standard go away page 
 	
-	<cflocation url="/errors/404.cfm" addtoken="false">
+	
 	
 	--->
 	bye.....
