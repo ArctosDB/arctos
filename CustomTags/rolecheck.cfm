@@ -10,9 +10,8 @@
 
 
 
-<!---   cachedWithin="#CreateTimeSpan(0,1,0,0)#"  --->
-<cfdump var=#cgi#>
-<cfquery name="isValid" datasource="#Application.web_user#">
+<!---     --->
+<cfquery name="isValid" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select ROLE_NAME from cf_form_permissions 
 	where form_path = '#escapeGoofyInstall#'
 </cfquery>
