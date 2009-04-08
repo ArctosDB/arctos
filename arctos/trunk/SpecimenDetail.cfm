@@ -423,8 +423,8 @@
 						</cfif>
 		                <ul id="navbar">
 							<cfif #isPrev# is "yes">
-								<img src="/images/first.gif" class="likeLink" onclick="document.location='SpecimenDetail.cfm?collection_object_id=#firstID#'" />
-								<img src="/images/previous.gif" class="likeLink"  onclick="document.location='SpecimenDetail.cfm?collection_object_id=#prevID#'" />
+								<img src="/images/first.gif" class="likeLink" onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#firstID#'" />
+								<img src="/images/previous.gif" class="likeLink"  onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#prevID#'" />
 							<cfelse>
 								<img src="/images/no_first.gif"  />
 								<img src="/images/no_previous.gif" />
@@ -487,8 +487,8 @@
 									class="likeLink" id="catalogSpan">Catalog</span>
 							</li>
 							<cfif #isNext# is "yes">
-								<img src="/images/next.gif" class="likeLink"   onclick="document.location='SpecimenDetail.cfm?collection_object_id=#nextID#'"/>
-								<img src="/images/last.gif"  class="likeLink"   onclick="document.location='SpecimenDetail.cfm?collection_object_id=#lastID#'"/>
+								<img src="/images/next.gif" class="likeLink"   onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#nextID#'"/>
+								<img src="/images/last.gif"  class="likeLink"   onclick="document.location='/SpecimenDetail.cfm?collection_object_id=#lastID#'"/>
 							<cfelse>
 								<img src="/images/no_next.gif" />
 								<img src="/images/no_last.gif" />
