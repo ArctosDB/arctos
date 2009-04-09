@@ -15,9 +15,9 @@
 		<cfabort>
 	</cfif>
 	<script>
-		if (top.frames.length == 0) {
-		    document.location='SpecimenDetail.cfm?collection_object_id=#collection_object_id#';
-	    }
+		//if (top.frames.length == 0) {
+		//    document.location='SpecimenDetail.cfm?collection_object_id=#collection_object_id#';
+	    //}
 	</script>
 </cfoutput>
 	<script type='text/javascript' src='/includes/annotate.js'></script>
@@ -450,6 +450,7 @@
 <style>
 	.acceptedIdDiv {
 		border:1px solid red;
+		font-weight:bold;
 	}
 	.unAcceptedIdDiv{
 		border:1px solid blue;
