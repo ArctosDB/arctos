@@ -103,7 +103,7 @@
 		Links:
 		<ul>
 			<li>
-				<a href="SpecimenResults.cfm?taxon_name_id=#taxon_name_id#">
+				<a href="/SpecimenResults.cfm?taxon_name_id=#taxon_name_id#">
 					Search Arctos for <I>#SCIENTIFIC_NAME#</I></a>
 			</li>
 			<li>
