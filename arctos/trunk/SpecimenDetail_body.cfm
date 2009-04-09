@@ -467,7 +467,100 @@
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</span>
 					</cfif>
 				</div>
+				<div class="detailBlock">
+					<span class="detailData">
+						
+						
+						
+						
+						
+						<cfquery name="identification" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		SELECT
+			identification.scientific_name,
+			concatidagent(identification.identification_id) agent_name,
+			made_date,
+			nature_of_id,
+			identification_remarks,
+			identification.identification_id,
+			accepted_id_fg
+		FROM
+			identification 
+		WHERE
+			identification.collection_object_id = #collection_object_id# 
+		ORDER BY accepted_id_fg DESC
+	</cfquery>
+	<table border>
+		<tr>
+			<td><b>Accepted?</b></td>
+			<td><b>Scientific Name</b></td>
+			<td><b>Identifier</b></td>
+			<td><b>ID Date</b></td>
+			<td><b>Nature of ID</b></td>
+			<td><b>Remarks</b></td>
+		</tr>
+		<cfset i=1>
+		<cfloop query="identification">
+			<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
+				<td>
+					<cfif #accepted_id_fg# is 1>
+              <font color="##00FF66">Yes</font> 
+              <cfelse>
+              <font color="##FF0000">No</font> 
+            </cfif></td>
+				<td nowrap>
+				<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select 
+						taxonomy.taxon_name_id,
+						scientific_name,
+						author_text
+					FROM
+						identification_taxonomy,
+						taxonomy
+					WHERE
+						identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id and
+						identification_id=#identification_id#
+				</cfquery>
+				<cfif #getTaxa.recordcount# is 1>
+					<a href="/TaxonomyDetails.cfm?taxon_name_id=#getTaxa.taxon_name_id#" target="_blank"><i>#scientific_name#</i></a> #getTaxa.author_text#
+				<cfelse>
+					<cfset link="">
+					<cfset i=1>
+					<cfset thisSciName="#scientific_name#">
+					
+					<cfloop query="getTaxa">
+						<cfset thisLink='<a href="/TaxonomyDetails.cfm?taxon_name_id=#taxon_name_id#" target="_blank"><i>#scientific_name#</i></a> #author_text#'>
+						<cfset thisSciName=#replace(thisSciName,scientific_name,thisLink)#>
+						<cfset i=#i#+1>
+					</cfloop>
+					#thisSciName#
+				</cfif>
 				
+				</td>
+				<td nowrap>#agent_name#</td>
+				<td nowrap>#dateformat(made_date,"dd mmm yyyy")#</td>
+				<td nowrap>#nature_of_id#</td>
+				<td>#identification_remarks#&nbsp;</td>
+			</tr>
+			<cfset i=#i#+1>
+		</cfloop>
+	</table>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+					</span>				
+				</div>
 				<!---
 				<table id="SD">		
 				<tr><td id="SDCellRight"><i>#scientific_name#</i></td>
