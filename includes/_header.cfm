@@ -88,10 +88,15 @@
 				</span>
 			</cfif>
 		<cfelse>
-			<cfset escapeGoofyInstall=replace(cgi.SCRIPT_NAME,"/cfusion","","all")>
+			<cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
+				<cfset gtp=cgi.REDIRECT_URL>
+			<cfelse>
+				<cfset gtp=cgi.SCRIPT_NAME>
+			</cfif>
+			
 			<form name="logIn" method="post" action="/login.cfm">
 				<input type="hidden" name="action" value="signIn">
-				<input type="hidden" name="gotopage" value="#escapeGoofyInstall#">
+				<input type="hidden" name="gotopage" value="#gtp#">
 							
 				<!---<input type="hidden" name="gotopage" value="#escapeGoofyInstall#">--->
 					<table border="0" cellpadding="0" cellspacing="0">
