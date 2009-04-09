@@ -94,8 +94,13 @@ Groups:
 		where
 			group_member.GROUP_AGENT_ID=preferred_agent_name.agent_id and
 			MEMBER_AGENT_ID=#agent_id#
+		order by agent_name
 	</cfquery>
-	 								 
+	<ul>
+		<cfloop query="group_member">
+			<li><a href="agentActivity.cfm?agent_id=#GROUP_AGENT_ID#">#agent_name#</a></li>
+		</cfloop>
+	</ul>							 
 Electronic Address:
 	<cfquery name="electronic_address" datasource="uam_god">
 		select * from electronic_address where agent_id=#agent_id#
