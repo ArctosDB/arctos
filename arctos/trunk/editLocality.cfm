@@ -1417,7 +1417,7 @@
 							,VERIFICATIONSTATUS)
 						VALUES (
 							sq_lat_long_id.nextval,
-							#llid#
+							#lid#
 							<cfif len(#LAT_DEG#) gt 0>
 								,#LAT_DEG#
 							<cfelse>
@@ -1586,7 +1586,7 @@
 							,VERIFICATIONSTATUS)
 						VALUES (
 							sq_lat_long_id.nextval,
-							#llid#
+							#lid#
 							<cfif len(#LAT_DEG#) gt 0>
 								,#LAT_DEG#
 							<cfelse>
@@ -1714,7 +1714,7 @@
 				</cfloop>
 			</cfif>
 		</cftransaction>
-		<cflocation url="editLocality.cfm?locality_id=#nid#">
+		<cflocation url="editLocality.cfm?locality_id=#lid#">
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
