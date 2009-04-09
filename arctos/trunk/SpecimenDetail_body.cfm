@@ -15,9 +15,9 @@
 		<cfabort>
 	</cfif>
 	<script>
-		//if (top.frames.length == 0) {
-		//    document.location='SpecimenDetail.cfm?collection_object_id=#collection_object_id#';
-	    //}
+		if (top.frames.length == 0) {
+		    document.location='SpecimenDetail.cfm?collection_object_id=#collection_object_id#';
+	    }
 	</script>
 </cfoutput>
 	<script type='text/javascript' src='/includes/annotate.js'></script>
@@ -449,14 +449,15 @@
 
 <style>
 	.acceptedIdDiv {
-		border:1px solid red;
-		font-weight:bold;
+		border:1px dotted green;
 	}
 	.unAcceptedIdDiv{
-		border:1px solid blue;
+		border:1px dotted gray;
+		color:gray;
+		font-size:.8em;
 	}
 	.taxDetDiv {
-		border:1px solid green;	
+		padding-left:1em;	
 	}
 </style>
 				
@@ -527,7 +528,10 @@
 								#thisSciName#
 							</cfif>
 								<div class="taxDetDiv">
-									Identified by #agent_name# on #dateformat(made_date,"dd mmm yyyy")#
+									Identified by #agent_name# 
+									<cfif len(made_date) gt 0>
+										on #dateformat(made_date,"dd mmm yyyy")#
+									</cfif>									
 									<br>Nature of ID: #nature_of_id#
 									<cfif len(identification_remarks) gt 0>
 										<br>Remarks: #identification_remarks#
