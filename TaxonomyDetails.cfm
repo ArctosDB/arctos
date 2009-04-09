@@ -103,9 +103,9 @@
 		Links:
 		<ul>
 			<li>
-				<a href="/SpecimenResults.cfm?taxon_name_id=#taxon_name_id#">
-					Search Arctos for <I>exactly #SCIENTIFIC_NAME#</I></a>
-				or <a href="/SpecimenResults.cfm?scientific_name=#scientific_name#">like #scientific_name#</a>
+				Search Arctos for <a href="/SpecimenResults.cfm?taxon_name_id=#taxon_name_id#">
+					exactly <I>#SCIENTIFIC_NAME#</I></a>
+				or <a href="/SpecimenResults.cfm?scientific_name=#scientific_name#">like <em>#scientific_name#</em></a>
 			</li>
 			<li>
 				<a href="http://images.google.com/images?q=#thisSearch#" target="_blank">
