@@ -26,6 +26,15 @@
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>				
+	<cfelseif listfindnocase(cgi.REDIRECT_URL,'name',"/")>
+		<cftry>
+			<cfset gPos=listfindnocase(cgi.REDIRECT_URL,"name","/")>
+			<cfset scientific_name = listgetat(cgi.REDIRECT_URL,gPos+1,"/")>
+			<cfinclude template="/TaxonomyDetails.cfm">
+			<cfcatch>
+				<cfinclude template="/errors/404.cfm">
+			</cfcatch>
+		</cftry>		
 	<cfelse>
 		<cfinclude template="/errors/404.cfm">
 	</cfif>
