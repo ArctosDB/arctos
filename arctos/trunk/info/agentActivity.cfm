@@ -84,6 +84,18 @@ Agent Relationships:
 			<li><a href="agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a> is #AGENT_RELATIONSHIP#</li>
 		</cfloop>
 	</ul>
+Groups:	
+	<cfquery name="group_member" datasource="uam_god">
+		select 
+			agent_name,
+			GROUP_AGENT_ID
+		from
+			group_member, preferred_agent_name
+		where
+			group_member.GROUP_AGENT_ID=preferred_agent_name.agent_id and
+			MEMBER_AGENT_ID=#agent_id#
+	</cfquery>
+	 								 
 Electronic Address:
 	<cfquery name="electronic_address" datasource="uam_god">
 		select * from electronic_address where agent_id=#agent_id#
