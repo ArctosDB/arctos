@@ -108,6 +108,10 @@
 			<cfset session.needEmailAddr=1>
 		</cfif>
 	</cfif>
+	<!--- make sure they got logged in --->
+	<cfif len(session.username) is 0>
+		<cflocation url="login.cfm?badPW=true">
+	</cfif>
 	<!--- redirect to personal home --->
 	<cfif not isdefined("gotopage") or len(#gotopage#) is 0>
 		<cfif isdefined("cgi.HTTP_REFERER") and left(cgi.HTTP_REFERER,(len(application.serverRootUrl))) is application.serverRootUrl>
