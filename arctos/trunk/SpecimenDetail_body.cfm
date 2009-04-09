@@ -467,6 +467,8 @@
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</span>
 					</cfif>
 				</div>
+				
+				<!---
 				<table id="SD">		
 				<tr><td id="SDCellRight"><i>#scientific_name#</i></td>
 				</tr>
@@ -478,6 +480,10 @@
 					<tr><td id="SDCellRight" class="detailElements">#identification_remarks#</td>
 					</tr>
 				</cfif>
+				</table>
+				--->
+				<table width="100%" border="1">
+					<tr><td>boogity</td></tr>
 				</table>
 			</div>
 			
