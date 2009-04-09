@@ -1,15 +1,8 @@
-<cfif not isdefined("taxon_name_id")>
-	<p style="color:#FF0000; font-size:14px;">
-		Did not get a taxon_name_id - aborting....
-	</p>
-	<cfabort>
-</cfif>
 <cfinclude template = "includes/_header.cfm">
 <!--- get taxon name ID if we're passed a scientific name --->
 <cfif isdefined("scientific_name") and len(#scientific_name#) gt 0>
 	<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		SELECT taxon_name_id FROM taxonomy WHERE upper(scientific_name)
-		LIKE '#ucase(scientific_name)#'
+		SELECT taxon_name_id FROM taxonomy WHERE upper(scientific_name)	= '#ucase(scientific_name)#'
 	</cfquery>
 	<cfif getTID.recordcount is 1>
 		<cfset taxon_name_id=#getTID.taxon_name_id#>
@@ -18,6 +11,12 @@
 		<br>Aborting search.
 		<cfabort>
 	</cfif>
+</cfif>
+<cfif not isdefined("taxon_name_id")>
+	<p style="color:#FF0000; font-size:14px;">
+		Did not get a taxon_name_id - aborting....
+	</p>
+	<cfabort>
 </cfif>
 <cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
