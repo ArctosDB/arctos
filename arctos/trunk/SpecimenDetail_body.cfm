@@ -462,7 +462,7 @@
 		<td valign="top" width="50%">
 <!------------------------------------ Taxonomy ---------------------------------------------->
 			<div class="detailCell">				
-				<div class="detailLabel">
+				<div class="detailLabel">&nbsp;
 					<cfif #oneOfUs# is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('editIdentification');">Edit</span>
 					</cfif>
