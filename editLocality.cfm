@@ -363,7 +363,11 @@
 		  <td nowrap>
 			<script>
 				function cloneLocality(locality_id) {
-					var x=confirm('Do you want to create a copy of this locality which you may then edit?');
+					if(confirm('Do you want to create a copy of this locality which you may then edit?')) {
+						alert('ok');
+					} else {
+						alert('jerk');
+					}
 					alert(x);
 				}
 			</script>
