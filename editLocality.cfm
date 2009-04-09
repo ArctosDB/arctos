@@ -1304,7 +1304,417 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif #action# is "clone">
 	<cfoutput>
-		
+		<cftransaction>
+			<cfquery name="nLocId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select sq_locality_id.nextval nv from dual
+			</cfquery>
+			<cfset lid=nLocId.nv>
+			<cfquery name="oldLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select * from locality where locality_id=#locality_id#
+			</cfquery>
+			<cfquery name="newLocality" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				INSERT INTO locality (
+					LOCALITY_ID,
+					GEOG_AUTH_REC_ID
+					,MAXIMUM_ELEVATION
+					,MINIMUM_ELEVATION
+					,ORIG_ELEV_UNITS
+					,SPEC_LOCALITY
+					,LOCALITY_REMARKS,					
+					DEPTH_UNITS,
+					MIN_DEPTH,
+					MAX_DEPTH,
+					NOGEOREFBECAUSE
+				) VALUES (
+					#lid#,
+					#oldLoc.GEOG_AUTH_REC_ID#
+					<cfif len(#oldLoc.MAXIMUM_ELEVATION#) gt 0>
+						,#oldLoc.MAXIMUM_ELEVATION#
+					<cfelse>
+						,NULL
+					</cfif>
+					<cfif len(#oldLoc.MINIMUM_ELEVATION#) gt 0>
+						,#oldLoc.MINIMUM_ELEVATION#
+					<cfelse>
+						,NULL
+					</cfif>
+					<cfif len(#oldLoc.orig_elev_units#) gt 0>
+						,'#oldLoc.orig_elev_units#'
+					<cfelse>
+						,NULL
+					</cfif>
+					<cfif len(#oldLoc.SPEC_LOCALITY#) gt 0>
+						,'#oldLoc.SPEC_LOCALITY#'
+					<cfelse>
+						,NULL
+					</cfif>
+					<cfif len(#oldLoc.LOCALITY_REMARKS#) gt 0>
+						,'#oldLoc.LOCALITY_REMARKS#'
+					<cfelse>
+						,NULL
+					</cfif>
+					<cfif len(#oldLoc.DEPTH_UNITS#) gt 0>
+						,'#oldLoc.DEPTH_UNITS#'
+					<cfelse>
+						,NULL
+					</cfif>
+					<cfif len(#oldLoc.MIN_DEPTH#) gt 0>
+						,#oldLoc.MIN_DEPTH#
+					<cfelse>
+						,NULL
+					</cfif>
+					<cfif len(#oldLoc.MAX_DEPTH#) gt 0>
+						,#oldLoc.MAX_DEPTH#
+					<cfelse>
+						,NULL
+					</cfif>
+					<cfif len(#oldLoc.NOGEOREFBECAUSE#) gt 0>
+						,'#oldLoc.NOGEOREFBECAUSE#'
+					<cfelse>
+						,NULL
+					</cfif>
+				)
+			</cfquery>
+			<cfif isdefined("keepAcc") and keepAcc is 1>
+				<cfquery name="accCoord" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select * from lat_long where locality_id=#locality_id# and accepted_lat_long_fg=1
+				</cfquery>
+				<cfloop query="accCoord">
+					<cfquery name="newLL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						INSERT INTO lat_long (
+							LAT_LONG_ID,
+							LOCALITY_ID
+							,LAT_DEG
+							,DEC_LAT_MIN
+							,LAT_MIN
+							,LAT_SEC
+							,LAT_DIR
+							,LONG_DEG
+							,DEC_LONG_MIN
+							,LONG_MIN
+							,LONG_SEC
+							,LONG_DIR
+							,DEC_LAT
+							,DEC_LONG
+							,DATUM
+							,UTM_ZONE
+							,UTM_EW
+							,UTM_NS
+							,ORIG_LAT_LONG_UNITS
+							,DETERMINED_BY_AGENT_ID
+							,DETERMINED_DATE
+							,LAT_LONG_REF_SOURCE
+							,LAT_LONG_REMARKS
+							,MAX_ERROR_DISTANCE
+							,MAX_ERROR_UNITS
+							,NEAREST_NAMED_PLACE
+							,LAT_LONG_FOR_NNP_FG
+							,FIELD_VERIFIED_FG
+							,ACCEPTED_LAT_LONG_FG
+							,EXTENT
+							,GPSACCURACY
+							,GEOREFMETHOD
+							,VERIFICATIONSTATUS)
+						VALUES (
+							sq_lat_long_id.nextval,
+							#llid#
+							<cfif len(#LAT_DEG#) gt 0>
+								,#LAT_DEG#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#DEC_LAT_MIN#) gt 0>
+								,#DEC_LAT_MIN#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#LAT_MIN#) gt 0>
+								,#LAT_MIN#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#LAT_SEC#) gt 0>
+								,#LAT_SEC#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#LAT_DIR#) gt 0>
+								,'#LAT_DIR#'
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#LONG_DEG#) gt 0>
+								,#LONG_DEG#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#DEC_LONG_MIN#) gt 0>
+								,#DEC_LONG_MIN#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#LONG_MIN#) gt 0>
+								,#LONG_MIN#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#LONG_SEC#) gt 0>
+								,#LONG_SEC#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#LONG_DIR#) gt 0>
+								,'#LONG_DIR#'
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#DEC_LAT#) gt 0>
+								,#DEC_LAT#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#DEC_LONG#) gt 0>
+								,#DEC_LONG#
+							<cfelse>
+								,NULL
+							</cfif>
+							,'#DATUM#'
+							<cfif len(#UTM_ZONE#) gt 0>
+								,'#UTM_ZONE#'
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#UTM_EW#) gt 0>
+								,'#UTM_EW#'
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#UTM_NS#) gt 0>
+								,'#UTM_NS#'
+							<cfelse>
+								,NULL
+							</cfif>
+							,'#ORIG_LAT_LONG_UNITS#'
+							,#DETERMINED_BY_AGENT_ID#
+							,'#dateformat(DETERMINED_DATE,"dd-mmm-yyyy")#'
+							,'#LAT_LONG_REF_SOURCE#'
+							<cfif len(#LAT_LONG_REMARKS#) gt 0>
+								,'#LAT_LONG_REMARKS#'
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#MAX_ERROR_DISTANCE#) gt 0>
+								,#MAX_ERROR_DISTANCE#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#MAX_ERROR_UNITS#) gt 0>
+								,'#MAX_ERROR_UNITS#'
+							<cfelse>
+								,NULL
+							</cfif>			
+							<cfif len(#NEAREST_NAMED_PLACE#) gt 0>
+								,'#NEAREST_NAMED_PLACE#'
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#LAT_LONG_FOR_NNP_FG#) gt 0>
+								,#LAT_LONG_FOR_NNP_FG#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#FIELD_VERIFIED_FG#) gt 0>
+								,#FIELD_VERIFIED_FG#
+							<cfelse>
+								,NULL
+							</cfif>
+							,#ACCEPTED_LAT_LONG_FG#
+							<cfif len(#EXTENT#) gt 0>
+								,#EXTENT#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#GPSACCURACY#) gt 0>
+								,#GPSACCURACY#
+							<cfelse>
+								,NULL
+							</cfif>
+							,'#GEOREFMETHOD#'
+							,'#VERIFICATIONSTATUS#')
+					</cfquery>
+				</cfloop>
+			</cfif>
+			<cfif isdefined("keepUnacc") and keepUnacc is 1>
+				<cfquery name="uaccCoord" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select * from lat_long where locality_id=#locality_id# and accepted_lat_long_fg=0
+				</cfquery>
+				<cfloop query="uaccCoord">
+					<cfquery name="newLL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						INSERT INTO lat_long (
+							LAT_LONG_ID,
+							LOCALITY_ID
+							,LAT_DEG
+							,DEC_LAT_MIN
+							,LAT_MIN
+							,LAT_SEC
+							,LAT_DIR
+							,LONG_DEG
+							,DEC_LONG_MIN
+							,LONG_MIN
+							,LONG_SEC
+							,LONG_DIR
+							,DEC_LAT
+							,DEC_LONG
+							,DATUM
+							,UTM_ZONE
+							,UTM_EW
+							,UTM_NS
+							,ORIG_LAT_LONG_UNITS
+							,DETERMINED_BY_AGENT_ID
+							,DETERMINED_DATE
+							,LAT_LONG_REF_SOURCE
+							,LAT_LONG_REMARKS
+							,MAX_ERROR_DISTANCE
+							,MAX_ERROR_UNITS
+							,NEAREST_NAMED_PLACE
+							,LAT_LONG_FOR_NNP_FG
+							,FIELD_VERIFIED_FG
+							,ACCEPTED_LAT_LONG_FG
+							,EXTENT
+							,GPSACCURACY
+							,GEOREFMETHOD
+							,VERIFICATIONSTATUS)
+						VALUES (
+							sq_lat_long_id.nextval,
+							#llid#
+							<cfif len(#LAT_DEG#) gt 0>
+								,#LAT_DEG#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#DEC_LAT_MIN#) gt 0>
+								,#DEC_LAT_MIN#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#LAT_MIN#) gt 0>
+								,#LAT_MIN#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#LAT_SEC#) gt 0>
+								,#LAT_SEC#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#LAT_DIR#) gt 0>
+								,'#LAT_DIR#'
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#LONG_DEG#) gt 0>
+								,#LONG_DEG#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#DEC_LONG_MIN#) gt 0>
+								,#DEC_LONG_MIN#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#LONG_MIN#) gt 0>
+								,#LONG_MIN#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#LONG_SEC#) gt 0>
+								,#LONG_SEC#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#LONG_DIR#) gt 0>
+								,'#LONG_DIR#'
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#DEC_LAT#) gt 0>
+								,#DEC_LAT#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#DEC_LONG#) gt 0>
+								,#DEC_LONG#
+							<cfelse>
+								,NULL
+							</cfif>
+							,'#DATUM#'
+							<cfif len(#UTM_ZONE#) gt 0>
+								,'#UTM_ZONE#'
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#UTM_EW#) gt 0>
+								,'#UTM_EW#'
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#UTM_NS#) gt 0>
+								,'#UTM_NS#'
+							<cfelse>
+								,NULL
+							</cfif>
+							,'#ORIG_LAT_LONG_UNITS#'
+							,#DETERMINED_BY_AGENT_ID#
+							,'#dateformat(DETERMINED_DATE,"dd-mmm-yyyy")#'
+							,'#LAT_LONG_REF_SOURCE#'
+							<cfif len(#LAT_LONG_REMARKS#) gt 0>
+								,'#LAT_LONG_REMARKS#'
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#MAX_ERROR_DISTANCE#) gt 0>
+								,#MAX_ERROR_DISTANCE#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#MAX_ERROR_UNITS#) gt 0>
+								,'#MAX_ERROR_UNITS#'
+							<cfelse>
+								,NULL
+							</cfif>			
+							<cfif len(#NEAREST_NAMED_PLACE#) gt 0>
+								,'#NEAREST_NAMED_PLACE#'
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#LAT_LONG_FOR_NNP_FG#) gt 0>
+								,#LAT_LONG_FOR_NNP_FG#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#FIELD_VERIFIED_FG#) gt 0>
+								,#FIELD_VERIFIED_FG#
+							<cfelse>
+								,NULL
+							</cfif>
+							,#ACCEPTED_LAT_LONG_FG#
+							<cfif len(#EXTENT#) gt 0>
+								,#EXTENT#
+							<cfelse>
+								,NULL
+							</cfif>
+							<cfif len(#GPSACCURACY#) gt 0>
+								,#GPSACCURACY#
+							<cfelse>
+								,NULL
+							</cfif>
+							,'#GEOREFMETHOD#'
+							,'#VERIFICATIONSTATUS#')
+					</cfquery>
+				</cfloop>
+			</cfif>
+		</cftransaction>
+		<cflocation url="editLocality.cfm?locality_id=#nid#">
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
