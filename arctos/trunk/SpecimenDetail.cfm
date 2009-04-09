@@ -2,10 +2,17 @@
 <link rel="stylesheet" type="text/css" href="/includes/annotate.css">
 <script type='text/javascript' src='/includes/annotate.js'></script>
 <cfif isdefined("collection_object_id")>
-	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select GUID from flat where collection_object_id=#collection_object_id# 
-	</cfquery>
-	<cflocation url="/guid/#c.guid#" addtoken="false">
+	<cfoutput>
+		<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
+			<cfset flatTableName = "flat">
+		<cfelse>
+			<cfset flatTableName = "filtered_flat">
+		</cfif>
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select GUID from #flatTableName# where collection_object_id=#collection_object_id# 
+		</cfquery>
+		<cflocation url="/guid/#c.guid#" addtoken="false">
+	</cfoutput>	
 </cfif>
 <cfif isdefined("guid")>
 	<cfif guid contains ":">
