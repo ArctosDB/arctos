@@ -364,11 +364,15 @@
 			<script>
 				function cloneLocality(locality_id) {
 					if(confirm('Do you want to create a copy of this locality which you may then edit?')) {
-						alert('ok');
-					} else {
-						alert('jerk');
+						var rurl='editLocality.cfm?action=clone&locality_id=' + locality_id;
+						if(confirm('Do you want to include accepted georeferences?')){
+							rurl+='&keepAcc=1';
+							if(confirm('Do you want to include unaccepted georeferences too?')){
+								rurl+='&keepUnacc=1';
+							}
+						}
+						document.location=rurl;
 					}
-					alert(x);
 				}
 			</script>
 		  	<div align="center">
@@ -1298,6 +1302,11 @@
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
+<cfif #action# is "clone">
+	<cfoutput>
+		
+	</cfoutput>
+</cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "editAccLatLong">
 
