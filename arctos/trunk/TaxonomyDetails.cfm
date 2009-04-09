@@ -46,8 +46,6 @@
 <Cfoutput query="getDetails" group="scientific_name">
 <cfset title="#getDetails.scientific_name#">
 <cfset thisSearch = "%22#getDetails.scientific_name#%22">
-
-
 <cfoutput group="common_name">
 	<cfif len(#common_name#) gt 0>
 		<cfset thisSearch = "#thisSearch# OR %22#common_name#%22">
@@ -57,9 +55,8 @@
 <Cfoutput query="getDetails" group="scientific_name">
 	<div align="left">
 	  <cfif #VALID_CATALOG_TERM_FG# is 1>
-	      <font size="+1"	>
-		      <a href="SpecimenResults.cfm?taxon_name_id=#taxon_name_id#"><I><B>#SCIENTIFIC_NAME#</B></I></a>
-			    
+	   <font size="+1"	>
+		      <I><B>#SCIENTIFIC_NAME#</B></I>			    
 		</font>
 		
 		      <cfif len(#AUTHOR_TEXT#) gt 0>
@@ -77,6 +74,9 @@
 	      
 	        </cfif>
   </div>
+	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
+		<a href="/Taxonomy.cfm?action=edit&taxon_name_id=#taxon_name_id#">Edit Taxonomy</a>	
+	</cfif>
 	<P align="left"><b>#FULL_TAXON_NAME#</b>
 		
 	<p align="left">Authority: <b>#source_Authority#</b>
@@ -110,7 +110,10 @@
 				<a href="http://images.google.com/images?q=#thisSearch#" target="_blank">
 					<img src="/images/GoogleImage.gif" width="40" border="0">&nbsp;Google Images</a>
 			</li>
-			
+			<li>
+				<cfset srchName = #replace(scientific_name," ","+","all")#>
+				<a href="http://ispecies.org/?q=#srchName#">iSpecies</a>
+			</li>
 			<li>
 				<cfset srchName = #replace(scientific_name," ","%20","all")#>
 				<a href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all"><img src="/images/itis.gif" border="0" width="30">&nbsp;ITIS</a>
@@ -118,16 +121,8 @@
 			<li>
 				<cfset srchName = #replace(scientific_name," ","%20","all")#>
 				<a href="http://www.unep-wcmc.org/isdb/CITES/Taxonomy/tax-species-result.cfm?displaylanguage=eng&Genus=%25#genus#%25&source=animals&Species=#species#"><img src="/images/UNEP.jpg" border="0" width="30">&nbsp;UNEP</a>
-			</li>
-			
-			<li>
-				<cfset srchName = #replace(scientific_name," ","+","all")#>
-				<a href="http://darwin.zoology.gla.ac.uk/~rpage/portal/main.php?taxon_name=#srchName#&Submit=Go">TSE</a>
-			</li>
-		</ul>
-			
+			</li>			
+		</ul>			
 	</p>
-</Cfoutput>
-
- 
+</Cfoutput> 
 <cfinclude template = "includes/_footer.cfm">
