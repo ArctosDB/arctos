@@ -498,41 +498,41 @@
 								<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 									<td>
 										<cfif #accepted_id_fg# is 1>
-					              <font color="##00FF66">Yes</font> 
-					              <cfelse>
-					              <font color="##FF0000">No</font> 
-					            </cfif></td>
-									<td nowrap>
-									<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-										select 
-											taxonomy.taxon_name_id,
-											scientific_name,
-											author_text
-										FROM
-											identification_taxonomy,
-											taxonomy
-										WHERE
-											identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id and
-											identification_id=#identification_id#
-									</cfquery>
-									<cfif #getTaxa.recordcount# is 1>
-										<a href="/TaxonomyDetails.cfm?taxon_name_id=#getTaxa.taxon_name_id#" target="_blank"><i>#scientific_name#</i></a> #getTaxa.author_text#
-									<cfelse>
-										<cfset link="">
-										<cfset i=1>
-										<cfset thisSciName="#scientific_name#">
-										
-										<cfloop query="getTaxa">
-											<cfset thisLink='<a href="/TaxonomyDetails.cfm?taxon_name_id=#taxon_name_id#" target="_blank"><i>#scientific_name#</i></a> #author_text#'>
-											<cfset thisSciName=#replace(thisSciName,scientific_name,thisLink)#>
-											<cfset i=#i#+1>
-										</cfloop>
-										#thisSciName#
-									</cfif>									
+					              			<font color="##00FF66">Yes</font> 
+					              		<cfelse>
+					              			<font color="##FF0000">No</font> 
+					            		</cfif>
 									</td>
-									<td nowrap>#agent_name#</td>
-									<td nowrap>#dateformat(made_date,"dd mmm yyyy")#</td>
-									<td nowrap>#nature_of_id#</td>
+									<td>
+										<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+											select 
+												taxonomy.taxon_name_id,
+												scientific_name,
+												author_text
+											FROM
+												identification_taxonomy,
+												taxonomy
+											WHERE
+												identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id and
+												identification_id=#identification_id#
+										</cfquery>
+										<cfif #getTaxa.recordcount# is 1>
+											<a href="/TaxonomyDetails.cfm?taxon_name_id=#getTaxa.taxon_name_id#" target="_blank"><i>#scientific_name#</i></a> #getTaxa.author_text#
+										<cfelse>
+											<cfset link="">
+											<cfset i=1>
+											<cfset thisSciName="#scientific_name#">
+											<cfloop query="getTaxa">
+												<cfset thisLink='<a href="/TaxonomyDetails.cfm?taxon_name_id=#taxon_name_id#" target="_blank"><i>#scientific_name#</i></a> #author_text#'>
+												<cfset thisSciName=#replace(thisSciName,scientific_name,thisLink)#>
+												<cfset i=#i#+1>
+											</cfloop>
+											#thisSciName#
+										</cfif>									
+									</td>
+									<td>#agent_name#</td>
+									<td>#dateformat(made_date,"dd mmm yyyy")#</td>
+									<td>#nature_of_id#</td>
 									<td>#identification_remarks#&nbsp;</td>
 								</tr>
 								<cfset i=#i#+1>
