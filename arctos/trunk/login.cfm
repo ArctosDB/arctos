@@ -157,13 +157,17 @@
 			this database. To create an account and log in, simply supply a username and 
 			password here and click Create Account.
 		</p>	
-	
+	<cfif not isdefined("gotopage")>
+		<cfset gotopage=''>
+	</cfif>
 	<form action="login.cfm" method="post" name="signIn">
 	<input name="action" value="signIn" type="hidden">
+
 <table>
 	<tr>
 		<td>
 		<cfoutput>
+					<input name="gotopage" value="#gotopage#" type="hidden">
 			<table>
 				<tr>
 					<td>Username:</td>
