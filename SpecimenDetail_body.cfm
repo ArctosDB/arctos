@@ -447,7 +447,17 @@
 
 
 
-
+<style>
+	.acceptedIdDiv {
+		border:1px solid red;
+	}
+	.unAcceptedIdDiv{
+		border:1px solid blue;
+	}
+	.taxDetDiv {
+		border:1px solid green;	
+	}
+</style>
 				
 <cfoutput query="one">
 <form name="editStuffLinks" method="post" action="SpecimenDetail.cfm">
@@ -484,60 +494,46 @@
 								identification.collection_object_id = #collection_object_id# 
 							ORDER BY accepted_id_fg DESC
 						</cfquery>
-						<table border>
-							<tr>
-								<td><b>Accepted?</b></td>
-								<td><b>Scientific Name</b></td>
-								<td><b>Identifier</b></td>
-								<td><b>ID Date</b></td>
-								<td><b>Nature of ID</b></td>
-								<td><b>Remarks</b></td>
-							</tr>
-							<cfset i=1>
-							<cfloop query="identification">
-								<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-									<td>
-										<cfif #accepted_id_fg# is 1>
-					              			<font color="##00FF66">Yes</font> 
-					              		<cfelse>
-					              			<font color="##FF0000">No</font> 
-					            		</cfif>
-									</td>
-									<td>
-										<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-											select 
-												taxonomy.taxon_name_id,
-												scientific_name,
-												author_text
-											FROM
-												identification_taxonomy,
-												taxonomy
-											WHERE
-												identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id and
-												identification_id=#identification_id#
-										</cfquery>
-										<cfif #getTaxa.recordcount# is 1>
-											<a href="/TaxonomyDetails.cfm?taxon_name_id=#getTaxa.taxon_name_id#" target="_blank"><i>#scientific_name#</i></a> #getTaxa.author_text#
-										<cfelse>
-											<cfset link="">
-											<cfset i=1>
-											<cfset thisSciName="#scientific_name#">
-											<cfloop query="getTaxa">
-												<cfset thisLink='<a href="/TaxonomyDetails.cfm?taxon_name_id=#taxon_name_id#" target="_blank"><i>#scientific_name#</i></a> #author_text#'>
-												<cfset thisSciName=#replace(thisSciName,scientific_name,thisLink)#>
-												<cfset i=#i#+1>
-											</cfloop>
-											#thisSciName#
-										</cfif>									
-									</td>
-									<td>#agent_name#</td>
-									<td>#dateformat(made_date,"dd mmm yyyy")#</td>
-									<td>#nature_of_id#</td>
-									<td>#identification_remarks#&nbsp;</td>
-								</tr>
-								<cfset i=#i#+1>
-							</cfloop>
-						</table>
+						<cfloop query="identification">
+							<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+								select 
+									taxonomy.taxon_name_id,
+									scientific_name,
+									author_text
+								FROM
+									identification_taxonomy,
+									taxonomy
+								WHERE
+									identification_taxonomy.taxon_name_id = taxonomy.taxon_name_id and
+									identification_id=#identification_id#
+							</cfquery>
+							<cfif #accepted_id_fg# is 1>
+					        	<div class="acceptedIdDiv">
+						    <cfelse>
+					        	<div class="unAcceptedIdDiv">
+					        </cfif>
+					        <cfif #getTaxa.recordcount# is 1>
+								<a href="/TaxonomyDetails.cfm?taxon_name_id=#getTaxa.taxon_name_id#" target="_blank"><i>#scientific_name#</i></a> #getTaxa.author_text#
+							<cfelse>
+								<cfset link="">
+								<cfset i=1>
+								<cfset thisSciName="#scientific_name#">
+								<cfloop query="getTaxa">
+									<cfset thisLink='<a href="/TaxonomyDetails.cfm?taxon_name_id=#taxon_name_id#" target="_blank"><i>#scientific_name#</i></a> #author_text#'>
+									<cfset thisSciName=#replace(thisSciName,scientific_name,thisLink)#>
+									<cfset i=#i#+1>
+								</cfloop>
+								#thisSciName#
+							</cfif>
+								<div class="taxDetDiv">
+									Identified by #agent_name# on #dateformat(made_date,"dd mmm yyyy")#
+									<br>Nature of ID: #nature_of_id#
+									<cfif len(identification_remarks) gt 0>
+										<br>Remarks: #identification_remarks#
+									</cfif>
+								</div>					            		
+					        </div>
+						</cfloop>
 					</span>				
 				</div>
 				<!---
