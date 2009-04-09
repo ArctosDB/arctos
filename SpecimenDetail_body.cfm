@@ -118,6 +118,7 @@
 		geog_auth_rec.feature,
 		citation.type_status,
 		citation.occurs_page_number,
+		citation.CITATION_REMARKS,
 		cited_taxa.scientific_name as cited_name,
 		cited_taxa.taxon_name_id as cited_name_id,	
 		formatted_publication.formatted_publication,
@@ -431,7 +432,8 @@
 		type_status,
 		cited_name_id,
 		occurs_page_number,
-		formatted_publication
+		formatted_publication,
+		CITATION_REMARKS
 	FROM
 		detail 
 	GROUP BY
@@ -440,7 +442,8 @@
 		type_status,
 		cited_name_id,
 		occurs_page_number,
-		formatted_publication
+		formatted_publication,
+		CITATION_REMARKS
 	order by
 		formatted_publication
 </cfquery>
@@ -572,6 +575,9 @@
 								</cfif>
 								#type_status# of 
 								<a href="TaxonomyDetails.cfm?taxon_name_id=#cited_name_id#" target="_mainFrame"><i>#replace(cited_name," ","&nbsp;","all")#</i></a>
+								<span class="detailCellSmall">
+									#CITATION_REMARKS#
+								</span>
 							</span>
 						</div>
 					</cfloop>
