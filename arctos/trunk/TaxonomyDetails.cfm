@@ -5,18 +5,18 @@
 		SELECT taxon_name_id FROM taxonomy WHERE upper(scientific_name)	= '#ucase(scientific_name)#'
 	</cfquery>
 	<cfif getTID.recordcount is 1>
-		<cfset taxon_name_id=#getTID.taxon_name_id#>
-	  <cfelse>
+		<cfset tnid=#getTID.taxon_name_id#>
+	<cfelse>
 	  	Scientific Name not found!!
 		<br>Aborting search.
 		<cfabort>
 	</cfif>
 </cfif>
-<cfif not isdefined("taxon_name_id")>
-	<p style="color:#FF0000; font-size:14px;">
-		Did not get a taxon_name_id - aborting....
-	</p>
-	<cfabort>
+<cfif isdefined("taxon_name_id")>
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select scientific_name from taxonomy where taxon_name_id=#taxon_name_id# 
+	</cfquery>
+	<cflocation url="/name/#c.scientific_name#" addtoken="false">
 </cfif>
 <cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
@@ -42,7 +42,7 @@
 		taxonomy.taxon_name_id = common_name.taxon_name_id (+) AND
 		taxonomy.taxon_name_id = taxon_relations.taxon_name_id (+) AND
 		taxon_relations.related_taxon_name_id = related_taxa.taxon_name_id (+) AND
-		taxonomy.taxon_name_id = #taxon_name_id#
+		taxonomy.taxon_name_id = #tnid#
 		ORDER BY scientific_name, common_name, related_taxon_name_id
 </cfquery>
 <Cfoutput query="getDetails" group="scientific_name">
