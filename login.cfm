@@ -110,7 +110,11 @@
 	</cfif>
 	<!--- make sure they got logged in --->
 	<cfif len(session.username) is 0>
-		<cflocation url="login.cfm?badPW=true">
+		<cfset u="login.cfm?badPW=true">
+		<cfif isdefined("gotopage")>
+			<cfset u=u & '&gotopage=##'>
+		</cfif>
+		<cflocation url="#u#">
 	</cfif>
 	<!--- redirect to personal home --->
 	<cfif not isdefined("gotopage") or len(#gotopage#) is 0>
