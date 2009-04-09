@@ -1912,6 +1912,9 @@
 		<cfif len(#extent#) gt 0>
 			<cfset sql = "#sql#,extent">
 		</cfif>
+		<cfif len(#gpsaccuracy#) gt 0>
+			<cfset sql = "#sql#,gpsaccuracy">
+		</cfif>
 		<cfif len(#LAT_LONG_REMARKS#) gt 0>
 			<cfset sql = "#sql#,LAT_LONG_REMARKS">
 		</cfif>
@@ -1973,6 +1976,9 @@
 		,'#DATUM#'">
 		<cfif len(#extent#) gt 0>
 			<cfset sql="#sql#,'#extent#'">
+		</cfif>
+		<cfif len(#gpsaccuracy#) gt 0>
+			<cfset sql = "#sql#,#gpsaccuracy#">
 		</cfif>
 		<cfif len(#LAT_LONG_REMARKS#) gt 0>
 			<cfset sql="#sql#,'#stripQuotes(LAT_LONG_REMARKS)#'">
