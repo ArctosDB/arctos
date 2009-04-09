@@ -439,11 +439,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="wideLabels.cfm">
 						MVZ wide Labels
 					</option>
-					<cfif isdefined('accn_number') and len(accn_number) gt 0>
-						<option value="Reports/ledger.cfm">
-							MVZ Ledger
-						</option>
-					</cfif>
 					<cfif isdefined('permit_num') and len(permit_num) gt 0>
 						<option value="Reports/permit.cfm">
 							MVZ Permit Report
