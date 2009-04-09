@@ -825,6 +825,8 @@
 	<!--- Data Manipulation --->
 	<cfset i = 1>
 	<cfloop query="q">
+
+		
 		<!--- Geography = Spec_Locality + State + county + country + other geography attributes--->
 		<cfset geog = "#spec_locality#">
 		<cfif #country# is "United States">
@@ -872,18 +874,27 @@
 		<!--- Parts Formatting --->
 		<cfset formatted_parts = "">
 		<!-- Mammals -->
+		<cfset colonPos = find(";", parts)>
+		<cfset tissueP = find("tissue", parts)>
+		<cfset skinP = find("skin", parts)>
+		<cfset wholeOrgP = find("whole organism", parts)>
+		
 		<cfif collection_cde is "Mamm">
 			<cfif parts is not "tissues">
 				<cfset formatted_parts = "#parts#">
 			</cfif>
 		<!-- Bird -->
 		<cfelseif collection_cde is "Bird">
-			<cfif parts is not "tissues" or parts is not "tissue">
+			<cfif colonPos gt 0 or (tissueP lte 0 and skinP lte 0 and wholeOrgP lte 0)>
 				<cfset formatted_parts = "#parts#">
-			</cfif>		
+			</cfif>
 		<!-- Herp -->
 		<cfelseif collection_cde is "Herp" >
 			<cfif parts is not "tissues" or parts is not "whole organism">
+				<cfset formatted_parts = "#parts#">
+			</cfif>
+		<cfelseif collection_cde is "Egg">
+			<cfif colonPos gt 0 or (tissueP lte 0 and skinP lte 0 and wholeOrgP lte 0)>
 				<cfset formatted_parts = "#parts#">
 			</cfif>
 		</cfif>
