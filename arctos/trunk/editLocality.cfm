@@ -361,10 +361,16 @@
 						</form>
 		  <tr>
 		  <td nowrap>
+			<script>
+				function cloneLocality(locality_id) {
+					var x=confirm('Do you want to create a copy of this locality which you may then edit?');
+					alert(x);
+				}
+			</script>
 		  	<div align="center">
 						<input type="button" value="Create Clone" class="insBtn"
-  						 onmouseover="this.className='insBtn btnhov'" 
-						 onmouseout="this.className='insBtn'" onClick="cloneLoc.submit();">
+  						 	onmouseover="this.className='insBtn btnhov'" 
+						 	onmouseout="this.className='insBtn'" onClick="cloneLocality(#locality_id#)">
 							<input type="button" value="New Coll Event" class="insBtn"
 								 onmouseover="this.className='insBtn btnhov'" 
 								 onmouseout="this.className='insBtn'" onClick="nada.submit();">

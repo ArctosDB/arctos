@@ -1065,7 +1065,7 @@
                 <td><select name="orig_elev_units" size="1">
 					<option value=""></option>
                     <cfloop query="ctElevUnit">
-                      <option <cfif isdefined("origelevunits") AND #ctelevunit.orig_elev_units# is "#origelevunits#"> selected </cfif>value="#ctElevUnit.orig_elev_units#">#ctElevUnit.orig_elev_units# (#ORIGEELEVUNITS#)</option>
+                      <option <cfif isdefined("origelevunits") AND #ctelevunit.orig_elev_units# is "#origelevunits#"> selected </cfif>value="#ctElevUnit.orig_elev_units#">#ctElevUnit.orig_elev_units#</option>
                     </cfloop>
                   </select></td>
               </tr>
