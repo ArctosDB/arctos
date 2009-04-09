@@ -7,9 +7,7 @@
 	<cfif getTID.recordcount is 1>
 		<cfset tnid=#getTID.taxon_name_id#>
 	<cfelse>
-	  	Scientific Name not found!!
-		<br>Aborting search.
-		<cfabort>
+	  	<cfinclude template="/errors/404.cfm">
 	</cfif>
 </cfif>
 <cfif isdefined("taxon_name_id")>
