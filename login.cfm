@@ -112,7 +112,7 @@
 	<cfif len(session.username) is 0>
 		<cfset u="login.cfm?badPW=true">
 		<cfif isdefined("gotopage")>
-			<cfset u=u & '&gotopage=##'>
+			<cfset u=u & '&gotopage=#gotopage#'>
 		</cfif>
 		<cflocation url="#u#">
 	</cfif>
