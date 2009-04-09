@@ -575,9 +575,9 @@
 								</cfif>
 								#type_status# of 
 								<a href="TaxonomyDetails.cfm?taxon_name_id=#cited_name_id#" target="_mainFrame"><i>#replace(cited_name," ","&nbsp;","all")#</i></a>
-								<span class="detailCellSmall">
+								<div class="detailCellSmall">
 									#CITATION_REMARKS#
-								</span>
+								</div>
 							</span>
 						</div>
 					</cfloop>
