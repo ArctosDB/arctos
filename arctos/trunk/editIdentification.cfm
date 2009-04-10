@@ -121,7 +121,7 @@ function checkRequired(){
 <a href="javascript:void(0);" onClick="getDocs('identification')"><img src="/images/info.gif" border="0"></a>
 	</td>
  </tr>
-<cfform name="newID" id="newID" method="post" action="editIdentification.cfm">
+<form name="newID" id="newID" method="post" action="editIdentification.cfm">
     <input type="hidden" name="Action" value="createNew">
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
     <tr>
@@ -233,7 +233,7 @@ function checkRequired(){
         <td>
 			<input type="text" name="made_date" id="made_date"
 				onclick="cal1.select(document.newID.made_date,'anchor1','dd-MMM-yyyy');">
-				<a name="anchor1" id="anchor1"></a>						
+				<a name="anchor1" id="anchor1"></a>
 		</td>
 	</tr>
     <tr> 
@@ -264,7 +264,7 @@ function checkRequired(){
              </div>
 		</td>
     </tr>
-</cfform>
+</form>
 </table>
 
 
