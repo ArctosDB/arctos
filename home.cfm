@@ -89,20 +89,12 @@
 		</td>
 		<td valign="top">
 			<!---<iframe src="http://curator.museum.uaf.edu/arctos_home.html" width="1000" height="1000" frameborder="0"></iframe>--->
-		
-<div style="border:1px dashed green; padding:50px; margin:30px;">
-	Arctos v3: VPD
-	<br>
-	This version of Arctos introduced Virtual Private Databases (VPD), also known as Row-Level Security (RLS). 
-	Public users who've not set a collection in their preferences should see no change. 
-	Public users who have set a collection in their preferences should see less "intruding" data as they explore Arctos.
-	Internal users, those with Oracle accounts, will not see data that does not belong to their collection 
-	(or group of collections).*
-	<p style="font-size:small">
-			* High-level users with access to things like Taxonomy and Geography are currently an exception to this rule. 
-	</p>
 
-</div>	
+<!--- News div 
+<div style="border:1px dashed green; padding:50px; margin:30px;">
+	
+</div>
+----->
 <p>
 Arctos is an ongoing effort to integrate access 
 to specimen data, collection-management tools, and 
@@ -114,9 +106,13 @@ encumbered for proprietary reasons, data are open to the public.
 <p><strong >Features:</strong>
 <ul>
 	<li>Vaporware-free since 2001.</li>
+	<li>
+		Virtual Private Databases (VPD), also known as Row-Level Security (RLS), allow collections to maintain
+		control of their data while sharing certain nodes, such as Agents and Taxonomy.
+	</li>
 	<li>Everything is over the web in real time, and 
 		independent of client-side operating systems. 
-		You need moderate band-width, a reasonably modern browser, 
+		You need moderate bandwidth, a reasonably modern browser, 
 		and nothing more.</li>
 	<li>Specimen-search screen is user-customizable 
 		to about 100 search terms.  
@@ -200,7 +196,7 @@ but we have made some exceptions:
 	<li><strong>Mozilla Firefox:</strong> 
 		All applications have been tested in Firefox. We highly recommend all users upgrade to the latest release
 		of Firefox,
-		 available at <a href="http://www.mozilla.com/firefox/" target="_blank">Mozilla</a>.</li>
+		 available from <a href="http://www.mozilla.com/firefox/" target="_blank">Mozilla</a>.</li>
 	<li><strong>The Rest:</strong> 
     	Most of Arctos should work most of the time in most other browsers.
 		<cfoutput><a href="#Application.ServerRootUrl#/info/bugs.cfm" target="_blank">Let us know</a></cfoutput> if
@@ -231,7 +227,7 @@ The data providers are not responsible for loss or damages due to use of these d
 	highly normalized relational structure</a> - fabulous for 
 	organization, not so hot for query. Data are then transformed to a flat structure and optimized for 
 	query performance by way or Database Triggers. Data are generally less than one minute stale. Exceptions sometimes
-	occur, as when large numbers of data are updated or changed.
+	occur, as when many rows are created or changed.
 </div>
 <div class="q">
 	Q: Is there a limit on the number of records I can return in a search?
