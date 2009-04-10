@@ -497,7 +497,7 @@
 								identification 
 							WHERE
 								identification.collection_object_id = #collection_object_id# 
-							ORDER BY accepted_id_fg DESC
+							ORDER BY accepted_id_fg,made_date DESC
 						</cfquery>
 						<cfloop query="identification">
 							<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -518,13 +518,14 @@
 					        	<div class="unAcceptedIdDiv">
 					        </cfif>
 					        <cfif #getTaxa.recordcount# is 1>
-								<a href="/TaxonomyDetails.cfm?taxon_name_id=#getTaxa.taxon_name_id#" target="_blank"><i>#scientific_name#</i></a> #getTaxa.author_text#
+								<a href="/TaxonomyDetails.cfm?taxon_name_id=#getTaxa.taxon_name_id#" target="_blank">
+									<i>#scientific_name#</i> #getTaxa.author_text#</a> 
 							<cfelse>
 								<cfset link="">
 								<cfset i=1>
 								<cfset thisSciName="#scientific_name#">
 								<cfloop query="getTaxa">
-									<cfset thisLink='<a href="/TaxonomyDetails.cfm?taxon_name_id=#taxon_name_id#" target="_blank"><i>#scientific_name#</i></a> #author_text#'>
+									<cfset thisLink='<a href="/TaxonomyDetails.cfm?taxon_name_id=#taxon_name_id#" target="_blank"><i>#scientific_name#</i> #author_text#</a>'>
 									<cfset thisSciName=#replace(thisSciName,scientific_name,thisLink)#>
 									<cfset i=#i#+1>
 								</cfloop>
