@@ -320,7 +320,6 @@
 	select * from SpecRes#cfid##cftoken# order by #order_by#
 </cfquery>
 
-<cfdump var=#getBasic#>
 <cfquery name="s" dbtype="query">
 	select sum(COUNTOFCATALOGEDITEM) c from getBasic
 </cfquery>
