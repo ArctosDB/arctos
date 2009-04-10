@@ -329,10 +329,10 @@
 				</cfif>
 				<cfset i=i+1>
 			</cfloop>
-		<cfcatch>
-			<cfdump var=#cfcatch#>
-			<cfabort>
-		</cfcatch>
+			<cfcatch>
+				<cfdump var="#cfcatch#">
+				<cfabort>
+			</cfcatch>
 		</cftry>
 		<cfset basQual = " #basQual# AND upper(#flatTableName#.scientific_name) LIKE '%#ucase(scientific_name)#%'">		
 	<cfelseif #sciNameOper# is "=">
