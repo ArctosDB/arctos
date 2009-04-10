@@ -330,7 +330,11 @@
 				<cfset i=i+1>
 			</cfloop>
 			<cfcatch>
-				<cfdump var="#cfcatch#">
+				<div class="error">
+					Oops! Something bad happened! To search for scientific name in list, enter comma-separated values like
+					"sorex yukonicus, sorex ugyunak"
+					<p>#cfcatch.message#</p>
+				</div>
 				<cfabort>
 			</cfcatch>
 		</cftry>
