@@ -334,7 +334,7 @@
 				<cfabort>
 			</cfcatch>
 		</cftry>
-		<cfset basQual = " #basQual# AND upper(#flatTableName#.scientific_name) LIKE '%#ucase(scientific_name)#%'">		
+		<cfset basQual = " #basQual# )">		
 	<cfelseif #sciNameOper# is "=">
 		<cfset basQual = " #basQual# AND #flatTableName#.scientific_name = '#scientific_name#'">
 	<cfelseif #sciNameOper# is "NOT LIKE">
