@@ -310,14 +310,14 @@
 <cfif isdefined("sciname") and len(#sciname#) gt 0>
 	<cfset scientific_name=#sciname#>
 </cfif>
-<cfif isdefined("scientific_name") AND len(#scientific_name#) gt 0>
+<cfif isdefined("scientific_name") AND len(scientific_name) gt 0>
 	<cfset mapurl = "#mapurl#&scientific_name=#scientific_name#">
 	<cfif not isdefined("sciNameOper") OR len(#sciNameOper#) is 0>
 		<cfset sciNameOper = "LIKE">
 	</cfif>
 	<cfif #sciNameOper# is "LIKE">
 		<cfset basQual = " #basQual# AND upper(#flatTableName#.scientific_name) LIKE '%#ucase(scientific_name)#%'">
-	<cfif #sciNameOper# is "OR">
+	<cfelseif #sciNameOper# is "OR">
 		<cftry>
 			<cfset basQual = " #basQual# AND (">
 			<cfset nEl=listlen(scientific_name)>
