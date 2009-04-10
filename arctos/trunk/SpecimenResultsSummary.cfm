@@ -319,6 +319,8 @@
 <cfquery name="getBasic" dbtype="query">
 	select * from SpecRes#cfid##cftoken# order by #order_by#
 </cfquery>
+
+<cfdump var=#getBasic#>
 </cfoutput>
 
 <cfquery name="cnt" dbtype="query">
@@ -371,7 +373,6 @@
 	</cfif>
 	<cfset i=1>
 <cfoutput query="getBasic">
- 
     <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 	 <form name="theseSpecs#i#" method="post" action="/SpecimenResults.cfm">
 	 #searchparams#
