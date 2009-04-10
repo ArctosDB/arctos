@@ -17,6 +17,7 @@
 				<option value="NOT LIKE">does not contain</option>
 				<option value="=">is exactly</option>
 				<option value="was">is/was/cited/related</option>
+				<option value="OR">in list</option>
 		  	</select>
 			<input type="text" name="scientific_name" id="scientific_name" size="28">
 		</td>
