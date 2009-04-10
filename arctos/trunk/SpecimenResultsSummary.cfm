@@ -323,7 +323,7 @@
 <cfquery name="s" dbtype="query">
 	select sum(COUNTOFCATALOGEDITEM) c from getBasic
 </cfquery>
-Returned #getBasic.recordcount# rows representing #s.c# specimens.
+Returned #s.c# specimens in #getBasic.recordcount# rows.
 </cfoutput>
 
 <cfquery name="cnt" dbtype="query">
