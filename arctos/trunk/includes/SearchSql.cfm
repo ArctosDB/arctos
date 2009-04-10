@@ -323,7 +323,7 @@
 			<cfset nEl=listlen(scientific_name)>
 			<cfset i=1>
 			<cfloop list="#scientific_name#" index="s">
-				<cfset basQual = " #basQual# upper(#flatTableName#.scientific_name) LIKE '%#ucase(scientific_name)#%'">
+				<cfset basQual = " #basQual# upper(#flatTableName#.scientific_name) LIKE '%#ucase(listgetat(scientific_name,i))#%'">
 				<cfif i lt nEl>
 					<cfset basQual = " #basQual# OR ">
 				</cfif>
