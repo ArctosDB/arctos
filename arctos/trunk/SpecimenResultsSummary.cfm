@@ -321,6 +321,10 @@
 </cfquery>
 
 <cfdump var=#getBasic#>
+<cfquery name="s" dbtype="query">
+	select sum(COUNTOFCATALOGEDITEM) c from getBasic
+</cfquery>
+Returned #getBasic.recordcount# rows representing #s.c# specimens.
 </cfoutput>
 
 <cfquery name="cnt" dbtype="query">
