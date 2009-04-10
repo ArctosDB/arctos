@@ -316,7 +316,25 @@
 		<cfset sciNameOper = "LIKE">
 	</cfif>
 	<cfif #sciNameOper# is "LIKE">
-		<cfset basQual = " #basQual# AND upper(#flatTableName#.scientific_name) LIKE '%#ucase(scientific_name)#%'">					
+		<cfset basQual = " #basQual# AND upper(#flatTableName#.scientific_name) LIKE '%#ucase(scientific_name)#%'">
+	<cfif #sciNameOper# is "OR">
+		<cftry>
+			<cfset basQual = " #basQual# AND (">
+			<cfset nEl=listlen(scientific_name)>
+			<cfset i=1>
+			<cfloop list="#scientific_name#" index="s">
+				<cfset basQual = " #basQual# upper(#flatTableName#.scientific_name) LIKE '%#ucase(scientific_name)#%'">
+				<cfif i lt nEl>
+					<cfset basQual = " #basQual# OR ">
+				</cfif>
+				<cfset i=i+1>
+			</cfloop>
+		<cfcatch>
+			<cfdump var=#cfcatch#>
+			<cfabort>
+		</cfcatch>
+		</cftry>
+		<cfset basQual = " #basQual# AND upper(#flatTableName#.scientific_name) LIKE '%#ucase(scientific_name)#%'">		
 	<cfelseif #sciNameOper# is "=">
 		<cfset basQual = " #basQual# AND #flatTableName#.scientific_name = '#scientific_name#'">
 	<cfelseif #sciNameOper# is "NOT LIKE">
