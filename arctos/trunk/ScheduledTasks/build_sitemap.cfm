@@ -5,6 +5,7 @@
 		lastdate date
 	);
 --->
+<cfinclude template="/includes/_header.cfm">
 <cfif action is "nothing">
 <br><a href="build_sitemap.cfm?action=build_map">build_map</a>
 <br><a href="build_sitemap.cfm?action=build_index">build_index</a>
