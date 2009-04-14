@@ -13,8 +13,8 @@
     <cfset ssName = replace(session.stylesheet,".css","","all")>
 	<cfif len(ssName) gt 0>
     	<link rel="alternate stylesheet" type="text/css" href="/includes/css/#session.stylesheet#" title="#ssName#">
-	</cfif>
-	<META http-equiv="Default-Style" content="#ssName#">
+		<META http-equiv="Default-Style" content="#ssName#">
+	</cfif>	
     <style type="text/css" media="screen"> 
         @import "/includes/mainMenu.css"; 
     </style>
