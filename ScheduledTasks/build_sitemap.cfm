@@ -42,7 +42,6 @@
 		select filename from cf_sitemaps
 	</cfquery>
 	<cfset smi='<?xml version="1.0" encoding="UTF-8"?>'>
-	<cfset smi=smi & chr(10) & chr(9) & '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
 	<cfset smi=smi & chr(10) & chr(9) & '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
 	<cfloop query="colls">
 		<cfset smi=smi & chr(10) & chr(9) & chr(9) & '<sitemap>'>
@@ -62,7 +61,10 @@
 		cf_sitemaps.collection_id,
 		institution_acronym,
 		collection_cde
-	from cf_sitemaps where rownum=1 and sysdate-LASTDATE > 1
+	from cf_sitemaps,collection
+	 where 
+	 cf_sitemaps.collection_id=collection.collection_id and
+	 rownum=1 and sysdate-LASTDATE > 1
 </cfquery>
 <cfset chunkNum=replace(colls.filename,".xml","","all")>
 <cfset chunkNum=replace(chunkNum,"#colls.institution_acronym#_#colls.collection_cde#","","all")>
