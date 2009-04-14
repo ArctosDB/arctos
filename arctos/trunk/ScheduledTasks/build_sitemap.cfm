@@ -1,9 +1,15 @@
 <!--- 
 	create table cf_sitemaps (
+		collection_id number,
 		filename varchar2(20),
 		lastdate date
 	);
 --->
+<cfif action is "nothing">
+<br><a href="build_sitemap.cfm?action=build_map">build_map</a>
+<br><a href="build_sitemap.cfm?action=build_index">build_index</a>
+<br><a href="build_sitemap.cfm?action=build_sitemap">build_sitemap</a>
+</cfif>
 <cfset chunkSize=20000>
 <cfif action is "build_map">
 <cfoutput>
@@ -22,7 +28,7 @@
 			</cfquery>
 			<cfif g.c is 0>
 				<cfquery name="i" datasource="uam_god">
-					insert into cf_sitemaps (filename) values ('#thisFileName#')
+					insert into cf_sitemaps (filename,collection_id) values ('#thisFileName#',#collection_id#)
 				</cfquery>
 			</cfif>
 		</cfloop>
@@ -30,27 +36,40 @@
 </cfoutput>	
 </cfif>
 <!------------------------------->
-<cfif action is "nothing">
+<cfif action is "build_index">
+	<cfquery name="colls" datasource="uam_god">
+		select filename from cf_sitemaps
+	</cfquery>
+	<cfset smi='<?xml version="1.0" encoding="UTF-8"?>'>
+	<cfset smi=smi & chr(10) & chr(9) & '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
+	<cfset smi=smi & chr(10) & chr(9) & '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
+	<cfloop query="colls">
+		<cfset smi=smi & chr(10) & chr(9) & chr(9) & '<sitemap>'>
+		<cfset smi=smi & chr(10) & chr(9) & chr(9) & chr(9) & "<loc>#application.serverRootUrl#/#thisFileName#</loc>">
+		<cfset smi=smi & chr(10) & chr(9) & chr(9) & chr(9) & "<lastmod>#dateformat(now(),'yyyy-mm-dd')#</lastmod>">
+		<cfset smi=smi & chr(10) & chr(9) & chr(9) & '</sitemap>'>					
+	</cfloop>
+	<cfset smi=smi & chr(10) & chr(9) & '</sitemapindex>'>
+	<cffile action="write" file="#Application.webDirectory#/sitemapindex.xml.gz" addnewline="no" output="#f#"> 
+</cfif>
+<!--------------------------------->
+<cfif action is "build_sitemap">
 <cfoutput>
 <cfquery name="colls" datasource="uam_god">
-	select * from collection where collection_id=1
+	select 
+		filename,
+		cf_sitemaps.collection_id,
+		institution_acronym,
+		collection_cde
+	from cf_sitemaps where rownum=1 and sysdate-LASTDATE > 1
 </cfquery>
+<cfset chunkNum=replace(colls.filename,".xml","","all")>
+<cfset chunkNum=replace(chunkNum,"#colls.institution_acronym#_#colls.collection_cde#","","all")>
+getting data for collection #colls.collection_id#, chunk #chunkNum#
+	<!---
 	<cfloop query="colls">
-		<cfquery name="t" datasource="uam_god">
-			select count(*) c from cataloged_item where collection_id=#collection_id#
-		</cfquery>
-		<cfset numSiteMaps=Ceiling(t.c/50000)>
-		<cfset smi='<?xml version="1.0" encoding="UTF-8"?>'>
-		<cfset smi=smi & chr(10) & chr(9) & '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
-		<cfset smi=smi & chr(10) & chr(9) & '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
-		<br>need #numSiteMaps# numSiteMaps for #collection#
 		<cfloop from="1" to="#numSiteMaps#" index="l">
-			<cfset thisFileName="#colls.institution_acronym#_#colls.collection_cde##l#.xml">
-			<cfset smi=smi & chr(10) & chr(9) & chr(9) & '<sitemap>'>
-				<cfset smi=smi & chr(10) & chr(9) & chr(9) & chr(9) & "<loc>#application.serverRootUrl#/#thisFileName#</loc>">
-				<cfset smi=smi & chr(10) & chr(9) & chr(9) & chr(9) & "<lastmod>#dateformat(now(),'yyyy-mm-dd')#</lastmod>">
-			<cfset smi=smi & chr(10) & chr(9) & chr(9) & '</sitemap>'>			
-			<cfset f='<?xml version="1.0" encoding="UTF-8"?>'>			
+		<cfset f='<?xml version="1.0" encoding="UTF-8"?>'>			
 			<cfquery name="d" datasource="uam_god">
 				select guid,sysdate lastmod from flat where collection_id=#collection_id# and cat_num<20000
 			</cfquery>
@@ -66,7 +85,6 @@
 	
 		</cfloop>
 	</cfloop>
-	<cfset smi=smi & chr(10) & chr(9) & '</sitemapindex>'>
-	<cffile action="write" file="#Application.webDirectory#/sitemapindex.xml.gz" addnewline="no" output="#f#"> 
+--->
 </cfoutput>
 </cfif>
