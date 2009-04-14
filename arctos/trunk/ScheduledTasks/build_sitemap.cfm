@@ -21,18 +21,20 @@
 		<cfquery name="t" datasource="uam_god">
 			select max(cat_num) c from cataloged_item where collection_id=#collection_id#
 		</cfquery>
-		<cfset numSiteMaps=Ceiling(t.c/chunkSize)>
-		<cfloop from="1" to="#numSiteMaps#" index="l">
-			<cfset thisFileName="#colls.institution_acronym#_#colls.collection_cde##l#.xml">
-			<cfquery name="g" datasource="uam_god">
-				select count(*) c from cf_sitemaps where filename='#thisFileName#'
-			</cfquery>
-			<cfif g.c is 0>
-				<cfquery name="i" datasource="uam_god">
-					insert into cf_sitemaps (filename,collection_id) values ('#thisFileName#',#collection_id#)
+		<cfif t.c gt 1>
+			<cfset numSiteMaps=Ceiling(t.c/chunkSize)>
+			<cfloop from="1" to="#numSiteMaps#" index="l">
+				<cfset thisFileName="#colls.institution_acronym#_#colls.collection_cde##l#.xml">
+				<cfquery name="g" datasource="uam_god">
+					select count(*) c from cf_sitemaps where filename='#thisFileName#'
 				</cfquery>
-			</cfif>
-		</cfloop>
+				<cfif g.c is 0>
+					<cfquery name="i" datasource="uam_god">
+						insert into cf_sitemaps (filename,collection_id) values ('#thisFileName#',#collection_id#)
+					</cfquery>
+				</cfif>
+			</cfloop>
+		</cfif>
 	</cfloop>
 </cfoutput>	
 </cfif>
