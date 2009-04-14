@@ -64,7 +64,7 @@
 	from cf_sitemaps,collection
 	 where 
 	 cf_sitemaps.collection_id=collection.collection_id and
-	 rownum=1 and sysdate-LASTDATE > 1
+	 rownum=1 and (lastdate is null or sysdate-LASTDATE > 1)
 </cfquery>
 <cfset chunkNum=replace(colls.filename,".xml","","all")>
 <cfset chunkNum=replace(chunkNum,"#colls.institution_acronym#_#colls.collection_cde#","","all")>
