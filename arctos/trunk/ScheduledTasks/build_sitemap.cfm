@@ -73,26 +73,23 @@ getting data for collection #colls.collection_id#, chunk #chunkNum#
 <cfset minCN=maxCN-chunkSize>
 maxCN: #maxCN#
 minCN: #minCN#
-
-	<!---
-	<cfloop query="colls">
-		<cfloop from="1" to="#numSiteMaps#" index="l">
-		<cfset f='<?xml version="1.0" encoding="UTF-8"?>'>			
-			<cfquery name="d" datasource="uam_god">
-				select guid,sysdate lastmod from flat where collection_id=#collection_id# and cat_num<20000
-			</cfquery>
+<cfquery name="d" datasource="uam_god">
+	select guid,to_char(LAST_EDIT_DATE,'yyyy-mm-dd') lastMod
+	from filtered_flat where collection_id=#collection_id# and cat_num between #minCN# and #maxCN#
+</cfquery>
+			<cfset f='<?xml version="1.0" encoding="UTF-8"?>'>	
+			<cfset f='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
+		
 			<cfloop query="d">
 				<cfset f=f & chr(10) & chr(9) & chr(9) & '<url>'>
 				<cfset f=f & chr(10) & chr(9) & chr(9) & chr(9) & "<loc>#application.serverRootUrl#/guid/#guid#</loc>">
-			    <cfset f=f & chr(10) & chr(9) & chr(9) & chr(9) & "<lastmod>#lastmod#</lastmod>">
+			    <cfset f=f & chr(10) & chr(9) & chr(9) & chr(9) & "<lastmod>#lastMod#</lastmod>">
 			    <cfset f=f & chr(10) & chr(9) & chr(9) & chr(9) & "<priority>.8</priority>">
 			    <cfset f=f & chr(10) & chr(9) & chr(9) & chr(9) & "<changefreq>weekly</changefreq>">
 			    <cfset f=f & chr(10) & chr(9) & chr(9) & '</url>'>
-			</cfloop>
-			<cffile action="write" file="#Application.webDirectory#/#thisFileName#" addnewline="no" output="#f#"> 
-	
-		</cfloop>
-	</cfloop>
---->
-</cfoutput>
+			</cfloop>		
+			<cfset f='</urlset>'>
+			
+			<cffile action="write" file="#Application.webDirectory#/#colls.filename#" addnewline="no" output="#f#"> 
+	</cfoutput>
 </cfif>
