@@ -11,7 +11,7 @@
 <br><a href="build_sitemap.cfm?action=build_index">build_index</a>
 <br><a href="build_sitemap.cfm?action=build_sitemap">build_sitemap</a>
 </cfif>
-<cfset chunkSize=15000>
+<cfset chunkSize=5000>
 <cfif action is "build_map">
 <cfoutput>
 	<cfquery name="colls" datasource="uam_god">
