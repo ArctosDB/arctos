@@ -1,12 +1,12 @@
 <cfoutput>
 <cfquery name="colls" datasource="uam_god">
-	select * from collection
+	select * from collection where collection_id=1
 </cfquery>
 	<cfloop query="colls">
 		<cfquery name="t" datasource="uam_god">
 			select count(*) c from cataloged_item where collection_id=#collection_id#
 		</cfquery>
-		<cfset numSiteMaps=round(t.c/50000)>
+		<cfset numSiteMaps=Ceiling(t.c/50000)>
 		<cfset smi='<?xml version="1.0" encoding="UTF-8"?>'>
 		<cfset smi=smi & chr(10) & chr(9) & '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
 		<cfset smi=smi & chr(10) & chr(9) & '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
@@ -16,12 +16,8 @@
 			<cfset smi=smi & chr(10) & chr(9) & chr(9) & '<sitemap>'>
 				<cfset smi=smi & chr(10) & chr(9) & chr(9) & chr(9) & "<loc>#application.serverRootUrl#/#thisFileName#</loc>">
 				<cfset smi=smi & chr(10) & chr(9) & chr(9) & chr(9) & "<lastmod>#dateformat(now(),'yyyy-mm-dd')#</lastmod>">
-			<cfset smi=smi & chr(10) & chr(9) & chr(9) & '</sitemap>'>
-			
-			
-			<cfset f='<?xml version="1.0" encoding="UTF-8"?>'>
-			
-			
+			<cfset smi=smi & chr(10) & chr(9) & chr(9) & '</sitemap>'>			
+			<cfset f='<?xml version="1.0" encoding="UTF-8"?>'>			
 			<cfquery name="d" datasource="uam_god">
 				select guid,sysdate lastmod from flat where collection_id=#collection_id# and cat_num<50000
 			</cfquery>
