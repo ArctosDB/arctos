@@ -91,5 +91,8 @@ minCN: #minCN#
 			<cfset f='</urlset>'>
 			
 			<cffile action="write" file="#Application.webDirectory#/#colls.filename#" addnewline="no" output="#f#"> 
+			<cfquery name="u" datasource="uam_god">
+				update cf_sitemaps set lastdate=sysdate where filename='#colls.filename#'
+			</cfquery>
 	</cfoutput>
 </cfif>
