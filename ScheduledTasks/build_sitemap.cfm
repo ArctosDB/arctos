@@ -75,7 +75,7 @@ maxCN: #maxCN#
 minCN: #minCN#
 <cfquery name="d" datasource="uam_god">
 	select guid,to_char(LAST_EDIT_DATE,'yyyy-mm-dd') lastMod
-	from filtered_flat where collection_id=#cols.collection_id# and cat_num between #minCN# and #maxCN#
+	from filtered_flat where collection_id=#colls.collection_id# and cat_num between #minCN# and #maxCN#
 </cfquery>
 			<cfset f='<?xml version="1.0" encoding="UTF-8"?>'>	
 			<cfset f='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
