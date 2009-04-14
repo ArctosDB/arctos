@@ -30,6 +30,7 @@
 </cfoutput>	
 </cfif>
 <!------------------------------->
+<cfif action is "nothing">
 <cfoutput>
 <cfquery name="colls" datasource="uam_god">
 	select * from collection where collection_id=1
@@ -68,3 +69,4 @@
 	<cfset smi=smi & chr(10) & chr(9) & '</sitemapindex>'>
 	<cffile action="write" file="#Application.webDirectory#/sitemapindex.xml.gz" addnewline="no" output="#f#"> 
 </cfoutput>
+</cfif>
