@@ -6,6 +6,7 @@
 	<cfheader statuscode="301" statustext="Moved permanently">
 	<cfheader name="Location" value="http://arctos.database.museum/digir/DiGIR.php"> 
 <cfelse>
+	<cfheader statuscode="404" statustext="Not found">
 	<h2>
 		404! The page you tried to access does not exist.
 	</h2>
