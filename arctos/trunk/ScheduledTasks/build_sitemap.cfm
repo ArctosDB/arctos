@@ -6,6 +6,7 @@
 	);
 --->
 <cfinclude template="/includes/_header.cfm">
+<cfset btime=now()>
 <cfif action is "nothing">
 <br><a href="build_sitemap.cfm?action=build_map">build_map</a>
 <br><a href="build_sitemap.cfm?action=build_index">build_index</a>
@@ -57,6 +58,9 @@
 <!--------------------------------->
 <cfif action is "build_sitemap">
 <cfoutput>
+	<cfset etime=now()>
+	<cfset tt=DateDiff("s", btime, etime)>
+	<br>start: #tt#
 <cfquery name="colls" datasource="uam_god">
 	select 
 		filename,
@@ -68,6 +72,9 @@
 	 cf_sitemaps.collection_id=collection.collection_id and
 	 rownum=1 and (lastdate is null or sysdate-LASTDATE > 1)
 </cfquery>
+<cfset etime=now()>
+<cfset tt=DateDiff("s", btime, etime)>
+<br>got colls: #tt#
 <cfset chunkNum=replace(colls.filename,".xml","","all")>
 <cfset chunkNum=replace(chunkNum,"#colls.institution_acronym#_#colls.collection_cde#","","all")>
 getting data for collection #colls.collection_id#, chunk #chunkNum#
@@ -79,6 +86,9 @@ minCN: #minCN#
 	select guid,to_char(LAST_EDIT_DATE,'yyyy-mm-dd') lastMod
 	from filtered_flat where collection_id=#colls.collection_id# and cat_num between #minCN# and #maxCN#
 </cfquery>
+<cfset etime=now()>
+<cfset tt=DateDiff("s", btime, etime)>
+<br>got d: #tt#
 			<cfset f='<?xml version="1.0" encoding="UTF-8"?>'>	
 			<cfset f='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
 		
