@@ -1,10 +1,35 @@
 <!--- 
-	create table sitemaps (
-		file varchar(2) 20,
-		lrd date
-
+	create table cf_sitemaps (
+		filename varchar2(20),
+		lastdate date
+	);
 --->
-
+<cfset chunkSize=20000>
+<cfif action is "build_map">
+<cfoutput>
+	<cfquery name="colls" datasource="uam_god">
+		select * from collection
+	</cfquery>
+	<cfloop query="colls">
+		<cfquery name="t" datasource="uam_god">
+			select count(*) c from cataloged_item where collection_id=#collection_id#
+		</cfquery>
+		<cfset numSiteMaps=Ceiling(t.c/chunkSize)>
+		<cfloop from="1" to="#numSiteMaps#" index="l">
+			<cfset thisFileName="#colls.institution_acronym#_#colls.collection_cde##l#.xml">
+			<cfquery name="g" datasource="uam_god">
+				select count(*) c from cf_sitemaps where file='#thisFileName#'
+			</cfquery>
+			<cfif g.c is 0>
+				<cfquery name="i" datasource="uam_god">
+					insert into cf_sitemaps (file) values ('#thisFileName#')
+				</cfquery>
+			</cfif>
+		</cfloop>
+	</cfloop>
+</cfoutput>	
+</cfif>
+<!------------------------------->
 <cfoutput>
 <cfquery name="colls" datasource="uam_god">
 	select * from collection where collection_id=1
