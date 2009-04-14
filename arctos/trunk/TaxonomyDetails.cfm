@@ -8,9 +8,8 @@
 		<cfset tnid=#getTID.taxon_name_id#>
 	<cfelse>
 	  	<div class="error">
-			#scientific_name# was not found.	
+			<cfoutput>#scientific_name#</cfoutput> was not found.	
 		</div>
-	  	<cfinclude template="/errors/404.cfm">
 	</cfif>
 </cfif>
 <cfif isdefined("taxon_name_id")>
