@@ -1,6 +1,6 @@
 <!--- call at the bottom of anything used as an iframe in SpecimenDetail.cfm to sync the iframe with the main frame --->
 <cfoutput>
-	<cfif isdefined("session.currentStyleSheet")>
+	<cfif isdefined("session.currentStyleSheet") and len(session.currentStyleSheet) gt 0>
 		<cfset csss = #session.currentStyleSheet#>
 		<cfhtmlhead text='<link rel="alternate stylesheet" type="text/css" href="/includes/css/#session.currentStyleSheet#.css" title="#session.currentStyleSheet#">'>
 	<cfelse>
