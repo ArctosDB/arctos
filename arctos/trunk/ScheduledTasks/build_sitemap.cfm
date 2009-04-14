@@ -1,3 +1,10 @@
+<!--- 
+	create table sitemaps (
+		file varchar(2) 20,
+		lrd date
+
+--->
+
 <cfoutput>
 <cfquery name="colls" datasource="uam_god">
 	select * from collection where collection_id=1
