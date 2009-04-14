@@ -19,7 +19,7 @@
 			<cfset smi=smi & chr(10) & chr(9) & chr(9) & '</sitemap>'>			
 			<cfset f='<?xml version="1.0" encoding="UTF-8"?>'>			
 			<cfquery name="d" datasource="uam_god">
-				select guid,sysdate lastmod from flat where collection_id=#collection_id# and cat_num<50000
+				select guid,sysdate lastmod from flat where collection_id=#collection_id# and cat_num<20000
 			</cfquery>
 			<cfloop query="d">
 				<cfset f=f & chr(10) & chr(9) & chr(9) & '<url>'>
