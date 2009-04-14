@@ -46,7 +46,7 @@
 	<cfset smi=smi & chr(10) & chr(9) & '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
 	<cfloop query="colls">
 		<cfset smi=smi & chr(10) & chr(9) & chr(9) & '<sitemap>'>
-		<cfset smi=smi & chr(10) & chr(9) & chr(9) & chr(9) & "<loc>#application.serverRootUrl#/#thisFileName#</loc>">
+		<cfset smi=smi & chr(10) & chr(9) & chr(9) & chr(9) & "<loc>#application.serverRootUrl#/#filename#</loc>">
 		<cfset smi=smi & chr(10) & chr(9) & chr(9) & chr(9) & "<lastmod>#dateformat(now(),'yyyy-mm-dd')#</lastmod>">
 		<cfset smi=smi & chr(10) & chr(9) & chr(9) & '</sitemap>'>					
 	</cfloop>
