@@ -18,11 +18,11 @@
 		<cfloop from="1" to="#numSiteMaps#" index="l">
 			<cfset thisFileName="#colls.institution_acronym#_#colls.collection_cde##l#.xml">
 			<cfquery name="g" datasource="uam_god">
-				select count(*) c from cf_sitemaps where file='#thisFileName#'
+				select count(*) c from cf_sitemaps where filename='#thisFileName#'
 			</cfquery>
 			<cfif g.c is 0>
 				<cfquery name="i" datasource="uam_god">
-					insert into cf_sitemaps (file) values ('#thisFileName#')
+					insert into cf_sitemaps (filename) values ('#thisFileName#')
 				</cfquery>
 			</cfif>
 		</cfloop>
