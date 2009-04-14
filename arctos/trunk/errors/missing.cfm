@@ -36,6 +36,11 @@
 			</cfcatch>
 		</cftry>		
 	<cfelse>
+		<!--- see if we can handle the peristent 404s elegantly --->
+		<cfif cgi.SCRIPT_NAME contains "/DiGIRprov/www/DiGIR.php">
+			<cfheader statuscode="301" statustext="Moved permanently">
+			<cfheader name="Location" value="http://arctos.database.museum/digir/DiGIR.php"> 
+		</cfif>
 		<cfinclude template="/errors/404.cfm">
 	</cfif>
 <cfelse>

@@ -4,7 +4,7 @@
 </cfquery>
 	<cfloop query="colls">
 		<cfquery name="t" datasource="uam_god">
-			select count(*) from cataloged_item where collection_id=#collection_id#
+			select count(*) c from cataloged_item where collection_id=#collection_id#
 		</cfquery>
 		<cfset numSiteMaps=round(t.c/50000)>
 		<cfset smi='<?xml version="1.0" encoding="UTF-8"?>'>

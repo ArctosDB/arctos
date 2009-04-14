@@ -19,7 +19,7 @@
 		order by collection,loan_number
 	</cfquery>
 	<cfoutput>
-		<h2>Projects with Loans and without Publications</h2>
+		<h2>Loans without Specimens</h2>
 		<cfset i=1>
 		<cfloop query="data">
 			<br><a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a>

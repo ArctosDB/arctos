@@ -51,14 +51,14 @@ alter table tacc_check add jpg_status varchar2(20);
 select jpg_status,count(*) from tacc_check where jpg_status is not null group by jpg_status;
 
 -- move to new JPG server
-update media set media_uri=replace(media_uri,'http://irods.tacc.teragrid.org:8000/UAF/','http://wanserver-00.tacc.utexas.edu:8000/UAF/') where
+update media set media_uri=replace(media_uri,'http://irods.tacc.teragrid.org:8000/UAF/','http://goodnight.corral.tacc.utexas.edu/UAF/') where
 media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 
-update media set preview_uri=replace(preview_uri,'http://irods.tacc.teragrid.org:8000/UAF/','http://wanserver-00.tacc.utexas.edu:8000/UAF/') where
+update media set preview_uri=replace(preview_uri,'http://irods.tacc.teragrid.org:8000/UAF/','http://goodnight.corral.tacc.utexas.edu/UAF/') where
 preview_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 
 
-select media_uri,replace(media_uri,'http://irods.tacc.teragrid.org:8000/UAF/','http://wanserver-00.tacc.utexas.edu:8000/UAF/') from media where
+select media_uri,replace(media_uri,'http://irods.tacc.teragrid.org:8000/UAF/','http://goodnight.corral.tacc.utexas.edu/UAF/') from media where
 media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 --->
 
@@ -101,10 +101,10 @@ media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 				</cfquery>
 				<br>bad DNG
 			<cfelse>
-				<cfhttp url="http://wanserver-00.tacc.utexas.edu:8000/UAF/#folder#/jpegs/#barcode#.jpg" charset="utf-8" method="head">
+				<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/jpegs/#barcode#.jpg" charset="utf-8" method="head">
 				</cfhttp>
 				<cfif left(cfhttp.statusCode,3) is "200">
-					<br>200: file exists (http://wanserver-00.tacc.utexas.edu:8000/UAF/#folder#/jpegs/#barcode#.jpg)
+					<br>200: file exists (http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/jpegs/#barcode#.jpg)
 					<cftransaction>
 							<cfquery name="ala" datasource="uam_god">
 								select display_value from coll_obj_other_id_num where other_id_type='ALAAC' and collection_object_id=#collection_object_id#
@@ -112,11 +112,11 @@ media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 							<cfquery name="nid" datasource="uam_god">
 								select seq_media.nextval media_id from dual
 							</cfquery>
-							<cfset muri='http://wanserver-00.tacc.utexas.edu:8000/UAF/#folder#/jpegs/#barcode#.jpg'>
-							<cfhttp url="http://wanserver-00.tacc.utexas.edu:8000/UAF/#folder#/jpegs/tn_#barcode#.jpg" charset="utf-8" method="head">
+							<cfset muri='http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/jpegs/#barcode#.jpg'>
+							<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/jpegs/tn_#barcode#.jpg" charset="utf-8" method="head">
 							</cfhttp>
 							<cfif left(cfhttp.statusCode,3) is "200">
-								<cfset preview_uri="http://wanserver-00.tacc.utexas.edu:8000/UAF/#folder#/jpegs/tn_#barcode#.jpg">
+								<cfset preview_uri="http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/jpegs/tn_#barcode#.jpg">
 							<cfelse>
 								<cfset preview_uri=''>
 							</cfif>
@@ -199,7 +199,7 @@ media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 							</cfquery>		
 						</cftransaction>
 				<cfelse><!--- status=200 --->
-					<br>no file (http://wanserver-00.tacc.utexas.edu:8000/UAF/#folder#/jpegs/#barcode#.jpg)
+					<br>no file (http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/jpegs/#barcode#.jpg)
 					<cfquery name="spiffy" datasource="uam_god">
 						update tacc_check set jpg_status='not_there' where collection_object_id=#collection_object_id#
 					</cfquery>		

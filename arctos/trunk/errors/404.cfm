@@ -2,6 +2,10 @@
 	<cfinclude template="/includes/_header.cfm">
 </cfif>
 <cfoutput>
+<cfif cgi.redirect_url contains "/DiGIRprov/www/DiGIR.php">
+	<cfheader statuscode="301" statustext="Moved permanently">
+	<cfheader name="Location" value="http://arctos.database.museum/digir/DiGIR.php"> 
+<cfelse>
 	<h2>
 		404! The page you tried to access does not exist.
 	</h2>
@@ -26,29 +30,28 @@
 	<p><a href="/SpecimenUsage.cfm">Search for Projects and Publications here</a></p>
 	<p>
 		If you're trying to find specimens, you may:
-			<ul>
-				<li><a href="/SpecimenSearch.cfm">Search for them</a></li>
-				<li>Access them by URLs of the format:
-					<ul>
-						<li>
-							#Application.serverRootUrl#/SpecimenDetail.cfm?guid={institution}:{collection}:{catnum}
-							<br>Example: #Application.serverRootUrl#/SpecimenDetail.cfm?guid=UAM:Mamm:1
-							<br>&nbsp;
-						</li>
-						<li>
-							#Application.serverRootUrl#/guid/{institution}:{collection}:{catnum}
-							<br>Example: #Application.serverRootUrl#/guid/UAM:Mamm:1
-							<br>&nbsp;
-						</li>
-						<li>
-							#Application.serverRootUrl#/specimen/{institution}/{collection}/{catnum}
-							<br>Example: #Application.serverRootUrl#/specimen/UAM/Mamm/1
-							<br>
-						</li>
-					</ul>
-				</li>
-			</ul>
-			
+		<ul>
+			<li><a href="/SpecimenSearch.cfm">Search for them</a></li>
+			<li>Access them by URLs of the format:
+				<ul>
+					<li>
+						#Application.serverRootUrl#/SpecimenDetail.cfm?guid={institution}:{collection}:{catnum}
+						<br>Example: #Application.serverRootUrl#/SpecimenDetail.cfm?guid=UAM:Mamm:1
+						<br>&nbsp;
+					</li>
+					<li>
+						#Application.serverRootUrl#/guid/{institution}:{collection}:{catnum}
+						<br>Example: #Application.serverRootUrl#/guid/UAM:Mamm:1
+						<br>&nbsp;
+					</li>
+					<li>
+						#Application.serverRootUrl#/specimen/{institution}/{collection}/{catnum}
+						<br>Example: #Application.serverRootUrl#/specimen/UAM/Mamm/1
+						<br>
+					</li>
+				</ul>
+			</li>
+		</ul>			
 	</p>
 	<cfmail subject="Dead Link" to="#Application.PageProblemEmail#" from="dead.link@#application.fromEmail#" type="html">
 		A user found a dead link! The referring site was #cgi.HTTP_REFERER#.
@@ -69,5 +72,6 @@
 		 <p>
 		 	Use the tabs in the header to continue navigating Arctos.
 		 </p>
+</cfif>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
