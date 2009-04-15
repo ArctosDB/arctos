@@ -15,6 +15,9 @@
 <cfset chunkSize=50000>
 <cfif action is "build_map">
 <cfoutput>
+	<cfquery name="kcf_sitemaps" datasource="uam_god">
+		delete from cf_sitemaps
+	</cfquery>
 	<cfquery name="colls" datasource="uam_god">
 		select * from collection
 	</cfquery>
