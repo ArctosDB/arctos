@@ -61,42 +61,40 @@
 	<cfset etime=now()>
 	<cfset tt=DateDiff("s", btime, etime)>
 	<br>start: #tt#
-<cfquery name="colls" datasource="uam_god">
-	select 
-		filename,
-		cf_sitemaps.collection_id,
-		institution_acronym,
-		collection_cde
-	from cf_sitemaps,collection
-	 where 
-	 cf_sitemaps.collection_id=collection.collection_id and
-	 rownum=1 and (lastdate is null or sysdate-LASTDATE > 1)
-</cfquery>
-<cfset etime=now()>
-<cfset tt=DateDiff("s", btime, etime)>
-<br>got colls: #tt#
-<cfset chunkNum=replace(colls.filename,".xml","","all")>
-<cfset chunkNum=replace(chunkNum,"#colls.institution_acronym#_#colls.collection_cde#","","all")>
-getting data for collection #colls.collection_id#, chunk #chunkNum#
-<cfset maxCN=chunkNum*chunkSize>
-<cfset minCN=maxCN-chunkSize>
-maxCN: #maxCN#
-minCN: #minCN#
-<cfquery name="d" datasource="uam_god">
-	select guid,to_char(LAST_EDIT_DATE,'yyyy-mm-dd') lastMod
-	from filtered_flat where collection_id=#colls.collection_id# and cat_num between #minCN# and #maxCN#
-</cfquery>
-<cfset etime=now()>
-<cfset tt=DateDiff("s", btime, etime)>
-<br>got d: #tt#
-d.recordcount: #d.recordcount#
-			<cfset f='<?xml version="1.0" encoding="UTF-8"?>'>	
-			<cfset f='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
-			<cfset variables.fileName="#Application.webDirectory#/#colls.filename#">
-			<cfset variables.encoding="UTF-8">
-			<cfscript>
-							variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-			</cfscript>
+	<cfquery name="colls" datasource="uam_god">
+		select 
+			filename,
+			cf_sitemaps.collection_id,
+			institution_acronym,
+			collection_cde
+		from cf_sitemaps,collection
+		 where 
+		 cf_sitemaps.collection_id=collection.collection_id and
+		 rownum=1 and (lastdate is null or sysdate-LASTDATE > 1)
+	</cfquery>
+	<cfset chunkNum=replace(colls.filename,".xml","","all")>
+	<cfset chunkNum=replace(chunkNum,"#colls.institution_acronym#_#colls.collection_cde#","","all")>
+	<cfset maxCN=chunkNum*chunkSize>
+	<cfset minCN=maxCN-chunkSize>
+	<cfquery name="d" datasource="uam_god">
+		select guid,to_char(LAST_EDIT_DATE,'yyyy-mm-dd') lastMod
+		from filtered_flat where collection_id=#colls.collection_id# and cat_num between #minCN# and #maxCN#
+	</cfquery>
+	<cfset variables.fileName="#Application.webDirectory#/#colls.filename#">
+	<cfset variables.encoding="UTF-8">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+	</cfscript>
+	<cfscript>
+		f='<?xml version="1.0" encoding="UTF-8"?>';
+		variables.joFileWriter.writeLine(f);
+		f='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+		variables.joFileWriter.writeLine(f);
+	</cfscript>
+<!---
+	<cfset f='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
+			
+			
 			<cfloop query="d">
 				<cfscript>
 
@@ -115,6 +113,7 @@ d.recordcount: #d.recordcount#
 			    <cfset f=f & chr(10) & chr(9) & chr(9) & '</url>'>
 			    --->
 			</cfloop>	
+			--->
 			<cfscript>
 
 
