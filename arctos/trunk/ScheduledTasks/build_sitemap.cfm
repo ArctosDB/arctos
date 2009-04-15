@@ -92,22 +92,33 @@ minCN: #minCN#
 d.recordcount: #d.recordcount#
 			<cfset f='<?xml version="1.0" encoding="UTF-8"?>'>	
 			<cfset f='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
-		
+			<cfset variables.fileName="#Application.webDirectory#/#colls.filename#">
 			<cfloop query="d">
+				<cfscript>
+				variables.joFileWriter = createObject('component', 'Components.FileWriter').init(variables.fileName, variables.encoding, 32768);
+				variables.someDataVar="<loc>#application.serverRootUrl#/guid/#guid#</loc>";
+				
+	variables.joFileWriter.writeLine(variables.someDataVar);
+
+	variables.joFileWriter.close();
+</cfscript>
+<!---
 				<cfset f=f & chr(10) & chr(9) & chr(9) & '<url>'>
 				<cfset f=f & chr(10) & chr(9) & chr(9) & chr(9) & "<loc>#application.serverRootUrl#/guid/#guid#</loc>">
 			    <cfset f=f & chr(10) & chr(9) & chr(9) & chr(9) & "<lastmod>#lastMod#</lastmod>">
 			    <cfset f=f & chr(10) & chr(9) & chr(9) & chr(9) & "<priority>.8</priority>">
 			    <cfset f=f & chr(10) & chr(9) & chr(9) & chr(9) & "<changefreq>weekly</changefreq>">
 			    <cfset f=f & chr(10) & chr(9) & chr(9) & '</url>'>
+			    --->
 			</cfloop>		
 			<cfset f='</urlset>'>
 			
 			<!---
 			<cffile action="write" file="#Application.webDirectory#/#colls.filename#" addnewline="no" output="#f#"> 
-			--->
 			<cfquery name="u" datasource="uam_god">
 				update cf_sitemaps set lastdate=sysdate where filename='#colls.filename#'
 			</cfquery>
+			--->
+			
 	</cfoutput>
 </cfif>
