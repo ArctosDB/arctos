@@ -218,7 +218,8 @@
 		currentPath contains "/Bulkloader/" or
 		currentPath contains "/fix/" or
 		currentPath contains "/picks/" or
-		currentPath contains "/tools/")>
+		currentPath contains "/tools/" or
+		currentPath contains "/ScheduledTasks/")>
 			<cfset r=replace(#currentPath#,#application.webDirectory#,"")>
 			<cflocation url="/errors/forbidden.cfm?ref=#r#" addtoken="false">
 	</cfif>
