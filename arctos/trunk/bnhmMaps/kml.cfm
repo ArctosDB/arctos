@@ -113,7 +113,7 @@
 	<cfelse>
 		<cfset flatTableName = "filtered_flat">
 	</cfif>
-	<cfset dlPath = "#Application.webDirectory#/bnhmMaps/tabfiles">
+	<cfset dlPath = "#Application.webDirectory#/bnhmMaps/tabfiles/">
 	<cfif isdefined("userFileName") and len(#userFileName#) gt 0>
 		<cfset dlFile = "#userFileName#.kml">
 	<cfelse>
@@ -301,7 +301,7 @@
 	<cfelse>
 		<cfset flatTableName = "filtered_flat">
 	</cfif>
-	<cfset dlPath = "#Application.webDirectory#/bnhmMaps/tabfiles">
+	<cfset dlPath = "#Application.webDirectory#/bnhmMaps/tabfiles/">
 	<cfif isdefined("userFileName") and len(#userFileName#) gt 0>
 		<cfset dlFile = "#userFileName#.kml">
 	<cfelse>
