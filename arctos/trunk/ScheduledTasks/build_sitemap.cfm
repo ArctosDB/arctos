@@ -89,6 +89,7 @@ minCN: #minCN#
 <cfset etime=now()>
 <cfset tt=DateDiff("s", btime, etime)>
 <br>got d: #tt#
+d.recordcount: #d.recordcount#
 			<cfset f='<?xml version="1.0" encoding="UTF-8"?>'>	
 			<cfset f='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
 		
