@@ -83,8 +83,8 @@
 					collection_id=#colls.collection_id#
 				order by guid
 			) a
-		where rownum <= #maxCN#)
-		where rnum >=#minCN#
+		where rownum <= #maxRN#)
+		where rnum >=#minRN#
 	</cfquery>
 	<cfset variables.fileName="#Application.webDirectory#/#colls.filename#">
 	<cfset variables.encoding="UTF-8">
