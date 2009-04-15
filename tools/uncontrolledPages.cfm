@@ -15,7 +15,7 @@
 		and #directory# does not contain "WEB-INF" and #name# is not "WEB-INF"
 		and #directory# does not contain "WEB-INF" and #name# is not "META-INF" and
 		#name# contains ".cfm">
-	<cfset thisPath=replace(directory,"/users/mvzarctos/tomcat/webapps/cfusion","","all")>
+	<cfset thisPath=replace(directory,application.webDirectory,"","all")>
 	<cfset thisName="#thisPath#/#name#">
 	<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) c from cf_form_permissions where form_path='#thisName#'
