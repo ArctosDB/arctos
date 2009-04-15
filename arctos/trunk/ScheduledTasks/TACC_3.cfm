@@ -93,7 +93,7 @@ media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 					media.media_id = media_relations.media_id and
 					media_relationship='shows cataloged_item' and
 					related_primary_key=#collection_object_id# and
-					media_uri='http://irods.tacc.teragrid.org:8000/UAF/#folder#/#barcode#.dng'
+					media_uri='http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/#barcode#.dng'
 			</cfquery>
 			<cfif len(dng_id.media_id) is 0 or dng_id.recordcount is not 1>
 				<cfquery name="spiffy" datasource="uam_god">
@@ -110,7 +110,7 @@ media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 								select display_value from coll_obj_other_id_num where other_id_type='ALAAC' and collection_object_id=#collection_object_id#
 							</cfquery>
 							<cfquery name="nid" datasource="uam_god">
-								select seq_media.nextval media_id from dual
+								select sq_media_id.nextval media_id from dual
 							</cfquery>
 							<cfset muri='http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/jpegs/#barcode#.jpg'>
 							<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/jpegs/tn_#barcode#.jpg" charset="utf-8" method="head">
