@@ -12,7 +12,7 @@
 <br><a href="build_sitemap.cfm?action=build_index">build_index</a>
 <br><a href="build_sitemap.cfm?action=build_sitemap">build_sitemap</a>
 </cfif>
-<cfset chunkSize=50000>
+<cfset chunkSize=25000>
 <cfif action is "build_map">
 <cfoutput>
 	<cfquery name="kcf_sitemaps" datasource="uam_god">
@@ -90,21 +90,7 @@
 	</cfscript>			
 	<cfloop query="d">
 		<cfscript>
-			a="<url>";
-			variables.joFileWriter.writeLine(a);
-			a="<loc>#application.serverRootUrl#/guid/#guid#</loc>";
-			variables.joFileWriter.writeLine(a);
-			a="<lastmod>#lastMod#</lastmod>";
-			variables.joFileWriter.writeLine(a);
-			a="<priority>.8</priority>";
-			variables.joFileWriter.writeLine(a);
-			a="<changefreq>weekly</changefreq>";
-			variables.joFileWriter.writeLine(a);
-			a="</url>";
-			variables.joFileWriter.writeLine(a);
-		</cfscript>
-		<!---
-		a=chr(9) & "<url>";
+			a=chr(9) & "<url>";
 			variables.joFileWriter.writeLine(a);
 			a=chr(9) & chr(9) & "<loc>#application.serverRootUrl#/guid/#guid#</loc>";
 			variables.joFileWriter.writeLine(a);
@@ -116,7 +102,7 @@
 			variables.joFileWriter.writeLine(a);
 			a=chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
-			---->
+		</cfscript>
 	</cfloop>	
 	<cfscript>
 		a="</urlset>";
