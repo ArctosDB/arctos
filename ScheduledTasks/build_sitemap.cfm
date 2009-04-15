@@ -95,7 +95,7 @@ d.recordcount: #d.recordcount#
 			<cfset variables.fileName="#Application.webDirectory#/#colls.filename#">
 			<cfloop query="d">
 				<cfscript>
-				variables.joFileWriter = createObject('component', 'components.FileWriter').init(variables.fileName, variables.encoding, 32768);
+				variables.joFileWriter = createObject('/component', 'components.FileWriter').init(variables.fileName, variables.encoding, 32768);
 				variables.someDataVar="<loc>#application.serverRootUrl#/guid/#guid#</loc>";
 				
 	variables.joFileWriter.writeLine(variables.someDataVar);
