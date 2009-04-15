@@ -99,8 +99,10 @@
 			variables.joFileWriter.writeLine(a);
 			a=chr(9) & chr(9) & "<loc>#application.serverRootUrl#/guid/#guid#</loc>";
 			variables.joFileWriter.writeLine(a);
-			a=chr(9) & chr(9) & "<lastmod>#lastMod#</lastmod>";
-			variables.joFileWriter.writeLine(a);
+			if (len(lastMod) gt 0) {
+				a=chr(9) & chr(9) & "<lastmod>#lastMod#</lastmod>";
+				variables.joFileWriter.writeLine(a);
+			}
 			a=chr(9) & chr(9) & "<priority>.8</priority>";
 			variables.joFileWriter.writeLine(a);
 			a=chr(9) & chr(9) & "<changefreq>weekly</changefreq>";
