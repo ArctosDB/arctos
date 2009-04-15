@@ -35,6 +35,16 @@
 			</cfloop>
 		</cfif>
 	</cfloop>
+	<cfquery name="t" datasource="uam_god">
+		select count(*) c from taxonomy
+	</cfquery>
+	<cfset numSiteMaps=Ceiling(t.c/chunkSize)>
+	<cfloop from="1" to="#numSiteMaps#" index="l">
+		<cfset thisFileName="taxonomy#l#.xml">
+		<cfquery name="i" datasource="uam_god">
+			insert into cf_sitemaps (filename) values ('#thisFileName#')
+		</cfquery>
+	</cfloop>
 </cfoutput>	
 </cfif>
 <!------------------------------->

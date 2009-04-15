@@ -72,6 +72,7 @@ Disallow: /Permit.cfm
 Disallow: /Project.cfm
 Disallow: /picks/
 Disallow: /robots.txt
+Disallow: /ScheduiledTasks/
 Disallow: /SpecimenContainerLabels.cfm
 Disallow: /start.cfm
 Disallow: /tools/
