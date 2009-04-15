@@ -12,7 +12,7 @@
 <br><a href="build_sitemap.cfm?action=build_index">build_index</a>
 <br><a href="build_sitemap.cfm?action=build_sitemap">build_sitemap</a>
 </cfif>
-<cfset chunkSize=25000>
+<cfset chunkSize=50000>
 <cfif action is "build_map">
 <cfoutput>
 	<cfquery name="kcf_sitemaps" datasource="uam_god">
