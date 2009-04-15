@@ -212,7 +212,8 @@
 			<cflocation url="/errors/forbidden.cfm?ref=#r#" addtoken="false">
 	</cfif>
 	<!--- protect "us" directories --->
-	<cfif (not isdefined("session.roles") or session.roles is "public" or len(session.roles) is 0) and 
+	<cfif (CGI.Remote_Addr is not "127.0.0.1") and 
+		(not isdefined("session.roles") or session.roles is "public" or len(session.roles) is 0) and 
 		(currentPath contains "/Admin/" or
 		currentPath contains "/ALA_Imaging/" or
 		currentPath contains "/Bulkloader/" or
