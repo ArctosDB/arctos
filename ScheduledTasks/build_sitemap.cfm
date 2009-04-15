@@ -95,7 +95,7 @@
 			chr(9) & chr(9) & "<lastmod>#lastMod#</lastmod>" & chr(10) &
 			chr(9) & chr(9) & "<priority>.8</priority>" & chr(10) &
 			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) & 
-			chr(9) & "</url>"
+			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 	</cfloop>	
