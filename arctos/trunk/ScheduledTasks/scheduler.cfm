@@ -19,9 +19,36 @@
 <cfschedule action = "update"
     task = "sitemap_spec" 
     operation = "HTTPRequest"
-    url = "http://arctos.database.museum/ScheduledTasks/build_sitemap.cfm?action=build_sitemaps_spec"
+    url = "#application.serverRootUrl#/ScheduledTasks/build_sitemap.cfm?action=build_sitemaps_spec"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "05:20 PM"
+    interval = "3600"
+    requestTimeOut = "600">
+
+<cfschedule action = "update"
+    task = "sitemap_tax" 
+    operation = "HTTPRequest"
+    url = "http://arctos.database.museum/ScheduledTasks/build_sitemap.cfm?action=build_sitemaps_tax"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "08:20 PM"
+    interval = "3600"
+    requestTimeOut = "600">
+	
+<cfschedule action = "update"
+    task = "sitemap_pub" 
+    operation = "HTTPRequest"
+    url = "http://arctos.database.museum/ScheduledTasks/build_sitemap.cfm?action=build_sitemaps_pub"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "10:20 PM"
+    interval = "3600"
+    requestTimeOut = "600">
+	
+<cfschedule action = "update"
+    task = "sitemap_proj" 
+    operation = "HTTPRequest"
+    url = "http://arctos.database.museum/ScheduledTasks/build_sitemap.cfm?action=build_sitemaps_proj"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "12:20 PM"
     interval = "3600"
     requestTimeOut = "600">
 	

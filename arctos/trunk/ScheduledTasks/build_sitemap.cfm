@@ -6,7 +6,6 @@
 	);
 --->
 <cfinclude template="/includes/_header.cfm">
-<cfset btime=now()>
 <cfif action is "nothing">
 <br><a href="build_sitemap.cfm?action=build_map">build_map</a>
 <br><a href="build_sitemap.cfm?action=build_index">build_index</a>
@@ -14,7 +13,6 @@
 <br><a href="build_sitemap.cfm?action=build_sitemaps_tax">build_sitemaps_tax</a>
 <br><a href="build_sitemap.cfm?action=build_sitemaps_pub">build_sitemaps_pub</a>
 <br><a href="build_sitemap.cfm?action=build_sitemaps_proj">build_sitemaps_proj</a>
-
 </cfif>
 <cfset chunkSize=50000>
 <cfif action is "build_map">
