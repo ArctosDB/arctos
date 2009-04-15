@@ -154,8 +154,8 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 <!---- write an XML config file specific to the critters they're mapping --->
 <cfoutput>
 	<cfset thisFileName = "BNHM#cftoken#.xml">
-	<cfset thisFile = "#Application.webDirectory#/bnhmMaps/#thisFileName#">
-	<cfset XMLFile = "#Application.serverRootUrl#/bnhmMaps/#thisFileName#">
+	<cfset thisFile = "#Application.webDirectory#/bnhmMaps/tabfiles/#thisFileName#">
+	<cfset XMLFile = "#Application.serverRootUrl#/bnhmMaps/tabfiles/#thisFileName#">
 	<!--- see if we got something - we need collection_object_ids to proceed --->
 	<!-----
 	<cfif isdefined("getMapData.collection_object_id") and len(#getMapData.collection_object_id#) gt 0>
