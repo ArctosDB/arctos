@@ -29,14 +29,9 @@
 			<cfset numSiteMaps=Ceiling(t.c/chunkSize)>
 			<cfloop from="1" to="#numSiteMaps#" index="l">
 				<cfset thisFileName="#colls.institution_acronym#_#colls.collection_cde##l#.xml">
-				<cfquery name="g" datasource="uam_god">
-					select count(*) c from cf_sitemaps where filename='#thisFileName#'
+				<cfquery name="i" datasource="uam_god">
+					insert into cf_sitemaps (filename,collection_id) values ('#thisFileName#',#collection_id#)
 				</cfquery>
-				<cfif g.c is 0>
-					<cfquery name="i" datasource="uam_god">
-						insert into cf_sitemaps (filename,collection_id) values ('#thisFileName#',#collection_id#)
-					</cfquery>
-				</cfif>
 			</cfloop>
 		</cfif>
 	</cfloop>
@@ -61,9 +56,6 @@
 <!--------------------------------->
 <cfif action is "build_sitemap">
 <cfoutput>
-	<cfset etime=now()>
-	<cfset tt=DateDiff("s", btime, etime)>
-	<br>start: #tt#
 	<cfquery name="colls" datasource="uam_god">
 		select 
 			filename,
