@@ -53,7 +53,7 @@
 		<cfset smi=smi & chr(10) & chr(9) & chr(9) & '</sitemap>'>					
 	</cfloop>
 	<cfset smi=smi & chr(10) & chr(9) & '</sitemapindex>'>
-	<cffile action="write" file="#Application.webDirectory#/sitemapindex.xml.gz" addnewline="no" output="#smi#"> 
+	<cffile action="write" file="#Application.webDirectory#/sitemapindex.xml" addnewline="no" output="#smi#"> 
 </cfif>
 <!--------------------------------->
 <cfif action is "build_sitemap">
