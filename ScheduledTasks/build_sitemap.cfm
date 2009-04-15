@@ -93,7 +93,7 @@ d.recordcount: #d.recordcount#
 			<cfset f='<?xml version="1.0" encoding="UTF-8"?>'>	
 			<cfset f='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
 			<cfset variables.fileName="#Application.webDirectory#/#colls.filename#">
-			<cfset variables.encodign="UTF-8">
+			<cfset variables.encoding="UTF-8">
 			<cfloop query="d">
 				<cfscript>
 				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
