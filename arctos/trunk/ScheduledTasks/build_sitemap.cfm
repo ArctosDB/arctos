@@ -90,37 +90,31 @@
 		variables.joFileWriter.writeLine(f);
 		f='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 		variables.joFileWriter.writeLine(f);
-	</cfscript>
-<!---
-	<cfset f='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
-			
-			
-			<cfloop query="d">
-				<cfscript>
+		a="<urlset>";
+		variables.joFileWriter.writeLine(a);
+	</cfscript>			
+	<cfloop query="d">
+		<cfscript>
+			a="<url>";
+			variables.joFileWriter.writeLine(a);
+			a="<loc>#application.serverRootUrl#/guid/#guid#</loc>";
+			variables.joFileWriter.writeLine(a);
+			a="<lastmod>#lastMod#</lastmod>";
+			variables.joFileWriter.writeLine(a);
+			a="<priority>.8</priority>";
+			variables.joFileWriter.writeLine(a);
+			a="<changefreq>weekly</changefreq>";
+			variables.joFileWriter.writeLine(a);
+			a="</url>";
+			variables.joFileWriter.writeLine(a);
+		</cfscript>
+	</cfloop>	
+	<cfscript>
+		a="</urlset>";
+		variables.joFileWriter.writeLine(a);
+		variables.joFileWriter.close();
+	</cfscript>	
 
-				variables.someDataVar="<loc>#application.serverRootUrl#/guid/#guid#</loc>";
-				
-	variables.joFileWriter.writeLine(variables.someDataVar);
-
-
-</cfscript>
-<!---
-				<cfset f=f & chr(10) & chr(9) & chr(9) & '<url>'>
-				<cfset f=f & chr(10) & chr(9) & chr(9) & chr(9) & "<loc>#application.serverRootUrl#/guid/#guid#</loc>">
-			    <cfset f=f & chr(10) & chr(9) & chr(9) & chr(9) & "<lastmod>#lastMod#</lastmod>">
-			    <cfset f=f & chr(10) & chr(9) & chr(9) & chr(9) & "<priority>.8</priority>">
-			    <cfset f=f & chr(10) & chr(9) & chr(9) & chr(9) & "<changefreq>weekly</changefreq>">
-			    <cfset f=f & chr(10) & chr(9) & chr(9) & '</url>'>
-			    --->
-			</cfloop>	
-			--->
-			<cfscript>
-
-
-
-	variables.joFileWriter.close();
-</cfscript>	
-			<cfset f='</urlset>'>
 			
 			<!---
 			<cffile action="write" file="#Application.webDirectory#/#colls.filename#" addnewline="no" output="#f#"> 
