@@ -20,7 +20,7 @@
 	</cfquery>
 	<cfloop query="colls">
 		<cfquery name="t" datasource="uam_god">
-			select max(cat_num) c from cataloged_item where collection_id=#collection_id#
+			select max(cat_num) c from filtered_flat where collection_id=#collection_id#
 		</cfquery>
 		<cfif t.c gt 1>
 			<cfset numSiteMaps=Ceiling(t.c/chunkSize)>
