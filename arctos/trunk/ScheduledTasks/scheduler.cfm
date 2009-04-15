@@ -2,7 +2,7 @@
     task = "sitemap_map" 
     operation = "HTTPRequest"
     url = "http://arctos.database.museum/ScheduledTasks/build_sitemap.cfm?action=build_map"
-    startDate = "dateformat(now(),'dd-mmm-yyyy')"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "05:00 PM"
     interval = "weekly"
     requestTimeOut = "600">
@@ -11,7 +11,7 @@
     task = "sitemap_index" 
     operation = "HTTPRequest"
     url = "http://arctos.database.museum/ScheduledTasks/build_sitemap.cfm?action=build_index"
-    startDate = "dateformat(now(),'dd-mmm-yyyy')"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "05:10 PM"
     interval = "weekly"
     requestTimeOut = "600">
@@ -20,7 +20,7 @@
     task = "sitemap_spec" 
     operation = "HTTPRequest"
     url = "http://arctos.database.museum/ScheduledTasks/build_sitemap.cfm?action=build_sitemaps_spec"
-    startDate = "dateformat(now(),'dd-mmm-yyyy')"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "05:20 PM"
     interval = "3600"
     requestTimeOut = "600">
