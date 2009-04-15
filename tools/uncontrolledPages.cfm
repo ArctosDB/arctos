@@ -19,6 +19,7 @@
 	<cfset thisName="#thisPath#/#name#">
 	<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select ROLE_NAME, count(*) c from cf_form_permissions where form_path='#thisName#'
+		group by ROLE_NAME
 	</cfquery>
 		<tr>
 			<td>
