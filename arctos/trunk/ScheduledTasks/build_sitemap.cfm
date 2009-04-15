@@ -94,14 +94,17 @@ d.recordcount: #d.recordcount#
 			<cfset f='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
 			<cfset variables.fileName="#Application.webDirectory#/#colls.filename#">
 			<cfset variables.encoding="UTF-8">
+			<cfscript>
+							variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			</cfscript>
 			<cfloop query="d">
 				<cfscript>
-				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+
 				variables.someDataVar="<loc>#application.serverRootUrl#/guid/#guid#</loc>";
 				
 	variables.joFileWriter.writeLine(variables.someDataVar);
 
-	variables.joFileWriter.close();
+
 </cfscript>
 <!---
 				<cfset f=f & chr(10) & chr(9) & chr(9) & '<url>'>
@@ -111,7 +114,13 @@ d.recordcount: #d.recordcount#
 			    <cfset f=f & chr(10) & chr(9) & chr(9) & chr(9) & "<changefreq>weekly</changefreq>">
 			    <cfset f=f & chr(10) & chr(9) & chr(9) & '</url>'>
 			    --->
-			</cfloop>		
+			</cfloop>	
+			<cfscript>
+
+
+
+	variables.joFileWriter.close();
+</cfscript>	
 			<cfset f='</urlset>'>
 			
 			<!---
