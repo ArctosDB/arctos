@@ -1,4 +1,31 @@
 <cfschedule action = "update"
+    task = "sitemap_map" 
+    operation = "HTTPRequest"
+    url = "http://arctos.database.museum/ScheduledTasks/build_sitemap.cfm?action=build_map"
+    startDate = "1-jan-2008"
+    startTime = "07:00 AM"
+    interval = "weekly"
+    requestTimeOut = "600">
+	
+<cfschedule action = "update"
+    task = "sitemap_index" 
+    operation = "HTTPRequest"
+    url = "http://arctos.database.museum/ScheduledTasks/build_sitemap.cfm?action=build_index"
+    startDate = "1-jan-2008"
+    startTime = "07:10 AM"
+    interval = "weekly"
+    requestTimeOut = "600">
+	
+<cfschedule action = "update"
+    task = "sitemap_spec" 
+    operation = "HTTPRequest"
+    url = "http://arctos.database.museum/ScheduledTasks/build_sitemap.cfm?action=build_sitemaps_spec"
+    startDate = "1-jan-2008"
+    startTime = "07:20 AM"
+    interval = ""
+    requestTimeOut = "600">
+	
+<cfschedule action = "update"
     task = "ALA_ProblemReport" 
     operation = "HTTPRequest"
     url = "http://arctos.database.museum/ScheduledTasks/alaImaging/ala_has_probs.cfm"

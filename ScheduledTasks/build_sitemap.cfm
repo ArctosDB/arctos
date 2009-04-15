@@ -92,6 +92,9 @@
 		 filename like 'project%' and
 		 rownum=1 and (lastdate is null or sysdate-LASTDATE > 1)
 	</cfquery>
+	<cfif colls.recordcount is 0>
+		<cfabort>
+	</cfif>
 	<cfset chunkNum=replace(colls.filename,".xml","","all")>
 	<cfset chunkNum=replace(chunkNum,"project","","all")>
 	<cfset maxRN=chunkNum*chunkSize>
@@ -149,6 +152,9 @@
 		 filename like 'publication%' and
 		 rownum=1 and (lastdate is null or sysdate-LASTDATE > 1)
 	</cfquery>
+	<cfif colls.recordcount is 0>
+		<cfabort>
+	</cfif>
 	<cfset chunkNum=replace(colls.filename,".xml","","all")>
 	<cfset chunkNum=replace(chunkNum,"publication","","all")>
 	<cfset maxRN=chunkNum*chunkSize>
@@ -206,6 +212,9 @@
 		 filename like 'taxonomy%' and
 		 rownum=1 and (lastdate is null or sysdate-LASTDATE > 1)
 	</cfquery>
+	<cfif colls.recordcount is 0>
+		<cfabort>
+	</cfif>
 	<cfset chunkNum=replace(colls.filename,".xml","","all")>
 	<cfset chunkNum=replace(chunkNum,"taxonomy","","all")>
 	<cfset maxRN=chunkNum*chunkSize>
@@ -263,6 +272,9 @@
 		 filename like 'specimen%' and
 		 rownum=1 and (lastdate is null or sysdate-LASTDATE > 1)
 	</cfquery>
+	<cfif colls.recordcount is 0>
+		<cfabort>
+	</cfif>
 	<cfset chunkNum=replace(colls.filename,".xml","","all")>
 	<cfset chunkNum=replace(chunkNum,"specimen","","all")>
 	<cfset maxRN=chunkNum*chunkSize>
