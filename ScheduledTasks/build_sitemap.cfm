@@ -85,8 +85,6 @@
 		variables.joFileWriter.writeLine(a);
 		a='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 		variables.joFileWriter.writeLine(a);
-		a="<urlset>";
-		variables.joFileWriter.writeLine(a);
 	</cfscript>			
 	<cfloop query="d">
 		<cfscript>
