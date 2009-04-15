@@ -81,26 +81,21 @@
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	</cfscript>
 	<cfscript>
-		f='<?xml version="1.0" encoding="UTF-8"?>';
-		variables.joFileWriter.writeLine(f);
-		f='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-		variables.joFileWriter.writeLine(f);
+		a='<?xml version="1.0" encoding="UTF-8"?>';
+		variables.joFileWriter.writeLine(a);
+		a='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+		variables.joFileWriter.writeLine(a);
 		a="<urlset>";
 		variables.joFileWriter.writeLine(a);
 	</cfscript>			
 	<cfloop query="d">
 		<cfscript>
-			a=chr(9) & "<url>";
-			variables.joFileWriter.writeLine(a);
-			a=chr(9) & chr(9) & "<loc>#application.serverRootUrl#/guid/#guid#</loc>";
-			variables.joFileWriter.writeLine(a);
-			a=chr(9) & chr(9) & "<lastmod>#lastMod#</lastmod>";
-			variables.joFileWriter.writeLine(a);
-			a=chr(9) & chr(9) & "<priority>.8</priority>";
-			variables.joFileWriter.writeLine(a);
-			a=chr(9) & chr(9) & "<changefreq>weekly</changefreq>";
-			variables.joFileWriter.writeLine(a);
-			a=chr(9) & "</url>";
+			a=chr(9) & "<url>" & chr(10) & 
+			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/guid/#guid#</loc>" & chr(10) &
+			chr(9) & chr(9) & "<lastmod>#lastMod#</lastmod>" & chr(10) &
+			chr(9) & chr(9) & "<priority>.8</priority>" & chr(10) &
+			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) & 
+			chr(9) & "</url>"
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 	</cfloop>	
