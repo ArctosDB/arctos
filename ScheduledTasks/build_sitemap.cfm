@@ -90,7 +90,21 @@
 	</cfscript>			
 	<cfloop query="d">
 		<cfscript>
-			a=chr(9) & "<url>";
+			a="<url>";
+			variables.joFileWriter.writeLine(a);
+			a="<loc>#application.serverRootUrl#/guid/#guid#</loc>";
+			variables.joFileWriter.writeLine(a);
+			a="<lastmod>#lastMod#</lastmod>";
+			variables.joFileWriter.writeLine(a);
+			a="<priority>.8</priority>";
+			variables.joFileWriter.writeLine(a);
+			a="<changefreq>weekly</changefreq>";
+			variables.joFileWriter.writeLine(a);
+			a="</url>";
+			variables.joFileWriter.writeLine(a);
+		</cfscript>
+		<!---
+		a=chr(9) & "<url>";
 			variables.joFileWriter.writeLine(a);
 			a=chr(9) & chr(9) & "<loc>#application.serverRootUrl#/guid/#guid#</loc>";
 			variables.joFileWriter.writeLine(a);
@@ -102,7 +116,7 @@
 			variables.joFileWriter.writeLine(a);
 			a=chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
-		</cfscript>
+			---->
 	</cfloop>	
 	<cfscript>
 		a="</urlset>";
