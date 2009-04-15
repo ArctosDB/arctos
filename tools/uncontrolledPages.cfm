@@ -18,11 +18,14 @@
 	<cfset thisPath=replace(directory,application.webDirectory,"","all")>
 	<cfset thisName="#thisPath#/#name#">
 	<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select count(*) c from cf_form_permissions where form_path='#thisName#'
+		select ROLE_NAME, count(*) c from cf_form_permissions where form_path='#thisName#'
 	</cfquery>
 		<tr>
 			<td>
 				<span <cfif current.c is 0> style="color:red;"</cfif>>#thisPath#/#name# (#type#)</span>
+			</td>
+			<td>
+				#valuelist(current.role_name)#
 			</td>
 			<td>
 				<a href="/Admin/form_roles.cfm?action=setRoles&filter=#thisPath#/#name#">set permissions</a>
