@@ -13,6 +13,8 @@
 <br><a href="build_sitemap.cfm?action=build_sitemaps_tax">build_sitemaps_tax</a>
 <br><a href="build_sitemap.cfm?action=build_sitemaps_pub">build_sitemaps_pub</a>
 <br><a href="build_sitemap.cfm?action=build_sitemaps_proj">build_sitemaps_proj</a>
+<br><a href="build_sitemap.cfm?action=build_sitemaps_stat">build_sitemaps_stat</a>
+
 </cfif>
 <cfset chunkSize=50000>
 <cfif action is "build_map">
@@ -61,6 +63,9 @@
 			insert into cf_sitemaps (filename) values ('#thisFileName#')
 		</cfquery>
 	</cfloop>
+	<cfquery name="i" datasource="uam_god">
+		insert into cf_sitemaps (filename) values ('static.xml')
+	</cfquery>
 </cfoutput>	
 </cfif>
 <!------------------------------->
@@ -80,6 +85,65 @@
 	<cffile action="write" file="#Application.webDirectory#/sitemapindex.xml" addnewline="no" output="#smi#"> 
 </cfif>
 
+<!--------------------------------->
+<cfif action is "build_sitemaps_stat">
+<cfoutput>
+	<cfquery name="colls" datasource="uam_god">
+		select filename
+		from cf_sitemaps
+		 where
+		 filename like 'static%' and
+		 rownum=1 and (lastdate is null or sysdate-LASTDATE > 1)
+	</cfquery>
+	<cfif colls.recordcount is 0>
+		<cfabort>
+	</cfif>
+	<cfset formList="SpecimenSearch.cfm">
+	<cfset formList=listAppend(formList,"SpecimenUsage.cfm")>
+	<cfset formList=listAppend(formList,"TaxonomySearch.cfm")>
+	<cfset formList=listAppend(formList,"MediaSearch.cfm")>
+	<cfset formList=listAppend(formList,"login.cfm")>
+	<cfset formList=listAppend(formList,"home.cfm")>
+	<cfset formList=listAppend(formList,"Collections")>
+	
+	
+	<cfset chunkNum=replace(colls.filename,".xml","","all")>
+	<cfset chunkNum=replace(chunkNum,"static","","all")>
+	<cfset maxRN=chunkNum*chunkSize>
+	<cfset minRN=maxRN-chunkSize>
+	
+	<cfset variables.fileName="#Application.webDirectory#/#colls.filename#">
+	<cfset variables.encoding="UTF-8">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+	</cfscript>
+	<cfscript>
+		a='<?xml version="1.0" encoding="UTF-8"?>';
+		variables.joFileWriter.writeLine(a);
+		a='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+		variables.joFileWriter.writeLine(a);
+	</cfscript>			
+	<cfloop list="#formList#" index="fn">
+		<cfscript>
+			a=chr(9) & "<url>" & chr(10) & 
+			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/#fn#</loc>" & chr(10) &
+			chr(9) & chr(9) & "<priority>1</priority>" & chr(10) &
+			chr(9) & chr(9) & "<changefreq>monthly</changefreq>" & chr(10) & 
+			chr(9) & "</url>";
+			variables.joFileWriter.writeLine(a);
+		</cfscript>
+	</cfloop>	
+	<cfscript>
+		a="</urlset>";
+		variables.joFileWriter.writeLine(a);
+		variables.joFileWriter.close();
+	</cfscript>	
+	<cfquery name="u" datasource="uam_god">
+		update cf_sitemaps set lastdate=sysdate where filename='#colls.filename#'
+	</cfquery>
+</cfoutput>
+</cfif>
+<!--------------------------------->
 <!--------------------------------->
 <cfif action is "build_sitemaps_proj">
 <cfoutput>
