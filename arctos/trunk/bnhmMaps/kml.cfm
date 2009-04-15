@@ -1,7 +1,7 @@
 <cfif isdefined("action") and #action# is "getFile">
 <cfoutput>
 	<cfheader name="Content-Disposition" value="attachment; filename=#f#">
-	<cfcontent type="application/vnd.google-earth.kml+xml" file="#Application.webDirectory#/bnhmMaps/#f#">
+	<cfcontent type="application/vnd.google-earth.kml+xml" file="#Application.webDirectory#/bnhmMaps/tabfiles/#f#">
 </cfoutput>	
 </cfif>
 <!----------------------------------------------------------------->
@@ -113,7 +113,7 @@
 	<cfelse>
 		<cfset flatTableName = "filtered_flat">
 	</cfif>
-	<cfset dlPath = "#Application.webDirectory#/bnhmMaps/">
+	<cfset dlPath = "#Application.webDirectory#/bnhmMaps/tabfiles">
 	<cfif isdefined("userFileName") and len(#userFileName#) gt 0>
 		<cfset dlFile = "#userFileName#.kml">
 	<cfelse>
@@ -301,7 +301,7 @@
 	<cfelse>
 		<cfset flatTableName = "filtered_flat">
 	</cfif>
-	<cfset dlPath = "#Application.webDirectory#/bnhmMaps/">
+	<cfset dlPath = "#Application.webDirectory#/bnhmMaps/tabfiles">
 	<cfif isdefined("userFileName") and len(#userFileName#) gt 0>
 		<cfset dlFile = "#userFileName#.kml">
 	<cfelse>
