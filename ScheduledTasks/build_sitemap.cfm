@@ -85,7 +85,7 @@
 	<cffile action="write" file="#Application.webDirectory#/sitemapindex.xml" addnewline="no" output="#smi#">
 	<cfscript>
 		zip = CreateObject("component", "/component.Zip");
-		status = zip.gzipAddFile("#Application.webDirectory#", "sitemapindex.xml"); 
+		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/sitemapindex.xml"); 
 	</cfscript>
 	  <cfdump var="#status#">
 
