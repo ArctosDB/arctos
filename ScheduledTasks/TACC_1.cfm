@@ -18,7 +18,7 @@ create table tacc_check (
 --->
 
 <cfoutput>
-<cfhttp url="http://irods.tacc.teragrid.org:8000/UAF" charset="utf-8" method="get">
+<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF" charset="utf-8" method="get">
 </cfhttp>
 <cfif isXML(cfhttp.FileContent)>
 	<cfset xStr=cfhttp.FileContent>
@@ -28,7 +28,7 @@ create table tacc_check (
 	<cfset dir = xmlsearch(xdir, "//td[@class='n']")>	
 	<cfloop index="i" from="1" to="#arrayLen(dir)#">
 		<cfset folder = dir[i].XmlChildren[1].xmlText>
-		<cfif left(folder,4) is "2008" or left(folder,4) is "2009">
+		<cfif folder is not "Parent Directory">
 			<!--- recurse into these folders to get filenames --->
 			<cfquery name="gotFolder" datasource="uam_god">
 				select count(*) c, file_count from tacc_folder where folder='#folder#' group by file_count		
@@ -45,7 +45,7 @@ create table tacc_check (
 						delete from tacc_check where folder='#folder#'
 					</cfquery>
 				</cfif>
-				<cfhttp url="http://irods.tacc.teragrid.org:8000/UAF/#folder#" charset="utf-8" method="get">
+				<cfhttp url="http://goodnight.corral.tacc.utexas.edu/UAF/#folder#" charset="utf-8" method="get">
 				</cfhttp>
 				<cfset ximgStr=cfhttp.FileContent>
 				<!--- goddamned xmlns bug in CF --->
@@ -69,7 +69,7 @@ create table tacc_check (
 				</cfloop>
 				<!--- made it thru the files, update the folder --->
 				<cfquery name="upFolder" datasource="uam_god">
-					insert into  tacc_folder (
+					insert into tacc_folder (
 						folder,
 						file_count
 					) values (

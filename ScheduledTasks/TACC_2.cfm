@@ -60,9 +60,9 @@ select status ||chr(9) || count(*) from tcb2 group by status;
 					select display_value from coll_obj_other_id_num where other_id_type='ALAAC' and collection_object_id=#collection_object_id#
 				</cfquery>
 				<cfquery name="nid" datasource="uam_god">
-					select seq_media.nextval media_id from dual
+					select sq_media_id.nextval media_id from dual
 				</cfquery>
-				<cfset muri='http://irods.tacc.teragrid.org:8000/UAF/#folder#/#barcode#.dng'>
+				<cfset muri='http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/#barcode#.dng'>
 				<cfquery name="media" datasource="uam_god">
 					insert into media (
 						media_id,
@@ -115,19 +115,7 @@ select status ||chr(9) || count(*) from tcb2 group by status;
 						2072
 					)
 				</cfquery>
-				<cfquery name="lbl2" datasource="uam_god">
-					insert into  media_labels (
-						MEDIA_ID,
-						MEDIA_LABEL,
-						LABEL_VALUE,
-						ASSIGNED_BY_AGENT_ID
-					) values (
-						#nid.media_id#,
-						'comment',
-						'DNGs at Teragrid are stored on tape. Initial requests may take up to 30 minutes to process.',
-						2072
-					)
-				</cfquery>
+				<br>made #ala.display_value#
 				<cfquery name="spiffy" datasource="uam_god">
 					update tacc_check set status='all_done' where collection_object_id=#collection_object_id#
 				</cfquery>							

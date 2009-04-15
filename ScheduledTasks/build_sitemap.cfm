@@ -74,7 +74,7 @@
 		select filename from cf_sitemaps
 	</cfquery>
 	<cfset smi='<?xml version="1.0" encoding="UTF-8"?>'>
-	<cfset smi=smi & chr(10) & chr(9) & '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'>
+	<cfset smi=smi & chr(10) & chr(9) & '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9	http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd">'>
 	<cfloop query="colls">
 		<cfset smi=smi & chr(10) & chr(9) & chr(9) & '<sitemap>'>
 		<cfset smi=smi & chr(10) & chr(9) & chr(9) & chr(9) & "<loc>#application.serverRootUrl#/#filename#</loc>">
@@ -82,7 +82,13 @@
 		<cfset smi=smi & chr(10) & chr(9) & chr(9) & '</sitemap>'>					
 	</cfloop>
 	<cfset smi=smi & chr(10) & chr(9) & '</sitemapindex>'>
-	<cffile action="write" file="#Application.webDirectory#/sitemapindex.xml" addnewline="no" output="#smi#"> 
+	<cffile action="write" file="#Application.webDirectory#/sitemapindex.xml" addnewline="no" output="#smi#">
+	<cfscript>
+		zip = CreateObject("component", "/component.Zip");
+		status = zip.gzipAddFile("#Application.webDirectory#", "sitemapindex.xml"); 
+	</cfscript>
+	  <cfdump var="#status#">
+
 </cfif>
 
 <!--------------------------------->
@@ -118,9 +124,8 @@
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	</cfscript>
 	<cfscript>
-		a='<?xml version="1.0" encoding="UTF-8"?>';
-		variables.joFileWriter.writeLine(a);
-		a='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+		'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
 		variables.joFileWriter.writeLine(a);
 	</cfscript>			
 	<cfloop list="#formList#" index="fn">
@@ -179,9 +184,8 @@
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	</cfscript>
 	<cfscript>
-		a='<?xml version="1.0" encoding="UTF-8"?>';
-		variables.joFileWriter.writeLine(a);
-		a='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+		'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
 		variables.joFileWriter.writeLine(a);
 	</cfscript>			
 	<cfloop query="d">
@@ -239,9 +243,8 @@
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	</cfscript>
 	<cfscript>
-		a='<?xml version="1.0" encoding="UTF-8"?>';
-		variables.joFileWriter.writeLine(a);
-		a='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+		'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
 		variables.joFileWriter.writeLine(a);
 	</cfscript>			
 	<cfloop query="d">
@@ -299,9 +302,8 @@
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	</cfscript>
 	<cfscript>
-		a='<?xml version="1.0" encoding="UTF-8"?>';
-		variables.joFileWriter.writeLine(a);
-		a='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+		'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
 		variables.joFileWriter.writeLine(a);
 	</cfscript>			
 	<cfloop query="d">
@@ -360,9 +362,8 @@
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	</cfscript>
 	<cfscript>
-		a='<?xml version="1.0" encoding="UTF-8"?>';
-		variables.joFileWriter.writeLine(a);
-		a='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+		'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
 		variables.joFileWriter.writeLine(a);
 	</cfscript>			
 	<cfloop query="d">
