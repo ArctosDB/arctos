@@ -821,6 +821,7 @@
 	<cfset collAr = ArrayNew(1)>
 	<cfset colIdAr = ArrayNew(1)>
 	<cfset pAr = ArrayNew(1)>
+	<cfset sexAr = ArrayNew(1)>
 	
 	<!--- Data Manipulation --->
 	<cfset i = 1>
@@ -878,6 +879,8 @@
 		<cfset tissueP = find("tissue", parts)>
 		<cfset skinP = find("skin", parts)>
 		<cfset wholeOrgP = find("whole organism", parts)>
+		<cfset preserveP = find("alcohol", parts)>
+		<cfset skelP = find ("skeleton", parts)>
 		
 		<cfif collection_cde is "Mamm">
 			<cfif parts is not "tissues">
@@ -890,7 +893,9 @@
 			</cfif>
 		<!-- Herp -->
 		<cfelseif collection_cde is "Herp" >
-			<cfif parts is not "tissues" or parts is not "whole organism">
+			<cfif colonPos gt 0 or (tissueP lte 0 and wholeOrgP lte 0)>
+				<cfset formatted_parts = "#parts#">
+			<cfelseif preserveP lte 0 and (skinP gt 0 or skelP gt 0)>
 				<cfset formatted_parts = "#parts#">
 			</cfif>
 		<cfelseif collection_cde is "Egg">
@@ -901,6 +906,16 @@
 		
 		<cfset pAr[i] = "#parts#">
 		
+		<!--- Sex --->
+		<cfset formatted_sex = "#sex#">
+		<cfset formatted_sex = "#replace(sex, 'female', 'F')#">
+		<cfset formatted_sex = "#replace(sex, 'male', 'M')#">
+		<cfif formatted_sex is 'unknown' or formatted_sex is 'recorded as unknwon' or formatted_sex is 'not recorded'>
+			<cfset formatted_sex = 'U'>
+		</cfif>
+				
+		<cfset sexAr[i] = "#formatted_sex#">
+		
 		<cfset i = i+1>
 	</cfloop>
 	
@@ -908,6 +923,7 @@
 	<cfset temp = queryAddColumn(q, "agent", "VarChar", collAr)>
 	<cfset temp = queryAddColumn(q, "agent_id", "VarChar", colIdAr)>
 	<cfset temp = queryAddColumn(q, "formatted_parts", "VarChar", pAr)>
+	<cfset temp = queryAddcolumn(q, "formatted_sex", "VarChar", sexAr)>
 	<cfreturn q>
 </cffunction>
 
