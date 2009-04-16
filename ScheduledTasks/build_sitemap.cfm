@@ -52,7 +52,6 @@
 			insert into cf_sitemaps (filename) values ('#thisFileName#')
 		</cfquery>
 	</cfloop>
-	
 	<cfquery name="t" datasource="uam_god">
 		select count(*) c from project
 	</cfquery>
@@ -89,7 +88,6 @@
 	</cfscript>
 	<cffile action="delete" file="#Application.webDirectory#/sitemapindex.xml">
 </cfif>
-
 <!--------------------------------->
 <cfif action is "build_sitemaps_stat">
 <cfoutput>
@@ -103,7 +101,6 @@
 	<cfif colls.recordcount is 0>
 		<cfabort>
 	</cfif>
-	<cfdump var="#colls#">
 	<cfset formList="SpecimenSearch.cfm">
 	<cfset formList=listAppend(formList,"SpecimenUsage.cfm")>
 	<cfset formList=listAppend(formList,"TaxonomySearch.cfm")>
@@ -115,7 +112,6 @@
 	<cfset chunkNum=replace(chunkNum,"static","","all")>
 	<cfset maxRN=chunkNum*chunkSize>
 	<cfset minRN=maxRN-chunkSize>
-	
 	<cfset variables.fileName="#Application.webDirectory#/#colls.filename#">
 	<cfset variables.encoding="UTF-8">
 	<cfscript>
@@ -149,7 +145,6 @@
 	</cfquery>
 </cfoutput>
 </cfif>
-<!--------------------------------->
 <!--------------------------------->
 <cfif action is "build_sitemaps_proj">
 <cfoutput>
