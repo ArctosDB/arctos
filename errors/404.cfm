@@ -10,6 +10,12 @@
 	<h2>
 		404! The page you tried to access does not exist.
 	</h2>
+	<script type="text/javascript">
+  var GOOG_FIXURL_LANG = 'en';
+  var GOOG_FIXURL_SITE = 'http://arctos.database.museum/';
+</script>
+<script type="text/javascript" 
+    src="http://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js"></script>
 	<cfif len(cgi.SCRIPT_NAME) gt 0>
 		<cfset rUrl=cgi.SCRIPT_NAME>
 	</cfif>

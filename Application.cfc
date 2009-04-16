@@ -45,9 +45,11 @@
 			<hr>
 			<cfdump var="#exception#" label="exception">
 			<hr>
-			Session Dump:
-			<hr>
-			<cfdump var="#session#" label="session">
+			<cfif isdefined("session")>
+				Session Dump:
+				<hr>
+				<cfdump var="#session#" label="session">
+			</cfif>
 			Client Dump:
 			<hr>
 			<cfdump var="#client#" label="client">
@@ -189,7 +191,7 @@
 		<cfset Application.InstitutionBlurb = "<a href=""#Application.serverRootUrl#"">Collections Database, Museum of Vertebrate Zoology, UC Berkeley</a>">
 		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
 		<cfset Application.PageProblemEmail = "dustymc@gmail.com,lkv@berkeley.edu,ccicero@berkeley.edu">
-	</cfif>
+	</cfif>	
 	<cfreturn true>
 </cffunction>
 
