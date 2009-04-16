@@ -895,7 +895,7 @@
 		<cfelseif collection_cde is "Herp" >
 <!--- 			<cfif preserveP lte 0 and (colonPos gt 0 or (tissueP lte 0 and wholeOrgP lte 0)) and (skinP gt 0 or skelP gt 0)> --->
 			<cfif preserveP lte 0>
-				<cfset formatted_parts = "#parts#">
+				<cfset formatted_parts = "hihi #parts#">
 			</cfif>
 		<cfelseif collection_cde is "Egg">
 			<cfif colonPos gt 0 or (tissueP lte 0 and skinP lte 0 and wholeOrgP lte 0)>
