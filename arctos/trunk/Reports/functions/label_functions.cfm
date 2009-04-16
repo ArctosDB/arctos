@@ -892,7 +892,7 @@
 				<cfset formatted_parts = "#parts#">
 			</cfif>
 		<!-- Herp -->
-		<cfelseif collection_cde is "Herp" >
+		<cfelseif collection_cde is "Herps" >
 			<cfif colonPos gt 0 or (tissueP lte 0 and wholeOrgP lte 0)>
 				<cfset formatted_parts = "#parts#">
 			<cfelseif preserveP lte 0 and (skinP gt 0 or skelP gt 0)>
