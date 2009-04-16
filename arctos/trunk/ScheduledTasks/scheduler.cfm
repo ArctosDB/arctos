@@ -31,8 +31,8 @@
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/build_sitemap.cfm?action=build_sitemaps_tax"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
-    startTime = "08:20 PM"
-    interval = "3600"
+    startTime = "#timeformat(now())#"
+    interval = "180"
     requestTimeOut = "600">
 	
 <cfschedule action = "update"
