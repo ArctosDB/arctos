@@ -203,7 +203,10 @@
 		a="</urlset>";
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
-	</cfscript>	
+		zip = CreateObject("component", "/component.Zip");
+		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/#colls.filename#"); 
+	</cfscript>
+	<cffile action="delete" file="#Application.webDirectory#/#colls.filename#">
 	<cfquery name="u" datasource="uam_god">
 		update cf_sitemaps set lastdate=sysdate where filename='#colls.filename#'
 	</cfquery>
@@ -262,7 +265,10 @@
 		a="</urlset>";
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
-	</cfscript>	
+		zip = CreateObject("component", "/component.Zip");
+		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/#colls.filename#"); 
+	</cfscript>
+	<cffile action="delete" file="#Application.webDirectory#/#colls.filename#">
 	<cfquery name="u" datasource="uam_god">
 		update cf_sitemaps set lastdate=sysdate where filename='#colls.filename#'
 	</cfquery>
@@ -321,7 +327,10 @@
 		a="</urlset>";
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
-	</cfscript>	
+		zip = CreateObject("component", "/component.Zip");
+		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/#colls.filename#"); 
+	</cfscript>
+	<cffile action="delete" file="#Application.webDirectory#/#colls.filename#">
 	<cfquery name="u" datasource="uam_god">
 		update cf_sitemaps set lastdate=sysdate where filename='#colls.filename#'
 	</cfquery>
@@ -382,7 +391,10 @@
 		a="</urlset>";
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
-	</cfscript>	
+		zip = CreateObject("component", "/component.Zip");
+		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/#colls.filename#"); 
+	</cfscript>
+	<cffile action="delete" file="#Application.webDirectory#/#colls.filename#">
 	<cfquery name="u" datasource="uam_god">
 		update cf_sitemaps set lastdate=sysdate where filename='#colls.filename#'
 	</cfquery>
