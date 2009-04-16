@@ -64,7 +64,7 @@
 		</cfquery>
 	</cfloop>
 	<cfquery name="i" datasource="uam_god">
-		insert into cf_sitemaps (filename) values ('static.xml')
+		insert into cf_sitemaps (filename) values ('static1.xml')
 	</cfquery>
 </cfoutput>	
 </cfif>
