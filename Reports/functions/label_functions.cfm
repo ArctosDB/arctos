@@ -882,8 +882,9 @@
 		<cfset preserveP = find("alcohol", parts)>
 		<cfset skelP = find ("skeleton", parts)>
 		
+		<!-- Mamm -->
 		<cfif collection_cde is "Mamm">
-			<cfif parts is not "tissues">
+			<cfif (colonPos gt 0 or tissueP lte 0) and ((skinP gt 0 or skelP gt 0) and colonPos lte 0)>
 				<cfset formatted_parts = "#parts#">
 			</cfif>
 		<!-- Bird -->
@@ -896,6 +897,7 @@
  			<cfif preserveP lte 0 and (colonPos gt 0 or (tissueP lte 0 and wholeOrgP lte 0)) and (skinP gt 0 or skelP gt 0)>
 				<cfset formatted_parts = "#parts#">
 			</cfif>
+		<!-- Egg -->
 		<cfelseif collection_cde is "Egg">
 			<cfif colonPos gt 0 or (tissueP lte 0 and skinP lte 0 and wholeOrgP lte 0)>
 				<cfset formatted_parts = "#parts#">
