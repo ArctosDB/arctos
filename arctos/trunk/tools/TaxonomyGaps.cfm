@@ -13,7 +13,7 @@
 				taxonomy.taxon_name_id,
 				scientific_name, 
 				regexp_replace(scientific_name, '[^a-zA-Z ]','X') craps,
-				count(identification_taxonomy.identification_id) u	
+				count(identification_taxonomy.identification_id) used
 			from 
 				taxonomy,
 				identification_taxonomy
@@ -33,7 +33,7 @@
 			<tr>
 				<td>Scientific Name</td>
 				<td>X for bad char</td>
-				<td>Used</td>
+				<td>NumIds</td>
 			</tr>
 			<cfloop query="md">
 				<tr>
