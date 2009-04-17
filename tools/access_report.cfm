@@ -12,8 +12,8 @@
 		<cfquery name="hasrole" datasource="uam_god">
 			select GRANTEE from DBA_ROLE_PRIVS where GRANTED_ROLE='#GRANTED_ROLE#' 
 			and grantee not like 'PUB_USR%'
-			and grantee not 'SYS'
-			and grantee not 'UAM'
+			and grantee != 'SYS'
+			and grantee != 'UAM'
 			group by GRANTEE order by GRANTEE
 		</cfquery>
 		<cfif hasRole.recordcount gt 0>
