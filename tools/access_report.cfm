@@ -4,6 +4,7 @@
 	<a href="access_report.cfm?action=role">Roles</a>
 </cfif>
 <cfif action is "role">
+<cfoutput>
 	<cfquery name="roles" datasource="uam_god">
 		select GRANTED_ROLE from DBA_ROLE_PRIVS group by GRANTED_ROLE order by GRANTED_ROLE
 	</cfquery>
@@ -21,5 +22,6 @@
 			</ul>
 		</cfif>
 	</cfloop>
+</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
