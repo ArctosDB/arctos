@@ -14,15 +14,20 @@
 				scientific_name, 
 				regexp_replace(scientific_name, '[^a-zA-Z ]','X') craps,
 				count(identification_id) used
-			from taxonomy,
-			identification_taxonomy
+			from 
+				taxonomy,
+				identification_taxonomy
 			where 
-				taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id (+) 
-			regexp_like(regexp_replace(regexp_replace(scientific_name, ' var. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
+				taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id (+) and
+				regexp_like(regexp_replace(regexp_replace(scientific_name, ' var. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
 				regexp_like(regexp_replace(regexp_replace(scientific_name, ' subsp. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
 				regexp_like(regexp_replace(regexp_replace(scientific_name, ' subvar. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
 				regexp_like(regexp_replace(regexp_replace(scientific_name, ' &##215; ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
 				rownum < 5000
+			group by
+				taxon_name_id,
+				scientific_name, 
+				regexp_replace(scientific_name, '[^a-zA-Z ]','X') craps
 			order by scientific_name
 		</cfquery>
 		<table border>
