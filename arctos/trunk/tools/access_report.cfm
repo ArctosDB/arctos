@@ -10,7 +10,11 @@
 	</cfquery>
 	<cfloop query="roles">
 		<cfquery name="hasrole" datasource="uam_god">
-			select GRANTEE from DBA_ROLE_PRIVS where GRANTED_ROLE='#GRANTED_ROLE#' group by GRANTEE order by GRANTEE
+			select GRANTEE from DBA_ROLE_PRIVS where GRANTED_ROLE='#GRANTED_ROLE#' 
+			and grantee not like 'PUB_USR%'
+			and grantee not 'SYS'
+			and grantee not 'UAM'
+			group by GRANTEE order by GRANTEE
 		</cfquery>
 		<cfif hasRole.recordcount gt 0>
 			<hr>
