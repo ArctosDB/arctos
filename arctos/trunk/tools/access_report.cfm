@@ -5,11 +5,11 @@
 </cfif>
 <cfif action is "role">
 	<cfquery name="roles" datasource="uam_god">
-		select GRANTED_ROLE from DBA_ROLE_PRIVS order by GRANTED_ROLE group by GRANTED_ROLE 
+		select GRANTED_ROLE from DBA_ROLE_PRIVS group by GRANTED_ROLE order by GRANTED_ROLE
 	</cfquery>
 	<cfloop query="roles">
 		<cfquery name="hasrole" datasource="uam_god">
-			select GRANTEE from DBA_ROLE_PRIVS where GRANTED_ROLE='#GRANTED_ROLE#'
+			select GRANTEE from DBA_ROLE_PRIVS where GRANTED_ROLE='#GRANTED_ROLE#' group by GRANTEE order by GRANTEE
 		</cfquery>
 		<cfif hasRole.recordcount gt 0>
 			<hr>
