@@ -16,7 +16,7 @@
 <br><a href="build_sitemap.cfm?action=build_sitemaps_stat">build_sitemaps_stat</a>
 
 </cfif>
-<cfset chunkSize=50000>
+<cfset chunkSize=45000>
 <cfif action is "build_map">
 <cfoutput>
 	<cfquery name="kcf_sitemaps" datasource="uam_god">
@@ -181,14 +181,14 @@
 	</cfscript>
 	<cfscript>
 		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
-		'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
+		'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
 		variables.joFileWriter.writeLine(a);
 	</cfscript>			
 	<cfloop query="d">
 		<cfscript>
 			a=chr(9) & "<url>" & chr(10) & 
 			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/ProjectDetail.cfm?project_id=#project_id#</loc>" & chr(10) &
-			chr(9) & chr(9) & "<priority>.4</priority>" & chr(10) &
+			chr(9) & chr(9) & "<priority>0.4</priority>" & chr(10) &
 			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) & 
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
@@ -249,8 +249,8 @@
 	<cfloop query="d">
 		<cfscript>
 			a=chr(9) & "<url>" & chr(10) & 
-			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/SpecimenUsage.cfm?action=search&publication_id=#publication_id#</loc>" & chr(10) &
-			chr(9) & chr(9) & "<priority>.5</priority>" & chr(10) &
+			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/SpecimenUsage.cfm?action=search&amp;publication_id=#publication_id#</loc>" & chr(10) &
+			chr(9) & chr(9) & "<priority>0.5</priority>" & chr(10) &
 			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) & 
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
@@ -305,14 +305,14 @@
 	</cfscript>
 	<cfscript>
 		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
-		'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
+		'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
 		variables.joFileWriter.writeLine(a);
 	</cfscript>			
 	<cfloop query="d">
 		<cfscript>
 			a=chr(9) & "<url>" & chr(10) & 
-			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/name/#scientific_name#</loc>" & chr(10) &
-			chr(9) & chr(9) & "<priority>.6</priority>" & chr(10) &
+			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/name/#URLEncodedFormat(scientific_name)#</loc>" & chr(10) &
+			chr(9) & chr(9) & "<priority>0.6</priority>" & chr(10) &
 			chr(9) & chr(9) & "<changefreq>monthly</changefreq>" & chr(10) & 
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
@@ -368,7 +368,7 @@
 	</cfscript>
 	<cfscript>
 		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
-		'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
+		'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
 		variables.joFileWriter.writeLine(a);
 	</cfscript>			
 	<cfloop query="d">
@@ -376,7 +376,7 @@
 			a=chr(9) & "<url>" & chr(10) & 
 			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/guid/#guid#</loc>" & chr(10) &
 			chr(9) & chr(9) & "<lastmod>#lastMod#</lastmod>" & chr(10) &
-			chr(9) & chr(9) & "<priority>.8</priority>" & chr(10) &
+			chr(9) & chr(9) & "<priority>0.8</priority>" & chr(10) &
 			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) & 
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);

@@ -936,7 +936,7 @@ function cleanup () {
 	reqdFlds.push('coll_obj_disposition');
 	reqdFlds.push('id_made_by_agent');
 	reqdFlds.push('nature_of_id');
-	console.log('this CC is ' + thisCC);
+	//console.log('this CC is ' + thisCC);
 	if (thisCC != 'Crus' && thisCC != 'Herb' && thisCC != 'ES' && thisCC != 'Fish' && thisCC != 'Para' && thisCC != 'Art') {
 		reqdFlds.push('attribute_value_1');
 		reqdFlds.push('attribute_determiner_1');
