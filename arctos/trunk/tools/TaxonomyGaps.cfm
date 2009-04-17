@@ -9,7 +9,10 @@
 <cfif action is "funkyChar">
 	<cfoutput>
 		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select scientific_name, regexp_replace(scientific_name, '[^a-zA-Z ]','X') craps
+			select 
+				taxon_name_id,
+				scientific_name, 
+				regexp_replace(scientific_name, '[^a-zA-Z ]','X') craps
 			from taxonomy
 			where 
 			regexp_like(regexp_replace(regexp_replace(scientific_name, ' var. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
