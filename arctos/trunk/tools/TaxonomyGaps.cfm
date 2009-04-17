@@ -3,6 +3,7 @@
 	<cfoutput>
 		Note: This form will return a maximum of 5,000 records.
 		<br><a href="TaxonomyGaps.cfm?action=gap">NULL class, order, or family</a>
+		<br><a href="TaxonomyGaps.cfm?action=funkyChar">scientific name contains funky characters</a>
 	</cfoutput>
 </cfif>
 <cfif action is "funkyChar">
