@@ -12,9 +12,12 @@
 			select 
 				taxon_name_id,
 				scientific_name, 
-				regexp_replace(scientific_name, '[^a-zA-Z ]','X') craps
-			from taxonomy
+				regexp_replace(scientific_name, '[^a-zA-Z ]','X') craps,
+				count(identification_id) used
+			from taxonomy,
+			identification_taxonomy
 			where 
+				taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id (+) 
 			regexp_like(regexp_replace(regexp_replace(scientific_name, ' var. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
 				regexp_like(regexp_replace(regexp_replace(scientific_name, ' subsp. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
 				regexp_like(regexp_replace(regexp_replace(scientific_name, ' subvar. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
@@ -26,6 +29,7 @@
 			<tr>
 				<td>Scientific Name</td>
 				<td>X for bad char</td>
+				<td>Used</td>
 			</tr>
 			<cfloop query="md">
 				<tr>
@@ -33,6 +37,7 @@
 					<a href="#Application.ServerRootUrl#/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">#scientific_name#</a>
 					</td>
 					<td>#craps#</td>
+					<td>#used#</td>
 				</tr>
 			</cfloop>
 		</table>
