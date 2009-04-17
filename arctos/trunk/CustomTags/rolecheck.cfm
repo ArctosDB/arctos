@@ -5,7 +5,10 @@
 		#escapeGoofyInstall# is not "/ChangePassword.cfm")>
 		<cflocation url="/ChangePassword.cfm">	
 	</cfif>
-	<cfquery name="isValid" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+	<!---
+	 cachedWithin="#CreateTimeSpan(0,1,0,0)#"
+	--->
+	<cfquery name="isValid" datasource="#Application.web_user#">
 		select ROLE_NAME from cf_form_permissions 
 		where form_path = '#escapeGoofyInstall#'
 	</cfquery>
