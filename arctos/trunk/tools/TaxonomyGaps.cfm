@@ -9,22 +9,26 @@
 <cfif action is "funkyChar">
 	<cfoutput>
 		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			 select taxon_name_id, scientific_name from taxonomy where
-			 	regexp_like(regexp_replace(scientific_name, ' var. ', ''), '[^A-Za-z ]')
-				and regexp_like(regexp_replace(scientific_name, ' subsp. ', ''), '[^A-Za-z ]')
-				and regexp_like(regexp_replace(scientific_name, ' subvar. ', ''), '[^A-Za-z ]')
-				and rownum < 5000
-				order by scientific_name
+			select scientific_name, regexp_replace(scientific_name, '[^a-zA-Z ]','X') craps
+			from taxonomy
+			where 
+			regexp_like(regexp_replace(regexp_replace(scientific_name, ' var. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
+			regexp_like(regexp_replace(regexp_replace(scientific_name, ' subsp. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
+			regexp_like(regexp_replace(regexp_replace(scientific_name, ' subvar. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
+			rownum < 5000
+			order by scientific_name
 		</cfquery>
 		<table border>
 			<tr>
 				<td>Scientific Name</td>
+				<td>X for bad char</td>
 			</tr>
 			<cfloop query="md">
 				<tr>
 					<td>
 					<a href="#Application.ServerRootUrl#/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">#scientific_name#</a>
 					</td>
+					<td>#craps#</td>
 				</tr>
 			</cfloop>
 		</table>
