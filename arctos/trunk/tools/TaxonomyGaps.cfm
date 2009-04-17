@@ -16,9 +16,10 @@
 			from taxonomy
 			where 
 			regexp_like(regexp_replace(regexp_replace(scientific_name, ' var. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
-			regexp_like(regexp_replace(regexp_replace(scientific_name, ' subsp. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
-			regexp_like(regexp_replace(regexp_replace(scientific_name, ' subvar. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
-			rownum < 5000
+				regexp_like(regexp_replace(regexp_replace(scientific_name, ' subsp. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
+				regexp_like(regexp_replace(regexp_replace(scientific_name, ' subvar. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
+				regexp_like(regexp_replace(regexp_replace(scientific_name, ' &#215; ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
+				rownum < 5000
 			order by scientific_name
 		</cfquery>
 		<table border>
