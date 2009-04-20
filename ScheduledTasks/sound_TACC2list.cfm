@@ -9,15 +9,23 @@
 	<cfset xdir=xmlparse(xStr)>
 	<cfset dir = xmlsearch(xdir, "//td[@class='n']")>
 	<cfset t="">
+	
+	<cfset variables.fileName="#Application.webDirectory#/temp/soundtacc.txt">
+	<cfset variables.encoding="UTF-8">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+	</cfscript>
 	<cfloop index="i" from="1" to="#arrayLen(dir)#">
 		<cfset folder = dir[i].XmlChildren[1].xmlText>
 		<cfif left(folder,2) is "PU" and #right(folder,4)# is ".aif">
-			<cfset t = t & "#folder#" & chr(10)>
-		</cfif><!--- end 2008..... name --->
+			<cfscript>
+				a=folder & chr(10);
+				variables.joFileWriter.writeLine(a);
+			</cfscript>	
+		</cfif>
 	</cfloop>
 </cfif>
 </cfoutput>
-<cffile action="write" file="#application.webDirectory#/temp/soundtacc.txt" output="#t#">
 <!---
 
 
