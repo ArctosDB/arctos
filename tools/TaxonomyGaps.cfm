@@ -32,7 +32,7 @@
 				select 
 				taxonomy.taxon_name_id,
 				scientific_name, 
-				regexp_replace(scientific_name, '([^a-zA-Z ])','<b>\1</b>') craps
+				regexp_replace(scientific_name, '([^a-zA-Z ])','<b>\1</b>') craps,
 				count(identification_taxonomy.identification_id) used
 			from 
 				taxonomy,
