@@ -8,6 +8,9 @@
 </cfif>
 <cfif action is "funkyChar">
 	<cfoutput>
+		<cfquery name="ctINFRASPECIFIC_RANK" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select INFRASPECIFIC_RANK from ctINFRASPECIFIC_RANK
+		</cfquery>
 		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 				taxonomy.taxon_name_id,
@@ -19,10 +22,10 @@
 				identification_taxonomy
 			where 
 				taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id (+) and
-				regexp_like(regexp_replace(regexp_replace(scientific_name, ' var. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
-				regexp_like(regexp_replace(regexp_replace(scientific_name, ' subsp. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
-				regexp_like(regexp_replace(regexp_replace(scientific_name, ' subvar. ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
-				regexp_like(regexp_replace(regexp_replace(scientific_name,  ' ' || chr(50071), ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
+				<cfloop query="ctINFRASPECIFIC_RANK">
+					regexp_like(regexp_replace(regexp_replace(scientific_name, ' #INFRASPECIFIC_RANK# ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
+				</cfloop>
+				--regexp_like(regexp_replace(regexp_replace(scientific_name,  ' ' || chr(50071), ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
 				rownum < 5000
 			group by
 				taxonomy.taxon_name_id,
