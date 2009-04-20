@@ -32,7 +32,6 @@
 		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 				taxonomy.taxon_name_id,
-				scientific_name, 
 				regexp_replace(scientific_name, '([^a-zA-Z ])','<b>\1</b>') craps,
 				count(identification_taxonomy.identification_id) used
 			from 
@@ -53,15 +52,13 @@
 		<table border>
 			<tr>
 				<td>Scientific Name</td>
-				<td>X for bad char</td>
 				<td>NumIds</td>
 			</tr>
 			<cfloop query="md">
 				<tr>
 					<td>
-					<a href="#Application.ServerRootUrl#/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">#scientific_name#</a>
+					<a href="#Application.ServerRootUrl#/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">#craps#</a>
 					</td>
-					<td>#craps#</td>
 					<td>#used#</td>
 				</tr>
 			</cfloop>
