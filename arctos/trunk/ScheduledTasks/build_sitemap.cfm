@@ -292,7 +292,8 @@
             	select                
                 	scientific_name
 				from 
-					taxonomy 
+					taxonomy
+				where scientific_name not like '?%'
 				order by scientific_name
 			) a
 		where rownum <= #maxRN#)
