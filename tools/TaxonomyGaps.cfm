@@ -27,7 +27,8 @@
 				</ul>
 			</li>
 		</ul>
-		
+		Note: Combinations are goofy. Some records which have >1 excluded characters show up here anyway. 
+		"Orchis &##215; semisaccata nothosubsp. murgiana" was valid as of this writing, but still makes the list. Ignore it.
 		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 				taxonomy.taxon_name_id,
