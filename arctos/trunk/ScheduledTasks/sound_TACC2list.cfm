@@ -19,8 +19,7 @@
 		<cfset folder = dir[i].XmlChildren[1].xmlText>
 		<cfif left(folder,2) is "PU" and #right(folder,4)# is ".aif">
 			<cfscript>
-				a=folder & chr(10);
-				variables.joFileWriter.writeLine(a);
+				variables.joFileWriter.writeLine(folder);
 			</cfscript>	
 		</cfif>
 	</cfloop>
