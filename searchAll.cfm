@@ -1,2 +1,1 @@
-<cfset setDbUser()>
-<cflocation url="SpecimenSearch.cfm">
+<cflocation url="/all_all">

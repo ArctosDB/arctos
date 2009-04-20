@@ -1,5 +1,5 @@
 <cfoutput>
-<cfhttp url="http://wanserver-00.tacc.utexas.edu:8000/KNewman" charset="utf-8" method="get">
+<cfhttp url="http://goodnight.corral.tacc.utexas.edu/KNewman" charset="utf-8" method="get">
 </cfhttp>
 <cfset t="">
 <cfif isXML(cfhttp.FileContent)>
