@@ -87,8 +87,7 @@
 		<cfloop query="ctINFRASPECIFIC_RANK">
 			<cfset w=w&" regexp_like(regexp_replace(regexp_replace(taxonomy.scientific_name, ' #INFRASPECIFIC_RANK# ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and"> 
 		</cfloop>
-		<cfset w=w&" regexp_like(regexp_replace(regexp_replace(taxonomy.scientific_name, chr(50071), ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
-				rownum < #limit#">
+		<cfset w=w&" regexp_like(regexp_replace(regexp_replace(taxonomy.scientific_name, chr(50071), ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and ">
 		<cfif len(collection_id) gt 0 and collection_id gt 0>
 			<cfset f= f & ",identification,cataloged_item">
 			<cfset w=w & " and identification_taxonomy.identification_id=identification.identification_id and
@@ -97,10 +96,10 @@
 		<cfelseif collection_id is -1>
 			<cfset w=w & " and identification_taxonomy.identification_id is null">
 		</cfif>
-		<cfset sql=s & ' ' & f & ' ' & w & ' group by
+		<cfset sql="select * from (" & s & ' ' & f & ' ' & w & ' group by
 				taxonomy.taxon_name_id,
 				taxonomy.scientific_name
-			order by taxonomy.scientific_name'>
+			order by taxonomy.scientific_name) where rownum < #limit#'>
 			
 		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#			
