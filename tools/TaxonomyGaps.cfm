@@ -31,7 +31,7 @@
 					<td>Require one of to b NULL</td>
 					<td>Return</td>
 				</tr>
-				<cfloop list="taxaFields" index="i">
+				<cfloop list="#taxaFields#" index="i">
 					<tr>
 						<td>
 							#i#:<input <cfif listfindnocase(nullstuff,i)> checked="checked"</cfif>
