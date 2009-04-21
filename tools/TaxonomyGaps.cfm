@@ -34,8 +34,9 @@
 				value="">Anything</option>
 			<option <cfif collection_id is '0'> selected="selected" </cfif> 
 				value="0">Not Used in IDs</option>
+			<cfset thisCID=collection_id>
 			<cfloop query="ctcollection">
-				<option <cfif variables.collection_id is ctcollection.collection_id> selected="selected" </cfif> 
+				<option <cfif thisCID is ctcollection.collection_id> selected="selected" </cfif> 
 					value="#collection_id#">#collection#</option>
 			</cfloop>
 		</select>
