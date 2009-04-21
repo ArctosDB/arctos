@@ -6,6 +6,9 @@
 <cfif not isdefined("collection_id")>
 	<cfset collection_id=''>
 </cfif>
+<cfif not isdefined("nullstuff")>
+	<cfset nullstuff='phylclass,phylorder,family'>
+</cfif>
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection_id,collection from collection order by collection
 </cfquery>
@@ -19,9 +22,12 @@
 				value="funkyChar">scientific name contains funky characters</option>
 		</select>
 		<label for="nullStuff">nullstuff</label>
-		phylclass:<input type="checkbox" name="nullstuff" value="phylclass">
-		<br>phylorder:<input type="checkbox" name="nullstuff" value="phylorder">
-		<br>family:<input type="checkbox" name="nullstuff" value="family">
+		phylclass:<input <cfif listfindnocase(nullstuff,'phylclass')> checked="checked"</cfif>
+			type="checkbox" name="nullstuff" value="phylclass">
+		<br>phylorder:<input <cfif listfindnocase(nullstuff,'phylorder')> checked="checked"</cfif>
+			type="checkbox" name="nullstuff" value="phylorder">
+		<br>family:<input <cfif listfindnocase(nullstuff,'family')> checked="checked"</cfif>
+				type="checkbox" name="nullstuff" value="family">
 		<label for="limit">Row Limit</label>
 		<select name="limit" id="limit">
 			<option <cfif limit is 1000> selected="selected" </cfif> 
@@ -129,7 +135,15 @@
 	<cfoutput>
 		<cfset s="select taxonomy.taxon_name_id, taxonomy.scientific_name,#nullstuff#">
 		<cfset f=" from taxonomy ">
-		<cfset w=" where (phylclass is null or phylorder is null or family is null) ">
+		<cfset w=" where (">
+		<cfset i=1>
+		<cfloop list="#nullstuff#" index="n">
+			<cfset w=w & " #n# is null ">
+			<cfif i lt listlen(nullstuff)>
+				<cfset w=w & " OR ">
+			</cfif>
+			<cfset i=i+1>
+		</cfloop>
 		<cfif collection_id is 0><!--- used by any collection --->
 			<cfset f=f & ",identification_taxonomy">
 			<cfset w=w & " AND taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id ">
