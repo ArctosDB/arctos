@@ -29,19 +29,27 @@
 		common_name,
 		taxonomy.genus,
 		taxonomy.species,
-		RELATED_TAXON_NAME_ID,
-		TAXON_RELATIONSHIP,
-		RELATION_AUTHORITY,
-		related_taxa.SCIENTIFIC_NAME as related_name
+		taxon_relations.RELATED_TAXON_NAME_ID,
+		taxon_relations.TAXON_RELATIONSHIP,
+		taxon_relations.RELATION_AUTHORITY,
+		related_taxa.SCIENTIFIC_NAME as related_name,
+		imp_related_taxa.SCIENTIFIC_NAME imp_related_name,
+		imp_taxon_relations.RELATED_TAXON_NAME_ID imp_RELATED_TAXON_NAME_ID,
+		imp_taxon_relations.TAXON_RELATIONSHIP imp_TAXON_RELATIONSHIP,
+		imp_taxon_relations.RELATION_AUTHORITY imp_RELATION_AUTHORITY
 	 from 
 	 	taxonomy, 
 		common_name, 
 		taxon_relations,
-		taxonomy related_taxa
+		taxonomy related_taxa,
+		taxon_relations imp_taxon_relations,
+		taxonomy imp_related_taxa
 	 WHERE 
 		taxonomy.taxon_name_id = common_name.taxon_name_id (+) AND
 		taxonomy.taxon_name_id = taxon_relations.taxon_name_id (+) AND
 		taxon_relations.related_taxon_name_id = related_taxa.taxon_name_id (+) AND
+		taxonomy.taxon_name_id = imp_taxon_relations.related_taxon_name_id (+) AND
+		imp_taxon_relations.taxon_name_id = imp_related_taxa.taxon_name_id (+) and
 		taxonomy.taxon_name_id = #tnid#
 		ORDER BY scientific_name, common_name, related_taxon_name_id
 </cfquery>
@@ -100,6 +108,22 @@
 	    </cfif>	
 	    </cfoutput>
 		
+		  <cfoutput group="imp_RELATED_TAXON_NAME_ID">
+			  <cfif len(#imp_RELATED_TAXON_NAME_ID#) gt 0>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>#TAXON_RELATIONSHIP#</b>&nbsp;<a href="/TaxonomyDetails.cfm?taxon_name_id=#imp_RELATED_TAXON_NAME_ID#"><i><b>#imp_related_name#</b></i></a><br>
+			    <cfelse>
+			&nbsp;&nbsp;&nbsp;&nbsp;<b>No related taxa recorded.</b><br>
+	    </cfif>	
+	    </cfoutput>
+	    
+	    	imp_related_taxa.SCIENTIFIC_NAME imp_related_name,
+		imp_taxon_relations.RELATED_TAXON_NAME_ID imp_RELATED_TAXON_NAME_ID,
+		imp_taxon_relations.TAXON_RELATIONSHIP imp_TAXON_RELATIONSHIP,
+		imp_taxon_relations.RELATION_AUTHORITY imp_,RELATION_AUTHORITY
+	    
+	    
+	    
+	    
     </div>
 	<p>
 		Links:
