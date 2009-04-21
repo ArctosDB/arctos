@@ -124,16 +124,16 @@
 <!------------------------------------------------------------------->
 <cfif action is "gap">
 	<cfoutput>
-		<cfset s="select taxon_name_id, scientific_name, phylclass, phylorder, family">
-		<cfset f="from taxonomy">
-		<cfset w="where (phylclass is null or phylorder is null or family is null)
+		<cfset s="select taxonomy.taxon_name_id, taxonomy.scientific_name, phylclass, phylorder, family">
+		<cfset f=" from taxonomy ">
+		<cfset w=" where (phylclass is null or phylorder is null or family is null)
 			and rownum < #limit#">
 		<cfif collection_id is 0><!--- used by any collection --->
 			<cfset f=f & ",identification_taxonomy">
-			<cfset w=" AND taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id ">
+			<cfset w=w & " AND taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id ">
 		<cfelseif collection_id is -1>
 			<cfset f=f & ",identification_taxonomy">
-			<cfset w=" AND taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id (+) 
+			<cfset w= w & " AND taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id (+) 
 					and identification_taxonomy.identification_id is null ">
 		<cfelseif len(collection_id) gt 0 and collection_id gt 0>
 			<cfset f=f & ",identification_taxonomy,identification,cataloged_item">
@@ -142,7 +142,7 @@
 					identification.collection_object_id=cataloged_item.collection_object_id and
 					cataloged_item.collection_id=#collection_id#">
 		</cfif>
-		<cfset sql=s & ' ' & f & ' ' & w & ' order by taxonomy.scientific_name'>
+		<cfset sql=s & f & w & ' order by taxonomy.scientific_name'>
 		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#			
 		</cfquery>
