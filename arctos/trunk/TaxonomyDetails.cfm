@@ -26,6 +26,7 @@
 		taxonomy.FULL_TAXON_NAME,
 		taxonomy.SCIENTIFIC_NAME,
 		taxonomy.AUTHOR_TEXT,
+		taxonomy.INFRASPECIFIC_AUTHOR
 		common_name,
 		taxonomy.genus,
 		taxonomy.species,
@@ -53,85 +54,112 @@
 		taxonomy.taxon_name_id = #tnid#
 		ORDER BY scientific_name, common_name, related_taxon_name_id
 </cfquery>
-<Cfoutput query="getDetails" group="scientific_name">
-<cfset title="#getDetails.scientific_name#">
-<cfset thisSearch = "%22#getDetails.scientific_name#%22">
-<cfoutput group="common_name">
-	<cfif len(#common_name#) gt 0>
+<cfquery name="common_name" dbtype="query">
+	select
+		common_name
+	from
+		getDetails
+	where
+		common_name is not null
+	group by
+		common_name
+</cfquery>
+<cfquery name="one" dbtype="query">
+	select
+		TAXON_NAME_ID,
+		VALID_CATALOG_TERM_FG,
+		SOURCE_AUTHORITY,
+		FULL_TAXON_NAME,
+		SCIENTIFIC_NAME,
+		AUTHOR_TEXT,
+		INFRASPECIFIC_AUTHOR
+		genus,
+		species
+	from
+		getDetails
+	group by
+		TAXON_NAME_ID,
+		VALID_CATALOG_TERM_FG,
+		SOURCE_AUTHORITY,
+		FULL_TAXON_NAME,
+		SCIENTIFIC_NAME,
+		AUTHOR_TEXT,
+		INFRASPECIFIC_AUTHOR
+		genus,
+		species
+</cfquery>
+<cfquery name="related" dbtype="query">
+	select
+		RELATED_TAXON_NAME_ID,
+		TAXON_RELATIONSHIP,
+		RELATION_AUTHORITY,
+		related_name
+	from
+		getDetails
+	where
+		RELATED_TAXON_NAME_ID is not null
+	group by
+		RELATED_TAXON_NAME_ID,
+		TAXON_RELATIONSHIP,
+		RELATION_AUTHORITY,
+		related_name
+</cfquery>
+<cfquery name="imp_related" dbtype="query">
+	select
+		imp_related_name,
+		imp_RELATED_TAXON_NAME_ID,
+		imp_TAXON_RELATIONSHIP,
+		imp_RELATION_AUTHORITY
+	from
+		getDetails
+	where
+		imp_RELATED_TAXON_NAME_ID is not null
+	group by
+		imp_related_name,
+		imp_RELATED_TAXON_NAME_ID,
+		imp_TAXON_RELATIONSHIP,
+		imp_RELATION_AUTHORITY
+</cfquery>
+<cfoutput>
+	<cfset title="#one.scientific_name#">
+	<cfset thisSearch = "%22#one.scientific_name#%22">
+	<cfloop query="common_name">
 		<cfset thisSearch = "#thisSearch# OR %22#common_name#%22">
-	</cfif>	
-</cfoutput>
-</Cfoutput>
-<Cfoutput query="getDetails" group="scientific_name">
+	</cfloop>	
 	<div align="left">
-	  <cfif #VALID_CATALOG_TERM_FG# is 1>
-	   <font size="+1"	>
-		      <I><B>#SCIENTIFIC_NAME#</B></I>			    
-		</font>
-		
-		      <cfif len(#AUTHOR_TEXT#) gt 0>
-			      <font size="+1"	>#AUTHOR_TEXT#</font>
-        </cfif>
-		  <br>
+		<cfif one.VALID_CATALOG_TERM_FG is 1>
+	   		<font size="+1"	>
+		    	<I><B>#SCIENTIFIC_NAME#</B></I>			    
+			</font>
+			<cfif len(one.AUTHOR_TEXT) gt 0>
+				<font size="+1">#AUTHOR_TEXT#</font>
+        	</cfif>
         <cfelseIF #VALID_CATALOG_TERM_FG# is 0>
-		        <p><font size="+1"><I><b>#SCIENTIFIC_NAME#</b></I></font>		            <cfif len(#AUTHOR_TEXT#) gt 0>
-		              <font size="+1">#AUTHOR_TEXT#</font>
-					 
-		              </cfif>
-	              <br>
-	                <font color="##FF0000" size="-1">&nbsp;&nbsp;&nbsp;&nbsp;This
-	                term is not accepted for current identifications.</font><br>
-	      
-	        </cfif>
-  </div>
+	    	<font size="+1"><I><b>#SCIENTIFIC_NAME#</b></I></font>
+	    	<cfif len(#AUTHOR_TEXT#) gt 0>
+		    	<font size="+1">#AUTHOR_TEXT#</font>
+			</cfif>
+	        <br>
+	        <font color="##FF0000" size="-1">
+		    	&nbsp;&nbsp;&nbsp;&nbsp;
+		    	This name is not accepted for current identifications.
+			</font>
+	    </cfif>
+	</div>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 		<a href="/Taxonomy.cfm?action=edit&taxon_name_id=#taxon_name_id#">Edit Taxonomy</a>	
 	</cfif>
-	<P align="left"><b>#FULL_TAXON_NAME#</b>
-		
-	<p align="left">Authority: <b>#source_Authority#</b>
-		
-		<p align="left">Common Name(s):<br>
-		<cfoutput group="common_name">
-			<cfif len(#Common_name#) gt 0>	
-				&nbsp;&nbsp;&nbsp;&nbsp;<b>#common_name#</b><br>
-			<cfelse>&nbsp;&nbsp;&nbsp;&nbsp;<b>No common names recorded.</b><br>
-			</cfif>	
-	</cfoutput>
-	<p>
-	<cfquery name="related" dbtype="query">
-		select
-			RELATED_TAXON_NAME_ID,
-			TAXON_RELATIONSHIP,
-			RELATION_AUTHORITY,
-			related_name
-		from
-			getDetails
-		where
-			RELATED_TAXON_NAME_ID is not null
-		group by
-			RELATED_TAXON_NAME_ID,
-			TAXON_RELATIONSHIP,
-			RELATION_AUTHORITY,
-			related_name
-	</cfquery>
-	<cfquery name="imp_related" dbtype="query">
-		select
-			imp_related_name,
-			imp_RELATED_TAXON_NAME_ID,
-			imp_TAXON_RELATIONSHIP,
-			imp_RELATION_AUTHORITY
-		from
-			getDetails
-		where
-			imp_RELATED_TAXON_NAME_ID is not null
-		group by
-			imp_related_name,
-			imp_RELATED_TAXON_NAME_ID,
-			imp_TAXON_RELATIONSHIP,
-			imp_RELATION_AUTHORITY
-	</cfquery>
-	<div align="left">Related Taxa:<br>
+	<p><b>#FULL_TAXON_NAME#</b></p>
+	<p>Name Authority: <b>#source_Authority#</b></p>
+	<p>Common Name(s):
+	<cfif len(common_name.common_name) is 0>
+		&nbsp;&nbsp;&nbsp;&nbsp;<b>No common names recorded.</b><br>
+	<cfelse>
+		<cfloop query="common_name">
+			&nbsp;&nbsp;&nbsp;&nbsp;<b>#common_name#</b><br>
+		</cfloop>
+	</cfif>
+	<div>Related Taxa:<br>
 	 	<cfif related.recordcount is 0 and imp_related.recordcount is 0>
 			<b>No related taxa recorded.</b>
 		<cfelse>
@@ -178,5 +206,5 @@
 			</li>			
 		</ul>			
 	</p>
-</Cfoutput> 
+</cfoutput>
 <cfinclude template = "includes/_footer.cfm">
