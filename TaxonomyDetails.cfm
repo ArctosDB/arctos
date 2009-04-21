@@ -26,7 +26,7 @@
 		taxonomy.FULL_TAXON_NAME,
 		taxonomy.SCIENTIFIC_NAME,
 		taxonomy.AUTHOR_TEXT,
-		taxonomy.INFRASPECIFIC_AUTHOR
+		taxonomy.INFRASPECIFIC_AUTHOR,
 		common_name,
 		taxonomy.genus,
 		taxonomy.species,
