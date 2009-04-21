@@ -29,6 +29,8 @@
 				
 				<label for="SUBGENUS">SUBGENUS</label>
 				<input name="SUBGENUS" id="SUBGENUS" type="text">
+				<label for="nomenclatural_code">nomenclatural_code</label>
+				<input name="nomenclatural_code" id="nomenclatural_code" type="text">
 				
 		</td>
 		<td>
@@ -127,6 +129,10 @@
 			<cfif isdefined("FULL_TAXON_NAME") and len(#FULL_TAXON_NAME#) gt 0>
 				and upper(FULL_TAXON_NAME) like '%#ucase(FULL_TAXON_NAME)#%'
 			</cfif>
+			<cfif isdefined("nomenclatural_code") and len(#nomenclatural_code#) gt 0>
+				and upper(nomenclatural_code) like '%#ucase(nomenclatural_code)#%'
+			</cfif>
+			
 		</cfquery>
 		<table id="t" class="sortable" border="1">
 			<tr>
@@ -147,7 +153,8 @@
 				<th>AUTHOR_TEXT</th>
 				<th>SOURCE_AUTHORITY</th>
 				<th>TAXON_REMARKS</th>
-				<th>SCIENTIFIC_NAME</th>
+				<th>SCIENTIFIC_NAME</th>				
+				<th>nomenclatural_code</th>
 			</tr>
 		<cfloop query="getData">
 			<tr>
@@ -169,6 +176,7 @@
 				<td>#SOURCE_AUTHORITY#</td>
 				<td>#TAXON_REMARKS#</td>
 				<td>#SCIENTIFIC_NAME#</td>
+				<td>#nomenclatural_code#</td>
 			</tr>
 		</cfloop>
 		</table>
