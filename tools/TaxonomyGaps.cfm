@@ -21,7 +21,7 @@
 		<label for="action">Action</label>
 		<select name="action" id="action">
 			<option <cfif action is "gap"> selected="selected" </cfif> 
-				value="gap">NULL class, order, or family</option>
+				value="gap">NULL stuff (pick values after selecting)</option>
 			<option <cfif action is "funkyChar"> selected="selected" </cfif> 
 				value="funkyChar">scientific name contains funky characters</option>
 		</select>
@@ -178,9 +178,6 @@
 		</cfif>
 		<cfset sql="select * from ( " & s & f & w & ' group by taxonomy.taxon_name_id, taxonomy.scientific_name,#taxaReturns#
 				order by taxonomy.scientific_name) where rownum < #limit#'>
-		<hr>
-		#preservesinglequotes(sql)#	
-		<hr>
 		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#			
 		</cfquery>
