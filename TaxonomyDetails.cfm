@@ -152,33 +152,41 @@
 	<p><b>#one.FULL_TAXON_NAME#</b></p>
 	<p>Name Authority: <b>#one.source_Authority#</b></p>
 	<p>Common Name(s):
-	<cfif len(common_name.common_name) is 0>
-		&nbsp;&nbsp;&nbsp;&nbsp;<b>No common names recorded.</b><br>
-	<cfelse>
-		<cfloop query="common_name">
-			&nbsp;&nbsp;&nbsp;&nbsp;<b>#common_name#</b><br>
-		</cfloop>
-	</cfif>
-	<div>Related Taxa:<br>
-	 	<cfif related.recordcount is 0 and imp_related.recordcount is 0>
-			<b>No related taxa recorded.</b>
+	<ul>
+		<cfif len(common_name.common_name) is 0>
+			<li><b>No common names recorded.</b></li>
 		<cfelse>
-			<cfloop query="related">
-				#TAXON_RELATIONSHIP# of <a href="/TaxonomyDetails.cfm?taxon_name_id=#RELATED_TAXON_NAME_ID#"><i><b>#related_name#</b></i></a>
-				<cfif len(RELATION_AUTHORITY) gt 0>
-					(Authority: #RELATION_AUTHORITY#)
-				</cfif>
-				<br>
+			<cfloop query="common_name">
+				<li><b>#common_name#</b></li>
 			</cfloop>
-			<cfloop query="imp_related">
-				<a href="/TaxonomyDetails.cfm?taxon_name_id=#imp_RELATED_TAXON_NAME_ID#"><i><b>#imp_related_name#</b></i></a>
-				is #imp_TAXON_RELATIONSHIP#
-				<cfif len(imp_RELATION_AUTHORITY) gt 0>
-					(Authority: #imp_RELATION_AUTHORITY#)
-				</cfif>
-				<br>
-			</cfloop>
-		</cfif>	    
+		</cfif>
+	</ul>
+	
+	<div>
+		Related Taxa:
+		<ul>
+		 	<cfif related.recordcount is 0 and imp_related.recordcount is 0>
+				<li><b>No related taxa recorded.</b></li>
+			<cfelse>
+				<cfloop query="related">
+					<li>
+						#TAXON_RELATIONSHIP# of <a href="/TaxonomyDetails.cfm?taxon_name_id=#RELATED_TAXON_NAME_ID#"><i><b>#related_name#</b></i></a>
+						<cfif len(RELATION_AUTHORITY) gt 0>
+							(Authority: #RELATION_AUTHORITY#)
+						</cfif>
+					</li>
+				</cfloop>
+				<cfloop query="imp_related">
+					<li>
+						<a href="/TaxonomyDetails.cfm?taxon_name_id=#imp_RELATED_TAXON_NAME_ID#"><i><b>#imp_related_name#</b></i></a>
+						is #imp_TAXON_RELATIONSHIP#
+						<cfif len(imp_RELATION_AUTHORITY) gt 0>
+							(Authority: #imp_RELATION_AUTHORITY#)
+						</cfif>
+					</li>
+				</cfloop>
+			</cfif>
+		</ul>    
     </div>
 	<p>
 		Links:
