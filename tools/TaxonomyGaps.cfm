@@ -171,18 +171,18 @@
 		<table border>
 			<tr>
 				<td>Scientific Name</td>
-				<td>Class</td>
-				<td>Order</td>
-				<td>Family</td>
+				<cfloop list="#nullstuff#" index="n">
+					<td>#n#</td>
+				</cfloop>
 			</tr>
 			<cfloop query="md">
 				<tr>
 					<td>
 					<a href="#Application.ServerRootUrl#/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">#scientific_name#</a>
 					</td>
-					<td>#phylclass#</td>
-					<td>#phylorder#</td>
-					<td>#family#</td>
+					<cfloop list="#nullstuff#" index="n">
+						<td>#evaluate("n")#</td>
+					</cfloop>
 				</tr>
 			</cfloop>
 		</table>
