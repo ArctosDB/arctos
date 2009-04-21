@@ -36,7 +36,7 @@
 			<option <cfif collection_id is '0'> selected="selected" </cfif> 
 				value="0">Used by any collection</option>
 			<option <cfif collection_id is '-1'> selected="selected" </cfif> 
-				value="0">Not used by any collection</option>
+				value="-1">Not used by any collection</option>
 			<cfset thisCID=collection_id>
 			<cfloop query="ctcollection">
 				<option <cfif thisCID is ctcollection.collection_id> selected="selected" </cfif> 
