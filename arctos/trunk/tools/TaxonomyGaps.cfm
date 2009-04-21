@@ -67,31 +67,40 @@
 		</ul>
 		Note: Combinations are goofy. Some records which have >1 excluded characters show up here anyway. 
 		"Orchis &##215; semisaccata nothosubsp. murgiana" was valid as of this writing, but still makes the list. Ignore it.
-		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select 
+		<cfset s="select 
 				taxonomy.taxon_name_id,
 				regexp_replace(scientific_name, '([^a-zA-Z ])','<b>\1</b>') craps,
-				count(identification_taxonomy.identification_id) used
-			from 
+				count(identification_taxonomy.identification_id) used">
+		<cfset f="from 
 				taxonomy,
-				identification_taxonomy
-			where 
-				taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id (+) and
-				<cfloop query="ctINFRASPECIFIC_RANK">
-					regexp_like(regexp_replace(regexp_replace(scientific_name, ' #INFRASPECIFIC_RANK# ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
-				</cfloop>
-				regexp_like(regexp_replace(regexp_replace(scientific_name, chr(50071), ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
-				rownum < #limit#
-				<cfif len(collection_id) gt 0>
-					<cfif collection_id is 0>
-						and identification_taxonomy.taxon_name_id > 0
-					<cfelse>
+				identification_taxonomy">
+		<cfif len(collection_id) is 0>
+			<cfset w="where taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id (+) and">
+		<cfelse>
+			<cfset w="where taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id and">
+		</cfif>
+		
+		<cfloop query="ctINFRASPECIFIC_RANK">
+			<cfset w=w&"regexp_like(regexp_replace(regexp_replace(scientific_name, ' #INFRASPECIFIC_RANK# ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and"> 
+		</cfloop>
+		<cfset w=w&"regexp_like(regexp_replace(regexp_replace(scientific_name, chr(50071), ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
+				rownum < #limit#">
+		<cfif len(collection_id) gt 0 and collection_id gt 0>
+			<cfset f=f&",identification_taxonomy">
+			
+			<cfif collection_id is 0>
+				and identification_taxonomy.taxon_name_id > 0
+			<cfelse>
 						and identification_taxonomy.identification_id in (
 						select identification_id from identification,cataloged_item where
 						identification.collection_object_id=cataloged_item.collection_object_id and
 						cataloged_item.collection_id=#collection_id#)
 					</cfif>
-				</cfif>
+				</cfif>">
+		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				
+			
+			
 			group by
 				taxonomy.taxon_name_id,
 				scientific_name
