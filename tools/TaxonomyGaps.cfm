@@ -18,6 +18,10 @@
 			<option <cfif action is "funkyChar"> selected="selected" </cfif> 
 				value="funkyChar">scientific name contains funky characters</option>
 		</select>
+		<label for="nullStuff">nullstuff</label>
+		phylclass:<input type="checkbox" name="nullstuff" value="phylclass">
+		<br>phylorder:<input type="checkbox" name="nullstuff" value="phylorder">
+		<br>family:<input type="checkbox" name="nullstuff" value="family">
 		<label for="limit">Row Limit</label>
 		<select name="limit" id="limit">
 			<option <cfif limit is 1000> selected="selected" </cfif> 
@@ -123,7 +127,7 @@
 <!------------------------------------------------------------------->
 <cfif action is "gap">
 	<cfoutput>
-		<cfset s="select taxonomy.taxon_name_id, taxonomy.scientific_name, phylclass, phylorder, family">
+		<cfset s="select taxonomy.taxon_name_id, taxonomy.scientific_name,#nullstuff#">
 		<cfset f=" from taxonomy ">
 		<cfset w=" where (phylclass is null or phylorder is null or family is null) ">
 		<cfif collection_id is 0><!--- used by any collection --->
