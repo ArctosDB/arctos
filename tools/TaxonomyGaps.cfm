@@ -89,7 +89,7 @@
 						and identification_taxonomy.identification_id in (
 						select identification_id from identification,cataloged_item where
 						identification.collection_object_id=cataloged_item.collection_object_id and
-						cataloged_item.collection_id=#collection_id#
+						cataloged_item.collection_id=#collection_id#)
 					</cfif>
 				</cfif>
 			group by
