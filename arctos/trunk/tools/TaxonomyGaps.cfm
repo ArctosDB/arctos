@@ -94,7 +94,7 @@
 		<cfset sql=s & ' ' & f & ' ' & w & ' group by
 				taxonomy.taxon_name_id,
 				taxonomy.scientific_name
-			order by scientific_name'>
+			order by taxonomy.scientific_name'>
 		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#			
 		</cfquery>
