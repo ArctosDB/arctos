@@ -16,6 +16,7 @@
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select scientific_name from taxonomy where taxon_name_id=#taxon_name_id# 
 	</cfquery>
+	#c.scientific_name#-------
 	<cflocation url="/name/#c.scientific_name#" addtoken="false">
 </cfif>
 <cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
