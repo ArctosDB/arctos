@@ -69,7 +69,7 @@
 		"Orchis &##215; semisaccata nothosubsp. murgiana" was valid as of this writing, but still makes the list. Ignore it.
 		<cfset s="select 
 				taxonomy.taxon_name_id,
-				regexp_replace(staxonomy.cientific_name, '([^a-zA-Z ])','<b>\1</b>') craps,
+				regexp_replace(taxonomy.scientific_name, '([^a-zA-Z ])','<b>\1</b>') craps,
 				count(identification_taxonomy.identification_id) used">
 		<cfset f="from 
 				taxonomy,
