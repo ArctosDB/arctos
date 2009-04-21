@@ -28,7 +28,7 @@
 		<cfif action is "gap">
 			<table border>
 				<tr>
-					<td>Require one of to b NULL</td>
+					<td>Require one of to be NULL</td>
 					<td>Return</td>
 				</tr>
 				<cfloop list="#taxaFields#" index="i">
@@ -45,16 +45,6 @@
 				</cfloop>
 			</table>			
 		</cfif>
-		phylclass:<input <cfif listfindnocase(nullstuff,'phylclass')> checked="checked"</cfif>
-			type="checkbox" name="nullstuff" value="phylclass">
-		<br>phylorder:<input <cfif listfindnocase(nullstuff,'phylorder')> checked="checked"</cfif>
-			type="checkbox" name="nullstuff" value="phylorder">
-		<br>family:<input <cfif listfindnocase(nullstuff,'family')> checked="checked"</cfif>
-				type="checkbox" name="nullstuff" value="family">
-		<br>nomenclatural_code:<input <cfif listfindnocase(nullstuff,'nomenclatural_code')> checked="checked"</cfif>
-				type="checkbox" name="nullstuff" value="nomenclatural_code">
-		<br>kingdom:<input <cfif listfindnocase(nullstuff,'kingdom')> checked="checked"</cfif>
-				type="checkbox" name="nullstuff" value="kingdom">
 		<label for="limit">Row Limit</label>
 		<select name="limit" id="limit">
 			<option <cfif limit is 1000> selected="selected" </cfif> 
