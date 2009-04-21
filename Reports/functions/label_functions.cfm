@@ -908,8 +908,8 @@
 		
 		<!--- Sex --->
 		<cfset formatted_sex = "#sex#">
-		<cfset formatted_sex = "#ReplaceNoCase(sex,'female', 'F')#">
-		<cfset formatted_sex = "#ReplaceNoCase(sex, 'male', 'M')#">
+		<cfset formatted_sex = "#ReplaceNoCase(formatted_sex,'female', 'F')#">
+		<cfset formatted_sex = "#ReplaceNoCase(formatted_sex, 'male', 'M')#">
 		<cfif formatted_sex is 'unknown' or formatted_sex is 'recorded as unknwon' or formatted_sex is 'not recorded'>
 			<cfset formatted_sex = 'U'>
 		</cfif>
