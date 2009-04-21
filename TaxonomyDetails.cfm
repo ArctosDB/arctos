@@ -34,7 +34,7 @@
 		taxon_relations.RELATION_AUTHORITY,
 		related_taxa.SCIENTIFIC_NAME as related_name,
 		imp_related_taxa.SCIENTIFIC_NAME imp_related_name,
-		imp_taxon_relations.RELATED_TAXON_NAME_ID imp_RELATED_TAXON_NAME_ID,
+		imp_taxon_relations.taxon_name_id imp_RELATED_TAXON_NAME_ID,
 		imp_taxon_relations.TAXON_RELATIONSHIP imp_TAXON_RELATIONSHIP,
 		imp_taxon_relations.RELATION_AUTHORITY imp_RELATION_AUTHORITY
 	 from 
