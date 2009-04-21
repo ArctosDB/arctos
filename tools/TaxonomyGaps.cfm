@@ -69,7 +69,7 @@
 		"Orchis &##215; semisaccata nothosubsp. murgiana" was valid as of this writing, but still makes the list. Ignore it.
 		<cfset s="select 
 				taxonomy.taxon_name_id,
-				regexp_replace(scientific_name, '([^a-zA-Z ])','<b>\1</b>') craps,
+				regexp_replace(staxonomy.cientific_name, '([^a-zA-Z ])','<b>\1</b>') craps,
 				count(identification_taxonomy.identification_id) used">
 		<cfset f="from 
 				taxonomy,
@@ -81,9 +81,9 @@
 		</cfif>
 		
 		<cfloop query="ctINFRASPECIFIC_RANK">
-			<cfset w=w&" regexp_like(regexp_replace(regexp_replace(scientific_name, ' #INFRASPECIFIC_RANK# ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and"> 
+			<cfset w=w&" regexp_like(regexp_replace(regexp_replace(taxonomy.scientific_name, ' #INFRASPECIFIC_RANK# ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and"> 
 		</cfloop>
-		<cfset w=w&" regexp_like(regexp_replace(regexp_replace(scientific_name, chr(50071), ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
+		<cfset w=w&" regexp_like(regexp_replace(regexp_replace(taxonomy.scientific_name, chr(50071), ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
 				rownum < #limit#">
 		<cfif len(collection_id) gt 0 and collection_id gt 0>
 			<cfset f= f & ",identification,cataloged_item">
@@ -93,7 +93,7 @@
 		</cfif>
 		<cfset sql=s & ' ' & f & ' ' & w & ' group by
 				taxonomy.taxon_name_id,
-				scientific_name
+				taxonomy.scientific_name
 			order by scientific_name'>
 		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#			
