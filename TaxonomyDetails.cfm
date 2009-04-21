@@ -99,31 +99,52 @@
 			</cfif>	
 	</cfoutput>
 	<p>
+	<cfquery name="related" dbtype="query">
+		select
+			RELATED_TAXON_NAME_ID,
+			TAXON_RELATIONSHIP,
+			RELATION_AUTHORITY,
+			related_name
+		from
+			getDetails
+		group by
+			RELATED_TAXON_NAME_ID,
+			TAXON_RELATIONSHIP,
+			RELATION_AUTHORITY,
+			related_name
+	</cfquery>
+	<cfquery name="imp_related" dbtype="query">
+		select
+			imp_related_name,
+			imp_RELATED_TAXON_NAME_ID,
+			imp_TAXON_RELATIONSHIP,
+			imp_RELATION_AUTHORITY
+		from
+			getDetails
+		group by
+			imp_related_name,
+			imp_RELATED_TAXON_NAME_ID,
+			imp_TAXON_RELATIONSHIP,
+			imp_RELATION_AUTHORITY
+	</cfquery>
 	<div align="left">Related Taxa:<br>
-	  <cfoutput group="related_taxon_name_id">
-			  <cfif len(#related_taxon_name_id#) gt 0>
-&nbsp;&nbsp;&nbsp;&nbsp;<b>#TAXON_RELATIONSHIP#</b>&nbsp;<a href="/TaxonomyDetails.cfm?taxon_name_id=#RELATED_TAXON_NAME_ID#"><i><b>#related_name#</b></i></a><br>
-			    <cfelse>
-			&nbsp;&nbsp;&nbsp;&nbsp;<b>No related taxa recorded.</b><br>
-	    </cfif>	
-	    </cfoutput>
-		
-		  <cfoutput group="imp_RELATED_TAXON_NAME_ID">
-			  <cfif len(#imp_RELATED_TAXON_NAME_ID#) gt 0>
-&nbsp;&nbsp;&nbsp;&nbsp;<b>#TAXON_RELATIONSHIP#</b>&nbsp;<a href="/TaxonomyDetails.cfm?taxon_name_id=#imp_RELATED_TAXON_NAME_ID#"><i><b>#imp_related_name#</b></i></a><br>
-			    <cfelse>
-			&nbsp;&nbsp;&nbsp;&nbsp;<b>No related taxa recorded.</b><br>
-	    </cfif>	
-	    </cfoutput>
-	    
-	    	imp_related_taxa.SCIENTIFIC_NAME imp_related_name,
-		imp_taxon_relations.RELATED_TAXON_NAME_ID imp_RELATED_TAXON_NAME_ID,
-		imp_taxon_relations.TAXON_RELATIONSHIP imp_TAXON_RELATIONSHIP,
-		imp_taxon_relations.RELATION_AUTHORITY imp_,RELATION_AUTHORITY
-	    
-	    
-	    
-	    
+	 	<cfif related.recordcount is 0 and imp_related.recordcount is 0>
+			<b>No related taxa recorded.</b>
+		<cfelse>
+			<cfloop query="related">
+				#TAXON_RELATIONSHIP# of <a href="/TaxonomyDetails.cfm?taxon_name_id=#RELATED_TAXON_NAME_ID#"><i><b>#related_name#</b></i></a>
+				<cfif len(RELATION_AUTHORITY) gt 0>
+					(Authority: #RELATION_AUTHORITY#)
+				</cfif>
+			</cfloop>
+			<cfloop query="imp_related">
+				<a href="/TaxonomyDetails.cfm?taxon_name_id=#imp_RELATED_TAXON_NAME_ID#"><i><b>#imp_related_name#</b></i></a>
+				is #imp_TAXON_RELATIONSHIP#
+				<cfif len(RELATION_AUTHORITY) gt 0>
+					(Authority: #imp_RELATION_AUTHORITY#)
+				</cfif>
+			</cfloop>
+		</cfif>	    
     </div>
 	<p>
 		Links:
