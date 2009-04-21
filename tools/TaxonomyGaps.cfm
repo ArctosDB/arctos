@@ -82,6 +82,16 @@
 				</cfloop>
 				regexp_like(regexp_replace(regexp_replace(scientific_name, chr(50071), ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
 				rownum < #limit#
+				<cfif len(collection_id) gt 0>
+					<cfif collection_id is 0>
+						and identification_taxonomy.taxon_name_id > 0
+					<cfelse>
+						and identification_taxonomy.identification_id in (
+						select identification_id from identification,cataloged_item where
+						identification.collection_object_id=cataloged_item.collection_object_id and
+						cataloged_item.collection_id=#collection_id#
+					</cfif>
+				</cfif>
 			group by
 				taxonomy.taxon_name_id,
 				scientific_name
