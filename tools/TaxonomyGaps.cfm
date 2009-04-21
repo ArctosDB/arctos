@@ -81,9 +81,9 @@
 		</cfif>
 		
 		<cfloop query="ctINFRASPECIFIC_RANK">
-			<cfset w=w&"regexp_like(regexp_replace(regexp_replace(scientific_name, ' #INFRASPECIFIC_RANK# ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and"> 
+			<cfset w=w&" regexp_like(regexp_replace(regexp_replace(scientific_name, ' #INFRASPECIFIC_RANK# ', ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and"> 
 		</cfloop>
-		<cfset w=w&"regexp_like(regexp_replace(regexp_replace(scientific_name, chr(50071), ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
+		<cfset w=w&" regexp_like(regexp_replace(regexp_replace(scientific_name, chr(50071), ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
 				rownum < #limit#">
 		<cfif len(collection_id) gt 0 and collection_id gt 0>
 			<cfset f= f & ",identification,cataloged_item">
