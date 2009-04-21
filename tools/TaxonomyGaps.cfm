@@ -141,7 +141,8 @@
 					identification_taxonomy.identification_id=identification.identification_id and
 					identification.collection_object_id=cataloged_item.collection_object_id and
 					cataloged_item.collection_id=#collection_id#">
-		</cfif> 
+		</cfif>
+		<cfset sql=s & ' ' & f & ' ' & w & ' order by taxonomy.scientific_name'>
 		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#			
 		</cfquery>
