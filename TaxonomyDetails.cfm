@@ -140,11 +140,14 @@
 			</cfloop>
 			<cfdump var=#imp_related#>
 			<cfloop query="imp_related">
+				<!---
 				<a href="/TaxonomyDetails.cfm?taxon_name_id=#imp_RELATED_TAXON_NAME_ID#"><i><b>#imp_related_name#</b></i></a>
 				is #imp_TAXON_RELATIONSHIP#
 				<cfif len(RELATION_AUTHORITY) gt 0>
 					(Authority: #imp_RELATION_AUTHORITY#)
 				</cfif>
+				--->
+				loopy
 				<br>
 			</cfloop>
 		</cfif>	    
