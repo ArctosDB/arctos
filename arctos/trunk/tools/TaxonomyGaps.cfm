@@ -95,6 +95,11 @@
 				taxonomy.taxon_name_id,
 				taxonomy.scientific_name
 			order by taxonomy.scientific_name'>
+			
+			
+		<hr>
+		#preservesinglequotes(sql)#		
+		<hr>
 		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#			
 		</cfquery>
