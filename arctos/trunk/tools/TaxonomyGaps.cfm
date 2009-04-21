@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="Taxonomy is a mess">
 <cfif not isdefined("limit")>
 	<cfset limit=2000>
 </cfif>
@@ -31,9 +32,11 @@
 		<label for="collection_id">Collection</label>
 		<select name="collection_id" id="limit">
 			<option <cfif collection_id is ''> selected="selected" </cfif> 
-				value="">Anything</option>
+				value="">Ignore</option>
 			<option <cfif collection_id is '0'> selected="selected" </cfif> 
-				value="0">Not Used in IDs</option>
+				value="0">Used by any collection</option>
+			<option <cfif collection_id is '-1'> selected="selected" </cfif> 
+				value="0">Not used by any collection</option>
 			<cfset thisCID=collection_id>
 			<cfloop query="ctcollection">
 				<option <cfif thisCID is ctcollection.collection_id> selected="selected" </cfif> 
@@ -75,7 +78,7 @@
 		<cfset f="from 
 				taxonomy,
 				identification_taxonomy">
-		<cfif len(collection_id) is 0>
+		<cfif len(collection_id) is 0 or collection_id is -1>
 			<cfset w="where taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id (+) and">
 		<cfelse>
 			<cfset w="where taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id and">
@@ -91,6 +94,8 @@
 			<cfset w=w & " and identification_taxonomy.identification_id=identification.identification_id and
 					identification.collection_object_id=cataloged_item.collection_object_id and
 					cataloged_item.collection_id=#collection_id#">
+		<cfelseif collection_id is -1>
+			<cfset w=w & " and identification_taxonomy.identification_id is null">
 		</cfif>
 		<cfset sql=s & ' ' & f & ' ' & w & ' group by
 				taxonomy.taxon_name_id,
