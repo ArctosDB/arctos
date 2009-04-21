@@ -86,25 +86,17 @@
 		<cfset w=w&"regexp_like(regexp_replace(regexp_replace(scientific_name, chr(50071), ''),'[a-z]-[a-z]',''), '[^A-Za-z ]') and 
 				rownum < #limit#">
 		<cfif len(collection_id) gt 0 and collection_id gt 0>
-			<cfset f=f&",identification_taxonomy">
-			
-			<cfif collection_id is 0>
-				and identification_taxonomy.taxon_name_id > 0
-			<cfelse>
-						and identification_taxonomy.identification_id in (
-						select identification_id from identification,cataloged_item where
-						identification.collection_object_id=cataloged_item.collection_object_id and
-						cataloged_item.collection_id=#collection_id#)
-					</cfif>
-				</cfif>">
-		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				
-			
-			
-			group by
+			<cfset f= f & ",identification,cataloged_item">
+			<cfset w=w & " and identification_taxonomy.identification_id=identification.identification_id and
+					identification.collection_object_id=cataloged_item.collection_object_id and
+					cataloged_item.collection_id=#collection_id#">
+		</cfif>
+		<cfset sql=s & ' ' & f & ' ' & w & 'group by
 				taxonomy.taxon_name_id,
 				scientific_name
-			order by scientific_name
+			order by scientific_name'>
+		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(sql)#			
 		</cfquery>
 		<table border>
 			<tr>
