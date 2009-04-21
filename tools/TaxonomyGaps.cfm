@@ -126,8 +126,7 @@
 	<cfoutput>
 		<cfset s="select taxonomy.taxon_name_id, taxonomy.scientific_name, phylclass, phylorder, family">
 		<cfset f=" from taxonomy ">
-		<cfset w=" where (phylclass is null or phylorder is null or family is null)
-			and rownum < #limit#">
+		<cfset w=" where (phylclass is null or phylorder is null or family is null) ">
 		<cfif collection_id is 0><!--- used by any collection --->
 			<cfset f=f & ",identification_taxonomy">
 			<cfset w=w & " AND taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id ">
@@ -142,8 +141,8 @@
 					identification.collection_object_id=cataloged_item.collection_object_id and
 					cataloged_item.collection_id=#collection_id#">
 		</cfif>
-		<cfset sql=s & f & w & ' group by taxonomy.taxon_name_id, taxonomy.scientific_name, phylclass, phylorder, family
-				order by taxonomy.scientific_name'>
+		<cfset sql="select * from ( " s & f & w & ' group by taxonomy.taxon_name_id, taxonomy.scientific_name, phylclass, phylorder, family
+				order by taxonomy.scientific_name) where rownum < #limit#'>
 		<hr>
 		#preservesinglequotes(sql)#	
 		<hr>
