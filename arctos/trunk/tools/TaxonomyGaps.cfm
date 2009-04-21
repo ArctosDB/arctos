@@ -35,11 +35,11 @@
 					<tr>
 						<td>
 							#i#:<input <cfif listfindnocase(nullstuff,i)> checked="checked"</cfif>
-								type="checkbox" name="#i#" value="#i#">
+								type="checkbox" name="nullstuff" value="#i#">
 						</td>
 						<td>
 							#i#:<input <cfif listfindnocase(taxaReturns,i)> checked="checked"</cfif>
-								type="checkbox" name="#i#" value="#i#">
+								type="checkbox" name="taxaReturns" value="#i#">
 						</td>
 					</tr>
 				</cfloop>
