@@ -144,6 +144,9 @@
 		</cfif>
 		<cfset sql=s & f & w & ' group by taxonomy.taxon_name_id, taxonomy.scientific_name, phylclass, phylorder, family
 				order by taxonomy.scientific_name'>
+		<hr>
+		#preservesinglequotes(sql)#	
+		<hr>
 		<cfquery name="md" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#			
 		</cfquery>
