@@ -136,6 +136,7 @@
 				<cfif len(RELATION_AUTHORITY) gt 0>
 					(Authority: #RELATION_AUTHORITY#)
 				</cfif>
+				<br>
 			</cfloop>
 			<cfloop query="imp_related">
 				<a href="/TaxonomyDetails.cfm?taxon_name_id=#imp_RELATED_TAXON_NAME_ID#"><i><b>#imp_related_name#</b></i></a>
@@ -143,6 +144,7 @@
 				<cfif len(RELATION_AUTHORITY) gt 0>
 					(Authority: #imp_RELATION_AUTHORITY#)
 				</cfif>
+				<br>
 			</cfloop>
 		</cfif>	    
     </div>
