@@ -2,37 +2,46 @@
 <cfif not isdefined("limit")>
 	<cfset limit=2000>
 </cfif>
-
-<cfif action is "nothing">
-	<cfoutput>
-		
-		<form name="cf" method="get" action="TaxonomyGaps.cfm">
-			<label for="action">Action</label>
-			<select name="action" id="action">
-				<option <cfif action is "gap"> selected="selected" </cfif> 
-					value="gap">NULL class, order, or family</option>
-				<option <cfif action is "funkyChar"> selected="selected" </cfif> 
-					value="funkyChar">scientific name contains funky characters</option>
-			</select>
-			<label for="limit">Row Limit</label>
-			<select name="limit" id="limit">
-				<option <cfif limit is 1000> selected="selected" </cfif> 
-					value="1000">1000</option>
-				<option <cfif limit is 2000> selected="selected" </cfif> 
-					value="2000">2000</option>
-				<option <cfif limit is 5000> selected="selected" </cfif> 
-					value="5000">5000</option>					
-				<option <cfif limit is 10000> selected="selected" </cfif> 
-					value="10000">10000</option>
-			</select>
-			<br><input type="submit" value="Go">
-		</form>
-		
-		Note: This form will return a maximum of #limit# records.
-		<br><a href="TaxonomyGaps.cfm?action=gap">NULL class, order, or family</a>
-		<br><a href="TaxonomyGaps.cfm?action=funkyChar">scientific name contains funky characters</a>
-	</cfoutput>
+<cfif not isdefined("collection_id")>
+	<cfset collection_id=''>
 </cfif>
+<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select collection_id,collection from collection order by collection
+</cfquery>
+<cfoutput>	
+	<form name="cf" method="get" action="TaxonomyGaps.cfm">
+		<label for="action">Action</label>
+		<select name="action" id="action">
+			<option <cfif action is "gap"> selected="selected" </cfif> 
+				value="gap">NULL class, order, or family</option>
+			<option <cfif action is "funkyChar"> selected="selected" </cfif> 
+				value="funkyChar">scientific name contains funky characters</option>
+		</select>
+		<label for="limit">Row Limit</label>
+		<select name="limit" id="limit">
+			<option <cfif limit is 1000> selected="selected" </cfif> 
+				value="1000">1000</option>
+			<option <cfif limit is 2000> selected="selected" </cfif> 
+				value="2000">2000</option>
+			<option <cfif limit is 5000> selected="selected" </cfif> 
+				value="5000">5000</option>					
+			<option <cfif limit is 10000> selected="selected" </cfif> 
+				value="10000">10000</option>
+		</select>
+		<label for="collection_id">Collection</label>
+		<select name="collection_id" id="limit">
+			<option <cfif collection_id is ''> selected="selected" </cfif> 
+				value="">Anything</option>
+			<option <cfif collection_id is '0'> selected="selected" </cfif> 
+				value="0">Not Used in IDs</option>
+			<cfloop query="ctcollection">
+				<option <cfif variables.collection_id is ctcollection.collection_id> selected="selected" </cfif> 
+					value="#collection_id#">#collection#</option>
+			</cfloop>
+		</select>
+		<br><input type="submit" value="Go">
+	</form>
+</cfoutput>
 
 <!------------------------------------------------------------------->
 <cfif action is "funkyChar">
