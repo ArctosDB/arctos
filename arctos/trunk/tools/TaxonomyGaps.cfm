@@ -144,6 +144,7 @@
 			</cfif>
 			<cfset i=i+1>
 		</cfloop>
+		<cfset w=w & " ) ">
 		<cfif collection_id is 0><!--- used by any collection --->
 			<cfset f=f & ",identification_taxonomy">
 			<cfset w=w & " AND taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id ">
@@ -158,7 +159,7 @@
 					identification.collection_object_id=cataloged_item.collection_object_id and
 					cataloged_item.collection_id=#collection_id#">
 		</cfif>
-		<cfset sql="select * from ( " & s & f & w & ' group by taxonomy.taxon_name_id, taxonomy.scientific_name, phylclass, phylorder, family
+		<cfset sql="select * from ( " & s & f & w & ' group by taxonomy.taxon_name_id, taxonomy.scientific_name,#nullstuff#
 				order by taxonomy.scientific_name) where rownum < #limit#'>
 		<hr>
 		#preservesinglequotes(sql)#	
