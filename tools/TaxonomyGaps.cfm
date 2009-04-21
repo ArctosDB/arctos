@@ -137,7 +137,7 @@
 					and identification_taxonomy.identification_id is null ">
 		<cfelseif len(collection_id) gt 0 and collection_id gt 0>
 			<cfset f=f & ",identification_taxonomy,identification,cataloged_item">
-			<cfset w=w & " and taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id
+			<cfset w=w & " and taxonomy.taxon_name_id=identification_taxonomy.taxon_name_id and
 					identification_taxonomy.identification_id=identification.identification_id and
 					identification.collection_object_id=cataloged_item.collection_object_id and
 					cataloged_item.collection_id=#collection_id#">
