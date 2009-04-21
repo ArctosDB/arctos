@@ -141,7 +141,7 @@
 					identification.collection_object_id=cataloged_item.collection_object_id and
 					cataloged_item.collection_id=#collection_id#">
 		</cfif>
-		<cfset sql="select * from ( " s & f & w & ' group by taxonomy.taxon_name_id, taxonomy.scientific_name, phylclass, phylorder, family
+		<cfset sql="select * from ( " & s & f & w & ' group by taxonomy.taxon_name_id, taxonomy.scientific_name, phylclass, phylorder, family
 				order by taxonomy.scientific_name) where rownum < #limit#'>
 		<hr>
 		#preservesinglequotes(sql)#	
