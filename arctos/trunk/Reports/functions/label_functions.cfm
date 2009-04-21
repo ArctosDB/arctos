@@ -822,7 +822,7 @@
 	<cfset colIdAr = ArrayNew(1)>
 	<cfset pAr = ArrayNew(1)>
 	<cfset sexAr = ArrayNew(1)>
-	
+		
 	<!--- Data Manipulation --->
 	<cfset i = 1>
 	<cfloop query="q">
@@ -908,7 +908,8 @@
 		
 		<!--- Sex --->
 		<cfset formatted_sex = "#sex#">
-		<cfset formatted_sex = "#replace(sex, 'female', 'F')#">
+		REReplaceNoCase(sex,"female","F")
+		<cfset formatted_sex = "#REReplaceNoCase(sex,"female","F")#">
 		<cfset formatted_sex = "#replace(sex, 'male', 'M')#">
 		<cfif formatted_sex is 'unknown' or formatted_sex is 'recorded as unknwon' or formatted_sex is 'not recorded'>
 			<cfset formatted_sex = 'U'>
