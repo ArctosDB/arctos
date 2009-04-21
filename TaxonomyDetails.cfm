@@ -129,15 +129,15 @@
 	<div align="left">
 		<cfif one.VALID_CATALOG_TERM_FG is 1>
 	   		<font size="+1"	>
-		    	<I><B>#SCIENTIFIC_NAME#</B></I>			    
+		    	<I><B>#one.SCIENTIFIC_NAME#</B></I>			    
 			</font>
 			<cfif len(one.AUTHOR_TEXT) gt 0>
-				<font size="+1">#AUTHOR_TEXT#</font>
+				<font size="+1">#one.AUTHOR_TEXT#</font>
         	</cfif>
-        <cfelseIF #VALID_CATALOG_TERM_FG# is 0>
-	    	<font size="+1"><I><b>#SCIENTIFIC_NAME#</b></I></font>
-	    	<cfif len(#AUTHOR_TEXT#) gt 0>
-		    	<font size="+1">#AUTHOR_TEXT#</font>
+        <cfelseIF #one.VALID_CATALOG_TERM_FG# is 0>
+	    	<font size="+1"><I><b>#one.SCIENTIFIC_NAME#</b></I></font>
+	    	<cfif len(#one.AUTHOR_TEXT#) gt 0>
+		    	<font size="+1">#one.AUTHOR_TEXT#</font>
 			</cfif>
 	        <br>
 	        <font color="##FF0000" size="-1">
@@ -147,10 +147,10 @@
 	    </cfif>
 	</div>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-		<a href="/Taxonomy.cfm?action=edit&taxon_name_id=#taxon_name_id#">Edit Taxonomy</a>	
+		<a href="/Taxonomy.cfm?action=edit&taxon_name_id=#one.taxon_name_id#">Edit Taxonomy</a>	
 	</cfif>
-	<p><b>#FULL_TAXON_NAME#</b></p>
-	<p>Name Authority: <b>#source_Authority#</b></p>
+	<p><b>#one.FULL_TAXON_NAME#</b></p>
+	<p>Name Authority: <b>#one.source_Authority#</b></p>
 	<p>Common Name(s):
 	<cfif len(common_name.common_name) is 0>
 		&nbsp;&nbsp;&nbsp;&nbsp;<b>No common names recorded.</b><br>
@@ -184,25 +184,25 @@
 		Links:
 		<ul>
 			<li>
-				Search Arctos for <a href="/SpecimenResults.cfm?taxon_name_id=#taxon_name_id#">
-					exactly <I>#SCIENTIFIC_NAME#</I></a>
-				or <a href="/SpecimenResults.cfm?scientific_name=#scientific_name#">like <em>#scientific_name#</em></a>
+				Search Arctos for <a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#">
+					exactly <I>#one.SCIENTIFIC_NAME#</I></a>
+				or <a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#">like <em>#one.scientific_name#</em></a>
 			</li>
 			<li>
 				<a href="http://images.google.com/images?q=#thisSearch#" target="_blank">
 					<img src="/images/GoogleImage.gif" width="40" border="0">&nbsp;Google Images</a>
 			</li>
 			<li>
-				<cfset srchName = #replace(scientific_name," ","+","all")#>
+				<cfset srchName = #replace(one.scientific_name," ","+","all")#>
 				<a href="http://ispecies.org/?q=#srchName#">iSpecies</a>
 			</li>
 			<li>
-				<cfset srchName = #replace(scientific_name," ","%20","all")#>
+				<cfset srchName = #replace(one.scientific_name," ","%20","all")#>
 				<a href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all"><img src="/images/itis.gif" border="0" width="30">&nbsp;ITIS</a>
 			</li>
 			<li>
-				<cfset srchName = #replace(scientific_name," ","%20","all")#>
-				<a href="http://www.unep-wcmc.org/isdb/CITES/Taxonomy/tax-species-result.cfm?displaylanguage=eng&Genus=%25#genus#%25&source=animals&Species=#species#"><img src="/images/UNEP.jpg" border="0" width="30">&nbsp;UNEP</a>
+				<cfset srchName = #replace(one.scientific_name," ","%20","all")#>
+				<a href="http://www.unep-wcmc.org/isdb/CITES/Taxonomy/tax-species-result.cfm?displaylanguage=eng&Genus=%25#one.genus#%25&source=animals&Species=#one.species#"><img src="/images/UNEP.jpg" border="0" width="30">&nbsp;UNEP</a>
 			</li>			
 		</ul>			
 	</p>
