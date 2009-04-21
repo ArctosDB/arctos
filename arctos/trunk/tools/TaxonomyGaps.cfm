@@ -9,6 +9,9 @@
 <cfif not isdefined("nullstuff")>
 	<cfset nullstuff='phylclass,phylorder,family'>
 </cfif>
+<cfif not isdefined("taxaReturns")>
+	<cfset taxaReturns='phylclass,phylorder,family'>
+</cfif>
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection_id,collection from collection order by collection
 </cfquery>
@@ -137,7 +140,7 @@
 <!------------------------------------------------------------------->
 <cfif action is "gap">
 	<cfoutput>
-		<cfset s="select taxonomy.taxon_name_id, taxonomy.scientific_name,#nullstuff#">
+		<cfset s="select taxonomy.taxon_name_id, taxonomy.scientific_name,#taxaReturns#">
 		<cfset f=" from taxonomy ">
 		<cfset w=" where (">
 		<cfset i=1>
@@ -163,7 +166,7 @@
 					identification.collection_object_id=cataloged_item.collection_object_id and
 					cataloged_item.collection_id=#collection_id#">
 		</cfif>
-		<cfset sql="select * from ( " & s & f & w & ' group by taxonomy.taxon_name_id, taxonomy.scientific_name,#nullstuff#
+		<cfset sql="select * from ( " & s & f & w & ' group by taxonomy.taxon_name_id, taxonomy.scientific_name,#taxaReturns#
 				order by taxonomy.scientific_name) where rownum < #limit#'>
 		<hr>
 		#preservesinglequotes(sql)#	
@@ -175,7 +178,7 @@
 		<table border>
 			<tr>
 				<td>Scientific Name</td>
-				<cfloop list="#nullstuff#" index="n">
+				<cfloop list="#taxaReturns#" index="n">
 					<td>#n#</td>
 				</cfloop>
 			</tr>
@@ -184,7 +187,7 @@
 					<td>
 					<a href="#Application.ServerRootUrl#/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">#scientific_name#</a>
 					</td>
-					<cfloop list="#nullstuff#" index="n">
+					<cfloop list="#taxaReturns#" index="n">
 						<td>#evaluate("md." & n)#</td>
 					</cfloop>
 				</tr>
