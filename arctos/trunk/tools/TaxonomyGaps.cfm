@@ -9,8 +9,9 @@
 <cfif not isdefined("nullstuff")>
 	<cfset nullstuff='phylclass,phylorder,family'>
 </cfif>
+<cfset taxaFields="phylclass,phylorder,family,nomenclatural_code,kingdom">
 <cfif not isdefined("taxaReturns")>
-	<cfset taxaReturns='phylclass,phylorder,family'>
+	<cfset taxaReturns=taxaFields>
 </cfif>
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection_id,collection from collection order by collection
@@ -24,7 +25,26 @@
 			<option <cfif action is "funkyChar"> selected="selected" </cfif> 
 				value="funkyChar">scientific name contains funky characters</option>
 		</select>
-		<label for="nullStuff">nullstuff</label>
+		<cfif action is "gap">
+			<table border>
+				<tr>
+					<td>Require one of to b NULL</td>
+					<td>Return</td>
+				</tr>
+				<cfloop list="taxaFields" index="i">
+					<tr>
+						<td>
+							#i#:<input <cfif listfindnocase(nullstuff,i)> checked="checked"</cfif>
+								type="checkbox" name="#i#" value="#i#">
+						</td>
+						<td>
+							#i#:<input <cfif listfindnocase(taxaReturns,i)> checked="checked"</cfif>
+								type="checkbox" name="#i#" value="#i#">
+						</td>
+					</tr>
+				</cfloop>
+			</table>			
+		</cfif>
 		phylclass:<input <cfif listfindnocase(nullstuff,'phylclass')> checked="checked"</cfif>
 			type="checkbox" name="nullstuff" value="phylclass">
 		<br>phylorder:<input <cfif listfindnocase(nullstuff,'phylorder')> checked="checked"</cfif>
