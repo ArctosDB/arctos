@@ -50,6 +50,7 @@
 
 		<cfquery name="ctINFRASPECIFIC_RANK" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select INFRASPECIFIC_RANK from ctINFRASPECIFIC_RANK
+			where infraspecific_rank in ('forma','subsp.','var.')
 		</cfquery>
 		<hr> Showing the top #limit# records which have characters other than:
 		<ul>
@@ -57,7 +58,7 @@
 			<li>[a-z]-[a-z] (lower-case character followed by a dash followed by another lower-case character)</li>
 			<li>&##215; (hybrid or multiplication character)</li>
 			<li>
-				Values in ctinfraspecific_rank
+				Unstoopidified values in ctinfraspecific_rank
 				<ul>
 					<cfloop query="ctINFRASPECIFIC_RANK">
 						<li>#INFRASPECIFIC_RANK#</li>
