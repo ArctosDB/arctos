@@ -16,7 +16,6 @@
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select scientific_name from taxonomy where taxon_name_id=#taxon_name_id# 
 	</cfquery>
-	#c.scientific_name#-------
 	<cflocation url="/name/#c.scientific_name#" addtoken="false">
 </cfif>
 <cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -95,7 +94,7 @@
 	<div align="left">Related Taxa:<br>
 	  <cfoutput group="related_taxon_name_id">
 			  <cfif len(#related_taxon_name_id#) gt 0>
-&nbsp;&nbsp;&nbsp;&nbsp;<b>#TAXON_RELATIONSHIP#</b>&nbsp;<a href="TaxonomyDetails.cfm?taxon_name_id=#RELATED_TAXON_NAME_ID#"><i><b>#related_name#</b></i></a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>#TAXON_RELATIONSHIP#</b>&nbsp;<a href="/TaxonomyDetails.cfm?taxon_name_id=#RELATED_TAXON_NAME_ID#"><i><b>#related_name#</b></i></a><br>
 			    <cfelse>
 			&nbsp;&nbsp;&nbsp;&nbsp;<b>No related taxa recorded.</b><br>
 	    </cfif>	
