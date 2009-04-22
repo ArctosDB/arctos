@@ -176,8 +176,6 @@
 			</cfloop>
 		</tr>
 	</table>
-	
-	<p><b>#one.FULL_TAXON_NAME#</b></p>
 	<p>Name Authority: <b>#one.source_Authority#</b></p>
 	<p>Common Name(s):
 	<ul>
