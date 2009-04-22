@@ -18,19 +18,20 @@
 	</cfquery>
 	<cflocation url="/name/#c.scientific_name#" addtoken="false">
 </cfif>
+<cfset taxaRanksList="genus,species,subspecies,PHYLCLASS,PHYLORDER,SUBORDER,FAMILY,SUBFAMILY,SUBGENUS,TRIBE,PHYLUM ,KINGDOM,NOMENCLATURAL_CODE,SUBCLASS,SUPERFAMILY">
 <cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
 		taxonomy.TAXON_NAME_ID,
 		taxonomy.VALID_CATALOG_TERM_FG,
 		taxonomy.SOURCE_AUTHORITY,
 		taxonomy.FULL_TAXON_NAME,
+		<cfloop list="#taxaRanksList#" index="i">
+			taxonomy.#i#,
+		</cfloop>
 		taxonomy.SCIENTIFIC_NAME,
 		taxonomy.AUTHOR_TEXT,
 		taxonomy.INFRASPECIFIC_AUTHOR,
 		common_name,
-		taxonomy.genus,
-		taxonomy.species,
-		taxonomy.subspecies,
 		taxon_relations.RELATED_TAXON_NAME_ID,
 		taxon_relations.TAXON_RELATIONSHIP,
 		taxon_relations.RELATION_AUTHORITY,
@@ -73,10 +74,10 @@
 		FULL_TAXON_NAME,
 		SCIENTIFIC_NAME,
 		AUTHOR_TEXT,
-		INFRASPECIFIC_AUTHOR,
-		genus,
-		species,
-		subspecies
+		<cfloop list="#taxaRanksList#" index="i">
+			#i#,
+		</cfloop>
+		INFRASPECIFIC_AUTHOR
 	from
 		getDetails
 	group by
@@ -86,10 +87,10 @@
 		FULL_TAXON_NAME,
 		SCIENTIFIC_NAME,
 		AUTHOR_TEXT,
-		INFRASPECIFIC_AUTHOR,
-		genus,
-		species,
-		subspecies
+		<cfloop list="#taxaRanksList#" index="i">
+			#i#,
+		</cfloop>
+		INFRASPECIFIC_AUTHOR
 </cfquery>
 <cfquery name="related" dbtype="query">
 	select
