@@ -156,12 +156,16 @@
 	<table border>
 		<tr>
 			<cfloop list="#taxaRanksList#" index="i">
-				<th>#i#</th>
+				<cfif len(evaluate("one." & i)) gt 0>
+					<th>#i#</th>
+				</cfif>
 			</cfloop>
 		</tr>
 		<tr>
 			<cfloop list="#taxaRanksList#" index="i">
-				<td>#evaluate("one." & i)#</td>
+				<cfif len(evaluate("one." & i)) gt 0>
+					<td>#evaluate("one." & i)#</td>
+				</cfif>
 			</cfloop>
 		</tr>
 	</table>
