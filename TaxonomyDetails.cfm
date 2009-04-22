@@ -217,7 +217,7 @@
 			</li>			
 		</ul>			
 	</p>
-	<cfif one.genus is not null>
+	<cfif len(one.genus) gt 0>
 		<cfquery name="samegen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select scientific_name from taxonomy where genus='#one.genus#'
 			and scientific_name != '#one.scientific_name#' and
