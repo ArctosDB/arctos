@@ -189,7 +189,7 @@
 <cfoutput query="getTaxa">
 <span style="font-size:large;font-weight:bold">Edit Taxonomy: <em>#scientific_name#</em></span>
 <span class="infoLink" onClick="getDocs('taxonomy');">What's this?</span>
-
+<a class="infoLink" href="/name/#scientific_name#">Detail Page</a>
 <table border="0">
 
     
