@@ -191,8 +191,6 @@
 <span class="infoLink" onClick="getDocs('taxonomy');">What's this?</span>
 <a class="infoLink" href="/name/#scientific_name#">Detail Page</a>
 <table border="0">
-
-    
       	<form name="taxa" method="post" action="Taxonomy.cfm">
         	<input type="hidden" name="taxon_name_id" value="#taxon_name_id#">
         	<input type="hidden" name="Action">

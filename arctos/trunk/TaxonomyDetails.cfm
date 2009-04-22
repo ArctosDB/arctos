@@ -30,6 +30,7 @@
 		common_name,
 		taxonomy.genus,
 		taxonomy.species,
+		taxonomy.subspecies,
 		taxon_relations.RELATED_TAXON_NAME_ID,
 		taxon_relations.TAXON_RELATIONSHIP,
 		taxon_relations.RELATION_AUTHORITY,
@@ -74,7 +75,8 @@
 		AUTHOR_TEXT,
 		INFRASPECIFIC_AUTHOR,
 		genus,
-		species
+		species,
+		subspecies
 	from
 		getDetails
 	group by
@@ -86,7 +88,8 @@
 		AUTHOR_TEXT,
 		INFRASPECIFIC_AUTHOR,
 		genus,
-		species
+		species,
+		subspecies
 </cfquery>
 <cfquery name="related" dbtype="query">
 	select
@@ -214,5 +217,25 @@
 			</li>			
 		</ul>			
 	</p>
+	<cfif one.genus is not null>
+		<cfquery name="samegen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select scientific_name from taxonomy where genus='#one.genus#'
+			and scientific_name != '#one.scientific_name#' and
+			rownum < 25
+			order by scientific_name
+		</cfquery>
+		<div>
+			<cfif len(one.scientific_name) gt 0>
+				Top 25 Arctos entries for genus=#one.genus#
+				<ul>
+					<cfloop query="samegen">
+						<li><a href="/name/#scientific_name#">#scientific_name#</a></li>
+					</cfloop>
+				</ul>
+			<cfelse>
+				There are no other Arctos records in this genera.
+			</cfif>			
+		</div>
+	</cfif>
 </cfoutput>
 <cfinclude template = "includes/_footer.cfm">
