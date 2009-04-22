@@ -30,7 +30,8 @@
 		</cfloop>
 		taxonomy.SCIENTIFIC_NAME,
 		taxonomy.AUTHOR_TEXT,
-		taxonomy.INFRASPECIFIC_AUTHOR,
+		taxonomy.INFRASPECIFIC_AUTHOR,		
+		taxonomy.INFRASPECIFIC_RANK,
 		common_name,
 		taxon_relations.RELATED_TAXON_NAME_ID,
 		taxon_relations.TAXON_RELATIONSHIP,
@@ -74,6 +75,7 @@
 		FULL_TAXON_NAME,
 		SCIENTIFIC_NAME,
 		AUTHOR_TEXT,
+		INFRASPECIFIC_RANK,
 		<cfloop list="#taxaRanksList#" index="i">
 			#i#,
 		</cfloop>
@@ -87,6 +89,7 @@
 		FULL_TAXON_NAME,
 		SCIENTIFIC_NAME,
 		AUTHOR_TEXT,
+		INFRASPECIFIC_RANK,
 		<cfloop list="#taxaRanksList#" index="i">
 			#i#,
 		</cfloop>
@@ -157,7 +160,11 @@
 		<tr>
 			<cfloop list="#taxaRanksList#" index="i">
 				<cfif len(evaluate("one." & i)) gt 0>
-					<th>#replace(i,"PHYL",'')#</th>
+					<cfset lbl=replace(i,"PHYL",'')>
+					<cfif lbl is "subspecies" and len(one.infraspecific_rank) gt 0>
+						<cfset lbl=one.infraspecific_rank>
+					</cfif>
+					<th>#lbl#</th>
 				</cfif>
 			</cfloop>
 		</tr>
