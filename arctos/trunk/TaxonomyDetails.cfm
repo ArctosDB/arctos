@@ -153,6 +153,19 @@
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 		<a href="/Taxonomy.cfm?action=edit&taxon_name_id=#one.taxon_name_id#">Edit Taxonomy</a>	
 	</cfif>
+	<table border>
+		<tr>
+			<cfloop list="#taxaRanksList#" index="i">
+				<th>#i#</th>
+			</cfloop>
+		</tr>
+		<tr>
+			<cfloop list="#taxaRanksList#" index="i">
+				<td>#i#</td>
+			</cfloop>
+		</tr>
+	</table>
+	
 	<p><b>#one.FULL_TAXON_NAME#</b></p>
 	<p>Name Authority: <b>#one.source_Authority#</b></p>
 	<p>Common Name(s):
