@@ -18,7 +18,7 @@
 	</cfquery>
 	<cflocation url="/name/#c.scientific_name#" addtoken="false">
 </cfif>
-<cfset taxaRanksList="genus,species,subspecies,PHYLCLASS,PHYLORDER,SUBORDER,FAMILY,SUBFAMILY,SUBGENUS,TRIBE,PHYLUM ,KINGDOM,NOMENCLATURAL_CODE,SUBCLASS,SUPERFAMILY">
+<cfset taxaRanksList="Kingdom,Phylum,PHYLClass,Subclass,PHYLOrder,Suborder,Superfamily,Family,Subfamily,Genus,Subgenus,Species,Subspecies,NomenclaturalCode">
 <cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
 		taxonomy.TAXON_NAME_ID,
@@ -157,7 +157,7 @@
 		<tr>
 			<cfloop list="#taxaRanksList#" index="i">
 				<cfif len(evaluate("one." & i)) gt 0>
-					<th>#i#</th>
+					<th>#replace(i,"PHYL",'')#</th>
 				</cfif>
 			</cfloop>
 		</tr>
