@@ -226,7 +226,7 @@
 		</cfquery>
 		<div>
 			<cfif len(one.scientific_name) gt 0>
-				Top 25 Arctos entries for genus=#one.genus#
+				Top 25 Arctos entries for genus=#one.genus# <a href="TaxonomyResults.cfm?genus=#one.genus#">See all</a>
 				<ul>
 					<cfloop query="samegen">
 						<li><a href="/name/#scientific_name#">#scientific_name#</a></li>
