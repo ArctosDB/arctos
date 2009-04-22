@@ -161,7 +161,7 @@
 		</tr>
 		<tr>
 			<cfloop list="#taxaRanksList#" index="i">
-				<td>#i#</td>
+				<td>#evaluate("one." & i)#</td>
 			</cfloop>
 		</tr>
 	</table>
