@@ -1,7 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Taxonomy is a mess">
 <cfif not isdefined("limit")>
-	<cfset limit=2000>
+	<cfset limit=1000>
 </cfif>
 <cfif not isdefined("collection_id")>
 	<cfset collection_id=''>
@@ -21,7 +21,7 @@
 		<label for="action">Action</label>
 		<select name="action" id="action">
 			<option <cfif action is "gap"> selected="selected" </cfif> 
-				value="gap">NULL stuff (pick values after selecting)</option>
+				value="gap">Missing values</option>
 			<option <cfif action is "funkyChar"> selected="selected" </cfif> 
 				value="funkyChar">scientific name contains funky characters</option>
 		</select>
