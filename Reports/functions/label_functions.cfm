@@ -890,6 +890,14 @@
 			<cfif colonPos gt 0 or (tissueP lte 0 and skinP lte 0 and wholeOrgP lte 0)>
 				<cfset formatted_parts = "#parts#">
 			</cfif>
+			<cfset newParts = "">
+			<cfloop list="formatted_parts" delimiters=";" index="p">
+				<cfset tissueP = find("tissue", p)>
+				<cfif tissueP lte 0>
+					<cfset newParts = "#newParts#; #p#">
+				</cfif>
+			</cfloop>
+			
 		<!-- Herp -->
 		<cfelseif collection_cde is "Herp" >
  			<cfif preserveP lte 0 and (colonPos gt 0 or (tissueP lte 0 and wholeOrgP lte 0)) and (skinP gt 0 or skelP gt 0)>
@@ -906,7 +914,7 @@
 		
 		<!--- Sex --->
 		<cfset formatted_sex = "#sex#">
-		<cfset formatted_sex = "#ReplaceNoCase(formatted_sex,'female', 'F')#">
+		<cfset formatted_sex = "#ReplaceNoCase(formatted_sex, 'female', 'F')#">
 		<cfset formatted_sex = "#ReplaceNoCase(formatted_sex, 'male', 'M')#">
 		<cfif formatted_sex is 'unknown' or formatted_sex is 'recorded as unknwon' or formatted_sex is 'not recorded'>
 			<cfset formatted_sex = 'U'>
