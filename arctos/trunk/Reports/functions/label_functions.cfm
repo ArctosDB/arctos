@@ -884,9 +884,7 @@
 		
 		<!-- Mamm -->
 		<cfif collection_cde is "Mamm">
-			<cfif (colonPos gt 0 or tissueP lte 0) and ((skinP gt 0 or skelP gt 0) and colonPos lte 0)>
-				<cfset formatted_parts = "#parts#">
-			</cfif>
+			<cfset formatted_parts = "#parts#">
 		<!-- Bird -->
 		<cfelseif collection_cde is "Bird">
 			<cfif colonPos gt 0 or (tissueP lte 0 and skinP lte 0 and wholeOrgP lte 0)>
