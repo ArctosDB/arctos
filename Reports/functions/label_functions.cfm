@@ -897,7 +897,7 @@
 					<cfset newParts = "#newParts#; #p#">
 				</cfif>
 			</cfloop>
-			<cfset formatted_parts = newParts>
+			<cfset formatted_parts = "#newParts#">
 			
 		<!-- Herp -->
 		<cfelseif collection_cde is "Herp" >
