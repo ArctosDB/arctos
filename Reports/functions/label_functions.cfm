@@ -891,7 +891,7 @@
 				<cfset formatted_parts = "#parts#">
 			</cfif>
 			<cfset newParts = "">
-			<cfloop list="formatted_parts" delimiters=";" index="p">
+			<cfloop list="#formatted_parts#" delimiters=";" index="p">
 				<cfset tissueP = find("tissue", p)>
 				<cfif tissueP lte 0>
 					<cfset newParts = "#newParts#; #p#">
