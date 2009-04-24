@@ -174,7 +174,7 @@
 			<cfloop list="#taxaRanksList#" index="i">
 				<cfif len(evaluate("one." & i)) gt 0>
 					<td>#evaluate("one." & i)#</td>
-					<cfset metaDesc=metaDesc & "; #i#: #evaluate("one." & i)#">
+					<cfset metaDesc=metaDesc & "; #replace(i,'PHYL','')#: #evaluate('one.' & i)#">
 				</cfif>
 			</cfloop>
 		</tr>
