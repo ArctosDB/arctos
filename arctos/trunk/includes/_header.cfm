@@ -6,7 +6,6 @@
 <head>
 <cfoutput>
     <meta name="keywords" content="#session.meta_keywords#">
-    <meta name="description" content="#session.meta_description#">
     <LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico">
     <cfinclude template="/includes/alwaysInclude.cfm"><!--- keep this stuff accessible from non-header-having files --->
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
