@@ -61,7 +61,7 @@
 		<cfloop from="1" to ="#numberFolders#" index="i">
 			<cfset thisBarcode=evaluate("barcode_" & i)>
 			<cfif len(#thisBarcode#) gt 0>
-				<cfquery name="chk" datasource="#Application.uam_dbo#">
+				<cfquery name="chk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select 
 						checkContainerMovement('#parent_barcode#','#thisBarcode#') cmvt
 	 				from
@@ -70,7 +70,7 @@
 				<br>Parent: #parent_barcode#; Child: #thisBarcode#; Error: #chk.cmvt#
 				<cfif chk.cmvt is 'pass'>
 					<cfset pf=listappend(pf,"p")>
-					<cfquery name="ins" datasource="#Application.uam_dbo#">
+					<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						update container set 
 							parent_container_id=
 								(select container_id from container where barcode='#parent_barcode#'),

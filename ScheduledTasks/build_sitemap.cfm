@@ -126,7 +126,6 @@
 		<cfscript>
 			a=chr(9) & "<url>" & chr(10) & 
 			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/#fn#</loc>" & chr(10) &
-			chr(9) & chr(9) & "<priority>1</priority>" & chr(10) &
 			chr(9) & chr(9) & "<changefreq>monthly</changefreq>" & chr(10) & 
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
@@ -188,7 +187,6 @@
 		<cfscript>
 			a=chr(9) & "<url>" & chr(10) & 
 			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/ProjectDetail.cfm?project_id=#project_id#</loc>" & chr(10) &
-			chr(9) & chr(9) & "<priority>0.4</priority>" & chr(10) &
 			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) & 
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
@@ -250,7 +248,6 @@
 		<cfscript>
 			a=chr(9) & "<url>" & chr(10) & 
 			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/SpecimenUsage.cfm?action=search&amp;publication_id=#publication_id#</loc>" & chr(10) &
-			chr(9) & chr(9) & "<priority>0.5</priority>" & chr(10) &
 			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) & 
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
@@ -313,7 +310,6 @@
 		<cfscript>
 			a=chr(9) & "<url>" & chr(10) & 
 			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/name/#URLEncodedFormat(scientific_name)#</loc>" & chr(10) &
-			chr(9) & chr(9) & "<priority>0.6</priority>" & chr(10) &
 			chr(9) & chr(9) & "<changefreq>monthly</changefreq>" & chr(10) & 
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
@@ -377,7 +373,6 @@
 			a=chr(9) & "<url>" & chr(10) & 
 			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/guid/#guid#</loc>" & chr(10) &
 			chr(9) & chr(9) & "<lastmod>#lastMod#</lastmod>" & chr(10) &
-			chr(9) & chr(9) & "<priority>0.8</priority>" & chr(10) &
 			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) & 
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);

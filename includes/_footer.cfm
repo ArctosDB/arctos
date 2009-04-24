@@ -74,9 +74,13 @@
 <cfif not isdefined("title")>
 	<cfset title = "Database Access">
 </cfif>
+<cfif not isdefined("metaDesc")>
+	<cfset metaDesc = "Arctos is a biological specimen database.">
+</cfif>
 <cftry>
-	<cfhtmlhead text="<title>#title#</title>
-	">
+	<cfhtmlhead text='<title>#title#</title>
+	meta name="description" content="#metaDesc#">
+	'>
 	<cfcatch type="template">
 		<!--- 
 			do nothing, couldn't process the header
