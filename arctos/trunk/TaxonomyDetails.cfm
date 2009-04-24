@@ -129,6 +129,7 @@
 </cfquery>
 <cfoutput>
 	<cfset title="#one.scientific_name#">
+	<cfset metaDesc="Taxon Detail for #one.scientific_name#">
 	<cfset thisSearch = "%22#one.scientific_name#%22">
 	<cfloop query="common_name">
 		<cfset thisSearch = "#thisSearch# OR %22#common_name#%22">
@@ -140,6 +141,7 @@
 			</font>
 			<cfif len(one.AUTHOR_TEXT) gt 0>
 				<font size="+1">#one.AUTHOR_TEXT#</font>
+				<cfset metaDesc=metaDesc & "; Author: #one.AUTHOR_TEXT#">
         	</cfif>
         <cfelseIF #one.VALID_CATALOG_TERM_FG# is 0>
 	    	<font size="+1"><I><b>#one.SCIENTIFIC_NAME#</b></I></font>
@@ -172,6 +174,7 @@
 			<cfloop list="#taxaRanksList#" index="i">
 				<cfif len(evaluate("one." & i)) gt 0>
 					<td>#evaluate("one." & i)#</td>
+					<cfset metaDesc=metaDesc & "; #i#: #evaluate("one." & i)#">
 				</cfif>
 			</cfloop>
 		</tr>
@@ -182,6 +185,7 @@
 		<cfif len(common_name.common_name) is 0>
 			<li><b>No common names recorded.</b></li>
 		<cfelse>
+			<cfset metaDesc=metaDesc & "; Common Names: #valuelist(common_name.common_name)#">
 			<cfloop query="common_name">
 				<li><b>#common_name#</b></li>
 			</cfloop>
