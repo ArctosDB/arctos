@@ -108,7 +108,9 @@ encumbered for proprietary reasons, data are open to the public.
 	<li>Vaporware-free since 2001.</li>
 	<li>
 		Virtual Private Databases (VPD), also known as Row-Level Security (RLS), allow collections to maintain
-		control of their data while sharing certain nodes, such as Agents and Taxonomy.
+		control of their data while sharing certain nodes, such as Agents and Taxonomy. The cool kids call this concept 
+		Cloud Computing or Grid Computing. ColdFusion and Oracle are both scalable to essentially any number of servers 
+		running any hardware configuration.
 	</li>
 	<li>Everything is over the web in real time, and 
 		independent of client-side operating systems. 
