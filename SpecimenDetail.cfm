@@ -77,6 +77,7 @@
 		collecting_event.collecting_event_id,
 		state_prov,
 		quad,
+		higher_geog
 		county,
 		island,
 		island_group,
@@ -129,6 +130,7 @@
 	</div>
 </cfif>
 <cfset title="#detail.collection# #detail.cat_num#">
+<cfset metaDesc="#detail.collection# #detail.cat_num#; #detail.scientific_name#; #detail.higher_geog#; #detail.spec_locality#">
 <cf_customizeHeader collection_id=#detail.collection_id#>
 <script type="text/javascript" language="javascript">
 	/***********************************************
