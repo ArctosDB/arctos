@@ -79,7 +79,7 @@
 </cfif>
 <cftry>
 	<cfhtmlhead text='<title>#title#</title>
-	meta name="description" content="#metaDesc#">
+	<meta name="description" content="#metaDesc#">
 	'>
 	<cfcatch type="template">
 		<!--- 
