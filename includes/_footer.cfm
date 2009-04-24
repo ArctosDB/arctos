@@ -75,7 +75,7 @@
 	<cfset title = "Database Access">
 </cfif>
 <cfif not isdefined("metaDesc")>
-	<cfset metaDesc = "Arctos is a biological specimen database.">
+	<cfset metaDesc = session.meta_description>
 </cfif>
 <cftry>
 	<cfhtmlhead text='<title>#title#</title>
