@@ -222,9 +222,11 @@
 		Links:
 		<ul>
 			<li>
-				Search Arctos for <a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#">
-					exactly <I>#one.SCIENTIFIC_NAME#</I></a>
-				or <a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#">like <em>#one.scientific_name#</em></a>
+				Search Arctos for specimens <a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#">
+				exactly <I>#one.SCIENTIFIC_NAME#</I></a>
+			</li>
+			<li>
+				Search Arctos for specimens <a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#">like <em>#one.scientific_name#</em></a>
 			</li>
 			<li>
 				<a href="http://images.google.com/images?q=#thisSearch#" target="_blank">
