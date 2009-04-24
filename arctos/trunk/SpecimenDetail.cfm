@@ -77,7 +77,7 @@
 		collecting_event.collecting_event_id,
 		state_prov,
 		quad,
-		higher_geog
+		higher_geog,
 		county,
 		island,
 		island_group,
