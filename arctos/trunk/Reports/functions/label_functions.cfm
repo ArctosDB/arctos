@@ -921,13 +921,21 @@
 		<cfset pAr[i] = "#formatted_parts#">
 		
 		<!--- Sex --->
-		<cfset formatted_sex = "#sex#">
+		<cfset formmated_sex = "">
+		<cfif sex is 'unknown'>
+			<cfset formatted_sex = "U">
+		<cfelseif sex is 'female'>
+			<cfset formatted_sex = "F">
+		<cfelseif sex is 'male'>
+			<cfset formatted_sex = "M">
+		</cfif>
+<!--- 		<cfset formatted_sex = "#sex#">
 		<cfif formatted_sex is 'unknown' or formatted_sex is 'recorded as unknown' or formatted_sex is 'not recorded'>
 			<cfset formatted_sex = "U">
 		</cfif>
 		<cfset formatted_sex = "#ReplaceNoCase(formatted_sex, 'female', 'F')#">
 		<cfset formatted_sex = "#ReplaceNoCase(formatted_sex, 'male', 'M')#">
-				
+				 --->
 		<cfset sexAr[i] = "#formatted_sex#">
 		
 		<cfset i = i+1>
