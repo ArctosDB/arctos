@@ -846,6 +846,8 @@
 			</cfif>
 		</cfif>
 		<cfset geog=replace(geog,": , ",": ","all")>
+		<cfset geog=replacenocase(geog, "County", "Co.", "all")>
+		<cfset geog=replacenocase(geog, "California", "Calif.", "all")>
 		<cfset geogAr[i] = "#geog#">
 		
 		<!--- If there is a 'label' type agent_name, use that; else, use collector's preferred name'--->
