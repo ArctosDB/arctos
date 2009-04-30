@@ -921,7 +921,7 @@
 		<cfset pAr[i] = "#formatted_parts#">
 		
 		<!--- Sex --->
-		<cfset formmated_sex = "">
+		<cfset formatted_sex = "">
 		<cfif sex is 'unknown'>
 			<cfset formatted_sex = "U">
 		<cfelseif sex is 'female'>
