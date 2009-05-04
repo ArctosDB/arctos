@@ -10,7 +10,7 @@
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"specimen","/")>
 			<cfset	i = listgetat(rdurl,gPos+1,"/")>
-			<cfset	c = listgetat(rdurlL,gPos+2,"/")>
+			<cfset	c = listgetat(rdurl,gPos+2,"/")>
 			<cfset	n = listgetat(rdurl,gPos+3,"/")>
 			<cfset guid=i & ":" & c & ":" & n>
 			<cfinclude template="/SpecimenDetail.cfm">
