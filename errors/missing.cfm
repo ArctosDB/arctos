@@ -7,7 +7,11 @@
 <cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
 	<cfoutput>
 	<cfset rdurl=cgi.REDIRECT_URL>
-	
+		<cfif rdurl contains "&##215;">
+			wesa gonna redirect now....
+		<cfelse>
+			nope
+		</cfif>
 	</cfoutput>
 	<cfif listfindnocase(rdurl,'specimen',"/")>
 		<cftry>
