@@ -5,7 +5,9 @@
 	 .../bla/whatever/guid/{institution}:{collection}:{catnum}
 --->
 <cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
+	<cfoutput>
 	------------#GetEncoding(url)#
+	</cfoutput>
 	<cfif listfindnocase(cgi.REDIRECT_URL,'specimen',"/")>
 		<cftry>
 			<cfset gPos=listfindnocase(cgi.REDIRECT_URL,"specimen","/")>
