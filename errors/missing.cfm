@@ -17,7 +17,7 @@
 		</cfloop>
 		
 		<cfif rdurl contains chr(195) & chr(151)>
-			<cfset rdurl=replace(rdurl,chr(195) & chr(151),chr(215)>
+			<cfset rdurl=replace(rdurl,chr(195) & chr(151),chr(215))>
 			----------rdurl is now #rdurl#
 		</cfif>
 	</cfoutput>
