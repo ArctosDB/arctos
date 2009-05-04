@@ -11,6 +11,8 @@
 			<br>
 			#i#:
 			#mid(rdurl,i,1)#
+			:
+			#asc(mid(rdurl,i,1))#
 		</cfloop>
 	</cfoutput>
 	<cfif listfindnocase(rdurl,'specimen',"/")>
