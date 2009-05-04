@@ -9,6 +9,7 @@
 	<cfset rdurl=cgi.REDIRECT_URL>
 		<cfif rdurl contains chr(151)>
 			found 151: redirect.....
+			<cflocation url="#rdurl#">
 		</cfif>
 		<cfloop from="1" to="#len(rdurl)#" index="i">
 			<br>
