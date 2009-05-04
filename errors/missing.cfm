@@ -8,7 +8,9 @@
 	<cfoutput>
 	<cfset rdurl=cgi.REDIRECT_URL>
 		<cfloop from="1" to="#len(rdurl)#" index="i">
-			<br>#i#
+			<br>
+			#i#:
+			#mid(rdurl,i,1)#
 		</cfloop>
 	</cfoutput>
 	<cfif listfindnocase(rdurl,'specimen',"/")>
