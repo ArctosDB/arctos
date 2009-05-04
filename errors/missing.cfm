@@ -7,19 +7,9 @@
 <cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
 	<cfoutput>
 	<cfset rdurl=cgi.REDIRECT_URL>
-		
-		<cfloop from="1" to="#len(rdurl)#" index="i">
-			<br>
-			#i#:
-			#mid(rdurl,i,1)#
-			:
-			#asc(mid(rdurl,i,1))#
-		</cfloop>
-		
-		<cfif rdurl contains chr(195) & chr(151)>
-			<cfset rdurl=replace(rdurl,chr(195) & chr(151),chr(215))>
-			----------rdurl is now #rdurl#
-		</cfif>
+	<cfif rdurl contains chr(195) & chr(151)>
+		<cfset rdurl=replace(rdurl,chr(195) & chr(151),chr(215))>
+	</cfif>
 	</cfoutput>
 	<cfif listfindnocase(rdurl,'specimen',"/")>
 		<cftry>
