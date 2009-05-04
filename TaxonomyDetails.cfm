@@ -1,10 +1,11 @@
 <cfinclude template = "includes/_header.cfm">
 <!--- get taxon name ID if we're passed a scientific name --->
 <cfif isdefined("scientific_name") and len(#scientific_name#) gt 0>
+	SELECT taxon_name_id FROM taxonomy WHERE upper(scientific_name)	= '#ucase(scientific_name)#'
 	<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT taxon_name_id FROM taxonomy WHERE upper(scientific_name)	= '#ucase(scientific_name)#'
 	</cfquery>
-	
+	found #getTID.recordcount# returns
 	<cfif getTID.recordcount is 1>
 		<cfset tnid=#getTID.taxon_name_id#>
 	<cfelse>
