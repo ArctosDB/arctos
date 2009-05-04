@@ -5,35 +5,32 @@
 	 .../bla/whatever/guid/{institution}:{collection}:{catnum}
 --->
 <cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
-	<cfoutput>
-
-	------------#GetEncoding(url.test)#
-	</cfoutput>
-	<cfif listfindnocase(cgi.REDIRECT_URL,'specimen',"/")>
+	<cfset rdurl=cgi.REDIRECT_URL>
+	<cfif listfindnocase(rdurl,'specimen',"/")>
 		<cftry>
-			<cfset gPos=listfindnocase(cgi.REDIRECT_URL,"specimen","/")>
-			<cfset	i = listgetat(cgi.REDIRECT_URL,gPos+1,"/")>
-			<cfset	c = listgetat(cgi.REDIRECT_URL,gPos+2,"/")>
-			<cfset	n = listgetat(cgi.REDIRECT_URL,gPos+3,"/")>
+			<cfset gPos=listfindnocase(rdurl,"specimen","/")>
+			<cfset	i = listgetat(rdurl,gPos+1,"/")>
+			<cfset	c = listgetat(rdurlL,gPos+2,"/")>
+			<cfset	n = listgetat(rdurl,gPos+3,"/")>
 			<cfset guid=i & ":" & c & ":" & n>
 			<cfinclude template="/SpecimenDetail.cfm">
 			<cfcatch>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
-	<cfelseif listfindnocase(cgi.REDIRECT_URL,'guid',"/")>
+	<cfelseif listfindnocase(rdurlL,'guid',"/")>
 		<cftry>
-			<cfset gPos=listfindnocase(cgi.REDIRECT_URL,"guid","/")>
-			<cfset guid = listgetat(cgi.REDIRECT_URL,gPos+1,"/")>
+			<cfset gPos=listfindnocase(rdurl,"guid","/")>
+			<cfset guid = listgetat(rdurl,gPos+1,"/")>
 			<cfinclude template="/SpecimenDetail.cfm">
 			<cfcatch>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>				
-	<cfelseif listfindnocase(cgi.REDIRECT_URL,'name',"/")>
+	<cfelseif listfindnocase(rdurl,'name',"/")>
 		<cftry>
-			<cfset gPos=listfindnocase(cgi.REDIRECT_URL,"name","/")>
-			<cfset scientific_name = listgetat(cgi.REDIRECT_URL,gPos+1,"/")>
+			<cfset gPos=listfindnocase(rdurl,"name","/")>
+			<cfset scientific_name = listgetat(rdurl,gPos+1,"/")>
 			<cfinclude template="/TaxonomyDetails.cfm">
 			<cfcatch>
 				<cfinclude template="/errors/404.cfm">
