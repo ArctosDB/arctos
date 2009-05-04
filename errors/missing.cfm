@@ -18,7 +18,7 @@
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
-	<cfelseif listfindnocase(rdurlL,'guid',"/")>
+	<cfelseif listfindnocase(rdurl,'guid',"/")>
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"guid","/")>
 			<cfset guid = listgetat(rdurl,gPos+1,"/")>
