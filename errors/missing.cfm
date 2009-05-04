@@ -7,10 +7,7 @@
 <cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
 	<cfoutput>
 	<cfset rdurl=cgi.REDIRECT_URL>
-		<cfif rdurl contains chr(151)>
-			found 151: redirect.....
-			<cflocation url="#rdurl#">
-		</cfif>
+		
 		<cfloop from="1" to="#len(rdurl)#" index="i">
 			<br>
 			#i#:
@@ -42,8 +39,13 @@
 		</cftry>				
 	<cfelseif listfindnocase(rdurl,'name',"/")>
 		<cftry>
+			
+
 			<cfset gPos=listfindnocase(rdurl,"name","/")>
 			<cfset scientific_name = listgetat(rdurl,gPos+1,"/")>
+			<cfif scientific_name contains chr(151)>
+				<cflocation url="/name/#scientific_name#" addtoken="false">
+			</cfif>
 			<cfinclude template="/TaxonomyDetails.cfm">
 			<cfcatch>
 				<cfinclude template="/errors/404.cfm">
