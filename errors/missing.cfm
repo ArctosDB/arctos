@@ -15,6 +15,10 @@
 			:
 			#asc(mid(rdurl,i,1))#
 		</cfloop>
+		
+		<cfif rdurl contains chr(151)>
+			<cfset rdurl=replace(rdurl,'x','y')>
+		</cfif>
 	</cfoutput>
 	<cfif listfindnocase(rdurl,'specimen',"/")>
 		<cftry>
@@ -39,13 +43,8 @@
 		</cftry>				
 	<cfelseif listfindnocase(rdurl,'name',"/")>
 		<cftry>
-			
-
 			<cfset gPos=listfindnocase(rdurl,"name","/")>
 			<cfset scientific_name = listgetat(rdurl,gPos+1,"/")>
-			<cfif scientific_name contains chr(151)>
-				<cflocation url="/name/#scientific_name#" addtoken="false">
-			</cfif>
 			<cfinclude template="/TaxonomyDetails.cfm">
 			<cfcatch>
 				<cfinclude template="/errors/404.cfm">
