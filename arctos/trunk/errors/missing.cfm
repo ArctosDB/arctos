@@ -6,8 +6,8 @@
 --->
 <cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
 	<cfoutput>
-		<cfset t=cgi.REDIRECT_URL>
-	------------#GetEncoding(t)#
+
+	------------#GetEncoding(url.test)#
 	</cfoutput>
 	<cfif listfindnocase(cgi.REDIRECT_URL,'specimen',"/")>
 		<cftry>
