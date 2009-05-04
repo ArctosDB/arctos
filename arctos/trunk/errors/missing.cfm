@@ -16,8 +16,9 @@
 			#asc(mid(rdurl,i,1))#
 		</cfloop>
 		
-		<cfif rdurl contains chr(151)>
-			<cfset rdurl=replace(rdurl,'x','y')>
+		<cfif rdurl contains chr(195)chr(151)>
+			<cfset rdurl=replace(rdurl,chr(195)chr(151),chr(215)>
+			----------rdurl is now #rdurl#
 		</cfif>
 	</cfoutput>
 	<cfif listfindnocase(rdurl,'specimen',"/")>
