@@ -8,13 +8,9 @@
 <table>
 <tr>
 	<td colspan="2" align="center">
-		<div style="width:600px;" align="left">
-		<i>Use this form to report bugs. 
-		<br>All fields are optional. 
-		<br>Include your email address if you would like us to contact you when the issue you submit has been addressed. Your email address will </i><b>not</b><i> be released or publicly displayed on our site.</i>
-		<br>Please user the bad data icon <img src="/images/bad.gif"> to report data problems if possible. Doing so will allow us to resolve the issue sooner.
-		<p>&nbsp;</p>
-		</div>
+		<br>Include your email address if you would like us to contact you when the issue you submit has been addressed. 
+		Your email address will <b>not</b> be released or publicly displayed on our site.
+		<br>Please user the bad data links rather than this form to report data problems if possible.
 	</td>
 </tr>
 	<form name="bug" method="post" action="bugs.cfm">
