@@ -102,12 +102,10 @@
 							
 				<!---<input type="hidden" name="gotopage" value="#escapeGoofyInstall#">--->
 					<table border="0" cellpadding="0" cellspacing="0">
-						<tr rowspan="2">
-							<td colspan="2" valign="top">
+						<tr>
+							<td rowspan="2" valign="top">
 								<a target="_top" href="##" onClick="getInstDocs('GENERIC','index')">Help</a> ~ 
 							</td>
-						</tr>
-						<tr>
 							<td>
 								<input type="text" name="username" title="Username" value="Username" size="12" 
 									class="loginTxt" onfocus="if(this.value==this.title){this.value=''};">
