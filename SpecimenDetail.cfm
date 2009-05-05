@@ -363,7 +363,7 @@
 								where collection_object_id = #collection_object_id#
 							</cfquery>
 							<a href="javascript: openAnnotation('#collection_object_id#')">
-								[Annotate]							
+								[Report&nbsp;Bad&nbsp;Data]							
 							<cfif #existingAnnotations.cnt# gt 0>
 								<br>(#existingAnnotations.cnt# existing)
 							</cfif>
