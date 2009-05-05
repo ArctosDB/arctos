@@ -314,7 +314,7 @@
 ---->
 
 <span class="likeLink" onclick="clearAll(#everything#)">Clear All</span>
-<span class="likeLink" onclick="checkList(#requires#)">Check Required</span>
+<span class="likeLink" onclick="checkList(#required#)">Check Required</span>
 <script>
 function clearAll(list) {
 	var a = list.split(',');
