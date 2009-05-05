@@ -4,99 +4,48 @@
 </cfif>
 <cfinclude template="/includes/_header.cfm">
 <cfif #Action# is "nothing">
-<center>
-<table>
-<tr>
-	<td colspan="2" align="center">
-		<br>Include your email address if you would like us to contact you when the issue you submit has been addressed. 
-		Your email address will <b>not</b> be released or publicly displayed on our site.
-		<br>Please user the bad data links rather than this form to report data problems if possible.
-	</td>
-</tr>
+	<h2>Report Bugs</h2>
+	Include your email address if you would like us to contact you when the issue you submit has been addressed. 
+	Your email address will <b>not</b> be released or publicly displayed on our site.
+	<br>Please user the bad data links rather than this form to report data problems if possible, and tell us about it if
+	you couldn't find one!
+	<br>You might also wish to <a href="bugs.cfm?action=read">look for similar reports</a> before filing an issue.
 	<form name="bug" method="post" action="bugs.cfm">
 		<input type="hidden" name="action" value="save">
-		
-		<tr>
-			<td valign="top">
-				<div align="right">Who are you?
-		    </div></td>
-			<td>
-				<input type="text" name="reported_name" size="60">
-			</td>
-		</tr>
-		<tr>
-			<td valign="top">
-				<div align="right">What is your email address?
-		    </div></td>
-			<td>
-				<input type="text" name="user_email" size="60">
-			</td>
-		</tr>
-		<tr>
-			<td valign="top">
-				<div align="right">What form (URL) don't you like?
-		    </div></td>
-			<td>
-				<input type="text" name="form_name" size="60">
-			</td>
-		</tr>
-		<tr>
-			<td valign="top">
-				<div align="right">What about it?
-		    </div></td>
-			<td>
-				<textarea name="complaint" rows="6" cols="50"></textarea>		
-			</td>
-		</tr>
-		<tr>
-			<td valign="top">
-				<div align="right">What do you want us to do about it?
-		    </div></td>
-			<td>
-				<textarea name="suggested_solution" rows="6" cols="50"></textarea>		
-			</td>
-		</tr>
-		<tr>
-			<td valign="top">
-				<div align="right">How important is this to you?
-		    </div></td>
-			<td>
-				<select name="user_priority" size="1" style="background-color:#00FF00">
-					<option value="0" 
-						style="background-color:#00FF00 ">Observation - no action required</option>
-					<option value="1" 
-						style="background-color:#99CCFF" 
-						onClick="document.bug.user_priority.style.backgroundColor='#99CCFF';">Just a suggestion</option>
-					<option value="2"  
-						style="background-color:#FFFF33" 
-						onClick="document.bug.user_priority.style.backgroundColor='#FFFF33';">It would make my life easier</option>
-					<option value="3"  
-						style="background-color:#FF6600" 
-						onClick="document.bug.user_priority.style.backgroundColor='#FF6600';">I can't do what I need to without it</option>
-					<option value="4" style="background-color:#FF0000" 
-						onClick="document.bug.user_priority.style.backgroundColor='#FF0000';">Something is broken</option>
-					<option value="5" style="background-color: #000000; color:#FFFFFF"  
-						onClick="document.bug.user_priority.style.backgroundColor='#000000';document.bug.user_priority.style.color='#FFFFFF';">
-						Data are misrepresented</option>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td valign="top"><div align="right">Anything else we can do for you?</div></td>
-			<td><textarea name="user_remarks" rows="6" cols="50"></textarea></td>
-		</tr>
-		<tr>
-			<td>&nbsp;</td>
-			<td align="center">
-				<input type="submit" 
-					value="k, I'm all done. Now do something about it!" class="insBtn"
-   					onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'">	
-				<br><input type="button" 
-					value="Read bug reports" class="lnkBtn"
-   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-					onclick="document.location='bugs.cfm?action=read';">	
-			</td>
-		</tr>
+		<label for="reported_name">Who are you?</label>
+		<input type="text" name="reported_name" id="reported_name" size="60">
+		<label for="user_email">What is your email address?</label>
+		<input type="text" name="user_email" id="user_email" size="60">
+		<label for="form_name">What form (URL) don't you like?</label>
+		<input type="text" name="form_name" id="form_name" size="60">
+		<label for="complaint">What wrong with it?</label>
+		<textarea name="complaint" id="complaint" rows="6" cols="50"></textarea>
+		<label for="suggested_solution">What do you want us to do about it?</label>
+		<textarea name="suggested_solution" id="suggested_solution" rows="6" cols="50"></textarea>	
+		<label for="user_priority">How important is this?</label>
+		<select name="user_priority" id="user_priority" size="1" style="background-color:#00FF00">
+			<option value="0" 
+				style="background-color:#00FF00 ">Observation - no action required</option>
+			<option value="1" 
+				style="background-color:#99CCFF" 
+				onClick="document.bug.user_priority.style.backgroundColor='#99CCFF';">Just a suggestion</option>
+			<option value="2"  
+				style="background-color:#FFFF33" 
+				onClick="document.bug.user_priority.style.backgroundColor='#FFFF33';">It would make my life easier</option>
+			<option value="3"  
+				style="background-color:#FF6600" 
+				onClick="document.bug.user_priority.style.backgroundColor='#FF6600';">I can't do what I need to without it</option>
+			<option value="4" style="background-color:#FF0000" 
+				onClick="document.bug.user_priority.style.backgroundColor='#FF0000';">Something is broken</option>
+			<option value="5" style="background-color: #000000; color:#FFFFFF"  
+				onClick="document.bug.user_priority.style.backgroundColor='#000000';document.bug.user_priority.style.color='#FFFFFF';">
+				Data are misrepresented</option>
+		</select>
+		<label for="user_remarks">Anything else we can do for you?</label>
+		<textarea name="user_remarks" id="user_remarks" rows="6" cols="50"></textarea>
+		<br>
+		<input type="submit" 
+			value="OK, I'm all done. Now do something about it!" class="insBtn">
 	</form>
 </table>
 </center>
