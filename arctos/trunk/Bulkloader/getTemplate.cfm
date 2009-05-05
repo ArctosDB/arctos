@@ -61,59 +61,10 @@
 		<cfset geol=listappend(geol,"GEO_ATT_REMARK_" & i)>
 	</cfloop>
 												  
-  											     
- 												 
-	<!---
-	
-
- RELATIONSHIP										      VARCHAR2(60)
- RELATED_TO_NUMBER									      VARCHAR2(60)
- RELATED_TO_NUM_TYPE									      VARCHAR2(255)
- MIN_DEPTH										      VARCHAR2(20)
- MAX_DEPTH										      VARCHAR2(20)
- DEPTH_UNITS										      VARCHAR2(30)
-
- COLL_OBJECT_HABITAT									      VARCHAR2(255)
- ASSOCIATED_SPECIES									      VARCHAR2(4000)
- LOCALITY_ID										      VARCHAR2(20)
-
-  										      VARCHAR2(60)
-
- 					      VARCHAR2(4000)
- GEOLOGY_ATTRIBUTE_2									      VARCHAR2(255)
- GEO_ATT_VALUE_2									      VARCHAR2(255)
- GEO_ATT_DETERMINER_2									      VARCHAR2(255)
- GEO_ATT_DETERMINED_DATE_2								      VARCHAR2(255)
- GEO_ATT_DETERMINED_METHOD_2								      VARCHAR2(255)
- GEO_ATT_REMARK_2									      VARCHAR2(4000)
- GEOLOGY_ATTRIBUTE_3									      VARCHAR2(255)
- GEO_ATT_VALUE_3									      VARCHAR2(255)
- GEO_ATT_DETERMINER_3									      VARCHAR2(255)
- GEO_ATT_DETERMINED_DATE_3								      VARCHAR2(255)
- GEO_ATT_DETERMINED_METHOD_3								      VARCHAR2(255)
- GEO_ATT_REMARK_3									      VARCHAR2(4000)
- GEOLOGY_ATTRIBUTE_4									      VARCHAR2(255)
- GEO_ATT_VALUE_4									      VARCHAR2(255)
- GEO_ATT_DETERMINER_4									      VARCHAR2(255)
- GEO_ATT_DETERMINED_DATE_4								      VARCHAR2(255)
- GEO_ATT_DETERMINED_METHOD_4								      VARCHAR2(255)
- GEO_ATT_REMARK_4									      VARCHAR2(4000)
- GEOLOGY_ATTRIBUTE_5									      VARCHAR2(255)
- GEO_ATT_VALUE_5									      VARCHAR2(255)
- GEO_ATT_DETERMINER_5									      VARCHAR2(255)
- GEO_ATT_DETERMINED_DATE_5								      VARCHAR2(255)
- GEO_ATT_DETERMINED_METHOD_5								      VARCHAR2(255)
- GEO_ATT_REMARK_5									      VARCHAR2(4000)
- GEOLOGY_ATTRIBUTE_6									      VARCHAR2(255)
- GEO_ATT_VALUE_6									      VARCHAR2(255)
- GEO_ATT_DETERMINER_6									      VARCHAR2(255)
- GEO_ATT_DETERMINED_DATE_6								      VARCHAR2(255)
- GEO_ATT_DETERMINED_METHOD_6								      VARCHAR2(255)
- GEO_ATT_REMARK_6									      VARCHAR2(4000)
- COLLECTING_EVENT_ID									      NUMBER
----->
-
+<p>
+	Build your own Bulkloader template.	Toggle anything on or off in the table below. Use these links to get started.</p>
 <br><span class="likeLink" onclick="clearAll('#everything#')">Clear All</span>
+<br>
 <br><span class="likeLink" onclick="checkList('#required#')">Add Required</span>
 <br><span class="likeLink" onclick="checkList('#basicCoords#')">Add basic coordinate info</span>
 <br><span class="likeLink" onclick="checkList('#dms#')">Add DMS coordinate info</span>
