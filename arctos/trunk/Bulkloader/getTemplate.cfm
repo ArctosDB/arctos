@@ -7,258 +7,65 @@
 <cfoutput>
 	<cfset everything=valuelist(blt.column_name)>
 	<cfset required="COLLECTION_OBJECT_ID,ENTEREDBY,ACCN,TAXON_NAME,NATURE_OF_ID,ID_MADE_BY_AGENT,MADE_DATE,VERBATIM_DATE,BEGAN_DATE,ENDED_DATE,HIGHER_GEOG,SPEC_LOCALITY,VERBATIM_LOCALITY,COLLECTION_CDE,INSTITUTION_ACRONYM,COLL_OBJ_DISPOSITION,CONDITION,COLLECTOR_AGENT_1,COLLECTOR_ROLE_1,PART_NAME_1,PART_CONDITION_1,PART_LOT_COUNT_1,PART_DISPOSITION_1,COLLECTING_METHOD,COLLECTING_SOURCE">
-	<!---
-	<cfset numOtherIds=5>
-	<cfset 
-	<cfloop from="1" to="#numOtherIds#" index="i">
-		
+	<cfset basicCoords="ORIG_LAT_LONG_UNITS, DATUM,LAT_LONG_REF_SOURCE,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,GEOREFMETHOD,DETERMINED_BY_AGENT,DETERMINED_DATE,LAT_LONG_REMARKS,VERIFICATIONSTATUS,GPSACCURACY,EXTENT">
+	<cfset dms="LATDEG,LATMIN,LATSEC,LATDIR,LONGDEG,LONGMIN,LONGSEC,LONGDIR">
+	<cfset ddm="LATDEG,DEC_LAT_MIN,LATDIR,LONGDEG,DEC_LONG_MIN,LONGDIR">
+	<cfset dd="DEC_LAT,DEC_LONG">
+	<cfset utm="UTM_ZONE,UTM_EW,UTM_NS">
+	<cfset n=5>
+	<cfset oid="CAT_NUM"> 
+	<cfloop from="1" to="#n#" index="i">
+		<cfset oid=listappend(oid,"OTHER_ID_NUM_" & i)>
+		<cfset oid=listappend(oid,"OTHER_ID_NUM_TYPE_" & i)>	
 	</cfloop>
-	<cfset common="">
-									     NOT NULL NUMBER
-  										      VARCHAR2(255)
- 										      VARCHAR2(255)
- CAT_NUM										      VARCHAR2(20)
- OTHER_ID_NUM_5 									      VARCHAR2(255)
- OTHER_ID_NUM_TYPE_5									      VARCHAR2(255)
- OTHER_ID_NUM_1 									      VARCHAR2(255)
- OTHER_ID_NUM_TYPE_1									      VARCHAR2(255)
- 											      VARCHAR2(20)
- 										      VARCHAR2(255)
- 										      VARCHAR2(255)
- 									      VARCHAR2(255)
- 										      VARCHAR2(20)
- IDENTIFICATION_REMARKS 								      VARCHAR2(4000)
-								      VARCHAR2(255)
- ORIG_LAT_LONG_UNITS									      VARCHAR2(255)
- DEC_LAT										      VARCHAR2(255)
- DEC_LONG										      VARCHAR2(255)
- LATDEG 										      VARCHAR2(20)
- DEC_LAT_MIN										      VARCHAR2(255)
- LATMIN 										      VARCHAR2(255)
- LATSEC 										      VARCHAR2(255)
- LATDIR 										      VARCHAR2(50)
- LONGDEG										      VARCHAR2(20)
- DEC_LONG_MIN										      VARCHAR2(255)
- LONGMIN										      VARCHAR2(255)
- LONGSEC										      VARCHAR2(255)
- LONGDIR										      VARCHAR2(50)
- DATUM											      VARCHAR2(255)
- LAT_LONG_REF_SOURCE									      VARCHAR2(255)
- MAX_ERROR_DISTANCE									      VARCHAR2(255)
- MAX_ERROR_UNITS									      VARCHAR2(255)
- GEOREFMETHOD										      VARCHAR2(255)
- DETERMINED_BY_AGENT									      VARCHAR2(255)
- DETERMINED_DATE									      VARCHAR2(20)
- LAT_LONG_REMARKS									      VARCHAR2(4000)
- VERIFICATIONSTATUS									      VARCHAR2(255)
- MAXIMUM_ELEVATION									      VARCHAR2(20)
- MINIMUM_ELEVATION									      VARCHAR2(20)
- ORIG_ELEV_UNITS									      VARCHAR2(255)
- LOCALITY_REMARKS									      VARCHAR2(255)
- HABITAT_DESC										      VARCHAR2(255)
- COLL_EVENT_REMARKS									      VARCHAR2(255)
- COLLECTOR_AGENT_2									      VARCHAR2(255)
- COLLECTOR_ROLE_2									      VARCHAR2(255)
- COLLECTOR_AGENT_3									      VARCHAR2(255)
- COLLECTOR_ROLE_3									      VARCHAR2(255)
- COLLECTOR_AGENT_4									      VARCHAR2(50)
- COLLECTOR_ROLE_4									      VARCHAR2(50)
- COLLECTOR_AGENT_5									      VARCHAR2(255)
- COLLECTOR_ROLE_5									      VARCHAR2(255)
- COLLECTOR_AGENT_6									      VARCHAR2(255)
- COLLECTOR_ROLE_6									      VARCHAR2(255)
- COLLECTOR_AGENT_7									      VARCHAR2(255)
- COLLECTOR_ROLE_7									      VARCHAR2(255)
- COLLECTOR_AGENT_8									      VARCHAR2(255)
- COLLECTOR_ROLE_8									      VARCHAR2(255)
- 									      VARCHAR2(50)
- FLAGS											      VARCHAR2(20)
- 									      VARCHAR2(255)
- COLL_OBJECT_REMARKS									      VARCHAR2(4000)
- DISPOSITION_REMARKS									      VARCHAR2(255)
- OTHER_ID_NUM_2 									      VARCHAR2(255)
- OTHER_ID_NUM_TYPE_2									      VARCHAR2(255)
- OTHER_ID_NUM_3 									      VARCHAR2(255)
- OTHER_ID_NUM_TYPE_3									      VARCHAR2(255)
- OTHER_ID_NUM_4 									      VARCHAR2(255)
- OTHER_ID_NUM_TYPE_4									      VARCHAR2(255)
+	<cfset n=8>
+	<cfset coll=""> 
+	<cfloop from="1" to="#n#" index="i">
+		<cfset oid=listappend(oid,"COLLECTOR_AGENT_" & i)>
+		<cfset oid=listappend(oid,"COLLECTOR_ROLE_" & i)>	
+	</cfloop>
+	<cfset n=12>
+	<cfset part=""> 
+	<cfloop from="1" to="#n#" index="i">
+		<cfset oid=listappend(oid,"PART_NAME_" & i)>
+		<cfset oid=listappend(oid,"PART_MODIFIER_" & i)>
+		<cfset oid=listappend(oid,"PRESERV_METHOD_" & i)>
+		<cfset oid=listappend(oid,"PART_CONDITION_" & i)>
+		<cfset oid=listappend(oid,"PART_BARCODE_" & i)>
+		<cfset oid=listappend(oid,"PART_CONTAINER_LABEL_" & i)>
+		<cfset oid=listappend(oid,"PART_LOT_COUNT_" & i)>
+		<cfset oid=listappend(oid,"PART_DISPOSITION_" & i)>
+		<cfset oid=listappend(oid,"PART_REMARK_" & i)>	
+	</cfloop>
+	
+	<cfset n=10>
+	<cfset attr=""> 
+	<cfloop from="1" to="#n#" index="i">
+		<cfset oid=listappend(oid,"ATTRIBUTE_" & i)>
+		<cfset oid=listappend(oid,"ATTRIBUTE_VALUE_" & i)>
+		<cfset oid=listappend(oid,"ATTRIBUTE_UNITS_" & i)>
+		<cfset oid=listappend(oid,"ATTRIBUTE_REMARKS_" & i)>
+		<cfset oid=listappend(oid,"ATTRIBUTE_DATE_" & i)>
+		<cfset oid=listappend(oid,"ATTRIBUTE_DET_METH_" & i)>
+		<cfset oid=listappend(oid,"ATTRIBUTE_DETERMINER_" & i)>
+	</cfloop>
+	
+	<cfset n=6>
+	<cfset geol=""> 
+	<cfloop from="1" to="#n#" index="i">
+		<cfset oid=listappend(oid,"GEOLOGY_ATTRIBUTE_" & i)>
+		<cfset oid=listappend(oid,"GEO_ATT_VALUE_" & i)>
+		<cfset oid=listappend(oid,"GEO_ATT_DETERMINER_" & i)>
+		<cfset oid=listappend(oid,"GEO_ATT_DETERMINED_DATE_" & i)>
+		<cfset oid=listappend(oid,"GEO_ATT_DETERMINED_METHOD_" & i)>
+		<cfset oid=listappend(oid,"GEO_ATT_REMARK_" & i)>
+	</cfloop>
+												  
+  											     
+ 												 
+	<!---
+	
 
- PART_MODIFIER_1									      VARCHAR2(255)
- PRESERV_METHOD_1									      VARCHAR2(255)
-
- PART_BARCODE_1 									      VARCHAR2(50)
- PART_CONTAINER_LABEL_1 								      VARCHAR2(50)
-
- PART_REMARK_1										      VARCHAR2(255)
- PART_NAME_2										      VARCHAR2(255)
- PART_MODIFIER_2									      VARCHAR2(255)
- PRESERV_METHOD_2									      VARCHAR2(255)
- PART_CONDITION_2									      VARCHAR2(255)
- PART_BARCODE_2 									      VARCHAR2(50)
- PART_CONTAINER_LABEL_2 								      VARCHAR2(50)
- PART_LOT_COUNT_2									      VARCHAR2(2)
- PART_DISPOSITION_2									      VARCHAR2(255)
- PART_REMARK_2										      VARCHAR2(255)
- PART_NAME_3										      VARCHAR2(255)
- PART_MODIFIER_3									      VARCHAR2(255)
- PRESERV_METHOD_3									      VARCHAR2(255)
- PART_CONDITION_3									      VARCHAR2(255)
- PART_BARCODE_3 									      VARCHAR2(50)
- PART_CONTAINER_LABEL_3 								      VARCHAR2(50)
- PART_LOT_COUNT_3									      VARCHAR2(2)
- PART_DISPOSITION_3									      VARCHAR2(255)
- PART_REMARK_3										      VARCHAR2(255)
- PART_NAME_4										      VARCHAR2(255)
- PART_MODIFIER_4									      VARCHAR2(255)
- PRESERV_METHOD_4									      VARCHAR2(255)
- PART_CONDITION_4									      VARCHAR2(255)
- PART_BARCODE_4 									      VARCHAR2(50)
- PART_CONTAINER_LABEL_4 								      VARCHAR2(50)
- PART_LOT_COUNT_4									      VARCHAR2(2)
- PART_DISPOSITION_4									      VARCHAR2(255)
- PART_REMARK_4										      VARCHAR2(255)
- PART_NAME_5										      VARCHAR2(255)
- PART_MODIFIER_5									      VARCHAR2(255)
- PRESERV_METHOD_5									      VARCHAR2(255)
- PART_CONDITION_5									      VARCHAR2(255)
- PART_BARCODE_5 									      VARCHAR2(50)
- PART_CONTAINER_LABEL_5 								      VARCHAR2(50)
- PART_LOT_COUNT_5									      VARCHAR2(2)
- PART_DISPOSITION_5									      VARCHAR2(255)
- PART_REMARK_5										      VARCHAR2(255)
- PART_NAME_6										      VARCHAR2(255)
- PART_MODIFIER_6									      VARCHAR2(255)
- PRESERV_METHOD_6									      VARCHAR2(255)
- PART_CONDITION_6									      VARCHAR2(255)
- PART_BARCODE_6 									      VARCHAR2(50)
- PART_CONTAINER_LABEL_6 								      VARCHAR2(50)
- PART_LOT_COUNT_6									      VARCHAR2(2)
- PART_DISPOSITION_6									      VARCHAR2(255)
- PART_REMARK_6										      VARCHAR2(255)
- PART_NAME_7										      VARCHAR2(255)
- PART_MODIFIER_7									      VARCHAR2(255)
- PRESERV_METHOD_7									      VARCHAR2(255)
- PART_CONDITION_7									      VARCHAR2(255)
- PART_BARCODE_7 									      VARCHAR2(50)
- PART_CONTAINER_LABEL_7 								      VARCHAR2(50)
- PART_LOT_COUNT_7									      VARCHAR2(2)
- PART_DISPOSITION_7									      VARCHAR2(255)
- PART_REMARK_7										      VARCHAR2(255)
- PART_NAME_8										      VARCHAR2(255)
- PART_MODIFIER_8									      VARCHAR2(255)
- PRESERV_METHOD_8									      VARCHAR2(255)
- PART_CONDITION_8									      VARCHAR2(255)
- PART_BARCODE_8 									      VARCHAR2(50)
- PART_CONTAINER_LABEL_8 								      VARCHAR2(50)
- PART_LOT_COUNT_8									      VARCHAR2(2)
- PART_DISPOSITION_8									      VARCHAR2(255)
- PART_REMARK_8										      VARCHAR2(255)
- PART_NAME_9										      VARCHAR2(255)
- PART_MODIFIER_9									      VARCHAR2(255)
- PRESERV_METHOD_9									      VARCHAR2(255)
- PART_CONDITION_9									      VARCHAR2(255)
- PART_BARCODE_9 									      VARCHAR2(50)
- PART_CONTAINER_LABEL_9 								      VARCHAR2(50)
- PART_LOT_COUNT_9									      VARCHAR2(50)
- PART_DISPOSITION_9									      VARCHAR2(255)
- PART_REMARK_9										      VARCHAR2(255)
- PART_NAME_10										      VARCHAR2(255)
- PART_MODIFIER_10									      VARCHAR2(255)
- PRESERV_METHOD_10									      VARCHAR2(255)
- PART_CONDITION_10									      VARCHAR2(255)
- PART_BARCODE_10									      VARCHAR2(50)
- PART_CONTAINER_LABEL_10								      VARCHAR2(50)
- PART_LOT_COUNT_10									      VARCHAR2(50)
- PART_DISPOSITION_10									      VARCHAR2(255)
- PART_REMARK_10 									      VARCHAR2(255)
- PART_NAME_11										      VARCHAR2(255)
- PART_MODIFIER_11									      VARCHAR2(255)
- PRESERV_METHOD_11									      VARCHAR2(255)
- PART_CONDITION_11									      VARCHAR2(255)
- PART_BARCODE_11									      VARCHAR2(50)
- PART_CONTAINER_LABEL_11								      VARCHAR2(50)
- PART_LOT_COUNT_11									      VARCHAR2(50)
- PART_DISPOSITION_11									      VARCHAR2(255)
- PART_REMARK_11 									      VARCHAR2(255)
- PART_NAME_12										      VARCHAR2(255)
- PART_MODIFIER_12									      VARCHAR2(255)
- PRESERV_METHOD_12									      VARCHAR2(255)
- PART_CONDITION_12									      VARCHAR2(255)
- PART_BARCODE_12									      VARCHAR2(50)
- PART_CONTAINER_LABEL_12								      VARCHAR2(50)
- PART_LOT_COUNT_12									      VARCHAR2(50)
- PART_DISPOSITION_12									      VARCHAR2(255)
- PART_REMARK_12 									      VARCHAR2(255)
- ATTRIBUTE_1										      VARCHAR2(50)
- ATTRIBUTE_VALUE_1									      VARCHAR2(255)
- ATTRIBUTE_UNITS_1									      VARCHAR2(255)
- ATTRIBUTE_REMARKS_1									      VARCHAR2(255)
- ATTRIBUTE_DATE_1									      VARCHAR2(20)
- ATTRIBUTE_DET_METH_1									      VARCHAR2(50)
- ATTRIBUTE_DETERMINER_1 								      VARCHAR2(50)
- ATTRIBUTE_2										      VARCHAR2(50)
- ATTRIBUTE_VALUE_2									      VARCHAR2(255)
- ATTRIBUTE_UNITS_2									      VARCHAR2(50)
- ATTRIBUTE_REMARKS_2									      VARCHAR2(255)
- ATTRIBUTE_DATE_2									      VARCHAR2(20)
- ATTRIBUTE_DET_METH_2									      VARCHAR2(50)
- ATTRIBUTE_DETERMINER_2 								      VARCHAR2(50)
- ATTRIBUTE_3										      VARCHAR2(50)
- ATTRIBUTE_VALUE_3									      VARCHAR2(255)
- ATTRIBUTE_UNITS_3									      VARCHAR2(50)
- ATTRIBUTE_REMARKS_3									      VARCHAR2(255)
- ATTRIBUTE_DATE_3									      VARCHAR2(20)
- ATTRIBUTE_DET_METH_3									      VARCHAR2(50)
- ATTRIBUTE_DETERMINER_3 								      VARCHAR2(50)
- ATTRIBUTE_4										      VARCHAR2(50)
- ATTRIBUTE_VALUE_4									      VARCHAR2(255)
- ATTRIBUTE_UNITS_4									      VARCHAR2(50)
- ATTRIBUTE_REMARKS_4									      VARCHAR2(255)
- ATTRIBUTE_DATE_4									      VARCHAR2(20)
- ATTRIBUTE_DET_METH_4									      VARCHAR2(50)
- ATTRIBUTE_DETERMINER_4 								      VARCHAR2(50)
- ATTRIBUTE_5										      VARCHAR2(50)
- ATTRIBUTE_VALUE_5									      VARCHAR2(255)
- ATTRIBUTE_UNITS_5									      VARCHAR2(50)
- ATTRIBUTE_REMARKS_5									      VARCHAR2(255)
- ATTRIBUTE_DATE_5									      VARCHAR2(20)
- ATTRIBUTE_DET_METH_5									      VARCHAR2(50)
- ATTRIBUTE_DETERMINER_5 								      VARCHAR2(50)
- ATTRIBUTE_6										      VARCHAR2(50)
- ATTRIBUTE_VALUE_6									      VARCHAR2(255)
- ATTRIBUTE_UNITS_6									      VARCHAR2(50)
- ATTRIBUTE_REMARKS_6									      VARCHAR2(255)
- ATTRIBUTE_DATE_6									      VARCHAR2(20)
- ATTRIBUTE_DET_METH_6									      VARCHAR2(50)
- ATTRIBUTE_DETERMINER_6 								      VARCHAR2(50)
- ATTRIBUTE_7										      VARCHAR2(50)
- ATTRIBUTE_VALUE_7									      VARCHAR2(255)
- ATTRIBUTE_UNITS_7									      VARCHAR2(50)
- ATTRIBUTE_REMARKS_7									      VARCHAR2(255)
- ATTRIBUTE_DATE_7									      VARCHAR2(20)
- ATTRIBUTE_DET_METH_7									      VARCHAR2(50)
- ATTRIBUTE_DETERMINER_7 								      VARCHAR2(50)
- ATTRIBUTE_8										      VARCHAR2(50)
- ATTRIBUTE_VALUE_8									      VARCHAR2(255)
- ATTRIBUTE_UNITS_8									      VARCHAR2(50)
- ATTRIBUTE_REMARKS_8									      VARCHAR2(255)
- ATTRIBUTE_DATE_8									      VARCHAR2(20)
- ATTRIBUTE_DET_METH_8									      VARCHAR2(50)
- ATTRIBUTE_DETERMINER_8 								      VARCHAR2(50)
- ATTRIBUTE_9										      VARCHAR2(50)
- ATTRIBUTE_VALUE_9									      VARCHAR2(255)
- ATTRIBUTE_UNITS_9									      VARCHAR2(50)
- ATTRIBUTE_REMARKS_9									      VARCHAR2(255)
- ATTRIBUTE_DATE_9									      VARCHAR2(50)
- ATTRIBUTE_DET_METH_9									      VARCHAR2(50)
- ATTRIBUTE_DETERMINER_9 								      VARCHAR2(50)
- ATTRIBUTE_10										      VARCHAR2(50)
- ATTRIBUTE_VALUE_10									      VARCHAR2(255)
- ATTRIBUTE_UNITS_10									      VARCHAR2(50)
- ATTRIBUTE_REMARKS_10									      VARCHAR2(255)
- ATTRIBUTE_DATE_10									      VARCHAR2(50)
- ATTRIBUTE_DET_METH_10									      VARCHAR2(50)
- ATTRIBUTE_DETERMINER_10								      VARCHAR2(50)
  RELATIONSHIP										      VARCHAR2(60)
  RELATED_TO_NUMBER									      VARCHAR2(60)
  RELATED_TO_NUM_TYPE									      VARCHAR2(255)
@@ -269,17 +76,10 @@
  COLL_OBJECT_HABITAT									      VARCHAR2(255)
  ASSOCIATED_SPECIES									      VARCHAR2(4000)
  LOCALITY_ID										      VARCHAR2(20)
- UTM_ZONE										      VARCHAR2(3)
- UTM_EW 										      VARCHAR2(60)
- UTM_NS 										      VARCHAR2(60)
- EXTENT 										      VARCHAR2(60)
- GPSACCURACY										      VARCHAR2(60)
- GEOLOGY_ATTRIBUTE_1									      VARCHAR2(255)
- GEO_ATT_VALUE_1									      VARCHAR2(255)
- GEO_ATT_DETERMINER_1									      VARCHAR2(255)
- GEO_ATT_DETERMINED_DATE_1								      VARCHAR2(255)
- GEO_ATT_DETERMINED_METHOD_1								      VARCHAR2(255)
- GEO_ATT_REMARK_1									      VARCHAR2(4000)
+
+  										      VARCHAR2(60)
+
+ 					      VARCHAR2(4000)
  GEOLOGY_ATTRIBUTE_2									      VARCHAR2(255)
  GEO_ATT_VALUE_2									      VARCHAR2(255)
  GEO_ATT_DETERMINER_2									      VARCHAR2(255)
@@ -313,13 +113,23 @@
  COLLECTING_EVENT_ID									      NUMBER
 ---->
 
-<span class="likeLink" onclick="clearAll('#everything#')">Clear All</span>
-<span class="likeLink" onclick="checkList('#required#')">Check Required</span>
+<br><span class="likeLink" onclick="clearAll('#everything#')">Clear All</span>
+<br><span class="likeLink" onclick="checkList('#required#')">Add Required</span>
+<br><span class="likeLink" onclick="checkList('#basicCoords#')">Add basic coordinate info</span>
+<br><span class="likeLink" onclick="checkList('#dms#')">Add DMS coordinate info</span>
+<br><span class="likeLink" onclick="checkList('#ddm#')">Add DM.m coordinate info</span>
+<br><span class="likeLink" onclick="checkList('#dd#')">Add D.d coordinate info</span>
+<br><span class="likeLink" onclick="checkList('#utm#')">Add UTM coordinate info</span>
+<br><span class="likeLink" onclick="checkList('#oid#')">Add Identifiers</span>
+<br><span class="likeLink" onclick="checkList('#coll#')">Add Agents</span>
+<br><span class="likeLink" onclick="checkList('#part#')">Add parts</span>
+<br><span class="likeLink" onclick="checkList('#attr#')">Add attributes</span>
+<br><span class="likeLink" onclick="checkList('#geol#')">Add geology</span>
+
 <script>
 function clearAll(list) {
 	var a = list.split(',');
 	for (i=0; i<a.length; ++i) {
-		console.log(a[i]);
 		//alert(eid);
 		if (document.getElementById(a[i])) {
 			//alert(eid);
@@ -330,10 +140,8 @@ function clearAll(list) {
 function checkList(list) {
 	var a = list.split(',');
 	for (i=0; i<a.length; ++i) {
-		console.log(a[i]);
 		//alert(eid);
 		if (document.getElementById(a[i])) {
-			console.log(' and ' + a[i] + ' exists...');
 			//alert(eid);
 			document.getElementById(a[i]).checked=true;
 		}
