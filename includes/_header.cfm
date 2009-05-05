@@ -77,6 +77,7 @@
 		</tr>
 	</table>	
 	<div style="float:right;position:absolute;top:5px;right:5px;clear:both;">
+	    <a target="_top" href="##" onClick="getInstDocs('GENERIC','index')">Site Help</a>
 	    <cfif len(#session.username#) gt 0>
 			<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
 			<cfif isdefined("session.last_login") and len(#session.last_login#) gt 0>
@@ -330,7 +331,6 @@
 					<cfelse>
 						<li><a target="_top" href="/myArctos.cfm">Log In</a></li>
 					</cfif>
-					<li><a target="_top" href="##" onClick="getInstDocs('GENERIC','index')">Site Help</a></li>
 					<li><a target="_top" href="/home.cfm">Home</a></li>
 					<li><a target="_top" href="/Collections/index.cfm">Collections (Loans)</a></li>
 					<li><a target="_top" href="/saveSearch.cfm?action=manage">Saved Searches</a></li>
