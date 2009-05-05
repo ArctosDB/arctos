@@ -5,12 +5,10 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif #Action# is "nothing">
 <cfset title="Report Data Problems">
-<center>
+<h2>Report Data Errors</h2>
 <table>
 <tr>
 	<td colspan="2" align="center">
-		<div style="width:600px;" align="left">
-		<i><img src="/images/bad.gif">&nbsp;&nbsp;&nbsp;<font color="#FF0000">Use this form to report data errors. </font>		<br>
 		All fields are optional. 
 		<br>Include your email address if you would like us to contact you when the issue you submit has been addressed. 
 		Your email address will </i><b>not</b><i> be released or publicly displayed on our site.
@@ -129,7 +127,6 @@
 	</form>
 	</cfoutput>
 </table>
-</center>
 </cfif>
 <!------------------------------------------------------------>
 <cfif #action# is "save">
