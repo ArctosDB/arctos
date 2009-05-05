@@ -58,7 +58,7 @@
 		<cfset geol=listappend(geol,"GEO_ATT_DETERMINER_" & i)>
 		<cfset geol=listappend(geol,"GEO_ATT_DETERMINED_DATE_" & i)>
 		<cfset geol=listappend(geol,"GEO_ATT_DETERMINED_METHOD_" & i)>
-		<cfset geolid=listappend(geol,"GEO_ATT_REMARK_" & i)>
+		<cfset geol=listappend(geol,"GEO_ATT_REMARK_" & i)>
 	</cfloop>
 												  
   											     
