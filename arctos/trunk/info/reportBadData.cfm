@@ -199,6 +199,8 @@
 	<cfmail to="#thisAddress#" subject="ColdFusion Bad Data Report" from="BadData@#Application.fromEmail#" type="html">
 		<p>Reported Name: #reported_name# (AKA #session.username#) submitted a data report on #thisDate#.</p>
 		
+		<p><a href="#Application.ServerRootUrl#/SpecimenResults.cfm?collection_object_id=#newCollObjId#">Specimens</a></p>
+		
 		<P>Solution: #suggested_solution#</P>
 		
 		<P>Remarks: #user_remarks#</P>
