@@ -102,7 +102,7 @@
 							
 				<!---<input type="hidden" name="gotopage" value="#escapeGoofyInstall#">--->
 					<table border="0" cellpadding="0" cellspacing="0">
-						<tr>
+						<tr rowspan="2">
 							<td colspan="2" valign="top">
 								<a target="_top" href="##" onClick="getInstDocs('GENERIC','index')">Help</a> ~ 
 							</td>
