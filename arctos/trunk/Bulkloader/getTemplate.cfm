@@ -7,7 +7,7 @@
 <cfoutput>
 	<cfset everything=valuelist(blt.column_name)>
 	<cfset required="COLLECTION_OBJECT_ID,ENTEREDBY,ACCN,TAXON_NAME,NATURE_OF_ID,ID_MADE_BY_AGENT,MADE_DATE,VERBATIM_DATE,BEGAN_DATE,ENDED_DATE,HIGHER_GEOG,SPEC_LOCALITY,VERBATIM_LOCALITY,COLLECTION_CDE,INSTITUTION_ACRONYM,COLL_OBJ_DISPOSITION,CONDITION,COLLECTOR_AGENT_1,COLLECTOR_ROLE_1,PART_NAME_1,PART_CONDITION_1,PART_LOT_COUNT_1,PART_DISPOSITION_1,COLLECTING_METHOD,COLLECTING_SOURCE">
-	<cfset basicCoords="ORIG_LAT_LONG_UNITS, DATUM,LAT_LONG_REF_SOURCE,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,GEOREFMETHOD,DETERMINED_BY_AGENT,DETERMINED_DATE,LAT_LONG_REMARKS,VERIFICATIONSTATUS,GPSACCURACY,EXTENT">
+	<cfset basicCoords="ORIG_LAT_LONG_UNITS, DATUM,LAT_LONG_REF_SOURCE,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,GEOREFMETHOD,DETERMINED_BY_AGENT,DETERMINED_DATE,LAT_LONG_REMARKS,VERIFICATIONSTATUS,GPSACCURACY,EXTENT,DATUM">
 	<cfset dms="LATDEG,LATMIN,LATSEC,LATDIR,LONGDEG,LONGMIN,LONGSEC,LONGDIR">
 	<cfset ddm="LATDEG,DEC_LAT_MIN,LATDIR,LONGDEG,DEC_LONG_MIN,LONGDIR">
 	<cfset dd="DEC_LAT,DEC_LONG">
@@ -154,10 +154,15 @@ function checkList(list) {
 		<select name="format" id="format">
 			<option value="tab">Tab-delimited text</option>
 		</select>
-		<input type="submit" value="build template">
+		<input type="submit" value="Download Template">
+		<table border>
 		<cfloop query="blt">
-			<br>#column_name# <input type="checkbox" name="fld" id="#column_name#" value="#column_name#" checked="checked">
+			<tr>
+				<td><input type="checkbox" name="fld" id="#column_name#" value="#column_name#" checked="checked"></td>
+				<td>#column_name#</td>
+			</tr> 
 		</cfloop>
+		</table>
 	</form>
 </cfoutput>
 </cfif>
