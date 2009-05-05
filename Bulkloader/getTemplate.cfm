@@ -333,6 +333,7 @@ function checkList(list) {
 		console.log(a[i]);
 		//alert(eid);
 		if (document.getElementById(a[i])) {
+			console.log(' and ' + a[i] + ' exists...');
 			//alert(eid);
 			document.getElementById(a[i]).checked=true;
 		}
