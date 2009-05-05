@@ -77,8 +77,8 @@
 		</tr>
 	</table>	
 	<div style="float:right;position:absolute;top:5px;right:5px;clear:both;">
-	    <a target="_top" href="##" onClick="getInstDocs('GENERIC','index')">Site Help</a>
 	    <cfif len(#session.username#) gt 0>
+			<a target="_top" href="##" onClick="getInstDocs('GENERIC','index')">Help</a> ~ 
 			<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
 			<cfif isdefined("session.last_login") and len(#session.last_login#) gt 0>
 				<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "mmm d yyyy")#)</span>&nbsp;
@@ -102,6 +102,11 @@
 							
 				<!---<input type="hidden" name="gotopage" value="#escapeGoofyInstall#">--->
 					<table border="0" cellpadding="0" cellspacing="0">
+						<tr>
+							<td colspan="2" valign="top">
+								<a target="_top" href="##" onClick="getInstDocs('GENERIC','index')">Help</a> ~ 
+							</td>
+						</tr>
 						<tr>
 							<td>
 								<input type="text" name="username" title="Username" value="Username" size="12" 
