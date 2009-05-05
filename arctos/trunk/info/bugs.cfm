@@ -10,6 +10,7 @@
 	<br>Please user the bad data links rather than this form to report data problems if possible, and tell us about it if
 	you couldn't find one!
 	<br>You might also wish to <a href="bugs.cfm?action=read">look for similar reports</a> before filing an issue.
+	<br>
 	<form name="bug" method="post" action="bugs.cfm">
 		<input type="hidden" name="action" value="save">
 		<label for="reported_name">Who are you?</label>
@@ -47,8 +48,6 @@
 		<input type="submit" 
 			value="OK, I'm all done. Now do something about it!" class="insBtn">
 	</form>
-</table>
-</center>
 </cfif>
 <!------------------------------------------------------------>
 <cfif #action# is "save">
