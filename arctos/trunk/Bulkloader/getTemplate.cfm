@@ -21,44 +21,44 @@
 	<cfset n=8>
 	<cfset coll=""> 
 	<cfloop from="1" to="#n#" index="i">
-		<cfset oid=listappend(oid,"COLLECTOR_AGENT_" & i)>
-		<cfset oid=listappend(oid,"COLLECTOR_ROLE_" & i)>	
+		<cfset coll=listappend(coll,"COLLECTOR_AGENT_" & i)>
+		<cfset coll=listappend(coll,"COLLECTOR_ROLE_" & i)>	
 	</cfloop>
 	<cfset n=12>
 	<cfset part=""> 
 	<cfloop from="1" to="#n#" index="i">
-		<cfset oid=listappend(part,"PART_NAME_" & i)>
-		<cfset oid=listappend(part,"PART_MODIFIER_" & i)>
-		<cfset oid=listappend(part,"PRESERV_METHOD_" & i)>
-		<cfset oid=listappend(part,"PART_CONDITION_" & i)>
-		<cfset oid=listappend(part,"PART_BARCODE_" & i)>
-		<cfset oid=listappend(part,"PART_CONTAINER_LABEL_" & i)>
-		<cfset oid=listappend(part,"PART_LOT_COUNT_" & i)>
-		<cfset oid=listappend(part,"PART_DISPOSITION_" & i)>
-		<cfset oid=listappend(part,"PART_REMARK_" & i)>	
+		<cfset part=listappend(part,"PART_NAME_" & i)>
+		<cfset part=listappend(part,"PART_MODIFIER_" & i)>
+		<cfset part=listappend(part,"PRESERV_METHOD_" & i)>
+		<cfset part=listappend(part,"PART_CONDITION_" & i)>
+		<cfset part=listappend(part,"PART_BARCODE_" & i)>
+		<cfset part=listappend(part,"PART_CONTAINER_LABEL_" & i)>
+		<cfset part=listappend(part,"PART_LOT_COUNT_" & i)>
+		<cfset part=listappend(part,"PART_DISPOSITION_" & i)>
+		<cfset part=listappend(part,"PART_REMARK_" & i)>	
 	</cfloop>
 	
 	<cfset n=10>
 	<cfset attr=""> 
 	<cfloop from="1" to="#n#" index="i">
-		<cfset oid=listappend(attr,"ATTRIBUTE_" & i)>
-		<cfset oid=listappend(attr,"ATTRIBUTE_VALUE_" & i)>
-		<cfset oid=listappend(attr,"ATTRIBUTE_UNITS_" & i)>
-		<cfset oid=listappend(attr,"ATTRIBUTE_REMARKS_" & i)>
-		<cfset oid=listappend(attr,"ATTRIBUTE_DATE_" & i)>
-		<cfset oid=listappend(attr,"ATTRIBUTE_DET_METH_" & i)>
-		<cfset oid=listappend(attr,"ATTRIBUTE_DETERMINER_" & i)>
+		<cfset attr=listappend(attr,"ATTRIBUTE_" & i)>
+		<cfset attr=listappend(attr,"ATTRIBUTE_VALUE_" & i)>
+		<cfset attr=listappend(attr,"ATTRIBUTE_UNITS_" & i)>
+		<cfset attr=listappend(attr,"ATTRIBUTE_REMARKS_" & i)>
+		<cfset attr=listappend(attr,"ATTRIBUTE_DATE_" & i)>
+		<cfset attr=listappend(attr,"ATTRIBUTE_DET_METH_" & i)>
+		<cfset attr=listappend(attr,"ATTRIBUTE_DETERMINER_" & i)>
 	</cfloop>
 	
 	<cfset n=6>
 	<cfset geol=""> 
 	<cfloop from="1" to="#n#" index="i">
-		<cfset oid=listappend(geol,"GEOLOGY_ATTRIBUTE_" & i)>
-		<cfset oid=listappend(geol,"GEO_ATT_VALUE_" & i)>
-		<cfset oid=listappend(geol,"GEO_ATT_DETERMINER_" & i)>
-		<cfset oid=listappend(geol,"GEO_ATT_DETERMINED_DATE_" & i)>
-		<cfset oid=listappend(geol,"GEO_ATT_DETERMINED_METHOD_" & i)>
-		<cfset oid=listappend(geol,"GEO_ATT_REMARK_" & i)>
+		<cfset geol=listappend(geol,"GEOLOGY_ATTRIBUTE_" & i)>
+		<cfset geol=listappend(geol,"GEO_ATT_VALUE_" & i)>
+		<cfset geol=listappend(geol,"GEO_ATT_DETERMINER_" & i)>
+		<cfset geol=listappend(geol,"GEO_ATT_DETERMINED_DATE_" & i)>
+		<cfset geol=listappend(geol,"GEO_ATT_DETERMINED_METHOD_" & i)>
+		<cfset geolid=listappend(geol,"GEO_ATT_REMARK_" & i)>
 	</cfloop>
 												  
   											     
