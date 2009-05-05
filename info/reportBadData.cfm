@@ -8,13 +8,11 @@
 <h2>Report Data Errors</h2>
 <table>
 <tr>
-	<td colspan="2" align="center">
+	<td colspan="2">
 		All fields are optional. 
 		<br>Include your email address if you would like us to contact you when the issue you submit has been addressed. 
-		Your email address will </i><b>not</b><i> be released or publicly displayed on our site.
+		Your email address will <b>not</b> be released or publicly displayed on our site.
 		<br>Scroll down to view the data you are reporting.
-		</i>
-		</div>
 	</td>
 </tr>
 
