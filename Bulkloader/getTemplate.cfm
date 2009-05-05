@@ -319,6 +319,7 @@
 function clearAll(list) {
 	var a = list.split(',');
 	for (i=0; i<a.length; ++i) {
+		console.log(a[i]);
 		//alert(eid);
 		if (document.getElementById(a[i])) {
 			//alert(eid);
@@ -329,6 +330,7 @@ function clearAll(list) {
 function checkList(list) {
 	var a = list.split(',');
 	for (i=0; i<a.length; ++i) {
+		console.log(a[i]);
 		//alert(eid);
 		if (document.getElementById(a[i])) {
 			//alert(eid);
