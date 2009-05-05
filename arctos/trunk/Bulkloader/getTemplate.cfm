@@ -348,7 +348,7 @@ function checkList(list) {
 		</select>
 		<input type="submit" value="build template">
 		<cfloop query="blt">
-			<br>#column_name# <input type="checkbox" name="fld" value="#column_name#" checked="checked">
+			<br>#column_name# <input type="checkbox" name="fld" id="#column_name#" value="#column_name#" checked="checked">
 		</cfloop>
 	</form>
 </cfoutput>
