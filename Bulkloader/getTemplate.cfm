@@ -13,7 +13,7 @@
 		</select>
 		<input type="submit" value="build template">
 		<cfloop query="blt">
-			#column_name# <input type="checkbox" name="fld" value="#column_name#">
+			<br>#column_name# <input type="checkbox" name="fld" value="#column_name#" checked="checked">
 		</cfloop>
 	</form>
 </cfoutput>
