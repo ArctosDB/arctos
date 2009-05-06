@@ -84,8 +84,8 @@
 <table border>
 	<tr>
 		<td>&nbsp;</td>
-		<td><span class="likeLink" onclick="allOn()">Check All</span></td>
-		<td><span class="likeLink" onclick="allOff()">Uncheck All</span></td>
+		<td><span class="likeLink" onclick="checkAll(1)">Check All</span></td>
+		<td><span class="likeLink" onclick="checkAll(0)">Check All</span></td>
 	</tr>
 	<tr>
 		<td>Required</td>
@@ -99,8 +99,8 @@
 	</tr>
 	<tr>
 		<td>DMS Coordinates</td>
-		<td>on<input type="radio" name="dms" onclick="checkList('#dms#')"></td>
-		<td>off<input type="radio" name="dms" onclick="uncheckList('#dms#')">	</td>
+		<td>on<input type="radio" value="1" name="dms" onclick="checkList('#dms#')"></td>
+		<td>off<input type="radio" value="0" name="dms" onclick="uncheckList('#dms#')">	</td>
 	</tr>
 
 </table>
@@ -116,6 +116,9 @@
 <br><span class="likeLink" onclick="checkList('#geol#')">Add Geology</span>
 <br><span class="likeLink" onclick="checkList('#everything#')">Add All</span>
 <script>
+	function checkAll(v){
+		document.dms.value=v;
+	}
 function uncheckList(list) {
 	var a = list.split(',');
 	for (i=0; i<a.length; ++i) {
