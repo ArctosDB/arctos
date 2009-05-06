@@ -66,15 +66,7 @@
 	Build your own Bulkloader template.	Toggle anything on or off in the table below. Use these links to get started.
 </p>
 <table border>
-	<tr>
-		<td>Everything</td>
-		<td>
-			on<input type="radio" name="everything" onclick="checkList('#everything#')">
-		</td>
-		<td>
-			off<input type="radio" name="everything" onclick="uncheckList('#everything#')">	
-		</td>
-	</tr>
+	
 	<tr>
 		<td>Required</td>
 		<td>
@@ -84,13 +76,28 @@
 			off<input type="radio" name="required" onclick="uncheckList('#required#')">	
 		</td>
 	</tr>
+	<tr>
+		<td>Coordinate Meta</td>
+		<td>on<input type="radio" name="basicCoords" onclick="checkList('#basicCoords#')"></td>
+		<td>off<input type="radio" name="basicCoords" onclick="uncheckList('#basicCoords#')">	</td>
+	</tr>
+	<tr>
+		<td>DMS Coordinates</td>
+		<td>on<input type="radio" name="dms" onclick="checkList('#dms#')"></td>
+		<td>off<input type="radio" name="dms" onclick="uncheckList('#dms#')">	</td>
+	</tr>
+	<tr>
+		<td>Everything *</td>
+		<td>
+			on<input type="radio" name="everything" onclick="checkList('#everything#')">
+		</td>
+		<td>
+			off<input type="radio" name="everything" onclick="uncheckList('#everything#')">	
+		</td>
+	</tr>
 </table>
+* The Everything option includes fields not included in any other group.
 
-<span class="likeLink" onclick="uncheckList('#everything#')">Clear All</span>
-<br>
-<br><span class="likeLink" onclick="checkList('#required#')">Add </span>
-<br><span class="likeLink" onclick="checkList('#basicCoords#')">Add basic coordinate info</span>
-<br><span class="likeLink" onclick="checkList('#dms#')">Add DMS coordinate info</span>
 <br><span class="likeLink" onclick="checkList('#ddm#')">Add DM.m coordinate info</span>
 <br><span class="likeLink" onclick="checkList('#dd#')">Add D.d coordinate info</span>
 <br><span class="likeLink" onclick="checkList('#utm#')">Add UTM coordinate info</span>
