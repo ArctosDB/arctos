@@ -195,7 +195,7 @@
 				}
 			}
 		}
-		var cStr=eval('controls' + list);
+		var cStr=eval('controls.' + list);
 		cStr.checked=v;
 	}
 </script>
