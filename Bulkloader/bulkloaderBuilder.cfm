@@ -124,13 +124,13 @@ function checkList(list) {
 	<cfset fileDir = "#Application.webDirectory#">
 		<cfif #fileFormat# is "csv">
 			<cfset fileName = "CustomBulkloaderTemplate.csv">
-			<cfset header=#trim(column_name)#>
+			<cfset header=#trim(fld)#>
 			<cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#header#">
 			<cflocation url="/download.cfm?file=#fileName#" addtoken="false">
 			<a href="/download/#fileName#">Click here if your file does not automatically download.</a>
 		<cfelseif #fileFormat# is "txt">
 			<cfset fileName = "CustomBulkloaderTemplate.txt">
-			<cfset header = replace(column_name,",","#chr(9)#","all")>
+			<cfset header = replace(fld,",","#chr(9)#","all")>
 			<cfset header=#trim(header)#>
 			<cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#header#">
 			<cflocation url="/download.cfm?file=#fileName#" addtoken="false">
