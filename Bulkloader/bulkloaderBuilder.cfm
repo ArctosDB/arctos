@@ -90,18 +90,18 @@
 	</tr>
 	<tr>
 		<td>Required</td>
-		<td>on<input type="radio" name="required" onclick="checkList('#required#')"></td>
-		<td>off<input type="radio" name="required" onclick="uncheckList('#required#')">	</td>
+		<td>on<input type="radio" value="1" name="required" onchange="checkList('#required#')"></td>
+		<td>off<input type="radio" value="0" name="required" onchange="uncheckList('#required#')">	</td>
 	</tr>
 	<tr>
 		<td>Coordinate Meta</td>
-		<td>on<input type="radio" name="basicCoords" onclick="checkList('#basicCoords#')"></td>
-		<td>off<input type="radio" name="basicCoords" onclick="uncheckList('#basicCoords#')">	</td>
+		<td>on<input type="radio" value="1" name="basicCoords" onchange="checkList('#basicCoords#')"></td>
+		<td>off<input type="radio" value="0" name="basicCoords" onchange="uncheckList('#basicCoords#')">	</td>
 	</tr>
 	<tr>
 		<td>DMS Coordinates</td>
-		<td>on<input type="radio" value="1" name="dms" onclick="checkList('#dms#')"></td>
-		<td>off<input type="radio" value="0" name="dms" onclick="uncheckList('#dms#')">	</td>
+		<td>on<input type="radio" value="1" name="dms" onchange="checkList('#dms#')"></td>
+		<td>off<input type="radio" value="0" name="dms" onchange="uncheckList('#dms#')">	</td>
 	</tr>
 
 </table>
