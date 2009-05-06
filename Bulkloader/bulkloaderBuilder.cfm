@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="BulkloaderBuilder">
 <cfif action is "nothing">
 <cfquery name="blt" datasource="uam_god">
 	select column_name from user_tab_cols where table_name='BULKLOADER'
@@ -62,8 +63,9 @@
 	</cfloop>
 												  
 <p>
-	Build your own Bulkloader template.	Toggle anything on or off in the table below. Use these links to get started.</p>
-<br><span class="likeLink" onclick="clearAll('#everything#')">Clear All</span>
+	Build your own Bulkloader template.	Toggle anything on or off in the table below. Use these links to get started.
+</p>
+<span class="likeLink" onclick="clearAll('#everything#')">Clear All</span>
 <br>
 <br><span class="likeLink" onclick="checkList('#required#')">Add Required</span>
 <br><span class="likeLink" onclick="checkList('#basicCoords#')">Add basic coordinate info</span>
@@ -118,5 +120,23 @@ function checkList(list) {
 </cfoutput>
 </cfif>
 <cfif action is 'getTemplate'>
-	<cfdump var=#form#>
+<cfoutput>
+	<cfset fileDir = "#Application.webDirectory#">
+		<cfif #fileFormat# is "csv">
+			<cfset fileName = "CustomBulkloaderTemplate.csv">
+			<cfset header=#trim(column_name)#>
+			<cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#header#">
+			<cflocation url="/download.cfm?file=#fileName#" addtoken="false">
+			<a href="/download/#fileName#">Click here if your file does not automatically download.</a>
+		<cfelseif #fileFormat# is "text">
+			<cfset fileName = "CustomBulkloaderTemplate.txt">
+			<cfset header = replace(column_name,",","#chr(9)#","all")>
+			<cfset header=#trim(header)#>
+			<cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#header#">
+			<cflocation url="/download.cfm?file=#fileName#" addtoken="false">
+			<a href="/download/#fileName#">Click here if your file does not automatically download.</a>
+		<cfelse>
+			That file format doesn't seem to be supported yet!
+		</cfif>
+</cfoutput>
 </cfif>
