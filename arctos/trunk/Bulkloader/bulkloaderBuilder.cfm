@@ -146,6 +146,7 @@ function checkList(list, v) {
 		if (document.getElementById(a[i])) {
 			//alert(eid);
 			document.getElementById(a[i]).checked=v;
+			console.log('setting ' + a[i] + ' to ' + v);
 		}
 	}
 }
