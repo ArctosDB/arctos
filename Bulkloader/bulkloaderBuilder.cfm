@@ -100,8 +100,8 @@
 	</tr>
 	<tr>
 		<td>DMS Coordinates</td>
-		<td>on<input type="radio" value="1" name="dms" onchange="checkList('#dms#', this.value)"></td>
-		<td>off<input type="radio" value="0" name="dms" onchange="checkList('#dms#', this.value)">	</td>
+		<td>on<input type="radio" value="true" name="dms" onchange="checkList('#dms#', this.value)"></td>
+		<td>off<input type="radio" value="false" name="dms" onchange="checkList('#dms#', this.value)">	</td>
 	</tr>
 
 </table>
