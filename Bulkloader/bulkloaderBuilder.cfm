@@ -103,8 +103,8 @@ function checkList(list) {
 </script>
 	<form name="f" method="post" action="bulkloaderBuilder.cfm">
 		<input type="hidden" name="action" value="getTemplate">
-		<label for="format">Format</label>
-		<select name="format" id="format">
+		<label for="fileFormat">Format</label>
+		<select name="fileFormat" id="fileFormat">
 			<option value="tab">Tab-delimited text</option>
 		</select>
 		<input type="submit" value="Download Template">
