@@ -90,13 +90,13 @@
 	</tr>
 	<tr>
 		<td>Required</td>
-		<td>on<input type="radio" value="1" name="required" onchange="checkList('#required#')"></td>
-		<td>off<input type="radio" value="0" name="required" onchange="uncheckList('#required#')">	</td>
+		<td>on<input type="radio" value="1" name="required" onchange="checkList('#required#', this.value)"></td>
+		<td>off<input type="radio" value="0" name="required" onchange="checkList('#required#', this.value)">	</td>
 	</tr>
 	<tr>
 		<td>Coordinate Meta</td>
-		<td>on<input type="radio" value="1" name="basicCoords" onchange="checkList('#basicCoords#')"></td>
-		<td>off<input type="radio" value="0" name="basicCoords" onchange="uncheckList('#basicCoords#')">	</td>
+		<td>on<input type="radio" value="1" name="basicCoords" onchange="checkList('#basicCoords#', this.value)"></td>
+		<td>off<input type="radio" value="0" name="basicCoords" onchange="checkList('#basicCoords#', this.value)">	</td>
 	</tr>
 	<tr>
 		<td>DMS Coordinates</td>
