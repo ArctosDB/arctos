@@ -81,7 +81,7 @@
 <p>
 	Build your own Bulkloader template.	Toggle anything on or off in the table below. Use these links to get started.
 </p>
-<form name="controls">
+<form name="controls" id="controls">
 <table border>
 	<tr>
 		<td>&nbsp;</td>
@@ -135,7 +135,7 @@
 }
 	
 	function checkAll(v){
-		var radios = document.controls.getElementById ('radios');
+		var radios = document.getElementById ('controls');
 		if (radios) {
 			var inputs = radios.getElementsByTagName ('input');
 				if (inputs) {
