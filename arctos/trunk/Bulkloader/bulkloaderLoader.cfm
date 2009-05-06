@@ -146,9 +146,9 @@ echo $ORACLE_HOME
 /opt/oracle/10.2.0/client/bin/sqlldr uam_query@arctos/uamdb1 control=/var/www/ht
 ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 
-		--->
-		
-		
+
+
+
 		<cfscript>
 function exec_cmd(cmd) {
    var runtimeClass="";
@@ -167,8 +167,11 @@ command_output = exec_cmd('#sqlldrScript#');
 <cfoutput>#command_output#</cfoutput>
 <hr>
 
+		--->
 		
-		<cfexecute name="/bin/sh" arguments="#sqlldrScript#" timeout="240" variable="cfe">
+		
+		
+		<cfexecute name="/bin/sh" arguments="#sqlldrScript# 2>&1" timeout="240" variable="cfe">
 		
 		</cfexecute>
 		
