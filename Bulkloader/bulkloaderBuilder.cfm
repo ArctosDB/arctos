@@ -118,8 +118,31 @@
 <br><span class="likeLink" onclick="checkList('#geol#')">Add Geology</span>
 <br><span class="likeLink" onclick="checkList('#everything#')">Add All</span>
 <script>
+	function setCheckedValue(radioObj, newValue) {
+	if(!radioObj)
+		return;
+	var radioLength = radioObj.length;
+	if(radioLength == undefined) {
+		radioObj.checked = (radioObj.value == newValue.toString());
+		return;
+	}
+	for(var i = 0; i < radioLength; i++) {
+		radioObj[i].checked = false;
+		if(radioObj[i].value == newValue.toString()) {
+			radioObj[i].checked = true;
+		}
+	}
+}
+	
 	function checkAll(v){
-		document.controls.dms.value=v;
+		var radios = document.controls.getElementById ('radios');
+		if (radios) {
+		  var inputs = radios.getElementsByTagName ('input');
+		  if (inputs) {
+		    for (var i = 0; i < inputs.length; ++i) {
+		        inputs[i].checked = inputs[i].value == v;
+		  }
+		}
 	}
 function uncheckList(list) {
 	var a = list.split(',');
