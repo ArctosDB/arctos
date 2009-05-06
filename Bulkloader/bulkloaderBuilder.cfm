@@ -85,7 +85,7 @@
 <form name="controls" id="controls">
 <table border>
 	<tr>
-		<td>&nbsp;</td>
+		<td>Group</td>
 		<td>
 			<span class="likeLink" onclick="checkAll(1)">All On</span>
 			<br><span class="likeLink" onclick="checkAll(0)">All Off</span>
@@ -202,10 +202,14 @@
 		</select>
 		<input type="submit" value="Download Template">
 		<table border>
+			<tr>
+				<td>Field</td>
+				<td>Include?</td>
+			</tr>
 		<cfloop query="blt">
 			<tr>
-				<td><input type="checkbox" name="fld" id="#column_name#" value="#column_name#"></td>
 				<td>#column_name#</td>
+				<td><input type="checkbox" name="fld" id="#column_name#" value="#column_name#"></td>
 			</tr> 
 		</cfloop>
 		</table>
