@@ -146,8 +146,7 @@
 		}
 	}
 function uncheckList(list) {
-	var theList='l_' + list
-	var a = theList.split(',');
+	
 	for (i=0; i<a.length; ++i) {
 		//alert(eid);
 		if (document.getElementById(a[i])) {
@@ -158,7 +157,8 @@ function uncheckList(list) {
 }
 function checkList(list, v) {
 	console.log('i am checklist');
-	var a = list.split(',');
+	var theList='l_' + list
+	var a = theList.split(',');
 	for (i=0; i<a.length; ++i) {
 		//alert(eid);
 		if (document.getElementById(a[i])) {
