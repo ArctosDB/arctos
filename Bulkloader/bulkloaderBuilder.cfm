@@ -196,7 +196,12 @@
 			}
 		}
 		var cStr=eval('document.controls.' + list);
-		cStr.checked=v;
+		
+		if (v=='1'){
+			cStr.checked=true;
+		} else {
+			cStr.checked=false;
+		}
 	}
 </script>
 	<form name="f" method="post" action="bulkloaderBuilder.cfm">
