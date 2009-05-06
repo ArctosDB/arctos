@@ -91,8 +91,7 @@
 	</tr>
 	<tr>
 		<td>Required</td>
-		<td>on<input type="radio" value="1" name="required" onchange="checkList(this.name, this.value)"></td>
-		<td>off<input type="radio" value="0" name="required" onchange="checkList(this.name, this.value)">	</td>
+		<td><input type="checkbox" name="required" onchange="checkList(this.name, this.value)"></td>
 	</tr>
 	<tr>
 		<td>Coordinate Meta</td>
@@ -155,9 +154,9 @@
 	function t(a){
 		console.log(a);
 		if (a==1){
-			document.controls.leftovers.value=a;
+			document.controls.leftovers.checked=true;
 		} else {
-			document.controls.leftovers.value=a;
+			document.controls.leftovers.checked=false;
 		}
 	}
 </script>
