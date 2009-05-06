@@ -149,7 +149,7 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 		--->
 		
 		
-		<cfexecute name="#sqlldrScript#"  timeout="240">
+		<cfexecute name="#sqlldrScript#"  timeout="240" outputfile="#application.webDirectory#/temp/cfexec.txt">
 		
 		</cfexecute>
 		<!--- move the files from CF runtime to a web dir <cftry>
