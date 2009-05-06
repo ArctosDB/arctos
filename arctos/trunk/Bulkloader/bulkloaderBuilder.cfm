@@ -100,8 +100,8 @@
 	</tr>
 	<tr>
 		<td>DMS Coordinates</td>
-		<td>on<input type="radio" value="1" name="dms" onchange="checkList('#dms#')"></td>
-		<td>off<input type="radio" value="0" name="dms" onchange="uncheckList('#dms#')">	</td>
+		<td>on<input type="radio" value="1" name="dms" onchange="checkList('#dms#', this.value)"></td>
+		<td>off<input type="radio" value="0" name="dms" onchange="checkList('#dms#' this.value)">	</td>
 	</tr>
 
 </table>
@@ -118,22 +118,6 @@
 <br><span class="likeLink" onclick="checkList('#geol#')">Add Geology</span>
 <br><span class="likeLink" onclick="checkList('#everything#')">Add All</span>
 <script>
-	function setCheckedValue(radioObj, newValue) {
-	if(!radioObj)
-		return;
-	var radioLength = radioObj.length;
-	if(radioLength == undefined) {
-		radioObj.checked = (radioObj.value == newValue.toString());
-		return;
-	}
-	for(var i = 0; i < radioLength; i++) {
-		radioObj[i].checked = false;
-		if(radioObj[i].value == newValue.toString()) {
-			radioObj[i].checked = true;
-		}
-	}
-}
-	
 	function checkAll(v){
 		var radios = document.getElementById ('controls');
 		if (radios) {
@@ -155,13 +139,13 @@ function uncheckList(list) {
 		}
 	}
 }
-function checkList(list) {
+function checkList(list, v) {
 	var a = list.split(',');
 	for (i=0; i<a.length; ++i) {
 		//alert(eid);
 		if (document.getElementById(a[i])) {
 			//alert(eid);
-			document.getElementById(a[i]).checked=true;
+			document.getElementById(a[i]).checked=v;
 		}
 	}
 }
