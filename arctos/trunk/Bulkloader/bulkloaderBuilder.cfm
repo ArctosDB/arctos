@@ -142,6 +142,7 @@ function uncheckList(list) {
 	}
 }
 function checkList(list, v) {
+	console.log('i am checklist');
 	var a = list.split(',');
 	for (i=0; i<a.length; ++i) {
 		//alert(eid);
