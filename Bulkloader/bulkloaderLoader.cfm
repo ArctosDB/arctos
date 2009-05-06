@@ -156,7 +156,7 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 		
 <cfscript>  
    runtime = createObject("java", "java.lang.Runtime").getRuntime();  
-         command = '#sqlldrScript##';   
+         command = '#sqlldrScript#';   
          process = runtime.exec(#command#);  
          results.errorLogSuccess = processStream(process.getErrorStream(), errorLog);  
          results.resultLogSuccess = processStream(process.getInputStream(), resultLog);  
