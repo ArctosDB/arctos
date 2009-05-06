@@ -118,19 +118,19 @@
 <br><span class="likeLink" onclick="checkList('#geol#')">Add Geology</span>
 <br><span class="likeLink" onclick="checkList('#everything#')">Add All</span>
 <script>
-	var l_everything=#everything#;
-	var l_required=#required#;
-	var l_basicCoords=#basicCoords#;
-	var l_dms=#dms#;
-	var l_ddm=#ddm#;
-	var l_dd=#dd#;
-	var l_utm=#utm#;
-	var l_oid=#oid#;
-	var l_coll=#coll#;
-	var l_part=#part#;
-	var l_attr=#attr#;
-	var l_geol=#geol#;
-	var l_leftovers=#leftovers#;
+	var l_everything='#everything#';
+	var l_required='#required#';
+	var l_basicCoords='#basicCoords#';
+	var l_dms='#dms#';
+	var l_ddm='#ddm#';
+	var l_dd='#dd#';
+	var l_utm='#utm#';
+	var l_oid='#oid#';
+	var l_coll='#coll#';
+	var l_part='#part#';
+	var l_attr='#attr#';
+	var l_geol='#geol#';
+	var l_leftovers='#leftovers#';
 	
 	function checkAll(v){
 		var radios = document.getElementById ('controls');
