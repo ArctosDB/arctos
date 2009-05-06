@@ -86,8 +86,10 @@
 <table border>
 	<tr>
 		<td>&nbsp;</td>
-		<td><span class="likeLink" onclick="checkAll(1)">Check All</span></td>
-		<td><span class="likeLink" onclick="checkAll(0)">Check All</span></td>
+		<td>
+			<span class="likeLink" onclick="checkAll(1)">All On</span>
+			<br><span class="likeLink" onclick="checkAll(0)">All Off</span>
+		</td>
 	</tr>
 	<tr>
 		<td>Required</td>
@@ -138,18 +140,6 @@
 		<td><input type="checkbox" name="leftovers" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 </table>
-<span onclick="t(1)">t1</span>
-<span onclick="t(0)">t0</span>
-<script>
-	function t(a){
-		console.log(a);
-		if (a==1){
-			document.controls.leftovers.checked=true;
-		} else {
-			document.controls.leftovers.checked=false;
-		}
-	}
-</script>
 </form>
 <script>
 	var l_everything='#everything#';
