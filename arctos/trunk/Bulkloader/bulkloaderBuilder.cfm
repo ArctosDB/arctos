@@ -90,18 +90,18 @@
 	</tr>
 	<tr>
 		<td>Required</td>
-		<td>on<input type="radio" value="1" name="required" onchange="checkList('#required#', this.value)"></td>
-		<td>off<input type="radio" value="0" name="required" onchange="checkList('#required#', this.value)">	</td>
+		<td>on<input type="radio" value="1" name="required" onchange="checkList('required', this.value)"></td>
+		<td>off<input type="radio" value="0" name="required" onchange="checkList('required', this.value)">	</td>
 	</tr>
 	<tr>
 		<td>Coordinate Meta</td>
-		<td>on<input type="radio" value="1" name="basicCoords" onchange="checkList('#basicCoords#', this.value)"></td>
-		<td>off<input type="radio" value="0" name="basicCoords" onchange="checkList('#basicCoords#', this.value)">	</td>
+		<td>on<input type="radio" value="1" name="basicCoords" onchange="checkList('basicCoords', this.value)"></td>
+		<td>off<input type="radio" value="0" name="basicCoords" onchange="checkList('basicCoords', this.value)">	</td>
 	</tr>
 	<tr>
 		<td>DMS Coordinates</td>
-		<td>on<input type="radio" value="1" name="dms" onchange="checkList('#dms#', this.value)"></td>
-		<td>off<input type="radio" value="0" name="dms" onchange="checkList('#dms#', this.value)">	</td>
+		<td>on<input type="radio" value="1" name="dms" onchange="checkList('dms', this.value)"></td>
+		<td>off<input type="radio" value="0" name="dms" onchange="checkList('dms', this.value)">	</td>
 	</tr>
 
 </table>
@@ -118,6 +118,20 @@
 <br><span class="likeLink" onclick="checkList('#geol#')">Add Geology</span>
 <br><span class="likeLink" onclick="checkList('#everything#')">Add All</span>
 <script>
+	var l_everything=#everything#;
+	var l_required=#required#;
+	var l_basicCoords=#basicCoords#;
+	var l_dms=#dms#;
+	var l_ddm=#ddm#;
+	var l_dd=#dd#;
+	var l_utm=#utm#;
+	var l_oid=#oid#;
+	var l_coll=#coll#;
+	var l_part=#part#;
+	var l_attr=#attr#;
+	var l_geol=#geol#;
+	var l_leftovers=#leftovers#;
+	
 	function checkAll(v){
 		var radios = document.getElementById ('controls');
 		if (radios) {
@@ -132,7 +146,8 @@
 		}
 	}
 function uncheckList(list) {
-	var a = list.split(',');
+	var theList='l_' + list
+	var a = theList.split(',');
 	for (i=0; i<a.length; ++i) {
 		//alert(eid);
 		if (document.getElementById(a[i])) {
@@ -169,7 +184,7 @@ function checkList(list, v) {
 		<table border>
 		<cfloop query="blt">
 			<tr>
-				<td><input type="checkbox" name="fld" id="#column_name#" value="#column_name#" checked="checked"></td>
+				<td><input type="checkbox" name="fld" id="#column_name#" value="#column_name#"></td>
 				<td>#column_name#</td>
 			</tr> 
 		</cfloop>
