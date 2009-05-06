@@ -157,7 +157,7 @@ function uncheckList(list) {
 }
 function checkList(list, v) {
 	console.log('i am checklist');
-	var theList='l_' + list;
+	var theList=eval('l_' + list);
 	var a = theList.split(',');
 	for (i=0; i<a.length; ++i) {
 		console.log('i: ' + i);
