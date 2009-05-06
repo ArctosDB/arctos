@@ -71,7 +71,6 @@
 		<cfset geol=listappend(geol,"GEO_ATT_REMARK_" & i)>
 	</cfloop>
 	<cfset inListItems=listappend(inListItems,geol)>
-	<hr>
 	<cfset leftovers=everything>
 	<cfloop list="#inListItems#" index="thisElement">
 		<cfset lPos=listfind(leftovers,thisElement)>
@@ -79,23 +78,19 @@
 			<cfset leftovers=listdeleteat(leftovers,lPos)>
 		</cfif>
 	</cfloop>
-	everything: #everything#
-	<br>leftovers: #leftovers#
-	inListItems
-											  
 <p>
 	Build your own Bulkloader template.	Toggle anything on or off in the table below. Use these links to get started.
 </p>
 <table border>
-	
+	<tr>
+		<td>&nbsp;</td>
+		<td><span class="likeLink" onclick="allOn()">Check All</span></td>
+		<td><span class="likeLink" onclick="allOff()">Uncheck All</span></td>
+	</tr>
 	<tr>
 		<td>Required</td>
-		<td>
-			on<input type="radio" name="required" onclick="checkList('#required#')">
-		</td>
-		<td>
-			off<input type="radio" name="required" onclick="uncheckList('#required#')">	
-		</td>
+		<td>on<input type="radio" name="required" onclick="checkList('#required#')"></td>
+		<td>off<input type="radio" name="required" onclick="uncheckList('#required#')">	</td>
 	</tr>
 	<tr>
 		<td>Coordinate Meta</td>
@@ -107,15 +102,7 @@
 		<td>on<input type="radio" name="dms" onclick="checkList('#dms#')"></td>
 		<td>off<input type="radio" name="dms" onclick="uncheckList('#dms#')">	</td>
 	</tr>
-	<tr>
-		<td>Everything *</td>
-		<td>
-			on<input type="radio" name="everything" onclick="checkList('#everything#')">
-		</td>
-		<td>
-			off<input type="radio" name="everything" onclick="uncheckList('#everything#')">	
-		</td>
-	</tr>
+
 </table>
 * The Everything option includes fields not included in any other group.
 
