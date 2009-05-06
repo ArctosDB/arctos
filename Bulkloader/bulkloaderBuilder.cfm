@@ -103,16 +103,40 @@
 		<td>on<input type="radio" value="1" name="dms" onchange="checkList('dms', this.value)"></td>
 		<td>off<input type="radio" value="0" name="dms" onchange="checkList('dms', this.value)">	</td>
 	</tr>
-
+	<tr>
+		<td>DM.m Coordinates</td>
+		<td>on<input type="radio" value="1" name="ddm" onchange="checkList('ddm', this.value)"></td>
+		<td>off<input type="radio" value="0" name="ddm" onchange="checkList('ddm', this.value)">	</td>
+	</tr>
+	<tr>
+		<td>D.d Coordinates</td>
+		<td>on<input type="radio" value="1" name="dd" onchange="checkList('dd', this.value)"></td>
+		<td>off<input type="radio" value="0" name="dd" onchange="checkList('dd', this.value)">	</td>
+	</tr>
+	<tr>
+		<td>UTM Coordinates</td>
+		<td>on<input type="radio" value="1" name="utm" onchange="checkList('utm', this.value)"></td>
+		<td>off<input type="radio" value="0" name="utm" onchange="checkList('utm', this.value)">	</td>
+	</tr>
+	<tr>
+		<td>Identifiers</td>
+		<td>on<input type="radio" value="1" name="oid" onchange="checkList('oid', this.value)"></td>
+		<td>off<input type="radio" value="0" name="oid" onchange="checkList('oid', this.value)">	</td>
+	</tr>
+	<tr>
+		<td>Agents</td>
+		<td>on<input type="radio" value="1" name="coll" onchange="checkList(this.name, this.value)"></td>
+		<td>off<input type="radio" value="0" name="coll" onchange="checkList(this.name, this.value)">	</td>
+	</tr>
 </table>
 </form>
 * The Everything option includes fields not included in any other group.
 
-<br><span class="likeLink" onclick="checkList('#ddm#')">Add DM.m coordinate info</span>
-<br><span class="likeLink" onclick="checkList('#dd#')">Add D.d coordinate info</span>
-<br><span class="likeLink" onclick="checkList('#utm#')">Add UTM coordinate info</span>
-<br><span class="likeLink" onclick="checkList('#oid#')">Add Identifiers</span>
-<br><span class="likeLink" onclick="checkList('#coll#')">Add Agents</span>
+<br><span class="likeLink" onclick="checkList('#ddm#')">Add  coordinate info</span>
+<br><span class="likeLink" onclick="checkList('#dd#')">Add  coordinate info</span>
+<br><span class="likeLink" onclick="checkList('#utm#')">Add  coordinate info</span>
+<br><span class="likeLink" onclick="checkList('#oid#')">Add </span>
+<br><span class="likeLink" onclick="checkList('#coll#')">Add </span>
 <br><span class="likeLink" onclick="checkList('#part#')">Add Parts</span>
 <br><span class="likeLink" onclick="checkList('#attr#')">Add Attributes</span>
 <br><span class="likeLink" onclick="checkList('#geol#')">Add Geology</span>
