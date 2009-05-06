@@ -125,6 +125,7 @@
 				if (inputs) {
 					for (var i = 0; i < inputs.length; ++i) {
 		        		inputs[i].checked = inputs[i].value == v;
+		        		console.log('checkAll: ' + inputs[i].name + ' ' + v);
 		        		checkList(inputs[i].name,v);
 		  			}
 				}
