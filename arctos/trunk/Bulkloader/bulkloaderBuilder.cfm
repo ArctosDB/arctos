@@ -67,17 +67,28 @@
 </p>
 <table border>
 	<tr>
+		<td>Everything</td>
 		<td>
 			on<input type="radio" name="everything" onclick="checkList('#everything#')">
-			off<input type="radio" name="everything" onclick="uncheckList('#everything#')">
-			
+		</td>
+		<td>
+			off<input type="radio" name="everything" onclick="uncheckList('#everything#')">	
+		</td>
+	</tr>
+	<tr>
+		<td>Required</td>
+		<td>
+			on<input type="radio" name="required" onclick="checkList('#required#')">
+		</td>
+		<td>
+			off<input type="radio" name="required" onclick="uncheckList('#required#')">	
 		</td>
 	</tr>
 </table>
 
 <span class="likeLink" onclick="uncheckList('#everything#')">Clear All</span>
 <br>
-<br><span class="likeLink" onclick="checkList('#required#')">Add Required</span>
+<br><span class="likeLink" onclick="checkList('#required#')">Add </span>
 <br><span class="likeLink" onclick="checkList('#basicCoords#')">Add basic coordinate info</span>
 <br><span class="likeLink" onclick="checkList('#dms#')">Add DMS coordinate info</span>
 <br><span class="likeLink" onclick="checkList('#ddm#')">Add DM.m coordinate info</span>
