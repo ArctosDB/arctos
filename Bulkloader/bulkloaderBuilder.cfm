@@ -137,11 +137,12 @@
 	function checkAll(v){
 		var radios = document.controls.getElementById ('radios');
 		if (radios) {
-		  var inputs = radios.getElementsByTagName ('input');
-		  if (inputs) {
-		    for (var i = 0; i < inputs.length; ++i) {
-		        inputs[i].checked = inputs[i].value == v;
-		  }
+			var inputs = radios.getElementsByTagName ('input');
+				if (inputs) {
+					for (var i = 0; i < inputs.length; ++i) {
+		        		inputs[i].checked = inputs[i].value == v;
+		  			}
+				}
 		}
 	}
 function uncheckList(list) {
