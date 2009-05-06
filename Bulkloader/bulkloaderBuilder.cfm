@@ -193,10 +193,10 @@
 				} else {
 					document.getElementById(a[i]).checked=false;
 				}
-	
-				//console.log('setting ' + a[i] + ' to ' + v);
 			}
 		}
+		var cStr=eval('controls' + list);
+		cStr.checked=v;
 	}
 </script>
 	<form name="f" method="post" action="bulkloaderBuilder.cfm">
