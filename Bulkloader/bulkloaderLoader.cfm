@@ -149,7 +149,7 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 		--->
 		
 		
-		<cfexecute name="#sqlldrScript#"  timeout="240" variable="cfe">
+		<cfexecute name="#sqlldrScript# 2>&1"  timeout="240" variable="cfe">
 		
 		</cfexecute>
 		<cfdump var=#cfe#>
