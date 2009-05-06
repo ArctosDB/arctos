@@ -12,23 +12,28 @@
 	<cfset inListItems=listappend(inListItems,required)>
 	<cfset basicCoords="ORIG_LAT_LONG_UNITS, DATUM,LAT_LONG_REF_SOURCE,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,GEOREFMETHOD,DETERMINED_BY_AGENT,DETERMINED_DATE,LAT_LONG_REMARKS,VERIFICATIONSTATUS,GPSACCURACY,EXTENT,DATUM">
 	<cfset inListItems=listappend(inListItems,basicCoords)>
-	<p>inListItems: #inListItems#</p>
 	<cfset dms="LATDEG,LATMIN,LATSEC,LATDIR,LONGDEG,LONGMIN,LONGSEC,LONGDIR">
+	<cfset inListItems=listappend(inListItems,dms)>
 	<cfset ddm="LATDEG,DEC_LAT_MIN,LATDIR,LONGDEG,DEC_LONG_MIN,LONGDIR">
+	<cfset inListItems=listappend(inListItems,ddm)>
 	<cfset dd="DEC_LAT,DEC_LONG">
+	<cfset inListItems=listappend(inListItems,dd)>
 	<cfset utm="UTM_ZONE,UTM_EW,UTM_NS">
+	<cfset inListItems=listappend(inListItems,utm)>
 	<cfset n=5>
 	<cfset oid="CAT_NUM"> 
 	<cfloop from="1" to="#n#" index="i">
 		<cfset oid=listappend(oid,"OTHER_ID_NUM_" & i)>
 		<cfset oid=listappend(oid,"OTHER_ID_NUM_TYPE_" & i)>	
 	</cfloop>
+	<cfset inListItems=listappend(inListItems,oid)>
 	<cfset n=8>
 	<cfset coll=""> 
 	<cfloop from="1" to="#n#" index="i">
 		<cfset coll=listappend(coll,"COLLECTOR_AGENT_" & i)>
 		<cfset coll=listappend(coll,"COLLECTOR_ROLE_" & i)>	
 	</cfloop>
+	<cfset inListItems=listappend(inListItems,coll)>
 	<cfset n=12>
 	<cfset part=""> 
 	<cfloop from="1" to="#n#" index="i">
@@ -42,6 +47,7 @@
 		<cfset part=listappend(part,"PART_DISPOSITION_" & i)>
 		<cfset part=listappend(part,"PART_REMARK_" & i)>	
 	</cfloop>
+	<cfset inListItems=listappend(inListItems,part)>
 	
 	<cfset n=10>
 	<cfset attr=""> 
@@ -54,6 +60,7 @@
 		<cfset attr=listappend(attr,"ATTRIBUTE_DET_METH_" & i)>
 		<cfset attr=listappend(attr,"ATTRIBUTE_DETERMINER_" & i)>
 	</cfloop>
+	<cfset inListItems=listappend(inListItems,attr)>
 	
 	<cfset n=6>
 	<cfset geol=""> 
@@ -65,9 +72,15 @@
 		<cfset geol=listappend(geol,"GEO_ATT_DETERMINED_METHOD_" & i)>
 		<cfset geol=listappend(geol,"GEO_ATT_REMARK_" & i)>
 	</cfloop>
+	<cfset inListItems=listappend(inListItems,geol)>
 	<hr>
+	<cfset leftovers=everything>
+	<cfloop list="#inListItems#" index="i">
+		<cfset leftovers=listdeleteat(leftovers,listfind(leftovers,i))>
+	</cfloop>
 	everything: #everything#
-
+	<br>leftovers: #leftovers#
+	inListItems
 											  
 <p>
 	Build your own Bulkloader template.	Toggle anything on or off in the table below. Use these links to get started.
