@@ -150,6 +150,18 @@
 		<td>off<input type="radio" value="0" name="leftovers" onchange="checkList(this.name, this.value)">	</td>
 	</tr>
 </table>
+<span onclick="t(1)">t1</span>
+<span onclick="t(0)">t0</span>
+<script>
+	function t(a){
+		console.log(a);
+		if (a==1){
+			document.controls.leftovers.value=a;
+		} else {
+			document.controls.leftovers.value=a;
+		}
+	}
+</script>
 </form>
 <script>
 	var l_everything='#everything#';
