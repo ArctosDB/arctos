@@ -79,7 +79,8 @@
 		</cfif>
 	</cfloop>
 <p>
-	Build your own Bulkloader template.	Toggle anything on or off in the table below. Use these links to get started.
+	Build your own Bulkloader template.	
+	You may toggle groups and individual items on and off.
 </p>
 <form name="controls" id="controls">
 <table border>
@@ -178,35 +179,25 @@
 				}
 		}
 	}
-function uncheckList(list) {
+	function checkList(list, v) {
+		//console.log('i am checklist');
+		var theList=eval('l_' + list);
+		var a = theList.split(',');
+		for (i=0; i<a.length; ++i) {
+			//console.log('i: ' + i);
+			//alert(eid);
+			if (document.getElementById(a[i])) {
+				//alert(eid);
+				if (v=='1'){
+					document.getElementById(a[i]).checked=true;
+				} else {
+					document.getElementById(a[i]).checked=false;
+				}
 	
-	for (i=0; i<a.length; ++i) {
-		//alert(eid);
-		if (document.getElementById(a[i])) {
-			//alert(eid);
-			document.getElementById(a[i]).checked=false;
-		}
-	}
-}
-function checkList(list, v) {
-	//console.log('i am checklist');
-	var theList=eval('l_' + list);
-	var a = theList.split(',');
-	for (i=0; i<a.length; ++i) {
-		console.log('i: ' + i);
-		//alert(eid);
-		if (document.getElementById(a[i])) {
-			//alert(eid);
-			if (v=='1'){
-				document.getElementById(a[i]).checked=true;
-			} else {
-				document.getElementById(a[i]).checked=false;
+				//console.log('setting ' + a[i] + ' to ' + v);
 			}
-
-			//console.log('setting ' + a[i] + ' to ' + v);
 		}
 	}
-}
 </script>
 	<form name="f" method="post" action="bulkloaderBuilder.cfm">
 		<input type="hidden" name="action" value="getTemplate">
@@ -224,7 +215,10 @@ function checkList(list, v) {
 		</cfloop>
 		</table>
 	</form>
-	<script>checkAll(0);</script>
+	<script>
+		checkAll(0);
+		checkList('required',1);
+	</script>
 </cfoutput>
 </cfif>
 <cfif action is 'getTemplate'>
