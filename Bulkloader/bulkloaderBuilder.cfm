@@ -61,11 +61,21 @@
 		<cfset geol=listappend(geol,"GEO_ATT_DETERMINED_METHOD_" & i)>
 		<cfset geol=listappend(geol,"GEO_ATT_REMARK_" & i)>
 	</cfloop>
-												  
+											  
 <p>
 	Build your own Bulkloader template.	Toggle anything on or off in the table below. Use these links to get started.
 </p>
-<span class="likeLink" onclick="clearAll('#everything#')">Clear All</span>
+<table border>
+	<tr>
+		<td>
+			on<input type="radio" oncheck="checkList('#everything#')">
+			off<input type="radio" oncheck="uncheckList('#everything#')">
+			
+		</td>
+	</tr>
+</table>
+
+<span class="likeLink" onclick="uncheckList('#everything#')">Clear All</span>
 <br>
 <br><span class="likeLink" onclick="checkList('#required#')">Add Required</span>
 <br><span class="likeLink" onclick="checkList('#basicCoords#')">Add basic coordinate info</span>
@@ -75,12 +85,12 @@
 <br><span class="likeLink" onclick="checkList('#utm#')">Add UTM coordinate info</span>
 <br><span class="likeLink" onclick="checkList('#oid#')">Add Identifiers</span>
 <br><span class="likeLink" onclick="checkList('#coll#')">Add Agents</span>
-<br><span class="likeLink" onclick="checkList('#part#')">Add parts</span>
-<br><span class="likeLink" onclick="checkList('#attr#')">Add attributes</span>
-<br><span class="likeLink" onclick="checkList('#geol#')">Add geology</span>
-
+<br><span class="likeLink" onclick="checkList('#part#')">Add Parts</span>
+<br><span class="likeLink" onclick="checkList('#attr#')">Add Attributes</span>
+<br><span class="likeLink" onclick="checkList('#geol#')">Add Geology</span>
+<br><span class="likeLink" onclick="checkList('#everything#')">Add All</span>
 <script>
-function clearAll(list) {
+function uncheckList(list) {
 	var a = list.split(',');
 	for (i=0; i<a.length; ++i) {
 		//alert(eid);
