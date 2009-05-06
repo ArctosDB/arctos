@@ -105,7 +105,7 @@ function checkList(list) {
 		<input type="hidden" name="action" value="getTemplate">
 		<label for="fileFormat">Format</label>
 		<select name="fileFormat" id="fileFormat">
-			<option value="tab">Tab-delimited text</option>
+			<option value="txt">Tab-delimited text</option>
 		</select>
 		<input type="submit" value="Download Template">
 		<table border>
@@ -128,7 +128,7 @@ function checkList(list) {
 			<cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#header#">
 			<cflocation url="/download.cfm?file=#fileName#" addtoken="false">
 			<a href="/download/#fileName#">Click here if your file does not automatically download.</a>
-		<cfelseif #fileFormat# is "text">
+		<cfelseif #fileFormat# is "txt">
 			<cfset fileName = "CustomBulkloaderTemplate.txt">
 			<cfset header = replace(column_name,",","#chr(9)#","all")>
 			<cfset header=#trim(header)#>
