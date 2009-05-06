@@ -146,8 +146,7 @@
 	</tr>
 	<tr>
 		<td>The Rest</td>
-		<td>on<input type="radio" value="1" name="leftovers" onchange="checkList(this.name, this.value)"></td>
-		<td>off<input type="radio" value="0" name="leftovers" onchange="checkList(this.name, this.value)">	</td>
+		<td><input type="checkbox" value="1" name="leftovers" onchange="checkList(this.name, this.value)"></td>
 	</tr>
 </table>
 <span onclick="t(1)">t1</span>
