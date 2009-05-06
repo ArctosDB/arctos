@@ -119,7 +119,7 @@
 <br><span class="likeLink" onclick="checkList('#everything#')">Add All</span>
 <script>
 	function checkAll(v){
-		controls.dms.value=v;
+		document.controls.dms.value=v;
 	}
 function uncheckList(list) {
 	var a = list.split(',');
