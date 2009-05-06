@@ -137,7 +137,7 @@
 <cfschedule action = "update"
     task = "pendingRelations" 
     operation = "HTTPRequest"
-    url = "127.0.0.1/tools/pendingRelations.cfm"
+    url = "127.0.0.1/ScheduledTasks/pendingRelations.cfm"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "3:38 AM"
     interval = "daily"
