@@ -149,6 +149,25 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 		--->
 		
 		
+		<cfscript>
+function exec_cmd(cmd) {
+   var runtimeClass="";
+   var out="";
+    // Initialize the Java class.
+    runtimeClass=CreateObject("java", "java.lang.Runtime");
+    // Execute command
+    out=runtimeClass.getRuntime().exec(cmd);
+    // Return the output
+   out.waitFor();
+   return out.getInputStream().read();
+}
+command_output = exec_cmd('#sqlldrScript#');
+</cfscript>
+<hr>
+<cfoutput>#command_output#</cfoutput>
+<hr>
+
+		
 		<cfexecute name="/bin/sh" arguments="#sqlldrScript#" timeout="240" variable="cfe">
 		
 		</cfexecute>
