@@ -68,8 +68,8 @@
 <table border>
 	<tr>
 		<td>
-			on<input type="radio" onclick="checkList('#everything#')">
-			off<input type="radio" onclick="uncheckList('#everything#')">
+			on<input type="radio" name="everything" onclick="checkList('#everything#')">
+			off<input type="radio" name="everything" onclick="uncheckList('#everything#')">
 			
 		</td>
 	</tr>
