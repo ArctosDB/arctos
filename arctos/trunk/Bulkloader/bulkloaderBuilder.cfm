@@ -48,7 +48,6 @@
 		<cfset part=listappend(part,"PART_REMARK_" & i)>	
 	</cfloop>
 	<cfset inListItems=listappend(inListItems,part)>
-	
 	<cfset n=10>
 	<cfset attr=""> 
 	<cfloop from="1" to="#n#" index="i">
@@ -61,7 +60,6 @@
 		<cfset attr=listappend(attr,"ATTRIBUTE_DETERMINER_" & i)>
 	</cfloop>
 	<cfset inListItems=listappend(inListItems,attr)>
-	
 	<cfset n=6>
 	<cfset geol=""> 
 	<cfloop from="1" to="#n#" index="i">
@@ -75,8 +73,8 @@
 	<cfset inListItems=listappend(inListItems,geol)>
 	<hr>
 	<cfset leftovers=everything>
-	<cfloop list="#inListItems#" index="i">
-		<cfset lPos=listfind(inListItems,i)>
+	<cfloop list="#inListItems#" index="thisElement">
+		<cfset lPos=listfind(leftovers,thisElement)>
 		<cfif lPos gt 0>
 			<cfset leftovers=listdeleteat(leftovers,lPos)>
 		</cfif>
