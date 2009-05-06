@@ -101,7 +101,7 @@ function checkList(list) {
 	}
 }
 </script>
-	<form name="f" method="post" action="getTemplate.cfm">
+	<form name="f" method="post" action="bulkloaderBuilder.cfm">
 		<input type="hidden" name="action" value="getTemplate">
 		<label for="format">Format</label>
 		<select name="format" id="format">
