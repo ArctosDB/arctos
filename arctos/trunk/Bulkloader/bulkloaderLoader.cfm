@@ -153,22 +153,28 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 		
 		</cfexecute>
 		
+		<cfdump var=#cfe#>
+		<!---
 		
+		
+		<br />		
 <cfscript>  
        try {  
        	 runtime = createObject("java", "java.lang.Runtime").getRuntime();  
         command = '#sqlldrScript#';   
-         process = runtime.exec(#command#);  
-         results.errorLogSuccess = processStream(process.getErrorStream(), errorLog);  
-         results.resultLogSuccess = processStream(process.getInputStream(), resultLog);  
-         results.exitCode = process.waitFor();  
+         process = runtime.exec(command);  
+         //#results.errorLogSuccess = processStream(process.getErrorStream(), errorLog);  
+         //results.resultLogSuccess = processStream(process.getInputStream(), resultLog);  
+         //results.exitCode = process.waitFor();  
      }  
      catch(exception e) {  
          results.status = e;      
      }  
  </cfscript>
-		<!--- move the files from CF runtime to a web dir <cftry>
-		<cfdump var=#cfe#>
+
+
+ move the files from CF runtime to a web dir <cftry>
+
 
 	 	<cffile action="copy" destination="#weblogfile#" source="#logfile#" nameconflict="overwrite">
 		 <cffile action="copy" destination="#webbadfile#" source="#badfile#" nameconflict="overwrite">
