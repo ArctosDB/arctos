@@ -76,7 +76,10 @@
 	<hr>
 	<cfset leftovers=everything>
 	<cfloop list="#inListItems#" index="i">
-		<cfset leftovers=listdeleteat(leftovers,listfind(leftovers,i))>
+		<cfset lPos=listfind(inListItems,i)>
+		<cfif lPos gt 0>
+			<cfset leftovers=listdeleteat(leftovers,lPos)>
+		</cfif>
 	</cfloop>
 	everything: #everything#
 	<br>leftovers: #leftovers#
