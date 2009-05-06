@@ -81,6 +81,7 @@
 <p>
 	Build your own Bulkloader template.	Toggle anything on or off in the table below. Use these links to get started.
 </p>
+<form name="controls">
 <table border>
 	<tr>
 		<td>&nbsp;</td>
@@ -104,6 +105,7 @@
 	</tr>
 
 </table>
+</form>
 * The Everything option includes fields not included in any other group.
 
 <br><span class="likeLink" onclick="checkList('#ddm#')">Add DM.m coordinate info</span>
@@ -117,7 +119,7 @@
 <br><span class="likeLink" onclick="checkList('#everything#')">Add All</span>
 <script>
 	function checkAll(v){
-		document.dms.value=v;
+		controls.dms.value=v;
 	}
 function uncheckList(list) {
 	var a = list.split(',');
