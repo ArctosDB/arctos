@@ -91,61 +91,51 @@
 	</tr>
 	<tr>
 		<td>Required</td>
-		<td><input type="checkbox" name="required" onchange="checkList(this.name, this.value)"></td>
+		<td><input type="checkbox" name="required" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>Coordinate Meta</td>
-		<td>on<input type="radio" value="1" name="basicCoords" onchange="checkList(this.name, this.value)"></td>
-		<td>off<input type="radio" value="0" name="basicCoords" onchange="checkList(this.name, this.value)">	</td>
+		<td>on<input type="checkbox" name="basicCoords" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>DMS Coordinates</td>
-		<td>on<input type="radio" value="1" name="dms" onchange="checkList(this.name, this.value)"></td>
-		<td>off<input type="radio" value="0" name="dms" onchange="checkList(this.name, this.value)">	</td>
+		<td>on<input type="checkbox" name="dms" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>DM.m Coordinates</td>
-		<td>on<input type="radio" value="1" name="ddm" onchange="checkList(this.name, this.value)"></td>
-		<td>off<input type="radio" value="0" name="ddm" onchange="checkList(this.name, this.value)">	</td>
+		<td>on<input type="checkbox" name="ddm" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>D.d Coordinates</td>
-		<td>on<input type="radio" value="1" name="dd" onchange="checkList(this.name, this.value)"></td>
-		<td>off<input type="radio" value="0" name="dd" onchange="checkList(this.name, this.value)">	</td>
+		<td>on<input type="checkbox" name="dd" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>UTM Coordinates</td>
-		<td>on<input type="radio" value="1" name="utm" onchange="checkList(this.name, this.value)"></td>
-		<td>off<input type="radio" value="0" name="utm" onchange="checkList(this.name, this.value)">	</td>
+		<td>on<input type="checkbox" name="utm" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>Identifiers</td>
-		<td>on<input type="radio" value="1" name="oid" onchange="checkList(this.name, this.value)"></td>
-		<td>off<input type="radio" value="0" name="oid" onchange="checkList(this.name, this.value)">	</td>
+		<td>on<input type="checkbox" name="oid" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>Agents</td>
-		<td>on<input type="radio" value="1" name="coll" onchange="checkList(this.name, this.value)"></td>
-		<td>off<input type="radio" value="0" name="coll" onchange="checkList(this.name, this.value)">	</td>
+		<td>on<input type="checkbox" name="coll" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>Parts</td>
-		<td>on<input type="radio" value="1" name="part" onchange="checkList(this.name, this.value)"></td>
-		<td>off<input type="radio" value="0" name="part" onchange="checkList(this.name, this.value)">	</td>
+		<td>on<input type="checkbox" name="part" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>Attributes</td>
-		<td>on<input type="radio" value="1" name="attr" onchange="checkList(this.name, this.value)"></td>
-		<td>off<input type="radio" value="0" name="attr" onchange="checkList(this.name, this.value)">	</td>
+		<td>on<input type="checkbox" name="attr" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>Geology</td>
-		<td>on<input type="radio" value="1" name="geol" onchange="checkList(this.name, this.value)"></td>
-		<td>off<input type="radio" value="0" name="geol" onchange="checkList(this.name, this.value)">	</td>
+		<td>on<input type="checkbox" name="geol" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 	<tr>
 		<td>The Rest</td>
-		<td><input type="checkbox" value="1" name="leftovers" onchange="checkList(this.name, this.value)"></td>
+		<td><input type="checkbox" name="leftovers" onchange="checkList(this.name, this.checked)"></td>
 	</tr>
 </table>
 <span onclick="t(1)">t1</span>
