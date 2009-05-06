@@ -149,9 +149,10 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 		--->
 		
 		
-		<cfexecute name="#sqlldrScript#"  timeout="240" outputfile="#application.webDirectory#/temp/cfexec.txt">
+		<cfexecute name="#sqlldrScript#"  timeout="240" variable="cfe">
 		
 		</cfexecute>
+		<cfdump var=#cfe#>
 		<!--- move the files from CF runtime to a web dir <cftry>
 	 	<cffile action="copy" destination="#weblogfile#" source="#logfile#" nameconflict="overwrite">
 		 <cffile action="copy" destination="#webbadfile#" source="#badfile#" nameconflict="overwrite">
@@ -164,9 +165,9 @@ ml/Bulkloader/bulkData.ctl log=/var/www/html/Bulkloader/bulkData.log
 		 <cffile action="copy" destination="#webBadFile#" source="#badfile#" nameconflict="overwrite">
 		 <cffile action="copy" destination="#weboutFile#" source="#outFile#" nameconflict="overwrite">
 		 <cffile action="copy" destination="#webFileName#" source="#filename#" nameconflict="overwrite">
-
---->
 <cflocation url="bulkloaderLoader.cfm?action=inStage">
+--->
+
 		<!--- 
 		<cfscript>
   // first of we set the command to call
