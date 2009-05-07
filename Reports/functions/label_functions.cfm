@@ -1002,7 +1002,6 @@
 		<cfset colIdAr[i] = "#colIdLabel#">
 		
 		<!--- Parts Formatting --->
-		<cfset formatted_parts = "">
 		<!-- Mammals -->
 		<cfif collection_cde is "Mamm">
 			<cfset newParts = "">
@@ -1034,7 +1033,7 @@
 				
 		</cfif>
 		
-		<cfset pAr[i] = "#parts#">
+		<cfset pAr[i] = "#newParts#">
 		
 		<!--- Sex --->
 		<cfset formatted_sex = "#sex#">
