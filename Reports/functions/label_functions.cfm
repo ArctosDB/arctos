@@ -1017,8 +1017,7 @@
 					<cfif foundSkinSkull is 0>
 						<cfset foundSkinSkull = 1>
 					</cfif>
-				</cfif>
-				<cfif tissueP lte 0>
+				<cfelseif tissueP lte 0>
 					<cfif len(newParts) gt 0>
 						<cfset newParts = "#newParts#; #p#">
 					<cfelse>
