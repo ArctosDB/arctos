@@ -1005,16 +1005,21 @@
 		<!-- Mammals -->
 		<cfif collection_cde is "Mamm">
 			<cfset newParts = "">
-			<cfset foundSkinSkull = 0>
+			<cfset foundSkin = 0>
+			<cfset foundSkull = 0>
 			<cfset foundTissue = 0>
 			<cfloop list="#parts#" delimiters=";" index="p">
 				<cfset tissueP = find("tissue", p)>
 				<cfset skullP = find("skull", p)>
 				<cfset skinP = find("skin", p)>				
 				
-				<cfif skullP gt 0 or skinP gt 0>
-					<cfif foundSkinSkull is 0>
-						<cfset foundSkinSkull = 1>
+				<cfif skullP gt 0>
+					<cfif foundSkull is 0>
+						<cfset foundSkull = 1>
+					</cfif>
+				<cfelseif  skinP gt 0>
+					<cfif foundSkin is 0>
+						<cfset foundSkin = 1>
 					</cfif>
 				<cfelseif tissueP lte 0>
 					<cfif len(newParts) gt 0>
@@ -1028,7 +1033,7 @@
 			</cfloop>
 			
 			<cfif len(newParts) and foundSkinSkull is 1>
-				<cfset newParts = "+ #newParts#">
+				<cfset newParts = "+#newParts#">
 			</cfif>
 				
 		</cfif>
