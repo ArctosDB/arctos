@@ -917,7 +917,7 @@
 			</cfif>
 		</cfloop>
 		<cfset formatted_parts = "#newParts#">
-		
+		<cfset formatted_parts = "#ReplaceNoCase(formatted_parts, 'alcohol', 'ETOH')#">
 		<cfset pAr[i] = "#formatted_parts#">
 		
 		<!--- Sex --->
