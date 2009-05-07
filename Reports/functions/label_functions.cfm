@@ -1032,9 +1032,12 @@
 				</cfif>
 			</cfloop>
 			
-			<cfif len(newParts) and foundSkin is 1 and foundSkull is 1>
+			<cfif len(newParts) is 0 and foundSkin is 1 and foundSkull is 1>
 				<cfset newParts = "+#newParts#">
+			<cfelseif foundSkull is 1 and len(newParts) is 0>
+				<cfset newParts = "skull">
 			</cfif>
+			
 				
 		</cfif>
 		
