@@ -948,10 +948,13 @@
 	<cfset collAr = ArrayNew(1)>
 	<cfset colIdAr = ArrayNew(1)>
 	<cfset pAr = ArrayNew(1)>
-	
+	<cfset sexAr = ArrayNew(1)>
+		
 	<!--- Data Manipulation --->
 	<cfset i = 1>
 	<cfloop query="q">
+
+		
 		<!--- Geography = Spec_Locality + State + county + country + other geography attributes--->
 		<cfset geog = "#spec_locality#">
 		<cfif #country# is "United States">
@@ -970,6 +973,8 @@
 			</cfif>
 		</cfif>
 		<cfset geog=replace(geog,": , ",": ","all")>
+		<cfset geog=replacenocase(geog, "County", "Co.", "all")>
+		<cfset geog=replacenocase(geog, "California", "Calif.", "all")>
 		<cfset geogAr[i] = "#geog#">
 		
 		<!--- If there is a 'label' type agent_name, use that; else, use collector's preferred name'--->
@@ -988,7 +993,7 @@
 		
 		<!--- Orig#collector id#--->
 		<cfset colIdLabel = "">
-		<cfloop list="#othercatalognumbers#" delimiters=";" index="ids">
+		<cfloop list="#other_ids#" delimiters=";" index="ids">
 			<cfset pos = find("collector number=", ids)>
 			<cfif pos gt 0>
 				<cfset colIdLabel = "Orig#right(ids, len(ids)-pos-len("collector number"))#">
@@ -1000,22 +1005,41 @@
 		<cfset formatted_parts = "">
 		<!-- Mammals -->
 		<cfif collection_cde is "Mamm">
-			<cfif parts is not "tissues">
-				<cfset formatted_parts = "#parts#">
-			</cfif>
-		<!-- Bird -->
-		<cfelseif collection_cde is "Bird">
-			<cfif parts is not "tissues" or parts is not "tissue">
-				<cfset formatted_parts = "#parts#">
-			</cfif>		
-		<!-- Herp -->
-		<cfelseif collection_cde is "Herp" >
-			<cfif parts is not "tissues" or parts is not "whole organism">
-				<cfset formatted_parts = "#parts#">
-			</cfif>
+			<cfset newParts = "">
+			<cfset foundSkinSkull = 0>
+			<cfloop list="#formatted_parts#" delimiters=";" index="p">
+				<cfset tissueP = find("tissue", p)>
+				<cfset skullP = find("skull", p)>
+				<cfset skinP = find("skin", p)>
+				
+				
+				<cfif skullP gt 0 or skinP gt 0>
+					<cfif foundSkinSkull is 0>
+						<cfset newParts = "+ #newParts#">
+						<cfset foundSkinSkull = 1>
+					</cfif>
+				</cfif>
+				<cfif tissueP lte 0>
+					<cfif len(newParts) gt 0>
+						<cfset newParts = "#newParts#; #p#">
+					<cfelse>
+						<cfset newParts = "#p#">
+					</cfif>
+				</cfif>
+			</cfloop>
 		</cfif>
 		
 		<cfset pAr[i] = "#parts#">
+		
+		<!--- Sex --->
+		<cfset formatted_sex = "#sex#">
+		<cfif trim(formatted_sex) is "unknown" or trim(formatted_sex) is 'recorded as unknown' or trim(formatted_sex) equal 'not recorded'>
+			<cfset formatted_sex = "U">
+		</cfif>
+		<cfset formatted_sex = "#ReplaceNoCase(formatted_sex, 'female', 'F')#">
+		<cfset formatted_sex = "#ReplaceNoCase(formatted_sex, 'male', 'M')#">
+
+		<cfset sexAr[i] = "#formatted_sex#">
 		
 		<cfset i = i+1>
 	</cfloop>
@@ -1024,5 +1048,6 @@
 	<cfset temp = queryAddColumn(q, "agent", "VarChar", collAr)>
 	<cfset temp = queryAddColumn(q, "agent_id", "VarChar", colIdAr)>
 	<cfset temp = queryAddColumn(q, "formatted_parts", "VarChar", pAr)>
+	<cfset temp = queryAddcolumn(q, "formatted_sex", "VarChar", sexAr)>
 	<cfreturn q>
 </cffunction>
