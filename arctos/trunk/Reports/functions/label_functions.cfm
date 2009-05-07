@@ -1013,7 +1013,7 @@
 				<cfset skullP = find("skull", p)>
 				<cfset skinP = find("skin", p)>				
 				
-				<cfif skullP lte 0 or skinP lte 0>
+				<cfif skullP gt 0 or skinP gt 0>
 					<cfif foundSkinSkull is 0>
 						<cfset foundSkinSkull = 1>
 					</cfif>
