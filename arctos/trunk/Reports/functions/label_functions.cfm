@@ -1008,7 +1008,7 @@
 			<cfset newParts = "">
 			<cfset foundSkinSkull = 0>
 			<cfset foundTissue = 0>
-			<cfloop list="#formatted_parts#" delimiters=";" index="p">
+			<cfloop list="#parts#" delimiters=";" index="p">
 				<cfset tissueP = find("tissue", p)>
 				<cfset skullP = find("skull", p)>
 				<cfset skinP = find("skin", p)>				
