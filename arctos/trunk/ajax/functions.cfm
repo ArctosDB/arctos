@@ -685,8 +685,7 @@
 		</cftransaction>
 		<cfcatch>
 			<cfreturn "0|#cfcatch.message# #cfcatch.detail#"> 
-		</cfcatch>
-		
+		</cfcatch>		
 	</cftry>
 	</cfoutput>	
 </cffunction>
