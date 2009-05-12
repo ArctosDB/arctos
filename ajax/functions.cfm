@@ -624,6 +624,7 @@
 	<cfoutput>
 	<cftry>
 		<cftransaction>
+			<cfreturn "1|test"> 
 			<cfquery name="isGoodParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select container_id from container where container_type <> 'collection object'
 				and barcode='#parent_barcode#'
