@@ -654,10 +654,39 @@
 					container_id=#cont2.container_id#
 				</cfquery>
 			</cfif>
+			<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					cat_num,
+					institution_acronym,
+					collection.collection_cde,
+					scientific_name,
+					part_name || 
+					decode('#part_id2#'
+						,null,null,
+						(select ' and ' || part_name from specimen_part where collection_object_id=#part_id2#)) 
+						part_name
+				from
+					cataloged_item,
+					collection,
+					identification,
+					specimen_part
+				where
+					cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
+					cataloged_item.collection_object_id=identification.collection_object_id and
+					accepted_id_fg=1 and
+					cataloged_item.collection_id=collection.collection_id and
+					specimen_part.collection_object_id=#part_id#
+			</cfquery>
+			<cfset r='Moved <a href="/guid/#coll_obj.institution_acronym#:#coll_obj.collection_cde#:#coll_obj.cat_num#">'>
+			<cfset r="#r##coll_obj.collection# #coll_obj.cat_num#">
+			<cfset r="#r#</a> (<i>#coll_obj.scientific_name#</i>) #part_name#">
+			<cfset r="#r# to container barcode #parent_barcode# (#new_container_type#)">
+			<cfreturn '1|#r#'>>
 		</cftransaction>
 		<cfcatch>
-				<cfreturn "0|#cfcatch.message# #cfcatch.detail#"> 
+			<cfreturn "0|#cfcatch.message# #cfcatch.detail#"> 
 		</cfcatch>
+		
 	</cftry>
 	</cfoutput>	
 </cffunction>
