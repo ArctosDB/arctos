@@ -623,12 +623,42 @@
 	<cfargument name="new_container_type" type="string" required="yes">		
 	<cfoutput>
 	<cftry>
-		<cfreturn "0|test"> 
-	<cfcatch>
-			<cfreturn "0|caught test"> 
-	</cfcatch>
+		<cftransaction>
+			<cfquery name="isGoodParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select container_id from container where container_type <> 'collection object'
+				and barcode='#parent_barcode#'
+			</cfquery>
+			<cfif #isGoodParent.recordcount# is not 1>
+				<cfreturn "0|Parent container (barcode #parent_barcode#) not found.">
+			</cfif>
+			<cfquery name="cont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select container_id FROM coll_obj_cont_hist where collection_object_id=#part_id#
+			</cfquery>
+			<cfif #cont.recordcount# is not 1>
+				<cfreturn "0|Yikes! A part is not a container.">
+			</cfif>
+			<cfquery name="newparent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				UPDATE container SET container_type = '#new_container_type#' WHERE
+					container_id=#isGoodParent.container_id#
+			</cfquery>
+			<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				UPDATE container SET parent_container_id = #isGoodParent.container_id# WHERE
+				container_id=#cont.container_id#
+			</cfquery>
+			<cfif len(#part_id2#) gt 0>
+				<cfquery name="cont2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select container_id FROM coll_obj_cont_hist where collection_object_id=#part_id2#
+				</cfquery>
+				<cfquery name="moveIt2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					UPDATE container SET parent_container_id = #isGoodParent.container_id# WHERE
+					container_id=#cont2.container_id#
+				</cfquery>
+			</cfif>
+		</cftransaction>
+		<cfcatch>
+				<cfreturn "0|#cfcatch.message# #cfcatch.detail#"> 
+		</cfcatch>
 	</cftry>
-		
 	</cfoutput>	
 </cffunction>
 <!----------------------------------------------------------------->
