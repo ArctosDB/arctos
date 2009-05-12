@@ -142,13 +142,14 @@ function checkSubmit() {
 				}
 				option.appendChild(document.createTextNode(pStr));
 				p1.appendChild(option);
-			}
-			for (i=0;i<result.length;i++) {
-				var option = document.createElement('option');
-				option.setAttribute('value',result[i].PART_NAME);
-				option.appendChild(document.createTextNode(result[i].PART_NAME));
 				p2.appendChild(option);
 			}
+			//for (i=0;i<result.length;i++) {
+				//var option = document.createElement('option');
+				//option.setAttribute('value',result[i].PART_NAME);
+				//option.appendChild(document.createTextNode(result[i].PART_NAME));
+				//p2.appendChild(option);
+			//}
 			p1.value=op1;
 			p2.value=op2;
 				
