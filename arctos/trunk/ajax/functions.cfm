@@ -659,6 +659,7 @@
 					cat_num,
 					institution_acronym,
 					collection.collection_cde,
+					collection.collection,
 					scientific_name,
 					part_name || 
 					decode('#part_id2#'
