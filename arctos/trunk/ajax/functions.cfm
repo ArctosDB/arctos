@@ -623,8 +623,10 @@
 	<cfargument name="new_container_type" type="string" required="yes">		
 	<cfoutput>
 	<cftry>
-	
-	
+		<cfreturn "0|test"> 
+	<cfcatch>
+			<cfreturn "0|caught test"> 
+	</cfcatch>
 	</cftry>
 		<cfif #coll_obj.recordcount# gt 1>
 			<!--- see if we can find a suitable uncontainerized tissue --->
