@@ -135,7 +135,7 @@ function checkSubmit() {
 			p2.appendChild(option);	
 			for (i=0;i<result.length;i++) {
 				var option = document.createElement('option');
-				option.setAttribute('value',result[i].PART_ID);
+				option.setAttribute('value',result[i].PARTID);
 				option.appendChild(document.createTextNode(result[i].PART_NAME));
 				p1.appendChild(option);
 			}
