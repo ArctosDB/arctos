@@ -135,13 +135,15 @@ function checkSubmit() {
 			p2.appendChild(option);	
 			for (i=0;i<result.length;i++) {
 				var option = document.createElement('option');
+				var option2 = document.createElement('option');
 				option.setAttribute('value',result[i].PARTID);
+				option2.setAttribute('value',result[i].PARTID);
 				var pStr=result[i].PART_NAME;
 				if (result[i].BARCODE.length>0){
 					pStr+=' (' + result[i].BARCODE + ')';
 				}
 				option.appendChild(document.createTextNode(pStr));
-				var option2=option;
+				option2.appendChild(document.createTextNode(pStr));
 				p1.appendChild(option);
 				p2.appendChild(option2);
 			}
