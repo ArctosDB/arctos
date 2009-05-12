@@ -581,7 +581,10 @@
 	<cfargument name="part_name_2" type="string" required="yes">
 	<cfargument name="parent_barcode" type="string" required="yes">
 	<cfargument name="new_container_type" type="string" required="yes">
+	<cfargument name="noSubsample" type="string" required="yes">
+	
 	<cfoutput>
+		<cfreturn "0|#noSubsample#">
 	<cftry>
 	<cftry>
 		<cfset coll_obj=getCollObjByPart(collection_id,other_id_type,oidnum,part_name)>
@@ -633,9 +636,7 @@
 			<cfif #cont2.recordcount# is not 1>
 				<cfreturn "0|Yikes! A part is not a container.">
 			</cfif>
-		</cfif>
-		
-		
+		</cfif>		
 		<cftry>
 			<cfquery name="newparent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				UPDATE container SET container_type = '#new_container_type#' WHERE
