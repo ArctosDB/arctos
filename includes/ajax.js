@@ -141,8 +141,9 @@ function checkSubmit() {
 					pStr+=' (' + result[i].BARCODE + ')';
 				}
 				option.appendChild(document.createTextNode(pStr));
+				var option2=option;
 				p1.appendChild(option);
-				p2.appendChild(option);
+				p2.appendChild(option2);
 			}
 			//for (i=0;i<result.length;i++) {
 				//var option = document.createElement('option');
