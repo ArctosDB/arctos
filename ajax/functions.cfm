@@ -263,6 +263,7 @@
 		<cfset t="select 
 				cataloged_item.collection_object_id,
 				specimen_part.collection_object_id partID,
+				p.barcode,
 				part_name,
 				cat_num,
 				collection,
@@ -271,9 +272,16 @@
 			from 
 				specimen_part,
 				cataloged_item,
-				collection">
-		<cfset w = "where specimen_part.derived_from_cat_item = cataloged_item.collection_object_id
-				and cataloged_item.collection_id=collection.collection_id and 
+				collection,
+				coll_obj_cont_hist,
+				container c,
+				container p">
+		<cfset w = "where 
+				specimen_part.derived_from_cat_item = cataloged_item.collection_object_id and 
+				cataloged_item.collection_id=collection.collection_id and 
+				specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+				coll_obj_cont_hist.container_id=c.container_id and
+				c.parent_container_id=p.container_id (+) and
 				cataloged_item.collection_id=#collection_id#">
 		<cfif other_id_type is not "catalog_number">
 			<cfset t=t&" ,coll_obj_other_id_num">
@@ -284,10 +292,7 @@
 			<cfset w=w & " and cataloged_item.cat_num=#oidnum#">
 		</cfif>
 		<cfif noBarcode is true>
-			<cfset t=t & ",coll_obj_cont_hist,container c">
-			<cfset w=w & " and specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
-				coll_obj_cont_hist.container_id=c.container_id and
-				(c.parent_container_id = 0 or c.parent_container_id is null or c.parent_container_id=476089)">
+			<cfset w=w & " and (c.parent_container_id = 0 or c.parent_container_id is null or c.parent_container_id=476089)">
 				<!--- 476089 is barcode 0 - our universal trashcan --->
 		</cfif>
 		<cfif noSubsample is true>
@@ -611,22 +616,15 @@
 </cffunction>
 <!-------------------------------------------->
 <cffunction name="addPartToContainer" returntype="String">
-	<cfargument name="collection_id" type="numeric" required="yes">
-	<cfargument name="cat_coll_id" type="numeric" required="yes">
+	<cfargument name="collection_object_id" type="numeric" required="yes">
 	<cfargument name="part_id" type="numeric" required="yes">
 	<cfargument name="part_id2" type="numeric" required="yes">
 	<cfargument name="parent_barcode" type="string" required="yes">
 	<cfargument name="new_container_type" type="string" required="yes">		
 	<cfoutput>
 	<cftry>
-	<cftry>
-		<cfset coll_obj=getCollObjByPart(collection_id,other_id_type,oidnum,part_name,noSubsample,noBarcode)>
-		<cfif len(#part_name_2#) gt 0>
-			<cfset coll_obj2=getCollObjByPart(collection_id,other_id_type,oidnum,part_name_2,noSubsample,noBarcode)>
-		</cfif>
-	<cfcatch>
-		<cfreturn "0|#cfcatch.message#: #cfcatch.detail#">
-	</cfcatch>	
+	
+	
 	</cftry>
 		<cfif #coll_obj.recordcount# gt 1>
 			<!--- see if we can find a suitable uncontainerized tissue --->
