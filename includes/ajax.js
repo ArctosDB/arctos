@@ -124,7 +124,7 @@ function checkSubmit() {
 			ss+=' does not resolve to a specimen';
 		} else {
 			var specid=document.getElementById('collection_object_id');
-			specid.value=result[0].COLLECTION.COLLECTION_OBJECT_ID;
+			specid.value=result[0].COLLECTION_OBJECT_ID;
 			var p1=document.getElementById('part_name');
 			var p2=document.getElementById('part_name_2');
 			var op1=p1.value;
