@@ -28,14 +28,12 @@ function logIt(msg,status) {
 }
 function addPartToContainer () {
 	document.getElementById('pTable').className='red';
-	var collection_id=document.getElementById('collection_id').value;
-	var other_id_type=document.getElementById('other_id_type').value;
-	var oidnum=document.getElementById('oidnum').value;
-	var part_name=document.getElementById('part_name').value;
-	var part_name_2=document.getElementById('part_name_2').value;
+	var cid=document.getElementById('collection_object_id').value;
+	var pid1=document.getElementById('part_name').value;
+	var pid2=document.getElementById('part_name_2').value;
 	var parent_barcode=document.getElementById('parent_barcode').value;
 	var new_container_type=document.getElementById('new_container_type').value;	
-	DWREngine._execute(_cfscriptLocation, null, 'addPartToContainer',collection_id,other_id_type,oidnum,part_name,part_name_2,parent_barcode,new_container_type,success_addPartToContainer);
+	DWREngine._execute(_cfscriptLocation, null, 'addPartToContainer',cid,pid1,pid2,parent_barcode,new_container_type,success_addPartToContainer);
 }
 function success_addPartToContainer(result) {
 	statAry=result.split("|");
@@ -138,7 +136,7 @@ function checkSubmit() {
 			for (i=0;i<result.length;i++) {
 				var option = document.createElement('option');
 				option.setAttribute('value',result[i].PARTID);
-				option.appendChild(document.createTextNode(result[i].PART_NAME));
+				option.appendChild(document.createTextNode(result[i].PART_NAME + '|' + result[i].BARCODE));
 				p1.appendChild(option);
 			}
 			for (i=0;i<result.length;i++) {
