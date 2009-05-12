@@ -263,7 +263,7 @@
 		<cfset t="select 
 				cataloged_item.collection_object_id,
 				specimen_part.collection_object_id partID,
-				p.barcode,
+				decode(p.barcode,null,'NOBARCODE',p.barcode) barcode,
 				part_name,
 				cat_num,
 				collection,
