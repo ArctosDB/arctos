@@ -74,9 +74,6 @@
 			<td>
 				<label for="part_name">Part Name</label>
 				<select name="part_name" id="part_name" size="1" style="width:120px;">
-					<cfloop query="ctPartName">
-						<option value="#part_name#">#part_name#</option>
-					</cfloop>
 				</select>
 				<span class="infoLink"  onclick="getParts()">Refresh</span>
 			</td>
@@ -84,9 +81,6 @@
 				<label for="part_name_2">Part Name 2</label>
 				<select name="part_name_2" id="part_name_2" size="1" style="width:120px;">
 					<option value=""></option>
-					<cfloop query="ctPartName">
-						<option value="#part_name#">#part_name#</option>
-					</cfloop>
 				</select>
 			</td>
 			<td>
