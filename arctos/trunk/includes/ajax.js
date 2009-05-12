@@ -116,6 +116,13 @@ function checkSubmit() {
 		document.body.removeChild(s);
 		var sDiv=document.getElementById('thisSpecimen');
 		var ocoln=document.getElementById('collection_id');
+		var specid=document.getElementById('collection_object_id');
+		var p1=document.getElementById('part_name');
+		var p2=document.getElementById('part_name_2');
+		var op1=p1.value;
+		var op2=p2.value;
+		p1.options.length=0;
+		p2.options.length=0;
 		var selIndex = ocoln.selectedIndex;
 		var coln = ocoln.options[selIndex].text;		
 		var idt=document.getElementById('other_id_type').value;
@@ -124,15 +131,9 @@ function checkSubmit() {
 		if (result[0].PART_NAME.indexOf('Error:')>-1) {
 			alert(result[0].PART_NAME);
 			ss+=' does not resolve to a specimen';
+			specid.value='';
 		} else {
-			var specid=document.getElementById('collection_object_id');
 			specid.value=result[0].COLLECTION_OBJECT_ID;
-			var p1=document.getElementById('part_name');
-			var p2=document.getElementById('part_name_2');
-			var op1=p1.value;
-			var op2=p2.value;
-			p1.options.length=0;
-			p2.options.length=0;
 			var option = document.createElement('option');
 			option.setAttribute('value','');
 			option.appendChild(document.createTextNode(''));
