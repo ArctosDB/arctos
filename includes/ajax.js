@@ -32,7 +32,11 @@ function addPartToContainer () {
 	var pid1=document.getElementById('part_name').value;
 	var pid2=document.getElementById('part_name_2').value;
 	var parent_barcode=document.getElementById('parent_barcode').value;
-	var new_container_type=document.getElementById('new_container_type').value;	
+	var new_container_type=document.getElementById('new_container_type').value;
+	if(cid.length==0 || pid1.length==0 || parent_barcode.length==0) {
+		alert('Something is null');
+		return false;
+	}
 	DWREngine._execute(_cfscriptLocation, null, 'addPartToContainer',cid,pid1,pid2,parent_barcode,new_container_type,success_addPartToContainer);
 }
 function success_addPartToContainer(result) {
