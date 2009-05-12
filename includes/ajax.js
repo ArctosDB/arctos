@@ -34,9 +34,8 @@ function addPartToContainer () {
 	var part_name=document.getElementById('part_name').value;
 	var part_name_2=document.getElementById('part_name_2').value;
 	var parent_barcode=document.getElementById('parent_barcode').value;
-	var new_container_type=document.getElementById('new_container_type').value;
-	var noSubsample=document.getElementById('noSubsample').checked;
-	DWREngine._execute(_cfscriptLocation, null, 'addPartToContainer',collection_id,other_id_type,oidnum,part_name,part_name_2,parent_barcode,new_container_type,noSubsample,success_addPartToContainer);
+	var new_container_type=document.getElementById('new_container_type').value;	
+	DWREngine._execute(_cfscriptLocation, null, 'addPartToContainer',collection_id,other_id_type,oidnum,part_name,part_name_2,parent_barcode,new_container_type,success_addPartToContainer);
 }
 function success_addPartToContainer(result) {
 	statAry=result.split("|");
@@ -136,7 +135,7 @@ function checkSubmit() {
 			p2.appendChild(option);	
 			for (i=0;i<result.length;i++) {
 				var option = document.createElement('option');
-				option.setAttribute('value',result[i].PART_NAME);
+				option.setAttribute('value',result[i].PART_ID);
 				option.appendChild(document.createTextNode(result[i].PART_NAME));
 				p1.appendChild(option);
 			}

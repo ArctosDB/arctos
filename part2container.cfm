@@ -21,9 +21,6 @@
 	<cfquery name="ctCollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection, collection_id FROM collection order by collection
 	</cfquery>
-	<cfquery name="ctPartName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select distinct(part_name) FROM ctspecimen_part_name order by part_name
-	</cfquery>
 	<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct(other_id_type) FROM ctcoll_other_id_type order by other_id_type
 	</cfquery>	

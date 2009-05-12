@@ -261,6 +261,7 @@
 	<cfargument name="noSubsample" type="string" required="yes">
 	<cftry>
 		<cfset t="select 
+				specimen_part.collection_object_id partID,
 				part_name,
 				cat_num,
 				collection,
@@ -436,35 +437,56 @@
 	<cfargument name="other_id_type" type="string" required="yes">
 	<cfargument name="oidnum" type="string" required="yes">
 	<cfargument name="part_name" type="string" required="yes">
-	<cfargument name="noSubsample" type="string" required="yes">	
-	<cfif #other_id_type# is "catalog_number">
-		<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select 
+	<cfargument name="noSubsample" type="string" required="yes">
+	<cfargument name="noBarcode" type="string" required="yes">
+	<cfset s="select 
 				cat_num,
 				collection,
 				collection.collection_cde,
 				institution_acronym,
 				scientific_name,
-				specimen_part.collection_object_id 
+				specimen_part.collection_object_id
 			FROM
 				cataloged_item,
 				specimen_part,
 				collection,
-				identification
-			WHERE
+				identification">
+	<cfif noBarcode is "true">
+		<cfset s=s & ",coll_obj_cont_hist,container sc, container pc">
+	</cfif>
+	<cfif #other_id_type# is not "catalog_number">
+		<cfset s=s & "coll_obj_other_id_num">
+	</cfif>
+	<cfset s=s & " WHERE
 				cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
 				cataloged_item.collection_id=collection.collection_id and
 				cataloged_item.collection_object_id = identification.collection_object_id and
 				accepted_id_fg=1 and
-				collection.collection_id=#collection_id# AND
-				cat_num=#oidnum# AND
-				part_name='#part_name#'
-				<cfif noSubsample is "true">
-					and SAMPLED_FROM_OBJ_ID is null
-				</cfif>
-			</cfquery>
-		<cfelse>
-			<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				part_name='#part_name#' and
+				collection.collection_id=#collection_id#">
+	<cfif #other_id_type# is not "catalog_number">
+		<cfset s=s & " and cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id
+				and other_id_type='#other_id_type#' AND
+					display_value= '#oidnum#' ">
+	<cfelse>
+		<cfset s=s & " and cat_num=#oidnum#">
+	</cfif>
+	<cfif noSubsample is "true">
+		<cfset s=s & " and SAMPLED_FROM_OBJ_ID is null">
+	</cfif>
+	<cfif noBarcode is "true">
+		<cfset s=s & " and specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+			coll_obj_cont_hist.container_id= sc.container_id and
+			sc.parent_container_id=pc.container_id (+) and
+			pc.barcode is null">
+	</cfif>
+	
+	<cfif #other_id_type# is "catalog_number">
+		<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(s)#
+		</cfquery>
+	<cfelse>
+		<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					cat_num,
 					collection,
@@ -589,19 +611,17 @@
 <!-------------------------------------------->
 <cffunction name="addPartToContainer" returntype="String">
 	<cfargument name="collection_id" type="numeric" required="yes">
-	<cfargument name="other_id_type" type="string" required="yes">
-	<cfargument name="oidnum" type="string" required="yes">
-	<cfargument name="part_name" type="string" required="yes">
-	<cfargument name="part_name_2" type="string" required="yes">
+	<cfargument name="cat_coll_id" type="numeric" required="yes">
+	<cfargument name="part_id" type="numeric" required="yes">
+	<cfargument name="part_id2" type="numeric" required="yes">
 	<cfargument name="parent_barcode" type="string" required="yes">
-	<cfargument name="new_container_type" type="string" required="yes">
-	<cfargument name="noSubsample" type="string" required="yes">
+	<cfargument name="new_container_type" type="string" required="yes">		
 	<cfoutput>
 	<cftry>
 	<cftry>
-		<cfset coll_obj=getCollObjByPart(collection_id,other_id_type,oidnum,part_name)>
+		<cfset coll_obj=getCollObjByPart(collection_id,other_id_type,oidnum,part_name,noSubsample,noBarcode)>
 		<cfif len(#part_name_2#) gt 0>
-			<cfset coll_obj2=getCollObjByPart(collection_id,other_id_type,oidnum,part_name_2)>
+			<cfset coll_obj2=getCollObjByPart(collection_id,other_id_type,oidnum,part_name_2,noSubsample,noBarcode)>
 		</cfif>
 	<cfcatch>
 		<cfreturn "0|#cfcatch.message#: #cfcatch.detail#">
@@ -609,7 +629,114 @@
 	</cftry>
 		<cfif #coll_obj.recordcount# gt 1>
 			<!--- see if we can find a suitable uncontainerized tissue --->
-			<cfset coll_obj=getDistNoContainerPartId(collection_id,other_id_type,oidnum,part_name)>
+			<cfset coll_obj=getDistNoContainerPartId(collection_id,other_id_type,oidnum,part_name,noBarcode)>
+			<cfif not isdefined("coll_obj.collection_object_id")>
+				<cfreturn "0|No uncontainerized tissue parts found #other_id_type# #oidnum# #part_name#.">
+			</cfif>
+		<cfelseif #coll_obj.recordcount#  is 0>
+			<cfreturn "0|#coll_obj.recordcount# cataloged items matched #other_id_type# #oidnum# #part_name#.">
+		</cfif>
+		<cfif len(#part_name_2#) gt 0>
+			<cfif coll_obj2.recordcount gt 1>
+				<cfset coll_obj2=getDistNoContainerPartId(collection_id,other_id_type,oidnum,part_name_2)>
+				<cfif not isdefined("coll_obj2.collection_object_id")>
+					<cfreturn "0|No uncontainerized tissue parts found #other_id_type# #oidnum# #part_name_2#.">
+				</cfif>		
+			<cfelseif coll_obj2.recordcount is 0>
+				<cfreturn "0|#coll_obj2.recordcount# cataloged items matched #other_id_type# #oidnum# #part_name#.">
+			</cfif>			
+		</cfif>		
+		<cfquery name="isGoodParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select container_id from container where container_type <> 'collection object'
+			and barcode='#parent_barcode#'
+		</cfquery>
+		<cfif #isGoodParent.recordcount# is not 1>
+			<cfreturn "0|Parent container (barcode #parent_barcode#) not found.">
+		</cfif>
+		<cfquery name="cont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select container_id FROM coll_obj_cont_hist where collection_object_id=#coll_obj.collection_object_id#
+		</cfquery>
+		<cfif #cont.recordcount# is not 1>
+			<cfreturn "0|Yikes! A part is not a container.">
+		</cfif>
+		
+		<cfif len(#part_name_2#) gt 0>
+			<cfquery name="cont2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select container_id FROM coll_obj_cont_hist where
+				collection_object_id=#coll_obj2.collection_object_id#
+			</cfquery>
+			<cfif #cont2.recordcount# is not 1>
+				<cfreturn "0|Yikes! A part is not a container.">
+			</cfif>
+		</cfif>		
+		<cftry>
+			<cfquery name="newparent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				UPDATE container SET container_type = '#new_container_type#' WHERE
+					container_id=#isGoodParent.container_id#
+			</cfquery>
+			<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				UPDATE container SET parent_container_id = #isGoodParent.container_id# WHERE
+				container_id=#cont.container_id#
+			</cfquery>
+			<cfif len(#part_name_2#) gt 0>
+				<cfquery name="moveIt2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					UPDATE container SET parent_container_id = #isGoodParent.container_id# WHERE
+					container_id=#cont2.container_id#
+				</cfquery>
+			</cfif>
+			<cfcatch>
+				<cfreturn "0|#cfcatch.message#: #cfcatch.detail#">
+			</cfcatch>
+		</cftry>
+		<cfset r='Moved <a href="/SpecimenDetail.cfm?guid=#coll_obj.institution_acronym#:#coll_obj.collection_cde#:#coll_obj.cat_num#">'>
+		<cfset r="#r##coll_obj.collection# #coll_obj.cat_num#">
+		<cfif #other_id_type# is not "catalog_number">
+			<cfset r="#r# (#other_id_type# #oidnum#)">
+		</cfif>
+		<cfset r="#r#</a> (<i>#coll_obj.scientific_name#</i>) #part_name#">
+		<cfif len(#part_name_2#) gt 0>
+			<cfset r="#r# and #part_name_2#">
+		</cfif>
+		<cfset r="#r# to container barcode #parent_barcode# (#new_container_type#)">
+		<cfreturn '1|#r#'>
+	
+	<cfcatch>
+		<cfset r="0|#cfcatch.message#: #cfcatch.detail#">
+		<cfif isdefined("cfcatch.sql")>
+			<cfset r="#r# #cfcatch.sql#">
+		</cfif>
+	<cfreturn r>
+	</cfcatch>
+	</cftry>
+	</cfoutput>	
+</cffunction>
+<!----------------------------------------------------------------->
+<!-------------------------------------------->
+<cffunction name="addPartToContainer_old" returntype="String">
+	<cfargument name="collection_id" type="numeric" required="yes">
+	<cfargument name="other_id_type" type="string" required="yes">
+	<cfargument name="oidnum" type="string" required="yes">
+	<cfargument name="part_name" type="string" required="yes">
+	<cfargument name="part_name_2" type="string" required="yes">
+	<cfargument name="parent_barcode" type="string" required="yes">
+	<cfargument name="new_container_type" type="string" required="yes">
+	<cfargument name="noSubsample" type="string" required="yes">
+	<cfargument name="noBarcode" type="string" required="yes">
+		
+	<cfoutput>
+	<cftry>
+	<cftry>
+		<cfset coll_obj=getCollObjByPart(collection_id,other_id_type,oidnum,part_name,noSubsample,noBarcode)>
+		<cfif len(#part_name_2#) gt 0>
+			<cfset coll_obj2=getCollObjByPart(collection_id,other_id_type,oidnum,part_name_2,noSubsample,noBarcode)>
+		</cfif>
+	<cfcatch>
+		<cfreturn "0|#cfcatch.message#: #cfcatch.detail#">
+	</cfcatch>	
+	</cftry>
+		<cfif #coll_obj.recordcount# gt 1>
+			<!--- see if we can find a suitable uncontainerized tissue --->
+			<cfset coll_obj=getDistNoContainerPartId(collection_id,other_id_type,oidnum,part_name,noBarcode)>
 			<cfif not isdefined("coll_obj.collection_object_id")>
 				<cfreturn "0|No uncontainerized tissue parts found #other_id_type# #oidnum# #part_name#.">
 			</cfif>
