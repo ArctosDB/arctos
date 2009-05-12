@@ -261,6 +261,7 @@
 	<cfargument name="noSubsample" type="string" required="yes">
 	<cftry>
 		<cfset t="select 
+				cataloged_item.collection_object_id,
 				specimen_part.collection_object_id partID,
 				part_name,
 				cat_num,

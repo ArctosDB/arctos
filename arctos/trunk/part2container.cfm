@@ -49,6 +49,7 @@
 	<table border id="pTable">
 	<form name="scans" method="post" id="scans">
 		<input type="hidden" name="action" value="validate">
+		<input type="hidden" name="collection_object_id" id="collection_object_id">
 		<tr>
 			<td>
 				<label for="collection_id">Collection</label>
