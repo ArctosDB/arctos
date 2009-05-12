@@ -618,7 +618,7 @@
 <cffunction name="addPartToContainer" returntype="String">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
 	<cfargument name="part_id" type="numeric" required="yes">
-	<cfargument name="part_id2" type="numeric" required="no">
+	<cfargument name="part_id2" type="string" required="no">
 	<cfargument name="parent_barcode" type="string" required="yes">
 	<cfargument name="new_container_type" type="string" required="yes">		
 	<cfoutput>
