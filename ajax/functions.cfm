@@ -623,6 +623,7 @@
 	<cfargument name="new_container_type" type="string" required="yes">		
 	<cfoutput>
 			<cfreturn "1|tttt"> 
+			<!---
 	<cftry>
 		<cftransaction>
 			<cfreturn "1|test"> 
@@ -689,6 +690,7 @@
 			<cfreturn "0|#cfcatch.message# #cfcatch.detail#"> 
 		</cfcatch>		
 	</cftry>
+	--->
 	</cfoutput>	
 </cffunction>
 <!----------------------------------------------------------------->
