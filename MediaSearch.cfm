@@ -2,6 +2,11 @@
 <div id="_header">
     <cfinclude template="/includes/_header.cfm">
 </div>
+
+
+<script src="http://www.gmodules.com/ig/ifr?url=http://eighty.berkeley.edu/arctosmediagadget/edu.berkeley.mvz.arctos.gadgets.client.ArctosMediaGadget.gadget.xml&amp;synd=open&amp;w=320&amp;h=200&amp;title=ArctosMediaGadget&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js"></script>
+
+
 <cfif isdefined("url.collection_object_id")>
     <cfoutput>
     <cflocation url="MediaSearch.cfm?action=search&relationship__1=cataloged_item&related_primary_key__1=#url.collection_object_id#" addtoken="false">

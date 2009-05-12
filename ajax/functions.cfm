@@ -436,6 +436,7 @@
 	<cfargument name="other_id_type" type="string" required="yes">
 	<cfargument name="oidnum" type="string" required="yes">
 	<cfargument name="part_name" type="string" required="yes">
+	<cfargument name="noSubsample" type="string" required="yes">	
 	<cfif #other_id_type# is "catalog_number">
 		<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
@@ -458,6 +459,9 @@
 				collection.collection_id=#collection_id# AND
 				cat_num=#oidnum# AND
 				part_name='#part_name#'
+				<cfif noSubsample is "true">
+					and SAMPLED_FROM_OBJ_ID is null
+				</cfif>
 			</cfquery>
 		<cfelse>
 			<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -483,7 +487,10 @@
 					collection.collection_id=#collection_id# AND
 					other_id_type='#other_id_type#' AND
 					display_value= '#oidnum#' AND
-					part_name='#part_name#'
+					part_name='#part_name#'\					
+					<cfif noSubsample is "true">
+						and SAMPLED_FROM_OBJ_ID is null
+					</cfif>
 			</cfquery>
 		</cfif>
 		<cfreturn coll_obj>
@@ -495,6 +502,7 @@
 	<cfargument name="other_id_type" type="string" required="yes">
 	<cfargument name="oidnum" type="string" required="yes">
 	<cfargument name="part_name" type="string" required="yes">
+	<cfargument name="noSubsample" type="string" required="yes">	
 	<cfif #other_id_type# is "catalog_number">
 		<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
@@ -514,6 +522,9 @@
 				cataloged_item.collection_id=#collection_id# and
 				cat_num=#oidnum# AND
 				part_name='#part_name#'
+				<cfif noSubsample is "true">
+					and SAMPLED_FROM_OBJ_ID is null
+				</cfif>
 		</cfquery>
 	<cfelse>
 		<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -537,6 +548,9 @@
 				other_id_type='#other_id_type#' AND
 				display_value= '#oidnum#' AND
 				part_name='#part_name#'
+				<cfif noSubsample is "true">
+					and SAMPLED_FROM_OBJ_ID is null
+				</cfif>
 		</cfquery>
 	</cfif>
 	<cfif coll_obj.recordcount is 1 and len(coll_obj.part_id) gt 0>
@@ -582,9 +596,7 @@
 	<cfargument name="parent_barcode" type="string" required="yes">
 	<cfargument name="new_container_type" type="string" required="yes">
 	<cfargument name="noSubsample" type="string" required="yes">
-	
 	<cfoutput>
-		<cfreturn "0|#noSubsample#">
 	<cftry>
 	<cftry>
 		<cfset coll_obj=getCollObjByPart(collection_id,other_id_type,oidnum,part_name)>
