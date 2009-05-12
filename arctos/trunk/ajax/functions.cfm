@@ -618,15 +618,12 @@
 <cffunction name="addPartToContainer" returntype="String">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
 	<cfargument name="part_id" type="numeric" required="yes">
-	<cfargument name="part_id2" type="numeric" required="yes">
+	<cfargument name="part_id2" type="numeric" required="no">
 	<cfargument name="parent_barcode" type="string" required="yes">
 	<cfargument name="new_container_type" type="string" required="yes">		
 	<cfoutput>
-			<cfreturn "1|tttt"> 
-			<!---
 	<cftry>
 		<cftransaction>
-			<cfreturn "1|test"> 
 			<cfquery name="isGoodParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select container_id from container where container_type <> 'collection object'
 				and barcode='#parent_barcode#'
@@ -690,7 +687,6 @@
 			<cfreturn "0|#cfcatch.message# #cfcatch.detail#"> 
 		</cfcatch>		
 	</cftry>
-	--->
 	</cfoutput>	
 </cffunction>
 <!----------------------------------------------------------------->
