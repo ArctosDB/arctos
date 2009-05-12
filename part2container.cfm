@@ -46,7 +46,7 @@
 			Filter for un-barcoded parts? <input type="checkbox" name="noBarcode" id="noBarcode"  onchange="getParts()">
 		</span>
 		<span style="border:1px solid blue; padding:5px;margin:5px;">
-			Exclude subsamples? <input type="checkbox" value="1" name="noSubsample" id="noSubsample"  onchange="getParts()">
+			Exclude subsamples? <input type="checkbox" name="noSubsample" id="noSubsample"  onchange="getParts()">
 		</span>
 	</p>
 	<table border id="pTable">
