@@ -136,7 +136,11 @@ function checkSubmit() {
 			for (i=0;i<result.length;i++) {
 				var option = document.createElement('option');
 				option.setAttribute('value',result[i].PARTID);
-				option.appendChild(document.createTextNode(result[i].PART_NAME + '|' + result[i].BARCODE));
+				var pStr=result[i].PART_NAME;
+				if (result[i].BARCODE.length>0){
+					pStr+=' (' + result[i].BARCODE + ')';
+				}
+				option.appendChild(document.createTextNode(pStr));
 				p1.appendChild(option);
 			}
 			for (i=0;i<result.length;i++) {
