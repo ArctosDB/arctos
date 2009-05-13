@@ -179,7 +179,7 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 	<cfset colors = chr(10) & '<colors method="field" fieldname="darwin:collectioncode" label="Collection">'>
 	<cfloop query="whatColls">
 		<cfset colors=colors & chr(10) & chr(9)>
-		<cfset colors=colors & '<color key="#collection" red="#randRange(0,255)#" green="#randRange(0,255)#" blue="#randRange(0,255)#" symbol="1" label="#collection#"/>'>	
+		<cfset colors=colors & '<color key="#collection#" red="#randRange(0,255)#" green="#randRange(0,255)#" blue="#randRange(0,255)#" symbol="1" label="#collection#"/>'>	
 	</cfloop>
 <!----
 <!-------------------------- MVZ ------------------------------>	
