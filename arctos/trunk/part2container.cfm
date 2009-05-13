@@ -46,6 +46,9 @@
 		<span style="border:1px solid blue; padding:5px;margin:5px;">
 			Exclude subsamples? <input type="checkbox" name="noSubsample" id="noSubsample"  onchange="getParts()">
 		</span>
+		<span style="border:1px solid blue; padding:5px;margin:5px;">
+			<span class="likeLink"  onclick="getParts()">Refresh Parts List</span>
+		</span>
 	</p>
 	<table border id="pTable">
 	<form name="scans" method="post" id="scans">
@@ -102,7 +105,6 @@
 			<td>
 				<input type="button" value="New Part" class="insBtn" onclick="clonePart()">
 			</td>
-			<td><input type="button" value="Refresh" class="lnkBtn" onclick="getParts()"></td>
 		</tr>
 	</table>
 	</form>
