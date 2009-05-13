@@ -464,7 +464,9 @@ redCheck{
 	color:#FF0000;
 	text-decoration: underline;
 	}
-
+.specResTabCell {
+	position:relative;
+	}
 .browseLink, .browseLink a:visited {
 	cursor:pointer;
 	color:#2B547E;
