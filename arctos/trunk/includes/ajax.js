@@ -40,7 +40,6 @@ function addPartToContainer () {
 	DWREngine._execute(_cfscriptLocation, null, 'addPartToContainer',cid,pid1,pid2,parent_barcode,new_container_type,success_addPartToContainer);
 }
 function success_addPartToContainer(result) {
-	alert(result);
 	statAry=result.split("|");
 	var status=statAry[0];
 	var msg=statAry[1];
