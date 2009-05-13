@@ -11,10 +11,10 @@ function popNav(elem,val) {
 	document.body.appendChild(theDiv);
 	var posx = 0;
 	var posy = 0;
-	if (!e) var e = window.event;
-	if (e.pageX || e.pageY) 	{
-		posx = e.pageX;
-		posy = e.pageY;
+	if (!elem) var elem = window.event;
+	if (elem.pageX || elem.pageY) 	{
+		posx = elem.pageX;
+		posy = elem.pageY;
 	}
 	else if (elem.clientX || elem.clientY) 	{
 		posx = elem.clientX + document.body.scrollLeft
