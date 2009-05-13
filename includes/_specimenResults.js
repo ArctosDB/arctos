@@ -10,7 +10,7 @@ function popNav(elem,val) {
 	theDiv.innerHTML=ih;
 	document.body.appendChild(theDiv);
 	
-	var pos = $("#helpDiv").position();
+	var pos = jQuery("#helpDiv").position();
 	alert(pos.left + " " + pos.top);
 	//$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 }
