@@ -131,7 +131,7 @@ function checkSubmit() {
 		if (result[0].PART_NAME.indexOf('Error:')>-1) {
 			sDiv.className='error';
 			//alert(result[0].PART_NAME);
-			ss+=' ' + result[0].PART_NAME;
+			ss+=' = ' + result[0].PART_NAME;
 			specid.value='';
 		} else {
 			sDiv.className='';
