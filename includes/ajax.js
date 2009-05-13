@@ -134,6 +134,7 @@ function checkSubmit() {
 			ss+=' ' + result[0].PART_NAME;
 			specid.value='';
 		} else {
+			sDiv.className='';
 			specid.value=result[0].COLLECTION_OBJECT_ID;
 			var option = document.createElement('option');
 			option.setAttribute('value','');
