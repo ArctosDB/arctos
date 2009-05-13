@@ -21,7 +21,7 @@
 	<cfoutput>
 	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT
-			'All collections' Collection_cde,
+			'All collections' Collection,
 			0 collection_id,
 			'000000' cat_num,
 			'Lat Long ID: '||lat_long_id scientific_name,
@@ -45,7 +45,7 @@
 	</cfif>
 	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT DISTINCT 
-			institution_acronym||' '||collection.collection_cde Collection_cde,
+			collection,
 			collection.collection_id,
 			cat_num,
 			identification.scientific_name,
@@ -85,7 +85,7 @@
 	<cfset ShowObservations = "true">
 </cfif>
 <cfset basSelect = "SELECT DISTINCT 
-	#flatTableName#.institution_acronym||' '||#flatTableName#.collection_cde Collection_cde,
+	#flatTableName#.collection,
 	#flatTableName#.collection_id,
 	#flatTableName#.cat_num,
 	#flatTableName#.scientific_name,
@@ -118,28 +118,6 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 <cfset SqlString = #basSelect# & #basFrom# & #basWhere# & #basQual#>
 --->
 <cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">	
-
-
-<!--- Display this stuff for debugging 
-<cfset DispStr = "-----<br>basSelect:<br>" & #basSelect# & "<br>basWhere:<br> " 
-		& #basWhere# & "<br>basQual: " & #basQual# & "<br>------">
-<cfoutput>#DispStr#</cfoutput>
-<p>
-<cfoutput>#ucase(SqlString)#</cfoutput></p>
- end debug display --->
-<!--- send it off --->
-
-<!---cfset SqlString = "select distinct(other_id_type) from coll_obj_other_id_num where other_id_type like 'GenBank%'"
-
-<cfif isdefined("session.username") and #session.username# is "dusty">
-<cfoutput>
-#preserveSingleQuotes(SqlString)#
-</cfoutput>
-
-<cfabort>
-</cfif>
---->
-
 <cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preserveSingleQuotes(SqlString)#
 </cfquery>
@@ -156,105 +134,58 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 	<cfset thisFileName = "BNHM#cftoken#.xml">
 	<cfset thisFile = "#Application.webDirectory#/bnhmMaps/tabfiles/#thisFileName#">
 	<cfset XMLFile = "#Application.serverRootUrl#/bnhmMaps/tabfiles/#thisFileName#">
-	<!--- see if we got something - we need collection_object_ids to proceed --->
-	<!-----
-	<cfif isdefined("getMapData.collection_object_id") and len(#getMapData.collection_object_id#) gt 0>
-		<!--- make a list of collobjids --->
-		<!---
-		<cfset thisCollObjId = "">
-		<cfloop query="getMapData">
-			<cfif len(#thisCollObjId#) gt 0>
-				<cfset thisCollObjId = "#thisCollObjId#,#collection_object_id#">
-			<cfelse>
-				<cfset thisCollObjId = #collection_object_id#>
-			</cfif>
-		</cfloop>
-		---->
-		<cfquery name="insts" dbtype="query">
-			select institution_acronym from getMapData group by institution_acronym
-		</cfquery>
-		<!--- get contacts --->
-		<cfquery name="whatEmails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select address from
-				electronic_address,
-				collection_contacts,
-				cataloged_item
-			WHERE
-				electronic_address.agent_id = collection_contacts.contact_agent_id AND
-				collection_contacts.collection_id = cataloged_item.collection_id AND
-				address_type='e-mail' AND
-				contact_role='data quality' AND
-				cataloged_item.collection_object_id IN (#thisCollObjId#)
-			GROUP BY address
-		</cfquery>
-		<cfset thisAddress = #Application.DataProblemReportEmail#>
-			<!--- always send data problems to SOMEONE, even if we don't 
-			find additional contacts --->
-		<cfloop query="whatEmails">
-			<cfset thisAddress = "#thisAddress#,#address#">
-		</cfloop>
-	<cfelse>
-		<cfset thisAddress = #Application.DataProblemReportEmail#>
-		<!--- we don't have enough info to build a custom XML file,
-			give them a default (which must already exist)--->
-			<cfset XMLFile = "#Application.serverRootUrl##Application.BerkeleyMapperConfigFile#">
-	</cfif>
-	---->
 	<cffile action="write" file="#thisFile#" addnewline="no" output="<bnhmmaps>">
 	<cfquery name="collID" dbtype="query">
 		select collection_id from getMapData group by collection_id
 	</cfquery>
-	<cfset theseCollectionIds = valuelist(collID.collection_id)>
 	<cfset thisAddress = #Application.DataProblemReportEmail#>
 	<cfif len(#theseCollectionIds#) gt 0>
-	<cfquery name="whatEmails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select address from
-			electronic_address,
-			collection_contacts
-		WHERE
-			electronic_address.agent_id = collection_contacts.contact_agent_id AND
-			collection_contacts.collection_id IN (#theseCollectionIds#) AND
-			address_type='e-mail' AND
-			contact_role='data quality'
-		GROUP BY address
-	</cfquery>
-	
-		<!--- always send data problems to SOMEONE, even if we don't 
-		find additional contacts --->
-	<cfloop query="whatEmails">
-		<cfset thisAddress = "#thisAddress#,#address#">
-	</cfloop>
+		<cfquery name="whatEmails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select address from
+				electronic_address,
+				collection_contacts
+			WHERE
+				electronic_address.agent_id = collection_contacts.contact_agent_id AND
+				collection_contacts.collection_id IN (#valuelist(collID.collection_id)#) AND
+				address_type='e-mail' AND
+				contact_role='data quality'
+			GROUP BY address
+		</cfquery>
+		<cfloop query="whatEmails">
+			<cfset thisAddress = listappend(thisAddress,address)>
+		</cfloop>
 	</cfif>
-	<cfset meta = "
-		<metadata>
-			<name>BerkeleyMapper Configuration File</name>
-			<relatedinformation>#Application.serverRootUrl#</relatedinformation>
-			<abstract> GIS configuration file for specimen query interface</abstract>
-			<mapkeyword keyword=""specimens""/>
-			<header location=""#Application.mapHeaderUrl#""/>
-			<linkbackheader location=""#Application.serverRootUrl#""/>
-			<footer location=""#Application.mapFooterUrl#""/>
-		</metadata>
-	">
+	<cfset meta='<metadata>'>
+	<cfset meta=meta & chr(10) & chr(9) & '<name>BerkeleyMapper Configuration File</name>'>
+	<cfset meta=meta & chr(10) & chr(9) & '<relatedinformation>#Application.serverRootUrl#</relatedinformation>'>
+	<cfset meta=meta & chr(10) & chr(9) & '<abstract> GIS configuration file for specimen query interface</abstract>'>
+	<cfset meta=meta & chr(10) & chr(9) & '<mapkeyword keyword="specimens"/>'>
+	<cfset meta=meta & chr(10) & chr(9) & '<header location="#Application.mapHeaderUrl#"/>'>
+	<cfset meta=meta & chr(10) & chr(9) & '<linkbackheader location="#Application.serverRootUrl#"/>'>
+	<cfset meta=meta & chr(10) & chr(9) & '<footer location="#Application.mapFooterUrl#"/>'>
+	<cfset meta=meta & chr(10) & '</metadata>'>
+	
 	<cffile action="append" file="#thisFile#" addnewline="yes" output="#meta#">
 	<!--- get coll codes --->
 	<cfquery name="whatColls" dbtype="query">
-		select Collection_cde from getMapData
-		group by Collection_cde
+		select Collection from getMapData
+		group by Collection
 	</cfquery>
-	<cfset theseColls = valuelist(whatColls.Collection_cde)>
+	<cfset theseColls = valuelist(whatColls.Collection)>
 <!--- 
 	need something here for every collection in every installation of Arctos - 
 	we'll have to make these data someday if Berkeleymapper doesn't get reasonable about legends
  --->
-		<cfset colors = '
-			<colors method="field" fieldname="darwin:collectioncode" label="Collection">
-		'>
-
+	<cfset colors = chr(10) & '<colors method="field" fieldname="darwin:collectioncode" label="Collection">'>
+	<cfloop query="whatColls">
+		<cfset colors=colors & chr(10) & chr(9)>
+		<cfset colors=colors & '<color key="#collection" red="#randRange(0,255)#" green="#randRange(0,255)#" blue="#randRange(0,255)#" symbol="1" label="#collection#"/>'>	
+	</cfloop>
+<!----
 <!-------------------------- MVZ ------------------------------>	
 	<cfif listcontains(theseColls,"MVZ Mamm",",")>
 		<cfset colors = '#colors#
-			<color key="MVZ Mamm" red="255" green="0" blue="0" symbol="1" label="MVZ Mammal Collection"/>'>	
+			
 	</cfif>
 	<cfif listcontains(theseColls,"MVZ Herp",",")>
 		<cfset colors = '#colors#
@@ -381,43 +312,43 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 	
 	
 	<cfset colors = '#colors#
-		<color key="default" red="255" green="0" blue="0" symbol="2" label="Unspecified Collection"/>
-		<dominantcolor webcolor="9999cc"/>
-		<subdominantcolor webcolor="9999cc"/>
-	</colors>'>
+		
+		
+
+	'>
 	<cffile action="append" file="#thisFile#" addnewline="yes" output="#colors#">
-	
-	<cfset settings = '
-		<settings>
-			<setting name="landsat" show="0"></setting>
-			<setting name="maxerrorinmeters" show="1"></setting>
-		</settings>
-		<recordlinkback>
-		  <linkback method="entireurl" linkurl="Related Information"  fieldname="More Information (opens in new window)"/>
-		</recordlinkback>
-	'>
+	---->
+	<cfset colors=colors & chr(10) & chr(9) & '<color key="default" red="255" green="0" blue="0" symbol="2" label="Unspecified Collection"/>'>
+	<cfset colors=colors & chr(10) & chr(9) & '<dominantcolor webcolor="9999cc"/>'>
+	<cfset colors=colors & chr(10) & chr(9) & '<subdominantcolor webcolor="9999cc"/>'>
+	<cfset colors=colors & chr(10) & '</colors>'>
+	<cfset settings = '<settings>'>
+	<cfset settings=settings & chr(10) & chr(9) &  '<setting name="landsat" show="0"></setting>'>
+	<cfset settings=settings & chr(10) & chr(9) &  '<setting name="maxerrorinmeters" show="1"></setting>'>
+	<cfset settings=settings & chr(10) & '</settings>'>
+	<cfset settings=settings & chr(10) & '<recordlinkback>'>	
+	<cfset settings=settings & chr(10) & chr(9) &  '<linkback method="entireurl" linkurl="Related Information"  fieldname="More Information (opens in new window)"/>'>
+	<cfset settings=settings & chr(10) & '</recordlinkback>'>	
 	<cffile action="append" file="#thisFile#" addnewline="yes" output="#settings#">
-	<cfset anno='
-		<annotation show="1">
-			<annotation_replyto_email value="#thisAddress#" />
-		</annotation>
-		'>
+	
+	<cfset anno='<annotation show="1">'>
+	<cfset anno=anno & chr(10) & chr(9) & '<annotation_replyto_email value="#thisAddress#" />'>
+	<cfset anno=anno & chr(10) & '</annotation>'>
 	<cffile action="append" file="#thisFile#" addnewline="yes" output="#anno#">
-	<cfset theRest = '
-		<concepts>
-			<concept order="1" viewlist="0" colorlist="0" datatype="darwin:relatedinformation"  alias="Related Information" />
-			<concept order="2" viewlist="1" colorlist="1" datatype="darwin:scientificname" alias="Scientific Name"/>
-			<concept order="3" viewlist="1" colorlist="0" datatype="char120_1" alias="Verbatim Date"/>
-			<concept order="4" viewlist="1" colorlist="0" datatype="darwin:locality" alias="Specific Locality"/>
-			<concept order="5" viewlist="0" colorlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>
-			<concept order="6" viewlist="0" colorlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>
-			<concept order="7" viewlist="1" colorlist="0" datatype="darwin:coordinateuncertaintyinmeters" alias="Coordinate Uncertainty In Meters"/>
-			<concept order="8" viewlist="1" colorlist="0" datatype="darwin:horizontaldatum" alias="Horizontal Datum"/>
-			<concept order="9" viewlist="0" colorlist="0" datatype="darwin:collectioncode" alias="Collection Code"/>
-			<concept order="10" viewlist="1" colorlist="0" datatype="darwin:catalognumbertext" alias="Catalog Number"/>
-		</concepts>
-	</bnhmmaps>
-	'>
+	
+	<cfset theRest = '<concepts>'>
+	<cfset theRest=theRest & chr(10) & chr(9) & '<concept order="1" viewlist="0" colorlist="0" datatype="darwin:relatedinformation"  alias="Related Information" />'>
+	<cfset theRest=theRest & chr(10) & chr(9) & '<concept order="2" viewlist="1" colorlist="1" datatype="darwin:scientificname" alias="Scientific Name"/>'>
+	<cfset theRest=theRest & chr(10) & chr(9) & '<concept order="3" viewlist="1" colorlist="0" datatype="char120_1" alias="Verbatim Date"/>'>
+	<cfset theRest=theRest & chr(10) & chr(9) & '<concept order="4" viewlist="1" colorlist="0" datatype="darwin:locality" alias="Specific Locality"/>'>
+	<cfset theRest=theRest & chr(10) & chr(9) & '<concept order="5" viewlist="0" colorlist="0" datatype="darwin:decimallatitude" alias="Decimal Latitude"/>'>
+	<cfset theRest=theRest & chr(10) & chr(9) & '<concept order="6" viewlist="0" colorlist="0" datatype="darwin:decimallongitude" alias="Decimal Longitude"/>'>
+	<cfset theRest=theRest & chr(10) & chr(9) & '<concept order="7" viewlist="1" colorlist="0" datatype="darwin:coordinateuncertaintyinmeters" alias="Coordinate Uncertainty In Meters"/>'>
+	<cfset theRest=theRest & chr(10) & chr(9) & '<concept order="8" viewlist="1" colorlist="0" datatype="darwin:horizontaldatum" alias="Horizontal Datum"/>'>
+	<cfset theRest=theRest & chr(10) & chr(9) & '<concept order="9" viewlist="0" colorlist="0" datatype="darwin:collectioncode" alias="Collection Code"/>'>
+	<cfset theRest=theRest & chr(10) & chr(9) & '<concept order="10" viewlist="1" colorlist="0" datatype="darwin:catalognumbertext" alias="Catalog Number"/>'>
+	<cfset theRest=theRest & chr(10) & '</concepts>'>
+	<cfset theRest=theRest & chr(10) & '</bnhmmaps>'>
 	<cffile action="append" file="#thisFile#" addnewline="yes" output="#theRest#">
 </cfoutput>
 
