@@ -45,7 +45,7 @@ jQuery( function($) {
 		$("##helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 	});
 	
-	$("##browseLink").click(function(e){
+	$(".browseLink").click(function(e){
 		console.log('you clicked it');
 		var type=this.type;
 		console.log(type);
