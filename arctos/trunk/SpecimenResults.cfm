@@ -50,6 +50,17 @@ function removeHelpDiv() {
 		$('##helpDiv').remove();
 	}
 }
+function popNav(elem,val) {
+	console.log('element is ' + elem);
+	console.log('value is ' + val);
+	var theDiv = document.createElement('div');
+	theDiv.id = 'helpDiv';
+	theDiv.className = 'helpBox';
+	ih="Hi, I'm a div!";
+	theDiv.innerHTML=ih;
+	document.body.appendChild(theDiv);
+	$(theDiv).css({position:"absolute", top: data.pageY, left: data.pageX});
+}
 </script>
 </cfoutput>
 <div id="loading" class="status">
