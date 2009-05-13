@@ -45,7 +45,7 @@ jQuery( function($) {
 		$("##helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 	});
 	
-	$(".browseLink").click(function(e){
+	$(".browseLink").live.click(function(e){
 		alert('you clicked it');
 		//var type=this.type;
 		//console.log(type);
@@ -75,7 +75,6 @@ function popNav(elem,val) {
 </cfoutput>
 
 
-<span class="browseLink">hardcoded</span>
 <div id="loading" class="status">
 	Page loading....
 </div>
