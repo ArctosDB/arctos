@@ -150,7 +150,7 @@ function checkSubmit() {
 				option2.setAttribute('value',result[i].PARTID);
 				var pStr=result[i].PART_NAME;
 				if (result[i].BARCODE.length>0){
-					pStr+=' (' + result[i].BARCODE + ')';
+					pStr+=' [' + result[i].BARCODE + ']';
 				}
 				option.appendChild(document.createTextNode(pStr));
 				option2.appendChild(document.createTextNode(pStr));
