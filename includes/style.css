@@ -464,6 +464,18 @@ redCheck{
 	color:#FF0000;
 	text-decoration: underline;
 	}
+
+.browseLink, .browseLink a:visited {
+	cursor:pointer;
+	color:#2B547E;
+	font-size:.65em;
+	font-family:Arial, Helvetica, sans-serif;
+	float:right;}
+.browseLink {
+	color:#FF0000;
+	text-decoration: underline;
+	}
+	
 .pageHelp, .pagehelp a:visited{
 	font-size:.75em;
 	font-weight:bold;
