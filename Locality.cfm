@@ -533,10 +533,11 @@
     </cfquery>
  
   <cfquery name="whatSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-  	SELECT count(cat_num) as numOfSpecs, collection_cde
-	from cataloged_item WHERE
+  	SELECT count(cat_num) as numOfSpecs, collection
+	from cataloged_item,collection WHERE
+	cataloged_item.collection_id=collection.collection_id and
 	collecting_event_id=#collecting_event_id# 
-	GROUP BY collection_cde
+	GROUP BY collection
   </cfquery>
   <table>
   <tr>
@@ -556,7 +557,7 @@
 		</span>
 		<font color="##FF0000"><strong>
 		<a href="javascript:void(0);" onClick="getDocs('collecting_event')"><img src="/images/info.gif" border="0"></a>
-		contains #whatSpecs.numOfSpecs# #whatSpecs.collection_cde#
+		contains #whatSpecs.numOfSpecs# #whatSpecs.collection#
 		<a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#">specimens</a>.</strong></font>	
 	<cfelse>
 		<font color="##FF0000"><strong>This Collecting Event 
@@ -569,7 +570,7 @@
 		contains the following <a href="SpecimenResults.cfm?collecting_event_id=#collecting_event_id#">specimens</a>:</strong></font>	  
 		<ul>	
 			<cfloop query="whatSpecs">
-				<li><font color="##FF0000"><strong>#numOfSpecs# #collection_cde#</strong></font></li>
+				<li><font color="##FF0000"><strong>#numOfSpecs# #collection#</strong></font></li>
 			</cfloop>			
 		</ul>
   </cfif>
