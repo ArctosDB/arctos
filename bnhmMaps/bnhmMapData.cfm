@@ -360,9 +360,9 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 <cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="" nameconflict="overwrite">
 
 <cfoutput query="getMapData">
-	<cfset catalogNumber="#collection_cde# #cat_num#">
-	<cfset relInfo='<a href="#Application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="_blank">#collection_cde#&nbsp;#cat_num#</a>'>
-	<cfset oneLine="#relInfo##chr(9)##scientific_name##chr(9)##verbatim_date##chr(9)##spec_locality##chr(9)##dec_lat##chr(9)##dec_long##chr(9)##COORDINATEUNCERTAINTYINMETERS##chr(9)##datum##chr(9)##collection_cde##chr(9)##catalogNumber#">
+	<cfset catalogNumber="#collection# #cat_num#">
+	<cfset relInfo='<a href="#Application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="_blank">#collection#&nbsp;#cat_num#</a>'>
+	<cfset oneLine="#relInfo##chr(9)##scientific_name##chr(9)##verbatim_date##chr(9)##spec_locality##chr(9)##dec_lat##chr(9)##dec_long##chr(9)##COORDINATEUNCERTAINTYINMETERS##chr(9)##datum##chr(9)##collection##chr(9)##catalogNumber#">
 		
 		
 	<cfset oneLine=trim(oneLine)>
@@ -370,15 +370,15 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 </cfoutput>
 <cfoutput>
 <cfquery name="distColl" dbtype="query">
-	select collection_cde from getMapData group by collection_cde
-	order by collection_cde
+	select collection from getMapData group by collection
+	order by collection
 </cfquery>
 <cfset collList="">
 <cfloop query="distColl">
 	<cfif len(#collList#) is 0>
-		<cfset collList="#collection_cde#">
+		<cfset collList="#collection#">
 	<cfelse>
-		<cfset CollList="#collList#, #collection_cde#">
+		<cfset CollList="#collList#, #collection#">
 	</cfif>
 </cfloop>
 <cfset listColl=reverse(CollList)>
