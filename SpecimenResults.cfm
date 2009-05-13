@@ -73,6 +73,9 @@ function popNav(elem,val) {
 }
 </script>
 </cfoutput>
+
+
+<span class="browseLink">hardcoded</span>
 <div id="loading" class="status">
 	Page loading....
 </div>
