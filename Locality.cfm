@@ -327,7 +327,7 @@
 			<ul>
 				<li>#localities.c# localities</li>
 				<li>#collecting_events.c# collecting events</li>
-				<li>#specimen.c# specimens</li>
+				<li><a href="/SpecimenResults.cfm?geog_auth_rec_id=#geog_auth_rec_id#">#specimen.c# specimens</a></li>
 			</ul>
 		</div>
     </cfoutput> <cfoutput query="geogDetails"> 
