@@ -1078,7 +1078,7 @@
 
 
 <cfif isdefined("geog_auth_rec_id") AND #geog_auth_rec_id# IS NOT "">
-	<cfset basQual = " #basQual# AND #flatTableName#.geog_auth_rec_id=#geog_auth_rec_id#'">
+	<cfset basQual = " #basQual# AND #flatTableName#.geog_auth_rec_id=#geog_auth_rec_id#">
 	<cfset mapurl = "#mapurl#&geog_auth_rec_id=#geog_auth_rec_id#">
 </cfif>
 <cfif isdefined("higher_geog") AND #higher_geog# IS NOT "">
