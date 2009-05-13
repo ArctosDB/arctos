@@ -651,6 +651,7 @@
 				UPDATE container SET container_type = '#new_container_type#' WHERE
 					container_id=#isGoodParent.container_id#
 			</cfquery>
+			<cftransaction action="commit" />
 			<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				UPDATE container SET parent_container_id = #isGoodParent.container_id# WHERE
 				container_id=#cont.container_id#
