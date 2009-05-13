@@ -55,6 +55,7 @@ function success_addPartToContainer(result) {
 		mDiv.className='successDiv';
 		document.getElementById('oidnum').focus();
 		document.getElementById('oidnum').select();
+		getParts();
 	}
 }
 function clonePart() {
