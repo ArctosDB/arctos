@@ -867,8 +867,8 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + result[i].ORIG_ELEV_UNITS + '&nbsp;</td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('SPEC_LOCALITY')> -1) {
-					//theInnerHtml += '<td class="specResTabCell" id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID+'"><a href="/SpecimenResults.cfm?spec_locality=' + result[i].SPEC_LOCALITY + '">' + result[i].SPEC_LOCALITY + '</a>&nbsp;</td>';
-					theInnerHtml += '<td id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID+'">' + result[i].SPEC_LOCALITY;
+					//theInnerHtml += '<td id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID+'"><a href="/SpecimenResults.cfm?spec_locality=' + result[i].SPEC_LOCALITY + '">' + result[i].SPEC_LOCALITY + '</a>&nbsp;</td>';
+					theInnerHtml += '<td class="specResTabCell" id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID+'">' + result[i].SPEC_LOCALITY;
 					theInnerHtml += '<span class="browseLink" onclick="popNav(' + "'spec_locality'," + "'" + escape(result[i].SPEC_LOCALITY) + "'" + ')">more</span>'; 
 					//theInnerHtml += '<span class="infoLink" onclick="popNav(' + "'is','spec_locality','" + escape(result[i].SPEC_LOCALITY) + "'" + ')">more IS</span>'; 					
 					theInnerHtml += '</td>';
