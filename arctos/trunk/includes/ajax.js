@@ -133,7 +133,9 @@ function checkSubmit() {
 			//alert(result[0].PART_NAME);
 			ss+=' = ' + result[0].PART_NAME;
 			specid.value='';
+			document.getElementById('pTable').className='error';
 		} else {
+			document.getElementById('pTable').className='';
 			sDiv.className='';
 			specid.value=result[0].COLLECTION_OBJECT_ID;
 			var option = document.createElement('option');
