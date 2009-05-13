@@ -44,6 +44,12 @@ jQuery( function($) {
 		document.getElementById('displayRows').value=displayRows;
 		$("##helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 	});
+	
+	$("##browseLink").click(function(e){
+		console.log('you clicked it');
+		var type=this.type;
+		console.log(type);
+	});
 });
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {
