@@ -1,34 +1,6 @@
 
 	
-function popNav(elem,val) {
-	console.log('element is ' + elem);
-	console.log('value is ' + val);
-	var theDiv = document.createElement('div');
-	theDiv.id = 'helpDiv';
-	theDiv.className = 'helpBox';
-	ih="Hi, I'm a div!";
-	theDiv.innerHTML=ih;
-	document.body.appendChild(theDiv);
-	var posx = 0;
-	var posy = 0;
-	var e = window.event;
-	if (e.pageX || e.pageY) 	{
-		posx = e.pageX;
-		posy = e.pageY;
-	}
-	else if (e.clientX || e.clientY) 	{
-		posx = e.clientX + document.body.scrollLeft
-			+ document.documentElement.scrollLeft;
-		posy = e.clientY + document.body.scrollTop
-			+ document.documentElement.scrollTop;
-	}
-	console.log('x:' + posx + '; y:' + posy);
-	// posx and posy contain the mouse position relative to the document
-	// Do something with this information
 
-
-	//$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
-}
 function saveSearch(returnURL){
 	var sName=prompt("Name this search", "my search");
 	if (sName!=null){
