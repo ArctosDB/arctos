@@ -31,9 +31,10 @@
 	
 	<p style="font-size:.8em;">
 		This application puts collection objects into containers.
-		Enter enough information to uniquely identify a collection object 
-		(ie, original field number=1 probably won't work) and the barcode of the 
-		container you'd like to put the object into.
+		Parts whose parent container has a 
+		barcode display that barcode in parenthesis. Parts which are subsamples say "SAMPLE" after the part name. 
+		Click Refresh if something seems stuck.
+		
 	</p>
 	<p style="font-size:.8em;">
 		<span style="border:1px solid blue; padding:5px;margin:5px;">
