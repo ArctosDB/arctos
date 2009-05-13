@@ -377,8 +377,8 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 			</cfif>			
 		</cfloop>
 		<cfset g="</gisdata>">
+		<cffile action="append" file="#thisFile#" addnewline="yes" output="#g#">	
 	</cfif>
-	<cffile action="append" file="#thisFile#" addnewline="yes" output="#q#">	
 	<cfset theRest=theRest & chr(10) & '</bnhmmaps>'>
 	<cffile action="append" file="#thisFile#" addnewline="yes" output="#theRest#">
 </cfoutput>
