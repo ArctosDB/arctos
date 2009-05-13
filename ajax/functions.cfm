@@ -266,7 +266,7 @@
 				decode(p.barcode,'0',null,p.barcode) barcode,
 				decode(sampled_from_obj_id,
 					null,part_name,
-					part_name || ' sample') part_name
+					part_name || ' SAMPLE') part_name,
 				cat_num,
 				collection,
 				concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
