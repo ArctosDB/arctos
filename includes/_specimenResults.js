@@ -1,3 +1,5 @@
+
+	
 function popNav(elem,val) {
 	console.log('element is ' + elem);
 	console.log('value is ' + val);
@@ -7,7 +9,7 @@ function popNav(elem,val) {
 	ih="Hi, I'm a div!";
 	theDiv.innerHTML=ih;
 	document.body.appendChild(theDiv);
-	
+	$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 }
 function saveSearch(returnURL){
 	var sName=prompt("Name this search", "my search");
