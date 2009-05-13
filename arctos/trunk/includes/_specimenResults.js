@@ -16,10 +16,10 @@ function popNav(elem,val) {
 		posx = e.pageX;
 		posy = e.pageY;
 	}
-	else if (e.clientX || e.clientY) 	{
-		posx = e.clientX + document.body.scrollLeft
+	else if (elem.clientX || elem.clientY) 	{
+		posx = elem.clientX + document.body.scrollLeft
 			+ document.documentElement.scrollLeft;
-		posy = e.clientY + document.body.scrollTop
+		posy = elem.clientY + document.body.scrollTop
 			+ document.documentElement.scrollTop;
 	}
 	console.log('x:' + posx + '; y:' + posy);
