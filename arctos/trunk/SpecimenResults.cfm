@@ -47,8 +47,8 @@ jQuery( function($) {
 	
 	$(".browseLink").click(function(e){
 		console.log('you clicked it');
-		var type=this.type;
-		console.log(type);
+		//var type=this.type;
+		//console.log(type);
 	});
 });
 function removeHelpDiv() {
