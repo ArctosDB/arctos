@@ -75,8 +75,7 @@
 	<cfquery name="whatSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
   		SELECT 
 			count(cataloged_item.cat_num) numOfSpecs, 
-			collection.collection_cde,
-			collection.institution_acronym
+			collection.collection
 		from 
 			cataloged_item, 
 			collection,
@@ -132,7 +131,7 @@
   				<cfelseif #whatSpecs.recordcount# is 1>
 					<font color="##FF0000">This Locality (#locDet.locality_id#)
 					<img src="/images/info.gif" border="0" class="likeLink" onClick="getDocs('locality')">
-					contains #whatSpecs.numOfSpecs# #whatSpecs.collection_cde# 
+					contains #whatSpecs.numOfSpecs# #whatSpecs.collection# 
 					<a href="SpecimenResults.cfm?locality_id=#locality_id#">specimens</a>.</font>	
 				<cfelse>
 					<font color="##FF0000">This Locality (#locDet.locality_id#)
@@ -140,7 +139,7 @@
 					contains the following <a href="SpecimenResults.cfm?locality_id=#locality_id#">specimens</a>:</font>	  
 					<ul>	
 						<cfloop query="whatSpecs">
-							<li><font color="##FF0000">#numOfSpecs# #institution_acronym# #collection_cde#</font></li>
+							<li><font color="##FF0000">#numOfSpecs# #collection#</font></li>
 						</cfloop>			
 					</ul>
   				</cfif>
