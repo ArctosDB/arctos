@@ -11,15 +11,15 @@ function popNav(elem,val) {
 	document.body.appendChild(theDiv);
 	var posx = 0;
 	var posy = 0;
-	if (!elem) var elem = window.event;
-	if (elem.pageX || elem.pageY) 	{
-		posx = elem.pageX;
-		posy = elem.pageY;
+	var e = window.event;
+	if (e.pageX || e.pageY) 	{
+		posx = e.pageX;
+		posy = e.pageY;
 	}
-	else if (elem.clientX || elem.clientY) 	{
-		posx = elem.clientX + document.body.scrollLeft
+	else if (e.clientX || e.clientY) 	{
+		posx = e.clientX + document.body.scrollLeft
 			+ document.documentElement.scrollLeft;
-		posy = elem.clientY + document.body.scrollTop
+		posy = e.clientY + document.body.scrollTop
 			+ document.documentElement.scrollTop;
 	}
 	console.log('x:' + posx + '; y:' + posy);
