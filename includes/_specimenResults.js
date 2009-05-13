@@ -869,6 +869,7 @@ function success_getSpecResultsData(result){
 					//theInnerHtml += '<td id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID+'"><a href="/SpecimenResults.cfm?spec_locality=' + result[i].SPEC_LOCALITY + '">' + result[i].SPEC_LOCALITY + '</a>&nbsp;</td>';
 					theInnerHtml += '<td id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID+'"><div class="specResTabCell">' + result[i].SPEC_LOCALITY + '</div>';
 					theInnerHtml += '<a class="browseLink" href="/SpecimenResults.cfm?spec_locality=' + escape(result[i].SPEC_LOCALITY) + '"' + ')">more like this</span>'; 
+					theInnerHtml += '<a class="browseLink" href="/SpecimenResults.cfm?spec_locality==' + escape(result[i].SPEC_LOCALITY) + '"' + ')">exactly like this</span>'; 
 					//theInnerHtml += '<span class="infoLink" onclick="popNav(' + "'is','spec_locality','" + escape(result[i].SPEC_LOCALITY) + "'" + ')">more IS</span>'; 					
 					theInnerHtml += '</td>';
 				}
