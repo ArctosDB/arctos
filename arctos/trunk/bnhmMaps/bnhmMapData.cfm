@@ -354,7 +354,7 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 		</cfquery>
 		<cfquery name="getClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select phylclass,scientific_name from taxonomy where scientific_name in
-			 (#ListQualify(valuelist(species.scientific_name, "'")#)
+			 (#ListQualify(valuelist(species.scientific_name), "'")#)
 		</cfquery>
 		<cfset g="<gisdata>">
 		<cfloop query="getClass">
