@@ -85,8 +85,7 @@
 			cataloged_item.collection_id = collection.collection_id and
 			collecting_event.locality_id=#locality_id# 
 		GROUP BY 
-			collection.collection_cde,
-			collection.institution_acronym
+			collection.collection
   	</cfquery>
 	<cfquery name="getLL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
         select * from 
