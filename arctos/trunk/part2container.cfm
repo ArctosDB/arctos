@@ -29,7 +29,7 @@
 		order by container_type
 	</cfquery>
 	
-	<p style="font-size:.8em;">
+	<div style="font-size:.8em;">
 		This application puts collection objects into containers.
 		Parts are listed in three ways:
 		<ul>
@@ -38,7 +38,7 @@
 			<li><strong>Part Name [barcode]</strong> = a part which is in a barcoded container</li>
 		</ul>
 		Things occasionally get stuck - click Refresh to unstick them.		
-	</p>
+	</div>
 	<p style="font-size:.8em;">
 		<span style="border:1px solid blue; padding:5px;margin:5px;">
 			Submit form with Parent Barcode change? <input type="checkbox" name="submitOnChange" id="submitOnChange">
