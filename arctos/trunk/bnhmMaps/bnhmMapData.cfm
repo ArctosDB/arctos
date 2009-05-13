@@ -357,6 +357,7 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 			 (#ListQualify(valuelist(species.scientific_name), "'")#)
 		</cfquery>
 		<cfset g="<gisdata>">
+		<cfset i=1>
 		<cfloop query="getClass">
 			<cfset name=''>
 			<cfif phylclass is 'Amphibia'>
@@ -371,9 +372,10 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 				<cfset g=g & ' title="#scientific_name#" '>
 				<cfset g=g & ' name="#name#" '>
 				<cfset g=g & ' location="#scientific_name#" '>
-				<cfset g=g & ' legend="1" '>
+				<cfset g=g & ' legend="#i#" '>
 				<cfset g=g & ' active="1" '>
 				<cfset g=g & ' url=""/> '>
+				<cfset i=i+1>
 			</cfif>			
 		</cfloop>
 		<cfset g=g & "</gisdata>">
