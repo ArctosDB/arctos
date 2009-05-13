@@ -470,7 +470,8 @@ redCheck{
 	color:#2B547E;
 	font-size:.65em;
 	font-family:Arial, Helvetica, sans-serif;
-	float:right;}
+	right:0px;
+	position:relative;}
 .browseLink {
 	color:#FF0000;
 	text-decoration: underline;
