@@ -348,6 +348,37 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 	<cfset theRest=theRest & chr(10) & chr(9) & '<concept order="9" viewlist="0" colorlist="0" datatype="darwin:collectioncode" alias="Collection Code"/>'>
 	<cfset theRest=theRest & chr(10) & chr(9) & '<concept order="10" viewlist="1" colorlist="0" datatype="darwin:catalognumbertext" alias="Catalog Number"/>'>
 	<cfset theRest=theRest & chr(10) & '</concepts>'>
+	<cfif isdefined("showRangeMaps") and showRangeMaps is true>
+		<cfquery name="species" dbtype="query">
+			select distinct(scientific_name) from getMapData
+		</cfquery>
+		<cfquery name="getClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select phylclass,scientific_name from taxonomy where scientific_name in
+			 (#ListQualify(valuelist(species.scientific_name, "'")#)
+		</cfquery>
+		<cfset g="<gisdata>">
+		<cfloop query="getClass">
+			<cfset name=''>
+			<cfif phylclass is 'Amphibia'>
+				<cfset name="gaa">
+			<cfelseif phylclass is 'Mammalia'>
+				<cfset name='mamm'>
+			<cfelseif phylclass is 'Aves'>
+				<cfset name='birds'>
+			</cfif>
+			<cfif len(name) gt 0>
+				<cfset g=g & chr(10) & chr(9) & '<layer '>
+				<cfset g=g & ' title="#scientific_name#" '>
+				<cfset g=g & ' name="#name#" '>
+				<cfset g=g & ' location="#scientific_name#" '>
+				<cfset g=g & ' legend="1" '>
+				<cfset g=g & ' active="1" '>
+				<cfset g=g & ' url=""/> '>
+			</cfif>			
+		</cfloop>
+		<cfset g="</gisdata>">
+	</cfif>
+	<cffile action="append" file="#thisFile#" addnewline="yes" output="#q#">	
 	<cfset theRest=theRest & chr(10) & '</bnhmmaps>'>
 	<cffile action="append" file="#thisFile#" addnewline="yes" output="#theRest#">
 </cfoutput>
