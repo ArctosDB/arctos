@@ -661,11 +661,11 @@
 					collection.collection_cde,
 					collection.collection,
 					scientific_name,
-					part_name || 
-					decode('#part_id2#'
-						,null,null,
-						(select ' and ' || part_name from specimen_part where collection_object_id=#part_id2#)) 
-						part_name
+					part_name
+					<cfif len(part_id2) gt 0>
+						|| (select ' and ' || part_name from specimen_part where collection_object_id=#part_id2#))
+					</cfif>
+					part_name
 				from
 					cataloged_item,
 					collection,
