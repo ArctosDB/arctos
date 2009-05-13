@@ -9,7 +9,7 @@ function popNav(elem,val) {
 	ih="Hi, I'm a div!";
 	theDiv.innerHTML=ih;
 	theDiv.style.position='absolute';
-	theDiv.style.top="30px";
+	theDiv.style.top="50%";
 	theDiv.style.left="50%";
 		document.body.appendChild(theDiv);
 }
