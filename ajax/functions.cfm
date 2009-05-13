@@ -663,7 +663,7 @@
 					scientific_name,
 					part_name
 					<cfif len(part_id2) gt 0>
-						|| (select ' and ' || part_name from specimen_part where collection_object_id=#part_id2#))
+						|| (select ' and ' || part_name from specimen_part where collection_object_id=#part_id2#)
 					</cfif>
 					part_name
 				from
