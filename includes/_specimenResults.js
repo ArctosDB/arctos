@@ -25,7 +25,6 @@ function popNav(elem,val) {
 	console.log('x:' + posx + '; y:' + posy);
 	// posx and posy contain the mouse position relative to the document
 	// Do something with this information
-}
 
 
 	//$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
