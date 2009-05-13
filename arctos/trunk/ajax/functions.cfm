@@ -304,10 +304,18 @@
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(q)#
 		</cfquery>
+		<cfquery name="u" dbtype="query">
+			select count(distinct(collection_object_id)) c from q
+		</cfquery>
 		<cfif q.recordcount is 0>
 			<cfset q=queryNew("part_name")>
 			<cfset t = queryaddrow(q,1)>
 			<cfset t = QuerySetCell(q, "part_name", "Error: no_parts_found", 1)>
+		</cfif>
+		<cfif u.c is not 1>
+			<cfset q=queryNew("part_name")>
+			<cfset t = queryaddrow(q,1)>
+			<cfset t = QuerySetCell(q, "part_name", "Error: #q.recordcount# specimens match", 1)>
 		</cfif>
 	<cfcatch>
 		<!---
