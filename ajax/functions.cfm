@@ -315,7 +315,7 @@
 		<cfif u.c is not 1>
 			<cfset q=queryNew("part_name")>
 			<cfset t = queryaddrow(q,1)>
-			<cfset t = QuerySetCell(q, "part_name", "Error: #q.recordcount# specimens match", 1)>
+			<cfset t = QuerySetCell(q, "part_name", "Error: #u.c# specimens match", 1)>
 		</cfif>
 	<cfcatch>
 		<!---
