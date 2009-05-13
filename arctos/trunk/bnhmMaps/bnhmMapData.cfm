@@ -139,7 +139,7 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 		select collection_id from getMapData group by collection_id
 	</cfquery>
 	<cfset thisAddress = #Application.DataProblemReportEmail#>
-	<cfif len(#theseCollectionIds#) gt 0>
+	<cfif len(valuelist(collID.collection_id)) gt 0>
 		<cfquery name="whatEmails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select address from
 				electronic_address,
