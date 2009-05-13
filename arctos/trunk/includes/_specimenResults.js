@@ -9,9 +9,25 @@ function popNav(elem,val) {
 	ih="Hi, I'm a div!";
 	theDiv.innerHTML=ih;
 	document.body.appendChild(theDiv);
-	
-	var pos = jQuery("#helpDiv").position();
-	alert(pos.left + " " + pos.top);
+	var posx = 0;
+	var posy = 0;
+	if (!e) var e = window.event;
+	if (e.pageX || e.pageY) 	{
+		posx = e.pageX;
+		posy = e.pageY;
+	}
+	else if (e.clientX || e.clientY) 	{
+		posx = e.clientX + document.body.scrollLeft
+			+ document.documentElement.scrollLeft;
+		posy = e.clientY + document.body.scrollTop
+			+ document.documentElement.scrollTop;
+	}
+	console.log('x:' + posx + '; y:' + posy);
+	// posx and posy contain the mouse position relative to the document
+	// Do something with this information
+}
+
+
 	//$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 }
 function saveSearch(returnURL){
