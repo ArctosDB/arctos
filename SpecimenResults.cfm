@@ -46,7 +46,7 @@ jQuery( function($) {
 	});
 	
 	$(".browseLink").click(function(e){
-		console.log('you clicked it');
+		alert('you clicked it');
 		//var type=this.type;
 		//console.log(type);
 	});
