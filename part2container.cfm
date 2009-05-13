@@ -31,10 +31,13 @@
 	
 	<p style="font-size:.8em;">
 		This application puts collection objects into containers.
-		Parts whose parent container has a 
-		barcode display that barcode in parenthesis. Parts which are subsamples say "SAMPLE" after the part name. 
-		Click <span class="likeLink"  onclick="getParts()">Refresh</span> if something seems stuck.
-		
+		Parts are listed in three ways:
+		<ul>
+			<li><strong>Part Name</strong> = just a part</li>
+			<li><strong>Part Name SAMPLE</strong> = a subsample of another part</li>
+			<li><strong>Part Name [barcode]</strong> = a part which is in a barcoded container</li>
+		</ul>
+		Things occasionally get stuck - click Refresh to unstick them.		
 	</p>
 	<p style="font-size:.8em;">
 		<span style="border:1px solid blue; padding:5px;margin:5px;">
