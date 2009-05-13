@@ -9,7 +9,10 @@ function popNav(elem,val) {
 	ih="Hi, I'm a div!";
 	theDiv.innerHTML=ih;
 	document.body.appendChild(theDiv);
-	$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
+	
+	var pos = $("#helpDiv").position();
+	alert(pos.left + " " + pos.top);
+	//$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 }
 function saveSearch(returnURL){
 	var sName=prompt("Name this search", "my search");
