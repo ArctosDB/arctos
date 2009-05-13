@@ -130,7 +130,7 @@ function checkSubmit() {
 		var ss=coln + ' ' + idt + ' ' + idn;
 		if (result[0].PART_NAME.indexOf('Error:')>-1) {
 			//alert(result[0].PART_NAME);
-			ss+=' result[0].PART_NAME';
+			ss+=' ' + result[0].PART_NAME;
 			specid.value='';
 		} else {
 			specid.value=result[0].COLLECTION_OBJECT_ID;
