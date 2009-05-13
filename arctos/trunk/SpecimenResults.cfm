@@ -62,6 +62,7 @@ function popNav(elem,val) {
 	//theDiv.style.top="50%";
 	//theDiv.style.left="50%";
 	document.body.appendChild(theDiv);
+	console.log(elem.pageY);
 	$("##browseDiv").css({position:"absolute", top: elem.pageY, left: elem.pageX});
 }
 </script>
