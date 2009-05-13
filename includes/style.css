@@ -465,15 +465,14 @@ redCheck{
 	text-decoration: underline;
 	}
 .specResTabCell {
-	position:relative;
+	float:left;
 	}
 .browseLink, .browseLink a:visited {
 	cursor:pointer;
 	color:#2B547E;
 	font-size:.65em;
 	font-family:Arial, Helvetica, sans-serif;
-	right:0px;
-	position:relative;}
+	float:right;}
 .browseLink {
 	color:#FF0000;
 	text-decoration: underline;
