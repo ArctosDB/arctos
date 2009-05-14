@@ -86,7 +86,7 @@ jQuery( function($) {
 		var theDiv = document.createElement('div');
 		theDiv.id = 'browseDiv';
 		theDiv.className = 'helpBox';
-		//theDiv.style.position="absolute";
+		theDiv.style.position="absolute";
 		//theDiv.style.zIndex="5000";
 		ih='<a href="##" class="jqmClose">Close</a>';
 		ih+='bla lb labkj lstuff';
