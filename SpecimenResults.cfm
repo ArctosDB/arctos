@@ -46,11 +46,21 @@ jQuery( function($) {
 	});
 
 	$(".browseLink").live('click', function(e){
-		alert('you clicked it');
+		//alert('you clicked it');
 		var type=this.type;
 		console.log($(this).attr('type'));
 		var dval=$(this).attr('dval');
 		console.log(dval);
+		var theDiv = document.createElement('div');
+		theDiv.id = 'browseDiv';
+		theDiv.className = 'helpBox';
+		ih="Hi, I'm a div!";
+		theDiv.innerHTML=ih;
+	//theDiv.style.position='absolute';
+	//theDiv.style.top="50%";
+	//theDiv.style.left="50%";
+		document.body.appendChild(theDiv);
+		$("##browseDiv").css({position:"absolute", top: elem.pageY, left: elem.pageX});
 		//var type=this.type;
 		//console.log(type);
 	});
@@ -63,21 +73,7 @@ function removeHelpDiv() {
 		$('##helpDiv').remove();
 	}
 }
-function popNav(elem,val) {
-	console.log('element is ' + elem);
-	console.log('value is ' + val);
-	var theDiv = document.createElement('div');
-	theDiv.id = 'browseDiv';
-	theDiv.className = 'helpBox';
-	ih="Hi, I'm a div!";
-	theDiv.innerHTML=ih;
-	//theDiv.style.position='absolute';
-	//theDiv.style.top="50%";
-	//theDiv.style.left="50%";
-	document.body.appendChild(theDiv);
-	console.log(elem.pageY);
-	$("##browseDiv").css({position:"absolute", top: elem.pageY, left: elem.pageX});
-}
+
 </script>
 </cfoutput>
 
