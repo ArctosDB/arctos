@@ -188,6 +188,7 @@ padding:.1em;
 }
 .sscustomBox {
 	border:3px solid green;
+	padding:.5em;
 	z-index:9999;
 	position:absolute;
 	top:5%;
