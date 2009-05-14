@@ -467,19 +467,13 @@ redCheck{
 .specResTabCell {
 	float:left;
 	}
-.browseLink, .browseLink a:visited {
+.browseLink {
 	cursor:pointer;
-	color:#2B547E;
-	font-size:.65em;
-	font-family:Arial, Helvetica, sans-serif;
-	float:right;
-	z-index:2001;
-	}
+	color: blue;}
 .browseLink:hover {
-	color:#FF0000;
 	text-decoration: underline;
+	color: #CC0000;
 	}
-	
 .pageHelp, .pagehelp a:visited{
 	font-size:.75em;
 	font-weight:bold;
