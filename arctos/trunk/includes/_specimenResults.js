@@ -870,6 +870,13 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<div class="specResTabCell">' + result[i].SPEC_LOCALITY; + '</div>';
 					theInnerHtml += '<span class="browseLink" type="spec_locality" dval="' + encodeURI(result[i].SPEC_LOCALITY) + '">more</span>'; 					
 					theInnerHtml += '</td>';
+					
+					var r;
+					r += '<td id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID + '">';
+					r += '<div class="specResTabCell">' + result[i].SPEC_LOCALITY; + '</div>';
+					r += '<span class="browseLink" type="spec_locality" dval="' + encodeURI(result[i].SPEC_LOCALITY) + '">more</span>'; 					
+					r += '</td>';
+					console.log(r);
 				}
 				
 				if (result[0].COLUMNLIST.indexOf('GEOLOGY_ATTRIBUTES')> -1) {
