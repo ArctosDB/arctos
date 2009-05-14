@@ -47,11 +47,11 @@ jQuery( function($) {
 	});
 
 	$(".browseLink").live('click', function(e){
-		var bgDiv = document.createElement('div');
-		bgDiv.id = 'bgDiv';
-		bgDiv.className = 'bgDiv';
-		bgDiv.setAttribute('onclick','closeBrowse()');
-		document.body.appendChild(bgDiv);
+		//var bgDiv = document.createElement('div');
+		//bgDiv.id = 'bgDiv';
+		//bgDiv.className = 'bgDiv';
+		//bgDiv.setAttribute('onclick','closeBrowse()');
+		//document.body.appendChild(bgDiv);
 		
 		//alert('you clicked it');
 		var type=this.type;
@@ -61,9 +61,9 @@ jQuery( function($) {
 		var theDiv = document.createElement('div');
 		theDiv.id = 'browseDiv';
 		theDiv.className = 'helpBox';
-		theDiv.style.position="absolute";
-		theDiv.style.zIndex="5000";
-		ih='<div style="position:relative;top:0;right:0">X</div>';
+		//theDiv.style.position="absolute";
+		//theDiv.style.zIndex="5000";
+		ih='<a href="##" class="jqmClose">Close</a>';
 		ih+='bla lb labkj lstuff';
 		ih+='<a href="/SpecimenResults.cfm?' + type + '=' + dval + '">linky</a>';
 		theDiv.innerHTML=ih;
