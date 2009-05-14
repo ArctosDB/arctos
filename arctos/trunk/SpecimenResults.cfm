@@ -60,7 +60,8 @@ jQuery( function($) {
 		var theDiv = document.createElement('div');
 		theDiv.id = 'browseDiv';
 		theDiv.className = 'helpBox';
-		ih="Hi, I'm a div!";
+		ih='<div style="position:relative;top=0;right=0">X</div>';
+		ih+='bla lb labkj lstuff';
 		theDiv.innerHTML=ih;
 	//theDiv.style.position='absolute';
 	//theDiv.style.top="50%";
@@ -75,7 +76,6 @@ jQuery( function($) {
 
 });
 function closeBrowse(){
-	document.location=location.href;
 	var theDiv = document.getElementById('browseDiv');
 	document.body.removeChild(theDiv);
 }
