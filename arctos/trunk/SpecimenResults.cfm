@@ -72,11 +72,11 @@ jQuery( function($) {
 	});
 
 	$(".browseLink").live('click', function(e){
-		//var bgDiv = document.createElement('div');
-		//bgDiv.id = 'bgDiv';
-		//bgDiv.className = 'bgDiv';
-		//bgDiv.setAttribute('onclick','closeBrowse()');
-		//document.body.appendChild(bgDiv);
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		bgDiv.setAttribute('onclick','closeBrowse()');
+		document.body.appendChild(bgDiv);
 		
 		//alert('you clicked it');
 		var type=this.type;
