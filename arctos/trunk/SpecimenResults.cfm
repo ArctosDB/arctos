@@ -60,7 +60,8 @@ jQuery( function($) {
 		var theDiv = document.createElement('div');
 		theDiv.id = 'browseDiv';
 		theDiv.className = 'helpBox';
-		ih='<div style="position:relative;top=0;right=0">X</div>';
+		theDiv.style.position="absolute";
+		ih='<div style="position:relative;top:0;right:0">X</div>';
 		ih+='bla lb labkj lstuff';
 		ih+='<a href="/SpecimenResults.cfm?' + type + '=' + dval + '">linky</a>';
 		theDiv.innerHTML=ih;
