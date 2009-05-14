@@ -768,7 +768,8 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '</td>';
 				}
 				theInnerHtml += '<td>';
-					theInnerHtml += '<i><a href="/SpecimenResults.cfm?scientific_name=' + result[i].SCIENTIFIC_NAME + '">' + spaceStripper(result[i].SCIENTIFIC_NAME) + '</a></i>';
+				theInnerHtml += '<span class="browseLink" type="scientific_name" dval="' + encodeURI(result[i].SCIENTIFIC_NAME) + '">' + result[i].SCIENTIFIC_NAME;
+				theInnerHtml += '</span>'; 					
 				theInnerHtml += '</td>';
 				if (result[0].COLUMNLIST.indexOf('SCI_NAME_WITH_AUTH')> -1) {
 					theInnerHtml += '<td>';
