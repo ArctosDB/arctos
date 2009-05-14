@@ -866,7 +866,8 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + result[i].ORIG_ELEV_UNITS + '&nbsp;</td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('SPEC_LOCALITY')> -1) {
-					theInnerHtml += '<td id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID+'"><div class="specResTabCell">' + result[i].SPEC_LOCALITY; + '</div>';
+					theInnerHtml += '<td id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID + '">';
+					theInnerHtml += '<div class="specResTabCell">' + result[i].SPEC_LOCALITY; + '</div>';
 					theInnerHtml += '<span class="browseLink" type="spec_locality" dval="' + encodeURI(result[i].SPEC_LOCALITY) + '">more</span>'; 					
 					theInnerHtml += '</td>';
 				}
