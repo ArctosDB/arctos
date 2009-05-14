@@ -60,7 +60,7 @@ jQuery( function($) {
 	//theDiv.style.top="50%";
 	//theDiv.style.left="50%";
 		document.body.appendChild(theDiv);
-		$("##browseDiv").css({position:"absolute", top: elem.pageY, left: elem.pageX});
+		$("##browseDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 		//var type=this.type;
 		//console.log(type);
 	});
