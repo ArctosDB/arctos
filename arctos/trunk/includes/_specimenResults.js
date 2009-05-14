@@ -867,17 +867,9 @@ function success_getSpecResultsData(result){
 				}
 				if (result[0].COLUMNLIST.indexOf('SPEC_LOCALITY')> -1) {
 					theInnerHtml += '<td id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID + '">';
-					theInnerHtml += '<div class="specResTabCell">' + result[i].SPEC_LOCALITY + '</div>';
-					theInnerHtml += '<span class="browseLink" type="spec_locality" dval="' + encodeURI(result[i].SPEC_LOCALITY) + '">more</span>'; 					
+					theInnerHtml += '<span class="browseLink" type="spec_locality" dval="' + encodeURI(result[i].SPEC_LOCALITY) + '">' + result[i].SPEC_LOCALITY;
+					theInnerHtml += '</span>'; 					
 					theInnerHtml += '</td>';
-										console.log('------------------------------------------------------------------------');
-					var r='';
-					r += '<td id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID + '">';
-					r += '<div class="specResTabCell">' + result[i].SPEC_LOCALITY + '</div>';
-					r += '<span class="browseLink" type="spec_locality" dval="' + encodeURI(result[i].SPEC_LOCALITY) + '">more</span>'; 					
-					r += '</td>';
-					console.log(r);
-					console.log('------------------------------------------------------------------------');
 				}
 				
 				if (result[0].COLUMNLIST.indexOf('GEOLOGY_ATTRIBUTES')> -1) {
