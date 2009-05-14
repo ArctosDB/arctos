@@ -312,6 +312,10 @@
 </cfif>
 <cfif isdefined("scientific_name") AND len(scientific_name) gt 0>
 	<cfset mapurl = "#mapurl#&scientific_name=#scientific_name#">
+	<cfif left(scientific_name,1) is '='>
+		<cfset scientific_name=right(scientific_name,len(scientific_name)-1)>
+		<cfset sciNameOper = "=">
+	</cfif>
 	<cfif not isdefined("sciNameOper") OR len(#sciNameOper#) is 0>
 		<cfset sciNameOper = "LIKE">
 	</cfif>
@@ -1148,8 +1152,6 @@
 			(cataloged_item.collection_object_id = specimen_part.derived_from_cat_item)">
 		</cfif>
 		<cfset basQual = " #basQual# AND specimen_part.part_name = '#right(part_name,len(part_name)-1)#'">
-		
-		(spec_localit)
 	<cfelse><!--- part name only --->		
 		<cfset basQual = " #basQual# AND upper(PARTS) LIKE '%#ucase(part_name)#%'">
 	</cfif>
