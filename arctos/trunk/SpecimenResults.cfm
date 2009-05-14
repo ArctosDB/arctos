@@ -46,6 +46,12 @@ jQuery( function($) {
 	});
 
 	$(".browseLink").live('click', function(e){
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		bgDiv.setAttribute('onclick','closeBrowse()');
+		document.body.appendChild(bgDiv);
+		
 		//alert('you clicked it');
 		var type=this.type;
 		console.log($(this).attr('type'));
@@ -68,6 +74,11 @@ jQuery( function($) {
 	
 
 });
+function closeBrowse(){
+	document.location=location.href;
+	var theDiv = document.getElementById('browseDiv');
+	document.body.removeChild(theDiv);
+}
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {
 		$('##helpDiv').remove();
