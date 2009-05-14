@@ -98,7 +98,7 @@ jQuery( function($) {
 		document.body.appendChild(theDiv);
 		 //viewport.init(theDiv);
 viewport.init("##browseDiv");
-
+viewport.init("##bgDiv");
 		
 		//$("##browseDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 		//var type=this.type;
