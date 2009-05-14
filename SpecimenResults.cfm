@@ -48,7 +48,7 @@ jQuery( function($) {
 	$(".browseLink").live('click', function(e){
 		alert('you clicked it');
 		var type=this.type;
-		console.log(type);
+		console.log($(this).attr('type'));
 		//var type=this.type;
 		//console.log(type);
 	});
