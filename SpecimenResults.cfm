@@ -89,8 +89,8 @@ jQuery( function($) {
 		theDiv.style.position="absolute";
 		//theDiv.style.zIndex="5000";
 		ih='<span onclick="closeBrowse()" class="likeLink" style="position:absolute;top:0;right:0">X</span>';
-		ih+='<p><a href="/SpecimenResults.cfm?' + type + '=' + dval + '">Find LIKE ' + dval + '</a></p>';
-		ih+='<p><a href="/SpecimenResults.cfm?' + type + '==' + dval + '">Find IS ' + dval + '</a></p>';
+		ih+='<p>Find LIKE <a href="/SpecimenResults.cfm?' + type + '=' + dval + '"> ' + decodeURI(dval) + '</a></p>';
+		ih+='<p>Find IS <a href="/SpecimenResults.cfm?' + type + '==' + dval + '"> ' + dval + '</a></p>';
 		theDiv.innerHTML=ih;
 	//theDiv.style.position='absolute';
 	//theDiv.style.top="50%";
