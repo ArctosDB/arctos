@@ -54,7 +54,7 @@ jQuery( function($) {
 		
 		//alert('you clicked it');
 		var type=this.type;
-		console.log($(this).attr('type'));
+		var type=$(this).attr('type');
 		var dval=$(this).attr('dval');
 		console.log(dval);
 		var theDiv = document.createElement('div');
@@ -62,6 +62,7 @@ jQuery( function($) {
 		theDiv.className = 'helpBox';
 		ih='<div style="position:relative;top=0;right=0">X</div>';
 		ih+='bla lb labkj lstuff';
+		ih+='<a href="/SpecimenResults.cfm?' + type + '=' + dval + '">linky</a>';
 		theDiv.innerHTML=ih;
 	//theDiv.style.position='absolute';
 	//theDiv.style.top="50%";
