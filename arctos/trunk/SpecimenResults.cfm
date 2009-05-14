@@ -60,7 +60,7 @@ jQuery( function($) {
 		console.log(dval);
 		var theDiv = document.createElement('div');
 		theDiv.id = 'browseDiv';
-		theDiv.className = 'helpBox';
+		theDiv.className = 'jqmWindow';
 		//theDiv.style.position="absolute";
 		//theDiv.style.zIndex="5000";
 		ih='<a href="##" class="jqmClose">Close</a>';
