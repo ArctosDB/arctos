@@ -49,6 +49,8 @@ jQuery( function($) {
 		alert('you clicked it');
 		var type=this.type;
 		console.log($(this).attr('type'));
+		var dval=$(this).attr('dval');
+		console.log(dval);
 		//var type=this.type;
 		//console.log(type);
 	});
