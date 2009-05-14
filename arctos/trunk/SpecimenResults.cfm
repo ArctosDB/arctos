@@ -88,7 +88,7 @@ jQuery( function($) {
 		theDiv.className = 'helpBox';
 		theDiv.style.position="absolute";
 		//theDiv.style.zIndex="5000";
-		ih='<a href="##" class="jqmClose">Close</a>';
+		ih='<span onclick="closeBrowse()" class="likeLink">X</span>';
 		ih+='bla lb labkj lstuff';
 		ih+='<a href="/SpecimenResults.cfm?' + type + '=' + dval + '">linky</a>';
 		theDiv.innerHTML=ih;
