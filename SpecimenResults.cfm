@@ -44,13 +44,13 @@ jQuery( function($) {
 		document.getElementById('displayRows').value=displayRows;
 		$("##helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 	});
-	/*
-	$(".browseLink").live().click(function(e){
+
+	$(".browseLink").live(click, function(e){
 		alert('you clicked it');
 		//var type=this.type;
 		//console.log(type);
 	});
-	*/
+
 });
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {
