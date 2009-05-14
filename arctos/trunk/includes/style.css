@@ -475,7 +475,7 @@ redCheck{
 	float:right;
 	z-index:2001;
 	}
-.browseLink {
+.browseLink:hover {
 	color:#FF0000;
 	text-decoration: underline;
 	}
