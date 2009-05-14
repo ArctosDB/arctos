@@ -464,9 +464,6 @@ redCheck{
 	color:#FF0000;
 	text-decoration: underline;
 	}
-.specResTabCell {
-	float:left;
-	}
 .browseLink {
 	cursor:pointer;
 	color: blue;}

@@ -346,17 +346,14 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<input type="hidden" name="result_sort" id="result_sort" value="#session.result_sort#">
 	<input type="hidden" name="displayRows" id="displayRows" value="#session.displayRows#">
 <strong>#mappable.cnt#</strong> of these <strong>#summary.recordcount#</strong> records have coordinates and can be displayed with 
-				<span class="controlButton" 
+			<span class="controlButton" 
 				onmouseover="this.className='controlButton btnhov'" 
 				onmouseout="this.className='controlButton'"
 				onclick="window.open('/bnhmMaps/bnhmMapData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
-				<!---
-				<span class="controlButton" 
+			<span class="controlButton" 
 				onmouseover="this.className='controlButton btnhov'" 
 				onmouseout="this.className='controlButton'"
 				onclick="window.open('/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#','_blank');">BerkeleyMapper+Rangemaps</span>
-				--->
-					
 			<span class="infoLink" onclick="getDocs('maps');">
 				What's this?
 			</span>
