@@ -78,6 +78,10 @@ jQuery( function($) {
 function closeBrowse(){
 	var theDiv = document.getElementById('browseDiv');
 	document.body.removeChild(theDiv);
+	var theDiv = document.getElementById('bgDiv');
+	document.body.removeChild(theDiv);
+	
+	
 }
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {
