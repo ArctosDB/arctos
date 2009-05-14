@@ -61,6 +61,7 @@ jQuery( function($) {
 		theDiv.id = 'browseDiv';
 		theDiv.className = 'helpBox';
 		theDiv.style.position="absolute";
+		theDiv.style.zIndex="5000";
 		ih='<div style="position:relative;top:0;right:0">X</div>';
 		ih+='bla lb labkj lstuff';
 		ih+='<a href="/SpecimenResults.cfm?' + type + '=' + dval + '">linky</a>';
