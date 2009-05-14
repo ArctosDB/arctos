@@ -97,7 +97,7 @@ jQuery( function($) {
 	//theDiv.style.left="50%";
 		document.body.appendChild(theDiv);
 		 //viewport.init(theDiv);
-viewport.init(".helpBox");
+viewport.init("##browseDiv");
 
 		
 		//$("##browseDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
