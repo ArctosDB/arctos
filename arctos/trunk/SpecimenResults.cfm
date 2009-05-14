@@ -88,9 +88,8 @@ jQuery( function($) {
 		theDiv.className = 'sscustomBox';
 		theDiv.style.position="absolute";
 		//theDiv.style.zIndex="5000";
-		ih='<span onclick="closeBrowse()" class="likeLink">X</span>';
-		ih+='bla lb labkj lstuff';
-		ih+='<a href="/SpecimenResults.cfm?' + type + '=' + dval + '">linky</a>';
+		ih='<span onclick="closeBrowse()" class="likeLink" style="position:absolute;top:0;right:0">X</span>';
+		ih+='<a href="/SpecimenResults.cfm?' + type + '=' + dval + '">Find specimens like ' + dval + '</a>';
 		theDiv.innerHTML=ih;
 	//theDiv.style.position='absolute';
 	//theDiv.style.top="50%";
