@@ -85,7 +85,7 @@ jQuery( function($) {
 		console.log(dval);
 		var theDiv = document.createElement('div');
 		theDiv.id = 'browseDiv';
-		theDiv.className = 'helpBox';
+		theDiv.className = 'sscustomBox';
 		theDiv.style.position="absolute";
 		//theDiv.style.zIndex="5000";
 		ih='<span onclick="closeBrowse()" class="likeLink">X</span>';
