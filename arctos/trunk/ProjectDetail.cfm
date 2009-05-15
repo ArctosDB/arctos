@@ -26,6 +26,7 @@
 			$.get(ptl, function(data){
 				 $(tab).html(data);
 			})
+			console.log(e);
 		}
 	});
 </script>	
