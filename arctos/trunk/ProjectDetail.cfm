@@ -102,12 +102,17 @@
 	</div>
 	
 <script>
-
-		var tab=document.getElementById('pubs');
-		var ptl="/includes/project/pubs.cfm?project_id=#project_id#";
+	var elemsToLoad='pubs';
+	var elemAry = split(elemsToLoad,",");
+	for(var i=0; i<elemAry.length; i++){
+		var e=elemAry[i];
+		var tab=document.getElementById(e);
+		var ptl="/includes/project/" + e + ".cfm?project_id=#project_id#";
 		$.get(ptl, function(data){
 			 $(tab).html(data);
 		})
+	}
+		
 
 </script>	
 	<!-----------
