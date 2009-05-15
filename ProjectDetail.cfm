@@ -453,6 +453,10 @@
 				</div>
 			</cfloop>
 		</div>		
+	<cfelse>
+		<div class="notFound">
+			No Media is attached to this project.
+		</div>
 	</cfif>
 </cfoutput>
 <cf_log cnt=1 coll=na>	 
