@@ -1,4 +1,4 @@
-<cfinclude template = "/includes/_frameHeader.cfm">
+<cfinclude template = "/includes/functionLib.cfm">
 <cfoutput>
 	<h2>Media</h2>
 	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
