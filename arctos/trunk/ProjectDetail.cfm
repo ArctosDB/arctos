@@ -17,7 +17,7 @@
 <cfoutput>
 <script>
 	$(document).ready(function(){
-		var elemsToLoad='pubs';
+		var elemsToLoad='pubs,specUsed';
 		var elemAry = elemsToLoad.split(",");
 		for(var i=0; i<elemAry.length; i++){
 			var e=elemAry[i];
@@ -116,76 +116,13 @@
 		<h2>Publications</h2>
 		<img src="/images/indicator.gif">
 	</div>
-
+	<div id="specUsed">
+		<h2>Specimens Used</h2>
+		<img src="/images/indicator.gif">
+	</div>
 	<!-----------
 	
-	<h2>Specimens Used</h2>
-	<cfquery name="getUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select
-			collection,
-			collection_id,
-			sum(c) c
-		from (
-			SELECT 
-				collection.collection,
-				collection.collection_id,
-				count(distinct(cataloged_item.collection_object_id)) c
-			FROM 
-				cataloged_item,
-				collection,
-				specimen_part,
-				loan_item,
-				project_trans
-			WHERE
-				specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
-				cataloged_item.collection_id=collection.collection_id and
-				specimen_part.collection_object_id = loan_item.collection_object_id AND
-				loan_item.transaction_id = project_trans.transaction_id AND
-				project_trans.project_id = #project_id#
-			group by
-				collection.collection,
-				collection.collection_id
-			UNION
-			SELECT 
-				collection.collection,
-				collection.collection_id,
-				count(distinct(cataloged_item.collection_object_id)) c
-			FROM 
-				cataloged_item,
-				collection,
-				loan_item,
-				project_trans
-			WHERE
-				cataloged_item.collection_object_id = loan_item.collection_object_id AND
-				cataloged_item.collection_id=collection.collection_id and
-				loan_item.transaction_id = project_trans.transaction_id AND
-				project_trans.project_id = #project_id#
-			group by
-				collection.collection,
-				collection.collection_id)
-		group by
-			collection,
-			collection_id
-	</cfquery>
-	<cfquery name="ts" dbtype="query">
-		select sum(c) totspec from getUsed
-	</cfquery>
-	<cfif getUsed.recordcount is 0>
-		<div class="notFound">
-			This project used no specimens.
-		</div>
-	<cfelse>
-		This project used <a href="/SpecimenResults.cfm?loan_project_id=#project_id#">#ts.totspec# Specimens</a>
-		<ul>
-			<cfloop query="getUsed">
-				<li>
-					<a href="/SpecimenResults.cfm?loan_project_id=#project_id#&collection_id=#collection_id#">
-						#c# #collection# Specimens
-					</a>
-				</li>
-			</cfloop>
-		</ul>
-	</cfif>
+	
 	<h2>Specimens Contributed</h2>
 	<cfquery name="getContSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
