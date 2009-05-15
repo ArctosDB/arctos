@@ -278,12 +278,10 @@
 	<cfset i=1>
 	<cfloop query="relns">
 		<cfset temp = queryaddrow(result,1)>
-		
 		<cfset temp = QuerySetCell(result, "media_relations_id", "#media_relations_id#", i)>	
 		<cfset temp = QuerySetCell(result, "media_relationship", "#media_relationship#", i)>
 		<cfset temp = QuerySetCell(result, "created_agent_name", "#agent_name#", i)>
 		<cfset temp = QuerySetCell(result, "related_primary_key", "#related_primary_key#", i)>
-		
 		<cfset table_name = listlast(media_relationship," ")>
 		<cfif #table_name# is "locality">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -327,6 +325,13 @@
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
             <cfset temp = QuerySetCell(result, "link", "/media.cfm?action=edit&media_id=#related_primary_key#", i)>
+		<cfelseif #table_name# is "project">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select project_name data from 
+				project where project_id=#related_primary_key#
+			</cfquery>
+			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
+            <cfset temp = QuerySetCell(result, "link", "/SpecimenResults.cfm?collecting_event_id=#related_primary_key#", i)>
 		<cfelse>
 			<cfset temp = QuerySetCell(result, "summary", "#table_name# is not currently supported.", i)>
 		</cfif>
