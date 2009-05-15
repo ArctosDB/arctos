@@ -7,6 +7,14 @@
 </cfif>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 	
+
+<style>
+	.proj_title {font-size:2em;font-weight:900;text-align:center;}
+	.proj_sponsor {font-size:1.5em;font-weight:800;text-align:center;}
+	.proj_agent {font-weight:800;text-align:center;}
+	.cdiv {text-align:center;}
+</style>
+<cfoutput>
 <script>
 	$(document).ready(function(){
 		var elemsToLoad='pubs';
@@ -21,13 +29,6 @@
 		}
 	});
 </script>	
-<style>
-	.proj_title {font-size:2em;font-weight:900;text-align:center;}
-	.proj_sponsor {font-size:1.5em;font-weight:800;text-align:center;}
-	.proj_agent {font-weight:800;text-align:center;}
-	.cdiv {text-align:center;}
-</style>
-<cfoutput>
 	<cfquery name="proj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 			project.project_id,
