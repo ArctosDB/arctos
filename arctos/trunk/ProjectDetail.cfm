@@ -104,7 +104,7 @@
 <script>
 
 		var tab=document.getElementById('pubs');
-		var ptl="/includes/project/pubs.cfm";
+		var ptl="/includes/project/pubs.cfm?project_id=#project_id#";
 		$.get(ptl, function(data){
 			 $(tab).html(data);
 		})
