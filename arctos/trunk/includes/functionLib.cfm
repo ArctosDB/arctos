@@ -294,7 +294,6 @@
 				select agent_name data from preferred_agent_name where agent_id=#related_primary_key#
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
-            <cfset temp = QuerySetCell(result, "link", "/SpecimenResults.cfm?coll=#d.data#", i)>
 		<cfelseif #table_name# is "collecting_event">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select verbatim_locality || ' (' || verbatim_date || ')' data from 
