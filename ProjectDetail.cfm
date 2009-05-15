@@ -26,7 +26,7 @@
 			console.log(e);
 			console.log(ptl);
 			$.get(ptl, function(data){
-				 $(div##e).html(data);
+				 $('div##' + e).html(data);
 			})
 		}
 	});
