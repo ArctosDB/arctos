@@ -656,7 +656,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 		<cfset thisSQL  = "#sel# #frm# #sql# ORDER BY accn_number, trans.transaction_id ">
 <!---
 <hr />
-	
+	#preservesinglequotes(thisSQL)#
 <hr />	
 --->
 
