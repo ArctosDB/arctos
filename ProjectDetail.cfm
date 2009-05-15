@@ -431,7 +431,7 @@
 	                   <br>#media_type# (#mime_type#)
 	               </cfif>
                    <cfif #mrel.recordcount# gt 0>
-						Relations:
+						<br>Relations:
 							<ul>
 								<cfloop query="mrel">
 									<li>#media_relationship#: #summary#</li>
@@ -439,7 +439,7 @@
 								</ul>
 					</cfif>
 					<cfif #labels.recordcount# gt 0>
-						Labels:
+						<br>Labels:
 						<ul>
 							<cfloop query="labels">
 								<li>#media_label#: #label_value#</li>
