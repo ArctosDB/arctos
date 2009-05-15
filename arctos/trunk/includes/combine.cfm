@@ -1,5 +1,4 @@
-<cfsetting showdebugoutput="false" />
-<cfapplication name="combine" />
+<cfsetting showdebugoutput="true" />
 <cfsetting enablecfoutputonly="true" />
 <cfscript>
 /*
