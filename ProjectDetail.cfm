@@ -98,13 +98,13 @@
 	#p.project_description#
 	<div id="pubs">
 		<h2>Publications</h2>
-		<img src="">/images/indicator.gif
+		<img src="/images/indicator.gif">
 	</div>
 	
 <script>
 
 		var tab=document.getElementById('pubs');
-		var ptl="/includes/SpecSearch/" + id + ".cfm";
+		var ptl="/includes/project/pubs.cfm";
 		$.get(ptl, function(data){
 			 $(tab).html(data);
 		})
