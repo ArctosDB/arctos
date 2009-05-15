@@ -652,11 +652,26 @@
 								<td id="SDCellRight">#one.spec_locality#</td>
 							</tr>
 					</cfif>
+					<cfquery name="collEventMedia"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select 
+							media_id 
+						from 
+							media_relations 
+						where 
+							RELATED_PRIMARY_KEY=#one.collecting_event_id# and
+							MEDIA_RELATIONSHIP like '% collecting_event'
+					</cfquery>
 					<cfif #one.verbatim_locality# is not #one.spec_locality#>
 						<cfif len(#one.verbatim_locality#) gt 0>
 								<tr class="detailData">
 									<td id="SDCellLeft" class="innerDetailLabel">Verbatim Locality:</td>
-									<td id="SDCellRight">#one.verbatim_locality#</td>
+									<td id="SDCellRight">#one.verbatim_locality#
+									<cfif collEventMedia.recordcount gt 0>
+										<a class="infoLink" 
+											target="_blank"
+											href="/MediaSearch.cfm?action=search&media_id=#valuelist(collEventMedia.media_id)#">Media</a>
+									</cfif>
+									</td>
 								</tr>
 						</cfif>
 					</cfif>					
