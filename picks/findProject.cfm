@@ -1,9 +1,12 @@
 <cfinclude template="../includes/_pickHeader.cfm">
-
+<form name="p" method="post" action="findProject.cfm">
+	<label for="project_name">Project Name</label>
+	<input type="text" name="project_name" id="project_name">
+	<input type="submit" value="search" class="lnkBtn">
+</form>
 
 	<!--- make sure we're searching for something --->
 	<cfif len(#project_name#) is 0>
-		You must enter search criteria.
 		<cfabort>
 	</cfif>
 	
