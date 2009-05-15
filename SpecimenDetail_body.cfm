@@ -645,11 +645,27 @@
 								<td id="SDCellLeft" class="innerDetailLabel">USGS Quad:</td>
 								<td id="SDCellRight">#one.quad#</td>
 							</tr>
-					</cfif>					
+					</cfif>
+					<cfquery name="localityMedia"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select 
+							media_id 
+						from 
+							media_relations 
+						where 
+							RELATED_PRIMARY_KEY=#one.locality_id# and
+							MEDIA_RELATIONSHIP like '% locality'
+					</cfquery>				
 					<cfif len(#one.spec_locality#) gt 0>
 							<tr class="detailData">
 								<td id="SDCellLeft" class="innerDetailLabel">Specific Locality:</td>
-								<td id="SDCellRight">#one.spec_locality#</td>
+								<td id="SDCellRight">
+									#one.spec_locality#
+									<cfif localityMedia.recordcount gt 0>
+										<a class="infoLink" 
+											target="_blank"
+											href="/MediaSearch.cfm?action=search&media_id=#valuelist(localityMedia.media_id)#">Media</a>
+										</cfif>
+								</td>
 							</tr>
 					</cfif>
 					<cfquery name="collEventMedia"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -666,11 +682,11 @@
 								<tr class="detailData">
 									<td id="SDCellLeft" class="innerDetailLabel">Verbatim Locality:</td>
 									<td id="SDCellRight">#one.verbatim_locality#
-									<cfif collEventMedia.recordcount gt 0>
-										<a class="infoLink" 
-											target="_blank"
-											href="/MediaSearch.cfm?action=search&media_id=#valuelist(collEventMedia.media_id)#">Media</a>
-									</cfif>
+										<cfif collEventMedia.recordcount gt 0>
+											<a class="infoLink" 
+												target="_blank"
+												href="/MediaSearch.cfm?action=search&media_id=#valuelist(collEventMedia.media_id)#">Media</a>
+										</cfif>
 									</td>
 								</tr>
 						</cfif>
