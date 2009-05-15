@@ -103,7 +103,7 @@
 	
 <script>
 	var elemsToLoad='pubs';
-	var elemAry = split(elemsToLoad,",");
+	var elemAry = elemsToLoad.split(",");
 	for(var i=0; i<elemAry.length; i++){
 		var e=elemAry[i];
 		var tab=document.getElementById(e);
