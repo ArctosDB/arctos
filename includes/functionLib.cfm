@@ -285,7 +285,14 @@
 		<cfset table_name = listlast(media_relationship," ")>
 		<cfif #table_name# is "locality">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select spec_locality data from #table_name# where locality_id=#related_primary_key#
+				select 
+					higher_geog || ': ' || spec_locality data 
+				from 
+					locality, 
+					geog_auth_rec 
+				where 
+					locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
+					locality.locality_id=#related_primary_key#
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
             <cfset temp = QuerySetCell(result, "link", "/SpecimenResults.cfm?locality_id=#related_primary_key#", i)>
@@ -296,8 +303,16 @@
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
 		<cfelseif #table_name# is "collecting_event">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select verbatim_locality || ' (' || verbatim_date || ')' data from 
-				collecting_event where collecting_event_id=#related_primary_key#
+				select 
+					higher_geog || ': ' || verbatim_locality || ' (' || verbatim_date || ')' data 
+				from 
+					collecting_event,
+					locality, 
+					geog_auth_rec 
+				where 
+					collecting_event.locality_id=locality.locality_id and
+					locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
+					collecting_event.collecting_event_id=#related_primary_key#
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
             <cfset temp = QuerySetCell(result, "link", "/SpecimenResults.cfm?collecting_event_id=#related_primary_key#", i)>
