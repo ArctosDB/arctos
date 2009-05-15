@@ -21,12 +21,12 @@
 		var elemAry = elemsToLoad.split(",");
 		for(var i=0; i<elemAry.length; i++){
 			var e=elemAry[i];
-			var tab=document.getElementById(e);
+			//tab=document.getElementById(e);
 			var ptl="/includes/project/" + e + ".cfm?project_id=#project_id#";
 			console.log(e);
 			console.log(ptl);
 			$.get(ptl, function(data){
-				 $(tab).html(data);
+				 $(##e).html(data);
 			})
 		}
 	});
