@@ -434,9 +434,13 @@
 						<br>Relations:
 							<ul>
 								<cfloop query="mrel">
-									<li>#media_relationship#: #summary#</li>
+									<li>#media_relationship#: #summary#
+										<cfif len(#link#) gt 0>
+					                        <a class="infoLink" href="#link#" target="_blank">More...</a>
+					                    </cfif>
+									</li>
 								</cfloop>
-								</ul>
+							</ul>
 					</cfif>
 					<cfif #labels.recordcount# gt 0>
 						<br>Labels:
