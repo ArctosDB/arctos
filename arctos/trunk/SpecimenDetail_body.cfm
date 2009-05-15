@@ -1,6 +1,5 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfoutput>
-	
 	<cfif not isdefined("collection_object_id") or not isnumeric(collection_object_id)>
 		<div class="error">
 			Improper call. You will be redirected shortly.....
@@ -234,7 +233,6 @@
 	Record masked.
 	<cfabort>
 </cfif>
-
 <cfquery name="one" dbtype="query">
 	select
 		collection_object_id,
@@ -447,9 +445,6 @@
 	order by
 		formatted_publication
 </cfquery>
-
-
-
 <style>
 	.acceptedIdDiv {
 		border:1px dotted green;
@@ -462,8 +457,7 @@
 	.taxDetDiv {
 		padding-left:1em;	
 	}
-</style>
-				
+</style>		
 <cfoutput query="one">
 <form name="editStuffLinks" method="post" action="SpecimenDetail.cfm">
 	<input type="hidden" name="collection_object_id" value="#detail.collection_object_id#">
@@ -545,22 +539,7 @@
 						</cfloop>
 					</span>				
 				</div>
-				<!---
-				<table id="SD">		
-				<tr><td id="SDCellRight"><i>#scientific_name#</i></td>
-				</tr>
-				<tr><td id="SDCellRight">Determined by #valuelist(identifiers.id_by)#, #dateformat(made_date,"dd mmm yyyy")#</td>
-				</tr>
-				<tr><td id="SDCellRight" class="detailElements">#nature_of_id#</td>
-				</tr>
-				<cfif len(#identification_remarks#) gt 0>
-					<tr><td id="SDCellRight" class="detailElements">#identification_remarks#</td>
-					</tr>
-				</cfif>
-				</table>
-				--->
 			</div>
-			
 <!------------------------------------ citations ---------------------------------------------->
 			<cfif len(#citations.cited_name#) gt 0>  
 				<div class="detailCell">
@@ -585,7 +564,7 @@
 				</div>
 			</cfif>
 <!------------------------------------ locality ---------------------------------------------->
-<div class="detailCell">
+			<div class="detailCell">
 				<div class="detailLabel">
 					<cfif #oneOfUs# is 1>
 						<span class="detailEditCell" onclick="window.parent.switchIFrame('specLocality');">Edit</span>
@@ -810,37 +789,13 @@
 								</td>
 							</tr>
 						</cfloop>
-						<!---<cfif len(#one.latLongDeterminer#) gt 0>
-							<div class="detailBlock">
-								<span class="detailCellSmall">
-									<span class="innerDetailLabel">Coordinate Determiner:</span>
-									#one.latLongDeterminer#
-								</span>
-							</div>
-						</cfif>
-						<cfif len(#one.latLongDeterminedDate#) gt 0>
-							<div class="detailBlock">
-								<span class="detailCellSmall">
-									<span class="innerDetailLabel">Coordinate Determined Date:</span>
-									#dateformat(one.latLongDeterminedDate,"dd mmm yyyy")#
-								</span>
-							</div>
-						</cfif>
-						<cfif len(#one.lat_long_ref_source#) gt 0>
-							<div class="detailBlock">
-								<span class="detailData">
-									<span class="innerDetailLabel">Coordinate Reference:</span>
-									#one.lat_long_ref_source#
-								</span>
-							</div>
-						</cfif>--->
 						<cfif len(#one.lat_long_remarks#) gt 0>
-								<tr class="detailCellSmall">
-									<td></td>
-									<td class="innerDetailLabel">Coordinate Remarks:
-										#one.lat_long_remarks#
-									</td>
-								</tr>
+							<tr class="detailCellSmall">
+								<td></td>
+								<td class="innerDetailLabel">Coordinate Remarks:
+									#one.lat_long_remarks#
+								</td>
+							</tr>
 						</cfif>
 					</cfif>
 					<cfif (#one.verbatim_date# is #one.began_date#) AND (#one.verbatim_date# is #one.ended_date#)>
@@ -859,10 +814,7 @@
 						</tr>
 					</table>
 				</div>
-				
 <!------------------------------------ parts ---------------------------------------------->
-	
-
 <cfquery name="parts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
 		specimen_part.collection_object_id part_id,
@@ -1516,78 +1468,8 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 					</cfif>
 				</div>
 		</cfif>
-<!--- Idea scrapped for now.
-
-Adding media block of information. 
-3 steps required.
-1) Do the query looking for relevant media.
-2) If a query detects media, do <cfset isMedia = true> after the query.
-	Then the media block will appear.	
-3) Output it in the media block below, using cfoutput query="your query"
-or cfloop with name="your query".
---Peter DeVore, 20080310
---->
-<!---<cfset isMedia = false>--->
-<!---<cfif isMedia>
-	<cfoutput>
-		<div class="detailCell">
-			<div class="detailLabel">Media</div>
-	</cfoutput>
-		<cfloop query="gref">
-			<div class="detailBlock">
-				<span class="innerDetailLabel">Field Notebook Page:</span>
-				<a 
-href="http://bg.berkeley.edu/gref/session.html?pageId=#page_id#&publicationId=#publication_id#" 
-						target="_blank">click here</a>
-			</div>
-		</cfloop>
-		<!--- Insert here more media in detail blocks here --->
-</cfif>
---->
-	<!---------------------------------------------------------------------------
-
-	 
-	<tr>
-		<td colspan="2">
-			<div class="isAButton"
-			onmouseover="this.className='isAButton btnhov'" 
-			onmouseout="this.className='isAButton'"
-			onclick="window.parent.switchIFrame('Encumbrances');">
-									<strong>Encumbrances</strong>
-								</div> 
-		</td>
-	</tr>
-	<cfif len(#encumbrance_action#) gt 0>
-			<tr>
-				<td align="right">&nbsp;
-					
-				</td>
-			<td>
-				#encumbrance_details#
-			</td>
-		</tr>
-		</cfif>
-	-------------------------------------------------------------------------------->
-
-		</td><!--- end right half of table --->
+	</td><!--- end right half of table --->
 </table>
 </form>
-</cfoutput>
-<!----
-
-			
-</cfoutput>
-</table>
-	  </td>
- </tr>
-</cfif>
-	  
-					
-		
-	
-</cfoutput>
-</cfif>
-	</table>
-	---> 
- 	
+</cfoutput> 	
 <cf_customizeIFrame>
