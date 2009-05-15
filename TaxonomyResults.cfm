@@ -7,24 +7,7 @@
 		document.location='TaxonomyResults.cfm?startAt=' + startAt + "&goTo=" + goTo; 
 	}
 </script>
-
-<!----
-<link rel="stylesheet" href="/includes/css.css">
-<script type="text/javascript" src="/includes/js.js">
-		<!--[if IE]>
-			<link rel="stylesheet" href="/includes/hack.css">
-		<![endif]-->
-		
-		---->
 <cfset titleTerms="">
-<!--- 
-	newQuery is a variable that causes the query to fetch from the database 
-	if 1 or from cache if 0 (as in next page browsing). We want it to be 1 if we 
-	come in from anywhere other than next/previous buttons
---->
-
-<!--- check for crap - do NOT allow single-quotes, etc.
---->
 <cfif isdefined("session.displayrows") and isnumeric(session.displayrows) and session.displayrows gt 0>
 	<cfset dr=session.displayrows>
 <cfelse>

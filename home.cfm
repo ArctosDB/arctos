@@ -25,9 +25,7 @@
 		theDiv.className='doshow';
 		theSpan.innerHTML='less...';
 		theOnclickString = 'closeThis(' + collection_id + ')';
-		
-		theSpan.setAttribute('onclick',theOnclickString);
-		
+		theSpan.setAttribute('onclick',theOnclickString);		
 	}
 	function closeThis(collection_id) {
 		var theDivName = "det_div_" + collection_id;
@@ -88,13 +86,6 @@
 			</ul>	
 		</td>
 		<td valign="top">
-			<!---<iframe src="http://curator.museum.uaf.edu/arctos_home.html" width="1000" height="1000" frameborder="0"></iframe>--->
-
-<!--- News div 
-<div style="border:1px dashed green; padding:50px; margin:30px;">
-	
-</div>
------>
 <p>
 Arctos is an ongoing effort to integrate access 
 to specimen data, collection-management tools, and 
@@ -269,9 +260,6 @@ The data providers are not responsible for loss or damages due to use of these d
 Please send email to <a href="mailto:dustymc@gmail.com">Dusty</a> or 
 <a href="mailto:gordon.jarrell@gmail.com">Gordon</a> if you have any questions, comments, or suggestions. 
 </p>
-<!---
-<a href="/arctosdoc/pageHelp/about.cfm" target="_blank"><center><strong></strong></center></a>
---->
 	</td>
 	<td valign="top"><img src="images/arctos_schema.png"/></td>
 	</tr>

@@ -3,7 +3,6 @@
 	<cfset session.displayrows=20>
 </cfif>
 <cfset btime=now()>
-
 <cfhtmlhead text="<title>Specimen Results</title>">
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/_myArctos.js'></script>
@@ -11,39 +10,37 @@
 <cfoutput>
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
-	 var viewport = {
-        o: function() {
-            if (self.innerHeight) {
-    			this.pageYOffset = self.pageYOffset;
-    			this.pageXOffset = self.pageXOffset;
-    			this.innerHeight = self.innerHeight;
-    			this.innerWidth = self.innerWidth;
-    		} else if (document.documentElement && document.documentElement.clientHeight) {
-    			this.pageYOffset = document.documentElement.scrollTop;
-    			this.pageXOffset = document.documentElement.scrollLeft;
-    			this.innerHeight = document.documentElement.clientHeight;
-    			this.innerWidth = document.documentElement.clientWidth;
-    		} else if (document.body) {
-    			this.pageYOffset = document.body.scrollTop;
-    			this.pageXOffset = document.body.scrollLeft;
-    			this.innerHeight = document.body.clientHeight;
-    			this.innerWidth = document.body.clientWidth;
-    		}
-    		return this;
-        },
-        init: function(el) {
-            $(el).css("left",Math.round(viewport.o().innerWidth/2) + viewport.o().pageXOffset - Math.round($(el).width()/2));
-            $(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round($(el).height()/2));
-        }
-    };
-	
+var viewport = {
+      	o: function() {
+          	if (self.innerHeight) {
+   			this.pageYOffset = self.pageYOffset;
+   			this.pageXOffset = self.pageXOffset;
+   			this.innerHeight = self.innerHeight;
+   			this.innerWidth = self.innerWidth;
+   		} else if (document.documentElement && document.documentElement.clientHeight) {
+   			this.pageYOffset = document.documentElement.scrollTop;
+   			this.pageXOffset = document.documentElement.scrollLeft;
+   			this.innerHeight = document.documentElement.clientHeight;
+   			this.innerWidth = document.documentElement.clientWidth;
+   		} else if (document.body) {
+   			this.pageYOffset = document.body.scrollTop;
+   			this.pageXOffset = document.body.scrollLeft;
+   			this.innerHeight = document.body.clientHeight;
+   			this.innerWidth = document.body.clientWidth;
+   		}
+   		return this;
+       },
+       init: function(el) {
+           $(el).css("left",Math.round(viewport.o().innerWidth/2) + viewport.o().pageXOffset - Math.round($(el).width()/2));
+           $(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round($(el).height()/2));
+       }
+   };
 	$("##sPrefs").click(function(e){
 		var id=this.id;
 		var theDiv = document.createElement('div');
 		theDiv.id = 'helpDiv';
 		theDiv.className = 'helpBox';
 		theDiv.innerHTML='<span onclick="removeHelpDiv()" class="docControl">X</span>';
-
 		theDiv.innerHTML+='<label for="displayRows">Rows Per Page</label>';
 		theDiv.innerHTML+='<select name="displayRows" id="displayRows" onchange="changedisplayRows(this.value);" size="1"><option <cfif #session.displayRows# is "10"> selected </cfif> value="10">10</option><option  <cfif #session.displayRows# is "20"> selected </cfif> value="20" >20</option><option  <cfif #session.displayRows# is "50"> selected </cfif> value="50">50</option><option  <cfif #session.displayRows# is "100"> selected </cfif> value="100">100</option></select>';
 		var resultList=document.getElementById('resultList').value;
@@ -70,15 +67,12 @@ jQuery( function($) {
 		document.getElementById('displayRows').value=displayRows;
 		$("##helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 	});
-
 	$(".browseLink").live('click', function(e){
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
 		bgDiv.setAttribute('onclick','closeBrowse()');
 		document.body.appendChild(bgDiv);
-		
-		//alert('you clicked it');
 		var type=this.type;
 		var type=$(this).attr('type');
 		var dval=$(this).attr('dval');
@@ -87,46 +81,29 @@ jQuery( function($) {
 		theDiv.id = 'browseDiv';
 		theDiv.className = 'sscustomBox';
 		theDiv.style.position="absolute";
-		//theDiv.style.zIndex="5000";
 		ih='<span onclick="closeBrowse()" class="likeLink" style="position:absolute;top:0;right:0;color:red;">Close Window</span>';
 		ih+='<p>Search for ' + type + '....</p>'
 		ih+='<p>LIKE <a href="/SpecimenResults.cfm?' + type + '=' + dval + '"> ' + decodeURI(dval) + '</a></p>';
 		ih+='<p>IS <a href="/SpecimenResults.cfm?' + type + '==' + dval + '"> ' + decodeURI(dval) + '</a></p>';
 		theDiv.innerHTML=ih;
-	//theDiv.style.position='absolute';
-	//theDiv.style.top="50%";
-	//theDiv.style.left="50%";
 		document.body.appendChild(theDiv);
-		 //viewport.init(theDiv);
-viewport.init("##browseDiv");
-viewport.init("##bgDiv");
-		
-		//$("##browseDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
-		//var type=this.type;
-		//console.log(type);
+		viewport.init("##browseDiv");
+		viewport.init("##bgDiv");
 	});
-	
-	
-
 });
 function closeBrowse(){
 	var theDiv = document.getElementById('browseDiv');
 	document.body.removeChild(theDiv);
 	var theDiv = document.getElementById('bgDiv');
 	document.body.removeChild(theDiv);
-	
-	
 }
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {
 		$('##helpDiv').remove();
 	}
 }
-
 </script>
 </cfoutput>
-
-
 <div id="loading" class="status">
 	Page loading....
 </div>
@@ -155,8 +132,6 @@ function removeHelpDiv() {
 <cfif #action# contains ",">
 	<cfset action = #left(action,find(",",action)-1)#>
 </cfif>
-
-<!--- make sure session.resultColumnList has all the required stuff here --->
 <cfif not isdefined("session.resultColumnList")>
 	<cfset session.resultColumnList=''>
 </cfif>
@@ -166,43 +141,30 @@ function removeHelpDiv() {
 <cfquery name="reqd" dbtype="query">
 	select * from r_d where category='required'
 </cfquery>
-
 <cfloop query="reqd">
 	<cfif not ListContainsNoCase(session.resultColumnList,COLUMN_NAME)>
 		<cfset session.resultColumnList = ListAppend(session.resultColumnList, COLUMN_NAME)>
 	</cfif>
 </cfloop>
-
-
-<!---
-
----->
 <cfset basSelect = " SELECT distinct #flatTableName#.collection_object_id">
 <cfif len(#session.CustomOtherIdentifier#) gt 0>
-		<cfset basSelect = "#basSelect# 
-			,concatSingleOtherId(#flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
-			'#session.CustomOtherIdentifier#' as myCustomIdType,
-			to_number(ConcatSingleOtherIdInt(#flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
-	</cfif>
+	<cfset basSelect = "#basSelect# 
+		,concatSingleOtherId(#flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+		'#session.CustomOtherIdentifier#' as myCustomIdType,
+		to_number(ConcatSingleOtherIdInt(#flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#')) AS CustomIDInt">
+</cfif>
 <cfloop query="r_d">
 	<cfif left(column_name,1) is not "_" and (
 		ListContainsNoCase(session.resultColumnList,column_name) OR category is 'required')>
 		<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #column_name#">
 	</cfif>
 </cfloop>
-
-<!--- things that start with _ need special handling 
-they also need special handling at TAG:SORTRESULT (do find in this document)--->
-<!--- this special handling is how to add it to the select statement --->
 <cfif ListContainsNoCase(session.resultColumnList,"_elev_in_m")>
 	<cfset basSelect = "#basSelect#,min_elev_in_m,max_elev_in_m">
 </cfif>
 <cfif ListContainsNoCase(session.resultColumnList,"_original_elevation")>
 	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
 </cfif> 
-
-
-	
 	<cfset basFrom = " FROM #flatTableName#">
 	<cfset basJoin = "INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
 	<cfset basWhere = " WHERE #flatTableName#.collection_object_id IS NOT NULL ">	
@@ -337,8 +299,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 	<cfcatch></cfcatch>
 	</cftry>
 </cfif>
-
-
 <form name="controls">
 	<!--- keep stuff around for JS to get at --->
 	<input type="hidden" name="resultList" id="resultList" value="#resultList#">
@@ -364,15 +324,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 <cfif isdefined("transaction_id")>
 	<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">back to loan</a>
 </cfif>
-
 <table border="0">
 	<tr>
 		<td>
-		<!--- the function accepts:
-				startrow <- first record of the page we want to view
-				numRecs <- session.displayrows
-				orderBy < current values from dropdown
-		--->
 		<cfset numPages= ceiling(summary.recordcount/session.displayrows)>
 		<cfset loopTo=numPages-2>
 		<label for="page_record">Records...</label>
@@ -389,7 +343,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<!--- all records --->
 			<option value="1,#summary.recordcount#">1 - #summary.recordcount#</option>
 		</select>
-
 		</td>
 		<td nowrap="nowrap">
 			<label for="orderBy1">Primary Order</label>
@@ -402,8 +355,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 				<cfloop list="#resultList#" index="i">
 					<option <cfif #session.result_sort# is #i#>selected="selected" </cfif>value="#i#">#i#</option>
 				</cfloop>
-			</select>
-			
+			</select>			
 		</td>
 		<td>
 			<label for="orderBy2">Secondary Order</label>
