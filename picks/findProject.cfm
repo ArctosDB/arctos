@@ -1,11 +1,16 @@
 <cfinclude template="../includes/_pickHeader.cfm">
+	<cfoutput>
 <form name="p" method="post" action="findProject.cfm">
+	<input type="hidden" name="formName" value="#formName#">
+	<input type="hidden" name="projIdFld" value="#projIdFld#">
+	<input type="hidden" name="projNameFld" value="#projNameFld#">
 	<label for="project_name">Project Name</label>
 	<input type="text" name="project_name" id="project_name">
 	<input type="submit" value="search" class="lnkBtn">
 </form>
 
 	<!--- make sure we're searching for something --->
+	----------#len(project_name)#--
 	<cfif len(#project_name#) is 0>
 		<cfabort>
 	</cfif>
@@ -16,7 +21,7 @@
 		</cfquery>
 		
 	<cfif #getProj.recordcount# is 1>
-	<cfoutput>
+
 		<cfset thisName = #replace(getProj.project_name,"'","`","all")#>
 		<script>
 			opener.document.#formName#.#projIdFld#.value='#getProj.project_id#';
@@ -24,19 +29,16 @@
 			opener.document.#formName#.#projNameFld#.className='goodPick';
 			self.close();
 		</script>
-	 </cfoutput>
+
 	<cfelseif #getProj.recordcount# is 0>
-		<cfoutput>
-			Nothing matched #project_name#. <a href="javascript:void(0);" onClick="opener.document.#formName#.#projIdFld#.value='';opener.document.#formName#.#projNameFld#.value='';opener.document.#formName#.#projNameFld#.focus();self.close();">Try again.</a>
-		</cfoutput>
-		
+			Nothing matched #project_name#.
 	<cfelse>
-		<cfoutput query="getProj">
+		<cfloop query="getProj">
 		
 <br>
 <cfset thisName = #replace(getProj.project_name,"'","`","all")#>
 <a href="##" onClick="javascript: opener.document.#formName#.#projIdFld#.value='#project_id#';opener.document.#formName#.#projNameFld#.value='#thisName#';opener.document.#formName#.#projNameFld#.className='goodPick';self.close();">#project_name# (#project_id#)</a>
-	</cfoutput>
+	</cfloop>
 	</cfif>
-	
+		 </cfoutput>
 <cfinclude template="../includes/_pickFooter.cfm">
