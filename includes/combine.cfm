@@ -26,7 +26,7 @@ else
 	// not using JavaLoader (the jar files must be in the classpath)
 	variables.oCombine = createObject("component", "includes.cfc.combine").init(
 		enableCache: true,
-		cachePath: expandPath('example\cache'),
+		cachePath: expandPath('/includes/cache'),
 		enableETags: true,
 		enableJSMin: true,
 		enableYuiCSS: true,
