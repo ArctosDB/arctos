@@ -95,6 +95,8 @@
 	</div>
 	<h2>Description</h2>
 	#p.project_description#
+	
+	<!-----------
 	<h2>Publications</h2>
 	<cfquery name="pubs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
@@ -458,6 +460,7 @@
 			No Media is attached to this project.
 		</div>
 	</cfif>
+	------>
 </cfoutput>
 <cf_log cnt=1 coll=na>	 
 <cfinclude template = "includes/_footer.cfm">
