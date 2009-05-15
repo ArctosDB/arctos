@@ -74,6 +74,7 @@ catch(any e)
 	
 	<!--- Put any custom error handling here e.g. --->
 	<cfdump var="#cfcatch#" />
+	<cfdump var=#cfcatch#>
 	<cflog file="combine" text="Fault caught by 'combine'">
 	<cfabort />
 
