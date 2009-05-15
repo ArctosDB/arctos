@@ -8,12 +8,8 @@
     	<cflocation url="MediaSearch.cfm?action=search&relationship__1=cataloged_item&related_primary_key__1=#url.collection_object_id#" addtoken="false">
     </cfoutput>
 </cfif>
- <script src="/includes/combine.cfm?type=js&files=/includes/media.js" type="text/javascript"></script>
-
-
-
-<!---------------------------<script type='text/javascript' src='/includes/media.js'></script>
--------------------------------------------------------------->
+<script type='text/javascript' src='/includes/media.js'></script>
+<!----------------------------------------------------------------------------------------->
 <cfif #action# is "search">
 <cfoutput>
 <cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
