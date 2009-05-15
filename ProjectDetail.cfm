@@ -26,7 +26,7 @@
 		})
 	}
 	$(document).ready(function(){
-		var elemsToLoad='pubs,specUsed,specCont,projCont,projUseCont,media';
+		var elemsToLoad='pubs,specUsed,specCont,projCont,projUseCont,projMedia';
 		var elemAry = elemsToLoad.split(",");
 		for(var i=0; i<elemAry.length; i++){
 			load(elemAry[i]);
@@ -136,7 +136,7 @@
 		<h2>Projects using contributed specimens</h2>
 		<img src="/images/indicator.gif">
 	</div>
-	<div id="media">
+	<div id="projMedia">
 		<h2>Media</h2>
 		<img src="/images/indicator.gif">
 	</div>
