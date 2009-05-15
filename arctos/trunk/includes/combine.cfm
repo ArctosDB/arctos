@@ -23,7 +23,7 @@ else
 	// no cached version, or a forced reinit. Create a new instance.
 	
 	// not using JavaLoader (the jar files must be in the classpath)
-	variables.oCombine = createObject("component", "includes.cfc.combine").init(
+	variables.oCombine = createObject("component", "/includes.cfc.combine").init(
 		enableCache: true,
 		cachePath: expandPath('/includes/cache'),
 		enableETags: true,
