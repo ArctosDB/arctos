@@ -6,6 +6,21 @@
 	<cfabort>
 </cfif>
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
+	
+<script>
+	$(document).ready(function(){
+		var elemsToLoad='pubs';
+		var elemAry = elemsToLoad.split(",");
+		for(var i=0; i<elemAry.length; i++){
+			var e=elemAry[i];
+			var tab=document.getElementById(e);
+			var ptl="/includes/project/" + e + ".cfm?project_id=#project_id#";
+			$.get(ptl, function(data){
+				 $(tab).html(data);
+			})
+		}
+	});
+</script>	
 <style>
 	.proj_title {font-size:2em;font-weight:900;text-align:center;}
 	.proj_sponsor {font-size:1.5em;font-weight:800;text-align:center;}
@@ -100,21 +115,7 @@
 		<h2>Publications</h2>
 		<img src="/images/indicator.gif">
 	</div>
-	
-<script>
-	var elemsToLoad='pubs';
-	var elemAry = elemsToLoad.split(",");
-	for(var i=0; i<elemAry.length; i++){
-		var e=elemAry[i];
-		var tab=document.getElementById(e);
-		var ptl="/includes/project/" + e + ".cfm?project_id=#project_id#";
-		$.get(ptl, function(data){
-			 $(tab).html(data);
-		})
-	}
-		
 
-</script>	
 	<!-----------
 	
 	<h2>Specimens Used</h2>
