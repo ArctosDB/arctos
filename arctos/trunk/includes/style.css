@@ -478,14 +478,17 @@ redCheck{
 	float:right;
 	}
 .error {
-	position:relative;
+	position:absolute;
 	font-size:1.2em;
 	color:red;
 	border:2px solid red;
 	padding:.5em;
 	margin:10px;
+	text-align:center;
+	top:50%;
+	left:20%;
 	background-color:white;
-	z-index:999;}
+	z-index:20;}
 .status {
 	position:absolute;
 	top:50%;

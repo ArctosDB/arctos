@@ -1,4 +1,4 @@
-<cfinclude template="/includes/_pickHeader.cfm">
+<cfinclude template="/includes/_header.cfm">
 <cfoutput>
 
 	<cfset title="Citation Statistics">
@@ -96,4 +96,4 @@
 
 </cfoutput>
 
-<cfinclude template="/includes/_pickFooter.cfm">
+<cfinclude template="/includes/_footer.cfm">
