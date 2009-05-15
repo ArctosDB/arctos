@@ -16,18 +16,20 @@
 </style>
 <cfoutput>
 <script>
+	function load(name){
+		var el=document.getElementById(name);
+		var ptl="/includes/project/" + e + ".cfm?project_id=#project_id#";
+		console.log(e);
+		console.log(ptl);
+		$.get(ptl, function(data){
+			 $(el).html(data);
+		})
+	}
 	$(document).ready(function(){
 		var elemsToLoad='pubs,specUsed';
 		var elemAry = elemsToLoad.split(",");
 		for(var i=0; i<elemAry.length; i++){
-			var e=elemAry[i];
-			//tab=document.getElementById(e);
-			var ptl="/includes/project/" + e + ".cfm?project_id=#project_id#";
-			console.log(e);
-			console.log(ptl);
-			$.get(ptl, function(data){
-				 $('div##' + e).html(data);
-			})
+			load(elemAry[i]);
 		}
 	});
 </script>	
