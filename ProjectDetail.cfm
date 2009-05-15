@@ -23,10 +23,11 @@
 			var e=elemAry[i];
 			var tab=document.getElementById(e);
 			var ptl="/includes/project/" + e + ".cfm?project_id=#project_id#";
+			console.log(e);
+			console.log(ptl);
 			$.get(ptl, function(data){
 				 $(tab).html(data);
 			})
-			console.log(e);
 		}
 	});
 </script>	
