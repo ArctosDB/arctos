@@ -5,7 +5,7 @@
 
 	<cftry>
 	<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select 'dlm' agent_name from dual
+		select * from agent_name where upper(agent_name) like '#ucase(q)#%'
 	</cfquery>
 	<cfset ret=SerializeJSON(t)>
 	<cfreturn ret>
