@@ -11,7 +11,7 @@
 	</cfquery>
 	<cfreturn t>
 	<cfcatch>
-		<cfreturn cfcatch.detail>
+		<cfreturn parsejson(cfcatch.detail)>
 	</cfcatch>
 	</cftry>
 </cffunction>
