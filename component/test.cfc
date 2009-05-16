@@ -1,7 +1,7 @@
 <cfcomponent>
 
 <cffunction name="test" access="remote" returntype="any">
-   <cfargument name="q" type="String" required="false" default=""/>
+   <cfargument name="q" type="String" required="true" default=""/>
 	<cftry>
 	<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from agent where upper(agent_name) like '#ucase(q)%#'
