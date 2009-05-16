@@ -15,7 +15,7 @@ function test() {
 
 
  function GetWords(){
- $.getJSON(
+ $.get(
  // Invoke the TextUtility.cfc as a web service.
  // Be sure to include WSDL for web service.
  "/component/test.cfc",
