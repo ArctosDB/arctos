@@ -7,7 +7,8 @@
 	<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 'dlm' agent_name from dual
 	</cfquery>
-	<cfreturn t>
+	<cfset ret=SerializeJSON(t)>
+	<cfreturn ret>
 	<cfcatch>
 		<cfreturn cfcatch.detail>
 	</cfcatch>
