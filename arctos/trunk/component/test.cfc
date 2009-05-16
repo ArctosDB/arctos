@@ -1,6 +1,6 @@
 <cfcomponent>
 
-<cffunction name="test" access="remote" returntype="any">
+<cffunction name="test" access="remote">
    <cfargument name="q" type="String" required="true" default=""/>
 
 	<cftry>
