@@ -17,6 +17,7 @@
  {
  method : "test",
  q : $("##q").val(),
+  t : $("##t").val(),
  returnformat : "json",
  queryformat : 'column'
  },
