@@ -18,7 +18,7 @@ function test() {
  $.getJSON(
  // Invoke the TextUtility.cfc as a web service.
  // Be sure to include WSDL for web service.
- "/component/test.cfc?wsdl",
+ "/component/test.cfc",
   
  // Send the method name and the phrase that the
  // user has entered in the form.
