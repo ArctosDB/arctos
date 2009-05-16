@@ -16,7 +16,7 @@
  // user has entered in the form.
  {
  method : "test",
- q : (##q).val(),
+ q : $("##q").val(),
  returnformat : "json",
  queryformat : 'column'
  },
