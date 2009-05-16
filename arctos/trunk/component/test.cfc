@@ -1,11 +1,13 @@
 <cfcomponent>
 
 <cffunction name="test" access="remote">
-   <cfargument name="q" type="String" required="true" default=""/>
+   <cfargument name="q" type="String" required="false" default=""/>
+<cfargument name="t" type="String" required="false" default=""/>
 
 	<cftry>
 	<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from agent_name where upper(agent_name) like '#ucase(q)#%'
+		<cfif len(t) gt 0>and agent_name_type='#t#'</cfif>
 	</cfquery>
 	<cfreturn t>
 	<cfcatch>
