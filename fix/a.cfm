@@ -1,5 +1,15 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
+<cfajaxproxy cfc="component.test" jsclassname="myproxy">
+<script>
+var myCFC = new myproxy()
 
-<script src='/includes/combine.cfm?files=-CatAjax.js' type='text/javascript'></script>
+function test() {
+   result = myCFC.test('dusty')
+   console.log(result)
+}   
+</script>
+
+<button onclick="test()">test</button>
+
 </cfoutput>
