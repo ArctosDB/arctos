@@ -1,6 +1,6 @@
 <cfcomponent>
 
-<cffunction name="test" access="remote" returntype="json">
+<cffunction name="test" access="public" returntype="any">
    <cfargument name="q" type="String" required="true" default=""/>
 	<cftry>
 	<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
