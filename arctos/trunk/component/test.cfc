@@ -1,4 +1,18 @@
 <cfcomponent>
+
+<cffunction name="test" access="remote" returntype="any">
+   <cfargument name="q" type="String" required="false" default=""/>
+	<cftry>
+	<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from agent where upper(agent_name) like '#ucase(q)%#'
+	</cfquery>
+	<cfreturn t>
+	<cfcatch>
+		<cfreturn cfcatch.detail>
+	</cfcatch>
+	</cftry>
+</cffunction>
+
 <cffunction name="getNodes" access="remote" returntype="array">
    <cfargument name="path" type="String" required="false" default=""/>
    <cfargument name="value" type="String" required="true" default=""/>
