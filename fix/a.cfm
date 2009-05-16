@@ -52,6 +52,7 @@ function ShowProducts(qProducts){
 	
 		--->
 		q: <input type="text" id="q">
+				t: <input type="text" id="t">
 <button onclick="GetWords()">GetWords</button>
 <button onclick="test()">test</button>
 </cfoutput>
