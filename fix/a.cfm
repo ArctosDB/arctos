@@ -25,7 +25,7 @@ function test() {
  {
  method : "test",
  q : "gordon",
- returntype : "json"
+ returnformat : "json"
  },
   
  // When the JSON data has returned, fire this
