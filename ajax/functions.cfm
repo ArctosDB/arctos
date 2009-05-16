@@ -1,6 +1,6 @@
 <cfinclude template="/ajax/core/cfajax.cfm">
 <!------------------------------------>
-<cffunction name="agent_lookup" returntype="any">
+<cffunction name="agent_lookup" returntype="Any">
 	<cfargument name="agent_name" type="string" required="yes">
 	<cfargument name="v_f" type="string" required="yes">
 	<cfargument name="i_f" type="string" required="yes">
