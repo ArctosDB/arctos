@@ -3,16 +3,8 @@
 	
 	<script type='text/javascript' src='/includes/jquery/jquery.js'></script>	
 	
-<cfajaxproxy cfc="component.test" jsclassname="myproxy">
+
 <script>
-var myCFC = new myproxy()
-
-function test() {
-   result = myCFC.test('dusty')
-   console.log(result)
-}   
-
-
 
  function GetWords(){
  $.getJSON(
@@ -24,7 +16,7 @@ function test() {
  // user has entered in the form.
  {
  method : "test",
- q : "gordon",
+ q : "#q",
  returnformat : "json",
  queryformat : 'column'
  },
@@ -38,6 +30,28 @@ function test() {
 function ShowWords(r) {console.log(r)}
 </script>
 
+
+<!---
+
+function ShowProducts(qProducts){
+  // matches CF8 implementation of JSON...
+  // example: 
+  // {"ROWCOUNT":2,"COLUMNS":["ID","TITLE"],"DATA":{"id":[1,2],"title":["AAA","BBB"]}}
+  if (qProducts.ROWCOUNT==0) {
+    alert('Sorry, no matches found');
+  }
+  else {
+    for (var i=0; i<qProducts.ROWCOUNT; i++) {
+      // loop through JSON recordset...
+      // we can reference the fields like this...
+      nId = qProducts.DATA.id[i];
+      sTitle = qProducts.DATA.title[i];
+    }
+  }
+}
+	
+		--->
+		q: <input type="text" id="q">
 <button onclick="GetWords()">GetWords</button>
 <button onclick="test()">test</button>
 </cfoutput>
