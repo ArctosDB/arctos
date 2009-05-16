@@ -16,7 +16,7 @@
  // user has entered in the form.
  {
  method : "test",
- q : "#q",
+ q : "##q",
  returnformat : "json",
  queryformat : 'column'
  },
