@@ -24,7 +24,8 @@ function test() {
  // user has entered in the form.
  {
  method : "test",
- q : "gordon"
+ q : "gordon",
+ returntype : "json"
  },
   
  // When the JSON data has returned, fire this
