@@ -8,11 +8,6 @@
   ] 
 } 
 
- {"page":"1","total":2,"records":"13", 
-"rows":[ 
-{id:"12345",name:"Desktop Computers",email:"josh@josh.com",item:{price:"1000.72", 
-weight:"1.22"},note:"note",stock:"0",ship:"1"}, 
-Retrieving Data       jqGrid 
  
 {id:"23456",name:"<var>laptop</var>",note:"Long text ",stock:"yes",item:{price:"56.72", 
 weight:"1.22"},ship:"2"}, 
