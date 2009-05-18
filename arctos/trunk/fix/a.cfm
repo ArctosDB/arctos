@@ -27,7 +27,7 @@ jQuery("#rowed5").jqGrid({
 	 		jQuery('#rowed5').restoreRow(lastsel2); jQuery('#rowed5').editRow(id,true); lastsel2=id; 
 	 		} 
 	 	}, 
-	 	editurl: "server.php", 
+	 	editurl: "/fix/data.cfm", 
 	 	caption: "Input Types" }); 
 	 	var mydata2 = [ 
 	 		{id:"12345",name:"Desktop Computer",note:"note",stock:"Yes",ship:"FedEx"}, 
