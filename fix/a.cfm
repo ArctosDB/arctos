@@ -1,11 +1,13 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 	
-<script type='text/javascript' src='/includes/jquery/jquery.js'></script>
+
 <link rel="stylesheet" type="text/css" media="screen" href="/includes/jquery/jqGrid/themes/basic/grid.css" /> 
 <link rel="stylesheet" type="text/css" media="screen" href="/includes/jquery/jqGrid/themes/jqModal.css" /> 
-<script src="/includes/jquery/jquery.js" type="text/javascript"></script> 
+
+<script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script src="/includes/jquery/jqGrid/jquery.jqGrid.js" type="text/javascript"></script> 
+
 <script src="/includes/jquery/jqGrid/js/jqModal.js" type="text/javascript"></script> 
 <script src="/includes/jquery/jqGrid/js/jqDnR.js" type="text/javascript"></script> 
 <script type="text/javascript"> 
