@@ -1,0 +1,6 @@
+/*
+org: 'http://www.JSON.org',
+    copyright: '(c)2005 JSON.org',
+    license: 'http://www.crockford.com/JSON/license.html',
+*/
+var JSON={stringify:function stringify(c){var a,d,f,b='',e;switch(typeof c){case'object':if(c){if(c.constructor==Array){for(d=0;d<c.length;++d){e=stringify(c[d]);if(b){b+=','}b+=e}return'['+b+']'}else if(typeof c.toString!='undefined'){for(d in c){e=stringify(c[d]);if(typeof e!='function'){if(b){b+=','}b+=stringify(d)+':'+e}}return'{'+b+'}'}}return'null';case'number':return isFinite(c)?String(c):'null';case'string':f=c.length;b='"';for(d=0;d<f;d+=1){a=c.charAt(d);if(a>=' '){if(a=='\\'||a=='"'){b+='\\'}b+=a}else{switch(a){case'\b':b+='\\b';break;case'\f':b+='\\f';break;case'\n':b+='\\n';break;case'\r':b+='\\r';break;case'\t':b+='\\t';break;default:a=a.charCodeAt();b+='\\u00'+Math.floor(a/16).toString(16)+(a%16).toString(16)}}}return b+'"';case'boolean':return String(c);case'function':return c.toString();default:return'null'}},parse:function(c){var a=c;if(a.substr(0,9)=="while(1);"){a=a.substr(9)}if(a.substr(0,2)=="/*"){a=a.substr(2,a.length-4)}return eval('('+a+')')}}
