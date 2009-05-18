@@ -1473,5 +1473,4 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 	</td><!--- end right half of table --->
 </table>
 </form>
-</cfoutput> 	
-<cf_customizeIFrame>
+</cfoutput>
