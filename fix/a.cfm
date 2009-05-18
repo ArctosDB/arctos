@@ -27,18 +27,11 @@ true,formatter:'checkbox',edittype:"checkbox"},
    {name:'ship',label:'Ship Via',width:90, editable: true,formatter:'select', edittype:"select",            
 editoptions:{value:"2:FedEx;1:InTime;3:TNT;4:ARK;5:ARAMEX"}},       
    {name:'note',label:'Notes', width:100, sortable:false,editable: true,edittype:"textarea", 
-editoptions:{rows:"2",cols:"20"}}       
-
-   
+editoptions:{rows:"2",cols:"20"}} 
+],
    
     colNames:['Inv No','Date', 'Amount','Tax','Total','Notes'], 
-    colModel :[  
-      {name:'invid', index:'invid', width:55},  
-      {name:'invdate', index:'invdate', width:90},  
-      {name:'amount', index:'amount', width:80, align:'right'},  
-      {name:'tax', index:'tax', width:80, align:'right'},  
-      {name:'total', index:'total', width:80, align:'right'},  
-      {name:'note', index:'note', width:150, sortable:false} ], 
+   
     pager: jQuery('##pager'), 
     rowNum:10, 
     rowList:[10,20,30], 
