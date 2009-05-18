@@ -3,9 +3,9 @@
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/annotate.js'></script>
 <script language="javascript" type="text/javascript">
-	function switchIFrame(name){
+	function loadSpecDetailContent(name,cid){
 		var el=document.getElementById('sDetBodyDiv');
-		var ptl="/includes/SpecDetail/" + name + ".cfm?collection_object_id=#collection_object_id#";
+		var ptl="/includes/SpecDetail/" + name + ".cfm?collection_object_id=" + cid;
 		$.get(ptl, function(data){
 			 $(el).html(data);
 		})
@@ -448,7 +448,7 @@
 								<img src="/images/no_previous.gif" />
 							</cfif>
 			                <li>
-								<span onclick="switchIFrame('SpecimenDetail_body')"
+								<span onclick="loadSpecDetailContent('SpecimenDetail_body','#collection_object_id#')"
 									class="likeLink active" id="SpecimenDetail_bodySpan">Main</span>
 							</li>
 							<li>
