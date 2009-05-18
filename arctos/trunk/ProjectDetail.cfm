@@ -19,8 +19,6 @@
 	function load(name){
 		var el=document.getElementById(name);
 		var ptl="/includes/project/" + name + ".cfm?project_id=#project_id#";
-		console.log(name);
-		console.log(ptl);
 		$.get(ptl, function(data){
 			 $(el).html(data);
 		})
