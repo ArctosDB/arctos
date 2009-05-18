@@ -3,9 +3,13 @@
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/annotate.js'></script>
 <script language="javascript" type="text/javascript">
-	function loadSpecDetailContent(name,cid){
+	$(document).ready(function(){
+		loadSpecDetailContent('SpecimenDetail_body')
+	});
+	function loadSpecDetailContent(name){
+		var theCollectionObjectId=$("#theCollectionObjectId").val();
 		var el=document.getElementById('sDetBodyDiv');
-		var ptl="/includes/SpecDetail/" + name + ".cfm?collection_object_id=" + cid;
+		var ptl="/includes/SpecDetail/" + name + ".cfm?collection_object_id=" + theCollectionObjectId;
 		$.get(ptl, function(data){
 			 $(el).html(data);
 		})
@@ -126,6 +130,7 @@
 	#preservesinglequotes(detSelect)#
 </cfquery>
 <cfoutput>
+<input type="hidden" id="theCollectionObjectId" value="##">
 <cfif detail.recordcount lt 1>
 	<div class="error">
 		Oops! No specimen was found for that URL.
@@ -448,15 +453,15 @@
 								<img src="/images/no_previous.gif" />
 							</cfif>
 			                <li>
-								<span onclick="loadSpecDetailContent('SpecimenDetail_body','#collection_object_id#')"
+								<span onclick="loadSpecDetailContent('SpecimenDetail_body')"
 									class="likeLink active" id="SpecimenDetail_bodySpan">Main</span>
 							</li>
 							<li>
-								<span onclick="switchIFrame('editIdentification')"
+								<span onclick="loadSpecDetailContent('editIdentification')"
 									class="likeLink" id="editIdentificationSpan">Taxa</span>
 							</li>
 							<li>
-								<span onclick="switchIFrame('addAccn')"
+								<span onclick="loadSpecDetailContent('addAccn')"
 									class="likeLink" id="addAccnSpan">Accn</span>
 							</li>
 							<li>
