@@ -131,7 +131,7 @@
 	#preservesinglequotes(detSelect)#
 </cfquery>
 <cfoutput>
-<input type="hidden" id="theCollectionObjectId" value="##">
+<input type="hidden" id="theCollectionObjectId" value="#collection_object_id#">
 <cfif detail.recordcount lt 1>
 	<div class="error">
 		Oops! No specimen was found for that URL.
