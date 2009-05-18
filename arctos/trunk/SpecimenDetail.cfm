@@ -11,7 +11,7 @@
 		console.log('theCollectionObjectId: ' + theCollectionObjectId)
 		var el=document.getElementById('sDetBodyDiv');
 		var ptl="/includes/SpecDetail/" + name + ".cfm?collection_object_id=" + theCollectionObjectId;
-		$.get(ptl, function(data){
+		jQuery.get(ptl, function(data){
 			 $(el).html(data);
 		})
 	}
