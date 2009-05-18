@@ -166,11 +166,24 @@ function showHide(id,onOff) {
 			ctl.innerHTML='Show More Options';
 		} 
 		// see if we can save it to their preferences
-		DWREngine._execute(_cfscriptLocation, null, 'saveSpecSrchPref', id, onOff, saveComplete);
+		$.getJSON("/component/functions.cfc",
+  			{
+ 				method : "saveSpecSrchPref",
+ 				id : id,
+  				onOff : onOff,
+ 				returnformat : "json",
+ 				queryformat : 'column'
+ 			},
+  			saveComplete
+ 		);
+
+		//DWREngine._execute(_cfscriptLocation, null, 'saveSpecSrchPref', id, onOff, saveComplete);
 	}
 }
 
 function saveComplete(savedStr){
+	console.log(savedStr);
+	
 	var savedArray = savedStr.split(",");
 	var result = savedArray[0];
 	var id = savedArray[1];

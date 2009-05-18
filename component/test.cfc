@@ -11,7 +11,7 @@
 	</cfquery>
 	<cfreturn t>
 	<cfcatch>
-		<cfreturn SerializeJSON(cfcatch)>
+		<cfreturn cfcatch.detail>
 	</cfcatch>
 	</cftry>
 </cffunction>
