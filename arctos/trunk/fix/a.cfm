@@ -21,7 +21,7 @@ jQuery("#rowed5").jqGrid({
 	{name:'stock',index:'stock', width:60, editable: true,edittype:"checkbox",editoptions: {value:"Yes:No"}},
 	 {name:'ship',index:'ship', width:90, editable: true,edittype:"select",editoptions:{value:"FE:FedEx;IN:InTime;TN:TNT;AR:ARAMEX"}}, 
 	 {name:'note',index:'note', width:200, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}} ], 
-	 imgpath: gridimgpath, 
+	 imgpath: 'themes/basic/images', 
 	 onSelectRow: function(id){ 
 	 	if(id && id!==lastsel2){ 
 	 		jQuery('#rowed5').restoreRow(lastsel2); jQuery('#rowed5').editRow(id,true); lastsel2=id; 
