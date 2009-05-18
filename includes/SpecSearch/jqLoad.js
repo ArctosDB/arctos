@@ -257,15 +257,14 @@ function customizeIdentifiers() {
 }
 function changeshowObservations (tgt) {
 	$.getJSON("/component/functions.cfc",
-  			{
- 				method : "changeshowObservations",
- 				tgt : tgt,
- 				returnformat : "json",
- 				queryformat : 'column'
- 			},
-  			success_changeshowObservations
- 		);
-	//DWREngine._execute(_cfscriptLocation, null, 'changeshowObservations',tgt, success_changeshowObservations);
+		{
+			method : "changeshowObservations",
+			tgt : tgt,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_changeshowObservations
+	);
 }
 function success_changeshowObservations (result) {
 	if (result != 'success') {
