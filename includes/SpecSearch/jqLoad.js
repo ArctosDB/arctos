@@ -183,7 +183,7 @@ function showHide(id,onOff) {
 }
 
 function saveComplete(savedStr){
-	console.log('im saveComplete);
+	console.log('im saveComplete');
 	console.log(savedStr);
 	
 	var savedArray = savedStr.split(",");
