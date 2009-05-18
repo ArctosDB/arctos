@@ -14,7 +14,7 @@
 <script src="/includes/jquery/jqGrid/js/jqDnR.js" type="text/javascript"></script> 
 <script type="text/javascript"> 
 jQuery(document).ready(function(){  
-  jQuery("#list").jqGrid({ 
+  jQuery("##list").jqGrid({ 
     url:'example.php', 
     datatype: 'xml', 
     mtype: 'GET', 
