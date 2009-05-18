@@ -19,17 +19,10 @@ jQuery(document).ready(function(){
    colModel:[ 
    {name:'name',label:'Name', width:150,editable: true}, 
    {name:'id',width:50, sorttype:"int", editable: true}, 
-   {name:'email',label:'Email', width:150,editable: true,formatter:'email'}, 
-   {name:'stock',label:'Stock', width:60, align:"center", editable: true,formatter:'checkbox',edittype:"checkbox"}, 
-   {name:'item.price',label:'Price', width:100, align:"right", editable: true,formatter:'currency'}, 
-   {name:'item.weight',label:'Weight',width:60, align:"right", editable: true,formatter:'number'}, 
-   {name:'ship',label:'Ship Via',width:90, editable: true,formatter:'select', edittype:"select",            
-editoptions:{value:"2:FedEx;1:InTime;3:TNT;4:ARK;5:ARAMEX"}},       
-   {name:'note',label:'Notes', width:100, sortable:false,editable: true,edittype:"textarea", 
-editoptions:{rows:"2",cols:"20"}} 
+   {name:'note',label:'Notes', width:100, sortable:false,editable: true} 
 ],
    
-    colNames:['name','id', 'email','stock','Total','item.price','item.weight','ship'], 
+    colNames:['name','id','stock'], 
    
     pager: jQuery('##pager'), 
     rowNum:10, 
