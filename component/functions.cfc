@@ -1,4 +1,27 @@
 <cfcomponent>
+<!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="changeshowObservations" access="remote">
+	<cfargument name="tgt" type="string" required="yes">
+	<cfif #tgt# is "true">
+		<cfset t = 1>
+	<cfelse>
+		<cfset t = 0>
+	</cfif>
+	<cftry>
+		<cfquery name="up" datasource="cf_dbuser">
+			UPDATE cf_users SET
+				showObservations = #t#
+			WHERE username = '#session.username#'
+		</cfquery>
+		<cfset session.showObservations = "#t#">
+		<cfset result="success">
+		<cfcatch>
+			<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
+		</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="saveSpecSrchPref" access="remote">
 	<cfargument name="id" type="string" required="yes">
 	<cfargument name="onOff" type="numeric" required="yes">
