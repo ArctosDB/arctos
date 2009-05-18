@@ -7,7 +7,7 @@
 		loadSpecDetailContent('SpecimenDetail_body')
 	});
 	function loadSpecDetailContent(name){
-		var theCollectionObjectId=$("#theCollectionObjectId").val();
+		var theCollectionObjectId=document.getElementById('theCollectionObjectId').value;
 		console.log('theCollectionObjectId: ' + theCollectionObjectId)
 		var el=document.getElementById('sDetBodyDiv');
 		var ptl="/includes/SpecDetail/" + name + ".cfm?collection_object_id=" + theCollectionObjectId;
