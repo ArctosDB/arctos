@@ -164,9 +164,7 @@ function showHide(id,onOff) {
 			tab.innerHTML='';
 			ctl.setAttribute("onclick","showHide('" + id + "',1)");
 			ctl.innerHTML='Show More Options';
-		} 
-		// see if we can save it to their preferences
-		console.log('setting prefs');
+		}
 		$.getJSON("/component/functions.cfc",
   			{
  				method : "saveSpecSrchPref",
@@ -177,24 +175,18 @@ function showHide(id,onOff) {
  			},
   			saveComplete
  		);
-
-		//DWREngine._execute(_cfscriptLocation, null, 'saveSpecSrchPref', id, onOff, saveComplete);
 	}
 }
-
 function saveComplete(savedStr){
-	console.log('im saveComplete');
-	console.log(savedStr);
-	
 	var savedArray = savedStr.split(",");
 	var result = savedArray[0];
 	var id = savedArray[1];
 	var onOff = savedArray[2];
-	if (result == "cookie") { //need to add id to cookie
+	if (result == "cookie") {
 		var cookieArray = new Array();
 		var cCookie = readCookie("specsrchprefs");
 		var idFound = -1;
-		if (cCookie != null) // cookie for specsrchprefs exists already
+		if (cCookie != null)
 		{
 			cookieArray = cCookie.split(","); // turn cookie string to array
 			for (i = 0; i<cookieArray.length; i++) { // see if id already exists
@@ -238,8 +230,6 @@ function readCookie(name) {
 	}
 	return null;
 }
-
-
 function multi (id){
 	alert('mult');
 	var id=document.getElementById(id);
@@ -266,7 +256,16 @@ function customizeIdentifiers() {
 		$(theDiv).css({position:"absolute", top: data.pageY, left: data.pageX});
 }
 function changeshowObservations (tgt) {
-	DWREngine._execute(_cfscriptLocation, null, 'changeshowObservations',tgt, success_changeshowObservations);
+	$.getJSON("/component/functions.cfc",
+  			{
+ 				method : "changeshowObservations",
+ 				tgt : tgt,
+ 				returnformat : "json",
+ 				queryformat : 'column'
+ 			},
+  			success_changeshowObservations
+ 		);
+	//DWREngine._execute(_cfscriptLocation, null, 'changeshowObservations',tgt, success_changeshowObservations);
 }
 function success_changeshowObservations (result) {
 	if (result != 'success') {
