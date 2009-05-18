@@ -13,8 +13,8 @@
 <script type="text/javascript"> 
 jQuery(document).ready(function(){  
   jQuery("##list").jqGrid({ 
-    url:'example.php', 
-    datatype: 'xml', 
+    url:'/fix/data.cfm', 
+    datatype: 'json', 
     mtype: 'GET', 
     colNames:['Inv No','Date', 'Amount','Tax','Total','Notes'], 
     colModel :[  
