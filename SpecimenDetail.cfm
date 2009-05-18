@@ -3,16 +3,13 @@
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/annotate.js'></script>
 <script language="javascript" type="text/javascript">
-	function load(name){
-		var el=document.getElementById(name);
-		var ptl="/includes/specDetail/" + name + ".cfm?project_id=#project_id#";
-		console.log(name);
-		console.log(ptl);
+	function switchIFrame(name){
+		var el=document.getElementById('sDetBodyDiv');
+		var ptl="/includes/SpecDetail/" + name + ".cfm?collection_object_id=#collection_object_id#";
 		$.get(ptl, function(data){
 			 $(el).html(data);
 		})
 	}
-	sDetBodyDiv
 </script>
 
 <cfif isdefined("collection_object_id")>
