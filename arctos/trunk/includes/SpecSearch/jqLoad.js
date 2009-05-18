@@ -166,6 +166,7 @@ function showHide(id,onOff) {
 			ctl.innerHTML='Show More Options';
 		} 
 		// see if we can save it to their preferences
+		console.log('setting prefs');
 		$.getJSON("/component/functions.cfc",
   			{
  				method : "saveSpecSrchPref",
@@ -182,6 +183,7 @@ function showHide(id,onOff) {
 }
 
 function saveComplete(savedStr){
+	console.log('im saveComplete);
 	console.log(savedStr);
 	
 	var savedArray = savedStr.split(",");
