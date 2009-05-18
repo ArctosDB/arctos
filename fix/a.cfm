@@ -11,7 +11,7 @@
 <script src="/includes/jquery/jqGrid/js/jqModal.js" type="text/javascript"></script> 
 <script src="/includes/jquery/jqGrid/js/jqDnR.js" type="text/javascript"></script> 
 <script type="text/javascript"> 
-jQuery("#list2").jqGrid({
+jQuery("#list").jqGrid({
    	url:'/fix/data.cfm',
 	datatype: "json",
    	colNames:['Inv No','Date', 'Client', 'Amount','Tax','Total','Notes'],
@@ -27,12 +27,12 @@ jQuery("#list2").jqGrid({
    	rowNum:10,
    	rowList:[10,20,30],
    	   	imgpath: 'themes/basic/images',
-   	pager: jQuery('#pager2'),
+   	pager: jQuery('#pager'),
    	sortname: 'id',
     viewrecords: true,
     sortorder: "desc",
     caption:"JSON Example"
-}).navGrid('#pager2',{edit:false,add:false,del:false});
+}).navGrid('#pager',{edit:false,add:false,del:false});
  
 </script> 
 
