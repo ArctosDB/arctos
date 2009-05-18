@@ -18,7 +18,7 @@ jQuery(document).ready(function(){
     mtype: 'GET', 
    colModel:[ 
    {name:'name',label:'Name', width:150,editable: true}, 
-   {name:'id',width:50, sorttype:"int", editable: true,formatter:strongFmatter}, 
+   {name:'id',width:50, sorttype:"int", editable: true,formatter:'strongFmatter'}, 
    {name:'email',label:'Email', width:150,editable: true,formatter:'email'}, 
    {name:'stock',label:'Stock', width:60, align:"center", editable: 
 true,formatter:'checkbox',edittype:"checkbox"}, 
