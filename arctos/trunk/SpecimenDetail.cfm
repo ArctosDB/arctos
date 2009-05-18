@@ -2,6 +2,8 @@
 <link rel="stylesheet" type="text/css" href="/includes/annotate.css">
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/annotate.js'></script>
+<<<<<<< .mine
+=======
 <script language="javascript" type="text/javascript">
 	$(document).ready(function(){
 		loadSpecDetailContent('SpecimenDetail_body')
@@ -17,6 +19,7 @@
 	}
 </script>
 
+>>>>>>> .r8559
 <cfif isdefined("collection_object_id")>
 	<cfoutput>
 		<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
