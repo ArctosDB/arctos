@@ -26,12 +26,12 @@ jQuery("#list2").jqGrid({
    	],
    	rowNum:10,
    	rowList:[10,20,30],
-   	imgpath: gridimgpath,
    	pager: jQuery('#pager2'),
    	sortname: 'id',
     viewrecords: true,
     sortorder: "desc",
-    caption:"JSON Example"
+    caption:"JSON Example",
+    imgpath: 'themes/basic/images'
 }).navGrid('#pager2',{edit:false,add:false,del:false});
  
 </script> 
