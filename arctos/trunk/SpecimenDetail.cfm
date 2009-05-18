@@ -1,25 +1,6 @@
 <cfinclude template="/includes/_header.cfm">	
 <link rel="stylesheet" type="text/css" href="/includes/annotate.css">
-<script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/annotate.js'></script>
-<<<<<<< .mine
-=======
-<script language="javascript" type="text/javascript">
-	$(document).ready(function(){
-		loadSpecDetailContent('SpecimenDetail_body')
-	});
-	function loadSpecDetailContent(name){
-		var theCollectionObjectId=document.getElementById('theCollectionObjectId').value;
-		console.log('theCollectionObjectId: ' + theCollectionObjectId)
-		var el=document.getElementById('sDetBodyDiv');
-		var ptl="/includes/SpecDetail/" + name + ".cfm?collection_object_id=" + theCollectionObjectId;
-		jQuery.get(ptl, function(data){
-			 $(el).html(data);
-		})
-	}
-</script>
-
->>>>>>> .r8559
 <cfif isdefined("collection_object_id")>
 	<cfoutput>
 		<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
@@ -134,7 +115,6 @@
 	#preservesinglequotes(detSelect)#
 </cfquery>
 <cfoutput>
-<input type="hidden" id="theCollectionObjectId" value="#collection_object_id#">
 <cfif detail.recordcount lt 1>
 	<div class="error">
 		Oops! No specimen was found for that URL.
@@ -152,9 +132,6 @@
 <cfset title="#detail.collection# #detail.cat_num#">
 <cfset metaDesc="#detail.collection# #detail.cat_num# (#guid#); #detail.scientific_name#; #detail.higher_geog#; #detail.spec_locality#">
 <cf_customizeHeader collection_id=#detail.collection_id#>
-
-
-<!----
 <script type="text/javascript" language="javascript">
 	/***********************************************
 	* IFrame SSI script- © Dynamic Drive DHTML code library (http://www.dynamicdrive.com)
@@ -217,8 +194,7 @@
 			var enc = document.getElementById("EncumbrancesSpan");
 			var cce = document.getElementById("changeCollEventSpan");
 			var cspan = document.getElementById("catalogSpan");
-			var slspan = document.getElementById("specLocalitySpan");
-			
+			var slspan = document.getElementById("specLocalitySpan");		
 			ms.className = 'likeLink';
 			ids.className = 'likeLink';
 			cev.className = 'likeLink';
@@ -243,7 +219,9 @@
 			dyniframesize();
 	}
 </script>
----->
+<!---
+<div style="background-color:blue;">
+	--->
     </cfoutput>
 	<cfoutput query="detail" group="cat_num">
 	    <cfset hg="">
@@ -457,15 +435,15 @@
 								<img src="/images/no_previous.gif" />
 							</cfif>
 			                <li>
-								<span onclick="loadSpecDetailContent('SpecimenDetail_body')"
+								<span onclick="switchIFrame('SpecimenDetail_body')"
 									class="likeLink active" id="SpecimenDetail_bodySpan">Main</span>
 							</li>
 							<li>
-								<span onclick="loadSpecDetailContent('editIdentification')"
+								<span onclick="switchIFrame('editIdentification')"
 									class="likeLink" id="editIdentificationSpan">Taxa</span>
 							</li>
 							<li>
-								<span onclick="loadSpecDetailContent('addAccn')"
+								<span onclick="switchIFrame('addAccn')"
 									class="likeLink" id="addAccnSpan">Accn</span>
 							</li>
 							<li>
@@ -529,15 +507,13 @@
 	<table width="100%">
 		<tr>
 			<td>
-				<div id="sDetBodyDiv">
-					<!----
+				<div id="fHolder">
 					<iframe class="thisFrame" 
 						style="border:none;width:100%;"
                         id="theFrame" 
 						name="theFrame" 
 						src="/SpecimenDetail_body.cfm?collection_object_id=#collection_object_id#">
 					</iframe>
-					----->
 				</div>
 			</td>
 		</tr>
