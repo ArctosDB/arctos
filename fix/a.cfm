@@ -26,7 +26,7 @@ jQuery(document).ready(function(){
       {name:'tax', index:'tax', width:80, align:'right'},  
       {name:'total', index:'total', width:80, align:'right'},  
       {name:'note', index:'note', width:150, sortable:false} ], 
-    pager: jQuery('#pager'), 
+    pager: jQuery('##pager'), 
     rowNum:10, 
     rowList:[10,20,30], 
     sortname: 'id', 
