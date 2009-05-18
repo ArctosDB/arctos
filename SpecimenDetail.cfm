@@ -1,6 +1,20 @@
 <cfinclude template="/includes/_header.cfm">	
 <link rel="stylesheet" type="text/css" href="/includes/annotate.css">
+<script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/annotate.js'></script>
+<script language="javascript" type="text/javascript">
+	function load(name){
+		var el=document.getElementById(name);
+		var ptl="/includes/specDetail/" + name + ".cfm?project_id=#project_id#";
+		console.log(name);
+		console.log(ptl);
+		$.get(ptl, function(data){
+			 $(el).html(data);
+		})
+	}
+	sDetBodyDiv
+</script>
+
 <cfif isdefined("collection_object_id")>
 	<cfoutput>
 		<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
@@ -132,6 +146,9 @@
 <cfset title="#detail.collection# #detail.cat_num#">
 <cfset metaDesc="#detail.collection# #detail.cat_num# (#guid#); #detail.scientific_name#; #detail.higher_geog#; #detail.spec_locality#">
 <cf_customizeHeader collection_id=#detail.collection_id#>
+
+
+<!----
 <script type="text/javascript" language="javascript">
 	/***********************************************
 	* IFrame SSI script- © Dynamic Drive DHTML code library (http://www.dynamicdrive.com)
@@ -220,9 +237,7 @@
 			dyniframesize();
 	}
 </script>
-<!---
-<div style="background-color:blue;">
-	--->
+---->
     </cfoutput>
 	<cfoutput query="detail" group="cat_num">
 	    <cfset hg="">
@@ -508,13 +523,15 @@
 	<table width="100%">
 		<tr>
 			<td>
-				<div id="fHolder">
+				<div id="sDetBodyDiv">
+					<!----
 					<iframe class="thisFrame" 
 						style="border:none;width:100%;"
                         id="theFrame" 
 						name="theFrame" 
 						src="/SpecimenDetail_body.cfm?collection_object_id=#collection_object_id#">
 					</iframe>
+					----->
 				</div>
 			</td>
 		</tr>
