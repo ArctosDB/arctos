@@ -949,7 +949,8 @@
 	<cfset colIdAr = ArrayNew(1)>
 	<cfset pAr = ArrayNew(1)>
 	<cfset sexAr = ArrayNew(1)>
-		
+	
+	<cfset excludeList = "">
 	<!--- Data Manipulation --->
 	<cfset i = 1>
 	<cfloop query="q">
@@ -1008,6 +1009,7 @@
 			<cfset foundSkin = 0>
 			<cfset foundSkull = 0>
 			<cfset foundTissue = 0>
+			<cfset index = 0>
 			<cfloop list="#parts#" delimiters=";" index="p">
 				<cfset tissueP = find("tissue", p)>
 				<cfset skullP = find("skull", p)>
@@ -1036,12 +1038,28 @@
 				<cfset newParts = "+#newParts#">
 			<cfelseif foundSkull is 1 and foundSkin is 0 and len(newParts) is 0>
 				<cfset newParts = "skull">
-			</cfif>
-			
-				
+			<cfelse if foundSkull is 1 and foundSkin is 0 and len(newParts) is not 0>
+				<cfset tempIndex = 0>
+				<cfset tempNewParts = "">
+				<cfloop list="#newParts#" delimiters=";" index="p" >
+					<cfif tempIndex is index>
+						<cfif len(tempNewParts) is 0>
+							<cfset tempNewParts = "#tempNewParts#; skull; #p#">
+						<cfelse>
+							<cfset tempNewParts = "skull; #p#">
+						</cfif>
+					<cfelse>
+						<cfset tempNewParts = "#tempNewParts#; #p#">
+					</cfif>
+				</cfloop>
+				<cfset newParts = tempNewParts>
+			</cfif>				
 		</cfif>
 		
 		<cfset pAr[i] = "#newParts#">
+		<cfif len(newParts) is 0>
+			listAppend(excludeList, "#catnum#")
+		</cfif>
 		
 		<!--- Sex --->
 		<cfset formatted_sex = "#sex#">
@@ -1061,5 +1079,12 @@
 	<cfset temp = queryAddColumn(q, "agent_id", "VarChar", colIdAr)>
 	<cfset temp = queryAddColumn(q, "formatted_parts", "VarChar", pAr)>
 	<cfset temp = queryAddcolumn(q, "formatted_sex", "VarChar", sexAr)>
+	
+	<cfquery name = "finalQ" dbtype = "query">
+		SELECT * 
+		FROM q
+		WHERE cat_num NOT IN #excludeList#
+	</cfquery>
+	
 	<cfreturn q>
 </cffunction>
