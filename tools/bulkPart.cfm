@@ -189,7 +189,6 @@
 							VALUES (sq_collection_object_id.currval, '#thisRemark#')
 						</cfquery>
 					</cfif>
-					<cfset thisPartId = thisPartId + 1>
 				</cfif>			
 			</cfloop>
 		</cfloop>
