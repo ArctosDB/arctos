@@ -1038,7 +1038,7 @@
 				<cfset newParts = "+#newParts#">
 			<cfelseif foundSkull is 1 and foundSkin is 0 and len(newParts) is 0>
 				<cfset newParts = "skull">
-			<cfelse if foundSkull is 1 and foundSkin is 0 and len(newParts) is not 0>
+			<cfelseif foundSkull is 1 and foundSkin is 0 and len(newParts) is not 0>
 				<cfset tempIndex = 0>
 				<cfset tempNewParts = "">
 				<cfloop list="#newParts#" delimiters=";" index="p" >
