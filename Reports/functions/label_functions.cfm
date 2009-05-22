@@ -1087,7 +1087,7 @@
 	<cfquery name = "finalQ" dbtype = "query">
 		SELECT * 
 		FROM q
-		WHERE cat_num NOT IN #excludeList#
+		WHERE cat_num NOT IN "(#excludeList#)"
 	</cfquery>
 	
 	<cfreturn q>
