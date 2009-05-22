@@ -44,10 +44,10 @@
 <!--- max catnum --->
 <!--- a little info --->
 <cfquery name="what" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select collection_cde,institution_acronym from collection where collection_id=#collection_id#
+	select collection from collection where collection_id=#collection_id#
 </cfquery>
 <cfoutput>
-<b>The following catalog number are not used in the #what.institution_acronym# #what.collection_cde# collection:</b>
+<b>The following catalog number are not used in the #what.collection# collection:</b>
 <br>
 </cfoutput>
 <cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">

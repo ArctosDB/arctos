@@ -186,7 +186,7 @@
 					<cfif len(#thisRemark#) gt 0>
 						<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
-							VALUES sq_collection_object_id.currval, '#thisRemark#')
+							VALUES (sq_collection_object_id.currval, '#thisRemark#')
 						</cfquery>
 					</cfif>
 					<cfset thisPartId = thisPartId + 1>
