@@ -1061,7 +1061,7 @@
 			<cfif len(excludeList) is 0>
 				<cfset excludeList = "#cat_num#">
 			<cfelse>
-				<cfset excludeList = excludeList & "," & "#cat_num#">
+				<cfset excludeList = "#excludeList#, #cat_num#">
 			</cfif>
 		</cfif>
 		
@@ -1090,5 +1090,5 @@
 		WHERE cat_num NOT IN "(#excludeList#)"
 	</cfquery>
 	
-	<cfreturn q>
+	<cfreturn finalQ>
 </cffunction>
