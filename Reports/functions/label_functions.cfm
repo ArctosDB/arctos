@@ -1058,7 +1058,7 @@
 		
 		<cfset pAr[i] = "#newParts#">
 		<cfif len(newParts) is 0>
-			listAppend(excludeList, "#cat_num#")
+			listAppend(excludeList, #cat_num#)
 		</cfif>
 		
 		<!--- Sex --->
