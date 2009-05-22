@@ -1044,9 +1044,9 @@
 				<cfloop list="#newParts#" delimiters=";" index="p" >
 					<cfif tempIndex is index>
 						<cfif len(tempNewParts) is 0>
-							<cfset tempNewParts = "#tempNewParts#; skull; #p#">
-						<cfelse>
 							<cfset tempNewParts = "skull; #p#">
+						<cfelse>
+							<cfset tempNewParts = "#tempNewParts#; skull; #p#">
 						</cfif>
 					<cfelse>
 						<cfset tempNewParts = "#tempNewParts#; #p#">
