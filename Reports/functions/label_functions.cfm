@@ -1085,9 +1085,10 @@
 	<cfset temp = queryAddcolumn(q, "formatted_sex", "VarChar", sexAr)>
 	
 	<cfdump var="#excludeList#">
+	<cfset excludeList = "(#excludeList#)">
 	
 	<cfquery name = "finalQ" dbtype = "query" debug="Yes">
-		SELECT * FROM q	WHERE cat_num NOT IN '(#excludeList#)'
+		SELECT * FROM q	WHERE cat_num NOT IN #excludeList#
 	</cfquery>
 	<cfreturn finalQ>
 </cffunction>
