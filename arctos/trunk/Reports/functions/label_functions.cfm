@@ -1090,6 +1090,6 @@
 		FROM q
 		WHERE cat_num NOT IN "(#excludeList#)"
 	</cfquery>
-	
+	<cfdump var="#q#">
 	<cfreturn q>
 </cffunction>
