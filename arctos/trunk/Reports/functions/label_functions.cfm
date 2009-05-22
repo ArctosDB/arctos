@@ -1084,6 +1084,7 @@
 	<cfset temp = queryAddColumn(q, "formatted_parts", "VarChar", pAr)>
 	<cfset temp = queryAddcolumn(q, "formatted_sex", "VarChar", sexAr)>
 	
+	<cfdump var="#excludeList#">
 	<cfquery name = "finalQ" dbtype = "query">
 		SELECT * 
 		FROM q
