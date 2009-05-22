@@ -1086,8 +1086,7 @@
 	
 	<cfdump var="#excludeList#">
 	
-	<cfdump var="#q#">
-	<cfquery name = "q" dbtype = "query">
+	<cfquery name = "q" dbtype = "query" debug="Yes">
 		SELECT * 
 		FROM q
 		WHERE cat_num NOT IN "(#excludeList#)"
