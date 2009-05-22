@@ -1058,7 +1058,11 @@
 		
 		<cfset pAr[i] = "#newParts#">
 		<cfif len(newParts) is 0>
-			listAppend(excludeList, #cat_num#)
+			<cfif len(excludeList) is 0>
+				<cfset excludeList = "#cat_num#">
+			<cfelse>
+				<cfset excludeList = excludeList & "," & "#cat_num#">
+			</cfif>
 		</cfif>
 		
 		<!--- Sex --->
