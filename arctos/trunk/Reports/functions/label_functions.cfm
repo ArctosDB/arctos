@@ -1058,7 +1058,6 @@
 			</cfif>
 		</cfif>
 		
-		<cfset pAr[i] = "#newParts#">
 		<cfif len(newParts) is 0>
 			<cfif len(excludeList) is 0>
 				<cfset excludeList = "#cat_num#">
@@ -1069,6 +1068,7 @@
 		
 		<cfset newParts = "#replace(newParts,"$@%", "", "one")#">
 		
+		<cfset pAr[i] = "#newParts#">
 		<!--- Sex --->
 		<cfset formatted_sex = "#sex#">
 		<cfif trim(formatted_sex) is "unknown" or trim(formatted_sex) is 'recorded as unknown' or trim(formatted_sex) equal 'not recorded'>
