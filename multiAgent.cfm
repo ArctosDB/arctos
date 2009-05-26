@@ -57,7 +57,8 @@
 		<select name="coll_order" size="1" class="reqdClr">
 			<option value="first">First</option>
 			<option value="last">Last</option>
-		</select>         
+		</select>
+		<br>       
 		<input type="button" 
 			value="Insert Agent" 
 			class="insBtn"
@@ -109,14 +110,158 @@
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
-<cfif #Action# is "insertColl">
-insertColl
-<cfdump var="form">
+<cfif action is "insertColl">
+	<cfoutput>
+		<cftransaction>
+			<cfif coll_order is "first" and collector_role is 'c'>
+				<!--- bump everything up a notch --->
+				<cfquery name="bumpAll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update 
+						collector 
+					set 
+						coll_order=coll_order + 1 
+					where
+						collection_object_id IN (#collection_object_id#)
+				</cfquery>
+				<cfloop list="#collection_object_id#" index="i">
+					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						insert into collector (
+							collection_object_id,
+							agent_id,
+							collector_role,
+							coll_order
+						) values (
+							#i#,
+							#agent_id#,
+							'c',
+							1
+						)
+					</cfquery>				
+				</cfloop>
+			<cfelseif coll_order is "last" and collector_role is 'c'>
+				<cfquery name="bumpAll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update 
+						collector 
+					set 
+						coll_order=coll_order + 1 
+					where
+						collector_role='p' and
+						collection_object_id IN (#collection_object_id#)
+				</cfquery>			
+				<cfloop list="#collection_object_id#" index="i">
+					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select max(coll_order) +1 m from collector where 
+						collection_object_id=#i# and
+						collector_role='c'
+					</cfquery>
+					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						insert into collector (
+							collection_object_id,
+							agent_id,
+							collector_role,
+							coll_order
+						) values (
+							#i#,
+							#agent_id#,
+							'c',
+							#max.m#
+						)
+					</cfquery>
+				</cfloop>
+			<cfelseif coll_order is "first" and collector_role is 'p'>
+				<cfquery name="bumpAll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update 
+						collector 
+					set 
+						coll_order=coll_order + 1 
+					where
+						collector_role='p' and
+						collection_object_id IN (#collection_object_id#)
+				</cfquery>			
+				<cfloop list="#collection_object_id#" index="i">
+					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select max(coll_order) +1 m from collector where 
+						collection_object_id=#i# and
+						collector_role='c'
+					</cfquery>
+					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						insert into collector (
+							collection_object_id,
+							agent_id,
+							collector_role,
+							coll_order
+						) values (
+							#i#,
+							#agent_id#,
+							'p',
+							#max.m#
+						)
+					</cfquery>
+				</cfloop>
+			<cfelseif coll_order is "last" and collector_role is 'p'>
+				<cfloop list="#collection_object_id#" index="i">
+					<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select max(coll_order) +1 m from collector where 
+						collection_object_id=#i#
+					</cfquery>
+					<cfquery name="insOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						insert into collector (
+							collection_object_id,
+							agent_id,
+							collector_role,
+							coll_order
+						) values (
+							#i#,
+							#agent_id#,
+							'p',
+							#max.m#
+						)
+					</cfquery>
+				</cfloop>				
+			</cfif>
+		</cftransaction>
+		<cflocation url="multiAgent.cfm?collection_object_id=#collection_object_id#">
+	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
 <cfif #Action# is "deleteColl">
-deleteColl
-<cfdump var="form">
+	<cfoutput>
+		<cftransaction>
+			<cfloop list="#collection_object_id#" index="i">
+				<cfquery name="max" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select 
+						collection_object_id,
+						coll_order 
+					from 
+						collector 
+					where 
+						collection_object_id=#i# and
+						agent_id=#agent_id# and
+						collector_role='#collector_role#'
+				</cfquery>
+				<cfif max.collection_object_id gt 0>
+					<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						delete from 
+							collector 
+						where 
+							collection_object_id=#i# and
+							agent_id=#agent_id# and
+							collector_role='#collector_role#'
+					</cfquery>
+					<cfquery name="inc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						update 
+							collector 
+						set
+							collector_role=collector_role -1
+						where	 
+							collection_object_id=#i# and
+							coll_order > #max.coll_order#
+					</cfquery>
+				</cfif>
+			</cfloop>
+		</cftransaction>
+		<cflocation url="multiAgent.cfm?collection_object_id=#collection_object_id#">
+	</cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
 <cfinclude template="includes/_footer.cfm">
