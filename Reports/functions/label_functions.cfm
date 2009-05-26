@@ -1095,6 +1095,8 @@
 		<cfquery name = "finalQ" dbtype = "query" debug="Yes">
 			SELECT * FROM q	WHERE cat_num NOT IN #excludeList#
 		</cfquery>
+	<cfelse>
+		<cfset finalQ = q>
 	</cfif>
 	<cfreturn finalQ>
 </cffunction>
