@@ -1055,7 +1055,7 @@
 				<cfset newParts = tempNewParts>
 			<cfelseif foundSkull is 1 and foundSkin is 1 and len(newParts) is 0>
 				<cfset newParts = "$@%">
-			</cfif>				
+			</cfif>
 		</cfif>
 		
 		<cfset pAr[i] = "#newParts#">
@@ -1067,7 +1067,7 @@
 			</cfif>
 		</cfif>
 		
-		<cfset newParts = replace(newParts,"$@%", "", "all")>
+		<cfset newParts = "#replace(newParts,"$@%", "", "one")#">
 		
 		<!--- Sex --->
 		<cfset formatted_sex = "#sex#">
