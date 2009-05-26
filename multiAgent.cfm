@@ -13,7 +13,7 @@
 	<cfquery name="getColls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 		 	cataloged_item.collection_object_id as collection_object_id, 
-			cat_num,
+			cataloged_item.cat_num,
 			concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 			identification.scientific_name,
 			geog_auth_rec.country,
