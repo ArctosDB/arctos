@@ -2,11 +2,6 @@
  <cfinclude template="includes/_header.cfm">
 	<script type='text/javascript' src='/includes/_loanReview.js'></script>
 	<script src="/includes/sorttable.js"></script>
-<style>
-	.changing {
-		background-color:#FF0000;
-		}
-</style>
 <cfquery name="ctDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select coll_obj_disposition from ctcoll_obj_disp
 </cfquery>
@@ -385,11 +380,6 @@ Review items in loan<b>
 
 <cfset i=1>
 <cfloop query="getPartLoanRequests">
-
-
-
-
-
 	<tr id="rowNum#partID#">
 		<td>
 			<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection# #cat_num#</a>
@@ -419,7 +409,7 @@ Review items in loan<b>
 			<textarea name="condition#partID#" 
 				rows="2" cols="20"
 				id="condition#partID#"
-				onchange="this.className='changing';updateCondition('#partID#')">#condition#</textarea>
+				onchange="this.className='red';updateCondition('#partID#')">#condition#</textarea>
 				<span class="infoLink" onClick="chgCondition('#partID#')">History</span>
 		</td>
 		<td>
@@ -429,56 +419,41 @@ Review items in loan<b>
 				no
 			</cfif>
 			<input type="hidden" name="isSubsample#partID#" id="isSubsample#partID#" value="#sampled_from_obj_id#" />
-		</td>
-	
+		</td>	
 		<td valign="top">
-		
-			
-			
-			<textarea name="item_instructions#partID#" id="item_instructions#partID#" rows="2" cols="20" onchange="this.className='changing';updateInstructions('#partID#')">#Item_Instructions#</textarea>
+			<textarea name="item_instructions#partID#" id="item_instructions#partID#" rows="2" cols="20" onchange="this.className='red';updateInstructions('#partID#')">#Item_Instructions#</textarea>
 		</td>
 		<td valign="top">
 		
 			<textarea name="loan_Item_Remarks#partID#" id="loan_Item_Remarks#partID#" rows="2" cols="20"
-			onchange="this.className='changing';updateLoanItemRemarks('#partID#')">#loan_Item_Remarks#</textarea>
+			onchange="this.className='red';updateLoanItemRemarks('#partID#')">#loan_Item_Remarks#</textarea>
 		
 		</td>
 		<td>
-			
-			
-				
-				<cfset thisDisp = #coll_obj_disposition#>
-				<select name="coll_obj_disposition#partID#"
+			<cfset thisDisp = #coll_obj_disposition#>
+			<select name="coll_obj_disposition#partID#"
 				id="coll_obj_disposition#partID#"
-				 size="1" onchange="this.className='changing';updateDispn('#partID#')">
+				 size="1" onchange="this.className='red';updateDispn('#partID#')">
 					<cfloop query="ctDisp">
 						<option 
 							<cfif #ctDisp.coll_obj_disposition# is "#thisDisp#"> selected </cfif>
 							value="#coll_obj_disposition#">#ctDisp.coll_obj_disposition#</option>
 					</cfloop>				
-				</select>
-				
-				
-			
+			</select>
 		</td>
-		
 		<td>
 			#Encumbrance# <cfif len(#agent_name#) gt 0> by #agent_name#</cfif>&nbsp;
 		</td>
 		<td>
 			<img src="/images/del.gif" class="likeLink" onclick="remPartFromLoan(#partID#);" />
 		</td>
-		
 	</tr>
-
 <cfset i=#i#+1>
 </cfloop>
 </cfoutput>
 </table>
 <cfoutput>
-
 	<br><a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">Back to Edit Loan</a>
-
 </cfoutput>
 </cfif>
 <cfinclude template="includes/_footer.cfm">

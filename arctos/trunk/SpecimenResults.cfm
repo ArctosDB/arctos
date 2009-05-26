@@ -438,6 +438,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="multiIdentification.cfm">
 						Identification
 					</option>
+					<option value="multiAgent.cfm">
+						Agents
+					</option>
 					<option value="findContainer.cfm?showControl=1">
 						Part Locations
 					</option>
