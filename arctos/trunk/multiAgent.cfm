@@ -50,8 +50,8 @@
 		<input type="hidden" name="agent_id">
 		<label for="collector_role">Role</label>		
         <select name="collector_role" size="1"  class="reqdClr">
-			<option <cfif #getColls.collector_role# is 'c'> selected </cfif>value="c">collector</option>
-			<option <cfif #getColls.collector_role# is 'p'> selected </cfif>value="p">preparator</option>
+			<option value="c">collector</option>
+			<option value="p">preparator</option>
 		</select>
 		<label for="coll_order">Order</label>
 		<select name="coll_order" size="1" class="reqdClr">
