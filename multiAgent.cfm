@@ -252,7 +252,7 @@
 						update 
 							collector 
 						set
-							collector_role=collector_role -1
+							coll_order=coll_order -1
 						where	 
 							collection_object_id=#i# and
 							coll_order > #max.coll_order#
