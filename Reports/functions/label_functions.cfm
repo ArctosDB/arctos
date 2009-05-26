@@ -1067,7 +1067,7 @@
 			</cfif>
 		</cfif>
 		
-		<cfset newParts = replace(newParts,"$@%","")>
+		<cfset newParts = replace(newParts,"$@%", "", "all")>
 		
 		<!--- Sex --->
 		<cfset formatted_sex = "#sex#">
