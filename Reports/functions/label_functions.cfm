@@ -1053,6 +1053,8 @@
 					</cfif>
 				</cfloop>
 				<cfset newParts = tempNewParts>
+			<cfelseif foundSkull is 1 and foundSkin is 1 and len(newParts) is 0>
+				<cfset newParts = "$@%">
 			</cfif>				
 		</cfif>
 		
@@ -1064,6 +1066,8 @@
 				<cfset excludeList = "#excludeList#, #cat_num#">
 			</cfif>
 		</cfif>
+		
+		<cfset newParts = replace(newParts,"$@%","")>
 		
 		<!--- Sex --->
 		<cfset formatted_sex = "#sex#">
@@ -1085,10 +1089,12 @@
 	<cfset temp = queryAddcolumn(q, "formatted_sex", "VarChar", sexAr)>
 	
 	<cfdump var="#excludeList#">
-	<cfset excludeList = "(#excludeList#)">
+	<cfif len(excludeList) is not 0>
+		<cfset excludeList = "(#excludeList#)">
 	
-	<cfquery name = "finalQ" dbtype = "query" debug="Yes">
-		SELECT * FROM q	WHERE cat_num NOT IN #excludeList#
-	</cfquery>
+		<cfquery name = "finalQ" dbtype = "query" debug="Yes">
+			SELECT * FROM q	WHERE cat_num NOT IN #excludeList#
+		</cfquery>
+	</cfif>
 	<cfreturn finalQ>
 </cffunction>
