@@ -29,7 +29,8 @@
 			locality,
 			geog_auth_rec,
 			cataloged_item,
-			collection
+			collection,
+			#session.SpecSrchTab#
 		WHERE 
 			locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id 
 			AND collecting_event.locality_id = locality.locality_id 
@@ -37,9 +38,9 @@
 			AND cataloged_item.collection_object_id = identification.collection_object_id 
 			and accepted_id_fg=1
 			AND cataloged_item.collection_id = collection.collection_id
-			AND cataloged_item.collection_object_id IN (#collection_object_id#)
+			AND cataloged_item.collection_object_id =#session.SpecSrchTab#.collection_object_id
 		ORDER BY 
-			collection_object_id
+			cataloged_item.collection_object_id
 	</cfquery>
 	<h2>
 		Add/Remove collectors for all specimens listed below
@@ -71,7 +72,7 @@
 	<td><strong>County</strong></td>
 	<td><strong>Quad</strong></td>
 </tr>
-<cfloop query="specimenList">
+<cfloop query="getColls">
     <tr>
 	  <td>
 	  	#collection#&nbsp;#cat_num#
