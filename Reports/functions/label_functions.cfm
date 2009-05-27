@@ -447,13 +447,10 @@
 
 <cffunction name="get_loan" access="public" returntype="Query">
     <cf_getLoanFormInfo>
-	<cfdump var="#getLoan#">
     <cfquery name="d" dbtype="query">
         select * from getLoan
     </cfquery>
-	<cfdump var="#d#">
     <cfreturn d>
-	<cfset c= "#abc#">
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="format_msb" access="public" returntype="Query">
