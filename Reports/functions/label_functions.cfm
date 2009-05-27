@@ -1011,16 +1011,16 @@
 			<cfset foundTissue = 0>
 			<cfset index = 0>
 		
-			<cfquery name="part_name" dbtype="query">
+			<cfquery name="part_name" dbtype="query" result="ColumnList">
 				select part_modifier from q where cat_num = #cat_num#
 			</cfquery>
 			
-			<cfloop query="part_name">
-				<cfset foundMod = find("#part_modifier#", "#parts#")>
+			<cfloop list="part_name" delimiters = "," index = mod>
+				<cfset foundMod = find(mod, parts)>
 				<cfif foundMod gt 0>
-					<cfset tempParts = left("#parts#", foundMod)>
+					<cfset tempParts = left(parts, foundMod)>
 					
-					<cfset parts = "#tempParts##right('#parts#',len('#parts#')-foundMod)#">
+					<cfset parts = "#tempParts##right(parts,len(parts)-foundMod)#">
 				</cfif>
 			</cfloop>
 				
