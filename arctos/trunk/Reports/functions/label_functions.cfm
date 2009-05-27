@@ -1014,6 +1014,12 @@
 				<cfset tissueP = find("tissue", p)>
 				<cfset skullP = find("skull", p)>
 				<cfset skinP = find("skin", p)>				
+				<cfset paraOpenP = find ("(", p)>
+				<cfset paraCloseP = find (")", p)>
+				
+				<cfif paraOpenP gt 0 and paraCloseP gt 0>
+					<cfset p = left("#p#",paraOpenP)>
+				</cfif>
 				
 				<cfif skullP gt 0>
 					<cfif foundSkull is 0>
