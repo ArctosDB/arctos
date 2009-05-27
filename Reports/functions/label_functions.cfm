@@ -452,7 +452,8 @@
         select * from getLoan
     </cfquery>
 	<cfdump var="#d#">
-    <cfreturn d
+    <cfreturn d>
+	<cfset c= "#abc#">
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="format_msb" access="public" returntype="Query">
