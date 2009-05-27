@@ -450,6 +450,7 @@
     <cfquery name="d" dbtype="query">
         select * from getLoan
     </cfquery>
+	<cfdump d>
     <cfreturn d>
 </cffunction>
 <!-------------------------------------------------------------->
@@ -1066,9 +1067,9 @@
 			</cfif>
 		</cfif>
 		
-		<cfset newParts = "#replace(newParts,"$@%", "", "one")#">
-		
+		<cfset newParts = "#replace(newParts,"$@%", "", "one")#">		
 		<cfset pAr[i] = "#newParts#">
+		
 		<!--- Sex --->
 		<cfset formatted_sex = "#sex#">
 		<cfif trim(formatted_sex) is "unknown" or trim(formatted_sex) is 'recorded as unknown' or trim(formatted_sex) equal 'not recorded'>
