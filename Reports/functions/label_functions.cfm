@@ -447,11 +447,11 @@
 
 <cffunction name="get_loan" access="public" returntype="Query">
     <cf_getLoanFormInfo>
-	<cfdump var="getLoan">
+	<cfdump var="#getLoan#">
     <cfquery name="d" dbtype="query">
         select * from getLoan
     </cfquery>
-	<cfdump var="d">
+	<cfdump var="#d#">
     <cfreturn d
 </cffunction>
 <!-------------------------------------------------------------->
@@ -1090,7 +1090,6 @@
 	<cfset temp = queryAddColumn(q, "formatted_parts", "VarChar", pAr)>
 	<cfset temp = queryAddcolumn(q, "formatted_sex", "VarChar", sexAr)>
 	
-	<cfdump var="#excludeList#">
 	<cfif len(excludeList) is not 0>
 		<cfset excludeList = "(#excludeList#)">
 	
