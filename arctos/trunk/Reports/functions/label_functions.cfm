@@ -1011,16 +1011,20 @@
 			<cfset foundTissue = 0>
 			<cfset index = 0>
 		
-			<cfquery name="part_name" dbtype="query" result="ColumnList">
-				select part_modifier from q where cat_num = #cat_num#
+			<cfquery name="part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select p.part_name 
+				from specimen_part p 
+					LEFT JOIN ctspecimen_part_list_order c ON (p.part_name = c.partname)
+				where p.derived_from_cat_item = #collection_object_id#
+				order by c.list_order					
 			</cfquery>
 			
-			<cfloop list="part_name" delimiters = "," index = "pMod">
-				<cfset foundMod = find(pMod, parts)>
-				<cfif foundMod gt 0>
-					<cfset tempParts = left(parts, foundMod)>
-					
-					<cfset parts = "#tempParts##right(parts,len(parts)-foundMod)#">
+			<cfset parts = "">
+			<cfloop query="part_name">
+				<cfif len(parts) is 0>
+					<cfset parts = #part_name#>
+				<cfelse>
+					<cfset parts = "#parts#; #part_name#">
 				</cfif>
 			</cfloop>
 				
@@ -1031,10 +1035,10 @@
 				<cfset paraOpenP = find ("(", p)>
 				<cfset paraCloseP = find (")", p)>				
 				
-				<!-- No perserve methods shown -->
+<!--- 				<!-- No perserve methods shown -->
 				<cfif paraOpenP gt 0 and paraCloseP gt 0>
 					<cfset p = left("#p#",paraOpenP-1)>
-				</cfif>
+				</cfif> --->
 				
 				
 				<!-- Don't show skin/skull/tissue/whole organism -->
