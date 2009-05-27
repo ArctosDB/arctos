@@ -1,39 +1,8 @@
-<!----
-	drop table specimen_annotations;
-	create table specimen_annotations (
-		annotation_id number not null,
-		annotate_date date,
-		cf_username varchar2(255),
-		collection_object_id number not null,
-		scientific_name varchar2(255),
-		higher_geography varchar2(255),
-		specific_locality varchar2(255),
-		annotation_remarks varchar2(255)
-	);
-	create or replace public synonym specimen_annotations for specimen_annotations;
-	grant select,insert on specimen_annotations to uam_query;
-
-	
-	 CREATE OR REPLACE TRIGGER specimen_annotations_key                                         
-	 before insert  ON specimen_annotations  
-	 for each row 
-	    begin     
-	    	if :NEW.annotation_id is null then                                                                                      
-	    		select specimen_annotations_seq.nextval into :new.annotation_id from dual;
-	    	end if; 
-	    	if :NEW.annotate_date is null then
-	    		:NEW.annotate_date := sysdate;
-	    	end if;                               
-	    end;                                                                                            
-	/
-	sho err	
-	create sequence specimen_annotations_seq;
-	---->
-		<cfinclude template="/includes/_frameHeader.cfm">
+<cfinclude template="/includes/_frameHeader.cfm">
 <cfif #action# is "nothing">
 
 <link rel="stylesheet" type="text/css" href="/includes/annotate.css">
-
+<script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 		
 		
 

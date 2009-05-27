@@ -750,11 +750,10 @@ select
 	
 <link rel="stylesheet" type="text/css" href="/includes/_cfdocstyle.css">
 <cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-
-select 
+	select 
 		cat_num, 
 		collection_cde,
-		af_num.af_num,
+		concatsingleotherid(cataloged_item.collection_object_id,'AF') as af_num,
 		part_name,
 		 part_modifier,
 		 preserve_method,
@@ -763,7 +762,6 @@ select
 	 from 
 		loan_item, 
 		loan,
-		af_num,
 		specimen_part, 
 		coll_object,
 		cataloged_item
@@ -772,7 +770,6 @@ select
 		loan.transaction_id = loan_item.transaction_id AND
 		specimen_part.derived_from_cat_item = cataloged_item.collection_object_id AND
 		specimen_part.collection_object_id = coll_object.collection_object_id AND
-		cataloged_item.collection_object_id = af_num.collection_object_id (+) AND
 		loan_item.transaction_id = #transaction_id#
 	ORDER BY cat_num
 </cfquery>
