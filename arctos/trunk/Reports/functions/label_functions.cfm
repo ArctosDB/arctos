@@ -1015,7 +1015,7 @@
 				select part_modifier from q where cat_num = #cat_num#
 			</cfquery>
 			
-			<cfloop list="part_name" delimiters = "," index = mod>
+			<cfloop list="part_name" delimiters = "," index = "mod">
 				<cfset foundMod = find(mod, parts)>
 				<cfif foundMod gt 0>
 					<cfset tempParts = left(parts, foundMod)>
