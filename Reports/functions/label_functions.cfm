@@ -1017,10 +1017,12 @@
 				<cfset paraOpenP = find ("(", p)>
 				<cfset paraCloseP = find (")", p)>
 				
+	<!--- 			<!-- No perserve methods shown -->
 				<cfif paraOpenP gt 0 and paraCloseP gt 0>
 					<cfset p = left("#p#",paraOpenP-1)>
-				</cfif>
+				</cfif> --->
 				
+				<!-- Don't show skin/skull/tissue/whole organism -->
 				<cfif skullP gt 0>
 					<cfif foundSkull is 0>
 						<cfset foundSkull = 1>
