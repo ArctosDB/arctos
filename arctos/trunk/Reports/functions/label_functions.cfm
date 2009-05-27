@@ -1019,7 +1019,7 @@
 				<cfset foundMod = find("#part_modifier#", "#parts#")>
 				<cfif foundMod gt 0>
 					<cfset tempParts = left("#parts#", foundMod)>
-					<cfset parts = "#tempParts##right('#parts#',len(parts)-foundMod)#">
+					<cfset parts = "#tempParts##right('#parts#',len(#parts#)-foundMod)#">
 				</cfif>
 			</cfloop>
 				
