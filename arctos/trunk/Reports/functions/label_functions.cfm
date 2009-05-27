@@ -1018,7 +1018,7 @@
 				<cfset paraCloseP = find (")", p)>
 				
 				<cfif paraOpenP gt 0 and paraCloseP gt 0>
-					<cfset p = left("#p#",paraOpenP)>
+					<cfset p = left("#p#",paraOpenP-1)>
 				</cfif>
 				
 				<cfif skullP gt 0>
