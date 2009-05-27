@@ -174,7 +174,7 @@
 </cfif>
 <!-------------------------------------------------------------->
 <cfif #action# is "nothing">
-    <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList">
+    <cfdirectory action="list" directory="#Application.webDirectory#/Reports/templates" filter="*.cfr" name="reportList" sort="name ASC">
     Load a new template (will overwrite old templates). .cfr files only.
     <form name="n" method="post" enctype="multipart/form-data" action="reporter.cfm">
         <input type="hidden" name="action" value="loadTemplate">

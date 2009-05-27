@@ -11,6 +11,23 @@ function saveThisAnnotation() {
 	annotation_remarks=escape(annotation_remarks);
 		higher_geography=escape(higher_geography);
 			specific_locality=escape(specific_locality);
+	
+	
+	$.getJSON("/component/functions.cfc",
+		{
+			method : "addAnnotation",
+			collection_object_id : collection_object_id,
+			scientific_name : scientific_name,
+			higher_geography : higher_geography,
+			specific_locality : specific_locality,
+			annotation_remarks : annotation_remarks,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_saveThisAnnotation
+	);
+	
+	/*
 	DWREngine._execute(_annotateFunction, null, 'addAnnotation', 
 		collection_object_id,
 		scientific_name,
@@ -18,6 +35,7 @@ function saveThisAnnotation() {
 		specific_locality,
 		annotation_remarks,
 		success_saveThisAnnotation);
+		*/
 }
 function showPrevious(eid) {
 	var tid = eid.substring(5,eid.length);
