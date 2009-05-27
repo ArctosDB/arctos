@@ -42,16 +42,12 @@ function orapwCheck(p,u) {
 	}
 	return msg;
 }
-function isdefined(variable)
-{
-return (!(!(document.getElementById(variable))))
+function isdefined(variable) {
+	return (!(!(document.getElementById(variable))))
 }
 function ahah(url, target, delay) {
-  //alert('ahah');
-
   var req;
   document.getElementById(target).innerHTML = 'Fetching Data...';
-
   if (window.XMLHttpRequest) {
     req = new XMLHttpRequest();
   } else if (window.ActiveXObject) {
@@ -63,11 +59,8 @@ function ahah(url, target, delay) {
     req.open("GET", url, true);
     req.send("");
   }
-
 }  
-
 function ahahDone(req, url, target, delay) {
-//alert('ahahdone');
   if (req.readyState == 4) { // only if req is "loaded"
     if (req.status == 200) { // only if "OK"
       document.getElementById(target).innerHTML = req.responseText;
@@ -76,7 +69,6 @@ function ahahDone(req, url, target, delay) {
     }
     if (delay != undefined) {
        setTimeout("ahah(url,target,delay)", delay); // resubmit after delay
-	    //server should ALSO delay before responding
     }
   }
 }
