@@ -1010,17 +1010,31 @@
 			<cfset foundSkull = 0>
 			<cfset foundTissue = 0>
 			<cfset index = 0>
+		
+			<cfquery name="part_name" dbtype="query">
+				select part_modifier from q where cat_num = #cat_num#
+			</cfquery>
+			
+			<cfloop query="part_name">
+				<cfset foundMod = find("#part_modifier#", "#parts#")>
+				<cfif foundMod gt 0>
+					<cfset tempParts = left("#parts#", foundMod)>
+					<cfset parts = "#tempParts##right('#parts#',len(parts)-foundMod)#">
+				</cfif>
+			</cfloop>
+				
 			<cfloop list="#parts#" delimiters=";" index="p">
 				<cfset tissueP = find("tissue", p)>
 				<cfset skullP = find("skull", p)>
 				<cfset skinP = find("skin", p)>				
 				<cfset paraOpenP = find ("(", p)>
-				<cfset paraCloseP = find (")", p)>
+				<cfset paraCloseP = find (")", p)>				
 				
-	<!--- 			<!-- No perserve methods shown -->
+				<!-- No perserve methods shown -->
 				<cfif paraOpenP gt 0 and paraCloseP gt 0>
 					<cfset p = left("#p#",paraOpenP-1)>
-				</cfif> --->
+				</cfif>
+				
 				
 				<!-- Don't show skin/skull/tissue/whole organism -->
 				<cfif skullP gt 0>
