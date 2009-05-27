@@ -447,10 +447,11 @@
 
 <cffunction name="get_loan" access="public" returntype="Query">
     <cf_getLoanFormInfo>
+	<cfdump var="getLoan">
     <cfquery name="d" dbtype="query">
         select * from getLoan
     </cfquery>
-	<cfdump d>
+	<cfdump var="d">
     <cfreturn d>
 </cffunction>
 <!-------------------------------------------------------------->
