@@ -294,9 +294,7 @@
 			class="qutBtn"
    			onmouseover="this.className='qutBtn btnhov'" 
 			onmouseout="this.className='qutBtn'"
-			onClick="document.location='/tools/dgr_locator.cfm';">
-		<img src="/images/what.gif" border="0" alt="help" class="likeLink" onclick="pageHelp('dgr_locator')">
-		
+			onClick="document.location='/tools/dgr_locator.cfm';">		
 	</span>
 <!------------------------------------------------------------------------->
 <cfif #action# is "getBox">
