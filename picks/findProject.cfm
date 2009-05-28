@@ -9,7 +9,7 @@
 		<input type="submit" value="search" class="lnkBtn">
 	</form>
 	<!--- make sure we're searching for something --->
-	<cfif len(#project_name#) is 0 pr project_name is "undefined">
+	<cfif len(#project_name#) is 0 project_name is "undefined">
 		<cfabort>
 	</cfif>
 	<cfquery name="getProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
