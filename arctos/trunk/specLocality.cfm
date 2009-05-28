@@ -11,7 +11,7 @@
 	</SCRIPT>
 	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
 	
-<span class="pageHelp likeLink" onClick="pageHelp('specLocality');">
+<span class="pageHelp likeLink" onClick="getDocs('pageHelp/specLocality');">
 	Page Help
 </span>
 <script>
