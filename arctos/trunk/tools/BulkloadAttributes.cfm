@@ -311,9 +311,9 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		select count(*) l from datadump where status is not null
 	</cfquery>
 	<cfif pf.l is 0>
-		Your data should load. Review the table below and <a href="BulkloadAttributes.cfm?action=loadData">click to continue</a>.
-	<cfelse>
 		Oops - something's hinky. Review the table below and try again.
+	<cfelse>
+		Your data should load. Review the table below and <a href="BulkloadAttributes.cfm?action=loadData">click to continue</a>.		
 	</cfif>
 	<cfdump var=#datadump#>
 </cfoutput>
