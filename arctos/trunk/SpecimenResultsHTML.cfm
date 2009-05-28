@@ -349,10 +349,6 @@
 		<span class="infoLink" onclick="document.location='/info/reportBadData.cfm?collection_object_id=#collectionObjectIdList#';">
 			Report Bad Data
 		</span>
-		<br>
-		<span class="infoLink" onclick="pageHelp('specimen_results');">
-			Page Help
-		</span>
 	</span>
 	</cfoutput>
 </cfif>

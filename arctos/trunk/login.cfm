@@ -2,13 +2,6 @@
 <cfif isdefined("session.username") and len(#session.username#) gt 0 and #action# neq "signOut">
 	<cflocation url="myArctos.cfm">
 </cfif>
-<span class="pageHelp">
-	<a href="javascript:void(0);" 
-		onClick="pageHelp('customize'); return false;"
-		onMouseOver="self.status='Click for Customization help.';return true;"
-		onmouseout="self.status='';return true;"><img src="/images/what.gif" border="0">
-	</a>					
-</span>
 <!------------------------------------------------------------>
 <!--- sign them out and start over --->
 

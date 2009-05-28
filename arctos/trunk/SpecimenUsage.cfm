@@ -5,7 +5,6 @@
 	<cfquery name="ctColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection,collection_id from collection order by collection_id
 	</cfquery>
-	<span class="infoLink pageHelp" onclick="pageHelp('resultsearch');">Page Help</span>
 	<h2>Publication / Project Search</h2>
 	<form action="SpecimenUsage.cfm" method="post">
 		<input name="action" type="hidden" value="search">
