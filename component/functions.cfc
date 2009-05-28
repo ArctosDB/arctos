@@ -1,4 +1,70 @@
 <cfcomponent>
+<!----------------------------------------------------------------------------------------->
+<cffunction name="changeAttDetr" returntype="string">
+	<cfargument name="attribute_id" type="numeric" required="yes">
+	<cfargument name="i" type="numeric" required="yes">
+	<cfargument name="attribute_determiner" type="string" required="yes">
+	  	<cfquery name="names" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select agent_name,agent_id
+			from preferred_agent_name
+			where upper(agent_name) like '%#ucase(attribute_determiner)#%'
+		</cfquery>
+		<cfif #names.recordcount# is 0>
+			<cfset result = "Nothing matched.">
+		<cfelseif #names.recordcount# is 1>
+			<cftry>
+				<cfquery name="upatt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update attributes set DETERMINED_BY_AGENT_ID = #names.agent_id#
+					where attribute_id = #attribute_id#		 
+				</cfquery>
+				<cfset result = '#i#::#names.agent_name#'>
+			<cfcatch>
+				<cfset result = 'A database error occured!'>
+			</cfcatch>
+			</cftry>			
+		<cfelse>
+			<cfset result = "#i#::">
+			<cfloop query="names">
+				<cfset result = "#result#|#agent_name#">
+			</cfloop>
+		</cfif>
+	  <cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
+		<cfreturn result>
+</cffunction>
+<!----------------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------------------->
+<cffunction name="changeAttDetrId" access="remote">
+	<cfargument name="attribute_id" type="numeric" required="yes">
+	<cfargument name="i" type="numeric" required="yes">
+	<cfargument name="agent_id" type="numeric" required="yes">
+	<cfquery name="names" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select agent_name,agent_id
+		from preferred_agent_name
+		where agent_id = #agent_id#
+	</cfquery>
+	<cfif #names.recordcount# is 0>
+		<cfset result = "Nothing matched.">
+	<cfelseif #names.recordcount# is 1>
+		<cftry>
+			<cfquery name="upatt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				update attributes set DETERMINED_BY_AGENT_ID = #names.agent_id#
+				where attribute_id = #attribute_id#		 
+			</cfquery>
+			<cfset result = '#i#::#names.agent_name#'>
+		<cfcatch>
+			<cfset result = 'A database error occured!'>
+		</cfcatch>
+		</cftry>			
+	<cfelse>
+		<cfset result = "#i#::">
+		<cfloop query="names">
+			<cfset result = "#result#|#agent_name#">
+		</cfloop>
+	</cfif>
+	<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
+	<cfreturn result>
+</cffunction>
+<!----------------------------------------------------------------------------------------->
 <cffunction name="addAnnotation" access="remote">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
 	<cfargument name="scientific_name" type="string" required="yes">

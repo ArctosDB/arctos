@@ -14,103 +14,28 @@ function addIdOff () {
 	toggleNewIdOn.style.display='';
 	toggleNewIdOff.style.display='none';
 }
-
-function IsNumeric(sText)
-
-{
-   var ValidChars = "0123456789.";
-   var IsNumber=true;
-   var Char;
-
- 
-   for (i = 0; i < sText.length && IsNumber == true; i++) 
-      { 
-      Char = sText.charAt(i); 
-      if (ValidChars.indexOf(Char) == -1) 
-         {
-         IsNumber = false;
-         }
-      }
-   return IsNumber;
-   
-   }
-   
-   
-// when popups are used, onChange does not fire. However, hidden inputs are populated.
-// We can use a listener to detect this and fire off functions
-// id_by_id is identification agent_id
-
-var ourInterval = setInterval("isChanged()", 1000);
-function test (a) {
-	alert('function hi test hi');
-}
-function isChanged () {
-	/*
-	var elem = document.getElementById('catalog').elements;
-	for(var i = 0; i < elem.length; i++)
-		{
-			var thisName = elem[i].name;
-			var isOurs = thisName.substring(0,5);
-			if (isOurs == 'watch') {
-				//alert("thisName: " + thisName);
-				var idStr = "document.getElementById('" + thisName + "')";
-				var theIdElem = eval(idStr);
-				var theIdVal = theIdElem.value;
-				//alert("theIdVal: " + theIdVal);
-				if (theIdVal.length > 0) {
-					var theElement = thisName.substring(6,thisName.length);
-					var theFunctionPrefix = theElement;
-					//alert("theElement: " + theElement);
-					// see if it's a numbered field - eg, attribute_determiner_1
-					// assume (!!) this will always be <=99
-					var lastChars = theElement.substring(theElement.length - 2,theElement.length);
-					if (IsNumeric(lastChars)) {
-						//alert('last 2 chars are number');
-						var theFunctionPrefix = thisName.substring(6,thisName.length-3);// 2 chars and underscore
-					} else {
-						var lastChars = theElement.substring(theElement.length - 1,theElement.length);
-						if (IsNumeric(lastChars)) {
-							//alert('last 1 chars are number');
-							var theFunctionPrefix = thisName.substring(6,thisName.length-2);
-						} else {
-							//alert('no numeric trailer');
-							var lastChars = '';
-						}
-					}
-					//alert("theFunctionPrefix: " + theFunctionPrefix);
-					theFunction = "update" + theFunctionPrefix;
-						theFunction += "('" + lastChars + "')";
-					//alert("theFunction: " + theFunction);
-					var tf = eval(theFunction);
-					thisName.value='';
-					tf;
-					
-				}
-			}
-		}
-		*/
-}
-// end listeners
-
 function updateattribute_determiner(i) {
-		//alert(i);
 	var s = "document.getElementById('attribute_id_" + i + "').value";
 	var attribute_id = eval(s);
 	var v = "document.getElementById('attribute_determiner_" + i + "').value";
-	var attribute_determiner = eval(v);
-	
-	
-	
+	var attribute_determiner = eval(v);	
 	if (attribute_determiner.length > 0) {
-		//alert(attribute_id);
-		//alert(attribute_remark);
 		var aidStr = "document.getElementById('watch_attribute_determiner_" + i + "')";
 		var agent_idFld = eval(aidStr);
 		var agent_id = agent_idFld.value;
 		if (agent_id.length == 0) {
-			//alert(name);
-			DWREngine._execute(_catalog_func, null, 'changeAttDetr', attribute_id,i,attribute_determiner, success_updateattribute_determiner);
-			//alert('gone');
+			//DWREngine._execute(_catalog_func, null, 'changeAttDetr', attribute_id,i,attribute_determiner,success_updateattribute_determiner);
+			$.getJSON("/component/functions.cfc",
+				{
+					method : "changeAttDetr",
+					attribute_id : attribute_id,
+					i : i,
+					agent_id : attribute_determiner,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				success_updateattribute_determiner
+			);
 		} else {
 			//alert('agent_id: ' + agent_id);
 			DWREngine._execute(_catalog_func, null, 'changeAttDetrId', attribute_id,i,agent_id, success_updateattribute_determiner);
