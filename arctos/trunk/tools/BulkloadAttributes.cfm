@@ -119,6 +119,9 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		<cfif len(#attribute#) is 0>
 			<cfset status=listappend(status,"You must specify an attribute",";")>
 		</cfif>
+		<cfif len(#determiner#) is 0>
+			<cfset status=listappend(status,"You must specify an determiner",";")>
+		</cfif>
 		<cfif status is "">
 			<cfif #other_id_type# is "catalog number">
 				<cfquery name="collObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -301,22 +304,17 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 							<!---- just assign it to the local variable --->
 							<cfset attributedetmeth1 = "'#attribute_meth#'">					
 						</cfif>
-						<cfif len(#determiner#) gt 0>
-							<cfquery name="attDet1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-								SELECT agent_id FROM agent_name WHERE agent_name = '#determiner#'
-							</cfquery>
-							<cfif #attDet1.recordcount# is 0>
-						  		<cfset status=listappend(status,"Attribute Determiner (#determiner#) was not found",";")>
-							</cfif>
-							<cfif #attDet1.recordcount# gt 1>
-						  		<cfset status=listappend(status,"Attribute Determiner (#determiner#) matched more than one existing agent name",";")>
-							</cfif>
+						
+						<cfquery name="attDet1" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							SELECT agent_id FROM agent_name WHERE agent_name = '#determiner#'
+						</cfquery>
+						<cfif #attDet1.recordcount# is not 1>
+					  		<cfset status=listappend(status,"Attribute Determiner (#determiner#) was not found or has multiple matches",";")>
+						<cfelse>
 							<cfquery name="gotDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 								UPDATE cf_temp_attributes SET determined_by_agent_id = #attDet1.agent_id#
 								where key=#key#
-							</cfquery>
-						<cfelse>
-							<cfset status=listappend(status,"Attribute Determiner may not be null",";")>
+							</cfquery>							
 						</cfif>
 						<cfif len(status) gt 0>
 							<cfif len(status) gte 255>
