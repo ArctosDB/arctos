@@ -294,8 +294,6 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					where key=#key#
 				</cfquery>							
 			</cfif>
-			
-			stat: #stat#
 			<cfif len(stat) gt 0>
 				<cfif len(stat) gte 255>
 					<cfset stat=left(stat,250) & "...">
