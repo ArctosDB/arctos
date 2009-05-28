@@ -294,6 +294,8 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					where key=#key#
 				</cfquery>							
 			</cfif>
+			
+			<cfset status=listappend(status,"bl bla bla",";")>
 			status: #status#
 			<cfif len(status) gt 0>
 				<cfif len(status) gte 255>
