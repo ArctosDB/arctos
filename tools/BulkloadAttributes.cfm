@@ -308,7 +308,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		select * from cf_temp_attributes
 	</cfquery>
 	<cfquery name="pf" dbtype="query">
-		select max(length(status)) l from datadump
+		select max(len(status)) l from datadump
 	</cfquery>
 	<cfif pf.l is 0>
 		Your data should load. Review the table below and <a href="BulkloadAttributes.cfm?action=loadData">click to continue</a>.
