@@ -880,7 +880,7 @@
 		<cfset colonPos = find(";", parts)>
 		<cfset tissueP = find("tissue", parts)>
 		<cfset skinP = find("skin", parts)>
-		<cfset wholeOrgP = find("whole organism", parts)>
+		<cfset wholeOrgP = find("whole animal", parts)>
 		<cfset preserveP = find("alcohol", parts)>
 		<cfset skelP = find ("skeleton", parts)>
 		
@@ -908,7 +908,7 @@
 		<cfset newParts = "">
 		<cfloop list="#formatted_parts#" delimiters=";" index="p">
 			<cfset tissueP = find("tissue", p)>
-			<cfset wholeOrgP = find("whole organism", p)>
+			<cfset wholeOrgP = find("whole animal", p)>
 			<cfif tissueP lte 0 or wholeOrgP lte 0>
 				<cfif len(newParts) gt 0>
 					<cfset newParts = "#newParts#; #p#">
@@ -1033,7 +1033,7 @@
 				<cfset tissueP = find("tissue", p)>
 				<cfset skullP = find("skull", p)>
 				<cfset skinP = find("skin", p)>
-				<cfset wholeOrgP = find ("whole organism", p)>		
+				<cfset wholeOrgP = find ("whole animal", p)>		
 				<cfset paraOpenP = find ("(", p)>
 				<cfset paraCloseP = find (")", p)>				
 				
