@@ -713,7 +713,7 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 						,'#container_type#',
 						#label#,
 						#description#,
-						#parent_install_date#,
+						to_date(#parent_install_date#),
 						#container_remarks#,
 						#barcode#,
 						#width#,
