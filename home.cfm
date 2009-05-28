@@ -219,7 +219,7 @@ The data providers are not responsible for loss or damages due to use of these d
 	A: Almost. Live data are stored in a <a href="http://arctos.googlecode.com/files/Arctos_1page.pdf" class="external" target="_blank">
 	highly normalized relational structure</a> - fabulous for 
 	organization, not so hot for query. Data are then transformed to a flat structure and optimized for 
-	query performance by way or Database Triggers. Data are generally less than one minute stale. Exceptions sometimes
+	query performance by way of Database Triggers. Data are generally less than one minute stale. Exceptions sometimes
 	occur, as when many rows are created or changed.
 </div>
 <div class="q">

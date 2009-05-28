@@ -681,15 +681,11 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 				<cfset locked_position = "1">
 			<cfelse>
 				<cfset locked_position = "0">
-			</cfif>
-			
+			</cfif>			
 			<cfif #container_type# is "position">
 				<cfset number_positions = "null">
 				<cfelse><cfset number_positions = "'#number_positions#'">
 			</cfif>
-      <cfquery name="setDate" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					alter session set nls_date_format = 'DD-Mon-YYYY HH24:MI:SS'	
-		</cfquery>
 	  <cfset newContainerSQL="INSERT INTO 
 					container 
 						(container_id, 
