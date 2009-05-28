@@ -150,9 +150,6 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 						display_value = '#other_id_number#'
 				</cfquery>
 			</cfif>
-			<cfdump var=#collObj#>
-			collObj.recordcount: #collObj.recordcount#
-			<cfabort>
 			<cfif collObj.recordcount is not 1>
 				<cfset status=listappend(status,"#data.institution_acronym# #data.collection_cde# #data.other_id_type# #data.other_id_number# not found",";")>
 			<cfelse>
@@ -297,6 +294,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					where key=#key#
 				</cfquery>							
 			</cfif>
+			status: #status#
 			<cfif len(status) gt 0>
 				<cfif len(status) gte 255>
 					<cfset status=left(status,250) & "...">
