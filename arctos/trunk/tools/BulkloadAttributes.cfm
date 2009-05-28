@@ -1,4 +1,7 @@
+
 <!---
+alter table cf_temp_attributes add status varchar2(255);
+
 
  CREATE OR REPLACE TRIGGER cf_temp_attributes_key                                         
  before insert  ON cf_temp_attributes  
@@ -90,68 +93,6 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	</cfloop>
 	<cflocation url="BulkloadAttributes.cfm?action=validate">
 </cfoutput>
-
- 
-	<!---	 
-		 
-		 	
-	<cfset i=1>
-	<cfloop index="line" list="#fileContent#" delimiters="#chr(10)#">
-		<cfset sql = "">
-		<cfset line = #replace(line,'#chr(9)##chr(9)#','#chr(9)#null#chr(9)#','all')#>
-		<br>line:#line#
-		<cfloop index="field" list="#line#" delimiters="#chr(9)#">
-			<br>field:#field#
-			<cfset field = #replace(field,"'","''","all")#>
-			<cfset sql = #replace(sql,'{comma}',',','all')#>
-			<cfset sql = "#sql#'#trim(replace(field,'"','','all'))#',">
-		</cfloop>
-	 	<cfset sql = #reverse(replace(reverse(sql),",","","first"))#>
-		<cfset sql = "#i#,#sql#">
-		<cfset i=#i#+1>
-		<br>INSERT INTO cf_temp_attributes (
-				 KEY,
-				 COLLECTION_CDE,
-				 INSTITutION_ACRONYM,
-				OTHER_ID_TYPE,
-				OTHER_ID_NUMBER,
-				 ATTRIBUTE,
-				 ATTRIBUTE_VALUE,
-				 ATTRIBUTE_UNITS,
-				 ATTRIBUTE_DATE,
-				 ATTRIBUTE_METH,
-				 DETERMINER,
-				 REMARKS
-				 ) 
-			VALUES (
-				#preservesinglequotes(sql)#
-				)	 
-		<cfquery name="newRec"	 datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			INSERT INTO cf_temp_attributes (
-				 KEY,
-				 COLLECTION_CDE,
-				 INSTITutION_ACRONYM,
-				OTHER_ID_TYPE,
-				OTHER_ID_NUMBER,
-				 ATTRIBUTE,
-				 ATTRIBUTE_VALUE,
-				 ATTRIBUTE_UNITS,
-				 ATTRIBUTE_DATE,
-				 ATTRIBUTE_METH,
-				 DETERMINER,
-				 REMARKS
-				 ) 
-			VALUES (
-				#preservesinglequotes(sql)#
-				)	 
-			
-			</cfquery>
-    </cfloop>
-	<!----
-		
-	---->
-	<cflocation url="BulkloadAttributes.cfm?action=validate">
---->
 </cfif>
 <!------------------------------------------------------->
 <!------------------------------------------------------->
@@ -162,21 +103,18 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		select * from cf_temp_attributes
 	</cfquery>
 	<cfloop query="data">
+		<cfset status="">
 		<cfif len(#other_id_type#) is 0>
-			You must specify an other ID type.
-			<cfabort>
+			<cfset status=listappend(status,"You must specify an other ID type",";")>
 		</cfif>
 		<cfif len(#other_id_number#) is 0>
-			You must specify an other ID number.
-			<cfabort>
+			<cfset status=listappend(status,"You must specify an other ID number",";")>
 		</cfif>
 		<cfif len(#collection_cde#) is 0>
-			You must specify a collection_cde.
-			<cfabort>
+			<cfset status=listappend(status,"You must specify a collection_cde",";")>
 		</cfif>
 		<cfif len(#institution_acronym#) is 0>
-			You must specify a institution_acronym.
-			<cfabort>
+			<cfset status=listappend(status,"You must specify a institution_acronym",";")>
 		</cfif>
 		
 		<cfif #other_id_type# is "catalog number">
@@ -210,23 +148,14 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 				</cfquery>
 			</cfif>
 			<cfif #collObj.recordcount# is not 1>
-					#data.other_id_number# #data.other_id_type# #data.collection_cde# #data.institution_acronym#
-					could not be found!
-					<br>The load process has aborted!
-					<br>You must fix the original file and start over.
-					<cfabort>
+				<cfset status=listappend(status,"#data.institution_acronym# #data.collection_cde# #data.other_id_type# #data.other_id_number# not found",";")>
 			</cfif>
 			<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				UPDATE cf_temp_attributes SET collection_object_id = #collObj.collection_object_id# where
 				key = #key#
 			</cfquery>
-			
-			
 			<cfif len(#attribute#) is 0>
-				You must specify an attribute.
-					<br>The load process has aborted!
-					<br>You must fix the original file and start over.
-					<cfabort>
+				<cfset status=listappend(status,"You must specify an attribute",";")>
 			</cfif>
 			<cfquery name="isAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select attribute_type from ctattribute_type where attribute_type='#attribute#'
@@ -234,8 +163,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			</cfquery>
 			
 			<cfif isAtt.recordcount is not 1>					
-				<cfabort showerror="Attribute (#attribute#) 
-					does not match code table values for collection #collection_cde#.">
+				<cfset status=listappend(status,"Attribute (#attribute#) does not match code table values for collection #collection_cde#",";")>
 			</cfif>	
 			<!---- see if it  should be code-table controlled ---->
 			<cfquery name="isValCt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -282,8 +210,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 									</cfif>
 								</cfloop>
 								<cfif len(#GoodValueFlag#) is 0>									
-									<cfabort showerror="Attribute Value (#attribute_value#) is code table controlled and 
-									does not match code table values.">
+									<cfset status=listappend(status,"Attribute Value (#attribute_value#) is code table controlled and does not match code table values",";")>
 								</cfif>
 							</cfif>
 						
@@ -329,12 +256,12 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 						</cfif>
 					</cfloop>
 					<cfif len(#AttUnitBsdFlag#) is 0>
-						<cfabort showerror="Attribute units (#attribute_units#) did not match CT values">
+						<cfset status=listappend(status,"Attribute units (#attribute_units#) did not match CT values",";")>
 					</cfif>
 		  			<!---- they have a valid units code table, so go back and make sure the value they 
 						gave is numeric --->
 					<cfif not isnumeric(#attribute_value#)>
-						<cfabort showerror="Attribute Value (#attribute_value#) must be numeric for #attribute#">
+						<cfset status=listappend(status,"Attribute Value (#attribute_value#) must be numeric for #attribute#",";")>
 					</cfif>
 		  <cfelse>
 							<!---- not code table controlled, leave it null for now - all units are 
@@ -342,7 +269,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 							<!--- see if they tried to put anything in here --->
 							<cfif len(#attribute_units#) gt 0>
 								<cfif #attribute_units# is not "null">
-									<cfabort showerror="You can't have attribute units for this attribute.">
+									<cfset status=listappend(status,"You can't have attribute units for this attribute",";")>
 								</cfif>
 							</cfif>
 					</cfif><!--- end CT check --->
@@ -353,8 +280,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 							attribute_type = '#attribute_1#'
 						</cfquery>
 						<cfif #isUnitCt.recordcount# gt 0 and len(#isUnitCt.units_code_table#) gt 0>
-							
-							<cfabort showerror="A value for Atribute Units  is required.">
+							<cfset status=listappend(status,"A value for Atribute Units  is required",";")>
 						</cfif>
 					</cfif>
 					<cfif len(#remarks#) gt 0>
@@ -365,10 +291,10 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 						<cfif isdate(#attribute_date#)>
 							<cfset attributedate1 = "'#dateformat(attribute_date,"dd-mmm-yyyy")#'">
 						  <cfelse>
-						 	<cfabort showerror="Attribute Date (#attribute_date#) is not a date">
+						  	<cfset status=listappend(status,"Attribute Date (#attribute_date#) is not a date",";")>
 						 </cfif>
 					  <cfelse>
-					  	<cfabort showerror="Attribute Date is required.">						
+					  	<cfset status=listappend(status,"Attribute Date is required",";")>
 					</cfif>
 					<cfif len(#attribute_meth#) gt 0>
 						<!---- just assign it to the local variable --->
@@ -379,21 +305,39 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 							SELECT agent_id FROM agent_name WHERE agent_name = '#determiner#'
 						</cfquery>
 						<cfif #attDet1.recordcount# is 0>
-							<cfabort showerror="Attribute Determiner (#determiner#) was not found.">
+					  		<cfset status=listappend(status,"Attribute Determiner (#determiner#) was not found",";")>
 						</cfif>
 						<cfif #attDet1.recordcount# gt 1>
-							<cfabort showerror="Attribute Determiner (#determiner#)
-							 matched more than one existing agent name.">
+					  		<cfset status=listappend(status,"Attribute Determiner (#determiner#) matched more than one existing agent name",";")>
 						</cfif>
 						<cfquery name="gotDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							UPDATE cf_temp_attributes SET determined_by_agent_id = #attDet1.agent_id#
 							where key=#key#
 						</cfquery>
 					<cfelse>
-						<cfabort showerror="Attribute Determiner 1 may not be null.">
+						<cfset status=listappend(status,"Attribute Determiner may not be null",";")>
+					</cfif>
+					<cfif len(status) gt 0>
+						<cfif len(status) gte 255>
+							<cfset status=left(status,250) & "...">
+						</cfif>
+						<cfquery name="gotDet" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							update cf_temp_attributes set status='#status#'
+						</cfquery>						
 					</cfif>
 		</cfloop>
-	<cflocation url="BulkloadAttributes.cfm?action=loadData">
+		<cfquery name="datadump" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select * from cf_temp_attributes
+		</cfquery>
+		<cfquery name="pf" dbtype="query">
+			select max(length(status)) l from datadump
+		</cfquery>
+		<cfif pf.l is 0>
+			Your data should load. Review the table below and <a href="BulkloadAttributes.cfm?action=loadData">click to continue</a>.
+		<cfelse>
+			Oops - something's hinky. Review the table below and try again.
+		</cfif>
+		<cfdump var=#datadump#>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
