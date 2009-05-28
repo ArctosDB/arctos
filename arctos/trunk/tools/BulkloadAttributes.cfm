@@ -276,7 +276,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 						</cfif><!--- end CT check --->
 					 <cfelse>
 						 <!--- att val units not given, see if it should be --->
-						 	<cfquery name="isUnitCt" datasource="#mcat#">
+						 	<cfquery name="isUnitCt"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 								SELECT units_code_table FROM ctattribute_code_tables WHERE
 								attribute_type = '#attribute_1#'
 							</cfquery>
