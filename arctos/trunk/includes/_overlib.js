@@ -9,6 +9,18 @@
 	DO NOT OVERWRITE THIS FILE WITH OBFUSCATED CODE!
 
 */
+function IsNumeric(sText) {
+   var ValidChars = "0123456789.";
+   var IsNumber=true;
+   var Char;
+   for (i = 0; i < sText.length && IsNumber == true; i++) { 
+      Char = sText.charAt(i); 
+      if (ValidChars.indexOf(Char) == -1) {
+         IsNumber = false;
+      }
+   }
+   return IsNumber;
+}
  function get_cookie ( cookie_name ) {
   var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
   if ( results )
