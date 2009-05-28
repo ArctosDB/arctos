@@ -1033,14 +1033,7 @@
 				<cfset tissueP = find("tissue", p)>
 				<cfset skullP = find("skull", p)>
 				<cfset skinP = find("skin", p)>
-				<cfset wholeOrgP = find ("whole animal", p)>		
-				<cfset paraOpenP = find ("(", p)>
-				<cfset paraCloseP = find (")", p)>				
-				
-<!--- 				<!-- No perserve methods shown -->
-				<cfif paraOpenP gt 0 and paraCloseP gt 0>
-					<cfset p = left("#p#",paraOpenP-1)>
-				</cfif> --->
+				<cfset wholeOrgP = find ("whole animal", p)>
 				
 				
 				<!-- Don't show skin/skull/tissue/whole organism -->
@@ -1052,7 +1045,7 @@
 					<cfif foundSkin is 0>
 						<cfset foundSkin = 1>
 					</cfif>
-				<cfelseif tissueP lte 0>
+				<cfelseif tissueP lte 0 or wholeOrgP lte 0>
 					<cfif len(newParts) gt 0>
 						<cfset newParts = "#newParts#; #p#">
 					<cfelse>
