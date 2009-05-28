@@ -307,8 +307,8 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfquery name="datadump" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_temp_attributes
 	</cfquery>
-	<cfquery name="pf" dbtype="query">
-		select max(len(status)) l from datadump
+		<cfquery name="pf" dbtype="query">
+		select count(*) l from datadump where status is not null
 	</cfquery>
 	<cfif pf.l is 0>
 		Your data should load. Review the table below and <a href="BulkloadAttributes.cfm?action=loadData">click to continue</a>.
