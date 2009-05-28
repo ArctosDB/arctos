@@ -908,7 +908,8 @@
 		<cfset newParts = "">
 		<cfloop list="#formatted_parts#" delimiters=";" index="p">
 			<cfset tissueP = find("tissue", p)>
-			<cfif tissueP lte 0>
+			<cfset wholeOrgP = find("whole organism", p)>
+			<cfif tissueP lte 0 or wholeOrgP lte 0>
 				<cfif len(newParts) gt 0>
 					<cfset newParts = "#newParts#; #p#">
 				<cfelse>
@@ -998,7 +999,7 @@
 			<cfset pos = find("collector number=", ids)>
 			<cfif pos gt 0>
 				<cfset colIdLabel = "Orig#right(ids, len(ids)-pos-len("collector number"))#">
-			</cfif>			
+			</cfif>
 		</cfloop>
 		<cfset colIdAr[i] = "#colIdLabel#">
 		
@@ -1031,7 +1032,8 @@
 			<cfloop list="#parts#" delimiters=";" index="p">
 				<cfset tissueP = find("tissue", p)>
 				<cfset skullP = find("skull", p)>
-				<cfset skinP = find("skin", p)>				
+				<cfset skinP = find("skin", p)>
+				<cfset wholeOrgP = find ("whole organism", p)>		
 				<cfset paraOpenP = find ("(", p)>
 				<cfset paraCloseP = find (")", p)>				
 				
