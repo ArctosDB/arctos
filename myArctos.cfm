@@ -3,7 +3,6 @@
 	<cflocation url="/login.cfm">
 </cfif>
 <script type='text/javascript' src='/includes/_myArctos.js'></script>
-<span class="infoLink pageHelp" onclick="pageHelp('customize');">Page Help</span>
 <script>
 	function pwc(p,u){
 		var r=orapwCheck(p,u);

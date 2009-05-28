@@ -85,8 +85,6 @@
 					<input type="button" value="Create Account" class="lnkBtn"
 	   					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
 						onClick="logIn.action.value='newUser';submit();">
-						<span class="infoLink" 
-							onclick="pageHelp('customize');">What's this?</span>
 				</td>
 			</tr>
 			<tr>				

@@ -104,7 +104,7 @@
 					<table border="0" cellpadding="0" cellspacing="0">
 						<tr>
 							<td rowspan="2" valign="top">
-								<a target="_top" href="##" onClick="getInstDocs('GENERIC','index')">Help</a> ~&nbsp;
+								<a target="_top" href="##" onClick="getDocs('index')">Help</a> ~&nbsp;
 							</td>
 							<td>
 								<input type="text" name="username" title="Username" value="Username" size="12" 
