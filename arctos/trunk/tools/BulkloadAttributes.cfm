@@ -151,9 +151,9 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 				</cfquery>
 			</cfif>
 			<cfdump var=#collObj#>
-			
+			collObj.recordcount: #collObj.recordcount#
 			<cfabort>
-			<cfif #collObj.recordcount# is not 1>
+			<cfif collObj.recordcount is not 1>
 				<cfset status=listappend(status,"#data.institution_acronym# #data.collection_cde# #data.other_id_type# #data.other_id_number# not found",";")>
 			<cfelse>
 				<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
