@@ -278,7 +278,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 						 <!--- att val units not given, see if it should be --->
 						 	<cfquery name="isUnitCt"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 								SELECT units_code_table FROM ctattribute_code_tables WHERE
-								attribute_type = '#attribute_1#'
+								attribute_type = '#attribute#'
 							</cfquery>
 							<cfif #isUnitCt.recordcount# gt 0 and len(#isUnitCt.units_code_table#) gt 0>
 								<cfset status=listappend(status,"A value for Atribute Units  is required",";")>
