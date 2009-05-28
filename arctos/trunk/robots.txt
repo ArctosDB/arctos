@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /media.cfm
 Disallow: /errors/
 Disallow: /Admin/
 Disallow: /AgentGrid.cfm
@@ -45,7 +46,7 @@ Disallow: /editBiolIndiv.cfm
 Disallow: /editIdentification.cfm
 Disallow: /editIdentifiers.cfm
 Disallow: /editImages.cfm
-Disallow:  /editParts.cfm
+Disallow: /editParts.cfm
 Disallow: /editParts_scan.cfm
 Disallow: /editPerson.cfm
 Disallow: /editRelationship.cfm
