@@ -1012,7 +1012,7 @@
 			<cfset foundTissue = 0>
 			<cfset index = 0>
 		
-			<cfquery name="part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="part_name_all" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select p.part_name 
 				from specimen_part p 
 					LEFT JOIN ctspecimen_part_list_order c ON (p.part_name = c.partname)
@@ -1021,9 +1021,9 @@
 			</cfquery>
 			
 			<cfset parts = "">
-			<cfloop query="part_name">
+			<cfloop query="part_name_all">
 				<cfif len(parts) is 0>
-					<cfset parts = #part_name#>
+					<cfset parts = part_name>
 				<cfelse>
 					<cfset parts = "#parts#; #part_name#">
 				</cfif>
@@ -1045,7 +1045,7 @@
 					<cfif foundSkin is 0>
 						<cfset foundSkin = 1>
 					</cfif>
-				<cfelseif tissueP lte 0 or wholeOrgP lte 0>
+				<cfelseif tissueP lte 0 and wholeOrgP lte 0>
 					<cfif len(newParts) gt 0>
 						<cfset newParts = "#newParts#; #p#">
 					<cfelse>
