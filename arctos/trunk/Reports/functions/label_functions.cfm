@@ -1124,6 +1124,8 @@
 
 <cffunction name="format_loan_invoice" access="public" returntype="query">
 	<cfargument name="q" required="true" type="query">
+	<cfset i = 1>
+	<cfset fDatum = ArrayNew(1)>
 	
 	<cfloop query="q">
 		<cfif len(datum) gt 0>
@@ -1135,8 +1137,12 @@
 			<cfelseif fDatum is "North American Datum 1983">
 				<cfset fDatum = "NAD83">
 			</cfif>
-			<cfset datum = "#fDatum#">
+			<cfset fDatum[i] = "#fDatum#">
 		</cfif>
+		<cfset i=i+1>
 	</cfloop>
+	
+	<cfset temp = queryAddColumn(q,"fDatum", "VarChar", fDatum)>
+	
 	<cfreturn q>
 </cffunction>
