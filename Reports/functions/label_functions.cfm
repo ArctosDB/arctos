@@ -1138,4 +1138,5 @@
 			<cfset datum = "#fDatum#">
 		</cfif>
 	</cfloop>
+	<cfreturn q>
 </cffunction>
