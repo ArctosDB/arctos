@@ -880,7 +880,7 @@
 		<cfset colonPos = find(";", parts)>
 		<cfset tissueP = find("tissue", parts)>
 		<cfset skinP = find("skin", parts)>
-		<cfset wholeOrgP = find("whole animal", parts)>
+		<cfset wholeOrgP = find("whole organism", parts)>
 		<cfset preserveP = find("alcohol", parts)>
 		<cfset skelP = find ("skeleton", parts)>
 		
@@ -908,7 +908,7 @@
 		<cfset newParts = "">
 		<cfloop list="#formatted_parts#" delimiters=";" index="p">
 			<cfset tissueP = find("tissue", p)>
-			<cfset wholeOrgP = find("whole animal", p)>
+			<cfset wholeOrgP = find("whole organism", p)>
 			<cfif tissueP lte 0 or wholeOrgP lte 0>
 				<cfif len(newParts) gt 0>
 					<cfset newParts = "#newParts#; #p#">
@@ -1033,7 +1033,7 @@
 				<cfset tissueP = find("tissue", p)>
 				<cfset skullP = find("skull", p)>
 				<cfset skinP = find("skin", p)>
-				<cfset wholeOrgP = find ("whole animal", p)>
+				<cfset wholeOrgP = find ("whole organism", p)>
 				
 				
 				<!-- Don't show skin/skull/tissue/whole organism -->
@@ -1120,4 +1120,22 @@
 		<cfset finalQ = q>
 	</cfif>
 	<cfreturn finalQ>
+</cffunction>
+
+<cffunction name="format_loan_invoice" access="public" returntype="query">
+	<cfargument name="q" required="true" type="query">
+	
+	<cfloop query="q">
+		<cfif len(datum) gt 0>
+			<cfset fDatum = #datum#>
+			<cfif fDatum is 'World Geodetic System 1984'>
+				<cfset fDatum = "WGS84">
+			<cfelseif fDatum is "North American Datum 1927">
+				<cfset fDatum = "NAD27">
+			<cfelseif fDatum is "North American Datum 1983">
+				<cfset fDatum = "NAD83">
+			</cfif>
+			<cfset datum = "#fDatum#">
+		</cfif>
+	</cfloop>
 </cffunction>
