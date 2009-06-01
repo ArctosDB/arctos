@@ -76,7 +76,6 @@ var viewport = {
 		var type=this.type;
 		var type=$(this).attr('type');
 		var dval=$(this).attr('dval');
-		console.log(dval);
 		var theDiv = document.createElement('div');
 		theDiv.id = 'browseDiv';
 		theDiv.className = 'sscustomBox';

@@ -171,13 +171,13 @@ command_output = exec_cmd('#sqlldrScript#');
 		
 		
 		
-		<cfexecute name="/bin/sh" arguments="#sqlldrScript# 2>&1" timeout="240" variable="cfe">
+		<cfexecute name="/bin/sh" arguments="#sqlldrScript#" timeout="240">
 		
 		</cfexecute>
+	<cflocation url="bulkloaderLoader.cfm?action=inStage">	
 		
-		<cfdump var=#cfe#>
 		<!---
-		
+		<cfdump var=#cfe#>
 		
 		<br />		
 <cfscript>  
