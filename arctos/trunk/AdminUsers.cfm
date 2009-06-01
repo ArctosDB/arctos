@@ -161,6 +161,7 @@
 				<td>
 					<cfif len(#isDbUser.username#) gt 0 and hasInvite.recordcount is 0>
 						Is User
+						<a href="AdminUsers.cfm?username=#username#&action=lockUser">Lock Account</a>
 					</cfif>
 						<cfif #len(hasInvite.user_id)# is 0 and isDbUser.recordcount is 0>
 							<a href="AdminUsers.cfm?action=makeNewDbUser&username=#username#&user_id=#getUsers.user_id#">Invite</a>
@@ -288,7 +289,19 @@
 	</cfoutput>
 
 </cfif>
+<!---------------------------------------------------->
+<cfif #Action# is "lockUser">
+	<cfoutput>
+		<cfquery name="lock" datasource="uam_god">
+			alter user "#username#" account lock
+		</cfquery>
+		
+		The account for #username# is now locked. Contact a DBA to unlock it.
+		<a href="AdminUsers.cfm?username=#username#&action=edit">Continue</a>
+	</cfoutput>
+</cfif>
 
+						
 <!---------------------------------------------------->
 <cfif #Action# is "adminSet">
 	<cfoutput>
