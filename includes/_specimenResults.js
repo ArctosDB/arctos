@@ -804,7 +804,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + result[i].COORDINATEUNCERTAINTYINMETERS + '&nbsp;</td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('DATUM')> -1) {
-					theInnerHtml += '<td>' + result[i].DATUM + '&nbsp;</td>';
+					theInnerHtml += '<td>' + spaceStripper(result[i].DATUM) + '&nbsp;</td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('ORIG_LAT_LONG_UNITS')> -1) {
 					theInnerHtml += '<td>' + result[i].ORIG_LAT_LONG_UNITS + '&nbsp;</td>';
@@ -819,37 +819,37 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td><div class="wrapLong">' + result[i].LAT_LONG_REMARKS + '</div></td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('CONTINENT_OCEAN')> -1) {
-					theInnerHtml += '<td>' + result[i].CONTINENT_OCEAN + '&nbsp;</td>';
+					theInnerHtml += '<td>' + spaceStripper(result[i].CONTINENT_OCEAN) + '&nbsp;</td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('COUNTRY')> -1) {
-					theInnerHtml += '<td>' + result[i].COUNTRY + '&nbsp;</td>';
+					theInnerHtml += '<td>' + spaceStripper(result[i].COUNTRY) + '&nbsp;</td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('STATE_PROV')> -1) {
-					theInnerHtml += '<td>' + result[i].STATE_PROV + '&nbsp;</td>';
+					theInnerHtml += '<td>' + spaceStripper(result[i].STATE_PROV) + '&nbsp;</td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('SEA')> -1) {
 					theInnerHtml += '<td>' + result[i].SEA + '&nbsp;</td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('QUAD')> -1) {
-					theInnerHtml += '<td>' + result[i].QUAD + '&nbsp;</td>';
+					theInnerHtml += '<td>' + spaceStripper(result[i].QUAD) + '&nbsp;</td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('FEATURE')> -1) {
-					theInnerHtml += '<td>' + result[i].FEATURE + '&nbsp;</td>';
+					theInnerHtml += '<td>' + spaceStripper(result[i].FEATURE) + '&nbsp;</td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('COUNTY')> -1) {
 					theInnerHtml += '<td>' + result[i].COUNTY + '&nbsp;</td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('ISLAND_GROUP')> -1) {
-					theInnerHtml += '<td>' + result[i].ISLAND_GROUP + '&nbsp;</td>';
+					theInnerHtml += '<td>' + spaceStripper(result[i].ISLAND_GROUP) + '&nbsp;</td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('ISLAND')> -1) {
-					theInnerHtml += '<td>' + result[i].ISLAND + '&nbsp;</td>';
+					theInnerHtml += '<td>' + spaceStripper(result[i].ISLAND) + '&nbsp;</td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('ASSOCIATED_SPECIES')> -1) {
-					theInnerHtml += '<td>' + result[i].ASSOCIATED_SPECIES + '&nbsp;</td>';
+					theInnerHtml += '<td><div class="wrapLong">' + result[i].ASSOCIATED_SPECIES + '</div></td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('HABITAT')> -1) {
-					theInnerHtml += '<td>' + result[i].HABITAT + '&nbsp;</td>';
+					theInnerHtml += '<td><div class="wrapLong">' + result[i].HABITAT + '</div></td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('MIN_ELEV_IN_M')> -1) {
 					theInnerHtml += '<td>' + result[i].MIN_ELEV_IN_M + '&nbsp;</td>';
@@ -868,7 +868,7 @@ function success_getSpecResultsData(result){
 				}
 				if (result[0].COLUMNLIST.indexOf('SPEC_LOCALITY')> -1) {
 					theInnerHtml += '<td id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID + '">';
-					theInnerHtml += '<span class="browseLink" type="spec_locality" dval="' + encodeURI(result[i].SPEC_LOCALITY) + '">' + result[i].SPEC_LOCALITY;
+					theInnerHtml += '<span class="browseLink" type="spec_locality" dval="' + encodeURI(result[i].SPEC_LOCALITY) + '"><div class="wrapLong">' + result[i].SPEC_LOCALITY + '</div>';
 					theInnerHtml += '</span>'; 					
 					theInnerHtml += '</td>';
 				}
