@@ -660,7 +660,7 @@
 Shipment Information:
 <table>
 <cfoutput>
-	<form name="shipment" method="post" action="Loan.cfm">
+	<cfform name="shipment" method="post" action="Loan.cfm">
 		<input type="hidden" name="Action" value="saveShip">
 		<input type="hidden" name="transaction_id" value="#transaction_id#">
 		<tr><td align="right">
@@ -730,8 +730,8 @@ Shipment Information:
 			</select></td>
 		</tr>
 		<tr>
-			<td align="right">Insured Value:</td>
-			<td><input type="text" value="#INSURED_FOR_INSURED_VALUE#" name="INSURED_FOR_INSURED_VALUE"></td>
+			<td align="right">$ Insured Value:</td>
+			<td><cfinput type="text" validate="integer" value="#INSURED_FOR_INSURED_VALUE#" name="INSURED_FOR_INSURED_VALUE"></td>
 		</tr>
 		<tr>
 			<td align="right">Remarks:</td>
@@ -757,7 +757,7 @@ Shipment Information:
 			
 		</tr>
 		
-	</form>
+	</cfform>
 	
 </cfoutput>
 </table>
