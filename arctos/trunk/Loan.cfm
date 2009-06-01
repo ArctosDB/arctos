@@ -731,7 +731,8 @@ Shipment Information:
 		</tr>
 		<tr>
 			<td align="right">$ Insured Value:</td>
-			<td><cfinput type="text" validate="integer" value="#INSURED_FOR_INSURED_VALUE#" name="INSURED_FOR_INSURED_VALUE"></td>
+			<td><cfinput type="text" validate="float" label="Numeric value required."
+					 value="#INSURED_FOR_INSURED_VALUE#" name="INSURED_FOR_INSURED_VALUE"></td>
 		</tr>
 		<tr>
 			<td align="right">Remarks:</td>
