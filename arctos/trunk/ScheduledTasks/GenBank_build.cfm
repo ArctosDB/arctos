@@ -16,7 +16,8 @@
 		c.collection,
 		a.cat_num,
 		c.collection_cde,
-		c.institution_acronym
+		c.institution_acronym,
+		c.institution_acronym || ':' || c.collection_cde || ':' || a.cat_num guid
 	FROM
 		cataloged_item a,
 		coll_obj_other_id_num b,
@@ -27,11 +28,11 @@
 		b.other_id_type='GenBank'
 </cfquery>
 
-<cfset header="------------------------------------------------#chr(10)#prid: #Application.genBankPrid##chr(10)#dbase: Nucleotide#chr(10)#!base.url: #Application.ServerRootUrl#/SpecimenDetail.cfm?">
+<cfset header="------------------------------------------------#chr(10)#prid: #Application.genBankPrid##chr(10)#dbase: Nucleotide#chr(10)#!base.url: #Application.ServerRootUrl#/guid/">
 <cffile action="write" file="#Application.webDirectory#/temp/nucleotide.ft" addnewline="no" output="#header#">
 <cfset i=1>
 <cfloop query="nucleotide">
-	<cfset oneLine="#chr(10)#------------------------------------------------#chr(10)#linkid: #i##chr(10)#query: #display_value##chr(10)#base: &base.url;#chr(10)#rule: collection_object_id=#collection_object_id##chr(10)#name: #collection# #cat_num#">
+	<cfset oneLine="#chr(10)#------------------------------------------------#chr(10)#linkid: #i##chr(10)#query: #display_value##chr(10)#base: &base.url;#chr(10)#rule: #guid##chr(10)#name: #collection# #cat_num#">
 		<cfset i=#i#+1>
 		<cffile action="append" file="#Application.webDirectory#/temp/nucleotide.ft" addnewline="no" output="#oneLine#">
 </cfloop>
@@ -60,11 +61,11 @@
 	select 
 		distinct(scientific_name) from identification
 </cfquery>
-<cfset header="------------------------------------------------#chr(10)#prid: #Application.genBankPrid##chr(10)#dbase: Taxonomy#chr(10)#!base.url: #Application.ServerRootUrl#/TaxonomyResults.cfm?">
+<cfset header="------------------------------------------------#chr(10)#prid: #Application.genBankPrid##chr(10)#dbase: Taxonomy#chr(10)#!base.url: #Application.ServerRootUrl#/name/">
 <cffile action="write" file="#Application.webDirectory#/temp/names.ft" addnewline="no" output="#header#">
 <cfset i=1>
 <cfloop query="AllUsedSciNames">
-	<cfset oneLine="#chr(10)#------------------------------------------------#chr(10)#linkid: #i##chr(10)#query: #scientific_name# [name]#chr(10)#base: &base.url;#chr(10)#rule: full_taxon_name=#scientific_name##chr(10)#name: #scientific_name# taxonomy">
+	<cfset oneLine="#chr(10)#------------------------------------------------#chr(10)#linkid: #i##chr(10)#query: #scientific_name# [name]#chr(10)#base: &base.url;#chr(10)#rule: #scientific_name##chr(10)#name: #scientific_name# taxonomy">
 		<cfset i=#i#+1>
 		<cffile action="append" file="#Application.webDirectory#/temp/names.ft" addnewline="no" output="#oneLine#">
 </cfloop>
