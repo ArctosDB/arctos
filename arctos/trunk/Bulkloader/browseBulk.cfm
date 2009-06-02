@@ -9,20 +9,6 @@
 <cfif #action# IS "nothing">
 <cfoutput>
 <cf_setDataEntryGroups>
-<!---
-<cfset afg = "">
-<cfloop list="#adminForUsers#" index="m">
-	<cfif len(#afg#) is 0>
-		<cfset afg="'#m#'">
-	<cfelse>
-		<cfset afg="#afg#,'#m#'">
-	</cfif>
-</cfloop>
-<cfif len(#afg#) is 0>
-	You are not an admin for any active groups.
-	<cfabort>
-</cfif>
---->
 <cfset delimitedAdminForGroups=ListQualify(adminForUsers, "'")>
 <cfquery name="ctAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
@@ -35,42 +21,29 @@
 		accn 
 	order by accn
 </cfquery>
-<hr>
-select 
-		accn 
-	from 
-		bulkloader 
-	where 
-		enteredby in (#preservesinglequotes(delimitedAdminForGroups)#) 
-	group by 
-		accn 
-	order by accn
-	
-<cfdump var=#ctAccn#>
 <p>Filter records in bulkloader to:</p>
 
 
 <form name="f" method="post" action="browseBulk.cfm">
 	<input type="hidden" name="action" value="viewTable" />
 	<label for="enteredby">Entered By</label>
-	<select name="enteredby" multiple="multiple" size="4" id="enteredby">
+	<select name="enteredby" multiple="multiple" size="12" id="enteredby">
 		<option value="#delimitedAdminForGroups#" selected="selected">All</option>
 		<cfloop list="#adminForUsers#" index='agent_name'>
 			<option value="'#agent_name#'">#agent_name#</option>
 		</cfloop>
 	</select>
 	<label for="accn">Accession</label>
-	<select name="accn" multiple="multiple" size="10" id="accn">
+	<select name="accn" multiple="multiple" size="12" id="accn">
 		<option value="" selected>All</option>
 		<cfloop query="ctAccn">
 			<option value="'#accn#'">#accn#</option>
 		</cfloop>
 	</select>
-	<br /><input type="submit" 
+	<br /><input type="button" 
 				value="View Table"
 				class="lnkBtn"
-				onmouseover="this.className='lnkBtn btnhov'"
-				onmouseout="this.className='lnkBtn'">
+				onclick="f.action.value='viewTable';f.submit();">
  	<br/><input type="button" 
 				value="SQL"
 				class="lnkBtn"
