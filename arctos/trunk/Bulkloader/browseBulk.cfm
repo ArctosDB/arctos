@@ -25,7 +25,15 @@
 --->
 <cfset delimitedAdminForGroups=ListQualify(adminForUsers, "'")>
 <cfquery name="ctAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select accn from bulkloader where enteredby in (#delimitedAdminForGroups#) group by accn order by accn
+	select 
+		accn 
+	from 
+		bulkloader 
+	where 
+		enteredby in (#preservesinglequotes(delimitedAdminForGroups)#) 
+	group by 
+		accn 
+	order by accn
 </cfquery>
 
 <p>Filter records in bulkloader to:</p>
