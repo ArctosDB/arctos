@@ -18,14 +18,7 @@ grant all on bulkloader_clone to coldfusion_user;
 <cfif #action# IS "nothing">
 <cfoutput>
 <cf_setDataEntryGroups>
-<cfset afg = "">
-<cfloop list="#adminForUsers#" index="m">
-	<cfif len(#afg#) is 0>
-		<cfset afg="'#m#'">
-	<cfelse>
-		<cfset afg="#afg#,'#m#'">
-	</cfif>
-</cfloop>
+<cfset afg=ListQualify(adminForUsers, "'")>
 <cfif len(#afg#) is 0>
 	<!--- for this form, let them "admin" their own records --->
     <cfset afg="'#session.username#'">
@@ -33,10 +26,6 @@ grant all on bulkloader_clone to coldfusion_user;
 <cfquery name="ctAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select accn from bulkloader where enteredby in (#preservesinglequotes(afg)#) group by accn order by accn
 </cfquery>
-<span style="font-size:smaller; font-style:italic;">
-	You are in the <strong>#inAdminGroups#</strong> group(s), reviewing records entered by the <strong>#adminForGroups#</strong> group(s). 
-	<br />Group Members are: <strong>#adminForUsers#</strong>
-</span>
 
 <p>Filter records in bulkloader to:</p>
 
