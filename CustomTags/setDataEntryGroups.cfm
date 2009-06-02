@@ -53,4 +53,4 @@
 
 <cfset caller.inAdminGroups = valuelist(get_admin_group.admin_for_groups)>
 <cfset caller.inEntryGroups = valuelist(get_entry_group.entry_in_groups)>
-<cfset caller.adminForGroups = valuelist(admin_for_users.admin_of_user)>
+<cfset caller.adminForUsers = valuelist(admin_for_users.admin_of_user)>
