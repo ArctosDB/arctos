@@ -35,7 +35,18 @@
 		accn 
 	order by accn
 </cfquery>
-
+<hr>
+select 
+		accn 
+	from 
+		bulkloader 
+	where 
+		enteredby in (#preservesinglequotes(delimitedAdminForGroups)#) 
+	group by 
+		accn 
+	order by accn
+	
+<cfdump var=#ctAccn#>
 <p>Filter records in bulkloader to:</p>
 
 
