@@ -34,7 +34,7 @@
 	<input type="hidden" name="action" value="viewTable" />
 	<label for="enteredby">Entered By</label>
 	<select name="enteredby" multiple="multiple" size="4" id="enteredby">
-		<option value="#afg#" selected="selected">All</option>
+		<option value="#adminForUsers#" selected="selected">All</option>
 		<cfloop list="#adminForUsers#" index='agent_name'>
 			<option value="'#agent_name#'">#agent_name#</option>
 		</cfloop>
