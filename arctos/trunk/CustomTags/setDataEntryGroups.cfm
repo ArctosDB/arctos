@@ -27,7 +27,7 @@
 		upper(collroles.grantee) = '#ucase(session.username)#'
 </cfquery>
 <!--- users who current user can act as admin for --->
-<cfquery name="admin_for_users" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="admin_for_users" datasource="uam_god">
 	select 
 		distinct(users.grantee) admin_of_user
 	from 
