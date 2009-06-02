@@ -9,6 +9,7 @@
 <cfif #action# IS "nothing">
 <cfoutput>
 <cf_setDataEntryGroups>
+<!---
 <cfset afg = "">
 <cfloop list="#adminForUsers#" index="m">
 	<cfif len(#afg#) is 0>
@@ -21,8 +22,9 @@
 	You are not an admin for any active groups.
 	<cfabort>
 </cfif>
+--->
 <cfquery name="ctAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select accn from bulkloader where enteredby in (#preservesinglequotes(afg)#) group by accn order by accn
+	select accn from bulkloader where enteredby in (#preservesinglequotes(ListQualify(adminForUsers, "'"))#) group by accn order by accn
 </cfquery>
 <span style="font-size:smaller; font-style:italic;">
 	You are in the <strong>#inAdminGroups#</strong> group(s), reviewing records entered by the <strong>#adminForGroups#</strong> group(s). 
