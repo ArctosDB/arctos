@@ -1,9 +1,27 @@
 <cfinclude template="/includes/_header.cfm">
+<cf_setDataEntryGroups>
 <cfquery datasource="#Application.web_user#" name="bulkSummary">
-	select loaded, accn, enteredby, institution_acronym, collection_cde,count(*) cnt
-	from bulkloader group by
-	loaded, accn, enteredby, institution_acronym, collection_cde
-	order by institution_acronym, collection_cde,enteredby
+	select 
+		loaded, 
+		accn, 
+		enteredby, 
+		institution_acronym, 
+		collection_cde,
+		count(*) cnt
+	from 
+		bulkloader
+	where
+		upper(institution_acronym || '_' || collection_cde) IN (#ListQualify(inAdminGroups, "'")#)
+	group by
+		loaded, 
+		accn, 
+		enteredby, 
+		institution_acronym, 
+		collection_cde
+	order by 
+		institution_acronym, 
+		collection_cde,
+		enteredby
 </cfquery>
 <cfoutput>
 	What's In The Bulkloader:
