@@ -49,8 +49,9 @@
 				upper(collroles.granted_role) = upper(collection.institution_acronym || '_' || collection.collection_cde) and
 				isMgr.granted_role='MANAGE_COLLECTION' and
 				isMgr.grantee=collroles.grantee and
-				upper(collroles.grantee) = 'LAM'
+				upper(collroles.grantee) = '#ucase(session.username)#'
 		)
+	order by cf_users.username
 </cfquery>
 
 <cfset caller.inAdminGroups = valuelist(get_admin_group.admin_for_groups)>
