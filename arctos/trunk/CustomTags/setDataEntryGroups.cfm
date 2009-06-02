@@ -36,7 +36,7 @@
 		cf_users	
 	where
 		users.grantee=collroles.grantee and
-		uper(users.grantee)=upper(cf_users.username) and
+		upper(users.grantee)=upper(cf_users.username) and
 		users.granted_role='DATA_ENTRY' and
 		collroles.granted_role IN (
 			select 
