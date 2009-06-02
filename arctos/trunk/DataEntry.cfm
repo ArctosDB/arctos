@@ -41,7 +41,7 @@ Some Totally Random String Data .....
 <cfif #action# is "nothing">
 <!--- prime the bulkloader table with templates for each collection ---->
 <cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select * from collection ORDER BY COLLECTION_ID
+	select * from collection ORDER BY COLLECTION
 </cfquery>
 <cfoutput>
 	<cfloop query="c">
