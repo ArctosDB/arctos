@@ -23,8 +23,9 @@
 	<cfabort>
 </cfif>
 --->
+<cfset delimitedAdminForGroups=ListQualify(adminForUsers, "'")>
 <cfquery name="ctAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select accn from bulkloader where enteredby in (#ListQualify(adminForUsers, "'")#) group by accn order by accn
+	select accn from bulkloader where enteredby in (#delimitedAdminForGroups#) group by accn order by accn
 </cfquery>
 
 <p>Filter records in bulkloader to:</p>
@@ -34,7 +35,7 @@
 	<input type="hidden" name="action" value="viewTable" />
 	<label for="enteredby">Entered By</label>
 	<select name="enteredby" multiple="multiple" size="4" id="enteredby">
-		<option value="#adminForUsers#" selected="selected">All</option>
+		<option value="#delimitedAdminForGroups#" selected="selected">All</option>
 		<cfloop list="#adminForUsers#" index='agent_name'>
 			<option value="'#agent_name#'">#agent_name#</option>
 		</cfloop>
