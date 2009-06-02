@@ -56,7 +56,8 @@
 		bulkloader_attempts		
 	where
 		bulkloader.collection_object_id = B_COLLECTION_OBJECT_ID AND
-		loaded <> 'spiffification complete'
+		loaded <> 'spiffification complete' and
+		upper(bulkloader.institution_acronym || '_' || bulkloader,collection_cde) IN (#ListQualify(inAdminGroups, "'")#)
 	group by
 		bulkloader.collection_object_id,
 		loaded,
