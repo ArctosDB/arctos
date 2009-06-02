@@ -1,65 +1,56 @@
-<cfquery name="get_admin_group" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<!--- collections for which current user is a manager --->
+<cfquery name="get_admin_group" datasource="uam_god">
 	select 
-			grp.agent_name,
-			grp.agent_id
-		from
-			preferred_agent_name grp,
-			agent_name usr,
-			group_member
-		where
-			grp.agent_id=group_member.GROUP_AGENT_ID and
-			group_member.MEMBER_AGENT_ID = usr.agent_id and
-			usr.agent_name='#session.username#' and
-			grp.agent_name like '% Data Admin Group'
-		order by grp.agent_name
+		distinct(collroles.granted_role) admin_for_groups
+	from 
+		dba_role_privs collroles,
+		dba_role_privs isMgr,
+		collection
+	where
+		upper(collroles.granted_role) = upper(collection.institution_acronym || '_' || collection.collection_cde) and
+		isMgr.granted_role='MANAGE_COLLECTION' and
+		isMgr.grantee=collroles.grantee and
+		upper(collroles.grantee) = '#ucase(session.username)#'
 </cfquery>
-<cfset admGrps = "">
-<cfloop query="get_admin_group">
-	<cfif len(#admGrps#) is 0>
-		<cfset admGrps = "'#agent_name#'">
-	<cfelse>
-		<cfset admGrps = "#admGrps#,'#agent_name#'">
-	</cfif>
-</cfloop>
-<cfset admGrps = replace(admGrps," Data Admin Group"," Data Entry Group","all")>
-<cfquery name="get_entry_group" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<!--- collections for which current user is authorized data entry ---->
+<cfquery name="get_entry_group" datasource="uam_god">
 	select 
-			grp.agent_name,
-			grp.agent_id
-		from
-			preferred_agent_name grp,
-			agent_name usr,
-			group_member
-		where
-			grp.agent_id=group_member.GROUP_AGENT_ID and
-			group_member.MEMBER_AGENT_ID = usr.agent_id and
-			usr.agent_name='#session.username#' and
-			grp.agent_name like '% Data Entry Group'
-		order by grp.agent_name
+		distinct(collroles.granted_role) entry_in_groups
+	from 
+		dba_role_privs collroles,
+		dba_role_privs isMgr,
+		collection
+	where
+		upper(collroles.granted_role) = upper(collection.institution_acronym || '_' || collection.collection_cde) and
+		isMgr.granted_role='DATA_ENTRY' and
+		isMgr.grantee=collroles.grantee and
+		upper(collroles.grantee) = '#ucase(session.username)#'
 </cfquery>
-<cfif len(#valuelist(get_admin_group.agent_id)#) gt 0>
-	<cfquery name="admin_for_users" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select 
-			entry.agent_name 
-		FROM
-			group_member,
-			agent_name admin,
-			agent_name entry
-		where 
-			group_member.member_agent_id = entry.agent_id AND
-			entry.agent_name_type='login' AND
-			group_member.group_agent_id = admin.agent_id AND
-			admin.agent_name IN (#preservesinglequotes(admGrps)#) 			
-		GROUP BY
-			entry.agent_name
-		order by entry.agent_name
-	</cfquery>
-	<cfset caller.adminForUsers = valuelist(admin_for_users.agent_name)>
-<cfelse>
-	<cfset caller.adminForUsers = "">
-</cfif>
+<!--- users who current user can act as admin for --->
+<cfquery name="admin_for_users" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select 
+		distinct(users.grantee) admin_of_user
+	from 
+		dba_role_privs users,
+		dba_role_privs collroles	
+	where
+		users.grantee=collroles.grantee and
+		users.granted_role='DATA_ENTRY' and
+		collroles.granted_role IN (
+			select 
+				distinct(collroles.granted_role)
+			from 
+				dba_role_privs collroles,
+				dba_role_privs isMgr,
+				collection
+			where
+				upper(collroles.granted_role) = upper(collection.institution_acronym || '_' || collection.collection_cde) and
+				isMgr.granted_role='MANAGE_COLLECTION' and
+				isMgr.grantee=collroles.grantee and
+				upper(collroles.grantee) = 'LAM'
+		)
+</cfquery>
 
-<cfset caller.inAdminGroups = valuelist(get_admin_group.agent_name)>
-<cfset caller.inEntryGroups = valuelist(get_entry_group.agent_name)>
-
-<cfset caller.adminForGroups = replace(valuelist(get_admin_group.agent_name)," Data Admin Group"," Data Entry Group","all")>
+<cfset caller.inAdminGroups = valuelist(get_admin_group.admin_for_groups)>
+<cfset caller.inEntryGroups = valuelist(get_entry_group.entry_in_groups)>
+<cfset caller.adminForGroups = valuelist(admin_for_users.admin_of_user)>
