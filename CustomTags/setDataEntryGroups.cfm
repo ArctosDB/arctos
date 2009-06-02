@@ -29,12 +29,14 @@
 <!--- users who current user can act as admin for --->
 <cfquery name="admin_for_users" datasource="uam_god">
 	select 
-		distinct(users.grantee) admin_of_user
+		distinct(cf_users.username) admin_of_user
 	from 
 		dba_role_privs users,
-		dba_role_privs collroles	
+		dba_role_privs collroles,
+		cf_users	
 	where
 		users.grantee=collroles.grantee and
+		uper(users.grantee)=upper(cf_users.username) and
 		users.granted_role='DATA_ENTRY' and
 		collroles.granted_role IN (
 			select 
