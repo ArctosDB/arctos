@@ -103,7 +103,8 @@
 		bulkloader_deletes.collection_object_id = B_COLLECTION_OBJECT_ID AND
 		bulkloader_attempts.collection_object_id = cataloged_item.collection_object_id AND
 		cataloged_item.collection_id = collection.collection_id AND
-		TSTAMP > ('#dateformat(now()-5,"dd-mmm-yyyy")#')
+		TSTAMP > ('#dateformat(now()-5,"dd-mmm-yyyy")#') and
+		upper(bulkloader_deletes.institution_acronym || '_' || bulkloader_deletes.collection_cde) IN (#ListQualify(inAdminGroups, "'")#)
 	group by
 		bulkloader_attempts.collection_object_id,
 		cataloged_item.cat_num,
