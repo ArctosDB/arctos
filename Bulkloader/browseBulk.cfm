@@ -24,7 +24,7 @@
 </cfif>
 --->
 <cfquery name="ctAccn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select accn from bulkloader where enteredby in (#preservesinglequotes(ListQualify(adminForUsers, "'"))#) group by accn order by accn
+	select accn from bulkloader where enteredby in (#ListQualify(adminForUsers, "'")#) group by accn order by accn
 </cfquery>
 <span style="font-size:smaller; font-style:italic;">
 	You are in the <strong>#inAdminGroups#</strong> group(s), reviewing records entered by the <strong>#adminForGroups#</strong> group(s). 
