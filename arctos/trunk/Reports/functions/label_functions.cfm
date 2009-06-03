@@ -1010,6 +1010,7 @@
 			<cfset foundSkin = 0>
 			<cfset foundSkull = 0>
 			<cfset foundTissue = 0>
+			<cfset foundOrg = 0>
 			<cfset index = 0>
 		
 			<cfquery name="part_name_all" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -1037,30 +1038,32 @@
 				
 				
 				<!-- Don't show skin/skull/tissue/whole organism -->
-				<cfif skullP gt 0>
-					<cfif foundSkull is 0>
-						<cfset foundSkull = 1>
-					</cfif>
-				<cfelseif  skinP gt 0>
-					<cfif foundSkin is 0>
-						<cfset foundSkin = 1>
-					</cfif>
-				<cfelseif tissueP lte 0 and wholeOrgP lte 0>
+				<cfif skullP gt 0>    <!-- Found Skull -->
+					<cfset foundSkull = 1>	
+				<cfelseif  skinP gt 0>	<!-- Found Skin -->
+					<cfset foundSkin = 1>
+				<cfelseif tissueP gt 0>	<!-- Found Tissue -->
+					<cfset foundTissue = 1>
+				<cfelse if wholeOrgP gt 0>	<!-- Found whole organism -->
+					<cfset foundOrg = 1>
+				<cfelse>
 					<cfif len(newParts) gt 0>
 						<cfset newParts = "#newParts#; #p#">
 					<cfelse>
 						<cfset newParts = "#p#">
 					</cfif>
-				<cfelse>
-					<cfset foundTissue = 1>
 				</cfif>
+				<cfset index = index+1>
 			</cfloop>
 			
-			<cfif len(newParts) and foundSkin is 1 and foundSkull is 1>
+			<cfif len(newParts) and foundSkin is 1 and foundSkull is 1>	
+				<!--  "skin, skull, other parts" => "+other parts" -->
 				<cfset newParts = "+#newParts#">
 			<cfelseif foundSkull is 1 and foundSkin is 0 and len(newParts) is 0>
+				<!--  only "skull" => "skull"-->
 				<cfset newParts = "skull">
 			<cfelseif foundSkull is 1 and foundSkin is 0 and len(newParts) is not 0>
+				<!--  "skull, other parts (no skin/tissue)" => "skull, other parts"-->
 				<cfset tempIndex = 0>
 				<cfset tempNewParts = "">
 				<cfloop list="#newParts#" delimiters=";" index="p" >
@@ -1073,9 +1076,11 @@
 					<cfelse>
 						<cfset tempNewParts = "#tempNewParts#; #p#">
 					</cfif>
+					<cfset tempIndex= tempIndex+1>
 				</cfloop>
 				<cfset newParts = tempNewParts>
 			<cfelseif foundSkull is 1 and foundSkin is 1 and len(newParts) is 0>
+				<!--  only "skull, skin" => "$@%" (replaced later to "")-->
 				<cfset newParts = "$@%">
 			</cfif>
 		</cfif>
