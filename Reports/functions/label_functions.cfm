@@ -1039,7 +1039,7 @@
 				
 				<!-- Don't show skin/skull/tissue/whole organism -->
 				<cfif skullP gt 0>    <!-- Found Skull -->
-					<cfset foundSkull = 1>	
+					<cfset foundSkull = 1>
 				<cfelseif  skinP gt 0>	<!-- Found Skin -->
 					<cfset foundSkin = 1>
 				<cfelseif tissueP gt 0>	<!-- Found Tissue -->
@@ -1053,7 +1053,9 @@
 						<cfset newParts = "#p#">
 					</cfif>
 				</cfif>
-				<cfset index = index+1>
+				<cfif foundSkull is 0>
+					<cfset index = index+1>
+				</cfif>
 			</cfloop>
 			
 			<cfif len(newParts) and foundSkin is 1 and foundSkull is 1>	
