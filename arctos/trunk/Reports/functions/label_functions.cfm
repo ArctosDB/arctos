@@ -1076,7 +1076,11 @@
 							<cfset tempNewParts = "#tempNewParts#; skull; #p#">
 						</cfif>
 					<cfelse>
-						<cfset tempNewParts = "#tempNewParts#; #p#">
+						<cfif len(tempNewParts) is 0>
+							<cfset tempNewParts = "#p#">
+						<cfelse>
+							<cfset tempNewParts = "#tempNewParts#; #p#">
+						</cfif>
 					</cfif>
 					<cfset tempIndex= tempIndex+1>
 				</cfloop>
