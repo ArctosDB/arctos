@@ -1044,7 +1044,7 @@
 					<cfset foundSkin = 1>
 				<cfelseif tissueP gt 0>	<!-- Found Tissue -->
 					<cfset foundTissue = 1>
-				<cfelse if wholeOrgP gt 0>	<!-- Found whole organism -->
+				<cfelseif wholeOrgP gt 0>	<!-- Found whole organism -->
 					<cfset foundOrg = 1>
 				<cfelse>
 					<cfif len(newParts) gt 0>
