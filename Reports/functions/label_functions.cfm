@@ -909,7 +909,7 @@
 		<cfloop list="#formatted_parts#" delimiters=";" index="p">
 			<cfset tissueP = find("tissue", p)>
 			<cfset wholeOrgP = find("whole organism", p)>
-			<cfif tissueP lte 0 or wholeOrgP lte 0>
+			<cfif tissueP lte 0 and wholeOrgP lte 0>
 				<cfif len(newParts) gt 0>
 					<cfset newParts = "#newParts#; #p#">
 				<cfelse>
