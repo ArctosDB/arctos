@@ -4,7 +4,7 @@
 <cfoutput>
 	Find Collection:
 	<cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from collection
+		select * from collection order by collection
 	</cfquery>
 	<form name="coll" method="post" action="Collection.cfm">
 		<input type="hidden" name="action">
