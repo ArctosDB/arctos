@@ -149,6 +149,7 @@
 	<cfset session.resultColumnList="">
 	<cfset session.schParam = "">
 	<cfset session.target=''>
+	<cfset session.meta_description=''>
 	<cfset temp=cfid & '_' & cftoken & '_' & RandRange(0, 10000)>
 	<cfset session.SpecSrchTab="SpecSrch" & temp>
 	<cfset session.TaxSrchTab="TaxSrch" & temp>
