@@ -238,10 +238,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 </cfif>
 <!------------------------------------------------------->
 <cfif #action# is "loadData">
-
 <cfoutput>
-	
-		
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_temp_relations
 	</cfquery>
@@ -250,8 +247,8 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			insert into biol_indiv_relations (
 				collection_object_id,
-				related_coll_obj_id,
-				relationship
+				related_coll_object_id,
+				biol_indiv_relationship
 			) values (
 				#collection_object_id number#,
 				#related_collection_object_id#,
@@ -260,9 +257,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		</cfquery>
 	</cfloop>
 	</cftransaction>
-
 	Spiffy, all done.
 </cfoutput>
 </cfif>
-
 <cfinclude template="/includes/_footer.cfm">
