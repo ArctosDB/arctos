@@ -126,16 +126,15 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 	<cfquery name="allData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) as cnt from bulkloader_stage
 	</cfquery>
-	<cfoutput>
-		<cfif #anyBads.cnt# gt 0>
-			<cfinclude template="getBulkloaderStageRecs.cfm">
-				#anyBads.cnt# of #allData.cnt# records will not successfully load. 
-				Click <a href="bulkloader.txt" target="_blank">here</a> 
-				to retrieve all data including error messages. Fix them up and reload them.
-				<p>
-				Click <a href="bulkloaderLoader.cfm?action=loadAnyway">here</a> to load them to the
-				bulkloader anyway. Use Arctos to fix them up and load them.
-				</p>
+	<cfif #anyBads.cnt# gt 0>
+		<cfinclude template="getBulkloaderStageRecs.cfm">
+			#anyBads.cnt# of #allData.cnt# records will not successfully load. 
+			Click <a href="bulkloader.txt" target="_blank">here</a> 
+			to retrieve all data including error messages. Fix them up and reload them.
+			<p>
+			Click <a href="bulkloaderLoader.cfm?action=loadAnyway">here</a> to load them to the
+			bulkloader anyway. Use Arctos to fix them up and load them.
+			</p>
 	<cfelse>
 		<cftransaction >
 			<cfquery name="allId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
