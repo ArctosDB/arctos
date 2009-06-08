@@ -407,7 +407,7 @@
 		#preservesinglequotes(sql)#
 	</cfquery>
 </cfloop>
-<cflocation url="browseBulk.cfm?action=viewTable&enteredby=#enteredby#&accn=#accn#">
+<cflocation url="browseBulk.cfm?action=#returnAction#&enteredby=#enteredby#&accn=#accn#">
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------->
@@ -508,6 +508,7 @@ Roll yer own:
 <hr />There are #data.recordcount# records in this view.
 <cfform method="post" action="browseBulk.cfm">
 	<cfinput type="submit" name="save" value="Save Changes In Grid">
+	<cfinput type="hidden" name="returnAction" value="ajaxGrid">
 	<cfinput type="hidden" name="action" value="saveGridUpdate">
 	<cfinput type="hidden" name="enteredby" value="#enteredby#">
 	<cfinput type="hidden" name="accn" value="#accn#">
@@ -593,6 +594,7 @@ Roll yer own:
 	<cfinput type="hidden" name="action" value="saveGridUpdate">
 	<cfinput type="hidden" name="enteredby" value="#enteredby#">
 	<cfinput type="hidden" name="accn" value="#accn#">
+	<cfinput type="hidden" name="returnAction" value="viewTable">
 	<cfgrid query="data"  name="blGrid" width="1200" height="400" selectmode="edit">
 		<cfgridcolumn name="collection_object_id" select="no" href="/DataEntry.cfm?action=editEnterData&ImAGod=yes&pMode=edit" hrefkey="collection_object_id" target="_blank">
 		<!----
