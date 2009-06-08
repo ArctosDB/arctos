@@ -445,74 +445,21 @@
 <!-------------------------------------------------------------->
 <cfif #action# is "ajaxGrid">
 <cfoutput>
-<cfset sql = "select * from bulkloader
-	where enteredby IN (#enteredby#)">
-<cfif len(#accn#) gt 0>
-	<!----
-	<cfset thisAccnList = "">
-	<cfloop list="#accn#" index="a" delimiters=",">
-		<cfif len(#thisAccnList#) is 0>
-			<cfset thisAccnList = "'#a#'">
-		<cfelse>
-			<cfset thisAccnList = "#thisAccnList#,'#a#'">
-		</cfif>
-	</cfloop>
-	<cfset sql = "#sql# AND accn IN (#preservesinglequotes(thisAccnList)#)">
-	---->
-	<cfset sql = "#sql# AND accn IN (#accn#)">
-	
-</cfif>
-<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	#preservesinglequotes(sql)#	
-</cfquery>
 <cfquery name="cNames" datasource="uam_god">
 	select column_name from user_tab_cols where table_name='BULKLOADER'
 	order by internal_column_id
 </cfquery>
-<div style="background-color:##FFFFCC;">
-Roll yer own:
-<cfset columnList = "SPEC_LOCALITY,HIGHER_GEOG,ENTEREDBY,LOADED,ACCN,OTHER_ID_NUM_5">
-
-<form name="bulkStuff" method="post" action="browseBulk.cfm">
-	<input type="hidden" name="action" value="upBulk" />
-	<input type="hidden" name="enteredby" value="#enteredby#" />
-	<input type="hidden" name="accn" value="#accn#" />
-	UPDATE bulkloader SET LOADED = 
-	<select name="loaded" size="1">
-		<option value="NULL">NULL</option>
-		<option value="FLAGGED BY BULKLOADER EDITOR">FLAGGED BY BULKLOADER EDITOR</option>
-		<option value="MARK FOR DELETION">MARK FOR DELETION</option>
-	</select>
-	<br />WHERE
-	<select name="column_name" size="1">
-		<CFLOOP list="#columnList#" index="i">
-			<option value="#i#">#i#</option>
-		</CFLOOP>
-	</select>
-	= TRIM(
-	<input type="text" name="tValue" size="50" />)
-	<br />
-	<input type="submit" 
-				value="Update All Matches"
-				class="savBtn"
-				onmouseover="this.className='savBtn btnhov'"
-				onmouseout="this.className='savBtn'">
-</form>
-</div>
-<hr /><cfset ColNameList = valuelist(cNames.column_name)>
+<cfset ColNameList = valuelist(cNames.column_name)>
 <cfset ColNameList = replace(ColNameList,"COLLECTION_OBJECT_ID","","all")>
-<!---
-<cfset ColNameList = replace(ColNameList,"LOADED","","all")>
-<cfset ColNameList = replace(ColNameList,"ENTEREDBY","","all")>
---->
-<hr />There are #data.recordcount# records in this view.
 <cfform method="post" action="browseBulk.cfm">
 	<cfinput type="submit" name="save" value="Save Changes In Grid">
 	<cfinput type="hidden" name="returnAction" value="ajaxGrid">
 	<cfinput type="hidden" name="action" value="saveGridUpdate">
 	<cfinput type="hidden" name="enteredby" value="#enteredby#">
 	<cfinput type="hidden" name="accn" value="#accn#">
-	<cfgrid query="data"  name="blGrid" width="1200" height="400" selectmode="edit" format="html" sort="yes" stripeRows="yes" stripeRowColor="E5E5E5">
+	<cfgrid query="data"  name="blGrid" width="1200" height="400" selectmode="edit" format="html" 
+			sort="yes" stripeRows="yes" stripeRowColor="E5E5E5"
+			bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize})">>
 		<cfgridcolumn name="collection_object_id" select="no" href="/DataEntry.cfm?action=editEnterData&ImAGod=yes&pMode=edit" hrefkey="collection_object_id" target="_blank">
 		<!----
 		<cfgridcolumn name="loaded" select="yes">
