@@ -449,6 +449,11 @@
 	select column_name from user_tab_cols where table_name='BULKLOADER'
 	order by internal_column_id
 </cfquery>
+<!---
+onChange="browseBulk.cfm?action=dump"
+
+--->
+
 <cfset ColNameList = valuelist(cNames.column_name)>
 <cfset ColNameList = replace(ColNameList,"COLLECTION_OBJECT_ID","","all")>
 <cfform method="post" action="browseBulk.cfm">
@@ -457,7 +462,7 @@
 	<cfinput type="hidden" name="action" value="saveGridUpdate">
 	<cfinput type="hidden" name="enteredby" value="#enteredby#">
 	<cfinput type="hidden" name="accn" value="#accn#">
-	<cfgrid onChange="browseBulk.cfm?action=dump" name="blGrid" width="1200" height="400" selectmode="edit" format="html" 
+	<cfgrid  name="blGrid" width="1200" height="400" selectmode="row" format="html" 
 			sort="yes" stripeRows="yes" stripeRowColor="E5E5E5"
 			bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection})">>
 		<cfgridcolumn name="collection_object_id" select="no" href="/DataEntry.cfm?action=editEnterData&ImAGod=yes&pMode=edit" hrefkey="collection_object_id" target="_blank">
