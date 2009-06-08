@@ -26,6 +26,8 @@ There are 2 online methods by which you may bulkload specimens.
 		trouble with the above methods.
 	</li>
 </ul>
+
+<h3>Other Links</h3>
 <p>You may create your own templates with the <a href="/Bulkloader/bulkloaderBuilder.cfm">Bulkloader Builder</a></p>
 
 <p>Use <a href="/Bulkloader/bulkloader_status.cfm">Bulkloader Status</a> to see what's made it to the
