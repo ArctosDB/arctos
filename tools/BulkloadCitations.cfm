@@ -99,17 +99,10 @@ Include column headings, spelled exactly as below.
 				insert into cf_temp_citation (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
-
 	</cfloop>
-
-	
 	<cflocation url="BulkloadCitations.cfm?action=validate" addtoken="false">
-
-	
 </cfoutput>
 </cfif>
-<!------------------------------------------------------->
-
 <!------------------------------------------------------->
 <cfif #action# is "validate">
 <cfoutput>
