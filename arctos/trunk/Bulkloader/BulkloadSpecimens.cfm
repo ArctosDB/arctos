@@ -10,9 +10,6 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
   </cfform>
 </cfif>
 <!------------------------------------------------------->
-<!------------------------------------------------------->
-
-<!------------------------------------------------------->
 <cfif #action# is "getFile">
 <cfoutput>
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -138,8 +135,7 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 			loaded='BULKLOADED RECORD'. A data administrator can un-flag
 			and load them.
 		</cftransaction>
-	</cfif>
-		
+	</cfif>	
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
