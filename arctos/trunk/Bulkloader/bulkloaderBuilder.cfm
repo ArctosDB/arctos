@@ -199,6 +199,7 @@
 		<label for="fileFormat">Format</label>
 		<select name="fileFormat" id="fileFormat">
 			<option value="txt">Tab-delimited text</option>
+			<option value="csv">CSV</option>
 		</select>
 		<input type="submit" value="Download Template">
 		<table border>
