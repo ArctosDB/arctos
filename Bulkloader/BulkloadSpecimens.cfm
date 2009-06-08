@@ -58,70 +58,107 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 			<cfset etime=now()>
 	<cfset tt=DateDiff("s", btime, etime)>
 	<br>Runtime to insert to table: #tt#
-	<!---
+
 	<cflocation url="BulkloadSpecimens.cfm?action=validate" addtoken="false">
-	---->
-	BulkloadSpecimens.cfm?action=validate
+
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
 <cfif #action# is "validate">
 <cfoutput>
-	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from bulkloader_stage
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select count(*) as cnt from bulkloader_stage
 	</cfquery>
-	<cfdump var="#getTempData#">
+	You successfully loaded #c.cnt# records into the <em><strong>staging</strong></em> table. 
+	They have not been checked or processed yet. You aren't done here!
+	<ul>
+		<li>
+			<a href="/BulkloadSpecimens.cfm?action=checkStaged" target="_self">Check and load these records</a>.
+			This is a slow process, but completing it will allow you to re-load your data as necessary.
+			This is the preferred method.
+		</li>
+		<li>
+			<a href="/BulkloadSpecimens.cfm?action=loadAnyway" target="_self">Just load these records</a>.
+			Use this method if you wish to use Arctos' tools to fix any errors.
+		</li>
+		<li>
+			Email a DBA if you wish to check your records at this stage but the process times out. We can schedule
+			the process, allowing it to take as long as necessary to complete.
+		</li>
+	</ul>
+	
+	
+	
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
-<cfif #action# is "loadData">
-
+<cfif #action# is "loadAnyway">
 <cfoutput>
-	
-		
-	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from cf_temp_citation
+	<cfquery name="allId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select collection_object_id from bulkloader_stage
 	</cfquery>
-	
-	<cftransaction>
-	<cfloop query="getTempData">
-		<cfquery name="insert" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			insert into citation (
-				PUBLICATION_ID,
-				COLLECTION_OBJECT_ID,
-				CITED_TAXON_NAME_ID,
-				CIT_CURRENT_FG
-				<cfif len(#OCCURS_PAGE_NUMBER#) gt 0>
-					,OCCURS_PAGE_NUMBER
-				</cfif>
-				<cfif len(#TYPE_STATUS#) gt 0>
-					,TYPE_STATUS
-				</cfif>
-				<cfif len(#CITATION_REMARKS#) gt 0>
-					,CITATION_REMARKS
-				</cfif>
-			) values (
-				#PUBLICATION_ID#,
-				#COLLECTION_OBJECT_ID#,
-				#CITED_TAXON_NAME_ID#,
-				1
-				<cfif len(#OCCURS_PAGE_NUMBER#) gt 0>
-					,#OCCURS_PAGE_NUMBER#
-				</cfif>
-				<cfif len(#TYPE_STATUS#) gt 0>
-					,'#TYPE_STATUS#'
-				</cfif>
-				<cfif len(#CITATION_REMARKS#) gt 0>
-					,'#CITATION_REMARKS#'
-				</cfif>
-			)
-		</cfquery>
-		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			update cf_temp_citation set status='loaded' where key=#key#			
+	<cfloop query="allId">
+		<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			update bulkloader_stage set collection_object_id=bulkloader_pkey.nextval
+			where collection_object_id=#collection_object_id#
 		</cfquery>
 	</cfloop>
-	</cftransaction>
-<cflocation url="BulkloadCitations.cfm?action=allDone">
+	<cfquery name="flag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		update bulkloader_stage set loaded = 'BULKLOADED RECORD'
+	</cfquery>
+	<cfquery name="moveEm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		insert into bulkloader select * from bulkloader_stage
+	</cfquery>
+	Your records have been checked and are now in table Bulkloader and flagged as
+		loaded='BULKLOADED RECORD'. A data administrator can un-flag
+		and load them.
+</cfoutput>
+</cfif>
+<!------------------------------------------->
+<cfif #action# is "checkStaged">
+<cfoutput>
+	<cfstoredproc datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" procedure="bulkloader_stage_check">
+	</cfstoredproc>
+	<cfquery name="anyBads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select count(*) as cnt from bulkloader_stage
+		where loaded is not null
+	</cfquery>
+	<cfquery name="allData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select count(*) as cnt from bulkloader_stage
+	</cfquery>
+	<cfoutput>
+		<cfif #anyBads.cnt# gt 0>
+			<cfinclude template="getBulkloaderStageRecs.cfm">
+				#anyBads.cnt# of #allData.cnt# records will not successfully load. 
+				Click <a href="bulkloader.txt" target="_blank">here</a> 
+				to retrieve all data including error messages. Fix them up and reload them.
+				<p>
+				Click <a href="bulkloaderLoader.cfm?action=loadAnyway">here</a> to load them to the
+				bulkloader anyway. Use Arctos to fix them up and load them.
+				</p>
+	<cfelse>
+		<cftransaction >
+			<cfquery name="allId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select collection_object_id from bulkloader_stage
+			</cfquery>
+			<cfloop query="allId">
+				<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update bulkloader_stage set collection_object_id=bulkloader_pkey.nextval
+					where collection_object_id=#collection_object_id#
+				</cfquery>
+			</cfloop>
+			<cfquery name="flag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				update bulkloader_stage set loaded = 'BULKLOADED RECORD'
+			</cfquery>
+			<cfquery name="moveEm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				insert into bulkloader select * from bulkloader_stage
+			</cfquery>
+			Your records have been checked and are now in table Bulkloader and flagged as
+			loaded='BULKLOADED RECORD'. A data administrator can un-flag
+			and load them.
+		</cftransaction>
+	</cfif>
+		
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------->
