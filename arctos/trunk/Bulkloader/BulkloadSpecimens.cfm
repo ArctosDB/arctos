@@ -73,12 +73,12 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 	They have not been checked or processed yet. You aren't done here!
 	<ul>
 		<li>
-			<a href="/BulkloadSpecimens.cfm?action=checkStaged" target="_self">Check and load these records</a>.
+			<a href="BulkloadSpecimens.cfm?action=checkStaged" target="_self">Check and load these records</a>.
 			This is a slow process, but completing it will allow you to re-load your data as necessary.
 			This is the preferred method.
 		</li>
 		<li>
-			<a href="/BulkloadSpecimens.cfm?action=loadAnyway" target="_self">Just load these records</a>.
+			<a href="BulkloadSpecimens.cfm?action=loadAnyway" target="_self">Just load these records</a>.
 			Use this method if you wish to use Arctos' tools to fix any errors.
 		</li>
 		<li>
