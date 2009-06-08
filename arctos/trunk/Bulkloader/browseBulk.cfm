@@ -457,7 +457,7 @@
 	<cfinput type="hidden" name="action" value="saveGridUpdate">
 	<cfinput type="hidden" name="enteredby" value="#enteredby#">
 	<cfinput type="hidden" name="accn" value="#accn#">
-	<cfgrid  name="blGrid" width="1200" height="400" selectmode="edit" format="html" 
+	<cfgrid onChange="browseBulk.cfm?action=dump" name="blGrid" width="1200" height="400" selectmode="edit" format="html" 
 			sort="yes" stripeRows="yes" stripeRowColor="E5E5E5"
 			bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize})">>
 		<cfgridcolumn name="collection_object_id" select="no" href="/DataEntry.cfm?action=editEnterData&ImAGod=yes&pMode=edit" hrefkey="collection_object_id" target="_blank">
@@ -471,6 +471,11 @@
 	</cfgrid>
 </cfform>
 
+</cfoutput>
+</cfif>
+<cfif #action# is "dump">
+<cfoutput>
+<cfdump var="#form#">
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------->
