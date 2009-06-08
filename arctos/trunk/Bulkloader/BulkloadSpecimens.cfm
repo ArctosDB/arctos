@@ -63,8 +63,8 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 			Use this method if you wish to use Arctos' tools to fix any errors. Everything will go to the normal 
 			Bulkloader tables and be available via <a href="Bulkloader/browseBulk.cfm">the Browse Bulk</a> app.
 			You need a thorough understanding of Arctos' bulkloader tools and great confidence in your data
-			to use this application. Misuse can result in duplicate data being loaded to Arctos or
-			a huge mess, which may require sorting out record by record, in the Bulkloader.
+			to use this application. Misuse can result in 
+			a huge mess in the Bulkloader, which may require sorting out record by record.
 		</li>
 	</ul>	
 </cfoutput>
