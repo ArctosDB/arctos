@@ -18,10 +18,7 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		delete from bulkloader_stage
 	</cfquery>
-<cfset fileContent=FiletoUpload>
-<!---
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-	--->
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />	
 	<cfset colNames="">
