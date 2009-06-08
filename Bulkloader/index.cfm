@@ -7,7 +7,7 @@ There are 2 online methods by which you may bulkload specimens.
 		The <a href="/Bulkloader/BulkloadSpecimens.cfm">INSERT-based application</a>
 		 will handle up to about 1000 records. This application
 		is entirely ColdFusion, and is generally more stable and easier to debug 
-		than the SQLLDR application. We recommend
+		than the SQLLDR application. It accepts CSV files. We recommend
 		it's usage when possible.
 	</li>
 	<li>
@@ -16,7 +16,8 @@ There are 2 online methods by which you may bulkload specimens.
 		and calls an Oracle application to insert a text file into the bulkloader table.
 		Practical use is limited by your upload speed and serverside preprocessing time.
 		This method can be used for ca. 10,000 records on a good connection. It's also very picky,
-		potentially hard to debug, and can have issues with non-ASCII characters when called from 
+		potentially hard to debug, requires tab-delimited text files, 
+		and can have issues with non-ASCII characters when called from 
 		Web application.
 	</li>
 	<li>
@@ -25,7 +26,11 @@ There are 2 online methods by which you may bulkload specimens.
 		trouble with the above methods.
 	</li>
 </ul>
+<p>You may create your own templates with the <a href="/Bulkloader/bulkloaderBuilder.cfm">Bulkloader Builder</a></p>
 
+<p>Use <a href="/Bulkloader/bulkloader_status.cfm">Bulkloader Status</a> to see what's made it to the
+bulkloader but not yet to Arctos</p>
 
-
+<p>Documentation is at <a target="_top" href="##" onclick="getDocs('Bulkloader/index')">Bulkloader Docs</a>
+</p>
 <cfinclude template="/includes/_footer.cfm">

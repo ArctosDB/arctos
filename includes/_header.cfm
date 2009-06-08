@@ -167,7 +167,7 @@
 									<li><a target="_top" href="/DataEntry.cfm">Data Entry</a></li>
 								</cfif>
 								<cfif listfind(formList,"/Bulkloader/bulkloader_status.cfm")>
-									<li><a target="_top" href="/Bulkloader/bulkloaderLoader.cfm">Bulkload Specimens</a></li>
+									<li><a target="_top" href="/Bulkloader/">Bulkload Specimens</a></li>
 									<li><a target="_top" href="/Bulkloader/bulkloader_status.cfm">Bulkloader Status</a></li>
 									<li><a target="_top" href="/Bulkloader/bulkloaderBuilder.cfm">Bulkloader Builder</a></li>
 									<li><a target="_top" href="##" onclick="getDocs('Bulkloader/index')">Bulkloader Docs</a></li>
