@@ -5,9 +5,9 @@ There are 2 online methods by which you may bulkload specimens.
 <ul>
 	<li>
 		The <a href="/Bulkloader/BulkloadSpecimens.cfm">INSERT-based application</a>
-		 will handle up to about 1000 records. This application
+		 will handle about 1000 records. This application
 		is entirely ColdFusion, and is generally more stable and easier to debug 
-		than the SQLLDR application. It accepts CSV files. We recommend
+		than the SQLLDR application. It accepts CSV files. We highly recommend
 		it's usage when possible.
 	</li>
 	<li>
@@ -33,6 +33,6 @@ There are 2 online methods by which you may bulkload specimens.
 <p>Use <a href="/Bulkloader/bulkloader_status.cfm">Bulkloader Status</a> to see what's made it to the
 bulkloader but not yet to Arctos</p>
 
-<p>Documentation is at <a target="_top" href="##" onclick="getDocs('Bulkloader/index')">Bulkloader Docs</a>
+<p>Documentation, including field definitions, is at <a href="http://g-arctos.appspot.com/arctosdoc/Bulkloader/index.html">Bulkloader Docs</a>
 </p>
 <cfinclude template="/includes/_footer.cfm">
