@@ -23,11 +23,12 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		delete from bulkloader_stage
 	</cfquery>
+		<cfset etime=now()>
 <cfset tt=DateDiff("s", btime, etime)>
 	<br>Runtime to delete from table: #tt#
 
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-	
+		<cfset etime=now()>
 	<cfset tt=DateDiff("s", btime, etime)>
 	<br>Runtime to read upload: #tt#
 	<cfset fileContent=replace(fileContent,"'","''","all")>
@@ -53,7 +54,9 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 			</cfquery>
 		</cfif>
 	</cfloop>
-		<br>Runtime to insert to table: #tt#
+			<cfset etime=now()>
+	<cfset tt=DateDiff("s", btime, etime)>
+	<br>Runtime to insert to table: #tt#
 	<!---
 	<cflocation url="BulkloadSpecimens.cfm?action=validate" addtoken="false">
 	---->
