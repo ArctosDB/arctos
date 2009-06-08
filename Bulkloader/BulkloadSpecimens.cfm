@@ -16,6 +16,7 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 <!------------------------------------------------------->
 <cfif #action# is "getFile">
 <cfoutput>
+			<cfset etime=now()>
 	<cfset tt=DateDiff("s", btime, etime)>
 	<br>Runtime to upload file: #tt#
 
