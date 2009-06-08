@@ -1,3 +1,4 @@
+<cfset btime=now()>
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkload Specimens">
 <cfif #action# is "nothing">
@@ -5,10 +6,8 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 <a href="/Bulkloader/bulkloaderBuilder.cfm">Bulkloader Builder</a>
 <cfform name="oids" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="Action" value="getFile">
-	  <input type="file"
-   name="FiletoUpload"
-   size="45">
-	  <input type="submit" value="Upload this file" #saveClr#>
+	  <cfinput type="file" name="FiletoUpload" size="45" >
+	  <input type="submit" value="Upload this file" class="savBtn">
   </cfform>
 </cfif>
 <!------------------------------------------------------->
@@ -17,15 +16,20 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 <!------------------------------------------------------->
 <cfif #action# is "getFile">
 <cfoutput>
-
+	<cfset tt=DateDiff("s", btime, etime)>
+	<br>Runtime to upload file: #tt#
 
 	<!--- put this in a temp table --->
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		delete from bulkloader_stage
 	</cfquery>
+<cfset tt=DateDiff("s", btime, etime)>
+	<br>Runtime to delete from table: #tt#
 
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	
+	<cfset tt=DateDiff("s", btime, etime)>
+	<br>Runtime to read upload: #tt#
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />	
 	<cfset colNames="">
@@ -49,7 +53,11 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 			</cfquery>
 		</cfif>
 	</cfloop>
+		<br>Runtime to insert to table: #tt#
+	<!---
 	<cflocation url="BulkloadSpecimens.cfm?action=validate" addtoken="false">
+	---->
+	BulkloadSpecimens.cfm?action=validate
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
