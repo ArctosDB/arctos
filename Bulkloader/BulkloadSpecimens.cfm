@@ -110,6 +110,7 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 	<cfif #anyBads.cnt# gt 0>
 		<cfinclude template="getBulkloaderStageRecs.cfm">
 			#anyBads.cnt# of #allData.cnt# records will not successfully load. 
+			<br>
 			Click <a href="bulkloader.txt" target="_blank">here</a> 
 			to retrieve all data including error messages. Fix them up and reload them.
 			<p>
@@ -140,23 +141,5 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 	</cfif>
 		
 </cfoutput>
-</cfif>
-<!-------------------------------------------------------------------------->
-<cfif #action# is "allDone">
-	<cfoutput>
-		<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select publication_id,publication_title,status from cf_temp_citation group by publication_id,publication_title,status 	
-		</cfquery>
-		<cfif #getTempData.recordcount# is 0>
-			something very strange happened. Contact a sysadmin.
-		</cfif>
-		<cfloop query="getTempData">
-			<cfif #status# is not "loaded">
-				Something bad happened with #publication_title#. Contact your friendly local sysadmin.
-			<cfelse>
-				Everything seems to have worked! View citations for <a href="/Citation.cfm?publication_id=#publication_id#">#publication_title#</a>
-			</cfif>
-		</cfloop>
-	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
