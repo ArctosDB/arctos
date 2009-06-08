@@ -1,4 +1,3 @@
-<cfset btime=now()>
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Bulkload Specimens">
 <cfif #action# is "nothing">
@@ -16,22 +15,13 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 <!------------------------------------------------------->
 <cfif #action# is "getFile">
 <cfoutput>
-			<cfset etime=now()>
-	<cfset tt=DateDiff("s", btime, etime)>
-	<br>Runtime to upload file: #tt#
-
-	<!--- put this in a temp table --->
 	<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		delete from bulkloader_stage
 	</cfquery>
-		<cfset etime=now()>
-<cfset tt=DateDiff("s", btime, etime)>
-	<br>Runtime to delete from table: #tt#
-
+<cfset fileContent=FiletoUpload>
+<!---
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
-		<cfset etime=now()>
-	<cfset tt=DateDiff("s", btime, etime)>
-	<br>Runtime to read upload: #tt#
+	--->
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />	
 	<cfset colNames="">
@@ -55,12 +45,7 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 			</cfquery>
 		</cfif>
 	</cfloop>
-			<cfset etime=now()>
-	<cfset tt=DateDiff("s", btime, etime)>
-	<br>Runtime to insert to table: #tt#
-
 	<cflocation url="BulkloadSpecimens.cfm?action=validate" addtoken="false">
-
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
@@ -75,20 +60,19 @@ Step 1: Upload a comma-delimited text file (csv). You may build templates using 
 		<li>
 			<a href="BulkloadSpecimens.cfm?action=checkStaged" target="_self">Check and load these records</a>.
 			This is a slow process, but completing it will allow you to re-load your data as necessary.
-			This is the preferred method.
+			Email a DBA if you wish to check your records at this stage but the process times out. We can schedule
+			the process, allowing it to take as long as necessary to complete, and notify you when it's done.
+			This method is strongly preferred.
 		</li>
 		<li>
 			<a href="BulkloadSpecimens.cfm?action=loadAnyway" target="_self">Just load these records</a>.
-			Use this method if you wish to use Arctos' tools to fix any errors.
+			Use this method if you wish to use Arctos' tools to fix any errors. Everything will go to the normal 
+			Bulkloader tables and be available via <a href="Bulkloader/browseBulk.cfm">the Browse Bulk</a> app.
+			You need a thorough understanding of Arctos' bulkloader tools and great confidence in your data
+			to use this application. Misuse can result in duplicate data being loaded to Arctos or
+			a huge mess, which may require sorting out record by record, in the Bulkloader.
 		</li>
-		<li>
-			Email a DBA if you wish to check your records at this stage but the process times out. We can schedule
-			the process, allowing it to take as long as necessary to complete.
-		</li>
-	</ul>
-	
-	
-	
+	</ul>	
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
