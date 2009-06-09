@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
-
+<cfsavecontent variable="javascript">
 <script type="text/javascript">
 function init(){
 //grid object 
@@ -78,7 +78,10 @@ cm.setEditor(stIndex,new Ext.grid.GridEditor(cb));
 
 }
 </script>
-
+</cfsavecontent>
+<cfoutput>
+<cfhtmlhead text="#javascript#">
+</cfoutput>
 <style>
 .blTabDiv {
 	width: 100%;
