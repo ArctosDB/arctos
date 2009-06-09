@@ -391,6 +391,13 @@ Some Totally Random String Data .....
 					onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_2','dataEntry',this.value); return false;}"
 					onblur = "this.className='d11a';"
 					id="collector_agent_2">
+				<img src="/images/copyall.gif" 
+						border="0"  
+						height="18" 
+						width="18" 
+						class="likeLink"
+						alt="[ help ]"
+						onclick="copyAllAgents('collector_agent_2');" />
 			</td>
 		</tr>	
 		<tr>
