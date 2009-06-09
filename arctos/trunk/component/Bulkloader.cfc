@@ -15,6 +15,7 @@
 
 {"page":1,"pageSize":10,"gridsortcolumn":"CAT_NUM","gridsortdirection":"DESC"}
 	--->
+<cfoutput>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from bulkloader where 1=1
 		<cfif len(accn) gt 0>
@@ -24,7 +25,7 @@
 			and enteredby IN ('#enteredby#')
 		</cfif>
 	</cfquery>
-
+</cfoutput>
 	  <cfreturn queryconvertforgrid(data,page,pagesize)/>
 </cffunction>
 </cfcomponent>
