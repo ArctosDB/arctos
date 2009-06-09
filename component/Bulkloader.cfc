@@ -13,14 +13,8 @@
 	<cfif len(gridsortcolumn) is 0>
 		<cfset gridsortcolumn="collection_object_id">
 	</cfif>
-	<!---
-	
-		
-		
-
-{"page":1,"pageSize":10,"gridsortcolumn":"CAT_NUM","gridsortdirection":"DESC"}
-	--->
 <cfoutput>
+	<!----
 	<cfset sql="Select * from ( Select a.*, rownum rnum From (">
 	<cfset sql=sql & "select * from bulkloader where 1=1">
 	<cfif len(accn) gt 0>
@@ -36,7 +30,21 @@
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
+	---->
+	<cfset sql="select * from bulkloader where 1=1">
+	<cfif len(accn) gt 0>
+		<cfset sql=sql & " and accn IN (#accn#)">
+	</cfif>
+	<cfif len(enteredby) gt 0>
+		<cfset sql=sql & " and enteredby IN (#enteredby#)">
+	</cfif>
+	
+	<cfset sql=sql & " order by #gridsortcolumn# #gridsortdirection#">
+
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		#preservesinglequotes(sql)#
+	</cfquery>
 </cfoutput>
-	  <cfreturn data />
+	      <cfreturn queryconvertforgrid(data,page,pagesize)/>
 </cffunction>
 </cfcomponent>
