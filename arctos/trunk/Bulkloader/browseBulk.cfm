@@ -63,7 +63,7 @@
 		accn 
 	order by accn
 </cfquery>
-<div style="float:left;border:1px solid green;">
+<div style="float:left;border:1px solid green; width:45%;">
 <p>Filter records in bulkloader to:</p>
 
 
@@ -98,7 +98,7 @@
 </form>
 </cfoutput>
 </div>
-<div style="border:1px solid green; float:right;">
+<div style="border:1px solid green; float:right; width:45%;">
 	Pick an enteredby agent and/or an accession to edit and approve entered or loaded data.
 	<br>
 	<ul>
