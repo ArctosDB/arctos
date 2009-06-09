@@ -115,7 +115,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			</cfif>
 		</cfloop>
 	</cfoutput>
-	<cflocation url="BulkloadAgents.cfm?action=validate">
+	<cflocation url="BulkloadRelations.cfm?action=validate">
 </cfif>
 <!------------------------------------------------------->
 <!------------------------------------------------------->
