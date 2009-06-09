@@ -23,6 +23,7 @@
 <cfset args.onchange = "cfc:component.Bulkloader.editRecord({cfgridaction},{cfgridrow},{cfgridchanged})">
 <cfset args.bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection},{accn},{enteredby})">
 <cfset args.name="blGrid">
+<cfset args.pageSize="20">
 <cfform method="post" action="browseBulk.cfm">
 	<cfinput type="hidden" name="returnAction" value="ajaxGrid">
 	<cfinput type="hidden" name="action" value="saveGridUpdate">
@@ -36,10 +37,9 @@
 		</cfloop>
 	</cfgrid>
 </cfform>
-<cfset ajaxOnLoad("init")>
 </cfoutput>
 </cfif>
-<!---------->
+<!-------------------------------------------------------->
 
 
 
