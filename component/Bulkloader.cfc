@@ -10,7 +10,9 @@
 	
 	<cfset startrow=page * pageSize>
 	<cfset stoprow=startrow + pageSize>
-	
+	<cfif len(gridsortcolumn) is 0>
+		<cfset gridsortcolumn="collection_object_id">
+	</cfif>
 	<!---
 	
 		
@@ -27,6 +29,7 @@
 	<cfif len(enteredby) gt 0>
 		<cfset sql=sql & " and enteredby IN (#enteredby#)">
 	</cfif>
+	
 	<cfset sql=sql & " order by #gridsortcolumn# #gridsortdirection#">
 	<cfset sql=sql & " ) a where rownum <= #stoprow#) where rnum >= #startrow#">
 
