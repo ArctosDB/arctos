@@ -114,6 +114,7 @@ cm.setEditor(stIndex,new Ext.grid.GridEditor(cb));
 	<cfgrid attributeCollection="#args#">
 		<cfgridcolumn name="collection_object_id" select="no" href="/DataEntry.cfm?action=editEnterData&ImAGod=yes&pMode=edit" 
 			hrefkey="collection_object_id" target="_blank">
+		<cfgridcolumn name="cat_num" header="i changed this">
 		<cfloop list="#ColNameList#" index="thisName">
 			<cfgridcolumn name="#thisName#">
 		</cfloop>
