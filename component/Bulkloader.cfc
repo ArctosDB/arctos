@@ -56,7 +56,7 @@
 			<cfmail to="dustymc@gmail.com" from="grid@#Application.fromEmail#" subject="grid" type="html">
 			
 			<br>
-			cfgridaction: #cfgridactionchanged#
+			cfgridaction: #cfgridaction#
 			<br>cfgridrow: #cfgridrow#
 			<br>
 			cfgridchanged: #cfgridchanged#
