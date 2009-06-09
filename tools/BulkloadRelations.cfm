@@ -1,8 +1,8 @@
 <!---
-drop table cf_temp_relations;
+drop table cf_temp_bl_relations;
 
 
-create table cf_temp_relations (
+create table cf_temp_bl_relations (
 	key number not null,
 	institution_acronym varchar2(6) not null,
 	collection_cde varchar2(6) not null,
@@ -19,12 +19,12 @@ create table cf_temp_relations (
 	);
 
 	
-create public synonym cf_temp_relations for cf_temp_relations;
-grant all on cf_temp_relations to coldfusion_user;
-grant select on cf_temp_relations to public;
+create or replace public synonym cf_temp_bl_relations for cf_temp_bl_relations;
+grant all on cf_temp_bl_relations to coldfusion_user;
+grant select on cf_temp_bl_relations to public;
 
- CREATE OR REPLACE TRIGGER cf_temp_relations_key                                         
- before insert  ON cf_temp_relations
+ CREATE OR REPLACE TRIGGER cf_temp_bl_relations_key                                         
+ before insert  ON cf_temp_bl_relations
  for each row 
     begin     
     	if :NEW.key is null then                                                                                      
@@ -80,7 +80,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfoutput>
 		<!--- put this in a temp table --->
 		<cfquery name="killOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			delete from cf_temp_relations
+			delete from cf_temp_bl_relations
 		</cfquery>
 		<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 		<cfset fileContent=replace(fileContent,"'","''","all")>
@@ -110,7 +110,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					</cfloop>
 				</cfif>
 				<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					insert into cf_temp_relations (#colNames#) values (#preservesinglequotes(colVals)#)
+					insert into cf_temp_bl_relations (#colNames#) values (#preservesinglequotes(colVals)#)
 				</cfquery>
 			</cfif>
 		</cfloop>
@@ -123,7 +123,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <cfoutput>
 	<cfquery name="setStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update 
-			cf_temp_relations 
+			cf_temp_bl_relations 
 		set 
 			validated_status='bad_relationship'
 		where 
@@ -132,7 +132,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 			)
 	</cfquery>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from cf_temp_relations
+		select * from cf_temp_bl_relations
 	</cfquery>
 	<cfloop query="d">
 		<cfif #other_id_type# is "catalog number">
@@ -167,13 +167,13 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		</cfif>
 		<cfif #collObj.recordcount# is 1>					
 			<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				UPDATE cf_temp_relations SET collection_object_id = #collObj.collection_object_id#
+				UPDATE cf_temp_bl_relations SET collection_object_id = #collObj.collection_object_id#
 				where
 				key = #key#
 			</cfquery>
 		<cfelse>				
 			<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				UPDATE cf_temp_relations SET validated_status = 
+				UPDATE cf_temp_bl_relations SET validated_status = 
 				validated_status || 'identifier matched #collObj.recordcount# records' 
 				where key = #key#
 			</cfquery>
@@ -210,20 +210,20 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		</cfif>
 		<cfif #rcollObj.recordcount# is 1>					
 			<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				UPDATE cf_temp_relations SET related_collection_object_id = #rcollObj.collection_object_id#
+				UPDATE cf_temp_bl_relations SET related_collection_object_id = #rcollObj.collection_object_id#
 				where
 				key = #key#
 			</cfquery>
 		<cfelse>				
 			<cfquery name="insColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				UPDATE cf_temp_relations SET validated_status = 
+				UPDATE cf_temp_bl_relations SET validated_status = 
 				validated_status || 'related identifier matched #rcollObj.recordcount# records.' 
 				where key = #key#
 			</cfquery>
 		</cfif>
 	</cfloop>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from cf_temp_relations
+		select * from cf_temp_bl_relations
 	</cfquery>	
 	<cfquery name="b" dbtype="query">
 		select count(*) c from d where validated_status is not null
@@ -240,7 +240,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <cfif #action# is "loadData">
 <cfoutput>
 	<cfquery name="getTempData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from cf_temp_relations
+		select * from cf_temp_bl_relations
 	</cfquery>
 	<cftransaction>
 	<cfloop query="getTempData">
@@ -250,7 +250,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 				related_coll_object_id,
 				biol_indiv_relationship
 			) values (
-				#collection_object_id number#,
+				#collection_object_id#,
 				#related_collection_object_id#,
 				'#relationship#'
 			)

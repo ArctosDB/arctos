@@ -764,7 +764,7 @@ function ProperMod(y,x) {
  * @version 1, September 4, 2001 
  */
  function GetJulianDay(){
-	 var date = Now();	
+	var date = Now();	
 	var year = 0;
 	var month = 0;
 	var day = 0;
