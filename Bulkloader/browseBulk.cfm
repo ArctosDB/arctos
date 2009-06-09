@@ -115,15 +115,17 @@
 				<ul>
 					<li>
 						<strong>Edit in JAVA grid</strong>
-						<br>Opens a JAVA applet
+						<br>Opens a JAVA applet. Click headers to sort. You must click the button to save.
+						Unhappy in some browsers.
 					</li>
 					<li>
-						<strong>Edit in SQLd</strong>
-						<br>Allows mass updates based on existing values
+						<strong>Edit in SQL</strong>
+						<br>Allows mass updates based on existing values. Will only load 500 records at one time.
 					</li>
 					<li>
 						<strong>Edit in AJAX grid</strong>
-						<br>Opens an AJAX table.
+						<br>Opens an AJAX table. Click headers to sort. Drag columns. Doubleclick cells to edit.
+						Saves automatically on change. Slow to load.
 					</li>
 				</ul>
 			</div>
