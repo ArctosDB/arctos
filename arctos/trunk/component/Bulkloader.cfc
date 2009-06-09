@@ -28,7 +28,7 @@
 		<cfset sql=sql & " and enteredby IN (#enteredby#)">
 	</cfif>
 	<cfset sql=sql & " order by #gridsortcolumn# #gridsortdirection#">
-	<cfset sql=sql & " a where rownum <= #stoprow#) where rnum >= #startrow#">
+	<cfset sql=sql & " ) a where rownum <= #stoprow#) where rnum >= #startrow#">
 
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
