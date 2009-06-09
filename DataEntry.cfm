@@ -840,7 +840,7 @@ Some Totally Random String Data .....
 				</td>
 			</tr>
 			<tr>
-				<td align="right"><span class="f11a">Elevation</span></td>
+				<td align="right"><span class="f11a">Elevation (min-max)</span></td>
 				<td>
 					<span class="f11a">&nbsp;between</span>
 					<input type="text" 
@@ -849,7 +849,8 @@ Some Totally Random String Data .....
 						value="#minimum_elevation#"
 						id="minimum_elevation"
 						class="d11a">
-					<span class="f11a"> and </span>
+					<span class="infoLink" 
+						onclick="document.getElementById('maximum_elevation').value=document.getElementById('minimum_elevation').value";>&nbsp;>>&nbsp;</span>
 					<input type="text" 
 							name="maximum_elevation" 
 							size="4" 
