@@ -69,7 +69,7 @@
 			<form name="f" method="post" action="browseBulk.cfm">
 			<table>
 				<tr>
-					<td>
+					<td align="center">
 						<input type="hidden" name="action" value="viewTable" />
 						<label for="enteredby">Entered By</label>
 						<select name="enteredby" multiple="multiple" size="12" id="enteredby">
@@ -79,7 +79,7 @@
 							</cfloop>
 						</select>
 					</td>
-					<td>
+					<td align="center">
 						<label for="accn">Accession</label>
 							<select name="accn" multiple="multiple" size="12" id="accn">
 								<option value="" selected>All</option>
@@ -92,15 +92,15 @@
 				<tr>
 					<td colspan="2">
 						<input type="button" 
-							value="Edit in JAVA grid"
+							value="JAVA grid"
 							class="lnkBtn"
 							onclick="f.action.value='viewTable';f.submit();">
 			 			<input type="button" 
-							value="Edit with SQL"
+							value="SQL"
 							class="lnkBtn"
 							onclick="f.action.value='sqlTab';f.submit();">
 						<input type="button" 
-							value="Edit with AJAX grid"
+							value="AJAX grid"
 							class="lnkBtn"
 							onclick="f.action.value='ajaxGrid';f.submit();">
 					</td>
