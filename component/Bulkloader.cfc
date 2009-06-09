@@ -59,7 +59,7 @@
 			cfgridaction: #cfgridaction#
 			<br>cfgridrow: #cfgridrow#
 			<br>
-			cfgridchanged: #cfgridchanged#
+			cfgridchanged: <cfdump var=#cfgridchanged#>
 		</cfmail>	
 	</cfoutput>
 </cffunction>
