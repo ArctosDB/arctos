@@ -464,7 +464,7 @@ onChange="browseBulk.cfm?action=dump"
 <cfset args.format="html">
 <cfset args.onchange = "cfc:component.Bulkloader.editRecord({cfgridaction},{cfgridrow},{cfgridchanged})">
 <cfset args.bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection},{accn},{enteredby})">
-	
+<cfset args.name="blGrid">
 <cfform method="post" action="browseBulk.cfm">
 	<cfinput type="hidden" name="returnAction" value="ajaxGrid">
 	<cfinput type="hidden" name="action" value="saveGridUpdate">
