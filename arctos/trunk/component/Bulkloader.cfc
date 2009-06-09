@@ -53,8 +53,8 @@
     <cfargument name="cfgridrow" required="yes">
 	<cfargument name="cfgridchanged" required="yes">
 	<cfoutput>
-	<cfset colname = StructKeyList(gridchanged)>
-	<cfset value = gridchanged[colname]>
+	<cfset colname = StructKeyList(cfgridchanged)>
+	<cfset value = cfgridchanged[colname]>
 	<cfreturn "c:#colname#-----v:#value#">
 			<!---
 			<cfmail to="dustymc@gmail.com" from="grid@#Application.fromEmail#" subject="grid" type="html">
