@@ -63,60 +63,74 @@
 		accn 
 	order by accn
 </cfquery>
-<div style="float:left;border:1px solid green; width:45%;">
-<p>Filter records in bulkloader to:</p>
-
-
-<form name="f" method="post" action="browseBulk.cfm">
-	<input type="hidden" name="action" value="viewTable" />
-	<label for="enteredby">Entered By</label>
-	<select name="enteredby" multiple="multiple" size="12" id="enteredby">
-		<option value="#delimitedAdminForGroups#" selected="selected">All</option>
-		<cfloop list="#adminForUsers#" index='agent_name'>
-			<option value="'#agent_name#'">#agent_name#</option>
-		</cfloop>
-	</select>
-	<label for="accn">Accession</label>
-	<select name="accn" multiple="multiple" size="12" id="accn">
-		<option value="" selected>All</option>
-		<cfloop query="ctAccn">
-			<option value="'#accn#'">#accn#</option>
-		</cfloop>
-	</select>
-	<br /><input type="button" 
-				value="Edit in JAVA grid"
-				class="lnkBtn"
-				onclick="f.action.value='viewTable';f.submit();">
- 	<br/><input type="button" 
-				value="Edit with SQL"
-				class="lnkBtn"
-				onclick="f.action.value='sqlTab';f.submit();">
-	<br/><input type="button" 
-				value="Edit with AJAX grid"
-				class="lnkBtn"
-				onclick="f.action.value='ajaxGrid';f.submit();">
-</form>
+<table>
+	<tr>
+		<td>
+			<form name="f" method="post" action="browseBulk.cfm">
+			<table>
+				<tr>
+					<td>
+						<input type="hidden" name="action" value="viewTable" />
+						<label for="enteredby">Entered By</label>
+						<select name="enteredby" multiple="multiple" size="12" id="enteredby">
+							<option value="#delimitedAdminForGroups#" selected="selected">All</option>
+							<cfloop list="#adminForUsers#" index='agent_name'>
+								<option value="'#agent_name#'">#agent_name#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<label for="accn">Accession</label>
+							<select name="accn" multiple="multiple" size="12" id="accn">
+								<option value="" selected>All</option>
+								<cfloop query="ctAccn">
+									<option value="'#accn#'">#accn#</option>
+								</cfloop>
+							</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="button" 
+							value="Edit in JAVA grid"
+							class="lnkBtn"
+							onclick="f.action.value='viewTable';f.submit();">
+			 			<input type="button" 
+							value="Edit with SQL"
+							class="lnkBtn"
+							onclick="f.action.value='sqlTab';f.submit();">
+						<input type="button" 
+							value="Edit with AJAX grid"
+							class="lnkBtn"
+							onclick="f.action.value='ajaxGrid';f.submit();">
+					</td>
+				</tr>
+			</table>
+			</form>
+		</td>
+		<td>
+			<div style="border:1px solid green;">
+				Pick an enteredby agent and/or an accession to edit and approve entered or loaded data.
+				<br>
+				<ul>
+					<li>
+						<strong>Edit in JAVA grid</strong>
+						<br>Opens a JAVA applet
+					</li>
+					<li>
+						<strong>Edit in SQLd</strong>
+						<br>Allows mass updates based on existing values
+					</li>
+					<li>
+						<strong>Edit in AJAX grid</strong>
+						<br>Opens an AJAX table.
+					</li>
+				</ul>
+			</div>
+		</td>		
+	</tr>
+</table>
 </cfoutput>
-</div>
-<div style="border:1px solid green; float:right; width:45%;">
-	Pick an enteredby agent and/or an accession to edit and approve entered or loaded data.
-	<br>
-	<ul>
-		<li>
-			<strong>Edit in JAVA grid</strong>
-			<br>Opens a JAVA applet
-		</li>
-		<li>
-			<strong>Edit in SQLd</strong>
-			<br>Allows mass updates based on existing values
-		</li>
-		<li>
-			<strong>Edit in AJAX grid</strong>
-			<br>Opens an AJAX table.
-		</li>
-	</ul>
-</div>
-<hr>
 </cfif>
 <!----------------------------------------------------------->
 <cfif #action# is "runSQLUp">
