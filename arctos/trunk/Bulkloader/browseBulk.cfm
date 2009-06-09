@@ -1,11 +1,134 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
+
+<script type="text/javascript">
+function init(){
+//grid object 
+grid = ColdFusion.Grid.getGridObject("blGrid");
+//column model 
+cm = grid.getColumnModel();
+//we need to know the column id 
+stIndex = cm.findColumnIndex("CAT_NUM");
+
+cb = new Ext.form.ComboBox({
+id:"cat_num",
+mode:"local",
+triggerAction:"all",
+displayField:"text",
+valueField:"value",
+store:new Ext.data.SimpleStore({
+fields: ["value", "text"],
+data: [
+['AL', 'Alabama'],
+['AK', 'Alaska'],
+['AZ', 'Arizona'],
+['AR', 'Arkansas'],
+['CA', 'California'],
+['CO', 'Colorado'],
+['CT', 'Connecticut'],
+['DE', 'Delaware'],
+['DC', 'District of Columbia'],
+['FL', 'Florida'],
+['GA', 'Georgia'],
+['HI', 'Hawaii'],
+['ID', 'Idaho'],
+['IL', 'Illinois'],
+['IN', 'Indiana'],
+['IA', 'Iowa'],
+['KS', 'Kansas'],
+['KY', 'Kentucky'],
+['LA', 'Louisiana'],
+['ME', 'Maine'],
+['MD', 'Maryland'],
+['MA', 'Massachusetts'],
+['MI', 'Michigan'],
+['MN', 'Minnesota'],
+['MS', 'Mississippi'],
+['MO', 'Missouri'],
+['MT', 'Montana'],
+['NE', 'Nebraska'],
+['NV', 'Nevada'],
+['NH', 'New Hampshire'],
+['NJ', 'New Jersey'],
+['NM', 'New Mexico'],
+['NY', 'New York'],
+['NC', 'North Carolina'],
+['ND', 'North Dakota'],
+['OH', 'Ohio'],
+['OK', 'Oklahoma'],
+['OR', 'Oregon'],
+['PA', 'Pennsylvania'],
+['RI', 'Rhode Island'],
+['SC', 'South Carolina'],
+['SD', 'South Dakota'],
+['TN', 'Tennessee'],
+['TX', 'Texas'],
+['UT', 'Utah'],
+['VT', 'Vermont'],
+['VA', 'Virginia'],
+['WA', 'Washington'],
+['WV', 'West Virginia'],
+['WI', 'Wisconsin'],
+['WY', 'Wyoming']
+]
+})
+});
+
+cm.setEditor(stIndex,new Ext.grid.GridEditor(cb));
+
+}
+</script>
+
 <style>
 .blTabDiv {
 	width: 100%;
 	overflow:scroll;
 	}
 </style>
+
+<!-------------------------------------------------------------->
+<cfif #action# is "ajaxGrid">
+<cfoutput>
+<cfquery name="cNames" datasource="uam_god">
+	select column_name from user_tab_cols where table_name='BULKLOADER'
+	order by internal_column_id
+</cfquery>
+<cfset ColNameList = valuelist(cNames.column_name)>
+<cfset ColNameList = replace(ColNameList,"COLLECTION_OBJECT_ID","","all")>
+<cfset args.width="1200">
+<cfset args.height="400">
+<cfset args.stripeRows = true>
+<cfset args.selectColor = "##D9E8FB">
+<cfset args.selectmode = "edit">
+<cfset args.format="html">
+<cfset args.onchange = "cfc:component.Bulkloader.editRecord({cfgridaction},{cfgridrow},{cfgridchanged})">
+<cfset args.bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection},{accn},{enteredby})">
+<cfset args.name="blGrid">
+<cfform method="post" action="browseBulk.cfm">
+	<cfinput type="hidden" name="returnAction" value="ajaxGrid">
+	<cfinput type="hidden" name="action" value="saveGridUpdate">
+	<cfinput type="hidden" name="enteredby" value="#enteredby#">
+	<cfinput type="hidden" name="accn" value="#accn#">
+	<cfgrid attributeCollection="#args#">
+		<cfgridcolumn name="collection_object_id" select="no" href="/DataEntry.cfm?action=editEnterData&ImAGod=yes&pMode=edit" 
+			hrefkey="collection_object_id" target="_blank">
+		<cfloop list="#ColNameList#" index="thisName">
+			<cfgridcolumn name="#thisName#">
+		</cfloop>
+	</cfgrid>
+</cfform>
+<cfset ajaxOnLoad("init")>
+</cfoutput>
+</cfif>
+<!---------->
+
+
+
+
+
+
+
+
 <cfif #action# IS "nothing">
 <cfoutput>
 <cf_setDataEntryGroups>
@@ -440,51 +563,6 @@
 
 <cflocation url="browseBulk.cfm?action=viewTable&enteredby=#enteredby#&accn=#accn#">
 		
-</cfoutput>
-</cfif>
-<!-------------------------------------------------------------->
-<cfif #action# is "ajaxGrid">
-<cfoutput>
-<cfquery name="cNames" datasource="uam_god">
-	select column_name from user_tab_cols where table_name='BULKLOADER'
-	order by internal_column_id
-</cfquery>
-<!---
-onChange="browseBulk.cfm?action=dump"
-
---->
-
-<cfset ColNameList = valuelist(cNames.column_name)>
-<cfset ColNameList = replace(ColNameList,"COLLECTION_OBJECT_ID","","all")>
-<cfset args.width="1200">
-<cfset args.height="400">
-<cfset args.stripeRows = true>
-<cfset args.selectColor = "##D9E8FB">
-<cfset args.selectmode = "edit">
-<cfset args.format="html">
-<cfset args.onchange = "cfc:component.Bulkloader.editRecord({cfgridaction},{cfgridrow},{cfgridchanged})">
-<cfset args.bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection},{accn},{enteredby})">
-<cfset args.name="blGrid">
-<cfform method="post" action="browseBulk.cfm">
-	<cfinput type="hidden" name="returnAction" value="ajaxGrid">
-	<cfinput type="hidden" name="action" value="saveGridUpdate">
-	<cfinput type="hidden" name="enteredby" value="#enteredby#">
-	<cfinput type="hidden" name="accn" value="#accn#">
-	<cfgrid attributeCollection="#args#">
-		<cfgridcolumn name="collection_object_id" select="no" href="/DataEntry.cfm?action=editEnterData&ImAGod=yes&pMode=edit" 
-			hrefkey="collection_object_id" target="_blank">
-		<cfloop list="#ColNameList#" index="thisName">
-			<cfgridcolumn name="#thisName#">
-		</cfloop>
-	</cfgrid>
-</cfform>
-
-</cfoutput>
-</cfif>
-<!---------->
-<cfif #action# is "dump">
-<cfoutput>
-<cfdump var="#form#">
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------->
