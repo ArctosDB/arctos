@@ -462,7 +462,7 @@ onChange="browseBulk.cfm?action=dump"
 	<cfinput type="hidden" name="action" value="saveGridUpdate">
 	<cfinput type="hidden" name="enteredby" value="#enteredby#">
 	<cfinput type="hidden" name="accn" value="#accn#">
-	<cfgrid  name="blGrid" width="1200" height="400" selectmode="row" format="html" 
+	<cfgrid  name="blGrid" width="1200" height="400" selectmode="edit" format="html" 
 			sort="yes" stripeRows="yes" stripeRowColor="E5E5E5"
 			bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection},{accn},{enteredby})"
 			onchange="cfc:component.Bulkloader.editRecord({cfgridaction},{cfgridrow},{cfgridchanged})">
