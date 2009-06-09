@@ -18,7 +18,7 @@
 <cfoutput>
 	<cfset sql="select * from bulkloader where 1=1">
 	<cfif len(accn) gt 0>
-		<cfset sql=sql & " and accn IN (#accn#">
+		<cfset sql=sql & " and accn IN (#accn#)">
 	</cfif>
 	<cfif len(enteredby) gt 0>
 		<cfset sql=sql & " and enteredby IN (#enteredby#)">
