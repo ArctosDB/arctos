@@ -37,7 +37,12 @@
 <cfquery name="allCatItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
+
 <cfset a=1>
+<cfset fileName = "FreezerLocation_#cfid#_#cftoken#.csv">
+<a href="/download.cfm?file=#fileName#">Download</a>
+<cfset dlData="cataloged_item,#session.customOtherIdentifier#,part_name,location,disposition">
+<cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#dlData#">
 <table border id="t" class="sortable">
 	<th>
 		Cataloged Item
@@ -71,21 +76,29 @@
 		<tr	#iif(a MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 			<td>#collection# #cat_num#</td>
 			<td>#CustomID#&nbsp;</td>
+			<cfset pn=part_name>
+			<cfif #is_subsample# is "yes">
+				<cfset pn=pn & "(subsample)">
+			</cfif>
 			<td>
-				#part_name# <cfif #is_subsample# is "yes">(subsample)</cfif>
+				#pn# 
 			</td>
+			<cfset posn="">
+			<cfloop query="freezer">
+				<cfif #CONTAINER_TYPE# is "position">
+					<cfset posn=posn & '<span style="font-weight:bold;">[#label#]</span>'>
+				<cfelse>
+					<cfset posn=posn & '[#label#]'>
+				</cfif>
+			</cfloop>
 			<td>
-				<cfloop query="freezer">
-					<cfif #CONTAINER_TYPE# is "position">
-						<span style="font-weight:bold;">[#label#]</span>
-					<cfelse>
-						[#label#]
-					</cfif>
-				</cfloop>
+				
 			</td>
 			<td>#coll_obj_disposition#</td>
 		</tr>
 		<cfset a=#a#+1>
+		<cfset oneLine='"#collection# #cat_num#","#CustomID#","#pn#","#posn#","#coll_obj_disposition#"'>
+		<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#oneLine#">
 </cfloop>
 </table>
 </cfoutput>
