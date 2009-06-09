@@ -5,9 +5,11 @@
     <cfargument name="pageSize" required="yes">
 	<cfargument name="gridsortcolumn" required="yes">
     <cfargument name="gridsortdirection" required="yes">
-	<!---
 	<cfargument name="accn" required="yes">
 	<cfargument name="enteredby" required="yes">
+	
+	<!---
+	
 		
 		
 
