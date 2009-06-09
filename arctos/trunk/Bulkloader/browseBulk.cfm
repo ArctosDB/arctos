@@ -103,6 +103,7 @@ cm.setEditor(stIndex,new Ext.grid.GridEditor(cb));
 <cfset args.selectColor = "##D9E8FB">
 <cfset args.selectmode = "edit">
 <cfset args.format="html">
+<cfset args.autowidth="true">
 <cfset args.onchange = "cfc:component.Bulkloader.editRecord({cfgridaction},{cfgridrow},{cfgridchanged})">
 <cfset args.bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection},{accn},{enteredby})">
 <cfset args.name="blGrid">
