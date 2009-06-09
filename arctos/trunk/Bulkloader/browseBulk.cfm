@@ -452,20 +452,25 @@
 <!---
 onChange="browseBulk.cfm?action=dump"
 
-onchange="cfc:component.Bulkloader.editRecord({cfgridaction},{cfgridrow},{cfgridchanged})"
 --->
 
 <cfset ColNameList = valuelist(cNames.column_name)>
 <cfset ColNameList = replace(ColNameList,"COLLECTION_OBJECT_ID","","all")>
+<cfset args.width="1200">
+<cfset args.height="400">
+<cfset args.stripeRows = true>
+<cfset args.selectColor = "##D9E8FB">
+<cfset args.selectmode = "edit">
+<cfset args.format="html">
+<cfset args.onchange = "cfc:component.Bulkloader.editRecord({cfgridaction},{cfgridrow},{cfgridchanged})">
+<cfset args.bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection},{accn},{enteredby})">
+	
 <cfform method="post" action="browseBulk.cfm">
 	<cfinput type="hidden" name="returnAction" value="ajaxGrid">
 	<cfinput type="hidden" name="action" value="saveGridUpdate">
 	<cfinput type="hidden" name="enteredby" value="#enteredby#">
 	<cfinput type="hidden" name="accn" value="#accn#">
-	<cfgrid  name="blGrid" width="1200" height="400" selectmode="edit" format="html" 
-			sort="yes" stripeRows="yes" stripeRowColor="E5E5E5"
-			bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection},{accn},{enteredby})"
-			>
+	<cfgrid attributeCollection="#args#">
 		<cfgridcolumn name="collection_object_id" select="no" href="/DataEntry.cfm?action=editEnterData&ImAGod=yes&pMode=edit" 
 			hrefkey="collection_object_id" target="_blank">
 		<cfloop list="#ColNameList#" index="thisName">
