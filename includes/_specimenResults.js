@@ -888,7 +888,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + dispDate(result[i].ENDED_DATE) + '&nbsp;</td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('PARTS')> -1) {
-					theInnerHtml += '<td>' + splitBySemicolon(result[i].PARTS) + '&nbsp;</td>';
+					theInnerHtml += '<td><div class="wrapLong">' + splitBySemicolon(result[i].PARTS) + '</div></td>';
 				}
 				if (result[0].COLUMNLIST.indexOf('SEX')> -1) {
 					theInnerHtml += '<td>' + result[i].SEX + '&nbsp;</td>';
