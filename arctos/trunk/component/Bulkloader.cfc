@@ -47,4 +47,20 @@
 </cfoutput>
 	      <cfreturn queryconvertforgrid(data,page,pagesize)/>
 </cffunction>
+<!--------------------------------------->
+<cffunction name="editRecord" access="remote">
+	<cfargument name="cfgridaction" required="yes">
+    <cfargument name="cfgridrow" required="yes">
+	<cfargument name="cfgridchanged" required="yes">
+	<cfoutput>
+			<cfmail to="dustymc@gmail.com" from="grid@#Application.fromEmail#" subject="grid" type="html">
+			
+			<br>
+			cfgridaction: #cfgridactionchanged#
+			<br>cfgridrow: #cfgridrow#
+			<br>
+			cfgridchanged: #cfgridchanged#
+		</cfmail>	
+	</cfoutput>
+</cffunction>
 </cfcomponent>
