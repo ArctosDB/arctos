@@ -65,7 +65,7 @@
 </cfquery>
 <table>
 	<tr>
-		<td>
+		<td width="50%">
 			<form name="f" method="post" action="browseBulk.cfm">
 			<table>
 				<tr>
