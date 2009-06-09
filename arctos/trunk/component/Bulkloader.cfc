@@ -6,6 +6,7 @@
 	<cfargument name="gridsortcolumn" required="yes">
     <cfargument name="gridsortdirection" required="yes">
 	<cfargument name="accn" required="yes">
+	<cfargument name="enteredby" required="yes">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from bulkloader where rownum<20		
 	</cfquery>
