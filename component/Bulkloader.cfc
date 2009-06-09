@@ -18,10 +18,10 @@
 <cfoutput>
 	<cfset sql="select * from bulkloader where 1=1">
 	<cfif len(accn) gt 0>
-		<cfset sql=sql & " and accn='#accn#'">
+		<cfset sql=sql & " and accn IN (#accn#">
 	</cfif>
 	<cfif len(enteredby) gt 0>
-		<cfset sql=sql & " and enteredby IN ('#enteredby#')">
+		<cfset sql=sql & " and enteredby IN (#enteredby#)">
 	</cfif>
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
