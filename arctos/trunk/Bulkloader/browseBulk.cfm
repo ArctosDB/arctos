@@ -96,6 +96,16 @@
 				onclick="f.action.value='ajaxGrid';f.submit();">
 </form>
 </cfoutput>
+<div style="border:1px solid green; float:right;">
+	Pick and enteretdby agent and/or an accession to edit and approve entered or loaded data.
+	<br>
+	<ul>
+		<li>
+			<strong>Edit in JAVA grid</strong>
+			<br>Opens a JAVA applet
+		</li>
+	</ul>
+</div>
 </cfif>
 <!----------------------------------------------------------->
 <cfif #action# is "runSQLUp">
