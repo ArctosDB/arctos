@@ -261,7 +261,7 @@
 			</blockquote>
 		</p>
 		<p>
-			View in <a href="http://maps.google.com/maps?q=#Application.ServerRootUrl#/bnhmMaps/#dlFile#" target="_blank">Google Maps</a>
+			View in <a href="http://maps.google.com/maps?q=#Application.ServerRootUrl#/bnhmMaps/tabfiles/#dlFile#" target="_blank">Google Maps</a>
 		</p>
 </cfoutput>
 </cfif>
