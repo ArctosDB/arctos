@@ -1,94 +1,11 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
-<cfsavecontent variable="javascript">
-<script type="text/javascript">
-function init(){
-//grid object 
-grid = ColdFusion.Grid.getGridObject("blGrid");
-//column model 
-cm = grid.getColumnModel();
-//we need to know the column id 
-stIndex = cm.findColumnIndex("CAT_NUM");
-
-cb = new Ext.form.ComboBox({
-id:"cat_num",
-mode:"local",
-triggerAction:"all",
-displayField:"text",
-valueField:"value",
-store:new Ext.data.SimpleStore({
-fields: ["value", "text"],
-data: [
-['AL', 'Alabama'],
-['AK', 'Alaska'],
-['AZ', 'Arizona'],
-['AR', 'Arkansas'],
-['CA', 'California'],
-['CO', 'Colorado'],
-['CT', 'Connecticut'],
-['DE', 'Delaware'],
-['DC', 'District of Columbia'],
-['FL', 'Florida'],
-['GA', 'Georgia'],
-['HI', 'Hawaii'],
-['ID', 'Idaho'],
-['IL', 'Illinois'],
-['IN', 'Indiana'],
-['IA', 'Iowa'],
-['KS', 'Kansas'],
-['KY', 'Kentucky'],
-['LA', 'Louisiana'],
-['ME', 'Maine'],
-['MD', 'Maryland'],
-['MA', 'Massachusetts'],
-['MI', 'Michigan'],
-['MN', 'Minnesota'],
-['MS', 'Mississippi'],
-['MO', 'Missouri'],
-['MT', 'Montana'],
-['NE', 'Nebraska'],
-['NV', 'Nevada'],
-['NH', 'New Hampshire'],
-['NJ', 'New Jersey'],
-['NM', 'New Mexico'],
-['NY', 'New York'],
-['NC', 'North Carolina'],
-['ND', 'North Dakota'],
-['OH', 'Ohio'],
-['OK', 'Oklahoma'],
-['OR', 'Oregon'],
-['PA', 'Pennsylvania'],
-['RI', 'Rhode Island'],
-['SC', 'South Carolina'],
-['SD', 'South Dakota'],
-['TN', 'Tennessee'],
-['TX', 'Texas'],
-['UT', 'Utah'],
-['VT', 'Vermont'],
-['VA', 'Virginia'],
-['WA', 'Washington'],
-['WV', 'West Virginia'],
-['WI', 'Wisconsin'],
-['WY', 'Wyoming']
-]
-})
-});
-
-cm.setEditor(stIndex,new Ext.grid.GridEditor(cb));
-
-}
-</script>
-</cfsavecontent>
-<cfoutput>
-<cfhtmlhead text="#javascript#">
-</cfoutput>
 <style>
 .blTabDiv {
 	width: 100%;
 	overflow:scroll;
 	}
 </style>
-
 <!-------------------------------------------------------------->
 <cfif #action# is "ajaxGrid">
 <cfoutput>
@@ -103,7 +20,6 @@ cm.setEditor(stIndex,new Ext.grid.GridEditor(cb));
 <cfset args.selectColor = "##D9E8FB">
 <cfset args.selectmode = "edit">
 <cfset args.format="html">
-<cfset args.autowidth="true">
 <cfset args.onchange = "cfc:component.Bulkloader.editRecord({cfgridaction},{cfgridrow},{cfgridchanged})">
 <cfset args.bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection},{accn},{enteredby})">
 <cfset args.name="blGrid">
@@ -115,7 +31,6 @@ cm.setEditor(stIndex,new Ext.grid.GridEditor(cb));
 	<cfgrid attributeCollection="#args#">
 		<cfgridcolumn name="collection_object_id" select="no" href="/DataEntry.cfm?action=editEnterData&ImAGod=yes&pMode=edit" 
 			hrefkey="collection_object_id" target="_blank">
-		<cfgridcolumn name="cat_num" header="i changed this">
 		<cfloop list="#ColNameList#" index="thisName">
 			<cfgridcolumn name="#thisName#">
 		</cfloop>
