@@ -63,6 +63,7 @@
 		accn 
 	order by accn
 </cfquery>
+<div style="float:left;border:1px solid green;">
 <p>Filter records in bulkloader to:</p>
 
 
@@ -96,13 +97,22 @@
 				onclick="f.action.value='ajaxGrid';f.submit();">
 </form>
 </cfoutput>
+</div>
 <div style="border:1px solid green; float:right;">
-	Pick and enteretdby agent and/or an accession to edit and approve entered or loaded data.
+	Pick an enteredby agent and/or an accession to edit and approve entered or loaded data.
 	<br>
 	<ul>
 		<li>
 			<strong>Edit in JAVA grid</strong>
 			<br>Opens a JAVA applet
+		</li>
+		<li>
+			<strong>Edit in SQLd</strong>
+			<br>Allows mass updates based on existing values
+		</li>
+		<li>
+			<strong>Edit in AJAX grid</strong>
+			<br>Opens an AJAX table.
 		</li>
 	</ul>
 </div>
