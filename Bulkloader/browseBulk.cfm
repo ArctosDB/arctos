@@ -109,7 +109,7 @@
 			</form>
 		</td>
 		<td>
-			<div style="border:1px solid green;">
+			<div style="border:1px solid green;margin-left:5em;">
 				Pick an enteredby agent and/or an accession to edit and approve entered or loaded data.
 				<br>
 				<ul>
