@@ -8,14 +8,15 @@
 	<!---
 	<cfargument name="accn" required="yes">
 	<cfargument name="enteredby" required="yes">
+		
+		
+
+{"page":1,"pageSize":10,"gridsortcolumn":"CAT_NUM","gridsortdirection":"DESC"}
 	--->
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from bulkloader where rownum<20		
 	</cfquery>
-	
-		
 
-{"page":1,"pageSize":10,"gridsortcolumn":"CAT_NUM","gridsortdirection":"DESC"}
 	  <cfreturn queryconvertforgrid(data,page,pagesize)/>
 </cffunction>
 </cfcomponent>
