@@ -53,19 +53,12 @@
     <cfargument name="cfgridrow" required="yes">
 	<cfargument name="cfgridchanged" required="yes">
 	<cfoutput>
-	<cfset colname = StructKeyList(cfgridchanged)>
-	<cfset value = cfgridchanged[colname]>
-	<cfreturn "c:#colname#-----v:#value#">
-			<!---
-			<cfmail to="dustymc@gmail.com" from="grid@#Application.fromEmail#" subject="grid" type="html">
-			
-			<br>
-			cfgridaction: #cfgridaction#
-			<br>cfgridrow: #cfgridrow#
-			<br>
-			cfgridchanged: <cfdump var=#cfgridchanged#>
-		</cfmail>	
-		---->
+		<cfset colname = StructKeyList(cfgridchanged)>
+		<cfset value = cfgridchanged[colname]>
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			update bulkloader set  #colname# = '#value#'
+			where collection_object_id=#cfgridrow.collection_object_id#
+		</cfquery>
 	</cfoutput>
 </cffunction>
 </cfcomponent>
