@@ -231,7 +231,7 @@
 			<tr>
 				<td colspan="6">
 					<label for="remarks">Remarks:</label>
-					<textarea name="remarks" rows="5" cols="90" id="remarks">#transAgents.trans_remarks#</textarea>
+					<textarea name="remarks" rows="5" cols="90" id="remarks">#accnData.trans_remarks#</textarea>
 				</td>
 			</tr>
 			<tr>
