@@ -109,7 +109,7 @@
 		</td>
 		<td>
 			<label for="rec_date">Received Date:</label>
-			<cfinput type="datefield" name="rec_date" value="#DateFormat(received_date, 'dd mmm yyyy')#" size="10" id="rec_date">
+			<cfinput type="text" validate="date" name="rec_date" value="#DateFormat(received_date, 'dd mmm yyyy')#" size="10" id="rec_date">
 		</td>
 		<td rowspan="99" valign="top">
 			<strong>Projects associated with this Accn:</strong>
