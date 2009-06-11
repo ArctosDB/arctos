@@ -73,14 +73,14 @@
 							</td>		
 						</tr>
 						<tr>
-							<td colspan="2">
+							<td>
 								<label for="rec_agent">Received From:</label>
 								<input type="text" name="rec_agent" class="reqdClr" 
 									onchange="getAgent('received_agent_id','rec_agent','newAccn',this.value); return false;"
 								 	onKeyPress="return noenter(event);">
 								<input type="hidden" name="received_agent_id">
 							</td>
-							<td colspan="2">
+							<td>
 								<label for="rec_agent">From Agency:</label>
 								<input type="text" name="trans_agency"
 									onchange="getAgent('trans_agency_id','trans_agency','newAccn',this.value); return false;"
