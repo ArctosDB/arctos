@@ -219,7 +219,7 @@
 								<label for="new_trans_agent_role">&nbsp;</label>
 								<select name="new_trans_agent_role" id="new_trans_agent_role">
 									<cfloop query="cttrans_agent_role">
-										<option value="#accnData.trans_agent_role#">#trans_agent_role#</option>
+										<option value="#trans_agent_role#">#trans_agent_role#</option>
 									</cfloop>
 								</select>
 							</td>
