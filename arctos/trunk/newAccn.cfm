@@ -19,7 +19,7 @@
 		select accn_type from ctaccn_type order by accn_type
 	</cfquery>
 	<cfset thisDate = #dateformat(now(),"dd-mmm-yyyy")#>
-	<form action="newAccn.cfm" method="post" name="newAccn">
+	<cfform action="newAccn.cfm" method="post" name="newAccn">
 		<input type="hidden" name="Action" value="createAccession">
 		<table>
 			<tr>
@@ -110,7 +110,7 @@
 							<td>&nbsp;</td>
 							<td colspan="2">
 								<label for="ent_Date">Entry Date:</label>
-								<input type="text" name="ent_Date"  value="#thisDate#">
+								<cfinput type="datefield" name="ent_Date"  value="#thisDate#">
 							</td>
 							<td colspan="2">
 								<label for="">Has Correspondence?</label>
@@ -124,16 +124,11 @@
 						<tr>
 							<td colspan="6" align="center">
 							<input type="submit" 
-									value="Save this Accession" 
-									class="savBtn"
-									onmouseover="this.className='savBtn btnhov'" 
-									onmouseout="this.className='savBtn'">
-									
+								value="Save this Accession" 
+								class="savBtn">							
 							<input type="button" 
 									value="Quit without saving" 
 									class="qutBtn"
-									onmouseover="this.className='qutBtn btnhov'" 
-									onmouseout="this.className='qutBtn'"
 									onClick="document.location = 'editAccn.cfm'">
 									
 							</td>
@@ -215,7 +210,7 @@
 				</td>
 			</tr>
 		</table>
-	</form>
+	</cfform>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------->
@@ -299,7 +294,7 @@
 				</cfif>
 				
 		</cftransaction>
-		<cflocation url="editAccn.cfm?Action=edit&transaction_id=#n.n#">		
+		<cflocation url="editAccn.cfm?Action=edit&transaction_id=#n.n#" addtoken="false">		
   </cfoutput>
 </cfif>
 <DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>

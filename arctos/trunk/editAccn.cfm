@@ -36,7 +36,8 @@
 				collection,
 				trans.collection_id,
 				CORRESP_FG,
-				concattransagent(trans.transaction_id,'entered by') enteredby
+				concattransagent(trans.transaction_id,'entered by') enteredby,
+				estimated_count
 			FROM
 				trans, 
 				accn,
@@ -69,7 +70,7 @@
 <strong>Edit Accession</strong>
 
 <cfoutput query="accnData">
-<form action="editAccn.cfm" method="post" name="editAccn">
+<cfform action="editAccn.cfm" method="post" name="editAccn">
 <input type="hidden" name="Action" value="saveChanges">
 <input type="hidden" name="transaction_id" value="#transaction_id#">
 <cfset tIA=collection_id>
@@ -108,7 +109,7 @@
 		</td>
 		<td>
 			<label for="rec_date">Received Date:</label>
-			<input type="text" name="rec_date" value="#DateFormat(received_date, 'dd mmm yyyy')#" size="10" id="rec_date">
+			<cfinput type="datefield" name="rec_date" value="#DateFormat(received_date, 'dd mmm yyyy')#" size="10" id="rec_date">
 		</td>
 		<td rowspan="99" valign="top">
 			<strong>Projects associated with this Accn:</strong>
@@ -243,7 +244,7 @@
 	</tr>
 </table>
 
-</form>
+</cfform>
 </cfoutput>
 <cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
