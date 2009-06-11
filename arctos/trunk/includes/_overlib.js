@@ -610,7 +610,10 @@ function changeStyle() {
 /***********************************************************************************************
  IsDate functionality
 ************************************************************************************************/
-
+function checkDate(f,i,v){
+	var r = isDate(v);
+	return r;
+}
 function isDate(DateToCheck){
 if(DateToCheck==""){return true;}
 var m_strDate = FormatDate(DateToCheck);
