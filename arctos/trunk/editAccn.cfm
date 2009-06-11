@@ -118,10 +118,10 @@
 		<td>
 			<label for="rec_date">Received Date</label>
 			<cfcalendar name="rec_date" 
-        selectedDate="#Form.rec_date#"
-        startRange="#Form.rec_date#"
-        endRange="#Form.rec_date#" 
-        mask="mmm dd, yyyy" 
+        selectedDate="#rec_date#"
+        startRange="#rec_date#"
+        endRange="#rec_date#" 
+        mask="dd mmm yyyy" 
         dayNames="SU,MO,TU,WE,TH,FR,SA"
         monthNames="JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC"
         style="rollOverColor:##FF0000"
