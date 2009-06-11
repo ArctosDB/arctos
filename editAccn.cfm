@@ -159,7 +159,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td colspan="5">
+		<td colspan="6">
 			<label for="nature_of_material">Nature of Material:</label>
 			<textarea name="nature_of_material" rows="5" cols="90"  class="reqdClr" 
 				id="nature_of_material">#accnData.nature_of_material#</textarea>
