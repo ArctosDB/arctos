@@ -107,7 +107,6 @@
 				</cfloop>
 			</select>
 		</td>
-		<cfgrid t
 		<td>
 			<label for="rec_date">Received Date:</label>
 			<cfinput type="text" validate="date" name="rec_date" value="#DateFormat(received_date, 'dd mmm yyyy')#" size="10" id="rec_date">
