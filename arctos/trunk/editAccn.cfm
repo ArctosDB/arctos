@@ -166,7 +166,7 @@
 		</td>
 	</tr>
 	<tr>
-	<td colspan="5">
+	<td colspan="6">
 		<table border>
 				<tr>
 					<th>Agent Name</th>
@@ -218,7 +218,7 @@
 	</td>
 	</tr>
 	<tr>
-		<td colspan="5">
+		<td colspan="6">
 			<label for="remarks">Remarks:</label>
 			<textarea name="remarks" rows="5" cols="90" id="remarks">#accnData.trans_remarks#</textarea>
 		</td>
@@ -227,7 +227,7 @@
 		<td colspan="3">
 			<em>Entered by</em> <strong>#enteredby#</strong> <em>on</em> <strong>#dateformat(trans_date,'dd mmm yyyy')#</strong>
 		</td>
-		<td colspan="2">
+		<td colspan="3">
 			<label for="">Has Correspondence?</label>
 			<select name="CORRESP_FG" size="1" id="CORRESP_FG">
 				<option <cfif #CORRESP_FG# is "1">selected</cfif> value="1">Yes</option>
@@ -236,7 +236,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td colspan="5" align="center">
+		<td colspan="6" align="center">
 		<input type="submit" value="Save Changes" class="savBtn"
    onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">	
  
