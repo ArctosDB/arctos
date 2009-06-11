@@ -95,6 +95,10 @@
 									</cfloop>
 								</select>
 							</td>
+							<td>
+								<label for="estimated_count" onClick="getDocs('loan','to')" class="likeLink">##Specimens</label>
+								<input type="text" id="estimated_count" name="estimated_count">
+							</td>
 						</tr>
 						<tr>
 							<td colspan="6">
