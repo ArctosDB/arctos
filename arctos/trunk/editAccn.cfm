@@ -77,7 +77,7 @@
 <table>
 	<tr>
 		<td align="right">
-			<label for="collection_id">Collection:</label>
+			<label for="collection_id">Collection</label>
 			<select name="collection_id" size="1"  class="reqdClr" id="collection_id">
 				<cfloop query="ctcoll">
 					<option <cfif #ctcoll.collection_id# is #tIA#> selected </cfif>
@@ -86,7 +86,7 @@
 			</select>
 		</td>
 		<td>
-			<label for="accn_number">Accn Number:</label>
+			<label for="accn_number">Accn Number</label>
 			<input type="text" name="accn_number" value="#accn_number#"  id="accn_number" class="reqdClr">
 		</td>
 		<td>
@@ -99,7 +99,7 @@
 			</select>
 		</td>
 		<td>
-			<label for="accn_status">Status:</label>
+			<label for="accn_status">Status</label>
 			<select name="accn_status" size="1"  class="reqdClr" id="accn_status">
 				<cfloop query="ctStatus">
 					<option <cfif #ctStatus.accn_status# is "#accnData.accn_status#">selected </cfif>
@@ -108,8 +108,16 @@
 			</select>
 		</td>
 		<td>
-			<label for="rec_date">Received Date:</label>
-			<cfinput type="text" onvalidate="checkDate" message="Date" name="rec_date" value="#DateFormat(received_date, 'dd mmm yyyy')#" size="10" id="rec_date">
+			<label for="rec_date">Received Date</label>
+			<cfinput type="text" onvalidate="checkDate" 
+				message="Received Date must be a date" name="rec_date" 
+				value="#DateFormat(received_date, 'dd mmm yyyy')#" size="10" id="rec_date">
+		</td>
+		<td>
+			<label for="estimated_count">##Specimens</label>
+			<cfinput type="text" validate="integer"
+				message="##Specimens must be a number" name="estimated_count" 
+				value="#estimated_count#" size="10" id="estimated_count">
 		</td>
 		<td rowspan="99" valign="top">
 			<strong>Projects associated with this Accn:</strong>
@@ -516,6 +524,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 		issuedTo.agent_name as issuedTo,
 		issuedBy.agent_name as issuedBy,
 		collection,
+		estimated_count,
 		concattransagent(trans.transaction_id,'entered by') ENTAGENT,
 		concattransagent(trans.transaction_id,'received from') RECFROMAGENT">
 	<cfset frm=" from 
@@ -760,7 +769,10 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 					ACCN_TYPE = '#accn_type#',
 					ACCN_NUMber = '#ACCN_NUMber#',
 					RECEIVED_DATE='#rec_date#',
-					ACCN_STATUS = '#accn_status#' 
+					ACCN_STATUS = '#accn_status#'
+					<cfif len(estimated_count) gt 0>
+						,estimated_count=#estimated_count#
+					</cfif> 
 					WHERE transaction_id = #transaction_id#
 			</cfquery>
 			<cfquery name="updateTrans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">

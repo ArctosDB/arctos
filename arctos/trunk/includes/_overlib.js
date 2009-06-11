@@ -611,9 +611,7 @@ function changeStyle() {
  IsDate functionality
 ************************************************************************************************/
 function checkDate(f,i,v){
-	console.log(v);
 	var r = isDate(v);
-	console.log(r);
 	return r;
 }
 function isDate(DateToCheck){
