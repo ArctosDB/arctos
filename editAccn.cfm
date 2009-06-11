@@ -118,9 +118,9 @@
 		<td>
 			<label for="rec_date">Received Date</label>
 			<cfcalendar name="rec_date" 
-        selectedDate="#rec_date#"
-        startRange="#rec_date#"
-        endRange="#rec_date#" 
+        selectedDate="#received_date#"
+        startRange="#received_date#"
+        endRange="#received_date#" 
         mask="dd mmm yyyy" 
         dayNames="SU,MO,TU,WE,TH,FR,SA"
         monthNames="JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC"
