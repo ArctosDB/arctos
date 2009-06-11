@@ -34,244 +34,232 @@
 <cfif #Action# is "edit">
 	<cfoutput>
 	<cfset title="Edit Accession">
-		<cfquery name="accnData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			SELECT
-				trans.transaction_id,
-				accn_number,
-			 	accn_status,
-				accn_type,
-				received_date,
-				nature_of_material,
-				received_agent_id,
-				trans_remarks,
-				trans_date,
-				collection,
-				trans.collection_id,
-				CORRESP_FG,
-				concattransagent(trans.transaction_id,'entered by') enteredby,
-				estimated_count
-			FROM
-				trans, 
-				accn,
-				collection
-			WHERE
-				trans.transaction_id = accn.transaction_id AND
-				trans.collection_id=collection.collection_id and
-				trans.transaction_id = #transaction_id#
-		</cfquery>
-		<cfquery name="transAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select 
-				trans_agent_id,
-				trans_agent.agent_id, 
-				agent_name,
-				trans_agent_role
-			from
-				trans_agent,
-				preferred_agent_name
-			where
-				trans_agent.agent_id = preferred_agent_name.agent_id and
-				trans_agent_role != 'entered by' and
-				trans_agent.transaction_id=#transaction_id#
-			order by
-				trans_agent_role,
-				agent_name
-		</cfquery>
-	</cfoutput>
-	
-	
-<strong>Edit Accession</strong>
-
-<cfoutput query="accnData">
-<cfform action="editAccn.cfm" method="post" name="editAccn">
-<input type="hidden" name="Action" value="saveChanges">
-<input type="hidden" name="transaction_id" value="#transaction_id#">
-<cfset tIA=collection_id>
-<table border>
-	<tr>
-		<td>
-			<label for="collection_id">Collection</label>
-			<select name="collection_id" size="1"  class="reqdClr" id="collection_id">
-				<cfloop query="ctcoll">
-					<option <cfif #ctcoll.collection_id# is #tIA#> selected </cfif>
-					value="#ctcoll.collection_id#">#ctcoll.collection#</option>
-				</cfloop>
-			</select>
-		</td>
-		<td>
-			<label for="accn_number">Accn Number</label>
-			<input type="text" name="accn_number" value="#accn_number#"  id="accn_number" class="reqdClr">
-		</td>
-		<td>
-			<label for="accn_type">How Obtained?</label>
-			<select name="accn_type" size="1"  class="reqdClr" id="accn_type">
-				<cfloop query="cttype">
-					<option <cfif #cttype.accn_type# is "#accnData.accn_type#"> selected </cfif>
-					value="#cttype.accn_type#">#cttype.accn_type#</option>
-				</cfloop>
-			</select>
-		</td>
-		<td>
-			<label for="accn_status">Status</label>
-			<select name="accn_status" size="1"  class="reqdClr" id="accn_status">
-				<cfloop query="ctStatus">
-					<option <cfif #ctStatus.accn_status# is "#accnData.accn_status#">selected </cfif>
-					value="#ctStatus.accn_status#">#ctStatus.accn_status#</option>
-				</cfloop>
-			</select>
-		</td>
-		<td>
-			<label for="rec_date">Received Date</label>
-			<cfinput type="text" 
-				onvalidate="checkDate" 
-				message="Received Date must be a date" 
-				name="rec_date"
-				value="#DateFormat(received_date, 'dd mmm yyyy')#" 
-				size="10" 
-				id="rec_date"					
-				onclick="cal1.select(document.editAccn.rec_date,'anchor1','dd-MMM-yyyy');">
-		</td>
-		<td>
-			<label for="estimated_count" onClick="getDocs('accession','estimated_count')" class="likeLink">
-				Est. Cnt.
-			</label>
-			<cfinput type="text" validate="integer"
-				message="##Specimens must be a number" name="estimated_count" 
-				value="#estimated_count#" size="10" id="estimated_count">
-		</td>
-		<td rowspan="99" valign="top">
-			<strong>Projects associated with this Accn:</strong>
-			<ul>
-				<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select project_name, project.project_id from project,
-					project_trans where 
-					project_trans.project_id =  project.project_id
-					and transaction_id=#transaction_id#
-				</cfquery>
-				<cfif #projs.recordcount# gt 0>
-					<cfloop query="projs">
-						<li>
-							<a href="/Project.cfm?Action=editProject&project_id=#project_id#"><strong>#project_name#</strong></a><br>
-						</li>
-					</cfloop>
-				<cfelse>
-					<li>None</li>
-				</cfif>
-			</ul>
-				<table class="newRec" width="100%">
-				<tr>
-					<td>
-							<label for="project_name">New Project</label>
-							<input type="hidden" name="project_id">
-							<input type="text" 
-								size="50"
-								name="project_name"
-								id="project_name" 
-								class="reqdClr" 
-								onchange="getProject('project_id','project_name','editAccn',this.value); return false;"
-								onKeyPress="return noenter(event);">
-						
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="6">
-			<label for="nature_of_material">Nature of Material:</label>
-			<textarea name="nature_of_material" rows="5" cols="90"  class="reqdClr" 
-				id="nature_of_material">#accnData.nature_of_material#</textarea>
-		</td>
-	</tr>
-	<tr>
-	<td colspan="6">
+	<cfquery name="accnData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		SELECT
+			trans.transaction_id,
+			accn_number,
+		 	accn_status,
+			accn_type,
+			received_date,
+			nature_of_material,
+			received_agent_id,
+			trans_remarks,
+			trans_date,
+			collection,
+			trans.collection_id,
+			CORRESP_FG,
+			concattransagent(trans.transaction_id,'entered by') enteredby,
+			estimated_count
+		FROM
+			trans, 
+			accn,
+			collection
+		WHERE
+			trans.transaction_id = accn.transaction_id AND
+			trans.collection_id=collection.collection_id and
+			trans.transaction_id = #transaction_id#
+	</cfquery>
+	<cfquery name="transAgents" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select 
+			trans_agent_id,
+			trans_agent.agent_id, 
+			agent_name,
+			trans_agent_role
+		from
+			trans_agent,
+			preferred_agent_name
+		where
+			trans_agent.agent_id = preferred_agent_name.agent_id and
+			trans_agent_role != 'entered by' and
+			trans_agent.transaction_id=#transaction_id#
+		order by
+			trans_agent_role,
+			agent_name
+	</cfquery>	
+	<strong>Edit Accession</strong>
+	<cfform action="editAccn.cfm" method="post" name="editAccn">
+		<input type="hidden" name="Action" value="saveChanges">
+		<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
+		<cfset tIA=accnData.collection_id>
 		<table border>
-				<tr>
-					<th>Agent Name</th>
-					<th>Role</th>
-					<th>Delete?</th>
-				</tr>
-				<cfloop query="transAgents">
-					<tr>
-						<td>
-							<input type="text" name="trans_agent_#trans_agent_id#" class="reqdClr" size="50" value="#agent_name#"
-			  					onchange="getAgent('trans_agent_id_#trans_agent_id#','trans_agent_#trans_agent_id#','editAccn',this.value); return false;"
-			  					onKeyPress="return noenter(event);">
-			  				<input type="hidden" name="trans_agent_id_#trans_agent_id#" value="#agent_id#">
-						</td>
-						<td>
-							<cfset thisRole = #trans_agent_role#>
-							<select name="trans_agent_role_#trans_agent_id#">
-								<cfloop query="cttrans_agent_role">
-									<option 
-										<cfif #trans_agent_role# is #thisRole#> selected="selected"</cfif>
-										value="#trans_agent_role#">#trans_agent_role#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="checkbox" name="del_agnt_#trans_agent_id#">
-						</td>
-					</tr>
-				</cfloop>
-					<tr class="newRec">
-						<td>
-							<label for="new_trans_agent">Add Agent:</label>
-							<input type="text" name="new_trans_agent" id="new_trans_agent" class="reqdClr" size="50"
-			  					onchange="getAgent('new_trans_agent_id','new_trans_agent','editAccn',this.value); return false;"
-			  					onKeyPress="return noenter(event);">
-			  				<input type="hidden" name="new_trans_agent_id">
-						</td>
-						<td>
-							<label for="new_trans_agent_role">&nbsp;</label>
-							<select name="new_trans_agent_role" id="new_trans_agent_role">
-								<cfloop query="cttrans_agent_role">
-									<option value="#trans_agent_role#">#trans_agent_role#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>&nbsp;</td>
-					</tr>				
-			</table>
-	</td>
-	</tr>
-	<tr>
-		<td colspan="6">
-			<label for="remarks">Remarks:</label>
-			<textarea name="remarks" rows="5" cols="90" id="remarks">#accnData.trans_remarks#</textarea>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="3">
-			<em>Entered by</em> <strong>#enteredby#</strong> <em>on</em> <strong>#dateformat(trans_date,'dd mmm yyyy')#</strong>
-		</td>
-		<td colspan="3">
-			<label for="">Has Correspondence?</label>
-			<select name="CORRESP_FG" size="1" id="CORRESP_FG">
-				<option <cfif #CORRESP_FG# is "1">selected</cfif> value="1">Yes</option>
-				<option <cfif #CORRESP_FG# is "0">selected</cfif> value="0">No</option>
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="6" align="center">
-		<input type="submit" value="Save Changes" class="savBtn"
-   onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">	
- 
- <input type="button" value="Quit without saving" class="qutBtn"
-   onmouseover="this.className='qutBtn btnhov'" onmouseout="this.className='qutBtn'" onclick = "document.location = 'editAccn.cfm'">	
-		
-		 <input type="button" value="Specimen List" class="lnkBtn"
-   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-   onclick = "window.open('SpecimenResults.cfm?accn_trans_id=#transaction_id#');">	
-   
-    <input type="button" value="BerkeleyMapper" class="lnkBtn"
-   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-   onclick = "window.open('/bnhmMaps/bnhmMapData.cfm?accn_number=#accn_number#','_blank');">	
-		</td>
-	</tr>
-</table>
-
-</cfform>
+			<tr>
+				<td>
+					<label for="collection_id">Collection</label>
+					<select name="collection_id" size="1"  class="reqdClr" id="collection_id">
+						<cfloop query="ctcoll">
+							<option <cfif #ctcoll.collection_id# is #tIA#> selected </cfif>
+							value="#ctcoll.collection_id#">#ctcoll.collection#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+					<label for="accn_number">Accn Number</label>
+					<input type="text" name="accn_number" value="#accnData.accn_number#"  id="accn_number" class="reqdClr">
+				</td>
+				<td>
+					<label for="accn_type">How Obtained?</label>
+					<select name="accn_type" size="1"  class="reqdClr" id="accn_type">
+						<cfloop query="cttype">
+							<option <cfif #cttype.accn_type# is "#accnData.accn_type#"> selected </cfif>
+							value="#cttype.accn_type#">#cttype.accn_type#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+					<label for="accn_status">Status</label>
+					<select name="accn_status" size="1"  class="reqdClr" id="accn_status">
+						<cfloop query="ctStatus">
+							<option <cfif #ctStatus.accn_status# is "#accnData.accn_status#">selected </cfif>
+							value="#ctStatus.accn_status#">#ctStatus.accn_status#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+					<label for="rec_date">Received Date</label>
+					<cfinput type="text" 
+						onvalidate="checkDate" 
+						message="Received Date must be a date" 
+						name="rec_date"
+						value="#DateFormat(accnData.received_date, 'dd mmm yyyy')#" 
+						size="10" 
+						id="rec_date"					
+						onclick="cal1.select(document.editAccn.rec_date,'anchor1','dd-MMM-yyyy');">
+				</td>
+				<td>
+					<label for="estimated_count" onClick="getDocs('accession','estimated_count')" class="likeLink">
+						Est. Cnt.
+					</label>
+					<cfinput type="text" validate="integer"
+						message="##Specimens must be a number" name="estimated_count" 
+						value="#accnData.estimated_count#" size="10" id="estimated_count">
+				</td>
+				<td rowspan="99" valign="top">
+					<strong>Projects associated with this Accn:</strong>
+					<ul>
+						<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							select project_name, project.project_id from project,
+							project_trans where 
+							project_trans.project_id =  project.project_id
+							and transaction_id=#transaction_id#
+						</cfquery>
+						<cfif #projs.recordcount# gt 0>
+							<cfloop query="projs">
+								<li>
+									<a href="/Project.cfm?Action=editProject&project_id=#project_id#"><strong>#project_name#</strong></a><br>
+								</li>
+							</cfloop>
+						<cfelse>
+							<li>None</li>
+						</cfif>
+					</ul>
+					<table class="newRec" width="100%">
+						<tr>
+							<td>
+									<label for="project_name">New Project</label>
+									<input type="hidden" name="project_id">
+									<input type="text" 
+										size="50"
+										name="project_name"
+										id="project_name" 
+										class="reqdClr" 
+										onchange="getProject('project_id','project_name','editAccn',this.value); return false;"
+										onKeyPress="return noenter(event);">
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6">
+					<label for="nature_of_material">Nature of Material:</label>
+					<textarea name="nature_of_material" rows="5" cols="90"  class="reqdClr" 
+						id="nature_of_material">#accnData.nature_of_material#</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6">
+					<table border>
+						<tr>
+							<th>Agent Name</th>
+							<th>Role</th>
+							<th>Delete?</th>
+						</tr>
+						<cfloop query="transAgents">
+							<tr>
+								<td>
+									<input type="text" name="trans_agent_#trans_agent_id#" class="reqdClr" size="50" value="#agent_name#"
+					  					onchange="getAgent('trans_agent_id_#trans_agent_id#','trans_agent_#trans_agent_id#','editAccn',this.value); return false;"
+					  					onKeyPress="return noenter(event);">
+					  				<input type="hidden" name="trans_agent_id_#trans_agent_id#" value="#agent_id#">
+								</td>
+								<td>
+									<cfset thisRole = #trans_agent_role#>
+									<select name="trans_agent_role_#trans_agent_id#">
+										<cfloop query="cttrans_agent_role">
+											<option 
+												<cfif #trans_agent_role# is #thisRole#> selected="selected"</cfif>
+												value="#trans_agent_role#">#trans_agent_role#</option>
+										</cfloop>
+									</select>
+								</td>
+								<td>
+									<input type="checkbox" name="del_agnt_#trans_agent_id#">
+								</td>
+							</tr>
+						</cfloop>
+						<tr class="newRec">
+							<td>
+								<label for="new_trans_agent">Add Agent:</label>
+								<input type="text" name="new_trans_agent" id="new_trans_agent" class="reqdClr" size="50"
+				  					onchange="getAgent('new_trans_agent_id','new_trans_agent','editAccn',this.value); return false;"
+				  					onKeyPress="return noenter(event);">
+				  				<input type="hidden" name="new_trans_agent_id">
+							</td>
+							<td>
+								<label for="new_trans_agent_role">&nbsp;</label>
+								<select name="new_trans_agent_role" id="new_trans_agent_role">
+									<cfloop query="cttrans_agent_role">
+										<option value="#accnData.trans_agent_role#">#trans_agent_role#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td>&nbsp;</td>
+						</tr>				
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6">
+					<label for="remarks">Remarks:</label>
+					<textarea name="remarks" rows="5" cols="90" id="remarks">#accnData.trans_remarks#</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<em>Entered by</em> 
+					<strong>#accnData.enteredby#</strong> <em>on</em> <strong>#dateformat(accnData.trans_date,'dd mmm yyyy')#</strong>
+				</td>
+				<td colspan="3">
+					<label for="">Has Correspondence?</label>
+					<select name="CORRESP_FG" size="1" id="CORRESP_FG">
+						<option <cfif #accnData.CORRESP_FG# is "1">selected</cfif> value="1">Yes</option>
+						<option <cfif #accnData.CORRESP_FG# is "0">selected</cfif> value="0">No</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="6" align="center">
+				<input type="submit" value="Save Changes" class="savBtn">	
+		 		<input type="button" value="Quit without saving" class="qutBtn"
+					onclick = "document.location = 'editAccn.cfm'">	
+				<input type="button" value="Specimen List" class="lnkBtn"
+				 	onclick = "window.open('SpecimenResults.cfm?accn_trans_id=#transaction_id#');">	
+		       	<input type="button" value="BerkeleyMapper" class="lnkBtn"
+					onclick = "window.open('/bnhmMaps/bnhmMapData.cfm?accn_number=#accn_number#','_blank');">	
+				</td>
+			</tr>
+		</table>
+	</cfform>
 </cfoutput>
 <cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
