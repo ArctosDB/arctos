@@ -117,17 +117,14 @@
 		</td>
 		<td>
 			<label for="rec_date">Received Date</label>
-
-			<cfinput type="text" onvalidate="checkDate" 
-				message="Received Date must be a date" name="rec_date" 
-				value="#DateFormat(received_date, 'dd mmm yyyy')#" size="10" id="rec_date">
-			<img src="images/pick.gif" 
-									class="likeLink" 
-									border="0" 
-									alt="[calendar]"
-									name="anchor1"
-									id="anchor1"
-									onClick="cal1.select(document.editAccn.rec_date,'anchor1','dd-MMM-yyyy'); return false;"/>			
+			<cfinput type="text" 
+				onvalidate="checkDate" 
+				message="Received Date must be a date" 
+				name="rec_date"
+				value="#DateFormat(received_date, 'dd mmm yyyy')#" 
+				size="10" 
+				id="rec_date"					
+				onclick="cal1.select(document.editAccn.rec_date,'anchor1','dd-MMM-yyyy');">
 		</td>
 		<td>
 			<label for="estimated_count" onClick="getDocs('accession','estimated_count')" class="likeLink">
