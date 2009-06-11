@@ -74,9 +74,9 @@
 <input type="hidden" name="Action" value="saveChanges">
 <input type="hidden" name="transaction_id" value="#transaction_id#">
 <cfset tIA=collection_id>
-<table>
+<table border>
 	<tr>
-		<td align="right">
+		<td>
 			<label for="collection_id">Collection</label>
 			<select name="collection_id" size="1"  class="reqdClr" id="collection_id">
 				<cfloop query="ctcoll">
@@ -114,7 +114,9 @@
 				value="#DateFormat(received_date, 'dd mmm yyyy')#" size="10" id="rec_date">
 		</td>
 		<td>
-			<label for="estimated_count">##Specimens</label>
+			<label for="estimated_count" onClick="getDocs('accession','estimated_count')" class="likeLink">
+				Est. Cnt.
+			</label>
 			<cfinput type="text" validate="integer"
 				message="##Specimens must be a number" name="estimated_count" 
 				value="#estimated_count#" size="10" id="estimated_count">
