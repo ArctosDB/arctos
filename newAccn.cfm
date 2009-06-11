@@ -87,7 +87,7 @@
 								 	onKeyPress="return noenter(event);">
 								<input type="hidden" name="trans_agency_id">
 							</td>
-							<td colspan="2">
+							<td>
 								<label for="accn_type">How Obtained?</label>
 								<select name="accn_type" size="1"  class="reqdClr">
 									<cfloop query="cttype">
@@ -96,7 +96,7 @@
 								</select>
 							</td>
 							<td>
-								<label for="estimated_count" onClick="getDocs('loan','to')" class="likeLink">##Specimens</label>
+								<label for="estimated_count" onClick="getDocs('accession','estimated_count')" class="likeLink">##Specimens</label>
 								<input type="text" id="estimated_count" name="estimated_count">
 							</td>
 						</tr>
