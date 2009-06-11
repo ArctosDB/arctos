@@ -117,14 +117,7 @@
 		</td>
 		<td>
 			<label for="rec_date">Received Date</label>
-			<cfcalendar name="rec_date" 
-        mask="dd mmm yyyy" 
-        dayNames="SU,MO,TU,WE,TH,FR,SA"
-        monthNames="JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC"
-        style="rollOverColor:##FF0000"
-        width="200" height="150">
 
-			<!----
 			<cfinput type="text" onvalidate="checkDate" 
 				message="Received Date must be a date" name="rec_date" 
 				value="#DateFormat(received_date, 'dd mmm yyyy')#" size="10" id="rec_date">
@@ -134,8 +127,7 @@
 									alt="[calendar]"
 									name="anchor1"
 									id="anchor1"
-									onClick="cal1.select(document.newAccn.rec_date,'anchor1','dd-MMM-yyyy'); return false;"/>			
-		---->
+									onClick="cal1.select(document.editAccn.rec_date,'anchor1','dd-MMM-yyyy'); return false;"/>			
 		</td>
 		<td>
 			<label for="estimated_count" onClick="getDocs('accession','estimated_count')" class="likeLink">
