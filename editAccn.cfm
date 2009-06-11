@@ -1,4 +1,12 @@
 <cfinclude template="includes/_header.cfm">
+	<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
+	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+		var cal1 = new CalendarPopup("theCalendar");
+		cal1.showYearNavigation();
+		cal1.showYearNavigationInput();
+	</SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
+
 <cfset title="Edit Accession">
 <cfif not isdefined("project_id")>
 	<cfset project_id = -1>
@@ -109,9 +117,28 @@
 		</td>
 		<td>
 			<label for="rec_date">Received Date</label>
+			<cfcalendar name="rec_date" 
+        selectedDate="#Form.rec_date#"
+        startRange="#Form.rec_date#"
+        endRange="#Form.rec_date#" 
+        mask="mmm dd, yyyy" 
+        dayNames="SU,MO,TU,WE,TH,FR,SA"
+        monthNames="JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC"
+        style="rollOverColor:##FF0000"
+        width="200" height="150">
+
+			<!----
 			<cfinput type="text" onvalidate="checkDate" 
 				message="Received Date must be a date" name="rec_date" 
 				value="#DateFormat(received_date, 'dd mmm yyyy')#" size="10" id="rec_date">
+			<img src="images/pick.gif" 
+									class="likeLink" 
+									border="0" 
+									alt="[calendar]"
+									name="anchor1"
+									id="anchor1"
+									onClick="cal1.select(document.newAccn.rec_date,'anchor1','dd-MMM-yyyy'); return false;"/>			
+		---->
 		</td>
 		<td>
 			<label for="estimated_count" onClick="getDocs('accession','estimated_count')" class="likeLink">
