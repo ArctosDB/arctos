@@ -1,4 +1,5 @@
 <cfinclude template="includes/_header.cfm">
+	<cfsavecontent variable="head">
 	<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
 	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
 		var cal1 = new CalendarPopup("theCalendar");
@@ -6,8 +7,11 @@
 		cal1.showYearNavigationInput();
 	</SCRIPT>
 	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
-
-<cfset title="Edit Accession">
+	</cfsavecontent>
+	<cfoutput>
+		<cfhtmlhead text="#head#">
+	</cfoutput>
+	<cfset title="Edit Accession">
 <cfif not isdefined("project_id")>
 	<cfset project_id = -1>
 </cfif>
