@@ -58,12 +58,12 @@
 								<label for="rec_date">Rec. Date:</label>
 								<input type="text" name="rec_date" class="reqdClr">
 								<img src="images/pick.gif" 
-											class="likeLink" 
-											border="0" 
-											alt="[calendar]"
-											name="anchor1"
-											id="anchor1"
-											onClick="cal1.select(document.newAccn.rec_date,'anchor1','dd-MMM-yyyy'); return false;"/>			
+									class="likeLink" 
+									border="0" 
+									alt="[calendar]"
+									name="anchor1"
+									id="anchor1"
+									onClick="cal1.select(document.newAccn.rec_date,'anchor1','dd-MMM-yyyy'); return false;"/>			
 							</td>
 						</tr>
 						<tr>
@@ -257,14 +257,20 @@
 						ACCN_TYPE
 						,accn_number
 						,RECEIVED_DATE,
-						ACCN_STATUS       
+						ACCN_STATUS,
+						estimated_count      
 						)
 					VALUES (
 						#n.n#,
 						'#accn_type#'
 						,'#accn_number#'
 						,'#dateformat(rec_date,"dd-mmm-yyyy")#',
-						'#accn_status#' 
+						'#accn_status#',
+						<cfif len(estimated_count) gt 0>
+							#estimated_count#
+						<cfelse>
+							null
+						</cfif>
 						)
 				</cfquery>
 				<cfquery name="newAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
