@@ -83,6 +83,10 @@
       nameConflict="overwrite"
       fileField="Form.FiletoUpload">
 
+
+		<cfexecute name="/bin/sh" arguments="/usr/bin/dos2unix #filename#" timeout="240">
+		
+		</cfexecute>
 	 <!---- see if the bulkloader is deletable ---->
 	 <cfquery name="remOld" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	 	delete from bulkloader_stage
@@ -113,13 +117,15 @@
 	
 
 	<cffile action="READ" file="#filename#" variable="fileContent"  charset="iso-8859-1" >
+	 	<cfset fileContent=replace(fileContent,"#chr(13)##chr(10)#",chr(13), "all")>
+	 	<cfset fileContent=replace(fileContent,chr(13),chr(10), "all")>
 	 	<!---
-	 	<cfset fileContent=replace(fileContent,chr(10),"", "all")>
+	 	
 	 	
 	 	<cfset fileContent=replace(fileContent,chr(13),"==================chr(13)=======================", "all")>
 	 	<cfset ColumnList = listgetat(#filecontent#,1,"#chr(10)#")>
 	 	---->
-	 	<cfset ColumnList = listgetat(#filecontent#,1,"#chr(13)#")>
+	 	<cfset ColumnList = listgetat(#filecontent#,1,"#chr(10)#")>
 	 	
 	 	
 	 	
@@ -132,12 +138,12 @@
 	 		<cfset ColumnList = replace(ColumnList,c,c & " char(4000)")>
 	 	</cfloop>
 		<cfset thisHeader = "load data">
-		<cfset thisHeader = thisHeader & chr(13) & "infile *">
-		<cfset thisHeader = thisHeader & chr(13) & "insert into table bulkloader_stage">
-		<cfset thisHeader = thisHeader & chr(13) & "fields terminated by ""|""">
-		<cfset thisHeader = thisHeader & chr(13) & "TRAILING NULLCOLS ">
-		<cfset thisHeader = thisHeader & chr(13) & "(#ColumnList#) ">
-		<cfset thisHeader = thisHeader & chr(13) & "begindata" & theseData>
+		<cfset thisHeader = thisHeader & chr(10) & "infile *">
+		<cfset thisHeader = thisHeader & chr(10) & "insert into table bulkloader_stage">
+		<cfset thisHeader = thisHeader & chr(10) & "fields terminated by ""|""">
+		<cfset thisHeader = thisHeader & chr(10) & "TRAILING NULLCOLS ">
+		<cfset thisHeader = thisHeader & chr(10) & "(#ColumnList#) ">
+		<cfset thisHeader = thisHeader & chr(10) & "begindata" & theseData>
 		
 		<cffile action="write" file="#controlFile#" addnewline="no" output="#thisHeader#" charset="iso-8859-1">		
 		
