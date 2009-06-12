@@ -110,7 +110,7 @@
 							<td>&nbsp;</td>
 							<td colspan="2">
 								<label for="ent_Date">Entry Date:</label>
-								<cfinput type="datefield" name="ent_Date"  value="#thisDate#">
+								<cfinput type="text" name="ent_Date"  value="#thisDate#">
 							</td>
 							<td colspan="2">
 								<label for="">Has Correspondence?</label>
