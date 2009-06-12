@@ -723,6 +723,13 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 						<td><strong>#trans_remarks#</strong></td>
 					</tr>
 				</cfif>
+				<cfif len(#estimated_count#) gt 0>
+					<tr>
+						<td><img src="images/nada.gif" width="30" height="1"></td>
+						<td align="right" valign="top">Estimated Count:</td>
+						<td><strong>#estimated_count#</strong></td>
+					</tr>
+				</cfif>
 				<tr>
 					<td><img src="images/nada.gif" width="30" height="1"></td>
 					<td nowrap align="right">Entered by:</td>
@@ -730,7 +737,9 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 				</tr>	
 			</table>
 		<cfset i=#i#+1>
-		</td></tr></cfoutput>
+		</td>
+	</tr>
+</cfoutput>
 		
 		
 	</table>
@@ -823,10 +832,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 				</cfquery>
 			</cfif>
 		</cftransaction>
-		
 	<cflocation url="editAccn.cfm?Action=edit&transaction_id=#transaction_id#" addtoken="false">
-		
   </cfoutput>
 </cfif>
-
 <cfinclude template="includes/_footer.cfm">
