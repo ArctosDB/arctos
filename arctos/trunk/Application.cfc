@@ -225,7 +225,10 @@
 			<cflocation url="/errors/forbidden.cfm?ref=#r#" addtoken="false">
 	</cfif>
 	<cfif cgi.HTTP_HOST is "arctos-test.arctos.database.museum" and len(session.username) is 0>
-		<cflocation url="/errors/dev_login.cfm">	
+		<!---
+		<cflocation url="/errors/dev_login.cfm">
+		--->
+		nogo
 	</cfif>
 
 	<cfreturn true>
