@@ -763,7 +763,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 				UPDATE accn SET
 					ACCN_TYPE = '#accn_type#',
 					ACCN_NUMber = '#ACCN_NUMber#',
-					RECEIVED_DATE='#rec_date#',
+					RECEIVED_DATE=to_date('#dateformat(rec_date,"dd-mmm-yyyy")#'),
 					ACCN_STATUS = '#accn_status#'
 					<cfif len(estimated_count) gt 0>
 						,estimated_count=#estimated_count#
