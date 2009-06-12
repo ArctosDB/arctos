@@ -1,11 +1,13 @@
-you cant be here, sucka!
 <cfoutput>
-GetDirectoryFromPath(GetTemplatePath()): #GetDirectoryFromPath(GetTemplatePath())#
-<br>
-GetTemplatePath() is #GetTemplatePath()#
-<br>cgi.HTTP_HOST: #cgi.HTTP_HOST#
-<br>len(session.username): #len(session.username)#
+	<cfheader statuscode="401" statustext="Not authorized">
+This is a development server. You may log in or create an account 
+for testing purposes. You may not access this machine without logging in.
+Data available from this machine are for testing purposes only and are not
+valid specimen data.
 
 
 <a href="/login.cfm">Log In</a>
+<p>
+	<a href="http://arctos.database.museum">go to Arctos</a>
+</p>
 </cfoutput>
