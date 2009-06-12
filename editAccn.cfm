@@ -116,7 +116,14 @@
 				</td>
 				<td>
 					<label for="rec_date">Received Date</label>
-					<cfinput type="text" 
+					<input type="text" 
+						name="rec_date"
+						value="#DateFormat(accnData.received_date, 'dd mmm yyyy')#" 
+						size="10" 
+						id="rec_date"					
+						onclick="cal1.select(document.editAccn.rec_date,'anchor1','dd-MMM-yyyy');">
+						<!---
+						<cfinput type="text" 
 						onvalidate="checkDate" 
 						message="Received Date must be a date" 
 						name="rec_date"
@@ -124,6 +131,7 @@
 						size="10" 
 						id="rec_date"					
 						onclick="cal1.select(document.editAccn.rec_date,'anchor1','dd-MMM-yyyy');">
+						--->
 				</td>
 				<td>
 					<label for="estimated_count" onClick="getDocs('accession','estimated_count')" class="likeLink">
