@@ -18,7 +18,6 @@
 		<cfreturn/>
 	</cfif>
 	<cfif StructKeyExists(form,"C0-METHODNAME")>
-		<!--- cfajax calling cfabort --->
 		<cfset showErr=0>
 		<cfreturn/>
 	</cfif>
@@ -111,7 +110,6 @@
 	</cfif>
 	<cfreturn/>
 </cffunction>
-
 <!-------------------------->
 <cffunction name="onApplicationStart" returnType="boolean" output="false">
 	<cfset Application.session_timeout=90>
@@ -226,6 +224,10 @@
 			<cfset r=replace(#currentPath#,#application.webDirectory#,"")>
 			<cflocation url="/errors/forbidden.cfm?ref=#r#" addtoken="false">
 	</cfif>
+	<cfif cgi.HTTP_HOST is "arctos-test.arctos.database.museum" and len(session.username) is 0>
+		<cflocation url="/errors/dev_login.cfm">	
+	</cfif>
+
 	<cfreturn true>
 </cffunction>
 </cfcomponent>
