@@ -255,7 +255,7 @@
 				<input type="button" value="Specimen List" class="lnkBtn"
 				 	onclick = "window.open('SpecimenResults.cfm?accn_trans_id=#transaction_id#');">	
 		       	<input type="button" value="BerkeleyMapper" class="lnkBtn"
-					onclick = "window.open('/bnhmMaps/bnhmMapData.cfm?accn_number=#accn_number#','_blank');">	
+					onclick = "window.open('/bnhmMaps/bnhmMapData.cfm?accn_number=#accnData.accn_number#','_blank');">	
 				</td>
 			</tr>
 		</table>
