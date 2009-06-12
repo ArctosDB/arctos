@@ -782,7 +782,8 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 						,TRANS_REMARKS = '#REMARKS#'
 					<cfelse>
 						,TRANS_REMARKS = NULL
-					</cfif> 
+					</cfif>
+					,CORRESP_FG=#CORRESP_FG#
 				WHERE transaction_id = #transaction_id#
 			</cfquery>
 			<cfquery name="wutsThere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
