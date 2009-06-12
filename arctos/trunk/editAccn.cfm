@@ -824,7 +824,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 			</cfif>
 		</cftransaction>
 		
-	<cflocation url="editAccn.cfm?Action=edit&transaction_id=#transaction_id#">
+	<cflocation url="editAccn.cfm?Action=edit&transaction_id=#transaction_id#" addtoken="false">
 		
   </cfoutput>
 </cfif>
