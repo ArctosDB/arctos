@@ -37,7 +37,8 @@
 							<td>
 								<select name="idType_#i#" id="" size="1">
 									<option value="ALAAC" selected >ALAAC</option>
-									<option value="field number">field number</option>
+									<option value="field number">field number</option>									
+									<option value="ISC: Ada Hayden Herbarium, Iowa State University">ISC: Ada Hayden Herbarium, Iowa State University</option>
 								</select>
 							</td>
 							<td>
