@@ -216,7 +216,9 @@
 <!------------------------------------------------------------->
 <cfif #action# is "nothing">
 <cfoutput>
-	NOTE: Horizontal Datum is NOT transformed correctly. Positions will be misplaced for all non-WGS84 datum points.
+	<span style="color:red;">
+		NOTE: Horizontal Datum is NOT transformed. Positions will be misplaced for all non-WGS84 datum points.
+	</span>
 	<form name="prefs" id="prefs" method="post" action="kml.cfm">
 		<table>
 			<tr>
