@@ -318,7 +318,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 			<span class="infoLink" onclick="getDocs('maps');">
 				What's this?
 			</span>
-			<a href="bnhmMaps/kml.cfm?table_name=#session.SpecSrchTab#">Google Earth/Maps</a>
+			<a href="bnhmMaps/kml.cfm">Google Earth/Maps</a>
 			<a href="SpecimenResultsHTML.cfm?#mapurl#" class="infoLink">&nbsp;&nbsp;&nbsp;Problems viewing this page? Click for HTML version</a>
 			&nbsp;&nbsp;&nbsp;<a class="infoLink" href="/info/reportBadData.cfm?collection_object_id=#collObjIdList#">Report Bad Data</a>	
 <div style="border:2px solid blue;" id="ssControl">
