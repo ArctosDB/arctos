@@ -24,7 +24,7 @@
 <cfelse>
 	<cfset flatTableName = "filtered_flat">
 </cfif>
-<cfif isdefined("newReq")>
+<cfif isdefined("api")>
 <table border>
 	<tr>
 		<th>Variable</th>
