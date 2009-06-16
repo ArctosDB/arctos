@@ -353,7 +353,7 @@
 			<cffile action="write" file="#internalPath##linkFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
 		<cfif method is "link">
 			<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">
-		<cfelseif method= is "gmap">
+		<cfelseif method is "gmap">
 			<cfset durl="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#">
 		<cfelse>	
 			<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">
@@ -615,7 +615,7 @@
 			<cffile action="write" file="#internalPath##linkFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
 		<cfif method is "link">
 			<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">
-		<cfelseif method= is "gmap">
+		<cfelseif method is "gmap">
 			<cfset durl="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#">
 		<cfelse>	
 			<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">
