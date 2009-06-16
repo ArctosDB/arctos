@@ -155,6 +155,14 @@
 		<br>File Name
 		<input type="text" name="userFileName" id="userFileName" size="40" value="kmlfile#cfid##cftoken#">
 		<br>
+		Method
+		<select name="method" id="method">
+			<option value="download">Download KML</option>
+			<option value="link">Download linkfile</option>
+			<option value="gmap">Google Maps</option>
+		</select>
+		
+		<br>
 		
 		<input type="submit" value="get KML" class="lnkBtn"
    					onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
