@@ -10,7 +10,7 @@
 <cfif isdefined("newReq")>
 	<cfoutput>
 		<cfset basSelect = " SELECT distinct #flatTableName#.collection_object_id,">
-		<cfquery name="reqd" dbtype="query">
+		<cfquery name="reqd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from cf_spec_res_cols where category='required'
 		</cfquery>
 		<cfset basSelect = listappend(basSelect,valuelist(reqd.SQL_ELEMENT))>
