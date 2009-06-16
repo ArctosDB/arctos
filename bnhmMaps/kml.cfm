@@ -10,8 +10,8 @@
 <cfif not isdefined("mapByLocality")>
 	<cfset mapByLocality=0>
 </cfif>
-<cfif not isdefined("showOnlyAccepted")>
-	<cfset showOnlyAccepted=1>
+<cfif not isdefined("showUnccepted")>
+	<cfset showUnccepted=0>
 </cfif>
 <cfif not isdefined("userFileName")>
 	<cfset userFileName="kmlfile#cfid##cftoken#">
@@ -72,7 +72,7 @@
 		</cfquery>
 		
 		<cfset burl="kml.cfm?method=#method#&showErrors=#showErrors#&mapByLocality=#mapByLocality#">
-		<cfset burl=burl & "&showOnlyAccepted=#showOnlyAccepted#&userFileName=#userFileName#&action=#action#">	
+		<cfset burl=burl & "&showUnccepted=#showUnccepted#&userFileName=#userFileName#&action=#action#">	
 		<cflocation url="#burl#" addtoken="false">
 	</cfoutput>
 </cfif>
@@ -146,11 +146,11 @@
 				</td>
 			</tr>
 			<tr>
-				<td align="right">Show only accepted coordinate determinations?</td>
+				<td align="right">Show unaccepted coordinate determinations?</td>
 				<td>
 					<input type="checkbox" 
-						<cfif showOnlyAccepted is 1> checked="checked"</cfif>
-						name="showOnlyAccepted" id="showOnlyAccepted" value="1"></td>
+						<cfif showUnccepted is 1> checked="checked"</cfif>
+						name="showUnccepted" id="showUnccepted" value="1"></td>
 			</tr>
 			<tr>
 				<td align="right">File Name</td>
@@ -430,7 +430,7 @@
 			 	lat_long
 			 where
 			 	#flatTableName#.locality_id = lat_long.locality_id and
-			 	<cfif isdefined("showOnlyAccepted") and #showOnlyAccepted# is 1>
+			 	<cfif showUnccepted is 0>
 			 		lat_long.accepted_lat_long_fg = 1 AND
 			 	</cfif>
 			 	lat_long.dec_lat is not null and lat_long.dec_long is not null and
@@ -465,7 +465,7 @@
 			 	#table_name#
 			 where
 			 	#flatTableName#.locality_id = lat_long.locality_id and
-			 	<cfif isdefined("showOnlyAccepted") and #showOnlyAccepted# is 1>
+			 	<cfif showUnccepted is 0>
 			 		lat_long.accepted_lat_long_fg = 1 AND
 			 	</cfif>
 			 	lat_long.dec_lat is not null and 
