@@ -1,5 +1,6 @@
 <cfset table_name=session.SpecSrchTab>
-
+<cfset internalPath="#Application.webDirectory#/bnhmMaps/tabfiles/">
+<cfset externalPath="#Application.ServerRootUrl#/bnhmMaps/tabfiles/">
 <!--- handle direct calls --->
 <cfif isdefined("newReq")>
 	<cfoutput>
@@ -79,7 +80,7 @@
 <cfif isdefined("action") and #action# is "getFile">
 <cfoutput>
 	<cfheader name="Content-Disposition" value="attachment; filename=#f#">
-	<cfcontent type="application/vnd.google-earth.kml+xml" file="#Application.webDirectory#/bnhmMaps/tabfiles/#f#">
+	<cfcontent type="application/vnd.google-earth.kml+xml" file="#internalPath##f#">
 </cfoutput>	
 </cfif>
 <!----------------------------------------------------------------->
@@ -190,7 +191,6 @@
 	<cfelse>
 		<cfset flatTableName = "filtered_flat">
 	</cfif>
-	<cfset dlPath = "#Application.webDirectory#/bnhmMaps/tabfiles/">
 	<cfif isdefined("userFileName") and len(#userFileName#) gt 0>
 		<cfset dlFile = "#userFileName#.kml">
 	<cfelse>
@@ -244,7 +244,7 @@
 			   </Style>
             '>
         </cfloop>
-        <cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
+        <cffile action="write" file="#internalPath##dlFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
 	    <cfloop query="species">
 			<cfset thisName=replace(scientific_name," ","_","all")>
 		    <cfset kml = "<Folder><name>#thisName#</name><visibility>1</visibility>">
@@ -287,7 +287,7 @@
 					scientific_name,
 					collection
 			</cfquery>
-            <cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+            <cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
 		    <cfloop query="loc">
 			    <cfset kml='<Placemark><name>#collection# #cat_num# (#scientific_name#)</name>
 			        <visibility>1</visibility>
@@ -302,15 +302,15 @@
 	    	        </Point>
                 '>
 	    	    <cfset kml='#kml#</Placemark>'>
-	  		    <cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+	  		    <cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
              </cfloop>
 
 		        
             <cfset kml='</Folder>'><!--- close specimens folder --->
-            <cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+            <cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
               </cfloop>
              <cfset kml='</Document></kml>'>
-			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+			<cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
             
 			<cfset linkFile = "link_#dlFile#">
 			<cfset kml='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.0">
@@ -319,12 +319,12 @@
 				  <visibility>1</visibility>
 				  <open>1</open>
 					<Url>
-			    <href>#Application.ServerRootUrl#/bnhmMaps/tabfiles/#dlFile#</href>
+			    <href>#externalPath##dlFile#</href>
 			    </Url>
 			    </NetworkLink>
 			    </kml>
             '>
-			<cffile action="write" file="#dlPath##linkFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
+			<cffile action="write" file="#internalPath##linkFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
 		<p>
 		</p><a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">Download Entire KML</a> (requires <a href="http://earth.google.com/">Google Earth</a>)
 			<blockquote>
@@ -338,7 +338,7 @@
 			</blockquote>
 		</p>
 		<p>
-			View in <a href="http://maps.google.com/maps?q=#Application.ServerRootUrl#/bnhmMaps/tabfiles/#dlFile#" target="_blank">Google Maps</a>
+			View in <a href="http://maps.google.com/maps?q=#externalPath##dlFile#" target="_blank">Google Maps</a>
 		</p>
 </cfoutput>
 </cfif>
@@ -378,7 +378,6 @@
 	<cfelse>
 		<cfset flatTableName = "filtered_flat">
 	</cfif>
-	<cfset dlPath = "#Application.webDirectory#/bnhmMaps/tabfiles/">
 	<cfif isdefined("userFileName") and len(#userFileName#) gt 0>
 		<cfset dlFile = "#userFileName#.kml">
 	<cfelse>
@@ -478,7 +477,7 @@
 	'>
 			
 			
-	<cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
+	<cffile action="write" file="#internalPath##dlFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
 	<cfquery name="colln" dbtype="query">
 		select collection from data group by collection
 	</cfquery>
@@ -516,7 +515,7 @@
 				ended_date
 		</cfquery>
 		<cfset kml = "<Folder><name>#collection#</name><visibility>1</visibility>">
-		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+		<cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
 		<cfloop query="loc">
 			<cfquery name="sdet" dbtype="query">
 				select 
@@ -559,11 +558,11 @@
 				<Icon><href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href></Icon>'>
 	    	</cfif>
 	    	<cfset kml='#kml#</Placemark>'>
-	  		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+	  		<cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
 		</cfloop>
 		
 		<cfset kml = "</Folder>"><!--- close collection folder --->
-		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+		<cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
 	</cfloop>
 	
 	<cfif isdefined("showErrors") and #showErrors# is 1><!---- turn off errors here --->
@@ -574,19 +573,19 @@
 			group by errorInMeters,dec_lat,dec_long
 		</cfquery>
 		<cfset kml="<Folder><name>Error Circles</name>"><!------made error circles folder--------->
-		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+		<cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
 		<cfloop query="errors">
 			<cfset k = kmlCircle(#dec_lat#,#dec_long#,#errorInMeters#)>
 			<cfset kml=" #k#">
-			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+			<cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
 		</cfloop>
 		<cfset kml = "</Folder>"><!--- close error folder --->
-		<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+		<cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
 	</cfif>
 	
 	
 	<cfset kml='</Document></kml>'><!--- close specimens folder --->
-			<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#kml#">
+			<cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
 			
 			<cfset linkFile = "link_#dlFile#">
 			<cfset kml='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.0">
@@ -595,11 +594,11 @@
 				  <visibility>1</visibility>
 				  <open>1</open>
 					<Url>
-			    <href>#Application.ServerRootUrl#/bnhmMaps/#dlFile#</href>
+			    <href>#externalPath##dlFile#</href>
 			    </Url>
 			</NetworkLink>
 			</kml>'>
-			<cffile action="write" file="#dlPath##linkFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
+			<cffile action="write" file="#internalPath##linkFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
 		<p>
 		</p><a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">Download Entire KML</a> (requires <a href="http://earth.google.com/">Google Earth</a>)
 			<blockquote>
@@ -613,7 +612,7 @@
 			</blockquote>
 		</p>
 		<p>
-			View in <a href="http://maps.google.com/maps?q=#Application.ServerRootUrl#/bnhmMaps/#dlFile#" target="_blank">Google Maps</a>
+			View in <a href="http://maps.google.com/maps?q=#externalPath##dlFile#" target="_blank">Google Maps</a>
 		</p>
 	</cfoutput>
 	</cfif>
