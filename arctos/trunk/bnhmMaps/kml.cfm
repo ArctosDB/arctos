@@ -1,3 +1,4 @@
+<cfinclude  template="/includes/_header.cfm"> 
 <cfset table_name=session.SpecSrchTab>
 <cfset internalPath="#Application.webDirectory#/bnhmMaps/tabfiles/">
 <cfset externalPath="#Application.ServerRootUrl#/bnhmMaps/tabfiles/">
@@ -10,8 +11,8 @@
 <cfif not isdefined("mapByLocality")>
 	<cfset mapByLocality=0>
 </cfif>
-<cfif not isdefined("showUnccepted")>
-	<cfset showUnccepted=0>
+<cfif not isdefined("showUnaccepted")>
+	<cfset showUnaccepted=0>
 </cfif>
 <cfif not isdefined("userFileName")>
 	<cfset userFileName="kmlfile#cfid##cftoken#">
@@ -25,70 +26,88 @@
 	<cfset flatTableName = "filtered_flat">
 </cfif>
 <cfif action is "api">
-<table border>
-	<tr>
-		<th>Variable</th>
-		<th>Values</th>
-		<th>Explanation</th>
-	</tr>
-	<tr>
-		<td>nextAction</td>
-		<td>boolean</td>
-		<td>
-			Must exist for URL calls
-		</td>
-	</tr>
-	<tr>
-		<td rowspan="3">method</td>
-		<td>download</td>
-		<td>link</td>
-	</tr>
-	<tr>
+	<table border>
+		<tr>
+			<th>Variable</th>
+			<th>Values</th>
+			<th>Explanation</th>
+		</tr>
 		
-		<td>gmap</td>
-	</tr>
-	<tr>
-		<td>1defined=require search criteria; undefined=internal</td>
-		<td>2defined=require search criteria; undefined=internal</td>
-		<td>3defined=require search criteria; undefined=internal</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td></td>
-		<td>
+		<tr>
+			<td>action</td>
+			<td>newReq</td>
+			<td>Only acceptable value for webservice calls</td>
+		</tr>
 		
-		</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td></td>
-		<td>
+		<tr>
+			<td>userFileName</td>
+			<td>Any string</td>
+			<td>Non-default file name. Will be URL-encoded, so use alphanumeric characters for predictability.</td>
+		</tr>	
 		
-		</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td></td>
-		<td>
+		<tr>
+			<td rowspan="3">next</td>
+			<td>nothing</td>
+			<td>Proceed to a form where you may set all other criteria</td>
+		</tr>
+		<tr>		
+			<td>colorByCollection</td>
+			<td>Map points are arranged by collection</td>
+		</tr>
+		<tr>		
+			<td>colorBySpecies</td>
+			<td>Map points are arranged by collection</td>
+		</tr>
 		
-		</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td></td>
-		<td>
+		<tr>
+			<td rowspan="3">method</td>
+			<td>download</td>
+			<td>Download a full KML file</td>
+		</tr>
+		<tr>		
+			<td>gmap</td>
+			<td>Map in Google Maps</td>
+		</tr>
+		<tr>		
+			<td>link</td>
+			<td>Download a KML Linkfile</td>
+		</tr>
 		
-		</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td></td>
-		<td>
+		<tr>
+			<td rowspan="2">showUnaccepted</td>
+			<td>0</td>
+			<td>Include only accepted coordinate determinations</td>
+		</tr>
+		<tr>		
+			<td>1</td>
+			<td>Include unaccepted coordinate determinations</td>
+		</tr>
 		
-		</td>
-	</tr>
-</table>
-	
+		<tr>
+			<td rowspan="2">mapByLocality</td>
+			<td>0</td>
+			<td>Show only those specimens matching search criteria</td>
+		</tr>
+		<tr>		
+			<td>1</td>
+			<td>Include all specimens from each locality</td>
+		</tr>
+		
+		<tr>
+			<td rowspan="2">showErrors</td>
+			<td>0</td>
+			<td>Map points onle</td>
+		</tr>
+		<tr>		
+			<td>1</td>
+			<td>Include error radii as circles</td>
+		</tr>
+		
+		<tr>		
+			<td>link</td>
+			<td>Download a KML Linkfile</td>
+		</tr>
+	</table>
 </cfif>
 <!--- handle direct calls --->
 <cfif action is "newReq">
@@ -138,7 +157,7 @@
 		</cfquery>
 		
 		<cfset burl="kml.cfm?method=#method#&showErrors=#showErrors#&mapByLocality=#mapByLocality#">
-		<cfset burl=burl & "&showUnccepted=#showUnccepted#&userFileName=#userFileName#&action=#next#">	
+		<cfset burl=burl & "&showUnaccepted=#showUnaccepted#&userFileName=#userFileName#&action=#next#">	
 		<cflocation url="#burl#" addtoken="false">
 	</cfoutput>
 </cfif>
@@ -150,7 +169,6 @@
 	</cfoutput>	
 </cfif>
 <!----------------------------------------------------------------->
-<cfinclude  template="/includes/_header.cfm"> 
 <cffunction name="kmlCircle" access="public" returntype="string" output="false">
      <cfargument
 	     name="centerlat_form"
@@ -215,12 +233,12 @@
 				<td align="right">Show unaccepted coordinate determinations?</td>
 				<td>
 					<input type="checkbox" 
-						<cfif showUnccepted is 1> checked="checked"</cfif>
-						name="showUnccepted" id="showUnccepted" value="1"></td>
+						<cfif showUnaccepted is 1> checked="checked"</cfif>
+						name="showUnaccepted" id="showUnaccepted" value="1"></td>
 			</tr>
 			<tr>
 				<td align="right">File Name</td>
-				<td><input type="text" name="userFileName" id="userFileName" size="40" value="#userFileName#"></td>
+				<td><input type="text" name="userFileName" id="userFileName" size="40" value="#URLEncodedFormat(userFileName)#"></td>
 			</tr>
 			<tr>
 				<td align="right">Method</td>
@@ -496,7 +514,7 @@
 			 	lat_long
 			 where
 			 	#flatTableName#.locality_id = lat_long.locality_id and
-			 	<cfif showUnccepted is 0>
+			 	<cfif showUnaccepted is 0>
 			 		lat_long.accepted_lat_long_fg = 1 AND
 			 	</cfif>
 			 	lat_long.dec_lat is not null and lat_long.dec_long is not null and
@@ -531,7 +549,7 @@
 			 	#table_name#
 			 where
 			 	#flatTableName#.locality_id = lat_long.locality_id and
-			 	<cfif showUnccepted is 0>
+			 	<cfif showUnaccepted is 0>
 			 		lat_long.accepted_lat_long_fg = 1 AND
 			 	</cfif>
 			 	lat_long.dec_lat is not null and 
