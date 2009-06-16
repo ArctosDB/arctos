@@ -24,7 +24,7 @@
 <cfelse>
 	<cfset flatTableName = "filtered_flat">
 </cfif>
-<cfif action is "api")>
+<cfif action is "api">
 <table border>
 	<tr>
 		<th>Variable</th>
@@ -140,7 +140,7 @@
 		</table>		
 </cfif>
 <!--- handle direct calls --->
-<cfif isdefined("newReq")>
+<cfif action is "newReq">
 	<cfoutput>
 		<cfset basSelect = " SELECT distinct #flatTableName#.collection_object_id">
 		<cfquery name="reqd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
