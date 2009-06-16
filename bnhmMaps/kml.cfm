@@ -319,7 +319,7 @@
 				  <visibility>1</visibility>
 				  <open>1</open>
 					<Url>
-			    <href>#Application.ServerRootUrl#/bnhmMaps/#dlFile#</href>
+			    <href>#Application.ServerRootUrl#/bnhmMaps/tabfiles/#dlFile#</href>
 			    </Url>
 			    </NetworkLink>
 			    </kml>
