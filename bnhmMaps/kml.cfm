@@ -9,76 +9,50 @@
 <!--- handle direct calls --->
 <cfif isdefined("newReq")>
 	<cfoutput>
-		<cfset basSelect = " SELECT distinct #flatTableName#.collection_object_id,">
+		<cfset basSelect = " SELECT distinct #flatTableName#.collection_object_id">
 		<cfquery name="reqd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from cf_spec_res_cols where category='required'
 		</cfquery>
 		<cfset basSelect = listappend(basSelect,valuelist(reqd.SQL_ELEMENT))>
-		basSelect: #basSelect#
-		<cfloop query="reqd">
-			<cfif not ListContainsNoCase(session.resultColumnList,COLUMN_NAME)>
-				<cfset session.resultColumnList = ListAppend(session.resultColumnList, COLUMN_NAME)>
-			</cfif>
+		<cfset basFrom = " FROM #flatTableName#">
+		<cfset basJoin = "INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
+		<cfset basWhere = " WHERE #flatTableName#.collection_object_id IS NOT NULL ">	
+		<cfset basQual = "">
+		<cfset mapurl="">
+		<cfinclude template="includes/SearchSql.cfm">
+		<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
+		<cfset sqlstring = replace(sqlstring,"flatTableName","#flatTableName#","all")>
+		<cfset srchTerms="">
+		<cfloop list="#mapurl#" delimiters="&" index="t">
+			<cfset tt=listgetat(t,1,"=")>
+			<cfset srchTerms=listappend(srchTerms,tt)>
 		</cfloop>
-		
-		
-		<cfloop query="r_d">
-			<cfif left(column_name,1) is not "_" and (
-				ListContainsNoCase(session.resultColumnList,column_name) OR category is 'required')>
-				<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #column_name#">
-			</cfif>
-		</cfloop>
-<cfif ListContainsNoCase(session.resultColumnList,"_elev_in_m")>
-	<cfset basSelect = "#basSelect#,min_elev_in_m,max_elev_in_m">
-</cfif>
-<cfif ListContainsNoCase(session.resultColumnList,"_original_elevation")>
-	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
-</cfif> 
-	<cfset basFrom = " FROM #flatTableName#">
-	<cfset basJoin = "INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
-	<cfset basWhere = " WHERE #flatTableName#.collection_object_id IS NOT NULL ">	
-
-	<cfset basQual = "">
-	<cfset mapurl="">
-	<cfinclude template="includes/SearchSql.cfm">
-	<!--- wrap everything up in a string --->
-	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
-	
-	<cfset sqlstring = replace(sqlstring,"flatTableName","#flatTableName#","all")>
-	<!--- require some actual searching --->
-	<cfset srchTerms="">
-	<cfloop list="#mapurl#" delimiters="&" index="t">
-		<cfset tt=listgetat(t,1,"=")>
-		<cfset srchTerms=listappend(srchTerms,tt)>
-	</cfloop>
-	<!--- remove standard criteria that kill Oracle... --->
-	<cfif listcontains(srchTerms,"ShowObservations")>
-		<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'ShowObservations'))>
-	</cfif>
-	<cfif listcontains(srchTerms,"collection_id")>
-		<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'collection_id'))>
-	</cfif>
-	<!--- ... and abort if there's nothing left --->
-	<cfif len(srchTerms) is 0>
-		<CFSETTING ENABLECFOUTPUTONLY=0>			
-		<font color="##FF0000" size="+2">You must enter some search criteria!</font>	  
-		<cfabort>
-	</cfif>
-<cfset thisTableName = "SearchResults_#cfid#_#cftoken#">	
-<!--- try to kill any old tables that they may have laying around --->
-<cftry>
-	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		drop table #session.SpecSrchTab#
-	</cfquery>
-	<cfcatch><!--- not there, so what? --->
-	</cfcatch>
-</cftry>
-<!---- build a temp table --->
-<cfset checkSql(SqlString)>	
-<cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
-	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		#preserveSingleQuotes(SqlString)#
-	</cfquery>
+		<cfif listcontains(srchTerms,"ShowObservations")>
+			<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'ShowObservations'))>
+		</cfif>
+		<cfif listcontains(srchTerms,"collection_id")>
+			<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'collection_id'))>
+		</cfif>
+		<cfif len(srchTerms) is 0>
+			<CFSETTING ENABLECFOUTPUTONLY=0>			
+			<font color="##FF0000" size="+2">You must enter some search criteria!</font>	  
+			<cfabort>
+		</cfif>
+		<cfset thisTableName = "SearchResults_#cfid#_#cftoken#">	
+		<cftry>
+			<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				drop table #session.SpecSrchTab#
+			</cfquery>
+			<cfcatch>
+				<!--- not there, so what? --->
+			</cfcatch>
+		</cftry>
+		<cfset checkSql(SqlString)>	
+		<cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
+		<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preserveSingleQuotes(SqlString)#
+		</cfquery>
+		<cflocation url="kml.cfm" addtoken="false">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------>
