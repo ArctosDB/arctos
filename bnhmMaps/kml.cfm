@@ -40,6 +40,7 @@
 	</tr>
 	<tr>
 		<td rowspan="3">method</td>
+	</tr>
 	<tr>
 		<td>download</td>
 		<td>link</td>
