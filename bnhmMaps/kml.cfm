@@ -4,6 +4,21 @@
 <cfif not isdefined("method")>
 	<cfset method="download">
 </cfif>
+<cfif not isdefined("showErrors")>
+	<cfset showErrors=0>
+</cfif>
+<cfif not isdefined("mapByLocality")>
+	<cfset mapByLocality=0>
+</cfif>
+<cfif not isdefined("showOnlyAccepted")>
+	<cfset showOnlyAccepted=1>
+</cfif>
+<cfif not isdefined("userFileName")>
+	<cfset userFileName="kmlfile#cfid##cftoken#">
+</cfif>
+<cfif not isdefined("action")>
+	<cfset action="colorByCollection">
+</cfif>
 <cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 	<cfset flatTableName = "flat">
 <cfelse>
@@ -56,24 +71,8 @@
 			#preserveSingleQuotes(SqlString)#
 		</cfquery>
 		
-		<cfset atts="">
-		<cfset atts=listappend(atts,"method=#method#","&")>
-		<cfif isdefined("showErrors")>
-			<cfset atts=listappend(atts,"showErrors=#showErrors#","&")>
-		</cfif>
-		<cfif isdefined("mapByLocality")>
-			<cfset atts=listappend(atts,"mapByLocality=#mapByLocality#","&")>
-		</cfif>
-		<cfif isdefined("showOnlyAccepted")>
-			<cfset atts=listappend(atts,"showOnlyAccepted=#showOnlyAccepted#","&")>
-		</cfif>
-		<cfif isdefined("userFileName")>
-			<cfset atts=listappend(atts,"userFileName=#userFileName#","&")>
-		</cfif>
-		<cfif isdefined("action")>
-			<cfset atts=listappend(atts,"action=#action#","&")>
-		</cfif>
-		<cfset burl="kml.cfm?" & atts>	
+		<cfset burl="kml.cfm?method=#method#&showErrors=#showErrors#&mapByLocality=#mapByLocality#">
+		<cfset burl=burl & "&showOnlyAccepted=#showOnlyAccepted#&userFileName=#userFileName#&action=#action#">	
 		<cflocation url="#burl#" addtoken="false">
 	</cfoutput>
 </cfif>
@@ -160,7 +159,7 @@
 				<td align="right">Color by</td>
 				<td>
 					<select name="action" id="action">
-						<option value="make">Collection</option>
+						<option value="colorByCollection">Collection</option>
 						<option value="speciesKML">Species</option>
 					</select>
 				</td>
@@ -387,7 +386,7 @@
 
 
 <!-------------------------------------------------------------------------->
-<cfif #action# is "make">
+<cfif #action# is "colorByCollection">
 <cfoutput>
 	<cfif isdefined("userFileName") and len(#userFileName#) gt 0>
 		<cfset dlFile = "#userFileName#.kml">
