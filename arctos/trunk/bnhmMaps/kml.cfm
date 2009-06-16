@@ -161,10 +161,10 @@
 			<option value="gmap">Google Maps</option>
 		</select>
 		<br>
-		Type
+		Color by
 		<select name="action" id="action">
-			<option value="make">map by Locality</option>
-			<option value="speciesKML">Map by Species</option>
+			<option value="make">Collection</option>
+			<option value="speciesKML">Species</option>
 		</select>
 		<br>
 		
@@ -353,12 +353,17 @@
 			<cffile action="write" file="#internalPath##linkFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
 		<cfif method is "link">
 			<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">
+			<cflocation url="#durl#" addtoken="false">
 		<cfelseif method is "gmap">
 			<cfset durl="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#">
+			<script type="text/javascript" language="javascript">
+				window.open('#durl#',"_blank")
+			</script>
 		<cfelse>	
 			<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">
+			<cflocation url="#durl#" addtoken="false">
 		</cfif>
-		<cflocation url="#durl#" addtoken="false">
+		
 	</cfoutput>
 </cfif>
 
@@ -613,13 +618,17 @@
 			</NetworkLink>
 			</kml>'>
 			<cffile action="write" file="#internalPath##linkFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
-		<cfif method is "link">
+				<cfif method is "link">
 			<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">
+			<cflocation url="#durl#" addtoken="false">
 		<cfelseif method is "gmap">
 			<cfset durl="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#">
+			<script type="text/javascript" language="javascript">
+				window.open('#durl#',"_blank")
+			</script>
 		<cfelse>	
 			<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">
+			<cflocation url="#durl#" addtoken="false">
 		</cfif>
-		<cflocation url="#durl#" addtoken="false">
 	</cfoutput>
 	</cfif>
