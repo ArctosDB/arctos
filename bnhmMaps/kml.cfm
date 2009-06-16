@@ -131,27 +131,38 @@
 		<table>
 			<tr>
 				<td align="right">Show Error Circles? (Makes big filesizes)</td>
-				<td><input type="checkbox" name="showErrors" id="showErrors" value="1" checked="checked"></td>
+				<td>
+					<input type="checkbox" 
+						<cfif showErrors is 1> checked="checked"</cfif>
+						name="showErrors" id="showErrors" value="1">
+				</td>
 			</tr>
 			<tr>
 				<td align="right">Show all specimens at each locality represented by query?</td>
-				<td><input type="checkbox" name="mapByLocality" id="mapByLocality" value="1"></td>
+				<td>
+					<input type="checkbox" 
+						<cfif mapByLocality is 1> checked="checked"</cfif>
+						name="mapByLocality" id="mapByLocality" value="1">
+				</td>
 			</tr>
 			<tr>
 				<td align="right">Show only accepted coordinate determinations?</td>
-				<td><input type="checkbox" name="showOnlyAccepted" id="showOnlyAccepted" value="1"></td>
+				<td>
+					<input type="checkbox" 
+						<cfif showOnlyAccepted is 1> checked="checked"</cfif>
+						name="showOnlyAccepted" id="showOnlyAccepted" value="1"></td>
 			</tr>
 			<tr>
 				<td align="right">File Name</td>
-				<td><input type="text" name="userFileName" id="userFileName" size="40" value="kmlfile#cfid##cftoken#"></td>
+				<td><input type="text" name="userFileName" id="userFileName" size="40" value="#userFileName#"></td>
 			</tr>
 			<tr>
 				<td align="right">Method</td>
 				<td>
 					<select name="method" id="method">
-						<option value="download">Download KML</option>
-						<option value="link">Download linkfile</option>
-						<option value="gmap">Google Maps</option>
+						<option <cfif method is "download"> selected="selected"</cfif> value="download">Download KML</option>
+						<option <cfif method is "link"> selected="selected"</cfif> value="link">Download linkfile</option>
+						<option <cfif method is "gmap"> selected="selected"</cfif> value="gmap">Google Maps</option>
 					</select>
 				</td>
 			</tr>
@@ -159,8 +170,8 @@
 				<td align="right">Color by</td>
 				<td>
 					<select name="action" id="action">
-						<option value="colorByCollection">Collection</option>
-						<option value="colorBySpecies">Species</option>
+						<option <cfif action is "colorByCollection"> selected="selected"</cfif> value="colorByCollection">Collection</option>
+						<option <cfif action is "colorBySpecies"> selected="selected"</cfif> value="colorBySpecies">Species</option>
 					</select>
 				</td>
 			</tr>
