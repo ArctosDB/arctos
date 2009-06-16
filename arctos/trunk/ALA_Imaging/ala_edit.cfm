@@ -20,6 +20,7 @@
 	<select name="idType" id="" size="1">
 		<option value="ALAAC" selected >ALAAC</option>
 		<option value="field number">field number</option>
+		<option value="ISC: Ada Hayden Herbarium, Iowa State University">ISC: Ada Hayden Herbarium, Iowa State University</option>
 	</select>
 	<label for="idNum">ID Number</label>
 	<input type="text" name="idNum" id="idNum" size="20">
@@ -115,6 +116,8 @@
 	<select name="idType" id="" size="1">
 		<option value="ALAAC" <cfif #f.idType# is "ALAAC"> selected </cfif> >ALAAC</option>
 		<option value="field number"  <cfif #f.idType# is "field number"> selected </cfif>>field number</option>
+		<option <cfif #f.idType# is "ISC: Ada Hayden Herbarium, Iowa State University"> selected </cfif>
+			value="ISC: Ada Hayden Herbarium, Iowa State University">ISC: Ada Hayden Herbarium, Iowa State University</option>
 	</select>
 	<label for="idNum">ID Number</label>
 	<input type="text" name="idNum" id="idNum" size="20" value="#f.idNum#">

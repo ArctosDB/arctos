@@ -1,3 +1,81 @@
+<cfset table_name=session.SpecSrchTab>
+
+<!--- handle direct calls --->
+<cfif isdefined("newReq")>
+	<cfoutput>
+		<cfset basSelect = " SELECT distinct #flatTableName#.collection_object_id,">
+		<cfquery name="reqd" dbtype="query">
+			select * from cf_spec_res_cols where category='required'
+		</cfquery>
+		<cfset basSelect = listappend(basSelect,valuelist(reqd.SQL_ELEMENT))>
+		basSelect: #basSelect#
+		<cfloop query="reqd">
+			<cfif not ListContainsNoCase(session.resultColumnList,COLUMN_NAME)>
+				<cfset session.resultColumnList = ListAppend(session.resultColumnList, COLUMN_NAME)>
+			</cfif>
+		</cfloop>
+		
+		
+		<cfloop query="r_d">
+			<cfif left(column_name,1) is not "_" and (
+				ListContainsNoCase(session.resultColumnList,column_name) OR category is 'required')>
+				<cfset basSelect = "#basSelect#,#evaluate("sql_element")# #column_name#">
+			</cfif>
+		</cfloop>
+<cfif ListContainsNoCase(session.resultColumnList,"_elev_in_m")>
+	<cfset basSelect = "#basSelect#,min_elev_in_m,max_elev_in_m">
+</cfif>
+<cfif ListContainsNoCase(session.resultColumnList,"_original_elevation")>
+	<cfset basSelect = "#basSelect#,MINIMUM_ELEVATION,MAXIMUM_ELEVATION,ORIG_ELEV_UNITS">
+</cfif> 
+	<cfset basFrom = " FROM #flatTableName#">
+	<cfset basJoin = "INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
+	<cfset basWhere = " WHERE #flatTableName#.collection_object_id IS NOT NULL ">	
+
+	<cfset basQual = "">
+	<cfset mapurl="">
+	<cfinclude template="includes/SearchSql.cfm">
+	<!--- wrap everything up in a string --->
+	<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
+	
+	<cfset sqlstring = replace(sqlstring,"flatTableName","#flatTableName#","all")>
+	<!--- require some actual searching --->
+	<cfset srchTerms="">
+	<cfloop list="#mapurl#" delimiters="&" index="t">
+		<cfset tt=listgetat(t,1,"=")>
+		<cfset srchTerms=listappend(srchTerms,tt)>
+	</cfloop>
+	<!--- remove standard criteria that kill Oracle... --->
+	<cfif listcontains(srchTerms,"ShowObservations")>
+		<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'ShowObservations'))>
+	</cfif>
+	<cfif listcontains(srchTerms,"collection_id")>
+		<cfset srchTerms=listdeleteat(srchTerms,listfindnocase(srchTerms,'collection_id'))>
+	</cfif>
+	<!--- ... and abort if there's nothing left --->
+	<cfif len(srchTerms) is 0>
+		<CFSETTING ENABLECFOUTPUTONLY=0>			
+		<font color="##FF0000" size="+2">You must enter some search criteria!</font>	  
+		<cfabort>
+	</cfif>
+<cfset thisTableName = "SearchResults_#cfid#_#cftoken#">	
+<!--- try to kill any old tables that they may have laying around --->
+<cftry>
+	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		drop table #session.SpecSrchTab#
+	</cfquery>
+	<cfcatch><!--- not there, so what? --->
+	</cfcatch>
+</cftry>
+<!---- build a temp table --->
+<cfset checkSql(SqlString)>	
+<cfset SqlString = "create table #session.SpecSrchTab# AS #SqlString#">
+	<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		#preserveSingleQuotes(SqlString)#
+	</cfquery>
+	</cfoutput>
+</cfif>
+<!------------------------------------------------------------------------------------------>
 <cfif isdefined("action") and #action# is "getFile">
 <cfoutput>
 	<cfheader name="Content-Disposition" value="attachment; filename=#f#">
@@ -50,7 +128,6 @@
 	NOTE: Horizontal Datum is NOT transformed correctly. Positions will be misplaced for all non-WGS84 datum points.
 	<form name="prefs" id="prefs" method="post" action="kml.cfm">
 		<input type="hidden" name="action" id="action" value="make">
-		<input type="hidden" name="table_name" value="#table_name#">
 		<br>Show Error Circles? (Makes big filesizes) <input type="checkbox" name="showErrors" id="showErrors" value="1" checked="checked">
 		<br>Show all specimens at each locality represented by query?
 		<input type="checkbox" name="mapByLocality" id="mapByLocality" value="1">
@@ -120,32 +197,32 @@
 		<cfset dlFile = "kmlfile#cfid##cftoken#.kml">
 	</cfif>
     <cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select 
-				#flatTableName#.collection_object_id,
-				#flatTableName#.cat_num,
-				to_char(#flatTableName#.began_date,'yyyy-mm-dd') began_date,
-				to_char(#flatTableName#.ended_date,'yyyy-mm-dd') ended_date,
-				lat_long.dec_lat,
-				lat_long.dec_long,
-				round(to_meters(lat_long.max_error_distance,lat_long.max_error_units)) errorInMeters,
-				lat_long.datum,
-				#flatTableName#.scientific_name,
-				#flatTableName#.collection,
-				#flatTableName#.spec_locality,
-				#flatTableName#.locality_id,
-				#flatTableName#.verbatimLatitude,
-				#flatTableName#.verbatimLongitude,
-				lat_long.lat_long_id
-			 from 
-			 	#flatTableName#,
-			 	lat_long,
-			 	#table_name#
-			 where
-			 	#flatTableName#.locality_id = lat_long.locality_id and
-			 	lat_long.accepted_lat_long_fg = 1 AND
-			 	lat_long.dec_lat is not null and 
-			 	lat_long.dec_long is not null and
-			 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
+		select 
+			#flatTableName#.collection_object_id,
+			#flatTableName#.cat_num,
+			to_char(#flatTableName#.began_date,'yyyy-mm-dd') began_date,
+			to_char(#flatTableName#.ended_date,'yyyy-mm-dd') ended_date,
+			lat_long.dec_lat,
+			lat_long.dec_long,
+			round(to_meters(lat_long.max_error_distance,lat_long.max_error_units)) errorInMeters,
+			lat_long.datum,
+			#flatTableName#.scientific_name,
+			#flatTableName#.collection,
+			#flatTableName#.spec_locality,
+			#flatTableName#.locality_id,
+			#flatTableName#.verbatimLatitude,
+			#flatTableName#.verbatimLongitude,
+			lat_long.lat_long_id
+		 from 
+		 	#flatTableName#,
+		 	lat_long,
+		 	#table_name#
+		 where
+		 	#flatTableName#.locality_id = lat_long.locality_id and
+		 	lat_long.accepted_lat_long_fg = 1 AND
+		 	lat_long.dec_lat is not null and 
+		 	lat_long.dec_long is not null and
+		 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
 		</cfquery>
         <cfquery name="species" dbtype="query">
             select scientific_name from data group by scientific_name
