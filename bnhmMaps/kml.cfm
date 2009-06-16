@@ -582,11 +582,7 @@
 			</blockquote>
 		</p>
 		<p>
-			<!---
-				Need a randomizer or GMaps will cache
-			--->
-			<cfset r=timeformat(now(),"full")>
-			View in <a href="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#r#" target="_blank">Google Maps</a>
+			View in <a href="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#" target="_blank">Google Maps</a>
 		</p>
 	</cfoutput>
 	</cfif>
