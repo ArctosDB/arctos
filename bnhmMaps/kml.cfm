@@ -146,7 +146,6 @@
 <cfoutput>
 	NOTE: Horizontal Datum is NOT transformed correctly. Positions will be misplaced for all non-WGS84 datum points.
 	<form name="prefs" id="prefs" method="post" action="kml.cfm">
-		<input type="hidden" name="action" id="action" value="make">
 		<br>Show Error Circles? (Makes big filesizes) <input type="checkbox" name="showErrors" id="showErrors" value="1" checked="checked">
 		<br>Show all specimens at each locality represented by query?
 		<input type="checkbox" name="mapByLocality" id="mapByLocality" value="1">
@@ -161,7 +160,12 @@
 			<option value="link">Download linkfile</option>
 			<option value="gmap">Google Maps</option>
 		</select>
-		
+		<br>
+		Type
+		<select name="action" id="action">
+			<option value="make">map by Locality</option>
+			<option value="speciesKML">Map by Species</option>
+		</select>
 		<br>
 		
 		<input type="submit" value="get KML" class="lnkBtn"
@@ -347,22 +351,15 @@
 			    </kml>
             '>
 			<cffile action="write" file="#internalPath##linkFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
-		<p>
-		</p><a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">Download Entire KML</a> (requires <a href="http://earth.google.com/">Google Earth</a>)
-			<blockquote>
-				Download KML (#dlFile#) including all data to your hard drive
-			</blockquote>
-		<p>
-		<a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">Download KML Link</a> (requires <a href="http://earth.google.com/">Google Earth</a>)
-			<blockquote>
-				Download KML Link data (#linkFile#). Data remains on Arctos and will be refreshed every time you build a KML with the same name.
-				 Data on Arctos will be periodically purged.
-			</blockquote>
-		</p>
-		<p>
-			View in <a href="http://maps.google.com/maps?q=#externalPath##dlFile#" target="_blank">Google Maps</a>
-		</p>
-</cfoutput>
+		<cfif method is "link">
+			<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">
+		<cfelseif method= is "gmap">
+			<cfset durl="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#">
+		<cfelse>	
+			<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">
+		</cfif>
+		<cflocation url="#durl#" addtoken="false">
+	</cfoutput>
 </cfif>
 
 
@@ -616,21 +613,13 @@
 			</NetworkLink>
 			</kml>'>
 			<cffile action="write" file="#internalPath##linkFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
-		
-		<p>
-		</p><a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">Download Entire KML</a> (requires <a href="http://earth.google.com/">Google Earth</a>)
-			<blockquote>
-				Download KML (#dlFile#) including all data to your hard drive
-			</blockquote>
-		<p>
-		<a href="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">Download KML Link</a> (requires <a href="http://earth.google.com/">Google Earth</a>)
-			<blockquote>
-				Download KML Link data (#linkFile#). Data remains on Arctos and will be refreshed every time you build a KML with the same name.
-				 Data on Arctos will be periodically purged.
-			</blockquote>
-		</p>
-		<p>
-			View in <a href="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#" target="_blank">Google Maps</a>
-		</p>
+		<cfif method is "link">
+			<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">
+		<cfelseif method= is "gmap">
+			<cfset durl="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#">
+		<cfelse>	
+			<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">
+		</cfif>
+		<cflocation url="#durl#" addtoken="false">
 	</cfoutput>
 	</cfif>
