@@ -17,7 +17,7 @@
 	<cfset userFileName="kmlfile#cfid##cftoken#">
 </cfif>
 <cfif not isdefined("action")>
-	<cfset action="colorByCollection">
+	<cfset action="nothing">
 </cfif>
 <cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 	<cfset flatTableName = "flat">
@@ -160,7 +160,7 @@
 				<td>
 					<select name="action" id="action">
 						<option value="colorByCollection">Collection</option>
-						<option value="speciesKML">Species</option>
+						<option value="colorBySpecies">Species</option>
 					</select>
 				</td>
 			</tr>
@@ -205,7 +205,7 @@
 
 
 <!-------------------------------------------------------------------------->
-<cfif #action# is "speciesKML">
+<cfif #action# is "colorBySpecies">
 <cfoutput>
     
 	<cfif isdefined("userFileName") and len(#userFileName#) gt 0>
