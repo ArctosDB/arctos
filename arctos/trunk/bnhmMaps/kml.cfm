@@ -585,7 +585,7 @@
 			<!---
 				Need a randomizer or GMaps will cache
 			--->
-			<cfset r=timeformat(now,full)>
+			<cfset r=timeformat(now(),"full")>
 			View in <a href="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#r#" target="_blank">Google Maps</a>
 		</p>
 	</cfoutput>
