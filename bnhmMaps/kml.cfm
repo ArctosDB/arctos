@@ -1,6 +1,11 @@
 <cfset table_name=session.SpecSrchTab>
 <cfset internalPath="#Application.webDirectory#/bnhmMaps/tabfiles/">
 <cfset externalPath="#Application.ServerRootUrl#/bnhmMaps/tabfiles/">
+<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
+	<cfset flatTableName = "flat">
+<cfelse>
+	<cfset flatTableName = "filtered_flat">
+</cfif>
 <!--- handle direct calls --->
 <cfif isdefined("newReq")>
 	<cfoutput>
@@ -186,11 +191,7 @@
 <!-------------------------------------------------------------------------->
 <cfif #action# is "speciesKML">
 <cfoutput>
-    <cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
-		<cfset flatTableName = "flat">
-	<cfelse>
-		<cfset flatTableName = "filtered_flat">
-	</cfif>
+    
 	<cfif isdefined("userFileName") and len(#userFileName#) gt 0>
 		<cfset dlFile = "#userFileName#.kml">
 	<cfelse>
@@ -373,11 +374,6 @@
 <!-------------------------------------------------------------------------->
 <cfif #action# is "make">
 <cfoutput>
-	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
-		<cfset flatTableName = "flat">
-	<cfelse>
-		<cfset flatTableName = "filtered_flat">
-	</cfif>
 	<cfif isdefined("userFileName") and len(#userFileName#) gt 0>
 		<cfset dlFile = "#userFileName#.kml">
 	<cfelse>
