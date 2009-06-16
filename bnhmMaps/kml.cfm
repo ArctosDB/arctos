@@ -40,6 +40,12 @@
 		</tr>
 		
 		<tr>
+			<td>{saerch criteria}</td>
+			<td>{various}</td>
+			<td>{unpublished}</td>
+		</tr>
+		
+		<tr>
 			<td>userFileName</td>
 			<td>Any string</td>
 			<td>Non-default file name. Will be URL-encoded, so use alphanumeric characters for predictability.</td>
