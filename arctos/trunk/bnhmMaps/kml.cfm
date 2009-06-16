@@ -19,7 +19,7 @@
 		<cfset basWhere = " WHERE #flatTableName#.collection_object_id IS NOT NULL ">	
 		<cfset basQual = "">
 		<cfset mapurl="">
-		<cfinclude template="includes/SearchSql.cfm">
+		<cfinclude template="/includes/SearchSql.cfm">
 		<cfset SqlString = "#basSelect# #basFrom# #basJoin# #basWhere# #basQual#">
 		<cfset sqlstring = replace(sqlstring,"flatTableName","#flatTableName#","all")>
 		<cfset srchTerms="">
