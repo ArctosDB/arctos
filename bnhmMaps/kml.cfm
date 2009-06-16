@@ -16,8 +16,8 @@
 <cfif not isdefined("userFileName")>
 	<cfset userFileName="kmlfile#cfid##cftoken#">
 </cfif>
-<cfif not isdefined("action")>
-	<cfset action="nothing">
+<cfif not isdefined("next")>
+	<cfset next="nothing">
 </cfif>
 <cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 	<cfset flatTableName = "flat">
@@ -32,7 +32,7 @@
 		<th>Explanation</th>
 	</tr>
 	<tr>
-		<td>newReq</td>
+		<td>nextAction</td>
 		<td>boolean</td>
 		<td>
 			Must exist for URL calls
@@ -40,10 +40,11 @@
 	</tr>
 	<tr>
 		<td rowspan="3">method</td>
-	</tr>
-	<tr>
 		<td>download</td>
 		<td>link</td>
+	</tr>
+	<tr>
+		
 		<td>gmap</td>
 	</tr>
 	<tr>
@@ -87,58 +88,7 @@
 		</td>
 	</tr>
 </table>
-
-<form name="prefs" id="prefs" method="post" action="kml.cfm">
-		<table>
-			<tr>
-				<td align="right">Show Error Circles? (Makes big filesizes)</td>
-				<td>
-					<input type="checkbox" 
-						<cfif showErrors is 1> checked="checked"</cfif>
-						name="showErrors" id="showErrors" value="1">
-				</td>
-			</tr>
-			<tr>
-				<td align="right">Show all specimens at each locality represented by query?</td>
-				<td>
-					<input type="checkbox" 
-						<cfif mapByLocality is 1> checked="checked"</cfif>
-						name="mapByLocality" id="mapByLocality" value="1">
-				</td>
-			</tr>
-			<tr>
-				<td align="right">Show unaccepted coordinate determinations?</td>
-				<td>
-					<input type="checkbox" 
-						<cfif showUnccepted is 1> checked="checked"</cfif>
-						name="showUnccepted" id="showUnccepted" value="1"></td>
-			</tr>
-			<tr>
-				<td align="right">File Name</td>
-				<td><input type="text" name="userFileName" id="userFileName" size="40" value="#userFileName#"></td>
-			</tr>
-			<tr>
-				<td align="right">Method</td>
-				<td>
-					
-				</td>
-			</tr>
-			<tr>
-				<td align="right">Color by</td>
-				<td>
-					<select name="action" id="action">
-						<option <cfif action is "colorByCollection"> selected="selected"</cfif> value="colorByCollection">Collection</option>
-						<option <cfif action is "colorBySpecies"> selected="selected"</cfif> value="colorBySpecies">Species</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<input type="submit" value="Go" class="lnkBtn"
-   						onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
-				</td>
-			</tr>
-		</table>		
+	
 </cfif>
 <!--- handle direct calls --->
 <cfif action is "newReq">
@@ -188,7 +138,7 @@
 		</cfquery>
 		
 		<cfset burl="kml.cfm?method=#method#&showErrors=#showErrors#&mapByLocality=#mapByLocality#">
-		<cfset burl=burl & "&showUnccepted=#showUnccepted#&userFileName=#userFileName#&action=#action#">	
+		<cfset burl=burl & "&showUnccepted=#showUnccepted#&userFileName=#userFileName#&action=#next#">	
 		<cflocation url="#burl#" addtoken="false">
 	</cfoutput>
 </cfif>
@@ -286,8 +236,8 @@
 				<td align="right">Color by</td>
 				<td>
 					<select name="action" id="action">
-						<option <cfif action is "colorByCollection"> selected="selected"</cfif> value="colorByCollection">Collection</option>
-						<option <cfif action is "colorBySpecies"> selected="selected"</cfif> value="colorBySpecies">Species</option>
+						<option <cfif next is "colorByCollection"> selected="selected"</cfif> value="colorByCollection">Collection</option>
+						<option <cfif next is "colorBySpecies"> selected="selected"</cfif> value="colorBySpecies">Species</option>
 					</select>
 				</td>
 			</tr>
