@@ -24,7 +24,7 @@
 <cfelse>
 	<cfset flatTableName = "filtered_flat">
 </cfif>
-<cfif isdefined("api")>
+<cfif action is "api")>
 <table border>
 	<tr>
 		<th>Variable</th>
@@ -40,9 +40,12 @@
 	</tr>
 	<tr>
 		<td rowspan="3">method</td>
+	<tr>
 		<td>download</td>
 		<td>link</td>
 		<td>gmap</td>
+	</tr>
+	<tr>
 		<td>1defined=require search criteria; undefined=internal</td>
 		<td>2defined=require search criteria; undefined=internal</td>
 		<td>3defined=require search criteria; undefined=internal</td>
