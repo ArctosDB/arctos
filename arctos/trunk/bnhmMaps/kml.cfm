@@ -529,30 +529,31 @@
 	</cfif>
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		kml='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2">' & chr(10) &
+		kml='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+			'<kml xmlns="http://earth.google.com/kml/2.2">' & chr(10) &
 			chr(9) & '<Document>' & chr(10) &
 			chr(9) & chr(9) & '<name>Localities</name>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & '<open>1</open>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & '<Style id="green-star">' & chr(10) &
-			chr(9) & chr(9) & chr(9) & chr(9) & '<IconStyle>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & chr(9) & '</IconStyle>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & '</Style>' & chr(10) &			
-			chr(9) & chr(9) & chr(9) & '<Style id="red-star">' & chr(10) &
-			chr(9) & chr(9) & chr(9) & chr(9) & '<IconStyle>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & chr(9) & '</IconStyle>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & '</Style>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & '<Style id="error-line">' & chr(10) &
-			chr(9) & chr(9) & chr(9) & chr(9) & '<LineStyle>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<color>ff0000ff</color>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<width>1</width>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & chr(9) & '</LineStyle>' & chr(10) &
-			chr(9) & chr(9) & chr(9) & '</Style>';
+			chr(9) & chr(9) & '<open>1</open>' & chr(10) &
+			chr(9) & chr(9) & '<Style id="green-star">' & chr(10) &
+			chr(9) & chr(9) & chr(9) & '<IconStyle>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & '</IconStyle>' & chr(10) &
+			chr(9) & chr(9) & '</Style>' & chr(10) &			
+			chr(9) & chr(9) & '<Style id="red-star">' & chr(10) &
+			chr(9) & chr(9) & chr(9) & '<IconStyle>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & '</IconStyle>' & chr(10) &
+			chr(9) & chr(9) & '</Style>' & chr(10) &
+			chr(9) & chr(9) & '<Style id="error-line">' & chr(10) &
+			chr(9) & chr(9) & chr(9) & '<LineStyle>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & '<color>ff0000ff</color>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & '<width>1</width>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & '</LineStyle>' & chr(10) &
+			chr(9) & chr(9) & '</Style>';
 		variables.joFileWriter.writeLine(kml);      
 	</cfscript>
 	
@@ -708,7 +709,8 @@
 	</cfscript>
 	<cfset linkFile = "link_#dlFile#">
 	<cfscript>
-		kml='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.0">' & chr(10) &
+		kml='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+			'<kml xmlns="http://earth.google.com/kml/2.0">' & chr(10) &
 			chr(9) & '<NetworkLink>' & chr(10) &
 			chr(9) & chr(9) & '<name>Arctos Locations</name>' & chr(10) &
 			chr(9) & chr(9) & '<visibility>1</visibility>' & chr(10) &
