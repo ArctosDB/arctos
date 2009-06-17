@@ -557,6 +557,8 @@
 			chr(9) & chr(9) & chr(9) & '</Style>';
 		variables.joFileWriter.writeLine(kml);      
 	</cfscript>
+	
+	<cfabort>
 	<cfquery name="colln" dbtype="query">
 		select collection from data group by collection
 	</cfquery>
