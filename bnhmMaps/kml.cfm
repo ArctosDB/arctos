@@ -63,7 +63,7 @@
 	</cfloop>
 	<cfset retn=retn & chr(10) & chr(9) & chr(9) & "</coordinates>">
 	<cfset retn=retn & chr(10) & chr(9) & "</LineString>">
-	<cfset retn = "</Placemark>">
+	<cfset retn=retn & chr(10) & "</Placemark>">
 	<cfreturn retn>
 </cffunction>
 <!------------------------------------------------------------------------------------------->
