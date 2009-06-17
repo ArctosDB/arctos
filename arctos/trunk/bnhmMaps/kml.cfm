@@ -17,6 +17,9 @@
 <cfif not isdefined("userFileName")>
 	<cfset userFileName="kmlfile#cfid##cftoken#">
 </cfif>
+<cfif not isdefined("includeTimeSpan")>
+	<cfset includeTimeSpan=0>
+</cfif>
 <cfif not isdefined("next")>
 	<cfset next="nothing">
 </cfif>
@@ -121,6 +124,16 @@
 		<tr>		
 			<td>link</td>
 			<td>Download a KML Linkfile</td>
+		</tr>
+		
+		<tr>
+			<td rowspan="2">includeTimeSpan</td>
+			<td>0</td>
+			<td>Do not include time information</td>
+		</tr>
+		<tr>		
+			<td>1</td>
+			<td>Include time information</td>
 		</tr>
 		
 		<tr>
@@ -250,6 +263,15 @@
 							<cfif showUnaccepted is 1> checked="checked"</cfif>
 							name="showUnaccepted" id="showUnaccepted" value="1"></td>
 				</tr>
+				<tr>
+					<td align="right">Include TimeSpan?</td>
+					<td>
+						<input type="checkbox" 
+							<cfif includeTimeSpan is 1> checked="checked"</cfif>
+							name="includeTimeSpan" id="includeTimeSpan" value="1"></td>
+				</tr>
+				
+				
 				<tr>
 					<td align="right">File Name</td>
 					<td><input type="text" name="userFileName" id="userFileName" size="40" value="#URLEncodedFormat(userFileName)#"></td>
@@ -399,11 +421,15 @@
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#,0</coordinates>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '</Point>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '<visibility>1</visibility>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##icon_#thisName#</styleUrl>' & chr(10) &				
-					//chr(9) & chr(9) & chr(9) & chr(9) & '<TimeSpan>' & chr(10) &
-					//chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<begin>#began_date#</begin>' & chr(10) &
-					//chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<end>#ended_date#</end>' & chr(10) &
-					//chr(9) & chr(9) & chr(9) & chr(9) & '</TimeSpan>' & chr(10) &				
+					chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##icon_#thisName#</styleUrl>';
+				if (includeTimeSpan==1){
+					kml=kml & chr(10) & 
+						chr(9) & chr(9) & chr(9) & chr(9) & '<TimeSpan>' & chr(10) &
+						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<begin>#began_date#</begin>' & chr(10) &
+						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<end>#ended_date#</end>' & chr(10) &
+						chr(9) & chr(9) & chr(9) & chr(9) & '</TimeSpan>';
+				}
+				kml=kml & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '<description>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<![CDATA[Datum: #datum#<br/>Error: #errorInMeters# m<br/>]]>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '</description>' & chr(10) &
@@ -619,11 +645,15 @@
 			<cfscript>
 				kml=chr(9) & chr(9) & chr(9) & '<Placemark>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '<name>#kmlStripper(spec_locality)# (#locality_id#)</name>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & '<visibility>1</visibility>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & '<TimeSpan>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<begin>#began_date#</begin>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<end>#ended_date#</end>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & '</TimeSpan>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & '<visibility>1</visibility>';
+				if (includeTimeSpan==1){
+					kml=kml & chr(10) & 
+						chr(9) & chr(9) & chr(9) & chr(9) & '<TimeSpan>' & chr(10) &
+						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<begin>#began_date#</begin>' & chr(10) &
+						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<end>#ended_date#</end>' & chr(10) &
+						chr(9) & chr(9) & chr(9) & chr(9) & '</TimeSpan>';
+				}
+				kml=kml& chr(10) &	
 					chr(9) & chr(9) & chr(9) & chr(9) & '<description>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<![CDATA[Datum: #datum#<br/>Error: #errorInMeters# m<br/>';
 			</cfscript>
