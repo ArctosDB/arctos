@@ -404,7 +404,7 @@
 					chr(9) & chr(9) & chr(9) & chr(9) & '<begin>#began_date#</begin>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '<end>#ended_date#</end>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & '</Timespan>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & '<![CDATA[Datum: #datum#<br/>Error: #errorInMeters# m<br/>
+					chr(9) & chr(9) & chr(9) & '<![CDATA[Datum: #datum#<br/>Error: #errorInMeters# m<br/>' & chr(10) &
 					chr(9) & chr(9) & '</description>' & chr(10) &]]>' & chr(10) &
 					chr(9) & chr(9) & '<Point>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#,0</coordinates>' & chr(10) &
