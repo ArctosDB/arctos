@@ -287,7 +287,6 @@
     <cfset dlFile = "#userFileName#.kml">
 	<cfset variables.fileName="#internalPath##dlFile#">
 	<cfset variables.encoding="UTF-8">
-	
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			#flatTableName#.collection_object_id,
@@ -321,9 +320,7 @@
     </cfquery>
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-	</cfscript>
-	<cfscript>
-		 kml='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+		kml='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
 		 	'<kml xmlns="http://earth.google.com/kml/2.2">' & chr(10) & 
 		 	chr(9) & '<Document>' & chr(10) & 
 		 	chr(9) & chr(9) & '<name>Localities</name>' & chr(10) & 
@@ -367,7 +364,7 @@
 				lat_long_id,
 				began_date,
 				ended_date,
-		              collection_object_id,
+		        collection_object_id,
 				cat_num,
 				scientific_name,
 				collection
@@ -387,7 +384,7 @@
 				lat_long_id,
 				began_date,
 				ended_date,
-		              collection_object_id,
+		        collection_object_id,
 				cat_num,
 				scientific_name,
 				collection
@@ -445,16 +442,12 @@
 	</cfscript>	
 	<cfif method is "link">
 		<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">
-		<cflocation url="#durl#" addtoken="false">
 	<cfelseif method is "gmap">
 		<cfset durl="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#">
-		<script type="text/javascript" language="javascript">
-			window.open('#durl#',"_blank")
-		</script>
 	<cfelse>	
 		<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">
-		<cflocation url="#durl#" addtoken="false">
-	</cfif>	
+	</cfif>
+	<cflocation url="#durl#" addtoken="false">
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------->
@@ -651,6 +644,18 @@
 					chr(9) & chr(9) & chr(9) & chr(9) & '</Point>';
 				variables.joFileWriter.writeLine(kml);
 				if (isAcceptedLatLong is "yes") {
+					kml=chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##green-star</styleUrl>';					
+				} else {
+					kml=chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##red-star</styleUrl>';
+				}
+				kml=kml & chr(10) &
+					chr(9) & chr(9) & chr(9) & '</Placemark>';
+				variables.joFileWriter.writeLine(kml);
+			</cfscript>
+		</cfloop>
+		<!---
+		
+		if (isAcceptedLatLong is "yes") {
 					kml=chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##green-star</styleUrl>' & chr(10) &
 						chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) &
 						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href>' & chr(10) &
@@ -661,11 +666,7 @@
 						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>' & chr(10) &
 						chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>';
 				}
-				kml=kml & chr(10) &
-					chr(9) & chr(9) & chr(9) & '</Placemark>';
-				variables.joFileWriter.writeLine(kml);
-			</cfscript>
-		</cfloop>
+				--->
 		<cfscript>
 			kml=chr(9) & chr(9) & '</Folder>';
 			variables.joFileWriter.writeLine(kml);
@@ -723,13 +724,11 @@
 	</cfscript>		
 	<cfif method is "link">
 		<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">
-		<cflocation url="#durl#" addtoken="false">
 	<cfelseif method is "gmap">
 		<cfset durl="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#">
-		<cflocation url="#durl#" addtoken="false">
 	<cfelse>	
 		<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">
-		<cflocation url="#durl#" addtoken="false">
 	</cfif>
+	<cflocation url="#durl#" addtoken="false">
 	</cfoutput>
 </cfif>
