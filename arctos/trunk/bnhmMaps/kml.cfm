@@ -726,9 +726,7 @@
 		<cflocation url="#durl#" addtoken="false">
 	<cfelseif method is "gmap">
 		<cfset durl="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#">
-		<script type="text/javascript" language="javascript">
-			window.open('#durl#',"_blank")
-		</script>
+		<cflocation url="#durl#" addtoken="false">
 	<cfelse>	
 		<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">
 		<cflocation url="#durl#" addtoken="false">
