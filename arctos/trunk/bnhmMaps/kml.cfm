@@ -529,13 +529,6 @@
 	</cfif>
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-		kml='i am some text';
-		variables.joFileWriter.writeLine(kml);
-		variables.joFileWriter.close();
-	</cfscript>
-	<cfabort>
-
-	<cfscript>
 		kml='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2">' & chr(10) &
 			chr(9) & '<Document>' & chr(10) &
 			chr(9) & chr(9) & '<name>Localities</name>' & chr(10) &
@@ -725,7 +718,8 @@
 			chr(9) & chr(9) & '</Url>' & chr(10) &
 			chr(9) & '</NetworkLink>' & chr(10) &
 			'</kml>';
-		variables.joFileWriter.writeLine(kml);
+		variables.joFileWriter.writeLine(kml);		
+		variables.joFileWriter.close();
 	</cfscript>		
 	<cfif method is "link">
 		<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">
