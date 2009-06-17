@@ -84,7 +84,7 @@
 		</tr>
 		
 		<tr>
-			<td>{saerch criteria}</td>
+			<td>{search criteria}</td>
 			<td>{various}</td>
 			<td>{unpublished}</td>
 		</tr>
