@@ -674,22 +674,19 @@
 			group by errorInMeters,dec_lat,dec_long
 		</cfquery>
 		<Cfscript>
-			kml=chr(10) &
-				chr(9) & chr(9) & chr(9) & '<Folder>' & chr(10) &
-				chr(9) & chr(9) & chr(9) & chr(9) & '<name>Error Circles</name>';
+			kml=chr(9) & chr(9) & '<Folder>' & chr(10) &
+				chr(9) & chr(9) & chr(9) & '<name>Error Circles</name>';
 			variables.joFileWriter.writeLine(kml);				
 		</Cfscript>
 		<cfloop query="errors">
 			<cfset k = kmlCircle(#dec_lat#,#dec_long#,#errorInMeters#)>
 			<cfscript>
-				kml=chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & k;
+				kml=chr(9) & chr(9) & chr(9) & k;
 				variables.joFileWriter.writeLine(kml);
 			</cfscript>
 		</cfloop>
 		<cfscript>
-			kml=chr(10) &
-				chr(9) & chr(9) & chr(9) & '</Folder>';
+			kml=chr(9) & chr(9) & '</Folder>';
 			variables.joFileWriter.writeLine(kml);
 		</cfscript>
 	</cfif>
