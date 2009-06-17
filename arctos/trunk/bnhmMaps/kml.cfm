@@ -328,7 +328,7 @@
 		 	chr(9) & '<Document>' & chr(10) & 
 		 	chr(9) & chr(9) & '<name>Localities</name>' & chr(10) & 
 		 	chr(9) & chr(9) & chr(9) & '<open>1</open>';
-		variables.joFileWriter.writeLine(a);
+		variables.joFileWriter.writeLine(kml);
 	</cfscript>		
 	<cfloop query="species">
     	<cfset thisName=replace(scientific_name," ","_","all")>
@@ -344,7 +344,7 @@
 				chr(9) & chr(9) & chr(9) & '</Icon>'  & chr(10) &
 				chr(9) & chr(9) & '<IconStyle>'  & chr(10) &
 				chr(9) & '</Style';
-			variables.joFileWriter.writeLine(a);
+			variables.joFileWriter.writeLine(kml);
 		</cfscript>	
 	</cfloop>
 	<cfloop query="species">
@@ -353,7 +353,7 @@
 			kml = chr(10) & chr(9) & "<Folder>" & chr(10) &
 				chr(9) & chr(9) & '<name>#thisName#</name>' & chr(10) &
 				chr(9) & chr(9) & '<visibility>1</visibility>';
-			variables.joFileWriter.writeLine(a);
+			variables.joFileWriter.writeLine(kml);
 		</cfscript>
 		<cfquery name="loc" dbtype="query">
 			select 
@@ -410,18 +410,18 @@
 					chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#,0</coordinates>' & chr(10) &
 					chr(9) & chr(9) & '</Point>' & chr(10) &
 					chr(9) & '</Placemark>';
-				variables.joFileWriter.writeLine(a);
+				variables.joFileWriter.writeLine(kml);
 			</cfscript>
 		</cfloop>
 		<cfscript>
 			kml='</Folder>';
-			variables.joFileWriter.writeLine(a);
+			variables.joFileWriter.writeLine(kml);
 		</cfscript>
 	</cfloop>
 	<cfscript>
 		kml='</Document>' & chr(10) & 
 		'</kml>';
-		variables.joFileWriter.writeLine(a);
+		variables.joFileWriter.writeLine(kml);
 	</cfscript>
 	<cfset linkFile = "link_#dlFile#">
 	<cfscript>
@@ -436,7 +436,7 @@
 		 chr(9) & chr(9) & '</Url>' & chr(10) & 
 		 chr(9) & '</NetworkLink>' & chr(10) & 
 		 '</kml>';		 
-		variables.joFileWriter.writeLine(a);
+		variables.joFileWriter.writeLine(kml);
 	</cfscript>	
 	<cfif method is "link">
 		<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">
@@ -640,7 +640,7 @@
 				<cfscript>
 					kml='<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">' &
 						'#collection# #cat_num# (<em>#scientific_name#</em>)</a><br/>';
-					variables.joFileWriter.writeLine(a);
+					variables.joFileWriter.writeLine(kml);
 				</cfscript>				
 			</cfloop>
 			<cfscript>
@@ -649,7 +649,7 @@
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<Point>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#,0</coordinates>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</Point>';
-				variables.joFileWriter.writeLine(a);
+				variables.joFileWriter.writeLine(kml);
 				if (isAcceptedLatLong is "yes") {
 					kml=chr(10) & 
 						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##green-star</styleUrl>' & chr(10) &
@@ -665,7 +665,7 @@
 				}
 				kml=kml & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '</Placemark>';
-				variables.joFileWriter.writeLine(a);
+				variables.joFileWriter.writeLine(kml);
 			</cfscript>
 		</cfloop>
 		<cfscript>
