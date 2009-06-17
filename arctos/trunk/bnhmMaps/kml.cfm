@@ -529,7 +529,11 @@
 	</cfif>
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+		kml='i am some text';
+		variables.joFileWriter.writeLine(kml); 
 	</cfscript>
+	<cfabort>
+
 	<cfscript>
 		kml='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2">' & chr(10) &
 			chr(9) & '<Document>' & chr(10) &
@@ -558,7 +562,6 @@
 		variables.joFileWriter.writeLine(kml);      
 	</cfscript>
 	
-	<cfabort>
 	<cfquery name="colln" dbtype="query">
 		select collection from data group by collection
 	</cfquery>
