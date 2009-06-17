@@ -25,6 +25,48 @@
 <cfelse>
 	<cfset flatTableName = "filtered_flat">
 </cfif>
+<!----------------------------------------------------------------->
+<cffunction name="kmlCircle" access="public" returntype="string" output="false">
+     <cfargument
+	     name="centerlat_form"
+	     type="numeric"
+	     required="true"/>
+	<cfargument
+	     name="centerlong_form"
+	     type="numeric"
+	     required="true"/>
+	<cfargument
+	     name="radius_form"
+	     type="numeric"
+	     required="true"/>
+	<cfset retn = "<Placemark>">
+	<cfset retn=retn & chr(10) & chr(9) & "<name>Error</name>">
+	<cfset retn=retn & chr(10) & chr(9) & "<visibility>1</visibility>">
+	<cfset retn=retn & chr(10) & chr(9) & "<styleUrl>##error-line</styleUrl>">
+	<cfset retn=retn & chr(10) & chr(9) & "<LineString>">
+	<cfset retn=retn & chr(10) & chr(9) & chr(9) & "<coordinates>">
+	<cfset lat = DegToRad(centerlat_form)>
+	<cfset long = DegToRad(centerlong_form)>
+	<cfset d = radius_form>
+	<cfset d_rad=d/6378137>
+	<cfloop from="0" to="360" index="i">
+		<cfset radial = DegToRad(i)>
+		<cfset lat_rad = asin(sin(lat)*cos(d_rad) + cos(lat)*sin(d_rad)*cos(radial))>
+		<cfset dlon_rad = atan2(sin(radial)*sin(d_rad)*cos(lat),cos(d_rad)-sin(lat)*sin(lat_rad))>
+		<cfset p=pi()>
+		<cfset x=(long+dlon_rad + p)>
+		<cfset y=(2*p)>
+		<cfset lon_rad = ProperMod((long+dlon_rad + p), 2*p) - p>
+		<cfset rLong = RadToDeg(lon_rad)>
+		<cfset rLat = RadToDeg(lat_rad)>
+		<cfset retn=retn & chr(10) & chr(9) & chr(9) & chr(9) & "#rLong#,#rLat#,0">
+	</cfloop>
+	<cfset retn=retn & chr(10) & chr(9) & chr(9) & "</coordinates>">
+	<cfset retn=retn & chr(10) & chr(9) & "</LineString>">
+	<cfset retn = "</Placemark>">
+	<cfreturn retn>
+</cffunction>
+<!------------------------------------------------------------------------------------------->
 <cfif action is "api">
 	<table border>
 		<tr>
@@ -115,6 +157,7 @@
 		</tr>
 	</table>
 </cfif>
+<!------------------------------------------------------------------------------------------------>
 <!--- handle direct calls --->
 <cfif action is "newReq">
 	<cfoutput>
@@ -174,45 +217,6 @@
 		<cfcontent type="application/vnd.google-earth.kml+xml" file="#internalPath##f#">
 	</cfoutput>	
 </cfif>
-<!----------------------------------------------------------------->
-<cffunction name="kmlCircle" access="public" returntype="string" output="false">
-     <cfargument
-	     name="centerlat_form"
-	     type="numeric"
-	     required="true"/>
-	<cfargument
-	     name="centerlong_form"
-	     type="numeric"
-	     required="true"/>
-	<cfargument
-	     name="radius_form"
-	     type="numeric"
-	     required="true"/>
-	<cfset retn = "
-	<Placemark>
-	<name>Error</name><visibility>1</visibility>
-	<styleUrl>##error-line</styleUrl>
-	<LineString>
-	<coordinates>">
-	<cfset lat = DegToRad(centerlat_form)>
-	<cfset long = DegToRad(centerlong_form)>
-	<cfset d = radius_form>
-	<cfset d_rad=d/6378137>
-	<cfloop from="0" to="360" index="i">
-		<cfset radial = DegToRad(i)>
-		<cfset lat_rad = asin(sin(lat)*cos(d_rad) + cos(lat)*sin(d_rad)*cos(radial))>
-		<cfset dlon_rad = atan2(sin(radial)*sin(d_rad)*cos(lat),cos(d_rad)-sin(lat)*sin(lat_rad))>
-		<cfset p=pi()>
-		<cfset x=(long+dlon_rad + p)>
-		<cfset y=(2*p)>
-		<cfset lon_rad = ProperMod((long+dlon_rad + p), 2*p) - p>
-		<cfset rLong = RadToDeg(lon_rad)>
-		<cfset rLat = RadToDeg(lat_rad)>
-		<cfset retn = '#retn# #rLong#,#rLat#,0'>	
-	</cfloop>
-	<cfset retn = '#retn#</coordinates></LineString></Placemark>'>	
-	<cfreturn retn>
-</cffunction>
 <!------------------------------------------------------------->
 <cfif #action# is "nothing">
 <cfoutput>
