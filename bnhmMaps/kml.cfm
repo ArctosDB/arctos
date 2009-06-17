@@ -639,7 +639,7 @@
 			<cfloop query="sdet">
 				<cfscript>
 					kml='<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">' &
-						#collection# #cat_num# (<em>#scientific_name#</em>)</a><br/>';
+						'#collection# #cat_num# (<em>#scientific_name#</em>)</a><br/>';
 					variables.joFileWriter.writeLine(a);
 				</cfscript>				
 			</cfloop>
