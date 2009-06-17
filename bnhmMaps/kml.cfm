@@ -396,6 +396,7 @@
 				kml=chr(9) & chr(9) & chr(9) & '<Placemark>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '<name>#collection# #cat_num# (#scientific_name#)</name>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '<visibility>1</visibility>' & chr(10) &
+					'<Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href></Icon>' & chr(10) & 
 					chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##icon_#thisName#</styleUrl>' & chr(10) &				
 					chr(9) & chr(9) & chr(9) & chr(9) & '<TimeSpan>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<begin>#began_date#</begin>' & chr(10) &
