@@ -219,108 +219,76 @@
 </cfif>
 <!------------------------------------------------------------->
 <cfif #action# is "nothing">
-<cfoutput>
-	<span style="color:red;">
-		NOTE: Horizontal Datum is NOT transformed. Positions will be misplaced for all non-WGS84 datum points.
-	</span>
-	<form name="prefs" id="prefs" method="post" action="kml.cfm">
-		<table>
-			<tr>
-				<td align="right">Show Error Circles? (Makes big filesizes)</td>
-				<td>
-					<input type="checkbox" 
-						<cfif showErrors is 1> checked="checked"</cfif>
-						name="showErrors" id="showErrors" value="1">
-				</td>
-			</tr>
-			<tr>
-				<td align="right">Show all specimens at each locality represented by query?</td>
-				<td>
-					<input type="checkbox" 
-						<cfif mapByLocality is 1> checked="checked"</cfif>
-						name="mapByLocality" id="mapByLocality" value="1">
-				</td>
-			</tr>
-			<tr>
-				<td align="right">Show unaccepted coordinate determinations?</td>
-				<td>
-					<input type="checkbox" 
-						<cfif showUnaccepted is 1> checked="checked"</cfif>
-						name="showUnaccepted" id="showUnaccepted" value="1"></td>
-			</tr>
-			<tr>
-				<td align="right">File Name</td>
-				<td><input type="text" name="userFileName" id="userFileName" size="40" value="#URLEncodedFormat(userFileName)#"></td>
-			</tr>
-			<tr>
-				<td align="right">Method</td>
-				<td>
-					<select name="method" id="method">
-						<option <cfif method is "download"> selected="selected"</cfif> value="download">Download KML</option>
-						<option <cfif method is "link"> selected="selected"</cfif> value="link">Download linkfile</option>
-						<option <cfif method is "gmap"> selected="selected"</cfif> value="gmap">Google Maps</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td align="right">Color by</td>
-				<td>
-					<select name="action" id="action">
-						<option <cfif next is "colorByCollection"> selected="selected"</cfif> value="colorByCollection">Collection</option>
-						<option <cfif next is "colorBySpecies"> selected="selected"</cfif> value="colorBySpecies">Species</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<input type="submit" value="Go" class="lnkBtn"
-   						onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
-				</td>
-			</tr>
-		</table>		
-    </form>
-</cfoutput>
+	<cfoutput>
+		<span style="color:red;">
+			NOTE: Horizontal Datum is NOT transformed. Positions will be misplaced for all non-WGS84 datum points.
+		</span>
+		<form name="prefs" id="prefs" method="post" action="kml.cfm">
+			<table>
+				<tr>
+					<td align="right">Show Error Circles? (Makes big filesizes)</td>
+					<td>
+						<input type="checkbox" 
+							<cfif showErrors is 1> checked="checked"</cfif>
+							name="showErrors" id="showErrors" value="1">
+					</td>
+				</tr>
+				<tr>
+					<td align="right">Show all specimens at each locality represented by query?</td>
+					<td>
+						<input type="checkbox" 
+							<cfif mapByLocality is 1> checked="checked"</cfif>
+							name="mapByLocality" id="mapByLocality" value="1">
+					</td>
+				</tr>
+				<tr>
+					<td align="right">Show unaccepted coordinate determinations?</td>
+					<td>
+						<input type="checkbox" 
+							<cfif showUnaccepted is 1> checked="checked"</cfif>
+							name="showUnaccepted" id="showUnaccepted" value="1"></td>
+				</tr>
+				<tr>
+					<td align="right">File Name</td>
+					<td><input type="text" name="userFileName" id="userFileName" size="40" value="#URLEncodedFormat(userFileName)#"></td>
+				</tr>
+				<tr>
+					<td align="right">Method</td>
+					<td>
+						<select name="method" id="method">
+							<option <cfif method is "download"> selected="selected"</cfif> value="download">Download KML</option>
+							<option <cfif method is "link"> selected="selected"</cfif> value="link">Download linkfile</option>
+							<option <cfif method is "gmap"> selected="selected"</cfif> value="gmap">Google Maps</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">Color by</td>
+					<td>
+						<select name="action" id="action">
+							<option <cfif next is "colorByCollection"> selected="selected"</cfif> value="colorByCollection">Collection</option>
+							<option <cfif next is "colorBySpecies"> selected="selected"</cfif> value="colorBySpecies">Species</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input type="submit" value="Go" class="lnkBtn"
+	   						onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
+					</td>
+				</tr>
+			</table>		
+	    </form>
+	</cfoutput>
 </cfif>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------->
 <cfif #action# is "colorBySpecies">
-<cfoutput>
-    
-	<cfif isdefined("userFileName") and len(#userFileName#) gt 0>
-		<cfset dlFile = "#userFileName#.kml">
-	<cfelse>
-		<cfset dlFile = "kmlfile#cfid##cftoken#.kml">
-	</cfif>
-    <cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfoutput>
+    <cfset dlFile = "#userFileName#.kml">
+	<cfset variables.fileName="#internalPath##dlFile#">
+	<cfset variables.encoding="UTF-8">
+	
+	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			#flatTableName#.collection_object_id,
 			#flatTableName#.cat_num,
@@ -347,160 +315,150 @@
 		 	lat_long.dec_lat is not null and 
 		 	lat_long.dec_long is not null and
 		 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
+	</cfquery>
+    <cfquery name="species" dbtype="query">
+    	select scientific_name from data group by scientific_name
+    </cfquery>
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+	</cfscript>
+	<cfscript>
+		 kml='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+		 	'<kml xmlns="http://earth.google.com/kml/2.2">' & chr(10) & 
+		 	chr(9) & '<Document>' & chr(10) & 
+		 	chr(9) & chr(9) & '<name>Localities</name>' & chr(10) & 
+		 	chr(9) & chr(9) & chr(9) & '<open>1</open>';
+		variables.joFileWriter.writeLine(a);
+	</cfscript>		
+	<cfloop query="species">
+    	<cfset thisName=replace(scientific_name," ","_","all")>
+        <cfset thisColor=randomHexColor()> 
+        <cfscript>
+			kml=chr(10) & 
+				chr(9) & '<Style id="icon_#thisName#">' & chr(10) & 
+				chr(9) & chr(9) & '<IconStyle>' & chr(10) &
+				chr(9) & chr(9) & chr(9) & '<color>ff#thisColor#</color>' & chr(10) & 
+				chr(9) & chr(9) & chr(9) & '<scale>1.1</scale>' & chr(10) & 
+				chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) & 
+				chr(9) & chr(9) & chr(9) & chr(9) & '<href>#application.serverRootUrl#/images/whiteBalloon.png</href>' & chr(10) & 
+				chr(9) & chr(9) & chr(9) & '</Icon>'  & chr(10) &
+				chr(9) & chr(9) & '<IconStyle>'  & chr(10) &
+				chr(9) & '</Style';
+			variables.joFileWriter.writeLine(a);
+		</cfscript>	
+	</cfloop>
+	<cfloop query="species">
+		<cfset thisName=replace(scientific_name," ","_","all")>
+		<cfscript>
+			kml = chr(10) & chr(9) & "<Folder>" & chr(10) &
+				chr(9) & chr(9) & '<name>#thisName#</name>' & chr(10) &
+				chr(9) & chr(9) & '<visibility>1</visibility>';
+			variables.joFileWriter.writeLine(a);
+		</cfscript>
+		<cfquery name="loc" dbtype="query">
+			select 
+				dec_lat,
+				dec_long,
+				errorInMeters,
+				datum,
+				spec_locality,
+				locality_id,
+				verbatimLatitude,
+				verbatimLongitude,
+				lat_long_id,
+				began_date,
+				ended_date,
+		              collection_object_id,
+				cat_num,
+				scientific_name,
+				collection
+			from
+				data
+			where
+				scientific_name='#scientific_name#'
+			group by
+				dec_lat,
+				dec_long,
+				errorInMeters,
+				datum,
+				spec_locality,
+				locality_id,
+				verbatimLatitude,
+				verbatimLongitude,
+				lat_long_id,
+				began_date,
+				ended_date,
+		              collection_object_id,
+				cat_num,
+				scientific_name,
+				collection
 		</cfquery>
-        <cfquery name="species" dbtype="query">
-            select scientific_name from data group by scientific_name
-        </cfquery>
-        <cfset kml='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Document><name>Localities</name>
-	        <open>1</open>'>
-        <cfloop query="species">
-            <cfset thisName=replace(scientific_name," ","_","all")>
-            <cfset thisColor=randomHexColor()> 
-             <cfset kml='#kml#
-                 <Style id="icon_#thisName#">
-			      <IconStyle>
-			          <color>ff#thisColor#</color>
-			         <scale>1.1</scale>
-			         <Icon>
-			            <href>#application.serverRootUrl#/images/whiteBalloon.png</href>
-			         </Icon>
-			      </IconStyle>
-			   </Style>
-            '>
-        </cfloop>
-        <cffile action="write" file="#internalPath##dlFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
-	    <cfloop query="species">
-			<cfset thisName=replace(scientific_name," ","_","all")>
-		    <cfset kml = "<Folder><name>#thisName#</name><visibility>1</visibility>">
-		    
-            <cfquery name="loc" dbtype="query">
-				select 
-					dec_lat,
-					dec_long,
-					errorInMeters,
-					datum,
-					spec_locality,
-					locality_id,
-					verbatimLatitude,
-					verbatimLongitude,
-					lat_long_id,
-					began_date,
-					ended_date,
-	                collection_object_id,
-					cat_num,
-					scientific_name,
-					collection
-				from
-					data
-				where
-					scientific_name='#scientific_name#'
-				group by
-					dec_lat,
-					dec_long,
-					errorInMeters,
-					datum,
-					spec_locality,
-					locality_id,
-					verbatimLatitude,
-					verbatimLongitude,
-					lat_long_id,
-					began_date,
-					ended_date,
-	                collection_object_id,
-					cat_num,
-					scientific_name,
-					collection
-			</cfquery>
-            <cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
-		    <cfloop query="loc">
-			    <cfset kml='<Placemark><name>#collection# #cat_num# (#scientific_name#)</name>
-			        <visibility>1</visibility>
-                    <styleUrl>##icon_#thisName#</styleUrl><description>
-			        <Timespan><begin>#began_date#</begin><end>#ended_date#</end></Timespan>
-			        <![CDATA[Datum: #datum#<br/>
-			        Error: #errorInMeters# m<br/>
-                '>
-			    <cfset kml='#kml#]]></description>
-			        <Point>
-	      	            <coordinates>#dec_long#,#dec_lat#,0</coordinates>
-	    	        </Point>
-                '>
-	    	    <cfset kml='#kml#</Placemark>'>
-	  		    <cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
-             </cfloop>
-
-		        
-            <cfset kml='</Folder>'><!--- close specimens folder --->
-            <cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
-              </cfloop>
-             <cfset kml='</Document></kml>'>
-			<cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
-            
-			<cfset linkFile = "link_#dlFile#">
-			<cfset kml='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.0">
-				<NetworkLink>
-				  <name>Arctos Locations</name>
-				  <visibility>1</visibility>
-				  <open>1</open>
-					<Url>
-			    <href>#externalPath##dlFile#</href>
-			    </Url>
-			    </NetworkLink>
-			    </kml>
-            '>
-			<cffile action="write" file="#internalPath##linkFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
-		<cfif method is "link">
-			<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">
-			<cflocation url="#durl#" addtoken="false">
-		<cfelseif method is "gmap">
-			<cfset durl="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#">
-			<script type="text/javascript" language="javascript">
-				window.open('#durl#',"_blank")
-			</script>
-		<cfelse>	
-			<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">
-			<cflocation url="#durl#" addtoken="false">
-		</cfif>
-		
+		<cfloop query="loc">
+			<cfscript>
+				kml=chr(10) & chr(9) & '<Placemark>' & chr(10) &
+					chr(9) & chr(9) & '<name>#collection# #cat_num# (#scientific_name#)</name>' & chr(10) &
+					chr(9) & chr(9) & '<visibility>1</visibility>' & chr(10) &
+					chr(9) & chr(9) & '<styleUrl>##icon_#thisName#</styleUrl>' & chr(10) &
+					chr(9) & chr(9) & '<description>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & '<Timespan>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & '<begin>#began_date#</begin>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & '<end>#ended_date#</end>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & '</Timespan>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & '<![CDATA[Datum: #datum#<br/>Error: #errorInMeters# m<br/>
+					chr(9) & chr(9) & '</description>' & chr(10) &]]>' & chr(10) &
+					chr(9) & chr(9) & '<Point>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#,0</coordinates>' & chr(10) &
+					chr(9) & chr(9) & '</Point>' & chr(10) &
+					chr(9) & '</Placemark>';
+				variables.joFileWriter.writeLine(a);
+			</cfscript>
+		</cfloop>
+		<cfscript>
+			kml='</Folder>';
+			variables.joFileWriter.writeLine(a);
+		</cfscript>
+	</cfloop>
+	<cfscript>
+		kml='</Document>' & chr(10) & 
+		'</kml>';
+		variables.joFileWriter.writeLine(a);
+	</cfscript>
+	<cfset linkFile = "link_#dlFile#">
+	<cfscript>
+		 kml='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+		 '<kml xmlns="http://earth.google.com/kml/2.0">' & chr(10) & 
+		 chr(9) & '<NetworkLink>' & chr(10) & 
+		 chr(9) & chr(9) & '<name>Arctos Locations</name>' & chr(10) & 
+		 chr(9) & chr(9) & '<visibility>1</visibility>' & chr(10) & 
+		 chr(9) & chr(9) & '<open>1</open>' & chr(10) & 
+		 chr(9) & chr(9) & '<Url>' & chr(10) & 
+		 chr(9) & chr(9) & chr(9) & '<href>#externalPath##dlFile#</href>' & chr(10) & 
+		 chr(9) & chr(9) & '</Url>' & chr(10) & 
+		 chr(9) & '</NetworkLink>' & chr(10) & 
+		 '</kml>';		 
+		variables.joFileWriter.writeLine(a);
+	</cfscript>	
+	<cfif method is "link">
+		<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">
+		<cflocation url="#durl#" addtoken="false">
+	<cfelseif method is "gmap">
+		<cfset durl="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#">
+		<script type="text/javascript" language="javascript">
+			window.open('#durl#',"_blank")
+		</script>
+	<cfelse>	
+		<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">
+		<cflocation url="#durl#" addtoken="false">
+	</cfif>	
 	</cfoutput>
 </cfif>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-------------------------------------------------------------------------->
 <cfif #action# is "colorByCollection">
 <cfoutput>
-	<cfif isdefined("userFileName") and len(#userFileName#) gt 0>
-		<cfset dlFile = "#userFileName#.kml">
-	<cfelse>
-		<cfset dlFile = "kmlfile#cfid##cftoken#.kml">
-	</cfif>	
-	<cfif isdefined("mapByLocality") and #mapByLocality# is 1>
+	<cfset dlFile = "#userFileName#.kml">
+	<cfset variables.fileName="#internalPath##dlFile#">
+	<cfset variables.encoding="UTF-8">
+	<cfif mapByLocality is 1>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				#flatTableName#.collection_object_id,
@@ -569,32 +527,36 @@
 			 	#flatTableName#.collection_object_id = #table_name#.collection_object_id
 		</cfquery>
 	</cfif>
-	<cfset kml = '<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2"><Document><name>Localities</name>
-	<open>1</open>
-	<Style id="green-star">
-		<IconStyle>
-			<Icon>
-				<href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href>
-			</Icon>
-		</IconStyle>		
-	</Style>
-	<Style id="red-star">
-      <IconStyle>
-        <Icon>
-          <href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>
-        </Icon>
-      </IconStyle>
-    </Style>
-	<Style id="error-line">
-	<LineStyle>
-      <color>ff0000ff</color>
-      <width>1</width>
-    </LineStyle>
-    </Style>
-	'>
-			
-			
-	<cffile action="write" file="#internalPath##dlFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+	</cfscript>
+	<cfscript>
+		kml='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.2">' & chr(10) &
+			chr(9) & '<Document>' & chr(10) &
+			chr(9) & chr(9) & '<name>Localities</name>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & '<open>1</open>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & '<Style id="green-star">' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & '<IconStyle>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & '</IconStyle>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & '</Style>' & chr(10) &			
+			chr(9) & chr(9) & chr(9) & '<Style id="red-star">' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & '<IconStyle>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & '</IconStyle>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & '</Style>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & '<Style id="error-line">' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & '<LineStyle>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<color>ff0000ff</color>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<width>1</width>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & chr(9) & '</LineStyle>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & '</Style>';
+		variables.joFileWriter.writeLine(a);      
+	</cfscript>
 	<cfquery name="colln" dbtype="query">
 		select collection from data group by collection
 	</cfquery>
@@ -631,8 +593,13 @@
 				began_date,
 				ended_date
 		</cfquery>
-		<cfset kml = "<Folder><name>#collection#</name><visibility>1</visibility>">
-		<cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
+		<cfscript>
+			kml=chr(10) & 
+				chr(9) & chr(9) & chr(9) & '<Folder>' & chr(10) &
+				chr(9) & chr(9) & chr(9) & chr(9) & '<name>#collection#</name>' & chr(10) &
+				chr(9) & chr(9) & chr(9) & chr(9) & '<visibility>1</visibility>';
+			variables.joFileWriter.writeLine(a);      
+		</cfscript>
 		<cfloop query="loc">
 			<cfquery name="sdet" dbtype="query">
 				select 
@@ -650,83 +617,121 @@
 					scientific_name,
 					collection
 			</cfquery>
-			<cfset kml='<Placemark><name>#kmlStripper(spec_locality)# (#locality_id#)</name>
-			<visibility>1</visibility><description>
-			<Timespan><begin>#began_date#</begin><end>#ended_date#</end></Timespan>
-			<![CDATA[Datum: #datum#<br/>
-			Error: #errorInMeters# m<br/>'>
+			<cfscript>
+				kml=chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & '<Placemark>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<name>#kmlStripper(spec_locality)# (#locality_id#)</name>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<visibility>1</visibility>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<description>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<Timespan>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<begin>#began_date#</begin>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<end>#ended_date#</end>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</Timespan>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<![CDATA[Datum: #datum#<br/>Error: #errorInMeters# m<br/>';
+				variables.joFileWriter.writeLine(a);      
+			</cfscript>
 			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
-				<cfset kml='#kml#<p><a href="#application.serverRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>'>
+				<cfscript>
+					kml='<p><a href="#application.serverRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>';
+					variables.joFileWriter.writeLine(a);      
+				</cfscript>
 			</cfif>
 			<cfloop query="sdet">
-				<cfset kml='#kml#<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
-					#collection# #cat_num# (<em>#scientific_name#</em>)
-				</a><br/>'>
+				<cfscript>
+					kml='<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">' &
+						#collection# #cat_num# (<em>#scientific_name#</em>)</a><br/>';
+					variables.joFileWriter.writeLine(a);
+				</cfscript>				
 			</cfloop>
-			<cfset kml='#kml#]]></description>
-			<Point>
-	      	<coordinates>#dec_long#,#dec_lat#,0</coordinates>
-	    	</Point>'>
-	    	<cfif #isAcceptedLatLong# is "yes">
-	    		<cfset kml='#kml#<styleUrl>##green-star</styleUrl>
-					<Icon><href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href></Icon>'>
-	    	<cfelse>
-	    	<cfset kml='#kml#<styleUrl>##red-star</styleUrl>
-				<Icon><href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href></Icon>'>
-	    	</cfif>
-	    	<cfset kml='#kml#</Placemark>'>
-	  		<cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
+			<cfscript>
+				kml=']]' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</description>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<Point>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#,0</coordinates>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</Point>';
+				variables.joFileWriter.writeLine(a);
+				if (isAcceptedLatLong is "yes") {
+					kml=chr(10) & 
+						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##green-star</styleUrl>' & chr(10) &
+						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) &
+						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href>' & chr(10) &
+						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>';					
+				} else {
+					kml=chr(10) & 
+						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##red-star</styleUrl>' & chr(10) &
+						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) &
+						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>' & chr(10) &
+						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>';
+				}
+				kml=kml & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & '</Placemark>';
+				variables.joFileWriter.writeLine(a);
+			</cfscript>
 		</cfloop>
-		
-		<cfset kml = "</Folder>"><!--- close collection folder --->
-		<cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
-	</cfloop>
-	
-	<cfif isdefined("showErrors") and #showErrors# is 1><!---- turn off errors here --->
+		<cfscript>
+			kml=chr(10) &
+				chr(9) & chr(9) & chr(9) & '</Folder>';
+			variables.joFileWriter.writeLine(kml);
+		</cfscript>
+	</cfloop>	
+	<cfif showErrors is 1>
 		<cfquery name="errors" dbtype="query">
 			select errorInMeters,dec_lat,dec_long
 			from data 
 			where errorInMeters>0
 			group by errorInMeters,dec_lat,dec_long
 		</cfquery>
-		<cfset kml="<Folder><name>Error Circles</name>"><!------made error circles folder--------->
-		<cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
+		<Cfscript>
+			kml=chr(10) &
+				chr(9) & chr(9) & chr(9) & '<Folder>' & chr(10) &
+				chr(9) & chr(9) & chr(9) & chr(9) & '<name>Error Circles</name>';
+			variables.joFileWriter.writeLine(kml);				
+		</Cfscript>
 		<cfloop query="errors">
 			<cfset k = kmlCircle(#dec_lat#,#dec_long#,#errorInMeters#)>
-			<cfset kml=" #k#">
-			<cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
+			<cfscript>
+				kml=chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & k;
+				variables.joFileWriter.writeLine(kml);
+			</cfscript>
 		</cfloop>
-		<cfset kml = "</Folder>"><!--- close error folder --->
-		<cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
+		<cfscript>
+			kml=chr(10) &
+				chr(9) & chr(9) & chr(9) & '</Folder>';
+			variables.joFileWriter.writeLine(kml);
+		</cfscript>
 	</cfif>
-	
-	
-	<cfset kml='</Document></kml>'><!--- close specimens folder --->
-			<cffile action="append" file="#internalPath##dlFile#" addnewline="yes" output="#kml#">
-			
-			<cfset linkFile = "link_#dlFile#">
-			<cfset kml='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.0">
-				<NetworkLink>
-				  <name>Arctos Locations</name>
-				  <visibility>1</visibility>
-				  <open>1</open>
-					<Url>
-			    <href>#externalPath##dlFile#</href>
-			    </Url>
-			</NetworkLink>
-			</kml>'>
-			<cffile action="write" file="#internalPath##linkFile#" addnewline="no" output="#kml#" nameconflict="overwrite">
-				<cfif method is "link">
-			<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">
-			<cflocation url="#durl#" addtoken="false">
-		<cfelseif method is "gmap">
-			<cfset durl="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#">
-			<script type="text/javascript" language="javascript">
-				window.open('#durl#',"_blank")
-			</script>
-		<cfelse>	
-			<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">
-			<cflocation url="#durl#" addtoken="false">
-		</cfif>
+	<cfscript>
+		kml=chr(10) &
+			chr(9) & chr(9) & '</Document>' & chr(10) &
+			chr(9) & '</kml>';
+		variables.joFileWriter.writeLine(kml);
+	</cfscript>
+	<cfset linkFile = "link_#dlFile#">
+	<cfscript>
+		kml='<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://earth.google.com/kml/2.0">' & chr(10) &
+			chr(9) & '<NetworkLink>' & chr(10) &
+			chr(9) & chr(9) & '<name>Arctos Locations</name>' & chr(10) &
+			chr(9) & chr(9) & '<visibility>1</visibility>' & chr(10) &
+			chr(9) & chr(9) & '<open>1</open>' & chr(10) &
+			chr(9) & chr(9) & '<Url>' & chr(10) &
+			chr(9) & chr(9) & chr(9) & '<href>#externalPath##dlFile#</href>' & chr(10) &
+			chr(9) & chr(9) & '</Url>' & chr(10) &
+			chr(9) & '</NetworkLink>' & chr(10) &
+			'</kml>';
+		variables.joFileWriter.writeLine(kml);
+	</cfscript>		
+	<cfif method is "link">
+		<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">
+		<cflocation url="#durl#" addtoken="false">
+	<cfelseif method is "gmap">
+		<cfset durl="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#">
+		<script type="text/javascript" language="javascript">
+			window.open('#durl#',"_blank")
+		</script>
+	<cfelse>	
+		<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(dlFile)#">
+		<cflocation url="#durl#" addtoken="false">
+	</cfif>
 	</cfoutput>
-	</cfif>
+</cfif>
