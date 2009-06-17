@@ -413,12 +413,12 @@
 			</cfscript>
 		</cfloop>
 		<cfscript>
-			kml='</Folder>';
+			kml=chr(9) & chr(9) & '</Folder>';
 			variables.joFileWriter.writeLine(kml);
 		</cfscript>
 	</cfloop>
 	<cfscript>
-		kml='</Document>' & chr(10) & 
+		kml=chr(9) & '</Document>' & chr(10) & 
 		'</kml>';
 		variables.joFileWriter.writeLine(kml);		
 		variables.joFileWriter.close();
