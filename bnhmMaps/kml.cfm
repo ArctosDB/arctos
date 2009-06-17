@@ -62,40 +62,11 @@
 			rLat = RadToDeg(lat_rad);
 			retn=retn & chr(10) & chr(9) & chr(9) & chr(9) & "#rLong#,#rLat#";
 		}
-        retn=retn & chr(10) & chr(9) & chr(9) & "</coordinates>";
-		retn=retn & chr(10) & chr(9) & "</LineString>";
-		retn=retn & chr(10) & "</Placemark>";
+        retn=retn & chr(10) & chr(9) & chr(9) & "</coordinates>" & chr(10) & 
+        	chr(9) & "</LineString>" & chr(10) & 
+        	"</Placemark>";
 		return retn;
 	</cfscript>
-	<!----
-	
-	<cfset retn = "<Placemark>">
-	<cfset retn=retn & chr(10) & chr(9) & "<name>Error</name>">
-	<cfset retn=retn & chr(10) & chr(9) & "<visibility>1</visibility>">
-	<cfset retn=retn & chr(10) & chr(9) & "<styleUrl>##error-line</styleUrl>">
-	<cfset retn=retn & chr(10) & chr(9) & "<LineString>">
-	<cfset retn=retn & chr(10) & chr(9) & chr(9) & "<coordinates>">
-	<cfset lat = DegToRad(centerlat_form)>
-	<cfset long = DegToRad(centerlong_form)>
-	<cfset d = radius_form>
-	<cfset d_rad=d/6378137>
-	<cfloop from="0" to="360" index="i">
-		<cfset radial = DegToRad(i)>
-		<cfset lat_rad = asin(sin(lat)*cos(d_rad) + cos(lat)*sin(d_rad)*cos(radial))>
-		<cfset dlon_rad = atan2(sin(radial)*sin(d_rad)*cos(lat),cos(d_rad)-sin(lat)*sin(lat_rad))>
-		<cfset p=pi()>
-		<cfset x=(long+dlon_rad + p)>
-		<cfset y=(2*p)>
-		<cfset lon_rad = ProperMod((long+dlon_rad + p), 2*p) - p>
-		<cfset rLong = RadToDeg(lon_rad)>
-		<cfset rLat = RadToDeg(lat_rad)>
-		<cfset retn=retn & chr(10) & chr(9) & chr(9) & chr(9) & "#rLong#,#rLat#">
-	</cfloop>
-	<cfset retn=retn & chr(10) & chr(9) & chr(9) & "</coordinates>">
-	<cfset retn=retn & chr(10) & chr(9) & "</LineString>">
-	<cfset retn=retn & chr(10) & "</Placemark>">
-	<cfreturn retn>
-	---->
 </cffunction>
 <!------------------------------------------------------------------------------------------->
 <cfif action is "api">
