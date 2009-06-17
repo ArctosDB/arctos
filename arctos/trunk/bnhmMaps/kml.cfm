@@ -421,10 +421,15 @@
 	<cfscript>
 		kml='</Document>' & chr(10) & 
 		'</kml>';
-		variables.joFileWriter.writeLine(kml);
+		variables.joFileWriter.writeLine(kml);		
+		variables.joFileWriter.close();
 	</cfscript>
+	
+	
 	<cfset linkFile = "link_#dlFile#">
+	<cfset variables.fileName="#internalPath##linkFile#">	
 	<cfscript>
+		 variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 		 kml='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
 		 '<kml xmlns="http://earth.google.com/kml/2.0">' & chr(10) & 
 		 chr(9) & '<NetworkLink>' & chr(10) & 
@@ -436,7 +441,8 @@
 		 chr(9) & chr(9) & '</Url>' & chr(10) & 
 		 chr(9) & '</NetworkLink>' & chr(10) & 
 		 '</kml>';		 
-		variables.joFileWriter.writeLine(kml);
+		variables.joFileWriter.writeLine(kml);				
+		variables.joFileWriter.close();
 	</cfscript>	
 	<cfif method is "link">
 		<cfset durl="kml.cfm?action=getFile&p=#URLEncodedFormat("/bnmhMaps/")#&f=#URLEncodedFormat(linkFile)#">
