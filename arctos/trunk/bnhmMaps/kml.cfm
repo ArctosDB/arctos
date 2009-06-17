@@ -394,8 +394,8 @@
 		</cfquery>
 		<cfloop query="loc">
 			<cfscript>
-				kml=chr(10) & chr(9) & '<Placemark>' & chr(10) &
-					chr(9) & chr(9) & '<name>#collection# #cat_num# (#scientific_name#)</name>' & chr(10) &
+				kml=chr(9) & chr(9) & chr(9) & '<Placemark>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & '<name>#collection# #cat_num# (#scientific_name#)</name>' & chr(10) &
 					chr(9) & chr(9) & '<visibility>1</visibility>' & chr(10) &
 					chr(9) & chr(9) & '<styleUrl>##icon_#thisName#</styleUrl>' & chr(10) &
 					chr(9) & chr(9) & '<description>' & chr(10) &
