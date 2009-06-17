@@ -327,23 +327,22 @@
 		 	'<kml xmlns="http://earth.google.com/kml/2.2">' & chr(10) & 
 		 	chr(9) & '<Document>' & chr(10) & 
 		 	chr(9) & chr(9) & '<name>Localities</name>' & chr(10) & 
-		 	chr(9) & chr(9) & chr(9) & '<open>1</open>';
+		 	chr(9) & chr(9) & '<open>1</open>';
 		variables.joFileWriter.writeLine(kml);
 	</cfscript>		
 	<cfloop query="species">
     	<cfset thisName=replace(scientific_name," ","_","all")>
         <cfset thisColor=randomHexColor()> 
         <cfscript>
-			kml=chr(10) & 
-				chr(9) & '<Style id="icon_#thisName#">' & chr(10) & 
-				chr(9) & chr(9) & '<IconStyle>' & chr(10) &
-				chr(9) & chr(9) & chr(9) & '<color>ff#thisColor#</color>' & chr(10) & 
-				chr(9) & chr(9) & chr(9) & '<scale>1.1</scale>' & chr(10) & 
-				chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) & 
-				chr(9) & chr(9) & chr(9) & chr(9) & '<href>#application.serverRootUrl#/images/whiteBalloon.png</href>' & chr(10) & 
-				chr(9) & chr(9) & chr(9) & '</Icon>'  & chr(10) &
-				chr(9) & chr(9) & '<IconStyle>'  & chr(10) &
-				chr(9) & '</Style';
+			kml=chr(9) & chr(9) & '<Style id="icon_#thisName#">' & chr(10) & 
+				chr(9) & chr(9) & chr(9) & '<IconStyle>' & chr(10) &
+				chr(9) & chr(9) & chr(9) & chr(9) & '<color>ff#thisColor#</color>' & chr(10) & 
+				chr(9) & chr(9) & chr(9) & chr(9) & '<scale>1.1</scale>' & chr(10) & 
+				chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) & 
+				chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>#application.serverRootUrl#/images/whiteBalloon.png</href>' & chr(10) & 
+				chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>'  & chr(10) &
+				chr(9) & chr(9) & chr(9) & '<IconStyle>'  & chr(10) &
+				chr(9) & chr(9) & '</Style';
 			variables.joFileWriter.writeLine(kml);
 		</cfscript>	
 	</cfloop>
