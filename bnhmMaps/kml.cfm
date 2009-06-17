@@ -341,7 +341,7 @@
 				chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) & 
 				chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>#application.serverRootUrl#/images/whiteBalloon.png</href>' & chr(10) & 
 				chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>'  & chr(10) &
-				chr(9) & chr(9) & chr(9) & '<IconStyle>'  & chr(10) &
+				chr(9) & chr(9) & chr(9) & '</IconStyle>'  & chr(10) &
 				chr(9) & chr(9) & '</Style>';
 			variables.joFileWriter.writeLine(kml);
 		</cfscript>	
