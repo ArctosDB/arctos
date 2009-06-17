@@ -646,14 +646,12 @@
 					chr(9) & chr(9) & chr(9) & chr(9) & '</Point>';
 				variables.joFileWriter.writeLine(kml);
 				if (isAcceptedLatLong is "yes") {
-					kml=chr(10) & 
-						chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##green-star</styleUrl>' & chr(10) &
+					kml=chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##green-star</styleUrl>' & chr(10) &
 						chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) &
 						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href>' & chr(10) &
 						chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>';					
 				} else {
-					kml=chr(10) & 
-						chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##red-star</styleUrl>' & chr(10) &
+					kml=chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##red-star</styleUrl>' & chr(10) &
 						chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) &
 						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>' & chr(10) &
 						chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>';
@@ -664,7 +662,7 @@
 			</cfscript>
 		</cfloop>
 		<cfscript>
-			kml=chr(9) & chr(9) & chr(9) & '</Folder>';
+			kml=chr(9) & chr(9) & '</Folder>';
 			variables.joFileWriter.writeLine(kml);
 		</cfscript>
 	</cfloop>	
@@ -696,12 +694,13 @@
 		</cfscript>
 	</cfif>
 	<cfscript>
-		kml=chr(10) &
-			chr(9) & chr(9) & '</Document>' & chr(10) &
+		kml=chr(9) & chr(9) & '</Document>' & chr(10) &
 			chr(9) & '</kml>';
-		variables.joFileWriter.writeLine(kml);
+		variables.joFileWriter.writeLine(kml);		
+		variables.joFileWriter.close();
 	</cfscript>
 	<cfset linkFile = "link_#dlFile#">
+	<cfset variables.fileName="#internalPath##dlFile#">
 	<cfscript>
 		kml='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
 			'<kml xmlns="http://earth.google.com/kml/2.0">' & chr(10) &
