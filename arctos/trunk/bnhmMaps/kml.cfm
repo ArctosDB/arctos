@@ -625,11 +625,11 @@
 				kml=chr(9) & chr(9) & chr(9) & '<Placemark>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '<name>#kmlStripper(spec_locality)# (#locality_id#)</name>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '<visibility>1</visibility>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & '<TimeSpan>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<begin>#began_date#</begin>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<end>#ended_date#</end>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & '</TimeSpan>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '<description>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<Timespan>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<begin>#began_date#</begin>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<end>#ended_date#</end>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</Timespan>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<![CDATA[Datum: #datum#<br/>Error: #errorInMeters# m<br/>';
 			</cfscript>
 			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
