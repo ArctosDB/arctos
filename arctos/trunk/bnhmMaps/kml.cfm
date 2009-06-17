@@ -39,6 +39,36 @@
 	     name="radius_form"
 	     type="numeric"
 	     required="true"/>
+	<cfscript>
+		retn = "<Placemark>" & chr(10) & 
+			chr(9) & "<name>Error</name>" & chr(10) & 
+			chr(9) & "<visibility>1</visibility>" & chr(10) & 
+			chr(9) & "<styleUrl>##error-line</styleUrl>" & chr(10) & 
+			chr(9) & "<LineString>" & chr(10) & 
+			chr(9) & chr(9) & "<coordinates>";
+		lat = DegToRad(centerlat_form);
+		long = DegToRad(centerlong_form);
+		d = radius_form;
+		d_rad=d/6378137;
+		for (i=0;i LTE 360; i=i+1) {
+			radial = DegToRad(i);
+			lat_rad = asin(sin(lat)*cos(d_rad) + cos(lat)*sin(d_rad)*cos(radial));
+			dlon_rad = atan2(sin(radial)*sin(d_rad)*cos(lat),cos(d_rad)-sin(lat)*sin(lat_rad));
+			p=pi();
+			x=(long+dlon_rad + p);
+			y=(2*p);
+			lon_rad = ProperMod((long+dlon_rad + p), 2*p) - p;
+			rLong = RadToDeg(lon_rad);
+			rLat = RadToDeg(lat_rad);
+			retn=retn & chr(10) & chr(9) & chr(9) & chr(9) & "#rLong#,#rLat#";
+		}
+        retn=retn & chr(10) & chr(9) & chr(9) & "</coordinates>";
+		retn=retn & chr(10) & chr(9) & "</LineString>";
+		retn=retn & chr(10) & "</Placemark>";
+		return retn;
+	</cfscript>
+	<!----
+	
 	<cfset retn = "<Placemark>">
 	<cfset retn=retn & chr(10) & chr(9) & "<name>Error</name>">
 	<cfset retn=retn & chr(10) & chr(9) & "<visibility>1</visibility>">
@@ -59,12 +89,13 @@
 		<cfset lon_rad = ProperMod((long+dlon_rad + p), 2*p) - p>
 		<cfset rLong = RadToDeg(lon_rad)>
 		<cfset rLat = RadToDeg(lat_rad)>
-		<cfset retn=retn & chr(10) & chr(9) & chr(9) & chr(9) & "#rLong#,#rLat#,0">
+		<cfset retn=retn & chr(10) & chr(9) & chr(9) & chr(9) & "#rLong#,#rLat#">
 	</cfloop>
 	<cfset retn=retn & chr(10) & chr(9) & chr(9) & "</coordinates>">
 	<cfset retn=retn & chr(10) & chr(9) & "</LineString>">
 	<cfset retn=retn & chr(10) & "</Placemark>">
 	<cfreturn retn>
+	---->
 </cffunction>
 <!------------------------------------------------------------------------------------------->
 <cfif action is "api">
@@ -640,7 +671,7 @@
 				kml=kml & ']]>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '</description>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '<Point>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#,0</coordinates>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#</coordinates>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '</Point>';
 				variables.joFileWriter.writeLine(kml);
 				if (isAcceptedLatLong is "yes") {
