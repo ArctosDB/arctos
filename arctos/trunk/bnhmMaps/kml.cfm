@@ -647,25 +647,24 @@
 				variables.joFileWriter.writeLine(kml);
 				if (isAcceptedLatLong is "yes") {
 					kml=chr(10) & 
-						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##green-star</styleUrl>' & chr(10) &
-						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) &
-						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href>' & chr(10) &
-						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>';					
+						chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##green-star</styleUrl>' & chr(10) &
+						chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) &
+						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href>' & chr(10) &
+						chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>';					
 				} else {
 					kml=chr(10) & 
-						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##red-star</styleUrl>' & chr(10) &
-						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) &
-						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>' & chr(10) &
-						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>';
+						chr(9) & chr(9) & chr(9) & chr(9) & '<styleUrl>##red-star</styleUrl>' & chr(10) &
+						chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) &
+						chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>' & chr(10) &
+						chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>';
 				}
 				kml=kml & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & '</Placemark>';
+					chr(9) & chr(9) & chr(9) & '</Placemark>';
 				variables.joFileWriter.writeLine(kml);
 			</cfscript>
 		</cfloop>
 		<cfscript>
-			kml=chr(10) &
-				chr(9) & chr(9) & chr(9) & '</Folder>';
+			kml=chr(9) & chr(9) & chr(9) & '</Folder>';
 			variables.joFileWriter.writeLine(kml);
 		</cfscript>
 	</cfloop>	
