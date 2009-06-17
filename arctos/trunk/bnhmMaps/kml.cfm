@@ -702,7 +702,7 @@
 	
 	
 	<cfset linkFile = "link_#dlFile#">
-	<cfset variables.fileName="#internalPath##dlFile#">
+	<cfset variables.fileName="#internalPath##linkFile#">
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 		kml='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
