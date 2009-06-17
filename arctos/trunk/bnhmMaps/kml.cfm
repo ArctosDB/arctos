@@ -530,7 +530,8 @@
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 		kml='i am some text';
-		variables.joFileWriter.writeLine(kml); 
+		variables.joFileWriter.writeLine(kml);
+		variables.joFileWriter.close();
 	</cfscript>
 	<cfabort>
 

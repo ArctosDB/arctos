@@ -114,6 +114,8 @@
 	<cfset minRN=maxRN-chunkSize>
 	<cfset variables.fileName="#Application.webDirectory#/#colls.filename#">
 	<cfset variables.encoding="UTF-8">
+	
+	variables.fileName: #variables.fileName#
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 	</cfscript>
