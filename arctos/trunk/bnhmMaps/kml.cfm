@@ -639,7 +639,7 @@
 				</cfscript>				
 			</cfloop>
 			<cfscript>
-				kml=kml & ']]' & chr(10) &
+				kml=kml & ']]>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '</description>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '<Point>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#,0</coordinates>' & chr(10) &
@@ -694,8 +694,8 @@
 		</cfscript>
 	</cfif>
 	<cfscript>
-		kml=chr(9) & chr(9) & '</Document>' & chr(10) &
-			chr(9) & '</kml>';
+		kml=chr(9) & '</Document>' & chr(10) &
+			'</kml>';
 		variables.joFileWriter.writeLine(kml);		
 		variables.joFileWriter.close();
 	</cfscript>
