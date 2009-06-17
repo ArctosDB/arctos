@@ -555,7 +555,7 @@
 			chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<width>1</width>' & chr(10) &
 			chr(9) & chr(9) & chr(9) & chr(9) & '</LineStyle>' & chr(10) &
 			chr(9) & chr(9) & chr(9) & '</Style>';
-		variables.joFileWriter.writeLine(a);      
+		variables.joFileWriter.writeLine(kml);      
 	</cfscript>
 	<cfquery name="colln" dbtype="query">
 		select collection from data group by collection
@@ -598,7 +598,7 @@
 				chr(9) & chr(9) & chr(9) & '<Folder>' & chr(10) &
 				chr(9) & chr(9) & chr(9) & chr(9) & '<name>#collection#</name>' & chr(10) &
 				chr(9) & chr(9) & chr(9) & chr(9) & '<visibility>1</visibility>';
-			variables.joFileWriter.writeLine(a);      
+			variables.joFileWriter.writeLine(kml);      
 		</cfscript>
 		<cfloop query="loc">
 			<cfquery name="sdet" dbtype="query">
@@ -628,12 +628,12 @@
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<end>#ended_date#</end>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</Timespan>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<![CDATA[Datum: #datum#<br/>Error: #errorInMeters# m<br/>';
-				variables.joFileWriter.writeLine(a);      
+				variables.joFileWriter.writeLine(kml);      
 			</cfscript>
 			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 				<cfscript>
 					kml='<p><a href="#application.serverRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>';
-					variables.joFileWriter.writeLine(a);      
+					variables.joFileWriter.writeLine(kml);      
 				</cfscript>
 			</cfif>
 			<cfloop query="sdet">
