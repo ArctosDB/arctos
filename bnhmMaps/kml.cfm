@@ -594,8 +594,7 @@
 				ended_date
 		</cfquery>
 		<cfscript>
-			kml=chr(10) & 
-				chr(9) & chr(9) & '<Folder>' & chr(10) &
+			kml=chr(9) & chr(9) & '<Folder>' & chr(10) &
 				chr(9) & chr(9) & chr(9) & '<name>#collection#</name>' & chr(10) &
 				chr(9) & chr(9) & chr(9) & '<visibility>1</visibility>';
 			variables.joFileWriter.writeLine(kml);      
@@ -618,8 +617,7 @@
 					collection
 			</cfquery>
 			<cfscript>
-				kml=chr(10) &
-					chr(9) & chr(9) & chr(9) & '<Placemark>' & chr(10) &
+				kml=chr(9) & chr(9) & chr(9) & '<Placemark>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '<name>#kmlStripper(spec_locality)# (#locality_id#)</name>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '<visibility>1</visibility>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & '<description>' & chr(10) &
@@ -628,27 +626,24 @@
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<end>#ended_date#</end>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</Timespan>' & chr(10) &
 					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<![CDATA[Datum: #datum#<br/>Error: #errorInMeters# m<br/>';
-				variables.joFileWriter.writeLine(kml);      
 			</cfscript>
 			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 				<cfscript>
-					kml='<p><a href="#application.serverRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>';
-					variables.joFileWriter.writeLine(kml);      
+					kml=kml & '<p><a href="#application.serverRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>';
 				</cfscript>
 			</cfif>
 			<cfloop query="sdet">
 				<cfscript>
-					kml='<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">' &
+					kml=kml & '<a href="#application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">' &
 						'#collection# #cat_num# (<em>#scientific_name#</em>)</a><br/>';
-					variables.joFileWriter.writeLine(kml);
 				</cfscript>				
 			</cfloop>
 			<cfscript>
-				kml=']]' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</description>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<Point>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#,0</coordinates>' & chr(10) &
-					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '</Point>';
+				kml=kml & ']]' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & '</description>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & '<Point>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#,0</coordinates>' & chr(10) &
+					chr(9) & chr(9) & chr(9) & chr(9) & '</Point>';
 				variables.joFileWriter.writeLine(kml);
 				if (isAcceptedLatLong is "yes") {
 					kml=chr(10) & 
