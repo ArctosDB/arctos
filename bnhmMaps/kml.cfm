@@ -349,9 +349,9 @@
 	<cfloop query="species">
 		<cfset thisName=replace(scientific_name," ","_","all")>
 		<cfscript>
-			kml = chr(10) & chr(9) & "<Folder>" & chr(10) &
-				chr(9) & chr(9) & '<name>#thisName#</name>' & chr(10) &
-				chr(9) & chr(9) & '<visibility>1</visibility>';
+			kml = chr(9) & chr(9) & "<Folder>" & chr(10) &
+				chr(9) & chr(9) & chr(9) & '<name>#thisName#</name>' & chr(10) &
+				chr(9) & chr(9) & chr(9) & '<visibility>1</visibility>';
 			variables.joFileWriter.writeLine(kml);
 		</cfscript>
 		<cfquery name="loc" dbtype="query">
