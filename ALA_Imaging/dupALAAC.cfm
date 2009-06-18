@@ -5,23 +5,27 @@
 			<cfargument name="minmax" type="string" required="yes">
 			<cfquery name="rec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select
+					cataloged_item.collection_object_id,
 					cat_num,
+					collection.collection,
 					scientific_name,
 					concatEncumbrances(cataloged_item.collection_object_id) encumbrances,
 					ConcatOtherId(cataloged_item.collection_object_id) otherids,
 					concatRelations(cataloged_item.collection_object_id) relations,
-					ConcatImageUrl(cataloged_item.collection_object_id) media,
+					getMediaBySpecimen('cataloged_item',cataloged_item.collection_object_id) media,
 					higher_geog,
 					spec_locality,
 					verbatim_date
 				from
 					cataloged_item,
+					collection,
 					identification,
 					collecting_event,
 					locality,
 					geog_auth_rec
 				where
 					cataloged_item.collection_object_id=identification.collection_object_id and
+					cataloged_item.collection_id=collection.collection_id and
 					identification.accepted_id_fg=1 and
 					cataloged_item.collecting_event_id=collecting_event.collecting_event_id and
 					collecting_event.locality_id=locality.locality_id and
@@ -33,10 +37,19 @@
 						display_value='#dv#'
 					)
 			</cfquery>
+			<cfset tnList="">
+			<cfif len(rec.media) gt 0>
+				<cfquery name="tn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select preview_uri from media where media_id in (#rec.media#)
+				</cfquery>
+				<cfloop query="tn">
+					<cfset tnList=tnList & '<img src="#preview_uri#" alt="NO PREVIEW">'>
+				</cfloop>
+			</cfif>
 			<cfsavecontent variable="theTable">
 				<table border>
 					<tr>
-						<td>cat_num: #rec.cat_num#</td>
+						<td>cat_num: <a href="/SpecimenDetail.cfm?collection_object_id=#rec.collection_object_id">#rec.collection# #rec.cat_num#</a></td>
 					</tr>
 					<tr>
 						<td>scientific_name: #rec.scientific_name#</td>
@@ -60,10 +73,8 @@
 						<td>verbatim_date: #rec.verbatim_date#</td>
 					</tr>							
 					<tr>
-						<td>media: #rec.media#</td>
-					</tr>
-					
-					
+						<td>media: #tnList#</td>
+					</tr>					
 				</table>
 			</cfsavecontent>
 			<cfreturn theTable>
