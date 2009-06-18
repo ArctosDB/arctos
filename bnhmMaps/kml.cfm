@@ -281,7 +281,7 @@
 					<td>
 						<select name="method" id="method">
 							<option <cfif method is "download"> selected="selected"</cfif> value="download">Download KML</option>
-							<option <cfif method is "link"> selected="selected"</cfif> value="link">Download linkfile</option>
+							<option <cfif method is "link"> selected="selected"</cfif> value="link">Download KML linkfile</option>
 							<option <cfif method is "gmap"> selected="selected"</cfif> value="gmap">Google Maps</option>
 						</select>
 					</td>
