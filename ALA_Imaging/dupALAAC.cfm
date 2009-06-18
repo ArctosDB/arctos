@@ -40,10 +40,10 @@
 			<cfset tnList="">
 			<cfif len(rec.media) gt 0>
 				<cfquery name="tn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select preview_uri from media where media_id in (#rec.media#)
+					select media_id,preview_uri from media where media_id in (#rec.media#)
 				</cfquery>
 				<cfloop query="tn">
-					<cfset tnList=tnList & '<img src="#preview_uri#" alt="NO PREVIEW">'>
+					<cfset tnList=tnList & '<a href="/MediaSearch.cfm?action=search&media_id=#media_id#"><img src="#preview_uri#" alt="[ NO PREVIEW ]"></a>'>
 				</cfloop>
 			</cfif>
 			<cfsavecontent variable="theTable">
