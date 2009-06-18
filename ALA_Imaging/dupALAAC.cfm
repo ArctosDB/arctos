@@ -57,9 +57,17 @@
 						<table border>
 							<tr>
 								<td>cat_num: #cat_num#</td>
-								<td>scientific_name: #scientific_name#	</td>
+							</tr>
+							<tr>
+								<td>scientific_name: #scientific_name#</td>
+							</tr>
+							<tr>
 								<td>encumbrances: #encumbrances#</td>
+							</tr>
+							<tr>
 								<td>otherids: #otherids#</td>
+							</tr>
+							<tr>
 								<td>relations: #relations#</td>
 							</tr>
 						</table>
@@ -71,9 +79,17 @@
 						<table border>
 							<tr>
 								<td>cat_num: #cat_num#</td>
-								<td>scientific_name: #scientific_name#	</td>
+							</tr>
+							<tr>
+								<td>scientific_name: #scientific_name#</td>
+							</tr>
+							<tr>
 								<td>encumbrances: #encumbrances#</td>
+							</tr>
+							<tr>
 								<td>otherids: #otherids#</td>
+							</tr>
+							<tr>
 								<td>relations: #relations#</td>
 							</tr>
 						</table>
