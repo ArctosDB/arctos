@@ -101,7 +101,7 @@
 					<table border>
 						<tr>
 							<td>
-								ALAAC #ALAAC#: <a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#institution_acronym# #collection_cde# #cat_num#</a>
+								ALAAC #ALAAC#: <a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection# #collection_cde# #cat_num#</a>
 							</td> 
 							<td>
 								#scientific_name#
@@ -142,7 +142,7 @@
 					<table border>
 						<tr>
 							<td>
-								ALAAC #recTwo.ALAAC#: <a href="/SpecimenDetail.cfm?collection_object_id=#recTwo.collection_object_id#">#recTwo.institution_acronym# #recTwo.collection_cde# #recTwo.cat_num#</a>
+								ALAAC #recTwo.ALAAC#: <a href="/SpecimenDetail.cfm?collection_object_id=#recTwo.collection_object_id#">#recTwo.collection# #recTwo.collection_cde# #recTwo.cat_num#</a>
 							</td>
 							<td>
 								<span class="
