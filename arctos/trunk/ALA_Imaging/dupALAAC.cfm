@@ -35,28 +35,28 @@
 			<cfsavecontent variable="theTable">
 				<table border>
 					<tr>
-						<td>cat_num: #cat_num#</td>
+						<td>cat_num: #rec.cat_num#</td>
 					</tr>
 					<tr>
-						<td>scientific_name: #scientific_name#</td>
+						<td>scientific_name: #rec.scientific_name#</td>
 					</tr>
 					<tr>
-						<td>encumbrances: #encumbrances#</td>
+						<td>encumbrances: #rec.encumbrances#</td>
 					</tr>
 					<tr>
-						<td>otherids: #otherids#</td>
+						<td>otherids: #rec.otherids#</td>
 					</tr>
 					<tr>
-						<td>relations: #relations#</td>
+						<td>relations: #rec.relations#</td>
 					</tr>							
 					<tr>
-						<td>higher_geog: #higher_geog#</td>
+						<td>higher_geog: #rec.higher_geog#</td>
 					</tr>							
 					<tr>
-						<td>spec_locality: #spec_locality#</td>
+						<td>spec_locality: #rec.spec_locality#</td>
 					</tr>							
 					<tr>
-						<td>verbatim_date: #verbatim_date#</td>
+						<td>verbatim_date: #rec.verbatim_date#</td>
 					</tr>			
 				</table>
 			</cfsavecontent>
