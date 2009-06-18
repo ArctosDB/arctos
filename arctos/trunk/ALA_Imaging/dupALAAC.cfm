@@ -7,18 +7,15 @@
 				select
 					cat_num,
 					scientific_name,
-					display_value,
 					concatEncumbrances(cataloged_item.collection_object_id) encumbrances,
 					ConcatOtherId(cataloged_item.collection_object_id) otherids,
 					concatRelations(cataloged_item.collection_object_id) relations
 				from
 					cataloged_item,
-					identification,
-					coll_obj_other_id_num
+					identification
 				where
 					cataloged_item.collection_object_id=identification.collection_object_id and
 					identification.accepted_id_fg=1 and
-					cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
 					cataloged_item.collection_object_id=
 					(
 						select #minmax#(collection_object_id) from coll_obj_other_id_num where
