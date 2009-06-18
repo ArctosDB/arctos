@@ -135,7 +135,7 @@
 				<td>
 				<cfquery name="recTwo" dbtype="query">
 					select * from data where
-					and ALAAC='#ALAAC#'
+					ALAAC='#ALAAC#'
 					and collection_object_id <> #collection_object_id#
 				</cfquery>
 				<cfif #dgr.recordcount# is 1>
