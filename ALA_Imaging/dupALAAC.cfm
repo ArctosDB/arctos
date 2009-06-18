@@ -1,24 +1,30 @@
 <cfinclude template="/includes/_header.cfm">
-	<cffunction name="getRec">
-		<cfargument name="colobjid" type="numeric" required="yes">
-		<cfquery name="rec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select
-				cat_num,
-				scientific_name,
-				display_value
-			from
-				cataloged_item,
-				identification,
-				coll_obj_other_id_num
-			where
-				cataloged_item.collection_object_id=identification.collection_object_id and
-				cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
-				cataloged_item.collection_object_id=#colobjid#
-		</cfquery>
-		<cfreturn rec>
-	</cffunction>
-	<cfset limit=20>
 	<cfoutput>
+		<cffunction name="getRec">
+			<cfargument name="dv" type="string" required="yes">
+			<cfargument name="minmax" type="string" required="yes">
+			<cfquery name="rec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select
+					cat_num,
+					scientific_name,
+					display_value
+				from
+					cataloged_item,
+					identification,
+					coll_obj_other_id_num
+				where
+					cataloged_item.collection_object_id=identification.collection_object_id and
+					cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
+					cataloged_item.collection_object_id=
+					(
+						select #minmax#(collection_object_id) from coll_obj_other_id_num where
+						other_id_type='ALAAC' and
+						display_value='#dv#'
+					)
+			</cfquery>
+			<cfreturn rec>
+		</cffunction>
+		<cfset limit=20>
 		<cfquery name="dupRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from (	
 				select 
@@ -42,23 +48,14 @@
 					#display_value#
 				</td>
 				<td>
-					<cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-						select min(collection_object_id) collection_object_id from coll_obj_other_id_num where other_id_type='ALAAC' and
-						display_value='#display_value#'
-					</cfquery>
-					<cfset recOne=getRec(one.collection_object_id)>
+					<cfset recOne=getRec('#display_value#','min')>
 					<cfloop query="recOne">
 						cat_num: #cat_num#
 						<br>scientific_name: #scientific_name#
 					</cfloop>
 				</td>
 				<td>
-					<cfquery name="two" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-						select max(collection_object_id) collection_object_id from coll_obj_other_id_num where 
-						other_id_type='ALAAC' and
-						display_value='#display_value#'
-					</cfquery>
-					<cfset recTwo=getRec(two.collection_object_id)>
+					<cfset recTwo=getRec('#display_value#','max')>
 					<cfloop query="recTwo">
 						cat_num: #cat_num#
 						<br>scientific_name: #scientific_name#
