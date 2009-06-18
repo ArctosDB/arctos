@@ -1,6 +1,6 @@
 <!--- take a string of non-DGR collection_object_id's, see if there's an equivilant --->
 <cfset sql="
-	SELECT
+	SELECT distinct
 		collection.collection,
 		cataloged_item.cat_num,
 		cataloged_item.collection_object_id as collection_object_id,
