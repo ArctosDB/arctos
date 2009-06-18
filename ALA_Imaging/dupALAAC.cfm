@@ -47,7 +47,7 @@
 						display_value='#display_value#'
 					</cfquery>
 					<cfset recOne=getRec(one.collection_object_id)>
-					<cfloop query="one">
+					<cfloop query="recOne">
 						cat_num: #cat_num#
 						<br>scientific_name: #scientific_name#
 					</cfloop>
@@ -59,7 +59,7 @@
 						display_value='#display_value#'
 					</cfquery>
 					<cfset recTwo=getRec(two.collection_object_id)>
-					<cfloop query="two">
+					<cfloop query="recTwo">
 						cat_num: #cat_num#
 						<br>scientific_name: #scientific_name#
 					</cfloop>
