@@ -31,7 +31,7 @@
 					cataloged_item.collecting_event_id=collecting_event.collecting_event_id and
 					collecting_event.locality_id=locality.locality_id and
 					locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
-					cataloged_item.collection_object_id.media_relations.related_primary_key and
+					cataloged_item.collection_object_id = media_relations.related_primary_key and
 					media_relations.media_relationship like '% cataloged_item' and 
 					cataloged_item.collection_object_id=
 					(
