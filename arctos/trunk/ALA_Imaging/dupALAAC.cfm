@@ -95,7 +95,7 @@
 				where
 					other_id_type='ALAAC' and
 					coll_obj_other_id_num.collection_object_id = media_relations.related_primary_key and
-					media_relations.media_relationship like '% cataloged_item' and 
+					media_relations.media_relationship like '% cataloged_item' 
 				having
 					count(*) > 1
 				group by
