@@ -10,7 +10,7 @@
 					concatEncumbrances(cataloged_item.collection_object_id) encumbrances,
 					ConcatOtherId(cataloged_item.collection_object_id) otherids,
 					concatRelations(cataloged_item.collection_object_id) relations,
-					ConcatImageUrl(cataloged_item.collection_object_id) media
+					ConcatImageUrl(cataloged_item.collection_object_id) media,
 					higher_geog,
 					spec_locality,
 					verbatim_date
