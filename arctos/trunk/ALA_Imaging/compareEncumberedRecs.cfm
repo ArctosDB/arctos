@@ -1,7 +1,7 @@
 <!--- take a string of non-DGR collection_object_id's, see if there's an equivilant --->
 <cfset sql="
-	SELECT DISTINCT
-		collection,
+	SELECT
+		collection.collection,
 		cataloged_item.cat_num,
 		cataloged_item.collection_object_id as collection_object_id,
 		cataloged_item.collection_cde,
@@ -55,7 +55,7 @@
 		cataloged_item.collection_object_id=coll_object_encumbrance.collection_object_id and
 		cataloged_item.collection_object_id in 
 			(select 
-				COLLECTION_OBJECT_ID 
+				coll_object_encumbrance.COLLECTION_OBJECT_ID 
 			from
 				BIOL_INDIV_RELATIONS,
 				coll_object_encumbrance
@@ -64,7 +64,7 @@
 				coll_object_encumbrance.encumbrance_id=1000025
 			union all
 			select 
-				RELATED_COLL_OBJECT_ID 
+				BIOL_INDIV_RELATIONS.RELATED_COLL_OBJECT_ID 
 			from
 				BIOL_INDIV_RELATIONS,
 				coll_object_encumbrance
