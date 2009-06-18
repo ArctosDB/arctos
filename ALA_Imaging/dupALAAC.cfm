@@ -14,7 +14,8 @@
 				cataloged_item.collection_object_id=identification.collection_object_id and
 				cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
 				cataloged_item.collection_object_id=#colobjid#
-		</cfquery>	
+		</cfquery>
+		<cfreturn rec>
 	</cffunction>
 	<cfset limit=20>
 	<cfoutput>
