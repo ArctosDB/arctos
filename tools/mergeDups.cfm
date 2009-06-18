@@ -14,13 +14,19 @@
 			concatencumbrances(cataloged_item.collection_object_id) encumbrances,
 			scientific_name,
 			RELATED_COLL_OBJECT_ID,
-			flags
+			flags,
+			nvl(p1.label,'NOLABEL') p1l,
+			nvl(p2.label,'NOLABEL') p2l,
 		FROM
 			collection,
 			cataloged_item,
 			coll_object,
 			identification,
-			biol_indiv_relations
+			biol_indiv_relations,
+			coll_obj_cont_hist,
+			container c,
+			container p1,
+			container p2
 		where
 			cataloged_item.collection_id = collection.collection_id and
 			collection.collection_id =6 and
@@ -28,6 +34,10 @@
 			cataloged_item.collection_object_id = coll_object.collection_object_id and
 			accepted_id_fg=1 and
 			cataloged_item.collection_object_id = biol_indiv_relations.collection_object_id and
+			cataloged_item.collection_object_id = coll_obj_cont_hist.collection_object_id (+) and
+			coll_obj_cont_hist.container_id=c.container_id (+) and
+			c.parent_container_id=p1.container_id (+) and
+			p1.parent_container_id=p2.container_id (+) and
 			BIOL_INDIV_RELATIONSHIP = 'same individual as' and
 			coll_object.flags is null and
 			concatencumbrances(cataloged_item.collection_object_id) is null and
@@ -50,18 +60,27 @@
 					concatSingleOtherId(cataloged_item.collection_object_id,'#session.customOtherIdentifier#') AS CustomID,
 					concatencumbrances(cataloged_item.collection_object_id) encumbrances,
 					scientific_name,
-					flags
+					flags,
+			nvl(p1.label,'NOLABEL') p1l,
+			nvl(p2.label,'NOLABEL') p2l,
 				FROM
 					collection,
 					cataloged_item,
 					coll_object,
-					identification
+					identification,
+			coll_obj_cont_hist,
+			container c,
+			container p1,
+			container p2
 				where
 					cataloged_item.collection_id = collection.collection_id and
 					cataloged_item.collection_object_id = identification.collection_object_id and
 					accepted_id_fg=1 and
-					cataloged_item.collection_object_id = coll_object.collection_object_id and
-					flags is null and
+					cataloged_item.collection_object_id = coll_object.collection_object_id and and
+			cataloged_item.collection_object_id = coll_obj_cont_hist.collection_object_id (+) and
+			coll_obj_cont_hist.container_id=c.container_id (+) and
+			c.parent_container_id=p1.container_id (+) and
+			p1.parent_container_id=p2.container_id (+) and
 					cataloged_item.collection_object_id = #RELATED_COLL_OBJECT_ID#
 			</cfquery>
 			<tr>
@@ -70,6 +89,7 @@
 						(#session.customOtherIdentifier# #CustomID#) <em>#scientific_name#</em>
 					<br>#flags#
 					<br>#encumbrances#
+					<br>#p1l#>#p2l#
 				</td>
 				<td>
 					<a href="/SpecimenDetail.cfm?collection_object_id=#dupRec.collection_object_id#">
@@ -79,6 +99,7 @@
 					<em>#dupRec.scientific_name#</em>
 					<br>#duprec.flags#
 					<br>#dupRec.encumbrances#
+					<br>#dupRec.p1l#>#dupRec.p2l#
 				</td>
 				<td>
 					<cfif len(#dupRec.collection_object_id#) gt 0 and
