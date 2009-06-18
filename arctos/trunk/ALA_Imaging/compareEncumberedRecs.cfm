@@ -51,7 +51,7 @@
 		locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id and
 		cataloged_item.collection_object_id = coll_object.collection_object_id and
 		cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
-		locality.locality_id = accepted_lat_long.locality_id and
+		locality.locality_id = accepted_lat_long.locality_id (+) and
 		cataloged_item.collection_object_id=coll_object_encumbrance.collection_object_id and
 		cataloged_item.collection_object_id in 
 			(select 
