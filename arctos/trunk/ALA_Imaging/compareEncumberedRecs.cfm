@@ -46,7 +46,7 @@
 		cataloged_item.collection_id = collection.collection_id and
 		cataloged_item.collection_object_id = identification.collection_object_id and		
 		identification.accepted_id_fg = 1 AND
-		cataloged_item.collecting_event_id = collecting_event.collecting_event_id
+		cataloged_item.collecting_event_id = collecting_event.collecting_event_id AND
 		collecting_event.locality_id = locality.locality_id and
 		locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id and
 		cataloged_item.collection_object_id = coll_object.collection_object_id and
