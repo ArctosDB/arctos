@@ -22,7 +22,8 @@
 					identification,
 					collecting_event,
 					locality,
-					geog_auth_rec
+					geog_auth_rec,
+					media_relations
 				where
 					cataloged_item.collection_object_id=identification.collection_object_id and
 					cataloged_item.collection_id=collection.collection_id and
@@ -30,6 +31,8 @@
 					cataloged_item.collecting_event_id=collecting_event.collecting_event_id and
 					collecting_event.locality_id=locality.locality_id and
 					locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
+					cataloged_item.collection_object_id.media_relations.related_primary_key and
+					media_relations.media_relationship like '% cataloged_item' and 
 					cataloged_item.collection_object_id=
 					(
 						select #minmax#(collection_object_id) from coll_obj_other_id_num where
@@ -50,7 +53,6 @@
 				<table border>
 					<tr>
 						<td>
-							cat_num: 
 							<a href="/SpecimenDetail.cfm?collection_object_id=#rec.collection_object_id#">
 								#rec.collection# #rec.cat_num#
 							</a>
