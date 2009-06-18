@@ -23,6 +23,7 @@
 			biol_indiv_relations
 		where
 			cataloged_item.collection_id = collection.collection_id and
+			collection.collection_id =6 and
 			cataloged_item.collection_object_id = identification.collection_object_id and
 			cataloged_item.collection_object_id = coll_object.collection_object_id and
 			accepted_id_fg=1 and
@@ -64,10 +65,20 @@
 					cataloged_item.collection_object_id = #RELATED_COLL_OBJECT_ID#
 			</cfquery>
 			<tr>
-				<td><a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection# #cat_num#</a> (#session.customOtherIdentifier# #CustomID#) <em>#scientific_name#</em></td>
-				<td><a href="/SpecimenDetail.cfm?collection_object_id=#dupRec.collection_object_id#">#dupRec.collection# #dupRec.cat_num#</a>
+				<td>
+					<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection# #cat_num#</a>
+						(#session.customOtherIdentifier# #CustomID#) <em>#scientific_name#</em>
+					<br>#flags#
+					<br>#encumbrances#
+				</td>
+				<td>
+					<a href="/SpecimenDetail.cfm?collection_object_id=#dupRec.collection_object_id#">
+						#dupRec.collection# #dupRec.cat_num#
+					</a>
 					(#session.customOtherIdentifier# #dupRec.CustomID#) 
 					<em>#dupRec.scientific_name#</em>
+					<br>#duprec.flags#
+					<br>#dupRec.encumbrances#
 				</td>
 				<td>
 					<cfif len(#dupRec.collection_object_id#) gt 0 and
