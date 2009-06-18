@@ -27,7 +27,7 @@
 			cataloged_item.collection_object_id = coll_object.collection_object_id and
 			accepted_id_fg=1 and
 			cataloged_item.collection_object_id = biol_indiv_relations.collection_object_id and
-			BIOL_INDIV_RELATIONSHIP = 'duplicate of' and
+			BIOL_INDIV_RELATIONSHIP = 'same individual as' and
 			coll_object.flags is null and
 			concatencumbrances(cataloged_item.collection_object_id) is null and
 			rownum < 100
