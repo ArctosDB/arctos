@@ -98,6 +98,8 @@
 					media_relations.media_relationship like '% cataloged_item' 
 				having
 					count(*) > 1
+				order by
+					display_value
 				group by
 					display_value
 			) where rownum < #limit#
