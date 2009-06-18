@@ -54,21 +54,29 @@
 				<td>
 					<cfset recOne=getRec('#display_value#','min')>
 					<cfloop query="recOne">
-						cat_num: #cat_num#
-						<br>scientific_name: #scientific_name#						
-						<br>encumbrances: #encumbrances#
-						<br>otherids: #otherids#
-						<br>relations: #relations#
+						<table border>
+							<tr>
+								<td>cat_num: #cat_num#</td>
+								<td>scientific_name: #scientific_name#	</td>
+								<td>encumbrances: #encumbrances#</td>
+								<td>otherids: #otherids#</td>
+								<td>relations: #relations#</td>
+							</tr>
+						</table>
 					</cfloop>
 				</td>
 				<td>
 					<cfset recTwo=getRec('#display_value#','max')>
 					<cfloop query="recTwo">
-						cat_num: #cat_num#
-						<br>scientific_name: #scientific_name#						
-						<br>encumbrances: #encumbrances#
-						<br>otherids: #otherids#
-						<br>relations: #relations#
+						<table border>
+							<tr>
+								<td>cat_num: #cat_num#</td>
+								<td>scientific_name: #scientific_name#	</td>
+								<td>encumbrances: #encumbrances#</td>
+								<td>otherids: #otherids#</td>
+								<td>relations: #relations#</td>
+							</tr>
+						</table>
 					</cfloop>
 				</td>
 			</tr>
