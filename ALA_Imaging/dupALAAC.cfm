@@ -47,7 +47,7 @@
 				</cfloop>
 			</cfif>
 			<cfsavecontent variable="theTable">
-				<table border>
+				<table>
 					<tr>
 						<td>
 							<a href="/SpecimenDetail.cfm?collection_object_id=#rec.collection_object_id#">
@@ -109,11 +109,11 @@
 				<td>
 					#display_value#
 				</td>
-				<td>
+				<td valign="top">
 					<cfset recOne=getRec('#display_value#','min')>
 					#recOne#
 				</td>
-				<td>
+				<td valign="top">
 					<cfset recTwo=getRec('#display_value#','max')>
 					#recTwo#
 				</td>
