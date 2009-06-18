@@ -10,6 +10,7 @@
 					concatEncumbrances(cataloged_item.collection_object_id) encumbrances,
 					ConcatOtherId(cataloged_item.collection_object_id) otherids,
 					concatRelations(cataloged_item.collection_object_id) relations,
+					ConcatImageUrl(cataloged_item.collection_object_id) media
 					higher_geog,
 					spec_locality,
 					verbatim_date
@@ -57,7 +58,12 @@
 					</tr>							
 					<tr>
 						<td>verbatim_date: #rec.verbatim_date#</td>
-					</tr>			
+					</tr>							
+					<tr>
+						<td>media: #rec.media#</td>
+					</tr>
+					
+					
 				</table>
 			</cfsavecontent>
 			<cfreturn theTable>
