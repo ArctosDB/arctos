@@ -49,7 +49,12 @@
 			<cfsavecontent variable="theTable">
 				<table border>
 					<tr>
-						<td>cat_num: <a href="/SpecimenDetail.cfm?collection_object_id=#rec.collection_object_id">#rec.collection# #rec.cat_num#</a></td>
+						<td>
+							cat_num: 
+							<a href="/SpecimenDetail.cfm?collection_object_id=#rec.collection_object_id#">
+								#rec.collection# #rec.cat_num#
+							</a>
+						</td>
 					</tr>
 					<tr>
 						<td>scientific_name: #rec.scientific_name#</td>
