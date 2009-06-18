@@ -72,7 +72,6 @@
 				BIOL_INDIV_RELATIONSHIP.RELATED_COLL_OBJECT_ID=coll_object_encumbrance.COLLECTION_OBJECT_ID and
 				coll_object_encumbrance.encumbrance_id=1000025
 			)
-				
 	ORDER BY
 		cat_num">
 <cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
