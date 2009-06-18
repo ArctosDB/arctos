@@ -57,19 +57,19 @@
 			(select 
 				COLLECTION_OBJECT_ID 
 			from
-				BIOL_INDIV_RELATIONSHIP,
+				BIOL_INDIV_RELATIONS,
 				coll_object_encumbrance
 			where
-				BIOL_INDIV_RELATIONSHIP.COLLECTION_OBJECT_ID=coll_object_encumbrance.COLLECTION_OBJECT_ID and
+				BIOL_INDIV_RELATIONS.COLLECTION_OBJECT_ID=coll_object_encumbrance.COLLECTION_OBJECT_ID and
 				coll_object_encumbrance.encumbrance_id=1000025
 			union all
 			select 
 				RELATED_COLL_OBJECT_ID 
 			from
-				BIOL_INDIV_RELATIONSHIP,
+				BIOL_INDIV_RELATIONS,
 				coll_object_encumbrance
 			where
-				BIOL_INDIV_RELATIONSHIP.RELATED_COLL_OBJECT_ID=coll_object_encumbrance.COLLECTION_OBJECT_ID and
+				BIOL_INDIV_RELATIONS.RELATED_COLL_OBJECT_ID=coll_object_encumbrance.COLLECTION_OBJECT_ID and
 				coll_object_encumbrance.encumbrance_id=1000025
 			)
 	ORDER BY
