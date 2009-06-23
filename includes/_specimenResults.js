@@ -37,6 +37,12 @@ function insertTypes(idList) {
 	);
 }
 function success_insertTypes (result) {
+	
+	 $.each(result.items, function(i,item){
+         console.log('here it comes');
+		 console.log(item.collection_object_id);
+       });
+
 	console.log(result);
 	var sBox=document.getElementById('ajaxStatus');
 	try{
