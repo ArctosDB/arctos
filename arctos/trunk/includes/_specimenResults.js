@@ -148,84 +148,63 @@ function makePartThingy() {
 	//alert('makePartThingy');
 	var transaction_id = document.getElementById("transaction_id").value;
 	//alert(transaction_id);
-	DWREngine._execute(_cfscriptLocation, null, 'getLoanPartResults', transaction_id, success_makePartThingy);
-	
+	$.getJSON("/component/functions.cfc",
+		{
+			method : "getLoanPartResults",
+			transaction_id : transaction_id,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_makePartThingy
+	);	
 }
 function success_makePartThingy(result){
-	//alert('got num recs: ' + result.length);
 	var lastID;
-	for (i=0; i<result.length; ++i) {
-		//alert(result[i].COLLECTION_OBJECT_ID);
-		var cid = 'partCell_' + result[i].COLLECTION_OBJECT_ID;
-		//alert(cid);
-		// if the partCell does not exist, it is because of paging - ignore
+	for (i=0; i<result.ROWCOUNT; ++i) {
+		var cid = 'partCell_' + result.DATA.collection_object_id[i];
 		if (document.getElementById(cid)){
 			var theCell = document.getElementById(cid);
 			theCell.innerHTML='Fetching loan data....';
-		//theCell.innerHTML='blabity';
-		if (lastID == result[i].COLLECTION_OBJECT_ID) {
-			// on the same record we were the last loop - do NOT start a new table
-			//alert('new row');
+		if (lastID == result.DATA.collection_object_id[i]) {
 			theTable += "<tr>";
-	
 		} else {
-			// new record, new table
-			//alert('new table');
 			var theTable = "<table border><tr>";
 		}
-		// guts
 		theTable += '<td nowrap="nowrap" class="specResultPartCell">';
-		theTable += '<i>' + result[i].PART_NAME;
-		if (result[i].SAMPLED_FROM_OBJ_ID > 0) {
+		theTable += '<i>' + result.DATA.part_name[i];
+		if (result.DATA.sampled_from_obj_id[i] > 0) {
 			theTable += '&nbsp;sample';
 		}
-		theTable += "&nbsp;(" + result[i].COLL_OBJ_DISPOSITION + ")</i>";
-		
-			// options to add
-			theTable += '&nbsp;Remark:&nbsp;<input type="text" name="item_remark" size="10" id="item_remark_' + result[i].PARTID + '">';
-			theTable += '&nbsp;Instr.:&nbsp;<input type="text" name="item_instructions" size="10" id="item_instructions_' + result[i].PARTID + '">';
-			theTable += '&nbsp;Subsample?:&nbsp;<input type="checkbox" name="subsample" id="subsample_' + result[i].PARTID + '">';
-			theTable += '&nbsp;&nbsp;<input type="button" id="theButton_' + result[i].PARTID + '"';
-			theTable += 'class="insBtn" onmouseover="this.className=';
-			theTable += "'insBtn btnhov'";
-			theTable += '" onmouseout="';
-			theTable += "this.className='insBtn'";
-   			theTable += '"';
-			if (result[i].TRANSACTION_ID > 0) {
-				theTable += ' onclick="" value="In Loan">';
-			} else {
-				theTable += ' value="Add" onclick="addPartToLoan(';
-				theTable += result[i].PARTID + ');">';
-			}
-			if (result[i].ENCUMBRANCE_ACTION.length > 0) {
-				theTable += '<br><i>Encumbrances:&nbsp;' + result[i].ENCUMBRANCE_ACTION + '</i>';
-			}
+		theTable += "&nbsp;(" + result.DATA.coll_obj_disposition[i] + ")</i>";
+		theTable += '&nbsp;Remark:&nbsp;<input type="text" name="item_remark" size="10" id="item_remark_' + result.DATA.partid[i] + '">';
+		theTable += '&nbsp;Instr.:&nbsp;<input type="text" name="item_instructions" size="10" id="item_instructions_' + result.DATA.partid[i] + '">';
+		theTable += '&nbsp;Subsample?:&nbsp;<input type="checkbox" name="subsample" id="subsample_' + result.DATA.partid[i] + '">';
+		theTable += '&nbsp;&nbsp;<input type="button" id="theButton_' + result.DATA.partid[i] + '"';
+		theTable += 'class="insBtn" onmouseover="this.className=';
+		theTable += "'insBtn btnhov'";
+		theTable += '" onmouseout="';
+		theTable += "this.className='insBtn'";
+		theTable += '"';
+		if (result.DATA.transaction_id[i] > 0) {
+			theTable += ' onclick="" value="In Loan">';
+		} else {
+			theTable += ' value="Add" onclick="addPartToLoan(';
+			theTable += result.DATA.partid[i] + ');">';
+		}
+		if (result.DATA.encumbrance_action[i].length > 0) {
+			theTable += '<br><i>Encumbrances:&nbsp;' + result.DATA.encumbrance_action[i] + '</i>';
+		}
 		theTable +="</td>";
-		// finish up
-		if (result[i+1] && result[i+1].COLLECTION_OBJECT_ID == result[i].COLLECTION_OBJECT_ID) {
-			// next record will be same specimen as this one
-			//alert('close row');
+		if (result[i+1] && result.DATA.collection_object_id[i+1] == result.DATA.collection_object_id[i]) {
 			theTable += "</tr>";
 		} else {
-			// done with this specimen
 			theTable += "</tr></table>";
-			//alert('close and append table');
-			//alert(theTable);
 			theCell.innerHTML = theTable;
 		}
-		
-			
-	
-		
-		//alert("lastID: " + lastID + ";currID: " + result[i].COLLECTION_OBJECT_ID);
-		// reset for next loop
-		lastID = result[i].COLLECTION_OBJECT_ID;
+		lastID = result.DATA.collection_object_id[i];
 	} else {
-		//the current item is not on the current page - ignore
-		//alert('cannot find ' + cid + ' it is on the next page');
 		}
 	}
-	//alert(result);
 }
 
 function cordFormat(str) {
@@ -1060,10 +1039,7 @@ function success_getSpecResultsData(result){
 				}
 			theInnerHtml += '</tr>';
 		}
-		
-		
 		theInnerHtml += '</table>';
-		//alert(theInnerHtml);
 		tgt.innerHTML = theInnerHtml;
 		if (action == 'dispCollObj'){
 			makePartThingy();
@@ -1072,44 +1048,31 @@ function success_getSpecResultsData(result){
 		insertTypes(orderedCollObjIdList);
 	}
 }
-
 function ssvar (startrow,maxrows) {
 	alert(startrow + ' ' + maxrows);
 	var s_startrow = document.getElementById('s_startrow');
 	var s_torow = document.getElementById('s_torow');
 	s_startrow.innerHTML = startrow;
 	s_torow.innerHTML = parseInt(startrow) + parseInt(maxrows) -1;
-	DWREngine._execute(_cfscriptLocation, null, 'ssvar',startrow,maxrows, success_ssvar);
+	$.getJSON("/component/functions.cfc",
+		{
+			method : "ssvar",
+			startrow : startrow,
+			maxrows : maxrows,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+	success_ssvar
+	);
 }
-
-
 function success_ssvar(result){
 	alert(result);
-	
 	ahah('SpecimenResultsTable.cfm','resultsTable');
 }
-
-function setClientDetailLevel (level, map_url) {
-	DWREngine._execute(_cfscriptLocation, null, 'setClientDetailLevel',level, map_url,success_setClientDetailLevel);
-}
-
-function success_setClientDetailLevel(result){
-	//alert(result);
-	var ra = result.split('|');
-	var l = ra[0];
-	var u = ra[1];
-	document.location='SpecimenResults2.cfm?detail_level=' + l + '&' + u;
-	//ahah('SpecimenResultsTable.cfm','resultsTable');
-}
-
 function jumpToPage (v) {
-	//alert(v);
 	var a = v.split(",");
-	//alert(a);
 	var p = a[0];
-	//alert(p);
 	var m=a[1];
-	//alert(m);
 	ssvar(p,m);
 }
 function openCustomize() {
