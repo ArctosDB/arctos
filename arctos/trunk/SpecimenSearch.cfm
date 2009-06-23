@@ -53,7 +53,7 @@
 		</td>
 	</tr>
 </table>	
-<cfform method="post" action="SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues()">
+<form method="post" action="SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues()">
 <table border="0">
 	<tr>
 		<td valign="top">
@@ -400,7 +400,7 @@
 	<input type="hidden" name="transaction_id" value="#transaction_id#">
 </cfif>
 <input type="hidden" name="newQuery" value="1"><!--- pass this to the next form so we clear the cache and run the proper queries--->
-</cfform>
+</form>
 </cfoutput> 
 <script type='text/javascript' language='javascript'>
 	var tval = document.getElementById('tgtForm').value;
