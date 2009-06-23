@@ -37,9 +37,11 @@ function insertTypes(idList) {
 	);
 }
 function success_insertTypes (result) {
+	console.log(result);
 	var sBox=document.getElementById('ajaxStatus');
 	try{
 	sBox.innerHTML='Processing Types....';
+	result=evaluate(result);
 	for (i=0; i<result.length; ++i) {
 		var sid=result[i].COLLECTION_OBJECT_ID;
 		console.log('sid: ' + sid);
