@@ -49,7 +49,7 @@ function success_insertTypes (result) {
 	for (i=0; i<result.ROWCOUNT; ++i) {
 		var sid=result.DATA.collection_object_id[i];
 		console.log('sid: ' + sid);
-		var tl=result.DATA.typelist[i];
+		var tl=result.DATA.typeList[i];
 		var sel='CatItem_' + sid;
 		if (sel.length>0){
 			var el=document.getElementById(sel);
