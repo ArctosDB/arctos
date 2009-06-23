@@ -41,7 +41,7 @@ function success_insertTypes (result) {
 	var sBox=document.getElementById('ajaxStatus');
 	try{
 	sBox.innerHTML='Processing Types....';
-	result=evaluate(result);
+	result=eval(result);
 	console.log(result);
 	for (i=0; i<result.length; ++i) {
 		var sid=result[i].COLLECTION_OBJECT_ID;
