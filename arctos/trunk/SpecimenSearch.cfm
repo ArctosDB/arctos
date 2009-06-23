@@ -3,6 +3,7 @@
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>
 <script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>
+<script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery-autocomplete.js'></script>
 <cfoutput>	
 <cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select count(collection_object_id) as cnt from cataloged_item
@@ -277,9 +278,16 @@
 				<span class="helpLink" id="part_name">Part Name:</span>
 			</td>
 			<td class="srch">
+					<input type="text" name="partname" id="partname">
+				<span class="infoLink" onclick="getCtDoc('ctspecimen_part_name',SpecData.partname.value);">Define</span>
+				<span class="infoLink" onclick="var e=document.getElementById('partname');e.value='='+e.value;">Add = for exact match</span>
+			
+				
+				<!---
 				<cfinput type="text" autosuggest="#partlist#" name="partname" id="partname" delimiter="\">
 				<span class="infoLink" onclick="getCtDoc('ctspecimen_part_name',SpecData.partname.value);">Define</span>
 				<span class="infoLink" onclick="var e=document.getElementById('partname');e.value='='+e.value;">Add = for exact match</span>
+				--->
 			</td>
 		</tr>
 	</table>

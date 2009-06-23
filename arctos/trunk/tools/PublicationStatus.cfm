@@ -3,17 +3,14 @@
 <cfparam name="order_by" default="gbi_id">
 <cfparam name="order_order" default="DESC">
 <cfoutput>
-
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from cf_genbank_info
 	ORDER BY #order_by# #order_order#
 </cfquery>
-
 <!---------------- new record -------------------->
 <table border class="newRec">
 		<form name="new" method="post" action="PublicationStatus.cfm">
-			<input type="hidden" name="action" value="newRec">
-		
+			<input type="hidden" name="action" value="newRec">		
 		<tr>
 			<td>
 				<font size="-1">Citation<br></font>
@@ -81,7 +78,6 @@
 Existing Publications
 <hr>
 	<table border>
-		
 	<cfset i=1>
 	<cfloop query="d">
 		<form name="p#i#" method="post" action="PublicationStatus.cfm">
