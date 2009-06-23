@@ -11,6 +11,20 @@ jQuery( function($) {
 		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
 	});
 	
+	$("#partname").autocomplete(["c++", "java", "php", "coldfusion", "javascript", "asp"], {
+		width: 320,
+		max: 4,
+		highlight: false,
+		multiple: true,
+		multipleSeparator: " ",
+		scroll: true,
+		scrollHeight: 300
+	});
+	
+
+	
+	
+	
 	$("#c_collection_cust").click(function(e){
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';

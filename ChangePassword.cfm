@@ -97,7 +97,7 @@
 	</cfquery>
 	<cfif hash(oldpassword) is not getpass.password>
 		<span style="background-color:red;">
-			Incorrect password. <a href="ChangePassword.cfm">Go Back</a>
+			Incorrect old password. <a href="ChangePassword.cfm">Go Back</a>
 		</span>
 		<cfabort>
 	<cfelseif getpass.password is hash(newpassword)>
@@ -179,7 +179,6 @@ You will be redirected soon, or you may use the menu above now.
 	setTimeout("go_now()",5000);
 	function go_now () {
 		document.location='#Application.ServerRootUrl#/myArctos.cfm';
-		//alert('go');
 	}
 </script>
 </cfoutput>
@@ -203,22 +202,6 @@ You will be redirected soon, or you may use the menu above now.
 			<cfset cList="#charList#,#numList#,#specList#">
 			<cfset c=0>
 			<cfset i=1>
-			<!---
-			<cfloop condition="c LESS THAN 1">
-				<cfset thisCharNum = RandRange(1,listlen(cList))>
-				<cfset thisChar = ListGetAt(cList,#thisCharNum#)>
-				<cfset newPass = "#thisChar##newPass#">
-				<cfflush>
-				<cfset i=i+1>
-				<cfif passwordCheck(newPass)>
-					<cfset c=2>
-				</cfif>
-				<cfif i gt 20>
-					<cfset newPass="">
-					<cfset i=1>
-				</cfif>
-			</cfloop>
-			--->
 			<cfset thisChar = ListGetAt(charList,RandRange(1,listlen(charList)))>
 			<cfset newPass=newPass & thisChar>
 			<cfset thisChar = ListGetAt(numList,RandRange(1,listlen(numList)))>
@@ -249,9 +232,9 @@ You will be redirected soon, or you may use the menu above now.
 				</cfquery>
 			</cftransaction>	
 			<cfmail to="#email#" subject="Arctos password" from="LostFound@#Application.fromEmail#" type="text">
-				Your Arctos username/password is 
-				
-				#username# / #newPass#
+				Your Arctos username/password is
+							
+				#username# / #newPass#				
 				
 				You will be required to change your password 
 				after logging in.
@@ -266,4 +249,3 @@ You will be redirected soon, or you may use the menu above now.
 </cfif>
 <!---------------------------------------------------------------------->
 <cfinclude template = "includes/_footer.cfm">
-

@@ -48,8 +48,8 @@
 			#preservesinglequotes(sql)#
 		</cfquery>
 	</cfif>
-	<cfif not isdefined("c.collection_object_id") or len(#c.collection_object_id#) gt 0>
-		<cfset collection_object_id=#c.collection_object_id#>
+	<cfif isdefined("c.collection_object_id") and len(c.collection_object_id) gt 0>
+		<cfset collection_object_id=c.collection_object_id>
 	<cfelse>
 		<p class="error">
 			Unable to resolve GUID. Aborting.....
