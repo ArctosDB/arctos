@@ -38,12 +38,10 @@ function insertTypes(idList) {
 }
 function success_insertTypes (result) {
 	
-	 $.each(result.items, function(i,item){
-         console.log('here it comes');
-		 console.log(item.collection_object_id);
-       });
+	     console.log('here it comes');
+		 console.log(result.length);
 
-	console.log(result);
+		 console.log(result);
 	var sBox=document.getElementById('ajaxStatus');
 	try{
 	sBox.innerHTML='Processing Types....';
