@@ -39,6 +39,7 @@ function insertTypes(idList) {
 function success_insertTypes (result) {
 	
 	     console.log('here it comes');
+		 console.log(result.ROWCOUNT);
 		 console.log(result.DATA.collection_object_id[0]);
 
 		 console.log(result);
