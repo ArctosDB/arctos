@@ -6,7 +6,7 @@ function changedisplayRows (tgt) {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_changeshowObservations
+		success_changedisplayRows
 	);
 }
 function success_changedisplayRows (result) {
