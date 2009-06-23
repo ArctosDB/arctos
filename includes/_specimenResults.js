@@ -42,6 +42,7 @@ function success_insertTypes (result) {
 	try{
 	sBox.innerHTML='Processing Types....';
 	result=evaluate(result);
+	console.log(result);
 	for (i=0; i<result.length; ++i) {
 		var sid=result[i].COLLECTION_OBJECT_ID;
 		console.log('sid: ' + sid);
