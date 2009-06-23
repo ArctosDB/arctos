@@ -119,6 +119,7 @@ function addPartToLoan(partID) {
 	$.getJSON("/component/functions.cfc",
 		{
 			method : "addPartToLoan",
+			transaction_id : transaction_id,
 			partID : partID,
 			remark : remark,
 			instructions : instructions,
