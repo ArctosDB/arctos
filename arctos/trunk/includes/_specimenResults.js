@@ -127,7 +127,7 @@ function addPartToLoan(partID) {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_insertMedia
+		success_addPartToLoan
 	);
 }
 function success_addPartToLoan(result) {
