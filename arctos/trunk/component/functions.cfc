@@ -1,4 +1,84 @@
 <cfcomponent>
+<!------------------------------------->
+<cffunction name="changeresultSort" access="remote">
+	<cfargument name="tgt" type="string" required="yes">
+	<cftry>
+			<cfquery name="up" datasource="cf_dbuser">
+				UPDATE cf_users SET
+					result_sort = '#tgt#'
+				WHERE username = '#session.username#'
+			</cfquery>
+			<cfset session.result_sort = "#tgt#">
+		<cfset result="success">
+	<cfcatch>
+		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
+	</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="changekillRows" access="remote">
+	<cfargument name="tgt" type="string" required="yes">
+	<cftry>
+			<cfif tgt is not 1>
+				<cfset tgt=0>
+			</cfif>
+			<cfquery name="up" datasource="cf_dbuser">
+				UPDATE cf_users SET
+					KILLROW = #tgt#
+				WHERE username = '#session.username#'
+			</cfquery>
+			<cfset session.KILLROW = "#tgt#">
+		<cfset result="success">
+	<cfcatch>
+		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
+	</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
+<!----------------------------------------------------------------------------------------->	
+<cffunction name="changedisplayRows" access="remote">
+	<cfargument name="tgt" type="string" required="yes">
+	<cftry>
+			<cfquery name="up" datasource="cf_dbuser">
+				UPDATE cf_users SET
+					displayrows = #tgt#
+				WHERE username = '#session.username#'
+			</cfquery>
+			<cfset session.displayrows = "#tgt#">
+		<cfset result="success">
+	<cfcatch>
+		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
+	</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
+<!----------------------------------------------------------------------------------------->	
+<cffunction name="setSrchVal" access="remote">
+	<cfargument name="name" type="string" required="yes">
+	<cfargument name="tgt" type="numeric" required="yes">
+	<cftry>
+			<cfquery name="up" datasource="cf_dbuser">
+				UPDATE cf_users SET
+					#name# = 
+					#tgt#
+				WHERE username = '#session.username#'
+			</cfquery>
+			<cfif #tgt# is 1>
+				<cfset session.searchBy="#session.searchBy#,#name#">
+			<cfelse>
+				<cfset i = listfindnocase(session.searchBy,name,",")>
+				<cfif i gt 0>
+					<cfset session.searchBy=listdeleteat(session.searchBy,i)>
+				</cfif>
+			</cfif>
+		<cfset result="success">
+	<cfcatch>
+		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
+	</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
 <!----------------------------------------------------------------------------------------->
 <cffunction name="changeAttDetr" returntype="string">
 	<cfargument name="attribute_id" type="numeric" required="yes">
