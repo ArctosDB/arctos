@@ -30,7 +30,7 @@ function changekillRows () {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_changeshowObservations
+		success_changekillRows
 	);
 }
 function success_changekillRows(result){
@@ -46,7 +46,7 @@ function changeresultSort (tgt) {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_changeshowObservations
+		success_changeresultSort
 	);
 }
 function success_changeresultSort (result) {
