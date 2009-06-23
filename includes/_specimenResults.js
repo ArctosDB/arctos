@@ -1,12 +1,18 @@
-
-	
-
 function saveSearch(returnURL){
 	var sName=prompt("Name this search", "my search");
 	if (sName!=null){
 		var sn=encodeURIComponent(sName);
 		var ru=encodeURI(returnURL);
-		DWREngine._execute(_cfscriptLocation, null, 'saveSearch', ru,sn, success_saveSearch);
+		$.getJSON("/component/functions.cfc",
+			{
+				method : "saveSearch",
+				returnURL : ru,
+				srchName : sn,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			success_saveSearch
+		);
 	}
 }
 function success_saveSearch(r) {
@@ -20,7 +26,15 @@ function insertTypes(idList) {
 	s.className='ajaxStatus';
 	s.innerHTML='Checking for Types...';
 	document.body.appendChild(s);
-	DWREngine._execute(_cfscriptLocation, null, 'getTypes', idList, success_insertTypes);
+	$.getJSON("/component/functions.cfc",
+		{
+			method : "getTypes",
+			idList : idList,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_insertTypes
+	);
 }
 function success_insertTypes (result) {
 	var sBox=document.getElementById('ajaxStatus');

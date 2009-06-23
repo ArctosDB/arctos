@@ -1,4 +1,79 @@
 <cfcomponent>
+<cffunction name="getTypes" access="public">
+	<cfargument name="idList" type="string" required="yes">
+	<cfset theResult=queryNew("collection_object_id,typeList")>
+	<cfset r=1>
+	<cftry>
+	<cfloop list="#idList#" index="cid">
+		<cfquery name="ts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select type_status from citation where collection_object_id=#cid#
+		</cfquery>
+		<cfif ts.recordcount gt 0>
+			<cfset tl="">
+			<cfloop query="ts">
+				<cfset tl=listappend(tl,ts.type_status,";")> 
+			</cfloop>
+			<cfset t = queryaddrow(theResult,1)>
+			<cfset t = QuerySetCell(theResult, "collection_object_id", "#cid#", r)>
+			<cfset t = QuerySetCell(theResult, "typeList", "#tl#", r)>
+			<cfset r=r+1>
+		</cfif>		
+	</cfloop>
+	<cfcatch>
+		<cfset t = queryaddrow(theResult,1)>
+		<cfset t = QuerySetCell(theResult, "collection_object_id", "-1", 1)>
+		<cfset t = QuerySetCell(theResult, "typeList", "#cfcatch.detail#", 1)>
+	</cfcatch>
+	</cftry>
+	<cfreturn theResult>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="saveSearch" access="public">
+	<cfargument name="returnURL" type="string" required="yes">
+	<cfargument name="srchName" type="string" required="yes">
+	<cfset srchName=urldecode(srchName)>
+	<cftry>
+		<cfquery name="me" datasource="cf_dbuser">
+			select user_id
+			from cf_users
+			where username='#session.username#'
+		</cfquery>
+		<cfquery name="alreadyGotOne" datasource="cf_dbuser">
+			select search_name
+			from cf_canned_search
+			where search_name='#srchName#'
+		</cfquery>
+		<cfif len(alreadyGotOne.search_name) gt 0>
+			<cfset msg="The name of your saved search is already in use.">
+		<cfelse>
+			<cfquery name="alreadyThere" datasource="cf_dbuser">
+				select search_name
+				from cf_canned_search
+				where user_id=#me.user_id# and
+				url='#returnURL#'
+			</cfquery>
+			<cfif len(alreadyThere.search_name) gt 0>
+				<cfset msg="That search is already saved as '#alreadyThere.search_name#'.">
+			<cfelse>
+				<cfquery name="i" datasource="cf_dbuser">
+					insert into cf_canned_search (
+					user_id,
+					search_name,
+					url
+					) values (
+					 #me.user_id#,
+					 '#srchName#',
+					 '#returnURL#')
+				</cfquery>
+				<cfset msg="success">
+			</cfif>
+		</cfif>
+	<cfcatch>
+		<cfset msg="An error occured while saving your search: #cfcatch.message# #cfcatch.detail#">
+	</cfcatch>
+	</cftry>
+	<cfreturn msg>
+</cffunction>
 <!------------------------------------->
 <cffunction name="changeresultSort" access="remote">
 	<cfargument name="tgt" type="string" required="yes">
