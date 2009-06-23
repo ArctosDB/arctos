@@ -116,7 +116,18 @@ function addPartToLoan(partID) {
 	}
 	var transaction_id=document.getElementById('transaction_id').value;
 	//alert("partID: " + partID + "remark: " + remark + "Inst:" + instructions + "ss:" + subsample + "transid:" + transaction_id);
-	DWREngine._execute(_cfscriptLocation, null, 'addPartToLoan', transaction_id,partID,remark,instructions,subsample, success_addPartToLoan);
+	$.getJSON("/component/functions.cfc",
+		{
+			method : "addPartToLoan",
+			partID : partID,
+			remark : remark,
+			instructions : instructions,
+			subsample : subsample,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_insertMedia
+	);
 }
 function success_addPartToLoan(result) {
 	//alert(result);
