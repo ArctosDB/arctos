@@ -60,34 +60,40 @@ function insertMedia(idList) {
 	s.className='ajaxStatus';
 	s.innerHTML='Checking for Media...';
 	document.body.appendChild(s);
-	DWREngine._execute(_cfscriptLocation, null, 'getMedia', idList, success_insertMedia);
+	$.getJSON("/component/functions.cfc",
+		{
+			method : "getMedia",
+			idList : idList,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_insertMedia
+	);
 }
-
-
 function success_insertMedia (result) {
 	try{
-	var sBox=document.getElementById('ajaxStatus');
-	sBox.innerHTML='Processing Media....';
-	for (i=0; i<result.length; ++i) {
-		var sel;
-		var sid=result[i].COLLECTION_OBJECT_ID;
-		var mid=result[i].MEDIA_ID;
-		var rel=result[i].MEDIA_RELATIONSHIP;
-		if (rel=='cataloged_item') {
-			sel='CatItem_' + sid;
-		} else if (rel=='collecting_event') {
-			sel='SpecLocality_' + sid;
+		var sBox=document.getElementById('ajaxStatus');
+		sBox.innerHTML='Processing Media....';
+		for (i=0; i<result.ROWCOUNT; ++i) {
+			var sel;
+			var sid=result.DATA.collection_object_id[i];
+			var mid=result.DATA.media_id[i];
+			var rel=result.DATA.media_relationship[i];
+			if (rel=='cataloged_item') {
+				sel='CatItem_' + sid;
+			} else if (rel=='collecting_event') {
+				sel='SpecLocality_' + sid;
+			}
+			if (sel.length>0){
+				var el=document.getElementById(sel);
+				var ns='<a href="/MediaSearch.cfm?action=search&media_id='+mid+'" class="mediaLink" target="_blank" id="mediaSpan_'+sid+'">';
+				ns+='Media';
+				ns+='</a>';
+				el.innerHTML+=ns;
+			}
 		}
-		if (sel.length>0){
-			var el=document.getElementById(sel);
-			var ns='<a href="/MediaSearch.cfm?action=search&media_id='+mid+'" class="mediaLink" target="_blank" id="mediaSpan_'+sid+'">';
-			ns+='Media';
-			ns+='</a>';
-			el.innerHTML+=ns;
+		document.body.removeChild(sBox);
 		}
-	}
-	document.body.removeChild(sBox);
-	}
 	catch(e) {
 		var sBox=document.getElementById('ajaxStatus');
 		document.body.removeChild(sBox);
