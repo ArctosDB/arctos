@@ -1,5 +1,5 @@
 <cfcomponent>
-<cffunction name="getTypes" access="public">
+<cffunction name="getTypes" access="remote">
 	<cfargument name="idList" type="string" required="yes">
 	<cfset theResult=queryNew("collection_object_id,typeList")>
 	<cfset r=1>
@@ -28,7 +28,7 @@
 	<cfreturn theResult>
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
-<cffunction name="saveSearch" access="public">
+<cffunction name="saveSearch" access="remote">
 	<cfargument name="returnURL" type="string" required="yes">
 	<cfargument name="srchName" type="string" required="yes">
 	<cfset srchName=urldecode(srchName)>
