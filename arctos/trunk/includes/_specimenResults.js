@@ -39,8 +39,7 @@ function insertTypes(idList) {
 function success_insertTypes (result) {
 	
 	     console.log('here it comes');
-		 console.log(result.length);
-		 console.log(result.collection_object_id);
+		 console.log(result.DATA.collection_object_id);
 
 		 console.log(result);
 	var sBox=document.getElementById('ajaxStatus');
