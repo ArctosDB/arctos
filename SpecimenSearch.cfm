@@ -428,6 +428,5 @@
 			}
 		}
 	}
-	// for the stuff that's already here...
 </script>
 <cfinclude template = "includes/_footer.cfm">
