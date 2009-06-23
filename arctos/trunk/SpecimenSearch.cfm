@@ -1,7 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Specimen Search">
 <script type='text/javascript' src='/includes/jquery/jquery.js'></script>
-<script type='text/javascript' src='/includes/jquery/suggest.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
 <script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>
 <cfoutput>	
