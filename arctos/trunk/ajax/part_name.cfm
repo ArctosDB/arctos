@@ -6,9 +6,9 @@
 			ctspecimen_part_name
 		where 
 			upper(part_name) like '#ucase(q)#%'
-		order by
-			part_name
 		group by
+			part_name
+		order by
 			part_name
 	</cfquery>
 	<cfloop query="pn">
