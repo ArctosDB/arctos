@@ -11,12 +11,12 @@ jQuery( function($) {
 		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
 	});
 	
-	$("#partname").autocomplete(["c++", "java", "php", "coldfusion", "javascript", "asp"], {
+	$("#partname").autocomplete("/ajax/part_name.cfm", {
 		width: 320,
 		max: 4,
 		highlight: false,
 		multiple: true,
-		multipleSeparator: " ",
+		multipleSeparator: "|",
 		scroll: true,
 		scrollHeight: 300
 	});
