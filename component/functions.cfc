@@ -1,4 +1,49 @@
-<cfcomponent>	
+<cfcomponent>
+<cffunction name="getLoanPartResults"  access="remote">
+	<cfargument name="transaction_id" type="numeric" required="yes">
+	<cfoutput>
+	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select 
+			cataloged_item.COLLECTION_OBJECT_ID,
+			specimen_part.collection_object_id partID,
+			coll_object.COLL_OBJ_DISPOSITION,
+			coll_object.LOT_COUNT,
+			coll_object.CONDITION,
+			specimen_part.PART_NAME,
+			specimen_part.PART_MODIFIER,
+			specimen_part.SAMPLED_FROM_OBJ_ID,
+			specimen_part.PRESERVE_METHOD,
+			specimen_part.IS_TISSUE,
+			concatEncumbrances(cataloged_item.collection_object_id) as encumbrance_action,
+			loan_item.transaction_id
+		from
+			#session.SpecSrchTab#,
+			cataloged_item,
+			coll_object,
+			specimen_part,
+			(select * from loan_item where transaction_id = #transaction_id#) loan_item
+		where
+			#session.SpecSrchTab#.collection_object_id = cataloged_item.collection_object_id AND
+			cataloged_item.collection_object_id = specimen_part.derived_from_cat_item AND
+			specimen_part.collection_object_id = coll_object.collection_object_id and
+			specimen_part.SAMPLED_FROM_OBJ_ID is null and
+			specimen_part.collection_object_id = loan_item.collection_object_id (+) 
+		order by
+			cataloged_item.collection_object_id, specimen_part.part_name
+	</cfquery>
+	<cfreturn result>
+	</cfoutput>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="ssvar" access="remote">
+	<cfargument name="startrow" type="numeric" required="yes">
+	<cfargument name="maxrows" type="numeric" required="yes">
+	<cfset session.maxrows=#maxrows#>
+	<cfset session.startrow=#startrow#>
+	<cfset result="ok">
+	<cfreturn result>
+</cffunction>
+<!-------------------------------------------------------------------------------------------->
 <cffunction name="addPartToLoan" access="remote">
 	<cfargument name="transaction_id" type="numeric" required="yes">
 	<cfargument name="partID" type="numeric" required="yes">
