@@ -55,7 +55,9 @@ function success_insertTypes (result) {
 		}
 	}
 	}
-	catch(e){}
+	catch(e){
+		console.log(e);
+	}
 	document.body.removeChild(sBox);
 }
 function insertMedia(idList) {
