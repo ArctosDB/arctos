@@ -42,6 +42,7 @@ function success_insertTypes (result) {
 	sBox.innerHTML='Processing Types....';
 	for (i=0; i<result.length; ++i) {
 		var sid=result[i].COLLECTION_OBJECT_ID;
+		console.log('sid: ' + sid);
 		var tl=result[i].TYPELIST;
 		var sel='CatItem_' + sid;
 		if (sel.length>0){
