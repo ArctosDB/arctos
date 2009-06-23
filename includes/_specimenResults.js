@@ -37,30 +37,21 @@ function insertTypes(idList) {
 	);
 }
 function success_insertTypes (result) {
-	
-	     console.log('here it comes');
-		 console.log(result.ROWCOUNT);
-		 console.log(result.DATA.collection_object_id[0]);
-
-		 console.log(result);
 	var sBox=document.getElementById('ajaxStatus');
 	try{
-	sBox.innerHTML='Processing Types....';
-	for (i=0; i<result.ROWCOUNT; ++i) {
-		var sid=result.DATA.collection_object_id[i];
-		console.log('sid: ' + sid);
-		var tl=result.DATA.typeList[i];
-		var sel='CatItem_' + sid;
-		if (sel.length>0){
-			var el=document.getElementById(sel);
-			var ns='<div class="showType">' + tl + '</div>';
-			el.innerHTML+=ns;
+		sBox.innerHTML='Processing Types....';
+		for (i=0; i<result.ROWCOUNT; ++i) {
+			var sid=result.DATA.collection_object_id[i];
+			var tl=result.DATA.typeList[i];
+			var sel='CatItem_' + sid;
+			if (sel.length>0){
+				var el=document.getElementById(sel);
+				var ns='<div class="showType">' + tl + '</div>';
+				el.innerHTML+=ns;
+			}
 		}
 	}
-	}
-	catch(e){
-		console.log(e);
-	}
+	catch(e){}
 	document.body.removeChild(sBox);
 }
 function insertMedia(idList) {
