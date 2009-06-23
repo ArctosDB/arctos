@@ -13,7 +13,8 @@ jQuery( function($) {
 	
 	$("#partname").autocomplete("/ajax/part_name.cfm", {
 		width: 320,
-		max: 4,
+		max: 20,
+		autofill: true,
 		highlight: false,
 		multiple: true,
 		multipleSeparator: "|",
