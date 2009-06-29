@@ -773,7 +773,7 @@ function success_getSpecResultsData(result){
 						var d=result.DATA.CUSTOMID[i];
 					}
 					theInnerHtml += '<td>';
-						theInnerHtml += ds + '&nbsp;';
+						theInnerHtml += d + '&nbsp;';
 					theInnerHtml += '</td>';
 				}
 				theInnerHtml += '<td>';
