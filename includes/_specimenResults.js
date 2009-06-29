@@ -471,7 +471,7 @@ function success_getSpecResultsData(result){
 			}
 			if (result.DATA.columnlist[0].indexOf('CUSTOMID')> -1) {
 				theInnerHtml += '<th>';
-					theInnerHtml += result[0].MYCUSTOMIDTYPE;
+					theInnerHtml += result.DATA.MYCUSTOMIDTYPE[0];
 				theInnerHtml += '</th>';
 			}
 			theInnerHtml += '<th>Identification</th>';
