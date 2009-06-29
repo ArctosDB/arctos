@@ -427,13 +427,13 @@ function success_getSpecResultsData(result){
 			var sel;
 			var sid=result.DATA.collection_object_id[i];
 	 */
-	var collection_object_id = result.DATA.collection_object_id[i];
+	var collection_object_id = result.DATA.collection_object_id[0];
 	//alert(collection_object_id);
 	if (collection_object_id < 1) {
-		var msg = result[0].MESSAGE;
+		var msg = result.DATA.message[0];
 		alert(msg);
 	} else {
-		var clist = result[0].COLUMNLIST;
+		var clist = result.data.columnlist[0];
 		//alert(clist);
 		// set up an array of column names and display values in the order of appearance
 		// 
