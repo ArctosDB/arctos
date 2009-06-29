@@ -427,7 +427,7 @@ function success_getSpecResultsData(result){
 			var sel;
 			var sid=result.DATA.collection_object_id[i];
 	 */
-	var collection_object_id = result.DATA.collection_object_id[0];
+	var collection_object_id = result.DATA.COLLECTION_OBJECT_ID[0];
 	//alert(collection_object_id);
 	if (collection_object_id < 1) {
 		var msg = result.DATA.message[0];
