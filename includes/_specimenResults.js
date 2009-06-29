@@ -570,12 +570,10 @@ function success_getSpecResultsData(result){
 			}
 			if (result.DATA.COLUMNLIST[0].indexOf('SPEC_LOCALITY')> -1) {
 				theInnerHtml += '<th>Specific&nbsp;Locality</th>';
-			}
-			
+			}			
 			if (result.DATA.COLUMNLIST[0].indexOf('GEOLOGY_ATTRIBUTES')> -1) {
 				theInnerHtml += '<th>Geology&nbsp;Attributes</th>';
 			}
-			
 			
 			if (result.DATA.COLUMNLIST[0].indexOf('VERBATIM_DATE')> -1) {
 				theInnerHtml += '<th>Verbatim&nbsp;Date</th>';
@@ -731,9 +729,9 @@ function success_getSpecResultsData(result){
 		theInnerHtml += '</tr>';
 		// get an ordered list of collection_object_ids to pass on to 
 		// SpecimenDetail for browsing
-		var orderedCollObjIdArray = new Array();
-		for (i=0; i<result.length; ++i) {
-			orderedCollObjIdArray.push(result[i].COLLECTION_OBJECT_ID);
+		var orderedCollObjIdArray = new Array();		
+		for (i=0; i<result.ROWCOUNT; ++i) {
+			orderedCollObjIdArray.push(result.data.COLLECTION_OBJECT_ID[i]);
 		}
 		var orderedCollObjIdList='';
 		if (orderedCollObjIdArray.length < 100) {
@@ -741,17 +739,17 @@ function success_getSpecResultsData(result){
 		}
 
 		
-		for (i=0; i<result.length; ++i) {
-			orderedCollObjIdArray.push(result[i].COLLECTION_OBJECT_ID);
+		for (i=0; i<result.ROWCOUNT; ++i) {
+			orderedCollObjIdArray.push(result.DATA.COLLECTION_OBJECT_ID[i]);
 			theInnerHtml += '<tr>';
 				if (killrow == 1){
 					theInnerHtml += '<td align="center"><input type="checkbox" onchange="toggleKillrow(' + "'";
-					theInnerHtml +=result[i].COLLECTION_OBJECT_ID + "'" + ',this.checked);"></td>';
+					theInnerHtml +=result.DATA.COLLECTION_OBJECT_ID[i] + "'" + ',this.checked);"></td>';
 				}
 			
-				theInnerHtml += '<td nowrap="nowrap" id="CatItem_'+result[i].COLLECTION_OBJECT_ID+'">';
+				theInnerHtml += '<td nowrap="nowrap" id="CatItem_'+result.DATA.COLLECTION_OBJECT_ID[i]+'">';
 					theInnerHtml += '<a href="SpecimenDetail.cfm?collection_object_id=';
-					theInnerHtml += result[i].COLLECTION_OBJECT_ID;
+					theInnerHtml += result.DATA.COLLECTION_OBJECT_ID[i];
 					//if (mapURL.length > 0) {
 					//	theInnerHtml += "&returnURL=" + escape(mapURL);
 					//}
