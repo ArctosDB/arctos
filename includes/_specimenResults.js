@@ -469,7 +469,7 @@ function success_getSpecResultsData(result){
 			if (action == 'dispCollObj'){
 				theInnerHtml +='<th>Loan</th>';
 			}
-			if (result.DATA.columnlist[0].indexOf('CUSTOMID')> -1) {
+			if (result.DATA.COLUMNLIST[0].indexOf('CUSTOMID')> -1) {
 				theInnerHtml += '<th>';
 					theInnerHtml += result.DATA.MYCUSTOMIDTYPE[0];
 				theInnerHtml += '</th>';
