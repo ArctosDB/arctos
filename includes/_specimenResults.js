@@ -731,7 +731,7 @@ function success_getSpecResultsData(result){
 		// SpecimenDetail for browsing
 		var orderedCollObjIdArray = new Array();		
 		for (i=0; i<result.ROWCOUNT; ++i) {
-			orderedCollObjIdArray.push(result.data.COLLECTION_OBJECT_ID[i]);
+			orderedCollObjIdArray.push(result.DATA.COLLECTION_OBJECT_ID[i]);
 		}
 		var orderedCollObjIdList='';
 		if (orderedCollObjIdArray.length < 100) {
