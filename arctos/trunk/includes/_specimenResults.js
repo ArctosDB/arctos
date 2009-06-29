@@ -283,8 +283,17 @@ function checkAllById(list) {
 	}
 }
 function crcloo (ColumnList,in_or_out) {
-			DWREngine._execute(_cfscriptLocation, null, 'clientResultColumnList',ColumnList,in_or_out, success_crcloo);
-	}
+	$.getJSON("/component/functions.cfc",
+		{
+			method : "clientResultColumnList",
+			ColumnList : ColumnList,
+			in_or_out : in_or_out,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_crcloo
+	);
+}
 function success_crcloo (result) {
 		//alert(result);
 	}
@@ -361,8 +370,6 @@ function closePrefs () {
 	alert('close');
 }
 function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
-	 //
-	 // give em something to look at...
 	if (document.getElementById('resultsGoHere')) {
 		var guts = '<div id="loading" style="position:relative;top:0px;left:0px;z-index:999;color:white;background-color:green;';
 	 	guts += 'font-size:large;font-weight:bold;padding:15px;">Fetching data...</div>';
@@ -398,20 +405,34 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 		orderBy += ' ' + orderOrder;
 	}
 	//alert("startrow:"+startrow+"; numrecs:"+numrecs + '; orderBy:' + orderBy + '; orderOrder:' + orderOrder + ":end:");
-	DWREngine._execute(_cfscriptLocation, null, 'getSpecResultsData',startrow,numrecs,orderBy, success_getSpecResultsData);
+	$.getJSON("/component/functions.cfc",
+		{
+			method : "getSpecResultsData",
+			startrow : startrow,
+			numrecs : numrecs,
+			orderBy : orderBy,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_getSpecResultsData
+	);
 }
 
 
 function success_getSpecResultsData(result){
-	//alert(result);
-	var collection_object_id = result[0].COLLECTION_OBJECT_ID;
+	
+	/*
+	 * 
+	 * for (i=0; i<result.ROWCOUNT; ++i) {
+			var sel;
+			var sid=result.DATA.collection_object_id[i];
+	 */
+	var collection_object_id = result.DATA.collection_object_id[i];
 	//alert(collection_object_id);
 	if (collection_object_id < 1) {
 		var msg = result[0].MESSAGE;
 		alert(msg);
 	} else {
-		//alert('gonna build a table...');
-		//spiffy, do something with it
 		var clist = result[0].COLUMNLIST;
 		//alert(clist);
 		// set up an array of column names and display values in the order of appearance

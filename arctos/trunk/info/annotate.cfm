@@ -40,7 +40,7 @@ Filter By:
 			 specimen_annotations.SPECIFIC_LOCALITY,
 			 specimen_annotations.ANNOTATION_REMARKS,			 
 			 specimen_annotations.reviewer_agent_id,
-			 agent_name.agent_name reviewer,
+			 preferred_agent_name.agent_name reviewer,
 			 specimen_annotations.reviewed_fg,
 			 specimen_annotations.reviewer_comment,
 			 collection.collection,
@@ -59,10 +59,10 @@ Filter By:
 			identification,
 			cf_user_data,
 			cf_users,
-			agent_name
+			preferred_agent_name
 		WHERE
 			specimen_annotations.COLLECTION_OBJECT_ID = cataloged_item.COLLECTION_OBJECT_ID AND
-			specimen_annotations.reviewer_agent_id=agent_name.agent_name_id (+) and
+			specimen_annotations.reviewer_agent_id=preferred_agent_name.agent_id (+) and
 			cataloged_item.collection_id = collection.collection_id AND
 			cataloged_item.collection_object_id = identification.collection_object_id AND
 			accepted_id_fg=1 AND

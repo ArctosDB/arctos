@@ -1,5 +1,69 @@
 <cfcomponent>
-<cffunction name="getLoanPartResults"  access="remote">
+<cffunction name="getSpecResultsData" access="remote">
+	<cfargument name="startrow" type="numeric" required="yes">
+	<cfargument name="numRecs" type="numeric" required="yes">
+	<cfargument name="orderBy" type="string" required="yes">
+	<cfset stopRow = startrow + numRecs -1>
+	<!--- strip Safari idiocy --->
+	<cfset orderBy=replace(orderBy,"%20"," ","all")>
+	<cfset orderBy=replace(orderBy,"%2C",",","all")>
+	<cftry>
+		<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			Select * from (
+				Select a.*, rownum rnum From (
+					select * from #session.SpecSrchTab# order by #orderBy#
+				) a where rownum <= #stoprow#
+			) where rnum >= #startrow#
+		</cfquery>
+		<cfset collObjIdList = valuelist(result.collection_object_id)>
+		<cfset session.collObjIdList=collObjIdList>
+		<cfquery name="cols" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			 select column_name from user_tab_cols where 
+			 upper(table_name)=upper('#session.SpecSrchTab#') order by internal_column_id
+		</cfquery>
+		<cfset clist = result.columnList>
+		<cfset t = arrayNew(1)>
+		<cfset temp = queryaddcolumn(result,"columnList",t)>
+		<cfset temp = QuerySetCell(result, "columnList", "#valuelist(cols.column_name)#", 1)>
+
+	<cfcatch>
+			<cfset result = querynew("collection_object_id,message")>
+			<cfset temp = queryaddrow(result,1)>
+			<cfset temp = QuerySetCell(result, "collection_object_id", "-1", 1)>
+			<cfset temp = QuerySetCell(result, "message", "#cfcatch.Message# #cfcatch.Detail#", 1)>
+		</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="clientResultColumnList" access="remote">
+	<cfargument name="ColumnList" type="string" required="yes">
+	<cfargument name="in_or_out" type="string" required="yes">
+	<cfif not isdefined("session.ResultColumnList")>
+		<cfset session.ResultColumnList=''>
+	</cfif>
+	<cfset result="OK">
+	<cfif in_or_out is "in">
+		<cfloop list="#ColumnList#" index="i">
+		<cfif not ListFindNoCase(session.resultColumnList,i,",")>
+			<cfset session.resultColumnList = ListAppend(session.resultColumnList, i,",")>
+		</cfif>
+		</cfloop>
+	<cfelse>
+		<cfloop list="#ColumnList#" index="i">
+		<cfif ListFindNoCase(session.resultColumnList,i,",")>
+			<cfset session.resultColumnList = ListDeleteAt(session.resultColumnList, ListFindNoCase(session.resultColumnList,i,","),",")>
+		</cfif>
+		</cfloop>
+	</cfif>
+	<cfquery name ="upDb" datasource="cf_dbuser">
+		update cf_users set resultcolumnlist='#session.resultColumnList#' where
+		username='#session.username#'
+	</cfquery>
+	<cfreturn result>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="getLoanPartResults" access="remote">
 	<cfargument name="transaction_id" type="numeric" required="yes">
 	<cfoutput>
 	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
