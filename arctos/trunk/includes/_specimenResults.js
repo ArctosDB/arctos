@@ -767,6 +767,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml +='<td id="partCell_' + result.DATA.COLLECTION_OBJECT_ID[i] + '"></td>';
 				}				
 				if (result.DATA.COLUMNLIST[0].indexOf('CUSTOMID')> -1) {
+					console.log(result.DATA.CUSTOMID[i]);
 					theInnerHtml += '<td>';
 						theInnerHtml += result.DATA.CUSTOMID[i] + '&nbsp;';
 					theInnerHtml += '</td>';
