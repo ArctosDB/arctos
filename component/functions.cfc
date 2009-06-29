@@ -21,10 +21,10 @@
 			 select column_name from user_tab_cols where 
 			 upper(table_name)=upper('#session.SpecSrchTab#') order by internal_column_id
 		</cfquery>
-		<cfset clist = result.columnlist>
+		<cfset clist = result.COLUMNLIST>
 		<cfset t = arrayNew(1)>
-		<cfset temp = queryaddcolumn(result,"columnlist",t)>
-		<cfset temp = QuerySetCell(result, "columnlist", "#valuelist(cols.column_name)#", 1)>
+		<cfset temp = queryaddcolumn(result,"COLUMNLIST",t)>
+		<cfset temp = QuerySetCell(result, "COLUMNLIST", "#valuelist(cols.column_name)#", 1)>
 
 	<cfcatch>
 			<cfset result = querynew("collection_object_id,message")>
