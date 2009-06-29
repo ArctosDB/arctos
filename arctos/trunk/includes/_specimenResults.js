@@ -767,15 +767,13 @@ function success_getSpecResultsData(result){
 					theInnerHtml +='<td id="partCell_' + result.DATA.COLLECTION_OBJECT_ID[i] + '"></td>';
 				}				
 				if (result.DATA.COLUMNLIST[0].indexOf('CUSTOMID')> -1) {
-					console.log(result.DATA.CUSTOMID[i]);
 					if (result.DATA.CUSTOMID[i]==null){
-						console.log('tis null');
-					}
-					else {
-						console.log('wtf?');
+						var d='';
+					} else {
+						var d=result.DATA.CUSTOMID[i];
 					}
 					theInnerHtml += '<td>';
-						theInnerHtml += result.DATA.CUSTOMID[i] + '&nbsp;';
+						theInnerHtml += ds + '&nbsp;';
 					theInnerHtml += '</td>';
 				}
 				theInnerHtml += '<td>';
