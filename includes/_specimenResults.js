@@ -421,7 +421,7 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 
 function success_getSpecResultsData(result){
 	console.log(result);
-	*
+	/*
 	var collection_object_id = result.DATA.COLLECTION_OBJECT_ID[0];
 	//alert(collection_object_id);
 	if (collection_object_id < 1) {
