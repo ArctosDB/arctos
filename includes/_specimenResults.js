@@ -420,13 +420,8 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 
 
 function success_getSpecResultsData(result){
+	console.log(result);
 	
-	/*
-	 * 
-	 * for (i=0; i<result.ROWCOUNT; ++i) {
-			var sel;
-			var sid=result.DATA.collection_object_id[i];
-	 */
 	var collection_object_id = result.DATA.COLLECTION_OBJECT_ID[0];
 	//alert(collection_object_id);
 	if (collection_object_id < 1) {
