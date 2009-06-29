@@ -755,7 +755,7 @@ function success_getSpecResultsData(result){
 			 		//theInnerHtml += '_icon.gif" border="0" alt="" width="18" height="18">';
 					theInnerHtml += '&nbsp;' + result.DATA.COLLECTION[i];
 					theInnerHtml += '&nbsp;';
-					theInnerHtml += result.DATA[i].CAT_NUM;
+					theInnerHtml += result.DATA.CAT_NUM[i];
 					//theInnerHtml += '</div></a>';
 					theInnerHtml += '</a>';
 				theInnerHtml += '</td>';
