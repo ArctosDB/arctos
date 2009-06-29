@@ -428,7 +428,7 @@ function success_getSpecResultsData(result){
 		var msg = result.DATA.message[0];
 		alert(msg);
 	} else {
-		var clist = result.DATA.columnlist[0];
+		var clist = result.DATA.COLUMNLIST[0];
 		//alert(clist);
 		// set up an array of column names and display values in the order of appearance
 		// 
