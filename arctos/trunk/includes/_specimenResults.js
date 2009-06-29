@@ -748,12 +748,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<a href="SpecimenDetail.cfm?collection_object_id=';
 					theInnerHtml += result.DATA.COLLECTION_OBJECT_ID[i];
 					theInnerHtml += '">';
-					//theInnerHtml += ' <div class="linkButton" onmouseover="this.className=\'linkButton btnhov\'"';
-					//theInnerHtml += 'onmouseout="this.className=\'linkButton\'">';
-			 		//theInnerHtml += '<img src="images/';
-			 		//theInnerHtml +=  result[i].INSTITUTION_ACRONYM;
-			 		//theInnerHtml += '_icon.gif" border="0" alt="" width="18" height="18">';
-					theInnerHtml += '&nbsp;' + result.DATA.COLLECTION[i];
+					theInnerHtml += result.DATA.COLLECTION[i];
 					theInnerHtml += '&nbsp;';
 					theInnerHtml += result.DATA.CAT_NUM[i];
 					//theInnerHtml += '</div></a>';
