@@ -737,8 +737,6 @@ function success_getSpecResultsData(result){
 		if (orderedCollObjIdArray.length < 100) {
 			var orderedCollObjIdList = orderedCollObjIdArray.join(",");
 		}
-
-		
 		for (i=0; i<result.ROWCOUNT; ++i) {
 			orderedCollObjIdArray.push(result.DATA.COLLECTION_OBJECT_ID[i]);
 			theInnerHtml += '<tr>';
@@ -746,310 +744,297 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td align="center"><input type="checkbox" onchange="toggleKillrow(' + "'";
 					theInnerHtml +=result.DATA.COLLECTION_OBJECT_ID[i] + "'" + ',this.checked);"></td>';
 				}
-			
 				theInnerHtml += '<td nowrap="nowrap" id="CatItem_'+result.DATA.COLLECTION_OBJECT_ID[i]+'">';
 					theInnerHtml += '<a href="SpecimenDetail.cfm?collection_object_id=';
 					theInnerHtml += result.DATA.COLLECTION_OBJECT_ID[i];
-					//if (mapURL.length > 0) {
-					//	theInnerHtml += "&returnURL=" + escape(mapURL);
-					//}
-					//theInnerHtml += "&orderedCollObjIdList=" + orderedCollObjIdList;
 					theInnerHtml += '">';
 					//theInnerHtml += ' <div class="linkButton" onmouseover="this.className=\'linkButton btnhov\'"';
 					//theInnerHtml += 'onmouseout="this.className=\'linkButton\'">';
 			 		//theInnerHtml += '<img src="images/';
 			 		//theInnerHtml +=  result[i].INSTITUTION_ACRONYM;
 			 		//theInnerHtml += '_icon.gif" border="0" alt="" width="18" height="18">';
-					theInnerHtml += '&nbsp;' + result[i].COLLECTION;
+					theInnerHtml += '&nbsp;' + result.DATA.COLLECTION[i];
 					theInnerHtml += '&nbsp;';
-					theInnerHtml += result[i].CAT_NUM;
+					theInnerHtml += result.DATA[i].CAT_NUM;
 					//theInnerHtml += '</div></a>';
 					theInnerHtml += '</a>';
 				theInnerHtml += '</td>';
 				if (loan_request_coll_id.length > 0) {
-					if (loan_request_coll_id == result[i].COLLECTION_ID){
+					if (loan_request_coll_id == result.DATA.COLLECTION_ID[i]){
 						theInnerHtml +='<td><span class="likeLink" onclick="addLoanItem(' + "'" 
-						theInnerHtml += result[i].COLLECTION_OBJECT_ID ;
+						theInnerHtml += result.DATA.COLLECTION_OBJECT_ID ;
 						theInnerHtml += "');" + '">Request</span></td>';
 					} else {
 						theInnerHtml +='<td>N/A</td>';
 					}
 				}
-				/*
 				if (action == 'dispCollObj'){
-					theInnerHtml +='<td><span class="likeLink" onclick="goPickParts(' + "'" 
-					theInnerHtml += result[i].COLLECTION_OBJECT_ID + "','";
-					theInnerHtml += transaction_id + "');" + '">Pick&nbsp;Part</span></td>';
-				}
-				*/
-				
-				if (action == 'dispCollObj'){
-					theInnerHtml +='<td id="partCell_' + result[i].COLLECTION_OBJECT_ID + '"></td>';
+					theInnerHtml +='<td id="partCell_' + result.DATA.COLLECTION_OBJECT_ID[i] + '"></td>';
 				}
 				
 				if (result.DATA.COLUMNLIST[0].indexOf('CUSTOMID')> -1) {
 					theInnerHtml += '<td>';
-						theInnerHtml += result[i].CUSTOMID + '&nbsp;';
+						theInnerHtml += result.DATA.CUSTOMID + '&nbsp;';
 					theInnerHtml += '</td>';
 				}
 				theInnerHtml += '<td>';
-				theInnerHtml += '<span class="browseLink" type="scientific_name" dval="' + encodeURI(result[i].SCIENTIFIC_NAME) + '">' + spaceStripper(result[i].SCIENTIFIC_NAME);
+				theInnerHtml += '<span class="browseLink" type="scientific_name" dval="' + encodeURI(result.DATA.SCIENTIFIC_NAME[i]) + '">' + spaceStripper(result.DATA.SCIENTIFIC_NAME[i]);
 				theInnerHtml += '</span>'; 					
 				theInnerHtml += '</td>';
 				if (result.DATA.COLUMNLIST[0].indexOf('SCI_NAME_WITH_AUTH')> -1) {
 					theInnerHtml += '<td>';
-						theInnerHtml += spaceStripper(result[i].SCI_NAME_WITH_AUTH);
+						theInnerHtml += spaceStripper(result.DATA.SCI_NAME_WITH_AUTH[i]);
 					theInnerHtml += '</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('IDENTIFIED_BY')> -1) {
-					theInnerHtml += '<td>' + splitBySemicolon(result[i].IDENTIFIED_BY) + '&nbsp;</td>';
+					theInnerHtml += '<td>' + splitBySemicolon(result.DATA.IDENTIFIED_BY[i]) + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('PHYLORDER')> -1) {
-					theInnerHtml += '<td>' + result[i].PHYLORDER + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.PHYLORDER[i] + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('FAMILY')> -1) {
-					theInnerHtml += '<td>' + result[i].FAMILY + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.FAMILY[i] + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('OTHERCATALOGNUMBERS')> -1) {
-					theInnerHtml += '<td>' + splitBySemicolon(result[i].OTHERCATALOGNUMBERS) + '&nbsp;</td>';
+					theInnerHtml += '<td>' + splitBySemicolon(result.DATA.OTHERCATALOGNUMBERS[i]) + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('ACCESSION')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(result[i].ACCESSION) + '&nbsp;</td>';
+					theInnerHtml += '<td>' + spaceStripper(result.DATA.ACCESSION[i]) + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('COLLECTORS')> -1) {
-					theInnerHtml += '<td>' + splitByComma(result[i].COLLECTORS) + '&nbsp;</td>';
+					theInnerHtml += '<td>' + splitByComma(result.DATA.COLLECTORS[i]) + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('VERBATIMLATITUDE')> -1) {
-					theInnerHtml += '<td>' + cordFormat(result[i].VERBATIMLATITUDE) + '&nbsp;</td>';
+					theInnerHtml += '<td>' + cordFormat(result.DATA.VERBATIMLATITUDE[i]) + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('VERBATIMLONGITUDE')> -1) {
-					theInnerHtml += '<td>' + cordFormat(result[i].VERBATIMLONGITUDE) + '&nbsp;</td>';
+					theInnerHtml += '<td>' + cordFormat(result.DATA.VERBATIMLONGITUDE[i]) + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('COORDINATEUNCERTAINTYINMETERS')> -1) {
-					theInnerHtml += '<td>' + result[i].COORDINATEUNCERTAINTYINMETERS + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.COORDINATEUNCERTAINTYINMETERS[i] + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('DATUM')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(result[i].DATUM) + '&nbsp;</td>';
+					theInnerHtml += '<td>' + spaceStripper(result.DATA.DATUM[i]) + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('ORIG_LAT_LONG_UNITS')> -1) {
-					theInnerHtml += '<td>' + result[i].ORIG_LAT_LONG_UNITS + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.ORIG_LAT_LONG_UNITS[i] + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('LAT_LONG_DETERMINER')> -1) {
-					theInnerHtml += '<td>' + splitBySemicolon(result[i].LAT_LONG_DETERMINER) + '&nbsp;</td>';
+					theInnerHtml += '<td>' + splitBySemicolon(result.DATA.LAT_LONG_DETERMINER[i]) + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('LAT_LONG_REF_SOURCE')> -1) {
-					theInnerHtml += '<td>' + result[i].LAT_LONG_REF_SOURCE + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.LAT_LONG_REF_SOURCE[i] + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('LAT_LONG_REMARKS')> -1) {
-					theInnerHtml += '<td><div class="wrapLong">' + result[i].LAT_LONG_REMARKS + '</div></td>';
+					theInnerHtml += '<td><div class="wrapLong">' + result.DATA.LAT_LONG_REMARKS[i] + '</div></td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('CONTINENT_OCEAN')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(result[i].CONTINENT_OCEAN) + '&nbsp;</td>';
+					theInnerHtml += '<td>' + spaceStripper(result.DATA.CONTINENT_OCEAN) + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('COUNTRY')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(result[i].COUNTRY) + '&nbsp;</td>';
+					theInnerHtml += '<td>' + spaceStripper(result.DATA.COUNTRY) + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('STATE_PROV')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(result[i].STATE_PROV) + '&nbsp;</td>';
+					theInnerHtml += '<td>' + spaceStripper(result.DATA.STATE_PROV) + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('SEA')> -1) {
-					theInnerHtml += '<td>' + result[i].SEA + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.SEA + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('QUAD')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(result[i].QUAD) + '&nbsp;</td>';
+					theInnerHtml += '<td>' + spaceStripper(result.DATA.QUAD) + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('FEATURE')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(result[i].FEATURE) + '&nbsp;</td>';
+					theInnerHtml += '<td>' + spaceStripper(result.DATA.FEATURE) + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('COUNTY')> -1) {
-					theInnerHtml += '<td>' + result[i].COUNTY + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.COUNTY + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('ISLAND_GROUP')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(result[i].ISLAND_GROUP) + '&nbsp;</td>';
+					theInnerHtml += '<td>' + spaceStripper(result.DATA.ISLAND_GROUP) + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('ISLAND')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(result[i].ISLAND) + '&nbsp;</td>';
+					theInnerHtml += '<td>' + spaceStripper(result.DATA.ISLAND) + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('ASSOCIATED_SPECIES')> -1) {
-					theInnerHtml += '<td><div class="wrapLong">' + result[i].ASSOCIATED_SPECIES + '</div></td>';
+					theInnerHtml += '<td><div class="wrapLong">' + result.DATA.ASSOCIATED_SPECIES + '</div></td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('HABITAT')> -1) {
-					theInnerHtml += '<td><div class="wrapLong">' + result[i].HABITAT + '</div></td>';
+					theInnerHtml += '<td><div class="wrapLong">' + result.DATA.HABITAT + '</div></td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('MIN_ELEV_IN_M')> -1) {
-					theInnerHtml += '<td>' + result[i].MIN_ELEV_IN_M + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.MIN_ELEV_IN_M + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('MAX_ELEV_IN_M')> -1) {
-					theInnerHtml += '<td>' + result[i].MAX_ELEV_IN_M + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.MAX_ELEV_IN_M + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('MINIMUM_ELEVATION')> -1) {
-					theInnerHtml += '<td>' + result[i].MINIMUM_ELEVATION + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.MINIMUM_ELEVATION + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('MAXIMUM_ELEVATION')> -1) {
-					theInnerHtml += '<td>' + result[i].MAXIMUM_ELEVATION + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.MAXIMUM_ELEVATION + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('ORIG_ELEV_UNITS')> -1) {
-					theInnerHtml += '<td>' + result[i].ORIG_ELEV_UNITS + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.ORIG_ELEV_UNITS + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('SPEC_LOCALITY')> -1) {
-					theInnerHtml += '<td id="SpecLocality_'+result[i].COLLECTION_OBJECT_ID + '">';
-					theInnerHtml += '<span class="browseLink" type="spec_locality" dval="' + encodeURI(result[i].SPEC_LOCALITY) + '"><div class="wrapLong">' + result[i].SPEC_LOCALITY + '</div>';
+					theInnerHtml += '<td id="SpecLocality_'+result.DATA.COLLECTION_OBJECT_ID + '">';
+					theInnerHtml += '<span class="browseLink" type="spec_locality" dval="' + encodeURI(result.DATA.SPEC_LOCALITY) + '"><div class="wrapLong">' + result.DATA.SPEC_LOCALITY + '</div>';
 					theInnerHtml += '</span>'; 					
 					theInnerHtml += '</td>';
 				}
 				
 				if (result.DATA.COLUMNLIST[0].indexOf('GEOLOGY_ATTRIBUTES')> -1) {
-					theInnerHtml += '<td>' + result[i].GEOLOGY_ATTRIBUTES + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.GEOLOGY_ATTRIBUTES + '&nbsp;</td>';
 				}
 				
 			
 				if (result.DATA.COLUMNLIST[0].indexOf('VERBATIM_DATE')> -1) {
-					theInnerHtml += '<td>' + result[i].VERBATIM_DATE + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.VERBATIM_DATE + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('BEGAN_DATE')> -1) {
-					theInnerHtml += '<td>' + dispDate(result[i].BEGAN_DATE) + '</td>';
+					theInnerHtml += '<td>' + dispDate(result.DATA.BEGAN_DATE) + '</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('ENDED_DATE')> -1) {
-					theInnerHtml += '<td>' + dispDate(result[i].ENDED_DATE) + '&nbsp;</td>';
+					theInnerHtml += '<td>' + dispDate(result.DATA.ENDED_DATE) + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('PARTS')> -1) {
-					theInnerHtml += '<td><div class="wrapLong">' + splitBySemicolon(result[i].PARTS) + '</div></td>';
+					theInnerHtml += '<td><div class="wrapLong">' + splitBySemicolon(result.DATA.PARTS) + '</div></td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('SEX')> -1) {
-					theInnerHtml += '<td>' + result[i].SEX + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.SEX + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('REMARKS')> -1) {
-					theInnerHtml += '<td>' + result[i].REMARKS + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.REMARKS + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('COLL_OBJ_DISPOSITION')> -1) {
-					theInnerHtml += '<td>' + result[i].COLL_OBJ_DISPOSITION + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.COLL_OBJ_DISPOSITION + '&nbsp;</td>';
 				}
 				// attributes
 				if (result.DATA.COLUMNLIST[0].indexOf('SNV_RESULTS')> -1) {
-					theInnerHtml += '<td>' + result[i].SNV_RESULTS + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.SNV_RESULTS + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('AGE')> -1) {
-					theInnerHtml += '<td>' + result[i].AGE + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.AGE + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('AGE_CLASS')> -1) {
-					theInnerHtml += '<td>' + result[i].AGE_CLASS + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.AGE_CLASS + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('AXILLARY_GIRTH')> -1) {
-					theInnerHtml += '<td>' + result[i].AXILLARY_GIRTH + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.AXILLARY_GIRTH + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('BODY_CONDITION')> -1) {
-					theInnerHtml += '<td>' + result[i].BODY_CONDITION + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.BODY_CONDITION + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('BREADTH')> -1) {
-					theInnerHtml += '<td>' + result[i].BREADTH + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.BREADTH + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('BURSA')> -1) {
-					theInnerHtml += '<td>' + result[i].BURSA + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.BURSA + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('CASTE')> -1) {
-					theInnerHtml += '<td>' + result[i].CASTE + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.CASTE + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('COLORS')> -1) {
-					theInnerHtml += '<td>' + result[i].COLORS + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.COLORS + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('CROWN_RUMP_LENGTH')> -1) {
-					theInnerHtml += '<td>' + result[i].CROWN_RUMP_LENGTH + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.CROWN_RUMP_LENGTH + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('CURVILINEAR_LENGTH')> -1) {
-					theInnerHtml += '<td>' + result[i].CURVILINEAR_LENGTH + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.CURVILINEAR_LENGTH + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('DIPLOID_NUMBER')> -1) {
-					theInnerHtml += '<td>' + result[i].DIPLOID_NUMBER + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.DIPLOID_NUMBER + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('EAR_FROM_CROWN')> -1) {
-					theInnerHtml += '<td>' + result[i].EAR_FROM_CROWN + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.EAR_FROM_CROWN + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('EAR_FROM_NOTCH')> -1) {
-					theInnerHtml += '<td>' + result[i].EAR_FROM_NOTCH + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.EAR_FROM_NOTCH + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('EGG_CONTENT_WEIGHT')> -1) {
-					theInnerHtml += '<td>' + result[i].EGG_CONTENT_WEIGHT + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.EGG_CONTENT_WEIGHT + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('EGGSHELL_THICKNESS')> -1) {
-					theInnerHtml += '<td>' + result[i].EGGSHELL_THICKNESS + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.EGGSHELL_THICKNESS + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('EMBRYO_WEIGHT')> -1) {
-					theInnerHtml += '<td>' + result[i].EMBRYO_WEIGHT + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.EMBRYO_WEIGHT + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('EXTENSION')> -1) {
-					theInnerHtml += '<td>' + result[i].EXTENSION + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.EXTENSION + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('FAT_DEPOSITION')> -1) {
-					theInnerHtml += '<td>' + result[i].FAT_DEPOSITION + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.FAT_DEPOSITION + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('FOREARM_LENGTH')> -1) {
-					theInnerHtml += '<td>' + result[i].FOREARM_LENGTH + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.FOREARM_LENGTH + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('GONAD')> -1) {
-					theInnerHtml += '<td>' + result[i].GONAD + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.GONAD + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('HIND_FOOT_WITH_CLAW')> -1) {
-					theInnerHtml += '<td>' + result[i].HIND_FOOT_WITH_CLAW + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.HIND_FOOT_WITH_CLAW + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('HIND_FOOT_WITHOUT_CLAW')> -1) {
-					theInnerHtml += '<td>' + result[i].HIND_FOOT_WITHOUT_CLAW + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.HIND_FOOT_WITHOUT_CLAW + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('MOLT_CONDITION')> -1) {
-					theInnerHtml += '<td>' + result[i].MOLT_CONDITION + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.MOLT_CONDITION + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('ABUNDANCE')> -1) {
-					theInnerHtml += '<td>' + result[i].ABUNDANCE + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.ABUNDANCE + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('NUMBER_OF_LABELS')> -1) {
-					theInnerHtml += '<td>' + result[i].NUMBER_OF_LABELS + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.NUMBER_OF_LABELS + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('NUMERIC_AGE')> -1) {
-					theInnerHtml += '<td>' + result[i].NUMERIC_AGE + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.NUMERIC_AGE + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('OVUM')> -1) {
-					theInnerHtml += '<td>' + result[i].OVUM + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.OVUM + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('REPRODUCTIVE_CONDITION')> -1) {
-					theInnerHtml += '<td>' + result[i].REPRODUCTIVE_CONDITION + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.REPRODUCTIVE_CONDITION + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('REPRODUCTIVE_DATA')> -1) {
-					theInnerHtml += '<td>' + result[i].REPRODUCTIVE_DATA + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.REPRODUCTIVE_DATA + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('SKULL_OSSIFICATION')> -1) {
-					theInnerHtml += '<td>' + result[i].SKULL_OSSIFICATION + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.SKULL_OSSIFICATION + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('SNOUT_VENT_LENGTH')> -1) {
-					theInnerHtml += '<td>' + result[i].SNOUT_VENT_LENGTH + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.SNOUT_VENT_LENGTH + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('SOFT_PARTS')> -1) {
-					theInnerHtml += '<td>' + result[i].SOFT_PARTS + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.SOFT_PARTS + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('STOMACH_CONTENTS')> -1) {
-					theInnerHtml += '<td>' + result[i].STOMACH_CONTENTS + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.STOMACH_CONTENTS + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('TAIL_LENGTH')> -1) {
-					theInnerHtml += '<td>' + result[i].TAIL_LENGTH + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.TAIL_LENGTH + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('TOTAL_LENGTH')> -1) {
-					theInnerHtml += '<td>' + result[i].TOTAL_LENGTH + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.TOTAL_LENGTH + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('TRAGUS_LENGTH')> -1) {
-					theInnerHtml += '<td>' + result[i].TRAGUS_LENGTH + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.TRAGUS_LENGTH + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('UNFORMATTED_MEASUREMENTS')> -1) {
-					theInnerHtml += '<td>' + result[i].UNFORMATTED_MEASUREMENTS + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.UNFORMATTED_MEASUREMENTS + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('VERBATIM_PRESERVATION_DATE')> -1) {
-					theInnerHtml += '<td>' + result[i].VERBATIM_PRESERVATION_DATE + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.VERBATIM_PRESERVATION_DATE + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('WEIGHT')> -1) {
-					theInnerHtml += '<td>' + result[i].WEIGHT + '&nbsp;</td>';
+					theInnerHtml += '<td>' + result.DATA.WEIGHT + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('DEC_LAT')> -1) {
-					theInnerHtml += '<td style="font-size:small">' + result[i].DEC_LAT + '&nbsp;</td>';
+					theInnerHtml += '<td style="font-size:small">' + result.DATA.DEC_LAT + '&nbsp;</td>';
 				}
 				if (result.DATA.COLUMNLIST[0].indexOf('DEC_LONG')> -1) {
-					theInnerHtml += '<td style="font-size:small">' + result[i].DEC_LONG + '&nbsp;</td>';
+					theInnerHtml += '<td style="font-size:small">' + result.DATA.DEC_LONG + '&nbsp;</td>';
 				}
 			theInnerHtml += '</tr>';
 		}
