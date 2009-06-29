@@ -768,6 +768,12 @@ function success_getSpecResultsData(result){
 				}				
 				if (result.DATA.COLUMNLIST[0].indexOf('CUSTOMID')> -1) {
 					console.log(result.DATA.CUSTOMID[i]);
+					if (result.DATA.CUSTOMID[i]==null){
+						console.log('tis null');
+					}
+					else {
+						console.log('wtf?');
+					}
 					theInnerHtml += '<td>';
 						theInnerHtml += result.DATA.CUSTOMID[i] + '&nbsp;';
 					theInnerHtml += '</td>';
