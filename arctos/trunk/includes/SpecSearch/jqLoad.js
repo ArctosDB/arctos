@@ -170,7 +170,7 @@ function showHide(id,onOff) {
 		var ctl=document.getElementById(z);
 		if (onOff==1) {
 			var ptl="/includes/SpecSearch/" + id + ".cfm";
-			$.get(ptl, function(data){
+			jQuery.get(ptl, function(data){
 			 $(tab).html(data);
 			})
 			ctl.setAttribute("onclick","showHide('" + id + "',0)");
@@ -180,7 +180,7 @@ function showHide(id,onOff) {
 			ctl.setAttribute("onclick","showHide('" + id + "',1)");
 			ctl.innerHTML='Show More Options';
 		}
-		$.getJSON("/component/functions.cfc",
+		jQuery.getJSON("/component/functions.cfc",
   			{
  				method : "saveSpecSrchPref",
  				id : id,
@@ -271,7 +271,7 @@ function customizeIdentifiers() {
 		$(theDiv).css({position:"absolute", top: data.pageY, left: data.pageX});
 }
 function changeshowObservations (tgt) {
-	$.getJSON("/component/functions.cfc",
+	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "changeshowObservations",
 			tgt : tgt,
