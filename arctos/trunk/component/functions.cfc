@@ -1,5 +1,20 @@
 <cfcomponent>
-<cffunction name="findAccession" returntype="any">
+<!-------------------------------------------->
+<cffunction name="getSpecSrchPref"  access="remote">
+	<cfif isdefined("session.username") and len(#session.username#) gt 0>
+		<cftry>
+			<cfquery name="ins" datasource="cf_dbuser">
+				select specsrchprefs from cf_users
+				where username='#session.username#'
+			</cfquery>
+				<cfreturn ins.specsrchprefs>
+			<cfcatch><!-- nada --></cfcatch>
+		</cftry>
+	</cfif>
+	<cfreturn "cookie">	
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="findAccession"  access="remote">
 	<cfargument name="collection_id" type="numeric" required="yes">
 	<cfargument name="accn_number" type="string" required="yes">
 	<cftry>
