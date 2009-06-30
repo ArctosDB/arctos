@@ -184,7 +184,12 @@ function success_getParts(r) {
 		option.setAttribute('value','');
 		option.appendChild(document.createTextNode(''));
 		p2.appendChild(option);	
-		for (i=0;i<result.length;i++) {
+	console.log('result.length: ' + result.length);
+	console.log('r.ROWCOUNT: ' + r.ROWCOUNT);
+	console.log('r.ROWCOUNT[0]: ' + r.ROWCOUNT[0]);
+	
+		
+		for (i=0;i<r..length;i++) {
 			var option = document.createElement('option');
 			var option2 = document.createElement('option');
 			option.setAttribute('value',result[i].PARTID);
