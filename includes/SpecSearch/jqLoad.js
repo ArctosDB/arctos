@@ -288,3 +288,21 @@ function success_changeshowObservations (result) {
 		alert('An error occured: ' + result);
 	}
 }
+function changeexclusive_collection_id (tgt) {
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "changeexclusive_collection_id",
+			tgt : tgt,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_changeexclusive_collection_id
+	);
+}
+function success_changeexclusive_collection_id (result) {
+	if (result == 'success') {
+		var e = document.getElementById('exclusive_collection_id').className='';
+	} else {
+		alert('An error occured: ' + result);
+	}
+}

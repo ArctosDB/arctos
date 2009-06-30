@@ -6,17 +6,6 @@ function closeThis(){
 	var theDiv = document.getElementById('customDiv');
 	document.body.removeChild(theDiv);
 }
-
-function changeexclusive_collection_id (tgt) {
-	DWREngine._execute(_cfscriptLocation, null, 'changeexclusive_collection_id',tgt, success_changeexclusive_collection_id);
-}
-function success_changeexclusive_collection_id (result) {
-	if (result == 'success') {
-		var e = document.getElementById('exclusive_collection_id').className='';
-	} else {
-		alert('An error occured: ' + result);
-	}
-}
 </script>
 <cfoutput>
 <cfquery name="yourcollid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
