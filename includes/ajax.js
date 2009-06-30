@@ -84,7 +84,17 @@ function clonePart() {
 	var other_id_type=document.getElementById('other_id_type').value;
 	var oidnum=document.getElementById('oidnum').value;
 	if (collection_id.length>0 && other_id_type.length>0 && oidnum.length>0) {
-		DWREngine._execute(_cfscriptLocation, null, 'getSpecimen',collection_id,other_id_type,oidnum,success_getSpecimen);
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "getSpecimen",
+				collection_id : collection_id,
+				other_id_type : other_id_type,
+				oidnum : oidnum,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			success_getSpecimen
+		);
 	} else {
 		alert('Error: cannot resolve ID to specimen.');
 	}
@@ -96,102 +106,101 @@ function success_getSpecimen(result){
 		newPart (result[0].COLLECTION_OBJECT_ID);
 	}
 }
-	
-	
 function checkSubmit() {
 	var c=document.getElementById('submitOnChange').checked;
 	if (c==true) {
 		addPartToContainer();
 	}
+}	
+function newPart (collection_object_id) {
+	var collection_id=document.getElementById('collection_id').value;
+	var part=document.getElementById('part_name').value;
+	var url="/form/newPart.cfm";
+	url +="?collection_id=" + collection_id;
+	url +="&collection_object_id=" + collection_object_id;
+	url +="&part=" + part;
+	divpop(url);
 }
-
-	
-	
-	
-	function newPart (collection_object_id) {
-		var collection_id=document.getElementById('collection_id').value;
-		var part=document.getElementById('part_name').value;
-		var url="/form/newPart.cfm";
-		url +="?collection_id=" + collection_id;
-		url +="&collection_object_id=" + collection_object_id;
-		url +="&part=" + part;
-		divpop(url);
-	}
  function getParts() {
 	var collection_id=document.getElementById('collection_id').value;
 	var other_id_type=document.getElementById('other_id_type').value;
 	var oidnum=document.getElementById('oidnum').value;
 	if (collection_id.length>0 && other_id_type.length>0 && oidnum.length>0) {
-	        var s=document.createElement('DIV');
-	        s.id='ajaxStatus';
-	        s.className='ajaxStatus';
-	        s.innerHTML='Fetching parts...';
-	        document.body.appendChild(s);
-	        var noBarcode=document.getElementById('noBarcode').checked;
-	        var noSubsample=document.getElementById('noSubsample').checked;
-	        DWREngine._execute(_cfscriptLocation, null, 'getParts',collection_id,other_id_type,oidnum,noBarcode,noSubsample,success_getParts);
+		var s=document.createElement('DIV');
+	    s.id='ajaxStatus';
+	    s.className='ajaxStatus';
+	    s.innerHTML='Fetching parts...';
+	    document.body.appendChild(s);
+	    var noBarcode=document.getElementById('noBarcode').checked;
+	    var noSubsample=document.getElementById('noSubsample').checked;
+	    jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "getParts",
+				collection_id : collection_id,
+				other_id_type : other_id_type,
+				oidnum : oidnum,
+				noBarcode : noBarcode,
+				noSubsample : noSubsample,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			success_getParts
+		);
 	}
  }
 
-	function success_getParts(result) {
-		var s=document.getElementById('ajaxStatus');
-		document.body.removeChild(s);
-		var sDiv=document.getElementById('thisSpecimen');
-		var ocoln=document.getElementById('collection_id');
-		var specid=document.getElementById('collection_object_id');
-		var p1=document.getElementById('part_name');
-		var p2=document.getElementById('part_name_2');
-		var op1=p1.value;
-		var op2=p2.value;
-		p1.options.length=0;
-		p2.options.length=0;
-		var selIndex = ocoln.selectedIndex;
-		var coln = ocoln.options[selIndex].text;		
-		var idt=document.getElementById('other_id_type').value;
-		var idn=document.getElementById('oidnum').value;
-		var ss=coln + ' ' + idt + ' ' + idn;
-		if (result[0].PART_NAME.indexOf('Error:')>-1) {
-			sDiv.className='error';
-			//alert(result[0].PART_NAME);
-			ss+=' = ' + result[0].PART_NAME;
-			specid.value='';
-			document.getElementById('pTable').className='red';
-		} else {
-			document.getElementById('pTable').className='';
-			sDiv.className='';
-			specid.value=result[0].COLLECTION_OBJECT_ID;
+function success_getParts(r) {
+	var result=r.DATA;
+	var s=document.getElementById('ajaxStatus');
+	document.body.removeChild(s);
+	var sDiv=document.getElementById('thisSpecimen');
+	var ocoln=document.getElementById('collection_id');
+	var specid=document.getElementById('collection_object_id');
+	var p1=document.getElementById('part_name');
+	var p2=document.getElementById('part_name_2');
+	var op1=p1.value;
+	var op2=p2.value;
+	p1.options.length=0;
+	p2.options.length=0;
+	var selIndex = ocoln.selectedIndex;
+	var coln = ocoln.options[selIndex].text;		
+	var idt=document.getElementById('other_id_type').value;
+	var idn=document.getElementById('oidnum').value;
+	var ss=coln + ' ' + idt + ' ' + idn;
+	if (result[0].PART_NAME.indexOf('Error:')>-1) {
+		sDiv.className='error';
+		//alert(result[0].PART_NAME);
+		ss+=' = ' + result[0].PART_NAME;
+		specid.value='';
+		document.getElementById('pTable').className='red';
+	} else {
+		document.getElementById('pTable').className='';
+		sDiv.className='';
+		specid.value=result[0].COLLECTION_OBJECT_ID;
+		var option = document.createElement('option');
+		option.setAttribute('value','');
+		option.appendChild(document.createTextNode(''));
+		p2.appendChild(option);	
+		for (i=0;i<result.length;i++) {
 			var option = document.createElement('option');
-			option.setAttribute('value','');
-			option.appendChild(document.createTextNode(''));
-			p2.appendChild(option);	
-			for (i=0;i<result.length;i++) {
-				var option = document.createElement('option');
-				var option2 = document.createElement('option');
-				option.setAttribute('value',result[i].PARTID);
-				option2.setAttribute('value',result[i].PARTID);
-				var pStr=result[i].PART_NAME;
-				if (result[i].BARCODE.length>0){
-					pStr+=' [' + result[i].BARCODE + ']';
-				}
-				option.appendChild(document.createTextNode(pStr));
-				option2.appendChild(document.createTextNode(pStr));
-				p1.appendChild(option);
-				p2.appendChild(option2);
+			var option2 = document.createElement('option');
+			option.setAttribute('value',result[i].PARTID);
+			option2.setAttribute('value',result[i].PARTID);
+			var pStr=result[i].PART_NAME;
+			if (result[i].BARCODE.length>0){
+				pStr+=' [' + result[i].BARCODE + ']';
 			}
-			//for (i=0;i<result.length;i++) {
-				//var option = document.createElement('option');
-				//option.setAttribute('value',result[i].PART_NAME);
-				//option.appendChild(document.createTextNode(result[i].PART_NAME));
-				//p2.appendChild(option);
-			//}
-			p1.value=op1;
-			p2.value=op2;
-				
-			ss+=' = ' + result[0].COLLECTION + ' ' + result[0].CAT_NUM + ' (' + result[0].CUSTOMIDTYPE + ' ' + result[0].CUSTOMID + ')';
+			option.appendChild(document.createTextNode(pStr));
+			option2.appendChild(document.createTextNode(pStr));
+			p1.appendChild(option);
+			p2.appendChild(option2);
 		}
-		sDiv.innerHTML=ss;
+		p1.value=op1;
+		p2.value=op2;	
+		ss+=' = ' + result[0].COLLECTION + ' ' + result[0].CAT_NUM + ' (' + result[0].CUSTOMIDTYPE + ' ' + result[0].CUSTOMID + ')';
 	}
-
+	sDiv.innerHTML=ss;
+}
 function divpop (url) {
 	var req;
  	var bgDiv=document.createElement('div');
