@@ -1072,7 +1072,7 @@ function jumpToPage (v) {
 }
 function noNull(d) {
 	if (d==null){
-		return ;;'
+		return '';
 	} else {
 		return d;
 	}
