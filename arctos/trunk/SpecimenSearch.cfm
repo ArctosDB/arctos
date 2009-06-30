@@ -405,7 +405,7 @@
 	changeTarget('tgtForm',tval);
 	changeGrp('groupBy');
 	// make an ajax call to get preferences, then turn stuff on
-	$.getJSON("/component/functions.cfc",
+	jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "saveSearch",
 				returnformat : "json",
