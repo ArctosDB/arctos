@@ -1097,8 +1097,12 @@ function closeCustom() {
 	var theDiv = document.getElementById('customDiv');
 	document.body.removeChild(theDiv);
 	window.location.reload();
+	var theDiv = document.getElementById('bgDiv');
+	document.body.removeChild(theDiv);
 }
 function closeCustomNoRefresh() {
 	var theDiv = document.getElementById('customDiv');
+	document.body.removeChild(theDiv);	
+	var theDiv = document.getElementById('bgDiv');
 	document.body.removeChild(theDiv);
 }
