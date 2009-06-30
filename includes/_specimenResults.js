@@ -1051,7 +1051,7 @@ function success_getSpecResultsData(result){
 		// remove explicit "null" returned in JSON
 		
 		
-	    theInnerHtml = theInnerHtml.replace(/<td>null&nbsp\;<\/td>/g,"<td>null&nbsp;</td>"); 
+	    theInnerHtml = theInnerHtml.replace(/<td>null&nbsp\;<\/td>/g,"<td>boogity&nbsp;</td>"); 
 
 		tgt.innerHTML = theInnerHtml;
 		if (action == 'dispCollObj'){
