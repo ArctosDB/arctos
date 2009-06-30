@@ -401,7 +401,8 @@
 </form>
 </cfoutput> 
 <script type='text/javascript' language='javascript'>
-	var tval = document.getElementById('tgtForm').value;
+$(document).ready(function() {
+  var tval = document.getElementById('tgtForm').value;
 	changeTarget('tgtForm',tval);
 	changeGrp('groupBy');
 	// make an ajax call to get preferences, then turn stuff on
@@ -419,7 +420,6 @@
 			if (cookie != null) {
 				r_getSpecSrchPref(cookie);
 			}
-			//else cookie does not exist = nothing to turn on
 		}
 		else
 			r_getSpecSrchPref(getResult);
@@ -433,6 +433,9 @@
 				//alert(j[i]);
 			}
 		}
-	}
+	}.
+});
+	
+	
 </script>
 <cfinclude template = "includes/_footer.cfm">
