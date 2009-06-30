@@ -9,7 +9,7 @@
 <cfoutput>
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
-var viewport = {
+	var viewport = {
       	o: function() {
           	if (self.innerHeight) {
    			this.pageYOffset = self.pageYOffset;
