@@ -10,7 +10,6 @@ jQuery( function($) {
 		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
 	});
-	
 	$("#partname").autocomplete("/ajax/part_name.cfm", {
 		width: 320,
 		max: 20,
@@ -20,12 +19,7 @@ jQuery( function($) {
 		multipleSeparator: "|",
 		scroll: true,
 		scrollHeight: 300
-	});
-	
-
-	
-	
-	
+	});	
 	$("#c_collection_cust").click(function(e){
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
