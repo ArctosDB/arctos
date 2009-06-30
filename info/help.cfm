@@ -167,8 +167,7 @@ Common Names have been opportunistically entered into Arctos. Common Name entrie
 		WHERE
 			 collection.collection_id = cataloged_item.collection_id (+)
 		GROUP BY 
-			institution_acronym,
-			collection.collection_cde,
+			collection,
 			descr,
 			web_link,
 			web_link_text
