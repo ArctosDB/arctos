@@ -421,15 +421,15 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 
 function success_getSpecResultsData(result){
 	console.log(result);
-	var data = eval(result.DATA);
+	var data = result.DATA;
 	
 	console.log(data);
 	
 	console.log(data.length);
 	
-	  data.each(function(item) { 
-		  console.log(item);
-	  });
+	  $.each(data.items, function(i, item) {
+          console.log(item);
+      }); 
 	  
 	/*
 	var collection_object_id = result.DATA.COLLECTION_OBJECT_ID[0];
