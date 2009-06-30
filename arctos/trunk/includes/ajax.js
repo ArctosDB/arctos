@@ -46,7 +46,19 @@ function addPartToContainer () {
 		alert('Something is null');
 		return false;
 	}
-	DWREngine._execute(_cfscriptLocation, null, 'addPartToContainer',cid,pid1,pid2,parent_barcode,new_container_type,success_addPartToContainer);
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "addPartToContainer",
+			collection_object_id : cid,
+			part_id : pid1,
+			part_id2 : pid2,
+			parent_barcode : parent_barcode,
+			new_container_type : new_container_type,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_addPartToContainer
+	);
 }
 function success_addPartToContainer(result) {
 	statAry=result.split("|");
