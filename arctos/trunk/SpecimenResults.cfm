@@ -69,7 +69,7 @@ var viewport = {
 	
 	
 	
-	$(".customizeButton").live('click', function(e){
+	$("##customizeButton").live('click', function(e){
 		console.log('clickity');
 		/*
 		var theDiv = document.createElement('div');
