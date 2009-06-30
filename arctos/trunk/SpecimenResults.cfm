@@ -84,6 +84,7 @@ var viewport = {
 		/*
 		
 		
+		
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
@@ -104,7 +105,7 @@ var viewport = {
 		document.body.appendChild(theDiv);
 		viewport.init("##browseDiv");
 		viewport.init("##bgDiv");
-		*/s
+		*/
 	});
 	
 	$(".browseLink").live('click', function(e){
