@@ -85,11 +85,12 @@ var viewport = {
 		theDiv.className = 'sscustomBox';
 		theDiv.style.position="absolute";
 		
-		document.body.appendChild(theDiv);
+		
 		
 		var guts = "/info/SpecimenResultsPrefs.cfm";
 		ahah(guts,'browseDiv');
 		
+		document.body.appendChild(theDiv);
 		
 		viewport.init("##browseDiv");
 		viewport.init("##bgDiv");
