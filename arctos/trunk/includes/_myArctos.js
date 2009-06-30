@@ -1,5 +1,5 @@
 function changedisplayRows (tgt) {
-	$.getJSON("/component/functions.cfc",
+	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "changedisplayRows",
 			tgt : tgt,
@@ -23,7 +23,7 @@ function changekillRows () {
 	} else {
 		var tgt=0;
 	}
-	$.getJSON("/component/functions.cfc",
+	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "changekillRows",
 			tgt : tgt,
@@ -39,7 +39,7 @@ function success_changekillRows(result){
 	}
 }
 function changeresultSort (tgt) {
-	$.getJSON("/component/functions.cfc",
+	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "changeresultSort",
 			tgt : tgt,

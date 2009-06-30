@@ -1,7 +1,7 @@
 function findAccession () {
 	var collection_id=document.getElementById('collection_id').value;
 	var accn_number=document.getElementById('accn_number').value;
-	$.getJSON("/component/functions.cfc",
+	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "findAccession",
 			collection_id : collection_id,
