@@ -407,7 +407,7 @@ $(document).ready(function() {
 	changeTarget('tgtForm',tval);
 	changeGrp('groupBy');
 	// make an ajax call to get preferences, then turn stuff on
-	jQuery.getJSON("/component/functions.cfc",
+	$.getJSON("/component/functions.cfc",
 		{
 			method : "getSpecSrchPref",
 			returnformat : "json",
@@ -434,7 +434,7 @@ $(document).ready(function() {
 				//alert(j[i]);
 			}
 		}
-	}.
+	}
 });
 	});
 	
