@@ -431,6 +431,9 @@ function success_getSpecResultsData(result){
 	  $.each(data.COLLECTION_OBJECT_ID, function(i, CID) {
           console.log(CID);
       }); 
+	  $.each(data.CUSTOMID, function(i, CID) {
+          console.log(CID);
+      }); 
 	  
 	/*
 	var collection_object_id = result.DATA.COLLECTION_OBJECT_ID[0];
