@@ -406,13 +406,13 @@
 	changeGrp('groupBy');
 	// make an ajax call to get preferences, then turn stuff on
 	jQuery.getJSON("/component/functions.cfc",
-			{
-				method : "saveSearch",
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			getComplete
-		);
+		{
+			method : "getSpecSrchPref",
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		getComplete
+	);
 	function getComplete (getResult) {
 		if (getResult == "cookie") {
 			var cookie = readCookie("specsrchprefs");
