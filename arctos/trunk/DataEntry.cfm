@@ -1,6 +1,5 @@
 <cfset btime=now()>
 <cfinclude template="/includes/_header.cfm">
-<script type='text/javascript' src='/includes/jquery/jquery.js'></script>	
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
 <cf_showMenuOnly>
 <!--- 

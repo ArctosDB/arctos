@@ -10,7 +10,6 @@
 
 
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
-<script type='text/javascript' src='/includes/jquery/jquery.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.field.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
 
