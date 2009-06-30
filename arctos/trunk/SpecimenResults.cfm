@@ -71,6 +71,30 @@ var viewport = {
 	
 	$("##customizeButton").live('click', function(e){
 		console.log('clickity');
+		
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		bgDiv.setAttribute('onclick','closeBrowse()');
+		document.body.appendChild(bgDiv);
+		var type=this.type;
+		var type=$(this).attr('type');
+		var dval=$(this).attr('dval');
+		var theDiv = document.createElement('div');
+		theDiv.id = 'browseDiv';
+		theDiv.className = 'sscustomBox';
+		theDiv.style.position="absolute";
+		
+		document.body.appendChild(theDiv);
+		
+		var guts = "/info/SpecimenResultsPrefs.cfm";
+		ahah(guts,'browseDiv');
+		
+		
+		viewport.init("##browseDiv");
+		viewport.init("##bgDiv");
+		
+		
 		/*
 		var theDiv = document.createElement('div');
 		theDiv.id = 'customDiv';
