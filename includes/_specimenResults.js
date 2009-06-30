@@ -289,7 +289,6 @@ function checkAllById(list) {
 	for (i=0; i<a.length; ++i) {
 		//alert(eid);
 		if (document.getElementById(a[i])) {
-			//alert(eid);
 			document.getElementById(a[i]).checked=true;
 			crcloo(a[i],'in');
 		}

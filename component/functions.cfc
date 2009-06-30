@@ -1,5 +1,82 @@
 <cfcomponent>
 
+<!-------------------------------------------->
+<cffunction name="addPartToContainer" access="remote">
+	<cfargument name="collection_object_id" type="numeric" required="yes">
+	<cfargument name="part_id" type="numeric" required="yes">
+	<cfargument name="part_id2" type="string" required="no">
+	<cfargument name="parent_barcode" type="string" required="yes">
+	<cfargument name="new_container_type" type="string" required="yes">		
+	<cfoutput>
+	<cftry>
+		<cftransaction>
+			<cfquery name="isGoodParent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select container_id from container where container_type <> 'collection object'
+				and barcode='#parent_barcode#'
+			</cfquery>
+			<cfif #isGoodParent.recordcount# is not 1>
+				<cfreturn "0|Parent container (barcode #parent_barcode#) not found.">
+			</cfif>
+			<cfquery name="cont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select container_id FROM coll_obj_cont_hist where collection_object_id=#part_id#
+			</cfquery>
+			<cfif #cont.recordcount# is not 1>
+				<cfreturn "0|Yikes! A part is not a container.">
+			</cfif>
+			<cfquery name="newparent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				UPDATE container SET container_type = '#new_container_type#' WHERE
+					container_id=#isGoodParent.container_id#
+			</cfquery>
+			<cftransaction action="commit" />
+			<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				UPDATE container SET parent_container_id = #isGoodParent.container_id# WHERE
+				container_id=#cont.container_id#
+			</cfquery>
+			<cfif len(#part_id2#) gt 0>
+				<cfquery name="cont2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select container_id FROM coll_obj_cont_hist where collection_object_id=#part_id2#
+				</cfquery>
+				<cfquery name="moveIt2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					UPDATE container SET parent_container_id = #isGoodParent.container_id# WHERE
+					container_id=#cont2.container_id#
+				</cfquery>
+			</cfif>
+		</cftransaction>
+		<cfquery name="coll_obj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				cat_num,
+				institution_acronym,
+				collection.collection_cde,
+				collection.collection,
+				scientific_name,
+				part_name
+				<cfif len(part_id2) gt 0>
+					|| (select ' and ' || part_name from specimen_part where collection_object_id=#part_id2#)
+				</cfif>
+				part_name
+			from
+				cataloged_item,
+				collection,
+				identification,
+				specimen_part
+			where
+				cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
+				cataloged_item.collection_object_id=identification.collection_object_id and
+				accepted_id_fg=1 and
+				cataloged_item.collection_id=collection.collection_id and
+				specimen_part.collection_object_id=#part_id#
+		</cfquery>
+		<cfset r='Moved <a href="/guid/#coll_obj.institution_acronym#:#coll_obj.collection_cde#:#coll_obj.cat_num#">'>
+		<cfset r="#r##coll_obj.collection# #coll_obj.cat_num#">
+		<cfset r="#r#</a> (<i>#coll_obj.scientific_name#</i>) #coll_obj.part_name#">
+		<cfset r="#r# to container barcode #parent_barcode# (#new_container_type#)">
+		<cfreturn '1|#r#'>>
+		<cfcatch>
+			<cfreturn "0|#cfcatch.message# #cfcatch.detail# #cfcatch.sql#"> 
+		</cfcatch>		
+	</cftry>
+	</cfoutput>	
+</cffunction>
 <!------------------------------------------------------------------>
 <cffunction name="changefancyCOID" access="remote">
 	<cfargument name="tgt" type="string" required="yes">
