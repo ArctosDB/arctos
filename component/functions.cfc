@@ -1,6 +1,78 @@
 <cfcomponent>
+
+<!------------------------------------------------------------------>
+<cffunction name="changefancyCOID" access="remote">
+	<cfargument name="tgt" type="string" required="yes">
+	<cftry>
+			<cfquery name="up" datasource="cf_dbuser">
+				UPDATE cf_users SET
+					fancyCOID = 
+					<cfif #tgt# is 1>
+						#tgt#
+					<cfelse>
+						NULL
+					</cfif>
+				WHERE username = '#session.username#'
+			</cfquery>
+			<cfif #tgt# gt 0>
+				<cfset session.fancyCOID = "#tgt#">
+			<cfelse>
+				<cfset session.fancyCOID = "">
+			</cfif>
+		<cfset result="success">
+	<cfcatch>
+		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
+	</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
+<!------------------------------------------------------------------>
+<cffunction name="changeexclusive_collection_id" access="remote">
+	<cfargument name="tgt" type="string" required="yes">
+		<cfinclude template="/includes/functionLib.cfm">
+	<cftry>
+		<cfquery name="up" datasource="cf_dbuser">
+			UPDATE cf_users SET
+				exclusive_collection_id = 
+				<cfif #tgt# gt 0>
+					#tgt#
+				<cfelse>
+					NULL
+				</cfif>
+			WHERE username = '#session.username#'
+			</cfquery>
+		<cfset setDbUser(tgt)>
+		<cfset result="success">
+	<cfcatch>
+		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
+	</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="changecustomOtherIdentifier" access="remote">
+	<cfargument name="tgt" type="string" required="yes">
+	<cftry>
+			<cfquery name="up" datasource="cf_dbuser">
+				UPDATE cf_users SET
+					customOtherIdentifier = 
+					<cfif len(#tgt#) gt 0>
+						'#tgt#'
+					<cfelse>
+						NULL
+					</cfif>
+				WHERE username = '#session.username#'
+			</cfquery>
+			<cfset session.customOtherIdentifier = "#tgt#">
+		<cfset result="success">
+	<cfcatch>
+		<cfset result = "#cfcatch.Message# #cfcatch.Detail#">
+	</cfcatch>
+	</cftry>
+	<cfreturn result>
+</cffunction>
 <!-------------------------------------------->
-<cffunction name="getSpecSrchPref"  access="remote">
+<cffunction name="getSpecSrchPref" access="remote">
 	<cfif isdefined("session.username") and len(#session.username#) gt 0>
 		<cftry>
 			<cfquery name="ins" datasource="cf_dbuser">
