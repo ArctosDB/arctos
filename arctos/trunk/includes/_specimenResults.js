@@ -1050,7 +1050,8 @@ function success_getSpecResultsData(result){
 		theInnerHtml += '</table>';
 		// remove explicit "null" returned in JSON
 		
-		theInnerHtml = theInnerHtml.replace("null","stillnull"); 
+		
+	    theInnerHtml = theInnerHtml.replace(/null/g,"stillnull"); 
 
 		tgt.innerHTML = theInnerHtml;
 		if (action == 'dispCollObj'){
