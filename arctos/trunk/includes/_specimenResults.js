@@ -783,7 +783,7 @@ function success_getSpecResultsData(result){
 				}				
 				if (data.COLUMNLIST[0].indexOf('CUSTOMID')> -1) {
 					theInnerHtml += '<td>';
-						theInnerHtml += noNull(data.CUSTOMID[i]) + '&nbsp;';
+						theInnerHtml += data.CUSTOMID[i] + '&nbsp;';
 					theInnerHtml += '</td>';
 				}
 				theInnerHtml += '<td>';
@@ -1087,13 +1087,6 @@ function jumpToPage (v) {
 	var p = a[0];
 	var m=a[1];
 	ssvar(p,m);
-}
-function noNull(d) {
-	if (d==null){
-		return '';
-	} else {
-		return d;
-	}
 }
 function openCustomize() {
 		var theDiv = document.createElement('div');
