@@ -422,9 +422,12 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 function success_getSpecResultsData(result){
 	console.log(result);
 	var data = eval(result.DATA);
+	
 	console.log(data);
+	
 	console.log(data.length);
-	  list.each(function(item) { 
+	
+	  data.each(function(item) { 
 		  console.log(item);
 	  });
 	  
