@@ -265,7 +265,7 @@ function customizeIdentifiers() {
 		theDiv.src = "";
 		document.body.appendChild(theDiv);
 		var ptl="/includes/SpecSearch/customIDs.cfm";
-			$.get(ptl, function(data){
+			jQuery.get(ptl, function(data){
 			 $(theDiv).html(data);
 			})
 		$(theDiv).css({position:"absolute", top: data.pageY, left: data.pageX});
