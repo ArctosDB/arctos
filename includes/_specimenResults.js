@@ -421,7 +421,7 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 
 function success_getSpecResultsData(result){
 	console.log(result);
-	var list = json.DATA;
+	var list = result.DATA;
 	  list.each(function(item) { 
 		  console.log(item);
 	  }
