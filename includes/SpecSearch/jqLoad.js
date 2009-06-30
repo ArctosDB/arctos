@@ -95,7 +95,7 @@ function showHide(id,onOff) {
 		if (onOff==1) {
 			var ptl="/includes/SpecSearch/" + id + ".cfm";
 			jQuery.get(ptl, function(data){
-			 $(tab).html(data);
+				jQuery(tab).html(data);
 			})
 			ctl.setAttribute("onclick","showHide('" + id + "',0)");
 			ctl.innerHTML='Show Fewer Options';	
