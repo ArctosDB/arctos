@@ -427,8 +427,8 @@ function success_getSpecResultsData(result){
 	
 	console.log(data.length);
 	
-	  $.each(data.items, function(i, item) {
-          console.log(item);
+	  $.each(data.COLLECTION_OBJECT_ID, function(i, CID) {
+          console.log(CID);
       }); 
 	  
 	/*
