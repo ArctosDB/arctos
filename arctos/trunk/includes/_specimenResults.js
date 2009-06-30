@@ -226,6 +226,7 @@ function cordFormat(str) {
 
 function spaceStripper(str) {
 	console.log(str);
+	str=String(str);
 	if (str==null) {
 		rStr='';
 	} else {
