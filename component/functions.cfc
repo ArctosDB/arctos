@@ -62,7 +62,7 @@
 			<cfset t = QuerySetCell(q, "PART_NAME", "Error: no_parts_found", 1)>
 		</cfif>
 		<cfif u.c is not 1>
-			<cfset q=queryNew("part_name")>
+			<cfset q=queryNew("PART_NAME")>
 			<cfset t = queryaddrow(q,1)>
 			<cfset t = QuerySetCell(q, "PART_NAME", "Error: #u.c# specimens match", 1)>
 		</cfif>
