@@ -150,7 +150,7 @@ function newPart (collection_object_id) {
  }
 
 function success_getParts(r) {
-	var	result=eval(r.DATA);
+	var	result=r.DATA;
 	console.log(result);
 	
 	
@@ -191,7 +191,7 @@ function success_getParts(r) {
 			option.setAttribute('value',result.PARTID[i]);
 			option2.setAttribute('value',result.PARTID[i]);
 			var pStr=result.PART_NAME[i];
-			if (result.BARCODE[i].length>0){
+			if (result.BARCODE[i].length>0 && result.BARCODE[i] != null){
 				pStr+=' [' + result.BARCODE[i] + ']';
 			}
 			option.appendChild(document.createTextNode(pStr));
