@@ -1,4 +1,3 @@
-<script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>	
 <cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select media_type from ctmedia_type order by media_type
 </cfquery>

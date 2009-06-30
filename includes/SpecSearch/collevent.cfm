@@ -1,4 +1,3 @@
-<script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>	
 <cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collecting_source from ctcollecting_source
 </cfquery>
