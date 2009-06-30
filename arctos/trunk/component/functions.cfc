@@ -1,4 +1,25 @@
 <cfcomponent>
+<cffunction name="findAccession" returntype="any">
+	<cfargument name="collection_id" type="numeric" required="yes">
+	<cfargument name="accn_number" type="string" required="yes">
+	<cftry>
+		<cfquery name="accn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			SELECT accn.TRANSACTION_ID FROM accn,trans WHERE
+			accn.TRANSACTION_ID=trans.TRANSACTION_ID AND
+			accn_number = '#accn_number#' 
+			and collection_id = #collection_id#			
+		</cfquery>
+		<cfif accn.recordcount is 1 and len(accn.transaction_id) gt 0>
+			<cfreturn accn.transaction_id>
+		<cfelse>
+			<cfreturn -1>
+		</cfif>
+		<cfcatch>
+			<cfreturn -1>
+		</cfcatch>
+	</cftry>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="getSpecResultsData" access="remote">
 	<cfargument name="startrow" type="numeric" required="yes">
 	<cfargument name="numRecs" type="numeric" required="yes">
@@ -25,7 +46,6 @@
 		<cfset t = arrayNew(1)>
 		<cfset temp = queryaddcolumn(result,"COLUMNLIST",t)>
 		<cfset temp = QuerySetCell(result, "COLUMNLIST", "#valuelist(cols.column_name)#", 1)>
-
 	<cfcatch>
 			<cfset result = querynew("collection_object_id,message")>
 			<cfset temp = queryaddrow(result,1)>
