@@ -1,4 +1,19 @@
-<script type='text/javascript' src='/includes/jquery/suggest.js'></script>		
+<script>
+jQuery( function($) {
+
+$("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", {
+		width: 320,
+		max: 20,
+		autofill: true,
+		highlight: false,
+		multiple: true,
+		multipleSeparator: "|",
+		scroll: true,
+		scrollHeight: 300
+	});	
+	});
+
+</script>
 <cfquery name="ctElevUnits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select orig_elev_units from CTORIG_ELEV_UNITS
 </cfquery>
