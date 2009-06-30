@@ -100,14 +100,12 @@ function clonePart() {
 	}
 }
 function success_getSpecimen(r){
-	var result=r.DATA;
-	console.log(result);
-	console.log(result.COLLECTION_OBJECT_ID[0]);
+	var cid=r.DATA.COLLECTION_OBJECT_ID[0];
 	
-	if (result.COLLECTION_OBJECT_ID[0].indexOf('Error:')>-1) {
-		alert(result.COLLECTION_OBJECT_ID[0]);	
+	if (cid.indexOf('Error:')>-1) {
+		alert(cid);	
 	} else {
-		newPart (result.COLLECTION_OBJECT_ID[0]);
+		newPart (cid);
 	}
 }
 function checkSubmit() {
