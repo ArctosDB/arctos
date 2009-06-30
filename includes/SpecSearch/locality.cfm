@@ -1,18 +1,16 @@
-<script>
-jQuery( function($) {
-
-$("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", {
-		width: 320,
-		max: 20,
-		autofill: true,
-		highlight: false,
-		multiple: false,
-		scroll: true,
-		scrollHeight: 300
-	});	
+<script type="text/javascript" language="javascript">
+	jQuery( function($) {
+		$("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", {
+			width: 320,
+			max: 20,
+			autofill: true,
+			highlight: false,
+			multiple: false,
+			scroll: true,
+			scrollHeight: 300
+		});	
 	});
-
-</script>
+	</script>
 <cfquery name="ctElevUnits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select orig_elev_units from CTORIG_ELEV_UNITS
 </cfquery>
@@ -62,11 +60,6 @@ $("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeolog
 		<td class="srch">
 			<input type="text" name="geology_attribute_value" id="geology_attribute_value" size="50">
 		</td>
-		<!---
-		<script>
-			jQuery("##geology_attribute_value").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"geology_attribute"});
-		</script>
-		--->
 	</tr>
 	<tr>
 		<td class="lbl">

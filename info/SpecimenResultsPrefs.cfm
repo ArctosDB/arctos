@@ -283,12 +283,7 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 			</td>
 		</tr>
 	</table>
-
 </form>
-
 </div>
-</cfoutput>
-			 
-			 
-			 
+</cfoutput>			 
 </cfif>

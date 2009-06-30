@@ -156,8 +156,7 @@ Common Names have been opportunistically entered into Arctos. Common Name entrie
 	<cfset title="Collection Stats">
 	<cfquery name="stat" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
-			institution_acronym,
-			collection.collection_cde,
+			collection,
 			descr,
 			count(collection_object_id) as cnt,
 			web_link,
@@ -190,8 +189,7 @@ Common Names have been opportunistically entered into Arctos. Common Name entrie
 			<tr>
 				
 					<td><li></td>
-					<td>#institution_acronym#</td>
-					<td>#collection_cde#</td>
+					<td>#Collection#</td>
 					<td>#cnt#</td>
 				  <td nowrap><font size="-1">(
 				  <cfif len(#web_link#) gt 0>
@@ -221,7 +219,7 @@ Common Names have been opportunistically entered into Arctos. Common Name entrie
 	</ul>
 	</table>
 	</blockquote>
-	<p><a href="/CollectionStats.cfm" target="_blank">Detailed Database Statistics</a></p>
+	<p><a href="/Collections" target="_blank">More Info</a></p>
 </cfif>
 <!----------------------------------------------------------------------------------------------------->
 <cfif #content# is "collector">
