@@ -412,8 +412,7 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 			numrecs : numrecs,
 			orderBy : orderBy,
 			returnformat : "json",
-			queryformat : 'column',
-			excludeNullProperties : true
+			queryformat : 'column'
 		},
 		success_getSpecResultsData
 	);
@@ -435,6 +434,8 @@ function success_getSpecResultsData(result){
           console.log(CID);
       }); 
 	  
+	  var collection_object_id = data.COLLECTION_OBJECT_ID[0];
+	  console.log(collection_object_id);
 	/*
 	var collection_object_id = result.DATA.COLLECTION_OBJECT_ID[0];
 	//alert(collection_object_id);
