@@ -401,8 +401,6 @@
 </form>
 </cfoutput> 
 <script type='text/javascript' language='javascript'>
-jQuery( function($) {
-$(document).ready(function() {
   var tval = document.getElementById('tgtForm').value;
 	changeTarget('tgtForm',tval);
 	changeGrp('groupBy');
@@ -435,9 +433,6 @@ $(document).ready(function() {
 			}
 		}
 	}
-});
-	});
-	
 	
 </script>
 <cfinclude template = "includes/_footer.cfm">
