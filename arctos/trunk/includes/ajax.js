@@ -151,6 +151,9 @@ function newPart (collection_object_id) {
 
 function success_getParts(r) {
 	var result=r.DATA;
+	console.log(result);
+	
+	
 	var s=document.getElementById('ajaxStatus');
 	document.body.removeChild(s);
 	var sDiv=document.getElementById('thisSpecimen');
