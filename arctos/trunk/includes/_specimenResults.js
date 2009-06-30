@@ -225,11 +225,10 @@ function cordFormat(str) {
 }
 
 function spaceStripper(str) {
-	if (str == null) {
+	if (str==null) {
 		rStr='';
 	} else {
-		var rExp = / /gi;
-		var rStr = str.replace(rExp,'&nbsp;');
+		var rStr = str.replace(/ /gi,'&nbsp;');
 	}
 	return rStr;
 }
