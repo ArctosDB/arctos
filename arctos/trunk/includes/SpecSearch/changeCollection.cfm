@@ -1,6 +1,4 @@
 <script language="javascript" type="text/javascript">
-
-
 function closeThis(){
 	document.location=location.href;
 	var theDiv = document.getElementById('customDiv');

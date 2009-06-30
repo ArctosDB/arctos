@@ -1,4 +1,3 @@
-<script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>	
 <cfoutput>
 <cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from ctpermit_type

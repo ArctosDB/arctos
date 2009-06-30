@@ -1,4 +1,3 @@
-<script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>	
 <cfquery name="ctClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT DISTINCT(phylclass) FROM ctclass ORDER BY phylclass
 </cfquery>
