@@ -87,9 +87,12 @@ var viewport = {
 		
 		
 		document.body.appendChild(theDiv);
-		
 		var guts = "/info/SpecimenResultsPrefs.cfm";
-		ahah(guts,'browseDiv');
+		
+		$('##browseDiv').load(guts);
+		
+		//var guts = "/info/SpecimenResultsPrefs.cfm";
+		//ahah(guts,'browseDiv');
 		
 		
 		//viewport.init("##browseDiv");
