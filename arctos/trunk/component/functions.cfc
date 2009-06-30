@@ -73,9 +73,9 @@
 		<cfset t = QuerySetCell(theResult, "typeList", "#cfcatch.detail#", 1)>
 		<cfreturn theResult>
 		--->
-		<cfset q=queryNew("part_name")>
+		<cfset q=queryNew("PART_NAME")>
 		<cfset t = queryaddrow(q,1)>
-		<cfset t = QuerySetCell(q, "part_name", "Error: #cfcatch.Message# #cfcatch.detail#", 1)>
+		<cfset t = QuerySetCell(q, "PART_NAME", "Error: #cfcatch.Message# #cfcatch.detail#", 1)>
 	</cfcatch>
 	</cftry>
 	<cfreturn q>
