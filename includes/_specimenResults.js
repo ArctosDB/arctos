@@ -424,7 +424,7 @@ function success_getSpecResultsData(result){
 	var list = result.DATA;
 	  list.each(function(item) { 
 		  console.log(item);
-	  }
+	  });
 	  
 	/*
 	var collection_object_id = result.DATA.COLLECTION_OBJECT_ID[0];
