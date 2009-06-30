@@ -421,6 +421,11 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 
 function success_getSpecResultsData(result){
 	console.log(result);
+	var list = json.DATA;
+	  list.each(function(item) { 
+		  console.log(item);
+	  }
+	  
 	/*
 	var collection_object_id = result.DATA.COLLECTION_OBJECT_ID[0];
 	//alert(collection_object_id);
