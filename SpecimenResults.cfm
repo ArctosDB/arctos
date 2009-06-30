@@ -89,14 +89,19 @@ var viewport = {
 		document.body.appendChild(theDiv);
 		var guts = "/info/SpecimenResultsPrefs.cfm";
 		
-		$('##browseDiv').load(guts);
+		$('##browseDiv').load(guts,{},function(){
+				viewport.init("##browseDiv");
+				viewport.init("##bgDiv");
+			});
+		
+		
+		
 		
 		//var guts = "/info/SpecimenResultsPrefs.cfm";
 		//ahah(guts,'browseDiv');
 		
 		
-		viewport.init("##browseDiv");
-		viewport.init("##bgDiv");
+		
 		
 		
 		/*
