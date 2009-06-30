@@ -208,15 +208,19 @@ function success_makePartThingy(result){
 }
 
 function cordFormat(str) {
-	var rStr = str;
-	var rExp = /s/gi;
-	var rStr = rStr.replace(rExp,"\'\'");
-	var rExp = /d/gi;
-	var rStr = rStr.replace(rExp,'<sup>o</sup>');
-	var rExp = /m/gi;
-	var rStr = rStr.replace(rExp,"\'");
-	var rExp = / /gi;
-	var rStr = rStr.replace(rExp,'&nbsp;');
+	if (str == null) {
+		rStr='';
+	} else {
+		var rStr = str;
+		var rExp = /s/gi;
+		var rStr = rStr.replace(rExp,"\'\'");
+		var rExp = /d/gi;
+		var rStr = rStr.replace(rExp,'<sup>o</sup>');
+		var rExp = /m/gi;
+		var rStr = rStr.replace(rExp,"\'");
+		var rExp = / /gi;
+		var rStr = rStr.replace(rExp,'&nbsp;');
+	}
 	return rStr;
 }
 
@@ -230,17 +234,25 @@ function spaceStripper(str) {
 	return rStr;
 }
 function splitByComma(str) {
-	var rExp = /, /gi;
-	var rStr = str.replace(rExp,'<br>');
-	var rExp = / /gi;
-	var rStr = rStr.replace(rExp,'&nbsp;');
+	if (str == null) {
+		rStr='';
+	} else {
+		var rExp = /, /gi;
+		var rStr = str.replace(rExp,'<br>');
+		var rExp = / /gi;
+		var rStr = rStr.replace(rExp,'&nbsp;');
+	}
 	return rStr;
 }
 function splitBySemicolon(str) {
-	var rExp = /; /gi;
-	var rStr = str.replace(rExp,'<br>');
-	var rExp = / /gi;
-	var rStr = rStr.replace(rExp,'&nbsp;');
+	if (str == null) {
+		rStr='';
+	} else {
+		var rExp = /; /gi;
+		var rStr = str.replace(rExp,'<br>');
+		var rExp = / /gi;
+		var rStr = rStr.replace(rExp,'&nbsp;');
+	}
 	return rStr;
 }
 
@@ -248,32 +260,29 @@ function dispDate(date){
 	// accepts ColdFusion's crappy date string of the format
 	// 1952-07-03 00:00:00.0
 	// and returns a string of the format dd Mon yyyy
-	
-	var s=date.substring(0,10);
-	var a = s.split('-');
-	var mos=new Array(13)
-	mos[0]=""
-	mos[1]="Jan"
-	mos[2]="Feb"
-	mos[3]="Mar"
-	mos[4]="Apr"
-	mos[5]="May"
-	mos[6]="Jun"
-	mos[7]="Jul"
-	mos[8]="Aug"
-	mos[9]="Sep"
-	mos[10]="Oct"
-	mos[11]="Nov"
-	mos[12]="Dec"
-	var m = parseFloat(a[1]);
-	//alert('a1:' + a[1] + 's:' + s + 'date:' + date + '==' + m + '==' + mos[m]);
-var d = a[2] + '&nbsp;' + mos[m] + '&nbsp;' + a[0];
-return d;
-					//
-					//var d = ds.getDate();
-					//var m = ds.getDay();
-					//var y = ds.getYear();
-					//var newDate = d + ' ' + m + ' ' + y;	
+	if (date == null) {
+		d='';
+	} else {
+		var s=date.substring(0,10);
+		var a = s.split('-');
+		var mos=new Array(13)
+		mos[0]=""
+		mos[1]="Jan"
+		mos[2]="Feb"
+		mos[3]="Mar"
+		mos[4]="Apr"
+		mos[5]="May"
+		mos[6]="Jun"
+		mos[7]="Jul"
+		mos[8]="Aug"
+		mos[9]="Sep"
+		mos[10]="Oct"
+		mos[11]="Nov"
+		mos[12]="Dec"
+		var m = parseFloat(a[1]);
+		var d = a[2] + '&nbsp;' + mos[m] + '&nbsp;' + a[0];
+	}
+	return d;	
 }													
 function checkAllById(list) {
 	var a = list.split(',');
@@ -1039,6 +1048,10 @@ function success_getSpecResultsData(result){
 			theInnerHtml += '</tr>';
 		}
 		theInnerHtml += '</table>';
+		// remove explicit "null" returned in JSON
+		
+		theInnerHtml = theInnerHtml.replace("null","stillnull"); 
+
 		tgt.innerHTML = theInnerHtml;
 		if (action == 'dispCollObj'){
 			makePartThingy();
