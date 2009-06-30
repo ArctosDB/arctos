@@ -101,7 +101,7 @@ function clonePart() {
 }
 function success_getSpecimen(r){
 	var cid=toString(r.DATA.COLLECTION_OBJECT_ID[0]);
-	
+	console.log(cid);
 	if (cid.indexOf('Error:')>-1) {
 		alert(cid);	
 	} else {
