@@ -101,6 +101,7 @@ function clonePart() {
 }
 function success_getSpecimen(r){
 	var result=r.DATA;
+	console.log(result);
 	if (result.COLLECTION_OBJECT_ID[0].indexOf('Error:')>-1) {
 		alert(result.COLLECTION_OBJECT_ID[0]);	
 	} else {
