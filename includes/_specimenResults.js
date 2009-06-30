@@ -769,13 +769,8 @@ function success_getSpecResultsData(result){
 					theInnerHtml +='<td id="partCell_' + data.COLLECTION_OBJECT_ID[i] + '"></td>';
 				}				
 				if (data.COLUMNLIST[0].indexOf('CUSTOMID')> -1) {
-					if (data.CUSTOMID[i]==null){
-						var d='';
-					} else {
-						var d=data.CUSTOMID[i];
-					}
 					theInnerHtml += '<td>';
-						theInnerHtml += d + '&nbsp;';
+						theInnerHtml += noNull(data.CUSTOMID[i]) + '&nbsp;';
 					theInnerHtml += '</td>';
 				}
 				theInnerHtml += '<td>';
@@ -1074,6 +1069,13 @@ function jumpToPage (v) {
 	var p = a[0];
 	var m=a[1];
 	ssvar(p,m);
+}
+function noNull(d) {
+	if (d==null){
+		return ;;'
+	} else {
+		return d;
+	}
 }
 function openCustomize() {
 		var theDiv = document.createElement('div');
