@@ -1,6 +1,14 @@
 <script language="javascript" type="text/javascript">
 function changecustomOtherIdentifier (tgt) {
-	DWREngine._execute(_cfscriptLocation, null, 'changecustomOtherIdentifier',tgt, success_changecustomOtherIdentifier);
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "changecustomOtherIdentifier",
+			tgt : tgt,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_changecustomOtherIdentifier
+	);
 }
 function success_changecustomOtherIdentifier (result) {
 	if (result == 'success') {
@@ -17,7 +25,15 @@ function closeThis(){
 }
 
 function changeexclusive_collection_id (tgt) {
-	DWREngine._execute(_cfscriptLocation, null, 'changeexclusive_collection_id',tgt, success_changeexclusive_collection_id);
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "changeexclusive_collection_id",
+			tgt : tgt,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_changeexclusive_collection_id
+	);
 }
 function success_changeexclusive_collection_id (result) {
 	if (result == 'success') {
@@ -29,7 +45,15 @@ function success_changeexclusive_collection_id (result) {
 
 
 function changefancyCOID (tgt) {
-	DWREngine._execute(_cfscriptLocation, null, 'changefancyCOID',tgt, success_changefancyCOID);
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "changefancyCOID",
+			tgt : tgt,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_changefancyCOID
+	);
 }
 function success_changefancyCOID (result) {
 	if (result == 'success') {
