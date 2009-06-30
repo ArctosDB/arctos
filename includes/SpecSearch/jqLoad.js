@@ -58,36 +58,7 @@ jQuery( function($) {
 			$('#helpDiv').remove();
 		}
 	}
-	function showHide(id,onOff) {
-		var t='e_' + id;
-		var z='c_' + id;	
-		if (document.getElementById(t) && document.getElementById(z)) {	
-			var tab=document.getElementById(t);
-			var ctl=document.getElementById(z);
-			if (onOff==1) {
-				var ptl="/includes/SpecSearch/" + id + ".cfm";
-				jQuery.get(ptl, function(data){
-				 $(tab).html(data);
-				})
-				ctl.setAttribute("onclick","showHide('" + id + "',0)");
-				ctl.innerHTML='Show Fewer Options';	
-			} else {
-				tab.innerHTML='';
-				ctl.setAttribute("onclick","showHide('" + id + "',1)");
-				ctl.innerHTML='Show More Options';
-			}
-			jQuery.getJSON("/component/functions.cfc",
-	  			{
-	 				method : "saveSpecSrchPref",
-	 				id : id,
-	  				onOff : onOff,
-	 				returnformat : "json",
-	 				queryformat : 'column'
-	 			},
-	  			saveComplete
-	 		);
-		}
-	}
+	
 	function customizeIdentifiers() {
 		var theDiv = document.createElement('div');
 			theDiv.id = 'customDiv';
@@ -114,6 +85,37 @@ jQuery( function($) {
 	}
 	
 });
+
+function showHide(id,onOff) {
+	var t='e_' + id;
+	var z='c_' + id;	
+	if (document.getElementById(t) && document.getElementById(z)) {	
+		var tab=document.getElementById(t);
+		var ctl=document.getElementById(z);
+		if (onOff==1) {
+			var ptl="/includes/SpecSearch/" + id + ".cfm";
+			jQuery.get(ptl, function(data){
+			 $(tab).html(data);
+			})
+			ctl.setAttribute("onclick","showHide('" + id + "',0)");
+			ctl.innerHTML='Show Fewer Options';	
+		} else {
+			tab.innerHTML='';
+			ctl.setAttribute("onclick","showHide('" + id + "',1)");
+			ctl.innerHTML='Show More Options';
+		}
+		jQuery.getJSON("/component/functions.cfc",
+  			{
+ 				method : "saveSpecSrchPref",
+ 				id : id,
+  				onOff : onOff,
+ 				returnformat : "json",
+ 				queryformat : 'column'
+ 			},
+  			saveComplete
+ 		);
+	}
+}
 function closeCustom(){
 	document.location=location.href;
 	var theDiv = document.getElementById('customDiv');
