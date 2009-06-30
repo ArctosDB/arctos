@@ -99,11 +99,12 @@ function clonePart() {
 		alert('Error: cannot resolve ID to specimen.');
 	}
 }
-function success_getSpecimen(result){
-	if (result[0].COLLECTION_OBJECT_ID.indexOf('Error:')>-1) {
-		alert(result[0].COLLECTION_OBJECT_ID);	
+function success_getSpecimen(r){
+	var result=r.DATA;
+	if (result.COLLECTION_OBJECT_ID[0].indexOf('Error:')>-1) {
+		alert(result.COLLECTION_OBJECT_ID[0]);	
 	} else {
-		newPart (result[0].COLLECTION_OBJECT_ID);
+		newPart (result.COLLECTION_OBJECT_ID[0]);
 	}
 }
 function checkSubmit() {
