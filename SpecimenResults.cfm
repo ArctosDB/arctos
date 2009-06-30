@@ -70,7 +70,8 @@ var viewport = {
 	
 	
 	$(".customizeButton").live('click', function(e){
-		
+		console.log('clickity');
+		/*
 		var theDiv = document.createElement('div');
 		theDiv.id = 'customDiv';
 		theDiv.name = 'customDiv';
@@ -81,7 +82,7 @@ var viewport = {
 		var guts = "/info/SpecimenResultsPrefs.cfm";
 		ahah(guts,'customDiv');
 		
-		/*
+		
 		
 		
 		
