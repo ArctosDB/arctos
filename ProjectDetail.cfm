@@ -4,9 +4,7 @@
 		Did not get a project ID - aborting....
 	</p>
 	<cfabort>
-</cfif>
-<script type='text/javascript' src='/includes/jquery/jquery.js'></script>
-	
+</cfif>	
 
 <style>
 	.proj_title {font-size:2em;font-weight:900;text-align:center;}

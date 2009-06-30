@@ -1,11 +1,6 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfif #action# is "nothing">
-
-<link rel="stylesheet" type="text/css" href="/includes/annotate.css">
-<script type='text/javascript' src='/includes/jquery/jquery.js'></script>
-		
-		
-
+<link rel="stylesheet" type="text/css" href="/includes/annotate.css">		
 <span onclick="closeAnnotation()" class="windowCloser">Close Annotation Window</span>
 <cfquery name="hasEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select email from cf_user_data,cf_users

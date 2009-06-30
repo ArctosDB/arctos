@@ -1,5 +1,4 @@
 <cfinclude template="includes/_header.cfm">
-<script type='text/javascript' src='/includes/jquery/jquery.js'></script>	
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
 <cfif #action# is "nothing">
 <cfset title="Edit Locality">
