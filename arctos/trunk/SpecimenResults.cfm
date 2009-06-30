@@ -70,8 +70,6 @@ var viewport = {
 	
 	
 	$("##customizeButton").live('click', function(e){
-		console.log('clickity');
-		
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
@@ -82,66 +80,14 @@ var viewport = {
 		var dval=$(this).attr('dval');
 		var theDiv = document.createElement('div');
 		theDiv.id = 'customDiv';
-		theDiv.className = 'customBox';
-		//theDiv.style.position="absolute";
-		
-		
+		theDiv.className = 'customBox';		
 		document.body.appendChild(theDiv);
 		var guts = "/info/SpecimenResultsPrefs.cfm";
-		
 		$('##customDiv').load(guts,{},function(){
-				viewport.init("##customDiv");
-				viewport.init("##bgDiv");
-			});
-		
-		
-		
-		
-		//var guts = "/info/SpecimenResultsPrefs.cfm";
-		//ahah(guts,'browseDiv');
-		
-		
-		
-		
-		
-		/*
-		var theDiv = document.createElement('div');
-		theDiv.id = 'customDiv';
-		theDiv.name = 'customDiv';
-		theDiv.className = 'customBox';
-		theDiv.innerHTML='<br>content loading....';
-		theDiv.src = "";
-		document.body.appendChild(theDiv);
-		var guts = "/info/SpecimenResultsPrefs.cfm";
-		ahah(guts,'customDiv');
-		
-		
-		
-		
-		
-		var bgDiv = document.createElement('div');
-		bgDiv.id = 'bgDiv';
-		bgDiv.className = 'bgDiv';
-		bgDiv.setAttribute('onclick','closeBrowse()');
-		document.body.appendChild(bgDiv);
-		var type=this.type;
-		var type=$(this).attr('type');
-		var dval=$(this).attr('dval');
-		var theDiv = document.createElement('div');
-		theDiv.id = 'browseDiv';
-		theDiv.className = 'sscustomBox';
-		theDiv.style.position="absolute";
-		ih='<span onclick="closeBrowse()" class="likeLink" style="position:absolute;top:0;right:0;color:red;">Close Window</span>';
-		ih+='<p>Search for ' + type + '....</p>'
-		ih+='<p>LIKE <a href="/SpecimenResults.cfm?' + type + '=' + dval + '"> ' + decodeURI(dval) + '</a></p>';
-		ih+='<p>IS <a href="/SpecimenResults.cfm?' + type + '==' + dval + '"> ' + decodeURI(dval) + '</a></p>';
-		theDiv.innerHTML=ih;
-		document.body.appendChild(theDiv);
-		viewport.init("##browseDiv");
-		viewport.init("##bgDiv");
-		*/
+			viewport.init("##customDiv");
+			viewport.init("##bgDiv");
+		});		
 	});
-	
 	$(".browseLink").live('click', function(e){
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
