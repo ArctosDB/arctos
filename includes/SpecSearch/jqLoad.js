@@ -53,11 +53,7 @@ jQuery( function($) {
 		$(cDiv).load(ptl);
 		$(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
 	});
-	function removeHelpDiv() {
-		if (document.getElementById('helpDiv')) {
-			$('#helpDiv').remove();
-		}
-	}
+	
 	
 	function customizeIdentifiers() {
 		var theDiv = document.createElement('div');
@@ -75,6 +71,11 @@ jQuery( function($) {
 	
 	
 });
+function removeHelpDiv() {
+	if (document.getElementById('helpDiv')) {
+		jQuery('#helpDiv').remove();
+	}
+}
 function changeshowObservations (tgt) {
 	jQuery.getJSON("/component/functions.cfc",
 		{
