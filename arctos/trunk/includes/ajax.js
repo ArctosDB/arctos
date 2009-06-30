@@ -142,7 +142,7 @@ function newPart (collection_object_id) {
 				noBarcode : noBarcode,
 				noSubsample : noSubsample,
 				returnformat : "json",
-				queryformat : 'column'
+				queryformat : 'row'
 			},
 			success_getParts
 		);
