@@ -150,8 +150,7 @@ function newPart (collection_object_id) {
  }
 
 function success_getParts(r) {
-	var result=new Array;
-	result=r.DATA;
+	var	result=eval(r.DATA);
 	console.log(result);
 	
 	
