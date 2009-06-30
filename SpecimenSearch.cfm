@@ -401,7 +401,8 @@
 </form>
 </cfoutput> 
 <script type='text/javascript' language='javascript'>
-jQuery(document).ready(function() {
+jQuery( function($) {
+$(document).ready(function() {
   var tval = document.getElementById('tgtForm').value;
 	changeTarget('tgtForm',tval);
 	changeGrp('groupBy');
@@ -435,6 +436,7 @@ jQuery(document).ready(function() {
 		}
 	}.
 });
+	});
 	
 	
 </script>
