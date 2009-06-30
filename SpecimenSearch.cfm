@@ -276,16 +276,9 @@
 				<span class="helpLink" id="part_name">Part Name:</span>
 			</td>
 			<td class="srch">
-					<input type="text" name="partname" id="partname">
+				<input type="text" name="partname" id="partname">
 				<span class="infoLink" onclick="getCtDoc('ctspecimen_part_name',SpecData.partname.value);">Define</span>
 				<span class="infoLink" onclick="var e=document.getElementById('partname');e.value='='+e.value;">Add = for exact match</span>
-			
-				
-				<!---
-				<cfinput type="text" autosuggest="#partlist#" name="partname" id="partname" delimiter="\">
-				<span class="infoLink" onclick="getCtDoc('ctspecimen_part_name',SpecData.partname.value);">Define</span>
-				<span class="infoLink" onclick="var e=document.getElementById('partname');e.value='='+e.value;">Add = for exact match</span>
-				--->
 			</td>
 		</tr>
 	</table>

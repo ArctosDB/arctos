@@ -19,7 +19,20 @@ jQuery( function($) {
 		multipleSeparator: "|",
 		scroll: true,
 		scrollHeight: 300
+	});
+	
+	$("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", {
+		width: 320,
+		max: 20,
+		autofill: true,
+		highlight: false,
+		multiple: true,
+		multipleSeparator: "|",
+		scroll: true,
+		scrollHeight: 300
 	});	
+	
+	
 	$("#c_collection_cust").click(function(e){
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';

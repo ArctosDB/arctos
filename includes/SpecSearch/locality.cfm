@@ -48,9 +48,11 @@
 		<td class="srch">
 			<input type="text" name="geology_attribute_value" id="geology_attribute_value" size="50">
 		</td>
+		<!---
 		<script>
 			jQuery("##geology_attribute_value").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"geology_attribute"});
 		</script>
+		--->
 	</tr>
 	<tr>
 		<td class="lbl">
