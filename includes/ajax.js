@@ -142,7 +142,7 @@ function newPart (collection_object_id) {
 				noBarcode : noBarcode,
 				noSubsample : noSubsample,
 				returnformat : "json",
-				queryformat : 'row'
+				queryformat : 'column'
 			},
 			success_getParts
 		);
@@ -170,10 +170,10 @@ function success_getParts(r) {
 	var idt=document.getElementById('other_id_type').value;
 	var idn=document.getElementById('oidnum').value;
 	var ss=coln + ' ' + idt + ' ' + idn;
-	if (result[0].PART_NAME.indexOf('Error:')>-1) {
+	if (result.PART_NAME[0].indexOf('Error:')>-1) {
 		sDiv.className='error';
 		//alert(result[0].PART_NAME);
-		ss+=' = ' + result[0].PART_NAME;
+		ss+=' = ' + result.PART_NAME[0];
 		specid.value='';
 		document.getElementById('pTable').className='red';
 	} else {
