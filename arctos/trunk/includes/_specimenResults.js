@@ -421,8 +421,9 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 
 function success_getSpecResultsData(result){
 	console.log(result);
-	var list = result.DATA;
-	console.log(list);
+	var data = result.DATA;
+	console.log(data);
+	console.log(data.length);
 	  list.each(function(item) { 
 		  console.log(item);
 	  });
