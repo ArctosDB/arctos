@@ -179,7 +179,7 @@ function success_getParts(r) {
 	} else {
 		document.getElementById('pTable').className='';
 		sDiv.className='';
-		specid.value=result[0].COLLECTION_OBJECT_ID;
+		specid.value=result.COLLECTION_OBJECT_ID[0];
 		var option = document.createElement('option');
 		option.setAttribute('value','');
 		option.appendChild(document.createTextNode(''));
