@@ -72,20 +72,20 @@ jQuery( function($) {
 				})
 			$(theDiv).css({position:"absolute", top: data.pageY, left: data.pageX});
 	}
-	function changeshowObservations (tgt) {
-		$.getJSON("/component/functions.cfc",
-			{
-				method : "changeshowObservations",
-				tgt : tgt,
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			success_changeshowObservations
-		);
-	}
+	
 	
 });
-
+function changeshowObservations (tgt) {
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "changeshowObservations",
+			tgt : tgt,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_changeshowObservations
+	);
+}
 function showHide(id,onOff) {
 	var t='e_' + id;
 	var z='c_' + id;	
