@@ -221,8 +221,12 @@ function cordFormat(str) {
 }
 
 function spaceStripper(str) {
-	var rExp = / /gi;
-	var rStr = str.replace(rExp,'&nbsp;');
+	if (str == null) {
+		rStr='';
+	} else {
+		var rExp = / /gi;
+		var rStr = str.replace(rExp,'&nbsp;');
+	}
 	return rStr;
 }
 function splitByComma(str) {
