@@ -183,20 +183,16 @@ function success_getParts(r) {
 		var option = document.createElement('option');
 		option.setAttribute('value','');
 		option.appendChild(document.createTextNode(''));
-		p2.appendChild(option);	
-	console.log('result.length: ' + result.length);
-	console.log('r.ROWCOUNT: ' + r.ROWCOUNT);
-	console.log('r.ROWCOUNT[0]: ' + r.ROWCOUNT[0]);
-	
+		p2.appendChild(option);
 		
-		for (i=0;i<r..length;i++) {
+		for (i=0;i<r.ROWCOUNT;i++) {
 			var option = document.createElement('option');
 			var option2 = document.createElement('option');
-			option.setAttribute('value',result[i].PARTID);
-			option2.setAttribute('value',result[i].PARTID);
-			var pStr=result[i].PART_NAME;
-			if (result[i].BARCODE.length>0){
-				pStr+=' [' + result[i].BARCODE + ']';
+			option.setAttribute('value',result.PARTID[i]);
+			option2.setAttribute('value',result.PARTID[i]);
+			var pStr=result.PART_NAME[i];
+			if (result.BARCODE[i].length>0){
+				pStr+=' [' + result.BARCODE[i] + ']';
 			}
 			option.appendChild(document.createTextNode(pStr));
 			option2.appendChild(document.createTextNode(pStr));
@@ -205,7 +201,7 @@ function success_getParts(r) {
 		}
 		p1.value=op1;
 		p2.value=op2;	
-		ss+=' = ' + result[0].COLLECTION + ' ' + result[0].CAT_NUM + ' (' + result[0].CUSTOMIDTYPE + ' ' + result[0].CUSTOMID + ')';
+		ss+=' = ' + result.COLLECTION[0] + ' ' + result.CAT_NUM[0] + ' (' + result.CUSTOMIDTYPE[0] + ' ' + result.CUSTOMID[0] + ')';
 	}
 	sDiv.innerHTML=ss;
 }
