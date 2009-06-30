@@ -423,27 +423,14 @@ function success_getSpecResultsData(result){
 	console.log(result);
 	var data = result.DATA;
 	
-	console.log(data);
 	
-	console.log(data.length);
-	
-	  $.each(data.COLLECTION_OBJECT_ID, function(i, CID) {
-          console.log(CID);
-      }); 
-	  $.each(data.CUSTOMID, function(i, CID) {
-          console.log(CID);
-      }); 
-	  
-	  var collection_object_id = data.COLLECTION_OBJECT_ID[0];
-	  console.log(collection_object_id);
-	/*
-	var collection_object_id = result.DATA.COLLECTION_OBJECT_ID[0];
+	var collection_object_id = data.COLLECTION_OBJECT_ID[0];
 	//alert(collection_object_id);
 	if (collection_object_id < 1) {
-		var msg = result.DATA.message[0];
+		var msg = data.message[0];
 		alert(msg);
 	} else {
-		var clist = result.DATA.COLUMNLIST[0];
+		var clist = data.COLUMNLIST[0];
 		//alert(clist);
 		// set up an array of column names and display values in the order of appearance
 		// 
@@ -484,261 +471,261 @@ function success_getSpecResultsData(result){
 			if (action == 'dispCollObj'){
 				theInnerHtml +='<th>Loan</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('CUSTOMID')> -1) {
+			if (data.COLUMNLIST[0].indexOf('CUSTOMID')> -1) {
 				theInnerHtml += '<th>';
-					theInnerHtml += result.DATA.MYCUSTOMIDTYPE[0];
+					theInnerHtml += data.MYCUSTOMIDTYPE[0];
 				theInnerHtml += '</th>';
 			}
 			theInnerHtml += '<th>Identification</th>';
-			if (result.DATA.COLUMNLIST[0].indexOf('SCI_NAME_WITH_AUTH')> -1) {
+			if (data.COLUMNLIST[0].indexOf('SCI_NAME_WITH_AUTH')> -1) {
 				theInnerHtml += '<th>Scientific&nbsp;Name</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('IDENTIFIED_BY')> -1) {
+			if (data.COLUMNLIST[0].indexOf('IDENTIFIED_BY')> -1) {
 				theInnerHtml += '<th>Identified&nbsp;By</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('PHYLORDER')> -1) {
+			if (data.COLUMNLIST[0].indexOf('PHYLORDER')> -1) {
 				theInnerHtml += '<th>Order</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('FAMILY')> -1) {
+			if (data.COLUMNLIST[0].indexOf('FAMILY')> -1) {
 				theInnerHtml += '<th>Family</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('OTHERCATALOGNUMBERS')> -1) {
+			if (data.COLUMNLIST[0].indexOf('OTHERCATALOGNUMBERS')> -1) {
 				theInnerHtml += '<th>Other&nbsp;Identifiers</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('ACCESSION')> -1) {
+			if (data.COLUMNLIST[0].indexOf('ACCESSION')> -1) {
 				theInnerHtml += '<th>Accession</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('COLLECTORS')> -1) {
+			if (data.COLUMNLIST[0].indexOf('COLLECTORS')> -1) {
 				theInnerHtml += '<th>Collectors</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('VERBATIMLATITUDE')> -1) {
+			if (data.COLUMNLIST[0].indexOf('VERBATIMLATITUDE')> -1) {
 				theInnerHtml += '<th>Latitude</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('VERBATIMLONGITUDE')> -1) {
+			if (data.COLUMNLIST[0].indexOf('VERBATIMLONGITUDE')> -1) {
 				theInnerHtml += '<th>Longitude</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('COORDINATEUNCERTAINTYINMETERS')> -1) {
+			if (data.COLUMNLIST[0].indexOf('COORDINATEUNCERTAINTYINMETERS')> -1) {
 				theInnerHtml += '<th>Max&nbsp;Error&nbsp;(m)</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('DATUM')> -1) {
+			if (data.COLUMNLIST[0].indexOf('DATUM')> -1) {
 				theInnerHtml += '<th>Datum</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('ORIG_LAT_LONG_UNITS')> -1) {
+			if (data.COLUMNLIST[0].indexOf('ORIG_LAT_LONG_UNITS')> -1) {
 				theInnerHtml += '<th>Original&nbsp;Lat/Long&nbsp;Units</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('LAT_LONG_DETERMINER')> -1) {
+			if (data.COLUMNLIST[0].indexOf('LAT_LONG_DETERMINER')> -1) {
 				theInnerHtml += '<th>Georeferenced&nbsp;By</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('LAT_LONG_REF_SOURCE')> -1) {
+			if (data.COLUMNLIST[0].indexOf('LAT_LONG_REF_SOURCE')> -1) {
 				theInnerHtml += '<th>Lat/Long&nbsp;Reference</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('LAT_LONG_REMARKS')> -1) {
+			if (data.COLUMNLIST[0].indexOf('LAT_LONG_REMARKS')> -1) {
 				theInnerHtml += '<th>Lat/Long&nbsp;Remarks</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('CONTINENT_OCEAN')> -1) {
+			if (data.COLUMNLIST[0].indexOf('CONTINENT_OCEAN')> -1) {
 				theInnerHtml += '<th>Continent</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('COUNTRY')> -1) {
+			if (data.COLUMNLIST[0].indexOf('COUNTRY')> -1) {
 				theInnerHtml += '<th>Country</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('STATE_PROV')> -1) {
+			if (data.COLUMNLIST[0].indexOf('STATE_PROV')> -1) {
 				theInnerHtml += '<th>State</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('SEA')> -1) {
+			if (data.COLUMNLIST[0].indexOf('SEA')> -1) {
 				theInnerHtml += '<th>Sea</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('QUAD')> -1) {
+			if (data.COLUMNLIST[0].indexOf('QUAD')> -1) {
 				theInnerHtml += '<th>Map&nbsp;Name</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('FEATURE')> -1) {
+			if (data.COLUMNLIST[0].indexOf('FEATURE')> -1) {
 				theInnerHtml += '<th>Feature</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('COUNTY')> -1) {
+			if (data.COLUMNLIST[0].indexOf('COUNTY')> -1) {
 				theInnerHtml += '<th>County</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('ISLAND_GROUP')> -1) {
+			if (data.COLUMNLIST[0].indexOf('ISLAND_GROUP')> -1) {
 				theInnerHtml += '<th>Island&nbsp;Group</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('ISLAND')> -1) {
+			if (data.COLUMNLIST[0].indexOf('ISLAND')> -1) {
 				theInnerHtml += '<th>Island</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('ASSOCIATED_SPECIES')> -1) {
+			if (data.COLUMNLIST[0].indexOf('ASSOCIATED_SPECIES')> -1) {
 				theInnerHtml += '<th>Associated&nbsp;Species</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('HABITAT')> -1) {
+			if (data.COLUMNLIST[0].indexOf('HABITAT')> -1) {
 				theInnerHtml += '<th>Microhabitat</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('MIN_ELEV_IN_M')> -1) {
+			if (data.COLUMNLIST[0].indexOf('MIN_ELEV_IN_M')> -1) {
 				theInnerHtml += '<th>Min&nbsp;Elevation&nbsp;(m)</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('MAX_ELEV_IN_M')> -1) {
+			if (data.COLUMNLIST[0].indexOf('MAX_ELEV_IN_M')> -1) {
 				theInnerHtml += '<th>Max&nbsp;Elevation&nbsp;(m)</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('MINIMUM_ELEVATION')> -1) {
+			if (data.COLUMNLIST[0].indexOf('MINIMUM_ELEVATION')> -1) {
 				theInnerHtml += '<th>Min&nbsp;Elevation</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('MAXIMUM_ELEVATION')> -1) {
+			if (data.COLUMNLIST[0].indexOf('MAXIMUM_ELEVATION')> -1) {
 				theInnerHtml += '<th>Max&nbsp;Elevation</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('ORIG_ELEV_UNITS')> -1) {
+			if (data.COLUMNLIST[0].indexOf('ORIG_ELEV_UNITS')> -1) {
 				theInnerHtml += '<th>Elevation&nbsp;Units</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('SPEC_LOCALITY')> -1) {
+			if (data.COLUMNLIST[0].indexOf('SPEC_LOCALITY')> -1) {
 				theInnerHtml += '<th>Specific&nbsp;Locality</th>';
 			}			
-			if (result.DATA.COLUMNLIST[0].indexOf('GEOLOGY_ATTRIBUTES')> -1) {
+			if (data.COLUMNLIST[0].indexOf('GEOLOGY_ATTRIBUTES')> -1) {
 				theInnerHtml += '<th>Geology&nbsp;Attributes</th>';
 			}
 			
-			if (result.DATA.COLUMNLIST[0].indexOf('VERBATIM_DATE')> -1) {
+			if (data.COLUMNLIST[0].indexOf('VERBATIM_DATE')> -1) {
 				theInnerHtml += '<th>Verbatim&nbsp;Date</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('BEGAN_DATE')> -1) {
+			if (data.COLUMNLIST[0].indexOf('BEGAN_DATE')> -1) {
 				theInnerHtml += '<th>Began&nbsp;Date</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('ENDED_DATE')> -1) {
+			if (data.COLUMNLIST[0].indexOf('ENDED_DATE')> -1) {
 				theInnerHtml += '<th>Ended&nbsp;Date</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('PARTS')> -1) {
+			if (data.COLUMNLIST[0].indexOf('PARTS')> -1) {
 				theInnerHtml += '<th>Parts</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('SEX')> -1) {
+			if (data.COLUMNLIST[0].indexOf('SEX')> -1) {
 				theInnerHtml += '<th>Sex</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('REMARKS')> -1) {
+			if (data.COLUMNLIST[0].indexOf('REMARKS')> -1) {
 				theInnerHtml += '<th>Specimen&nbsp;Remarks</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('COLL_OBJ_DISPOSITION')> -1) {
+			if (data.COLUMNLIST[0].indexOf('COLL_OBJ_DISPOSITION')> -1) {
 				theInnerHtml += '<th>Specimen&nbsp;Disposition</th>';
 			}
 			// attribtues
-			if (result.DATA.COLUMNLIST[0].indexOf('SNV_RESULTS')> -1) {
+			if (data.COLUMNLIST[0].indexOf('SNV_RESULTS')> -1) {
 				theInnerHtml += '<th>SNV&nbsp;Results</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('AGE') > -1) {
+			if (data.COLUMNLIST[0].indexOf('AGE') > -1) {
 				theInnerHtml += '<th>Age</th>';
 			} 
-			if (result.DATA.COLUMNLIST[0].indexOf('AGE_CLASS')> -1) {
+			if (data.COLUMNLIST[0].indexOf('AGE_CLASS')> -1) {
 				theInnerHtml += '<th>Age&nbsp;Class</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('AXILLARY_GIRTH')> -1) {
+			if (data.COLUMNLIST[0].indexOf('AXILLARY_GIRTH')> -1) {
 				theInnerHtml += '<th>Axillary&nbsp;Girth</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('BODY_CONDITION')> -1) {
+			if (data.COLUMNLIST[0].indexOf('BODY_CONDITION')> -1) {
 				theInnerHtml += '<th>Body&nbsp;Condition</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('BREADTH')> -1) {
+			if (data.COLUMNLIST[0].indexOf('BREADTH')> -1) {
 				theInnerHtml += '<th>Breadth</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('BURSA')> -1) {
+			if (data.COLUMNLIST[0].indexOf('BURSA')> -1) {
 				theInnerHtml += '<th>Bursa</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('CASTE')> -1) {
+			if (data.COLUMNLIST[0].indexOf('CASTE')> -1) {
 				theInnerHtml += '<th>Caste</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('COLORS')> -1) {
+			if (data.COLUMNLIST[0].indexOf('COLORS')> -1) {
 				theInnerHtml += '<th>Colors</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('CROWN_RUMP_LENGTH')> -1) {
+			if (data.COLUMNLIST[0].indexOf('CROWN_RUMP_LENGTH')> -1) {
 				theInnerHtml += '<th>Crown-Rump&nbsp;Length</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('CURVILINEAR_LENGTH')> -1) {
+			if (data.COLUMNLIST[0].indexOf('CURVILINEAR_LENGTH')> -1) {
 				theInnerHtml += '<th>Curvilinear&nbsp;Length</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('DIPLOID_NUMBER')> -1) {
+			if (data.COLUMNLIST[0].indexOf('DIPLOID_NUMBER')> -1) {
 				theInnerHtml += '<th>Diploid&nbsp;Number</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('EAR_FROM_CROWN')> -1) {
+			if (data.COLUMNLIST[0].indexOf('EAR_FROM_CROWN')> -1) {
 				theInnerHtml += '<th>Ear&nbsp;From&nbsp;Crown</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('EAR_FROM_NOTCH')> -1) {
+			if (data.COLUMNLIST[0].indexOf('EAR_FROM_NOTCH')> -1) {
 				theInnerHtml += '<th>Ear&nbsp;From&nbsp;Notch</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('EGG_CONTENT_WEIGHT')> -1) {
+			if (data.COLUMNLIST[0].indexOf('EGG_CONTENT_WEIGHT')> -1) {
 				theInnerHtml += '<th>Egg&nbsp;Content&nbsp;Weight</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('EGGSHELL_THICKNESS')> -1) {
+			if (data.COLUMNLIST[0].indexOf('EGGSHELL_THICKNESS')> -1) {
 				theInnerHtml += '<th>Eggshell&nbsp;Thickness</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('EMBRYO_WEIGHT')> -1) {
+			if (data.COLUMNLIST[0].indexOf('EMBRYO_WEIGHT')> -1) {
 				theInnerHtml += '<th>Embryo&nbsp;Weight</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('EXTENSION')> -1) {
+			if (data.COLUMNLIST[0].indexOf('EXTENSION')> -1) {
 				theInnerHtml += '<th>Extension</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('FAT_DEPOSITION')> -1) {
+			if (data.COLUMNLIST[0].indexOf('FAT_DEPOSITION')> -1) {
 				theInnerHtml += '<th>Fat&nbsp;Deposition</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('FOREARM_LENGTH')> -1) {
+			if (data.COLUMNLIST[0].indexOf('FOREARM_LENGTH')> -1) {
 				theInnerHtml += '<th>Forearm&nbsp;Length</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('GONAD')> -1) {
+			if (data.COLUMNLIST[0].indexOf('GONAD')> -1) {
 				theInnerHtml += '<th>Gonad</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('HIND_FOOT_WITH_CLAW')> -1) {
+			if (data.COLUMNLIST[0].indexOf('HIND_FOOT_WITH_CLAW')> -1) {
 				theInnerHtml += '<th>Hind&nbsp;Foot&nbsp;With&nbsp;Claw</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('HIND_FOOT_WITHOUT_CLAW')> -1) {
+			if (data.COLUMNLIST[0].indexOf('HIND_FOOT_WITHOUT_CLAW')> -1) {
 				theInnerHtml += '<th>Hind&nbsp;Foot&nbsp;Without&nbsp;Claw</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('MOLT_CONDITION')> -1) {
+			if (data.COLUMNLIST[0].indexOf('MOLT_CONDITION')> -1) {
 				theInnerHtml += '<th>Molt&nbsp;Condition</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('ABUNDANCE')> -1) {
+			if (data.COLUMNLIST[0].indexOf('ABUNDANCE')> -1) {
 				theInnerHtml += '<th>Abundance</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('NUMBER_OF_LABELS')> -1) {
+			if (data.COLUMNLIST[0].indexOf('NUMBER_OF_LABELS')> -1) {
 				theInnerHtml += '<th>Number&nbsp;Of&nbsp;Labels</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('NUMERIC_AGE')> -1) {
+			if (data.COLUMNLIST[0].indexOf('NUMERIC_AGE')> -1) {
 				theInnerHtml += '<th>Numeric&nbsp;Age</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('OVUM')> -1) {
+			if (data.COLUMNLIST[0].indexOf('OVUM')> -1) {
 				theInnerHtml += '<th>Ovum</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('REPRODUCTIVE_CONDITION')> -1) {
+			if (data.COLUMNLIST[0].indexOf('REPRODUCTIVE_CONDITION')> -1) {
 				theInnerHtml += '<th>Reproductive&nbsp;Condition</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('REPRODUCTIVE_DATA')> -1) {
+			if (data.COLUMNLIST[0].indexOf('REPRODUCTIVE_DATA')> -1) {
 				theInnerHtml += '<th>Reproductive&nbsp;Data</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('SKULL_OSSIFICATION')> -1) {
+			if (data.COLUMNLIST[0].indexOf('SKULL_OSSIFICATION')> -1) {
 				theInnerHtml += '<th>Skull&nbsp;Ossification</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('SNOUT_VENT_LENGTH')> -1) {
+			if (data.COLUMNLIST[0].indexOf('SNOUT_VENT_LENGTH')> -1) {
 				theInnerHtml += '<th>Snout-Vent&nbsp;Length</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('SOFT_PARTS')> -1) {
+			if (data.COLUMNLIST[0].indexOf('SOFT_PARTS')> -1) {
 				theInnerHtml += '<th>Soft&nbsp;Parts</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('STOMACH_CONTENTS')> -1) {
+			if (data.COLUMNLIST[0].indexOf('STOMACH_CONTENTS')> -1) {
 				theInnerHtml += '<th>Stomach&nbsp;Contents</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('TAIL_LENGTH')> -1) {
+			if (data.COLUMNLIST[0].indexOf('TAIL_LENGTH')> -1) {
 				theInnerHtml += '<th>Tail&nbsp;Length</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('TOTAL_LENGTH')> -1) {
+			if (data.COLUMNLIST[0].indexOf('TOTAL_LENGTH')> -1) {
 				theInnerHtml += '<th>Total&nbsp;Length</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('TRAGUS_LENGTH')> -1) {
+			if (data.COLUMNLIST[0].indexOf('TRAGUS_LENGTH')> -1) {
 				theInnerHtml += '<th>Tragus&nbsp;Length</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('UNFORMATTED_MEASUREMENTS')> -1) {
+			if (data.COLUMNLIST[0].indexOf('UNFORMATTED_MEASUREMENTS')> -1) {
 				theInnerHtml += '<th>Unformatted&nbsp;Measurements</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('VERBATIM_PRESERVATION_DATE')> -1) {
+			if (data.COLUMNLIST[0].indexOf('VERBATIM_PRESERVATION_DATE')> -1) {
 				theInnerHtml += '<th>Verbatim&nbsp;Preservatin&nbsp;Date</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('WEIGHT')> -1) {
+			if (data.COLUMNLIST[0].indexOf('WEIGHT')> -1) {
 				theInnerHtml += '<th>Weight</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('DEC_LAT')> -1) {
+			if (data.COLUMNLIST[0].indexOf('DEC_LAT')> -1) {
 				theInnerHtml += '<th>Dec.&nbsp;Lat.</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('DEC_LONG')> -1) {
+			if (data.COLUMNLIST[0].indexOf('DEC_LONG')> -1) {
 				theInnerHtml += '<th>Dec.&nbsp;Long.</th>';
 			}
-			if (result.DATA.COLUMNLIST[0].indexOf('GREF_COLLNUM') > -1) {
+			if (data.COLUMNLIST[0].indexOf('GREF_COLLNUM') > -1) {
 				theInnerHtml += '<th>Gref&nbsp;Link</th>';
 			}
 		theInnerHtml += '</tr>';
@@ -746,309 +733,309 @@ function success_getSpecResultsData(result){
 		// SpecimenDetail for browsing
 		var orderedCollObjIdArray = new Array();		
 		for (i=0; i<result.ROWCOUNT; ++i) {
-			orderedCollObjIdArray.push(result.DATA.COLLECTION_OBJECT_ID[i]);
+			orderedCollObjIdArray.push(data.COLLECTION_OBJECT_ID[i]);
 		}
 		var orderedCollObjIdList='';
 		if (orderedCollObjIdArray.length < 100) {
 			var orderedCollObjIdList = orderedCollObjIdArray.join(",");
 		}
 		for (i=0; i<result.ROWCOUNT; ++i) {
-			orderedCollObjIdArray.push(result.DATA.COLLECTION_OBJECT_ID[i]);
+			orderedCollObjIdArray.push(data.COLLECTION_OBJECT_ID[i]);
 			theInnerHtml += '<tr>';
 				if (killrow == 1){
 					theInnerHtml += '<td align="center"><input type="checkbox" onchange="toggleKillrow(' + "'";
-					theInnerHtml +=result.DATA.COLLECTION_OBJECT_ID[i] + "'" + ',this.checked);"></td>';
+					theInnerHtml +=data.COLLECTION_OBJECT_ID[i] + "'" + ',this.checked);"></td>';
 				}
-				theInnerHtml += '<td nowrap="nowrap" id="CatItem_'+result.DATA.COLLECTION_OBJECT_ID[i]+'">';
+				theInnerHtml += '<td nowrap="nowrap" id="CatItem_'+data.COLLECTION_OBJECT_ID[i]+'">';
 					theInnerHtml += '<a href="SpecimenDetail.cfm?collection_object_id=';
-					theInnerHtml += result.DATA.COLLECTION_OBJECT_ID[i];
+					theInnerHtml += data.COLLECTION_OBJECT_ID[i];
 					theInnerHtml += '">';
-					theInnerHtml += result.DATA.COLLECTION[i];
+					theInnerHtml += data.COLLECTION[i];
 					theInnerHtml += '&nbsp;';
-					theInnerHtml += result.DATA.CAT_NUM[i];
+					theInnerHtml += data.CAT_NUM[i];
 					//theInnerHtml += '</div></a>';
 					theInnerHtml += '</a>';
 				theInnerHtml += '</td>';
 				if (loan_request_coll_id.length > 0) {
-					if (loan_request_coll_id == result.DATA.COLLECTION_ID[i]){
+					if (loan_request_coll_id == data.COLLECTION_ID[i]){
 						theInnerHtml +='<td><span class="likeLink" onclick="addLoanItem(' + "'" 
-						theInnerHtml += result.DATA.COLLECTION_OBJECT_ID ;
+						theInnerHtml += data.COLLECTION_OBJECT_ID ;
 						theInnerHtml += "');" + '">Request</span></td>';
 					} else {
 						theInnerHtml +='<td>N/A</td>';
 					}
 				}
 				if (action == 'dispCollObj'){
-					theInnerHtml +='<td id="partCell_' + result.DATA.COLLECTION_OBJECT_ID[i] + '"></td>';
+					theInnerHtml +='<td id="partCell_' + data.COLLECTION_OBJECT_ID[i] + '"></td>';
 				}				
-				if (result.DATA.COLUMNLIST[0].indexOf('CUSTOMID')> -1) {
-					if (result.DATA.CUSTOMID[i]==null){
+				if (data.COLUMNLIST[0].indexOf('CUSTOMID')> -1) {
+					if (data.CUSTOMID[i]==null){
 						var d='';
 					} else {
-						var d=result.DATA.CUSTOMID[i];
+						var d=data.CUSTOMID[i];
 					}
 					theInnerHtml += '<td>';
 						theInnerHtml += d + '&nbsp;';
 					theInnerHtml += '</td>';
 				}
 				theInnerHtml += '<td>';
-				theInnerHtml += '<span class="browseLink" type="scientific_name" dval="' + encodeURI(result.DATA.SCIENTIFIC_NAME[i]) + '">' + spaceStripper(result.DATA.SCIENTIFIC_NAME[i]);
+				theInnerHtml += '<span class="browseLink" type="scientific_name" dval="' + encodeURI(data.SCIENTIFIC_NAME[i]) + '">' + spaceStripper(data.SCIENTIFIC_NAME[i]);
 				theInnerHtml += '</span>'; 					
 				theInnerHtml += '</td>';
-				if (result.DATA.COLUMNLIST[0].indexOf('SCI_NAME_WITH_AUTH')> -1) {
+				if (data.COLUMNLIST[0].indexOf('SCI_NAME_WITH_AUTH')> -1) {
 					theInnerHtml += '<td>';
-						theInnerHtml += spaceStripper(result.DATA.SCI_NAME_WITH_AUTH[i]);
+						theInnerHtml += spaceStripper(data.SCI_NAME_WITH_AUTH[i]);
 					theInnerHtml += '</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('IDENTIFIED_BY')> -1) {
-					theInnerHtml += '<td>' + splitBySemicolon(result.DATA.IDENTIFIED_BY[i]) + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('IDENTIFIED_BY')> -1) {
+					theInnerHtml += '<td>' + splitBySemicolon(data.IDENTIFIED_BY[i]) + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('PHYLORDER')> -1) {
-					theInnerHtml += '<td>' + result.DATA.PHYLORDER[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('PHYLORDER')> -1) {
+					theInnerHtml += '<td>' + data.PHYLORDER[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('FAMILY')> -1) {
-					theInnerHtml += '<td>' + result.DATA.FAMILY[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('FAMILY')> -1) {
+					theInnerHtml += '<td>' + data.FAMILY[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('OTHERCATALOGNUMBERS')> -1) {
-					theInnerHtml += '<td>' + splitBySemicolon(result.DATA.OTHERCATALOGNUMBERS[i]) + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('OTHERCATALOGNUMBERS')> -1) {
+					theInnerHtml += '<td>' + splitBySemicolon(data.OTHERCATALOGNUMBERS[i]) + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('ACCESSION')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(result.DATA.ACCESSION[i]) + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('ACCESSION')> -1) {
+					theInnerHtml += '<td>' + spaceStripper(data.ACCESSION[i]) + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('COLLECTORS')> -1) {
-					theInnerHtml += '<td>' + splitByComma(result.DATA.COLLECTORS[i]) + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('COLLECTORS')> -1) {
+					theInnerHtml += '<td>' + splitByComma(data.COLLECTORS[i]) + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('VERBATIMLATITUDE')> -1) {
-					theInnerHtml += '<td>' + cordFormat(result.DATA.VERBATIMLATITUDE[i]) + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('VERBATIMLATITUDE')> -1) {
+					theInnerHtml += '<td>' + cordFormat(data.VERBATIMLATITUDE[i]) + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('VERBATIMLONGITUDE')> -1) {
-					theInnerHtml += '<td>' + cordFormat(result.DATA.VERBATIMLONGITUDE[i]) + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('VERBATIMLONGITUDE')> -1) {
+					theInnerHtml += '<td>' + cordFormat(data.VERBATIMLONGITUDE[i]) + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('COORDINATEUNCERTAINTYINMETERS')> -1) {
-					theInnerHtml += '<td>' + result.DATA.COORDINATEUNCERTAINTYINMETERS[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('COORDINATEUNCERTAINTYINMETERS')> -1) {
+					theInnerHtml += '<td>' + data.COORDINATEUNCERTAINTYINMETERS[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('DATUM')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(result.DATA.DATUM[i]) + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('DATUM')> -1) {
+					theInnerHtml += '<td>' + spaceStripper(data.DATUM[i]) + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('ORIG_LAT_LONG_UNITS')> -1) {
-					theInnerHtml += '<td>' + result.DATA.ORIG_LAT_LONG_UNITS[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('ORIG_LAT_LONG_UNITS')> -1) {
+					theInnerHtml += '<td>' + data.ORIG_LAT_LONG_UNITS[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('LAT_LONG_DETERMINER')> -1) {
-					theInnerHtml += '<td>' + splitBySemicolon(result.DATA.LAT_LONG_DETERMINER[i]) + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('LAT_LONG_DETERMINER')> -1) {
+					theInnerHtml += '<td>' + splitBySemicolon(data.LAT_LONG_DETERMINER[i]) + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('LAT_LONG_REF_SOURCE')> -1) {
-					theInnerHtml += '<td>' + result.DATA.LAT_LONG_REF_SOURCE[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('LAT_LONG_REF_SOURCE')> -1) {
+					theInnerHtml += '<td>' + data.LAT_LONG_REF_SOURCE[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('LAT_LONG_REMARKS')> -1) {
-					theInnerHtml += '<td><div class="wrapLong">' + result.DATA.LAT_LONG_REMARKS[i] + '</div></td>';
+				if (data.COLUMNLIST[0].indexOf('LAT_LONG_REMARKS')> -1) {
+					theInnerHtml += '<td><div class="wrapLong">' + data.LAT_LONG_REMARKS[i] + '</div></td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('CONTINENT_OCEAN')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(result.DATA.CONTINENT_OCEAN[i]) + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('CONTINENT_OCEAN')> -1) {
+					theInnerHtml += '<td>' + spaceStripper(data.CONTINENT_OCEAN[i]) + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('COUNTRY')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(result.DATA.COUNTRY[i]) + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('COUNTRY')> -1) {
+					theInnerHtml += '<td>' + spaceStripper(data.COUNTRY[i]) + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('STATE_PROV')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(result.DATA.STATE_PROV[i]) + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('STATE_PROV')> -1) {
+					theInnerHtml += '<td>' + spaceStripper(data.STATE_PROV[i]) + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('SEA')> -1) {
-					theInnerHtml += '<td>' + result.DATA.SEA[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('SEA')> -1) {
+					theInnerHtml += '<td>' + data.SEA[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('QUAD')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(result.DATA.QUAD[i]) + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('QUAD')> -1) {
+					theInnerHtml += '<td>' + spaceStripper(data.QUAD[i]) + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('FEATURE')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(result.DATA.FEATURE[i]) + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('FEATURE')> -1) {
+					theInnerHtml += '<td>' + spaceStripper(data.FEATURE[i]) + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('COUNTY')> -1) {
-					theInnerHtml += '<td>' + result.DATA.COUNTY[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('COUNTY')> -1) {
+					theInnerHtml += '<td>' + data.COUNTY[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('ISLAND_GROUP')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(result.DATA.ISLAND_GROUP[i]) + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('ISLAND_GROUP')> -1) {
+					theInnerHtml += '<td>' + spaceStripper(data.ISLAND_GROUP[i]) + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('ISLAND')> -1) {
-					theInnerHtml += '<td>' + spaceStripper(result.DATA.ISLAND[i]) + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('ISLAND')> -1) {
+					theInnerHtml += '<td>' + spaceStripper(data.ISLAND[i]) + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('ASSOCIATED_SPECIES')> -1) {
-					theInnerHtml += '<td><div class="wrapLong">' + result.DATA.ASSOCIATED_SPECIES[i] + '</div></td>';
+				if (data.COLUMNLIST[0].indexOf('ASSOCIATED_SPECIES')> -1) {
+					theInnerHtml += '<td><div class="wrapLong">' + data.ASSOCIATED_SPECIES[i] + '</div></td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('HABITAT')> -1) {
-					theInnerHtml += '<td><div class="wrapLong">' + result.DATA.HABITAT[i] + '</div></td>';
+				if (data.COLUMNLIST[0].indexOf('HABITAT')> -1) {
+					theInnerHtml += '<td><div class="wrapLong">' + data.HABITAT[i] + '</div></td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('MIN_ELEV_IN_M')> -1) {
-					theInnerHtml += '<td>' + result.DATA.MIN_ELEV_IN_M[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('MIN_ELEV_IN_M')> -1) {
+					theInnerHtml += '<td>' + data.MIN_ELEV_IN_M[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('MAX_ELEV_IN_M')> -1) {
-					theInnerHtml += '<td>' + result.DATA.MAX_ELEV_IN_M[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('MAX_ELEV_IN_M')> -1) {
+					theInnerHtml += '<td>' + data.MAX_ELEV_IN_M[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('MINIMUM_ELEVATION')> -1) {
-					theInnerHtml += '<td>' + result.DATA.MINIMUM_ELEVATION[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('MINIMUM_ELEVATION')> -1) {
+					theInnerHtml += '<td>' + data.MINIMUM_ELEVATION[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('MAXIMUM_ELEVATION')> -1) {
-					theInnerHtml += '<td>' + result.DATA.MAXIMUM_ELEVATION[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('MAXIMUM_ELEVATION')> -1) {
+					theInnerHtml += '<td>' + data.MAXIMUM_ELEVATION[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('ORIG_ELEV_UNITS')> -1) {
-					theInnerHtml += '<td>' + result.DATA.ORIG_ELEV_UNITS[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('ORIG_ELEV_UNITS')> -1) {
+					theInnerHtml += '<td>' + data.ORIG_ELEV_UNITS[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('SPEC_LOCALITY')> -1) {
-					theInnerHtml += '<td id="SpecLocality_'+result.DATA.COLLECTION_OBJECT_ID[i] + '">';
-					theInnerHtml += '<span class="browseLink" type="spec_locality" dval="' + encodeURI(result.DATA.SPEC_LOCALITY[i]) + '"><div class="wrapLong">' + result.DATA.SPEC_LOCALITY[i] + '</div>';
+				if (data.COLUMNLIST[0].indexOf('SPEC_LOCALITY')> -1) {
+					theInnerHtml += '<td id="SpecLocality_'+data.COLLECTION_OBJECT_ID[i] + '">';
+					theInnerHtml += '<span class="browseLink" type="spec_locality" dval="' + encodeURI(data.SPEC_LOCALITY[i]) + '"><div class="wrapLong">' + data.SPEC_LOCALITY[i] + '</div>';
 					theInnerHtml += '</span>'; 					
 					theInnerHtml += '</td>';
 				}
 				
-				if (result.DATA.COLUMNLIST[0].indexOf('GEOLOGY_ATTRIBUTES')> -1) {
-					theInnerHtml += '<td>' + result.DATA.GEOLOGY_ATTRIBUTES[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('GEOLOGY_ATTRIBUTES')> -1) {
+					theInnerHtml += '<td>' + data.GEOLOGY_ATTRIBUTES[i] + '&nbsp;</td>';
 				}
 				
 			
-				if (result.DATA.COLUMNLIST[0].indexOf('VERBATIM_DATE')> -1) {
-					theInnerHtml += '<td>' + result.DATA.VERBATIM_DATE[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('VERBATIM_DATE')> -1) {
+					theInnerHtml += '<td>' + data.VERBATIM_DATE[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('BEGAN_DATE')> -1) {
-					theInnerHtml += '<td>' + dispDate(result.DATA.BEGAN_DATE[i]) + '</td>';
+				if (data.COLUMNLIST[0].indexOf('BEGAN_DATE')> -1) {
+					theInnerHtml += '<td>' + dispDate(data.BEGAN_DATE[i]) + '</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('ENDED_DATE')> -1) {
-					theInnerHtml += '<td>' + dispDate(result.DATA.ENDED_DATE[i]) + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('ENDED_DATE')> -1) {
+					theInnerHtml += '<td>' + dispDate(data.ENDED_DATE[i]) + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('PARTS')> -1) {
-					theInnerHtml += '<td><div class="wrapLong">' + splitBySemicolon(result.DATA.PARTS[i]) + '</div></td>';
+				if (data.COLUMNLIST[0].indexOf('PARTS')> -1) {
+					theInnerHtml += '<td><div class="wrapLong">' + splitBySemicolon(data.PARTS[i]) + '</div></td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('SEX')> -1) {
-					theInnerHtml += '<td>' + result.DATA.SEX[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('SEX')> -1) {
+					theInnerHtml += '<td>' + data.SEX[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('REMARKS')> -1) {
-					theInnerHtml += '<td>' + result.DATA.REMARKS[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('REMARKS')> -1) {
+					theInnerHtml += '<td>' + data.REMARKS[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('COLL_OBJ_DISPOSITION')> -1) {
-					theInnerHtml += '<td>' + result.DATA.COLL_OBJ_DISPOSITION[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('COLL_OBJ_DISPOSITION')> -1) {
+					theInnerHtml += '<td>' + data.COLL_OBJ_DISPOSITION[i] + '&nbsp;</td>';
 				}
 				// attributes
-				if (result.DATA.COLUMNLIST[0].indexOf('SNV_RESULTS')> -1) {
-					theInnerHtml += '<td>' + result.DATA.SNV_RESULTS[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('SNV_RESULTS')> -1) {
+					theInnerHtml += '<td>' + data.SNV_RESULTS[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('AGE')> -1) {
-					theInnerHtml += '<td>' + result.DATA.AGE[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('AGE')> -1) {
+					theInnerHtml += '<td>' + data.AGE[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('AGE_CLASS')> -1) {
-					theInnerHtml += '<td>' + result.DATA.AGE_CLASS[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('AGE_CLASS')> -1) {
+					theInnerHtml += '<td>' + data.AGE_CLASS[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('AXILLARY_GIRTH')> -1) {
-					theInnerHtml += '<td>' + result.DATA.AXILLARY_GIRTH[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('AXILLARY_GIRTH')> -1) {
+					theInnerHtml += '<td>' + data.AXILLARY_GIRTH[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('BODY_CONDITION')> -1) {
-					theInnerHtml += '<td>' + result.DATA.BODY_CONDITION[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('BODY_CONDITION')> -1) {
+					theInnerHtml += '<td>' + data.BODY_CONDITION[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('BREADTH')> -1) {
-					theInnerHtml += '<td>' + result.DATA.BREADTH[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('BREADTH')> -1) {
+					theInnerHtml += '<td>' + data.BREADTH[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('BURSA')> -1) {
-					theInnerHtml += '<td>' + result.DATA.BURSA[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('BURSA')> -1) {
+					theInnerHtml += '<td>' + data.BURSA[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('CASTE')> -1) {
-					theInnerHtml += '<td>' + result.DATA.CASTE[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('CASTE')> -1) {
+					theInnerHtml += '<td>' + data.CASTE[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('COLORS')> -1) {
-					theInnerHtml += '<td>' + result.DATA.COLORS[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('COLORS')> -1) {
+					theInnerHtml += '<td>' + data.COLORS[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('CROWN_RUMP_LENGTH')> -1) {
-					theInnerHtml += '<td>' + result.DATA.CROWN_RUMP_LENGTH[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('CROWN_RUMP_LENGTH')> -1) {
+					theInnerHtml += '<td>' + data.CROWN_RUMP_LENGTH[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('CURVILINEAR_LENGTH')> -1) {
-					theInnerHtml += '<td>' + result.DATA.CURVILINEAR_LENGTH[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('CURVILINEAR_LENGTH')> -1) {
+					theInnerHtml += '<td>' + data.CURVILINEAR_LENGTH[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('DIPLOID_NUMBER')> -1) {
-					theInnerHtml += '<td>' + result.DATA.DIPLOID_NUMBER[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('DIPLOID_NUMBER')> -1) {
+					theInnerHtml += '<td>' + data.DIPLOID_NUMBER[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('EAR_FROM_CROWN')> -1) {
-					theInnerHtml += '<td>' + result.DATA.EAR_FROM_CROWN[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('EAR_FROM_CROWN')> -1) {
+					theInnerHtml += '<td>' + data.EAR_FROM_CROWN[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('EAR_FROM_NOTCH')> -1) {
-					theInnerHtml += '<td>' + result.DATA.EAR_FROM_NOTCH[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('EAR_FROM_NOTCH')> -1) {
+					theInnerHtml += '<td>' + data.EAR_FROM_NOTCH[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('EGG_CONTENT_WEIGHT')> -1) {
-					theInnerHtml += '<td>' + result.DATA.EGG_CONTENT_WEIGHT[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('EGG_CONTENT_WEIGHT')> -1) {
+					theInnerHtml += '<td>' + data.EGG_CONTENT_WEIGHT[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('EGGSHELL_THICKNESS')> -1) {
-					theInnerHtml += '<td>' + result.DATA.EGGSHELL_THICKNESS[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('EGGSHELL_THICKNESS')> -1) {
+					theInnerHtml += '<td>' + data.EGGSHELL_THICKNESS[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('EMBRYO_WEIGHT')> -1) {
-					theInnerHtml += '<td>' + result.DATA.EMBRYO_WEIGHT[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('EMBRYO_WEIGHT')> -1) {
+					theInnerHtml += '<td>' + data.EMBRYO_WEIGHT[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('EXTENSION')> -1) {
-					theInnerHtml += '<td>' + result.DATA.EXTENSION[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('EXTENSION')> -1) {
+					theInnerHtml += '<td>' + data.EXTENSION[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('FAT_DEPOSITION')> -1) {
-					theInnerHtml += '<td>' + result.DATA.FAT_DEPOSITION[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('FAT_DEPOSITION')> -1) {
+					theInnerHtml += '<td>' + data.FAT_DEPOSITION[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('FOREARM_LENGTH')> -1) {
-					theInnerHtml += '<td>' + result.DATA.FOREARM_LENGTH[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('FOREARM_LENGTH')> -1) {
+					theInnerHtml += '<td>' + data.FOREARM_LENGTH[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('GONAD')> -1) {
-					theInnerHtml += '<td>' + result.DATA.GONAD[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('GONAD')> -1) {
+					theInnerHtml += '<td>' + data.GONAD[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('HIND_FOOT_WITH_CLAW')> -1) {
-					theInnerHtml += '<td>' + result.DATA.HIND_FOOT_WITH_CLAW[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('HIND_FOOT_WITH_CLAW')> -1) {
+					theInnerHtml += '<td>' + data.HIND_FOOT_WITH_CLAW[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('HIND_FOOT_WITHOUT_CLAW')> -1) {
-					theInnerHtml += '<td>' + result.DATA.HIND_FOOT_WITHOUT_CLAW[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('HIND_FOOT_WITHOUT_CLAW')> -1) {
+					theInnerHtml += '<td>' + data.HIND_FOOT_WITHOUT_CLAW[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('MOLT_CONDITION')> -1) {
-					theInnerHtml += '<td>' + result.DATA.MOLT_CONDITION[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('MOLT_CONDITION')> -1) {
+					theInnerHtml += '<td>' + data.MOLT_CONDITION[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('ABUNDANCE')> -1) {
-					theInnerHtml += '<td>' + result.DATA.ABUNDANCE[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('ABUNDANCE')> -1) {
+					theInnerHtml += '<td>' + data.ABUNDANCE[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('NUMBER_OF_LABELS')> -1) {
-					theInnerHtml += '<td>' + result.DATA.NUMBER_OF_LABELS[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('NUMBER_OF_LABELS')> -1) {
+					theInnerHtml += '<td>' + data.NUMBER_OF_LABELS[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('NUMERIC_AGE')> -1) {
-					theInnerHtml += '<td>' + result.DATA.NUMERIC_AGE[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('NUMERIC_AGE')> -1) {
+					theInnerHtml += '<td>' + data.NUMERIC_AGE[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('OVUM')> -1) {
-					theInnerHtml += '<td>' + result.DATA.OVUM[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('OVUM')> -1) {
+					theInnerHtml += '<td>' + data.OVUM[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('REPRODUCTIVE_CONDITION')> -1) {
-					theInnerHtml += '<td>' + result.DATA.REPRODUCTIVE_CONDITION[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('REPRODUCTIVE_CONDITION')> -1) {
+					theInnerHtml += '<td>' + data.REPRODUCTIVE_CONDITION[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('REPRODUCTIVE_DATA')> -1) {
-					theInnerHtml += '<td>' + result.DATA.REPRODUCTIVE_DATA[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('REPRODUCTIVE_DATA')> -1) {
+					theInnerHtml += '<td>' + data.REPRODUCTIVE_DATA[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('SKULL_OSSIFICATION')> -1) {
-					theInnerHtml += '<td>' + result.DATA.SKULL_OSSIFICATION[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('SKULL_OSSIFICATION')> -1) {
+					theInnerHtml += '<td>' + data.SKULL_OSSIFICATION[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('SNOUT_VENT_LENGTH')> -1) {
-					theInnerHtml += '<td>' + result.DATA.SNOUT_VENT_LENGTH[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('SNOUT_VENT_LENGTH')> -1) {
+					theInnerHtml += '<td>' + data.SNOUT_VENT_LENGTH[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('SOFT_PARTS')> -1) {
-					theInnerHtml += '<td>' + result.DATA.SOFT_PARTS[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('SOFT_PARTS')> -1) {
+					theInnerHtml += '<td>' + data.SOFT_PARTS[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('STOMACH_CONTENTS')> -1) {
-					theInnerHtml += '<td>' + result.DATA.STOMACH_CONTENTS[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('STOMACH_CONTENTS')> -1) {
+					theInnerHtml += '<td>' + data.STOMACH_CONTENTS[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('TAIL_LENGTH')> -1) {
-					theInnerHtml += '<td>' + result.DATA.TAIL_LENGTH[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('TAIL_LENGTH')> -1) {
+					theInnerHtml += '<td>' + data.TAIL_LENGTH[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('TOTAL_LENGTH')> -1) {
-					theInnerHtml += '<td>' + result.DATA.TOTAL_LENGTH[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('TOTAL_LENGTH')> -1) {
+					theInnerHtml += '<td>' + data.TOTAL_LENGTH[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('TRAGUS_LENGTH')> -1) {
-					theInnerHtml += '<td>' + result.DATA.TRAGUS_LENGTH[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('TRAGUS_LENGTH')> -1) {
+					theInnerHtml += '<td>' + data.TRAGUS_LENGTH[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('UNFORMATTED_MEASUREMENTS')> -1) {
-					theInnerHtml += '<td>' + result.DATA.UNFORMATTED_MEASUREMENTS[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('UNFORMATTED_MEASUREMENTS')> -1) {
+					theInnerHtml += '<td>' + data.UNFORMATTED_MEASUREMENTS[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('VERBATIM_PRESERVATION_DATE')> -1) {
-					theInnerHtml += '<td>' + result.DATA.VERBATIM_PRESERVATION_DATE[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('VERBATIM_PRESERVATION_DATE')> -1) {
+					theInnerHtml += '<td>' + data.VERBATIM_PRESERVATION_DATE[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('WEIGHT')> -1) {
-					theInnerHtml += '<td>' + result.DATA.WEIGHT[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('WEIGHT')> -1) {
+					theInnerHtml += '<td>' + data.WEIGHT[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('DEC_LAT')> -1) {
-					theInnerHtml += '<td style="font-size:small">' + result.DATA.DEC_LAT[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('DEC_LAT')> -1) {
+					theInnerHtml += '<td style="font-size:small">' + data.DEC_LAT[i] + '&nbsp;</td>';
 				}
-				if (result.DATA.COLUMNLIST[0].indexOf('DEC_LONG')> -1) {
-					theInnerHtml += '<td style="font-size:small">' + result.DATA.DEC_LONG[i] + '&nbsp;</td>';
+				if (data.COLUMNLIST[0].indexOf('DEC_LONG')> -1) {
+					theInnerHtml += '<td style="font-size:small">' + data.DEC_LONG[i] + '&nbsp;</td>';
 				}
 			theInnerHtml += '</tr>';
 		}
@@ -1060,7 +1047,6 @@ function success_getSpecResultsData(result){
 		insertMedia(orderedCollObjIdList);
 		insertTypes(orderedCollObjIdList);
 	}
-	*/
 }
 function ssvar (startrow,maxrows) {
 	alert(startrow + ' ' + maxrows);
