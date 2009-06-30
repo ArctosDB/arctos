@@ -92,8 +92,8 @@ var viewport = {
 		ahah(guts,'browseDiv');
 		
 		
-		viewport.init("##browseDiv");
-		viewport.init("##bgDiv");
+		//viewport.init("##browseDiv");
+		//viewport.init("##bgDiv");
 		
 		
 		/*
