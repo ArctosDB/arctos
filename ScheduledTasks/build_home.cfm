@@ -3,7 +3,7 @@
 	Run daily and at setup
 --->
 <cfquery  name="coll" datasource="cf_dbuser">
-	select * from cf_collection
+	select * from cf_collection where PUBLIC_PORTAL_FG is 1
 </cfquery>
 <cfdump var="#coll#">
 <cfoutput>

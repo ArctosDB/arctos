@@ -1,7 +1,16 @@
 function findAccession () {
 	var collection_id=document.getElementById('collection_id').value;
 	var accn_number=document.getElementById('accn_number').value;
-	DWREngine._execute(_cfscriptLocation, null, 'findAccession',collection_id,accn_number,success_findAccession);	
+	$.getJSON("/component/functions.cfc",
+		{
+			method : "findAccession",
+			collection_id : collection_id,
+			accn_number : accn_number,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_findAccession
+	);
 }
 function success_findAccession(result) {
 	if(result>0) {
