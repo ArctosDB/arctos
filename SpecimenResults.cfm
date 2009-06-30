@@ -89,8 +89,8 @@ var viewport = {
 		document.body.appendChild(theDiv);
 		var guts = "/info/SpecimenResultsPrefs.cfm";
 		
-		$('##browseDiv').load(guts,{},function(){
-				viewport.init("##browseDiv");
+		$('##customDiv').load(guts,{},function(){
+				viewport.init("##customDiv");
 				viewport.init("##bgDiv");
 			});
 		
