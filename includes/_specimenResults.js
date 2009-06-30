@@ -3,7 +3,7 @@ function saveSearch(returnURL){
 	if (sName!=null){
 		var sn=encodeURIComponent(sName);
 		var ru=encodeURI(returnURL);
-		$.getJSON("/component/functions.cfc",
+		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "saveSearch",
 				returnURL : ru,
@@ -26,7 +26,7 @@ function insertTypes(idList) {
 	s.className='ajaxStatus';
 	s.innerHTML='Checking for Types...';
 	document.body.appendChild(s);
-	$.getJSON("/component/functions.cfc",
+	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getTypes",
 			idList : idList,
@@ -60,7 +60,7 @@ function insertMedia(idList) {
 	s.className='ajaxStatus';
 	s.innerHTML='Checking for Media...';
 	document.body.appendChild(s);
-	$.getJSON("/component/functions.cfc",
+	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getMedia",
 			idList : idList,
@@ -116,7 +116,7 @@ function addPartToLoan(partID) {
 	}
 	var transaction_id=document.getElementById('transaction_id').value;
 	//alert("partID: " + partID + "remark: " + remark + "Inst:" + instructions + "ss:" + subsample + "transid:" + transaction_id);
-	$.getJSON("/component/functions.cfc",
+	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "addPartToLoan",
 			transaction_id : transaction_id,
@@ -148,7 +148,7 @@ function makePartThingy() {
 	//alert('makePartThingy');
 	var transaction_id = document.getElementById("transaction_id").value;
 	//alert(transaction_id);
-	$.getJSON("/component/functions.cfc",
+	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getLoanPartResults",
 			transaction_id : transaction_id,
@@ -296,7 +296,7 @@ function checkAllById(list) {
 	}
 }
 function crcloo (ColumnList,in_or_out) {
-	$.getJSON("/component/functions.cfc",
+	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "clientResultColumnList",
 			ColumnList : ColumnList,
@@ -418,7 +418,7 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 		orderBy += ' ' + orderOrder;
 	}
 	//alert("startrow:"+startrow+"; numrecs:"+numrecs + '; orderBy:' + orderBy + '; orderOrder:' + orderOrder + ":end:");
-	$.getJSON("/component/functions.cfc",
+	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getSpecResultsData",
 			startrow : startrow,
@@ -1061,7 +1061,7 @@ function ssvar (startrow,maxrows) {
 	var s_torow = document.getElementById('s_torow');
 	s_startrow.innerHTML = startrow;
 	s_torow.innerHTML = parseInt(startrow) + parseInt(maxrows) -1;
-	$.getJSON("/component/functions.cfc",
+	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "ssvar",
 			startrow : startrow,
