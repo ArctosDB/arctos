@@ -1,6 +1,126 @@
 <cfcomponent>
 
-<!-------------------------------------------->
+<!----------------------------------------------------------------------------------------------------------------->
+
+<cffunction name="getParts" access="remote">
+	<cfargument name="collection_id" type="string" required="yes">
+	<cfargument name="other_id_type" type="string" required="yes">
+	<cfargument name="oidnum" type="string" required="yes">
+	<cfargument name="noBarcode" type="string" required="yes">
+	<cfargument name="noSubsample" type="string" required="yes">
+	<cftry>
+		<cfset t="select 
+				cataloged_item.collection_object_id,
+				specimen_part.collection_object_id partID,
+				decode(p.barcode,'0',null,p.barcode) barcode,
+				decode(sampled_from_obj_id,
+					null,part_name,
+					part_name || ' SAMPLE') part_name,
+				cat_num,
+				collection,
+				concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+				'#session.CustomOtherIdentifier#' as CustomIdType
+			from 
+				specimen_part,
+				cataloged_item,
+				collection,
+				coll_obj_cont_hist,
+				container c,
+				container p">
+		<cfset w = "where 
+				specimen_part.derived_from_cat_item = cataloged_item.collection_object_id and 
+				cataloged_item.collection_id=collection.collection_id and 
+				specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+				coll_obj_cont_hist.container_id=c.container_id and
+				c.parent_container_id=p.container_id (+) and
+				cataloged_item.collection_id=#collection_id#">
+		<cfif other_id_type is not "catalog_number">
+			<cfset t=t&" ,coll_obj_other_id_num">
+			<cfset w=w & " and cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
+					coll_obj_other_id_num.other_id_type='#other_id_type#' and
+					coll_obj_other_id_num.display_value='#oidnum#'">
+		<cfelse>
+			<cfset w=w & " and cataloged_item.cat_num=#oidnum#">
+		</cfif>
+		<cfif noBarcode is true>
+			<cfset w=w & " and (c.parent_container_id = 0 or c.parent_container_id is null or c.parent_container_id=476089)">
+				<!--- 476089 is barcode 0 - our universal trashcan --->
+		</cfif>
+		<cfif noSubsample is true>
+			<cfset w=w & " and specimen_part.SAMPLED_FROM_OBJ_ID is null">
+		</cfif>
+		<cfset q = t & " " & w & " order by part_name">
+		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(q)#
+		</cfquery>
+		<cfquery name="u" dbtype="query">
+			select count(distinct(collection_object_id)) c from q
+		</cfquery>
+		<cfif q.recordcount is 0>
+			<cfset q=queryNew("part_name")>
+			<cfset t = queryaddrow(q,1)>
+			<cfset t = QuerySetCell(q, "part_name", "Error: no_parts_found", 1)>
+		</cfif>
+		<cfif u.c is not 1>
+			<cfset q=queryNew("part_name")>
+			<cfset t = queryaddrow(q,1)>
+			<cfset t = QuerySetCell(q, "part_name", "Error: #u.c# specimens match", 1)>
+		</cfif>
+	<cfcatch>
+		<!---
+		<cfset t = queryaddrow(theResult,1)>
+		<cfset t = QuerySetCell(theResult, "collection_object_id", "-1", 1)>
+		<cfset t = QuerySetCell(theResult, "typeList", "#cfcatch.detail#", 1)>
+		<cfreturn theResult>
+		--->
+		<cfset q=queryNew("part_name")>
+		<cfset t = queryaddrow(q,1)>
+		<cfset t = QuerySetCell(q, "part_name", "Error: #cfcatch.Message# #cfcatch.detail#", 1)>
+	</cfcatch>
+	</cftry>
+	<cfreturn q>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="getSpecimen" access="remote">
+	<cfargument name="collection_id" type="string" required="yes">
+	<cfargument name="other_id_type" type="string" required="yes">
+	<cfargument name="oidnum" type="string" required="yes">
+	<cftry>
+		<cfset t="select 
+				cataloged_item.collection_object_id
+			from 
+				cataloged_item">
+		<cfset w = "where cataloged_item.collection_id=#collection_id#">
+		<cfif other_id_type is not "catalog_number">
+			<cfset t=t&" ,coll_obj_other_id_num">
+			<cfset w=w & " and cataloged_item.collection_object_id=coll_obj_other_id_num.collection_object_id and
+					coll_obj_other_id_num.other_id_type='#other_id_type#' and
+					coll_obj_other_id_num.display_value='#oidnum#'">
+		<cfelse>
+			<cfset w=w & " and cataloged_item.cat_num=#oidnum#">
+		</cfif>
+		<cfset q = t & " " & w>
+		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(q)#
+		</cfquery>
+		<cfif q.recordcount is 0>
+			<cfset q=queryNew("collection_object_id")>
+			<cfset t = queryaddrow(q,1)>
+			<cfset t = QuerySetCell(q, "collection_object_id", "Error: item_not_found", 1)>
+		<cfelseif q.recordcount gt 1>
+			<cfset q=queryNew("collection_object_id")>
+			<cfset t = queryaddrow(q,1)>
+			<cfset t = QuerySetCell(q, "collection_object_id", "Error: multiple_matches", 1)>
+		</cfif>
+	<cfcatch>
+		<cfset q=queryNew("collection_object_id")>
+		<cfset t = queryaddrow(q,1)>
+		<cfset t = QuerySetCell(q, "collection_object_id", "Error: #cfcatch.Message# #cfcatch.detail#", 1)>
+	</cfcatch>
+	</cftry>
+	<cfreturn q>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="addPartToContainer" access="remote">
 	<cfargument name="collection_object_id" type="numeric" required="yes">
 	<cfargument name="part_id" type="numeric" required="yes">
