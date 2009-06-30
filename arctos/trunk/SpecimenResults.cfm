@@ -97,7 +97,7 @@ function closeBrowse(){
 }
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {
-		$('##helpDiv').remove();
+		jQuery('##helpDiv').remove();
 	}
 }
 </script>
