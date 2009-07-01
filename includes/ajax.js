@@ -262,12 +262,31 @@ function makePart(){
 		var coll_object_remarks=document.getElementById('coll_object_remarks').value;
 		var barcode=document.getElementById('barcode').value;
 		var new_container_type=document.getElementById('new_container_type').value;
-		DWREngine._execute(_cfscriptLocation, null, 'makePart',collection_object_id,part_name,part_modifier,lot_count,is_tissue,preserve_method,coll_obj_disposition,condition,coll_object_remarks,barcode,new_container_type,success_makePart);
+		 jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "makePart",
+				collection_object_id : collection_object_id,
+				part_name : part_name,
+				part_modifier : part_modifier,
+				lot_count : lot_count,
+				is_tissue : is_tissue,
+				preserve_method : preserve_method,
+				coll_obj_disposition : coll_obj_disposition,
+				condition : condition,
+				coll_object_remarks : coll_object_remarks,
+				barcode : barcode,
+				new_container_type : new_container_type,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			success_makePart
+		);
 	}
-function success_makePart(result){
-	var status=result[0].STATUS;
+function success_makePart(r){
+	var result=r.DATA;
+	var status=result.STATUS[0];
 	if (status=='error') {
-		var msg=result[0].MSG;
+		var msg=result.MSG[0];
 		alert(msg);
 	} else {
 		var msg="Created part: ";
