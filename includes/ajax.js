@@ -100,7 +100,6 @@ function clonePart() {
 	}
 }
 function success_getSpecimen(r){
-	console.log(r.DATA.COLLECTION_OBJECT_ID[0]);
 	if (toString(r.DATA.COLLECTION_OBJECT_ID[0]).indexOf('Error:')>-1) {
 		alert(r.DATA.COLLECTION_OBJECT_ID[0]);	
 	} else {
@@ -151,10 +150,7 @@ function newPart (collection_object_id) {
  }
 
 function success_getParts(r) {
-	var	result=r.DATA;
-	console.log(result);
-	
-	
+	var	result=r.DATA;	
 	var s=document.getElementById('ajaxStatus');
 	document.body.removeChild(s);
 	var sDiv=document.getElementById('thisSpecimen');

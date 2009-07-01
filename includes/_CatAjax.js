@@ -37,12 +37,9 @@ function updateattribute_determiner(i) {
 				success_updateattribute_determiner
 			);
 		} else {
-			//alert('agent_id: ' + agent_id);
 			DWREngine._execute(_catalog_func, null, 'changeAttDetrId', attribute_id,i,agent_id, success_updateattribute_determiner);
 			agent_idFld.value='';
-		}
-		
-		
+		}		
 	} else {
 		alert("Determiner is required.");
 	}
