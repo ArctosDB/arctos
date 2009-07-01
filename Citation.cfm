@@ -25,9 +25,9 @@
 				alert('Multiple matches.');
 			} else {
 				if (result[0]) {	
-					var scientific_name=result[0].SCIENTIFIC_NAME;
-					var collection_object_id=result[0].COLLECTION_OBJECT_ID;
-					var cat_num=result[0].CAT_NUM;
+					var scientific_name=result.SCIENTIFIC_NAME[0];
+					var collection_object_id=result.COLLECTION_OBJECT_ID[0];
+					var cat_num=result.CAT_NUM[0];
 					if (collection_object_id < 0) {
 						alert('error: ' + scientific_name);
 					} else {
