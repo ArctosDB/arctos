@@ -291,7 +291,7 @@ function success_makePart(r){
 	} else {
 		var msg="Created part: ";
 		if (result.PART_MODIFIER[0] != null) {
-			msg +=result[0].PART_MODIFIER[0] + " ";
+			msg +=result.PART_MODIFIER[0] + " ";
 		}
 		msg += result.PART_NAME[0] + " ";
 		if (result.PRESERVE_METHOD[0] != null) {
