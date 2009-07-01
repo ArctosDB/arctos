@@ -367,6 +367,117 @@
 	<cfreturn result>
 </cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="makePart" access="remote">
+	<cfargument name="collection_object_id" type="string" required="yes">
+	<cfargument name="part_name" type="string" required="yes">
+	<cfargument name="part_modifier" type="string" required="yes">
+	<cfargument name="lot_count" type="string" required="yes">
+	<cfargument name="is_tissue" type="string" required="yes">
+	<cfargument name="preserve_method" type="string" required="yes">
+	<cfargument name="coll_obj_disposition" type="string" required="yes">
+	<cfargument name="condition" type="string" required="yes">
+	<cfargument name="coll_object_remarks" type="string" required="yes">
+	<cfargument name="barcode" type="string" required="yes">
+	<cfargument name="new_container_type" type="string" required="yes">
+	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
+	<cftry>
+		<cftransaction>
+			<cfquery name="ccid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select sq_collection_object_id.nextval nv from dual
+			</cfquery>
+			<cfquery name="updateColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				INSERT INTO coll_object (
+					COLLECTION_OBJECT_ID,
+					COLL_OBJECT_TYPE,
+					ENTERED_PERSON_ID,
+					COLL_OBJECT_ENTERED_DATE,
+					LAST_EDITED_PERSON_ID,
+					COLL_OBJ_DISPOSITION,
+					LOT_COUNT,
+					CONDITION,
+					FLAGS )
+				VALUES (
+					#ccid.nv#,
+					'SP',
+					#session.myAgentId#,
+					'#thisDate#',
+					#session.myAgentId#,
+					'#COLL_OBJ_DISPOSITION#',
+					#lot_count#,
+					'#condition#',
+					0 )		
+			</cfquery>
+			<cfquery name="newTiss" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				INSERT INTO specimen_part (
+					  COLLECTION_OBJECT_ID,
+					  PART_NAME
+					  <cfif len(#PART_MODIFIER#) gt 0>
+					  		,PART_MODIFIER
+					  </cfif>
+					  <cfif len(#PRESERVE_METHOD#) gt 0>
+					  		,PRESERVE_METHOD
+					  </cfif>
+						,DERIVED_FROM_cat_item,
+						is_tissue )
+					VALUES (
+						#ccid.nv#,
+					  '#PART_NAME#'
+					  <cfif len(#PART_MODIFIER#) gt 0>
+					  		,'#PART_MODIFIER#'
+					  </cfif>
+					  <cfif len(#PRESERVE_METHOD#) gt 0>
+					  		,'#PRESERVE_METHOD#'
+					  </cfif>
+						,#collection_object_id#,
+						#is_tissue# )
+			</cfquery>
+			<cfif len(#coll_object_remarks#) gt 0>
+				<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
+					VALUES (#ccid.nv#, '#coll_object_remarks#')
+				</cfquery>
+			</cfif>
+			<cfif len(barcode) gt 0>
+				<cfquery name="np" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select container_id from coll_obj_cont_hist where collection_object_id=#ccid.nv#
+				</cfquery>
+				<cfquery name="pc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select container_id from container where barcode='#barcode#'
+				</cfquery>
+				<cfquery name="m2p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update container set parent_container_id=#pc.container_id# where container_id=#np.container_id#
+				</cfquery>
+				<cfif len(new_container_type) gt 0>
+					<cfquery name="uct" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						update container set container_type='#new_container_type#' where
+						container_id=#pc.container_id#
+					</cfquery>					
+				</cfif>
+			</cfif>
+			<cfset q=queryNew("status,part_name,part_modifier,lot_count,is_tissue,preserve_method,coll_obj_disposition,condition,coll_object_remarks,barcode,new_container_type")>
+			<cfset t = queryaddrow(q,1)>
+			<cfset t = QuerySetCell(q, "status", "success", 1)>
+			<cfset t = QuerySetCell(q, "part_name", "#part_name#", 1)>
+			<cfset t = QuerySetCell(q, "part_modifier", "#part_modifier#", 1)>
+			<cfset t = QuerySetCell(q, "lot_count", "#lot_count#", 1)>
+			<cfset t = QuerySetCell(q, "is_tissue", "#is_tissue#", 1)>
+			<cfset t = QuerySetCell(q, "preserve_method", "#preserve_method#", 1)>
+			<cfset t = QuerySetCell(q, "coll_obj_disposition", "#coll_obj_disposition#", 1)>
+			<cfset t = QuerySetCell(q, "condition", "#condition#", 1)>
+			<cfset t = QuerySetCell(q, "coll_object_remarks", "#coll_object_remarks#", 1)>
+			<cfset t = QuerySetCell(q, "barcode", "#barcode#", 1)>
+			<cfset t = QuerySetCell(q, "new_container_type", "#new_container_type#", 1)>
+		</cftransaction>
+		<cfcatch>
+			<cfset q=queryNew("status,msg")>
+			<cfset t = queryaddrow(q,1)>
+			<cfset t = QuerySetCell(q, "status", "error", 1)>
+			<cfset t = QuerySetCell(q, "msg", "#cfcatch.message# #cfcatch.detail#:: #ccid.nv#", 1)>
+		</cfcatch>
+	</cftry>
+	<cfreturn q>	
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="getLoanPartResults" access="remote">
 	<cfargument name="transaction_id" type="numeric" required="yes">
 	<cfoutput>
