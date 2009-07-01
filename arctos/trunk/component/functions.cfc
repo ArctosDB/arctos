@@ -1,5 +1,56 @@
 <cfcomponent>
 <!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="getCatalogedItemCitation" access="remote">
+	<cfargument name="collection_id" type="numeric" required="yes">
+	<cfargument name="theNum" type="string" required="yes">
+	<cfargument name="type" type="string" required="yes">		
+	<cfoutput>
+	<cftry>
+		<cfif type is "cat_num">
+			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					cataloged_item.COLLECTION_OBJECT_ID,
+					cataloged_item.cat_num,
+					scientific_name
+				from
+					cataloged_item,
+					identification
+				where
+					cataloged_item.collection_object_id = identification.collection_object_id AND
+					accepted_id_fg=1 and
+					cat_num=#theNum# and
+					collection_id=#collection_id#
+			</cfquery>
+		<cfelse>
+			<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					cataloged_item.COLLECTION_OBJECT_ID,
+					cataloged_item.cat_num,
+					scientific_name
+				from
+					cataloged_item,
+					identification,
+					coll_obj_other_id_num
+				where
+					cataloged_item.collection_object_id = identification.collection_object_id AND
+					cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id AND
+					accepted_id_fg=1 and
+					display_value='#theNum#' and
+					other_id_type='#type#' and
+					collection_id=#collection_id#
+			</cfquery>
+		</cfif>
+		<cfcatch>
+			<cfset result = querynew("collection_object_id,scientific_name")>
+			<cfset temp = queryaddrow(result,1)>
+			<cfset temp = QuerySetCell(result, "collection_object_id", "-1", 1)>
+			<cfset temp = QuerySetCell(result, "scientific_name", "#cfcatch.Message# #cfcatch.Detail#", 1)>
+		</cfcatch>
+	</cftry>
+	<cfreturn result>
+	</cfoutput>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="setUserFormAccess" access="remote">
 	<cfargument name="role" type="string" required="yes">
 	<cfargument name="form" type="string" required="yes">

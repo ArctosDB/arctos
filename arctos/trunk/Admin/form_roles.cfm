@@ -1,6 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Form Access">
-<script>
+<script type="text/javascript" language="javascript">
 	function setUserFormAccess (id) {
 		var cid = "cell_" + id;
 		var theCell = document.getElementById(cid);
@@ -24,24 +24,22 @@
 			},
 			success_setUserFormAccess
 		);
-}
-function success_setUserFormAccess (result) {
-	alert(result);
-	var rarray = result.split(':');
-	var status = rarray[0];
-	if (status != 'Success'){
-		alert('An error occured. Your changes may not have been saved.')
-	} else {
-		var f = rarray[1];
-		var r = rarray[2];
-		var o = rarray[3];
-		var ids = r + ':' + f;
-		var cid = "cell_" + ids;
-		var theCell = document.getElementById(cid);
-		theCell.setAttribute('style','background-color:;');
 	}
-}
-	
+	function success_setUserFormAccess (result) {
+		var rarray = result.split(':');
+		var status = rarray[0];
+		if (status != 'Success'){
+			alert('An error occured. Your changes may not have been saved.')
+		} else {
+			var f = rarray[1];
+			var r = rarray[2];
+			var o = rarray[3];
+			var ids = r + ':' + f;
+			var cid = "cell_" + ids;
+			var theCell = document.getElementById(cid);
+			theCell.setAttribute('style','background-color:;');
+		}
+	}
 </script>
 <!---
 	Set roles needed to access forms in a table, and access that table before letting users load the form

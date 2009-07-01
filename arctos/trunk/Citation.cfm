@@ -6,11 +6,21 @@
 			var el = document.getElementById(id);
 			el.className='red';
 			var theNum = el.value;
-			DWREngine._execute(_cfscriptLocation, null, 'getCatalogedItemCitation', collection_id, theNum,type,success_getCatalogedItemCitation);
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "getCatalogedItemCitation",
+					theNum : theNum,
+					type : type,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				success_getCatalogedItemCitation
+			);
 		}
-		function success_getCatalogedItemCitation (result) {
+		function success_getCatalogedItemCitation (r) {
+			var result=r.DATA;
 			//alert(result);
-			if (result.length > 1){
+			if (r.ROWCOUNT > 1){
 				alert('Multiple matches.');
 			} else {
 				if (result[0]) {	
