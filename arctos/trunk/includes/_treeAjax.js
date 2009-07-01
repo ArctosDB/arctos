@@ -80,7 +80,6 @@ function showSpecTreeOnly (colobjid) {
 		},
 		loadTree_success
 	);
-	//DWREngine._execute(_containerTree_func, null,'get_containerTree',q,loadTree_success);
 }
 
 function loadTree_success(r) {
@@ -121,31 +120,41 @@ function loadTree_success(r) {
 }
 function expandNode (id) {
 	post(1);
-	DWREngine._execute(_containerTree_func, null,'get_containerContents',id,expandNode_success);
+	jQuery.getJSON("/component/container.cfc",
+			{
+				method : "get_containerContents",
+				contr_id : id,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			expandNode_success
+		);
+	//DWREngine._execute(_containerTree_func, null,'get_containerContents',id,);
 }
 
 
-function expandNode_success (result) {
+function expandNode_success (r) {
+	var result=r.DATA;
 	//alert(result);
-	var ok = result[0].CONTAINER_ID;
+	var ok = result.CONTAINER_ID[0];
 	//alert(treeID);
 	if (ok == '-1') {
-		var error = result[0].MSG;
+		var error = result.MSG[0];
 		post(1,error);
 	} else{
 		// happy
 			var didSomething = "";
-		 for (i = 0; i < result.length; i++) { 
-		 	var CONTAINER_ID = result[i].CONTAINER_ID;
+		 for (i = 0; i < DATA.ROWCOUNT; i++) { 
+		 	var CONTAINER_ID = result.CONTAINER_ID[i];
 			//alert(CONTAINER_ID);
 			var n = "newTree.getLevel('" + CONTAINER_ID + "')";
 			var nE = eval(n);
 			if (nE == 0) {
-				var PARENT_CONTAINER_ID = result[i].PARENT_CONTAINER_ID;
-				var CONTAINER_TYPE = result[i].CONTAINER_TYPE;
-				var DESCRIPTION = result[i].DESCRIPTION;
-				var PARENT_INSTALL_DATE = result[i].PARENT_INSTALL_DATE;
-				var CONTAINER_REMARKS = result[i].CONTAINER_REMARKS;
+				var PARENT_CONTAINER_ID = result.PARENT_CONTAINER_ID[i];
+				var CONTAINER_TYPE = result.CONTAINER_TYPE[i];
+				var DESCRIPTION = result.DESCRIPTION[i];
+				var PARENT_INSTALL_DATE = result.PARENT_INSTALL_DATE[i];
+				var CONTAINER_REMARKS = result.CONTAINER_REMARKS[i];
 				var LABEL = result[i].LABEL;
 				var thisIns = 'newTree.insertNewChild("' + PARENT_CONTAINER_ID + '","' + CONTAINER_ID + '","' + LABEL + ' (' + CONTAINER_TYPE + ')",0,0,0,0,"",1)';
 				eval(thisIns);
@@ -529,8 +538,16 @@ function n_toncheck(id,state){
 			};			
 			
 function getContDetails(id,state,treeID){
-	//alert(id + " " + treeID);
-	DWREngine._execute(_containerTree_func, null,'getContDetails',treeID,id,  getContDetails_success);			
+	jQuery.getJSON("/component/container.cfc",
+		{
+			method : "getContDetails",
+			treeID : treeID,
+			contr_id : id,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		getContDetails_success
+	);
 }
 function getContDetails_success (result) {
 	//alert (result);

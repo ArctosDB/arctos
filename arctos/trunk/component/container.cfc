@@ -1,7 +1,49 @@
-<cfinclude template="/ajax/core/cfajax.cfm">
+<cfcomponent>
+	<!-------------------------------------------------------------->
 
+<cffunction name="getContDetails" access="remote">
+	<cfargument name="treeID" required="yes" type="string">
+	<cfargument name="contr_id" required="no" type="string">
+	<cfif len(#contr_id#) is 0 OR  len(#treeID#) is 0>
+		<cfset result = "#treeID#||You must enter search criteria.">
+		<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
+		<cfreturn result>
+		<cfabort>
+	</cfif>
+			 <cftry>
+			 	 <cfquery name="queriedFor" datasource="#Application.web_user#" timeout="60">
+					SELECT 
+						CONTAINER_ID,
+						PARENT_CONTAINER_ID,
+						CONTAINER_TYPE,
+						DESCRIPTION,
+						PARENT_INSTALL_DATE,
+						CONTAINER_REMARKS,
+						label
+						 from container
+						where container_id = #contr_id#
+				 </cfquery>
+				<cfcatch>
+					<cfset result = "#treeID#||A query error occured: #cfcatch.Message# #cfcatch.Detail# #cfcatch.sql#">
+					<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
+					<cfreturn result>
+					<cfabort>
+				</cfcatch>
+			 </cftry>
+			
+		 	<cfif #queriedFor.recordcount# is 0>
+				<cfset result = "#treeID#||No records were found.">
+				<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
+				<cfreturn result>
+				<cfabort>
+	   		</cfif>
+			<cfset theString = '#queriedFor.CONTAINER_ID#||#queriedFor.PARENT_CONTAINER_ID#||#queriedFor.CONTAINER_TYPE#||#queriedFor.DESCRIPTION#||#queriedFor.PARENT_INSTALL_DATE#||#queriedFor.CONTAINER_REMARKS#||#queriedFor.label#'>
+	   	<cfset result = "#treeID#||#theString#">
+	   	<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
+		<cfreturn result>
+</cffunction>
 <!-------------------------------------------------------------->
-<cffunction name="get_containerContents" returntype="query">
+<cffunction name="get_containerContents" access="remote">
 	<cfargument name="contr_id" required="yes" type="string"><!--- ID of div, just gets passed back --->
 	<cftry>
 		<cfquery name="result" datasource="#Application.web_user#" timeout="60">
@@ -17,7 +59,7 @@
 			where parent_container_id = #contr_id#
 		</cfquery>
 		<cfcatch>
-			<cfset result = querynew("container_id,msg")>
+			<cfset result = querynew("CONTAINER_ID,MSG")>
 			<cfset temp = queryaddrow(result,1)>
 			<cfset temp = QuerySetCell(result, "container_id", "-1", 1)>
 			<cfset temp = QuerySetCell(result, "msg", "A query error occured: #cfcatch.Message# #cfcatch.Detail#", 1)>
@@ -25,7 +67,7 @@
 		</cfcatch>
 	 </cftry>
  	<cfif #result.recordcount# is 0>
-		<cfset result = querynew("container_id,msg")>
+		<cfset result = querynew("CONTAINER_ID,MSG")>
 		<cfset temp = queryaddrow(result,1)>
 		<cfset temp = QuerySetCell(result, "container_id", "-1", 1)>
 		<cfset temp = QuerySetCell(result, "msg", "No records were found.", 1)>
@@ -33,16 +75,6 @@
 	</cfif>
 	<cfreturn result>
 </cffunction>
-
-
-
-
-
-
-
-
-
-
 <!-------------------------------------------------------------->
 <cffunction name="get_containerTree" access="remote">
 	<cfargument name="q" type="string" required="true">
@@ -312,51 +344,7 @@
 		<cfreturn result>
 </cffunction>	
 
-<!-------------------------------------------------------------->
 
-<cffunction name="getContDetails" returntype="string">
-	<cfargument name="treeID" required="yes" type="string">
-	<cfargument name="contr_id" required="no" type="string">
-	
-	<!--- require some search terms --->
-	<cfif len(#contr_id#) is 0 OR  len(#treeID#) is 0>
-		<cfset result = "#treeID#||You must enter search criteria.">
-		<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
-		<cfreturn result>
-		<cfabort>
-	</cfif>
-			 <cftry>
-			 	 <cfquery name="queriedFor" datasource="#Application.web_user#" timeout="60">
-					SELECT 
-						CONTAINER_ID,
-						PARENT_CONTAINER_ID,
-						CONTAINER_TYPE,
-						DESCRIPTION,
-						PARENT_INSTALL_DATE,
-						CONTAINER_REMARKS,
-						label
-						 from container
-						where container_id = #contr_id#
-				 </cfquery>
-				<cfcatch>
-					<cfset result = "#treeID#||A query error occured: #cfcatch.Message# #cfcatch.Detail# #cfcatch.sql#">
-					<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
-					<cfreturn result>
-					<cfabort>
-				</cfcatch>
-			 </cftry>
-			
-		 	<cfif #queriedFor.recordcount# is 0>
-				<cfset result = "#treeID#||No records were found.">
-				<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
-				<cfreturn result>
-				<cfabort>
-	   		</cfif>
-			<cfset theString = '#queriedFor.CONTAINER_ID#||#queriedFor.PARENT_CONTAINER_ID#||#queriedFor.CONTAINER_TYPE#||#queriedFor.DESCRIPTION#||#queriedFor.PARENT_INSTALL_DATE#||#queriedFor.CONTAINER_REMARKS#||#queriedFor.label#'>
-	   	<cfset result = "#treeID#||#theString#">
-	   	<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
-		<cfreturn result>
-</cffunction>	
 
 <!-------------------------------------------------------------->
 
@@ -760,3 +748,5 @@
 	   	<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
 		<cfreturn result>
 </cffunction>
+
+</cfcomponent>
