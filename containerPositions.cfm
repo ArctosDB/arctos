@@ -54,45 +54,27 @@
 		);
 	}
 	function success_moveContainer (result) {
-		//alert(result);
 		var resArray=result.split("|");
 		var box_position = resArray[0];
 		var msg = resArray[1];
-		//alert("p: " + box_position);
-		//alert("m: " + msg);
 		if (box_position > 0) {
 			var thePositionStr = "document.getElementById('barcode" + box_position + "')";
 			var thisBarcodeTextBox = eval(thePositionStr);
-			//alert(thePositionStr);
-			//alert(thisBarcodeTextBox);
-			//alert('s');
 			var thisVal = thisBarcodeTextBox.value;
-			//alert('s2');
 			thisBarcodeTextBox.style.display = 'none';
-			//alert('s3');
 			var theSpanStr = "document.getElementById('theSpan" + box_position + "')";
 			var theSpan = eval(theSpanStr);
 			var nn = document.createTextNode(thisVal);
 			var br = document.createElement("BR");
 			var label = document.createTextNode(msg);
-			
-			//nn.value = thisVal;
 			theSpan.appendChild(nn);
 			theSpan.appendChild(br);
 			theSpan.appendChild(label);
-			
-			
-			
-			//thePosition.className = 'readClr';
-			//thePosition.readOnly= true;
-			//thePostion.setAttribute('readOnly',true);
 		} else{
 			var absPosn = Math.abs(box_position);
 			alert("Error! Position " + absPosn + " save was not successful. The error is: \n" + msg);
 		}
-		
 	}
-	//	="checkSave('barcode#thisLabel#')"
 </script>
 
 <cfif #action# is "nothing">
