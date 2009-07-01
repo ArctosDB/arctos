@@ -295,7 +295,7 @@ function success_makePart(r){
 		}
 		msg += result.PART_NAME[0] + " ";
 		if (result.PRESERVE_METHOD[0] != null) {
-			msg += "(" + result[0].PRESERVE_METHOD + ") ";
+			msg += "(" + result.PRESERVE_METHOD[0] + ") ";
 		}
 		if (result.IS_TISSUE[0]== 1) {
 			msg += "(tissue) ";
