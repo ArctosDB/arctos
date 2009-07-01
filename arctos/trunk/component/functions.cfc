@@ -454,9 +454,9 @@
 					</cfquery>					
 				</cfif>
 			</cfif>
-			<cfset q=queryNew("status,part_name,part_modifier,lot_count,is_tissue,preserve_method,coll_obj_disposition,condition,coll_object_remarks,barcode,new_container_type")>
+			<cfset q=queryNew("STATUS,PART_NAME,PART_MODIFIER,LOT_COUNT,IS_TISSUE,PRESERVE_METHOD,COLL_OBJ_DISPOSITION,CONDITION,COLL_OBJECT_REMARKS,BARCODE,NEW_CONTAINER_TYPE")>
 			<cfset t = queryaddrow(q,1)>
-			<cfset t = QuerySetCell(q, "status", "success", 1)>
+			<cfset t = QuerySetCell(q, "STATUS", "success", 1)>
 			<cfset t = QuerySetCell(q, "part_name", "#part_name#", 1)>
 			<cfset t = QuerySetCell(q, "part_modifier", "#part_modifier#", 1)>
 			<cfset t = QuerySetCell(q, "lot_count", "#lot_count#", 1)>
