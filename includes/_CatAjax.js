@@ -38,7 +38,18 @@ function updateattribute_determiner(i) {
 				success_updateattribute_determiner
 			);
 		} else {
-			DWREngine._execute(_catalog_func, null, 'changeAttDetrId', attribute_id,i,agent_id, success_updateattribute_determiner);
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "changeAttDetrId",
+					attribute_id : attribute_id,
+					i : i,
+					attribute_determiner : attribute_determiner,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				success_updateattribute_determiner
+			);
+			//DWREngine._execute(_catalog_func, null, 'changeAttDetrId', attribute_id,i,agent_id, success_updateattribute_determiner);
 			agent_idFld.value='';
 		}		
 	} else {
