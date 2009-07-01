@@ -13,10 +13,20 @@
 		//alert('onoff: ' + onoff);
 		//alert('role: ' + role);
 		//alert('form: ' + form);
-		DWREngine._execute(_cfscriptLocation, null, 'setUserFormAccess', role,form,onoff,success_setUserFormAccess);
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "setUserFormAccess",
+				role : role,
+				form : form,
+				onoff : onoff,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			success_setUserFormAccess
+		);
 }
 function success_setUserFormAccess (result) {
-	//alert(result);
+	alert(result);
 	var rarray = result.split(':');
 	var status = rarray[0];
 	if (status != 'Success'){

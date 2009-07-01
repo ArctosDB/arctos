@@ -1,7 +1,25 @@
 <cfcomponent>
-
 <!----------------------------------------------------------------------------------------------------------------->
-
+<cffunction name="setUserFormAccess" access="remote">
+	<cfargument name="role" type="string" required="yes">
+	<cfargument name="form" type="string" required="yes">
+	<cfargument name="onoff" type="string" required="yes">
+	<cfif onoff is "true">
+		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			insert into cf_form_permissions (form_path,role_name) values ('#form#','#role#')
+		</cfquery>
+	<cfelseif onoff is "false">
+		<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			delete from cf_form_permissions where
+				form_path = '#form#' and
+				role_name = '#role#'
+		</cfquery>
+	<cfelse>
+		<cfreturn "Error:invalid state">			 
+	</cfif>
+	<cfreturn "Success:#form#:#role#:#onoff#">
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="getParts" access="remote">
 	<cfargument name="collection_id" type="string" required="yes">
 	<cfargument name="other_id_type" type="string" required="yes">
