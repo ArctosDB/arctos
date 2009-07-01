@@ -23,7 +23,7 @@
 		var barcode = c.value;
 		var parent_barcode = p.value;
 		var timestamp = t.value;
-		jQuery.getJSON("/component/functions.cfc",
+		jQuery.getJSON("/component/container.cfc",
 			{
 				method : "moveContainerLocation",
 				barcode : barcode,
