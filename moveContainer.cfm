@@ -36,7 +36,6 @@
 		);
 	}
 	function moveThisOne_success(result) {
-		//alert(result);
 		var resAry = result.split("|");
 		var status = resAry[0];
 		var message = resAry[1];
@@ -44,14 +43,10 @@
 		var p = document.getElementById('parent_barcode');
 		var c = document.getElementById('child_barcode');
 		var t = document.getElementById('timestamp');
-		//alert(status);
 		var currentStatus= theStatusBox.innerHTML;
 		if (status == 'success') {
 			document.getElementById('counter').innerHTML=parseInt(document.getElementById('counter').innerHTML)+1;
-			//alert('yippee'+status);
-			//theStatusBox.className='green';
 			theStatusBox.innerHTML = '<div class="green">' + message + '</div>' + currentStatus;
-			
 			c.removeAttribute('readonly');
 			t.removeAttribute('readonly');
 			p.removeAttribute('readonly');
@@ -61,20 +56,14 @@
 			c.value='';
 			c.focus();
 		} else {
-			//alert('booo '+message);
 			c.removeAttribute('readonly');
 			t.removeAttribute('readonly');
 			p.removeAttribute('readonly');
 			c.className='yellow';
 			p.className ='yellow';
 			t.className='yellow';
-			//theStatusBox.className='red';
-			//theStatusBox.innerHTML = message;
-			// try to create links to make new containers
 			var isChild = message.indexOf('Child');
-			var isParent = message.indexOf('Parent');				
-			//alert(isChild);
-			//alert(isParent);	
+			var isParent = message.indexOf('Parent');	
 			if (isChild > -1) {
 				var theChildBarcode = document.getElementById('child_barcode').value;
 				var newMess = '<a href="/EditContainer.cfm?action=newContainer&barcode=' + theChildBarcode + '">' + message + "</a>";
@@ -93,14 +82,12 @@
 			var y = thisdate.getFullYear();
 			var m = thisdate.getMonth() + 1;
 			var d = thisdate.getDate();
-			
 			var h = thisdate.getHours();
 			var mi = thisdate.getMinutes();
 			var s = "00";
 			var theDateElement = document.getElementById('timestamp');
 			months=new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
 			var Mon = months[m-1];
-			//alert(Mon);
 			var td = d + '-' + Mon + '-' + y + ' ' + h+ ':' + mi + ':' + s;
 			theDateElement.value=td;
 		}
@@ -149,11 +136,8 @@ Containers Moved:<span id="counter" style="background-color:green">0</span>
 		<td align="right">
 			<label for="autoSubmit">Submit on Child Change</label>
 			<input type="checkbox" name="autoSubmit" id="autoSubmit" />
-		</td>
-		
-		
+		</td>		
 	</form>
-	
 </tr>
 </table>
 <div id="result">

@@ -32,7 +32,7 @@
 		<cfset result = "success|#childID.barcode# (#childID.label#, #childID.container_type#) moved to #parentID.barcode# (#parentID.label#, #parentID.container_type#)">
 			<cfreturn result>
 	<cfcatch>
-		<cfset result = "fail|#cfcatch.message#: #cfcatch.Detail# #cfcatch.sql#">
+		<cfset result = "fail|#cfcatch.message#: #cfcatch.Detail#">
 		<cfreturn result>
 	</cfcatch>
 	</cftry>
