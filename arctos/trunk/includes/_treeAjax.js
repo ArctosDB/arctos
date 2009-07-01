@@ -71,8 +71,16 @@ function showSpecTreeOnly (colobjid) {
 	document.getElementById('searchPane').style.display='none';
 	
 	var q="collection_object_id=" + colobjid;
-
-	DWREngine._execute(_containerTree_func, null,'get_containerTree',q,loadTree_success);
+	jQuery.getJSON("/component/container.cfc",
+		{
+			method : "get_containerTree",
+			q : q,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		loadTree_success
+	);
+	//DWREngine._execute(_containerTree_func, null,'get_containerTree',q,loadTree_success);
 }
 
 function loadTree_success(r) {
