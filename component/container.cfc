@@ -24,7 +24,7 @@
 		<cftransaction>
 			<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				update container set parent_container_id=#parentID.container_id#,
-				parent_install_date='to_date(#thisDate#)'
+					parent_install_date=to_date('#thisDate#','DD-MON-YYYY HH24:MI:SS')
 				where
 				container_id = #childID.container_id#
 			</cfquery>
