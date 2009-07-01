@@ -25,15 +25,11 @@ function post(onOff,msg) {
 		var msg="";
 	}
 }
-
 function loadTree () {
 	post(1);
-	//alert('loadTree');
 	var theTreeDiv = document.getElementById('treePane');	
 	var flds="cat_num,barcode,container_label,description,container_type,part_name,collection_id,other_id_type,other_id_value,collection_object_id,loan_trans_id,table_name,in_container_type";
 	var arrFld = flds.split( "," );
-
-	//alert('l' + arrFld.length);
 	var q="";
 	for (f in arrFld) {
 		if (document.getElementById(arrFld[f])){
@@ -60,16 +56,13 @@ function loadTree () {
 		loadTree_success
 	);
 }
-
 function showSpecTreeOnly (colobjid) {
 	post(1);
-	//alert('loadTree');
 	var theTreeDiv = document.getElementById('treePane');
 	theTreeDiv.className="";
 	document.getElementById('thisfooter').style.display='none';
 	document.getElementById('header_color').style.display='none';
 	document.getElementById('searchPane').style.display='none';
-	
 	var q="collection_object_id=" + colobjid;
 	jQuery.getJSON("/component/container.cfc",
 		{
@@ -81,7 +74,6 @@ function showSpecTreeOnly (colobjid) {
 		loadTree_success
 	);
 }
-
 function loadTree_success(r) {
 	//alert(result);
 	var result=r.DATA;
@@ -90,12 +82,8 @@ function loadTree_success(r) {
 	if (oops==-1) {
 		//alert('got oops');
 		var errr = result.MSG[0];
-		//alert(error);
 		post(1,errr);
-		//theTreeDiv.className="error";
-		//theTreeDiv.innerHTML = error;
 	} else{
-		//alert('yay');
 		theTreeDiv.className="cTreePane";
 		theTreeDiv.innerHTML = '';
 		newTree=new dhtmlXTreeObject("treePane","100%","100%;",0);
@@ -110,9 +98,7 @@ function loadTree_success(r) {
 			var PARENT_CONTAINER_ID = result.PARENT_CONTAINER_ID[0];
 			var CONTAINER_TYPE = result.CONTAINER_TYPE[0];
 			var LABEL = result.LABEL[0];
-			//alert(CONTAINER_TYPE);
 			var thisIns = 'newTree.insertNewChild("' + PARENT_CONTAINER_ID + '","' + CONTAINER_ID + '","' + LABEL + ' (' + CONTAINER_TYPE + ')",0,0,0,0,"",1)';
-			//alert('this line of code is: \n ' + thisIns);
 			eval(thisIns);
 		}
 		post();
@@ -121,32 +107,25 @@ function loadTree_success(r) {
 function expandNode (id) {
 	post(1);
 	jQuery.getJSON("/component/container.cfc",
-			{
-				method : "get_containerContents",
-				contr_id : id,
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			expandNode_success
-		);
-	//DWREngine._execute(_containerTree_func, null,'get_containerContents',id,);
+		{
+			method : "get_containerContents",
+			contr_id : id,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		expandNode_success
+	);
 }
-
-
 function expandNode_success (r) {
 	var result=r.DATA;
-	//alert(result);
 	var ok = result.CONTAINER_ID[0];
-	//alert(treeID);
 	if (ok == '-1') {
 		var error = result.MSG[0];
 		post(1,error);
 	} else{
-		// happy
-			var didSomething = "";
-		 for (i = 0; i < DATA.ROWCOUNT; i++) { 
+		var didSomething = "";
+		for (i = 0; i < DATA.ROWCOUNT; i++) { 
 		 	var CONTAINER_ID = result.CONTAINER_ID[i];
-			//alert(CONTAINER_ID);
 			var n = "newTree.getLevel('" + CONTAINER_ID + "')";
 			var nE = eval(n);
 			if (nE == 0) {
@@ -161,15 +140,12 @@ function expandNode_success (r) {
 				didSomething = 'yep';
 			}						
 		 }
-		// alert('tree_' + treeID);
 		if (didSomething == '') {
 			post(1,'This container is already expanded.');
 		}
 		post();
 	}
-}	
-
-
+}
 function checkHandler (id){
 	post(1);
 	try {
@@ -243,45 +219,21 @@ function showTreeOnly(){
 	}
 }
 
-
-
-
-
-
-
-
-
-
 if(window.Event && document.captureEvents)
 document.captureEvents(Event.MOUSEMOVE);
 document.onmousemove = getMousePos;
-
 
 function getMousePos(e){
-// need the following code in the page outside any functions:
-/*
-if(window.Event && document.captureEvents)
-document.captureEvents(Event.MOUSEMOVE);
-document.onmousemove = getMousePos;
-*/
-	//alert('mouspos');
 	var mouseX, mouseY;
-
-if (!e)
-var e = window.event||window.Event;
-
-if('undefined'!=typeof e.pageX)
-{
-mouseX = e.pageX;
-mouseY = e.pageY;
-}
-else
-{
-mouseX = e.clientX + document.body.scrollLeft;
-mouseY = e.clientY + document.body.scrollTop;
-}
-
-//document.getElementById('n_cat_num').value=mouseX + "; " + mouseY;
+	if (!e)
+		var e = window.event||window.Event;
+	if('undefined'!=typeof e.pageX) {
+		mouseX = e.pageX;
+		mouseY = e.pageY;
+	} else {
+		mouseX = e.clientX + document.body.scrollLeft;
+		mouseY = e.clientY + document.body.scrollTop;
+	}
 	if(document.getElementById('containerDetails')) {
 		var theDetDiv = document.getElementById('containerDetails');
 		var isVis = theDetDiv.style.display;
@@ -294,60 +246,38 @@ mouseY = e.clientY + document.body.scrollTop;
 					nmn.value='1';
 				}
 			}
-				
-				
-				
-				//SET_DHTML("containerDetails"+NO_DRAG);
 		}
-//		alert(isVis);
-		
-		//document.getElementById('x_mouse').value=mouseX;
-		//document.getElementById('y_mouse').value=mouseY;
 	}
 }
-
-
 IE=(document.all)?1:0;
 NS=(document.layers)?1:0;
 if (!IE && !NS) {
-/*
-    Dummy event var for v3 browsers. 
-   I use eval because IE will not allow 
-   event to be assigned directly even within the if!
-*/
    eval('event = ""'); 
 }
-
-
 function closeDetails(){
 	var theDetDiv = document.getElementById('containerDetails');
 	var nmn = document.getElementById('noMoveNow');
 	nmn.value='0';
 	theDetDiv.style.display='none';
 }
-
-
 function tonclick(id){
-				alert("Item "+tree.getItemText(id)+" was selected");
-			};
-			function tondblclick(id){
-				alert("Item "+tree.getItemText(id)+" was doubleclicked");
-			};			
-			function tondrag(id,id2){
-				return confirm("Do you want to move node ( " + id + ") "+tree.getItemText(id)+" to item ( " + id2 + ")"+tree.getItemText(id2)+"?");
-			};
-			function tonopen(id,mode){
-				return confirm("Do you want to "+(mode>0?"close":"open")+" node "+tree.getItemText(id)+"?");
-			};
-			function toncheck(id,state){
-				alert("Item "+tree.getItemText(id)+" was " +((state)?"checked":"unchecked"));
-			};
-			
-			
-			
+	alert("Item "+tree.getItemText(id)+" was selected");
+};
+function tondblclick(id){
+	alert("Item "+tree.getItemText(id)+" was doubleclicked");
+};			
+function tondrag(id,id2){
+	return confirm("Do you want to move node ( " + id + ") "+tree.getItemText(id)+" to item ( " + id2 + ")"+tree.getItemText(id2)+"?");
+};
+function tonopen(id,mode){
+	return confirm("Do you want to "+(mode>0?"close":"open")+" node "+tree.getItemText(id)+"?");
+};
+function toncheck(id,state){
+	alert("Item "+tree.getItemText(id)+" was " +((state)?"checked":"unchecked"));
+};	
 function onCheck(id){
-		alert("Check id "+id);
-	}
+	alert("Check id "+id);
+}
 function onClick(id){
 	alert("Click id "+id);
 }
@@ -359,7 +289,6 @@ function lxml () {
 	var tb = document.getElementById('treeBox');
 	tb.innerHTML = '';
 	tree=new dhtmlXTreeObject('treeBox',"400","800",0); 
-	//tree.setXMLAutoLoading("t.xml"); 
 	tree.loadXML("temp/leftContainer_3723816230877.xml");//load root level from xml
 }
 
@@ -463,21 +392,6 @@ function n_expandNode (id) {
 	var treeID = "findTreeBox";
 	expandNode(id,treeID);
 }
-
-
-
-
-function l_tondrag (id, pid) {
-	yesDelete = window.confirm("Do you want to move node " + id + " to node " + pid + "....");
-	if (yesDelete == true) {
-		//alert('ok');
-		var treeID = "leftTreeBox";
-		DWREngine._execute(_containerTree_func, null,'moveContainer',treeID,id,pid,  moveContainer_success);
-		return true;
-	} else {
-		return false;
-	}
-}	
 function r_tondrag (id, pid) {
 	//alert ('r_tondrag');
 	yesDelete = window.confirm("Do you want to move node " + id + " to node " + pid + "....");
