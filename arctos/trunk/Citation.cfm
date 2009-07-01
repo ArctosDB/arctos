@@ -9,6 +9,7 @@
 			jQuery.getJSON("/component/functions.cfc",
 				{
 					method : "getCatalogedItemCitation",
+					collection_id : collection_id,
 					theNum : theNum,
 					type : type,
 					returnformat : "json",
