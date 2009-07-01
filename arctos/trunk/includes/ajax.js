@@ -290,20 +290,20 @@ function success_makePart(r){
 		alert(msg);
 	} else {
 		var msg="Created part: ";
-		if (result[0].PART_MODIFIER.length > 0) {
-			msg +=result[0].PART_MODIFIER + " ";
+		if (result.PART_MODIFIER[0] != null) {
+			msg +=result[0].PART_MODIFIER[0] + " ";
 		}
-		msg += result[0].PART_NAME + " ";
-		if (result[0].PRESERVE_METHOD.length > 0) {
+		msg += result.PART_NAME[0] + " ";
+		if (result.PRESERVE_METHOD[0] != null) {
 			msg += "(" + result[0].PRESERVE_METHOD + ") ";
 		}
-		if (result[0].IS_TISSUE== 1) {
+		if (result.IS_TISSUE[0]== 1) {
 			msg += "(tissue) ";
 		}
-		if (result[0].BARCODE.length>0) {
-			msg += "barcode " + result[0].BARCODE;
-			if (result[0].NEW_CONTAINER_TYPE.length>0) {
-				msg += "( " + result[0].NEW_CONTAINER_TYPE + ")";
+		if (result.BARCODE[0]!=null) {
+			msg += "barcode " + result.BARCODE[0];
+			if (result.NEW_CONTAINER_TYPE[0]!=null) {
+				msg += "( " + result.NEW_CONTAINER_TYPE[0] + ")";
 			}
 		}
 		logIt(msg);
