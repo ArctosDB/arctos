@@ -26,7 +26,7 @@ function updateattribute_determiner(i) {
 		var agent_id = agent_idFld.value;
 		if (agent_id.length == 0) {
 			//DWREngine._execute(_catalog_func, null, 'changeAttDetr', attribute_id,i,attribute_determiner,success_updateattribute_determiner);
-			$.getJSON("/component/functions.cfc",
+			jQuery.getJSON("/component/functions.cfc",
 				{
 					method : "changeAttDetr",
 					attribute_id : attribute_id,
