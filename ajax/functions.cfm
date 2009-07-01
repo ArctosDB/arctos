@@ -1559,23 +1559,6 @@
 	<cfreturn result>
 </cffunction>
 <!------------------------------------->
- <cffunction name="saveIdRemarks" returntype="string">
-	<cfargument name="identification_id" type="numeric" required="yes">
-	<cfargument name="remark" type="string" required="yes">
-	<cftry>
-		<cfquery name="newIdentifier" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			update identification set identification_remarks='#remark#'
-			where
-			IDENTIFICATION_ID=#identification_id#
-		</cfquery>
-		<cfset result="success|#identification_id#">
-	<cfcatch>
-		<cfset result = "failure|#cfcatch.Message# #cfcatch.Detail#">
-	</cfcatch>
-	</cftry>
-	<cfreturn result>
-</cffunction>
-<!------------------------------------->
  <cffunction name="saveNatureOfId" returntype="string">
 	<cfargument name="identification_id" type="numeric" required="yes">
 	<cfargument name="nature_of_id" type="string" required="yes">
