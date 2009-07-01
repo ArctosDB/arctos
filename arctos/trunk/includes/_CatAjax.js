@@ -15,6 +15,7 @@ function addIdOff () {
 	toggleNewIdOff.style.display='none';
 }
 function updateattribute_determiner(i) {
+	console.log('updateattribute_determiner');
 	var s = "document.getElementById('attribute_id_" + i + "').value";
 	var attribute_id = eval(s);
 	var v = "document.getElementById('attribute_determiner_" + i + "').value";

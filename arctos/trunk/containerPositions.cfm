@@ -31,13 +31,11 @@
 		}
 	}
 	function moveContainer (boxID,barcode) {
-		//alert('leaving');
 		var container_id = document.getElementById('container_id').value;
 		var box_position = boxID.replace('barcode','');
 		var psnIdEl = "position_id" + box_position;
 		var position_idStr = "document.getElementById('" + psnIdEl + "').value";
 		var position_id = eval(position_idStr);
-		//alert("box_position: " + box_position + "; position_id: " + position_id + "; barcode: " + barcode );
 		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "moveContainer",
