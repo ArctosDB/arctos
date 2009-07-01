@@ -968,7 +968,7 @@
 	<cfreturn result>
 </cffunction>
 <!----------------------------------------------------------------------------------------->
-<cffunction name="changeAttDetr" returntype="string">
+<cffunction name="changeAttDetr" access="remote">
 	<cfargument name="attribute_id" type="numeric" required="yes">
 	<cfargument name="i" type="numeric" required="yes">
 	<cfargument name="attribute_determiner" type="string" required="yes">
