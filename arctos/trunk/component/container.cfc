@@ -1,6 +1,50 @@
 <cfcomponent>
-	<!-------------------------------------------------------------->
-
+<!------------------------------------------->
+<cffunction name="moveContainerLocation" access="remote">
+	<cfargument name="barcode" type="string" required="yes">
+	<cfargument name="parent_barcode" type="string" required="yes">
+	<cfargument name="timestamp" type="string" required="yes">	
+	<cftry>
+		<cfquery name="childID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select container_id,barcode,label,container_type from container where barcode = '#barcode#'
+		</cfquery>
+		<cfquery name="parentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select container_id,barcode,label,container_type from container where barcode = '#parent_barcode#'
+		</cfquery>
+		<cfset thisDate = "#dateformat(timestamp,'DD-MMM-YYYY')# #timeformat(timestamp,'HH:mm:ss')#">
+		<cfif #childID.recordcount# is not 1>
+			<cfset result = "fail|Child container not found.">
+			<cfreturn result>
+		</cfif> 
+		
+		<cfif parentID.recordcount is not 1>
+			<cfset result = "fail|Parent container not found.">
+			<cfreturn result>
+		</cfif>
+		<cftransaction>
+			<cfquery name="alterTime" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				ALTER SESSION set nls_date_format = 'DD-MON-YYYY HH24:MI:SS'
+			</cfquery>
+			<cfquery name="moveIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				update container set parent_container_id=#parentID.container_id#,
+				parent_install_date='#thisDate#'
+				where
+				container_id = #childID.container_id#
+			</cfquery>
+		</cftransaction>
+		<cfset result = "success|#childID.barcode# (#childID.label#, #childID.container_type#) moved to #parentID.barcode# (#parentID.label#, #parentID.container_type#)">
+			<cfreturn result>
+	<cfcatch>
+		<cfset result = "fail|#cfcatch.message#: #cfcatch.Detail#">
+		<cfreturn result>
+	</cfcatch>
+	</cftry>
+	
+	<!------>
+	<cfset result = "bla">
+		<cfreturn result>
+</cffunction>
+<!-------------------------------------------------------------->
 <cffunction name="getContDetails" access="remote">
 	<cfargument name="treeID" required="yes" type="string">
 	<cfargument name="contr_id" required="no" type="string">
@@ -10,37 +54,36 @@
 		<cfreturn result>
 		<cfabort>
 	</cfif>
-			 <cftry>
-			 	 <cfquery name="queriedFor" datasource="#Application.web_user#" timeout="60">
-					SELECT 
-						CONTAINER_ID,
-						PARENT_CONTAINER_ID,
-						CONTAINER_TYPE,
-						DESCRIPTION,
-						PARENT_INSTALL_DATE,
-						CONTAINER_REMARKS,
-						label
-						 from container
-						where container_id = #contr_id#
-				 </cfquery>
-				<cfcatch>
-					<cfset result = "#treeID#||A query error occured: #cfcatch.Message# #cfcatch.Detail# #cfcatch.sql#">
-					<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
-					<cfreturn result>
-					<cfabort>
-				</cfcatch>
-			 </cftry>
-			
-		 	<cfif #queriedFor.recordcount# is 0>
-				<cfset result = "#treeID#||No records were found.">
-				<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
-				<cfreturn result>
-				<cfabort>
-	   		</cfif>
-			<cfset theString = '#queriedFor.CONTAINER_ID#||#queriedFor.PARENT_CONTAINER_ID#||#queriedFor.CONTAINER_TYPE#||#queriedFor.DESCRIPTION#||#queriedFor.PARENT_INSTALL_DATE#||#queriedFor.CONTAINER_REMARKS#||#queriedFor.label#'>
-	   	<cfset result = "#treeID#||#theString#">
-	   	<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
+	<cftry>
+		<cfquery name="queriedFor" datasource="#Application.web_user#" timeout="60">
+			SELECT 
+				CONTAINER_ID,
+				PARENT_CONTAINER_ID,
+				CONTAINER_TYPE,
+				DESCRIPTION,
+				PARENT_INSTALL_DATE,
+				CONTAINER_REMARKS,
+				label
+			from container
+			where container_id = #contr_id#
+		</cfquery>
+		<cfcatch>
+			<cfset result = "#treeID#||A query error occured: #cfcatch.Message# #cfcatch.Detail# #cfcatch.sql#">
+			<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
+			<cfreturn result>
+			<cfabort>
+		</cfcatch>
+	</cftry>
+	<cfif #queriedFor.recordcount# is 0>
+		<cfset result = "#treeID#||No records were found.">
+		<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
 		<cfreturn result>
+		<cfabort>
+   	</cfif>
+	<cfset theString = '#queriedFor.CONTAINER_ID#||#queriedFor.PARENT_CONTAINER_ID#||#queriedFor.CONTAINER_TYPE#||#queriedFor.DESCRIPTION#||#queriedFor.PARENT_INSTALL_DATE#||#queriedFor.CONTAINER_REMARKS#||#queriedFor.label#'>
+   	<cfset result = "#treeID#||#theString#">
+   	<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
+	<cfreturn result>
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="get_containerContents" access="remote">
@@ -325,6 +368,20 @@
 		<cfreturn result>
 </cffunction>	
 <!-------------------------------------------------------------->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
