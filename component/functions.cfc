@@ -1,5 +1,51 @@
 <cfcomponent>
 <!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="moveContainer" access="remote">
+	<cfargument name="box_position" type="numeric" required="yes">
+	<cfargument name="position_id" type="numeric" required="yes">
+	<cfargument name="barcode" type="string" required="yes">
+	<cfset thisContainerId = "">
+	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
+	<CFTRY>
+		<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select container_id,label from container where barcode='#barcode#'
+			AND container_type = 'cryovial'		
+		</cfquery>
+		<cfif #thisID.recordcount# is 0>
+			<cfquery name="thisID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select container_id,label from container where barcode='#barcode#'
+				AND container_type = 'cryovial label'		
+			</cfquery>
+			<cfif #thisID.recordcount# is 1>
+				<cfquery name="update" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update container set container_type='cryovial'
+					where container_id=#thisID.container_id#
+				</cfquery>
+				<cfset thisContainerId = #thisID.container_id#>
+			</cfif>
+		<cfelse>
+			<cfset thisContainerId = #thisID.container_id#>	
+		</cfif>
+		
+		<cfif len(#thisContainerId#) gt 0>
+			<cfquery name="putItIn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				update container set
+				parent_container_id = #position_id#,
+				PARENT_INSTALL_DATE = '#thisDate#'
+				where container_id = #thisContainerId#
+			</cfquery>
+			<cfset result = "#box_position#|#thisID.label#">
+		<cfelse>
+			<cfset result = "-#box_position#|Container not found.">
+		</cfif>
+	<cfcatch>
+		<cfset result = "-#box_position#|#cfcatch.Message#">
+	</cfcatch>
+	</CFTRY>
+	<cfset result = ReReplace(result,"[#CHR(10)##CHR(13)#]","","ALL")>
+		<cfreturn result>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="getCatalogedItemCitation" access="remote">
 	<cfargument name="collection_id" type="numeric" required="yes">
 	<cfargument name="theNum" type="string" required="yes">

@@ -41,19 +41,17 @@
 		var position_idStr = "document.getElementById('" + psnIdEl + "').value";
 		var position_id = eval(position_idStr);
 		//alert("box_position: " + box_position + "; position_id: " + position_id + "; barcode: " + barcode );
-		DWREngine._execute(_cfscriptLocation, null, 'moveContainer', box_position,position_id,barcode, success_moveContainer);
-		/*
-		var boxID;
-		var content;
-		
-		var p=document.getElementById(boxID);
-		//var theBox = 'document.newScans.' + boxID + '.className=\'c\'';
-		if (content.length > 0) {
-			p.className='hasData';
-		} else {
-			p.className='';
-		}
-		*/
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "moveContainer",
+				box_position : box_position,
+				position_id : position_id,
+				barcode : barcode,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			success_moveContainer
+		);
 	}
 	function success_moveContainer (result) {
 		//alert(result);
