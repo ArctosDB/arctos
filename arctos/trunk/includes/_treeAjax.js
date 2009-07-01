@@ -50,8 +50,17 @@ function loadTree () {
 			}
 		}
 	}
-	DWREngine._execute(_containerTree_func, null,'get_containerTree',q,loadTree_success);
+	jQuery.getJSON("/component/container.cfc",
+		{
+			method : "get_containerTree",
+			q : q,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		loadTree_success
+	);
 }
+
 function showSpecTreeOnly (colobjid) {
 	post(1);
 	//alert('loadTree');
@@ -66,13 +75,14 @@ function showSpecTreeOnly (colobjid) {
 	DWREngine._execute(_containerTree_func, null,'get_containerTree',q,loadTree_success);
 }
 
-function loadTree_success(result) {
+function loadTree_success(r) {
 	//alert(result);
+	var result=r.DATA;
 	var theTreeDiv = document.getElementById('treePane');
-	var oops = result[0].CONTAINER_ID;
+	var oops = result.CONTAINER_ID[0];
 	if (oops==-1) {
 		//alert('got oops');
-		var errr = result[0].MSG;
+		var errr = result.MSG[0];
 		//alert(error);
 		post(1,errr);
 		//theTreeDiv.className="error";
@@ -88,11 +98,11 @@ function loadTree_success(result) {
 		newTree.enableDragAndDrop("temporary_disabled");
 		newTree.attachEvent("onDblClick","expandNode")
 		newTree.attachEvent("onCheck","checkHandler")
-		for (i = 0; i < result.length; i++) { 
-		 	var CONTAINER_ID = result[i].CONTAINER_ID;
-			var PARENT_CONTAINER_ID = result[i].PARENT_CONTAINER_ID;
-			var CONTAINER_TYPE = result[i].CONTAINER_TYPE;
-			var LABEL = result[i].LABEL;
+		for (i = 0; i < r.ROWCOUNT; i++) { 
+		 	var CONTAINER_ID = result.CONTAINER_ID[0];
+			var PARENT_CONTAINER_ID = result.PARENT_CONTAINER_ID[0];
+			var CONTAINER_TYPE = result.CONTAINER_TYPE[0];
+			var LABEL = result.LABEL[0];
 			//alert(CONTAINER_TYPE);
 			var thisIns = 'newTree.insertNewChild("' + PARENT_CONTAINER_ID + '","' + CONTAINER_ID + '","' + LABEL + ' (' + CONTAINER_TYPE + ')",0,0,0,0,"",1)';
 			//alert('this line of code is: \n ' + thisIns);
