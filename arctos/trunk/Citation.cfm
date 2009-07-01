@@ -24,7 +24,7 @@
 			if (r.ROWCOUNT > 1){
 				alert('Multiple matches.');
 			} else {
-				if (result[0]) {	
+				if (r.ROWCOUNT==1) {	
 					var scientific_name=result.SCIENTIFIC_NAME[0];
 					var collection_object_id=result.COLLECTION_OBJECT_ID[0];
 					var cat_num=result.CAT_NUM[0];
