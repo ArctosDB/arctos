@@ -31,7 +31,7 @@ function updateattribute_determiner(i) {
 					method : "changeAttDetr",
 					attribute_id : attribute_id,
 					i : i,
-					agent_id : attribute_determiner,
+					attribute_determiner : attribute_determiner,
 					returnformat : "json",
 					queryformat : 'column'
 				},
