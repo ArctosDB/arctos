@@ -98,7 +98,7 @@
 </cfif>
 
 <cfif isdefined("verbatim_date") and len(#verbatim_date#) gt 0>
-	<cfset sql = "#sql# AND upper(verbatim_date) like '%#ucase(verbatim_date)#%'">
+	<cfset sql = "#sql# AND upper(verbatim_date) like '%#escapeQuotes(ucase(verbatim_date))#%'">
 </cfif>
 
 <cfif isdefined("verbatim_locality") and len(#verbatim_locality#) gt 0>
