@@ -70,6 +70,11 @@
 				<input type="hidden" name="collIdFld" value="#collIdFld#">
 				<input type="hidden" name="dispField" value="#dispField#">
 				<input type="hidden" name="action" value="updateCollEvent">
+				<script>
+					var v='#verbatim_locality#';
+					console.log(v);
+					
+				</script>
 				<table cellpadding="0" cellspacing="0">
 				<tr>
 					<td>
@@ -79,7 +84,7 @@
 							onmouseover="this.className='savBtn btnhov'" 
 							onmouseout="this.className='savBtn'"
 							onclick="javascript: opener.document.#formName#.#collIdFld#.value='#collecting_event_id#'; 
-								opener.document.#formName#.#dispField#.value=escape('#verbatim_locality#');
+								opener.document.#formName#.#dispField#.value='#urlencode(verbatim_locality)#';
 								self.close();">
 					</td>
 				</tr>
