@@ -1354,8 +1354,8 @@ function success_pickedLocality (r) {
 	} else {
 		//alert('good');
 		// "one" stuff will be in result[0]; need to loop for geology stuff
-		var HIGHER_GEOG = result[0].HIGHER_GEOG;
-		var MAXIMUM_ELEVATION = result[0].MAXIMUM_ELEVATION;
+		var HIGHER_GEOG = result.HIGHER_GEOG[0];
+		var MAXIMUM_ELEVATION = result[0].MAXIMUM_ELEVATION[0];
 		var MINIMUM_ELEVATION = result[0].MINIMUM_ELEVATION;
 		var ORIG_ELEV_UNITS = result[0].ORIG_ELEV_UNITS;
 		var SPEC_LOCALITY = result[0].SPEC_LOCALITY;
