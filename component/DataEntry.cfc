@@ -1,5 +1,177 @@
 <cfcomponent>
-	<cffunction name="get_picked_event" access="remote">
+<cffunction name="getAttCodeTbl"  access="remote">
+	<cfargument name="attribute" type="string" required="yes">
+	<cfargument name="collection_cde" type="string" required="yes">
+	<cfargument name="element" type="string" required="yes">
+	<cfquery name="isCtControlled" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select VALUE_CODE_TABLE,UNITS_CODE_TABLE from ctattribute_code_tables where attribute_type='#attribute#'
+	</cfquery>
+	<cfif #isCtControlled.recordcount# is 1>
+		<cfif len(#isCtControlled.VALUE_CODE_TABLE#) gt 0>
+			<cfquery name="getCols" datasource="uam_god">
+				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.value_code_table)#'
+				and column_name <> 'DESCRIPTION'
+			</cfquery>
+			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select * from #isCtControlled.value_code_table#
+			</cfquery>
+			<cfset collCode = "">
+			<cfset columnName = "">
+			<cfloop query="getCols">
+				<cfif getCols.column_name is "COLLECTION_CDE">
+					<cfset collCode = "yes">
+				  <cfelse>
+					<cfset columnName = "#getCols.column_name#">
+				</cfif>
+			</cfloop>
+			<cfif len(#collCode#) gt 0>
+				<cfquery name="valCodes" dbtype="query">
+					SELECT #columnName# as valCodes from valCT
+					WHERE collection_cde='#collection_cde#'
+				</cfquery>
+			  <cfelse>
+				<cfquery name="valCodes" dbtype="query">
+					SELECT #columnName# as valCodes from valCT
+				</cfquery>
+			</cfif>
+			<cfset result = QueryNew("V")>
+			<cfset newRow = QueryAddRow(result, 1)>
+			<cfset temp = QuerySetCell(result, "v", "value",1)>
+			<cfset newRow = QueryAddRow(result, 1)>
+			<cfset temp = QuerySetCell(result, "v", "#element#",2)>
+			<cfset i=3>
+			<cfloop query="valCodes">
+				<cfset newRow = QueryAddRow(result, 1)>
+				<cfset temp = QuerySetCell(result, "v", "#valCodes#",#i#)>
+				<cfset i=#i#+1>
+			</cfloop>
+			
+		<cfelseif #isCtControlled.UNITS_CODE_TABLE# gt 0>
+			<cfquery name="getCols" datasource="uam_god">
+				select column_name from sys.user_tab_columns where table_name='#ucase(isCtControlled.UNITS_CODE_TABLE)#'
+				and column_name <> 'DESCRIPTION'
+			</cfquery>
+			<cfquery name="valCT" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select * from #isCtControlled.UNITS_CODE_TABLE#
+			</cfquery>
+			<cfset collCode = "">
+			<cfset columnName = "">
+			<cfloop query="getCols">
+				<cfif getCols.column_name is "COLLECTION_CDE">
+					<cfset collCode = "yes">
+				  <cfelse>
+					<cfset columnName = "#getCols.column_name#">
+				</cfif>
+			</cfloop>
+			<cfif len(#collCode#) gt 0>
+				<cfquery name="valCodes" dbtype="query">
+					SELECT #columnName# as valCodes from valCT
+					WHERE collection_cde='#collection_cde#'
+				</cfquery>
+			  <cfelse>
+				<cfquery name="valCodes" dbtype="query">
+					SELECT #columnName# as valCodes from valCT
+				</cfquery>
+			</cfif>			
+			<cfset result = "unit - #isCtControlled.UNITS_CODE_TABLE#">
+			<cfset result = QueryNew("V")>
+			<cfset newRow = QueryAddRow(result, 1)>
+			<cfset temp = QuerySetCell(result, "v", "units")>
+			<cfset newRow = QueryAddRow(result, 1)>
+			<cfset temp = QuerySetCell(result, "v", "#element#",2)>
+			<cfset i=3>
+			<cfloop query="valCodes">
+				<cfset newRow = QueryAddRow(result, 1)>
+				<cfset temp = QuerySetCell(result, "v", "#valCodes#",#i#)>
+				<cfset i=#i#+1>
+			</cfloop>
+		<cfelse>
+			<cfset result = QueryNew("V")>
+			<cfset newRow = QueryAddRow(result, 1)>
+			<cfset temp = QuerySetCell(result, "v", "ERROR")>
+			<cfset newRow = QueryAddRow(result, 1)>
+			<cfset temp = QuerySetCell(result, "v", "#element#",2)>
+		</cfif>
+	<cfelse>
+		<cfset result = QueryNew("v")>
+		<cfset newRow = QueryAddRow(result, 1)>
+		<cfset temp = QuerySetCell(result, "v", "NONE")>
+		<cfset newRow = QueryAddRow(result, 1)>
+		<cfset temp = QuerySetCell(result, "v", "#element#",2)>
+	</cfif>
+	<cfreturn result>
+</cffunction>
+<!------------------------------------------------------------------------------->
+<cffunction name="getcatNumSeq" access="remote">
+	<cfargument name="coll" type="string" required="yes">
+	<cfset theSpace = find(" " ,coll)>
+	<cfset inst = trim(left(coll,theSpace))>
+	<cfset collcde = trim(mid(coll,theSpace,len(coll)))>	
+	<cfquery name="collID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select collection_id from collection where
+		institution_acronym='#inst#' and
+		collection_cde='#collcde#'
+	</cfquery>
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select max(cat_num + 1) as nextnum
+		from cataloged_item 
+		where 
+		collection_id=#collID.collection_id# 
+	</cfquery>
+	<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select max(to_number(cat_num) + 1) as nextnum from bulkloader
+		where
+		institution_acronym='#inst#' and
+		collection_cde='#collcde#'
+	</cfquery>
+	<cfif #q.nextnum# gt #b.nextnum#>
+		<cfset result = "#q.nextnum#">
+	<cfelse>
+		<cfset result = "#b.nextnum#">
+	</cfif>
+	<cfreturn result>
+</cffunction>
+<!---------------------------------------------------------------------------------------->
+<cffunction name="is_good_accn" access="remote">
+	<cfargument name="accn" type="string" required="yes">
+	<cfargument name="institution_acronym" type="string" required="yes">
+	<cftry>
+	<cfif #accn# contains "[" and #accn# contains "]">
+		<cfset p = find(']',accn)>
+		<cfset ia = mid(accn,2,p-2)>
+		<cfset ac = mid(accn,p+1,len(accn))>
+	<cfelse>
+		<cfset ac=#accn#>
+		<cfset ia=#institution_acronym#>
+	</cfif>
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select 
+			count(*) cnt
+		FROM
+			accn,
+			trans,
+			collection
+		WHERE
+			accn.transaction_id = trans.transaction_id AND
+			trans.collection_id=collection.collection_id and
+			accn.accn_number = '#ac#' and
+			collection.institution_acronym = '#ia#'
+	</cfquery>
+		<cfset result = "#q.cnt#">
+	<cfcatch>
+		<cfset result = "#cfcatch.detail#">
+	</cfcatch>
+	</cftry>	
+	<cfreturn result>
+</cffunction>
+<!---------------------------------------------------------------------------------------->
+<cffunction name="rememberLastOtherId" access="remote">
+	<cfargument name="yesno" type="numeric" required="yes">
+	<cfset session.rememberLastOtherId=#yesno#>
+	<cfreturn yesno>
+</cffunction>
+<!---------------------------------------------------------------------------------------->
+<cffunction name="get_picked_event" access="remote">
 	<cfargument name="collecting_event_id" type="numeric" required="yes">
 	<cftry>
 	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
