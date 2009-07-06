@@ -1385,6 +1385,8 @@ function success_pickedLocality (r) {
 		var GEOREFMETHOD = result.GEOREFMETHOD[0];
 		var VERIFICATIONSTATUS = result.VERIFICATIONSTATUS[0];
 		
+		// this is our last-fetched locid number
+		document.getElementById('fetched_locid').value=locality_id;
 		
 		document.getElementById('higher_geog').value = HIGHER_GEOG;
 		document.getElementById('higher_geog').className='d11a readClr';
