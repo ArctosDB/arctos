@@ -1278,19 +1278,19 @@ function success_pickedEvent(r){
 	console.log(result);
 	var collecting_event_id=result.COLLECTING_EVENT_ID[0];
 	if (collecting_event_id < 0) {
-		alert('Oops! Something bad happend with the collecting_event pick. ' + result[0].MSG[0]);
+		alert('Oops! Something bad happend with the collecting_event pick. ' + result.MSG);
 	} else {
 		document.getElementById('locality_id').value='';
 		var BEGAN_DATE = result.BEGAN_DATE;
 		
 		console.log(BEGAN_DATE);
-		var ENDED_DATE = result[0].ENDED_DATE[0];
-		var VERBATIM_DATE = result[0].VERBATIM_DATE[0];
-		var VERBATIM_LOCALITY = result[0].VERBATIM_LOCALITY[0];
-		var COLL_EVENT_REMARKS = result[0].COLL_EVENT_REMARKS[0];
-		var COLLECTING_SOURCE = result[0].COLLECTING_SOURCE;
-		var COLLECTING_METHOD = result[0].COLLECTING_METHOD;
-		var HABITAT_DESC = result[0].HABITAT_DESC;
+		var ENDED_DATE = result.ENDED_DATE;
+		var VERBATIM_DATE = result.VERBATIM_DATE;
+		var VERBATIM_LOCALITY = result.VERBATIM_LOCALITY;
+		var COLL_EVENT_REMARKS = result.COLL_EVENT_REMARKS;
+		var COLLECTING_SOURCE = result.COLLECTING_SOURCE;
+		var COLLECTING_METHOD = result.COLLECTING_METHOD;
+		var HABITAT_DESC = result.HABITAT_DESC;
 		
 		document.getElementById('began_date').value = BEGAN_DATE;
 		document.getElementById('began_date').className='d11a readClr';
