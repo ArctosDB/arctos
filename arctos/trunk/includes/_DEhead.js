@@ -1326,7 +1326,6 @@ function success_pickedEvent(r){
 		document.getElementById('eventUnPicker').style.display='';
 		
 		success_pickedLocality(result);
-	}		
 	}
 }
 function pickedLocality () {
