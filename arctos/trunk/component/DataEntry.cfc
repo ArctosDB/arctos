@@ -57,7 +57,7 @@
 				locality.locality_id = #locality_id#
 		</cfquery>
 	<cfcatch>
-		<cfset result = QueryNew("locality_id,msg")>
+		<cfset result = QueryNew("LOCALITY_ID,MSG")>
 		<cfset temp = QueryAddRow(result, 1)>
 		<cfset temp = QuerySetCell(result, "locality_id", "-1",1)>
 		<cfset temp = QuerySetCell(result, "msg", "#cfcatch.detail#",1)>

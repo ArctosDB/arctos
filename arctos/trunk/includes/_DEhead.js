@@ -1345,12 +1345,13 @@ function pickedLocality () {
 	}
 }
 
-function success_pickedLocality (result) {
-	//alert('at success_pickedLocality: ' + result);
+function success_pickedLocality (r) {
+	result=r.DATA;
+	console.log(r);
 	if (result[0]) {
-		var locality_id=result[0].LOCALITY_ID;
+		var locality_id=result.LOCALITY_ID[0];
 		if (locality_id < 0) {
-			alert('Oops! Something bad happend with the locality pick. ' + result[0].MSG);
+			alert('Oops! Something bad happend with the locality pick. ' + result.MSG[0]);
 		} else {
 			//alert('good');
 			// "one" stuff will be in result[0]; need to loop for geology stuff
