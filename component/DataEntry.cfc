@@ -93,7 +93,7 @@
 			<cfset temp = QuerySetCell(result, "v", "#element#",2)>
 		</cfif>
 	<cfelse>
-		<cfset result = QueryNew("v")>
+		<cfset result = QueryNew("V")>
 		<cfset newRow = QueryAddRow(result, 1)>
 		<cfset temp = QuerySetCell(result, "v", "NONE")>
 		<cfset newRow = QueryAddRow(result, 1)>
