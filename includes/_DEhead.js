@@ -1255,68 +1255,75 @@ function unpickLocality () {
 }
 function pickedEvent () {
 	var collecting_event_id = document.getElementById('collecting_event_id').value;
+	var peid = document.getElementById('fetched_eventid').value;
+	if (collecting_event_id==peid){
+		return false;
+	}
 	if (collecting_event_id.length > 0) {
 		document.getElementById('locality_id').value='';
-		DWREngine._execute(_data_entry_func, null, 'get_picked_event', collecting_event_id, success_pickedEvent);
+		jQuery.getJSON("/component/DataEntry.cfc",
+			{
+				method : "get_picked_event",
+				collecting_event_id : collecting_event_id,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			success_pickedEvent
+		);
 	}
 }
 function success_pickedEvent(result){
-	if (result[0]) {
-		var collecting_event_id=result[0].COLLECTING_EVENT_ID;
-		if (collecting_event_id < 0) {
-			alert('Oops! Something bad happend with the collecting_event pick. ' + result[0].MSG);
-		} else {
-			document.getElementById('locality_id').value='';
-			var BEGAN_DATE = result[0].BEGAN_DATE;
-			var ENDED_DATE = result[0].ENDED_DATE;
-			var VERBATIM_DATE = result[0].VERBATIM_DATE;
-			var VERBATIM_LOCALITY = result[0].VERBATIM_LOCALITY;
-			var COLL_EVENT_REMARKS = result[0].COLL_EVENT_REMARKS;
-			var COLLECTING_SOURCE = result[0].COLLECTING_SOURCE;
-			var COLLECTING_METHOD = result[0].COLLECTING_METHOD;
-			var HABITAT_DESC = result[0].HABITAT_DESC;
-			
-			document.getElementById('began_date').value = BEGAN_DATE;
-			document.getElementById('began_date').className='d11a readClr';
-			document.getElementById('began_date').setAttribute('readonly','readonly');
-			
-			document.getElementById('ended_date').value = ENDED_DATE;
-			document.getElementById('ended_date').className='d11a readClr';
-			document.getElementById('ended_date').setAttribute('readonly','readonly');
-			
-			document.getElementById('verbatim_locality').value = VERBATIM_LOCALITY;
-			document.getElementById('verbatim_locality').className='d11a readClr';
-			document.getElementById('verbatim_locality').setAttribute('readonly','readonly');
-			
-			document.getElementById('verbatim_date').value = VERBATIM_DATE;
-			document.getElementById('verbatim_date').className='d11a readClr';
-			document.getElementById('verbatim_date').setAttribute('readonly','readonly');
-			
-			document.getElementById('coll_event_remarks').value = COLL_EVENT_REMARKS;
-			document.getElementById('coll_event_remarks').className='d11a readClr';
-			document.getElementById('coll_event_remarks').setAttribute('readonly','readonly');
-			
-			document.getElementById('collecting_source').value = COLLECTING_SOURCE;
-			document.getElementById('collecting_source').className='d11a readClr';
-			document.getElementById('collecting_source').setAttribute('readonly','readonly');
-			
-			document.getElementById('collecting_method').value = COLLECTING_METHOD;
-			document.getElementById('collecting_method').className='d11a readClr';
-			document.getElementById('collecting_method').setAttribute('readonly','readonly');
-			
-			document.getElementById('habitat_desc').value = HABITAT_DESC;
-			document.getElementById('habitat_desc').className='d11a readClr';
-			document.getElementById('habitat_desc').setAttribute('readonly','readonly');
-			
-			document.getElementById('eventPicker').style.display='none';
-			document.getElementById('eventUnPicker').style.display='';
-			
-			success_pickedLocality(result);
-		}
+	var collecting_event_id=result.COLLECTING_EVENT_ID[0];
+	if (collecting_event_id < 0) {
+		alert('Oops! Something bad happend with the collecting_event pick. ' + result[0].MSG[0]);
 	} else {
-		var collecting_event_id = document.getElementById('collecting_event_id');
-		alert(collecting_event_id.value + ' is not a valid collecting_event_id');
-		collecting_event_id.value='';		
+		document.getElementById('locality_id').value='';
+		var BEGAN_DATE = result.BEGAN_DATE;
+		var ENDED_DATE = result[0].ENDED_DATE[0];
+		var VERBATIM_DATE = result[0].VERBATIM_DATE[0];
+		var VERBATIM_LOCALITY = result[0].VERBATIM_LOCALITY[0];
+		var COLL_EVENT_REMARKS = result[0].COLL_EVENT_REMARKS[0];
+		var COLLECTING_SOURCE = result[0].COLLECTING_SOURCE;
+		var COLLECTING_METHOD = result[0].COLLECTING_METHOD;
+		var HABITAT_DESC = result[0].HABITAT_DESC;
+		
+		document.getElementById('began_date').value = BEGAN_DATE;
+		document.getElementById('began_date').className='d11a readClr';
+		document.getElementById('began_date').setAttribute('readonly','readonly');
+		
+		document.getElementById('ended_date').value = ENDED_DATE;
+		document.getElementById('ended_date').className='d11a readClr';
+		document.getElementById('ended_date').setAttribute('readonly','readonly');
+		
+		document.getElementById('verbatim_locality').value = VERBATIM_LOCALITY;
+		document.getElementById('verbatim_locality').className='d11a readClr';
+		document.getElementById('verbatim_locality').setAttribute('readonly','readonly');
+		
+		document.getElementById('verbatim_date').value = VERBATIM_DATE;
+		document.getElementById('verbatim_date').className='d11a readClr';
+		document.getElementById('verbatim_date').setAttribute('readonly','readonly');
+		
+		document.getElementById('coll_event_remarks').value = COLL_EVENT_REMARKS;
+		document.getElementById('coll_event_remarks').className='d11a readClr';
+		document.getElementById('coll_event_remarks').setAttribute('readonly','readonly');
+		
+		document.getElementById('collecting_source').value = COLLECTING_SOURCE;
+		document.getElementById('collecting_source').className='d11a readClr';
+		document.getElementById('collecting_source').setAttribute('readonly','readonly');
+		
+		document.getElementById('collecting_method').value = COLLECTING_METHOD;
+		document.getElementById('collecting_method').className='d11a readClr';
+		document.getElementById('collecting_method').setAttribute('readonly','readonly');
+		
+		document.getElementById('habitat_desc').value = HABITAT_DESC;
+		document.getElementById('habitat_desc').className='d11a readClr';
+		document.getElementById('habitat_desc').setAttribute('readonly','readonly');
+		
+		document.getElementById('eventPicker').style.display='none';
+		document.getElementById('eventUnPicker').style.display='';
+		
+		success_pickedLocality(result);
+	}		
 	}
 }
 function pickedLocality () {
