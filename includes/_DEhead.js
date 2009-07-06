@@ -1658,11 +1658,15 @@ function success_getAttributeStuff (r) {
 	
 	var theEl=result.V[1];
 	console.log('theEl: ' + theEl);
-	//alert(theEl);
-	// get rid of the funky BG
+	
 	var optn = document.getElementById(theEl);
 	optn.style.backgroundColor='';
+	
 	var n=result.length;
+	console.log('n: ' + n);
+	
+	var n=result.V.length;
+	console.log('n: ' + n);
 	//alert(n);
 	// get the ID of the cell containing the element we want to replace
 	var theNumber = theEl.replace("attribute_","");
