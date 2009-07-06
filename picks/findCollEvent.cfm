@@ -84,7 +84,7 @@
 							onmouseover="this.className='savBtn btnhov'" 
 							onmouseout="this.className='savBtn'"
 							onclick="javascript: opener.document.#formName#.#collIdFld#.value='#collecting_event_id#'; 
-								opener.document.#formName#.#dispField#.value='#urlencode(verbatim_locality)#';
+								opener.document.#formName#.#dispField#.value='#URLEncodedFormat(verbatim_locality)#';
 								self.close();">
 					</td>
 				</tr>
