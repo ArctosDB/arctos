@@ -1282,6 +1282,8 @@ function success_pickedEvent(r){
 	} else {
 		document.getElementById('locality_id').value='';
 		var BEGAN_DATE = result.BEGAN_DATE;
+		
+		console.log(BEGAN_DATE);
 		var ENDED_DATE = result[0].ENDED_DATE[0];
 		var VERBATIM_DATE = result[0].VERBATIM_DATE[0];
 		var VERBATIM_LOCALITY = result[0].VERBATIM_LOCALITY[0];
@@ -1325,7 +1327,7 @@ function success_pickedEvent(r){
 		document.getElementById('eventPicker').style.display='none';
 		document.getElementById('eventUnPicker').style.display='';
 		
-		success_pickedLocality(result);
+		success_pickedLocality(r);
 	}
 }
 function pickedLocality () {
