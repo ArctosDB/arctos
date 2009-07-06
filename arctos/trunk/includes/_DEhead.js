@@ -1276,11 +1276,12 @@ function success_pickedEvent(r){
 	var result=r.DATA;
 	console.log('spiffy');
 	console.log(result);
-	var collecting_event_id=result.COLLECTING_EVENT_ID[0];
+	var collecting_event_id=result.COLLECTING_EVENT_ID;
 	if (collecting_event_id < 0) {
 		alert('Oops! Something bad happend with the collecting_event pick. ' + result.MSG);
 	} else {
 		document.getElementById('locality_id').value='';
+		document.getElementById('fetched_eventid').value=collecting_event_id;
 		var BEGAN_DATE = result.BEGAN_DATE;
 		
 		console.log(BEGAN_DATE);
