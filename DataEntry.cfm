@@ -2,16 +2,6 @@
 <cfinclude template="/includes/_header.cfm">
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
 <cf_showMenuOnly>
-<!--- 
-Group Setup:
-Two groups are required to complete data entry using this form:
-	x Data Entry Group, and
-	x Data Admin Group
-x can be any string. There must be a space between x and "Data." Acceptable entries:
-UAM Mammals Data.....
-UAM Data .....
-Some Totally Random String Data .....
---->
 <cf_setDataEntryGroups>
 <cfif not isdefined("ImAGod") or len(#ImAGod#) is 0>
 	<cfset ImAGod = "no">
@@ -25,7 +15,6 @@ Some Totally Random String Data .....
 </cfif>
 	<link rel="stylesheet" type="text/css" href="/includes/_DEstyle.css">
 	<script type='text/javascript' src='/includes/_DEhead.js'></script>	
-	<script type='text/javascript' src='/includes/_DEajax.js'></script>	
 	
 	<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
 	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
@@ -674,6 +663,7 @@ Some Totally Random String Data .....
 						<tr>
 							<td align="right"><span class="f11a">Existing&nbsp;LocalityID:&nbsp;</span></td>
 							<td>
+								<input type="hidden" id="fetched_locid">
 								<input type="text" name="locality_id" id="locality_id" value="#locality_id#" readonly="readonly" class="readClr" size="8">
 								<span class="infoLink" 
 										id="localityPicker"
