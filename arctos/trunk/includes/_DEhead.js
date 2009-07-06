@@ -659,8 +659,6 @@ function UAMFishDefault() {
 	var i=1;
 	for (i=1;i<=12;i++){
 		var thisPartConditionString='part_condition_' + i;
-		//console.log(i);
-		//console.log(thisPartConditionString);
 		if (document.getElementById(thisPartConditionString)) {
 			var thisPartCondition=document.getElementById(thisPartConditionString);
 			var thisPartConditionValue=thisPartCondition.value;
@@ -918,7 +916,6 @@ function cleanup () {
 	reqdFlds.push('coll_obj_disposition');
 	reqdFlds.push('id_made_by_agent');
 	reqdFlds.push('nature_of_id');
-	//console.log('this CC is ' + thisCC);
 	if (thisCC != 'Crus' && thisCC != 'Herb' && thisCC != 'ES' && thisCC != 'Fish' && thisCC != 'Para' && thisCC != 'Art') {
 		reqdFlds.push('attribute_value_1');
 		reqdFlds.push('attribute_determiner_1');
@@ -1075,7 +1072,15 @@ function checkPickedEvnt(){
 	}	
 }			
 function rememberLastOtherId (yesno) {
-	DWREngine._execute(_data_entry_func, null, 'rememberLastOtherId', yesno,success_rememberLastOtherId);
+	jQuery.getJSON("/component/DataEntry.cfc",
+		{
+			method : "rememberLastOtherId",
+			yesno : yesno,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_rememberLastOtherId
+	);
 }
 function success_rememberLastOtherId (yesno) {
 	var theSpan = document.getElementById('rememberLastId');
@@ -1091,15 +1096,21 @@ function success_rememberLastOtherId (yesno) {
 function isGoodAccn () {
 	var accn = document.getElementById('accn').value;
 	var institution_acronym = document.getElementById('institution_acronym').value;
-	//alert('accn: ' + accn + 'ia: ' + institution_acronym);
-	DWREngine._execute(_data_entry_func, null, 'is_good_accn', accn, institution_acronym,success_isGoodAccn);
+	jQuery.getJSON("/component/DataEntry.cfc",
+		{
+			method : "is_good_accn",
+			accn : accn,
+			institution_acronym : institution_acronym,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_isGoodAccn
+	);
 	return null;
 }
 function success_isGoodAccn (result) {
 	var accn = document.getElementById('accn');
-	//alert(result);
 	if (result == 1) {
-		//alert('spiffy');
 		accn.className = 'd11a reqdClr';
 	} else if (result == 0) {
 		alert('You must enter a valid, pre-existing accn.');
@@ -1110,12 +1121,9 @@ function success_isGoodAccn (result) {
 	}
 }
 
-
 function turnSaveOn () {
-	//alert('tso');
 	document.getElementById('localityPicker').style.display='none';
 	document.getElementById('localityUnPicker').style.display='none';
-	//document.getElementById('pickedSomething').style.display='block';
 }
 function unpickEvent() {
 	document.getElementById('collecting_event_id').value='';
@@ -1274,8 +1282,6 @@ function pickedEvent () {
 }
 function success_pickedEvent(r){
 	var result=r.DATA;
-	console.log('spiffy');
-	console.log(result);
 	var collecting_event_id=result.COLLECTING_EVENT_ID;
 	if (collecting_event_id < 0) {
 		alert('Oops! Something bad happend with the collecting_event pick. ' + result.MSG);
@@ -1283,8 +1289,6 @@ function success_pickedEvent(r){
 		document.getElementById('locality_id').value='';
 		document.getElementById('fetched_eventid').value=collecting_event_id;
 		var BEGAN_DATE = result.BEGAN_DATE;
-		
-		console.log(BEGAN_DATE);
 		var ENDED_DATE = result.ENDED_DATE;
 		var VERBATIM_DATE = result.VERBATIM_DATE;
 		var VERBATIM_LOCALITY = result.VERBATIM_LOCALITY;
@@ -1359,7 +1363,6 @@ function pickedLocality () {
 
 function success_pickedLocality (r) {
 	result=r.DATA;
-	console.log(r);
 	var locality_id=result.LOCALITY_ID[0];
 	if (locality_id < 0) {
 		alert('Oops! Something bad happend with the locality pick. ' + result.MSG[0]);
@@ -1605,44 +1608,51 @@ function success_pickedLocality (r) {
 	}
 }
 function catNumSeq () {
-		//alert('getting cat number...');
-		var catnum = document.getElementById('cat_num').value;
-		var isCatNum = catnum.length;
-		//alert(isCatNum);
-		if (isCatNum == 0) { // only get the number if there's not already one in place
-			var inst = document.getElementById('institution_acronym').value;
-			var coll = document.getElementById('collection_cde').value;			
-			var coll_id = inst + " " + coll;
-			//alert(coll_id);
-			DWREngine._execute(_data_entry_func, null, 'getcatNumSeq', coll_id, success_catNumSeq);
-			//alert('gone');
-		}
-		//alert('gone to server');
+	var catnum = document.getElementById('cat_num').value;
+	var isCatNum = catnum.length;
+	if (isCatNum == 0) { // only get the number if there's not already one in place
+		var inst = document.getElementById('institution_acronym').value;
+		var coll = document.getElementById('collection_cde').value;			
+		var coll_id = inst + " " + coll;
+		jQuery.getJSON("/component/DataEntry.cfc",
+			{
+				method : "getcatNumSeq",
+				coll : coll_id,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			success_catNumSeq
+		);
 	}
-	function success_catNumSeq (result) {
-		
-		var catnum = document.getElementById('cat_num');
-		catnum.value=result;
-	}
+}
+function success_catNumSeq (result) {
+	var catnum = document.getElementById('cat_num');
+	catnum.value=result;
+}
 function getAttributeStuff (attribute,element) {
 	//alert(attribute + '-' + element);	
 	var isSomething = attribute.length;
 	if (isSomething > 0) {
-		// collection
-		// make it look like we're doing something
 		var optn = document.getElementById(element);
 		optn.style.backgroundColor='red';
 		var thisCC = document.getElementById('collection_cde').value;
-		DWREngine._execute(_data_entry_func, null, 'getAttCodeTbl', attribute,thisCC,element, success_getAttributeStuff);
+		jQuery.getJSON("/component/DataEntry.cfc",
+			{
+				method : "getAttCodeTbl",
+				attribute : attribute,
+				collection_cde : thisCC,
+				element : element,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			success_getAttributeStuff
+		);
 	}
 }
-function success_getAttributeStuff (result) {
-	//alert('back');
-	//alert(result);
-	// first line of returned query will always be the type of result
-	var resType=result[0].V;
-	//alert(resType);
-	// second line is the element we changed
+function success_getAttributeStuff (r) {
+	var result=r.DATA;
+	console.log(result)l
+	var resType=result.V;
 	var theEl=result[1].V;
 	//alert(theEl);
 	// get rid of the funky BG
