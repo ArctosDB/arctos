@@ -1064,6 +1064,8 @@ function unpickLocality () {
 	document.getElementById('orig_lat_long_units').removeAttribute('readonly');
 
 	document.getElementById('locality_id').value='';
+	document.getElementById('fetched_locid').value='';
+	document.getElementById('fetched_eventid').value='';
 	
 	document.getElementById('localityUnPicker').style.display='none';
 	//document.getElementById('pickedSomething').style.display='none';	
