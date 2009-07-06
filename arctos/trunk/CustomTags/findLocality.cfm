@@ -102,7 +102,7 @@
 </cfif>
 
 <cfif isdefined("verbatim_locality") and len(#verbatim_locality#) gt 0>
-	<cfset sql = "#sql# AND upper(verbatim_locality) like '%#ucase(verbatim_locality)#%'">
+	<cfset sql = "#sql# AND upper(verbatim_locality) like '%#escapeQuotes(ucase(verbatim_locality))#%'">
 </cfif>
 <cfif isdefined("coll_event_remarks") and len(#coll_event_remarks#) gt 0>
 	<cfset sql = "#sql# AND upper(coll_event_remarks) like '%#ucase(coll_event_remarks)#%'">
