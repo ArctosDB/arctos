@@ -1,56 +1,33 @@
-
-	
 var MONTH_NAMES=new Array('January','February','March','April','May','June','July','August','September','October','November','December','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
 var DAY_NAMES=new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sun','Mon','Tue','Wed','Thu','Fri','Sat');
 function LZ(x) {return(x<0||x>9?"":"0")+x}
 
-
-// -------------------------------------------------------------------
-// compareDates(date1,date1format,date2,date2format)
-//   Compare two date strings to see which is greater.
-//   Returns:
-//   1 if date1 is greater than date2
-//   0 if date2 is greater than date1 of if they are the same
-//  -1 if either of the dates is in an invalid format
-// -------------------------------------------------------------------
 function compareDates(date1,dateformat1,date2,dateformat2) {
 	var d1=getDateFromFormat(date1,dateformat1);
 	var d2=getDateFromFormat(date2,dateformat2);
 	if (d1==0 || d2==0) {
 		return -1;
-		}
+	}
 	else if (d1 > d2) {
 		return 1;
-		}
-	return 0;
 	}
-
-// ------------------------------------------------------------------
-// Utility functions for parsing in getDateFromFormat()
-// ------------------------------------------------------------------
+	return 0;
+}
 function _isInteger(val) {
 	var digits="1234567890";
 	for (var i=0; i < val.length; i++) {
 		if (digits.indexOf(val.charAt(i))==-1) { return false; }
-		}
-	return true;
 	}
+	return true;
+}
 function _getInt(str,i,minlength,maxlength) {
 	for (var x=maxlength; x>=minlength; x--) {
 		var token=str.substring(i,i+x);
 		if (token.length < minlength) { return null; }
 		if (_isInteger(token)) { return token; }
-		}
-	return null;
 	}
-	
-// ------------------------------------------------------------------
-// getDateFromFormat( date_string , format_string )
-//
-// This function takes a date string and a format string. It matches
-// If the date string matches the format string, it returns the 
-// getTime() of the date. If it does not match, it returns 0.
-// ------------------------------------------------------------------
+	return null;
+}
 function getDateFromFormat(val,format) {
 	val=val+"";
 	format=format+"";
@@ -68,15 +45,12 @@ function getDateFromFormat(val,format) {
 	var mm=now.getMinutes();
 	var ss=now.getSeconds();
 	var ampm="";
-	
 	while (i_format < format.length) {
-		// Get next token from format string
 		c=format.charAt(i_format);
 		token="";
 		while ((format.charAt(i_format)==c) && (i_format < format.length)) {
 			token += format.charAt(i_format++);
-			}
-		// Extract contents of value based on format token
+		}
 		if (token=="yyyy" || token=="yy" || token=="y") {
 			if (token=="yyyy") { x=4;y=4; }
 			if (token=="yy")   { x=2;y=2; }
@@ -87,8 +61,8 @@ function getDateFromFormat(val,format) {
 			if (year.length==2) {
 				if (year > 70) { year=1900+(year-0); }
 				else { year=2000+(year-0); }
-				}
 			}
+		}
 		else if (token=="MMM"||token=="NNN"){
 			month=0;
 			for (var i=0; i<MONTH_NAMES.length; i++) {
@@ -99,20 +73,20 @@ function getDateFromFormat(val,format) {
 						if (month>12) { month -= 12; }
 						i_val += month_name.length;
 						break;
-						}
 					}
 				}
-			if ((month < 1)||(month>12)){return 0;}
 			}
+			if ((month < 1)||(month>12)){return 0;}
+		}
 		else if (token=="EE"||token=="E"){
 			for (var i=0; i<DAY_NAMES.length; i++) {
 				var day_name=DAY_NAMES[i];
 				if (val.substring(i_val,i_val+day_name.length).toLowerCase()==day_name.toLowerCase()) {
 					i_val += day_name.length;
 					break;
-					}
 				}
 			}
+		}
 		else if (token=="MM"||token=="M") {
 			month=_getInt(val,i_val,token.length,2);
 			if(month==null||(month<1)||(month>12)){return 0;}
@@ -173,53 +147,27 @@ function getDateFromFormat(val,format) {
 	else if (hh>11 && ampm=="AM") { hh-=12; }
 	var newdate=new Date(year,month-1,date,hh,mm,ss);
 	return newdate.getTime();
-	}
-
-// ------------------------------------------------------------------
-// parseDate( date_string [, prefer_euro_format] )
-//
-// This function takes a date string and tries to match it to a
-// number of possible date formats to get the value. It will try to
-// match against the following international formats, in this order:
-// y-M-d   MMM d, y   MMM d,y   y-MMM-d   d-MMM-y  MMM d
-// M/d/y   M-d-y      M.d.y     MMM-d     M/d      M-d
-// d/M/y   d-M-y      d.M.y     d-MMM     d/M      d-M
-// A second argument may be passed to instruct the method to search
-// for formats like d/M/y (european format) before M/d/y (American).
-// Returns a Date object or null if no patterns match.
-// ------------------------------------------------------------------
-
-		
+}	
 function isValidDate(val) {
-	//alert('parsy');
-	//var spiffy = "not spiffy";
 	var preferEuro=(arguments.length==2)?arguments[1]:false;
 	generalFormats=new Array('y-M-d','MMM d, y','MMM d,y','y-MMM-d','d-MMM-y','d M y','d MMM y','d-M-Y','d-MMM-y');
 	monthFirst=new Array('M/d/y','M-d-y','M.d.y','MMM-d','M/d','M-d');
 	dateFirst =new Array('d/M/y','d-M-y','d.M.y');
 	var checkList=new Array('generalFormats','dateFirst');
-	//var checkList=new Array('generalFormats',preferEuro?'dateFirst':'monthFirst',preferEuro?'monthFirst':'dateFirst');
 	var d=null;
 	for (var i=0; i<checkList.length; i++) {
 		var l=window[checkList[i]];
 		for (var j=0; j<l.length; j++) {
 			d=getDateFromFormat(val,l[j]);
 			if (d!=0) { 
-				//return new Date(d); 
-				//spiffy = "spiffy";
-					return true;
-				} 
-				
+				return true;
+			} 	
 		}
-		//alert('checked');
-	//return null;
 	return false;
 	}
 }
 
-
 function MVZDefaults() {
-	// default all dispositions to "in collection"
 	document.getElementById('coll_obj_disposition').value='in collection';
 	document.getElementById('part_disposition_1').value='in collection';
 	document.getElementById('part_disposition_2').value='in collection';
@@ -235,14 +183,7 @@ function MVZDefaults() {
 	document.getElementById('part_disposition_12').value='in collection';	
 }
 
-			
-					
-			
-
-
-
 function MSBBirdDefault () {
-//alert('birds');
 	var cn = document.getElementById('other_id_num_type_1');
 	var pn = document.getElementById('other_id_num_type_2');
 	cnum = 'collector number';
@@ -259,23 +200,18 @@ function MSBBirdDefault () {
 			 break;
 		  }
 	 }
-	
-	//setSelectedIndex("other_id_num_type_1","collector number");
 }
 
 function clearAll () {
 	var theForm = document.getElementById('dataEntry');
-	//theForm.reset();
-		for(i=0; i<theForm.elements.length; i++) {
-			if (theForm.elements[i].type == "text") {
-				//document.write(theForm.elements[i].name + " and its value is: " + theForm.elements[i].value + ".<br />");
-				theForm.elements[i].value = '';
-			}
-		}	
+	for(i=0; i<theForm.elements.length; i++) {
+		if (theForm.elements[i].type == "text") {
+			theForm.elements[i].value = '';
+		}
+	}	
 }
 
 function changeSex(sex) {
-	// only run for birds
 	var thisCC = document.getElementById('collection_cde').value;
 	if (thisCC == 'Bird') {	
 		var thisAtt = document.getElementById('attribute_value_7');
@@ -289,114 +225,76 @@ function changeSex(sex) {
 		var a7 = document.getElementById('attribute_7');
 		a7.value = 'reproductive data';
 		if (sex.indexOf('female') > -1) {
-			//alert('girl');
 			thisAtt.value = 'OV:  mm';
 		} else if (sex.indexOf('male') > -1) {
 			thisAtt.value = 'TE:  mm';
 		} else {
-			//alert('other');
 		}
 	}
 }
-function getInstColl (inst_coll) {
-	// split a string like 'UAM Mamm' out into 'UAM' and 'Mamm' and
-	// insert it into proper hidden variables
-	//alert(inst_coll);
-	spacePos = inst_coll.indexOf(" ");
-	//alert(spacePos);
-	inst = inst_coll.slice(0,spacePos);
-	//alert("'" + inst + "'");
-	var strLen = inst_coll.length;
-	coll = inst_coll.slice(spacePos + 1,strLen);
-	//alert("'" + coll + "'");
-}
-
 function switchActive(OrigUnits) {
-		var OrigUnits;
-		// first, get ID for everything
-		var a=document.getElementById('dms');
-		var b=document.getElementById('ddm');
-		var c=document.getElementById('dd');
-		var u=document.getElementById('utm');
-		var d=document.getElementById('lat_long_meta');
-		var gg=document.getElementById('orig_lat_long_units');
-		// then, switch em all off just to make sure
-	 	a.className='noShow f12t';
-		b.className='noShow f12t';
-		c.className='noShow f12t';
-		u.className='noShow f12t';
-		d.className='noShow f12t';
-		var isSomething = OrigUnits.length;
-		if (isSomething > 0) {
-			d.className='doShow f12t';
-			// and make units required
-			gg.className='reqdClr';
-		}	else {
-			// make units optional if nothing is given
-			gg.className='';
-			gg.value='';
-		}
+	var OrigUnits;
+	var a=document.getElementById('dms');
+	var b=document.getElementById('ddm');
+	var c=document.getElementById('dd');
+	var u=document.getElementById('utm');
+	var d=document.getElementById('lat_long_meta');
+	var gg=document.getElementById('orig_lat_long_units');
+ 	a.className='noShow f12t';
+	b.className='noShow f12t';
+	c.className='noShow f12t';
+	u.className='noShow f12t';
+	d.className='noShow f12t';
+	var isSomething = OrigUnits.length;
+	if (isSomething > 0) {
+		d.className='doShow f12t';
+		gg.className='reqdClr';
+	}	else {
+		gg.className='';
+		gg.value='';
+	}
 	if (OrigUnits == 'deg. min. sec.') {
-			a.className='doShow';
-		}
-		else {
-			if (OrigUnits == 'decimal degrees') {
-				c.className='doShow';
-			}
-			else {
-				if (OrigUnits == 'degrees dec. minutes') {
-					b.className='doShow';
-				}
-				else {
-					if (OrigUnits == 'UTM') {
-						u.className='doShow';
-					}
-				}
-			}
-		}
+		a.className='doShow';
+	} else if (OrigUnits == 'decimal degrees') {
+		c.className='doShow';
+	} else if (OrigUnits == 'degrees dec. minutes') {
+		b.className='doShow';
+	} else if (OrigUnits == 'UTM') {
+		u.className='doShow';
 	}
+}
 	
-	function saveNewRecord () {
-		if (cleanup()) {
-			var de = document.getElementById('dataEntry');
-			var tehAction = document.getElementById('action');
-			tehAction.value='saveEntry';
-			de.submit();
-			//alert('spiffy');
-		}
+function saveNewRecord () {
+	if (cleanup()) {
+		var de = document.getElementById('dataEntry');
+		var tehAction = document.getElementById('action');
+		tehAction.value='saveEntry';
+		de.submit();
 	}
+}
 	
-	function saveEditedRecord () {
-		if (cleanup()) {
-			var de = document.getElementById('dataEntry');
-			var tehAction = document.getElementById('action');
-			tehAction.value='saveEditRecord';
-			de.submit();
-			//alert('spiffy');
-		}
+function saveEditedRecord () {
+	if (cleanup()) {
+		var de = document.getElementById('dataEntry');
+		var tehAction = document.getElementById('action');
+		tehAction.value='saveEditRecord';
+		de.submit();
 	}
+}
 	
-		function deleteThisRec () {
-		yesDelete = window.confirm('Are you sure you want to delete this record?');
-		if (yesDelete == true) {
-			var de = document.getElementById('dataEntry');
-			var tehAction = document.getElementById('action');
-			tehAction.value='deleteThisRec';
-			de.submit();
-		}
+function deleteThisRec () {
+	yesDelete = window.confirm('Are you sure you want to delete this record?');
+	if (yesDelete == true) {
+		var de = document.getElementById('dataEntry');
+		var tehAction = document.getElementById('action');
+		tehAction.value='deleteThisRec';
+		de.submit();
 	}
-	
-		function goEditMode () {
-		// abandon whatever they've done to the record, give em a warning, 
-		// then dump em on the last available collection_object_id
-		var thisUser = '#client.username#';
-		alert(thisUser);
-	}
+}
 
 function setPartLabel (thisID) {
 	var thePartNum = thisID.replace('part_barcode_','');
 	var theOIDType = document.getElementById('other_id_num_type_5').value;
-	//alert(theOIDType);
 	if (theOIDType == 'AF') {
 		var theLabelStr = 'part_container_label_' + thePartNum;
 		var theLabel = document.getElementById(theLabelStr);
@@ -412,7 +310,6 @@ function setPartLabel (thisID) {
 	}
 }
 function doAttributeDefaults () {
-	//alert('doAttributeDefaults');
 	var theDef = document.getElementById('attribute_determiner_1').value;	
 	var isDef = theDef.length;
 	if (isDef > 0) {
@@ -425,8 +322,7 @@ function doAttributeDefaults () {
 		atts.push('attribute_determiner_7');
 		atts.push('attribute_determiner_8');
 		atts.push('attribute_determiner_9');
-		atts.push('attribute_determiner_10');
-		
+		atts.push('attribute_determiner_10');		
 		for (i=0;i<atts.length;i++) {
 			try {
 				var thisFld = document.getElementById(atts[i]);
@@ -438,19 +334,16 @@ function doAttributeDefaults () {
 			}
 			catch ( err ){// nothing, just ignore 
 			}
-		
-		}	
-	}	
+		}
+	}
 }
 function click_changeMode (mode,collobjid) {
-	// only way to get here is by clicking the button
 	yesChange = window.confirm('You will lose any unsaved changes. Continue?');
 	if (yesChange == true) {
 		if (mode == 'edit') {
-				//alert('go edit');
 				document.location='DataEntry.cfm?collection_object_id=' + collobjid + '&pMode=edit&action=editEnterData';
 		} else {
-		changeMode(mode,collobjid);
+			changeMode(mode,collobjid);
 		}
 	}	
 }
@@ -582,19 +475,15 @@ function setNewRecDefaults () {
 	defBlank.push('related_to_num_type');
 	defBlank.push('related_to_number');
 	defBlank.push('cat_num');
-	
-	
-	
-	for (i=0;i<defBlank.length;i++) {
-			try {
-				var thisFld = document.getElementById(defBlank[i]);
-				thisFld.value='';
-			}
-			catch ( err ){// nothing, just ignore 
-			}
 		
-		}	
-	// object condition
+	for (i=0;i<defBlank.length;i++) {
+		try {
+			var thisFld = document.getElementById(defBlank[i]);
+			thisFld.value='';
+		} 
+		catch ( err ){// nothing, just ignore 
+		}		
+	}	
 	var thisFld = document.getElementById('condition');
 	thisFld.value='unchecked';
 	// reset code tables etc for attributes
@@ -718,11 +607,6 @@ function copyAttributeDates(theID) {
 			try {
 				var thisFld = document.getElementById(date_array[i]);
 				var theValue = thisFld.value;
-				/* KBH - just move em mod
-				if (theValue.length == 0) {
-					thisFld.value=theDate;
-				}
-				*/
 				thisFld.value=theDate;
 			}
 			catch ( err ){// nothing, just ignore 
@@ -731,8 +615,6 @@ function copyAttributeDates(theID) {
 		}	
 	}
 }
-
-
 
 function copyAttributeDetr(theID) {
 	var theAgent = document.getElementById(theID).value;
@@ -795,31 +677,19 @@ function copyAllAgents(theID) {
 }
 
 function highlightErrors (loadedMsg) {
-	//alert(loadedMsg);
 	var prob_array = loadedMsg.split("::");
-
-	for (var loop=0; loop < prob_array.length; loop++)
-	{
+	for (var loop=0; loop < prob_array.length; loop++) {
 		var thisSlice = prob_array[loop];
-		//alert('split: ' + thisSlice);
 		var hasSpace = thisSlice.indexOf(" ");
-		//alert(hasSpace);
 		if (hasSpace == -1) {
-			// no spaces, this is probably a field name
-			// try to change it's className
-			//alert('field: ' + thisSlice);
 			try {
 				var theField = document.getElementById(thisSlice);
 				theField.className = 'hasProbs';
 			}
 			catch ( err ){// nothing, just ignore 
 			}
-			//alert('field: ' + thisSlice);
 		}
-		//document.writeln(friend_array[loop] + " is my friend.<br>");
 	}
-	
-	//
 }
 
 function cleanup () {
@@ -1000,61 +870,34 @@ function cleanup () {
 	return true;
 }		
 
-
-	//  handle tab into began date and verbatim locality
 	
-	function SpecToVerb (verbLoc) {
-		var verbLoc;
-		var isVerb=verbLoc.length;
-		/* Kyndall cahnge request - just copy the damn thing!
-		if (isVerb == 0) {
-			// there is no verbatim locality; put specific locality in as a default
-			dataEntry.verbatim_locality.value=dataEntry.spec_locality.value;
-			//verbLoc.value=specLoc;
-		}
-		*/
-		var a = document.getElementById('verbatim_locality');
-		var b = document.getElementById('spec_locality').value;
-		a.value=b;
-	}
-	function VerbToBegan (begDate) {
-		var begDate;
-		var isBegDate=begDate.length;
-		var VerbDate = document.getElementById('verbatim_date').value;
-		
-		/* KBH kill em all 
-		if (isBegDate == 0) {
-			if (isDate(VerbDate)) {
-				dataEntry.began_date.value=dataEntry.verbatim_date.value;
-			}
-		}
-		*/
-		if (isDate(VerbDate)) {
-				var bd = document.getElementById('began_date');
-				bd = VerbDate;
-			}
-	}
-	function VerbToEnd (endDate) {
-		var endDate;
-		var isEndDate=endDate.length;
-		//dataEntry.ended_date.value=dataEntry..value;
+function SpecToVerb (verbLoc) {
+	var verbLoc;
+	var isVerb=verbLoc.length;
+	var a = document.getElementById('verbatim_locality');
+	var b = document.getElementById('spec_locality').value;
+	a.value=b;
+}
+function VerbToBegan (begDate) {
+	var begDate;
+	var isBegDate=begDate.length;
+	var VerbDate = document.getElementById('verbatim_date').value;
+	if (isDate(VerbDate)) {
 		var bd = document.getElementById('began_date');
-		bd = endDate;
-		/*
-		if (isEndDate == 0) {
-			dataEntry.ended_date.value=dataEntry.began_date.value;
-		}
-		*/
+		bd = VerbDate;
 	}
+}
+function VerbToEnd (endDate) {
+	var endDate;
+	var isEndDate=endDate.length;
+	var bd = document.getElementById('began_date');
+	bd = endDate;
+}
 function showNext(idName) {
-		var idName;
-		var thisElement=document.getElementById(idName);
-		thisElement.className='doShow f12t';
-	}
-
-
-
-
+	var idName;
+	var thisElement=document.getElementById(idName);
+	thisElement.className='doShow f12t';
+}
 
 setInterval ( "checkPicked()", 5000 );
 setInterval ( "checkPickedEvnt()", 5000 );
@@ -1129,32 +972,23 @@ function unpickEvent() {
 	document.getElementById('collecting_event_id').value='';
 	document.getElementById('locality_id').value='';
 	document.getElementById('began_date').className='d11a reqdClr';
-	document.getElementById('began_date').removeAttribute('readonly');
-	
+	document.getElementById('began_date').removeAttribute('readonly');	
 	document.getElementById('ended_date').className='d11a reqdClr';
-	document.getElementById('ended_date').removeAttribute('readonly');
-	
+	document.getElementById('ended_date').removeAttribute('readonly');	
 	document.getElementById('verbatim_date').className='d11a reqdClr';
 	document.getElementById('verbatim_date').removeAttribute('readonly');
-	
 	document.getElementById('verbatim_locality').className='d11a reqdClr';
 	document.getElementById('verbatim_locality').removeAttribute('readonly');
-	
 	document.getElementById('coll_event_remarks').className='d11a';
 	document.getElementById('coll_event_remarks').removeAttribute('readonly');
-	
 	document.getElementById('collecting_source').className='d11a reqdClr';
 	document.getElementById('collecting_source').removeAttribute('readonly');
-	
 	document.getElementById('collecting_method').className='d11a';
 	document.getElementById('collecting_method').removeAttribute('readonly');
-	
 	document.getElementById('habitat_desc').className='d11a';
 	document.getElementById('habitat_desc').removeAttribute('readonly');
-	
 	document.getElementById('eventUnPicker').style.display='none';
 	document.getElementById('eventPicker').style.display='';
-	
 	unpickLocality();
 }						
 function unpickLocality () {
@@ -1651,21 +1485,12 @@ function getAttributeStuff (attribute,element) {
 }
 function success_getAttributeStuff (r) {
 	var result=r.DATA;
-	console.log(result);
 	var resType=result.V[0];
-
-	console.log('resType: ' + resType);
-	
 	var theEl=result.V[1];
-	console.log('theEl: ' + theEl);
-	
 	var optn = document.getElementById(theEl);
 	optn.style.backgroundColor='';
-	
 	var n=result.V.length;
-	console.log('n: ' + n);
 	var theNumber = theEl.replace("attribute_","");
-	console.log('theNumber: ' + theNumber);
 	if (resType == 'value') {
 		var theDivName = "attribute_value_cell_" + theNumber;
 		theTextDivName = "attribute_units_cell_" + theNumber;
@@ -1688,7 +1513,6 @@ function success_getAttributeStuff (r) {
 		theDiv.innerHTML = ''; // clear it out
 		theText.innerHTML = '';
 		if (n > 2) {
-			// got something, loop over the array to populate the fields
 			var theNewSelect = document.createElement('SELECT');
 			theNewSelect.name = theSelectName;
 			theNewSelect.id = theSelectName;
@@ -1705,7 +1529,6 @@ function success_getAttributeStuff (r) {
 			theNewSelect.appendChild(a);// add blank
 			for (i=2;i<result.V.length;i++) {
 				var theStr = result.V[i];
-				//alert(theStr);
 				var a = document.createElement("option");
 				a.text = theStr;
 				a.value = theStr;
@@ -1726,7 +1549,6 @@ function success_getAttributeStuff (r) {
 		// text value, no units
 		theDiv.innerHTML = '';
 		theText.innerHTML = '';
-		//alert(resType);
 		var theNewText = document.createElement('INPUT');
 		theNewText.name = theSelectName;
 		theNewText.id = theSelectName;	
@@ -1735,27 +1557,6 @@ function success_getAttributeStuff (r) {
 		theNewText.className = "d11a";
 		theDiv.appendChild(theNewText);
 	} else {
-	//oops
-	alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
+		alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
 	}
-	//end got valid results
-} 
-	function catNumGap () {
-		//alert('getting cat number...');
-		//var catnum = document.getElementById('cat_num').value;
-		//var isCatNum = catnum.length;
-		//alert(isCatNum);
-		//if (isCatNum == 0) { // only get the number if there's not already one in place
-		//	var inst = document.getElementById('institution_acronym').value;
-		//	var coll = document.getElementById('collection_cde').value;			
-		//	var coll_id = inst + " " + coll;
-			//alert(coll_id);
-		//	DWREngine._execute(_cfscriptLocation, null, 'getBlankCatNum', coll_id, success_catNumGap);
-	//	}
-		//alert('gone to server');
-	}
-	function success_catNumGap (result) {
-		//alert(result);
-	//	var catnum = document.getElementById('cat_num');
-	//	catnum.value=result;
-	}
+}
