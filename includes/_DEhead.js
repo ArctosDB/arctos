@@ -1272,7 +1272,10 @@ function pickedEvent () {
 		);
 	}
 }
-function success_pickedEvent(result){
+function success_pickedEvent(r){
+	var result=r.DATA;
+	console.log('spiffy');
+	console.log(result);
 	var collecting_event_id=result.COLLECTING_EVENT_ID[0];
 	if (collecting_event_id < 0) {
 		alert('Oops! Something bad happend with the collecting_event pick. ' + result[0].MSG[0]);
