@@ -680,6 +680,7 @@
 							<td align="right"><span class="f11a">Existing&nbsp;EventID:&nbsp;</span></td>
 							<td>
 								<input type="text" name="collecting_event_id" id="collecting_event_id" value="#collecting_event_id#" readonly="readonly" class="readClr" size="8">
+								<input type="hidden" id="fetched_eventid">
 								<span class="infoLink" 
 										id="eventPicker"
 										onclick="findCollEvent('collecting_event_id','dataEntry','verbatim_locality'); return false;">
