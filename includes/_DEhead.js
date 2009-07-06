@@ -1662,15 +1662,10 @@ function success_getAttributeStuff (r) {
 	var optn = document.getElementById(theEl);
 	optn.style.backgroundColor='';
 	
-	var n=result.length;
-	console.log('n: ' + n);
-	
 	var n=result.V.length;
 	console.log('n: ' + n);
-	//alert(n);
-	// get the ID of the cell containing the element we want to replace
 	var theNumber = theEl.replace("attribute_","");
-	//alert(theNumber);
+	console.log('theNumber: ' + theNumber);
 	if (resType == 'value') {
 		var theDivName = "attribute_value_cell_" + theNumber;
 		theTextDivName = "attribute_units_cell_" + theNumber;
@@ -1682,22 +1677,18 @@ function success_getAttributeStuff (r) {
 		theTextDivName = "attribute_value_cell_" + theNumber;
 		theTextName = "attribute_value_" + theNumber;
 	} else {
-		// either no control attribute or we got an error
 		var theDivName = "attribute_value_cell_" + theNumber;
 		var theTextDivName = "attribute_units_cell_" + theNumber;
 		theSelectName = "attribute_value_" + theNumber;
 		theTextName = "attribute_units_" + theNumber;
 	}
-	// clear the div out IF we got a value or units result set
 	var theDiv = document.getElementById(theDivName);
 	var theText = document.getElementById(theTextDivName);
 	if (resType == 'value' || resType == 'units') {
 		theDiv.innerHTML = ''; // clear it out
 		theText.innerHTML = '';
-	
 		if (n > 2) {
 			// got something, loop over the array to populate the fields
-			// create a select
 			var theNewSelect = document.createElement('SELECT');
 			theNewSelect.name = theSelectName;
 			theNewSelect.id = theSelectName;
@@ -1721,8 +1712,6 @@ function success_getAttributeStuff (r) {
 				theNewSelect.appendChild(a);
 			}
 			theDiv.appendChild(theNewSelect);
-			// and switch the other (value or units) back to original
-			// IF we're selecting a units attribute. otherwise, leave it blank
 			if (resType == 'units') {
 				var theNewText = document.createElement('INPUT');
 				theNewText.name = theTextName;
