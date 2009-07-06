@@ -1651,7 +1651,7 @@ function getAttributeStuff (attribute,element) {
 }
 function success_getAttributeStuff (r) {
 	var result=r.DATA;
-	console.log(result)l
+	console.log(result);
 	var resType=result.V;
 	var theEl=result[1].V;
 	//alert(theEl);
