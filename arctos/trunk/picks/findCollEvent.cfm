@@ -73,8 +73,6 @@
 				<table cellpadding="0" cellspacing="0">
 				<tr>
 					<td>
-						<cfset vl=e(verbatim_locality,"'","\'","all")>
-						<cfset vl=replace(vl,'"','\"','all')>
 						<input type="button" 
 							value="Select" 
 							class="savBtn"
