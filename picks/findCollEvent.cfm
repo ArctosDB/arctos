@@ -73,7 +73,7 @@
 				<table cellpadding="0" cellspacing="0">
 				<tr>
 					<td>
-						<cfset vl=replace(verbatim_locality,"'","\'","all")>
+						<cfset vl=e(verbatim_locality,"'","\'","all")>
 						<cfset vl=replace(vl,'"','\"','all')>
 						<input type="button" 
 							value="Select" 
@@ -81,7 +81,7 @@
 							onmouseover="this.className='savBtn btnhov'" 
 							onmouseout="this.className='savBtn'"
 							onclick="javascript: opener.document.#formName#.#collIdFld#.value='#collecting_event_id#'; 
-								opener.document.#formName#.#dispField#.value='#vl#';
+								opener.document.#formName#.#dispField#.value=escape('#verbatim_locality#');
 								self.close();">
 					</td>
 				</tr>
