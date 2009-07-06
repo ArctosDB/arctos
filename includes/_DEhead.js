@@ -1712,8 +1712,8 @@ function success_getAttributeStuff (r) {
 			a.text = '';
     		a.value = '';
 			theNewSelect.appendChild(a);// add blank
-			for (i=2;i<result.length;i++) {
-				var theStr = result[i].V;
+			for (i=2;i<result.V.length;i++) {
+				var theStr = result.V[i];
 				//alert(theStr);
 				var a = document.createElement("option");
 				a.text = theStr;
