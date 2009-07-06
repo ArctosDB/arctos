@@ -35,12 +35,19 @@
 		select count(*) c from dba_users where upper(username)='#ucase(session.username)#'
 	</cfquery>
 	<cfif alreadyGotOne.c is not 0>
+		<cfthrow 
+		   type = "user_already_exists"
+		   message = "user_already_exists"
+		   detail = "Someone tried to create user #session.username#. That user already exists."
+		   errorCode = "-123">
+	<!---
 		<div class="error">
 			Error.
 		</div>
 		<cfmail subject="Error" to="#Application.PageProblemEmail#" from="bookoo_hinky@#Application.fromEmail#" type="html">
 			Someone tried to create user #session.username#. That user already exists.
 		</cfmail>
+	--->
 		<cfabort>
 	</cfif>
 	<cftry>
