@@ -1652,8 +1652,12 @@ function getAttributeStuff (attribute,element) {
 function success_getAttributeStuff (r) {
 	var result=r.DATA;
 	console.log(result);
-	var resType=result.V;
-	var theEl=result[1].V;
+	var resType=result.V[0];
+
+	console.log('resType: ' + resType);
+	
+	var theEl=result.V[1];
+	console.log('theEl: ' + theEl);
 	//alert(theEl);
 	// get rid of the funky BG
 	var optn = document.getElementById(theEl);
