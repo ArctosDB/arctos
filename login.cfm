@@ -1,6 +1,6 @@
 <cfinclude template = "includes/_header.cfm">
 <cfif isdefined("session.username") and len(#session.username#) gt 0 and #action# neq "signOut">
-	<cflocation url="myArctos.cfm">
+	<cflocation url="myArctos.cfm" addtoken="false">
 </cfif>
 <!------------------------------------------------------------>
 <!--- sign them out and start over --->
@@ -11,7 +11,7 @@
 <!--- Clear anything they might have had hang around 	--->
 	<cfset initSession()>
 	you are logged out.
-				<cflocation url="login.cfm">
+				<cflocation url="login.cfm" addtoken="false">
 				<!---
 
 <cfdump var="#session#">
@@ -41,7 +41,7 @@
 	</cfif>
 	<!--- create their account --->
 	<cfif len(err) gt 0>
-		<cflocation url="login.cfm?username=#username#&badPW=true&err=#err#" Addtoken="false">
+		<cflocation url="login.cfm?username=#username#&badPW=true&err=#err#" addtoken="false">
 	</cfif>
 	<cfquery name="nextUserID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select max(user_id) + 1 as nextid from cf_users
@@ -107,7 +107,7 @@
 		<cfif isdefined("gotopage")>
 			<cfset u=u & '&gotopage=#gotopage#'>
 		</cfif>
-		<cflocation url="#u#">
+		<cflocation url="#u#" addtoken="false">
 	</cfif>
 	<!--- redirect to personal home --->
 	<cfif not isdefined("gotopage") or len(#gotopage#) is 0>
@@ -258,7 +258,7 @@
 </cfif>
 <!-------------------------------------------------------------------------------------->
 <cfif #action# is "lostPass">
-	<cflocation url="ChangePassword.cfm">
+	<cflocation url="ChangePassword.cfm" addtoken="false">
 </cfif>
 <!-------------------------------------------------------------------------------------->
 

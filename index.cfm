@@ -1,2 +1,1 @@
-<!--- Just dump them somewhere useful --->
-<cflocation url="SpecimenSearch.cfm" addtoken="no">
+<cflocation url="SpecimenSearch.cfm" addtoken="false">

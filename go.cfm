@@ -3,5 +3,5 @@
 	select url from cf_canned_search where canned_id=#id#
 </cfquery>
 <cfif len(#d.url#) gt 0>
-	<cflocation addtoken="no" url="#d.url#">
+	<cflocation addtoken="false" url="#d.url#">
 </cfif>
