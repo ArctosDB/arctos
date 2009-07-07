@@ -259,7 +259,7 @@
 		format_style='author-year' and
 		citation.collection_object_id = #collection_object_id#
 	order by
-		formatted_publication
+		substr(formatted_publication, - 4)
 </cfquery>
 <style>
 	.acceptedIdDiv {
