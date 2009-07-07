@@ -113,13 +113,6 @@
 		geog_auth_rec.island_group,
 		geog_auth_rec.sea,
 		geog_auth_rec.feature,
-		citation.type_status,
-		citation.occurs_page_number,
-		citation.CITATION_REMARKS,
-		cited_taxa.scientific_name as cited_name,
-		cited_taxa.taxon_name_id as cited_name_id,	
-		formatted_publication.formatted_publication,
-		formatted_publication.publication_id,
 		coll_object.coll_obj_disposition,
 		coll_object.coll_object_entered_date,
 		coll_object.last_edit_date,
@@ -149,9 +142,6 @@
 		accepted_lat_long,
 		preferred_agent_name latLongAgnt,
 		geog_auth_rec,
-		citation,
-		taxonomy cited_taxa,
-		(select * from formatted_publication where format_style='author-year')  formatted_publication,
 		coll_object,
 		coll_object_remark,
 		preferred_agent_name enteredPerson,
@@ -167,9 +157,6 @@
 		locality.locality_id = accepted_lat_long.locality_id (+) AND
 		accepted_lat_long.determined_by_agent_id = latLongAgnt.agent_id (+) AND
 		locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id AND
-		cataloged_item.collection_object_id = citation.collection_object_id (+) AND
-		citation.cited_taxon_name_id = cited_taxa.taxon_name_id (+) AND
-		citation.publication_id = formatted_publication.publication_id (+) AND
 		cataloged_item.collection_object_id = coll_object.collection_object_id AND
 		coll_object.collection_object_id = coll_object_remark.collection_object_id (+) AND
 		coll_object.entered_person_id = enteredPerson.agent_id AND
@@ -379,25 +366,24 @@
 		related_cat_item.collection_id = related_coll.collection_id and
 		biol_indiv_relations.collection_object_id = #collection_object_id#
 </cfquery>			
-<cfquery name="citations" dbtype="query">
+<cfquery name="citations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
-		publication_id,
-		cited_name,
-		type_status,
-		cited_name_id,
-		occurs_page_number,
-		formatted_publication,
-		CITATION_REMARKS
-	FROM
-		detail 
-	GROUP BY
-		publication_id,
-		cited_name,
-		type_status,
-		cited_name_id,
-		occurs_page_number,
-		formatted_publication,
-		CITATION_REMARKS
+		citation.type_status,
+		citation.occurs_page_number,
+		citation.CITATION_REMARKS,
+		cited_taxa.scientific_name as cited_name,
+		cited_taxa.taxon_name_id as cited_name_id,	
+		formatted_publication.formatted_publication,
+		formatted_publication.publication_id
+	from
+		citation,
+		taxonomy cited_taxa,
+		formatted_publication
+	where		
+		citation.cited_taxon_name_id = cited_taxa.taxon_name_id  AND
+		citation.publication_id = formatted_publication.publication_id AND
+		ormat_style='author-year' and
+		citation.collection_object_id #collection_object_id#
 	order by
 		formatted_publication
 </cfquery>
