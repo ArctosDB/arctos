@@ -26,7 +26,9 @@ function changeexclusive_collection_id () {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		document.location='#cgi.REDIRECT_URL#';
+		function (d) {
+  			document.location='#cgi.REDIRECT_URL#';
+		}		
 	);
 }
 </script>
