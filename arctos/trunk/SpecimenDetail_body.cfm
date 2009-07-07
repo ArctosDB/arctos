@@ -349,7 +349,7 @@
 		collecting_source,
 		disposition_remarks
 </cfquery>
-<cfquery name="colls"  dbtype="query">
+<cfquery name="colls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
 		collector.coll_order,
 		case when 
