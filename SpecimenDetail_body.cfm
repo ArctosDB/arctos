@@ -353,9 +353,9 @@
 	select
 		collector.coll_order,
 		case when 
-			#oneOfUs# != 1 and concatencumbrances(cataloged_item.collection_object_id) like '%mask collector%' then 'Anonymous'
+			#oneOfUs# != 1 and concatencumbrances(collector.collection_object_id) like '%mask collector%' then 'Anonymous'
 		else 
-			colls.agent_name  
+			preferred_agent_name.agent_name  
 		end collectors
 	from
 		collector,
