@@ -31,9 +31,6 @@
 		);
 	}
 </script>
-	<cfif len(cgi.SCRIPT_NAME) gt 0>
-		<cfset rUrl=cgi.SCRIPT_NAME>
-	</cfif>
 	<cfif len(cgi.REDIRECT_URL) gt 0 and cgi.redirect_url contains "guid" and session.dbuser is not "pub_usr_all_all">
 		<cfquery name="yourcollid" datasource="cf_dbuser">
 			select collection from cf_collection where DBUSERNAME='#session.dbuser#'
@@ -65,13 +62,13 @@
 			<li>Access them by URLs of the format:
 				<ul>
 					<li>
-						#Application.serverRootUrl#/SpecimenDetail.cfm?guid={institution}:{collection}:{catnum}
-						<br>Example: #Application.serverRootUrl#/SpecimenDetail.cfm?guid=UAM:Mamm:1
+						#Application.serverRootUrl#/guid/{institution}:{collection}:{catnum}
+						<br>Example: #Application.serverRootUrl#/guid/UAM:Mamm:1
 						<br>&nbsp;
 					</li>
 					<li>
-						#Application.serverRootUrl#/guid/{institution}:{collection}:{catnum}
-						<br>Example: #Application.serverRootUrl#/guid/UAM:Mamm:1
+						#Application.serverRootUrl#/SpecimenDetail.cfm?guid={institution}:{collection}:{catnum}
+						<br>Example: #Application.serverRootUrl#/SpecimenDetail.cfm?guid=UAM:Mamm:1
 						<br>&nbsp;
 					</li>
 					<li>
