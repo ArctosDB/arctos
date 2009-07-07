@@ -32,7 +32,8 @@
 		something is broken, or <a href="/info/bugs.cfm">submit a bug report</a> telling us how you got this error.
 	</p>
 	<p>
-		You may not be able to access data because of your login privileges, or because of user settings.
+		You may not be able to access data because of your login privileges, or because of user settings. Try
+		<a href="/all_all">the all-collections portal</a>.
 	</p>
 	<p><a href="/TaxonomySearch.cfm">Search for Taxon Names here</a></p>
 	<p><a href="/SpecimenUsage.cfm">Search for Projects and Publications here</a></p>

@@ -50,18 +50,11 @@
 	<cfif isdefined("c.collection_object_id") and len(c.collection_object_id) gt 0>
 		<cfset collection_object_id=c.collection_object_id>
 	<cfelse>
-		<!---
-		<p class="error">
-			Unable to resolve GUID. Aborting.....
-		</p>
-		--->
 		<cfinclude template="/errors/404.cfm">
 		<cfabort>
 	</cfif>
 <cfelse>
-	<p class="error">
-		Did not get an ID: aborting....
-	</p>
+	<cfinclude template="/errors/404.cfm">
 	<cfabort>
 </cfif>
 <cfset detSelect = "
