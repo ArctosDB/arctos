@@ -371,7 +371,7 @@
 		attribute_determiner.agent_name attributeDeterminer
 	from
 		attributes,
-		preferred_agent_name attribute_determiner,
+		preferred_agent_name attribute_determiner
 	where
 		attributes.determined_by_agent_id = attribute_determiner.agent_id (+) and
 		attributes.collection_object_id = #collection_object_id#
