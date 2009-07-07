@@ -13,7 +13,7 @@
 	.cdiv {text-align:center;}
 </style>
 <cfoutput>
-<script>
+<script type="text/javascript" language="javascript">
 	function load(name){
 		var el=document.getElementById(name);
 		var ptl="/includes/project/" + name + ".cfm?project_id=#project_id#";
