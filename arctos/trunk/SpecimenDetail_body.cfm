@@ -132,12 +132,6 @@
 		coll_object_remark.habitat,
 		enteredPerson.agent_name EnteredBy,
 		editedPerson.agent_name EditedBy,
-		preparator.coll_order prep_order,
-		case when 
-			#oneOfUs# != 1 and concatencumbrances(cataloged_item.collection_object_id) like '%mask preparator%' then 'Anonymous'
-		else 
-			preps.agent_name  
-		end preparators,
 		attributes.attribute_type,
 		attributes.attribute_value,
 		attributes.attribute_units,
@@ -177,8 +171,6 @@
 		coll_object_remark,
 		preferred_agent_name enteredPerson,
 		preferred_agent_name editedPerson,
-		(select * from collector where collector_role='p') preparator,
-		preferred_agent_name preps,
 		attributes,
 		preferred_agent_name attribute_determiner,
 		accn,
@@ -204,8 +196,6 @@
 		coll_object.collection_object_id = coll_object_remark.collection_object_id (+) AND
 		coll_object.entered_person_id = enteredPerson.agent_id AND
 		coll_object.last_edited_person_id = editedPerson.agent_id (+) AND
-		cataloged_item.collection_object_id = preparator.collection_object_id (+) AND	
-		preparator.agent_id = preps.agent_id (+) AND
 		cataloged_item.collection_object_id=attributes.collection_object_id (+) AND
 		attributes.determined_by_agent_id = attribute_determiner.agent_id (+) and
 		cataloged_item.accn_id =  accn.transaction_id  AND
@@ -367,16 +357,27 @@
 	ORDER BY 
 		coll_order
 </cfquery>
-<cfquery name="preps"  dbtype="query">
-	SELECT 
-		preparators
-	FROM
-		detail
-	group by
-		preparators
+<cfquery name="preps" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select
+		collector.coll_order,
+		case when 
+			#oneOfUs# != 1 and concatencumbrances(collector.collection_object_id) like '%mask preparator%' then 'Anonymous'
+		else 
+			preferred_agent_name.agent_name  
+		end preparators
+	from
+		collector,
+		preferred_agent_name
+	where
+		collector.collector_role='p' and
+		collector.agent_id=preferred_agent_name.agent_id and
+		collector.collection_object_id = #collection_object_id#
 	ORDER BY 
-		prep_order
+		coll_order
 </cfquery>
+
+
+		
 <cfquery name="identifiers"  dbtype="query">
 	SELECT 
 		id_by
