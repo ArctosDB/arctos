@@ -1,5 +1,8 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 	<link rel="stylesheet" type="text/css" href="/includes/_DEstyle.css">
+	<script type='text/javascript' src='/ajax/core/engine.js'></script>
+	<script type='text/javascript' src='/ajax/core/util.js'></script>
+	<script type='text/javascript' src='/ajax/core/settings.js'></script>
 	<script type='text/javascript' src='/includes/_CatAjax.js'></script>
 <cfoutput>
 <cfset detSelect = "
