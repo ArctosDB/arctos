@@ -20,10 +20,7 @@
 	<cfif len(cgi.SCRIPT_NAME) gt 0>
 		<cfset rUrl=cgi.SCRIPT_NAME>
 	</cfif>
-	<cfif len(cgi.REDIRECT_URL) gt 0>
-		looking for a specimen?
-		<cfset rUrl=cgi.REDIRECT_URL>
-	</cfif>
+	
 	<p>
 		If you followed a link from within Arctos, please <a href="/info/bugs.cfm">submit a bug report</a>
 	 	containing any information that might help us resolve this issue.
@@ -32,10 +29,15 @@
 		If you followed an external link, please use your back button and tell the webmaster that
 		something is broken, or <a href="/info/bugs.cfm">submit a bug report</a> telling us how you got this error.
 	</p>
-	<p>
-		You may not be able to access data because of your login privileges, or because of user settings. Try
-		<a href="/all_all">the all-collections portal</a>.
-	</p>
+	<cfif len(cgi.REDIRECT_URL) gt 0 and cgi.redirect_url contains "guid" and session.dbuser is not "pub_usr_all_all">
+		<cfquery name="yourcollid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select collection from cf_collection where DBUSERNAME='#session.dbuser#'
+		</cfquery>
+		<p>
+			You are accessing Arctos through the #yourcollid.collection# portal, and cannot access data in
+			other collections. Try the <a href="/all_all">all-collections portal</a>.
+		</p>
+	</cfif>	
 	<p><a href="/TaxonomySearch.cfm">Search for Taxon Names here</a></p>
 	<p><a href="/SpecimenUsage.cfm">Search for Projects and Publications here</a></p>
 	<p>
