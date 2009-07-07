@@ -70,11 +70,6 @@
 				<input type="hidden" name="collIdFld" value="#collIdFld#">
 				<input type="hidden" name="dispField" value="#dispField#">
 				<input type="hidden" name="action" value="updateCollEvent">
-				<script>
-					var v='#verbatim_locality#';
-					console.log(v);
-					
-				</script>
 				<table cellpadding="0" cellspacing="0">
 				<tr>
 					<td>
