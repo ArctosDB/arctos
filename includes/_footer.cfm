@@ -71,6 +71,7 @@
 	  	</tr>
 	</table>
 </cfif>
+<script type="text/javascript">_uacct = "<cfoutput>#Application.Google_uacct#</cfoutput>";urchinTracker();</script>
 <cfif not isdefined("title")>
 	<cfset title = "Database Access">
 </cfif>
