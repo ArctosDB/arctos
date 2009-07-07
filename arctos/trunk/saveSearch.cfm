@@ -50,23 +50,27 @@
 
 <cfif #action# is "manage">
 <script type='text/javascript' src='/includes/_treeAjax.js'></script>
-<script>
+<script type="text/javascript" language="javascript">
 	function killMe(canned_id) {
-		//alert(canned_id);
-		DWREngine._execute(_cfscriptLocation, null,'kill_canned_search',canned_id,killMe_success);
-
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "kill_canned_search",
+				canned_id : canned_id,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			killMe_success
+		);
 	}
 	function killMe_success (result) {
-		//alert(result);
 		if (is_number(result)) {
 			var e = "document.getElementById('tr" + result + "')";
 			var el = eval(e);
 			el.style.display='none';
-			//alert('spiffy');
 		}else{
 			alert(result);
-			}
 		}
+	}
 </script>
 
 <cfoutput>

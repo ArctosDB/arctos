@@ -1,6 +1,14 @@
 function generateMD5() {
 	var theImageFile=document.getElementById('media_uri').value;
-	DWREngine._execute(_cfscriptLocation, null, 'genMD5', theImageFile, success_generateMD5);
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "genMD5",
+			uri : theImageFile,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_generateMD5
+	);
 }
 function success_generateMD5(result){
 	var cc=document.getElementById('number_of_labels').value;

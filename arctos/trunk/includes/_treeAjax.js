@@ -398,7 +398,8 @@ function r_tondrag (id, pid) {
 	if (yesDelete == true) {
 		//alert('ok');
 		var treeID = "rightTreeBox";
-		DWREngine._execute(_containerTree_func, null,'moveContainer',treeID,id,pid,  moveContainer_success);
+		alert('fail');
+		//DWREngine._execute(_containerTree_func, null,'moveContainer',treeID,id,pid,  moveContainer_success);
 		return true;
 	} else {
 		return false;
