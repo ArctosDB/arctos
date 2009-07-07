@@ -30,7 +30,7 @@
 		something is broken, or <a href="/info/bugs.cfm">submit a bug report</a> telling us how you got this error.
 	</p>
 	<cfif len(cgi.REDIRECT_URL) gt 0 and cgi.redirect_url contains "guid" and session.dbuser is not "pub_usr_all_all">
-		<cfquery name="yourcollid" datasource="cf_user">
+		<cfquery name="yourcollid" datasource="cf_dbuser">
 			select collection from cf_collection where DBUSERNAME='#session.dbuser#'
 		</cfquery>
 		<p>
