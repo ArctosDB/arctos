@@ -141,9 +141,6 @@
 		<cfquery name="makeTable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(SQL)#
 		</cfquery>
-		<cfoutput>
-		#sql#
-		</cfoutput>
 	<cfcatch>
 		<cfset sql=cfcatch.sql>
 		<cfset message=cfcatch.message>
