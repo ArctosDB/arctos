@@ -1,4 +1,166 @@
 <cfcomponent>
+<!------------------------------------------->
+<cffunction name="updatePartDisposition" access="remote">
+	<cfargument name="part_id" type="numeric" required="yes">
+	<cfargument name="disposition" type="string" required="yes">
+	<cftry>
+		<cfquery name="upPartDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			update coll_object set COLL_OBJ_DISPOSITION
+			='#disposition#' where
+			collection_object_id=#part_id#
+		</cfquery>
+		<cfset result = querynew("STATUS,PART_ID,DISPOSITION")>
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "status", "success", 1)>
+		<cfset temp = QuerySetCell(result, "part_id", "#part_id#", 1)>
+		<cfset temp = QuerySetCell(result, "disposition", "#disposition#", 1)>
+	<cfcatch>
+		<cfset result = querynew("STATUS,PART_ID,DISPOSITION")>
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "status", "failure", 1)>
+		<cfset temp = QuerySetCell(result, "part_id", "#part_id#", 1)>
+		<cfset temp = QuerySetCell(result, "disposition", "A query error occured: #cfcatch.Message# #cfcatch.Detail#", 1)>
+	</cfcatch>
+	</cftry>
+		<cfreturn result>
+</cffunction>
+<!------------------------------------------->
+<cffunction name="remPartFromLoan" access="remote">
+	<cfargument name="part_id" type="numeric" required="yes">
+	<cfargument name="transaction_id" type="numeric" required="yes">
+	<cftry>
+		<cfquery name="killPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			delete from loan_item where
+			collection_object_id = #part_id# and
+			transaction_id=#transaction_id#
+		</cfquery>
+		<cfset result = querynew("PART_ID,MESSAGE")>
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "part_id", "#part_id#", 1)>
+		<cfset temp = QuerySetCell(result, "message", "success", 1)>
+	<cfcatch>
+		<cfset result = querynew("PART_ID,MESSAGE")>
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "part_id", "#part_id#", 1)>
+		<cfset temp = QuerySetCell(result, "message", "A query error occured: #cfcatch.Message# #cfcatch.Detail#", 1)>
+	</cfcatch>
+	
+	</cftry>
+		<cfreturn result>
+</cffunction>
+<!------------------------------------------->
+<cffunction name="del_remPartFromLoan" access="remote">
+	<cfargument name="part_id" type="numeric" required="yes">
+	<cfargument name="transaction_id" type="numeric" required="yes">
+	<cftry>
+		<cftransaction>
+			<cfquery name="killPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				delete from loan_item where
+				collection_object_id = #part_id# and
+				transaction_id=#transaction_id#
+			</cfquery>		
+			<cfquery name="killPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				delete from specimen_part where collection_object_id = #part_id#
+			</cfquery>
+		</cftransaction>
+		<cfset result = querynew("PART_ID,MESSAGE")>
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "part_id", "#part_id#", 1)>
+		<cfset temp = QuerySetCell(result, "message", "success", 1)>
+	<cfcatch>
+		<cfset result = querynew("PART_ID,MESSAGE")>
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "part_id", "#part_id#", 1)>
+		<cfset temp = QuerySetCell(result, "message", "A query error occured: #cfcatch.Message# #cfcatch.Detail#", 1)>
+	</cfcatch>	
+	</cftry>
+		<cfreturn result>
+</cffunction>
+<!------------------------------------------->
+<cffunction name="updateInstructions" access="remote">
+	<cfargument name="part_id" type="numeric" required="yes">
+	<cfargument name="transaction_id" type="numeric" required="yes">
+	<cfargument name="item_instructions" type="string" required="yes">
+	<cftry>
+		<cftransaction>
+			<cfquery name="upIns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				update loan_item set
+				ITEM_INSTRUCTIONS = '#item_instructions#'
+				where
+				TRANSACTION_ID=#transaction_id# and
+				COLLECTION_OBJECT_ID = #part_id#
+			</cfquery>
+		</cftransaction>
+		<cfset result = querynew("PART_ID,MESSAGE")>
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "part_id", "#part_id#", 1)>
+		<cfset temp = QuerySetCell(result, "message", "success", 1)>
+	<cfcatch>
+		<cfset result = querynew("PART_ID,MESSAGE")>
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "part_id", "#part_id#", 1)>
+		<cfset temp = QuerySetCell(result, "message", "A query error occured: #cfcatch.Message# #cfcatch.Detail#", 1)>
+	</cfcatch>
+	
+	</cftry>
+		<cfreturn result>
+</cffunction>
+<!----------------------------------------->
+<cffunction name="updateLoanItemRemarks" access="remote">
+	<cfargument name="part_id" type="numeric" required="yes">
+	<cfargument name="transaction_id" type="numeric" required="yes">
+	<cfargument name="loan_item_remarks" type="string" required="yes">
+	<cftry>
+		<cftransaction>
+			<cfquery name="upIns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				update loan_item set
+				loan_item_remarks = '#loan_item_remarks#'
+				where
+				TRANSACTION_ID=#transaction_id# and
+				COLLECTION_OBJECT_ID = #part_id#
+			</cfquery>
+		</cftransaction>
+		<cfset result = querynew("PART_ID,MESSAGE")>
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "part_id", "#part_id#", 1)>
+		<cfset temp = QuerySetCell(result, "message", "success", 1)>
+	<cfcatch>
+		<cfset result = querynew("PART_ID,MESSAGE")>
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "part_id", "#part_id#", 1)>
+		<cfset temp = QuerySetCell(result, "message", "A query error occured: #cfcatch.Message# #cfcatch.Detail#", 1)>
+	</cfcatch>
+	
+	</cftry>
+		<cfreturn result>
+</cffunction>
+<!------------------------------------------->
+<cffunction name="updateCondition" access="remote">
+	<cfargument name="part_id" type="numeric" required="yes">
+	<cfargument name="condition" type="string" required="yes">
+	<cftry>
+		<cftransaction>
+			<cfquery name="upIns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				update coll_object set
+				condition = '#condition#'
+				where
+				COLLECTION_OBJECT_ID = #part_id#
+			</cfquery>
+		</cftransaction>
+		<cfset result = querynew("PART_ID,MESSAGE")>
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "part_id", "#part_id#", 1)>
+		<cfset temp = QuerySetCell(result, "message", "success", 1)>
+	<cfcatch>
+		<cfset result = querynew("PART_ID,MESSAGE")>
+		<cfset temp = queryaddrow(result,1)>
+		<cfset temp = QuerySetCell(result, "part_id", "#part_id#", 1)>
+		<cfset temp = QuerySetCell(result, "message", "A query error occured: #cfcatch.Message# #cfcatch.Detail#", 1)>
+	</cfcatch>
+	
+	</cftry>
+		<cfreturn result>
+</cffunction>
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="moveContainer" access="remote">
 	<cfargument name="box_position" type="numeric" required="yes">

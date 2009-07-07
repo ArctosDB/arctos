@@ -1536,9 +1536,6 @@ concattransagent(trans.transaction_id,'authorized by'),
  project.project_id, 
  collection
 ORDER BY loan_number">
-				<cfoutput>
-				<hr>#sql#<hr>
-				</cfoutput>
 	<cfquery name="allLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
