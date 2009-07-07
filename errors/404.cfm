@@ -12,11 +12,28 @@
 		404! The page you tried to access does not exist.
 	</h2>
 	<script type="text/javascript">
-  var GOOG_FIXURL_LANG = 'en';
-  var GOOG_FIXURL_SITE = 'http://arctos.database.museum/';
+	  var GOOG_FIXURL_LANG = 'en';
+	  var GOOG_FIXURL_SITE = 'http://arctos.database.museum/';
+	</script>
+<script type="text/javascript" src="http://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js"></script>
+<script>
+
+function changeexclusive_collection_id () {
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "changeexclusive_collection_id",
+			tgt : '',
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_changeexclusive_collection_id
+	);
+}
+function success_changeexclusive_collection_id (result) {
+	console.log('going to #cgi.REDIRECT_URL#');
+	document.location='#cgi.REDIRECT_URL#';
+}
 </script>
-<script type="text/javascript" 
-    src="http://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js"></script>
 	<cfif len(cgi.SCRIPT_NAME) gt 0>
 		<cfset rUrl=cgi.SCRIPT_NAME>
 	</cfif>
@@ -34,8 +51,13 @@
 			select collection from cf_collection where DBUSERNAME='#session.dbuser#'
 		</cfquery>
 		<p>
+			<cfif len(session.roles) gt 0 and session.roles is not "public">
+				If you are an operator, you may have to log out or ask your supervisor for more access.
+			</cfif>
 			You are accessing Arctos through the #yourcollid.collection# portal, and cannot access data in
-			other collections. Try the <a href="/all_all">all-collections portal</a>.
+			other collections. You may <span class="likeLink" onclick="changeexclusive_collection_id()">
+											try again in the public portal
+										</span>.
 		</p>
 	</cfif>	
 	<p><a href="/TaxonomySearch.cfm">Search for Taxon Names here</a></p>
