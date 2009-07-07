@@ -8,7 +8,8 @@
 							onmouseout="self.status='';return true;"><img src="/images/info.gif" border="0"></a>
 <cfoutput>
 <cfquery name="whatColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select collection_cde from cataloged_item where 
+	select collection.collection_cde from cataloged_item,collection where 
+	cataloged_item.collection_id=collection.collection_id and
 	collection_object_id = #collection_object_id#
 </cfquery>
 <cfquery name="indiv" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
