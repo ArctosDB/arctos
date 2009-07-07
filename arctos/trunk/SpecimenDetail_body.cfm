@@ -166,139 +166,13 @@
 	cataloged_item.collection_object_id = #collection_object_id#
 	">
 <cfset checkSql(detSelect)>
-<cfquery name="detail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="one" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(detSelect)#
 </cfquery>
-<cfif #detail.concatenatedEncumbrances# contains "mask record" and #oneOfUs# neq 1>
+<cfif #one.concatenatedEncumbrances# contains "mask record" and #oneOfUs# neq 1>
 	Record masked.
 	<cfabort>
 </cfif>
-<cfquery name="one" dbtype="query">
-	select
-		collection_object_id,
-		collection_cde,
-		accn_id,
-		collection,
-		scientific_name,
-		identification_remarks,
-		identification_id,
-		made_date,
-		nature_of_id,
-		collecting_event_id,	
-		verbatim_date,
-		began_date,
-		ended_date,
-		habitat_desc,
-		locality_id,
-		minimum_elevation,
-		maximum_elevation,
-		orig_elev_units,
-		spec_locality,		
-		VerbatimLatitude,
-		VerbatimLongitude,
-		dec_lat,
-		dec_long,
-		max_error_distance,
-		max_error_units,
-		latLongDeterminedDate,
-		lat_long_ref_source,
-		lat_long_remarks,
-		latLongDeterminer,
-		datum,
-		geog_auth_rec_id,
-		continent_ocean,
-		country,
-		state_prov,
-		quad,
-		county,
-		island,
-		island_group,
-		sea,
-		feature,
-		coll_obj_disposition,
-		coll_object_entered_date,
-		last_edit_date,
-		flags,
-		coll_object_remarks,
-		associated_species,
-		disposition_remarks,
-		habitat,
-		EnteredBy,
-		EditedBy,
-		accession,
-		encumbranceDetail,
-		locality_remarks,
-		verbatim_locality,
-		min_depth,
-		max_depth,
-		depth_units,
-		collecting_method,
-		collecting_source,
-		disposition_remarks
-	from
-		detail
-	group by
-		collection_object_id,
-		collection_cde,
-		accn_id,
-		collection,
-		scientific_name,
-		identification_remarks,
-		identification_id,
-		made_date,
-		nature_of_id,
-		collecting_event_id,	
-		verbatim_date,
-		began_date,
-		ended_date,
-		habitat_desc,
-		locality_id,
-		minimum_elevation,
-		maximum_elevation,
-		orig_elev_units,
-		spec_locality,		
-		VerbatimLatitude,
-		VerbatimLongitude,
-		dec_lat,
-		dec_long,
-		max_error_distance,
-		max_error_units,
-		latLongDeterminedDate,
-		lat_long_ref_source,
-		lat_long_remarks,
-		latLongDeterminer,
-		datum,
-		geog_auth_rec_id,
-		continent_ocean,
-		country,
-		state_prov,
-		quad,
-		county,
-		island,
-		island_group,
-		sea,
-		feature,
-		coll_obj_disposition,
-		coll_object_entered_date,
-		last_edit_date,
-		flags,
-		coll_object_remarks,
-		disposition_remarks,
-		associated_species,
-		habitat,
-		EnteredBy,
-		EditedBy,
-		accession,
-		encumbranceDetail,
-		locality_remarks,
-		verbatim_locality,
-		min_depth,
-		max_depth,
-		depth_units,
-		collecting_method,
-		collecting_source,
-		disposition_remarks
-</cfquery>
 <cfquery name="colls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
 		collector.coll_order,
@@ -402,11 +276,11 @@
 </style>		
 <cfoutput query="one">
 <form name="editStuffLinks" method="post" action="SpecimenDetail.cfm">
-	<input type="hidden" name="collection_object_id" value="#detail.collection_object_id#">
+	<input type="hidden" name="collection_object_id" value="#one.collection_object_id#">
 	<input type="hidden" name="suppressHeader" value="true">
 	<input type="hidden" name="action" value="nothing">
 	<input type="hidden" name="Srch" value="Part">
-	<input type="hidden" name="collecting_event_id" value="#detail.collecting_event_id#">
+	<input type="hidden" name="collecting_event_id" value="#one.collecting_event_id#">
 <table width="95%" cellpadding="0" cellspacing="0"><!---- full page table ---->
 	<tr>
 		<td valign="top" width="50%">
@@ -927,7 +801,7 @@
 				project, project_trans
 				WHERE 
 				project_trans.project_id = project.project_id AND
-				project_trans.transaction_id=#detail.accn_id#
+				project_trans.transaction_id=#one.accn_id#
 				GROUP BY project_name, project.project_id
 		  </cfquery>
 		  <cfquery name="isLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -936,7 +810,7 @@
 					project,
 					project_trans
 				 WHERE 
-				 	loan_item.collection_object_id=#detail.collection_object_id# AND
+				 	loan_item.collection_object_id=#one.collection_object_id# AND
 					loan_item.transaction_id=project_trans.transaction_id AND
 					project_trans.project_id=project.project_id		
 				GROUP BY 
@@ -948,7 +822,7 @@
 					project_trans,
 					specimen_part
 				 WHERE 
-				 	specimen_part.derived_from_cat_item = #detail.collection_object_id# AND
+				 	specimen_part.derived_from_cat_item = #one.collection_object_id# AND
 					loan_item.transaction_id=project_trans.transaction_id AND
 					project_trans.project_id=project.project_id AND
 					specimen_part.collection_object_id = loan_item.collection_object_id	
@@ -959,12 +833,12 @@
 			SELECT loan_item.collection_object_id FROM
 			loan_item,specimen_part
 			WHERE loan_item.collection_object_id=specimen_part.collection_object_id AND
-			specimen_part.derived_from_cat_item=#detail.collection_object_id#
+			specimen_part.derived_from_cat_item=#one.collection_object_id#
 			union
 			SELECT loan_item.collection_object_id FROM
 			loan_item,cataloged_item
 			WHERE loan_item.collection_object_id=cataloged_item.collection_object_id AND
-			cataloged_item.collection_object_id=#detail.collection_object_id#
+			cataloged_item.collection_object_id=#one.collection_object_id#
 		</cfquery>
 	
 	
