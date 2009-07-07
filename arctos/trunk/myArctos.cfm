@@ -1,6 +1,6 @@
 <cfinclude template = "includes/_header.cfm">
 <cfif len(#session.username#) is 0>
-	<cflocation url="/login.cfm">
+	<cflocation url="/login.cfm" addtoken="false">
 </cfif>
 <script type='text/javascript' src='/includes/_myArctos.js'></script>
 <script>
@@ -118,7 +118,7 @@
 			<cfabort>
 		</cfcatch>	
 	</cftry>
-	<cflocation url="myArctos.cfm">
+	<cflocation url="myArctos.cfm" addtoken="false">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------->
@@ -129,7 +129,7 @@
 		username = '#session.username#' order by cf_users.user_id
 	</cfquery>
 	<cfif getPrefs.recordcount is 0>
-		<cflocation url="login.cfm?action=signOut">
+		<cflocation url="login.cfm?action=signOut" addtoken="false">
 	</cfif>
 	<cfquery name="isInv" datasource="uam_god">
 		select allow from temp_allow_cf_user where user_id=#getPrefs.user_id#
@@ -143,7 +143,7 @@
 			<cfset pwage = Application.max_pw_age - pwtime>
 			<cfif pwage lte 0>
 				<cfset session.force_password_change = "yes">
-				<cflocation url="ChangePassword.cfm">
+				<cflocation url="ChangePassword.cfm" addtoken="false">
 			<cfelseif pwage lte 10>
 				<span style="color:red;font-weight:bold;">
 					Your password expires in #pwage# days.
@@ -333,7 +333,7 @@
 					)
 			</cfquery>
 		</cfif>
-	<cflocation url="/myArctos.cfm">
+	<cflocation url="/myArctos.cfm" addtoken="false">
 </cfif>
 <!---------------------------------------------------------------------->
 <cfif isdefined("redir") AND #redir# is "true">

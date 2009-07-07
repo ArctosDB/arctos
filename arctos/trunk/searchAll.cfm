@@ -1,1 +1,1 @@
-<cflocation url="/all_all">
+<cflocation url="/all_all" addtoken="false">

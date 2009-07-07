@@ -172,23 +172,6 @@
 		<cfset Application.InstitutionBlurb = "Collections Database, Museum of Comparative Zoology, Harvard University">
 		<cfset Application.DataProblemReportEmail = "bhaley@oeb.harvard.edu">
 		<cfset Application.PageProblemEmail = "bhaley@oeb.harvard.edu">
-	<cfelseif #cgi.HTTP_HOST# contains "berkeley.edu">
-		<cfset Application.svn = "/opt/csw/bin/svn">
-		<cfset Application.webDirectory = "/users/mvzarctos/tomcat/webapps/cfusion">
-		<cfset Application.SpecimenDownloadPath = "/users/mvzarctos/tomcat/webapps/cfusion/download/">
-		<cfset Application.bugReportEmail = "dustymc@gmail.com,ccicero@berkeley.edu,mvzdata@lists.berkeley.edu">
-		<cfset Application.technicalEmail = "dustymc@gmail.com,lkvoong@berkeley.edu">
-		<cfset Application.mapHeaderUrl = "http://mvz.berkeley.edu/images/nada.gif">
-		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/images/Logos/bnhm_logo_small.gif">
-		<cfset Application.genBankPrid = "4537">
-		<cfset Application.genBankUsername="mvz">
-		<cfset Application.convertPath = "/opt/csw/bin/convert">
-		<cfset Application.genBankPwd=encrypt("Uln1OAzy","genbank")>
-		<cfset Application.BerkeleyMapperConfigFile = "/bnhmMaps/MvzConfig.xml">
-		<cfset Application.Google_uacct = "UA-936774-1">
-		<cfset Application.InstitutionBlurb = "<a href=""#Application.serverRootUrl#"">Collections Database, Museum of Vertebrate Zoology, UC Berkeley</a>">
-		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com">
-		<cfset Application.PageProblemEmail = "dustymc@gmail.com,lkv@berkeley.edu,ccicero@berkeley.edu">
 	</cfif>	
 	<cfreturn true>
 </cffunction>
@@ -228,7 +211,23 @@
 			#GetTemplatePath()# does not contain "/errors/dev_login.cfm" and
 			#GetTemplatePath()# does not contain "/login.cfm" and
 			len(session.username) is 0>
-		<cflocation url="/errors/dev_login.cfm">
+		<cflocation url="/errors/dev_login.cfm">	
+	<cfelseif cgi.HTTP_HOST is "mvzarctos.berkeley.edu">
+		<cfset rurl="http://arctos.database.museum">
+		<cfif isdefined("cgi.redirect_url") and len(cgi.redirect_url) gt 0>
+			<cfset rurl=rurl & cgi.redirect_url>
+		<cfelseif isdefined("cgi.script_name") and len(cgi.script_name) gt 0>
+			<cfif cgi.script_name is "/SpecimenSearch.cfm">
+				<cfset rurl=rurl & "/mvz_all">
+			<cfelse>
+				<cfset rurl=rurl & cgi.script_name>
+			</cfif>
+		</cfif>
+		<cfif len(cgi.query_string) gt 0>
+			<cfset rurl=rurl & "?" & cgi.query_string>
+		</cfif>
+		<cfheader statuscode="301" statustext="Moved permanently">
+		<cfoutput><cfheader name="Location" value="#rurl#"></cfoutput>
 	</cfif>
 	<cfreturn true>
 </cffunction>
