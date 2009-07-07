@@ -380,7 +380,6 @@ New attribute:
 	<form name="newArrtibute" method="post" action="editBiolIndiv.cfm##newAttribute">
 		<input type="hidden" name="action" value="newAttPicked">
 		<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-		<input type="hidden" name="content_url" value="editBiolIndiv.cfm">
 		<cfif isdefined("attribute_type")>
 			<cfset seleAtt = "#attribute_type#">
 		  <cfelse>

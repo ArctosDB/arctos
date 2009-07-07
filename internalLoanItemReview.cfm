@@ -468,7 +468,7 @@ Review items in loan<b>
 			<cfif len(#preserve_method#) gt 0>
 				<cfset thisPart="#thisPart# (#preserve_method#)">
 			</cfif>
-			<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#&content_url=editParts.cfm">#thisPart#</a>
+			<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#thisPart#</a>
 			&nbsp;
 		</td>
 		<td>

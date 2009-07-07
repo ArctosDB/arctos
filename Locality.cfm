@@ -580,7 +580,6 @@
   <cfif #cgi.SCRIPT_NAME# contains "SpecimenDetail.cfm">
   		<!--- provide a link to change coll event if we're in a specimen detail page ---->
 		<form name="goChange" method="post" action="SpecimenDetail.cfm">
-			<input type="hidden" name="content_url" value="changeCollEvent.cfm">
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 			<tr>
 				<td>
@@ -1209,7 +1208,7 @@ You deleted a collecting event.
 	<cfif #cgi.HTTP_REFERER# contains "editCollEvnt">
 		<cfset refURL = "#cgi.HTTP_REFERER#">
 	<cfelse>
-		<cfset refURL = "#cgi.HTTP_REFERER#?content_url=Locality.cfm&collection_object_id=#collection_object_id#&action=editCollEvnt&collecting_event_id=#collecting_event_id#">
+		<cfset refURL = "#cgi.HTTP_REFERER#?collection_object_id=#collection_object_id#&action=editCollEvnt&collecting_event_id=#collecting_event_id#">
 	</cfif>
 	
 	
