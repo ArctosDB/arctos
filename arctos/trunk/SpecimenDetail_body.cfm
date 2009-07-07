@@ -131,10 +131,6 @@
 		enteredPerson.agent_name EnteredBy,
 		editedPerson.agent_name EditedBy,
 		accn_number accession,
-		biol_indiv_relations.biol_indiv_relationship, 
-		biol_indiv_relations.related_coll_object_id,
-		related_cat_item.cat_num related_cat_num,
-		related_coll.collection as related_collection,
 		concatencumbrances(cataloged_item.collection_object_id) concatenatedEncumbrances,
 		concatEncumbranceDetails(cataloged_item.collection_object_id) encumbranceDetail,
 		locality.locality_remarks,
@@ -161,10 +157,7 @@
 		preferred_agent_name enteredPerson,
 		preferred_agent_name editedPerson,
 		accn,
-		trans,
-		biol_indiv_relations,
-		cataloged_item related_cat_item,
-		collection related_coll
+		trans
 	WHERE 
 		cataloged_item.collection_id = collection.collection_id AND
 		cataloged_item.collection_object_id = identification.collection_object_id AND
@@ -183,9 +176,6 @@
 		coll_object.last_edited_person_id = editedPerson.agent_id (+) AND
 		cataloged_item.accn_id =  accn.transaction_id  AND
 		accn.transaction_id = trans.transaction_id AND
-		cataloged_item.collection_object_id = biol_indiv_relations.collection_object_id (+) AND
-		biol_indiv_relations.related_coll_object_id = related_cat_item.collection_object_id (+) AND
-		related_cat_item.collection_id = related_coll.collection_id (+) and
 	cataloged_item.collection_object_id = #collection_object_id#
 	">
 <cfset checkSql(detSelect)>
@@ -358,8 +348,6 @@
 	ORDER BY 
 		coll_order
 </cfquery>
-
-
 <cfquery name="attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select	
 		attributes.attribute_type,
@@ -373,22 +361,23 @@
 		attributes,
 		preferred_agent_name attribute_determiner
 	where
-		attributes.determined_by_agent_id = attribute_determiner.agent_id (+) and
+		attributes.determined_by_agent_id = attribute_determiner.agent_id and
 		attributes.collection_object_id = #collection_object_id#
 </cfquery>
-<cfquery name="relns"  dbtype="query">
+<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
-		biol_indiv_relationship,
-		related_coll_object_id,
-		related_cat_num,
-		related_collection
-	FROM
-		detail 
-	GROUP BY
-		biol_indiv_relationship,
-		related_coll_object_id,
-		related_cat_num,
-		related_collection
+		biol_indiv_relations.biol_indiv_relationship, 
+		biol_indiv_relations.related_coll_object_id,
+		related_cat_item.cat_num related_cat_num,
+		related_coll.collection as related_collection
+	from		
+		biol_indiv_relations,
+		cataloged_item related_cat_item,
+		collection related_coll
+	where		
+		biol_indiv_relations.related_coll_object_id = related_cat_item.collection_object_id AND
+		related_cat_item.collection_id = related_coll.collection_id and
+		biol_indiv_relations.collection_object_id = #collection_object_id#
 </cfquery>			
 <cfquery name="citations" dbtype="query">
 	SELECT 
