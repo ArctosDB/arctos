@@ -137,23 +137,15 @@
 	</cfquery>
 	<cfcatch><!--- not there, so what? ---></cfcatch>
 </cftry>
-	<cftry>
-		<cfquery name="makeTable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			#preservesinglequotes(SQL)#
-		</cfquery>
-	<cfcatch>
-		<cfset sql=cfcatch.sql>
-		<cfset message=cfcatch.message>
-		<cfset queryError=cfcatch.queryError>
-		<cf_queryError>
-	</cfcatch>
-</cftry>
+	<cfquery name="makeTable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		#preservesinglequotes(SQL)#
+	</cfquery>
 <cfset startAt=1>
 </cfif>
 <cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select count(*) cnt from #session.TaxSrchTab#
 </cfquery>
-<cfif not isdefined("goTo") or len(#goTo#) is 0 or #goTo# lte #startAt#>
+<cfif not isdefined("goTo") or len(#goTo#) is 0 or goTo lte startAt>
 	<cfset goTo = StartAt + dr>
 </cfif>
 <cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">

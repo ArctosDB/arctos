@@ -461,7 +461,6 @@
 <cfoutput query="one">
 <form name="editStuffLinks" method="post" action="SpecimenDetail.cfm">
 	<input type="hidden" name="collection_object_id" value="#detail.collection_object_id#">
-	<input type="hidden" name="content_url" value="#content_url#">
 	<input type="hidden" name="suppressHeader" value="true">
 	<input type="hidden" name="action" value="nothing">
 	<input type="hidden" name="Srch" value="Part">
