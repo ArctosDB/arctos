@@ -382,8 +382,8 @@
 	where		
 		citation.cited_taxon_name_id = cited_taxa.taxon_name_id  AND
 		citation.publication_id = formatted_publication.publication_id AND
-		ormat_style='author-year' and
-		citation.collection_object_id #collection_object_id#
+		format_style='author-year' and
+		citation.collection_object_id = #collection_object_id#
 	order by
 		formatted_publication
 </cfquery>
