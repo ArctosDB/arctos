@@ -132,12 +132,6 @@
 		coll_object_remark.habitat,
 		enteredPerson.agent_name EnteredBy,
 		editedPerson.agent_name EditedBy,
-		collector.coll_order,
-		case when 
-			#oneOfUs# != 1 and concatencumbrances(cataloged_item.collection_object_id) like '%mask collector%' then 'Anonymous'
-		else 
-			colls.agent_name  
-		end collectors,
 		preparator.coll_order prep_order,
 		case when 
 			#oneOfUs# != 1 and concatencumbrances(cataloged_item.collection_object_id) like '%mask preparator%' then 'Anonymous'
@@ -183,8 +177,6 @@
 		coll_object_remark,
 		preferred_agent_name enteredPerson,
 		preferred_agent_name editedPerson,
-		(select * from collector where collector_role='c') collector,
-		preferred_agent_name colls,
 		(select * from collector where collector_role='p') preparator,
 		preferred_agent_name preps,
 		attributes,
@@ -213,7 +205,6 @@
 		coll_object.entered_person_id = enteredPerson.agent_id AND
 		coll_object.last_edited_person_id = editedPerson.agent_id (+) AND
 		cataloged_item.collection_object_id = collector.collection_object_id (+) AND
-		collector.agent_id = colls.agent_id (+) AND
 		cataloged_item.collection_object_id = preparator.collection_object_id (+) AND	
 		preparator.agent_id = preps.agent_id (+) AND
 		cataloged_item.collection_object_id=attributes.collection_object_id (+) AND
@@ -360,12 +351,20 @@
 		disposition_remarks
 </cfquery>
 <cfquery name="colls"  dbtype="query">
-	SELECT 
-		collectors
-	FROM 
-		detail
-	group by
-		collectors
+	select
+		collector.coll_order,
+		case when 
+			#oneOfUs# != 1 and concatencumbrances(cataloged_item.collection_object_id) like '%mask collector%' then 'Anonymous'
+		else 
+			colls.agent_name  
+		end collectors
+	from
+		collector,
+		preferred_agent_name
+	where
+		collector.collector_role='c' and
+		collector.agent_id=preferred_agent_name.agent_id and
+		collector.collection_object_id = #collection_object_id#
 	ORDER BY 
 		coll_order
 </cfquery>
