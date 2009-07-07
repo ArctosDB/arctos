@@ -39,8 +39,6 @@
 		identification.identification_id,
 		identification.made_date,
 		identification.nature_of_id,
-		idagentname.agent_name id_by,
-		identification_agent.identifier_order,
 		collecting_event.collecting_event_id,
 		case when 
 			#oneOfUs# != 1 and concatencumbrances(cataloged_item.collection_object_id) like '%mask year collected%' then
@@ -157,8 +155,6 @@
 		cataloged_item,
 		collection,
 		identification,
-		identification_agent,
-		preferred_agent_name idagentname,
 		collecting_event,
 		locality,
 		accepted_lat_long,
@@ -182,8 +178,6 @@
 		cataloged_item.collection_id = collection.collection_id AND
 		cataloged_item.collection_object_id = identification.collection_object_id AND
 		identification.accepted_id_fg = 1 AND
-		identification.identification_id = identification_agent.identification_id (+) and
-		identification_agent.agent_id = idagentname.agent_id (+) and
 		cataloged_item.collecting_event_id = collecting_event.collecting_event_id AND
 		collecting_event.locality_id = locality.locality_id  AND
 		locality.locality_id = accepted_lat_long.locality_id (+) AND
@@ -377,17 +371,6 @@
 </cfquery>
 
 
-		
-<cfquery name="identifiers"  dbtype="query">
-	SELECT 
-		id_by
-	FROM
-		detail
-	group by
-		id_by
-	ORDER BY 
-		identifier_order
-</cfquery>
 <cfquery name="attribute"  dbtype="query">
 	SELECT 
 		attribute_type,
