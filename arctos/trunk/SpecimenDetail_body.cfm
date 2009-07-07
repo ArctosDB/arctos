@@ -204,7 +204,6 @@
 		coll_object.collection_object_id = coll_object_remark.collection_object_id (+) AND
 		coll_object.entered_person_id = enteredPerson.agent_id AND
 		coll_object.last_edited_person_id = editedPerson.agent_id (+) AND
-		cataloged_item.collection_object_id = collector.collection_object_id (+) AND
 		cataloged_item.collection_object_id = preparator.collection_object_id (+) AND	
 		preparator.agent_id = preps.agent_id (+) AND
 		cataloged_item.collection_object_id=attributes.collection_object_id (+) AND
