@@ -94,10 +94,10 @@ function loadTree_success(r) {
 		newTree.attachEvent("onDblClick","expandNode")
 		newTree.attachEvent("onCheck","checkHandler")
 		for (i = 0; i < r.ROWCOUNT; i++) { 
-		 	var CONTAINER_ID = result.CONTAINER_ID[0];
-			var PARENT_CONTAINER_ID = result.PARENT_CONTAINER_ID[0];
-			var CONTAINER_TYPE = result.CONTAINER_TYPE[0];
-			var LABEL = result.LABEL[0];
+		 	var CONTAINER_ID = result.CONTAINER_ID[i];
+			var PARENT_CONTAINER_ID = result.PARENT_CONTAINER_ID[i];
+			var CONTAINER_TYPE = result.CONTAINER_TYPE[i];
+			var LABEL = result.LABEL[i];
 			var thisIns = 'newTree.insertNewChild("' + PARENT_CONTAINER_ID + '","' + CONTAINER_ID + '","' + LABEL + ' (' + CONTAINER_TYPE + ')",0,0,0,0,"",1)';
 			eval(thisIns);
 		}
