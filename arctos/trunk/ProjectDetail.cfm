@@ -17,11 +17,11 @@
 	function load(name){
 		var el=document.getElementById(name);
 		var ptl="/includes/project/" + name + ".cfm?project_id=#project_id#";
-		$.get(ptl, function(data){
-			 $(el).html(data);
+		jQuery.get(ptl, function(data){
+			 jQuery(el).html(data);
 		})
 	}
-	$(document).ready(function(){
+	jQuery(document).ready(function(){
 		var elemsToLoad='pubs,specUsed,specCont,projCont,projUseCont,projMedia';
 		var elemAry = elemsToLoad.split(",");
 		for(var i=0; i<elemAry.length; i++){

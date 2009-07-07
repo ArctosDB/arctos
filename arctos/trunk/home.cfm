@@ -42,7 +42,8 @@
 <cfinclude template="/includes/_header.cfm">
 <cfquery  name="coll" datasource="uam_god">
 	select * from cf_collection,collection
-	where cf_collection.collection_id=collection.collection_id (+) order by cf_collection.collection
+	where cf_collection.collection_id=collection.collection_id (+) and
+	PUBLIC_PORTAL_FG = 1 order by cf_collection.collection
 </cfquery>
 <table width="90%" border="0" cellpadding="10" cellspacing="10">
 	<tr>
