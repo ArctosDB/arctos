@@ -26,12 +26,8 @@ function changeexclusive_collection_id () {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_changeexclusive_collection_id
+		document.location='#cgi.REDIRECT_URL#';
 	);
-}
-function success_changeexclusive_collection_id (result) {
-	console.log('going to #cgi.REDIRECT_URL#');
-	document.location='#cgi.REDIRECT_URL#';
 }
 </script>
 	<cfif len(cgi.SCRIPT_NAME) gt 0>
