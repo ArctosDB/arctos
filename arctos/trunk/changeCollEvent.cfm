@@ -77,7 +77,6 @@
  </cfquery>
  <b>Existing collecting Event for <a href="SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#getLoc.collection_cde# #getLoc.cat_num#</a>:</b>
  <form name="newCollEvent" method="post" action="changeCollEvent.cfm">
- 	<input type="hidden" name="content_url" value="changeCollEvent.cfm">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 	<input type="hidden" name="collecting_event_id" value="">
 	<input type="hidden" name="action" value="makeSaveGoNow">
@@ -296,7 +295,7 @@
 		UPDATE cataloged_item SET collecting_event_id = #collecting_event_id# where collection_object_id = #collection_object_id#
 	</cfquery>
 		<cf_logEdit collection_object_id="#collection_object_id#">
-	<cflocation url="changeCollEvent.cfm?collection_object_id=#collection_object_id#&content_url=changeCollEvent.cfm" addtoken="no">
+	<cflocation url="changeCollEvent.cfm?collection_object_id=#collection_object_id#" addtoken="no">
 	
 	
 </cfoutput>

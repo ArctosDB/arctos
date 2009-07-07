@@ -21,6 +21,7 @@
 		<cfset rUrl=cgi.SCRIPT_NAME>
 	</cfif>
 	<cfif len(cgi.REDIRECT_URL) gt 0>
+		looking for a specimen?
 		<cfset rUrl=cgi.REDIRECT_URL>
 	</cfif>
 	<p>
