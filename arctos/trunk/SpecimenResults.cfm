@@ -330,12 +330,10 @@ If your item needs to be sorted in a special way, then do that here. --->
 				onmouseover="this.className='controlButton btnhov'" 
 				onmouseout="this.className='controlButton'"
 				onclick="window.open('/bnhmMaps/bnhmMapData.cfm?#mapurl#','_blank');">BerkeleyMapper</span>
-			<!---
 			<span class="controlButton" 
 				onmouseover="this.className='controlButton btnhov'" 
 				onmouseout="this.className='controlButton'"
 				onclick="window.open('/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&#mapurl#','_blank');">BerkeleyMapper+Rangemaps</span>
-			--->
 			<span class="infoLink" onclick="getDocs('maps');">
 				What's this?
 			</span>
