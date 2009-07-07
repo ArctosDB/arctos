@@ -130,13 +130,6 @@
 		coll_object_remark.habitat,
 		enteredPerson.agent_name EnteredBy,
 		editedPerson.agent_name EditedBy,
-		attributes.attribute_type,
-		attributes.attribute_value,
-		attributes.attribute_units,
-		attributes.attribute_remark,
-		attributes.determination_method,
-		attributes.determined_date,
-		attribute_determiner.agent_name attributeDeterminer,
 		accn_number accession,
 		biol_indiv_relations.biol_indiv_relationship, 
 		biol_indiv_relations.related_coll_object_id,
@@ -167,8 +160,6 @@
 		coll_object_remark,
 		preferred_agent_name enteredPerson,
 		preferred_agent_name editedPerson,
-		attributes,
-		preferred_agent_name attribute_determiner,
 		accn,
 		trans,
 		biol_indiv_relations,
@@ -190,8 +181,6 @@
 		coll_object.collection_object_id = coll_object_remark.collection_object_id (+) AND
 		coll_object.entered_person_id = enteredPerson.agent_id AND
 		coll_object.last_edited_person_id = editedPerson.agent_id (+) AND
-		cataloged_item.collection_object_id=attributes.collection_object_id (+) AND
-		attributes.determined_by_agent_id = attribute_determiner.agent_id (+) and
 		cataloged_item.accn_id =  accn.transaction_id  AND
 		accn.transaction_id = trans.transaction_id AND
 		cataloged_item.collection_object_id = biol_indiv_relations.collection_object_id (+) AND
@@ -371,25 +360,21 @@
 </cfquery>
 
 
-<cfquery name="attribute"  dbtype="query">
-	SELECT 
-		attribute_type,
-		attribute_value,
-		attribute_units,
-		attribute_remark,
-		attributeDeterminer,
-		determination_method,
-		determined_date
-	FROM
-		detail 
-	GROUP BY
-		attribute_type,
-		attribute_value,
-		attribute_units,
-		attribute_remark,
-		attributeDeterminer,
-		determination_method,
-		determined_date
+<cfquery name="attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select	
+		attributes.attribute_type,
+		attributes.attribute_value,
+		attributes.attribute_units,
+		attributes.attribute_remark,
+		attributes.determination_method,
+		attributes.determined_date,
+		attribute_determiner.agent_name attributeDeterminer
+	from
+		attributes,
+		preferred_agent_name attribute_determiner,
+	where
+		attributes.determined_by_agent_id = attribute_determiner.agent_id (+) and
+		attributes.collection_object_id = #collection_object_id#
 </cfquery>
 <cfquery name="relns"  dbtype="query">
 	SELECT 
