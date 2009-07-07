@@ -16,34 +16,24 @@
 	  var GOOG_FIXURL_SITE = 'http://arctos.database.museum/';
 	</script>
 <script type="text/javascript" src="http://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js"></script>
-<script>
-
-function changeexclusive_collection_id () {
-	jQuery.getJSON("/component/functions.cfc",
-		{
-			method : "changeexclusive_collection_id",
-			tgt : '',
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		function (d) {
-  			document.location='#cgi.REDIRECT_URL#';
-		}		
-	);
-}
+<script type="text/javascript" language="javascript">
+	function changeexclusive_collection_id () {
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "changeexclusive_collection_id",
+				tgt : '',
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (d) {
+	  			document.location='#cgi.REDIRECT_URL#';
+			}		
+		);
+	}
 </script>
 	<cfif len(cgi.SCRIPT_NAME) gt 0>
 		<cfset rUrl=cgi.SCRIPT_NAME>
 	</cfif>
-	
-	<p>
-		If you followed a link from within Arctos, please <a href="/info/bugs.cfm">submit a bug report</a>
-	 	containing any information that might help us resolve this issue.
-	</p>
-	<p>
-		If you followed an external link, please use your back button and tell the webmaster that
-		something is broken, or <a href="/info/bugs.cfm">submit a bug report</a> telling us how you got this error.
-	</p>
 	<cfif len(cgi.REDIRECT_URL) gt 0 and cgi.redirect_url contains "guid" and session.dbuser is not "pub_usr_all_all">
 		<cfquery name="yourcollid" datasource="cf_dbuser">
 			select collection from cf_collection where DBUSERNAME='#session.dbuser#'
@@ -52,12 +42,20 @@ function changeexclusive_collection_id () {
 			<cfif len(session.roles) gt 0 and session.roles is not "public">
 				If you are an operator, you may have to log out or ask your supervisor for more access.
 			</cfif>
-			You are accessing Arctos through the #yourcollid.collection# portal, and cannot access data in
-			other collections. You may <span class="likeLink" onclick="changeexclusive_collection_id()">
-											try again in the public portal
-										</span>.
+			You are accessing Arctos through the #yourcollid.collection# portal, and cannot access specimen data in
+			other collections. You may 
+			<span class="likeLink" onclick="changeexclusive_collection_id()">try again in the public portal</span>.
 		</p>
 	</cfif>	
+	<p>
+		If you followed a link from within Arctos, please <a href="/info/bugs.cfm">submit a bug report</a>
+	 	containing any information that might help us resolve this issue.
+	</p>
+	<p>
+		If you followed an external link, please use your back button and tell the webmaster that
+		something is broken, or <a href="/info/bugs.cfm">submit a bug report</a> telling us how you got this error.
+	</p>
+	
 	<p><a href="/TaxonomySearch.cfm">Search for Taxon Names here</a></p>
 	<p><a href="/SpecimenUsage.cfm">Search for Projects and Publications here</a></p>
 	<p>
