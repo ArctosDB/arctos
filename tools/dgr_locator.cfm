@@ -1,21 +1,8 @@
-<cfquery name="isGoodUser" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select count(*) as cnt from 
-	 group_member m,
-	 agent_name ln,
-	 agent_name gn
-	 where
-	 m.GROUP_AGENT_ID = gn.agent_id and
-	 gn.agent_name = 'DGR Users' and
-	 ln.agent_id = m.MEMBER_AGENT_ID and
-	 ln.agent_name_type = 'login' and
-	 ln.agent_name = '#session.username#'
-</cfquery>
-<cfif isGoodUser.cnt lt 1>
-	You are not allowed to access this form.
-	<cfabort>
-</cfif>
-
 <cfinclude template="/includes/_header.cfm">
+
+	<script type='text/javascript' src='/ajax/core/engine.js'></script>
+	<script type='text/javascript' src='/ajax/core/util.js'></script>
+	<script type='text/javascript' src='/ajax/core/settings.js'></script>
 <script>
 	function hideRow(locator_id) {
 		var theRowStr = "document.getElementById('row" + locator_id + "')";

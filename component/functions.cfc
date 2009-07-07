@@ -1,4 +1,66 @@
 <cfcomponent>
+<!------------------------------------------------------->
+<cffunction name="kill_canned_search" access="remote">
+	<cfargument name="canned_id" type="numeric" required="yes">
+	<cftry>
+		<cfquery name="res" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			delete from cf_canned_search where canned_id=#canned_id#
+		</cfquery>
+		<cfset result="#canned_id#">
+	<cfcatch>
+		<cfset result = "failure: #cfcatch.Message# #cfcatch.Detail#">
+	</cfcatch>
+	</cftry>
+		<cfreturn result>
+</cffunction>
+<!----------------------------------------------------------------------------------------------------------------->
+<cffunction name="genMD5" access="remote">
+	<cfargument name="uri" type="string" required="yes">
+	<cfif uri contains application.serverRootUrl>
+		<cftry>
+		<cfset f=replace(uri,application.serverRootUrl,application.webDirectory)>
+		<cffile action="readbinary" file="#f#" variable="myBinaryFile">
+		<cfset md5 = createObject("component","includes.cfc.hashBinary").hashBinary(myBinaryFile)>
+		<cfreturn md5>
+		<cfcatch>
+			<cfreturn cfcatch.detail>
+		</cfcatch>
+		</cftry>
+	<cfelse>
+		<cfreturn 'bad checksum parameter: need local file'>
+	</cfif>
+	<cfreturn uri>
+</cffunction>
+<!-------------------------------------------->
+<cffunction name="saveLocSrchPref" access="remote">
+	<cfargument name="id" type="string" required="yes">
+	<cfargument name="onOff" type="numeric" required="yes">
+	<cfif isdefined("session.username") and len(#session.username#) gt 0>
+		<cftry>
+			<cfquery name="ins" datasource="cf_dbuser">
+				select LOCSRCHPREFS from cf_users
+				where username='#session.username#'
+			</cfquery>
+			<cfset cv=valuelist(ins.LOCSRCHPREFS)>
+			<cfif onOff is 1>
+				<cfif not listfind(cv,id)>
+					<cfset nv=listappend(cv,id)>
+				</cfif>
+			<cfelse>
+				<cfif listfind(cv,id)>
+					<cfset nv=listdeleteat(cv,listfind(cv,id))>
+				</cfif>
+			</cfif>
+			<cfquery name="ins" datasource="cf_dbuser">
+				update cf_users set LOCSRCHPREFS='#nv#'
+				where username='#session.username#'
+			</cfquery>
+			<cfset session.locSrchPrefs=nv>
+			<cfcatch><!-- nada --></cfcatch>
+		</cftry>
+	</cfif>
+	<cfreturn 1>
+</cffunction>
 <!------------------------------------------->
 <cffunction name="updatePartDisposition" access="remote">
 	<cfargument name="part_id" type="numeric" required="yes">

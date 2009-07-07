@@ -8,8 +8,7 @@
 		margin:5px;
 		}
 </style>
-<script>
-
+<script language="javascript" type="text/javascript">
 	function nada(){}
 	function toggleGeogDetail(onOff) {
 		var e = document.getElementById('geogDetail');
@@ -23,7 +22,16 @@
 			c.setAttribute('onCLick','toggleGeogDetail(0)');
 			c.innerHTML='Show Fewer Options';
 		}
-		DWREngine._execute(_cfscriptLocation, null, 'saveLocSrchPref','GeogDetail',onOff,nada);
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "saveLocSrchPref",
+				id : 'GeogDetail',
+				onOff : onOff,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			nada
+		);
 	}
 	function toggleLocDetail(onOff) {
 		var e = document.getElementById('locDetail');
@@ -37,7 +45,16 @@
 			c.setAttribute('onCLick','toggleLocDetail(0)');
 			c.innerHTML='Show Fewer Options';
 		}
-		DWREngine._execute(_cfscriptLocation, null, 'saveLocSrchPref','LocDetail',onOff,nada);
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "saveLocSrchPref",
+				id : 'LocDetail',
+				onOff : onOff,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			nada
+		);
 	}
 	function toggleGeorefDetail(onOff) {
 		var e = document.getElementById('georefDetail');
@@ -51,7 +68,16 @@
 			c.setAttribute('onCLick','toggleGeorefDetail(0)');
 			c.innerHTML='Hide Georeference Options';
 		}
-		DWREngine._execute(_cfscriptLocation, null, 'saveLocSrchPref','GeorefDetail',onOff,nada);
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "saveLocSrchPref",
+				id : 'GeorefDetail',
+				onOff : onOff,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			nada
+		);
 	}
 	function toggleEventDetail(onOff) {
 		var e = document.getElementById('eventDetail');
@@ -65,9 +91,17 @@
 			c.setAttribute('onCLick','toggleEventDetail(0)');
 			c.innerHTML='Show Fewer Options';
 		}
-		DWREngine._execute(_cfscriptLocation, null, 'saveLocSrchPref','EventDetail',onOff,nada);
-	}
-	
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "saveLocSrchPref",
+				id : 'EventDetail',
+				onOff : onOff,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			nada
+		);
+	}	
 </script>
 <cfoutput>
 <cfif not isdefined("showLocality")>
