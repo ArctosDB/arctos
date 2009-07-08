@@ -88,7 +88,7 @@
 <!---- write an XML config file specific to the critters they're mapping --->
 <cfoutput>
 	<cfset thisFileName = "BNHM#cftoken#.xml">
-	<cfset thisFile = "#Application.webDirectory#/bnhmMaps/tabfiles/#thisFileName#">
+	<cfset variables.thisFile = "#Application.webDirectory#/bnhmMaps/tabfiles/#thisFileName#">
 	<cfset variables.XMLFile = "#Application.serverRootUrl#/bnhmMaps/tabfiles/#thisFileName#">
 	<cfset variables.encoding="UTF-8">
 	<cfquery name="collID" dbtype="query">
@@ -112,7 +112,7 @@
 		</cfloop>
 	</cfif>	
 	<cfscript>
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.XMLFile, variables.encoding, 32768);
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.thisFile, variables.encoding, 32768);
 		/*
 		a='<bnhmmaps>' & chr(10) & 
 			chr(9) & '<metadata>' & chr(10) & 
