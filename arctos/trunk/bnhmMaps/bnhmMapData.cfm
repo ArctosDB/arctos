@@ -5,7 +5,7 @@
 <cfset variables.remoteXmlFile="#Application.serverRootUrl#/bnhmMaps/tabfiles/#fn#.xml">
 <cfset variables.remoteTabFile="#Application.serverRootUrl#/bnhmMaps/tabfiles/#fn#.txt">
 <cfset variables.encoding="UTF-8">
-<div align="center">
+<div align="center" id="status">
 	<span style="background-color:green;color:white; font-size:36px; font-weight:bold;">
 		Fetching map data...
 	</span>
@@ -196,6 +196,9 @@
 				Amphibia, Aves or Mammalia.
 				<br>Subspecies are ignored for rangemapping.
 			</div>
+			<script>
+				document.getElementById('status').style.display='none';
+			</script>
 			<cfabort>
 		</cfif>
 		<cfscript>
