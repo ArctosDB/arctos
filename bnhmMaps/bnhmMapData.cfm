@@ -207,7 +207,7 @@
 		variables.encoding="UTF-8";
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.thisFile, variables.encoding, 32768);
 		for (intRow=1;intRow LTE getMapData.RecordCount;intRow=(intRow+1)){
-			a='<a href="#Application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#"' &
+			a='<a href="#Application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#getMapData.collection_object_id#"' &
 				'target="_blank">#getMapData.collection#&nbsp;#getMapData.cat_num#</a>' & 
 				chr(9) & getMapData.scientific_name &
 				chr(9) & getMapData.verbatim_date & 
