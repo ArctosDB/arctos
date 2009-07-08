@@ -1522,7 +1522,7 @@ function success_changeresultSort (result) {
 		scroll: true,
 		scrollHeight: 300
 	});
-	*/
+	
 	jQuery("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", {
 		width: 320,
 		max: 20,
@@ -1533,7 +1533,7 @@ function success_changeresultSort (result) {
 		scroll: true,
 		scrollHeight: 300
 	});	
-	
+	*/
 	
 	jQuery("#c_collection_cust").click(function(e){
 		var bgDiv = document.createElement('div');
