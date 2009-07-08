@@ -69,6 +69,16 @@ jQuery( function($) {
 	
 	jQuery("##refineSearch").live('click', function(e){
 		console.log('clickity');
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		bgDiv.setAttribute('onclick','closeCustomNoRefresh()');
+		document.body.appendChild(bgDiv);
+		var guts = "/SpecimenSearch.cfm";
+		$('##customDiv').load(guts,{},function(){
+			viewport.init("##customDiv");
+			viewport.init("##bgDiv");
+		});	
 	});
 	
 	$("##customizeButton").live('click', function(e){
