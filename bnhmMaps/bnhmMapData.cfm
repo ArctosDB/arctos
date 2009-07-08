@@ -121,14 +121,6 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 <cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preserveSingleQuotes(SqlString)#
 </cfquery>
-getMapData.recordcount: #getMapData.recordcount#
-<cfif getMapData.recordcount is 0>
-	<div class="error">
-		Oops! We didn't find anything mappable. Only wild caught specimens with coordintes will map.
-		File a <a href='/info/bugs.cfm'>bug report</a> if you think this message is in error.
-	</div>
-	<cfabort>
-</cfif>
 <cfoutput>
 	<cf_getSearchTerms>
 	<cfset log.query_string=returnURL>
@@ -136,6 +128,17 @@ getMapData.recordcount: #getMapData.recordcount#
 	<cfinclude template="/includes/activityLog.cfm">
 </cfoutput>
 </cfif><!--- end point map option --->
+
+-----------------------------------------------------
+getMapData.recordcount: #getMapData.recordcount#
+=========================================
+<cfif getMapData.recordcount is 0>
+	<div class="error">
+		Oops! We didn't find anything mappable. Only wild caught specimens with coordintes will map.
+		File a <a href='/info/bugs.cfm'>bug report</a> if you think this message is in error.
+	</div>
+	<cfabort>
+</cfif>
 <!-------------------------------------------->
 <!---- write an XML config file specific to the critters they're mapping --->
 <cfoutput>
