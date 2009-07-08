@@ -89,7 +89,7 @@
 <cfoutput>
 	<cfset thisFileName = "BNHM#cftoken#.xml">
 	<cfset thisFile = "#Application.webDirectory#/bnhmMaps/tabfiles/#thisFileName#">
-	<cfset XMLFile = "#Application.serverRootUrl#/bnhmMaps/tabfiles/#thisFileName#">
+	<cfset variables.XMLFile = "#Application.serverRootUrl#/bnhmMaps/tabfiles/#thisFileName#">
 	<cfset variables.encoding="UTF-8">
 	<cfquery name="collID" dbtype="query">
 		select collection_id from getMapData group by collection_id
@@ -112,7 +112,7 @@
 		</cfloop>
 	</cfif>	
 	<cfscript>
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(XMLFile, variables.encoding, 32768);
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.XMLFile, variables.encoding, 32768);
 		a='<bnhmmaps>' & chr(10) & 
 			chr(9) & '<metadata>' & chr(10) & 
 			chr(9) & chr(9) & '<name>BerkeleyMapper Configuration File</name>' & chr(10) & 
