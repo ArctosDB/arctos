@@ -217,7 +217,8 @@
 		<cfscript>
 			a='<a href="#Application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=' & 
 				getMapData.collection_object_id & '"' &
-				'target="_blank">#getMapData.collection#&nbsp;#getMapData.cat_num#</a>' & 
+				'target="_blank">' & 
+				getMapData.collection & '&nbsp;' & getMapData.cat_num & '</a>' & 
 				chr(9) & getMapData.scientific_name &
 				chr(9) & getMapData.verbatim_date & 
 				chr(9) & getMapData.spec_locality & 
