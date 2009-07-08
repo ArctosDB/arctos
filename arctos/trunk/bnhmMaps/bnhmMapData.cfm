@@ -349,13 +349,16 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 	<cfset theRest=theRest & chr(10) & chr(9) & '<concept order="10" viewlist="1" colorlist="0" datatype="darwin:catalognumbertext" alias="Catalog Number"/>'>
 	<cfset theRest=theRest & chr(10) & '</concepts>'>
 	<cfif isdefined("showRangeMaps") and showRangeMaps is true>
+		<cfdump var=#getMapData#>
 		<cfquery name="species" dbtype="query">
 			select distinct(scientific_name) from getMapData
 		</cfquery>
+		<cfdump var=#species#>
 		<cfquery name="getClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select phylclass,scientific_name from taxonomy where scientific_name in
 			 (#ListQualify(valuelist(species.scientific_name), "'")#)
 		</cfquery>
+		<cfdump var=#getClass#>
 		<cfset g="<gisdata>">
 		<cfset i=1>
 		<cfloop query="getClass">
