@@ -82,6 +82,7 @@ jQuery( function($) {
 		
 		var guts = "/SpecimenSearch.cfm";
 		$('##customDiv').load(guts,{},function(){
+			setPrevSearch();
 			viewport.init("##customDiv");
 			viewport.init("##bgDiv");
 		});	
