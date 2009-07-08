@@ -203,46 +203,41 @@
 		a='</bnhmmaps>';
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
+		variables.thisFile = "#Application.webDirectory#/bnhmMaps/tabfiles/tabfile#cfid##cftoken#.txt";
+		variables.encoding="UTF-8";
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.thisFile, variables.encoding, 32768);
+		for (intRow=1;intRow LTE getMapData.RecordCount;intRow=(intRow+1)){
+			a='<a href="#Application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#"' &
+				'target="_blank">#getMapData.collection#&nbsp;#getMapData.cat_num#</a>' & 
+				chr(9) & getMapData.scientific_name &
+				chr(9) & getMapData.verbatim_date & 
+				chr(9) & getMapData.spec_locality & 
+				chr(9) & getMapData.dec_lat & 
+				chr(9) & getMapData.dec_long &
+				chr(9) & getMapData.COORDINATEUNCERTAINTYINMETERS &
+				chr(9) & getMapData.datum & 
+				chr(9) & getMapData.collection &
+				chr(9) & getMapData.collection & ' ' & getMapData.cat_num;
+			variables.joFileWriter.writeLine(a);		
+		}
+		variables.joFileWriter.close();		
 	</cfscript>
-</cfoutput>
-
-<!-------------------------------------------->
-
-
-<cfset dlPath = "#Application.webDirectory#/bnhmMaps/tabfiles/">
-<cfset dlFile = "tabfile#cfid##cftoken#.txt">
-<cffile action="write" file="#dlPath##dlFile#" addnewline="no" output="" nameconflict="overwrite">
-
-<cfoutput query="getMapData">
-	<cfset catalogNumber="#collection# #cat_num#">
-	<cfset relInfo='<a href="#Application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=#collection_object_id#" target="_blank">#collection#&nbsp;#cat_num#</a>'>
-	<cfset oneLine="#relInfo##chr(9)##scientific_name##chr(9)##verbatim_date##chr(9)##spec_locality##chr(9)##dec_lat##chr(9)##dec_long##chr(9)##COORDINATEUNCERTAINTYINMETERS##chr(9)##datum##chr(9)##collection##chr(9)##catalogNumber#">
-		
-		
-	<cfset oneLine=trim(oneLine)>
-	<cffile action="append" file="#dlPath##dlFile#" addnewline="yes" output="#oneLine#">
-</cfoutput>
-<cfoutput>
-<cfquery name="distColl" dbtype="query">
-	select collection from getMapData group by collection
-	order by collection
-</cfquery>
-<cfset collList="">
-<cfloop query="distColl">
-	<cfif len(#collList#) is 0>
-		<cfset collList="#collection#">
-	<cfelse>
-		<cfset CollList="#collList#, #collection#">
-	</cfif>
-</cfloop>
-<cfset listColl=reverse(CollList)>
-<cfset listColl=replace(listColl,",","dna ,","first")>
-<cfset CollList=reverse(listColl)>
-<cfset CollList="#CollList# data.">
-
-
+	<cfquery name="distColl" dbtype="query">
+		select collection from getMapData group by collection
+		order by collection
+	</cfquery>
+	<cfloop query="distColl">
+		<cfif len(collList) is 0>
+			<cfset collList="#collection#">
+		<cfelse>
+			<cfset CollList="#collList#, #collection#">
+		</cfif>
+	</cfloop>
+	<cfset listColl=reverse(CollList)>
+	<cfset listColl=replace(listColl,",","dna ,","first")>
+	<cfset CollList=reverse(listColl)>
+	<cfset CollList="#CollList# data.">
 	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/run.php?ViewResults=tab&tabfile=#Application.serverRootUrl#/bnhmMaps/tabfiles/#dlFile#&configfile=#XMLFile#&sourcename=#collList#&queryerrorcircles=1">
-	
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
