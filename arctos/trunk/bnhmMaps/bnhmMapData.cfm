@@ -223,18 +223,18 @@
 	<cfloop query="getMapData">
 		<cfscript>
 			a='<a href="#Application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=' & 
-				getMapData.collection_object_id & '"' &
+				collection_object_id & '"' &
 				'target="_blank">' & 
-				getMapData.collection & '&nbsp;' & cat_num & '</a>' & 
-				chr(9) & getMapData.scientific_name &
-				chr(9) & getMapData.verbatim_date & 
-				chr(9) & getMapData.spec_locality & 
-				chr(9) & getMapData.dec_lat & 
-				chr(9) & getMapData.dec_long &
-				chr(9) & getMapData.COORDINATEUNCERTAINTYINMETERS &
-				chr(9) & getMapData.datum & 
-				chr(9) & getMapData.collection &
-				chr(9) & getMapData.collection & ' ' & getMapData.cat_num;
+				collection & '&nbsp;' & cat_num & '</a>' & 
+				chr(9) & scientific_name &
+				chr(9) & verbatim_date & 
+				chr(9) & spec_locality & 
+				chr(9) & dec_lat & 
+				chr(9) & dec_long &
+				chr(9) & COORDINATEUNCERTAINTYINMETERS &
+				chr(9) & datum & 
+				chr(9) & collection &
+				chr(9) & collection & ' ' & cat_num;
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 	</cfloop>
