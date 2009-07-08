@@ -359,6 +359,7 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 			 (#ListQualify(valuelist(species.scientific_name), "'")#)
 		</cfquery>
 		<cfdump var=#getClass#>
+		<cfabort>
 		<cfset g="<gisdata>">
 		<cfset i=1>
 		<cfloop query="getClass">
