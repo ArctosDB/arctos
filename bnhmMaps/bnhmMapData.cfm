@@ -188,7 +188,6 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 		<cfset colors=colors & chr(10) & chr(9)>
 		<cfset colors=colors & '<color key="#collection#" red="#randRange(0,255)#" green="#randRange(0,255)#" blue="#randRange(0,255)#" symbol="1" label="#collection#"/>'>	
 	</cfloop>
-	<cfset colors = colors & chr(10) & '</colors>'>
 <!----
 <!-------------------------- MVZ ------------------------------>	
 	<cfif listcontains(theseColls,"MVZ Mamm",",")>
@@ -325,12 +324,13 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 
 	'>
 	---->
-	<cffile action="append" file="#thisFile#" addnewline="yes" output="#colors#">
+
 
 	<cfset colors=colors & chr(10) & chr(9) & '<color key="default" red="255" green="0" blue="0" symbol="2" label="Unspecified Collection"/>'>
 	<cfset colors=colors & chr(10) & chr(9) & '<dominantcolor webcolor="9999cc"/>'>
 	<cfset colors=colors & chr(10) & chr(9) & '<subdominantcolor webcolor="9999cc"/>'>
 	<cfset colors=colors & chr(10) & '</colors>'>
+	<cffile action="append" file="#thisFile#" addnewline="yes" output="#colors#">
 	<cfset settings = '<settings>'>
 	<cfset settings=settings & chr(10) & chr(9) &  '<setting name="landsat" show="0"></setting>'>
 	<cfset settings=settings & chr(10) & chr(9) &  '<setting name="maxerrorinmeters" show="1"></setting>'>
