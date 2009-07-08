@@ -5,7 +5,6 @@
 <cfset btime=now()>
 <cfhtmlhead text="<title>Specimen Results</title>">
 <script type='text/javascript' src='/includes/_myArctos.js'></script>
-<script type='text/javascript' src='/includes/_specimenResults.js'></script>
 <script type='text/javascript' src='/includes/ajax.js'></script>
 <cfoutput>
 <script type="text/javascript" language="javascript">

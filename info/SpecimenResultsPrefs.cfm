@@ -172,7 +172,7 @@ update cf_spec_res_cols set category='locality' where column_name ='verbatimlati
 
 
 
-<script type='text/javascript' src='/includes/_specimenResults.js'></script>
+<script type='text/javascript' src='/includes/ajax.js'></script>
 <table width="100%" cellpadding="0" cellspacing="0">
 	<tr>
 		<td rowspan="2" valign="top"><span style="font-size:.85em;font-style:italic;">Check fields to show them in your results and downloads. Uncheck to remove. Adding too much here will adversely affect performance.</span></td>
