@@ -74,6 +74,12 @@ jQuery( function($) {
 		bgDiv.className = 'bgDiv';
 		bgDiv.setAttribute('onclick','closeCustomNoRefresh()');
 		document.body.appendChild(bgDiv);
+		
+		var theDiv = document.createElement('div');
+		theDiv.id = 'customDiv';
+		theDiv.className = 'customBox';		
+		document.body.appendChild(theDiv);
+		
 		var guts = "/SpecimenSearch.cfm";
 		$('##customDiv').load(guts,{},function(){
 			viewport.init("##customDiv");
