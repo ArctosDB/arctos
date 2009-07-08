@@ -1,3 +1,4 @@
+jQuery(document).ready(function() {
 var viewport = {
   	o: function() {
       	if (self.innerHeight) {
@@ -1826,3 +1827,4 @@ function success_changeexclusive_collection_id (result) {
 		alert('An error occured: ' + result);
 	}
 }
+});
