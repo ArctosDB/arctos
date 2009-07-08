@@ -113,6 +113,7 @@
 	</cfif>	
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.XMLFile, variables.encoding, 32768);
+		/*
 		a='<bnhmmaps>' & chr(10) & 
 			chr(9) & '<metadata>' & chr(10) & 
 			chr(9) & chr(9) & '<name>BerkeleyMapper Configuration File</name>' & chr(10) & 
@@ -124,6 +125,7 @@
 			chr(9) & chr(9) & '<footer location="#Application.mapFooterUrl#"/>' & chr(10) & 
 			chr(9) &'</metadata>';
 		variables.joFileWriter.writeLine(a);
+		*/
 	</cfscript>
 	<cfquery name="whatColls" dbtype="query">
 		select Collection from getMapData group by Collection
