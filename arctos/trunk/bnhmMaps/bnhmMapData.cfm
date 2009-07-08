@@ -226,6 +226,7 @@
 		select collection from getMapData group by collection
 		order by collection
 	</cfquery>
+	<cfset colList=''>
 	<cfloop query="distColl">
 		<cfif len(collList) is 0>
 			<cfset collList="#collection#">
