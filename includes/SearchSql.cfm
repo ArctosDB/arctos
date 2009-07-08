@@ -202,7 +202,7 @@
 		" >
 	<cfset mapurl = "#mapurl#&barcode=#barcode#">
 </cfif>	
-<cfif isdefined("session.ShowObservations") AND (session.ShowObservations is "true" or session.ShowObservations is "1")>
+<cfif isdefined("session.ShowObservations") AND session.ShowObservations is true>
 	<cfset mapurl = "#mapurl#&ShowObservations=#session.ShowObservations#">
 <cfelse>
 	<cfset mapurl = "#mapurl#&ShowObservations=false">
@@ -514,7 +514,7 @@
 		<b><font color="#FF0000" size="+1">Year must be entered as a 4-digit integer.</font></b>			  
 		<cfabort>
 	</cfif>
-	<cfif #inclDateSearch# is "yes">
+	<cfif #inclDateSearch# is true>
 		<cfset mapurl = "#mapurl#&begYear=#begYear#">
 		<cfset mapurl = "#mapurl#&endYear=#endYear#">
 		<cfset basQual = " #basQual#
@@ -861,7 +861,7 @@
 	<cfset oidList = "#oidList# )">
 	<cfset basQual = " #basQual# #oidList#">
 </cfif>
-<cfif isdefined("continent_ocean") AND #continent_ocean# IS NOT "">
+<cfif isdefined("continent_ocean") AND len(continent_ocean) gt 0>
 	<cfif #compare(continent_ocean,"NULL")# is 0>
 		<cfset basQual = " #basQual# AND continent_ocean is null">
 	<cfelse>
@@ -1119,7 +1119,7 @@
 <cfif isdefined("part_name") AND len(#part_name#) gt 0>
 	<cfset mapurl = "#mapurl#&part_name=#part_name#">
 	<cfif 
-		(isdefined("is_tissue") AND #is_tissue# is 1) OR
+		(isdefined("is_tissue") AND is_tissue is true) OR
 		(isdefined("preserv_method") AND len(#preserv_method#) gt 0) OR
 		(isdefined("part_modifier") AND len(#part_modifier#) gt 0)>
 		<cfif #basJoin# does not contain " specimen_part ">
@@ -1465,7 +1465,7 @@
 		<cfset basJoin = " #basJoin# INNER JOIN permit ON 
 		(permit_trans.permit_id = permit.permit_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND permit_type='#replace(permit_type,"'","''","all")#'">
+	<cfset basQual = " #basQual# AND permit_type='#escapeQuotes(permit_type)#'">
 </cfif>
 
 <cfif isdefined("permit_num") AND len(#permit_num#) gt 0>
@@ -1498,6 +1498,15 @@
 		(cataloged_item.collection_object_id = attributes.collection_object_id)">
 	</cfif>
 	<cfset basQual = " #basQual# AND attributes.determined_by_agent_id = #attributed_determiner_agent_id#">
+</cfif>
+<cfif isdefined("attribute_type") AND len(attribute_type) gt 0>
+	<cfset attribute_type_1=attribute_type>
+</cfif>
+<cfif isdefined("attribute_operator") AND len(attribute_operator) gt 0>
+	<cfset attOper_1=attribute_operator>
+</cfif>
+<cfif isdefined("attribute_value") AND len(attribute_value) gt 0>
+	<cfset attribute_value_1=attribute_value>
 </cfif>
 
 <cfif isdefined("attribute_type_1") AND len(#attribute_type_1#) gt 0>

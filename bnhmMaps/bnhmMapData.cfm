@@ -185,7 +185,16 @@
 		<cfquery name="getClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select phylclass,genus || ' ' || species scientific_name from taxonomy where scientific_name in
 			 (#ListQualify(valuelist(species.scientific_name), "'")#)
+			 group by 
+			 phylclass,genus || ' ' || species
 		</cfquery>
+		<cfif getClass.recordcount is not 1 or getClass.phylclass not in ('Amphibia','Mammalia','Aves')>
+			<div class="error">
+				Rangemaps are only available for queries which return one species in Classes
+				Amphibia, Aves or Mammalia.
+				<br>Subspecies are ignored for rangemapping.
+			</div>
+		</cfif>
 		<cfscript>
 			a=chr(9) & '<gisdata>';
 			variables.joFileWriter.writeLine(a);
