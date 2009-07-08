@@ -1470,7 +1470,6 @@ function success_catNumSeq (result) {
 	catnum.value=result;
 }
 function getAttributeStuff (attribute,element) {
-	//alert(attribute + '-' + element);	
 	var isSomething = attribute.length;
 	if (isSomething > 0) {
 		var optn = document.getElementById(element);
