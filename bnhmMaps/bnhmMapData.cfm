@@ -205,13 +205,14 @@
 	<cfscript>
 		a='</bnhmmaps>';
 		variables.joFileWriter.writeLine(a);
-		variables.joFileWriter.close();
-		/*
+		variables.joFileWriter.close();	
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localTabFile, variables.encoding, 32768);
 		a='';
-		for (i=1;intRow LTE getMapData.RecordCount;i=(i+1)){
+	</cfscript>
+	<cfloop query="getMapData">
+		<cfscript>
 			a=a&'<a href="#Application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=' & 
-				getMapData.collection_object_id[i] & '"' &
+				getMapData.collection_object_id & '"' &
 				'target="_blank">#getMapData.collection#&nbsp;#getMapData.cat_num#</a>' & 
 				chr(9) & getMapData.scientific_name &
 				chr(9) & getMapData.verbatim_date & 
@@ -222,11 +223,14 @@
 				chr(9) & getMapData.datum & 
 				chr(9) & getMapData.collection &
 				chr(9) & getMapData.collection & ' ' & getMapData.cat_num;
-		}
+			
+		</cfscript>
+	</cfloop>
+	<cfscript>
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
-		*/
 	</cfscript>
+	
 	<cfquery name="distColl" dbtype="query">
 		select collection from getMapData group by collection
 		order by collection
