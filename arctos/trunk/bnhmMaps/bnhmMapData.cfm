@@ -241,7 +241,10 @@
 	<cfset CollList=reverse(listColl)>
 	<cfset CollList="#CollList# data.">
 	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/run.php?ViewResults=tab&tabfile=#Application.serverRootUrl#/bnhmMaps/tabfiles/#dlFile#&configfile=#XMLFile#&sourcename=#collList#&queryerrorcircles=1">
+	#bnhmUrl#
+	<!----
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
+	---->
 </cfoutput>
