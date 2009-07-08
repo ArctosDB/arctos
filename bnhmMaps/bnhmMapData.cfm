@@ -113,7 +113,6 @@
 	</cfif>	
 	<cfscript>
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.thisFile, variables.encoding, 32768);
-		/*
 		a='<bnhmmaps>' & chr(10) & 
 			chr(9) & '<metadata>' & chr(10) & 
 			chr(9) & chr(9) & '<name>BerkeleyMapper Configuration File</name>' & chr(10) & 
@@ -125,7 +124,6 @@
 			chr(9) & chr(9) & '<footer location="#Application.mapFooterUrl#"/>' & chr(10) & 
 			chr(9) &'</metadata>';
 		variables.joFileWriter.writeLine(a);
-		*/
 	</cfscript>
 	<cfquery name="whatColls" dbtype="query">
 		select Collection from getMapData group by Collection
@@ -138,7 +136,7 @@
 		variables.joFileWriter.writeLine(a);
 		for (intRow=1;intRow LTE whatColls.RecordCount;intRow=(intRow+1)){
 			a=chr(9) & chr(9) & 
-				'<color key="#collection#" red="#randRange(0,255)#" green="#randRange(0,255)#" blue="#randRange(0,255)#" symbol="1" label="#collection#"/>';
+				'<color key="#collection#" red="#randRange(0,255)#" green="#randRange(0,255)#" blue="#randRange(0,255)#" symbol="1" label="#whatColls.collection#"/>';
 			variables.joFileWriter.writeLine(a);	
 		}
 		a=chr(9) & chr(9) &
