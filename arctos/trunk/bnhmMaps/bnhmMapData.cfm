@@ -207,8 +207,9 @@
 		variables.thisFile = "#Application.webDirectory#/bnhmMaps/tabfiles/#dlFile#";
 		variables.encoding="UTF-8";
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.thisFile, variables.encoding, 32768);
+		a='';
 		for (i=1;intRow LTE getMapData.RecordCount;i=(i+1)){
-			a='<a href="#Application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=' & 
+			a=a&'<a href="#Application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=' & 
 				getMapData.collection_object_id[i] & '"' &
 				'target="_blank">#getMapData.collection#&nbsp;#getMapData.cat_num#</a>' & 
 				chr(9) & getMapData.scientific_name &
@@ -220,8 +221,8 @@
 				chr(9) & getMapData.datum & 
 				chr(9) & getMapData.collection &
 				chr(9) & getMapData.collection & ' ' & getMapData.cat_num;
-			variables.joFileWriter.writeLine(a);		
 		}
+		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();		
 	</cfscript>
 	<cfquery name="distColl" dbtype="query">
