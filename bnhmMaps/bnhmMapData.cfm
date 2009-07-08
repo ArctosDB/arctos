@@ -183,25 +183,30 @@
 		<cfscript>
 			a=chr(9) & '<gisdata>';
 			variables.joFileWriter.writeLine(a);
-			for (intRow=1;intRow LTE getClass.RecordCount;intRow=(intRow+1)){
-				name='';
-				if (getClass.phylclass=='Amphibia') {
-					name='gaa';
-				} else if (getClass.phylclass=='Mammalia') {
-					name='mamm';
-				} else if (getClass.phylclass=='Aves') {
-					name='birds';
-				}
-				if (len(name) gt 0) {
-					a=chr(9) & chr(9) &	'<layer title="#getClass.scientific_name#" name="#name#" location="#getClass.scientific_name#" legend="#intRow#" active="1" url=""/>';
+		</cfscript>
+		<cfloop query="getClass">
+			
+			<cfif phylclass is 'Amphibia'>
+				<cfset name='gaa'>
+			<cfelseif phylclass is 'Mammalia'>
+				<cfset name='mamm'>
+			<cfelseif phylclass is 'Aves'>
+				<cfset name='birds'>
+			<cfelse>
+				<cfset name="">
+			</cfif>
+			<cfif len(name) gt 0>
+				<cfscript>
+					a = chr(9) & chr(9) &	'<layer title="#getClass.scientific_name#" name="#name#" location="#getClass.scientific_name#" legend="#intRow#" active="1" url=""/>';
 					variables.joFileWriter.writeLine(a);
-				}
-			}
-			a=chr(9) & '</gisdata>';
+				</cfscript>
+			</cfif>			
+		</cfloop>
+		<cfscript>
+			a = chr(9) & '</gisdata>';
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 	</cfif>
-	<cfset dlFile="tabfile#cfid##cftoken#.txt">
 	<cfscript>
 		a='</bnhmmaps>';
 		variables.joFileWriter.writeLine(a);
@@ -224,7 +229,6 @@
 				chr(9) & getMapData.collection &
 				chr(9) & getMapData.collection & ' ' & getMapData.cat_num & 
 				chr(10);
-			
 		</cfscript>
 	</cfloop>
 	<cfscript>
