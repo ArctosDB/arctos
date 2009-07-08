@@ -121,6 +121,7 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 <cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preserveSingleQuotes(SqlString)#
 </cfquery>
+getMapData.recordcount: #getMapData.recordcount#
 <cfif getMapData.recordcount is 0>
 	<div class="error">
 		Oops! We didn't find anything mappable. Only wild caught specimens with coordintes will map.
