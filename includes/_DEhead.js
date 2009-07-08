@@ -902,17 +902,21 @@ function showNext(idName) {
 setInterval ( "checkPicked()", 5000 );
 setInterval ( "checkPickedEvnt()", 5000 );
 function checkPicked(){
-	var locality_id=document.getElementById('locality_id');
-	if (locality_id.value.length>0){
-		pickedLocality();
-	}	
+	if(document.getElementById('locality_id')){
+		var locality_id=document.getElementById('locality_id');
+		if (locality_id.value.length>0){
+			pickedLocality();
+		}
+	}
 }
 function checkPickedEvnt(){
-	var collecting_event_id=document.getElementById('collecting_event_id');
-	if (collecting_event_id.value.length>0){
-		document.getElementById('locality_id').value='';
-		pickedEvent();
-	}	
+	if(document.getElementById('collecting_event_id')){
+		var collecting_event_id=document.getElementById('collecting_event_id');
+		if (collecting_event_id.value.length>0){
+			document.getElementById('locality_id').value='';
+			pickedEvent();
+		}
+	}
 }			
 function rememberLastOtherId (yesno) {
 	jQuery.getJSON("/component/DataEntry.cfc",
