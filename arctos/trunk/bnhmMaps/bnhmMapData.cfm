@@ -183,15 +183,15 @@
 			variables.joFileWriter.writeLine(a);
 			for (intRow=1;intRow LTE getClass.RecordCount;intRow=(intRow+1)){
 				name='';
-				if (phylclass=='Amphibia') {
+				if (getClass.phylclass=='Amphibia') {
 					name='gaa';
-				} else if ( phylclass=='Mammalia' ) {
+				} else if (getClass.phylclass=='Mammalia') {
 					name='mamm';
-				} else if (phylclass=='Aves') {
+				} else if (getClass.phylclass=='Aves') {
 					name='birds';
 				}
 				if (len(name) gt 0) {
-					a=chr(9) & chr(9) &	'<layer title="#scientific_name#" name="#name#" location="#scientific_name#" legend="#i#" active="1" url=""/>';
+					a=chr(9) & chr(9) &	'<layer title="#getClass.scientific_name#" name="#name#" location="#getClass.scientific_name#" legend="#intRow#" active="1" url=""/>';
 					variables.joFileWriter.writeLine(a);
 				}
 			}
