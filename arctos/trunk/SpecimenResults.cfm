@@ -239,7 +239,12 @@ function removeHelpDiv() {
 	<br>Runtime: #tt#
 </cfif>
 <!---------------------------------------- /debug widget --------------------------------------------------->
-	
+<div id="refine">
+mapurl: #mapURL#
+<cfloop list="#mapurl#" delimiters="&" index="i">
+	<br>#i#
+</cfloop>
+</div>
 <form name="defaults">
 	<input type="hidden" name="killrow" id="killrow" value="#session.killrow#">
 	<input type="hidden" name="displayrows" id="displayrows" value="#session.displayrows#">
