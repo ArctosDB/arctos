@@ -240,7 +240,8 @@ function removeHelpDiv() {
 </cfif>
 <!---------------------------------------- /debug widget --------------------------------------------------->
 <div id="refine">
-mapurl: #mapURL#
+mapurl: #mapURL#="S
+<form name="f_refine" method="get" action="/SpecimenResults.cfm">
 <table border>
 <cfloop list="#mapurl#" delimiters="&" index="i">
 	<cfset q=left(i,find("=",i)-1)>
@@ -251,7 +252,9 @@ mapurl: #mapURL#
 	</tr>
 	<br>#i#
 </cfloop>
+<input type="submit">
 </table>
+</form>
 </div>
 <form name="defaults">
 	<input type="hidden" name="killrow" id="killrow" value="#session.killrow#">
