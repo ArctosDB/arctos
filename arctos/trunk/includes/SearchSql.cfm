@@ -41,7 +41,7 @@
 			collection_object_id from attributes where attribute_type='image confirmed' and
 				attribute_value='yes')" >
 </cfif>
-<cfif isdefined("catnum") and len(#catnum#) gt 0>
+<cfif isdefined("catnum") and len(catnum) gt 0>
 	<cfset catnum=replace(catnum," ","","all")>
 	<cfset mapurl = "#mapurl#&catnum=#catnum#">
 	<!--- handle 'from-to' queries --->
@@ -86,7 +86,7 @@
 		<cfset basJoin = " #basJoin# INNER JOIN geology_attributes ON 
 			(#flatTableName#.locality_id = geology_attributes.locality_id)">
 	</cfif>	
-	<cfif isdefined("geology_hierarchies") and #geology_hierarchies# is 1>
+	<cfif isdefined("geology_hierarchies") and geology_hierarchies is true>
 		<cfset basQual = "#basQual# AND geology_attributes.geology_attribute IN (
 				SELECT  
 	 				attribute	
