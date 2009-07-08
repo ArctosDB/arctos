@@ -128,10 +128,6 @@ INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_i
 	<cfinclude template="/includes/activityLog.cfm">
 </cfoutput>
 </cfif><!--- end point map option --->
-
------------------------------------------------------
-getMapData.recordcount: #getMapData.recordcount#
-=========================================
 <cfif getMapData.recordcount is 0>
 	<div class="error">
 		Oops! We didn't find anything mappable. Only wild caught specimens with coordintes will map.
@@ -169,7 +165,7 @@ getMapData.recordcount: #getMapData.recordcount#
 	<cfset meta='<metadata>'>
 	<cfset meta=meta & chr(10) & chr(9) & '<name>BerkeleyMapper Configuration File</name>'>
 	<cfset meta=meta & chr(10) & chr(9) & '<relatedinformation>#Application.serverRootUrl#</relatedinformation>'>
-	<cfset meta=meta & chr(10) & chr(9) & '<abstract> GIS configuration file for specimen query interface</abstract>'>
+	<cfset meta=meta & chr(10) & chr(9) & '<abstract>GIS configuration file for specimen query interface</abstract>'>
 	<cfset meta=meta & chr(10) & chr(9) & '<mapkeyword keyword="specimens"/>'>
 	<cfset meta=meta & chr(10) & chr(9) & '<header location="#Application.mapHeaderUrl#"/>'>
 	<cfset meta=meta & chr(10) & chr(9) & '<linkbackheader location="#Application.serverRootUrl#"/>'>
@@ -327,8 +323,9 @@ getMapData.recordcount: #getMapData.recordcount#
 		
 
 	'>
-	<cffile action="append" file="#thisFile#" addnewline="yes" output="#colors#">
 	---->
+	<cffile action="append" file="#thisFile#" addnewline="yes" output="#colors#">
+
 	<cfset colors=colors & chr(10) & chr(9) & '<color key="default" red="255" green="0" blue="0" symbol="2" label="Unspecified Collection"/>'>
 	<cfset colors=colors & chr(10) & chr(9) & '<dominantcolor webcolor="9999cc"/>'>
 	<cfset colors=colors & chr(10) & chr(9) & '<subdominantcolor webcolor="9999cc"/>'>
@@ -366,7 +363,7 @@ getMapData.recordcount: #getMapData.recordcount#
 		</cfquery>
 		<cfdump var=#species#>
 		<cfquery name="getClass" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select phylclass,scientific_name from taxonomy where scientific_name in
+			select phylclass,genus || ' ' species scientific_name from taxonomy where scientific_name in
 			 (#ListQualify(valuelist(species.scientific_name), "'")#)
 		</cfquery>
 		<cfdump var=#getClass#>
