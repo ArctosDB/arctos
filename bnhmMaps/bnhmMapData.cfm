@@ -190,6 +190,7 @@
 			a=chr(9) & '<gisdata>';
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
+		<cfset i=1>
 		<cfloop query="getClass">
 			
 			<cfif phylclass is 'Amphibia'>
@@ -203,10 +204,11 @@
 			</cfif>
 			<cfif len(name) gt 0>
 				<cfscript>
-					a = chr(9) & chr(9) &	'<layer title="#getClass.scientific_name#" name="#name#" location="#getClass.scientific_name#" legend="#intRow#" active="1" url=""/>';
+					a = chr(9) & chr(9) &	'<layer title="#getClass.scientific_name#" name="#name#" location="#getClass.scientific_name#" legend="#i#" active="1" url=""/>';
 					variables.joFileWriter.writeLine(a);
 				</cfscript>
-			</cfif>			
+			</cfif>
+			<cfset i=i+1>	
 		</cfloop>
 		<cfscript>
 			a = chr(9) & '</gisdata>';
