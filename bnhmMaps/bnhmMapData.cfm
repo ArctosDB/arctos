@@ -190,7 +190,7 @@
 				} else if (phylclass=='Aves') {
 					name='birds';
 				}
-				if (len(name)) gt 0) {
+				if (len(name)) > 0) {
 					a=chr(9) & chr(9) &	'<layer title="#scientific_name#" name="#name#" location="#scientific_name#" legend="#i#" active="1" url=""/>';
 					variables.joFileWriter.writeLine(a);
 				}
