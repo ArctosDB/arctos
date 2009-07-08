@@ -14,11 +14,11 @@
 	<cfset mapurl="">
 </cfif>
 <!---- handle old stuff by aliasing it to new ---->
-<cfif isdefined("catnum") AND isnumeric(#catnum#)><!--- will also fire if null ---->
-	<cfset listcatnum = "#catnum#">
+<cfif isdefined("listcatnum")>
+	<cfset catnum = listcatnum>
 </cfif>
-<cfif isdefined("cat_num") and len(#cat_num#) gt 0>
-	<cfset listcatnum = #cat_num#>
+<cfif isdefined("cat_num")>
+	<cfset catnum = cat_num>
 </cfif>
 	
 <cfif isdefined("mime_type") AND len(mime_type) gt 0>
@@ -41,43 +41,43 @@
 			collection_object_id from attributes where attribute_type='image confirmed' and
 				attribute_value='yes')" >
 </cfif>
-<cfif isdefined("listcatnum") and len(#listcatnum#) gt 0>
-	<cfset listcatnum=replace(listcatnum," ","","all")>
-	<cfset mapurl = "#mapurl#&listcatnum=#listcatnum#">
+<cfif isdefined("catnum") and len(#catnum#) gt 0>
+	<cfset catnum=replace(catnum," ","","all")>
+	<cfset mapurl = "#mapurl#&catnum=#catnum#">
 	<!--- handle 'from-to' queries --->
-	<cfif #listcatnum# contains "-">
-		<cfset hyphenPosition=find("-",listcatnum)>
+	<cfif catnum contains "-">
+		<cfset hyphenPosition=find("-",catnum)>
 		<cfif #hyphenPosition# lt 2>
-		<font color="#FF0000" size="+1">You've entered an invalid catalog number. Acceptable entries are:
+		<div class="error">You've entered an invalid catalog number. Acceptable entries are:
 			<ul>
 				<li>An integer (9234)</li>
 				<li>A comma-delimited list of integers (1,456,7689)</li>
 				<li>A hyphen-separated range of integers (1-6)</li>
 			</ul>
-		</font>		
+		</div>
 		<cfabort>
 		</cfif>
-		<cfset minCatNum=left(listcatnum,#hyphenPosition#-1)>
-		<cfset maxCatNum=right(listcatnum,len(listcatnum)-#hyphenPosition#)>
+		<cfset minCatNum=left(catnum,#hyphenPosition#-1)>
+		<cfset maxCatNum=right(catnum,len(catnum)-#hyphenPosition#)>
 		<cfif not isnumeric(#minCatNum#) OR not isnumeric(#maxCatNum#)>
-			<font color="#FF0000" size="+1">You've entered an invalid catalog number. Acceptable entries are:
+			<div class="error">You've entered an invalid catalog number. Acceptable entries are:
 				<ul>
 					<li>An integer (9234)</li>
 					<li>A comma-delimited list of integers (1,456,7689)</li>
 					<li>A hyphen-separated range of integers (1-6)</li>
 				</ul>
-			</font>		
+			</div>		
 			<cfabort>
 		</cfif>
 		<cfset basQual = " #basQual# AND #flatTableName#.cat_num >= #minCatNum# AND #flatTableName#.cat_num <= #maxCatNum#  " >
 	<cfelse>
-		<cfloop list="#listcatnum#" index="i">
+		<cfloop list="#catnum#" index="i">
 			<cfif not isnumeric(#i#)>
 				<font color="#FF0000" size="+1">Catalog Numbers must be numeric!</font>				  
 				<cfabort>
 			</cfif>
 		</cfloop>
-		<cfset basQual = " #basQual# AND #flatTableName#.cat_num IN ( #listcatnum# ) " >
+		<cfset basQual = " #basQual# AND #flatTableName#.cat_num IN ( #catnum# ) " >
 	</cfif>
 </cfif>	
 <cfif isdefined("geology_attribute") AND len(#geology_attribute#) gt 0>
@@ -122,26 +122,15 @@
 		<cfset basQual = "#basQual# AND upper(geology_attributes.geo_att_value) like '%#ucase(geology_attribute_value)#%'">
 	</cfif>				
 </cfif>		
-<cfif isdefined("entered_by") AND len(#entered_by#) gt 0>
-		<cfquery name="enteredPersonID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			SELECT agent_id FROM agent_name WHERE upper(agent_name) LIKE '%#ucase(entered_by)#%'
-		</cfquery>
-		<cfif #enteredPersonID.recordcount# neq 1>
-			<cfoutput>
-				#enteredPersonID.recordcount# agents matched entered_by. Try narrowing or expanding to get one.
-			</cfoutput>
-			<cfabort>
-		</cfif>
-	<cfset entered_by_id = #enteredPersonID.agent_id# >
-</cfif>
-<cfif isdefined("entered_by_id") AND len(#entered_by_id#) gt 0><!--- will also fire if null ---->
+<cfif isdefined("entered_by") AND len(entered_by) gt 0>
+	<cfset mapurl = "#mapurl#&entered_by=#entered_by#">
 	<cfif #basJoin# does not contain "CatItemCollObject">
-		<cfset basJoin = " #basJoin# INNER JOIN coll_object CatItemCollObject ON 
-			(cataloged_item.collection_object_id = CatItemCollObject.collection_object_id)">
+		<cfset basJoin = " #basJoin# INNER JOIN coll_object CatItemCollObject ON (cataloged_item.collection_object_id = CatItemCollObject.collection_object_id)">
 	</cfif>
-	<cfset basQual = "#basQual#  AND CatItemCollObject.entered_person_id = #entered_by_id#" >
-	<cfset mapurl = "#mapurl#&entered_by_id=#entered_by_id#">
+	<cfset basJoin = " #basJoin# INNER JOIN agent_name entered_agent coll_object ON	(CatItemCollObject.entered_person_id = entered_agent.agent_id)">
+	<cfset basQual = "#basQual#  AND upper(entered_agent.agent_name) like  = '%#ucase(entered_by)#%'" >
 </cfif>
+
 <cfif isdefined("media_type") AND len(#media_type#) gt 0>
 	<cfif #basJoin# does not contain "media_relations">
 		<cfset basJoin = " #basJoin# INNER JOIN media_relations ON 
