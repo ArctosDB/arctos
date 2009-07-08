@@ -196,6 +196,7 @@
 				Amphibia, Aves or Mammalia.
 				<br>Subspecies are ignored for rangemapping.
 			</div>
+			<cfabort>
 		</cfif>
 		<cfscript>
 			a=chr(9) & '<gisdata>';
