@@ -67,7 +67,9 @@ jQuery( function($) {
 		$("##helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 	});
 	
-	
+	jQuery("##refineSearch").live('click', function(e){
+		console.log('clickity');
+	});
 	
 	$("##customizeButton").live('click', function(e){
 		var bgDiv = document.createElement('div');
@@ -239,23 +241,9 @@ function removeHelpDiv() {
 	<br>Runtime: #tt#
 </cfif>
 <!---------------------------------------- /debug widget --------------------------------------------------->
-<div id="refine">
-mapurl: #mapURL#="S
-<form name="f_refine" method="get" action="/SpecimenResults.cfm">
-<table border>
-<cfloop list="#mapurl#" delimiters="&" index="i">
-	<cfset q=left(i,find("=",i)-1)>
-	<cfset v=right(i,len(i)-find("=",i))>
-	<tr>
-		<td>#q#</td>
-		<td><input type="text" name="#q#" value="#v#"></td>
-	</tr>
-	<br>#i#
-</cfloop>
-<input type="submit">
-</table>
-</form>
-</div>
+<span class="likeLink" id="refineSearch">Refine Search</span>
+
+
 <form name="defaults">
 	<input type="hidden" name="killrow" id="killrow" value="#session.killrow#">
 	<input type="hidden" name="displayrows" id="displayrows" value="#session.displayrows#">
