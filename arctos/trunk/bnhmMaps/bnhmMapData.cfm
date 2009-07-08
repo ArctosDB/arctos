@@ -212,11 +212,10 @@
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();	
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localTabFile, variables.encoding, 32768);
-		a='';
 	</cfscript>
 	<cfloop query="getMapData">
 		<cfscript>
-			a=a&'<a href="#Application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=' & 
+			a='<a href="#Application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=' & 
 				getMapData.collection_object_id & '"' &
 				'target="_blank">#getMapData.collection#&nbsp;#getMapData.cat_num#</a>' & 
 				chr(9) & getMapData.scientific_name &
@@ -227,12 +226,11 @@
 				chr(9) & getMapData.COORDINATEUNCERTAINTYINMETERS &
 				chr(9) & getMapData.datum & 
 				chr(9) & getMapData.collection &
-				chr(9) & getMapData.collection & ' ' & getMapData.cat_num & 
-				chr(10);
+				chr(9) & getMapData.collection & ' ' & getMapData.cat_num;
+			variables.joFileWriter.writeLine(a);
 		</cfscript>
 	</cfloop>
-	<cfscript>
-		variables.joFileWriter.writeLine(a);
+	<cfscript>		
 		variables.joFileWriter.close();
 	</cfscript>
 	
