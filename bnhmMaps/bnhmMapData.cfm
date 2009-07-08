@@ -207,7 +207,7 @@
 		variables.thisFile = "#Application.webDirectory#/bnhmMaps/tabfiles/#dlFile#";
 		variables.encoding="UTF-8";
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.thisFile, variables.encoding, 32768);
-		for (intRow=1;intRow LTE getMapData.RecordCount;intRow=(intRow+1)){
+		for (i=1;intRow LTE getMapData.RecordCount;i=(i+1)){
 			a='<a href="#Application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=' & 
 				getMapData.collection_object_id[i] & '"' &
 				'target="_blank">#getMapData.collection#&nbsp;#getMapData.cat_num#</a>' & 
