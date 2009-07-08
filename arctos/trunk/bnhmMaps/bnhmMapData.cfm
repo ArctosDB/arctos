@@ -239,8 +239,7 @@
 	</cfloop>
 	<cfscript>		
 		variables.joFileWriter.close();
-	</cfscript>
-	
+	</cfscript>	
 	<cfquery name="distColl" dbtype="query">
 		select collection from getMapData group by collection
 		order by collection
