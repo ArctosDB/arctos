@@ -247,7 +247,7 @@ mapurl: #mapURL#
 	<cfset v=right(i,len(i)-find("=",i))>
 	<tr>
 		<td>#q#</td>
-		<td>#v#</td>
+		<td><input type="text" name="#q#" value="#v#"></td>
 	</tr>
 	<br>#i#
 </cfloop>
