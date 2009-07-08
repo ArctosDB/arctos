@@ -124,6 +124,7 @@
 			chr(9) & chr(9) & '<header location="#Application.mapHeaderUrl#"/>' & chr(10) & 
 			chr(9) & chr(9) & '<linkbackheader location="#Application.serverRootUrl#"/>' & chr(10) & 
 			chr(9) & chr(9) & '<footer location="#Application.mapFooterUrl#"/>' & chr(10) & 
+			chr(9) & chr(9) & '<charset name="UTF-8"></charset>' & chr(10) & 
 			chr(9) &'</metadata>';
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
@@ -141,7 +142,7 @@
 	<cfloop query="whatColls">
 		<cfscript>
 			a=chr(9) & chr(9) & 
-				'<color key="#whatColls.collection#" red="#randRange(0,255)#" green="#randRange(0,255)#" blue="#randRange(0,255)#" symbol="1" label="#whatColls.collection#"/>';
+				'<color key="#whatColls.collection#" red="#randRange(0,255)#" green="#randRange(0,255)#" blue="#randRange(0,255)#" symbol="7" label="#whatColls.collection#"/>';
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 	</cfloop>
