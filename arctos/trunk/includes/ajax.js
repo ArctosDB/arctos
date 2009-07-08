@@ -1656,6 +1656,7 @@ function setPrevSearch_result(schParam){
 	 	}
  } 
  function setPrevSearch(){
+	console.log('i am setPrevSearch');
 	var schParam=get_cookie ('schParams');
 	var pAry=schParam.split("|");
  	for (var i=0; i<pAry.length; i++) {
