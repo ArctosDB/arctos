@@ -5,10 +5,6 @@
 <cfset variables.remoteXmlFile="#Application.serverRootUrl#/bnhmMaps/tabfiles/#fn#.xml">
 <cfset variables.remoteTabFile="#Application.serverRootUrl#/bnhmMaps/tabfiles/#fn#.txt">
 <cfset variables.encoding="UTF-8">
-
-cfset thisFileName = "BNHM#cftoken#.xml">
-	<cfset variables.thisFile = "#thisFileName#">
-	<cfset variables.XMLFile = "#thisFileName#">
 <div align="center">
 	<span style="background-color:green;color:white; font-size:36px; font-weight:bold;">
 		Fetching map data...
