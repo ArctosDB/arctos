@@ -243,7 +243,7 @@ function removeHelpDiv() {
 mapurl: #mapURL#
 <table border>
 <cfloop list="#mapurl#" delimiters="&" index="i">
-	<cfset q=left(i,find("=",1))>
+	<cfset q=left(i,find("=",i))>
 	<cfset v=right(i,len(i)-find("=",i))>
 	<tr>
 		<td>#q#</td>
