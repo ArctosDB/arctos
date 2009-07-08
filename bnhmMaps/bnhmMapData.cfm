@@ -199,11 +199,12 @@
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 	</cfif>
+	<cfset dlFile="tabfile#cfid##cftoken#.txt">
 	<cfscript>
 		a='</bnhmmaps>';
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
-		variables.thisFile = "#Application.webDirectory#/bnhmMaps/tabfiles/tabfile#cfid##cftoken#.txt";
+		variables.thisFile = "#Application.webDirectory#/bnhmMaps/tabfiles/#dlFile#";
 		variables.encoding="UTF-8";
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.thisFile, variables.encoding, 32768);
 		for (intRow=1;intRow LTE getMapData.RecordCount;intRow=(intRow+1)){
