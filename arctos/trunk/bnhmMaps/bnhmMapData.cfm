@@ -136,11 +136,16 @@
 			chr(9) & chr(9) & '<dominantcolor webcolor="9999cc"/>' & chr(10) & 
 			chr(9) & chr(9) & '<subdominantcolor webcolor="9999cc"/>';
 		variables.joFileWriter.writeLine(a);
-		for (intRow=1;intRow LTE whatColls.RecordCount;intRow=(intRow+1)){
+	</cfscript>
+	<cfset i=1>
+	<cfloop query="whatColls">
+		<cfscript>
 			a=chr(9) & chr(9) & 
 				'<color key="#whatColls.collection#" red="#randRange(0,255)#" green="#randRange(0,255)#" blue="#randRange(0,255)#" symbol="1" label="#whatColls.collection#"/>';
-			variables.joFileWriter.writeLine(a);	
-		}
+			variables.joFileWriter.writeLine(a);
+		</cfscript>
+	</cfloop>
+	<cfscript>
 		a=chr(9) & chr(9) &
 			'<color key="default" red="255" green="0" blue="0" symbol="2" label="Unspecified Collection"/>' & chr(10) & 
 			chr(9) & '</colors>';
@@ -252,12 +257,7 @@
 	<cfset CollList=reverse(listColl)>
 	<cfset CollList="#CollList# data.">
 	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/run.php?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1">
-		
-			
-	#bnhmUrl#
-	<!----
 	<script type="text/javascript" language="javascript">
 		document.location='#bnhmUrl#';
 	</script>
-	---->
 </cfoutput>
