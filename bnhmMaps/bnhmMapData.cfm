@@ -1,4 +1,14 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
+<cfset fn="arctos_#randRange(1,1000)#">
+<cfset variables.localXmlFile="#Application.webDirectory#/bnhmMaps/tabfiles/#fn#.xml">
+<cfset variables.localTabFile="#Application.webDirectory#/bnhmMaps/tabfiles/#fn#.txt">
+<cfset variables.remoteXmlFile="#Application.serverRootUrl#/bnhmMaps/tabfiles/#fn#.xml">
+<cfset variables.remoteTabFile="#Application.serverRootUrl#/bnhmMaps/tabfiles/#fn#.txt">
+<cfset variables.encoding="UTF-8">
+
+cfset thisFileName = "BNHM#cftoken#.xml">
+	<cfset variables.thisFile = "#thisFileName#">
+	<cfset variables.XMLFile = "#thisFileName#">
 <div align="center">
 	<span style="background-color:green;color:white; font-size:36px; font-weight:bold;">
 		Fetching map data...
@@ -87,10 +97,6 @@
 </cfif>
 <!---- write an XML config file specific to the critters they're mapping --->
 <cfoutput>
-	<cfset thisFileName = "BNHM#cftoken#.xml">
-	<cfset variables.thisFile = "#Application.webDirectory#/bnhmMaps/tabfiles/#thisFileName#">
-	<cfset variables.XMLFile = "#Application.serverRootUrl#/bnhmMaps/tabfiles/#thisFileName#">
-	<cfset variables.encoding="UTF-8">
 	<cfquery name="collID" dbtype="query">
 		select collection_id from getMapData group by collection_id
 	</cfquery>
@@ -112,7 +118,7 @@
 		</cfloop>
 	</cfif>	
 	<cfscript>
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.thisFile, variables.encoding, 32768);
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localXmlFile, variables.encoding, 32768);
 		a='<bnhmmaps>' & chr(10) & 
 			chr(9) & '<metadata>' & chr(10) & 
 			chr(9) & chr(9) & '<name>BerkeleyMapper Configuration File</name>' & chr(10) & 
@@ -204,10 +210,7 @@
 		a='</bnhmmaps>';
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
-		variables.thisFile = "#Application.webDirectory#/bnhmMaps/tabfiles/#dlFile#";
-		variables.encoding="UTF-8";
-		/*
-		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.thisFile, variables.encoding, 32768);
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localTabFile, variables.encoding, 32768);
 		a='';
 		for (i=1;intRow LTE getMapData.RecordCount;i=(i+1)){
 			a=a&'<a href="#Application.serverRootUrl#/SpecimenDetail.cfm?collection_object_id=' & 
@@ -225,7 +228,6 @@
 		}
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
-		*/	
 	</cfscript>
 	<cfquery name="distColl" dbtype="query">
 		select collection from getMapData group by collection
@@ -243,7 +245,9 @@
 	<cfset listColl=replace(listColl,",","dna ,","first")>
 	<cfset CollList=reverse(listColl)>
 	<cfset CollList="#CollList# data.">
-	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/run.php?ViewResults=tab&tabfile=#Application.serverRootUrl#/bnhmMaps/tabfiles/#dlFile#&configfile=#XMLFile#&sourcename=#collList#&queryerrorcircles=1">
+	<cfset bnhmUrl="http://berkeleymapper.berkeley.edu/run.php?ViewResults=tab&tabfile=#variables.remoteTabFile#&configfile=#variables.remoteXmlFile#&sourcename=#collList#&queryerrorcircles=1">
+		
+			
 	#bnhmUrl#
 	<!----
 	<script type="text/javascript" language="javascript">
