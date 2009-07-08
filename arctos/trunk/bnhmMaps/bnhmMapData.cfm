@@ -222,7 +222,8 @@
 				chr(9) & getMapData.COORDINATEUNCERTAINTYINMETERS &
 				chr(9) & getMapData.datum & 
 				chr(9) & getMapData.collection &
-				chr(9) & getMapData.collection & ' ' & getMapData.cat_num;
+				chr(9) & getMapData.collection & ' ' & getMapData.cat_num & 
+				chr(10);
 			
 		</cfscript>
 	</cfloop>
