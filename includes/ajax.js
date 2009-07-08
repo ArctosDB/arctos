@@ -19,8 +19,8 @@ var viewport = {
 	return this;
    },
    init: function(el) {
-       $(el).css("left",Math.round(viewport.o().innerWidth/2) + viewport.o().pageXOffset - Math.round($(el).width()/2));
-       $(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round($(el).height()/2));
+       jQuery(el).css("left",Math.round(viewport.o().innerWidth/2) + viewport.o().pageXOffset - Math.round(jQuery(el).width()/2));
+       jQuery(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round(jQuery(el).height()/2));
        }
    };
 
@@ -1498,34 +1498,9 @@ function success_changeresultSort (result) {
 		alert('An error occured: ' + result);
 	}
 }
-jQuery( function($) {
-	var viewport = {
-	      	o: function() {
-	          	if (self.innerHeight) {
-	   			this.pageYOffset = self.pageYOffset;
-	   			this.pageXOffset = self.pageXOffset;
-	   			this.innerHeight = self.innerHeight;
-	   			this.innerWidth = self.innerWidth;
-	   		} else if (document.documentElement && document.documentElement.clientHeight) {
-	   			this.pageYOffset = document.documentElement.scrollTop;
-	   			this.pageXOffset = document.documentElement.scrollLeft;
-	   			this.innerHeight = document.documentElement.clientHeight;
-	   			this.innerWidth = document.documentElement.clientWidth;
-	   		} else if (document.body) {
-	   			this.pageYOffset = document.body.scrollTop;
-	   			this.pageXOffset = document.body.scrollLeft;
-	   			this.innerHeight = document.body.clientHeight;
-	   			this.innerWidth = document.body.clientWidth;
-	   		}
-	   		return this;
-	       },
-	       init: function(el) {
-	           $(el).css("left",Math.round(viewport.o().innerWidth/2) + viewport.o().pageXOffset - Math.round($(el).width()/2));
-	           $(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round($(el).height()/2));
-	       }
-	   };
 	
-	$(".helpLink").click(function(e){
+	
+	jQuery(".helpLink").click(function(e){
 		var id=this.id;
 		removeHelpDiv();
 		var theDiv = document.createElement('div');
@@ -1533,10 +1508,10 @@ jQuery( function($) {
 		theDiv.className = 'helpBox';
 		theDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(theDiv);
-		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
-		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
+		jQuery("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
+		jQuery(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
 	});
-	$("#partname").autocomplete("/ajax/part_name.cfm", {
+	jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
 		width: 320,
 		max: 20,
 		autofill: true,
@@ -1547,7 +1522,7 @@ jQuery( function($) {
 		scrollHeight: 300
 	});
 	
-	$("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", {
+	jQuery("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", {
 		width: 320,
 		max: 20,
 		autofill: true,
@@ -1559,7 +1534,7 @@ jQuery( function($) {
 	});	
 	
 	
-	$("#c_collection_cust").click(function(e){
+	jQuery("#c_collection_cust").click(function(e){
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
@@ -1572,11 +1547,11 @@ jQuery( function($) {
 		cDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(cDiv);
 		var ptl="/includes/SpecSearch/changeCollection.cfm";
-		$(cDiv).load(ptl);
-		$(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
+		jQuery(cDiv).load(ptl);
+		jQuery(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
 	});
 	
-	$("#c_identifiers_cust").click(function(e){
+	jQuery("#c_identifiers_cust").click(function(e){
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
@@ -1589,14 +1564,14 @@ jQuery( function($) {
 		cDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(cDiv);
 		var ptl="/includes/SpecSearch/customIDs.cfm";
-		$(cDiv).load(ptl,{},function(){
+		jQuery(cDiv).load(ptl,{},function(){
 			viewport.init("#customDiv");
 			viewport.init("#bgDiv");
 		});
-		//$(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
+		//jQuery(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
 		
 		
-	});
+	
 	
 	
 	function customizeIdentifiers() {
@@ -1608,9 +1583,9 @@ jQuery( function($) {
 			document.body.appendChild(theDiv);
 			var ptl="/includes/SpecSearch/customIDs.cfm";
 				jQuery.get(ptl, function(data){
-				 $(theDiv).html(data);
+				 jQuery(theDiv).html(data);
 				})
-			$(theDiv).css({position:"absolute", top: data.pageY, left: data.pageX});
+			jQuery(theDiv).css({position:"absolute", top: data.pageY, left: data.pageX});
 	}
 	
 	
