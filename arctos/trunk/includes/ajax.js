@@ -1,3 +1,4 @@
+jQuery(document).ready(function() {
 var viewport = {
   	o: function() {
       	if (self.innerHeight) {
@@ -1644,7 +1645,6 @@ function closeCustom(){
 }
 function setPrevSearch_result(schParam){
 	 	var sp='#session.schParam#';
-	 	console.log(sp);
 	 	var pAry=schParam.split("|");
 	 	for (var i=0; i<pAry.length; i++) {
 	 		var eAry=pAry[i].split("::");
@@ -1656,7 +1656,6 @@ function setPrevSearch_result(schParam){
 	 	}
  } 
  function setPrevSearch(){
-	console.log('i am setPrevSearch');
 	var schParam=get_cookie ('schParams');
 	var pAry=schParam.split("|");
  	for (var i=0; i<pAry.length; i++) {
@@ -1828,3 +1827,4 @@ function success_changeexclusive_collection_id (result) {
 		alert('An error occured: ' + result);
 	}
 }
+});
