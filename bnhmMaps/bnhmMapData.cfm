@@ -188,7 +188,9 @@
 			 group by 
 			 phylclass,genus || ' ' || species
 		</cfquery>
-		<cfif getClass.recordcount is not 1 or getClass.phylclass not in ('Amphibia','Mammalia','Aves')>
+		<cfif getClass.recordcount is not 1 or (
+				getClass.phylclass is not 'Amphibia' and getClass.phylclass is not 'Mammalia' and getClass.phylclass is not 'Aves'
+			)>
 			<div class="error">
 				Rangemaps are only available for queries which return one species in Classes
 				Amphibia, Aves or Mammalia.
