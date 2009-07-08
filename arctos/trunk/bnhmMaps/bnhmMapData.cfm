@@ -206,6 +206,7 @@
 		a='</bnhmmaps>';
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
+		/*
 		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.localTabFile, variables.encoding, 32768);
 		a='';
 		for (i=1;intRow LTE getMapData.RecordCount;i=(i+1)){
@@ -224,6 +225,7 @@
 		}
 		variables.joFileWriter.writeLine(a);
 		variables.joFileWriter.close();
+		*/
 	</cfscript>
 	<cfquery name="distColl" dbtype="query">
 		select collection from getMapData group by collection
