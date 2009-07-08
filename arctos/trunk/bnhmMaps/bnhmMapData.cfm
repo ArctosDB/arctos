@@ -136,7 +136,7 @@
 		variables.joFileWriter.writeLine(a);
 		for (intRow=1;intRow LTE whatColls.RecordCount;intRow=(intRow+1)){
 			a=chr(9) & chr(9) & 
-				'<color key="#collection#" red="#randRange(0,255)#" green="#randRange(0,255)#" blue="#randRange(0,255)#" symbol="1" label="#whatColls.collection#"/>';
+				'<color key="#whatColls.collection#" red="#randRange(0,255)#" green="#randRange(0,255)#" blue="#randRange(0,255)#" symbol="1" label="#whatColls.collection#"/>';
 			variables.joFileWriter.writeLine(a);	
 		}
 		a=chr(9) & chr(9) &
