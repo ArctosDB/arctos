@@ -1511,29 +1511,7 @@ function success_changeresultSort (result) {
 		jQuery("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 		jQuery(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
 	});
-	/*
-	jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
-		width: 320,
-		max: 20,
-		autofill: true,
-		highlight: false,
-		multiple: true,
-		multipleSeparator: "|",
-		scroll: true,
-		scrollHeight: 300
-	});
 	
-	jQuery("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", {
-		width: 320,
-		max: 20,
-		autofill: true,
-		highlight: false,
-		multiple: true,
-		multipleSeparator: "|",
-		scroll: true,
-		scrollHeight: 300
-	});	
-	*/
 	
 	jQuery("#c_collection_cust").click(function(e){
 		var bgDiv = document.createElement('div');
