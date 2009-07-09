@@ -1518,7 +1518,7 @@ function success_changeresultSort (result) {
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
-		bgDiv.setAttribute('onclick','closeCustom()');
+		bgDiv.setAttribute('onclick','closeAndRefresh()');
 		document.body.appendChild(bgDiv);
 		
 		var cDiv = document.createElement('div');
@@ -1535,7 +1535,7 @@ function success_changeresultSort (result) {
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
-		bgDiv.setAttribute('onclick','closeCustom()');
+		bgDiv.setAttribute('onclick','closeAndRefresh()');
 		document.body.appendChild(bgDiv);
 		
 		var cDiv = document.createElement('div');
@@ -1616,13 +1616,13 @@ function showHide(id,onOff) {
  		);
 	}
 }
-/*
-function closeCustom(){
+
+function closeAndRefresh(){
 	document.location=location.href;
 	var theDiv = document.getElementById('customDiv');
 	document.body.removeChild(theDiv);
 }
-*/
+
 function setPrevSearch_result(schParam){
 	 	var sp='#session.schParam#';
 	 	var pAry=schParam.split("|");
