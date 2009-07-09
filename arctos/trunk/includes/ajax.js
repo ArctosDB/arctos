@@ -1603,6 +1603,7 @@ jQuery("#c_collection_cust").click(function(e){
 	//jQuery(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
 });
 jQuery("#c_identifiers_cust").click(function(e){
+	console.log('woot');
 	var bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';
 	bgDiv.className = 'bgDiv';
