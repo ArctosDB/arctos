@@ -1,5 +1,4 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
-<cfinclude template="/includes/functionLib.cfm">
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
 <cf_showMenuOnly>
 <script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
