@@ -72,12 +72,15 @@
 		<label for="publication_title"><a href="javascript:getDocs('publication','title');" onClick="getDocs('publication','title')">Title:</a></label>
 		<input type="text" name="publication_title" id="publication_title" size="70" class="reqdClr">
 		<label for="journal_name">Journal Name</label>
-		<input type="text" name="journal_name" id="journal_name" readonly="yes" size="60">
+		<input type="text" name="journal_name" id="journal_name" size="60"
+				onchange="findJournal('journal_id','journal_name','newJournalArt',this.value);">
 		<input type="hidden" name="journal_id">
 		<input type="button" 
 			value="Pick" 
 			class="picBtn"
-			onClick="JournalPick('journal_id','journal_name','newJournalArt'); return false;">
+			onClick="">
+
+				//onClick="JournalPick('','',''); return false;
 		<label for="begins_page_number">Begin Page</label>
 		<input type="text" name="begins_page_number" id="begins_page_number" size="4">
 		<label for="ends_page_number">End Page</label>
