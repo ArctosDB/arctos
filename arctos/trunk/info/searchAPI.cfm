@@ -22,9 +22,9 @@
 					</cfif>
 				</cfloop>
 				<cfquery name="theRest" dbtype="query">
-					select * from docs 
-						order by #theColumnName#
+					select * from docs
 						group by #theColumnName#
+						order by #theColumnName#
 				</cfquery>
 				<cfset ct="">
 				<cfloop query="theRest">
