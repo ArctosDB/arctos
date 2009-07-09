@@ -31,7 +31,7 @@
 					<cfset ct=ct & evaluate(theColumnName) & "<br>">
 				</cfloop>
 				<cfcatch>
-					<cfset ct="fail: #code_table#">
+					<cfset ct="fail: #code_table#: #cfcatch.message# #cfcatch.detail# #cfcatch.sql#">
 				</cfcatch>
 				</cftry>
 			<cfelse>
