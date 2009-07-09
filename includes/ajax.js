@@ -226,7 +226,7 @@ function success_makePartThingy(r){
 		} else {
 			console.log('i: '+i+'; this ID: ' + result.COLLECTION_OBJECT_ID[i] + '; next: none');
 		}
-		if (result[i+1] && result.COLLECTION_OBJECT_ID[i+1] == result.COLLECTION_OBJECT_ID[i]) {
+		if (result.COLLECTION_OBJECT_ID[i+1] && result.COLLECTION_OBJECT_ID[i+1] == result.COLLECTION_OBJECT_ID[i]) {
 		//if (result[i+1] && result.PARTID[i+1] == result.PARTID[i]) {
 			theTable += "</tr>";
 		} else {
