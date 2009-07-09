@@ -1598,42 +1598,23 @@ function success_changeresultSort (result) {
 		jQuery(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
 	});
 	
-	jQuery("#c_identifiers_cust").click(function(e){
-		var bgDiv = document.createElement('div');
-		bgDiv.id = 'bgDiv';
-		bgDiv.className = 'bgDiv';
-		bgDiv.setAttribute('onclick','closeAndRefresh()');
-		document.body.appendChild(bgDiv);
-		
-		var cDiv = document.createElement('div');
-		cDiv.id = 'customDiv';
-		cDiv.className = 'sscustomBox';
-		cDiv.innerHTML='<br>Loading...';
-		document.body.appendChild(cDiv);
-		var ptl="/includes/SpecSearch/customIDs.cfm";
-		jQuery(cDiv).load(ptl,{},function(){
-			viewport.init("#customDiv");
-			viewport.init("#bgDiv");
-		});
-		//jQuery(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
-		
-		
-	
-	
-	
-function customizeIdentifiers() {
-	var theDiv = document.createElement('div');
-	theDiv.id = 'customDiv';
-	theDiv.className = 'customBox';
-	theDiv.innerHTML='<br>Loading...';
-	theDiv.src = "";
-	document.body.appendChild(theDiv);
+jQuery("#c_identifiers_cust").click(function(e){
+	var bgDiv = document.createElement('div');
+	bgDiv.id = 'bgDiv';
+	bgDiv.className = 'bgDiv';
+	bgDiv.setAttribute('onclick','closeAndRefresh()');
+	document.body.appendChild(bgDiv);
+	var cDiv = document.createElement('div');
+	cDiv.id = 'customDiv';
+	cDiv.className = 'sscustomBox';
+	cDiv.innerHTML='<br>Loading...';
+	document.body.appendChild(cDiv);
 	var ptl="/includes/SpecSearch/customIDs.cfm";
-	jQuery.get(ptl, function(data){
-		 jQuery(theDiv).html(data);
+	jQuery(cDiv).load(ptl,{},function(){
+		viewport.init("#customDiv");
+		viewport.init("#bgDiv");
 	});
-	jQuery(theDiv).css({position:"absolute", top: data.pageY, left: data.pageX});
-}
+});
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {
 		jQuery('#helpDiv').remove();
