@@ -2484,7 +2484,12 @@ function checkDate(f,i,v){
 	var r = isDate(v);
 	return r;
 }
+function isDate (x) 
+{ 
+  return (null != x) && !isNaN(x) && ("undefined" !== typeof x.getDate); 
+}
 
+/*
 function isDate(DateToCheck){
 	if(DateToCheck==""){return true;}
 	//var m_strDate = FormatDate(DateToCheck);
@@ -2509,7 +2514,7 @@ function isDate(DateToCheck){
 	}
 }//end function
 
-
+*/
 
 function FormatDate(DateToFormat,FormatAs){
 if(DateToFormat==""){return"";}
