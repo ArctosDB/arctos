@@ -2490,6 +2490,7 @@ function isDate(DateToCheck){
 	//var m_strDate = FormatDate(DateToCheck);
 
 	var m_strDate = dateFormat(DateToCheck,"dd/mm/yyyy");
+	console.log(m_strDate);
 	
 	if(m_strDate==""){
 		return false;
