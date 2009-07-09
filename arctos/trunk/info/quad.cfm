@@ -51,7 +51,7 @@ Alphabetical Listing of all quads used in Arctos:
 </p>
 <cfloop query="allQuad">
 	<a href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#quad#';self.close();">#quad#</a><br>
+	onClick="opener.document.SpecData.quad.value='#quad#';self.close();">#quad#</a><br>
 </cfloop>
 <hr>
 <a href="##seast" onMouseOver="self.status='Southeast Map';return true;" onMouseOut="self.status='';return true;">Southeast Alaska</a>
@@ -73,7 +73,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -84,7 +84,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -95,7 +95,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -106,7 +106,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -117,7 +117,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -128,7 +128,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -139,7 +139,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -150,7 +150,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -161,7 +161,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -172,7 +172,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -183,7 +183,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -194,7 +194,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -205,7 +205,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -216,7 +216,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -227,7 +227,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -238,7 +238,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -249,7 +249,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -260,7 +260,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -271,7 +271,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -282,7 +282,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -293,7 +293,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -304,7 +304,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -315,7 +315,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -326,7 +326,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -337,7 +337,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -348,7 +348,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -359,7 +359,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -374,7 +374,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -385,7 +385,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -396,7 +396,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -407,7 +407,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -418,7 +418,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -429,7 +429,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -440,7 +440,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -451,7 +451,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -462,7 +462,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -473,7 +473,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -484,7 +484,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -495,7 +495,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -506,7 +506,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -517,7 +517,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -528,7 +528,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -539,7 +539,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -550,7 +550,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -561,7 +561,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -572,7 +572,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -583,7 +583,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -594,7 +594,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -605,7 +605,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -616,7 +616,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -627,7 +627,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -638,7 +638,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -649,7 +649,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -660,7 +660,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -671,7 +671,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -682,7 +682,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -693,7 +693,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -704,7 +704,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -715,7 +715,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -726,7 +726,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -737,7 +737,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -751,7 +751,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -762,7 +762,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -773,7 +773,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -784,7 +784,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -795,7 +795,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -806,7 +806,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -817,7 +817,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -828,7 +828,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -839,7 +839,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -850,7 +850,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -861,7 +861,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -873,7 +873,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -884,7 +884,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -895,7 +895,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -908,7 +908,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -919,7 +919,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -930,7 +930,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -941,7 +941,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -952,7 +952,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -963,7 +963,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -974,7 +974,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -985,7 +985,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -996,7 +996,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1007,7 +1007,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1018,7 +1018,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1029,7 +1029,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1040,7 +1040,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1051,7 +1051,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1062,7 +1062,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1073,7 +1073,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1084,7 +1084,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1099,7 +1099,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1110,7 +1110,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1121,7 +1121,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1132,7 +1132,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1143,7 +1143,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1154,7 +1154,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1165,7 +1165,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1176,7 +1176,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1187,7 +1187,7 @@ Alphabetical Listing of all quads used in Arctos:
 		shape="poly" 
 		coords="#coords#" 
 		href="javascript:void(0);" 
-		onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+		onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 		alt="#thisArea#" 
 		onMouseOver="self.status='#thisArea#';return true;"
 		onMouseOut="self.status='';return true;">
@@ -1197,7 +1197,7 @@ Alphabetical Listing of all quads used in Arctos:
 		shape="poly" 
 		coords="#coords#" 
 		href="javascript:void(0);" 
-		onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+		onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 		alt="#thisArea#" 
 		onMouseOver="self.status='#thisArea#';return true;"
 		onMouseOut="self.status='';return true;">
@@ -1209,7 +1209,7 @@ Alphabetical Listing of all quads used in Arctos:
 		shape="poly" 
 		coords="#coords#" 
 		href="javascript:void(0);" 
-		onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+		onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 		alt="#thisArea#" 
 		onMouseOver="self.status='#thisArea#';return true;"
 		onMouseOut="self.status='';return true;">
@@ -1220,7 +1220,7 @@ Alphabetical Listing of all quads used in Arctos:
 		shape="poly" 
 		coords="#coords#" 
 		href="javascript:void(0);" 
-		onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+		onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 		alt="#thisArea#" 
 		onMouseOver="self.status='#thisArea#';return true;"
 		onMouseOut="self.status='';return true;">
@@ -1231,7 +1231,7 @@ Alphabetical Listing of all quads used in Arctos:
 		shape="poly" 
 		coords="#coords#" 
 		href="javascript:void(0);" 
-		onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+		onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 		alt="#thisArea#" 
 		onMouseOver="self.status='#thisArea#';return true;"
 		onMouseOut="self.status='';return true;">
@@ -1242,7 +1242,7 @@ Alphabetical Listing of all quads used in Arctos:
 		shape="poly" 
 		coords="#coords#" 
 		href="javascript:void(0);" 
-		onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+		onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 		alt="#thisArea#" 
 		onMouseOver="self.status='#thisArea#';return true;"
 		onMouseOut="self.status='';return true;">
@@ -1253,7 +1253,7 @@ Alphabetical Listing of all quads used in Arctos:
 		shape="poly" 
 		coords="#coords#" 
 		href="javascript:void(0);" 
-		onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+		onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 		alt="#thisArea#" 
 		onMouseOver="self.status='#thisArea#';return true;"
 		onMouseOut="self.status='';return true;">
@@ -1264,7 +1264,7 @@ Alphabetical Listing of all quads used in Arctos:
 		shape="poly" 
 		coords="#coords#" 
 		href="javascript:void(0);" 
-		onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+		onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 		alt="#thisArea#" 
 		onMouseOver="self.status='#thisArea#';return true;"
 		onMouseOut="self.status='';return true;">
@@ -1275,7 +1275,7 @@ Alphabetical Listing of all quads used in Arctos:
 		shape="poly" 
 		coords="#coords#" 
 		href="javascript:void(0);" 
-		onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+		onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 		alt="#thisArea#" 
 		onMouseOver="self.status='#thisArea#';return true;"
 		onMouseOut="self.status='';return true;">
@@ -1285,7 +1285,7 @@ Alphabetical Listing of all quads used in Arctos:
 		shape="poly" 
 		coords="#coords#" 
 		href="javascript:void(0);" 
-		onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+		onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 		alt="#thisArea#" 
 		onMouseOver="self.status='#thisArea#';return true;"
 		onMouseOut="self.status='';return true;">
@@ -1296,7 +1296,7 @@ Alphabetical Listing of all quads used in Arctos:
 		shape="poly" 
 		coords="#coords#" 
 		href="javascript:void(0);" 
-		onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+		onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 		alt="#thisArea#" 
 		onMouseOver="self.status='#thisArea#';return true;"
 		onMouseOut="self.status='';return true;">
@@ -1307,7 +1307,7 @@ Alphabetical Listing of all quads used in Arctos:
 		shape="poly" 
 		coords="#coords#" 
 		href="javascript:void(0);" 
-		onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+		onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 		alt="#thisArea#" 
 		onMouseOver="self.status='#thisArea#';return true;"
 		onMouseOut="self.status='';return true;">
@@ -1318,7 +1318,7 @@ Alphabetical Listing of all quads used in Arctos:
 		shape="poly" 
 		coords="#coords#" 
 		href="javascript:void(0);" 
-		onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+		onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 		alt="#thisArea#" 
 		onMouseOver="self.status='#thisArea#';return true;"
 		onMouseOut="self.status='';return true;">
@@ -1329,7 +1329,7 @@ Alphabetical Listing of all quads used in Arctos:
 		shape="poly" 
 		coords="#coords#" 
 		href="javascript:void(0);" 
-		onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+		onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 		alt="#thisArea#" 
 		onMouseOver="self.status='#thisArea#';return true;"
 		onMouseOut="self.status='';return true;">
@@ -1340,7 +1340,7 @@ Alphabetical Listing of all quads used in Arctos:
 		shape="poly" 
 		coords="#coords#" 
 		href="javascript:void(0);" 
-		onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+		onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 		alt="#thisArea#" 
 		onMouseOver="self.status='#thisArea#';return true;"
 		onMouseOut="self.status='';return true;">
@@ -1351,7 +1351,7 @@ Alphabetical Listing of all quads used in Arctos:
 		shape="poly" 
 		coords="#coords#" 
 		href="javascript:void(0);" 
-		onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+		onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 		alt="#thisArea#" 
 		onMouseOver="self.status='#thisArea#';return true;"
 		onMouseOut="self.status='';return true;">
@@ -1362,7 +1362,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1373,7 +1373,7 @@ Alphabetical Listing of all quads used in Arctos:
 	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1387,7 +1387,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1399,7 +1399,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1409,7 +1409,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1419,7 +1419,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1429,7 +1429,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1439,7 +1439,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1449,7 +1449,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1459,7 +1459,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1469,7 +1469,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1479,7 +1479,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1489,7 +1489,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1499,7 +1499,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1509,7 +1509,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1519,7 +1519,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1529,7 +1529,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1539,7 +1539,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1549,7 +1549,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1559,7 +1559,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1569,7 +1569,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1579,7 +1579,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1589,7 +1589,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1599,7 +1599,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1609,7 +1609,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1619,7 +1619,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1629,7 +1629,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1639,7 +1639,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1649,7 +1649,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1659,7 +1659,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1669,7 +1669,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1679,7 +1679,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1689,7 +1689,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1699,7 +1699,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1709,7 +1709,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1719,7 +1719,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
@@ -1729,7 +1729,7 @@ Alphabetical Listing of all quads used in Arctos:
   	shape="poly" 
 	coords="#coords#" 
 	href="javascript:void(0);" 
-	onClick="opener.document.SpecData.Quad.value='#thisArea#';self.close();"
+	onClick="opener.document.SpecData.quad.value='#thisArea#';self.close();"
 	alt="#thisArea#" 
 	onMouseOver="self.status='#thisArea#';return true;"
 	onMouseOut="self.status='';return true;">
