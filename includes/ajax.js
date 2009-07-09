@@ -1591,7 +1591,7 @@ jQuery("#c_collection_cust").click(function(e){
 	var cDiv = document.createElement('div');
 	cDiv.id = 'customDiv';
 	cDiv.className = 'sscustomBox';
-	cDiv.innerHTML='<br>Loading...';
+	cDiv.innerHTML='<br>boogity! Loading...';
 	document.body.appendChild(cDiv);
 	var ptl="/includes/SpecSearch/changeCollection.cfm";
 	jQuery(cDiv).load(ptl,{},function(){
