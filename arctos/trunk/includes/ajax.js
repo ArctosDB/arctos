@@ -1044,7 +1044,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + dateFormat(data.BEGAN_DATE[i]) + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('ENDED_DATE')> -1) {
-					theInnerHtml += '<td>' + dispDate(data.ENDED_DATE[i]) + '&nbsp;</td>';
+					theInnerHtml += '<td>' + dispDate(data.ENDED_DATE[i],"dd-mmm-yyyy") + '&nbsp;</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('PARTS')> -1) {
 					theInnerHtml += '<td><div class="wrapLong">' + splitBySemicolon(data.PARTS[i]) + '</div></td>';
