@@ -2032,20 +2032,7 @@ popupWins[name].focus();
 function getInstDocs(inst,url,anc) {
 	getDocs(url,anc);
 }
-/* function to call site-wide documentation ******************************************/
-/*
-function getDocs(url,anc) {
-	var url;
-	var anc;
-	var baseUrl = "http://curator.museum.uaf.edu/arctosdoc/";
-	var extension = ".shtml";
-	var fullURL = baseUrl + url + extension;
-		if (anc != null) {
-			fullURL += "#" + anc;
-		}
-	siteHelpWin=windowOpener(fullURL,"siteHelpWin","width=700,height=400, resizable,scrollbars");
-}
-*/
+
 function getDocs(url,anc) {
 	var url;
 	var anc;
@@ -2056,203 +2043,100 @@ function getDocs(url,anc) {
 			fullURL += "#" + anc;
 		}
 	siteHelpWin=windowOpener(fullURL,"HelpWin","width=700,height=400, resizable,scrollbars,location,toolbar");
-}
-/* Function to call page-specific documentation ***********************************************/
-/*function pageHelp(url,anc) {
-	var url;
-	var anc;
-	var baseUrl = "http://curator.museum.uaf.edu/pageHelp/";
-	var extension = ".shtml";
-	var fullURL = baseUrl + url + extension;
-		if (anc != null) {
-			fullURL += "#" + anc;
-		}
-	pageHelpWin=windowOpener(fullURL,"pageHelpWin","width=700,height=400, resizable,scrollbars");
-}
-*/
-function pageHelp(url,anc) {
-	var url;
-	var anc;
-	var baseUrl = "/arctosdoc/pageHelp/";
-	var extension = ".cfm";
-	var fullURL = baseUrl + url + extension;
-		if (anc != null) {
-			fullURL += "#" + anc;
-		}
-	pageHelpWin=windowOpener(fullURL,"HelpWin","width=700,height=400, resizable,scrollbars,location,toolbar");
-}
-/*
-	Function to see if there is a parent window with a non-default style sheet, 
-	and get it for dependant frames if there is one
-*/	
-
-		
-
-// function noenter prevents form submission when a user presses enter from a specific field.
-// example:
-//<input type="text" name="idBy" class="reqdClr" size="50" 
-//	  onchange="getAgent('newIdById','idBy','newID',this.value); return false;"
-//	  onKeyPress="return noenter(event);"> 
-// note the '(event)' bit - that's required for FireFox to process this correctly
-function noenter (e) 
-	{
+}		
+function noenter (e) {
 	var key;
 	var keychar;
 	var reg;
-	
 	if(window.event) {
-		// for IE, e.keyCode or window.event.keyCode can be used
 		key = e.keyCode; 
-	}
-	else if(e.which) {
-		// netscape
+	} else if(e.which) {
 		key = e.which; 
 	}
 	if (key == 13) {
-			// enter
-			return false;
+		return false;
 	}
 }
- // just fire off a warning and abort submit if they manage to get around a PICK doing it's thing
-function gotAgentId (id)	{
-					var id;
-					var len = id.length;
-					if (len == 0) {
-					   	alert('Oops! A select box malfunctioned! Try changing the value and leaving with TAB. The background should change to green when you\'ve successfullly run the check routine.');
-						return false;
-					}
-				}
-				
- function checkUncheck(formName,CollObjValue)
- {
- 	var newStr;
-	 {
-         //if ( document.remove.exclCollObjId.checked )
-		 // this works if ( document.forms['remove'].exclCollObjId.checked )
-		 if ( document.forms[formName].exclCollObjId.checked )
-		  //if ( document["formName"].exclCollObjId.checked )
-		 //orms[\\''\''+tid+\''\\''].eleme  [\''''+tid+''\''
-		 	{
-              newStr = document.reloadThis.exclCollObjId.value + "," + CollObjValue + ",";
-			  document.reloadThis.exclCollObjId.value=newStr;
-			  //alert(newStr);
-			 }
-         else
-		 	{
-              newStr=replaceSubstring(document.reloadThis.exclCollObjId.value, "," + CollObjValue + ",", "");
-			  document.reloadThis.exclCollObjId.value=newStr;
-			  //alert(newStr);
-			 }
-     }
- }
-
-
-function movepic(img_name,img_src) {
-document[img_name].src=img_src;
+function gotAgentId (id) {
+	var id;
+	var len = id.length;
+	if (len == 0) {
+	   	alert('Oops! A select box malfunctioned! Try changing the value and leaving with TAB. The background should change to green when you\'ve successfullly run the check routine.');
+		return false;
+	}
 }
-
 function chgCondition(collection_object_id) {
 	var collection_object_id;
 	helpWin=windowOpener("/picks/condition.cfm?collection_object_id="+collection_object_id,"conditionWin","width=800,height=338, resizable,scrollbars");
-	}
-	
-	
-function openpopup(agentIdFld,agentNameFld,formName){
-var url="/picks/AgentPick.cfm";
-var agentIdFld;
-var agentNameFld;
-var formName;
-var popurl=url+"?agentIdFld="+agentIdFld+"&agentNameFld="+agentNameFld+"&formName="+formName;
-agentpick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
-
 function getAgent(agentIdFld,agentNameFld,formName,agentNameString,allowCreation){
-var url="/picks/findAgent.cfm";
-var agentIdFld;
-var agentNameFld;
-var formName;
-var agentNameString;
-var allowCreation;
-var oawin=url+"?agentIdFld="+agentIdFld+"&agentNameFld="+agentNameFld+"&formName="+formName+"&agent_name="+agentNameString+"&allowCreation="+allowCreation;
-agentpickwin=window.open(oawin,"","width=400,height=338, resizable,scrollbars");
+	var url="/picks/findAgent.cfm";
+	var agentIdFld;
+	var agentNameFld;
+	var formName;
+	var agentNameString;
+	var allowCreation;
+	var oawin=url+"?agentIdFld="+agentIdFld+"&agentNameFld="+agentNameFld+"&formName="+formName+"&agent_name="+agentNameString+"&allowCreation="+allowCreation;
+	agentpickwin=window.open(oawin,"","width=400,height=338, resizable,scrollbars");
 }
 function getProject(projIdFld,projNameFld,formName,projNameString){
-var url="/picks/findProject.cfm";
-var projIdFld;
-var projNameFld;
-var formName;
-var projNameString;
-var prwin=url+"?projIdFld="+projIdFld+"&projNameFld="+projNameFld+"&formName="+formName+"&project_name="+projNameString;
-projpickwin=window.open(prwin,"","width=400,height=338, resizable,scrollbars");
-}
-function getCatalogedItem(collIdFld,CatCollFld,formName,oidType,oidNum,collCde){
-var url="/picks/getCatalogedItem.cfm";
-var collIdFld;
-var CatCollFld;
-var formName;
-var oidType;
-var oidNum;
-var collCde;
-var ciWin=url+"?collIdFld="+collIdFld+"&CatCollFld="+CatCollFld+"&formName="+formName+"&oidType="+oidType+"&oidNum="+oidNum+"&collCde="+collCde;
-catItemWin=window.open(ciWin,"","width=400,height=338, resizable,scrollbars");
+	var url="/picks/findProject.cfm";
+	var projIdFld;
+	var projNameFld;
+	var formName;
+	var projNameString;
+	var prwin=url+"?projIdFld="+projIdFld+"&projNameFld="+projNameFld+"&formName="+formName+"&project_name="+projNameString;
+	projpickwin=window.open(prwin,"","width=400,height=338, resizable,scrollbars");
 }
 function findCatalogedItem(collIdFld,CatNumStrFld,formName,oidType,oidNum,collID){
-var url="/picks/findCatalogedItem.cfm";
-var collIdFld;
-var CatCollFld;
-var formName;
-var oidType;
-var oidNum;
-var collCde;
-var ciWin=url+"?collIdFld="+collIdFld+"&CatNumStrFld="+CatNumStrFld+"&formName="+formName+"&oidType="+oidType+"&oidNum="+oidNum+"&collID="+collID;
-catItemWin=window.open(ciWin,"","width=400,height=338, resizable,scrollbars");
+	var url="/picks/findCatalogedItem.cfm";
+	var collIdFld;
+	var CatCollFld;
+	var formName;
+	var oidType;
+	var oidNum;
+	var collCde;
+	var ciWin=url+"?collIdFld="+collIdFld+"&CatNumStrFld="+CatNumStrFld+"&formName="+formName+"&oidType="+oidType+"&oidNum="+oidNum+"&collID="+collID;
+	catItemWin=window.open(ciWin,"","width=400,height=338, resizable,scrollbars");
 }
 function findCollEvent(collIdFld,formName,dispField){
-var url="/picks/findCollEvent.cfm";
-var collIdFld;
-var dispField;
-var formName;
-var covwin=url+"?collIdFld="+collIdFld+"&dispField="+dispField+"&formName="+formName;
-ColPickwin=window.open(covwin,"","width=800,height=600, resizable,scrollbars");
+	var url="/picks/findCollEvent.cfm";
+	var collIdFld;
+	var dispField;
+	var formName;
+	var covwin=url+"?collIdFld="+collIdFld+"&dispField="+dispField+"&formName="+formName;
+	ColPickwin=window.open(covwin,"","width=800,height=600, resizable,scrollbars");
 }
-
 function pickCollEvent(collIdFld,formName,collObjId){
-var url="/picks/pickCollEvent.cfm";
-var collIdFld;
-var collObjId;
-var formName;
-
-var covwin=url+"?collIdFld="+collIdFld+"&collection_object_id="+collObjId+"&formName="+formName;
-ColPickwin=window.open(covwin,"","width=800,height=600, resizable,scrollbars");
+	var url="/picks/pickCollEvent.cfm";
+	var collIdFld;
+	var collObjId;
+	var formName;
+	var covwin=url+"?collIdFld="+collIdFld+"&collection_object_id="+collObjId+"&formName="+formName;
+	ColPickwin=window.open(covwin,"","width=800,height=600, resizable,scrollbars");
 }
-
 function getGeog(geogIdFld,geogStringFld,formName,geogString){
-var url="/picks/findHigherGeog.cfm";
-var geogIdFld;
-var geogStringFld;
-var formName;
-var geogString;
-var geogwin=url+"?geogIdFld="+geogIdFld+"&geogStringFld="+geogStringFld+"&formName="+formName+"&geogString="+geogString;
-geogpickwin=window.open(geogwin,"","width=400,height=338, resizable,scrollbars");
+	var url="/picks/findHigherGeog.cfm";
+	var geogIdFld;
+	var geogStringFld;
+	var formName;
+	var geogString;
+	var geogwin=url+"?geogIdFld="+geogIdFld+"&geogStringFld="+geogStringFld+"&formName="+formName+"&geogString="+geogString;
+	geogpickwin=window.open(geogwin,"","width=400,height=338, resizable,scrollbars");
 }
-
 function getHelp(help) {
 	var help;
 	helpWin=windowOpener("/info/help.cfm?content="+help,"helpWin","width=400,height=338, resizable,scrollbars");
-	}
-
+}
 function confirmDelete(formName,msg) {
 	var formName;
 	var msg = msg || "this record";
 	confirmWin=windowOpener("/includes/abort.cfm?formName="+formName+"&msg="+msg,"confirmWin","width=200,height=150,resizable");
-	}
-	
+}
 function getHistory(contID) {
 	var idcontID;
 	historyWin=windowOpener("/info/ContHistory.cfm?container_id="+contID,"historyWin","width=800,height=338, resizable,scrollbars");
-	}
-
-
+}
 function getQuadHelp() {
 	helpWin=windowOpener("/info/quad.cfm","quadHelpWin","width=800,height=600, resizable,scrollbars,status");
 }
