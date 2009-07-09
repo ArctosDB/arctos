@@ -429,7 +429,7 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	} else {
 		orderBy += ' ' + orderOrder;
 	}
-	console.log("startrow:"+startrow+"; numrecs:"+numrecs + '; orderBy:' + orderBy + '; orderOrder:' + orderOrder + ":end:");
+	//console.log("startrow:"+startrow+"; numrecs:"+numrecs + '; orderBy:' + orderBy + '; orderOrder:' + orderOrder + ":end:");
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getSpecResultsData",
@@ -1105,7 +1105,6 @@ function closeCustom() {
 	var theDiv = document.getElementById('customDiv');
 	document.body.removeChild(theDiv);
 	var murl='/SpecimenResults.cfm?' + document.getElementById('mapURL').value;
-	console.log(murl);
 	window.location=murl;
 	//var theDiv = document.getElementById('bgDiv');
 	//document.body.removeChild(theDiv);
