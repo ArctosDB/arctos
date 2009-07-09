@@ -2,6 +2,7 @@
 	<cfquery name="st" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from cf_search_terms order by term
 	</cfquery>
+	<cfoutput>
 	<table border>
 		<tr>
 			<th>term</th>
@@ -12,6 +13,7 @@
 		<cfloop query="st">
 			<tr>
 				<cfif left(code_table,2) is "CT">
+					<cftry>
 					<cfquery name="docs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select * from #code_table#
 					</cfquery>
@@ -28,6 +30,10 @@
 					<cfloop query="theRest">
 						<cfset ct=ct & evaluate(theColumnName) & "<br>">
 					</cfloop>
+					<cfcatch>
+						<cfset ct="fail: #code_table#">
+					</cfcatch>
+					</cftry>
 				<cfelse>
 					<cfset ct=code_table>
 				</cfif>
@@ -38,5 +44,5 @@
 			</tr>
 		</cfloop>
 	</table>
-
+</cfoutput>
 <cfinclude template="/includes/_header.cfm">
