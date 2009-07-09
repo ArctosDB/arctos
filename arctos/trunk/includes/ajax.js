@@ -304,7 +304,9 @@ function dispDate(date){
 	}
 	return d;	
 }
-function success_crcloo (result) {}												
+function success_crcloo (result) {
+	return false;
+}												
 function crcloo (ColumnList,in_or_out) {
 	jQuery.getJSON("/component/functions.cfc",
 		{
@@ -320,7 +322,6 @@ function crcloo (ColumnList,in_or_out) {
 function checkAllById(list) {
 	var a = list.split(',');
 	for (i=0; i<a.length; ++i) {
-		//alert(eid);
 		if (document.getElementById(a[i])) {
 			document.getElementById(a[i]).checked=true;
 			crcloo(a[i],'in');
@@ -386,7 +387,7 @@ function toggleKillrow(id,status) {
 }
 function hidePageLoad() {
 	document.getElementById('loading').style.display='none';
-	}
+}
 
 function closePrefs () {
 	alert('close');
