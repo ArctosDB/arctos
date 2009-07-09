@@ -63,7 +63,7 @@
 		);
 	}
 	function killMe_success (result) {
-		if (is_number(result)) {
+		if (IsNumeric(result)) {
 			var e = "document.getElementById('tr" + result + "')";
 			var el = eval(e);
 			el.style.display='none';

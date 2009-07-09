@@ -17,7 +17,7 @@
 	</script>
 <script type="text/javascript" src="http://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js"></script>
 <script type="text/javascript" language="javascript">
-	function changeexclusive_collection_id () {
+	function changeCollection () {
 		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "changeexclusive_collection_id",
@@ -41,7 +41,7 @@
 			</cfif>
 			You are accessing Arctos through the #yourcollid.collection# portal, and cannot access specimen data in
 			other collections. You may 
-			<span class="likeLink" onclick="changeexclusive_collection_id()">try again in the public portal</span>.
+			<span class="likeLink" onclick="changeCollection()">try again in the public portal</span>.
 		</p>
 	</cfif>	
 	<p>
