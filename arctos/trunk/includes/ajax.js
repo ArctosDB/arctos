@@ -220,7 +220,6 @@ function success_makePartThingy(r){
 			theTable += '<br><i>Encumbrances:&nbsp;' + result.ENCUMBRANCE_ACTION[i] + '</i>';
 		}
 		theTable +="</td>";
-		var n=i+1;
 		if (result.COLLECTION_OBJECT_ID[i+1]){
 			console.log('i: '+i+'; this ID: ' + result.COLLECTION_OBJECT_ID[i] + '; next: ' + result.COLLECTION_OBJECT_ID[i+1]);
 		} else {
@@ -232,6 +231,7 @@ function success_makePartThingy(r){
 		} else {
 			theTable += "</tr></table>";
 			theCell.innerHTML = theTable;
+			console.log(theTable);
 		}
 		lastID = result.COLLECTION_OBJECT_ID[i];
 	} else {
