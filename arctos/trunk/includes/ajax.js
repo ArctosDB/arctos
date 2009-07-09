@@ -144,7 +144,7 @@ function addPartToLoan(partID) {
 	var remark=document.getElementById(rs).value;
 	var instructions=document.getElementById(is).value;
 	var subsample=document.getElementById(ss).checked;
-	if (subsample===true) {
+	if (subsample==true) {
 		subsample=1;
 	} else {
 		subsample=0;
@@ -228,7 +228,7 @@ function makePartThingy() {
 }
 function cordFormat(str) {
 	var rStr;
-	if (str===null) {
+	if (str==null) {
 		rStr='';
 	} else {
 		rStr = str;
@@ -247,7 +247,7 @@ function cordFormat(str) {
 function spaceStripper(str) {
 	str=String(str);
 	var rStr;
-	if (str===null) {
+	if (str==null) {
 		rStr='';
 	} else {
 		rStr = str.replace(/ /gi,'&nbsp;');
@@ -256,7 +256,7 @@ function spaceStripper(str) {
 }
 function splitByComma(str) {
 	var rStr;
-	if (str===null) {
+	if (str==null) {
 		rStr='';
 	} else {
 		var rExp = /, /gi;
@@ -268,7 +268,7 @@ function splitByComma(str) {
 }
 function splitBySemicolon(str) {
 	var rStr;
-	if (str===null) {
+	if (str==null) {
 		rStr='';
 	} else {
 		var rExp = /; /gi;
@@ -280,7 +280,7 @@ function splitBySemicolon(str) {
 }
 function dispDate(date){
 	var d;
-	if (date===null) {
+	if (date==null) {
 		d='';
 	} else {
 		var s=date.substring(0,10);
@@ -350,7 +350,7 @@ function toggleKillrow(id,status) {
 	//alert(id + ' ' + status);
 	
 	var theEl = document.getElementById('killRowList');
-	if (status===true) {
+	if (status==true) {
 		var theArray = [];
 		if (theEl.value.length > 0) {
 			theArray = theEl.value.split(',');
@@ -362,7 +362,7 @@ function toggleKillrow(id,status) {
 		var theArray = theEl.value.split(',');
 		for (i=0; i<theArray.length; ++i) {
 			//alert(theArray[i]);
-			if (theArray[i] === id) {
+			if (theArray[i] == id) {
 				theArray.splice(i,1);
 			}
 		}
@@ -416,7 +416,7 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 			var orderBy = 'cat_num';
 		}		
 	}
-	if (orderOrder===null) {
+	if (orderOrder==null) {
 		var orderOrder = 'ASC';
 	}
 	if (orderBy.indexOf(',') > -1) {
