@@ -2085,62 +2085,8 @@ function pageHelp(url,anc) {
 	Function to see if there is a parent window with a non-default style sheet, 
 	and get it for dependant frames if there is one
 */	
-function getAllSheets() {
-  //if you want ICEbrowser's limited support, do it this way
-  if( !window.ScriptEngine && navigator.__ice_version ) {
-  	//IE errors if it sees navigator.__ice_version when a window is closing
-  	//window.ScriptEngine hides it from that
-    return document.styleSheets; }
-  if( document.getElementsByTagName ) {
-    //DOM browsers - get link and style tags
-    var Lt = document.getElementsByTagName('LINK');
-    var St = document.getElementsByTagName('STYLE');
-  } else if( document.styleSheets && document.all ) {
-    //not all browsers that supply document.all supply document.all.tags
-    //but those that do and can switch stylesheets will also provide
-    //document.styleSheets (checking for document.all.tags produces errors [WHY?!])
-    var Lt = document.all.tags('LINK'), St = document.all.tags('STYLE');
-  } else { return []; } //lesser browser - return a blank array
-  //for all link tags ...
-  for( var x = 0, os = []; Lt[x]; x++ ) {
-    //check for the rel attribute to see if it contains 'style'
-    if( Lt[x].rel ) { var rel = Lt[x].rel;
-    } else if( Lt[x].getAttribute ) { var rel = Lt[x].getAttribute('rel');
-    } else { var rel = ''; }
-    if( typeof( rel ) == 'string' &&
-        rel.toLowerCase().indexOf('style') + 1 ) {
-      //fill os with linked stylesheets
-      os[os.length] = Lt[x];
-    }
-  }
-  //include all style tags too and return the array
-  for( var x = 0; St[x]; x++ ) { os[os.length] = St[x]; } return os;
-}
-function changeStyle() {
-  for( var x = 0, ss = getAllSheets(); ss[x]; x++ ) {
-    //for each stylesheet ...
-    if( ss[x].title ) {
-      //disable the stylesheet if it is switchable
-      ss[x].disabled = true;
-    }
-    for( var y = 0; y < arguments.length; y++ ) {
-      //check each title ...
-      if( ss[x].title == arguments[y] ) {
-        //and re-enable the stylesheet if it has a chosen title
-        ss[x].disabled = false;
-      }
-    }
-  }
-  if( !ss.length ) { alert( 'Your browser cannot change stylesheets' ); }
-}
-if (self != top) 
-	{
-			if (parent.frames[0].thisStyle) 
-				{
-					changeStyle(parent.frames[0].thisStyle);
-				}
-	}
-// end get parent stylesheet		
+
+		
 
 // function noenter prevents form submission when a user presses enter from a specific field.
 // example:
@@ -2428,52 +2374,41 @@ var popurl='CollObjPick.cfm';
 collobjpick=window.open(popurl,"","width=400,height=338");
 }
 
-<!----- stylesheet switch ---->
 function getAllSheets() {
-  //if you want ICEbrowser's limited support, do it this way
-  if( !window.ScriptEngine && navigator.__ice_version ) {
-  	//IE errors if it sees navigator.__ice_version when a window is closing
-  	//window.ScriptEngine hides it from that
-    return document.styleSheets; }
-  if( document.getElementsByTagName ) {
-    //DOM browsers - get link and style tags
-    var Lt = document.getElementsByTagName('LINK');
-    var St = document.getElementsByTagName('STYLE');
-  } else if( document.styleSheets && document.all ) {
-    //not all browsers that supply document.all supply document.all.tags
-    //but those that do and can switch stylesheets will also provide
-    //document.styleSheets (checking for document.all.tags produces errors [WHY?!])
-    var Lt = document.all.tags('LINK'), St = document.all.tags('STYLE');
-  } else { return []; } //lesser browser - return a blank array
-  //for all link tags ...
-  for( var x = 0, os = []; Lt[x]; x++ ) {
-    //check for the rel attribute to see if it contains 'style'
-    if( Lt[x].rel ) { var rel = Lt[x].rel;
-    } else if( Lt[x].getAttribute ) { var rel = Lt[x].getAttribute('rel');
-    } else { var rel = ''; }
-    if( typeof( rel ) == 'string' &&
-        rel.toLowerCase().indexOf('style') + 1 ) {
-      //fill os with linked stylesheets
-      os[os.length] = Lt[x];
-    }
-  }
-  //include all style tags too and return the array
-  for( var x = 0; St[x]; x++ ) { os[os.length] = St[x]; } return os;
+	if( !window.ScriptEngine && navigator.__ice_version ) {
+		return document.styleSheets; }
+	if( document.getElementsByTagName ) {
+		var Lt = document.getElementsByTagName('LINK');
+	    var St = document.getElementsByTagName('STYLE');
+	  } else if( document.styleSheets && document.all ) {
+	    var Lt = document.all.tags('LINK'), St = document.all.tags('STYLE');
+	  } else { return []; }
+	  for( var x = 0, os = []; Lt[x]; x++ ) {
+	    if( Lt[x].rel ) { var rel = Lt[x].rel;
+	    } else if( Lt[x].getAttribute ) { var rel = Lt[x].getAttribute('rel');
+	    } else { var rel = ''; }
+	    if( typeof( rel ) == 'string' &&
+	        rel.toLowerCase().indexOf('style') + 1 ) {
+	      os[os.length] = Lt[x];
+	    }
+	  }
+	  for( var x = 0; St[x]; x++ ) { os[os.length] = St[x]; } return os;
 }
 function changeStyle() {
-  for( var x = 0, ss = getAllSheets(); ss[x]; x++ ) {
-    //for each stylesheet ...
-    if( ss[x].title ) {
-      //disable the stylesheet if it is switchable
-      ss[x].disabled = true;
-    }
-    for( var y = 0; y < arguments.length; y++ ) {
-      //check each title ...
-      if( ss[x].title == arguments[y] ) {
-        //and re-enable the stylesheet if it has a chosen title
-        ss[x].disabled = false;
-      }
-    }
-  }
-  if( !ss.length ) { alert( 'Your browser cannot change stylesheets' ); }
+	for( var x = 0, ss = getAllSheets(); ss[x]; x++ ) {
+		if( ss[x].title ) {
+			ss[x].disabled = true;
+		}
+		for( var y = 0; y < arguments.length; y++ ) {
+			if( ss[x].title == arguments[y] ) {
+				ss[x].disabled = false;
+			}
+		}
+	}
+	if( !ss.length ) { alert( 'Your browser cannot change stylesheets' ); }
+}
+if (self != top) {
+	if (parent.frames[0].thisStyle) {
+		changeStyle(parent.frames[0].thisStyle);
+	}
 }
