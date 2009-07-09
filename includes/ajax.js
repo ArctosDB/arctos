@@ -213,7 +213,7 @@ function success_makePartThingy(r){
 		theTable += '" onmouseout="';
 		theTable += "this.className='insBtn'";
 		theTable += '"';
-		if (result.transaction_id[i] > 0) {
+		if (result.TRANSACTION_ID[i] > 0) {
 			theTable += ' onclick="" value="In Loan">';
 		} else {
 			theTable += ' value="Add" onclick="addPartToLoan(';
