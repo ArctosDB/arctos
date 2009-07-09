@@ -89,7 +89,7 @@
 		<tr>
 			<td>{search criteria}</td>
 			<td>{various}</td>
-			<td>{unpublished}</td>
+			<td><a href="/info/searchAPI.cfm">API</a></td>
 		</tr>
 		
 		<tr>
