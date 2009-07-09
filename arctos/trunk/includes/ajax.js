@@ -429,7 +429,7 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	} else {
 		orderBy += ' ' + orderOrder;
 	}
-	//alert("startrow:"+startrow+"; numrecs:"+numrecs + '; orderBy:' + orderBy + '; orderOrder:' + orderOrder + ":end:");
+	console.log("startrow:"+startrow+"; numrecs:"+numrecs + '; orderBy:' + orderBy + '; orderOrder:' + orderOrder + ":end:");
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getSpecResultsData",
