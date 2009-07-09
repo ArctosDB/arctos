@@ -1,14 +1,3 @@
-/*
-	This is the clear version of _overlib.js, Arctos' main JS include file. _overlib.js is an obfuscated version of this
-	file. To create _overlib.js, just paste the contents of this file into
-	
-	http://www.brainjar.com/js/crunch/demo.html
-	
-	and paste the results of that into _overlib.js
-	
-	DO NOT OVERWRITE THIS FILE WITH OBFUSCATED CODE!
-
-*/
 function IsNumeric(sText) {
    var ValidChars = "0123456789.";
    var IsNumber=true;
