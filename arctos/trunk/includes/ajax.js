@@ -203,7 +203,7 @@ function success_makePartThingy(r){
 		if (result.SAMPLED_FROM_OBJ_ID[i] > 0) {
 			theTable += '&nbsp;sample';
 		}
-		theTable += result.PARTID[i] + "&nbsp;(" + result.COLL_OBJ_DISPOSITION[i] + ")</i>";
+		theTable += "&nbsp;(" + result.COLL_OBJ_DISPOSITION[i] + ")</i>";
 		theTable += '&nbsp;Remark:&nbsp;<input type="text" name="item_remark" size="10" id="item_remark_' + result.PARTID[i] + '">';
 		theTable += '&nbsp;Instr.:&nbsp;<input type="text" name="item_instructions" size="10" id="item_instructions_' + result.PARTID[i] + '">';
 		theTable += '&nbsp;Subsample?:&nbsp;<input type="checkbox" name="subsample" id="subsample_' + result.PARTID[i] + '">';
@@ -220,7 +220,8 @@ function success_makePartThingy(r){
 			theTable += '<br><i>Encumbrances:&nbsp;' + result.ENCUMBRANCE_ACTION[i] + '</i>';
 		}
 		theTable +="</td>";
-		if (result[i+1] && result.COLLECTION_OBJECT_ID[i+1] == result.COLLECTION_OBJECT_ID[i]) {
+		//if (result[i+1] && result.COLLECTION_OBJECT_ID[i+1] == result.COLLECTION_OBJECT_ID[i]) {
+		if (result[i+1] && result.PARTID[i+1] == result.PARTID[i]) {
 			theTable += "</tr>";
 		} else {
 			theTable += "</tr></table>";
