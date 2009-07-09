@@ -220,6 +220,11 @@ function success_makePartThingy(r){
 			theTable += '<br><i>Encumbrances:&nbsp;' + result.ENCUMBRANCE_ACTION[i] + '</i>';
 		}
 		theTable +="</td>";
+		if (result[i+1]){
+			console.log('i: '+i+'; this ID: ' + result.COLLECTION_OBJECT_ID[i] + '; next: ' + result.COLLECTION_OBJECT_ID[i+1]);
+		} else {
+			console.log('i: '+i+'; this ID: ' + result.COLLECTION_OBJECT_ID[i] + '; next: none');
+		}
 		if (result[i+1] && result.COLLECTION_OBJECT_ID[i+1] == result.COLLECTION_OBJECT_ID[i]) {
 		//if (result[i+1] && result.PARTID[i+1] == result.PARTID[i]) {
 			theTable += "</tr>";
