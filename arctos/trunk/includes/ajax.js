@@ -219,7 +219,7 @@ function success_makePartThingy(r){
 			theTable += ' value="Add" onclick="addPartToLoan(';
 			theTable += result.PARTID[i] + ');">';
 		}
-		if (result.ENCUMBRANCE_ACTION[i].length > 0) {
+		if (result.ENCUMBRANCE_ACTION[i] != null) {
 			theTable += '<br><i>Encumbrances:&nbsp;' + result.ENCUMBRANCE_ACTION[i] + '</i>';
 		}
 		theTable +="</td>";
