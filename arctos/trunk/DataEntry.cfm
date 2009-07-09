@@ -733,8 +733,7 @@
 						class="reqdClr d11a" 
 						value="#began_date#"
 						id="began_date"
-						size="10"
-						onFocus="VerbToBegan(this.value);">
+						size="10">
 					<img src="images/pick.gif" 
 						class="likeLink" 
 						border="0" 
@@ -755,8 +754,7 @@
 						class="reqdClr d11a" 
 						value="#ended_date#"
 						id="ended_date"
-						size="10"
-						onFocus="VerbToEnd(this.value);">
+						size="10">
 					<img src="images/pick.gif" 
 						class="likeLink" 
 						border="0" 
