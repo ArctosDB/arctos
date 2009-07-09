@@ -1621,6 +1621,7 @@ jQuery("#c_identifiers_cust").click(function(e){
 		viewport.init("#bgDiv");
 	});
 });
+*/
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {
 		jQuery('#helpDiv').remove();
@@ -1641,7 +1642,7 @@ function changeshowObservations (tgt) {
 		}
 	);
 }
-*/
+
 function showHide(id,onOff) {
 	var t='e_' + id;
 	var z='c_' + id;	
