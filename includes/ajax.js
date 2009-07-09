@@ -1581,23 +1581,26 @@ function success_changeresultSort (result) {
 	});
 	
 	
-	jQuery("#c_collection_cust").click(function(e){
-		var bgDiv = document.createElement('div');
-		bgDiv.id = 'bgDiv';
-		bgDiv.className = 'bgDiv';
-		bgDiv.setAttribute('onclick','closeAndRefresh()');
-		document.body.appendChild(bgDiv);
-		
-		var cDiv = document.createElement('div');
-		cDiv.id = 'customDiv';
-		cDiv.className = 'sscustomBox';
-		cDiv.innerHTML='<br>Loading...';
-		document.body.appendChild(cDiv);
-		var ptl="/includes/SpecSearch/changeCollection.cfm";
-		jQuery(cDiv).load(ptl);
-		jQuery(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
+jQuery("#c_collection_cust").click(function(e){
+	var bgDiv = document.createElement('div');
+	bgDiv.id = 'bgDiv';
+	bgDiv.className = 'bgDiv';
+	bgDiv.setAttribute('onclick','closeAndRefresh()');
+	document.body.appendChild(bgDiv);
+	var cDiv = document.createElement('div');
+	cDiv.id = 'customDiv';
+	cDiv.className = 'sscustomBox';
+	cDiv.innerHTML='<br>Loading...';
+	document.body.appendChild(cDiv);
+	var ptl="/includes/SpecSearch/changeCollection.cfm";
+	jQuery(cDiv).load(ptl,{},function(){
+		viewport.init("#customDiv");
+		viewport.init("#bgDiv");
 	});
 	
+	//jQuery(cDiv).load(ptl);
+	//jQuery(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
+});
 jQuery("#c_identifiers_cust").click(function(e){
 	var bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';
