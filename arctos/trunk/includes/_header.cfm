@@ -1,3 +1,4 @@
+<cfinclude template="/includes/alwaysInclude.cfm">
 <cfif not isdefined("session.header_color")>
 	<cfset setDbUser()>
 </cfif>
@@ -6,7 +7,6 @@
 <cfoutput>
     <meta name="keywords" content="#session.meta_keywords#">
     <LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico">
-    <cfinclude template="/includes/alwaysInclude.cfm"><!--- keep this stuff accessible from non-header-having files --->
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <cfset ssName = replace(session.stylesheet,".css","","all")>
 	<cfif len(ssName) gt 0>
