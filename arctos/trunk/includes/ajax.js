@@ -1582,6 +1582,7 @@ function success_changeresultSort (result) {
 	
 	
 jQuery("#c_collection_cust").click(function(e){
+	console.log('c_collection_cust');
 	var bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';
 	bgDiv.className = 'bgDiv';
