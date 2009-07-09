@@ -2489,9 +2489,9 @@ function checkDate(f,i,v){
 
 function isDate(DateToCheck){
 	if(DateToCheck==""){return true;}
-	//var m_strDate = FormatDate(DateToCheck);
+	var m_strDate = FormatDate(DateToCheck);
 
-	var m_strDate = dateFormat(DateToCheck);
+	//var m_strDate = dateFormat(DateToCheck);
 	
 	if(m_strDate==""){
 		return false;
