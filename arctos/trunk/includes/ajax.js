@@ -405,38 +405,6 @@ Date.prototype.format = function (mask, utc) {
 };
 
 
-
-
-
-function dispDate(date){
-	console.log(date);
-	
-	if (date==null) {
-		d='';
-	} else {
-		console.log('else');
-		var s=date.substring(0,10);
-		console.log(s);
-		var a = s.split('-');
-		var mos=new Array(13);
-		mos[0]="";
-		mos[1]="Jan";
-		mos[2]="Feb";
-		mos[3]="Mar";
-		mos[4]="Apr";
-		mos[5]="May";
-		mos[6]="Jun";
-		mos[7]="Jul";
-		mos[8]="Aug";
-		mos[9]="Sep";
-		mos[10]="Oct";
-		mos[11]="Nov";
-		mos[12]="Dec";
-		var m = parseFloat(a[1]);
-		d = a[2] + '&nbsp;' + mos[m] + '&nbsp;' + a[0];
-	}
-	return d;	
-}
 function success_crcloo (result) {
 	return false;
 }												
@@ -1044,7 +1012,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + dateFormat(data.BEGAN_DATE[i],"d mmm yyyy") + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('ENDED_DATE')> -1) {
-					theInnerHtml += '<td>' + dispDate(data.ENDED_DATE[i]) + '&nbsp;</td>';
+					theInnerHtml += '<td>' + dateFormat(data.ENDED_DATE[i],"d mmm yyyy") + '&nbsp;</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('PARTS')> -1) {
 					theInnerHtml += '<td><div class="wrapLong">' + splitBySemicolon(data.PARTS[i]) + '</div></td>';
