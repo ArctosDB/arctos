@@ -189,25 +189,25 @@ function success_makePartThingy(r){
 	console.log(r);
 	var lastID;
 	for (i=0; i<r.ROWCOUNT; ++i) {
-		var cid = 'partCell_' + result.collection_object_id[i];
+		var cid = 'partCell_' + result.COLLECTION_OBJECT_ID[i];
 		if (document.getElementById(cid)){
 			var theCell = document.getElementById(cid);
 			theCell.innerHTML='Fetching loan data....';
-		if (lastID == result.collection_object_id[i]) {
+		if (lastID == result.COLLECTION_OBJECT_ID[i]) {
 			theTable += "<tr>";
 		} else {
 			var theTable = "<table border><tr>";
 		}
 		theTable += '<td nowrap="nowrap" class="specResultPartCell">';
-		theTable += '<i>' + result.part_name[i];
-		if (result.sampled_from_obj_id[i] > 0) {
+		theTable += '<i>' + result.PART_NAME[i];
+		if (result.SAMPLED_FROM_OBJ_ID[i] > 0) {
 			theTable += '&nbsp;sample';
 		}
-		theTable += "&nbsp;(" + result.coll_obj_disposition[i] + ")</i>";
-		theTable += '&nbsp;Remark:&nbsp;<input type="text" name="item_remark" size="10" id="item_remark_' + result.partid[i] + '">';
-		theTable += '&nbsp;Instr.:&nbsp;<input type="text" name="item_instructions" size="10" id="item_instructions_' + result.partid[i] + '">';
-		theTable += '&nbsp;Subsample?:&nbsp;<input type="checkbox" name="subsample" id="subsample_' + result.partid[i] + '">';
-		theTable += '&nbsp;&nbsp;<input type="button" id="theButton_' + result.partid[i] + '"';
+		theTable += "&nbsp;(" + result.COLL_OBJ_DISPOSITION[i] + ")</i>";
+		theTable += '&nbsp;Remark:&nbsp;<input type="text" name="item_remark" size="10" id="item_remark_' + result.PARTID[i] + '">';
+		theTable += '&nbsp;Instr.:&nbsp;<input type="text" name="item_instructions" size="10" id="item_instructions_' + result.PARTID[i] + '">';
+		theTable += '&nbsp;Subsample?:&nbsp;<input type="checkbox" name="subsample" id="subsample_' + result.PARTID[i] + '">';
+		theTable += '&nbsp;&nbsp;<input type="button" id="theButton_' + result.PARTID[i] + '"';
 		theTable += 'class="insBtn" onmouseover="this.className=';
 		theTable += "'insBtn btnhov'";
 		theTable += '" onmouseout="';
@@ -217,19 +217,19 @@ function success_makePartThingy(r){
 			theTable += ' onclick="" value="In Loan">';
 		} else {
 			theTable += ' value="Add" onclick="addPartToLoan(';
-			theTable += result.partid[i] + ');">';
+			theTable += result.PARTID[i] + ');">';
 		}
-		if (result.encumbrance_action[i].length > 0) {
-			theTable += '<br><i>Encumbrances:&nbsp;' + result.encumbrance_action[i] + '</i>';
+		if (result.ENCUMBRANCE_ACTION[i].length > 0) {
+			theTable += '<br><i>Encumbrances:&nbsp;' + result.ENCUMBRANCE_ACTION[i] + '</i>';
 		}
 		theTable +="</td>";
-		if (result[i+1] && result.collection_object_id[i+1] == result.collection_object_id[i]) {
+		if (result[i+1] && result.COLLECTION_OBJECT_ID[i+1] == result.COLLECTION_OBJECT_ID[i]) {
 			theTable += "</tr>";
 		} else {
 			theTable += "</tr></table>";
 			theCell.innerHTML = theTable;
 		}
-		lastID = result.collection_object_id[i];
+		lastID = result.COLLECTION_OBJECT_ID[i];
 	} else {
 		}
 	}
