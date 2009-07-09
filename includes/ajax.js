@@ -1041,10 +1041,10 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + data.VERBATIM_DATE[i] + '&nbsp;</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('BEGAN_DATE')> -1) {
-					theInnerHtml += '<td>' + dateFormat(data.BEGAN_DATE[i]) + '</td>';
+					theInnerHtml += '<td>' + dateFormat(data.BEGAN_DATE[i],"dd-mmm-yyyy") + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('ENDED_DATE')> -1) {
-					theInnerHtml += '<td>' + dispDate(data.ENDED_DATE[i],"dd-mmm-yyyy") + '&nbsp;</td>';
+					theInnerHtml += '<td>' + dispDate(data.ENDED_DATE[i]) + '&nbsp;</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('PARTS')> -1) {
 					theInnerHtml += '<td><div class="wrapLong">' + splitBySemicolon(data.PARTS[i]) + '</div></td>';
