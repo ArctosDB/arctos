@@ -2255,27 +2255,20 @@ function getHistory(contID) {
 
 function getQuadHelp() {
 	helpWin=windowOpener("/info/quad.cfm","quadHelpWin","width=800,height=600, resizable,scrollbars,status");
-	}
-	
-	function getLegal(blurb) {
+}
+function getLegal(blurb) {
 	var blurb;
 	helpWin=windowOpener("/info/legal.cfm?content="+blurb,"legalWin","width=400,height=338, resizable,scrollbars");
-	}
-	
+}	
 function getInfo(subject,id) {
 	var subject;
 	var id;
-	//alert(id);
-	
 	infoWin=windowOpener("/info/SpecInfo.cfm?subject=" + subject + "&thisId="+id,"infoWin","width=800,height=500, resizable,scrollbars");
-	}
-
-	
+}	
 function addLoanItem(coll_obj_id) {
 	var coll_obj_id;
 	loanItemWin=windowOpener("/user/loanItem.cfm?collection_object_id="+coll_obj_id,"loanItemWin","width=800,height=500, resizable,scrollbars,toolbar,menubar");
-	}
-
+}
 function taxaPick(taxonIdFld,taxonNameFld,formName,scientificName){
 var url="/picks/TaxaPick.cfm";
 var taxonIdFld;
@@ -2285,71 +2278,48 @@ var scientificName;
 var popurl=url+"?taxonIdFld="+taxonIdFld+"&taxonNameFld="+taxonNameFld+"&formName="+formName+"&scientific_name="+scientificName;
 taxapick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
-
-function pubPick(pubIdFld,PubTxtFld,formName){
-var url="/picks/PubPick.cfm";
-var pubIdFld;
-var PubTxtFld;
-var formName;
-var popurl=url+"?pubIdFld="+pubIdFld+"&PubTxtFld="+PubTxtFld+"&formName="+formName;
-pubpick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
-}
-
 function CatItemPick(collIdFld,catNumFld,formName,sciNameFld){
-var url="/picks/CatalogedItemPick.cfm";
-var collIdFld;
-var catNumFld;
-var formName;
-var sciNameFld;
-var popurl=url+"?collIdFld="+collIdFld+"&catNumFld="+catNumFld+"&formName="+formName+"&sciNameFld="+sciNameFld;
-taxapick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
+	var url="/picks/CatalogedItemPick.cfm";
+	var collIdFld;
+	var catNumFld;
+	var formName;
+	var sciNameFld;
+	var popurl=url+"?collIdFld="+collIdFld+"&catNumFld="+catNumFld+"&formName="+formName+"&sciNameFld="+sciNameFld;
+	CatItemPick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
-
-function agentNamePick(agentIdFld,agentNameFld,formName){
-var url="/picks/AgentNamePick.cfm";
-var agentIdFld;
-var agentNameFld;
-var formName;
-var popurl=url+"?agentIdFld="+agentIdFld+"&agentNameFld="+agentNameFld+"&formName="+formName;
-agentpick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
-}
-
 function findAgentName(agentIdFld,agentNameFld,formName,agentNameString){
-var url="/picks/findAgentName.cfm";
-var agentIdFld;
-var agentNameFld;
-var formName;
-var agentNameString;
-var popurl=url+"?agentIdFld="+agentIdFld+"&agentNameFld="+agentNameFld+"&formName="+formName+"&agentName="+agentNameString;
-agentpick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
+	var url="/picks/findAgentName.cfm";
+	var agentIdFld;
+	var agentNameFld;
+	var formName;
+	var agentNameString;
+	var popurl=url+"?agentIdFld="+agentIdFld+"&agentNameFld="+agentNameFld+"&formName="+formName+"&agentName="+agentNameString;
+	agentpick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
-
 function addrPick(addrIdFld,addrFld,formName){
-var url="/picks/AddrPick.cfm";
-var addrIdFld;
-var addrFld;
-var formName;
-var popurl=url+"?addrIdFld="+addrIdFld+"&addrFld="+addrFld+"&formName="+formName;
-addrpick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
+	var url="/picks/AddrPick.cfm";
+	var addrIdFld;
+	var addrFld;
+	var formName;
+	var popurl=url+"?addrIdFld="+addrIdFld+"&addrFld="+addrFld+"&formName="+formName;
+	addrpick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
-
 function GeogPick(geogIdFld,highGeogFld,formName){
-var url="/picks/GeogPick.cfm";
-var geogIdFld;
-var highGeogFld;
-var formName;
-var popurl=url+"?geogIdFld="+geogIdFld+"&highGeogFld="+highGeogFld+"&formName="+formName;
-geogpick=window.open(popurl,"","width=600,height=600, toolbar,resizable,scrollbars,");
+	var url="/picks/GeogPick.cfm";
+	var geogIdFld;
+	var highGeogFld;
+	var formName;
+	var popurl=url+"?geogIdFld="+geogIdFld+"&highGeogFld="+highGeogFld+"&formName="+formName;
+	geogpick=window.open(popurl,"","width=600,height=600, toolbar,resizable,scrollbars,");
 }
-
 function LocalityPick(localityIdFld,speclocFld,formName,fireEvent){
-var url="/picks/LocalityPick.cfm";
-var localityIdFld;
-var speclocFld;
-var formName;
-var fireEvent;
-var popurl=url+"?localityIdFld="+localityIdFld+"&speclocFld="+speclocFld+"&formName="+formName+"&fireEvent="+fireEvent;
-localitypick=window.open(popurl,"","width=800,height=600,resizable,scrollbars,");
+	var url="/picks/LocalityPick.cfm";
+	var localityIdFld;
+	var speclocFld;
+	var formName;
+	var fireEvent;
+	var popurl=url+"?localityIdFld="+localityIdFld+"&speclocFld="+speclocFld+"&formName="+formName+"&fireEvent="+fireEvent;
+	localitypick=window.open(popurl,"","width=800,height=600,resizable,scrollbars,");
 }
 function findJournal(journalIdFld,journalNameFld,formName,journalNameString){
 	var url="/picks/findJournal.cfm";
@@ -2361,19 +2331,12 @@ function findJournal(journalIdFld,journalNameFld,formName,journalNameString){
 	journalpick=window.open(popurl,"","width=400,height=338, toolbar,location,status,menubar,resizable,scrollbars,");
 }
 function deleteEncumbrance(encumbranceId,collectionObjectId){
-var url="/picks/DeleteEncumbrance.cfm";
-var encumbranceId;
-var collectionObjectId;
-var popurl=url+"?encumbrance_id="+encumbranceId+"&collection_object_id="+collectionObjectId;
-deleteEncumbrance=window.open(popurl,"","width=400,height=338, toolbar,location,status,menubar,resizable,scrollbars,");
+	var url="/picks/DeleteEncumbrance.cfm";
+	var encumbranceId;
+	var collectionObjectId;
+	var popurl=url+"?encumbrance_id="+encumbranceId+"&collection_object_id="+collectionObjectId;
+	deleteEncumbrance=window.open(popurl,"","width=400,height=338, toolbar,location,status,menubar,resizable,scrollbars,");
 }
-
-
-function pickpart(){
-var popurl='CollObjPick.cfm';
-collobjpick=window.open(popurl,"","width=400,height=338");
-}
-
 function getAllSheets() {
 	if( !window.ScriptEngine && navigator.__ice_version ) {
 		return document.styleSheets; }
@@ -2395,7 +2358,6 @@ function getAllSheets() {
 	  for( var x = 0; St[x]; x++ ) { os[os.length] = St[x]; } return os;
 }
 function changeStyle() {
-	console.log('stylin...');
 	for( var x = 0, ss = getAllSheets(); ss[x]; x++ ) {
 		if( ss[x].title ) {
 			ss[x].disabled = true;
