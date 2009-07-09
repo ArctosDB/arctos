@@ -157,7 +157,6 @@ function addPartToLoan(partID) {
 	);
 }
 function success_addPartToLoan(result) {
-	console.log(result);
 	var rar = result.split("|");
 	var status=rar[0];
 	if (status==1){
@@ -186,7 +185,6 @@ function makePartThingy() {
 }
 function success_makePartThingy(r){
 	result=r.DATA;
-	console.log(r);
 	var lastID;
 	for (i=0; i<r.ROWCOUNT; ++i) {
 		var cid = 'partCell_' + result.COLLECTION_OBJECT_ID[i];
@@ -208,10 +206,8 @@ function success_makePartThingy(r){
 		theTable += 'Remark:&nbsp;<input type="text" name="item_remark" size="10" id="item_remark_' + result.PARTID[i] + '">';
 		theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
 		theTable += 'Instr.:&nbsp;<input type="text" name="item_instructions" size="10" id="item_instructions_' + result.PARTID[i] + '">';
-
 		theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
 		theTable += 'Subsample?:&nbsp;<input type="checkbox" name="subsample" id="subsample_' + result.PARTID[i] + '">';
-
 		theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
 		theTable += '<input type="button" id="theButton_' + result.PARTID[i] + '"';
 		theTable += ' class="insBtn"';
@@ -225,18 +221,11 @@ function success_makePartThingy(r){
 			theTable += '<br><i>Encumbrances:&nbsp;' + result.ENCUMBRANCE_ACTION[i] + '</i>';
 		}
 		theTable +="</td>";
-		if (result.COLLECTION_OBJECT_ID[i+1]){
-			console.log('i: '+i+'; this ID: ' + result.COLLECTION_OBJECT_ID[i] + '; next: ' + result.COLLECTION_OBJECT_ID[i+1]);
-		} else {
-			console.log('i: '+i+'; this ID: ' + result.COLLECTION_OBJECT_ID[i] + '; next: none');
-		}
 		if (result.COLLECTION_OBJECT_ID[i+1] && result.COLLECTION_OBJECT_ID[i+1] == result.COLLECTION_OBJECT_ID[i]) {
-		//if (result[i+1] && result.PARTID[i+1] == result.PARTID[i]) {
 			theTable += "</tr>";
 		} else {
 			theTable += "</tr></table>";
 			theCell.innerHTML = theTable;
-			console.log(theTable);
 		}
 		lastID = result.COLLECTION_OBJECT_ID[i];
 	} else {
@@ -1721,7 +1710,6 @@ function changeGrp(tid) {
 	}
 }
 function nada(){
- //console.log('nada');
 	return false;
 }
 
