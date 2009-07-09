@@ -878,22 +878,6 @@ function SpecToVerb (verbLoc) {
 	var b = document.getElementById('spec_locality').value;
 	a.value=b;
 }
-function VerbToBegan (begDate) {
-	var begDate;
-	var isBegDate=begDate.length;
-	var VerbDate = document.getElementById('verbatim_date').value;
-	if (isDate(VerbDate)) {
-		console.log('date');
-		var bd = document.getElementById('began_date');
-		bd = VerbDate;
-	}else{console.log('no');}
-}
-function VerbToEnd (endDate) {
-	var endDate;
-	var isEndDate=endDate.length;
-	var bd = document.getElementById('began_date');
-	bd = endDate;
-}
 function showNext(idName) {
 	var idName;
 	var thisElement=document.getElementById(idName);

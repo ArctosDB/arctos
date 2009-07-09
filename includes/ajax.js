@@ -2479,19 +2479,17 @@ function changeStyle() {
 }
 <!----- end stylesheet switch ------>
 
-/***********************************************************************************************
- IsDate functionality
-************************************************************************************************/
 function checkDate(f,i,v){
+	// used by cfinput onvalidate function
 	var r = isDate(v);
 	return r;
 }
 
 function isDate(DateToCheck){
 	if(DateToCheck==""){return true;}
-	var m_strDate = FormatDate(DateToCheck);
+	//var m_strDate = FormatDate(DateToCheck);
 
-	//var m_strDate = dateFormat(DateToCheck);
+	var m_strDate = dateFormat(DateToCheck);
 	
 	if(m_strDate==""){
 		return false;
