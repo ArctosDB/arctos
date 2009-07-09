@@ -1,4 +1,3 @@
-<cfinclude template="/includes/functionLib.cfm">
 <cfif not isdefined("session.header_color")>
 	<cfset setDbUser()>
 </cfif>
