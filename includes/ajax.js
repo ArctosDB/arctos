@@ -1616,11 +1616,13 @@ function showHide(id,onOff) {
  		);
 	}
 }
+/*
 function closeCustom(){
 	document.location=location.href;
 	var theDiv = document.getElementById('customDiv');
 	document.body.removeChild(theDiv);
 }
+*/
 function setPrevSearch_result(schParam){
 	 	var sp='#session.schParam#';
 	 	var pAry=schParam.split("|");
