@@ -279,7 +279,7 @@ function splitBySemicolon(str) {
 	return rStr;
 }
 function dispDate(date){
-	return('soemthing');
+	//return('soemthing');
 	console.log('date');
 	
 	console.log(date);
