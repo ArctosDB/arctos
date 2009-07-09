@@ -4,7 +4,31 @@
 <cfelse>
 	<cfset flatTableName = "filtered_flat">
 </cfif>
+<script>
+ function checkUncheck(formName,CollObjValue)
+ {
+ 	var newStr;
+	 {
+         //if ( document.remove.exclCollObjId.checked )
+		 // this works if ( document.forms['remove'].exclCollObjId.checked )
+		 if ( document.forms[formName].exclCollObjId.checked )
+		  //if ( document["formName"].exclCollObjId.checked )
+		 //orms[\\''\''+tid+\''\\''].eleme  [\''''+tid+''\''
+		 	{
+              newStr = document.reloadThis.exclCollObjId.value + "," + CollObjValue + ",";
+			  document.reloadThis.exclCollObjId.value=newStr;
+			  //alert(newStr);
+			 }
+         else
+		 	{
+              newStr=replaceSubstring(document.reloadThis.exclCollObjId.value, "," + CollObjValue + ",", "");
+			  document.reloadThis.exclCollObjId.value=newStr;
+			  //alert(newStr);
+			 }
+     }
+ }
 
+</script>
 <cfif not isdefined("detail_level") OR len(#detail_level#) is 0>
 	<cfif isdefined("session.detailLevel") AND #session.detailLevel# gt 0>
 		<cfset detail_level = #session.detailLevel#>

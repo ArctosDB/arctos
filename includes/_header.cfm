@@ -77,7 +77,7 @@
 	</table>	
 	<div style="float:right;position:absolute;top:5px;right:5px;clear:both;">
 	    <cfif len(#session.username#) gt 0>
-			<a target="_top" href="##" onClick="getInstDocs('GENERIC','index')">Help</a> ~ 
+			<a target="_top" href="##" onClick="getDocs('index')">Help</a> ~ 
 			<a target="_top" href="/login.cfm?action=signOut">Log out #session.username#</a>
 			<cfif isdefined("session.last_login") and len(#session.last_login#) gt 0>
 				<span style="font-size:smaller">(Last login: #dateformat(session.last_login, "mmm d yyyy")#)</span>&nbsp;
