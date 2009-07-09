@@ -778,8 +778,8 @@ function success_getSpecResultsData(result){
 				theInnerHtml += '</td>';
 				if (loan_request_coll_id.length > 0) {
 					if (loan_request_coll_id == data.COLLECTION_ID[i]){
-						theInnerHtml +='<td><span class="likeLink" onclick="addLoanItem(' + "'" 
-						theInnerHtml += data.COLLECTION_OBJECT_ID ;
+						theInnerHtml +='<td><span class="likeLink" onclick="addLoanItem(' + "'";
+						theInnerHtml += data.COLLECTION_OBJECT_ID;
 						theInnerHtml += "');" + '">Request</span></td>';
 					} else {
 						theInnerHtml +='<td>N/A</td>';
@@ -1547,7 +1547,7 @@ function success_changeresultSort (result) {
 			var ptl="/includes/SpecSearch/customIDs.cfm";
 				jQuery.get(ptl, function(data){
 				 jQuery(theDiv).html(data);
-				})
+				});
 			jQuery(theDiv).css({position:"absolute", top: data.pageY, left: data.pageX});
 	}
 	
@@ -1579,7 +1579,7 @@ function showHide(id,onOff) {
 			var ptl="/includes/SpecSearch/" + id + ".cfm";
 			jQuery.get(ptl, function(data){
 				jQuery(tab).html(data);
-			})
+			});
 			ctl.setAttribute("onclick","showHide('" + id + "',0)");
 			ctl.innerHTML='Show Fewer Options';	
 		} else {
