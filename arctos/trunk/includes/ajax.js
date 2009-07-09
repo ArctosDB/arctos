@@ -2395,6 +2395,7 @@ function getAllSheets() {
 	  for( var x = 0; St[x]; x++ ) { os[os.length] = St[x]; } return os;
 }
 function changeStyle() {
+	console.log('stylin...');
 	for( var x = 0, ss = getAllSheets(); ss[x]; x++ ) {
 		if( ss[x].title ) {
 			ss[x].disabled = true;
