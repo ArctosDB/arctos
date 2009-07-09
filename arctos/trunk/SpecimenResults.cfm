@@ -43,27 +43,6 @@ jQuery( function($) {
 		$("##helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 	});
 	
-	jQuery("##refineSearch").live('click', function(e){
-		console.log('clickity');
-		var bgDiv = document.createElement('div');
-		bgDiv.id = 'bgDiv';
-		bgDiv.className = 'bgDiv';
-		bgDiv.setAttribute('onclick','closeCustomNoRefresh()');
-		document.body.appendChild(bgDiv);
-		
-		var theDiv = document.createElement('div');
-		theDiv.id = 'customDiv';
-		theDiv.className = 'customBox';		
-		document.body.appendChild(theDiv);
-		
-		var guts = "/SpecimenSearch.cfm";
-		$('##customDiv').load(guts,{},function(){
-			setPrevSearch();
-			viewport.init("##customDiv");
-			viewport.init("##bgDiv");
-		});	
-	});
-	
 	$("##customizeButton").live('click', function(e){
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
@@ -234,8 +213,6 @@ function removeHelpDiv() {
 	<br>Runtime: #tt#
 </cfif>
 <!---------------------------------------- /debug widget --------------------------------------------------->
-<span class="likeLink" id="refineSearch">Refine Search</span>
-
 
 <form name="defaults">
 	<input type="hidden" name="killrow" id="killrow" value="#session.killrow#">
@@ -249,7 +226,6 @@ function removeHelpDiv() {
 	<cfif isdefined("loan_request_coll_id")>
 			<input type="hidden" name="loan_request_coll_id" id="loan_request_coll_id" value="#loan_request_coll_id#">
 	</cfif>
-	
 </form>
 	<cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct collection_object_id from #session.SpecSrchTab#
