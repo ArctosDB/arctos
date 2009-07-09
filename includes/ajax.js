@@ -1602,6 +1602,7 @@ jQuery("#c_collection_cust").click(function(e){
 	//jQuery(cDiv).load(ptl);
 	//jQuery(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
 });
+/*
 jQuery("#c_identifiers_cust").click(function(e){
 	console.log('woot');
 	var bgDiv = document.createElement('div');
@@ -1640,6 +1641,7 @@ function changeshowObservations (tgt) {
 		}
 	);
 }
+*/
 function showHide(id,onOff) {
 	var t='e_' + id;
 	var z='c_' + id;	
