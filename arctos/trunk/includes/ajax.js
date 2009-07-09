@@ -1122,7 +1122,8 @@ function closeCustom() {
 	var theDiv = document.getElementById('customDiv');
 	document.body.removeChild(theDiv);
 	var murl='/SpecimenResults.cfm?' + document.getElementById('mapURL').value;
-	window.location=murl;
+	console.log(murl);
+	//window.location=murl;
 	//var theDiv = document.getElementById('bgDiv');
 	//document.body.removeChild(theDiv);
 }
