@@ -195,6 +195,8 @@
 				Rangemaps are only available for queries which return one species in Classes
 				Amphibia, Aves or Mammalia.
 				<br>Subspecies are ignored for rangemapping.
+				<br>You may use the BerkeleyMapper or Google Maps options for any query.
+				<br>Please use your browser's back button or close this window.
 			</div>
 			<script>
 				document.getElementById('status').style.display='none';
