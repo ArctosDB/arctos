@@ -1,8 +1,4 @@
 <cfinclude template="../includes/_pickHeader.cfm">
- <!--- no security --->
-
-
-	<!--- make sure we're searching for something --->
 	<cfif len(#scientific_name#) is 0>
 		You must enter search criteria.
 		<cfabort>
