@@ -4,12 +4,9 @@
 </cfif>
 <cfset btime=now()>
 <cfhtmlhead text="<title>Specimen Results</title>">
-<script type='text/javascript' src='/includes/_myArctos.js'></script>
-<script type='text/javascript' src='/includes/ajax.js'></script>
 <cfoutput>
 <script type="text/javascript" language="javascript">
 jQuery( function($) {
-	
 	$("##sPrefs").click(function(e){
 		var id=this.id;
 		var theDiv = document.createElement('div');

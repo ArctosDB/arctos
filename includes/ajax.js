@@ -23,10 +23,14 @@ var viewport = {
        jQuery(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round(jQuery(el).height()/2));
        }
    };
-
+function success_saveSearch(r) {
+	if(r!='success'){
+		alert(r);
+	}
+}
 function saveSearch(returnURL){
 	var sName=prompt("Name this search", "my search");
-	if (sName!=null){
+	if (sName!==null){
 		var sn=encodeURIComponent(sName);
 		var ru=encodeURI(returnURL);
 		jQuery.getJSON("/component/functions.cfc",
@@ -40,27 +44,6 @@ function saveSearch(returnURL){
 			success_saveSearch
 		);
 	}
-}
-function success_saveSearch(r) {
-	if(r!='success'){
-		alert(r);
-	}
-}
-function insertTypes(idList) {
-	var s=document.createElement('DIV');
-	s.id='ajaxStatus';
-	s.className='ajaxStatus';
-	s.innerHTML='Checking for Types...';
-	document.body.appendChild(s);
-	jQuery.getJSON("/component/functions.cfc",
-		{
-			method : "getTypes",
-			idList : idList,
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		success_insertTypes
-	);
 }
 function success_insertTypes (result) {
 	var sBox=document.getElementById('ajaxStatus');
@@ -80,20 +63,20 @@ function success_insertTypes (result) {
 	catch(e){}
 	document.body.removeChild(sBox);
 }
-function insertMedia(idList) {
+function insertTypes(idList) {
 	var s=document.createElement('DIV');
 	s.id='ajaxStatus';
 	s.className='ajaxStatus';
-	s.innerHTML='Checking for Media...';
+	s.innerHTML='Checking for Types...';
 	document.body.appendChild(s);
 	jQuery.getJSON("/component/functions.cfc",
 		{
-			method : "getMedia",
+			method : "getTypes",
 			idList : idList,
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_insertMedia
+		success_insertTypes
 	);
 }
 function success_insertMedia (result) {
@@ -121,39 +104,24 @@ function success_insertMedia (result) {
 		document.body.removeChild(sBox);
 		}
 	catch(e) {
-		var sBox=document.getElementById('ajaxStatus');
+		sBox=document.getElementById('ajaxStatus');
 		document.body.removeChild(sBox);
 	}
 }
-function showMediaSpan(id){
-	alert(id);
-	}
-function addPartToLoan(partID) {
-	var rs = "item_remark_" + partID;
-	var is = "item_instructions_" + partID;
-	var ss = "subsample_" + partID;
-	var remark=document.getElementById(rs).value;
-	var instructions=document.getElementById(is).value;
-	var subsample=document.getElementById(ss).checked;
-	if (subsample == true) {
-		subsample=1;
-	} else {
-		subsample=0;
-	}
-	var transaction_id=document.getElementById('transaction_id').value;
-	//alert("partID: " + partID + "remark: " + remark + "Inst:" + instructions + "ss:" + subsample + "transid:" + transaction_id);
+function insertMedia(idList) {
+	var s=document.createElement('DIV');
+	s.id='ajaxStatus';
+	s.className='ajaxStatus';
+	s.innerHTML='Checking for Media...';
+	document.body.appendChild(s);
 	jQuery.getJSON("/component/functions.cfc",
 		{
-			method : "addPartToLoan",
-			transaction_id : transaction_id,
-			partID : partID,
-			remark : remark,
-			instructions : instructions,
-			subsample : subsample,
+			method : "getMedia",
+			idList : idList,
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_addPartToLoan
+		success_insertMedia
 	);
 }
 function success_addPartToLoan(result) {
@@ -169,23 +137,37 @@ function success_addPartToLoan(result) {
 		alert('An error occured!\n' + msg);
 	}
 }
-function makePartThingy() {
-	//alert('makePartThingy');
-	var transaction_id = document.getElementById("transaction_id").value;
-	//alert(transaction_id);
+function addPartToLoan(partID) {
+	var rs = "item_remark_" + partID;
+	var is = "item_instructions_" + partID;
+	var ss = "subsample_" + partID;
+	var remark=document.getElementById(rs).value;
+	var instructions=document.getElementById(is).value;
+	var subsample=document.getElementById(ss).checked;
+	if (subsample===true) {
+		subsample=1;
+	} else {
+		subsample=0;
+	}
+	var transaction_id=document.getElementById('transaction_id').value;
 	jQuery.getJSON("/component/functions.cfc",
 		{
-			method : "getLoanPartResults",
+			method : "addPartToLoan",
 			transaction_id : transaction_id,
+			partID : partID,
+			remark : remark,
+			instructions : instructions,
+			subsample : subsample,
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_makePartThingy
-	);	
+		success_addPartToLoan
+	);
 }
 function success_makePartThingy(r){
 	result=r.DATA;
 	var lastID;
+	var theTable;
 	for (i=0; i<r.ROWCOUNT; ++i) {
 		var cid = 'partCell_' + result.COLLECTION_OBJECT_ID[i];
 		if (document.getElementById(cid)){
@@ -194,7 +176,7 @@ function success_makePartThingy(r){
 		if (lastID == result.COLLECTION_OBJECT_ID[i]) {
 			theTable += "<tr>";
 		} else {
-			var theTable = '<table border width="100%"><tr>';
+			theTable = '<table border width="100%"><tr>';
 		}
 		theTable += '<td nowrap="nowrap" class="specResultPartCell">';
 		theTable += '<i>' + result.PART_NAME[i];
@@ -217,7 +199,7 @@ function success_makePartThingy(r){
 			theTable += ' value="Add" onclick="addPartToLoan(';
 			theTable += result.PARTID[i] + ');">';
 		}
-		if (result.ENCUMBRANCE_ACTION[i] != null) {
+		if (result.ENCUMBRANCE_ACTION[i]!==null) {
 			theTable += '<br><i>Encumbrances:&nbsp;' + result.ENCUMBRANCE_ACTION[i] + '</i>';
 		}
 		theTable +="</td>";
@@ -232,94 +214,97 @@ function success_makePartThingy(r){
 		}
 	}
 }
-
+function makePartThingy() {
+	var transaction_id = document.getElementById("transaction_id").value;
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "getLoanPartResults",
+			transaction_id : transaction_id,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		success_makePartThingy
+	);	
+}
 function cordFormat(str) {
-	if (str == null) {
+	var rStr;
+	if (str===null) {
 		rStr='';
 	} else {
-		var rStr = str;
+		rStr = str;
 		var rExp = /s/gi;
-		var rStr = rStr.replace(rExp,"\'\'");
-		var rExp = /d/gi;
-		var rStr = rStr.replace(rExp,'<sup>o</sup>');
-		var rExp = /m/gi;
-		var rStr = rStr.replace(rExp,"\'");
-		var rExp = / /gi;
-		var rStr = rStr.replace(rExp,'&nbsp;');
+		rStr = rStr.replace(rExp,"\'\'");
+		rExp = /d/gi;
+		rStr = rStr.replace(rExp,'<sup>o</sup>');
+		rExp = /m/gi;
+		rStr = rStr.replace(rExp,"\'");
+		rExp = / /gi;
+		rStr = rStr.replace(rExp,'&nbsp;');
 	}
 	return rStr;
 }
 
 function spaceStripper(str) {
 	str=String(str);
-	if (str==null) {
+	var rStr;
+	if (str===null) {
 		rStr='';
 	} else {
-		var rStr = str.replace(/ /gi,'&nbsp;');
+		rStr = str.replace(/ /gi,'&nbsp;');
 	}
 	return rStr;
 }
 function splitByComma(str) {
-	if (str == null) {
+	var rStr;
+	if (str===null) {
 		rStr='';
 	} else {
 		var rExp = /, /gi;
-		var rStr = str.replace(rExp,'<br>');
-		var rExp = / /gi;
-		var rStr = rStr.replace(rExp,'&nbsp;');
+		rStr = str.replace(rExp,'<br>');
+		rExp = / /gi;
+		rStr = rStr.replace(rExp,'&nbsp;');
 	}
 	return rStr;
 }
 function splitBySemicolon(str) {
-	if (str == null) {
+	var rStr;
+	if (str===null) {
 		rStr='';
 	} else {
 		var rExp = /; /gi;
-		var rStr = str.replace(rExp,'<br>');
-		var rExp = / /gi;
-		var rStr = rStr.replace(rExp,'&nbsp;');
+		rStr = str.replace(rExp,'<br>');
+		rExp = / /gi;
+		rStr = rStr.replace(rExp,'&nbsp;');
 	}
 	return rStr;
 }
-
 function dispDate(date){
-	// accepts ColdFusion's crappy date string of the format
-	// 1952-07-03 00:00:00.0
-	// and returns a string of the format dd Mon yyyy
-	if (date == null) {
+	var d;
+	if (date===null) {
 		d='';
 	} else {
 		var s=date.substring(0,10);
 		var a = s.split('-');
-		var mos=new Array(13)
-		mos[0]=""
-		mos[1]="Jan"
-		mos[2]="Feb"
-		mos[3]="Mar"
-		mos[4]="Apr"
-		mos[5]="May"
-		mos[6]="Jun"
-		mos[7]="Jul"
-		mos[8]="Aug"
-		mos[9]="Sep"
-		mos[10]="Oct"
-		mos[11]="Nov"
-		mos[12]="Dec"
+		var mos=new Array(13);
+		mos[0]="";
+		mos[1]="Jan";
+		mos[2]="Feb";
+		mos[3]="Mar";
+		mos[4]="Apr";
+		mos[5]="May";
+		mos[6]="Jun";
+		mos[7]="Jul";
+		mos[8]="Aug";
+		mos[9]="Sep";
+		mos[10]="Oct";
+		mos[11]="Nov";
+		mos[12]="Dec";
 		var m = parseFloat(a[1]);
-		var d = a[2] + '&nbsp;' + mos[m] + '&nbsp;' + a[0];
+		d = a[2] + '&nbsp;' + mos[m] + '&nbsp;' + a[0];
 	}
 	return d;	
-}													
-function checkAllById(list) {
-	var a = list.split(',');
-	for (i=0; i<a.length; ++i) {
-		//alert(eid);
-		if (document.getElementById(a[i])) {
-			document.getElementById(a[i]).checked=true;
-			crcloo(a[i],'in');
-		}
-	}
 }
+function success_crcloo (result) {}												
 function crcloo (ColumnList,in_or_out) {
 	jQuery.getJSON("/component/functions.cfc",
 		{
@@ -332,19 +317,23 @@ function crcloo (ColumnList,in_or_out) {
 		success_crcloo
 	);
 }
-function success_crcloo (result) {
-		//alert(result);
+function checkAllById(list) {
+	var a = list.split(',');
+	for (i=0; i<a.length; ++i) {
+		//alert(eid);
+		if (document.getElementById(a[i])) {
+			document.getElementById(a[i]).checked=true;
+			crcloo(a[i],'in');
+		}
 	}
+}
 
 function uncheckAllById(list) {
 	crcloo(list,'out');
 	var a = list.split(',');
 	for (i=0; i<a.length; ++i) {
-		//alert(eid);
 		if (document.getElementById(a[i])) {
-			//alert(eid);
 			document.getElementById(a[i]).checked=false;
-			//crcloo(a[i],'out');
 		}
 	}
 }
@@ -361,11 +350,10 @@ function toggleKillrow(id,status) {
 	//alert(id + ' ' + status);
 	
 	var theEl = document.getElementById('killRowList');
-	if (status==true) {
+	if (status===true) {
+		var theArray = [];
 		if (theEl.value.length > 0) {
-			var theArray = theEl.value.split(',');
-		} else {
-			var theArray = new Array();
+			theArray = theEl.value.split(',');
 		}
 		theArray.push(id);
 		var theString = theArray.join(",");
@@ -419,8 +407,7 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
    		startrow = ar[0];
    		numrecs = ar[1];
    	}
-	if (orderBy == null) {
-		// get info from dropdowns if it's available
+	if (orderBy===null) {
 		if (document.getElementById('orderBy1') && document.getElementById('orderBy1')) {
 			var o1=document.getElementById('orderBy1').value; 
 			var o2=document.getElementById('orderBy2').value;
@@ -429,7 +416,7 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 			var orderBy = 'cat_num';
 		}		
 	}
-	if (orderOrder == null) {
+	if (orderOrder===null) {
 		var orderOrder = 'ASC';
 	}
 	if (orderBy.indexOf(',') > -1) {
@@ -1066,12 +1053,8 @@ function success_getSpecResultsData(result){
 				}
 			theInnerHtml += '</tr>';
 		}
-		theInnerHtml += '</table>';
-		// remove explicit "null" returned in JSON
-		
-		
+		theInnerHtml += '</table>';		
 	    theInnerHtml = theInnerHtml.replace(/null/g,""); 
-
 		tgt.innerHTML = theInnerHtml;
 		if (action == 'dispCollObj'){
 			makePartThingy();
@@ -1322,7 +1305,7 @@ function success_getParts(r) {
 			option.setAttribute('value',result.PARTID[i]);
 			option2.setAttribute('value',result.PARTID[i]);
 			var pStr=result.PART_NAME[i];
-			if (result.BARCODE[i] != null){
+			if (result.BARCODE[i]!==null){
 				pStr+=' [' + result.BARCODE[i] + ']';
 			}
 			option.appendChild(document.createTextNode(pStr));
@@ -1420,19 +1403,19 @@ function success_makePart(r){
 		alert(msg);
 	} else {
 		var msg="Created part: ";
-		if (result.PART_MODIFIER[0] != null) {
+		if (result.PART_MODIFIER[0]!==null) {
 			msg +=result.PART_MODIFIER[0] + " ";
 		}
 		msg += result.PART_NAME[0] + " ";
-		if (result.PRESERVE_METHOD[0] != null) {
+		if (result.PRESERVE_METHOD[0]!==null) {
 			msg += "(" + result.PRESERVE_METHOD[0] + ") ";
 		}
 		if (result.IS_TISSUE[0]== 1) {
 			msg += "(tissue) ";
 		}
-		if (result.BARCODE[0]!=null) {
+		if (result.BARCODE[0]!==null) {
 			msg += "barcode " + result.BARCODE[0];
-			if (result.NEW_CONTAINER_TYPE[0]!=null) {
+			if (result.NEW_CONTAINER_TYPE[0]!==null) {
 				msg += "( " + result.NEW_CONTAINER_TYPE[0] + ")";
 			}
 		}
@@ -1725,7 +1708,7 @@ function saveComplete(savedStr){
 		var cookieArray = new Array();
 		var cCookie = readCookie("specsrchprefs");
 		var idFound = -1;
-		if (cCookie != null)
+		if (cCookie!==null)
 		{
 			cookieArray = cCookie.split(","); // turn cookie string to array
 			for (i = 0; i<cookieArray.length; i++) { // see if id already exists
