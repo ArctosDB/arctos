@@ -105,8 +105,6 @@
 				<td>
 					<label for="rec_date">Received Date</label>
 					<cfinput type="text" 
-						onvalidate="checkDate" 
-						message="Received Date must be a date" 
 						name="rec_date"
 						value="#DateFormat(accnData.received_date, 'dd mmm yyyy')#" 
 						size="10" 
