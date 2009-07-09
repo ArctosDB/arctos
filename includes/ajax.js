@@ -1182,34 +1182,17 @@ function ssvar (startrow,maxrows) {
 	success_ssvar
 	);
 }
-function success_ssvar(result){
-	alert(result);
-	ahah('SpecimenResultsTable.cfm','resultsTable');
-}
 function jumpToPage (v) {
 	var a = v.split(",");
 	var p = a[0];
 	var m=a[1];
 	ssvar(p,m);
 }
-function openCustomize() {
-		var theDiv = document.createElement('div');
-		theDiv.id = 'customDiv';
-		theDiv.name = 'customDiv';
-		theDiv.className = 'customBox';
-		theDiv.innerHTML='<br>content loading....';
-		theDiv.src = "";
-		document.body.appendChild(theDiv);
-		var guts = "/info/SpecimenResultsPrefs.cfm";
-		ahah(guts,'customDiv');
-	}
 function closeCustom() {
 	var theDiv = document.getElementById('customDiv');
 	document.body.removeChild(theDiv);
 	var murl='/SpecimenResults.cfm?' + document.getElementById('mapURL').value;
 	window.location=murl;
-	//var theDiv = document.getElementById('bgDiv');
-	//document.body.removeChild(theDiv);
 }
 function closeCustomNoRefresh() {
 	var theDiv = document.getElementById('customDiv');
@@ -1667,9 +1650,16 @@ function changeshowObservations (tgt) {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_changeshowObservations
+		function (r) {
+			if (r != 'success') {
+				alert('An error occured: ' + r);
+			}
+		}
 	);
 }
+
+
+
 function showHide(id,onOff) {
 	var t='e_' + id;
 	var z='c_' + id;	
@@ -1749,24 +1739,16 @@ function getFormValues() {
 	var str=spAry.join("|");
 	document.cookie = 'schParams=' + str;
  }
-
- 
-
-
 function changeTarget(id,tvalue) {
-	//alert('id:' + id);
-	//alert('tvalue: ' + tvalue);
-	//alert('len: ' +tvalue.length);
 	if(tvalue.length == 0) {
 		tvalue='SpecimenResults.cfm';
-		//alert('tvalue manually set:' + tvalue);
 	}
 	if (id =='tgtForm1') {
 		var otherForm = document.getElementById('tgtForm');
 	} else {
 		var otherForm = document.getElementById('tgtForm1');
 	}
-	otherForm.value =  tvalue;
+	otherForm.value=tvalue;
 	if (tvalue == 'SpecimenResultsSummary.cfm') {
 		document.getElementById('groupByDiv').style.display='';
 		document.getElementById('groupByDiv1').style.display='';
@@ -1785,11 +1767,9 @@ function changeGrp(tid) {
 	var mList = document.getElementById(tid);
 	var sList = document.getElementById(oid);
 	var len = mList.length;
-	// uncheck everything in the other box
 	for (i = 0; i < len; i++) {
 		sList.options[i].selected = false;
 	}
-	// make em match
 	for (i = 0; i < len; i++) {
 		if (mList.options[i].selected) {
 			sList.options[i].selected = true;
@@ -1799,7 +1779,6 @@ function changeGrp(tid) {
 function nada(){
 	return false;
 }
-
 function saveComplete(savedStr){
 	var savedArray = savedStr.split(",");
 	var result = savedArray[0];
@@ -1809,10 +1788,9 @@ function saveComplete(savedStr){
 		var cookieArray = new Array();
 		var cCookie = readCookie("specsrchprefs");
 		var idFound = -1;
-		if (cCookie!==null)
-		{
-			cookieArray = cCookie.split(","); // turn cookie string to array
-			for (i = 0; i<cookieArray.length; i++) { // see if id already exists
+		if (cCookie!==null)	{
+			cookieArray = cCookie.split(",");
+			for (i = 0; i<cookieArray.length; i++) {
 				if (cookieArray[i] == id) {
 					idFound = i;
 				}
@@ -1822,12 +1800,10 @@ function saveComplete(savedStr){
 			if (idFound == -1) { // no current id in cookie
 				cookieArray.push(id);
 			}
-			// else nothing needs to be done
 		}
-		else { //showHide Off
-			if (idFound != -1) // id exists in cookie
+		else {
+			if (idFound != -1)
 				cookieArray.splice(idFound,1);
-			// else nothing needs to be done
 		}
 		var nCookie = cookieArray.join();
 		createCookie("specsrchprefs", nCookie, 0);
@@ -1842,7 +1818,6 @@ function createCookie(name,value,days) {
 	else var expires = "";
 	document.cookie = name+"="+value+expires+"; path=/";
 }
-
 function readCookie(name) {
 	var nameEQ = name + "=";
 	var ca = document.cookie.split(';');
@@ -1853,25 +1828,6 @@ function readCookie(name) {
 	}
 	return null;
 }
-function multi (id){
-	alert('mult');
-	var id=document.getElementById(id);
-	id.setAttribute("multiple","true");
-	id.setAttribute("size","5");
-}
-function singl (id){
-	alert('sing');
-	var id=document.getElementById(id);
-	id.removeAttribute("multiple");
-	id.setAttribute("size","1");
-}
-
-
-function success_changeshowObservations (result) {
-	if (result != 'success') {
-		alert('An error occured: ' + result);
-	}
-}
 function changeexclusive_collection_id (tgt) {
 	jQuery.getJSON("/component/functions.cfc",
 		{
@@ -1880,18 +1836,15 @@ function changeexclusive_collection_id (tgt) {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_changeexclusive_collection_id
+		function (r) {
+			if (r == 'success') {
+				var e = document.getElementById('exclusive_collection_id').className='';
+			} else {
+				alert('An error occured: ' + r);
+			}
+		}
 	);
 }
-function success_changeexclusive_collection_id (result) {
-	if (result == 'success') {
-		var e = document.getElementById('exclusive_collection_id').className='';
-	} else {
-		alert('An error occured: ' + result);
-	}
-}
-
-/*                       below is the contents of the former _overlib.js                       */
 function IsNumeric(sText) {
    var ValidChars = "0123456789.";
    var IsNumber=true;
@@ -1937,53 +1890,6 @@ function orapwCheck(p,u) {
 	}
 	return msg;
 }
-function isdefined(variable) {
-	return (!(!(document.getElementById(variable))))
-}
-function ahah(url, target, delay) {
-  var req;
-  document.getElementById(target).innerHTML = 'Fetching Data...';
-  if (window.XMLHttpRequest) {
-    req = new XMLHttpRequest();
-  } else if (window.ActiveXObject) {
-  	//alert('ms');
-    req = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  if (req != undefined) {
-    req.onreadystatechange = function() {ahahDone(req, url, target, delay);};
-    req.open("GET", url, true);
-    req.send("");
-  }
-}  
-function ahahDone(req, url, target, delay) {
-  if (req.readyState == 4) { // only if req is "loaded"
-    if (req.status == 200) { // only if "OK"
-      document.getElementById(target).innerHTML = req.responseText;
-    } else {
-      document.getElementById(target).innerHTML="ahah error:\n"+req.statusText;
-    }
-    if (delay != undefined) {
-       setTimeout("ahah(url,target,delay)", delay); // resubmit after delay
-    }
-  }
-}
-function is_number(a_string) {
-tc = a_string.charAt(0);
-if (tc == "0" || tc == "1" || tc == "2" || tc == "3" ||	tc == "4" || tc == "5" || tc == "6" || tc == "7" || tc == "8" || tc == "9") {
-return true;
-} 
-else {
-return false;
-   }
-}
-// IF in a frame, remove header
-function checkFrame() {
-	alert('top' + top.location + ';d: ' + document.location);
-	if (top.location!=document.location) {
-		document.getElementById('header_color').style.display='none';
-	}
-}
-// get documentation embedded in code tables
 function getCtDoc(table,field) {
 	var table;
 	var field;
