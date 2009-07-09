@@ -221,7 +221,7 @@ function success_makePartThingy(r){
 		}
 		theTable +="</td>";
 		var n=i+1;
-		if (result[i+1].COLLECTION_OBJECT_ID){
+		if (result.COLLECTION_OBJECT_ID[i+1]){
 			console.log('i: '+i+'; this ID: ' + result.COLLECTION_OBJECT_ID[i] + '; next: ' + result.COLLECTION_OBJECT_ID[i+1]);
 		} else {
 			console.log('i: '+i+'; this ID: ' + result.COLLECTION_OBJECT_ID[i] + '; next: none');
