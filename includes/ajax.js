@@ -1990,49 +1990,20 @@ function getCtDoc(table,field) {
 	var fullURL = "/info/ctDocumentation.cfm?table=" + table + "&field=" + field;
 	ctDocWin=windowOpener(fullURL,"ctDocWin","width=700,height=400, resizable,scrollbars");
 }
-/*******************************************
-	Manage popup windows
-	Stolen from 
-	http://www.codestore.net/store.nsf/unid/DOMM-4PYJ3S?OpenDocument
-********************************************/
 popupWins = new Array();
 function windowOpener(url, name, args) {
-/*******************************
-the popupWins array stores an object reference for
-each separate window that is called, based upon
-the name attribute that is supplied as an argument
-*******************************/
-if ( typeof( popupWins[name] ) != "object" ){
-popupWins[name] = window.open(url,name,args);
-} else {
-if (!popupWins[name].closed){
-popupWins[name].location.href = url;
-} else {
-popupWins[name] = window.open(url, name,args);
-}
-}
-popupWins[name].focus();
-}
-/**************************** End Manage popup windows *******************************/
-
-/* function to call site-specific documentation ******************************************/
-/*function getInstDocs(inst,url,anc) {
-	var inst;
-	var url;
-	var anc;
-	var baseUrl = "http://curator.museum.uaf.edu/" + inst + "/";
-	var extension = ".shtml";
-	var fullURL = baseUrl + url + extension;
-		if (anc != null) {
-			fullURL += "#" + anc;
+	console.log('i open windows');
+	if ( typeof( popupWins[name] ) != "object" ){
+			popupWins[name] = window.open(url,name,args);
+	} else {
+		if (!popupWins[name].closed){
+			popupWins[name].location.href = url;
+		} else {
+			popupWins[name] = window.open(url, name,args);
 		}
-	siteHelpWin=windowOpener(fullURL,"siteHelpWin","width=700,height=400, resizable,scrollbars");
+	}
+	popupWins[name].focus();
 }
-*/
-function getInstDocs(inst,url,anc) {
-	getDocs(url,anc);
-}
-
 function getDocs(url,anc) {
 	var url;
 	var anc;
