@@ -1123,7 +1123,7 @@ function closeCustom() {
 	document.body.removeChild(theDiv);
 	var murl='/SpecimenResults.cfm?' + document.getElementById('mapURL').value;
 	console.log(murl);
-	//window.location=murl;
+	window.location=murl;
 	//var theDiv = document.getElementById('bgDiv');
 	//document.body.removeChild(theDiv);
 }
