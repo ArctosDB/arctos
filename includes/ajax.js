@@ -2405,25 +2405,14 @@ var fireEvent;
 var popurl=url+"?localityIdFld="+localityIdFld+"&speclocFld="+speclocFld+"&formName="+formName+"&fireEvent="+fireEvent;
 localitypick=window.open(popurl,"","width=800,height=600,resizable,scrollbars,");
 }
-
-// outdated button journal pick
-function JournalPick(agentIdFld,agentNameFld,formName){
-var url="/picks/JournalPick.cfm";
-var journalIdFld;
-var journalNameFld;
-var formName;
-var popurl=url+"?journalIdFld="+agentIdFld+"&journalNameFld="+agentNameFld+"&formName="+formName;
-journalpick=window.open(popurl,"","width=400,height=338, toolbar,location,status,menubar,resizable,scrollbars,");
-}
-// new buttonless journal pick
 function findJournal(journalIdFld,journalNameFld,formName,journalNameString){
-var url="/picks/findJournal.cfm";
-var journalIdFld;
-var journalNameFld;
-var formName;
-var journalNameString;
-var popurl=url+"?journalIdFld="+journalIdFld+"&journalNameFld="+journalNameFld+"&formName="+formName+"&journalName="+journalNameString;;
-journalpick=window.open(popurl,"","width=400,height=338, toolbar,location,status,menubar,resizable,scrollbars,");
+	var url="/picks/findJournal.cfm";
+	var journalIdFld;
+	var journalNameFld;
+	var formName;
+	var journalNameString;
+	var popurl=url+"?journalIdFld="+journalIdFld+"&journalNameFld="+journalNameFld+"&formName="+formName+"&journalName="+journalNameString;;
+	journalpick=window.open(popurl,"","width=400,height=338, toolbar,location,status,menubar,resizable,scrollbars,");
 }
 function deleteEncumbrance(encumbranceId,collectionObjectId){
 var url="/picks/DeleteEncumbrance.cfm";
@@ -2497,93 +2486,30 @@ function checkDate(f,i,v){
 	var r = isDate(v);
 	return r;
 }
+
 function isDate(DateToCheck){
-if(DateToCheck==""){return true;}
-var m_strDate = FormatDate(DateToCheck);
-if(m_strDate==""){
-return false;
-}
-var m_arrDate = m_strDate.split("/");
-var m_DAY = m_arrDate[0];
-var m_MONTH = m_arrDate[1];
-var m_YEAR = m_arrDate[2];
-if(m_YEAR.length > 4){return false;}
-m_strDate = m_MONTH + "/" + m_DAY + "/" + m_YEAR;
-var testDate=new Date(m_strDate);
-if(testDate.getMonth()+1==m_MONTH){
-return true;
-} 
-else{
-return false;
-}
+	if(DateToCheck==""){return true;}
+	//var m_strDate = FormatDate(DateToCheck);
+
+	var m_strDate = dateFormat(DateToCheck);
+	
+	if(m_strDate==""){
+		return false;
+	}
+	var m_arrDate = m_strDate.split("/");
+	var m_DAY = m_arrDate[0];
+	var m_MONTH = m_arrDate[1];
+	var m_YEAR = m_arrDate[2];
+	if(m_YEAR.length > 4){return false;}
+	m_strDate = m_MONTH + "/" + m_DAY + "/" + m_YEAR;
+	var testDate=new Date(m_strDate);
+	if(testDate.getMonth()+1==m_MONTH){
+		return true;
+	}else{
+		return false;
+	}
 }//end function
 
-function fDateDmY(date){
-	var format = 'dd-MMM-yyyy'
-	format=format+"";
-	var result="";
-	var i_format=0;
-	var c="";
-	var token="";
-	var y=date.getYear()+"";
-	var M=date.getMonth()+1;
-	var d=date.getDate();
-	var E=date.getDay();
-	var H=date.getHours();
-	var m=date.getMinutes();
-	var s=date.getSeconds();
-	var yyyy,yy,MMM,MM,dd,hh,h,mm,ss,ampm,HH,H,KK,K,kk,k;
-	var value=new Object();
-	if(y.length < 4){
-		y=""+(y-0+1900);
-		}
-		value["y"]=""+y;value["yyyy"]=y;
-		value["yy"]=y.substring(2,4);
-		value["M"]=M;
-		value["MM"]=LZ(M);
-		value["MMM"]=MONTH_NAMES[M-1];
-		value["NNN"]=MONTH_NAMES[M+11];
-		value["d"]=d;
-		value["dd"]=LZ(d);
-		value["E"]=DAY_NAMES[E+7];
-		value["EE"]=DAY_NAMES[E];
-		value["H"]=H;
-		value["HH"]=LZ(H);if(H==0){
-			value["h"]=12;
-			}else if(H>12){
-				value["h"]=H-12;
-				}else{
-					value["h"]=H;
-					}
-					value["hh"]=LZ(value["h"]);
-					if(H>11){
-						value["K"]=H-12;
-						}else{
-							value["K"]=H;}
-							value["k"]=H+1;
-							value["KK"]=LZ(value["K"]);
-							value["kk"]=LZ(value["k"]);
-							if(H > 11){
-								value["a"]="PM";
-								}else{
-									value["a"]="AM";
-									}
-									value["m"]=m;
-									value["mm"]=LZ(m);
-									value["s"]=s;
-									value["ss"]=LZ(s);
-									while(i_format < format.length){
-										c=format.charAt(i_format);
-										token="";
-										while((format.charAt(i_format)==c) &&(i_format < format.length)){
-											token += format.charAt(i_format++);
-											}
-											if(value[token] != null){
-												result=result + value[token];}
-												else{
-													result=result + token;}
-													}return result;
-													}
 
 
 function FormatDate(DateToFormat,FormatAs){
