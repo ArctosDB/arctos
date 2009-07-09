@@ -2489,7 +2489,7 @@ function isDate(DateToCheck){
 	if(DateToCheck==""){return true;}
 	//var m_strDate = FormatDate(DateToCheck);
 
-	var m_strDate = dateFormat(DateToCheck);
+	var m_strDate = dateFormat(DateToCheck,"dd/mm/yyyy");
 	
 	if(m_strDate==""){
 		return false;
