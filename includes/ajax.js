@@ -196,7 +196,7 @@ function success_makePartThingy(r){
 		if (lastID == result.COLLECTION_OBJECT_ID[i]) {
 			theTable += "<tr>";
 		} else {
-			var theTable = "<table border><tr>";
+			var theTable = '<table border width="100%"><tr>';
 		}
 		theTable += '<td nowrap="nowrap" class="specResultPartCell">';
 		theTable += '<i>' + result.PART_NAME[i];
