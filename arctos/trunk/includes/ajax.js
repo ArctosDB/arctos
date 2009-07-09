@@ -1990,9 +1990,9 @@ function getCtDoc(table,field) {
 	var fullURL = "/info/ctDocumentation.cfm?table=" + table + "&field=" + field;
 	ctDocWin=windowOpener(fullURL,"ctDocWin","width=700,height=400, resizable,scrollbars");
 }
-popupWins = new Array();
 function windowOpener(url, name, args) {
 	console.log('i open windows');
+	popupWins = [];
 	if ( typeof( popupWins[name] ) != "object" ){
 			popupWins[name] = window.open(url,name,args);
 	} else {
