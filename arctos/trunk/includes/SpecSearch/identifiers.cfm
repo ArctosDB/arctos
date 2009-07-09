@@ -1,4 +1,3 @@
-<script type='text/javascript' src='/includes/SpecSearch/jqLoad.js'></script>	
 <table id="t_identifiers" class="ssrch">	
 	<cfoutput>
 		<cfquery name="OtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
