@@ -5,7 +5,6 @@
     <br>aborting....<cfabort>
 </cfif>	
 <cfinclude template="/includes/_header.cfm">
-<cfinclude template="/includes/functionLib.cfm">
 <cfinclude template="/Reports/functions/label_functions.cfm">
 <!-------------------------------------------------------------->
 <cfif #action# is "delete">
