@@ -283,6 +283,7 @@ function dispDate(date){
 	if (date==null) {
 		d='';
 	} else {
+		console.log('else');
 		var s=date.substring(0,10);
 		var a = s.split('-');
 		var mos=new Array(13);
