@@ -1621,22 +1621,19 @@ function success_changeresultSort (result) {
 	
 	
 	
-	function customizeIdentifiers() {
-		var theDiv = document.createElement('div');
-			theDiv.id = 'customDiv';
-			theDiv.className = 'customBox';
-			theDiv.innerHTML='<br>Loading...';
-			theDiv.src = "";
-			document.body.appendChild(theDiv);
-			var ptl="/includes/SpecSearch/customIDs.cfm";
-				jQuery.get(ptl, function(data){
-				 jQuery(theDiv).html(data);
-				});
-			jQuery(theDiv).css({position:"absolute", top: data.pageY, left: data.pageX});
-	}
-	
-	
-});
+function customizeIdentifiers() {
+	var theDiv = document.createElement('div');
+	theDiv.id = 'customDiv';
+	theDiv.className = 'customBox';
+	theDiv.innerHTML='<br>Loading...';
+	theDiv.src = "";
+	document.body.appendChild(theDiv);
+	var ptl="/includes/SpecSearch/customIDs.cfm";
+	jQuery.get(ptl, function(data){
+		 jQuery(theDiv).html(data);
+	});
+	jQuery(theDiv).css({position:"absolute", top: data.pageY, left: data.pageX});
+}
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {
 		jQuery('#helpDiv').remove();
@@ -1657,9 +1654,6 @@ function changeshowObservations (tgt) {
 		}
 	);
 }
-
-
-
 function showHide(id,onOff) {
 	var t='e_' + id;
 	var z='c_' + id;	
@@ -1690,13 +1684,11 @@ function showHide(id,onOff) {
  		);
 	}
 }
-
 function closeAndRefresh(){
 	document.location=location.href;
 	var theDiv = document.getElementById('customDiv');
 	document.body.removeChild(theDiv);
 }
-
 function setPrevSearch_result(schParam){
 	 	var sp='#session.schParam#';
 	 	var pAry=schParam.split("|");
