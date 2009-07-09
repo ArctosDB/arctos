@@ -407,7 +407,7 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
    		startrow = ar[0];
    		numrecs = ar[1];
    	}
-	if (orderBy===null) {
+	if (orderBy==null) {
 		if (document.getElementById('orderBy1') && document.getElementById('orderBy1')) {
 			var o1=document.getElementById('orderBy1').value; 
 			var o2=document.getElementById('orderBy2').value;
