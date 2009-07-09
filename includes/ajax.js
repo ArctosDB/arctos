@@ -1622,6 +1622,12 @@ jQuery("#c_identifiers_cust").click(function(e){
 	});
 });
 */
+
+jQuery("#c_identifiers_cust").click(function(e){
+	console.log('woot');
+});
+
+
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {
 		jQuery('#helpDiv').remove();
