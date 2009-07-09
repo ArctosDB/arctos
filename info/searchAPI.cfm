@@ -24,6 +24,7 @@
 				<cfquery name="theRest" dbtype="query">
 					select * from docs 
 						order by #theColumnName#
+						group by #theColumnName#
 				</cfquery>
 				<cfset ct="">
 				<cfloop query="theRest">
@@ -37,12 +38,12 @@
 				<cfset ct=code_table>
 			</cfif>
 			<tr>				
-				<td>#term#</td>
-				<td>#display#</td>
-				<td>#ct#</td>
-				<td>#definition#</td>
+				<td valign="top">#term#</td>
+				<td valign="top">#display#</td>
+				<td valign="top">#ct#</td>
+				<td valign="top">#definition#</td>
 			</tr>
 		</cfloop>
 	</table>
 </cfoutput>
-<cfinclude template="/includes/_header.cfm">
+<cfinclude template="/includes/_footer.cfm">
