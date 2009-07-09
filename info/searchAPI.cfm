@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-	<cfquery name="st" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="st" datasource="cf_dbuser">
 		select * from cf_search_terms order by term
 	</cfquery>
 	<cfoutput>
@@ -13,7 +13,7 @@
 		<cfloop query="st">
 			<cfif left(code_table,2) is "CT">
 				<cftry>
-				<cfquery name="docs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="docs" datasource="cf_dbuser">
 					select * from #code_table#
 				</cfquery>
 				<cfloop list="#docs.columnlist#" index="colName">
