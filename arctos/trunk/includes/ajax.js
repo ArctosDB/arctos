@@ -23,7 +23,6 @@ var viewport = {
        jQuery(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round(jQuery(el).height()/2));
        }
    };
-
 function saveSearch(returnURL){
 	var sName=prompt("Name this search", "my search");
 	if (sName!==null){
@@ -45,24 +44,7 @@ function saveSearch(returnURL){
 		);
 	}
 }
-function success_insertTypes (result) {
-	var sBox=document.getElementById('ajaxStatus');
-	try{
-		sBox.innerHTML='Processing Types....';
-		for (i=0; i<result.ROWCOUNT; ++i) {
-			var sid=result.DATA.collection_object_id[i];
-			var tl=result.DATA.typeList[i];
-			var sel='CatItem_' + sid;
-			if (sel.length>0){
-				var el=document.getElementById(sel);
-				var ns='<div class="showType">' + tl + '</div>';
-				el.innerHTML+=ns;
-			}
-		}
-	}
-	catch(e){}
-	document.body.removeChild(sBox);
-}
+
 function insertTypes(idList) {
 	var s=document.createElement('DIV');
 	s.id='ajaxStatus';
@@ -76,7 +58,24 @@ function insertTypes(idList) {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_insertTypes
+		function (result) {
+			var sBox=document.getElementById('ajaxStatus');
+			try{
+				sBox.innerHTML='Processing Types....';
+				for (i=0; i<result.ROWCOUNT; ++i) {
+					var sid=result.DATA.collection_object_id[i];
+					var tl=result.DATA.typeList[i];
+					var sel='CatItem_' + sid;
+					if (sel.length>0){
+						var el=document.getElementById(sel);
+						var ns='<div class="showType">' + tl + '</div>';
+						el.innerHTML+=ns;
+					}
+				}
+			}
+			catch(e){}
+			document.body.removeChild(sBox);
+		}
 	);
 }
 function success_insertMedia (result) {
@@ -860,7 +859,6 @@ function success_getSpecResultsData(result){
 					theInnerHtml += data.COLLECTION[i];
 					theInnerHtml += '&nbsp;';
 					theInnerHtml += data.CAT_NUM[i];
-					//theInnerHtml += '</div></a>';
 					theInnerHtml += '</a>';
 				theInnerHtml += '</td>';
 				if (loan_request_coll_id.length > 0) {
@@ -1434,66 +1432,69 @@ function divpopClose(){
 	document.body.removeChild(b);
 }
 function makePart(){
-		var collection_object_id=document.getElementById('collection_object_id').value;
-		var part_name=document.getElementById('npart_name').value;
-		var part_modifier=document.getElementById('part_modifier').value;
-		var lot_count=document.getElementById('lot_count').value;
-		var is_tissue=document.getElementById('is_tissue').value;
-		var preserve_method=document.getElementById('preserve_method').value;
-		var coll_obj_disposition=document.getElementById('coll_obj_disposition').value;
-		var condition=document.getElementById('condition').value;
-		var coll_object_remarks=document.getElementById('coll_object_remarks').value;
-		var barcode=document.getElementById('barcode').value;
-		var new_container_type=document.getElementById('new_container_type').value;
-		 jQuery.getJSON("/component/functions.cfc",
-			{
-				method : "makePart",
-				collection_object_id : collection_object_id,
-				part_name : part_name,
-				part_modifier : part_modifier,
-				lot_count : lot_count,
-				is_tissue : is_tissue,
-				preserve_method : preserve_method,
-				coll_obj_disposition : coll_obj_disposition,
-				condition : condition,
-				coll_object_remarks : coll_object_remarks,
-				barcode : barcode,
-				new_container_type : new_container_type,
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			success_makePart
-		);
-	}
-function success_makePart(r){
-	var result=r.DATA;
-	var status=result.STATUS[0];
-	if (status=='error') {
-		var msg=result.MSG[0];
-		alert(msg);
-	} else {
-		var msg="Created part: ";
-		if (result.PART_MODIFIER[0]!==null) {
-			msg +=result.PART_MODIFIER[0] + " ";
-		}
-		msg += result.PART_NAME[0] + " ";
-		if (result.PRESERVE_METHOD[0]!==null) {
-			msg += "(" + result.PRESERVE_METHOD[0] + ") ";
-		}
-		if (result.IS_TISSUE[0]== 1) {
-			msg += "(tissue) ";
-		}
-		if (result.BARCODE[0]!==null) {
-			msg += "barcode " + result.BARCODE[0];
-			if (result.NEW_CONTAINER_TYPE[0]!==null) {
-				msg += "( " + result.NEW_CONTAINER_TYPE[0] + ")";
+	var collection_object_id=document.getElementById('collection_object_id').value;
+	var part_name=document.getElementById('npart_name').value;
+	var part_modifier=document.getElementById('part_modifier').value;
+	var lot_count=document.getElementById('lot_count').value;
+	var is_tissue=document.getElementById('is_tissue').value;
+	var preserve_method=document.getElementById('preserve_method').value;
+	var coll_obj_disposition=document.getElementById('coll_obj_disposition').value;
+	var condition=document.getElementById('condition').value;
+	var coll_object_remarks=document.getElementById('coll_object_remarks').value;
+	var barcode=document.getElementById('barcode').value;
+	var new_container_type=document.getElementById('new_container_type').value;
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "makePart",
+			collection_object_id : collection_object_id,
+			part_name : part_name,
+			part_modifier : part_modifier,
+			lot_count : lot_count,
+			is_tissue : is_tissue,
+			preserve_method : preserve_method,
+			coll_obj_disposition : coll_obj_disposition,
+			condition : condition,
+			coll_object_remarks : coll_object_remarks,
+			barcode : barcode,
+			new_container_type : new_container_type,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (r){
+			var result=r.DATA;
+			var status=result.STATUS[0];
+			if (status=='error') {
+				var msg=result.MSG[0];
+				alert(msg);
+			} else {
+				var msg="Created part: ";
+				if (result.PART_MODIFIER[0]!==null) {
+					msg +=result.PART_MODIFIER[0] + " ";
+				}
+				msg += result.PART_NAME[0] + " ";
+				if (result.PRESERVE_METHOD[0]!==null) {
+					msg += "(" + result.PRESERVE_METHOD[0] + ") ";
+				}
+				if (result.IS_TISSUE[0]== 1) {
+					msg += "(tissue) ";
+				}
+				if (result.BARCODE[0]!==null) {
+					msg += "barcode " + result.BARCODE[0];
+					if (result.NEW_CONTAINER_TYPE[0]!==null) {
+						msg += "( " + result.NEW_CONTAINER_TYPE[0] + ")";
+					}
+				}
+				logIt(msg);
+				var p = document.getElementById('ppDiv');
+				document.body.removeChild(p);
+				var b = document.getElementById('bgDiv');
+				document.body.removeChild(b);
+				getParts();
 			}
 		}
-		logIt(msg);
-		divpopClose();
-		getParts();
-	}
+	);
 }
+
 function changedisplayRows (tgt) {
 	jQuery.getJSON("/component/functions.cfc",
 		{
@@ -1502,16 +1503,16 @@ function changedisplayRows (tgt) {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_changedisplayRows
+		function (result) {
+			if (result == 'success') {
+				document.getElementById('displayRows').className='';
+			} else {
+				alert('An error occured: ' + result);
+			}
+		}
 	);
 }
-function success_changedisplayRows (result) {
-	if (result == 'success') {
-		document.getElementById('displayRows').className='';
-	} else {
-		alert('An error occured: ' + result);
-	}
-}
+
 
 function changekillRows () {
 	if (document.getElementById('killRows').checked){
@@ -1526,13 +1527,12 @@ function changekillRows () {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_changekillRows
+		function (result){
+			if (result != 'success') {
+				alert('An error occured: ' + result);
+			}
+		}
 	);
-}
-function success_changekillRows(result){
-	if (result != 'success') {
-		alert('An error occured: ' + result);
-	}
 }
 function changeresultSort (tgt) {
 	jQuery.getJSON("/component/functions.cfc",
@@ -1558,11 +1558,8 @@ jQuery( function($) {
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
-
 		bgDiv.setAttribute('onclick','removeHelpDiv()');
-
 		document.body.appendChild(bgDiv);
-		
 		var theDiv = document.createElement('div');
 		theDiv.id = 'helpDiv';
 		theDiv.className = 'helpBox';
