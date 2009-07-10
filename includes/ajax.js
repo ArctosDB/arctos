@@ -170,44 +170,43 @@ function success_makePartThingy(r){
 		if (document.getElementById(cid)){
 			var theCell = document.getElementById(cid);
 			theCell.innerHTML='Fetching loan data....';
-		if (lastID == result.COLLECTION_OBJECT_ID[i]) {
-			theTable += "<tr>";
-		} else {
-			theTable = '<table border width="100%"><tr>';
-		}
-		theTable += '<td nowrap="nowrap" class="specResultPartCell">';
-		theTable += '<i>' + result.PART_NAME[i];
-		if (result.SAMPLED_FROM_OBJ_ID[i] > 0) {
-			theTable += '&nbsp;sample';
-		}
-		theTable += result.COLLECTION_OBJECT_ID[i] + "&nbsp;(" + result.COLL_OBJ_DISPOSITION[i] + ")</i>";
-		theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
-		theTable += 'Remark:&nbsp;<input type="text" name="item_remark" size="10" id="item_remark_' + result.PARTID[i] + '">';
-		theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
-		theTable += 'Instr.:&nbsp;<input type="text" name="item_instructions" size="10" id="item_instructions_' + result.PARTID[i] + '">';
-		theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
-		theTable += 'Subsample?:&nbsp;<input type="checkbox" name="subsample" id="subsample_' + result.PARTID[i] + '">';
-		theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
-		theTable += '<input type="button" id="theButton_' + result.PARTID[i] + '"';
-		theTable += ' class="insBtn"';
-		if (result.TRANSACTION_ID[i] > 0) {
-			theTable += ' onclick="" value="In Loan">';
-		} else {
-			theTable += ' value="Add" onclick="addPartToLoan(';
-			theTable += result.PARTID[i] + ');">';
-		}
-		if (result.ENCUMBRANCE_ACTION[i]!==null) {
-			theTable += '<br><i>Encumbrances:&nbsp;' + result.ENCUMBRANCE_ACTION[i] + '</i>';
-		}
-		theTable +="</td>";
-		if (result.COLLECTION_OBJECT_ID[i+1] && result.COLLECTION_OBJECT_ID[i+1] == result.COLLECTION_OBJECT_ID[i]) {
-			theTable += "</tr>";
-		} else {
-			theTable += "</tr></table>";
-			theCell.innerHTML = theTable;
-		}
-		lastID = result.COLLECTION_OBJECT_ID[i];
-	} else {
+			if (lastID == result.COLLECTION_OBJECT_ID[i]) {
+				theTable += "<tr>";
+			} else {
+				theTable = '<table border width="100%"><tr>';
+			}
+			theTable += '<td nowrap="nowrap" class="specResultPartCell">';
+			theTable += '<i>' + result.PART_NAME[i];
+			if (result.SAMPLED_FROM_OBJ_ID[i] > 0) {
+				theTable += '&nbsp;sample';
+			}
+			theTable += result.COLLECTION_OBJECT_ID[i] + "&nbsp;(" + result.COLL_OBJ_DISPOSITION[i] + ")</i>";
+			theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
+			theTable += 'Remark:&nbsp;<input type="text" name="item_remark" size="10" id="item_remark_' + result.PARTID[i] + '">';
+			theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
+			theTable += 'Instr.:&nbsp;<input type="text" name="item_instructions" size="10" id="item_instructions_' + result.PARTID[i] + '">';
+			theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
+			theTable += 'Subsample?:&nbsp;<input type="checkbox" name="subsample" id="subsample_' + result.PARTID[i] + '">';
+			theTable += '</td><td nowrap="nowrap" class="specResultPartCell">';
+			theTable += '<input type="button" id="theButton_' + result.PARTID[i] + '"';
+			theTable += ' class="insBtn"';
+			if (result.TRANSACTION_ID[i] > 0) {
+				theTable += ' onclick="" value="In Loan">';
+			} else {
+				theTable += ' value="Add" onclick="addPartToLoan(';
+				theTable += result.PARTID[i] + ');">';
+			}
+			if (result.ENCUMBRANCE_ACTION[i]!==null) {
+				theTable += '<br><i>Encumbrances:&nbsp;' + result.ENCUMBRANCE_ACTION[i] + '</i>';
+			}
+			theTable +="</td>";
+			if (result.COLLECTION_OBJECT_ID[i+1] && result.COLLECTION_OBJECT_ID[i+1] == result.COLLECTION_OBJECT_ID[i]) {
+				theTable += "</tr>";
+			} else {
+				theTable += "</tr></table>";
+				theCell.innerHTML = theTable;
+			}
+			lastID = result.COLLECTION_OBJECT_ID[i];
 		}
 	}
 }
@@ -496,7 +495,6 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	} else {
 		orderBy += ' ' + orderOrder;
 	}
-	//console.log("startrow:"+startrow+"; numrecs:"+numrecs + '; orderBy:' + orderBy + '; orderOrder:' + orderOrder + ":end:");
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getSpecResultsData",
