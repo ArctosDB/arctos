@@ -1553,7 +1553,7 @@ function success_changeresultSort (result) {
 	}
 }
 	
-	
+	/*
 	jQuery(".helpLink").click(function(e){
 		var id=this.id;
 		removeHelpDiv();
@@ -1565,7 +1565,19 @@ function success_changeresultSort (result) {
 		jQuery("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 		jQuery(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
 	});
-	
+	*/
+
+	jQuery(".helpLink").click(function(e){
+		var id=this.id;
+		removeHelpDiv();
+		var theDiv = document.createElement('div');
+		theDiv.id = 'helpDiv';
+		theDiv.className = 'helpBox';
+		theDiv.innerHTML='<br>Loading...';
+		document.body.appendChild(theDiv);
+		jQuery("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
+		jQuery(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
+	});
 	
 jQuery("#c_collection_cust").click(function(e){
 	console.log('c_collection_cust');
