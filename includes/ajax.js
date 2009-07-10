@@ -278,19 +278,6 @@ function splitBySemicolon(str) {
 	}
 	return rStr;
 }
-/*
-* Date Format 1.2.3
-* (c) 2007-2009 Steven Levithan <stevenlevithan.com>
-* MIT license
-*
-* Includes enhancements by Scott Trenda <scott.trenda.net>
-* and Kris Kowal <cixar.com/~kris.kowal/>
-*
-* Accepts a date, a mask, or a date and a mask.
-* Returns a formatted version of the given date.
-* The date defaults to the current date/time.
-* The mask defaults to dateFormat.masks.default.
-*/
 
 var dateFormat = function () {
 	var	token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
@@ -371,7 +358,6 @@ var dateFormat = function () {
 	};
 }();
 
-//Some common format strings
 dateFormat.masks = {
 	"default":      "ddd mmm dd yyyy HH:MM:ss",
 	shortDate:      "m/d/yy",
