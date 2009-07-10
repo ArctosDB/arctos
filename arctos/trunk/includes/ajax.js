@@ -1558,6 +1558,14 @@ jQuery( function($) {
 	jQuery(".helpLink").live('click', function(e){
 		var id=this.id;
 		removeHelpDiv();
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+
+		bgDiv.setAttribute('onclick','removeHelpDiv()');
+
+		document.body.appendChild(bgDiv);
+		
 		var theDiv = document.createElement('div');
 		theDiv.id = 'helpDiv';
 		theDiv.className = 'helpBox';
