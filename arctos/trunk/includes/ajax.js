@@ -78,35 +78,6 @@ function insertTypes(idList) {
 		}
 	);
 }
-function success_insertMedia (result) {
-	try{
-		var sBox=document.getElementById('ajaxStatus');
-		sBox.innerHTML='Processing Media....';
-		for (i=0; i<result.ROWCOUNT; ++i) {
-			var sel;
-			var sid=result.DATA.collection_object_id[i];
-			var mid=result.DATA.media_id[i];
-			var rel=result.DATA.media_relationship[i];
-			if (rel=='cataloged_item') {
-				sel='CatItem_' + sid;
-			} else if (rel=='collecting_event') {
-				sel='SpecLocality_' + sid;
-			}
-			if (sel.length>0){
-				var el=document.getElementById(sel);
-				var ns='<a href="/MediaSearch.cfm?action=search&media_id='+mid+'" class="mediaLink" target="_blank" id="mediaSpan_'+sid+'">';
-				ns+='Media';
-				ns+='</a>';
-				el.innerHTML+=ns;
-			}
-		}
-		document.body.removeChild(sBox);
-		}
-	catch(e) {
-		sBox=document.getElementById('ajaxStatus');
-		document.body.removeChild(sBox);
-	}
-}
 function insertMedia(idList) {
 	var s=document.createElement('DIV');
 	s.id='ajaxStatus';
@@ -120,7 +91,35 @@ function insertMedia(idList) {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_insertMedia
+		function (result) {
+			try{
+				var sBox=document.getElementById('ajaxStatus');
+				sBox.innerHTML='Processing Media....';
+				for (i=0; i<result.ROWCOUNT; ++i) {
+					var sel;
+					var sid=result.DATA.collection_object_id[i];
+					var mid=result.DATA.media_id[i];
+					var rel=result.DATA.media_relationship[i];
+					if (rel=='cataloged_item') {
+						sel='CatItem_' + sid;
+					} else if (rel=='collecting_event') {
+						sel='SpecLocality_' + sid;
+					}
+					if (sel.length>0){
+						var el=document.getElementById(sel);
+						var ns='<a href="/MediaSearch.cfm?action=search&media_id='+mid+'" class="mediaLink" target="_blank" id="mediaSpan_'+sid+'">';
+						ns+='Media';
+						ns+='</a>';
+						el.innerHTML+=ns;
+					}
+				}
+				document.body.removeChild(sBox);
+				}
+			catch(e) {
+				sBox=document.getElementById('ajaxStatus');
+				document.body.removeChild(sBox);
+			}
+		}
 	);
 }
 function success_addPartToLoan(result) {
