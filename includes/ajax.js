@@ -343,7 +343,6 @@ var dateFormat = function () {
 		});
 	};
 }();
-
 dateFormat.masks = {
 	"default":      "ddd mmm dd yyyy HH:MM:ss",
 	shortDate:      "m/d/yy",
@@ -358,8 +357,6 @@ dateFormat.masks = {
 	isoDateTime:    "yyyy-mm-dd'T'HH:MM:ss",
 	isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
 };
-
-//Internationalization strings
 dateFormat.i18n = {
 	dayNames: [
 		"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
@@ -370,13 +367,9 @@ dateFormat.i18n = {
 		"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
 	]
 };
-
-//For convenience...
 Date.prototype.format = function (mask, utc) {
 	return dateFormat(this, mask, utc);
 };
-
-
 function success_crcloo (result) {
 	return false;
 }												
@@ -503,7 +496,6 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	} else {
 		orderBy += ' ' + orderOrder;
 	}
-	//console.log("startrow:"+startrow+"; numrecs:"+numrecs + '; orderBy:' + orderBy + '; orderOrder:' + orderOrder + ":end:");
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getSpecResultsData",
@@ -1556,7 +1548,6 @@ jQuery( function($) {
 		jQuery(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
 	});
 	jQuery("#c_collection_cust").click(function(e){
-		console.log('c_collection_cust');
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
@@ -1574,7 +1565,6 @@ jQuery( function($) {
 		});
 	});
 	jQuery("#c_identifiers_cust").click(function(e){
-		console.log('woot');
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
@@ -1851,7 +1841,6 @@ function getCtDoc(table,field) {
 	ctDocWin=windowOpener(fullURL,"ctDocWin","width=700,height=400, resizable,scrollbars");
 }
 function windowOpener(url, name, args) {
-	console.log('i open windows');
 	popupWins = [];
 	if ( typeof( popupWins[name] ) != "object" ){
 			popupWins[name] = window.open(url,name,args);
