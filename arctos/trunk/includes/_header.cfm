@@ -5,9 +5,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
 <head>
 <cfoutput>
-	<noscript>
-		JavaScript is turned off in your web browser. Please turn it on to take full advantage of Arctos.
-	</noscript>
     <meta name="keywords" content="#session.meta_keywords#">
     <LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -38,6 +35,9 @@
     <![endif]-->
 </head>
 <body>
+<noscript>
+		JavaScript is turned off in your web browser. Please turn it on to take full advantage of Arctos.
+	</noscript>
 <cfif cgi.HTTP_USER_AGENT does not contain "Firefox">
 	<div class="browserCheck">
 		Some features of this site may not work in your browser. <a href="/home.cfm##requirements">Learn more</a>
