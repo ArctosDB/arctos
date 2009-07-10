@@ -1612,6 +1612,9 @@ jQuery( function($) {
 	});
 });
 function removeHelpDiv() {
+	if(document.getElementById('bgDiv')){
+		jQuery('#bgDiv').remove();
+	}
 	if (document.getElementById('helpDiv')) {
 		jQuery('#helpDiv').remove();
 	}
