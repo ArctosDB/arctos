@@ -1566,7 +1566,7 @@ function success_changeresultSort (result) {
 		jQuery(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
 	});
 	*/
-	jQuery( function($) {
+jQuery( function($) {
 
 	jQuery(".helpLink").click(function(e){
 		var id=this.id;
@@ -1579,28 +1579,29 @@ function success_changeresultSort (result) {
 		jQuery("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 		jQuery(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
 	});
-	});
-jQuery("#c_collection_cust").click(function(e){
-	console.log('c_collection_cust');
-	var bgDiv = document.createElement('div');
-	bgDiv.id = 'bgDiv';
-	bgDiv.className = 'bgDiv';
-	bgDiv.setAttribute('onclick','closeAndRefresh()');
-	document.body.appendChild(bgDiv);
-	var cDiv = document.createElement('div');
-	cDiv.id = 'customDiv';
-	cDiv.className = 'sscustomBox';
-	cDiv.innerHTML='<br>boogity! Loading...';
-	document.body.appendChild(cDiv);
-	var ptl="/includes/SpecSearch/changeCollection.cfm";
-	jQuery(cDiv).load(ptl,{},function(){
-		viewport.init("#customDiv");
-		viewport.init("#bgDiv");
-	});
 	
-	//jQuery(cDiv).load(ptl);
-	//jQuery(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
-});
+	jQuery("#c_collection_cust").click(function(e){
+		console.log('c_collection_cust');
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		bgDiv.setAttribute('onclick','closeAndRefresh()');
+		document.body.appendChild(bgDiv);
+		var cDiv = document.createElement('div');
+		cDiv.id = 'customDiv';
+		cDiv.className = 'sscustomBox';
+		cDiv.innerHTML='<br>boogity! Loading...';
+		document.body.appendChild(cDiv);
+		var ptl="/includes/SpecSearch/changeCollection.cfm";
+		jQuery(cDiv).load(ptl,{},function(){
+			viewport.init("#customDiv");
+			viewport.init("#bgDiv");
+		});
+		
+		//jQuery(cDiv).load(ptl);
+		//jQuery(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
+	});
+
 /*
 jQuery("#c_identifiers_cust").click(function(e){
 	console.log('woot');
@@ -1621,12 +1622,11 @@ jQuery("#c_identifiers_cust").click(function(e){
 	});
 });
 */
-
 jQuery("#c_identifiers_cust").click(function(e){
 	console.log('woot');
 });
 
-
+});
 function removeHelpDiv() {
 	if (document.getElementById('helpDiv')) {
 		jQuery('#helpDiv').remove();
