@@ -23,11 +23,7 @@ var viewport = {
        jQuery(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round(jQuery(el).height()/2));
        }
    };
-function success_saveSearch(r) {
-	if(r!='success'){
-		alert(r);
-	}
-}
+
 function saveSearch(returnURL){
 	var sName=prompt("Name this search", "my search");
 	if (sName!==null){
@@ -41,7 +37,11 @@ function saveSearch(returnURL){
 				returnformat : "json",
 				queryformat : 'column'
 			},
-			success_saveSearch
+			function (r) {
+				if(r!='success'){
+					alert(r);
+				}
+			}
 		);
 	}
 }
