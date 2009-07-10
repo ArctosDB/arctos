@@ -1566,6 +1566,7 @@ function success_changeresultSort (result) {
 		jQuery(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
 	});
 	*/
+	jQuery( function($) {
 
 	jQuery(".helpLink").click(function(e){
 		var id=this.id;
@@ -1578,7 +1579,7 @@ function success_changeresultSort (result) {
 		jQuery("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 		jQuery(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
 	});
-	
+	});
 jQuery("#c_collection_cust").click(function(e){
 	console.log('c_collection_cust');
 	var bgDiv = document.createElement('div');
