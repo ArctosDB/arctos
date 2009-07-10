@@ -1555,7 +1555,7 @@ jQuery( function($) {
 		var cDiv = document.createElement('div');
 		cDiv.id = 'customDiv';
 		cDiv.className = 'sscustomBox';
-		cDiv.innerHTML='<br>boogity! Loading...';
+		cDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(cDiv);
 		var ptl="/includes/SpecSearch/changeCollection.cfm";
 		jQuery(cDiv).load(ptl,{},function(){
