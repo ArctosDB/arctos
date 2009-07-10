@@ -207,8 +207,6 @@ function success_makePartThingy(r){
 			theCell.innerHTML = theTable;
 		}
 		lastID = result.COLLECTION_OBJECT_ID[i];
-	} else {
-		}
 	}
 }
 function makePartThingy() {
@@ -478,13 +476,13 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 		if (document.getElementById('orderBy1') && document.getElementById('orderBy1')) {
 			var o1=document.getElementById('orderBy1').value; 
 			var o2=document.getElementById('orderBy2').value;
-			var orderBy = o1 + ',' + o2;
+			orderBy = o1 + ',' + o2;
 		} else {
-			var orderBy = 'cat_num';
+			orderBy = 'cat_num';
 		}		
 	}
 	if (orderOrder==null) {
-		var orderOrder = 'ASC';
+		orderOrder = 'ASC';
 	}
 	if (orderBy.indexOf(',') > -1) {
 		var oA=orderBy.split(',');
