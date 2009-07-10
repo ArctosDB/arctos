@@ -1542,19 +1542,16 @@ function changeresultSort (tgt) {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_changeresultSort
+		function (result) {
+			if (result == 'success') {
+				var e = document.getElementById('result_sort').className='';
+			} else {
+				alert('An error occured: ' + result);
+			}
+		}
 	);
 }
-function success_changeresultSort (result) {
-	if (result == 'success') {
-		var e = document.getElementById('result_sort').className='';
-	} else {
-		alert('An error occured: ' + result);
-	}
-}
 jQuery( function($) {
-	
-	
 	jQuery(".helpLink").live('click', function(e){
 		var id=this.id;
 		removeHelpDiv();
