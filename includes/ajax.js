@@ -1602,7 +1602,7 @@ jQuery( function($) {
 		//jQuery(cDiv).css({position:"absolute", top: e.pageY-50, left: "5%"});
 	});
 
-/*
+
 jQuery("#c_identifiers_cust").click(function(e){
 	console.log('woot');
 	var bgDiv = document.createElement('div');
@@ -1621,10 +1621,7 @@ jQuery("#c_identifiers_cust").click(function(e){
 		viewport.init("#bgDiv");
 	});
 });
-*/
-jQuery("#c_identifiers_cust").click(function(e){
-	console.log('woot');
-});
+
 
 });
 function removeHelpDiv() {
