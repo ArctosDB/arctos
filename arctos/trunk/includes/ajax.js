@@ -1553,7 +1553,9 @@ function success_changeresultSort (result) {
 	}
 }
 jQuery( function($) {
-	jQuery(".helpLink").click(function(e){
+	
+	
+	jQuery(".helpLink").live('click', function(e){
 		var id=this.id;
 		removeHelpDiv();
 		var theDiv = document.createElement('div');
