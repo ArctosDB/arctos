@@ -24,7 +24,7 @@ jQuery( function($) {
 	           $(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round($(el).height()/2));
 	       }
 	   };
-	
+	/*
 	$(".helpLink").click(function(e){
 		var id=this.id;
 		removeHelpDiv();
@@ -36,6 +36,7 @@ jQuery( function($) {
 		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
 	});
+	*/
 	$("#partname").autocomplete("/ajax/part_name.cfm", {
 		width: 320,
 		max: 20,
