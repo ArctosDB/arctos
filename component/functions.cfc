@@ -531,7 +531,7 @@
 		<cfset r="#r# to container barcode #parent_barcode# (#new_container_type#)">
 		<cfreturn '1|#r#'>>
 		<cfcatch>
-			<cfreturn "0|#cfcatch.message# #cfcatch.detail# #cfcatch.sql#"> 
+			<cfreturn "0|#cfcatch.message# #cfcatch.detail#"> 
 		</cfcatch>		
 	</cftry>
 	</cfoutput>	
@@ -995,7 +995,7 @@
 			</cfif>
 		</cfquery>
 	<cfcatch>
-		<cfset result = "0|#cfcatch.message# #cfcatch.detail##cfcatch.sql#">
+		<cfset result = "0|#cfcatch.message# #cfcatch.detail#">
 		<cfreturn result>
 	</cfcatch>
 	</cftry>
