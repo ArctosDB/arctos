@@ -207,6 +207,8 @@ function success_makePartThingy(r){
 			theCell.innerHTML = theTable;
 		}
 		lastID = result.COLLECTION_OBJECT_ID[i];
+	} else {
+		}
 	}
 }
 function makePartThingy() {
@@ -476,13 +478,13 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 		if (document.getElementById('orderBy1') && document.getElementById('orderBy1')) {
 			var o1=document.getElementById('orderBy1').value; 
 			var o2=document.getElementById('orderBy2').value;
-			orderBy = o1 + ',' + o2;
+			var orderBy = o1 + ',' + o2;
 		} else {
-			orderBy = 'cat_num';
+			var orderBy = 'cat_num';
 		}		
 	}
 	if (orderOrder==null) {
-		orderOrder = 'ASC';
+		var orderOrder = 'ASC';
 	}
 	if (orderBy.indexOf(',') > -1) {
 		var oA=orderBy.split(',');
@@ -494,6 +496,7 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	} else {
 		orderBy += ' ' + orderOrder;
 	}
+	//console.log("startrow:"+startrow+"; numrecs:"+numrecs + '; orderBy:' + orderBy + '; orderOrder:' + orderOrder + ":end:");
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "getSpecResultsData",
