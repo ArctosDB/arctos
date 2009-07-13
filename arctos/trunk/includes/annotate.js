@@ -75,5 +75,4 @@ function openAnnotation(id) {
 		viewport.init("#annotateDiv");
 		viewport.init("#bgDiv");
 	});
-	ahah(,'');
 }
