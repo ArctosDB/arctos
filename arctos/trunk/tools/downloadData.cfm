@@ -13,7 +13,7 @@
 
 <cfif #action# is "afnum">
 	<cfquery name="afnum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select other_id_num as af from coll_obj_other_id_num where other_id_type='AF'
+		select display_value as af from coll_obj_other_id_num where other_id_type='AF'
 	</cfquery>
 	<cffile action="write" file="#application.webDirectory#/temp/afnum.txt" addnewline="yes" output="afnum">
 
