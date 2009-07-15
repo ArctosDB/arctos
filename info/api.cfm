@@ -49,7 +49,11 @@
 		<ul>
 			<li>
 				#Application.serverRootUrl#/name/{taxon name}
-				<br>Example: #Application.serverRootUrl#/name/Alces alces
+				<ul>
+					<li>
+						Example: #Application.serverRootUrl#/name/Alces alces
+					</li>
+				</ul>
 			</li>
 		</ul>		
 	</p>
