@@ -18,9 +18,9 @@
 				<ul>
 					<li>
 						Example: #Application.serverRootUrl#/guid/UAM:Mamm:1
-						<br>
 					</li>
 				</ul>
+				<br>
 			</li>
 			<li>
 				#Application.serverRootUrl#/specimen/{institution}/{collection}/{catnum}
