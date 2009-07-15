@@ -1,7 +1,31 @@
 <cfinclude template="includes/_header.cfm">
 <cfset title = "Edit Publication">
-<cfif action is "newPup">
-	new pub
+<cfif action is "newPub">
+	<cfoutput>
+		<form name="newpub" method="post" action="Publication.cfm">
+			<input type="hidden" name="action" value="createPub">
+			<label for="publication_title">Publication Title</label>
+			<input type="text" name="publication_title" id="publication_title" class="reqdClr" size="80">
+			<label for="publication_type">Publication Type</label>
+			<select name="publication_type" id="publication_type" class="reqdClr">
+				<cfloop query="ctpublication_type">
+					<option value="#publication_type#">#publication_type#</option>
+				</cfloop>
+			</select>
+			<label for="is_peer_reviewed_fg">Peer Reviewed?</label>
+			<select name="is_peer_reviewed_fg" id="is_peer_reviewed_fg" class="reqdClr">
+				<option value="1">yes</option>
+				<option value="0">no</option>
+			</select>			
+			<label for="published_year">Published Year</label>
+			<input type="text" name="published_year" id="published_year">
+			<label for="publication_loc">Storage Location</label>
+			<input type="text" name="publication_loc" id="publication_loc" size="80">
+			<label for="publication_remarks">Remark</label>
+			<input type="text" name="publication_remarks" id="publication_remarks" size="80">
+
+		</form>
+	</cfoutput>
 </cfif>
 
 
