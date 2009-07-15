@@ -58,6 +58,9 @@
 		</ul>		
 	</p>
 	<p>
+		You may search Media using the <a href="/api/mediasrch">MediaSearch.cfm API</a>
+	</p>
+	<p>
 		You may link to specific <a href="/api/collections">collection's portals</a>.
 	</p>
 </cfif>
