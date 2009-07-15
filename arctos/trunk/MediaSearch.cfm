@@ -109,6 +109,7 @@
 	</cfloop>
 <cfif whr is " where media.media_id > 0">
 	<div class="error">You must enter search criteria.</div>
+	<cfabort>
 </cfif>
 <cfset ssql="#sel# #frm# #whr# #srch#">
 #preservesinglequotes(ssql)#
