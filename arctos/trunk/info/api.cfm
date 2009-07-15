@@ -181,8 +181,47 @@
 			<td>#valuelist(ct.data,"<br>")#</td>
 			<td></td>
 		</tr>
-		relationship
-		related_to
+		<cfquery name="ct" datasource="cf_dbuser">
+			select media_relationship data from ctmedia_relationship order by media_relationship
+		</cfquery>
+		<tr>
+			<td>relationship</td>
+			<td>#valuelist(ct.data,"<br>")#</td>
+			<td>substring searches are supported</td>
+		</tr>
+		<tr>
+			<td>related_to</td>
+			<td></td>
+			<td>
+				Display value of relationship. Examples include:
+				<ul>
+					<li><strong>MVZ Birds 182924 (Buteogallus anthracinus anthracinus)</strong> (cataloged_item)</li>
+					<li><strong>Stan Moore</strong> (agent)</li>
+					<li><strong>North America, United States, California, Alameda County: STRAWBERRY CANYON, BERKELEY</strong> (locality)</li>
+					<li><strong>A molecular view of pinniped relationships with particular emphasis on the true seals.</strong> (project)</li>
+				</ul>
+			</td>
+		</tr>
+		<cfquery name="ct" datasource="cf_dbuser">
+			select media_label data from ctmedia_label order by media_label
+		</cfquery>
+		<tr>
+			<td>label</td>
+			<td>#valuelist(ct.data,"<br>")#</td>
+			<td>substring searches are supported</td>
+		</tr>
+		<tr>
+			<td>label_value</td>
+			<td></td>
+			<td>
+				Display value of label. Examples include:
+				<ul>
+					<li><strong>10 Jul 2007</strong> (made date)</li>
+					<li><strong>prepared specimen</strong> (subject)</li>
+					<li><strong>5000</strong> (image number)</li>
+				</ul>
+			</td>
+		</tr>		
 	</table>
 </cfif>
 <cfif action is "taxsrch">
