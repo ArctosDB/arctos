@@ -29,19 +29,30 @@
 	<cfset srch="#srch# AND mime_type = '#mime_type#'">
 </cfif>
 <cfif not isdefined("number_of_relations")>
-    <cfif isdefined("relationship") and len(relationship) gt 0>
-		<cfset relationship__1=relationship>
+    <cfif (isdefined("relationship") and len(relationship) gt 0) or (isdefined("related_to") and len(related_to) gt 0)>
 		<cfset number_of_relations=1>
+		<cfif isdefined("relationship") and len(relationship) gt 0>
+			<cfset relationship__1=relationship>
+		</cfif>
+		 <cfif isdefined("related_to") and len(related_to) gt 0>
+			<cfset related_value__1=related_to>
+		</cfif>
 	<cfelse>
 		<cfset number_of_relations=1>
 	</cfif>
-	
-    <cfif isdefined("related_to") and len(related_to) gt 0>
-		<cfset related_value__1=related_to>
-	</cfif>
 </cfif>
 <cfif not isdefined("number_of_labels")>
-    <cfset number_of_labels=0>
+    <cfif (isdefined("label") and len(label) gt 0) or (isdefined("label__1") and len(label__1) gt 0)>
+		<cfset number_of_labels=1>
+		<cfif isdefined("label") and len(label) gt 0>
+			<cfset label__1=label>
+		</cfif>
+		<cfif isdefined("label_value") and len(label_value) gt 0>
+			<cfset label_value__1=label_value>
+		</cfif>
+	<cfelse>
+		<cfset number_of_labels=0>
+	</cfif>
 </cfif>
 <cfloop from="1" to="#number_of_relations#" index="n">
 	<cftry>

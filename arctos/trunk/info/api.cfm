@@ -181,7 +181,8 @@
 			<td>#valuelist(ct.data,"<br>")#</td>
 			<td></td>
 		</tr>
-		
+		relationship
+		related_to
 	</table>
 </cfif>
 <cfif action is "taxsrch">
