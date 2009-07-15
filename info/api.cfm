@@ -62,6 +62,11 @@
 	</p>
 </cfif>
 <cfif action is "collections">
+	<p>
+		Specimen data in Arcto is segregated into Virtual Private Databases. The default public user has
+		access to all portals (all collections) simultaneously. It is also possible to form URLs specific to
+		individual portals.
+	</p>
 	You may redirect users (those without overriding login preferences) to a specific "portal" by using the links from 
 	<a href="/home.cfm">#Application.serverRootUrl#/home.cfm</a>
 	<p>
