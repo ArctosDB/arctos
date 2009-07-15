@@ -111,14 +111,14 @@
 	<div class="error">You must enter search criteria.</div>
 	<cfabort>
 </cfif>
-
-whr: #whr#
-<cfabort>
 <cfset ssql="#sel# #frm# #whr# #srch#">
 #preservesinglequotes(ssql)#
 <cfquery name="findIDs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(ssql)#
 </cfquery>
+<cfif findIDs.recordcount is 0>
+	<div class="error">Nothing found.</div>
+</cfif>
 <table>
 <cfset r=1>
 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
