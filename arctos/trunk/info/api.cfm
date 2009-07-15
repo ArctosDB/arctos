@@ -24,11 +24,21 @@
 			</li>
 			<li>
 				#Application.serverRootUrl#/specimen/{institution}/{collection}/{catnum}
-				<br>&nbsp;&nbsp;&nbsp;Example: #Application.serverRootUrl#/specimen/UAM/Mamm/1
+				<ul>
+					<li>
+						Example: #Application.serverRootUrl#/specimen/UAM/Mamm/1
+					</li>
+				</ul>
+				<br>
 			</li>
 			<li>
 				#Application.serverRootUrl#/SpecimenDetail.cfm?guid={institution}:{collection}:{catnum}
-				<br>&nbsp;&nbsp;&nbsp;Example: #Application.serverRootUrl#/SpecimenDetail.cfm?guid=UAM:Mamm:1
+				<ul>
+					<li>
+						Example: #Application.serverRootUrl#/SpecimenDetail.cfm?guid=UAM:Mamm:1
+					</li>
+				</ul>
+				<br>
 			</li>
 		</ul>
 	<p>
