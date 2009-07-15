@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
+	action: #action#
 <cfif action is "nothing">
 	<h2>
 		Partial list of ways to talk to Arctos & Arctos-related products:
