@@ -3,7 +3,7 @@
 <cfoutput>
 <cfif action is "nothing">
 	<h2>
-		Partial list of ways to talk to Arctos & Arctos-related products:
+		Partial list of ways to talk to Arctos
 	</h2>
 	<p>
 		You may search specimens using the <a href="/api/specsrch">SpecimenResults.cfm API</a>. 
@@ -59,6 +59,9 @@
 	</p>
 	<p>
 		You may search Media using the <a href="/api/mediasrch">MediaSearch.cfm API</a>
+	</p>
+	<p>
+		You may talk to our DiGIR portal at #Application.serverRootUrl#/digir
 	</p>
 	<p>
 		You may link to specific <a href="/api/collections">collection's portals</a>.
@@ -286,32 +289,23 @@
 	</table>
 </cfif>
 <cfif action is "kml">
-	Base URL: #Application.serverRootUrl#/bnhmMaps/kml.cfm
+	Base URL: #Application.serverRootUrl#/bnhmMaps/kml.cfm?action=newReq
 	<table border>
 		<tr>
 			<th>Variable</th>
 			<th>Values</th>
 			<th>Explanation</th>
-		</tr>
-		
-		<tr>
-			<td>action</td>
-			<td>newReq</td>
-			<td>Only acceptable value for webservice calls</td>
-		</tr>
-		
+		</tr>		
 		<tr>
 			<td>{search criteria}</td>
 			<td>{various}</td>
 			<td><a href="/api/specsrch">API</a></td>
-		</tr>
-		
+		</tr>		
 		<tr>
 			<td>userFileName</td>
 			<td>Any string</td>
 			<td>Non-default file name. Will be URL-encoded, so use alphanumeric characters for predictability.</td>
-		</tr>	
-		
+		</tr>		
 		<tr>
 			<td rowspan="3">next</td>
 			<td>nothing</td>
@@ -373,16 +367,11 @@
 		<tr>
 			<td rowspan="2">showErrors</td>
 			<td>0</td>
-			<td>Map points onle</td>
+			<td>Map points only</td>
 		</tr>
 		<tr>		
 			<td>1</td>
 			<td>Include error radii as circles</td>
-		</tr>
-		
-		<tr>		
-			<td>link</td>
-			<td>Download a KML Linkfile</td>
 		</tr>
 	</table>
 </cfif>

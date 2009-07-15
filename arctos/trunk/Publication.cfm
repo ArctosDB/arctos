@@ -1,5 +1,23 @@
 <cfinclude template="includes/_header.cfm">
 <cfset title = "Edit Publication">
+<cfif action is "newPup">
+	new pub
+</cfif>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!----------------------------------------------------------------------------->
 <cfif #Action# is "editBookSection">
 	<!--- get the book data and relocate to editBook --->
@@ -14,7 +32,7 @@
 <!----------------------------------------------------------------------------->
 
 
-<cfif #Action# is "nothing">
+<cfif #action# is "nothing">
 	<cfoutput>
 		<cfif isdefined("publication_id") and len(publication_id) gt 0>
 			<!--- passing this form only a publication_id redirects to editing --->
