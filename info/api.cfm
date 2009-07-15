@@ -15,7 +15,11 @@
 		<ul>
 			<li>
 				#Application.serverRootUrl#/guid/{institution}:{collection}:{catnum}
-				<br>&nbsp;&nbsp;&nbsp;Example: #Application.serverRootUrl#/guid/UAM:Mamm:1
+				<ul>
+					<li>
+						Example: #Application.serverRootUrl#/guid/UAM:Mamm:1
+					</li>
+				</ul>
 			</li>
 			<li>
 				#Application.serverRootUrl#/specimen/{institution}/{collection}/{catnum}
