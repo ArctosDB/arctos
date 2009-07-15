@@ -77,6 +77,8 @@
 			</li>
 		</ul>
 	</p>
+	A few "composite portals" also exist. For example, #Application.serverRootUrl#/mvz_all access all MVZ collections
+	in Arctos.
 </cfif>
 <cfif action is "taxsrch">
 	Base URL: #Application.serverRootUrl#/TaxonomyResults.cfm
