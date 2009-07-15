@@ -91,69 +91,6 @@
 
 <cfif action is "mediasrch">
 	Base URL: #Application.serverRootUrl#/MediaSearch.cfm?action=search
-	
-	<!---
-
-<cfif not isdefined("number_of_relations")>
-    <cfset number_of_relations=1>
-</cfif>
-<cfif not isdefined("number_of_labels")>
-    <cfset number_of_labels=0>
-</cfif>
-<cfloop from="1" to="#number_of_relations#" index="n">
-	<cftry>
-        <cfset thisRelationship = #evaluate("relationship__" & n)#>
-	    <cfcatch>
-	        <cfset thisRelationship = "">
-	    </cfcatch>
-    </cftry>
-    <cftry>
-        <cfset thisRelatedItem = #evaluate("related_value__" & n)#>
-	    <cfcatch>
-            <cfset thisRelatedItem = "">
-	    </cfcatch>
-    </cftry>
-    <cftry>
-         <cfset thisRelatedKey = #evaluate("related_primary_key__" & n)#>
-	    <cfcatch>
-            <cfset thisRelatedKey = "">
-	    </cfcatch>
-    </cftry>
-    <cfset frm="#frm#,media_relations media_relations#n#">
-	<cfset whr="#whr# and media.media_id=media_relations#n#.media_id (+)">
-	<cfif len(#thisRelationship#) gt 0>
-		<cfset srch="#srch# AND media_relations#n#.media_relationship like '%#thisRelationship#%'">
-	</cfif>
-	<cfif len(#thisRelatedItem#) gt 0>
-		<cfset srch="#srch# AND upper(media_relation_summary(media_relations#n#.media_relations_id)) like '%#ucase(thisRelatedItem)#%'">
-	</cfif>
-    <cfif len(#thisRelatedKey#) gt 0>
-		<cfset srch="#srch# AND media_relations#n#.related_primary_key = #thisRelatedKey#">
-	</cfif>
-</cfloop>
-	<cfloop from="1" to="#number_of_labels#" index="n">
-		<cftry>
-	        <cfset thisLabel = #evaluate("label__" & n)#>
-		    <cfcatch>
-	            <cfset thisLabel = "">
-		    </cfcatch>
-        </cftry>
-        <cftry>
-	        <cfset thisLabelValue = #evaluate("label_value__" & n)#>
-		    <cfcatch>
-	            <cfset thisLabelValue = "">
-		    </cfcatch>
-        </cftry>		
-		<cfset frm="#frm#,media_labels media_labels#n#">
-	    <cfset whr="#whr# and media.media_id=media_labels#n#.media_id (+)">
-        <cfif len(#thisLabel#) gt 0>
-			<cfset srch="#srch# AND media_labels#n#.media_label = '#thisLabel#'">
-		</cfif>
-		<cfif len(#thisLabelValue#) gt 0>
-			<cfset srch="#srch# AND upper(media_labels#n#.label_value) like '%#ucase(thisLabelValue)#%'">
-		</cfif>
-	</cfloop>
-	--->
 	<table border>
 		<tr>
 			<th>term</th>
@@ -162,7 +99,7 @@
 		</tr>
 		<tr>
 			<td>media_uri</td>
-			<td></td>
+			<td>&nbsp;</td>
 			<td>substring match on URI where Media is stored</td>
 		</tr>
 		<cfquery name="ct" datasource="cf_dbuser">
@@ -171,7 +108,7 @@
 		<tr>
 			<td>media_type</td>
 			<td>#valuelist(ct.data,"<br>")#</td>
-			<td></td>
+			<td>&nbsp;</td>
 		</tr>
 		<cfquery name="ct" datasource="cf_dbuser">
 			select mime_type data from ctmime_type order by mime_type
@@ -179,7 +116,7 @@
 		<tr>
 			<td>mime_type</td>
 			<td>#valuelist(ct.data,"<br>")#</td>
-			<td></td>
+			<td>&nbsp;</td>
 		</tr>
 		<cfquery name="ct" datasource="cf_dbuser">
 			select media_relationship data from ctmedia_relationship order by media_relationship
@@ -191,7 +128,7 @@
 		</tr>
 		<tr>
 			<td>related_to</td>
-			<td></td>
+			<td>&nbsp;</td>
 			<td>
 				Display value of relationship. Examples include:
 				<ul>
@@ -212,7 +149,7 @@
 		</tr>
 		<tr>
 			<td>label_value</td>
-			<td></td>
+			<td>&nbsp;</td>
 			<td>
 				Display value of label. Examples include:
 				<ul>
