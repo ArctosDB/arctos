@@ -31,10 +31,14 @@
 	<p>
 		You may search taxonomy using the <a href="/api/taxsrch">TaxonomyResults.cfm API</a>. 
 	</p>
-	You may link to taxon detail pages with URLs of the format:
 	<p>
-		#Application.serverRootUrl#/name/{taxon name}
-		<br>Example: #Application.serverRootUrl#/name/Alces alces
+		You may link to taxon detail pages with URLs of the format:
+		<ul>
+			<li>
+				#Application.serverRootUrl#/name/{taxon name}
+				<br>Example: #Application.serverRootUrl#/name/Alces alces
+			</li>
+		</ul>		
 	</p>
 </cfif>
 <cfif action is "taxsrch">
