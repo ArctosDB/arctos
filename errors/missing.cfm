@@ -42,14 +42,17 @@
 			</cfcatch>
 		</cftry>
 	<cfelseif listfindnocase(rdurl,'api',"/")>
-		<cftry>
+		api here?
+		<!---<cftry>
 			<cfset gPos=listfindnocase(rdurl,"api","/")>
+			
 			<cfset action = listgetat(rdurl,gPos+1,"/")>
 			<cfinclude template="/info/api.cfm">
 			<cfcatch>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
+		--->
 	<cfelse>
 		<!--- see if we can handle the peristent 404s elegantly --->
 		<cfif cgi.SCRIPT_NAME contains "/DiGIRprov/www/DiGIR.php">
