@@ -57,6 +57,26 @@
 			</li>
 		</ul>		
 	</p>
+	<p>
+		You may link to specific <a href="/api/collections">collection's portals</a>.
+	</p>
+</cfif>
+<cfif action is "collections">
+	You may redirect users (those without overriding login preferences) to a specific "portal" by using the links from 
+	<a href="/home.cfm">#Application.serverRootUrl#/home.cfm</a>
+	<p>
+		Generally, all collections have a portal of the format
+		<ul>
+			<li>
+				#Application.serverRootUrl#/{institution_acronym}_{collection_cde}
+				<ul>
+					<li>
+						Example: #Application.serverRootUrl#/uam_mamm
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</p>
 </cfif>
 <cfif action is "taxsrch">
 	Base URL: #Application.serverRootUrl#/TaxonomyResults.cfm
