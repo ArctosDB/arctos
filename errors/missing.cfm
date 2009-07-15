@@ -46,11 +46,10 @@
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"api","/")>
 			<cfif listlen(rdurl,"/") gt 1>
-				<cfset a = listgetat(rdurl,gPos+1,"/")>
-			<cfelse>
-				<cfset a="nothing">
+				<cfset action = listgetat(rdurl,gPos+1,"/")>
 			</cfif>
-			<cfinclude template="/info/api.cfm?action=#a#">
+			404: action: #action#
+			<cfinclude template="/info/api.cfm">
 			<cfcatch>
 				<cfdump var=#cfcatch#>
 				<cfinclude template="/errors/404.cfm">
