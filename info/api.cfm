@@ -93,15 +93,7 @@
 	Base URL: #Application.serverRootUrl#/MediaSearch.cfm?action=search
 	
 	<!---
-<cfif isdefined("") and len(#media_type#) gt 0>
-	<cfset srch="#srch# AND upper(media_type) like '%#ucase(media_type)#%'">
-</cfif>
-<cfif isdefined("media_id") and len(#media_id#) gt 0>
-	<cfset whr="#whr# AND media.media_id in (#media_id#)">
-</cfif>
-<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
-	<cfset srch="#srch# AND mime_type = '#mime_type#'">
-</cfif>
+
 <cfif not isdefined("number_of_relations")>
     <cfset number_of_relations=1>
 </cfif>
@@ -174,12 +166,22 @@
 			<td>substring match on URI where Media is stored</td>
 		</tr>
 		<cfquery name="ct" datasource="cf_dbuser">
-			select media_type data from ctmedia_type
+			select media_type data from ctmedia_type order by media_type
 		</cfquery>
 		<tr>
 			<td>media_type</td>
 			<td>#valuelist(ct.data,"<br>")#</td>
+			<td></td>
 		</tr>
+		<cfquery name="ct" datasource="cf_dbuser">
+			select mime_type data from ctmime_type order by mime_type
+		</cfquery>
+		<tr>
+			<td>mime_type</td>
+			<td>#valuelist(ct.data,"<br>")#</td>
+			<td></td>
+		</tr>
+		
 	</table>
 </cfif>
 <cfif action is "taxsrch">

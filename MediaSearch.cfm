@@ -29,7 +29,16 @@
 	<cfset srch="#srch# AND mime_type = '#mime_type#'">
 </cfif>
 <cfif not isdefined("number_of_relations")>
-    <cfset number_of_relations=1>
+    <cfif isdefined("relationship") and len(relationship) gt 0>
+		<cfset relationship__1=relationship>
+		<cfset number_of_relations=1>
+	<cfelse>
+		<cfset number_of_relations=1>
+	</cfif>
+	
+    <cfif isdefined("related_to") and len(related_to) gt 0>
+		<cfset related_value__1=related_to>
+	</cfif>
 </cfif>
 <cfif not isdefined("number_of_labels")>
     <cfset number_of_labels=0>
