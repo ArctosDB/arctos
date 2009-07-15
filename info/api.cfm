@@ -1,11 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
+<cfset title="Arctos API">
 <cfoutput>
 <cfif action is "nothing">
 	<h2>
 		Partial list of ways to talk to Arctos & Arctos-related products:
 	</h2>
 	<p>
-		You may link to specimen results using the <a href="/api/specsrch">SpecimenResults.cfm API</a>. 
+		You may search specimens using the <a href="/api/specsrch">SpecimenResults.cfm API</a>. 
 	</p>
 	<p>
 		You may open KML files of Arctos data using the <a href="/api/kml">KML API</a>. 

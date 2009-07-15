@@ -229,7 +229,6 @@
 									<li><a target="_top" href="/Admin/dumpAll.cfm">dump</a></li>
 									<li><a target="_top" href="/CFIDE/administrator/">Manage ColdFusion</a></li>
 									<li><a target="_top" href="/tools/imageList.cfm">Image List</a></li>
-									<li><a target="_top" href="/info/api.cfm">API</a></li>
 								</ul>
 							</li>
 						</cfif>
@@ -344,7 +343,7 @@
 					<li><a target="_top" href="/home.cfm">Home</a></li>
 					<li><a target="_top" href="/Collections/index.cfm">Collections (Loans)</a></li>
 					<li><a target="_top" href="/saveSearch.cfm?action=manage">Saved Searches</a></li>
-					
+					<li><a target="_top" href="/info/api.cfm">API</a></li>
 				</ul>
 			</li>		
 		</ul>
