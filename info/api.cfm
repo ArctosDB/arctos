@@ -50,11 +50,11 @@ You may link to taxon detail pages with URLs of the format:
 			<td></td>
 		</tr>
 		<tr>
-			<td>genus</td>
+			<td>scientific_name</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td>phylum</td>
+			<td>genus</td>
 			<td></td>
 		</tr>
 		<tr>
@@ -67,6 +67,10 @@ You may link to taxon detail pages with URLs of the format:
 		</tr>
 		<tr>
 			<td>full_taxon_name</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>phylum</td>
 			<td></td>
 		</tr>
 		<tr>
@@ -102,58 +106,8 @@ You may link to taxon detail pages with URLs of the format:
 			<td></td>
 		</tr>
 		<tr>
-			<td>scientific_name</td>
-			<td></td>
-		</tr>
-		<tr>
 			<td>we_have_some</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-		</tr>			
-		<tr>
-			<td></td>
-			<td></td>
-		</tr>
-			") AND len(#scientific_name#) gt 0>
-			<CFSET SQL = "#SQL# AND upper(scientific_name) LIKE '%#ucase(scientific_name)#%'">
-			<cfset stringOfStuffToClean = "#stringOfStuffToClean##scientific_name#">
-			<cfset titleTerms=listappend(titleTerms,'#scientific_name#')>
-		</cfif>
-		<cfif isdefined("VALID_CATALOG_TERM_FG") AND len(#VALID_CATALOG_TERM_FG#) gt 0>
-			<CFSET SQL = "#SQL# AND VALID_CATALOG_TERM_FG = #VALID_CATALOG_TERM_FG#">
-		</cfif>
-		<cfif isdefined("") AND #we_have_some# is 1>
-			<CFSET SQL = "#SQL# AND taxonomy.taxon_name_id IN ( select taxon_name_id FROM identification_taxonomy )">
-		</cfif>docs
-		
-		
-		
-		
-		
-		
+			<td>Boolean. True=limits returns to taxonomy that have been used for identifications in Arctos.</td>
 		</tr>
 	</table>
 </cfif>
