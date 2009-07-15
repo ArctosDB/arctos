@@ -92,7 +92,7 @@
 <cfif action is "mediasrch">
 	Base URL: #Application.serverRootUrl#/MediaSearch.cfm?action=search
 	
-	
+	<!---
 <cfif isdefined("") and len(#media_type#) gt 0>
 	<cfset srch="#srch# AND upper(media_type) like '%#ucase(media_type)#%'">
 </cfif>
@@ -161,6 +161,7 @@
 			<cfset srch="#srch# AND upper(media_labels#n#.label_value) like '%#ucase(thisLabelValue)#%'">
 		</cfif>
 	</cfloop>
+	--->
 	<table border>
 		<tr>
 			<th>term</th>
