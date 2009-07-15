@@ -1,44 +1,161 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
-	action: #action#
 <cfif action is "nothing">
 	<h2>
 		Partial list of ways to talk to Arctos & Arctos-related products:
 	</h2>
-<p>
-	You may link to specimen results using the <a href="/api/specsrch">SpecimenResults.cfm API</a>. 
-</p>
-<p>
-	You may open KML files of Arctos data using the <a href="/bnhmMaps/kml.cfm?action=api">KML API</a>. 
-</p>
-You may link to specimens with any of the following:
-	<ul>
-		<li>
-			#Application.serverRootUrl#/guid/{institution}:{collection}:{catnum}
-			<br>Example: #Application.serverRootUrl#/guid/UAM:Mamm:1
-			<br>&nbsp;
-		</li>
-		<li>
-			#Application.serverRootUrl#/specimen/{institution}/{collection}/{catnum}
-			<br>Example: #Application.serverRootUrl#/specimen/UAM/Mamm/1
-			<br>
-		</li>
-		<li>
-			#Application.serverRootUrl#/SpecimenDetail.cfm?guid={institution}:{collection}:{catnum}
-			<br>Example: #Application.serverRootUrl#/SpecimenDetail.cfm?guid=UAM:Mamm:1
-			<br>&nbsp;
-		</li>
-	</ul>
-</li>
-<p>
-	You may 
-</p>
+	<p>
+		You may link to specimen results using the <a href="/api/specsrch">SpecimenResults.cfm API</a>. 
+	</p>
+	<p>
+		You may open KML files of Arctos data using the <a href="/api/kml">KML API</a>. 
+	</p>
+	You may link to specimens with any of the following:
+		<ul>
+			<li>
+				#Application.serverRootUrl#/guid/{institution}:{collection}:{catnum}
+				<br>Example: #Application.serverRootUrl#/guid/UAM:Mamm:1
+				<br>&nbsp;
+			</li>
+			<li>
+				#Application.serverRootUrl#/specimen/{institution}/{collection}/{catnum}
+				<br>Example: #Application.serverRootUrl#/specimen/UAM/Mamm/1
+				<br>
+			</li>
+			<li>
+				#Application.serverRootUrl#/SpecimenDetail.cfm?guid={institution}:{collection}:{catnum}
+				<br>Example: #Application.serverRootUrl#/SpecimenDetail.cfm?guid=UAM:Mamm:1
+				<br>&nbsp;
+			</li>
+		</ul>
+	<p>
+		You may search taxonomy using the <a href="/api/taxsrch">TaxonomyResults.cfm API</a>. 
+	</p>
 You may link to taxon detail pages with URLs of the format:
 
 <p>
 	#Application.serverRootUrl#/name/{taxon name}
 	<br>Example: #Application.serverRootUrl#/name/Alces alces
 </p>
+</cfif>
+<cfif action is "taxsrch">
+	Base URL: #Application.serverRootUrl#
+	<table border>
+		<tr>
+			<th>term</th>
+			<th>comment</th>
+		</tr>
+		<tr>
+			<td>common_name</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>genus</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>phylum</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>species</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>subspecies</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>full_taxon_name</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>phylclass</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>phylorder</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>suborder</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>family</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>subfamily</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>tribe</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>subgenus</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>author_text</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>scientific_name</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>we_have_some</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+		</tr>			
+		<tr>
+			<td></td>
+			<td></td>
+		</tr>
+			") AND len(#scientific_name#) gt 0>
+			<CFSET SQL = "#SQL# AND upper(scientific_name) LIKE '%#ucase(scientific_name)#%'">
+			<cfset stringOfStuffToClean = "#stringOfStuffToClean##scientific_name#">
+			<cfset titleTerms=listappend(titleTerms,'#scientific_name#')>
+		</cfif>
+		<cfif isdefined("VALID_CATALOG_TERM_FG") AND len(#VALID_CATALOG_TERM_FG#) gt 0>
+			<CFSET SQL = "#SQL# AND VALID_CATALOG_TERM_FG = #VALID_CATALOG_TERM_FG#">
+		</cfif>
+		<cfif isdefined("") AND #we_have_some# is 1>
+			<CFSET SQL = "#SQL# AND taxonomy.taxon_name_id IN ( select taxon_name_id FROM identification_taxonomy )">
+		</cfif>docs
+		
+		
+		
+		
+		
+		
+		</tr>
+	</table>
 </cfif>
 <cfif action is "specsrch">
 	<cfquery name="st" datasource="cf_dbuser">

@@ -102,7 +102,7 @@
 		<cfif isdefined("VALID_CATALOG_TERM_FG") AND len(#VALID_CATALOG_TERM_FG#) gt 0>
 			<CFSET SQL = "#SQL# AND VALID_CATALOG_TERM_FG = #VALID_CATALOG_TERM_FG#">
 		</cfif>
-		<cfif isdefined("we_have_some") AND #we_have_some# is 1>
+		<cfif isdefined("we_have_some") AND #we_have_some# is true>
 			<CFSET SQL = "#SQL# AND taxonomy.taxon_name_id IN ( select taxon_name_id FROM identification_taxonomy )">
 		</cfif>
 		<CFSET SQL = "#SQL# group by
