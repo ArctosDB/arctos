@@ -45,7 +45,7 @@
 		api here?
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"api","/")>
-			<cfif listgetat(rdurl,gPos+1,"/")>
+			<cfif listlen(rdurl,"/") gt 1>
 				<cfset action = listgetat(rdurl,gPos+1,"/")>
 			</cfif>
 			<cfinclude template="/info/api.cfm">
