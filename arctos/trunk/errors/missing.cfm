@@ -10,6 +10,7 @@
 	<cfif rdurl contains chr(195) & chr(151)>
 		<cfset rdurl=replace(rdurl,chr(195) & chr(151),chr(215))>
 	</cfif>
+	rdurl; #rdurl#
 	</cfoutput>
 	<cfif listfindnocase(rdurl,'specimen',"/")>
 		<cftry>
