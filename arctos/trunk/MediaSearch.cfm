@@ -107,7 +107,7 @@
 			<cfset srch="#srch# AND upper(media_labels#n#.label_value) like '%#ucase(thisLabelValue)#%'">
 		</cfif>
 	</cfloop>
-<cfif trim(whr) is "where media.media_id > 0 and media.media_id=media_relations1.media_id (+)">
+<cfif len(srch) is 0>
 	<div class="error">You must enter search criteria.</div>
 	<cfabort>
 </cfif>
