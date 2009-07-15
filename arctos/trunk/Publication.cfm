@@ -7,6 +7,7 @@
 
 	<cfoutput>
 		<form name="newpub" method="post" action="Publication.cfm">
+			The Basics:
 			<input type="hidden" name="action" value="createPub">
 			<label for="publication_title">Publication Title</label>
 			<input type="text" name="publication_title" id="publication_title" class="reqdClr" size="80">
@@ -27,7 +28,60 @@
 			<input type="text" name="publication_loc" id="publication_loc" size="80">
 			<label for="publication_remarks">Remark</label>
 			<input type="text" name="publication_remarks" id="publication_remarks" size="80">
-
+			Authors:
+			<table border>
+				<tr>
+					<th>Role</th>
+					<th>Name</th>
+				</tr>
+				<tr id="authortr1">
+					<td>
+						<select name="author_role_1" id="author_role_1">
+							<option value="author">author</option>
+							<option value="editor">editor</option>
+						</select>
+					</td>
+					<td>
+						<input type="hidden" name="author_id_1" id="author_id_1">
+						<input type="text" name="author_name_1" class="reqdClr" 
+							onchange="findAgentName('newpub','author_name_1','author_id_1',this.value); return false;"
+		 					onKeyPress="return noenter(event);">
+		 				
+					</td>
+				</tr>
+			</table>
+			<div id="authors" style="border:1px dashed red;">
+				<cfset i=1>
+				<cfif authors.recordcount is 0>
+				<!--- seed --->
+                <div id="seedMedia" style="display:none">
+                    <input type="hidden" id="media_relations_id__0" name="media_relations_id__0">
+					<cfset d="">
+                    <select name="relationship__0" id="relationship__0" size="1"  onchange="pickedRelationship(this.id)">
+						<option value="delete">delete</option>
+						<cfloop query="ctmedia_relationship">
+							<option <cfif #d# is #media_relationship#> selected="selected" </cfif>value="#media_relationship#">#media_relationship#</option>
+						</cfloop>
+					</select>:&nbsp;<input type="text" name="related_value__0" id="related_value__0" size="80">
+					<input type="hidden" name="related_id__0" id="related_id__0">
+                </div>
+                </cfif>
+                <cfloop query="relns">
+					<cfset d=media_relationship>
+					<input type="hidden" id="media_relations_id__#i#" name="media_relations_id__#i#" value="#media_relations_id#">
+					<select name="relationship__#i#" id="relationship__#i#" size="1"  onchange="pickedRelationship(this.id)">
+						<option value="delete">delete</option>
+						<cfloop query="ctmedia_relationship">
+							<option <cfif #d# is #media_relationship#> selected="selected" </cfif>value="#media_relationship#">#media_relationship#</option>
+						</cfloop>
+					</select>:&nbsp;<input type="text" name="related_value__#i#" id="related_value__#i#" size="80" value="#summary#">
+					<input type="hidden" name="related_id__#i#" id="related_id__#i#" value="#related_primary_key#">
+					<cfset i=i+1>
+					<br>
+				</cfloop>
+				
+				<br><span class="infoLink" id="addRelationship" onclick="addRelation(#i#)">Add Relationship</span>
+			</div>
 		</form>
 	</cfoutput>
 </cfif>
