@@ -50,6 +50,7 @@
 					</td>
 				</tr>
 			</table>
+			<!---
 			<div id="authors" style="border:1px dashed red;">
 				<cfset i=1>
 				<cfif authors.recordcount is 0>
@@ -82,6 +83,7 @@
 				
 				<br><span class="infoLink" id="addRelationship" onclick="addRelation(#i#)">Add Relationship</span>
 			</div>
+			--->
 		</form>
 	</cfoutput>
 </cfif>
