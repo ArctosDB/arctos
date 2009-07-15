@@ -31,15 +31,14 @@
 	<p>
 		You may search taxonomy using the <a href="/api/taxsrch">TaxonomyResults.cfm API</a>. 
 	</p>
-You may link to taxon detail pages with URLs of the format:
-
-<p>
-	#Application.serverRootUrl#/name/{taxon name}
-	<br>Example: #Application.serverRootUrl#/name/Alces alces
-</p>
+	You may link to taxon detail pages with URLs of the format:
+	<p>
+		#Application.serverRootUrl#/name/{taxon name}
+		<br>Example: #Application.serverRootUrl#/name/Alces alces
+	</p>
 </cfif>
 <cfif action is "taxsrch">
-	Base URL: #Application.serverRootUrl#
+	Base URL: #Application.serverRootUrl#/TaxonomyResults.cfm
 	<table border>
 		<tr>
 			<th>term</th>
@@ -115,6 +114,7 @@ You may link to taxon detail pages with URLs of the format:
 	<cfquery name="st" datasource="cf_dbuser">
 		select * from cf_search_terms order by term
 	</cfquery>
+		Base URL: #Application.serverRootUrl#/SpecimenResults.cfm
 	<table border>
 		<tr>
 			<th>term</th>
@@ -159,6 +159,7 @@ You may link to taxon detail pages with URLs of the format:
 	</table>
 </cfif>
 <cfif action is "kml">
+	Base URL: #Application.serverRootUrl#/bnhmMaps/kml.cfm
 	<table border>
 		<tr>
 			<th>Variable</th>
@@ -175,7 +176,7 @@ You may link to taxon detail pages with URLs of the format:
 		<tr>
 			<td>{search criteria}</td>
 			<td>{various}</td>
-			<td><a href="/info/searchAPI.cfm">API</a></td>
+			<td><a href="/api/specsrch">API</a></td>
 		</tr>
 		
 		<tr>
