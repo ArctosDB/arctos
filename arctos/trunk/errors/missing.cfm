@@ -10,7 +10,6 @@
 	<cfif rdurl contains chr(195) & chr(151)>
 		<cfset rdurl=replace(rdurl,chr(195) & chr(151),chr(215))>
 	</cfif>
-	rdurl; #rdurl#
 	</cfoutput>
 	<cfif listfindnocase(rdurl,'specimen',"/")>
 		<cftry>
@@ -43,22 +42,16 @@
 			</cfcatch>
 		</cftry>
 	<cfelseif listfindnocase(rdurl,'api',"/")>
-		<cfoutput>
-		api here?
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"api","/")>
-			gPos: #gPos# 
 			<cfif listlen(rdurl,"/") gt 1>
 				<cfset action = listgetat(rdurl,gPos+1,"/")>
 			</cfif>
-			404: action: #action#
 			<cfinclude template="/info/api.cfm">
 			<cfcatch>
-				<cfdump var=#cfcatch#>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
-		</cfoutput>
 	<cfelse>
 		<!--- see if we can handle the peristent 404s elegantly --->
 		<cfif cgi.SCRIPT_NAME contains "/DiGIRprov/www/DiGIR.php">
