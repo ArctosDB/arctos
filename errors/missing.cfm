@@ -48,6 +48,7 @@
 			<cfset action = listgetat(rdurl,gPos+1,"/")>
 			<cfinclude template="/info/api.cfm">
 			<cfcatch>
+				<cfdump var=#cfcatch#>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
