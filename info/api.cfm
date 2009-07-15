@@ -18,10 +18,10 @@
 				<ul>
 					<li>
 						Example: #Application.serverRootUrl#/guid/UAM:Mamm:1
+						<br>
 					</li>
 				</ul>
 			</li>
-			<li><br></li>
 			<li>
 				#Application.serverRootUrl#/specimen/{institution}/{collection}/{catnum}
 				<br>&nbsp;&nbsp;&nbsp;Example: #Application.serverRootUrl#/specimen/UAM/Mamm/1
