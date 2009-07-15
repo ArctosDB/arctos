@@ -15,7 +15,7 @@
 <cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
 <cfset frm="from media">			
 <cfset whr=" where media.media_id > 0">
-<cfset srch=" ">		
+<cfset srch=" ">
 <cfif isdefined("media_uri") and len(#media_uri#) gt 0>
 	<cfset srch="#srch# AND upper(media_uri) like '%#ucase(media_uri)#%'">
 </cfif>

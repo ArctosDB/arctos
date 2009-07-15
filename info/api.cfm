@@ -88,6 +88,99 @@
 		The default all-access portal is #Application.serverRootUrl#/all_all
 	</p>
 </cfif>
+
+<cfif action is "mediasrch">
+	Base URL: #Application.serverRootUrl#/MediaSearch.cfm?action=search
+	
+	
+<cfif isdefined("") and len(#media_type#) gt 0>
+	<cfset srch="#srch# AND upper(media_type) like '%#ucase(media_type)#%'">
+</cfif>
+<cfif isdefined("media_id") and len(#media_id#) gt 0>
+	<cfset whr="#whr# AND media.media_id in (#media_id#)">
+</cfif>
+<cfif isdefined("mime_type") and len(#mime_type#) gt 0>
+	<cfset srch="#srch# AND mime_type = '#mime_type#'">
+</cfif>
+<cfif not isdefined("number_of_relations")>
+    <cfset number_of_relations=1>
+</cfif>
+<cfif not isdefined("number_of_labels")>
+    <cfset number_of_labels=0>
+</cfif>
+<cfloop from="1" to="#number_of_relations#" index="n">
+	<cftry>
+        <cfset thisRelationship = #evaluate("relationship__" & n)#>
+	    <cfcatch>
+	        <cfset thisRelationship = "">
+	    </cfcatch>
+    </cftry>
+    <cftry>
+        <cfset thisRelatedItem = #evaluate("related_value__" & n)#>
+	    <cfcatch>
+            <cfset thisRelatedItem = "">
+	    </cfcatch>
+    </cftry>
+    <cftry>
+         <cfset thisRelatedKey = #evaluate("related_primary_key__" & n)#>
+	    <cfcatch>
+            <cfset thisRelatedKey = "">
+	    </cfcatch>
+    </cftry>
+    <cfset frm="#frm#,media_relations media_relations#n#">
+	<cfset whr="#whr# and media.media_id=media_relations#n#.media_id (+)">
+	<cfif len(#thisRelationship#) gt 0>
+		<cfset srch="#srch# AND media_relations#n#.media_relationship like '%#thisRelationship#%'">
+	</cfif>
+	<cfif len(#thisRelatedItem#) gt 0>
+		<cfset srch="#srch# AND upper(media_relation_summary(media_relations#n#.media_relations_id)) like '%#ucase(thisRelatedItem)#%'">
+	</cfif>
+    <cfif len(#thisRelatedKey#) gt 0>
+		<cfset srch="#srch# AND media_relations#n#.related_primary_key = #thisRelatedKey#">
+	</cfif>
+</cfloop>
+	<cfloop from="1" to="#number_of_labels#" index="n">
+		<cftry>
+	        <cfset thisLabel = #evaluate("label__" & n)#>
+		    <cfcatch>
+	            <cfset thisLabel = "">
+		    </cfcatch>
+        </cftry>
+        <cftry>
+	        <cfset thisLabelValue = #evaluate("label_value__" & n)#>
+		    <cfcatch>
+	            <cfset thisLabelValue = "">
+		    </cfcatch>
+        </cftry>		
+		<cfset frm="#frm#,media_labels media_labels#n#">
+	    <cfset whr="#whr# and media.media_id=media_labels#n#.media_id (+)">
+        <cfif len(#thisLabel#) gt 0>
+			<cfset srch="#srch# AND media_labels#n#.media_label = '#thisLabel#'">
+		</cfif>
+		<cfif len(#thisLabelValue#) gt 0>
+			<cfset srch="#srch# AND upper(media_labels#n#.label_value) like '%#ucase(thisLabelValue)#%'">
+		</cfif>
+	</cfloop>
+	<table border>
+		<tr>
+			<th>term</th>
+			<th>values</th>
+			<th>comment</th>
+		</tr>
+		<tr>
+			<td>media_uri</td>
+			<td></td>
+			<td>substring match on URI where Media is stored</td>
+		</tr>
+		<cfquery name="ct" datasource="cf_dbuser">
+			select media_type data from ctmedia_type
+		</cfquery>
+		<tr>
+			<td>media_type</td>
+			<td>#valuelist(ct.data,"<br>")#</td>
+		</tr>
+	</table>
+</cfif>
 <cfif action is "taxsrch">
 	Base URL: #Application.serverRootUrl#/TaxonomyResults.cfm
 	<table border>
