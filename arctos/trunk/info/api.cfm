@@ -40,7 +40,7 @@ You may link to taxon detail pages with URLs of the format:
 	<br>Example: #Application.serverRootUrl#/name/Alces alces
 </p>
 </cfif>
-<cfif action is "specimen">
+<cfif action is "specsrch">
 	<cfquery name="st" datasource="cf_dbuser">
 		select * from cf_search_terms order by term
 	</cfquery>
