@@ -67,11 +67,6 @@
 		newRow+='onchange="get_AgentName(this.value,this.id,\'author_id_' + thisID + '\');"';
 		newRow+='onKeyPress="return noenter(event);">';
 		newRow+='</td>';
-		newRow+='<td id="agntControl' + thisID + '">';
-		newRow+='<span class="infoLink" onclick="addAgent()">Add</span>';
-		
-		newRow+=' ~ <span class="infoLink" onclick="deleteAgent()">Remove</span>';
-		newRow+='</td>';
 		newRow+='</tr>';		
 		jQuery('#authTab tr:last').after(newRow);
 		var prevControlName='agntControl' + lastID;
@@ -83,14 +78,6 @@
 		var lid = jQuery('#authTab tr:last').attr("id");
 		var lastID=lid.replace('authortr','');
 		var thisID=parseInt(lastID) - 1;
-		var newRow='<span class="infoLink" onclick="addAgent()">Add</span>';
-		var prevControlName='agntControl' + thisID;
-		var prevControl=document.getElementById(prevControlName);
-		prevControl.innerHTML=newRow;	
-		if(thisID>1){
-			var newRow=' ~ <span class="infoLink" onclick="deleteAgent()">Remove</span>';
-			prevControl.innerHTML+=newRow;
-		}
 		document.getElementById('numberAuthors').value=thisID;
 		jQuery('#authTab tr:last').remove();
 	}
@@ -127,12 +114,11 @@
 			<label for="publication_remarks">Remark</label>
 			<input type="text" name="publication_remarks" id="publication_remarks" size="80">
 			<input trpe="hidden" name="numberAuthors" id="numberAuthors" value="1">
-			<br>Authors:
+			<br>Authors: <span class="infoLink" onclick="addAgent()">Add Row</span>  ~ <span class="infoLink" onclick="deleteAgent()">Remove Last Row</span>';
 			<table border id="authTab">
 				<tr>
 					<th>Role</th>
 					<th>Name</th>
-					<th></th>
 				</tr>
 				<tr id="authortr1">
 					<td>
@@ -147,9 +133,6 @@
 							onchange="get_AgentName(this.value,this.id,'author_id_1');"
 		 					onKeyPress="return noenter(event);">
 		 				
-					</td>
-					<td id="agntControl1">
-						<span class="infoLink" onclick="addAgent()">Add</span>
 					</td>
 				</tr>
 			</table>
