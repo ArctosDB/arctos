@@ -53,6 +53,24 @@
 	function addAgent (n) {
 		var newRow='<tr id="123"><td>boogity</td><td>boogity</td><td>boogity</td></tr>';
 		var lid = jQuery('#authTab tr:last').attr("id");
+		var thisID=int(lid + 1);
+		var newRow='<tr id="authortr' + thisID + '">';
+		newRow+='<td>';
+		newRow+='<select name="author_role_' + thisID + '" id="author_role_' + thisID + '1">';
+		newRow+='<option value="author">author</option>';
+		newRow+='<option value="editor">editor</option>';
+		newRow+='</select>';
+		newRow+='</td>';
+		newRow+='<td>';
+		newRow+='<input type="hidden" name="author_id_' + thisID + '" id="author_id_' + thisID + '">';
+		newRow+='<input type="text" name="author_name_' + thisID + '" id="author_name_' + thisID + '" class="reqdClr" ';
+		newRow+='onchange="get_AgentName(this.value,this.id,\'author_id_' + thisID + '\');"';
+		newRow+='onKeyPress="return noenter(event);">';
+		newRow+='</td>';
+		newRow+='<td>';
+		newRow+='<span class="infoLink" onclick="addAgent()">More...</span>';
+		newRow+='</td>';
+		newRow+='</tr>';
 		console.log('before: ' + lid);
 		
 		
