@@ -51,7 +51,6 @@
 	
 	
 	function addAgent (n) {
-		var newRow='<tr id="123"><td>boogity</td><td>boogity</td><td>boogity</td></tr>';
 		var lid = jQuery('#authTab tr:last').attr("id");
 		var lastID=lid.replace('authortr','');
 		var thisID=parseInt(lastID) + 1;
@@ -79,6 +78,9 @@
 		var prevControl=document.getElementById(prevControlName);
 		prevControl.innerHTML='';		
 		document.getElementById('numberAuthors').value=thisID;
+	}
+	function deleteAgent() {
+		jQuery('#authTab tr:last').attr("id").remove();
 	}
 </script>
 <cfif action is "newPub">
