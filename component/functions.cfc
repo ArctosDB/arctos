@@ -31,6 +31,7 @@
 		<cfreturn "fail: #cfcatch.Message# #cfcatch.Detail#">
 	</cfcatch>
 	</cftry>
+	<cfreturn "nocontrol">
 </cffunction>
 <!------------------------------------------------------->
 <cffunction name="kill_canned_search" access="remote">
