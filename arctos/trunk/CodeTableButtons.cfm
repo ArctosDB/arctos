@@ -54,45 +54,39 @@ However, some tables have not followed normal naming conventions and are cryptic
 
 <!---------- normal CTs ----------------->
 <cfelse>
-<form name="btn#i#" method="post" action="CodeTableEditor.cfm">
-	<input type="hidden" name="tbl" value="#getCTName.table_name#">
-	
-<cfset collcde = "">
-<cfset descn = "">
-<cfloop query="getCols">
-	<cfif not #column_name# contains "display" AND not #column_name# contains "description">
-		<cfif not #column_name# is "collection_cde">
-			<input type="hidden" name="fld" value="#column_name#">
-			<cfset collcde="#collcde#n">
-		<cfelse>
-			<cfset collcde="#collcde#y">
+	<cfset collcde = "">
+	<cfset descn = "">
+	<cfloop query="getCols">
+		<cfif not #column_name# contains "display" AND not #column_name# contains "description">
+			<cfif not #column_name# is "collection_cde">
+				<cfset fld=column_name>
+				<cfset collcde="#collcde#n">
+			<cfelse>
+				<cfset collcde="#collcde#y">
+			</cfif>
 		</cfif>
+		<cfif #column_name# contains "description">
+			<cfset descn="y">
+		</cfif>
+	</cfloop>
+	<cfif #collcde# contains "y">
+		<cfset collcde="y">
+	<cfelse>
+		<cfset collcde="n">
 	</cfif>
-	<cfif #column_name# contains "description">
+	<cfif #descn# contains "y">
 		<cfset descn="y">
+		This table has documentation available.
+	<cfelse>
+		<cfset descn="n">
 	</cfif>
-</cfloop>
-<cfif #collcde# contains "y">
-	<cfset collcde="y">
-<cfelse>
-	<cfset collcde="n">
-</cfif>
-<cfif #descn# contains "y">
-	<cfset descn="y">
-	This table has documentation available.
-<cfelse>
-	<cfset descn="n">
-</cfif>
-<cfif #getCTName.table_name# is "CTCOLLECTION_CDE">
-	<input type="hidden" name="fld" value="COLLECTION_CDE">
-	<CFSET collcde="n">
-</cfif>
+	<cfif #getCTName.table_name# is "CTCOLLECTION_CDE">
+		<cfset fld="COLLECTION_CDE">
+		<CFSET collcde="n">
+	</cfif>
+	
+	<a href="CodeTableEditor.cfm?tbl=#getCTName.table_name#&fld=#fld#&collcde=#collcde#">#getCTName.table_name#</a>
 
-<input type="hidden" name="collcde" value="#collcde#">
-<input type="hidden" name="hasDescn" value="#descn#">
-<input type="submit" value="Edit #getCTName.table_name#" class="lnkBtn"
-   						onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'">
-</form>
 </td></tr>
 
 </cfif>
