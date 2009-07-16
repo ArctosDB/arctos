@@ -25,7 +25,7 @@
 		}
 	</script>
 	<cfoutput>
-		#cgi.QUERY_STRING#
+		----------------#fld#','#idfld#---------------------
 		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				dispNames.agent_id,
@@ -56,7 +56,6 @@
 			<td><font size="-2">Name ID</font></td>
 			<td><font size="-2">ID</font></td>
 		</tr>
-		#getAgentId.recordcount#
 	<cfloop query="getAgentId">
 		<cfset thisName = #replace(agent_name,"'","`","all")#>
 		<cfif #getAgentId.recordcount# is 1>
