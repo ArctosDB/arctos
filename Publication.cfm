@@ -99,6 +99,9 @@
 	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select publication_type from ctpublication_type order by publication_type
 	</cfquery>
+	<cfquery name="ctpublication_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select publication_attribute from ctpublication_attribute order by publication_attribute
+	</cfquery>
 
 	<cfoutput>
 		<form name="newpub" method="post" action="Publication.cfm">
@@ -123,8 +126,8 @@
 			<input type="text" name="publication_loc" id="publication_loc" size="80">
 			<label for="publication_remarks">Remark</label>
 			<input type="text" name="publication_remarks" id="publication_remarks" size="80">
-			<input trpe="text" name="numberAuthors" id="numberAuthors" value="1">
-			Authors:
+			<input trpe="hidden" name="numberAuthors" id="numberAuthors" value="1">
+			<br>Authors:
 			<table border id="authTab">
 				<tr>
 					<th>Role</th>
@@ -135,6 +138,32 @@
 					<td>
 						<select name="author_role_1" id="author_role_1">
 							<option value="author">author</option>
+							<option value="editor">editor</option>
+						</select>
+					</td>
+					<td>
+						<input type="hidden" name="author_id_1" id="author_id_1">
+						<input type="text" name="author_name_1" id="author_name_1" class="reqdClr" size="50"
+							onchange="get_AgentName(this.value,this.id,'author_id_1');"
+		 					onKeyPress="return noenter(event);">
+		 				
+					</td>
+					<td id="agntControl1">
+						<span class="infoLink" onclick="addAgent()">Add</span>
+					</td>
+				</tr>
+			</table>
+			<br>Attributes:
+			<table border id="attTab">
+				<tr>
+					<th>Attribute</th>
+					<th>Value</th>
+					<th></th>
+				</tr>
+				<tr id="authortr1">
+					<td>
+						<select name="author_role_1" id="author_role_1">
+							<cfloop <option value="author">author</option>
 							<option value="editor">editor</option>
 						</select>
 					</td>

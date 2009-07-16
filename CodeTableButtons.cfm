@@ -34,6 +34,7 @@ However, some tables have not followed normal naming conventions and are cryptic
 <cfif #dispValFg# is "no">
 
 <cfif #getCTName.table_name# is "ctattribute_code_tables">
+	<!---
 	<form name="#getCTName.table_name#" method="post" action="CodeTableEditor.cfm">
 		<input type="hidden" name="tbl" value="#getCTName.table_name#">
 		<input type="hidden" name="fld" value="special">
@@ -44,6 +45,8 @@ However, some tables have not followed normal naming conventions and are cryptic
 						
 						
 	</form>
+	--->
+	<a href="CodeTableEditor.cfm?tbl=#getCTName.table_name#&fld=special&collcde=#collcde#">#getCTName.table_name#</a>
 	</td></tr>
 	
 
