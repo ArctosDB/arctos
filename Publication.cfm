@@ -144,7 +144,7 @@
 			Add attribute: <select name="n_attr" id="n_attr">
 				<option value=""></option>
 				<cfloop query="ctpublication_attribute">
-					<option value="#publication_attribute#">#ctpublication_attribute#</option>
+					<option value="#publication_attribute#">#publication_attribute#</option>
 				</cfloop>
 			</select>
 			<table border id="attTab">
