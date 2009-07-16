@@ -8,6 +8,8 @@
 	<script>
 		
 		function pickThis (fld,idfld,display,aid) {
+			console.log('fld: ' + fld);
+			console.log('idfld: ' + idfld);
 			document.getElementById(fld).value=display;
 			document.getElementById(idfld).value=aid;
 			console.log('spiffy');
