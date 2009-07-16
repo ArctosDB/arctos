@@ -76,7 +76,7 @@ However, some tables have not followed normal naming conventions and are cryptic
 	</cfif>
 	<cfif #descn# contains "y">
 		<cfset descn="y">
-		This table has documentation available.
+		#getCTName.table_name# has documentation available.
 	<cfelse>
 		<cfset descn="n">
 	</cfif>
