@@ -27,7 +27,7 @@
 				<cfreturn "fail: cl is #cl#">
 			</cfif>
 		<cfelse>
-			<cfreturn/>
+			<cfreturn 'durrrrr'>
 		</cfif>
 	<cfcatch>
 		<cfreturn "failure: #cfcatch.Message# #cfcatch.Detail#">
