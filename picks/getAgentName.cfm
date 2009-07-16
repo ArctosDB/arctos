@@ -1,4 +1,5 @@
-	<!--- make sure we're searching for something --->
+<!----	
+<!--- make sure we're searching for something --->
 	<cfif len(#agentname#) is 0>
 		You must enter search criteria.
 		<cfabort>
@@ -6,7 +7,6 @@
 	
 	
 	<cfoutput>
-		----------------#fld#','#idfld#---------------------
 		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				dispNames.agent_id,
@@ -56,35 +56,5 @@
 	</table>
 </cfif>
 	</cfoutput>
-	
-	
-<!----	
-	
-	<!--------------------------------------------------->
-	<cfif #getAgentId.recordcount# is 1>
-	<cfoutput>
-		<cfset thisName = #replace(getAgentId.agent_name,"'","`","all")#>
-		<script>
-			opener.document.#formName#.#agentIdFld#.value='#getAgentId.agent_id#';
-			opener.document.#formName#.#agentNameFld#.value='#thisName#';
-			opener.document.#formName#.#agentNameFld#.style.background='##8BFEB9';
-			self.close();
-		</script>
-	 </cfoutput>
-	<cfelseif #getAgentId.recordcount# is 0>
-		<cfoutput>
-			Nothing matched #agent_name#. <a href="javascript:void(0);" onClick="opener.document.#formName#.#agentIdFld#.value='';opener.document.#formName#.#agentNameFld#.value='';opener.document.#formName#.#agentNameFld#.focus();self.close();">Try again.</a>
-		</cfoutput>
-		
-	<cfelse>
-		<cfoutput query="getAgentId">
-		
-<br>
-<cfset thisName = #replace(agent_name,"'","`","all")#>
-<a href="##" onClick="javascript: opener.document.#formName#.#agentIdFld#.value='#agent_id#';opener.document.#formName#.#agentNameFld#.value='#thisName#';opener.document.#formName#.#agentNameFld#.style.background='##8BFEB9';self.close();">#agent_name# (#agent_id#)</a>
-	</cfoutput>
-	</cfif>
-	
-	<!--------------------------------------------------->
-	
 	---->
+	this is a page
