@@ -48,6 +48,57 @@
 			viewport.init("#pickDiv");
 		});
 	}
+	
+	
+	function addAgent (n) {
+		jQuery('#authTab tr:last').after('<tr><td>boogity</td><td>boogity</td><td>boogity</td></tr>');
+		/*
+		var theTable=document.getElementById('authTab');
+		var nR=document.
+		
+		
+		
+		var pDiv=document.getElementById('relationships');
+		var nDiv = document.createElement('div');
+		nDiv.id='relationshipDiv__' + n;
+		pDiv.appendChild(nDiv);
+		var n1=n-1;
+		var selName='relationship__' + n1;
+		var nSel = document.getElementById(selName).cloneNode(true);
+		nSel.name="relationship__" + n;
+		nSel.id="relationship__" + n;
+		nSel.value='';
+		nDiv.appendChild(nSel);
+		
+		c = document.createElement("textNode");
+		c.innerHTML=":&nbsp;";
+		nDiv.appendChild(c);
+		
+		var n1=n-1;
+		var inpName='related_value__' + n1;
+		var nInp = document.getElementById(inpName).cloneNode(true);
+		nInp.name="related_value__" + n;
+		nInp.id="related_value__" + n;
+		nInp.value='';
+		nDiv.appendChild(nInp);
+		
+		var hName='related_id__' + n1;
+		var nHid = document.getElementById(hName).cloneNode(true);
+		nHid.name="related_id__" + n;
+		nHid.id="related_id__" + n;
+		nDiv.appendChild(nHid);
+		
+		var mS = document.getElementById('addRelationship');
+		pDiv.removeChild(mS);
+		var np1=n+1;
+		var oc="addRelation(" + np1 + ")";
+		mS.setAttribute("onclick",oc);
+		pDiv.appendChild(mS);
+		
+		var cc=document.getElementById('number_of_relations');
+		cc.value=parseInt(cc.value)+1;
+		*/
+	}
 </script>
 <cfif action is "newPub">
 	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -78,10 +129,11 @@
 			<label for="publication_remarks">Remark</label>
 			<input type="text" name="publication_remarks" id="publication_remarks" size="80">
 			Authors:
-			<table border>
+			<table border id="authTab">
 				<tr>
 					<th>Role</th>
 					<th>Name</th>
+					<th></th>
 				</tr>
 				<tr id="authortr1">
 					<td>
@@ -96,6 +148,9 @@
 							onchange="get_AgentName(this.value,this.id,'author_id_1');"
 		 					onKeyPress="return noenter(event);">
 		 				
+					</td>
+					<td>
+						<span class="infoLink" onclick="addAgent(2)">More...</span>
 					</td>
 				</tr>
 			</table>
