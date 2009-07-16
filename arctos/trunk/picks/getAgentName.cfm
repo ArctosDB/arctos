@@ -7,10 +7,10 @@
 	
 	<script>
 		
-		function pickThis (fld,idfld,display,aid) {
-			console.log('fld: ' + fld);
+		function pickThis (_fld,idfld,display,aid) {
+			console.log('_fld: ' + _fld);
 			console.log('idfld: ' + idfld);
-			document.getElementById(fld).value=display;
+			document.getElementById(_fld).value=display;
 			document.getElementById(idfld).value=aid;
 			console.log('spiffy');
 			/*
