@@ -1,4 +1,3 @@
-<!----	
 <!--- make sure we're searching for something --->
 	<cfif len(#agentname#) is 0>
 		You must enter search criteria.
@@ -56,5 +55,3 @@
 	</table>
 </cfif>
 	</cfoutput>
-	---->
-	this is a page
