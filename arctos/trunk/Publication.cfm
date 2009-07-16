@@ -94,16 +94,14 @@
  				queryformat : 'column'
  			},
   			function (d) {
-  				if(d=='nocontrol'){
-  					newRow+='uncontrolled thingee';
-  				}
   				if(d.length>0 && d.substring(0,4)=='fail'){
   					alert(d);
   					return false;
-  				}
-				if (d.DATA.v) {
-					console.log('got data');
-					
+  				} else if(d=='nocontrol'){
+  					newRow+='uncontrolled thingee';
+  				} else {
+  					console.log('got data');
+					newRow+='control!';
 				}
   			}
  		);
