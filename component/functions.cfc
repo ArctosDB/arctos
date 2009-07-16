@@ -8,7 +8,24 @@
 			select control from ctpublication_attribute where publication_attribute ='#attribute#'
 		</cfquery>
 		<cfif len(res.control) gt 0>
-			<cfreturn 'test'>
+			<cfquery name="ctval" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select * from #res.control#
+			</cfquery>
+			<cfset cl=ctval.columnlist>
+			<cfif listcontainsnocase(cl,"description")>
+				<cfset cl=listdeleteat(cl,listfindnocase("description"))>
+			</cfif>
+			<cfif listcontainsnocase(cl,"collection_cde")>
+				<cfset cl=listdeleteat(cl,listfindnocase("collection_cde"))>
+			</cfif>
+			<cfif listlen(cl) is 1>
+				<cfquery name="return" dbtype="query">
+					select #cl# from ctval order by #cl#
+				</cfquery>
+				<cfreturn return>
+			<cfelse>
+				<cfreturn "fail: cl is #cl#">
+			</cfif>
 		<cfelse>
 			<cfreturn/>
 		</cfif>
