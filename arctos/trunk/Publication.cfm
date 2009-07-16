@@ -48,7 +48,7 @@
 		
 			
 		jQuery(pickDiv).get(ptl,{agentname: name, fld: fld, idfld: idfld},function(){
-			jQuery('#pickDiv').append(' This text has been appended to the end.');
+			jQuery(pickDiv).append(' This text has been appended to the end.');
 			
 			viewport.init("#pickDiv");
 			console.log('callback: viewport');
