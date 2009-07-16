@@ -3,7 +3,6 @@
 <!------------------------------------------------------->
 <cffunction name="getPubAttributes" access="remote">
 	<cfargument name="attribute" type="string" required="yes">
-	<cfreturn 'this'>
 	<cftry>
 		<cfquery name="res" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select control from ctpublication_attribute where publication_attribute ='#attribute#'
