@@ -2,6 +2,7 @@
 <cfset title = "Edit Publication">
 <script>
 	function addBGDiv(f){
+		console.log('addBGDiv - f=' + f);
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
