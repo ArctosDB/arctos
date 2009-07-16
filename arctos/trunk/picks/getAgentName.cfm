@@ -12,6 +12,7 @@
 			console.log('idfld: ' + idfld);
 			document.getElementById(fld).value=display;
 			document.getElementById(idfld).value=aid;
+			removePick();
 			console.log('spiffy');
 			/*
 				
