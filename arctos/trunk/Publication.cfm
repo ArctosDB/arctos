@@ -87,7 +87,7 @@
 		var prevControlName='agntControl' + thisID;
 		var prevControl=document.getElementById(prevControlName);
 		prevControl.innerHTML=newRow;	
-		if(thisID>0){
+		if(thisID>1){
 			var newRow=' ~ <span class="infoLink" onclick="deleteAgent()">Remove</span>';
 			prevControl.innerHTML+=newRow;
 		}
