@@ -85,6 +85,9 @@
 			alert('You must have at least one author');
 		}
 	}
+	function addAttribute(v){
+		console.log('adding ' + v);	
+	}
 </script>
 <cfif action is "newPub">
 	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -141,7 +144,7 @@
 				</tr>
 			</table>
 			<br>Attributes:
-			Add attribute: <select name="n_attr" id="n_attr">
+			Add attribute: <select name="n_attr" id="n_attr" onchange="addAttribute(this.value)">
 				<option value=""></option>
 				<cfloop query="ctpublication_attribute">
 					<option value="#publication_attribute#">#publication_attribute#</option>
