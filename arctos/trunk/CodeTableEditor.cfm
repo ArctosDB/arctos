@@ -147,6 +147,9 @@
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ctpublication_attribute order by publication_attribute
 	</cfquery>
+	<cfquery name="allCTs" datasource="uam_god">
+		select distinct(table_name) as tablename from sys.user_tables where table_name like 'CT%' order by table_name
+	</cfquery>
 	<form name="newData" method="post" action="CodeTableEditor.cfm">
 		<input type="hidden" name="action" value="i_ctpublication_attribute">
 		<input type="hidden" name="tbl" value="ctpublication_attribute">
@@ -165,7 +168,12 @@
 					<textarea name="description" rows="4" cols="40"></textarea>
 				</td>
 				<td>
-					<input type="text" name="control" size="50">
+					<select name="control">
+						<option value=""></option>
+						<cfloop query="allCTs">
+							<option value="#tablename#">#tablename#</option>
+						</cfloop>
+					</select>
 				</td>
 				<td>
 					<input type="submit" 
@@ -199,7 +207,12 @@
 						<textarea name="description" rows="4" cols="40">#description#</textarea>
 					</td>
 					<td>
-						<textarea name="control" rows="4" cols="40">#control#</textarea>
+						<select name="control">
+							<option value=""></option>
+							<cfloop query="allCTs">
+								<option <cfif control is tablename> selected="selected" </cfif>value="#tablename#">#tablename#</option>
+							</cfloop>
+						</select>
 					</td>				
 					<td>
 						<input type="button" 
