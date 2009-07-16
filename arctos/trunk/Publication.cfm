@@ -84,7 +84,6 @@
 	}
 	function addAttribute(v){
 		console.log('adding ' + v);
-		var newRow="<tr><td>" + v + "</td><td>";
 		
 		jQuery.getJSON("/component/functions.cfc",
   			{
@@ -95,6 +94,8 @@
  			},
   			function (d) {
   				console.log('back with ' + d);
+  				var newRow="<tr><td>" + v + "</td><td>";
+		
   				if(d.length>0 && d.substring(0,4)=='fail'){
   					alert(d);
   					return false;
@@ -103,13 +104,16 @@
   				} else {
   					console.log('got data');
 					newRow+='control!';
+					
+				
 				}
+				newRow+="</td></tr>";
+		 		console.log(newRow);
+				jQuery('#attTab tr:last').after(newRow);
   			}
  		);
  		
- 		newRow+="</td></tr>";
- 		console.log(newRow);
-		jQuery('#attTab tr:last').after(newRow);
+ 		
 	}
 </script>
 <cfif action is "newPub">
