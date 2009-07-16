@@ -94,6 +94,7 @@
  				queryformat : 'column'
  			},
   			function (d) {
+  				console.log('back with ' + d);
   				if(d.length>0 && d.substring(0,4)=='fail'){
   					alert(d);
   					return false;
