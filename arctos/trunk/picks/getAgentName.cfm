@@ -59,7 +59,7 @@
 			</script>
 		<cfelse>
 			<tr>
-				<td><a href="##" onClick="pickThis ('#thisName#', '#agentNameFld#', '#agent_name_id#');">#agent_name#</a></td>
+				<td><a href="##" onClick="pickThis ('#thisName#', '#agent_id#', '#agent_name_id#');">#agent_name#</a></td>
 				<td><font size="-2">#agent_name_id#</font></td>
 				<td><font size="-2">#agent_id#</font></td>
 			</tr>
