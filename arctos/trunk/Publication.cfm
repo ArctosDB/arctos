@@ -51,8 +51,14 @@
 	
 	
 	function addAgent (n) {
-		var newRow='<tr><td>boogity</td><td>boogity</td><td>boogity</td></tr>';
+		var newRow='<tr id="123"><td>boogity</td><td>boogity</td><td>boogity</td></tr>';
+		var lid = jQuery('#authTab tr:last').attr("id");
+		console.log('before: ' + lid);
+		
+		
 		jQuery('#authTab tr:last').after(newRow);
+		
+		console.log('after: ' + lid);
 		
 		/*
 		var theTable=document.getElementById('authTab');
