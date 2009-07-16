@@ -24,7 +24,7 @@
 		theDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(theDiv);
 		var ptl="/includes/picks/getAgentName.cfm";
-		jQuery(pickDiv).load(ptl,{agentname: name, fld: fld, idFld: idFld},function(){
+		jQuery(pickDiv).load(ptl,{agentname: name, fld: fld, idfld: idfld},function(){
 			viewport.init("#pickDiv");
 		});
 	}
