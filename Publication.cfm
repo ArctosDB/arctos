@@ -54,7 +54,6 @@
 		var newRow='<tr id="123"><td>boogity</td><td>boogity</td><td>boogity</td></tr>';
 		var lid = jQuery('#authTab tr:last').attr("id");
 		var lastID=lid.replace('authortr','');
-		console.log(lastID);
 		var thisID=parseInt(lastID) + 1;
 		var newRow='<tr id="authortr' + thisID + '">';
 		newRow+='<td>';
@@ -72,63 +71,12 @@
 		newRow+='<td id="agntControl' + thisID + '">';
 		newRow+='<span class="infoLink" onclick="addAgent()">More...</span>';
 		newRow+='</td>';
-		newRow+='</tr>';
-		console.log('before: ' + lid);
-		
-		
+		newRow+='</tr>';		
 		jQuery('#authTab tr:last').after(newRow);
-		
 		var prevControlName='agntControl' + lastID;
 		var prevControl=document.getElementById(prevControlName);
-		prevControl.innerHTML='bla';
-		console.log('after: ' + lid);
-		
-		/*
-		var theTable=document.getElementById('authTab');
-		var nR=document.
-		
-		
-		
-		var pDiv=document.getElementById('relationships');
-		var nDiv = document.createElement('div');
-		nDiv.id='relationshipDiv__' + n;
-		pDiv.appendChild(nDiv);
-		var n1=n-1;
-		var selName='relationship__' + n1;
-		var nSel = document.getElementById(selName).cloneNode(true);
-		nSel.name="relationship__" + n;
-		nSel.id="relationship__" + n;
-		nSel.value='';
-		nDiv.appendChild(nSel);
-		
-		c = document.createElement("textNode");
-		c.innerHTML=":&nbsp;";
-		nDiv.appendChild(c);
-		
-		var n1=n-1;
-		var inpName='related_value__' + n1;
-		var nInp = document.getElementById(inpName).cloneNode(true);
-		nInp.name="related_value__" + n;
-		nInp.id="related_value__" + n;
-		nInp.value='';
-		nDiv.appendChild(nInp);
-		
-		var hName='related_id__' + n1;
-		var nHid = document.getElementById(hName).cloneNode(true);
-		nHid.name="related_id__" + n;
-		nHid.id="related_id__" + n;
-		nDiv.appendChild(nHid);
-		
-		var mS = document.getElementById('addRelationship');
-		pDiv.removeChild(mS);
-		var np1=n+1;
-		var oc="addRelation(" + np1 + ")";
-		mS.setAttribute("onclick",oc);
-		pDiv.appendChild(mS);
-		
-		var cc=document.getElementById('number_of_relations');
-		cc.value=parseInt(cc.value)+1;
-		*/
+		prevControl.innerHTML='';		
+		document.getElementById(numberAuthors).value=thisID;
 	}
 </script>
 <cfif action is "newPub">
@@ -159,6 +107,7 @@
 			<input type="text" name="publication_loc" id="publication_loc" size="80">
 			<label for="publication_remarks">Remark</label>
 			<input type="text" name="publication_remarks" id="publication_remarks" size="80">
+			<input name="numberAuthors" id="numberAuthors" value="1">
 			Authors:
 			<table border id="authTab">
 				<tr>
