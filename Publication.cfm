@@ -69,7 +69,7 @@
 		newRow+='onchange="get_AgentName(this.value,this.id,\'author_id_' + thisID + '\');"';
 		newRow+='onKeyPress="return noenter(event);">';
 		newRow+='</td>';
-		newRow+='<td>';
+		newRow+='<td id="agntControl' + thisID + '">';
 		newRow+='<span class="infoLink" onclick="addAgent()">More...</span>';
 		newRow+='</td>';
 		newRow+='</tr>';
