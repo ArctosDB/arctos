@@ -94,12 +94,16 @@
   			function (d) {
   				console.log('we made it back with ' + d);
   				console.log('len: ' + d.length);
-  				
+  				if(d=='nocontrol'){
+  					console.log('nocontrol');
+  					return false;
+  				}
   				
   				if(d.length>0 && d.substring(0,4)=='fail'){
   					alert(d);
   					return false;
   				}
+  				
 				if (d.DATA.v) {
 					console.log('got data');	
 				}
