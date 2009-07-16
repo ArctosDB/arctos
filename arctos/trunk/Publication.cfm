@@ -49,7 +49,7 @@
 			
 		jQuery.get(ptl,{agentname: name, fld: fld, idfld: idfld},function(data){
 			console.log(data);
-			
+			jQuery('#pickDiv').html=data;
 			viewport.init("#pickDiv");
 			console.log('callback: viewport');
 		});
