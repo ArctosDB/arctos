@@ -3,6 +3,7 @@
 <!------------------------------------------------------->
 <cffunction name="getPubAttributes" access="remote">
 	<cfargument name="attribute" type="string" required="yes">
+	<cfreturn 'fail: blabitty'>
 	<cftry>
 		<cfquery name="res" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select control from ctpublication_attribute where publication_attribute ='#attribute#'
@@ -26,11 +27,9 @@
 			<cfelse>
 				<cfreturn "fail: cl is #cl#">
 			</cfif>
-		<cfelse>
-			<cfreturn 'durrrrr'>
 		</cfif>
 	<cfcatch>
-		<cfreturn "failure: #cfcatch.Message# #cfcatch.Detail#">
+		<cfreturn "fail: #cfcatch.Message# #cfcatch.Detail#">
 	</cfcatch>
 	</cftry>
 	<cfreturn 'wtf??'>
