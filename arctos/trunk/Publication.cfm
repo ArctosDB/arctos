@@ -63,7 +63,7 @@
 		newRow+='</td>';
 		newRow+='<td>';
 		newRow+='<input type="hidden" name="author_id_' + thisID + '" id="author_id_' + thisID + '">';
-		newRow+='<input type="text" name="author_name_' + thisID + '" id="author_name_' + thisID + '" class="reqdClr" ';
+		newRow+='<input type="text" name="author_name_' + thisID + '" id="author_name_' + thisID + '" class="reqdClr"  size="50" ';
 		newRow+='onchange="get_AgentName(this.value,this.id,\'author_id_' + thisID + '\');"';
 		newRow+='onKeyPress="return noenter(event);">';
 		newRow+='</td>';
@@ -140,7 +140,7 @@
 					</td>
 					<td>
 						<input type="hidden" name="author_id_1" id="author_id_1">
-						<input type="text" name="author_name_1" id="author_name_1" class="reqdClr" 
+						<input type="text" name="author_name_1" id="author_name_1" class="reqdClr" size="50"
 							onchange="get_AgentName(this.value,this.id,'author_id_1');"
 		 					onKeyPress="return noenter(event);">
 		 				
