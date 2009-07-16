@@ -144,8 +144,42 @@
 	</form>
 </table>
 <cfelseif #tbl# is "ctpublication_attribute">
-	ctpublication_attribute
-
+	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from ctpublication_attribute order by publication_attribute
+	</cfquery>
+	<form name="newData" method="post" action="CodeTableEditor.cfm">
+		<input type="hidden" name="action" value="i_ctpublication_attribute">
+		<input type="hidden" name="tbl" value="ctpublication_attribute">
+		<table class="newRec">
+			<tr>
+				<th>Publication Attribute</th>
+				<th>Description</th>
+				<th>Control</th>
+				<th></th>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" name="newData" >
+				</td>
+				<td>
+					<textarea name="description" rows="4" cols="40"></textarea>
+				</td>
+				<td>
+					<input type="text" name="control" size="50">
+				</td>
+				<td>
+					<input type="submit" 
+						value="Insert" 
+						class="insBtn">	
+					<input type="button" 
+						value="Quit" 
+						class="qutBtn"
+						onClick="document.location='CodeTableButtons.cfm';">	
+				
+				</td>
+			</tr>
+		</table>
+	</form>
 <cfelseif #tbl# is "ctcoll_other_id_type">
 <!--------------------------------------------------------------->
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -501,6 +535,22 @@
 	</cfif>
 	</cfoutput>
 <!----------------------------------->
+<cfif action is "i_ctpublication_attribute">
+<cfoutput>
+	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		insert into ctpublication_attribute (
+			publication_attribute,
+			DESCRIPTION,
+			control
+		) values (
+			'#newData#',
+			'#description#',
+			'#control#'
+		)
+	</cfquery>
+	<cflocation url="CodeTableEditor.cfm?tbl=ctpublication_attribute&fld=no&collcde=n&hasDescn=">
+</cfoutput>
+</cfif>
 <cfif #Action# is "i_ctcoll_other_id_type">
 <cfoutput>
 	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
