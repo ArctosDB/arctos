@@ -91,7 +91,7 @@
 			var newRow=' ~ <span class="infoLink" onclick="deleteAgent()">Remove</span>';
 			prevControl.innerHTML+=newRow;
 		}
-		
+		document.getElementById('numberAuthors').value=thisID;
 		jQuery('#authTab tr:last').remove();
 	}
 </script>
