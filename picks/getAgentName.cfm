@@ -5,26 +5,7 @@
 		<cfabort>
 	</cfif>
 	
-	<script>
-		
-		function pickThis (fld,idfld,display,aid) {
-			console.log('fld: ' + fld);
-			console.log('idfld: ' + idfld);
-			document.getElementById(fld).value=display;
-			document.getElementById(idfld).value=aid;
-			removePick();
-			console.log('spiffy');
-			/*
-				
-			jQuery('#' + fld).value=display;
-			jQuery('#' + ).value=;
-			
-			opener.document.#formName#.#agentIdFld#.value='#agent_name_id#';
-				opener.document.#formName#.#agentNameFld#.value='#thisName#';
-				opener.document.#formName#.#agentNameFld#.style.background='##8BFEB9';
-			*/
-		}
-	</script>
+	
 	<cfoutput>
 		----------------#fld#','#idfld#---------------------
 		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
