@@ -47,12 +47,17 @@
 		var ptl="/picks/getAgentName.cfm";
 		
 			
-		jQuery(pickDiv).get(ptl,{agentname: name, fld: fld, idfld: idfld},function(){
-			jQuery(pickDiv).append(' This text has been appended to the end.');
+		jQuery.get(ptl,{agentname: name, fld: fld, idfld: idfld},function(data){
+			console.log(data);
 			
 			viewport.init("#pickDiv");
 			console.log('callback: viewport');
 		});
+		
+	
+		
+		
+		
 		console.log('it loaded');
 	}
 </script>
