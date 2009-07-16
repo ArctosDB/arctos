@@ -86,7 +86,18 @@
 		}
 	}
 	function addAttribute(v){
-		console.log('adding ' + v);	
+		console.log('adding ' + v);
+		jQuery.getJSON("/component/functions.cfc",
+  			{
+ 				method : "getPubAttributes",
+ 				attribute : v,
+ 				returnformat : "json",
+ 				queryformat : 'column'
+ 			},
+  			function (d) {
+  				console.log(d);
+  			}
+ 		);	
 	}
 </script>
 <cfif action is "newPub">
