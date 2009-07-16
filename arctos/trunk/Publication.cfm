@@ -21,7 +21,7 @@
 		console.log(name + ':' +  fld + ':' +  idfld);
 		var theDiv = document.createElement('div');
 		theDiv.id = 'pickDiv';
-		theDiv.className = 'helpBox';
+		theDiv.className = 'pickDiv';
 		theDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(theDiv);
 		var ptl="/picks/getAgentName.cfm";

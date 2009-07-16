@@ -405,7 +405,17 @@ td#SDCellRight{
 		background-color:white;
 		overflow:auto;
 	}
-	
+.pickDiv {
+		border:3px solid green;
+		z-index:9999;
+		position:absolute;
+		top:5%;
+		left:5%;
+		width:65%;
+		height:450px;
+		background-color:white;
+		overflow:auto;
+	}	
 table.specResultTab {
 	border-width: 1px 1px 1px 1px;
 	border-spacing: 0px;
