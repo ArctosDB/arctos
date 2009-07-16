@@ -69,7 +69,9 @@
 		newRow+='onKeyPress="return noenter(event);">';
 		newRow+='</td>';
 		newRow+='<td id="agntControl' + thisID + '">';
-		newRow+='<span class="infoLink" onclick="addAgent()">More...</span>';
+		newRow+='<span class="infoLink" onclick="addAgent()">Add</span>';
+		
+		newRow+=' ~ <span class="infoLink" onclick="deleteAgent()">Remove</span>';
 		newRow+='</td>';
 		newRow+='</tr>';		
 		jQuery('#authTab tr:last').after(newRow);
@@ -130,7 +132,7 @@
 		 				
 					</td>
 					<td id="agntControl1">
-						<span class="infoLink" onclick="addAgent()">More...</span>
+						<span class="infoLink" onclick="addAgent()">Add</span>
 					</td>
 				</tr>
 			</table>
