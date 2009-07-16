@@ -33,6 +33,7 @@
 		<cfreturn "failure: #cfcatch.Message# #cfcatch.Detail#">
 	</cfcatch>
 	</cftry>
+	<cfreturn 'wtf??'>
 </cffunction>
 <!------------------------------------------------------->
 <cffunction name="kill_canned_search" access="remote">
