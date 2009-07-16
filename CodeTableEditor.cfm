@@ -210,7 +210,7 @@
 						<select name="control">
 							<option value=""></option>
 							<cfloop query="allCTs">
-								<option <cfif control is tablename> selected="selected" </cfif>value="#tablename#">#tablename#</option>
+								<option <cfif q.control is allCTs.tablename> selected="selected" </cfif>value="#tablename#">#tablename#</option>
 							</cfloop>
 						</select>
 					</td>				
