@@ -107,6 +107,7 @@
  		);
  		
  		newRow+="</td></tr>";
+ 		console.log(newRow);
 		jQuery('#attTab tr:last').after(newRow);
 	}
 </script>
