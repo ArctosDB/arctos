@@ -49,7 +49,8 @@
 			
 		jQuery.get(ptl,{agentname: name, fld: fld, idfld: idfld},function(data){
 			console.log(data);
-			jQuery('#pickDiv').innerHTML='waaaaaa';//data;
+			document.getElementById('pickDiv').innerHTML='boogers!';
+			//jQuery('#pickDiv').innerHTML='waaaaaa';//data;
 			viewport.init("#pickDiv");
 			console.log('callback: viewport');
 		});
