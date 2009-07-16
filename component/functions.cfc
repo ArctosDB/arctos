@@ -20,7 +20,7 @@
 			</cfif>
 			<cfif listlen(cl) is 1>
 				<cfquery name="return" dbtype="query">
-					select #cl# from ctval order by #cl#
+					select #cl# as v from ctval order by #cl#
 				</cfquery>
 				<cfreturn return>
 			<cfelse>
