@@ -50,8 +50,6 @@ However, some tables have not followed normal naming conventions and are cryptic
 	</td></tr>
 	
 
-
-
 <!---------- normal CTs ----------------->
 <cfelse>
 	<cfset collcde = "">

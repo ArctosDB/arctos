@@ -143,6 +143,9 @@
 		</tr>
 	</form>
 </table>
+<cfelseif #tbl# is "ctpublication_attribute">
+	ctpublication_attribute
+
 <cfelseif #tbl# is "ctcoll_other_id_type">
 <!--------------------------------------------------------------->
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
