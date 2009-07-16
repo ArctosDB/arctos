@@ -4,6 +4,19 @@
 		You must enter search criteria.
 		<cfabort>
 	</cfif>
+	
+	<script>
+		function pickThis (display, fld, idfld) {
+			document.getElementById(display).value=dVal;
+			document.getElementById(fld).value=dVal;
+			
+			jQuery(#"fld").value=display;
+			
+				opener.document.#formName#.#agentIdFld#.value='#agent_name_id#';
+				opener.document.#formName#.#agentNameFld#.value='#thisName#';
+				opener.document.#formName#.#agentNameFld#.style.background='##8BFEB9';
+		}
+	</script>
 	<cfoutput>
 		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
