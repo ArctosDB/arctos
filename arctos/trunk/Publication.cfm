@@ -1,6 +1,11 @@
 <cfinclude template="includes/_header.cfm">
 <cfset title = "Edit Publication">
 <script>
+	function removePick() {
+		if(document.getElementById('pickDiv')){
+			jQuery('#pickDiv').remove();
+		}
+	}
 	function addBGDiv(f){
 		console.log('addBGDiv - f=' + f);
 		var bgDiv = document.createElement('div');
@@ -21,7 +26,7 @@
 	}
 	
 	function get_AgentName(name,fld,idfld){
-		addBGDiv();
+		addBGDiv('removePick()');
 		console.log(name + ':' +  fld + ':' +  idfld);
 		var theDiv = document.createElement('div');
 		theDiv.id = 'pickDiv';
