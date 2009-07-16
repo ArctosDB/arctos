@@ -175,11 +175,49 @@
 						value="Quit" 
 						class="qutBtn"
 						onClick="document.location='CodeTableButtons.cfm';">	
-				
 				</td>
 			</tr>
 		</table>
 	</form>
+	<cfset i = 1>
+	<table>
+		<tr>
+			<th>Type</th>
+			<th>Description</th>
+			<th>Control</th>
+		</tr>
+		<cfloop query="q">
+			<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+				<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
+					<input type="hidden" name="action" value="">
+					<input type="hidden" name="tbl" value="ctpublication_attribute">
+					<input type="hidden" name="origData" value="#publication_attribute#">
+					<td>
+						<input type="text" name="publication_attribute" value="#publication_attribute#" size="50">
+					</td>
+					<td>
+						<textarea name="description" rows="4" cols="40">#description#</textarea>
+					</td>
+					<td>
+						<textarea name="control" rows="4" cols="40">#control#</textarea>
+					</td>				
+					<td>
+						<input type="button" 
+							value="Save" 
+							class="savBtn"
+						   	onclick="#tbl##i#.action.value='u_ctpublication_attribute';submit();">	
+		
+						<input type="button" 
+							value="Delete" 
+							class="delBtn"
+							onclick="#tbl##i#.action.value='d_ctpublication_attribute';submit();">	
+		
+					</td>
+				</form>
+			</tr>
+			<cfset i = #i#+1>
+		</cfloop>
+	</table>
 <cfelseif #tbl# is "ctcoll_other_id_type">
 <!--------------------------------------------------------------->
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -579,6 +617,29 @@
 			OTHER_ID_TYPE='#origData#'
 	</cfquery>
 	<cflocation url="CodeTableEditor.cfm?tbl=ctcoll_other_id_type&fld=no&collcde=n&hasDescn=">
+</cfoutput>
+</cfif>
+<cfif action is "u_ctpublication_attribute">
+<cfoutput>
+	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		update ctpublication_attribute set 
+			publication_attribute='#publication_attribute#',
+			DESCRIPTION='#description#',
+			control='#control#'
+		where
+			publication_attribute='#origData#'
+	</cfquery>
+	<cflocation url="CodeTableEditor.cfm?tbl=ctpublication_attribute&fld=no&collcde=n&hasDescn=">
+</cfoutput>
+</cfif>
+<cfif action is "d_ctpublication_attribute">
+<cfoutput>
+	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		delete from ctpublication_attribute 
+		where
+			publication_attribute='#origData#'
+	</cfquery>
+	<cflocation url="CodeTableEditor.cfm?tbl=ctpublication_attribute&fld=no&collcde=n&hasDescn=">
 </cfoutput>
 </cfif>
 <!----------------------------------->
