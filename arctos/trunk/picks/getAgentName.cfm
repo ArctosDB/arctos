@@ -11,10 +11,11 @@
 			document.getElementById(fld).value=dVal;
 			
 			jQuery('#' + fld).value=display;
-			
+			/*
 				opener.document.#formName#.#agentIdFld#.value='#agent_name_id#';
 				opener.document.#formName#.#agentNameFld#.value='#thisName#';
 				opener.document.#formName#.#agentNameFld#.style.background='##8BFEB9';
+			*/
 		}
 	</script>
 	<cfoutput>
