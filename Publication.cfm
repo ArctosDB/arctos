@@ -78,6 +78,9 @@
 		
 		jQuery('#authTab tr:last').after(newRow);
 		
+		var prevControlName='agntControl' + lastID;
+		var prevControl=document.getElementById(prevControlName);
+		prevControl.innerHTML='bla';
 		console.log('after: ' + lid);
 		
 		/*
@@ -177,8 +180,8 @@
 		 					onKeyPress="return noenter(event);">
 		 				
 					</td>
-					<td>
-						<span class="infoLink" onclick="addAgent(2)">More...</span>
+					<td id="agntControl1">
+						<span class="infoLink" onclick="addAgent()">More...</span>
 					</td>
 				</tr>
 			</table>
