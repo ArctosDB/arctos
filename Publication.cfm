@@ -79,7 +79,7 @@
 		var lastID=lid.replace('authortr','');
 		var thisID=parseInt(lastID) - 1;
 		document.getElementById('numberAuthors').value=thisID;
-		if(thisID>1){
+		if(thisID>=1){
 			jQuery('#authTab tr:last').remove();
 		} else {
 			alert('You must have at least one author');
