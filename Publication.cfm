@@ -18,6 +18,7 @@
 	}
 	
 	function get_AgentName(name,fld,idfld){
+		console.log(name + ':' +  fld + ':' +  idfld);
 		var theDiv = document.createElement('div');
 		theDiv.id = 'pickDiv';
 		theDiv.className = 'helpBox';
