@@ -80,6 +80,18 @@
 		document.getElementById('numberAuthors').value=thisID;
 	}
 	function deleteAgent() {
+		var lid = jQuery('#authTab tr:last').attr("id");
+		var lastID=lid.replace('authortr','');
+		var thisID=parseInt(lastID) - 1;
+		var newRow='<span class="infoLink" onclick="addAgent()">Add</span>';
+		var prevControlName='agntControl' + thisID;
+		var prevControl=document.getElementById(prevControlName);
+		prevControl.innerHTML=newRow;	
+		if(thisID>0){
+			var newRow=' ~ <span class="infoLink" onclick="deleteAgent()">Remove</span>';
+			prevControl.innerHTML+=newRow;
+		}
+		
 		jQuery('#authTab tr:last').remove();
 	}
 </script>
