@@ -6,10 +6,12 @@
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
+		
 		if(f==null || f.length==0){
 			f="removeBgDiv()";
 		}
 		bgDiv.setAttribute('onclick',f);
+		document.body.appendChild(bgDiv);
 		viewport.init("#bgDiv");
 	}
 	function removeBgDiv () {
