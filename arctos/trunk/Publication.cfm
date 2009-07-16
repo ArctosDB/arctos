@@ -1,5 +1,34 @@
 <cfinclude template="includes/_header.cfm">
 <cfset title = "Edit Publication">
+<script>
+	function addBGDiv(f){
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		if(f==null || f.length==0){
+			f="removeBgDiv()";
+		}
+		bgDiv.setAttribute('onclick',f);
+		viewport.init("#bgDiv");
+	}
+	function removeBgDiv () {
+		if(document.getElementById('bgDiv')){
+			jQuery('#bgDiv').remove();
+		}
+	}
+	
+	function get_AgentName(name,fld,idfld){
+		var theDiv = document.createElement('div');
+		theDiv.id = 'pickDiv';
+		theDiv.className = 'helpBox';
+		theDiv.innerHTML='<br>Loading...';
+		document.body.appendChild(theDiv);
+		var ptl="/includes/picks/getAgentName.cfm";
+		jQuery(cDiv).load(ptl,{agentname: name, fld: fld, idFld: idFld},function(){
+			viewport.init("#pickDiv");
+		});
+	}
+</script>
 <cfif action is "newPub">
 	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select publication_type from ctpublication_type order by publication_type
@@ -44,7 +73,7 @@
 					<td>
 						<input type="hidden" name="author_id_1" id="author_id_1">
 						<input type="text" name="author_name_1" class="reqdClr" 
-							onchange="findAgentName('newpub','author_name_1','author_id_1',this.value); return false;"
+							onchange="get_AgentName(this.value,this.name,'author_id_1',); return false;"
 		 					onKeyPress="return noenter(event);">
 		 				
 					</td>
