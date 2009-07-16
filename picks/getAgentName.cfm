@@ -38,7 +38,9 @@
 				dispNames.agent_name
 		</cfquery>
 		<cfif #getAgentId.recordcount# is 0>
-			Nothing matched #agentname#. <a href="javascript:void(0);" onClick="opener.document.#formName#.#agentIdFld#.value='';opener.document.#formName#.#agentNameFld#.value='';opener.document.#formName#.#agentNameFld#.focus();self.close();">Try again.</a>
+			Nothing matched #agentname#. 
+			<!---<a href="javascript:void(0);" onClick="opener.document.#formName#.#agentIdFld#.value='';opener.document.#formName#.#agentNameFld#.value='';opener.document.#formName#.#agentNameFld#.focus();self.close();">Try again.</a>
+			--->
 		<cfelse>
 	<table border>
 		<tr>
@@ -51,14 +53,13 @@
 		<cfset thisName = #replace(agent_name,"'","`","all")#>
 		<cfif #getAgentId.recordcount# is 1>
 			<script>
-				opener.document.#formName#.#agentIdFld#.value='#agent_name_id#';
-				opener.document.#formName#.#agentNameFld#.value='#thisName#';
-				opener.document.#formName#.#agentNameFld#.style.background='##8BFEB9';
-				self.close();
+				pickThis ('#thisName#', '#agentNameFld#', '#agent_name_id#');
+				
+			
 			</script>
 		<cfelse>
 			<tr>
-				<td><a href="##" onClick="javascript: opener.document.#formName#.#agentIdFld#.value='#agent_name_id#';opener.document.#formName#.#agentNameFld#.value='#thisName#';self.close();">#agent_name#</a></td>
+				<td><a href="##" onClick="pickThis ('#thisName#', '#agentNameFld#', '#agent_name_id#');">#agent_name#</a></td>
 				<td><font size="-2">#agent_name_id#</font></td>
 				<td><font size="-2">#agent_id#</font></td>
 			</tr>
