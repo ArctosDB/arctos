@@ -2,16 +2,14 @@
 <cfset title = "Edit Publication">
 <script>
 	function pickThis (fld,idfld,display,aid) {
-			console.log('fld: ' + fld);
-			console.log('idfld: ' + idfld);
-			document.getElementById(fld).value=display;
-			document.getElementById(idfld).value=aid;
-			removePick();
-			console.log('spiffy');
-		}
-		
-		
-		function removePick() {
+		console.log('fld: ' + fld);
+		console.log('idfld: ' + idfld);
+		document.getElementById(fld).value=display;
+		document.getElementById(idfld).value=aid;
+		document.getElementById(fld).className='goodPick';
+		removePick();
+	}
+	function removePick() {
 		if(document.getElementById('pickDiv')){
 			jQuery('#pickDiv').remove();
 		}
@@ -44,22 +42,11 @@
 		theDiv.className = 'pickDiv';
 		theDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(theDiv);
-		var ptl="/picks/getAgentName.cfm";
-		
-			
+		var ptl="/picks/getAgentName.cfm";			
 		jQuery.get(ptl,{agentname: name, fld: fld, idfld: idfld},function(data){
-			console.log(data);
 			document.getElementById('pickDiv').innerHTML=data;
-			//jQuery('#pickDiv').innerHTML='waaaaaa';//data;
 			viewport.init("#pickDiv");
-			console.log('callback: viewport');
 		});
-		
-	
-		
-		
-		
-		console.log('it loaded');
 	}
 </script>
 <cfif action is "newPub">
