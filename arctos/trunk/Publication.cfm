@@ -123,7 +123,7 @@
 			<input type="text" name="publication_loc" id="publication_loc" size="80">
 			<label for="publication_remarks">Remark</label>
 			<input type="text" name="publication_remarks" id="publication_remarks" size="80">
-			<input name="numberAuthors" id="numberAuthors" value="1">
+			<input trpe="text" name="numberAuthors" id="numberAuthors" value="1">
 			Authors:
 			<table border id="authTab">
 				<tr>
