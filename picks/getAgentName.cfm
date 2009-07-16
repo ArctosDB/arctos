@@ -7,10 +7,10 @@
 	
 	<script>
 		
-		function pickThis (_fld,idfld,display,aid) {
-			console.log('_fld: ' + _fld);
+		function pickThis (fld,idfld,display,aid) {
+			console.log('fld: ' + fld);
 			console.log('idfld: ' + idfld);
-			document.getElementById(_fld).value=display;
+			document.getElementById(fld).value=display;
 			document.getElementById(idfld).value=aid;
 			console.log('spiffy');
 			/*
@@ -25,6 +25,7 @@
 		}
 	</script>
 	<cfoutput>
+		#cgi.QUERY_STRING#
 		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				dispNames.agent_id,
