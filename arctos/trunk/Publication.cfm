@@ -37,7 +37,9 @@
 		var ptl="/picks/getAgentName.cfm";
 		jQuery(pickDiv).load(ptl,{agentname: name, fld: fld, idfld: idfld},function(){
 			viewport.init("#pickDiv");
+			console.log('callback: viewport');
 		});
+		console.log('it loaded');
 	}
 </script>
 <cfif action is "newPub">
