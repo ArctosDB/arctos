@@ -118,7 +118,7 @@
 			<label for="publication_remarks">Remark</label>
 			<input type="text" name="publication_remarks" id="publication_remarks" size="80">
 			<input trpe="hidden" name="numberAuthors" id="numberAuthors" value="1">
-			<br>Authors: <span class="infoLink" onclick="addAgent()">Add Row</span>  ~ <span class="infoLink" onclick="deleteAgent()">Remove Last Row</span>';
+			<br>Authors: <span class="infoLink" onclick="addAgent()">Add Row</span> ~ <span class="infoLink" onclick="deleteAgent()">Remove Last Row</span>
 			<table border id="authTab">
 				<tr>
 					<th>Role</th>
@@ -141,6 +141,12 @@
 				</tr>
 			</table>
 			<br>Attributes:
+			Add attribute: <select name="n_attr" id="n_attr">
+				<option value=""></option>
+				<cfloop query="ctpublication_attribute">
+					<option value="#publication_attribute#">#ctpublication_attribute#</option>
+				</cfloop>
+			</select>
 			<table border id="attTab">
 				<tr>
 					<th>Attribute</th>
