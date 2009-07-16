@@ -73,7 +73,7 @@
 					</td>
 					<td>
 						<input type="hidden" name="author_id_1" id="author_id_1">
-						<input type="text" name="author_name_1" class="reqdClr" 
+						<input type="text" name="author_name_1" id="author_name_1" class="reqdClr" 
 							onchange="get_AgentName(this.value,this.id,'author_id_1');"
 		 					onKeyPress="return noenter(event);">
 		 				
