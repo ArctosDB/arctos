@@ -84,6 +84,9 @@
 	}
 	function addAttribute(v){
 		console.log('adding ' + v);
+		var newRow="<tr><td>t</td><td>r</td></tr>";
+		jQuery('#attTab tr:last').after(newRow);
+		
 		jQuery.getJSON("/component/functions.cfc",
   			{
  				method : "getPubAttributes",
@@ -92,25 +95,17 @@
  				queryformat : 'column'
  			},
   			function (d) {
-  				console.log('we made it back with ' + d);
-  				console.log('len: ' + d.length);
   				if(d=='nocontrol'){
-  					console.log('nocontrol');
   					return false;
   				}
-  				
   				if(d.length>0 && d.substring(0,4)=='fail'){
   					alert(d);
   					return false;
   				}
-  				
 				if (d.DATA.v) {
-					console.log('got data');	
+					console.log('got data');
+					
 				}
-				console.log('we are still friggin going');
-				if(d.length>0){
-  					console.log('got something');
-  				}
   			}
  		);	
 	}
