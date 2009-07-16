@@ -45,9 +45,9 @@
 		theDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(theDiv);
 		var ptl="/picks/getAgentName.cfm";
+		
 			
-			
-		jQuery(pickDiv).load(ptl,{agentname: name, fld: fld, idfld: idfld},function(){
+		jQuery(pickDiv).get(ptl,{agentname: name, fld: fld, idfld: idfld},function(){
 			viewport.init("#pickDiv");
 			console.log('callback: viewport');
 		});
