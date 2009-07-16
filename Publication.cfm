@@ -95,7 +95,7 @@
  				queryformat : 'column'
  			},
   			function (d) {
-  				console.log(d);
+  				console.log('we made it back with ' + d);
   			}
  		);	
 	}
