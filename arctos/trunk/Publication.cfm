@@ -5,6 +5,9 @@
 		if(document.getElementById('pickDiv')){
 			jQuery('#pickDiv').remove();
 		}
+		if(document.getElementById('bgDiv')){
+			jQuery('#bgDiv').remove();
+		}
 	}
 	function addBGDiv(f){
 		console.log('addBGDiv - f=' + f);
