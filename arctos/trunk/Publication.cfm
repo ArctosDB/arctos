@@ -100,6 +100,9 @@
   					alert(d);
   					return false;
   				}
+				if (d.DATA.v) {
+					console.log('got data');	
+				}
 				console.log('we are still friggin going');
 				if(d.length>0){
   					console.log('got something');
