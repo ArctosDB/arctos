@@ -1,4 +1,3 @@
-<cfinclude template="../includes/_pickHeader.cfm">
 	<!--- make sure we're searching for something --->
 	<cfif len(#agentname#) is 0>
 		You must enter search criteria.
@@ -89,4 +88,3 @@
 	<!--------------------------------------------------->
 	
 	---->
-<cfinclude template="../includes/_pickFooter.cfm">
