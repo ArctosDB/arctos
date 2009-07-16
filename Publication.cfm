@@ -98,7 +98,10 @@
   				
   				if(d.substring(0,4)=='fail'){
   					alert(d);
-  				}else if(d.length)>0{
+  					return false;
+  				}
+				console.log('we are still friggin going');
+				if(d.length>0){
   					console.log('got something');
   				}
   			}
