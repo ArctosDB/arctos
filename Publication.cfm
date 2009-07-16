@@ -80,7 +80,7 @@
 		document.getElementById('numberAuthors').value=thisID;
 	}
 	function deleteAgent() {
-		jQuery('#authTab tr:last').attr("id").remove();
+		jQuery('#authTab tr:last').remove();
 	}
 </script>
 <cfif action is "newPub">
