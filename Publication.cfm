@@ -53,7 +53,9 @@
 	function addAgent (n) {
 		var newRow='<tr id="123"><td>boogity</td><td>boogity</td><td>boogity</td></tr>';
 		var lid = jQuery('#authTab tr:last').attr("id");
-		var thisID=parseInt(lid) + 1;
+		var lastID=lid.replace('authortr','');
+		console.log(lastID);
+		var thisID=parseInt(lastID) + 1;
 		var newRow='<tr id="authortr' + thisID + '">';
 		newRow+='<td>';
 		newRow+='<select name="author_role_' + thisID + '" id="author_role_' + thisID + '1">';
