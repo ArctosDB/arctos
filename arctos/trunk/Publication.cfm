@@ -78,7 +78,7 @@
 		var prevControlName='agntControl' + lastID;
 		var prevControl=document.getElementById(prevControlName);
 		prevControl.innerHTML='';		
-		document.getElementById(numberAuthors).value=thisID;
+		document.getElementById('numberAuthors').value=thisID;
 	}
 </script>
 <cfif action is "newPub">
