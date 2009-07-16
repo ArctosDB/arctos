@@ -1,7 +1,17 @@
 <cfinclude template="includes/_header.cfm">
 <cfset title = "Edit Publication">
 <script>
-	function removePick() {
+	function pickThis (fld,idfld,display,aid) {
+			console.log('fld: ' + fld);
+			console.log('idfld: ' + idfld);
+			document.getElementById(fld).value=display;
+			document.getElementById(idfld).value=aid;
+			removePick();
+			console.log('spiffy');
+		}
+		
+		
+		function removePick() {
 		if(document.getElementById('pickDiv')){
 			jQuery('#pickDiv').remove();
 		}
