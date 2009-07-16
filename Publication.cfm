@@ -160,24 +160,7 @@
 					<th>Value</th>
 					<th></th>
 				</tr>
-				<tr id="authortr1">
-					<td>
-						<select name="author_role_1" id="author_role_1">
-							<cfloop <option value="author">author</option>
-							<option value="editor">editor</option>
-						</select>
-					</td>
-					<td>
-						<input type="hidden" name="author_id_1" id="author_id_1">
-						<input type="text" name="author_name_1" id="author_name_1" class="reqdClr" size="50"
-							onchange="get_AgentName(this.value,this.id,'author_id_1');"
-		 					onKeyPress="return noenter(event);">
-		 				
-					</td>
-					<td id="agntControl1">
-						<span class="infoLink" onclick="addAgent()">Add</span>
-					</td>
-				</tr>
+				
 			</table>
 			<!---
 			<div id="authors" style="border:1px dashed red;">
