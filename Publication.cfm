@@ -96,7 +96,7 @@
   				console.log('len: ' + d.length);
   				
   				
-  				if(d.substring(0,4)=='fail'){
+  				if(d.length>0 && d.substring(0,4)=='fail'){
   					alert(d);
   					return false;
   				}
