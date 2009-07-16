@@ -69,9 +69,6 @@
 		newRow+='</td>';
 		newRow+='</tr>';		
 		jQuery('#authTab tr:last').after(newRow);
-		var prevControlName='agntControl' + lastID;
-		var prevControl=document.getElementById(prevControlName);
-		prevControl.innerHTML='';		
 		document.getElementById('numberAuthors').value=thisID;
 	}
 	function deleteAgent() {
