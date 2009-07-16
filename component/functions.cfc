@@ -1,4 +1,22 @@
 <cfcomponent>
+	
+<!------------------------------------------------------->
+<cffunction name="getPubAttributes" access="remote">
+	<cfargument name="attribute" type="string" required="yes">
+	<cftry>
+		<cfquery name="res" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select control from ctpublication_attribute where publication_attribute ='#attribute#'
+		</cfquery>
+		<cfif len(res.control) gt 0>
+			<cfreturn 'test'>
+		<cfelse>
+			<cfreturn/>
+		</cfif>
+	<cfcatch>
+		<cfreturn "failure: #cfcatch.Message# #cfcatch.Detail#">
+	</cfcatch>
+	</cftry>
+</cffunction>
 <!------------------------------------------------------->
 <cffunction name="kill_canned_search" access="remote">
 	<cfargument name="canned_id" type="numeric" required="yes">
