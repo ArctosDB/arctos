@@ -8,11 +8,15 @@
 	<script>
 		
 		function pickThis (fld,idfld,display,aid) {
-			jQuery('#' + fld).value=display;
-			jQuery('#' + idfld).value=aid;
+			document.getElementById(fld).value=display;
+			document.getElementById(idfld).value=aid;
 			console.log('spiffy');
 			/*
-				opener.document.#formName#.#agentIdFld#.value='#agent_name_id#';
+				
+			jQuery('#' + fld).value=display;
+			jQuery('#' + ).value=;
+			
+			opener.document.#formName#.#agentIdFld#.value='#agent_name_id#';
 				opener.document.#formName#.#agentNameFld#.value='#thisName#';
 				opener.document.#formName#.#agentNameFld#.style.background='##8BFEB9';
 			*/
