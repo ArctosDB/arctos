@@ -24,7 +24,7 @@
 		theDiv.innerHTML='<br>Loading...';
 		document.body.appendChild(theDiv);
 		var ptl="/includes/picks/getAgentName.cfm";
-		jQuery(cDiv).load(ptl,{agentname: name, fld: fld, idFld: idFld},function(){
+		jQuery(pickDiv).load(ptl,{agentname: name, fld: fld, idFld: idFld},function(){
 			viewport.init("#pickDiv");
 		});
 	}
@@ -73,7 +73,7 @@
 					<td>
 						<input type="hidden" name="author_id_1" id="author_id_1">
 						<input type="text" name="author_name_1" class="reqdClr" 
-							onchange="get_AgentName('a','ab','author_id_1');"
+							onchange="get_AgentName(this.value,this.id,'author_id_1');"
 		 					onKeyPress="return noenter(event);">
 		 				
 					</td>
