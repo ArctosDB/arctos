@@ -79,7 +79,11 @@
 		var lastID=lid.replace('authortr','');
 		var thisID=parseInt(lastID) - 1;
 		document.getElementById('numberAuthors').value=thisID;
-		jQuery('#authTab tr:last').remove();
+		if(thisID>1){
+			jQuery('#authTab tr:last').remove();
+		} else {
+			alert('You must have at least one author');
+		}
 	}
 </script>
 <cfif action is "newPub">
