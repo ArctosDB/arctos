@@ -14,10 +14,10 @@
 			</cfquery>
 			<cfset cl=ctval.columnlist>
 			<cfif listcontainsnocase(cl,"description")>
-				<cfset cl=listdeleteat(cl,listfindnocase("description"))>
+				<cfset cl=listdeleteat(cl,listfindnocase(cl,"description"))>
 			</cfif>
 			<cfif listcontainsnocase(cl,"collection_cde")>
-				<cfset cl=listdeleteat(cl,listfindnocase("collection_cde"))>
+				<cfset cl=listdeleteat(cl,listfindnocase(cl,"collection_cde"))>
 			</cfif>
 			<cfif listlen(cl) is 1>
 				<cfquery name="return" dbtype="query">
