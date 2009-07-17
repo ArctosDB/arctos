@@ -159,7 +159,7 @@
 		console.log('deletePubAtt' + r);
 		//jQuery('#attribute' + r).remove();
 		//#i#
-		jQuery('#authortr' + r + ' td:last').addClass('test');
+		jQuery('#attRow' + r + ' td:last').addClass('test');
 	}
 </script>
 <!---------------------------------------------------------------------------------------------------------->
