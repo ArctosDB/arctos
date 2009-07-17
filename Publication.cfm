@@ -178,7 +178,7 @@
 			<input type="text" name="publication_loc" id="publication_loc" size="80">
 			<label for="publication_remarks">Remark</label>
 			<input type="text" name="publication_remarks" id="publication_remarks" size="80">
-			<input trpe="hidden" name="numberAuthors" id="numberAuthors" value="1">
+			<input type="hidden" name="numberAuthors" id="numberAuthors" value="1">
 			<br>Authors: <span class="infoLink" onclick="addAgent()">Add Row</span> ~ <span class="infoLink" onclick="deleteAgent()">Remove Last Row</span>
 			<table border id="authTab">
 				<tr>
@@ -217,44 +217,71 @@
 					<th></th>
 				</tr>				
 			</table>
-			<!---
-			<div id="authors" style="border:1px dashed red;">
-				<cfset i=1>
-				<cfif authors.recordcount is 0>
-				<!--- seed --->
-                <div id="seedMedia" style="display:none">
-                    <input type="hidden" id="media_relations_id__0" name="media_relations_id__0">
-					<cfset d="">
-                    <select name="relationship__0" id="relationship__0" size="1"  onchange="pickedRelationship(this.id)">
-						<option value="delete">delete</option>
-						<cfloop query="ctmedia_relationship">
-							<option <cfif #d# is #media_relationship#> selected="selected" </cfif>value="#media_relationship#">#media_relationship#</option>
-						</cfloop>
-					</select>:&nbsp;<input type="text" name="related_value__0" id="related_value__0" size="80">
-					<input type="hidden" name="related_id__0" id="related_id__0">
-                </div>
-                </cfif>
-                <cfloop query="relns">
-					<cfset d=media_relationship>
-					<input type="hidden" id="media_relations_id__#i#" name="media_relations_id__#i#" value="#media_relations_id#">
-					<select name="relationship__#i#" id="relationship__#i#" size="1"  onchange="pickedRelationship(this.id)">
-						<option value="delete">delete</option>
-						<cfloop query="ctmedia_relationship">
-							<option <cfif #d# is #media_relationship#> selected="selected" </cfif>value="#media_relationship#">#media_relationship#</option>
-						</cfloop>
-					</select>:&nbsp;<input type="text" name="related_value__#i#" id="related_value__#i#" size="80" value="#summary#">
-					<input type="hidden" name="related_id__#i#" id="related_id__#i#" value="#related_primary_key#">
-					<cfset i=i+1>
-					<br>
-				</cfloop>
-				
-				<br><span class="infoLink" id="addRelationship" onclick="addRelation(#i#)">Add Relationship</span>
-			</div>
-			--->
 		</form>
 	</cfoutput>
 </cfif>
-
+<cfif action is "createPub">
+<cfoutput>
+	<cftransaction>
+		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select sq_publication_id.nextval p from dual
+		</cfquery>
+		<cfset pid=p.p>
+		<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			insert into publication (
+				publication_id,
+				published_year,
+				publication_type,
+				publication_loc,
+				publication_title,
+				publication_remarks,
+				is_peer_reviewed_fg
+			) values (
+				#pid#,
+				<cfif len(published_year) gt 0>#published_year#<cfelse>NULL</cfif>,
+				'#publication_type#',
+				'#publication_loc#',
+				'#publication_title#',
+				'#publication_remarks#',
+				#is_peer_reviewed_fg#
+			)
+		</cfquery>
+		<cfloop from="1" to="#numberAuthors#" index="n">
+			<cfset thisAgentNameId = #evaluate("author_id_" & n)#>
+			<cfset thisAuthorRole = #evaluate("author_role_" & n)#>
+			<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				insert into publication_author_name (
+					publication_id,
+					agent_name_id,
+					author_position,
+					author_role
+				) values (
+					#pid#,
+					#thisAgentNameId#,
+					#n#,
+					'#thisAuthorRole#'
+				)
+			</cfquery>
+		</cfloop>
+		<cfloop from="1" to="#numberAttributes#" index="n">
+			<cfset thisAttribute = #evaluate("attribute_type" & n)#>
+			<cfset thisAttVal = #evaluate("attribute" & n)#>
+			<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				insert into publication_attributes (
+					publication_id,
+					publication_attribute,
+					pub_att_value
+				) values (
+					#pid#,
+					'#thisAttribute#',
+					'#thisAttVal#'
+				)
+			</cfquery>
+		</cfloop>			
+	</cftransaction>
+	<cflocation url="Publication.cfm?action=edit&publication_id=#pid#" addtoken="false">
+</cfoutput>
+</cfif>
 
 
 
