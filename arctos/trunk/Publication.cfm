@@ -65,7 +65,7 @@
 		jQuery('#authTab tr:last').after(newRow);
 		document.getElementById('numberAuthors').value=thisID;
 	}
-	function deleteAgent() {
+	function removeAgent() {
 		var lid = jQuery('#authTab tr:last').attr("id");
 		var lastID=lid.replace('authortr','');
 		var thisID=parseInt(lastID) - 1;
@@ -191,11 +191,12 @@
 		<label for="publication_remarks">Remark</label>
 		<input type="text" name="publication_remarks" id="publication_remarks" size="80" value="#pub.publication_remarks#">
 		<br>Authors:
-		<br>Authors: <span class="infoLink" onclick="addAgent()">Add Row</span> ~ <span class="infoLink" onclick="deleteAgent()">Remove Last Row</span>
+		<br>Authors: <span class="infoLink" onclick="addAgent()">Add Row</span>
 			<table border id="authTab">
 				<tr>
 					<th>Role</th>
 					<th>Name</th>
+					<th></th>
 				</tr>
 				<cfset i=0>
 				<cfloop query="auth">
@@ -214,6 +215,9 @@
 			 					onKeyPress="return noenter(event);"
 			 					value="#agent_name#">
 			 				
+						</td>
+						<td>
+							delete
 						</td>
 					</tr>
 				</cfloop>
@@ -257,7 +261,7 @@
 			<label for="publication_remarks">Remark</label>
 			<input type="text" name="publication_remarks" id="publication_remarks" size="80">
 			<input type="hidden" name="numberAuthors" id="numberAuthors" value="1">
-			<br>Authors: <span class="infoLink" onclick="addAgent()">Add Row</span> ~ <span class="infoLink" onclick="deleteAgent()">Remove Last Row</span>
+			<br>Authors: <span class="infoLink" onclick="addAgent()">Add Row</span> ~ <span class="infoLink" onclick="removeAgent()">Remove Last Row</span>
 			<table border id="authTab">
 				<tr>
 					<th>Role</th>
