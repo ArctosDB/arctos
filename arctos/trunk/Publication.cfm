@@ -144,9 +144,12 @@
 				document.getElementById('numberAttributes').value=thisID;
 		
   			}
- 		);
- 		
- 		
+ 		); 		
+	}
+	function setDefaultPub(t){
+		if(t=='journal article'){
+			addAttribute('journal name');
+		}	
 	}
 </script>
 <cfif action is "newPub">
@@ -164,7 +167,7 @@
 			<label for="publication_title">Publication Title</label>
 			<input type="text" name="publication_title" id="publication_title" class="reqdClr" size="80">
 			<label for="publication_type">Publication Type</label>
-			<select name="publication_type" id="publication_type" class="reqdClr">
+			<select name="publication_type" id="publication_type" class="reqdClr" onchange="setDefaultPub(this.valu)">
 				<cfloop query="ctpublication_type">
 					<option value="#publication_type#">#publication_type#</option>
 				</cfloop>
@@ -204,22 +207,20 @@
 				</tr>
 			</table>
 			<br>Attributes:
-			<input type="text" name="numberAttributes" id="numberAttributes" value="0">
-			Add attribute: <select name="n_attr" id="n_attr" onchange="addAttribute(this.value)">
+			<input type="hidden" name="numberAttributes" id="numberAttributes" value="0">
+			Add: <select name="n_attr" id="n_attr" onchange="addAttribute(this.value)">
 				<option value=""></option>
 				<cfloop query="ctpublication_attribute">
 					<option value="#publication_attribute#">#publication_attribute#</option>
 				</cfloop>
 			</select>
-			
-				<span class="infoLink" onclick="removeLastAttribute()">Remove last attribute</span>
+			<span class="infoLink" onclick="removeLastAttribute()">Remove Last Row</span>
 			<table border id="attTab">
 				<tr>
 					<th>Attribute</th>
 					<th>Value</th>
 					<th></th>
-				</tr>
-				
+				</tr>				
 			</table>
 			<!---
 			<div id="authors" style="border:1px dashed red;">
