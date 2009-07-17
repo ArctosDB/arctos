@@ -1865,6 +1865,7 @@ function getDocs(url,anc) {
 }		
 function noenter (e) {
 	console.log(e);
+	return false;
 	var key;
 	var keychar;
 	var reg;
