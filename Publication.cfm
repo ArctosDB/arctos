@@ -256,12 +256,14 @@
 					<cfinvoke component="/component/functions" method="getPubAttributes" returnVariable="attvalist">
 						<cfinvokeargument name="attribute" value="#publication_attribute#">
 						<cfinvokeargument name="returnFormat" value="plain">
-						<cfinvokeargument name="returnType" value="string">
 					</cfinvoke>
 					<tr id="attRow#i#">
 						<td>
 							<cfif isobject(attvalist)>
 								attvalist is an object
+							</cfif>
+							<cfif isquery(attvalist)>
+								attvalist is an query
 							</cfif>
 							<cfdump var="#attvalist#">
 							<input type="hidden" name="attribute_type#i#" 
