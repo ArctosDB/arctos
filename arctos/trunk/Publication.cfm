@@ -94,7 +94,11 @@
  			},
   			function (d) {
   				console.log('back with ' + d);
-  				var newRow="<tr><td>" + v + "</td><td>";
+  				var lid=jQuery('#attTab tr:last').attr("id");
+  				var lastID=lid.replace('attRow','');
+				var thisID=parseInt(lastID) + 1;
+		
+  				var newRow='<tr id="attRow' + thisID + '"><td>' + v + "</td><td>";
 		
   				if(d.length>0 && d.substring(0,4)=='fail'){
   					alert(d);
