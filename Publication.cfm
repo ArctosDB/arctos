@@ -241,7 +241,8 @@
 				<cfloop query="atts">
 					<cfhttp method="get" url="/component/functions.cfc">
 						<cfhttpparam name="method" type="url" value="getPubAttributes">
-						<cfhttpparam name="attribute" type="url" value="#publication_attribute#">						
+						<cfhttpparam name="attribute" type="url" value="#publication_attribute#">	
+						<cfhttpparam name="returnformat" type="url" value="plain">					
 					</cfhttp>
 					<cfdump var="#cfhttp#">
 				</cfloop>			
