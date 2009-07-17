@@ -149,6 +149,12 @@
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "edit">
 <cfoutput>
+	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select publication_type from ctpublication_type order by publication_type
+	</cfquery>
+	<cfquery name="ctpublication_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select publication_attribute from ctpublication_attribute order by publication_attribute
+	</cfquery>
 	<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from publication where publication_id=#publication_id#
 	</cfquery>
@@ -197,7 +203,6 @@
 	<cfquery name="ctpublication_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select publication_attribute from ctpublication_attribute order by publication_attribute
 	</cfquery>
-
 	<cfoutput>
 		<form name="newpub" method="post" action="Publication.cfm">
 			The Basics:
