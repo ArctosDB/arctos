@@ -128,10 +128,10 @@
 		if(t=='journal article'){
 	    	addAttribute('journal name');
 	    	// crude but...
-	    	setTimeout( "", 5000); 
+	    	setTimeout( "", 10000); 
 			addAttribute('begin page');
 			
-	    	setTimeout( "", 5000); 
+	    	setTimeout( "", 10000); 
 			addAttribute('end page');
 		}	
 	}
