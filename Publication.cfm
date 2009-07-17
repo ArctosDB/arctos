@@ -238,20 +238,25 @@
 					<th>Value</th>
 					<th></th>
 				</tr>
-				<cfset session.meta_description='wtf'>
+				<cfset i=0>
 				<cfloop query="atts">
+					<cfset i=i+1>
 					<cfinvoke component="/component/functions" method="getPubAttributes" returnVariable="attvalist">
 						<cfinvokeargument name="attribute" value="#publication_attribute#">
 					</cfinvoke>
 					<tr>
 						<td>
+							<input type="hidden" name="publication_attribute#i#" id="publication_attribute#i#" value="#publication_attribute#">
 							#publication_attribute#
 						</td>
 						<td>
-							#pub_att_value#
-							--------
+							<cfif attvalist is "nocontrol">
+								<input type="text" name="pub_att_value#i#" id="pub_att_value#i#" value="#pub_att_value#" size="50">
+							<cfelse>
+								--------
 							<cfdump var="#attvalist#">
 							----------
+							</cfif>							
 						</td>
 					</tr>
 				</cfloop>			
