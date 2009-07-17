@@ -197,12 +197,13 @@
 			<br>Attributes:
 			<input type="text" name="numberAttributes" id="numberAttributes" value="0">
 			Add attribute: <select name="n_attr" id="n_attr" onchange="addAttribute(this.value)">
-				<span class="infoLink" onclick="removeAttribute()">Remove last attribute</span>
 				<option value=""></option>
 				<cfloop query="ctpublication_attribute">
 					<option value="#publication_attribute#">#publication_attribute#</option>
 				</cfloop>
 			</select>
+			
+				<span class="infoLink" onclick="removeAttribute()">Remove last attribute</span>
 			<table border id="attTab">
 				<tr>
 					<th>Attribute</th>
