@@ -86,14 +86,17 @@
 		console.log('removeLastAttribute: ');
 		var lid = jQuery('#attTab tr:last').attr("id");
 		console.log('lid: ' + lid);
-		/*
+		if (lid.length==0) {
+			alert('nothing to remove');
+			return false;
+		}
 		var lastID=lid.replace('attRow','');
 		console.log('lastID: ' + lastID);
 		var thisID=parseInt(lastID) - 1;
 		console.log('thisID: ' + thisID);
 		document.getElementById('numberAttributes').value=thisID;
 		jQuery('#attTab tr:last').remove();
-		*/
+		
 	}
 	
 	
