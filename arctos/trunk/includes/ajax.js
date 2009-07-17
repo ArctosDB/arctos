@@ -1863,22 +1863,10 @@ function getDocs(url,anc) {
 		}
 	siteHelpWin=windowOpener(fullURL,"HelpWin","width=700,height=400, resizable,scrollbars,location,toolbar");
 }		
-function noenter (e) {
-	var key;
-	var keychar;
-	var reg;
-	if(window.event) {
-		key = e.keyCode; 
-	} else if(e.which) {
-		key = e.which; 
-	}
-	if (key == 13) {
-		return false;
-	}
-	console.log(key)
-	return false;
+function noenter() {
+	return !(window.event && window.event.keyCode == 13);
 }
-function noEnter(){return false};
+
 function gotAgentId (id) {
 	var id;
 	var len = id.length;
