@@ -161,6 +161,7 @@
 		//jQuery('#attribute' + r).remove();
 		//#i#
 		var newElem='<input type="hidden" name="attribute' + r + '" id="attribute' + r + '" value="deleted">';
+		console.log(jQuery('attribute_type' + r).val());
 		jQuery('#attRow' + r + ' td:nth-child(2)').addClass('red').text('deleted').append(newElem);
 		jQuery('#attRow' + r + ' td:nth-child(3)').text(' ');
 	}
