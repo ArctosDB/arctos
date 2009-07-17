@@ -128,11 +128,10 @@
 		if(t=='journal article'){
 	    	addAttribute('journal name');
 	    	// crude but...
-	    	setTimeout( "", 10000); 
-			addAttribute('begin page');
+	    	setTimeout( "addAttribute('begin page')", 1000000); 
 			
-	    	setTimeout( "", 10000); 
-			addAttribute('end page');
+	    	setTimeout( "addAttribute('end page');", 1000000); 
+			
 		}	
 	}
 </script>
