@@ -178,6 +178,7 @@
 	</cfquery>
 	<form name="editPub" method="post" action="Publication.cfm">
 		The Basics:
+		<input type="hidden" name="publication_id" value="#pub.publication_id#">
 		<input type="hidden" name="action" value="saveEdit">
 		<label for="publication_title">Publication Title</label>
 		<input type="text" name="publication_title" id="publication_title" value="#pub.publication_title#" class="reqdClr" size="80">
@@ -210,6 +211,8 @@
 				<cfset i=0>
 				<cfloop query="auth">
 					<cfset i=i+1>
+					<input type="hidden" name="publication_author_name_id#i#" id="publication_author_name_id#i#" value="#publication_author_name_id#">
+					<input type="hidden" name="author_position#i#" id="author_position#i#" value="#author_position#">		
 					<tr id="authortr1">
 						<td>
 							<select name="author_role_#i#" id="author_role_#i#">
@@ -248,6 +251,8 @@
 				<cfset i=0>
 				<cfloop query="atts">
 					<cfset i=i+1>
+					<input type="hidden" name="publication_attribute_id#i#" 
+								class="reqdClr" id="publication_attribute_id#i#" value="#publication_attribute_id#">							
 					<cfinvoke component="/component/functions" method="getPubAttributes" returnVariable="attvalist">
 						<cfinvokeargument name="attribute" value="#publication_attribute#">
 					</cfinvoke>
@@ -259,7 +264,8 @@
 						</td>
 						<td>
 							<cfif attvalist is "nocontrol">
-								<input type="text" name="pub_att_value#i#" id="pub_att_value#i#" value="#pub_att_value#" size="50">
+								<input type="text" name="pub_att_value#i#" id="pub_att_value#i#" 
+									class="reqdClr" value="#pub_att_value#" size="50">
 							<cfelse>
 								--------
 							<cfdump var="#attvalist#">
@@ -273,10 +279,110 @@
 				</cfloop>			
 			</table>
 			
+			<input type="hidden" name="origNumberAttributes" id="origNumberAttributes" value="#i#">
 			<input type="hidden" name="numberAttributes" id="numberAttributes" value="#i#">
 			<br><input type="submit" value="save" class="savBtn">
 	</form>
 		
+</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------------------------------------------->
+<cfif action is "saveEdit">
+<cfoutput>
+	<cftransaction>
+		<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			update publication set
+				published_year=<cfif len(published_year) gt 0>#published_year#<cfelse>NULL</cfif>,
+				publication_type='#publication_type#',
+				publication_loc='#publication_loc#',
+				publication_title='#publication_title#',
+				publication_remarks='#publication_remarks#',
+				is_peer_reviewed_fg=#is_peer_reviewed_fg#				
+			where publication_id=#publication_id#
+		</cfquery>
+		<cfloop from="1" to="#numberAuthors#" index="n">
+			<cfset thisAgentNameId = #evaluate("author_id_" & n)#>
+			<cfset thisAuthorRole = #evaluate("author_role_" & n)#>
+			<cfset thisRowId = #evaluate("publication_author_name_id" & n)#>
+			<cfset thisAuthPosn = #evaluate("author_position" & n)#>			
+			<cfif thisAgentNameId is -1 and thisRowId gt 0>
+				<!--- deleting --->
+				<cfquery name="delAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					delete from publication_author_name where 
+					publication_id=#publication_id# and
+					publication_author_name_id=#thisRowId#
+				</cfquery>
+				<cfquery name="incAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update publication_author_name set author_position=author_position-1 where
+					publication_id=#publication_id# and
+					author_position>#thisAuthPosn#
+				</cfquery>
+			<cfelseif thisAgentNameId gt 0 and thisRowId gt 0>
+				<!--- updating --->
+				<cfquery name="upAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update 
+						publication_author_name 
+					set 
+						agent_name_id=#thisAgentNameId#,
+						author_role='#thisAuthorRole#'
+					where
+						publication_id=#publication_id#
+				</cfquery>
+			<cfelseif thisAgentNameId gt 0 and len(thisRowId) is 0>
+				<!--- inserting --->
+				<cfquery name="insAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					insert into publication_author_name (
+						publication_id,
+						agent_name_id,
+						author_position,
+						author_role
+					) values (
+						#publication_id#,
+						#thisAgentNameId#,
+						#thisAuthPosn#,
+						'#thisAuthorRole#'
+					)
+				</cfquery>
+			<cfelse>
+				<div class="error">
+					Something funky happened with agents.
+				</div>
+				<cfabort>
+			</cfif>
+		</cfloop>
+		<cfloop from="1" to="#numberAttributes#" index="n">
+			<cfset thisAttribute = #evaluate("attribute_type" & n)#>
+			<cfset thisAttVal = #evaluate("attribute" & n)#>
+			<cfset thisAttId = #evaluate("publication_attribute_id" & n)#>
+			<cfif thisAttVal is "deleted">
+				<cfquery name="delAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					delete from publication_attributes where publication_attribute_id=#thisAttId#
+				</cfquery>
+			<cfelseif thisAttId gt 0>
+				<cfquery name="upAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update
+						publication_attributes 
+					set
+						publication_attribute='#thisAttribute#',
+						pub_att_value='#thisAttVal#'
+					where publication_attribute_id=#thisAttId#
+				</cfquery>
+			<cfelseif len(thisAttId) is 0 and len(thisAttVal) gt 0>
+				<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					insert into publication_attributes (
+						publication_id,
+						publication_attribute,
+						pub_att_value
+					) values (
+						#publication_id#,
+						'#thisAttribute#',
+						'#thisAttVal#'
+					)
+				</cfquery>
+			</cfif>
+		</cfloop>
+	</cftransaction>
+	<cflocation url="Publication.cfm?action=edit&publication_id=#publication_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
