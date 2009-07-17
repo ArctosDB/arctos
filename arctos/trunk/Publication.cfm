@@ -165,8 +165,9 @@
 	
 		console.log('oldType ' + oldType);
 		var newElem='<input type="hidden" name="attribute' + r + '" id="attribute' + r + '" value="deleted">';
-		jQuery('#attRow' + r + ' td:nth-child(2)').addClass('red').text(oldType).append(newElem);
-		jQuery('#attRow' + r + ' td:nth-child(3)').text(' ');
+		jQuery('#attRow' + r + ' td:nth-child(1)').addClass('red').text(oldType);
+		jQuery('#attRow' + r + ' td:nth-child(2)').addClass('red').text(oldValue).append(newElem);
+		jQuery('#attRow' + r + ' td:nth-child(3)').addClass('red').text('deleted');
 	}
 </script>
 <!---------------------------------------------------------------------------------------------------------->
