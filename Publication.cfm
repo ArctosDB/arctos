@@ -160,7 +160,7 @@
 		//jQuery('#attribute' + r).remove();
 		//#i#
 		jQuery('#attRow' + r + ' td:last').addClass('test').text('boogity');
-		jQuery('#attRow' + r + ' td:1').addClass('test').text('boogity');
+		jQuery('#attRow' + r + ' td:nth-child(1)').addClass('test').text('boogity');
 	}
 </script>
 <!---------------------------------------------------------------------------------------------------------->
