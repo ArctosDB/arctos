@@ -126,21 +126,20 @@
 	function setDefaultPub(t){
 		console.log('pubtype: ' + t);
 		if(t=='journal article'){
-	    	jQuery().ajaxStart(function() {
-   			addAttribute('journal name');
-				addAttribute('begin page');
-				addAttribute('end page');
-   			});
-
-			
-			/*
-			
-			jQuery.function( {
-				addAttribute('journal name');
-				addAttribute('begin page');
-				addAttribute('end page');
-			});
-			
+	    	jQuery(document).ready(function(){
+        		//$("#menu li").click(function(){
+                //$(this).fadeTo(1000, 0, function() {
+       			//$(this).html("changed").fadeTo(1000,1);
+     			//});
+        		//});
+	addAttribute('journal name');
+			addAttribute('begin page');
+			addAttribute('end page');
+			}); 
+	    	/*
+	    	addAttribute('journal name');
+			addAttribute('begin page');
+			addAttribute('end page');
 			*/
 		}	
 	}
