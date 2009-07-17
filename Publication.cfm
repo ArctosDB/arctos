@@ -267,7 +267,7 @@
 							<cfif isquery(attvalist)>
 								<select name="attribute#i#" id="attribute#i#" class="reqdClr">
 									<cfloop query="attvalist">
-										<option <cfif v is pub_att_value> selected="selected" </cfif>value="#v#">#v#</option>
+										<option <cfif v is atts.pub_att_value> selected="selected" </cfif>value="#v#">#v#</option>
 									</cfloop>
 								</select> 								
 							<cfelseif not isobject(attvalist)>
