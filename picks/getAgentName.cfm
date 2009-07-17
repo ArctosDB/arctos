@@ -2,9 +2,7 @@
 	<cfif len(#agentname#) is 0>
 		You must enter search criteria.
 		<cfabort>
-	</cfif>
-	
-	
+	</cfif>	
 	<cfoutput>
 		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
@@ -40,18 +38,19 @@
 		<cfset thisName = #replace(agent_name,"'","`","all")#>
 		<cfif #getAgentId.recordcount# is 1>
 			<script>
-				pickThis ('#fld#','#idfld#','#thisName#', '#agent_name_id#');
-				
-			
+				pickThis('#fld#','#idfld#','#thisName#', '#agent_name_id#');			
 			</script>
 		<cfelse>
 			<tr>
-				<td><a href="##" onClick="pickThis ('#fld#','#idfld#','#thisName#', '#agent_name_id#');">#agent_name#</a></td>
+				<td id="focusThis"><span class="likeLink" onClick="pickThis('#fld#','#idfld#','#thisName#', '#agent_name_id#');">#agent_name#</a></td>
 				<td><font size="-2">#agent_name_id#</font></td>
 				<td><font size="-2">#agent_id#</font></td>
 			</tr>
 		</cfif>
 	</cfloop>
+	<script>
+		document.getElementById('focusThis').focus();
+	</script>
 	</table>
 </cfif>
 	</cfoutput>
