@@ -258,13 +258,13 @@
 					</cfinvoke>
 					<tr id="attRow#i#">
 						<td>
-							<input type="hidden" name="publication_attribute#i#" 
-								class="reqdClr" id="publication_attribute#i#" value="#publication_attribute#">
+							<input type="hidden" name="attribute_type#i#" 
+								class="reqdClr" id="attribute_type#i#" value="#publication_attribute#">
 							#publication_attribute#
 						</td>
 						<td>
 							<cfif attvalist is "nocontrol">
-								<input type="text" name="pub_att_value#i#" id="pub_att_value#i#" 
+								<input type="text" name="attribute#i#" id="attribute#i#" 
 									class="reqdClr" value="#pub_att_value#" size="50">
 							<cfelse>
 								--------
@@ -360,8 +360,8 @@
 			</cfif>
 		</cfloop>
 		<cfloop from="1" to="#numberAttributes#" index="n">
-			<cfset thisAttribute = #evaluate("publication_attribute" & n)#>
-			<cfset thisAttVal = #evaluate("pub_att_value" & n)#>
+			<cfset thisAttribute = #evaluate("attribute_type" & n)#>
+			<cfset thisAttVal = #evaluate("attribute" & n)#>
 			<cfset thisAttId = #evaluate("publication_attribute_id" & n)#>
 			<cfif thisAttVal is "deleted">
 				<cfquery name="delAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
