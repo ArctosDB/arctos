@@ -159,7 +159,9 @@
 		select * from publication where publication_id=#publication_id#
 	</cfquery>
 	<cfquery name="auth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from publication_author_name where publication_id=#publication_id#
+		select * from publication_author_name,agent_name where 
+		publication_author_name.agent_name_id=agent_name.agent_name_id and 
+		publication_id=#publication_id#
 	</cfquery>
 	<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from publication_attributes where publication_id=#publication_id#
@@ -188,8 +190,35 @@
 		<input type="text" name="publication_loc" id="publication_loc" size="80" value="#pub.publication_loc#">
 		<label for="publication_remarks">Remark</label>
 		<input type="text" name="publication_remarks" id="publication_remarks" size="80" value="#pub.publication_remarks#">
-		Authors:
-		<input type="hidden" name="numberAuthors" id="numberAuthors" value="1">
+		<br>Authors:
+		<br>Authors: <span class="infoLink" onclick="addAgent()">Add Row</span> ~ <span class="infoLink" onclick="deleteAgent()">Remove Last Row</span>
+			<table border id="authTab">
+				<tr>
+					<th>Role</th>
+					<th>Name</th>
+				</tr>
+				<cfset i=0>
+				<cfloop query="auth">
+					<cfset i=i+1>
+					<tr id="authortr1">
+						<td>
+							<select name="author_role_#i#" id="author_role_#i#">
+								<option <cfif author_role is "author"> selected="selected" </cfif>value="author">author</option>
+								<option <cfif author_role is "editor"> selected="selected" </cfif>value="editor">editor</option>
+							</select>
+						</td>
+						<td>
+							<input type="hidden" name="author_id_#i#" id="author_id_#i#" value="#agent_name_id#">
+							<input type="text" name="author_name_#i#" id="author_name_#i#" class="reqdClr" size="50"
+								onchange="get_AgentName(this.value,this.id,'author_id_#i#');"
+			 					onKeyPress="return noenter(event);"
+			 					value="#agent_name#">
+			 				
+						</td>
+					</tr>
+				</cfloop>
+				<input type="hidden" name="numberAuthors" id="numberAuthors" value="#i#">
+			</table>
 		
 	</form>
 		
