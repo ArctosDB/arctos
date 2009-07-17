@@ -159,9 +159,9 @@
 		console.log('deletePubAtt' + r);
 		//jQuery('#attribute' + r).remove();
 		//#i#
-		jQuery('#attRow' + r + ' td:nth-child(1)').text('');
+		jQuery('#attRow' + r + ' td:nth-child(1)').text('&nbsp;');
 		jQuery('#attRow' + r + ' td:nth-child(2)').addClass('red').text('deleted');
-		jQuery('#attRow' + r + ' td:nth-child(3)').text('');
+		jQuery('#attRow' + r + ' td:nth-child(3)').text('&nbsp;');
 	}
 </script>
 <!---------------------------------------------------------------------------------------------------------->
