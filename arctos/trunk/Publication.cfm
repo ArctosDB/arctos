@@ -173,7 +173,7 @@
 		<select name="publication_type" id="publication_type" class="reqdClr">
 			<option value=""></option>
 			<cfloop query="ctpublication_type">
-				<option <cfif pub.publication_type is ctpublication_type.publication_type> selected="selected" </cfif>
+				<option <cfif publication_type is pub.publication_type> selected="selected" </cfif>
 					value="#publication_type#">#publication_type#</option>
 			</cfloop>
 		</select>
