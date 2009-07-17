@@ -362,7 +362,11 @@
 		<cfloop from="1" to="#numberAttributes#" index="n">
 			<cfset thisAttribute = #evaluate("attribute_type" & n)#>
 			<cfset thisAttVal = #evaluate("attribute" & n)#>
-			<cfset thisAttId = #evaluate("publication_attribute_id" & n)#>
+			<cfif isdefined("publication_attribute_id#n#")>
+				<cfset thisAttId = #evaluate("publication_attribute_id" & n)#>
+			<cfelse>
+				<cfset thisAttId = "">
+			</cfif>
 			<cfif thisAttVal is "deleted">
 				<cfquery name="delAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					delete from publication_attributes where publication_attribute_id=#thisAttId#
