@@ -153,7 +153,8 @@
 	
 	
 	function deleteAgent(r){
-		console.log('deleteAgent');	
+		console.log('deleteAgent');
+		jQuery('#author_id_' + r).value=-1;		
 	}
 	function deletePubAtt(r){
 		console.log('deletePubAtt' + r);
@@ -229,7 +230,7 @@
 							</select>
 						</td>
 						<td>
-							<input type="hidden" name="author_id_#i#" id="author_id_#i#" value="#agent_name_id#">
+							<input type="text" name="author_id_#i#" id="author_id_#i#" value="#agent_name_id#">
 							<input type="text" name="author_name_#i#" id="author_name_#i#" class="reqdClr" size="50"
 								onchange="get_AgentName(this.value,this.id,'author_id_#i#');"
 			 					onKeyPress="return noenter(event);"
