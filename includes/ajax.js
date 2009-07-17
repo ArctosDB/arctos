@@ -1864,6 +1864,7 @@ function getDocs(url,anc) {
 	siteHelpWin=windowOpener(fullURL,"HelpWin","width=700,height=400, resizable,scrollbars,location,toolbar");
 }		
 function noenter (e) {
+	console.log(e);
 	var key;
 	var keychar;
 	var reg;
