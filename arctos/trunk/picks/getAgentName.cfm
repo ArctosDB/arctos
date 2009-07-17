@@ -38,6 +38,7 @@
 		<cfset thisName = #replace(agent_name,"'","`","all")#>
 		<cfif #getAgentId.recordcount# is 1>
 			<script>
+				console.log('autopick!!');
 				pickThis('#fld#','#idfld#','#thisName#', '#agent_name_id#');			
 			</script>
 		<cfelse>

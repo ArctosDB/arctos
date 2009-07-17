@@ -5,6 +5,7 @@
 </style>
 <script>
 	function pickThis (fld,idfld,display,aid) {
+		console.log('pickThis');
 		document.getElementById(fld).value=display;
 		document.getElementById(idfld).value=aid;
 		document.getElementById(fld).className='goodPick';
