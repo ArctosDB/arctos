@@ -266,18 +266,22 @@
 							<cfif isdefined("attvalist.v")>
 								v is defined
 							</cfif>
+							<cfif isobject(attvalist)>
+								isobject
+							</cfif>
 							<input type="hidden" name="attribute_type#i#" 
 								class="reqdClr" id="attribute_type#i#" value="#publication_attribute#">
 							#publication_attribute#
 						</td>
 						<td>
-							<cfif not isdefined("attvalist.v") and attvalist is "nocontrol">
+							<cfif isobject(attvalist)>
+									<cfdump var="#attvalist#">
+							<cfelseif not isobject(attvalist) and attvalist is "nocontol">
 								<input type="text" name="attribute#i#" id="attribute#i#" 
 									class="reqdClr" value="#pub_att_value#" size="50">
+						
 							<cfelse>
-								--------
-							<cfdump var="#attvalist#">
-							----------
+								error: 	<cfdump var="#attvalist#">	
 							</cfif>							
 						</td>
 						<td>
