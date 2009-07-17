@@ -34,6 +34,7 @@
 			<td><font size="-2">Name ID</font></td>
 			<td><font size="-2">ID</font></td>
 		</tr>
+	<cfset i=1>
 	<cfloop query="getAgentId">
 		<cfset thisName = #replace(agent_name,"'","`","all")#>
 		<cfif #getAgentId.recordcount# is 1>
@@ -43,14 +44,15 @@
 			</script>
 		<cfelse>
 			<tr>
-				<td id="focusThis"><span class="likeLink" onClick="pickThis('#fld#','#idfld#','#thisName#', '#agent_name_id#');">#agent_name#</a></td>
+				<td><span id="f#i#" class="likeLink" onClick="pickThis('#fld#','#idfld#','#thisName#', '#agent_name_id#');">#agent_name#</a></td>
 				<td><font size="-2">#agent_name_id#</font></td>
 				<td><font size="-2">#agent_id#</font></td>
 			</tr>
 		</cfif>
+		<cfset i=i+1>
 	</cfloop>
 	<script>
-		//document.getElementById('focusThis').focus();
+		document.getElementById('f1').focus();
 	</script>
 	</table>
 </cfif>
