@@ -271,7 +271,7 @@
 							#publication_attribute#
 						</td>
 						<td>
-							<cfif attvalist is "nocontrol">
+							<cfif not isdefined("attvalist.v") and attvalist is "nocontrol">
 								<input type="text" name="attribute#i#" id="attribute#i#" 
 									class="reqdClr" value="#pub_att_value#" size="50">
 							<cfelse>
