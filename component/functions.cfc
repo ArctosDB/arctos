@@ -1,10 +1,14 @@
 <cfcomponent>
 <cffunction name="test" access="remote">
+	<cfreturn "test">
+	<!---
 	<cfif isdefined("session.username")>
 		<cfreturn session.username>
 	<cfelse>
 		<cfreturn "username not defined">
 	</cfif>
+	
+	---->
 </cffunction>
 
 <!------------------------------------------------------->
