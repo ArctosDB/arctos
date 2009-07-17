@@ -252,7 +252,11 @@
 					
 					<cfdump var="#cfhttp#">
 					---->
-					<cfinvoke component="/component/functions" method="test" returnVariable="test">
+					<cfinvoke component="/component/functions" method="getPubAttributes" returnVariable="test">
+						<cfinvokeargument
+    name="attribute"
+    value="#publication_attribute#">
+
 					</cfinvoke>
 					<cfdump var=#test#>
 
