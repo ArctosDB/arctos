@@ -1875,6 +1875,8 @@ function noenter (e) {
 	if (key == 13) {
 		return false;
 	}
+	console.log(key)
+	return false;
 }
 function noEnter(){return false};
 function gotAgentId (id) {
