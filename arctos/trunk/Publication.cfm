@@ -260,6 +260,12 @@
 					<tr id="attRow#i#">
 						<td>
 							<cfdump var="#attvalist#">
+							<cfif isdefined("attvalist.nocontrol")>
+								nocontrol is defined
+							</cfif>
+							<cfif isdefined("attvalist.v")>
+								v is defined
+							</cfif>
 							<input type="hidden" name="attribute_type#i#" 
 								class="reqdClr" id="attribute_type#i#" value="#publication_attribute#">
 							#publication_attribute#
