@@ -124,7 +124,6 @@
  		); 		
 	}
 	function setDefaultPub(t){
-		console.log('pubtype: ' + t);
 		if(t=='journal article'){
 	    	addAttribute('journal name');
 	    	// crude but try to get this stuff in order if we can...
