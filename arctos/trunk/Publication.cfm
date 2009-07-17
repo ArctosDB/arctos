@@ -213,7 +213,7 @@
 					<cfset i=i+1>
 					<input type="hidden" name="publication_author_name_id#i#" id="publication_author_name_id#i#" value="#publication_author_name_id#">
 					<input type="hidden" name="author_position#i#" id="author_position#i#" value="#author_position#">		
-					<tr id="authortr1">
+					<tr id="authortr#i#">
 						<td>
 							<select name="author_role_#i#" id="author_role_#i#">
 								<option <cfif author_role is "author"> selected="selected" </cfif>value="author">author</option>
@@ -256,7 +256,7 @@
 					<cfinvoke component="/component/functions" method="getPubAttributes" returnVariable="attvalist">
 						<cfinvokeargument name="attribute" value="#publication_attribute#">
 					</cfinvoke>
-					<tr>
+					<tr id="attRow#i#">
 						<td>
 							<input type="hidden" name="publication_attribute#i#" 
 								class="reqdClr" id="publication_attribute#i#" value="#publication_attribute#">
