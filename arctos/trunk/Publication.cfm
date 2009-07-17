@@ -168,7 +168,7 @@
 			<label for="publication_title">Publication Title</label>
 			<input type="text" name="publication_title" id="publication_title" class="reqdClr" size="80">
 			<label for="publication_type">Publication Type</label>
-			<select name="publication_type" id="publication_type" class="reqdClr" onchange="setDefaultPub(this.valu)">
+			<select name="publication_type" id="publication_type" class="reqdClr" onchange="setDefaultPub(this.value)">
 				<cfloop query="ctpublication_type">
 					<option value="#publication_type#">#publication_type#</option>
 				</cfloop>
