@@ -150,6 +150,8 @@
 		console.log('pubtype: ' + t);
 		if(t=='journal article'){
 			addAttribute('journal name');
+			addAttribute('begin page');
+			addAttribute('end page');
 		}	
 	}
 </script>
