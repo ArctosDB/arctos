@@ -248,7 +248,7 @@
 							#publication_attribute#
 						</td>
 						<td>
-							#pub_att_val#
+							#pub_att_value#
 							--------
 							<cfdump var=#test#>
 							----------
