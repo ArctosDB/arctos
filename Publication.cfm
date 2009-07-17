@@ -123,9 +123,8 @@
   			}
  		); 		
 	}
-	function deleteAgent(r){
-		console.log('deleteAgent');	
-	}
+	
+	
 	function setDefaultPub(t){
 		if(t=='journal article'){
 	    	addAttribute('journal name');
@@ -147,6 +146,14 @@
 	    	setTimeout( "addAttribute('begin page')", 3000);
 	    	setTimeout( "addAttribute('end page')", 3500);
 		}
+	}
+	
+	
+	function deleteAgent(r){
+		console.log('deleteAgent');	
+	}
+	function deletePubAtt(r){
+		console.log('deletePubAtt');	
 	}
 </script>
 <!---------------------------------------------------------------------------------------------------------->
@@ -246,7 +253,8 @@
 					</cfinvoke>
 					<tr>
 						<td>
-							<input type="hidden" name="publication_attribute#i#" id="publication_attribute#i#" value="#publication_attribute#">
+							<input type="hidden" name="publication_attribute#i#" 
+								class="reqdClr" id="publication_attribute#i#" value="#publication_attribute#">
 							#publication_attribute#
 						</td>
 						<td>
@@ -258,12 +266,15 @@
 							----------
 							</cfif>							
 						</td>
+						<td>
+							<span class="infoLink" onclick="deletePubAtt(#i#)">Delete</span>
+						</td>
 					</tr>
 				</cfloop>			
 			</table>
 			
-			<input type="hidden" name="numberAttributes" id="numberAttributes" value="0">
-			
+			<input type="hidden" name="numberAttributes" id="numberAttributes" value="#i#">
+			<br><input type="submit" value="save" class="savBtn">
 	</form>
 		
 </cfoutput>
