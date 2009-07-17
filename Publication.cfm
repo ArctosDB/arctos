@@ -1,5 +1,8 @@
 <cfinclude template="includes/_header.cfm">
 <cfset title = "Edit Publication">
+<style>
+	.test{color:red;background-color:blue;}
+</style>
 <script>
 	function pickThis (fld,idfld,display,aid) {
 		document.getElementById(fld).value=display;
@@ -154,9 +157,9 @@
 	}
 	function deletePubAtt(r){
 		console.log('deletePubAtt' + r);
-		jQuery('#attribute' + r).remove();
+		//jQuery('#attribute' + r).remove();
 		//#i#
-		jQuery('#authortr' + r + ' td:last').innerHTML='test';
+		jQuery('#authortr' + r + ' td:last').addClass('test');
 	}
 </script>
 <!---------------------------------------------------------------------------------------------------------->
