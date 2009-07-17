@@ -255,6 +255,7 @@
 								class="reqdClr" id="publication_attribute_id#i#" value="#publication_attribute_id#">							
 					<cfinvoke component="/component/functions" method="getPubAttributes" returnVariable="attvalist">
 						<cfinvokeargument name="attribute" value="#publication_attribute#">
+						<cfinvokeargument name="returnFormat" value="plain">
 					</cfinvoke>
 					<tr id="attRow#i#">
 						<td>
