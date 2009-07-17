@@ -215,8 +215,9 @@
 					<th>Attribute</th>
 					<th>Value</th>
 					<th></th>
-				</tr>				
+				</tr>			
 			</table>
+			<br><input type="submit" value="create publication" class="insClr">
 		</form>
 	</cfoutput>
 </cfif>
