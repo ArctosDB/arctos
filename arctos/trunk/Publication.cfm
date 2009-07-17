@@ -192,7 +192,7 @@
 	<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from publication_attributes where publication_id=#publication_id#
 	</cfquery>
-	<form name="editPub" method="post" action="Publication.cfm" onsubmit="return noenter(event);">
+	<form name="editPub" method="post" action="Publication.cfm" onsubmit="return noenter();">
 		The Basics:
 		<input type="hidden" name="publication_id" value="#pub.publication_id#">
 		<input type="hidden" name="action" value="saveEdit">
