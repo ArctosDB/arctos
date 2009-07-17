@@ -157,16 +157,9 @@
 		jQuery('#author_id_' + r).val("-1");		
 	}
 	function deletePubAtt(r){
-		console.log('deletePubAtt' + r);
-		//jQuery('#attribute' + r).remove();
-		//#i#
-		var oldType=jQuery('#attribute_type' + r).val();
-		var oldValue=jQuery('#attribute' + r).val();
-	
-		console.log('oldType ' + oldType);
 		var newElem='<input type="hidden" name="attribute' + r + '" id="attribute' + r + '" value="deleted">';
 		jQuery('#attRow' + r + ' td:nth-child(1)').addClass('red').text(jQuery('#attribute_type' + r).val());
-		jQuery('#attRow' + r + ' td:nth-child(2)').addClass('red').text(oldValue).append(newElem);
+		jQuery('#attRow' + r + ' td:nth-child(2)').addClass('red').text(jQuery('#attribute' + r).val()).append(newElem);
 		jQuery('#attRow' + r + ' td:nth-child(3)').addClass('red').text('deleted');
 	}
 </script>
