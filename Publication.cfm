@@ -82,6 +82,15 @@
 			alert('You must have at least one author');
 		}
 	}
+	function removeAttribute() {
+		var lid = jQuery('#attTab tr:last').attr("id");
+		var lastID=lid.replace('attRow','');
+		var thisID=parseInt(lastID) - 1;
+		document.getElementById('numberAttributes').value=thisID;
+		jQuery('#attTab tr:last').remove();
+	}
+	
+	
 	function addAttribute(v){
 		console.log('adding ' + v);
 		
@@ -188,6 +197,7 @@
 			<br>Attributes:
 			<input type="text" name="numberAttributes" id="numberAttributes" value="0">
 			Add attribute: <select name="n_attr" id="n_attr" onchange="addAttribute(this.value)">
+				<span class="infoLink" onclick="removeAttribute()">Remove last row</span>
 				<option value=""></option>
 				<cfloop query="ctpublication_attribute">
 					<option value="#publication_attribute#">#publication_attribute#</option>
