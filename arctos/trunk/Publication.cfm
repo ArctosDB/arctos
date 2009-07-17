@@ -118,6 +118,9 @@
 				newRow+="</td></tr>";
 		 		console.log(newRow);
 				jQuery('#attTab tr:last').after(newRow);
+				
+				document.getElementById('numberAttributes').value=thisID;
+		
   			}
  		);
  		
@@ -179,6 +182,7 @@
 				</tr>
 			</table>
 			<br>Attributes:
+			<input type="text" name="numberAttributes" id="numberAttributes" value="0">
 			Add attribute: <select name="n_attr" id="n_attr" onchange="addAttribute(this.value)">
 				<option value=""></option>
 				<cfloop query="ctpublication_attribute">
