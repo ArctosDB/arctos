@@ -49,7 +49,7 @@
 		</cfif>
 	</cfloop>
 	<script>
-		document.getElementById('focusThis').focus();
+		//document.getElementById('focusThis').focus();
 	</script>
 	</table>
 </cfif>
