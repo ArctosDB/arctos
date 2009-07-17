@@ -126,11 +126,22 @@
 	function setDefaultPub(t){
 		console.log('pubtype: ' + t);
 		if(t=='journal article'){
-			jQuery.function() {
+	    	jQuery().ajaxStart(function() {
+   			addAttribute('journal name');
+				addAttribute('begin page');
+				addAttribute('end page');
+   			});
+
+			
+			/*
+			
+			jQuery.function( {
 				addAttribute('journal name');
 				addAttribute('begin page');
 				addAttribute('end page');
 			});
+			
+			*/
 		}	
 	}
 </script>
