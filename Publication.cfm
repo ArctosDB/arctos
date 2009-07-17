@@ -85,12 +85,14 @@
 	function removeAttribute() {
 		var lid = jQuery('#attTab tr:last').attr("id");
 		console.log('lid: ' + lid);
+		/*
 		var lastID=lid.replace('attRow','');
 		console.log('lastID: ' + lastID);
 		var thisID=parseInt(lastID) - 1;
 		console.log('thisID: ' + thisID);
 		document.getElementById('numberAttributes').value=thisID;
 		jQuery('#attTab tr:last').remove();
+		*/
 	}
 	
 	
