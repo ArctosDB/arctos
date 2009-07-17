@@ -146,6 +146,50 @@
 		}
 	}
 </script>
+<!---------------------------------------------------------------------------------------------------------->
+<cfif action is "edit">
+<cfoutput>
+	<cfquery name="pub" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from publication where publication_id=#publication_id#
+	</cfquery>
+	<cfquery name="auth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from publication_author_name where publication_id=#publication_id#
+	</cfquery>
+	<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from publication_attributes where publication_id=#publication_id#
+	</cfquery>
+	<form name="editPub" method="post" action="Publication.cfm">
+		The Basics:
+		<input type="hidden" name="action" value="saveEdit">
+		<label for="publication_title">Publication Title</label>
+		<input type="text" name="publication_title" id="publication_title" value="#pub.publication_title#" class="reqdClr" size="80">
+		<label for="publication_type">Publication Type</label>
+		<select name="publication_type" id="publication_type" class="reqdClr">
+			<option value=""></option>
+			<cfloop query="ctpublication_type">
+				<option <cfif pub.publication_type is ctpublication_type.publication_type> selected="selected" </cfif>
+					value="#publication_type#">#publication_type#</option>
+			</cfloop>
+		</select>
+		<label for="is_peer_reviewed_fg">Peer Reviewed?</label>
+		<select name="is_peer_reviewed_fg" id="is_peer_reviewed_fg" class="reqdClr">
+			<option <cfif pub.is_peer_reviewed_fg is 1> selected="selected" </cfif>value="1">yes</option>
+			<option <cfif pub.is_peer_reviewed_fg is 0> selected="selected" </cfif>value="0">no</option>
+		</select>			
+		<label for="published_year">Published Year</label>
+		<input type="text" name="published_year" id="published_year" value="#pub.published_year#">
+		<label for="publication_loc">Storage Location</label>
+		<input type="text" name="publication_loc" id="publication_loc" size="80" value="#pub.publication_loc#">
+		<label for="publication_remarks">Remark</label>
+		<input type="text" name="publication_remarks" id="publication_remarks" size="80" value="#pub.publication_remarks#">
+		Authors:
+		<input type="hidden" name="numberAuthors" id="numberAuthors" value="1">
+		
+	</form>
+		
+</cfoutput>
+</cfif>
+<!---------------------------------------------------------------------------------------------------------->
 <cfif action is "newPub">
 	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select publication_type from ctpublication_type order by publication_type
@@ -221,6 +265,7 @@
 		</form>
 	</cfoutput>
 </cfif>
+<!---------------------------------------------------------------------------------------------------------->
 <cfif action is "createPub">
 <cfoutput>
 	<cftransaction>
