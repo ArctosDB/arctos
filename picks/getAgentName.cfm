@@ -37,18 +37,11 @@
 	<cfset i=1>
 	<cfloop query="getAgentId">
 		<cfset thisName = #replace(agent_name,"'","`","all")#>
-		<cfif #getAgentId.recordcount# is 1>
-			<script>
-				console.log('autopick!!');
-				pickThis('#fld#','#idfld#','#thisName#', '#agent_name_id#');			
-			</script>
-		<cfelse>
-			<tr>
-				<td><span id="f#i#" class="likeLink" onClick="pickThis('#fld#','#idfld#','#thisName#', '#agent_name_id#');">#agent_name#</a></td>
-				<td><font size="-2">#agent_name_id#</font></td>
-				<td><font size="-2">#agent_id#</font></td>
-			</tr>
-		</cfif>
+		<tr>
+			<td><span id="f#i#" class="likeLink" onClick="pickThis('#fld#','#idfld#','#thisName#', '#agent_name_id#');">#agent_name#</a></td>
+			<td><font size="-2">#agent_name_id#</font></td>
+			<td><font size="-2">#agent_id#</font></td>
+		</tr>
 		<cfset i=i+1>
 	</cfloop>
 	<script>
