@@ -134,16 +134,16 @@
 	    	setTimeout( "addAttribute('issue');", 2500);			
 		} else if (t=='book'){
 			addAttribute('volume');
-	    	setTimeout( "addAttribute('page total')", 5000);
-	    	setTimeout( "addAttribute('publisher')", 10000);
+	    	setTimeout( "addAttribute('page total')", 1000);
+	    	setTimeout( "addAttribute('publisher')", 1500);
 		} else if (t=='book section'){
-	    	setTimeout( "addAttribute('publisher')", 5000);
-	    	setTimeout( "addAttribute('volume')", 10000);
-	    	setTimeout( "addAttribute('page total')", 15000);
-	    	setTimeout( "addAttribute('section type')", 20000);
-	    	setTimeout( "addAttribute('section order')", 25000);
-	    	setTimeout( "addAttribute('begin page')", 30000);
-	    	setTimeout( "addAttribute('end page')", 35000);
+	    	addAttribute('publisher');
+	    	setTimeout( "addAttribute('volume')", 1000);
+	    	setTimeout( "addAttribute('page total')", 1500);
+	    	setTimeout( "addAttribute('section type')", 2000);
+	    	setTimeout( "addAttribute('section order')", 2500);
+	    	setTimeout( "addAttribute('begin page')", 3000);
+	    	setTimeout( "addAttribute('end page')", 3500);
 		}
 	}
 </script>
