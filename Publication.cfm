@@ -95,7 +95,8 @@
   			function (d) {
   				console.log('back with ' + d);
   				var lid=jQuery('#attTab tr:last').attr("id");
-  				if(lid==NaN){
+  				console.log(lid);
+  				if(lid=='NaN'){
   					lid=1;
   				}
   				var lastID=lid.replace('attRow','');
