@@ -1876,6 +1876,7 @@ function noenter (e) {
 		return false;
 	}
 }
+function noEnter(){return false};
 function gotAgentId (id) {
 	var id;
 	var len = id.length;
