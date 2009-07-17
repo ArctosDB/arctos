@@ -335,7 +335,7 @@
 						author_role='#thisAuthorRole#'
 					where
 						publication_id=#publication_id# and
-						publication_author_name=#thisRowId#
+						publication_author_name_id=#thisRowId#
 				</cfquery>
 			<cfelseif thisAgentNameId gt 0 and len(thisRowId) is 0>
 				<!--- inserting --->
