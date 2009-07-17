@@ -267,7 +267,7 @@
 							<cfif isobject(attvalist)>
 								<cfdump var="#attvalist#">
 								
-							<cfelseif not isobject(attvalist) and attvalist is "nocontrol">
+							<cfelseif not isobject(attvalist)>
 								<input type="text" name="attribute#i#" id="attribute#i#" class="reqdClr" value="#pub_att_value#" size="50">
 							<cfelse>
 								error: 	<cfdump var="#attvalist#">	
