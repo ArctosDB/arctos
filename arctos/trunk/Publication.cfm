@@ -303,7 +303,11 @@
 		<cfloop from="1" to="#numberAuthors#" index="n">
 			<cfset thisAgentNameId = #evaluate("author_id_" & n)#>
 			<cfset thisAuthorRole = #evaluate("author_role_" & n)#>
-			<cfset thisRowId = #evaluate("publication_author_name_id" & n)#>
+			<cfif isdefined(evaluate("publication_author_name_id" & n)>
+				<cfset thisRowId = #evaluate("publication_author_name_id" & n)#>
+			<cfelse>
+				<cfset thisRowId ="">
+			</cfif>
 			<cfset thisAuthPosn = #evaluate("author_position" & n)#>			
 			<cfif thisAgentNameId is -1 and thisRowId gt 0>
 				<!--- deleting --->
