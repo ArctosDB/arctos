@@ -254,6 +254,7 @@
 					---->
 					<cfinvoke component="/component/functions" method="test" returnVariable="test">
 					</cfinvoke>
+					<cfdump var=#test#>
 
 				</cfloop>			
 			</table>
