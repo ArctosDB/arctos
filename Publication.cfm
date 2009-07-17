@@ -259,21 +259,17 @@
 					</cfinvoke>
 					<tr id="attRow#i#">
 						<td>
-							<cfif isobject(attvalist)>
-								attvalist is an object
-							</cfif>
-							<cfif isquery(attvalist)>
-								attvalist is an query
-							</cfif>
-							<cfdump var="#attvalist#">
 							<input type="hidden" name="attribute_type#i#" 
 								class="reqdClr" id="attribute_type#i#" value="#publication_attribute#">
 							#publication_attribute#
 						</td>
 						<td>
-							<cfif isobject(attvalist)>
-								<cfdump var="#attvalist#">
-								
+							<cfif isquery(attvalist)>
+								<select name="attribute#i#" id="attribute#i#" class="reqdClr">
+									<cfloop query="attvalist">
+										<option <cfif v is pub_att_value> selected="selected" </cfif>value="#v#">#v#</option>
+									</cfloop>
+								</select> 								
 							<cfelseif not isobject(attvalist)>
 								<input type="text" name="attribute#i#" id="attribute#i#" class="reqdClr" value="#pub_att_value#" size="50">
 							<cfelse>
