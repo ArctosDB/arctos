@@ -154,7 +154,12 @@
 	
 	function deleteAgent(r){
 		console.log('deleteAgent');
-		jQuery('#author_id_' + r).val("-1");		
+		jQuery('#author_id_' + r).val("-1");	
+		jQuery('#authortr' + r + ' td:nth-child(1)').addClass('red').text(jQuery('#author_role_' + r).val());
+		jQuery('#authortr' + r + ' td:nth-child(2)').addClass('red').text(jQuery('#author_name_' + r).val());
+		
+		
+						
 	}
 	function deletePubAtt(r){
 		var newElem='<input type="hidden" name="attribute' + r + '" id="attribute' + r + '" value="deleted">';
