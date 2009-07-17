@@ -95,7 +95,7 @@
   			function (d) {
   				console.log('back with ' + d);
   				var lid=jQuery('#attTab tr:last').attr("id");
-  				console.log(lid);
+  				console.log('lid: ' + lid);
   				if(lid=='NaN'){
   					lid=1;
   				}
