@@ -156,6 +156,7 @@
 		console.log('deletePubAtt' + r);
 		jQuery('#attribute' + r).remove();
 		//#i#
+		jQuery('#authortr' + r + ' td:last').html='test';
 	}
 </script>
 <!---------------------------------------------------------------------------------------------------------->
