@@ -238,6 +238,7 @@
 					<th>Value</th>
 					<th></th>
 				</tr>
+				<cfset session.meta_description='wtf'>
 				<cfloop query="atts">
 					<cfhttp method="get" url="/component/functions.cfc">
 						<cfhttpparam name="method" type="url" value="getPubAttributes">
