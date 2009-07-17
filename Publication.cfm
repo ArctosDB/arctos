@@ -373,11 +373,6 @@
 						'#thisAuthorRole#'
 					)
 				</cfquery>
-			<cfelse>
-				<div class="error">
-					Something funky happened with agents.
-				</div>
-				<cfabort>
 			</cfif>
 		</cfloop>
 		<cfloop from="1" to="#numberAttributes#" index="n">
