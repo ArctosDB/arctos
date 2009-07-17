@@ -127,11 +127,11 @@
 		console.log('pubtype: ' + t);
 		if(t=='journal article'){
 	    	addAttribute('journal name');
-	    	// crude but...
-	    	setTimeout( "addAttribute('begin page')", 1000); 
-			
-	    	setTimeout( "addAttribute('end page');", 1500); 
-			
+	    	// crude but try to get this stuff in order if we can...
+	    	setTimeout( "addAttribute('begin page')", 1000);
+	    	setTimeout( "addAttribute('end page');", 1500);
+	    	setTimeout( "addAttribute('volume');", 2000);
+	    	setTimeout( "addAttribute('issue');", 2500);			
 		}	
 	}
 </script>
