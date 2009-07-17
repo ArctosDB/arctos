@@ -185,6 +185,7 @@
 		select * from publication_author_name,agent_name where 
 		publication_author_name.agent_name_id=agent_name.agent_name_id and 
 		publication_id=#publication_id#
+		order by author_position
 	</cfquery>
 	<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from publication_attributes where publication_id=#publication_id#
