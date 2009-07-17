@@ -153,7 +153,9 @@
 		console.log('deleteAgent');	
 	}
 	function deletePubAtt(r){
-		console.log('deletePubAtt' + r);	
+		console.log('deletePubAtt' + r);
+		jQuery('#attribute' + r).remove();
+		//#i#
 	}
 </script>
 <!---------------------------------------------------------------------------------------------------------->
