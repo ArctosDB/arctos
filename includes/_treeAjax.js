@@ -149,8 +149,7 @@ function expandNode_success (r) {
 function checkHandler (id){
 	post(1);
 	try {
-		var guts = "/ContDet.cfm?container_id=" + id;
-		ahah(guts,'detailPane');
+		jQuery('#detailPane').load("/ContDet.cfm",{container_id: id});
 		var fatAr = newTree.getAllFatItems().split(",")
 		var leafAr = newTree.getAllLeafs().split(",")
 		var rootsAr = fatAr.concat(leafAr);
@@ -158,7 +157,6 @@ function checkHandler (id){
 			newTree.setItemColor(rootsAr[i],'black','black');
 			newTree.setCheck(rootsAr[i],0) 
 		}
-		
 		newTree.setItemColor(id,'red','red');
 		newTree.setCheck(id,1);
 		post();
