@@ -248,11 +248,13 @@
 						<cfhttpparam name="returnType" type="url" value="xml">
 						--->
 					</cfhttp>
+					
+					
+					<cfdump var="#cfhttp#">
 					---->
 					<cfinvoke component="/component/functions" method="test" returnVariable="test">
 					</cfinvoke>
 
-					<cfdump var="#cfhttp#">
 				</cfloop>			
 			</table>
 			
