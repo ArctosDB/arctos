@@ -160,7 +160,7 @@
 		console.log('deletePubAtt' + r);
 		//jQuery('#attribute' + r).remove();
 		//#i#
-		var oldType='#attribute_type' + r).val();
+		var oldType=jQuery('#attribute_type' + r).val();
 		console.log('oldType ' + oldType);
 		var newElem='<input type="hidden" name="attribute' + r + '" id="attribute' + r + '" value="deleted">';
 		jQuery('#attRow' + r + ' td:nth-child(2)').addClass('red').text('texthere').append(newElem);
