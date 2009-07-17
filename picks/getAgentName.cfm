@@ -38,7 +38,7 @@
 	<cfloop query="getAgentId">
 		<cfset thisName = #replace(agent_name,"'","`","all")#>
 		<tr>
-			<td><span id="f#i#" class="likeLink" onClick="pickThis('#fld#','#idfld#','#thisName#', '#agent_name_id#');">#agent_name#</a></td>
+			<td><a href="" id="f#i#" onClick="pickThis('#fld#','#idfld#','#thisName#', '#agent_name_id#');">#agent_name#</a></td>
 			<td><font size="-2">#agent_name_id#</font></td>
 			<td><font size="-2">#agent_id#</font></td>
 		</tr>
