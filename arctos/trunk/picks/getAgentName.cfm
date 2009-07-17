@@ -45,7 +45,7 @@
 		<cfset i=i+1>
 	</cfloop>
 	<script>
-		jQuery('#f1').addClass('red').focus(); 
+		jQuery('##f1').addClass('red').focus(); 
 		//document.getElementById('f1').focus();
 	</script>
 	</table>
