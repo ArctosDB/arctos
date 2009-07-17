@@ -123,6 +123,9 @@
   			}
  		); 		
 	}
+	function deleteAgent(r){
+		console.log('deleteAgent');	
+	}
 	function setDefaultPub(t){
 		if(t=='journal article'){
 	    	addAttribute('journal name');
@@ -190,7 +193,6 @@
 		<input type="text" name="publication_loc" id="publication_loc" size="80" value="#pub.publication_loc#">
 		<label for="publication_remarks">Remark</label>
 		<input type="text" name="publication_remarks" id="publication_remarks" size="80" value="#pub.publication_remarks#">
-		<br>Authors:
 		<br>Authors: <span class="infoLink" onclick="addAgent()">Add Row</span>
 			<table border id="authTab">
 				<tr>
@@ -217,13 +219,36 @@
 			 				
 						</td>
 						<td>
-							delete
+							<span class="infoLink" onclick="deleteAgent(#i#)">Delete</span>
 						</td>
 					</tr>
 				</cfloop>
 				<input type="hidden" name="numberAuthors" id="numberAuthors" value="#i#">
 			</table>
-		
+		<br>Attributes:
+			Add: <select name="n_attr" id="n_attr" onchange="addAttribute(this.value)">
+				<option value=""></option>
+				<cfloop query="ctpublication_attribute">
+					<option value="#publication_attribute#">#publication_attribute#</option>
+				</cfloop>
+			</select>
+			<table border id="attTab">
+				<tr>
+					<th>Attribute</th>
+					<th>Value</th>
+					<th></th>
+				</tr>
+				<cfloop query="atts">
+					<cfhttp method="get" url="/component/functions.cfc">
+						<cfhttpparam name="method" value="getPubAttributes">
+						<cfhttpparam name="attribute" value="#publication_attribute#">						
+					</cfhttp>
+					<cfdump var="#cfhttp#">
+				</cfloop>			
+			</table>
+			
+			<input type="hidden" name="numberAttributes" id="numberAttributes" value="0">
+			
 	</form>
 		
 </cfoutput>
