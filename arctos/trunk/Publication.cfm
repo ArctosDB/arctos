@@ -319,7 +319,11 @@
 		</cfquery>
 		<cfloop from="1" to="#numberAuthors#" index="n">
 			<cfset thisAgentNameId = #evaluate("author_id_" & n)#>
-			<cfset thisAuthorRole = #evaluate("author_role_" & n)#>
+			<cfif isdefined("author_role_#n#")>
+				<cfset thisAuthorRole = #evaluate("author_role_" & n)#>
+			<cfelse>
+				<cfset thisAuthorRole = "">
+			</cfif>
 			<cfif isdefined("publication_author_name_id#n#")>
 				<cfset thisRowId = #evaluate("publication_author_name_id" & n)#>
 			<cfelse>
