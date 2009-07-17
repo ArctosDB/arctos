@@ -240,7 +240,7 @@
 				</tr>
 				<cfset session.meta_description='wtf'>
 				<cfloop query="atts">
-					<cfhttp method="get" url="/component/functions.cfc?method=test&returnformat=plain">
+					<cfhttp method="get" url="http://arctos-test.arctos.database.museum/component/functions.cfc?method=test">
 						<!---
 						<cfhttpparam name="method" type="url" value="getPubAttributes">
 						<cfhttpparam name="attribute" type="url" value="#publication_attribute#">	
