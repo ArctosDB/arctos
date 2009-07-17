@@ -1864,10 +1864,20 @@ function getDocs(url,anc) {
 	siteHelpWin=windowOpener(fullURL,"HelpWin","width=700,height=400, resizable,scrollbars,location,toolbar");
 }		
 function noenter() {
-	    if (e && e.preventDefault) {
-	        e.preventDefault();
-	    }
-	    return false;
+	var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+    if( keyCode == 13 ) {
+
+
+        if(!e) var e = window.event;
+
+        e.cancelBubble = true;
+        e.returnValue = false;
+
+        if (e.stopPropagation) {
+                e.stopPropagation();
+                e.preventDefault();
+        }
+
 	}
 
 function gotAgentId (id) {
