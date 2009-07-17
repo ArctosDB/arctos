@@ -256,6 +256,7 @@
 					<cfinvoke component="/component/functions" method="getPubAttributes" returnVariable="attvalist">
 						<cfinvokeargument name="attribute" value="#publication_attribute#">
 						<cfinvokeargument name="returnFormat" value="plain">
+						<cfinvokeargument name="returnType" value="string">
 					</cfinvoke>
 					<tr id="attRow#i#">
 						<td>
