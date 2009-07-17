@@ -259,6 +259,10 @@
 					</cfinvoke>
 					<tr id="attRow#i#">
 						<td>
+							<cfif isobject(attvalist)>
+								attvalist is an object
+							</cfif>
+							<cfdump var="#attvalist#">
 							<input type="hidden" name="attribute_type#i#" 
 								class="reqdClr" id="attribute_type#i#" value="#publication_attribute#">
 							#publication_attribute#
