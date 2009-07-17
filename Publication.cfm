@@ -102,16 +102,16 @@
   				var lastID=lid.replace('attRow','');
 				var thisID=parseInt(lastID) + 1;
 		
-  				var newRow='<tr id="attRow' + thisID + '"><td>' + v + "</td><td>";
+  				var newRow='<tr id="attRow' + thisID + '"><td>' + v + "<input type="hidden" name="attribute_type' + thisID + '" id="attribute_type' + thisID + '" class="reqdClr" value="' + v + '"></td><td>";
 		
   				if(d.length>0 && d.substring(0,4)=='fail'){
   					alert(d);
   					return false;
   				} else if(d=='nocontrol'){
-  					newRow+='<input name="attribute' + thisID + '" id="attribute' + thisID + '" size="50">';
+  					newRow+='<input type="text" name="attribute' + thisID + '" id="attribute' + thisID + '" size="50" class="reqdClr">';
   				} else {
   					console.log('got data');
-					newRow+='<select name="attribute' + thisID + '" id="attribute' + thisID + '">';
+					newRow+='<select name="attribute' + thisID + '" id="attribute' + thisID + '" class="reqdClr">';
 					for (i=0; i<d.ROWCOUNT; ++i) {
 						newRow+='<option value="' + d.DATA.v[i] + '">'+ d.DATA.v[i] +'</option>';
 					}
