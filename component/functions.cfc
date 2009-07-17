@@ -1,5 +1,12 @@
 <cfcomponent>
-	
+<cffunction name="test" access="remote">
+	<cfif isdefined("session.username")>
+		<cfreturn session.username>
+	<cfelse>
+		<cfreturn "username not defined">
+	</cfif>
+</cffunction>
+
 <!------------------------------------------------------->
 <cffunction name="getPubAttributes" access="remote">
 	<cfargument name="attribute" type="string" required="yes">
