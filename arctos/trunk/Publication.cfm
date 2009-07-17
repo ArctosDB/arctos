@@ -159,7 +159,7 @@
 		console.log('deletePubAtt' + r);
 		//jQuery('#attribute' + r).remove();
 		//#i#
-		jQuery('#attRow' + r + ' td').each(addClass('test').text('boogity'));
+		jQuery.each('#attRow' + r + ' td').(addClass('test').text('boogity'));
 	}
 </script>
 <!---------------------------------------------------------------------------------------------------------->
