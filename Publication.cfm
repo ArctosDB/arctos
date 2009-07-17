@@ -132,7 +132,19 @@
 	    	setTimeout( "addAttribute('end page');", 1500);
 	    	setTimeout( "addAttribute('volume');", 2000);
 	    	setTimeout( "addAttribute('issue');", 2500);			
-		}	
+		} else if (t=='book'){
+			addAttribute('volume');
+	    	setTimeout( "addAttribute('page total')", 5000);
+	    	setTimeout( "addAttribute('publisher')", 10000);
+		} else if (t=='book section'){
+	    	setTimeout( "addAttribute('publisher')", 5000);
+	    	setTimeout( "addAttribute('volume')", 10000);
+	    	setTimeout( "addAttribute('page total')", 15000);
+	    	setTimeout( "addAttribute('section type')", 20000);
+	    	setTimeout( "addAttribute('section order')", 25000);
+	    	setTimeout( "addAttribute('begin page')", 30000);
+	    	setTimeout( "addAttribute('end page')", 35000);
+		}
 	}
 </script>
 <cfif action is "newPub">
