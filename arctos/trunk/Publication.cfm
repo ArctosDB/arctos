@@ -240,26 +240,20 @@
 				</tr>
 				<cfset session.meta_description='wtf'>
 				<cfloop query="atts">
-					<!---<cfhttp method="get" url="/component/functions.cfc?method=test">
-						<!---
-						<cfhttpparam name="method" type="url" value="getPubAttributes">
-						<cfhttpparam name="attribute" type="url" value="#publication_attribute#">	
-						<cfhttpparam name="returnformat" type="url" value="plain">	
-						<cfhttpparam name="returnType" type="url" value="xml">
-						--->
-					</cfhttp>
-					
-					
-					<cfdump var="#cfhttp#">
-					---->
-					<cfinvoke component="/component/functions" method="getPubAttributes" returnVariable="test">
-						<cfinvokeargument
-    name="attribute"
-    value="#publication_attribute#">
-
+					<cfinvoke component="/component/functions" method="getPubAttributes" returnVariable="valuelist">
+						<cfinvokeargument name="attribute" value="#publication_attribute#">
 					</cfinvoke>
-					<cfdump var=#test#>
-
+					<tr>
+						<td>
+							#publication_attribute#
+						</td>
+						<td>
+							#pub_att_val#
+							--------
+							<cfdump var=#test#>
+							----------
+						</td>
+					</tr>
 				</cfloop>			
 			</table>
 			
