@@ -250,7 +250,7 @@
 						<td>
 							#pub_att_value#
 							--------
-							<cfdump var=#test#>
+							<cfdump var=#valuelist#>
 							----------
 						</td>
 					</tr>
