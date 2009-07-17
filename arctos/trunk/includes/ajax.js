@@ -1864,8 +1864,11 @@ function getDocs(url,anc) {
 	siteHelpWin=windowOpener(fullURL,"HelpWin","width=700,height=400, resizable,scrollbars,location,toolbar");
 }		
 function noenter() {
-	return !(window.event && window.event.keyCode == 13);
-}
+	    if (e && e.preventDefault) {
+	        e.preventDefault();
+	    }
+	    return false;
+	}
 
 function gotAgentId (id) {
 	var id;
