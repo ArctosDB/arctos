@@ -308,7 +308,11 @@
 			<cfelse>
 				<cfset thisRowId ="">
 			</cfif>
-			<cfset thisAuthPosn = #evaluate("author_position" & n)#>			
+			<cfif isdefined("author_position#n#")>
+				<cfset thisAuthPosn = #evaluate("author_position" & n)#>			
+			<cfelse>
+				<cfset thisAuthPosn="">
+			</cfif>			
 			<cfif thisAgentNameId is -1 and thisRowId gt 0>
 				<!--- deleting --->
 				<cfquery name="delAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
