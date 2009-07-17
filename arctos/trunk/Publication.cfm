@@ -44,6 +44,7 @@
 		jQuery.get(ptl,{agentname: name, fld: fld, idfld: idfld},function(data){
 			document.getElementById('pickDiv').innerHTML=data;
 			viewport.init("#pickDiv");
+			jQuery('#f1').addClass('red').focus(); 
 		});
 	}
 	
