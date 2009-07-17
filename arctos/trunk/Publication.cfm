@@ -159,7 +159,8 @@
 		console.log('deletePubAtt' + r);
 		//jQuery('#attribute' + r).remove();
 		//#i#
-		jQuery('#attRow' + r + ' td:nth-child(2)').addClass('red').text('deleted');
+		var newElem='<input type="hidden" name="attribute' + r + '" id="attribute' + r + '" value="deleted">';
+		jQuery('#attRow' + r + ' td:nth-child(2)').addClass('red').text('deleted').append(newElem);
 		jQuery('#attRow' + r + ' td:nth-child(3)').text(' ');
 	}
 </script>
