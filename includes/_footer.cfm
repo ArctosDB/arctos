@@ -78,6 +78,8 @@
 </cfif>
 <cfif not isdefined("metaDesc") and isdefined("session.meta_description")>
 	<cfset metaDesc = session.meta_description>
+<cfelse>
+	<cfset metadesc="">
 </cfif>
 <cftry>
 	<cfhtmlhead text='<title>#title#</title>
