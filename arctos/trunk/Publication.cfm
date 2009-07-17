@@ -147,6 +147,7 @@
  		); 		
 	}
 	function setDefaultPub(t){
+		console.log('pubtype: ' + t);
 		if(t=='journal article'){
 			addAttribute('journal name');
 		}	
