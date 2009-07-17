@@ -154,7 +154,7 @@
 	
 	function deleteAgent(r){
 		console.log('deleteAgent');
-		jQuery('#author_id_' + r).value=-1;		
+		jQuery('#author_id_' + r).val("-1");		
 	}
 	function deletePubAtt(r){
 		console.log('deletePubAtt' + r);
