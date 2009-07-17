@@ -108,7 +108,7 @@
   					alert(d);
   					return false;
   				} else if(d=='nocontrol'){
-  					newRow+='uncontrolled thingee';
+  					newRow+='<input name="attribute' + thisID + '" id="attribute' + thisID + '" size="50">';
   				} else {
   					console.log('got data');
 					newRow+='<select name="attribute' + thisID + '" id="attribute' + thisID + '">';
