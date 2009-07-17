@@ -102,7 +102,7 @@
   				var lastID=lid.replace('attRow','');
 				var thisID=parseInt(lastID) + 1;
 		
-  				var newRow='<tr id="attRow' + thisID + '"><td>' + v + "<input type="hidden" name="attribute_type' + thisID + '" id="attribute_type' + thisID + '" class="reqdClr" value="' + v + '"></td><td>";
+  				var newRow='<tr id="attRow' + thisID + '"><td>' + v + '<input type="hidden" name="attribute_type' + thisID + '" id="attribute_type' + thisID + '" class="reqdClr" value="' + v + '"></td><td>";
 		
   				if(d.length>0 && d.substring(0,4)=='fail'){
   					alert(d);
