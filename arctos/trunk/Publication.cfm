@@ -111,7 +111,7 @@
   					newRow+='uncontrolled thingee';
   				} else {
   					console.log('got data');
-					newRow+='<select name="attribute' + thisID + '" id="' + thisID + '">;
+					newRow+='<select name="attribute' + thisID + '" id="attribute' + thisID + '">';
 					for (i=0; i<d.ROWCOUNT; ++i) {
 						newRow+='<option value="' + d.DATA.v[i] + '">'+ d.DATA.v[i] +'</option>';
 					}
