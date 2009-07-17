@@ -311,7 +311,7 @@
 			<cfif isdefined("author_position#n#")>
 				<cfset thisAuthPosn = #evaluate("author_position" & n)#>			
 			<cfelse>
-				<cfset thisAuthPosn="">
+				<cfset thisAuthPosn=n>
 			</cfif>			
 			<cfif thisAgentNameId is -1 and thisRowId gt 0>
 				<!--- deleting --->
