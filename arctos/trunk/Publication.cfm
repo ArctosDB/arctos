@@ -82,7 +82,8 @@
 			alert('You must have at least one author');
 		}
 	}
-	function removeAttribute() {
+	function removeLastAttribute() {
+		console.log('removeLastAttribute: ');
 		var lid = jQuery('#attTab tr:last').attr("id");
 		console.log('lid: ' + lid);
 		/*
@@ -208,7 +209,7 @@
 				</cfloop>
 			</select>
 			
-				<span class="infoLink" onclick="removeAttribute()">Remove last attribute</span>
+				<span class="infoLink" onclick="removeLastAttribute()">Remove last attribute</span>
 			<table border id="attTab">
 				<tr>
 					<th>Attribute</th>
