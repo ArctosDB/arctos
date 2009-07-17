@@ -371,7 +371,11 @@
 			</cfif>
 		</cfloop>
 		<cfloop from="1" to="#numberAttributes#" index="n">
-			<cfset thisAttribute = #evaluate("attribute_type" & n)#>
+			<cfif isdefined("attribute_type#n#")>
+				<cfset thisAttribute = #evaluate("attribute_type" & n)#>
+			<cfelse>
+				<cfset thisAttribute = "">
+			</cfif>
 			<cfset thisAttVal = #evaluate("attribute" & n)#>
 			<cfif isdefined("publication_attribute_id#n#")>
 				<cfset thisAttId = #evaluate("publication_attribute_id" & n)#>
