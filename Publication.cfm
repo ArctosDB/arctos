@@ -227,7 +227,7 @@
 					<cfset i=i+1>
 					<input type="hidden" name="publication_author_name_id#i#" id="publication_author_name_id#i#" value="#publication_author_name_id#">
 					<input type="hidden" name="author_position#i#" id="author_position#i#" value="#author_position#">		
-					<input type="text" name="author_id_#i#" id="author_id_#i#" value="#agent_name_id#">
+					<input type="hidden" name="author_id_#i#" id="author_id_#i#" value="#agent_name_id#">
 					<tr id="authortr#i#">
 						<td>
 							<select name="author_role_#i#" id="author_role_#i#">
