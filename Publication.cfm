@@ -240,7 +240,7 @@
 				</tr>
 				<cfset session.meta_description='wtf'>
 				<cfloop query="atts">
-					<cfinvoke component="/component/functions" method="getPubAttributes" returnVariable="valuelist">
+					<cfinvoke component="/component/functions" method="getPubAttributes" returnVariable="attvalist">
 						<cfinvokeargument name="attribute" value="#publication_attribute#">
 					</cfinvoke>
 					<tr>
@@ -250,7 +250,7 @@
 						<td>
 							#pub_att_value#
 							--------
-							<cfdump var=#valuelist#>
+							<cfdump var="#attvalist#">
 							----------
 						</td>
 					</tr>
