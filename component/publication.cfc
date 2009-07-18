@@ -72,6 +72,7 @@
 		<cfset al=listchangedelims(al,", ","|")>
 		<br>al: #al#
 		<cfset al=al & ' and ' & lel>
+		<hr>
 	</cfif>
 	<cfreturn al>
 	
