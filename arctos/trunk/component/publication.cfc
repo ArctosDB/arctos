@@ -63,27 +63,36 @@
 	<cfelseif a.recordcount is 2>
 		<cfset as=a.last_name[1] & ' and ' & a.last_name[2]>
 	<cfelse>
-		<cfset al=valuelist(a.agent_name,", ")><!---
-		<br>al: #al#
-		<cfset lel=listlast(al,"|")>
-		<br>lel: #lel#
-		<br>al: #al#
-		<br>listlen(al,"|"): #listlen(al,"|")#
-		<cfset al=listdeleteat(al,listlen(al,"|"),"|")>
-		<br>al: #al#
-		<cfset al=listchangedelims(al,", ","|")>
-		<br>al: #al#
-		<cfset al=al & ' and ' & lel>
-		<hr>
-		---->
+		<cfset al=valuelist(a.agent_name,", ")>	
 	</cfif>
-	<cfreturn al>
-	
 	<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from publication_attributes where publication_id=#publication_id#
 	</cfquery>
+	<cfquery name="journal" dbtype="query">
+		select pub_att_value from atts where publication_attribute='journal name'
+	</cfquery>
+	<cfquery name="issue" dbtype="query">
+		select pub_att_value from atts where publication_attribute='issue'
+	</cfquery>
+	<cfquery name="volume" dbtype="query">
+		select pub_att_value from atts where publication_attribute='volume'
+	</cfquery>
+	<cfquery name="begin" dbtype="query">
+		select pub_att_value from atts where publication_attribute='begin page'
+	</cfquery>
+	<cfquery name="end" dbtype="query">
+		select pub_att_value from atts where publication_attribute='end page'
+	</cfquery>
 	<cfif p.publication_type is "journal article">
-		
+		<cfset r=al & '. ' & p.published_year & '. ' & p.publication_title>
+		<cfset r=r & ' ' & journal.pub_att_value>
+		<cfif len(volume.pub_att_value) gt 0>
+			<cfset r=r & ' ' & volume.pub_att_value>
+		</cfif>
+		<cfif len(issue.pub_att_value) gt 0>
+			<cfset r=r & '(' & issue.pub_att_value & ')'>
+		</cfif>
+		<cfset r=r & ':' & 	begin.pub_att_value & '-' & end.pub_att_value & '.'>
 	</cfif>
 	<cfreturn r>
 </cffunction>
