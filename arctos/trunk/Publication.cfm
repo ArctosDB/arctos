@@ -5,7 +5,6 @@
 </style>
 <script>
 	function pickThis (fld,idfld,display,aid) {
-		console.log('pickThis');
 		document.getElementById(fld).value=display;
 		document.getElementById(idfld).value=aid;
 		document.getElementById(fld).className='goodPick';
@@ -44,7 +43,6 @@
 		jQuery.get(ptl,{agentname: name, fld: fld, idfld: idfld},function(data){
 			document.getElementById('pickDiv').innerHTML=data;
 			viewport.init("#pickDiv");
-			jQuery('#f1').addClass('red').focus(); 
 		});
 	}
 	
@@ -152,17 +150,11 @@
 	    	setTimeout( "addAttribute('end page')", 3500);
 		}
 	}
-	
-	
 	function deleteAgent(r){
-		console.log('deleteAgent');
 		jQuery('#author_id_' + r).val("-1");	
 		jQuery('#authortr' + r + ' td:nth-child(1)').addClass('red').text(jQuery('#author_role_' + r).val());
 		jQuery('#authortr' + r + ' td:nth-child(2)').addClass('red').text(jQuery('#author_name_' + r).val());
-		jQuery('#authortr' + r + ' td:nth-child(3)').addClass('red').text('deleted');
-		
-		
-						
+		jQuery('#authortr' + r + ' td:nth-child(3)').addClass('red').text('deleted');						
 	}
 	function deletePubAtt(r){
 		var newElem='<input type="hidden" name="attribute' + r + '" id="attribute' + r + '" value="deleted">';
