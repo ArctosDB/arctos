@@ -35,4 +35,46 @@
 	<cfset r=as & ' ' & p.published_year>
 	<cfreturn r>
 </cffunction>
+<!------------------------------------------------------------------------------------------------>
+<cffunction name="longCitation" access="remote">
+	<cfargument name="publication_id" type="numeric" required="yes">
+	<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select 
+			publication_title,
+			published_year,
+			publication_type
+		from publication where publication_id=#publication_id#
+	</cfquery>
+	<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select 
+			agent_name,
+			author_position
+		from 
+			publication_author_name,
+			agent_name
+		where 
+			publication_author_name.agent_name_id=agent_name.agent_name_id and
+			publication_author_name.publication_id=#publication_id#
+		order by 
+			author_position
+	</cfquery>
+	<cfif a.recordcount is 1>
+		<cfset al=a.agent_name>
+	<cfelse>
+		<cfset al=valuelist(a.agent_name,|)>
+		<cfset lel=listlast(al,"|")>
+		<cfset al=listdeleteat(al,listlen(al))>
+		<cfset al=listchangedelims(al,", ","|")>
+		<cfset al=al & ' and ' & lel>
+	</cfif>
+	<cfreturn al>
+	
+	<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from publication_attributes where publication_id=#publication_id#
+	</cfquery>
+	<cfif p.publication_type is "journal article">
+		
+	</cfif>
+	<cfreturn r>
+</cffunction>
 </cfcomponent>
