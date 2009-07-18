@@ -36,8 +36,10 @@
 	<cfreturn r>
 </cffunction>
 <!------------------------------------------------------------------------------------------------>
-<cffunction name="longCitation" access="remote">
+<cffunction name="longCitation" access="remote" output="true">
 	<cfargument name="publication_id" type="numeric" required="yes">
+	
+	output
 	<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			publication_title,
