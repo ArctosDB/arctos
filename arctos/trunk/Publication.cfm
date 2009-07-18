@@ -240,7 +240,7 @@
 						<td>
 							<input type="text" name="author_name_#i#" id="author_name_#i#" class="reqdClr" size="50"
 								onchange="get_AgentName(this.value,this.id,'author_id_#i#');"
-			 					onKeyPress="return noenter(event);"
+			 					onkeypress="return noenter(event);"
 			 					value="#agent_name#">
 			 				
 						</td>
