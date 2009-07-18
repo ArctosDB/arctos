@@ -27,7 +27,7 @@
 	</cfif>
 	<cfif a.recordcount is 1>
 		<cfset as=a.last_name>
-	<cfelseif auth.recordcount is 2>
+	<cfelseif a.recordcount is 2>
 		<cfset as=a.last_name[1] & ' and ' & a.last_name[2]>
 	<cfelse>
 		<cfset as=a.last_name[1] & ' et al.'>
