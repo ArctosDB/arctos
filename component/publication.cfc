@@ -38,9 +38,7 @@
 <!------------------------------------------------------------------------------------------------>
 <cffunction name="longCitation" access="remote" output="true">
 	<cfargument name="publication_id" type="numeric" required="yes">
-	
-	output
-	<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			publication_title,
 			published_year,
@@ -64,9 +62,13 @@
 		<cfset al=a.agent_name>
 	<cfelse>
 		<cfset al=valuelist(a.agent_name,"|")>
+		<br>al: #al#
 		<cfset lel=listlast(al,"|")>
+		<br>lel: #lel#
 		<cfset al=listdeleteat(al,listlen(al))>
+		<br>al: #al#
 		<cfset al=listchangedelims(al,", ","|")>
+		<br>al: #al#
 		<cfset al=al & ' and ' & lel>
 	</cfif>
 	<cfreturn al>
