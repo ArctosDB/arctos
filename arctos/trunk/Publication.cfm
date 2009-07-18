@@ -44,9 +44,7 @@
 			document.getElementById('pickDiv').innerHTML=data;
 			viewport.init("#pickDiv");
 		});
-	}
-	
-	
+	}	
 	function addAgent (n) {
 		var lid = jQuery('#authTab tr:last').attr("id");
 		var lastID=lid.replace('authortr','');
@@ -126,8 +124,6 @@
   			}
  		); 		
 	}
-	
-	
 	function setDefaultPub(t){
 		if(t=='journal article'){
 	    	addAttribute('journal name');
@@ -234,7 +230,6 @@
 								onchange="get_AgentName(this.value,this.id,'author_id_#i#');"
 			 					onkeypress="return noenter(event);"
 			 					value="#agent_name#">
-			 				
 						</td>
 						<td>
 							<span class="infoLink" onclick="deleteAgent(#i#)">Delete</span>
@@ -290,12 +285,10 @@
 					</tr>
 				</cfloop>			
 			</table>
-			
 			<input type="hidden" name="origNumberAttributes" id="origNumberAttributes" value="#i#">
 			<input type="hidden" name="numberAttributes" id="numberAttributes" value="#i#">
 			<br><input type="submit" value="save" class="savBtn">
 	</form>
-		
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
@@ -464,7 +457,6 @@
 						<input type="text" name="author_name_1" id="author_name_1" class="reqdClr" size="50"
 							onchange="get_AgentName(this.value,this.id,'author_id_1');"
 		 					onKeyPress="return noenter(event);">
-		 				
 					</td>
 				</tr>
 			</table>
@@ -552,7 +544,10 @@
 </cfoutput>
 </cfif>
 
+<!----------------
 
+
+below this can probably be deleted
 
 
 
@@ -1623,4 +1618,18 @@ VALUES (
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------->
+
+
+
+
+
+
+
+
+
+
+_----------------------------------->
+
+
+
 <cfinclude template="includes/_footer.cfm">
