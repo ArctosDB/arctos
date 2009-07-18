@@ -84,7 +84,7 @@
 		select pub_att_value from atts where publication_attribute='end page'
 	</cfquery>
 	<cfif p.publication_type is "journal article">
-		<cfset r=al & '. ' & p.published_year & '. ' & p.publication_title>
+		<cfset r=as & '. ' & p.published_year & '. ' & p.publication_title>
 		<cfset r=r & ' ' & journal.pub_att_value>
 		<cfif len(volume.pub_att_value) gt 0>
 			<cfset r=r & ' ' & volume.pub_att_value>
