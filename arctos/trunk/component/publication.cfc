@@ -61,7 +61,7 @@
 	<cfif a.recordcount is 1>
 		<cfset al=a.agent_name>
 	<cfelseif a.recordcount is 2>
-		<cfset as=a.last_name[1] & ' and ' & a.last_name[2]>
+		<cfset as=a.agent_name[1] & ' and ' & a.agent_name[2]>
 	<cfelse>
 		<cfset al=valuelist(a.agent_name,", ")>	
 	</cfif>
