@@ -65,6 +65,7 @@
 		<br>al: #al#
 		<cfset lel=listlast(al,"|")>
 		<br>lel: #lel#
+		<br>al: #al#
 		<cfset al=listdeleteat(al,listlen(al))>
 		<br>al: #al#
 		<cfset al=listchangedelims(al,", ","|")>
