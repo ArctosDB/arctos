@@ -60,8 +60,10 @@
 	</cfquery>
 	<cfif a.recordcount is 1>
 		<cfset al=a.agent_name>
+	<cfelseif a.recordcount is 2>
+		<cfset as=a.last_name[1] & ' and ' & a.last_name[2]>
 	<cfelse>
-		<cfset al=valuelist(a.agent_name,"|")>
+		<cfset al=valuelist(a.agent_name,", ")><!---
 		<br>al: #al#
 		<cfset lel=listlast(al,"|")>
 		<br>lel: #lel#
@@ -73,6 +75,7 @@
 		<br>al: #al#
 		<cfset al=al & ' and ' & lel>
 		<hr>
+		---->
 	</cfif>
 	<cfreturn al>
 	
