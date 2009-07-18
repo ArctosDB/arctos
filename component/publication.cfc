@@ -2,7 +2,7 @@
 <cffunction name="shortCitation" access="remote">
 	<cfargument name="publication_id" type="numeric" required="yes">
 	<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select publication_year from publication where publication_id=#publication_id#
+		select published_year from publication where publication_id=#publication_id#
 	</cfquery>
 	<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
@@ -32,7 +32,7 @@
 	<cfelse>
 		<cfset as=a.last_name[1] & ' et al.'>
 	</cfif>
-	<cfset r=as & ' ' & p.publication_year>
+	<cfset r=as & ' ' & p.published_year>
 	<cfreturn r>
 </cffunction>
 </cfcomponent>
