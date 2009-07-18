@@ -61,7 +61,7 @@
 	<cfif a.recordcount is 1>
 		<cfset al=a.agent_name>
 	<cfelse>
-		<cfset al=valuelist(a.agent_name,|)>
+		<cfset al=valuelist(a.agent_name,"|")>
 		<cfset lel=listlast(al,"|")>
 		<cfset al=listdeleteat(al,listlen(al))>
 		<cfset al=listchangedelims(al,", ","|")>
