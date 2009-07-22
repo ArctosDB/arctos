@@ -84,6 +84,7 @@
 	</cfif>
 	
 	<cfdump var="#e#">
+	<cfdump var="#a#">
 	<cfif e.recordcount is 1>
 		<cfset es=e.agent_name>
 	<cfelseif e.recordcount is 2>
