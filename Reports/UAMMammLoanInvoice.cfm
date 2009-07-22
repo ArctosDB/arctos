@@ -294,7 +294,7 @@ select
 		collection.collection_cde,
 		collection.institution_acronym,
 		concatsingleotherid(cataloged_item.collection_object_id,'AF') as af_num,
-		concatsingleotherid(cataloged_item.collection_object_id,'Field Num') as fieldnum,
+		concatsingleotherid(cataloged_item.collection_object_id,'original identifier') as fieldnum,
 		concatattributevalue(cataloged_item.collection_object_id,'sex') as sex,
 		decode (sampled_from_obj_id,
 			null,part_name,
