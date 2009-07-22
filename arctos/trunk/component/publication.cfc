@@ -83,6 +83,7 @@
 		<cfset as=valuelist(a.agent_name,", ")>	
 	</cfif>
 	
+	<cfdump var="#e#">
 	<cfif e.recordcount is 1>
 		<cfset es=e.agent_name>
 	<cfelseif e.recordcount is 2>
