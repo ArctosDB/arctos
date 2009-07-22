@@ -140,10 +140,10 @@
 			<cfset r=r & ' ' & pagetotal.pub_att_value & 'pp.'>
 		</cfif>
 		<cfif len(es) gt 0>
-			<cfset r=r & ' Edited by ' & es>
+			<cfset r=r & ' Edited by ' & es & '.'>
 		</cfif>
 	<cfelse>
-		woot! - something else
+		<cfset r=as & '. ' & p.published_year & '. ' & p.publication_title>
 	</cfif>
 	<cfreturn r>
 </cffunction>
