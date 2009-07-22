@@ -83,6 +83,9 @@
 	<cfquery name="end" dbtype="query">
 		select pub_att_value from atts where publication_attribute='end page'
 	</cfquery>
+	<cfquery name="pagetotal" dbtype="query">
+		select pub_att_value from atts where publication_attribute='page total'
+	</cfquery>
 	<cfif p.publication_type is "journal article">
 		<cfset r=as & '. ' & p.published_year & '. ' & p.publication_title>
 		<cfset r=r & ' ' & journal.pub_att_value>
@@ -94,7 +97,13 @@
 		</cfif>
 		<cfset r=r & ':' & 	begin.pub_att_value & '-' & end.pub_att_value & '.'>
 	<cfelseif p.publication_type is "book">
-		--damn - book...
+		<cfset r=as & '. ' & p.published_year & '. ' & p.publication_title>
+		<cfif len(volume.pub_att_value) gt 0>
+			<cfset r=r & ' ' & volume.pub_att_value>
+		</cfif>
+		<cfif len(pagetotal.pub_att_value) gt 0>
+			<cfset r=r & ' ' & pagetotal.pub_att_value & 'pp.'>
+		</cfif>
 	<cfelseif p.publication_type is "book section">
 		bs
 	<cfelse>
