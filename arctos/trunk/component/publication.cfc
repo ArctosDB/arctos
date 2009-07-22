@@ -93,6 +93,12 @@
 			<cfset r=r & '(' & issue.pub_att_value & ')'>
 		</cfif>
 		<cfset r=r & ':' & 	begin.pub_att_value & '-' & end.pub_att_value & '.'>
+	<cfelseif p.publication_type is "book">
+		--damn - book...
+	<cfelseif p.publication_type is "book section">
+		bs
+	<cfelse>
+		woot! - something else
 	</cfif>
 	<cfreturn r>
 </cffunction>
