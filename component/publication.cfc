@@ -59,11 +59,11 @@
 			author_position
 	</cfquery>
 	<cfif a.recordcount is 1>
-		<cfset al=a.agent_name>
+		<cfset as=a.agent_name>
 	<cfelseif a.recordcount is 2>
 		<cfset as=a.agent_name[1] & ' and ' & a.agent_name[2]>
 	<cfelse>
-		<cfset al=valuelist(a.agent_name,", ")>	
+		<cfset as=valuelist(a.agent_name,", ")>	
 	</cfif>
 	<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from publication_attributes where publication_id=#publication_id#
