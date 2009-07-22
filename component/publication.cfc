@@ -54,16 +54,41 @@
 			agent_name
 		where 
 			publication_author_name.agent_name_id=agent_name.agent_name_id and
-			publication_author_name.publication_id=#publication_id#
+			publication_author_name.publication_id=#publication_id# and
+			author_role='author'
 		order by 
 			author_position
 	</cfquery>
+	<cfquery name="e" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select 
+			agent_name,
+			author_position
+		from 
+			publication_author_name,
+			agent_name
+		where 
+			publication_author_name.agent_name_id=agent_name.agent_name_id and
+			publication_author_name.publication_id=#publication_id# and
+			author_role='editor'
+		order by 
+			author_position
+	</cfquery>
+	<cfset as="">
+	<cfset es="">
 	<cfif a.recordcount is 1>
 		<cfset as=a.agent_name>
 	<cfelseif a.recordcount is 2>
 		<cfset as=a.agent_name[1] & ' and ' & a.agent_name[2]>
 	<cfelse>
 		<cfset as=valuelist(a.agent_name,", ")>	
+	</cfif>
+	
+	<cfif e.recordcount is 1>
+		<cfset es=e.agent_name>
+	<cfelseif e.recordcount is 2>
+		<cfset es=e.agent_name[1] & ' and ' & e.agent_name[2]>
+	<cfelse>
+		<cfset es=valuelist(e.agent_name,", ")>	
 	</cfif>
 	<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from publication_attributes where publication_id=#publication_id#
@@ -99,13 +124,22 @@
 	<cfelseif p.publication_type is "book">
 		<cfset r=as & '. ' & p.published_year & '. ' & p.publication_title>
 		<cfif len(volume.pub_att_value) gt 0>
-			<cfset r=r & ' ' & volume.pub_att_value>
+			<cfset r=r & ' Volume ' & volume.pub_att_value>
 		</cfif>
 		<cfif len(pagetotal.pub_att_value) gt 0>
 			<cfset r=r & ' ' & pagetotal.pub_att_value & 'pp.'>
 		</cfif>
 	<cfelseif p.publication_type is "book section">
-		bs
+		<cfset r=as & '. ' & p.published_year & '. ' & p.publication_title>
+		<cfif len(volume.pub_att_value) gt 0>
+			<cfset r=r & ' Volume ' & volume.pub_att_value>
+		</cfif>
+		<cfif len(pagetotal.pub_att_value) gt 0>
+			<cfset r=r & ' ' & pagetotal.pub_att_value & 'pp.'>
+		</cfif>
+		<cfif len(es) gt 0>
+			<cfset r=r & ' Edited by ' & es>
+		</cfif>
 	<cfelse>
 		woot! - something else
 	</cfif>
