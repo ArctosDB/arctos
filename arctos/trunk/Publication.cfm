@@ -4,6 +4,12 @@
 </cfif>
 <style>
 	.test{color:red;background-color:blue;}
+	.cellDiv {
+		border:1px dashed green;
+		padding:10px;
+		margin: 10px;
+		width:80%;
+	}
 </style>
 <script>
 	function pickThis (fld,idfld,display,aid) {
@@ -186,7 +192,7 @@
 		select * from publication_attributes where publication_id=#publication_id#
 	</cfquery>
 	<form name="editPub" method="post" action="Publication.cfm">
-		<div style="border:1px dashed green;">
+		<div class="cellDiv">
 		The Basics:
 		<input type="hidden" name="publication_id" value="#pub.publication_id#">
 		<input type="hidden" name="action" value="saveEdit">
@@ -212,7 +218,7 @@
 		<label for="publication_remarks">Remark</label>
 		<input type="text" name="publication_remarks" id="publication_remarks" size="80" value="#pub.publication_remarks#">
 		</div>
-		<div style="border:1px dashed green;">
+		<div class="cellDiv">
 		Authors: <span class="infoLink" onclick="addAgent()">Add Row</span>
 			<table border id="authTab">
 				<tr>
@@ -247,7 +253,7 @@
 				<input type="hidden" name="numberAuthors" id="numberAuthors" value="#i#">
 			</table>
 		</div>
-		<div style="border:1px dashed green;">
+		<div class="cellDiv">
 		Attributes:
 			Add: <select name="n_attr" id="n_attr" onchange="addAttribute(this.value)">
 				<option value=""></option>
