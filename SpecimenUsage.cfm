@@ -378,6 +378,7 @@
 				&nbsp;~&nbsp;
 				<a href="/SpecimenResults.cfm?publication_id=#publication_id#">Cited Specimens</a>
 				<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
+					&nbsp;~&nbsp;
 					<a href="/Publication.cfm?publication_id=#publication_id#">Edit</a>
 					&nbsp;~&nbsp;
 					<a href="/Citation.cfm?publication_id=#publication_id#">Citations</a>
