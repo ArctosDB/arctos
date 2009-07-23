@@ -65,6 +65,11 @@
 						<span class="likeLink" onclick="getHelp('accepted_sci_name');">Accepted Scientific Name</span>
 					</label>
 					<input name="current_sci_Name" id="current_sci_Name" type="text">
+					<label for="is_peer_reviewed_fg">Peer Reviewed only?</label>
+					<select name="is_peer_reviewed_fg" id="is_peer_reviewed_fg">
+						<option value=""></option>
+						<option value="1">yes</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
@@ -313,6 +318,10 @@
 			<cfset basWhere = "#basWhere# AND publication.publication_id = citation.publication_id">
 		</cfif>
 		
+	</cfif>
+	<cfif isdefined("is_peer_reviewed_fg") AND is_peer_reviewed_fg is 1>
+		<cfset go="yes">
+			<cfset basWhere = "#basWhere# AND publication.is_peer_reviewed_fg=1">
 	</cfif>
 	<cfif isdefined("current_Sci_Name") AND len(#current_Sci_Name#) gt 0>
 		<cfset go="yes">
