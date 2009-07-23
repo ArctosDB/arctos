@@ -520,7 +520,7 @@
 				</tr>			
 			</table>
 			</div>
-			<br><input type="submit" value="create publication" class="insClr">
+			<br><input type="submit" value="create publication" class="insBtn">
 		</form>
 	</cfoutput>
 </cfif>
