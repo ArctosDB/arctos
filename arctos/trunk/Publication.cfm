@@ -454,6 +454,7 @@
 	</cfquery>
 	<cfoutput>
 		<form name="newpub" method="post" action="Publication.cfm">
+			<div class="cellDiv">
 			The Basics:
 			<input type="hidden" name="action" value="createPub">
 			<label for="publication_title">Publication Title</label>
@@ -477,7 +478,9 @@
 			<label for="publication_remarks">Remark</label>
 			<input type="text" name="publication_remarks" id="publication_remarks" size="80">
 			<input type="hidden" name="numberAuthors" id="numberAuthors" value="1">
-			<br>Authors: <span class="infoLink" onclick="addAgent()">Add Row</span> ~ <span class="infoLink" onclick="removeAgent()">Remove Last Row</span>
+			</div>
+			<div class="cellDiv">
+			Authors: <span class="infoLink" onclick="addAgent()">Add Row</span> ~ <span class="infoLink" onclick="removeAgent()">Remove Last Row</span>
 			<table border id="authTab">
 				<tr>
 					<th>Role</th>
@@ -498,7 +501,9 @@
 					</td>
 				</tr>
 			</table>
-			<br>Attributes:
+			</div>
+			<div class="cellDiv">
+			Attributes:
 			<input type="hidden" name="numberAttributes" id="numberAttributes" value="0">
 			Add: <select name="n_attr" id="n_attr" onchange="addAttribute(this.value)">
 				<option value=""></option>
@@ -514,6 +519,7 @@
 					<th></th>
 				</tr>			
 			</table>
+			</div>
 			<br><input type="submit" value="create publication" class="insClr">
 		</form>
 	</cfoutput>
