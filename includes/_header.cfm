@@ -143,7 +143,7 @@
 			<li><h2 onclick="document.location='/SpecimenSearch.cfm';">Search</h2>
 				<ul>
 					<li><a target="_top" href="/SpecimenSearch.cfm">Specimens</a></li>
-					<li><a target="_top" href="/SpecimenUsage.cfm">Projects</a></li>
+					<li><a target="_top" href="/SpecimenUsage.cfm">Publications/Projects</a></li>
 					<li><a target="_top" href="/TaxonomySearch.cfm">Taxonomy</a></li>
                     <li><a target="_top" href="/MediaSearch.cfm">Media</a></li>
                     <li><a target="_top" href="/document.cfm">Documents (BETA)</a></li>
