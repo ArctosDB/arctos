@@ -114,7 +114,11 @@
 		select pub_att_value from atts where publication_attribute='page total'
 	</cfquery>
 	<cfif p.publication_type is "journal article">
-		<cfset r=as & '. ' & p.published_year & '. ' & p.publication_title>
+		<cfset r=as>
+		<cfif right(as,1) is not '.'>
+			<cfset r=r & '. '>
+		</cfif>
+		<cfset r=r & p.published_year & '. ' & p.publication_title>
 		<cfset r=r & ' ' & journal.pub_att_value>
 		<cfif len(volume.pub_att_value) gt 0>
 			<cfset r=r & ' ' & volume.pub_att_value>
