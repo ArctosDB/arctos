@@ -212,7 +212,8 @@
 		<label for="publication_remarks">Remark</label>
 		<input type="text" name="publication_remarks" id="publication_remarks" size="80" value="#pub.publication_remarks#">
 		</div>
-		<br>Authors: <span class="infoLink" onclick="addAgent()">Add Row</span>
+		<div style="border:1px dashed green;">
+		Authors: <span class="infoLink" onclick="addAgent()">Add Row</span>
 			<table border id="authTab">
 				<tr>
 					<th>Role</th>
@@ -245,7 +246,9 @@
 				</cfloop>
 				<input type="hidden" name="numberAuthors" id="numberAuthors" value="#i#">
 			</table>
-		<br>Attributes:
+		</div>
+		<div style="border:1px dashed green;">
+		Attributes:
 			Add: <select name="n_attr" id="n_attr" onchange="addAttribute(this.value)">
 				<option value=""></option>
 				<cfloop query="ctpublication_attribute">
@@ -292,6 +295,7 @@
 					</tr>
 				</cfloop>			
 			</table>
+		</div>
 			<input type="hidden" name="origNumberAttributes" id="origNumberAttributes" value="#i#">
 			<input type="hidden" name="numberAttributes" id="numberAttributes" value="#i#">
 			<br><input type="submit" value="save" class="savBtn">
