@@ -362,7 +362,7 @@
 					<cfloop query="citations">
 						<div class="detailBlock">
 							<span class="detailData">
-								<a href="PublicationResults.cfm?publication_id=#publication_id#" 
+								<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#" 
 									target="_mainFrame">
 										#formatted_publication#</a>, 
 								<cfif len(#occurs_page_number#) gt 0>
