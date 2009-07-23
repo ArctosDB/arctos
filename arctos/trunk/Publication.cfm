@@ -403,6 +403,26 @@
 			</cfif>
 		</cfloop>
 	</cftransaction>
+	<!--- now get the formatted publications --->
+	<cfinvoke component="/component/publication" method="shortCitation" returnVariable="shortCitation">
+		<cfinvokeargument name="publication_id" value="#publication_id#">
+		<cfinvokeargument name="returnFormat" value="plain">
+	</cfinvoke>
+	<cfinvoke component="/component/publication" method="longCitation" returnVariable="longCitation">
+		<cfinvokeargument name="publication_id" value="#publication_id#">
+		<cfinvokeargument name="returnFormat" value="plain">
+	</cfinvoke>
+				
+	<cfquery name="sfp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		update formatted_publication set formatted_publication='#shortCitation#' where
+		publication_id=#publication_id# and
+		format_style='short'
+	</cfquery>
+	<cfquery name="lfp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		update formatted_publication set formatted_publication='#longCitation#' where
+		publication_id=#publication_id# and
+		format_style='long'
+	</cfquery>
 	<cflocation url="Publication.cfm?action=edit&publication_id=#publication_id#" addtoken="false">
 </cfoutput>
 </cfif>
@@ -540,6 +560,36 @@
 			</cfquery>
 		</cfloop>			
 	</cftransaction>
+	<cfinvoke component="/component/publication" method="shortCitation" returnVariable="shortCitation">
+		<cfinvokeargument name="publication_id" value="#publication_id#">
+		<cfinvokeargument name="returnFormat" value="plain">
+	</cfinvoke>
+	<cfinvoke component="/component/publication" method="longCitation" returnVariable="longCitation">
+		<cfinvokeargument name="publication_id" value="#publication_id#">
+		<cfinvokeargument name="returnFormat" value="plain">
+	</cfinvoke>				
+	<cfquery name="sfp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		insert into formatted_publication (
+			publication_id,
+			format_style,
+			formatted_publication,
+		) values (
+			#publication_id#,
+			'short',
+			'#shortCitation#'
+		)
+	</cfquery>
+	<cfquery name="lfp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		insert into formatted_publication (
+			publication_id,
+			format_style,
+			formatted_publication,
+		) values (
+			#publication_id#,
+			'long',
+			'#longCitation#'
+		)
+	</cfquery>
 	<cflocation url="Publication.cfm?action=edit&publication_id=#pid#" addtoken="false">
 </cfoutput>
 </cfif>

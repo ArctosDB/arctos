@@ -23,7 +23,10 @@
 		select count(*) c from a where last_name is null
 	</cfquery>
 	<cfif f.c gt 0>
-		<cfreturn "fail: null last names.">
+		<cfquery name="p" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select SUBSTR(publication_title,1,20) || '...' pt from publication where publication_id=#publication_id#
+		</cfquery>
+		<cfreturn p.pt>
 	</cfif>
 	<cfif a.recordcount is 1>
 		<cfset as=a.last_name>
@@ -82,9 +85,6 @@
 	<cfelse>
 		<cfset as=valuelist(a.agent_name,", ")>	
 	</cfif>
-	
-	<cfdump var="#e#">
-	<cfdump var="#a#">
 	<cfif e.recordcount is 1>
 		<cfset es=e.agent_name>
 	<cfelseif e.recordcount is 2>
@@ -134,7 +134,7 @@
 	<cfelseif p.publication_type is "book section">
 		<cfset r=as & '. ' & p.published_year & '. ' & p.publication_title>
 		<cfif len(volume.pub_att_value) gt 0>
-			<cfset r=r & ' Volume ' & volume.pub_att_value>
+			<cfset r=r & ' Volume ' & volume.pub_att_value & '.'>
 		</cfif>
 		<cfif len(pagetotal.pub_att_value) gt 0>
 			<cfset r=r & ' ' & pagetotal.pub_att_value & 'pp.'>
