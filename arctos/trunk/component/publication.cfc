@@ -119,8 +119,13 @@
 	<cfquery name="pagetotal" dbtype="query">
 		select pub_att_value from atts where publication_attribute='page total'
 	</cfquery>
+	<cfif right(p.publication_title,1) is not '.' and right(p.publication_title,1) is not '?'>
+		<cfset publication_title=p.publication_title & '.'>
+	<cfelse>
+		<cfset publication_title=p.publication_title>
+	</cfif> 
 	<cfif p.publication_type is "journal article">
-		<cfset r=as & '. ' & p.published_year & '. ' & p.publication_title>
+		<cfset r=as & '. ' & p.published_year & '. ' & publication_title>
 		<cfset r=r & ' ' & journal.pub_att_value>
 		<cfif len(volume.pub_att_value) gt 0>
 			<cfset r=r & ' ' & volume.pub_att_value>
@@ -130,7 +135,7 @@
 		</cfif>
 		<cfset r=r & ':' & 	begin.pub_att_value & '-' & end.pub_att_value & '.'>
 	<cfelseif p.publication_type is "book">
-		<cfset r=as & '. ' & p.published_year & '. ' & p.publication_title>
+		<cfset r=as & '. ' & p.published_year & '. ' & publication_title>
 		<cfif len(volume.pub_att_value) gt 0>
 			<cfset r=r & ' Volume ' & volume.pub_att_value>
 		</cfif>
@@ -138,7 +143,7 @@
 			<cfset r=r & ' ' & pagetotal.pub_att_value & 'pp.'>
 		</cfif>
 	<cfelseif p.publication_type is "book section">
-		<cfset r=as & '. ' & p.published_year & '. ' & p.publication_title>
+		<cfset r=as & '. ' & p.published_year & '. ' & publication_title>
 		<cfif len(volume.pub_att_value) gt 0>
 			<cfset r=r & ' Volume ' & volume.pub_att_value & '.'>
 		</cfif>
@@ -149,7 +154,7 @@
 			<cfset r=r & ' Edited by ' & es & '.'>
 		</cfif>
 	<cfelse>
-		<cfset r=as & '. ' & p.published_year & '. ' & p.publication_title>
+		<cfset r=as & '. ' & p.published_year & '. ' & publication_title>
 	</cfif>
 	<cfreturn r>
 </cffunction>
