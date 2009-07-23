@@ -1,5 +1,7 @@
 <cfinclude template="includes/_header.cfm">
-<cfset title = "Edit Publication">
+<cfif action is "nothing" and isdefined("publication_id") and isnumeric(publication_id)>
+	<cfoutput><cflocation url="Publication.cfm?action=edit&publication_id=#publication_id#" addtoken="false"></cfoutput>
+</cfif>
 <style>
 	.test{color:red;background-color:blue;}
 </style>
@@ -161,6 +163,7 @@
 </script>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "edit">
+<cfset title = "Edit Publication">
 <cfoutput>
 	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select publication_type from ctpublication_type order by publication_type
@@ -428,6 +431,7 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "newPub">
+<cfset title = "Create Publication">
 	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select publication_type from ctpublication_type order by publication_type
 	</cfquery>
