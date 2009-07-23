@@ -5,7 +5,7 @@ function rankAgent(agent_id) {
 	theDiv.className = 'pickDiv';
 	theDiv.innerHTML='<br>Loading...';
 	document.body.appendChild(theDiv);
-	var ptl="/includes/forms/agentrant.cfm";			
+	var ptl="/includes/forms/agentrank.cfm";			
 	jQuery.get(ptl,{agent_id: agent_id},function(data){
 		document.getElementById('pickDiv').innerHTML=data;
 		viewport.init("#pickDiv");
