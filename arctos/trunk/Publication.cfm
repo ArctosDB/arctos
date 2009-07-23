@@ -188,7 +188,7 @@
 		<input type="hidden" name="publication_id" value="#pub.publication_id#">
 		<input type="hidden" name="action" value="saveEdit">
 		<label for="publication_title">Publication Title</label>
-		<input type="text" name="publication_title" id="publication_title" value="#pub.publication_title#" class="reqdClr" size="80">
+		<textarea name="publication_title" id="publication_title" class="reqdClr" rows="3" cols="80">#pub.publication_title#</textarea>
 		<label for="publication_type">Publication Type</label>
 		<select name="publication_type" id="publication_type" class="reqdClr">
 			<option value=""></option>
@@ -443,7 +443,7 @@
 			The Basics:
 			<input type="hidden" name="action" value="createPub">
 			<label for="publication_title">Publication Title</label>
-			<textarea name="publication_title" id="publication_title" class="reqdClr" rows="3" cols="60"></textarea>
+			<textarea name="publication_title" id="publication_title" class="reqdClr" rows="3" cols="80"></textarea>
 			<label for="publication_type">Publication Type</label>
 			<select name="publication_type" id="publication_type" class="reqdClr" onchange="setDefaultPub(this.value)">
 				<option value=""></option>
