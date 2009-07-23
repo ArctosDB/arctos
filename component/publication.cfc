@@ -117,6 +117,8 @@
 		<cfset r=as>
 		<cfif right(as,1) is not '.'>
 			<cfset r=r & '. '>
+		<cfelse>
+			<cfset r=r & ' '>
 		</cfif>
 		<cfset r=r & p.published_year & '. ' & p.publication_title>
 		<cfset r=r & ' ' & journal.pub_att_value>
@@ -131,6 +133,8 @@
 		<cfset r=as>
 		<cfif right(as,1) is not '.'>
 			<cfset r=r & '. '>
+		<cfelse>
+			<cfset r=r & ' '>
 		</cfif>
 		<cfset r=r & p.published_year & '. ' & p.publication_title>
 		<cfif len(volume.pub_att_value) gt 0>
@@ -143,6 +147,8 @@
 		<cfset r=as>
 		<cfif right(as,1) is not '.'>
 			<cfset r=r & '. '>
+		<cfelse>
+			<cfset r=r & ' '>
 		</cfif>
 		<cfset r=r & p.published_year & '. ' & p.publication_title>
 		<cfif len(volume.pub_att_value) gt 0>
