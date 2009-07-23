@@ -421,11 +421,11 @@
 		</cfloop>			
 	</cftransaction>
 	<cfinvoke component="/component/publication" method="shortCitation" returnVariable="shortCitation">
-		<cfinvokeargument name="publication_id" value="#publication_id#">
+		<cfinvokeargument name="publication_id" value="#pid#">
 		<cfinvokeargument name="returnFormat" value="plain">
 	</cfinvoke>
 	<cfinvoke component="/component/publication" method="longCitation" returnVariable="longCitation">
-		<cfinvokeargument name="publication_id" value="#publication_id#">
+		<cfinvokeargument name="publication_id" value="#pid#">
 		<cfinvokeargument name="returnFormat" value="plain">
 	</cfinvoke>				
 	<cfquery name="sfp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -434,7 +434,7 @@
 			format_style,
 			formatted_publication
 		) values (
-			#publication_id#,
+			#pid#,
 			'short',
 			'#shortCitation#'
 		)
@@ -445,7 +445,7 @@
 			format_style,
 			formatted_publication
 		) values (
-			#publication_id#,
+			#pid#,
 			'long',
 			'#longCitation#'
 		)
