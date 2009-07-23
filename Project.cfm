@@ -441,7 +441,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 				<blockquote>
 				<cfoutput query="pubJour">
 					<p>
-					<a href="Publication.cfm?Action=editJournalArt&publication_id=#publication_id#">
+					<a href="Publication.cfm?publication_id=#publication_id#">
 					#formatted_publication#
 					</a>
 					<br>
