@@ -3,15 +3,6 @@
 <cfif action is "nothing" and isdefined("publication_id") and isnumeric(publication_id)>
 	<cfoutput><cflocation url="Publication.cfm?action=edit&publication_id=#publication_id#" addtoken="false"></cfoutput>
 </cfif>
-<style>
-	.test{color:red;background-color:blue;}
-	.cellDiv {
-		border:1px dashed green;
-		padding:10px;
-		margin: 10px;
-		width:80%;
-	}
-</style>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "edit">
 <cfset title = "Edit Publication">

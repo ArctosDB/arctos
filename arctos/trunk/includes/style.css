@@ -1,3 +1,9 @@
+.cellDiv {
+	border:1px dashed green;
+	padding:10px;
+	margin: 10px;
+	width:80%;
+}
 label.badPickLbl {
 	color:red;
 	width:15em;
