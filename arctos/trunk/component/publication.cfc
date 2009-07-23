@@ -128,7 +128,11 @@
 		</cfif>
 		<cfset r=r & ':' & 	begin.pub_att_value & '-' & end.pub_att_value & '.'>
 	<cfelseif p.publication_type is "book">
-		<cfset r=as & '. ' & p.published_year & '. ' & p.publication_title>
+		<cfset r=as>
+		<cfif right(as,1) is not '.'>
+			<cfset r=r & '. '>
+		</cfif>
+		<cfset r=r & p.published_year & '. ' & p.publication_title>
 		<cfif len(volume.pub_att_value) gt 0>
 			<cfset r=r & ' Volume ' & volume.pub_att_value>
 		</cfif>
@@ -136,7 +140,11 @@
 			<cfset r=r & ' ' & pagetotal.pub_att_value & 'pp.'>
 		</cfif>
 	<cfelseif p.publication_type is "book section">
-		<cfset r=as & '. ' & p.published_year & '. ' & p.publication_title>
+		<cfset r=as>
+		<cfif right(as,1) is not '.'>
+			<cfset r=r & '. '>
+		</cfif>
+		<cfset r=r & p.published_year & '. ' & p.publication_title>
 		<cfif len(volume.pub_att_value) gt 0>
 			<cfset r=r & ' Volume ' & volume.pub_att_value & '.'>
 		</cfif>
