@@ -1,3 +1,16 @@
+function rankAgent(agent_id) {
+	addBGDiv('removePick()');
+	var theDiv = document.createElement('div');
+	theDiv.id = 'pickDiv';
+	theDiv.className = 'pickDiv';
+	theDiv.innerHTML='<br>Loading...';
+	document.body.appendChild(theDiv);
+	var ptl="/includes/forms/agentrant.cfm";			
+	jQuery.get(ptl,{agent_id: agent_id},function(data){
+		document.getElementById('pickDiv').innerHTML=data;
+		viewport.init("#pickDiv");
+	});
+}
 function pickThis (fld,idfld,display,aid) {
 	document.getElementById(fld).value=display;
 	document.getElementById(idfld).value=aid;
