@@ -277,8 +277,8 @@ Projects are activities that have contributed specimens, used specimens, or both
 					project_publication.project_id = #project_id# AND  
 					project_publication.publication_id = formatted_publication.publication_id AND 
 					project_publication.publication_id = publication.publication_id AND 
-					format_style = 'full citation' AND
-					publication_type='Journal Article'
+					format_style = 'long' AND
+					publication_type='journal article'
 			</cfquery>
 			<cfquery name="pubBook" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				SELECT 
@@ -291,8 +291,8 @@ Projects are activities that have contributed specimens, used specimens, or both
 					project_publication.project_id = #project_id# AND  
 					project_publication.publication_id = formatted_publication.publication_id AND 
 					project_publication.publication_id = publication.publication_id AND 
-					format_style = 'full citation' AND
-					publication_type='Book'
+					format_style = 'long' AND
+					publication_type='book'
 			</cfquery>
 			<cfquery name="pubBookSec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				SELECT 
@@ -305,8 +305,8 @@ Projects are activities that have contributed specimens, used specimens, or both
 					project_publication.project_id = #project_id# AND  
 					project_publication.publication_id = formatted_publication.publication_id AND 
 					project_publication.publication_id = publication.publication_id AND 
-					format_style = 'full citation' AND
-					publication_type='Book Section'
+					format_style = 'long' AND
+					publication_type='book section'
 			</cfquery>
 		</cfoutput>
 	<table width="100%">

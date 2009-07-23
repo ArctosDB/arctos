@@ -271,7 +271,7 @@
 		AND publication_author_name.agent_name_id = pubAuth.agent_name_id (+)
 		AND pubAuth.agent_id = searchAuth.agent_id
 		AND formatted_publication.publication_id (+) = publication.publication_id 
-		AND formatted_publication.format_style = 'full citation'">
+		AND formatted_publication.format_style = 'long'">
 		
 	<cfif isdefined("p_title") AND len(#p_title#) gt 0>
 		<cfset basWhere = "#basWhere# AND UPPER(publication_title) LIKE '%#ucase(escapeQuotes(p_title))#%'">
