@@ -123,7 +123,8 @@
 		<cfset publication_title=p.publication_title & '.'>
 	<cfelse>
 		<cfset publication_title=p.publication_title>
-	</cfif> 
+	</cfif>
+	<cfset publication_title=replace(publication_title,' In: ',' <i>In:</i> ')>
 	<cfif p.publication_type is "journal article">
 		<cfset r=as & '. ' & p.published_year & '. ' & publication_title>
 		<cfset r=r & ' ' & journal.pub_att_value>
