@@ -186,6 +186,7 @@
 		select * from publication_attributes where publication_id=#publication_id#
 	</cfquery>
 	<form name="editPub" method="post" action="Publication.cfm">
+		<div style="border:1px dashed green;">
 		The Basics:
 		<input type="hidden" name="publication_id" value="#pub.publication_id#">
 		<input type="hidden" name="action" value="saveEdit">
@@ -210,6 +211,7 @@
 		<input type="text" name="publication_loc" id="publication_loc" size="80" value="#pub.publication_loc#">
 		<label for="publication_remarks">Remark</label>
 		<input type="text" name="publication_remarks" id="publication_remarks" size="80" value="#pub.publication_remarks#">
+		</div>
 		<br>Authors: <span class="infoLink" onclick="addAgent()">Add Row</span>
 			<table border id="authTab">
 				<tr>
