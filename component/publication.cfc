@@ -160,6 +160,9 @@
 		</cfif>
 		<cfset r=r & '. ' & publication_title>
 	</cfif>
+	<cfif len(r) is 0>
+		<cfset r="unknown format">
+	</cfif>
 	<cfreturn r>
 </cffunction>
 </cfcomponent>
