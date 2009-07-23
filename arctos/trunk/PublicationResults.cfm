@@ -29,7 +29,7 @@
 		AND publication.publication_id = publication_author_name.publication_id (+) 
 		AND publication_author_name.agent_name_id = agent_name.agent_name_id (+)
 		AND formatted_publication.publication_id (+) = publication.publication_id 
-		AND formatted_publication.format_style = 'full citation'
+		AND formatted_publication.format_style = 'long'
 		AND publication.publication_id = publication_url.publication_id (+)">
 		
 	<cfif isdefined("pubTitle") AND len(#pubTitle#) gt 0>

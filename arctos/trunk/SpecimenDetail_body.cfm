@@ -256,7 +256,7 @@
 	where		
 		citation.cited_taxon_name_id = cited_taxa.taxon_name_id  AND
 		citation.publication_id = formatted_publication.publication_id AND
-		format_style='author-year' and
+		format_style='short' and
 		citation.collection_object_id = #collection_object_id#
 	order by
 		substr(formatted_publication, - 4)

@@ -13,7 +13,7 @@
 		WHERE 
 			project_publication.publication_id = formatted_publication.publication_id AND
 			project_publication.publication_id = publication_url.publication_id (+) AND
-			format_style = 'full citation' and
+			format_style = 'long' and
 			project_publication.project_id = #project_id#
 		order by
 			formatted_publication
