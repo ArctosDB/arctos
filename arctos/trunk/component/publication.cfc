@@ -154,7 +154,11 @@
 			<cfset r=r & ' Edited by ' & es & '.'>
 		</cfif>
 	<cfelse>
-		<cfset r=as & '. ' & p.published_year & '. ' & publication_title>
+		<cfset r=as>
+		<cfif len(p.published_year) gt 0>
+			<cfset r=r & '. ' & p.published_year>
+		</cfif>
+		<cfset r=r & publication_title>
 	</cfif>
 	<cfreturn r>
 </cffunction>
