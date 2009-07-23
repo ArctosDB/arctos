@@ -85,12 +85,18 @@
 	<cfelse>
 		<cfset as=valuelist(a.agent_name,", ")>	
 	</cfif>
+	<cfif right(as,1) is '.'>
+		<cfset as=left(as,len(as)-1)>
+	</cfif>
 	<cfif e.recordcount is 1>
 		<cfset es=e.agent_name>
 	<cfelseif e.recordcount is 2>
 		<cfset es=e.agent_name[1] & ' and ' & e.agent_name[2]>
 	<cfelse>
 		<cfset es=valuelist(e.agent_name,", ")>	
+	</cfif>
+	<cfif right(es,1) is '.'>
+		<cfset es=left(es,len(es)-1)>
 	</cfif>
 	<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from publication_attributes where publication_id=#publication_id#
@@ -114,13 +120,7 @@
 		select pub_att_value from atts where publication_attribute='page total'
 	</cfquery>
 	<cfif p.publication_type is "journal article">
-		<cfset r=as>
-		<cfif right(as,1) is not '.'>
-			<cfset r=r & '. '>
-		<cfelse>
-			<cfset r=r & ' '>
-		</cfif>
-		<cfset r=r & p.published_year & '. ' & p.publication_title>
+		<cfset r=as & '. ' & p.published_year & '. ' & p.publication_title>
 		<cfset r=r & ' ' & journal.pub_att_value>
 		<cfif len(volume.pub_att_value) gt 0>
 			<cfset r=r & ' ' & volume.pub_att_value>
@@ -130,13 +130,7 @@
 		</cfif>
 		<cfset r=r & ':' & 	begin.pub_att_value & '-' & end.pub_att_value & '.'>
 	<cfelseif p.publication_type is "book">
-		<cfset r=as>
-		<cfif right(as,1) is not '.'>
-			<cfset r=r & '. '>
-		<cfelse>
-			<cfset r=r & ' '>
-		</cfif>
-		<cfset r=r & p.published_year & '. ' & p.publication_title>
+		<cfset r=as & '. ' & p.published_year & '. ' & p.publication_title>
 		<cfif len(volume.pub_att_value) gt 0>
 			<cfset r=r & ' Volume ' & volume.pub_att_value>
 		</cfif>
@@ -144,13 +138,7 @@
 			<cfset r=r & ' ' & pagetotal.pub_att_value & 'pp.'>
 		</cfif>
 	<cfelseif p.publication_type is "book section">
-		<cfset r=as>
-		<cfif right(as,1) is not '.'>
-			<cfset r=r & '. '>
-		<cfelse>
-			<cfset r=r & ' '>
-		</cfif>
-		<cfset r=r & p.published_year & '. ' & p.publication_title>
+		<cfset r=as & '. ' & p.published_year & '. ' & p.publication_title>
 		<cfif len(volume.pub_att_value) gt 0>
 			<cfset r=r & ' Volume ' & volume.pub_att_value & '.'>
 		</cfif>
