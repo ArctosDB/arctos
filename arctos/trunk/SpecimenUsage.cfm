@@ -17,16 +17,7 @@
 								<a href="/Project.cfm?action=makeNew">New Project</a>
 							</li>
 							<li>
-								<a href="/Publication.cfm?action=newBook">New Book</a>
-							</li>
-							<li>
-								<a href="/Publication.cfm?action=newJournal">New Journal</a>
-							</li>
-							<li>
-								<a href="/Publication.cfm?action=newJournalArt">New Journal Article</a>
-							</li>
-							<li>
-								<a href="/Publication.cfm">Edit Journal</a>
+								<a href="/Publication.cfm?action=newPub">New Publication</a>
 							</li>
 						</ul>
 					</td>
@@ -387,15 +378,7 @@
 				&nbsp;~&nbsp;
 				<a href="/SpecimenResults.cfm?publication_id=#publication_id#">Cited Specimens</a>
 				<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
-					<cfif #publication_type# is "Book">
-						<cfset thisAction = "editBook">
-				 	<cfelseif #publication_type# is "Book Section">
-						<cfset thisAction = "editBookSection">
-				  	<cfelseif #publication_type# is "Journal Article">
-						<cfset thisAction = "editJournalArt">	
-					</cfif>
-					&nbsp;~&nbsp;
-					<a href="/Publication.cfm?Action=#thisAction#&publication_id=#publication_id#">Edit</a>
+					<a href="/Publication.cfm?publication_id=#publication_id#">Edit</a>
 					&nbsp;~&nbsp;
 					<a href="/Citation.cfm?publication_id=#publication_id#">Citations</a>
 				</cfif>

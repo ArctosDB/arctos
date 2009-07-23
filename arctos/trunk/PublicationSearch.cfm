@@ -109,57 +109,7 @@ A publication might also be linked to the project from which it resulted.  We ma
 	
 </cfoutput>
 </form>
-			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
-<table bgcolor="#CCCCCC"><tr><td colspan="2">
-<cfoutput>
-Curatorial Links:
-</td></tr>
-<td>
-<form name="addBook" method="post" action="Publication.cfm">
-	<input type="hidden" name="Action" value="newBook">
-	<input type="submit" 
-		value="Create Book" 
-		class="insBtn"
-		onmouseover="this.className='insBtn btnhov'" 
-		onmouseout="this.className='insBtn'">
-
-</form>
-</td><td>
-<form name="newJournal" method="post" action="Publication.cfm">
-	<input type="hidden" name="Action" value="newJournal">
-	<input type="submit" 
-		value="Create Journal" 
-		class="insBtn"
-		onmouseover="this.className='insBtn btnhov'" 
-		onmouseout="this.className='insBtn'">
-		
-</form>
-</td>
-</tr>
-<tr>
-<td>
-<form name="newJournalArt" method="post" action="Publication.cfm">
-	<input type="hidden" name="Action" value="newJournalArt">
-	<input type="submit" 
-		value="Create Journal Article" 
-		class="insBtn"
-		onmouseover="this.className='insBtn btnhov'" 
-		onmouseout="this.className='insBtn'">
-</form>
-</td>
-<td>
-<form name="edJour" method="post" action="Publication.cfm">
-	<input type="hidden" name="Action" value="nothing">
-	<input type="submit" 
-		value="Edit Journal" 
-		class="lnkBtn"
-		onmouseover="this.className='lnkBtn btnhov'" 
-		onmouseout="this.className='lnkBtn'">
-</form>
-</td>
-</table>
-</cfoutput>
+<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
+	<br><a href="Publication.cfm?action=newPub">Create Publication</a>
 </cfif>
-</td>
-	</tr></table>
 <cfinclude template = "includes/_footer.cfm">

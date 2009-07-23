@@ -235,27 +235,11 @@
 					</form>
 					</cfif>
 					<cfif  isdefined("session.roles") and listfindnocase(session.roles,"MANAGE_PUBLICATIONS")>
-						<form action="Publication.cfm" method="post">
-									<input type="hidden" name="publication_id" value="#publication_id#">
-										<cfif #publication_type# is "Book">
-											<cfset thisAction = "editBook">
-										  <cfelseif #publication_type# is "Book Section">
-										  	<cfset thisAction = "editBookSection">
-										  <cfelseif #publication_type# is "Journal Article">
-										  		<cfset thisAction = "editJournalArt">	
-										</cfif>
-									<input  type="hidden" name="Action" value="#thisAction#">
 						<tr>
 							<td valign="top">
-								<input type="submit" 
-										value="Edit Publication" 
-										class="lnkBtn"
-										onmouseover="this.className='lnkBtn btnhov'" 
-										onmouseout="this.className='lnkBtn'">
-								
+								<a href="Publication.cfm?publication_id=#publication_id#">Edit Publication</a>
 							</td>
 						</tr>
-						</form>
 						<form action="Citation.cfm" method="post">
 									<input type="hidden" name="publication_id" value="#publication_id#">
 						<tr>
