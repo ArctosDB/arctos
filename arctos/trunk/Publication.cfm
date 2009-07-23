@@ -572,7 +572,7 @@
 		insert into formatted_publication (
 			publication_id,
 			format_style,
-			formatted_publication,
+			formatted_publication
 		) values (
 			#publication_id#,
 			'short',
@@ -583,7 +583,7 @@
 		insert into formatted_publication (
 			publication_id,
 			format_style,
-			formatted_publication,
+			formatted_publication
 		) values (
 			#publication_id#,
 			'long',
