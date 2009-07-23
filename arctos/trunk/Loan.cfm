@@ -1,4 +1,5 @@
 <cfinclude template="includes/_header.cfm">
+<script type='text/javascript' src='/includes/internalAjax.js'></script>
 <cfif not isdefined("project_id")>
 	<cfset project_id = -1>
 </cfif>
@@ -464,6 +465,7 @@
 					<th>Agent Name</th>
 					<th>Role</th>
 					<th>Delete?</th>
+					<th></th>
 				</tr>
 				<cfloop query="loanAgents">
 					<tr>
@@ -486,6 +488,7 @@
 						<td>
 							<input type="checkbox" name="del_agnt_#trans_agent_id#">
 						</td>
+						<td><span class="infoLink" onclick="rankAgent('#agent_id#');">Rank</span></td>
 					</tr>
 				</cfloop>
 					<tr class="newRec">
