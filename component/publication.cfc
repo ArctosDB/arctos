@@ -158,7 +158,7 @@
 		<cfif len(p.published_year) gt 0>
 			<cfset r=r & '. ' & p.published_year>
 		</cfif>
-		<cfset r=r & publication_title>
+		<cfset r=r & '. ' & publication_title>
 	</cfif>
 	<cfreturn r>
 </cffunction>
