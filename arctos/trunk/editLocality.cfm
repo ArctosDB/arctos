@@ -117,8 +117,7 @@
      </cfquery>
 	<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
         select geology_attribute from ctgeology_attribute order by geology_attribute
-     </cfquery>
-	                                 
+     </cfquery>	                                 
   	<table>
   		<tr>
 			<td>

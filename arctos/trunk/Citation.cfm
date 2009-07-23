@@ -101,7 +101,7 @@
 
 <a href="javascript:void(0);" onClick="getDocs('publication','citation')">Citations</a>
  for 	<b>#getCited.publication_title#</b>
-<a href="Publication.cfm?publication_id=#getCited.publication_id#">Edit Publication</a>
+<a href="Publication.cfm?publication_id=#publication_id#">Edit Publication</a>
 <table border cellpadding="0" cellspacing="0"><tr>
 	<td>&nbsp;</td>
 	<td nowrap>Cat Num</td>
