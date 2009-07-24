@@ -1,16 +1,30 @@
 <cfcomponent>
-<cffunction name="test" access="remote">
-	<cfreturn "test">
-	<!---
-	<cfif isdefined("session.username")>
-		<cfreturn session.username>
-	<cfelse>
-		<cfreturn "username not defined">
-	</cfif>
-	
-	---->
-</cffunction>
 
+<!------------------------------------------------------->
+<cffunction name="saveAgentRank" access="remote">
+	<cfargument name="agent_id" type="numeric" required="yes">	
+	<cfargument name="agent_rank" type="string" required="yes">	
+	<cfargument name="remark" type="string" required="yes">
+	<cftry>
+		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			insert into agent_rank (
+				agent_id,
+				agent_rank,
+				ranked_by_agent_id,
+				remark
+			) values (
+				#agent_id#,
+				'#agent_rank#',
+				#session.myAgentId#,
+				'#escapeQuotes(remark)#'
+			)
+		</cfquery>
+		<cfreturn "success">
+	<cfcatch>
+		<cfreturn "fail: #cfcatch.Message# #cfcatch.Detail#">
+	</cfcatch>
+	</cftry>
+</cffunction>
 <!------------------------------------------------------->
 <cffunction name="getPubAttributes" access="remote">
 	<cfargument name="attribute" type="string" required="yes">
