@@ -678,6 +678,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 			</cfif> 
 			<div style="padding-left:2em;">
 				Received from: <strong>#recFromAgent#</strong>
+				<br>Received Date: <strong>#DateFormat(received_date, "dd mmm yyyy")#</strong>
 			</div>
 		</div>
 		
@@ -698,8 +699,8 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 				</tr>			
 				<tr>
 					<td><img src="images/nada.gif" width="30" height="1"></td>
-					<td nowrap align="right">Received Date:</td>
-					<td><strong>#DateFormat(received_date, "dd mmm yyyy")#</strong></td>
+					<td nowrap align="right"></td>
+					<td></td>
 				</tr>
 				<tr>
 					<td><img src="images/nada.gif" width="30" height="1"></td>
