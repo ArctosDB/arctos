@@ -678,84 +678,33 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 			</cfif> 
 			<div style="padding-left:2em;">
 				Received from: <strong>#recFromAgent#</strong>
-				<br>Received Date: <strong>#DateFormat(received_date, "dd mmm yyyy")#</strong>
-			</div>
-		</div>
-		
-		<!----<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-		  <td>
-		  	<table>
-				<tr>
-		  			<td colspan="3">
-						
-					</td>
-				</tr>
-				<tr>
-					<td><img src="images/nada.gif" width="30" height="1"></td>
-					<td nowrap align="right"></td>
-					<td>
-						
-					</td>
-				</tr>			
-				<tr>
-					<td><img src="images/nada.gif" width="30" height="1"></td>
-					<td nowrap align="right"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><img src="images/nada.gif" width="30" height="1"></td>
-					<td align="right" valign="top">Nature of Material:</td>
-					<td><strong>#nature_of_material#</strong></td>
-				</tr>
+				<br>Received date: <strong>#DateFormat(received_date, "dd mmm yyyy")#</strong>
+				<br>Nature of Material: <strong>#nature_of_material#</strong>
 				<cfif len(#trans_remarks#) gt 0>
-					<tr>
-						<td><img src="images/nada.gif" width="30" height="1"></td>
-						<td align="right" valign="top">Remarks:</td>
-						<td><strong>#trans_remarks#</strong></td>
-					</tr>
+					<br>Remarks: <strong>#trans_remarks#</strong>
 				</cfif>
 				<cfif len(#estimated_count#) gt 0>
-					<tr>
-						<td><img src="images/nada.gif" width="30" height="1"></td>
-						<td align="right" valign="top">Estimated Count:</td>
-						<td><strong>#estimated_count#</strong></td>
-					</tr>
+					<br>Estimated Count: <strong>#estimated_count#</strong>
 				</cfif>
-				<tr>
-					<td><img src="images/nada.gif" width="30" height="1"></td>
-					<td nowrap align="right">Entered by:</td>
-					<td><strong>#entAgent#</strong></td>
-				</tr>
+				<br>Entered by: <strong>#entAgent#</strong>
 				<cfquery name="p" dbtype="query">
 					select project_name,pid from getAccns where transaction_id=#transaction_id#
 					group by project_name,pid
 				</cfquery>
-				<tr>
-					<td><img src="images/nada.gif" width="30" height="1"></td>
-					<td nowrap align="right">Project:</td>
-					<td>
+				<br>Project(s):
+				<CFIF #P.RECORDCOUNT# gt 1>
+					<strong>None</strong>
+				<cfelse>
+					<div style="padding-left:2em">
 						<cfloop query="p">
-							<cfif len(#P.project_name#)>
-								<CFIF #P.RECORDCOUNT# gt 1>
-									<img src="/images/li.gif" border="0">
-								</CFIF>
-								<a href="/Project.cfm?Action=editProject&project_id=#p.pid#"><strong>#P.project_name#</strong></a><BR>
-							<cfelse>
-								<strong>None</strong>
-							</cfif>
+							<a href="/Project.cfm?Action=editProject&project_id=#p.pid#"><strong>#P.project_name#</strong></a><BR>
 						</cfloop>
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	---->
-	
-	<cfset i=#i#+1>
-</cfoutput>
-		
-		
-	</table>
+					</div>
+				</CFIF>	
+			</div>
+		</div>
+		<cfset i=#i#+1>
+	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------->
 <!------------------------------------------------------------------------------------------->
