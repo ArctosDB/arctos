@@ -1848,7 +1848,7 @@ sql="DELETE FROM agent_name WHERE agent_name_id = #agent_name_id#">
     	top.location='/agents.cfm?agent_id=#agent_id#';
     	
 	} else {
-		console.log('nope');
+		//console.log('nope');
 	}
 </script>
 </cfoutput>
