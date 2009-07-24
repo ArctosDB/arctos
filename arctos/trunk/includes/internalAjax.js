@@ -14,9 +14,9 @@ function saveAgentRank(){
 			if(d.length>0 && d.substring(0,4)=='fail'){
 				alert(d);
 			} else {
-				var d = 'Thank you for adding an agent rank.';
-				d+='<p><span class="likeLink" onclick="rankAgent(' + d + ')">refresh</span></p>';
-				document.getElementById('pickDiv').innerHTML=d;
+				var ih = 'Thank you for adding an agent rank.';
+				ih+='<p><span class="likeLink" onclick="rankAgent(' + d + ')">refresh</span></p>';
+				document.getElementById('pickDiv').innerHTML=ih;
 			}
 		}
 	); 		
