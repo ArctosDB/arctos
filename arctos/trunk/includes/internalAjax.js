@@ -1,3 +1,18 @@
+function tog_AgentRankDetail(o){
+	if(o==1){
+		document.getElementById('agentRankDetails').style.display='block';
+		var t=document.getElementById('t_agentRankDetails');
+		t.removeAttribute("onclick");
+		t.addAttribute("onclick","tog_AgentRankDetail(0)");
+		t.innerHTML='Hide Details';
+	} else {
+		document.getElementById('agentRankDetails').style.display='none';
+		var t=document.getElementById('t_agentRankDetails');
+		t.removeAttribute("onclick");
+		t.addAttribute("onclick","tog_AgentRankDetail(1)");
+		t.innerHTML='Show Details';
+	}
+}
 function saveAgentRank(){
 	jQuery.getJSON("/component/functions.cfc",
 		{

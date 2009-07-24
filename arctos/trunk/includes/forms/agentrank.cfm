@@ -33,13 +33,8 @@
 				</tr>
 			</cfloop>
 		</table>
-		<script>
-			function sho(){
-				document.getElementById('rankDetails').style.display='block';
-			}
-		</script>
-		<span class="infoLink" onclick="sho()">Show Detail</span>
-		<div id="rankDetails" style="display:none">
+		<span class="infoLink" id="t_agentRankDetails" onclick="tog_AgentRankDetail(1)">Show Details</span>
+		<div id="agentRankDetails" style="display:none">
 		details!
 		</div>
 	</cfif>
