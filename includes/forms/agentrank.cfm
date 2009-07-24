@@ -21,12 +21,15 @@
 		<table border>
 			<tr>
 				<th>rank</th>
-				<th>count</th>
+				<th>##</th>
+				<th>%</th>
 			</tr>
 			<cfloop query="s">
 				<tr>
 					<td>#agent_rank#</td>
 					<td>#c#</td>
+					<cfset p=round((c/pr.recordcount) * 100)>
+					<td>#p#</td>
 				</tr>
 			</cfloop>
 		</table>
