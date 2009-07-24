@@ -1,6 +1,5 @@
 
 function tog_AgentRankDetail(o){
-	console.log(o);
 	if(o==1){
 		document.getElementById('agentRankDetails').style.display='block';
 		jQuery('#t_agentRankDetails').text('Hide Details').removeAttr('onclick').bind("click", function() {
@@ -25,7 +24,6 @@ function saveAgentRank(){
 			queryformat : 'column'
 		},
 		function (d) {
-			console.log(d);
 			if(d.length>0 && d.substring(0,4)=='fail'){
 				alert(d);
 			} else {
