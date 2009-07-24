@@ -1,23 +1,23 @@
+<script>
+	function saveRank(){
+		aid=jQuery('#agent_id').val();
+		console.log('aid='+aid);	
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "saveAgentRank",
+				agent_id : agent_id,
+				agent_rank : agent_rank,
+				remark : remark,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (d) {
+				console.log(d);
+			}
+		); 		
+	}
+</script>
 <cfoutput>
-	<script>
-		function saveRank(){
-			aid=jQuery('#agent_id').val();
-			console.log('aid='+aid);	
-			jQuery.getJSON("/component/functions.cfc",
-				{
-					method : "saveAgentRank",
-					agent_id : agent_id,
-					agent_rank : agent_rank,
-					remark : remark,
-					returnformat : "json",
-					queryformat : 'column'
-				},
-				function (d) {
-					console.log(d);
-				}
-			); 		
-		}
-	</script>
 	<span style="position:absolute;top:0px;right:0px; border:1px solid black;" class="likeLink" onclick="removePick()">X</span>
 	<cfquery name="agnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select agent_name from preferred_agent_name where agent_id=#agent_id#
