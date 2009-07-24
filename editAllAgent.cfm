@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_frameHeader.cfm">
-
+<script type='text/javascript' src='/includes/internalAjax.js'></script>
 <cfquery name="ctNameType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select agent_name_type as agent_name_type from ctagent_name_type
 </cfquery>
@@ -63,7 +63,7 @@
 			}
 		}
 		catch(e){
-			console.log('Error with suggestName: ' + e);
+			//console.log('Error with suggestName: ' + e);
 		}
 	}
 </script>
@@ -200,6 +200,9 @@
 						</cfquery>
 						<cfset nameStr=#getName.agent_name#>
 					</cfif>
+				<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select agent_rank, count(*) c from agent_rank where agent_id=#agent_id# group by agent_rank
+				</cfquery>
 <table border="1"><!--- outer table --->
 	<tr>
 		 <td>
@@ -209,6 +212,14 @@
 				<br>#person.agent_remarks#
 			</cfif>
 			<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#" target="_self">Agent Activity</a>
+			<cfif rank.recordcount is 0>
+				No ranking - <span class="likeLink" onclick="rankAgent('#agent_id#');">Add</span>
+			<cfelse>
+				<cfloop query="rank">#agent_rank#: #c#<br></cfloop>
+				<br>
+				<span class="likeLink" onclick="rankAgent('#agent_id#');">Details</span>
+			</cfif>
+			<br>
 		</td>
 	</tr>
 </cfoutput>
