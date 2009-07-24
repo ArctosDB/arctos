@@ -25,7 +25,7 @@
 		</cfquery>
 		<cfreturn agent_id>
 	<cfcatch>
-		<cfreturn "fail: #cfcatch.Message# #cfcatch.Detail#">
+		<cfreturn "fail: #cfcatch.Message# #cfcatch.Detail# #cfcatch.sql#">
 	</cfcatch>
 	</cftry>
 </cffunction>
