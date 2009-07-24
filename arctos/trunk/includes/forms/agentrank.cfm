@@ -1,4 +1,23 @@
 <cfoutput>
+	<script>
+		function saveRank(){
+			aid=jQuery('#agent_id').val();
+			console.log('aid='+aid);	
+			jQuery.getJSON("/component/functions.cfc",
+				{
+					method : "saveAgentRank",
+					agent_id : agent_id,
+					agent_rank : agent_rank,
+					remark : remark,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (d) {
+					console.log(d);
+				}
+			); 		
+		}
+	</script>
 	<span style="position:absolute;top:0px;right:0px; border:1px solid black;" class="likeLink" onclick="removePick()">X</span>
 	<cfquery name="agnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select agent_name from preferred_agent_name where agent_id=#agent_id#
@@ -26,22 +45,10 @@
 		</select>
 		<label for="remark">Remark</label>
 		<textarea name="remark" is="remark" rows="3" columns="40"></textarea>
-		<br><input type="submit" class="savBtn" value="Save">
+		<br><input type="button" class="savBtn" value="Save" onclick="saveRank()">
 	</form>
 <cfif isdefined("action") and action is "saveRank">
-	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		insert into agent_rank (
-			agent_id,
-			agent_rank,
-			ranked_by_agent_id,
-			remark
-		) values (
-			#agent_id#,
-			'#agent_rank#',
-			#session.myAgentId#,
-			'#escapeQuotes(remark)#'
-		)
-	</cfquery>
+	
 	<cflocation url="agentrank.cfm?agent_id=#agent_id#" addtoken="false">
 </cfif>
 </cfoutput>
