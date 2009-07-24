@@ -198,14 +198,14 @@
 </form>
 
 <style>
-.loantest{
+.nextnum{
 	border:2px solid green;
 	position:absolute;
-	top:0px;
-	right:0px;
+	top:10em;
+	right:1em;
 }
 </style>
-<div class="loantest">
+<div class="nextnum">
 			Next Available Loan Number:
 			<br>
 			<cfquery name="all_coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
