@@ -3,10 +3,10 @@ var viewport = {
       	
 	if (self.innerHeight) {
 		console.log('innerHeight');
-		this.pageYOffset = body.pageYOffset;
-		this.pageXOffset = body.pageXOffset;
-		this.innerHeight = body.innerHeight;
-		this.innerWidth = body.innerWidth;
+		this.pageYOffset = window.pageYOffset;
+		this.pageXOffset = window.pageXOffset;
+		this.innerHeight = window.innerHeight;
+		this.innerWidth = window.innerWidth;
 	} else if (document.documentElement && document.documentElement.clientHeight) {
 		console.log('documentElement');
 		this.pageYOffset = document.documentElement.scrollTop;
