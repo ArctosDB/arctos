@@ -23,7 +23,7 @@
 				'#transaction_type#'
 			)
 		</cfquery>
-		<cfreturn "success">
+		<cfreturn agent_id>
 	<cfcatch>
 		<cfreturn "fail: #cfcatch.Message# #cfcatch.Detail#">
 	</cfcatch>
