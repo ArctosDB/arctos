@@ -1,7 +1,8 @@
 var viewport = {
   	o: function() {
-      	console.log('innerHeight');
+      	
 	if (self.innerHeight) {
+		console.log('innerHeight');
 		this.pageYOffset = self.pageYOffset;
 		this.pageXOffset = self.pageXOffset;
 		this.innerHeight = self.innerHeight;
