@@ -16,11 +16,32 @@
 	</cfif>
 	Add a ranking:
 	<form name="a" method="post" action="agentrank.cfm">
+		<input type="hidden" name="agent_id" id="agent_id" value="#agent_id#">
+		<input type="hidden" name="action" id="action" value="saveRank">
 		<label for="Rank">Rank</label>
 		<select name="" id="">
 			<cfloop query="ctagent_rank">
 				<option value="#agent_rank#">#agent_rank#</option>
 			</cfloop>
 		</select>
+		<label for="remark">Remark</label>
+		<textarea name="remark" is="remark" rows="3" columns="40"></textarea>
+		<br><input type="submit" class="savBtn" value="Save">
 	</form>
+<cfif action is "saveRank">
+	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		insert into agent_rank (
+			agent_id,
+			agent_rank,
+			ranked_by_agent_id,
+			remark
+		) values (
+			#agent_id#,
+			'#agent_rank#',
+			#session.myAgentId#,
+			'#escapeQuotes(remark)#'
+		)
+	</cfquery>
+	<cflocation url="agentrank.cfm?agent_id=#agent_id#" addtoken="false">
+</cfif>
 </cfoutput>
