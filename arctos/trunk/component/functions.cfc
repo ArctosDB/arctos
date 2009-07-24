@@ -5,6 +5,7 @@
 	<cfargument name="agent_id" type="numeric" required="yes">	
 	<cfargument name="agent_rank" type="string" required="yes">	
 	<cfargument name="remark" type="string" required="yes">
+	<cfargument name="transaction_type" type="string" required="yes">
 	<cfinclude template="/includes/functionLib.cfm">
 	<cftry>
 		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -12,12 +13,14 @@
 				agent_id,
 				agent_rank,
 				ranked_by_agent_id,
-				remark
+				remark,
+				transaction_type
 			) values (
 				#agent_id#,
 				'#agent_rank#',
 				#session.myAgentId#,
-				'#escapeQuotes(remark)#'
+				'#escapeQuotes(remark)#',
+				'#transaction_type#
 			)
 		</cfquery>
 		<cfreturn "success">
