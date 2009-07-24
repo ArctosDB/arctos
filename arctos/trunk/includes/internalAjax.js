@@ -1,3 +1,20 @@
+function saveAgentRank(){
+	aid=jQuery('#agent_id').val();
+	console.log('aid='+aid);	
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "saveAgentRank",
+			agent_id : agent_id,
+			agent_rank : agent_rank,
+			remark : remark,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (d) {
+			console.log(d);
+		}
+	); 		
+}
 function rankAgent(agent_id) {
 	addBGDiv('removePick()');
 	var theDiv = document.createElement('div');
