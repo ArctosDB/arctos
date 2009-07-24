@@ -2,7 +2,6 @@ function tog_AgentRankDetail(o){
 	if(o==1){
 		document.getElementById('agentRankDetails').style.display='block';
 		jQuery('#t_agentRankDetails').attr('onclick', 'tog_AgentRankDetail(0)').text('Hide Details'); 
-	}
 	} else {
 		document.getElementById('agentRankDetails').style.display='none';
 		jQuery('#t_agentRankDetails').attr('onclick', 'tog_AgentRankDetail(1)').text('Show Details'); 
