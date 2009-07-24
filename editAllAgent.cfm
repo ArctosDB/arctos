@@ -90,8 +90,6 @@
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
-
-<!------------------------------------------------------------------------------------------------------------->
 <cfif #Action# is "newPerson">
 	<form name="newPerson" action="editAllAgent.cfm" method="post" target="_person">
 		<input type="hidden" name="Action" value="insertPerson">
