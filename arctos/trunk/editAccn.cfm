@@ -692,14 +692,14 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 					group by project_name,pid
 				</cfquery>
 				<br>Project(s):
-				<CFIF #P.RECORDCOUNT# is 0>
-					<strong>None</strong>
-				<cfelse>
+				<CFIF #P.RECORDCOUNT# gt 0>
 					<div style="padding-left:2em">
 						<cfloop query="p">
 							<a href="/Project.cfm?Action=editProject&project_id=#p.pid#"><strong>#P.project_name#</strong></a><BR>
 						</cfloop>
 					</div>
+				<cfelse>
+					<strong>None</strong>
 				</CFIF>	
 			</div>
 		</div>
