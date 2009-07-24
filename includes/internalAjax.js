@@ -15,7 +15,8 @@ function saveAgentRank(){
 				alert(d);
 			} else {
 				var ih = 'Thank you for adding an agent rank.';
-				ih+='<p><span class="likeLink" onclick="removePick();rankAgent(' + d + ')">refresh</span></p>';
+				ih+='<p><span class="likeLink" onclick="removePick();rankAgent(' + d + ')">Refresh</span></p>';
+				ih+='<p><span class="likeLink" onclick="removePick();">Done</span></p>';				
 				document.getElementById('pickDiv').innerHTML=ih;
 			}
 		}
