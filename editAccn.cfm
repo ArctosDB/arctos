@@ -508,86 +508,82 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "findAccessions">
 <cfset title = "Accession Search Results">
-<cfoutput>
-	<cfset sel = "SELECT 
-		trans.transaction_id,
-		accn_number,
-		nature_of_material,
-		received_date,
-		accn_status,
-		trans_remarks,
-		issuedTo.agent_name as issuedTo,
-		issuedBy.agent_name as issuedBy,
-		collection,
-		project_name,
-		project.project_id pid,
-		estimated_count,
-		concattransagent(trans.transaction_id,'entered by') ENTAGENT,
-		concattransagent(trans.transaction_id,'received from') RECFROMAGENT">
-	<cfset frm=" from 
-	 	accn, 
-		trans,
-		permit_trans,
-		permit,
-		preferred_agent_name issuedBy,
-		preferred_agent_name issuedTo,
-		collection,
-		project_trans,
-		project
-		">
-	<cfset sql = "where accn.transaction_id = trans.transaction_id
-		and trans.transaction_id = permit_trans.transaction_id (+)
-		and permit_trans.permit_id = permit.permit_id (+)
-		and permit.issued_by_agent_id = issuedBy.agent_id (+)
-		and permit.issued_to_agent_id = issuedTo.agent_id (+) and
-		trans.transaction_id = project_trans.transaction_id (+) and
-		project_trans.project_id = project.project_id (+) AND
-		trans.collection_id=collection.collection_id
-	">
-		
-	<cfif isdefined("trans_agent_role_1") AND len(#trans_agent_role_1#) gt 0>
-		<cfset frm="#frm#,trans_agent trans_agent_1">
-		<cfset sql="#sql# and trans.transaction_id = trans_agent_1.transaction_id">
-		<cfset sql = "#sql# AND trans_agent_1.trans_agent_role = '#trans_agent_role_1#'">
-	</cfif>
-	<cfif isdefined("agent_1") AND len(#agent_1#) gt 0>
-		<cfif #sql# does not contain "trans_agent_1">
+	<cfoutput>
+		<cfset sel = "SELECT 
+			trans.transaction_id,
+			accn_number,
+			nature_of_material,
+			received_date,
+			accn_status,
+			trans_remarks,
+			issuedTo.agent_name as issuedTo,
+			issuedBy.agent_name as issuedBy,
+			collection,
+			project_name,
+			project.project_id pid,
+			estimated_count,
+			concattransagent(trans.transaction_id,'entered by') ENTAGENT,
+			concattransagent(trans.transaction_id,'received from') RECFROMAGENT">
+		<cfset frm=" from 
+		 	accn, 
+			trans,
+			permit_trans,
+			permit,
+			preferred_agent_name issuedBy,
+			preferred_agent_name issuedTo,
+			collection,
+			project_trans,
+			project">
+		<cfset sql = " where accn.transaction_id = trans.transaction_id and
+			trans.transaction_id = permit_trans.transaction_id (+) and
+			permit_trans.permit_id = permit.permit_id (+) and
+			permit.issued_by_agent_id = issuedBy.agent_id (+) and
+			permit.issued_to_agent_id = issuedTo.agent_id (+) and
+			trans.transaction_id = project_trans.transaction_id (+) and
+			project_trans.project_id = project.project_id (+) AND
+			trans.collection_id=collection.collection_id ">
+		<cfif isdefined("trans_agent_role_1") AND len(#trans_agent_role_1#) gt 0>
 			<cfset frm="#frm#,trans_agent trans_agent_1">
 			<cfset sql="#sql# and trans.transaction_id = trans_agent_1.transaction_id">
+			<cfset sql = "#sql# AND trans_agent_1.trans_agent_role = '#trans_agent_role_1#'">
 		</cfif>
-		<cfset frm="#frm#,preferred_agent_name trans_agent_name_1">
-		<cfset sql="#sql# and trans_agent_1.agent_id = trans_agent_name_1.agent_id">
-		<cfset sql = "#sql# AND upper(trans_agent_name_1.agent_name) like '%#ucase(agent_1)#%'">
-	</cfif>
-	<cfif isdefined("trans_agent_role_2") AND len(#trans_agent_role_2#) gt 0>
-		<cfset frm="#frm#,trans_agent trans_agent_2">
-		<cfset sql="#sql# and trans.transaction_id = trans_agent_2.transaction_id">
-		<cfset sql = "#sql# AND trans_agent_2.trans_agent_role = '#trans_agent_role_2#'">
-	</cfif>
-	<cfif isdefined("agent_2") AND len(#agent_2#) gt 0>
-		<cfif #sql# does not contain "trans_agent_2">
+		<cfif isdefined("agent_1") AND len(#agent_1#) gt 0>
+			<cfif #sql# does not contain "trans_agent_1">
+				<cfset frm="#frm#,trans_agent trans_agent_1">
+				<cfset sql="#sql# and trans.transaction_id = trans_agent_1.transaction_id">
+			</cfif>
+			<cfset frm="#frm#,preferred_agent_name trans_agent_name_1">
+			<cfset sql="#sql# and trans_agent_1.agent_id = trans_agent_name_1.agent_id">
+			<cfset sql = "#sql# AND upper(trans_agent_name_1.agent_name) like '%#ucase(agent_1)#%'">
+		</cfif>
+		<cfif isdefined("trans_agent_role_2") AND len(#trans_agent_role_2#) gt 0>
 			<cfset frm="#frm#,trans_agent trans_agent_2">
 			<cfset sql="#sql# and trans.transaction_id = trans_agent_2.transaction_id">
+			<cfset sql = "#sql# AND trans_agent_2.trans_agent_role = '#trans_agent_role_2#'">
 		</cfif>
-		<cfset frm="#frm#,preferred_agent_name trans_agent_name_2">
-		<cfset sql="#sql# and trans_agent_2.agent_id = trans_agent_name_2.agent_id">
-		<cfset sql = "#sql# AND upper(trans_agent_name_2.agent_name) like '%#ucase(agent_2)#%'">
-	</cfif>
-	<cfif isdefined("trans_agent_role_3") AND len(#trans_agent_role_3#) gt 0>
-		<cfset frm="#frm#,trans_agent trans_agent_3">
-		<cfset sql="#sql# and trans.transaction_id = trans_agent_3.transaction_id">
-		<cfset sql = "#sql# AND trans_agent_3.trans_agent_role = '#trans_agent_role_3#'">
-	</cfif>
-	<cfif isdefined("agent_3") AND len(#agent_3#) gt 0>
-		<cfif #sql# does not contain "trans_agent_3">
+		<cfif isdefined("agent_2") AND len(#agent_2#) gt 0>
+			<cfif #sql# does not contain "trans_agent_2">
+				<cfset frm="#frm#,trans_agent trans_agent_2">
+				<cfset sql="#sql# and trans.transaction_id = trans_agent_2.transaction_id">
+			</cfif>
+			<cfset frm="#frm#,preferred_agent_name trans_agent_name_2">
+			<cfset sql="#sql# and trans_agent_2.agent_id = trans_agent_name_2.agent_id">
+			<cfset sql = "#sql# AND upper(trans_agent_name_2.agent_name) like '%#ucase(agent_2)#%'">
+		</cfif>
+		<cfif isdefined("trans_agent_role_3") AND len(#trans_agent_role_3#) gt 0>
 			<cfset frm="#frm#,trans_agent trans_agent_3">
 			<cfset sql="#sql# and trans.transaction_id = trans_agent_3.transaction_id">
+			<cfset sql = "#sql# AND trans_agent_3.trans_agent_role = '#trans_agent_role_3#'">
 		</cfif>
-		<cfset frm="#frm#,preferred_agent_name trans_agent_name_3">
-		<cfset sql="#sql# and trans_agent_3.agent_id = trans_agent_name_3.agent_id">
-		<cfset sql = "#sql# AND upper(trans_agent_name_3.agent_name) like '%#ucase(agent_3)#%'">
-	</cfif>
-	
+		<cfif isdefined("agent_3") AND len(#agent_3#) gt 0>
+			<cfif #sql# does not contain "trans_agent_3">
+				<cfset frm="#frm#,trans_agent trans_agent_3">
+				<cfset sql="#sql# and trans.transaction_id = trans_agent_3.transaction_id">
+			</cfif>
+			<cfset frm="#frm#,preferred_agent_name trans_agent_name_3">
+			<cfset sql="#sql# and trans_agent_3.agent_id = trans_agent_name_3.agent_id">
+			<cfset sql = "#sql# AND upper(trans_agent_name_3.agent_name) like '%#ucase(agent_3)#%'">
+		</cfif>
 		<cfif isdefined("collection_id") and len(#collection_id#) gt 0>
 			<cfset sql = "#sql# AND trans.collection_id = #collection_id#">
 		</cfif>
@@ -604,7 +600,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 		<cfif  isdefined("rec_date") and len(#rec_date#) gt 0>
 			<cfif isdefined("rec_until_date") and len(#rec_until_date#) gt 0>
 				<cfset sql = "#sql# AND upper(received_date) between to_date('#rec_date#', 'DD Mon YYYY') 
-																and to_date('#rec_until_date#', 'DD Mon YYYY')">
+					and to_date('#rec_until_date#', 'DD Mon YYYY')">
 			<cfelse>
 				<cfset sql = "#sql# AND upper(received_date) like to_date('#rec_date#', 'DD Mon YYYY')">
 			</cfif>
@@ -629,75 +625,62 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 		<cfif  isdefined("ent_date") and len(#ent_date#) gt 0>
 			<cfset sql = "#sql# AND TRANS_DATE #entDateOper# '#ucase(dateformat(ent_date,"dd-mmm-yyyy"))#'">
 		</cfif>
-		
-		
-		<!------------------------------------------------------------------>
 		<cfif isdefined("IssuedByAgent") and len(#IssuedByAgent#) gt 0>
-	<cfset sql = "#sql# AND upper(issuedBy.agent_name) like '%#ucase(IssuedByAgent)#%'">
-</cfif>
-<cfif isdefined("IssuedToAgent") and len(#IssuedToAgent#) gt 0>
-	<cfset sql = "#sql# AND upper(issuedTo.agent_name) like '%#ucase(IssuedToAgent)#%'">
-</cfif>
-<cfif  isdefined("issued_Date") and len(#issued_Date#) gt 0>
-	<cfset sql = "#sql# AND upper(issued_Date) like '%#ucase(issued_Date)#%'">
-</cfif>
-<cfif  isdefined("renewed_Date") and len(#renewed_Date#) gt 0>
-	<cfset sql = "#sql# AND upper(renewed_Date) like '%#ucase(renewed_Date)#%'">
-</cfif>
-<cfif isdefined("exp_Date") and  len(#exp_Date#) gt 0>
-	<cfset sql = "#sql# AND upper(exp_Date) like '%#ucase(exp_Date)#%'">
-</cfif>
-<cfif isdefined("permit_id") and len(#permit_id#) gt 0>
-	<cfset sql = "#sql# AND permit.permit_id = '#permit_id#'">
-</cfif>
-<cfif isdefined("permit_Num") and len(#permit_Num#) gt 0>
-	<cfset sql = "#sql# AND permit_Num = '#permit_Num#'">
-</cfif>
-<cfif  isdefined("permit_Type") and len(#permit_Type#) gt 0>
-	
-		<cfset permit_Type = #replace(permit_type,"'","''","All")#>
-	
-	
-	<cfset sql = "#sql# AND permit_Type = '#permit_Type#'">
-</cfif>
-<cfif  isdefined("permit_remarks") and len(#permit_remarks#) gt 0>
-	<cfset sql = "#sql# AND upper(permit_remarks) like '%#ucase(permit_remarks)#%'">
-</cfif>
-		<!------------------------------------------------------------------>
+			<cfset sql = "#sql# AND upper(issuedBy.agent_name) like '%#ucase(IssuedByAgent)#%'">
+		</cfif>
+		<cfif isdefined("IssuedToAgent") and len(#IssuedToAgent#) gt 0>
+			<cfset sql = "#sql# AND upper(issuedTo.agent_name) like '%#ucase(IssuedToAgent)#%'">
+		</cfif>
+		<cfif  isdefined("issued_Date") and len(#issued_Date#) gt 0>
+			<cfset sql = "#sql# AND upper(issued_Date) like '%#ucase(issued_Date)#%'">
+		</cfif>
+		<cfif  isdefined("renewed_Date") and len(#renewed_Date#) gt 0>
+			<cfset sql = "#sql# AND upper(renewed_Date) like '%#ucase(renewed_Date)#%'">
+		</cfif>
+		<cfif isdefined("exp_Date") and  len(#exp_Date#) gt 0>
+			<cfset sql = "#sql# AND upper(exp_Date) like '%#ucase(exp_Date)#%'">
+		</cfif>
+		<cfif isdefined("permit_id") and len(#permit_id#) gt 0>
+			<cfset sql = "#sql# AND permit.permit_id = '#permit_id#'">
+		</cfif>
+		<cfif isdefined("permit_Num") and len(#permit_Num#) gt 0>
+			<cfset sql = "#sql# AND permit_Num = '#permit_Num#'">
+		</cfif>
+		<cfif  isdefined("permit_Type") and len(#permit_Type#) gt 0>
+			<cfset permit_Type = #replace(permit_type,"'","''","All")#>
+			<cfset sql = "#sql# AND permit_Type = '#permit_Type#'">
+		</cfif>
+		<cfif  isdefined("permit_remarks") and len(#permit_remarks#) gt 0>
+			<cfset sql = "#sql# AND upper(permit_remarks) like '%#ucase(permit_remarks)#%'">
+		</cfif>
 		<cfset thisSQL  = "#sel# #frm# #sql# ORDER BY accn_number, trans.transaction_id ">
-<!---
-<hr />
-	#preservesinglequotes(thisSQL)#
-<hr />	
---->
-
-	<cfquery name="getAccns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	#preservesinglequotes(thisSQL)#
-	</cfquery>
-		<cfdump var=#getAccns#>
-  </cfoutput>
-  <table cellpadding="0" cellspacing="0">
-  <cfif #getAccns.recordcount# is 0>
-		Nothing matched your search criteria.
-	<cfelse>
-		<cfoutput>
-		<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(getAccns.transaction_id)#">
-			View all items in these Accessions</a>
-		</cfoutput>
-	</cfif>
-  <cfset i=1>
-<cfoutput query="getAccns" group="transaction_id">
-		<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+		<cfquery name="getAccns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(thisSQL)#
+		</cfquery>
+		<cfif #getAccns.recordcount# is 0>
+			Nothing matched your search criteria.
+		<cfelse>
+			<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(getAccns.transaction_id)#">
+				View all items in these Accessions</a>
+		</cfif>
+		<cfset i=1>
+	</cfoutput>
+	<table cellpadding="0" cellspacing="0">
+	<cfoutput query="getAccns" group="transaction_id">
+		<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+		
+			data go here
+		</div>
+		
+		<!----<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		  <td>
 		  	<table>
 				<tr>
 		  			<td colspan="3">
 						<cfif #project_id# gt 0>
-							<input type="button" value="Add Accn #accn_number# to Project" 
-								class="lnkBtn"
-								onmouseover="this.className='lnkBtn btnhov'" 
-								onmouseout="this.className='lnkBtn'"
-								 onclick = "window.open('Project.cfm?Action=addTrans&project_id=#project_id#&transaction_id=#transaction_id#');">	
+							<a href="Project.cfm?Action=addTrans&project_id=#project_id#&transaction_id=#transaction_id#">
+								Add Accn #accn_number# to Project
+							</a>
 						<cfelse>
 							<a href="editAccn.cfm?Action=edit&transaction_id=#transaction_id#"
 								><strong>#collection# #accn_number#</strong></a>
@@ -762,9 +745,11 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 					</td>
 				</tr>
 			</table>
-		<cfset i=#i#+1>
 		</td>
 	</tr>
+	---->
+	
+	<cfset i=#i#+1>
 </cfoutput>
 		
 		
