@@ -1,5 +1,5 @@
 <cfoutput>
-	<div style="position:absolute;top:0px;right:0px;" class="likeLink" onclick="removePick()">X</div>
+	<span style="position:absolute;top:0px;right:0px; border:1px solid black;" class="likeLink" onclick="removePick()">X</span>
 	<cfquery name="agnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select agent_name from preferred_agent_name where agent_id=#agent_id#
 	</cfquery>
