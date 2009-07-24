@@ -9,6 +9,9 @@
 	<cfquery name="ctagent_rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select agent_rank from ctagent_rank order by agent_rank
 	</cfquery>
+	<cfquery name="cttransaction_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select transaction_type from cttransaction_type order by transaction_type
+	</cfquery>
 	
 	Agent #agnt.agent_name# has been ranked #pr.recordcount# times.
 	<cfif pr.recordcount gt 0>
@@ -18,10 +21,16 @@
 	<form name="a" method="post" action="agentrank.cfm">
 		<input type="hidden" name="agent_id" id="agent_id" value="#agent_id#">
 		<input type="hidden" name="action" id="action" value="saveRank">
-		<label for="Rank">Rank</label>
+		<label for="agent_rank">Rank</label>
 		<select name="agent_rank" id="agent_rank">
 			<cfloop query="ctagent_rank">
 				<option value="#agent_rank#">#agent_rank#</option>
+			</cfloop>
+		</select>
+		<label for="transaction_type">Transaction Type</label>
+		<select name="transaction_type" id="transaction_type">
+			<cfloop query="cttransaction_type">
+				<option value="#transaction_type#">#transaction_type#</option>
 			</cfloop>
 		</select>
 		<label for="remark">Remark</label>
