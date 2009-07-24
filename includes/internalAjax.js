@@ -1,13 +1,14 @@
+
 function tog_AgentRankDetail(o){
 	console.log(o);
 	if(o==1){
 		document.getElementById('agentRankDetails').style.display='block';
-		jQuery('#t_agentRankDetails').text('Hide Details').click(function() {
+		jQuery('#t_agentRankDetails').text('Hide Details').bind("click", function() {
 			tog_AgentRankDetail(0);
 		});
 	} else {
 		document.getElementById('agentRankDetails').style.display='none';
-		jQuery('#t_agentRankDetails').text('Show Details').click(function() {
+		jQuery('#t_agentRankDetails').text('s Details').bind("click", function() {
 			tog_AgentRankDetail(1);
 		}); 
 	}
