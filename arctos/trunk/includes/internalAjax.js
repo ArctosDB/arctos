@@ -1,6 +1,4 @@
 function saveAgentRank(){
-	agent_rank=;
-	remark=;
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "saveAgentRank",
