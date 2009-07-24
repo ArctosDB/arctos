@@ -666,7 +666,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 		<cfset i=1>
 		<cfif #project_id# gt 0>
 			<cfquery name="sfproj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select prooject_name from project where project_id=#project_id#
+				select project_name from project where project_id=#project_id#
 			</cfquery>
 		</cfif>
 	</cfoutput>
