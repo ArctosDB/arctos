@@ -2,10 +2,10 @@
 
 <!------------------------------------------------------->
 <cffunction name="saveAgentRank" access="remote">
-	<cfinclude template="/includes/functionLib.cfm">
 	<cfargument name="agent_id" type="numeric" required="yes">	
 	<cfargument name="agent_rank" type="string" required="yes">	
 	<cfargument name="remark" type="string" required="yes">
+	<cfinclude template="/includes/functionLib.cfm">
 	<cftry>
 		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			insert into agent_rank (
