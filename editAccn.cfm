@@ -692,7 +692,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 					group by project_name,pid
 				</cfquery>
 				<br>Project(s):
-				<CFIF #P.RECORDCOUNT# gt 1>
+				<CFIF #P.RECORDCOUNT# gt 0>
 					<strong>None</strong>
 				<cfelse>
 					<div style="padding-left:2em">
