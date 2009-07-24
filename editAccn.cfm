@@ -519,6 +519,8 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 		issuedTo.agent_name as issuedTo,
 		issuedBy.agent_name as issuedBy,
 		collection,
+		project_name,
+		project.project_id pid,
 		estimated_count,
 		concattransagent(trans.transaction_id,'entered by') ENTAGENT,
 		concattransagent(trans.transaction_id,'received from') RECFROMAGENT">
@@ -529,13 +531,17 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 		permit,
 		preferred_agent_name issuedBy,
 		preferred_agent_name issuedTo,
-		collection
+		collection,
+		project_trans,
+		project
 		">
 	<cfset sql = "where accn.transaction_id = trans.transaction_id
 		and trans.transaction_id = permit_trans.transaction_id (+)
 		and permit_trans.permit_id = permit.permit_id (+)
 		and permit.issued_by_agent_id = issuedBy.agent_id (+)
 		and permit.issued_to_agent_id = issuedTo.agent_id (+)
+		trans.transaction_id = project_trans.project_id (+) and
+		project_trans.project_id = project.project_id (+) AND
 		and trans.collection_id=collection.collection_id
 	">
 		
@@ -735,10 +741,25 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 					<td nowrap align="right">Entered by:</td>
 					<td><strong>#entAgent#</strong></td>
 				</tr>
+				<cfquery name="p" dbtype="query">
+					select project_name,pid from getAccns where transaction_id=#transaction_id#
+					group by project_name,pid
+				</cfquery>
 				<tr>
 					<td><img src="images/nada.gif" width="30" height="1"></td>
 					<td nowrap align="right">Project:</td>
-					<td><strong>bla</strong></td>
+					<td>
+						<cfloop query="p">
+							<cfif len(#P.project_name#)>
+								<CFIF #P.RECORDCOUNT# gt 1>
+									<img src="/images/li.gif" border="0">
+								</CFIF>
+								<a href="/Project.cfm?Action=editProject&project_id=#p.pid#"><strong>#P.project_name#</strong></a><BR>
+							<cfelse>
+								<strong>None</strong>
+							</cfif>
+						</cfloop>
+					</td>
 				</tr>
 			</table>
 		<cfset i=#i#+1>
