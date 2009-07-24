@@ -1000,6 +1000,7 @@
 		<cfset colIdLabel = "">
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
 			<cfset pos = find("collector number=", ids)>
+			<cfset PLCpos = find("Prep Lab Catalog", ids)>
 			<cfif CNpos gt 0>
 				<cfset colIdLabel = "Orig#right(ids, len(ids)-CNpos-len("collector number"))#">
 			<cfelseif PLCpos gt 0>
