@@ -33,7 +33,7 @@
 				</tr>
 			</cfloop>
 		</table>
-		<span class="infoLink" onclick="document.getElementById('rankDetails').style.display='block'";>Show Detail</span>
+		<span class="infoLink" onclick="document.getElementById('rankDetails').style.display='block';this.innerHTML='boogity!';">Show Detail</span>
 		<div id="rankDetails" style="display:none">
 		details!
 		</div>
