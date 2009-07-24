@@ -674,7 +674,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 	<cfquery name="getAccns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(thisSQL)#
 	</cfquery>
-		
+		<cfdump var=#getAccns#>
   </cfoutput>
   <table cellpadding="0" cellspacing="0">
   <cfif #getAccns.recordcount# is 0>
