@@ -13,13 +13,24 @@
 		select transaction_type from cttransaction_type order by transaction_type
 	</cfquery>
 	
-	Agent #agnt.agent_name# has been ranked #pr.recordcount# times.
+	<strong>#agnt.agent_name#</strong> has been ranked #pr.recordcount# times.
 	<cfif pr.recordcount gt 0>
 		<cfquery name="s" dbtype="query">
-			select agent_rank, count(*) from pr group by agent_rank
+			select agent_rank, count(*) c from pr group by agent_rank
 		</cfquery>
+		<table border>
+			<tr>
+				<th>rank</th>
+				<th>count</th>
+			</tr>
+			<cfloop query="s">
+				<tr>
+					<td>#agent_rank#</td>
+					<td>#c#</td>
+				</tr>
+			</cfloop>
+		</table>
 		<cfdump var=#s#>
-		more stuff here.....
 	</cfif>
 	<div class="cellDiv">
 	Add a ranking:
