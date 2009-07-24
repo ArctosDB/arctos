@@ -27,7 +27,7 @@
 		select transaction_type from cttransaction_type order by transaction_type
 	</cfquery>
 	<span style="border:1px solid blue">
-		<strong>#agnt.agent_name#</strong> has been ranked #pr.recordcount# times.
+		<strong>#agnt.agent_name#</strong> has been ranked #pr.recordcount# times.&nbsp;&nbsp;
 	</span>
 	<cfif pr.recordcount gt 0>
 		<cfquery name="s" dbtype="query">
