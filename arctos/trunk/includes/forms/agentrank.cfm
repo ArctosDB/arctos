@@ -68,14 +68,14 @@
 				<option value="#agent_rank#">#agent_rank#</option>
 			</cfloop>
 		</select>
-		<br><label class="h"  for="transaction_type">Transaction Type</label>
+		<label class="h"  for="transaction_type">Transaction Type</label>
 		<select name="transaction_type" id="transaction_type">
 			<cfloop query="cttransaction_type">
 				<option value="#transaction_type#">#transaction_type#</option>
 			</cfloop>
 		</select>
-		<label  class="h" for="remark">Remark</label>
-		<textarea name="remark" id="remark" rows="3" cols="40"></textarea>
+		<br><label  class="h" for="remark">Remark</label>
+		<textarea name="remark" id="remark" rows="4" cols="80"></textarea>
 		<br><input type="button" class="savBtn" value="Save" onclick="saveAgentRank()">
 		<input type="button" class="qutBtn" value="Quit" onclick="removePick()">
 	</form>
