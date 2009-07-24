@@ -867,10 +867,13 @@
 		<!--- Orig#collector id#--->
 		<cfset colIdLabel = "">
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
-			<cfset pos = find("collector number=", ids)>
-			<cfif pos gt 0>
-				<cfset colIdLabel = "Orig#right(ids, len(ids)-pos-len("collector number"))#">
-			</cfif>			
+			<cfset CNpos = find("collector number=", ids)>
+			<cfset PLCpos = find("Prep Lab Catalog", ids)>
+			<cfif CNpos gt 0>
+				<cfset colIdLabel = "Orig#right(ids, len(ids)-CNpos-len("collector number"))#">
+			<cfelseif PLCpos gt 0>
+				<cfset PLCpos = "PLC#right(ids, len(ids)-PLCpos-len("Prep Lab Catalog"))#">
+			</cfif>
 		</cfloop>
 		<cfset colIdAr[i] = "#colIdLabel#">
 		
@@ -1005,8 +1008,9 @@
 		
 		<!--- Parts Formatting --->
 		<!-- Mammals -->
+		
+		<cfset newParts = "">
 		<cfif collection_cde is "Mamm">
-			<cfset newParts = "">
 			<cfset foundSkin = 0>
 			<cfset foundSkull = 0>
 			<cfset foundTissue = 0>
@@ -1063,7 +1067,7 @@
 				<cfset newParts = "+#newParts#">
 			<cfelseif foundSkull is 1 and foundSkin is 0 and len(newParts) is 0>
 				<!--  only "skull" => "skull"-->
-				<cfset newParts = "skull">
+				<cfset newParts = "skull">cfif
 			<cfelseif foundSkull is 1 and foundSkin is 0 and len(newParts) is not 0>
 				<!--  "skull, other parts (no skin/tissue)" => "skull, other parts"-->
 				<cfset tempIndex = 0>
