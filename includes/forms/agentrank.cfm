@@ -15,6 +15,10 @@
 	
 	Agent #agnt.agent_name# has been ranked #pr.recordcount# times.
 	<cfif pr.recordcount gt 0>
+		<cfquery name="s" dbtype="query">
+			select agent_rank, count(*) from pr group by agent_rank
+		</cfquery>
+		<cfdump var=#s#>
 		more stuff here.....
 	</cfif>
 	<div class="cellDiv">
