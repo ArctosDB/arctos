@@ -36,7 +36,7 @@
 		<span class="infoLink" id="t_agentRankDetails" onclick="tog_AgentRankDetail(1)">Show Details</span>
 		<div id="agentRankDetails" style="display:none">
 			<cfloop query="pr">
-				#agent_rank# #comment#
+				#agent_rank# #remark#
 			</cfloop>
 		</div>
 	</cfif>
