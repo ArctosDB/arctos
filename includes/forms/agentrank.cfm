@@ -70,7 +70,7 @@
 		</div>
 	</cfif>
 	<span class="infoLink" id="t_agentRankDetails" onclick="document.getElementById('agentRankCreate').style.display='block';">Add Rank</span>
-	<div class="cellDiv" id="agentRankCreate" style="display:none">
+	<div id="agentRankCreate" style="display:none">
 	<form name="a" method="post" action="agentrank.cfm">
 		<input type="hidden" name="agent_id" id="agent_id" value="#agent_id#">
 		<input type="hidden" name="action" id="action" value="saveRank">
@@ -87,7 +87,7 @@
 			</cfloop>
 		</select>
 		<br><label  class="h" for="remark">Remark: (required for unsatisfactory rankings; encouraged for all)</label>
-		<br><textarea name="remark" id="remark" rows="4" cols="80"></textarea>
+		<br><textarea name="remark" id="remark" rows="4" cols="60"></textarea>
 		<br><input type="button" class="savBtn" value="Save" onclick="saveAgentRank()">
 		<input type="button" class="qutBtn" value="Quit" onclick="removePick()">
 	</form>
