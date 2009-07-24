@@ -70,8 +70,8 @@
 			
 		</div>
 	</cfif>
-	<div class="cellDiv">
-	
+	<span class="infoLink" id="t_agentRankDetails" onclick="document.getElementById('agentRankCreate').style.display='block';">Add Rank</span>
+	<div class="cellDiv" id="agentRankCreate" style="display:none">
 	<form name="a" method="post" action="agentrank.cfm">
 		<input type="hidden" name="agent_id" id="agent_id" value="#agent_id#">
 		<input type="hidden" name="action" id="action" value="saveRank">
