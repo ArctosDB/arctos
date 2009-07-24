@@ -1,5 +1,6 @@
 <cfinclude template="includes/_header.cfm">
-	<cfset title="Edit Accession">
+<script type='text/javascript' src='/includes/internalAjax.js'></script>
+<cfset title="Edit Accession">
 <cfif not isdefined("project_id")>
 	<cfset project_id = -1>
 </cfif>
@@ -169,6 +170,7 @@
 							<th>Agent Name</th>
 							<th>Role</th>
 							<th>Delete?</th>
+							<th></th>
 						</tr>
 						<cfloop query="transAgents">
 							<tr>
@@ -191,6 +193,7 @@
 								<td>
 									<input type="checkbox" name="del_agnt_#trans_agent_id#">
 								</td>
+								<td><span class="infoLink" onclick="rankAgent('#agent_id#');">Rank</span></td>
 							</tr>
 						</cfloop>
 						<tr class="newRec">
