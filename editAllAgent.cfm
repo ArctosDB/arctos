@@ -201,7 +201,7 @@
 						<cfset nameStr=#getName.agent_name#>
 					</cfif>
 				<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select agent_rank, count(*) c from agent_rank where agent_id=#agent_id# group by agent_rank
+					select count(*) || ' ' || agent_rank agent_rank from agent_rank where agent_id=#agent_id# group by agent_rank
 				</cfquery>
 <table border="1"><!--- outer table --->
 	<tr>
@@ -213,10 +213,10 @@
 			</cfif>
 			<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#" target="_self">Agent Activity</a>
 			<cfif rank.recordcount is 0>
-				<span class="likeLink" onclick="rankAgent('#agent_id#');">Rank</span>
+				~ <span class="likeLink" onclick="rankAgent('#agent_id#');">Rank</span>
 			<cfelse>
-				<cfloop query="rank">#agent_rank#: #c#<br></cfloop>
-				<br>
+				<br>Rank:
+				#valuelist(rank.agent_rank,"; ")#
 				<span class="likeLink" onclick="rankAgent('#agent_id#');">Details</span>
 			</cfif>
 			<br>
