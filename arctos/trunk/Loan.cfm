@@ -205,7 +205,7 @@
 	right:0px;
 }
 </style>
-<div calss="loantest">
+<div class="loantest">
 			Next Available Loan Number:
 			<br>
 			<cfquery name="all_coll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
