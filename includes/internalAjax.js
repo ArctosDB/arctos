@@ -5,7 +5,7 @@ function saveAgentRank(){
 			agent_id : jQuery('#agent_id').val(),
 			agent_rank : jQuery('#agent_rank').val(),
 			remark : jQuery('#remark').val(),
-			transaction_type jQuery('#transaction_type').val(): 
+			transaction_type : jQuery('#transaction_type').val(),
 			returnformat : "json",
 			queryformat : 'column'
 		},
