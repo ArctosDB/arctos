@@ -668,8 +668,17 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 	<table cellpadding="0" cellspacing="0">
 	<cfoutput query="getAccns" group="transaction_id">
 		<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-		
-			data go here
+			<cfif #project_id# gt 0>
+				<a href="Project.cfm?Action=addTrans&project_id=#project_id#&transaction_id=#transaction_id#">
+					Add Accn #accn_number# to Project
+				</a>
+			<cfelse>
+				<a href="editAccn.cfm?Action=edit&transaction_id=#transaction_id#"><strong>#collection# #accn_number#</strong></a>
+				<span style="font-size:smaller">(#accn_status#)</span>
+			</cfif> 
+			<div style="padding-left:2em;">
+				Received from: <strong>#recFromAgent#</strong>
+			</div>
 		</div>
 		
 		<!----<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
@@ -677,22 +686,14 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 		  	<table>
 				<tr>
 		  			<td colspan="3">
-						<cfif #project_id# gt 0>
-							<a href="Project.cfm?Action=addTrans&project_id=#project_id#&transaction_id=#transaction_id#">
-								Add Accn #accn_number# to Project
-							</a>
-						<cfelse>
-							<a href="editAccn.cfm?Action=edit&transaction_id=#transaction_id#"
-								><strong>#collection# #accn_number#</strong></a>
-							<font size="-1">(#accn_status#)</font>
-						</cfif> 
+						
 					</td>
 				</tr>
 				<tr>
 					<td><img src="images/nada.gif" width="30" height="1"></td>
-					<td nowrap align="right">Received from:</td>
+					<td nowrap align="right"></td>
 					<td>
-						<strong>#recFromAgent#</strong>
+						
 					</td>
 				</tr>			
 				<tr>
