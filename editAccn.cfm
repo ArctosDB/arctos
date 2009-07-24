@@ -542,7 +542,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 		and permit.issued_to_agent_id = issuedTo.agent_id (+)
 		trans.transaction_id = project_trans.project_id (+) and
 		project_trans.project_id = project.project_id (+) AND
-		and trans.collection_id=collection.collection_id
+		trans.collection_id=collection.collection_id
 	">
 		
 	<cfif isdefined("trans_agent_role_1") AND len(#trans_agent_role_1#) gt 0>
