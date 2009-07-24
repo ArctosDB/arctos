@@ -19,7 +19,7 @@
 		<input type="hidden" name="agent_id" id="agent_id" value="#agent_id#">
 		<input type="hidden" name="action" id="action" value="saveRank">
 		<label for="Rank">Rank</label>
-		<select name="" id="">
+		<select name="agent_rank" id="agent_rank">
 			<cfloop query="ctagent_rank">
 				<option value="#agent_rank#">#agent_rank#</option>
 			</cfloop>
