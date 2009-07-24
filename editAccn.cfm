@@ -379,7 +379,6 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 			<input type="text" name="agent_3"  size="50">
 		 </td>
 	</tr>
-	
 	<tr>
 		<td colspan="3">
 			<label  for="nature_of_material">Nature of Material</label>
@@ -735,7 +734,12 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 					<td><img src="images/nada.gif" width="30" height="1"></td>
 					<td nowrap align="right">Entered by:</td>
 					<td><strong>#entAgent#</strong></td>
-				</tr>	
+				</tr>
+				<tr>
+					<td><img src="images/nada.gif" width="30" height="1"></td>
+					<td nowrap align="right">Project:</td>
+					<td><strong>bla</strong></td>
+				</tr>
 			</table>
 		<cfset i=#i#+1>
 		</td>
