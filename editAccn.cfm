@@ -664,13 +664,18 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 				View all items in these Accessions</a>
 		</cfif>
 		<cfset i=1>
+		<cfif #project_id# gt 0>
+			<cfquery name="sfproj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select prooject_name from project where project_id=#project_id#
+			</cfquery>
+		</cfif>
 	</cfoutput>
 	<table cellpadding="0" cellspacing="0">
 	<cfoutput query="getAccns" group="transaction_id">
 		<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<cfif #project_id# gt 0>
 				<a href="Project.cfm?Action=addTrans&project_id=#project_id#&transaction_id=#transaction_id#">
-					Add Accn #accn_number# to Project
+					Add Accn #accn_number# to Project #sfproj.project_name#
 				</a>
 			<cfelse>
 				<a href="editAccn.cfm?Action=edit&transaction_id=#transaction_id#"><strong>#collection# #accn_number#</strong></a>
