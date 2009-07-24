@@ -421,7 +421,14 @@ td#SDCellRight{
 		height:450px;
 		background-color:white;
 		overflow:auto;
-	}	
+	}
+.popDiv {
+		border:3px solid green;
+		z-index:9999;
+		position:absolute;
+		background-color:white;
+		overflow:auto;
+	}
 table.specResultTab {
 	border-width: 1px 1px 1px 1px;
 	border-spacing: 0px;
