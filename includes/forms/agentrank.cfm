@@ -75,8 +75,9 @@
 			</cfloop>
 		</select>
 		<label  class="h" for="remark">Remark</label>
-		<textarea name="remark" id="remark" rows="3" columns="40"></textarea>
+		<textarea name="remark" id="remark" rows="3" cols="40"></textarea>
 		<br><input type="button" class="savBtn" value="Save" onclick="saveAgentRank()">
+		<input type="button" class="qutBtn" value="Quit" onclick="removePick()">
 	</form>
 	</div>
 </cfoutput>
