@@ -688,7 +688,8 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 				</cfif>
 				<br>Entered by: <strong>#entAgent#</strong>
 				<cfquery name="p" dbtype="query">
-					select project_name,pid from getAccns where transaction_id=#transaction_id#
+					select project_name,pid from getAccns where project_name is not null and
+					 transaction_id=#transaction_id#
 					group by project_name,pid
 				</cfquery>
 				P.RECORDCOUN:#P.RECORDCOUNT#
