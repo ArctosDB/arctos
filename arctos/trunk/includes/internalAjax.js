@@ -1,10 +1,10 @@
 function saveAgentRank(){
-	aid=jQuery('#agent_id').val();
-	console.log('aid='+aid);	
+	agent_rank=jQuery('#agent_rank').val();
+	remark=jQuery('#remark').val();
 	jQuery.getJSON("/component/functions.cfc",
 		{
 			method : "saveAgentRank",
-			agent_id : agent_id,
+			agent_id : jQuery('#agent_id').val(),
 			agent_rank : agent_rank,
 			remark : remark,
 			returnformat : "json",
