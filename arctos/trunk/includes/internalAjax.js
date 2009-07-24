@@ -8,7 +8,7 @@ function tog_AgentRankDetail(o){
 		});
 	} else {
 		document.getElementById('agentRankDetails').style.display='none';
-		jQuery('#t_agentRankDetails').text('s Details').removeAttr('onclick').bind("click", function() {
+		jQuery('#t_agentRankDetails').text('Show Details').removeAttr('onclick').bind("click", function() {
 			tog_AgentRankDetail(1);
 		}); 
 	}
