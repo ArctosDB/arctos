@@ -208,7 +208,7 @@
 			<cfif len(#person.agent_remarks#) gt 0>
 				<br>#person.agent_remarks#
 			</cfif>
-			<cfif listcontains(session.roles,"manage_transactions")>
+			<cfif listcontainsnocase(session.roles,"manage_transactions")>
 				<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select count(*) || ' ' || agent_rank agent_rank from agent_rank where agent_id=#agent_id# group by agent_rank
 				</cfquery>
