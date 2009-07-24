@@ -539,7 +539,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 		and trans.transaction_id = permit_trans.transaction_id (+)
 		and permit_trans.permit_id = permit.permit_id (+)
 		and permit.issued_by_agent_id = issuedBy.agent_id (+)
-		and permit.issued_to_agent_id = issuedTo.agent_id (+)
+		and permit.issued_to_agent_id = issuedTo.agent_id (+) and
 		trans.transaction_id = project_trans.project_id (+) and
 		project_trans.project_id = project.project_id (+) AND
 		trans.collection_id=collection.collection_id
