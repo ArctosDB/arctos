@@ -26,8 +26,9 @@
 	<cfquery name="cttransaction_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select transaction_type from cttransaction_type order by transaction_type
 	</cfquery>
-	
-	<strong>#agnt.agent_name#</strong> has been ranked #pr.recordcount# times.
+	<span style="border:1px solid blue">
+		<strong>#agnt.agent_name#</strong> has been ranked #pr.recordcount# times.
+	</span>
 	<cfif pr.recordcount gt 0>
 		<cfquery name="s" dbtype="query">
 			select agent_rank, count(*) c from pr group by agent_rank
