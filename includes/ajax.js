@@ -1,16 +1,19 @@
 var viewport = {
   	o: function() {
-      	if (self.innerHeight) {
+      	console.log('innerHeight');
+	if (self.innerHeight) {
 		this.pageYOffset = self.pageYOffset;
 		this.pageXOffset = self.pageXOffset;
 		this.innerHeight = self.innerHeight;
 		this.innerWidth = self.innerWidth;
 	} else if (document.documentElement && document.documentElement.clientHeight) {
+		console.log('documentElement');
 		this.pageYOffset = document.documentElement.scrollTop;
 		this.pageXOffset = document.documentElement.scrollLeft;
 		this.innerHeight = document.documentElement.clientHeight;
 		this.innerWidth = document.documentElement.clientWidth;
 	} else if (document.body) {
+		console.log('body');
 		this.pageYOffset = document.body.scrollTop;
 		this.pageXOffset = document.body.scrollLeft;
 		this.innerHeight = document.body.clientHeight;
