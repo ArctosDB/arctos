@@ -35,7 +35,7 @@
 			</cfloop>
 		</select>
 		<label  class="h" for="remark">Remark</label>
-		<textarea name="remark" is="remark" rows="3" columns="40"></textarea>
+		<textarea name="remark" id="remark" rows="3" columns="40"></textarea>
 		<br><input type="button" class="savBtn" value="Save" onclick="saveAgentRank()">
 	</form>
 	</div>
