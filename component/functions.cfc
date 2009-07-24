@@ -2,6 +2,7 @@
 
 <!------------------------------------------------------->
 <cffunction name="saveAgentRank" access="remote">
+	<cfinclude template="/includes/functionLib.cfm">
 	<cfargument name="agent_id" type="numeric" required="yes">	
 	<cfargument name="agent_rank" type="string" required="yes">	
 	<cfargument name="remark" type="string" required="yes">
@@ -624,7 +625,7 @@
 <!------------------------------------------------------------------>
 <cffunction name="changeexclusive_collection_id" access="remote">
 	<cfargument name="tgt" type="string" required="yes">
-		<cfinclude template="/includes/functionLib.cfm">
+	<cfinclude template="/includes/functionLib.cfm">
 	<cftry>
 		<cfquery name="up" datasource="cf_dbuser">
 			UPDATE cf_users SET
