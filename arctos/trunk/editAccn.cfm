@@ -691,7 +691,7 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 					select project_name,pid from getAccns where transaction_id=#transaction_id#
 					group by project_name,pid
 				</cfquery>
-				
+				P.RECORDCOUN:#P.RECORDCOUNT#
 				<CFIF #P.RECORDCOUNT# gt 0>
 					<br>Project(s):
 					<div style="padding-left:2em">
