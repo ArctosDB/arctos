@@ -213,7 +213,7 @@
 			</cfif>
 			<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#" target="_self">Agent Activity</a>
 			<cfif rank.recordcount is 0>
-				No ranking - <span class="likeLink" onclick="rankAgent('#agent_id#');">Add</span>
+				<span class="likeLink" onclick="rankAgent('#agent_id#');">Rank</span>
 			<cfelse>
 				<cfloop query="rank">#agent_rank#: #c#<br></cfloop>
 				<br>
