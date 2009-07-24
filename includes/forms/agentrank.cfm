@@ -4,7 +4,7 @@
 		select agent_name from preferred_agent_name where agent_id=#agent_id#
 	</cfquery>
 	<cfquery name="pr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select agent_rank,transaction_type, agent_name rankerremark
+		select agent_rank,transaction_type, agent_name ranker, remark
 		from agent_rank,preferred_agent_name where agent_rank.agent_id=#agent_id# 
 		and ranked_by_agent_id=preferred_agent_name.agent_id
 		order by agent_rank
