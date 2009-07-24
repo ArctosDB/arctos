@@ -28,7 +28,7 @@
 		<textarea name="remark" is="remark" rows="3" columns="40"></textarea>
 		<br><input type="submit" class="savBtn" value="Save">
 	</form>
-<cfif action is "saveRank">
+<cfif isdefined("action") and action is "saveRank">
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		insert into agent_rank (
 			agent_id,
