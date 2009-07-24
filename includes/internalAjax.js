@@ -39,7 +39,7 @@ function rankAgent(agent_id) {
 	addBGDiv('removePick()');
 	var theDiv = document.createElement('div');
 	theDiv.id = 'pickDiv';
-	theDiv.className = 'pickDiv';
+	theDiv.className = 'popDiv';
 	theDiv.innerHTML='<br>Loading...';
 	document.body.appendChild(theDiv);
 	var ptl="/includes/forms/agentrank.cfm";			
