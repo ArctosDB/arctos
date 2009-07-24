@@ -1,4 +1,5 @@
 function tog_AgentRankDetail(o){
+	console.log(o);
 	if(o==1){
 		document.getElementById('agentRankDetails').style.display='block';
 		jQuery('#t_agentRankDetails').attr('onclick', 'tog_AgentRankDetail(0)').text('Hide Details'); 
