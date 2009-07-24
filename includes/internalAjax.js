@@ -11,6 +11,11 @@ function saveAgentRank(){
 		},
 		function (d) {
 			console.log(d);
+			if(d.length>0 && d.substring(0,4)=='fail'){
+				alert(d);
+			} else {
+				console.log('spiffy');
+			}
 		}
 	); 		
 }
