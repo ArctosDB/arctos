@@ -61,8 +61,8 @@
 					<tr>
 						<td>#agent_rank#</td>
 						<td>#transaction_type#</td>
-						<td>#dateformat(rank_date,"dd mmm yyyy")#</td>
-						<td>#replace(ranker," ", "&nbsp;","all")#</td>
+						<td nowrap="nowrap">#dateformat(rank_date,"dd mmm yyyy")#</td>
+						<td nowrap="nowrap">#replace(ranker," ", "&nbsp;","all")#</td>
 						<td>#remark#</td>
 					</tr>					 
 				</cfloop>
