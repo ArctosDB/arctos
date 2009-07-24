@@ -675,8 +675,9 @@ to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
 		<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<cfif #project_id# gt 0>
 				<a href="Project.cfm?Action=addTrans&project_id=#project_id#&transaction_id=#transaction_id#">
-					Add Accn #accn_number# to Project #sfproj.project_name#
+					Add Accn #accn_number#
 				</a>
+				 to Project #sfproj.project_name#
 			<cfelse>
 				<a href="editAccn.cfm?Action=edit&transaction_id=#transaction_id#"><strong>#collection# #accn_number#</strong></a>
 				<span style="font-size:smaller">(#accn_status#)</span>
