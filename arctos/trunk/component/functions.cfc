@@ -20,7 +20,7 @@
 				'#agent_rank#',
 				#session.myAgentId#,
 				'#escapeQuotes(remark)#',
-				'#transaction_type#
+				'#transaction_type#'
 			)
 		</cfquery>
 		<cfreturn "success">
