@@ -4,7 +4,7 @@
 		select agent_name from preferred_agent_name where agent_id=#agent_id#
 	</cfquery>
 	<cfquery name="pr" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from agent_rank where agent_id=#agent_id#
+		select * from agent_rank where agent_id=#agent_id# order by agent_rank
 	</cfquery>
 	<cfquery name="ctagent_rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select agent_rank from ctagent_rank order by agent_rank
@@ -35,7 +35,9 @@
 		</table>
 		<span class="infoLink" id="t_agentRankDetails" onclick="tog_AgentRankDetail(1)">Show Details</span>
 		<div id="agentRankDetails" style="display:none">
-		details!
+			<cfloop query="pr">
+				#agent_rank# #comment#
+			</cfloop>
 		</div>
 	</cfif>
 	<div class="cellDiv">
