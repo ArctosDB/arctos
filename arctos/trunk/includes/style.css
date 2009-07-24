@@ -666,6 +666,7 @@ span.lblFont {
 	font-weight:600;
 	color:#333333;}
 label.h {
+	display:inline;
 	font-size:12px;
 	font-weight:800;}
 label {
