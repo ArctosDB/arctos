@@ -68,7 +68,7 @@
 				<option value="#agent_rank#">#agent_rank#</option>
 			</cfloop>
 		</select>
-		<label class="h"  for="transaction_type">Transaction Type</label>
+		<br><label class="h"  for="transaction_type">Transaction Type</label>
 		<select name="transaction_type" id="transaction_type">
 			<cfloop query="cttransaction_type">
 				<option value="#transaction_type#">#transaction_type#</option>
