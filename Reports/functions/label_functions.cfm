@@ -1004,7 +1004,7 @@
 			<cfif CNpos gt 0>
 				<cfset colIdLabel = "Orig#right(ids, len(ids)-CNpos-len("collector number"))#">
 			<cfelseif PLCpos gt 0>
-				<cfset PLCpos = "PLC#right(ids, len(ids)-PLCpos-len("Prep Lab Catalog"))#">
+				<cfset colIdLabel = "PLC#right(ids, len(ids)-PLCpos-len("Prep Lab Catalog"))#">
 			</cfif>
 		</cfloop>
 		<cfset colIdAr[i] = "#colIdLabel#">
