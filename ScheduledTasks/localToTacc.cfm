@@ -62,7 +62,7 @@
 		server="Garcia.corral.tacc.utexas.edu" 
 		connection="test"
 		secure="true"
-		key="/tmp/id_rsa">
+		key="/opt/coldfusion8/runtime/bin/id_rsa">
 	<cfftp connection="test"
 	    action="GetCurrentDir"
 	    stoponerror="Yes">
