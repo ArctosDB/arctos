@@ -93,7 +93,7 @@
 			name="ld">
 		<cfdump var="#ld#">
 		<cfquery name="chk" dbtype="query">
-			select NAME from ld where ISDIRECTORY=true and NAME='#currentDirectoryName#'
+			select NAME from ld where ISDIRECTORY='YES' and NAME='#currentDirectoryName#'
 		</cfquery>
 		<cfif len(chk.name) gt 0>
 			we have a dir
