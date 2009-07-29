@@ -93,7 +93,14 @@
 		</cfcatch>
 		</cftry>
 	<cfelse>
-		<cfreturn 'bad checksum parameter: need local file'>
+		<cftry>
+			<cfhttp url="#uri#" getAsbinary="yes" result="myBinaryFile"/>
+			<cfset md5 = createObject("component","includes.cfc.hashBinary").hashBinary(myBinaryFile)>
+			<cfreturn md5>
+		<cfcatch>
+			<cfreturn cfcatch.detail>
+		</cfcatch>
+		</cftry>
 	</cfif>
 	<cfreturn uri>
 </cffunction>
