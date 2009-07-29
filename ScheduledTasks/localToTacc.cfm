@@ -66,8 +66,6 @@
 	<cfftp connection="test"
 	    action="GetCurrentDir"
 	    stoponerror="Yes">
-	<cfftp action="close" 
-		connection="test">
 <!--- output directory name --->
 	<cfoutput>
 	    The current directory is:#cfftp.returnvalue#<p>
