@@ -125,6 +125,7 @@
 		status = 'transferred'
 	</cfquery>
 	<cfset bURL="http://goodnight.corral.tacc.utexas.edu/UAF">
+	<cfoutput>
 	<cfloop query="f">
 		<cftransaction>
 			<cfset fileName=listlast(local_uri,"/")>
@@ -132,8 +133,10 @@
 			<cfhttp url="#thisURL#" method="get" getAsBinary="yes">
 			</cfhttp>
 			<cfdump var="#cfhttp#">
+			cfhttp.statuscode: #cfhttp.statuscode#
 		</cftransaction>
 	</cfloop>
+	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "checkTransfer">
