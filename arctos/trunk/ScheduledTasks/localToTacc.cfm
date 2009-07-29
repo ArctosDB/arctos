@@ -60,7 +60,7 @@
 	<cfftp action="open" 
 		username="dustylee" 
 		server="Garcia.corral.tacc.utexas.edu" 
-		name="test"
+		connection="test"
 		secure="true"
 		key="/tmp/id_rsa">
 	<cfftp connection="test"
@@ -72,9 +72,9 @@
 	<cfoutput>
 	    The current directory is:#cfftp.returnvalue#<p>
 	</cfoutput>
-
-
-	<cfdump var=#test#>
+	<cfftp action="close" 
+		connection="test">
+closed it
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfinclude template="/includes/_footer.cfm">
