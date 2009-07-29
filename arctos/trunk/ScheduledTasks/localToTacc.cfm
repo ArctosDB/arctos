@@ -72,9 +72,10 @@
 		</cfif>
 		<cfset lFile=replace(theFile.local_uri,application.serverRootUrl,application.webDirectory)>		
 		<cfset fileName=listlast(theFile.local_uri,"/")>
-		<cfset remotePath="/home/01030/dustylee/test">
 		<cfset rFile=remotePath & '/' & fileName>
 		<cfset currentDirectoryName=dateformat(now(),"yyyy_mm_dd")>
+		
+		<cfset remotePath="/home/01030/dustylee/#currentDirectoryName#">
 		
 		<cfoutput >
 		currentDirectoryName: #currentDirectoryName#
@@ -95,18 +96,17 @@
 		<cfquery name="chk" dbtype="query">
 			select NAME from ld where ISDIRECTORY='YES' and NAME='#currentDirectoryName#'
 		</cfquery>
-		<cfif len(chk.name) gt 0>
-			we have a dir
-		<cfelse>
-			make a dir
+		<cfif len(chk.name) is 0>
+			<cfftp action="CreateDir" 
+				directory="#remotePath#/#currentDirectoryName#"
+				connection="corral">
+			made a dir
 		</cfif> 
-			<!---
 		<cfftp connection="corral"
 		    action="putfile" 
 		    transferMode = "binary"
 			localFile = "#lfile#"
 			remoteFile = "#rfile#">
-			--->
 		<cfftp action="close" 
 			connection="corral">
 		<cfquery name="s" datasource="cf_dbuser">
