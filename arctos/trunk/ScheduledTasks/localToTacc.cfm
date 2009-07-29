@@ -12,7 +12,8 @@
 		remote_tn_hash varchar2(255)
 	);
 	create or replace public synonym cf_tacc_transfer for cf_tacc_transfer;
-	grant all on cf_tacc_transfer to coldfusion_user;
+	revoke all on cf_tacc_transfer from coldfusion_user;
+	grant all on cf_tacc_transfer to cf_dbuser;
 	
 --->
 <cfinclude template="/includes/_header.cfm">
@@ -30,13 +31,10 @@
 				<cfinvokeargument name="returnFormat" value="plain">
 				<cfinvokeargument name="uri" value="#media_uri#">
 			</cfinvoke>
-			<cfdump var="#mHash#">
 			<cfinvoke component="/component/functions" method="genMD5" returnVariable="pHash">
 				<cfinvokeargument name="returnFormat" value="plain">
 				<cfinvokeargument name="uri" value="#preview_uri#">
 			</cfinvoke>
-			
-			<cfdump var="#pHash#">
 			<cfquery name="ins" datasource="cf_dbuser">
 				insert into cf_tacc_transfer (
 					media_id,
@@ -56,6 +54,11 @@
 			</cfquery>
 		</cftransaction>
 	</cfloop>
+</cfif>
+<!---------------------------------------------------------------------------------------------------------->
+<cfif action is "transfer">
+	<cfftp action="listdir" username="dustylee" server="Garcia.corral.tacc.utexas.edu" connection="test">
+	<cfdump var=#test#>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfinclude template="/includes/_footer.cfm">
