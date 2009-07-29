@@ -57,7 +57,7 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "transfer">
-	<cfftp action="listdir" username="dustylee" server="Garcia.corral.tacc.utexas.edu" connection="test">
+	<cfftp action="listdir" username="dustylee" server="Garcia.corral.tacc.utexas.edu" name="test" directory="~dustylee">
 	<cfdump var=#test#>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
