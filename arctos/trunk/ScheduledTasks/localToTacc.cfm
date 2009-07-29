@@ -90,7 +90,7 @@
 			name="ld">
 		
 		<cfquery name="chk" dbtype="query">
-			select NAME from ld where ISDIRECTORY='YES' and NAME='#currentDirectoryName#'
+			select NAME from ld where ISDIRECTORY='YES' and NAME='#todaysDirectory#'
 		</cfquery>
 		<cfif len(chk.name) is 0>
 			<cfftp action="CreateDir" 
