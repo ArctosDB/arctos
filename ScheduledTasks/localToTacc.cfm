@@ -17,7 +17,7 @@
 --->
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "checkNew">
-	<cfquery name="new" datasource="cf_dbuser">
+	<cfquery name="new" datasource="uam_god">
 		select * from media where
 			media_uri like '#application.serverRootUrl#%' and
 			media_uri not in (
