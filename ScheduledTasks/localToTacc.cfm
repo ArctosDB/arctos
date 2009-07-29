@@ -133,7 +133,7 @@
 			
 			<!---- for testing only......---->
 			<cfset thisURL='http://goodnight.corral.tacc.utexas.edu/UAF/2008_08_21/jpegs/H1114000.jpg'>
-			<cfhttp url="#thisURL#" method="get" getAsBinary="yes">
+			<cfhttp url="#thisURL#" method="HEAD">
 			</cfhttp>
 			<cfdump var="#cfhttp#">
 			cfhttp.statuscode: #cfhttp.statuscode#
