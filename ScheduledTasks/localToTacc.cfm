@@ -18,6 +18,8 @@
 	alter table cf_tacc_transfer add status varchar2(255);
 	
 	alter table cf_tacc_transfer add remotedirectory varchar2(30);
+	
+	create unique index idx_u_cf_tacc_transfer_mid on cf_tacc_transfer (media_id) tablespace uam_idx_1;
 --->
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "checkNew">
@@ -34,26 +36,18 @@
 				<cfinvokeargument name="returnFormat" value="plain">
 				<cfinvokeargument name="uri" value="#media_uri#">
 			</cfinvoke>
-			<cfinvoke component="/component/functions" method="genMD5" returnVariable="pHash">
-				<cfinvokeargument name="returnFormat" value="plain">
-				<cfinvokeargument name="uri" value="#preview_uri#">
-			</cfinvoke>
 			<cfquery name="ins" datasource="cf_dbuser">
 				insert into cf_tacc_transfer (
 					media_id,
 					sdate,
 					local_uri,
 					local_hash,
-					local_tn,
-					local_tn_hash,
 					status
 				) values (
 					#media_id#,
 					sysdate,
 					'#media_uri#',
 					'#mHash#',
-					'#preview_uri#',
-					'#pHash#',
 					'new'
 				)
 			</cfquery>
@@ -75,22 +69,19 @@
 		<cfset localFile=replace(theFile.local_uri,application.serverRootUrl,application.webDirectory)>		
 		<cfset fileName=listlast(theFile.local_uri,"/")>
 		<cfset todaysDirectory=dateformat(now(),"yyyy_mm_dd")>
-		<cfset remoteBase="/home/01030/dustylee">
+		<cfset remoteBase="/corral/tg/uaf">
 		<cfset remoteFull=remoteBase & '/' & todaysDirectory>
-		<cfset remoteFile=remoteFull & '/' & fileName>
-		
+		<cfset remoteFile=remoteFull & '/' & fileName>		
 		<cfftp action="open" 
 			username="dustylee" 
 			server="Garcia.corral.tacc.utexas.edu" 
 			connection="corral"
 			secure="true"
 			key="/opt/coldfusion8/runtime/bin/id_rsa">
-		
 		<cfftp action="ListDir"
 			directory="#remoteBase#"
 			connection="corral"
 			name="ld">
-		
 		<cfquery name="chk" dbtype="query">
 			select NAME from ld where ISDIRECTORY='YES' and NAME='#todaysDirectory#'
 		</cfquery>
@@ -99,7 +90,6 @@
 				directory="#remoteFull#"
 				connection="corral">
 		</cfif>
-		
 		<cfftp action="putfile" 
 		    connection="corral"
 		    transferMode = "binary"
@@ -130,9 +120,6 @@
 		<cftransaction>
 			<cfset fileName=listlast(local_uri,"/")>
 			<cfset thisURL=bURL & '/' & remotedirectory & '/' & fileName>
-			
-			<!---- for testing only......---->
-			<cfset thisURL='http://goodnight.corral.tacc.utexas.edu/UAF/2008_08_21/jpegs/H1114000.jpg'>
 			<cfhttp url="#thisURL#" method="HEAD" />
 			<cfif left(cfhttp.statuscode,3) is "200">
 				<cfinvoke component="/component/functions" method="genMD5" returnVariable="rHash">
@@ -155,37 +142,92 @@
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
-<cfif action is "checkTransfer">
-	<cfquery name="f" datasource="cf_dbuser">
-		select * from cf_tacc_transfer where
-		status = 'online'
-	</cfquery>
-	<cfloop query="f">
-		<cftransaction>
-			<cfinvoke component="/component/functions" method="genMD5" returnVariable="mHash">
-				<cfinvokeargument name="returnFormat" value="plain">
-				<cfinvokeargument name="uri" value="#remote_uri#">
-			</cfinvoke>
-		</cftransaction>
-	</cfloop>
-</cfif>
-<!---------------------------------------------------------------------------------------------------------->
 <cfif action is "fixURI">
 	<cfquery name="f" datasource="cf_dbuser">
 		select * from cf_tacc_transfer where
 		status = 'found'
 	</cfquery>
 	<cfloop query="f">
-		<cfif len(local_uri) gt 0 and
-			len(remote_uri) gt 0 and
-			len(local_hash) gt 0 and
-			len(remote_hash) gt 0 and
-			local_hash is remote_hash>
-			we can proeed
-		<cfelse>
-			fail....
-		</cfif>
+		<cftransaction>
+			<cfif len(local_uri) gt 0 and
+				len(remote_uri) gt 0 and
+				len(local_hash) gt 0 and
+				len(remote_hash) gt 0 and
+				local_hash is remote_hash>
+				<cfquery name="isHash" datasource="uam_god">
+					select LABEL_VALUE from media_labels where 
+					media_id=#media_id# and
+					MEDIA_LABEL= 'MD5 checksum'
+				</cfquery>
+				<cfif isHash.recordcount is 1 and isHash.LABEL_VALUE is not remote_hash>
+					<cfquery name="fit" datasource="cf_dbuser">
+						update 
+							cf_tacc_transfer 
+						set 
+							status='hash_collision'
+						where 
+							media_id=#media_id#
+					</cfquery>
+				<cfelseif isHash.recordcount gt 1>
+					<cfquery name="fit" datasource="cf_dbuser">
+						update 
+							cf_tacc_transfer 
+						set 
+							status='multiple_hash_label'
+						where 
+							media_id=#media_id#
+					</cfquery>
+				<cfelse>
+					<cfquery name="newLBL" datasource="uam_god">
+						insert into media_labels (
+							media_id,
+							media_label,
+							label_value,
+							assigned_by_agent_id
+						) values (
+							#media_id#,
+							'MD5 checksum',
+							'#remote_hash#',
+							0
+						)
+					</cfquery>
+					<cfquery name="fit" datasource="uam_god">
+						update media set media_uri='#remote_uri#' where media_id=#media_id#
+					</cfquery>
+					<cfquery name="fit" datasource="cf_dbuser">
+						update 
+							cf_tacc_transfer 
+						set 
+							status='complete'
+						where 
+							media_id=#media_id#
+					</cfquery>
+				</cfif>
+			<cfelse>
+				<cfquery name="fit" datasource="cf_dbuser">
+					update 
+						cf_tacc_transfer 
+					set 
+						status='hash_fail'
+					where 
+						media_id=#media_id#
+				</cfquery>
+			</cfif>
+		</cftransaction>
 	</cfloop>
+</cfif>
+<!---------------------------------------------------------------------------------------------------------->
+<cfif action is "report">
+	<cfquery name="d" datasource="cf_dbuser">
+		select status || chr(9) || count(*) c from cf_tacc_transfer
+	</cfquery>
+	<cfmail subject="Media Move Report" to="#Application.PageProblemEmail#" from="media2tacc@#application.fromEmail#" type="html">
+		cf_tacc_transfer status:
+		<br>
+		<cfoutput query="d">
+			#c#
+		</cfoutput>
+	</cfmail>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfinclude template="/includes/_footer.cfm">
