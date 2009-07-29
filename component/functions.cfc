@@ -94,8 +94,8 @@
 		</cftry>
 	<cfelse>
 		<cftry>
-			<cfhttp url="#uri#" getAsbinary="yes" result="myBinaryFile" />
-			<cfset md5 = createObject("component","includes.cfc.hashBinary").hashBinary(myBinaryFile)>
+			<cfhttp url="#uri#" getAsbinary="yes" />
+			<cfset md5 = createObject("component","includes.cfc.hashBinary").hashBinary(cfhttp.filecontent)>
 			<cfreturn md5>
 		<cfcatch>
 			<cfreturn cfcatch>
