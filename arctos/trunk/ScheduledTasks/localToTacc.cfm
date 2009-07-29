@@ -138,6 +138,11 @@
 			cfhttp.statuscode: #cfhttp.statuscode#
 			<cfif left(cfhttp.statuscode,3) is "200">
 				spiffy!
+				<cfinvoke component="/component/functions" method="genMD5" returnVariable="rHash">
+					<cfinvokeargument name="returnFormat" value="plain">
+					<cfinvokeargument name="uri" value="#thisURL#">
+				</cfinvoke>
+				<cfdump var=#rHash#>
 			</cfif>
 		</cftransaction>
 	</cfloop>
