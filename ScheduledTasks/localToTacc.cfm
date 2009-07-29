@@ -43,14 +43,16 @@
 					local_uri,
 					local_hash,
 					local_tn,
-					local_tn_hash
+					local_tn_hash,
+					status
 				) values (
 					#media_id#,
 					sysdate,
 					'#media_uri#',
 					'#mHash#',
 					'#preview_uri#',
-					'#pHash#'
+					'#pHash#',
+					'new'
 				)
 			</cfquery>
 		</cftransaction>
@@ -60,12 +62,15 @@
 <cfif action is "transfer">
 	<cftransaction>
 		<cfquery name="theFile" datasource="cf_dbuser">
-			select * from cf_tacc_transfer where 
-			remote_uri is null and
+			select * from cf_tacc_transfer where
+			status = 'new' and
 			rownum=1
 		</cfquery>
-		<cfset lFile=replace(theFile.local_uri,application.serverRootUrl,application.webDirectory)>
-		
+		<cfif theFile.recordcount is not 1>
+			nothing found
+			<cfabort>
+		</cfif>
+		<cfset lFile=replace(theFile.local_uri,application.serverRootUrl,application.webDirectory)>		
 		<cfset fileName=listlast(theFile.local_uri,"/")>
 		<cfset remotePath="/home/01030/dustylee/test">
 		<cfset rFile=remotePath & '/' & fileName>
@@ -75,18 +80,45 @@
 			connection="corral"
 			secure="true"
 			key="/opt/coldfusion8/runtime/bin/id_rsa">
+		<cfftp action="ListDir" 
+			connection="corral"
+			name="ld">
+			<cfdump var="#ld#">
+			<!---
 		<cfftp connection="corral"
 		    action="putfile" 
 		    transferMode = "binary"
 			localFile = "#lfile#"
 			remoteFile = "#rfile#">
+			--->
 		<cfftp action="close" 
 			connection="corral">
 		<cfquery name="s" datasource="cf_dbuser">
 			update cf_tacc_transfer set status='transferred' where media_id=#theFile.media_id#
 		</cfquery>
 	</cftransaction>
-closed it
+</cfif>
+<!---------------------------------------------------------------------------------------------------------->
+<cfif action is "findIt">
+	<cfquery name="f" datasource="cf_dbuser">
+		select * from cf_tacc_transfer where
+		status = 'transferred'
+	</cfquery>
+</cfif>
+<!---------------------------------------------------------------------------------------------------------->
+<cfif action is "checkTransfer">
+	<cfquery name="f" datasource="cf_dbuser">
+		select * from cf_tacc_transfer where
+		status = 'online'
+	</cfquery>
+	<cfloop query="f">
+		<cftransaction>
+			<cfinvoke component="/component/functions" method="genMD5" returnVariable="mHash">
+				<cfinvokeargument name="returnFormat" value="plain">
+				<cfinvokeargument name="uri" value="#remote_uri#">
+			</cfinvoke>
+		</cftransaction>
+	</cfloop>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfinclude template="/includes/_footer.cfm">
