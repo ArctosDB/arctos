@@ -30,10 +30,13 @@
 				<cfinvokeargument name="returnFormat" value="plain">
 				<cfinvokeargument name="uri" value="#media_uri#">
 			</cfinvoke>
+			<cfdump var="#mHash#">
 			<cfinvoke component="/component/functions" method="genMD5" returnVariable="pHash">
 				<cfinvokeargument name="returnFormat" value="plain">
 				<cfinvokeargument name="uri" value="#preview_uri#">
 			</cfinvoke>
+			
+			<cfdump var="#pHash#">
 			<cfquery name="ins" datasource="cf_dbuser">
 				insert into cf_tacc_transfer (
 					media_id,
