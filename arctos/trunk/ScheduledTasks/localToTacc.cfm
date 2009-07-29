@@ -72,10 +72,10 @@
 		</cfif>
 		<cfset lFile=replace(theFile.local_uri,application.serverRootUrl,application.webDirectory)>		
 		<cfset fileName=listlast(theFile.local_uri,"/")>
-		<cfset rFile=remotePath & '/' & fileName>
 		<cfset currentDirectoryName=dateformat(now(),"yyyy_mm_dd")>
 		
 		<cfset remotePath="/home/01030/dustylee/#currentDirectoryName#">
+		<cfset rFile=remotePath & '/' & fileName>
 		
 		<cfoutput >
 		currentDirectoryName: #currentDirectoryName#
