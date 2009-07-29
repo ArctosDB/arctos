@@ -80,7 +80,9 @@
 			connection="corral"
 			secure="true"
 			key="/opt/coldfusion8/runtime/bin/id_rsa">
-		<cfftp action="ListDir" 
+		<cfftp 
+			directory="remotePath"
+			action="ListDir" 
 			connection="corral"
 			name="ld">
 			<cfdump var="#ld#">
