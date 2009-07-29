@@ -176,10 +176,10 @@
 		status = 'found'
 	</cfquery>
 	<cfloop query="f">
-		<cfif local_uri is not null and
-			remote_uri is not null and
-			local_hash is not null and
-			remote_hash is not null and
+		<cfif len(local_uri) gt 0 and
+			len(remote_uri) gt 0 and
+			len(local_hash) gt 0 and
+			len(remote_hash) gt 0 and
 			local_hash is remote_hash>
 			we can proeed
 		<cfelse>
