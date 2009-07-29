@@ -129,7 +129,7 @@
 		<cftransaction>
 			<cfset fileName=listlast(local_uri,"/")>
 			<cfset thisURL=bURL & '/' & remotedirectory & '/' & fileName>
-			<cfhttp url="#thisURL#" method="get" getAsBinary="true">
+			<cfhttp url="#thisURL#" method="get" getAsBinary="yes">
 			</cfhttp>
 			<cfdump var="#cfhttp#">
 		</cftransaction>
