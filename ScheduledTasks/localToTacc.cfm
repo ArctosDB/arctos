@@ -220,6 +220,7 @@
 <cfif action is "report">
 	<cfquery name="d" datasource="cf_dbuser">
 		select status || chr(9) || count(*) c from cf_tacc_transfer
+		group by status
 	</cfquery>
 	<cfmail subject="Media Move Report" to="#Application.PageProblemEmail#" from="media2tacc@#application.fromEmail#" type="html">
 		cf_tacc_transfer status:
