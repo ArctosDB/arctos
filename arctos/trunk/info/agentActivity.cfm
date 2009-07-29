@@ -547,7 +547,7 @@ Publications
 	<ul>
 		<cfloop query="publication_author_name">
 			<li>
-				<a href="/PublicationResults.cfm?PUBLICATION_ID=#PUBLICATION_ID#">#PUBLICATION_TITLE#</a>
+				<a href="/Publication.cfm?PUBLICATION_ID=#PUBLICATION_ID#">#PUBLICATION_TITLE#</a>
 			</li>
 		</cfloop>
 	</ul>
