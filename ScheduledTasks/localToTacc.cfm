@@ -75,7 +75,11 @@
 		<cfset remotePath="/home/01030/dustylee/test">
 		<cfset rFile=remotePath & '/' & fileName>
 		<cfset currentDirectoryName=dateformat(now(),"yyyy_mm_dd")>
+		
+		<cfoutput >
 		currentDirectoryName: #currentDirectoryName#
+		
+		</cfoutput>
 		<cfftp action="open" 
 			username="dustylee" 
 			server="Garcia.corral.tacc.utexas.edu" 
@@ -88,7 +92,7 @@
 			connection="corral"
 			name="ld">
 		<cfdump var="#ld#">
-		<cfquery name="chk" dbtype="q">
+		<cfquery name="chk" dbtype="query">
 			select NAME from ld where ISDIRECTORY=true and NAME='#currentDirectory#'
 		</cfquery>
 		<cfif len(chk.name) gt 0>
