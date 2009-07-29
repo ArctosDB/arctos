@@ -45,7 +45,7 @@
 					local_hash,
 					local_tn,
 					local_tn_hash
-				values (
+				) values (
 					#media_id#,
 					sysdate,
 					'#media_uri#',

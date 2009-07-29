@@ -79,6 +79,9 @@
 <!----------------------------------------------------------------------------------------------------------------->
 <cffunction name="genMD5" access="remote">
 	<cfargument name="uri" type="string" required="yes">
+	<cfif len(uri) is 0>
+		<cfreturn ''>
+	</cfif>
 	<cfif uri contains application.serverRootUrl>
 		<cftry>
 		<cfset f=replace(uri,application.serverRootUrl,application.webDirectory)>
