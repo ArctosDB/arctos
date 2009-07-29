@@ -62,7 +62,7 @@
 		server="Garcia.corral.tacc.utexas.edu" 
 		name="test"
 		secure="true"
-		key="/home/fndlm/id_rsa">
+		key="/tmp/id_rsa">
 	<cfftp connection="test"
 	    action="GetCurrentDir"
 	    stoponerror="Yes">
