@@ -61,7 +61,8 @@
 		username="dustylee" 
 		server="Garcia.corral.tacc.utexas.edu" 
 		name="test"
-		secure="true">
+		secure="true"
+		password="">
 	<cfftp connection="test"
 	    action="GetCurrentDir"
 	    stoponerror="Yes">
