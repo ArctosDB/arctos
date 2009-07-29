@@ -134,15 +134,21 @@
 			<!---- for testing only......---->
 			<cfset thisURL='http://goodnight.corral.tacc.utexas.edu/UAF/2008_08_21/jpegs/H1114000.jpg'>
 			<cfhttp url="#thisURL#" method="HEAD" />
-			<cfdump var="#cfhttp#">
-			cfhttp.statuscode: #cfhttp.statuscode#
 			<cfif left(cfhttp.statuscode,3) is "200">
-				spiffy!
 				<cfinvoke component="/component/functions" method="genMD5" returnVariable="rHash">
 					<cfinvokeargument name="returnFormat" value="plain">
 					<cfinvokeargument name="uri" value="#thisURL#">
 				</cfinvoke>
-				<cfdump var=#rHash#>
+				<cfquery name="fit" datasource="cf_dbuser">
+					update 
+						cf_tacc_transfer 
+					set 
+						status='found',
+						remote_uri='#thisURL#',
+						remote_hash='#rHash#'
+					where 
+						media_id=#media_id#
+				</cfquery>		
 			</cfif>
 		</cftransaction>
 	</cfloop>

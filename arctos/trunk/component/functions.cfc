@@ -81,15 +81,14 @@
 	<cfargument name="uri" type="string" required="yes">
 	<cfif len(uri) is 0>
 		<cfreturn ''>
-	</cfif>
-	<cfif uri contains application.serverRootUrl>
+	<cfelseif uri contains application.serverRootUrl>
 		<cftry>
 		<cfset f=replace(uri,application.serverRootUrl,application.webDirectory)>
 		<cffile action="readbinary" file="#f#" variable="myBinaryFile">
 		<cfset md5 = createObject("component","includes.cfc.hashBinary").hashBinary(myBinaryFile)>
 		<cfreturn md5>
 		<cfcatch>
-			<cfreturn cfcatch.detail>
+			<cfreturn "">
 		</cfcatch>
 		</cftry>
 	<cfelse>
@@ -98,11 +97,10 @@
 			<cfset md5 = createObject("component","includes.cfc.hashBinary").hashBinary(cfhttp.filecontent)>
 			<cfreturn md5>
 		<cfcatch>
-			<cfreturn cfcatch>
+			<cfreturn "">
 		</cfcatch>
 		</cftry>
 	</cfif>
-	<cfreturn uri>
 </cffunction>
 <!-------------------------------------------->
 <cffunction name="saveLocSrchPref" access="remote">
