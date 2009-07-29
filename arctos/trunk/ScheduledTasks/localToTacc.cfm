@@ -170,4 +170,22 @@
 	</cfloop>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
+<cfif action is "fixURI">
+	<cfquery name="f" datasource="cf_dbuser">
+		select * from cf_tacc_transfer where
+		status = 'found'
+	</cfquery>
+	<cfloop query="f">
+		<cfif local_uri is not null and
+			remote_uri is not null and
+			local_hash is not null and
+			remote_hash is not null and
+			local_hash is remote_hash>
+			we can proeed
+		<cfelse>
+			fail....
+		</cfif>
+	</cfloop>
+</cfif>
+<!---------------------------------------------------------------------------------------------------------->
 <cfinclude template="/includes/_footer.cfm">
