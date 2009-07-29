@@ -63,7 +63,8 @@
 		rownum=1
 	</cfquery>
 	<cfset lFile=replace(theFile.local_uri,application.serverRootUrl,application.webDirectory)>
-	<cfset fileName=replace(theFile.local_uri,application.serverRootUrl,"")>
+	
+	<cfset fileName=listlast(theFile.local_uri,"/")>
 	<cfset remotePath="/home/01030/dustylee/test">
 	<cfset rFile=remotePath & '/' & fileName>
 	<cfftp action="open" 
