@@ -226,7 +226,7 @@
 	<cfmail subject="Media Move Report" to="#Application.PageProblemEmail#" from="media2tacc@#application.fromEmail#" type="html">
 		cf_tacc_transfer status:
 		<cfloop query="d">
-			#c#<br>
+			<br>#c#
 		</cfloop>
 	</cfmail>
 	</cfoutput>
