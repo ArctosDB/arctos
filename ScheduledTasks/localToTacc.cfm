@@ -70,43 +70,38 @@
 			nothing found
 			<cfabort>
 		</cfif>
-		<cfset lFile=replace(theFile.local_uri,application.serverRootUrl,application.webDirectory)>		
+		<cfset localFile=replace(theFile.local_uri,application.serverRootUrl,application.webDirectory)>		
 		<cfset fileName=listlast(theFile.local_uri,"/")>
-		<cfset currentDirectoryName=dateformat(now(),"yyyy_mm_dd")>
+		<cfset todaysDirectory=dateformat(now(),"yyyy_mm_dd")>
+		<cfset remoteBase="/home/01030/dustylee">
+		<cfset remoteFull=remoteBase & '/' & todaysDirectory>
+		<cfset remoteFile=remoteFull & '/' & fileName>
 		
-		<cfset remotePath="/home/01030/dustylee/#currentDirectoryName#">
-		<cfset rFile=remotePath & '/' & fileName>
-		
-		<cfoutput >
-		currentDirectoryName: #currentDirectoryName#
-		
-		</cfoutput>
 		<cfftp action="open" 
 			username="dustylee" 
 			server="Garcia.corral.tacc.utexas.edu" 
 			connection="corral"
 			secure="true"
 			key="/opt/coldfusion8/runtime/bin/id_rsa">
-		<cfftp 
-			directory="#remotePath#"
-			action="ListDir" 
+		
+		<cfftp action="ListDir"
+			directory="#remoteBase#"
 			connection="corral"
 			name="ld">
-		<cfdump var="#ld#">
+		
 		<cfquery name="chk" dbtype="query">
 			select NAME from ld where ISDIRECTORY='YES' and NAME='#currentDirectoryName#'
 		</cfquery>
 		<cfif len(chk.name) is 0>
 			<cfftp action="CreateDir" 
-				directory="#remotePath#/#currentDirectoryName#"
+				directory="#remoteFull#"
 				connection="corral">
-			made a dir
 		</cfif> 
-		<cfftp connection="corral"
-		    action="putfile" 
+		<cfftp action="putfile" 
+		    connection="corral"
 		    transferMode = "binary"
-			localFile = "#lfile#"
-			remoteFile = "#rfile#">
+			localFile = "#localFile#"
+			remoteFile = "#remoteFile#">
 		<cfftp action="close" 
 			connection="corral">
 		<cfquery name="s" datasource="cf_dbuser">
