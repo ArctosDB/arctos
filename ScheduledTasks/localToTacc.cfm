@@ -81,7 +81,7 @@
 			secure="true"
 			key="/opt/coldfusion8/runtime/bin/id_rsa">
 		<cfftp 
-			directory="remotePath"
+			directory="#remotePath#"
 			action="ListDir" 
 			connection="corral"
 			name="ld">
