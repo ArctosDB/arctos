@@ -112,7 +112,7 @@
 				cf_tacc_transfer 
 			set 
 				status='transferred',
-				remotedirectory='#remoteBase#'
+				remotedirectory='#todaysDirectory#'
 			where 
 				media_id=#theFile.media_id#
 		</cfquery>
