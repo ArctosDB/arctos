@@ -26,8 +26,14 @@
 	</cfquery>
 	<cfloop query="new">
 		<cftransaction>
-			<cfset mHash=genMD5(media_uri)>
-			<cfset pHash=genMD5(preview_uri)>
+			<cfinvoke component="/component/functions" method="genMD5" returnVariable="mHash">
+				<cfinvokeargument name="returnFormat" value="plain">
+				<cfinvokeargument name="uri" value="#media_uri#">
+			</cfinvoke>
+			<cfinvoke component="/component/functions" method="genMD5" returnVariable="pHash">
+				<cfinvokeargument name="returnFormat" value="plain">
+				<cfinvokeargument name="uri" value="#preview_uri#">
+			</cfinvoke>
 			<cfquery name="ins" datasource="cf_dbuser">
 				insert into cf_tacc_transfer (
 					media_id,
