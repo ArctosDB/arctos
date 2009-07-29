@@ -15,6 +15,7 @@
 	revoke all on cf_tacc_transfer from coldfusion_user;
 	grant all on cf_tacc_transfer to cf_dbuser;
 	
+	alter table cf_tacc_transfer add status varchar2(255);
 --->
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "checkNew">
@@ -57,29 +58,34 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "transfer">
-	<cfquery name="theFile" datasource="cf_dbuser">
-		select * from cf_tacc_transfer where 
-		remote_uri is null and
-		rownum=1
-	</cfquery>
-	<cfset lFile=replace(theFile.local_uri,application.serverRootUrl,application.webDirectory)>
-	
-	<cfset fileName=listlast(theFile.local_uri,"/")>
-	<cfset remotePath="/home/01030/dustylee/test">
-	<cfset rFile=remotePath & '/' & fileName>
-	<cfftp action="open" 
-		username="dustylee" 
-		server="Garcia.corral.tacc.utexas.edu" 
-		connection="corral"
-		secure="true"
-		key="/opt/coldfusion8/runtime/bin/id_rsa">
-	<cfftp connection="corral"
-	    action="putfile" 
-	    transferMode = "binary"
-		localFile = "#lfile#"
-		remoteFile = "#rfile#">
-	<cfftp action="close" 
-		connection="test">
+	<cftransaction>
+		<cfquery name="theFile" datasource="cf_dbuser">
+			select * from cf_tacc_transfer where 
+			remote_uri is null and
+			rownum=1
+		</cfquery>
+		<cfset lFile=replace(theFile.local_uri,application.serverRootUrl,application.webDirectory)>
+		
+		<cfset fileName=listlast(theFile.local_uri,"/")>
+		<cfset remotePath="/home/01030/dustylee/test">
+		<cfset rFile=remotePath & '/' & fileName>
+		<cfftp action="open" 
+			username="dustylee" 
+			server="Garcia.corral.tacc.utexas.edu" 
+			connection="corral"
+			secure="true"
+			key="/opt/coldfusion8/runtime/bin/id_rsa">
+		<cfftp connection="corral"
+		    action="putfile" 
+		    transferMode = "binary"
+			localFile = "#lfile#"
+			remoteFile = "#rfile#">
+		<cfftp action="close" 
+			connection="corral">
+		<cfquery name="s" datasource="cf_dbuser">
+			update cf_tacc_transfer set status='transferred' where media_id=#theFile.media_id#
+		</cfquery>
+	</cftransaction>
 closed it
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
