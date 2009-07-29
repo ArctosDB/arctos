@@ -62,8 +62,8 @@
 		remote_uri is null and
 		rownum=1
 	</cfquery>
-	<cfset lFile=replace(theFile.media_uri,application.serverRootUrl,application.webDirectory)>
-	<cfset fileName=replace(theFile.media_uri,application.serverRootUrl,"")>
+	<cfset lFile=replace(theFile.local_uri,application.serverRootUrl,application.webDirectory)>
+	<cfset fileName=replace(theFile.local_uri,application.serverRootUrl,"")>
 	<cfset remotePath="/home/01030/dustylee/test">
 	<cfset rFile=remotePath & '/' & fileName>
 	<cfftp action="open" 
