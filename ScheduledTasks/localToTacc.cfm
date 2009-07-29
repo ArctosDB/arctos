@@ -124,8 +124,15 @@
 		select * from cf_tacc_transfer where
 		status = 'transferred'
 	</cfquery>
+	<cfset bURL="http://goodnight.corral.tacc.utexas.edu/UAF">
 	<cfloop query="f">
-		<cfset theDirectory="">
+		<cftransaction>
+			<cfset fileName=listlast(local_uri,"/")>
+			<cfset thisURL=bURL & '/' & remotedirectory & '/' & fileName>
+			<cfhttp url="#thisURL#" method="get" getAsBinary="true">
+			</cfhttp>
+			<cfdump var="#cfhttp#">
+		</cftransaction>
 	</cfloop>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
