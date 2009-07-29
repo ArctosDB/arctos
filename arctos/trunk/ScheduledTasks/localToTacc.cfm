@@ -60,7 +60,17 @@
 	<cfftp action="open" 
 		username="dustylee" 
 		server="Garcia.corral.tacc.utexas.edu" 
-		name="test">
+		name="test"
+		secure="true">
+	<cfftp connection="test"
+	    action="GetCurrentDir"
+	    stoponerror="Yes">
+	<cfftp action="close" 
+		connection="test">
+<!--- output directory name --->
+	<cfoutput>
+	    The current directory is:#cfftp.returnvalue#<p>
+	</cfoutput>
 
 
 	<cfdump var=#test#>
