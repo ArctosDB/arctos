@@ -218,17 +218,18 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "report">
+	<cfoutput>
 	<cfquery name="d" datasource="cf_dbuser">
 		select status || chr(9) || count(*) c from cf_tacc_transfer
 		group by status
 	</cfquery>
 	<cfmail subject="Media Move Report" to="#Application.PageProblemEmail#" from="media2tacc@#application.fromEmail#" type="html">
 		cf_tacc_transfer status:
-		<br>
-		<cfoutput query="d" group="c">
-			#c#
-		</cfoutput>
+		<cfloop query="d">
+			#c#<br>
+		</cfloop>
 	</cfmail>
+	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfinclude template="/includes/_footer.cfm">
