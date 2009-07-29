@@ -94,11 +94,11 @@
 		</cftry>
 	<cfelse>
 		<cftry>
-			<cfhttp url="#uri#" getAsbinary="yes" result="myBinaryFile"/>
+			<cfhttp url="#uri#" getAsbinary="yes" result="myBinaryFile" />
 			<cfset md5 = createObject("component","includes.cfc.hashBinary").hashBinary(myBinaryFile)>
 			<cfreturn md5>
 		<cfcatch>
-			<cfreturn cfcatch.detail>
+			<cfreturn cfcatch>
 		</cfcatch>
 		</cftry>
 	</cfif>
