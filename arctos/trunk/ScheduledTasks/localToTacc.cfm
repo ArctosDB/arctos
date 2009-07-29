@@ -57,19 +57,26 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "transfer">
+	<cfquery name="theFile" datasource="cf_dbuser">
+		select * from cf_tacc_transfer where 
+		remote_uri is null and
+		rownum=1
+	</cfquery>
+	<cfset lFile=replace(theFile.media_uri,application.serverRootUrl,application.webDirectory)>
+	<cfset fileName=replace(theFile.media_uri,application.serverRootUrl,"")>
+	<cfset remotePath="/home/01030/dustylee/test">
+	<cfset rFile=remotePath & '/' & fileName>
 	<cfftp action="open" 
 		username="dustylee" 
 		server="Garcia.corral.tacc.utexas.edu" 
-		connection="test"
+		connection="corral"
 		secure="true"
 		key="/opt/coldfusion8/runtime/bin/id_rsa">
-	<cfftp connection="test"
-	    action="GetCurrentDir"
-	    stoponerror="Yes">
-<!--- output directory name --->
-	<cfoutput>
-	    The current directory is:#cfftp.returnvalue#<p>
-	</cfoutput>
+	<cfftp connection="corral"
+	    action="putfile" 
+	    transferMode = "binary"
+		localFile = "#lfile#"
+		remoteFile = "#rfile#">
 	<cfftp action="close" 
 		connection="test">
 closed it
