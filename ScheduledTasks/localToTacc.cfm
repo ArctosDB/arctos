@@ -74,6 +74,8 @@
 		<cfset fileName=listlast(theFile.local_uri,"/")>
 		<cfset remotePath="/home/01030/dustylee/test">
 		<cfset rFile=remotePath & '/' & fileName>
+		<cfset currentDirectoryName=dateformat(now(),"yyyy_mm_dd")>
+		currentDirectoryName: #currentDirectoryName#
 		<cfftp action="open" 
 			username="dustylee" 
 			server="Garcia.corral.tacc.utexas.edu" 
@@ -85,7 +87,15 @@
 			action="ListDir" 
 			connection="corral"
 			name="ld">
-			<cfdump var="#ld#">
+		<cfdump var="#ld#">
+		<cfquery name="chk" dbtype="q">
+			select NAME from ld where ISDIRECTORY=true and NAME='#currentDirectory#'
+		</cfquery>
+		<cfif len(chk.name) gt 0>
+			we have a dir
+		<cfelse>
+			make a dir
+		</cfif> 
 			<!---
 		<cfftp connection="corral"
 		    action="putfile" 
