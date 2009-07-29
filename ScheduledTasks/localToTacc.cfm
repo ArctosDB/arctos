@@ -16,6 +16,8 @@
 	grant all on cf_tacc_transfer to cf_dbuser;
 	
 	alter table cf_tacc_transfer add status varchar2(255);
+	
+	alter table cf_tacc_transfer add remotedirectory varchar2(30);
 --->
 <cfinclude template="/includes/_header.cfm">
 <cfif action is "checkNew">
@@ -96,7 +98,8 @@
 			<cfftp action="CreateDir" 
 				directory="#remoteFull#"
 				connection="corral">
-		</cfif> 
+		</cfif>
+		
 		<cfftp action="putfile" 
 		    connection="corral"
 		    transferMode = "binary"
@@ -105,7 +108,13 @@
 		<cfftp action="close" 
 			connection="corral">
 		<cfquery name="s" datasource="cf_dbuser">
-			update cf_tacc_transfer set status='transferred' where media_id=#theFile.media_id#
+			update 
+				cf_tacc_transfer 
+			set 
+				status='transferred',
+				remotedirectory='#remoteBase#'
+			where 
+				media_id=#theFile.media_id#
 		</cfquery>
 	</cftransaction>
 </cfif>
@@ -115,6 +124,9 @@
 		select * from cf_tacc_transfer where
 		status = 'transferred'
 	</cfquery>
+	<cfloop query="f">
+		<cfset theDirectory="">
+	</cfloop>
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "checkTransfer">
