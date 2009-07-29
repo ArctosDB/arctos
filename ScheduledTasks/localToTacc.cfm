@@ -130,10 +130,16 @@
 		<cftransaction>
 			<cfset fileName=listlast(local_uri,"/")>
 			<cfset thisURL=bURL & '/' & remotedirectory & '/' & fileName>
+			
+			<!---- for testing only......---->
+			<cfset thisURL='http://goodnight.corral.tacc.utexas.edu/UAF/2008_08_21/jpegs/H1114000.jpg'>
 			<cfhttp url="#thisURL#" method="get" getAsBinary="yes">
 			</cfhttp>
 			<cfdump var="#cfhttp#">
 			cfhttp.statuscode: #cfhttp.statuscode#
+			<cfif left(cfhttp.statuscode,3) is "200">
+				spiffy!
+			</cfif>
 		</cftransaction>
 	</cfloop>
 	</cfoutput>
