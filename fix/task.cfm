@@ -7,6 +7,12 @@
 
 
 <hr>
+
+<cfset l = ArrayToList(xmlCron, ",")>
+
+l: #l#
+
+<hr>
 1: #xmlCron[1]#
 </cfoutput>
 <hr>
