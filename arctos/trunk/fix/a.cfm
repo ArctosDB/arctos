@@ -14,3 +14,9 @@
     startTime = "#timeformat(now() + 10000)#"
     interval = "180"
     requestTimeOut = "600">
+	
+	
+	<cfoutput>
+	
+		#timeformat(now() + 10000)#
+	</cfoutput>
