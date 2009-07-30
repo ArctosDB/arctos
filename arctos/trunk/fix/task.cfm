@@ -12,4 +12,4 @@ or, see all details with:
 
 
 
-<cffile action = "read" file="#server.coldfusion.ROOTDIR#\lib\neo-cron.xml" variable="XMLCron"> <cfdump var="#XMLCron#">
+<cffile action = "read" file="#server.coldfusion.ROOTDIR#/lib/neo-cron.xml" variable="XMLCron"> <cfdump var="#XMLCron#">
