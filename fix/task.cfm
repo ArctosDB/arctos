@@ -5,6 +5,9 @@
 
 <hr>
 <cfoutput>
+araylen(xmlcron): #araylen(xmlcron)#
+<hr>
+
 
 <cfset s1=xmlCron[1]>
 <cfdump var="#s1#">
