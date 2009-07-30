@@ -1,8 +1,8 @@
-<cfinclude template="/includes/_header.cfm">
-<script>
-function a(b){
-	var c=isDate(b);
-	console.log(b + ': ' + c);
-	}
-</script>
-<input type="text" onchange="a(this.value)">
+<cfschedule action = "update"
+    task = "image_transfer" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/checkNew.cfm"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "#timeformat(now() + 1)#"
+    interval = "180"
+    requestTimeOut = "600">value)">
