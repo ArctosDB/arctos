@@ -1,3 +1,8 @@
+<cffile action = "read" file="#server.coldfusion.ROOTDIR#/lib/neo-cron.xml" variable="XMLCron"> <cfdump var="#XMLCron#">
+
+
+----------------------
+
 <cfobject type="JAVA" action="Create" name="factory" class="coldfusion.server.ServiceFactory">
  
 <cfset allTasks = factory.CronService.listAll()>  
@@ -12,7 +17,6 @@ or, see all details with:
 
 
 
-<cffile action = "read" file="#server.coldfusion.ROOTDIR#/lib/neo-cron.xml" variable="XMLCron"> <cfdump var="#XMLCron#">
 
 
 
