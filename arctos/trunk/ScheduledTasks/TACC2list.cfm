@@ -14,7 +14,7 @@ create table tacc_check (
 
 <cfoutput>
 	<cfquery name="all_tacc" datasource="uam_god">
-		select barcode from tacc_check order by barcode
+		select distinct(barcode) from tacc_check where status='all_done' order by barcode
 	</cfquery>
 	<cfset t="">
 	<cfloop query="all_tacc">

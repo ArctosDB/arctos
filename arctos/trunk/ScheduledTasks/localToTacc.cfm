@@ -69,7 +69,7 @@
 		<cfset localFile=replace(theFile.local_uri,application.serverRootUrl,application.webDirectory)>		
 		<cfset fileName=listlast(theFile.local_uri,"/")>
 		<cfset todaysDirectory=dateformat(now(),"yyyy_mm_dd")>
-		<cfset remoteBase="/corral/tg/uaf">
+		<cfset remoteBase="/corral/tg/uaf/arctos">
 		<cfset remoteFull=remoteBase & '/' & todaysDirectory>
 		<cfset remoteFile=remoteFull & '/' & fileName>		
 		<cfftp action="open" 
