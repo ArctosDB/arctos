@@ -4,6 +4,10 @@
 <hr>
 <cfoutput>
 #XMLCron#
+
+
+<hr>
+1: #xmlCron[1]#
 </cfoutput>
 <hr>
 
