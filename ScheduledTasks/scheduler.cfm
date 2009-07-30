@@ -5,7 +5,7 @@
 <cfloop index="i" from="1" to="#numberOtasks#">
 	<cfschedule action="delete" task="#allTasks[i].task#">
 </cfloop>
-<!------------------------------------------------------------------->
+<!-----------------------------------   sitemaps    ------------------------------------------>
 <cfschedule action = "update"
     task = "sitemap_map" 
     operation = "HTTPRequest"
@@ -59,7 +59,7 @@
     startTime = "12:20 PM"
     interval = "3600"
     requestTimeOut = "600">
-<!------------------------------------------------------------------->
+<!-----------------------------------   imaging    ------------------------------------------>
 <cfschedule action = "update"
     task = "ALA_ProblemReport" 
     operation = "HTTPRequest"
@@ -68,88 +68,6 @@
     startTime = "06:00 AM"
     interval = "daily"
     requestTimeOut = "600">
-
-<cfschedule action = "update"
-    task = "attention_needed" 
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/alaImaging/attention_needed.cfm"
-    startDate = "1-jan-2008"
-    startTime = "01:00 AM"
-    interval = "daily"
-    requestTimeOut = "600">
-<!------------------------------------------------------------------->
-<cfschedule action = "update"
-    task = "GenBank_build" 
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/GenBank_build.cfm"
-    startDate = "1-jan-2008"
-    startTime = "10:00 PM"
-    interval = "daily"
-    requestTimeOut = "600">
-	
-<cfschedule action = "update"
-    task = "GenBank_transfer_name" 
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/GenBank_transfer_name.cfm"
-    startDate = "1-jan-2008"
-    startTime = "10:30 PM"
-    interval = "daily"
-    requestTimeOut = "600">
-
-<cfschedule action = "update"
-    task = "GenBank_transfer_nuc" 
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/GenBank_transfer_nuc.cfm"
-    startDate = "1-jan-2008"
-    startTime = "10:35 PM"
-    interval = "daily"
-    requestTimeOut = "600">
-
-<cfschedule action = "update"
-    task = "GenBank_transfer_tax" 
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/GenBank_transfer_tax.cfm"
-    startDate = "1-jan-2008"
-    startTime = "10:40 PM"
-    interval = "daily"
-    requestTimeOut = "600">
-<!------------------------------------------------------------------->
-<cfschedule action = "update"
-    task = "CleanTempFiles" 
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/CleanTempFiles.cfm"
-    startDate = "1-jan-2008"
-    startTime = "12:00 AM"
-    interval = "daily"
-    requestTimeOut = "600">
-<!------------------------------------------------------------------->	
-<cfschedule action = "update"
-    task = "build_home" 
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/build_home.cfm"
-    startDate = "1-jan-2008"
-    startTime = "12:56 AM"
-    interval = "daily"
-    requestTimeOut = "600">
-<!------------------------------------------------------------------->
-<cfschedule action = "update"
-    task = "reminder" 
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/reminder.cfm"
-    startDate = "1-jan-2008"
-    startTime = "12:56 AM"
-    interval = "daily"
-    requestTimeOut = "600">
-<!------------------------------------------------------------------->
-<cfschedule action = "update"
-    task = "pendingRelations" 
-    operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/pendingRelations.cfm"
-    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
-    startTime = "3:38 AM"
-    interval = "daily"
-    requestTimeOut = "600">
-<!------------------------------------------------------------------->
 <cfschedule action = "update"
     task = "TACC2list" 
     operation = "HTTPRequest"
@@ -158,7 +76,14 @@
     startTime = "06:00 AM"
     interval = "daily"
     requestTimeOut = "600">
-	
+<cfschedule action = "update"
+    task = "TACC2list" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/TACC_0.5.cfm"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "06:30 AM"
+    interval = "weekly"
+    requestTimeOut = "600">	
 <cfschedule action = "update"
     task = "TACC_1" 
     operation = "HTTPRequest"
@@ -167,7 +92,6 @@
     startTime = "04:00 AM"
     interval = "daily"
     requestTimeOut = "600">
-	
 <cfschedule action = "update"
     task = "TACC_1.5" 
     operation = "HTTPRequest"
@@ -176,7 +100,6 @@
     startTime = "04:30 AM"
     interval = "daily"
     requestTimeOut = "600">
-	
 <cfschedule action = "update"
     task = "TACC_2" 
     operation = "HTTPRequest"
@@ -185,7 +108,6 @@
     startTime = "05:00 AM"
     interval = "daily"
     requestTimeOut = "600">
-	
 <cfschedule action = "update"
     task = "TACC_3" 
     operation = "HTTPRequest"
@@ -194,3 +116,97 @@
     startTime = "05:20 AM"
     interval = "600"
     requestTimeOut = "600">
+<!-----------------------------------   curatorial alerts    ------------------------------------------>
+<cfschedule action = "update"
+    task = "attention_needed" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/alaImaging/attention_needed.cfm"
+    startDate = "1-jan-2008"
+    startTime = "01:00 AM"
+    interval = "daily"
+    requestTimeOut = "600">
+<cfschedule action = "update"
+    task = "reminder" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/reminder.cfm"
+    startDate = "1-jan-2008"
+    startTime = "12:56 AM"
+    interval = "daily"
+    requestTimeOut = "600">
+<cfschedule action = "update"
+    task = "pendingRelations" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/pendingRelations.cfm"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "3:38 AM"
+    interval = "daily"
+    requestTimeOut = "600">
+<!-----------------------------------   sharing data    ------------------------------------------>
+<cfschedule action = "update"
+    task = "GenBank_build" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/GenBank_build.cfm"
+    startDate = "1-jan-2008"
+    startTime = "10:00 PM"
+    interval = "daily"
+    requestTimeOut = "600">	
+<cfschedule action = "update"
+    task = "GenBank_transfer_name" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/GenBank_transfer_name.cfm"
+    startDate = "1-jan-2008"
+    startTime = "10:30 PM"
+    interval = "daily"
+    requestTimeOut = "600">
+<cfschedule action = "update"
+    task = "GenBank_transfer_nuc" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/GenBank_transfer_nuc.cfm"
+    startDate = "1-jan-2008"
+    startTime = "10:35 PM"
+    interval = "daily"
+    requestTimeOut = "600">
+<cfschedule action = "update"
+    task = "GenBank_transfer_tax" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/GenBank_transfer_tax.cfm"
+    startDate = "1-jan-2008"
+    startTime = "10:40 PM"
+    interval = "daily"
+    requestTimeOut = "600">
+<!-----------------------------------   maintenance    ------------------------------------------>
+<cfschedule action = "update"
+    task = "CleanTempFiles" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/CleanTempFiles.cfm"
+    startDate = "1-jan-2008"
+    startTime = "12:00 AM"
+    interval = "daily"
+    requestTimeOut = "600">
+<cfschedule action = "update"
+    task = "build_home" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/build_home.cfm"
+    startDate = "1-jan-2008"
+    startTime = "12:56 AM"
+    interval = "daily"
+    requestTimeOut = "600">
+<!-----------------------------------   images    ------------------------------------------>
+<!--- try this manaually first 
+<cfschedule action = "update"
+    task = "image_CheckNew" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/checkNew.cfm?action=checkNew"
+    startDate = "1-jan-2008"
+    startTime = "12:30 AM"
+    interval = "weekly"
+    requestTimeOut = "600">
+<cfschedule action = "update"
+    task = "image_transfer" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/checkNew.cfm?action=transfer"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "#timeformat(now())#"
+    interval = "180"
+    requestTimeOut = "600">
+--->
