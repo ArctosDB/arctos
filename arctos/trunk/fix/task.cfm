@@ -1,6 +1,12 @@
 <cffile action = "read" file="#server.coldfusion.ROOTDIR#/lib/neo-cron.xml" variable="XMLCron"> <cfdump var="#XMLCron#">
 
 
+<hr>
+<cfoutput>
+#XMLCron#
+</cfoutput>
+<hr>
+
 ----------------------
 
 <cfobject type="JAVA" action="Create" name="factory" class="coldfusion.server.ServiceFactory">
@@ -32,7 +38,7 @@ or, see all details with:
 Next, display the list to the screen. This is a temporary piece of code, we will replace with a filtered table later.
 <cfdump var="#services#" label="All Scheduled Tasks">
 
-
+#services[task]
 <cffunction name="GetScheduledTasks" returntype="query" output="no">
 
     <!--- Local vars --->
