@@ -9,3 +9,7 @@
  
 or, see all details with:
 <cfdump var="#allTasks#">
+
+
+
+<cffile action = "read" file="#server.coldfusion.ROOTDIR#\lib\neo-cron.xml" variable="XMLCron"> <cfdump var="#XMLCron#">
