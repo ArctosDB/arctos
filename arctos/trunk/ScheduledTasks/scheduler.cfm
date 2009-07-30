@@ -14,7 +14,6 @@
     startTime = "05:00 PM"
     interval = "weekly"
     requestTimeOut = "600">
-	
 <cfschedule action = "update"
     task = "sitemap_index" 
     operation = "HTTPRequest"
@@ -23,7 +22,6 @@
     startTime = "05:10 PM"
     interval = "weekly"
     requestTimeOut = "600">
-	
 <cfschedule action = "update"
     task = "sitemap_spec" 
     operation = "HTTPRequest"
@@ -32,7 +30,6 @@
     startTime = "05:20 PM"
     interval = "3600"
     requestTimeOut = "600">
-
 <cfschedule action = "update"
     task = "sitemap_tax" 
     operation = "HTTPRequest"
@@ -41,7 +38,6 @@
     startTime = "#timeformat(now())#"
     interval = "180"
     requestTimeOut = "600">
-	
 <cfschedule action = "update"
     task = "sitemap_pub" 
     operation = "HTTPRequest"
@@ -50,7 +46,6 @@
     startTime = "10:20 PM"
     interval = "3600"
     requestTimeOut = "600">
-	
 <cfschedule action = "update"
     task = "sitemap_proj" 
     operation = "HTTPRequest"
@@ -64,7 +59,7 @@
     task = "ALA_ProblemReport" 
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/alaImaging/ala_has_probs.cfm"
-    startDate = "1-jan-2008"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "06:00 AM"
     interval = "daily"
     requestTimeOut = "600">
@@ -121,7 +116,7 @@
     task = "attention_needed" 
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/alaImaging/attention_needed.cfm"
-    startDate = "1-jan-2008"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "01:00 AM"
     interval = "daily"
     requestTimeOut = "600">
@@ -129,7 +124,7 @@
     task = "reminder" 
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/reminder.cfm"
-    startDate = "1-jan-2008"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:56 AM"
     interval = "daily"
     requestTimeOut = "600">
@@ -146,7 +141,7 @@
     task = "GenBank_build" 
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/GenBank_build.cfm"
-    startDate = "1-jan-2008"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "10:00 PM"
     interval = "daily"
     requestTimeOut = "600">	
@@ -154,7 +149,7 @@
     task = "GenBank_transfer_name" 
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/GenBank_transfer_name.cfm"
-    startDate = "1-jan-2008"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "10:30 PM"
     interval = "daily"
     requestTimeOut = "600">
@@ -162,7 +157,7 @@
     task = "GenBank_transfer_nuc" 
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/GenBank_transfer_nuc.cfm"
-    startDate = "1-jan-2008"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "10:35 PM"
     interval = "daily"
     requestTimeOut = "600">
@@ -170,7 +165,7 @@
     task = "GenBank_transfer_tax" 
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/GenBank_transfer_tax.cfm"
-    startDate = "1-jan-2008"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "10:40 PM"
     interval = "daily"
     requestTimeOut = "600">
@@ -179,7 +174,7 @@
     task = "CleanTempFiles" 
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/CleanTempFiles.cfm"
-    startDate = "1-jan-2008"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:00 AM"
     interval = "daily"
     requestTimeOut = "600">
@@ -187,7 +182,7 @@
     task = "build_home" 
     operation = "HTTPRequest"
     url = "127.0.0.1/ScheduledTasks/build_home.cfm"
-    startDate = "1-jan-2008"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:56 AM"
     interval = "daily"
     requestTimeOut = "600">
@@ -209,4 +204,29 @@
     startTime = "#timeformat(now())#"
     interval = "180"
     requestTimeOut = "600">
+<cfschedule action = "update"
+    task = "image_findIt" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/checkNew.cfm?action=findIt"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "12:00 AM"
+    interval = "28800"
+    requestTimeOut = "600">
+<cfschedule action = "update"
+    task = "image_fixURI" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/checkNew.cfm?action=fixURI"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "01:00 AM"
+    interval = "28800"
+    requestTimeOut = "600">
+<cfschedule action = "update"
+    task = "image_report" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/checkNew.cfm?action=report"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "02:34 AM"
+    interval = "weekly"
+    requestTimeOut = "600">
+	
 --->
