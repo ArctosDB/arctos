@@ -5,7 +5,7 @@
 
 <hr>
 <cfoutput>
-araylen(xmlcron): #araylen(xmlcron)#
+arraylen(xmlcron): #arraylen(xmlcron)#
 <hr>
 
 
