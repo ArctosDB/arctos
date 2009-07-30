@@ -5,7 +5,6 @@
 
 <hr>
 <cfoutput>
-arraylen(xmlcron): #arraylen(xmlcron)#
 <hr>
 
 
@@ -32,6 +31,7 @@ arraylen(xmlcron): #arraylen(xmlcron)#
 or, see all details with:
 <cfdump var="#allTasks#">
 
+arraylen(allTasks): #arraylen(allTasks)#
 
 
 <cfset s1=allTasks[1]>
