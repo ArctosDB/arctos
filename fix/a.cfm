@@ -17,6 +17,7 @@
 	
 	
 	<cfoutput>
-	
-		#timeformat(now() + 10000)#
+	#timeformat(now())#
+	<br>
+		#timeformat(now() + 10000000)#
 	</cfoutput>
