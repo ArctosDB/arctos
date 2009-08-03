@@ -1189,7 +1189,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 					FROM
 						ctattribute_type 
 					where attribute_type='image confirmed' and
-					collection_cde='#detail.collection_cde#'
+					collection_cde='#one.collection_cde#'
 				</cfquery>
 				<span class="detailEditCell" onclick="window.parent.switchIFrame('MediaSearch');">Edit</span>
 				<cfquery name="isConf"  dbtype="query">
