@@ -180,7 +180,9 @@ function MVZDefaults() {
 	document.getElementById('part_disposition_9').value='in collection';
 	document.getElementById('part_disposition_10').value='in collection';
 	document.getElementById('part_disposition_11').value='in collection';
-	document.getElementById('part_disposition_12').value='in collection';	
+	document.getElementById('part_disposition_12').value='in collection';
+	document.getElementById('attribute_units_2').value='mm';
+	
 }
 
 function MSBBirdDefault () {
