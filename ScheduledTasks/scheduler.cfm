@@ -187,7 +187,8 @@
     interval = "daily"
     requestTimeOut = "600">
 <!-----------------------------------   images    ------------------------------------------>
-<!--- try this manaually first 
+<!--- try this manaually first
+
 <cfschedule action = "update"
     task = "image_CheckNew" 
     operation = "HTTPRequest"
