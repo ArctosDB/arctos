@@ -102,33 +102,33 @@
 			<div id="kmlDiv1" style="display:none;border:1px solid green;padding:.5em;">
 				<font size="-1"><em><strong>KML Options:</strong></em></font><br>
 				<label for="next1">Color By</label>
-				<select id="next1" onchange="kmlSync(this.id,this.value)">
+				<select name="next1" id="next1" onchange="kmlSync(this.id,this.value)">
 					<option value="colorByCollection">Collection</option>
 					<option value="colorBySpecies">Species</option>
 				</select>
 				<label for="method1">Method</label>
-				<select id="method1" onchange="kmlSync(this.id,this.value)">
+				<select name="method1"  id="method1" onchange="kmlSync(this.id,this.value)">
 					<option value="download">Download</option>
 					<option value="link">Download Linkfile</option>
 					<option value="gmap">Google Maps</option>
 				</select>
 				<label for="includeTimeSpan1">include Time?</label>
-				<select id="includeTimeSpan1" onchange="kmlSync(this.id,this.value)">
+				<select name="includeTimeSpan1"  id="includeTimeSpan1" onchange="kmlSync(this.id,this.value)">
 					<option value="0">no</option>
 					<option value="1">yes</option>
 				</select>
 				<label for="showUnaccepted1">Show unaccepted determinations?</label>
-				<select id="showUnaccepted1" onchange="kmlSync(this.id,this.value)">
+				<select name="showUnaccepted1"  id="showUnaccepted1" onchange="kmlSync(this.id,this.value)">
 					<option value="0">no</option>
 					<option value="1">yes</option>
 				</select>
 				<label for="mapByLocality1">All specimens from localities?</label>
-				<select id="mapByLocality1" onchange="kmlSync(this.id,this.value)">
+				<select  name="mapByLocality1" id="mapByLocality1" onchange="kmlSync(this.id,this.value)">
 					<option value="0">no</option>
 					<option value="1">yes</option>
 				</select>
 				<label for="showErrors1">Show error radii?</label>
-				<select id="showErrors1" onchange="kmlSync(this.id,this.value)">
+				<select  name="showErrors1" id="showErrors1" onchange="kmlSync(this.id,this.value)">
 					<option value="0">no</option>
 					<option value="1">yes</option>
 				</select>
@@ -569,9 +569,7 @@
 	 	for (var i=0; i<pAry.length; i++) {
 	 		var eAry=pAry[i].split("::");
 	 		var eName=eAry[0];
-	 		console.log('eName: ' + eName);
 	 		var eVl=eAry[1];
-	 		console.log('eVl: ' + eVl);
 	 		if (document.getElementById(eName)){
 				document.getElementById(eName).value=eVl;
 				if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm')) {
