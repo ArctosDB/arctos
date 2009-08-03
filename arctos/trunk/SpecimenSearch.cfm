@@ -513,7 +513,7 @@
 			}
 		}
 	}
-	fucntion kmlSync(tid) {
+	function kmlSync(tid) {
 		console.log(tid);
 	}
 	function changeGrp(tid) {
