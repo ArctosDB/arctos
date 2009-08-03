@@ -293,7 +293,7 @@
 <cfif #Action# is "lockUser">
 	<cfoutput>
 		<cfquery name="lock" datasource="uam_god">
-			alter user "#username#" account lock
+			alter user #username# account lock
 		</cfquery>
 		
 		The account for #username# is now locked. Contact a DBA to unlock it.
