@@ -134,11 +134,11 @@
 				</select>
 			</div>
 		</td>
-		<td>
+		<td valign="top">
 			Show&nbsp;<span class="helpLink" id="observations">Observations?</span>
 			<input type="checkbox" name="showObservations" id="showObservations" value="1" onchange="changeshowObservations(this.checked);"<cfif #session.showObservations# eq 1> checked="checked" </cfif>>
 		</td>
-		<td>
+		<td valign="top">
 			<span class="helpLink" id="_is_tissue">Tissues?</span>
 			<input type="checkbox" name="is_tissue" id="is_tissue" value="1">
 		</td>
