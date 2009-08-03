@@ -389,7 +389,38 @@
 			</select>
 			</div>
 			<div id="kmlDiv" style="display:none ">
-				kml div
+				<font size="-1"><em><strong>KML Options:</strong></em></font><br>
+				<label for="next">Color By</label>
+				<select name="next" id="next">
+					<option value="colorByCollection">Collection</option>
+					<option value="colorBySpecies">Species</option>
+				</select>
+				<label for="method">Method</label>
+				<select name="method" id="method">
+					<option value="download">Download</option>
+					<option value="link">Download Linkfile</option>
+					<option value="gmap">Google Maps</option>
+				</select>
+				<label for="includeTimeSpan">include Time?</label>
+				<select name="includeTimeSpan" id="includeTimeSpan">
+					<option value="0">no</option>
+					<option value="1">yes</option>
+				</select>
+				<label for="showUnaccepted">Show unaccepted determinations?</label>
+				<select name="showUnaccepted" id="showUnaccepted">
+					<option value="0">no</option>
+					<option value="1">yes</option>
+				</select>
+				<label for="mapByLocality">All specimens from localities?</label>
+				<select name="mapByLocality" id="mapByLocality">
+					<option value="0">no</option>
+					<option value="1">yes</option>
+				</select>
+				<label for="showErrors">Show error radii?</label>
+				<select name="showErrors" id="showErrors">
+					<option value="0">no</option>
+					<option value="1">yes</option>
+				</select>
 			</div>
 		</td>
 	</tr>
