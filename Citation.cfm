@@ -157,8 +157,6 @@
 				newCitation.occurs_page_number.value='#getCited.occurs_page_number#';
 				newCitation.citation_remarks.value='#getCited.citation_remarks#';
 				newCitation.collection.value='#getCited.collection_id#';
-				console.log(newCitation.collection.value);
-					console.log('#getCited.collection_id#');
 				">
 			</td></tr>
 		</table>
