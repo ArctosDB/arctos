@@ -70,7 +70,7 @@
 				<option value="">Specimen Records</option>
 				<option value="SpecimenResultsHTML.cfm">HTML Specimen Records</option>
 				<option  value="/bnhmMaps/bnhmMapData.cfm">BerkeleyMapper Map</option>
-				<option  value="/bnhmMaps/kml.cfm">KML</option>
+				<option  value="/bnhmMaps/kml.cfm?action=newReq">KML</option>
 				<option value="SpecimenResultsSummary.cfm">Specimen Summary</option>
 				<option  value="SpecimenGraph.cfm">Graph</option>
 				<cfif isdefined("session.username") AND (#session.username# is "link" OR #session.username# is "dusty")>
@@ -390,7 +390,7 @@
 				<option value="">Specimen Records</option>
 				<option value="SpecimenResultsHTML.cfm">HTML Specimen Records</option>
 				<option  value="/bnhmMaps/bnhmMapData.cfm">BerkeleyMapper Map</option>
-				<option  value="/bnhmMaps/kml.cfm">KML</option>
+				<option  value="/bnhmMaps/kml.cfm?action=newReq">KML</option>
 				<option value="SpecimenResultsSummary.cfm">Specimen Summary</option>
 				<option  value="SpecimenGraph.cfm">Graph</option>
 				<cfif isdefined("session.username") AND (#session.username# is "link" OR #session.username# is "dusty")>
@@ -560,7 +560,7 @@
 		if (tvalue == 'SpecimenResultsSummary.cfm') {
 			document.getElementById('groupByDiv').style.display='';
 			document.getElementById('groupByDiv1').style.display='';
-		} else if (tvalue=='/bnhmMaps/kml.cfm') {
+		} else if (tvalue=='/bnhmMaps/kml.cfm?action=newReq') {
 			document.getElementById('kmlDiv').style.display='';
 			document.getElementById('kmlDiv1').style.display='';
 		}
