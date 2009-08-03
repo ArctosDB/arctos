@@ -526,6 +526,7 @@
 		document.getElementById(theOtherField).value=tval;
 	}
 	function changeGrp(tid) {
+		console.log('i am changeGrp(' + tid);
 		if (tid == 'groupBy') {
 			var oid = 'groupBy1';
 		} else {
