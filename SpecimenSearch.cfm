@@ -523,6 +523,7 @@
 			theOtherField=tid + '1';
 		}
 		console.log('theOtherField: ' + theOtherField);
+		document.getElementById(theOtherField).value=tval;
 	}
 	function changeGrp(tid) {
 		if (tid == 'groupBy') {
