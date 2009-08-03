@@ -167,18 +167,6 @@ function closeCustom(){
 	var theDiv = document.getElementById('customDiv');
 	document.body.removeChild(theDiv);
 }
-function setPrevSearch_result(schParam){
-	 	var sp='#session.schParam#';
-	 	var pAry=schParam.split("|");
-	 	for (var i=0; i<pAry.length; i++) {
-	 		var eAry=pAry[i].split("::");
-	 		var eName=eAry[0];
-	 		var eVl=eAry[1];
-	 		if (document.getElementById(eName)){
-				document.getElementById(eName).value=eVl;
-			}
-	 	}
- } 
  function setPrevSearch(){
 	var schParam=get_cookie ('schParams');
 	var pAry=schParam.split("|");
