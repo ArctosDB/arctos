@@ -99,7 +99,7 @@
 					<option value="yr">Year</option>
 				</select>
 			</div>
-			<div id="kmlDiv1" style="display:none ">
+			<div id="kmlDiv1" style="display:none;border:1px solid green;padding:.5em;">
 				<font size="-1"><em><strong>KML Options:</strong></em></font><br>
 				<label for="next1">Color By</label>
 				<select id="next1" onchange="kmlSync(this.id,this.value)">
@@ -402,7 +402,7 @@
 			</select>
 		</td>
 		<td align="left">
-			<div id="groupByDiv" style="display:none ">
+			<div id="groupByDiv" style="display:none;border:1px solid green;padding:.5em;">
 			<font size="-1"><em><strong>Group by:</strong></em></font><br>
 			<select name="groupBy" id="groupBy" multiple size="4" onchange="changeGrp(this.id)">
 				<option value="">Scientific Name</option>
