@@ -517,6 +517,12 @@
 		console.log(tid + ': ' + tval);
 		var rMostChar=tid.substr(tid.length -1,1);
 		console.log('rMostChar: ' + rMostChar);
+		if (rMostChar=='1'){
+			theOtherField=tid.substr(0,tid.length -1);
+		} else {
+			theOtherField=tid + '1';
+		}
+		console.log('theOtherField: ' + theOtherField);
 	}
 	function changeGrp(tid) {
 		if (tid == 'groupBy') {
