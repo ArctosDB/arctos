@@ -17,8 +17,7 @@
 <cfoutput>
 	Edit code table #tbl#
 	<cfset title = "Edit #tbl#">
-	
-	
+<!---------------------------------------------------->
 <cfif #tbl# is "ctattribute_code_tables">
 	<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct(attribute_type) from ctAttribute_type
@@ -143,6 +142,7 @@
 		</tr>
 	</form>
 </table>
+<!---------------------------------------------------->
 <cfelseif #tbl# is "ctpublication_attribute">
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ctpublication_attribute order by publication_attribute
@@ -316,7 +316,6 @@
 	select * from ctspecimen_part_list_order order by
 	list_order,partname
 </cfquery>
-
 <cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection_cde, part_name partname from ctspecimen_part_name
 </cfquery>
@@ -463,7 +462,7 @@
 			
 	</table>
 <cfelse><!---------------------------- normal CTs --------------->
-
+here we are hasDescn: #hasDescn#
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select #fld# as data 
 		<cfif #collcde# is "y">
