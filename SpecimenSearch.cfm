@@ -476,7 +476,7 @@
 		if (tvalue == 'SpecimenResultsSummary.cfm') {
 			document.getElementById('groupByDiv').style.display='';
 			document.getElementById('groupByDiv1').style.display='';
-		} else if (tvalue=='/bnhmMaps/kml.cfm') 
+		} else if (tvalue=='/bnhmMaps/kml.cfm') {
 			console.log('kml');
 		} else {
 			document.getElementById('groupByDiv').style.display='none';
