@@ -1184,6 +1184,13 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
     <div class="detailCell">
 		<div class="detailLabel">Media
 			<cfif #oneOfUs# is 1>
+				 <cfquery name="hasConfirmedImageAttr"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					SELECT count(*) c
+					FROM
+						ctattribute_type 
+					where attribute_type='image confirmed' and
+					collection_cde='#detail.collection_cde#'
+				</cfquery>
 				<span class="detailEditCell" onclick="window.parent.switchIFrame('MediaSearch');">Edit</span>
 				<cfquery name="isConf"  dbtype="query">
 					SELECT count(*) c
@@ -1191,11 +1198,11 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 						attribute 
 					where attribute_type='image confirmed'
 				</cfquery>
-				<CFIF isConf.c is "">
-				<span class="infoLink" 
-					id="ala_image_confirm" onclick='windowOpener("/ALA_Imaging/confirmImage.cfm?collection_object_id=#collection_object_id#","alaWin","width=700,height=400, resizable,scrollbars,location,toolbar");'>
-					Confirm Image IDs
-				</span> 
+				<CFIF isConf.c is "" and hasConfirmedImageAttr.c gt 0>
+					<span class="infoLink" 
+						id="ala_image_confirm" onclick='windowOpener("/ALA_Imaging/confirmImage.cfm?collection_object_id=#collection_object_id#","alaWin","width=700,height=400, resizable,scrollbars,location,toolbar");'>
+						Confirm Image IDs
+					</span> 
 				</CFIF>
 			</cfif>
 		</div>
