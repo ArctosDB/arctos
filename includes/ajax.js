@@ -1683,25 +1683,6 @@ function getFormValues() {
 	var str=spAry.join("|");
 	document.cookie = 'schParams=' + str;
  }
-function changeTarget(id,tvalue) {
-	if(tvalue.length == 0) {
-		tvalue='SpecimenResults.cfm';
-	}
-	if (id =='tgtForm1') {
-		var otherForm = document.getElementById('tgtForm');
-	} else {
-		var otherForm = document.getElementById('tgtForm1');
-	}
-	otherForm.value=tvalue;
-	if (tvalue == 'SpecimenResultsSummary.cfm') {
-		document.getElementById('groupByDiv').style.display='';
-		document.getElementById('groupByDiv1').style.display='';
-	} else {
-		document.getElementById('groupByDiv').style.display='none';
-		document.getElementById('groupByDiv1').style.display='none';
-	}
-	document.SpecData.action = tvalue;
-}
 function nada(){
 	return false;
 }
