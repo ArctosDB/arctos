@@ -563,5 +563,18 @@
 		}
 		document.SpecData.action = tvalue;
 	}
+	function setPrevSearch(){
+		var schParam=get_cookie ('schParams');
+		var pAry=schParam.split("|");
+	 	for (var i=0; i<pAry.length; i++) {
+	 		var eAry=pAry[i].split("::");
+	 		var eName=eAry[0];
+	 		console.log('eName: ' + eName);
+	 		var eVl=eAry[1];
+	 		if (document.getElementById(eName)){
+				document.getElementById(eName).value=eVl;
+			}
+	 	}
+	}
 </script>
 <cfinclude template = "includes/_footer.cfm">
