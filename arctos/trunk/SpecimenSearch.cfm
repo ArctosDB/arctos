@@ -419,7 +419,7 @@
 				<option value="yr">Year</option>
 			</select>
 			</div>
-			<div id="kmlDiv" style="display:none ">
+			<div id="kmlDiv" style="display:none;border:1px solid green;">
 				<font size="-1"><em><strong>KML Options:</strong></em></font><br>
 				<label for="next">Color By</label>
 				<select name="next" id="next" onchange="kmlSync(this.id,this.value)">
