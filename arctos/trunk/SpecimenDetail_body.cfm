@@ -1198,6 +1198,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 						attribute 
 					where attribute_type='image confirmed'
 				</cfquery>
+				#hasConfirmedImageAttr.c#
 				<CFIF isConf.c is "" and hasConfirmedImageAttr.c gt 0>
 					<span class="infoLink" 
 						id="ala_image_confirm" onclick='windowOpener("/ALA_Imaging/confirmImage.cfm?collection_object_id=#collection_object_id#","alaWin","width=700,height=400, resizable,scrollbars,location,toolbar");'>
