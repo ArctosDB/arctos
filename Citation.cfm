@@ -156,6 +156,7 @@
 				newCitation.type_status.value='#getCited.type_status#';
 				newCitation.occurs_page_number.value='#getCited.occurs_page_number#';
 				newCitation.citation_remarks.value='#getCited.citation_remarks#';
+				newCitation.collection.value='#getCited.collection#';
 				">
 			</td></tr>
 		</table>
