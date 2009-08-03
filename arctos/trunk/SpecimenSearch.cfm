@@ -571,6 +571,7 @@
 	 		var eName=eAry[0];
 	 		console.log('eName: ' + eName);
 	 		var eVl=eAry[1];
+	 		console.log('eVl: ' + eVl);
 	 		if (document.getElementById(eName)){
 				document.getElementById(eName).value=eVl;
 			}
