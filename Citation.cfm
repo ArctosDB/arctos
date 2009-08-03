@@ -143,7 +143,6 @@
 				
 			</td>
 		</form>
-		<form name="clone#i#" method="post" action="Citation.cfm">
 		
 			<td>
 			<input type="button" 
@@ -157,6 +156,8 @@
 				newCitation.occurs_page_number.value='#getCited.occurs_page_number#';
 				newCitation.citation_remarks.value='#getCited.citation_remarks#';
 				newCitation.collection.value='#getCited.collection#';
+				console.log(newCitation.collection.value);
+					console.log('#getCited.collection#');
 				">
 			</td></tr>
 		</table>
@@ -171,7 +172,6 @@
 	<td>#getCited.occurs_page_number#&nbsp;</td>
 	<td nowrap>#getCited.citation_remarks#&nbsp;</td>
 	
-</form>
 	</tr>
 	<cfset i=#i#+1>
 </cfloop>
