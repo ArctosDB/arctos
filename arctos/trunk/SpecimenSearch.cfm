@@ -462,5 +462,26 @@
 			}
 		}
 	}
+	function changeTarget(id,tvalue) {
+		if(tvalue.length == 0) {
+			tvalue='SpecimenResults.cfm';
+		}
+		if (id =='tgtForm1') {
+			var otherForm = document.getElementById('tgtForm');
+		} else {
+			var otherForm = document.getElementById('tgtForm1');
+		}
+		otherForm.value=tvalue;
+		if (tvalue == 'SpecimenResultsSummary.cfm') {
+			document.getElementById('groupByDiv').style.display='';
+			document.getElementById('groupByDiv1').style.display='';
+		} else if (tvalue=='/bnhmMaps/kml.cfm') 
+			console.log('kml');
+		} else {
+			document.getElementById('groupByDiv').style.display='none';
+			document.getElementById('groupByDiv1').style.display='none';
+		}
+		document.SpecData.action = tvalue;
+	}
 </script>
 <cfinclude template = "includes/_footer.cfm">
