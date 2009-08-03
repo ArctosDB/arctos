@@ -466,6 +466,7 @@
 	jQuery(document).ready(function() {
 	  	var tval = document.getElementById('tgtForm').value;
 		changeTarget('tgtForm',tval);
+		console.log('we changeTarget to tgtForm,' + tval);
 		changeGrp('groupBy');
 		jQuery.getJSON("/component/functions.cfc",
 			{
