@@ -99,6 +99,9 @@
 					<option value="yr">Year</option>
 				</select>
 			</div>
+			<div id="kmlDiv1" style="display:none ">
+				kml div
+			</div>
 		</td>
 		<td>
 			Show&nbsp;<span class="helpLink" id="observations">Observations?</span>
@@ -385,6 +388,9 @@
 				<option value="yr">Year</option>
 			</select>
 			</div>
+			<div id="kmlDiv" style="display:none ">
+				kml div
+			</div>
 		</td>
 	</tr>
 </table> 
@@ -473,14 +479,16 @@
 			var otherForm = document.getElementById('tgtForm1');
 		}
 		otherForm.value=tvalue;
+		document.getElementById('groupByDiv').style.display='none';
+		document.getElementById('groupByDiv1').style.display='none';
+		document.getElementById('kmlDiv').style.display='none';
+		document.getElementById('kmlDiv1').style.display='none';
 		if (tvalue == 'SpecimenResultsSummary.cfm') {
 			document.getElementById('groupByDiv').style.display='';
 			document.getElementById('groupByDiv1').style.display='';
 		} else if (tvalue=='/bnhmMaps/kml.cfm') {
-			console.log('kml');
-		} else {
-			document.getElementById('groupByDiv').style.display='none';
-			document.getElementById('groupByDiv1').style.display='none';
+			document.getElementById('kmlDiv').style.display='';
+			document.getElementById('kmlDiv1').style.display='';
 		}
 		document.SpecData.action = tvalue;
 	}
