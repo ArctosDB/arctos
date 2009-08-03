@@ -515,6 +515,8 @@
 	}
 	function kmlSync(tid,tval) {
 		console.log(tid + ': ' + tval);
+		var rMostChar=tid.substr(tid.length -1,1);
+		console.log('rMostChar: ' + rMostChar);
 	}
 	function changeGrp(tid) {
 		if (tid == 'groupBy') {
