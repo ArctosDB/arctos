@@ -526,7 +526,6 @@
 		document.getElementById(theOtherField).value=tval;
 	}
 	function changeGrp(tid) {
-		console.log('i am changeGrp(' + tid);
 		if (tid == 'groupBy') {
 			var oid = 'groupBy1';
 		} else {
@@ -543,6 +542,8 @@
 				sList.options[i].selected = true;
 			}
 		}
+		console.log('i am changeGrp(' + tid);
+		console.log('now we want to call changeTarget with id=' + tid);
 	}
 	function changeTarget(id,tvalue) {
 		if(tvalue.length == 0) {
