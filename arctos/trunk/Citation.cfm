@@ -71,6 +71,7 @@
 		citation.publication_id,
 		citation.collection_object_id,
 		collection,
+		collection.collection_id,
 		cat_num, 
 		identification.scientific_name, 
 		citedTaxa.scientific_name as citSciName,
@@ -155,9 +156,9 @@
 				newCitation.type_status.value='#getCited.type_status#';
 				newCitation.occurs_page_number.value='#getCited.occurs_page_number#';
 				newCitation.citation_remarks.value='#getCited.citation_remarks#';
-				newCitation.collection.value='#getCited.collection#';
+				newCitation.collection.value='#getCited.collection_id#';
 				console.log(newCitation.collection.value);
-					console.log('#getCited.collection#');
+					console.log('#getCited.collection_id#');
 				">
 			</td></tr>
 		</table>
