@@ -574,6 +574,10 @@
 	 		console.log('eVl: ' + eVl);
 	 		if (document.getElementById(eName)){
 				document.getElementById(eName).value=eVl;
+				if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm') {
+					// also fire off the options div
+					changeTarget(eName,eVl);
+				}
 			}
 	 	}
 	}
