@@ -1702,24 +1702,6 @@ function changeTarget(id,tvalue) {
 	}
 	document.SpecData.action = tvalue;
 }
-function changeGrp(tid) {
-	if (tid == 'groupBy') {
-		var oid = 'groupBy1';
-	} else {
-		var oid = 'groupBy';
-	}
-	var mList = document.getElementById(tid);
-	var sList = document.getElementById(oid);
-	var len = mList.length;
-	for (i = 0; i < len; i++) {
-		sList.options[i].selected = false;
-	}
-	for (i = 0; i < len; i++) {
-		if (mList.options[i].selected) {
-			sList.options[i].selected = true;
-		}
-	}
-}
 function nada(){
 	return false;
 }

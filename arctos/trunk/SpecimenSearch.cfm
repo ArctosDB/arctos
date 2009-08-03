@@ -355,6 +355,7 @@
 				<option value="">Specimen Records</option>
 				<option value="SpecimenResultsHTML.cfm">HTML Specimen Records</option>
 				<option  value="/bnhmMaps/bnhmMapData.cfm">BerkeleyMapper Map</option>
+				<option  value="/bnhmMaps/kml.cfm">KML</option>
 				<option value="SpecimenResultsSummary.cfm">Specimen Summary</option>
 				<option  value="SpecimenGraph.cfm">Graph</option>
 				<cfif isdefined("session.username") AND (#session.username# is "link" OR #session.username# is "dusty")>
@@ -393,40 +394,28 @@
 </form>
 </cfoutput> 
 <script type='text/javascript' language='javascript'>
-  jQuery(document).ready(function() {
-  var tval = document.getElementById('tgtForm').value;
-	changeTarget('tgtForm',tval);
-	changeGrp('groupBy');
-	// make an ajax call to get preferences, then turn stuff on
-	jQuery.getJSON("/component/functions.cfc",
-		{
-			method : "getSpecSrchPref",
-			returnformat : "json",
-			queryformat : 'column'
-		},
-		getComplete
-	);
-	function getComplete (getResult) {
-		if (getResult == "cookie") {
-			var cookie = readCookie("specsrchprefs");
-			if (cookie != null) {
-				r_getSpecSrchPref(cookie);
+	jQuery(document).ready(function() {
+	  	var tval = document.getElementById('tgtForm').value;
+		changeTarget('tgtForm',tval);
+		changeGrp('groupBy');
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "getSpecSrchPref",
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (getResult) {
+				if (getResult == "cookie") {
+					var cookie = readCookie("specsrchprefs");
+					if (cookie != null) {
+						r_getSpecSrchPref(cookie);
+					}
+				}
+				else
+					r_getSpecSrchPref(getResult);
 			}
-		}
-		else
-			r_getSpecSrchPref(getResult);
-	}
-	function r_getSpecSrchPref (result){
-		//alert(result);
-		var j=result.split(',');
-		for (var i = 0; i < j.length; i++) {
-			if (j[i].length>0){
-				showHide(j[i],1);
-				//alert(j[i]);
-			}
-		}
-	}
-	
+		);
+	});
 	jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
 		width: 320,
 		max: 20,
@@ -437,7 +426,6 @@
 		scroll: true,
 		scrollHeight: 300
 	});
-	
 	jQuery("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", {
 		width: 320,
 		max: 20,
@@ -448,7 +436,31 @@
 		scroll: true,
 		scrollHeight: 300
 	});	
-	
-	});
+	function r_getSpecSrchPref (result){
+		var j=result.split(',');
+		for (var i = 0; i < j.length; i++) {
+			if (j[i].length>0){
+				showHide(j[i],1);
+			}
+		}
+	}
+	function changeGrp(tid) {
+		if (tid == 'groupBy') {
+			var oid = 'groupBy1';
+		} else {
+			var oid = 'groupBy';
+		}
+		var mList = document.getElementById(tid);
+		var sList = document.getElementById(oid);
+		var len = mList.length;
+		for (i = 0; i < len; i++) {
+			sList.options[i].selected = false;
+		}
+		for (i = 0; i < len; i++) {
+			if (mList.options[i].selected) {
+				sList.options[i].selected = true;
+			}
+		}
+	}
 </script>
 <cfinclude template = "includes/_footer.cfm">
