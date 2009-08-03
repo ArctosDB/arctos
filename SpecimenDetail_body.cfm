@@ -774,8 +774,8 @@
 					</cfif>
 					<cfloop query="invRel">
 						<cfset invReln=BIOL_INDIV_RELATIONSHIP>
-						<cfset invReln=replace(invReln," of"," IS","all")>
-						<cfset invReln=replace(invReln,"ate","eaten by","all")>
+						<cfset invReln=replace(invReln," of "," IS ","all")>
+						<cfset invReln=replace(invReln," ate "," eaten by ","all")>
 						
 						<div class="detailBlock">
 							<span class="detailData">
