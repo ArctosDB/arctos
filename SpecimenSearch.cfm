@@ -466,7 +466,6 @@
 	jQuery(document).ready(function() {
 	  	var tval = document.getElementById('tgtForm').value;
 		changeTarget('tgtForm',tval);
-		console.log('we changeTarget to tgtForm,' + tval);
 		changeGrp('groupBy');
 		jQuery.getJSON("/component/functions.cfc",
 			{
@@ -515,19 +514,15 @@
 		}
 	}
 	function kmlSync(tid,tval) {
-		console.log(tid + ': ' + tval);
 		var rMostChar=tid.substr(tid.length -1,1);
-		console.log('rMostChar: ' + rMostChar);
 		if (rMostChar=='1'){
 			theOtherField=tid.substr(0,tid.length -1);
 		} else {
 			theOtherField=tid + '1';
 		}
-		console.log('theOtherField: ' + theOtherField);
 		document.getElementById(theOtherField).value=tval;
 	}
 	function changeGrp(tid) {
-		console.log('am changeGrp and tis=' + tid);
 		if (tid == 'groupBy') {
 			var oid = 'groupBy1';
 		} else {
