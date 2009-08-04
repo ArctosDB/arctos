@@ -83,7 +83,7 @@ However, some tables have not followed normal naming conventions and are cryptic
 		<CFSET collcde="n">
 	</cfif>
 	
-	<a href="CodeTableEditor.cfm?tbl=#getCTName.table_name#&fld=#fld#&collcde=#collcde#&hasDesc=#descn#">#getCTName.table_name#</a>
+	<a href="CodeTableEditor.cfm?tbl=#getCTName.table_name#&fld=#fld#&collcde=#collcde#&hasDescn=#descn#">#getCTName.table_name#</a>
 
 </td></tr>
 
