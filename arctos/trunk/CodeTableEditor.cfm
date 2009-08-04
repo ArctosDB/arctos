@@ -462,7 +462,6 @@
 			
 	</table>
 <cfelse><!---------------------------- normal CTs --------------->
-here we are hasDescn: #hasDescn#
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select #fld# as data 
 		<cfif #collcde# is "y">
