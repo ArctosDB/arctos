@@ -18,8 +18,8 @@
 
 <cfdump var=#c#>
 
-<cfloop from="1" to="#xmldoc.html.head.XmlChildren#" index="i">
-	<br>i=#i#: #xmldoc.html.head.meta[i]#
+<cfloop from="1" to="#ArrayLen(xmldoc.html.head.XmlChildren)#" index="i">
+	<br>i=#i#: #xmldoc.html.head.meta[i].xmlname#
 
 </cfloop>
 
