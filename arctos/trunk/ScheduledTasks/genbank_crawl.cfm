@@ -5,7 +5,7 @@
 	select collection_cde,institution_acronym from collection order by institution_acronym,collection_cde
 </cfquery>
 <cfquery name="inst" dbtype="query">
-	select institution_acronym from c order by institution_acronym
+	select institution_acronym from c group by institution_acronym order by institution_acronym
 </cfquery>
 <cfloop query="inst">
 	<cfset u="http://www.ncbi.nlm.nih.gov/sites/entrez?db=nuccore&cmd=search&term=">
