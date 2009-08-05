@@ -34,10 +34,36 @@
 	</form>
 </cfoutput>
 <cfif action is "search">
-	newsearch
+	<cfoutput>
+		<p><strong>Data previous to approximately 7 August 2009</strong></p>
+		<cfquery name="activity" datasource="#Application.uam_dbo#">
+			select 
+				to_char(date_stamp,'dd-mon-yyyy') date_stamp, 
+				sql_statement, 
+				username
+			from 
+				cf_database_activity, 
+				cf_users 
+			where
+				cf_database_activity.user_id = cf_users.user_id
+				<cfif len(#uname#) gt 0>
+					AND upper(username) like '%#ucase(uname)#%'
+				</cfif>
+				<cfif len(#date#) gt 0>
+					AND upper(to_char(date_stamp,'dd-mon-yyyy')) like '%#ucase(date)#%'
+				</cfif>
+				<cfif len(#sql#) gt 0>
+					AND upper(sql_statement) like '%#ucase(sql)#%'
+				</cfif>
+			ORDER BY 
+				username,
+				date_stamp,
+				sql_statement
+		</cfquery>
+	</cfoutput>
 </cfif>
 <cfif #action# is "search_old">
-	<cfquery name="activity" datasource="#Application.uam_dbo#">
+	<cfquery name="activity" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			to_char(date_stamp,'dd-mon-yyyy') date_stamp, 
 			sql_statement, 
@@ -61,7 +87,7 @@
 			date_stamp,
 			sql_statement
 	</cfquery>
-	<p><strong>Old SQL log, containing data previous to approximately 7 August 2009</strong></p>	
+	<p><strong>Data previous to approximately 7 August 2009</strong></p>	
 	<table border id="t_old" class="sortable">
 		<tr>
 			<th>username</th>
