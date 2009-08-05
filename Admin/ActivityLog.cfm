@@ -57,6 +57,9 @@
 				<cfif len(#sql#) gt 0>
 					AND upper(sql_statement) like '%#ucase(sql)#%'
 				</cfif>
+				<cfif len(#form#) gt 0>
+					AND upper(object_name) like '%#ucase(form)#%'
+				</cfif>
 			ORDER BY 
 				username,
 				date_stamp,
@@ -69,7 +72,6 @@
 			<th>date_stamp</th>
 			<th>sql_statement</th>
 		</tr>
-		<cfoutput>
 		<cfloop query="activity">
 			<tr>
 				<td>#username#</td>
@@ -78,7 +80,6 @@
 				<td>#sql_statement#</td>
 			</tr>
 		</cfloop>
-		</cfoutput>
 	</table>
 	</cfoutput>
 </cfif>
