@@ -29,7 +29,7 @@
 </cfloop>
 
 
-<cfset test=xmldoc.html.head.meta.xmlattributes["name"].xmlattributes["content"]
+<cfset test=xmldoc.html.head.meta.xmlattributes["name"].xmlattributes["content"]>
 		test: #test#
 </cfoutput>
 
