@@ -4,7 +4,7 @@
 	url="http://www.ncbi.nlm.nih.gov/sites/entrez?db=nuccore&cmd=search&term=collection%20uam[prop]%20NOT%20loprovarctos[filter]" 
 	method="get" />
 
-
+<cfset xmlDoc=xmlParse(cfhttp.filecontent)>
 <cfoutput>
 <cfloop from="1" to="#ArrayLen(xmldoc.html.head.meta)#" index="i">
 	<cfset a=xmldoc.html.head.meta[i].xmlattributes>
