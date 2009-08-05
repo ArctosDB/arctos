@@ -3,7 +3,7 @@
 <cfparam name="uname" default="">
 <cfparam name="date" default="">
 <cfparam name="sql" default="">
-<cfparam name="form" default="">
+<cfparam name="object" default="">
 <cfoutput>
 <p><strong>This form accesses after approximately 7 August 2009</strong></p>	
 	<form name="srch" method="post" action="ActivityLog.cfm">
