@@ -9,8 +9,8 @@
 	<form name="srch" method="post" action="ActivityLog.cfm">
 		<label for="action">Data to search</label>
 		<select name="action">
-			<option value="search">7 Aug 2009-present</option>
-			<option value="search_old">before 7 Aug 2009</option>
+			<option <cfif action is "search"> selected="selected"></cfif> value="search">7 Aug 2009-present</option>
+			<option <cfif action is "search_old"> selected="selected"></cfif> value="search_old">before 7 Aug 2009</option>
 		</select>
 		<label for="uname">Username</label>
 		<input type="text" name="uname" id="uname" value="#uname#">
