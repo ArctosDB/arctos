@@ -33,7 +33,10 @@
 		<br>
 		<input type="submit" 
 		 	value="Filter" 
-			class="lnkBtn">	
+			class="lnkBtn">
+		<input type="reset" 
+		 	value="Clear" 
+			class="clrBtn">	
 	</form>
 </cfoutput>
 <cfif action is "search">
