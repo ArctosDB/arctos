@@ -20,7 +20,7 @@
 <cfoutput>
 <cfloop from="1" to="#ArrayLen(xmldoc.html.head.meta)#" index="i">
 	<cfset a=xmldoc.html.head.meta[i].xmlattributes>
-	<cfif a.name='ncbi_resultcount'>
+	<cfif a.name is 'ncbi_resultcount'>
 		ncbi_resultcount
 	</cfif>
 	<cfdump var=#a#>
