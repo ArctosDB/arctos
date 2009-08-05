@@ -22,7 +22,6 @@
 <cfparam name="sql" default="">
 <cfparam name="object" default="">
 <cfoutput>
-<p><strong>This form accesses after approximately 7 August 2009</strong></p>	
 	<form name="srch" method="post" action="ActivityLog.cfm">
 		<label for="action">Data to search</label>
 		<select name="action" id="action">
