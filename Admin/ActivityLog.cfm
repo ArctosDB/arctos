@@ -4,7 +4,7 @@
 <cfparam name="sql" default="">
 <table>
 <cfoutput>
-<h2>This form accesses the old SQL log, containing data previous to approximately 7 August 2009</h2>	
+<p><strong>This form accesses the old SQL log, containing data previous to approximately 7 August 2009</strong></p>	
 	<form name="srch" method="post" action="ActivityLog.cfm">
 		<input type="hidden" name="action" value="search_old">
 		<tr>
@@ -62,6 +62,7 @@
 			date_stamp,
 			sql_statement
 	</cfquery>
+	<p><strong>Old SQL log, containing data previous to approximately 7 August 2009</strong></p>	
 	<table border>
 		<tr>
 			<td>username</td>
