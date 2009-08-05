@@ -15,8 +15,12 @@
 <cfset cnt=xmldoc.html.head.meta>
 <cfdump var=#cnt#>
 <cfset c=ArrayLen(xmldoc.html.head.XmlChildren)>
-
 <cfdump var=#c#>
+
+<cfset metaArray=xmldoc.html.head.meta>
+
+<cfdump var=#metaArray#>
+<hr>
 <cfoutput>
 <cfloop from="1" to="#ArrayLen(xmldoc.html.head.meta)#" index="i">
 	<cfset a=xmldoc.html.head.meta[i].xmlattributes>
