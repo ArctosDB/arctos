@@ -32,7 +32,7 @@
 		<input type="text" name="uname" id="uname" value="#uname#">
 		<label for="bdate">Begin Date</label>
 		<input type="text" name="bdate" id="bdate" value="#bdate#">
-		<img src="images/pick.gif" 
+		<img src="/images/pick.gif" 
 			class="likeLink" 
 			border="0" 
 			alt="[calendar]"
@@ -41,7 +41,7 @@
 			onClick="cal1.select(document.srch.bdate,'anchor1','dd-MMM-yyyy'); return false;"/>
 		<label for="edate">Ended Date</label>
 		<input type="text" name="edate" id="edate" value="#edate#">
-		<img src="images/pick.gif" 
+		<img src="/images/pick.gif" 
 			class="likeLink" 
 			border="0" 
 			alt="[calendar]"
