@@ -17,11 +17,14 @@
 <cfset c=ArrayLen(xmldoc.html.head.XmlChildren)>
 
 <cfdump var=#c#>
-
+<cfoutput>
 <cfloop from="1" to="#ArrayLen(xmldoc.html.head.XmlChildren)#" index="i">
 	<br>i=#i#: #xmldoc.html.head.meta[i].xmlname#
 
 </cfloop>
+
+</cfoutput>
+
 
 <!----
 <cfset r=<meta name="ncbi_resultcount" content="4092" />
