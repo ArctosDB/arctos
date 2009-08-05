@@ -1,42 +1,41 @@
 <cfinclude template="/includes/_header.cfm">
+<script src="/includes/sorttable.js"></script>
 <cfparam name="uname" default="">
 <cfparam name="date" default="">
 <cfparam name="sql" default="">
-<table>
 <cfoutput>
-<p><strong>This form accesses the old SQL log, containing data previous to approximately 7 August 2009</strong></p>	
+<p><strong>This form accesses after approximately 7 August 2009</strong></p>	
+	<form name="srch" method="post" action="ActivityLog.cfm">
+		<input type="hidden" name="action" value="search">
+		<label for="uname">Username</label>
+		<input type="text" name="uname" id="uname" value="#uname#">
+		<label for="date">Date</label>
+		<input type="text" name="date" id="date" value="#date#">
+		<label for="sql">SQL</label>
+		<input type="text" name="sql" id="sql" value="#sql#">
+		<br>
+		<input type="submit" 
+		 	value="Filter" 
+			class="lnkBtn">	
+	</form>
+<p><strong>This form accesses data previous to approximately 7 August 2009</strong></p>	
 	<form name="srch" method="post" action="ActivityLog.cfm">
 		<input type="hidden" name="action" value="search_old">
-		<tr>
-			<td align="right">
-				Username
-			</td>
-			<td><input type="text" name="uname" value="#uname#"></td>
-		</tr>
-		<tr>
-			<td align="right">
-				Date
-			</td>
-			<td><input type="text" name="date" value="#date#"></td>
-		</tr>
-		<tr>
-			<td align="right">
-				SQL
-			</td>
-			<td><input type="text" name="sql" value="#sql#"></td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				 <input type="submit" 
-				 	value="Filter" 
-					class="lnkBtn"
-   					onmouseover="this.className='lnkBtn btnhov'" 
-					onmouseout="this.className='lnkBtn'">	
-			</td>
-		</tr>
+		<label for="uname">Username</label>
+		<input type="text" name="uname" id="uname" value="#uname#">
+		<label for="date">Date</label>
+		<input type="text" name="date" id="date" value="#date#">
+		<label for="sql">SQL</label>
+		<input type="text" name="sql" id="sql" value="#sql#">
+		<br>
+		<input type="submit" 
+		 	value="Filter" 
+			class="lnkBtn">	
 	</form>
-</table>
 </cfoutput>
+<cfif action is "search">
+	newsearch
+</cfif>
 <cfif #action# is "search_old">
 	<cfquery name="activity" datasource="#Application.uam_dbo#">
 		select 
@@ -63,11 +62,11 @@
 			sql_statement
 	</cfquery>
 	<p><strong>Old SQL log, containing data previous to approximately 7 August 2009</strong></p>	
-	<table border>
+	<table border id="t_old" class="sortable">
 		<tr>
-			<td>username</td>
-			<td>date_stamp</td>
-			<td>sql_statement</td>
+			<th>username</th>
+			<th>date_stamp</th>
+			<th>sql_statement</th>
 		</tr>
 		<cfoutput>
 		<cfloop query="activity">
