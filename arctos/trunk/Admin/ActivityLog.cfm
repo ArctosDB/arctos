@@ -57,7 +57,7 @@
 				<cfif len(#sql#) gt 0>
 					AND upper(sql_statement) like '%#ucase(sql)#%'
 				</cfif>
-				<cfif len(#form#) gt 0>
+				<cfif len(#object#) gt 0>
 					AND upper(object_name) like '%#ucase(object)#%'
 				</cfif>
 			ORDER BY 
