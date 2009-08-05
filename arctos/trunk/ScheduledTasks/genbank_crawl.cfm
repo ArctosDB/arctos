@@ -18,6 +18,11 @@
 
 <cfdump var=#c#>
 
+<cfloop from="1" to="#xmldoc.html.head.XmlChildren#" index="i">
+	<br>i=#i#: #xmldoc.html.head.XmlChildren[i]#
+
+</cfloop>
+
 <!----
 <cfset r=<meta name="ncbi_resultcount" content="4092" />
 
