@@ -65,13 +65,6 @@
 	#preservesinglequotes(sql)#
 </cfquery>
 </cfif>
-
-
-	<cf_getSearchTerms>
-	<cfset log.query_string=returnURL>
-	<cfset log.reported_count = #ProjDB.RecordCount#>
-	<cfinclude template="/includes/activityLog.cfm">
-<cfobjectcache action="clear">
 </cfif>
 <cfset newQuery=0>
 <cfquery name="Proj" dbtype="query" cachedwithin="#createtimespan(0,0,15,0)#">

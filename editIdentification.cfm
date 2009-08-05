@@ -562,30 +562,19 @@ function checkRequired(){
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------->
-<!----------------------------------------------------------------------------------->
 <cfif #Action# is "deleteIdent">
 	<cfif #accepted_id_fg# is "1">
 		<font color="#FF0000" size="+1">You can't delete the accepted identification!</font> 
 		<cfabort>
     </cfif>
-	
-	<cf_logEdit collection_object_id="#collection_object_id#">
-  <cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
+	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
 </cfif>
-<!----------------------------------------------------------------------------------->
-
 <!--------------------------------------------------------------------------------------------------->
 <cfif #Action# is "multi">
 <cfoutput>
 	<cflocation url="multiIdentification.cfm?collection_object_id=#collection_object_id#" addtoken="false">
 </cfoutput>
 </cfif>
-<!----------------------------------------------------------------------------------->
-
-
-
-
-
 <!----------------------------------------------------------------------------------->
 <cfif #Action# is "createNew">
 <cfoutput>
@@ -713,29 +702,13 @@ function checkRequired(){
 			 </cfquery>
 		 </cfif>
 </cftransaction>
-		 <cf_logEdit collection_object_id="#COLLECTION_OBJECT_ID#">
-
 	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
-	
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
-
-<!---
-<cfoutput>
-<script type="text/javascript" language="javascript">
-	changeStyle('#getID.institution_acronym#');
-	parent.dyniframesize();
-</script>
-</cfoutput>
---->
-
-	<cfinclude template="includes/_pickFooter.cfm">
+<cfinclude template="includes/_pickFooter.cfm">
 </div>
-
 <script>
 	parent.dyniframesize();
 </script>
-
-
 <DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>

@@ -175,38 +175,12 @@
 	WHERE collection_object_id=#collection_object_id#
 	</cfquery>
 	</cftransaction>
-	<cf_logEdit collection_object_id="#collection_object_id#">
 	<cflocation url="editIdentifiers.cfm?collection_object_id=#collection_object_id#">
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------->
-<!-------------------------------------------------------->
 <cfif #Action# is "saveOIDEdits">
 <cfoutput>
-	<!---
-	<cftry>
-		
-	
-	<cfquery name="upOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		UPDATE 
-			coll_obj_other_id_num 
-		SET 
-			other_id_prefix='#other_id_prefix#',
-			other_id_number=#other_id_number#,
-			other_id_suffix='#other_id_suffix#',
-			other_id_type = '#other_id_type#'
-		WHERE 
-			collection_object_id=#collection_object_id# and
-			other_id_type = '#origother_id_type#' and
-			other_id_prefix = '#origother_id_prefix#' AND
-			other_id_number = #origother_id_number# AND
-			other_id_suffix = '#origother_id_suffix#'
-	</cfquery>
-	<cfcatch>
-		<cf_queryError>
-	</cfcatch>
-	</cftry>
-	--->
 	<cfquery name="upOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		UPDATE 
 			coll_obj_other_id_num 
@@ -230,32 +204,21 @@
 		WHERE 
 			COLL_OBJ_OTHER_ID_NUM_ID=#COLL_OBJ_OTHER_ID_NUM_ID#
 	</cfquery>
-	
-	
-	<cf_logEdit collection_object_id="#collection_object_id#">
 	<cflocation url="editIdentifiers.cfm?collection_object_id=#collection_object_id#">
-
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------->
-<!-------------------------------------------------------->
 <cfif #Action# is "deleOID">
 <cfoutput>
-
-
 <cfquery name="delOIDt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	DELETE FROM 
 		coll_obj_other_id_num 
 	WHERE 
 		COLL_OBJ_OTHER_ID_NUM_ID=#COLL_OBJ_OTHER_ID_NUM_ID#
 	</cfquery>
-	
-<cf_logEdit collection_object_id="#collection_object_id#">
 	<cflocation url="editIdentifiers.cfm?collection_object_id=#collection_object_id#">
-
 </cfoutput>
 </cfif>
-<!-------------------------------------------------------->
 <!-------------------------------------------------------->
 <cfif #Action# is "newOID">
 <cfoutput>
@@ -287,17 +250,7 @@
 			NULL
 		</cfif>)
 	</cfquery>
-	<!---
-<cftry>
-
-	<cfcatch>
-		<cf_queryError>
-	</cfcatch>
-	</cftry>
-	--->
-	<cf_logEdit collection_object_id="#collection_object_id#">
 	<cflocation url="editIdentifiers.cfm?collection_object_id=#collection_object_id#">
-
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------->

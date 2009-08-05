@@ -125,20 +125,6 @@
 		coll_order=#oldOrder# AND
 		agent_id=#oldAgent_id#
 		</cfquery>
-	<cf_logEdit collection_object_id="#collection_object_id#">
-<cf_ActivityLog sql="UPDATE collector SET
-		<cfif len(#newagent_id#) gt 0>
-			agent_id = #newagent_id#
-		<cfelse>
-			agent_id = #oldAgent_id#
-		</cfif>
-		,collector_role='#collector_role#'
-		,coll_order=#coll_order#
-		where
-		collection_object_id = #collection_object_id# and
-		collector_role = '#oldRole#' AND
-		coll_order=#oldOrder# AND
-		agent_id=#oldAgent_id#">
 		<cflocation url="editColls.cfm?collection_object_id=#collection_object_id#">
 </cfoutput>	
 </cfif>
@@ -151,12 +137,6 @@
 		collection_object_id, agent_id, collector_role,coll_order)
 	VALUES (#collection_object_id#, #newagent_id#,'#collector_role#',#coll_order#)
 	</cfquery>
-	<cf_ActivityLog sql="INSERT INTO collector (
-		collection_object_id, agent_id, collector_role,coll_order)
-	VALUES (#collection_object_id#, #newagent_id#,'#collector_role#',#coll_order#)">
-	
-	<cf_logEdit collection_object_id="#collection_object_id#">
-	
 	<cflocation url="editColls.cfm?collection_object_id=#collection_object_id#">
 </cfoutput>	
 </cfif>
@@ -169,11 +149,6 @@
 		agent_id = #oldagent_id#
 		AND collector_role='#collector_role#'
 	</cfquery>
-	<cf_logEdit collection_object_id="#collection_object_id#">
-	<cf_ActivityLog sql="DELETE FROM  collector WHERE 
-		collection_object_id = #collection_object_id# AND
-		agent_id = #oldagent_id#
-		AND collector_role='#collector_role#'">
 		<cflocation url="editColls.cfm?collection_object_id=#collection_object_id#">
 </cfoutput>	
 </cfif>

@@ -346,40 +346,8 @@
 			publication_id = #publication_id# AND
 			collection_object_id = #collection_object_id#
 		</cfquery>
-		<!---
-		<cf_ActivityLog sql="
-		UPDATE citation SET
-			cit_current_fg = 1
-			<cfif len(#cited_taxon_name_id#) gt 0>
-				,cited_taxon_name_id = #cited_taxon_name_id#
-			  <cfelse>
-			  	,cited_taxon_name_id = null
-			</cfif>
-			<cfif len(#occurs_page_number#) gt 0>
-				,occurs_page_number = #occurs_page_number#
-			  <cfelse>
-			  	, =null
-			</cfif>
-			<cfif len(#type_status#) gt 0>
-				,type_status = '#type_status#'
-			  <cfelse>
-				,type_status = null
-			</cfif>
-			<cfif len(#citation_remarks#) gt 0>
-				,citation_remarks = '#citation_remarks#'
-			  <cfelse>
-			  	,citation_remarks = null
-			</cfif>
-			
-		WHERE 
-			publication_id = #publication_id# AND
-			collection_object_id = #collection_object_id#
-		">
-		--->
-			<cflocation url="Citation.cfm?publication_id=#publication_id#">		
-		
+		<cflocation url="Citation.cfm?publication_id=#publication_id#">
 	</cfoutput>
-
 </cfif>
 <!------------------------------------------------------------------------------->
 <cfif #Action# is "editCitation">
@@ -487,20 +455,15 @@
 	
 	</cfform>
 </tr></table>
-
 </cfoutput>
 </cfif>
-
-<!------------------------------------------------------------------------------->
-
 <!------------------------------------------------------------------------------->
 <cfif #Action# is "deleCitation">
 <cfoutput>
 	<cfquery name="deleCit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	delete from citation where collection_object_id = #collection_object_id# and publication_id = #publication_id#
 	</cfquery>
-	<cf_ActivityLog sql="delete from citation where collection_object_id = #collection_object_id# and publication_id = #publication_id#">
-			<cflocation url="Citation.cfm?publication_id=#publication_id#">
+	<cflocation url="Citation.cfm?publication_id=#publication_id#">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------->

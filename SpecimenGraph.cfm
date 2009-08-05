@@ -214,10 +214,6 @@
 			</cfchart> 
 	</cfloop>
 </cfoutput>
-	<cf_getSearchTerms>
-	<cfset log.query_string=returnURL>
-	<cfset log.reported_count = #getGraph.RecordCount#>
-	<cfinclude template="/includes/activityLog.cfm">
 </cfif>
 
 <cfinclude template="includes/_footer.cfm">

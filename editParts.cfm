@@ -351,53 +351,8 @@
 	<cfquery name="delePart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM specimen_part WHERE collection_object_id = #partID#
 	</cfquery>
-	<!---
-	<cfquery name="delePartCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		DELETE FROM coll_object WHERE collection_object_id = #partID#
-	</cfquery>
-	<cfquery name="delePartRemark" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		DELETE FROM coll_object_remark WHERE collection_object_id = #partID#
-	</cfquery>
-	<cfquery name="getContID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select container_id from coll_obj_cont_hist where
-		collection_object_id = #partID#
-	</cfquery>
-	
-	<cfquery name="deleCollCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		DELETE FROM coll_obj_cont_hist WHERE collection_object_id = #partID#
-	</cfquery>
-	<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		DELETE FROM container_history WHERE container_id = #getContID.container_id#
-	</cfquery>
-	<cfquery name="deleCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		DELETE FROM container WHERE container_id = #getContID.container_id#
-	</cfquery>
-	--->
 </cftransaction>
-<cf_logEdit collection_object_id="#collection_object_id#">
 <cflocation url="editParts.cfm?collection_object_id=#collection_object_id#">
-
-
-
-<!----
-		DELETE FROM specimen_part WHERE collection_object_id = #partID#
-<hr>
-		DELETE FROM coll_object WHERE collection_object_id = #partID#
-<hr>
-		DELETE FROM coll_object_remark WHERE collection_object_id = #partID#
-<hr>
-		select container_id from coll_obj_cont_hist where
-		collection_object_id = #partID#
-	
-	
-<hr>
-		DELETE FROM coll_obj_cont_hist WHERE collection_object_id = #partID#
-<hr>
-		DELETE FROM container_history WHERE container_id = getContID.container_id
-<hr>
-		DELETE FROM container WHERE container_id = getContID.container_id
----->
-
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->

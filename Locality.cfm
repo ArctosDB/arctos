@@ -1129,7 +1129,6 @@
 	<cfquery name="deleGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	delete from geog_auth_rec where geog_auth_rec_id=#geog_auth_rec_id#
 	</cfquery>
-	<cf_ActivityLog sql="delete from geog_auth_rec where geog_auth_rec_id=#geog_auth_rec_id#">
 </cfif>	
 <cflocation addtoken="no" url="#cgi.HTTP_REFERER#">	
 </cfoutput>
@@ -1150,7 +1149,6 @@
 	<cfquery name="deleCollEv" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	delete from collecting_event where collecting_event_id=#collecting_event_id#
 	</cfquery>
-	<cf_ActivityLog sql="delete from collecting_event where collecting_event_id=#collecting_event_id#">
 </cfif>	
 You deleted a collecting event.
 <br>Go back to <a href="Locality.cfm">localities</a>.
@@ -1163,14 +1161,12 @@ You deleted a collecting event.
 	<cfquery name="upColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		UPDATE collecting_event SET locality_id=#locality_id# where collecting_event_id=#collecting_event_id#
 	</cfquery>
-	<cf_ActivityLog sql="UPDATE collecting_event SET locality_id=#locality_id# where collecting_event_id=#collecting_event_id#">
 		 <cfif not isdefined("collection_object_id")>
 		 	<cfset collection_object_id=-1>
 		 </cfif>
 	<cflocation addtoken="no" url="Locality.cfm?collection_object_id=#collection_object_id#&action=editCollEvnt&collecting_event_id=#collecting_event_id#">
 </cfoutput>
 </cfif>
-<!---------------------------------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "saveCollEventEdit">
 	<cfoutput>
@@ -1203,17 +1199,12 @@ You deleted a collecting event.
 	<cfquery name="upColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#		
 	</cfquery>
-	<cf_ActivityLog sql="#sql#">
-	
 	<cfif #cgi.HTTP_REFERER# contains "editCollEvnt">
 		<cfset refURL = "#cgi.HTTP_REFERER#">
 	<cfelse>
 		<cfset refURL = "#cgi.HTTP_REFERER#?collection_object_id=#collection_object_id#&action=editCollEvnt&collecting_event_id=#collecting_event_id#">
 	</cfif>
-	
-	
 	<cflocation addtoken="no" url="#refURL#">
-	
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
@@ -1276,12 +1267,9 @@ You deleted a collecting event.
 	<cfquery name="edGe" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#		
 	</cfquery>
-	<cf_ActivityLog sql="#sql#">
 	<cflocation addtoken="no" url="Locality.cfm?Action=editGeog&geog_auth_rec_id=#geog_auth_rec_id#">
 </cfoutput>
 </cfif>
-<!---------------------------------------------------------------------------------------------------->
-
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "makeGeog">
 <cfoutput>

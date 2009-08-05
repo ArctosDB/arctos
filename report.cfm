@@ -24,12 +24,7 @@ Based on:
 <cfif not isdefined("institution_appearance")>
 	<cfset institution_appearance = "">
 </cfif>
-<!---
-DLM: I have no idea what this is trying to do, but it won't work.
-<cfoutput>
-	<cf_get_header collection_id="#exclusive_collection_id#">
-</cfoutput>
----->
+
 <cfif not isdefined("collection_object_id")>
 	Need specimens to make a report/ledger!
 	<cfabort>
@@ -906,8 +901,5 @@ cfdocument will not use it. Period
 </table>
 </cfoutput>
 </cfif>
-<cfif len(#institution_appearance#) gt 0>
-	<cf_get_footer institution="#institution_appearance#">
-<cfelse>
+
 	<cfinclude template = "includes/_footer.cfm">
-</cfif>

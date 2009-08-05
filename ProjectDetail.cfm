@@ -137,5 +137,4 @@
 		<img src="/images/indicator.gif">
 	</div>
 </cfoutput>
-<cf_log cnt=1 coll=na>	 
 <cfinclude template = "includes/_footer.cfm">
