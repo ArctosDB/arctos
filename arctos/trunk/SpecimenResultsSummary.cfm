@@ -603,11 +603,4 @@ Returned #s.c# specimens in #getBasic.recordcount# rows.
 			onmouseout="this.className='lnkBtn'">
 		</form>
 	</cfoutput>
-	
-<cf_getSearchTerms>
-<cfset log.query_string=returnURL>
-<cfset log.reported_count = #cnt.RecordCount#>
-	
-
-
 <cfinclude template = "includes/_footer.cfm">

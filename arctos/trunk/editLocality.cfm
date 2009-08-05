@@ -1181,21 +1181,15 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "changeGeog">
-<!--- no security --->
-<cfoutput>
-	
+	<cfoutput>
 		<cfquery name="changeGeog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE locality SET geog_auth_rec_id=#geog_auth_rec_id# where locality_id=#locality_id#
-		</cfquery>
-	<cf_ActivityLog sql="UPDATE locality SET geog_auth_rec_id=#geog_auth_rec_id# where locality_id=#locality_id#">
-	
-	<cflocation url="editLocality.cfm?locality_id=#locality_id#" addtoken="no">
-</cfoutput>
+		</cfquery>	
+		<cflocation url="editLocality.cfm?locality_id=#locality_id#" addtoken="no">
+	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "saveLocalityEdit">
-
 	<cfoutput>
 	<cfif len(#MINIMUM_ELEVATION#) gt 0 OR 
 			len(#MAXIMUM_ELEVATION#) gt 0>
@@ -1261,15 +1255,11 @@
 	<cfquery name="edLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#		
 	</cfquery>
-	<cf_ActivityLog sql="#sql#">
 	<cflocation addtoken="no" url="editLocality.cfm?locality_id=#locality_id#">
-	
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "deleteLocality">
-
 <cfoutput>
 	<cfquery name="isColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collecting_event_id from collecting_event where locality_id=#locality_id#
@@ -1290,10 +1280,7 @@
 		<cfquery name="deleLocality" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from locality where locality_id=#locality_id#
 		</cfquery>
-		
 	</cftransaction>
-	<cf_ActivityLog sql="delete from lat_long where locality_id=#locality_id#">
-	<cf_ActivityLog sql="delete from locality where locality_id=#locality_id#">
 	<cflocation addtoken="no" url="editLocality.cfm?locality_id=#locality_id#">
 </cfoutput>
 </cfif>
@@ -1847,15 +1834,10 @@
 	#preservesinglequotes(sql)#
 </cfquery>
 </cftransaction>
-<cf_ActivityLog sql="#sql#">
-<!---- try to find the accepted lat_long_id for the locality --->
-
 <cfquery name="getAcc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select lat_long_id from lat_long where locality_id=#locality_id#
 	and accepted_lat_long_fg = 1
 </cfquery>
-
-
 <cfif #getAcc.recordcount# is 1>
 	<cflocation url="editLocality.cfm?locality_id=#locality_id#" addtoken="no">
 <cfelseif #getAcc.recordcount# gt 1>
@@ -1875,23 +1857,15 @@
 	</div>
 		<cfabort>
 </cfif>
-	
-
 </cfoutput>		
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-<!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "AddLatLong">
-
-<cfoutput>
-	<!--- first, set all existing alt_longs to not accepted --->
-	
+<cfoutput>	
 	<cfquery name="notAcc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		UPDATE lat_long SET accepted_lat_long_fg = 0 where
 		locality_id=#locality_id#
-	</cfquery>
-	<cf_ActivityLog sql="UPDATE lat_long SET accepted_lat_long_fg = 0 where locality_id=#locality_id#">
-	
+	</cfquery>	
 	<cfset sql = "
 	INSERT INTO lat_long (
 		LAT_LONG_ID
@@ -2017,14 +1991,10 @@
 	<cfquery name="newLatLong" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-	
-	<cf_ActivityLog sql="#sql#">
 	<cfquery name="getAcc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select lat_long_id from lat_long where locality_id=#locality_id#
 		and accepted_lat_long_fg = 1
 	</cfquery>
-
-
 <cfif #getAcc.recordcount# is 1>
 	<cflocation url="editLocality.cfm?locality_id=#locality_id#" addtoken="no">
 <cfelseif #getAcc.recordcount# gt 1>

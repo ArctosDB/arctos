@@ -409,16 +409,6 @@
 		<cfset i=#i#+1>
 	</cfloop>
 </td></tr></table>
-	<cf_getSearchTerms>
-	<cfset log.query_string=returnURL>
-	<cfset log.reported_count=0>
-	<cfif isdefined("pubs.RecordCount")>
-		<cfset log.reported_count=log.reported_count+pubs.RecordCount>
-	</cfif>
-	<cfif isdefined("projNames.RecordCount")>
-		<cfset log.reported_count=log.reported_count+projNames.RecordCount>
-	</cfif>
-	<cfinclude template="/includes/activityLog.cfm">
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------->

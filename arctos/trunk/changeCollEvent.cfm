@@ -1,6 +1,5 @@
- 
-  <cfinclude template="/includes/alwaysInclude.cfm">
- <cfset title = "Change Collecting Event">
+<cfinclude template="/includes/alwaysInclude.cfm">
+<cfset title = "Change Collecting Event">
 <cfquery name="ctIslandGroup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select island_group from ctisland_group
 </cfquery>
@@ -279,25 +278,15 @@
 		</tr>
 	</table>
  </div>
-		
  </cfoutput>
- 
-
 </cfif>
-<!--------------------------------------------------------------------------------------->
-
-<!--------------------------------------------------------------------------------------->
-
 <!--------------------------------------------------------------------------------------->
 <cfif #action# is "makeSaveGoNow">
 <cfoutput>
 	<cfquery name="upCollEvent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		UPDATE cataloged_item SET collecting_event_id = #collecting_event_id# where collection_object_id = #collection_object_id#
 	</cfquery>
-		<cf_logEdit collection_object_id="#collection_object_id#">
 	<cflocation url="changeCollEvent.cfm?collection_object_id=#collection_object_id#" addtoken="no">
-	
-	
 </cfoutput>
 </cfif>
 <cfoutput>

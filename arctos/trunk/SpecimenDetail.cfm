@@ -515,9 +515,6 @@
 		</tr>
 	</table>
 <cfinclude template="/includes/_footer.cfm">
-	<cfset log.query_string="?collection_object_id=#collection_object_id#">
-	<cfset log.reported_count = 1>
-	<cfinclude template="/includes/activityLog.cfm">
 	<cfif isdefined("showAnnotation") and #showAnnotation# is "true">
 		<script language="javascript" type="text/javascript">
 			openAnnotation('#collection_object_id#');

@@ -140,9 +140,6 @@
 	 <!--- update the values for the next and previous rows to be returned --->
 	<CFSET Next = StartRow + session.DisplayRows>
 	<CFSET Previous = StartRow - session.DisplayRows>
-	<cf_log cnt=#count.RecordCount# coll=na>	 
-	<!--- Create a previous records link if the records being displayed aren't the
-		  first set --->	
 	<table>
 	
 	<CFOUTPUT>
@@ -321,9 +318,4 @@
 	  </CFOUTPUT>
 	</table>
 </form>
-
-	<cf_getSearchTerms>
-	<cfset log.query_string=returnURL>
-	<cfset log.reported_count = #count.RecordCount#>
-	<cfinclude template="/includes/activityLog.cfm">
 <cfinclude template = "includes/_footer.cfm">

@@ -77,12 +77,6 @@
 	<cfquery name="getMapData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
-	<cfoutput>
-		<cf_getSearchTerms>
-		<cfset log.query_string=returnURL>
-		<cfset log.reported_count = #getMapData.RecordCount#>
-		<cfinclude template="/includes/activityLog.cfm">
-	</cfoutput>
 </cfif><!--- end point map option --->
 <cfif getMapData.recordcount is 0>
 	<div class="error">

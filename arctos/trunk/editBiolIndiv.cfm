@@ -756,22 +756,16 @@ New attribute:
 	WHERE attribute_id=#thisAttributeId#
 	</cfquery>
 </cfloop>
-
-	
-	<cf_logEdit collection_object_id="#collection_object_id#">
 	 <cflocation url="editBiolIndiv.cfm?collection_object_id=#collection_object_id#">   
 	
 </cfoutput>
 </cfif>
-<!------------------------------------------------------------------------------>
-
 <!------------------------------------------------------------------------------>
 <cfif #Action# is "deleteAttribute">
 <cfoutput>
 	<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM attributes WHERE attribute_id=#attribute_id#
 	</cfquery>
-	<cf_logEdit collection_object_id="#collection_object_id#">
 <cflocation url="editBiolIndiv.cfm?collection_object_id=#collection_object_id#"> </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------>
@@ -950,14 +944,10 @@ New attribute:
 			,'#DETERMINATION_METHOD#'
 		</cfif> )
 	</cfquery>
-	<cf_logEdit collection_object_id="#collection_object_id#">
 <cflocation url="editBiolIndiv.cfm?collection_object_id=#collection_object_id#"> </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------>
-
-
 <cfif #Action# is "saveNoAttEdits">
-
 <cfoutput>
 	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
 	<cftransaction>

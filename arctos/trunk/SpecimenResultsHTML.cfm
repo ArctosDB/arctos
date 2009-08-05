@@ -291,9 +291,6 @@
 			</li>
 		</ul>
 		</cfoutput>
-	<cfset log.query_string=replace(returnURL,"SpecimenResults.cfm","","all")>
-	<cfset log.reported_count = 0>
-	<cfinclude template="/includes/activityLog.cfm">
 		<cfabort>
 	</cfif>
 	<CFSETTING ENABLECFOUTPUTONLY=0>
@@ -942,7 +939,6 @@ document.getElementById('saveme').submit();
 		<cfset coll = "#coll#; #colls.collection_cde#">
 	</cfif>
 </cfloop>
-<cf_log cnt=#getBasic.RecordCount# coll=#coll#>
 <cfset orderedCollObjIdList = "">
 <cfif #getBasic.RecordCount# lt 200>
 <cfloop query="getBasic">
@@ -1944,10 +1940,4 @@ document.getElementById('saveme').submit();
 	<cflocation url="download_agree.cfm?cnt=#getBasic.recordcount#&downloadFile=#downloadFile#">
 	</cfoutput>
 </cfif>
-	<cfif isdefined("returnUrl")>
-		<cfset log.query_string=replace(returnURL,"SpecimenResults.cfm","","all")>
-		<cfset log.reported_count = #collectionObjectIds.RecordCount#>
-		<cfinclude template="/includes/activityLog.cfm">
-	</cfif>
-	
 <cfinclude template="/includes/_footer.cfm">

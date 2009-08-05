@@ -274,12 +274,5 @@ Found #summary.cnt# records. (Note: This form will not return >1000 records; you
   </tr>
   <cfset i=#i#+1>
   </cfoutput>
-</table>
-
-
-	<cf_getSearchTerms>
-	<cfset log.query_string=returnURL>
-	<cfset log.reported_count = #getTaxa.RecordCount#>
-	<cfinclude template="/includes/activityLog.cfm">
- 
+</table> 
 <cfinclude template = "includes/_footer.cfm">

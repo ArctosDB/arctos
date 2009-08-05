@@ -259,31 +259,26 @@ None
 			 '#biol_indiv_relationship#' )
 		</cfquery>
 	</cfloop>
-	<cf_logEdit collection_object_id="#collection_object_id#">
-	
-		 <cflocation url="editRelationship.cfm?collection_object_id=#collection_object_id#">
+	<cflocation url="editRelationship.cfm?collection_object_id=#collection_object_id#">
 </cfoutput>
 </cfif>
-<!------------------------------------------------------------------------------>
 <!------------------------------------------------------------------------------>
 <cfif #Action# is "saveEdit">
 <cfoutput>
 	<cfquery name="newReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	UPDATE biol_indiv_relations
-	SET
-	collection_object_id = #collection_object_id#,
-	RELATED_COLL_OBJECT_ID = #RELATED_COLL_OBJECT_ID#,
-		 BIOL_INDIV_RELATIONSHIP='#BIOL_INDIV_RELATIONSHIP#'
-		WHERE
-		collection_object_id = #collection_object_id# AND
-	RELATED_COLL_OBJECT_ID = #origRelCollObjId# AND
-		 BIOL_INDIV_RELATIONSHIP='#origReln#'
+		UPDATE biol_indiv_relations
+		SET
+		collection_object_id = #collection_object_id#,
+		RELATED_COLL_OBJECT_ID = #RELATED_COLL_OBJECT_ID#,
+			 BIOL_INDIV_RELATIONSHIP='#BIOL_INDIV_RELATIONSHIP#'
+			WHERE
+			collection_object_id = #collection_object_id# AND
+		RELATED_COLL_OBJECT_ID = #origRelCollObjId# AND
+			 BIOL_INDIV_RELATIONSHIP='#origReln#'
 	</cfquery>
-	<cf_logEdit collection_object_id="#collection_object_id#">
-		 <cflocation url="editRelationship.cfm?collection_object_id=#collection_object_id#">
+	 <cflocation url="editRelationship.cfm?collection_object_id=#collection_object_id#">
 </cfoutput>
 </cfif>
-<!------------------------------------------------------------------------------>
 <!------------------------------------------------------------------------------>
 <cfif #Action# is "deleReln">
 <cfoutput>
@@ -293,12 +288,10 @@ None
 	RELATED_COLL_OBJECT_ID = #origRelCollObjId# AND
 		 BIOL_INDIV_RELATIONSHIP='#origReln#'
 	</cfquery>
-	<cf_logEdit collection_object_id="#collection_object_id#">
-		 <cflocation url="editRelationship.cfm?collection_object_id=#collection_object_id#">
+	<cflocation url="editRelationship.cfm?collection_object_id=#collection_object_id#">
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------>
-
 <cfoutput>
 <script type="text/javascript" language="javascript">
 		changeStyle('#thisRec.institution_acronym#');
