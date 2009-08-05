@@ -3,6 +3,7 @@
 <cfparam name="uname" default="">
 <cfparam name="date" default="">
 <cfparam name="sql" default="">
+<cfparam name="form" default="">
 <cfoutput>
 <p><strong>This form accesses after approximately 7 August 2009</strong></p>	
 	<form name="srch" method="post" action="ActivityLog.cfm">
@@ -13,6 +14,8 @@
 		<input type="text" name="date" id="date" value="#date#">
 		<label for="sql">SQL</label>
 		<input type="text" name="sql" id="sql" value="#sql#">
+		<label for="form">Form</label>
+		<input type="text" name="form" id="form" value="#form#">
 		<br>
 		<input type="submit" 
 		 	value="Filter" 
@@ -35,17 +38,16 @@
 </cfoutput>
 <cfif action is "search">
 	<cfoutput>
-		<p><strong>Data previous to approximately 7 August 2009</strong></p>
-		<cfquery name="activity" datasource="#Application.uam_dbo#">
+		<p><strong>Data after approximately 7 August 2009</strong></p>
+		<cfquery name="activity" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
-				to_char(date_stamp,'dd-mon-yyyy') date_stamp, 
-				sql_statement, 
-				username
+				to_char(TIMESTAMP,'dd-mon-yyyy') date_stamp, 
+				SQL_TEXT sql_statement, 
+				DB_USER username,
+				OBJECT_NAME
 			from 
-				cf_database_activity, 
-				cf_users 
+				arctos_audit
 			where
-				cf_database_activity.user_id = cf_users.user_id
 				<cfif len(#uname#) gt 0>
 					AND upper(username) like '%#ucase(uname)#%'
 				</cfif>
@@ -60,6 +62,24 @@
 				date_stamp,
 				sql_statement
 		</cfquery>
+		<table border id="t" class="sortable">
+		<tr>
+			<th>username</th>
+			<th>Form</th>
+			<th>date_stamp</th>
+			<th>sql_statement</th>
+		</tr>
+		<cfoutput>
+		<cfloop query="activity">
+			<tr>
+				<td>#username#</td>
+				<td>#object_name#</td>
+				<td>#date_stamp#</td>
+				<td>#sql_statement#</td>
+			</tr>
+		</cfloop>
+		</cfoutput>
+	</table>
 	</cfoutput>
 </cfif>
 <cfif #action# is "search_old">
