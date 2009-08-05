@@ -8,9 +8,11 @@
 <cfdump var=#cfhttp#>
 
 <cfset xmlDoc = XmlParse(cfhttp.fileContent)>
+<!---
 <cfdump var=#xmldoc#>
+--->
 
-<cfset cnt=xmldoc.head>
+<cfset cnt=xmldoc.html.head>
 <cfdump var=#cnt#>
 
 <!----
