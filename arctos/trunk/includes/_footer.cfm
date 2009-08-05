@@ -15,7 +15,7 @@
 					<a href="/info/bugs.cfm"><font size="-1">Report Errors</font></a>
 				</li>
 				<li>
-					<a HREF="mailto:fndlm@uaf.edu"><font size="-1">System Administrator</font></a>
+					<a HREF="mailto:#Application.technicalEmail#"><font size="-1">System Administrator</font></a>
 				</li>
 			</ul>
 		</td>
@@ -67,7 +67,7 @@
 	  	<tr>
 	    	<td align="center" nowrap><a href="/Collections/index.cfm"><FONT size="-1">Data Providers</FONT></a></td>
 	    	<td align="center" nowrap><a href="/info/bugs.cfm"><FONT size="-1">Report Errors</FONT></a></td>
-	    	<td align="center" nowrap><a HREF="mailto:fndlm@uaf.edu"><FONT size="-1">System Administrator</FONT></a></td>
+	    	<td align="center" nowrap><a HREF="mailto:#Application.technicalEmail#"><FONT size="-1">System Administrator</FONT></a></td>
 	  	</tr>
 	</table>
 </cfif>

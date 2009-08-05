@@ -142,8 +142,8 @@
         <cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/usr/local/apache2/htdocs">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">
-		<cfset Application.bugReportEmail = "dustymc@gmail.com,gordon.jarrell@gmail.com">
-		<cfset Application.technicalEmail = "dustymc@gmail.com,gordon.jarrell@gmail.com,lkv@berkeley.edu">
+		<cfset Application.bugReportEmail = "dustymc@gmail.com">
+		<cfset Application.technicalEmail = "dustymc@gmail.com,lkv@berkeley.edu">
 		<cfset Application.mapHeaderUrl = "#Application.serverRootUrl#/images/nada.gif">
 		<cfset Application.mapFooterUrl = "#Application.serverRootUrl#/bnhmMaps/BerkMapFooter.html">
 		<cfset Application.genBankPrid = "3849">

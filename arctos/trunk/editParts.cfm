@@ -368,60 +368,55 @@
 	</cfif>
 	<cfset enteredbyid = getEntBy.agent_id>
 	<cfset thisDate = dateformat(now(),"dd-mmm-yyyy")>
-<cfloop from="1" to="#numberOfParts#" index="n">
-	<cfset thisPartId = #evaluate("partID" & n)#>
-	<cfset thisPartName = #evaluate("Part_name" & n)#>
-	<cfset thisPartModifier = #evaluate("part_modifier" & n)#>
-	<cfset thisPresMeth = #evaluate("preserve_method" & n)#>
-	<cfset thisDisposition = #evaluate("coll_obj_disposition" & n)#>
-	<cfset thisCondition = #evaluate("condition" & n)#>
-	<cfset thisLotCount = #evaluate("lot_count" & n)#>
-	<cfset thiscoll_object_remarks = #evaluate("coll_object_remarks" & n)#>
-	<cfset thisnewCode = #evaluate("newCode" & n)#>
-	<cfset thisprint_fg = #evaluate("print_fg" & n)#>
-	<cfset thislabel = #evaluate("label" & n)#>
-	<cfset thisparentContainerId = #evaluate("parentContainerId" & n)#>
-	<cfset thispartContainerId = #evaluate("partContainerId" & n)#>
-	<cfset thisIsTissue = #evaluate("is_tissue" & n)#>
-	
-	<cfquery name="upPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		UPDATE specimen_part SET 
-			Part_name = '#thisPartName#',
-			is_tissue = #thisIsTissue#
-		<cfif len(#thisPartModifier#) gt 0>
-			,part_modifier = '#thisPartModifier#'
-		 <cfelse>
-		 	,part_modifier = null	
-		</cfif>
-		<cfif len(#thisPresMeth#) gt 0>
-			,preserve_method = '#thisPresMeth#'
-		  <cfelse>
-		  	,preserve_method = null	
-		</cfif>
-		WHERE collection_object_id = #thisPartId#
-	</cfquery>
-	
-	<cfquery name="upPartCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		UPDATE coll_object SET 
-			coll_obj_disposition = '#thisDisposition#'
-			,condition = '#thisCondition#',
-			lot_count = #thisLotCount#
-		WHERE collection_object_id = #thisPartId#
-	</cfquery>
-	
-	<cfif len(#thiscoll_object_remarks#) gt 0>
-		<cfquery name="ispartRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select coll_object_remarks from coll_object_remark where
-			collection_object_id = #thisPartId#
+	<cfloop from="1" to="#numberOfParts#" index="n">
+		<cfset thisPartId = #evaluate("partID" & n)#>
+		<cfset thisPartName = #evaluate("Part_name" & n)#>
+		<cfset thisPartModifier = #evaluate("part_modifier" & n)#>
+		<cfset thisPresMeth = #evaluate("preserve_method" & n)#>
+		<cfset thisDisposition = #evaluate("coll_obj_disposition" & n)#>
+		<cfset thisCondition = #evaluate("condition" & n)#>
+		<cfset thisLotCount = #evaluate("lot_count" & n)#>
+		<cfset thiscoll_object_remarks = #evaluate("coll_object_remarks" & n)#>
+		<cfset thisnewCode = #evaluate("newCode" & n)#>
+		<cfset thisprint_fg = #evaluate("print_fg" & n)#>
+		<cfset thislabel = #evaluate("label" & n)#>
+		<cfset thisparentContainerId = #evaluate("parentContainerId" & n)#>
+		<cfset thispartContainerId = #evaluate("partContainerId" & n)#>
+		<cfset thisIsTissue = #evaluate("is_tissue" & n)#>
+		<cfquery name="upPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			UPDATE specimen_part SET 
+				Part_name = '#thisPartName#',
+				is_tissue = #thisIsTissue#
+			<cfif len(#thisPartModifier#) gt 0>
+				,part_modifier = '#thisPartModifier#'
+			 <cfelse>
+			 	,part_modifier = null	
+			</cfif>
+			<cfif len(#thisPresMeth#) gt 0>
+				,preserve_method = '#thisPresMeth#'
+			  <cfelse>
+			  	,preserve_method = null	
+			</cfif>
+			WHERE collection_object_id = #thisPartId#
 		</cfquery>
-		<cfif ispartRem.recordcount is 0>
-				<!---- new remark --->
+		<cfquery name="upPartCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			UPDATE coll_object SET 
+				coll_obj_disposition = '#thisDisposition#'
+				,condition = '#thisCondition#',
+				lot_count = #thisLotCount#
+			WHERE collection_object_id = #thisPartId#
+		</cfquery>
+		<cfif len(#thiscoll_object_remarks#) gt 0>
+			<cfquery name="ispartRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select coll_object_remarks from coll_object_remark where
+				collection_object_id = #thisPartId#
+			</cfquery>
+			<cfif ispartRem.recordcount is 0>
 				<cfquery name="newCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					INSERT INTO coll_object_remark (collection_object_id, coll_object_remarks)
 					VALUES (#thisPartId#, '#thiscoll_object_remarks#')
 				</cfquery>
 			<cfelse>
-				<!--- update remark ---->
 				<cfquery name="updateCollRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					UPDATE coll_object_remark SET
 					coll_object_remarks = '#thiscoll_object_remarks#'
@@ -429,100 +424,80 @@
 				</cfquery>
 			</cfif>
 		<cfelse>
-				<cfquery name="killRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					UPDATE coll_object_remark SET
-					coll_object_remarks = null
-					 WHERE collection_object_id = #thisPartId#
-				</cfquery>
-		</cfif>
-	
-	<cfif len(#thisnewCode#) gt 0>
-		<!---- make sure it is valid ---->
-		<cfquery name="isCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			SELECT
-				container_id, container_type, parent_container_id
-			FROM
-				container
-			WHERE
-				barcode = '#thisnewCode#'
-				AND container_type <> 'collection object'
-				AND institution_acronym = '#institution_acronym#'
-		</cfquery>
-		<cfif #isCont.container_type# is 'cryovial label'>
-			<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				update container set container_type='cryovial'
-				where container_id=#isCont.container_id# and
-				container_type='cryovial label'
+			<cfquery name="killRem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				UPDATE coll_object_remark SET
+				coll_object_remarks = null
+				 WHERE collection_object_id = #thisPartId#
 			</cfquery>
 		</cfif>
-		<cfif #isCont.recordcount# is 1>
-			<!--- they are using an existing unique container
-				, build the container and put the part in it. --->
-			<cfquery name="thisCollCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				SELECT 
-					container_id 
-				FROM 
-					coll_obj_cont_hist 
-				WHERE 
-					collection_object_id = #thisPartId#
-			</cfquery>
-			
-			<!--- update the part --->
-			<cfquery name="upPartBC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				UPDATE 
+		<cfif len(#thisnewCode#) gt 0>
+			<cfquery name="isCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				SELECT
+					container_id, container_type, parent_container_id
+				FROM
 					container
-				SET
-					parent_install_date = '#thisDate#',
-					parent_container_id = #isCont.container_id#
 				WHERE
-					container_id = #thisCollCont.container_id#
+					barcode = '#thisnewCode#'
+					AND container_type <> 'collection object'
+					AND institution_acronym = '#institution_acronym#'
 			</cfquery>
-			<!--- update the label print flag --->
-			
+			<cfif #isCont.container_type# is 'cryovial label'>
+				<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update container set container_type='cryovial'
+					where container_id=#isCont.container_id# and
+					container_type='cryovial label'
+				</cfquery>
+			</cfif>
+			<cfif #isCont.recordcount# is 1>
+				<cfquery name="thisCollCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					SELECT 
+						container_id 
+					FROM 
+						coll_obj_cont_hist 
+					WHERE 
+					collection_object_id = #thisPartId#
+				</cfquery>
+				<cfquery name="upPartBC" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					UPDATE 
+						container
+					SET
+						parent_install_date = '#thisDate#',
+						parent_container_id = #isCont.container_id#
+					WHERE
+						container_id = #thisCollCont.container_id#
+				</cfquery>
 				<cfquery name="upPartPLF" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					UPDATE container SET print_fg = #thisprint_fg# WHERE
 					container_id = #isCont.container_id#
 				</cfquery>
+			</cfif>
+			<cfif #isCont.recordcount# lt 1>
+				That barcode was not found in the container database. You can only put parts into appropriate pre-existing containers.
+				<br>Click <a href="editParts.cfm?collection_object_id=#collection_object_id#">here</a> to return to editing parts.
+				<cfabort>
+			</cfif>
+			<cfif #isCont.recordcount# gt 1>
+				That barcode has multiple matches!! Something really bad has happened!! Please  
+			 	<a href="mailto:#application.technicalEmail#">contact us</a>!
+				<cfabort>
+			</cfif>
 		</cfif>
-		
-		<cfif #isCont.recordcount# lt 1>
-			That barcode was not found in the container database. You can only put parts into appropriate pre-existing containers.
-			<br>Click <a href="editParts.cfm?collection_object_id=#collection_object_id#">here</a> to return to editing parts.
-			<cfabort>
+		<cfif len(#thislabel#) gt 0>
+			<cfquery name="upPartPLF" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				UPDATE container SET print_fg = #thisprint_fg# WHERE
+				container_id = #thisparentContainerId#
+			</cfquery>
 		</cfif>
-		<cfif #isCont.recordcount# gt 1>
-			That barcode has multiple matches!! Something really bad has happened!! Please send email to 
-		 <a href="mailto: fndlm@uaf.edu">Dusty</a>!
-			<cfabort>
-		</cfif>
-	</cfif>
-	
-	
-	<cfif len(#thislabel#) gt 0>
-			
-				<cfquery name="upPartPLF" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					UPDATE container SET print_fg = #thisprint_fg# WHERE
-					container_id = #thisparentContainerId#
-				</cfquery>
-					
-		</cfif>
-		
-		
 		<cfif len(#thislabel#) is 0 AND len(#thisparentContainerId#) gt 0 AND #thisprint_fg# gt 0>
-			<!---- they tried to print a label for something without a container ---->
 			<font color="##FF0000" size="+1">
 				You tried to flag a part for labels, but that part isn't in a container. There's nothing to print!
 			</font>		  
 			<cfabort>
 		</cfif>		
-</cfloop>
-<!----
-
-	---->
-		<cflocation url="editParts.cfm?collection_object_id=#collection_object_id#">
-	</cfoutput>
+	</cfloop>
+	<cflocation url="editParts.cfm?collection_object_id=#collection_object_id#">
+</cfoutput>
 </cfif>
-<!----------------------------------------------------------------------------------->
 <!----------------------------------------------------------------------------------->
 <cfif #Action# is "newpart">
 	<cfquery name= "getEntBy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">

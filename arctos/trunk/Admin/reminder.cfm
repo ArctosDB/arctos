@@ -42,7 +42,7 @@
 								ADDRESS_TYPE='e-mail'
 						</cfquery>
 						<cfif  #email.recordcount# is 0>
-							<cfset thisMail = "fndlm@uaf.edu">
+							<cfset thisMail = "#application.bugReportEmail#">
 							<cfset whine = "#whine# <hr>You are getting this because the contact agent for this
 								permit has no email address recorded. Please review the permit and
 								their address list. <hr> #whine#">
@@ -59,7 +59,7 @@
 							</cfloop>
 						</cfif>
 					<cfelse><!--- no contact --->
-						<cfset thisMail = "fndlm@uaf.edu">
+						<cfset thisMail = "#application.bugReportEmail#">
 						<cfset whine = "#whine# <hr>You are getting this because there is no contact agent for this
 							permit. Please review the permit and notify the appropriate persons that it is
 							expiring. <hr> #whine#">
