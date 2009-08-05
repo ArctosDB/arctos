@@ -7,7 +7,11 @@
 <cfoutput>
 <p><strong>This form accesses after approximately 7 August 2009</strong></p>	
 	<form name="srch" method="post" action="ActivityLog.cfm">
-		<input type="hidden" name="action" value="search">
+		<label for="action">Data to search</label>
+		<select name="action">
+			<option value="search">7 Aug 2009-present</option>
+			<option value="search_old">before 7 Aug 2009</option>
+		</select>
 		<label for="uname">Username</label>
 		<input type="text" name="uname" id="uname" value="#uname#">
 		<label for="date">Date</label>
@@ -20,23 +24,6 @@
 		<input type="submit" 
 		 	value="Filter" 
 			class="lnkBtn">	
-	</form>
-<p><strong>This form accesses data previous to approximately 7 August 2009</strong></p>	
-	<form name="srch" method="post" action="ActivityLog.cfm">
-		<input type="hidden" name="action" value="search_old">
-		<label for="uname">Username</label>
-		<input type="text" name="uname" id="uname" value="#uname#">
-		<label for="date">Date</label>
-		<input type="text" name="date" id="date" value="#date#">
-		<label for="sql">SQL</label>
-		<input type="text" name="sql" id="sql" value="#sql#">
-		<br>
-		<input type="submit" 
-		 	value="Filter" 
-			class="lnkBtn">
-		<input type="reset" 
-		 	value="Clear" 
-			class="clrBtn">	
 	</form>
 </cfoutput>
 <cfif action is "search">
