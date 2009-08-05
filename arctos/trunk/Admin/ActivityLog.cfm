@@ -50,13 +50,13 @@
 			where
 				1=1
 				<cfif len(#uname#) gt 0>
-					AND upper(username) like '%#ucase(uname)#%'
+					AND upper(DB_USER) like '%#ucase(uname)#%'
 				</cfif>
 				<cfif len(#date#) gt 0>
-					AND upper(to_char(date_stamp,'dd-mon-yyyy')) like '%#ucase(date)#%'
+					AND upper(to_char(TIMESTAMP,'dd-mon-yyyy')) like '%#ucase(date)#%'
 				</cfif>
 				<cfif len(#sql#) gt 0>
-					AND upper(sql_statement) like '%#ucase(sql)#%'
+					AND upper(SQL_TEXT) like '%#ucase(sql)#%'
 				</cfif>
 				<cfif len(#object#) gt 0>
 					AND upper(object_name) like '%#ucase(object)#%'
