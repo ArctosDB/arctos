@@ -1,7 +1,6 @@
 <cfinclude template="includes/_header.cfm">
 <table width="80%" cellpadding="10">
 	<tr>
-		
       <td  align="left" valign="top">
         <!--- left column --->
 		<ul>
@@ -9,7 +8,7 @@
 				<a href="About.cfm">
 					<cfif #Action# is "nothing">
 						<font color="#999999">About&nbsp;the&nbsp;database</font>
-					  <cfelse>
+					<cfelse>
 						<font color="blue">About&nbsp;the&nbsp;database</font>	
 					</cfif>
 				</a>
@@ -18,7 +17,7 @@
 				<a href="About.cfm?Action=sugg">
 					<cfif #Action# is "sugg">
 						<font color="#999999">Suggestions?</font>
-					  <cfelse>
+					<cfelse>
 						<font color="blue">Suggestions?</font>	
 					</cfif>
 				</a>
@@ -111,10 +110,8 @@
 				user requests, either through custom forms or queries or, if your suggestion is likely to benefit
 				other users, through additions and modifications to this site.
 				<p>
-				Please send email to <a href="mailto:fndlm@uaf.edu">Dusty</a>
-				or <a href="mailto:fnghj@uaf.edu">Gordon</a> 
+				Please <cfoutput><a href="mailto:#application.technicalEmail#">conctact us</a></cfoutput>
 				if you have any questions, comments, or suggestions.
-				
 			</cfif>
 			<cfif #Action# is "stat">
 				<cflocation url="stat.cfm">

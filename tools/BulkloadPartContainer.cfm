@@ -246,7 +246,7 @@ failed loading and you must deal with it.
 					<font color="##FF0000" size="+1">The part 
 					(#institution_acronym# #collection_cde# #other_id_type# #oidnum# #part_name#)
 					you tried to move doesn't exist as a container. That probably isn't your fault!
-					Email <a href="mailto:fndlm@uaf.edu">dusty</a>. Now!</font>				  <br>
+					<a href="#Application.technicalEmail#">Email us</a>. Now!</font>				  <br>
 					<cftransaction action="rollback">
 				</cfif>
 				
