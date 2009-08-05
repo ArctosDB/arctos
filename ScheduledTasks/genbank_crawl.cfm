@@ -10,6 +10,9 @@
 <cfset xmlDoc = XmlParse(cfhttp.fileContent)>
 <cfdump var=#xmldoc#>
 
+<cfset cnt=xmldoc.head>
+<cfdump var=#cnt#>
+
 <!----
 <cfset r=<meta name="ncbi_resultcount" content="4092" />
 
