@@ -12,7 +12,7 @@
 <cfdump var=#xmldoc#>
 --->
 
-<cfset cnt=xmldoc.html.head.XmlChildren>
+<cfset cnt=xmldoc.html.head.meta>
 <cfdump var=#cnt#>
 <cfset c=ArrayLen(xmldoc.html.head.XmlChildren)>
 
