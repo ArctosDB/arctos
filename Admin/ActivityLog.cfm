@@ -67,6 +67,36 @@
 			<cfset edate=bdate>
 		</cfif>
 		<p><strong>Data after approximately 7 August 2009</strong></p>
+		<hr>
+		
+		select 
+				to_char(TIMESTAMP,'dd-mon-yyyy') date_stamp, 
+				SQL_TEXT sql_statement, 
+				DB_USER username,
+				OBJECT_NAME object
+			from 
+				uam.arctos_audit
+			where
+				1=1
+				<cfif len(#uname#) gt 0>
+					AND upper(DB_USER) like '%#ucase(uname)#%'
+				</cfif>
+				<cfif len(#bdate#) gt 0>
+					AND (TIMESTAMP between to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
+						and to_date('#dateformat(edate,"dd-mmm-yyyy")#'))
+				</cfif>
+				<cfif len(#sql#) gt 0>
+					AND upper(SQL_TEXT) like '%#ucase(sql)#%'
+				</cfif>
+				<cfif len(#object#) gt 0>
+					AND upper(object_name) like '%#ucase(object)#%'
+				</cfif>
+			ORDER BY 
+				username,
+				date_stamp,
+				sql_statement
+				
+				<hr>
 		<cfquery name="activity" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				to_char(TIMESTAMP,'dd-mon-yyyy') date_stamp, 
