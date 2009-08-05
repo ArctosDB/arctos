@@ -22,6 +22,7 @@
 	create unique index idx_u_cf_tacc_transfer_mid on cf_tacc_transfer (media_id) tablespace uam_idx_1;
 --->
 <cfinclude template="/includes/_header.cfm">
+<cfsetting requesttimeout="300" />
 <cfif action is "checkNew">
 	<cfquery name="new" datasource="uam_god">
 		select * from media where
@@ -77,7 +78,8 @@
 			server="Garcia.corral.tacc.utexas.edu" 
 			connection="corral"
 			secure="true"
-			key="/opt/coldfusion8/runtime/bin/id_rsa">
+			key="/opt/coldfusion8/runtime/bin/id_rsa"
+		    timeout="300">
 		<cfftp action="ListDir"
 			directory="#remoteBase#"
 			connection="corral"
@@ -114,7 +116,7 @@
 		select * from cf_tacc_transfer where
 		status = 'transferred'
 	</cfquery>
-	<cfset bURL="http://goodnight.corral.tacc.utexas.edu/UAF">
+	<cfset bURL="http://goodnight.corral.tacc.utexas.edu/UAF/arctos">
 	<cfoutput>
 	<cfloop query="f">
 		<cftransaction>

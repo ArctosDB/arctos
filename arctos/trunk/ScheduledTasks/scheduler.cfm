@@ -187,12 +187,10 @@
     interval = "daily"
     requestTimeOut = "600">
 <!-----------------------------------   images    ------------------------------------------>
-<!--- try this manaually first
-
 <cfschedule action = "update"
     task = "image_CheckNew" 
     operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/checkNew.cfm?action=checkNew"
+    url = "127.0.0.1/ScheduledTasks/localToTacc.cfm?action=checkNew"
     startDate = "1-jan-2008"
     startTime = "12:30 AM"
     interval = "weekly"
@@ -200,15 +198,17 @@
 <cfschedule action = "update"
     task = "image_transfer" 
     operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/checkNew.cfm?action=transfer"
+    url = "127.0.0.1/ScheduledTasks/localToTacc.cfm?action=transfer"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "#timeformat(now())#"
-    interval = "180"
-    requestTimeOut = "600">
+    interval = "300"
+    requestTimeOut = "300">
+<!--- try this manaually first
+
 <cfschedule action = "update"
     task = "image_findIt" 
     operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/checkNew.cfm?action=findIt"
+    url = "127.0.0.1/ScheduledTasks/localToTacc.cfm?action=findIt"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "12:00 AM"
     interval = "28800"
@@ -216,7 +216,7 @@
 <cfschedule action = "update"
     task = "image_fixURI" 
     operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/checkNew.cfm?action=fixURI"
+    url = "127.0.0.1/ScheduledTasks/localToTacc.cfm?action=fixURI"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "01:00 AM"
     interval = "28800"
@@ -224,7 +224,7 @@
 <cfschedule action = "update"
     task = "image_report" 
     operation = "HTTPRequest"
-    url = "127.0.0.1/ScheduledTasks/checkNew.cfm?action=report"
+    url = "127.0.0.1/ScheduledTasks/localToTacc.cfm?action=report"
     startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
     startTime = "02:34 AM"
     interval = "weekly"
