@@ -12,7 +12,7 @@
 <cfdump var=#xmldoc#>
 --->
 
-<cfset cnt=xmldoc.html.head.meta>
+<cfset cnt=xmldoc.html.head.meta.XmlChildren>
 <cfdump var=#cnt#>
 
 <!----
