@@ -82,8 +82,10 @@
 					AND upper(DB_USER) like '%#ucase(uname)#%'
 				</cfif>
 				<cfif len(#bdate#) gt 0>
-					AND (TIMESTAMP between to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
-						and to_date('#dateformat(edate,"dd-mmm-yyyy")#'))
+					AND (
+						TIMESTAMP >= to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
+						and TIMESTAMP <= to_date('#dateformat(edate,"dd-mmm-yyyy")#')
+					)
 				</cfif>
 				<cfif len(#sql#) gt 0>
 					AND upper(SQL_TEXT) like '%#ucase(sql)#%'
@@ -111,8 +113,10 @@
 					AND upper(DB_USER) like '%#ucase(uname)#%'
 				</cfif>
 				<cfif len(#bdate#) gt 0>
-					AND (TIMESTAMP between to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
-						and to_date('#dateformat(edate,"dd-mmm-yyyy")#'))
+					AND (
+						TIMESTAMP >= to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
+						and TIMESTAMP <= to_date('#dateformat(edate,"dd-mmm-yyyy")#')
+					)
 				</cfif>
 				<cfif len(#sql#) gt 0>
 					AND upper(SQL_TEXT) like '%#ucase(sql)#%'
