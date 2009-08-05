@@ -48,6 +48,7 @@
 			from 
 				arctos_audit
 			where
+				1=1
 				<cfif len(#uname#) gt 0>
 					AND upper(username) like '%#ucase(uname)#%'
 				</cfif>
