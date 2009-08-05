@@ -28,7 +28,7 @@
 
 </cfloop>
 
-<cfset dir = xmlsearch(xmldoc.html.head.xmlChildren, "//meta[@name='ncbi_resultcount']")>	
+<cfset dir = xmlsearch(xmldoc.html.head.meta.xmlAttributes, "//[@name='ncbi_resultcount']")>	
 <cfdump var=#dir#>
 </cfoutput>
 
