@@ -14,8 +14,8 @@
 		<input type="text" name="date" id="date" value="#date#">
 		<label for="sql">SQL</label>
 		<input type="text" name="sql" id="sql" value="#sql#">
-		<label for="form">Form</label>
-		<input type="text" name="form" id="form" value="#form#">
+		<label for="form">Object</label>
+		<input type="text" name="object" id="form" value="#object#">
 		<br>
 		<input type="submit" 
 		 	value="Filter" 
@@ -44,7 +44,7 @@
 				to_char(TIMESTAMP,'dd-mon-yyyy') date_stamp, 
 				SQL_TEXT sql_statement, 
 				DB_USER username,
-				OBJECT_NAME
+				OBJECT_NAME object
 			from 
 				arctos_audit
 			where
@@ -58,7 +58,7 @@
 					AND upper(sql_statement) like '%#ucase(sql)#%'
 				</cfif>
 				<cfif len(#form#) gt 0>
-					AND upper(object_name) like '%#ucase(form)#%'
+					AND upper(object_name) like '%#ucase(object)#%'
 				</cfif>
 			ORDER BY 
 				username,
@@ -68,14 +68,14 @@
 		<table border id="t" class="sortable">
 		<tr>
 			<th>username</th>
-			<th>Form</th>
+			<th>object</th>
 			<th>date_stamp</th>
 			<th>sql_statement</th>
 		</tr>
 		<cfloop query="activity">
 			<tr>
 				<td>#username#</td>
-				<td>#object_name#</td>
+				<td>#object#</td>
 				<td>#date_stamp#</td>
 				<td>#sql_statement#</td>
 			</tr>
