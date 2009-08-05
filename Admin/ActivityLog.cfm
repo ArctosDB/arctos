@@ -46,7 +46,7 @@
 				DB_USER username,
 				OBJECT_NAME object
 			from 
-				arctos_audit
+				uam.arctos_audit
 			where
 				1=1
 				<cfif len(#uname#) gt 0>
