@@ -114,8 +114,8 @@
 				</cfif>
 				<cfif len(#bdate#) gt 0>
 					AND (
-						TIMESTAMP >= to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
-						and TIMESTAMP <= to_date('#dateformat(edate,"dd-mmm-yyyy")#')
+						to_date(to_char(TIMESTAMP,'dd-mon-yyy')) between to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
+						and to_date('#dateformat(edate,"dd-mmm-yyyy")#')
 					)
 				</cfif>
 				<cfif len(#sql#) gt 0>
