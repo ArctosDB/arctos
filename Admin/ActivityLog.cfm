@@ -11,7 +11,8 @@
 	function clearForm() {
 		document.getElementById('uname').value='';
 		document.getElementById('object').value='';
-		document.getElementById('date').value='';
+		document.getElementById('bdate').value='';
+		document.getElementById('edate').value='';
 		document.getElementById('sql').value='';
 	}
 </SCRIPT>
@@ -24,7 +25,7 @@
 <p><strong>This form accesses after approximately 7 August 2009</strong></p>	
 	<form name="srch" method="post" action="ActivityLog.cfm">
 		<label for="action">Data to search</label>
-		<select name="action">
+		<select name="action" id="action">
 			<option <cfif action is 'search'> selected="selected"</cfif> value="search">7 Aug 2009-present</option>
 			<option <cfif action is 'search_old'> selected="selected"</cfif> value="search_old">before 7 Aug 2009</option>
 		</select>
@@ -52,7 +53,7 @@
 		<label for="sql">SQL</label>
 		<input type="text" name="sql" id="sql" value="#sql#">
 		<label for="object">Object</label>
-		<input type="text" name="object" id="form" value="#object#">
+		<input type="text" name="object" id="object" value="#object#">
 		<br>
 		<input type="submit" 
 		 	value="Filter" 
