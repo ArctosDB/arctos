@@ -2,7 +2,7 @@ jQuery("#uploadMedia").live('click', function(e){
 	console.log('upload clicked');
 	addBGDiv('removeUpload()');
 	
-	var theDiv = document.createElement('div');
+	var theDiv = document.createElement('iFrame');
 	theDiv.id = 'uploadDiv';
 	theDiv.className = 'uploadMediaDiv';
 	theDiv.innerHTML='<br>Loading...';
