@@ -1,4 +1,3 @@
-
 function tog_AgentRankDetail(o){
 	if(o==1){
 		document.getElementById('agentRankDetails').style.display='block';

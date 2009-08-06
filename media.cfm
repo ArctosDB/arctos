@@ -281,12 +281,7 @@
 				onmouseout="this.className='insBtn'">
 		</form>
    
-	</cfoutput>
-	<script>
-		var elem = document.getElementById('uploadMedia');
-		elem.addEventListener('click',clickUpload,false);
-	</script>
-    
+	</cfoutput>    
 </cfif>
 <!------------------------------------------------------------------------------------------>
 <cfif #action# is "saveNew">
