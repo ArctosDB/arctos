@@ -1,12 +1,12 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfif #action# is "nothing">
-	<div id="progressbar" style="display:none">
-		<img src="/images/progressbar.gif">
+	<div id="progressbar" style="display:none" align="center">
+		Uploading Media....<br><img src="/images/progressbar.gif">
 	</div>
-	<cfform name="uploadFile" method="post" enctype="multipart/form-data" action="upMedia.cfm">
+	<form name="uploadFile" method="post" enctype="multipart/form-data" action="upMedia.cfm">
 		<input type="hidden" name="action" value="getFile">
 		  <label for="FiletoUpload">Browse...</label>
-		  <cfinput type="file" name="FiletoUpload" id="FiletoUpload" size="90" >
+		  <input type="file" name="FiletoUpload" id="FiletoUpload" size="90" >
           <label for="PreviewToUpload">Preview...</label>
 		  <input type="file" name="PreviewToUpload" id="PreviewToUpload" size="90">
    
@@ -22,7 +22,7 @@
 				onmouseover="this.className='qutBtn btnhov'"
 				onmouseout="this.className='qutBtn'"
 				onclick="parent.removeUpload('')">
-	</cfform>
+	</form>
 </cfif>
 <cfif #action# is "getFile">
 <cfoutput>
