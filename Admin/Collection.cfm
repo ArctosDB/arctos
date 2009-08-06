@@ -170,7 +170,8 @@
 			genbank_prid,
 			genbank_username,
 			genbank_pwd,
-			loan_policy_url
+			loan_policy_url,
+			guid_prefix
  		from collection
   		where
    		collection_id = #collection_id#
