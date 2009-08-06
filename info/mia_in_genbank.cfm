@@ -7,23 +7,20 @@
 		<table border id="t" class="sortable">
 			<tr>
 				<th>Owner</th>
-				<th></th>
-			</tr><th>
-				
-			</th>
+				<th>Count</th>
+				<th>Run Date</th>
+				<th>Query Type</th>
+				<th>Link</th>
+			</tr>
+			<cfloop query="gb">
+				<tr>
+					<td>#owner#</td>
+					<td>#found_count#</td>
+					<td>#dateformat(run_date,"dd mmm yyyy")#</td>
+					<td>#query_type#</td>
+					<td><a href="#link_url#" target="_blank">open GenBank</a></td>
+				</tr>
+			</cfloop>
 		</table>
-	create table cf_genbank_crawl (
-	gbcid number not null,
-	institution varchar2(38),
-	collection varchar2(60),
-	link_url varchar2(255) not null,
-	found_count number,
-	run_date date default sysdate
-);
-
-create or replace public synonym cf_genbank_crawl for cf_genbank_crawl;
-grant all on cf_genbank_crawl to coldfusion_user;
-	
-alter table cf_genbank_crawl add query_type varchar2(30);
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
