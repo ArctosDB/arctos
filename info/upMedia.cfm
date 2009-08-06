@@ -1,5 +1,8 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfif #action# is "nothing">
+	<div id="progressbar" style="display:none">
+		<img src="/images/progressbar.gif">
+	</div>
 	<cfform name="uploadFile" method="post" enctype="multipart/form-data" action="upMedia.cfm">
 		<input type="hidden" name="action" value="getFile">
 		  <label for="FiletoUpload">Browse...</label>
@@ -12,7 +15,7 @@
 				class="savBtn"
 				onmouseover="this.className='savBtn btnhov'"
 				onmouseout="this.className='savBtn'"
-				onclick="this.value='Loading....';this.style.background='transparent url('/images/arrow.gif') no-repeat scroll top right';uploadFile.submit();">
+				onclick="this.value='Loading....';document.GetElementById('progressbar').style.display='';uploadFile.submit();">
 	<input type="button" 
 				value="Cancel" 
 				class="qutBtn"
