@@ -34,6 +34,11 @@ function removeUpload() {
 	}
 	removeBgDiv();
 }
+function closeUpload(media_uri,preview_uri) {
+	document.getElementById('media_uri').value=media_uri;
+	document.getElementById('preview_uri').value=preview_uri;
+	removeUpload();
+}
 function generateMD5() {
 	var theImageFile=document.getElementById('media_uri').value;
 	jQuery.getJSON("/component/functions.cfc",
@@ -56,13 +61,6 @@ function success_generateMD5(result){
 	var nlv=document.getElementById(lvid);
 	nl.value='MD5 checksum';
 	nlv.value=result;
-}
-
-function closeUpload(media_uri,preview_uri) {
-	var theDiv = document.getElementById('uploadDiv');
-	document.body.removeChild(theDiv);
-	document.getElementById('media_uri').value=media_uri;
-	document.getElementById('preview_uri').value=preview_uri;
 }
 function closePreviewUpload(preview_uri) {
 	var theDiv = document.getElementById('uploadDiv');
