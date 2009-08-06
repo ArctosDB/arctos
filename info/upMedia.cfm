@@ -15,7 +15,7 @@
 				class="savBtn"
 				onmouseover="this.className='savBtn btnhov'"
 				onmouseout="this.className='savBtn'"
-				onclick="this.value='Loading....';document.GetElementById('progressbar').style.display='';uploadFile.submit();">
+				onclick="this.value='Loading....';document.getElementById('progressbar').style.display='';uploadFile.submit();">
 	<input type="button" 
 				value="Cancel" 
 				class="qutBtn"
