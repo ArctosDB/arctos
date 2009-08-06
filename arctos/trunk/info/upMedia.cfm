@@ -99,6 +99,7 @@
 			<cfabort>   
 	</cfcatch>
 	</cftry>
+	#loadPath#
 	<cfif IsImageFile("#loadPath#")>
 		ooo, imagey
 	<cfelse>
