@@ -33,7 +33,7 @@ function closePreviewUpload(preview_uri) {
 	document.body.removeChild(theDiv);
 	document.getElementById('preview_uri').value=preview_uri;
 }
-jQuery("#uploadMedia").click(function(e){
+jQuery("#uploadMedia").live('click', function(e){
 	console.log('upload clicked');
 	var theDiv = document.createElement('iFrame');
 	theDiv.id = 'uploadDiv';
