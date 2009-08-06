@@ -99,25 +99,30 @@
 			<cfabort>   
 	</cfcatch>
 	</cftry>
-	#loadPath#
 	<cfif IsImageFile("#loadPath#/#fileName#")>
 		<cfif len(preview_uri) is 0>
+			<cfset tnAbsPath=loadPath & '/tn_' & fileName>
+			<cfset tnRelPath=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName> 
+			<cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/tn_#fileName#">
 			<cfimage action="info" structname="imagetemp" source="#loadPath#/#fileName#">
 			<cfset x=min(150/imagetemp.width, 113/imagetemp.height)>
 			<cfset newwidth = x*imagetemp.width>
       		<cfset newheight = x*imagetemp.height>
    			<cfimage action="resize" source="#loadPath#/#fileName#" width="#newwidth#" height="#newheight#"
-				destination="#loadPath#/tn_#fileName#">
-			<cfset src=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName> 
-			<img src="#src#">
-			u likey?
+				destination="#tnAbsPath#">
+			<cfset tnAbsPath=loadPath & '/tn_' & fileName>
+			<cfset tnRelPath=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName> 
+			<cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/tn_#fileName#">
+			<img src="#tnRelPath#">
+			<span class="likeLink" onclick="parent.closeUpload('#media_uri#','#preview_uri#');">Use this thumbnail as a preview</span>
+			<br><span class="likeLink" onclick="parent.closeUpload('#media_uri#','');">Do not use this thumbnail as a preview</span>
 		</cfif>
 	<cfelse>
-		not an image
+		<script>parent.closeUpload('#media_uri#','#preview_uri#');</script>
 	</cfif>
 	<!---- 
 
-<script>parent.closeUpload('#media_uri#','#preview_uri#');</script>
+
 ---->
 </cfoutput>
 </cfif>
