@@ -109,7 +109,7 @@
 			<cfset newwidth = x*imagetemp.width>
       		<cfset newheight = x*imagetemp.height>
    			<cfimage action="resize" source="#loadPath#/#fileName#" width="#newwidth#" height="#newheight#"
-				destination="#tnAbsPath#">
+				destination="#tnAbsPath#" overwrite="true">
 			<cfset tnAbsPath=loadPath & '/tn_' & fileName>
 			<cfset tnRelPath=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName> 
 			<cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/tn_#fileName#">
