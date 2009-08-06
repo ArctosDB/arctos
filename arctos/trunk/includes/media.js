@@ -8,7 +8,7 @@ jQuery("#uploadMedia").live('click', function(e){
 	theDiv.innerHTML='<br>Loading...';
 	document.body.appendChild(theDiv);
 	var ptl="/info/upMedia.cfm";
-	theDiv.src=data;
+	theDiv.src=ptl;
 	viewport.init("#uploadDiv");
 	
 	/*
