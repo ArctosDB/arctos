@@ -100,7 +100,7 @@
 	</cfcatch>
 	</cftry>
 	#loadPath#
-	<cfif IsImageFile("#loadPath#")>
+	<cfif IsImageFile("#loadPath#/#fileName#")>
 		ooo, imagey
 	<cfelse>
 		not an image
