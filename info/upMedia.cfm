@@ -1,9 +1,9 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <cfif #action# is "nothing">
-	<form name="uploadFile" method="post" enctype="multipart/form-data" action="upMedia.cfm">
+	<cfform name="uploadFile" method="post" enctype="multipart/form-data" action="upMedia.cfm">
 		<input type="hidden" name="action" value="getFile">
 		  <label for="FiletoUpload">Browse...</label>
-		  <input type="file" name="FiletoUpload" id="FiletoUpload" size="90">
+		  <cfinput type="file" name="FiletoUpload" id="FiletoUpload" size="90" >
           <label for="PreviewToUpload">Preview...</label>
 		  <input type="file" name="PreviewToUpload" id="PreviewToUpload" size="90">
    
@@ -18,7 +18,7 @@
 				onmouseover="this.className='qutBtn btnhov'"
 				onmouseout="this.className='qutBtn'"
 				onclick="parent.removeUpload('')">
-	</form>
+	</cfform>
 </cfif>
 <cfif #action# is "getFile">
 <cfoutput>

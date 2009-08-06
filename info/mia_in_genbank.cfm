@@ -9,6 +9,9 @@
 	<br>Instructions for avoiding unnecessary pain are available from the 
 		<a href="http://groups.google.com/group/Arctos/browse_thread/thread/8b99cc25141be232/8e5472c667cca95d"
 			target="_blank">Arctos list</a>.
+	<br>Data in the table below (excepting specimen_voucher:collection, which have been properly submitted and should
+		always be accurate) are best guesses based on what GenBank received from researchers.
+		They're far from perfect and require human verification.
 </div>
 	<cfoutput>
 		<cfquery name="gb" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
