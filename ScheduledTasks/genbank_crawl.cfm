@@ -27,8 +27,8 @@ sho err
 <cfoutput>
 	<cfif action is "nothing">
 		<ul>
-			<li><a href="genbank_crawl?action=institution_voucher">institution_voucher</a></li>
-			<li><a href="genbank_crawl?action=collection_voucher">collection_voucher</a></li>
+			<li><a href="genbank_crawl.cfm?action=institution_voucher">institution_voucher</a></li>
+			<li><a href="genbank_crawl.cfm?action=collection_voucher">collection_voucher</a></li>
 		</ul>
 	</cfif>
 	<cfquery name="c" datasource="uam_god">
