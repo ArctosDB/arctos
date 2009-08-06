@@ -101,7 +101,17 @@
 	</cftry>
 	#loadPath#
 	<cfif IsImageFile("#loadPath#/#fileName#")>
-		ooo, imagey
+		<cfif len(preview_uri) is 0>
+			<cfimage action="info" structname="imagetemp" source="#loadPath#/#fileName#">
+			<cfset x=min(150/imagetemp.width, 113/imagetemp.height)>
+			<cfset newwidth = x*imagetemp.width>
+      		<cfset newheight = x*imagetemp.height>
+   			<cfimage action="resize" source="#loadPath#/#fileName#" width="#newwidth#" height="#newheight#"
+				destination="#loadPath#/tn_#fileName#">
+			<cfset src=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName> 
+			<img src="#src#">
+			u likey?
+		</cfif>
 	<cfelse>
 		not an image
 	</cfif>
