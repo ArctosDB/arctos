@@ -115,9 +115,17 @@
 			<cfset tnAbsPath=loadPath & '/tn_' & fileName>
 			<cfset tnRelPath=replace(loadPath,application.webDirectory,'') & '/tn_' & fileName> 
 			<cfset preview_uri = "#Application.ServerRootUrl#/mediaUploads/#session.username#/tn_#fileName#">
-			<img src="#tnRelPath#">
-			<span class="likeLink" onclick="parent.closeUpload('#media_uri#','#preview_uri#');">Use this thumbnail as a preview</span>
-			<br><span class="likeLink" onclick="parent.closeUpload('#media_uri#','');">Do not use this thumbnail as a preview</span>
+			<table>
+				<tr>
+					<td>
+						<img src="#tnRelPath#">
+					</td>
+					<td valign="top">
+						<span class="likeLink" onclick="parent.closeUpload('#media_uri#','#preview_uri#');">Use this thumbnail as a preview</span>
+						<br><span class="likeLink" onclick="parent.closeUpload('#media_uri#','');">Do not use this thumbnail as a preview</span>
+					</td>
+				</tr>
+			</table>			
 		</cfif>
 	<cfelse>
 		<script>parent.closeUpload('#media_uri#','#preview_uri#');</script>
