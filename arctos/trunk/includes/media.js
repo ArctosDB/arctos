@@ -4,13 +4,13 @@ jQuery("#uploadMedia").live('click', function(e){
 	
 	var theDiv = document.createElement('div');
 	theDiv.id = 'uploadDiv';
-	theDiv.className = 'uploadDiv';
+	theDiv.className = 'uploadMediaDiv';
 	theDiv.innerHTML='<br>Loading...';
 	document.body.appendChild(theDiv);
 	var ptl="/info/upMedia.cfm";			
 	jQuery.get(ptl,function(data){
 		document.getElementById('uploadDiv').innerHTML=data;
-		//viewport.init("#uploadDiv");
+		viewport.init("#uploadDiv");
 	});
 	/*
 	 * 
