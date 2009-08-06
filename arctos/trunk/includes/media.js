@@ -33,7 +33,8 @@ function closePreviewUpload(preview_uri) {
 	document.body.removeChild(theDiv);
 	document.getElementById('preview_uri').value=preview_uri;
 }
-function clickUpload(){
+jQuery("#uploadMedia").click(function(e){
+	console.log('upload clicked');
 	var theDiv = document.createElement('iFrame');
 	theDiv.id = 'uploadDiv';
 	theDiv.name = 'uploadDiv';
@@ -41,7 +42,7 @@ function clickUpload(){
 	document.body.appendChild(theDiv);
 	var guts = "/info/upMedia.cfm";
 	theDiv.src=guts;
-}
+)};
 function clickUploadPreview(){
 	var theDiv = document.createElement('iFrame');
 	theDiv.id = 'uploadDiv';
