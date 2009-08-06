@@ -3,6 +3,7 @@
 	<div id="progressbar" style="display:none" align="center">
 		Uploading Media....<br><img src="/images/progressbar.gif">
 	</div>
+	<div id="formDiv">
 	<form name="uploadFile" method="post" enctype="multipart/form-data" action="upMedia.cfm">
 		<input type="hidden" name="action" value="getFile">
 		  <label for="FiletoUpload">Browse...</label>
@@ -15,7 +16,7 @@
 				class="savBtn"
 				onmouseover="this.className='savBtn btnhov'"
 				onmouseout="this.className='savBtn'"
-				onclick="this.value='Loading....';document.getElementById('progressbar').style.display='';uploadFile.submit();">
+				onclick="this.value='Loading....';document.getElementById('formDiv').style.display='none';document.getElementById('progressbar').style.display='';uploadFile.submit();">
 	<input type="button" 
 				value="Cancel" 
 				class="qutBtn"
@@ -23,6 +24,7 @@
 				onmouseout="this.className='qutBtn'"
 				onclick="parent.removeUpload('')">
 	</form>
+	</div>
 </cfif>
 <cfif #action# is "getFile">
 <cfoutput>
