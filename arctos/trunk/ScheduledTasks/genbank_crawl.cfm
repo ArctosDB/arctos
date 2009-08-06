@@ -52,7 +52,6 @@ sho err
 		<cfloop query="inst">
 			<cfset u="http://www.ncbi.nlm.nih.gov/sites/entrez?db=nuccore&cmd=search&term=">
 			<cfset u=u & "specimen voucher " & institution_acronym & "*[text word] NOT loprovarctos[filter]">
-			 uam NOT loprovarctos[filter]
 			<cfhttp url="#u#" method="get" />
 			<cfset xmlDoc=xmlParse(cfhttp.filecontent)>
 			<cfloop from="1" to="#ArrayLen(xmldoc.html.head.meta)#" index="i">
