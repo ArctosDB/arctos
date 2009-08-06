@@ -89,7 +89,7 @@ sho err
 					found_count,
 					query_type
 				) values (
-					'#collection#'
+					'#collection#',
 					'#u#',
 					#ncbi_resultcount#,
 					'specimen_voucher:collection'
