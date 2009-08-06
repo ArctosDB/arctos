@@ -13,6 +13,10 @@ grant all on cf_genbank_crawl to coldfusion_user;
 	
 alter table cf_genbank_crawl add query_type varchar2(30);
 
+alter table cf_genbank_crawl drop column institution;
+alter table cf_genbank_crawl rename column collection to owner;
+
+
 CREATE OR REPLACE TRIGGER trg_cf_genbank_crawl                                         
  before insert OR UPDATE ON cf_genbank_crawl
  for each row 
@@ -59,7 +63,7 @@ sho err
 			</cfloop>
 			<cfquery name="in" datasource="uam_god">
 				insert into cf_genbank_crawl (
-					institution,
+					owner,
 					link_url,
 					found_count,
 					query_type
@@ -90,7 +94,7 @@ sho err
 			</cfloop>
 			<cfquery name="in" datasource="uam_god">
 				insert into cf_genbank_crawl (
-					institution,
+					owner,
 					link_url,
 					found_count,
 					query_type
@@ -120,7 +124,7 @@ sho err
 			</cfloop>
 			<cfquery name="in" datasource="uam_god">
 				insert into cf_genbank_crawl (
-					institution,
+					owner,
 					link_url,
 					found_count,
 					query_type
@@ -150,7 +154,7 @@ sho err
 			</cfloop>
 			<cfquery name="in" datasource="uam_god">
 				insert into cf_genbank_crawl (
-					collection,
+					owner,
 					link_url,
 					found_count,
 					query_type
@@ -180,7 +184,7 @@ sho err
 			</cfloop>
 			<cfquery name="in" datasource="uam_god">
 				insert into cf_genbank_crawl (
-					collection,
+					owner,
 					link_url,
 					found_count,
 					query_type
@@ -210,7 +214,7 @@ sho err
 			</cfloop>
 			<cfquery name="in" datasource="uam_god">
 				insert into cf_genbank_crawl (
-					collection,
+					owner,
 					link_url,
 					found_count,
 					query_type
