@@ -12,7 +12,7 @@
 				class="savBtn"
 				onmouseover="this.className='savBtn btnhov'"
 				onmouseout="this.className='savBtn'"
-				onclick="this.value="Loading....";uploadFile.submit();">
+				onclick="this.value='Loading....';uploadFile.submit();">
 	<input type="button" 
 				value="Cancel" 
 				class="qutBtn"
