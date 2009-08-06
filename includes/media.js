@@ -42,7 +42,7 @@ jQuery("#uploadMedia").click(function(e){
 	document.body.appendChild(theDiv);
 	var guts = "/info/upMedia.cfm";
 	theDiv.src=guts;
-)};
+});
 function clickUploadPreview(){
 	var theDiv = document.createElement('iFrame');
 	theDiv.id = 'uploadDiv';
