@@ -2,7 +2,7 @@
 <script src="/includes/sorttable.js"></script>
 	<cfoutput>
 		<cfquery name="gb" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select * from cf_genbank_crawl order by collection,institution
+			select * from cf_genbank_crawl order by owner
 		</cfquery>
 		<table border id="t" class="sortable">
 			<tr>
