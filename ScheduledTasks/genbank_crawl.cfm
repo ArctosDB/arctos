@@ -37,7 +37,7 @@ sho err
 	<cfquery name="inst" dbtype="query">
 		select institution_acronym from c group by institution_acronym order by institution_acronym
 	</cfquery>
-	<cfif action="institution_voucher">
+	<cfif action is "institution_voucher">
 		<cfquery name="do" datasource="uam_god">
 			delete from cf_genbank_crawl where query_type='specimen_voucher:institution'
 		</cfquery>
@@ -67,7 +67,7 @@ sho err
 			</cfquery>
 		</cfloop>
 	</cfif>
-	<cfif action="collection_voucher">
+	<cfif action is "collection_voucher">
 		<cfquery name="do" datasource="uam_god">
 			delete from cf_genbank_crawl where query_type='specimen_voucher:collection'
 		</cfquery>
