@@ -12,7 +12,7 @@
 				class="savBtn"
 				onmouseover="this.className='savBtn btnhov'"
 				onmouseout="this.className='savBtn'"
-				onclick="this.value='Loading....';uploadFile.submit();">
+				onclick="this.value='Loading....';this.style.background='transparent url('/images/arrow.gif') no-repeat scroll top right';uploadFile.submit();">
 	<input type="button" 
 				value="Cancel" 
 				class="qutBtn"
