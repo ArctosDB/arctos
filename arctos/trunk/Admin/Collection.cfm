@@ -480,7 +480,8 @@
 	
 	<cfquery name="modColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		UPDATE collection SET 
-		COLLECTION_CDE = '#collection_cde#'
+		COLLECTION_CDE = '#collection_cde#',
+		guid_prefix = '#guid_prefix#'
 		,COLLECTION = '#collection#'
 		<cfif len(#institution_acronym#) gt 0>
 			,INSTITUTION_ACRONYM='#institution_acronym#'

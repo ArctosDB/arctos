@@ -97,11 +97,15 @@
 						<select name="collection_object_id" size="1">
 							<cfif #theirLast.recordcount# gt 0>
 								<cfloop query="theirLast">
-									<option value="#theId#">Your Last #instAc# #collnCde#</option>
+									<cfquery name="temp" dbtype="query">
+										select collection from c where institution_acronym='#instAc#' and collection_cde='#collnCde#'
+									</cfquery>
+									<option value="#theId#">Your Last #temp.collection#</option>
+									
 								</cfloop>								
 							</cfif>
 							<cfloop query="c">
-								<option value="#collection_id#">Enter a new #institution_acronym# #collection_cde# Record</option>
+								<option value="#collection_id#">Enter a new #collection# Record</option>
 							</cfloop>
 						</select>
 						<input class="lnkBtn" onmouseover="this.className='lnkBtn btnhov'"
