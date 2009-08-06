@@ -99,7 +99,15 @@
 			<cfabort>   
 	</cfcatch>
 	</cftry>
+	<cfif IsImageFile("#loadPath#")>
+		ooo, imagey
+	<cfelse>
+		not an image
+	</cfif>
+	<!---- 
+
 <script>parent.closeUpload('#media_uri#','#preview_uri#');</script>
+---->
 </cfoutput>
 </cfif>
  
