@@ -1,3 +1,21 @@
+jQuery("#uploadMedia").live('click', function(e){
+	console.log('upload clicked');
+	addBGDiv('removeUpload()');
+	
+	var theDiv = document.createElement('iFrame');
+	theDiv.id = 'uploadDiv';
+	theDiv.name = 'uploadDiv';
+	theDiv.className = 'uploadMediaDiv';
+	document.body.appendChild(theDiv);
+	var guts = "/info/upMedia.cfm";
+	theDiv.src=guts;
+});
+function removeUpload() {
+	if(document.getElementById('uploadDiv')){
+		jQuery('#uploadDiv').remove();
+	}
+	removeBgDiv();
+}
 function generateMD5() {
 	var theImageFile=document.getElementById('media_uri').value;
 	jQuery.getJSON("/component/functions.cfc",
@@ -33,18 +51,7 @@ function closePreviewUpload(preview_uri) {
 	document.body.removeChild(theDiv);
 	document.getElementById('preview_uri').value=preview_uri;
 }
-jQuery("#uploadMedia").live('click', function(e){
-	console.log('upload clicked');
-	addBGDiv();
-	
-	var theDiv = document.createElement('iFrame');
-	theDiv.id = 'uploadDiv';
-	theDiv.name = 'uploadDiv';
-	theDiv.className = 'uploadMediaDiv';
-	document.body.appendChild(theDiv);
-	var guts = "/info/upMedia.cfm";
-	theDiv.src=guts;
-});
+
 function clickUploadPreview(){
 	var theDiv = document.createElement('iFrame');
 	theDiv.id = 'uploadDiv';
