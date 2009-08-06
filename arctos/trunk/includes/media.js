@@ -2,6 +2,17 @@ jQuery("#uploadMedia").live('click', function(e){
 	console.log('upload clicked');
 	addBGDiv('removeUpload()');
 	
+	var theDiv = document.createElement('div');
+	theDiv.id = 'uploadDiv';
+	theDiv.className = 'uploadDiv';
+	theDiv.innerHTML='<br>Loading...';
+	document.body.appendChild(theDiv);
+	var ptl="/info/upMedia.cfm";			
+	jQuery.get(ptl,function(data){
+		//document.getElementById('uploadDiv').innerHTML=data;
+		viewport.init("#uploadDiv");
+	});
+	/*
 	var theDiv = document.createElement('iFrame');
 	theDiv.id = 'uploadDiv';
 	theDiv.name = 'uploadDiv';
@@ -9,6 +20,7 @@ jQuery("#uploadMedia").live('click', function(e){
 	document.body.appendChild(theDiv);
 	var guts = "/info/upMedia.cfm";
 	theDiv.src=guts;
+	*/
 });
 function removeUpload() {
 	if(document.getElementById('uploadDiv')){
