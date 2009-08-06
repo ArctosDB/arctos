@@ -29,6 +29,7 @@ sho err
 		<ul>
 			<li><a href="genbank_crawl.cfm?action=institution_voucher">institution_voucher</a></li>
 			<li><a href="genbank_crawl.cfm?action=collection_voucher">collection_voucher</a></li>
+			<li><a href="genbank_crawl.cfm?action=collection_wild1">collection_wild1</a></li>
 		</ul>
 	</cfif>
 	<cfquery name="c" datasource="uam_god">
@@ -93,6 +94,36 @@ sho err
 					'#u#',
 					#ncbi_resultcount#,
 					'specimen_voucher:collection'
+				)
+			</cfquery>
+		</cfloop>
+	</cfif>
+	<cfif action is "collection_wild1">
+		<cfquery name="do" datasource="uam_god">
+			delete from cf_genbank_crawl where query_type='wild1:collection'
+		</cfquery>
+		<cfloop query="c">
+			<cfset u="http://www.ncbi.nlm.nih.gov/sites/entrez?db=nuccore&cmd=search&term=">
+			<cfset u=u & "specimen voucher " & institution_acronym & ' ' & collection_cde & "*[text word] NOT loprovarctos[filter]">
+			<cfhttp url="#u#" method="get" />
+			<cfset xmlDoc=xmlParse(cfhttp.filecontent)>
+			<cfloop from="1" to="#ArrayLen(xmldoc.html.head.meta)#" index="i">
+				<cfset a=xmldoc.html.head.meta[i].xmlattributes>
+				<cfif isdefined("a.name") and a.name is 'ncbi_resultcount'>
+					<cfset ncbi_resultcount=a.content>
+				</cfif>
+			</cfloop>
+			<cfquery name="in" datasource="uam_god">
+				insert into cf_genbank_crawl (
+					collection,
+					link_url,
+					found_count,
+					query_type
+				) values (
+					'#collection#',
+					'#u#',
+					#ncbi_resultcount#,
+					'wild1:collection'
 				)
 			</cfquery>
 		</cfloop>
