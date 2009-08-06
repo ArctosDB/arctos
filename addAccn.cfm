@@ -1,13 +1,6 @@
 <div id="theHead">
 	<cfinclude template="includes/_header.cfm">
 </div>
-<script type='text/javascript' src='/includes/ajax.js'></script>
-<cfquery name="ctSuff" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select collection_cde from ctcollection_cde
-</cfquery>
-<cfquery name="ctinst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select distinct(institution_acronym) as institution_acronym from collection
-</cfquery>
 <cfquery name="ctcoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection, collection_id from collection order by collection
 </cfquery>
