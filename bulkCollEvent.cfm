@@ -80,7 +80,7 @@
 		county,
 		quad,
 		institution_acronym,
-		collection.collection_cde
+		collection.collection
 	FROM 
 		identification, 
 		collecting_event,
@@ -121,7 +121,7 @@
     <tr>
 	  <td>
 	  	<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
-	  	#institution_acronym#&nbsp;#collection_cde#&nbsp;#cat_num#
+	  #collection#&nbsp;#cat_num#
 	  	</a>
 	  </td>	  
 	<td>

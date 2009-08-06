@@ -6,7 +6,7 @@
 				cataloged_item.collection_object_id,
 				cat_num,
 				institution_acronym,
-				collection.collection_cde,
+				collection.collection,
 				cat_num,
 				scientific_name,
 				encumbrance,
@@ -40,7 +40,7 @@
 				<tr>
 					<td>
 						<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">
-							#institution_acronym# #collection_cde# #cat_num#</a>
+							#collection# #cat_num#</a>
 					</td>
 					<td>#scientific_name#</td>
 					<td>#encumbrance# (#encumbrance_action#) by #encumberer# made #dateformat(encumbered_date,"dd mmm yyyy")#, expires #dateformat(expiration_date,"dd mmm yyyy")# #expiration_event# #remarks#</td>

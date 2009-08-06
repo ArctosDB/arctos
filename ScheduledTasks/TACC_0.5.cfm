@@ -5,7 +5,7 @@
 
 <cfoutput>
 	<cfquery name="gotFolder" datasource="uam_god">
-		update tacc_check set jpeg_status=null where jpeg_status='not_there'		
+		update tacc_check set jpg_status=null where jpg_status='not_there'		
 	</cfquery>
 
 </cfoutput>
