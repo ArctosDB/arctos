@@ -7,12 +7,16 @@ jQuery("#uploadMedia").live('click', function(e){
 	theDiv.className = 'uploadDiv';
 	theDiv.innerHTML='<br>Loading...';
 	document.body.appendChild(theDiv);
-	var ptl="/info/upMedia.cfm";			
+	
+	/*
+	 * 
+	 * var ptl="/info/upMedia.cfm";			
 	jQuery.get(ptl,function(data){
 		document.getElementById('uploadDiv').innerHTML=data;
 		viewport.init("#uploadDiv");
 	});
-	/*
+	
+	
 	var theDiv = document.createElement('iFrame');
 	theDiv.id = 'uploadDiv';
 	theDiv.name = 'uploadDiv';
