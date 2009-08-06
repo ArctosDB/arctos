@@ -7,11 +7,12 @@
           <label for="PreviewToUpload">Preview...</label>
 		  <input type="file" name="PreviewToUpload" id="PreviewToUpload" size="90">
    
-      <input type="submit" 
+      <input type="button" 
 				value="Upload" 
 				class="savBtn"
 				onmouseover="this.className='savBtn btnhov'"
-				onmouseout="this.className='savBtn'">
+				onmouseout="this.className='savBtn'"
+				onclick="this.value="Loading....";uploadFile.submit();">
 	<input type="button" 
 				value="Cancel" 
 				class="qutBtn"
