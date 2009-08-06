@@ -11,7 +11,7 @@
 		<select name="collection_id" size="1">
 			<option value=""></option>
 			<cfloop query="ctcoll">
-				<option value="#collection_id#">#institution_acronym# #collection_cde#</option>
+				<option value="#collection_id#">#collection#</option>
 			</cfloop>
 		</select>
 		<input type="button" value="Submit" class="lnkBtn"
@@ -175,123 +175,50 @@
   		where
    		collection_id = #collection_id#
 	</cfquery>
-	<table border>
-		<tr>
-			<td valign="top">
-			
-	<form name="editCollection" method="post" action="Collection.cfm">
-<input type="hidden" name="action" value="modifyCollection">
-<input type="hidden" name="collection_id" value="#collection_id#">
 	<cfquery name="ctCollCde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection_cde from ctcollection_cde
 	</cfquery>
-	<table>
+	<table border>
 		<tr>
-			<td align="right">
-			Collection Code:&nbsp;
+			<td valign="top">
+				<form name="editCollection" method="post" action="Collection.cfm">
+					<input type="hidden" name="action" value="modifyCollection">
+					<input type="hidden" name="collection_id" value="#collection_id#">
+					<label for="collection_cde">Collection Type</label>
+					<select name="collection_cde" id="collection_cde" size="1">
+						<cfloop query="ctCollCde">
+							<option 
+								<cfif #collection_cde# is "#colls.collection_cde#"> selected </cfif>
+							value="#collection_cde#">#collection_cde#</option>
+						</cfloop>
+					</select>
+					<label for="institution_acronym">Institution Acronym</label>
+					<input type="text" name="institution_acronym" id="institution_acronym" value="#colls.institution_acronym#">
+					<label for="collection">Collection</label>
+					<input type="text" name="collection" id="collection" value="#colls.collection#" size="50">
+					<label for="guid_prefix">GUID Prefix</label>					
+					<input type="text" name="guid_prefix" id="guid_prefix" value="#colls.guid_prefix#">
+					<label for="collection">Collection</label>
+					<input type="text" name="collection" id="collection" value="#colls.collection#" size="50">
+					<label for="descr">Description</label>
+					<input type="text" name="descr" id="descr" value="#colls.descr#" size="50">
+					<label for="web_link">Web Link</label>
+					<cfset thisWebLink = replace(colls.web_link,"'","''",'all')>
+					<input type="text" name="web_link" id="web_link" value="#colls.web_link#" size="50">
+					<label for="web_link_text">Link Text</label>
+					<input type="text" name="web_link_text" id="web_link_text" value='#colls.web_link_text#' size="50">
+					<label for="genbank_prid">GenBank PRID</label>
+					<input type="text" name="genbank_prid" id="genbank_prid" value='#colls.genbank_prid#' size="50">
+					<label for="genbank_username">GenBank Username</label>
+					<input type="text" name="genbank_username" id="genbank_username" value='#colls.genbank_username#' size="50">
+					<label for="genbank_pwd">GenBank Password</label>
+					<input type="text" name="genbank_pwd" id="genbank_pwd" value='#colls.genbank_pwd#' size="50">
+					<label for="descr">Loan Policy URL</label>
+					<input type="text" name="loan_policy_url" id="loan_policy_url" value='#colls.loan_policy_url#' size="50">
+					<br><input type="submit" value="Save Changes" class="savBtn">	
+					<input type="button" value="Quit" class="qutBtn" onClick="document.location='/Admin/Collection.cfm';">	
+				</form>
 			</td>
-			<td>
-			<select name="collection_cde" size="1">
-		<cfloop query="ctCollCde">
-			<option 
-				<cfif #collection_cde# is "#colls.collection_cde#"> selected </cfif>
-			value="#collection_cde#">#collection_cde#</option>
-		</cfloop>
-	</select>
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-			Institution Acronym:&nbsp;
-			</td>
-			<td>
-			<input type="text" name="institution_acronym" value="#colls.institution_acronym#">
-			</td>
-		</tr>
-		
-		<tr>
-			<td align="right">
-			Collection:&nbsp;
-			</td>
-			<td>
-			<input type="text" name="collection" value="#colls.collection#" size="50">
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-			Description:&nbsp;
-			</td>
-			<td>
-			<input type="text" name="descr" value="#colls.descr#" size="50">
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-			Web Link:&nbsp;
-			</td>
-			<td>
-			<cfset thisWebLink = replace(colls.web_link,"'","''",'all')>
-			<input type="text" name="web_link" value="#colls.web_link#" size="50">
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-			Link Text:&nbsp;
-			</td>
-			<td>
-			<input type="text" name="web_link_text" value='#colls.web_link_text#' size="50">
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-			GenBank PRID:&nbsp;
-			</td>
-			<td>
-			<input type="text" name="genbank_prid" value='#colls.genbank_prid#' size="50">
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-			GenBank Username:&nbsp;
-			</td>
-			<td>
-			<input type="text" name="genbank_username" value='#colls.genbank_username#' size="50">
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-			GenBank Password:&nbsp;
-			</td>
-			<td>
-			<input type="text" name="genbank_pwd" value='#colls.genbank_pwd#' size="50">
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-			Loan Policy URL:&nbsp;
-			</td>
-			<td>
-			<input type="text" name="loan_policy_url" value='#colls.loan_policy_url#' size="50">
-			</td>
-		</tr>
-			
-		<tr>
-			<td colspan="2">
-			
-			<input type="submit" value="Save Changes" class="savBtn"
-   						onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">	
-			<input type="button" value="Quit" class="qutBtn"
-   						onmouseover="this.className='qutBtn btnhov'" onmouseout="this.className='qutBtn'" 
-						onClick="document.location='/Admin/Collection.cfm';">	
-			
-			</td>
-		</tr>
-		
-		
-	</table>
-	
-</form>
-</td>
 <td valign="top">
 	<cfquery name="contact" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
