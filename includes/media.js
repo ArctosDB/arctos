@@ -9,7 +9,7 @@ jQuery("#uploadMedia").live('click', function(e){
 	document.body.appendChild(theDiv);
 	var ptl="/info/upMedia.cfm";			
 	jQuery.get(ptl,function(data){
-		document.getElementById('uploadDiv').innerHTML=data;
+		document.getElementById('uploadDiv').src=data;
 		viewport.init("#uploadDiv");
 	});
 	/*
