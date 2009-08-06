@@ -307,6 +307,7 @@
 					<li><h2>Reports</h2>
 						<ul>
 							<li><a target="_top" href="/Reports/reporter.cfm">Reporter</a></li>
+							<li><a target="_top" href="/info/mia_in_genbank.cfm">GenBank MIA</a></li>
 							<li><a target="_top" href="/info/annotate.cfm">Annotations</a></li>
 							<li><a target="_top" href="/Admin/download.cfm">Download Stats</a></li>
 							<li><a target="_top" href="/info/Citations.cfm">Citation Stats</a></li>
