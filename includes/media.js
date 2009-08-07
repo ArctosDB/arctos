@@ -1,7 +1,5 @@
 jQuery("#uploadMedia").live('click', function(e){
-	console.log('upload clicked');
 	addBGDiv('removeUpload()');
-	
 	var theDiv = document.createElement('iFrame');
 	theDiv.id = 'uploadDiv';
 	theDiv.className = 'uploadMediaDiv';
@@ -10,23 +8,6 @@ jQuery("#uploadMedia").live('click', function(e){
 	var ptl="/info/upMedia.cfm";
 	theDiv.src=ptl;
 	viewport.init("#uploadDiv");
-	
-	/*
-	 * 
-	 * 
-	jQuery.get(ptl,function(data){
-		document.getElementById('uploadDiv').src=data;
-		viewport.init("#uploadDiv");
-	});
-	
-	var theDiv = document.createElement('iFrame');
-	theDiv.id = 'uploadDiv';
-	theDiv.name = 'uploadDiv';
-	theDiv.className = 'uploadMediaDiv';
-	document.body.appendChild(theDiv);
-	var guts = "/info/upMedia.cfm";
-	theDiv.src=guts;
-	*/
 });
 function removeUpload() {
 	if(document.getElementById('uploadDiv')){

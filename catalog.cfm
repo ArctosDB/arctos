@@ -292,10 +292,6 @@
 	   <cfquery name="ctdatum" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
 			select datum from ctdatum order by datum
       </cfquery>
-        <cfquery name="ctrefsrc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-        select lat_long_ref_source from ctlat_long_ref_source
-		order by  lat_long_ref_source
-        </cfquery>
 		<cfquery name="ctgeorefmethod" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
         select georefmethod from ctgeorefmethod order by georefmethod
         </cfquery>

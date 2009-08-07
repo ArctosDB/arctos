@@ -26,11 +26,6 @@
 <cfset temp = QuerySetCell(TblCtblFld, "field_name", "island_group", #i#)>
 <cfset i=#i#+1>
 <cfset newrows = queryaddrow(TblCtblFld, 1)>
-<cfset temp = QuerySetCell(TblCtblFld, "table_name", "lat_long", #i#)>
-<cfset temp = QuerySetCell(TblCtblFld, "code_table_name", "ctlat_long_ref_source", #i#)>
-<cfset temp = QuerySetCell(TblCtblFld, "field_name", "lat_long_ref_source", #i#)>
-<cfset i=#i#+1>
-<cfset newrows = queryaddrow(TblCtblFld, 1)>
 <cfset temp = QuerySetCell(TblCtblFld, "table_name", "coll_obj_other_id_num", #i#)>
 <cfset temp = QuerySetCell(TblCtblFld, "code_table_name", "ctcoll_other_id_type", #i#)>
 <cfset temp = QuerySetCell(TblCtblFld, "field_name", "other_id_type", #i#)>

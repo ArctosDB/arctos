@@ -130,14 +130,5 @@
 	<cfelse>
 		<script>parent.closeUpload('#media_uri#','#preview_uri#');</script>
 	</cfif>
-	<!---- 
-
-
----->
 </cfoutput>
 </cfif>
- 
-	  
-	  
- 	<!---<cffile action="write" file="#filename#" nameconflict="overwrite" output="blank" mode="777">--->
-    
