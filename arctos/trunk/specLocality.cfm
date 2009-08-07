@@ -198,9 +198,6 @@
      <cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
         select datum from ctdatum 
      </cfquery>
-     <cfquery name="ctrefsrc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-        select lat_long_ref_source from ctlat_long_ref_source 
-     </cfquery>
 	<cfquery name="ctGeorefMethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select georefMethod from ctgeorefmethod
 	</cfquery>

@@ -28,6 +28,7 @@ create table tacc_check (
 	<cfset dir = xmlsearch(xdir, "//td[@class='n']")>	
 	<cfloop index="i" from="1" to="#arrayLen(dir)#">
 		<cfset folder = dir[i].XmlChildren[1].xmlText>
+		<br>folder: #folder#
 		<cfif folder is not "Parent Directory">
 			<!--- recurse into these folders to get filenames --->
 			<cfquery name="gotFolder" datasource="uam_god">
@@ -54,6 +55,7 @@ create table tacc_check (
 				<cfset xImage = xmlsearch(xImgAll, "//td[@class='n']")>
 				<cfloop index="i" from="1" to="#arrayLen(xImage)#">
 					<cfset fname = xImage[i].XmlChildren[1].xmlText>
+					<br>fname: #fname#
 					<cfif #right(fname,4)# is ".dng">
 						<cfset barcode=replace(fname,".dng","")>
 						<cfquery name="upFile" datasource="uam_god">

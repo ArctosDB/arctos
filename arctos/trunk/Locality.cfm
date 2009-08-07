@@ -54,9 +54,6 @@
 <cfquery name="ctIslandGroup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select island_group from ctisland_group order by island_group
 </cfquery>
-<cfquery name="ctGeogSrcAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select source_authority from ctgeog_source_authority order by source_authority
-</cfquery>
 <cfquery name="ctElevUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select orig_elev_units from ctorig_elev_units order by orig_elev_units
 </cfquery>

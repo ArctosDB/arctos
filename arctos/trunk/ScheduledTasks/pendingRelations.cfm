@@ -6,7 +6,7 @@
 	<cfloop query="getRels">
 		<cfif #related_to_num_type# is "catalog number">
 			<cftry>
-			<cfquery name="isOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="isOne" datasource="uam_god">
 				select 
 					collection_object_id 
 				FROM 
@@ -19,7 +19,7 @@
 					cat_num = #cnum#
 			</cfquery>
 			<cfcatch>
-				<cfquery name="nope" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="nope" datasource="uam_god">
 					update cf_temp_relations set 
 						lasttrydate='#dateformat(now(),"dd-mmm-yyyy")#',
 						fail_reason='Catalog Number does not exist or is not in UAM Mamm 1234 format'
@@ -33,13 +33,13 @@
 			</cfcatch>
 			</cftry>
 		<cfelse>
-			<cfquery name="isOne" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="isOne" datasource="uam_god">
 				select collection_object_id FROM coll_obj_other_id_num
 				where other_id_type = '#related_to_num_type#' and display_value = '#related_to_number#'
 			</cfquery>			
 		</cfif>		
 		<cfif #isOne.recordcount# is 0>
-			<cfquery name="nope" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="nope" datasource="uam_god">
 				update cf_temp_relations set 
 					lasttrydate='#dateformat(now(),"dd-mmm-yyyy")#',
 					fail_reason='Related cataloged item does not exist.'
@@ -50,7 +50,7 @@
 					relationship = '#relationship#'
 			</cfquery>
 		<cfelseif #isOne.recordcount# gt 1>
-			<cfquery name="toomany" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="toomany" datasource="uam_god">
 				update cf_temp_relations set 
 					lasttrydate='#dateformat(now(),"dd-mmm-yyyy")#',
 					fail_reason='More than one cataloged item matched.'
@@ -62,7 +62,7 @@
 			</cfquery>
 		<cfelseif #isOne.recordcount# is 1>
 			<cftry>
-			<cfquery name="insNew" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="insNew" datasource="uam_god">
 				INSERT INTO
 					 BIOL_INDIV_RELATIONS (
 					 	COLLECTION_OBJECT_ID,
@@ -73,7 +73,7 @@
 					 	#isOne.collection_object_id#,
 					 	'#relationship#' )
 			</cfquery>
-			<cfquery name="justRight" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="justRight" datasource="uam_god">
 				DELETE FROM cf_temp_relations 
 				WHERE
 					collection_object_id=#collection_object_id# and
