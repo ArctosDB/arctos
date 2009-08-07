@@ -949,13 +949,16 @@
 <cffunction name="format_label_mammal" access="public" returnType="Query">
 	<cfargument name="q" required="true" type="query">
 	
+	<!--- variable declarations --->
 	<cfset geogAr = ArrayNew(1)>
 	<cfset collAr = ArrayNew(1)>
 	<cfset colIdAr = ArrayNew(1)>
 	<cfset pAr = ArrayNew(1)>
 	<cfset sexAr = ArrayNew(1)>
 	
+	<!-- list of ids to be excluded from returned set -->
 	<cfset excludeList = "">
+	
 	<!--- Data Manipulation --->
 	<cfset i = 1>
 	<cfloop query="q">
@@ -984,6 +987,7 @@
 		<cfset geogAr[i] = "#geog#">
 		
 		<!--- If there is a 'label' type agent_name, use that; else, use collector's preferred name'--->
+		<!--TODO: STILL NEED THIS? HAVE ORACLE FUNCTION? -->
 		<cfif isdefined('labels_agent_name') and len(labels_agent_name) gt 0>
 			<cfset thisColl = labels_agent_name>
 		<cfelse>
@@ -997,8 +1001,12 @@
 		</cfif>
 		<cfset collAr[i] = "#thisColl#">
 		
-		<!--- Orig#collector id#--->
+		<!--- collector id--->
 		<cfset colIdLabel = "">
+		<!-- loop through other_ids to find either ""collector number" or "Prep Lab Cataglog" -->
+		<!-- If there is collector number, label should print "Orig#<collector_id>"-->
+		<!-- If there is no collector number BUT there is PLC, label should print "PLC#<collector_id>"-->
+		<!-- Else, print nothing-->
 		<cfloop list="#other_ids#" delimiters=";" index="ids">
 			<cfset CNpos = find("collector number=", ids)>
 			<cfset PLCpos = find("Prep Lab Catalog", ids)>
@@ -1020,7 +1028,8 @@
 			<cfset foundTissue = 0>
 			<cfset foundOrg = 0>
 			<cfset index = 0>
-		
+			
+			<!-- Get all part names for this collection_object_id -->
 			<cfquery name="part_name_all" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select p.part_name 
 				from specimen_part p 
@@ -1029,6 +1038,7 @@
 				order by c.list_order					
 			</cfquery>
 			
+			<!-- put query from above into a list-->
 			<cfset parts = "">
 			<cfloop query="part_name_all">
 				<cfif len(parts) is 0>
@@ -1037,13 +1047,13 @@
 					<cfset parts = "#parts#; #part_name#">
 				</cfif>
 			</cfloop>
-				
+			
+			<!-- Loop through parts_list -->
 			<cfloop list="#parts#" delimiters=";" index="p">
 				<cfset tissueP = find("tissue", p)>
 				<cfset skullP = find("skull", p)>
 				<cfset skinP = find("skin", p)>
-				<cfset wholeOrgP = find ("whole organism", p)>
-				
+<!--- 				<cfset wholeOrgP = find ("whole organism", p)> --->				
 				
 				<!-- Don't show skin/skull/tissue/whole organism -->
 				<cfif skullP gt 0>    <!-- Found Skull -->
@@ -1052,9 +1062,9 @@
 					<cfset foundSkin = 1>
 				<cfelseif tissueP gt 0>	<!-- Found Tissue -->
 					<cfset foundTissue = 1>
-				<cfelseif wholeOrgP gt 0>	<!-- Found whole organism -->
-					<cfset foundOrg = 1>
-				<cfelse>
+				<!--- <cfelseif wholeOrgP gt 0>	<!-- Found whole organism -->
+					<cfset foundOrg = 1> --->
+				<cfelse> <!-- Safely add part to tentative part lists (for later filtering)-->
 					<cfif len(newParts) gt 0>
 						<cfset newParts = "#newParts#; #p#">
 					<cfelse>
