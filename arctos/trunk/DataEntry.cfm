@@ -100,8 +100,7 @@
 									<cfquery name="temp" dbtype="query">
 										select collection from c where institution_acronym='#instAc#' and collection_cde='#collnCde#'
 									</cfquery>
-									<option value="#theId#">Your Last #temp.collection#</option>
-									
+									<option value="#theId#">Your Last #temp.collection#</option>									
 								</cfloop>								
 							</cfif>
 							<cfloop query="c">
