@@ -65,7 +65,7 @@
 		<cfif len(bdate) gt 0 and len(edate) is 0>
 			<cfset edate=bdate>
 		</cfif>
-		<p><strong>Data after approximately 7 August 2009</strong></p>
+		<p><strong>Data after 7 August 2009</strong></p>
 		<cfquery name="activity" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
 				to_char(TIMESTAMP,'dd-mon-yyyy') date_stamp, 
@@ -139,7 +139,7 @@
 			date_stamp,
 			sql_statement
 	</cfquery>
-	<p><strong>Data previous to approximately 7 August 2009</strong></p>	
+	<p><strong>Data previous to 8 August 2009</strong></p>	
 	<table border id="t_old" class="sortable">
 		<tr>
 			<th>username</th>
