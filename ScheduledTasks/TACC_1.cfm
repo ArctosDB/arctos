@@ -29,7 +29,7 @@ create table tacc_check (
 	<cfloop index="i" from="1" to="#arrayLen(dir)#">
 		<cfset folder = dir[i].XmlChildren[1].xmlText>
 		<br>folder: #folder#
-		<cfif left(folder,3) is "200"><!--- the old ALA stuff is in 200y_mm_dd folders --->
+		<cfif left(folder,3) is "200" or left(folder,6) is "MB_200"><!--- the old ALA stuff is in 200y_mm_dd folders --->
 			<cfquery name="gotFolder" datasource="uam_god">
 				select count(*) c, file_count from tacc_folder where folder='#folder#' group by file_count		
 			</cfquery>
