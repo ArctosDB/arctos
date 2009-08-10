@@ -102,17 +102,17 @@
 			<th>username</th>
 			<th>object</th>
 			<th>date_stamp</th>
-			<th>
-				sql_statement
-				<cfif len(sql_bind) gt 0> [#sql_bind#]</cfif>
-			</th>
+			<th>sql_statement</th>
 		</tr>
 		<cfloop query="activity">
 			<tr>
 				<td>#username#</td>
 				<td>#object#</td>
 				<td>#date_stamp#</td>
-				<td>#sql_statement#</td>
+				<td>
+					#sql_statement#
+					<cfif len(sql_bind) gt 0> [#sql_bind#]</cfif>
+				</td>
 			</tr>
 		</cfloop>
 	</table>
