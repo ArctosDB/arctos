@@ -1053,8 +1053,8 @@
 				<cfset tissueP = find("tissue", p)>
 				<cfset skullP = find("skull", p)>
 				<cfset skinP = find("skin", p)>
-<!--- 				<cfset wholeOrgP = find ("whole organism", p)> --->				
-				
+<!---   				<cfset wholeOrgP = find ("whole organism", p)>		 --->
+ 				
 				<!-- Don't show skin/skull/tissue/whole organism -->
 				<cfif skullP gt 0>    <!-- Found Skull -->
 					<cfset foundSkull = 1>
@@ -1062,8 +1062,9 @@
 					<cfset foundSkin = 1>
 				<cfelseif tissueP gt 0>	<!-- Found Tissue -->
 					<cfset foundTissue = 1>
-				<!--- <cfelseif wholeOrgP gt 0>	<!-- Found whole organism -->
+<!---  				<cfelseif wholeOrgP gt 0>	<!-- Found whole organism -->
 					<cfset foundOrg = 1> --->
+					
 				<cfelse> <!-- Safely add part to tentative part lists (for later filtering)-->
 					<cfif len(newParts) gt 0>
 						<cfset newParts = "#newParts#; #p#">
@@ -1071,19 +1072,23 @@
 						<cfset newParts = "#p#">
 					</cfif>
 				</cfif>
+				
+				<!-- Save skull position/index for later re-insert-->
 				<cfif foundSkull is 0>
 					<cfset index = index+1>
 				</cfif>
 			</cfloop>
 			
-			<cfif len(newParts) and foundSkin is 1 and foundSkull is 1>	
-				<!--  "skin, skull, other parts" => "+other parts" -->
+			<cfif len(newParts) is not 0 and foundSkin is 1 and foundSkull is 1>	
+				<!--  "skin, skull, other parts" ==> "+other parts" -->
 				<cfset newParts = "+#newParts#">
+				
 			<cfelseif foundSkull is 1 and foundSkin is 0 and len(newParts) is 0>
-				<!--  only "skull" => "skull"-->
-				<cfset newParts = "skull">cfif
-			<cfelseif foundSkull is 1 and foundSkin is 0 and len(newParts) is not 0>
-				<!--  "skull, other parts (no skin/tissue)" => "skull, other parts"-->
+				<!--  only "skull" ==> "skull"-->
+				<cfset newParts = "skull">
+				
+			<cfelseif foundSkull is 1 and foundSkin is 0 and foundTissue is 0 and len(newParts) is not 0>
+				<!--  "skull, other parts (no skin/tissue)" ==> "skull, other parts"-->
 				<cfset tempIndex = 0>
 				<cfset tempNewParts = "">
 				<cfloop list="#newParts#" delimiters=";" index="p" >
@@ -1109,7 +1114,7 @@
 			</cfif>
 		</cfif>
 		
-		<cfif len(newParts) is 0>
+		<cfif len(newParts) is 0 or newParts is "whole organism">
 			<cfif len(excludeList) is 0>
 				<cfset excludeList = "#cat_num#">
 			<cfelse>
