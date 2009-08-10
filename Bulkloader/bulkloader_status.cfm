@@ -46,7 +46,7 @@
 <p>&nbsp;</p>
 <hr style="height:15px; background-color:red">
 <p>&nbsp;</p>
-<cfquery name="failures" datasource="#Application.uam_dbo#">
+<cfquery name="failures" datasource="uam_god">
 	select bulkloader.collection_object_id,
 		loaded,
 		collection_cde,
@@ -89,7 +89,7 @@
 		</tr>
 	</cfloop>
 	</table>
-<cfquery name="success" datasource="#Application.uam_dbo#">
+<cfquery name="success" datasource="uam_god">
 	select bulkloader_attempts.collection_object_id,
 		cataloged_item.cat_num,
 		collection.collection_cde,

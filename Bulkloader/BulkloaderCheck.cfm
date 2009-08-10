@@ -1,6 +1,3 @@
-
-<cfset mcat="#Application.uam_dbo#"> <!--- a read/write user talking to the database --->
-
 <!---- declare local variables - only deal with the things that we have to format for this app ---->
 	<cfset catnum="">
 	<cfset loadedMsg="">
@@ -41,7 +38,7 @@
 			<cfif len(#collection_cde#) is 0>
 				<cfset loadedMsg = "#loadedMsg#; ::collection_cde:: is required">
 			</cfif>
-			<cfquery name="coll" datasource="#mcat#">
+			<cfquery name="coll" datasource="uam_god">
 				select * from ctcollection_cde where collection_cde = '#collection_cde#'
 			</cfquery>
 			<cfif coll.recordcount is 0>
@@ -51,7 +48,7 @@
 			<cfif len(#institution_acronym#) is 0>
 				<cfset loadedMsg = "#loadedMsg#; ::institution_acronym:: is required.">
 			<cfelse>
-				<cfquery name="getCollId" datasource="#mcat#">
+				<cfquery name="getCollId" datasource="uam_god">
 					select collection_id from collection where
 					institution_acronym = '#institution_acronym#' and
 					collection_cde='#collection_cde#'
@@ -76,7 +73,7 @@
 					<cfset loadedMsg = "#loadedMsg#; ::cat_num:: may not be 0. Did you mean NULL?">
 				</cfif>
 				<!--- they've preassigned a cat num, see if it's already used--->
-				<cfquery name="isValidCatNum" datasource="#mcat#">
+				<cfquery name="isValidCatNum" datasource="uam_god">
 					select collection_object_id from cataloged_item
 					where cat_num=#cat_num#
 					AND collection_id = 
@@ -90,7 +87,7 @@
 				
 			<cfelse>
 				<!--- get a new cat_num --->
-				<cfquery name="newCatNum" datasource="#mcat#">
+				<cfquery name="newCatNum" datasource="uam_god">
 					SELECT max(cat_num) + 1 AS nextcatnum 
 					FROM cataloged_item WHERE collection_id = 
 					#collection_id#
@@ -129,14 +126,14 @@
 					<cfset loadedMsg = "#loadedMsg#; 
 						::related_to_number:: and ::related_to_num_type:: are required when relationship is given.">
 				</cfif>
-				<cfquery name="isGoodReln" datasource="#mcat#">
+				<cfquery name="isGoodReln" datasource="uam_god">
 					select biol_indiv_relationship from ctbiol_relations where
 					biol_indiv_relationship ='#relationship#'
 				</cfquery>
 				<cfif len(#isGoodReln.biol_indiv_relationship#) is 0>
 					<cfset loadedMsg = "#loadedMsg#; #relationship# is not a valid ::relationship::.">
 				</cfif>
-				<cfquery name="isGoodRelOID" datasource="#mcat#">
+				<cfquery name="isGoodRelOID" datasource="uam_god">
 					select other_id_type from ctcoll_other_id_type
 					where other_id_type='#related_to_num_type#'
 				</cfquery>
@@ -147,7 +144,7 @@
 			<!--- 
 				There must be one and only one preexisting higher_geog match
 			--->
-			<cfquery name= "getGeog" datasource="#mcat#">
+			<cfquery name= "getGeog" datasource="uam_god">
 				SELECT geog_auth_rec_id FROM geog_auth_rec WHERE higher_geog = '#higher_geog#'
 			</cfquery>
 			<cfif getGeog.recordcount gt 1>
@@ -179,7 +176,7 @@
 					<cfif len(#orig_elev_units#) is 0>
 						<cfset loadedMsg = "#loadedMsg#; ::orig_elev_units:: must be specified if elevation is given.">
 					</cfif>
-					<cfquery name="valElevUnits" datasource="#mcat#">
+					<cfquery name="valElevUnits" datasource="uam_god">
 						SELECT * from ctorig_elev_units where orig_elev_units = '#orig_elev_units#'
 					</cfquery>
 					<cfif valElevUnits.recordcount eq 0>
@@ -191,7 +188,7 @@
 				</cfif>
 				<!--- See if they put any lat/long stuff in. Some things are conditionally required. --->
 			<cfif len(#orig_lat_long_units#) gt 0>
-				<cfquery name="valOrigLatLong" datasource="#mcat#">
+				<cfquery name="valOrigLatLong" datasource="uam_god">
 					select * from ctlat_long_units where orig_lat_long_units='#orig_lat_long_units#'
 				</cfquery>
 				<cfif valOrigLatLong.recordcount is 0>
@@ -306,7 +303,7 @@
 				</cfif>
 				<!--- now get the universsal lat/long stuff --->
 				<cfif len(#datum#) gt 0>
-					<cfquery name="valdatum" datasource="#mcat#">
+					<cfquery name="valdatum" datasource="uam_god">
 						select * from ctdatum where datum ='#datum#'
 					</cfquery>
 					<cfif valdatum.recordcount is 0>
@@ -316,7 +313,7 @@
 					<cfset loadedMsg = "#loadedMsg#; ::datum:: is required.">
 				</cfif>
 				<cfif len(#determined_by_agent#) gt 0>
-					<cfquery name="getLLAgnt" datasource="#mcat#">
+					<cfquery name="getLLAgnt" datasource="uam_god">
 						select agent_id from agent_name where agent_name = '#determined_by_agent#'
 						and agent_name_type <> 'Kew abbr.'
 					</cfquery>
@@ -346,7 +343,7 @@
 					<cfif not isnumeric(#max_error_distance#)>
 						<cfset loadedMsg = "#loadedMsg#; ::max_error_distance:: must be numeric">
 					</cfif>
-					<cfquery name="valMED" datasource="#mcat#">
+					<cfquery name="valMED" datasource="uam_god">
 						select * from CTLAT_LONG_ERROR_UNITS where LAT_LONG_ERROR_UNITS ='#max_error_units#'
 					</cfquery>
 					<cfif valMED.recordcount is 0>
@@ -366,7 +363,7 @@
 				<!---- end normal locality-checking routine ---->
 			<cfelse>
 				<!--- just make sure we got a valid locality_id --->
-				<cfquery name="isValidLocId" datasource="#mcat#">
+				<cfquery name="isValidLocId" datasource="uam_god">
 					select locality_id from locality where locality_id=#locality_id#
 				</cfquery>
 				<cfif #len(isValidLocId.locality_id)# is 0>
@@ -376,7 +373,7 @@
 			<cfif  len(#coll_obj_disposition#) is 0>
 				<cfset loadedMsg = "#loadedMsg#;  ::coll_obj_disposition:: -#coll_obj_disposition#- is required.">
 			</cfif>
-			<cfquery name="coll_obj_disposition" datasource="#mcat#">
+			<cfquery name="coll_obj_disposition" datasource="uam_god">
 				select coll_obj_disposition from ctcoll_obj_disp
 			</cfquery>
 				<cfif #coll_obj_disposition.recordcount# is 0>
@@ -396,7 +393,7 @@
 			<cfif not len(#nature_of_id#) gt 0>
 				<cfset loadedMsg = "#loadedMsg#;  ::nature_of_id:: is required">
 			</cfif>
-			<cfquery name= "valNatureOfId" datasource="#mcat#">
+			<cfquery name= "valNatureOfId" datasource="uam_god">
 					SELECT nature_of_id FROM ctnature_of_id WHERE nature_of_id = '#nature_of_id#'
 			</cfquery>
 			<cfif valNatureOfId.recordcount is 0>
@@ -444,7 +441,7 @@
 				<cfset  taxa_formula = "A">
 				<cfset TaxonomyTaxonName="#taxon_name#">
 			</cfif>
-			<cfquery name= "getTaxa" datasource="#mcat#">
+			<cfquery name= "getTaxa" datasource="uam_god">
 				SELECT taxon_name_id FROM taxonomy WHERE scientific_name = '#TaxonomyTaxonName#'
 				AND valid_catalog_term_fg=1
 			</cfquery>
@@ -467,7 +464,7 @@
 				<cfif not isnumeric(#min_depth#) OR not isnumeric(#max_depth#)>
 					<cfset loadedMsg = "#loadedMsg#; ::min_depth:: and ::max_depth:: must be numeric.">
 				</cfif>
-				<cfquery name="valDepthUnits" datasource="#mcat#">
+				<cfquery name="valDepthUnits" datasource="uam_god">
 					select depth_units from ctdepth_units where depth_units='#depth_units#'
 				</cfquery>
 				<cfif #valDepthUnits.recordcount# is not 1>
@@ -506,7 +503,7 @@
 	
 	
 	<cfif len(#thisAttributeValue#) gt 0 AND len(#thisValueValue#) gt 0><!--- ignore unless we get type AND value --->
-				<cfquery name="isAtt" datasource="#mcat#">
+				<cfquery name="isAtt" datasource="uam_god">
 					select attribute_type from ctattribute_type where attribute_type='#thisAttributeValue#'
 					AND collection_cde='#collection_cde#'
 				</cfquery>
@@ -516,13 +513,13 @@
 				<!--- we have a valid attribute type ---->
 				<cfif len(#thisValueValue#) gt 0>
 					<!---- see if it  should be code-table controlled ---->
-					<cfquery name="isValCt" datasource="#mcat#">
+					<cfquery name="isValCt" datasource="uam_god">
 						SELECT value_code_table FROM ctattribute_code_tables WHERE
 						attribute_type = '#thisAttributeValue#'
 					</cfquery>
 					<cfif isdefined("isValCt.value_code_table") and len(#isValCt.value_code_table#) gt 0>
 									<!--- there's a code table --->
-							<cfquery name="valCT" datasource="#mcat#">
+							<cfquery name="valCT" datasource="uam_god">
 								select * from #isValCt.value_code_table#
 							</cfquery>							
 							<!---- get column names --->
@@ -570,13 +567,13 @@
 		  </cfif>
 					<cfif len(#thisUnitsValue#) gt 0>
 						<!--- see if it's CT controlled --->
-						<cfquery name="isUnitCt" datasource="#mcat#">
+						<cfquery name="isUnitCt" datasource="uam_god">
 							SELECT units_code_table FROM ctattribute_code_tables WHERE
 							attribute_type = '#thisAttributeValue#'
 						</cfquery>
 						<cfif #isUnitCt.recordcount# gt 0 AND len(#isUnitCt.units_code_table#) gt 0>
 						<!--- code table controlled, see if it matches --->
-							<cfquery name="unitCT" datasource="#mcat#">
+							<cfquery name="unitCT" datasource="uam_god">
 								select * from #isUnitCt.units_code_table#
 							</cfquery>
 							<!---- get column names --->
@@ -631,7 +628,7 @@
 					</cfif><!--- end CT check --->
 				 <cfelse>
 					 <!--- att val units not given, see if it should be --->
-					 	<cfquery name="isUnitCt" datasource="#mcat#">
+					 	<cfquery name="isUnitCt" datasource="uam_god">
 							SELECT units_code_table FROM ctattribute_code_tables WHERE
 							attribute_type = '#thisAttributeValue#'
 						</cfquery>
@@ -648,7 +645,7 @@
 					</cfif>
 					
 					<cfif len(#thisDeterminerValue#) gt 0>
-						<cfquery name="attDet1" datasource="#mcat#">
+						<cfquery name="attDet1" datasource="uam_god">
 							SELECT agent_id FROM agent_name WHERE agent_name = '#thisDeterminerValue#'
 							and agent_name_type <> 'Kew abbr.'
 						</cfquery>
@@ -693,7 +690,7 @@
 			<cfif len(#thisIDTypeValue#) is 0>
 				<cfset loadedMsg = "#loadedMsg#; You must supply ::#thisIDType#:: for ::#thisIDNumber#::">
 			</cfif>
-			<cfquery name="oidType" datasource="#mcat#">
+			<cfquery name="oidType" datasource="uam_god">
 				select * from ctcoll_other_id_type where other_id_type = '#thisIDTypeValue#'
 			</cfquery>
 			<cfif oidType.recordcount is 0>
@@ -706,7 +703,7 @@
 			<cfif not len(#id_made_by_agent#) gt 0>
 				<cfset loadedMsg = "#loadedMsg#; ::id_made_by_agent:: is required.">
 			</cfif>
-			<cfquery name= "valIdBy" datasource="#mcat#">
+			<cfquery name= "valIdBy" datasource="uam_god">
 				SELECT agent_id FROM agent_name WHERE agent_name = '#id_made_by_agent#' 
 				and agent_name_type <> 'Kew abbr.'
 			</cfquery>
@@ -733,7 +730,7 @@
 		</cfif>
 	</cfif>
 	<cfif len(#thisCollector#) gt 0>
-		<cfquery name= "getColl" datasource="#mcat#">
+		<cfquery name= "getColl" datasource="uam_god">
 			SELECT agent_id FROM agent_name WHERE agent_name = '#thisCollector#'
 			and agent_name_type <> 'Kew abbr.'
 		</cfquery>
@@ -772,7 +769,7 @@
 		</cfif>
 	</cfif>
 	<cfif len(#thisPartName#) gt 0>
-		<cfquery name= "valPartName" datasource="#mcat#">
+		<cfquery name= "valPartName" datasource="uam_god">
 				SELECT part_name FROM ctspecimen_part_name WHERE part_name = '#thisPartName#' 
 				and collection_cde='#collection_cde#'
 		</cfquery>
@@ -781,7 +778,7 @@
 		</cfif>
 		
 		<cfif len(#thisPresMeth#) gt 0>
-			<cfquery name= "valPartPres" datasource="#mcat#">
+			<cfquery name= "valPartPres" datasource="uam_god">
 				SELECT preserve_method FROM ctspecimen_preserv_method 
 				WHERE preserve_method = '#thisPresMeth#' 
 				and collection_cde='#collection_cde#'
@@ -795,7 +792,7 @@
 		</cfif>
 		
 		<cfif len(#thisPartBarCode#) GT 0>
-			<cfquery name="getID" datasource="#mcat#">
+			<cfquery name="getID" datasource="uam_god">
 				select container_id from container where barcode = '#thisPartBarCode#'
 			</cfquery>
 			<cfif #getID.recordcount# neq 1>
@@ -813,7 +810,7 @@
 	
 	<cfset ccSQL = "SELECT collection_id from collection 
 		WHERE collection_cde = '#collection_cde#' AND institution_acronym = '#institution_acronym#'">
-	<cfquery name="getCollID" datasource="#mcat#">
+	<cfquery name="getCollID" datasource="uam_god">
 		#preservesinglequotes(ccSQL)#
 	</cfquery>
 	<cfset collectionid = #getCollID.collection_id#>
@@ -852,7 +849,7 @@
 			<cfif len(#enteredby#) is 0>
 				<cfset loadedMsg = "#loadedMsg#;  enteredby may not be null.">
 			</cfif>
-				<cfquery name= "getEntBy" datasource="#mcat#">
+				<cfquery name= "getEntBy" datasource="uam_god">
 					SELECT agent_id FROM agent_name WHERE agent_name = '#enteredby#'
 					and agent_name_type <> 'Kew abbr.'
 				</cfquery>
@@ -867,7 +864,7 @@
 			
 			
 			<cfif len(#flags#) gt 0>
-				<cfquery name="ctFlags" datasource="#mcat#">
+				<cfquery name="ctFlags" datasource="uam_god">
 					select * from ctflags where flags = '#flags#'
 				</cfquery>
 				<cfif ctFlags.recordcount is 0>
@@ -875,7 +872,7 @@
 				</cfif>
 			</cfif>	
 			<cfif len(#collecting_source#) gt 0>
-				<cfquery name="ctcollecting_source" datasource="#mcat#">
+				<cfquery name="ctcollecting_source" datasource="uam_god">
 					select collecting_source from ctcollecting_source where collecting_source = '#collecting_source#'
 				</cfquery>
 				<cfif ctcollecting_source.recordcount is 0>
@@ -883,7 +880,7 @@
 				</cfif>
 			</cfif>	
 			<cfif len(#georefmethod#) gt 0>
-				<cfquery name="ctgeorefmethod" datasource="#mcat#">
+				<cfquery name="ctgeorefmethod" datasource="uam_god">
 					select * from ctgeorefmethod where georefmethod = '#georefmethod#'
 				</cfquery>
 				<cfif ctgeorefmethod.recordcount is 0>

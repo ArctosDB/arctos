@@ -1,3 +1,4 @@
+<cfabort>
 <cfinclude template="/includes/_header.cfm">
 <cfset title="User Loans">
 <script>

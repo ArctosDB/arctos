@@ -138,21 +138,11 @@
 		#quad#&nbsp;
 	</td>
 </tr>
-
-
 </cfoutput>
 </table>
 <!----------------------------------------------------------------------------------->
-<!----------------------------------------------------------------------------------->
 <cfif #action# is "updateCollEvent">
 <cfoutput>
-	<cfquery name="user" datasource="#Application.uam_dbo#">
-		select agent_id from agent_name where agent_name = '#session.username#'
-	</cfquery>
-	<cfif len(#user.agent_id#) lt 1>
-		You aren't a recognized agent!
-		<cfabort>
-	</cfif>
 	<cfset thisDate = #dateformat(now(),"dd-mmm-yyyy")#>
 	<cftransaction>
 		<cfloop list="#collection_object_id#" index="i">
@@ -162,7 +152,7 @@
 			</cfquery>
 			<cfquery name="upEd" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				UPDATE coll_object SET
-					last_edited_person_id=#user.agent_id#,
+					last_edited_person_id=#session.myagentid#,
 					last_edit_date='#thisDate#'
 				WHERE
 					collection_object_id = #i#
@@ -171,6 +161,5 @@
 	</cftransaction>
 	<cflocation url="bulkCollEvent.cfm?collection_object_id=#collection_object_id#">
 </cfoutput>
-
 </cfif>
 <cfinclude template="includes/_footer.cfm">
