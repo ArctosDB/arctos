@@ -322,7 +322,6 @@
 								<ul>
 									<li><a target="_top" href="/info/slacker.cfm">Suspect Data</a></li>
 									<li><a target="_top" href="/info/noParts.cfm">Partless Specimens</a></li>
-									<li><a target="_top" href="/info/CodeTableValuesVersusTableValues.cfm">CT vs Data</a></li>
 									<li><a target="_top" href="/tools/TaxonomyGaps.cfm">Messy Taxonomy</a></li>
 									<li><a target="_top" href="/tools/findGap.cfm">Catalog Number Gaps</a></li>
 								</ul>

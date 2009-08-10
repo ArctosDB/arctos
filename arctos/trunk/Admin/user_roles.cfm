@@ -1,8 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfif #action# IS "nothing">
-
 <cfoutput>
-<cfquery name="current" datasource="#Application.uam_dbo#">
+<cfquery name="current" datasource="uam_god">
 	select * from cf_ctuser_roles order by role_name
 </cfquery>
 <table border>
@@ -20,11 +19,7 @@
 </cfloop>
 </table>
 </cfoutput>
-
 </cfif>
-
-<!---------------------------------------------------------------------->
-
 <!---------------------------------------------------------------------->
 <cfif #action# IS "defineRole">
 	<cfoutput>
@@ -63,6 +58,4 @@
 		</table>
 	</cfoutput>
 </cfif>
-
-
 <cfinclude template="/includes/_footer.cfm">

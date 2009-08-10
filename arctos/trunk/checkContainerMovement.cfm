@@ -15,7 +15,7 @@
 ---->
 <!---- get the scans we care about ---->
 <cfif #action# is "makeParentLabelsUnknown">
-<cfquery name="isParentLabel" datasource="#Application.uam_dbo#">
+<cfquery name="isParentLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select container_type,container.container_id
 	 from cf_temp_container_location,container
 	  where container.container_id = cf_temp_container_location.parent_container_id
@@ -23,7 +23,7 @@
 </cfquery>
 <cfoutput>
 	<cfloop query="isParentLabel">
-		<cfquery name="upCont" datasource="#Application.uam_dbo#">
+		<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update container set container_type='unknown'
 			where container_id=#container_id#
 		</cfquery>
@@ -35,38 +35,19 @@
 <!---------------------------------------------------->
 <cfif #action# is "deleteSelected">
 	<cfoutput>
-		<cfquery name="alterSessoin" datasource="#Application.uam_dbo#">
-			ALTER SESSION set nls_date_format = 'DD-MON-YYYY HH24:MI:SS'
-		</cfquery>
-		#delPair#
-		<hr>
 		<cfloop list="#delPair#" delimiters="," index="p">
 			#p#<br />
 			<cfset cid = listgetat(p,1,"|")>
 			<cfset pid = listgetat(p,2,"|")>
 			<cfset ts = listgetat(p,3,"|")>
-			cid:#cid#<br />
-			pid:#pid#<br />
-			ts:#ts#<br />
-			<hr />
-			delete from cf_temp_container_location where
-				container_id=#cid# and
-				parent_container_id=#pid# and
-				timestamp='#ts#'
-				<cfquery name="DIE" datasource="#Application.uam_dbo#">
+			<cfquery name="DIE" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				delete from cf_temp_container_location where
 				container_id=#cid# and
 				parent_container_id=#pid# and
-				timestamp='#ts#'
+				timestamp='to_date(#ts#)'
 			</cfquery>
-				<!---
-			
-			
-			
-			--->
 		</cfloop>
 		<cflocation url="checkContainerMovement.cfm" addtoken="no">
-		
 	</cfoutput>
 </cfif>
 
@@ -74,17 +55,14 @@
 <cfif #action# is "loadEverything">
 	<cftry>
 		<cftransaction>
-			<cfquery name="alterSessoin" datasource="#Application.uam_dbo#">
-				ALTER SESSION set nls_date_format = 'DD-MON-YYYY HH24:MI:SS'
-			</cfquery>
-			<cfquery name="data" datasource="#Application.uam_dbo#">
+			<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select * from cf_temp_container_location
 			</cfquery>
 			<cfloop query="data">
-				<cfquery name="insThis" datasource="#Application.uam_dbo#">
+				<cfquery name="insThis" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					UPDATE container SET
 						parent_container_id = #parent_container_id#,
-						parent_install_date='#dateformat(timestamp,"DD-MMM-YYYY")# #timeformat(timestamp,"HH:mm:ss")#'
+						parent_install_date='#timestamp#'
 					WHERE
 						container_id=#container_id#
 				</cfquery>
@@ -103,14 +81,14 @@
 </cfif>
 <!---------------------------------------------------->
 <cfif #action# is "deleteEverything">
-	<cfquery name="diediedie" datasource="#Application.uam_dbo#">
+	<cfquery name="diediedie" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		delete from cf_temp_container_location
 	</cfquery>
 	<cflocation url="checkContainerMovement.cfm" addtoken="no">
 </cfif>
 <!----------------------------------------------------------------------------------->
 <cfif #action# is "deleteLoaded">
-	<cfquery name="delAlreadyLoaded" datasource="#Application.uam_dbo#">
+	<cfquery name="delAlreadyLoaded" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		delete from cf_temp_container_location where (
 			container_id,
 			parent_container_id,
@@ -129,7 +107,7 @@
 <!----------------------------------------------------------------------------------->
 <cfif #action# is "makeChildLabelsUnknown">
 
-<cfquery name="isChildLabel" datasource="#Application.uam_dbo#">
+<cfquery name="isChildLabel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		container_type,
 		container.container_id,
@@ -140,7 +118,7 @@
 </cfquery>
 <cfoutput>
 	<cfloop query="isChildLabel">
-		<cfquery name="upCont" datasource="#Application.uam_dbo#">
+		<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update container set container_type='#container_type#'
 			where container_id=#container_id#
 		</cfquery>
@@ -156,19 +134,19 @@
 <cfoutput>
 <!--- kill true duplicates --->
 <cftry>
-	<cfquery name="byenow" datasource="#Application.uam_dbo#">
+	<cfquery name="byenow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		drop table cf_temp_container_location_two
 	</cfquery>
 	<cfcatch>bahhh</cfcatch>
 </cftry>
 	<cftransaction>
-		<cfquery name="bethere" datasource="#Application.uam_dbo#">
+		<cfquery name="bethere" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			create table cf_temp_container_location_two as select * from cf_temp_container_location
 		</cfquery>
-		<cfquery name="beGone" datasource="#Application.uam_dbo#">
+		<cfquery name="beGone" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			delete from cf_temp_container_location
 		</cfquery>
-		<cfquery name="noDups" datasource="#Application.uam_dbo#">
+		<cfquery name="noDups" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			insert into cf_temp_container_location (
 				 CONTAINER_ID,
 				 PARENT_CONTAINER_ID,

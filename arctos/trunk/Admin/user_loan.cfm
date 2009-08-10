@@ -1,3 +1,4 @@
+<cfabort>
 <cfinclude template="../includes/_header.cfm">
 <cfquery name="ctLoanStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select loan_status from ctloan_status

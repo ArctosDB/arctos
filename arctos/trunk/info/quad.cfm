@@ -43,7 +43,7 @@
 
 
 
-	<cfquery name="allQuad" datasource="#Application.uam_dbo#">
+	<cfquery name="allQuad" datasource="pub_usr">
 		select distinct(quad) as quad from geog_auth_rec ORDER BY quad
 	</cfquery>
 <p>
