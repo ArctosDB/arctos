@@ -7,7 +7,7 @@
 	<cfset order_order="ASC">
 </cfif>
 <cfoutput>
-<cfquery name="dl" datasource="#Application.uam_dbo#">
+<cfquery name="dl" datasource="cf_dbuser">
 	select * from cf_users, cf_user_data, cf_download
 	where cf_users.user_id = cf_user_data.user_id and
 	cf_users.user_id = cf_download.user_id 	
