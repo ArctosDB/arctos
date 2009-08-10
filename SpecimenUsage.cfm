@@ -300,7 +300,7 @@
 		<cfset go="yes">
 		<cfset basFrom = "#basFrom# ,publication_attributes jname">
 		<cfset basWhere = "#basWhere# AND publication.publication_id=jname.publication_id and
-			upper(jname.pub_att_value) like '%#ucase(journal)#%'">
+			upper(jname.pub_att_value) like '%#ucase(escapeQuotes(journal))#%'">
 	</cfif>
 	<cfif isdefined("onlyCitePubs") AND len(onlyCitePubs) gt 0>
 		<cfset go="yes">
@@ -346,17 +346,9 @@
 		<cfset basWhere = "#basWhere# AND 1=2">
 	</cfif>
 	<cfset basSql = "#basSQL# #basFrom# #basWhere# ORDER BY formatted_publication,publication_id">
-	<cftry>
-		<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			#preservesinglequotes(basSQL)#
-		</cfquery>
-		<cfcatch>
-			<cfset sql=cfcatch.sql>
-			<cfset message=cfcatch.message>
-			<cfset queryError=cfcatch.queryError>
-			<cf_queryError>
-		</cfcatch>
-	</cftry>
+	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		#preservesinglequotes(basSQL)#
+	</cfquery>
 	<h3>Publications</h3>
 	<cfif publication.recordcount is 0>
 		<div class="notFound">
