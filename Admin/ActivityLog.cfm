@@ -71,7 +71,8 @@
 				to_char(TIMESTAMP,'dd-mon-yyyy') date_stamp, 
 				SQL_TEXT sql_statement, 
 				DB_USER username,
-				OBJECT_NAME object
+				OBJECT_NAME object,
+				SQL_BIND
 			from 
 				uam.arctos_audit
 			where
@@ -101,7 +102,10 @@
 			<th>username</th>
 			<th>object</th>
 			<th>date_stamp</th>
-			<th>sql_statement</th>
+			<th>
+				sql_statement
+				<cfif len(sql_bind) gt 0> [#sql_bind#]</cfif>
+			</th>
 		</tr>
 		<cfloop query="activity">
 			<tr>
