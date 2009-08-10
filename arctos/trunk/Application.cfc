@@ -113,8 +113,6 @@
 <!-------------------------->
 <cffunction name="onApplicationStart" returnType="boolean" output="false">
 	<cfset Application.session_timeout=90>
-	<cfset Application.web_user = "MCAT_WU">
-	<cfset Application.uam_dbo = "uam_god">
 	<cfset Application.serverRootUrl = "http://#HTTP_HOST#">
 	<cfset Application.user_login="user_login">
 	<cfset Application.max_pw_age = 90>
@@ -183,7 +181,6 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="false">
-	<cfset Application.uam_dbo = "uam_god">
 	<cfif not isdefined("session.roles")>
 		<cfinclude template="/includes/functionLib.cfm">
 		<cfset initSession()>
