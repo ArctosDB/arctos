@@ -111,7 +111,7 @@
 				<td>#date_stamp#</td>
 				<td>
 					#sql_statement#
-					<cfif len(sql_bind) gt 0> [#sql_bind#]</cfif>
+					<cfif len(sql_bind) gt 0><br><span style='font-size:smaller;color:gray'>[#sql_bind#]</span></cfif>
 				</td>
 			</tr>
 		</cfloop>
