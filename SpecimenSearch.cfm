@@ -73,12 +73,6 @@
 				<option  value="/bnhmMaps/kml.cfm?action=newReq">KML</option>
 				<option value="SpecimenResultsSummary.cfm">Specimen Summary</option>
 				<option  value="SpecimenGraph.cfm">Graph</option>
-				<cfif isdefined("session.username") AND (#session.username# is "link" OR #session.username# is "dusty")>
-					<option  value="/CustomPages/Link.cfm">Link's Form</option>
-				</cfif>
-				<cfif isdefined("session.username") AND (#session.username# is "cindy" OR #session.username# is "dusty")>
-					<option  value="/CustomPages/CindyBats.cfm">Cindy's Form</option>
-				</cfif>
 			</select>
 		</td>
 		<td align="left">

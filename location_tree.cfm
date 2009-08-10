@@ -134,7 +134,7 @@ SELECT
  	<!--- WAITING FOR SEARCH TERMS --->
 	<cfabort>
  </cfif>
- <cfquery name="queriedFor" datasource="#Application.web_user#" timeout="60">
+ <cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" timeout="60">
  	#preservesinglequotes(sql)#
  </cfquery>
 </cfif>
@@ -151,7 +151,7 @@ parent_container_id,
 	WHERE
 	parent_container_id=#container_id#
 	order by label">
-<cfquery name="queriedFor" datasource="#Application.web_user#" timeout="60">
+<cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" timeout="60">
  	#preservesinglequotes(sql)#
  </cfquery>
 </cfif>
@@ -184,7 +184,7 @@ parent_container_id,
 			<cfset placedContainers = listappend(placedContainers,#container_id#)> 
 		</cfif>
 		
-		<cfquery name="thisRecord" datasource="#Application.web_user#" timeout="60">
+		<cfquery name="thisRecord" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" timeout="60">
 	select 
 	CONTAINER_ID,
 	PARENT_CONTAINER_ID,

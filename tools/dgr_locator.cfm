@@ -381,7 +381,7 @@
 		creates freezer one which contains 40 racks, eash of which contains 11 boxes, each containing 100 slots
 		--->
 		
-		<cfstoredproc datasource="#Application.uam_dbo#" procedure="makeDGRFreezerPositions">
+		<cfstoredproc datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" procedure="makeDGRFreezerPositions">
 			<cfprocparam cfsqltype="cf_sql_integer" dbvarname="f" value="#freezer#">
 			<cfprocparam cfsqltype="cf_sql_integer" dbvarname="r" value="#numrack#">
 			<cfprocparam cfsqltype="cf_sql_integer" dbvarname="b" value="#numBox#">

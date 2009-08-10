@@ -110,7 +110,7 @@ These include "male ?,"  "fe<b>male</b>," and "fe<b>male</b> ?"</p>
 	
 	
 	<!---- cache this query - it defines what code tables to use for a specific attribute and won't change often.--->
-<cfquery name="ctCodes" datasource="#Application.web_user#"   cachedwithin="#createtimespan(0,0,120,0)#">
+<cfquery name="ctCodes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"   cachedwithin="#createtimespan(0,0,120,0)#">
 	select 
 		attribute_type,
 		value_code_table,
@@ -121,7 +121,7 @@ These include "male ?,"  "fe<b>male</b>," and "fe<b>male</b> ?"</p>
 		value_code_table,
 		units_code_table
 </cfquery>
-		<cfquery name="atts" datasource="#Application.web_user#"  cachedwithin="#createtimespan(0,0,120,0)#">
+		<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#"  cachedwithin="#createtimespan(0,0,120,0)#">
 			<!---- attributes don't change very often - cache that query for a couple hours. ---->
 			SELECT DISTINCT(attribute_type) FROM ctattribute_type
 		</cfquery>

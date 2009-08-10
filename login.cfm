@@ -82,7 +82,7 @@
 			If not, let them in for now, but set variable for use in annoying
 			them in _header.cfm
 		--->
-		<cfquery name="getUserData" datasource="#application.web_user#">
+		<cfquery name="getUserData" datasource="cf_dbuser">
 			SELECT   
 				cf_users.user_id,
 				first_name,

@@ -34,7 +34,7 @@
 </cfoutput>
 </cfif>
 <cfif #action# is "saveThis">
-<cfquery name="i" datasource="#Application.uam_dbo#">
+<cfquery name="i" datasource="cf_dbuser">
 	insert into cf_canned_search (
 	user_id,
 	search_name,

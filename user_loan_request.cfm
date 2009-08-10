@@ -1,3 +1,4 @@
+<cfabort>
 <script>
 	function addColls (data,status) {
 		//alert(status);

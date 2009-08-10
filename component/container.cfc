@@ -52,7 +52,7 @@
 		<cfabort>
 	</cfif>
 	<cftry>
-		<cfquery name="queriedFor" datasource="#Application.web_user#" timeout="60">
+		<cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" timeout="60">
 			SELECT 
 				CONTAINER_ID,
 				PARENT_CONTAINER_ID,
@@ -86,7 +86,7 @@
 <cffunction name="get_containerContents" access="remote">
 	<cfargument name="contr_id" required="yes" type="string"><!--- ID of div, just gets passed back --->
 	<cftry>
-		<cfquery name="result" datasource="#Application.web_user#" timeout="60">
+		<cfquery name="result" timeout="60" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				CONTAINER_ID,
 				PARENT_CONTAINER_ID,
@@ -301,7 +301,7 @@
 			">
 
 			 <cftry>
-			 	 <cfquery name="queriedFor" datasource="#Application.uam_dbo#" timeout="60">
+			 	 <cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" timeout="60">
 					#preservesinglequotes(thisSql)#
 				 </cfquery>
 				<cfcatch>
@@ -414,7 +414,7 @@
 		<cfabort>
 	</cfif>
 			 <cftry>
-			 	 <cfquery name="queriedFor" datasource="#Application.web_user#" timeout="60">
+			 	 <cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" timeout="60">
 					SELECT 
 							CONTAINER_ID,
 						PARENT_CONTAINER_ID,
@@ -580,7 +580,7 @@
 			">
 					
 			 <cftry>
-			 	 <cfquery name="queriedFor" datasource="#Application.web_user#" timeout="60">
+			 	 <cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" timeout="60">
 					#preservesinglequotes(thisSql)#
 				 </cfquery>
 				<cfcatch>
@@ -747,7 +747,7 @@
 			">
 			
 			 <cftry>
-			 	 <cfquery name="queriedFor" datasource="#Application.web_user#" timeout="60">
+			 	 <cfquery name="queriedFor" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" timeout="60">
 					#preservesinglequotes(thisSql)#
 				 </cfquery>
 				<cfcatch>
