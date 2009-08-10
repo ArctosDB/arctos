@@ -1,3 +1,4 @@
+<cfabort>
 <cfinclude template="/includes/_header.cfm">
 <cfif not isdefined("autorun")>
 	<cfset autorun="nope">
@@ -153,11 +154,11 @@
 				collecting_event.locality_id = locality.locality_id and
 				locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id
 		">
-		<cfquery name="one" datasource="#Application.uam_dbo#">
+		<cfquery name="one" ddatasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			 #preservesinglequotes(sql)# and
 				cataloged_item.collection_object_id = #id1#
 		</cfquery>
-		<cfquery name="two" datasource="#Application.uam_dbo#">
+		<cfquery name="two" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)# and
 				cataloged_item.collection_object_id = #id2#
 		</cfquery>
@@ -202,7 +203,7 @@
 			</cfif>
 		</cfif>
 		<cfif len(#problems#) is 0>
-			<cfquery name="part" datasource="#Application.uam_dbo#">
+			<cfquery name="part" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select container.container_id,container.parent_container_id from
 					specimen_part,
 					coll_object,
@@ -221,18 +222,18 @@
 		
 		<cfif len(#problems#) is 0>
 	<cftransaction>
-		<cfquery name="goodID" datasource="#Application.uam_dbo#">
+		<cfquery name="goodID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from identification,identification_taxonomy where 
 			identification.identification_id = identification_taxonomy.identification_id and
 			collection_object_id = #bad.collection_object_id#
 		</cfquery>
-		<cfquery name="nid" datasource="#Application.uam_dbo#">
+		<cfquery name="nid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select max(identification_id) + 1 id from identification
 		</cfquery>
 		<cfset idid = nid.id>
 		<cfloop query="goodID">
 			<br>create ID			
-			<cfquery name="newInsId" datasource="#Application.uam_dbo#">
+			<cfquery name="newInsId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			insert into identification (
 				IDENTIFICATION_ID,
 				COLLECTION_OBJECT_ID,
@@ -253,7 +254,7 @@
 				'#SCIENTIFIC_NAME#')
 			</cfquery>
 				<br>insert ID taxonomy
-			<cfquery name="newInsIdTax" datasource="#Application.uam_dbo#">
+			<cfquery name="newInsIdTax" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			insert into identification_taxonomy (
 					IDENTIFICATION_ID,
 					TAXON_NAME_ID,
@@ -263,12 +264,12 @@
 					#TAXON_NAME_ID#,
 					'#VARIABLE#')
 			</cfquery>
-			<cfquery name="IDAgnt" datasource="#Application.uam_dbo#">
+			<cfquery name="IDAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select * from identification_agent where IDENTIFICATION_ID = #IDENTIFICATION_ID#
 			</cfquery>
 			<cfloop query="IDAgnt">
 			<br>insert ID agent(s)
-			<cfquery name="newInsIdAgnt" datasource="#Application.uam_dbo#">
+			<cfquery name="newInsIdAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				insert into identification_agent (
 					IDENTIFICATION_ID,
 					AGENT_ID,
@@ -283,7 +284,7 @@
 		</cfloop>
 
 		
-		<cfquery name="badpart" datasource="#Application.uam_dbo#">
+		<cfquery name="badpart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select container.container_id,container.parent_container_id from
 				specimen_part,
 				coll_object,
@@ -296,13 +297,13 @@
 				specimen_part.derived_from_cat_item = #bad.collection_object_id#
 		</cfquery>
 		<br>Bring container position over
-		<cfquery name="upcont" datasource="#Application.uam_dbo#">
+		<cfquery name="upcont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			update container set parent_container_id = #badpart.parent_container_id#
 			where container_id = #part.container_id#
 		</cfquery>
 		
 		<br>Encumber the bad record
-		<cfquery name="mkenc" datasource="#Application.uam_dbo#">
+		<cfquery name="mkenc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			insert into  COLL_OBJECT_ENCUMBRANCE (ENCUMBRANCE_ID,COLLECTION_OBJECT_ID)
 			values (1000025,#bad.collection_object_id#)
 		</cfquery>	

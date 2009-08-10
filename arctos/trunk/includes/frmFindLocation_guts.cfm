@@ -110,26 +110,26 @@
 <cfif not isdefined("showEvent")>
 	<cfset showEvent=0>
 </cfif>
-<cfquery name="ctElevUnit" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+<cfquery name="ctElevUnit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select orig_elev_units from ctorig_elev_units order by orig_elev_units
 </cfquery>
-<cfquery name="ctFeature" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+<cfquery name="ctFeature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select distinct(feature) from ctfeature order by feature
 </cfquery>
 
-<cfquery name="ctIslandGroup" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+<cfquery name="ctIslandGroup" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select island_group from ctisland_group order by island_group
 </cfquery>
-<cfquery name="ctCollectingSource" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+<cfquery name="ctCollectingSource" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select collecting_source from ctcollecting_source order by collecting_source
 </cfquery>
-<cfquery name="ctVerificationStatus" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+<cfquery name="ctVerificationStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select VerificationStatus from ctVerificationStatus order by VerificationStatus
 </cfquery>
-<cfquery name="ctGeorefMethod" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+<cfquery name="ctGeorefMethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select georefMethod from ctgeorefmethod order by georefMethod
 </cfquery>
-<cfquery name="ctgeology_attribute" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 	select geology_attribute from ctgeology_attribute order by geology_attribute
 </cfquery>
 <table  cellpadding="0" cellspacign="0"><tr><td>

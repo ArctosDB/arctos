@@ -155,7 +155,7 @@
 			<cfset r = replace(session.roles,",","','","all")>
 			<cfset r = "'#r#'">
 			<!---    --->
-			<cfquery name="roles" datasource="#Application.web_user#" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
+			<cfquery name="roles" datasource="cf_dbuser">
 				select form_path from cf_form_permissions 
 				where upper(role_name) IN (#ucase(preservesinglequotes(r))#)
 				minus select form_path from cf_form_permissions 

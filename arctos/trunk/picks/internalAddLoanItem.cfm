@@ -72,7 +72,7 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 
 	<cfif #isSubsample# is "y">
 		<!--- make a subsample --->
-		<cfquery name="parentData" datasource="#Application.uam_dbo#">
+		<cfquery name="parentData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				coll_obj_disposition, 
 				condition,
@@ -86,7 +86,7 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 				coll_object.collection_object_id = specimen_part.collection_object_id AND
 				coll_object.collection_object_id = #collection_object_id#
 		</cfquery>
-		<cfquery name="newCollObj" datasource="#Application.uam_dbo#">
+		<cfquery name="newCollObj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO coll_object (
 				COLLECTION_OBJECT_ID,
 				COLL_OBJECT_TYPE,
@@ -108,7 +108,7 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 				1,
 				'#parentData.condition#')
 		</cfquery>
-		<cfquery name="newPart" datasource="#Application.uam_dbo#">
+		<cfquery name="newPart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO specimen_part (
 				COLLECTION_OBJECT_ID
 				,PART_NAME
@@ -135,7 +135,7 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 		
 	
 	</cfif>
-	<cfquery name="addLoanItem" datasource="#Application.uam_dbo#">
+	<cfquery name="addLoanItem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	
 	INSERT INTO loan_item (
 		TRANSACTION_ID,
@@ -169,7 +169,7 @@ Add #details.collection_cde# #details.cat_num# #item# to loan #thisLoan#
 		)
 		</cfquery>
 		
-		<cfquery name="setDisp" datasource="#Application.uam_dbo#">
+		<cfquery name="setDisp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE coll_object SET coll_obj_disposition = 'on loan'
 			where collection_object_id = 
 			<cfif #isSubsample# is "y">

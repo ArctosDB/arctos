@@ -190,7 +190,7 @@
 	</cfoutput>
 	
 	
-	<cfquery name="getData" datasource = "#Application.web_user#" >
+	<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preserveSingleQuotes(SqlString)#
 	</cfquery>
 	

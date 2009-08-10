@@ -213,7 +213,7 @@
 			<cfset session.dbuser = "#getPrefs.username#">
 			<cfset session.epw = encrypt(pwd,cfid)>
 			<cftry>
-				<cfquery name="ckUserName" datasource="#application.web_user#">
+				<cfquery name="ckUserName" datasource="uam_god">
 					select agent_id from agent_name where agent_name='#session.username#' and
 					agent_name_type='login'
 				</cfquery>

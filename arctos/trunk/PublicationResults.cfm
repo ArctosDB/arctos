@@ -97,11 +97,11 @@
 	
 	<cfset basSql = "#basSQL# #basFrom# #basWhere# ORDER BY publication.publication_id">
 	
-	<cfquery name="getPubs#cfid##cftoken#" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,0,0)#">
+	<cfquery name="getPubs#cfid##cftoken#" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,0,0)#">
 		#preservesinglequotes(basSQL)#
 	</cfquery>
 	
-	<cfquery name="getPubs#cfid##cftoken#" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="getPubs#cfid##cftoken#" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		#preservesinglequotes(basSQL)#
 	</cfquery>
 	<cfset newQuery=0>

@@ -2,7 +2,7 @@
 <script src="/includes/sorttable.js"></script>
 <cfset title="Freezer Report">
 <cfoutput>
-<cfquery name="raw" datasource="#Application.web_user#">
+<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT  
 		 rtrim(reverse(SYS_CONNECT_BY_PATH(reverse(to_char(container_id)),',')),',') thepath
  	from 
@@ -33,7 +33,7 @@
 		</cfif>
 	</tr>
 <cfloop query="raw">
-	<cfquery name="thisRow" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+	<cfquery name="thisRow" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from container where container_id IN (#thepath#)
 	</cfquery>
 	<cftry>
@@ -111,7 +111,7 @@
 			select container_id,label from thisRow where container_type='collection object'
 		</cfquery>
 		<cfif  len(#session.CustomOtherIdentifier#) gt 0>
-			<cfquery name="catitem" datasource="#Application.web_user#" cachedwithin="#createtimespan(0,0,60,0)#">
+			<cfquery name="catitem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 				select 	concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID
 				from coll_obj_cont_hist,
 				specimen_part,
