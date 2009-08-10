@@ -1,3 +1,4 @@
+<cfabort>
 <cfinclude template="/includes/_header.cfm">
 <script >
 	function clearAll () {

@@ -1,3 +1,6 @@
+
+<cfabort>
+
 <cfoutput>
 	<cfif len(#rejection_reason#) gt 0 OR len(#default_rejection_reason#) gt 0>
 		<cfif len(#rejection_reason#) gt 0>
