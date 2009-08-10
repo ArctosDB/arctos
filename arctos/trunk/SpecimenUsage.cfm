@@ -298,10 +298,9 @@
 	</cfif>
 	<cfif isdefined("journal") AND len(journal) gt 0>
 		<cfset go="yes">
-		<cfset basFrom = "#basFrom# ,journal,journal_article">
-		<cfset basWhere = "#basWhere# AND publication.publication_id=journal_article.publication_id and
-			journal_article.journal_id=journal.journal_id and
-			upper(journal_name) like '%#ucase(journal)#%'">
+		<cfset basFrom = "#basFrom# ,publication_attributes jname">
+		<cfset basWhere = "#basWhere# AND publication.publication_id=jname.publication_id and
+			upper(jname.pub_att_value) like '%#ucase(journal)#%'">
 	</cfif>
 	<cfif isdefined("onlyCitePubs") AND len(onlyCitePubs) gt 0>
 		<cfset go="yes">
