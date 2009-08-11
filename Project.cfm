@@ -399,6 +399,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 		<br><strong>Project Publications:</strong>
 		
 	<br>
+	<cfoutput>
 	<input type="button"
 					value="Add Publication to this Project"
 					class="insBtn"
