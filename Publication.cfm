@@ -145,7 +145,7 @@
 		<div class="cellDiv">
 		<span class="likeLink" onclick="getDocs('publication','url')">Links</span>:
 		<span class="infoLink" onclick="addLink()">Add Row</span>
-			<table border id="attTab">
+			<table border id="linkTab">
 				<tr>
 					<th>Link</th>
 					<th>Description</th>
@@ -163,7 +163,7 @@
 						</td>
 						<td>
 							<input type="text" name="description#i#" 
-								class="reqdClr" id="description#i#" value="#description#" size="60">
+								class="reqdClr" id="description#i#" value="#description#" size="10">
 						</td>					
 						</td>
 						<td>
@@ -173,8 +173,8 @@
 				</cfloop>			
 			</table>
 		</div>
-			<input type="hidden" name="origNumberAttributes" id="origNumberAttributes" value="#i#">
-			<input type="hidden" name="numberAttributes" id="numberAttributes" value="#i#">
+			<input type="hidden" name="origNumberLinks" id="origNumberLinks" value="#i#">
+			<input type="hidden" name="numberLinks" id="numberLinks" value="#i#">
 			<br><input type="submit" value="save" class="savBtn">
 	</form>
 </cfoutput>

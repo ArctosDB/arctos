@@ -87,7 +87,24 @@ function get_AgentName(name,fld,idfld){
 		document.getElementById('pickDiv').innerHTML=data;
 		viewport.init("#pickDiv");
 	});
-}	
+}
+
+function addLink (n) {
+	var lid = jQuery('#linkTab tr:last').attr("id");
+	var lastID=lid.replace('authortr','');
+	var thisID=parseInt(lastID) + 1;
+	var newRow='<tr id="linkRow' + thisID + '">';
+	newRow+='<td>';
+	newRow+='<input type="text"  size="60" name="link' + thisID + '" id="link' + thisID + '1">';
+	newRow+='</td>';
+	newRow+='<td>';
+	newRow+='<input type="text"  size="10" name="description' + thisID + '" id="description' + thisID + '1">';
+	newRow+='</td>';
+	newRow+='</tr>';		
+	jQuery('#linkTab tr:last').after(newRow);
+	document.getElementById('numberLinks').value=thisID;
+}
+
 function addAgent (n) {
 	var lid = jQuery('#authTab tr:last').attr("id");
 	var lastID=lid.replace('authortr','');
