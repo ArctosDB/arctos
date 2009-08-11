@@ -290,6 +290,45 @@
 				</cfquery>
 			</cfif>
 		</cfloop>
+		<cfloop from="1" to="#numberLinks#" index="n">
+			<cfif isdefined("link#n#")>
+				<cfset thisLink = #evaluate("link" & n)#>
+			<cfelse>
+				<cfset thisLink = "">
+			</cfif>
+			<cfset thisDesc = #evaluate("description" & n)#>
+			<cfif isdefined("publication_url_id#n#")>
+				<cfset thisId = #evaluate("publication_url_id" & n)#>
+			<cfelse>
+				<cfset thisId = "">
+			</cfif>
+			<cfif thisLink is "deleted">
+				<cfquery name="delAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					delete from publication_url where publication_url_id=#thisId#
+				</cfquery>
+			<cfelseif thisId gt 0>
+				<cfquery name="upAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update
+						publication_url 
+					set
+						link='#thisLink#',
+						description='#thisDesc#'
+					where publication_url_id=#thisId#
+				</cfquery>
+			<cfelseif len(thisId) is 0 and len(thisLink) gt 0>
+				<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					insert into publication_url (
+						publication_id,
+						link,
+						description
+					) values (
+						#publication_id#,
+						'#thisLink#',
+						'#thisDesc#'
+					)
+				</cfquery>
+			</cfif>
+		</cfloop>
 	</cftransaction>
 	<!--- now get the formatted publications --->
 	<cfinvoke component="/component/publication" method="shortCitation" returnVariable="shortCitation">

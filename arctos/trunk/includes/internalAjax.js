@@ -98,10 +98,10 @@ function addLink (n) {
 	console.log(thisID);
 	var newRow='<tr id="linkRow' + thisID + '">';
 	newRow+='<td>';
-	newRow+='<input type="text"  size="60" name="link' + thisID + '" id="link' + thisID + '1">';
+	newRow+='<input type="text"  size="60" name="link' + thisID + '" id="link' + thisID + '">';
 	newRow+='</td>';
 	newRow+='<td>';
-	newRow+='<input type="text"  size="10" name="description' + thisID + '" id="description' + thisID + '1">';
+	newRow+='<input type="text"  size="10" name="description' + thisID + '" id="description' + thisID + '">';
 	newRow+='</td>';
 	newRow+='</tr>';		
 	jQuery('#linkTab tr:last').after(newRow);
@@ -220,4 +220,10 @@ function deletePubAtt(r){
 	jQuery('#attRow' + r + ' td:nth-child(1)').addClass('red').text(jQuery('#attribute_type' + r).val());
 	jQuery('#attRow' + r + ' td:nth-child(2)').addClass('red').text(jQuery('#attribute' + r).val()).append(newElem);
 	jQuery('#attRow' + r + ' td:nth-child(3)').addClass('red').text('deleted');
+}
+function deleteLink(r){
+	var newElem='<input type="hidden" name="link' + r + '" id="link' + r + '" value="deleted">';
+	jQuery('#linkRow' + r + ' td:nth-child(1)').addClass('red').text(jQuery('#link' + r).val());
+	//jQuery('#attRow' + r + ' td:nth-child(2)').addClass('red').text(jQuery('#attribute' + r).val()).append(newElem);
+	//jQuery('#attRow' + r + ' td:nth-child(3)').addClass('red').text('deleted');
 }
