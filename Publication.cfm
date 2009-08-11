@@ -34,7 +34,7 @@
 		<input type="hidden" name="action" value="saveEdit">
 		<label for="publication_title" onclick="getDocs('publication','title')" class="likeLink">Publication Title</label>
 		<textarea name="publication_title" id="publication_title" class="reqdClr" rows="3" cols="80">#pub.publication_title#</textarea>
-		<label for="publication_type">Publication Type</label>
+		<label for="publication_type" onclick="getDocs('publication','type')" class="likeLink">Publication Type</label>
 		<select name="publication_type" id="publication_type" class="reqdClr">
 			<option value=""></option>
 			<cfloop query="ctpublication_type">
@@ -42,12 +42,12 @@
 					value="#publication_type#">#publication_type#</option>
 			</cfloop>
 		</select>
-		<label for="is_peer_reviewed_fg">Peer Reviewed?</label>
+		<label for="is_peer_reviewed_fg" onclick="getDocs('publication','peer_review')" class="likeLink">Peer Reviewed?</label>
 		<select name="is_peer_reviewed_fg" id="is_peer_reviewed_fg" class="reqdClr">
 			<option <cfif pub.is_peer_reviewed_fg is 1> selected="selected" </cfif>value="1">yes</option>
 			<option <cfif pub.is_peer_reviewed_fg is 0> selected="selected" </cfif>value="0">no</option>
 		</select>			
-		<label for="published_year">Published Year</label>
+		<label for="published_year" onclick="getDocs('publication','published_year')" class="likeLink">Published Year</label>
 		<input type="text" name="published_year" id="published_year" value="#pub.published_year#">
 		<label for="publication_loc">Storage Location</label>
 		<input type="text" name="publication_loc" id="publication_loc" size="80" value="#pub.publication_loc#">
@@ -55,7 +55,7 @@
 		<input type="text" name="publication_remarks" id="publication_remarks" size="80" value="#pub.publication_remarks#">
 		</div>
 		<div class="cellDiv">
-		Authors: <span class="infoLink" onclick="addAgent()">Add Row</span>
+		<span class="likeLink" onclick="getDocs('publication','author')">Authors</span>: <span class="infoLink" onclick="addAgent()">Add Row</span>
 			<table border id="authTab">
 				<tr>
 					<th>Role</th>
@@ -90,7 +90,7 @@
 			</table>
 		</div>
 		<div class="cellDiv">
-		Attributes:
+		<span class="likeLink" onclick="getDocs('publication','attribute')">Attributes</span>:
 			Add: <select name="n_attr" id="n_attr" onchange="addAttribute(this.value)">
 				<option value=""></option>
 				<cfloop query="ctpublication_attribute">
