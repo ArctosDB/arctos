@@ -88,14 +88,10 @@ function get_AgentName(name,fld,idfld){
 		viewport.init("#pickDiv");
 	});
 }
-
 function addLink (n) {
 	var lid = jQuery('#linkTab tr:last').attr("id");
-	console.log(lid);
 	var lastID=lid.replace('linkRow','');
-	console.log(lastID);
 	var thisID=parseInt(lastID) + 1;
-	console.log(thisID);
 	var newRow='<tr id="linkRow' + thisID + '">';
 	newRow+='<td>';
 	newRow+='<input type="text"  size="60" name="link' + thisID + '" id="link' + thisID + '">';
@@ -107,7 +103,6 @@ function addLink (n) {
 	jQuery('#linkTab tr:last').after(newRow);
 	document.getElementById('numberLinks').value=thisID;
 }
-
 function addAgent (n) {
 	var lid = jQuery('#authTab tr:last').attr("id");
 	var lastID=lid.replace('authortr','');
@@ -224,7 +219,5 @@ function deletePubAtt(r){
 function deleteLink(r){
 	var newElem='<input type="hidden" name="link' + r + '" id="link' + r + '" value="deleted">';
 	jQuery('#linkRow' + r + ' td:nth-child(1)').addClass('red').text('deleted').append(newElem);
-	//jQuery('#linkRow' + r + ' td:nth-child(1)').append(newElem);
 	jQuery('#linkRow' + r + ' td:nth-child(2)').addClass('red').text('');
-	//jQuery('#attRow' + r + ' td:nth-child(3)').addClass('red').text('deleted');
 }
