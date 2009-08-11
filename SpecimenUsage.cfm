@@ -387,7 +387,7 @@
 					&nbsp;~&nbsp;
 					<a href="/Citation.cfm?publication_id=#publication_id#">Citations</a>
 					<cfif isdefined("toproject_id") and len("toproject_id") gt 0>
-						&nbsp;~&nbsp;<a href="/Project.cfm?publication_id=#publication_id#&action=addPub&project_id=#toproject_id#">Add to Project</a>
+						&nbsp;~&nbsp;<a href="/Project.cfm?action=addPub&publication_id=#publication_id#&project_id=#toproject_id#">Add to Project</a>
 					</cfif>
 				</cfif>
 			</p>

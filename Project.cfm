@@ -405,7 +405,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 					class="insBtn"
 					onmouseover="this.className='insBtn btnhov'"
 					onmouseout="this.className='insBtn'"
-					onClick="document.location='PublicationSearch.cfm?toproject_id=#getDetails.project_id#';">
+					onClick="document.location='SpecimenUsage.cfm?toproject_id=#getDetails.project_id#';">
 		<br>
 	</cfoutput>
 	<cfoutput query="publications">
