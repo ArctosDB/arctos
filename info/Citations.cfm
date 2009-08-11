@@ -40,7 +40,7 @@
 	
 	<cfloop query="cit">
 		<tr>
-			<td><a href="/PublicationResults.cfm?current_Sci_Name=#scientific_name#">#scientific_name#</a></td>
+			<td><a href="/SpecimenUsage.cfm?action=search&current_Sci_Name=#scientific_name#">#scientific_name#</a></td>
 			<td>
 				<cfif #CitName# is #scientific_name#>
 					<a href="/PublicationResults.cfm?cited_Sci_Name=#CitName#"><font color="##00FF00">#CitName#</font></a>
