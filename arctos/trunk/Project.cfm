@@ -277,7 +277,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 					project_publication.project_id = #project_id# AND  
 					project_publication.publication_id = formatted_publication.publication_id AND 
 					project_publication.publication_id = publication.publication_id AND 
-					format_style = 'long' AND
+					format_style = 'long'
 			</cfquery>
 		</cfoutput>
 	<table width="100%">
