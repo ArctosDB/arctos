@@ -223,7 +223,8 @@ function deletePubAtt(r){
 }
 function deleteLink(r){
 	var newElem='<input type="hidden" name="link' + r + '" id="link' + r + '" value="deleted">';
-	jQuery('#linkRow' + r + ' td:nth-child(1)').addClass('red').text('deleted').val().append(newElem);
+	jQuery('#linkRow' + r + ' td:nth-child(1)').addClass('red').text('deleted');
+	jQuery('#linkRow' + r + ' td:nth-child(1)').val().append(newElem);
 	jQuery('#linkRow' + r + ' td:nth-child(2)').addClass('red').text('');
 	//jQuery('#attRow' + r + ' td:nth-child(3)').addClass('red').text('deleted');
 }
