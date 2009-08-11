@@ -298,7 +298,11 @@
 			<cfelse>
 				<cfset thisLink = "">
 			</cfif>
-			<cfset thisDesc = #evaluate("description" & n)#>
+			<cfif isdefined("description#n#")>
+				<cfset thisDesc = #evaluate("description" & n)#>
+			<cfelse>
+				<cfset thisDesc = "">
+			</cfif>
 			<cfif isdefined("publication_url_id#n#")>
 				<cfset thisId = #evaluate("publication_url_id" & n)#>
 			<cfelse>
