@@ -32,7 +32,7 @@
 		The Basics:
 		<input type="hidden" name="publication_id" value="#pub.publication_id#">
 		<input type="hidden" name="action" value="saveEdit">
-		<label for="publication_title">Publication Title</label>
+		<label for="publication_title" onclick="getDocs('publication')" class="likeLink">Publication Title</label>
 		<textarea name="publication_title" id="publication_title" class="reqdClr" rows="3" cols="80">#pub.publication_title#</textarea>
 		<label for="publication_type">Publication Type</label>
 		<select name="publication_type" id="publication_type" class="reqdClr">
