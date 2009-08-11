@@ -177,7 +177,8 @@
 		</div>
 			<input type="hidden" name="origNumberLinks" id="origNumberLinks" value="#i#">
 			<input type="hidden" name="numberLinks" id="numberLinks" value="#i#">
-			<br><input type="submit" value="save" class="savBtn">
+			<br><input type="button" value="save" class="savBtn" onclick="editPub.action.value='saveEdit'">
+			<input type="button" value="Delete Publication" class="delBtn" onclick="editPub.action.value='deletePub';confirmDelete('editPub');">
 	</form>
 </cfoutput>
 </cfif>
