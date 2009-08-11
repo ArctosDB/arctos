@@ -9,8 +9,9 @@
 	<form action="SpecimenUsage.cfm" method="post">
 		<input name="action" type="hidden" value="search">
 		<cfif not isdefined("toproject_id")><cfset toproject_id=""></cfif>
-		<input name="toproject_id" type="hidden" value="#toproject_id#">
-		
+		<cfoutput>
+			<input name="toproject_id" type="hidden" value="#toproject_id#">
+		</cfoutput>
 		<table width="90%">
 			<tr valign="top">
 				<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
@@ -386,7 +387,7 @@
 					&nbsp;~&nbsp;
 					<a href="/Citation.cfm?publication_id=#publication_id#">Citations</a>
 					<cfif isdefined("toproject_id") and len("toproject_id") gt 0>
-						<a href="/Project.cfm?publication_id=#publication_id#&action=addPub&project_id=#toproject_id#">Add to Project</a>
+						&nbsp;~&nbsp;<a href="/Project.cfm?publication_id=#publication_id#&action=addPub&project_id=#toproject_id#">Add to Project</a>
 					</cfif>
 				</cfif>
 			</p>
