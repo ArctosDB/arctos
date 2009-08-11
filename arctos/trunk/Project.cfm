@@ -413,19 +413,9 @@ Projects are activities that have contributed specimens, used specimens, or both
 					<p>
 					#formatted_publication#
 					<br>
-					<input type="button"
-					value="Edit"
-					class="lnkBtn"
-					onmouseover="this.className='delBtn btnhov'"
-					onmouseout="this.className='delBtn'"
-					onClick="document.location='Publication.cfm?publication_id=#publication_id#">
-				
-				<input type="button"
-					value="Remove"
-					class="delBtn"
-					onmouseover="this.className='delBtn btnhov'"
-					onmouseout="this.className='delBtn'"
-					onClick="document.location='Project.cfm?Action=delePub&publication_id=#publication_id#&project_id=#getDetails.project_id#';">
+					<a href="Publication.cfm?publication_id=#publication_id#">Edit</a>
+					&nbsp;~&nbsp;
+					<a href="Project.cfm?Action=delePub&publication_id=#publication_id#&project_id=#getDetails.project_id#">Remove</a>
 				</blockquote>
 	</cfoutput>
 
