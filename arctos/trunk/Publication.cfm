@@ -308,7 +308,7 @@
 				<cfquery name="delAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					delete from publication_url where publication_url_id=#thisId#
 				</cfquery>
-			<cfelseif thisId gt 0>
+			<cfelseif thisLink is not "deleted" and thisId gt 0>
 				<cfquery name="upAtt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update
 						publication_url 
