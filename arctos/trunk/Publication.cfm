@@ -184,7 +184,21 @@
 </cfif>
 <!---------------------------------------------------------------------------------------------------------->
 <cfif action is "deletePub">
-bye now...
+	<cftransaction>
+		<cfquery name="dpublication_author_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			delete from publication_author_name where publication_id=#publication_id#
+		</cfquery>
+		<cfquery name="dpublication_attributes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			delete from publication_attributes where publication_id=#publication_id#
+		</cfquery>
+		<cfquery name="dpublication_url" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			delete from publication_url where publication_id=#publication_id#
+		</cfquery>
+		<cfquery name="dpublication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			delete from publication where publication_id=#publication_id#
+		</cfquery>
+	</cftransaction>
+	it's gone.
 </cfif>
 
 <!---------------------------------------------------------------------------------------------------------->
