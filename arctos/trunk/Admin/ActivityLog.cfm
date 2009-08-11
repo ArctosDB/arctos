@@ -68,7 +68,7 @@
 		<p><strong>Data after 7 August 2009</strong></p>
 		<cfquery name="activity" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
-				to_char(TIMESTAMP,'dd-mon-yyyy') date_stamp, 
+				to_char(TIMESTAMP,'dd-Mon-yyyy HH24:MI:SS') date_stamp, 
 				SQL_TEXT sql_statement, 
 				DB_USER username,
 				OBJECT_NAME object,
