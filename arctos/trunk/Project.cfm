@@ -411,11 +411,16 @@ Projects are activities that have contributed specimens, used specimens, or both
 	<cfoutput query="publications">
 				<blockquote>
 					<p>
-					<a href="Publication.cfm?publication_id=#publication_id#">
 					#formatted_publication#
-					</a>
 					<br>
 					<input type="button"
+					value="Edit"
+					class="lnkBtn"
+					onmouseover="this.className='delBtn btnhov'"
+					onmouseout="this.className='delBtn'"
+					onClick="document.location='Publication.cfm?publication_id=#publication_id#">
+				
+				<input type="button"
 					value="Remove"
 					class="delBtn"
 					onmouseover="this.className='delBtn btnhov'"
