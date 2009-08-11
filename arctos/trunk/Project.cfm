@@ -266,7 +266,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 		<cfelse>
 			<cfset numberOfAgents = 1>
 		</cfif>
-		<cfquery name="pubJour" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		<cfquery name="publications" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				SELECT 
 					formatted_publication, formatted_publication.publication_id  
 				FROM 
@@ -278,35 +278,6 @@ Projects are activities that have contributed specimens, used specimens, or both
 					project_publication.publication_id = formatted_publication.publication_id AND 
 					project_publication.publication_id = publication.publication_id AND 
 					format_style = 'long' AND
-					publication_type='journal article'
-			</cfquery>
-			<cfquery name="pubBook" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				SELECT 
-					formatted_publication, formatted_publication.publication_id 
-				FROM 
-					project_publication,
-					formatted_publication,
-					publication
-				WHERE 
-					project_publication.project_id = #project_id# AND  
-					project_publication.publication_id = formatted_publication.publication_id AND 
-					project_publication.publication_id = publication.publication_id AND 
-					format_style = 'long' AND
-					publication_type='book'
-			</cfquery>
-			<cfquery name="pubBookSec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				SELECT 
-					formatted_publication, formatted_publication.publication_id 
-				FROM 
-					project_publication,
-					formatted_publication,
-					publication
-				WHERE 
-					project_publication.project_id = #project_id# AND  
-					project_publication.publication_id = formatted_publication.publication_id AND 
-					project_publication.publication_id = publication.publication_id AND 
-					format_style = 'long' AND
-					publication_type='book section'
 			</cfquery>
 		</cfoutput>
 	<table width="100%">
@@ -426,7 +397,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 		
 	
 		<br><strong>Project Publications:</strong>
-		<cfoutput>
+		
 	<br>
 	<input type="button"
 					value="Add Publication to this Project"
@@ -436,10 +407,8 @@ Projects are activities that have contributed specimens, used specimens, or both
 					onClick="document.location='PublicationSearch.cfm?toproject_id=#getDetails.project_id#';">
 		<br>
 	</cfoutput>
-		<cfif pubJour.recordcount gt 0>
-			Journal Articles:
+	<cfoutput query="publications">
 				<blockquote>
-				<cfoutput query="pubJour">
 					<p>
 					<a href="Publication.cfm?publication_id=#publication_id#">
 					#formatted_publication#
@@ -451,43 +420,9 @@ Projects are activities that have contributed specimens, used specimens, or both
 					onmouseover="this.className='delBtn btnhov'"
 					onmouseout="this.className='delBtn'"
 					onClick="document.location='Project.cfm?Action=delePub&publication_id=#publication_id#&project_id=#getDetails.project_id#';">
-		
-					
-				</cfoutput>
 				</blockquote>
-		</cfif>
-		<cfif pubBook.recordcount gt 0>
-		Books:<br>
-				<blockquote>
-				<cfoutput query="pubBook">
-					<p>#formatted_publication#<br>
-					<input type="button"
-					value="Remove"
-					class="delBtn"
-					onmouseover="this.className='delBtn btnhov'"
-					onmouseout="this.className='delBtn'"
-					onClick="document.location='Project.cfm?Action=delePub&publication_id=#publication_id#&project_id=#getDetails.project_id#';">
+	</cfoutput>
 
-				</cfoutput>
-				</blockquote>
-		</cfif>
-		<cfif pubBookSec.recordcount gt 0>
-		Book Sections:<br>
-					<blockquote>
-				<cfoutput query="pubBookSec">
-					<p>#formatted_publication#<br>
-					<input type="button"
-					value="Remove"
-					class="delBtn"
-					onmouseover="this.className='delBtn btnhov'"
-					onmouseout="this.className='delBtn'"
-					onClick="document.location='Project.cfm?Action=delePub&publication_id=#publication_id#&project_id=#getDetails.project_id#';">
-
-					
-				</cfoutput>
-				</blockquote>
-		</cfif>
-		
 		
 						</td>
 					</tr>

@@ -16,12 +16,6 @@
 		<li>
 			By <a href="/SpecimenUsage.cfm">Results</a> (publications or projects)
 		</li>
-		<ul>
-		<li>
-		By <a href="/PublicationSearch.cfm">Publication</a>		</li>
-		<li>
-		By <a href="/ProjectSearch.cfm">Project</a>		</li>
-		</ul>
 	</ul>
 <strong>Browse Taxonomy</strong>
 	<ul>
