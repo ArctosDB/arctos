@@ -108,7 +108,7 @@
 			<tr>
 				<td>#username#</td>
 				<td>#object#</td>
-				<td nowra="nowrap">#date_stamp#</td>
+				<td nowrap="nowrap">#date_stamp#</td>
 				<td>
 					#sql_statement#
 					<cfif len(sql_bind) gt 0><br><span style='font-size:smaller;color:gray'>[#sql_bind#]</span></cfif>
