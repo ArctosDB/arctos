@@ -132,8 +132,11 @@
 			<cfif len(#uname#) gt 0>
 				AND upper(username) like '%#ucase(uname)#%'
 			</cfif>
-			<cfif len(#date#) gt 0>
-				AND upper(to_char(date_stamp,'dd-mon-yyyy')) like '%#ucase(date)#%'
+			<cfif len(#bdate#) gt 0>
+				AND (
+					to_date(to_char(date_stamp,'dd-mon-yyy')) between to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
+					and to_date('#dateformat(edate,"dd-mmm-yyyy")#')
+				)
 			</cfif>
 			<cfif len(#sql#) gt 0>
 				AND upper(sql_statement) like '%#ucase(sql)#%'
