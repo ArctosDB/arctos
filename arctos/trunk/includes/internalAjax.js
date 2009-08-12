@@ -92,11 +92,12 @@ function addLink (n) {
 	var lid = jQuery('#linkTab tr:last').attr("id");
 	var lastID=lid.replace('linkRow','');
 	console.log('lastID'+lastID);
+	if (lastID.length==0){
+		lastID=0;
+	}
 	var thisID=parseInt(lastID) + 1;
 	console.log(thisID);
-	if (thisID=='NaN'){
-		thisID=1;
-	}
+	
 	var newRow='<tr id="linkRow' + thisID + '">';
 	newRow+='<td>';
 	newRow+='<input type="text"  size="60" name="link' + thisID + '" id="link' + thisID + '">';
