@@ -120,83 +120,90 @@ media_uri like 'http://irods.tacc.teragrid.org:8000/UAF/%.jpg';
 							<cfelse>
 								<cfset preview_uri=''>
 							</cfif>
-							<cfquery name="media" datasource="uam_god">	
-								insert into media (
-									media_id,
-									media_uri,
-									preview_uri,
-									mime_type,
-									media_type
-								) values (
-									#nid.media_id#,
-									'#muri#',
-									'#preview_uri#',
-									'image/jpeg',
-									'image'
-								)
-							</cfquery>
-							<cfif len(preview_uri) gt 0>
-								<cfquery name="prev_dngmedia" datasource="uam_god">
-									update media set preview_uri='#preview_uri#'
-									where preview_uri is null and 
-									media_id=#dng_id.media_id#
-								</cfquery>								
-							</cfif>
-							<cfquery name="mr_cat" datasource="uam_god">
-								insert into media_relations (
-									MEDIA_ID,
-									MEDIA_RELATIONSHIP,
-									CREATED_BY_AGENT_ID,
-									RELATED_PRIMARY_KEY
-								) values (
-									#nid.media_id#,
-									'shows cataloged_item',
-									2072,
-									#collection_object_id#
-								)
-							</cfquery>
-							<cfquery name="mr_agnt" datasource="uam_god">
-								insert into media_relations (
-									MEDIA_ID,
-									MEDIA_RELATIONSHIP,
-									CREATED_BY_AGENT_ID,
-									RELATED_PRIMARY_KEY
-								) values (
-									#nid.media_id#,
-									'created by agent',
-									2072,
-									1016226
-								)
-							</cfquery>
-							<cfquery name="mr_media" datasource="uam_god">
-								insert into media_relations (
-									MEDIA_ID,
-									MEDIA_RELATIONSHIP,
-									CREATED_BY_AGENT_ID,
-									RELATED_PRIMARY_KEY
-								) values (
-									#nid.media_id#,
-									'derived from media',
-									2072,
-									#dng_id.media_id#
-								)
-							</cfquery>
-							<cfquery name="lbl" datasource="uam_god">
-								insert into  media_labels (
-									MEDIA_ID,
-									MEDIA_LABEL,
-									LABEL_VALUE,
-									ASSIGNED_BY_AGENT_ID
-								) values (
-									#nid.media_id#,
-									'description',
-									'High resolution JPG of ALA Accession #ala.display_value# herbarium sheet.',
-									2072
-								)
-							</cfquery>
-							<cfquery name="spiffy" datasource="uam_god">
-								update tacc_check set jpg_status='all_done' where collection_object_id=#collection_object_id#
-							</cfquery>		
+							<cftry>
+								<cfquery name="media" datasource="uam_god">	
+									insert into media (
+										media_id,
+										media_uri,
+										preview_uri,
+										mime_type,
+										media_type
+									) values (
+										#nid.media_id#,
+										'#muri#',
+										'#preview_uri#',
+										'image/jpeg',
+										'image'
+									)
+								</cfquery>
+								<cfif len(preview_uri) gt 0>
+									<cfquery name="prev_dngmedia" datasource="uam_god">
+										update media set preview_uri='#preview_uri#'
+										where preview_uri is null and 
+										media_id=#dng_id.media_id#
+									</cfquery>								
+								</cfif>
+								<cfquery name="mr_cat" datasource="uam_god">
+									insert into media_relations (
+										MEDIA_ID,
+										MEDIA_RELATIONSHIP,
+										CREATED_BY_AGENT_ID,
+										RELATED_PRIMARY_KEY
+									) values (
+										#nid.media_id#,
+										'shows cataloged_item',
+										2072,
+										#collection_object_id#
+									)
+								</cfquery>
+								<cfquery name="mr_agnt" datasource="uam_god">
+									insert into media_relations (
+										MEDIA_ID,
+										MEDIA_RELATIONSHIP,
+										CREATED_BY_AGENT_ID,
+										RELATED_PRIMARY_KEY
+									) values (
+										#nid.media_id#,
+										'created by agent',
+										2072,
+										1016226
+									)
+								</cfquery>
+								<cfquery name="mr_media" datasource="uam_god">
+									insert into media_relations (
+										MEDIA_ID,
+										MEDIA_RELATIONSHIP,
+										CREATED_BY_AGENT_ID,
+										RELATED_PRIMARY_KEY
+									) values (
+										#nid.media_id#,
+										'derived from media',
+										2072,
+										#dng_id.media_id#
+									)
+								</cfquery>
+								<cfquery name="lbl" datasource="uam_god">
+									insert into  media_labels (
+										MEDIA_ID,
+										MEDIA_LABEL,
+										LABEL_VALUE,
+										ASSIGNED_BY_AGENT_ID
+									) values (
+										#nid.media_id#,
+										'description',
+										'High resolution JPG of ALA Accession #ala.display_value# herbarium sheet.',
+										2072
+									)
+								</cfquery>
+								<cfquery name="spiffy" datasource="uam_god">
+									update tacc_check set jpg_status='all_done' where collection_object_id=#collection_object_id#
+								</cfquery>
+							<cfcatch>
+								<cfquery name="notspiffy" datasource="uam_god">
+									update tacc_check set jpg_status='fail: #cfcatch.message#' where collection_object_id=#collection_object_id#
+								</cfquery>
+							</cfcatch>
+							</cftry>	
 						</cftransaction>
 				<cfelse><!--- status=200 --->
 					<br>no file (http://goodnight.corral.tacc.utexas.edu/UAF/#folder#/jpegs/#barcode#.jpg)

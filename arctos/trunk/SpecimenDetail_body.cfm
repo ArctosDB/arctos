@@ -1225,13 +1225,13 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
                     <tr>
                         <td align="center" style="font-size:.8em">
                             <cfif len(#preview_uri#) gt 0>
-                                <a href="#media_uri#" target="_blank"><img src="#preview_uri#" alt="Media Preview Image"></a>
-                                <br>#media_type# (#mime_type#)
-                            <cfelse>
-                                <cfset h=left(media_uri,40) & "...">
-                                <a href="#media_uri#" target="_blank">#h#</a>
-                                <br>#media_type# (#mime_type#)
-                            </cfif>
+								<cfset puri=preview_uri>
+							<cfelse>
+								<cfset puri='/images/noThumb.jpg'>
+							</cfif>
+							<cfset aTxt="#one.collection# #one.cat_num# #one.scientific_name#">					
+							<a href="#media_uri#" target="_blank"><img src="#preview_uri#" alt="#aTxt#"></a>
+                            <br>#media_type# (#mime_type#)
                         </td>
                         <td style="font-size:.8em">
                             <cfif #mrel.recordcount# gt 0>
