@@ -1,3 +1,16 @@
+.imgStyle{
+	max-width:200px;
+	max-height:200px;
+}
+.greenBorder {
+	border:1px solid green;
+}
+.redBorder {
+	border:1px solid red;
+}
+.blackBorder {
+	border:1px solid black;
+}
 .cellDiv {
 	border:1px dashed green;
 	padding:10px;

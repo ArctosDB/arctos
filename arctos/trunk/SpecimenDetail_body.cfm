@@ -1230,22 +1230,22 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 							<cfelse>
 								<cfset puri='/images/noThumb.jpg'>
 							</cfif>
-							<cfset aTxt="#one.collection# #one.cat_num# #one.scientific_name#">
+							<cfset aTxt="#one.collection# #one.cat_num#: #one.scientific_name#">
 							<cfset niceMimeType="image/jpeg,text/html,application/pdf">
 							<cfset scaryMimeType="image/dng,image/tiff">
  							<cfif listfind(niceMimeType,mime_type,",")>
-								<cfset bgc="green">
+								<cfset bgc="greenBorder">
 							<cfelseif listfind(scaryMimeType,mime_type,",")>
-								<cfset bgc="green">
+								<cfset bgc="redBorder">
 							<cfelse>
-								<cfset bgc="black">
+								<cfset bgc="blackBorder">
 							</cfif>
 							<style>
 								.imgStyle{
 									border:1px solid #bgc#;
 								}
 							</style>
-							<a href="#media_uri#" target="_blank"><img src="#preview_uri#" alt="#aTxt#" class="imgStyle"></a>
+							<a href="#media_uri#" target="_blank"><img src="#preview_uri#" alt="#aTxt#" class="imgStyle #bgc#"></a>
                             <br>#media_type# (#mime_type#)
                         </td>
                         <td style="font-size:.8em">
