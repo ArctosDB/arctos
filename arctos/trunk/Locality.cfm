@@ -240,12 +240,9 @@
 		</tr>
 		<tr>
 			<td align="right">Source Authority:</td>
-			<td><select name="source_authority" size="1" class="reqdClr">
-			<option value=""></option>
-			<cfloop query="ctGeogSrcAuth">
-				<option value="#ctGeogSrcAuth.source_authority#">#ctGeogSrcAuth.source_authority#</option>
-			</cfloop>
-		</select></td>
+			<td>
+				<input name="source_authority" id="source_authority" class="reqdClr">
+			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -427,12 +424,9 @@
 				<td>&nbsp;</td>
 			</tr>
 			<tr> 
-                <td colspan="2"><select name="source_authority" size="1" class="reqdClr">
-                    <option value=""></option>
-                    <cfloop query="ctGeogSrcAuth">
-                      <option <cfif #geogdetails.source_authority# is "#ctgeogsrcauth.source_authority#"> selected </cfif>value="#ctGeogSrcAuth.source_authority#">#ctGeogSrcAuth.source_authority#</option>
-                    </cfloop>
-                  </select></td>
+                <td colspan="2">
+					<input name="source_authority" id="source_authority" class="reqdClr" value="#source_authority#">
+				</td>
                 <td>
 					<select name="valid_catalog_term_fg" class="reqdClr">
                     <option value=""></option>
