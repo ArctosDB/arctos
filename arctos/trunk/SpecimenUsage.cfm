@@ -123,6 +123,7 @@
 					
 		<cfset go="no">		
 		<cfif isdefined("p_title") AND len(#p_title#) gt 0>
+			<cfset title = "#p_title#">
 			<cfset go="yes">
 			<cfset whr = "#whr# AND upper(project.project_name) like '%#ucase(escapeQuotes(p_title))#%'">
 		</cfif>
@@ -249,6 +250,7 @@
 	<cfset i=1>
 	<cfset go="no">
 	<cfset basSQL = "SELECT DISTINCT 
+			publication.publication_title,
 			publication.publication_id,
 			publication.publication_type,
 			formatted_publication,
@@ -358,6 +360,8 @@
 		<div class="notFound">
 			No publications matched your criteria.
 		</div>
+	<cfelseif publication.recordcount is 0>
+		<cfset title = "#publication.publication_title#">	
 	</cfif>
 	<cfquery name="pubs" dbtype="query">
 		SELECT
