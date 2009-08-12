@@ -94,7 +94,9 @@
 			sponsor,
 			acknowledgement
 	</cfquery>
-	<cfset title = "Project Detail: #p.project_name#">
+	<cfset noHTML=replacenocase(p.project_name,'<i>','','all')>
+	<cfset noHTML=replacenocase(noHTML,'</i>','','all')>
+	<cfset title = "Project Detail: #noHTML#">
 	<cfset metaDesc="Project: #p.project_name#">
 	<div class="proj_title">#p.project_name#</div>
 	<cfloop query="s">
