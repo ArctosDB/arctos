@@ -360,7 +360,7 @@
 		<div class="notFound">
 			No publications matched your criteria.
 		</div>
-	<cfelseif publication.recordcount is 0>
+	<cfelseif publication.recordcount is 1>
 		<cfset title = "#publication.publication_title#">	
 	</cfif>
 	<cfquery name="pubs" dbtype="query">
