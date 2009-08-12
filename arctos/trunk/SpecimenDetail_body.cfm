@@ -1242,7 +1242,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 							</cfif>
 							<style>
 								.imgStyle{
-									border 1 px solid #bgc#;
+									border:1 px solid #bgc#;
 								}
 							</style>
 							<a href="#media_uri#" target="_blank"><img src="#preview_uri#" alt="#aTxt#" class="imgStyle"></a>
