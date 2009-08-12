@@ -31,6 +31,7 @@
 <cfset detSelect = "
 	SELECT
 		cataloged_item.collection_object_id as collection_object_id,
+		cataloged_item.cat_num,
 		collection.collection_cde,
 		cataloged_item.accn_id,
 		collection.collection,
