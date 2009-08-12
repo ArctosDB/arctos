@@ -251,8 +251,6 @@
     startTime = "#timeformat(now())#"
     interval = "300"
     requestTimeOut = "300">
-<!--- try this manaually first
-
 <cfschedule action = "update"
     task = "image_findIt" 
     operation = "HTTPRequest"
@@ -277,5 +275,3 @@
     startTime = "02:34 AM"
     interval = "weekly"
     requestTimeOut = "600">
-	
---->
