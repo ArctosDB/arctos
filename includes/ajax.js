@@ -434,14 +434,7 @@ function toggleKillrow(id,status) {
 			}
 		}
 		var theString = theArray.toString();
-		//alert(tas);
 		theEl.value=theString;
-		//var re=eval('/' + id + '/gi');
-		//alert(re);
-		//alert(theElVal);
-		//var rval = theEl.value.replace(re,'');
-		//alert(rval);
-		//theEl.value=rval;
 	}
 	var theButton = document.getElementById('removeChecked');
 	if (theString.length > -1) {
@@ -449,18 +442,9 @@ function toggleKillrow(id,status) {
 	} else {
 		theButton.style.display='none';
 	}
-	
 }
 function hidePageLoad() {
 	document.getElementById('loading').style.display='none';
-}
-
-function closePrefs () {
-	alert('close');
-}
-
-function closePrefs () {
-	alert('close');
 }
 function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 	if (document.getElementById('resultsGoHere')) {
@@ -516,9 +500,6 @@ function success_getSpecResultsData(result){
 		alert(msg);
 	} else {
 		var clist = data.COLUMNLIST[0];
-		//alert(clist);
-		// set up an array of column names and display values in the order of appearance
-		// 
 		var tgt = document.getElementById('resultsGoHere');
 		if (document.getElementById('killrow') && document.getElementById('killrow').value==1){
 			var killrow = 1;
