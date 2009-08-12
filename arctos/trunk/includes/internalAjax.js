@@ -92,8 +92,9 @@ function addLink (n) {
 	var lid = jQuery('#linkTab tr:last').attr("id");
 	var lastID=lid.replace('linkRow','');
 	var thisID=parseInt(lastID) + 1;
-	if (thisId==Nan){
-		thisId=1;
+	console.log(thisID);
+	if (thisID=='Nan'){
+		thisID=1;
 	}
 	var newRow='<tr id="linkRow' + thisID + '">';
 	newRow+='<td>';
