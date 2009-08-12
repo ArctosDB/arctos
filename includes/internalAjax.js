@@ -91,9 +91,10 @@ function get_AgentName(name,fld,idfld){
 function addLink (n) {
 	var lid = jQuery('#linkTab tr:last').attr("id");
 	var lastID=lid.replace('linkRow','');
+	console.log('lastID'+lastID);
 	var thisID=parseInt(lastID) + 1;
 	console.log(thisID);
-	if (thisID=='Nan'){
+	if (thisID=='NaN'){
 		thisID=1;
 	}
 	var newRow='<tr id="linkRow' + thisID + '">';
