@@ -405,7 +405,7 @@
 		</table>
 	<cfelse><!---------------------------- normal CTs --------------->
 		<cfquery name="getCols" datasource="uam_god">
-			select column_name from sys.user_tab_columns where table_name='#table_name#'
+			select column_name from sys.user_tab_columns where table_name='#tbl#'
 		</cfquery>
 		<cfset collcde=listfindnoccase(valuelist(getCols.column_name),"collection_cde")>
 		<cfset descn=listfindnoccase(valuelist(getCols.column_name),"description")>
