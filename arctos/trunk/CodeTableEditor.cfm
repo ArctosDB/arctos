@@ -19,8 +19,7 @@
 	<cfloop query="getCTName">
 		<a href="CodeTableEditor.cfm?action=edit&tbl=#getCTName.table_name#">#getCTName.table_name#</a><br>
 	</cfloop>
-</cfif>
-<cfif action is "edit">
+<cfelseif action is "edit">
 	<a href="/CodeTableButtons.cfm">Back to list</a>
 	<cfif tbl is "CTGEOLOGY_ATTRIBUTE"><!---------------------------------------------------->
 		<cflocation url="/info/geol_hierarchy.cfm">
@@ -44,16 +43,15 @@
 				<th>&nbsp;</th>
 			</tr>
 			<form method="post" action="CodeTableEditor.cfm">
-				<input type="hidden" name="action" value="ctattribute_code_tables">
+				<input type="hidden" name="action" value="newValue">
 				<input type="hidden" name="tbl" value="#tbl#">
-				<input type="hidden" name="meth" value="insert">
 				<tr>
 					<td>				
 						<select name="attribute_type" size="1">
 							<option value=""></option>
 							<cfloop query="ctAttribute_type">
 							<option 
-										value="#ctAttribute_type.attribute_type#">#ctAttribute_type.attribute_type#</option>
+								value="#ctAttribute_type.attribute_type#">#ctAttribute_type.attribute_type#</option>
 							</cfloop>
 						</select>
 					</td>
@@ -96,9 +94,8 @@
 			<cfset i=1>
 			<cfloop query="thisRec">
 				<form name="att#i#" method="post" action="CodeTableEditor.cfm">
-					<input type="hidden" name="action" value="ctattribute_code_tables">
+					<input type="hidden" name="action" value="">
 					<input type="hidden" name="tbl" value="#tbl#">
-					<input type="hidden" name="meth">
 					<input type="hidden" name="oldAttribute_type" value="#Attribute_type#">
 					<input type="hidden" name="oldvalue_code_table" value="#value_code_table#">
 					<input type="hidden" name="oldunits_code_table" value="#units_code_table#">
@@ -137,11 +134,11 @@
 							<input type="button" 
 								value="Save" 
 								class="savBtn"
-							 	onclick="att#i#.meth.value='save';submit();">	
+							 	onclick="att#i#.meth.value='saveEdit';submit();">	
 							<input type="button" 
 								value="Delete" 
 								class="delBtn"
-							  	onclick="att#i#.meth.value='delete';submit();">	
+							  	onclick="att#i#.meth.value='deleteValue';submit();">	
 						</td>
 					</tr>
 				</form>
@@ -156,7 +153,7 @@
 			select distinct(table_name) as tablename from sys.user_tables where table_name like 'CT%' order by table_name
 		</cfquery>
 		<form name="newData" method="post" action="CodeTableEditor.cfm">
-			<input type="hidden" name="action" value="i_ctpublication_attribute">
+			<input type="hidden" name="action" value="newValue">
 			<input type="hidden" name="tbl" value="ctpublication_attribute">
 			<table class="newRec">
 				<tr>
@@ -223,12 +220,11 @@
 							<input type="button" 
 								value="Save" 
 								class="savBtn"
-							   	onclick="#tbl##i#.action.value='u_ctpublication_attribute';submit();">	
-			
+							   	onclick="#tbl##i#.action.value='saveEdit';submit();">	
 							<input type="button" 
 								value="Delete" 
 								class="delBtn"
-								onclick="#tbl##i#.action.value='d_ctpublication_attribute';submit();">	
+								onclick="#tbl##i#.action.value='deleteValue';submit();">	
 			
 						</td>
 					</form>
@@ -241,7 +237,7 @@
 			select * from ctcoll_other_id_type order by other_id_type
 		</cfquery>	
 		<form name="newData" method="post" action="CodeTableEditor.cfm">
-			<input type="hidden" name="action" value="i_ctcoll_other_id_type">
+			<input type="hidden" name="action" value="newValue">
 			<input type="hidden" name="tbl" value="ctcoll_other_id_type">
 			<table class="newRec">
 				<tr>
@@ -299,14 +295,12 @@
 							<input type="button" 
 								value="Save" 
 								class="savBtn"
-							   	onclick="#tbl##i#.action.value='u_ctcoll_other_id_type';submit();">	
+							   	onclick="#tbl##i#.action.value='saveEdit';submit();">	
 			
 							<input type="button" 
 								value="Delete" 
 								class="delBtn"
-							   	onmouseover="this.className='delBtn btnhov'" 
-							   	onmouseout="this.className='delBtn'"
-								onclick="#tbl##i#.action.value='d_ctcoll_other_id_type';submit();">	
+								onclick="#tbl##i#.action.value='deleteValue';submit();">	
 			
 						</td>
 					</form>
@@ -338,7 +332,7 @@
 				<th></th>
 			</tr>
 			<form name="newPart" method="post" action="CodeTableEditor.cfm">
-				<input type="hidden" name="action" value="ctspecimen_part_list_order">
+				<input type="hidden" name="action" value="newValue">
 				<input type="hidden" name="tbl" value="#tbl#">
 				<input type="hidden" name="meth" value="insert">
 				<tr>
@@ -407,11 +401,11 @@
 							<input type="button" 
 								value="Save" 
 								class="savBtn"
-								onclick="part#i#.meth.value='save';submit();">	
+								onclick="part#i#.meth.value='saveEdit';submit();">	
 							<input type="button" 
 								value="Delete" 
 								class="delBtn"
-							 	onclick="part#i#.meth.value='delete';submit();">	
+							 	onclick="part#i#.meth.value='deleteValue';submit();">	
 								
 						</td>
 					</tr>
@@ -551,94 +545,68 @@
 			</cfloop>
 		</table>
 	</cfif>
-</cfif>
-</cfoutput>
-
-<!----------------------------------->
-<cfif action is "i_ctpublication_attribute">
-<cfoutput>
-	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		insert into ctpublication_attribute (
-			publication_attribute,
-			DESCRIPTION,
-			control
-		) values (
-			'#newData#',
-			'#description#',
-			'#control#'
-		)
-	</cfquery>
-	<cflocation url="CodeTableEditor.cfm?tbl=ctpublication_attribute&fld=no&collcde=n&hasDescn=">
-</cfoutput>
-</cfif>
-<cfif #Action# is "i_ctcoll_other_id_type">
-<cfoutput>
-	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		insert into ctcoll_other_id_type (
-			OTHER_ID_TYPE,
-			DESCRIPTION,
-			base_URL
-		) values (
-			'#newData#',
-			'#description#',
-			'#base_url#'
-		)
-	</cfquery>
-	<cflocation url="CodeTableEditor.cfm?tbl=ctcoll_other_id_type&fld=no&collcde=n&hasDescn=">
-</cfoutput>
-</cfif>
-<!----------------------------------->
-<cfif #Action# is "u_ctcoll_other_id_type">
-<cfoutput>
-	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		update ctcoll_other_id_type set 
-			OTHER_ID_TYPE='#other_id_type#',
-			DESCRIPTION='#description#',
-			base_URL='#base_url#'
-		where
-			OTHER_ID_TYPE='#origData#'
-	</cfquery>
-	<cflocation url="CodeTableEditor.cfm?tbl=ctcoll_other_id_type&fld=no&collcde=n&hasDescn=">
-</cfoutput>
-</cfif>
-<cfif action is "u_ctpublication_attribute">
-<cfoutput>
-	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		update ctpublication_attribute set 
-			publication_attribute='#publication_attribute#',
-			DESCRIPTION='#description#',
-			control='#control#'
-		where
-			publication_attribute='#origData#'
-	</cfquery>
-	<cflocation url="CodeTableEditor.cfm?tbl=ctpublication_attribute&fld=no&collcde=n&hasDescn=">
-</cfoutput>
-</cfif>
-<cfif action is "d_ctpublication_attribute">
-<cfoutput>
-	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		delete from ctpublication_attribute 
-		where
-			publication_attribute='#origData#'
-	</cfquery>
-	<cflocation url="CodeTableEditor.cfm?tbl=ctpublication_attribute&fld=no&collcde=n&hasDescn=">
-</cfoutput>
-</cfif>
-<!----------------------------------->
-<cfif #Action# is "d_ctcoll_other_id_type">
-<cfoutput>
-	<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		delete from ctcoll_other_id_type
-		where
-			OTHER_ID_TYPE='#origData#'
-	</cfquery>
-	<cflocation url="CodeTableEditor.cfm?tbl=ctcoll_other_id_type">
-</cfoutput>
-</cfif>
-<!----------------------------------->
-<cfif #Action# is "ctattribute_code_tables">
-<cfoutput>
-	<cfif #meth# is "save">
+<cfelseif action is "deleteValue">
+	<cfif tbl is "ctpublication_attribute">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			delete from ctpublication_attribute 
+			where
+				publication_attribute='#origData#'
+		</cfquery>
+	<cfelseif tbl is "ctcoll_other_id_type">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			delete from ctcoll_other_id_type
+			where
+				OTHER_ID_TYPE='#origData#'
+		</cfquery>
+	<cfelseif tbl is "ctattribute_code_tables">
+		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			DELETE FROM ctattribute_code_tables
+			WHERE
+				Attribute_type = '#oldAttribute_type#' 
+				<cfif len(#oldvalue_code_table#) gt 0>
+					AND	value_code_table = '#oldvalue_code_table#'
+				</cfif> 
+				<cfif len(#oldunits_code_table#) gt 0>
+					AND	units_code_table = '#oldunits_code_table#'
+				</cfif> 
+		</cfquery>
+	<cfelseif tbl is "ctspecimen_part_list_order">
+		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			DELETE FROM ctspecimen_part_list_order
+			WHERE
+				partname = '#oldpartname#' AND
+				list_order = '#oldlist_order#'
+		</cfquery>
+	<cfelse>
+		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			DELETE FROM #tbl# 
+			where #fld# = '#origData#'
+			<cfif #collcde# is "y">
+				 AND collection_cde='#origcollection_cde#'
+			</cfif>
+		</cfquery>
+	</cfif>
+	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=#tbl#" addtoken="false">
+<cfelseif action is "saveEdit">
+	<cfif tbl is "ctpublication_attribute">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			update ctpublication_attribute set 
+				publication_attribute='#publication_attribute#',
+				DESCRIPTION='#description#',
+				control='#control#'
+			where
+				publication_attribute='#origData#'
+		</cfquery>
+	<cfelseif tbl is "ctcoll_other_id_type">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			update ctcoll_other_id_type set 
+				OTHER_ID_TYPE='#other_id_type#',
+				DESCRIPTION='#description#',
+				base_URL='#base_url#'
+			where
+				OTHER_ID_TYPE='#origData#'
+		</cfquery>
+	<cfelseif tbl is "ctattribute_code_tables">
 		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE ctattribute_code_tables SET
 				Attribute_type = '#Attribute_type#',
@@ -649,37 +617,59 @@
 				value_code_table = '#oldvalue_code_table#' AND
 				units_code_table = '#oldunits_code_table#'
 		</cfquery>
-	</cfif>
-	
-	<cfif #meth# is "delete">
-	
-	DELETE FROM ctattribute_code_tables
+	<cfelseif tbl is "ctspecimen_part_list_order">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			UPDATE ctspecimen_part_list_order SET
+				partname = '#partname#',
+				list_order = '#list_order#'
 			WHERE
-				Attribute_type = '#oldAttribute_type#' 
-				<cfif len(#oldvalue_code_table#) gt 0>
-					AND	value_code_table = '#oldvalue_code_table#'
-				</cfif> 
-				
-				<cfif len(#oldunits_code_table#) gt 0>
-					AND	units_code_table = '#oldunits_code_table#'
-				</cfif> 
-		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			DELETE FROM ctattribute_code_tables
-			WHERE
-				Attribute_type = '#oldAttribute_type#' 
-				<cfif len(#oldvalue_code_table#) gt 0>
-					AND	value_code_table = '#oldvalue_code_table#'
-				</cfif> 
-				
-				<cfif len(#oldunits_code_table#) gt 0>
-					AND	units_code_table = '#oldunits_code_table#'
-				</cfif> 
+				partname = '#oldpartname#' AND
+				list_order = '#oldlist_order#'
+		</cfquery>
+	<cfelse>
+		<cfquery name="up" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			UPDATE #tbl# SET #fld# = '#thisField#'
+			<cfif #collcde# is "y">
+				,collection_cde='#collection_cde#'
+			</cfif>
+			<cfif #hasDescn# is "y">
+				,description='#description#'
+			</cfif>
+			where #fld# = '#origData#'
+			<cfif #collcde# is "y">
+				 AND collection_cde='#origcollection_cde#'
+			</cfif>
 		</cfquery>
 	</cfif>
-	
-	<cfif #meth# is "insert">
+	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=#tbl#" addtoken="false">
+<cfelseif action is "newValue">
+	<cfif tbl is "ctpublication_attribute">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			insert into ctpublication_attribute (
+				publication_attribute,
+				DESCRIPTION,
+				control
+			) values (
+				'#newData#',
+				'#description#',
+				'#control#'
+			)
+		</cfquery>
+	<cfelseif tbl is "ctcoll_other_id_type">
+		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			insert into ctcoll_other_id_type (
+				OTHER_ID_TYPE,
+				DESCRIPTION,
+				base_URL
+			) values (
+				'#newData#',
+				'#description#',
+				'#base_url#'
+			)
+		</cfquery>
+	<cfelseif tbl is "ctattribute_code_tables">
 		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		INSERT INTO ctattribute_code_tables (
+			INSERT INTO ctattribute_code_tables (
 				Attribute_type
 				<cfif len(#value_code_table#) gt 0>
 					,value_code_table
@@ -696,199 +686,42 @@
 				<cfif len(#units_code_table#) gt 0>
 					,'#units_code_table#'
 				</cfif>
-				)
-			</cfquery>
-	</cfif>
-
-
-
-<cflocation url="CodeTableEditor.cfm?tbl=ctattribute_code_tables&fld=no&collcde=n&hasDescn=">
-
-</cfoutput>
-</cfif>
-<!----------------------------------->
-<!----
-<!----------------------------------->
-<cfif #Action# is "ctcontainer_type">
-<!--- no security --->
-<cfoutput>
-	<cfif #meth# is "save">
-	
-		<!----
-		--save--
-	<cfabort>
-		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			UPDATE ctcontainer_type_size SET
-				container_type = '#container_type#',
-				container_size = #container_size#
-			WHERE
-				container_type = '#oldcontainer_type#' AND
-				container_size = #oldcontainer_size#
-		</cfquery>
-		--->
-		UPDATE ctcontainer_type SET
-				container_type = '#container_type#',
-				container_size = #container_size#
-			WHERE
-				container_type = '#oldcontainer_type#' AND
-				container_size = #oldcontainer_size#
-				<cfabort>
-		
-	</cfif>
-	
-	<cfif #meth# is "delete">
-		<!----
-		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			DELETE FROM ctcontainer_type_size
-			WHERE
-				container_type = '#oldcontainer_type#' AND
-				container_size = #oldcontainer_size#
-		</cfquery>
-		
-		---->
-		DELETE FROM ctcontainer_type_size
-			WHERE
-				container_type = '#oldcontainer_type#' AND
-				container_size = #oldcontainer_size#
-				<cfabort>
-	</cfif>
-	
-	<cfif #meth# is "insert">
-		INSERT INTO ctcontainer_type_size (
-			container_type,
-			container_size)
-		VALUES (
-			'#container_type#',
-			#container_size#
-			)
-			<cfabort>
-		<!----
-		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		INSERT INTO ctcontainer_type_size (
-			container_type,
-			container_size)
-		VALUES (
-			'#container_type#',
-			#container_size#
 			)
 		</cfquery>
-			--->
-	</cfif>
-
-<cflocation url="CodeTableEditor.cfm?tbl=ctcontainer_type_size&fld=no&collcde=n&hasDescn=">
-
-<!----
---->
-</cfoutput>
-</cfif>
-<!----------------------------------->
----->
-<!----------------------------------->
-<cfif #Action# is "ctspecimen_part_list_order">
-<cfoutput>
-	<cfif #meth# is "save">
-		<cfquery name="sav" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			UPDATE ctspecimen_part_list_order SET
-				partname = '#partname#',
-				list_order = '#list_order#'
-			WHERE
-				partname = '#oldpartname#' AND
-				list_order = '#oldlist_order#'
-		</cfquery>
-	</cfif>
-	
-	<cfif #meth# is "delete">
-	
-	
-		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			DELETE FROM ctspecimen_part_list_order
-			WHERE
-				partname = '#oldpartname#' AND
-				list_order = '#oldlist_order#'
-		</cfquery>
-	</cfif>
-	
-	<cfif #meth# is "insert">
+	<cfelseif tbl is "ctspecimen_part_list_order">
 		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		INSERT INTO ctspecimen_part_list_order (
+			INSERT INTO ctspecimen_part_list_order (
 				partname,
 				list_order
 				)
 			VALUES (
 				'#partname#',
 				#list_order#
+			)
+		</cfquery>
+	<cfelse>
+		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			INSERT INTO #tbl# 
+				(#fld#
+				<cfif #collcde# is "y">
+					 ,collection_cde
+				</cfif>
+				<cfif #hasDescn# is "y">
+					 ,description
+				</cfif>
 				)
-			</cfquery>
+			VALUES 
+				('#newData#'
+				<cfif #collcde# is "y">
+					 ,'#collection_cde#'
+				</cfif>
+				<cfif #hasDescn# is "y">
+					 ,'#description#'
+				</cfif>
+			)
+		</cfquery>
 	</cfif>
-
-
-
-<cflocation url="CodeTableEditor.cfm?tbl=ctspecimen_part_list_order&fld=no&collcde=n&hasDescn=">
-
-</cfoutput>
+	<cflocation url="CodeTableEditor.cfm?action=edit&tbl=#tbl#" addtoken="false">
 </cfif>
-<!----------------------------------->
-<!----------------------------------->
-<cfif #Action# is "save#tbl#">
-<cfoutput>
-<cfquery name="up" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	UPDATE #tbl# SET #fld# = '#thisField#'
-	<cfif #collcde# is "y">
-		,collection_cde='#collection_cde#'
-	</cfif>
-	<cfif #hasDescn# is "y">
-		,description='#description#'
-	</cfif>
-	where #fld# = '#origData#'
-	<cfif #collcde# is "y">
-		 AND collection_cde='#origcollection_cde#'
-	</cfif>
-</cfquery>
-<cflocation url="CodeTableEditor.cfm?tbl=#tbl#&fld=#fld#&collcde=#collcde#&hasDescn=#hasDescn#">
-		
 </cfoutput>
-</cfif>
-<!----------------------------------->
-<!----------------------------------->
-<cfif #Action# is "dele#tbl#">
-<cfoutput>
-<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	DELETE FROM #tbl# 
-	where #fld# = '#origData#'
-	<cfif #collcde# is "y">
-		 AND collection_cde='#origcollection_cde#'
-	</cfif>
-	</cfquery>
-	<cflocation url="CodeTableEditor.cfm?tbl=#tbl#&fld=#fld#&collcde=#collcde#&hasDescn=#hasDescn#">
-</cfoutput>
-</cfif>
-<!----------------------------------->
-<!----------------------------------->
-<cfif #Action# is "inst#tbl#">
-<cfoutput>
-<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-INSERT INTO #tbl# 
-	(#fld#
-	<cfif #collcde# is "y">
-		 ,collection_cde
-	</cfif>
-	<cfif #hasDescn# is "y">
-		 ,description
-	</cfif>
-	)
-VALUES 
-	('#newData#'
-	<cfif #collcde# is "y">
-		 ,'#collection_cde#'
-	</cfif>
-	<cfif #hasDescn# is "y">
-		 ,'#description#'
-	</cfif>
-)
-</cfquery>
-<cflocation url="CodeTableEditor.cfm?tbl=#tbl#&fld=#fld#&collcde=#collcde#&hasDescn=#hasDescn#">
-</cfoutput>
-</cfif>
-<!----------------------------------->
-
 <cfinclude template="includes/_footer.cfm">
