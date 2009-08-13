@@ -4,7 +4,7 @@
 	select 
 		distinct(table_name) table_name 
 	from 
-		sys.user_tables 
+		uam.user_tables 
 	where 
 		table_name like 'CT%'
 	UNION 
