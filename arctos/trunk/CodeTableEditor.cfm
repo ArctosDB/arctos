@@ -540,8 +540,9 @@
 	</table>
 	
 	</cfif>
-	</cfoutput>
 </cfif>
+	</cfoutput>
+
 <!----------------------------------->
 <cfif action is "i_ctpublication_attribute">
 <cfoutput>
