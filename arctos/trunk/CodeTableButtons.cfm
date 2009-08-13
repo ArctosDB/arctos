@@ -48,9 +48,8 @@
 				<cfelse>
 					<cfset collcde="n">
 				</cfif>
-			<cfif #descn# contains "y">
+				<cfif #descn# contains "y">
 					<cfset descn="y">
-					#getCTName.table_name# has documentation available.
 				<cfelse>
 					<cfset descn="n">
 				</cfif>
@@ -59,6 +58,9 @@
 					<CFSET collcde="n">
 				</cfif>
 				<a href="CodeTableEditor.cfm?tbl=#getCTName.table_name#&fld=#fld#&collcde=#collcde#&hasDescn=#descn#">#getCTName.table_name#</a>
+				<cfif descn is "y">
+					(includes documentation)
+				<cfelse>
 				<br>
 			</cfif>
 		</cfif>
