@@ -418,129 +418,125 @@
 			<br>hasDescn: #hasDescn#
 			<br>fld: #fld#
 		<hr>
-		
-		
-	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select #fld# as data 
-		<cfif #collcde# is 1>
-			,collection_cde
-		</cfif>
-		<cfif #hasDescn# is 1>
-			,description
-		</cfif>
-		from #tbl#
-		ORDER BY
-		<cfif #collcde# is 1>
-			collection_cde,
-		</cfif>
-		#fld#
-	</cfquery>
-	Add record:
-	<table class="newRec">
-		<tr>
-			<cfif collcde is 1>
-				<th>Collection Type</th>
+		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select #fld# as data 
+			<cfif #collcde# is 1>
+				,collection_cde
 			</cfif>
-			<th>#fld#</th>
-			<cfif hasDescn is 1>
-				<th>Description</th>
+			<cfif #hasDescn# is 1>
+				,description
 			</cfif>
-		</tr>
-		<form name="newData" method="post" action="CodeTableEditor.cfm">
-			<input type="hidden" name="collcde" value="#collcde#">
-			<input type="hidden" name="action" value="newrecord">
-			<input type="hidden" name="tbl" value="#tbl#">
-			<input type="hidden" name="hasDescn" value="#hasDescn#">
-			<input type="hidden" name="fld" value="#fld#">
+			from #tbl#
+			ORDER BY
+			<cfif #collcde# is 1>
+				collection_cde,
+			</cfif>
+			#fld#
+		</cfquery>
+		Add record:
+		<table class="newRec" border="1">
 			<tr>
 				<cfif collcde is 1>
-					<td>
-						<select name="collection_cde" size="1">
-							<cfloop query="ctcollcde">
-								<option value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
-							</cfloop>
-						</select>
-					</td>
+					<th>Collection Type</th>
 				</cfif>
-				<td>
-					<input type="text" name="newData" >
-				</td>
-				
+				<th>#fld#</th>
 				<cfif hasDescn is 1>
-					<td>
-						<textarea name="description" rows="4" cols="40"></textarea>
-					</td>
+					<th>Description</th>
 				</cfif>
-				<td>
-					<input type="submit" 
-						value="Insert" 
-						class="insBtn">	
-				</td>
 			</tr>
-		</form>
-	</table>
-	<cfset i = 1>
-	Edit #tbl#:
-	<table>
-	<cfloop query="q">
-		<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-		<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
-			<input type="hidden" name="Action">
-			<input type="hidden" name="tbl" value="#tbl#">
-			<input type="hidden" name="fld" value="#fld#">
-			<input type="hidden" name="collcde" value="#collcde#">
-			<input type="hidden" name="hasDescn" value="#hasDescn#">
-			<input type="hidden" name="origData" value="#q.data#">
-			
-			
-			
-			<cfif #collcde# is "y">
-			<input type="hidden" name="origcollection_cde" value="#q.collection_cde#">
-			<cfset thisColl=#q.collection_cde#>
-				<td>
-				<select name="collection_cde" size="1">
-					<cfloop query="ctcollcde">
-						<option 
-							<cfif #thisColl# is "#ctcollcde.collection_cde#"> selected </cfif>value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
-					</cfloop>
-				</select>
-				</td>
-			</cfif>
-			<td>
-				<input type="text" name="thisField" value="#q.data#" size="50">
-			</td>
-			
-			
-			<cfif #hasDescn# is "y">
-			<td>
-				<textarea name="description" rows="4" cols="40">#q.description#</textarea>
-			</td>				
-			</cfif>
-			<td>
-			<input type="button" 
-	value="Save" 
-	class="savBtn"
-   	onmouseover="this.className='savBtn btnhov'" 
-   	onmouseout="this.className='savBtn'"
-	onclick="#tbl##i#.Action.value='save#tbl#';submit();">	
-	
-	<input type="button" 
-	value="Delete" 
-	class="delBtn"
-   	onmouseover="this.className='delBtn btnhov'" 
-   	onmouseout="this.className='delBtn'"
-	onclick="#tbl##i#.Action.value='dele#tbl#';submit();">	
-	
-			</td>
-		</form>
-		</tr>
-		<cfset i = #i#+1>
-	</cfloop>
-	</table>
-	
+			<form name="newData" method="post" action="CodeTableEditor.cfm">
+				<input type="hidden" name="collcde" value="#collcde#">
+				<input type="hidden" name="action" value="newrecord">
+				<input type="hidden" name="tbl" value="#tbl#">
+				<input type="hidden" name="hasDescn" value="#hasDescn#">
+				<input type="hidden" name="fld" value="#fld#">
+				<tr>
+					<cfif collcde is 1>
+						<td>
+							<select name="collection_cde" size="1">
+								<cfloop query="ctcollcde">
+									<option value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
+								</cfloop>
+							</select>
+						</td>
+					</cfif>
+					<td>
+						<input type="text" name="newData" >
+					</td>
+					
+					<cfif hasDescn is 1>
+						<td>
+							<textarea name="description" rows="4" cols="40"></textarea>
+						</td>
+					</cfif>
+					<td>
+						<input type="submit" 
+							value="Insert" 
+							class="insBtn">	
+					</td>
+				</tr>
+			</form>
+		</table>
+		<cfset i = 1>
+		Edit #tbl#:
+		<table border="1">
+			<tr>
+				<cfif collcde is 1>
+					<th>Collection Type</th>
+				</cfif>
+				<th>#fld#</th>
+				<cfif hasDescn is 1>
+					<th>Description</th>
+				</cfif>
+			</tr>
+			<cfloop query="q">
+				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+					<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
+						<input type="hidden" name="Action">
+						<input type="hidden" name="tbl" value="#tbl#">
+						<input type="hidden" name="fld" value="#fld#">
+						<input type="hidden" name="collcde" value="#collcde#">
+						<input type="hidden" name="hasDescn" value="#hasDescn#">
+						<input type="hidden" name="origData" value="#q.data#">
+						<cfif #collcde# is "y">
+							<input type="hidden" name="origcollection_cde" value="#q.collection_cde#">
+							<cfset thisColl=#q.collection_cde#>
+							<td>
+								<select name="collection_cde" size="1">
+									<cfloop query="ctcollcde">
+										<option 
+											<cfif #thisColl# is "#ctcollcde.collection_cde#"> selected </cfif>value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
+									</cfloop>
+								</select>
+							</td>
+						</cfif>
+						<td>
+							<input type="text" name="thisField" value="#q.data#" size="50">
+						</td>
+						<cfif #hasDescn# is "y">
+							<td>
+								<textarea name="description" rows="4" cols="40">#q.description#</textarea>
+							</td>				
+						</cfif>
+						<td>
+							<input type="button" 
+								value="Save" 
+								class="savBtn"
+								onclick="#tbl##i#.Action.value='saveEdit';submit();">	
+							<input type="button" 
+								value="Delete" 
+								class="delBtn"
+								onclick="#tbl##i#.Action.value='deleteValue';submit();">	
+		
+						</td>
+					</form>
+				</tr>
+				<cfset i = #i#+1>
+			</cfloop>
+		</table>
 	</cfif>
 </cfif>
-	</cfoutput>
+</cfoutput>
 
 <!----------------------------------->
 <cfif action is "i_ctpublication_attribute">
