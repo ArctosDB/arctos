@@ -229,8 +229,7 @@
 			<cfset i = #i#+1>
 		</cfloop>
 	</table>
-<cfelseif #tbl# is "ctcoll_other_id_type">
-<!--------------------------------------------------------------->
+<cfelseif tbl is "ctcoll_other_id_type"><!--------------------------------------------------------------->
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ctcoll_other_id_type order by other_id_type
 	</cfquery>	
@@ -308,157 +307,115 @@
 			<cfset i = #i#+1>
 		</cfloop>
 	</table>
-<cfelseif #tbl# is "ctspecimen_part_list_order">
-<!--- special section to handle  another  funky code table --->
-<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select * from ctspecimen_part_list_order order by
-	list_order,partname
-</cfquery>
-<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select collection_cde, part_name partname from ctspecimen_part_name
-</cfquery>
-<cfquery name="mo" dbtype="query">
-	select max(list_order) +1 maxNum from thisRec
-</cfquery>
-<p>
-	This is a special part of this application for a hinky CT. This code isn't very robust because it doesn't have to 
-		be - select people are allowed here, and all they can do is make formatting ugly.
-		If you are here, it's because we trust you. Don't do anything stoopid!!
-		<p>
-		
-		
-		All this application does is order part names. Nothing prevents you from making several parts the same
-		order, and doing so will just cause them to not be ordered. You don't have to order things you don't care about.
-		
-</p>
+<cfelseif tbl is "ctspecimen_part_list_order"><!--- special section to handle  another  funky code table --->
+	<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from ctspecimen_part_list_order order by
+		list_order,partname
+	</cfquery>
+	<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select collection_cde, part_name partname from ctspecimen_part_name
+	</cfquery>
+	<cfquery name="mo" dbtype="query">
+		select max(list_order) +1 maxNum from thisRec
+	</cfquery>
+	<p>
+		This application sets the order part names appear in certain reports and forms. 
+		Nothing prevents you from making several parts the same
+		order, and doing so will just cause them to not be ordered. You don't have to order things you don't care about.	
+	</p>
+	Create part ordering
+	<table class="newRec" border>
+		<tr>
+			<th>Part Name</th>
+			<th>List Order</th>
+			<th></th>
+		</tr>
+		<form name="newPart" method="post" action="CodeTableEditor.cfm">
+			<input type="hidden" name="action" value="ctspecimen_part_list_order">
+			<input type="hidden" name="tbl" value="#tbl#">
+			<input type="hidden" name="meth" value="insert">
+			<tr>
+				<td>
+					<cfset thisPart = #thisRec.partname#>
+					<select name="partname" size="1">
+						<cfloop query="ctspecimen_part_name">
+						<option 
+						value="#ctspecimen_part_name.partname#">#ctspecimen_part_name.partname# (#ctspecimen_part_name.collection_cde#)</option>
+						</cfloop>
+					</select>
+				</td>
+				<cfquery name="mo" dbtype="query">
+					select max(list_order) +1 maxNum from thisRec
+				</cfquery>
+				<td>
+					<cfset thisLO = #thisRec.list_order#>
+					<select name="list_order" size="1">
+						<cfloop from="1" to="#mo.maxNum#" index="n">
+							<option value="#n#">#n#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td colspan="3">
+					<input type="submit" 
+						value="Create" 
+						class="insBtn">	
+				</td>
+			</tr>
+		</form>	
+	</table>
+	Edid part order
 	<table border>
 		<tr>
-			
-			<td>Part Name</td>
-			<td>List Order</td>
+			<th>Part Name</th>
+			<th>List Order</th>
+			<th>&nbsp;</th>
 		</tr>
-	<cfset i=1>
-	<cfloop query="thisRec">
+		<cfset i=1>
+		<cfloop query="thisRec">
 			<form name="part#i#" method="post" action="CodeTableEditor.cfm">
 				<input type="hidden" name="action" value="ctspecimen_part_list_order">
 				<input type="hidden" name="tbl" value="#tbl#">
 				<input type="hidden" name="meth">
 				<input type="hidden" name="oldlist_order" value="#list_order#">
 				<input type="hidden" name="oldpartname" value="#partname#">
-			<tr>
-				
-				
-				<td>
-				<cfset thisPart = #thisRec.partname#>
-				<select name="partname" size="1">
-					<cfloop query="ctspecimen_part_name">
-					<option 
-					<cfif #thisPart# is "#ctspecimen_part_name.partname#"> selected </cfif>value="#ctspecimen_part_name.partname#">#ctspecimen_part_name.partname#</option>
-					</cfloop>
-				</select>
-				</td>
-				
-				
-				<td>
-					<cfset thisLO = #thisRec.list_order#>
-					<select name="list_order" size="1">
-						<cfloop from="1" to="#mo.maxNum#" index="n">
-							<option 
-					<cfif #thisLO# is "#n#"> selected </cfif>value="#n#">#n#</option>
-					
-						</cfloop>
-					</select>
-				
-				</td>
-			</tr>
-			
 				<tr>
-				<td colspan="3">
-				<input type="button" 
-	value="Save" 
-	class="savBtn"
-   	onmouseover="this.className='savBtn btnhov'" 
-   	onmouseout="this.className='savBtn'"
-	onclick="part#i#.meth.value='save';submit();">	
-	
-	<input type="button" 
-	value="Delete" 
-	class="delBtn"
-   	onmouseover="this.className='delBtn btnhov'" 
-   	onmouseout="this.className='delBtn'"
-	onclick="part#i#.meth.value='delete';submit();">	
-	
-				</td>
-			</tr>
-				
-				
-				
-				
+					<td>
+						<cfset thisPart = #thisRec.partname#>
+						<select name="partname" size="1">
+							<cfloop query="ctspecimen_part_name">
+							<option 
+							<cfif #thisPart# is "#ctspecimen_part_name.partname#"> selected </cfif>value="#ctspecimen_part_name.partname#">#ctspecimen_part_name.partname#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td>
+						<cfset thisLO = #thisRec.list_order#>
+						<select name="list_order" size="1">
+							<cfloop from="1" to="#mo.maxNum#" index="n">
+								<option <cfif #thisLO# is "#n#"> selected </cfif>value="#n#">#n#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td colspan="3">
+						<input type="button" 
+							value="Save" 
+							class="savBtn"
+							onclick="part#i#.meth.value='save';submit();">	
+						<input type="button" 
+							value="Delete" 
+							class="delBtn"
+						 	onclick="part#i#.meth.value='delete';submit();">	
+							
+					</td>
+				</tr>
 			</form>
 			<cfset i=#i#+1>
-	</cfloop>
+		</cfloop>
 	</table>
 	
 	
 	
-	<table class="newRec" border>
-		<tr>
-			
-			<td>Collection Code</td>
-			<td>Part Name</td>
-			<td>List Order</td>
-		</tr>
 	
-			<form name="newPart" method="post" action="CodeTableEditor.cfm">
-				<input type="hidden" name="action" value="ctspecimen_part_list_order">
-				<input type="hidden" name="tbl" value="#tbl#">
-				<input type="hidden" name="meth" value="insert">
-			<tr>
-				
-				
-				<td>
-				<cfset thisPart = #thisRec.partname#>
-				<select name="partname" size="1">
-					<cfloop query="ctspecimen_part_name">
-					<option 
-					value="#ctspecimen_part_name.partname#">#ctspecimen_part_name.partname# (#ctspecimen_part_name.collection_cde#)</option>
-					</cfloop>
-				</select>
-				</td>
-				<cfquery name="mo" dbtype="query">
-					select max(list_order) +1 maxNum from thisRec
-				</cfquery>
-				
-				<td>
-					<cfset thisLO = #thisRec.list_order#>
-					<select name="list_order" size="1">
-						<cfloop from="1" to="#mo.maxNum#" index="n">
-							<option 
-					value="#n#">#n#</option>
-					
-						</cfloop>
-					</select>
-				
-				</td>
-			</tr>
-			
-				<tr>
-				<td colspan="3">
-				<input type="submit" 
-	value="Create" 
-	class="insBtn"
-   	onmouseover="this.className='insBtn btnhov'" 
-   	onmouseout="this.className='insBtn'">	
-	
-				</td>
-			</tr>
-				
-				
-				
-				
-			</form>
-			
-	</table>
 <cfelse><!---------------------------- normal CTs --------------->
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select #fld# as data 
