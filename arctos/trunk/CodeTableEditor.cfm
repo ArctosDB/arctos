@@ -29,12 +29,61 @@
 	<cfquery name="allCTs" datasource="uam_god">
 		select distinct(table_name) as tablename from sys.user_tables where table_name like 'CT%' order by table_name
 	</cfquery>
+	<table class="newRec" border>
+		<tr>
+			<th>Attribute</th>
+			<th>Value Code Table</th>
+			<th>Units Code Table</th>
+			<th>&nbsp;</th>
+		</tr>
+		<form method="post" action="CodeTableEditor.cfm">
+			<input type="hidden" name="action" value="ctattribute_code_tables">
+			<input type="hidden" name="tbl" value="#tbl#">
+			<input type="hidden" name="meth" value="insert">
+			<tr>
+				<td>				
+					<select name="attribute_type" size="1">
+						<option value=""></option>
+						<cfloop query="ctAttribute_type">
+						<option 
+									value="#ctAttribute_type.attribute_type#">#ctAttribute_type.attribute_type#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+					<cfset thisValueTable = #thisRec.value_code_table#>
+					<select name="value_code_table" size="1">
+						<option value="">none</option>
+						<cfloop query="allCTs">
+						<option 
+						value="#allCTs.tablename#">#allCTs.tablename#</option>
+						</cfloop>
+					</select>			
+				</td>
+				<td>
+					<cfset thisUnitsTable = #thisRec.units_code_table#>
+					<select name="units_code_table" size="1">
+						<option value="">none</option>
+						<cfloop query="allCTs">
+						<option 
+						value="#allCTs.tablename#">#allCTs.tablename#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+					<input type="submit" 
+						value="Create" 
+						class="insBtn">	
+				</td>
+			</tr>
+		</form>
+	</table>
 	<table border>
 		<tr>
-			<td>Attribute</td>
-			<td>Value Code Table</td>
-			<td>Units Code Table</td>
-			<td>&nbsp;</td>
+			<th>Attribute</th>
+			<th>Value Code Table</th>
+			<th>Units Code Table</th>
+			<th>&nbsp;</th>
 		</tr>
 		<cfset i=1>
 		<cfloop query="thisRec">
@@ -90,56 +139,6 @@
 			</form>
 		<cfset i=#i#+1>
 	</cfloop>
-</table>
-<table class="newRec" border>
-	<tr>
-		<td>Attribute</td>
-		<td>Value Code Table</td>
-		<td>Units Code Table</td>
-	</tr>
-	<form method="post" action="CodeTableEditor.cfm">
-		<input type="hidden" name="action" value="ctattribute_code_tables">
-		<input type="hidden" name="tbl" value="#tbl#">
-		<input type="hidden" name="meth" value="insert">
-		<tr>
-			<td>				
-				<select name="attribute_type" size="1">
-					<option value=""></option>
-					<cfloop query="ctAttribute_type">
-					<option 
-								value="#ctAttribute_type.attribute_type#">#ctAttribute_type.attribute_type#</option>
-					</cfloop>
-				</select>
-			</td>
-			<td>
-				<cfset thisValueTable = #thisRec.value_code_table#>
-				<select name="value_code_table" size="1">
-					<option value="">none</option>
-					<cfloop query="allCTs">
-					<option 
-					value="#allCTs.tablename#">#allCTs.tablename#</option>
-					</cfloop>
-				</select>			
-			</td>
-			<td>
-				<cfset thisUnitsTable = #thisRec.units_code_table#>
-				<select name="units_code_table" size="1">
-					<option value="">none</option>
-					<cfloop query="allCTs">
-					<option 
-					value="#allCTs.tablename#">#allCTs.tablename#</option>
-					</cfloop>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="3">
-				<input type="submit" 
-					value="Create" 
-					class="insBtn">	
-			</td>
-		</tr>
-	</form>
 </table>
 <!---------------------------------------------------->
 <cfelseif #tbl# is "ctpublication_attribute">
