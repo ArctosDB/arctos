@@ -17,7 +17,7 @@
 		 order by table_name
 	</cfquery>
 	<cfloop query="getCTName">
-		<a href="CodeTableEditor.cfm?action=edit&tbl=#getCTName.table_name#">#getCTName.table_name#</a>
+		<a href="CodeTableEditor.cfm?action=edit&tbl=#getCTName.table_name#">#getCTName.table_name#</a><br>
 	</cfloop>
 </cfif>
 <cfif action is "edit">
