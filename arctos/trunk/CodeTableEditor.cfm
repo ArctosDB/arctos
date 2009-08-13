@@ -14,6 +14,7 @@
 </cfquery>
 <cfoutput>
 	<cfset title = "Edit code table #tbl#">
+	<a href="/CodeTableButtons.cfm">Back to list</a>
 <cfif tbl is "CTGEOLOGY_ATTRIBUTE"><!---------------------------------------------------->
 	<cflocation url="/info/geol_hierarchy.cfm">
 <cfelseif tbl is "ctattribute_code_tables"><!---------------------------------------------------->
@@ -27,7 +28,6 @@
 	<cfquery name="allCTs" datasource="uam_god">
 		select distinct(table_name) as tablename from sys.user_tables where table_name like 'CT%' order by table_name
 	</cfquery>
-	<a href="/CodeTableButtons.cfm">Back to list</a>
 	<br>Create Attribute Control
 	<table class="newRec" border>
 		<tr>
