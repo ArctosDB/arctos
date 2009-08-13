@@ -407,8 +407,8 @@
 		<cfquery name="getCols" datasource="uam_god">
 			select column_name from sys.user_tab_columns where table_name='#tbl#'
 		</cfquery>
-		<cfset collcde=listfindnoccase(valuelist(getCols.column_name),"collection_cde")>
-		<cfset descn=listfindnoccase(valuelist(getCols.column_name),"description")>
+		<cfset collcde=listfindnocase(valuelist(getCols.column_name),"collection_cde")>
+		<cfset descn=listfindnocase(valuelist(getCols.column_name),"description")>
 		<cfquery name="f" dbtype="query">
 			select column_name from getCols where column_name not in ('collection_cde','description')
 		</cfquery>
