@@ -274,7 +274,7 @@
 		from cf_sitemaps
 		 where
 		 filename like 'taxonomy%' and
-		 rownum=1 and (lastdate is null or sysdate-LASTDATE > 1)
+		 rownum=1 and (lastdate is null or sysdate-LASTDATE > 3)
 	</cfquery>
 	<cfif colls.recordcount is 0>
 		<cfabort>
@@ -336,7 +336,7 @@
 		from cf_sitemaps
 		 where
 		 filename like 'specimen%' and
-		 rownum=1 and (lastdate is null or sysdate-LASTDATE > 1)
+		 rownum=1 and (lastdate is null or sysdate-LASTDATE > 3)
 	</cfquery>
 	<cfif colls.recordcount is 0>
 		<cfabort>

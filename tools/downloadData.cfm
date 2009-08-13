@@ -24,7 +24,7 @@
 </cfif>
 <cfif #action# is "taxonomy">
 	<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select scientific_name from taxonomy
+		select scientific_name from taxonomy order by scientific_name
 	</cfquery>
 	<cffile action="write" file="#application.webDirectory#/temp/taxonomy.txt" addnewline="yes" output="scientific_name">
 
@@ -49,7 +49,7 @@
 <!------------------------------>
 <cfif #action# is "highergeog">
 	<cfquery name="geog" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select higher_geog from geog_auth_rec
+		select higher_geog from geog_auth_rec order by higher_geog
 	</cfquery>
 	<cffile action="write" file="#application.webDirectory#/temp/geog.txt" addnewline="yes" output="higher_geog">
 
