@@ -437,41 +437,46 @@
 	</cfquery>
 	Add record:
 	<table class="newRec">
-		<cfif collcde is 1>
-			<th>Collection Type</th>
-		</cfif>
-		<th>#fld#</th>
-		<cfif hasDescn is 1>
-			<th>Description</th>
-		</cfif>
+		<tr>
+			<cfif collcde is 1>
+				<th>Collection Type</th>
+			</cfif>
+			<th>#fld#</th>
+			<cfif hasDescn is 1>
+				<th>Description</th>
+			</cfif>
+		</tr>
 		<form name="newData" method="post" action="CodeTableEditor.cfm">
 			<input type="hidden" name="collcde" value="#collcde#">
 			<input type="hidden" name="action" value="newrecord">
 			<input type="hidden" name="tbl" value="#tbl#">
 			<input type="hidden" name="hasDescn" value="#hasDescn#">
 			<input type="hidden" name="fld" value="#fld#">
-			<cfif collcde is 1>
+			<tr>
+				<cfif collcde is 1>
+					<td>
+						<select name="collection_cde" size="1">
+							<cfloop query="ctcollcde">
+								<option value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
+							</cfloop>
+						</select>
+					</td>
+				</cfif>
 				<td>
-					<select name="collection_cde" size="1">
-						<cfloop query="ctcollcde">
-							<option value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
-						</cfloop>
-					</select>
+					<input type="text" name="newData" >
 				</td>
-			</cfif>
-			<td>
-				<input type="text" name="newData" >
-			</td>
-			<cfif hasDescn is 1>
+				
+				<cfif hasDescn is 1>
+					<td>
+						<textarea name="description" rows="4" cols="40"></textarea>
+					</td>
+				</cfif>
 				<td>
-					<textarea name="description" rows="4" cols="40"></textarea>
+					<input type="submit" 
+						value="Insert" 
+						class="insBtn">	
 				</td>
-			</cfif>
-			<td>
-				<input type="submit" 
-					value="Insert" 
-					class="insBtn">	
-			</td>
+			</tr>
 		</form>
 	</table>
 	<cfset i = 1>
