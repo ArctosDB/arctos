@@ -13,12 +13,10 @@
 	select distinct collection_cde from ctcollection_cde
 </cfquery>
 <cfoutput>
-	Edit code table #tbl#
 	<cfset title = "Edit code table #tbl#">
-<!---------------------------------------------------->
-<cfif tbl is "CTGEOLOGY_ATTRIBUTE">
+<cfif tbl is "CTGEOLOGY_ATTRIBUTE"><!---------------------------------------------------->
 	<cflocation url="/info/geol_hierarchy.cfm">
-<cfelseif tbl is "ctattribute_code_tables">
+<cfelseif tbl is "ctattribute_code_tables"><!---------------------------------------------------->
 	<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct(attribute_type) from ctAttribute_type
 	</cfquery>
@@ -29,6 +27,8 @@
 	<cfquery name="allCTs" datasource="uam_god">
 		select distinct(table_name) as tablename from sys.user_tables where table_name like 'CT%' order by table_name
 	</cfquery>
+	<a href="/CodeTableButtons.cfm">Back to list</a>
+	<br>Create Attribute Control
 	<table class="newRec" border>
 		<tr>
 			<th>Attribute</th>
@@ -78,6 +78,7 @@
 			</tr>
 		</form>
 	</table>
+	<br>Edit Attribute Controls
 	<table border>
 		<tr>
 			<th>Attribute</th>
@@ -140,8 +141,7 @@
 		<cfset i=#i#+1>
 	</cfloop>
 </table>
-<!---------------------------------------------------->
-<cfelseif #tbl# is "ctpublication_attribute">
+<cfelseif tbl is "ctpublication_attribute"><!---------------------------------------------------->
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from ctpublication_attribute order by publication_attribute
 	</cfquery>
