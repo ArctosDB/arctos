@@ -1,110 +1,45 @@
 <cfinclude template="includes/_header.cfm">
-
-<cfif not isdefined("hasDescn")>
-	<cfset hasDescn="">
-</cfif>
-<cfif not isdefined("fld")>
-	<cfset fld="">
-</cfif>
-<cfif not isdefined("collcde")>
-	<cfset collcde="">
-</cfif>
 <cfquery name="ctcollcde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct collection_cde from ctcollection_cde
 </cfquery>
 <cfoutput>
 	<cfset title = "Edit code table #tbl#">
 	<a href="/CodeTableButtons.cfm">Back to list</a>
-<cfif tbl is "CTGEOLOGY_ATTRIBUTE"><!---------------------------------------------------->
-	<cflocation url="/info/geol_hierarchy.cfm">
-<cfelseif tbl is "ctattribute_code_tables"><!---------------------------------------------------->
-	<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select distinct(attribute_type) from ctAttribute_type
-	</cfquery>
-	<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		Select * from ctattribute_code_tables
-		order by attribute_type
-	</cfquery>
-	<cfquery name="allCTs" datasource="uam_god">
-		select distinct(table_name) as tablename from sys.user_tables where table_name like 'CT%' order by table_name
-	</cfquery>
-	<br>Create Attribute Control
-	<table class="newRec" border>
-		<tr>
-			<th>Attribute</th>
-			<th>Value Code Table</th>
-			<th>Units Code Table</th>
-			<th>&nbsp;</th>
-		</tr>
-		<form method="post" action="CodeTableEditor.cfm">
-			<input type="hidden" name="action" value="ctattribute_code_tables">
-			<input type="hidden" name="tbl" value="#tbl#">
-			<input type="hidden" name="meth" value="insert">
+<cfif action is "nothing">
+	<cfif tbl is "CTGEOLOGY_ATTRIBUTE"><!---------------------------------------------------->
+		<cflocation url="/info/geol_hierarchy.cfm">
+	<cfelseif tbl is "ctattribute_code_tables"><!---------------------------------------------------->
+		<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select distinct(attribute_type) from ctAttribute_type
+		</cfquery>
+		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			Select * from ctattribute_code_tables
+			order by attribute_type
+		</cfquery>
+		<cfquery name="allCTs" datasource="uam_god">
+			select distinct(table_name) as tablename from sys.user_tables where table_name like 'CT%' order by table_name
+		</cfquery>
+		<br>Create Attribute Control
+		<table class="newRec" border>
 			<tr>
-				<td>				
-					<select name="attribute_type" size="1">
-						<option value=""></option>
-						<cfloop query="ctAttribute_type">
-						<option 
-									value="#ctAttribute_type.attribute_type#">#ctAttribute_type.attribute_type#</option>
-						</cfloop>
-					</select>
-				</td>
-				<td>
-					<cfset thisValueTable = #thisRec.value_code_table#>
-					<select name="value_code_table" size="1">
-						<option value="">none</option>
-						<cfloop query="allCTs">
-						<option 
-						value="#allCTs.tablename#">#allCTs.tablename#</option>
-						</cfloop>
-					</select>			
-				</td>
-				<td>
-					<cfset thisUnitsTable = #thisRec.units_code_table#>
-					<select name="units_code_table" size="1">
-						<option value="">none</option>
-						<cfloop query="allCTs">
-						<option 
-						value="#allCTs.tablename#">#allCTs.tablename#</option>
-						</cfloop>
-					</select>
-				</td>
-				<td>
-					<input type="submit" 
-						value="Create" 
-						class="insBtn">	
-				</td>
+				<th>Attribute</th>
+				<th>Value Code Table</th>
+				<th>Units Code Table</th>
+				<th>&nbsp;</th>
 			</tr>
-		</form>
-	</table>
-	<br>Edit Attribute Controls
-	<table border>
-		<tr>
-			<th>Attribute</th>
-			<th>Value Code Table</th>
-			<th>Units Code Table</th>
-			<th>&nbsp;</th>
-		</tr>
-		<cfset i=1>
-		<cfloop query="thisRec">
-			<form name="att#i#" method="post" action="CodeTableEditor.cfm">
+			<form method="post" action="CodeTableEditor.cfm">
 				<input type="hidden" name="action" value="ctattribute_code_tables">
 				<input type="hidden" name="tbl" value="#tbl#">
-				<input type="hidden" name="meth">
-				<input type="hidden" name="oldAttribute_type" value="#Attribute_type#">
-				<input type="hidden" name="oldvalue_code_table" value="#value_code_table#">
-				<input type="hidden" name="oldunits_code_table" value="#units_code_table#">
+				<input type="hidden" name="meth" value="insert">
 				<tr>
-					<td>
-						<cfset thisAttType = #thisRec.attribute_type#>
-							<select name="attribute_type" size="1">
-								<option value=""></option>
-								<cfloop query="ctAttribute_type">
-								<option 
-											<cfif #thisAttType# is "#ctAttribute_type.attribute_type#"> selected </cfif>value="#ctAttribute_type.attribute_type#">#ctAttribute_type.attribute_type#</option>
-								</cfloop>
-							</select>
+					<td>				
+						<select name="attribute_type" size="1">
+							<option value=""></option>
+							<cfloop query="ctAttribute_type">
+							<option 
+										value="#ctAttribute_type.attribute_type#">#ctAttribute_type.attribute_type#</option>
+							</cfloop>
+						</select>
 					</td>
 					<td>
 						<cfset thisValueTable = #thisRec.value_code_table#>
@@ -112,9 +47,9 @@
 							<option value="">none</option>
 							<cfloop query="allCTs">
 							<option 
-							<cfif #thisValueTable# is "#allCTs.tablename#"> selected </cfif>value="#allCTs.tablename#">#allCTs.tablename#</option>
+							value="#allCTs.tablename#">#allCTs.tablename#</option>
 							</cfloop>
-						</select>
+						</select>			
 					</td>
 					<td>
 						<cfset thisUnitsTable = #thisRec.units_code_table#>
@@ -122,297 +57,405 @@
 							<option value="">none</option>
 							<cfloop query="allCTs">
 							<option 
-							<cfif #thisUnitsTable# is "#allCTs.tablename#"> selected </cfif>value="#allCTs.tablename#">#allCTs.tablename#</option>
+							value="#allCTs.tablename#">#allCTs.tablename#</option>
 							</cfloop>
 						</select>
 					</td>
 					<td>
-						<input type="button" 
-							value="Save" 
-							class="savBtn"
-						 	onclick="att#i#.meth.value='save';submit();">	
-						<input type="button" 
-							value="Delete" 
-							class="delBtn"
-						  	onclick="att#i#.meth.value='delete';submit();">	
+						<input type="submit" 
+							value="Create" 
+							class="insBtn">	
 					</td>
 				</tr>
 			</form>
-		<cfset i=#i#+1>
-	</cfloop>
-</table>
-<cfelseif tbl is "ctpublication_attribute"><!---------------------------------------------------->
-	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from ctpublication_attribute order by publication_attribute
-	</cfquery>
-	<cfquery name="allCTs" datasource="uam_god">
-		select distinct(table_name) as tablename from sys.user_tables where table_name like 'CT%' order by table_name
-	</cfquery>
-	<form name="newData" method="post" action="CodeTableEditor.cfm">
-		<input type="hidden" name="action" value="i_ctpublication_attribute">
-		<input type="hidden" name="tbl" value="ctpublication_attribute">
-		<table class="newRec">
-			<tr>
-				<th>Publication Attribute</th>
-				<th>Description</th>
-				<th>Control</th>
-				<th></th>
-			</tr>
-			<tr>
-				<td>
-					<input type="text" name="newData" >
-				</td>
-				<td>
-					<textarea name="description" rows="4" cols="40"></textarea>
-				</td>
-				<td>
-					<select name="control">
-						<option value=""></option>
-						<cfloop query="allCTs">
-							<option value="#tablename#">#tablename#</option>
-						</cfloop>
-					</select>
-				</td>
-				<td>
-					<input type="submit" 
-						value="Insert" 
-						class="insBtn">	
-					<input type="button" 
-						value="Quit" 
-						class="qutBtn"
-						onClick="document.location='CodeTableButtons.cfm';">	
-				</td>
-			</tr>
 		</table>
-	</form>
-	<cfset i = 1>
-	<table>
-		<tr>
-			<th>Type</th>
-			<th>Description</th>
-			<th>Control</th>
-		</tr>
-		<cfloop query="q">
-			<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-				<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
-					<input type="hidden" name="action" value="">
-					<input type="hidden" name="tbl" value="ctpublication_attribute">
-					<input type="hidden" name="origData" value="#publication_attribute#">
+		<br>Edit Attribute Controls
+		<table border>
+			<tr>
+				<th>Attribute</th>
+				<th>Value Code Table</th>
+				<th>Units Code Table</th>
+				<th>&nbsp;</th>
+			</tr>
+			<cfset i=1>
+			<cfloop query="thisRec">
+				<form name="att#i#" method="post" action="CodeTableEditor.cfm">
+					<input type="hidden" name="action" value="ctattribute_code_tables">
+					<input type="hidden" name="tbl" value="#tbl#">
+					<input type="hidden" name="meth">
+					<input type="hidden" name="oldAttribute_type" value="#Attribute_type#">
+					<input type="hidden" name="oldvalue_code_table" value="#value_code_table#">
+					<input type="hidden" name="oldunits_code_table" value="#units_code_table#">
+					<tr>
+						<td>
+							<cfset thisAttType = #thisRec.attribute_type#>
+								<select name="attribute_type" size="1">
+									<option value=""></option>
+									<cfloop query="ctAttribute_type">
+									<option 
+												<cfif #thisAttType# is "#ctAttribute_type.attribute_type#"> selected </cfif>value="#ctAttribute_type.attribute_type#">#ctAttribute_type.attribute_type#</option>
+									</cfloop>
+								</select>
+						</td>
+						<td>
+							<cfset thisValueTable = #thisRec.value_code_table#>
+							<select name="value_code_table" size="1">
+								<option value="">none</option>
+								<cfloop query="allCTs">
+								<option 
+								<cfif #thisValueTable# is "#allCTs.tablename#"> selected </cfif>value="#allCTs.tablename#">#allCTs.tablename#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<cfset thisUnitsTable = #thisRec.units_code_table#>
+							<select name="units_code_table" size="1">
+								<option value="">none</option>
+								<cfloop query="allCTs">
+								<option 
+								<cfif #thisUnitsTable# is "#allCTs.tablename#"> selected </cfif>value="#allCTs.tablename#">#allCTs.tablename#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<input type="button" 
+								value="Save" 
+								class="savBtn"
+							 	onclick="att#i#.meth.value='save';submit();">	
+							<input type="button" 
+								value="Delete" 
+								class="delBtn"
+							  	onclick="att#i#.meth.value='delete';submit();">	
+						</td>
+					</tr>
+				</form>
+			<cfset i=#i#+1>
+		</cfloop>
+	</table>
+	<cfelseif tbl is "ctpublication_attribute"><!---------------------------------------------------->
+		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select * from ctpublication_attribute order by publication_attribute
+		</cfquery>
+		<cfquery name="allCTs" datasource="uam_god">
+			select distinct(table_name) as tablename from sys.user_tables where table_name like 'CT%' order by table_name
+		</cfquery>
+		<form name="newData" method="post" action="CodeTableEditor.cfm">
+			<input type="hidden" name="action" value="i_ctpublication_attribute">
+			<input type="hidden" name="tbl" value="ctpublication_attribute">
+			<table class="newRec">
+				<tr>
+					<th>Publication Attribute</th>
+					<th>Description</th>
+					<th>Control</th>
+					<th></th>
+				</tr>
+				<tr>
 					<td>
-						<input type="text" name="publication_attribute" value="#publication_attribute#" size="50">
+						<input type="text" name="newData" >
 					</td>
 					<td>
-						<textarea name="description" rows="4" cols="40">#description#</textarea>
+						<textarea name="description" rows="4" cols="40"></textarea>
 					</td>
 					<td>
 						<select name="control">
 							<option value=""></option>
 							<cfloop query="allCTs">
-								<option <cfif q.control is allCTs.tablename> selected="selected" </cfif>value="#tablename#">#tablename#</option>
+								<option value="#tablename#">#tablename#</option>
 							</cfloop>
 						</select>
-					</td>				
-					<td>
-						<input type="button" 
-							value="Save" 
-							class="savBtn"
-						   	onclick="#tbl##i#.action.value='u_ctpublication_attribute';submit();">	
-		
-						<input type="button" 
-							value="Delete" 
-							class="delBtn"
-							onclick="#tbl##i#.action.value='d_ctpublication_attribute';submit();">	
-		
 					</td>
-				</form>
-			</tr>
-			<cfset i = #i#+1>
-		</cfloop>
-	</table>
-<cfelseif tbl is "ctcoll_other_id_type"><!--------------------------------------------------------------->
-	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from ctcoll_other_id_type order by other_id_type
-	</cfquery>	
-	<form name="newData" method="post" action="CodeTableEditor.cfm">
-		<input type="hidden" name="action" value="i_ctcoll_other_id_type">
-		<input type="hidden" name="tbl" value="ctcoll_other_id_type">
-		<table class="newRec">
+					<td>
+						<input type="submit" 
+							value="Insert" 
+							class="insBtn">	
+						<input type="button" 
+							value="Quit" 
+							class="qutBtn"
+							onClick="document.location='CodeTableButtons.cfm';">	
+					</td>
+				</tr>
+			</table>
+		</form>
+		<cfset i = 1>
+		<table>
 			<tr>
-				<th>ID Type</th>
+				<th>Type</th>
+				<th>Description</th>
+				<th>Control</th>
+			</tr>
+			<cfloop query="q">
+				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+					<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
+						<input type="hidden" name="action" value="">
+						<input type="hidden" name="tbl" value="ctpublication_attribute">
+						<input type="hidden" name="origData" value="#publication_attribute#">
+						<td>
+							<input type="text" name="publication_attribute" value="#publication_attribute#" size="50">
+						</td>
+						<td>
+							<textarea name="description" rows="4" cols="40">#description#</textarea>
+						</td>
+						<td>
+							<select name="control">
+								<option value=""></option>
+								<cfloop query="allCTs">
+									<option <cfif q.control is allCTs.tablename> selected="selected" </cfif>value="#tablename#">#tablename#</option>
+								</cfloop>
+							</select>
+						</td>				
+						<td>
+							<input type="button" 
+								value="Save" 
+								class="savBtn"
+							   	onclick="#tbl##i#.action.value='u_ctpublication_attribute';submit();">	
+			
+							<input type="button" 
+								value="Delete" 
+								class="delBtn"
+								onclick="#tbl##i#.action.value='d_ctpublication_attribute';submit();">	
+			
+						</td>
+					</form>
+				</tr>
+				<cfset i = #i#+1>
+			</cfloop>
+		</table>
+	<cfelseif tbl is "ctcoll_other_id_type"><!--------------------------------------------------------------->
+		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select * from ctcoll_other_id_type order by other_id_type
+		</cfquery>	
+		<form name="newData" method="post" action="CodeTableEditor.cfm">
+			<input type="hidden" name="action" value="i_ctcoll_other_id_type">
+			<input type="hidden" name="tbl" value="ctcoll_other_id_type">
+			<table class="newRec">
+				<tr>
+					<th>ID Type</th>
+					<th>Description</th>
+					<th>Base URL</th>
+					<th></th>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" name="newData" >
+					</td>
+					<td>
+						<textarea name="description" rows="4" cols="40"></textarea>
+					</td>
+					<td>
+						<input type="text" name="base_url" size="50">
+					</td>
+					<td>
+						<input type="submit" 
+							value="Insert" 
+							class="insBtn">	
+						<input type="button" 
+							value="Quit" 
+							class="qutBtn"
+							onClick="document.location='CodeTableButtons.cfm';">	
+					
+					</td>
+				</tr>
+			</table>
+		</form>
+		<cfset i = 1>
+		<table>
+			<tr>
+				<th>Type</th>
 				<th>Description</th>
 				<th>Base URL</th>
+			</tr>
+			<cfloop query="q">
+				<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+					<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
+						<input type="hidden" name="action" value="">
+						<input type="hidden" name="tbl" value="ctcoll_other_id_type">
+						<input type="hidden" name="origData" value="#other_id_type#">
+						<td>
+							<input type="text" name="other_id_type" value="#other_id_type#" size="50">
+						</td>
+						<td>
+							<textarea name="description" rows="4" cols="40">#description#</textarea>
+						</td>
+						<td>
+							<textarea name="base_url" rows="4" cols="40">#base_url#</textarea>
+						</td>				
+						<td>
+							<input type="button" 
+								value="Save" 
+								class="savBtn"
+							   	onclick="#tbl##i#.action.value='u_ctcoll_other_id_type';submit();">	
+			
+							<input type="button" 
+								value="Delete" 
+								class="delBtn"
+							   	onmouseover="this.className='delBtn btnhov'" 
+							   	onmouseout="this.className='delBtn'"
+								onclick="#tbl##i#.action.value='d_ctcoll_other_id_type';submit();">	
+			
+						</td>
+					</form>
+				</tr>
+				<cfset i = #i#+1>
+			</cfloop>
+		</table>
+	<cfelseif tbl is "ctspecimen_part_list_order"><!--- special section to handle  another  funky code table --->
+		<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select * from ctspecimen_part_list_order order by
+			list_order,partname
+		</cfquery>
+		<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select collection_cde, part_name partname from ctspecimen_part_name
+		</cfquery>
+		<cfquery name="mo" dbtype="query">
+			select max(list_order) +1 maxNum from thisRec
+		</cfquery>
+		<p>
+			This application sets the order part names appear in certain reports and forms. 
+			Nothing prevents you from making several parts the same
+			order, and doing so will just cause them to not be ordered. You don't have to order things you don't care about.	
+		</p>
+		Create part ordering
+		<table class="newRec" border>
+			<tr>
+				<th>Part Name</th>
+				<th>List Order</th>
 				<th></th>
 			</tr>
-			<tr>
-				<td>
-					<input type="text" name="newData" >
-				</td>
-				<td>
-					<textarea name="description" rows="4" cols="40"></textarea>
-				</td>
-				<td>
-					<input type="text" name="base_url" size="50">
-				</td>
-				<td>
-					<input type="submit" 
-						value="Insert" 
-						class="insBtn">	
-					<input type="button" 
-						value="Quit" 
-						class="qutBtn"
-						onClick="document.location='CodeTableButtons.cfm';">	
-				
-				</td>
-			</tr>
-		</table>
-	</form>
-	<cfset i = 1>
-	<table>
-		<tr>
-			<th>Type</th>
-			<th>Description</th>
-			<th>Base URL</th>
-		</tr>
-		<cfloop query="q">
-			<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-				<form name="#tbl##i#" method="post" action="CodeTableEditor.cfm">
-					<input type="hidden" name="action" value="">
-					<input type="hidden" name="tbl" value="ctcoll_other_id_type">
-					<input type="hidden" name="origData" value="#other_id_type#">
-					<td>
-						<input type="text" name="other_id_type" value="#other_id_type#" size="50">
-					</td>
-					<td>
-						<textarea name="description" rows="4" cols="40">#description#</textarea>
-					</td>
-					<td>
-						<textarea name="base_url" rows="4" cols="40">#base_url#</textarea>
-					</td>				
-					<td>
-						<input type="button" 
-							value="Save" 
-							class="savBtn"
-						   	onclick="#tbl##i#.action.value='u_ctcoll_other_id_type';submit();">	
-		
-						<input type="button" 
-							value="Delete" 
-							class="delBtn"
-						   	onmouseover="this.className='delBtn btnhov'" 
-						   	onmouseout="this.className='delBtn'"
-							onclick="#tbl##i#.action.value='d_ctcoll_other_id_type';submit();">	
-		
-					</td>
-				</form>
-			</tr>
-			<cfset i = #i#+1>
-		</cfloop>
-	</table>
-<cfelseif tbl is "ctspecimen_part_list_order"><!--- special section to handle  another  funky code table --->
-	<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from ctspecimen_part_list_order order by
-		list_order,partname
-	</cfquery>
-	<cfquery name="ctspecimen_part_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select collection_cde, part_name partname from ctspecimen_part_name
-	</cfquery>
-	<cfquery name="mo" dbtype="query">
-		select max(list_order) +1 maxNum from thisRec
-	</cfquery>
-	<p>
-		This application sets the order part names appear in certain reports and forms. 
-		Nothing prevents you from making several parts the same
-		order, and doing so will just cause them to not be ordered. You don't have to order things you don't care about.	
-	</p>
-	Create part ordering
-	<table class="newRec" border>
-		<tr>
-			<th>Part Name</th>
-			<th>List Order</th>
-			<th></th>
-		</tr>
-		<form name="newPart" method="post" action="CodeTableEditor.cfm">
-			<input type="hidden" name="action" value="ctspecimen_part_list_order">
-			<input type="hidden" name="tbl" value="#tbl#">
-			<input type="hidden" name="meth" value="insert">
-			<tr>
-				<td>
-					<cfset thisPart = #thisRec.partname#>
-					<select name="partname" size="1">
-						<cfloop query="ctspecimen_part_name">
-						<option 
-						value="#ctspecimen_part_name.partname#">#ctspecimen_part_name.partname# (#ctspecimen_part_name.collection_cde#)</option>
-						</cfloop>
-					</select>
-				</td>
-				<cfquery name="mo" dbtype="query">
-					select max(list_order) +1 maxNum from thisRec
-				</cfquery>
-				<td>
-					<cfset thisLO = #thisRec.list_order#>
-					<select name="list_order" size="1">
-						<cfloop from="1" to="#mo.maxNum#" index="n">
-							<option value="#n#">#n#</option>
-						</cfloop>
-					</select>
-				</td>
-				<td colspan="3">
-					<input type="submit" 
-						value="Create" 
-						class="insBtn">	
-				</td>
-			</tr>
-		</form>	
-	</table>
-	Edit part order
-	<table border>
-		<tr>
-			<th>Part Name</th>
-			<th>List Order</th>
-			<th>&nbsp;</th>
-		</tr>
-		<cfset i=1>
-		<cfloop query="thisRec">
-			<form name="part#i#" method="post" action="CodeTableEditor.cfm">
+			<form name="newPart" method="post" action="CodeTableEditor.cfm">
 				<input type="hidden" name="action" value="ctspecimen_part_list_order">
 				<input type="hidden" name="tbl" value="#tbl#">
-				<input type="hidden" name="meth">
-				<input type="hidden" name="oldlist_order" value="#list_order#">
-				<input type="hidden" name="oldpartname" value="#partname#">
+				<input type="hidden" name="meth" value="insert">
 				<tr>
 					<td>
 						<cfset thisPart = #thisRec.partname#>
 						<select name="partname" size="1">
 							<cfloop query="ctspecimen_part_name">
 							<option 
-							<cfif #thisPart# is "#ctspecimen_part_name.partname#"> selected </cfif>value="#ctspecimen_part_name.partname#">#ctspecimen_part_name.partname#</option>
+							value="#ctspecimen_part_name.partname#">#ctspecimen_part_name.partname# (#ctspecimen_part_name.collection_cde#)</option>
 							</cfloop>
 						</select>
 					</td>
+					<cfquery name="mo" dbtype="query">
+						select max(list_order) +1 maxNum from thisRec
+					</cfquery>
 					<td>
 						<cfset thisLO = #thisRec.list_order#>
 						<select name="list_order" size="1">
 							<cfloop from="1" to="#mo.maxNum#" index="n">
-								<option <cfif #thisLO# is "#n#"> selected </cfif>value="#n#">#n#</option>
+								<option value="#n#">#n#</option>
 							</cfloop>
 						</select>
 					</td>
 					<td colspan="3">
-						<input type="button" 
-							value="Save" 
-							class="savBtn"
-							onclick="part#i#.meth.value='save';submit();">	
-						<input type="button" 
-							value="Delete" 
-							class="delBtn"
-						 	onclick="part#i#.meth.value='delete';submit();">	
-							
+						<input type="submit" 
+							value="Create" 
+							class="insBtn">	
 					</td>
 				</tr>
-			</form>
-			<cfset i=#i#+1>
-		</cfloop>
-	</table>
-<cfelse><!---------------------------- normal CTs --------------->
+			</form>	
+		</table>
+		Edit part order
+		<table border>
+			<tr>
+				<th>Part Name</th>
+				<th>List Order</th>
+				<th>&nbsp;</th>
+			</tr>
+			<cfset i=1>
+			<cfloop query="thisRec">
+				<form name="part#i#" method="post" action="CodeTableEditor.cfm">
+					<input type="hidden" name="action" value="ctspecimen_part_list_order">
+					<input type="hidden" name="tbl" value="#tbl#">
+					<input type="hidden" name="meth">
+					<input type="hidden" name="oldlist_order" value="#list_order#">
+					<input type="hidden" name="oldpartname" value="#partname#">
+					<tr>
+						<td>
+							<cfset thisPart = #thisRec.partname#>
+							<select name="partname" size="1">
+								<cfloop query="ctspecimen_part_name">
+								<option 
+								<cfif #thisPart# is "#ctspecimen_part_name.partname#"> selected </cfif>value="#ctspecimen_part_name.partname#">#ctspecimen_part_name.partname#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<cfset thisLO = #thisRec.list_order#>
+							<select name="list_order" size="1">
+								<cfloop from="1" to="#mo.maxNum#" index="n">
+									<option <cfif #thisLO# is "#n#"> selected </cfif>value="#n#">#n#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td colspan="3">
+							<input type="button" 
+								value="Save" 
+								class="savBtn"
+								onclick="part#i#.meth.value='save';submit();">	
+							<input type="button" 
+								value="Delete" 
+								class="delBtn"
+							 	onclick="part#i#.meth.value='delete';submit();">	
+								
+						</td>
+					</tr>
+				</form>
+				<cfset i=#i#+1>
+			</cfloop>
+		</table>
+	<cfelse><!---------------------------- normal CTs --------------->
+		<cfquery name="getCols" datasource="uam_god">
+			select column_name from sys.user_tab_columns where table_name='#table_name#'
+		</cfquery>
+		<cfset collcde=listfindnoccase(valuelist(getCols.column_name),"collection_cde")>
+		<cfset descn=listfindnoccase(valuelist(getCols.column_name),"description")>
+		<cfquery name="f" dbtype="query">
+			select column_name from getCols where column_name not in ('collection_cde','description')
+		</cfquery>
+		<cfset fld=f.column_name>
+		<hr>
+			<br>collcde: #collcde#
+			<br>descn: #descn#
+			<br>fld: #fld#
+		<hr>
+		getCols
+		<cfif #dispValFg# is "no">
+			<cfif #getCTName.table_name# is "ctattribute_code_tables">
+				<a href="CodeTableEditor.cfm?tbl=#getCTName.table_name#&fld=special&collcde=#collcde#">#getCTName.table_name#</a>
+			<cfelse>
+				<cfset  = "">
+				<cfset descn = "">
+				<cfloop query="getCols">
+					<cfif not column_name contains "display" AND not column_name contains "description">
+						<cfif not column_name is "collection_cde">
+							<cfset fld=column_name>
+							<cfset collcde="#collcde#n">
+						<cfelse>
+							<cfset collcde="#collcde#y">
+						</cfif>
+					</cfif>
+					<cfif column_name contains "description">
+						<cfset descn="y">
+					</cfif>
+				</cfloop>
+				<cfif #collcde# contains "y">
+					<cfset collcde="y">
+				<cfelse>
+					<cfset collcde="n">
+				</cfif>
+				<cfif #descn# contains "y">
+					<cfset descn="y">
+				<cfelse>
+					<cfset descn="n">
+				</cfif>
+				<cfif #getCTName.table_name# is "CTCOLLECTION_CDE">
+					<cfset fld="COLLECTION_CDE">
+					<CFSET collcde="n">
+				</cfif>
+		
+		
+		
+		
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select #fld# as data 
 		<cfif #collcde# is "y">
@@ -534,6 +577,7 @@
 	
 	</cfif>
 	</cfoutput>
+</cfif>
 <!----------------------------------->
 <cfif action is "i_ctpublication_attribute">
 <cfoutput>
