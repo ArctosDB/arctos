@@ -422,6 +422,7 @@
 		<cfquery name="f" dbtype="query">
 			select column_name from getCols where column_name not in ('collection_cde','description')
 		</cfquery>
+		<cfdump var="#f#">
 		<cfset fld=f.column_name>
 		<hr>
 			<br>collcde: #collcde#
