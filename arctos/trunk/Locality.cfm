@@ -458,8 +458,7 @@
 					onClick="document.location='Locality.cfm?Action=findLocality&geog_auth_rec_id=#geog_auth_rec_id#';">	
 					      
                   </cfform>
-                  <form name="newGeog" method="post" action="Locality.cfm">
-                   
+                  <form name="newGeog" method="post" action="Locality.cfm">                   
                       <input type="hidden" name="Action" value="newHG">
                       <input type="hidden" name="continent_ocean" value="#continent_ocean#">
                       <input type="hidden" name="country" value="#country#">

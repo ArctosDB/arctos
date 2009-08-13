@@ -170,14 +170,11 @@
 				COLL_EVENT_REMARKS,
 				Collecting_Source,
 				COLLECTING_METHOD,
-				HABITAT_DESC,
-				dateDet.agent_name as date_determiner,
-				dateDet.agent_id AS DATE_DETERMINED_BY_AGENT_ID
+				HABITAT_DESC
 			 from collecting_event
 			inner join locality on (collecting_event.locality_id = locality.locality_id)
 			inner join geog_auth_rec on (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)
 			left outer join accepted_lat_long on (locality.locality_id = accepted_lat_long.locality_id)
-			left outer join preferred_agent_name dateDet on (collecting_event.DATE_DETERMINED_BY_AGENT_ID = dateDet.agent_id)
 			where collecting_event.collecting_event_id = #collecting_event_id#
 		</cfquery>
 		Edit below to create collecting event for this specimen:
@@ -227,11 +224,7 @@
 			</td>
 			</tr>
 			<tr>
-				<td><label for="date_determiner">Date Determiner</label>
-			<input type="hidden" name="DATE_DETERMINED_BY_AGENT_ID" value="#details.DATE_DETERMINED_BY_AGENT_ID#" />
-			<input type="text" name="date_determiner" id="date_determiner" value="#details.date_determiner#" 
-			onchange="getAgent('DATE_DETERMINED_BY_AGENT_ID','date_determiner','newCollEvent',this.value);" />
-			</td>
+				<td></td>
 				<td><label for="COLL_EVENT_REMARKS">Remarks</label>
 			<input type="text" name="COLL_EVENT_REMARKS" id="COLL_EVENT_REMARKS" value="#details.COLL_EVENT_REMARKS#" />
 		</td>
@@ -282,7 +275,6 @@
 				,ENDED_DATE
 				,VERBATIM_DATE
 				,COLLECTING_SOURCE
-				,DATE_DETERMINED_BY_AGENT_ID
 				<cfif len(#VERBATIM_LOCALITY#) gt 0>
 					,VERBATIM_LOCALITY
 				</cfif>
@@ -303,7 +295,6 @@
 				,'#ENDED_DATE#'
 				,'#VERBATIM_DATE#'
 				,'#COLLECTING_SOURCE#'
-				,#DATE_DETERMINED_BY_AGENT_ID#
 				<cfif len(#VERBATIM_LOCALITY#) gt 0>
 					,'#VERBATIM_LOCALITY#'
 				</cfif>

@@ -1,6 +1,9 @@
 <cfinclude template = "includes/_header.cfm">
 
-<cfif #action# is "nothing">
+<cfif action is "nothing">
+	<cfif isdefined("publication_id") and len(publication_id) gt 0>
+		<cflocation url="SpecimenUsage.cfm?action=search&publication_id=#publication_id#" addtoken="false">
+	</cfif>
 	<cfset title = "Search for Results">
 	<cfquery name="ctColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection,collection_id from collection order by collection_id
