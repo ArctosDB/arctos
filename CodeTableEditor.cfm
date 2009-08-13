@@ -363,7 +363,7 @@
 			</tr>
 		</form>	
 	</table>
-	Edid part order
+	Edit part order
 	<table border>
 		<tr>
 			<th>Part Name</th>
@@ -412,10 +412,6 @@
 			<cfset i=#i#+1>
 		</cfloop>
 	</table>
-	
-	
-	
-	
 <cfelse><!---------------------------- normal CTs --------------->
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select #fld# as data 
