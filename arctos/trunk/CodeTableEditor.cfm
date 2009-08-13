@@ -1,7 +1,5 @@
 <cfinclude template="includes/_header.cfm">
-<cfif #tbl# is "CTGEOLOGY_ATTRIBUTE">
-	<cflocation url="/info/geol_hierarchy.cfm">
-</cfif>
+
 <cfif not isdefined("hasDescn")>
 	<cfset hasDescn="">
 </cfif>
@@ -16,9 +14,11 @@
 </cfquery>
 <cfoutput>
 	Edit code table #tbl#
-	<cfset title = "Edit #tbl#">
+	<cfset title = "Edit code table #tbl#">
 <!---------------------------------------------------->
-<cfif #tbl# is "ctattribute_code_tables">
+<cfif tbl is "CTGEOLOGY_ATTRIBUTE">
+	<cflocation url="/info/geol_hierarchy.cfm">
+<cfelseif tbl is "ctattribute_code_tables">
 	<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select distinct(attribute_type) from ctAttribute_type
 	</cfquery>
@@ -34,6 +34,7 @@
 			<td>Attribute</td>
 			<td>Value Code Table</td>
 			<td>Units Code Table</td>
+			<td>&nbsp;</td>
 		</tr>
 		<cfset i=1>
 		<cfloop query="thisRec">
@@ -75,9 +76,7 @@
 							</cfloop>
 						</select>
 					</td>
-				</tr>
-				<tr>
-					<td colspan="3">
+					<td>
 						<input type="button" 
 							value="Save" 
 							class="savBtn"
