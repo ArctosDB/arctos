@@ -420,7 +420,7 @@
 		<cfset collcde=listfindnocase(valuelist(getCols.column_name),"collection_cde")>
 		<cfset hasDescn=listfindnocase(valuelist(getCols.column_name),"description")>
 		<cfquery name="f" dbtype="query">
-			select column_name from getCols where column_name not in ('collection_cde','description')
+			select column_name from getCols where lower(column_name) not in ('collection_cde','description')
 		</cfquery>
 		<cfdump var="#f#">
 		<cfset fld=f.column_name>
