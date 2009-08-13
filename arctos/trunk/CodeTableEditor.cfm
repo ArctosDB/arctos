@@ -408,80 +408,74 @@
 			select column_name from sys.user_tab_columns where table_name='#tbl#'
 		</cfquery>
 		<cfset collcde=listfindnocase(valuelist(getCols.column_name),"collection_cde")>
-		<cfset descn=listfindnocase(valuelist(getCols.column_name),"description")>
+		<cfset hasDescn=listfindnocase(valuelist(getCols.column_name),"description")>
 		<cfquery name="f" dbtype="query">
 			select column_name from getCols where column_name not in ('collection_cde','description')
 		</cfquery>
 		<cfset fld=f.column_name>
 		<hr>
 			<br>collcde: #collcde#
-			<br>descn: #descn#
+			<br>hasDescn: #hasDescn#
 			<br>fld: #fld#
 		<hr>
 		
 		
 	<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select #fld# as data 
-		<cfif #collcde# is "y">
+		<cfif #collcde# is 1>
 			,collection_cde
 		</cfif>
-		<cfif #hasDescn# is "y">
+		<cfif #hasDescn# is 1>
 			,description
 		</cfif>
 		from #tbl#
 		ORDER BY
-		<cfif #collcde# is "y">
+		<cfif #collcde# is 1>
 			collection_cde,
 		</cfif>
 		#fld#
 	</cfquery>
+	Add record:
 	<table class="newRec">
-	<form name="newData" method="post" action="CodeTableEditor.cfm">
-		<input type="hidden" name="collcde" value="#collcde#">
-		<input type="hidden" name="Action" value="inst#tbl#">
-		<input type="hidden" name="tbl" value="#tbl#">
-		<input type="hidden" name="hasDescn" value="#hasDescn#">
-		<input type="hidden" name="fld" value="#fld#">
-		
-		<cfif #collcde# is "y">
-			<td>
-			<select name="collection_cde" size="1">
-				<cfloop query="ctcollcde">
-					<option value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
-				</cfloop>
-			</select>
-			</td>
+		<cfif collcde is 1>
+			<th>Collection Type</th>
 		</cfif>
-			
+		<th>#fld#</th>
+		<cfif hasDescn is 1>
+			<th>Description</th>
+		</cfif>
+		<form name="newData" method="post" action="CodeTableEditor.cfm">
+			<input type="hidden" name="collcde" value="#collcde#">
+			<input type="hidden" name="action" value="newrecord">
+			<input type="hidden" name="tbl" value="#tbl#">
+			<input type="hidden" name="hasDescn" value="#hasDescn#">
+			<input type="hidden" name="fld" value="#fld#">
+			<cfif collcde is 1>
+				<td>
+					<select name="collection_cde" size="1">
+						<cfloop query="ctcollcde">
+							<option value="#ctcollcde.collection_cde#">#ctcollcde.collection_cde#</option>
+						</cfloop>
+					</select>
+				</td>
+			</cfif>
 			<td>
-			<input type="text" name="newData" >
+				<input type="text" name="newData" >
 			</td>
-			
-			<cfif #hasDescn# is "y">
+			<cfif hasDescn is 1>
 				<td>
 					<textarea name="description" rows="4" cols="40"></textarea>
 				</td>
-				
 			</cfif>
 			<td>
 				<input type="submit" 
-	value="Insert" 
-	class="insBtn"
-   	onmouseover="this.className='insBtn btnhov'" 
-   	onmouseout="this.className='insBtn'">	
-	
-	<input type="button" 
-	value="Quit" 
-	class="qutBtn"
-   	onmouseover="this.className='qutBtn btnhov'" 
-   	onmouseout="this.className='qutBtn'"
-	onClick="document.location='CodeTableButtons.cfm';">	
-				
+					value="Insert" 
+					class="insBtn">	
 			</td>
-			
-	</form>
+		</form>
 	</table>
 	<cfset i = 1>
+	Edit #tbl#:
 	<table>
 	<cfloop query="q">
 		<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
