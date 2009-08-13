@@ -3,9 +3,25 @@
 	select distinct collection_cde from ctcollection_cde
 </cfquery>
 <cfoutput>
-	<cfset title = "Edit code table #tbl#">
-	<a href="/CodeTableButtons.cfm">Back to list</a>
+<cfset title = "Edit Code Tables">
 <cfif action is "nothing">
+	<cfquery name="getCTName" datasource="uam_god">
+		select 
+			distinct(table_name) table_name 
+		from 
+			uam.user_tables 
+		where 
+			table_name like 'CT%'
+		UNION 
+			select 'CTGEOLOGY_ATTRIBUTE' table_name from dual
+		 order by table_name
+	</cfquery>
+	<cfloop query="getCTName">
+		<a href="CodeTableEditor.cfm?action=edit&tbl=#getCTName.table_name#">#getCTName.table_name#</a>
+	</cfloop>
+</cfif>
+<cfif action is "edit">
+	<a href="/CodeTableButtons.cfm">Back to list</a>
 	<cfif tbl is "CTGEOLOGY_ATTRIBUTE"><!---------------------------------------------------->
 		<cflocation url="/info/geol_hierarchy.cfm">
 	<cfelseif tbl is "ctattribute_code_tables"><!---------------------------------------------------->
