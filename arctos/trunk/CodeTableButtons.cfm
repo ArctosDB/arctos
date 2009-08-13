@@ -60,7 +60,7 @@
 				<a href="CodeTableEditor.cfm?tbl=#getCTName.table_name#&fld=#fld#&collcde=#collcde#&hasDescn=#descn#">#getCTName.table_name#</a>
 				<cfif descn is "y">
 					(includes documentation)
-				<cfelse>
+				</cfif>
 				<br>
 			</cfif>
 		</cfif>
