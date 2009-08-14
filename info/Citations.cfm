@@ -49,7 +49,23 @@
 				</cfif>
 				
 			</td>
-			<td>#cnt#</td>
+			<td>
+				<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					SELECT 
+						citation.collection_object_id
+					FROM
+						citation,
+						identification,
+						taxonomy
+					WHERE
+						citation.collection_object_id = identification.collection_object_id AND
+						identification.accepted_id_fg = 1 AND
+						citation.cited_taxon_name_id = taxonomy.taxon_name_id and
+						identification.scientific_name='#scientific_name#' and 
+						taxonomy.scientific_name='#CitName#'
+				</cfquery>
+				<a href="/SpecimenResults.cfm?collection_object_id=#valuelist(wtf.collection_object_id)#">#cnt#</a>
+			</td>
 		</tr>
 	</cfloop>
 	</table>
