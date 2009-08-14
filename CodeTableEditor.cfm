@@ -22,7 +22,7 @@
 <cfelseif action is "edit">
 	<a href="/CodeTableButtons.cfm">Back to list</a>
 	<cfif tbl is "CTGEOLOGY_ATTRIBUTE"><!---------------------------------------------------->
-		<cflocation url="/info/geol_hierarchy.cfm">
+		<cflocation url="/info/geol_hierarchy.cfm" addtoken="false">
 	<cfelseif tbl is "ctattribute_code_tables"><!---------------------------------------------------->
 		<cfquery name="ctAttribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select distinct(attribute_type) from ctAttribute_type
@@ -134,11 +134,11 @@
 							<input type="button" 
 								value="Save" 
 								class="savBtn"
-							 	onclick="att#i#.meth.value='saveEdit';submit();">	
+							 	onclick="att#i#.action.value='saveEdit';submit();">	
 							<input type="button" 
 								value="Delete" 
 								class="delBtn"
-							  	onclick="att#i#.meth.value='deleteValue';submit();">	
+							  	onclick="att#i#.action.value='deleteValue';submit();">	
 						</td>
 					</tr>
 				</form>
@@ -334,7 +334,6 @@
 			<form name="newPart" method="post" action="CodeTableEditor.cfm">
 				<input type="hidden" name="action" value="newValue">
 				<input type="hidden" name="tbl" value="#tbl#">
-				<input type="hidden" name="meth" value="insert">
 				<tr>
 					<td>
 						<cfset thisPart = #thisRec.partname#>
@@ -376,7 +375,6 @@
 				<form name="part#i#" method="post" action="CodeTableEditor.cfm">
 					<input type="hidden" name="action" value="ctspecimen_part_list_order">
 					<input type="hidden" name="tbl" value="#tbl#">
-					<input type="hidden" name="meth">
 					<input type="hidden" name="oldlist_order" value="#list_order#">
 					<input type="hidden" name="oldpartname" value="#partname#">
 					<tr>
@@ -401,11 +399,11 @@
 							<input type="button" 
 								value="Save" 
 								class="savBtn"
-								onclick="part#i#.meth.value='saveEdit';submit();">	
+								onclick="part#i#.action.value='saveEdit';submit();">	
 							<input type="button" 
 								value="Delete" 
 								class="delBtn"
-							 	onclick="part#i#.meth.value='deleteValue';submit();">	
+							 	onclick="part#i#.action.value='deleteValue';submit();">	
 								
 						</td>
 					</tr>
@@ -582,7 +580,7 @@
 		<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			DELETE FROM #tbl# 
 			where #fld# = '#origData#'
-			<cfif #collcde# is "y">
+			<cfif isdefined("collection_cde") and len(collection_cde) gt 0>
 				 AND collection_cde='#origcollection_cde#'
 			</cfif>
 		</cfquery>
@@ -630,14 +628,14 @@
 	<cfelse>
 		<cfquery name="up" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			UPDATE #tbl# SET #fld# = '#thisField#'
-			<cfif #collcde# is "y">
+			<cfif isdefined("collection_cde") and len(collection_cde) gt 0>
 				,collection_cde='#collection_cde#'
 			</cfif>
 			<cfif #hasDescn# is "y">
 				,description='#description#'
 			</cfif>
 			where #fld# = '#origData#'
-			<cfif #collcde# is "y">
+			<cfif isdefined("collection_cde") and len(collection_cde) gt 0>
 				 AND collection_cde='#origcollection_cde#'
 			</cfif>
 		</cfquery>
@@ -704,7 +702,7 @@
 		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			INSERT INTO #tbl# 
 				(#fld#
-				<cfif #collcde# is "y">
+				<cfif isdefined("collection_cde") and len(collection_cde) gt 0>
 					 ,collection_cde
 				</cfif>
 				<cfif #hasDescn# is "y">
@@ -713,7 +711,7 @@
 				)
 			VALUES 
 				('#newData#'
-				<cfif #collcde# is "y">
+				<cfif isdefined("collection_cde") and len(collection_cde) gt 0>
 					 ,'#collection_cde#'
 				</cfif>
 				<cfif #hasDescn# is "y">
