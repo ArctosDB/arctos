@@ -162,7 +162,7 @@
 					MEDIA_LABEL= 'MD5 checksum'
 				</cfquery>
 				<cfif isHash.recordcount is 1 and isHash.LABEL_VALUE is not remote_hash>
-					<cfquery name="fit" datasource="cf_dbuser">
+					<cfquery name="fit" datasource="uam_god">
 						update 
 							cf_tacc_transfer 
 						set 
@@ -171,7 +171,7 @@
 							media_id=#media_id#
 					</cfquery>
 				<cfelseif isHash.recordcount gt 1>
-					<cfquery name="fit" datasource="cf_dbuser">
+					<cfquery name="fit" datasource="uam_god">
 						update 
 							cf_tacc_transfer 
 						set 
@@ -196,7 +196,7 @@
 					<cfquery name="fit" datasource="uam_god">
 						update media set media_uri='#remote_uri#' where media_id=#media_id#
 					</cfquery>
-					<cfquery name="fit" datasource="cf_dbuser">
+					<cfquery name="fit" datasource="uam_god">
 						update 
 							cf_tacc_transfer 
 						set 
@@ -206,7 +206,7 @@
 					</cfquery>
 				</cfif>
 			<cfelse>
-				<cfquery name="fit" datasource="cf_dbuser">
+				<cfquery name="fit" datasource="uam_god">
 					update 
 						cf_tacc_transfer 
 					set 
