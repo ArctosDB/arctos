@@ -409,13 +409,7 @@
 		<cfquery name="f" dbtype="query">
 			select column_name from getCols where lower(column_name) not in ('collection_cde','description')
 		</cfquery>
-		<cfdump var="#f#">
 		<cfset fld=f.column_name>
-		<hr>
-			<br>collcde: #collcde#
-			<br>hasDescn: #hasDescn#
-			<br>fld: #fld#
-		<hr>
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select #fld# as data 
 			<cfif #collcde# is 1>
