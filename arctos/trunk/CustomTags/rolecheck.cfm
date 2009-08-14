@@ -5,15 +5,10 @@
 		#escapeGoofyInstall# is not "/ChangePassword.cfm")>
 		<cflocation url="/ChangePassword.cfm">	
 	</cfif>
-	<!---
-	 
-	--->
-	escapeGoofyInstall: #escapeGoofyInstall#
 	<cfquery name="isValid" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 		select ROLE_NAME from cf_form_permissions 
 		where form_path = '#escapeGoofyInstall#'
 	</cfquery>
-	<cfdump var=#isValid#>
 	<cfif #isValid.recordcount# is 0>
 		<div class="error">
 			You do not have permission to access this form.
