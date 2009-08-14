@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<script src="/includes/sorttable.js"></script>
 <cfquery name="loanData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 	 collection,
@@ -6,7 +7,8 @@
 	 loan.loan_number,
 	 concattransagent(loan.TRANSACTION_ID,'received by') loaned_to,
 	 LOAN_STATUS,
-	 RETURN_DUE_DATE
+	 RETURN_DUE_DATE,
+	 TRANS_DATE
 	from
 	 loan,
 	 trans,
@@ -16,21 +18,26 @@
 	 trans.collection_id=collection.collection_id
 </cfquery>
 <cfoutput>
-<table border>
+<div style="background-color:lightgray;font-size:small;padding:1em;">
+	* Citations apply to cataloged items and do not reflect activity resulting from any particular loan.
+</div>
+<table border id="t" class="sortable">
 	<tr>
-		<td>Loan</td>
-		<td>Loaned To</td>
-		<td>Status</td>
-		<td>Due Date</td>
-		<td>Items Loaned</td>
-		<td>Citations</td>
+		<th>Loan</th>
+		<th>Loaned To</th>
+		<th>Status</th>
+		<th>Trans Date</th>
+		<th>Due Date</th>
+		<th>Items Loaned</th>
+		<th>Citations*</th>
 	</tr>
 	<cfloop query="loanData">
 		<tr>
 			<td nowrap="nowrap">#collection# <a href="/Loan.cfm?action=editLoan&TRANSACTION_ID=#TRANSACTION_ID#">#loan_number#</a></td>
 			<td nowrap="nowrap">#loaned_to#</td>
 			<td>#LOAN_STATUS#</td>
-			<td nowrap="nowrap">#dateformat(RETURN_DUE_DATE,"dd mmm yyyy")#</td>
+			<td nowrap="nowrap">#dateformat(TRANS_DATE,"dd mmm yyyy")#&nbsp;</td>
+			<td nowrap="nowrap">#dateformat(RETURN_DUE_DATE,"dd mmm yyyy")#&nbsp;</td>
 			<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					collection,
@@ -76,9 +83,9 @@
 			<td>
 				<cfloop query="wtf">
 					#CntCatNum# (#collection#: #ltype#)<br>
-				</cfloop>
+				</cfloop>&nbsp;
 			</td>
-			<td>#wtf.cntCited#</td>
+			<td>#wtf.cntCited#&nbsp;</td>
 		</tr>
 	</cfloop>
 </table>
