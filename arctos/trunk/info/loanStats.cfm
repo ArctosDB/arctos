@@ -23,6 +23,7 @@
 		<td>Status</td>
 		<td>Due Date</td>
 		<td>Items Loaned</td>
+		<td>Citations</td>
 	</tr>
 	<cfloop query="loanData">
 		<tr>
@@ -33,17 +34,20 @@
 			<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					collection,
-					count(*) CntCatNum,
+					count(distinct(cataloged_item.collection_object_id)) CntCatNum,
+					count(distinct(citation.collection_object_id)) cntCited,
 					'part' ltype
 				from
 					loan_item,
 					specimen_part,
 					cataloged_item,
-					collection
+					collection,
+					citation
 				WHERE
 					loan_item.collection_object_id = specimen_part.collection_object_id and
 					specimen_part.derived_from_cat_item = cataloged_item.collection_object_id and
 					cataloged_item.collection_id=collection.collection_id and
+					cataloged_item.collection_object_id=citation.collection_object_id and
 					transaction_id=#transaction_id#
 				group by
 					collection
@@ -52,15 +56,18 @@
 				<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select 
 						collection,
-						count(*) CntCatNum,
+						count(distinct(cataloged_item.collection_object_id)) CntCatNum,
+						count(distinct(citation.collection_object_id)) cntCited,
 						'catitem' ltype
 					from
 						loan_item,
 						cataloged_item,
-						collection
+						collection,
+						citation
 					WHERE
 						loan_item.collection_object_id = cataloged_item.collection_object_id and
 						cataloged_item.collection_id=collection.collection_id and
+						cataloged_item.collection_object_id=citation.collection_object_id and
 						transaction_id=#transaction_id#
 					group by
 						collection
@@ -71,6 +78,7 @@
 					#CntCatNum# (#collection#: #ltype#)<br>
 				</cfloop>
 			</td>
+			<td>#cntCited#</td>
 		</tr>
 	</cfloop>
 </table>
