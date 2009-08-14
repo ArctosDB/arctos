@@ -14,7 +14,6 @@
 		where form_path = '#escapeGoofyInstall#'
 	</cfquery>
 	<cfdump var=#isValid#>
-	<cfabort>
 	<cfif #isValid.recordcount# is 0>
 		<div class="error">
 			You do not have permission to access this form.
