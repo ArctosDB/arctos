@@ -614,7 +614,7 @@
 			<cfif isdefined("collection_cde") and len(collection_cde) gt 0>
 				,collection_cde='#collection_cde#'
 			</cfif>
-			<cfif isdefined("description") and len(description) gt 0>
+			<cfif isdefined("description")>
 				,description='#description#'
 			</cfif>
 			where #fld# = '#origData#'
