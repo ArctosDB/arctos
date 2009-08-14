@@ -8,6 +8,7 @@
 	<!---
 	 
 	--->
+	escapeGoofyInstall: #escapeGoofyInstall#
 	<cfquery name="isValid" datasource="uam_god" cachedWithin="#CreateTimeSpan(0,1,0,0)#">
 		select ROLE_NAME from cf_form_permissions 
 		where form_path = '#escapeGoofyInstall#'
