@@ -180,11 +180,7 @@
 					<td>
 						<input type="submit" 
 							value="Insert" 
-							class="insBtn">	
-						<input type="button" 
-							value="Quit" 
-							class="qutBtn"
-							onClick="document.location='CodeTableButtons.cfm';">	
+							class="insBtn">
 					</td>
 				</tr>
 			</table>
@@ -259,12 +255,7 @@
 					<td>
 						<input type="submit" 
 							value="Insert" 
-							class="insBtn">	
-						<input type="button" 
-							value="Quit" 
-							class="qutBtn"
-							onClick="document.location='CodeTableButtons.cfm';">	
-					
+							class="insBtn">					
 					</td>
 				</tr>
 			</table>
@@ -289,19 +280,17 @@
 							<textarea name="description" rows="4" cols="40">#description#</textarea>
 						</td>
 						<td>
-							<textarea name="base_url" rows="4" cols="40">#base_url#</textarea>
+							<input type="text" name="base_url" size="60" value="#base_url#">
 						</td>				
 						<td>
 							<input type="button" 
 								value="Save" 
 								class="savBtn"
 							   	onclick="#tbl##i#.action.value='saveEdit';submit();">	
-			
 							<input type="button" 
 								value="Delete" 
 								class="delBtn"
 								onclick="#tbl##i#.action.value='deleteValue';submit();">	
-			
 						</td>
 					</form>
 				</tr>
