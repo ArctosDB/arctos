@@ -1,3 +1,4 @@
+<cfinclude template="/includes/_header.cfm">
 <cfquery name="loanData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
  select 
 	 loan.TRANSACTION_ID,
@@ -36,37 +37,48 @@ GROUP BY
 			<td>#dateformat(RETURN_DUE_DATE,"dd mmm yyyy")#</td>
 			<td>#numItems#</td>
 			<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select count(distinct(cat_num)) CntCatNum from
+				select 
+					collection,
+					count(*) CntCatNum,
+					'part' ltype
+				from
 					loan_item,
 					specimen_part,
-					cataloged_item
+					cataloged_item,
+					collection
 				WHERE
 					loan_item.collection_object_id = specimen_part.collection_object_id and
 					specimen_part.derived_from_cat_item = cataloged_item.collection_object_id and
+					cataloged_item.collection_id=collection.collection_id and
 					transaction_id=#transaction_id#
-				<!----
-				UNION <!---- cataloged item loans ---->
-				select count(distinct(cat_num)) CntCatNum from
-					loan_item,
-					cataloged_item
-				WHERE
-					loan_item.collection_object_id = cataloged_item.collection_object_id and
-					transaction_id=#transaction_id#
-					---->
+				group by
+					collection
 			</cfquery>
-			<cfquery name="wtf2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select count(distinct(cat_num)) CntCatNum from
-					loan_item,
-					cataloged_item
-				WHERE
-					loan_item.collection_object_id = cataloged_item.collection_object_id and
-					transaction_id=#transaction_id#
-				</cfquery>
-			<cfset totNumCit = #wtf.CntCatNum# + #wtf2.CntCatNum#>
-			<td>#totNumCit#</td>
+			<cfif wtf.recordcount is 0>
+				<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select 
+						collection,
+						count(*) CntCatNum,
+						'catitem' ltype
+					from
+						loan_item,
+						cataloged_item,
+						collection
+					WHERE
+						loan_item.collection_object_id = cataloged_item.collection_object_id and
+						cataloged_item.collection_id=collection.collection_id and
+						transaction_id=#transaction_id#
+					</cfquery>
+				</cfif>
+			<td>
+				<cfloop query="wtf">
+					#collection#: #CntCatNum# (#ltype#)<br>
+				</cfloop>
+			</td>
 		</tr>
 	</cfloop>
 </table>
 
 #loanData.recordcount#
 </cfoutput>
+<cfinclude template="/includes/_footer.cfm">
