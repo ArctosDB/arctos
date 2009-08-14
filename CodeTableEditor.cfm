@@ -457,7 +457,7 @@
 			</tr>
 			<form name="newData" method="get" action="CodeTableEditor.cfm">
 				<input type="hidden" name="collcde" value="#collcde#">
-				<input type="hidden" name="action" value="newrecord">
+				<input type="hidden" name="action" value="newValue">
 				<input type="hidden" name="tbl" value="#tbl#">
 				<input type="hidden" name="hasDescn" value="#hasDescn#">
 				<input type="hidden" name="fld" value="#fld#">
