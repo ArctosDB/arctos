@@ -438,7 +438,7 @@
 					<th>Description</th>
 				</cfif>
 			</tr>
-			<form name="newData" method="get" action="CodeTableEditor.cfm">
+			<form name="newData" method="post" action="CodeTableEditor.cfm">
 				<input type="hidden" name="collcde" value="#collcde#">
 				<input type="hidden" name="action" value="newValue">
 				<input type="hidden" name="tbl" value="#tbl#">
