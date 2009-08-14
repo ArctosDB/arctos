@@ -84,7 +84,7 @@
 				</cfif>
 			<td>
 				<cfloop query="wtf">
-					<a href="/SpecimenResults.cfm?loan_trans_id=#TRANSACTION_ID#&collection_id=#collection_id#">#CntCatNum# (#collection#: #ltype#)</a>
+					<a href="/SpecimenResults.cfm?loan_trans_id=#loanData.TRANSACTION_ID#&collection_id=#loanData.collection_id#">#CntCatNum# (#collection#: #ltype#)</a>
 				</cfloop>&nbsp;
 			</td>
 			<td>#wtf.cntCited#&nbsp;</td>
