@@ -20,7 +20,9 @@
 		<a href="CodeTableEditor.cfm?action=edit&tbl=#getCTName.table_name#">#getCTName.table_name#</a><br>
 	</cfloop>
 <cfelseif action is "edit">
-	<a href="/CodeTableEditor.cfm">Back to table list</a>
+	<p>
+		<a href="/CodeTableEditor.cfm">Back to table list</a>
+	</p>
 	<cfif tbl is "CTGEOLOGY_ATTRIBUTE"><!---------------------------------------------------->
 		<cflocation url="/info/geol_hierarchy.cfm" addtoken="false">
 	<cfelseif tbl is "ctattribute_code_tables"><!---------------------------------------------------->
