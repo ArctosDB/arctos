@@ -1401,16 +1401,6 @@
 	</cfif>
 </cfif>
 
-
-
-
-
-
-
-
-
-
-
 <cfif isdefined("loan_trans_id") and len(#loan_trans_id#) gt 0>
 	<cfset mapurl = "#mapurl#&loan_trans_id=#loan_trans_id#">
 	<cfset basQual = " #basQual# AND cataloged_item.collection_object_id IN (
