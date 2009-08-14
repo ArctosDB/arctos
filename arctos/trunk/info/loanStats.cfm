@@ -1,24 +1,19 @@
 <cfinclude template="/includes/_header.cfm">
 <cfquery name="loanData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
  select 
+	 collection
 	 loan.TRANSACTION_ID,
 	 loan.loan_number,
-	 agent_name loaned_to,
+	 concattransagent(loan.TRANSACTION_ID,'received by') loaned_to,
 	 LOAN_STATUS,
 	 RETURN_DUE_DATE
  from
 	 loan,
 	 trans,
-	 preferred_agent_name
+	 collection
  where
 	 loan.transaction_id = trans.transaction_id and
-	 trans.RECEIVED_AGENT_ID = preferred_agent_name.agent_id
-GROUP BY
-	loan.TRANSACTION_ID,
-	 loan.loan_number,
-	 agent_name,
-	 LOAN_STATUS,
-	 RETURN_DUE_DATE
+	 trans.collection_id=collection.collection_id
 </cfquery>
 <cfoutput>
 <table border>
@@ -31,10 +26,10 @@ GROUP BY
 	</tr>
 	<cfloop query="loanData">
 		<tr>
-			<td><a href="Loan.cfm?action=editLoan&TRANSACTION_ID=#TRANSACTION_ID#">#loan_number#</a></td>
-			<td>#loaned_to#</td>
+			<td nowrap="nowrap">#collection# <a href="/Loan.cfm?action=editLoan&TRANSACTION_ID=#TRANSACTION_ID#">#loan_number#</a></td>
+			<td nowrap="nowrap">#loaned_to#</td>
 			<td>#LOAN_STATUS#</td>
-			<td>#dateformat(RETURN_DUE_DATE,"dd mmm yyyy")#</td>
+			<td nowrap="nowrap">#dateformat(RETURN_DUE_DATE,"dd mmm yyyy")#</td>
 			<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					collection,
