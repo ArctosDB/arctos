@@ -3,6 +3,7 @@
 <cfquery name="loanData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 	 collection,
+	 collection.collection_id,
 	 loan.TRANSACTION_ID,
 	 loan.loan_number,
 	 concattransagent(loan.TRANSACTION_ID,'received by') loaned_to,
@@ -18,7 +19,8 @@
 	 trans.collection_id=collection.collection_id
 </cfquery>
 <cfoutput>
-<div style="background-color:lightgray;font-size:small;padding:1em;">
+	<h2>Loan Statistics</h2>
+<div style="background-color:lightgray;font-size:small;padding:1em; width:50%; align:center;">
 	* Citations apply to cataloged items and do not reflect activity resulting from any particular loan.
 </div>
 <table border id="t" class="sortable">
@@ -82,7 +84,7 @@
 				</cfif>
 			<td>
 				<cfloop query="wtf">
-					#CntCatNum# (#collection#: #ltype#)<br>
+					<a href="/SpecimenResults.cfm?loan_trans_id=#TRANSACTION_ID#&collection_id=#collection_id#">#CntCatNum# (#collection#: #ltype#)</a>
 				</cfloop>&nbsp;
 			</td>
 			<td>#wtf.cntCited#&nbsp;</td>

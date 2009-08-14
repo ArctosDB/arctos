@@ -1401,6 +1401,27 @@
 	</cfif>
 </cfif>
 
+
+
+
+
+
+
+
+
+
+
+<cfif isdefined("loan_trans_id") and len(#loan_trans_id#) gt 0>
+	<cfset mapurl = "#mapurl#&loan_trans_id=#loan_trans_id#">
+	<cfset basQual = " #basQual# AND cataloged_item.collection_object_id IN (
+		select loan_item.collection_object_id from loan_item where loan_item.transaction_id=#loan_trans_id#
+		UNION
+		select derived_from_cat_item from specimen_part,loan_item where 
+			specimen_part.collection_object_id=loan_item.collection_object_id and loan_item.transaction_id=#loan_trans_id#
+			)">
+</cfif>
+
+
 <cfif isdefined("loan_permit_trans_id") and len(#loan_permit_trans_id#) gt 0>
 	<cfset mapurl = "#mapurl#&loan_permit_trans_id=#loan_permit_trans_id#">
 	<cfif #basJoin# does not contain " loan_permit_trans ">
