@@ -1,17 +1,17 @@
 <cfinclude template="/includes/_header.cfm">
 <cfquery name="loanData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
- select 
-	 collection
+	select 
+	 collection,
 	 loan.TRANSACTION_ID,
 	 loan.loan_number,
 	 concattransagent(loan.TRANSACTION_ID,'received by') loaned_to,
 	 LOAN_STATUS,
 	 RETURN_DUE_DATE
- from
+	from
 	 loan,
 	 trans,
 	 collection
- where
+	where
 	 loan.transaction_id = trans.transaction_id and
 	 trans.collection_id=collection.collection_id
 </cfquery>
