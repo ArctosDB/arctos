@@ -20,8 +20,9 @@
 </cfquery>
 <cfoutput>
 	<h2>Loan Statistics</h2>
-<div style="background-color:lightgray;font-size:small;padding:1em; width:50%; align:center;">
-	* Citations apply to cataloged items and do not reflect activity resulting from any particular loan.
+<div style="background-color:lightgray;font-size:small;padding:1em; width:50%; align:center;margin-left:3em;margin:1em;">
+	Citations apply to cataloged items and do not reflect activity resulting from any particular loan.
+	<br>Counts may not be exact.
 </div>
 <table border id="t" class="sortable">
 	<tr>
@@ -31,7 +32,7 @@
 		<th>Trans Date</th>
 		<th>Due Date</th>
 		<th>Items Loaned</th>
-		<th>Citations*</th>
+		<th>Citations</th>
 	</tr>
 	<cfloop query="loanData">
 		<tr>
@@ -87,7 +88,9 @@
 					<a href="/SpecimenResults.cfm?loan_trans_id=#loanData.TRANSACTION_ID#&collection_id=#loanData.collection_id#">#CntCatNum# (#collection#: #ltype#)</a>
 				</cfloop>&nbsp;
 			</td>
-			<td>#wtf.cntCited#&nbsp;</td>
+			<td><a href="/SpecimenResults.cfm?loan_trans_id=#loanData.TRANSACTION_ID#&collection_id=#loanData.collection_id#&type_status=any">
+					#wtf.cntCited#</a>&nbsp;
+			</td>
 		</tr>
 	</cfloop>
 </table>
