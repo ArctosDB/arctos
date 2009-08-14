@@ -412,15 +412,15 @@
 		<cfset fld=f.column_name>
 		<cfquery name="q" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select #fld# as data 
-			<cfif #collcde# is 1>
+			<cfif collcde gt 0>
 				,collection_cde
 			</cfif>
-			<cfif #hasDescn# is 1>
+			<cfif hasDescn gt 0>
 				,description
 			</cfif>
 			from #tbl#
 			ORDER BY
-			<cfif #collcde# is 1>
+			<cfif collcde gt 0>
 				collection_cde,
 			</cfif>
 			#fld#
@@ -428,11 +428,11 @@
 		Add record:
 		<table class="newRec" border="1">
 			<tr>
-				<cfif collcde is 1>
+				<cfif collcde gt 0>
 					<th>Collection Type</th>
 				</cfif>
 				<th>#fld#</th>
-				<cfif hasDescn is 1>
+				<cfif hasDescn gt 0>
 					<th>Description</th>
 				</cfif>
 			</tr>
@@ -443,7 +443,7 @@
 				<input type="hidden" name="hasDescn" value="#hasDescn#">
 				<input type="hidden" name="fld" value="#fld#">
 				<tr>
-					<cfif collcde is 1>
+					<cfif collcde gt 0>
 						<td>
 							<select name="collection_cde" size="1">
 								<cfloop query="ctcollcde">
@@ -456,7 +456,7 @@
 						<input type="text" name="newData" >
 					</td>
 					
-					<cfif hasDescn is 1>
+					<cfif hasDescn gt 0>
 						<td>
 							<textarea name="description" rows="4" cols="40"></textarea>
 						</td>
@@ -473,11 +473,11 @@
 		Edit #tbl#:
 		<table border="1">
 			<tr>
-				<cfif collcde is 1>
+				<cfif collcde gt 0>
 					<th>Collection Type</th>
 				</cfif>
 				<th>#fld#</th>
-				<cfif hasDescn is 1>
+				<cfif hasDescn gt 0>
 					<th>Description</th>
 				</cfif>
 			</tr>
@@ -490,7 +490,7 @@
 						<input type="hidden" name="collcde" value="#collcde#">
 						<input type="hidden" name="hasDescn" value="#hasDescn#">
 						<input type="hidden" name="origData" value="#q.data#">
-						<cfif collcde is 1>
+						<cfif collcde gt 0>
 							<input type="hidden" name="origcollection_cde" value="#q.collection_cde#">
 							<cfset thisColl=#q.collection_cde#>
 							<td>
@@ -505,7 +505,7 @@
 						<td>
 							<input type="text" name="thisField" value="#q.data#" size="50">
 						</td>
-						<cfif #hasDescn# is "y">
+						<cfif hasDescn gt 0>
 							<td>
 								<textarea name="description" rows="4" cols="40">#q.description#</textarea>
 							</td>				
