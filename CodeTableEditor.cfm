@@ -509,7 +509,7 @@
 						<input type="hidden" name="collcde" value="#collcde#">
 						<input type="hidden" name="hasDescn" value="#hasDescn#">
 						<input type="hidden" name="origData" value="#q.data#">
-						<cfif #collcde# is "y">
+						<cfif collcde is 1>
 							<input type="hidden" name="origcollection_cde" value="#q.collection_cde#">
 							<cfset thisColl=#q.collection_cde#>
 							<td>
