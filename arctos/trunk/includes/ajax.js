@@ -802,7 +802,7 @@ function success_getSpecResultsData(result){
 			orderedCollObjIdArray.push(data.COLLECTION_OBJECT_ID[i]);
 		}
 		var orderedCollObjIdList='';
-		if (orderedCollObjIdArray.length < 100) {
+		if (orderedCollObjIdArray.length < 200) {
 			var orderedCollObjIdList = orderedCollObjIdArray.join(",");
 		}
 		for (i=0; i<result.ROWCOUNT; ++i) {
