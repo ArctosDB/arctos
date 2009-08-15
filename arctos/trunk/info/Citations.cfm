@@ -29,7 +29,7 @@
 		</tr>
 		<cfloop query="citColl">
 			<tr>
-				<td>##collection#</td>
+				<td>#collection#</td>
 				<td>#cnt#</td>
 			</tr>
 		</cfloop>
