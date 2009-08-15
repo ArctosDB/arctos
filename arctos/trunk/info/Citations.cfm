@@ -54,7 +54,7 @@
 </cfif>
 
 
-<cfelseif action is "CitTax">
+<cfif action is "CitTax">
 	<cfquery name="cit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 			count(citation.collection_object_id) as cnt,
@@ -122,7 +122,7 @@
 	</cfloop>
 	</table>
 	
-	
+	</cfif>
 
 
 </cfoutput>
