@@ -34,6 +34,7 @@
 			</tr>
 		</cfloop>
 	</table>
+	<h2>More Information</h2>
 	<form name="a" method="post" action="Citations.cfm">
 		<input type="hidden" name="action" value="CitTax">
 		<label for="collection_id">Collection</label>
@@ -49,7 +50,7 @@
 			<option value="1">yes</option>
 			<option value="0">no</option>
 		</select>
-	
+		<br><input type="submit" class="lnkBtn" value="go">
 	</form>
 </cfif>
 
