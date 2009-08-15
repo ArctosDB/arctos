@@ -84,7 +84,7 @@
 		ORDER BY 
 			scientific_name
 	</cfquery>
-	Citations by Taxonomy:<a name="CitTax"></a> <a href="##top"><i><font size="-1">Top</font></i></a>
+	Citations by Taxonomy:
 	<table border>
 		<tr>
 			<td>Accepted Name</td>
