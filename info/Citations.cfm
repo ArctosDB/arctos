@@ -20,7 +20,7 @@
 			collection.collection
 	</cfquery>
 	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select collection,collection from collection group by collection,collection order by collection
+		select collection,collection_id from collection group by collection,collection_id order by collection
 	</cfquery>
 	<table border>
 		<tr>
@@ -40,7 +40,7 @@
 		<select name="collection_id" id="collection_id">
 			<option value="">Any</option>
 			<cfloop query="ctcollection">
-				<option value="#collection#">#collection#</option>
+				<option value="#collection_id#">#collection#</option>
 			</cfloop>
 		</select>
 		<label for="ismatch">ID & Citation match?</label>
@@ -71,7 +71,7 @@
 			identification.accepted_id_fg = 1 AND
 			citation.cited_taxon_name_id = citName.taxon_name_id
 			<cfif isdefined("collection_id") and len(collection_id) gt 0>
-				and collection_id=#collection_id#
+				and cataloged_item.collection_id=#collection_id#
 			</cfif>
 			<cfif isdefined("ismatch") and ismatch is 0>
 				and identification.scientific_name != taxonomy.scientific_name
