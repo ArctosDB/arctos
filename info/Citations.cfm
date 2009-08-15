@@ -70,7 +70,7 @@
 			citation.collection_object_id = cataloged_item.collection_object_id and
 			cataloged_item.collection_object_id=identification.collection_object_id AND
 			identification.accepted_id_fg = 1 AND
-			citation.cited_taxon_name_id = citName.taxon_name_id
+			citation.cited_taxon_name_id = taxonomy.taxon_name_id
 			<cfif isdefined("collection_id") and len(collection_id) gt 0>
 				and cataloged_item.collection_id=#collection_id#
 			</cfif>
