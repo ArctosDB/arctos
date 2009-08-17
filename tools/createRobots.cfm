@@ -31,11 +31,12 @@
 <cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="file">
 
 <cfdump var="#q#">
+<cfset allowedFileList="favicon.ico,robots.txt">
 <cfloop query="q">
 	<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) c from cf_form_permissions where form_path='/#name#' and role_name='public'
 	</cfquery>
-	<cfif current.c is 0 and right(name,7) is not ".xml.gz">
+	<cfif current.c is 0 and right(name,7) is not ".xml.gz" and not listfindnocase(allowedFileList,name)>
 		<cfscript>
 			a='Disallow: /' & name;
 			variables.joFileWriter.writeLine(a);
