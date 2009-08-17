@@ -3,6 +3,12 @@
 <cfif not isdefined("limit")>
 	<cfset limit=1000>
 </cfif>
+<cfif not isdefined("lterm")>
+	<cfset lterm="GENUS">
+</cfif>
+<cfif not isdefined("hterm")>
+	<cfset hterm="FAMILY">
+</cfif>
 <cfif not isdefined("collection_id")>
 	<cfset collection_id=''>
 </cfif>
@@ -45,13 +51,13 @@
 			<label for="lterm">Term....</label>
 			<select name="lterm" id="lterm">
 				<cfloop list="taxaRanks" index="i">
-					<option value="#i#" <cfif isdefined("lterm") and lerm is i>selected="selected"</cfif>>#i#</option>
+					<option value="#i#" <cfif lterm is i>selected="selected"</cfif>>#i#</option>
 				</cfloop>
 			</select>
 			<label for="hterm">has multiple values under....</label>
 			<select name="hterm" id="hterm">
 				<cfloop list="taxaRanks" index="i">
-					<option value="#i#" <cfif isdefined("hterm") and hterm is i>selected="selected"</cfif>>#i#</option>
+					<option value="#i#" <cfif hterm is i>selected="selected"</cfif>>#i#</option>
 				</cfloop>
 			</select>
 		</div>
