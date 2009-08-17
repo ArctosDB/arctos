@@ -50,13 +50,13 @@
 		<div id="higherCrash" style="display:none;">
 			<label for="lterm">Term....</label>
 			<select name="lterm" id="lterm">
-				<cfloop list="taxaRanks" index="i">
+				<cfloop list="#taxaRanks#" index="i">
 					<option value="#i#" <cfif lterm is i>selected="selected"</cfif>>#i#</option>
 				</cfloop>
 			</select>
 			<label for="hterm">has multiple values under....</label>
 			<select name="hterm" id="hterm">
-				<cfloop list="taxaRanks" index="i">
+				<cfloop list="#taxaRanks#" index="i">
 					<option value="#i#" <cfif hterm is i>selected="selected"</cfif>>#i#</option>
 				</cfloop>
 			</select>
