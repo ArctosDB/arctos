@@ -35,7 +35,7 @@
 	<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) c from cf_form_permissions where form_path='/#name#' and role_name='public'
 	</cfquery>
-	<cfif current.c is 0>
+	<cfif current.c is 0 and right(name,7) is not ".xml.gz">
 		<cfscript>
 			a='Disallow: /' & name;
 			variables.joFileWriter.writeLine(a);
