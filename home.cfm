@@ -218,9 +218,8 @@ The data providers are not responsible for loss or damages due to use of these d
 <div class="a">
 	A: Almost. Live data are stored in a <a href="http://arctos.googlecode.com/files/Arctos_1page.pdf" class="external" target="_blank">
 	highly normalized relational structure</a> - fabulous for 
-	organization, not so hot for query. Data are then transformed to a flat structure and optimized for 
-	query performance by way of Database Triggers. Data are generally less than one minute stale. Exceptions sometimes
-	occur, as when many rows are created or changed.
+	organization, not so hot for query. Some data are then optimized for 
+	query performance by way of Database Triggers. Presentation data are generally less than one minute stale.
 </div>
 <div class="q">
 	Q: Is there a limit on the number of records I can return in a search?
@@ -236,7 +235,7 @@ The data providers are not responsible for loss or damages due to use of these d
 </div>
 <div class="a">
 	A: A Virtual Private Database allows us to share resources, like programmers and hardware, along with some data,
-	such as Taxonomy. We all end up with more than we could afford by ourselves, and operators generally can't tell that
+	such as Taxonomy and Agents. We all end up with more than we could afford by ourselves, and operators generally can't tell that
 	they're in a shared environment.
 </div>
 <div class="q">
@@ -251,7 +250,26 @@ The data providers are not responsible for loss or damages due to use of these d
 	Texas Advanced Computing Center</a> which povides us access to essentially unlimited storage space. Arctos currently
 	links to around 10 terabytes of high-resolution images of ALA herbarium sheets on TACC's servers.	
 </div>
-
+<div class="q">
+	Q: Why Oracle and ColdFusion?
+</div>
+<div class="a">
+	Because they work. We've tried many other solutons along the way. Oracle is rock-solid and stable, and allows us to 
+	do things like share/control data via VPDs, maintain current data to our query environments, and 
+	sleep at night. ColdFusion is a very robust rapid development environment that fits our programming style perfectly 
+	while providing very close to 100% uptime and reliablility. On a more practical level, implementing an open-source solution 
+	would necessitate hiring at least one additional person to mange software, while compromising stability
+	and security.
+</div>
+<div class="q">
+	Q: How does Arctos compare with Specify?
+</div>
+<div class="a">
+	While sharing a common ancestor, Arctos and Specify now difer almost every level - software, 
+	hardware, security model, data model, 
+	development strategy, and support community. <cfoutput><a href="mailto:#application.technicalEmail#">Contact us</a></cfoutput>, 
+	and we'll try our best to help you understand the differences.
+</div>
 <p><a name="suggest"><strong>Suggestions?</strong></a><br/>
  The utility of Arctos results from user input.
  If you have a suggestion to make, let's hear it.
