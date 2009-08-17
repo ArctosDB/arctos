@@ -35,6 +35,12 @@
 	<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) c from cf_form_permissions where form_path='/#name#' and role_name='public'
 	</cfquery>
+	<cfif current.c is 0>
+		<cfscript>
+			a='Disallow: /' & name;
+			variables.joFileWriter.writeLine(a);
+		</cfscript>		
+	</cfif>
 	<br>#name#: #current.c#
 </cfloop>
 
