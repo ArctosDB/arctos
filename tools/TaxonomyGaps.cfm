@@ -45,7 +45,7 @@
 			<option <cfif action is "funkyChar"> selected="selected" </cfif> 
 				value="funkyChar">scientific name contains funky characters</option>
 			<option <cfif action is "higherCrash"> selected="selected" </cfif> 
-				value="funkyChar">Higher Taxonomy crash</option>
+				value="higherCrash">Higher Taxonomy crash</option>
 		</select>
 		<div id="higherCrash" style="display:none;">
 			<label for="lterm">Term....</label>
