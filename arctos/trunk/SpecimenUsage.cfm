@@ -8,6 +8,12 @@
 	<cfquery name="ctColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select collection,collection_id from collection order by collection_id
 	</cfquery>
+	<cfquery name="ctjournal_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select journal_name from ctjournal_name order by journal_name
+	</cfquery>
+	<cfquery name="ctpublication_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select publication_type from ctpublication_type order by publication_type
+	</cfquery>
 	<h2>Publication / Project Search</h2>
 	<form action="SpecimenUsage.cfm" method="post">
 		<input name="action" type="hidden" value="search">
@@ -45,10 +51,22 @@
 				</td>
 				<td>
 					<h4>Publication</h4>
-					<label for="journal">Journal Name</label>
-					<input name="journal" id="journal" type="text">
-					<label for="collection_id">Cites Collection</label>
 					<cfoutput>
+						<label for="publication_type">Publication Type</label>
+						<select name="publication_type" id="publication_type" size="1">
+							<option value=""></option>
+							<cfloop query="ctpublication_type">
+								<option value="#publication_type#">#publication_type#</option>
+							</cfloop>
+						</select>
+						<label for="journal">Journal Name</label>
+						<select name="journal" id="journal" size="1">
+							<option value=""></option>
+							<cfloop query="ctjournal_name">
+								<option value="#journal_name#">#journal_name#</option>
+							</cfloop>
+						</select>
+						<label for="collection_id">Cites Collection</label>
 						<select name="collection_id" id="collection_id" size="1">
 							<option value="">All</option>
 							<cfloop query="ctColl">
@@ -280,6 +298,10 @@
 		
 	<cfif isdefined("p_title") AND len(#p_title#) gt 0>
 		<cfset basWhere = "#basWhere# AND UPPER(publication_title) LIKE '%#ucase(escapeQuotes(p_title))#%'">
+		<cfset go="yes">
+	</cfif>
+	<cfif isdefined("publication_type") AND len(#publication_type#) gt 0>
+		<cfset basWhere = "#basWhere# AND publication_type = '#publication_type#'">
 		<cfset go="yes">
 	</cfif>
 	<cfif isdefined("publication_id") AND len(#publication_id#) gt 0>
