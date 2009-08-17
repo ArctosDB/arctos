@@ -180,7 +180,7 @@ but we have made some exceptions:
 	 <li><strong>Popups:</strong>
 		Users may wish to enable popups. Some informational windows use popups. We promise to only pop up things you ask for.
 		<br>
-		Operators must enable popups. Many browsers block this, sometimes cyrptically, by default. Pick windows will not function
+		Operators must enable popups. Many browsers block this, sometimes cryptically, by default. Pick windows will not function
 		if your browser is blocking popups.
 	</li>
 </ul></p>
@@ -243,30 +243,30 @@ The data providers are not responsible for loss or damages due to use of these d
 	Q: What's Media? Can I store images or video in Arctos?
 </div>
 <div class="a">
-	Media, loosely defined, is anything you can produce a URI for. Web pages, Internet-accessable images, and 
+	Media, loosely defined, is anything you can produce a URI for. Web pages, Internet-accessible images, and 
 	documents stored on FTP sites are all potentially Media. Media may form relationships with any "node" in Arctos.
 	<br>
 	Arctos proper offers little in the way of storage. However, we have a partnership with the
 	<a href="http://www.tacc.utexas.edu/" class="external" target="_blank">
-	Texas Advanced Computing Center</a> which povides us access to essentially unlimited storage space. Arctos currently
+	Texas Advanced Computing Center</a> which provides us access to essentially unlimited storage space. Arctos currently
 	links to around 10 terabytes of high-resolution images of ALA herbarium sheets on TACC's servers.	
 </div>
 <div class="q">
 	Q: Why Oracle and ColdFusion?
 </div>
 <div class="a">
-	Because they work. We've tried many other solutons along the way. Oracle is rock-solid and stable, and allows us to 
+	Because they work. We've tried many other solutions along the way. Oracle is rock-solid and stable, and allows us to 
 	do things like share/control data via VPDs, maintain current data to our query environments, and 
 	sleep at night. ColdFusion is a very robust rapid development environment that fits our programming style perfectly 
-	while providing very close to 100% uptime and reliablility. On a more practical level, implementing an open-source solution 
+	while providing very close to 100% uptime and reliability. On a more practical level, implementing an open-source solution 
 	would necessitate hiring at least one additional person to mange software, while compromising stability
 	and security.
 </div>
 <div class="q">
-	Q: How does Arctos compare with Specify?
+	Q: How does Arctos compare with Specify?	
 </div>
 <div class="a">
-	While sharing a common ancestor, Arctos and Specify now difer almost every level - software, 
+	While sharing a common ancestor, Arctos and Specify now differ almost every level - software, 
 	hardware, security model, data model, 
 	development strategy, and support community. <cfoutput><a href="mailto:#application.technicalEmail#">Contact us</a></cfoutput>, 
 	and we'll try our best to help you understand the differences.
@@ -274,7 +274,7 @@ The data providers are not responsible for loss or damages due to use of these d
 <p><a name="suggest"><strong>Suggestions?</strong></a><br/>
  The utility of Arctos results from user input.
  If you have a suggestion to make, let's hear it.
- We accomodate many special requests through custom forms or custom queries,
+ We accommodate many special requests through custom forms or custom queries,
  and many of these are then incorporated into Arctos.
 Please <cfoutput><a href="mailto:#application.technicalEmail#">contact us</a></cfoutput>.</p> if you have any questions, comments, or suggestions. 
 </p>
