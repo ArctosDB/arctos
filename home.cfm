@@ -271,12 +271,20 @@ The data providers are not responsible for loss or damages due to use of these d
 	development strategy, and support community. <cfoutput><a href="mailto:#application.technicalEmail#">Contact us</a></cfoutput>, 
 	and we'll try our best to help you understand the differences.
 </div>
+<div class="q">
+	Q: What about security and backups?	
+</div>
+<div class="a">
+	Arctos has multiple levels of security. A lightweight application security package controls access to forms, while Oracle
+	partitions data by user, roles, and context, and provides auditing. Incremental backup logs are maintained on mirrored disks, 
+	and daily backups are maintained in 3 geographically separate secure locations.
+</div>
 <p><a name="suggest"><strong>Suggestions?</strong></a><br/>
  The utility of Arctos results from user input.
  If you have a suggestion to make, let's hear it.
  We accommodate many special requests through custom forms or custom queries,
  and many of these are then incorporated into Arctos.
-Please <cfoutput><a href="mailto:#application.technicalEmail#">contact us</a></cfoutput>.</p> if you have any questions, comments, or suggestions. 
+Please <cfoutput><a href="mailto:#application.technicalEmail#">contact us</a></cfoutput> if you have any questions, comments, or suggestions. 
 </p>
 	</td>
 	<td valign="top"><img src="images/arctos_schema.png"/></td>
