@@ -21,7 +21,7 @@
 <cfoutput>	
 	<form name="cf" method="get" action="TaxonomyGaps.cfm">
 		<label for="action">Action</label>
-		<select name="action" id="action">
+		<select name="action" id="action" onchange="document.location=document.location + '?action=' + this.value";>
 			<option <cfif action is "gap"> selected="selected" </cfif> 
 				value="gap">Missing values</option>
 			<option <cfif action is "funkyChar"> selected="selected" </cfif> 
