@@ -10,7 +10,12 @@
 <cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="dir">
 
 <cfdump var=#q#>
-
+<cfset allowedDirectories="Collections">
+<cfloop query="q">
+	<cfif not listfindnocase(allowedDirectories,name)>
+		Disallow: /#name#/
+	</cfif>
+</cfloop>
 
 <!----------------------
 <cfset dl=d('/',"root")>
