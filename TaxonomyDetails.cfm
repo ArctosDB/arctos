@@ -266,6 +266,5 @@
 			</cfif>			
 		</div>
 	</cfif>
-metaDesc: #metaDesc#
 </cfoutput>
 <cfinclude template = "includes/_footer.cfm">
