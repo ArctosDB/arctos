@@ -460,7 +460,7 @@
 					
 					<cfif hasDescn gt 0>
 						<td>
-							<textarea name="description" rows="4" cols="40"></textarea>
+							<textarea name="description" id="description" rows="4" cols="40"></textarea>
 						</td>
 					</cfif>
 					<td>
@@ -690,7 +690,7 @@
 				<cfif isdefined("collection_cde") and len(collection_cde) gt 0>
 					 ,collection_cde
 				</cfif>
-				<cfif #hasDescn# is "y">
+				<cfif isdefined("description") and len(description) gt 0>
 					 ,description
 				</cfif>
 				)
@@ -699,7 +699,7 @@
 				<cfif isdefined("collection_cde") and len(collection_cde) gt 0>
 					 ,'#collection_cde#'
 				</cfif>
-				<cfif #hasDescn# is "y">
+				<cfif isdefined("description") and len(description) gt 0>
 					 ,'#description#'
 				</cfif>
 			)
