@@ -234,6 +234,14 @@
     startTime = "12:56 AM"
     interval = "daily"
     requestTimeOut = "600">
+<cfschedule action = "update"
+    task = "build_robots" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/createRobots.cfm"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "1:36 AM"
+    interval = "weekly"
+    requestTimeOut = "600">
 <!-----------------------------------   images    ------------------------------------------>
 <cfschedule action = "update"
     task = "image_CheckNew" 
