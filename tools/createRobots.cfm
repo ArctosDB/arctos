@@ -7,7 +7,7 @@
 </cffunction>
 <cfinclude template="/includes/_header.cfm">
 
-<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="true" type="dir">
+<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="dir">
 
 <cfdump var=#q#>
 
