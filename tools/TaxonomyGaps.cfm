@@ -33,6 +33,7 @@
 	<form name="cf" method="get" action="TaxonomyGaps.cfm">
 		<label for="action">Action</label>
 		<select name="action" id="action" onchange="showOptions(this.value);";>
+			<option value=""></option>
 			<option <cfif action is "gap"> selected="selected" </cfif> 
 				value="gap">Missing values</option>
 			<option <cfif action is "funkyChar"> selected="selected" </cfif> 
@@ -109,7 +110,6 @@
 <!------------------------------------------------------------------->
 <cfif action is "funkyChar">
 	<cfoutput>
-
 		<cfquery name="ctINFRASPECIFIC_RANK" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select INFRASPECIFIC_RANK from ctINFRASPECIFIC_RANK
 			where infraspecific_rank in ('forma','subsp.','var.')
