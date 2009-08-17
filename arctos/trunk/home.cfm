@@ -132,7 +132,10 @@ encumbered for proprietary reasons, data are open to the public.
 		or in batches.</li>
 	<li>Object-tracking using nested-containers model, 
 		bar codes, and container-condition history.</li>
-	<li>E-mail reminders for loans due, permit expirations, etc.</li>
+	<li>
+		E-mail reminders for loans due, permit expirations, etc. Reports detailing possible GenBank matches,
+		missing citations, unlikely publications, and various other potentially faulty or missing data. 
+	</li>
 	<li>Encumbrances can mask localities, collector names, 
 		or entire records from unprivileged users.</li>
 	<li>Print labels, reports, transaction documents, etc.</li>

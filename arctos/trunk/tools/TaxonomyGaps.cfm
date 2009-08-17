@@ -16,6 +16,8 @@
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection_id,collection from collection order by collection
 </cfquery>
+<cfset taxaRanks="PHYLCLASS,PHYLORDER,SUBORDER,FAMILY,SUBFAMILY,GENUS,SUBGENUS,SPECIES,SUBSPECIES,SCIENTIFIC_NAME,TRIBE,INFRASPECIFIC_RANK,PHYLUM,KINGDOM,SUBCLASS,SUPERFAMILY">
+
 <cfoutput>	
 	<form name="cf" method="get" action="TaxonomyGaps.cfm">
 		<label for="action">Action</label>
@@ -24,7 +26,23 @@
 				value="gap">Missing values</option>
 			<option <cfif action is "funkyChar"> selected="selected" </cfif> 
 				value="funkyChar">scientific name contains funky characters</option>
+			<option <cfif action is "higherCrash"> selected="selected" </cfif> 
+				value="funkyChar">Higher Taxonomy crash</option>
 		</select>
+		<cfif action is "higherCrash">
+			<label for="lterm">Term....</label>
+			<select name="lterm" id="lterm">
+				<cfloop list="taxaRanks" index="i">
+					<option value="#i#" <cfif i is lterm>selected="selected"</cfif>>#i#</option>
+				</cfloop>
+			</select>
+			<label for="hterm">has multiple values under....</label>
+			<select name="hterm" id="hterm">
+				<cfloop list="taxaRanks" index="i">
+					<option value="#i#" <cfif i is hterm>selected="selected"</cfif>>#i#</option>
+				</cfloop>
+			</select>
+		</cfif>
 		<cfif action is "gap">
 			<table border>
 				<tr>
