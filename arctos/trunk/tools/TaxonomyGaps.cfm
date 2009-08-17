@@ -17,11 +17,22 @@
 	select collection_id,collection from collection order by collection
 </cfquery>
 <cfset taxaRanks="PHYLCLASS,PHYLORDER,SUBORDER,FAMILY,SUBFAMILY,GENUS,SUBGENUS,SPECIES,SUBSPECIES,SCIENTIFIC_NAME,TRIBE,INFRASPECIFIC_RANK,PHYLUM,KINGDOM,SUBCLASS,SUPERFAMILY">
-
+<script>
+	function showOptions(v) {
+		document.getElementById('gap').style.display='none';
+		document.getElementById('higherCrash').style.display='none';
+		if(v=='gap'){
+			document.getElementById('gap').style.display='block';
+		}
+		if(v=='higherCrash'){
+			document.getElementById('higherCrash').style.display='block';
+		}	
+	}
+</script>
 <cfoutput>	
 	<form name="cf" method="get" action="TaxonomyGaps.cfm">
 		<label for="action">Action</label>
-		<select name="action" id="action" onchange="document.location=document.location + '?action=' + this.value";>
+		<select name="action" id="action" onchange="showOptions(this.value);";>
 			<option <cfif action is "gap"> selected="selected" </cfif> 
 				value="gap">Missing values</option>
 			<option <cfif action is "funkyChar"> selected="selected" </cfif> 
@@ -29,7 +40,7 @@
 			<option <cfif action is "higherCrash"> selected="selected" </cfif> 
 				value="funkyChar">Higher Taxonomy crash</option>
 		</select>
-		<cfif action is "higherCrash">
+		<div id="higherCrash" style="display:none;">
 			<label for="lterm">Term....</label>
 			<select name="lterm" id="lterm">
 				<cfloop list="taxaRanks" index="i">
@@ -42,8 +53,8 @@
 					<option value="#i#" <cfif i is hterm>selected="selected"</cfif>>#i#</option>
 				</cfloop>
 			</select>
-		</cfif>
-		<cfif action is "gap">
+		</div>
+		<div id="gap" style="display:none;">
 			<table border>
 				<tr>
 					<td>Require one of to be NULL</td>
@@ -62,7 +73,7 @@
 					</tr>
 				</cfloop>
 			</table>			
-		</cfif>
+		</div>
 		<label for="limit">Row Limit</label>
 		<select name="limit" id="limit">
 			<option <cfif limit is 1000> selected="selected" </cfif> 
@@ -90,6 +101,9 @@
 		</select>
 		<br><input type="submit" value="Go">
 	</form>
+	<script>
+		showOptions('#action#');
+	</script>
 </cfoutput>
 
 <!------------------------------------------------------------------->
