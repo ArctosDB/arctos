@@ -31,6 +31,13 @@
 <cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="file">
 
 <cfdump var="#q#">
+<cfloop query="q">
+	<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select count(*) c from cf_form_permissions where form_path='/#name#' and role_name='public'
+	</cfquery>
+	<br>#name#: #current.c#
+</cfloop>
+
 <cfscript>
 	variables.joFileWriter.close();
 </cfscript>
