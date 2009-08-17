@@ -45,13 +45,13 @@
 			<label for="lterm">Term....</label>
 			<select name="lterm" id="lterm">
 				<cfloop list="taxaRanks" index="i">
-					<option value="#i#" <cfif i is lterm>selected="selected"</cfif>>#i#</option>
+					<option value="#i#" <cfif isdefined("lterm") and lerm is i>selected="selected"</cfif>>#i#</option>
 				</cfloop>
 			</select>
 			<label for="hterm">has multiple values under....</label>
 			<select name="hterm" id="hterm">
 				<cfloop list="taxaRanks" index="i">
-					<option value="#i#" <cfif i is hterm>selected="selected"</cfif>>#i#</option>
+					<option value="#i#" <cfif isdefined("hterm") and hterm is i>selected="selected"</cfif>>#i#</option>
 				</cfloop>
 			</select>
 		</div>
