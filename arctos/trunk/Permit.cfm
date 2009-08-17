@@ -632,7 +632,6 @@ UPDATE permit SET
 <cfquery name="nextPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select sq_permit_id.nextval nextPermit from dual
 </cfquery>
-<cftry>
 <cfquery name="newPermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 INSERT INTO permit (
 	 PERMIT_ID,
@@ -682,30 +681,16 @@ VALUES (
 	 	,#contact_agent_id#
 	 </cfif>)
 </cfquery>
-	<cfcatch>
-		<cfset sql=cfcatch.sql>
-		<cfset message=cfcatch.message>
-		<cfset queryError=cfcatch.queryError>
-		<cf_queryError>
-	</cfcatch>
-</cftry>
 	<cflocation url="Permit.cfm?Action=editPermit&permit_id=#nextPermit.nextPermit#">
   </cfoutput>
 </cfif>
 <!--------------------------------------------------------------------------------------------------->
 <cfif #Action# is "deletePermit">
 <cfoutput>
-<cftry>
 <cfquery name="deletePermit" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 DELETE FROM permit WHERE permit_id = #permit_id#
 </cfquery>
-	<cfcatch>
-		<cfset sql=cfcatch.sql>
-		<cfset message=cfcatch.message>
-		<cfset queryError=cfcatch.queryError>
-		<cf_queryError>
-	</cfcatch>
-</cftry>
+	
 	<cflocation url="Permit.cfm">
   </cfoutput>
 </cfif>
