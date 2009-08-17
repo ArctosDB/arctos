@@ -45,5 +45,7 @@
 </cfloop>
 </table>
 
-</cfoutput>
 ----------------->
+
+
+</cfoutput>
