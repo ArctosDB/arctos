@@ -162,8 +162,7 @@ and programming is freely available.</p>
 
 <p>Collections or institutions interested in having their 
 data hosted in Arctos, or interested in participating in 
-the development of Arctos should contact 
-<a href="mailto:gordon.jarrell@gmail.com">Gordon Jarrell</a>.</p>
+the development of Arctos should <a href="mailto:#application.technicalEmail#"> contact us</a>.</p>
 
 <p><a name="requirements"><strong>System Requirements</strong></a><br/>
 We attempt to keep the client-side of Arctos applications as generic as possible, 
@@ -258,8 +257,7 @@ The data providers are not responsible for loss or damages due to use of these d
  If you have a suggestion to make, let's hear it.
  We accomodate many special requests through custom forms or custom queries,
  and many of these are then incorporated into Arctos.
-Please send email to <a href="mailto:dustymc@gmail.com">Dusty</a> or 
-<a href="mailto:gordon.jarrell@gmail.com">Gordon</a> if you have any questions, comments, or suggestions. 
+Please <a href="mailto:#application.technicalEmail#"> contact us</a>.</p> if you have any questions, comments, or suggestions. 
 </p>
 	</td>
 	<td valign="top"><img src="images/arctos_schema.png"/></td>
