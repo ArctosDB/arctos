@@ -9,13 +9,13 @@
 
 <cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="dir">
 
-<cfdump var=#q#>
 
 
 <cfset variables.fileName="#Application.webDirectory#/temp/test.txt">
 <cfset variables.encoding="UTF-8">
 <cfscript>
 	variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+	variables.joFileWriter.writeLine('User-agent: *');
 </cfscript>
 	
 <cfset allowedDirectories="Collections">
@@ -27,10 +27,14 @@
 		</cfscript>		
 	</cfif>
 </cfloop>
+
+<cfdirectory directory="#application.webDirectory#" action="list" name="q" sort="name" recurse="false" type="file">
+
+<cfdump var="#q#">
 <cfscript>
 	variables.joFileWriter.close();
 </cfscript>
-<a href="/temp/test.tx">file</a>
+<a href="/temp/test.txt">file</a>
 
 <!----------------------
 <cfset dl=d('/',"root")>
