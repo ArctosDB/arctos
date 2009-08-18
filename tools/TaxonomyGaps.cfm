@@ -112,7 +112,24 @@
 		showOptions('#action#');
 	</script>
 </cfoutput>
-
+<!------------------------------------------------------------------->
+<cfif action is "higherCrash">
+	<cfoutput>
+		<cfquery name="termCrash" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select a.#lterm# l,a.#hterm# h
+			from
+				taxonomy a,
+				taxonomy b
+			where
+				a.#lterm#=b.#lterm# and
+				a.#hterm#!=b.#hterm#
+			group by
+				a.#lterm#,a.#hterm#
+			order by a.#lterm#,a.#hterm#
+		</cfquery>
+		<cfdump var="#termCrash#">
+	</cfoutput>
+</cfif>
 <!------------------------------------------------------------------->
 <cfif action is "funkyChar">
 	<cfoutput>
