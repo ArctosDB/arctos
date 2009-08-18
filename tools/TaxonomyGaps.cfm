@@ -83,6 +83,8 @@
 		</div>
 		<label for="limit">Row Limit</label>
 		<select name="limit" id="limit">
+			<option <cfif limit is 100> selected="selected" </cfif> 
+				value="1000">100</option>
 			<option <cfif limit is 1000> selected="selected" </cfif> 
 				value="1000">1000</option>
 			<option <cfif limit is 2000> selected="selected" </cfif> 
@@ -116,6 +118,7 @@
 <cfif action is "higherCrash">
 	<cfoutput>
 		<cfquery name="termCrash" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select * from (
 			select a.#lterm# l,a.#hterm# h
 			from
 				taxonomy a,
@@ -126,6 +129,7 @@
 			group by
 				a.#lterm#,a.#hterm#
 			order by a.#lterm#,a.#hterm#
+			) where rownum<=#limit#
 		</cfquery>
 		<cfdump var="#termCrash#">
 	</cfoutput>
