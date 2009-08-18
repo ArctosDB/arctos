@@ -112,10 +112,16 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 		set 
 			(transaction_id) 
 		= (select
-			loan.transaction_id from trans,loan
-		where trans.transaction_id = loan.transaction_id and
-		trans.institution_acronym = cf_temp_loan_item.institution_acronym and
-		loan.loan_number = cf_temp_loan_item.loan_number)
+				loan.transaction_id 
+			from 
+				trans,loan,collection
+			where 
+				trans.transaction_id = loan.transaction_id and
+				trans.collection_id = collection.collection_id and
+				collection.institution_acronym=cf_temp_loan_item.institution_acronym and
+				collection.collection_cde=cf_temp_loan_item.collection_cde and
+				loan.loan_number = cf_temp_loan_item.loan_number
+			)
 	</cfquery>
 	<cfquery name="missedMe" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_temp_loan_item set status = 'loan not found' where
