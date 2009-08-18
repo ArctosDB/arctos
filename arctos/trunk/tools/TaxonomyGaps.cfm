@@ -119,16 +119,18 @@
 	<cfoutput>
 		<cfquery name="termCrash" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from (
-			select a.#lterm# l,a.#hterm# h
-			from
-				taxonomy a,
-				taxonomy b
-			where
-				a.#lterm#=b.#lterm# and
-				a.#hterm#!=b.#hterm#
-			group by
-				a.#lterm#,a.#hterm#
-			order by a.#lterm#,a.#hterm#
+				select
+					a.#lterm# l,a.#hterm# h
+				from
+					(select #lterm#,#hterm# from taxonomy group by #lterm#,#hterm#) a,
+					(select #lterm#,#hterm# from taxonomy group by #lterm#,#hterm#) b
+				where
+					a.#lterm#=b.#lterm# and
+					a.#hterm#!=b.#hterm#
+				group by
+					a.#lterm#,a.#hterm#
+				order by 
+					a.#lterm#,a.#hterm#
 			) where rownum<=#limit#
 		</cfquery>
 		<cfdump var="#termCrash#">
