@@ -133,7 +133,22 @@
 					a.#lterm#,a.#hterm#
 			) where rownum<=#limit#
 		</cfquery>
-		<cfdump var="#termCrash#">
+		<table border>
+			<tr>
+				<td>#lterm#</td>
+				<td>#hterm#</td>
+			</tr>
+			<cfloop query="md">
+				<tr>
+					<td>
+						<a href="/TaxonomyResults.cfm?#lterm#=#l#">#l#</a>
+					</td>
+					<td>
+						<a href="/TaxonomyResults.cfm?#hterm#=#h#">#h#</a>
+					</td>
+				</tr>
+			</cfloop>
+		</table>
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------->
