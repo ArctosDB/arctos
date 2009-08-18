@@ -138,7 +138,7 @@
 				<td>#lterm#</td>
 				<td>#hterm#</td>
 			</tr>
-			<cfloop query="md">
+			<cfloop query="termCrash">
 				<tr>
 					<td>
 						<a href="/TaxonomyResults.cfm?#lterm#=#l#">#l#</a>
