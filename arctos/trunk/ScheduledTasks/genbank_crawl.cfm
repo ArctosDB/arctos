@@ -27,7 +27,7 @@ CREATE OR REPLACE TRIGGER trg_cf_genbank_crawl
 sho err
 --->
 <cfinclude template="/includes/_header.cfm">
-	
+<cfset ncbi_resultcount=0>
 <cfoutput>
 	<cfif action is "nothing">
 		<ul>

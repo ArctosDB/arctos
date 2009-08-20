@@ -309,19 +309,39 @@
 			locality.locality_id = collecting_event.locality_id AND
 			 geog_auth_rec_id=#geog_auth_rec_id#
 		</cfquery>
-		<cfquery name="specimen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select count(*) c from locality,collecting_event,cataloged_item
+		<cfquery name="specimen" datasource="uam_god">
+			select 
+				collection.collection_id,
+				collection.collection,
+				count(*) c 
+			from 
+				locality,
+				collecting_event,
+				cataloged_item,
+				collection
 			where
-			locality.locality_id = collecting_event.locality_id AND
-			collecting_event.collecting_event_id = cataloged_item.collecting_event_id AND
-			 geog_auth_rec_id=#geog_auth_rec_id#
+				locality.locality_id = collecting_event.locality_id AND
+				collecting_event.collecting_event_id = cataloged_item.collecting_event_id AND
+			 	cataloged_item.collection_id=collection.collection_id and
+			 	geog_auth_rec_id=#geog_auth_rec_id#
+			 group by 
+			 	collection.collection_id,
+				collection.collection
+			order by
+				collection.collection
 		</cfquery>
 		<div style="border:2px solid blue; background-color:red;">
 			Altering this record will update:
 			<ul>
 				<li>#localities.c# localities</li>
 				<li>#collecting_events.c# collecting events</li>
-				<li><a href="/SpecimenResults.cfm?geog_auth_rec_id=#geog_auth_rec_id#">#specimen.c# specimens</a></li>
+				<li>
+					<ul>
+						<cfloop query="specimen">
+							<li><a href="/SpecimenResults.cfm?geog_auth_rec_id=#geog_auth_rec_id#">#specimen.c# #collection# specimens</a></li>
+						</cfloop>
+					</ul>
+				</li>
 			</ul>
 		</div>
     </cfoutput> <cfoutput query="geogDetails"> 
