@@ -335,13 +335,9 @@
 			<ul>
 				<li>#localities.c# localities</li>
 				<li>#collecting_events.c# collecting events</li>
-				<li>
-					<ul>
-						<cfloop query="specimen">
-							<li><a href="/SpecimenResults.cfm?geog_auth_rec_id=#geog_auth_rec_id#">#specimen.c# #collection# specimens</a></li>
-						</cfloop>
-					</ul>
-				</li>
+				<cfloop query="specimen">
+					<li><a href="/SpecimenResults.cfm?geog_auth_rec_id=#geog_auth_rec_id#">#specimen.c# #collection# specimens</a></li>
+				</cfloop>
 			</ul>
 		</div>
     </cfoutput> <cfoutput query="geogDetails"> 
