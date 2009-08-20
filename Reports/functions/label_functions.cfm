@@ -1071,12 +1071,13 @@
 					<cfelse>
 						<cfset newParts = "#p#">
 					</cfif>
-				</cfif>
-				
-				<!-- Save skull position/index for later re-insert-->
-				<cfif foundSkull is 0>
-					<cfset index = index+1>
-				</cfif>
+					
+					<!-- Save skull position/index for later re-insert-->
+					<cfif foundSkull is 0>
+						<cfset index = index+1>
+					</cfif>
+				</cfif>			
+
 			</cfloop>
 			
 			<cfif len(newParts) is not 0 and foundSkin is 1 and foundSkull is 1>	
@@ -1087,7 +1088,7 @@
 				<!--  only "skull" ==> "skull"-->
 				<cfset newParts = "skull">
 				
-			<cfelseif foundSkull is 1 and foundSkin is 0 and foundTissue is 0 and len(newParts) is not 0>
+			<cfelseif foundSkull is 1 and len(newParts) is not 0>
 				<!--  "skull, other parts (no skin/tissue)" ==> "skull, other parts"-->
 				<cfset tempIndex = 0>
 				<cfset tempNewParts = "">
