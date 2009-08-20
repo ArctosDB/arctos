@@ -71,7 +71,7 @@
 			geology_attributes.geo_att_determiner_id = preferred_agent_name.agent_id (+) and
 			geology_attributes.locality_id=#locality_id# 
 	</cfquery>
-	<cfquery name="whatSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="whatSpecs" datasource="uam_god">
   		SELECT 
 			count(cataloged_item.cat_num) numOfSpecs, 
 			collection.collection
