@@ -336,7 +336,11 @@
 				<li>#localities.c# localities</li>
 				<li>#collecting_events.c# collecting events</li>
 				<cfloop query="specimen">
-					<li><a href="/SpecimenResults.cfm?geog_auth_rec_id=#geog_auth_rec_id#">#specimen.c# #collection# specimens</a></li>
+					<li>
+						<a href="/SpecimenResults.cfm?geog_auth_rec_id=#geog_auth_rec_id#&collection_id=#specimen.collection_id#">
+							#specimen.c# #collection# specimens
+						</a>
+					</li>
 				</cfloop>
 			</ul>
 		</div>
@@ -538,7 +542,7 @@
 	where collecting_event.collecting_event_id=#collecting_event_id# 
     </cfquery>
  
-  <cfquery name="whatSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+  <cfquery name="whatSpecs" datasource="uam_god">
   	SELECT count(cat_num) as numOfSpecs, collection
 	from cataloged_item,collection WHERE
 	cataloged_item.collection_id=collection.collection_id and
@@ -1143,7 +1147,7 @@
 <!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "deleteCollEvent">
 <cfoutput>
-	<cfquery name="isSpec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="isSpec" datasource="uam_god">
 		select collection_object_id from cataloged_item where collecting_event_id=#collecting_event_id#
 	</cfquery>
 <cfif len(#isSpec.collection_object_id#) gt 0>
@@ -1920,7 +1924,7 @@ INSERT INTO geog_auth_rec (
 		
 		
 		
-  <cfquery name="whatSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+  <cfquery name="whatSpecs" datasource="uam_god">
   	SELECT count(cat_num) as numOfSpecs, 
 	collection.collection_cde,
 	collection.institution_acronym
