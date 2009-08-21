@@ -1,5 +1,7 @@
 <cfquery name="a" datasource="uam_god">
-	select dbms_xmlgen.getxml('select * from uam.arctos_audit') q from dual
+	select getJsonMediaUriBySpecimen(11470) x from dual
 </cfquery>
-<cfset x=xmlparse(a.q)>
-<cfdump var=#x#>
+<cfdump var=#a#>
+
+<cfset tf=IsJSON(a.x)>
+<cfdump var="#TF#">
