@@ -877,7 +877,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>';
 						var thisMedia=JSON.parse(data.MEDIA[i]);
 						
-						console.log('parsed');
+						//console.log('parsed');
 						//var rc=thisMedia.ROWCOUNT;
 						//var cl=thisMedia.COLUMNS;
 						//theInnerHtml += '<hr>thisMedia: ' + thisMedia + '&nbsp;';
@@ -886,7 +886,8 @@ function success_getSpecResultsData(result){
 						theInnerHtml += '<hr>t: ' + thisMedia.ROWCOUNT + '&nbsp;';
 						//theInnerHtml += '<hr>t1: ' + thisMedia.ROWCOUNT[0] + '&nbsp;';
 						for (m=0; m<thisMedia.ROWCOUNT; ++m) {
-							theInnerHtml += '<hr>m: ' + m + '&nbsp;';
+							
+							theInnerHtml += '<hr>' + thisMedia.PREVIEW_URI[m] + '&nbsp;';
 						}
 					theInnerHtml += '</td>';
 				}
