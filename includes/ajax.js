@@ -842,7 +842,9 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
-					theInnerHtml += '<td>Media go here</td>';
+					theInnerHtml += '<td>';
+						theInnerHtml += data.MEDIA[i] + '&nbsp;';
+					theInnerHtml += '</td>';
 				}
 				theInnerHtml += '<td>';
 				theInnerHtml += '<span class="browseLink" type="scientific_name" dval="' + encodeURI(data.SCIENTIFIC_NAME[i]) + '">' + spaceStripper(data.SCIENTIFIC_NAME[i]);
