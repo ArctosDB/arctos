@@ -891,7 +891,7 @@ function success_getSpecResultsData(result){
 							} else {
 								pURI='/images/noThumb.jpg';
 							}
-							theInnerHtml += '<hr><a href="' + thisMedia.DATA.media_uri[m] + '"><img src="' + pURI + '</img></a>&nbsp;';
+							theInnerHtml += '<hr><a href="' + thisMedia.DATA.media_uri[m] + '"><img src="' + pURI + '"></a>&nbsp;';
 						}
 					theInnerHtml += '</td>';
 				}
