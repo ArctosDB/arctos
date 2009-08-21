@@ -850,7 +850,7 @@ function success_getSpecResultsData(result){
 				
 				if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
 					theInnerHtml += '<td>';
-						var thisMedia=data.MEDIA[i];
+						var thisMedia=eval(data.MEDIA[i]);
 						//theInnerHtml += data.MEDIA[i];
 						var rc=thisMedia.ROWCOUNT;
 						var cl=thisMedia.COLUMNS;
