@@ -876,8 +876,8 @@ function success_getSpecResultsData(result){
 				if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
 					theInnerHtml += '<td>';
 						var thisMedia=data.MEDIA[i];
-						console.log('tm0' + thisMedia[0].ROWCOUNT;
-						console.log('tmr0' + thisMedia.ROWCOUNT[0];
+						console.log('tm0' + thisMedia[0].ROWCOUNT);
+						console.log('tmr0' + thisMedia.ROWCOUNT[0]);
 						
 						//console.log(dump(thisMedia));
 						//theInnerHtml += data.MEDIA[i];
