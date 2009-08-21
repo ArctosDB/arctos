@@ -857,6 +857,9 @@ function success_getSpecResultsData(result){
 						theInnerHtml += '<hr>thisMedia: ' + thisMedia + '&nbsp;';
 						theInnerHtml += '<hr>rc: ' + rc + '&nbsp;';
 						theInnerHtml += '<hr>cl: ' + cl + '&nbsp;';
+						for (m=0; m<thisMedia.ROWCOUNT; ++m) {
+							theInnerHtml += '<hr>m: ' + m + '&nbsp;';
+						}
 					theInnerHtml += '</td>';
 				}
 				
