@@ -852,9 +852,9 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>';
 						var thisMedia=data.MEDIA[i];
 						theInnerHtml += data.MEDIA[i];
-						var rc=data.MEDIA[i].ROWCOUNT;
+						var rc=thisMedia.ROWCOUNT;
 						theInnerHtml += '<hr>thisMedia: ' + thisMedia + '&nbsp;';
-						theInnerHtml += '<hr>rc: ' + thisMedia[0].ROWCOUNT + '&nbsp;';
+						theInnerHtml += '<hr>rc: ' + rc + '&nbsp;';
 					theInnerHtml += '</td>';
 				}
 				
