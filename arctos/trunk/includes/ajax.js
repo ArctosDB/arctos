@@ -885,7 +885,7 @@ function success_getSpecResultsData(result){
 							theInnerHtml += '<div class="imgDiv">';
 							theInnerHtml += '<a href="' + thisMedia.DATA.media_uri[m] + '">';
 							theInnerHtml += '<img src="' + pURI + '"></a>';
-							theInnerHtml += '<p class="caption">' + thisMedia.DATA.mime_type[m] + '</p></div>';
+							theInnerHtml += '<p class="imgCaption">' + thisMedia.DATA.mime_type[m] + '</p></div>';
 						}
 					theInnerHtml += '</td>';
 				}
