@@ -882,7 +882,10 @@ function success_getSpecResultsData(result){
 							} else {
 								pURI='/images/noThumb.jpg';
 							}
-							theInnerHtml += '<a href="' + thisMedia.DATA.media_uri[m] + '"><img src="' + pURI + '"></a>' + thisMedia.DATA.mime_type[m] + '&nbsp;';
+							theInnerHtml += '<div class="imgDiv">';
+							theInnerHtml += '<a href="' + thisMedia.DATA.media_uri[m] + '">';
+							theInnerHtml += '<img src="' + pURI + '"></a>';
+							theInnerHtml += '<p class="caption">' + thisMedia.DATA.mime_type[m] + '</p>';
 						}
 					theInnerHtml += '</td>';
 				}
