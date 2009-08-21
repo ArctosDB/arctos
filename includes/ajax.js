@@ -886,8 +886,12 @@ function success_getSpecResultsData(result){
 						theInnerHtml += '<hr>t: ' + thisMedia.ROWCOUNT + '&nbsp;';
 						//theInnerHtml += '<hr>t1: ' + thisMedia.ROWCOUNT[0] + '&nbsp;';
 						for (m=0; m<thisMedia.ROWCOUNT; ++m) {
-							
-							theInnerHtml += '<hr>' + thisMedia.DATA.preview_uri[m] + '&nbsp;';
+							if(thisMedia.DATA.preview_uri[m].length > 0) {
+								pURI=thisMedia.DATA.preview_uri[m];
+							} else {
+								pURI='/images/noThumb.jpg';
+							}
+							theInnerHtml += '<hr>' + pURI + '&nbsp;';
 						}
 					theInnerHtml += '</td>';
 				}
