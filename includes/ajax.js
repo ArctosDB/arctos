@@ -542,6 +542,9 @@ function success_getSpecResultsData(result){
 					theInnerHtml += data.MYCUSTOMIDTYPE[0];
 				theInnerHtml += '</th>';
 			}
+			if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
+				theInnerHtml += '<th>Media</th>';
+			}
 			theInnerHtml += '<th>Identification</th>';
 			if (data.COLUMNLIST[0].indexOf('SCI_NAME_WITH_AUTH')> -1) {
 				theInnerHtml += '<th>Scientific&nbsp;Name</th>';
