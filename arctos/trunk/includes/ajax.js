@@ -877,7 +877,8 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>';
 						var thisMedia=data.MEDIA[i];
 						
-						var myObject = JSON.parse(thisMedia, reviver);
+						var myObject = JSON.parse(thisMedia);
+						console.log('parsed');
 						console.log(myObject);
 						var rc=thisMedia.ROWCOUNT;
 						var cl=thisMedia.COLUMNS;
