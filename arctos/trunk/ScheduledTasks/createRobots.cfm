@@ -30,7 +30,7 @@
 	</cfif>
 </cfloop>
 <cfscript>
-	variables.joFileWriter.writeLine('Sitemap: sitemapindex.xml.gz');
+	variables.joFileWriter.writeLine('Sitemap: ' & application.serverRootUrl & '/sitemapindex.xml.gz');
 	variables.joFileWriter.close();
 </cfscript>
 </cfoutput>

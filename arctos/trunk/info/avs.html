@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<head>
+	<meta name="title" content="Arctos vs. Specify">
+</head>
+<body>
+<p>
+ The following is an probably-biased comparison of Arctos and Specify. We've tried to be fair, and we welcome feedback. Let us know if we've misrepresented something and we'll clarify.
+</p>
+<table border="1"><tbody><tr>
+ <th>Attribute</th>
+ <th>Arctos</th>
+ <th>Specify</th>
+ <th>So what?</th>
+</tr>
+<tr>
+ <td>Description</td>
+ <td>Enterprise software, hardware, backups (one in Fairbanks, one in Austin, one in San Diego), professional systems administration.</td>
+ <td>Software. User responsible for hardware setup, sysadmin, backups, etc.</td>
+ <td>Arctos is a centralized system, in which an IT staff maintains the firewall, watches for intrusions, organizes and tests backup strategies, patches software, maintains hardware, and deals with all the other complexities of maintaing a system. We have security specialists, database administrators, systems administrators, and developers watching all aspects of Arctos for potential performance and security issues. 
+ <p>Specify is software.</p></td>
+</tr>
+<tr>
+ <td>Cost</td>
+ <td>Software freely available to noncommercial enterprises. Hosting, development, and administrative costs are shared and negotiable.</td>
+ <td>Free software, requires hardware, someone to maintain it, a defensible backup strategy, and network access.</td>
+ <td>Free software does not equate to free, or even affordable, implementation and maintenance, nor does it ensure the security of the public data with which you've been entrusted.</td>
+</tr>
+<tr>
+ <td>Development Model</td>
+ <td>Release early, release often. Let users intimately guide every aspect of progress. Formalized issue tracking, Steering Committee, Advisory Committee.</td>
+ <td>Release infrequently. May consider user input from the Specify Forum.</td>
+ <td>The community IS Arctos. Arctos is 100% built in close cooperation with various users, for generalized instances of specific needs. This means that all Arctos participants can benefit from seemingly unrelated projects. For example, funding to link MVZ's bird call library to specimens resulted in developments that also allow us to serve bat calls, herbarium sheet images, historic field photographs, and videos of modern collecting activities.</td> 
+</tr>
+<tr>
+ <td>Data Model</td>
+ <td>Highly normalized; easily "pluggable" and expandable. 83 tables, 836 columns.</td>
+ <td>Denormalized. 143 tables, 2400 columns (1 May 2009)</td>
+ <td>Normalized structures, while sometimes more difficult to maintain, allow much greater flexibility, make future data manipulations and migrations much more trustworthy, and allow us to very easily "plug in" external resources, such as TACC, GenBank, and BOLD.</td> 
+</tr>
+<tr>
+ <td>Back End</td>
+ <td>Oracle is an enterprise-class RDBMS known for its concurrency management and stability.</td>
+ <td>MySQL is a lightweight open-source RDBMS designed for fast query access. Not designed for archival usage. Limited concurrency management.</td>
+ <td>Oracle is bulletproof and comes with a formalized support community. MySQL is a popular open-source package with <a href="http://www.google.com/search?q=mysql+vulnerabilities">many known vulnerabilities</a></td>
+</tr>
+<tr>
+ <td>Business Rules</td>
+ <td>In DB, where they're always enforced.</td>
+ <td>In application layer, where they may be bypassed (by DB updates, add-on applications, or Application bugs)</td>
+ <td>Exactly this problematic and untrustworthy arrangement in Arctos's direct ancestor laregely influenced Arctos's advanced model. Any activity that bypasses the application layer - like a simple SQL update - also bypasses all business rules that reside in the application layer.</td> 
+</tr>
+<tr>
+ <td>Permissions</td>
+ <td>In DB, where they’re always enforced. May be used to define Virtual Private Databases.</td>
+ <td>In application layer.</td>
+ <td>Any activity that bypasses the application layer - like a simple SQL update - also bypasses all permissions that reside in the application layer. MySQL provides limited user partitioning.</td> 
+</tr>
+<tr>
+ <td>Security</td>
+ <td>Independent layers in application and DB. Professionally managed and audited.</td>
+ <td>In application layer, determined by system administrator.</td>
+ <td>"Application-level security" is notoriously susceptible to hacking, particularly when implemented over a "soft" environment, such as MySQL. Arctos runs an Enterprise-class front end over a hardened, Enterprise-class backend. No security threat has ever penetrated either layer.</td> 
+</tr>
+<tr>
+ <td>Front End</td>
+ <td>ColdFusion (system works under PHP, Java, et al.)</td>
+ <td>Java (including business rules)</td>
+ <td>While ColdFusion is our heavy lifter, our back end, security, and data model architecture allows us to confidently interact with data through any sort of plugin, written in any language, including command-line SQL.</td> 
+</tr>
+<tr>
+ <td>Bulk Import</td>
+ <td>No practical record limit.</td>
+ <td>2000-row limit.</td>
+ <td>Anything from a collector's data file to an entire collection from a legacy database may be imported.</td> 
+</tr>
+<tr>
+ <td>Interfaces</td>
+ <td>Intuitive customizable web applications.</td>
+ <td>“Roll your own” queries against tables.</td>
+ <td>Arctos presents data as it's related to specimens, projects, publications, and other intuitive "nodes."</td> 
+</tr>
+<tr>
+ <td>Taxonomy</td>
+ <td>Formal separation of taxonomy and determinations. Accommodates composite taxonomy (hybrids, multiple taxa in one object) through identification formulae.</td>
+ <td>Determinations treated as taxonomy.</td>
+ <td>More than a matter of formality, this allows us to describe complex relationships among and between taxonomy (e.g., multi-generational hybrids are well within our capacities), and to be as precise or as imprecise as the data allow. It also gives us the opportunity to utilize exxternal taxonomic resources, should they become available.</td> 
+</tr>
+<tr>
+ <td>Object Tracking</td>
+ <td>Individual Specimen Parts are tracked and loaned.</td>
+ <td>Cataloged Items are tracked and loaned.</td>
+ <td>Contrary to traditional models, "cataloged items" are nothing but abstract assemblages of parts. Parts (which can be anything from a whole animal to an organ subsample) are the atomic entity that's tracked, and doing so allows us to deal with the realities of loans, storage, and mislabeling at the most appropriate level.</td> 
+</tr>
+<tr>
+ <td>Online Access</td>
+ <td>Integral</td>
+ <td>Coming soon? Limited to query only? Limited data available?</td>
+ <td>Arctos is and always has been online, where we continue to lead the way in communication between related databases, such as GenBank.</td> 
+</tr>
+<tr>
+ <td>Batch edits</td>
+ <td>Most data; many access points</td>
+ <td>None</td>
+ <td>Most everything in Arctos can be done to multiple specimens concurrently, in ways that reflect handling practices.</td>
+ </tr>
+<tr>
+ <td>DiGIR/Tapir</td>
+ <td>Integral and automatic. Live data served.</td>
+ <td>Coming soon? Manually maintained cache.</td>
+ <td>Arctos has always been at the forefront of online communications, and we intend to stay there, influencing and inspiring the larger community.</td> 
+</tr>
+<tr>
+ <td>Media</td>
+ <td>Any file or application, related to any data "node." Stored  anywhere on Internet, or uploaded to server. ( +100K images and sound files.)</td>
+ <td>Stored on local filesystem or MorphBank. Relate to??????</td>
+ <td>Arctos deals elegantly with everything from images of herbarium sheets to historic photographs of collecting events to bird call observations, and allows users to store Media anywhere in any format. It's all online - give it a try!</td> 
+</tr>
+<tr>
+ <td>System Requirements</td>
+ <td>Reasonably modern browser and Internet access</td>
+ <td>“Lowest common denominator”</td>
+ <td>While Specify may be capable of running on consumer-grade hardware, we would suggest that Museums' commitment to data preservation that should preclude such activity.</td>
+</tr>
+<tr>
+ <td>Publications/Citations</td>
+ <td>Inherent</td>
+ <td>Unclear</td>
+ <td>Arctos has a commitment to allowing museum to prominently demonstrate their inherent value through usage. Loans, Borrows, Accessions, Publications, Citations, and Projects allow us to demonstrate any level of specimen acquisition and usage, from well-cited formal publications to graduate projects to elementary school classroom projects.</td> 
+</tr>
+<tr>
+ <td>Living Collections</td>
+ <td>No apparent obstacles, but untested.</td>
+ <td>Possible future development if the community wants to develop a separate schema.</td>
+ <td>Thusfar, our normalized model has allowed the seamless addition of many collection types. Paleontology required one additional table, an easy addition thanks again to our normalized schema. We see no obstacles to adding living collections.</td>
+</tr>
+<tr>
+ <td>Business Model</td>
+ <td>Short-term NSF and institutional (MVZ, UAM, MCZ, &amp; MSB) support.</td>
+ <td>Short-term NSF and institutional support.</td>
+ <td></td>
+</tr>
+<tr>
+ <td>Data Quality</td>
+ <td>Defined and enforced by the Arctos community.</td>
+ <td>Left to individual operators.</td>
+ <td>Arctos is a community, and we do strive to do things "the right way." That sometimes requires collections to reconsider their standards and procedures. We've so far had no unresolveable differences, and we present a strong community front that influences standards for organizations such as GBIF.</td> 
+</tr>
+<tr>
+ <td>Customizations</td>
+ <td>User-customizable search and results. Collection-specific appearance and CSS.</td>
+ <td>Operator customizable search and results. </td>
+ <td>Users can control how they search for and present data. Collections can customize the look and feel of Arctos through their Virtual Private Database portal.</td> 
+</tr>
+<tr>
+ <td>Mapping </td>
+ <td>BerkeleyMapper, Google Maps, Google Earth, download KML. Uncertainty represented as error circles.</td>
+ <td>Point mapping via downloadable KML </td>
+ <td>Much of the value of geospatial data attached to specimens is in it's error estimates. Arctos faithfully represents those data in many customizable formats. We pioneered communication with BerkeleyMapper, and are leading the way in adding rangemaps to BerkeleyMapper's capabilities.</td> 
+</tr>
+<tr>
+ <td>Saved queries</td>
+ <td>Save, name, email dynamic queries</td>
+ <td>Save static results sets. Email to agents with email addresses.</td>
+ <td>Users can easily bookmark and return to specific, dynamic data sets.</td> 
+</tr>
+<tr>
+ <td>Taxon-specific attributes</td>
+ <td>User-definable, infinitely expandable determinations. Allows adding any biological collection.</td>
+ <td>Predefined assertions.</td>
+ <td>This is really an extension of normalization. Specify's schema is full of fields called "Number42" or "Text12," which are labeled at the interface level and used for flexibility and operator customization. These are easy to program, and work reasonably well if one can reliably predict just how many and what types of data will show up. We find that an impossible task, and have normalized such structures. Arctos data are clearly labeled (I would hate to be the programmer who figures out that "Number42" has been used to multiple types of values over the years, a fact only recorded in one particular application!) and infinitely expandable. We can record any number of determinations (even of the same attribute - e.g., age based on cementum layers from various teeth or by various labs), along with data, determiner, and method.</td> 
+</tr>
+</tbody></table>
+</body>
+</html>
