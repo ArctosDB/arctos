@@ -882,7 +882,7 @@ function success_getSpecResultsData(result){
 						theInnerHtml += '<hr>rc: ' + rc + '&nbsp;';
 						theInnerHtml += '<hr>cl: ' + cl + '&nbsp;';
 						theInnerHtml += '<hr>t: ' + thisMedia[0].ROWCOUNT + '&nbsp;';
-						theInnerHtml += '<hr>t1: ' + thisMedia.ROWCOUNT[0] + '&nbsp;';
+						//theInnerHtml += '<hr>t1: ' + thisMedia.ROWCOUNT[0] + '&nbsp;';
 						for (m=0; m<thisMedia.ROWCOUNT; ++m) {
 							theInnerHtml += '<hr>m: ' + m + '&nbsp;';
 						}
