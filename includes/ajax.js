@@ -878,12 +878,12 @@ function success_getSpecResultsData(result){
 						var thisMedia=JSON.parse(data.MEDIA[i]);
 						
 						console.log('parsed');
-						var rc=thisMedia.ROWCOUNT;
-						var cl=thisMedia.COLUMNS;
-						theInnerHtml += '<hr>thisMedia: ' + thisMedia + '&nbsp;';
-						theInnerHtml += '<hr>rc: ' + rc + '&nbsp;';
-						theInnerHtml += '<hr>cl: ' + cl + '&nbsp;';
-						theInnerHtml += '<hr>t: ' + thisMedia[0].ROWCOUNT + '&nbsp;';
+						//var rc=thisMedia.ROWCOUNT;
+						//var cl=thisMedia.COLUMNS;
+						//theInnerHtml += '<hr>thisMedia: ' + thisMedia + '&nbsp;';
+						//theInnerHtml += '<hr>rc: ' + rc + '&nbsp;';
+						//theInnerHtml += '<hr>cl: ' + cl + '&nbsp;';
+						theInnerHtml += '<hr>t: ' + thisMedia.ROWCOUNT + '&nbsp;';
 						//theInnerHtml += '<hr>t1: ' + thisMedia.ROWCOUNT[0] + '&nbsp;';
 						for (m=0; m<thisMedia.ROWCOUNT; ++m) {
 							theInnerHtml += '<hr>m: ' + m + '&nbsp;';
