@@ -843,6 +843,7 @@ function success_getSpecResultsData(result){
 				}
 				if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
 					theInnerHtml += '<td>';
+						theInnerHtml += data.MEDIA[i];
 						var rc=data.MEDIA.ROWCOUNT;
 						theInnerHtml += 'rowcount: ' + rc + '&nbsp;';
 					theInnerHtml += '</td>';
