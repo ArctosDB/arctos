@@ -841,13 +841,22 @@ function success_getSpecResultsData(result){
 						theInnerHtml += data.CUSTOMID[i] + '&nbsp;';
 					theInnerHtml += '</td>';
 				}
+				
+				
+				
+				
+				
+				
+				
 				if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
 					theInnerHtml += '<td>';
 						theInnerHtml += data.MEDIA[i];
-						var rc=data.MEDIA.ROWCOUNT;
+						var rc=data.MEDIA[i].ROWCOUNT;
 						theInnerHtml += 'rowcount: ' + rc + '&nbsp;';
 					theInnerHtml += '</td>';
 				}
+				
+				
 				theInnerHtml += '<td>';
 				theInnerHtml += '<span class="browseLink" type="scientific_name" dval="' + encodeURI(data.SCIENTIFIC_NAME[i]) + '">' + spaceStripper(data.SCIENTIFIC_NAME[i]);
 				theInnerHtml += '</span>'; 					
