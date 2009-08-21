@@ -876,15 +876,6 @@ function success_getSpecResultsData(result){
 				if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
 					theInnerHtml += '<td>';
 						var thisMedia=JSON.parse(data.MEDIA[i]);
-						
-						//console.log('parsed');
-						//var rc=thisMedia.ROWCOUNT;
-						//var cl=thisMedia.COLUMNS;
-						//theInnerHtml += '<hr>thisMedia: ' + thisMedia + '&nbsp;';
-						//theInnerHtml += '<hr>rc: ' + rc + '&nbsp;';
-						//theInnerHtml += '<hr>cl: ' + cl + '&nbsp;';
-						theInnerHtml += '<hr>t: ' + thisMedia.ROWCOUNT + '&nbsp;';
-						//theInnerHtml += '<hr>t1: ' + thisMedia.ROWCOUNT[0] + '&nbsp;';
 						for (m=0; m<thisMedia.ROWCOUNT; ++m) {
 							if(thisMedia.DATA.preview_uri[m].length > 0) {
 								pURI=thisMedia.DATA.preview_uri[m];
