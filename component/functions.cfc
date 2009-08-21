@@ -1114,7 +1114,7 @@
 	<cftry>
 	<cfloop list="#idList#" index="cid">
 		<cfquery name="ts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select  type_status || decode(count(*),1,'',' (x' || count(*) || ')') type_status from citation where collection_object_id=#cid# group by type_status
+			select  type_status || decode(count(*),1,'','(' || count(*) || ')') type_status from citation where collection_object_id=#cid# group by type_status
 		</cfquery>
 		<cfif ts.recordcount gt 0>
 			<cfset tl="">
