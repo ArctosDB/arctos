@@ -876,6 +876,9 @@ function success_getSpecResultsData(result){
 				if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
 					theInnerHtml += '<td>';
 						var thisMedia=data.MEDIA[i];
+						
+						var myObject = JSON.parse(thisMedia, reviver);
+						console.log(myObject);
 						var rc=thisMedia.ROWCOUNT;
 						var cl=thisMedia.COLUMNS;
 						theInnerHtml += '<hr>thisMedia: ' + thisMedia + '&nbsp;';
