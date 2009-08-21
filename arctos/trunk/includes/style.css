@@ -1,3 +1,15 @@
+.imgDiv{
+	float: left;
+	margin:.1em;
+	max-width:200px;
+	max-height:200px;}
+.imgCaption{
+	text-align:center;
+	margin:.1em;
+	font-style: italic;
+	 font-size: smaller;
+  	text-indent: 0;
+}
 .imgStyle{
 	max-width:200px;
 	max-height:200px;
