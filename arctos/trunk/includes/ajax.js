@@ -846,13 +846,15 @@ function success_getSpecResultsData(result){
 				
 				
 				
+				
+				
 				if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
 					theInnerHtml += '<td>';
 						var thisMedia=data.MEDIA[i];
 						theInnerHtml += data.MEDIA[i];
 						var rc=data.MEDIA[i].ROWCOUNT;
 						theInnerHtml += '<hr>thisMedia: ' + thisMedia + '&nbsp;';
-						theInnerHtml += '<hr>rc: ' + thisMedia.ROWCOUNT + '&nbsp;';
+						theInnerHtml += '<hr>rc: ' + thisMedia[0].ROWCOUNT + '&nbsp;';
 					theInnerHtml += '</td>';
 				}
 				
