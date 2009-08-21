@@ -887,7 +887,7 @@ function success_getSpecResultsData(result){
 						//theInnerHtml += '<hr>t1: ' + thisMedia.ROWCOUNT[0] + '&nbsp;';
 						for (m=0; m<thisMedia.ROWCOUNT; ++m) {
 							
-							theInnerHtml += '<hr>' + thisMedia.PREVIEW_URI[m] + '&nbsp;';
+							theInnerHtml += '<hr>' + thisMedia.DATA.preview_uri[m] + '&nbsp;';
 						}
 					theInnerHtml += '</td>';
 				}
