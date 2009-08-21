@@ -853,8 +853,10 @@ function success_getSpecResultsData(result){
 						var thisMedia=data.MEDIA[i];
 						theInnerHtml += data.MEDIA[i];
 						var rc=thisMedia.ROWCOUNT;
+						var cl=thisMedia.COLUMNS;
 						theInnerHtml += '<hr>thisMedia: ' + thisMedia + '&nbsp;';
 						theInnerHtml += '<hr>rc: ' + rc + '&nbsp;';
+						theInnerHtml += '<hr>cl: ' + cl + '&nbsp;';
 					theInnerHtml += '</td>';
 				}
 				
