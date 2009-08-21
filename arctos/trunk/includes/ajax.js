@@ -876,16 +876,13 @@ function success_getSpecResultsData(result){
 				if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
 					theInnerHtml += '<td>';
 						var thisMedia=data.MEDIA[i];
-						console.log('tm0' + thisMedia[0].ROWCOUNT);
-						console.log('tmr0' + thisMedia.ROWCOUNT[0]);
-						
-						//console.log(dump(thisMedia));
-						//theInnerHtml += data.MEDIA[i];
 						var rc=thisMedia.ROWCOUNT;
 						var cl=thisMedia.COLUMNS;
 						theInnerHtml += '<hr>thisMedia: ' + thisMedia + '&nbsp;';
 						theInnerHtml += '<hr>rc: ' + rc + '&nbsp;';
 						theInnerHtml += '<hr>cl: ' + cl + '&nbsp;';
+						theInnerHtml += '<hr>t: ' + thisMedia[0].ROWCOUNT + '&nbsp;';
+						theInnerHtml += '<hr>t1: ' + thisMedia.ROWCOUNT[0] + '&nbsp;';
 						for (m=0; m<thisMedia.ROWCOUNT; ++m) {
 							theInnerHtml += '<hr>m: ' + m + '&nbsp;';
 						}
