@@ -1001,7 +1001,12 @@ function success_getSpecResultsData(result){
 				}
 				if (data.COLUMNLIST[0].indexOf('SPEC_LOCALITY')> -1) {
 					theInnerHtml += '<td id="SpecLocality_'+data.COLLECTION_OBJECT_ID[i] + '">';
-					theInnerHtml +='stuff:' + data.SPEC_LOCALITY[i] + ':' + data.SPEC_LOCALITY[i].length;
+					if(data.SPEC_LOCALITY[i].length) {
+						console.log(data.SPEC_LOCALITY[i] + ' has a length');
+					} else {
+						console.log(data.SPEC_LOCALITY[i] + ' ------------------------------- no length');
+					}
+					//theInnerHtml +='stuff:' + data.SPEC_LOCALITY[i] + ':' + data.SPEC_LOCALITY[i].length;
 					//if (data.SPEC_LOCALITY[i].length>0) {
 						theInnerHtml += '<span class="browseLink" type="spec_locality" dval="' + encodeURI(data.SPEC_LOCALITY[i]) + '"><div class="wrapLong">' + data.SPEC_LOCALITY[i] + '</div>';
 						theInnerHtml += '</span>';
