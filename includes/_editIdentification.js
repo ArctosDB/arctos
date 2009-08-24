@@ -36,8 +36,8 @@ function clearNewIdBy (n) {
 }
 function newIdFormula (f) {
 	var bTr = document.getElementById('taxon_b_row');
-	var b_val = document.getElementById('taxa_b');
-	var b_id = document.getElementById('TaxonBID');
+	var b_val = document.getElementById('taxonb');
+	var b_id = document.getElementById('taxonb_id');
 			
 	if (f == 'A or B' || f == 'A x B' || f == 'A / B intergrade' || f == 'A and B') {
 		// a and b
