@@ -420,7 +420,7 @@
 				<cfset TaxonomyTaxonName=left(taxon_name,len(taxon_name) - 2)>
 			<cfelseif taxon_name contains " {" and taxon_name contains "}">
 				<cfset  taxa_formula = "A {string}">
-				<cfset TaxonomyTaxonName=rereplace(taxon_name," {.*}">
+				<cfset TaxonomyTaxonName=rereplace(taxon_name," {.*}",'',"all")>
 			<!---
 			<cfelseif Compare(taxon_name, " X ")>
 			<cfset loadedMsg = "#loadedMsg#X">
