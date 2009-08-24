@@ -43,7 +43,7 @@ function newIdFormula (f) {
 		// a and b
 		bTr.style.display='';
 		b_val.className='reqdClr';
-		b_val.value='what the....';
+		b_val.value='';
 		b_id.className='reqdClr';
 	} else if (f == 'A' || f == 'A ?' || f == 'A cf.' || f == 'A sp.' || f == 'A aff.' || f == 'A ssp.' || f=='A \{string\}') {
 		bTr.style.display='none';

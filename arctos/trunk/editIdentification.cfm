@@ -16,6 +16,7 @@
 <script type='text/javascript' src='/includes/checkForm.js'></script>
 
 <script type="text/javascript" language="javascript">
+/*
 jQuery( function($) {
 	//setInterval(checkRequired,500);
 	$(".helpLink").click(function(e){
@@ -35,6 +36,7 @@ function removeHelpDiv() {
 		$('#helpDiv').remove();
 	}
 }
+*/
 /*
 function checkRequired(){	
 	// loop over all the forms...
