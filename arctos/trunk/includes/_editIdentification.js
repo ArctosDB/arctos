@@ -52,7 +52,7 @@ function newIdFormula (f) {
 		b_id.style.value='';
 		b_id.className='';
 	} else {
-		alert("You selected an invalid formula. Please submit a bug report.");
+		alert("You selected an invalid formula (" + f + "). Please submit a bug report.");
 	}
 	if(f=='A {string}') {
 		document.getElementById('userID').style.display='';
