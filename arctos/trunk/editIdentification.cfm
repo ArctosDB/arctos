@@ -135,33 +135,8 @@ function checkRequired(){
 			<select name="taxa_formula" id="taxa_formula" size="1" class="reqdClr"
 				onchange="newIdFormula(this.value);">
 					<cfloop query="ctFormula">
-						<cfif #ctFormula.taxa_formula# is "A">
-							<cfset thisDispVal = "one taxon">
-						<cfelseif #ctFormula.taxa_formula# is "A ?">
-							<cfset thisDispVal = 'taxon + "?"'>
-						<cfelseif #ctFormula.taxa_formula# is "A or B">
-							<cfset thisDispVal = 'A "or" B'>
-						<cfelseif #ctFormula.taxa_formula# is "A / B intergrade">
-							<cfset thisDispVal = 'A / B intergrade'>
-						<cfelseif #ctFormula.taxa_formula# is "A x B">
-							<cfset thisDispVal = 'A "x" B'>
-						<cfelseif #ctFormula.taxa_formula# is "A and B">
-							<cfset thisDispVal = 'A "and" B'>
-						<cfelseif #ctFormula.taxa_formula# is "A sp.">
-							<cfset thisDispVal = 'A "sp."'>
-						<cfelseif #ctFormula.taxa_formula# is "A cf.">
-							<cfset thisDispVal = 'A "cf."'>
-						<cfelseif #ctFormula.taxa_formula# is "A aff.">
-							<cfset thisDispVal = 'A "aff."'>
-						<cfelseif #ctFormula.taxa_formula# is "A ssp.">
-							<cfset thisDispVal = 'A "ssp."'>
-						<cfelseif #ctFormula.taxa_formula# is "A {string}">
-							<cfset thisDispVal = 'user string'>
-						<cfelse>
-							<cfset thisDispVal = "ERROR!!!">
-						</cfif>
 						<option 
-							<cfif #thisForm# is "#ctFormula.taxa_formula#"> selected </cfif>value="#ctFormula.taxa_formula#">#thisDispVal#</option>
+							<cfif #thisForm# is "#ctFormula.taxa_formula#"> selected </cfif>value="#ctFormula.taxa_formula#">#taxa_formula#</option>
 					</cfloop>
 			</select>
 		</td>
