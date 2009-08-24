@@ -492,7 +492,7 @@
 <cfif action is "createNew">
 <cfoutput>
 <cfif taxa_formula is "A {string}">
-	<cfset scientific_name = "user_identification">
+	<cfset scientific_name = user_id>
 <cfelseif taxa_formula is "A">
 	<cfset scientific_name = taxona>
 <cfelseif taxa_formula is "A or B">
