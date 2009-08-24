@@ -14,65 +14,6 @@
 <script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
 
 <script type='text/javascript' src='/includes/checkForm.js'></script>
-
-<script type="text/javascript" language="javascript">
-/*
-jQuery( function($) {
-	//setInterval(checkRequired,500);
-	$(".helpLink").click(function(e){
-		var id=this.id;
-		removeHelpDiv();
-		var theDiv = document.createElement('div');
-		theDiv.id = 'helpDiv';
-		theDiv.className = 'helpBox';
-		theDiv.innerHTML='<br>Loading...';
-		document.body.appendChild(theDiv);
-		$("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
-		$(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1, action: "noHint"});
-	});
-});
-function removeHelpDiv() {
-	if (document.getElementById('helpDiv')) {
-		$('#helpDiv').remove();
-	}
-}
-*/
-/*
-function checkRequired(){	
-	// loop over all the forms...
-	$('form').each(function(){
-		var fid=this.id;
-		var hasIssues=0;
-		var allFormObjs = $('#' + fid).formSerialize();
-		var AFA=allFormObjs.split('&');
-		for (i=0;i<AFA.length;i++){
-			var fp=AFA[i].split('=');
-			var ffName=fp[0];
-			var ffVal=fp[1];
-			var ffClass=$("#" + ffName).attr('class');
-			if (ffClass=='reqdClr' && ffVal==''){
-				hasIssues+=1;
-			}
-		}
-		// get the form submit
-		// REQUIREMENT: form dubmit button has id of formID + _submit
-		//REQUIREMENT: form submit has a title
-		var sbmBtnStr=fid + "_submit";
-		var sbmBtn=document.getElementById(sbmBtnStr);
-		var v=sbmBtn.value;
-		if (hasIssues > 0) {
-			// form is NOT ready for submission
-			document.getElementById(fid).setAttribute('onsubmit',"return false");
-			sbmBtn.value="Not ready...";		
-		} else {
-			document.getElementById(fid).removeAttribute('onsubmit');
-			sbmBtn.value=sbmBtn.title;	
-		}
-	});
-}
-*/
-
-</script>
 </div><!--- kill content div --->
 <!----------------------------------------------------------------------------------->
 
@@ -156,7 +97,7 @@ function checkRequired(){
   	</tr>
 	<tr id="userID" style="display:none;"> 
     	<td>
-			<div class="helpLink" id="scientific_name">Identification:</div>
+			<div class="helpLink" id="user_identification">Identification:</div>
 		</td>
          <td>
 		  	<input type="text" name="user_id" id="user_id" class="reqdClr" size="50">
@@ -252,21 +193,6 @@ function checkRequired(){
     </tr>
 </form>
 </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <strong><font size="+1">Edit an Existing Determination</font></strong>
 <img src="/images/info.gif" border="0" onClick="getDocs('identification')" class="likeLink">
 <cfset i = 1>
@@ -563,28 +489,29 @@ function checkRequired(){
 </cfoutput>
 </cfif>
 <!----------------------------------------------------------------------------------->
-<cfif #Action# is "createNew">
+<cfif action is "createNew">
 <cfoutput>
-<cfif #taxa_formula# is "A">
-	<cfset scientific_name = "#taxona#">
-<cfelseif #taxa_formula# is "A or B">
+<cfif taxa_formula is "A {string}">
+	<cfset scientific_name = "user_identification">
+<cfelseif taxa_formula is "A">
+	<cfset scientific_name = taxona>
+<cfelseif taxa_formula is "A or B">
 	<cfset scientific_name = "#taxona# or #taxonb#">
-<cfelseif #taxa_formula# is "A and B">
+<cfelseif taxa_formula is "A and B">
 	<cfset scientific_name = "#taxona# and #taxonb#">
-<cfelseif #taxa_formula# is "A x B">
+<cfelseif taxa_formula is "A x B">
 	<cfset scientific_name = "#taxona# x #taxonb#">
-<cfelseif #taxa_formula# is "A ?">
-		<cfset scientific_name = "#taxona# ?">
-<cfelseif #taxa_formula# is "A sp.">
-		<cfset scientific_name = "#taxona# sp.">
-
-<cfelseif #taxa_formula# is "A ssp.">
-		<cfset scientific_name = "#taxona# ssp.">
-<cfelseif #taxa_formula# is "A cf.">
-		<cfset scientific_name = "#taxona# cf.">
-<cfelseif #taxa_formula# is "A aff.">
+<cfelseif taxa_formula is "A ?">
+	<cfset scientific_name = "#taxona# ?">
+<cfelseif taxa_formula is "A sp.">
+	<cfset scientific_name = "#taxona# sp.">
+<cfelseif taxa_formula is "A ssp.">
+	<cfset scientific_name = "#taxona# ssp.">
+<cfelseif taxa_formula is "A cf.">
+	<cfset scientific_name = "#taxona# cf.">
+<cfelseif taxa_formula is "A aff.">
 	<cfset scientific_name = "#taxona# aff.">
-<cfelseif #taxa_formula# is "A / B intergrade">
+<cfelseif taxa_formula is "A / B intergrade">
 	<cfset scientific_name = "#taxona# / #taxonb# intergrade">
 <cfelse>
 	The taxa formula you entered isn't handled yet! Please submit a bug report.
@@ -592,41 +519,51 @@ function checkRequired(){
 </cfif>
 <!--- set all IDs to not accepted for this item --->
 
-
-
 <cftransaction>
 	<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
 	</cfquery>
 	
 	<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	INSERT INTO identification (
-		IDENTIFICATION_ID,
-		COLLECTION_OBJECT_ID
-		<cfif len(#MADE_DATE#) gt 0>
-			,MADE_DATE
-		</cfif>
-		,NATURE_OF_ID
-		 ,ACCEPTED_ID_FG
-		 <cfif len(#IDENTIFICATION_REMARKS#) gt 0>
-			,IDENTIFICATION_REMARKS
-		</cfif>
-		,taxa_formula
-		,scientific_name)
-	VALUES (
-		sq_identification_id.nextval,
-		#COLLECTION_OBJECT_ID#
-		<cfif len(#MADE_DATE#) gt 0>
-			,'#dateformat(MADE_DATE,"dd-mmm-yyyy")#'
-		</cfif>
-		,'#NATURE_OF_ID#'
-		 ,1
-		 <cfif len(#IDENTIFICATION_REMARKS#) gt 0>
-			,'#IDENTIFICATION_REMARKS#'
-		</cfif>
-		,'#taxa_formula#'
-		,'#scientific_name#')
-		 </cfquery>
+		INSERT INTO identification (
+			IDENTIFICATION_ID,
+			COLLECTION_OBJECT_ID
+			<cfif len(#MADE_DATE#) gt 0>
+				,MADE_DATE
+			</cfif>
+			,NATURE_OF_ID
+			 ,ACCEPTED_ID_FG
+			 <cfif len(#IDENTIFICATION_REMARKS#) gt 0>
+				,IDENTIFICATION_REMARKS
+			</cfif>
+			,taxa_formula
+			,scientific_name)
+		VALUES (
+			sq_identification_id.nextval,
+			#COLLECTION_OBJECT_ID#
+			<cfif len(#MADE_DATE#) gt 0>
+				,'#dateformat(MADE_DATE,"dd-mmm-yyyy")#'
+			</cfif>
+			,'#NATURE_OF_ID#'
+			 ,1
+			 <cfif len(#IDENTIFICATION_REMARKS#) gt 0>
+				,'#IDENTIFICATION_REMARKS#'
+			</cfif>
+			,'#taxa_formula#'
+			,'#scientific_name#')
+	</cfquery>
+	<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		insert into identification_agent (
+			identification_id,
+			agent_id,
+			identifier_order) 
+		values (
+			sq_identification_id.currval,
+			#newIdBy_id#,
+			1
+			)
+	</cfquery>
+	<cfif len(#newIdBy_two_id#) gt 0>
 		<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			insert into identification_agent (
 				identification_id,
@@ -634,60 +571,46 @@ function checkRequired(){
 				identifier_order) 
 			values (
 				sq_identification_id.currval,
-				#newIdBy_id#,
-				1
+				#newIdBy_two_id#,
+				2
 				)
 		</cfquery>
-		 <cfif len(#newIdBy_two_id#) gt 0>
-		 	<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				insert into identification_agent (
-					identification_id,
-					agent_id,
-					identifier_order) 
-				values (
-					sq_identification_id.currval,
-					#newIdBy_two_id#,
-					2
-					)
-			</cfquery>
-		 </cfif>
-		 <cfif len(#newIdBy_three_id#) gt 0>
-		 	<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				insert into identification_agent (
-					identification_id,
-					agent_id,
-					identifier_order) 
-				values (
-					sq_identification_id.currval,
-					#newIdBy_three_id#,
-					3
-					)
-			</cfquery>
-		 </cfif>
-		
-		 <cfquery name="newId2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		 	INSERT INTO identification_taxonomy (
+	</cfif>
+	<cfif len(#newIdBy_three_id#) gt 0>
+		<cfquery name="newIdAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			insert into identification_agent (
+				identification_id,
+				agent_id,
+				identifier_order) 
+			values (
+				sq_identification_id.currval,
+				#newIdBy_three_id#,
+				3
+				)
+		</cfquery>
+	</cfif>
+	<cfquery name="newId2" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		INSERT INTO identification_taxonomy (
+			identification_id,
+			taxon_name_id,
+			variable)
+		VALUES (
+			sq_identification_id.currval,
+			#taxona_id#,
+			'A')
+	 </cfquery>
+	 <cfif #taxa_formula# contains "B">
+		 <cfquery name="newId3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			INSERT INTO identification_taxonomy (
 				identification_id,
 				taxon_name_id,
 				variable)
 			VALUES (
 				sq_identification_id.currval,
-				#taxona_id#,
-				'A')
+				#taxonb_id#,
+				'B')
 		 </cfquery>
-		
-		 <cfif #taxa_formula# contains "B">
-			 <cfquery name="newId3" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				INSERT INTO identification_taxonomy (
-					identification_id,
-					taxon_name_id,
-					variable)
-				VALUES (
-					sq_identification_id.currval,
-					#taxonb_id#,
-					'B')
-			 </cfquery>
-		 </cfif>
+	 </cfif>
 </cftransaction>
 	<cflocation url="editIdentification.cfm?collection_object_id=#collection_object_id#">
 </cfoutput>
