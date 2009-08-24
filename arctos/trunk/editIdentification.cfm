@@ -155,7 +155,7 @@ function checkRequired(){
 							<cfset thisDispVal = 'A "aff."'>
 						<cfelseif #ctFormula.taxa_formula# is "A ssp.">
 							<cfset thisDispVal = 'A "ssp."'>
-						<cfelseif #ctFormula.taxa_formula# is "A {string}.">
+						<cfelseif #ctFormula.taxa_formula# is "A {string}">
 							<cfset thisDispVal = 'user string'>
 						<cfelse>
 							<cfset thisDispVal = "ERROR!!!">
