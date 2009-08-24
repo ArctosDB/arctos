@@ -155,6 +155,8 @@ function checkRequired(){
 							<cfset thisDispVal = 'A "aff."'>
 						<cfelseif #ctFormula.taxa_formula# is "A ssp.">
 							<cfset thisDispVal = 'A "ssp."'>
+						<cfelseif #ctFormula.taxa_formula# is "A {string}.">
+							<cfset thisDispVal = 'user string'>
 						<cfelse>
 							<cfset thisDispVal = "ERROR!!!">
 						</cfif>
@@ -173,6 +175,14 @@ function checkRequired(){
 				onChange="taxaPick('taxona_id','taxona','newID',this.value); return false;"
 				onKeyPress="return noenter(event);">
 			<input type="hidden" name="taxona_id" id="taxona_id" class="reqdClr"> 
+		</td>
+  	</tr>
+	<tr id="userID" style="display:none;"> 
+    	<td>
+			<div class="helpLink" id="scientific_name">Identification:</div>
+		</td>
+         <td>
+		  	<input type="text" name="user_id" id="user_id" class="reqdClr" size="50">
 		</td>
   	</tr>
 	<tr id="taxon_b_row" style="display:none;"> 

@@ -45,15 +45,21 @@ function newIdFormula (f) {
 		b_val.className='reqdClr';
 		b_val.value='what the....';
 		b_id.className='reqdClr';
-	} else if (f == 'A' || f == 'A ?' || f == 'A cf.' || f == 'A sp.' || f == 'A aff.' || f == 'A ssp.') {
+	} else if (f == 'A' || f == 'A ?' || f == 'A cf.' || f == 'A sp.' || f == 'A aff.' || f == 'A ssp.' || f=='A {string}') {
 		bTr.style.display='none';
 		b_val.style.value='';
 		b_val.className='';
 		b_id.style.value='';
 		b_id.className='';
-		
 	} else {
 		alert("You selected an invalid formula. Please submit a bug report.");
+	}
+	if(f=='A {string}') {
+		document.getElementById('userID').style.display='';
+		document.getElementById('user_id').className='reqdClr';
+	} else {
+		document.getElementById('userID').style.display='none';
+		document.getElementById('user_id').className='';
 	}
 }
 function removeIdentifier ( identification_id,num  ) {

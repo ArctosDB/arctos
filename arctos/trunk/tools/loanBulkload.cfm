@@ -260,7 +260,7 @@ Step 1: Upload a file comma-delimited text file (CSV) in the following format. (
 						update
 							cf_temp_loan_item
 						set
-							partID = #nid.nid#,
+							partID = sq_collection_object_id.currval,
 							status='spiffy'
 						where
 							key=#key#
