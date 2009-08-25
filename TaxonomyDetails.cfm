@@ -237,12 +237,15 @@
 			<cfset srchName = #replace(one.scientific_name," ","+","all")#>
 			<cfhttp method="get" url="http://ispecies.org/yj.php?search=#srchName#&callback=ws_results"/>
 			<cfdump var="#cfhttp#">
-			<cfif isjson(cfhttp.filecontent)>
+			<cfset r=replace(cfhttp.filecontent,"ws_results","")>
+			#r#
+			<hr>
+			<cfif isjson(r)>
 				its json
 			<cfelse>
 				no json here
 			</cfif>
-			<cfset rc=DeserializeJSON(cfhttp.filecontent)>
+			<cfset rc=DeserializeJSON(r)>
 			<cfdump var=#rc#>
 
 			
