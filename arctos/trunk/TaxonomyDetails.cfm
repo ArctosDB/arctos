@@ -252,7 +252,9 @@
 				</a>
 			</li>
 			<li>
-				<a class="external" href="http://www.eol.org/search/?q=#srchName#">Encyclopedia of Life</a>
+				<a class="external" href="http://www.eol.org/search/?q=#srchName#">
+					Encyclopedia of Life
+				</a>
 			</li>
 			<li>
 				<a class="external" href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all">
