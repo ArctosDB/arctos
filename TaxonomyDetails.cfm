@@ -238,8 +238,18 @@
 			<li>
 				<a href="http://ispecies.org/?q=#srchName#">iSpecies</a>
 			</li>
+			<cfset srchName = #replace(one.scientific_name," ","%20","all")#>
 			<li>
-				<cfset srchName = #replace(one.scientific_name," ","%20","all")#>
+				<a href="http://www.efloras.org/browse.aspx?name_str=#srchName#">Flora of North America</a>
+			</li>
+			<li>
+				<a href="http://www.ipni.org/ipni/simplePlantNameSearch.do?find_wholeName=#srchName#">The International Plant Names Index</a>
+			</li>
+			alnus
+			<li>
+				<a href="http://www.eol.org/search/?q=#srchName#">Encyclopedia of Life</a>
+			</li>
+			<li>
 				<a href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all"><img src="/images/itis.gif" border="0" width="30">&nbsp;ITIS</a>
 			</li>
 			<li>
