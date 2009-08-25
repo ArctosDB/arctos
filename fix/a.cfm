@@ -25,6 +25,7 @@
 		if(t.length>0 && i.length==0){
 			jQuery('#singleBirdRemote').addClass('red');
 		} else if (t.length>0 && i.lenght>0) {
+			console.log('remove class');
 			jQuery('#singleBirdRemote').removeClass('red');
 		}
 	}
