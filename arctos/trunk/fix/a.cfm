@@ -12,7 +12,7 @@
 <input type="submit" id="submit" value="this is submit"  title="Create Identification">
 </form>
 
-<span onclick="checkRequired()">click to launch missles and reformat your hard drive</span>
+<span onclick="alert('you will click anything, eh?')">click to launch missles and reformat your hard drive</span>
 
 <script>
 	//setInterval(checkRequired,500);
