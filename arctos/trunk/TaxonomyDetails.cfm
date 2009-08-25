@@ -237,11 +237,9 @@
 			<cfset srchName = #replace(one.scientific_name," ","+","all")#>
 			<cfhttp method="get" url="http://ispecies.org/yj.php?search=#srchName#&callback=ws_results"/>
 			<cfdump var="#cfhttp#">
-			<script>
-				var thisResult=JSON.parse(#cfhttp.fileContent#);
-				console.log(thisResult);
-				console.log(thisResult.ws_results.ResultSet.totalResultsAvailable);
-			</script>
+			<cfset rc=DeserializeJSON(cfhttp.filecontent)>
+			<cfdump var=#rc#>
+
 			
 			<li>
 				
