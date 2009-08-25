@@ -23,9 +23,10 @@
 		console.log(t.length);
 		console.log(i.length);
 		if(t.length>0 && i.length==0){
-				jQuery('#singleBirdRemote').addClass('red');
-			
-			}
+			jQuery('#singleBirdRemote').addClass('red');
+		} else if (t.length>0 && i.lenght>0) {
+			jQuery('#singleBirdRemote').removeClass('red');
+		}
 	}
 jQuery("#partname").autocomplete("/ajax/agent.cfm", {
 		width: 320,
