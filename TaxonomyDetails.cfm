@@ -238,27 +238,36 @@
 			<li>
 				<a href="http://ispecies.org/?q=#srchName#">iSpecies</a>
 			</li>
-			<cfset srchName = #replace(one.scientific_name," ","%20","all")#>
 			<li>
 				<a href="http://www.efloras.org/browse.aspx?name_str=#srchName#">Flora of North America</a>
 			</li>
 			<li>
-				<a href="http://www.ipni.org/ipni/simplePlantNameSearch.do?find_wholeName=#srchName#">The International Plant Names Index</a>
+				<a href="http://www.ipni.org/ipni/simplePlantNameSearch.do?find_wholeName=#srchName#">
+					The International Plant Names Index
+				</a>
 			</li>
-			alnus
+			<li>
+				<a href="http://epic.kew.org/searchepic/summaryquery.do?scientificName=#srchName#&searchAll=true&categories=names&categories=bibl&categories=colln&categories=taxon&categories=flora&categories=misc">
+					electronic plant information centre
+				</a>
+			</li>
 			<li>
 				<a href="http://www.eol.org/search/?q=#srchName#">Encyclopedia of Life</a>
 			</li>
 			<li>
-				<a href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all"><img src="/images/itis.gif" border="0" width="30">&nbsp;ITIS</a>
+				<a href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all">
+					<img src="/images/itis.gif" border="0" width="30">&nbsp;ITIS
+				</a>
 			</li>
 			<li>
-				<a href="http://www.catalogueoflife.org/search_results.php?search_string=#srchName#&match_whole_words=on">Catalogue of Life</a>
+				<a href="http://www.catalogueoflife.org/search_results.php?search_string=#srchName#&match_whole_words=on">
+					Catalogue of Life
+				</a>
 			</li>
-			
 			<li>
-				<cfset srchName = #replace(one.scientific_name," ","%20","all")#>
-				<a href="http://www.unep-wcmc.org/isdb/CITES/Taxonomy/tax-species-result.cfm?displaylanguage=eng&Genus=%25#one.genus#%25&source=animals&Species=#one.species#"><img src="/images/UNEP.jpg" border="0" width="30">&nbsp;UNEP</a>
+				<a href="http://www.unep-wcmc.org/isdb/CITES/Taxonomy/tax-species-result.cfm?displaylanguage=eng&Genus=%25#one.genus#%25&source=animals&Species=#one.species#">
+					<img src="/images/UNEP.jpg" border="0" width="30">&nbsp;UNEP
+				</a>
 			</li>			
 		</ul>			
 	</p>
