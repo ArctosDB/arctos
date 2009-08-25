@@ -111,9 +111,6 @@
 				</td>
 				<td nowrap="nowrap">
 					<input size="25" name="full_taxon_name" id="full_taxon_name" maxlength="50">
-					<span class="infoLink" onclick="var e=document.getElementById('full_taxon_name');e.value='='+e.value;">
-						Add = for exact match
-					</span>
 				</td>
 			</tr>
 			<tr>
