@@ -223,7 +223,8 @@
 		<ul>
 			<li>
 				Search Arctos for specimens that are <a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#">
-				exactly <I>#one.SCIENTIFIC_NAME#</I></a>
+				exactly <I>#one.SCIENTIFIC_NAME#</I></a> (<a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#&media_type=any">
+					with Media</a>)
 			</li>
 			<li>
 				Search Arctos for specimens <a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#">like <em>#one.scientific_name#</em></a>
@@ -241,7 +242,8 @@
 			</li>
 			<li>
 				<a class="external" href="http://images.google.com/images?q=#thisSearch#" target="_blank">
-					<img src="/images/GoogleImage.gif" width="40" border="0">&nbsp;Google Images</a>
+					Google Images
+				</a>
 			</li>
 			<li>
 				<a class="external" target="_blank" href="http://www.eol.org/search/?q=#srchName#">
@@ -268,7 +270,7 @@
 			</li>
 			<li>
 				<a class="external" target="_blank" href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all">
-					<img src="/images/itis.gif" border="0" width="30">&nbsp;ITIS
+					ITIS
 				</a>
 			</li>
 			<li>
@@ -278,7 +280,7 @@
 			</li>
 			<li>
 				<a class="external" target="_blank" href="http://www.unep-wcmc.org/isdb/CITES/Taxonomy/tax-species-result.cfm?displaylanguage=eng&Genus=%25#one.genus#%25&source=animals&Species=#one.species#">
-					<img src="/images/UNEP.jpg" border="0" width="30">&nbsp;UNEP
+					UNEP (CITES)
 				</a>
 			</li>
 			<li>
