@@ -88,7 +88,7 @@
 						<strong>Common&nbsp;Name:</strong>
 					</span>
 				</td>
-				<td><input size="25" name="common_name" id="common_name" maxlength="50"></td>
+				<td nowrap="nowrap"><input size="25" name="common_name" id="common_name" maxlength="50"></td>
 			</tr>
 			<tr>
 				<td align="right">
@@ -96,10 +96,10 @@
 						<strong>Scientific&nbsp;Name:</strong>
 					</span>
 				</td>
-				<td>
+				<td nowrap="nowrap">
 					<input size="25" name="scientific_name" id="scientific_name" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('scientific_name');e.value='='+e.value;">
-						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
+						Add = for exact match
 					</span>
 				</td>
 			</tr>
@@ -109,32 +109,32 @@
 						<strong>Any&nbsp;Category:</strong>
 					</span>
 				</td>
-				<td>
+				<td nowrap="nowrap">
 					<input size="25" name="full_taxon_name" id="full_taxon_name" maxlength="50">
 					<span class="infoLink" onclick="var e=document.getElementById('full_taxon_name');e.value='='+e.value;">
-						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
+						Add = for exact match
 					</span>
 				</td>
 			</tr>
 			<tr>
 				<td align="right"><b><nobr>Author Text:</nobr></b></td>
-				<td><input size="25" name="author_text" id="author_text" maxlength="40"></td>
+				<td nowrap="nowrap"><input size="25" name="author_text" id="author_text" maxlength="40"></td>
 			</tr>
 			<tr>
 				<td align="right"><b><nobr>Genus:</nobr></b></td>
-				<td>
+				<td nowrap="nowrap">
 					<input size="25" name="genus" id="genus" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('genus');e.value='='+e.value;">
-						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
+						Add = for exact match
 					</span>
 				</td>
 			</tr>
 			<tr>
 				<td align="right"><b><nobr>Species:</nobr></b></td>
-				<td>
+				<td nowrap="nowrap">
 					<input size="25" name="species" id="species" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('species');e.value='='+e.value;">
-						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
+						Add = for exact match
 					</span>
 				</td>
 			</tr>
@@ -149,10 +149,10 @@
 			</tr>
 			<tr>
 				<td align="right"><b><nobr>Phylum:</nobr></b></td>
-				<td>
+				<td nowrap="nowrap">
 					<input size="25" name="phylum" id="phylum" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('phylum');e.value='='+e.value;">
-						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
+						Add = for exact match
 					</span>
 				</td>
 			</tr>
@@ -161,7 +161,7 @@
 			</cfquery>
 			<tr>
 				<td align="right"><b><nobr>Class:</nobr></b></td>
-				<td>
+				<td nowrap="nowrap">
 					<select name="phylclass" id="phylclass" size="1">
 						<option></option>
 						<cfloop query="ctClass">
@@ -173,60 +173,60 @@
 			</tr>
 			<tr>
 				<td align="right"><b><nobr>Order:</nobr></b></td>
-				<td>
+				<td nowrap="nowrap">
 					<input size="25" name="phylorder" id="phylorder" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('phylorder');e.value='='+e.value;">
-						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
+						Add = for exact match
 					</span>
 				</td>
 			</tr>
 			<tr>
 				<td align="right"><b><nobr>Suborder:</nobr></b></td>
-				<td>
+				<td nowrap="nowrap">
 					<input size="25" name="suborder" id="suborder" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('suborder');e.value='='+e.value;">
-						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
+						Add = for exact match
 					</span>
 				</td>
 			</tr>
 			<tr>
 				<td align="right"><b><nobr>Family:</nobr></b></td>
-				<td>
+				<td nowrap="nowrap">
 					<input size="25" name="family" id="family" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('family');e.value='='+e.value;">
-						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
+						Add = for exact match
 					</span>
 				</td>
 			</tr>
 			<tr>
 				<td  align="right"><b><nobr>Subfamily:</nobr></b></td>
-				<td>
+				<td nowrap="nowrap">
 					<input size="25" name="subfamily" id="subfamily" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('subfamily');e.value='='+e.value;">
-						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
+						Add = for exact match
 					</span>
 				</td>
 			</tr>
 			<tr>
 				<td align="right"><b><nobr>Tribe:</nobr></b></td>
-				<td>
+				<td nowrap="nowrap">
 					<input size="25" name="tribe" id="tribe" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('tribe');e.value='='+e.value;">
-						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
+						Add = for exact match
 					</span>
 				</td>
 			</tr>
 			<tr>
 				<td align="right"><b><nobr>Subgenus:</nobr></b></td>
-				<td>
+				<td nowrap="nowrap">
 					<input size="25" name="subgenus" id="subgenus" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('subgenus');e.value='='+e.value;">
-						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
+						Add = for exact match
 					</span>
 				</td>
 			</tr>
 			<tr>
-				<td><font size="-1">&nbsp;</font></td>
+				<td nowrap="nowrap"><font size="-1">&nbsp;</font></td>
 				<td align="center">
 					<input type="submit" 
 						value="Search" 
