@@ -28,7 +28,7 @@
 		});
 		$("#newIdBy").result(function(event, data, formatted) {
 			if (data) 
-				jQuery('#singleBirdRemote_id').val(data[1]);
+				jQuery('#newIdBy_id').val(data[1]);
 		});
 	});
 </script>
