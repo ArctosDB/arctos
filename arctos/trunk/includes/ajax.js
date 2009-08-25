@@ -841,13 +841,6 @@ function success_getSpecResultsData(result){
 						theInnerHtml += data.CUSTOMID[i] + '&nbsp;';
 					theInnerHtml += '</td>';
 				}
-				
-				
-				
-				
-				
-				
-				
 				if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
 					theInnerHtml += '<td>';
 						var thisMedia=JSON.parse(data.MEDIA[i]);
@@ -864,17 +857,6 @@ function success_getSpecResultsData(result){
 						}
 					theInnerHtml += '</td>';
 				}
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
 				theInnerHtml += '<td>';
 				theInnerHtml += '<span class="browseLink" type="scientific_name" dval="' + encodeURI(data.SCIENTIFIC_NAME[i]) + '">' + spaceStripper(data.SCIENTIFIC_NAME[i]);
 				theInnerHtml += '</span>'; 					
