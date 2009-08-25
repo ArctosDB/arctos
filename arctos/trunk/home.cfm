@@ -133,7 +133,8 @@ encumbered for proprietary reasons, data are open to the public.
 	<li>Object-tracking using nested-containers model, 
 		bar codes, and container-condition history.</li>
 	<li>
-		E-mail reminders for loans due, permit expirations, etc. Reports detailing possible GenBank matches,
+		E-mail <a href="http://arctosblog.blogspot.com/2009/08/suspect-data.html">reminders</a> for loans due, 
+		permit expirations, etc. Reports detailing possible GenBank matches,
 		missing citations, unlikely publications, and various other potentially faulty or missing data. 
 	</li>
 	<li>Encumbrances can mask localities, collector names, 
@@ -271,8 +272,7 @@ The data providers are not responsible for loss or damages due to use of these d
 <div class="a">
 	While sharing a common ancestor, Arctos and Specify now differ almost every level - software, 
 	hardware, security model, data model, 
-	development strategy, and support community. <cfoutput><a href="mailto:#application.technicalEmail#">Contact us</a></cfoutput>, 
-	and we'll try our best to help you understand the differences.
+	development strategy, and support community. A <a href="/info/avs.html">comparison</a> is available.
 </div>
 <div class="q">
 	Q: What about security and backups?	
