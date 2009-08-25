@@ -12,9 +12,17 @@
 
 </form>
 
-
+<span onclick="checkRequired()">check</span>
 
 <script>
+	//setInterval(checkRequired,500);
+	
+	function checkRequired() {
+		var t=jQuery('#singleBirdRemote').val();
+		var i=jQuery('#idfld').val();
+		console.log(t);
+		console.log(i);
+	}
 jQuery("#partname").autocomplete("/ajax/agent.cfm", {
 		width: 320,
 		max: 20,
