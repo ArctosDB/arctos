@@ -6,6 +6,10 @@
 <form >
 <input type="text" name="partname" id="partname">
 
+<input type="text" name="singleBirdRemote" id="singleBirdRemote">
+
+<input type="text" name="t" id="t">
+
 </form>
 
 
@@ -19,6 +23,16 @@ jQuery("#partname").autocomplete("/ajax/agent.cfm", {
 		multiple: false,
 		scroll: true,
 		scrollHeight: 300
+	});
+	$("#singleBirdRemote").autocomplete("/ajax/agent.cfm", {
+		width: 260,
+		selectFirst: false
+	});
+	
+	
+	$("#singleBirdRemote").result(function(event, data, formatted) {
+		if (data)
+			$(this).parent().next().find("input").val(data[1]);
 	});
 	
 </script>
