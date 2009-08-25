@@ -22,6 +22,7 @@
 		) 
 		where rownum <= #limit#
 	</cfquery>
+	<cfdump var=#pn#>
 	<cfloop query="pn">
 		#agent_name#|#agent_id##chr(10)#
 	</cfloop>
