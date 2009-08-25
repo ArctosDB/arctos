@@ -8,7 +8,7 @@
 
 <input type="text" name="singleBirdRemote" id="singleBirdRemote">
 
-<input type="text" name="t" id="t">
+<input />
 
 </form>
 
