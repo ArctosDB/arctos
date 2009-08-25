@@ -223,11 +223,12 @@
 		<ul>
 			<li>
 				Search Arctos for specimens that are <a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#">
-				exactly <I>#one.SCIENTIFIC_NAME#</I></a> (<a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#&media_type=any">
-					with Media</a>)
+				exactly <I>#one.SCIENTIFIC_NAME#</I></a> 
+				(<a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#&media_type=any">with Media</a>)
 			</li>
 			<li>
 				Search Arctos for specimens <a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#">like <em>#one.scientific_name#</em></a>
+				(<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#&media_type=any">with Media</a>)
 			</li>
 		</ul>
 			<cfset srchName = URLEncodedFormat(one.scientific_name)>
