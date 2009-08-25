@@ -50,7 +50,7 @@
 			<cfset titleTerms=listappend(titleTerms,'#genus#')>
 		</cfif>
 		<cfif isdefined("phylum") AND len(#phylum#) gt 0>
-			<cfif left(genus,1) is "=">
+			<cfif left(phylum,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(phylum) = '#ucase(right(phylum,len(phylum)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(phylum) LIKE '%#ucase(phylum)#%'">
@@ -58,7 +58,7 @@
 			<cfset titleTerms=listappend(titleTerms,'#phylum#')>
 		</cfif>
 		<cfif isdefined("species") AND len(#species#) gt 0>
-			<cfif left(genus,1) is "=">
+			<cfif left(species,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(species) = '#ucase(right(species,len(species)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(species) LIKE '%#ucase(species)#%'">
@@ -66,7 +66,7 @@
 			<cfset titleTerms=listappend(titleTerms,'#species#')>
 		</cfif>
 		<cfif isdefined("subspecies") AND len(#subspecies#) gt 0>
-			<cfif left(genus,1) is "=">
+			<cfif left(subspecies,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(subspecies) = '#ucase(right(subspecies,len(subspecies)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(subspecies) LIKE '%#ucase(subspecies)#%'">
@@ -74,7 +74,7 @@
 			<cfset titleTerms=listappend(titleTerms,'#subspecies#')>
 		</cfif>
 		<cfif isdefined("full_taxon_name") AND len(#full_taxon_name#) gt 0>
-			<cfif left(genus,1) is "=">
+			<cfif left(full_taxon_name,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(full_taxon_name) = '#ucase(right(full_taxon_name,len(full_taxon_name)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(full_taxon_name) LIKE '%#ucase(full_taxon_name)#%'">
@@ -83,7 +83,7 @@
 			<cfset titleTerms=listappend(titleTerms,'#full_taxon_name#')>
 		</cfif>
 		<cfif isdefined("phylclass") AND len(#phylclass#) gt 0>
-			<cfif left(genus,1) is "=">
+			<cfif left(phylclass,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(phylclass) = '#ucase(right(phylclass,len(phylclass)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(phylclass) LIKE '%#ucase(phylclass)#%'">
@@ -91,7 +91,7 @@
 			<cfset titleTerms=listappend(titleTerms,'#phylclass#')>
 		</cfif>
 		<cfif isdefined("phylorder") AND len(#phylorder#) gt 0>
-			<cfif left(genus,1) is "=">
+			<cfif left(phylorder,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(phylorder) = '#ucase(right(phylorder,len(phylorder)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(phylorder) LIKE '%#ucase(phylorder)#%'">
@@ -99,7 +99,7 @@
 			<cfset titleTerms=listappend(titleTerms,'#phylorder#')>
 		</cfif>
 		<cfif isdefined("suborder") AND len(#suborder#) gt 0>
-			<cfif left(genus,1) is "=">
+			<cfif left(suborder,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(suborder) = '#ucase(right(suborder,len(suborder)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(suborder) LIKE '%#ucase(suborder)#%'">
@@ -107,7 +107,7 @@
 			<cfset titleTerms=listappend(titleTerms,'#suborder#')>
 		</cfif>
 		<cfif isdefined("family") AND len(#family#) gt 0>
-			<cfif left(genus,1) is "=">
+			<cfif left(family,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(family) = '#ucase(right(family,len(family)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(family) LIKE '%#ucase(family)#%'">
@@ -115,7 +115,7 @@
 			<cfset titleTerms=listappend(titleTerms,'#family#')>
 		</cfif>
 		<cfif isdefined("subfamily") AND len(#subfamily#) gt 0>
-			<cfif left(genus,1) is "=">
+			<cfif left(subfamily,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(subfamily) = '#ucase(right(subfamily,len(subfamily)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(subfamily) LIKE '%#ucase(subfamily)#%'">
@@ -123,7 +123,7 @@
 			<cfset titleTerms=listappend(titleTerms,'#subfamily#')>
 		</cfif>
 		<cfif isdefined("tribe") AND len(#tribe#) gt 0>
-			<cfif left(genus,1) is "=">
+			<cfif left(tribe,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(tribe) = '#ucase(right(tribe,len(tribe)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(tribe) LIKE '%#ucase(tribe)#%'">
@@ -131,7 +131,7 @@
 			<cfset titleTerms=listappend(titleTerms,'#tribe#')>
 		</cfif>
 		<cfif isdefined("subgenus") AND len(#subgenus#) gt 0>
-			<cfif left(genus,1) is "=">
+			<cfif left(subgenus,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(subgenus) = '#ucase(right(subgenus,len(subgenus)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(subgenus) LIKE '%#ucase(subgenus)#%'">
@@ -139,7 +139,7 @@
 			<cfset titleTerms=listappend(titleTerms,'#subgenus#')>
 		</cfif>
 		<cfif isdefined("author_text") AND len(#author_text#) gt 0>
-			<cfif left(genus,1) is "=">
+			<cfif left(author_text,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(author_text) = '#ucase(right(author_text,len(author_text)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(author_text) LIKE '%#ucase(author_text)#%'">
@@ -147,7 +147,7 @@
 			<cfset titleTerms=listappend(titleTerms,'#author_text#')>
 		</cfif>
 		<cfif isdefined("scientific_name") AND len(#scientific_name#) gt 0>
-			<cfif left(genus,1) is "=">
+			<cfif left(scientific_name,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(scientific_name) = '#ucase(right(scientific_name,len(scientific_name)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(scientific_name) LIKE '%#ucase(scientific_name)#%'">
