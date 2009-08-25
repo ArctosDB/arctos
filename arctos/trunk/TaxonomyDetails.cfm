@@ -243,6 +243,10 @@
 				<a href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all"><img src="/images/itis.gif" border="0" width="30">&nbsp;ITIS</a>
 			</li>
 			<li>
+				<a href="http://www.catalogueoflife.org/search_results.php?search_string=#srchName#&match_whole_words=on">Catalogue of Life</a>
+			</li>
+			
+			<li>
 				<cfset srchName = #replace(one.scientific_name," ","%20","all")#>
 				<a href="http://www.unep-wcmc.org/isdb/CITES/Taxonomy/tax-species-result.cfm?displaylanguage=eng&Genus=%25#one.genus#%25&source=animals&Species=#one.species#"><img src="/images/UNEP.jpg" border="0" width="30">&nbsp;UNEP</a>
 			</li>			
