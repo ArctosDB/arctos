@@ -11,13 +11,12 @@
 
 
 <script>
-jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
+jQuery("#partname").autocomplete("/ajax/agent.cfm", {
 		width: 320,
 		max: 20,
 		autofill: true,
 		highlight: false,
-		multiple: true,
-		multipleSeparator: "|",
+		multiple: false,
 		scroll: true,
 		scrollHeight: 300
 	});
