@@ -31,6 +31,7 @@ jQuery("#partname").autocomplete("/ajax/agent.cfm", {
 	
 	
 	$("#singleBirdRemote").result(function(event, data, formatted) {
+		console.log('function thingee');
 		if (data)
 			$(this).parent().next().find("input").val(data[1]);
 	});
