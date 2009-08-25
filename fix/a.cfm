@@ -20,8 +20,8 @@
 	function checkRequired() {
 		var t=jQuery('#singleBirdRemote').val();
 		var i=jQuery('#idfld').val();
-		console.log(t);
-		console.log(i);
+		console.log(t.length);
+		console.log(i.length);
 	}
 jQuery("#partname").autocomplete("/ajax/agent.cfm", {
 		width: 320,
