@@ -51,7 +51,7 @@
 		</cfif>
 		<cfif isdefined("phylum") AND len(#phylum#) gt 0>
 			<cfif left(genus,1) is "=">
-				<CFSET SQL = "#SQL# AND upper(phylum) = '#ucase(phylum)#'">
+				<CFSET SQL = "#SQL# AND upper(phylum) = '#ucase(right(phylum,len(phylum)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(phylum) LIKE '%#ucase(phylum)#%'">
 			</cfif>
@@ -59,7 +59,7 @@
 		</cfif>
 		<cfif isdefined("species") AND len(#species#) gt 0>
 			<cfif left(genus,1) is "=">
-				<CFSET SQL = "#SQL# AND upper(species) = '#ucase(species)#'">
+				<CFSET SQL = "#SQL# AND upper(species) = '#ucase(right(species,len(species)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(species) LIKE '%#ucase(species)#%'">
 			</cfif>
@@ -67,7 +67,7 @@
 		</cfif>
 		<cfif isdefined("subspecies") AND len(#subspecies#) gt 0>
 			<cfif left(genus,1) is "=">
-				<CFSET SQL = "#SQL# AND upper(subspecies) = '#ucase(subspecies)#'">
+				<CFSET SQL = "#SQL# AND upper(subspecies) = '#ucase(right(subspecies,len(subspecies)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(subspecies) LIKE '%#ucase(subspecies)#%'">
 			</cfif>
@@ -75,7 +75,7 @@
 		</cfif>
 		<cfif isdefined("full_taxon_name") AND len(#full_taxon_name#) gt 0>
 			<cfif left(genus,1) is "=">
-				<CFSET SQL = "#SQL# AND upper(full_taxon_name) = '#ucase(full_taxon_name)#'">
+				<CFSET SQL = "#SQL# AND upper(full_taxon_name) = '#ucase(right(full_taxon_name,len(full_taxon_name)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(full_taxon_name) LIKE '%#ucase(full_taxon_name)#%'">
 			</cfif>
@@ -84,7 +84,7 @@
 		</cfif>
 		<cfif isdefined("phylclass") AND len(#phylclass#) gt 0>
 			<cfif left(genus,1) is "=">
-				<CFSET SQL = "#SQL# AND upper(phylclass) = '#ucase(phylclass)#'">
+				<CFSET SQL = "#SQL# AND upper(phylclass) = '#ucase(right(phylclass,len(phylclass)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(phylclass) LIKE '%#ucase(phylclass)#%'">
 			</cfif>
@@ -92,7 +92,7 @@
 		</cfif>
 		<cfif isdefined("phylorder") AND len(#phylorder#) gt 0>
 			<cfif left(genus,1) is "=">
-				<CFSET SQL = "#SQL# AND upper(phylorder) = '#ucase(phylorder)#'">
+				<CFSET SQL = "#SQL# AND upper(phylorder) = '#ucase(right(phylorder,len(phylorder)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(phylorder) LIKE '%#ucase(phylorder)#%'">
 			</cfif>
@@ -100,7 +100,7 @@
 		</cfif>
 		<cfif isdefined("suborder") AND len(#suborder#) gt 0>
 			<cfif left(genus,1) is "=">
-				<CFSET SQL = "#SQL# AND upper(suborder) = '#ucase(suborder)#'">
+				<CFSET SQL = "#SQL# AND upper(suborder) = '#ucase(right(suborder,len(suborder)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(suborder) LIKE '%#ucase(suborder)#%'">
 			</cfif>
@@ -108,7 +108,7 @@
 		</cfif>
 		<cfif isdefined("family") AND len(#family#) gt 0>
 			<cfif left(genus,1) is "=">
-				<CFSET SQL = "#SQL# AND upper(family) = '#ucase(family)#'">
+				<CFSET SQL = "#SQL# AND upper(family) = '#ucase(right(family,len(family)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(family) LIKE '%#ucase(family)#%'">
 			</cfif>
@@ -116,7 +116,7 @@
 		</cfif>
 		<cfif isdefined("subfamily") AND len(#subfamily#) gt 0>
 			<cfif left(genus,1) is "=">
-				<CFSET SQL = "#SQL# AND upper(subfamily) = '#ucase(subfamily)#'">
+				<CFSET SQL = "#SQL# AND upper(subfamily) = '#ucase(right(subfamily,len(subfamily)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(subfamily) LIKE '%#ucase(subfamily)#%'">
 			</cfif>
@@ -124,7 +124,7 @@
 		</cfif>
 		<cfif isdefined("tribe") AND len(#tribe#) gt 0>
 			<cfif left(genus,1) is "=">
-				<CFSET SQL = "#SQL# AND upper(tribe) = '#ucase(tribe)#'">
+				<CFSET SQL = "#SQL# AND upper(tribe) = '#ucase(right(tribe,len(tribe)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(tribe) LIKE '%#ucase(tribe)#%'">
 			</cfif>
@@ -132,7 +132,7 @@
 		</cfif>
 		<cfif isdefined("subgenus") AND len(#subgenus#) gt 0>
 			<cfif left(genus,1) is "=">
-				<CFSET SQL = "#SQL# AND upper(subgenus) = '#ucase(subgenus)#'">
+				<CFSET SQL = "#SQL# AND upper(subgenus) = '#ucase(right(subgenus,len(subgenus)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(subgenus) LIKE '%#ucase(subgenus)#%'">
 			</cfif>
@@ -140,7 +140,7 @@
 		</cfif>
 		<cfif isdefined("author_text") AND len(#author_text#) gt 0>
 			<cfif left(genus,1) is "=">
-				<CFSET SQL = "#SQL# AND upper(author_text) = '#ucase(author_text)#'">
+				<CFSET SQL = "#SQL# AND upper(author_text) = '#ucase(right(author_text,len(author_text)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(author_text) LIKE '%#ucase(author_text)#%'">
 			</cfif>
@@ -148,7 +148,7 @@
 		</cfif>
 		<cfif isdefined("scientific_name") AND len(#scientific_name#) gt 0>
 			<cfif left(genus,1) is "=">
-				<CFSET SQL = "#SQL# AND upper(scientific_name) = '#ucase(scientific_name)#'">
+				<CFSET SQL = "#SQL# AND upper(scientific_name) = '#ucase(right(scientific_name,len(scientific_name)-1))#'">
 			<cfelse>
 				<CFSET SQL = "#SQL# AND upper(scientific_name) LIKE '%#ucase(scientific_name)#%'">
 			</cfif>
