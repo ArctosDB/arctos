@@ -234,7 +234,7 @@
 				<a class="external" href="http://images.google.com/images?q=#thisSearch#" target="_blank">
 					<img src="/images/GoogleImage.gif" width="40" border="0">&nbsp;Google Images</a>
 			</li>
-			<cfset srchName = #replace(one.scientific_name," ","+","all")#>
+			<cfset srchName = URLEncodedFormat(one.scientific_name)>
 			<li>
 				<a class="external" target="_blank" href="http://ispecies.org/?q=#srchName#">iSpecies</a>
 			</li>
@@ -270,7 +270,12 @@
 				<a class="external" target="_blank" href="http://www.unep-wcmc.org/isdb/CITES/Taxonomy/tax-species-result.cfm?displaylanguage=eng&Genus=%25#one.genus#%25&source=animals&Species=#one.species#">
 					<img src="/images/UNEP.jpg" border="0" width="30">&nbsp;UNEP
 				</a>
-			</li>			
+			</li>
+			<li>
+				<a class="external" target="_blank" href="http://species.wikimedia.org/wiki/#srchName#">
+					WikiSpecies
+				</a>
+			</li>
 		</ul>			
 	</p>
 	<cfif len(one.genus) gt 0>
