@@ -284,7 +284,6 @@
 						<cfif listfind(formList,"/info/annotate.cfm")>
 							<li><a target="_top" href="##" class="x">Misc.</a>
 								<ul>
-									<li><a target="_top" href="/info/annotate.cfm">Annotations</a></li>
 									<li><a target="_top" href="/tools/PublicationStatus.cfm">Publication Staging</a></li>
 									<li><a target="_top" href="/tools/parent_child_taxonomy.cfm">Sync parent/child taxonomy</a></li>
 									<li><a target="_top" href="/Admin/killBadAgentDups.cfm">Merge bad dup agents</a></li>
