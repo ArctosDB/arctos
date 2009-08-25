@@ -79,7 +79,6 @@
 						value="Clear Form" 
 						class="clrBtn">
 					<input type="hidden" name="action" value="search">
-					<br><font size=-1>All fields accept partial matches.</font>
 				</td>
 			</tr>
 			<tr>
@@ -232,7 +231,7 @@
 					<input type="reset" 
 						value="Clear Form" 
 						class="clrBtn">
-					<input type="hidden" name="action" value="search"><br><font size=-1>All fields accept partial matches.</font>
+					<input type="hidden" name="action" value="search">
 				</td>
 			</tr>
 		</table>
