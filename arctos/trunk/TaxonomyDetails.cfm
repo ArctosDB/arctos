@@ -231,7 +231,7 @@
 		</ul>
 		<ul>
 			<li>
-				<a href="http://images.google.com/images?q=#thisSearch#" target="_blank">
+				<a class="external" href="http://images.google.com/images?q=#thisSearch#" target="_blank">
 					<img src="/images/GoogleImage.gif" width="40" border="0">&nbsp;Google Images</a>
 			</li>
 			<cfset srchName = #replace(one.scientific_name," ","+","all")#>
