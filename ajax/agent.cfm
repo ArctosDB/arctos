@@ -8,6 +8,8 @@
 		where 
 			agent_name.agent_id=preferred_agent_name.agent_id and
 			upper(agent_name.agent_name) like '#ucase(q)#%'
+		group by
+			preferred_agent_name.agent_name
 		order by
 			preferred_agent_name.agent_name
 	</cfquery>
