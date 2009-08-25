@@ -12,8 +12,26 @@
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.field.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
-
+<script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
 <script type='text/javascript' src='/includes/checkForm.js'></script>
+
+<script language="javascript" type="text/javascript">
+	jQuery(document).ready(function() {
+		$("#newIdBy").autocomplete("/ajax/agent.cfm", {
+			width: 260,
+			selectFirst: true,
+			max: 30,
+			autoFill: false,
+			delay: 400,
+			mustMatch: true,
+			cacheLength: 1
+		});
+		$("#newIdBy").result(function(event, data, formatted) {
+			if (data) 
+				jQuery('#singleBirdRemote_id').val(data[1]);
+		});
+	});
+</script>
 </div><!--- kill content div --->
 <!----------------------------------------------------------------------------------->
 
@@ -119,9 +137,12 @@
 			<div class="helpLink" id="id_by">ID By:</div>
 		</td>
         <td>
+			<!----
 			<input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50" 
 				onchange="getAgent('newIdBy_id','newIdBy','newID',this.value); return false;"
 			  	onkeypress="return noenter(event);"> 
+			  	---->
+			<input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50">
             <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr"> 
 			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 		</td>
