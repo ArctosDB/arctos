@@ -229,14 +229,24 @@
 				Search Arctos for specimens <a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#">like <em>#one.scientific_name#</em></a>
 			</li>
 		</ul>
+			<cfset srchName = URLEncodedFormat(one.scientific_name)>
 		<ul>
+			<li>
+				<a class="external" target="_blank" href="http://ispecies.org/?q=#srchName#">iSpecies</a>
+			</li>
 			<li>
 				<a class="external" href="http://images.google.com/images?q=#thisSearch#" target="_blank">
 					<img src="/images/GoogleImage.gif" width="40" border="0">&nbsp;Google Images</a>
 			</li>
-			<cfset srchName = URLEncodedFormat(one.scientific_name)>
 			<li>
-				<a class="external" target="_blank" href="http://ispecies.org/?q=#srchName#">iSpecies</a>
+				<a class="external" target="_blank" href="http://www.eol.org/search/?q=#srchName#">
+					Encyclopedia of Life
+				</a>
+			</li>
+			<li>
+				<a class="external" target="_blank" href="http://www.ubio.org/browser/search.php?search_all=#srchName#">
+					uBio
+				</a>
 			</li>
 			<li>
 				<a class="external" target="_blank" href="http://www.efloras.org/browse.aspx?name_str=#srchName#">Flora of North America</a>
@@ -249,11 +259,6 @@
 			<li>
 				<a class="external" target="_blank" href="http://epic.kew.org/searchepic/summaryquery.do?scientificName=#srchName#&searchAll=true&categories=names&categories=bibl&categories=colln&categories=taxon&categories=flora&categories=misc">
 					electronic plant information centre
-				</a>
-			</li>
-			<li>
-				<a class="external" target="_blank" href="http://www.eol.org/search/?q=#srchName#">
-					Encyclopedia of Life
 				</a>
 			</li>
 			<li>
