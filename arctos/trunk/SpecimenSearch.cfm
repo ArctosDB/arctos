@@ -282,16 +282,6 @@
 	</table>
 	<div id="e_collevent"></div>
 </div>
-<cfquery name="Part" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select part_name from 
-		ctspecimen_part_name
-	group by part_name order by part_name
-</cfquery>
-<!--- no values messes with cfsuggest --->
-<cfset partlist=#valuelist(Part.part_name,"\")#>
-<cfif len(partlist) is 0>
-	<cfset partlist="--empty--">
-</cfif>
 <div class="secDiv">
 	<table class="ssrch">
 		<tr>
