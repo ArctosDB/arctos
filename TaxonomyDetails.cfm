@@ -233,24 +233,8 @@
 			<li>
 				<a href="http://images.google.com/images?q=#thisSearch#" target="_blank">
 					<img src="/images/GoogleImage.gif" width="40" border="0">&nbsp;Google Images</a>
-			</li>
-			<cfset srchName = #replace(one.scientific_name," ","+","all")#>
-			<cfhttp method="get" url="http://ispecies.org/yj.php?search=#srchName#&callback=ws_results"/>
-			<cfdump var="#cfhttp#">
-			<cfset r=replace(cfhttp.filecontent,"ws_results","")>
-			#r#
-			<hr>
-			<cfif isjson(r)>
-				its json
-			<cfelse>
-				no json here
-			</cfif>
-			<cfset rc=DeserializeJSON(r)>
-			<cfdump var=#rc#>
-
-			
+			</li>			
 			<li>
-				
 				<a href="http://ispecies.org/?q=#srchName#">iSpecies</a>
 			</li>
 			<li>
