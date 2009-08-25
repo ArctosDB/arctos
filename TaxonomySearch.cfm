@@ -140,10 +140,10 @@
 			</tr>
 			<tr>
 				<td align="right"><b><nobr>Subspecies:</nobr></b></td>
-				<td>
+				<td nowrap="nowrap">
 					<input size="25" name="subspecies" id="subspecies" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('subspecies');e.value='='+e.value;">
-						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
+						Add = for exact match
 					</span>
 				</td>
 			</tr>
