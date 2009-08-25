@@ -1,4 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
+<script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
+
 <script>
 jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
 		width: 320,
