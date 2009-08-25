@@ -44,8 +44,8 @@ jQuery("#partname").autocomplete("/ajax/agent.cfm", {
 	$("#singleBirdRemote").autocomplete("/ajax/agent.cfm", {
 		width: 260,
 		selectFirst: true,
-		max: 100,
-		autoFill: true,
+		max: 30,
+		autoFill: false,
 		delay: 10,
 		mustMatch: true
 	});
