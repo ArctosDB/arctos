@@ -229,7 +229,7 @@
 				Search Arctos for specimens <a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#">like <em>#one.scientific_name#</em></a>
 			</li>
 		</ul>
-			<cfset srchName = URLEncodedFormat(one.scientific_name)>
+			<cfset srchName = URLEncodedFormat(one.scientific_name) & '&ref=arctos.database.museum'>
 		<ul>
 			<li>
 				<a class="external" target="_blank" href="http://ispecies.org/?q=#srchName#">iSpecies</a>
