@@ -43,9 +43,9 @@
 		</cfif>
 		<cfif isdefined("genus") AND len(#genus#) gt 0>
 			<cfif left(genus,1) is "=">
-				<CFSET SQL = "#SQL# AND upper(genus) = '#ucase(genus)#'">
+				<CFSET SQL = "#SQL# AND upper(genus) = '#ucase(left(genus,len(genus)-1))#'">
 			<cfelse>
-				<CFSET SQL = "#SQL# AND upper(genus) LIKE '%#ucase(left(genus,len(genus)-1))#%'">
+				<CFSET SQL = "#SQL# AND upper(genus) LIKE '%#ucase(genus)#%'">
 			</cfif>
 			<cfset titleTerms=listappend(titleTerms,'#genus#')>
 		</cfif>
