@@ -45,8 +45,8 @@ jQuery("#partname").autocomplete("/ajax/agent.cfm", {
 		width: 260,
 		selectFirst: true,
 		max: 30,
-		autoFill: false,
-		delay: 10,
+		autoFill: true,
+		delay: 400,
 		mustMatch: true
 	});
 	
