@@ -194,13 +194,11 @@
 						</cfloop>
 					</select>
 					<label for="institution_acronym">Institution Acronym</label>
-					<input type="text" name="institution_acronym" id="institution_acronym" value="#colls.institution_acronym#">
+					<input type="text" name="institution_acronym" id="institution_acronym" value="#colls.institution_acronym#" class="reqdClr">
 					<label for="collection">Collection</label>
-					<input type="text" name="collection" id="collection" value="#colls.collection#" size="50">
+					<input type="text" name="collection" id="collection" value="#colls.collection#" size="50" class="reqdClr">
 					<label for="guid_prefix">GUID Prefix</label>					
 					<input type="text" name="guid_prefix" id="guid_prefix" value="#colls.guid_prefix#">
-					<label for="collection">Collection</label>
-					<input type="text" name="collection" id="collection" value="#colls.collection#" size="50">
 					<label for="descr">Description</label>
 					<input type="text" name="descr" id="descr" value="#colls.descr#" size="50">
 					<label for="web_link">Web Link</label>
