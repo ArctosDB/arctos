@@ -2,8 +2,9 @@
 	<cfif not isdefined("limit") or not isnumeric(limit)>
 		<cfset limit=20>
 	</cfif>
-	<!---- cachedwithin="#createtimespan(0,0,60,0)#"---->
-	<cfquery name="pn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<!---- 
+	<cfdump var=#pn#>---->
+	<cfquery name="pn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from (
 			select
 				preferred_agent_name.agent_name,
@@ -22,7 +23,6 @@
 		) 
 		where rownum <= #limit#
 	</cfquery>
-	<cfdump var=#pn#>
 	<cfloop query="pn">
 		#agent_name#|#agent_id##chr(10)#
 	</cfloop>
