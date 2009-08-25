@@ -1,7 +1,16 @@
-<cfquery name="a" datasource="uam_god">
-	select getJsonMediaUriBySpecimen(11470) x from dual
-</cfquery>
-<cfdump var=#a#>
+<cfinclude template="/includes/_header.cfm">
+<script>
+jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
+		width: 320,
+		max: 20,
+		autofill: true,
+		highlight: false,
+		multiple: true,
+		multipleSeparator: "|",
+		scroll: true,
+		scrollHeight: 300
+	});
+	
+</script>
 
-<cfset tf=IsJSON(a.x)>
-<cfdump var="#TF#">
+<input type="text" id="partname">
