@@ -1,22 +1,24 @@
 <cfinclude template="/includes/_header.cfm">
 <script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
+<script type='text/javascript' src='/includes/checkForm.js'></script>
 
 
-
-<form >
-<input type="text" name="partname" id="partname">
-
+<form id="theForm">
+<label for="singleBirdRemote">asvas</label>
 <input type="text" name="singleBirdRemote" id="singleBirdRemote">
 
-<input type="text" id="idfld" name="idfld">
+<input type="text" id="singleBirdRemote_id" name="singleBirdRemote_id">
 
+<input type="submit" id="submit" value="this is submit">
 </form>
 
 <span onclick="checkRequired()">check</span>
 
 <script>
-	setInterval(checkRequired,500);
+	//setInterval(checkRequired,500);
 	
+	
+	/*
 	function checkRequired() {
 		var t=jQuery('#singleBirdRemote').val();
 		var i=jQuery('#idfld').val();
@@ -26,7 +28,7 @@
 			jQuery('#singleBirdRemote').addClass('red');
 		} else if (t.length>0 && i.length>0) {
 			//console.log('remove class');
-			jQuery('#singleBirdRemote').removeClass('red');
+			jQuery('#singleBirdRemote').removeClass('red').adClass('goodPick');
 		}
 	}
 jQuery("#partname").autocomplete("/ajax/agent.cfm", {
@@ -38,6 +40,7 @@ jQuery("#partname").autocomplete("/ajax/agent.cfm", {
 		scroll: true,
 		scrollHeight: 300
 	});
+	*/
 	$("#singleBirdRemote").autocomplete("/ajax/agent.cfm", {
 		width: 260,
 		selectFirst: false
@@ -45,13 +48,13 @@ jQuery("#partname").autocomplete("/ajax/agent.cfm", {
 	
 	
 	$("#singleBirdRemote").result(function(event, data, formatted) {
-		console.log('function thingee');
-		console.log(event);
-		console.log(data);
-		console.log(formatted);
+		//console.log('function thingee');
+		//console.log(event);
+		//console.log(data);
+		//console.log(formatted);
 		if (data)
-			console.log('if data indeed');
-			jQuery('#idfld').val(data[1]);
+			//console.log('if data indeed');
+			jQuery('#singleBirdRemote_id').val(data[1]);
 			//jQuery(this).parent().next().find("input").val(data[1]);
 	});
 	
