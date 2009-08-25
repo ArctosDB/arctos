@@ -229,10 +229,15 @@
 				Search Arctos for specimens <a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#">like <em>#one.scientific_name#</em></a>
 			</li>
 		</ul>
-			<cfset srchName = URLEncodedFormat(one.scientific_name) & '&ref=arctos.database.museum'>
+			<cfset srchName = URLEncodedFormat(one.scientific_name)>
 		<ul>
 			<li>
 				<a class="external" target="_blank" href="http://ispecies.org/?q=#srchName#">iSpecies</a>
+			</li>
+			<li>
+				<a class="external" target="_blank" href="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?name=#srchName#">
+					NCBI
+				</a>
 			</li>
 			<li>
 				<a class="external" href="http://images.google.com/images?q=#thisSearch#" target="_blank">
