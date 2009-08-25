@@ -8,7 +8,7 @@
 
 <input type="text" name="singleBirdRemote" id="singleBirdRemote">
 
-<input />
+<input type="text" id="idfld" name="idfld">
 
 </form>
 
@@ -37,7 +37,8 @@ jQuery("#partname").autocomplete("/ajax/agent.cfm", {
 		console.log(formatted);
 		if (data)
 			console.log('if data indeed');
-			$(this).parent().next().find("input").val(data[1]);
+			jQuery('#idfld').val(data[1]);
+			//jQuery(this).parent().next().find("input").val(data[1]);
 	});
 	
 </script>
