@@ -5,9 +5,9 @@
 
 <form id="theForm">
 <label for="singleBirdRemote">asvas</label>
-<input type="text" name="singleBirdRemote" id="singleBirdRemote">
+<input type="text" name="singleBirdRemote" id="singleBirdRemote" class="reqdClr">
 
-<input type="text" id="singleBirdRemote_id" name="singleBirdRemote_id">
+<input type="text" id="singleBirdRemote_id" name="singleBirdRemote_id" class="reqdClr">
 
 <input type="submit" id="submit" value="this is submit"  title="Create Identification">
 </form>
