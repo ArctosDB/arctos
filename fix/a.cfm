@@ -22,6 +22,10 @@
 		var i=jQuery('#idfld').val();
 		console.log(t.length);
 		console.log(i.length);
+		if(t.length>0 && i.length==0){
+				jQuery('#singleBirdRemote').addClass('red');
+			
+			}
 	}
 jQuery("#partname").autocomplete("/ajax/agent.cfm", {
 		width: 320,
