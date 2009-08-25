@@ -193,6 +193,8 @@
 	</cfquery>
 	<cfcatch><!--- not there, so what? ---></cfcatch>
 </cftry>
+
+<cfoutput>#preservesinglequotes(SQL)#</cfoutput>
 	<cfquery name="makeTable" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(SQL)#
 	</cfquery>
