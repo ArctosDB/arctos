@@ -99,7 +99,7 @@
 				<td>
 					<input size="25" name="scientific_name" id="scientific_name" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('scientific_name');e.value='='+e.value;">
-						Add = for exact match
+						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
 					</span>
 				</td>
 			</tr>
@@ -112,7 +112,7 @@
 				<td>
 					<input size="25" name="full_taxon_name" id="full_taxon_name" maxlength="50">
 					<span class="infoLink" onclick="var e=document.getElementById('full_taxon_name');e.value='='+e.value;">
-						Add = for exact match
+						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
 					</span>
 				</td>
 			</tr>
@@ -125,7 +125,7 @@
 				<td>
 					<input size="25" name="genus" id="genus" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('genus');e.value='='+e.value;">
-						Add = for exact match
+						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
 					</span>
 				</td>
 			</tr>
@@ -134,7 +134,7 @@
 				<td>
 					<input size="25" name="species" id="species" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('species');e.value='='+e.value;">
-						Add = for exact match
+						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
 					</span>
 				</td>
 			</tr>
@@ -143,7 +143,7 @@
 				<td>
 					<input size="25" name="subspecies" id="subspecies" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('subspecies');e.value='='+e.value;">
-						Add = for exact match
+						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
 					</span>
 				</td>
 			</tr>
@@ -152,7 +152,7 @@
 				<td>
 					<input size="25" name="phylum" id="phylum" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('phylum');e.value='='+e.value;">
-						Add = for exact match
+						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
 					</span>
 				</td>
 			</tr>
@@ -176,7 +176,7 @@
 				<td>
 					<input size="25" name="phylorder" id="phylorder" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('phylorder');e.value='='+e.value;">
-						Add = for exact match
+						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
 					</span>
 				</td>
 			</tr>
@@ -185,7 +185,7 @@
 				<td>
 					<input size="25" name="suborder" id="suborder" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('suborder');e.value='='+e.value;">
-						Add = for exact match
+						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
 					</span>
 				</td>
 			</tr>
@@ -194,7 +194,7 @@
 				<td>
 					<input size="25" name="family" id="family" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('family');e.value='='+e.value;">
-						Add = for exact match
+						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
 					</span>
 				</td>
 			</tr>
@@ -203,7 +203,7 @@
 				<td>
 					<input size="25" name="subfamily" id="subfamily" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('subfamily');e.value='='+e.value;">
-						Add = for exact match
+						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
 					</span>
 				</td>
 			</tr>
@@ -212,7 +212,7 @@
 				<td>
 					<input size="25" name="tribe" id="tribe" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('tribe');e.value='='+e.value;">
-						Add = for exact match
+						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
 					</span>
 				</td>
 			</tr>
@@ -221,7 +221,7 @@
 				<td>
 					<input size="25" name="subgenus" id="subgenus" maxlength="40">
 					<span class="infoLink" onclick="var e=document.getElementById('subgenus');e.value='='+e.value;">
-						Add = for exact match
+						Add&nbsp;=&nbsp;for&nbsp;exact&nbsp;match
 					</span>
 				</td>
 			</tr>
