@@ -1,5 +1,9 @@
 <cfoutput>
+	<cfif not isdefined("limit") or not isnumeric(limit)>
+		<cfset limit=20>
+	</cfif>
 	<cfquery name="pn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select * from (
 		select
 			preferred_agent_name.agent_name,
 			preferred_agent_name.agent_id
@@ -14,6 +18,7 @@
 			preferred_agent_name.agent_id
 		order by
 			preferred_agent_name.agent_name
+		) where rownum <= #limit#
 	</cfquery>
 	<cfloop query="pn">
 		#agent_name#|#agent_id##chr(10)#
