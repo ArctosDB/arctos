@@ -15,17 +15,17 @@
 <span onclick="checkRequired()">check</span>
 
 <script>
-	//setInterval(checkRequired,500);
+	setInterval(checkRequired,500);
 	
 	function checkRequired() {
 		var t=jQuery('#singleBirdRemote').val();
 		var i=jQuery('#idfld').val();
-		console.log(t.length);
-		console.log(i.length);
+		//console.log(t.length);
+		//console.log(i.length);
 		if(t.length>0 && i.length==0){
 			jQuery('#singleBirdRemote').addClass('red');
 		} else if (t.length>0 && i.length>0) {
-			console.log('remove class');
+			//console.log('remove class');
 			jQuery('#singleBirdRemote').removeClass('red');
 		}
 	}
