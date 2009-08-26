@@ -549,6 +549,9 @@ function success_getSpecResultsData(result){
 			if (data.COLUMNLIST[0].indexOf('SCI_NAME_WITH_AUTH')> -1) {
 				theInnerHtml += '<th>Scientific&nbsp;Name</th>';
 			}
+			if (data.COLUMNLIST[0].indexOf('ID_HISTORY')> -1) {
+				theInnerHtml += '<th>Identification&nbsp;History</th>';
+			}
 			if (data.COLUMNLIST[0].indexOf('IDENTIFIED_BY')> -1) {
 				theInnerHtml += '<th>Identified&nbsp;By</th>';
 			}
@@ -866,6 +869,14 @@ function success_getSpecResultsData(result){
 						theInnerHtml += spaceStripper(data.SCI_NAME_WITH_AUTH[i]);
 					theInnerHtml += '</td>';
 				}
+				if (data.COLUMNLIST[0].indexOf('ID_HISTORY')> -1) {
+					theInnerHtml += '<td>';
+						theInnerHtml += sdata.ID_HISTORY[i];
+					theInnerHtml += '</td>';
+				}
+				
+				
+				
 				if (data.COLUMNLIST[0].indexOf('IDENTIFIED_BY')> -1) {
 					theInnerHtml += '<td>' + splitBySemicolon(data.IDENTIFIED_BY[i]) + '&nbsp;</td>';
 				}
