@@ -21,7 +21,7 @@
 		jQuery(".agntpick").live("click",function(){
 			
 			jQuery(".agntpick").autocomplete("/ajax/agent.cfm", {
-			width: 260,
+				width: 260,
 				selectFirst: true,
 				max: 30,
 				autoFill: false,
@@ -29,11 +29,13 @@
 				mustMatch: true,
 				cacheLength: 1
 			});
-				});
+		});
 			
 		jQuery(".agntpick").result(function(event, data, formatted) {
 			if (data) 
+				
 				var theID=this.id + '_id';
+				console.log(theID);
 				jQuery('#' + theID).val(data[1]);
 		});
 	});
