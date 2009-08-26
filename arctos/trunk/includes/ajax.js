@@ -871,7 +871,7 @@ function success_getSpecResultsData(result){
 				}
 				if (data.COLUMNLIST[0].indexOf('ID_HISTORY')> -1) {
 					theInnerHtml += '<td>';
-						theInnerHtml += sdata.ID_HISTORY[i];
+						theInnerHtml += data.ID_HISTORY[i];
 					theInnerHtml += '</td>';
 				}
 				
