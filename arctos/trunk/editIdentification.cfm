@@ -15,16 +15,22 @@
 
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {	
+		
+		
 		//jQuery(".helpLink").live('click', function(e){
-		jQuery(".agntpick").live.autocomplete("/ajax/agent.cfm", {
+		jQuery(".agntpick").live("click",function(){
+			
+			jQuery(".agntpick").autocomplete("/ajax/agent.cfm", {
 			width: 260,
-			selectFirst: true,
-			max: 30,
-			autoFill: false,
-			delay: 400,
-			mustMatch: true,
-			cacheLength: 1
-		});
+				selectFirst: true,
+				max: 30,
+				autoFill: false,
+				delay: 400,
+				mustMatch: true,
+				cacheLength: 1
+			});
+				});
+			
 		jQuery(".agntpick").result(function(event, data, formatted) {
 			if (data) 
 				var theID=this.id + '_id';
