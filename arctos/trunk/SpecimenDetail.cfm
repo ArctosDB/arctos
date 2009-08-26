@@ -18,6 +18,8 @@
 <cfif isdefined("guid")>
 	<cfif guid contains ":">
 		<cfoutput>
+			hi
+			<cfabort>
 			<cfset sql="select collection_object_id from 
 					#flatTableName#
 				WHERE
