@@ -176,7 +176,7 @@
 			</div>
 		</td>
         <td>
-			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50"  onfocus="attach(this)">
+			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50"  onfocus="console.log('go');attach(this)">
             <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id"> 
 			<span class="infoLink" onclick="addNewIdBy('three');">more...</span>			
 		 </td>
