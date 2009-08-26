@@ -14,8 +14,8 @@
 <script type='text/javascript' src='/includes/checkForm.js'></script>
 
 <script language="javascript" type="text/javascript">
-	jQuery(document).ready(function() {
-		$("#newIdBy").autocomplete("/ajax/agent.cfm", {
+	jQuery(document).ready(function() {	
+		$(".agntpick").autocomplete("/ajax/agent.cfm", {
 			width: 260,
 			selectFirst: true,
 			max: 30,
@@ -24,14 +24,11 @@
 			mustMatch: true,
 			cacheLength: 1
 		});
-		$("#newIdBy").result(function(event, data, formatted) {
+		$(".agntpick").result(function(event, data, formatted) {
 			if (data) 
-				jQuery('#newIdBy_id').val(data[1]);
+				var theID=this.id + '_id';
+				jQuery('#' + theID).val(data[1]);
 		});
-		
-		
-		newIdBy_two
-		newIdBy_three
 	});
 </script>
 </div><!--- kill content div --->
@@ -140,7 +137,7 @@
 		</td>
         <td>
 			<input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50">
-            <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr"> 
+            <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr agntpick"> 
 			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 		</td>
 	</tr>
@@ -313,7 +310,7 @@
 										name="IdBy_#i#_#idnum#" 
 										id="IdBy_#i#_#idnum#" 
 										value="#agent_name#" 
-										class="reqdClr"
+										class="reqdClr agntpick"
 										size="50"> 
 									<input type="hidden" 
 										name="IdBy_#i#_#idnum#_id" 
