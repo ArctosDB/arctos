@@ -1,6 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-hello
-<cfabort>	
+
 <link rel="stylesheet" type="text/css" href="/includes/annotate.css">
 <script type='text/javascript' src='/includes/annotate.js'></script>
 <cfif isdefined("collection_object_id")>
@@ -18,19 +17,18 @@ hello
 </cfif>
 <cfif isdefined("guid")>
 	<cfif guid contains ":">
-		<cfset institution_acronym = listgetat(guid,1,":")>
-		<cfset collection_cde = listgetat(guid,2,":")>
-		<cfset cat_num = listgetat(guid,3,":")>
-		<cfset sql="select collection_object_id from 
-				#flatTableName#
-			WHERE
-				upper(guid)='#ucase(guid)#'">
-		<cfset checkSql(sql)>
-		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			#preservesinglequotes(sql)#
-		</cfquery>
-		<cfdump var="#c#">
-		<cfabort>
+		<cfoutput>
+			<cfset sql="select collection_object_id from 
+					#flatTableName#
+				WHERE
+					upper(guid)='#ucase(guid)#'">
+			<cfset checkSql(sql)>
+			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				#preservesinglequotes(sql)#
+			</cfquery>
+			<cfdump var="#c#">
+			<cfabort>
+		</cfoutput>
 	<cfelseif guid contains " ">
 		<cfset spos=find(" ",reverse(guid))>
 		<cfset cc=left(guid,len(guid)-spos)>
