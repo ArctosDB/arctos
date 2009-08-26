@@ -10,8 +10,6 @@
 
 
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
-<script type='text/javascript' src='/includes/jquery/jquery.field.js'></script>
-<script type='text/javascript' src='/includes/jquery/jquery.form.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
 <script type='text/javascript' src='/includes/checkForm.js'></script>
 
