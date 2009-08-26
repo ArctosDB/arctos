@@ -136,8 +136,8 @@
 			<div class="helpLink" id="id_by">ID By:</div>
 		</td>
         <td>
-			<input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50">
-            <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr agntpick"> 
+			<input type="text" name="newIdBy" id="newIdBy" class="reqdClr agntpick" size="50">
+            <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr"> 
 			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 		</td>
 	</tr>
