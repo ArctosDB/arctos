@@ -116,7 +116,7 @@
 			<div class="helpLink" id="user_identification">Identification:</div>
 		</td>
          <td>
-		  	<input type="text" name="user_id" id="user_id" class="reqdClr" size="50">
+		  	<input type="text" name="user_id" id="user_id" size="50">
 		</td>
   	</tr>
 	<tr id="taxon_b_row" style="display:none;"> 
