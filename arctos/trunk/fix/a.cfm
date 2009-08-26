@@ -58,11 +58,11 @@ jQuery("#partname").autocomplete("/ajax/agent.cfm", {
 	});
 	
 	
-	$("#singleBirdRemote").result(function(event, data, formatted) {
+	$(".agntpick").result(function(event, data, formatted) {
 		//console.log('function thingee');
-		//console.log(event);
-		//console.log(data);
-		//console.log(formatted);
+		console.log(event);
+		console.log(data);
+		console.log(formatted);
 		if (data) 
 			jQuery('#singleBirdRemote_id').val(data[1]);
 	});
