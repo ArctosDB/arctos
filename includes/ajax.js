@@ -552,6 +552,9 @@ function success_getSpecResultsData(result){
 			if (data.COLUMNLIST[0].indexOf('ID_HISTORY')> -1) {
 				theInnerHtml += '<th>Identification&nbsp;History</th>';
 			}
+			if (data.COLUMNLIST[0].indexOf('CITATIONS')> -1) {
+				theInnerHtml += '<th>Citations</th>';
+			}
 			if (data.COLUMNLIST[0].indexOf('IDENTIFIED_BY')> -1) {
 				theInnerHtml += '<th>Identified&nbsp;By</th>';
 			}
@@ -874,9 +877,11 @@ function success_getSpecResultsData(result){
 						theInnerHtml += data.ID_HISTORY[i];
 					theInnerHtml += '</td>';
 				}
-				
-				
-				
+				if (data.COLUMNLIST[0].indexOf('CITATIONS')> -1) {
+					theInnerHtml += '<td>';
+						theInnerHtml += data.CITATIONS[i];
+					theInnerHtml += '</td>';
+				}
 				if (data.COLUMNLIST[0].indexOf('IDENTIFIED_BY')> -1) {
 					theInnerHtml += '<td>' + splitBySemicolon(data.IDENTIFIED_BY[i]) + '&nbsp;</td>';
 				}
