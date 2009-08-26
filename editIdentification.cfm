@@ -17,6 +17,7 @@
 	jQuery(document).ready(function() {	
 		function attach(element){
 			console.log('attaching');
+        	/*
         	var $element = jQuery(element);
 			if($element.attr("autocomplete.attached")){
 	        	return;
@@ -33,6 +34,7 @@
 	
 	        // set a marker
 	        $element.attr("autocomplete.attached", true);
+	        */
 		}
 		//jQuery(".agntpick").live("click",function(){
 			jQuery(".agntpick").autocomplete("/ajax/agent.cfm", {
