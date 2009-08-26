@@ -48,7 +48,7 @@
 				mustMatch: true,
 				cacheLength: 1
 			});
-		});
+		//});
 			
 			
 			 $("p").live("myCustomEvent", function(e, myName, myValue){
