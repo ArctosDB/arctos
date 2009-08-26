@@ -14,6 +14,7 @@
 <script type='text/javascript' src='/includes/checkForm.js'></script>
 
 <script language="javascript" type="text/javascript">
+	/*
 	jQuery(document).ready(function() {	
 		jQuery(".agntpick").autocomplete("/ajax/agent.cfm", {
 			width: 260,
@@ -30,9 +31,10 @@
 				jQuery('#' + theID).val(data[1]);
 		});
 	});
-	function attach(element){
-		console.log('attaching');
-	      	var $element = jQuery(element);
+	*/
+	function attachAgentPick(element){
+		//console.log('attaching');
+	     var $element = jQuery(element);
 		if($element.attr("autocomplete.attached")){
 	       	return;
 	       }
@@ -158,7 +160,7 @@
 			<div class="helpLink" id="id_by">ID By:</div>
 		</td>
         <td>
-			<input type="text" name="newIdBy" id="newIdBy" class="reqdClr agntpick" size="50">
+			<input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50" onfocus="attachAgentPick(this);">
             <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr"> 
 			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 		</td>
