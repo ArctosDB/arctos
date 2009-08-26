@@ -41,6 +41,10 @@
 			<cfset stringOfStuffToClean = "#stringOfStuffToClean##common_name#">
 			<cfset titleTerms=listappend(titleTerms,'#common_name#')>
 		</cfif>
+		
+		<cfif isdefined("source_authority") AND len(#source_authority#) gt 0>
+			<CFSET SQL = "#SQL# AND source_authority = '#source_authority#'">
+		</cfif>
 		<cfif isdefined("genus") AND len(#genus#) gt 0>
 			<cfif left(genus,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(genus) = '#ucase(right(genus,len(genus)-1))#'">

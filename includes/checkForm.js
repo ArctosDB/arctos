@@ -40,7 +40,7 @@ function checkRequired(){
 						var lbl=getLabelForId(theForm.elements[e].id).className='';
 					}
 						catch(errr){
-							console.log(errr);
+							//console.log(errr);
 					}
 					var theElem=document.getElementById(theForm.elements[e].id);
 					if(theForm.elements[e].type=='submit'){
@@ -70,7 +70,7 @@ function checkRequired(){
 				getLabelForId(lblElem).className='badPickLbl';
 			}	
 			} catch(err){
-				console.log(err);
+				//console.log(err);
 			}		
 		}
 	
