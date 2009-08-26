@@ -64,7 +64,7 @@ jQuery("#partname").autocomplete("/ajax/agent.cfm", {
 		console.log(data);
 		console.log(formatted);
 		if (data) 
-			console.log(jQuery(this).parent());
+			console.log(jQuery(this).parent().next().find("input"));
 			jQuery(this).parent().next().find("input").val(data[1]);
 			
 			//jQuery('#singleBirdRemote_id').val(data[1]);
