@@ -54,6 +54,14 @@
 					mustMatch: true,
 					cacheLength: 1
 					});
+					
+					$element.result(function(event, data, formatted) {
+						if (data) 
+				
+				var theID=this.id + '_id';
+				console.log(theID);
+				jQuery('#' + theID).val(data[1]);
+		});
 	
 	        // set a marker
 	        $element.attr("autocomplete.attached", true);
