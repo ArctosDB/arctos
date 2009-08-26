@@ -15,27 +15,7 @@
 
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {	
-		function attach(element){
-			console.log('attaching');
-        	/*
-        	var $element = jQuery(element);
-			if($element.attr("autocomplete.attached")){
-	        	return;
-	        }
-	        // attach autocomplete 
-	       	 $element.autocomplete(
-	       	 		width: 260,
-					selectFirst: true,
-					max: 30,
-					autoFill: false,
-					delay: 400,
-					mustMatch: true,
-					cacheLength: 1);
-	
-	        // set a marker
-	        $element.attr("autocomplete.attached", true);
-	        */
-		}
+		
 		//jQuery(".agntpick").live("click",function(){
 			jQuery(".agntpick").autocomplete("/ajax/agent.cfm", {
 				width: 260,
@@ -58,6 +38,27 @@
 				jQuery('#' + theID).val(data[1]);
 		});
 	});
+	function attach(element){
+			console.log('attaching');
+        	/*
+        	var $element = jQuery(element);
+			if($element.attr("autocomplete.attached")){
+	        	return;
+	        }
+	        // attach autocomplete 
+	       	 $element.autocomplete(
+	       	 		width: 260,
+					selectFirst: true,
+					max: 30,
+					autoFill: false,
+					delay: 400,
+					mustMatch: true,
+					cacheLength: 1);
+	
+	        // set a marker
+	        $element.attr("autocomplete.attached", true);
+	        */
+		}
 </script>
 </div><!--- kill content div --->
 <!----------------------------------------------------------------------------------->
