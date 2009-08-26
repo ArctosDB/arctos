@@ -172,7 +172,7 @@
 			</div>
 		</td>
         <td>
-			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50">
+			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50" onfocus="attachAgentPick(this);">
             <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id"> 
 			<span class="infoLink" onclick="addNewIdBy('three');">more...</span>			
 		 </td>
@@ -184,7 +184,7 @@
 			</div>
 		</td>
         <td>
-			<input type="text" name="newIdBy_three" id="newIdBy_three"  size="50">
+			<input type="text" name="newIdBy_three" id="newIdBy_three" size="50" onfocus="attachAgentPick(this);">
             <input type="hidden" name="newIdBy_three_id" id="newIdBy_three_id"> 			
 		 </td>
     </tr>
@@ -334,8 +334,9 @@
 										name="IdBy_#i#_#idnum#" 
 										id="IdBy_#i#_#idnum#" 
 										value="#agent_name#" 
-										class="reqdClr agntpick"
-										size="50"> 
+										class="reqdClr"
+										size="50"
+										onfocus="attachAgentPick(this);"> 
 									<input type="hidden" 
 										name="IdBy_#i#_#idnum#_id" 
 										id="IdBy_#i#_#idnum#_id" value="#agent_id#"
