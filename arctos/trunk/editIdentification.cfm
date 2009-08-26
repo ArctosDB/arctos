@@ -45,14 +45,15 @@
 	        	return;
 	        }
 	        // attach autocomplete 
-	       	 $element.autocomplete(
+	       	 $element.autocomplete("/ajax/agent.cfm", {
 	       	 		width: 260,
 					selectFirst: true,
 					max: 30,
 					autoFill: false,
 					delay: 400,
 					mustMatch: true,
-					cacheLength: 1);
+					cacheLength: 1
+					});
 	
 	        // set a marker
 	        $element.attr("autocomplete.attached", true);
