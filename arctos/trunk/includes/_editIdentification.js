@@ -16,7 +16,7 @@ function addNewIdBy(n) {
 	var iS='newIdBy_' + n + '_id';
 	var v=document.getElementById(vS);
 	var i=document.getElementById(iS)
-	v.className='reqdClr';
+	v.className='reqdClr agntpick';
 	i.className='reqdClr';		
 }
 function clearNewIdBy (n) {
@@ -92,7 +92,7 @@ function addIdentifier(identification_id,num) {
 	nI.id = idStr;
 	nI.setAttribute('name',idStr);
 	nI.setAttribute('size','50');
-	nI.className='reqdClr';
+	nI.className='reqdClr agntpick';
 	var onchgStr = "getAgent('IdBy_"  + identification_id + "_" + num + '_id' + "','IdBy_" + identification_id + "_" + num + "','editIdentification',this.value); return false;";
 	nI.setAttribute('onchange',onchgStr);
 	nI.setAttribute('onKeyPress',"return noenter(event);");
