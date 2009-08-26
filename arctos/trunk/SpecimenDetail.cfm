@@ -1,4 +1,6 @@
-<cfinclude template="/includes/_header.cfm">	
+<cfinclude template="/includes/_header.cfm">
+hello
+<cfabort>	
 <link rel="stylesheet" type="text/css" href="/includes/annotate.css">
 <script type='text/javascript' src='/includes/annotate.js'></script>
 <cfif isdefined("collection_object_id")>
