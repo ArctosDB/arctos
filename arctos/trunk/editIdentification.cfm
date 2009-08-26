@@ -16,9 +16,30 @@
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {	
 		
+		function attach(element){
+
+        	var $element = jQuery(element);
+
+        // check if autocomplete was already attached
+	        if($element.attr("autocomplete.attached")){
+	                return;
+	        }
+
+        // attach autocomplete 
+       	 $element.autocomplete(width: 260,
+				selectFirst: true,
+				max: 30,
+				autoFill: false,
+				delay: 400,
+				mustMatch: true,
+				cacheLength: 1);
+
+        // set a marker
+        $element.attr("autocomplete.attached", true);
+}
 		
 		//jQuery(".agntpick").live("click",function(){
-			jQuery(".agntpick").live("autocomplete",function() { ("/ajax/agent.cfm", {
+			jQuery(".agntpick").autocomplete("/ajax/agent.cfm", {
 				width: 260,
 				selectFirst: true,
 				max: 30,
@@ -28,6 +49,14 @@
 				cacheLength: 1
 			});
 		});
+			
+			
+			 $("p").live("myCustomEvent", function(e, myName, myValue){
+      $(this).text("Hi there!");
+      $("span").stop().css("opacity", 1)
+               .text("myName = " + myName)
+               .fadeIn(30).fadeOut(1000);
+    });
 			
 		jQuery(".agntpick").result(function(event, data, formatted) {
 			if (data) 

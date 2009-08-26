@@ -17,6 +17,7 @@ function addNewIdBy(n) {
 	var v=document.getElementById(vS);
 	var i=document.getElementById(iS)
 	v.className='reqdClr agntpick';
+	v.setAttribute("onfocus", "attach(this)");
 	i.className='reqdClr';		
 }
 function clearNewIdBy (n) {
