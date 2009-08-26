@@ -221,6 +221,20 @@
 					</span>
 				</td>
 			</tr>
+			<cfquery name="CTTAXONOMIC_AUTHORITY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select source_authority from CTTAXONOMIC_AUTHORITY order by source_authority
+			</cfquery>
+			<tr>
+				<td align="right"><b><nobr>Authority:</nobr></b></td>
+				<td nowrap="nowrap">
+					<select name="source_authority" id="source_authority" size="1">
+						<option></option>
+						<cfloop query="CTTAXONOMIC_AUTHORITY">
+							<option value="#source_authority#">#source_authority#</option>
+						</cfloop>
+					</select>							
+				</td>
+			</tr>
 			<tr>
 				<td nowrap="nowrap"><font size="-1">&nbsp;</font></td>
 				<td align="center">

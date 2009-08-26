@@ -33,12 +33,11 @@
 	});
 	*/
 	function attachAgentPick(element){
-		//console.log('attaching');
-	     var $element = jQuery(element);
+	    var $element = jQuery(element);
 		if($element.attr("autocomplete.attached")){
 	       	return;
-	       }
-       	 $element.autocomplete("/ajax/agent.cfm", {
+		}
+       	$element.autocomplete("/ajax/agent.cfm", {
    	 		width: 260,
 			selectFirst: true,
 			max: 30,
