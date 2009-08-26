@@ -22,16 +22,11 @@
 					#flatTableName#
 				WHERE
 					upper(guid)='#ucase(guid)#'">
-			#sql#
 			<cfset checkSql(sql)>
-			<hr>
-			<cfabort>
-			#checkSql(sql)#
 			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				#preservesinglequotes(sql)#
 			</cfquery>
 			<cfdump var="#c#">
-			<cfabort>
 		</cfoutput>
 	<cfelseif guid contains " ">
 		<cfset spos=find(" ",reverse(guid))>
