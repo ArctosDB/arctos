@@ -16,26 +16,24 @@
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {	
 		function attach(element){
-console.log('attaching');
+			console.log('attaching');
         	var $element = jQuery(element);
-
-        // check if autocomplete was already attached
-	        if($element.attr("autocomplete.attached")){
-	                return;
+			if($element.attr("autocomplete.attached")){
+	        	return;
 	        }
-
-        // attach autocomplete 
-       	 $element.autocomplete(width: 260,
-				selectFirst: true,
-				max: 30,
-				autoFill: false,
-				delay: 400,
-				mustMatch: true,
-				cacheLength: 1);
-
-        // set a marker
-        $element.attr("autocomplete.attached", true);
-}
+	        // attach autocomplete 
+	       	 $element.autocomplete(
+	       	 		width: 260,
+					selectFirst: true,
+					max: 30,
+					autoFill: false,
+					delay: 400,
+					mustMatch: true,
+					cacheLength: 1);
+	
+	        // set a marker
+	        $element.attr("autocomplete.attached", true);
+		}
 		//jQuery(".agntpick").live("click",function(){
 			jQuery(".agntpick").autocomplete("/ajax/agent.cfm", {
 				width: 260,
@@ -177,7 +175,7 @@ console.log('attaching');
 		</td>
         <td>
 			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50">
-            <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id"> 
+            <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id" onfocus="attach(this)"> 
 			<span class="infoLink" onclick="addNewIdBy('three');">more...</span>			
 		 </td>
 	</tr>
