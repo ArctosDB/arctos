@@ -28,6 +28,7 @@
 			#preservesinglequotes(sql)#
 		</cfquery>
 		<cfdump var="#c#">
+		<cfabort>
 	<cfelseif guid contains " ">
 		<cfset spos=find(" ",reverse(guid))>
 		<cfset cc=left(guid,len(guid)-spos)>
