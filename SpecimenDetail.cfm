@@ -18,13 +18,16 @@
 <cfif isdefined("guid")>
 	<cfif guid contains ":">
 		<cfoutput>
-			hi
-			<cfabort>
+			
 			<cfset sql="select collection_object_id from 
 					#flatTableName#
 				WHERE
 					upper(guid)='#ucase(guid)#'">
+			#sql#
 			<cfset checkSql(sql)>
+			<hr>
+			#checkSql(sql)#
+			<cfabort>
 			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				#preservesinglequotes(sql)#
 			</cfquery>
