@@ -15,9 +15,8 @@
 
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {	
-		/*
 		function attach(element){
-
+console.log('attaching');
         	var $element = jQuery(element);
 
         // check if autocomplete was already attached
@@ -37,7 +36,6 @@
         // set a marker
         $element.attr("autocomplete.attached", true);
 }
-		*/
 		//jQuery(".agntpick").live("click",function(){
 			jQuery(".agntpick").autocomplete("/ajax/agent.cfm", {
 				width: 260,
