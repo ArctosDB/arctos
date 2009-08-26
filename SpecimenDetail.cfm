@@ -20,13 +20,9 @@
 		<cfset collection_cde = listgetat(guid,2,":")>
 		<cfset cat_num = listgetat(guid,3,":")>
 		<cfset sql="select collection_object_id from 
-				cataloged_item,
-				collection
+				#flatTableName#
 			WHERE
-				cataloged_item.collection_id = collection.collection_id AND
-				cat_num = #cat_num# AND
-				lower(collection.collection_cde)='#lcase(collection_cde)#' AND
-				lower(collection.institution_acronym)='#lcase(institution_acronym)#'">
+				upper(guid)='#ucase(guid)#'">
 		<cfset checkSql(sql)>
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
