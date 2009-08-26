@@ -17,9 +17,7 @@
 	jQuery(document).ready(function() {	
 		
 		
-		//jQuery(".helpLink").live('click', function(e){
-		//jQuery(".agntpick").live("click",function(){
-			
+		jQuery(".agntpick").live("click",function(){
 			jQuery(".agntpick").autocomplete("/ajax/agent.cfm", {
 				width: 260,
 				selectFirst: true,
@@ -29,7 +27,7 @@
 				mustMatch: true,
 				cacheLength: 1
 			});
-		//});
+		});
 			
 		jQuery(".agntpick").result(function(event, data, formatted) {
 			if (data) 
