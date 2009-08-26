@@ -28,6 +28,10 @@
 			if (data) 
 				jQuery('#newIdBy_id').val(data[1]);
 		});
+		
+		
+		newIdBy_two
+		newIdBy_three
 	});
 </script>
 </div><!--- kill content div --->
@@ -135,11 +139,6 @@
 			<div class="helpLink" id="id_by">ID By:</div>
 		</td>
         <td>
-			<!----
-			<input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50" 
-				onchange="getAgent('newIdBy_id','newIdBy','newID',this.value); return false;"
-			  	onkeypress="return noenter(event);"> 
-			  	---->
 			<input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50">
             <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr"> 
 			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
@@ -152,9 +151,7 @@
 			</div>
 		</td>
         <td>
-			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50" 
-				onchange="getAgent('newIdBy_two_id','newIdBy_two','newID',this.value); return false;"
-			  	onkeypress="return noenter(event);"> 
+			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50">
             <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id"> 
 			<span class="infoLink" onclick="addNewIdBy('three');">more...</span>			
 		 </td>
@@ -166,9 +163,7 @@
 			</div>
 		</td>
         <td>
-			<input type="text" name="newIdBy_three" id="newIdBy_three"  size="50" 
-			 	onchange="getAgent('newIdBy_three_id','newIdBy_three','newID',this.value); return false;"
-			 	onkeypress="return noenter(event);"> 
+			<input type="text" name="newIdBy_three" id="newIdBy_three"  size="50">
             <input type="hidden" name="newIdBy_three_id" id="newIdBy_three_id"> 			
 		 </td>
     </tr>
@@ -319,10 +314,7 @@
 										id="IdBy_#i#_#idnum#" 
 										value="#agent_name#" 
 										class="reqdClr"
-										size="50" 
-										onchange="
-										getAgent('IdBy_#i#_#idnum#_id','IdBy_#i#_#idnum#','editIdentification',this.value); return false;"
-							 			onKeyPress="return noenter(event);"> 
+										size="50"> 
 									<input type="hidden" 
 										name="IdBy_#i#_#idnum#_id" 
 										id="IdBy_#i#_#idnum#_id" value="#agent_id#"

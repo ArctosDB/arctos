@@ -5,9 +5,15 @@
 
 <form id="theForm">
 <label for="singleBirdRemote">asvas</label>
-<input type="text" name="singleBirdRemote" id="singleBirdRemote" class="reqdClr">
+<input type="text" name="singleBirdRemote" id="singleBirdRemote" class="reqdClr agntpick">
 
 <input type="text" id="singleBirdRemote_id" name="singleBirdRemote_id" class="reqdClr">
+
+
+<input type="text" name="singleBirdRemote3" id="singleBirdRemote3" class="reqdClr agntpick">
+
+<input type="text" id="singleBirdRemote3_id" name="singleBirdRemote3_id" class="reqdClr">
+
 
 <input type="submit" id="submit" value="this is submit"  title="Create Identification">
 </form>
@@ -41,7 +47,7 @@ jQuery("#partname").autocomplete("/ajax/agent.cfm", {
 		scrollHeight: 300
 	});
 	*/
-	$("#singleBirdRemote").autocomplete("/ajax/agent.cfm", {
+	$(".agntpick").autocomplete("/ajax/agent.cfm", {
 		width: 260,
 		selectFirst: true,
 		max: 30,
