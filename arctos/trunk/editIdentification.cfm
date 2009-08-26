@@ -15,57 +15,43 @@
 
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {	
-		
-		//jQuery(".agntpick").live("click",function(){
-			jQuery(".agntpick").autocomplete("/ajax/agent.cfm", {
-				width: 260,
-				selectFirst: true,
-				max: 30,
-				autoFill: false,
-				delay: 400,
-				mustMatch: true,
-				cacheLength: 1
-			});
-		//});
-			
-		
-			
+		jQuery(".agntpick").autocomplete("/ajax/agent.cfm", {
+			width: 260,
+			selectFirst: true,
+			max: 30,
+			autoFill: false,
+			delay: 400,
+			mustMatch: true,
+			cacheLength: 1
+		});
 		jQuery(".agntpick").result(function(event, data, formatted) {
 			if (data) 
-				
 				var theID=this.id + '_id';
-				console.log(theID);
 				jQuery('#' + theID).val(data[1]);
 		});
 	});
 	function attach(element){
-			console.log('attaching');
-        	var $element = jQuery(element);
-			if($element.attr("autocomplete.attached")){
-	        	return;
-	        }
-	        // attach autocomplete 
-	       	 $element.autocomplete("/ajax/agent.cfm", {
-	       	 		width: 260,
-					selectFirst: true,
-					max: 30,
-					autoFill: false,
-					delay: 400,
-					mustMatch: true,
-					cacheLength: 1
-					});
-					
-					$element.result(function(event, data, formatted) {
-						if (data) 
-				
+		console.log('attaching');
+	      	var $element = jQuery(element);
+		if($element.attr("autocomplete.attached")){
+	       	return;
+	       }
+       	 $element.autocomplete("/ajax/agent.cfm", {
+   	 		width: 260,
+			selectFirst: true,
+			max: 30,
+			autoFill: false,
+			delay: 400,
+			mustMatch: true,
+			cacheLength: 1
+		});
+		$element.result(function(event, data, formatted) {
+			if (data) 
 				var theID=this.id + '_id';
-				console.log(theID);
 				jQuery('#' + theID).val(data[1]);
 		});
-	
-	        // set a marker
-	        $element.attr("autocomplete.attached", true);
-		}
+        $element.attr("autocomplete.attached", true);
+	}
 </script>
 </div><!--- kill content div --->
 <!----------------------------------------------------------------------------------->
@@ -184,7 +170,7 @@
 			</div>
 		</td>
         <td>
-			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50"  onfocus="console.log('go');attach(this)">
+			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50">
             <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id"> 
 			<span class="infoLink" onclick="addNewIdBy('three');">more...</span>			
 		 </td>
