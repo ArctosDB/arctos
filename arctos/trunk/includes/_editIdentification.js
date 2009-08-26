@@ -16,7 +16,7 @@ function addNewIdBy(n) {
 	var iS='newIdBy_' + n + '_id';
 	var v=document.getElementById(vS);
 	var i=document.getElementById(iS)
-	v.className='reqdClr agntpick';
+	v.className='agntpick';
 	i.className='reqdClr';		
 }
 function clearNewIdBy (n) {
