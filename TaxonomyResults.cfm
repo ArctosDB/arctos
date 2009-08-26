@@ -1,4 +1,5 @@
 <cfinclude template = "includes/_header.cfm">
+<script src="/includes/sorttable.js"></script>
 <script type="text/javascript">
 	function getTaxaResultsData (val){
 		var ar = val.split(',');
@@ -205,6 +206,12 @@
 <cfquery name="summary" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select count(*) cnt from #session.TaxSrchTab#
 </cfquery>
+<cfif summary.cnt is 0>
+	<div class="error">
+		Nothing found. Please use your back button to try again.
+		<cfabort>
+	</div>
+</cfif>
 <cfif not isdefined("goTo") or len(#goTo#) is 0 or goTo lte startAt>
 	<cfset goTo = StartAt + dr>
 </cfif>
@@ -244,21 +251,21 @@ Found #summary.cnt# records. (Note: This form will not return >1000 records; you
 </H4>
 </CFOUTPUT>
 
-<table border="1">
+<table border="1" id="tre" class="sortable">
 	<tr>
-  		<td>&nbsp;</td>
-		<td><strong>Common Name(s)</strong></td>
-		<td><strong>Phylum</strong></td>
-		<td><strong>Class</strong></td>
-        <td><strong>Order</strong></td>
-        <td><strong>Suborder</strong></td>
-        <td><strong>Family</strong></td>
-	    <td><strong>Subfamily</strong></td>
-        <td><strong>Tribe</strong></td>
-        <td><strong>Genus</strong></td>
-        <td><strong>Subgenus</strong></td>
-        <td><strong>Species</strong></td>
-        <td><strong>Subspecies</strong></td>
+  		<th>&nbsp;</th>
+		<th>Common Name(s)</th>
+		<th>Phylum</th>
+		<th>Class</th>
+        <th>Order</th>
+        <th>Suborder</th>
+        <th>Family</th>
+	    <th>Subfamily</th>
+        <th>Tribe</th>
+        <th>Genus</th>
+        <th>Subgenus</th>
+        <th>Species</th>
+        <th>Subspecies</th>
     </tr>
   <cfset i=1>
   <cfoutput query="getTaxa">
