@@ -40,6 +40,7 @@ function checkRequired(){
 						var lbl=getLabelForId(theForm.elements[e].id).className='';
 					}
 						catch(errr){
+							console.log(errr);
 					}
 					var theElem=document.getElementById(theForm.elements[e].id);
 					if(theForm.elements[e].type=='submit'){
