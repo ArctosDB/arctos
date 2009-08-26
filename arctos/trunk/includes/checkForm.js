@@ -68,7 +68,9 @@ function checkRequired(){
 				}
 				getLabelForId(lblElem).className='badPickLbl';
 			}	
-			} catch(err){}		
+			} catch(err){
+				console.log(err);
+			}		
 		}
 	
 }
