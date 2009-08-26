@@ -15,7 +15,7 @@
 
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {	
-		
+		/*
 		function attach(element){
 
         	var $element = jQuery(element);
@@ -37,7 +37,7 @@
         // set a marker
         $element.attr("autocomplete.attached", true);
 }
-		
+		*/
 		//jQuery(".agntpick").live("click",function(){
 			jQuery(".agntpick").autocomplete("/ajax/agent.cfm", {
 				width: 260,
@@ -50,13 +50,7 @@
 			});
 		//});
 			
-			
-			 $("p").live("myCustomEvent", function(e, myName, myValue){
-      $(this).text("Hi there!");
-      $("span").stop().css("opacity", 1)
-               .text("myName = " + myName)
-               .fadeIn(30).fadeOut(1000);
-    });
+		
 			
 		jQuery(".agntpick").result(function(event, data, formatted) {
 			if (data) 
