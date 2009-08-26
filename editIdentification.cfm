@@ -15,7 +15,8 @@
 
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {	
-		$(".agntpick").autocomplete("/ajax/agent.cfm", {
+		//jQuery(".helpLink").live('click', function(e){
+		jQuery(".agntpick").live.autocomplete("/ajax/agent.cfm", {
 			width: 260,
 			selectFirst: true,
 			max: 30,
@@ -24,7 +25,7 @@
 			mustMatch: true,
 			cacheLength: 1
 		});
-		$(".agntpick").result(function(event, data, formatted) {
+		jQuery(".agntpick").result(function(event, data, formatted) {
 			if (data) 
 				var theID=this.id + '_id';
 				jQuery('#' + theID).val(data[1]);
