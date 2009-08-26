@@ -40,7 +40,6 @@
 	});
 	function attach(element){
 			console.log('attaching');
-        	/*
         	var $element = jQuery(element);
 			if($element.attr("autocomplete.attached")){
 	        	return;
@@ -57,7 +56,6 @@
 	
 	        // set a marker
 	        $element.attr("autocomplete.attached", true);
-	        */
 		}
 </script>
 </div><!--- kill content div --->
