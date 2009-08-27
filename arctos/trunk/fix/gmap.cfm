@@ -36,8 +36,8 @@
 
   /* second set of options is for everything else */
   var otherOpts = {
-    buttonHTML:"<img src='zoom-button.gif' />",
-    buttonZoomingHTML:"<img src='zoom-button-activated.gif' />",
+    buttonHTML:"<img src='/images/del.gif' />",
+    buttonZoomingHTML:"<img src='/images/arctos.gif' />",
     buttonStartingStyle:{width:'24px',height:'24px'}
   };
         
