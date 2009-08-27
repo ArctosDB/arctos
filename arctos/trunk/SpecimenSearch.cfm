@@ -315,7 +315,7 @@ var ptl="/includes/SpecSearch/locality.cfm";
 					document.getElementById('selong').value=se.lng();
 				}
 			};
-			map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_TOP_LEFT));
+			map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT));
 			
 			
 			//map.addControl(new DragZoomControl(),new GControlPosition(G_ANCHOR_TOP_RIGHT,new GSize(10,10)));	
