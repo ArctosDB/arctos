@@ -16,7 +16,7 @@
         var map = new GMap2(document.getElementById("map_canvas"));
         var center = new GLatLng(37.4419, -122.1419);
         map.setCenter(center, 13);
-
+/*
         var marker = new GMarker(center, {draggable: true});
 
         GEvent.addListener(marker, "dragstart", function() {
@@ -28,9 +28,21 @@
         });
 
         map.addOverlay(marker);
+        */
         
-        map.addControl(new GSmallMapControl());
-		map.addControl(new DragZoomControl());
+         var callbacks = {
+    buttonclick:function(){display("Looks like you activated DragZoom!")},
+    dragstart:function(){display("Started to Drag . . .")},
+    dragging:function(x1,y1,x2,y2){display("Dragging, currently x="+x2+",y="+y2)},
+    dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){display("Zoom! NE="+ne+";SW="+sw)}
+  };
+  
+  map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks));	
+        
+        
+        
+       // map.addControl(new GSmallMapControl());
+		//map.addControl(new DragZoomControl());
         
 
       }
