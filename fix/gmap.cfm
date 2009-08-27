@@ -41,7 +41,7 @@
   /* second set of options is for everything else */
   
   var otherOpts = {
-    overlayRemoveTime = 99999999999999,  
+    overlayRemoveTime:99999999999999,  
     buttonHTML:"select",
     buttonZoomingHTML:"drawing...",
     buttonStartingStyle:{width:'24px',height:'24px'}
