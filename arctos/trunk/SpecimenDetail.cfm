@@ -350,7 +350,9 @@
 				</td>
 				<td>
 					<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
-						<img src="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#.#dec_long#">
+						<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#.#dec_long#">
+						<cfset iu=iu & "&markers=color:red|size:small|35.8338700000,-118.3733400000&sensor=false&size=100x100&zoom=5">
+						<img src="#iu#" alt="Google Map">
 					</cfif>
 					
 					map goes here
