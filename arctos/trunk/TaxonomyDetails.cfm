@@ -241,13 +241,11 @@
 					Google Map of Arctos specimens
 				</a>
 			</li>
-			<cfif len(one.genus) gt 0 and len(one.species) gt 0>
-				<li>
-					<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&scientific_name=#one.scientific_name#">
-						BerkeleyMapper + RangeMaps
-					</a>
-				</li>
-			</cfif>			
+			<li>
+				<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&scientific_name=#one.scientific_name#">
+					BerkeleyMapper + RangeMaps
+				</a>
+			</li>
 		</ul>
 	</p>
 	External Links:
