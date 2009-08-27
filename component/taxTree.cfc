@@ -7,6 +7,8 @@
         <cfset var s =""/>
 		<!--- need to break PATH apart ---->
 		<cfoutput>
+			<cfdump var="#url#">
+			<cfdump var="#arguments#">
 		-----------#arguments.path#---------------
 		<cfif isjson(arguments.path)>
 			path is json
