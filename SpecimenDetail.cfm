@@ -350,7 +350,7 @@
 						<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#.#dec_long#">
 						<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=4">
 						<cfset iu=iu & "&maptype=roadmap">
-						<a href="http://maps.google.com/maps?q=#dec_lat#,#dec_long#">
+						<a href="http://maps.google.com/maps?q=#dec_lat#,#dec_long#" target="_blank">
 							<img src="#iu#" alt="Google Map">
 						</a>
 					</cfif>
