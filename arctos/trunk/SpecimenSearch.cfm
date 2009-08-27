@@ -297,13 +297,13 @@ var ptl="/includes/SpecSearch/locality.cfm";
 			
 			var boxStyleOpts = {
 				opacity:.0,
-				border:"2px solid red"
+				border:"2px solid green"
 			}
 			var otherOpts = {
 				overlayRemoveTime:99999999999999,  
 				buttonHTML:"select",
 				buttonZoomingHTML:"finished",
-				buttonStartingStyle:{border: '1px solid black', padding: '2px',fontSize:'small'},
+				buttonStartingStyle:{border: '2px solid red', padding: '2px',fontSize:'small'},
 				buttonZoomingStyle:{background: '##FF0'},
 				stickyZoomEnabled:"true"    
 			};
