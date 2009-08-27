@@ -282,6 +282,7 @@ var ptl="/includes/SpecSearch/locality.cfm";
 				<script language="javascript" type="text/javascript">
 					function initializeMap() {
 						if (GBrowserIsCompatible()) {
+							console.log('wtf');
 							var map = new GMap2(document.getElementById("map_canvas"));
 							var center = new GLatLng(55, -135);
 							map.setCenter(center, 3);
