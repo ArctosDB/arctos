@@ -50,9 +50,11 @@
         
          var callbacks = {
     //buttonclick:function(){console.log("Looks like you activated DragZoom!")},
-    dragstart:function(){console.log("Started to Drag . . .");G.map.removeOverlay(zoomAreaPoly);},
+    //dragstart:function(){console.log("Started to Drag . . .");G.map.removeOverlay(zoomAreaPoly);},
     //dragging:function(x1,y1,x2,y2){console.log("Dragging, currently x="+x2+",y="+y2)},
-    dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){console.log("Zoom! NE="+ne+";SW="+sw)}
+    dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){console.log("Zoom! nw="+nw+";ne="+ne+";se="+se+";sw="+sw+";nwpx="+nwpx+";nepx="+nepx+";sepx="+sepx+";swpx="+swpx);
+    
+    }
   };
   
   map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks));	
@@ -69,3 +71,15 @@
 	
 	initialize();
 </script>
+
+
+
+	<td align="left" nowrap>
+						<strong><em>NW Latitude:</em></strong> <input type="text" name="nwLat" id="nwLat" size="8">
+						<strong><em>NW Longitude:</em></strong> <input type="text" name="nwlong" id="nwlong" size="8">						
+					</td>
+				</tr>
+				<tr>
+					<td align="left" nowrap>
+						<strong><em>SE Latitude:</em></strong> <input type="text" name="selat" id="selat" size="8">
+						<strong><em>SE Longitude:</em></strong> <input type="text" name="selong" id="selong" size="8">
