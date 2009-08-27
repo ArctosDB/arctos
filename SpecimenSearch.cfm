@@ -523,7 +523,7 @@ var ptl="/includes/SpecSearch/locality.cfm";
 			GUnload();
 		}
 	});
-	(document).ready(function() {
+	jQuery(document).ready(function() {
 	  	initializeMap();
 	  	var tval = document.getElementById('tgtForm').value;
 		changeTarget('tgtForm',tval);
