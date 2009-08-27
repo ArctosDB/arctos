@@ -302,8 +302,7 @@ var ptl="/includes/SpecSearch/locality.cfm";
 								buttonHTML:"select",
 								buttonZoomingHTML:"finished",
 								buttonStartingStyle:{border: '2px solid red', padding: '4px',fontSize:'small',color:'blue',fontWeight:'bold'},
-								buttonZoomingStyle:{background: '##FF0'},
-								stickyZoomEnabled:"false"    
+								buttonZoomingStyle:{background: '##FF0'}
 							};
 							var callbacks = {
 								dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){
