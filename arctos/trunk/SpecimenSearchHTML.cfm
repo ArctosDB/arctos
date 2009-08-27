@@ -15,25 +15,6 @@
 </cfquery>
 You are searching Arctos with the non-JavaScript form. Please consider turning JavaScript on and 
 using the <a href="/SpecimenSearch.cfm">standard search form</a>.
-<table cellpadding="0" cellspacing="0">
-	<tr>
-		<td></td>
-	</tr>
-	<tr>
-		<td>
-			Access to #getCount.cnt# records
-		</td>
-		<td style="padding-left:2em;padding-right:2em;">
-			<a class="infoLink" href="http://arctos-test.arctos.database.museum/info/help.cfm?content=CollStats">
-				Holdings Details
-			</a>
-		</td>
-		
-		<td style="padding-left:2em;padding-right:2em;">
-			
-		</td>
-	</tr>
-</table>	
 <form method="post" action="SpecimenResultsHTML.cfm" name="SpecData" id="SpecData">
 <table border="0">
 	<tr>
@@ -42,18 +23,6 @@ using the <a href="/SpecimenSearch.cfm">standard search form</a>.
 		</td>
 		<td valign="top">
 			<input type="reset" name="Reset" value="Clear Form" class="clrBtn">
-		</td>
-		<td valign="top">
-			
-		</td>
-		<td align="right" valign="top">
-			
-		</td>
-		<td valign="top">
-		 	
-		</td>
-		<td align="left">
-			
 		</td>
 		<td valign="top">
 			Show&nbsp;Observations?
@@ -179,7 +148,6 @@ using the <a href="/SpecimenSearch.cfm">standard search form</a>.
 			</td>
 		</tr>	
 	</table>
-	<div id="e_locality"></div>
 </div>
 <div class="secDiv">
 	<table class="ssrch">
@@ -243,7 +211,6 @@ using the <a href="/SpecimenSearch.cfm">standard search form</a>.
 			</td>
 		</tr>
 	</table>
-	<div id="e_usage"></div>
 </div>
 <cfif listcontainsnocase(session.roles,"coldfusion_user")>
 	<div class="secDiv">
@@ -262,7 +229,6 @@ using the <a href="/SpecimenSearch.cfm">standard search form</a>.
 				</td>
 			</tr>
 		</table>
-		<div id="e_curatorial"></div>
 	</div>
 </cfif>	
 <table>
