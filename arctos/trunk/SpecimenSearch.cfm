@@ -460,7 +460,8 @@ var ptl="/includes/SpecSearch/locality.cfm";
 </cfif>
 <input type="hidden" name="newQuery" value="1"><!--- pass this to the next form so we clear the cache and run the proper queries--->
 </form>
-</cfoutput> 
+</cfoutput>
+<!----
 <script type='text/javascript' language='javascript'>
 	jQuery(document).ready(function() {
 	  	var tval = document.getElementById('tgtForm').value;
@@ -579,4 +580,5 @@ var ptl="/includes/SpecSearch/locality.cfm";
 	 	}
 	}
 </script>
+_---->
 <cfinclude template = "includes/_footer.cfm">
