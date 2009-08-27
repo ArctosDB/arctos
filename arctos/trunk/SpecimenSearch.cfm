@@ -1,12 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Specimen Search">
 <cfset metaDesc="Search for museum specimens and observations by taxonomy, identifications, specimen attributes, and usage history.">
-<script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
-
+<cfhtmlhead text="<script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>">
 <cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg" type="text/javascript"></script>
 '>
-
-<cfhtmlhead text='<script src="http://gmaps-utility-library.googlecode.com/svn/trunk/dragzoom/release/src/dragzoom_packed.js" type="text/javascript"></script>
+<cfhtmlhead text='<script src="/includes/dragzoom_packed.js" type="text/javascript"></script>
 '>
 
 
@@ -274,64 +272,46 @@ var ptl="/includes/SpecSearch/locality.cfm";
 		</tr>
 		<tr>
 			<td colspan="2">
-			<label for="map_canvas">
-				Click 'select' then click and drag for spatial query&nbsp;&nbsp;&nbsp;
-				<span class="likeLink" onclick="getDocs('spatial_query')";>More Info</span>
-			</label>
-			<div id="map_canvas" style="width: 100%; height: 400px;"></div>
-		
-<script language="javascript" type="text/javascript">
-	function initializeMap() {
-		if (GBrowserIsCompatible()) {
-			var map = new GMap2(document.getElementById("map_canvas"));
-			var center = new GLatLng(55, -135);
-			map.setCenter(center, 3);
-			map.addControl(new GLargeMapControl());
-			map.addMapType(G_PHYSICAL_MAP);
-			
-			//map.addControl(new GOverviewMapControl());
-			map.addControl(new GScaleControl());
-			map.addControl(new GMapTypeControl());
-						//map.addControl(new GHierarchicalMapTypeControl());
-			
-			
-			var boxStyleOpts = {
-				opacity:.0,
-				border:"2px solid green"
-			}
-			var otherOpts = {
-				overlayRemoveTime:99999999999999,  
-				buttonHTML:"select",
-				buttonZoomingHTML:"finished",
-				buttonStartingStyle:{border: '2px solid red', padding: '4px',fontSize:'small',color:'blue',fontWeight:'bold'},
-				buttonZoomingStyle:{background: '##FF0'},
-				stickyZoomEnabled:"true"    
-			};
-			var callbacks = {
-				dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){
-					document.getElementById('nwLat').value=nw.lat();
-					document.getElementById('nwlong').value=nw.lng();
-					document.getElementById('selat').value=se.lat();
-					document.getElementById('selong').value=se.lng();
-				}
-			};
-			map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT));
-			
-			
-			//map.addControl(new DragZoomControl(),new GControlPosition(G_ANCHOR_TOP_RIGHT,new GSize(10,10)));	
-		}
-	}
-</script>
-				
+				<label for="map_canvas">
+					Click 'select' then click and drag for spatial query&nbsp;&nbsp;&nbsp;
+					<span class="likeLink" onclick="getDocs('spatial_query')";>More Info</span>
+				</label>
+				<div id="map_canvas" style="width: 100%; height: 400px;"></div>
+				<script language="javascript" type="text/javascript">
+					function initializeMap() {
+						if (GBrowserIsCompatible()) {
+							var map = new GMap2(document.getElementById("map_canvas"));
+							var center = new GLatLng(55, -135);
+							map.setCenter(center, 3);
+							map.addControl(new GLargeMapControl());
+							map.addMapType(G_PHYSICAL_MAP);
+							map.addControl(new GScaleControl());
+							map.addControl(new GMapTypeControl());
+							var boxStyleOpts = {
+								opacity:.0,
+								border:"2px solid green"
+							}
+							var otherOpts = {
+								overlayRemoveTime:99999999999999,  
+								buttonHTML:"select",
+								buttonZoomingHTML:"finished",
+								buttonStartingStyle:{border: '2px solid red', padding: '4px',fontSize:'small',color:'blue',fontWeight:'bold'},
+								buttonZoomingStyle:{background: '##FF0'},
+								stickyZoomEnabled:"false"    
+							};
+							var callbacks = {
+								dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){
+									document.getElementById('nwLat').value=nw.lat();
+									document.getElementById('nwlong').value=nw.lng();
+									document.getElementById('selat').value=se.lat();
+									document.getElementById('selong').value=se.lng();
+								}
+							};
+							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT));
+						}
+					}
+				</script>
 			</td>
-			<!---
-			<td class="lbl">
-				<span class="helpLink" id="any_geog_term">Any&nbsp;Geographic&nbsp;Element:</span>
-			</td>
-			<td class="srch">
-				<input type="text" name="any_geog" id="any_geog" size="50">
-			</td>
-			---->
 		</tr>
 	</table>
 	<div id="e_locality"></div>
