@@ -224,14 +224,18 @@
 			<cfset apiKey="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg"> 
 <cfhtmlhead text=''>
 
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg" type="text/javascript"></script>
 
 ---->
 
-			<!----
+	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg" type="text/javascript"></script>
+
+
+		<!----
 			<script src="http://gmaps-utility-library.googlecode.com/svn/trunk/dragzoom/release/src/dragzoom_packed.js" type="text/javascript"></script>
 		---->
 		<div id="map_canvas" style="width: 500px; height: 300px"></div>
+		
+		<!----
 <script language="javascript" type="text/javascript">
 	
 	function initializeMapcsadasveasdax() {
@@ -275,7 +279,7 @@
 	
 	
 </script>
-			
+		----->	
 			
 			<!----
 			<table cellpadding="0" cellspacing="0">
