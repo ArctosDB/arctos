@@ -283,11 +283,11 @@ var ptl="/includes/SpecSearch/locality.cfm";
 			var map = new GMap2(document.getElementById("map_canvas"));
 			var center = new GLatLng(50, -148);
 			map.setCenter(center, 1);
-			map.addControl(new GSmallMapControl());
+			map.addControl(new GSmallZoomControl3D());
 			
 			map.addControl(new GOverviewMapControl());
 			map.addControl(new GScaleControl());
-			
+			map.addControl(new GMapTypeControl());
 			
 			var boxStyleOpts = {
 				opacity:.0,
