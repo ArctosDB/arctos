@@ -6,8 +6,6 @@
 '>
 <cfhtmlhead text='<script src="/includes/dragzoom_packed.js" type="text/javascript"></script>
 '>
-
-
 <cfoutput>	
 <cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select count(collection_object_id) as cnt from cataloged_item
@@ -19,20 +17,6 @@
 	and username='#session.username#'
 	order by search_name
 </cfquery>
-
-
-<span onclick="loc()">loc on</span>
-<script>
-	function loc(){
-var tab=document.getElementById('t');
-var ptl="/includes/SpecSearch/locality.cfm";
-			jQuery.get(ptl, function(data){
-				jQuery(tab).html(data);
-			});
-}
-</script>
-
-<div id="t"></div>
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
