@@ -7,8 +7,8 @@
         <cfset var s =""/>
 		<!--- need to break PATH apart ---->
 		<cfoutput>
-		#argument.path#
-		<cfif isjson(path)>
+		#arguments.path#
+		<cfif isjson(arguments.path)>
 			path is json
 			<cfelse>
 			no it isn't
