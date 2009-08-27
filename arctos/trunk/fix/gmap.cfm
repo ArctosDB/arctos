@@ -43,7 +43,7 @@
   var otherOpts = {
     overlayRemoveTime:99999999999999,  
     buttonHTML:"select area",
-    buttonZoomingHTML:"choose rectangle",
+    buttonZoomingHTML:"draw rectangle",
     buttonStartingStyle:{border: '1px solid black', padding: '2px'},
     buttonZoomingStyle:{background: '#FF0'}    
   };
@@ -52,7 +52,7 @@
     //buttonclick:function(){console.log("Looks like you activated DragZoom!")},
     //dragstart:function(){console.log("Started to Drag . . .")},
     //dragging:function(x1,y1,x2,y2){console.log("Dragging, currently x="+x2+",y="+y2)},
-    dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){console.log("Zoom! NE="+ne+";SW="+sw)}
+    dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){removeoverlay();console.log("Zoom! NE="+ne+";SW="+sw)}
   };
   
   map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks));	
