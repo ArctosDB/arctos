@@ -9,7 +9,7 @@
         <!--- if arguments.value is empty the tree is being built for the first time --->
         <cfif arguments.value is "">
             	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select kingdom from taxonomy group by kingdom order by kingdom
+					select nvl(kingdom,'unknown') kingom from taxonomy group by kingdom order by kingdom
 				</cfquery>
         <cfelse>
         <!--- arguments.value is not empty --->
