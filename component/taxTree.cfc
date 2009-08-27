@@ -59,6 +59,8 @@
 			<cfif listlen(ttl) eq ttlPos>
 				<cfset child="test">
 				<cfset isLeafNode=1>
+				listlen(ttl)=#listlen(ttl)#; ttlPos=#ttlPos#; #rank# is a leaf term
+				<cfabort>
 			<cfelse>
 				<cfset child=listgetat(ttl,ttlPos+1)>
 				
