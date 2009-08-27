@@ -236,6 +236,12 @@
 					Specimen Results with Media: like <I>#one.SCIENTIFIC_NAME#</I>
 				</a>
 			</li>
+			<li>
+				<a href="/bnhmMaps/kml.cfm?method=gmap&action=newReq&next=colorBySpecies&scientific_name=#one.scientific_name#&media_type=any">
+					Google Maps: <I>#one.SCIENTIFIC_NAME#</I>
+				</a>
+			</li>
+			
 		</ul>
 	</p>
 	External Links:
