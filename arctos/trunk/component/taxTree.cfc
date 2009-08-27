@@ -16,8 +16,8 @@
 					<cfset y = y + 1/>
 	                <cfset s = structNew()/>
 	                <cfset s.value=#qry.data#>
-	                <cfset s.display="Leaf #qry.data#">
-	                <cfset s.leafnode=true/>
+	                <cfset s.display="#qry.data# (kingdom)">
+	                <cfset s.leafnode=false/>
 	                <cfset arrayAppend(result,s)/>
 				</cfloop>
         <cfelse>
