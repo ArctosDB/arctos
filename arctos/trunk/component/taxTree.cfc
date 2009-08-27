@@ -46,6 +46,7 @@
 		---->
 		<cfset ttl="kingdom,phylum">
 		
+				<cfset isLeafNode=0>
 
 		<cfif len(arguments.value) is 0>
 			<cfset sql="select nvl(kingdom,'not recorded') data from taxonomy group by kingdom order by kingdom">
@@ -57,7 +58,6 @@
 			<cfset ttlPos=listfind(ttl,rank)>
 			<cfif listlen(ttl) gt ttlPos>
 				<cfset child=listgetat(ttl,ttlPos+1)>
-				<cfset isLeafNode=0>
 			<cfelse>
 				<cfset child="test">
 				<cfset isLeafNode=1>
