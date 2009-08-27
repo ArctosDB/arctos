@@ -29,6 +29,17 @@
 
         map.addOverlay(marker);
         */
+         var boxStyleOpts = {
+    opacity:.2,
+    border:"2px solid red"
+  }
+
+  /* second set of options is for everything else */
+  var otherOpts = {
+    buttonHTML:"<img src='zoom-button.gif' />",
+    buttonZoomingHTML:"<img src='zoom-button-activated.gif' />",
+    buttonStartingStyle:{width:'24px',height:'24px'}
+  };
         
          var callbacks = {
     buttonclick:function(){display("Looks like you activated DragZoom!")},
