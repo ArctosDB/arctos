@@ -8,9 +8,18 @@
 
         <!--- if arguments.value is empty the tree is being built for the first time --->
         <cfif arguments.value is "">
-            	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select nvl(kingdom,'unknown') kingom from taxonomy group by kingdom order by kingdom
+            	<cfquery name="qry" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select nvl(kingdom,'unknown') data from taxonomy group by kingdom order by kingdom
 				</cfquery>
+				<cfset y=0>
+				<cfloop from="1" to="#qry.recordcount#">
+					<cfset y = y + 1/>
+	                <cfset s = structNew()/>
+	                <cfset s.value=#q.data#>
+	                <cfset s.display="Leaf #q.data#">
+	                <cfset s.leafnode=true/>
+	                <cfset arrayAppend(result,s)/>
+				</cfloop>
         <cfelse>
         <!--- arguments.value is not empty --->
         <!--- to keep it simple we will only make children nodes --->
