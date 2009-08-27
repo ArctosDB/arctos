@@ -286,6 +286,8 @@ var ptl="/includes/SpecSearch/locality.cfm";
 			map.addControl(new GSmallMapControl());
 			
 			map.addControl(new GOverviewMapControl());
+			map.addControl(new GScaleControl());
+			
 			
 			var boxStyleOpts = {
 				opacity:.0,
@@ -297,7 +299,7 @@ var ptl="/includes/SpecSearch/locality.cfm";
 				buttonZoomingHTML:"draw rectangle",
 				buttonStartingStyle:{border: '1px solid black', padding: '2px'},
 				buttonZoomingStyle:{background: '##FF0'},
-				stickyZoomEnabled = true    
+				stickyZoomEnabled:"true"    
 			};
 			var callbacks = {
 				dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){
