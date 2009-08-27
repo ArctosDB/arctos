@@ -6,12 +6,14 @@
         <cfset var result= arrayNew(1)/>
         <cfset var s =""/>
 		<!--- need to break PATH apart ---->
+		<cfoutput>
 		#path#
 		<cfif isjson(path)>
 			path is json
 			<cfelse>
 			no it isn't
 		</cfif>
+		</cfoutput>
         <!--- if arguments.value is empty the tree is being built for the first time --->
         <cfif arguments.value is "">
 			<cfquery name="qry" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
