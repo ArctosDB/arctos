@@ -14,8 +14,8 @@
 	function initialize() {
       if (GBrowserIsCompatible()) {
         var map = new GMap2(document.getElementById("map_canvas"));
-        var center = new GLatLng(37.4419, -122.1419);
-        map.setCenter(center, 13);
+       // var center = new GLatLng(37.4419, -122.1419);
+        //map.setCenter(center, 13);
         
         map.addControl(new GSmallMapControl());
         
@@ -40,8 +40,8 @@
 
   /* second set of options is for everything else */
   var otherOpts = {
-    buttonHTML:"<img src='/images/del.gif' />",
-    buttonZoomingHTML:"<img src='/images/arctos.gif' />",
+    buttonHTML:"Draw Rectangle",
+    buttonZoomingHTML:"Drawing....",
     buttonStartingStyle:{width:'24px',height:'24px'}
   };
         
