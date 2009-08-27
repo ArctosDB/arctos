@@ -34,14 +34,16 @@
         map.addOverlay(marker);
         */
          var boxStyleOpts = {
-    opacity:.2,
+    opacity:.0,
     border:"2px solid red"
   }
 
   /* second set of options is for everything else */
+  
   var otherOpts = {
-    buttonHTML:"Draw Rectangle",
-    buttonZoomingHTML:"Drawing....",
+    overlayRemoveTime = 99999999999999,  
+    buttonHTML:"select",
+    buttonZoomingHTML:"drawing...",
     buttonStartingStyle:{width:'24px',height:'24px'}
   };
         
