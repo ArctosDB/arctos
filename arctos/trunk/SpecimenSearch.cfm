@@ -303,7 +303,7 @@ var ptl="/includes/SpecSearch/locality.cfm";
 				overlayRemoveTime:99999999999999,  
 				buttonHTML:"select",
 				buttonZoomingHTML:"finished",
-				buttonStartingStyle:{border: '2px solid red', padding: '4px',fontSize:'small'},
+				buttonStartingStyle:{border: '2px solid red', padding: '4px',fontSize:'small',color:'blue'},
 				buttonZoomingStyle:{background: '##FF0'},
 				stickyZoomEnabled:"true"    
 			};
