@@ -304,7 +304,7 @@ var ptl="/includes/SpecSearch/locality.cfm";
 								buttonStartingStyle:{border: '2px solid red', padding: '4px',fontSize:'small',color:'blue',fontWeight:'bold'},
 								buttonZoomingStyle:{background: '##FF0'},
 								backButtonEnabled : true,
-								backButtonHTML : 'back'
+								backButtonHTML : 'go back'
 							};
 							var callbacks = {
 								dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){
