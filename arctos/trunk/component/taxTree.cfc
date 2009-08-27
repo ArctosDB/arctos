@@ -55,7 +55,14 @@
 			<cfset rank=listgetat(arguments.value,1,"=")>
 			<cfset term=listgetat(arguments.value,2,"=")>
 			<cfset ttlPos=listfind(ttl,rank)>
-			<cfset child=listgetat(ttl,ttlPos+1)>
+			<cfif listlen(ttl) gt ttlPos>
+				<cfset child=listgetat(ttl,ttlPos+1)>
+				<cfset isLeafNode=0>
+			<cfelse>
+				<cfset child="test">
+				<cfset isLeafNode=1>
+			</cfif>
+			
 			<cfset sql="select nvl(#child#,'not recorded') data from taxonomy where #rank#='#term#' group by #child# order by #child#">
 		</cfif>
 		
@@ -69,6 +76,9 @@
 				<cfset s = structNew()/>
 				<cfset s.value="#child#=#data#">
 				<cfset s.display="#data# (#child#)">
+				<cfif isLeafNode is 1>
+					<cfset s.leafnode=true/>
+				</cfif>
 				<cfset arrayAppend(result,s)/>
 			</cfloop>
 			            <!---
