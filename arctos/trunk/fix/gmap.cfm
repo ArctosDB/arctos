@@ -43,7 +43,7 @@
   var otherOpts = {
     overlayRemoveTime:99999999999999,  
     buttonHTML:"select area",
-    buttonZoomingHTML:"drawing...",
+    buttonZoomingHTML:"choose rectangle",
     buttonStartingStyle:{border: '1px solid black', padding: '2px'},
     buttonZoomingStyle:{background: '#FF0'}    
   };
