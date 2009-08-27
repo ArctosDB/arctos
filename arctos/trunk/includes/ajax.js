@@ -1545,7 +1545,7 @@ function changeresultSort (tgt) {
 		}
 	);
 }
-jQuery( function($) {
+jQuery(document).ready(function() {
 	jQuery(".helpLink").live('click', function(e){
 		var id=this.id;
 		removeHelpDiv();
