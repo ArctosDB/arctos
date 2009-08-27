@@ -2,7 +2,7 @@
 <cfset title="Specimen Search">
 <cfset helpBaseUrl="">
 <cfoutput>
-<cfset metaDesc="Search for museum specimens and observations by taxonomy, identifications, specimen attributes, and usage history.">
+<cfset metaDesc="Provides plain HTML functinality to search for museum specimens and observations by taxonomy, identifications, specimen attributes, and usage history.">
 <cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select count(collection_object_id) as cnt from cataloged_item
 </cfquery>
@@ -16,7 +16,7 @@
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
-			Access to <span class="likeLink" id="c_collection_cust">#getCount.cnt# records</span>
+			Access to #getCount.cnt# records
 		</td>
 		<td style="padding-left:2em;padding-right:2em;">
 			<a class="infoLink" href="http://arctos-test.arctos.database.museum/info/help.cfm?content=CollStats">
@@ -51,87 +51,30 @@
 		</td>
 	</tr>
 </table>	
-<form method="post" action="SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues()">
+<form method="post" action="SpecimenResultsHTML.cfm" name="SpecData" id="SpecData">
 <table border="0">
 	<tr>
 		<td valign="top">
-			<input type="submit" value="Search" class="schBtn" onmouseover="this.className='schBtn btnhov'" onmouseout="this.className='schBtn'">
+			<input type="submit" value="Search" class="schBtn">
 		</td>
 		<td valign="top">
-			<input type="reset" name="Reset" value="Clear Form" class="clrBtn"	onmouseover="this.className='clrBtn btnhov'" onmouseout="this.className='clrBtn'">
+			<input type="reset" name="Reset" value="Clear Form" class="clrBtn">
 		</td>
 		<td valign="top">
-			<input type="button" name="Previous" value="Use Last Values" class="lnkBtn"	onclick="setPrevSearch()">
+			
 		</td>
 		<td align="right" valign="top">
-			<b>See&nbsp;results&nbsp;as:</b>
+			
 		</td>
 		<td valign="top">
-		 	<select name="tgtForm1" id="tgtForm1" size="1"  onChange="changeTarget(this.id,this.value);">
-				<option value="">Specimen Records</option>
-				<option value="SpecimenResultsHTML.cfm">HTML Specimen Records</option>
-				<option  value="/bnhmMaps/bnhmMapData.cfm">BerkeleyMapper Map</option>
-				<option  value="/bnhmMaps/kml.cfm?action=newReq">KML</option>
-				<option value="SpecimenResultsSummary.cfm">Specimen Summary</option>
-				<option  value="SpecimenGraph.cfm">Graph</option>
-			</select>
+		 	
 		</td>
 		<td align="left">
-			<div id="groupByDiv1" style="display:none;border:1px solid green;padding:.5em;">
-				<font size="-1"><em><strong>Group by:</strong></em></font><br>
-				<select name="groupBy1" id="groupBy1" multiple size="4" onchange="changeGrp(this.id)">
-					<option value="">Scientific Name</option>
-					<option value="continent_ocean">Continent</option>
-					<option value="country">Country</option>
-					<option value="state_prov">State</option>
-					<option value="county">County</option>
-					<option value="quad">Map Name</option>
-					<option value="feature">Feature</option>
-					<option value="island">Island</option>
-					<option value="island_group">Island Group</option>
-					<option value="sea">Sea</option>
-					<option value="spec_locality">Specific Locality</option>
-					<option value="yr">Year</option>
-				</select>
-			</div>
-			<div id="kmlDiv1" style="display:none;border:1px solid green;padding:.5em;">
-				<font size="-1"><em><strong>KML Options:</strong></em></font><br>
-				<label for="next1">Color By</label>
-				<select name="next1" id="next1" onchange="kmlSync(this.id,this.value)">
-					<option value="colorByCollection">Collection</option>
-					<option value="colorBySpecies">Species</option>
-				</select>
-				<label for="method1">Method</label>
-				<select name="method1"  id="method1" onchange="kmlSync(this.id,this.value)">
-					<option value="download">Download</option>
-					<option value="link">Download Linkfile</option>
-					<option value="gmap">Google Maps</option>
-				</select>
-				<label for="includeTimeSpan1">include Time?</label>
-				<select name="includeTimeSpan1"  id="includeTimeSpan1" onchange="kmlSync(this.id,this.value)">
-					<option value="0">no</option>
-					<option value="1">yes</option>
-				</select>
-				<label for="showUnaccepted1">Show unaccepted determinations?</label>
-				<select name="showUnaccepted1"  id="showUnaccepted1" onchange="kmlSync(this.id,this.value)">
-					<option value="0">no</option>
-					<option value="1">yes</option>
-				</select>
-				<label for="mapByLocality1">All specimens from localities?</label>
-				<select  name="mapByLocality1" id="mapByLocality1" onchange="kmlSync(this.id,this.value)">
-					<option value="0">no</option>
-					<option value="1">yes</option>
-				</select>
-				<label for="showErrors1">Show error radii?</label>
-				<select  name="showErrors1" id="showErrors1" onchange="kmlSync(this.id,this.value)">
-					<option value="0">no</option>
-					<option value="1">yes</option>
-				</select>
-			</div>
+			
 		</td>
 		<td valign="top">
 			Show&nbsp;<span class="helpLink" id="observations">Observations?</span>
-			<input type="checkbox" name="showObservations" id="showObservations" value="1" onchange="changeshowObservations(this.checked);"<cfif #session.showObservations# eq 1> checked="checked" </cfif>>
+			<input type="checkbox" name="showObservations" id="showObservations" value="1" <cfif #session.showObservations# eq 1> checked="checked" </cfif>>
 		</td>
 		<td valign="top">
 			<span class="helpLink" id="_is_tissue">Tissues?</span>
@@ -153,8 +96,6 @@
 		<tr>
 			<td colspan="2" class="secHead">
 				<span class="secLabel">Identifiers</span>
-				<span class="secControl" id="c_identifiers"	onclick="showHide('identifiers',1)">Show More Options</span>
-				<span class="secControl" id="c_identifiers_cust">Customize</span>
 			</td>
 		</tr>
 		<tr>
