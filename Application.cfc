@@ -119,7 +119,8 @@
 	<cfset Application.fromEmail = "#HTTP_HOST#">
 	<cfset Application.domain = replace(Application.serverRootUrl,"http://",".")>
 	<cfset Application.fromEmail = "#HTTP_HOST#">
-	<cfif #cgi.HTTP_HOST# is "arctos.database.museum">		
+	<cfif #cgi.HTTP_HOST# is "arctos.database.museum">
+		<cfset application.gmap_api_key="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRmuGmxQ-gdo7TWENOfdvPP48uvgxS1Mi5095Z-7DsupXP1SWQjdYKK_w">	
 		<cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/usr/local/apache2/htdocs">
 		<cfset Application.DownloadPath = Application.webDirectory & "/download/">
@@ -137,6 +138,7 @@
 		<cfset Application.DataProblemReportEmail = "dustymc@gmail.com,lkv@berkeley.edu">
 		<cfset Application.PageProblemEmail = "dustymc@gmail.com,lkv@berkeley.edu">
 	<cfelseif #cgi.HTTP_HOST# is "arctos-test.arctos.database.museum">
+		<cfset application.gmap_api_key="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg">
         <cfset Application.svn = "/usr/local/bin/svn">
 		<cfset Application.webDirectory = "/usr/local/apache2/htdocs">
 		<cfset Application.DownloadPath = "#Application.webDirectory#/download/">

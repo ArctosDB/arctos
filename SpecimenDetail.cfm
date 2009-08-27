@@ -345,6 +345,7 @@
 			    		<strong>#partString#</strong>
 					</font>
 				</td>
+				<td>map goes here</td>
 			    <td valign="top">
 			        <span class="annotateSpace">
 						<cfif len(#session.username#) gt 0>
