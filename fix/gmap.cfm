@@ -28,6 +28,10 @@
         });
 
         map.addOverlay(marker);
+        
+        map.addControl(new GSmallMapControl());
+		map.addControl(new DragZoomControl());
+        
 
       }
     }
