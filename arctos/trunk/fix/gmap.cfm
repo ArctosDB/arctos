@@ -42,9 +42,10 @@
   
   var otherOpts = {
     overlayRemoveTime:99999999999999,  
-    buttonHTML:"select",
+    buttonHTML:"select area",
     buttonZoomingHTML:"drawing...",
-    buttonStartingStyle:{width:'24px',height:'24px'}
+    buttonStartingStyle:{border: '1px solid black', padding: '2px'},
+    buttonZoomingStyle:{background: '#FF0'}    
   };
         
          var callbacks = {
