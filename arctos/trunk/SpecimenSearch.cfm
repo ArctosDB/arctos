@@ -518,7 +518,12 @@ var ptl="/includes/SpecSearch/locality.cfm";
 </form>
 </cfoutput>
 <script type='text/javascript' language='javascript'>
-	jQuery(document).ready(function() {
+	jQuery(document.body).unload(function() {
+		if (GBrowserIsCompatible()) {
+			GUnload();
+		}
+	});
+	(document).ready(function() {
 	  	initializeMap();
 	  	var tval = document.getElementById('tgtForm').value;
 		changeTarget('tgtForm',tval);
