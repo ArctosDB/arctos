@@ -52,8 +52,8 @@
     //buttonclick:function(){console.log("Looks like you activated DragZoom!")},
     //dragstart:function(){console.log("Started to Drag . . .");G.map.removeOverlay(zoomAreaPoly);},
     //dragging:function(x1,y1,x2,y2){console.log("Dragging, currently x="+x2+",y="+y2)},
-    dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){console.log("Zoom! nw="+nw+";ne="+ne+";se="+se+";sw="+sw+";nwpx="+nwpx+";nepx="+nepx+";sepx="+sepx+";swpx="+swpx);
-    var nwA=nw.split(", ");
+    dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){console.log("Zoom! nw="+nw+";se="+se);
+    var nwA=nw.split(",");
     console.log(nwA[1]); 
     }
   };
