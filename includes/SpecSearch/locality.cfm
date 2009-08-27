@@ -256,10 +256,11 @@
 			map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks));	
 	      
 	     }
+	     initializeMap();
     }
 	
 	
-	initializeMap();
+	
 </script>
 			
 			
