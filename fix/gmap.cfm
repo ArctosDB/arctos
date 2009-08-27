@@ -5,6 +5,7 @@
 <cfoutput>
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=#apiKey#" type="text/javascript"></script>
 
+</cfoutput>
 <div id="map_canvas" style="width: 500px; height: 300px"></div>
 
 
@@ -80,4 +81,3 @@ var rectBounds = new GLatLngBounds(
     new GLatLng(northEast.lat() - latDelta, northEast.lng() - lngDelta));
 map.addOverlay(new Rectangle(rectBounds));
 </script>
-</cfoutput>
