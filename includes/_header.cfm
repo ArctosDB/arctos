@@ -147,6 +147,7 @@
 					<li><a target="_top" href="/TaxonomySearch.cfm">Taxonomy</a></li>
                     <li><a target="_top" href="/MediaSearch.cfm">Media</a></li>
                     <li><a target="_top" href="/document.cfm">Documents (BETA)</a></li>
+                    <li><a target="_top" href="/SpecimenSearchHTML.cfm">Specimens (no JavaScript)</a></li>
 				</ul>
 			</li> 
 		</ul>
