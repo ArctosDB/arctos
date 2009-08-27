@@ -26,7 +26,7 @@
 		
         <!--- if arguments.value is empty the tree is being built for the first time --->
 			<cfquery name="qry" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				#sql#
+				#preservesinglequotes(sql)#
 			</cfquery>
 			<cfset x = 0/>
 			<cfloop query="qry">
