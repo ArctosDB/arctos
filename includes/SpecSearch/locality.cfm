@@ -272,11 +272,7 @@
     }
 	initializeMap();
 	
-	jQuery(document).unload(function() {
-	    if (GBrowserIsCompatible()) {
-			GUnload();
-		}
-	)};	
+	
 </script>
 			
 			<!----
