@@ -16,6 +16,10 @@
         var map = new GMap2(document.getElementById("map_canvas"));
         var center = new GLatLng(37.4419, -122.1419);
         map.setCenter(center, 13);
+        
+        map.addControl(new GSmallMapControl());
+        
+        
 /*
         var marker = new GMarker(center, {draggable: true});
 
