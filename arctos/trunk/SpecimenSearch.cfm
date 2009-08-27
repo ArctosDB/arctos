@@ -307,8 +307,8 @@ var ptl="/includes/SpecSearch/locality.cfm";
 									document.getElementById('nwlong').value=nw.lng();
 									document.getElementById('selat').value=se.lat();
 									document.getElementById('selong').value=se.lng();
-									console.log('Last Selected Area: NW=' + nw + '; SE=' + se);
-									jQuery('##selectedCoords').text('Last Selected Area: NW=' + nw + '; SE=' + se);
+									console.log('Last Selected Area');//: NW=' + nw + '; SE=' + se);
+									//jQuery('##selectedCoords').text('Last Selected Area: NW=' + nw + '; SE=' + se);
 								}
 							};
 							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT));
