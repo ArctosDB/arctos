@@ -1,5 +1,5 @@
 <cfcomponent>
-<cffunction name="getNodes" access="remote">
+<cffunction name="getNodes" access="remote" returntype="Array">
     <cfargument name="path" type="String" required="false" default=""/>
     <cfargument name="value" type="String" required="true" default=""/>
     <!--- set up return array --->
