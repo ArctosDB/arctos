@@ -349,8 +349,10 @@
 					<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
 						<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#.#dec_long#">
 						<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=4">
-						<cfset iu=iu & "&maptype=roadmap">					
-						<img src="#iu#" alt="Google Map">
+						<cfset iu=iu & "&maptype=roadmap">
+						<a href="http://maps.google.com/maps?q=#dec_lat#,#dec_long#">
+							<img src="#iu#" alt="Google Map">
+						</a>
 					</cfif>
 				</td>
 			    <td valign="top">
