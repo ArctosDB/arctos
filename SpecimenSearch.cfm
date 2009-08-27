@@ -276,9 +276,9 @@ var ptl="/includes/SpecSearch/locality.cfm";
 					Click 'select' then click and drag for spatial query&nbsp;&nbsp;&nbsp;
 					<span class="likeLink" onclick="getDocs('spatial_query')";>More Info</span>
 					
-				</label>
-				<span style="border:1px solid red; position:relative; width:30%;right:0px;">stuff</span>
+				</label>				
 				<div id="map_canvas" style="width: 100%; height: 400px;"></div>
+				<span style="font-size:smaller" id="selectedCoords"></span>
 				<script language="javascript" type="text/javascript">
 					function initializeMap() {
 						if (GBrowserIsCompatible()) {
@@ -307,6 +307,7 @@ var ptl="/includes/SpecSearch/locality.cfm";
 									document.getElementById('nwlong').value=nw.lng();
 									document.getElementById('selat').value=se.lat();
 									document.getElementById('selong').value=se.lng();
+									jQuery('#selectedCoords').text('Selected Area: NW=' + nw + '; SE=' + se);
 								}
 							};
 							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT));
