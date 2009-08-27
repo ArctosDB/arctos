@@ -23,31 +23,9 @@
 				Holdings Details
 			</a>
 		</td>
-		<cfif #hasCanned.recordcount# gt 0>
-			<td style="padding-left:2em;padding-right:2em;">
-				Saved Searches: <select name="goCanned" id="goCanned" size="1" onchange="document.location=this.value;">
-					<option value=""></option>
-					<option value="saveSearch.cfm?action=manage">[ Manage ]</option>
-					<cfloop query="hasCanned">
-						<option value="#url#">#SEARCH_NAME#</option><br />
-					</cfloop>
-				</select>
-			</td>
-		</cfif>
+		
 		<td style="padding-left:2em;padding-right:2em;">
-			<span style="color:red;">
-				<cfif #action# is "dispCollObj">
-					<p>You are searching for items to add to a loan.</p>
-				<cfelseif #action# is "encumber">
-					<p>You are searching for items to encumber.</p>
-				<cfelseif #action# is "collEvent">
-					<p>You are searching for items to change collecting event.</p>
-				<cfelseif #action# is "identification">
-					<p>You are searching for items to reidentify.</p>
-				<cfelseif #action# is "addAccn">
-					<p>You are searching for items to reaccession.</p>
-				</cfif>
-			</span>
+			
 		</td>
 	</tr>
 </table>	
@@ -169,7 +147,6 @@
 		<tr>
 			<td colspan="2" class="secHead">
 				<span class="secLabel">Identification and Taxonomy</span>
-				<span class="secControl" id="c_taxonomy" onclick="showHide('taxonomy',1)">Show More Options</span>
 			</td>
 		</tr>
 		<tr>
@@ -188,68 +165,16 @@
 		<tr>
 			<td colspan="2" class="secHead">
 				<span class="secLabel">Locality</span>
-				<span class="secControl" id="c_locality" onclick="showHide('locality',1)">Show More Options</span>
 			</td>
 		</tr>
-		<tr>
-			<td colspan="2">
-				<label for="map_canvas">
-					Click 'select' then click and drag for spatial query&nbsp;&nbsp;&nbsp;
-					<span class="likeLink" onclick="getDocs('spatial_query')";>More Info</span>
-					
-				</label>				
-				<div id="map_canvas" style="width: 100%; height: 400px;"></div>
-				<span style="font-size:smaller" id="selectedCoords"></span>
-				<input type="hidden" name="nwLat" id="nwLat">
-				<input type="hidden" name="nwlong" id="nwlong">
-				<input type="hidden" name="selat" id="selat">
-				<input type="hidden" name="selong" id="selong">
-				<script language="javascript" type="text/javascript">
-					function initializeMap() {
-						if (GBrowserIsCompatible()) {
-							var map = new GMap2(document.getElementById("map_canvas"));
-							var center = new GLatLng(55, -135);
-							map.setCenter(center, 3);
-							map.addControl(new GLargeMapControl());
-							map.addMapType(G_PHYSICAL_MAP);
-							map.addControl(new GScaleControl());
-							map.addControl(new GMapTypeControl());
-							var boxStyleOpts = {
-								opacity:.0,
-								border:"2px solid green"
-							}
-							var otherOpts = {
-								overlayRemoveTime:99999999999999,  
-								buttonHTML:"select",
-								buttonZoomingHTML:"finished",
-								buttonStartingStyle:{border: '2px solid red', padding: '4px',fontSize:'small',color:'blue',fontWeight:'bold'},
-								buttonZoomingStyle:{background: '##FF0'},
-								backButtonEnabled : true,
-								backButtonHTML : 'go back',
-								minDragSize:3
-							};
-							var callbacks = {
-								dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){
-									jQuery('##nwLat').val(nw.lat());
-									jQuery('##nwlong').val(nw.lng());
-									jQuery('##selat').val(se.lat());
-									jQuery('##selong').val(se.lng());
-									/*
-									document.getElementById('').value=nw.lat();
-									document.getElementById('').value=nw.lng();
-									document.getElementById('').value=se.lat();
-									document.getElementById('').value=se.lng();
-									console.log('Last Selected Area');//: NW=' + nw + '; SE=' + se);
-									*/
-									jQuery('##selectedCoords').text('Last Selected Area: NW=' + nw + '; SE=' + se);
-								}
-							};
-							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT));
-						}
-					}
-				</script>
+		<tr>	
+			<td class="lbl">
+				<span class="helpLink" id="any_geog_term">Any&nbsp;Geographic&nbsp;Element:</span>
 			</td>
-		</tr>
+			<td class="srch">
+				<input type="text" name="any_geog" id="any_geog" size="50">
+			</td>
+		</tr>	
 	</table>
 	<div id="e_locality"></div>
 </div>
@@ -258,7 +183,6 @@
 		<tr>
 			<td colspan="2" class="secHead">
 				<span class="secLabel">Date/Collector</span>
-				<span class="secControl" id="c_collevent" onclick="showHide('collevent',1)">Show More Options</span>
 			</td>
 		</tr>
 		<tr>
@@ -266,8 +190,7 @@
 				<span class="helpLink" id="year_collected">Year Collected:</span>
 			</td>
 			<td class="srch">
-				<input name="begYear" id="begYear" type="text" size="6">&nbsp;
-				<span class="infoLink" onclick="SpecData.endYear.value=SpecData.begYear.value">-->&nbsp;Copy&nbsp;--></span>
+				<input name="begYear" id="begYear" type="text" size="6">&nbsp;to
 				&nbsp;<input name="endYear" id="endYear" type="text" size="6">
 			</td>
 		</tr>
@@ -279,7 +202,6 @@
 		<tr>
 			<td colspan="2" class="secHead">
 				<span class="secLabel">Biological Individual</span>
-				<span class="secControl" id="c_biolindiv" onclick="showHide('biolindiv',1)">Show More Options</span>
 			</td>
 		</tr>
 		<tr>
@@ -288,19 +210,15 @@
 			</td>
 			<td class="srch">
 				<input type="text" name="partname" id="partname">
-				<span class="infoLink" onclick="getCtDoc('ctspecimen_part_name',SpecData.partname.value);">Define</span>
-				<span class="infoLink" onclick="var e=document.getElementById('partname');e.value='='+e.value;">Add = for exact match</span>
 			</td>
 		</tr>
 	</table>
-	<div id="e_biolindiv"></div>
 </div>
 <div class="secDiv">
 	<table class="ssrch">
 		<tr>
 			<td colspan="2" class="secHead">
 				<span class="secLabel">Usage</span>
-				<span class="secControl" id="c_usage" onclick="showHide('usage',1)">Show More Options</span>
 			</td>
 		</tr>
 		<tr>
@@ -319,7 +237,6 @@
 						<option value="#ctTypeStatus.type_status#">#ctTypeStatus.type_status#</option>
 					</cfloop>
 				</select>
-				<span class="infoLink" onclick="getCtDoc('ctcitation_type_status', SpecData.type_status.value);">Define</span>	
 			</td>
 		</tr>
 	</table>
@@ -331,7 +248,6 @@
 			<tr>
 				<td colspan="2" class="secHead">
 					<span class="secLabel">Curatorial</span>
-					<span class="secControl" id="c_curatorial" onclick="showHide('curatorial',1)">Show More Options</span>
 				</td>
 			</tr>
 			<tr>
@@ -357,79 +273,14 @@
    				onmouseover="this.className='clrBtn btnhov'" onmouseout="this.className='clrBtn'">
 		</td>
 		<td valign="top">
-			<input type="button" name="Previous" value="Use Last Values" class="lnkBtn"	onclick="setPrevSearch()">
 		</td>
 		<td valign="top" align="right">
-			<b>See results as:</b>
 		</td>
 		<td align="left" colspan="2" valign="top">
-			<select name="tgtForm" id="tgtForm" size="1" onChange="changeTarget(this.id,this.value);">
-				<option value="">Specimen Records</option>
-				<option value="SpecimenResultsHTML.cfm">HTML Specimen Records</option>
-				<option  value="/bnhmMaps/bnhmMapData.cfm">BerkeleyMapper Map</option>
-				<option  value="/bnhmMaps/kml.cfm?action=newReq">KML</option>
-				<option value="SpecimenResultsSummary.cfm">Specimen Summary</option>
-				<option  value="SpecimenGraph.cfm">Graph</option>
-				<cfif isdefined("session.username") AND (#session.username# is "link" OR #session.username# is "dusty")>
-				<option  value="/CustomPages/Link.cfm">Link's Form</option>
-				</cfif>
-				<cfif isdefined("session.username") AND (#session.username# is "cindy" OR #session.username# is "dusty")>
-				<option  value="/CustomPages/CindyBats.cfm">Cindy's Form</option>
-				</cfif>
-			</select>
+			
 		</td>
 		<td align="left">
-			<div id="groupByDiv" style="display:none;border:1px solid green;padding:.5em;">
-			<font size="-1"><em><strong>Group by:</strong></em></font><br>
-			<select name="groupBy" id="groupBy" multiple size="4" onchange="changeGrp(this.id)">
-				<option value="">Scientific Name</option>
-				<option value="continent_ocean">Continent</option>
-				<option value="country">Country</option>
-				<option value="state_prov">State</option>
-				<option value="county">County</option>
-				<option value="quad">Map Name</option>
-				<option value="feature">Feature</option>
-				<option value="island">Island</option>
-				<option value="island_group">Island Group</option>
-				<option value="sea">Sea</option>
-				<option value="spec_locality">Specific Locality</option>
-				<option value="yr">Year</option>
-			</select>
-			</div>
-			<div id="kmlDiv" style="display:none;border:1px solid green;padding:.5em;">
-				<font size="-1"><em><strong>KML Options:</strong></em></font><br>
-				<label for="next">Color By</label>
-				<select name="next" id="next" onchange="kmlSync(this.id,this.value)">
-					<option value="colorByCollection">Collection</option>
-					<option value="colorBySpecies">Species</option>
-				</select>
-				<label for="method">Method</label>
-				<select name="method" id="method" onchange="kmlSync(this.id,this.value)">
-					<option value="download">Download</option>
-					<option value="link">Download Linkfile</option>
-					<option value="gmap">Google Maps</option>
-				</select>
-				<label for="includeTimeSpan">include Time?</label>
-				<select name="includeTimeSpan" id="includeTimeSpan" onchange="kmlSync(this.id,this.value)">
-					<option value="0">no</option>
-					<option value="1">yes</option>
-				</select>
-				<label for="showUnaccepted">Show unaccepted determinations?</label>
-				<select name="showUnaccepted" id="showUnaccepted" onchange="kmlSync(this.id,this.value)">
-					<option value="0">no</option>
-					<option value="1">yes</option>
-				</select>
-				<label for="mapByLocality">All specimens from localities?</label>
-				<select name="mapByLocality" id="mapByLocality" onchange="kmlSync(this.id,this.value)">
-					<option value="0">no</option>
-					<option value="1">yes</option>
-				</select>
-				<label for="showErrors">Show error radii?</label>
-				<select name="showErrors" id="showErrors" onchange="kmlSync(this.id,this.value)">
-					<option value="0">no</option>
-					<option value="1">yes</option>
-				</select>
-			</div>
+			
 		</td>
 	</tr>
 </table> 
@@ -439,128 +290,4 @@
 <input type="hidden" name="newQuery" value="1"><!--- pass this to the next form so we clear the cache and run the proper queries--->
 </form>
 </cfoutput>
-<script type='text/javascript' language='javascript'>
-	jQuery(document.body).unload(function() {
-		if (GBrowserIsCompatible()) {
-			GUnload();
-		}
-	});
-	jQuery(document).ready(function() {
-	  	initializeMap();
-	  	var tval = document.getElementById('tgtForm').value;
-		changeTarget('tgtForm',tval);
-		changeGrp('groupBy');
-		jQuery.getJSON("/component/functions.cfc",
-			{
-				method : "getSpecSrchPref",
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (getResult) {
-				if (getResult == "cookie") {
-					var cookie = readCookie("specsrchprefs");
-					if (cookie != null) {
-						r_getSpecSrchPref(cookie);
-					}
-				}
-				else
-					r_getSpecSrchPref(getResult);
-			}
-		);
-	});
-	jQuery("#partname").autocomplete("/ajax/part_name.cfm", {
-		width: 320,
-		max: 20,
-		autofill: true,
-		highlight: false,
-		multiple: true,
-		multipleSeparator: "|",
-		scroll: true,
-		scrollHeight: 300
-	});
-	jQuery("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", {
-		width: 320,
-		max: 20,
-		autofill: true,
-		highlight: false,
-		multiple: true,
-		multipleSeparator: "|",
-		scroll: true,
-		scrollHeight: 300
-	});	
-	function r_getSpecSrchPref (result){
-		var j=result.split(',');
-		for (var i = 0; i < j.length; i++) {
-			if (j[i].length>0){
-				showHide(j[i],1);
-			}
-		}
-	}
-	function kmlSync(tid,tval) {
-		var rMostChar=tid.substr(tid.length -1,1);
-		if (rMostChar=='1'){
-			theOtherField=tid.substr(0,tid.length -1);
-		} else {
-			theOtherField=tid + '1';
-		}
-		document.getElementById(theOtherField).value=tval;
-	}
-	function changeGrp(tid) {
-		if (tid == 'groupBy') {
-			var oid = 'groupBy1';
-		} else {
-			var oid = 'groupBy';
-		}
-		var mList = document.getElementById(tid);
-		var sList = document.getElementById(oid);
-		var len = mList.length;
-		for (i = 0; i < len; i++) {
-			sList.options[i].selected = false;
-		}
-		for (i = 0; i < len; i++) {
-			if (mList.options[i].selected) {
-				sList.options[i].selected = true;
-			}
-		}
-	}
-	function changeTarget(id,tvalue) {
-		if(tvalue.length == 0) {
-			tvalue='SpecimenResults.cfm';
-		}
-		if (id =='tgtForm1') {
-			var otherForm = document.getElementById('tgtForm');
-		} else {
-			var otherForm = document.getElementById('tgtForm1');
-		}
-		otherForm.value=tvalue;
-		document.getElementById('groupByDiv').style.display='none';
-		document.getElementById('groupByDiv1').style.display='none';
-		document.getElementById('kmlDiv').style.display='none';
-		document.getElementById('kmlDiv1').style.display='none';
-		if (tvalue == 'SpecimenResultsSummary.cfm') {
-			document.getElementById('groupByDiv').style.display='';
-			document.getElementById('groupByDiv1').style.display='';
-		} else if (tvalue=='/bnhmMaps/kml.cfm?action=newReq') {
-			document.getElementById('kmlDiv').style.display='';
-			document.getElementById('kmlDiv1').style.display='';
-		}
-		document.SpecData.action = tvalue;
-	}
-	function setPrevSearch(){
-		var schParam=get_cookie ('schParams');
-		var pAry=schParam.split("|");
-	 	for (var i=0; i<pAry.length; i++) {
-	 		var eAry=pAry[i].split("::");
-	 		var eName=eAry[0];
-	 		var eVl=eAry[1];
-	 		if (document.getElementById(eName)){
-				document.getElementById(eName).value=eVl;
-				if (eName=='tgtForm' && (eVl=='/bnhmMaps/kml.cfm?action=newReq' || eVl=='SpecimenResultsSummary.cfm')) {
-					// also fire off the options div
-					changeTarget(eName,eVl);
-				}
-			}
-	 	}
-	}
-</script>
 <cfinclude template = "includes/_footer.cfm">
