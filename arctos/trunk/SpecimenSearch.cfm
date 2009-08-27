@@ -278,7 +278,7 @@ var ptl="/includes/SpecSearch/locality.cfm";
 				Click 'select' then click and drag for spatial query&nbsp;&nbsp;&nbsp;
 				<span class="likeLink" onclick="getDocs('spatial_query')";>More Info</span>
 			</label>
-			<div id="map_canvas" style="width: 40em; height: 25em"></div>
+			<div id="map_canvas" style="width: 65%; height: 400px;"></div>
 		
 <script language="javascript" type="text/javascript">
 	function initializeMap() {
