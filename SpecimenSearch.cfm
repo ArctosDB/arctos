@@ -277,7 +277,7 @@ var ptl="/includes/SpecSearch/locality.cfm";
 					<span class="likeLink" onclick="getDocs('spatial_query')";>More Info</span>
 					
 				</label>
-				<div style="border:1px solid red; position:relative; width:30%;right:0px;">stuff</div>
+				<span style="border:1px solid red; position:relative; width:30%;right:0px;">stuff</span>
 				<div id="map_canvas" style="width: 100%; height: 400px;"></div>
 				<script language="javascript" type="text/javascript">
 					function initializeMap() {
