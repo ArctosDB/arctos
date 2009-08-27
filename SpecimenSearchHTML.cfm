@@ -51,7 +51,7 @@
 			
 		</td>
 		<td valign="top">
-			Show&nbsp;<span class="helpLink" id="observations">Observations?</span>
+			Show&nbsp;Observations?
 			<input type="checkbox" name="showObservations" id="showObservations" value="1" <cfif #session.showObservations# eq 1> checked="checked" </cfif>>
 		</td>
 		<td valign="top">
@@ -78,7 +78,7 @@
 		</tr>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="collection">Collection</span>:
+				Collection:
 			</td>
 			<td class="srch">
 				<select name="collection_id" id="collection_id" size="1">
@@ -90,7 +90,7 @@
 							#ctInst.collection#</option>
 					</cfloop>
 				</select>
-				<span class="helpLink" id="cat_num">Number:</span>
+				Number:
 				<cfif #ListContains(session.searchBy, 'bigsearchbox')# gt 0>
 					<textarea name="listcatnum" id="listcatnum" rows="6" cols="40" wrap="soft"></textarea>
 				<cfelse>
@@ -101,7 +101,7 @@
 	<cfif isdefined("session.CustomOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="custom_identifier">#replace(session.CustomOtherIdentifier," ","&nbsp;","all")#:</span>
+				#replace(session.CustomOtherIdentifier," ","&nbsp;","all")#:
 			</td>
 			<td class="srch">
 				<label for="CustomOidOper">Display Value</label>
@@ -140,7 +140,6 @@
 		</tr>
 	</cfif>
 </table>
-<div id="e_identifiers"></div>
 </div>
 <div class="secDiv">
 	<table class="ssrch">
@@ -151,14 +150,13 @@
 		</tr>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="_any_taxa_term">Any Taxonomic Element:</span>
+				Any Taxonomic Element:
 			</td>
 			<td class="srch">
 				<input type="text" name="any_taxa_term" id="any_taxa_term" size="50">
 			</td>
 		</tr>
 	</table>
-	<div id="e_taxonomy"></div>
 </div>
 <div class="secDiv">
 	<table class="ssrch">
@@ -169,7 +167,7 @@
 		</tr>
 		<tr>	
 			<td class="lbl">
-				<span class="helpLink" id="any_geog_term">Any&nbsp;Geographic&nbsp;Element:</span>
+				Any&nbsp;Geographic&nbsp;Element:
 			</td>
 			<td class="srch">
 				<input type="text" name="any_geog" id="any_geog" size="50">
@@ -187,7 +185,7 @@
 		</tr>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="year_collected">Year Collected:</span>
+				Year Collected:
 			</td>
 			<td class="srch">
 				<input name="begYear" id="begYear" type="text" size="6">&nbsp;to
@@ -206,7 +204,7 @@
 		</tr>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="part_name">Part Name:</span>
+				Part Name:
 			</td>
 			<td class="srch">
 				<input type="text" name="partname" id="partname">
@@ -223,7 +221,7 @@
 		</tr>
 		<tr>
 			<td class="lbl">
-				<span class="helpLink" id="_type_status">Basis of Citation:</span>
+				Basis of Citation:
 			</td>
 			<td class="srch">
 				<cfquery name="ctTypeStatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
