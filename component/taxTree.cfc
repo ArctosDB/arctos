@@ -15,7 +15,7 @@
 				<cfloop query="qry">
 					<cfset y = y + 1/>
 	                <cfset s = structNew()/>
-	                <cfset s.value=#q.data#>
+	                <cfset s.value=#qry.data#>
 	                <cfset s.display="Leaf #qry.data#">
 	                <cfset s.leafnode=true/>
 	                <cfset arrayAppend(result,s)/>
