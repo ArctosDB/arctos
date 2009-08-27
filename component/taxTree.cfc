@@ -49,6 +49,7 @@
 
 		<cfif len(arguments.value) is 0>
 			<cfset sql="select nvl(kingdom,'not recorded') data from taxonomy group by kingdom order by kingdom">
+			<cfset child="kingdom">
 		<cfelse>
 			<cfset sPos=find(arguments.value,"=")>
 			<cfset rank=listgetat(arguments.value,1,"=")>
