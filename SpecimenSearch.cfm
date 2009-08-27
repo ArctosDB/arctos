@@ -279,14 +279,13 @@ var ptl="/includes/SpecSearch/locality.cfm";
 				</label>				
 				<div id="map_canvas" style="width: 100%; height: 400px;"></div>
 				<span style="font-size:smaller" id="selectedCoords"></span>
-				<input type="text" name="nwLat" id="nwLat" size="8">
-				<input type="text" name="nwlong" id="nwlong" size="8">
-				<input type="text" name="selat" id="selat" size="8">
-				<input type="text" name="selong" id="selong" size="8">
+				<input type="hidden" name="nwLat" id="nwLat">
+				<input type="hidden" name="nwlong" id="nwlong">
+				<input type="hidden" name="selat" id="selat">
+				<input type="hidden" name="selong" id="selong">
 				<script language="javascript" type="text/javascript">
 					function initializeMap() {
 						if (GBrowserIsCompatible()) {
-							console.log('wtf');
 							var map = new GMap2(document.getElementById("map_canvas"));
 							var center = new GLatLng(55, -135);
 							map.setCenter(center, 3);
@@ -308,12 +307,18 @@ var ptl="/includes/SpecSearch/locality.cfm";
 							};
 							var callbacks = {
 								dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){
-									document.getElementById('nwLat').value=nw.lat();
-									document.getElementById('nwlong').value=nw.lng();
-									document.getElementById('selat').value=se.lat();
-									document.getElementById('selong').value=se.lng();
+									jQuery('##nwLat').val(nw.lat());
+									jQuery('##nwlong').val(nw.lng());
+									jQuery('##selat').val(se.lat());
+									jQuery('##selong').val(se.lng());
+									/*
+									document.getElementById('').value=nw.lat();
+									document.getElementById('').value=nw.lng();
+									document.getElementById('').value=se.lat();
+									document.getElementById('').value=se.lng();
 									console.log('Last Selected Area');//: NW=' + nw + '; SE=' + se);
-									//jQuery('##selectedCoords').text('Last Selected Area: NW=' + nw + '; SE=' + se);
+									*/
+									jQuery('##selectedCoords').text('Last Selected Area: NW=' + nw + '; SE=' + se);
 								}
 							};
 							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT));
