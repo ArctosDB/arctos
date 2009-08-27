@@ -232,7 +232,7 @@
 		<div id="map_canvas" style="width: 500px; height: 300px"></div>
 <script language="javascript" type="text/javascript">
 	
-	function initializeMap() {
+	function initializeMapcsadasveasdax() {
       console.log('i am initializeMap');
       /*
       if (GBrowserIsCompatible()) {
