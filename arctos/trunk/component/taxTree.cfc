@@ -50,15 +50,12 @@
 		<cfif len(arguments.value) is 0>
 			<cfset sql="select nvl(kingdom,'not recorded') data from taxonomy group by kingdom order by kingdom">
 		<cfelse>
-			<cfset sql="select '#arguments.value#' data from dual">
-			#sql#
 			<cfset sPos=find(arguments.value,"=")>
 			<cfset rank=listgetat(arguments.value,1,"=")>
 			<cfset term=listgetat(arguments.value,2,"=")>
 			<cfset ttlPos=listfind(ttl,rank)>
 			<cfset child=listgetat(ttl,ttlPos+1)>
 			<cfset sql="select nvl(#child#,'not recorded') data from taxonomy where #rank#='#term#' group by #child# order by #child#">
-			<hr>#sql#
 		</cfif>
 		
         <!--- if arguments.value is empty the tree is being built for the first time --->
