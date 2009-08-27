@@ -22,6 +22,9 @@
 			<cfset sql="select nvl(kingdom,'not recorded') data from taxonomy group by kingdom order by kingdom">
 		<cfelse>
 			<cfset sql="select '#arguments.value#' data from dual">
+			<cfloop list="#StructKeyList(arguments.value)#" index="key">
+				<br>--#key#=#arguments.value[key]#
+			</cfloop>
 		</cfif>
 		
         <!--- if arguments.value is empty the tree is being built for the first time --->
