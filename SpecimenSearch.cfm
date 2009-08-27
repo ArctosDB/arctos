@@ -15,6 +15,20 @@
 	and username='#session.username#'
 	order by search_name
 </cfquery>
+
+
+<span onclick="loc()">loc on</span>
+<script>
+	function loc(){
+var tab=document.getElementById(t);
+var ptl="/includes/SpecSearch/locality.cfm";
+			jQuery.get(ptl, function(data){
+				jQuery(tab).html(data);
+			});
+}
+</script>
+
+<div id="t"></div>
 <table cellpadding="0" cellspacing="0">
 	<tr>
 		<td>
