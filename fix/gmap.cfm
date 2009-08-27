@@ -55,8 +55,10 @@
     dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){console.log("Zoom! nw="+nw+";se="+se);
     var nwA='hi there';
     //nw.split(",");
-    var c=nw.lng();
-    console.log(c); 
+    document.getElementById('nwLat').value=nw.lat();
+    document.getElementById('nwlong').value=nw.lng();
+    document.getElementById('selat').value=se.lat();
+    document.getElementById('selong').value=se.lng();
     }
   };
   
