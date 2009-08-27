@@ -307,6 +307,7 @@ var ptl="/includes/SpecSearch/locality.cfm";
 									document.getElementById('nwlong').value=nw.lng();
 									document.getElementById('selat').value=se.lat();
 									document.getElementById('selong').value=se.lng();
+									console.log('Last Selected Area: NW=' + nw + '; SE=' + se);
 									jQuery('##selectedCoords').text('Last Selected Area: NW=' + nw + '; SE=' + se);
 								}
 							};
