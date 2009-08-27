@@ -219,18 +219,27 @@
 		</ul>    
     </div>
 	<p>
-		Links:
+		Arctos Links:
 		<ul>
 			<li>
-				Search Arctos for specimens that are <a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#">
-				exactly <I>#one.SCIENTIFIC_NAME#</I></a> 
-				(or <a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#&media_type=any">with Media</a>)
+				 <a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#">
+					Specimen Results: exactly <I>#one.SCIENTIFIC_NAME#</I>
+				</a>
 			</li>
 			<li>
-				Search Arctos for specimens <a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#">like <em>#one.scientific_name#</em></a>
-				(or <a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#&media_type=any">with Media</a>)
+				<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#">
+					Specimen Results: like <I>#one.SCIENTIFIC_NAME#</I>
+				</a>
+			</li>
+			<li>
+				<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#&media_type=any">
+					Specimen Results with Media: like <I>#one.SCIENTIFIC_NAME#</I>
+				</a>
 			</li>
 		</ul>
+	</p>
+	External Links:
+	<p>
 			<cfset srchName = URLEncodedFormat(one.scientific_name)>
 		<ul>
 			<li>
