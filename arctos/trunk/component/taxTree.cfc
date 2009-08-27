@@ -9,14 +9,14 @@
         <!--- if arguments.value is empty the tree is being built for the first time --->
         <cfif arguments.value is "">
             	<cfquery name="qry" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select nvl(kingdom,'unknown') data from taxonomy group by kingdom order by kingdom
+					select kingdom data from taxonomy group by kingdom order by kingdom
 				</cfquery>
 				<cfset y=0>
 				<cfloop query="qry">
 					<cfset y = y + 1/>
 	                <cfset s = structNew()/>
-	                <cfset s.value=#qry.data#>
-	                <cfset s.display="#qry.data# (kingdom)">
+	                <cfset s.value=#data#>
+	                <cfset s.display="#data# (kingdom)">
 	                <cfset s.leafnode=false/>
 	                <cfset arrayAppend(result,s)/>
 				</cfloop>
