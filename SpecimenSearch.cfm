@@ -275,7 +275,7 @@ var ptl="/includes/SpecSearch/locality.cfm";
 		<tr>
 			<td colspan="2">
 			<label for="map_canvas">
-				Click 'select' and draw box for spatial query&nbsp;&nbsp;&nbsp;
+				Click 'select' then click and drag for spatial query&nbsp;&nbsp;&nbsp;
 				<span class="likeLink" onclick="getDocs('spatial_query')";>More Info</span>
 			</label>
 			<div id="map_canvas" style="width: 60%px; height: 300px"></div>
@@ -287,8 +287,9 @@ var ptl="/includes/SpecSearch/locality.cfm";
 			var center = new GLatLng(50, -148);
 			map.setCenter(center, 1);
 			map.addControl(new GSmallMapControl());
+			map.addMapType(G_PHYSICAL_MAP);
 			
-			map.addControl(new GOverviewMapControl());
+			//map.addControl(new GOverviewMapControl());
 			map.addControl(new GScaleControl());
 			map.addControl(new GMapTypeControl());
 						//map.addControl(new GHierarchicalMapTypeControl());
