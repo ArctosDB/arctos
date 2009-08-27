@@ -270,10 +270,8 @@
 	      
 	     }
     }
+	initializeMap();
 	
-	jQuery(document).ready(function() {
-	    initializeMap();
-	)};
 	jQuery(document).unload(function() {
 	    if (GBrowserIsCompatible()) {
 			GUnload();
