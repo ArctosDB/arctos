@@ -56,15 +56,11 @@
 			<cfset rank=listgetat(arguments.value,1,"=")>
 			<cfset term=listgetat(arguments.value,2,"=")>
 			<cfset ttlPos=listfind(ttl,rank)>
-			listlen(ttl)=#listlen(ttl)#; ttlPos=#ttlPos#;
-			<cfif listlen(ttl) eq ttlPos>
+			<cfif listlen(ttl) eq ttlPos+1>
 				<cfset child="test">
 				<cfset isLeafNode=1>
-				listlen(ttl)=#listlen(ttl)#; ttlPos=#ttlPos#; #rank# is a leaf term
-				<cfabort>
 			<cfelse>
 				<cfset child=listgetat(ttl,ttlPos+1)>
-				
 			</cfif>
 			
 			<cfset sql="select nvl(#child#,'not recorded') data from taxonomy where #rank#='#term#' group by #child# order by #child#">
