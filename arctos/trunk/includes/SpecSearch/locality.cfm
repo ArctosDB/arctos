@@ -235,10 +235,9 @@
 		---->
 		<div id="map_canvas" style="width: 500px; height: 300px"></div>
 		
-		<!----
 <script language="javascript" type="text/javascript">
 	
-	function initializeMapcsadasveasdax() {
+	function initializeMap() {
       console.log('i am initializeMap');
       /*
       if (GBrowserIsCompatible()) {
@@ -272,14 +271,13 @@
 			map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks));	
 	      
 	     }
-	     initializeMap();
 	     */
     }
 	
+		     initializeMap();
 	
 	
 </script>
-		----->	
 			
 			<!----
 			<table cellpadding="0" cellspacing="0">
