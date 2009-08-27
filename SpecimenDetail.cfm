@@ -345,7 +345,14 @@
 			    		<strong>#partString#</strong>
 					</font>
 				</td>
-				<td>map goes here</td>
+				<td>
+					<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
+						<img src="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#.#dec_long#">
+					</cfif>
+					
+					map goes here
+				
+				</td>
 			    <td valign="top">
 			        <span class="annotateSpace">
 						<cfif len(#session.username#) gt 0>
