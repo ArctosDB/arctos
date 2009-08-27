@@ -54,6 +54,7 @@
 	<cfabort>
 </cfif>
 ---->
+<cfset guid="uam:mamm:12">
 <cfset detSelect = "
 	SELECT DISTINCT
 		institution_acronym,
