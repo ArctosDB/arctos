@@ -273,12 +273,60 @@ var ptl="/includes/SpecSearch/locality.cfm";
 			</td>
 		</tr>
 		<tr>
+			<td colspan="2">
+			
+			<div id="map_canvas" style="width: 500px; height: 300px"></div>
+		
+<script language="javascript" type="text/javascript">
+	
+	function initializeMap() {
+      console.log('i am initializeMap');
+      if (GBrowserIsCompatible()) {
+	      var map = new GMap2(document.getElementById("map_canvas"));
+	      var center = new GLatLng(50, -148);
+	      map.setCenter(center, 1);
+	      map.addControl(new GSmallMapControl());
+	      var boxStyleOpts = {
+			opacity:.0,
+	  		border:"2px solid red"
+			}
+			var otherOpts = {
+			   overlayRemoveTime:99999999999999,  
+			   buttonHTML:"select area",
+			   buttonZoomingHTML:"draw rectangle",
+			   buttonStartingStyle:{border: '1px solid black', padding: '2px'},
+			   buttonZoomingStyle:{background: '##FF0'}    
+			 };
+	      var callbacks = {
+	    //buttonclick:function(){console.log("Looks like you activated DragZoom!")},
+	    //dragstart:function(){console.log("Started to Drag . . .");G.map.removeOverlay(zoomAreaPoly);},
+	    //dragging:function(x1,y1,x2,y2){console.log("Dragging, currently x="+x2+",y="+y2)},
+	    dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){
+	    	//console.log("Zoom! nw="+nw+";se="+se);
+		    document.getElementById('nwLat').value=nw.lat();
+		    document.getElementById('nwlong').value=nw.lng();
+		    document.getElementById('selat').value=se.lat();
+		    document.getElementById('selong').value=se.lng();
+	    }
+			};
+			map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks));	
+	      
+	     }
+    }
+	initializeMap();
+	
+	
+</script>
+				
+			</td>
+			<!---
 			<td class="lbl">
 				<span class="helpLink" id="any_geog_term">Any&nbsp;Geographic&nbsp;Element:</span>
 			</td>
 			<td class="srch">
 				<input type="text" name="any_geog" id="any_geog" size="50">
 			</td>
+			---->
 		</tr>
 	</table>
 	<div id="e_locality"></div>
