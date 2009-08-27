@@ -231,7 +231,6 @@
 
 
 		<!----
-			<script src="http://gmaps-utility-library.googlecode.com/svn/trunk/dragzoom/release/src/dragzoom_packed.js" type="text/javascript"></script>
 		---->
 		<div id="map_canvas" style="width: 500px; height: 300px"></div>
 		
