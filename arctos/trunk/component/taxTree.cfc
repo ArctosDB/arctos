@@ -8,14 +8,9 @@
 
         <!--- if arguments.value is empty the tree is being built for the first time --->
         <cfif arguments.value is "">
-            <cfset x = 0/>
-            <cfloop from="1" to="10" index="i">
-                <cfset x = x+1/>
-                <cfset s = structNew()/>
-                <cfset s.value=#x#>
-                <cfset s.display="Node #i#">
-                <cfset arrayAppend(result,s)/>
-            </cfloop>
+            	<cfquery name="result" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select kingdom from taxonomy group by kingdom order by kingdom
+				</cfquery>
         <cfelse>
         <!--- arguments.value is not empty --->
         <!--- to keep it simple we will only make children nodes --->
