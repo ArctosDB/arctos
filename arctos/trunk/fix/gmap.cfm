@@ -15,7 +15,7 @@
       if (GBrowserIsCompatible()) {
         var map = new GMap2(document.getElementById("map_canvas"));
         var center = new GLatLng(50, -148);
-        map.setCenter(center, 13);
+        map.setCenter(center, 1);
         
         map.addControl(new GSmallMapControl());
         
