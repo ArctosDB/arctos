@@ -66,8 +66,8 @@
 			<cfloop query="qry">
 				<cfset x = x+1/>
 				<cfset s = structNew()/>
-				<cfset s.value="kingdom=#data#">
-				<cfset s.display="#data# (kingdom)">
+				<cfset s.value="#child#=#data#">
+				<cfset s.display="#data# (#child#)">
 				<cfset arrayAppend(result,s)/>
 			</cfloop>
 			            <!---
