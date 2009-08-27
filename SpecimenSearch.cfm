@@ -279,6 +279,10 @@ var ptl="/includes/SpecSearch/locality.cfm";
 				</label>				
 				<div id="map_canvas" style="width: 100%; height: 400px;"></div>
 				<span style="font-size:smaller" id="selectedCoords"></span>
+				<input type="text" name="nwLat" id="nwLat" size="8">
+				<input type="text" name="nwlong" id="nwlong" size="8">
+				<input type="text" name="selat" id="selat" size="8">
+				<input type="text" name="selong" id="selong" size="8">
 				<script language="javascript" type="text/javascript">
 					function initializeMap() {
 						if (GBrowserIsCompatible()) {
