@@ -13,7 +13,12 @@
 	and username='#session.username#'
 	order by search_name
 </cfquery>
+You are searching Arctos with the non-JavaScript form. Please consider turning JavaScript on and 
+using the <a href="/SpecimenSearch.cfm">standard search form</a>.
 <table cellpadding="0" cellspacing="0">
+	<tr>
+		<td></td>
+	</tr>
 	<tr>
 		<td>
 			Access to #getCount.cnt# records
@@ -55,7 +60,7 @@
 			<input type="checkbox" name="showObservations" id="showObservations" value="1" <cfif #session.showObservations# eq 1> checked="checked" </cfif>>
 		</td>
 		<td valign="top">
-			<span class="helpLink" id="_is_tissue">Tissues?</span>
+			Tissues?
 			<input type="checkbox" name="is_tissue" id="is_tissue" value="1">
 		</td>
 	</tr>
