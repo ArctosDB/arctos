@@ -55,7 +55,8 @@
     dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){console.log("Zoom! nw="+nw+";se="+se);
     var nwA='hi there';
     //nw.split(",");
-    console.log(nw[1]); 
+    var c=nw.lng();
+    console.log(c); 
     }
   };
   
