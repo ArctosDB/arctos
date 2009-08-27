@@ -42,10 +42,10 @@
   };
         
          var callbacks = {
-    buttonclick:function(){display("Looks like you activated DragZoom!")},
-    dragstart:function(){display("Started to Drag . . .")},
-    dragging:function(x1,y1,x2,y2){display("Dragging, currently x="+x2+",y="+y2)},
-    dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){display("Zoom! NE="+ne+";SW="+sw)}
+    buttonclick:function(){console.log("Looks like you activated DragZoom!")},
+    dragstart:function(){console.log("Started to Drag . . .")},
+    dragging:function(x1,y1,x2,y2){console.log("Dragging, currently x="+x2+",y="+y2)},
+    dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){console.log("Zoom! NE="+ne+";SW="+sw)}
   };
   
   map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks));	
