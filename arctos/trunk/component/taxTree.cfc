@@ -56,6 +56,7 @@
 			<cfset rank=listgetat(arguments.value,1,"=")>
 			<cfset term=listgetat(arguments.value,2,"=")>
 			<cfset ttlPos=listfind(ttl,rank)>
+			listlen(ttl)=#listlen(ttl)#; ttlPos=#ttlPos#;
 			<cfif listlen(ttl) eq ttlPos>
 				<cfset child="test">
 				<cfset isLeafNode=1>
