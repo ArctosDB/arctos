@@ -58,6 +58,7 @@
 			<cfset ttlPos=listfind(ttl,rank)>
 			<cfset child=listgetat(ttl,ttlPos+1)>
 			<cfset sql="select nvl(#child#,'not recorded') data from taxonomy where #rank#='#term#' group by #child# order by #child#">
+			<hr>#sql#
 		</cfif>
 		
         <!--- if arguments.value is empty the tree is being built for the first time --->
