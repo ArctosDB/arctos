@@ -20,7 +20,7 @@
 <span onclick="loc()">loc on</span>
 <script>
 	function loc(){
-var tab=document.getElementById(t);
+var tab=document.getElementById('t');
 var ptl="/includes/SpecSearch/locality.cfm";
 			jQuery.get(ptl, function(data){
 				jQuery(tab).html(data);
