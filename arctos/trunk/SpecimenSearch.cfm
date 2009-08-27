@@ -284,7 +284,7 @@ var ptl="/includes/SpecSearch/locality.cfm";
 	function initializeMap() {
 		if (GBrowserIsCompatible()) {
 			var map = new GMap2(document.getElementById("map_canvas"));
-			var center = new GLatLng(50, -148);
+			var center = new GLatLng(55, -135);
 			map.setCenter(center, 3);
 			map.addControl(new GLargeMapControl());
 			map.addMapType(G_PHYSICAL_MAP);
