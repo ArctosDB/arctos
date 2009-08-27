@@ -274,7 +274,10 @@ var ptl="/includes/SpecSearch/locality.cfm";
 		</tr>
 		<tr>
 			<td colspan="2">
-			<label for="map_canvas">Click 'select' and draw box for spatial query</label>
+			<label for="map_canvas">
+				Click 'select' and draw box for spatial query&nbsp;&nbsp;&nbsp;
+				<span class="likeLink" onclick="getDocs('spatial_query')";>More Info</span>
+			</label>
 			<div id="map_canvas" style="width: 60%px; height: 300px"></div>
 		
 <script language="javascript" type="text/javascript">
