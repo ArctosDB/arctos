@@ -296,7 +296,8 @@ var ptl="/includes/SpecSearch/locality.cfm";
 				buttonHTML:"select area",
 				buttonZoomingHTML:"draw rectangle",
 				buttonStartingStyle:{border: '1px solid black', padding: '2px'},
-				buttonZoomingStyle:{background: '##FF0'}    
+				buttonZoomingStyle:{background: '##FF0'},
+				stickyZoomEnabled = true    
 			};
 			var callbacks = {
 				dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){
