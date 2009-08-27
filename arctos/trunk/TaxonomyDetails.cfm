@@ -314,7 +314,7 @@
 		<cfquery name="samegen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select scientific_name from taxonomy where genus='#one.genus#'
 			and scientific_name != '#one.scientific_name#' and
-			rownum =< 25
+			rownum <= 25
 			order by scientific_name
 		</cfquery>
 		<div>
