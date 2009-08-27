@@ -1,6 +1,6 @@
 <script type="text/javascript" language="javascript">
-	jQuery( function($) {
-		$("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", {
+	jQuery(document).ready(function() {
+		jQuery("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", {
 			width: 320,
 			max: 20,
 			autofill: true,
