@@ -7,7 +7,7 @@
         <cfset var s =""/>
 		<!--- need to break PATH apart ---->
 		<cfoutput>
-		#arguments.path#
+		-----------#arguments.path#---------------
 		<cfif isjson(arguments.path)>
 			path is json
 			<cfelse>
