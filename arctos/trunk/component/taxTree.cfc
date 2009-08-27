@@ -20,6 +20,8 @@
 		---->
 		<cfif len(arguments.value) is 0>
 			<cfset sql="select nvl(kingdom,'not recorded') data from taxonomy group by kingdom order by kingdom">
+		<cfelse>
+			<cfset sql="select '#arguments.value#' data from dual">
 		</cfif>
 		
         <!--- if arguments.value is empty the tree is being built for the first time --->
