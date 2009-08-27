@@ -12,7 +12,7 @@
 					select nvl(kingdom,'unknown') data from taxonomy group by kingdom order by kingdom
 				</cfquery>
 				<cfset y=0>
-				<cfloop from="1" to="#qry.recordcount#">
+				<cfloop query="qry">
 					<cfset y = y + 1/>
 	                <cfset s = structNew()/>
 	                <cfset s.value=#q.data#>
