@@ -33,5 +33,5 @@
     }
 	
 	
-	initialize;
+	initialize();
 </script>
