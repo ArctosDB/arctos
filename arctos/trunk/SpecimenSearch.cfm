@@ -286,7 +286,7 @@ var ptl="/includes/SpecSearch/locality.cfm";
 			var map = new GMap2(document.getElementById("map_canvas"));
 			var center = new GLatLng(50, -148);
 			map.setCenter(center, 1);
-			map.addControl(new GSmallMapControl());
+			map.addControl(new GLargeMapControl());
 			map.addMapType(G_PHYSICAL_MAP);
 			
 			//map.addControl(new GOverviewMapControl());
