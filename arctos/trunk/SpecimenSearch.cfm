@@ -288,7 +288,7 @@ var ptl="/includes/SpecSearch/locality.cfm";
 			map.addControl(new GOverviewMapControl());
 			map.addControl(new GScaleControl());
 			map.addControl(new GMapTypeControl());
-						map.addControl(new GHierarchicalMapTypeControl());
+						//map.addControl(new GHierarchicalMapTypeControl());
 			
 			
 			var boxStyleOpts = {
