@@ -233,19 +233,6 @@
         map.addControl(new GSmallMapControl());
         
         
-/*
-        var marker = new GMarker(center, {draggable: true});
-
-        GEvent.addListener(marker, "dragstart", function() {
-          map.closeInfoWindow();
-        });
-
-        GEvent.addListener(marker, "dragend", function() {
-          marker.openInfoWindowHtml("Just bouncing along...");
-        });
-
-        map.addOverlay(marker);
-        */
          var boxStyleOpts = {
     opacity:.0,
     border:"2px solid red"
@@ -258,16 +245,15 @@
     buttonHTML:"select area",
     buttonZoomingHTML:"draw rectangle",
     buttonStartingStyle:{border: '1px solid black', padding: '2px'},
-    buttonZoomingStyle:{background: '#FF0'}    
+    buttonZoomingStyle:{background: '##FF0'}    
   };
         
          var callbacks = {
     //buttonclick:function(){console.log("Looks like you activated DragZoom!")},
     //dragstart:function(){console.log("Started to Drag . . .");G.map.removeOverlay(zoomAreaPoly);},
     //dragging:function(x1,y1,x2,y2){console.log("Dragging, currently x="+x2+",y="+y2)},
-    dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){console.log("Zoom! nw="+nw+";se="+se);
-    var nwA='hi there';
-    //nw.split(",");
+    dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){
+    	//console.log("Zoom! nw="+nw+";se="+se);
     document.getElementById('nwLat').value=nw.lat();
     document.getElementById('nwlong').value=nw.lng();
     document.getElementById('selat').value=se.lat();
