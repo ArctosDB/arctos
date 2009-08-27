@@ -7,6 +7,8 @@
         <cfset var s =""/>
 		<!--- need to break PATH apart ---->
 		<cfoutput>
+			
+			<!----
 			<cfdump var="#url#">
 			<cfdump var="#arguments#">
 		-----------#arguments.path#---------------
@@ -15,11 +17,15 @@
 			<cfelse>
 			no it isn't
 		</cfif>
-		</cfoutput>
+		---->
+		<cfif len(arguments.value) is 0>
+			<cfset sql="select nvl(kingdom,'not recorded') data from taxonomy group by kingdom order by kingdom">
+		</cfif>
+		
         <!--- if arguments.value is empty the tree is being built for the first time --->
         <cfif arguments.value is "">
 			<cfquery name="qry" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select nvl(kingdom,'not recorded') data from taxonomy group by kingdom order by kingdom
+				#sql#
 			</cfquery>
 			<cfset x = 0/>
 			<cfloop query="qry">
@@ -54,6 +60,7 @@
                 <cfset arrayAppend(result,s)/>
             </cfloop>
         </cfif>
+		</cfoutput>
     <cfreturn result/>
 </cffunction>
 </cfcomponent>
