@@ -313,7 +313,7 @@ var ptl="/includes/SpecSearch/locality.cfm";
 	      
 	     }
     }
-	initializeMap();
+	
 	
 	
 </script>
@@ -519,6 +519,7 @@ var ptl="/includes/SpecSearch/locality.cfm";
 </cfoutput>
 <script type='text/javascript' language='javascript'>
 	jQuery(document).ready(function() {
+	  	initializeMap();
 	  	var tval = document.getElementById('tgtForm').value;
 		changeTarget('tgtForm',tval);
 		changeGrp('groupBy');
