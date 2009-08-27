@@ -297,8 +297,8 @@ var ptl="/includes/SpecSearch/locality.cfm";
 			}
 			var otherOpts = {
 				overlayRemoveTime:99999999999999,  
-				buttonHTML:"select area",
-				buttonZoomingHTML:"draw rectangle",
+				buttonHTML:"select",
+				buttonZoomingHTML:"finished",
 				buttonStartingStyle:{border: '1px solid black', padding: '2px'},
 				buttonZoomingStyle:{background: '##FF0'},
 				stickyZoomEnabled:"true"    
