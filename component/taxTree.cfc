@@ -49,11 +49,9 @@
 		<hr>
 		</cfif>
 		<cfset ttl="kingdom,phylum,phylclass,subclass,phylorder,suborder,superfamily,family,subfamily,genus,subgenus,species,subspecies">
-		
-				<cfset isLeafNode=0>
-
+		<cfset isLeafNode=0>
 		<cfif len(arguments.value) is 0>
-			<cfset sql="select nvl(kingdom,'not recorded') data from taxonomy group by kingdom order by kingdom">
+			<cfset term="root">
 			<cfset child="kingdom">
 		<cfelse>
 			<cfset sPos=find(arguments.value,"=")>
