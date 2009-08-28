@@ -62,7 +62,7 @@
 			
 				
 			</cfif>
-			<cfif <cfif term is "not recorded">
+			<cfif term is "not recorded">
 				<cfset sql="select nvl(#child#,'not recorded') data from taxonomy where #rank# is null group by #child# order by #child#">
 			<cfelse>
 				<cfset sql="select nvl(#child#,'not recorded') data from taxonomy where #rank#='#term#' group by #child# order by #child#">
