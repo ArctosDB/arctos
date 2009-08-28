@@ -43,8 +43,10 @@
  SUBCLASS										      VARCHAR2(255)
  SUPERFAMILY										      VARCHAR2(255)
 		---->
-		<cfif isdefined("url.debug") and url.debug is 1>
+		<cfif isdefined("url.d") and url.d is 1>
+		<hr>
 		path: #arguments.path#
+		<hr>
 		</cfif>
 		<cfset ttl="kingdom,phylum,phylclass,subclass,phylorder,suborder,superfamily,family,subfamily,genus,subgenus,species,subspecies">
 		
