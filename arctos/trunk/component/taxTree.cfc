@@ -43,6 +43,7 @@
  SUBCLASS										      VARCHAR2(255)
  SUPERFAMILY										      VARCHAR2(255)
 		---->
+		path: #arguments.path#
 		<cfset ttl="kingdom,phylum,phylclass,subclass,phylorder,suborder,superfamily,family,subfamily,genus,subgenus,species,subspecies">
 		
 				<cfset isLeafNode=0>
