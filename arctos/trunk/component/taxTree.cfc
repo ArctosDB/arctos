@@ -43,7 +43,7 @@
  SUBCLASS										      VARCHAR2(255)
  SUPERFAMILY										      VARCHAR2(255)
 		---->
-		<cfset ttl="kingdom,phylum,phylclass,subclass,phylclass,phylorder,suborder,family,subfamily,genus,subgenus,species,subspecies">
+		<cfset ttl="kingdom,phylum,phylclass,subclass,phylorder,suborder,superfamily,family,subfamily,genus,subgenus,species,subspecies">
 		
 				<cfset isLeafNode=0>
 
