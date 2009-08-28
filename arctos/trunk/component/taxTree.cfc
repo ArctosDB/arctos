@@ -43,7 +43,9 @@
  SUBCLASS										      VARCHAR2(255)
  SUPERFAMILY										      VARCHAR2(255)
 		---->
+		<cfif isdefined("url.debug") and url.debug=1>
 		path: #arguments.path#
+		</cfif>
 		<cfset ttl="kingdom,phylum,phylclass,subclass,phylorder,suborder,superfamily,family,subfamily,genus,subgenus,species,subspecies">
 		
 				<cfset isLeafNode=0>
