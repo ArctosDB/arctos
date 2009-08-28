@@ -80,6 +80,9 @@
 			<cfloop query="qry">
 				<cfset x = x+1/>
 				<cfset s = structNew()/>
+				<cfif term is not "root">
+					<cfset s.parent="##">
+				</cfif>
 				<cfset s.value="#child#=#data#">
 				<cfset s.display="#data# (#child#)">
 				<cfif isLeafNode is 1>
