@@ -62,8 +62,11 @@
 			
 				
 			</cfif>
-			
-			<cfset sql="select nvl(#child#,'not recorded') data from taxonomy where #rank#='#term#' group by #child# order by #child#">
+			<cfif <cfif term is "not recorded">
+				<cfset sql="select nvl(#child#,'not recorded') data from taxonomy where #rank# is null group by #child# order by #child#">
+			<cfelse>
+				<cfset sql="select nvl(#child#,'not recorded') data from taxonomy where #rank#='#term#' group by #child# order by #child#">
+			</cfif>
 		</cfif>
 		
         <!--- if arguments.value is empty the tree is being built for the first time --->
