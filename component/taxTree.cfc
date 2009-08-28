@@ -54,7 +54,6 @@
 			<cfset sql="select nvl(kingdom,'not recorded') data from taxonomy group by kingdom order by kingdom">
 			<cfset term="root">
 			<cfset child="kingdom">
-			<cfset 
 		<cfelse>
 			<cfset sPos=find(arguments.value,"=")>
 			<cfset rank=listgetat(arguments.value,1,"=")>
