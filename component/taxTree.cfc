@@ -36,7 +36,6 @@
  TRIBE											      VARCHAR2(30)
  INFRASPECIFIC_RANK									      VARCHAR2(20)
  TAXON_REMARKS										      VARCHAR2(4000)
- PHYLUM 										      VARCHAR2(30)
  NOMENCLATURAL_CODE									      VARCHAR2(255)
  INFRASPECIFIC_AUTHOR									      VARCHAR2(255)
  SCI_NAME_WITH_AUTHS									      VARCHAR2(255)
@@ -44,7 +43,7 @@
  SUBCLASS										      VARCHAR2(255)
  SUPERFAMILY										      VARCHAR2(255)
 		---->
-		<cfset ttl="kingdom,phylum">
+		<cfset ttl="kingdom,phylum,phylclass,subclass,phylclass,phylorder,suborder,family,subfamily,genus,subgenus,species,subspecies">
 		
 				<cfset isLeafNode=0>
 
