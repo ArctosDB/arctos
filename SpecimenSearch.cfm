@@ -3,10 +3,8 @@
 <cfset metaDesc="Search for museum specimens and observations by taxonomy, identifications, specimen attributes, and usage history.">
 <cfhtmlhead text="<script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>">
 <cfoutput>
-<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
-'>
-<cfhtmlhead text='<script src="/includes/dragzoom_packed.js" type="text/javascript"></script>
-'>
+<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
+<cfhtmlhead text='<script src="/includes/dragzoom_packed.js" type="text/javascript"></script>'>
 <cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select count(collection_object_id) as cnt from cataloged_item
 </cfquery>
@@ -297,13 +295,6 @@
 									jQuery('##nwlong').val(nw.lng());
 									jQuery('##selat').val(se.lat());
 									jQuery('##selong').val(se.lng());
-									/*
-									document.getElementById('').value=nw.lat();
-									document.getElementById('').value=nw.lng();
-									document.getElementById('').value=se.lat();
-									document.getElementById('').value=se.lng();
-									console.log('Last Selected Area');//: NW=' + nw + '; SE=' + se);
-									*/
 									jQuery('##selectedCoords').text('Last Selected Area: NW=' + nw + '; SE=' + se);
 								}
 							};
