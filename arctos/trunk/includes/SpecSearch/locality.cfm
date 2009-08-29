@@ -226,41 +226,6 @@
 			<input type="text" name="nwlong" id="nwlong" size="8">		
 			<input type="text" name="selat" id="selat" size="8">			
 			<input type="text" name="selong" id="selong" size="8">
-			<!----
-			<cfset apiKey="ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg"> 
-
-
-	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg" type="text/javascript"></script>
-
----->
-
-
-
-		<!----
-		---->
-		
-			
-			<!----
-			<table cellpadding="0" cellspacing="0">
-				<tr>
-					<td align="left" width="250" colspan="2">
-						
-					</td>
-				</tr>
-				<tr>
-					<td align="left" nowrap>
-						<strong><em>NW Latitude:</em></strong> <input type="text" name="nwLat" id="nwLat" size="8">
-						<strong><em>NW Longitude:</em></strong> <input type="text" name="nwlong" id="nwlong" size="8">						
-					</td>
-				</tr>
-				<tr>
-					<td align="left" nowrap>
-						<strong><em>SE Latitude:</em></strong> <input type="text" name="selat" id="selat" size="8">
-						<strong><em>SE Longitude:</em></strong> <input type="text" name="selong" id="selong" size="8">
-					</td>
-				</tr>
-			</table>
-			---->
 		</td>
 	</tr>	
 </table>
