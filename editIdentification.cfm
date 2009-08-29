@@ -6,32 +6,11 @@
 		cal1.showYearNavigationInput();
 	</SCRIPT>
 	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
-
-
-
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
 <script type='text/javascript' src='/includes/checkForm.js'></script>
 
 <script language="javascript" type="text/javascript">
-	/*
-	jQuery(document).ready(function() {	
-		jQuery(".agntpick").autocomplete("/ajax/agent.cfm", {
-			width: 260,
-			selectFirst: true,
-			max: 30,
-			autoFill: false,
-			delay: 400,
-			mustMatch: true,
-			cacheLength: 1
-		});
-		jQuery(".agntpick").result(function(event, data, formatted) {
-			if (data) 
-				var theID=this.id + '_id';
-				jQuery('#' + theID).val(data[1]);
-		});
-	});
-	*/
 	function attachAgentPick(element){
 	    var $element = jQuery(element);
 		if($element.attr("autocomplete.attached")){
@@ -230,7 +209,6 @@
 <strong><font size="+1">Edit an Existing Determination</font></strong>
 <img src="/images/info.gif" border="0" onClick="getDocs('identification')" class="likeLink">
 <cfset i = 1>
-
 <cfquery name="distIds" dbtype="query">
 	SELECT
 		identification_id,
@@ -258,7 +236,6 @@
 		accepted_id_fg DESC,
 		made_date
 </cfquery>
-
 <form name="editIdentification" id="editIdentification" method="post" action="editIdentification.cfm">
     <input type="hidden" name="Action" value="saveEdits">
     <input type="hidden" name="collection_object_id" value="#collection_object_id#" >
@@ -297,7 +274,6 @@
         <tr> 
         	<td><div align="right">Accepted?:</div></td>
 			<td>
-				
 				<cfif #accepted_id_fg# is 0>
 					<select name="accepted_id_fg_#i#" 
 						id="accepted_id_fg_#i#" size="1" 
@@ -407,7 +383,6 @@
 </cfif>
 <!----------------------------------------------------------------------------------->
 <cfif #Action# is "saveEdits">
-
 <cfoutput>
 	<cftransaction>
 		<cfloop from="1" to="#NUMBER_OF_IDS#" index="n">
@@ -549,13 +524,10 @@
 	The taxa formula you entered isn't handled yet! Please submit a bug report.
 	<cfabort>
 </cfif>
-<!--- set all IDs to not accepted for this item --->
-
 <cftransaction>
 	<cfquery name="upOldID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		UPDATE identification SET ACCEPTED_ID_FG=0 where collection_object_id = #collection_object_id#
 	</cfquery>
-	
 	<cfquery name="newID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		INSERT INTO identification (
 			IDENTIFICATION_ID,
