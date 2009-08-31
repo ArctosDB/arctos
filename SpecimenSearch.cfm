@@ -260,7 +260,7 @@
 					
 				</label>				
 				<div id="map_canvas" style="width: 100%; height: 400px;"></div>
-				<input type="text" style="font-size:smaller;border:none;" id="selectedCoords">
+				<input type="text" style="font-size:smaller;border:none;width:100%" id="selectedCoords">
 				<input type="hidden" name="nwLat" id="nwLat">
 				<input type="hidden" name="nwlong" id="nwlong">
 				<input type="hidden" name="selat" id="selat">
