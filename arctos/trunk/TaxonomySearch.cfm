@@ -11,7 +11,6 @@
 <cfoutput>
 	bf
 	<form ACTION="TaxonomyResults.cfm" METHOD="post" name="taxa">
-		af
 		<table width="90%" border="0" cellspacing="0" cellpadding="0">
 			<tr> 
 				<td rowspan="18" valign="top" align="left">
