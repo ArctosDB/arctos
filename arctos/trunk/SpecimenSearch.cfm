@@ -260,7 +260,7 @@
 					
 				</label>				
 				<div id="map_canvas" style="width: 100%; height: 400px;"></div>
-				<input type="text" style="font-size:smaller" id="selectedCoords">
+				<input type="text" style="font-size:smaller;border:none;" id="selectedCoords">
 				<input type="hidden" name="nwLat" id="nwLat">
 				<input type="hidden" name="nwlong" id="nwlong">
 				<input type="hidden" name="selat" id="selat">
@@ -295,7 +295,7 @@
 									jQuery('##nwlong').val(nw.lng());
 									jQuery('##selat').val(se.lat());
 									jQuery('##selong').val(se.lng());
-									jQuery('##selectedCoords').text('Last Selected Area: NW=' + nw + '; SE=' + se);
+									jQuery('##selectedCoords').val('Selected Area: NW=' + nw + '; SE=' + se);
 								}
 							};
 							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT));
