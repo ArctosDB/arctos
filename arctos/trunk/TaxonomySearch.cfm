@@ -9,7 +9,9 @@
 	select count(*) as cnt from taxonomy
 </cfquery>
 <cfoutput>
+	bf
 	<form ACTION="TaxonomyResults.cfm" METHOD="post" name="taxa">
+		af
 		<table width="90%" border="0" cellspacing="0" cellpadding="0">
 			<tr> 
 				<td rowspan="18" valign="top" align="left">
@@ -26,7 +28,7 @@
 										(especially where specimens were cited by a now-unaccepted name).</li>
 								</ul>
 								<p>
-									These <cfoutput>#getCount.cnt#</cfoutput> records represent current and past taxonomic treatments in Arctos. 
+									These #getCount.cnt# records represent current and past taxonomic treatments in Arctos. 
 									They are neither complete nor necessarily authoritative. 
 								<p>
 									Not all taxa in Arctos have associated specimens. 
@@ -38,7 +40,7 @@
 					<table>
 						<tr>
 							<td>
-								<input type="radio" name="VALID_CATALOG_TERM_FG" checked value="">
+								<input type="radio" name="VALID_CATALOG_TERM_FG" checked="checked" value="">
 							</td>
 							<td>
 								<a href="javascript:void(0)" onClick="taxa.VALID_CATALOG_TERM_FG[0].checked=true;"><b>Display all matches?</b></a>
