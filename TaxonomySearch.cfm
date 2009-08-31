@@ -9,6 +9,7 @@
 	select count(*) as cnt from taxonomy
 </cfquery>
 <cfoutput>
+	
 	<form ACTION="TaxonomyResults.cfm" METHOD="post" name="taxa">
 		<table width="90%" border="0" cellspacing="0" cellpadding="0">
 			<tr> 
