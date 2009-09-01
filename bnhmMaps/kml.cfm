@@ -123,7 +123,7 @@
 		<cfquery name="buildIt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preserveSingleQuotes(SqlString)#
 		</cfquery>
-		
+		http://arctos.database.museum/bnhmMaps/kml.cfm?scientific_name=sorex yukonicus&method=gmap&action=newReq
 		<cfset burl="kml.cfm?method=#method#&showErrors=#showErrors#&mapByLocality=#mapByLocality#">
 		<cfset burl=burl & "&showUnaccepted=#showUnaccepted#&userFileName=#userFileName#&action=#next#">	
 		<cflocation url="#burl#" addtoken="false">
