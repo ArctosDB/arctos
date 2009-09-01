@@ -52,6 +52,23 @@
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
+	<cfelseif listfindnocase(rdurl,'saved',"/")>
+		<cftry>
+			<cfset gPos=listfindnocase(rdurl,"saved","/")>
+			<cfif listlen(rdurl,"/") gt 1>
+				<cfset sName = listgetat(rdurl,gPos+1,"/")>
+				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select url from cf_canned_search where upper(search_name)='#ucase(sName)#'
+				</cfquery>
+				<cfif d.url contains "http://arctos.database.museum/SpecimenResults.cfm?">
+					<cfset map_url=replace(d.url,"http://arctos.database.museum/SpecimenResults.cfm?","")>
+					<cfinclude template="SpecimenResults.cfm">
+				</cfif>
+			</cfif>
+			<cfcatch>
+				<cfinclude template="/errors/404.cfm">
+			</cfcatch>
+		</cftry>
 	<cfelse><!--- all the rest --->
 		<!--- see if we can handle the peristent 404s elegantly --->
 		<cfif cgi.SCRIPT_NAME contains "/DiGIRprov/www/DiGIR.php">
