@@ -72,7 +72,7 @@
 						<cfset v=listgetat(i,2,"=")>
 												<br>i: #i# (#t# == #v#)<br>
 					<cfscript>
-						t=v;
+						t='dammit';
 					</cfscript>
 
 
