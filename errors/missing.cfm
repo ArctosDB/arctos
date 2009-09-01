@@ -67,6 +67,9 @@
 				<cfif d.url contains "#application.serverRootUrl#/SpecimenResults.cfm?">
 					<cfset mapurl=replace(d.url,"#application.serverRootUrl#/SpecimenResults.cfm?","","all")>
 					mapurl: #mapurl#
+					<cfloop list="#mapURL#" delimiters="&" index="i">
+						<br>i: #i#<br>
+					</cfloop>
 					<br>including: /SpecimenResults.cfm?#mapurl#
 					<cfinclude template="/SpecimenResults.cfm?#mapurl#">
 				<cfelse>
