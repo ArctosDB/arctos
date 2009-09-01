@@ -56,6 +56,7 @@
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"saved","/")>
 			<cfif listlen(rdurl,"/") gt 1>
+				yep
 				<cfset sName = listgetat(rdurl,gPos+1,"/")>
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select url from cf_canned_search where upper(search_name)='#ucase(sName)#'
@@ -64,6 +65,8 @@
 					<cfset map_url=replace(d.url,"http://arctos.database.museum/SpecimenResults.cfm?","")>
 					<cfinclude template="SpecimenResults.cfm">
 				</cfif>
+			<cfelse>
+				nope
 			</cfif>
 			<cfcatch>
 				<cfinclude template="/errors/404.cfm">
