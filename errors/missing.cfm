@@ -71,9 +71,7 @@
 						<cfset t=listgetat(i,1,"=")>
 						<cfset v=listgetat(i,2,"=")>
 												<br>i: #i# (#t# == #v#)<br>
-					<cfscript>
-						var ' & t & ' & ='dammit';
-					</cfscript>
+					<cfset "#T#" = "#v#">
 
 
 					</cfloop>
