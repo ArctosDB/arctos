@@ -70,8 +70,10 @@
 					<cfloop list="#mapURL#" delimiters="&" index="i">
 						<cfset t=listgetat(i,1,"=")>
 						<cfset v=listgetat(i,2,"=")>
-						<cfset #t#=v>
-						<br>i: #i# (#t# == #v#)<br>
+												<br>i: #i# (#t# == #v#)<br>
+
+
+<cfset #t#=v>
 					</cfloop>
 					<cfdump var=#variables#>
 					<br>including: /SpecimenResults.cfm?#mapurl#
