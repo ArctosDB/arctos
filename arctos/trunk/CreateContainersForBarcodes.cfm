@@ -59,10 +59,6 @@ This form does nothing to labels that already exist. Don't try.
 
 <!----------------------------------------------------------------------------------->
 <cfif action is "create">
-<cfoutput query="nextContainerID">
-	<cfset newid = "#next_id#">
-</cfoutput>
-
 <cfset num = #endBarcode# - #beginBarcode#>
 <cfset barcode = "#beginBarcode#">
 <cfoutput>
