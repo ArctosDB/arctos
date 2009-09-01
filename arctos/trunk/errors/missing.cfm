@@ -71,7 +71,7 @@
 						<cfset t=listgetat(i,1,"=")>
 						<cfset v=listgetat(i,2,"=")>
 						<cfset #t#=v>
-						<br>i: #i#<br>
+						<br>i: #i# (#t# == #v#)<br>
 					</cfloop>
 					<cfdump var=#variables#>
 					<br>including: /SpecimenResults.cfm?#mapurl#
