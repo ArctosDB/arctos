@@ -41,6 +41,8 @@
 				<br>
 			</li>
 		</ul>
+	or through Saved Searches (find specimens, click Save Search, provide a name, then click My Stuff/Saved Searches, then 
+	copy/paste/email/click the links.)
 	<p>
 		You may search taxonomy using the <a href="/api/taxsrch">TaxonomyResults.cfm API</a>. 
 	</p>
