@@ -53,6 +53,7 @@
 			</cfcatch>
 		</cftry>
 	<cfelseif listfindnocase(rdurl,'saved',"/")>
+		<Cfoutput>
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"saved","/")>
 			<cfif listlen(rdurl,"/") gt 1>
@@ -77,6 +78,7 @@
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
+		</Cfoutput>
 	<cfelse><!--- all the rest --->
 		<!--- see if we can handle the peristent 404s elegantly --->
 		<cfif cgi.SCRIPT_NAME contains "/DiGIRprov/www/DiGIR.php">
