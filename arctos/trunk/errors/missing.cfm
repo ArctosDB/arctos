@@ -73,7 +73,7 @@
 												<br>i: #i# (#t# == #v#)<br>
 
 
-<cfset eval(t)=#v#>
+<cfset evaluate(t)=#v#>
 					</cfloop>
 					<cfdump var=#variables#>
 					<br>including: /SpecimenResults.cfm?#mapurl#
