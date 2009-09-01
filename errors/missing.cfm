@@ -68,6 +68,9 @@
 					<cfset mapurl=replace(d.url,"#application.serverRootUrl#/SpecimenResults.cfm?","","all")>
 					mapurl: #mapurl#
 					<cfloop list="#mapURL#" delimiters="&" index="i">
+						<cfset t=listgetat(i,1,"=")>
+						<cfset v=listgetat(1,2,"=")>
+						<cfset #t#=v>
 						<br>i: #i#<br>
 					</cfloop>
 					<br>including: /SpecimenResults.cfm?#mapurl#
