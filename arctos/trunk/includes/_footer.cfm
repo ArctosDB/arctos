@@ -15,7 +15,7 @@
 					<a href="/info/bugs.cfm"><font size="-1">Report Errors</font></a>
 				</li>
 				<li>
-					<a HREF="mailto:#Application.technicalEmail#"><font size="-1">System Administrator</font></a>
+					<cfoutput><a HREF="mailto:#Application.technicalEmail#"><font size="-1">System Administrator</font></a></cfoutput>
 				</li>
 			</ul>
 		</td>
