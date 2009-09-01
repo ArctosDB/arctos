@@ -63,6 +63,7 @@
 				</cfquery>
 				<cfif d.url contains "http://arctos.database.museum/SpecimenResults.cfm?">
 					<cfset mapurl=replace(d.url,"http://arctos.database.museum/SpecimenResults.cfm?","")>
+					mapurl: #mapurl#
 					<cfinclude template="/SpecimenResults.cfm">
 				</cfif>
 			<cfelse>
