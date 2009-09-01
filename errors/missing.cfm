@@ -70,13 +70,14 @@
 					</cfloop>
 					<cfinclude template="/SpecimenResults.cfm">
 				<cfelse>
-					<cfinclude template="/errors/404.cfm">
+					<script>
+						document.location='#d.url#';
+					</script>
 				</cfif>
 			<cfelse>
-				nope
+				<cfinclude template="/errors/404.cfm">
 			</cfif>
 			<cfcatch>
-				<cfdump var=#cfcatch#>
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
