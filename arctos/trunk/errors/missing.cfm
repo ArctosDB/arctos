@@ -58,9 +58,11 @@
 			<cfif listlen(rdurl,"/") gt 1>
 				yep
 				<cfset sName = listgetat(rdurl,gPos+1,"/")>
+				sName: #sName#
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select url from cf_canned_search where upper(search_name)='#ucase(sName)#'
 				</cfquery>
+				<cfdump var="#d#">
 				<cfif d.url contains "http://arctos.database.museum/SpecimenResults.cfm?">
 					<cfset mapurl=replace(d.url,"http://arctos.database.museum/SpecimenResults.cfm?","")>
 					mapurl: #mapurl#
