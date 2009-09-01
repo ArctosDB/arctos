@@ -73,6 +73,7 @@
 						<cfset #t#=v>
 						<br>i: #i#<br>
 					</cfloop>
+					<cfdump var=#variables#>
 					<br>including: /SpecimenResults.cfm?#mapurl#
 					<cfinclude template="/SpecimenResults.cfm">
 				<cfelse>
