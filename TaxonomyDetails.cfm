@@ -308,6 +308,11 @@
 					WikiSpecies
 				</a>
 			</li>
+			<li>
+				<a class="external" target="_blank" href="http://wikipedia.org/wiki/#srchName#">
+					Wikipedia
+				</a>
+			</li>
 		</ul>			
 	</p>
 	<cfif len(one.genus) gt 0>

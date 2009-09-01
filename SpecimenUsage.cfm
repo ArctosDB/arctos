@@ -146,7 +146,7 @@
 		<cfif isdefined("p_title") AND len(#p_title#) gt 0>
 			<cfset title = "#p_title#">
 			<cfset go="yes">
-			<cfset whr = "#whr# AND upper(project.project_name) like '%#ucase(escapeQuotes(p_title))#%'">
+			<cfset whr = "#whr# AND upper(regexp_replace(project.project_name,'<[^>]*>')) like '%#ucase(escapeQuotes(p_title))#%'">
 		</cfif>
 		<cfif isdefined("author") AND len(#author#) gt 0>
 			<cfset go="yes">
@@ -297,7 +297,7 @@
 		AND formatted_publication.format_style = 'long'">
 		
 	<cfif isdefined("p_title") AND len(#p_title#) gt 0>
-		<cfset basWhere = "#basWhere# AND UPPER(publication_title) LIKE '%#ucase(escapeQuotes(p_title))#%'">
+		<cfset basWhere = "#basWhere# AND UPPER(regexp_replace(publication_title,'<[^>]*>')) LIKE '%#ucase(escapeQuotes(p_title))#%'">
 		<cfset go="yes">
 	</cfif>
 	<cfif isdefined("publication_type") AND len(#publication_type#) gt 0>
