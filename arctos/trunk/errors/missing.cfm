@@ -57,29 +57,20 @@
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"saved","/")>
 			<cfif listlen(rdurl,"/") gt 1>
-				yep
 				<cfset sName = listgetat(rdurl,gPos+1,"/")>
-				sName: #sName#
 				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select url from cf_canned_search where upper(search_name)='#ucase(sName)#'
 				</cfquery>
-				<cfdump var="#d#">
 				<cfif d.url contains "#application.serverRootUrl#/SpecimenResults.cfm?">
 					<cfset mapurl=replace(d.url,"#application.serverRootUrl#/SpecimenResults.cfm?","","all")>
-					mapurl: #mapurl#
 					<cfloop list="#mapURL#" delimiters="&" index="i">
 						<cfset t=listgetat(i,1,"=")>
 						<cfset v=listgetat(i,2,"=")>
-												<br>i: #i# (#t# == #v#)<br>
-					<cfset "#T#" = "#v#">
-
-
+						<cfset "#T#" = "#v#">
 					</cfloop>
-					<cfdump var=#variables#>
-					<br>including: /SpecimenResults.cfm?#mapurl#
 					<cfinclude template="/SpecimenResults.cfm">
 				<cfelse>
-					wtf...
+					<cfinclude template="/errors/404.cfm">
 				</cfif>
 			<cfelse>
 				nope
