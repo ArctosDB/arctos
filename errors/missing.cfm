@@ -63,10 +63,12 @@
 					select url from cf_canned_search where upper(search_name)='#ucase(sName)#'
 				</cfquery>
 				<cfdump var="#d#">
-				<cfif d.url contains "http://arctos.database.museum/SpecimenResults.cfm?">
+				<cfif d.url contains "#application.serverRootUrl#/SpecimenResults.cfm?">
 					<cfset mapurl=replace(d.url,"http://arctos.database.museum/SpecimenResults.cfm?","")>
 					mapurl: #mapurl#
 					<cfinclude template="/SpecimenResults.cfm">
+				<cfelse>
+					wtf...
 				</cfif>
 			<cfelse>
 				nope
