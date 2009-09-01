@@ -74,7 +74,7 @@
 						<br>i: #i#<br>
 					</cfloop>
 					<br>including: /SpecimenResults.cfm?#mapurl#
-					<cfinclude template="/SpecimenResults.cfm?#mapurl#">
+					<cfinclude template="/SpecimenResults.cfm">
 				<cfelse>
 					wtf...
 				</cfif>
