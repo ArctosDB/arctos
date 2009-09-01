@@ -58,7 +58,7 @@
 			<cfset gPos=listfindnocase(rdurl,"saved","/")>
 			<cfif listlen(rdurl,"/") gt 1>
 				<cfset sName = listgetat(rdurl,gPos+1,"/")>
-				<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="d" datasource="cf_dbuser">
 					select url from cf_canned_search where upper(search_name)='#ucase(sName)#'
 				</cfquery>
 				<cfif d.url contains "#application.serverRootUrl#/SpecimenResults.cfm?">
