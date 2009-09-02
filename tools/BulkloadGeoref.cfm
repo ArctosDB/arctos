@@ -3,6 +3,7 @@ drop table cf_temp_georef;
 
 create table cf_temp_georef (
 	key NUMBER NOT NULL,
+	status varchar2(4000),
 	DETERMINED_BY_AGENT_ID number,
  	HigherGeography VARCHAR2(255) NOT NULL,
  	SpecLocality VARCHAR2(255) NOT NULL,
@@ -104,12 +105,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cffile action="READ" file="#FiletoUpload#" variable="fileContent">
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />
-	<cfdump var=#arrResult#>
-	
-
 	<cfset numberOfColumns = ArrayLen(arrResult[1])>
-
-	
 	<cfset colNames="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 		<cfset colVals="">
@@ -143,8 +139,9 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		</cfif>
 	</cfloop>
 </cfoutput>
+	<cflocation url="BulkloadGeoref.cfm?action=validate">
+
  <!---
-	<cflocation url="BulkloadMedia.cfm?action=validate">
 
 ---->
 </cfif>
@@ -153,8 +150,11 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <cfif #action# is "validate">
 <cfoutput>
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select * from cf_temp_media
+	select * from cf_temp_georef
 </cfquery>
+<cfdump var="#d#">
+
+<cfabort>
 <cfloop query="d">
 	<cfset rec_stat="">
 	<cfif len(MEDIA_LABELS) gt 0>
