@@ -251,17 +251,18 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	variables.joFileWriter.writeLine(kml);
 </cfscript>
 <cfloop query="df">
+	<cfset cdata='<![CDATA[Datum: #datum#<br/>Error: #max_error_distance# #max_error_units#<br/><p><a href="#Application.ServerRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>]]>'>
 	<cfscript>
 		kml='<Placemark>'  & chr(10) & 
 			chr(9) & '<name>#HigherGeography#: #SpecLocality#</name>' & chr(10) & 
 			chr(9) & '<visibility>1</visibility>' & chr(10) & 
 			chr(9) & '<description>' & chr(10) & 
-			chr(9) & chr(9) & '	<![CDATA[Datum: #datum#<br/>Error: #max_error_distance# #max_error_units#<br/><p><a href="#Application.ServerRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>]]>' & chr(10) & 
+			chr(9) & chr(9) & '#cdata#' & chr(10) & 
 			chr(9) & '</description>' & chr(10) & 
 			chr(9) & '<Point>' & chr(10) & 
 			chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#</coordinates>' & chr(10) & 
 			chr(9) & '</Point>' & chr(10) & 
-			chr(9) & '<styleUrl>#green-star</styleUrl>' & chr(10) & 
+			chr(9) & '<styleUrl>##green-star</styleUrl>' & chr(10) & 
 			'</Placemark>';
 		variables.joFileWriter.writeLine(kml);
 	</cfscript>
