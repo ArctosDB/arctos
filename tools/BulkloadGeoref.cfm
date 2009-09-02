@@ -10,7 +10,7 @@ create table cf_temp_georef (
 	Dec_Lat NUMBER(12,10),
 	Dec_Long NUMBER(13,10),
 	MAX_ERROR_DISTANCE number,
-	MAX_ERROR_UNITS VARCHAR2(2)
+	MAX_ERROR_UNITS VARCHAR2(2),
 	LAT_LONG_REMARKS VARCHAR2(255),
 	DETERMINED_BY_AGENT VARCHAR2(255) NOT NULL,
 	GEOREFMETHOD VARCHAR2(255) NOT NULL,
@@ -81,14 +81,14 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<li style="color:red">Dec_Lat</li>
 	<li style="color:red">Dec_Long</li>
 	<li style="color:red">DETERMINED_BY_AGENT</li>
-	<li style="color:red">GEOREFMETHOD<span class="infoLink" onclick="getCtDoc('ctGEOREFMETHOD');">Define</span></li>
-	<li style="color:red">ORIG_LAT_LONG_UNITS<span class="infoLink" onclick="getCtDoc('CTLAT_LONG_UNITS');">Define</span></li>
-	<li style="color:red">DATUM<span class="infoLink" onclick="getCtDoc('CTDATUM');">Define</span></li>
+	<li style="color:red">GEOREFMETHOD<span class="infoLink" onclick="getCtDoc('ctGEOREFMETHOD','');">Define</span></li>
+	<li style="color:red">ORIG_LAT_LONG_UNITS<span class="infoLink" onclick="getCtDoc('CTLAT_LONG_UNITS','');">Define</span></li>
+	<li style="color:red">DATUM<span class="infoLink" onclick="getCtDoc('CTDATUM','');">Define</span></li>
 	<li style="color:red">DETERMINED_DATE</li>
 	<li style="color:red">LAT_LONG_REF_SOURCE</li>
-	<li style="color:red">VERIFICATIONSTATUS<span class="infoLink" onclick="getCtDoc('CTVERIFICATIONSTATUS');">Define</span></li>
+	<li style="color:red">VERIFICATIONSTATUS<span class="infoLink" onclick="getCtDoc('CTVERIFICATIONSTATUS','');">Define</span></li>
 	<li>MAX_ERROR_DISTANCE</li>
-	<li>MAX_ERROR_UNITS<span class="infoLink" onclick="getCtDoc('CTLAT_LONG_ERROR_UNITS');">Define</span></li>
+	<li>MAX_ERROR_UNITS<span class="infoLink" onclick="getCtDoc('CTLAT_LONG_ERROR_UNITS','');">Define</span></li>
 	<li>LAT_LONG_REMARKS</li>
 	<li>EXTENT</li>	
 	<li>GPSACCURACY</li>	
