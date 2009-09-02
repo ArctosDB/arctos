@@ -56,23 +56,6 @@ Include column headings, spelled exactly as below.
 		<textarea rows="2" cols="80" id="t">HigherGeography,SpecLocality,Locality_ID,Dec_Lat,Dec_Long,MAX_ERROR_DISTANCE,MAX_ERROR_UNITS,LAT_LONG_REMARKS,DETERMINED_BY_AGENT,GEOREFMETHOD,ORIG_LAT_LONG_UNITS,DATUM,DETERMINED_DATE,LAT_LONG_REF_SOURCE,EXTENT,GPSACCURACY,VERIFICATIONSTATUS,SPATIALFIT</textarea>
 	</div> 
 <p></p>
-
-
-	 number,
-	 VARCHAR2(2)
-	 VARCHAR2(255),
-	 VARCHAR2(255) NOT NULL,
-	 VARCHAR2(255) NOT NULL,
-	 VARCHAR2(20) NOT NULL,
-	 VARCHAR2(55) NOT NULL,
-	 DATE NOT NULL,
-	 VARCHAR2(255) NOT NULL,
-	 NUMBER(8,3),
-	 NUMBER(8,3),
-	 VARCHAR2(40) NOT NULL,
-	 NUMBER(4,3)
-);
-
 Columns in <span style="color:red">red</span> are required; others are optional:
 <ul>
 	<li style="color:red">HigherGeography</li>
