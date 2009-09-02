@@ -240,13 +240,13 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	 	'<kml xmlns="http://earth.google.com/kml/2.2">' & chr(10) & 
 	 	chr(9) & '<Document>' & chr(10) & 
 	 	chr(9) & chr(9) & '<name>Localities</name>' & chr(10) & 
-	 	chr(9) & chr(9) & '<open>1</open>' &
-	 	chr(9) & chr(9) & '<Style id="green-star">' &
-	 	chr(9) & chr(9) & chr(9) & '<IconStyle>' &
-	 	chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' &
-	 	chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href>' &
-	 	chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' &
-	 	chr(9) & chr(9) & chr(9) & '</IconStyle>' &
+	 	chr(9) & chr(9) & '<open>1</open>' & chr(10) & 
+	 	chr(9) & chr(9) & '<Style id="green-star">' & chr(10) & 
+	 	chr(9) & chr(9) & chr(9) & '<IconStyle>' & chr(10) & 
+	 	chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) & 
+	 	chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href>' & chr(10) & 
+	 	chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) & 
+	 	chr(9) & chr(9) & chr(9) & '</IconStyle>' & chr(10) & 
 	 	chr(9) & chr(9) & '</Style>';
 	variables.joFileWriter.writeLine(kml);
 </cfscript>
@@ -268,7 +268,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	</cfscript>
 </cfloop>		
 	<cfscript>
-		kml='</Placemark></Document></kml>';
+		kml='</Document></kml>';
 		variables.joFileWriter.writeLine(kml);	
 		variables.joFileWriter.close();
 	</cfscript>
