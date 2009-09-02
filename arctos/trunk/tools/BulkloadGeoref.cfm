@@ -216,11 +216,13 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		</cfquery>
 	</cfif>
 	
-	<cfquery name="df" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from cf_temp_georef
-	</cfquery>
-	<cfdump var=#df#>
+	
 </cfloop>
+
+<cfquery name="df" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select * from cf_temp_georef
+</cfquery>
+<cfdump var=#df#>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
