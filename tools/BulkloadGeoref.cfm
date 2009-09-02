@@ -218,7 +218,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	
 	
 </cfloop>
-<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+<cfquery name="dp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select count(*) c from cf_temp_georef where status != 'spiffy'
 </cfquery>
 <cfif dp.c is 0>
