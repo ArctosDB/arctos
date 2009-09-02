@@ -342,9 +342,9 @@ Data:
 					'#GEOREFMETHOD#',
 					'#VERIFICATIONSTATUS#',
 					<cfif len(SPATIALFIT) gt 0>
-						#SPATIALFIT#,
+						#SPATIALFIT#
 					<cfelse>
-						NULL,
+						NULL
 					</cfif>
 				)
 			</cfquery>
