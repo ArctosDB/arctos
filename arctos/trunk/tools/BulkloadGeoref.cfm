@@ -245,7 +245,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	 	chr(9) & chr(9) & chr(9) & '<IconStyle>' & chr(10) & 
 	 	chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) & 
 	 	chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href>' & chr(10) & 
-	 	chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) & 
+	 	chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>' & chr(10) & 
 	 	chr(9) & chr(9) & chr(9) & '</IconStyle>' & chr(10) & 
 	 	chr(9) & chr(9) & '</Style>';
 	variables.joFileWriter.writeLine(kml);
