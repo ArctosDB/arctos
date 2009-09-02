@@ -149,7 +149,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	select GEOREFMETHOD from ctGEOREFMETHOD
 </cfquery>
 <cfquery name="CTLAT_LONG_UNITS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select LAT_LONG_UNITS from CTLAT_LONG_UNITS
+	select ORIG_LAT_LONG_UNITS from CTLAT_LONG_UNITS
 </cfquery>
 <cfquery name="CTDATUM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select DATUM from CTDATUM
