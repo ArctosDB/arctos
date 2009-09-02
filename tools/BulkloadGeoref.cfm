@@ -222,9 +222,10 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	select count(*) c from cf_temp_georef where status != 'spiffy'
 </cfquery>
 <cfif dp.c is 0>
-	click load bla bla
+	Looks like we made it. Take a look at everything below, then
+	<a href="BulkloadGeoref.cfm?action=load">click to load</a>
 <cfelse>
-	fail
+	fail. Something's busted.
 </cfif>
 <cfquery name="df" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from cf_temp_georef
@@ -272,8 +273,6 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		variables.joFileWriter.writeLine(kml);	
 		variables.joFileWriter.close();
 	</cfscript>
-	
-
 		<p>
 		<a href="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#">map it</a>
 		</p>
@@ -284,16 +283,77 @@ Data:
 <!------------------------------------------------------->
 <cfif #action# is "load">
 <cfoutput>
-	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			*
 		from 
-			cf_temp_media
+			cf_temp_georef
 	</cfquery>
 	<cftransaction>
-		<cfloop query="media">
-			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select sq_media_id.nextval nv from dual
+		<cfloop query="d">
+			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				insert into lat_long (
+					LAT_LONG_ID,
+					LOCALITY_ID,
+					DEC_LAT,
+					DEC_LONG,
+					DATUM,
+					ORIG_LAT_LONG_UNITS,
+					DETERMINED_BY_AGENT_ID,
+					DETERMINED_DATE,
+					LAT_LONG_REF_SOURCE,
+					LAT_LONG_REMARKS,
+					MAX_ERROR_DISTANCE,
+					MAX_ERROR_UNITS,
+					ACCEPTED_LAT_LONG_FG,
+					EXTENT,
+					GPSACCURACY,
+					GEOREFMETHOD,
+					VERIFICATIONSTATUS,
+					SPATIALFIT
+				) values (
+					sq_lat_long_id.nextval,
+					#Locality_ID#,
+					#Dec_Lat#,
+					#Dec_Long#,
+					'##',
+					'##',
+					##,
+					to_date('##'),
+					'##',
+					'##',
+					##,
+					'##',
+					##,
+					##,
+					##,
+					'##',
+					'##',
+					nvl(#SPATIALFIT#,NULL)
+				)
+					
+					
+
+
+	DETERMINED_BY_AGENT_ID number,
+ 	HigherGeography VARCHAR2(255) NOT NULL,
+ 	SpecLocality VARCHAR2(255) NOT NULL,
+	 number NOT NULL,
+	 NUMBER(12,10),
+	 NUMBER(13,10),
+	MAX_ERROR_DISTANCE number,
+	MAX_ERROR_UNITS VARCHAR2(2),
+	LAT_LONG_REMARKS VARCHAR2(255),
+	DETERMINED_BY_AGENT VARCHAR2(255) NOT NULL,
+	GEOREFMETHOD VARCHAR2(255) NOT NULL,
+	ORIG_LAT_LONG_UNITS VARCHAR2(20) NOT NULL,
+	DATUM VARCHAR2(55) NOT NULL,
+	DETERMINED_DATE DATE NOT NULL,
+	LAT_LONG_REF_SOURCE VARCHAR2(255) NOT NULL,
+	EXTENT NUMBER(8,3),
+	GPSACCURACY NUMBER(8,3),
+	VERIFICATIONSTATUS VARCHAR2(40) NOT NULL,
+	 NUMBER(4,3)
 			</cfquery>
 			<cfset media_id=mid.nv>
 			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
