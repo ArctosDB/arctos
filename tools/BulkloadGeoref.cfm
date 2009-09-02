@@ -194,8 +194,8 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfif not listfind(valuelist(CTVERIFICATIONSTATUS.VERIFICATIONSTATUS),VERIFICATIONSTATUS)>
 		<cfset ts=listappend(ts,'bad VERIFICATIONSTATUS',";")>
 	</cfif>
-	<cfif not listfind(valuelist(CTLAT_LONG_ERROR_UNITS.LAT_LONG_ERROR_UNITS),LAT_LONG_ERROR_UNITS)>
-		<cfset ts=listappend(ts,'bad LAT_LONG_ERROR_UNITS',";")>
+	<cfif not listfind(valuelist(CTLAT_LONG_ERROR_UNITS.LAT_LONG_ERROR_UNITS),MAX_ERROR_UNITS)>
+		<cfset ts=listappend(ts,'bad MAX_ERROR_UNITS',";")>
 	</cfif>
 	<cfquery name="l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) c from lat_long where
