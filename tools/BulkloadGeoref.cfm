@@ -110,9 +110,6 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 		<cfset colVals="">
 			<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
-				 <!---
-				 <cfdump var="#arrResult[o]#">
-				 --->
 				 <cfset numColsRec = ArrayLen(arrResult[o])>
 				<cfset thisBit=arrResult[o][i]>
 				<cfif #o# is 1>
@@ -139,11 +136,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		</cfif>
 	</cfloop>
 </cfoutput>
-	<cflocation url="BulkloadGeoref.cfm?action=validate">
-
- <!---
-
----->
+<cflocation url="BulkloadGeoref.cfm?action=validate" addtoken="false">
 </cfif>
 <!------------------------------------------------------->
 <!------------------------------------------------------->
@@ -152,222 +145,82 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 <cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from cf_temp_georef
 </cfquery>
-<cfdump var="#d#">
-
-<cfabort>
-<cfloop query="d">
-	<cfset rec_stat="">
-	<cfif len(MEDIA_LABELS) gt 0>
-		<cfloop list="#media_labels#" index="l" delimiters=";">
-			<cfset ln=listgetat(l,1,"=")>
-			<cfset lv=listgetat(l,2,"=")>
-			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select MEDIA_LABEL from CTMEDIA_LABEL where MEDIA_LABEL='#ln#'
-			</cfquery>
-			<cfif len(c.MEDIA_LABEL) is 0>
-				<cfset rec_stat=listappend(rec_stat,'Media label #ln# is invalid',";")>
-			<cfelse>
-				<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					insert into cf_temp_media_labels (
-						key,
-						MEDIA_LABEL,
-						ASSIGNED_BY_AGENT_ID,
-						LABEL_VALUE
-					) values (
-						#key#,
-						'#ln#',
-						#session.myAgentId#,
-						'#lv#'
-					)
-				</cfquery>
-			</cfif>
-		</cfloop>
-	</cfif>
-	<cfif len(MEDIA_RELATIONSHIPS) gt 0>
-		<cfloop list="#MEDIA_RELATIONSHIPS#" index="l" delimiters=";">
-			<cfset ln=listgetat(l,1,"=")>
-			<cfset lv=listgetat(l,2,"=")>
-			<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select MEDIA_RELATIONSHIP from CTMEDIA_RELATIONSHIP where MEDIA_RELATIONSHIP='#ln#'
-			</cfquery>
-			<cfif len(c.MEDIA_RELATIONSHIP) is 0>
-				<cfset rec_stat=listappend(rec_stat,'Media relationship #ln# is invalid',";")>
-			<cfelse>
-				<cfset table_name = listlast(ln," ")>
-				<cfif table_name is "agent">
-					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-						select distinct(agent_id) agent_id from agent_name where agent_name ='#lv#'
-					</cfquery>
-					<cfif c.recordcount is 1 and len(c.agent_id) gt 0>
-						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-							insert into cf_temp_media_relations (
- 								key,
-								MEDIA_RELATIONSHIP,
-								CREATED_BY_AGENT_ID,
-								RELATED_PRIMARY_KEY
-							) values (
-								#key#,
-								'#ln#',
-								#session.myAgentId#,
-								#c.agent_id#
-							)
-						</cfquery>
-					<cfelse>
-						<cfset rec_stat=listappend(rec_stat,'Agent #lv# matched #c.recordcount# records.',";")>
-					</cfif>
-				<cfelseif table_name is "collecting_event">
-					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-						select collecting_event_id from collecting_event where collecting_event_id ='#lv#'
-					</cfquery>
-					<cfif c.recordcount is 1 and len(c.collecting_event_id) gt 0>
-						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-							insert into cf_temp_media_relations (
- 								key,
-								MEDIA_RELATIONSHIP,
-								CREATED_BY_AGENT_ID,
-								RELATED_PRIMARY_KEY
-							) values (
-								#key#,
-								'#ln#',
-								#session.myAgentId#,
-								#c.collecting_event_id#
-							)
-						</cfquery>
-					<cfelse>
-						<cfset rec_stat=listappend(rec_stat,'collecting_event #lv# matched #c.recordcount# records.',";")>
-					</cfif>
-				<cfelseif table_name is "project">
-					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-						select distinct(project_id) project_id from project where PROJECT_NAME ='#lv#'
-					</cfquery>
-					<cfif c.recordcount is 1 and len(c.project_id) gt 0>
-						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-							insert into cf_temp_media_relations (
- 								key,
-								MEDIA_RELATIONSHIP,
-								CREATED_BY_AGENT_ID,
-								RELATED_PRIMARY_KEY
-							) values (
-								#key#,
-								'#ln#',
-								#session.myAgentId#,
-								#c.project_id#
-							)
-						</cfquery>
-					<cfelse>
-						<cfset rec_stat=listappend(rec_stat,'Project #lv# matched #c.recordcount# records.',";")>
-					</cfif>
-				<cfelseif table_name is "cataloged_item">
-					<cftry>
-					<cfset institution_acronym = listgetat(lv,1,":")>
-					<cfset collection_cde = listgetat(lv,2,":")>
-					<cfset cat_num = listgetat(lv,3,":")>
-					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-						select collection_object_id from 
-							cataloged_item,
-							collection
-						WHERE
-							cataloged_item.collection_id = collection.collection_id AND
-							cat_num = #cat_num# AND
-							lower(collection.collection_cde)='#lcase(collection_cde)#' AND
-							lower(collection.institution_acronym)='#lcase(institution_acronym)#'
-					</cfquery>
-					<cfif c.recordcount is 1 and len(c.collection_object_id) gt 0>
-						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-							insert into cf_temp_media_relations (
- 								key,
-								MEDIA_RELATIONSHIP,
-								CREATED_BY_AGENT_ID,
-								RELATED_PRIMARY_KEY
-							) values (
-								#key#,
-								'#ln#',
-								#session.myAgentId#,
-								#c.collection_object_id#
-							)
-						</cfquery>
-					<cfelse>
-						<cfset rec_stat=listappend(rec_stat,'Cataloged Item #lv# matched #c.recordcount# records.',";")>
-					</cfif>
-					<cfcatch>
-						<cfset rec_stat=listappend(rec_stat,'#lv# is not a proper DWC Triplet.',";")>
-					</cfcatch>
-					</cftry>
-				<cfelse>
-					<cfset rec_stat=listappend(rec_stat,'Media relationship #ln# is not handled',";")>
-				</cfif>
-			</cfif>
-		</cfloop>
-	</cfif>
-	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select MIME_TYPE from CTMIME_TYPE where MIME_TYPE='#MIME_TYPE#'
-	</cfquery>
-	<cfif len(c.MIME_TYPE) is 0>
-		<cfset rec_stat=listappend(rec_stat,'MIME_TYPE #MIME_TYPE# is invalid',";")>
-	</cfif>
-	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select MEDIA_TYPE from CTMEDIA_TYPE where MEDIA_TYPE='#MEDIA_TYPE#'
-	</cfquery>
-	<cfif len(c.MEDIA_TYPE) is 0>
-		<cfset rec_stat=listappend(rec_stat,'MEDIA_TYPE #MEDIA_TYPE# is invalid',";")>
-	</cfif>
-	<cfhttp url="#media_uri#" charset="utf-8" method="get" />
-	<cfif left(cfhttp.statuscode,3) is not "200">
-		<cfset rec_stat=listappend(rec_stat,'#media_uri# is invalid',";")>
-	</cfif>
-	<cfif len(preview_uri) gt 0>
-		<cfhttp url="#preview_uri#" charset="utf-8" method="get" />
-		<cfif left(cfhttp.statuscode,3) is not "200">
-			<cfset rec_stat=listappend(rec_stat,'#preview_uri# is invalid',";")>
-		</cfif>
-	</cfif>
-	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		update cf_temp_media set status='#rec_stat#' where key=#key#
-	</cfquery>
-</cfloop>
-<cfquery name="bad" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select * from cf_temp_media where status is not null
+<cfquery name="ctGEOREFMETHOD" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select GEOREFMETHOD from ctGEOREFMETHOD
 </cfquery>
-<cfif len(bad.key) gt 0>
-	Oops! You must fix everything below before proceeding (see STATUS column).
-	<cfdump var=#bad#>
-<cfelse>
-	Yay! Everything looks OK. Check it over in the tables below, then 
-	<a href="BulkloadMedia.cfm?action=load">click here</a> to proceed.
-	(Note that the table below is "flattened." Media entries are repeated for every Label and Relationship.)
-	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select 
-			cf_temp_media.key, 
-			status,
-			MEDIA_URI,
-			MIME_TYPE,
-			MEDIA_TYPE,
-			PREVIEW_URI,
-			MEDIA_RELATIONSHIP,
-			RELATED_PRIMARY_KEY,
-			MEDIA_LABEL,
-			LABEL_VALUE
-		from 
-			cf_temp_media,
-			cf_temp_media_labels,
-			cf_temp_media_relations
-		where
-			cf_temp_media.key=cf_temp_media_labels.key (+) and
-			cf_temp_media.key=cf_temp_media_relations.key (+)
-		group by
-			cf_temp_media.key, 
-			status,
-			MEDIA_URI,
-			MIME_TYPE,
-			MEDIA_TYPE,
-			PREVIEW_URI,
-			MEDIA_RELATIONSHIP,
-			RELATED_PRIMARY_KEY,
-			MEDIA_LABEL,
-			LABEL_VALUE
+<cfquery name="CTLAT_LONG_UNITS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select LAT_LONG_UNITS from CTLAT_LONG_UNITS
+</cfquery>
+<cfquery name="CTDATUM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select DATUM from CTDATUM
+</cfquery>
+<cfquery name="CTVERIFICATIONSTATUS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select VERIFICATIONSTATUS from CTVERIFICATIONSTATUS
+</cfquery>
+<cfquery name="CTLAT_LONG_ERROR_UNITS" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select LAT_LONG_ERROR_UNITS from CTLAT_LONG_ERROR_UNITS
+</cfquery>
+<cfloop query="d">
+	<cfset ts="">
+	<cfquery name="m" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select count(*) c from locality,geog_auth_rec where
+		locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
+		locality.locality_id=#Locality_ID# and
+		locality.spec_locality='#SpecLocality#' and
+		geog_auth_rec.higher_geog='#HigherGeography#'
 	</cfquery>
-	<cfdump var=#media#>	
-</cfif>
+	<cfif m.c neq 1>
+		<cfset ts=listappend(ts,'no Locality_ID:SpecLocality:HigherGeography match',";")>
+	</cfif>
+	<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select agent_id from agent_name where agent_name='#DETERMINED_BY_AGENT#'
+	</cfquery>
+	<cfif a.recordcount is 1>
+		<cfquery name="au" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			update cf_temp_georef set DETERMINED_BY_AGENT_ID=#a.agent_id# where key=#key#
+		</cfquery>
+	<cfelse>
+		<cfset ts=listappend(ts,'bad agent match',";")>
+	</cfif>
+	<cfif not listfind(valuelist(ctGEOREFMETHOD.GEOREFMETHOD),GEOREFMETHOD)>
+		<cfset ts=listappend(ts,'bad GEOREFMETHOD',";")>
+	</cfif>
+	<cfif not listfind(valuelist(CTLAT_LONG_UNITS.LAT_LONG_UNITS),ORIG_LAT_LONG_UNITS)>
+		<cfset ts=listappend(ts,'bad LAT_LONG_UNITS',";")>
+	</cfif>
+	<cfif not listfind(valuelist(CTDATUM.DATUM),DATUM)>
+		<cfset ts=listappend(ts,'bad DATUM',";")>
+	</cfif>
+	<cfif not listfind(valuelist(CTVERIFICATIONSTATUS.VERIFICATIONSTATUS),VERIFICATIONSTATUS)>
+		<cfset ts=listappend(ts,'bad VERIFICATIONSTATUS',";")>
+	</cfif>
+	<cfif not listfind(valuelist(CTLAT_LONG_ERROR_UNITS.LAT_LONG_ERROR_UNITS),LAT_LONG_ERROR_UNITS)>
+		<cfset ts=listappend(ts,'bad LAT_LONG_ERROR_UNITS',";")>
+	</cfif>
+	<cfquery name="l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select count(*) c from lat_long where
+		lat_long.locality_id=#Locality_ID#
+	</cfquery>
+	<cfif l.c neq 0>
+		<cfset ts=listappend(ts,'georeference exists.',";")>
+	</cfif>
+	
+	
+	<cfif len(ts) gt 0>
+		<cfquery name="au" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			update cf_temp_georef set status='#ts#' where key=#key#
+		</cfquery>
+	<cfelse>
+		<cfquery name="au" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			update cf_temp_georef set status='spiffy' where key=#key#
+		</cfquery>
+	</cfif>
+	
+	<cfquery name="df" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from cf_temp_georef
+	</cfquery>
+	<cfdump var=#df#>
+</cfloop>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------->
