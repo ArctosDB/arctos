@@ -316,81 +316,38 @@ Data:
 					#Locality_ID#,
 					#Dec_Lat#,
 					#Dec_Long#,
-					'##',
-					'##',
-					##,
-					to_date('##'),
-					'##',
-					'##',
-					##,
-					'##',
-					##,
-					##,
-					##,
-					'##',
-					'##',
-					nvl(#SPATIALFIT#,NULL)
+					'#DATUM#',
+					'#ORIG_LAT_LONG_UNITS#',
+					#DETERMINED_BY_AGENT_ID#,
+					to_date('#DETERMINED_DATE#'),
+					'#LAT_LONG_REF_SOURCE#',
+					'#LAT_LONG_REMARKS#',
+					<cfif len(MAX_ERROR_DISTANCE) gt 0>
+						#MAX_ERROR_DISTANCE#,
+					<cfelse>
+						NULL,
+					</cfif>
+					'#MAX_ERROR_UNITS#',
+					1,
+					<cfif len(EXTENT) gt 0>
+						#EXTENT#,
+					<cfelse>
+						NULL,
+					</cfif>
+					<cfif len(GPSACCURACY) gt 0>
+						#GPSACCURACY#,
+					<cfelse>
+						NULL,
+					</cfif>
+					'#GEOREFMETHOD#',
+					'#VERIFICATIONSTATUS#',
+					<cfif len(SPATIALFIT) gt 0>
+						#SPATIALFIT#,
+					<cfelse>
+						NULL,
+					</cfif>
 				)
-					
-					
-
-
-	DETERMINED_BY_AGENT_ID number,
- 	HigherGeography VARCHAR2(255) NOT NULL,
- 	SpecLocality VARCHAR2(255) NOT NULL,
-	 number NOT NULL,
-	 NUMBER(12,10),
-	 NUMBER(13,10),
-	MAX_ERROR_DISTANCE number,
-	MAX_ERROR_UNITS VARCHAR2(2),
-	LAT_LONG_REMARKS VARCHAR2(255),
-	DETERMINED_BY_AGENT VARCHAR2(255) NOT NULL,
-	GEOREFMETHOD VARCHAR2(255) NOT NULL,
-	ORIG_LAT_LONG_UNITS VARCHAR2(20) NOT NULL,
-	DATUM VARCHAR2(55) NOT NULL,
-	DETERMINED_DATE DATE NOT NULL,
-	LAT_LONG_REF_SOURCE VARCHAR2(255) NOT NULL,
-	EXTENT NUMBER(8,3),
-	GPSACCURACY NUMBER(8,3),
-	VERIFICATIONSTATUS VARCHAR2(40) NOT NULL,
-	 NUMBER(4,3)
 			</cfquery>
-			<cfset media_id=mid.nv>
-			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				insert into media (media_id,media_uri,mime_type,media_type,preview_uri)
-	            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#')
-			</cfquery>
-			<cfquery name="media_relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select 
-					*
-				from 
-					cf_temp_media_relations
-				where
-					key=#key#
-			</cfquery>
-			<cfloop query="media_relations">
-				<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					insert into 
-						media_relations (
-						media_id,media_relationship,related_primary_key
-						)values (
-						#media_id#,'#MEDIA_RELATIONSHIP#',#RELATED_PRIMARY_KEY#)
-				</cfquery>
-			</cfloop>
-			<cfquery name="medialabels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select 
-					*
-				from 
-					cf_temp_media_labels
-				where
-					key=#key#
-			</cfquery>
-			<cfloop query="medialabels">
-				<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					insert into media_labels (media_id,media_label,label_value)
-					values (#media_id#,'#MEDIA_LABEL#','#LABEL_VALUE#')
-				</cfquery>
-			</cfloop>
 		</cfloop>
 	</cftransaction>
 	Spiffy, all done.
