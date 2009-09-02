@@ -218,10 +218,84 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	
 	
 </cfloop>
-
+<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select count(*) c from cf_temp_georef where status is not 'spiffy'
+</cfquery>
+<cfif dp.c is 0>
+	click load bla bla
+<cfelse>
+	fail
+</cfif>
 <cfquery name="df" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from cf_temp_georef
 </cfquery>
+<cfset internalPath="#Application.webDirectory#/temp/">
+<cfset externalPath="#Application.ServerRootUrl#/temp/">
+<cfset dlFile = "BulkloadGeoref.kml">
+<cfset variables.fileName="#internalPath##dlFile#">
+<cfset variables.encoding="UTF-8">
+<cfscript>
+	variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+	kml='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+	 	'<kml xmlns="http://earth.google.com/kml/2.2">' & chr(10) & 
+	 	chr(9) & '<Document>' & chr(10) & 
+	 	chr(9) & chr(9) & '<name>Localities</name>' & chr(10) & 
+	 	chr(9) & chr(9) & '<open>1</open>' &
+	 	chr(9) & chr(9) & '<Style id="green-star">' &
+	 	chr(9) & chr(9) & chr(9) & '<IconStyle>' &
+	 	chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' &
+	 	chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>http://maps.google.com/mapfiles/kml/paddle/grn-stars.png</href>' &
+	 	chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' &
+	 	chr(9) & chr(9) & chr(9) & '</IconStyle>' &
+	 	chr(9) & chr(9) & '</Style>';
+	variables.joFileWriter.writeLine(kml);
+</cfscript>
+<cfloop query="df">
+	<cfscript>
+		kml='<Placemark>'  & chr(10) & 
+			chr(9) & '<name>#HigherGeography#: #SpecLocality#</name>' & chr(10) & 
+			chr(9) & '<visibility>1</visibility>' & chr(10) & 
+			chr(9) & '<description>' & chr(10) & 
+			chr(9) & chr(9) & '	<![CDATA[Datum: #datum#<br/>Error: #max_error_distance# #max_error_units#<br/><p><a href="#Application.ServerRootUrl#/editLocality.cfm?locality_id=#locality_id#">Edit Locality</a></p>]]>' & chr(10) & 
+			chr(9) & '</description>' & chr(10) & 
+			chr(9) & '<Point>' & chr(10) & 
+			chr(9) & chr(9) & '<coordinates>#dec_long#,#dec_lat#</coordinates>' & chr(10) & 
+			chr(9) & '</Point>' & chr(10) & 
+			chr(9) & '<styleUrl>#green-star</styleUrl>' & chr(10) & 
+			'</Placemark>';
+		variables.joFileWriter.writeLine(kml);
+	</cfscript>
+</cfloop>		
+	<cfscript>
+		kml='</Placemark></Document></kml>';
+		variables.joFileWriter.writeLine(kml);	
+		variables.joFileWriter.close();
+	</cfscript>
+	
+
+
+<cfscript>
+	kml=chr(9) & chr(9) & '<Style id="icon_one">' & chr(10) & 
+		chr(9) & chr(9) & chr(9) & '<IconStyle>' & chr(10) &
+		chr(9) & chr(9) & chr(9) & chr(9) & '<color>ff#thisColor#</color>' & chr(10) & 
+		chr(9) & chr(9) & chr(9) & chr(9) & '<scale>1.1</scale>' & chr(10) & 
+		chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) & 
+		chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>#application.serverRootUrl#/images/whiteBalloon.png</href>' & chr(10) & 
+		chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>'  & chr(10) &
+		chr(9) & chr(9) & chr(9) & '</IconStyle>'  & chr(10) &
+		chr(9) & chr(9) & '</Style>';
+	variables.joFileWriter.writeLine(kml);
+</cfscript>
+<cfscript>
+			kml = chr(9) & chr(9) & "<Folder>" & chr(10) &
+				chr(9) & chr(9) & chr(9) & '<name>#thisName#</name>' & chr(10) &
+				chr(9) & chr(9) & chr(9) & '<visibility>1</visibility>';
+			variables.joFileWriter.writeLine(kml);
+		</cfscript>
+		<p>
+		<a href="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#">map it</a>
+		</p>
+Data:
 <cfdump var=#df#>
 </cfoutput>
 </cfif>
