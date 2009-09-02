@@ -185,8 +185,8 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfif not listfind(valuelist(ctGEOREFMETHOD.GEOREFMETHOD),GEOREFMETHOD)>
 		<cfset ts=listappend(ts,'bad GEOREFMETHOD',";")>
 	</cfif>
-	<cfif not listfind(valuelist(CTLAT_LONG_UNITS.LAT_LONG_UNITS),ORIG_LAT_LONG_UNITS)>
-		<cfset ts=listappend(ts,'bad LAT_LONG_UNITS',";")>
+	<cfif not listfind(valuelist(CTLAT_LONG_UNITS.ORIG_LAT_LONG_UNITS),ORIG_LAT_LONG_UNITS)>
+		<cfset ts=listappend(ts,'bad ORIG_LAT_LONG_UNITS',";")>
 	</cfif>
 	<cfif not listfind(valuelist(CTDATUM.DATUM),DATUM)>
 		<cfset ts=listappend(ts,'bad DATUM',";")>
