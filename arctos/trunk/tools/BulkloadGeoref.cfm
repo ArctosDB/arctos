@@ -274,25 +274,6 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	</cfscript>
 	
 
-
-<cfscript>
-	kml=chr(9) & chr(9) & '<Style id="icon_one">' & chr(10) & 
-		chr(9) & chr(9) & chr(9) & '<IconStyle>' & chr(10) &
-		chr(9) & chr(9) & chr(9) & chr(9) & '<color>ff#thisColor#</color>' & chr(10) & 
-		chr(9) & chr(9) & chr(9) & chr(9) & '<scale>1.1</scale>' & chr(10) & 
-		chr(9) & chr(9) & chr(9) & chr(9) & '<Icon>' & chr(10) & 
-		chr(9) & chr(9) & chr(9) & chr(9) & chr(9) & '<href>#application.serverRootUrl#/images/whiteBalloon.png</href>' & chr(10) & 
-		chr(9) & chr(9) & chr(9) & chr(9) & '</Icon>'  & chr(10) &
-		chr(9) & chr(9) & chr(9) & '</IconStyle>'  & chr(10) &
-		chr(9) & chr(9) & '</Style>';
-	variables.joFileWriter.writeLine(kml);
-</cfscript>
-<cfscript>
-			kml = chr(9) & chr(9) & "<Folder>" & chr(10) &
-				chr(9) & chr(9) & chr(9) & '<name>#thisName#</name>' & chr(10) &
-				chr(9) & chr(9) & chr(9) & '<visibility>1</visibility>';
-			variables.joFileWriter.writeLine(kml);
-		</cfscript>
 		<p>
 		<a href="http://maps.google.com/maps?q=#externalPath##dlFile#?r=#randRange(1,10000)#">map it</a>
 		</p>
