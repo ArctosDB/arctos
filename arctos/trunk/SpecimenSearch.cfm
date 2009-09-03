@@ -266,7 +266,7 @@
 				<input type="hidden" name="selat" id="selat">
 				<input type="hidden" name="selong" id="selong">
 
-	<script src="http://www.google.com/uds/api?file=uds.js&amp;v=2&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
+	<script src="http://www.google.com/uds/api?file=uds.js&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
 				<script language="javascript" type="text/javascript">
 					//google.load("search", "1");
 					
