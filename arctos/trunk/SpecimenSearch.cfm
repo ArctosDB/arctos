@@ -265,19 +265,16 @@
 				<input type="hidden" name="nwlong" id="nwlong">
 				<input type="hidden" name="selat" id="selat">
 				<input type="hidden" name="selong" id="selong">
+				  <script src="http://www.google.com/uds/api?file=uds.js&amp;amp;v=1.0&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
 				<script language="javascript" type="text/javascript">
 					//google.load("search", "1");
 					
 					function initializeMap() {
 						if (GBrowserIsCompatible()) {
 							//google.load('search', '1');
-							  var mapOptions = {
-    googleBarOptions : {
-      style : "new",
-    }
-  }
+							  
 							
-							var map = new GMap2(document.getElementById("map_canvas"), mapOptions);
+							var map = new GMap2(document.getElementById("map_canvas"));
 							var center = new GLatLng(55, -135);
 							map.setCenter(center, 3);
 							map.addControl(new GLargeMapControl());
@@ -285,7 +282,12 @@
 							map.addControl(new GScaleControl());
 							map.addControl(new GMapTypeControl());
 							//var localSearch = new LocalSearch();
-							
+							 var options = {
+            listingTypes : GlocalSearch.TYPE_BLENDED_RESULTS,
+            Xpins : pins,
+            Xlabels : labels
+          }
+          map.addControl(new google.maps.LocalSearch(options));
 
 console.log('^^ there is is, bitches!');
 							
