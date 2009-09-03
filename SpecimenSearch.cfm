@@ -268,6 +268,13 @@
 
 	<!----<script src="http://www.google.com/uds/api?file=uds.js&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
 			---->
+				<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+				 <script type="text/javascript">
+
+        google.load("maps", "2");
+        google.load("elements", "1", {packages : ["localsearch"]});
+        </script>
+		
 				<script language="javascript" type="text/javascript">
 					//google.load("search", "1");
 					
