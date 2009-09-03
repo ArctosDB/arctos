@@ -272,8 +272,13 @@
 					function initializeMap() {
 						if (GBrowserIsCompatible()) {
 							//google.load('search', '1');
+							  var mapOptions = {
+    googleBarOptions : {
+      style : "new",
+    }
+  }
 							
-							var map = new GMap2(document.getElementById("map_canvas"));
+							var map = new GMap2(document.getElementById("map_canvas"), mapOptions);
 							var center = new GLatLng(55, -135);
 							map.setCenter(center, 3);
 							map.addControl(new GLargeMapControl());
@@ -282,10 +287,6 @@
 							map.addControl(new GMapTypeControl());
 							//var localSearch = new LocalSearch();
 							
-							var options = {
-  listingTypes : GlocalSearch.TYPE_BLENDED_RESULTS
-}
-map.addControl(new google.maps.LocalSearch(options));
 
 console.log('^^ there is is, bitches!');
 							
