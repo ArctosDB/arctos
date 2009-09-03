@@ -275,6 +275,11 @@
 							map.addMapType(G_PHYSICAL_MAP);
 							map.addControl(new GScaleControl());
 							map.addControl(new GMapTypeControl());
+							var options = {
+								  listingTypes : GlocalSearch.TYPE_BLENDED_RESULTS
+								}
+							map.addControl(new google.maps.LocalSearch(options));
+							
 							var boxStyleOpts = {
 								opacity:.0,
 								border:"2px solid green"
