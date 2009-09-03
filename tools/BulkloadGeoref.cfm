@@ -41,7 +41,6 @@ CREATE OR REPLACE TRIGGER cf_temp_georef_key
 /
 sho err
 --->
-
 <cfinclude template="/includes/_header.cfm">
 <cfif #action# is "nothing">
 	HigherGeography, SpecLocality, and locality_id must all match Arctos data or this form will not work. There are still plenty of ways
@@ -160,15 +159,53 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 </cfquery>
 <cfloop query="d">
 	<cfset ts="">
-	<cfquery name="m" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select count(*) c from locality,geog_auth_rec where
+	<cfset sql="select spec_locality,higher_geog,locality.locality_id from locality,geog_auth_rec where
 		locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
 		locality.locality_id=#Locality_ID# and
-		locality.spec_locality='#SpecLocality#' and
-		geog_auth_rec.higher_geog='#HigherGeography#'
+		trim(geog_auth_rec.higher_geog)='#trim(HigherGeography)#' and
+		 trim(locality.spec_locality)='#trim(SpecLocality)#'">
+	<cfquery name="m" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		#preservesinglequotes(sql)#
 	</cfquery>
-	<cfif m.c neq 1>
+	<cfif len(m.locality_id) is 0>
 		<cfset ts=listappend(ts,'no Locality_ID:SpecLocality:HigherGeography match',";")>
+		<cfquery name="fail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				spec_locality,higher_geog
+			from locality,geog_auth_rec where
+				locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
+				locality.locality_id=#Locality_ID#
+		</cfquery>
+		<cfif trim(SpecLocality) is not fail.spec_locality>
+			<label>Locality Fail: ID=#locality_id#</label>
+			<cfset yl=replace(trim(SpecLocality)," ","{space}","all")>
+			<cfset al=replace(fail.spec_locality," ","{space}","all")>
+			<table border>
+				<tr>
+					<td>yours:</td>
+					<td>#yl#</td>
+				</tr>
+				<tr>
+					<td>arctos:</td>
+					<td>#al#</td>
+				</tr>
+			</table>
+		</cfif>
+		<cfif trim(HigherGeography) is not fail.higher_geog>
+			<label>Geography Fail: ID=#locality_id#</label>
+			<cfset yg=replace(trim(HigherGeography)," ","{space}","all")>
+			<cfset ag=replace(fail.higher_geog," ","{space}","all")>
+			<table border>
+				<tr>
+					<td>yours:</td>
+					<td>#yg#</td>
+				</tr>
+				<tr>
+					<td>arctos:</td>
+					<td>#ag#</td>
+				</tr>
+			</table>
+		</cfif>
 	</cfif>
 	<cfquery name="a" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select agent_id from agent_name where agent_name='#DETERMINED_BY_AGENT#'
