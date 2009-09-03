@@ -316,7 +316,7 @@ console.log('^^ there is is, bitches!');
 							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT));
 						}
 					}
-					google.setOnLoadCallback(initializeMap);
+					//google.setOnLoadCallback(initializeMap);
 					
 				</script>
 			</td>
