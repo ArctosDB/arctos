@@ -266,7 +266,7 @@
 				<input type="hidden" name="selat" id="selat">
 				<input type="hidden" name="selong" id="selong">
 				<script language="javascript" type="text/javascript">
-					google.load("search", "1");
+					//google.load("search", "1");
 					
 					function initializeMap() {
 						if (GBrowserIsCompatible()) {
