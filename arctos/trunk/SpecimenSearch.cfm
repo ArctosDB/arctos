@@ -266,23 +266,12 @@
 				<input type="hidden" name="selat" id="selat">
 				<input type="hidden" name="selong" id="selong">
 
-	<!----<script src="http://www.google.com/uds/api?file=uds.js&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
-			---->
 				<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>
-				 <script type="text/javascript">
-
-        google.load("maps", "2");
-        google.load("elements", "1", {packages : ["localsearch"]});
-        </script>
-		
 				<script language="javascript" type="text/javascript">
-					//google.load("search", "1");
-					
-					function initializeMap() {
+					google.load("maps", "2");
+       				google.load("elements", "1", {packages : ["localsearch"]});
+       				function initializeMap() {
 						if (GBrowserIsCompatible()) {
-							//google.load('search', '1');
-							  
-							
 							var map = new GMap2(document.getElementById("map_canvas"));
 							var center = new GLatLng(55, -135);
 							map.setCenter(center, 3);
@@ -291,8 +280,6 @@
 							map.addControl(new GScaleControl());
 							map.addControl(new GMapTypeControl());
 							map.addControl(new google.elements.LocalSearch());
-
-console.log('^^ there is is, bitches!');
 							
 							var boxStyleOpts = {
 								opacity:.0,
@@ -319,9 +306,7 @@ console.log('^^ there is is, bitches!');
 							};
 							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT));
 						}
-					}
-					//google.setOnLoadCallback(initializeMap);
-					
+					}					
 				</script>
 			</td>
 		</tr>
