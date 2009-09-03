@@ -268,7 +268,7 @@
 
 	<!----<script src="http://www.google.com/uds/api?file=uds.js&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
 			---->
-				<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+				<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>
 				 <script type="text/javascript">
 
         google.load("maps", "2");
