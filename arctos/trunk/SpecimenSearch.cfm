@@ -275,9 +275,10 @@
 							map.addMapType(G_PHYSICAL_MAP);
 							map.addControl(new GScaleControl());
 							map.addControl(new GMapTypeControl());
+							//var localSearch = new LocalSearch();
 							
 							
-          map.addControl(new LocalSearch(GlocalSearch.TYPE_BLENDED_RESULTS));
+          map.addControl(new google.search.LocalSearch(GlocalSearch.TYPE_BLENDED_RESULTS));
 console.log('^^ there is is, bitches!');
 							
 							var boxStyleOpts = {
