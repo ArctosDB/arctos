@@ -17,7 +17,7 @@
     * c) Path prefix to ../../api?file=uds.js and to ../../css/gsearch.css
     *    should be http://www.google.com/uds
     -->
-    <script src="http://maps.google.com/maps?file=api&v=2&key=internal" type="text/javascript"></script>
+    <script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg" type="text/javascript"></script>
     <script src="../../api?file=uds.js&v=1.0&key=internal" type="text/javascript"></script>
 
     <script src="gmlocalsearch.js" type="text/javascript"></script>
