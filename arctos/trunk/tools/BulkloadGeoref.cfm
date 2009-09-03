@@ -163,7 +163,7 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 		locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
 		locality.locality_id=#Locality_ID# and
 		trim(geog_auth_rec.higher_geog)='#trim(HigherGeography)#' and
-		 trim(locality.spec_locality)='#trim(SpecLocality)#'">
+		 trim(locality.spec_locality)='#trim(escapeQuotes(SpecLocality))#'">
 	<cfquery name="m" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
