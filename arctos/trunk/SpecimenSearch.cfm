@@ -288,7 +288,7 @@
 							var otherOpts = {
 								overlayRemoveTime:99999999999999,  
 								buttonHTML:"select",
-								buttonZoomingHTML:"finished",
+								buttonZoomingHTML:"select off",
 								buttonStartingStyle:{left:'150px', border: '2px solid red', padding: '4px',fontSize:'small',color:'blue',fontWeight:'bold'},
 								buttonZoomingStyle:{background: '##FF0'},
 								backButtonEnabled : true,
