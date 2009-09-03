@@ -266,7 +266,8 @@
 				<input type="hidden" name="selat" id="selat">
 				<input type="hidden" name="selong" id="selong">
 
-	<script src="http://www.google.com/uds/api?file=uds.js&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
+	<!----<script src="http://www.google.com/uds/api?file=uds.js&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
+			---->
 				<script language="javascript" type="text/javascript">
 					//google.load("search", "1");
 					
@@ -282,13 +283,7 @@
 							map.addMapType(G_PHYSICAL_MAP);
 							map.addControl(new GScaleControl());
 							map.addControl(new GMapTypeControl());
-							//var localSearch = new LocalSearch();
-							 var options = {
-            listingTypes : GlocalSearch.TYPE_BLENDED_RESULTS,
-            Xpins : pins,
-            Xlabels : labels
-          }
-          map.addControl(new google.maps.LocalSearch(options));
+							map.addControl(new google.elements.LocalSearch());
 
 console.log('^^ there is is, bitches!');
 							
