@@ -247,8 +247,8 @@ do not agree</font>.</a>
 		<cfoutput>
 			<cfset variables.encoding="UTF-8">
 			<cfif #fileFormat# is "csv">
-				<cfset fileName = "ArctosData_#cfid#_#cftoken#.csv">
-				<cfset variables.fileName="#Application.webDirectory#/download/#fileName#">
+				<cfset fname = "ArctosData_#cfid#_#cftoken#.csv">
+				<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 				<cfset header=#trim(ac)#>
 				<cfscript>
 					variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
@@ -275,11 +275,11 @@ do not agree</font>.</a>
 				<cfscript>	
 					variables.joFileWriter.close();
 				</cfscript>
-				<cflocation url="/download.cfm?file=#fileName#" addtoken="false">
-				<a href="/download/#fileName#">Click here if your file does not automatically download.</a>
+				<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+				<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 			<cfelseif #fileFormat# is "text">
-				<cfset fileName = "ArctosData_#cfid#_#cftoken#.txt">
-				<cfset variables.fileName="#Application.webDirectory#/download/#fileName#">
+				<cfset fname = "ArctosData_#cfid#_#cftoken#.txt">
+				<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 				<cfset header = replace(ac,",","#chr(9)#","all")>
 				<cfset header=#trim(header)#>
 				<cfscript>
@@ -307,12 +307,12 @@ do not agree</font>.</a>
 				<cfscript>	
 					variables.joFileWriter.close();
 				</cfscript>
-				<cflocation url="/download.cfm?file=#fileName#" addtoken="false">
-				<a href="/download/#fileName#">Click here if your file does not automatically download.</a>
+				<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+				<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 			
 			<cfelseif #fileFormat# is "xml">
-				<cfset fileName = "ArctosData_#cfid#_#cftoken#.xml">
-				<cfset variables.fileName="#Application.webDirectory#/download/#fileName#">
+				<cfset fname = "ArctosData_#cfid#_#cftoken#.xml">
+				<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
 				<cfset header = "<result>">
 				<cfscript>
 					variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
@@ -342,8 +342,8 @@ do not agree</font>.</a>
 					variables.joFileWriter.writeLine(oneLine);
 					variables.joFileWriter.close();
 				</cfscript>
-				<cflocation url="/download.cfm?file=#fileName#" addtoken="false">
-				<a href="/download/#fileName#">Click here if your file does not automatically download.</a>
+				<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+				<a href="/download/#fname#">Click here if your file does not automatically download.</a>
 			<cfelse>
 				That file format doesn't seem to be supported yet!
 			</cfif>
