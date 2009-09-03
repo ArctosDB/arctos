@@ -44,13 +44,11 @@ sho err
 
 <cfinclude template="/includes/_header.cfm">
 <cfif #action# is "nothing">
-	HigherGeography, SpecLocality, and locality_id must all match Arctos data or this form will not work.
+	HigherGeography, SpecLocality, and locality_id must all match Arctos data or this form will not work. There are still plenty of ways
+	to hook a georeference to the wrong socket - make sure you know what you're doing before you try to use this form.
 	<br>
 	<a href="http://g-arctos.appspot.com/arctosdoc/lat_long.html">Help is here</a>
 	
-Step 1: Ensure that Media and objects media will relate to exist.
-Step 2: Upload a comma-delimited text file (csv). 
-Include column headings, spelled exactly as below. 
 <br><span class="likeLink" onclick="document.getElementById('template').style.display='block';">view template</span>
 	<div id="template" style="display:none;">
 		<label for="t">Copy and save as a .csv file</label>
