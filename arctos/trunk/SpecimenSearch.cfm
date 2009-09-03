@@ -282,12 +282,10 @@
 							map.addControl(new GMapTypeControl());
 							//var localSearch = new LocalSearch();
 							
-							 var options = {
-            listingTypes : GlocalSearch.TYPE_BLENDED_RESULTS,
-            Xpins : pins,
-            Xlabels : labels
-          }
-          map.addControl(new google.maps.LocalSearch(options));
+							var options = {
+  listingTypes : GlocalSearch.TYPE_BLENDED_RESULTS
+}
+map.addControl(new google.maps.LocalSearch(options));
 
 console.log('^^ there is is, bitches!');
 							
@@ -317,6 +315,8 @@ console.log('^^ there is is, bitches!');
 							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT));
 						}
 					}
+					google.setOnLoadCallback(initializeMap);
+					
 				</script>
 			</td>
 		</tr>
