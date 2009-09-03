@@ -245,11 +245,15 @@ do not agree</font>.</a>
 		<!--- add one and only one line break back onto the end --->
 		
 		<cfoutput>
-
+			<cfset variables.encoding="UTF-8">
 			<cfif #fileFormat# is "csv">
 				<cfset fileName = "ArctosData_#cfid#_#cftoken#.csv">
+				<cfset variables.fileName="#Application.webDirectory#/download/#fileName#">
 				<cfset header=#trim(ac)#>
-				<cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#header#">
+				<cfscript>
+					variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+					variables.joFileWriter.writeLine(header); 
+				</cfscript>
 				<cfloop query="getData">
 					<cfset oneLine = "">
 					<cfloop list="#ac#" index="c">
@@ -264,16 +268,24 @@ do not agree</font>.</a>
 						</cfif>
 					</cfloop>
 					<cfset oneLine = trim(oneLine)>
-					<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#oneLine#">
+					<cfscript>
+						variables.joFileWriter.writeLine(oneLine);
+					</cfscript>
 				</cfloop>
+				<cfscript>	
+					variables.joFileWriter.close();
+				</cfscript>
 				<cflocation url="/download.cfm?file=#fileName#" addtoken="false">
 				<a href="/download/#fileName#">Click here if your file does not automatically download.</a>
-				
 			<cfelseif #fileFormat# is "text">
 				<cfset fileName = "ArctosData_#cfid#_#cftoken#.txt">
+				<cfset variables.fileName="#Application.webDirectory#/download/#fileName#">
 				<cfset header = replace(ac,",","#chr(9)#","all")>
 				<cfset header=#trim(header)#>
-				<cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#header#">
+				<cfscript>
+					variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+					variables.joFileWriter.writeLine(header); 
+				</cfscript>
 				<cfloop query="getData">
 					<cfset oneLine = "">
 					<cfloop list="#ac#" index="c">
@@ -288,15 +300,24 @@ do not agree</font>.</a>
 						</cfif>
 					</cfloop>
 					<cfset oneLine = trim(oneLine)>
-					<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="yes" output="#oneLine#">
+					<cfscript>
+						variables.joFileWriter.writeLine(oneLine);
+					</cfscript>
 				</cfloop>
+				<cfscript>	
+					variables.joFileWriter.close();
+				</cfscript>
 				<cflocation url="/download.cfm?file=#fileName#" addtoken="false">
 				<a href="/download/#fileName#">Click here if your file does not automatically download.</a>
 			
 			<cfelseif #fileFormat# is "xml">
 				<cfset fileName = "ArctosData_#cfid#_#cftoken#.xml">
+				<cfset variables.fileName="#Application.webDirectory#/download/#fileName#">
 				<cfset header = "<result>">
-				<cffile action="write" file="#Application.webDirectory#/download/#fileName#" addnewline="no" output="#header#">
+				<cfscript>
+					variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+					variables.joFileWriter.writeLine(header); 
+				</cfscript>
 				<cfloop query="getData">
 					<cfset oneLine = "<record>">
 					<cfloop list="#ac#" index="c">
@@ -312,10 +333,15 @@ do not agree</font>.</a>
 					</cfloop>
 					<cfset oneLine = "#oneLine#</record>">
 					<cfset oneLine = trim(oneLine)>
-					<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="no" output="#oneLine#">
+					<cfscript>
+						variables.joFileWriter.writeLine(oneLine);
+					</cfscript>
 				</cfloop>
-				<cfset oneLine = "</result>">
-				<cffile action="append" file="#Application.webDirectory#/download/#fileName#" addnewline="no" output="#oneLine#">
+				<cfset oneLine = "</result>">				
+				<cfscript>	
+					variables.joFileWriter.writeLine(oneLine);
+					variables.joFileWriter.close();
+				</cfscript>
 				<cflocation url="/download.cfm?file=#fileName#" addtoken="false">
 				<a href="/download/#fileName#">Click here if your file does not automatically download.</a>
 			<cfelse>
