@@ -275,10 +275,14 @@
 							map.addMapType(G_PHYSICAL_MAP);
 							map.addControl(new GScaleControl());
 							map.addControl(new GMapTypeControl());
+							
 							var options = {
-								  listingTypes : GlocalSearch.TYPE_BLENDED_RESULTS
-								}
-							map.addControl(new google.maps.LocalSearch(options));
+            listingTypes : GlocalSearch.TYPE_BLENDED_RESULTS,
+            Xpins : pins,
+            Xlabels : labels
+          }
+          map.addControl(new google.maps.LocalSearch(options));
+
 							
 							var boxStyleOpts = {
 								opacity:.0,
