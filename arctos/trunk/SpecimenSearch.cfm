@@ -279,7 +279,7 @@
 							map.addMapType(G_PHYSICAL_MAP);
 							map.addControl(new GScaleControl());
 							map.addControl(new GMapTypeControl());
-							map.addControl(new google.elements.LocalSearch(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(10,100)));
+							map.addControl(new google.elements.LocalSearch(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(150,5)));
 							
 							var boxStyleOpts = {
 								opacity:.0,
@@ -305,7 +305,7 @@
 								}
 							};
 							
-							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks));
+							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(5,5)));
 						}
 					}					
 				</script>
