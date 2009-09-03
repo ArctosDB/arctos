@@ -276,12 +276,8 @@
 							map.addControl(new GScaleControl());
 							map.addControl(new GMapTypeControl());
 							
-							var options = {
-            listingTypes : GlocalSearch.TYPE_BLENDED_RESULTS,
-            Xpins : pins,
-            Xlabels : labels
-          }
-          map.addControl(new google.maps.LocalSearch(options));
+							
+          map.addControl(new LocalSearch(GlocalSearch.TYPE_BLENDED_RESULTS));
 console.log('^^ there is is, bitches!');
 							
 							var boxStyleOpts = {
