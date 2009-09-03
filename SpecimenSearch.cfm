@@ -256,7 +256,7 @@
 			<td colspan="2">
 				<label for="map_canvas">
 					Click 'select' then click and drag for spatial query&nbsp;&nbsp;&nbsp;
-					<span class="likeLink" onclick="getDocs('spatial_query')";>More Info</span>
+					<span class="likeLink" onclick="getDocs('/pageHelp/spatial_query')";>More Info</span>
 					
 				</label>				
 				<div id="map_canvas" style="width: 100%; height: 400px;"></div>
