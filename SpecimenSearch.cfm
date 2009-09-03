@@ -269,6 +269,8 @@
 				<script language="javascript" type="text/javascript">
 					function initializeMap() {
 						if (GBrowserIsCompatible()) {
+							google.load('search', '1');
+							
 							var map = new GMap2(document.getElementById("map_canvas"));
 							var center = new GLatLng(55, -135);
 							map.setCenter(center, 3);
