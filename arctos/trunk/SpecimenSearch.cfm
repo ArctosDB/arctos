@@ -282,7 +282,7 @@
             Xlabels : labels
           }
           map.addControl(new google.maps.LocalSearch(options));
-
+console.log('^^ there is is, bitches!');
 							
 							var boxStyleOpts = {
 								opacity:.0,
