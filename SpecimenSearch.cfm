@@ -277,7 +277,7 @@
 							map.setCenter(center, 3);
 							map.addControl(new GLargeMapControl());
 							map.addMapType(G_PHYSICAL_MAP);
-							map.addControl(new GScaleControl());
+							map.addControl(new GScaleControl(),new GControlPosition(G_ANCHOR_BOTTOM_RIGHT, new GSize(150,5)));
 							map.addControl(new GMapTypeControl());
 							map.addControl(new google.elements.LocalSearch(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(150,5)));
 							
