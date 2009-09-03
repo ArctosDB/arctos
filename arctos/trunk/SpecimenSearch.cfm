@@ -278,8 +278,13 @@
 							map.addControl(new GMapTypeControl());
 							//var localSearch = new LocalSearch();
 							
-							
-          map.addControl(new google.search.LocalSearch(GlocalSearch.TYPE_BLENDED_RESULTS));
+							 var options = {
+            listingTypes : GlocalSearch.TYPE_BLENDED_RESULTS,
+            Xpins : pins,
+            Xlabels : labels
+          }
+          map.addControl(new google.maps.LocalSearch(options));
+
 console.log('^^ there is is, bitches!');
 							
 							var boxStyleOpts = {
