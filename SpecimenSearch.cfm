@@ -304,7 +304,8 @@
 									jQuery('##selectedCoords').val('Selected Area: NW=' + nw + '; SE=' + se);
 								}
 							};
-							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT));
+							
+							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(100,100)));
 						}
 					}					
 				</script>
