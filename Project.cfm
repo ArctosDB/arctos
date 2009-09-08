@@ -277,7 +277,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 			where
 				project_trans.transaction_id=accn.transaction_id and
 				accn.transaction_id = trans.transaction_id and
-				trans.collection_id=collection.transaction_id and
+				trans.collection_id=collection.collection_id and
 				project_id = #getDetails.project_id#
 				order by collection, accn_number
 		</cfquery>
