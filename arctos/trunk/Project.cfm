@@ -244,17 +244,40 @@ Projects are activities that have contributed specimens, used specimens, or both
 			order by agent_position
 		</cfquery>
 		<cfquery name="getLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select * from project_trans, loan, trans where
+			select 
+				collection,
+				loan_number,
+				loan.transaction_id,
+				nature_of_material,
+				trans_remarks
+			from 
+				project_trans, 
+				loan, 
+				trans,collection
+			where
 				project_trans.transaction_id=loan.transaction_id and
 				loan.transaction_id = trans.transaction_id 
-				and project_id = #getDetails.project_id#
-				order by institution_acronym, loan_number
+				trans.collection_id=collection.transaction_id and
+				project_id = #getDetails.project_id#
+			order by institution_acronym, loan_number
 		</cfquery>
 		<cfquery name="getAccns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select * from project_trans, accn, trans where
+			select 
+				accn_number,
+				collection,
+				accn.transaction_id,
+				nature_of_material,
+				trans_remarks
+			from 
+				project_trans, 
+				accn, 
+				trans,
+				collection
+			where
 				project_trans.transaction_id=accn.transaction_id and
-				accn.transaction_id = trans.transaction_id 
-				and project_id = #getDetails.project_id#
+				accn.transaction_id = trans.transaction_id and
+				trans.collection_id=collection.transaction_id and
+				project_id = #getDetails.project_id#
 				order by institution_acronym, accn_number
 		</cfquery>
 		<cfquery name="numAgents" dbtype="query">
@@ -314,7 +337,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 					<tr>
 						<td>
 							<a href="editAccn.cfm?action=edit&transaction_id=#getAccns.transaction_id#">
-								<strong>#institution_acronym#  #accn_number#</strong> 
+								<strong>#collection#  #accn_number#</strong> 
 							</a>
 						</td>
 						<td align="right">
@@ -367,7 +390,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 						<td>
 			<strong>
 			<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">
-			#institution_acronym# #loan_number#</strong>
+			#collection# #loan_number#</strong>
 			</a>
 			</td>
 						<td align="right">
@@ -383,7 +406,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 						<td colspan="2">
 							<blockquote>
 								 #nature_of_material# - #LOAN_DESCRIPTION#
-						</blockquote>
+							</blockquote>
 						</td>
 					</tr>
 				</table>
