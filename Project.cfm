@@ -256,7 +256,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 				trans,collection
 			where
 				project_trans.transaction_id=loan.transaction_id and
-				loan.transaction_id = trans.transaction_id 
+				loan.transaction_id = trans.transaction_id and
 				trans.collection_id=collection.transaction_id and
 				project_id = #getDetails.project_id#
 			order by institution_acronym, loan_number
