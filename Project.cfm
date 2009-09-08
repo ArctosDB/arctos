@@ -258,7 +258,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 			where
 				project_trans.transaction_id=loan.transaction_id and
 				loan.transaction_id = trans.transaction_id and
-				trans.collection_id=collection.transaction_id and
+				trans.collection_id=collection.collection_id and
 				project_trans.project_id = #getDetails.project_id#
 			order by collection, loan_number
 		</cfquery>
