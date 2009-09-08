@@ -245,21 +245,22 @@ Projects are activities that have contributed specimens, used specimens, or both
 		</cfquery>
 		<cfquery name="getLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
-				collection,
-				loan_number,
+				collection.collection,
+				loan.loan_number,
 				loan.transaction_id,
 				nature_of_material,
-				trans_remarks
+				trans.trans_remarks
 			from 
 				project_trans, 
 				loan, 
-				trans,collection
+				trans,
+				collection
 			where
 				project_trans.transaction_id=loan.transaction_id and
 				loan.transaction_id = trans.transaction_id and
 				trans.collection_id=collection.transaction_id and
-				project_id = #getDetails.project_id#
-			order by institution_acronym, loan_number
+				project_trans.project_id = #getDetails.project_id#
+			order by collection, loan_number
 		</cfquery>
 		<cfquery name="getAccns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
@@ -278,7 +279,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 				accn.transaction_id = trans.transaction_id and
 				trans.collection_id=collection.transaction_id and
 				project_id = #getDetails.project_id#
-				order by institution_acronym, accn_number
+				order by collection, accn_number
 		</cfquery>
 		<cfquery name="numAgents" dbtype="query">
 			select max(agent_position) as  agent_position from agents
