@@ -249,7 +249,8 @@ Projects are activities that have contributed specimens, used specimens, or both
 				loan.loan_number,
 				loan.transaction_id,
 				nature_of_material,
-				trans.trans_remarks
+				trans.trans_remarks,
+				loan_description
 			from 
 				project_trans, 
 				loan, 
