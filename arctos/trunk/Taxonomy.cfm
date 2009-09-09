@@ -975,7 +975,6 @@ username='#session.username#'
 		</cfif>
 	---->
 	starting...<cfflush>
-	<cfabort >
 	<cfquery name="edTaxa" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
 	UPDATE taxonomy SET 
 		valid_catalog_term_fg=#valid_catalog_term_fg#
