@@ -219,7 +219,7 @@
         </tr>
         <tr> 
 			<td>
-				<label for="nomenclatural_code"><span class="likeLink" onClick="getDocs('taxonomy','nomenclatural_code');">Code</span></label>
+				<label for="nomenclatural_code"><span class="likeLink" onClick="getDocs('taxonomy','nomenclatural_code');">Nomenclatural Code</span></label>
 				<select name="nomenclatural_code" id="nomenclatural_code" size="1" class="reqdClr">
 	               <cfloop query="ctnomenclatural_code">
 	                <option 
@@ -282,10 +282,7 @@
 				<label for="kingdom">Kingdom</label>
 				<input type="text" name="kingdom" id="kingdom" value="#kingdom#" size="30">
 			</td>
-			<td>
-				<label for="nomenclatural_code">Nomenclatural Code</label>
-				<input type="text" name="nomenclatural_code" id="nomenclatural_code" value="#nomenclatural_code#" size="30">
-			</td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
 			<td>
@@ -703,8 +700,13 @@ New Common Name:
 				<input type="text" name="kingdom" id="kingdom" value="#kingdom#" size="30">
 			</td>
 			<td>
-				<label for="nomenclatural_code">Nomenclatural Code</label>
-				<input type="text" name="nomenclatural_code" id="nomenclatural_code" value="#nomenclatural_code#" size="30">
+				<label for="nomenclatural_code"><span class="likeLink" onClick="getDocs('taxonomy','nomenclatural_code');">Nomenclatural Code</span></label>
+				<select name="nomenclatural_code" id="nomenclatural_code" size="1" class="reqdClr">
+	               <cfloop query="ctnomenclatural_code">
+	                <option 
+							<cfif #form.nomenclatural_code# is "#ctnomenclatural_code.nomenclatural_code#"> selected </cfif>value="#ctnomenclatural_code.nomenclatural_code#">#ctnomenclatural_code.nomenclatural_code#</option>
+	              </cfloop>
+	            </select>
 			</td>
 		</tr>
 		<tr>
