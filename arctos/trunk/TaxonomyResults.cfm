@@ -32,6 +32,7 @@
 				SOURCE_AUTHORITY,
 				FULL_TAXON_NAME,
 				SCIENTIFIC_NAME,
+				display_name,
 				AUTHOR_TEXT,
 				TRIBE,
 				INFRASPECIFIC_RANK
@@ -182,6 +183,7 @@
 				SOURCE_AUTHORITY,
 				FULL_TAXON_NAME,
 				SCIENTIFIC_NAME,
+				display_name,
 				AUTHOR_TEXT,
 				TRIBE,
 				INFRASPECIFIC_RANK">
@@ -286,7 +288,7 @@ Found #summary.cnt# records. (Note: This form will not return >1000 records; you
 					<li><h2 
 							<cfif #VALID_CATALOG_TERM_FG# is 0> style="color:red;" </cfif>
 							onclick="document.location='TaxonomyDetails.cfm?&taxon_name_id=#taxon_name_id#';">
-								<em>#scientific_name#</em>&nbsp;#author_text#
+								<em>#display_name#</em>
 							</h2>
 						<ul>
 							<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
