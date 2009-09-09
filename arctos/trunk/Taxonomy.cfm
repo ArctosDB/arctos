@@ -8,6 +8,9 @@
 <cfquery name="ctSourceAuth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select source_authority from CTTAXONOMIC_AUTHORITY order by source_authority
 </cfquery>
+<cfquery name="ctnomenclatural_code" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select nomenclatural_code from ctnomenclatural_code order by nomenclatural_code
+</cfquery>
 <cfset title="Edit Taxonomy">
 
 
@@ -215,7 +218,18 @@
 			</td>
         </tr>
         <tr> 
-        	<td colspan="2">
+			<td>
+				<label for="nomenclatural_code"><span class="likeLink" onClick="getDocs('taxonomy','nomenclatural_code');">Code</span></label>
+				<select name="nomenclatural_code" id="nomenclatural_code" size="1" class="reqdClr">
+	               <cfloop query="ctnomenclatural_code">
+	                <option 
+							<cfif #gettaxa.nomenclatural_code# is "#ctnomenclatural_code.nomenclatural_code#"> selected </cfif>value="#ctnomenclatural_code.nomenclatural_code#">#ctnomenclatural_code.nomenclatural_code#</option>
+	              </cfloop>
+	            </select>
+			
+			</td>
+        	
+			<td>
 				<label for="genus">Genus <span class="likeLink" 
 					onClick="taxa.genus.value='&##215;' + taxa.genus.value;">Add &##215;</span></label>
 				<input size="25" name="genus" id="genus" maxlength="40" value="#genus#">

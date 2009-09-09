@@ -63,6 +63,7 @@
 	</cfoutput>
 	<cfinclude template="/includes/_footer.cfm">
 </cfif>
+<!------------------------------------------------------------------------------>
 <cfif #action# is "goAway">
 <cfoutput>
 	<cfquery name="CatCllobjIds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -73,18 +74,11 @@
 		where
 			encumbrance_id=#encumbrance_id#
 	</cfquery>
-	<cfquery name="PartCollobjIds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select 
-			specimen_part.collection_object_id
-		from 
-			coll_object_encumbrance,
-			specimen_part
-		where
-			coll_object_encumbrance.collection_object_id = specimen_part.derived_from_cat_item AND
-			encumbrance_id=#encumbrance_id#
-	</cfquery>
-	<cfset catIdList = valuelist(CatCllobjIds.collection_object_id)>		
-	<cfset partIdList = valuelist(PartCollobjIds.collection_object_id)>		
+	<cfset catIdList = valuelist(CatCllobjIds.collection_object_id)>	
+	<cfif listlen(catIdList) gt 999>
+		fail: listlen(catIdList)=#listlen(catIdList)#
+		<cfabort>
+	</cfif>
 <cftransaction>
 <cfquery name="coll_obj_other_id_num" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	delete from coll_obj_other_id_num where collection_object_id IN 
@@ -114,10 +108,6 @@
 			coll_object_encumbrance WHERE
 			encumbrance_id = #encumbrance_id#
 		)
-</cfquery>
-<cfquery name="spcoll_object" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">	
-	delete from coll_object where collection_object_id IN 
-		(#partIdList#)
 </cfquery>
 <cfquery name="identification_taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	delete from identification_taxonomy where identification_id IN 
