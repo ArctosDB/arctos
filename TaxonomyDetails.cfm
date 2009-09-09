@@ -10,7 +10,6 @@
 	  	<div class="error">
 			<cfoutput>#scientific_name#</cfoutput> was not found.	
 		</div>
-		<cfdump var="#getTID#">
 	</cfif>
 </cfif>
 <cfif isdefined("taxon_name_id")>
@@ -30,6 +29,7 @@
 			taxonomy.#i#,
 		</cfloop>
 		taxonomy.SCIENTIFIC_NAME,
+		taxonomy.display_name,
 		taxonomy.AUTHOR_TEXT,
 		taxonomy.INFRASPECIFIC_AUTHOR,		
 		taxonomy.INFRASPECIFIC_RANK,
@@ -38,7 +38,9 @@
 		taxon_relations.TAXON_RELATIONSHIP,
 		taxon_relations.RELATION_AUTHORITY,
 		related_taxa.SCIENTIFIC_NAME as related_name,
+		related_taxa.display_name as related_display_name,
 		imp_related_taxa.SCIENTIFIC_NAME imp_related_name,
+		imp_related_taxa.display_name imp_related_display_name,
 		imp_taxon_relations.taxon_name_id imp_RELATED_TAXON_NAME_ID,
 		imp_taxon_relations.TAXON_RELATIONSHIP imp_TAXON_RELATIONSHIP,
 		imp_taxon_relations.RELATION_AUTHORITY imp_RELATION_AUTHORITY
@@ -75,6 +77,7 @@
 		SOURCE_AUTHORITY,
 		FULL_TAXON_NAME,
 		SCIENTIFIC_NAME,
+		display_name,
 		AUTHOR_TEXT,
 		INFRASPECIFIC_RANK,
 		<cfloop list="#taxaRanksList#" index="i">
@@ -89,6 +92,7 @@
 		SOURCE_AUTHORITY,
 		FULL_TAXON_NAME,
 		SCIENTIFIC_NAME,
+		display_name,
 		AUTHOR_TEXT,
 		INFRASPECIFIC_RANK,
 		<cfloop list="#taxaRanksList#" index="i">
@@ -101,7 +105,8 @@
 		RELATED_TAXON_NAME_ID,
 		TAXON_RELATIONSHIP,
 		RELATION_AUTHORITY,
-		related_name
+		related_name,
+		related_display_name
 	from
 		getDetails
 	where
@@ -110,14 +115,16 @@
 		RELATED_TAXON_NAME_ID,
 		TAXON_RELATIONSHIP,
 		RELATION_AUTHORITY,
-		related_name
+		related_name,
+		related_display_name
 </cfquery>
 <cfquery name="imp_related" dbtype="query">
 	select
 		imp_related_name,
 		imp_RELATED_TAXON_NAME_ID,
 		imp_TAXON_RELATIONSHIP,
-		imp_RELATION_AUTHORITY
+		imp_RELATION_AUTHORITY,
+		imp_related_display_name
 	from
 		getDetails
 	where
@@ -126,7 +133,8 @@
 		imp_related_name,
 		imp_RELATED_TAXON_NAME_ID,
 		imp_TAXON_RELATIONSHIP,
-		imp_RELATION_AUTHORITY
+		imp_RELATION_AUTHORITY,
+		imp_related_display_name
 </cfquery>
 <cfoutput>
 	<cfset title="#one.scientific_name#">
@@ -138,17 +146,13 @@
 	<div align="left">
 		<cfif one.VALID_CATALOG_TERM_FG is 1>
 	   		<font size="+1"	>
-		    	<I><B>#one.SCIENTIFIC_NAME#</B></I>			    
+		    	<I><B>#one.display_name#</B></I>			    
 			</font>
 			<cfif len(one.AUTHOR_TEXT) gt 0>
-				<font size="+1">#one.AUTHOR_TEXT#</font>
 				<cfset metaDesc=metaDesc & "; Author: #one.AUTHOR_TEXT#">
         	</cfif>
         <cfelseIF #one.VALID_CATALOG_TERM_FG# is 0>
-	    	<font size="+1"><I><b>#one.SCIENTIFIC_NAME#</b></I></font>
-	    	<cfif len(#one.AUTHOR_TEXT#) gt 0>
-		    	<font size="+1">#one.AUTHOR_TEXT#</font>
-			</cfif>
+	    	<font size="+1"><I><b>#one.display_name#</b></I></font>
 	        <br>
 	        <font color="##FF0000" size="-1">
 		    	&nbsp;&nbsp;&nbsp;&nbsp;
@@ -224,17 +228,17 @@
 		<ul>
 			<li>
 				 <a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#">
-					Specimen Results: exactly <I>#one.SCIENTIFIC_NAME#</I>
+					Specimen Results: exactly #one.display_name#
 				</a>
 			</li>
 			<li>
 				<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#">
-					Specimen Results: like <I>#one.SCIENTIFIC_NAME#</I>
+					Specimen Results: like #one.display_name#
 				</a>
 			</li>
 			<li>
 				<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#&media_type=any">
-					Specimen Results with Media: like <I>#one.SCIENTIFIC_NAME#</I>
+					Specimen Results with Media: like #one.display_name#
 				</a>
 			</li>
 			<li>
@@ -318,7 +322,7 @@
 	</p>
 	<cfif len(one.genus) gt 0>
 		<cfquery name="samegen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select scientific_name from taxonomy where genus='#one.genus#'
+			select scientific_name,display_name from taxonomy where genus='#one.genus#'
 			and scientific_name != '#one.scientific_name#' and
 			rownum <= 25
 			order by scientific_name
@@ -328,7 +332,7 @@
 				First 25 Arctos entries for genus=#one.genus# <a href="/TaxonomyResults.cfm?genus=#one.genus#">See all</a>
 				<ul>
 					<cfloop query="samegen">
-						<li><a href="/name/#scientific_name#">#scientific_name#</a></li>
+						<li><a href="/name/#scientific_name#">#display_name#</a></li>
 					</cfloop>
 				</ul>
 			<cfelse>
