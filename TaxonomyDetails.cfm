@@ -10,6 +10,7 @@
 	  	<div class="error">
 			<cfoutput>#scientific_name#</cfoutput> was not found.	
 		</div>
+		<cfdump var="#getTID#">
 	</cfif>
 </cfif>
 <cfif isdefined("taxon_name_id")>
