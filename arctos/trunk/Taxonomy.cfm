@@ -508,7 +508,7 @@ New Common Name:
 		INSERT INTO common_name (common_name, taxon_name_id)
 		VALUES ('#common_name#', #taxon_name_id#)
 	</cfquery>
-	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">
+	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
@@ -534,7 +534,7 @@ New Common Name:
 		WHERE 
 			common_name='#origCommonName#' AND taxon_name_id=#taxon_name_id#
 	</cfquery>
-	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">
+	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
@@ -549,7 +549,7 @@ New Common Name:
 		WHERE 
 			common_name='#origCommonName#' AND taxon_name_id=#taxon_name_id#
 	</cfquery>
-	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">
+	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
@@ -886,7 +886,7 @@ New Common Name:
 			)
 		</cfquery>
 		
-	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#nextID.nextID#">
+	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#nextID.nextID#" addtoken="false">
 	
 	
 	
@@ -917,7 +917,7 @@ New Common Name:
 		 </cfif> )
 		 
 	</cfquery>
-	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">
+	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
@@ -932,7 +932,7 @@ New Common Name:
 		AND Taxon_relationship = '#origtaxon_relationship#'
 		AND related_taxon_name_id=#related_taxon_name_id#
 		</cfquery>
-		<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">
+		<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
@@ -957,7 +957,7 @@ New Common Name:
 		AND Taxon_relationship = '#origTaxon_relationship#'
 		AND related_taxon_name_id=#related_taxon_name_id#
 </cfquery>
-<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">
+<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
 </cfoutput>
 
 </cfif>
@@ -1067,7 +1067,7 @@ username='#session.username#'
 	</cfquery>
 
 	</cftransaction>
-	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">
+	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
 </cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
