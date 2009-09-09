@@ -146,13 +146,13 @@
 	<div align="left">
 		<cfif one.VALID_CATALOG_TERM_FG is 1>
 	   		<font size="+1"	>
-		    	<I><B>#one.display_name#</B></I>			    
+		    	<B>#one.display_name#</B>			    
 			</font>
 			<cfif len(one.AUTHOR_TEXT) gt 0>
 				<cfset metaDesc=metaDesc & "; Author: #one.AUTHOR_TEXT#">
         	</cfif>
         <cfelseIF #one.VALID_CATALOG_TERM_FG# is 0>
-	    	<font size="+1"><I><b>#one.display_name#</b></I></font>
+	    	<font size="+1"><b>#one.display_name#</b></font>
 	        <br>
 	        <font color="##FF0000" size="-1">
 		    	&nbsp;&nbsp;&nbsp;&nbsp;
