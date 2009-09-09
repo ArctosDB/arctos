@@ -4,4 +4,4 @@
 	<li><a href="/home.cfm">Arctos home</a></li>
 	<li><a href="/SpecimenSearch.cfm?OIDType=National Biomonitoring Specimen Bank">Search for Specimens</a></li>
 </ul>
-<cf_get_footer institution="STAMP">
+<cfinclude template="/includes/_footer.cfm">
