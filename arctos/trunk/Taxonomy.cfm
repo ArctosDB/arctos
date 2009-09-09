@@ -974,6 +974,7 @@ username='#session.username#'
 <cfflush>
 		</cfif>
 	---->
+	starting...<cfflush>
 	<cfquery name="edTaxa" datasource="user_login" username='#session.username#' password="#decrypt(session.epw,cfid)#">
 	UPDATE taxonomy SET 
 		valid_catalog_term_fg=#valid_catalog_term_fg#
@@ -1065,6 +1066,7 @@ username='#session.username#'
 		</cfif>	
 	WHERE taxon_name_id=#taxon_name_id#
 	</cfquery>
+	finished...<cfflush>
 
 	</cftransaction>
 	<cflocation url="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#" addtoken="false">
