@@ -35,7 +35,13 @@
 				display_name,
 				AUTHOR_TEXT,
 				TRIBE,
-				INFRASPECIFIC_RANK
+				INFRASPECIFIC_RANK,
+				kingdom,
+				SUPERFAMILY,
+				SUBCLASS,
+				TAXON_REMARKS,
+				NOMENCLATURAL_CODE,
+				INFRASPECIFIC_AUTHOR
 			 from taxonomy, common_name
 				WHERE rownum<1000 and taxonomy.taxon_name_id = common_name.taxon_name_id (+)">
 		<cfif isdefined("common_name") AND len(#common_name#) gt 0>
@@ -186,7 +192,13 @@
 				display_name,
 				AUTHOR_TEXT,
 				TRIBE,
-				INFRASPECIFIC_RANK">
+				INFRASPECIFIC_RANK,
+				kingdom,
+				SUPERFAMILY,
+				SUBCLASS,
+				TAXON_REMARKS,
+				NOMENCLATURAL_CODE,
+				INFRASPECIFIC_AUTHOR">
 		<cfif #stringOfStuffToClean# contains "'">
 			You searched for an illegal character.
 			<cfabort>
@@ -257,17 +269,26 @@ Found #summary.cnt# records. (Note: This form will not return >1000 records; you
 	<tr>
   		<th>&nbsp;</th>
 		<th>Common Name(s)</th>
+		<th>Nomenclatural&nbsp;Code</th>
+		<th>Kingdom</th>
 		<th>Phylum</th>
 		<th>Class</th>
+		<th>Subclass</th>
         <th>Order</th>
         <th>Suborder</th>
+        <th>Superfamily</th>
         <th>Family</th>
 	    <th>Subfamily</th>
         <th>Tribe</th>
         <th>Genus</th>
         <th>Subgenus</th>
         <th>Species</th>
+        <th>Author</th>
+		<th>Infraspecific&nbsp;Rank</th>
         <th>Subspecies</th>
+        <th>Infraspecific&nbsp;Author</th>
+        <th>Authority</th>
+        <th>Remark</th>
     </tr>
   <cfset i=1>
   <cfoutput query="getTaxa">
@@ -329,17 +350,26 @@ Found #summary.cnt# records. (Note: This form will not return >1000 records; you
 		</cfloop>
 	</cfif>
 	</td>
+	<td>#nomenclatural_code#&nbsp;</td>
+	<td>#kingdom#&nbsp;</td>
 	<td>#phylum#&nbsp;</td>
 	<td>#Phylclass#&nbsp;</td>
+	<td>#subclass#&nbsp;</td>
     <td>#Phylorder#&nbsp;</td>
     <td>#Suborder#&nbsp;</td>
+    <td>#superfamily#&nbsp;</td>
     <td>#Family#&nbsp;</td>
 	<td>#Subfamily#&nbsp;</td>
     <td>#Tribe#&nbsp;</td>
     <td>#Genus#&nbsp;</td>
     <td>#Subgenus#&nbsp;</td>
     <td>#Species#&nbsp;</td>
+    <td>#author_text#&nbsp;</td>
+    <td>#infraspecific_rank#&nbsp;</td>	
     <td>#Subspecies#&nbsp;</td>
+    <td>#infraspecific_author#&nbsp;</td>
+    <td>#source_authority#&nbsp;</td>
+    <td>#taxon_remarks#&nbsp;</td>
   </tr>
   <cfset i=#i#+1>
   </cfoutput>
