@@ -184,7 +184,7 @@ Include column headings, spelled exactly as below.
 			</cfif>
 			<cfif #collObj.recordcount# is not 1>
 					
-					#data.existing_other_id_number# #data.existing_other_id_type# #data.collection_cde# #data.institution_acronym#
+					#data.institution_acronym# #data.collection_cde# #data.existing_other_id_number# #data.existing_other_id_type# 
 					could not be found!
 					<br>The load process has aborted!
 					<br>You must fix the original file and start over.
