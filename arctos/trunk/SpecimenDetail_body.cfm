@@ -313,7 +313,7 @@
 							<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 								select 
 									taxonomy.taxon_name_id,
-									scientific_name,
+									display_name,
 									author_text
 								FROM
 									identification_taxonomy,
@@ -329,13 +329,13 @@
 					        </cfif>
 					        <cfif #getTaxa.recordcount# is 1>
 								<a href="/TaxonomyDetails.cfm?taxon_name_id=#getTaxa.taxon_name_id#" target="_blank">
-									<i>#scientific_name#</i> #getTaxa.author_text#</a> 
+									#display_name#</a> 
 							<cfelse>
 								<cfset link="">
 								<cfset i=1>
 								<cfset thisSciName="#scientific_name#">
 								<cfloop query="getTaxa">
-									<cfset thisLink='<a href="/TaxonomyDetails.cfm?taxon_name_id=#taxon_name_id#" target="_blank"><i>#scientific_name#</i> #author_text#</a>'>
+									<cfset thisLink='<a href="/TaxonomyDetails.cfm?taxon_name_id=#taxon_name_id#" target="_blank">#display_name#</a>'>
 									<cfset thisSciName=#replace(thisSciName,scientific_name,thisLink)#>
 									<cfset i=#i#+1>
 								</cfloop>
