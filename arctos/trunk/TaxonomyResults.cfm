@@ -267,8 +267,8 @@ Found #summary.cnt# records. (Note: This form will not return >1000 records; you
 
 <table border="1" id="tre" class="sortable">
 	<tr>
-  		<th>&nbsp;</th>
-		<th>Common Name(s)</th>
+  		<th>Name</th>
+		<th>Common&nbsp;Name(s)</th>
 		<th>Nomenclatural&nbsp;Code</th>
 		<th>Kingdom</th>
 		<th>Phylum</th>
