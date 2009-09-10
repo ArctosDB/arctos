@@ -2,6 +2,23 @@
 
 <cfdump var=#url#>
 
+<cfparam name="request.fixAmp" type="boolean" default="false">
+
+<cfif (NOT request.fixAmp) AND (findNoCase("&amp;", cgi.query_string ) gt 0)>
+	<cfscript>
+		request.fixAmp = true;
+		queryString = replace(cgi.query_string, "&amp;", "&", "all");
+		getPageContext().forward(cgi.script_Name & "?" & queryString);
+	</cfscript>
+	<cfabort>
+<cfelse>
+	<cfscript>
+		//just for cleanup
+		StructDelete(request, "fixAmp");
+	</cfscript>
+</cfif> 
+
+boogity!
 <cfabort>
 <cfset metaDesc="Locate Media, including audio (sound recordings), video (movies), and images (pictures) of specimens, collecting sites, habitat, collectors, and more.">
 <div id="_header">
