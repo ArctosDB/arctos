@@ -329,7 +329,7 @@
 					        </cfif>
 					        <cfif #getTaxa.recordcount# is 1>
 								<a href="/TaxonomyDetails.cfm?taxon_name_id=#getTaxa.taxon_name_id#" target="_blank">
-									#display_name#</a> 
+									#getTaxa.display_name#</a> 
 							<cfelse>
 								<cfset link="">
 								<cfset i=1>
