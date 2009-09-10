@@ -327,7 +327,7 @@ do not agree</font>.</a>
 						<cfif #c# is "BEGAN_DATE" or #c# is "ENDED_DATE">
 							<cfset thisData=dateformat(thisData,"dd-mmm-yyyy")>
 						<cfelseif c is "MEDIA">
-							<cfset thisData='media!'></cfif>
+							<cfset thisData='#application.serverRootUrl#/MediaSearch.cfm?action=search&relationship__1=cataloged_item&related_primary_key__1=#collection_object_id#'></cfif>
 						<cfif len(#oneLine#) is 0>
 							<cfset oneLine = '<#c#>#xmlformat(thisData)#</#c#>'>
 						<cfelse>
