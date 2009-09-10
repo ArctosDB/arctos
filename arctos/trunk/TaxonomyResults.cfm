@@ -288,7 +288,7 @@ Found #summary.cnt# records. (Note: This form will not return >1000 records; you
 					<li><h2 
 							<cfif #VALID_CATALOG_TERM_FG# is 0> style="color:red;" </cfif>
 							onclick="document.location='TaxonomyDetails.cfm?&taxon_name_id=#taxon_name_id#';">
-								<em>#display_name#</em>
+								#display_name#
 							</h2>
 						<ul>
 							<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
