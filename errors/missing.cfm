@@ -90,6 +90,10 @@
 		<cfelse>
 			here tis
 		<cfdump var=#cgi#>
+		
+		<cfdump var=#url#>
+		
+		<cfdump var=#form#>
 		<cfabort>
 		</cfif>
 		<cfinclude template="/errors/404.cfm">
