@@ -70,6 +70,16 @@
 			<br>
 	        <input type="submit" value="Save Password Change" class="savBtn">
 	    </form>
+	    <cfquery name="isGoodEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select email,username from cf_user_data,cf_users
+			 where cf_user_data.user_id = cf_users.user_id and
+			 username= '#session.username#'
+		</cfquery>
+		<cfif len(isGoodEmail.email) gt 0>
+			If you can't remember your old password, we can 
+			<a href="ChangePassword?email=isGoodEmail.email&username=isGoodEmail.username">email a new temporary password</a>.
+		</cfif>
+		
 	</cfoutput>
 </cfif>
 <!----------------------------------------------------------->
