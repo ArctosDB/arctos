@@ -5,12 +5,10 @@
 	 .../bla/whatever/guid/{institution}:{collection}:{catnum}
 --->
 <cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
-	<cfoutput>
 	<cfset rdurl=cgi.REDIRECT_URL>
 	<cfif rdurl contains chr(195) & chr(151)>
 		<cfset rdurl=replace(rdurl,chr(195) & chr(151),chr(215))>
 	</cfif>
-	</cfoutput>
 	<cfif listfindnocase(rdurl,'specimen',"/")>
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"specimen","/")>
