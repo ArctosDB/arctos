@@ -196,7 +196,7 @@ You will be redirected soon, or you may use the menu above now.
 <!---------------------------------------------------------------------->
 <cfif #action# is "findPass">
 <cfoutput>
-	<cfquery name="isGoodEmail" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="isGoodEmail" datasource="cf_dbuser">
 		select cf_user_data.user_id, email,username from cf_user_data,cf_users
 		 where cf_user_data.user_id = cf_users.user_id and
 		 email = '#email#' and username= '#username#'
