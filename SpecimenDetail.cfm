@@ -338,7 +338,7 @@
 					</font>
 				</td>
 				<td>
-					<cfif len(dec_lat) gt 0 and len(dec_long) gt 0>
+					<cfif len(dec_lat) gt 0 and len(dec_long) gt 0 and (dec_lat is not 0 and dec_long is not 0)>
 						<cfset iu="http://maps.google.com/maps/api/staticmap?key=#application.gmap_api_key#&center=#dec_lat#.#dec_long#">
 						<cfset iu=iu & "&markers=color:red|size:tiny|#dec_lat#,#dec_long#&sensor=false&size=100x100&zoom=2">
 						<cfset iu=iu & "&maptype=roadmap">
