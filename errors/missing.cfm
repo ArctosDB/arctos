@@ -88,20 +88,18 @@
 			<cfheader statuscode="301" statustext="Moved permanently">
 			<cfheader name="Location" value="http://arctos.database.museum/digir/DiGIR.php">
 		<cfelse>
-			<cfoutput>
-			cgi.REDIRECT_URL: #cgi.REDIRECT_URL#
-			<cfdump var="#cgi.redirect_query_string#">
-			<br>
-			here tis
-		<cfdump var=#cgi#>
-		
-		<cfdump var=#url#>
-		
-		<cfdump var=#form#>
-		</cfoutput>
-		<cfabort>
+			<cftry>
+				<cfscript>
+					getPageContext().forward(cgi.REDIRECT_URL & ".cfm?" & cgi.redirect_query_string);
+				</cfscript>
+				<cfabort>
+			<cfcatch>
+				<cfscript>
+					getPageContext().forward("/errors/404.cfm");
+				</cfscript>
+			</cfcatch>
+			</cftry>
 		</cfif>
-		<cfinclude template="/errors/404.cfm">
 	</cfif>
 <cfelse>
 	<cfinclude template="/errors/404.cfm">
