@@ -82,6 +82,10 @@
 			</cfcatch>
 		</cftry>
 		</Cfoutput>
+	<cfelseif rdurl does not contain '.cfm')>
+		here tis
+		<cfdump var=#cgi#>
+		<cfabort>
 	<cfelse><!--- all the rest --->
 		<!--- see if we can handle the peristent 404s elegantly --->
 		<cfif cgi.SCRIPT_NAME contains "/DiGIRprov/www/DiGIR.php">
