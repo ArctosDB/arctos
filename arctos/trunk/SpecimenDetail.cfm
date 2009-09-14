@@ -54,51 +54,43 @@
 </cfif>
 <cfset detSelect = "
 	SELECT DISTINCT
-		institution_acronym,
-		collection.collection,
-		cataloged_item.collection_id,
+		#flatTableName#.collection,
+		#flatTableName#.collection_id,
 		web_link,
 		web_link_text,
-		cataloged_item.cat_num,
-		cataloged_item.collection_object_id as collection_object_id,
-		cataloged_item.collection_cde,
-		identification.scientific_name,
-		continent_ocean,
-		country,
-		collecting_event.collecting_event_id,
-		state_prov,
-		quad,
-		higher_geog,
-		county,
-		island,
-		island_group,
-		spec_locality,
-		verbatim_date,
-		BEGAN_DATE,
-		ended_date,
-		sea,
-		feature,
-		concatparts(cataloged_item.collection_object_id) as partString,
-		concatEncumbrances(cataloged_item.collection_object_id) as encumbrance_action,
-		dec_lat,
-		dec_long">
+		#flatTableName#.cat_num,
+		#flatTableName#.collection_object_id as collection_object_id,
+		#flatTableName#.scientific_name,
+		#flatTableName#.continent_ocean,
+		#flatTableName#.country,
+		#flatTableName#.collecting_event_id,
+		#flatTableName#.state_prov,
+		#flatTableName#.quad,
+		#flatTableName#.higher_geog,
+		#flatTableName#.county,
+		#flatTableName#.island,
+		#flatTableName#.island_group,
+		#flatTableName#.spec_locality,
+		#flatTableName#.verbatim_date,
+		#flatTableName#.BEGAN_DATE,
+		#flatTableName#.ended_date,
+		#flatTableName#.sea,
+		#flatTableName#.feature,
+		concatparts(#flatTableName#.collection_object_id) as partString,
+		concatEncumbrances(#flatTableName#.collection_object_id) as encumbrance_action,
+		#flatTableName#.dec_lat,
+		#flatTableName#.dec_long">
 		<cfif len(#session.CustomOtherIdentifier#) gt 0>
 			<cfset detSelect = "#detSelect#
-			,concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') as	CustomID">
+			,concatSingleOtherId(#flatTableName#.collection_object_id,'#session.CustomOtherIdentifier#') as	CustomID">
 		</cfif>		
 <cfset detSelect = "#detSelect#	
 	FROM 
-		cataloged_item
-	INNER JOIN collection ON (cataloged_item.collection_id = collection.collection_id)
-	INNER JOIN identification ON (cataloged_item.collection_object_id = identification.collection_object_id)
-	INNER JOIN collecting_event ON (cataloged_item.collecting_event_id = collecting_event.collecting_event_id)
-	INNER JOIN locality ON (collecting_event.locality_id = locality.locality_id)
-	INNER JOIN geog_auth_rec ON (locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id)
-	INNER JOIN Coll_object ON (cataloged_item.collection_object_id = coll_object.collection_object_id)
-	LEFT OUTER JOIN accepted_lat_long ON (locality.locality_id = accepted_lat_long.locality_id)
-	WHERE 
-		identification.accepted_id_fg = 1 AND
-		cataloged_item.collection_object_id = #collection_object_id#
+		flat,
+		collection
+	where
+		flat.collection_id = collection.collection_id AND
+		flat.collection_object_id = #collection_object_id#
 	ORDER BY
 		cat_num">
 <cfset checkSql(detSelect)>	

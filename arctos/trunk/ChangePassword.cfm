@@ -252,12 +252,9 @@ You will be redirected soon, or you may use the menu above now.
 				#Application.ServerRootUrl#/login.cfm
 				
 				If you did not request this change, please reply to #Application.technicalEmail#.
-			</cfmail>
-			
-			#username# / #newPass#	
-			
-			
+			</cfmail>			
 		An email containing your new password has been sent to the email address on file. It may take a few minutes to arrive.
+		<cfset initSession()>
 	</cfif>
 </cfoutput>
 </cfif>
