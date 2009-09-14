@@ -6,12 +6,10 @@
 
 <cffunction name="onMissingTemplate" returnType="boolean" output="false">
    <cfargument name="thePage" type="string" required="true">
-----onMissingTemplate-----
 	<cfscript>
 		getPageContext().forward("/errors/404.cfm");
 	</cfscript>
 	<cfabort>
-   <cflocation url="/errors/404.cfm" addToken="false">
 </cffunction>
 
 <cffunction name="onError">
