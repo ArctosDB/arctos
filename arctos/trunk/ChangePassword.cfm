@@ -77,7 +77,7 @@
 		</cfquery>
 		<cfif len(isGoodEmail.email) gt 0>
 			If you can't remember your old password, we can 
-			<a href="ChangePassword?email=#isGoodEmail.email#&username=#isGoodEmail.username#">email a new temporary password</a>.
+			<a href="ChangePassword?action=findPass&email=#isGoodEmail.email#&username=#isGoodEmail.username#">email a new temporary password</a>.
 		</cfif>
 		
 	</cfoutput>
