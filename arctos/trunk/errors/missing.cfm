@@ -90,6 +90,7 @@
 		<cfelse>
 			<cfoutput>
 			cgi.REDIRECT_URL: #cgi.REDIRECT_URL#
+			<cfdump var="#cgi.redirect_query_string#">
 			<br>
 			here tis
 		<cfdump var=#cgi#>
