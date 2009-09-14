@@ -53,12 +53,12 @@
 		something is broken, or <a href="/info/bugs.cfm">submit a bug report</a> telling us how you got this error.
 	</p>
 	
-	<p><a href="/TaxonomySearch.cfm">Search for Taxon Names here</a></p>
-	<p><a href="/SpecimenUsage.cfm">Search for Projects and Publications here</a></p>
+	<p><a href="/TaxonomySearch">Search for Taxon Names here</a></p>
+	<p><a href="/SpecimenUsage">Search for Projects and Publications here</a></p>
 	<p>
 		If you're trying to find specimens, you may:
 		<ul>
-			<li><a href="/SpecimenSearch.cfm">Search for them</a></li>
+			<li><a href="/SpecimenSearch">Search for them</a></li>
 			<li>Access them by URLs of the format:
 				<ul>
 					<li>
