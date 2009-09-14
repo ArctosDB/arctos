@@ -88,11 +88,11 @@
 		</cfif>		
 <cfset detSelect = "#detSelect#	
 	FROM 
-		flat,
+		#flatTableName#,
 		collection
 	where
-		flat.collection_id = collection.collection_id AND
-		flat.collection_object_id = #collection_object_id#
+		#flatTableName#.collection_id = collection.collection_id AND
+		#flatTableName#.collection_object_id = #collection_object_id#
 	ORDER BY
 		cat_num">
 <cfset checkSql(detSelect)>	
