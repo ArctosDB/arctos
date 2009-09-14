@@ -62,12 +62,19 @@
 		#flatTableName#.datum,
 		#flatTableName#.collection_object_id">
 	<cfset basFrom = "	FROM #flatTableName#">
+	<!----
 	<cfset basJoin = " INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)
 		INNER JOIN collecting_event flatCollEvent ON (#flatTableName#.collecting_event_id = flatCollEvent.collecting_event_id)">	
 	<cfset basWhere = " WHERE 
 		dec_lat is not null AND
 		dec_long is not null AND
-		flatCollEvent.collecting_source = 'wild caught' ">			
+		flatCollEvent.collecting_source = 'wild caught' ">
+	---->	
+	<cfset basJoin = " INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
+	<cfset basWhere = " WHERE 
+		flat.dec_lat is not null AND
+		flat.dec_long is not null AND
+		flat.collecting_source = 'wild caught' ">		
 	<cfset basQual = "">
 	<cfif not isdefined("basJoin")>
 		<cfset basJoin = "">
