@@ -287,12 +287,12 @@
 							}
 							var otherOpts = {
 								overlayRemoveTime:99999999999999,  
-								buttonHTML:"turn select on",
-								buttonZoomingHTML:"turn select off",
-								buttonStartingStyle:{left:'150px', border: '2px solid red', padding: '4px',fontSize:'small',color:'blue',fontWeight:'bold'},
-								buttonZoomingStyle:{background: '##FF0'},
+								buttonHTML:"Turn on Select",
+								buttonZoomingHTML:"Turn off Select",
+								buttonStartingStyle:{left:'150px', border: '1px solid black', padding: '4px',fontSize:'small',color:'blue',fontWeight:'bold'},
+								buttonZoomingStyle:{background: 'lightblue'},
 								backButtonEnabled : true,
-								backButtonHTML : 'go back',
+								backButtonHTML : 'Go Back',
 								minDragSize:3
 							};
 							var callbacks = {
