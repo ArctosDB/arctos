@@ -8,7 +8,7 @@
 	t: #t#<hr>
 	<cfset v=listgetat(q,2,"=")>
 	v: #v#<hr>
-	<cfset #t#="#v#">
+	<cfset "#t#"="#v#">
 	<hr>
 	collection_object_id: #collection_object_id#
 	<cfdump var=#variables#>
