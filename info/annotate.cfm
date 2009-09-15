@@ -24,7 +24,7 @@
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
-				'Specimen ' || collection.collection || ' ' cat_num ||
+				'Specimen ' || collection.collection || ' ' || cat_num ||
 				' <i>' || scientific_name || '</i>' summary
 			from 
 				cataloged_item,
@@ -33,7 +33,7 @@
 			where 
 				cataloged_item.collection_object_id = identification.collection_object_id AND
 				accepted_id_fg=1 AND
-				cataloged_item.collection_id = collection.collection_id
+				cataloged_item.collection_id = collection.collection_id and
 				cataloged_item.collection_object_id=#collection_object_id#
 		</cfquery>
 		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
