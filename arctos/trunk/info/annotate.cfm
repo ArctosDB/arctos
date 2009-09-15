@@ -2,12 +2,14 @@
 <cfif #action# is "nothing">
 
 <cfoutput>
+	q: #q#
+	<hr>
 	<cfset t=listgetat(q,1,"=")>
-	t: #t#
+	t: #t#<hr>
 	<cfset v=listgetat(q,2,"=")>
-	v: #v#
+	v: #v#<hr>
 	<cfset #t#="#v#">
-	
+	<hr>
 	collection_object_id: #collection_object_id#
 	<cfdump var=#variables#>
 	
