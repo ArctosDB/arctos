@@ -51,9 +51,4 @@ function success_saveThisAnnotation (result) {
 		alert('An error occured! \n ' + result);
 	}
 }
-function closeAnnotation() {
-	var theDiv = document.getElementById('bgDiv');
-	document.body.removeChild(theDiv);
-	var theDiv = document.getElementById('annotateDiv');
-	document.body.removeChild(theDiv);
-}
+
