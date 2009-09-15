@@ -25,6 +25,7 @@ var viewport = {
        }
    };
 function saveThisAnnotation() {
+	console.log('hi biatchez!');
 	var idType = document.getElementById("idtype").value;
 	var idvalue = document.getElementById("idvalue").value;
 	var annotation = escape(document.getElementById("annotation").value);
