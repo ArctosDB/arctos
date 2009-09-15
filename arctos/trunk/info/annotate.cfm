@@ -3,7 +3,7 @@
 
 <cfoutput>
 
-	id:#id#; type: #type#
+	q:#q#;
 </cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/annotate.css">		
 <span onclick="closeAnnotation()" class="windowCloser">Close Annotation Window</span>

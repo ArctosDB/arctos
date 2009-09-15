@@ -354,7 +354,7 @@
 								select count(*) cnt from specimen_annotations
 								where collection_object_id = #collection_object_id#
 							</cfquery>
-							<a href="javascript: openAnnotation('#collection_object_id#')">
+							<a href="javascript: openAnnotation('collection_object_id=#collection_object_id#')">
 								[Report&nbsp;Bad&nbsp;Data]							
 							<cfif #existingAnnotations.cnt# gt 0>
 								<br>(#existingAnnotations.cnt# existing)
@@ -514,7 +514,7 @@
 <cfinclude template="/includes/_footer.cfm">
 	<cfif isdefined("showAnnotation") and #showAnnotation# is "true">
 		<script language="javascript" type="text/javascript">
-			openAnnotation('#collection_object_id#');
+			openAnnotation('collection_object_id=#collection_object_id#');
 		</script>		
 	</cfif>
 </cfoutput>
