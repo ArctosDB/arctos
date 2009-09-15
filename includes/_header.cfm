@@ -283,7 +283,7 @@
 								</ul>
 							</li>
 						</cfif>
-						<cfif listfind(formList,"/info/annotate.cfm")>
+						<cfif listfind(formList,"/info/reviewAnnotation.cfm")>
 							<li><a target="_top" href="##" class="x">Misc.</a>
 								<ul>
 									<li><a target="_top" href="/tools/PublicationStatus.cfm">Publication Staging</a></li>
@@ -309,7 +309,7 @@
 						<ul>
 							<li><a target="_top" href="/Reports/reporter.cfm">Reporter</a></li>
 							<li><a target="_top" href="/info/mia_in_genbank.cfm">GenBank MIA</a></li>
-							<li><a target="_top" href="/info/annotate.cfm">Annotations</a></li>
+							<li><a target="_top" href="/info/reviewAnnotation.cfm">Annotations</a></li>
 							<li><a target="_top" href="/info/loanStats.cfm">Loan/Citation Stats</a></li>
 							<li><a target="_top" href="/Admin/download.cfm">Download Stats</a></li>
 							<li><a target="_top" href="/info/Citations.cfm">Citation Stats</a></li>
