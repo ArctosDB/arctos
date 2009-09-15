@@ -60,7 +60,8 @@
 			onclick="saveThisAnnotation()">
 	</form>
 	<cfif prevAnn.recordcount gt 0>
-		<table border>
+		<label for="tbl">Previos Annotations</label>
+		<table id="tbl" border>
 			<th>Annotation</th>
 			<th>Made Date</th>
 			<th>Status</th>
