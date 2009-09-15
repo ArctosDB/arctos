@@ -339,7 +339,7 @@
 								<cfloop query="getTaxa">
 									<cfset thisLink='<a href="/name/#scientific_name#" target="_blank">#display_name#</a>'>
 									thisLink: #thisLink#
-									<cfset thisSciName=#replace(thisSciName,display_name,thisLink)#>
+									<cfset thisSciName=#replace(thisSciName,scientific_name,thisLink)#>
 									<cfset i=#i#+1>
 								</cfloop>
 								thisSciName: #thisSciName#
