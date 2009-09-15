@@ -24,6 +24,32 @@ var viewport = {
        jQuery(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round(jQuery(el).height()/2));
        }
    };
+function saveThisAnnotation() {
+	var idType = document.getElementById("idtype").value;
+	var idvalue = document.getElementById("idvalue").value;
+	var annotation = esccape(document.getElementById("annotation").value);
+	$.getJSON("/component/functions.cfc",
+		{
+			method : "addAnnotation",
+			idType : idType,
+			idvalue : idvalue,
+			higher_geography : higher_geography,
+			specific_locality : specific_locality,
+			annotation_remarks : annotation_remarks,
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function(r) {
+			if (r == 'success') {
+				closeAnnotation();
+				alert("Your annotations have been saved, and the appropriate curator will be alerted. \n Thank you for helping improve Arctos!");
+			} else {
+				alert('An error occured! \n ' + r);
+			}	
+		}
+	);
+}
+
 
 function openAnnotation(q) {
 	var bgDiv = document.createElement('div');
