@@ -24,6 +24,27 @@ var viewport = {
        jQuery(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round(jQuery(el).height()/2));
        }
    };
+
+function openAnnotation(id,type) {
+	var bgDiv = document.createElement('div');
+	bgDiv.id = 'bgDiv';
+	bgDiv.className = 'bgDiv';
+	bgDiv.setAttribute('onclick','closeAnnotation()');
+	document.body.appendChild(bgDiv);
+	
+	var theDiv = document.createElement('div');
+	theDiv.id = 'annotateDiv';
+	theDiv.className = 'annotateBox';
+	theDiv.innerHTML='';
+	theDiv.src = "";
+	document.body.appendChild(theDiv);
+	var guts = "/info/annotate.cfm?id=" + id + "&type=" + type;
+	jQuery('#annotateDiv').load(guts,{},function(){
+		viewport.init("#annotateDiv");
+		viewport.init("#bgDiv");
+	});
+}
+
 function saveSearch(returnURL){
 	var sName=prompt("Name this search", "my search");
 	if (sName!==null){
