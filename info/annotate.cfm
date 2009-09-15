@@ -2,7 +2,11 @@
 <cfif #action# is "nothing">
 
 <cfoutput>
-
+	<script>
+		#q#
+	</script>
+	<cfdump var=#variables#>
+	
 	q:#q#;
 </cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/annotate.css">		
