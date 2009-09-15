@@ -37,7 +37,7 @@
 				cataloged_item.collection_object_id=#collection_object_id#
 		</cfquery>
 		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select * from specimen_annotations where collection_object_id=#collection_object_id#
+			select * from annotations where collection_object_id=#collection_object_id#
 		</cfquery>
 	<cfelse>
 		Oops.....(throw error)
