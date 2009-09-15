@@ -48,7 +48,7 @@
 		<input type="text" name="idtype" id="idtype" value="#t#">
 		<input type="text" name="idvalue" id="idvalue" value="#v#">
 		<label for="annotation">Annotation</label>
-		<textarea rows="4" columns="50" name="annotation" id="annotation"></textarea>
+		<textarea rows="4" cols="50" name="annotation" id="annotation"></textarea>
 		<br>
 		<input type="button" 
 			class="qutBtn"
