@@ -28,12 +28,13 @@ function saveThisAnnotation() {
 	console.log('hi biatchez!');
 	var idType = document.getElementById("idtype").value;
 	var idvalue = document.getElementById("idvalue").value;
-	var annotation = escape(document.getElementById("annotation").value);
+	var annotation = document.getElementById("annotation").value;
 	$.getJSON("/component/functions.cfc",
 		{
 			method : "addAnnotation",
 			idType : idType,
 			idvalue : idvalue,
+			annotation : annotation,
 			returnformat : "json",
 			queryformat : 'column'
 		},
