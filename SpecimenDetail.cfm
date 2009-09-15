@@ -350,7 +350,7 @@
 			        <span class="annotateSpace">
 						<cfif len(#session.username#) gt 0>
 							<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-								select count(*) cnt from specimen_annotations
+								select count(*) cnt from annotations
 								where collection_object_id = #collection_object_id#
 							</cfquery>
 							<a href="javascript: openAnnotation('collection_object_id=#collection_object_id#')">
