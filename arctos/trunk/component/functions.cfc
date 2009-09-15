@@ -1367,8 +1367,8 @@
 		<cfmail to="dustymc@gmail.com" from="annotation@#Application.fromEmail#" subject="Annotation Submitted" type="html">
 			---#mailTo#---
 			Arctos User #session.username# has submitted a specimen annotation. View details at
-			<a href="#Application.ServerRootUrl#/info/reviewAnnotation.cfm?action=show&collection_object_id=#collection_object_id#">
-			#Application.ServerRootUrl#/info/annotate.cfm?action=show&collection_object_id=#collection_object_id#
+			<a href="#Application.ServerRootUrl#/info/reviewAnnotation.cfm?action=show&type=#idType#&id=#idvalue#">
+			#Application.ServerRootUrl#/info/annotate.cfm?action=show&type=#idType#&id=#idvalue#
 			</a>
 		</cfmail>	
 	<cfcatch>
