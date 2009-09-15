@@ -45,6 +45,12 @@ function openAnnotation(q) {
 	});
 }
 
+function closeAnnotation() {
+	var theDiv = document.getElementById('bgDiv');
+	document.body.removeChild(theDiv);
+	var theDiv = document.getElementById('annotateDiv');
+	document.body.removeChild(theDiv);
+}
 function saveSearch(returnURL){
 	var sName=prompt("Name this search", "my search");
 	if (sName!==null){
