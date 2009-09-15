@@ -1359,7 +1359,11 @@
 				collection_contacts.contact_agent_id = electronic_address.agent_id AND
 				collection_contacts.CONTACT_ROLE = 'data quality' and
 				electronic_address.ADDRESS_TYPE='e-mail' and
-				cataloged_item.collection_object_id=#collection_object_id#
+				<cfif idType is "collection_object_id">
+					cataloged_item.collection_object_id=#idvalue#
+				<cfelse>
+					1=0
+				</cfif>				
 		</cfquery>
 		<cfset mailTo = valuelist(whoTo.address)>
 		<cfset mailTo=listappend(mailTo,Application.bugReportEmail,",")>
