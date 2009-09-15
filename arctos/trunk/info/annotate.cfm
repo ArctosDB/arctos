@@ -42,11 +42,11 @@
 	<cfelse>
 		Oops.....(throw error)
 	</cfif>
-	Annotations #d.summary#
+	Annotations for #d.summary#
 	<form name="annotate" method="post" action="/info/annotate.cfm">
 		<input type="hidden" name="action" value="insert">
-		<input type="text" name="idtype" id="idtype" value="#t#">
-		<input type="text" name="idvalue" id="idvalue" value="#v#">
+		<input type="hidden" name="idtype" id="idtype" value="#t#">
+		<input type="hidden" name="idvalue" id="idvalue" value="#v#">
 		<label for="annotation">Annotation</label>
 		<textarea rows="4" cols="50" name="annotation" id="annotation"></textarea>
 		<br>

@@ -25,7 +25,6 @@ var viewport = {
        }
    };
 function saveThisAnnotation() {
-	console.log('hi biatchez!');
 	var idType = document.getElementById("idtype").value;
 	var idvalue = document.getElementById("idvalue").value;
 	var annotation = document.getElementById("annotation").value;
@@ -33,7 +32,6 @@ function saveThisAnnotation() {
 		alert('You must enter an annotation to save.');
 		return false;
 	}
-		
 	$.getJSON("/component/functions.cfc",
 		{
 			method : "addAnnotation",
@@ -53,8 +51,6 @@ function saveThisAnnotation() {
 		}
 	);
 }
-
-
 function openAnnotation(q) {
 	var bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';
