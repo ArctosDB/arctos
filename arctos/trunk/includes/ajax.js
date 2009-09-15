@@ -34,9 +34,6 @@ function saveThisAnnotation() {
 			method : "addAnnotation",
 			idType : idType,
 			idvalue : idvalue,
-			higher_geography : higher_geography,
-			specific_locality : specific_locality,
-			annotation_remarks : annotation_remarks,
 			returnformat : "json",
 			queryformat : 'column'
 		},
