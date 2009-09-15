@@ -57,22 +57,3 @@ function closeAnnotation() {
 	var theDiv = document.getElementById('annotateDiv');
 	document.body.removeChild(theDiv);
 }
-function openAnnotation(id) {
-	var bgDiv = document.createElement('div');
-	bgDiv.id = 'bgDiv';
-	bgDiv.className = 'bgDiv';
-	bgDiv.setAttribute('onclick','closeAnnotation()');
-	document.body.appendChild(bgDiv);
-	
-	var theDiv = document.createElement('div');
-	theDiv.id = 'annotateDiv';
-	theDiv.className = 'annotateBox';
-	theDiv.innerHTML='<br>Loading....';
-	theDiv.src = "";
-	document.body.appendChild(theDiv);
-	var guts = "/info/annotateSpecimen.cfm?collection_object_id=" + id;
-	jQuery('#annotateDiv').load(guts,{},function(){
-		viewport.init("#annotateDiv");
-		viewport.init("#bgDiv");
-	});
-}
