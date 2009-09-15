@@ -2,12 +2,13 @@
 <cfif #action# is "nothing">
 
 <cfoutput>
-	<script>
+	<cfscript>
 		#q#
-	</script>
+	</cfscript>
+	collection_object_id: #collection_object_id#
 	<cfdump var=#variables#>
 	
-	q:#q#;
+	q:#q#
 </cfoutput>
 <link rel="stylesheet" type="text/css" href="/includes/annotate.css">		
 <span onclick="closeAnnotation()" class="windowCloser">Close Annotation Window</span>
