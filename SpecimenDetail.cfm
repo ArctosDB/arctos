@@ -111,7 +111,7 @@
 		</ul>
 	</div>
 </cfif>
-<cfset title="#detail.collection# #detail.cat_num#">
+<cfset title="#detail.collection# #detail.cat_num#: #detail.scientific_name#">
 <cfset metaDesc="#detail.collection# #detail.cat_num# (#guid#); #detail.scientific_name#; #detail.higher_geog#; #detail.spec_locality#">
 <cf_customizeHeader collection_id=#detail.collection_id#>
 <script type="text/javascript" language="javascript">
