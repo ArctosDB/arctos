@@ -2,9 +2,10 @@
 <cfif #action# is "nothing">
 
 <cfoutput>
-	<cfscript>
-		evaluate("q");
-	</cfscript>
+	<cfset t=listgetat(q,1,"=")>
+	<cfset v=listgetat(q,2,"=")>
+	<cfset #t#=v>
+	
 	collection_object_id: #collection_object_id#
 	<cfdump var=#variables#>
 	
