@@ -78,9 +78,6 @@
 				#errortext#
 			</cfoutput>		
 		</cfif>
-		<cfoutput>
-				#errortext#
-			</cfoutput>	
 		<cfif isdefined("exception.errorCode") and exception.errorCode is "403">
 			<cfset subject="locked form">
 		<cfelse>
