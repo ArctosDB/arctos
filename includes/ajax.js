@@ -29,6 +29,11 @@ function saveThisAnnotation() {
 	var idType = document.getElementById("idtype").value;
 	var idvalue = document.getElementById("idvalue").value;
 	var annotation = document.getElementById("annotation").value;
+	if (annotation.length==0){
+		alert('You must enter an annotation to save.');
+		return false;
+	}
+		
 	$.getJSON("/component/functions.cfc",
 		{
 			method : "addAnnotation",
