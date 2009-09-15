@@ -329,7 +329,7 @@
 					        	<div class="unAcceptedIdDiv">
 					        </cfif>
 					        <cfif #getTaxa.recordcount# is 1>
-								<a href="/TaxonomyDetails.cfm?taxon_name_id=#getTaxa.taxon_name_id#" target="_blank">
+								<a href="/name/#getTaxa.scientific_name#" target="_blank">
 									#getTaxa.display_name#</a> 
 							<cfelse>
 								<cfset link="">
