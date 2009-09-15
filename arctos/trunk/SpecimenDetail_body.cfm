@@ -314,6 +314,7 @@
 								select 
 									taxonomy.taxon_name_id,
 									display_name,
+									scientific_name,
 									author_text
 								FROM
 									identification_taxonomy,
@@ -334,12 +335,14 @@
 								<cfset link="">
 								<cfset i=1>
 								<cfset thisSciName="#scientific_name#">
+								thisSciName: #thisSciName#
 								<cfloop query="getTaxa">
-									<cfset thisLink='<a href="/TaxonomyDetails.cfm?taxon_name_id=#taxon_name_id#" target="_blank">#display_name#</a>'>
-									<cfset thisSciName=#replace(thisSciName,scientific_name,thisLink)#>
+									<cfset thisLink='<a href="/name/#scientific_name#" target="_blank">#display_name#</a>'>
+									thisLink: #thisLink#
+									<cfset thisSciName=#replace(thisSciName,display_name,thisLink)#>
 									<cfset i=#i#+1>
 								</cfloop>
-								#thisSciName#
+								thisSciName: #thisSciName#
 							</cfif>
 								<div class="taxDetDiv">
 									Identified by #agent_name# 
