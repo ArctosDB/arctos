@@ -27,7 +27,7 @@ var viewport = {
 function saveThisAnnotation() {
 	var idType = document.getElementById("idtype").value;
 	var idvalue = document.getElementById("idvalue").value;
-	var annotation = esccape(document.getElementById("annotation").value);
+	var annotation = escape(document.getElementById("annotation").value);
 	$.getJSON("/component/functions.cfc",
 		{
 			method : "addAnnotation",
