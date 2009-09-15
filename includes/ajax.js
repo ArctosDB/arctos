@@ -25,7 +25,7 @@ var viewport = {
        }
    };
 
-function openAnnotation(id,type) {
+function openAnnotation(q) {
 	var bgDiv = document.createElement('div');
 	bgDiv.id = 'bgDiv';
 	bgDiv.className = 'bgDiv';
@@ -38,7 +38,7 @@ function openAnnotation(id,type) {
 	theDiv.innerHTML='';
 	theDiv.src = "";
 	document.body.appendChild(theDiv);
-	var guts = "/info/annotate.cfm?id=" + id + "&type=" + type;
+	var guts = "/info/annotate.cfm?q=" + q;
 	jQuery('#annotateDiv').load(guts,{},function(){
 		viewport.init("#annotateDiv");
 		viewport.init("#bgDiv");
