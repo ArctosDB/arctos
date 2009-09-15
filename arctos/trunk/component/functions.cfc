@@ -1372,7 +1372,7 @@
 			</a>
 		</cfmail>	
 	<cfcatch>
-		<cfset result = "A database error occured: #cfcatch.message# #cfcatch.detail# #sql#">
+		<cfset result = "A database error occured: #cfcatch.message# #cfcatch.detail#">
 		<cfreturn result>
 	</cfcatch>
 	</cftry>
