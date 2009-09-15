@@ -72,9 +72,9 @@
 	---->	
 	<cfset basJoin = " INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)">
 	<cfset basWhere = " WHERE 
-		flat.dec_lat is not null AND
-		flat.dec_long is not null AND
-		flat.collecting_source = 'wild caught' ">		
+		#flatTableName#.dec_lat is not null AND
+		#flatTableName#.dec_long is not null AND
+		#flatTableName#.collecting_source = 'wild caught' ">		
 	<cfset basQual = "">
 	<cfif not isdefined("basJoin")>
 		<cfset basJoin = "">
