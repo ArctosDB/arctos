@@ -3,7 +3,7 @@
 
 <cfoutput>
 	<cfscript>
-		eval("q");
+		evaluate("q");
 	</cfscript>
 	collection_object_id: #collection_object_id#
 	<cfdump var=#variables#>
