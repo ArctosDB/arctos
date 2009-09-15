@@ -1,6 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
 <link rel="stylesheet" type="text/css" href="/includes/annotate.css">
-<script type='text/javascript' src='/includes/annotate.js'></script>
 <cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 	<cfset flatTableName = "flat">
 <cfelse>
