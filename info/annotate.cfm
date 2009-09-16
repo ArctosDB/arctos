@@ -24,8 +24,8 @@
 	<cfif isdefined("collection_object_id") and len(collection_object_id) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
-				'Specimen ' || collection.collection || ' ' || cat_num ||
-				' <i>' || scientific_name || '</i>' summary
+				'Specimen <strong>' || collection.collection || ' ' || cat_num ||
+				' <i>' || scientific_name || '</i></strong>' summary
 			from 
 				cataloged_item,
 				identification,
@@ -42,7 +42,7 @@
 	<cfelseif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
-				'Name ' || display_name summary
+				'Name <strong>' || display_name || '</strong>' summary
 			from 
 				taxonomy
 			where 
@@ -54,7 +54,7 @@
 	<cfelseif isdefined("project_id") and len(project_id) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
-				'Project ' || PROJECT_NAME summary
+				'Project <strong>' || PROJECT_NAME || '</strong>' summary
 			from 
 				project
 			where 
@@ -66,7 +66,7 @@
 	<cfelseif isdefined("publication_id") and len(publication_id) gt 0>
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
-				'Publication ' || publication_title summary
+				'Publication <strong>' || publication_title || '</strong>' summary
 			from 
 				publication
 			where 
