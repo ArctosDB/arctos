@@ -187,8 +187,8 @@ Filter for:
 	<cfelseif type is "taxon_name_id">
 		<cfquery name="tax" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
-				scientific_name, 
-				display_name,
+				taxonomy.scientific_name, 
+				taxonomy.display_name,
 				annotations.ANNOTATION_ID,
 				annotations.ANNOTATE_DATE,
 				annotations.CF_USERNAME,
