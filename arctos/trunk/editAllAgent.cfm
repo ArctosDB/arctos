@@ -239,6 +239,7 @@
 			<strong>Addresses:</strong>
 			
 			<cfoutput>
+				<cfset i=1>
 				<cfloop query="agentAddrs">
 					<cfif valid_addr_fg is 1>
 						<div style="border:1px solid green;">
