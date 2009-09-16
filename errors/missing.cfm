@@ -91,14 +91,19 @@
 					cgi.redirect_query_string: #cgi.redirect_query_string#
 					<cfdump var="form">
 				</cfoutput>
+				<!--
 				<cfscript>
 					getPageContext().forward(cgi.REDIRECT_URL & ".cfm?" & cgi.redirect_query_string);
 				</cfscript>
+				--->
 				<cfabort>
 			<cfcatch>
+				<!---
 				<cfscript>
 					getPageContext().forward("/errors/404.cfm");
 				</cfscript>
+				--->
+				<cfdump var=#cfcatch#>
 			</cfcatch>
 			</cftry>
 		</cfif>
