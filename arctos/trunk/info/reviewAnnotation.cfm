@@ -334,8 +334,8 @@ Filter for:
 									</td>
 									<form name="r" method="post" action="reviewAnnotation.cfm">
 										<input type="hidden" name="action" value="saveReview">
-										<input type="hidden" name="type" value="taxon_name_id">
-										<input type="hidden" name="id" value="#taxon_name_id#">
+										<input type="hidden" name="type" value="project_id">
+										<input type="hidden" name="id" value="#project_id#">
 										<input type="hidden" name="annotation_id" value="#annotation_id#">
 										<td>
 											<label for="reviewed_fg">Reviewed?</label>
