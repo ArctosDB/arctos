@@ -272,8 +272,8 @@
 									invalid
 								</cfif>
 								)
-								<span class="likeLink" onclick="addr#i#.action.value='editAddr';addr#i#.submit();">Edit</span>
-								<span class="likeLink" onclick="addr#i#.action.value='deleteAddr';confirmDelete('addr#i#');">Delete</span>
+								&nbsp;&nbsp;<span class="likeLink" onclick="addr#i#.action.value='editAddr';addr#i#.submit();">Edit</span>
+								&nbsp;&nbsp;~&nbsp;&nbsp;<span class="likeLink" onclick="addr#i#.action.value='deleteAddr';confirmDelete('addr#i#');">Delete</span>
 								<br>
 						#replace(formatted_addr,chr(10),"<br>","all")#
 						<!---<tr>
