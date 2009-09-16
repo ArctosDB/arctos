@@ -4,6 +4,7 @@
 <cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection cln from collection order by collection
 </cfquery>
+Filter for:
 <table border>
 	<tr>
 		<td align="center">
@@ -56,8 +57,6 @@
 		</td>
 	</tr>
 </table>
-Filter for:
-
 </cfoutput>
 <cfif action is "show">
 <cfoutput>
@@ -183,12 +182,12 @@ Filter for:
 			</cfloop>
 		</table>
 	<cfelseif type is "publication_id">
-	publication_id
+		publication_id
 	
 	<cfelseif type is "taxon_name_id">
-	taxon_name_id
+		taxon_name_id
 	<cfelseif type is "project_id">
-	project_id
+		project_id
 	<cfelse>
 		fail.
 	</cfif><!--- end collection_object_id --->
