@@ -229,7 +229,7 @@ Filter for:
 			<cfloop query="t">
 				<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 					<td>
-						<a href="/name/#scientific_name">#display_name#</a>
+						<a href="/name/#scientific_name#">#display_name#</a>
 						<cfquery name="itemAnno" dbtype="query">
 							select * from tax where scientific_name = '#scientific_name#'
 						</cfquery>
