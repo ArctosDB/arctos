@@ -264,6 +264,12 @@
 						<input type="hidden" name="validfg" value="#agentAddrs.valid_addr_fg#">
 						<input type="hidden" name="addr_remarks" value="#agentAddrs.addr_remarks#">
 						<input type="hidden" name="formatted_addr" value="#agentAddrs.formatted_addr#">
+						#addr_type# Address (<cfif #valid_addr_fg# is 1>
+									valid
+								<cfelse>
+									invalid
+								</cfif>
+								)<br>
 						#formatted_addr#
 						<!---<tr>
 							<td>
