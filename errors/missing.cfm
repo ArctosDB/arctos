@@ -82,6 +82,8 @@
 		</Cfoutput>		
 	<cfelse><!--- all the rest --->
 		<!--- see if we can handle the peristent 404s elegantly --->
+		here we are now
+		<cfabort>
 		<cfif cgi.SCRIPT_NAME contains "/DiGIRprov/www/DiGIR.php">
 			<cfheader statuscode="301" statustext="Moved permanently">
 			<cfheader name="Location" value="http://arctos.database.museum/digir/DiGIR.php">
