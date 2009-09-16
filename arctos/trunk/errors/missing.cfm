@@ -95,6 +95,7 @@
 					<cfdump var="#session#">
 					<cfdump var="#cgi#">
 					<cfdump var="#url#">
+					<cfdump var="#request#">
 				</cfoutput>
 				<!---
 				<cfscript>
