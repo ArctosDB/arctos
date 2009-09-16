@@ -87,6 +87,10 @@
 			<cfheader name="Location" value="http://arctos.database.museum/digir/DiGIR.php">
 		<cfelse>
 			<cftry>
+				<cfoutput>
+					cgi.redirect_query_string: #cgi.redirect_query_string#
+					<cfdump var="form">
+				</cfoutput>
 				<cfscript>
 					getPageContext().forward(cgi.REDIRECT_URL & ".cfm?" & cgi.redirect_query_string);
 				</cfscript>
