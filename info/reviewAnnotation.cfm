@@ -320,7 +320,7 @@ Filter for:
 					<td>
 						<a href="/ProjectDetail?project_id=#project_id#">#project_name#</a>
 						<cfquery name="itemAnno" dbtype="query">
-							select * from tax where project_id = '#project_id#'
+							select * from tax where project_id = #project_id#
 						</cfquery>
 						<table border width="100%">
 							<cfloop query="itemAnno">
