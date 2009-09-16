@@ -82,34 +82,20 @@
 		</Cfoutput>		
 	<cfelse><!--- all the rest --->
 		<!--- see if we can handle the peristent 404s elegantly --->
-		here we are now
 		<cfif cgi.SCRIPT_NAME contains "/DiGIRprov/www/DiGIR.php">
 			<cfheader statuscode="301" statustext="Moved permanently">
 			<cfheader name="Location" value="http://arctos.database.museum/digir/DiGIR.php">
 		<cfelse>
 			<cftry>
-				<cfoutput>
-					cgi.redirect_query_string: #cgi.redirect_query_string#
-					<cfdump label="form" var="#form#">
-					<cfdump label="variables"  var="#variables#">
-					<cfdump label="session"  var="#session#">
-					<cfdump  label="cgi" var="#cgi#">
-					<cfdump  label="url" var="#url#">
-					<cfdump  label="request" var="#request#">
-				</cfoutput>
-				<!---
 				<cfscript>
 					getPageContext().forward(cgi.REDIRECT_URL & ".cfm?" & cgi.redirect_query_string);
 				</cfscript>
-				--->
 				<cfabort>
 			<cfcatch>
-				<!---
 				<cfscript>
 					getPageContext().forward("/errors/404.cfm");
 				</cfscript>
-				--->
-				<cfdump var=#cfcatch#>
+				<cfabort>
 			</cfcatch>
 			</cftry>
 		</cfif>
