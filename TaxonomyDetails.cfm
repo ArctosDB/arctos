@@ -142,7 +142,26 @@
 	<cfset thisSearch = "%22#one.scientific_name#%22">
 	<cfloop query="common_name">
 		<cfset thisSearch = "#thisSearch# OR %22#common_name#%22">
-	</cfloop>	
+	</cfloop>
+	 <span class="annotateSpace">
+		<cfif len(#session.username#) gt 0>
+			<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select count(*) cnt from annotations
+				where taxon_name_id = #tnid#
+			</cfquery>
+			<a href="javascript: openAnnotation('collection_object_id=#collection_object_id#')">
+				[Annotate]							
+			<cfif #existingAnnotations.cnt# gt 0>
+				<br>(#existingAnnotations.cnt# existing)
+			</cfif>
+			</a>
+		<cfelse>
+			<a href="/login.cfm">Login or Create Account</a>
+		</cfif>
+		<cfif isdefined("session.mapURL") and len(session.mapURL) gt 0>
+			<br><a onclick="document.location='/SpecimenResults.cfm?#session.mapURL#'">[Return to results]</a>
+		</cfif>	
+    </span>`
 	<div align="left">
 		<cfif one.VALID_CATALOG_TERM_FG is 1>
 	   		<font size="+1"	>

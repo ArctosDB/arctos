@@ -1,3 +1,14 @@
+.annotateBox {
+	border:3px solid green;
+	z-index:9999;
+	position:absolute;
+	top:5%;
+	left:5%;
+	width:85%;
+	height:85%;
+	background-color:white;
+	overflow:auto;
+}
 .imgDiv{
 	float: left;
 	margin:.1em;
@@ -413,6 +424,10 @@ td#SDCellRight{
 	cursor:pointer;
 	color:#2B547E;
 	font-size:.85em;
+}
+.windowCloser:hover {
+	color:#FF0000;
+	text-decoration: underline;
 }
 .uploadMediaDiv {
 	border:3px solid red;
