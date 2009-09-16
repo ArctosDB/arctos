@@ -90,12 +90,12 @@
 			<cftry>
 				<cfoutput>
 					cgi.redirect_query_string: #cgi.redirect_query_string#
-					<cfdump var="#form#">
-					<cfdump var="#variables#">
-					<cfdump var="#session#">
-					<cfdump var="#cgi#">
-					<cfdump var="#url#">
-					<cfdump var="#request#">
+					<cfdump label="form" var="#form#">
+					<cfdump label="variables"  var="#variables#">
+					<cfdump label="session"  var="#session#">
+					<cfdump  label="cgi" var="#cgi#">
+					<cfdump  label="url" var="#url#">
+					<cfdump  label="request" var="#request#">
 				</cfoutput>
 				<!---
 				<cfscript>
