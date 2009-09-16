@@ -305,12 +305,12 @@ Filter for:
 		</cfquery>
 		<cfquery name="t" dbtype="query">
 			select
-				project,
+				project_name,
 				project_id
 			from 
 				tax 
 			group by
-				project,
+				project_name,
 				project_id
 		</cfquery>
 		<table>
@@ -318,7 +318,7 @@ Filter for:
 			<cfloop query="t">
 				<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 					<td>
-						<a href="/ProjectDetail?project_id=#project_id#">#project#</a>
+						<a href="/ProjectDetail?project_id=#project_id#">#project_name#</a>
 						<cfquery name="itemAnno" dbtype="query">
 							select * from tax where project_id = '#project_id#'
 						</cfquery>
