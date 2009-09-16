@@ -151,7 +151,7 @@ Filter for:
 									<td>
 										<br>Scientific Name: #annotation#
 									</td>
-									<form name="r" method="post" action="reviewAnnotation">
+									<form name="r" method="post" action="reviewAnnotation.cfm">
 										<input type="hidden" name="action" value="saveReview">
 										<input type="hidden" name="type" value="collection_object_id">
 										<input type="hidden" name="id" value="#collection_object_id#">
@@ -204,7 +204,7 @@ Filter for:
 		where
 			annotation_id=#annotation_id#
 	</cfquery>
-	<cflocation url="annotate.cfm?action=show&type=#type#&id=#id#" addtoken="false">
+	<cflocation url="reviewAnnotation.cfm?action=show&type=#type#&id=#id#" addtoken="false">
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
