@@ -1,28 +1,24 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Review Annotations">
 <cfoutput>
-	---#action#----
 <cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection cln from collection order by collection
 </cfquery>
-Filter By:
+Filter for:
 <form name="filter" method="get" action="reviewAnnotation">
 	<input type="hidden" name="action" value="show">
 	<label for="collection">Collection</label>
 	<select name="collection" size="1">
-		<option value=""></option>
+		<option value="taxonomy">Taxonomy</option>
+		<option value="project">Project</option>
+		<option value="publication_id">Publication</option>
+		
+		<option value="">OR pick a collection</option>
 		<cfloop query="c">
 			<option value="#cln#">#cln#</option>
 		</cfloop>
 	</select>
-	<label for="type">Type</label>
-	<select name="type" size="1">
-		<option value=""></option>
-		<option value="collection_object_id">Specimen</option>
-		<option value="taxon_name_id">Taxonomy</option>
-		<option value="project_id">Project</option>
-		<option value="publication_id">Publication</option>
-	</select>
+	
 	<br>
 	<input type="submit" 
 		class="lnkBtn"
