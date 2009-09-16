@@ -1,6 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Review Annotations">
 <cfoutput>
+	---#action#----
 <cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection cln from collection order by collection
 </cfquery>
@@ -35,7 +36,7 @@ Filter By:
 		value="Clear Form">
 </form>
 </cfoutput>
-<cfif #action# is "show">
+<cfif action is "show">
 <cfoutput>
 	<cfquery name="catitem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
