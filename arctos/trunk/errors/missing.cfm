@@ -91,6 +91,10 @@
 				<cfoutput>
 					cgi.redirect_query_string: #cgi.redirect_query_string#
 					<cfdump var="#form#">
+					<cfdump var="#variables#">
+					<cfdump var="#session#">
+					<cfdump var="#cgi#">
+					<cfdump var="#url#">
 				</cfoutput>
 				<!---
 				<cfscript>
