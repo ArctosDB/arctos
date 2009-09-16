@@ -63,6 +63,18 @@
 		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from annotations where project_id=#project_id#
 		</cfquery>
+	<cfelseif isdefined("publication_id") and len(publication_id) gt 0>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				'Publication ' || publication_title summary
+			from 
+				publication
+			where 
+				publication_id=#publication_id#
+		</cfquery>
+		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select * from annotations where publication_id=#publication_id#
+		</cfquery>
 	<cfelse>
 		Oops.....(throw error)
 	</cfif>

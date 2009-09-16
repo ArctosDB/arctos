@@ -182,8 +182,94 @@ Filter for:
 			</cfloop>
 		</table>
 	<cfelseif type is "publication_id">
-		publication_id
-	
+		<cfquery name="tax" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				publication.publication_title,
+				annotations.ANNOTATION_ID,
+				annotations.ANNOTATE_DATE,
+				annotations.CF_USERNAME,
+				annotations.annotation,	 
+				annotations.reviewer_agent_id,
+				preferred_agent_name.agent_name reviewer,
+				annotations.reviewed_fg,
+				annotations.reviewer_comment,
+				cf_user_data.email,
+				annotations.publication_id
+			FROM
+				annotations,
+				publication,
+				cf_user_data,
+				cf_users,
+				preferred_agent_name
+			WHERE
+				annotations.publication_id = publication.publication_id AND
+				annotations.reviewer_agent_id=preferred_agent_name.agent_id (+) and
+				annotations.CF_USERNAME=cf_users.username (+) and
+				cf_users.user_id = cf_user_data.user_id (+)
+				<cfif isdefined("publication_id") and len(publication_id) gt 0>
+					AND annotations.publication_id = #publication_id#
+				</cfif>
+		</cfquery>
+		<cfquery name="t" dbtype="query">
+			select
+				publication_title,
+				publication_id
+			from 
+				tax 
+			group by
+				publication_title,
+				publication_id
+		</cfquery>
+		<table>
+			<Cfset i=1>
+			<cfloop query="t">
+				<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
+					<td>
+						<a href="/SpecimenUsage.cfm?publication_id=#publication_id#">#publication_title#</a>
+						<cfquery name="itemAnno" dbtype="query">
+							select * from tax where publication_id = #publication_id#
+						</cfquery>
+						<table border width="100%">
+							<cfloop query="itemAnno">
+								<tr>
+									<td>
+										Annotation by <strong>#CF_USERNAME#</strong> 
+										(#email#) on #dateformat(ANNOTATE_DATE,"dd Mmm yyyy")#
+									</td>
+									<td>
+										#annotation#
+									</td>
+									<form name="r" method="post" action="reviewAnnotation.cfm">
+										<input type="hidden" name="action" value="saveReview">
+										<input type="hidden" name="type" value="publication_id">
+										<input type="hidden" name="id" value="#publication_id#">
+										<input type="hidden" name="annotation_id" value="#annotation_id#">
+										<td>
+											<label for="reviewed_fg">Reviewed?</label>
+											<select name="reviewed_fg" id="reviewed_fg">
+												<option value="0" <cfif reviewed_fg is 0>selected="selected"</cfif>>No</option>
+												<option value="1" <cfif reviewed_fg is 1>selected="selected"</cfif>>Yes</option>
+											</select>
+											<cfif len(reviewer) gt 0>
+												<span style="font-size:small"><br>Last review by #reviewer#</span>
+											</cfif>
+										</td>
+										<td>
+											<label for="reviewer_comment">Review Comments</label>
+											<input type="text" name="reviewer_comment" id="reviewer_comment" value="#reviewer_comment#">
+										</td>
+										<td>
+											<input type="submit" value="save review" class="savBtn">
+										</td>
+									</form>
+								</tr>
+							</cfloop>
+						</table>
+					</td>
+				</tr>
+				<cfset i=#i#+1>
+			</cfloop>
+		</table>
 	<cfelseif type is "taxon_name_id">
 		<cfquery name="tax" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
@@ -210,7 +296,7 @@ Filter for:
 				annotations.reviewer_agent_id=preferred_agent_name.agent_id (+) and
 				annotations.CF_USERNAME=cf_users.username (+) and
 				cf_users.user_id = cf_user_data.user_id (+)
-				<cfif isdefined("taxon_name_id") and len(taxon_name_idtaxon_name_id) gt 0>
+				<cfif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
 					AND annotations.taxon_name_id = #taxon_name_id#
 				</cfif>
 		</cfquery>
@@ -299,7 +385,7 @@ Filter for:
 				annotations.reviewer_agent_id=preferred_agent_name.agent_id (+) and
 				annotations.CF_USERNAME=cf_users.username (+) and
 				cf_users.user_id = cf_user_data.user_id (+)
-				<cfif isdefined("taxon_name_id") and len(taxon_name_idtaxon_name_id) gt 0>
+				<cfif isdefined("project_id") and len(project_id) gt 0>
 					AND annotations.project_id = #project_id#
 				</cfif>
 		</cfquery>
