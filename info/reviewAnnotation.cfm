@@ -5,7 +5,7 @@
 	select collection cln from collection order by collection
 </cfquery>
 Filter By:
-<form name="filter" method="post" action='annotate.cfm'>
+<form name="filter" method="post" action='reviewAnnotation'>
 	<input type="hidden" name="action" value="show">
 	<label for="collection">Collection</label>
 	<select name="collection" size="1">
