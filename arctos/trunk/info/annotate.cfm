@@ -39,6 +39,18 @@
 		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from annotations where collection_object_id=#collection_object_id#
 		</cfquery>
+	<cfelseif isdefined("taxon_name_id") and len(taxon_name_id) gt 0>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				'Name ' || display_name summary
+			from 
+				taxonomy
+			where 
+				taxon_name_id=#taxon_name_id#
+		</cfquery>
+		<cfquery name="prevAnn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select * from annotations where taxon_name_id=#taxon_name_id#
+		</cfquery>
 	<cfelse>
 		Oops.....(throw error)
 	</cfif>
