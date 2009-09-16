@@ -237,13 +237,14 @@
 	<tr>
 		<td>
 			<strong>Addresses:</strong>
-			<cfif valid_addr_fg is 1>
-				<div style="border:1px solid green;">
-			<cfelse>
-				<div style="border:1px solid red;">
-			</cfif>
+			
 			<cfoutput>
 				<cfloop query="agentAddrs">
+					<cfif valid_addr_fg is 1>
+						<div style="border:1px solid green;">
+					<cfelse>
+						<div style="border:1px solid red;">
+					</cfif>
 					<form name="addr#i#" method="post" action="editAllAgent.cfm">
 						<input type="hidden" name="agent_id" value="#person.agent_id#">
 						<input type="hidden" name="addr_id" value="#agentAddrs.addr_id#">
@@ -317,9 +318,9 @@
 							</td>
 						</tr>
 						<cfset i=#i#+1>
+						</div>
 					</cfloop>
 				</cfoutput>
-			</div>
 			<!----
 			<table>
 				<tr>
