@@ -75,8 +75,8 @@ Filter By:
 			cataloged_item.collecting_event_id = collecting_event.collecting_event_id AND
 			collecting_event.locality_id = locality.locality_id AND
 			locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id AND
-			specimen_annotations.CF_USERNAME=cf_users.username and
-			cf_users.user_id = cf_user_data.user_id
+			annotations.CF_USERNAME=cf_users.username (+) and
+			cf_users.user_id = cf_user_data.user_id (+)
 			<cfif isdefined("collection_object_id") and len(#collection_object_id#) gt 0>
 				AND annotations.collection_object_id = #collection_object_id#
 			</cfif>
