@@ -62,6 +62,7 @@ Filter for:
 <cfif action is "show">
 <cfoutput>
 	<cfif type is "collection_object_id">
+		collection_object_id
 		<cfif isdefined("id") and len(id) gt 0>
 			<cfset collection_object_id=id>
 		</cfif>
