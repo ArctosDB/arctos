@@ -38,7 +38,7 @@ Filter By:
 </cfoutput>
 <cfif action is "show">
 <cfoutput>
-	<cfquery name="catitem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="ci" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
 			 annotations.ANNOTATION_ID,
 			 annotations.ANNOTATE_DATE,
@@ -93,7 +93,7 @@ Filter By:
 			higher_geog,
 			spec_locality
 		from 
-			annotations 
+			ci 
 		group by
 			COLLECTION_OBJECT_ID,
 			collection,
@@ -104,7 +104,7 @@ Filter By:
 	</cfquery>
 	<table>
 		<Cfset i=1>
-		<cfloop query="items">
+		<cfloop query="catitem">
 			<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 				<td>
 					<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection# #cat_num#</a>
@@ -112,7 +112,7 @@ Filter By:
 					<br>#higher_geog#
 					<br>#spec_locality#
 			<cfquery name="itemAnno" dbtype="query">
-				select * from annotations where collection_object_id = #collection_object_id#
+				select * from ci where collection_object_id = #collection_object_id#
 			</cfquery>
 								<table border width="100%">
 			<cfloop query="itemAnno">
