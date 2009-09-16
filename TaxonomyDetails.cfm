@@ -12,12 +12,14 @@
 		</div>
 	</cfif>
 </cfif>
+<!---
 <cfif isdefined("taxon_name_id")>
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select scientific_name from taxonomy where taxon_name_id=#taxon_name_id# 
 	</cfquery>
 	<cflocation url="/name/#c.scientific_name#" addtoken="false">
 </cfif>
+---->
 <cfset taxaRanksList="Kingdom,Phylum,PHYLClass,Subclass,PHYLOrder,Suborder,Superfamily,Family,Subfamily,Genus,Subgenus,Species,Subspecies,Nomenclatural_Code">
 <cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
@@ -144,12 +146,12 @@
 		<cfset thisSearch = "#thisSearch# OR %22#common_name#%22">
 	</cfloop>
 	 <span class="annotateSpace">
-		<cfif len(#session.username#) gt 0>
+		<cfif len(session.username) gt 0>
 			<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select count(*) cnt from annotations
 				where taxon_name_id = #tnid#
 			</cfquery>
-			<a href="javascript: openAnnotation('collection_object_id=#collection_object_id#')">
+			<a href="javascript: openAnnotation('taxon_name_id=#tnid#')">
 				[Annotate]							
 			<cfif #existingAnnotations.cnt# gt 0>
 				<br>(#existingAnnotations.cnt# existing)
