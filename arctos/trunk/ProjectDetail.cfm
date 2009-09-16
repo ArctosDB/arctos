@@ -94,6 +94,25 @@
 			sponsor,
 			acknowledgement
 	</cfquery>
+	<span class="annotateSpace">
+		<cfif len(session.username) gt 0>
+			<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select count(*) cnt from annotations
+				where project_id = #project_id#
+			</cfquery>
+			<a href="javascript: openAnnotation('project_id=#project_id#')">
+				[Annotate]							
+			<cfif #existingAnnotations.cnt# gt 0>
+				<br>(#existingAnnotations.cnt# existing)
+			</cfif>
+			</a>
+		<cfelse>
+			<a href="/login.cfm">Login or Create Account</a>
+		</cfif>
+		<cfif isdefined("session.mapURL") and len(session.mapURL) gt 0>
+			<br><a onclick="document.location='/SpecimenResults.cfm?#session.mapURL#'">[Return to results]</a>
+		</cfif>	
+    </span>
 	<cfset noHTML=replacenocase(p.project_name,'<i>','','all')>
 	<cfset noHTML=replacenocase(noHTML,'</i>','','all')>
 	<cfset title = "Project Detail: #noHTML#">

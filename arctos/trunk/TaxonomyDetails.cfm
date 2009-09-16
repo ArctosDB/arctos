@@ -143,7 +143,7 @@
 	<cfloop query="common_name">
 		<cfset thisSearch = "#thisSearch# OR %22#common_name#%22">
 	</cfloop>
-	 <span class="annotateSpace">
+	<span class="annotateSpace">
 		<cfif len(session.username) gt 0>
 			<cfquery name="existingAnnotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select count(*) cnt from annotations
@@ -161,7 +161,7 @@
 		<cfif isdefined("session.mapURL") and len(session.mapURL) gt 0>
 			<br><a onclick="document.location='/SpecimenResults.cfm?#session.mapURL#'">[Return to results]</a>
 		</cfif>	
-    </span>`
+    </span>
 	<div align="left">
 		<cfif one.VALID_CATALOG_TERM_FG is 1>
 	   		<font size="+1"	>
