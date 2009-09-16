@@ -278,52 +278,27 @@
 	</tr>
 	<tr>
 		<td>
-		<table>
-			<tr>
-				<td colspan="2">
-					<font color="#000066"><strong>Current Electronic Addresses:</strong></font>
-				</td>
-			</tr>
+			<strong>Electronic Addresses:</strong>
 			<cfset i=1>
 			<cfoutput>
-			<cfloop query="elecagentAddrs">
-			<form name="elad#i#" method="post" action="editAllAgent.cfm">
-			<input type="hidden" name="Action" >
-			<input type="hidden" name="agent_id" value="#person.agent_id#">
-			<input type="hidden" name="address_type" value="#address_type#">
-			<input type="hidden" name="address" value="#address#">
-			<tr>
-				<td align="right">
-					#address_type#: 
-				</td>
-				<td>
-					#address#
-				</td>
-				<td>
-				<input type="button" 
-						value="Edit" 
-						class="lnkBtn"
-						onmouseover="this.className='lnkBtn btnhov'"
-						onmouseout="this.className='lnkBtn'"
-						onClick="elad#i#.Action.value='editElecAddr';submit();">
-				</td>
-				<td>
-					<input type="button" 
-						value="Delete" 
-						class="delBtn"
-						onmouseover="this.className='delBtn btnhov'"
-						onmouseout="this.className='delBtn'"
-						onClick="elad#i#.Action.value='deleElecAddr';confirmDelete('elad#i#');">
-				</td>
-			</tr>
-			
-			</form>
-			<cfset i=#i#+1>
-			</cfloop>
+				<cfloop query="elecagentAddrs">
+					<form name="elad#i#" method="post" action="editAllAgent.cfm">
+						<input type="hidden" name="action" >
+						<input type="hidden" name="agent_id" value="#person.agent_id#">
+						<input type="hidden" name="address_type" value="#address_type#">
+						<input type="hidden" name="address" value="#address#">
+					</form>
+					<div>
+						#address_type#: #address#
+						<span class="likeLink" onclick="elad#i#.action.value='editElecAddr';elad#i#.submit();">Edit</span>
+						&nbsp;&nbsp;~&nbsp;&nbsp;
+						<span class="likeLink" onclick="elad#i#.action.value='deleElecAddr';confirmDelete('elad#i#');">Delete</span>
+					</div>
+					<cfset i=#i#+1>
+				</cfloop>
 			</cfoutput>
-		</table>
-	</td>
-</tr>
+		</td>
+	</tr>
 <cfif #person.agent_type# is "person">
 <cfoutput query="person">
 <form name="editPerson" action="editAllAgent.cfm" method="post" target="_person">
