@@ -270,7 +270,7 @@
 									invalid
 								</cfif>
 								)<br>
-						#formatted_addr#
+						#replace(formatted_addr,chr(10),"<br>","all")#
 						<!---<tr>
 							<td>
 								<em>Type:</em> #addr_type#&nbsp&nbsp&nbsp;
