@@ -62,7 +62,6 @@ Filter for:
 <cfif action is "show">
 <cfoutput>
 	<cfif type is "collection_object_id">
-		collection_object_id
 		<cfif isdefined("id") and len(id) gt 0>
 			<cfset collection_object_id=id>
 		</cfif>
@@ -154,7 +153,8 @@ Filter for:
 									</td>
 									<form name="r" method="post" action="reviewAnnotation">
 										<input type="hidden" name="action" value="saveReview">
-										<input type="hidden" name="collection_object_id" value="#collection_object_id#">
+										<input type="hidden" name="type" value="collection_object_id">
+										<input type="hidden" name="id" value="#collection_object_id#">
 										<input type="hidden" name="annotation_id" value="#annotation_id#">
 										<td>
 											<label for="reviewed_fg">Reviewed?</label>
@@ -197,14 +197,14 @@ Filter for:
 <cfif action is "saveReview">
 <cfoutput>
 	<cfquery name="annotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		update specimen_annotations set
+		update annotations set
 			REVIEWER_AGENT_ID=#session.myAgentId#,
 			REVIEWED_FG=#REVIEWED_FG#,
 			REVIEWER_COMMENT='#stripQuotes(REVIEWER_COMMENT)#'
 		where
 			annotation_id=#annotation_id#
 	</cfquery>
-	<cflocation url="annotate.cfm?action=show&collection_object_id=#collection_object_id#" addtoken="false">
+	<cflocation url="annotate.cfm?action=show&type=#type#&id=#id##" addtoken="false">
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
