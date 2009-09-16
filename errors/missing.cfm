@@ -90,7 +90,7 @@
 			<cftry>
 				<cfoutput>
 					cgi.redirect_query_string: #cgi.redirect_query_string#
-					<cfdump var="form">
+					<cfdump var="#form#">
 				</cfoutput>
 				<!---
 				<cfscript>
