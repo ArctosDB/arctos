@@ -261,6 +261,7 @@
 					#agent_name# (#project_agent_role#)<br>
 				</cfloop>
 				#dateformat(start_date,"dd mmm yyyy")# - #dateformat(end_date,"dd mmm yyyy")#
+				<br><a href="javascript: openAnnotation('project_id=#project_id#')">Annotate</a>
 				<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 					<br><a href="/Project.cfm?Action=editProject&project_id=#project_id#">Edit</a>
 				</cfif>
