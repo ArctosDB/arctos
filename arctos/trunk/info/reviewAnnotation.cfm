@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
-<cfset title="Specimen Annotations">
+<cfset title="Review Annotations">
 <cfoutput>
 <cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection cln from collection order by collection
@@ -13,6 +13,14 @@ Filter By:
 		<cfloop query="c">
 			<option value="#cln#">#cln#</option>
 		</cfloop>
+	</select>
+	<label for="type">Type</label>
+	<select name="type" size="1">
+		<option value=""></option>
+		<option value="collection_object_id">Specimen</option>
+		<option value="taxon_name_id">Taxonomy</option>
+		<option value="project_id">Project</option>
+		<option value="publication_id">Publication</option>
 	</select>
 	<br>
 	<input type="submit" 
@@ -29,20 +37,17 @@ Filter By:
 </cfoutput>
 <cfif #action# is "show">
 <cfoutput>
-	<cfquery name="annotations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="catitem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
-			 specimen_annotations.ANNOTATION_ID,
-			 specimen_annotations.ANNOTATE_DATE,
-			 specimen_annotations.CF_USERNAME,
-			 specimen_annotations.COLLECTION_OBJECT_ID,
-			 specimen_annotations.SCIENTIFIC_NAME,
-			 specimen_annotations.HIGHER_GEOGRAPHY,
-			 specimen_annotations.SPECIFIC_LOCALITY,
-			 specimen_annotations.ANNOTATION_REMARKS,			 
-			 specimen_annotations.reviewer_agent_id,
+			 annotations.ANNOTATION_ID,
+			 annotations.ANNOTATE_DATE,
+			 annotations.CF_USERNAME,
+			 annotations.COLLECTION_OBJECT_ID,
+			 annotations.annotation,	 
+			 annotations.reviewer_agent_id,
 			 preferred_agent_name.agent_name reviewer,
-			 specimen_annotations.reviewed_fg,
-			 specimen_annotations.reviewer_comment,
+			 annotations.reviewed_fg,
+			 annotations.reviewer_comment,
 			 collection.collection,
 			 cataloged_item.cat_num,
 			 identification.scientific_name idAs,
@@ -50,7 +55,7 @@ Filter By:
 			 locality.spec_locality,
 			 cf_user_data.email
 		FROM
-			specimen_annotations,
+			annotations,
 			cataloged_item,
 			collection,
 			collecting_event,
@@ -61,8 +66,8 @@ Filter By:
 			cf_users,
 			preferred_agent_name
 		WHERE
-			specimen_annotations.COLLECTION_OBJECT_ID = cataloged_item.COLLECTION_OBJECT_ID AND
-			specimen_annotations.reviewer_agent_id=preferred_agent_name.agent_id (+) and
+			annotations.COLLECTION_OBJECT_ID = cataloged_item.COLLECTION_OBJECT_ID AND
+			annotations.reviewer_agent_id=preferred_agent_name.agent_id (+) and
 			cataloged_item.collection_id = collection.collection_id AND
 			cataloged_item.collection_object_id = identification.collection_object_id AND
 			accepted_id_fg=1 AND
@@ -72,13 +77,13 @@ Filter By:
 			specimen_annotations.CF_USERNAME=cf_users.username and
 			cf_users.user_id = cf_user_data.user_id
 			<cfif isdefined("collection_object_id") and len(#collection_object_id#) gt 0>
-				AND specimen_annotations.collection_object_id = #collection_object_id#
+				AND annotations.collection_object_id = #collection_object_id#
 			</cfif>
 			<cfif isdefined("collection") and len(#collection#) gt 0>
 				AND collection.collection = '#collection#'
 			</cfif>
 	</cfquery>
-	<cfquery name="items" dbtype="query">
+	<cfquery name="catitem" dbtype="query">
 		select
 			COLLECTION_OBJECT_ID,
 			collection,
@@ -116,20 +121,10 @@ Filter By:
 								Annotation by <strong>#CF_USERNAME#</strong> (#email#) on #dateformat(ANNOTATE_DATE,"dd Mmm yyyy")#
 							</td>
 							<td>
-								<cfif len(#scientific_name#) gt 0>
-									<br>Scientific Name: #scientific_name#
-								</cfif>
-								<cfif len(#higher_geography#) gt 0>
-									<br>Higher Geography: #higher_geography#
-								</cfif>
-								<cfif len(#specific_locality#) gt 0>
-									<br>Specific Locality: #specific_locality#
-								</cfif>
-								<cfif len(#ANNOTATION_REMARKS#) gt 0>
-									<br>Remarks: #ANNOTATION_REMARKS#
-								</cfif>
+									<br>Scientific Name: #annotation#
+								
 							</td>
-							<form name="r" method="post" action="annotate.cfm">
+							<form name="r" method="post" action="reviewAnnotation">
 								<input type="hidden" name="action" value="saveReview">
 								<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 								<input type="hidden" name="annotation_id" value="#annotation_id#">
