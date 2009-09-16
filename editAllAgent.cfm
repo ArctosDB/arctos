@@ -237,7 +237,6 @@
 	<tr>
 		<td>
 			<strong>Addresses:</strong>
-			
 			<cfoutput>
 				<cfset i=1>
 				<cfloop query="agentAddrs">
@@ -246,184 +245,35 @@
 					<cfelse>
 						<div style="border:2px solid red;margin:1px;padding:1px;">
 					</cfif>
-					<form name="addr#i#" method="post" action="editAllAgent.cfm">
-						<input type="hidden" name="agent_id" value="#person.agent_id#">
-						<input type="hidden" name="addr_id" value="#agentAddrs.addr_id#">
-						<input type="hidden" name="action" value="editAddr">
-						<input type="hidden" name="addrtype" value="#agentAddrs.addr_type#">
-						<input type="hidden" name="job_title" value="#agentAddrs.job_title#">
-						<input type="hidden" name="street_addr1" value="#agentAddrs.street_addr1#">
-						<input type="hidden" name="department" value="#agentAddrs.department#">
-						<input type="hidden" name="institution" value="#agentAddrs.institution#">
-						<input type="hidden" name="street_addr2" value="#agentAddrs.street_addr2#">
-						<input type="hidden" name="city" value="#agentAddrs.city#">
-						<input type="hidden" name="state" value="#agentAddrs.state#">
-						<input type="hidden" name="zip" value="#agentAddrs.zip#">
-						<input type="hidden" name="country_cde" value="#agentAddrs.country_cde#">
-						<input type="hidden" name="mail_stop" value="#agentAddrs.mail_stop#">
-						<input type="hidden" name="validfg" value="#agentAddrs.valid_addr_fg#">
-						<input type="hidden" name="addr_remarks" value="#agentAddrs.addr_remarks#">
-						<input type="hidden" name="formatted_addr" value="#agentAddrs.formatted_addr#">
-					</form>
-								
-						#addr_type# Address (<cfif #valid_addr_fg# is 1>
-									valid
-								<cfelse>
-									invalid
-								</cfif>
-								)
-								&nbsp;&nbsp;<span class="likeLink" onclick="addr#i#.action.value='editAddr';addr#i#.submit();">Edit</span>
-								&nbsp;&nbsp;~&nbsp;&nbsp;<span class="likeLink" onclick="addr#i#.action.value='deleteAddr';confirmDelete('addr#i#');">Delete</span>
-								<br>
+						<form name="addr#i#" method="post" action="editAllAgent.cfm">
+							<input type="hidden" name="agent_id" value="#person.agent_id#">
+							<input type="hidden" name="addr_id" value="#agentAddrs.addr_id#">
+							<input type="hidden" name="action" value="editAddr">
+							<input type="hidden" name="addrtype" value="#agentAddrs.addr_type#">
+							<input type="hidden" name="job_title" value="#agentAddrs.job_title#">
+							<input type="hidden" name="street_addr1" value="#agentAddrs.street_addr1#">
+							<input type="hidden" name="department" value="#agentAddrs.department#">
+							<input type="hidden" name="institution" value="#agentAddrs.institution#">
+							<input type="hidden" name="street_addr2" value="#agentAddrs.street_addr2#">
+							<input type="hidden" name="city" value="#agentAddrs.city#">
+							<input type="hidden" name="state" value="#agentAddrs.state#">
+							<input type="hidden" name="zip" value="#agentAddrs.zip#">
+							<input type="hidden" name="country_cde" value="#agentAddrs.country_cde#">
+							<input type="hidden" name="mail_stop" value="#agentAddrs.mail_stop#">
+							<input type="hidden" name="validfg" value="#agentAddrs.valid_addr_fg#">
+							<input type="hidden" name="addr_remarks" value="#agentAddrs.addr_remarks#">
+							<input type="hidden" name="formatted_addr" value="#agentAddrs.formatted_addr#">
+						</form>
+						#addr_type# Address (<cfif #valid_addr_fg# is 1>valid<cfelse>invalid</cfif>)
+						&nbsp;&nbsp;<span class="likeLink" onclick="addr#i#.action.value='editAddr';addr#i#.submit();">Edit</span>
+						&nbsp;&nbsp;~&nbsp;&nbsp;<span class="likeLink" onclick="addr#i#.action.value='deleteAddr';confirmDelete('addr#i#');">Delete</span>
 						<div style="margin-left:1em;">
 							#replace(formatted_addr,chr(10),"<br>","all")#
 						</div>
-						<!---<tr>
-							<td>
-								<em>Type:</em> #addr_type#&nbsp&nbsp&nbsp;
-								Valid?
-								<cfif #valid_addr_fg# is 1>
-									Yes
-								<cfelse>
-									No
-								</cfif>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								#replace(formatted_addr,"#chr(10)#","<br>","all")#
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<em>Remarks:</em> #addr_remarks#
-							</td>
-						</tr>
-						<tr>
-							<td nowrap align="center">
-								<table>
-									<tr>
-										<td>
-										<input type="submit" 
-									value="Edit" 
-									class="lnkBtn"
-									onmouseover="this.className='lnkBtn btnhov'"
-									onmouseout="this.className='lnkBtn'">
-										</td>
-										
-								
-								</form>
-								<form name="kill#i#" method="post" action="editAllAgent.cfm">
-									<input type="hidden" name="Action" value="deleteAddr">
-									<input type="hidden" name="addr_id" value="#agentAddrs.addr_id#">
-									<input type="hidden" name="agent_id" value="#person.agent_id#">
-									
-									<td>
-										<input type="button" 
-														value="Delete" 
-														class="delBtn"
-														onmouseover="this.className='delBtn btnhov'"
-														onmouseout="this.className='delBtn'"
-														onclick="confirmDelete('kill#i#');">
-										</td>
-									</tr>
-								</table>
-								
-								</form>
-							</td>
-						</tr>
-						---->
 						<cfset i=#i#+1>
-						</div>
-					</cfloop>
-				</cfoutput>
-			<!----
-			<table>
-				<tr>
-					<td>
-						<font color="##000066"><strong>Current Addresses:</strong></font>
-					</td>
-				</tr>
-				<cfset i=1>
-				<cfoutput>
-				<cfloop query="agentAddrs">
-				<form name="addr#i#" method="post" action="editAllAgent.cfm">
-					<input type="hidden" name="agent_id" value="#person.agent_id#">
-					<input type="hidden" name="addr_id" value="#agentAddrs.addr_id#">
-					<input type="hidden" name="Action" value="editAddr">
-					<input type="hidden" name="addrtype" value="#agentAddrs.addr_type#">
-					<input type="hidden" name="job_title" value="#agentAddrs.job_title#">
-					<input type="hidden" name="street_addr1" value="#agentAddrs.street_addr1#">
-					<input type="hidden" name="department" value="#agentAddrs.department#">
-					<input type="hidden" name="institution" value="#agentAddrs.institution#">
-					<input type="hidden" name="street_addr2" value="#agentAddrs.street_addr2#">
-					<input type="hidden" name="city" value="#agentAddrs.city#">
-					<input type="hidden" name="state" value="#agentAddrs.state#">
-					<input type="hidden" name="zip" value="#agentAddrs.zip#">
-					<input type="hidden" name="country_cde" value="#agentAddrs.country_cde#">
-					<input type="hidden" name="mail_stop" value="#agentAddrs.mail_stop#">
-					<input type="hidden" name="validfg" value="#agentAddrs.valid_addr_fg#">
-					<input type="hidden" name="addr_remarks" value="#agentAddrs.addr_remarks#">
-					<input type="hidden" name="formatted_addr" value="#agentAddrs.formatted_addr#">
-				<tr>
-					<td>
-						<em>Type:</em> #addr_type#&nbsp&nbsp&nbsp;
-						Valid?
-						<cfif #valid_addr_fg# is 1>
-							Yes
-						<cfelse>
-							No
-						</cfif>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						#replace(formatted_addr,"#chr(10)#","<br>","all")#
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<em>Remarks:</em> #addr_remarks#
-					</td>
-				</tr>
-				<tr>
-					<td nowrap align="center">
-						<table>
-							<tr>
-								<td>
-								<input type="submit" 
-							value="Edit" 
-							class="lnkBtn"
-							onmouseover="this.className='lnkBtn btnhov'"
-							onmouseout="this.className='lnkBtn'">
-								</td>
-								
-						
-						</form>
-						<form name="kill#i#" method="post" action="editAllAgent.cfm">
-							<input type="hidden" name="Action" value="deleteAddr">
-							<input type="hidden" name="addr_id" value="#agentAddrs.addr_id#">
-							<input type="hidden" name="agent_id" value="#person.agent_id#">
-							
-							<td>
-								<input type="button" 
-												value="Delete" 
-												class="delBtn"
-												onmouseover="this.className='delBtn btnhov'"
-												onmouseout="this.className='delBtn'"
-												onclick="confirmDelete('kill#i#');">
-								</td>
-							</tr>
-						</table>
-						
-						</form>
-					</td>
-				</tr>
-				<cfset i=#i#+1>
+					</div>
 				</cfloop>
-				</cfoutput>
-			</table>
-			---->
+			</cfoutput>
 		</td>
 	</tr>
 	<tr>
