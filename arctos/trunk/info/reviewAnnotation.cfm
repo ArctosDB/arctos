@@ -13,7 +13,8 @@ Filter for:
 		<option value="project">Project</option>
 		<option value="publication_id">Publication</option>
 		
-		<option value="">OR pick a collection</option>
+		<option value="">--------------------------</option>
+		<option value="">OR pick a collection below</option>
 		<cfloop query="c">
 			<option value="#cln#">#cln#</option>
 		</cfloop>
