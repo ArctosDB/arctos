@@ -204,7 +204,7 @@ Filter for:
 		where
 			annotation_id=#annotation_id#
 	</cfquery>
-	<cflocation url="annotate.cfm?action=show&type=#type#&id=#id##" addtoken="false">
+	<cflocation url="annotate.cfm?action=show&type=#type#&id=#id#" addtoken="false">
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
