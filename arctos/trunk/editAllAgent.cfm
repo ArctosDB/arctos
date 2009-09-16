@@ -264,7 +264,8 @@
 						<input type="hidden" name="validfg" value="#agentAddrs.valid_addr_fg#">
 						<input type="hidden" name="addr_remarks" value="#agentAddrs.addr_remarks#">
 						<input type="hidden" name="formatted_addr" value="#agentAddrs.formatted_addr#">
-						<tr>
+						#formatted_addr#
+						<!---<tr>
 							<td>
 								<em>Type:</em> #addr_type#&nbsp&nbsp&nbsp;
 								Valid?
@@ -318,6 +319,7 @@
 								</form>
 							</td>
 						</tr>
+						---->
 						<cfset i=#i#+1>
 						</div>
 					</cfloop>
