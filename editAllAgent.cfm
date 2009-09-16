@@ -242,14 +242,14 @@
 				<cfset i=1>
 				<cfloop query="agentAddrs">
 					<cfif valid_addr_fg is 1>
-						<div style="border:1px solid green;">
+						<div style="border:1px solid green;margin:1px;">
 					<cfelse>
-						<div style="border:1px solid red;">
+						<div style="border:1px solid red;margin:1px;">
 					</cfif>
 					<form name="addr#i#" method="post" action="editAllAgent.cfm">
 						<input type="hidden" name="agent_id" value="#person.agent_id#">
 						<input type="hidden" name="addr_id" value="#agentAddrs.addr_id#">
-						<input type="hidden" name="Action" value="editAddr">
+						<input type="hidden" name="action" value="editAddr">
 						<input type="hidden" name="addrtype" value="#agentAddrs.addr_type#">
 						<input type="hidden" name="job_title" value="#agentAddrs.job_title#">
 						<input type="hidden" name="street_addr1" value="#agentAddrs.street_addr1#">
@@ -264,12 +264,17 @@
 						<input type="hidden" name="validfg" value="#agentAddrs.valid_addr_fg#">
 						<input type="hidden" name="addr_remarks" value="#agentAddrs.addr_remarks#">
 						<input type="hidden" name="formatted_addr" value="#agentAddrs.formatted_addr#">
+					</form>
+								
 						#addr_type# Address (<cfif #valid_addr_fg# is 1>
 									valid
 								<cfelse>
 									invalid
 								</cfif>
-								)<br>
+								)
+								<span class="likeLink" onclick="addr#i#.action.value='editAddr';addr#i#.submit();">Edit</span>
+								<span class="likeLink" onclick="addr#i#.action.value='deleteAddr';confirmDelete('addr#i#');">Delete</span>
+								<br>
 						#replace(formatted_addr,chr(10),"<br>","all")#
 						<!---<tr>
 							<td>
