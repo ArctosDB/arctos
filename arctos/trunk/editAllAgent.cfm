@@ -242,9 +242,9 @@
 				<cfset i=1>
 				<cfloop query="agentAddrs">
 					<cfif valid_addr_fg is 1>
-						<div style="border:1px solid green;margin:1px;padding:1px;">
+						<div style="border:2px solid green;margin:1px;padding:1px;">
 					<cfelse>
-						<div style="border:1px solid red;margin:1px;padding:1px;">
+						<div style="border:2px solid red;margin:1px;padding:1px;">
 					</cfif>
 					<form name="addr#i#" method="post" action="editAllAgent.cfm">
 						<input type="hidden" name="agent_id" value="#person.agent_id#">
