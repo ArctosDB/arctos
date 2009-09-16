@@ -275,9 +275,9 @@
 								&nbsp;&nbsp;<span class="likeLink" onclick="addr#i#.action.value='editAddr';addr#i#.submit();">Edit</span>
 								&nbsp;&nbsp;~&nbsp;&nbsp;<span class="likeLink" onclick="addr#i#.action.value='deleteAddr';confirmDelete('addr#i#');">Delete</span>
 								<br>
-						<span style="margin-left:1em;">
+						<div style="margin-left:1em;">
 							#replace(formatted_addr,chr(10),"<br>","all")#
-						</span>
+						</div>
 						<!---<tr>
 							<td>
 								<em>Type:</em> #addr_type#&nbsp&nbsp&nbsp;
