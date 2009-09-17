@@ -58,7 +58,16 @@
 	</cfif>
 	<cfoutput>
 	<cfquery name="dl" datasource="cf_dbuser">
-		select * from cf_users, cf_user_data, cf_download
+		select 
+			username,
+			first_name,
+			last_name,
+			affiliation,
+			download_purpose,
+			to_char(download_date,'dd mon yyyy') download_date,
+			num_records,
+			agree_to_terms
+		from cf_users, cf_user_data, cf_download
 		where cf_users.user_id = cf_user_data.user_id and
 		cf_users.user_id = cf_download.user_id
 		<cfif isdefined("username") and len(username) gt 0>
