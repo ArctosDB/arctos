@@ -12,8 +12,9 @@
 	<h2>Download Statistics</h2>
 	<cfquery name="ctusername" datasource="cf_dbuser">
 		select username,affiliation 
-		from cf_users, cf_download
-		where cf_users.user_id = cf_download.user_id 
+		from cf_users, cf_download,cf_user_data
+		where cf_users.user_id = cf_user_data.user_id and
+		cf_users.user_id = cf_download.user_id 
 		group by username,affiliation 
 		order by username
 	</cfquery>
