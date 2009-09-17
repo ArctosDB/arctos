@@ -18,6 +18,7 @@
 		group by username,affiliation 
 		order by username
 	</cfquery>
+	<cfoutput>
 	<form name="srch" method="post" action="download.cfm">
 		<input type="hidden" name="action" id="action" value="show">
 		<label for="username">Username (affiliation)</label>
@@ -49,14 +50,13 @@
 		<input type="button" value="show table" onclick="srch.action.value='table';srch.submit();">
 		<input type="button" value="show summary" onclick="srch.action.value='summary';srch.submit();">
 	</form>
-	
-
-	
+	</cfoutput>
 </cfif>
 <cfif action is "table">
 	<cfif isdefined("bdate") and len(bdate) gt 0 and (not isdefined("edate") or len(edate) is 0)>
 		<cfset edate=bdate>
 	</cfif>
+	<cfoutput>
 	<cfquery name="dl" datasource="cf_dbuser">
 		select * from cf_users, cf_user_data, cf_download
 		where cf_users.user_id = cf_user_data.user_id and
@@ -95,10 +95,7 @@
 			</tr>
 		</cfloop>
 	</table>
-
-		
-		
-
+	</cfoutput>
 </cfif>
 <cfif action is "summary">
 summary here
