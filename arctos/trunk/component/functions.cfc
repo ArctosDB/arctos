@@ -259,7 +259,7 @@
 					RELATIONSHIP='child record of',
 					RELATED_TO_NUMBER= (
 										select 
-											collection.institution_acronym || ' ' || collection.collection_cde || ' ' cat_num 
+											collection.institution_acronym || ' ' || collection.collection_cde || ' ' || cat_num 
 										from 
 											cataloged_item,collection
 										where cataloged_item.collection_id=collection.collection_id and 
