@@ -49,8 +49,8 @@
 			function (r) {
 				if (r.substring(0,6) == 'spiffy') {
 					var v=r.substring(8,r.length);
-					var q='<a target="_blank" href="/DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=' + v + '">View Clone</a>';
-					jQuery('##cloned').css("display", "inline").text(q);
+					var q='Clone created: <a target="_blank" href="/DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=' + v + '">View Clone</a>';
+					jQuery('##cloned').css("display", "inline").html(q);
 				} else {
 					jQuery('##cloned').css("display", "inline").text(r);
 				}
