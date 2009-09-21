@@ -47,10 +47,12 @@
 						cataloged_item.COLLECTING_EVENT_ID
 					from
 						cataloged_item,
+						collection,
 						identification,
 						coll_object,
 						COLL_OBJECT_REMARK
 					where
+						cataloged_item.collection_id=collection.collection_id and
 						cataloged_item.collection_object_id=identification.collection_object_id and
 						identification.accepted_id_fg=1 and
 						cataloged_item.collection_object_id=coll_object.collection_object_id and
