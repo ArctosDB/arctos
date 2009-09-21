@@ -36,15 +36,33 @@
 		relatedSpecimenId.accepted_id_fg=1 AND
 		biol_indiv_relations.collection_object_id=#collection_object_id#
 </cfquery>
-<strong>Edit Relationships:</strong>
-<cfset thisCollObjId = #collection_object_id#>
-<br>
-To split a lot or create a parasite, you can 
-<span class="likeLink" onclick="">Clone This Record</span>. Data from this cataloged item will be inserted into the Bulkloader, where you
+<script>
+	function cloneCatalogedItem(collection_object_id){
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "cloneCatalogedItem",
+				collection_object_id : collection_object_id,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				if(r!='success'){
+					alert(r);
+				}
+			}
+		);
+	}
+</script>
+To split a lot or create a parasite, you can
+<span class="likeLink" onclick="cloneRecord(#collection_object_id#)">Clone This Record</span>. Data from this cataloged item will be inserted into the Bulkloader, where you
 may edit the record. A new relationship of "child record of" will be created from the new cataloged item to this one, and a
 derived relatinship of "child record IS" will appear on this record.
 
-<br>Current Relationships:
+<br>
+<strong>Edit Relationships:</strong>
+<cfset thisCollObjId = #collection_object_id#>
+<br>
+Current Relationships:
 <cfif #getRelns.recordcount# gt 0>
 <cfquery name="ctReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select biol_indiv_relationship from ctbiol_relations
