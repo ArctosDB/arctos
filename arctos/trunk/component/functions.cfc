@@ -266,6 +266,10 @@
 			<cfreturn "fail: #cfcatch.message#">
 		</cfcatch>
 	</cftry>
+</cffunction>
+
+
+
 <!------------------------------------------------------->
 <cffunction name="saveAgentRank" access="remote">
 	<cfargument name="agent_id" type="numeric" required="yes">	
