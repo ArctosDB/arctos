@@ -54,7 +54,7 @@
 	}
 </script>
 To split a lot or create a parasite, you can
-<span class="likeLink" onclick="cloneRecord(#collection_object_id#)">Clone This Record</span>. Data from this cataloged item will be inserted into the Bulkloader, where you
+<span class="likeLink" onclick="cloneCatalogedItem(#collection_object_id#)">Clone This Record</span>. Data from this cataloged item will be inserted into the Bulkloader, where you
 may edit the record. A new relationship of "child record of" will be created from the new cataloged item to this one, and a
 derived relatinship of "child record IS" will appear on this record.
 
