@@ -233,7 +233,7 @@
 			<cfif att.recordcount gt 0>
 				<cfset i=1>
 				<cfset sql="update bulkloader set ">
-				<cfloop query="part">
+				<cfloop query="att">
 					<cfif i lt 11>
 						<cfset sql=sql & "ATTRIBUTE_#i# = '#ATTRIBUTE_TYPE#',
 							ATTRIBUTE_VALUE_#i#='#ATTRIBUTE_VALUE#',
@@ -254,7 +254,7 @@
 			<cfif att.recordcount gt 10>
 				<cfset problem="too many attribute: #valuelist(att.ATTRIBUTE_TYPE)#">
 			</cfif>		
-			<cfquery name="iatt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="irel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				update bulkloader set 
 					RELATIONSHIP='child record of',
 					RELATED_TO_NUMBER= (
