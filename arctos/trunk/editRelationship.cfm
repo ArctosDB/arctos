@@ -48,7 +48,7 @@
 			},
 			function (r) {
 				if (r.substring(0,6) == 'spiffy') {
-					var v=r.substring(8,r.length);
+					var v=r.substring(7,r.length);
 					var q='Clone created: <a target="_blank" href="/DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=' + v + '">View Clone</a>';
 					jQuery('##cloned').css("display", "inline").html(q);
 				} else {
@@ -60,9 +60,11 @@
 	}
 </script>
 To split a lot or create a parasite, you can
-<span class="likeLink" onclick="cloneCatalogedItem(#collection_object_id#)">Clone This Record</span>. Data from this cataloged item will be inserted into the Bulkloader, where you
+<span class="likeLink" onclick="cloneCatalogedItem(#collection_object_id#)">Clone This Record</span>. 
+Data from this cataloged item will be inserted into the Bulkloader, where you
 may edit the record. A new relationship of "child record of" will be created from the new cataloged item to this one, and a
-derived relatinship of "child record IS" will appear on this record.
+derived relationship of "child record IS" will appear on this record.
+<br>
 <div id="cloned" style="display:none" class="redBorder"></div>
 <br>
 <strong>Edit Relationships:</strong>
