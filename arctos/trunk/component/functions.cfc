@@ -171,7 +171,7 @@
 				from
 					specimen_part,
 					coll_object,
-					coll_object_remarks,
+					coll_object_remark,
 					coll_obj_cont_hist,
 					container c,
 					container p
