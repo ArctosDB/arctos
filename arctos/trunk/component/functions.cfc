@@ -166,7 +166,7 @@
 					p.barcode,
 					p.label,
 					to_char(lot_count) lot_count,
-					disposition,
+					COLL_OBJ_DISPOSITION,
 					coll_object_remarks
 				from
 					specimen_part,
@@ -196,7 +196,7 @@
 							PART_BARCODE_#i#='#barcode#',
 							PART_CONTAINER_LABEL_#i#='#label#',
 							PART_LOT_COUNT_#i#='#lot_count#',
-							PART_DISPOSITION_#i#='#disposition#',
+							PART_DISPOSITION_#i#='#COLL_OBJ_DISPOSITION#',
 							PART_REMARK_#i#='#coll_object_remarks#',">
 						<cfset i=i+1>
 					</cfif>
