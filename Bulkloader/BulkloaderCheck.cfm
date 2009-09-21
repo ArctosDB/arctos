@@ -130,7 +130,7 @@
 					select biol_indiv_relationship from ctbiol_relations where
 					biol_indiv_relationship ='#relationship#'
 				</cfquery>
-				<cfif len(#isGoodReln.biol_indiv_relationship#) is 0>
+				<cfif len(#isGoodReln.biol_indiv_relationship#) is 0 and relationship is not "cataloged item">
 					<cfset loadedMsg = "#loadedMsg#; #relationship# is not a valid ::relationship::.">
 				</cfif>
 				<cfquery name="isGoodRelOID" datasource="uam_god">
@@ -320,7 +320,7 @@
 					<cfif getLLAgnt.recordcount is 0>
 						<cfset loadedMsg = "#loadedMsg#; The lat long ::determined_by_agent:: was not found.">
 					  <cfelseif getLLAgnt.recordcount gt 1>
-						<cfset loadedMsg = "#loadedMsg#; The lat long ::determined_by_agent:: returned more than one match. Please enter an agent anme (not necessarily the preferred name) that uniquely identifies the agent who determined the lat_long.">
+						<cfset loadedMsg = "#loadedMsg#; The lat long ::determined_by_agent:: returned more than one match. Please enter an agent name (not necessarily the preferred name) that uniquely identifies the agent who determined the lat_long.">
 					<cfelse>
 						<cfset llagentid = getLLAgnt.agent_id>
 					</cfif>
