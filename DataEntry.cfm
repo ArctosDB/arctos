@@ -1971,7 +1971,7 @@
 							<cfset thisRELATED_TO_NUM_TYPE = #RELATED_TO_NUM_TYPE#>
 							<select name="related_to_num_type" size="1" id="related_to_num_type" class="d11a" style="width: 80">
 								<option value=""></option>
-								<option value="catalog number" <cfif #thisRELATED_TO_NUM_TYPE# is "catalog number">selected="selected"</cfif>catalog number (UAM Mamm 123 format)</option>
+								<option <cfif #thisRELATED_TO_NUM_TYPE# is "catalog number">selected="selected"</cfif> value="catalog number">catalog number (UAM Mamm 123 format)</option>
 								<cfloop query="ctOtherIdType">
 									<option
 										<cfif #thisRELATED_TO_NUM_TYPE# is #other_id_type#> selected </cfif>
