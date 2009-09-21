@@ -709,8 +709,7 @@
 						size="80"
 						id="verbatim_locality" value="#stripQuotes(verbatim_locality)#">
 					<span class="infoLink" 
-						onclick="document.getElementById('verbatim_locality').value=document.getElementById('spec_locality').value;">
-						Use&nbsp;Specloc
+						onclick="document.getElementById('verbatim_locality').value=document.getElementById('spec_locality').value;">&nbsp;Use&nbsp;Specloc
 					</span>
 				</td>
 			</tr>			
@@ -1972,7 +1971,7 @@
 							<cfset thisRELATED_TO_NUM_TYPE = #RELATED_TO_NUM_TYPE#>
 							<select name="related_to_num_type" size="1" id="related_to_num_type" class="d11a" style="width: 80">
 								<option value=""></option>
-								<option value="catalog number">catalog number (UAM Mamm 123 format)</option>
+								<option value="catalog number" <cfif #thisRELATED_TO_NUM_TYPE# is "catalog number">selected="selected"</cfif>catalog number (UAM Mamm 123 format)</option>
 								<cfloop query="ctOtherIdType">
 									<option
 										<cfif #thisRELATED_TO_NUM_TYPE# is #other_id_type#> selected </cfif>
