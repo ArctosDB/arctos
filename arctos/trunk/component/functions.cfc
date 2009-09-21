@@ -2,9 +2,7 @@
 	
 <cffunction name="cloneCatalogedItem" access="remote">
 	<cfargument name="collection_object_id" type="numeric" required="yes">	
-	<!---
 	<cftry>
-	--->
 		<cftransaction>
 			<cfset problem="">
 			<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -229,12 +227,12 @@
 					attributes.DETERMINED_BY_AGENT_ID=preferred_agent_name.agent_id and				
 					attributes.collection_object_id=#collection_object_id#
 			</cfquery>
-			
+			<!--- attributes 1 through 6 are customizable and we can't use them here --->
 			<cfif att.recordcount gt 0>
-				<cfset i=1>
+				<cfset i=7>
 				<cfset sql="update bulkloader set ">
 				<cfloop query="att">
-					<cfif i lt 11>
+					<cfif i lte 10>
 						<cfset sql=sql & "ATTRIBUTE_#i# = '#ATTRIBUTE_TYPE#',
 							ATTRIBUTE_VALUE_#i#='#ATTRIBUTE_VALUE#',
 							ATTRIBUTE_UNITS_#i#='#ATTRIBUTE_UNITS#',
@@ -251,11 +249,12 @@
 					#preservesinglequotes(sql)#
 				</cfquery>
 			</cfif>
-			<cfif att.recordcount gt 10>
+			<cfif att.recordcount gt 4>
 				<cfset problem="too many attribute: #valuelist(att.ATTRIBUTE_TYPE)#">
 			</cfif>		
 			<cfquery name="irel" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				update bulkloader set 
+					COLL_OBJECT_REMARKS='#problem#',
 					RELATIONSHIP='child record of',
 					RELATED_TO_NUMBER= (
 										select 
@@ -269,13 +268,11 @@
 				where collection_object_id=#key#
 			</cfquery>
 		</cftransaction>
-			<cfreturn "spiffy">
-		<!---
+			<cfreturn "spiffy:#key#">
 		<cfcatch>
 			<cfreturn "fail: #cfcatch.message#">
 		</cfcatch>
 	</cftry>
-	--->
 </cffunction>
 
 
