@@ -137,7 +137,7 @@
 					select other_id_type from ctcoll_other_id_type
 					where other_id_type='#related_to_num_type#'
 				</cfquery>
-				<cfif len(#isGoodRelOID.other_id_type#) is 0  and relationship is not "cataloged item">
+				<cfif len(#isGoodRelOID.other_id_type#) is 0  and relationship is not "catalog number">
 					<cfset loadedMsg = "#loadedMsg#; #related_to_num_type# is not a valid ID type and cannot be in a ::relationship::.">
 				</cfif>
 			</cfif>

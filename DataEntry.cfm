@@ -710,7 +710,7 @@
 						id="verbatim_locality" value="#stripQuotes(verbatim_locality)#">
 					<span class="infoLink" 
 						onclick="document.getElementById('verbatim_locality').value=document.getElementById('spec_locality').value;">
-						Use Specloc
+						Use&nbsp;Specloc
 					</span>
 				</td>
 			</tr>			
