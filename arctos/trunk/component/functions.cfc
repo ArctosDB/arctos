@@ -137,7 +137,7 @@
 				<cfset sql=sql & ' where collection_object_id=#key#'>
 				<cfset sql=replace(sql,", where"," where","all")>
 				<cfquery name="icoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					#preservesinglequotes(#sql#)
+					#preservesinglequotes(sql)#
 				</cfquery>
 			</cfif>
 			<cfif col.recordcount gt 8>
@@ -196,7 +196,7 @@
 				<cfset sql=sql & ' where collection_object_id=#key#'>
 				<cfset sql=replace(sql,", where"," where","all")>
 				<cfquery name="ipart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					#preservesinglequotes(#sql#)
+					#preservesinglequotes(sql)#
 				</cfquery>
 			</cfif>
 			<cfif part.recordcount gt 12>
@@ -240,7 +240,7 @@
 				<cfset sql=sql & ' where collection_object_id=#key#'>
 				<cfset sql=replace(sql,", where"," where","all")>
 				<cfquery name="iatt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					#preservesinglequotes(#sql#)
+					#preservesinglequotes(sql)#
 				</cfquery>
 			</cfif>
 			<cfif att.recordcount gt 10>
