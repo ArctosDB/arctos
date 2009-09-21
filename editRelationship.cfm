@@ -38,6 +38,7 @@
 </cfquery>
 <script>
 	function cloneCatalogedItem(collection_object_id){
+		jQuery('#cloned').text('Creating clone - hold tight.....');
 		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "cloneCatalogedItem",
@@ -46,9 +47,7 @@
 				queryformat : 'column'
 			},
 			function (r) {
-				if(r!='success'){
-					alert(r);
-				}
+				jQuery('#cloned').text(r);
 			}
 		);
 	}
@@ -57,7 +56,7 @@ To split a lot or create a parasite, you can
 <span class="likeLink" onclick="cloneCatalogedItem(#collection_object_id#)">Clone This Record</span>. Data from this cataloged item will be inserted into the Bulkloader, where you
 may edit the record. A new relationship of "child record of" will be created from the new cataloged item to this one, and a
 derived relatinship of "child record IS" will appear on this record.
-
+<div id="cloned"></div>
 <br>
 <strong>Edit Relationships:</strong>
 <cfset thisCollObjId = #collection_object_id#>
