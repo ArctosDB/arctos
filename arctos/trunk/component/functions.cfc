@@ -188,7 +188,7 @@
 					<cfif i lt 13>
 						<cfset sql=sql & "PART_NAME_#i# = '#part_name#',
 							PART_MODIFIER_#i#='#part_modifier#',
-							PRESERV_METHOD_#i#='#part_modifier#',
+							PRESERV_METHOD_#i#='#preserve_method#',
 							PART_CONDITION_#i#='#condition#',
 							PART_BARCODE_#i#='#barcode#',
 							PART_CONTAINER_LABEL_#i#='#label#',
