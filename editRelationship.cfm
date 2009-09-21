@@ -13,35 +13,31 @@ theSaveButton.style.display='';
 window.setInterval("chkVal()",1000);
 </script>
 <cfoutput>
-<cfquery name="thisRec" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	SELECT cat_num, cataloged_item.collection_cde,
-	institution_acronym from cataloged_item,
-	collection WHERE 
-	cataloged_item.collection_id = collection.collection_id AND
-	collection_object_id=#collection_object_id#
-</cfquery>
 <cfquery name="getRelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	SELECT cat_num, 
-	cataloged_item.collection_object_id,
-	cataloged_item.collection_cde, 
-	biol_indiv_relationship,
-	thisSpecimenId.scientific_name scientific_name,
-	relatedSpecimenId.scientific_name CatItemSciName
-	<cfif isdefined("customOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
-		,concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#')	CustomID
-	</cfif>
-	 FROM 
-	cataloged_item,
-	biol_indiv_relations,
-	identification thisSpecimenId,
-	identification relatedSpecimenId
+	SELECT 
+		cat_num, 
+		collection.collection,
+		cataloged_item.collection_object_id,
+		biol_indiv_relationship,
+		thisSpecimenId.scientific_name scientific_name,
+		relatedSpecimenId.scientific_name CatItemSciName
+		<cfif len(session.CustomOtherIdentifier) gt 0>
+			,concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#')	CustomID
+		</cfif>
+	FROM 
+		cataloged_item,
+		collection,
+		biol_indiv_relations,
+		identification thisSpecimenId,
+		identification relatedSpecimenId
 	WHERE
-	cataloged_item.collection_object_id = biol_indiv_relations.related_coll_object_id AND
-	cataloged_item.collection_object_id = thisSpecimenId.collection_object_id AND
-	biol_indiv_relations.collection_object_id = relatedSpecimenId.collection_object_id AND
-	thisSpecimenId.accepted_id_fg=1 AND
-	relatedSpecimenId.accepted_id_fg=1 AND
-	biol_indiv_relations.collection_object_id=#collection_object_id#
+		cataloged_item.collection_id=collection.collection_id and
+		cataloged_item.collection_object_id = biol_indiv_relations.related_coll_object_id AND
+		cataloged_item.collection_object_id = thisSpecimenId.collection_object_id AND
+		biol_indiv_relations.collection_object_id = relatedSpecimenId.collection_object_id AND
+		thisSpecimenId.accepted_id_fg=1 AND
+		relatedSpecimenId.accepted_id_fg=1 AND
+		biol_indiv_relations.collection_object_id=#collection_object_id#
 </cfquery>
 
 <strong>Edit Relationships:</strong>
@@ -53,53 +49,28 @@ window.setInterval("chkVal()",1000);
 </cfquery>
 <cfset i=1>
 <table>
-<cfloop query="getRelns">
-<form name="reln#i#" method="post" action="editRelationship.cfm">
-	<input type="hidden" name="collection_object_id" value="#thisCollObjId#">
-	<input type="hidden" name="action">
-	<input type="hidden" name="origRelCollObjId" value="#getRelns.collection_object_id#">
-	<input type="hidden" name="origReln" value="#getRelns.biol_indiv_relationship#">
-		<cfset thisReln = #getRelns.biol_indiv_relationship#>
-	<tr>
-		<td><select name="biol_indiv_relationship" size="1" class="reqdClr">
-				<cfloop query="ctReln">
-					<option 
-						<cfif #thisReln# is "#ctReln.biol_indiv_relationship#"> selected </cfif>value="#ctReln.biol_indiv_relationship#">#ctReln.biol_indiv_relationship#</option>
-				</cfloop>
-			</select>
-			</td>
-			<td>
-			Cat ## <input type="text" name="related_cat_num" readonly="yes" class="readClr" size="6" value="#getRelns.cat_num#">
-			<cfif isdefined("customOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
-				(#session.CustomOtherIdentifier# = #CustomID#)
-			</cfif>
-				<input type="text" size="20" name="scientific_name" readonly="yes" class="readClr" value="#getRelns.scientific_name#">
-				
+	<cfloop query="getRelns">
+		<form name="reln#i#" method="post" action="editRelationship.cfm">
+			<input type="hidden" name="collection_object_id" value="#thisCollObjId#">
+			<input type="hidden" name="action" value="deleReln">
+			<input type="hidden" name="origRelCollObjId" value="#getRelns.collection_object_id#">
+			<input type="hidden" name="origReln" value="#getRelns.biol_indiv_relationship#">
+			<tr>
+				<td>
+					#biol_indiv_relationship# #collection# #cat_num# 
+					<cfif len(session.CustomOtherIdentifier) gt 0>
+						(#session.CustomOtherIdentifier# = #CustomID#)
+					</cfif>
+					#scientific_name#
 				<input type="hidden" name="related_coll_object_id" value="#getRelns.collection_object_id#">
-				<input type="button" 
-					 	value="Pick" 
-						class="picBtn"
-   						onmouseover="this.className='picBtn btnhov'" 
-						onmouseout="this.className='picBtn'"
-   						onclick="findCatalogedItem('related_coll_object_id','scientific_name','reln#i#'); return false;">
-   						<!---
-   							onclick="CatItemPick('related_coll_object_id','related_cat_num','reln#i#','scientific_name');return false;">
-   						--->
-					<input type="button" 
-					 	value="Save" 
-						class="savBtn"
-   						onmouseover="this.className='savBtn btnhov'" 
-						onmouseout="this.className='savBtn'"
-						onclick="reln#i#.action.value='saveEdit'; submit();">
+		
 					<input type="button" 
 					 	value="Delete" 
 						class="delBtn"
    						onmouseover="this.className='delBtn btnhov'" 
 						onmouseout="this.className='delBtn'"
 						onclick="reln#i#.action.value='deleReln'; confirmDelete('reln#i#','this relationship');">
-			</td>
-			<td valign="middle">
-				<a href="SpecimenDetail.cfm?collection_object_id=#getRelns.collection_object_id#" class="infoLink">Related Specimen</a>
+			<a href="SpecimenDetail.cfm?collection_object_id=#getRelns.collection_object_id#" class="infoLink">View Related Specimen</a>
 				<cfif #biol_indiv_relationship# is "parent of" and (#scientific_name# neq #CatItemSciName#)>
 					<a href="/tools/parent_child_taxonomy.cfm?collection_object_id=#thisCollObjId#">
 						<img src="/images/oops.gif" border="0" height="20"/>
@@ -123,46 +94,6 @@ None
 <cfquery name="ctReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select biol_indiv_relationship from ctbiol_relations
 </cfquery>
-
-<!----<form name="newRelation" action="editRelationship.cfm" method="post">
-	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-	<input type="hidden" name="action" value="saveNew">
-		<table class="newRec">
-		<tr>
-			<td colspan="2">
-				Add Relationship:
-			</td>
-		</tr>
-		<tr>
-			<td><select name="biol_indiv_relationship" size="1" class="reqdClr">
-				<cfloop query="ctReln">
-					<option value="#ctReln.biol_indiv_relationship#">#ctReln.biol_indiv_relationship#</option>
-				</cfloop>
-			</select></td>
-			<td>
-				Cat ## <input type="text" name="related_cat_num" readonly="yes" class="readClr" size="6">
-				<input type="text" size="20" name="scientific_name" readonly="yes" class="readClr">
-				<input type="hidden" name="related_coll_object_id">
-				<input type="button" 
-					 	value="Pick" 
-						class="picBtn"
-   						onmouseover="this.className='picBtn btnhov'" 
-						onmouseout="this.className='picBtn'"
-   						onclick="CatItemPick('related_coll_object_id','related_cat_num','newRelation','scientific_name');return false;">
-					<input type="submit" 
-					 	value="Save" 
-						class="savBtn"
-   						onmouseover="this.className='savBtn btnhov'" 
-						onmouseout="this.className='savBtn'">
-						
-					
-
-
-			</td>
-		</tr>
-	</table>
-</form>
----->
 <cfquery name="thisCollId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collection from cataloged_item,collection where cataloged_item.collection_id=collection.collection_id and
     collection_object_id=#collection_object_id#
