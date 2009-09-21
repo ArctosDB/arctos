@@ -47,12 +47,13 @@
 				queryformat : 'column'
 			},
 			function (r) {
-				jQuery('##cloned').css("display", "inline").text(r);
-				if (r.substring(0,5) == 'spiffy') {
-					console.log('woot!');
-			} else {
-					console.log(r.substring(0,5));
-					}
+				if (r.substring(0,6) == 'spiffy') {
+					var v=r.substring(8,r.length);
+					var q='<a target="_blank" href="/DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=' + v + '">View Clone</a>';
+					jQuery('##cloned').css("display", "inline").text(q);
+				} else {
+					jQuery('##cloned').css("display", "inline").text(r);
+				}
 					
 			}
 		);
@@ -62,7 +63,7 @@ To split a lot or create a parasite, you can
 <span class="likeLink" onclick="cloneCatalogedItem(#collection_object_id#)">Clone This Record</span>. Data from this cataloged item will be inserted into the Bulkloader, where you
 may edit the record. A new relationship of "child record of" will be created from the new cataloged item to this one, and a
 derived relatinship of "child record IS" will appear on this record.
-<div id="cloned" style="display:none" class="error"></div>
+<div id="cloned" style="display:none" class="redBorder"></div>
 <br>
 <strong>Edit Relationships:</strong>
 <cfset thisCollObjId = #collection_object_id#>
