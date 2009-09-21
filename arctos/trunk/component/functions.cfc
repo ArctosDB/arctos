@@ -1,5 +1,271 @@
 <cfcomponent>
-
+	
+<cffunction name="cloneCatalogedItem" access="remote">
+	<cfargument name="collection_object_id" type="numeric" required="yes">	
+	<cftry>
+		<cftransaction>
+			<cfset problem="">
+			<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select somerandomsequence.nextval c from dual
+			</cfquery>
+			<cfset key=k.c>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				insert into bulkloader (
+					COLLECTION_OBJECT_ID,
+					LOADED,
+					ENTEREDBY
+					ACCN,
+					TAXON_NAME,
+					NATURE_OF_ID,
+					MADE_DATE,
+					IDENTIFICATION_REMARKS,
+					COLLECTION_CDE,
+					INSTITUTION_ACRONYM,
+					COLL_OBJ_DISPOSITION,
+					CONDITION,
+					COLL_OBJECT_REMARKS,
+					DISPOSITION_REMARKS,
+					COLLECTING_EVENT_ID
+				) (
+					select
+						#key#,
+						'cloned from ' || collection || ' ' || cat_num,
+						'#session.username#',
+						accn_number,
+						scientific_name,
+						nature_of_id,
+						made_date,
+						IDENTIFICATION_REMARKS,
+						collection.COLLECTION_CDE,
+						collection.INSTITUTION_ACRONYM,
+						COLL_OBJ_DISPOSITION,
+						CONDITION,
+						COLL_OBJECT_REMARKS,
+						DISPOSITION_REMARKS,
+						cataloged_item.COLLECTING_EVENT_ID
+					from
+						cataloged_item,
+						identification,
+						coll_object,
+						COLL_OBJECT_REMARK
+					where
+						cataloged_item.collection_object_id=identification.collection_object_id and
+						identification.accepted_id_fg=1 and
+						cataloged_item.collection_object_id=coll_object.collection_object_id and
+						cataloged_item.collection_object_id=COLL_OBJECT_REMARK.collection_object_id (+) and
+						cataloged_item.collection_object_id = #collection_object_id#
+				)
+			</cfquery>
+			<cfquery name="idby" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					agent_name 
+				from 
+					identification,
+					identification_agent,
+					preferred_agent_name
+				where
+					identification.identification_id=identification_agent.identification_id and
+					identification_agent.agent_id=preferred_agent_name.agent_id and
+					identification.collection_object_id = #collection_object_id#
+				order by IDENTIFIER_ORDER
+			</cfquery>					
+			<cfif idby.recordcount is 1>
+				<cfquery name="iidby" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					update bulkloader set ID_MADE_BY_AGENT='#idby.agent_name#'
+					where collection_object_id=#key#
+				</cfquery>
+			<cfelse>
+				<cfset problem="too many identifiers: #valuelist(idby.agent_name)#">
+			</cfif>	
+			<cfquery name="oid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					other_id_type,
+					display_value 
+				from coll_obj_other_id_num
+				where collection_object_id=#collection_object_id#
+			</cfquery>
+			
+			<cfif oid.recordcount gt 0>
+				<cfset i=1>
+				<cfset sql="update bulkloader set ">
+				<cfloop query="oid">
+					<cfif i lt 5>
+						<cfset sql=sql & "OTHER_ID_NUM_TYPE_#i# = '#other_id_type#',
+							OTHER_ID_NUM_#i#='#display_value#',">
+						<cfset i=i+1>
+					</cfif>
+				</cfloop>
+				<cfset sql=sql & ' where collection_object_id=#key#'>
+				<cfset sql=replace(sql,", where"," where","all")>
+				<cfquery name="oid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					#preservesinglequotes(#sql#)
+				</cfquery>
+			</cfif>
+			<cfif oid.recordcount gt 4>
+				<cfset ids="">
+				<cfloop query="oid">
+					<cfset ids=listappend(ids,"#other_id_type#=#display_value#",";")>
+				</cfloop>
+				<cfset problem="too many IDs: #ids#">
+			</cfif>		
+			
+			<cfquery name="col" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					agent_name,
+					COLLECTOR_ROLE
+				from 
+					collector,
+					preferred_agent_name
+				where 
+					collector.agent_id=preferred_agent_name.agent_id and
+					collector.collection_object_id=#collection_object_id#
+				order by
+					COLLECTOR_ROLE,
+					COLL_ORDER
+			</cfquery>
+			
+			<cfif col.recordcount gt 0>
+				<cfset i=1>
+				<cfset sql="update bulkloader set ">
+				<cfloop query="col">
+					<cfif i lt 9>
+						<cfset sql=sql & "COLLECTOR_AGENT_#i# = '#agent_name#',
+							COLLECTOR_ROLE_#i#='#COLLECTOR_ROLE#',">
+						<cfset i=i+1>
+					</cfif>
+				</cfloop>
+				<cfset sql=sql & ' where collection_object_id=#key#'>
+				<cfset sql=replace(sql,", where"," where","all")>
+				<cfquery name="icoll" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					#preservesinglequotes(#sql#)
+				</cfquery>
+			</cfif>
+			<cfif col.recordcount gt 8>
+				<cfset ids="">
+				<cfloop query="oid">
+					<cfset ids=listappend(ids,"#other_id_type#=#display_value#",";")>
+				</cfloop>
+				<cfset problem="too many collectors: #valuelist(col.agent_name)#">
+			</cfif>		
+			
+			
+			<cfquery name="part" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					part_name,
+					part_modifier,
+					preserve_method,
+					condition,
+					p.barcode,
+					p.label,
+					to_char(lot_count) lot_count,
+					disposition,
+					coll_object_remark
+				from
+					specimen_part,
+					coll_object,
+					coll_object_remark,
+					coll_obj_cont_hist,
+					container c,
+					container p
+				where
+					specimen_part.collection_object_id=coll_object.collection_object_id and
+					specimen_part.collection_object_id=coll_object_remark.collection_object_id (+) and
+					specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
+					coll_obj_cont_hist.container_id=c.container_id (+) and
+					c.parent_container_id=p.container_id (+) and
+					specimen_part.derived_from_cat_item=#collection_object_id#
+			</cfquery>
+			
+			<cfif part.recordcount gt 0>
+				<cfset i=1>
+				<cfset sql="update bulkloader set ">
+				<cfloop query="part">
+					<cfif i lt 13>
+						<cfset sql=sql & "PART_NAME_#i# = '#part_name#',
+							PART_MODIFIER_#i#='#part_modifier#',
+							PRESERV_METHOD_#i#='#part_modifier#',
+							PART_CONDITION_#i#='#condition#',
+							PART_BARCODE_#i#='#barcode#',
+							PART_CONTAINER_LABEL_#i#='#label#',
+							PART_LOT_COUNT_#i#='#lot_count#',
+							PART_DISPOSITION_#i#='#disposition#',
+							PART_REMARK_#i#='#coll_object_remark#',">
+						<cfset i=i+1>
+					</cfif>
+				</cfloop>
+				<cfset sql=sql & ' where collection_object_id=#key#'>
+				<cfset sql=replace(sql,", where"," where","all")>
+				<cfquery name="ipart" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					#preservesinglequotes(#sql#)
+				</cfquery>
+			</cfif>
+			<cfif part.recordcount gt 12>
+				<cfset problem="too many part: #valuelist(part.part_name)#">
+			</cfif>		
+			
+	
+	
+			<cfquery name="att" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					ATTRIBUTE_TYPE,
+					ATTRIBUTE_VALUE,
+					ATTRIBUTE_UNITS,
+					ATTRIBUTE_REMARK,
+					agent_name,
+					DETERMINED_DATE,
+					DETERMINATION_METHOD
+				from
+					attributes,
+					preferred_agent_name
+				where
+					attributes.DETERMINED_BY_AGENT_ID=preferred_agent_name.agent_id and				
+					attributes.collection_object_id=#collection_object_id#
+			</cfquery>
+			
+			<cfif att.recordcount gt 0>
+				<cfset i=1>
+				<cfset sql="update bulkloader set ">
+				<cfloop query="part">
+					<cfif i lt 11>
+						<cfset sql=sql & "ATTRIBUTE_#i# = '#ATTRIBUTE_TYPE#',
+							ATTRIBUTE_VALUE_#i#='#ATTRIBUTE_VALUE#',
+							ATTRIBUTE_UNITS_#i#='#ATTRIBUTE_UNITS#',
+							ATTRIBUTE_REMARKS_#i#='#ATTRIBUTE_REMARK#',
+							ATTRIBUTE_DATE_#i#='#DETERMINED_DATE#',
+							ATTRIBUTE_DET_METH_#i#='#DETERMINATION_METHOD#',
+							ATTRIBUTE_DETERMINER_#i#='#agent_name#',">
+						<cfset i=i+1>
+					</cfif>
+				</cfloop>
+				<cfset sql=sql & ' where collection_object_id=#key#'>
+				<cfset sql=replace(sql,", where"," where","all")>
+				<cfquery name="iatt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					#preservesinglequotes(#sql#)
+				</cfquery>
+			</cfif>
+			<cfif att.recordcount gt 10>
+				<cfset problem="too many attribute: #valuelist(att.ATTRIBUTE_TYPE)#">
+			</cfif>		
+			<cfquery name="iatt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				update bulkloader set 
+					RELATIONSHIP='child record of',
+					RELATED_TO_NUMBER= (
+										select 
+											collection.institution_acronym || ' ' || collection.collection_cde || ' ' cat_num 
+										from 
+											cataloged_item,collection
+										where cataloged_item.collection_id=collection.collection_id and 
+										cataloged_item.collection_object_id=#collection_object_id#
+										)
+					RELATED_TO_NUM_TYPE='catalog number'
+				where collection_object_id=#key#
+			</cfquery>
+		</cftransaction>
+			<cfreturn "spiffy">
+		<cfcatch>
+			<cfreturn "fail: #cfcatch.message#">
+		</cfcatch>
+	</cftry>
 <!------------------------------------------------------->
 <cffunction name="saveAgentRank" access="remote">
 	<cfargument name="agent_id" type="numeric" required="yes">	
