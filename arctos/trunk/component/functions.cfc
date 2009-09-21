@@ -105,7 +105,7 @@
 				</cfloop>
 				<cfset sql=sql & ' where collection_object_id=#key#'>
 				<cfset sql=replace(sql,", where"," where","all")>
-				<cfquery name="oid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				<cfquery name="ioid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					#preservesinglequotes(sql)#
 				</cfquery>
 			</cfif>
