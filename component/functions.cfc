@@ -50,9 +50,11 @@
 						collection,
 						identification,
 						coll_object,
-						COLL_OBJECT_REMARK
+						COLL_OBJECT_REMARK,
+						accn
 					where
 						cataloged_item.collection_id=collection.collection_id and
+						cataloged_item.ACCN_ID=accn.transaction_id and
 						cataloged_item.collection_object_id=identification.collection_object_id and
 						identification.accepted_id_fg=1 and
 						cataloged_item.collection_object_id=coll_object.collection_object_id and
