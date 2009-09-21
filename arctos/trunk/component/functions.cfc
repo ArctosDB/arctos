@@ -167,11 +167,11 @@
 					p.label,
 					to_char(lot_count) lot_count,
 					disposition,
-					coll_object_remark
+					coll_object_remarks
 				from
 					specimen_part,
 					coll_object,
-					coll_object_remark,
+					coll_object_remarks,
 					coll_obj_cont_hist,
 					container c,
 					container p
@@ -197,7 +197,7 @@
 							PART_CONTAINER_LABEL_#i#='#label#',
 							PART_LOT_COUNT_#i#='#lot_count#',
 							PART_DISPOSITION_#i#='#disposition#',
-							PART_REMARK_#i#='#coll_object_remark#',">
+							PART_REMARK_#i#='#coll_object_remarks#',">
 						<cfset i=i+1>
 					</cfif>
 				</cfloop>
