@@ -90,7 +90,6 @@
 			</cfquery>
 			
 			
-			<cfdump var=#oid#>
 			<cfif oid.recordcount gt 0>
 				<cfset i=1>
 				<cfset sql="update bulkloader set ">
