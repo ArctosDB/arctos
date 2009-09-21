@@ -2,7 +2,9 @@
 	
 <cffunction name="cloneCatalogedItem" access="remote">
 	<cfargument name="collection_object_id" type="numeric" required="yes">	
+	<!---
 	<cftry>
+	--->
 		<cftransaction>
 			<cfset problem="">
 			<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -262,10 +264,12 @@
 			</cfquery>
 		</cftransaction>
 			<cfreturn "spiffy">
+		<!---
 		<cfcatch>
 			<cfreturn "fail: #cfcatch.message#">
 		</cfcatch>
 	</cftry>
+	--->
 </cffunction>
 
 
