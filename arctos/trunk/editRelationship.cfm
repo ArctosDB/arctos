@@ -292,9 +292,4 @@ None
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------>
-<cfoutput>
-<script type="text/javascript" language="javascript">
-		changeStyle('#thisRec.institution_acronym#');
-		parent.dyniframesize();
-</script>
-</cfoutput>
+<cf_customizeIFrame>

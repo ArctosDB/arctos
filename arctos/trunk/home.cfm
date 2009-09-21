@@ -143,6 +143,7 @@ encumbered for proprietary reasons, data are open to the public.
 	<li>Arctos is a 
 		<a href="http://www.digir.net" target="_blank">DiGIR</a> 
 		provider.</li>
+	<li>User annotation of specimens, taxonomy, publications, and projects.</li>
 </ul>
 </p>
 <p><a name="participation"><strong>Participation</strong></a><br/>
