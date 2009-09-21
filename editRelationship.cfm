@@ -1,16 +1,13 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
 <script type="text/javascript">
-var initVal="";
-function chkVal() {
-if(document.getElementById("catColl").value!=initVal) {
-//alert("value is changed");
-var theSaveButton = document.getElementById('saveNewCell');
-theSaveButton.style.display='';
-
-
-}
-}
-window.setInterval("chkVal()",1000);
+	var initVal="";
+	function chkVal() {
+		if(document.getElementById("catColl").value!=initVal) {
+			var theSaveButton = document.getElementById('saveNewCell');
+			theSaveButton.style.display='';
+		}
+	}
+	window.setInterval("chkVal()",1000);
 </script>
 <cfoutput>
 <cfquery name="getRelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -39,9 +36,14 @@ window.setInterval("chkVal()",1000);
 		relatedSpecimenId.accepted_id_fg=1 AND
 		biol_indiv_relations.collection_object_id=#collection_object_id#
 </cfquery>
-
 <strong>Edit Relationships:</strong>
 <cfset thisCollObjId = #collection_object_id#>
+<br>
+To split a lot or create a parasite, you can 
+<span class="likeLink" onclick="">Clone This Record</span>. Data from this cataloged item will be inserted into the Bulkloader, where you
+may edit the record. A new relationship of "child record of" will be created from the new cataloged item to this one, and a
+derived relatinship of "child record IS" will appear on this record.
+
 <br>Current Relationships:
 <cfif #getRelns.recordcount# gt 0>
 <cfquery name="ctReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -61,35 +63,28 @@ window.setInterval("chkVal()",1000);
 					<cfif len(session.CustomOtherIdentifier) gt 0>
 						(#session.CustomOtherIdentifier# = #CustomID#)
 					</cfif>
-					#scientific_name#
-				<input type="hidden" name="related_coll_object_id" value="#getRelns.collection_object_id#">
-		
+					<em>#scientific_name#</em>
+					<input type="hidden" name="related_coll_object_id" value="#getRelns.collection_object_id#">
 					<input type="button" 
-					 	value="Delete" 
-						class="delBtn"
-   						onmouseover="this.className='delBtn btnhov'" 
-						onmouseout="this.className='delBtn'"
-						onclick="reln#i#.action.value='deleReln'; confirmDelete('reln#i#','this relationship');">
-			<a href="SpecimenDetail.cfm?collection_object_id=#getRelns.collection_object_id#" class="infoLink">View Related Specimen</a>
-				<cfif #biol_indiv_relationship# is "parent of" and (#scientific_name# neq #CatItemSciName#)>
-					<a href="/tools/parent_child_taxonomy.cfm?collection_object_id=#thisCollObjId#">
-						<img src="/images/oops.gif" border="0" height="20"/>
+						 	value="Delete" 
+							class="delBtn"
+							onclick="reln#i#.action.value='deleReln'; confirmDelete('reln#i#','this relationship');">
+					<a href="SpecimenDetail.cfm?collection_object_id=#getRelns.collection_object_id#" class="infoLink">
+						View Related Specimen
 					</a>
-				</cfif>
-			</td>
-	</tr>
-	
-				
-						
-					
-					
-					
-</form>
-<cfset i=#i#+1>
-</cfloop>
+					<cfif #biol_indiv_relationship# is "parent of" and (#scientific_name# neq #CatItemSciName#)>
+						<a href="/tools/parent_child_taxonomy.cfm?collection_object_id=#thisCollObjId#">
+							<img src="/images/oops.gif" border="0" height="20"/>
+						</a>
+					</cfif>
+				</td>
+			</tr>					
+		</form>
+		<cfset i=#i#+1>
+	</cfloop>
 </table>
 <cfelse>
-None
+	None
 </cfif>
 <cfquery name="ctReln" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select biol_indiv_relationship from ctbiol_relations
@@ -118,7 +113,6 @@ None
 				</select>
 		  </td>
 			<td>
-			
 				<font size="-2">Picked Cataloged Item:<br></font>
 				<input onchange="alert('c');"
 			 type="text"  
@@ -128,7 +122,6 @@ None
 					size="40" 
 					style="background-color:transparent;border:none; "
 					>
-						
 		  </td>
 		  <td>
 		  		<cfquery name="ctColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -170,7 +163,6 @@ None
    						onmouseover="this.className='savBtn btnhov'" 
 						onmouseout="this.className='savBtn'"></td>
 		</form>
-	
 	</tr>
 </table>
 </cfoutput>
