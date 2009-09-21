@@ -130,14 +130,14 @@
 					select biol_indiv_relationship from ctbiol_relations where
 					biol_indiv_relationship ='#relationship#'
 				</cfquery>
-				<cfif len(#isGoodReln.biol_indiv_relationship#) is 0 and relationship is not "cataloged item">
+				<cfif len(#isGoodReln.biol_indiv_relationship#) is 0>
 					<cfset loadedMsg = "#loadedMsg#; #relationship# is not a valid ::relationship::.">
 				</cfif>
 				<cfquery name="isGoodRelOID" datasource="uam_god">
 					select other_id_type from ctcoll_other_id_type
 					where other_id_type='#related_to_num_type#'
 				</cfquery>
-				<cfif len(#isGoodRelOID.other_id_type#) is 0>
+				<cfif len(#isGoodRelOID.other_id_type#) is 0  and relationship is not "cataloged item">
 					<cfset loadedMsg = "#loadedMsg#; #related_to_num_type# is not a valid ID type and cannot be in a ::relationship::.">
 				</cfif>
 			</cfif>
