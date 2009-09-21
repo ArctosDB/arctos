@@ -38,7 +38,7 @@
 </cfquery>
 <script>
 	function cloneCatalogedItem(collection_object_id){
-		jQuery('#cloned').text('Creating clone - hold tight.....');
+		jQuery('##cloned').text('Creating clone - hold tight.....');
 		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "cloneCatalogedItem",
@@ -47,7 +47,7 @@
 				queryformat : 'column'
 			},
 			function (r) {
-				jQuery('#cloned').text(r);
+				jQuery('##cloned').text(r);
 			}
 		);
 	}
