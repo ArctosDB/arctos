@@ -264,7 +264,7 @@
 											cataloged_item,collection
 										where cataloged_item.collection_id=collection.collection_id and 
 										cataloged_item.collection_object_id=#collection_object_id#
-										)
+										),
 					RELATED_TO_NUM_TYPE='catalog number'
 				where collection_object_id=#key#
 			</cfquery>
