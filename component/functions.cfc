@@ -15,7 +15,7 @@
 				insert into bulkloader (
 					COLLECTION_OBJECT_ID,
 					LOADED,
-					ENTEREDBY
+					ENTEREDBY,
 					ACCN,
 					TAXON_NAME,
 					NATURE_OF_ID,
