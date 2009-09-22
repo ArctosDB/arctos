@@ -1,6 +1,6 @@
  <cfstoredproc procedure="bulk_check_one" datasource="uam_god">
- 	<cfprocparam type="In" cfsqltype="CF_SQL_BIGINT" dbvarname="colobjid" value="#oneRecord.collection_object_id#" null="No">
-    <cfprocparam dbvarname="outMsg" cfsqltype="CF_SQL_VARCHAR" type="out" variable="loadedMsg">
+ 	<cfprocparam type="In" cfsqltype="CF_SQL_BIGINT"  value="#oneRecord.collection_object_id#" null="No">
+    <cfprocparam  cfsqltype="CF_SQL_VARCHAR" type="out" variable="loadedMsg">
  </cfstoredproc>
 
 
