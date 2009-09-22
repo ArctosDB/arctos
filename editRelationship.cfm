@@ -38,7 +38,7 @@
 </cfquery>
 <script>
 	function cloneCatalogedItem(collection_object_id){
-		jQuery('##cloned').css("display", "inline").text('Creating clone - hold tight.....');
+		jQuery('##cloned').css("display", "inline").html('<img src="/images/indicator.gif">Creating clone - hold tight.....');
 		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "cloneCatalogedItem",
@@ -60,10 +60,22 @@
 	}
 </script>
 To split a lot or create a parasite, you can
-<span class="likeLink" onclick="cloneCatalogedItem(#collection_object_id#)">Clone This Record</span>. 
-Data from this cataloged item will be inserted into the Bulkloader, where you
-may edit the record. A new relationship of "child record of" will be created from the new cataloged item to this one, and a
-derived relationship of "child record IS" will appear on this record.
+<span class="likeLink" onclick="document.getElementById('cThis').style.display='block';">Clone This Record</span>.
+<div id="cThis" style="display:none">
+	Data from this cataloged item will be inserted into the Bulkloader, where you
+	may further edit the record and flag it to load, as with any other new record. 
+	A new relationship of "child record of" will be created from the new cataloged item to this one, and a
+	derived relationship of "child record IS" will appear on this record.
+	Check specimen remarks in the bulkloader for things that might have been missed - this 
+	application has limited handling of agents, identifiers, attributes, and parts.
+	<br>
+	A link to your new record in the bulkloader will appear below if the procedure is successful. It might take a minute.
+	Don't get all clicky or you'll make lots of clones.
+	
+	<br><span class="likeLink" onclick="cloneCatalogedItem(#collection_object_id#)">Click here to create a clone</span>.
+</div>
+
+
 <br>
 <div id="cloned" style="display:none" class="redBorder"></div>
 <br>
