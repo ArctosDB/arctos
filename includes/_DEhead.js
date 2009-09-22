@@ -711,31 +711,35 @@ function cleanup () {
 	var thisCC = document.getElementById('collection_cde').value;
 	if (thisCC == 'Mamm') {	
 		/******************************** Mammal Routine ************************************************/
-		var Att2UnitVal = document.getElementById('attribute_units_2').value; //total length & "standard"
-		var Att3UnitVal = document.getElementById('attribute_units_3'); //tail length
-		var Att4UnitVal = document.getElementById('attribute_units_4'); //HF length
-		var Att5UnitVal = document.getElementById('attribute_units_5'); //EFN length
-		Att3UnitVal.value = Att2UnitVal;
-		Att4UnitVal.value = Att2UnitVal;
-		Att5UnitVal.value = Att2UnitVal;
-		var Det2UnitVal = document.getElementById('attribute_determiner_2').value; //total length
-		var Det3UnitVal = document.getElementById('attribute_determiner_3'); //tail length
-		var Det4UnitVal = document.getElementById('attribute_determiner_4'); //HF length
-		var Det5UnitVal = document.getElementById('attribute_determiner_5'); //EFN length
-		var Det6UnitVal = document.getElementById('attribute_determiner_6'); //weight
-		Det3UnitVal.value = Det2UnitVal;
-		Det4UnitVal.value = Det2UnitVal;
-		Det5UnitVal.value = Det2UnitVal;
-		Det6UnitVal.value = Det2UnitVal;
-		var Date2UnitVal = document.getElementById('attribute_date_2').value; //total length
-		var Date3UnitVal = document.getElementById('attribute_date_3'); //tail length
-		var Date4UnitVal = document.getElementById('attribute_date_4'); //HF length
-		var Date5UnitVal = document.getElementById('attribute_date_5'); //EFN length
-		var Date6UnitVal = document.getElementById('attribute_date_6'); //weight
-		Date3UnitVal.value = Date2UnitVal;
-		Date4UnitVal.value = Date2UnitVal;
-		Date5UnitVal.value = Date2UnitVal;
-		Date6UnitVal.value = Date2UnitVal;	
+		try{
+			var Att2UnitVal = document.getElementById('attribute_units_2').value; //total length & "standard"
+			var Att3UnitVal = document.getElementById('attribute_units_3'); //tail length
+			var Att4UnitVal = document.getElementById('attribute_units_4'); //HF length
+			var Att5UnitVal = document.getElementById('attribute_units_5'); //EFN length
+			Att3UnitVal.value = Att2UnitVal;
+			Att4UnitVal.value = Att2UnitVal;
+			Att5UnitVal.value = Att2UnitVal;
+			var Det2UnitVal = document.getElementById('attribute_determiner_2').value; //total length
+			var Det3UnitVal = document.getElementById('attribute_determiner_3'); //tail length
+			var Det4UnitVal = document.getElementById('attribute_determiner_4'); //HF length
+			var Det5UnitVal = document.getElementById('attribute_determiner_5'); //EFN length
+			var Det6UnitVal = document.getElementById('attribute_determiner_6'); //weight
+			Det3UnitVal.value = Det2UnitVal;
+			Det4UnitVal.value = Det2UnitVal;
+			Det5UnitVal.value = Det2UnitVal;
+			Det6UnitVal.value = Det2UnitVal;
+			var Date2UnitVal = document.getElementById('attribute_date_2').value; //total length
+			var Date3UnitVal = document.getElementById('attribute_date_3'); //tail length
+			var Date4UnitVal = document.getElementById('attribute_date_4'); //HF length
+			var Date5UnitVal = document.getElementById('attribute_date_5'); //EFN length
+			var Date6UnitVal = document.getElementById('attribute_date_6'); //weight
+			Date3UnitVal.value = Date2UnitVal;
+			Date4UnitVal.value = Date2UnitVal;
+			Date5UnitVal.value = Date2UnitVal;
+			Date6UnitVal.value = Date2UnitVal;
+		}catch(e){}
+			console.log('fail');
+		}
 	} else if (thisCC == 'Bird') {
 		/************************************************** Bird Routine **************************************************/
 		var Det2UnitVal = document.getElementById('attribute_determiner_2').value; //age & standard
