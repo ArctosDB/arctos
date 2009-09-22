@@ -231,7 +231,6 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 		determined_by_agent_id = #bads.agent_id#
 	</cfquery>
 	got latlong<br><cfflush>
-		
 	<cfquery name="permit_to" datasource="uam_god">
 		update permit set
 			ISSUED_TO_AGENT_ID = #bads.related_agent_id# where
