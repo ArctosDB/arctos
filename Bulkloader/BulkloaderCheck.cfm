@@ -1,6 +1,6 @@
 
 <cfquery name="c" datasource="uam_god">
-select bulk_check_one(#oneRecord.collection_object_id) d from dual
+select bulk_check_one(#oneRecord.collection_object_id#) d from dual
 </cfquery>
 <cfdump var=#c#>
 
