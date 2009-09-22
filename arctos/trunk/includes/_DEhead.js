@@ -680,7 +680,7 @@ function copyAllAgents(theID) {
 }
 
 function highlightErrors (loadedMsg) {
-	var prob_array = loadedMsg.split("::");
+	var prob_array = loadedMsg.split(" ");
 	for (var loop=0; loop < prob_array.length; loop++) {
 		var thisSlice = prob_array[loop];
 		var hasSpace = thisSlice.indexOf(" ");
