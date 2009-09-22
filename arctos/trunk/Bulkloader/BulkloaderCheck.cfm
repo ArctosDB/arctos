@@ -1,13 +1,12 @@
- <cfstoredproc procedure="bulk_check_one" datasource="uam_god">
- 	<cfprocparam type="In" cfsqltype="CF_SQL_BIGINT"  value="#oneRecord.collection_object_id#" null="No">
-    <cfprocparam  cfsqltype="CF_SQL_VARCHAR" type="out" variable="loadedMsg">
- </cfstoredproc>
+
+<cfquery name="c" datasource="uam_god">
+select bulk_check_one(#oneRecord.collection_object_id) d from dual
+</cfquery>
+<cfdump var=#c#>
 
 
 
-
-<cfdump var=#loadedMsg#>
-^^ there is is ^^
+<cfset loadedMsg=c.d>
 
 
 <!---- declare local variables - only deal with the things that we have to format for this app ---->
