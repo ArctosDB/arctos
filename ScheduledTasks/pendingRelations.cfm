@@ -1,10 +1,11 @@
 <cfinclude template="/includes/_header.cfm">
 <cfquery name="getRels" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select * from cf_temp_relations
+	select * from cf_temp_relations where RELATED_COLLECTION_OBJECT_ID is null
 </cfquery>
 <cfoutput>
 	<cfloop query="getRels">
 		<cfif #related_to_num_type# is "catalog number">
+			tis....
 			<cftry>
 			<cfquery name="isOne" datasource="uam_god">
 				select 
@@ -19,6 +20,7 @@
 					cat_num = #cnum#
 			</cfquery>
 			<cfcatch>
+				<cfdump var=#cfcatch#>
 				<cfquery name="nope" datasource="uam_god">
 					update cf_temp_relations set 
 						lasttrydate='#dateformat(now(),"dd-mmm-yyyy")#',
