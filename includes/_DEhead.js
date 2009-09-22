@@ -686,11 +686,11 @@ function highlightErrors (loadedMsg) {
 		var hasSpace = thisSlice.indexOf(" ");
 		if (hasSpace == -1) {
 			try {
-				var theField = document.getElementById(lower(thisSlice));
+				var theField = document.getElementById(thisSlice.toLowerCase());
 				theField.className = 'hasProbs';
 			}
 			catch ( err ){// nothing, just ignore 
-				console.log(lower(thisSlice) + ' not found');
+				console.log(thisSlice.toLowerCase() + ' not found');
 			}
 		}
 	}
