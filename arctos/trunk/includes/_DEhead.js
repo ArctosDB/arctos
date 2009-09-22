@@ -686,7 +686,7 @@ function highlightErrors (loadedMsg) {
 		var hasSpace = thisSlice.indexOf(" ");
 		if (hasSpace == -1) {
 			try {
-				var theField = document.getElementById(thisSlice);
+				var theField = document.getElementById(lower(thisSlice));
 				theField.className = 'hasProbs';
 			}
 			catch ( err ){// nothing, just ignore 
