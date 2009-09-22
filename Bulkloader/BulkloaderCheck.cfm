@@ -2,6 +2,8 @@
  	<cfprocparam type="In" cfsqltype="CF_SQL_BIGINT" dbvarname="colobjid" value="#oneRecord.collection_object_id#" null="No">
     <cfprocresult name="loadedMsg">
  </cfstoredproc>
+
+<cfdump var=#loadedMsg#>
 ^^ there is is ^^
 
 
