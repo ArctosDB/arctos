@@ -63,7 +63,7 @@ To split a lot or create a parasite, you can
 <span class="likeLink" onclick="document.getElementById('cThis').style.display='block';">Clone This Record</span>.
 <div id="cThis" style="display:none">
 	Data from this cataloged item will be inserted into the Bulkloader, where you
-	may further edit the record and flag it to load, as with any other new record. 
+	may further edit the record or flag it to load, as with any other new record. 
 	A new relationship of "child record of" will be created from the new cataloged item to this one, and a
 	derived relationship of "child record IS" will appear on this record.
 	Check specimen remarks in the bulkloader for things that might have been missed - this 
