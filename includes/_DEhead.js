@@ -2,7 +2,7 @@ var MONTH_NAMES=new Array('January','February','March','April','May','June','Jul
 var DAY_NAMES=new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sun','Mon','Tue','Wed','Thu','Fri','Sat');
 function LZ(x) {return(x<0||x>9?"":"0")+x}
 function changeCollection(v){
-	var yesno = confirm("Are you sure you want to move this record to " + v + "? \n Doing so may cause attribute verification failure.")
+	var yesno = confirm("Are you sure you want to move this record to " + v + "? \nDoing so may cause attribute verification failure.")
 	if (yesno){
 		var ary=v.split(':');
 		document.getElementById('institution_acronym').value=ary[0];
