@@ -7,6 +7,9 @@
 		<cfif #related_to_num_type# is "catalog number">
 			tis....
 			<cftry>
+			<cfset inst=listgetat(related_to_number,1," ")>
+			<cfset coll=listgetat(related_to_number,2," ")>
+			<cfset cnum=listgetat(related_to_number,3," ")>
 			<cfquery name="isOne" datasource="uam_god">
 				select 
 					collection_object_id 
