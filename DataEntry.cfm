@@ -307,7 +307,7 @@
 		<tr>
 			<td valign="top">
 					<span class="f11a">Coll:</span>
-					<select name="colln" onchange="changeCollection(this.value)">
+					<select name="colln" is="colln" onchange="changeCollection(this.value)">
 						<cfloop query="ctcollection">
 							<option <cfif data.collection_cde is ctcollection.collection_cde and data.institution_acronym is ctcollection.institution_acronym> selected="selected"</cfif>
 								value="#institution_acronym#:#collection_cde#">#collection#</option>

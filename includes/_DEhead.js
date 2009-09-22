@@ -7,6 +7,11 @@ function changeCollection(v){
 		var ary=v.split(':');
 		document.getElementById('institution_acronym').value=ary[0];
 		document.getElementById('collection_cde').value=ary[1];
+	} else {
+		var i=document.getElementById('institution_acronym').value;
+		var c=document.getElementById('collection_cde').value;
+		var s=document.getElementById('colln');
+		s.value=i + ':' + c;
 	}
 }
 function compareDates(date1,dateformat1,date2,dateformat2) {
