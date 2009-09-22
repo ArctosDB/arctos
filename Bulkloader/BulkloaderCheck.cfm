@@ -1,8 +1,7 @@
  <cfstoredproc procedure="bulk_check_one" datasource="uam_god">
  	<cfprocparam type="In" cfsqltype="CF_SQL_BIGINT" dbvarname="colobjid" value="#oneRecord.collection_object_id#" null="No">
-    <cfprocresult name="chkRes" resultset="1">
+    <cfprocresult name="loadedMsg" resultset="1">
  </cfstoredproc>
-<cfdump var=#chkRes#>
 ^^ there is is ^^
 
 
