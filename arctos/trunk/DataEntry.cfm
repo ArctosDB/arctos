@@ -141,6 +141,9 @@
 				WHERE collection_cde='#collection_cde#'
 			</cfif>
 	</cfquery>
+	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+		select collection_cde,institution_acronym,collection from collection order by collection
+	</cfquery>
 	<cfquery name="ctnature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select nature_of_id from ctnature_of_id order by nature_of_id
 	</cfquery>
@@ -287,8 +290,8 @@
 	<input type="hidden" name="action" value="" id="action">
 	<input type="hidden" name="nothing" value="" id="nothing"/><!--- trashcan for picks - don't delete --->
 	<input type="hidden" name="ImAGod" value="#ImAGod#" id="ImAGod"><!--- allow power users to browse other's records --->
-	<input type="hidden" name="collection_cde" value="#collection_cde#" id="collection_cde">
-	<input type="hidden" name="institution_acronym" value="#institution_acronym#" id="institution_acronym">
+	<input type="text" name="collection_cde" value="#collection_cde#" id="collection_cde">
+	<input type="text" name="institution_acronym" value="#institution_acronym#" id="institution_acronym">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#"  id="collection_object_id"/>  
 	<input type="hidden" name="loaded" value="waiting approval"  id="loaded"/>
 <table width="100%" cellspacing="0" cellpadding="0" id="theTable" style="display:none;"> <!--- whole page table --->
@@ -304,7 +307,12 @@
 		<tr>
 			<td valign="top">
 					<span class="f11a">Coll:</span>
-					#institution_acronym# #collection_cde#
+					<select name="colln" onchange="changeCollection(this.value)">
+						<cfloop query="ctcollection">
+							<option <cfif data.collection_cde is ctcollection.collection_cde and data.institution_acronym is ctcollection.institution_acronym> selected="selected"</cfif>
+								value="#institution_acronym#:#collection_cde#">#collection#</option>
+						</cfloop>
+					</select>
 					<span class="f11a">Cat##</span>
 					<input type="text" name="cat_num" value="#cat_num#"  size="6"
 						id="cat_num" class="d11a">
