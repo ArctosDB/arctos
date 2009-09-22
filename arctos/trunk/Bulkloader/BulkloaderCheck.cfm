@@ -1,4 +1,13 @@
+ <cfstoredproc procedure="bulk_check_one" datasource="uam_god">
+ 	<cfprocparam type="In" cfsqltype="CF_SQL_BIGINT" dbvarname="colobjid" value="#oneRecord.collection_object_id#" null="No">
+    <cfprocresult name="chkRes" resultset="1">
+ </cfstoredproc>
+<cfdump var=#chkRes#>
+^^ there is is ^^
+
+
 <!---- declare local variables - only deal with the things that we have to format for this app ---->
+	<!----
 	<cfset catnum="">
 	<cfset loadedMsg="">
 	<cfset geogauthrecid="">
@@ -18,167 +27,124 @@
 	<cfset numberOfOtherIds=5>
 	<cfset numberOfCollectors=8>
 	
-	<cfparam name="useExistingLocality" default="false">
 	
 		
-<cfoutput query="oneRecord"><!--- leave this query open for the whole load process --->
-<cfset loadedMsg = "">
-
-	 		<!--- make sure everything in that record is good to load - 
-				check that required fields are present, code table values are matched, etc. 
-				Replace nulls with "" and such so we have stuff to feed to Arctos. 
-				find existing values that we can load against. 
-				Required: taxonomy, higher geography, agents.
-			--->
-			<!--- check for collection cde early as we use it often when validating ---->
-			<cfif len(#collection_object_id#) is 0>
-				<cfset loadedMsg = "collection_Object_ID is required.">
+<cfoutput query="oneRecord"><!--- must have called this form with a record open --->
+	<cfset loadedMsg = "">
+	<cfif len(collection_object_id) ir not isnumeric(collection_object_id) is 0>
+		<cfset m="collection_Object_ID is required.">
+		<cfset loadedMsg = listappend(loadedMsg,m,";")>
+	</cfif>
+	<cfif len(collection_cde) is 0>
+		<cfset m="::collection_cde:: is required">
+		<cfset loadedMsg = listappend(loadedMsg,m,";")>
+	</cfif>
+	<cfquery name="coll" datasource="uam_god">
+		select collection_cde from ctcollection_cde where collection_cde = '#collection_cde#'
+	</cfquery>
+	<cfif coll.recordcount is 0>
+		<cfset m="::collection_cde:: must match code table values.">
+		<cfset loadedMsg = listappend(loadedMsg,m,";")>
+	</cfif>
+	<cfif len(institution_acronym) is 0>
+		<cfset m="::institution_acronym:: is required.">
+		<cfset loadedMsg = listappend(loadedMsg,m,";")>
+	<cfelse>
+		<cfquery name="getCollId" datasource="uam_god">
+			select collection_id from collection where
+			institution_acronym = '#institution_acronym#' and
+			collection_cde='#collection_cde#'
+		</cfquery>
+		<cfif getCollId.recordcount is not 1>
+			<cfset m="::institution_acronym:: (#institution_acronym#) and 
+				::collection_cde:: (#collection_cde#) do not resolve to a valid collection ID.">
+			<cfset loadedMsg = listappend(loadedMsg,m,";")>
+		</cfif>
+		<cfset collection_id = #getCollId.collection_id#>
+	</cfif>
+	<cfif len(cat_num) gt 0>
+		<cfif not isnumeric(cat_num)>
+			<cfset loadedMsg = "#loadedMsg#; ::cat_num:: must be numeric.">
+		</cfif>
+		<cfif cat_num is 0>
+			<cfset m="::cat_num:: may not be 0. Did you mean NULL?">
+			<cfset loadedMsg = listappend(loadedMsg,m,";")>
+		</cfif>
+		<cfquery name="isValidCatNum" datasource="uam_god">
+			select collection_object_id from cataloged_item
+			where cat_num=#cat_num# AND 
+			collection_id = #collection_id#
+		</cfquery>
+		<cfif isValidCatNum.recordcount is 0>
+			<cfset catnum = #cat_num#>
+		<cfelse>
+			<cfset m="Duplicate ::cat_num:: found in database!">
+			<cfset loadedMsg = listappend(loadedMsg,m,";")>
+		</cfif>
+	</cfif>
+	<cfif len(began_date) is 0 or not isdate(began_date)>
+		<cfset m="::began_date:: is required and must be a date.">
+		<cfset loadedMsg = listappend(loadedMsg,m,";")>
+	</cfif>
+	<cfif len(ended_date) is 0 or not isdate(ended_date)>
+		<cfset m="::ended_date:: must be a date">
+		<cfset loadedMsg = listappend(loadedMsg,m,";")>
+	</cfif>
+	<cfif len(verbatim_date) is 0>
+		<cfset m="::verbatim_date:: is required.">
+		<cfset loadedMsg = listappend(loadedMsg,m,";")>
+	</cfif>
+	<cfif len(relationship) gt 0>
+		<cfif len(related_to_num_type) is 0 or len(related_to_number) is 0>
+			<cfset m="::related_to_number:: and ::related_to_num_type:: are required when relationship is given">
+			<cfset loadedMsg = listappend(loadedMsg,m,";")>
+		</cfif>
+		<cfquery name="isGoodReln" datasource="uam_god">
+			select biol_indiv_relationship from ctbiol_relations where
+			biol_indiv_relationship ='#relationship#'
+		</cfquery>
+		<cfif len(isGoodReln.biol_indiv_relationship) is 0>
+			<cfset m="#relationship# is not a valid ::relationship::">
+			<cfset loadedMsg = listappend(loadedMsg,m,";")>
+		</cfif>
+		<cfquery name="isGoodRelOID" datasource="uam_god">
+			select other_id_type from ctcoll_other_id_type
+			where other_id_type='#related_to_num_type#'
+		</cfquery>
+		<cfif len(isGoodRelOID.other_id_type) is 0  and related_to_num_type is not "catalog number">
+			<cfset m="#related_to_num_type# is not a valid ID type and cannot be in a ::relationship::">
+			<cfset loadedMsg = listappend(loadedMsg,m,";")>
+		</cfif>
+	</cfif>
+	<cfquery name= "getGeog" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		SELECT geog_auth_rec_id FROM geog_auth_rec WHERE higher_geog = '#higher_geog#'
+	</cfquery>
+	<cfif getGeog.recordcount is not 1>
+		<cfset m="There are #getGeog.recordcount# ::higher_geog:: matches for #higher_geog#.">
+		<cfset loadedMsg = listappend(loadedMsg,m,";")>
+	</cfif>
+	<cfif len(collecting_event_id) is 0>
+		<cfif len(locality_id) is 0>
+			<cfif len(maximum_elevation) gt 0 and not isnumeric(maximum_elevation)>
+				<cfset m="::maximum_elevation:: must be a number.">
+				<cfset loadedMsg = listappend(loadedMsg,m,";")>
 			</cfif>
-			
-			<cfif len(#collection_cde#) is 0>
-				<cfset loadedMsg = "#loadedMsg#; ::collection_cde:: is required">
+			<cfif len(minimum_elevation) gt 0 and not isnumeric(minimum_elevation)>
+				<cfset m="#loadedMsg#; ::minimum_elevation::  must be a number.">
+				<cfset loadedMsg = listappend(loadedMsg,m,";")>
 			</cfif>
-			<cfquery name="coll" datasource="uam_god">
-				select * from ctcollection_cde where collection_cde = '#collection_cde#'
-			</cfquery>
-			<cfif coll.recordcount is 0>
-				<cfset loadedMsg = "#loadedMsg#; ::collection_cde:: must match code table values.">
+			<cfif (len(maximum_elevation) gt 0 AND len(minimum_elevation) gt 0) and (minimum_elevation gt maximum_elevation)>
+				<cfset m="::minimum_elevation:: cannot be greater than Maximum Elevation">
+				<cfset loadedMsg = listappend(loadedMsg,m,";")>
 			</cfif>
-
-			<cfif len(#institution_acronym#) is 0>
-				<cfset loadedMsg = "#loadedMsg#; ::institution_acronym:: is required.">
-			<cfelse>
-				<cfquery name="getCollId" datasource="uam_god">
-					select collection_id from collection where
-					institution_acronym = '#institution_acronym#' and
-					collection_cde='#collection_cde#'
+			<cfif len(trim(minimum_elevation)) gt 0 OR len(trim(maximum_elevation)) gt 0>
+				<cfif len(orig_elev_units) is 0>
+					<cfset m="::orig_elev_units:: must be specified if elevation is given.">
+					<cfset loadedMsg = listappend(loadedMsg,m,";")>
+				</cfif>
+				<cfquery name="valElevUnits" datasource="uam_god">
+					SELECT * from ctorig_elev_units where orig_elev_units = '#orig_elev_units#'
 				</cfquery>
-				<cfif getCollId.recordcount is not 1>
-					<cfset loadedMsg = "#loadedMsg#; ::institution_acronym:: (#institution_acronym#) and 
-						::collection_cde:: (#collection_cde#) do not resolve to a valid collection ID.">
-				</cfif>
-					<cfset collection_id = #getCollId.collection_id#>
-			</cfif>
-			
-			
-			<!--- 
-				See if they've preassigned a cat_num. If they have, make sure it is valid. If not, 
-				go find the next available cat_num and use it
-			--->
-			<cfif len(#cat_num#) gt 0>
-				<cfif not isnumeric(#cat_num#)>
-					<cfset loadedMsg = "#loadedMsg#; ::cat_num:: must be numeric.">
-				</cfif>
-				<cfif #cat_num# is 0>
-					<cfset loadedMsg = "#loadedMsg#; ::cat_num:: may not be 0. Did you mean NULL?">
-				</cfif>
-				<!--- they've preassigned a cat num, see if it's already used--->
-				<cfquery name="isValidCatNum" datasource="uam_god">
-					select collection_object_id from cataloged_item
-					where cat_num=#cat_num#
-					AND collection_id = 
-					#collection_id#
-				</cfquery>
-				<cfif #isValidCatNum.recordcount# is 0>
-					<cfset catnum = #cat_num#>
-				<cfelse>
-					<cfset loadedMsg = "#loadedMsg#; Duplicate ::cat_num:: found in database!">
-				</cfif>
-				
-			<cfelse>
-				<!--- get a new cat_num --->
-				<cfquery name="newCatNum" datasource="uam_god">
-					SELECT max(cat_num) + 1 AS nextcatnum 
-					FROM cataloged_item WHERE collection_id = 
-					#collection_id#
-				</cfquery>
-				<cfif len(#newCatNum.nextcatnum#) gt 0><!--- got a cat num --->
-					<cfset catnum = #newCatNum.nextcatnum#>
-				</cfif>
-				<cfif len(#newCatNum.nextcatnum#) is 0><!--- new collection, start at 1 --->
-					<cfset catnum = 1>
-				</cfif>
-			</cfif>
-				
-			
-			<cfif not len(#began_date#) is 0>
-				<cfif not isdate(#began_date#)>
-					<cfset loadedMsg = "#loadedMsg#; ::began_date:: must be a date.">
-				</cfif>
-			<cfelse>
-				<cfset loadedMsg = "#loadedMsg#; ::began_date:: is required.">
-			</cfif>
-			
-			<cfif not len(#ended_date#) is 0>
-				<cfif not isdate(#ended_date#)>
-					<cfset loadedMsg = "#loadedMsg#; ::ended_date:: must be a date.">
-				</cfif>
-			<cfelse>
-				<cfset loadedMsg = "#loadedMsg#; ::ended_date:: is required."></cfif>
-			
-			<cfif len(#verbatim_date#) is 0>
-				<cfset loadedMsg = "#loadedMsg#; ::verbatim_date:: is required.">
-			</cfif>
-			<!--- handle relationships - at this stage, just put them in a temp table on Arctos
-				where we can eventually move them over to real tables --->
-			<cfif len(#relationship#) gt 0>
-				<cfif len(#related_to_num_type#) is 0 or len(#related_to_number#) is 0>
-					<cfset loadedMsg = "#loadedMsg#; 
-						::related_to_number:: and ::related_to_num_type:: are required when relationship is given.">
-				</cfif>
-				<cfquery name="isGoodReln" datasource="uam_god">
-					select biol_indiv_relationship from ctbiol_relations where
-					biol_indiv_relationship ='#relationship#'
-				</cfquery>
-				<cfif len(#isGoodReln.biol_indiv_relationship#) is 0>
-					<cfset loadedMsg = "#loadedMsg#; #relationship# is not a valid ::relationship::.">
-				</cfif>
-				<cfquery name="isGoodRelOID" datasource="uam_god">
-					select other_id_type from ctcoll_other_id_type
-					where other_id_type='#related_to_num_type#'
-				</cfquery>
-				<cfif len(#isGoodRelOID.other_id_type#) is 0  and related_to_num_type is not "catalog number">
-					<cfset loadedMsg = "#loadedMsg#; #related_to_num_type# is not a valid ID type and cannot be in a ::relationship::.">
-				</cfif>
-			</cfif>
-			<!--- 
-				There must be one and only one preexisting higher_geog match
-			--->
-			<cfquery name= "getGeog" datasource="uam_god">
-				SELECT geog_auth_rec_id FROM geog_auth_rec WHERE higher_geog = '#higher_geog#'
-			</cfquery>
-			<cfif getGeog.recordcount gt 1>
-				<cfset loadedMsg = "#loadedMsg#; There are multiple ::higher_geog:: matches for #higher_geog#.">
-			  <cfelseif getGeog.recordcount is 0>
-					<cfset loadedMsg = "#loadedMsg#; There are no ::higher_geog:: matches for #higher_geog#.">
-			</cfif>
-					<cfset geogauthrecid = getGeog.geog_auth_rec_id>
-			<cfif len(#locality_id#) is 0>
-				
-				<!--- proceed with normal locality routine --->
-				<cfif len(#maximum_elevation#) gt 0>
-					<cfif not isnumeric(#maximum_elevation#)>
-						<cfset loadedMsg = "#loadedMsg#; ::maximum_elevation:: must be a number.">
-					</cfif>
-				</cfif>
-				<cfif len(#minimum_elevation#) gt 0>
-					<cfif not isnumeric(#minimum_elevation#)>
-						<cfset loadedMsg = "#loadedMsg#; ::minimum_elevation::  must be a number.">
-					</cfif>
-				</cfif>
-				<cfif len(#maximum_elevation#) gt 0 AND len(#minimum_elevation#) gt 0>
-					<cfif #minimum_elevation# gt #maximum_elevation#>
-						<cfset loadedMsg = "#loadedMsg#; ::minimum_elevation:: cannot be greater than Maximum Elevation">
-					</cfif>
-				</cfif>
-				<!--- elevation units are required if min or max is used, and not allowed if not. --->
-				<cfif len(trim(#minimum_elevation#)) gt 0 OR len(trim(#maximum_elevation#)) gt 0>
-					<cfif len(#orig_elev_units#) is 0>
-						<cfset loadedMsg = "#loadedMsg#; ::orig_elev_units:: must be specified if elevation is given.">
-					</cfif>
-					<cfquery name="valElevUnits" datasource="uam_god">
-						SELECT * from ctorig_elev_units where orig_elev_units = '#orig_elev_units#'
-					</cfquery>
 					<cfif valElevUnits.recordcount eq 0>
 						<cfset loadedMsg = "#loadedMsg#; ::orig_elev_units:: must match code table values.">
 					</cfif>
@@ -370,6 +336,16 @@
 					<cfset loadedMsg = "#loadedMsg#; You specified a pre-existing locality ID that does not exist.">
 				</cfif>
 			</cfif><!--- end use existing locality check --->
+	<cfelse><!------------ make sure we have a valid collecting_event_id ------->
+		<cfquery name="isValidEvent" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select collecting_event_id from collecting_event where collecting_event_id=#collecting_event_id#
+		</cfquery>
+		<cfif len(isValidEvent.collecting_event_id) is 0>
+			<cfset m="You specified a pre-existing collecting_event_id that does not exist.">
+			<cfset loadedMsg = listappend(loadedMsg,m,";")>
+		</cfif>
+	</cfif><!------- end collecting_event_id check ----------->
+		
 			<cfif  len(#coll_obj_disposition#) is 0>
 				<cfset loadedMsg = "#loadedMsg#;  ::coll_obj_disposition:: -#coll_obj_disposition#- is required.">
 			</cfif>
@@ -893,3 +869,4 @@
 				<cfset loadedMsg = "#loadedMsg#;  ::georefmethod:: is required.">
 			</cfif>			
 	</cfoutput>
+	--->
