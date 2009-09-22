@@ -690,7 +690,6 @@ function highlightErrors (loadedMsg) {
 				theField.className = 'hasProbs';
 			}
 			catch ( err ){// nothing, just ignore 
-				console.log(thisSlice.toLowerCase() + ' not found');
 			}
 		}
 	}
