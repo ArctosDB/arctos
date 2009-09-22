@@ -711,7 +711,7 @@ function cleanup () {
 	var thisCC = document.getElementById('collection_cde').value;
 	if (thisCC == 'Mamm') {	
 		/******************************** Mammal Routine ************************************************/
-		try{
+		try {
 			var Att2UnitVal = document.getElementById('attribute_units_2').value; //total length & "standard"
 			var Att3UnitVal = document.getElementById('attribute_units_3'); //tail length
 			var Att4UnitVal = document.getElementById('attribute_units_4'); //HF length
@@ -737,7 +737,7 @@ function cleanup () {
 			Date4UnitVal.value = Date2UnitVal;
 			Date5UnitVal.value = Date2UnitVal;
 			Date6UnitVal.value = Date2UnitVal;
-		}catch(e){}
+		} catch(e){
 			console.log('fail');
 		}
 	} else if (thisCC == 'Bird') {
