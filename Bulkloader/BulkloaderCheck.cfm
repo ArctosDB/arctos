@@ -3,7 +3,7 @@
     <cfprocparam
       cfsqltype="CF_SQL_VARCHAR"
       type="out"
-	dbvarname="thisError"
+	dbvarname="outMsg"
       variable="loadedMsg">
  </cfstoredproc>
 
