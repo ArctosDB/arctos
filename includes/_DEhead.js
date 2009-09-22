@@ -2,7 +2,7 @@ var MONTH_NAMES=new Array('January','February','March','April','May','June','Jul
 var DAY_NAMES=new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sun','Mon','Tue','Wed','Thu','Fri','Sat');
 function LZ(x) {return(x<0||x>9?"":"0")+x}
 function changeCollection(v){
-	var yesno = confirm("Are you sure you want to move this record to " + v + "?")
+	var yesno = confirm("Are you sure you want to move this record to " + v + "? \n Doing so may cause attribute verification failure.")
 	if (yesno){
 		var ary=v.split(':');
 		document.getElementById('institution_acronym').value=ary[0];
@@ -738,51 +738,55 @@ function cleanup () {
 			Date5UnitVal.value = Date2UnitVal;
 			Date6UnitVal.value = Date2UnitVal;
 		} catch(e){
-			console.log('fail');
+			// whatever
 		}
 	} else if (thisCC == 'Bird') {
 		/************************************************** Bird Routine **************************************************/
-		var Det2UnitVal = document.getElementById('attribute_determiner_2').value; //age & standard
-		var Det3UnitVal = document.getElementById('attribute_determiner_3'); //fat
-		var Det4UnitVal = document.getElementById('attribute_determiner_4'); //molt
-		var Det5UnitVal = document.getElementById('attribute_determiner_5'); //skull
-		var Det6UnitVal = document.getElementById('attribute_determiner_6'); //weight
-		Det3UnitVal.value = Det2UnitVal;
-		Det4UnitVal.value = Det2UnitVal;
-		Det5UnitVal.value = Det2UnitVal;
-		Det6UnitVal.value = Det2UnitVal;
-		var Date2UnitVal = document.getElementById('attribute_date_2').value; //age & standard
-		var Date3UnitVal = document.getElementById('attribute_date_3'); //fat
-		var Date4UnitVal = document.getElementById('attribute_date_4'); //molt
-		var Date5UnitVal = document.getElementById('attribute_date_5'); //skull
-		var Date6UnitVal = document.getElementById('attribute_date_6'); //weight
-		Date3UnitVal.value = Date2UnitVal;
-		Date4UnitVal.value = Date2UnitVal;
-		Date5UnitVal.value = Date2UnitVal;
-		Date6UnitVal.value = Date2UnitVal;
-		var oid1 = document.getElementById('other_id_num_type_1');
-		var oid2 = document.getElementById('other_id_num_type_2');
-		var theMsg = "";
-		if (oid1.value == 'collector number') {
-			var oidv1 = document.getElementById('other_id_num_1').value;
-			if (oidv1.length == 0) {
-				theMsg = "You did not enter a collector number";
-			}			
-		}
-		if (oid2.value == 'preparator number') {
-			var oidv2 = document.getElementById('other_id_num_2').value;
-			if (oidv2.length == 0) {
-				theMsg += "\nYou did not enter a preparator number";
-			}			
-		}
-		if (theMsg.length > 0) {
-			theMsg +="\nContinue?";
-			whatever = window.confirm(theMsg);
-			if (whatever == false) {
-				return false;
-			} else {
-				return true;
+		try {
+			var Det2UnitVal = document.getElementById('attribute_determiner_2').value; //age & standard
+			var Det3UnitVal = document.getElementById('attribute_determiner_3'); //fat
+			var Det4UnitVal = document.getElementById('attribute_determiner_4'); //molt
+			var Det5UnitVal = document.getElementById('attribute_determiner_5'); //skull
+			var Det6UnitVal = document.getElementById('attribute_determiner_6'); //weight
+			Det3UnitVal.value = Det2UnitVal;
+			Det4UnitVal.value = Det2UnitVal;
+			Det5UnitVal.value = Det2UnitVal;
+			Det6UnitVal.value = Det2UnitVal;
+			var Date2UnitVal = document.getElementById('attribute_date_2').value; //age & standard
+			var Date3UnitVal = document.getElementById('attribute_date_3'); //fat
+			var Date4UnitVal = document.getElementById('attribute_date_4'); //molt
+			var Date5UnitVal = document.getElementById('attribute_date_5'); //skull
+			var Date6UnitVal = document.getElementById('attribute_date_6'); //weight
+			Date3UnitVal.value = Date2UnitVal;
+			Date4UnitVal.value = Date2UnitVal;
+			Date5UnitVal.value = Date2UnitVal;
+			Date6UnitVal.value = Date2UnitVal;
+			var oid1 = document.getElementById('other_id_num_type_1');
+			var oid2 = document.getElementById('other_id_num_type_2');
+			var theMsg = "";
+			if (oid1.value == 'collector number') {
+				var oidv1 = document.getElementById('other_id_num_1').value;
+				if (oidv1.length == 0) {
+					theMsg = "You did not enter a collector number";
+				}			
 			}
+			if (oid2.value == 'preparator number') {
+				var oidv2 = document.getElementById('other_id_num_2').value;
+				if (oidv2.length == 0) {
+					theMsg += "\nYou did not enter a preparator number";
+				}			
+			}
+			if (theMsg.length > 0) {
+				theMsg +="\nContinue?";
+				whatever = window.confirm(theMsg);
+				if (whatever == false) {
+					return false;
+				} else {
+					return true;
+				}
+			}
+		} catch(e){
+			// whatever
 		}
 	}// end collection specific thingy
 	/******************************************************************** Any Collection ***************************************/
