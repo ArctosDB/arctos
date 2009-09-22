@@ -3,9 +3,11 @@
     <cfprocparam
       cfsqltype="CF_SQL_VARCHAR"
       type="out"
-	dbvarname="outMsg"
       variable="loadedMsg">
  </cfstoredproc>
+
+
+
 
 <cfdump var=#loadedMsg#>
 ^^ there is is ^^
