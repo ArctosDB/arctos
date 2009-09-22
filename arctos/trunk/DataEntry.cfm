@@ -124,10 +124,10 @@
 </cfquery>
 <!------------------- check these data ------------------->
 <cfif #collection_OBJECT_ID# GT 50>
-	<cfquery name="oneRecord" dbtype="query">
-		select * from data
+	<cfquery name="chk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select bulk_check_one(#collection_object_id#) d from dual
 	</cfquery>
-	<cfinclude template="Bulkloader/BulkloaderCheck.cfm">
+	<cfset loadedMsg=c.d>
 <cfelse>
 	<cfset loadedMsg = "">
 </cfif>

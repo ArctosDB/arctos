@@ -1,12 +1,9 @@
 
 <cfquery name="c" datasource="uam_god">
-select bulk_check_one(#oneRecord.collection_object_id#) d from dual
+	select bulk_check_one(#oneRecord.collection_object_id#) d from dual
 </cfquery>
-<cfdump var=#c#>
 
 
-
-<cfset loadedMsg=c.d>
 
 
 <!---- declare local variables - only deal with the things that we have to format for this app ---->
