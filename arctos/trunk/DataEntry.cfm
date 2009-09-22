@@ -125,9 +125,9 @@
 <!------------------- check these data ------------------->
 <cfif #collection_OBJECT_ID# GT 50>
 	<cfquery name="chk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select bulk_check_one(#collection_object_id#) d from dual
+		select bulk_check_one(#collection_object_id#) rslt from dual
 	</cfquery>
-	<cfset loadedMsg=c.d>
+	<cfset loadedMsg=chk.rslt>
 <cfelse>
 	<cfset loadedMsg = "">
 </cfif>
