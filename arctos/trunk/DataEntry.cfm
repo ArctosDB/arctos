@@ -290,8 +290,8 @@
 	<input type="hidden" name="action" value="" id="action">
 	<input type="hidden" name="nothing" value="" id="nothing"/><!--- trashcan for picks - don't delete --->
 	<input type="hidden" name="ImAGod" value="#ImAGod#" id="ImAGod"><!--- allow power users to browse other's records --->
-	<input type="text" name="collection_cde" value="#collection_cde#" id="collection_cde">
-	<input type="text" name="institution_acronym" value="#institution_acronym#" id="institution_acronym">
+	<input type="hidden" name="collection_cde" value="#collection_cde#" id="collection_cde">
+	<input type="hidden" name="institution_acronym" value="#institution_acronym#" id="institution_acronym">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#"  id="collection_object_id"/>  
 	<input type="hidden" name="loaded" value="waiting approval"  id="loaded"/>
 <table width="100%" cellspacing="0" cellpadding="0" id="theTable" style="display:none;"> <!--- whole page table --->
