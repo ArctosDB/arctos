@@ -1,4 +1,25 @@
 <cfinclude template="/includes/_frameHeader.cfm">
+<cfquery name="ctNameType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select agent_name_type as agent_name_type from ctagent_name_type where agent_name_type != 'preferred' order by agent_name_type
+</cfquery>
+<cfquery name="ctAgentType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select agent_type from ctagent_type
+</cfquery>
+<cfquery name="ctAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select addr_type from ctaddr_type
+</cfquery>
+<cfquery name="ctElecAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select address_type from ctelectronic_addr_type
+</cfquery>
+<cfquery name="ctprefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select prefix from ctprefix order by prefix
+</cfquery>
+<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select suffix from ctsuffix order by suffix
+</cfquery>
+<cfquery name="ctRelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select AGENT_RELATIONSHIP from CTAGENT_RELATIONSHIP
+</cfquery>
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
 <script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
 	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
@@ -114,27 +135,6 @@
 	<cfif not isdefined("agent_id") OR agent_id lt 0 >
 		<cfabort>
 	</cfif>
-	<cfquery name="ctNameType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select agent_name_type as agent_name_type from ctagent_name_type where agent_name_type != 'preferred' order by agent_name_type
-	</cfquery>
-	<cfquery name="ctAgentType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select agent_type from ctagent_type
-	</cfquery>
-	<cfquery name="ctAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select addr_type from ctaddr_type
-	</cfquery>
-	<cfquery name="ctElecAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select address_type from ctelectronic_addr_type
-	</cfquery>
-	<cfquery name="ctprefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select prefix from ctprefix order by prefix
-	</cfquery>
-	<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select suffix from ctsuffix order by suffix
-	</cfquery>
-	<cfquery name="ctRelns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select AGENT_RELATIONSHIP from CTAGENT_RELATIONSHIP
-	</cfquery>
 	<cfquery name="person" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			agent_id,
@@ -514,6 +514,9 @@
 					class="savBtn">
 			</form>
 		</div>
+		<div class="newRec">
+			<label>Add Address</label>
+		</div>
 	</cfoutput>
 		</table>
 	</td>
@@ -523,7 +526,7 @@
 <table class="newRec">
 <tr>
 	<td colspan="2">
-		Add Address for this agent:
+		 for this agent:
 	</td>
 </tr>
 
