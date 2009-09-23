@@ -336,9 +336,7 @@
 								<label for="agent_remarks">Agent Remark</label>
 								<input type="text" value="#agent_remarks#" name="agent_remarks" id="agent_remarks" size="100">
 								<br>
-								<input type="submit" 
-									value="Update Person" 
-									class="savBtn">
+								<span class="likeLink" onclick="editPerson.submit();">Update Person</span>
 							</td>
 						</tr>
 					</table>
@@ -393,9 +391,7 @@
 					<input type="text" name="group_member" class="reqdClr" 
 						onchange="getAgent('member_id','group_member','newGroupMember',this.value); return false;"
 				 		onKeyPress="return noenter(event);">
-					<input type="submit" 
-						value="Add Member" 
-						class="insBtn">
+					<span class="likeLink" onclick="newGroupMember.submit();">Add Group Member</span>
 				</div>
 			</form>
 		</cfif>
@@ -514,9 +510,7 @@
 				<input type="text" name="related_agent" class="reqdClr"
 					onchange="getAgent('newRelatedAgentId','related_agent','newRelationship',this.value); return false;"
 					onKeyPress="return noenter(event);">
-				<input type="submit" 
-					value="Create" 
-					class="savBtn">
+				<span class="likeLink" onclick="newRelationship.submit();">Create Relationship</span>
 			</form>
 		</div>
 		<br />
@@ -605,9 +599,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input type="submit" 
-								value="Create Address" 
-								class="savBtn">
+							<span class="likeLink" onclick="newAddress.submit();">Create Address</span>
 						</td>
 					</tr>
 				</table>
@@ -626,10 +618,8 @@
 					</cfloop>
 				</select>
 				<label for="address">Address</label>
-				<input type="text" name="address">
-				<input type="submit" 
-					value="Create Address" 
-					class="insBtn">
+				<input type="text" name="address" id="address">
+				<span class="likeLink" onclick="newElecAddr.submit();">Create Address</span>
 			</form>
 		</div>
 	</cfoutput>
