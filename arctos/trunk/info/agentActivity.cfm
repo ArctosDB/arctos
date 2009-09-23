@@ -85,7 +85,7 @@ Agent Names:
 						PUBLICATION_TITLE
 					from
 						publication,
-						publication_author_name,
+						publication_author_name
 					where
 						publication.publication_id=publication_author_name.publication_id and
 						publication_author_name.agent_name_id=#agent_name_id#
