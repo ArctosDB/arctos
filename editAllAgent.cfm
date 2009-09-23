@@ -84,8 +84,8 @@
 		<form name="prefdName" action="editAllAgent.cfm" method="post" target="_person">
 			<input type="hidden" name="action" value="makeNewAgent">
 			<input type="hidden" name="agent_name_type" value="preferred">
-			<label for="agent_name">Name</label>
-			<input type="text" name="agent_name" id="agent_name" size="50">
+			<label for="agent_name">Preferred Name</label>
+			<input type="text" name="agent_name" id="agent_name" size="50" class="reqdClr">
 			<label for="agent_type">Agent Type</label>
 			<select name="agent_type" id="agent_type" size="1">
 				<cfloop query="ctAgentType">
@@ -191,7 +191,7 @@
 			</cfquery>
 			<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#" target="_self">Agent Activity</a>
 			<cfif rank.recordcount is 0>
-				~ <span class="likeLink" onclick="rankAgent('#agent_id#');">Rank</span>
+				~ <input type="button" class="lnkBtn" onclick="rankAgent('#agent_id#');">Rank</span>
 			<cfelse>
 				<br>Rank:
 				#valuelist(rank.agent_rank,"; ")#
