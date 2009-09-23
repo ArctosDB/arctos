@@ -611,13 +611,11 @@
 			<form name="newElecAddr" method="post" action="editAllAgent.cfm">
 				<input name="Action" type="hidden" value="newElecAddr">
 				<input type="hidden" name="agent_id" value="#person.agent_id#">
-				<label for="address_type">Address Type</label>
 				<select name="address_type" size="1">
 					<cfloop query="ctElecAddrType">
 						<option value="#ctElecAddrType.address_type#">#ctElecAddrType.address_type#</option>
 					</cfloop>
 				</select>
-				<label for="address">Address</label>
 				<input type="text" name="address" id="address">
 				<span class="likeLink" onclick="newElecAddr.submit();">Create Address</span>
 			</form>
@@ -632,13 +630,11 @@
 			<input type="hidden" name="agent_id" value="#agent_id#">
 			<input type="hidden" name="origAddress" value="#address#">
 			<input type="hidden" name="origAddressType" value="#address_type#">
-			<label for="address_type">Address Type</label>
 			<select name="address_type" size="1" id="address_type">
 				<cfloop query="ctElecAddrType">
 					<option <cfif #form.address_type# is "#ctElecAddrType.address_type#"> selected </cfif>value="#ctElecAddrType.address_type#">#ctElecAddrType.address_type#</option>
 				</cfloop>
 			</select>
-			<label for="address">Address</label>
 			<input type="text" name="address" id="address" value="#address#">		</td>
 			<input type="submit" 
 				value="Save Updates" 
