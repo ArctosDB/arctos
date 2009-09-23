@@ -608,56 +608,25 @@
 				</table>
 			</form>
 		</div>
+		<div class="newRec">
+			<label>Add Electronic Address</label>
+			<form name="newElecAddr" method="post" action="editAllAgent.cfm">
+				<input name="Action" type="hidden" value="newElecAddr">
+				<input type="hidden" name="agent_id" value="#person.agent_id#">
+				<label for="address_type">Address Type</label>
+				<select name="address_type" size="1">
+					<cfloop query="ctElecAddrType">
+						<option value="#ctElecAddrType.address_type#">#ctElecAddrType.address_type#</option>
+					</cfloop>
+				</select>
+				<label for="address">Address</label>
+				<input type="text" name="address">
+				<input type="submit" 
+					value="Create Address" 
+					class="insBtn">
+			</form>
+		</div>
 	</cfoutput>
-		</table>
-	</td>
-</tr>
-<tr>
-	<td>
-<table class="newRec">
-<tr>
-	<td colspan="2">
-		 for this agent:
-	</td>
-</tr>
-
-		<cfoutput>
-			
-
-					<cfform name="newElecAddr" method="post" action="editAllAgent.cfm">
-					<input name="Action" type="hidden" value="newElecAddr">
-					<input type="hidden" name="agent_id" value="#person.agent_id#">
-					<table class="newRec">
-					<tr>
-						<td>Add Electronic Address:</td>
-					</tr>
-					<tr>
-						<td>Address Type:
-						</td>
-						<td>
-							<select name="address_type" size="1">
-								<cfloop query="ctElecAddrType">
-									<option value="#ctElecAddrType.address_type#">#ctElecAddrType.address_type#</option>
-								</cfloop>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>Address</td>
-						<td><input type="text" name="Address"></td>
-					<tr>
-						<td>
-						<input type="submit" 
-							value="Save this Electronic Address" 
-							class="savBtn"
-							onmouseover="this.className='savBtn btnhov'"
-							onmouseout="this.className='savBtn'">
-						</td>
-					</tr>
-				</table>
-			</cfform>
-			</td></tr></table>
-		</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
 <cfif #Action# is "editElecAddr">
