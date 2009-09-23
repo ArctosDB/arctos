@@ -626,37 +626,24 @@
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
 <cfif #Action# is "editElecAddr">
-<cfoutput>
-<cfform name="edElecAddr" method="post" action="editAllAgent.cfm">
-					<input name="Action" type="hidden" value="saveEditElecAddr">
-					<input type="hidden" name="agent_id" value="#agent_id#">
-					<input type="hidden" name="origAddress" value="#address#">
-					<input type="hidden" name="origAddressType" value="#address_type#">
-					<table><tr>
-						<td>Address Type:
-						</td>
-						<td>
-							<select name="address_type" size="1">
-								<cfloop query="ctElecAddrType">
-									<option <cfif #form.address_type# is "#ctElecAddrType.address_type#"> selected </cfif>value="#ctElecAddrType.address_type#">#ctElecAddrType.address_type#</option>
-								</cfloop>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>Address</td>
-						<td><input type="text" name="Address" value="#address#"></td>
-					<tr>
-						<td>
-						<input type="submit" 
-		value="Save Updates" 
-		class="savBtn"
-		onmouseover="this.className='savBtn btnhov'"
-		onmouseout="this.className='savBtn'">
-		</td>
-					</tr>
-				</table>
-			</cfform>
+	<cfoutput>
+		<form name="edElecAddr" method="post" action="editAllAgent.cfm">
+			<input name="Action" type="hidden" value="saveEditElecAddr">
+			<input type="hidden" name="agent_id" value="#agent_id#">
+			<input type="hidden" name="origAddress" value="#address#">
+			<input type="hidden" name="origAddressType" value="#address_type#">
+			<label for="address_type">Address Type</label>
+			<select name="address_type" size="1" id="address_type">
+				<cfloop query="ctElecAddrType">
+					<option <cfif #form.address_type# is "#ctElecAddrType.address_type#"> selected </cfif>value="#ctElecAddrType.address_type#">#ctElecAddrType.address_type#</option>
+				</cfloop>
+			</select>
+			<label for="address">Address</label>
+			<input type="text" name="address" id="address" value="#address#">		</td>
+			<input type="submit" 
+				value="Save Updates" 
+				class="savBtn">
+		</form>
 </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
@@ -777,7 +764,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<span class="likeLink" onclick="editAddr.submit();">Create Address</span>
+						<span class="likeLink" onclick="editAddr.submit();">Save Edits</span>
 					</td>
 				</tr>
 			</table>
