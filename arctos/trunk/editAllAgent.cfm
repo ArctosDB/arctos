@@ -514,7 +514,7 @@
 					class="savBtn">
 			</form>
 		</div>
-		<p>&nbsp;</p>
+		<br />
 		<div class="newRec">
 			<label>Add Address</label>
 			<form name="newAddress" method="post" action="editAllAgent.cfm">
