@@ -81,7 +81,7 @@
 			</cfmail>
 		</cfloop>
 		<cfif dateformat(now(),"d") is "23">
-			<cfquery name="getRels" datasource="cf_dbuser">
+			<cfquery name="getRels" datasource="uam_god">
 				select 
 					distinct(address) 
 				from 
