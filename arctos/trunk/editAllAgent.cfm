@@ -1,5 +1,12 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
+<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
+	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+		var cal1 = new CalendarPopup("theCalendar");
+		cal1.showYearNavigation();
+		cal1.showYearNavigationInput();
+	</SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
 <cfquery name="ctNameType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select agent_name_type as agent_name_type from ctagent_name_type
 </cfquery>
@@ -169,6 +176,7 @@
 			<cfset nameStr=#getName.agent_name#>
 		</cfif>
 		<span class="infoLink" onClick="getDocs('agent')">Help</span>
+		<br>
 		<strong>#nameStr#</strong> (#agent_type#) {ID: #agent_id#} 
 		<cfif len(#person.agent_remarks#) gt 0>
 			<br>#person.agent_remarks#
@@ -234,99 +242,102 @@
 				<cfset i=#i#+1>
 			</div>
 		</cfloop>
+		<cfset i=1>
+		<cfloop query="elecagentAddrs">
+			<form name="elad#i#" method="post" action="editAllAgent.cfm">
+				<input type="hidden" name="action" >
+				<input type="hidden" name="agent_id" value="#person.agent_id#">
+				<input type="hidden" name="address_type" value="#address_type#">
+				<input type="hidden" name="address" value="#address#">
+			</form>
+			<div style="border:2px solid green;margin:1px;padding:1px;">
+				#address_type#: #address#
+				<span class="likeLink" onclick="elad#i#.action.value='editElecAddr';elad#i#.submit();">Edit</span>
+				&nbsp;&nbsp;~&nbsp;&nbsp;
+				<span class="likeLink" onclick="elad#i#.action.value='deleElecAddr';confirmDelete('elad#i#');">Delete</span>
+			</div>
+			<cfset i=#i#+1>
+		</cfloop>
 	</cfoutput>
-	
-			<strong>Electronic Addresses:</strong>
-			<cfset i=1>
-			<cfoutput>
-				<cfloop query="elecagentAddrs">
-					<form name="elad#i#" method="post" action="editAllAgent.cfm">
-						<input type="hidden" name="action" >
-						<input type="hidden" name="agent_id" value="#person.agent_id#">
-						<input type="hidden" name="address_type" value="#address_type#">
-						<input type="hidden" name="address" value="#address#">
-					</form>
-					<div>
-						#address_type#: #address#
-						<span class="likeLink" onclick="elad#i#.action.value='editElecAddr';elad#i#.submit();">Edit</span>
-						&nbsp;&nbsp;~&nbsp;&nbsp;
-						<span class="likeLink" onclick="elad#i#.action.value='deleElecAddr';confirmDelete('elad#i#');">Delete</span>
-					</div>
-					<cfset i=#i#+1>
-				</cfloop>
-			</cfoutput>
-		</td>
-	</tr>
-<cfif #person.agent_type# is "person">
-<cfoutput query="person">
-<form name="editPerson" action="editAllAgent.cfm" method="post" target="_person">
-	<input type="hidden" name="agent_id" value="#agent_id#">
-	<input type="hidden" name="Action">
-<tr>
-	<td>
-		<strong><font color="##000066">Person</font></strong>
-	</td>
-</tr>
-<tr>
-	<td>
-		<table>
-			<tr>
-				<td><font size="-1">Prefix</font></td>
-				<td><font size="-1">First Name</font></td>
-				<td><font size="-1">Middle Name</font></td>
-				<td><font size="-1">Last Name</font></td>
-				<td><font size="-1">Suffix</font></td>
-			</tr>
-			<tr>
-				<td>	
-					<select name="prefix" size="1">
-						<option value=""></option>
-						<cfloop query="ctprefix"> 
-							<option value="#ctprefix.prefix#"
-							<cfif #ctprefix.prefix# is "#person.prefix#">selected</cfif>>#ctprefix.prefix#
-							</option>
-						</cfloop> 
-					</select>
-				</td>
-				<td><input type="text" name="first_name" id="first_name" value="#first_name#"></td>
-				<td><input type="text" name="middle_name" id="middle_name" value="#middle_name#"></td>
-				<td><input type="text" name="last_name" id="last_name" value="#last_name#"></td>
-				<td>
-					<select name="suffix" size="1">
-						<option value=""></option>
-						   <cfloop query="ctsuffix"> 
-								<option value="#ctsuffix.suffix#"
-									<cfif #ctsuffix.suffix# is "#person.suffix#">selected</cfif>>#ctsuffix.suffix#</option>
-							</cfloop> 
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td align="right">DOB</td>
-				<td><input type="text" name="birth_date" value="#dateformat(birth_date,'dd mmm yyyy')#" size="10"></td>
-				<td align="right">DOD</td>
-				<td colspan="2"><input type="text" name="death_date" value="#dateformat(death_date,'dd mmm yyyy')#" size="10"></td>
-			</tr>
-			<tr>
-				<td align="right">Remarks:</td>
-				<td colspan="4"><input type="text" value="#agent_remarks#" name="agent_remarks" size="50"></td>
-			</tr>
-		</table>
-<tr>
-	<td align="center">
-		<input type="button" 
-				value="Update Person" 
-				class="savBtn"
-				onmouseover="this.className='savBtn btnhov'"
-				onmouseout="this.className='savBtn'"
-				onClick="editPerson.Action.value='editPerson';submit();">
-	</td>
-</tr>
-</form>
-</cfoutput>
-</cfif>
-</td>
-</tr><!--- end of person blurb ---->
+	<cfif #person.agent_type# is "person">
+		<cfoutput query="person">
+			<form name="editPerson" action="editAllAgent.cfm" method="post" target="_person">
+				<input type="hidden" name="agent_id" value="#agent_id#">
+				<input type="hidden" name="action" value="editPerson">
+				<table>
+					<tr>
+						<td>	
+							<label for="prefix">Prefix</label>
+							<select name="prefix" id="prefix" size="1">
+								<option value=""></option>
+								<cfloop query="ctprefix"> 
+									<option value="#ctprefix.prefix#"
+									<cfif #ctprefix.prefix# is "#person.prefix#">selected</cfif>>#ctprefix.prefix#
+									</option>
+								</cfloop> 
+							</select>
+						</td>
+						<td>
+							<label for="first_name">First Name</label>
+							<input type="text" name="first_name" id="first_name" value="#first_name#">
+						</td>
+						<td>
+							<label for="middle_name">Middle Name</label>
+							<input type="text" name="middle_name" id="middle_name" value="#middle_name#">
+						</td>
+						<td>
+							<label for="last_name">Last Name</label>
+							<input type="text" name="last_name" id="last_name" value="#last_name#">
+						</td>
+						<td>
+							<label for="suffix">Suffix</label>
+							<select name="suffix" id="suffix" size="1">
+								<option value=""></option>
+								   <cfloop query="ctsuffix"> 
+										<option value="#ctsuffix.suffix#"
+											<cfif #ctsuffix.suffix# is "#person.suffix#">selected</cfif>>#ctsuffix.suffix#</option>
+									</cfloop> 
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<label for="birth_date">Birth Date</label>
+							<input type="text" name="birth_date" id="birth_date" value="#dateformat(birth_date,'dd mmm yyyy')#" size="10">
+							<img src="images/pick.gif" 
+								class="likeLink" 
+								border="0" 
+								alt="[calendar]"
+								name="anchor1"
+								id="anchor1"
+								onClick="cal1.select(document.editPerson.birth_date,'anchor1','dd-MMM-yyyy'); return false;"/>	
+						</td>
+						<td colspan="3">
+							<label for="death_date">Death Date</label>
+							<input type="text" name="death_date" value="#dateformat(death_date,'dd mmm yyyy')#" size="10">
+							<img src="images/pick.gif" 
+								class="likeLink" 
+								border="0" 
+								alt="[calendar]"
+								name="anchor2"
+								id="anchor2"
+								onClick="cal1.select(document.editPerson.death_date,'anchor2','dd-MMM-yyyy'); return false;"/>	
+						</td>
+					</tr>
+					<tr>
+						<td colspan="5">
+							<label for="agent_remarks">Agent Remark</label>
+							<input type="text" value="#agent_remarks#" name="agent_remarks" id="agent_remarks" size="50">
+							<br>
+							<input type="submit" 
+								value="Update Person" 
+								class="savBtn">
+						</td>
+					</tr>
+				</table>
+			</form>
+		</cfoutput>
+	</cfif>
 	<cfoutput>
 <!---------------------------- group handling ------------------------------>
 <cfif #person.agent_type# is "group">
@@ -1414,3 +1425,4 @@ Edit This Address:
 </cfoutput>
 <!------------------------------------------------------------------------------------------------------------->
 <cfinclude template="includes/_pickFooter.cfm">
+<DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>
