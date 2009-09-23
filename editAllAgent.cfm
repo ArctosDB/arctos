@@ -1518,7 +1518,7 @@ UPDATE agent_relations SET
 						<input type="hidden" name="SUFFIX" value="#SUFFIX#">
 						<input type="hidden" name="pref_name" value="#pref_name#">
 						<input type="hidden" name="ignoreDupChek" value="true">
-						<input type="submit" value="Of course I checked for duplicates before creating this agent!">
+						<input type="submit" class="insLnk" value="Of course!<br> I carefully checked for duplicates before creating this agent!">
 					</form>
 					<cfabort>					
 				</cfif>
