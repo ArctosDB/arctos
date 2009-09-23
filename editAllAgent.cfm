@@ -616,7 +616,7 @@
 						<option value="#ctElecAddrType.address_type#">#ctElecAddrType.address_type#</option>
 					</cfloop>
 				</select>
-				<input type="text" name="address" id="address">
+				<input type="text" name="address" id="address" size="50">
 				<span class="likeLink" onclick="newElecAddr.submit();">Create Address</span>
 			</form>
 		</div>
@@ -635,7 +635,7 @@
 					<option <cfif #form.address_type# is "#ctElecAddrType.address_type#"> selected </cfif>value="#ctElecAddrType.address_type#">#ctElecAddrType.address_type#</option>
 				</cfloop>
 			</select>
-			<input type="text" name="address" id="address" value="#address#">		</td>
+			<input type="text" name="address" id="address" value="#address#" size="50">
 			<input type="submit" 
 				value="Save Updates" 
 				class="savBtn">
