@@ -190,9 +190,11 @@
 				select count(*) || ' ' || agent_rank agent_rank from agent_rank where agent_id=#agent_id# group by agent_rank
 			</cfquery>
 			<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#" target="_self">Agent Activity</a>
-			<br>Rank:
-				#valuelist(rank.agent_rank,"; ")#
-				<input type="button" class="lnkBtn" onclick="rankAgent('#agent_id#');" value="Rank">
+			<br>
+			<cfif rank.recordcount gt 0>
+				Previous Ranking: #valuelist(rank.agent_rank,"; ")#
+			</cfif>
+			<input type="button" class="lnkBtn" onclick="rankAgent('#agent_id#');" value="Rank">
 		</cfif>
 	</cfoutput>
 	<cfquery name="agentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -253,9 +255,9 @@
 			</form>
 			<div style="border:2px solid green;margin:1px;padding:1px;">
 				#address_type#: #address#
-				<span class="likeLink" onclick="elad#i#.action.value='editElecAddr';elad#i#.submit();">Edit</span>
+				<button value="Edit" class="lnkBtn" onclick="elad#i#.action.value='editElecAddr';elad#i#.submit();">
 				&nbsp;&nbsp;~&nbsp;&nbsp;
-				<span class="likeLink" onclick="elad#i#.action.value='deleElecAddr';confirmDelete('elad#i#');">Delete</span>
+				<button value="Delete" class="delBtn" onclick="elad#i#.action.value='deleElecAddr';confirmDelete('elad#i#');">
 			</div>
 			<cfset i=#i#+1>
 		</cfloop>
