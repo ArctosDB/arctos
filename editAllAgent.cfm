@@ -514,8 +514,99 @@
 					class="savBtn">
 			</form>
 		</div>
+		<p>&nbsp;</p>
 		<div class="newRec">
 			<label>Add Address</label>
+			<form name="newAddress" method="post" action="editAllAgent.cfm">
+				<input type="hidden" name="agent_id" value="#person.agent_id#">
+				<input type="hidden" name="Action" value="newAddress">
+				<table>
+					<tr>
+						<td>
+							<label for="addr_type">Address Type</label>
+							<select name="addr_type" id="addr_type" size="1">
+								<cfloop query="ctAddrType">
+								<option value="#ctAddrType.addr_type#">#ctAddrType.addr_type#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<label for="job_title">Job Title</label>
+							<input type="text" name="job_title" id="job_title">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<label for="institution">Institution</label>
+							<input type="text" name="institution" id="institution"size="50" >
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<label for="department">Department</label>
+							<input type="text" name="department" id="department" size="50" >
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<label for="street_addr1">Street Address 1</label>
+							<input type="text" name="street_addr1" id="street_addr1" size="50" class="reqdClr">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<label for="street_addr2">Street Address 2</label>
+							<input type="text" name="street_addr2" id="street_addr2" size="50">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="city">City</label>
+							<input type="text" name="city" id="city" class="reqdClr">
+						</td>
+						<td>
+							<label for="state">State</label>
+							<input type="text" name="state" id="state" class="reqdClr">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="zip">Zip</label>
+							<input type="text" name="zip" id="zip" class="reqdClr">
+						</td>
+						<td>
+							<label for="country_cde">Country Code</label>
+							<input type="text" name="country_cde" id="country_cde" class="reqdClr">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="mail_stop">Mail Stop</label>
+							<input type="text" name="mail_stop" id="mail_stop">
+						</td>
+						<td>
+							<label for="valid_addr_fg">Valid?</label>
+							<select name="valid_addr_fg" id="valid_addr_fg" size="1">
+								<option value="1">yes</option>
+								<option value="0">no</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<label for="addr_remarks">Address Remark</label>
+							<input type="text" name="addr_remarks" id="addr_remarks" size="50">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<input type="submit" 
+								value="Create Address" 
+								class="savBtn">
+						</td>
+					</tr>
+				</table>
+			</form>
 		</div>
 	</cfoutput>
 		</table>
@@ -531,94 +622,7 @@
 </tr>
 
 		<cfoutput>
-			<cfform name="newAddress" method="post" action="editAllAgent.cfm">
-				<input type="hidden" name="agent_id" value="#person.agent_id#">
-				<input type="hidden" name="Action" value="newAddress">
-				
-					<tr>
-						<td>Address Type:</td>
-						<td>
-							<select name="addr_type" size="1">
-								<cfloop query="ctAddrType">
-								<option value="#ctAddrType.addr_type#">#ctAddrType.addr_type#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>Job Title</td>
-						<td><input type="text" name="job_title"></td>
-					</tr>
-					<tr>
-						<td>Institution</td>
-						<td colspan="3">
-							<input type="text" name="Institution" size="50" >
-						</td>
-					</tr>
-					<tr>
-						<td>Department</td>
-						<td colspan="3">
-							<input type="text" name="Department" size="50" >
-						</td>
-					</tr>
-					<tr>
-						<td>Address 1</td>
-						<td colspan="3">
-							<input type="text" name="street_addr1" size="50" class="reqdClr">
-						</td>
-					</tr>
-					<tr>
-						<td>Address 2</td>
-						<td colspan="3">
-							<input type="text" name="street_addr2" size="50">
-						</td>
-					</tr>
-					<tr>
-						<td>City</td>
-						<td>
-							<input type="text" name="city" class="reqdClr">
-						</td>
-						<td>State</td>
-						<td>
-							<input type="text" name="state" class="reqdClr">
-						</td>
-					</tr>
-					<tr>
-						<td>Zip</td>
-						<td><input type="text" name="zip" class="reqdClr"></td>
-						<td>Country</td>
-						<td>
-							<input type="text" name="country_cde">
-						</td>
-					</tr>
-					<tr>
-						<td>Mail Stop</td>
-						<td>
-							<input type="text" name="mail_stop">
-						</td>
-						<td>Valid?</td>
-						<td>
-							<select name="valid_addr_fg" size="1">
-									<option value="1">yes</option>
-									<option value="0">no</option>
-								</select>
-						</td>
-					</tr>
-					<tr>				
-						<td>Remarks</td>
-						<td colspan="3">
-							<input type="text" name="addr_remarks" size="50">
-						</td>
-					</tr>
-					<tr>
-						<td>
-						<input type="submit" 
-							value="Save this Address" 
-							class="savBtn"
-							onmouseover="this.className='savBtn btnhov'"
-							onmouseout="this.className='savBtn'">
-						</td>
-					</tr>
-					</table>
-</cfform>
+			
 
 					<cfform name="newElecAddr" method="post" action="editAllAgent.cfm">
 					<input name="Action" type="hidden" value="newElecAddr">
