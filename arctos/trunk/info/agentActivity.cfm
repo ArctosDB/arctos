@@ -118,7 +118,7 @@ Agent Names:
 				<cfif len(project_sponsor.project_name) gt 0>
 					<div style="font-weight:bold;padding-left:.5em">Projects sponsored by this name:</div>
 					<ul>
-						<cfloop query="publication_author_name">
+						<cfloop query="project_sponsor">
 							<li><a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
 						</cfloop>
 					</ul>
