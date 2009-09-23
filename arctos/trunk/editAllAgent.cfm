@@ -363,6 +363,7 @@
 			</cfquery>
 			<label for="gmemdv">Group Members</label>
 			<cfset i=1>
+			<br />
 			<div id="gmemdv" style="border:2px solid green;margin:1px;padding:1px;">
 				<cfloop query="grpMem">
 					<form name="groupMember#i#" method="post" action="editAllAgent.cfm">
@@ -408,6 +409,7 @@
 			select * from anames where agent_name_type!='preferred'
 		</cfquery>
 		<cfset i=1>
+		<br />
 		<label for="anamdv"><span class="likeLink" onClick="getDocs('agent','names')">Agent Names</span></label>
 		<div id="anamdv" style="border:2px solid green;margin:1px;padding:1px;">
 			<form name="a#i#" action="editAllAgent.cfm" method="post" target="_person">
@@ -467,6 +469,7 @@
 			  and agent_name_type = 'preferred' and
 			  agent_relations.agent_id=#person.agent_id#
 		</cfquery>
+		<br />
 		<label for="areldv"><span class="likeLink" onClick="getDocs('agent','relations')">Relationships</span></label>
 		<div id="areldv" style="border:2px solid green;margin:1px;padding:1px;">
 			<cfset i=1>
@@ -610,6 +613,7 @@
 				</table>
 			</form>
 		</div>
+		<br />
 		<div class="newRec">
 			<label>Add Electronic Address</label>
 			<form name="newElecAddr" method="post" action="editAllAgent.cfm">
