@@ -72,7 +72,7 @@ Agent Names:
 						project.project_id
 				</cfquery>
 				<cfif len(project_agent.project_name) gt 0>
-					<br>Projects using this name:
+					<p style="font-weight:bold;padding-left:.5em">Projects using this name:</p>
 					<ul>
 						<cfloop query="project_agent">
 							<li><a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
