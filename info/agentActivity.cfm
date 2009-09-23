@@ -96,7 +96,7 @@ Agent Names:
 				<cfif len(publication_author_name.PUBLICATION_TITLE) gt 0>
 					<div style="font-weight:bold;padding-left:.5em">Publications using this name:</div>
 					<ul>
-						<cfloop query="PUBLICATION_TITLE">
+						<cfloop query="publication_author_name">
 							<li><a href="/Publication.cfm?PUBLICATION_ID=#PUBLICATION_ID#">#PUBLICATION_TITLE#</a></li>
 						</cfloop>
 					</ul>
