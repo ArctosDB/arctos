@@ -80,7 +80,7 @@
 				</p>
 			</cfmail>
 		</cfloop>
-		<cfif dateformat(now(),"d") is "23">
+		<cfif dateformat(now(),"d") is "1">
 			running
 			<cfquery name="getRels" datasource="cf_dbuser">
 				select * from cf_temp_relations where RELATED_COLLECTION_OBJECT_ID is null
