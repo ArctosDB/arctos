@@ -8,7 +8,7 @@
 	</SCRIPT>
 	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
 <cfquery name="ctNameType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select agent_name_type as agent_name_type from ctagent_name_type
+	select agent_name_type as agent_name_type from ctagent_name_type where agent_name_type != 'preferred' order by agent_name_type
 </cfquery>
 <cfquery name="ctAgentType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select agent_type from ctagent_type
@@ -179,7 +179,7 @@
 		<br>
 		<strong>#nameStr#</strong> (#agent_type#) {ID: #agent_id#} 
 		<cfif len(#person.agent_remarks#) gt 0>
-			<br>#person.agent_remarks#
+			<br><em>#person.agent_remarks#</em>
 		</cfif>
 		<cfif listcontainsnocase(session.roles,"manage_transactions")>
 			<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -363,7 +363,7 @@
 					<input type="hidden" name="action" value="deleteGroupMember" />
 					<input type="hidden" name="member_agent_id" value="#member_agent_id#" />
 					<input type="hidden" name="agent_id" value="#agent_id#" />
-					#agent_name# <span class="likeLink" onClick="confirmDelete('groupMember#i#');">delete</span><br>
+					#agent_name#&nbsp;<span class="likeLink" onClick="confirmDelete('groupMember#i#');">Remove Member</span><br>
 				</form>
 				<cfset i=#i# + 1>
 			</cfloop>
@@ -389,115 +389,70 @@
 				<input type="submit" 
 					value="Add Member" 
 					class="insBtn">
+			</div>
 		</form>
 	</cfif>
-<!---------------------------- / group handling ------------------------------>
-	
-
-		<cfquery name="names" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select * from agent_name where agent_id=#agent_id#
-		</cfquery>
+	<cfquery name="names" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from agent_name where agent_id=#agent_id#
+	</cfquery>
+	<cfquery name="pname" dbtype="query">
+		select * from names where agent_name_type='preferred'
+	</cfquery>
+	<cfquery name="npname" dbtype="query">
+		select * from names where agent_name_type!='preferred'
+	</cfquery>
+	<cfset i=1>
+	<label for="anamdv"><span class="likeLink" onClick="getDocs('agent','names')">Agent Names</span>s</label>
+	<div id="anamdv" style="border:2px solid green;margin:1px;padding:1px;">
+		<form name="a#i#" action="editAllAgent.cfm" method="post" target="_person">
+			<input type="hidden" name="action">
+			<input type="hidden" name="agent_name_id" value="#pname.agent_name_id#">
+			<input type="hidden" name="agent_id" value="#pname.agent_id#">
+			<input type="hidden" name="agent_name_type" value="#pname.agent_name_type#">
+			<label for="agent_name">Preferred Name</label>
+			<input type="text" value="#pname.agent_name#" name="agent_name" id="agent_name">
+			<span class="likeLink" onClick="a#i#.action.value='updateName';a#i#.submit();">Update</span>
+			&nbsp;~&nbsp;
+			<span class="likeLink" onClick="newName.agent_name.value='#pname.agent_name#';">Copy</span>
+		</form>
+		<cfset i=i+1>
+		<cfloop query="npname">
+			<form name="a#i#" action="editAllAgent.cfm" method="post" target="_person">
+				<input type="hidden" name="action">
+				<input type="hidden" name="agent_name_id" value="#npname.agent_name_id#">
+				<input type="hidden" name="agent_id" value="#npname.agent_id#">
+				<select name="agent_name_type">
+					<cfloop query="ctNameType">
+						<option  <cfif ctNameType.agent_name_type is npname.agent_name_type> selected="selected" </cfif>
+							value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
+					</cfloop>
+				</select>
+				<input type="text" value="#npname.agent_name#" name="agent_name">
+				<span class="likeLink" onClick="a#i#.action.value='updateName';a#i#.submit();">Update</span>
+				&nbsp;~&nbsp;
+				<span class="likeLink" onClick="a#i#.action.value='deleteName';confirmDelete('a#i#');">Delete</span>
+				&nbsp;~&nbsp;
+				<span class="likeLink" onClick="newName.agent_name.value='#pname.agent_name#';">Copy</span>
+			</form>
+			<cfset i = i + 1>
+		</cfloop>
+	</div>
+	<label for="nagnndv">Add agent name</label>
+	<div id="nagnndv" class="newRec">
+		<form name="newName" action="editAllAgent.cfm" method="post" target="_person">
+			<input type="hidden" name="Action" value="newName">
+			<input type="hidden" name="agent_id" value="#person.agent_id#">
+			<select name="agent_name_type" onchange="suggestName(this.value);">
+				<cfloop query="ctNameType">
+					<option value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
+				</cfloop>
+			</select>
+			<input type="text" name="agent_name" id="agent_name">
+			<span class="likeLink" onClick="newName.submit();">Create Name</span>
+		</form>
+	</div>
 	</cfoutput>
-	
-		<!--- we have to loop here so we can get unique form names. Names cannot be a number, so tack on a... --->
-		<cfset name = 1>
-<tr>
-	<td>
-		<font color="#000066"><strong><a href="javascript:void(0);" onClick="getDocs('agent','names')">
-			Agent Names:</a></strong></font>
-	 </td>
-</tr>
-<tr>
-	<td>
-		<table>
-			<cfloop query="names">
-			<cfoutput>
-			<form name="a#name#" action="editAllAgent.cfm" method="post" target="_person">
-			<input type="hidden" name="Action">
-			<input type="hidden" name="agent_name_id" value="#names.agent_name_id#">
-			<input type="hidden" name="agent_id" value="#names.agent_id#">
-			<tr>
-				<td>
-					<input type="text" value="#names.agent_name#" name="agent_name">
-				</td>
-				<td>
-					<select name="agent_name_type">
-						<cfif #agent_name_type# is not "preferred">
-						 <cfset thisName = "#names.agent_name_type#">	
-						<cfloop query="ctNameType">
-							<option  <cfif #ctNameType.agent_name_type# is "#thisName#"> selected </cfif>value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
-						</cfloop>
-						<cfelse>
-							<option value="preferred">preferred</option>
-						</cfif>
-					</select>
-				</td>
-				<td>
-					<input type="button" 
-						value="Update" 
-						class="savBtn"
-						onmouseover="this.className='savBtn btnhov'"
-						onmouseout="this.className='savBtn'"
-						onClick="a#name#.Action.value='updateName';submit();">
-					<cfif #agent_name_type# is not "preferred">
-					<input type="button" 
-						value="Delete" 
-						class="delBtn"
-						onmouseover="this.className='delBtn btnhov'"
-						onmouseout="this.className='delBtn'"
-						onClick="a#name#.Action.value='deleteName';confirmDelete('a#name#');">
-					</cfif>
-					<input type="button" 
-						value="Copy" 
-						class="insBtn"
-						onmouseover="this.className='insBtn btnhov'"
-						onmouseout="this.className='insBtn'"
-						onClick="newName.agent_name.value='#names.agent_name#';newName.agent_name_type.value='#names.agent_name_type#'">
-				</td>
-			</tr>
-			</form>
-			<cfset name = #name# + 1>
-			</cfoutput>
-			</cfloop>
-		</table>
-	</td>
-</tr>
-<tr>
-	<td>
-		<table class="newRec">
-			<tr>
-				<td colspan="3">
-					<font color="#FF00FF">Add new name</font>
-				</td>
-			</tr>
-			<cfoutput>
-			 <form name="newName" action="editAllAgent.cfm" method="post" target="_person">
-			 <input type="hidden" name="Action" value="newName">
-			 <input type="hidden" name="agent_id" value="#person.agent_id#">
-			<tr>
-				<td>
-					<input type="text" name="agent_name" id="agent_name">
-				</td>
-				<td>
-					 <select name="agent_name_type" onchange="suggestName(this.value);">
-						<cfloop query="ctNameType">
-							<option value="#ctNameType.agent_name_type#">#ctNameType.agent_name_type#</option>
-						</cfloop>
-					  </select>
-				</td>
-				<td>
-					<input type="submit" 
-						value="Create" 
-						class="insBtn"
-						onmouseover="this.className='insBtn btnhov'"
-						onmouseout="this.className='insBtn'">
-				</td>
-			</tr>
-			</form>
-			</cfoutput>
-		</table>
-  	</td> 
-</tr>
+
 <cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select agent_relationship, agent_name, related_agent_id
 		 from agent_relations, agent_name
