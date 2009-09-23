@@ -392,14 +392,14 @@
 			</div>
 		</form>
 	</cfif>
-	<cfquery name="names" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="anames" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from agent_name where agent_id=#agent_id#
 	</cfquery>
 	<cfquery name="pname" dbtype="query">
-		select * from names where agent_name_type='preferred'
+		select * from anames where agent_name_type='preferred'
 	</cfquery>
 	<cfquery name="npname" dbtype="query">
-		select * from names where agent_name_type!='preferred'
+		select * from anames where agent_name_type!='preferred'
 	</cfquery>
 	<cfset i=1>
 	<label for="anamdv"><span class="likeLink" onClick="getDocs('agent','names')">Agent Names</span>s</label>
