@@ -236,8 +236,10 @@
 					<input type="hidden" name="formatted_addr" value="#agentAddrs.formatted_addr#">
 				</form>
 				#addr_type# Address (<cfif #valid_addr_fg# is 1>valid<cfelse>invalid</cfif>)
-				&nbsp;&nbsp;<span class="likeLink" onclick="addr#i#.action.value='editAddr';addr#i#.submit();">Edit</span>
-				&nbsp;&nbsp;~&nbsp;&nbsp;<span class="likeLink" onclick="addr#i#.action.value='deleteAddr';confirmDelete('addr#i#');">Delete</span>
+				&nbsp;
+				<input type="button" class="lnkBtn" value="Edit" onclick="addr#i#.action.value='editAddr';addr#i#.submit();">
+				&nbsp;~&nbsp;
+				<input type="button" class="delBtn" value="Delete" onclick="addr#i#.action.value='deleteAddr';confirmDelete('addr#i#');">
 				<div style="margin-left:1em;">
 					#replace(formatted_addr,chr(10),"<br>","all")#
 				</div>
