@@ -238,7 +238,7 @@
 				#addr_type# Address (<cfif #valid_addr_fg# is 1>valid<cfelse>invalid</cfif>)
 				&nbsp;
 				<input type="button" class="lnkBtn" value="Edit" onclick="addr#i#.action.value='editAddr';addr#i#.submit();">
-				&nbsp;~&nbsp;
+				&nbsp;
 				<input type="button" class="delBtn" value="Delete" onclick="addr#i#.action.value='deleteAddr';confirmDelete('addr#i#');">
 				<div style="margin-left:1em;">
 					#replace(formatted_addr,chr(10),"<br>","all")#
@@ -257,9 +257,9 @@
 			</form>
 			<div style="border:2px solid green;margin:1px;padding:1px;">
 				#address_type#: #address#
-				<button value="Edit" class="lnkBtn" onclick="elad#i#.action.value='editElecAddr';elad#i#.submit();">
+				<input type="button" value="Edit" class="lnkBtn" onclick="elad#i#.action.value='editElecAddr';elad#i#.submit();">
 				&nbsp;&nbsp;~&nbsp;&nbsp;
-				<button value="Delete" class="delBtn" onclick="elad#i#.action.value='deleElecAddr';confirmDelete('elad#i#');">
+				<input type="button" value="Delete" class="delBtn" onclick="elad#i#.action.value='deleElecAddr';confirmDelete('elad#i#');">
 			</div>
 			<cfset i=#i#+1>
 		</cfloop>
@@ -336,7 +336,7 @@
 								<label for="agent_remarks">Agent Remark</label>
 								<input type="text" value="#agent_remarks#" name="agent_remarks" id="agent_remarks" size="100">
 								<br>
-								<span class="likeLink" onclick="editPerson.submit();">Update Person</span>
+								<input type="submit" class="savBtn" value="Update Person">
 							</td>
 						</tr>
 					</table>
@@ -368,7 +368,7 @@
 						<input type="hidden" name="action" value="deleteGroupMember" />
 						<input type="hidden" name="member_agent_id" value="#member_agent_id#" />
 						<input type="hidden" name="agent_id" value="#agent_id#" />
-						#agent_name#&nbsp;<span class="likeLink" onClick="confirmDelete('groupMember#i#');">Remove Member</span><br>
+						#agent_name#&nbsp;<input type="button" value="Remove Member" class="delBtn" onClick="confirmDelete('groupMember#i#');"><br>
 					</form>
 					<cfset i=#i# + 1>
 				</cfloop>
@@ -391,7 +391,7 @@
 					<input type="text" name="group_member" class="reqdClr" 
 						onchange="getAgent('member_id','group_member','newGroupMember',this.value); return false;"
 				 		onKeyPress="return noenter(event);">
-					<span class="likeLink" onclick="newGroupMember.submit();">Add Group Member</span>
+					<input type="submit" class="insBtn" value="Add Group Member">
 				</div>
 			</form>
 		</cfif>
@@ -415,9 +415,8 @@
 				<input type="hidden" name="agent_name_type" value="#pname.agent_name_type#">
 				<label for="agent_name">Preferred Name</label>
 				<input type="text" value="#pname.agent_name#" name="agent_name" id="agent_name">
-				<span class="likeLink" onClick="a#i#.action.value='updateName';a#i#.submit();">Update</span>
-				&nbsp;~&nbsp;
-				<span class="likeLink" onClick="newName.agent_name.value='#pname.agent_name#';">Copy</span>
+				<input type="button" value="Update" class="savBtn" onClick="a#i#.action.value='updateName';a#i#.submit();">
+				<input type="button" value="Copy" class="lnkBtn" onClick="newName.agent_name.value='#pname.agent_name#';">
 			</form>
 			<cfset i=i+1>
 			<label>Other Names</label>
@@ -433,11 +432,9 @@
 						</cfloop>
 					</select>
 					<input type="text" value="#npname.agent_name#" name="agent_name">
-					<span class="likeLink" onClick="a#i#.action.value='updateName';a#i#.submit();">Update</span>
-					&nbsp;~&nbsp;
-					<span class="likeLink" onClick="a#i#.action.value='deleteName';confirmDelete('a#i#');">Delete</span>
-					&nbsp;~&nbsp;
-					<span class="likeLink" onClick="newName.agent_name.value='#pname.agent_name#';">Copy</span>
+					<input type="button" value="Update" class="savBtn" onClick="a#i#.action.value='updateName';a#i#.submit();">
+					<input type="button" value="Delete" class="delBtn" onClick="a#i#.action.value='deleteName';confirmDelete('a#i#');">
+					<input type="button" class="lnkBtn" value="Copy" onClick="newName.agent_name.value='#pname.agent_name#';">
 				</form>
 				<cfset i = i + 1>
 			</cfloop>
@@ -489,9 +486,8 @@
 					<input type="text" name="related_agent" class="reqdClr" value="#agent_name#"
 						onchange="getAgent('newRelatedAgentId','related_agent','agentRelations#i#',this.value); return false;"
 						onKeyPress="return noenter(event);">
-						<span class="likeLink" onClick="agentRelations#i#.ction.value='changeRelated';agentRelations#i#.submit();">Save</span>
-						&nbsp;~&nbsp;
-						<span class="likeLink" onClick="agentRelations#i#.ction.value='deleteRelated';confirmDelete('agentRelations#i#');">Delete</span>
+						<input type="button" class="savBtn" value="Save" onClick="agentRelations#i#.ction.value='changeRelated';agentRelations#i#.submit();">
+						<input type="button" class="delBtn" value="Delete" onClick="agentRelations#i#.ction.value='deleteRelated';confirmDelete('agentRelations#i#');">
 				</form>
 				<cfset i=#i#+1>
 			</cfloop>
@@ -510,7 +506,7 @@
 				<input type="text" name="related_agent" class="reqdClr"
 					onchange="getAgent('newRelatedAgentId','related_agent','newRelationship',this.value); return false;"
 					onKeyPress="return noenter(event);">
-				<span class="likeLink" onclick="newRelationship.submit();">Create Relationship</span>
+				<input type="submit" class="insBtn" value="Create Relationship">
 			</form>
 		</div>
 		<br />
@@ -599,7 +595,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<span class="likeLink" onclick="newAddress.submit();">Create Address</span>
+							<input type="submit" class="insBtn" value="Create Address">
 						</td>
 					</tr>
 				</table>
@@ -617,7 +613,7 @@
 					</cfloop>
 				</select>
 				<input type="text" name="address" id="address" size="50">
-				<span class="likeLink" onclick="newElecAddr.submit();">Create Address</span>
+				<input type="submit" class="insBtn" value="Create Address">
 			</form>
 		</div>
 	</cfoutput>
