@@ -101,6 +101,28 @@ Agent Names:
 						</cfloop>
 					</ul>
 				</cfif>
+				<cfquery name="project_sponsor" datasource="uam_god">
+					select 
+						project_name,
+						project.project_id
+					from 
+						project_sponsor,
+						project
+					where
+						 project.project_id=project_sponsor.project_id and
+						 project_sponsor.agent_name_id=#agent_name_id#
+					group by
+						project_name,
+						project.project_id
+				</cfquery>
+				<cfif len(project_sponsor.project_name) gt 0>
+					<div style="font-weight:bold;padding-left:.5em">Projects sponsored by this name:</div>
+					<ul>
+						<cfloop query="publication_author_name">
+							<li><a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
+						</cfloop>
+					</ul>
+				</cfif>
 			</li>
 		</cfloop>
 	</ul>
