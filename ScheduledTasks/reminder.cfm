@@ -92,7 +92,7 @@
 				where
 					cf_temp_relations.COLLECTION_OBJECT_ID=cataloged_item.COLLECTION_OBJECT_ID and
 					cataloged_item.collection_id=collection_contacts.collection_id and
-					collection_contacts.agent_id=electronic_address.agent_id and
+					collection_contacts.CONTACT_AGENT_ID=electronic_address.agent_id and
 					ADDRESS_TYPE='e-mail' and
 					CONTACT_ROLE='data quality' and
 					RELATED_COLLECTION_OBJECT_ID is null
