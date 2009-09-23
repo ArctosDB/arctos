@@ -449,7 +449,7 @@
 					</cfloop>
 				</select>
 				<input type="text" name="agent_name" id="agent_name">
-				<span class="likeLink" onClick="newName.submit();">Create Name</span>
+				<input type="submit" class="insBtn" value="Create Name">
 			</form>
 		</div>
 		<cfquery name="relns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
