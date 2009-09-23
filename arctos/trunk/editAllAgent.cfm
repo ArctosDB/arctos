@@ -190,13 +190,9 @@
 				select count(*) || ' ' || agent_rank agent_rank from agent_rank where agent_id=#agent_id# group by agent_rank
 			</cfquery>
 			<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#" target="_self">Agent Activity</a>
-			<cfif rank.recordcount is 0>
-				~ <input type="button" class="lnkBtn" onclick="rankAgent('#agent_id#');">Rank</span>
-			<cfelse>
-				<br>Rank:
+			<br>Rank:
 				#valuelist(rank.agent_rank,"; ")#
-				<span class="likeLink" onclick="rankAgent('#agent_id#');">Details</span>
-			</cfif>
+				<input type="button" class="lnkBtn" onclick="rankAgent('#agent_id#');">Rank</span>
 		</cfif>
 	</cfoutput>
 	<cfquery name="agentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
