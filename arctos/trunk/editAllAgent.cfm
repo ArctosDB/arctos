@@ -328,7 +328,7 @@
 						<tr>
 							<td colspan="5">
 								<label for="agent_remarks">Agent Remark</label>
-								<input type="text" value="#agent_remarks#" name="agent_remarks" id="agent_remarks" size="50">
+								<input type="text" value="#agent_remarks#" name="agent_remarks" id="agent_remarks" size="100">
 								<br>
 								<input type="submit" 
 									value="Update Person" 
@@ -341,93 +341,56 @@
 		</cfoutput>
 	</cfif>
 	<cfoutput>
-<!---------------------------- group handling ------------------------------>
-<cfif #person.agent_type# is "group">
-	<tr>
-		<td>
-			<cfquery name="grpMem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select 
-					MEMBER_AGENT_ID,
-					MEMBER_ORDER,
-					agent_name					
-				from 
-					group_member,
-					preferred_agent_name
-				where 
-					group_member.MEMBER_AGENT_ID = preferred_agent_name.agent_id AND
-					GROUP_AGENT_ID = #agent_id#
-				order by MEMBER_ORDER					
-			</cfquery>
-			<table border>
-				<tr>
-					<td colspan="3">Group Members:</td>
-				</tr>
-				<tr>
-					<td>Name</td>
-					<td>Order</td>
-					<td>&nbsp;</td>
-				</tr>
-				<cfset i=1>
-				<cfloop query="grpMem">
-					<form name="groupMember#i#" method="post" action="editAllAgent.cfm">
-						<input type="hidden" name="action" />
-						<input type="hidden" name="member_agent_id" value="#member_agent_id#" />
-						<input type="hidden" name="agent_id" value="#agent_id#" />
-					<tr>
-						<td>
-							#agent_name#
-						</td>
-						<td>#MEMBER_ORDER#</td>
-						<td>
-							<input type="button" 
-								value="Delete Member" 
-								class="delBtn"
-								onmouseover="this.className='delBtn btnhov'"
-								onmouseout="this.className='delBtn'"
-								onClick="groupMember#i#.action.value='deleteGroupMember';confirmDelete('groupMember#i#');">
-						</td>
-					</tr>
-					</form>
-					<cfset i=#i# + 1>
-				</cfloop>
-			</table>
-			<form name="newGroupMember" method="post" action="editAllAgent.cfm">
-				<input type="hidden" name="agent_id" value="#agent_id#" />
-				<input type="hidden" name="action" value="makeNewGroupMemeber" />
-				<cfquery name="memOrd" dbtype="query">
-					select max(member_order) + 1 as nextMemOrd from grpMem
-				</cfquery>
-				<cfif #len(memOrd.nextMemOrd)# gt 0>
-					<cfset nOrd = #memOrd.nextMemOrd#>
-				<cfelse>
-					<cfset nOrd = 1>
-				</cfif>
-				<input type="hidden" name="member_order" value="#nOrd#" />
-			<table class="newRec">
-				<tr>
-					<td colspan="2">Add Member to Group</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="hidden" name="member_id">
-						<input type="text" name="group_member" class="reqdClr" 
-							onchange="getAgent('member_id','group_member','newGroupMember',this.value); return false;"
-		 					onKeyPress="return noenter(event);">
-					</td>
-					
-					<td>
-						<input type="submit" 
-								value="Insert Member" 
-								class="insBtn"
-								onmouseover="this.className='insBtn btnhov'"
-								onmouseout="this.className='insBtn'">
-					</td>
-				</tr>
-			</table>
-			</form>
-		</td>
-	</tr>
-</cfif>
+	<cfif #person.agent_type# is "group">
+		<cfquery name="grpMem" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				MEMBER_AGENT_ID,
+				MEMBER_ORDER,
+				agent_name					
+			from 
+				group_member,
+				preferred_agent_name
+			where 
+				group_member.MEMBER_AGENT_ID = preferred_agent_name.agent_id AND
+				GROUP_AGENT_ID = #agent_id#
+			order by MEMBER_ORDER					
+		</cfquery>
+		<p>Group Members</p>
+		<cfset i=1>
+		<div style="border:2px solid green;margin:1px;padding:1px;">
+			<cfloop query="grpMem">
+				<form name="groupMember#i#" method="post" action="editAllAgent.cfm">
+					<input type="hidden" name="action" value="deleteGroupMember" />
+					<input type="hidden" name="member_agent_id" value="#member_agent_id#" />
+					<input type="hidden" name="agent_id" value="#agent_id#" />
+					<br>#agent_name# <span class="likeLink" onClick="confirmDelete('groupMember#i#');"
+				</form>
+				<cfset i=#i# + 1>
+			</cfloop>
+		</div>
+		<cfquery name="memOrd" dbtype="query">
+			select max(member_order) + 1 as nextMemOrd from grpMem
+		</cfquery>
+		<cfif len(memOrd.nextMemOrd) gt 0>
+			<cfset nOrd = memOrd.nextMemOrd>
+		<cfelse>
+			<cfset nOrd = 1>
+		</cfif>
+		<form name="newGroupMember" method="post" action="editAllAgent.cfm">
+			<input type="hidden" name="agent_id" value="#agent_id#" />
+			<input type="hidden" name="action" value="makeNewGroupMemeber" />
+			<input type="hidden" name="member_order" value="#nOrd#" />
+			<input type="hidden" name="member_id">
+			<div class="newRec">
+				<label for="">Add Member to Group</label>
+				<input type="text" name="group_member" class="reqdClr" 
+					onchange="getAgent('member_id','group_member','newGroupMember',this.value); return false;"
+			 		onKeyPress="return noenter(event);">
+				<input type="submit" 
+					value="Add Member" 
+					class="insBtn">
+		</form>
+	</cfif>
 <!---------------------------- / group handling ------------------------------>
 	
 
