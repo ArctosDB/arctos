@@ -72,16 +72,38 @@ Agent Names:
 						project.project_id
 				</cfquery>
 				<cfif len(project_agent.project_name) gt 0>
-					<p style="font-weight:bold;padding-left:.5em">Projects using this name:</p>
+					<div style="font-weight:bold;padding-left:.5em">Projects using this name:</div>
 					<ul>
 						<cfloop query="project_agent">
 							<li><a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
 						</cfloop>
 					</ul>
 				</cfif>
-			</cfloop>
-		</li>
-	</ul>	
+				<cfquery name="publication_author_name" datasource="uam_god">
+					select 
+						publication.PUBLICATION_ID,
+						PUBLICATION_TITLE
+					from
+						publication,
+						publication_author_name,
+					where
+						publication.publication_id=publication_author_name.publication_id and
+						publication_author_name.agent_name_id=#agent_name_id#
+					group by
+						publication.PUBLICATION_ID,
+						PUBLICATION_TITLE
+				</cfquery>
+				<cfif len(publication_author_name.PUBLICATION_TITLE) gt 0>
+					<div style="font-weight:bold;padding-left:.5em">Publications using this name:</div>
+					<ul>
+						<cfloop query="PUBLICATION_TITLE">
+							<li><a href="/Publication.cfm?PUBLICATION_ID=#PUBLICATION_ID#">#PUBLICATION_TITLE#</a></li>
+						</cfloop>
+					</ul>
+				</cfif>
+			</li>
+		</cfloop>
+	</ul>
 	
 Agent Relationships:
 	<cfquery name="agent_relations" datasource="uam_god">
@@ -525,30 +547,6 @@ Transactions
 			<li>Reconciled #cnt# items for Loan 
 				<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">#collection# #loan_number#</a>
 			</li>		
-		</cfloop>
-	</ul>
-Publications
-	<cfquery name="publication_author_name" datasource="uam_god">
-		select 
-			publication.PUBLICATION_ID,
-			PUBLICATION_TITLE
-		from
-			publication,
-			publication_author_name,
-			agent_name
-		where
-			publication.publication_id=publication_author_name.publication_id and
-			publication_author_name.agent_name_id=agent_name.agent_name_id and
-			agent_name.agent_id=#agent_id#
-		group by
-			publication.PUBLICATION_ID,
-			PUBLICATION_TITLE
-	</cfquery>
-	<ul>
-		<cfloop query="publication_author_name">
-			<li>
-				<a href="/Publication.cfm?PUBLICATION_ID=#PUBLICATION_ID#">#PUBLICATION_TITLE#</a>
-			</li>
 		</cfloop>
 	</ul>
 </cfoutput>
