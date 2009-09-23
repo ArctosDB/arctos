@@ -79,30 +79,6 @@
 					</cfloop>
 				</p>
 			</cfmail>
-		</cfloop>
-		<cfif dateformat(now(),"d") is "23">
-			<cfquery name="getRels" datasource="uam_god">
-				select 
-					distinct(address) 
-				from 
-					cf_temp_relations, 
-					cataloged_item, 
-					collection_contacts, 
-					electronic_address 
-				where 
-					cf_temp_relations.COLLECTION_OBJECT_ID=cataloged_item.COLLECTION_OBJECT_ID and 
-					cataloged_item.collection_id=collection_contacts.collection_id and 
-					collection_contacts.CONTACT_AGENT_ID=electronic_address.agent_id and 
-					RELATED_COLLECTION_OBJECT_ID is null  and
-					CONTACT_ROLE='data quality'  and
-					address_type='e-mail'
-			</cfquery>
-			<cfdump var=#getRels#>
-		<cfelse>
-			not 23
-		</cfif>
-		
-</cfoutput>
-
-	
+		</cfloop>	
+	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">

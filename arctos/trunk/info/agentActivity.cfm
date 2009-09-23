@@ -55,10 +55,34 @@ Agent:
 Agent Names:
 	<ul>
 		<cfloop query="name">
-			<li>#name.agent_name# (#agent_name_type#)</li>
-		</cfloop>
-	</ul>
-
+			<li>
+				#name.agent_name# (#agent_name_type#)
+				<cfquery name="project_agent" datasource="uam_god">
+					select 
+						project_name,
+						project.project_id
+					from 
+						project_agent,
+						project
+					where
+						 project.project_id=project_agent.project_id and
+						 project_agent.agent_name_id=#agent_name_id#
+					group by
+						project_name,
+						project.project_id
+				</cfquery>
+				<cfif len(project_agent.project_name) gt 0>
+					<br>Projects using this name:
+					<ul>
+						<cfloop query="project_agent">
+							<li><a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
+						</cfloop>
+					</ul>
+				</cfif>
+			</cfloop>
+		</li>
+	</ul>	
+	
 Agent Relationships:
 	<cfquery name="agent_relations" datasource="uam_god">
 		select AGENT_RELATIONSHIP,agent_name,RELATED_AGENT_ID
@@ -352,30 +376,6 @@ Permits:
 		<cfloop query="permit_by">
 			<li>
 				Contact for Permit <a href="/Permit.cfm?action=search&CONTACT_AGENT_ID=#agent_id#">#PERMIT_NUM#: #PERMIT_TYPE#</a>
-			</li>
-		</cfloop>
-	</ul>
-Projects:	
-	<cfquery name="project_agent" datasource="uam_god">
-		select 
-			project_name,
-			project.project_id
-		from 
-			project_agent,
-			project,
-			agent_name
-		where
-			 project.project_id=project_agent.project_id and
-			 project_agent.agent_name_id=agent_name.agent_name_id and
-			 agent_name.agent_id=#agent_id#
-		group by
-			project_name,
-			project.project_id
-	</cfquery>
-	<ul>
-		<cfloop query="project_agent">
-			<li>
-				<a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a>
 			</li>
 		</cfloop>
 	</ul>
