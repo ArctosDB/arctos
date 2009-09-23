@@ -151,141 +151,91 @@
 			<cfset nameStr= listappend(nameStr,middle_name,' ')>
 			<cfset nameStr= listappend(nameStr,last_name,' ')>
 			<cfset nameStr= listappend(nameStr,suffix,' ')>
-			<!---
-			<cfif len(#prefix#) gt 0>
-				<cfif len(#nameStr#) gt 0>
-					<cfset nameStr="#nameStr# #prefix#">
-				<cfelse>
-					<cfset nameStr="#prefix#">
-				</cfif>
+			<cfif len(#birth_date#) gt 0>
+				<cfset nameStr="#nameStr# (#dateformat(birth_date,"dd mmm yyyy")#">
+			<cfelse>
+				<cfset nameStr="#nameStr# (unknown">
 			</cfif>
-				<cfif len(#first_name#) gt 0>
-					<cfif len(#nameStr#) gt 0>
-						<cfset nameStr="#nameStr# #first_name#">
-					<cfelse>
-						<cfset nameStr="#first_name#">
-					</cfif>
-				 </cfif>
-				 
-					<cfif len(#middle_name#) gt 0>
-						<cfif len(#nameStr#) gt 0>
-							<cfset nameStr="#nameStr# #middle_name#">
-						<cfelse>
-							<cfset nameStr="#middle_name#">
-						</cfif>
-					</cfif>
-					<cfif len(#last_name#) gt 0>
-						<cfif len(#nameStr#) gt 0>
-							<cfset nameStr="#nameStr# #last_name#">
-						<cfelse>
-							<cfset nameStr="#last_name#">
-						</cfif>
-					</cfif>
-					<cfif len(#suffix#) gt 0>
-						<cfif len(#nameStr#) gt 0>
-							<cfset nameStr="#nameStr# #suffix#">
-						<cfelse>
-							<cfset nameStr="#suffix#">
-						</cfif>
-					</cfif>
-					--->
-					<cfif len(#birth_date#) gt 0>
-						<cfset nameStr="#nameStr# (#dateformat(birth_date,"dd mmm yyyy")#">
-					<cfelse>
-						<cfset nameStr="#nameStr# (unknown">
-					</cfif>
-					<cfif len(#death_date#) gt 0>
-						<cfset nameStr="#nameStr# - #dateformat(death_date,"dd mmm yyyy")#)">
-					<cfelse>
-						<cfset nameStr="#nameStr# - unknown)">
-					</cfif>
-				<cfelse>
-						<cfquery name="getName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-							select agent_name from agent_name where agent_id=#agent_id#
-							and agent_name_type='preferred'
-						</cfquery>
-						<cfset nameStr=#getName.agent_name#>
-					</cfif>
-<table border="1"><!--- outer table --->
-	<tr>
-		 <td>
-			<a href="javascript:void(0);" onClick="getDocs('agent')"><img src="/images/info.gif" border="0" alt="Agent Help"></a>
-			<strong><font color="##000066">#nameStr#</font></strong> (#agent_type#) {ID: #agent_id#} 
-			<cfif len(#person.agent_remarks#) gt 0>
-				<br>#person.agent_remarks#
+			<cfif len(#death_date#) gt 0>
+				<cfset nameStr="#nameStr# - #dateformat(death_date,"dd mmm yyyy")#)">
+			<cfelse>
+				<cfset nameStr="#nameStr# - unknown)">
 			</cfif>
-			<cfif listcontainsnocase(session.roles,"manage_transactions")>
-				<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select count(*) || ' ' || agent_rank agent_rank from agent_rank where agent_id=#agent_id# group by agent_rank
-				</cfquery>
-				<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#" target="_self">Agent Activity</a>
-				<cfif rank.recordcount is 0>
-					~ <span class="likeLink" onclick="rankAgent('#agent_id#');">Rank</span>
-				<cfelse>
-					<br>Rank:
-					#valuelist(rank.agent_rank,"; ")#
-					<span class="likeLink" onclick="rankAgent('#agent_id#');">Details</span>
-				</cfif>
-				<br>
+		<cfelse>
+			<cfquery name="getName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select agent_name from agent_name where agent_id=#agent_id#
+				and agent_name_type='preferred'
+			</cfquery>
+			<cfset nameStr=#getName.agent_name#>
+		</cfif>
+		<span class="infoLink" onClick="getDocs('agent')">Help</span>
+		<strong>#nameStr#</strong> (#agent_type#) {ID: #agent_id#} 
+		<cfif len(#person.agent_remarks#) gt 0>
+			<br>#person.agent_remarks#
+		</cfif>
+		<cfif listcontainsnocase(session.roles,"manage_transactions")>
+			<cfquery name="rank" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select count(*) || ' ' || agent_rank agent_rank from agent_rank where agent_id=#agent_id# group by agent_rank
+			</cfquery>
+			<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#" target="_self">Agent Activity</a>
+			<cfif rank.recordcount is 0>
+				~ <span class="likeLink" onclick="rankAgent('#agent_id#');">Rank</span>
+			<cfelse>
+				<br>Rank:
+				#valuelist(rank.agent_rank,"; ")#
+				<span class="likeLink" onclick="rankAgent('#agent_id#');">Details</span>
 			</cfif>
-		</td>
-	</tr>
-</cfoutput>
-<cfquery name="agentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select * from addr
-			where 
-			agent_id = #person.agent_id#
-			order by valid_addr_fg DESC
-</cfquery>
-<cfquery name="elecagentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select * from electronic_address
-			where 
-			agent_id = #person.agent_id#
-</cfquery>
-	<tr>
-		<td>
-			<strong>Addresses:</strong>
-			<cfoutput>
-				<cfset i=1>
-				<cfloop query="agentAddrs">
-					<cfif valid_addr_fg is 1>
-						<div style="border:2px solid green;margin:1px;padding:1px;">
-					<cfelse>
-						<div style="border:2px solid red;margin:1px;padding:1px;">
-					</cfif>
-						<form name="addr#i#" method="post" action="editAllAgent.cfm">
-							<input type="hidden" name="agent_id" value="#person.agent_id#">
-							<input type="hidden" name="addr_id" value="#agentAddrs.addr_id#">
-							<input type="hidden" name="action" value="editAddr">
-							<input type="hidden" name="addrtype" value="#agentAddrs.addr_type#">
-							<input type="hidden" name="job_title" value="#agentAddrs.job_title#">
-							<input type="hidden" name="street_addr1" value="#agentAddrs.street_addr1#">
-							<input type="hidden" name="department" value="#agentAddrs.department#">
-							<input type="hidden" name="institution" value="#agentAddrs.institution#">
-							<input type="hidden" name="street_addr2" value="#agentAddrs.street_addr2#">
-							<input type="hidden" name="city" value="#agentAddrs.city#">
-							<input type="hidden" name="state" value="#agentAddrs.state#">
-							<input type="hidden" name="zip" value="#agentAddrs.zip#">
-							<input type="hidden" name="country_cde" value="#agentAddrs.country_cde#">
-							<input type="hidden" name="mail_stop" value="#agentAddrs.mail_stop#">
-							<input type="hidden" name="validfg" value="#agentAddrs.valid_addr_fg#">
-							<input type="hidden" name="addr_remarks" value="#agentAddrs.addr_remarks#">
-							<input type="hidden" name="formatted_addr" value="#agentAddrs.formatted_addr#">
-						</form>
-						#addr_type# Address (<cfif #valid_addr_fg# is 1>valid<cfelse>invalid</cfif>)
-						&nbsp;&nbsp;<span class="likeLink" onclick="addr#i#.action.value='editAddr';addr#i#.submit();">Edit</span>
-						&nbsp;&nbsp;~&nbsp;&nbsp;<span class="likeLink" onclick="addr#i#.action.value='deleteAddr';confirmDelete('addr#i#');">Delete</span>
-						<div style="margin-left:1em;">
-							#replace(formatted_addr,chr(10),"<br>","all")#
-						</div>
-						<cfset i=#i#+1>
-					</div>
-				</cfloop>
-			</cfoutput>
-		</td>
-	</tr>
-	<tr>
-		<td>
+		</cfif>
+	</cfoutput>
+	<cfquery name="agentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from addr
+		where 
+		agent_id = #person.agent_id#
+		order by valid_addr_fg DESC
+	</cfquery>
+	<cfquery name="elecagentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from electronic_address
+		where 
+		agent_id = #person.agent_id#
+	</cfquery>
+	<cfoutput>
+		<cfset i=1>
+		<cfloop query="agentAddrs">
+			<cfif valid_addr_fg is 1>
+				<div style="border:2px solid green;margin:1px;padding:1px;">
+			<cfelse>
+				<div style="border:2px solid red;margin:1px;padding:1px;">
+			</cfif>
+				<form name="addr#i#" method="post" action="editAllAgent.cfm">
+					<input type="hidden" name="agent_id" value="#person.agent_id#">
+					<input type="hidden" name="addr_id" value="#agentAddrs.addr_id#">
+					<input type="hidden" name="action" value="editAddr">
+					<input type="hidden" name="addrtype" value="#agentAddrs.addr_type#">
+					<input type="hidden" name="job_title" value="#agentAddrs.job_title#">
+					<input type="hidden" name="street_addr1" value="#agentAddrs.street_addr1#">
+					<input type="hidden" name="department" value="#agentAddrs.department#">
+					<input type="hidden" name="institution" value="#agentAddrs.institution#">
+					<input type="hidden" name="street_addr2" value="#agentAddrs.street_addr2#">
+					<input type="hidden" name="city" value="#agentAddrs.city#">
+					<input type="hidden" name="state" value="#agentAddrs.state#">
+					<input type="hidden" name="zip" value="#agentAddrs.zip#">
+					<input type="hidden" name="country_cde" value="#agentAddrs.country_cde#">
+					<input type="hidden" name="mail_stop" value="#agentAddrs.mail_stop#">
+					<input type="hidden" name="validfg" value="#agentAddrs.valid_addr_fg#">
+					<input type="hidden" name="addr_remarks" value="#agentAddrs.addr_remarks#">
+					<input type="hidden" name="formatted_addr" value="#agentAddrs.formatted_addr#">
+				</form>
+				#addr_type# Address (<cfif #valid_addr_fg# is 1>valid<cfelse>invalid</cfif>)
+				&nbsp;&nbsp;<span class="likeLink" onclick="addr#i#.action.value='editAddr';addr#i#.submit();">Edit</span>
+				&nbsp;&nbsp;~&nbsp;&nbsp;<span class="likeLink" onclick="addr#i#.action.value='deleteAddr';confirmDelete('addr#i#');">Delete</span>
+				<div style="margin-left:1em;">
+					#replace(formatted_addr,chr(10),"<br>","all")#
+				</div>
+				<cfset i=#i#+1>
+			</div>
+		</cfloop>
+	</cfoutput>
+	
 			<strong>Electronic Addresses:</strong>
 			<cfset i=1>
 			<cfoutput>
