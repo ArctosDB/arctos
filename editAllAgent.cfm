@@ -355,15 +355,15 @@
 				GROUP_AGENT_ID = #agent_id#
 			order by MEMBER_ORDER					
 		</cfquery>
-		<p>Group Members</p>
+		<label for="gmemdv">Group Members</label>
 		<cfset i=1>
-		<div style="border:2px solid green;margin:1px;padding:1px;">
+		<div id="gmemdv" style="border:2px solid green;margin:1px;padding:1px;">
 			<cfloop query="grpMem">
 				<form name="groupMember#i#" method="post" action="editAllAgent.cfm">
 					<input type="hidden" name="action" value="deleteGroupMember" />
 					<input type="hidden" name="member_agent_id" value="#member_agent_id#" />
 					<input type="hidden" name="agent_id" value="#agent_id#" />
-					<br>#agent_name# <span class="likeLink" onClick="confirmDelete('groupMember#i#');"
+					#agent_name# <span class="likeLink" onClick="confirmDelete('groupMember#i#');">delete</span><br>
 				</form>
 				<cfset i=#i# + 1>
 			</cfloop>
