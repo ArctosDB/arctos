@@ -68,10 +68,10 @@
 	}
 </script>
 <!------------------------------------------------------------------------------------------------------------->
-<cfif #Action# is "newOtherAgent">
+<cfif action is "newOtherAgent">
 	<cfoutput>
 		<form name="prefdName" action="editAllAgent.cfm" method="post" target="_person">
-			<input type="hidden" name="Action" value="makeNewAgent">
+			<input type="hidden" name="action" value="makeNewAgent">
 			<input type="hidden" name="agent_name_type" value="preferred">
 			<label for="agent_name">Name</label>
 			<input type="text" name="agent_name" id="agent_name" size="50">
@@ -97,9 +97,9 @@
 		<label for="prefix">Prefix</label>
 		<select name="prefix" id="prefix" size="1">
 			<option value=""></option>
-				<cfoutput query="ctprefix"> 
-					<option value="#prefix#">#prefix#</option>
-				</cfoutput> 
+			<cfoutput query="ctprefix"> 
+				<option value="#prefix#">#prefix#</option>
+			</cfoutput> 
 		</select>
 		<label for="first_name">First Name</label>
 		<input type="text" name="first_name" id="first_name">
@@ -111,7 +111,7 @@
 		<select name="suffix" size="1" id="suffix">
 			<option value=""></option>
 			<cfoutput query="ctsuffix"> 
-			<option value="#suffix#">#suffix#</option>
+				<option value="#suffix#">#suffix#</option>
 			</cfoutput> 
     	</select>
 		<label for="pref_name">Preferred Name</label>
@@ -120,44 +120,45 @@
 	</form>
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
-
-<!------------------------------------------------------------------------------------------------------------->
-<cfif #Action# is "nothing">
-
-<cfif not isdefined("agent_id") OR  #agent_id# lt 0 >
-	<!--- don't do anything, this is a frame and is just waiting on an 
-	id to be passed in ---->
-	<cfabort>
-</cfif>
+<cfif action is "nothing">
+	<cfif not isdefined("agent_id") OR agent_id lt 0 >
+		<cfabort>
+	</cfif>
 	<cfquery name="person" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select 
-				agent_id,
-				person_id,
-				prefix,
-				suffix,
-				first_name,
-				last_name,
-				middle_name,
-				birth_date,
-				death_date,
-				agent_remarks,
-				agent_type
-			from 
-				agent
-				left outer join person on (agent_id = person_id)
-				where agent_id=#agent_id#
-		</cfquery>
-		
+		select 
+			agent_id,
+			person_id,
+			prefix,
+			suffix,
+			first_name,
+			last_name,
+			middle_name,
+			birth_date,
+			death_date,
+			agent_remarks,
+			agent_type
+		from 
+			agent
+			left outer join person on (agent_id = person_id)
+			where agent_id=#agent_id#
+	</cfquery>
 	<cfoutput query="person">
 		<cfif #agent_type# is "person">	
 			<cfset nameStr="">
-				<cfif len(#prefix#) gt 0>
-					<cfif len(#nameStr#) gt 0>
-						<cfset nameStr="#nameStr# #prefix#">
-					<cfelse>
-						<cfset nameStr="#prefix#">
-					</cfif>
+			<cfset nameStr= listappend(nameStr,prefix,' ')>
+			
+			<cfset nameStr= listappend(nameStr,first_name,' ')>
+			<cfset nameStr= listappend(nameStr,middle_name,' ')>
+			<cfset nameStr= listappend(nameStr,last_name,' ')>
+			<cfset nameStr= listappend(nameStr,suffix,' ')>
+			<!---
+			<cfif len(#prefix#) gt 0>
+				<cfif len(#nameStr#) gt 0>
+					<cfset nameStr="#nameStr# #prefix#">
+				<cfelse>
+					<cfset nameStr="#prefix#">
 				</cfif>
+			</cfif>
 				<cfif len(#first_name#) gt 0>
 					<cfif len(#nameStr#) gt 0>
 						<cfset nameStr="#nameStr# #first_name#">
@@ -165,6 +166,7 @@
 						<cfset nameStr="#first_name#">
 					</cfif>
 				 </cfif>
+				 
 					<cfif len(#middle_name#) gt 0>
 						<cfif len(#nameStr#) gt 0>
 							<cfset nameStr="#nameStr# #middle_name#">
@@ -186,6 +188,7 @@
 							<cfset nameStr="#suffix#">
 						</cfif>
 					</cfif>
+					--->
 					<cfif len(#birth_date#) gt 0>
 						<cfset nameStr="#nameStr# (#dateformat(birth_date,"dd mmm yyyy")#">
 					<cfelse>
