@@ -258,7 +258,6 @@
 			<div style="border:2px solid green;margin:1px;padding:1px;">
 				#address_type#: #address#
 				<input type="button" value="Edit" class="lnkBtn" onclick="elad#i#.action.value='editElecAddr';elad#i#.submit();">
-				&nbsp;&nbsp;~&nbsp;&nbsp;
 				<input type="button" value="Delete" class="delBtn" onclick="elad#i#.action.value='deleElecAddr';confirmDelete('elad#i#');">
 			</div>
 			<cfset i=#i#+1>
@@ -486,8 +485,8 @@
 					<input type="text" name="related_agent" class="reqdClr" value="#agent_name#"
 						onchange="getAgent('newRelatedAgentId','related_agent','agentRelations#i#',this.value); return false;"
 						onKeyPress="return noenter(event);">
-						<input type="button" class="savBtn" value="Save" onClick="agentRelations#i#.ction.value='changeRelated';agentRelations#i#.submit();">
-						<input type="button" class="delBtn" value="Delete" onClick="agentRelations#i#.ction.value='deleteRelated';confirmDelete('agentRelations#i#');">
+					<input type="button" class="savBtn" value="Save" onClick="agentRelations#i#.ction.value='changeRelated';agentRelations#i#.submit();">
+					<input type="button" class="delBtn" value="Delete" onClick="agentRelations#i#.ction.value='deleteRelated';confirmDelete('agentRelations#i#');">
 				</form>
 				<cfset i=#i#+1>
 			</cfloop>
@@ -756,7 +755,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<span class="likeLink" onclick="editAddr.submit();">Save Edits</span>
+						<input type="submit" class="savBtn" value="Save Edits">
 					</td>
 				</tr>
 			</table>
@@ -1217,6 +1216,28 @@
 					</cfif>
 					)
 			</cfquery>
+			<cfif not isdefined("ignoreDupChek") or ignoreDupChek is false>
+				<cfquery name="dupPref" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select agent_id,agent_name from agent_name where upper(agent_name) like '%#ucase(agent_name)#%'
+				</cfquery>
+				<cfif dupPref.recordcount gt 0>
+					<p>That agent may already exist! Click to see details.</p>
+					<cfloop query="dupPref">
+						<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#">#agent_name#</a>
+					</cfloop>
+					<p>Are you sure you want to continue?</p>
+					<form name="ac" method="post" action="editAllAgent.cfm">
+						<input type="hidden" name="action" value="makeNewAgent">
+						<input type="hidden" name="agent_remarks" value="#agent_remarks#">
+						<input type="hidden" name="agent_type" value="#agent_type#">
+						<input type="hidden" name="agent_name" value="#agent_name#">
+						<input type="hidden" name="ignoreDupChek" value="true">
+						<input type="submit" class="insBtn" value="Of course. I carefully checked for duplicates before creating this agent.">
+						<br><input type="button" class="qutBtn" onclick="back()" value="Oh - back one step, please.">
+					</form>
+					<cfabort>					
+				</cfif>
+			</cfif>
 			<cfquery name="insName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				INSERT INTO agent_name (
 					agent_name_id,
