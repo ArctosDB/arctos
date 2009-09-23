@@ -192,7 +192,7 @@
 			<br><a href="/info/agentActivity.cfm?agent_id=#agent_id#" target="_self">Agent Activity</a>
 			<br>Rank:
 				#valuelist(rank.agent_rank,"; ")#
-				<input type="button" class="lnkBtn" onclick="rankAgent('#agent_id#');">Rank</span>
+				<input type="button" class="lnkBtn" onclick="rankAgent('#agent_id#');" value="Rank">
 		</cfif>
 	</cfoutput>
 	<cfquery name="agentAddrs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
