@@ -402,7 +402,7 @@
 		select * from anames where agent_name_type!='preferred'
 	</cfquery>
 	<cfset i=1>
-	<label for="anamdv"><span class="likeLink" onClick="getDocs('agent','names')">Agent Names</span>s</label>
+	<label for="anamdv"><span class="likeLink" onClick="getDocs('agent','names')">Agent Names</span></label>
 	<div id="anamdv" style="border:2px solid green;margin:1px;padding:1px;">
 		<form name="a#i#" action="editAllAgent.cfm" method="post" target="_person">
 			<input type="hidden" name="action">
@@ -416,6 +416,7 @@
 			<span class="likeLink" onClick="newName.agent_name.value='#pname.agent_name#';">Copy</span>
 		</form>
 		<cfset i=i+1>
+		<label>Other Names</label>
 		<cfloop query="npname">
 			<form name="a#i#" action="editAllAgent.cfm" method="post" target="_person">
 				<input type="hidden" name="action">
