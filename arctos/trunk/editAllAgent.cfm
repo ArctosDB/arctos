@@ -246,6 +246,7 @@
 				<cfset i=#i#+1>
 			</div>
 		</cfloop>
+		<br />
 		<cfset i=1>
 		<cfloop query="elecagentAddrs">
 			<form name="elad#i#" method="post" action="editAllAgent.cfm">
@@ -263,6 +264,7 @@
 			<cfset i=#i#+1>
 		</cfloop>
 	</cfoutput>
+	<br />
 	<cfif #person.agent_type# is "person">
 		<cfoutput query="person">
 			<form name="editPerson" action="editAllAgent.cfm" method="post" target="_person">
