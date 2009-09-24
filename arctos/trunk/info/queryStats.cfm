@@ -152,6 +152,27 @@ test-uam> desc uam_query.query_stats_coll
 				total
 			group by collection
 		</cfquery>
+		Collection Summary
+		<table border="1">
+			<tr>
+				<th>Collection</th>
+				<th>Queries</th>
+				<th>Total records</th>
+				<th>Mean records/query</th>
+				<th>Minimum records/query</th>
+				<th>Maximum records/query</th>
+			</tr>
+			<cfloop query="smrc">
+				<tr>
+					<td>#collection#</td>
+					<td>#c#</td>
+					<td>#tot#</td>
+					<td>#round(avrg)#</td>
+					<td>#minrec#</td>
+					<td>#maxrec#</td>
+				</tr>
+			</cfloop>
+		</table>
 		<cfdump var=#smrc#>
 	</cfoutput>
 </cfif>
