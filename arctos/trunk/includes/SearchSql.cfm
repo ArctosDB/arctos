@@ -77,7 +77,7 @@
 				<cfabort>
 			</cfif>
 		</cfloop>
-		<cfset basQual = " #basQual# AND #flatTableName#.cat_num IN ( #catnum# ) " >
+		<cfset basQual = " #basQual# AND #flatTableName#.cat_num IN ( #ListChangeDelims(catnum)# ) " >
 	</cfif>
 </cfif>	
 <cfif isdefined("geology_attribute") AND len(#geology_attribute#) gt 0>
