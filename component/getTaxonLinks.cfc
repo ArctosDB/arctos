@@ -6,6 +6,6 @@
 	</cfquery>
 	<cfhttp method="get" url="/SpecimenResults.cfm?taxon_name_id=#tnid#">
 	</cfhttp>
-	<cfdump var="cfhttp">
+	<cfdump var="#cfhttp#">
 	</cffunction>
 </cfcomponent>
