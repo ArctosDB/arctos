@@ -219,11 +219,7 @@ test-uam> desc uam_query.query_stats_coll
 				myr,
 				yr,
 				mm,
-				count(*) c,
-				sum(SUM_COUNT) tot,
-				avg(sum_count) avrg,
-				min(sum_count) minrec,
-				max(sum_count) maxrec						
+				count(*) c					
 			from
 				lcl
 			group by
@@ -234,28 +230,37 @@ test-uam> desc uam_query.query_stats_coll
 				yr,
 				mm
 		</cfquery>
-<cfchart format="flash" 
-    xaxistitle="month" 
-    yaxistitle="records"> 
-
-<cfchartseries type="bar" 
-    query="allc" 
-    itemcolumn="myr" 
-    valuecolumn="c"
-	dataLabelStyle="value">
-
-</cfchartseries>
-
-<cfchartseries type="bar" 
-    query="allc" 
-    itemcolumn="myr" 
-    valuecolumn="avrg"
-	dataLabelStyle="value">
-
-</cfchartseries>
-</cfchart> 
-		
-
+		<cfchart format="flash" 
+		    xaxistitle="month" 
+		    yaxistitle="records"> 
+			<cfchartseries type="bar" 
+			    query="allc" 
+			    itemcolumn="myr" 
+			    valuecolumn="c"
+				dataLabelStyle="value">
+			</cfchartseries>
+		</cfchart> 
+		<cfquery name="cbt" dbtype="query">
+			select
+				collection,
+				sum(SUM_COUNT) tot					
+			from
+				total
+			group by
+				collection
+			order by
+				collection
+		</cfquery>
+		<cfchart format="flash" 
+		    xaxistitle="collection" 
+		    yaxistitle="records"> 
+			<cfchartseries type="bar" 
+			    query="cbt" 
+			    itemcolumn="collection" 
+			    valuecolumn="tot"
+				dataLabelStyle="value">
+			</cfchartseries>
+		</cfchart> 
 <!---
 		<cfquery name="ubm" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select
