@@ -93,7 +93,7 @@ test-uam> desc uam_query.query_stats_coll
 				SUM_COUNT,
 				REC_COUNT,
 				username,
-				median(sum_count) mdn,
+				median(sum_count) mdn
 			from
 				uam_query.query_stats,
 				uam_query.query_stats_coll,
