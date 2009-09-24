@@ -115,27 +115,33 @@ test-uam> desc uam_query.query_stats_coll
 		</cfquery>
 		<cfquery name="smr" dbtype="query">
 			select 
+				count(*) c,
+				median(sum_count) mdn,
 				sum(SUM_COUNT) tot,
-				avg(sum_count) avrg,
+				round(avg(sum_count)) avrg,
 				min(sum_count) minrec,
 				max(sum_count) maxrec 
 			from total
 		</cfquery>
+		<table>
+			<tr>
+				<th>Queries</th>
+				<th>Total records</th>
+				<th>Mean records/query</th>
+				<th>Median records/query</th>
+				<th>Minimum records/query</th>
+				<th>Maximum records/query</th>
+			</tr>
+			<tr>
+				<td>#smr.c#</td>
+				<td>#smr.tot#</td>
+				<td>#smr.avrg#</td>
+				<td>#smr.mdb#</td>
+				<td>#smr.minrec#</td>
+				<td>#smr.maxrec#</td>
+			</tr>
+		</table>
 		
-		<cfquery name="smr_nz" dbtype="query">
-			select 
-				sum(SUM_COUNT) tot,
-				avg(sum_count) avrg,
-				min(sum_count) minrec,
-				max(sum_count) maxrec 
-			from total
-			where sum_count > 0
-		</cfquery>
-		
-		<cfdump var=#smr#>
-		
-				<cfdump var=#smr_nz#>
-
 	</cfoutput>
 </cfif>
 <cfif action is "showTable">
