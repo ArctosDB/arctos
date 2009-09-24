@@ -37,7 +37,7 @@
 			alt="[calendar]"
 			name="anchor1"
 			id="anchor1"
-			onClick="cal1.select(document.srch.bdate,'anchor1','dd-MMM-yyyy'); return false;"/>
+			onClick="cal1.select(document.f.bdate,'anchor1','dd-MMM-yyyy'); return false;"/>
 		<label for="edate">Ended Date</label>
 		<input type="text" name="edate" id="edate">
 		<img src="/images/pick.gif" 
@@ -46,7 +46,7 @@
 			alt="[calendar]"
 			name="anchor1"
 			id="anchor1"
-			onClick="cal1.select(document.srch.edate,'anchor1','dd-MMM-yyyy'); return false;"/>	
+			onClick="cal1.select(document.f.edate,'anchor1','dd-MMM-yyyy'); return false;"/>	
 	<br><input type="button" class="lnkBtn" value="Table" onclick="f.action.value='showTable';f.submit();">
 	<br><input type="button" class="lnkBtn" value="Graph" onclick="f.action.value='showGraph';f.submit();">
 </form>
