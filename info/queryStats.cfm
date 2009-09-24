@@ -1,3 +1,30 @@
+<!----
+
+create unique index u_query_stats_q_id on uam_query.query_stats (QUERY_ID) tablespace uam_idx_1;
+create index query_stats_coll_q_id on uam_query.query_stats_coll (QUERY_ID) tablespace uam_idx_1;
+create index query_stats_coll_coll_id on uam_query.query_stats_coll (collection_id) tablespace uam_idx_1;
+create index query_stats_coll_c_date on uam_query.query_stats (create_date) tablespace uam_idx_1;
+analyze table uam_query.query_stats_coll compute statistics;
+analyze table uam_query.query_stats compute statistics;
+
+test-uam> desc ;
+ Name										     Null?    Type
+ ----------------------------------------------------------------------------------- -------- --------------------------------------------------------
+ 										      NUMBER
+ QUERY_TYPE										      VARCHAR2(10)
+ CREATE_DATE										      DATE
+ SUM_COUNT										      NUMBER
+
+test-uam> desc uam_query.query_stats_coll
+ Name										     Null?    Type
+ ----------------------------------------------------------------------------------- -------- --------------------------------------------------------
+ QUERY_ID										      NUMBER
+ REC_COUNT										      NUMBER
+ COLLECTION_ID		
+
+
+---->
+
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <script language="JavaScript" src="/includes/CalendarPopup.js" type="text/javascript"></script>
@@ -58,67 +85,40 @@
 		<cfset edate=bdate>
 	</cfif>
 	<cfquery name="d" datasource="uam_god">
-		select
-			uam_query.query_stats.query_id,
-			collection,
-			QUERY_TYPE,
-			CREATE_DATE,
-			SUM_COUNT,
-			REC_COUNT
-		from
-			uam_query.query_stats,
-			uam_query.query_stats_coll,
-			collection
-		where
-			uam_query.query_stats.QUERY_ID=uam_query.query_stats_coll.QUERY_ID (+) and
-			uam_query.query_stats_coll.collection_id=collection.collection_id (+)
-		<cfif isdefined("query_type") and len(query_type) gt 0>
-			and query_type ='#query_type#'
-		</cfif>
-		<cfif isdefined("collection_id") and len(collection_id) gt 0>
-			and uam_query.query_stats_coll.collection_id ='#collection_id#'
-		</cfif>
-		<cfif len(#bdate#) gt 0>
-			AND (
-				to_date(to_char(CREATE_DATE,'dd-mon-yyy')) between to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
-				and to_date('#dateformat(edate,"dd-mmm-yyyy")#')
-			)
-		</cfif>
+		select * from (	
+			select
+				uam_query.query_stats.query_id,
+				collection,
+				QUERY_TYPE,
+				CREATE_DATE,
+				SUM_COUNT,
+				REC_COUNT,
+				username
+			from
+				uam_query.query_stats,
+				uam_query.query_stats_coll,
+				collection
+			where
+				uam_query.query_stats.QUERY_ID=uam_query.query_stats_coll.QUERY_ID (+) and
+				uam_query.query_stats_coll.collection_id=collection.collection_id (+)
+			<cfif isdefined("query_type") and len(query_type) gt 0>
+				and query_type ='#query_type#'
+			</cfif>
+			<cfif isdefined("collection_id") and len(collection_id) gt 0>
+				and uam_query.query_stats_coll.collection_id ='#collection_id#'
+			</cfif>
+			<cfif len(#bdate#) gt 0>
+				AND (
+					to_date(to_char(CREATE_DATE,'dd-mon-yyy')) between to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
+					and to_date('#dateformat(edate,"dd-mmm-yyyy")#')
+				)
+			</cfif>
+		) where rownum <= 5000
 	</cfquery>
-	
-	<hr>
-	
-	select
-			uam_query.query_stats.query_id,
-			collection,
-			QUERY_TYPE,
-			CREATE_DATE,
-			SUM_COUNT,
-			REC_COUNT
-		from
-			uam_query.query_stats,
-			uam_query.query_stats_coll,
-			collection
-		where
-			uam_query.query_stats.QUERY_ID=uam_query.query_stats_coll.QUERY_ID (+) and
-			uam_query.query_stats_coll.collection_id=collection.collection_id (+)
-		<cfif isdefined("query_type") and len(query_type) gt 0>
-			and query_type ='#query_type#'
-		</cfif>
-		<cfif isdefined("collection_id") and len(collection_id) gt 0>
-			and uam_query.query_stats_coll.collection_id ='#collection_id#'
-		</cfif>
-		<cfif len(#bdate#) gt 0>
-			AND (
-				to_date(to_char(CREATE_DATE,'dd-mon-yyy')) between to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
-				and to_date('#dateformat(edate,"dd-mmm-yyyy")#')
-			)
-		</cfif>
-		
-		<hr>
-	<table border="1" id="tbl">
+	<table border="1" id="tbl"  class="sortable">
 		<tr>
 			<th>ID</th>
+			<th>Username</th>
 			<th>Type</th>
 			<th>Date</th>
 			<th>Total</th>
@@ -128,6 +128,7 @@
 		<cfloop query="d">
 			<tr>
 				<td>#query_id#</td>
+				<td>#username#</td>
 				<td>#QUERY_TYPE#</td>
 				<td>#dateformat(CREATE_DATE,"dd mon yyyy")#</td>
 				<td>#SUM_COUNT#</td>
