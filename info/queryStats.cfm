@@ -117,7 +117,7 @@ test-uam> desc uam_query.query_stats_coll
 			select 
 				count(*) c,
 				sum(SUM_COUNT) tot,
-				round(avg(sum_count)) avrg
+				avg(sum_count) avrg
 			from 
 				total
 		</cfquery>
