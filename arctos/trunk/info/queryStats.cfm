@@ -245,6 +245,14 @@ test-uam> desc uam_query.query_stats_coll
 	dataLabelStyle="value">
 
 </cfchartseries>
+
+<cfchartseries type="bar" 
+    query="allc" 
+    itemcolumn="myr" 
+    valuecolumn="avrg"
+	dataLabelStyle="value">
+
+</cfchartseries>
 </cfchart> 
 		
 
