@@ -86,10 +86,13 @@ test-uam> desc uam_query.query_stats_coll
 		</cfif>
 		<cfquery name="total" datasource="uam_god">
 			select
-				sum(SUM_COUNT) tot,
-				avg(sum_count) avrg,
-				min(sum_count) minrec,
-				max(sum_count) maxrec
+				uam_query.query_stats.query_id,
+				collection,
+				QUERY_TYPE,
+				CREATE_DATE,
+				SUM_COUNT,
+				REC_COUNT,
+				username
 			from
 				uam_query.query_stats,
 				uam_query.query_stats_coll,
@@ -110,7 +113,16 @@ test-uam> desc uam_query.query_stats_coll
 				)
 			</cfif>
 		</cfquery>
-		<cfdump var=#total#>
+		<cfquery name="smr" dbtype="query">
+			select 
+				sum(SUM_COUNT) tot,
+				avg(sum_count) avrg,
+				min(sum_count) minrec,
+				max(sum_count) maxrec 
+			from total
+		</cfquery>
+		
+		<cfdump var=#smr#>
 	</cfoutput>
 </cfif>
 <cfif action is "showTable">
