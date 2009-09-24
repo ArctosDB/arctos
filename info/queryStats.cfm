@@ -181,7 +181,7 @@ test-uam> desc uam_query.query_stats_coll
 		<cfset myr=arraynew(1)>
 		<cfset i=1>
 		<cfloop query="lcl">
-			<cfset mon[i]=dateformat(create_date,"Mmm")>
+			<cfset mon[i]=dateformat(create_date,"mm")>
 			<cfset yr[i]=dateformat(create_date,"yyyy")>
 			<cfset myr[i]=dateformat(create_date,"Mmm-yyyy")>
 			<cfset i=i+1>
