@@ -84,7 +84,7 @@ test-uam> desc uam_query.query_stats_coll
 		<cfif len(bdate) gt 0 and len(edate) is 0>
 			<cfset edate=bdate>
 		</cfif>
-		<cfquery name="total" datasource="uam_god">
+		<cfquery name="total" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select
 				uam_query.query_stats.query_id,
 				collection,
@@ -131,7 +131,7 @@ test-uam> desc uam_query.query_stats_coll
 	<cfif len(bdate) gt 0 and len(edate) is 0>
 		<cfset edate=bdate>
 	</cfif>
-	<cfquery name="d" datasource="uam_god">
+	<cfquery name="d" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from (	
 			select
 				uam_query.query_stats.query_id,
