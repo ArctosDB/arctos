@@ -218,7 +218,7 @@ test-uam> desc uam_query.query_stats_coll
 			select
 				myr,
 				yr,
-				mm
+				mm,
 				c,
 				tot,
 				avrg							
@@ -227,7 +227,7 @@ test-uam> desc uam_query.query_stats_coll
 			group by
 				myr,
 				yr,
-				mm
+				mm,
 				c,
 				tot,
 				avrg
