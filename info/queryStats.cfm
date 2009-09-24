@@ -92,7 +92,8 @@ test-uam> desc uam_query.query_stats_coll
 				CREATE_DATE,
 				SUM_COUNT,
 				REC_COUNT,
-				username
+				username,
+				median(sum_count) mdn,
 			from
 				uam_query.query_stats,
 				uam_query.query_stats_coll,
@@ -116,7 +117,6 @@ test-uam> desc uam_query.query_stats_coll
 		<cfquery name="smr" dbtype="query">
 			select 
 				count(*) c,
-				median(sum_count) mdn,
 				sum(SUM_COUNT) tot,
 				round(avg(sum_count)) avrg,
 				min(sum_count) minrec,
@@ -136,7 +136,7 @@ test-uam> desc uam_query.query_stats_coll
 				<td>#smr.c#</td>
 				<td>#smr.tot#</td>
 				<td>#smr.avrg#</td>
-				<td>#smr.mdb#</td>
+				<td>#total.mdb#</td>
 				<td>#smr.minrec#</td>
 				<td>#smr.maxrec#</td>
 			</tr>
