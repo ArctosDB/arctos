@@ -174,16 +174,31 @@ test-uam> desc uam_query.query_stats_coll
 			</cfloop>
 		</table>
 		
-		<cfquery name="smrt" dbtype="query">
-			select 
-				dateformat(CREATE_DATE,"mmm-yyyy") my,
-				count(*) c,
+		<cfquery name="smrt" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select
+				collection,
+				to_char(CREATE_DATE,'mon-yyyy') my,
 				sum(SUM_COUNT) tot,
-				avg(sum_count) avrg,
-				min(sum_count) minrec,
-				max(sum_count) maxrec
-			from 
-				total
+				avg(sum_count) avrg
+			from
+				uam_query.query_stats,
+				uam_query.query_stats_coll,
+				collection
+			where
+				uam_query.query_stats.QUERY_ID=uam_query.query_stats_coll.QUERY_ID (+) and
+				uam_query.query_stats_coll.collection_id=collection.collection_id (+)
+			<cfif isdefined("query_type") and len(query_type) gt 0>
+				and query_type ='#query_type#'
+			</cfif>
+			<cfif isdefined("collection_id") and len(collection_id) gt 0>
+				and uam_query.query_stats_coll.collection_id ='#collection_id#'
+			</cfif>
+			<cfif len(#bdate#) gt 0>
+				AND (
+					to_date(to_char(CREATE_DATE,'dd-mon-yyy')) between to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
+					and to_date('#dateformat(edate,"dd-mmm-yyyy")#')
+				)
+			</cfif>
 		</cfquery>
 		<cfdump var=#smrt#>
 	</cfoutput>
