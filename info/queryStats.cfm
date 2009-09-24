@@ -63,7 +63,7 @@
 			QUERY_TYPE,
 			CREATE_DATE,
 			SUM_COUNT,
-			REC_COUNT,
+			REC_COUNT
 		from
 			uam_query.query_stats,
 			uam_query.query_stats_coll,
