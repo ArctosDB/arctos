@@ -214,7 +214,36 @@ test-uam> desc uam_query.query_stats_coll
 				yr,
 				mm
 		</cfquery>
-				<cfdump var=#sbd#>
+		<cfquery name="allc" dbtype="query">
+			select
+				myr,
+				yr,
+				mm
+				count(*) c,
+				sum(SUM_COUNT) tot,
+				avg(sum_count) avrg,							
+			from
+				lcl
+			group by
+				myr,
+				yr,
+				mm	
+			order by
+				yr,
+				mm
+		</cfquery>
+<cfchart format="flash" 
+    xaxistitle="month" 
+    yaxistitle="records"> 
+
+<cfchartseries type="bar" 
+    query="allc" 
+    itemcolumn="count" 
+    valuecolumn="c">
+
+</cfchartseries>
+</cfchart> 
+		
 
 <!---
 		<cfquery name="ubm" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
