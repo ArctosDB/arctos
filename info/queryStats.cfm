@@ -201,14 +201,14 @@ test-uam> desc uam_query.query_stats_coll
 				min(sum_count) minrec,
 				max(sum_count) maxrec,
 				yr,
-				mon			
+				mm			
 			from
 				lcl
 			group by
 				collection,
 				myr,
 				yr,
-				mon	
+				mm	
 			order by
 				collection,
 				yr,
