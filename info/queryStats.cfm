@@ -59,6 +59,7 @@
 	</cfif>
 	<cfquery name="d" datasource="uam_god">
 		select
+			uam_query.query_stats.query_id,
 			collection,
 			QUERY_TYPE,
 			CREATE_DATE,
@@ -84,7 +85,26 @@
 			)
 		</cfif>
 	</cfquery>
-	<cfdump var=#d#>
+	<table border="1" id="tbl">
+		<tr>
+			<th>ID</th>
+			<th>Type</th>
+			<th>Date</th>
+			<th>Total</th>
+			<th>Collection</th>
+			<th>Colln. Cnt.</th>
+		</tr>
+		<cfloop query="d">
+			<tr>
+				<td>#query_id#</td>
+				<td>#QUERY_TYPE#</td>
+				<td>#dateformat(CREATE_DATE,"dd mon yyyy")#</td>
+				<td>#SUM_COUNT#</td>
+				<td>#collection#</td>
+				<td>#REC_COUNT#</td>
+			</tr>
+		</cfloop>
+	</table>
 </cfoutput>
 </cfif>
 <DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>
