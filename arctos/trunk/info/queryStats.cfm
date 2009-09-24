@@ -173,11 +173,30 @@ test-uam> desc uam_query.query_stats_coll
 				</tr>
 			</cfloop>
 		</table>
+		<cfquery name="lcl" dbtype="query">
+			select * from total
+		</cfquery>
+		<cfset mon=arraynew(1)>
+		<cfset yr=arraynew(1)>
+		<cfset myr=arraynew(1)>
+		<cfset i=1>
+		<cfloop query="lcl">
+			<cfset mon[i]=dateformat(create_date,"Mmm")>
+			<cfset yr[i]=dateformat(create_date,"yyyy")>
+			<cfset myr[i]=dateformat(create_date,"Mmm-yyyy")>
+			<cfset i=i+1>
+		</cfloop>
+		<cfset nColumnNumber = QueryAddColumn(lcl, "mon", "VarChar",lcl)>
+		<cfset nColumnNumber = QueryAddColumn(lcl, "yr", "VarChar",yr)>
+		<cfset nColumnNumber = QueryAddColumn(lcl, "myr", "VarChar",myr)>
 		
-		<cfquery name="smrt" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+				<cfdump var=#lcl#>
+
+<!---
+		<cfquery name="ubm" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select
-				collection,
-				to_char(CREATE_DATE,'mon-yyyy') my,
+				collection, 
+				to_char(CREATE_DATE,'Mon-yyyy') my,
 				sum(SUM_COUNT) tot,
 				avg(sum_count) avrg
 			from
@@ -200,9 +219,10 @@ test-uam> desc uam_query.query_stats_coll
 					)
 				</cfif>
 			group by
-				to_char(CREATE_DATE,'mon-yyyy')
+				collection, 
+				to_char(CREATE_DATE,'Mon-yyyy') my
 		</cfquery>
-		<cfdump var=#smrt#>
+		--->
 	</cfoutput>
 </cfif>
 <cfif action is "showTable">
