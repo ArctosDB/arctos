@@ -221,13 +221,16 @@ test-uam> desc uam_query.query_stats_coll
 				mm
 				c,
 				tot,
-				avrg,							
+				avrg							
 			from
 				lcl
 			group by
 				myr,
 				yr,
-				mm	
+				mm
+				c,
+				tot,
+				avrg
 			order by
 				yr,
 				mm
