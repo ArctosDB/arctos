@@ -123,13 +123,8 @@ test-uam> desc uam_query.query_stats_coll
 			from 
 				total
 		</cfquery>
-		
-		<cfdump var=#smr#>
-		,
-				,
-				
-				 
-		<table>
+		Overall Summary
+		<table border="1">
 			<tr>
 				<th>Queries</th>
 				<th>Total records</th>
@@ -145,7 +140,19 @@ test-uam> desc uam_query.query_stats_coll
 				<td>#smr.maxrec#</td>
 			</tr>
 		</table>
-		
+		<cfquery name="smrc" dbtype="query">
+			select 
+				collection,
+				count(*) c,
+				sum(SUM_COUNT) tot,
+				avg(sum_count) avrg,
+				min(sum_count) minrec,
+				max(sum_count) maxrec
+			from 
+				total
+			group by collection
+		</cfquery>
+		<cfdump var=#smrc#>
 	</cfoutput>
 </cfif>
 <cfif action is "showTable">
