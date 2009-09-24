@@ -191,7 +191,7 @@ test-uam> desc uam_query.query_stats_coll
 		<cfset nColumnNumber = QueryAddColumn(lcl, "yr", "Integer",yr)>
 		<cfset nColumnNumber = QueryAddColumn(lcl, "myr", "VarChar",myr)>
 		
-		<cfquery name="sbd">
+		<cfquery name="sbd" dbtype="query">
 			select
 				collection,
 				count(*) c,
