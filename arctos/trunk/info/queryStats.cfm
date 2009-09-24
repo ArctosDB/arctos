@@ -242,7 +242,7 @@ test-uam> desc uam_query.query_stats_coll
     query="allc" 
     itemcolumn="count" 
     valuecolumn="c"
-	seriesLabel="#myr#">
+	seriesLabel="myr">
 
 </cfchartseries>
 </cfchart> 
