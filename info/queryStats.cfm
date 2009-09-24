@@ -187,8 +187,8 @@ test-uam> desc uam_query.query_stats_coll
 			<cfset i=i+1>
 		</cfloop>
 		
-		<cfset nColumnNumber = QueryAddColumn(lcl, "mon", "VarChar",mon)>
-		<cfset nColumnNumber = QueryAddColumn(lcl, "yr", "VarChar",yr)>
+		<cfset nColumnNumber = QueryAddColumn(lcl, "mm", "Integer",mon)>
+		<cfset nColumnNumber = QueryAddColumn(lcl, "yr", "Integer",yr)>
 		<cfset nColumnNumber = QueryAddColumn(lcl, "myr", "VarChar",myr)>
 		
 				<cfdump var=#lcl#>
