@@ -116,7 +116,8 @@ test-uam> desc uam_query.query_stats_coll
 		<cfquery name="smr" dbtype="query">
 			select 
 				count(*) c,
-				sum(SUM_COUNT) tot
+				sum(SUM_COUNT) tot,
+				round(avg(sum_count)) avrg
 			from 
 				total
 		</cfquery>
@@ -124,7 +125,7 @@ test-uam> desc uam_query.query_stats_coll
 		<cfdump var=#smr#>
 		,
 				,
-				round(avg(sum_count)) avrg,
+				
 				min(sum_count) minrec,
 				max(sum_count) maxrec 
 		<table>
