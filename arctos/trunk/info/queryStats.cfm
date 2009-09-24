@@ -223,7 +223,7 @@ test-uam> desc uam_query.query_stats_coll
 				sum(SUM_COUNT) tot,
 				avg(sum_count) avrg,
 				min(sum_count) minrec,
-				max(sum_count) maxrec,						
+				max(sum_count) maxrec						
 			from
 				lcl
 			group by
