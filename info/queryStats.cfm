@@ -219,18 +219,17 @@ test-uam> desc uam_query.query_stats_coll
 				myr,
 				yr,
 				mm,
-				c,
-				tot,
-				avrg							
+				count(*) c,
+				sum(SUM_COUNT) tot,
+				avg(sum_count) avrg,
+				min(sum_count) minrec,
+				max(sum_count) maxrec,						
 			from
 				lcl
 			group by
 				myr,
 				yr,
-				mm,
-				c,
-				tot,
-				avrg
+				mm
 			order by
 				yr,
 				mm
