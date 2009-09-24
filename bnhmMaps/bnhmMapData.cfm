@@ -255,7 +255,7 @@
 				chr(9) & COORDINATEUNCERTAINTYINMETERS &
 				chr(9) & datum & 
 				chr(9) & collection &
-				chr(9) & collection & ' ' & cat_num
+				chr(9) & collection & ' ' & cat_num &
 				chr(9) & collectors;
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
