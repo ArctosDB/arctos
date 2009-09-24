@@ -198,7 +198,7 @@
 			specimen_part.collection_object_id = coll_obj_cont_hist.collection_object_id AND
 			coll_obj_cont_hist.container_id = coll_obj_container.container_id AND
 			coll_obj_container.parent_container_id = parent_container.container_id AND
-			parent_container.barcode IN ('#thisBC#') )
+			parent_container.barcode IN ('#ListChangeDelims(thisBC,',')#') )
 		" >
 	<cfset mapurl = "#mapurl#&barcode=#barcode#">
 </cfif>	
