@@ -30,7 +30,7 @@
 		</cfloop>
 	</select>
 	<label for="bdate">Begin Date</label>
-		<input type="text" name="bdate" id="bdate" value="#bdate#">
+		<input type="text" name="bdate" id="bdate">
 		<img src="/images/pick.gif" 
 			class="likeLink" 
 			border="0" 
@@ -39,7 +39,7 @@
 			id="anchor1"
 			onClick="cal1.select(document.srch.bdate,'anchor1','dd-MMM-yyyy'); return false;"/>
 		<label for="edate">Ended Date</label>
-		<input type="text" name="edate" id="edate" value="#edate#">
+		<input type="text" name="edate" id="edate">
 		<img src="/images/pick.gif" 
 			class="likeLink" 
 			border="0" 
