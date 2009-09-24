@@ -85,6 +85,37 @@
 			)
 		</cfif>
 	</cfquery>
+	
+	<hr>
+	
+	select
+			uam_query.query_stats.query_id,
+			collection,
+			QUERY_TYPE,
+			CREATE_DATE,
+			SUM_COUNT,
+			REC_COUNT
+		from
+			uam_query.query_stats,
+			uam_query.query_stats_coll,
+			collection
+		where
+			uam_query.query_stats.QUERY_ID=uam_query.query_stats_coll.QUERY_ID (+) and
+			uam_query.query_stats_coll.collection_id=collection.collection_id (+)
+		<cfif isdefined("query_type") and len(query_type) gt 0>
+			and query_type ='#query_type#'
+		</cfif>
+		<cfif isdefined("collection_id") and len(collection_id) gt 0>
+			and uam_query.query_stats_coll.collection_id ='#collection_id#'
+		</cfif>
+		<cfif len(#bdate#) gt 0>
+			AND (
+				to_date(to_char(CREATE_DATE,'dd-mon-yyy')) between to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
+				and to_date('#dateformat(edate,"dd-mmm-yyyy")#')
+			)
+		</cfif>
+		
+		<hr>
 	<table border="1" id="tbl">
 		<tr>
 			<th>ID</th>
