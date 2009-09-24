@@ -117,7 +117,9 @@ test-uam> desc uam_query.query_stats_coll
 			select 
 				count(*) c,
 				sum(SUM_COUNT) tot,
-				avg(sum_count) avrg
+				avg(sum_count) avrg,
+				min(sum_count) minrec,
+				max(sum_count) maxrec
 			from 
 				total
 		</cfquery>
@@ -126,8 +128,7 @@ test-uam> desc uam_query.query_stats_coll
 		,
 				,
 				
-				min(sum_count) minrec,
-				max(sum_count) maxrec 
+				 
 		<table>
 			<tr>
 				<th>Queries</th>
@@ -139,7 +140,7 @@ test-uam> desc uam_query.query_stats_coll
 			<tr>
 				<td>#smr.c#</td>
 				<td>#smr.tot#</td>
-				<td>#smr.avrg#</td>
+				<td>#round(smr.avrg)#</td>
 				<td>#smr.minrec#</td>
 				<td>#smr.maxrec#</td>
 			</tr>
