@@ -178,7 +178,7 @@
 			chr(9) & chr(9) & '<concept order="8" viewlist="1" colorlist="0" datatype="darwin:horizontaldatum" alias="Horizontal Datum"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="9" viewlist="0" colorlist="0" datatype="darwin:collectioncode" alias="Collection Code"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="10" viewlist="1" colorlist="0" datatype="darwin:catalognumbertext" alias="Catalog Number"/>' & chr(10) & 
-			chr(9) & chr(9) & '<concept order="11" viewlist="1" colorlist="0" datatype="collector" alias="Collector"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="11" viewlist="1" colorlist="0" datatype="darwin:collector" alias="Collector"/>' & chr(10) & 
 			chr(9) & '</concepts>';		
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
