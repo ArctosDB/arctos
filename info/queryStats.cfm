@@ -75,12 +75,44 @@ test-uam> desc uam_query.query_stats_coll
 			id="anchor1"
 			onClick="cal1.select(document.f.edate,'anchor1','dd-MMM-yyyy'); return false;"/>	
 	<br><input type="button" class="lnkBtn" value="Table" onclick="f.action.value='showTable';f.submit();">
-	<br><input type="button" class="lnkBtn" value="Graph" onclick="f.action.value='showGraph';f.submit();">
+	<br><input type="button" class="lnkBtn" value="Graph" onclick="f.action.value='showSummary';f.submit();">
 </form>
 </cfoutput>
 </cfif>
+<cfif action is "showSummary">
+	<cfoutput>
+		<cfif len(bdate) gt 0 and len(edate) is 0>
+			<cfset edate=bdate>
+		</cfif>
+		<cfquery name="total" datasource="uam_god">
+			select
+				SUM_COUNT
+			from
+				uam_query.query_stats,
+				uam_query.query_stats_coll,
+				collection
+			where
+				uam_query.query_stats.QUERY_ID=uam_query.query_stats_coll.QUERY_ID (+) and
+				uam_query.query_stats_coll.collection_id=collection.collection_id (+)
+			<cfif isdefined("query_type") and len(query_type) gt 0>
+				and query_type ='#query_type#'
+			</cfif>
+			<cfif isdefined("collection_id") and len(collection_id) gt 0>
+				and uam_query.query_stats_coll.collection_id ='#collection_id#'
+			</cfif>
+			<cfif len(#bdate#) gt 0>
+				AND (
+					to_date(to_char(CREATE_DATE,'dd mmm yyy')) between to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
+					and to_date('#dateformat(edate,"dd-mmm-yyyy")#')
+				)
+			</cfif>
+		</cfquery>
+		Total Records: #total.sum_count#
+	</cfoutput>
+</cfif>
 <cfif action is "showTable">
 <cfoutput>
+	This form will return no more than 5000 rows.
 	<cfif len(bdate) gt 0 and len(edate) is 0>
 		<cfset edate=bdate>
 	</cfif>
@@ -109,7 +141,7 @@ test-uam> desc uam_query.query_stats_coll
 			</cfif>
 			<cfif len(#bdate#) gt 0>
 				AND (
-					to_date(to_char(CREATE_DATE,'dd-mon-yyy')) between to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
+					to_date(to_char(CREATE_DATE,'dd mmm yyy')) between to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
 					and to_date('#dateformat(edate,"dd-mmm-yyyy")#')
 				)
 			</cfif>
