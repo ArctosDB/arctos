@@ -191,7 +191,25 @@ test-uam> desc uam_query.query_stats_coll
 		<cfset nColumnNumber = QueryAddColumn(lcl, "yr", "Integer",yr)>
 		<cfset nColumnNumber = QueryAddColumn(lcl, "myr", "VarChar",myr)>
 		
-				<cfdump var=#lcl#>
+		<cfquery name="sbd">
+			select
+				collection,
+				count(*) c,
+				sum(SUM_COUNT) tot,
+				avg(sum_count) avrg,
+				min(sum_count) minrec,
+				max(sum_count) maxrec,
+				myr
+			from
+				lcl
+			group by
+				collection
+			order by
+				collection,
+				yr,
+				mon
+		</cfquery>
+				<cfdump var=#sbd#>
 
 <!---
 		<cfquery name="ubm" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
