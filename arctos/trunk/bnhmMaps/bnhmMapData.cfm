@@ -38,7 +38,8 @@
 			dec_long,
 			to_meters(max_error_distance,max_error_units) max_error_meters,
 			datum,
-			'000000' collection_object_id
+			'000000' collection_object_id,
+			' ' collectors
 		FROM 
 			lat_long 
 		WHERE
@@ -60,7 +61,8 @@
 		#flatTableName#.dec_long,
 		#flatTableName#.COORDINATEUNCERTAINTYINMETERS,
 		#flatTableName#.datum,
-		#flatTableName#.collection_object_id">
+		#flatTableName#.collection_object_id,
+		#flatTableName#.collectors">
 	<cfset basFrom = "	FROM #flatTableName#">
 	<!----
 	<cfset basJoin = " INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id =cataloged_item.collection_object_id)
@@ -176,6 +178,7 @@
 			chr(9) & chr(9) & '<concept order="8" viewlist="1" colorlist="0" datatype="darwin:horizontaldatum" alias="Horizontal Datum"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="9" viewlist="0" colorlist="0" datatype="darwin:collectioncode" alias="Collection Code"/>' & chr(10) & 
 			chr(9) & chr(9) & '<concept order="10" viewlist="1" colorlist="0" datatype="darwin:catalognumbertext" alias="Catalog Number"/>' & chr(10) & 
+			chr(9) & chr(9) & '<concept order="11" viewlist="1" colorlist="0" datatype="collector" alias="Collector"/>' & chr(10) & 
 			chr(9) & '</concepts>';		
 		variables.joFileWriter.writeLine(a);
 	</cfscript>
@@ -252,7 +255,8 @@
 				chr(9) & COORDINATEUNCERTAINTYINMETERS &
 				chr(9) & datum & 
 				chr(9) & collection &
-				chr(9) & collection & ' ' & cat_num;
+				chr(9) & collection & ' ' & cat_num
+				chr(9) & collectors;
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
 	</cfloop>
