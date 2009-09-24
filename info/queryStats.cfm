@@ -231,6 +231,7 @@ test-uam> desc uam_query.query_stats_coll
 				mm
 		</cfquery>
 		<cfchart 
+			style="slanty"
 			chartHeight="600"
 			chartWidth="600"
 			format="png" 
@@ -243,7 +244,7 @@ test-uam> desc uam_query.query_stats_coll
 				dataLabelStyle="value">
 			</cfchartseries>
 		</cfchart>
-		Number of records accessed by month.
+		<br>Number of records accessed by month.
 		<cfquery name="cbt" dbtype="query">
 			select
 				collection,
@@ -258,7 +259,7 @@ test-uam> desc uam_query.query_stats_coll
 		<cfchart format="flash" 
 		   style="slanty"
 		   	 chartHeight="600"
-			chartWidth="600"
+			chartWidth="1200"
 				xaxistitle="collection" 
 		    yaxistitle="records"> 
 			<cfchartseries type="bar" 
@@ -268,7 +269,45 @@ test-uam> desc uam_query.query_stats_coll
 				dataLabelStyle="value">
 			</cfchartseries>
 		</cfchart>
-		Number of records accessed per collection.
+		<br>Number of records accessed per collection.
+		<cfquery name="dcol" dbtype="query">
+			select collection from total where collection is not null group by collection
+		</cfquery>
+		<cfloop query="dcol">
+			<cfquery name="q" dbtype="query">
+				select
+					myr,
+					yr,
+					mm,
+					count(*) c					
+				from
+					lcl
+				where
+					collection='#collection#'
+				group by
+					myr,
+					yr,
+					mm
+				order by
+					yr,
+					mm
+			</cfquery>
+			<cfchart 
+				style="slanty"
+				chartHeight="600"
+				chartWidth="600"
+				format="png" 
+			    xaxistitle="month" 
+			    yaxistitle="records"> 
+				<cfchartseries type="bar" 
+				    query="allc" 
+				    itemcolumn="myr" 
+				    valuecolumn="c"
+					dataLabelStyle="value">
+				</cfchartseries>
+			</cfchart>
+			<br>Number of #collection# records accessed by month.
+		</cfloop>
 <!---
 		<cfquery name="ubm" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select
