@@ -102,7 +102,7 @@ test-uam> desc uam_query.query_stats_coll
 			</cfif>
 			<cfif len(#bdate#) gt 0>
 				AND (
-					to_date(to_char(CREATE_DATE,'dd mmm yyy')) between to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
+					to_date(to_char(CREATE_DATE,'dd-mon-yyy')) between to_date('#dateformat(bdate,"dd-mmm-yyyy")#')
 					and to_date('#dateformat(edate,"dd-mmm-yyyy")#')
 				)
 			</cfif>
@@ -162,7 +162,7 @@ test-uam> desc uam_query.query_stats_coll
 				<td>#query_id#</td>
 				<td>#username#</td>
 				<td>#QUERY_TYPE#</td>
-				<td>#dateformat(CREATE_DATE,"dd mon yyyy")#</td>
+				<td>#dateformat(CREATE_DATE,"dd mmm yyyy")#</td>
 				<td>#SUM_COUNT#</td>
 				<td>#collection#</td>
 				<td>#REC_COUNT#</td>
