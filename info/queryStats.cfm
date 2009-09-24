@@ -153,7 +153,7 @@ test-uam> desc uam_query.query_stats_coll
 			group by collection
 		</cfquery>
 		Collection Summary
-		<table border="1">
+		<table border="1" class="sortable">
 			<tr>
 				<th>Collection</th>
 				<th>Queries</th>
@@ -173,7 +173,21 @@ test-uam> desc uam_query.query_stats_coll
 				</tr>
 			</cfloop>
 		</table>
-		<cfdump var=#smrc#>
+		
+		<cfquery name="smrt" dbtype="query">
+			select 
+				dateformat(CREATE_DATE,"mmm-yyyy") my,
+				count(*) c,
+				sum(SUM_COUNT) tot,
+				avg(sum_count) avrg,
+				min(sum_count) minrec,
+				max(sum_count) maxrec
+			from 
+				total
+			group by
+				dateformat(CREATE_DATE,"mmm-yyyy"
+		</cfquery>
+		<cfdump var=#smrt#>
 	</cfoutput>
 </cfif>
 <cfif action is "showTable">
