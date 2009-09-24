@@ -1,4 +1,9 @@
 <cfinclude template = "includes/_header.cfm">
+<script>
+	function getTaxonLinks(tnid) {
+		
+	}
+</script>
 <!--- get taxon name ID if we're passed a scientific name --->
 <cfif isdefined("scientific_name") and len(#scientific_name#) gt 0>
 	<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -360,4 +365,8 @@
 		</div>
 	</cfif>
 </cfoutput>
+
+<script>
+	getTaxonLinks(#one.taxon_name_id#);
+</script>
 <cfinclude template = "includes/_footer.cfm">
