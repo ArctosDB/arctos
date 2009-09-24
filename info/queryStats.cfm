@@ -92,8 +92,7 @@ test-uam> desc uam_query.query_stats_coll
 				CREATE_DATE,
 				SUM_COUNT,
 				REC_COUNT,
-				username,
-				median(sum_count) mdn
+				username
 			from
 				uam_query.query_stats,
 				uam_query.query_stats_coll,
@@ -128,7 +127,6 @@ test-uam> desc uam_query.query_stats_coll
 				<th>Queries</th>
 				<th>Total records</th>
 				<th>Mean records/query</th>
-				<th>Median records/query</th>
 				<th>Minimum records/query</th>
 				<th>Maximum records/query</th>
 			</tr>
@@ -136,7 +134,6 @@ test-uam> desc uam_query.query_stats_coll
 				<td>#smr.c#</td>
 				<td>#smr.tot#</td>
 				<td>#smr.avrg#</td>
-				<td>#total.mdb#</td>
 				<td>#smr.minrec#</td>
 				<td>#smr.maxrec#</td>
 			</tr>
