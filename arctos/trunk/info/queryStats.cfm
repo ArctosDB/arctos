@@ -219,9 +219,9 @@ test-uam> desc uam_query.query_stats_coll
 				myr,
 				yr,
 				mm
-				count(*) c,
-				sum(SUM_COUNT) tot,
-				avg(sum_count) avrg,							
+				c,
+				tot,
+				avrg,							
 			from
 				lcl
 			group by
