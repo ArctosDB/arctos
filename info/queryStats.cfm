@@ -194,20 +194,21 @@ test-uam> desc uam_query.query_stats_coll
 		<cfquery name="sbd" dbtype="query">
 			select
 				collection,
+				myr,
 				count(*) c,
 				sum(SUM_COUNT) tot,
 				avg(sum_count) avrg,
 				min(sum_count) minrec,
-				max(sum_count) maxrec,
-				myr
+				max(sum_count) maxrec				
 			from
 				lcl
 			group by
-				collection
+				collection,
+				myr
 			order by
 				collection,
 				yr,
-				myr
+				mon
 		</cfquery>
 				<cfdump var=#sbd#>
 
