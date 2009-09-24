@@ -256,7 +256,7 @@ test-uam> desc uam_query.query_stats_coll
 				collection
 		</cfquery>
 		<cfchart format="flash" 
-		   style="red"
+		   style="slanty"
 		   	 chartHeight="600"
 			chartWidth="600"
 				xaxistitle="collection" 
