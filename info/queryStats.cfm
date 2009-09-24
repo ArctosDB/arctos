@@ -207,7 +207,7 @@ test-uam> desc uam_query.query_stats_coll
 			order by
 				collection,
 				yr,
-				mon
+				myr
 		</cfquery>
 				<cfdump var=#sbd#>
 
