@@ -184,8 +184,6 @@ test-uam> desc uam_query.query_stats_coll
 				max(sum_count) maxrec
 			from 
 				total
-			group by
-				dateformat(CREATE_DATE,"mmm-yyyy"
 		</cfquery>
 		<cfdump var=#smrt#>
 	</cfoutput>
