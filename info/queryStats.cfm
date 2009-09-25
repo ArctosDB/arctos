@@ -302,7 +302,7 @@ test-uam> desc uam_query.query_stats_coll
 			    xaxistitle="month" 
 			    yaxistitle="records"> 
 				<cfchartseries type="bar" 
-				    query="allc" 
+				    query="q" 
 				    itemcolumn="myr" 
 				    valuecolumn="c"
 					dataLabelStyle="value">
