@@ -219,7 +219,7 @@ test-uam> desc uam_query.query_stats_coll
 				myr,
 				yr,
 				mm,
-				count(*) c					
+				sum(SUM_COUNT) tot		
 			from
 				lcl
 			group by
@@ -235,16 +235,17 @@ test-uam> desc uam_query.query_stats_coll
 			chartHeight="600"
 			chartWidth="600"
 			format="png" 
-		    xaxistitle="month" 
-		    yaxistitle="records"> 
+		    xaxistitle="Month" 
+		    yaxistitle="Number Records"> 
 			<cfchartseries type="bar" 
 			    query="allc" 
 			    itemcolumn="myr" 
-			    valuecolumn="c"
+			    valuecolumn="tot"
 				dataLabelStyle="value">
 			</cfchartseries>
 		</cfchart>
 		<br>Number of records accessed by month.
+			<p>&nbsp;</p>
 		<cfquery name="cbt" dbtype="query">
 			select
 				collection,
@@ -256,7 +257,7 @@ test-uam> desc uam_query.query_stats_coll
 			order by
 				collection
 		</cfquery>
-		<cfchart format="flash" 
+		<cfchart format="png" 
 		   style="slanty"
 		   	 chartHeight="600"
 			chartWidth="1200"
@@ -270,6 +271,7 @@ test-uam> desc uam_query.query_stats_coll
 			</cfchartseries>
 		</cfchart>
 		<br>Number of records accessed per collection.
+			<p>&nbsp;</p>
 		<cfquery name="dcol" dbtype="query">
 			select collection from total where collection is not null group by collection
 		</cfquery>
@@ -307,6 +309,7 @@ test-uam> desc uam_query.query_stats_coll
 				</cfchartseries>
 			</cfchart>
 			<br>Number of #collection# records accessed by month.
+			<p>&nbsp;</p>
 		</cfloop>
 <!---
 		<cfquery name="ubm" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
