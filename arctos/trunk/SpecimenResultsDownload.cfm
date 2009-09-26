@@ -139,21 +139,6 @@ do not agree</font>.</a>
 		<cfabort>
 	</cfif>
 	<cfset thisDate = #dateformat(now(),"dd-mmm-yyyy")#>
-	<cfquery name="dl" datasource="cf_dbuser">
-		INSERT INTO cf_download (
-			user_id,
-			download_purpose,
-			download_date,
-			num_records,
-			agree_to_terms)
-		VALUES (
-			#user_id#,
-			'#download_purpose#',
-			'#thisDate#',
-			#cnt#,
-			'#agree#')
-	</cfquery>
-	
 	<cfquery name="isUser" datasource="cf_dbuser">
 		select * from cf_user_data where user_id=#user_id#
 	</cfquery>
@@ -218,6 +203,20 @@ do not agree</font>.</a>
 		<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from #tableName#
 		</cfquery>
+		<cfquery name="dl" datasource="cf_dbuser">
+		INSERT INTO cf_download (
+			user_id,
+			download_purpose,
+			download_date,
+			num_records,
+			agree_to_terms)
+		VALUES (
+			#user_id#,
+			'#download_purpose#',
+			sysdate,
+			nvl(#getData,recordcount#,0),
+			'#agree#')
+	</cfquery>
 		<cfset ac = valuelist(cols.column_name)>
 		<!--- strip internal columns --->
 		<cfif ListFindNoCase(ac,'COLLECTION_OBJECT_ID')>
