@@ -5,7 +5,6 @@
 <cfoutput>
 	<cfloop query="getRels">
 		<cfif #related_to_num_type# is "catalog number">
-			tis....
 			<cftry>
 			<cfset inst=listgetat(related_to_number,1," ")>
 			<cfset coll=listgetat(related_to_number,2," ")>
@@ -23,7 +22,6 @@
 					cat_num = #cnum#
 			</cfquery>
 			<cfcatch>
-				<cfdump var=#cfcatch#>
 				<cfquery name="nope" datasource="uam_god">
 					update cf_temp_relations set 
 						lasttrydate='#dateformat(now(),"dd-mmm-yyyy")#',

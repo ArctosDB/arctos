@@ -71,11 +71,8 @@ To split a lot or create a parasite, you can
 	<br>
 	A link to your new record in the bulkloader will appear below if the procedure is successful. It might take a minute.
 	Don't get all clicky or you'll make lots of clones.
-	
 	<br><span class="likeLink" onclick="cloneCatalogedItem(#collection_object_id#)">Click here to create a clone</span>.
 </div>
-
-
 <br>
 <div id="cloned" style="display:none" class="redBorder"></div>
 <br>
