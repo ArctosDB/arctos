@@ -214,7 +214,7 @@ do not agree</font>.</a>
 			#user_id#,
 			'#download_purpose#',
 			sysdate,
-			nvl(#getData,recordcount#,0),
+			nvl(#getData.recordcount#,0),
 			'#agree#')
 	</cfquery>
 		<cfset ac = valuelist(cols.column_name)>
