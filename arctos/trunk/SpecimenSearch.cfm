@@ -1,10 +1,11 @@
+<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
+
 <cfset jsfilelist="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js,/includes/dragzoom_packed.js">
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Specimen Search">
 <cfset metaDesc="Search for museum specimens and observations by taxonomy, identifications, specimen attributes, and usage history.">
 
 <cfoutput>
-<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
 <cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select count(collection_object_id) as cnt from cataloged_item
 </cfquery>
