@@ -1,8 +1,5 @@
 <cfif not isdefined("action")><cfset action="nothing"></cfif>	
 <cfinclude template="/includes/functionLib.cfm">	
 <link rel="stylesheet" type="text/css" href="/includes/style.css" >
-<cfset fl="/includes/jquery/jquery-1.3.2.min.js,/includes/ajax.js">
-<cfif isdefined("jsfilelist")>
-	<cfset fl=listappend(fl,jsfilelist)>
-</cfif>
-<cfoutput><cfhtmlhead text='<script src="/includes/combine.cfm?type=js&files=#fl#" type="text/javascript"></script>'></cfoutput>
+<script type='text/javascript' language="javascript" src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js'></script>
+<script type='text/javascript' language="javascript" src='/includes/ajax.min.js'></script>
