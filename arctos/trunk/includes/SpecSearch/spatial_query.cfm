@@ -1,8 +1,7 @@
 mappy!
-<cfinclude template="/includes/_header.cfm">
 <cfoutput>
 		
-<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
 <div id="map_canvas" style="width: 100%; height: 400px;"></div>
 <script language="javascript" type="text/javascript">
 					google.load("maps", "2");
