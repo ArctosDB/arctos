@@ -7,9 +7,7 @@ mappy!
 <script language="javascript" type="text/javascript">
 					google.load("maps", "2");
        				function initializeMap() {
-						if (GBrowserIsCompatible()) {
 							var map = new GMap2(document.getElementById("map_canvas"));
-						}
 					}	
 					initializeMap();				
 				</script>
