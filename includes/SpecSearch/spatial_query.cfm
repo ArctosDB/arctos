@@ -10,11 +10,10 @@ mappy!
 							var map = new GMap2(document.getElementById("map_canvas"));
 						}
 					}	
-					initializeMap();				
 				</script>
 </cfoutput>
 
-
+<span onclick="initializeMap()">initializy</span>
 <!----
 
 
