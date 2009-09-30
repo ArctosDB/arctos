@@ -19,7 +19,7 @@ if(isDefined('application') and structKeyExists(application, variables.sKey) and
 else
 {
 	variables.oCombine = createObject("component", "includes.Combine").init(
-		enableCache: false,
+		enableCache: true,
 		cachePath: '#application.webDirectory#/cache',
 		enableETags: true,
 		enableJSMin: true,
