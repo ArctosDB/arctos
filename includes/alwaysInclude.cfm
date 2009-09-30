@@ -5,4 +5,4 @@
 <cfif isdefined("jsfilelist")>
 	<cfset fl=listappend(fl,jsfilelist)>
 </cfif>
-<cfoutput><cfhtmlhead text='<script src="/includes/combine.cfm?type=js&files=#fl#" type="text/javascript"></script>'></cfoutput>
+<cfoutput><script src="/includes/combine.cfm?type=js&files=#fl#" type="text/javascript"></script></cfoutput>
