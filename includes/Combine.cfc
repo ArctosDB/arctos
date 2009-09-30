@@ -48,8 +48,8 @@
 		if(variables.bUseJavaLoader)
 		{
 			variables.jarFileArray = arrayNew(1);
-			arrayAppend(variables.jarFileArray, arguments.jarPath & "\combine.jar");
-			arrayAppend(variables.jarFileArray, arguments.jarPath & "\yuicompressor-2.4.2.jar");
+			arrayAppend(variables.jarFileArray, arguments.jarPath & "/combine.jar");
+			arrayAppend(variables.jarFileArray, arguments.jarPath & "/yuicompressor-2.4.2.jar");
 			arguments.javaLoader.init(variables.jarFileArray);
 		}
 		
@@ -191,7 +191,7 @@
 			<cfif variables.bCache>
 				
 				<!--- try to return a cached version of the file --->		
-				<cfset sCacheFile = variables.sCachePath & '\' & etag & '.' & sType />
+				<cfset sCacheFile = variables.sCachePath & '/' & etag & '.' & sType />
 				<cfif fileExists(sCacheFile)>
 					<cffile action="read" file="#sCacheFile#" variable="sOutput" />
 					<!--- output contents --->
