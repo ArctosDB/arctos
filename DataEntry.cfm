@@ -1,6 +1,6 @@
 <cfset btime=now()>
-<cfinclude template="/includes/_header.cfm">
 <cfset jsfilelist="/includes/jquery/suggest.js,/includes/_DEhead.js,/includes/CalendarPopup.js">
+<cfinclude template="/includes/_header.cfm">
 <!---
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>
 	<script type='text/javascript' src='/includes/_DEhead.js'></script>	
