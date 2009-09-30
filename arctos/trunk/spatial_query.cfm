@@ -1,7 +1,7 @@
 mappy!
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
-		<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
+		<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAAO1U4FM_13uDJoVwN--7J3xRt-ckefprmtgR9Zt3ibJoGF3oycxTHoy83TEZbPAjL1PURjC9X2BvFYg" type="text/javascript"></script>
 </cfoutput>
 
 <script src="/includes/dragzoom_packed.js" language="javascript" type="text/javascript"></script>
