@@ -6,9 +6,9 @@ mappy!
 		<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>
 
 </cfoutput>
-
+<!----
 <script src="/includes/dragzoom_packed.js" language="javascript" type="text/javascript"></script>
-
+---->
 <script>
 jQuery(document.body).unload(function() {
 		if (GBrowserIsCompatible()) {
