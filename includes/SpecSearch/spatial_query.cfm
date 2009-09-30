@@ -2,11 +2,22 @@ mappy!
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 		
-
+<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
+<div id="map_canvas" style="width: 100%; height: 400px;"></div>
+<script language="javascript" type="text/javascript">
+					google.load("maps", "2");
+       				function initializeMap() {
+						if (GBrowserIsCompatible()) {
+							var map = new GMap2(document.getElementById("map_canvas"));
+						}
+					}	
+					initializeMap();				
+				</script>
 </cfoutput>
+
+
 <!----
 
-	<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
 
 		<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>
 
@@ -28,7 +39,6 @@ jQuery(document.body).unload(function() {
 					<span class="likeLink" onclick="getDocs('pageHelp/spatial_query')";>More Info</span>
 					
 				</label>				
-				<div id="map_canvas" style="width: 100%; height: 400px;"></div>
 				<input type="text" style="font-weight:bold;border:none;width:100%" id="selectedCoords">
 				<input type="hidden" name="nwLat" id="nwLat">
 				<input type="hidden" name="nwlong" id="nwlong">
