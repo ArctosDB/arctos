@@ -7,7 +7,8 @@ mappy!
 <script language="javascript" type="text/javascript">
 					google.load("maps", "2");
        				function initializeMap() {
-							var map = new GMap2(document.getElementById("map_canvas"));
+						    var map = new google.maps.Map2(document.getElementById("map_canvas"));
+						
 					}	
 					initializeMap();				
 				</script>
