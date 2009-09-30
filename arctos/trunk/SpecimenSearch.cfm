@@ -1,5 +1,5 @@
+<!--- for whatever reason, must call this absolutely first --->
 <cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
-
 <cfset jsfilelist="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js,/includes/dragzoom_packed.js">
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Specimen Search">
