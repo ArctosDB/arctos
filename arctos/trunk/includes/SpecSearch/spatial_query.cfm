@@ -1,5 +1,6 @@
+<cfoutput>
 		<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
-
+</cfoutput>
 <cfinclude template="/includes/alwaysInclude.cfm">
 <script>
 jQuery(document.body).unload(function() {
