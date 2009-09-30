@@ -7,4 +7,4 @@
 <cfelse>
 	<cfset jsfilelist=listappend(jsfilelist,defaultjsfilelist)>
 </cfif>
-<cfoutput><script src="/includes/combine.cfm?type=js&files=#jsfilelist#" type="text/javascript"></script></cfoutput>
+<cfoutput><cfhtmlhead text='<script src="/includes/combine.cfm?type=js&files=#jsfilelist#" type="text/javascript"></script>'></cfoutput>
