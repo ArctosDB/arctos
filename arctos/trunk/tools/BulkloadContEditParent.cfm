@@ -176,10 +176,10 @@ validate
 	<cfquery name="pf" dbtype="query">
 		select count(*) c from data where status is not null
 	</cfquery>
-	<cfif pf.c is 0 or len(pf.c) is 0>
-		yippee! Look over the above grid and <a href="BulkloadContEditParent.cfm?action=load">click to continue</a> if it all looks good.
+	<cfif pf.c gt 0>
+		DoH! Something's busted. Check STATUS.
 	<cfelse>
-		DoH!
+		yippee! Look over the above grid and <a href="BulkloadContEditParent.cfm?action=load">click to continue</a> if it all looks good.
 	</cfif>
 </cfoutput>
 </cfif>
