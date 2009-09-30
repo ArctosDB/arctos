@@ -1,14 +1,15 @@
 mappy!
 <cfoutput>
 		
-		<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
 
 <div id="map_canvas" style="width: 100%; height: 400px;"></div>
 <script language="javascript" type="text/javascript">
 					google.load("maps", "2");
        				function initializeMap() {
-						    var map = new google.maps.Map2(document.getElementById("map_canvas"));
-						
+						if (GBrowserIsCompatible()) {
+							var map = new GMap2(document.getElementById("map_canvas"));
+						}
 					}	
 					initializeMap();				
 				</script>
@@ -17,8 +18,8 @@ mappy!
 
 <!----
 
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
 
+		<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>
 
 <script src="/includes/dragzoom_packed.js" language="javascript" type="text/javascript"></script>
 <script>
