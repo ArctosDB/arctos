@@ -1,6 +1,12 @@
 <cfset btime=now()>
 <cfinclude template="/includes/_header.cfm">
-<script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
+<cfset jsfilelist="/includes/jquery/suggest.js,/includes/_DEhead.js,/includes/CalendarPopup.js">
+<!---
+<script type='text/javascript' src='/includes/jquery/suggest.js'></script>
+	<script type='text/javascript' src='/includes/_DEhead.js'></script>	
+	<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
+
+--->
 <cf_showMenuOnly>
 <cf_setDataEntryGroups>
 <cfif not isdefined("ImAGod") or len(#ImAGod#) is 0>
@@ -14,9 +20,7 @@
 	<cfset pMode = "enter">
 </cfif>
 	<link rel="stylesheet" type="text/css" href="/includes/_DEstyle.css">
-	<script type='text/javascript' src='/includes/_DEhead.js'></script>	
 	
-	<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
 	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
 		var cal1 = new CalendarPopup("theCalendar");
 		cal1.showYearNavigation();
