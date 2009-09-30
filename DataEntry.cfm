@@ -1,12 +1,8 @@
 <cfset btime=now()>
-<cfset jsfilelist="/includes/jquery/suggest.js,/includes/_DEhead.js,/includes/CalendarPopup.js">
 <cfinclude template="/includes/_header.cfm">
-<!---
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>
 	<script type='text/javascript' src='/includes/_DEhead.js'></script>	
 	<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
-
---->
 <cf_showMenuOnly>
 <cf_setDataEntryGroups>
 <cfif not isdefined("ImAGod") or len(#ImAGod#) is 0>
