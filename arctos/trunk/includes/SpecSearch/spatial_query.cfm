@@ -1,3 +1,4 @@
+<cfinclude template="/includes/alwaysInclude.cfm">
 <script>
 jQuery(document.body).unload(function() {
 		if (GBrowserIsCompatible()) {
