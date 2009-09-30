@@ -257,7 +257,7 @@
 		<tr>
 			<td colspan="2">
 				i am spatial thing
-				<----
+				<!----
 				<label for="map_canvas">
 					Click 'select' then click and drag for spatial query&nbsp;&nbsp;&nbsp;
 					<span class="likeLink" onclick="getDocs('pageHelp/spatial_query')";>More Info</span>
