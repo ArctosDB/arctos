@@ -1,5 +1,3 @@
-<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
-
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js" language="javascript" type="text/javascript"></script>
 <script src="/includes/dragzoom_packed.js" language="javascript" type="text/javascript"></script>
@@ -254,6 +252,7 @@
 				<span class="secControl" id="c_locality" onclick="showHide('locality',1)">Show More Options</span>
 			</td>
 		</tr>
+		<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
 		<tr>
 			<td colspan="2">
 				<label for="map_canvas">
