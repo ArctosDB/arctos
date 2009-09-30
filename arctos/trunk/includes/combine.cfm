@@ -49,4 +49,5 @@ catch(any e)
 	<cfmail subject="COMBINE failure" to="#Application.PageProblemEmail#" from="COMBINE_fail@#Application.fromEmail#" type="html">
 		<cfdump var="#cfcatch#" />
 	</cfmail>
+	<cfdump var="#cfcatch#" />
 </cffunction>
