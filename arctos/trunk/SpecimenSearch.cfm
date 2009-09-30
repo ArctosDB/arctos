@@ -316,7 +316,7 @@
 			</td>
 		</tr>
 	</table>
-	<div id="e_locality"></div>
+	<div id="e_spatial_query"></div>
 </div>
 <div class="secDiv">
 	<table class="ssrch">
