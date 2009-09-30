@@ -1,5 +1,4 @@
 <cfsetting showdebugoutput="false" />
-<cfapplication name="combine" />
 <cfsetting enablecfoutputonly="true" />
 <cfscript>
 /*
@@ -26,7 +25,7 @@ else
 	// not using JavaLoader (the jar files must be in the classpath)
 	variables.oCombine = createObject("component", "combine").init(
 		enableCache: true,
-		cachePath: expandPath('example\cache'),
+		cachePath: expandPath('temp\cache'),
 		enableETags: true,
 		enableJSMin: true,
 		enableYuiCSS: true,
