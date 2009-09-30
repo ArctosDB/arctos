@@ -13,9 +13,6 @@
     	<link rel="alternate stylesheet" type="text/css" href="/includes/css/#session.stylesheet#" title="#ssName#">
 		<META http-equiv="Default-Style" content="#ssName#">
 	</cfif>	
-    <style type="text/css" media="screen"> 
-        @import "/includes/mainMenu.css"; 
-    </style>
     <!--[if IE]>
 		<style type="text/css" media="screen">
 		 ##menu ul li {float: left; width: 100%;}
