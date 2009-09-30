@@ -10,8 +10,9 @@ jQuery(document.body).unload(function() {
 	  	initializeMap();
 	});
 </script>
+		<cfoutput>
 		<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
-			
+			</cfoutput>
 	<label for="map_canvas">
 					Click 'select' then click and drag for spatial query&nbsp;&nbsp;&nbsp;
 					<span class="likeLink" onclick="getDocs('pageHelp/spatial_query')";>More Info</span>
