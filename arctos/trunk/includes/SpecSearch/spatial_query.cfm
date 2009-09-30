@@ -1,3 +1,5 @@
+		<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
+
 <cfinclude template="/includes/alwaysInclude.cfm">
 <script>
 jQuery(document.body).unload(function() {
@@ -12,7 +14,6 @@ jQuery(document.body).unload(function() {
 	});
 </script>
 		<cfoutput>
-		<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
 			</cfoutput>
 	<label for="map_canvas">
 					Click 'select' then click and drag for spatial query&nbsp;&nbsp;&nbsp;
