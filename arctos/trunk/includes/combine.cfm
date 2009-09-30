@@ -46,7 +46,7 @@ catch(any e)
 </cfscript>
 <cffunction name="handleError" access="public" returntype="void" output="false">
 	<cfargument name="cfcatch" type="any" required="true" />
-	<cfmail subject="#subject#" to="#Application.PageProblemEmail#" from="COMBINE_fail@#Application.fromEmail#" type="html">
+	<cfmail subject="COMBINE failure" to="#Application.PageProblemEmail#" from="COMBINE_fail@#Application.fromEmail#" type="html">
 		<cfdump var="#cfcatch#" />
 	</cfmail>
 </cffunction>
