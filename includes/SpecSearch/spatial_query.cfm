@@ -3,10 +3,12 @@ mappy!
 <cfoutput>
 		
 	<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
-		<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>
 
 </cfoutput>
 <!----
+
+		<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>
+
 <script src="/includes/dragzoom_packed.js" language="javascript" type="text/javascript"></script>
 <script>
 jQuery(document.body).unload(function() {
