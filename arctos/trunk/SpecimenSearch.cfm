@@ -1,8 +1,7 @@
+<cfset jsfilelist="/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js,/includes/dragzoom_packed.js">
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Specimen Search">
 <cfset metaDesc="Search for museum specimens and observations by taxonomy, identifications, specimen attributes, and usage history.">
-
-<script src="/includes/combine.cfm?type=js&files=/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js,/includes/dragzoom_packed.js" type="text/javascript"></script>
 
 <!---
 <cfhtmlhead text="<script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>">
@@ -310,7 +309,6 @@
 									jQuery('##selectedCoords').val('Selected Area: NW=' + nw + '; SE=' + se);
 								}
 							};
-							
 							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(1,1)));
 						}
 					}					
