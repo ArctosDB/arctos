@@ -253,7 +253,6 @@
 				<span class="secControl" id="c_spatial_query" onclick="showHide('spatial_query',1)">Show More Options</span>
 			</td>
 		</tr>
-		<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
 		<tr>
 			<td colspan="2">			
 			</td>
