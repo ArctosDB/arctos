@@ -31,7 +31,6 @@ else
 		enableYuiCSS: true,
 		skipMissingFiles: false
 	);
-	hi there.
 	// using JavaLoader
 	/*variables.oCombine = createObject("component", "combine").init(
 		enableCache: true,
