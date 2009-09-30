@@ -8,7 +8,6 @@ mappy!
 </cfoutput>
 <!----
 <script src="/includes/dragzoom_packed.js" language="javascript" type="text/javascript"></script>
----->
 <script>
 jQuery(document.body).unload(function() {
 		if (GBrowserIsCompatible()) {
@@ -75,3 +74,4 @@ jQuery(document.body).unload(function() {
 						}
 					}					
 				</script>
+---->
