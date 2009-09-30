@@ -1,5 +1,5 @@
 <cfsetting showdebugoutput="false" />
-<cfsetting enablecfoutputonly="true" />
+<cfsetting enablecfoutputonly="false" />
 <cfscript>
 /*
 	Create the combine object, or use the cached version
@@ -31,7 +31,7 @@ else
 		enableYuiCSS: true,
 		skipMissingFiles: false
 	);
-	
+	hi there.
 	// using JavaLoader
 	/*variables.oCombine = createObject("component", "combine").init(
 		enableCache: true,
