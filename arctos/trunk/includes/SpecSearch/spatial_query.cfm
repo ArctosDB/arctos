@@ -1,7 +1,8 @@
 mappy!
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfoutput>
-		<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
+		
+	<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
 		<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>
 
 </cfoutput>
@@ -20,7 +21,6 @@ jQuery(document.body).unload(function() {
 	  	initializeMap();
 	});
 </script>
-		<cfoutput>
 	<label for="map_canvas">
 					Click 'select' then click and drag for spatial query&nbsp;&nbsp;&nbsp;
 					<span class="likeLink" onclick="getDocs('pageHelp/spatial_query')";>More Info</span>
@@ -33,7 +33,6 @@ jQuery(document.body).unload(function() {
 				<input type="hidden" name="selat" id="selat">
 				<input type="hidden" name="selong" id="selong">
 
-							</cfoutput>
 
 				<script language="javascript" type="text/javascript">
 					google.load("maps", "2");
