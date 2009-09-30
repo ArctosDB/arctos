@@ -506,7 +506,7 @@
 		}
 	});
 	jQuery(document).ready(function() {
-	  	initializeMap();
+	  	//initializeMap();
 	  	var tval = document.getElementById('tgtForm').value;
 		changeTarget('tgtForm',tval);
 		changeGrp('groupBy');
