@@ -75,7 +75,9 @@ stop this works
 		function cb(){console.log('callback');}
 			
 		 	google.load("maps", "2");
-		  //	google.setOnLoadCallback(cb);
+		 	google.load("elements", "1", {packages : ["localsearch"]});
+		 	
+		  google.setOnLoadCallback(initializeMap);
 		
 	}
 </script>
