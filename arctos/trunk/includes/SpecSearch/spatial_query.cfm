@@ -23,6 +23,7 @@ stop this works ---->
 <script language="javascript" type="text/javascript">
 	
 	function initializeMap() {
+		console.log('initializeMap');
 		if (GBrowserIsCompatible()) {
 		
 							
@@ -65,7 +66,7 @@ stop this works ---->
 		} else {
 			alert('Your browser does not support Google Maps.');
 		}
-		function cb(){console.log('callback');
+		function cb(){console.log('callback');}
 			
 		 	google.load("maps", "2");
 		  	google.setOnLoadCallback(cb);
