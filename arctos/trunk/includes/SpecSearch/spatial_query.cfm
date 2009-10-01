@@ -69,7 +69,7 @@ stop this works ---->
 		function cb(){console.log('callback');}
 			
 		 	google.load("maps", "2");
-		  	google.setOnLoadCallback(cb);
+		  //	google.setOnLoadCallback(cb);
 		
 	}
 </script>
