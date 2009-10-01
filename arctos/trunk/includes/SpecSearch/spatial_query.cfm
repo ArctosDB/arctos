@@ -29,7 +29,9 @@ stop this works
 	  	initializeMap();
 	});
 		
-					//google.load("maps", "2");
+	jQuery(document.body).unload(function() {
+					GUnload();
+	});				//google.load("maps", "2");
        				//		google.load("elements", "1", {packages : ["localsearch"]});
        				
 					function initializeMap() {
