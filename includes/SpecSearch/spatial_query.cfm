@@ -8,7 +8,6 @@ stop this works
 
 ---->
 
-<cfinclude template="/includes/_header.cfm">
 <cfoutput>
 	<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
 
@@ -68,7 +67,7 @@ stop this works
 							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(1,1)));
 						}
 					}
-							  google.setOnLoadCallback(initializeMap);
+					google.setOnLoadCallback(initializeMap);
 									
 				</script>
 				
