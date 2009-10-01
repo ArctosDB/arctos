@@ -13,10 +13,7 @@
 				        map.setUIToDefault();
 				      }
 					}
-					jQuery(document).ready(function() {
-						console.log('I am ready');
-						initializeMap();
-						}
+					initializeMap();
 </script>
 </cfoutput>
 
