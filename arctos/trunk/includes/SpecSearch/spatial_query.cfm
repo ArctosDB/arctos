@@ -23,8 +23,8 @@ stop this works ---->
 		if (GBrowserIsCompatible()) {
 			var map = new GMap2(document.getElementById("map_canvas"));
 			map.setCenter(new google.maps.LatLng(37.4419, -122.1419), 13);
-			//map.setUIToDefault();
-			//map.enableGoogleBar(new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(250,1)));
+			map.setUIToDefault();
+			map.enableGoogleBar(new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(250,1)));
 			map.addControl(new GLargeMapControl(),new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(1,1)));
 			var boxStyleOpts = {
 								opacity:.0,
