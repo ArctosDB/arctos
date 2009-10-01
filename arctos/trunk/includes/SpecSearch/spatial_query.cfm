@@ -1,21 +1,30 @@
-mappy!
+<cfinclude template="/includes/_header.cfm">
+
 <cfoutput>
-		
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>
+
 
 <div id="map_canvas" style="width: 100%; height: 400px;"></div>
 <script language="javascript" type="text/javascript">
+       google.load("maps", "2");
+       
        				function initializeMap() {
+						var map = new google.maps.Map2(document.getElementById("map_canvas"));
+    map.setCenter(new google.maps.LatLng(37.4419, -122.1419), 13);
+						/***
 						if (GBrowserIsCompatible()) {
 							var map = new GMap2(document.getElementById("map_canvas"));
 						}
-					}	
-				</script>
+						*/
+					}
+		  google.setOnLoadCallback(initializeMap);
+</script>
 </cfoutput>
 
 <span onclick="initializeMap()">initializy</span>
 <!----
 
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=" type="text/javascript"></script>
 
 		<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>
 
