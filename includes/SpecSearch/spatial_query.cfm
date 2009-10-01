@@ -21,7 +21,7 @@
 			map.setUIToDefault();
 			initializeMap();
 		} else {
-			alert('Your browser does not support Google Maps.);
+			alert('Your browser does not support Google Maps.');
 		}
 	}
 </script>
