@@ -1,7 +1,6 @@
 
 <cfoutput>
 
-<script src="/includes/dragzoom_packed.js" language="javascript" type="text/javascript"></script>
 
 <label for="map_canvas">
 	Click 'select' then click and drag for spatial query&nbsp;&nbsp;&nbsp;
@@ -31,6 +30,7 @@
 
 <span onclick="initializeMap()">initializy</span>
 <!----
+<script src="/includes/dragzoom_packed.js" language="javascript" type="text/javascript"></script>
 
 <cfinclude template="/includes/_header.cfm">
 
