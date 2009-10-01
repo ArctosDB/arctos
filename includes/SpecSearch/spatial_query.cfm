@@ -25,8 +25,8 @@ stop this works
 <input type="hidden" name="selong" id="selong">
 <div id="map_canvas" style="width: 100%; height: 400px;"></div>
 <script language="javascript" type="text/javascript">
-					google.load("maps", "2");
-       						google.load("elements", "1", {packages : ["localsearch"]});
+					//google.load("maps", "2");
+       				//		google.load("elements", "1", {packages : ["localsearch"]});
        				
 					function initializeMap() {
 						if (GBrowserIsCompatible()) {
@@ -38,7 +38,7 @@ stop this works
 							map.addMapType(G_PHYSICAL_MAP);
 							map.addControl(new GScaleControl(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(125,1)));
 							map.addControl(new GMapTypeControl(),new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(1,1)));
-							map.addControl(new google.elements.LocalSearch(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(250,1)));
+							//map.addControl(new google.elements.LocalSearch(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(250,1)));
 							
 							var boxStyleOpts = {
 								opacity:.0,
