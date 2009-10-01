@@ -58,16 +58,12 @@ end works --->
 <input type="hidden" name="selong" id="selong">
 <div id="map_canvas" style="width: 100%; height: 400px;"></div>
 <script language="javascript" type="text/javascript">
-	 google.load("maps", "2.x");
-   
-  // Call this function when the page has been loaded
-  function initializeMap() {
-    var map = new google.maps.Map2(document.getElementById("map_canvas"));
-    map.setCenter(new google.maps.LatLng(37.4419, -122.1419), 13);
-  }
-  google.setOnLoadCallback(initializeMap);
-	
-	
+	google.load("maps", "2.x");
+   	function initializeMap() {
+    	var map = new google.maps.Map2(document.getElementById("map_canvas"));
+    	map.setCenter(new google.maps.LatLng(37.4419, -122.1419), 13);
+	}
+  	google.setOnLoadCallback(initializeMap);
 </script>
 </cfoutput>
 
