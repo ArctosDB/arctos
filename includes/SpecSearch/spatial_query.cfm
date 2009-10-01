@@ -1,4 +1,3 @@
-<cfinclude template="/includes/_header.cfm">
 
 <cfoutput>
 <script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>
@@ -23,6 +22,8 @@
 
 <span onclick="initializeMap()">initializy</span>
 <!----
+
+<cfinclude template="/includes/_header.cfm">
 
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=" type="text/javascript"></script>
 
