@@ -25,11 +25,12 @@ stop this works
 <input type="hidden" name="selong" id="selong">
 <div id="map_canvas" style="width: 100%; height: 400px;"></div>
 <script language="javascript" type="text/javascript">
-					function initializeMap() {
-						if (GBrowserIsCompatible()) {
-							google.load("maps", "2");
+					google.load("maps", "2");
        						google.load("elements", "1", {packages : ["localsearch"]});
        				
+					function initializeMap() {
+						if (GBrowserIsCompatible()) {
+							
 							var map = new GMap2(document.getElementById("map_canvas"));
 							var center = new GLatLng(55, -135);
 							map.setCenter(center, 3);
