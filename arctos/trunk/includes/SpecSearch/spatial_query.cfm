@@ -4,15 +4,15 @@ stop this works
 
 
 
-
+<cfoutput>
+				<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>
+</cfoutput>
 
 ---->
 
 
 <script src="/includes/dragzoom_packed.js" language="javascript" type="text/javascript"></script>
-<cfoutput>
-				<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>
-</cfoutput>
+
 
 <label for="map_canvas">
 	Click 'select' then click and drag for spatial query&nbsp;&nbsp;&nbsp;
