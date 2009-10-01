@@ -65,9 +65,10 @@ stop this works ---->
 		} else {
 			alert('Your browser does not support Google Maps.');
 		}
-		
+		function cb(){console.log('callback');
+			
 		 	google.load("maps", "2");
-		  	google.setOnLoadCallback(initializeMap);
+		  	google.setOnLoadCallback(cb);
 		
 	}
 </script>
