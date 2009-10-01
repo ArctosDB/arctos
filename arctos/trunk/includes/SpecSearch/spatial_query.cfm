@@ -23,6 +23,11 @@ stop this works ---->
 <script language="javascript" type="text/javascript">
 	function initializeMap() {
 		if (GBrowserIsCompatible()) {
+		
+							google.load("maps", "2");
+		
+		
+		
 			var map = new GMap2(document.getElementById("map_canvas"));
 			map.setCenter(new google.maps.LatLng(37.4419, -122.1419), 13);
 			map.setUIToDefault();
