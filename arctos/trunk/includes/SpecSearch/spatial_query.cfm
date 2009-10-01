@@ -21,7 +21,6 @@ stop this works ---->
 <input type="hidden" name="selong" id="selong">
 <div id="map_canvas" style="width: 100%; height: 400px;"></div>
 <script language="javascript" type="text/javascript">
-			google.load("maps", "2");
 	
 	function initializeMap() {
 		if (GBrowserIsCompatible()) {
@@ -61,12 +60,13 @@ stop this works ---->
 									jQuery('##selectedCoords').val('Selected Area: NW=' + nw + '; SE=' + se);
 								}
 							};
-							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(30,50)));
+						//	map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(30,50)));
 					
 		} else {
 			alert('Your browser does not support Google Maps.');
 		}
 		
+		 	google.load("maps", "2");
 		  	google.setOnLoadCallback(initializeMap);
 		
 	}
