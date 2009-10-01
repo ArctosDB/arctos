@@ -67,6 +67,7 @@ stop this works ---->
 			alert('Your browser does not support Google Maps.');
 		}
 		
+		  	google.setOnLoadCallback(initializeMap);
 		
 	}
 </script>
