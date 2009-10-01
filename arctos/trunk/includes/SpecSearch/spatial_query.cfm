@@ -5,6 +5,8 @@ stop this works ---->
 
 <cfoutput>
 	<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
+	<cfhtmlhead text='<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>'>
+
 <script src="/includes/dragzoom_packed.js" language="javascript" type="text/javascript"></script>
 
 
@@ -24,9 +26,11 @@ stop this works ---->
 			var map = new GMap2(document.getElementById("map_canvas"));
 			map.setCenter(new google.maps.LatLng(37.4419, -122.1419), 13);
 			map.setUIToDefault();
-			map.enableGoogleBar();			
+			//map.enableGoogleBar();			
 			//map.enableGoogleBar(new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(250,1)));
 			//map.addControl(new GLargeMapControl(),new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(1,1)));
+			map.addControl(new google.elements.LocalSearch(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(250,1)));
+			
 			var boxStyleOpts = {
 								opacity:.0,
 								border:"2px solid green"
