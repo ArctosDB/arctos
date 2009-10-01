@@ -8,7 +8,6 @@ stop this works
 
 ---->
 
-<cfoutput>
 
 <script src="/includes/dragzoom_packed.js" language="javascript" type="text/javascript"></script>
 
@@ -127,7 +126,6 @@ stop this works
 	}
 </script>
 ---->
-</cfoutput>
 
 
 
