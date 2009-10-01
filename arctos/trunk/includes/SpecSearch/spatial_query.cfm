@@ -36,7 +36,7 @@ stop this works ---->
 			//map.enableGoogleBar();			
 			//map.enableGoogleBar(new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(250,1)));
 			//map.addControl(new GLargeMapControl(),new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(1,1)));
-			map.addControl(new google.elements.LocalSearch(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(250,1)));
+			//map.addControl(new google.elements.LocalSearch(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(250,1)));
 			
 			var boxStyleOpts = {
 								opacity:.0,
