@@ -13,7 +13,9 @@
 				        map.setUIToDefault();
 				      }
 					}
-					initializeMap();
+					if (GBrowserIsCompatible()) {
+						initializeMap();
+					}
 </script>
 </cfoutput>
 
