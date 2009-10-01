@@ -24,9 +24,7 @@
 			alert('Your browser does not support Google Maps.');
 		}
 		
-		if (GBrowserIsCompatible()) {
-			initializeMap();
-		}
+		
 	}
 </script>
 </cfoutput>
@@ -35,6 +33,11 @@
 
 <span onclick="initializeMap()">initializy</span>
 <!----
+
+
+if (GBrowserIsCompatible()) {
+			initializeMap();
+		}
 <script src="/includes/dragzoom_packed.js" language="javascript" type="text/javascript"></script>
 
 <cfinclude template="/includes/_header.cfm">
