@@ -21,9 +21,9 @@ stop this works ---->
 	function initializeMap() {
 		if (GBrowserIsCompatible()) {
 			var map = new GMap2(document.getElementById("map_canvas"));
-			map.setCenter(new GLatLng(37.4419, -122.1419), 13);
+			map.setCenter(new google.maps.LatLng(37.4419, -122.1419), 13);
 			map.setUIToDefault();
-			 map.enableGoogleBar();
+			map.enableGoogleBar(new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(250,1)));
 			
 		} else {
 			alert('Your browser does not support Google Maps.');
