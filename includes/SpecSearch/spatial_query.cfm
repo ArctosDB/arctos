@@ -79,6 +79,8 @@ stop this works ---->
 
 <span onclick="initializeMap()">initializy</span>
 
+<span onclick="GUnload();">GUnload();</span>
+
 
 <!---- this works
 
