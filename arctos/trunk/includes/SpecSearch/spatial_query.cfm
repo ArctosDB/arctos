@@ -1,9 +1,11 @@
 <!----
 this works
+stop this works ---->
 
 
 <cfoutput>
 	<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
+<script src="/includes/dragzoom_packed.js" language="javascript" type="text/javascript"></script>
 
 
 <label for="map_canvas">
@@ -21,9 +23,34 @@ this works
 		if (GBrowserIsCompatible()) {
 			var map = new GMap2(document.getElementById("map_canvas"));
 			map.setCenter(new google.maps.LatLng(37.4419, -122.1419), 13);
-			map.setUIToDefault();
+			//map.setUIToDefault();
 			map.enableGoogleBar(new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(250,1)));
-			
+			map.addControl(new GLargeMapControl(),new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(1,1)));
+			var boxStyleOpts = {
+								opacity:.0,
+								border:"2px solid green"
+							}
+							var otherOpts = {
+								overlayRemoveTime:99999999999999,  
+								buttonHTML:"Turn on Select",
+								buttonZoomingHTML:"Turn off Select",
+								buttonStartingStyle:{left:'150px', border: '1px solid black', padding: '4px',fontSize:'small',color:'blue',fontWeight:'bold'},
+								buttonZoomingStyle:{background: 'lightblue'},
+								backButtonEnabled : true,
+								backButtonHTML : 'Go Back',
+								minDragSize:3
+							};
+							var callbacks = {
+								dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){
+									jQuery('##nwLat').val(nw.lat());
+									jQuery('##nwlong').val(nw.lng());
+									jQuery('##selat').val(se.lat());
+									jQuery('##selong').val(se.lng());
+									jQuery('##selectedCoords').val('Selected Area: NW=' + nw + '; SE=' + se);
+								}
+							};
+							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new map.controlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(1,1)));
+					
 		} else {
 			alert('Your browser does not support Google Maps.');
 		}
@@ -37,11 +64,9 @@ this works
 
 <span onclick="initializeMap()">initializy</span>
 
-stop this works ---->
 
 <!---- this works
 
-end works --->
 
 <cfoutput>
 	<cfhtmlhead text='<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>'>
@@ -97,6 +122,7 @@ end works --->
 
 
 <span onclick="initializeMap()">initializy</span>
+end works --->
 
 <!----
 
