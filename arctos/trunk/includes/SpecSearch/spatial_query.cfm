@@ -61,7 +61,7 @@ end works --->
 	google.load("maps", "2.x");
    	function initializeMap() {
     	var map = new google.maps.Map2(document.getElementById("map_canvas"));
-    	map.setCenter(new google.maps.LatLng(37.4419, -122.1419), 13);
+    	map.setCenter(new google.maps.LatLng(55, -135), 3);
 	}
   	google.setOnLoadCallback(initializeMap);
 </script>
