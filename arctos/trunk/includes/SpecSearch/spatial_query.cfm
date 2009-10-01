@@ -1,4 +1,5 @@
-
+<!----
+this works
 <cfoutput>
 	<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
 
@@ -32,6 +33,41 @@
 
 
 <span onclick="initializeMap()">initializy</span>
+
+stop this works ---->
+
+
+<cfoutput>
+	<cfhtmlhead text='<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>'>
+
+
+<label for="map_canvas">
+	Click 'select' then click and drag for spatial query&nbsp;&nbsp;&nbsp;
+	<span class="likeLink" onclick="getDocs('pageHelp/spatial_query')";>More Info</span>
+</label>
+<input type="text" style="font-weight:bold;border:none;width:100%" id="selectedCoords">
+<input type="hidden" name="nwLat" id="nwLat">
+<input type="hidden" name="nwlong" id="nwlong">
+<input type="hidden" name="selat" id="selat">
+<input type="hidden" name="selong" id="selong">
+<div id="map_canvas" style="width: 100%; height: 400px;"></div>
+<script language="javascript" type="text/javascript">
+	 google.load("maps", "2.x");
+   
+  // Call this function when the page has been loaded
+  function initializeMap() {
+    var map = new google.maps.Map2(document.getElementById("map_canvas"));
+    map.setCenter(new google.maps.LatLng(37.4419, -122.1419), 13);
+  }
+  google.setOnLoadCallback(initializeMap);
+	
+	
+</script>
+</cfoutput>
+
+
+
+<span onclick="initializeMap()">initializy</span>
 <!----
 
 
@@ -44,7 +80,6 @@ if (GBrowserIsCompatible()) {
 
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=" type="text/javascript"></script>
 
-		<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>
 
 <script>
 jQuery(document.body).unload(function() {
