@@ -87,7 +87,7 @@ end works --->
 									jQuery('##selectedCoords').val('Selected Area: NW=' + nw + '; SE=' + se);
 								}
 							};
-							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(1,1)));
+							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new map.controlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(1,1)));
 					
 	}
   	google.setOnLoadCallback(initializeMap);
