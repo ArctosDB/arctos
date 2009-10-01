@@ -1,7 +1,6 @@
 <!----
 this works
 
-stop this works ---->
 
 <cfoutput>
 	<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
@@ -38,8 +37,12 @@ stop this works ---->
 
 <span onclick="initializeMap()">initializy</span>
 
+stop this works ---->
 
 <!---- this works
+
+end works --->
+
 <cfoutput>
 	<cfhtmlhead text='<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>'>
 
@@ -72,7 +75,6 @@ stop this works ---->
 
 <span onclick="initializeMap()">initializy</span>
 
-end works --->
 <!----
 
 
@@ -123,6 +125,14 @@ jQuery(document.body).unload(function() {
 							map.addControl(new GScaleControl(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(125,1)));
 							map.addControl(new GMapTypeControl(),new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(1,1)));
 							map.addControl(new google.elements.LocalSearch(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(250,1)));
+							
+							
+							
+							
+							GMapType.G_SATELLITE_3D_MAP
+							
+							
+							
 							
 							var boxStyleOpts = {
 								opacity:.0,
