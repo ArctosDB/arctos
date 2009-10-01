@@ -19,9 +19,13 @@
 			var map = new GMap2(document.getElementById("map_canvas"));
 			map.setCenter(new GLatLng(37.4419, -122.1419), 13);
 			map.setUIToDefault();
-			initializeMap();
+			
 		} else {
 			alert('Your browser does not support Google Maps.');
+		}
+		
+		if (GBrowserIsCompatible()) {
+			initializeMap();
 		}
 	}
 </script>
