@@ -1,6 +1,7 @@
 
 <cfoutput>
-<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>
+	<cfhtmlhead text='<script type="text/javascript" src="http://www.google.com/jsapi?key=#application.gmap_api_key#"></script>'>
+
 
 
 <div id="map_canvas" style="width: 100%; height: 400px;"></div>
