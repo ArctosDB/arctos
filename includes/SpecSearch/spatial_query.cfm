@@ -13,6 +13,9 @@
 				        map.setUIToDefault();
 				      }
 					}
+					jQuery(document).ready(function() {
+						initializeMap();
+						}
 </script>
 </cfoutput>
 
