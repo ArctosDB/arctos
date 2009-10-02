@@ -312,7 +312,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="#URLEncodedFormat('/SpecimenResults.cfm?scientific_name=#one.scientific_name#&amp;media_type=any')#">
+				<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#%26media_type=any">
 					Specimen Results with Media: like #one.display_name#
 				</a>
 			</li>
