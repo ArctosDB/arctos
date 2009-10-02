@@ -164,24 +164,24 @@
 		    	<B>#one.display_name#</B>			    
 			</font>
 			<cfif len(one.AUTHOR_TEXT) gt 0>
-				<cfset metaDesc=metaDesc & "; Author: #one.AUTHOR_TEXT#">
+				<cfset metaDesc=metaDesc &amp;amp; "; Author: #one.AUTHOR_TEXT#">
         	</cfif>
         <cfelseIF #one.VALID_CATALOG_TERM_FG# is 0>
 	    	<font size="+1"><b>#one.display_name#</b></font>
 	        <br>
 	        <font color="##FF0000" size="-1">
-		    	&nbsp;&nbsp;&nbsp;&nbsp;
+		    	&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;&amp;amp;nbsp;
 		    	This name is not accepted for current identifications.
 			</font>
 	    </cfif>
 	</div>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-		<a href="/Taxonomy.cfm?action=edit&taxon_name_id=#one.taxon_name_id#">Edit Taxonomy</a>	
+		<a href="/Taxonomy.cfm?action=edit&amp;amp;taxon_name_id=#one.taxon_name_id#">Edit Taxonomy</a>	
 	</cfif>
 	<table border>
 		<tr>
 			<cfloop list="#taxaRanksList#" index="i">
-				<cfif len(evaluate("one." & i)) gt 0>
+				<cfif len(evaluate("one." &amp;amp; i)) gt 0>
 					<cfset lbl=replace(i,"PHYL",'')>
 					<cfif lbl is "subspecies" and len(one.infraspecific_rank) gt 0>
 						<cfset lbl=one.infraspecific_rank>
@@ -192,9 +192,9 @@
 		</tr>
 		<tr>
 			<cfloop list="#taxaRanksList#" index="i">
-				<cfif len(evaluate("one." & i)) gt 0>
-					<td>#evaluate("one." & i)#</td>
-					<cfset metaDesc=metaDesc & "; #replace(i,'PHYL','')#: #evaluate('one.' & i)#">
+				<cfif len(evaluate("one." &amp;amp; i)) gt 0>
+					<td>#evaluate("one." &amp;amp; i)#</td>
+					<cfset metaDesc=metaDesc &amp;amp; "; #replace(i,'PHYL','')#: #evaluate('one.' &amp;amp; i)#">
 				</cfif>
 			</cfloop>
 		</tr>
@@ -205,7 +205,7 @@
 		<cfif len(common_name.common_name) is 0>
 			<li><b>No common names recorded.</b></li>
 		<cfelse>
-			<cfset metaDesc=metaDesc & "; Common Names: #valuelist(common_name.common_name)#">
+			<cfset metaDesc=metaDesc &amp;amp; "; Common Names: #valuelist(common_name.common_name)#">
 			<cfloop query="common_name">
 				<li><b>#common_name#</b></li>
 			</cfloop>
@@ -309,17 +309,17 @@
 				</a>
 			</li>
 			<li>
-				<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#&amp;amp;media_type=any">
+				<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#&amp;amp;amp;amp;media_type=any">
 					Specimen Results with Media: like #one.display_name#
 				</a>
 			</li>
 			<li>
-				<a href="/bnhmMaps/kml.cfm?method=gmap&action=newReq&next=colorBySpecies&scientific_name=#one.scientific_name#" class="external" target="_blank">
+				<a href="/bnhmMaps/kml.cfm?method=gmap&amp;amp;amp;amp;action=newReq&amp;amp;amp;amp;next=colorBySpecies&amp;amp;amp;amp;scientific_name=#one.scientific_name#" class="external" target="_blank">
 					Google Map of Arctos specimens
 				</a>
 			</li>
 			<li>
-				<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&scientific_name=#one.scientific_name#" class="external" target="_blank">
+				<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&amp;amp;amp;amp;scientific_name=#one.scientific_name#" class="external" target="_blank">
 					BerkeleyMapper + RangeMaps
 				</a>
 			</li>
@@ -361,22 +361,22 @@
 				</a>
 			</li>
 			<li>
-				<a class="external" target="_blank" href="http://epic.kew.org/searchepic/summaryquery.do?scientificName=#srchName#&searchAll=true&categories=names&categories=bibl&categories=colln&categories=taxon&categories=flora&categories=misc">
+				<a class="external" target="_blank" href="http://epic.kew.org/searchepic/summaryquery.do?scientificName=#srchName#&amp;amp;amp;amp;searchAll=true&amp;amp;amp;amp;categories=names&amp;amp;amp;amp;categories=bibl&amp;amp;amp;amp;categories=colln&amp;amp;amp;amp;categories=taxon&amp;amp;amp;amp;categories=flora&amp;amp;categories=misc">
 					electronic plant information centre
 				</a>
 			</li>
 			<li>
-				<a class="external" target="_blank" href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all">
+				<a class="external" target="_blank" href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&amp;amp;search_value=#srchName#&amp;amp;search_kingdom=every&amp;amp;search_span=containing&amp;amp;categories=All&amp;amp;source=html&amp;amp;search_credRating=all">
 					ITIS
 				</a>
 			</li>
 			<li>
-				<a class="external" target="_blank" href="http://www.catalogueoflife.org/search_results.php?search_string=#srchName#&match_whole_words=on">
+				<a class="external" target="_blank" href="http://www.catalogueoflife.org/search_results.php?search_string=#srchName#&amp;amp;match_whole_words=on">
 					Catalogue of Life
 				</a>
 			</li>
 			<li>
-				<a class="external" target="_blank" href="http://www.unep-wcmc.org/isdb/CITES/Taxonomy/tax-species-result.cfm?displaylanguage=eng&Genus=%25#one.genus#%25&source=animals&Species=#one.species#">
+				<a class="external" target="_blank" href="http://www.unep-wcmc.org/isdb/CITES/Taxonomy/tax-species-result.cfm?displaylanguage=eng&amp;amp;Genus=%25#one.genus#%25&amp;amp;source=animals&amp;amp;Species=#one.species#">
 					UNEP (CITES)
 				</a>
 			</li>
