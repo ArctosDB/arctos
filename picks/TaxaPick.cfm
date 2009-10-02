@@ -1,6 +1,13 @@
 <cfinclude template="../includes/_pickHeader.cfm">
-	<cfif len(#scientific_name#) is 0>
-		You must enter search criteria.
+	<cfif len(scientific_name) is 0 or scientific_name is 'undefined'>
+		<form name="s" method="post" action="TaxaPick.cfm">
+			<input type="hidden" name="formName" value="#formName#">
+			<input type="hidden" name="taxonIdFld" value="#taxonIdFld#">
+			<input type="hidden" name="taxonNameFld" value="#taxonNameFld#">
+			<label for="scientific_name">Scientific Name</label>
+			<input type="text" name="" id="" size="50">
+			<br><input type="submit" class="lnkBtn" value="Search">
+		</form>
 		<cfabort>
 	</cfif>
 	<cfoutput>
