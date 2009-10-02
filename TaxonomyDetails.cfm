@@ -272,6 +272,25 @@
 				</cfif>
 				<div>
 					<a href="#media_uri#"><img src="#puri#" alt="#one.display_name#"></a>
+					<cfif lbl.recordcount gt 0>
+						<br>Labels:
+						<ul>
+							<cfloop query="lbl">
+								<li>#media_label#: #label_value#</li>
+							</cfloop>
+						</ul>
+					</cfif>
+					 <cfif mrel.recordcount gt 0>
+					Relations:
+					<ul>
+						<cfloop query="mrel">
+							<li>#media_relationship#: #summary#
+							<cfif len(#link#) gt 0>
+							<a class="infoLink" href="#link#" target="_blank">More...</a>
+							</cfif></li>
+						</cfloop>
+					</ul>
+					</cfif>
 				</div>
 			</cfloop>
 			
