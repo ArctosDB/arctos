@@ -70,6 +70,7 @@ function pickedRelationship (id){
 	hid.value='';
 	var inp=document.getElementById(dispInputName);
 	inp.value='';
+	alert('hi');
 	if (relatedTable=='') {
 		// do nothing, cleanup already happened
 	} else if (relatedTable=='agent'){
