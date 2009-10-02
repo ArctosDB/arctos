@@ -9,8 +9,8 @@
 		</cfquery>
 	</cfif>
 	<cfoutput>
+		<cfset ssName = replace(getCollApp.stylesheet,".css","","all")>
 		<cfif len(trim(getCollApp.STYLESHEET)) gt 0>
-			<cfset ssName = replace(getCollApp.stylesheet,".css","","all")>
 			<cfhtmlhead text='<link rel="alternate stylesheet" type="text/css" href="/includes/css/#getCollApp.STYLESHEET#" title="#ssName#">'>
 			<cfset session.currentStyleSheet = '#ssName#'>
 		</cfif>
