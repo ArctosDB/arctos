@@ -157,9 +157,6 @@
 		<cfelse>
 			<a href="/login.cfm">Login or Create Account</a>
 		</cfif>
-		<cfif isdefined("session.mapURL") and len(session.mapURL) gt 0>
-			<br><a onclick="document.location='/SpecimenResults.cfm?#session.mapURL#'">[Return to results]</a>
-		</cfif>	
     </span>
 	<div align="left">
 		<cfif one.VALID_CATALOG_TERM_FG is 1>
@@ -312,7 +309,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#&amp;media_type=any">
+				<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#&amp;amp;media_type=any">
 					Specimen Results with Media: like #one.display_name#
 				</a>
 			</li>
