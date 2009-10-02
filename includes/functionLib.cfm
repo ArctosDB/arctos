@@ -1,52 +1,4 @@
 <!------------------------------------------------------------------------------------->
-<cffunction name="findN" access="public" output="true" returntype="any" description="ssb,s,n: returns nth ssb in s">
-    <cfargument name="ssb" required="true" type="string">
-    <cfargument name="s" required="true" type="string">
-    <cfargument name="n" required="true" type="numeric">
-	<cfset p=0>
-
-	
-	<br>ssb: #ssb#
-	<br>s: #s#
-	<br>n: #n#
-	<cfset ts=s>
-	
-	<cfset test=find(ssb,s)>
-	<br>test: #test#
-	<cfloop from="1" to="#n#" index="l">
-		<br> loop #l#
-		<br>ssb: #ssb#
-		<br>ts: #ts#
-		<br>p: #p#
-		<cfset tp = find(ssb,ts)>
-		<br>set tp: #tp#
-		<cfif tp is 0>
-			<br>-- tp is 0; there are not enough occurrences; return 0---
-			<cfreturn 0>
-		</cfif>
-		<cfset p = p + tp>
-		<br>--- added tp to p
-		<cfif n is l>
-			<br>----p is #p#-----
-			<cfreturn p>
-		</cfif>
-		<br>cutting ts up again - want everything right of (tp || ssb)
-		<br>ts: #ts#
-		<cfset numChars=len(ts)-tp-len(ssb)+1>
-		<br>numChars: #numChars#
-		<cfif numChars lte 0>
-			<br>nothing left to look at
-			<cfreturn 0>
-		</cfif>
-		<cfset ts=right(ts,numChars)>
-		<br>ts: #ts#
-		<hr>
-	</cfloop>
-	<cfdump var="#variables#">
-	--noloop: p is #p#--
-	<cfreturn p> 	
-</cffunction>
-<!------------------------------------------------------------------------------------->
 <cffunction name="checkSql" access="public" output="true" returntype="boolean">
     <cfargument name="sql" required="true" type="string">
     <cfset nono="update,insert,delete,drop,create,alter,set,execute,exec,begin,declare,all_tables,v$session,cast,sys.,ascii">
@@ -347,8 +299,15 @@
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
             <cfset temp = QuerySetCell(result, "link", "/ProjectDetail.cfm?project_id=#related_primary_key#", i)>
+		<cfelseif table_name is "taxonomy">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select display_name data,scientific_name from 
+				taxonomy where taxon_name_id=#related_primary_key#
+			</cfquery>
+			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
+            <cfset temp = QuerySetCell(result, "link", "/name/scientific_name", i)>
 		<cfelse>
-			<cfset temp = QuerySetCell(result, "summary", "#table_name# is not currently supported.", i)>
+		<cfset temp = QuerySetCell(result, "summary", "#table_name# is not currently supported.", i)>
 		</cfif>
 		<cfset i=i+1>
 	</cfloop>
