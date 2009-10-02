@@ -3,8 +3,6 @@
     <cfinclude template="/includes/_header.cfm">
 </div>
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
-
-<script type='text/javascript' src='/includes/media.js'></script>
 <cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select media_relationship from ctmedia_relationship order by media_relationship
 </cfquery>
