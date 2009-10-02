@@ -1,17 +1,17 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<head>
 <cfinclude template="/includes/alwaysInclude.cfm">
 <cfif not isdefined("session.header_color")>
 	<cfset setDbUser()>
 </cfif>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
-<head>
 <cfoutput>
     <meta name="keywords" content="#session.meta_keywords#">
     <LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <cfset ssName = replace(session.stylesheet,".css","","all")>
-	<cfif len(ssName) gt 0>
-    	<link rel="alternate stylesheet" type="text/css" href="/includes/css/#session.stylesheet#" title="#ssName#">
-		<META http-equiv="Default-Style" content="#ssName#">
+	<cfif len(trim(ssName)) gt 0>
+    	<link rel="alternate stylesheet" type="text/css" href="/includes/css/#trim(session.stylesheet)#" title="#trim(ssName)#">
+		<META http-equiv="Default-Style" content="#trim(ssName)#">
 	</cfif>	
     <!--[if IE]>
 		<style type="text/css" media="screen">
