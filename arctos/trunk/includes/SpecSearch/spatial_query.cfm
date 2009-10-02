@@ -45,7 +45,6 @@ stop this works
 			map.addMapType(G_PHYSICAL_MAP);
 			map.addControl(new GScaleControl(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(125,1)));
 			map.addControl(new GMapTypeControl(),new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(1,1)));
-			map.enableGoogleBar();
 			
 			//map.addControl(new google.elements.LocalSearch(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(250,1)));
 			
@@ -73,7 +72,8 @@ stop this works
 				}
 			};
 			
-			map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(250,1)));
+			map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(150,1)));
+			map.enableGoogleBar();
 		}
 	}
 		//google.setOnLoadCallback(initializeMap);
