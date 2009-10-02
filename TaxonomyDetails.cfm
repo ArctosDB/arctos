@@ -176,7 +176,7 @@
 	    </cfif>
 	</div>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
-		<a href="/Taxonomy.cfm?action=edit&amp;amp;taxon_name_id=#one.taxon_name_id#">Edit Taxonomy</a>	
+		<a href="/Taxonomy.cfm?action=edit&taxon_name_id=#one.taxon_name_id#">Edit Taxonomy</a>	
 	</cfif>
 	<table border>
 		<tr>
@@ -309,17 +309,17 @@
 				</a>
 			</li>
 			<li>
-				<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#&amp;amp;media_type=any">
+				<a href="/SpecimenResults.cfm?scientific_name=#one.scientific_name#&media_type=any">
 					Specimen Results with Media: like #one.display_name#
 				</a>
 			</li>
 			<li>
-				<a href="/bnhmMaps/kml.cfm?method=gmap&amp;ampaction=newReq&amp;amp;next=colorBySpecies&amp;amp;scientific_name=#one.scientific_name#" class="external" target="_blank">
+				<a href="/bnhmMaps/kml.cfm?method=gmap&amp;ampaction=newReq&next=colorBySpecies&scientific_name=#one.scientific_name#" class="external" target="_blank">
 					Google Map of Arctos specimens
 				</a>
 			</li>
 			<li>
-				<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&amp;amp;scientific_name=#one.scientific_name#" class="external" target="_blank">
+				<a href="/bnhmMaps/bnhmMapData.cfm?showRangeMaps=true&scientific_name=#one.scientific_name#" class="external" target="_blank">
 					BerkeleyMapper + RangeMaps
 				</a>
 			</li>
@@ -361,22 +361,22 @@
 				</a>
 			</li>
 			<li>
-				<a class="external" target="_blank" href="http://epic.kew.org/searchepic/summaryquery.do?scientificName=#srchName#&amp;amp;searchAll=true&amp;amp;categories=names&amp;amp;categories=bibl&amp;amp;categories=colln&amp;amp;categories=taxon&amp;amp;categories=flora&amp;amp;categories=misc">
+				<a class="external" target="_blank" href="http://epic.kew.org/searchepic/summaryquery.do?scientificName=#srchName#&searchAll=true&categories=names&categories=bibl&categories=colln&categories=taxon&categories=flora&categories=misc">
 					electronic plant information centre
 				</a>
 			</li>
 			<li>
-				<a class="external" target="_blank" href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&amp;amp;search_value=#srchName#&amp;amp;search_kingdom=every&amp;amp;search_span=containing&amp;amp;categories=All&amp;amp;source=html&amp;amp;search_credRating=all">
+				<a class="external" target="_blank" href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all">
 					ITIS
 				</a>
 			</li>
 			<li>
-				<a class="external" target="_blank" href="http://www.catalogueoflife.org/search_results.php?search_string=#srchName#&amp;amp;match_whole_words=on">
+				<a class="external" target="_blank" href="http://www.catalogueoflife.org/search_results.php?search_string=#srchName#&match_whole_words=on">
 					Catalogue of Life
 				</a>
 			</li>
 			<li>
-				<a class="external" target="_blank" href="http://www.unep-wcmc.org/isdb/CITES/Taxonomy/tax-species-result.cfm?displaylanguage=eng&amp;amp;Genus=%25#one.genus#%25&amp;amp;source=animals&amp;amp;Species=#one.species#">
+				<a class="external" target="_blank" href="http://www.unep-wcmc.org/isdb/CITES/Taxonomy/tax-species-result.cfm?displaylanguage=eng&Genus=%25#one.genus#%25&source=animals&Species=#one.species#">
 					UNEP (CITES)
 				</a>
 			</li>
