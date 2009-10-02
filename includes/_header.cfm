@@ -11,6 +11,7 @@
     ------------------#session.stylesheet#-----------------------
 	<br>=================#len(trim(session.stylesheet))#================
 	<cfif len(trim(session.stylesheet)) gt 0>
+		<!-- here it is -->
 		<cfset ssName = replace(session.stylesheet,".css","","all")>
     	<link rel="alternate stylesheet" type="text/css" href="/includes/css/#trim(session.stylesheet)#" title="#trim(ssName)#">
 		<META http-equiv="Default-Style" content="#trim(ssName)#">
