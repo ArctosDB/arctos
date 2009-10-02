@@ -280,10 +280,10 @@
 							</cfloop>
 						</ul>
 					</cfif>
-					 <cfif mrel.recordcount gt 0>
+					 <cfif relns.recordcount gt 0>
 					Relations:
 					<ul>
-						<cfloop query="mrel">
+						<cfloop query="relns">
 							<li>#media_relationship#: #summary#
 							<cfif len(#link#) gt 0>
 							<a class="infoLink" href="#link#" target="_blank">More...</a>
