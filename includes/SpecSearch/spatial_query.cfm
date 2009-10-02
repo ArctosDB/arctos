@@ -25,58 +25,61 @@ stop this works
 <input type="hidden" name="selong" id="selong">
 <div id="map_canvas" style="width: 100%; height: 400px;"></div>
 <script language="javascript" type="text/javascript">
-		jQuery(document).ready(function() {
+	jQuery(document).ready(function() {
 	  	initializeMap();
 	});
-		
 	jQuery(document.body).unload(function() {
-					GUnload();
-	});				//google.load("maps", "2");
+		GUnload();
+	});
+	
+					//google.load("maps", "2");
        				//		google.load("elements", "1", {packages : ["localsearch"]});
-       				
-					function initializeMap() {
-						if (GBrowserIsCompatible()) {
-							
-							var map = new GMap2(document.getElementById("map_canvas"));
-							var center = new GLatLng(55, -135);
-							map.setCenter(center, 3);
-							map.addControl(new GLargeMapControl(),new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(1,1)));
-							map.addMapType(G_PHYSICAL_MAP);
-							map.addControl(new GScaleControl(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(125,1)));
-							map.addControl(new GMapTypeControl(),new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(1,1)));
-							//map.addControl(new google.elements.LocalSearch(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(250,1)));
-							
-							var boxStyleOpts = {
-								opacity:.0,
-								border:"2px solid green"
-							}
-							var otherOpts = {
-								overlayRemoveTime:99999999999999,  
-								buttonHTML:"Turn on Select",
-								buttonZoomingHTML:"Turn off Select",
-								buttonStartingStyle:{left:'150px', border: '1px solid black', padding: '4px',fontSize:'small',color:'blue',fontWeight:'bold'},
-								buttonZoomingStyle:{background: 'lightblue'},
-								backButtonEnabled : true,
-								backButtonHTML : 'Go Back',
-								minDragSize:3
-							};
-							var callbacks = {
-								dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){
-									jQuery('##nwLat').val(nw.lat());
-									jQuery('##nwlong').val(nw.lng());
-									jQuery('##selat').val(se.lat());
-									jQuery('##selong').val(se.lng());
-									jQuery('##selectedCoords').val('Selected Area: NW=' + nw + '; SE=' + se);
-								}
-							};
-							
-							map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(1,1)));
-						}
-					}
-					//google.setOnLoadCallback(initializeMap);
-									
-				</script>
-				
+    				
+	function initializeMap() {
+		if (GBrowserIsCompatible()) {
+			
+			var map = new GMap2(document.getElementById("map_canvas"));
+			var center = new GLatLng(55, -135);
+			map.setCenter(center, 3);
+			map.addControl(new GLargeMapControl(),new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(1,1)));
+			map.addMapType(G_PHYSICAL_MAP);
+			map.addControl(new GScaleControl(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(125,1)));
+			map.addControl(new GMapTypeControl(),new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(1,1)));
+			map.enableGoogleBar();
+			
+			//map.addControl(new google.elements.LocalSearch(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(250,1)));
+			
+			var boxStyleOpts = {
+				opacity:.0,
+				border:"2px solid green"
+			}
+			var otherOpts = {
+				overlayRemoveTime:99999999999999,  
+				buttonHTML:"Turn on Select",
+				buttonZoomingHTML:"Turn off Select",
+				buttonStartingStyle:{left:'150px', border: '1px solid black', padding: '4px',fontSize:'small',color:'blue',fontWeight:'bold'},
+				buttonZoomingStyle:{background: 'lightblue'},
+				backButtonEnabled : true,
+				backButtonHTML : 'Go Back',
+				minDragSize:3
+			};
+			var callbacks = {
+				dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){
+					jQuery('##nwLat').val(nw.lat());
+					jQuery('##nwlong').val(nw.lng());
+					jQuery('##selat').val(se.lat());
+					jQuery('##selong').val(se.lng());
+					jQuery('##selectedCoords').val('Selected Area: NW=' + nw + '; SE=' + se);
+				}
+			};
+			
+			map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(1,1)));
+		}
+	}
+		//google.setOnLoadCallback(initializeMap);
+						
+	</script>
+			
 				<!-----
 <script language="javascript" type="text/javascript">
 	
