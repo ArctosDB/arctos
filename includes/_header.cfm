@@ -8,12 +8,9 @@
     <meta name="keywords" content="#session.meta_keywords#">
     <LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    ------------------#session.stylesheet#-----------------------
-	<br>=================#len(trim(session.stylesheet))#================
-	<cfif len(trim(session.stylesheet)) gt 0>
-		<!-- here it is -->
+   <cfif len(trim(session.stylesheet)) gt 0>
 		<cfset ssName = replace(session.stylesheet,".css","","all")>
-    	<link rel="header:alternate stylesheet" type="text/css" href="/includes/css/#trim(session.stylesheet)#" title="#trim(ssName)#">
+    	<link rel="alternate stylesheet" type="text/css" href="/includes/css/#trim(session.stylesheet)#" title="#trim(ssName)#">
 		<META http-equiv="Default-Style" content="#trim(ssName)#">
 	</cfif>	
     <!--[if IE]>
