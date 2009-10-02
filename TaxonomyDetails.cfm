@@ -270,7 +270,7 @@
 				<cfelse>
 					<cfset puri='/images/noThumb.jpg'>
 				</cfif>
-				<div>
+				<div style="border:1px solid green">
 					<a href="#media_uri#"><img src="#puri#" alt="#one.display_name#"></a>
 					<cfif lbl.recordcount gt 0>
 						<br>Labels:
