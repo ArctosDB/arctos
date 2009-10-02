@@ -72,7 +72,7 @@ stop this works
 				}
 			};
 			
-			map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(150,1)));
+			map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(300,1)));
 			map.enableGoogleBar();
 		}
 	}
