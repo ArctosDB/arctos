@@ -73,7 +73,7 @@ stop this works
 				}
 			};
 			
-			map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(1,1)));
+			map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(50,1)));
 		}
 	}
 		//google.setOnLoadCallback(initializeMap);
