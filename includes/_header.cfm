@@ -8,7 +8,8 @@
     <meta name="keywords" content="#session.meta_keywords#">
     <LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <cfset ssName = replace(session.stylesheet,".css","","all")>
+    ------------------#session.stylesheet#-----------------------
+	<cfset ssName = replace(session.stylesheet,".css","","all")>
 	<cfif len(trim(ssName)) gt 0>
     	<link rel="alternate stylesheet" type="text/css" href="/includes/css/#trim(session.stylesheet)#" title="#trim(ssName)#">
 		<META http-equiv="Default-Style" content="#trim(ssName)#">
