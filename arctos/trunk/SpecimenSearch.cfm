@@ -270,6 +270,14 @@
 				<span class="secControl" id="c_locality" onclick="showHide('locality',1)">Show More Options</span>
 			</td>
 		</tr>
+		<tr>	
+			<td class="lbl">
+				<span class="helpLink" id="any_geog_term">Any&nbsp;Geographic&nbsp;Element:</span>
+			</td>
+			<td class="srch">
+				<input type="text" name="any_geog" id="any_geog" size="50">
+			</td>
+		</tr>	
 		<!----
 		<cfhtmlhead text='<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=#application.gmap_api_key#" type="text/javascript"></script>'>
 		<tr>
