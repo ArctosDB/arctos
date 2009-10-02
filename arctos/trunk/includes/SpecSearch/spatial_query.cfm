@@ -65,15 +65,15 @@ stop this works
 			};
 			var callbacks = {
 				dragend:function(nw,ne,se,sw,nwpx,nepx,sepx,swpx){
-					jQuery('##nwLat').val(nw.lat());
-					jQuery('##nwlong').val(nw.lng());
-					jQuery('##selat').val(se.lat());
-					jQuery('##selong').val(se.lng());
-					jQuery('##selectedCoords').val('Selected Area: NW=' + nw + '; SE=' + se);
+					jQuery('#nwLat').val(nw.lat());
+					jQuery('#nwlong').val(nw.lng());
+					jQuery('#selat').val(se.lat());
+					jQuery('#selong').val(se.lng());
+					jQuery('#selectedCoords').val('Selected Area: NW=' + nw + '; SE=' + se);
 				}
 			};
 			
-			map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(150,1)));
+			map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(250,1)));
 		}
 	}
 		//google.setOnLoadCallback(initializeMap);
