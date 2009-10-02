@@ -305,7 +305,7 @@
 				taxonomy where taxon_name_id=#related_primary_key#
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
-            <cfset temp = QuerySetCell(result, "link", "/name/scientific_name", i)>
+            <cfset temp = QuerySetCell(result, "link", "/name/#d.scientific_name#", i)>
 		<cfelse>
 		<cfset temp = QuerySetCell(result, "summary", "#table_name# is not currently supported.", i)>
 		</cfif>
