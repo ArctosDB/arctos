@@ -1,4 +1,5 @@
 <cfinclude template="../includes/_pickHeader.cfm">
+	<cfoutput>
 	<cfif len(scientific_name) is 0 or scientific_name is 'undefined'>
 		<form name="s" method="post" action="TaxaPick.cfm">
 			<input type="hidden" name="formName" value="#formName#">
@@ -10,7 +11,6 @@
 		</form>
 		<cfabort>
 	</cfif>
-	<cfoutput>
 		<cfquery name="getTaxa" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				scientific_name, 
