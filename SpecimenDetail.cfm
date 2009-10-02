@@ -4,6 +4,7 @@
 <cfelse>
 	<cfset flatTableName = "filtered_flat">
 </cfif>
+<!---
 <cfif isdefined("collection_object_id")>
 	<cfoutput>
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -50,6 +51,8 @@
 	<cfinclude template="/errors/404.cfm">
 	<cfabort>
 </cfif>
+--->
+
 <cfset detSelect = "
 	SELECT DISTINCT
 		#flatTableName#.collection,
