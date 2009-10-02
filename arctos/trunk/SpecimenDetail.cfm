@@ -4,6 +4,7 @@
 <cfelse>
 	<cfset flatTableName = "filtered_flat">
 </cfif>
+<cfset guid="test">
 <!---
 <cfif isdefined("collection_object_id")>
 	<cfoutput>
