@@ -271,7 +271,7 @@
 					<cfset puri='/images/noThumb.jpg'>
 				</cfif>
 				<div>
-					<a href="#media_uri#"><img src="#preview_uri#" alt="#one.display_name#"></a>
+					<a href="#media_uri#"><img src="#puri#" alt="#one.display_name#"></a>
 				</div>
 			</cfloop>
 			
