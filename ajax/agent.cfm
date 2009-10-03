@@ -27,4 +27,7 @@
 	</cfloop>
 </cfoutput>
 ---->
-I like comma
+<cfoutput>
+#urlencodedformat('I, like, comma')##chr(10)##urlencodedformat('I like comma')#
+
+</cfoutput>
