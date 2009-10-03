@@ -31,6 +31,7 @@
 				console.log(theID);
 				jQuery('#' + theID).val(data[1]);
 				console.log(data[1]);
+				console.log(this.value);
 		});
         $element.attr("autocomplete.attached", true);
 	}
