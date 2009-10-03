@@ -1,4 +1,3 @@
-<!----
 <cfoutput>
 	<cfif not isdefined("limit") or not isnumeric(limit)>
 		<cfset limit=20>
@@ -25,9 +24,4 @@
 	<cfloop query="pn">
 		#agent_name#|#agent_id##chr(10)#
 	</cfloop>
-</cfoutput>
----->
-<cfoutput>
-#urlencodedformat('I, like, comma')##chr(10)##urlencodedformat('I like comma')#
-
 </cfoutput>

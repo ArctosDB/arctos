@@ -22,7 +22,7 @@
 			max: 30,
 			autoFill: false,
 			delay: 400,
-			mustMatch: true,
+			//mustMatch: true,
 			cacheLength: 1
 		});
 		$element.result(function(event, data, formatted) {
