@@ -27,11 +27,12 @@
 		});
 		$element.result(function(event, data, formatted) {
 			if (data) 
+				console.log('value: ' + this.value);
 				var theID=this.id + '_id';
 				console.log(theID);
 				jQuery('#' + theID).val(data[1]);
 				console.log(data[1]);
-				console.log('value: ' + this.value);
+				
 		});
         $element.attr("autocomplete.attached", true);
 	}
