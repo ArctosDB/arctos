@@ -18,10 +18,7 @@
 	});
 	function initializeMap() {
 		if (GBrowserIsCompatible()) {
-			var googleBarOptions = {
-				style : "new"
-			}
-			var map = new GMap2(document.getElementById("map_canvas"),googleBarOptions);
+			var map = new GMap2(document.getElementById("map_canvas"));
 			var center = new GLatLng(55, -135);
 			map.setCenter(center, 3);
 			map.addControl(new GLargeMapControl(),new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(1,1)));
