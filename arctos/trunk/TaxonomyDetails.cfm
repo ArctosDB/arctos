@@ -267,7 +267,7 @@
 				<cfelse>
 					<cfset puri='/images/noThumb.jpg'>
 				</cfif>
-				<span style="border:1px solid green;margin:1em;padding:1em;">
+				<div>
 					<a href="#media_uri#"><img src="#puri#" alt="#one.display_name#"></a>
 					<br><span style="font-size:small">#media_type#; #mime_type#</span>
 					<cfif lbl.recordcount gt 0>
@@ -279,7 +279,7 @@
 						</ul>
 					</cfif>
 					<cfif relns.recordcount gt 0>
-					Relations:
+					<br>Relations:
 					<ul>
 						<cfloop query="relns">
 							<li>
@@ -291,7 +291,7 @@
 						</cfloop>
 					</ul>
 					</cfif>
-				</span>
+				</div>
 			</cfloop>
 		</p>	
 	</cfif>
