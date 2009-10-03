@@ -18,17 +18,18 @@
 	});
 	function initializeMap() {
 		if (GBrowserIsCompatible()) {
-			var map = new GMap2(document.getElementById("map_canvas"));
+			var googleBarOptions = {
+				style : "new"
+			}
+			var map = new GMap2(document.getElementById("map_canvas"),googleBarOptions);
 			var center = new GLatLng(55, -135);
 			map.setCenter(center, 3);
 			map.addControl(new GLargeMapControl(),new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(1,1)));
 			map.addMapType(G_PHYSICAL_MAP);
 			map.addControl(new GScaleControl(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(125,1)));
 			map.addControl(new GMapTypeControl(),new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(1,1)));
-			var googleBarOptions = {
-				style : "new"
-			}
-			map.enableGoogleBar(googleBarOptions);
+			
+			map.enableGoogleBar();
 			var boxStyleOpts = {
 				opacity:.0,
 				border:"2px solid green"
