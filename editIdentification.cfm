@@ -272,7 +272,7 @@
 			</td>
         </tr>
         <tr> 
-        	<td><div align="right">Accepted?:</div></td>
+        	<td><div align="right">Accepted?</div></td>
 			<td>
 				<cfif #accepted_id_fg# is 0>
 					<select name="accepted_id_fg_#i#" 
