@@ -28,7 +28,9 @@
 		$element.result(function(event, data, formatted) {
 			if (data) 
 				var theID=this.id + '_id';
+				console.log(theID);
 				jQuery('#' + theID).val(data[1]);
+				console.log(data[1]);
 		});
         $element.attr("autocomplete.attached", true);
 	}
