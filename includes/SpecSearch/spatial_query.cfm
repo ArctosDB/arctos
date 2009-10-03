@@ -25,6 +25,7 @@
 			map.addMapType(G_PHYSICAL_MAP);
 			map.addControl(new GScaleControl(),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(125,1)));
 			map.addControl(new GMapTypeControl(),new GControlPosition(G_ANCHOR_TOP_RIGHT, new GSize(1,1)));
+			map.enableGoogleBar();
 			var boxStyleOpts = {
 				opacity:.0,
 				border:"2px solid green"
@@ -49,7 +50,6 @@
 				}
 			};			
 			map.addControl(new DragZoomControl(boxStyleOpts, otherOpts, callbacks),new GControlPosition(G_ANCHOR_BOTTOM_LEFT, new GSize(325,4)));
-			map.enableGoogleBar();
 		}
 	}
 </script>
