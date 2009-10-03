@@ -27,4 +27,4 @@
 	</cfloop>
 </cfoutput>
 ---->
-I, like, comma
+I like comma
