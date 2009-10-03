@@ -98,7 +98,6 @@ function saveSearch(returnURL){
 		);
 	}
 }
-
 function insertTypes(idList) {
 	var s=document.createElement('DIV');
 	s.id='ajaxStatus';

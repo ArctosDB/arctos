@@ -76,7 +76,11 @@
 			select * from annotations where publication_id=#publication_id#
 		</cfquery>
 	<cfelse>
-		Oops.....(throw error)
+		<div class="error">
+			Oops! I can't handle that request. File a bug report.
+			<cfthrow detail="unhandled_annotation" errorcode="9999" message="unhandled annotation">
+		</div>
+		<cfabort>
 	</cfif>
 	Annotations for #d.summary#
 	<form name="annotate" method="post" action="/info/annotate.cfm">
