@@ -22,6 +22,6 @@
 		where rownum <= #limit#
 	</cfquery>
 	<cfloop query="pn">
-		#agent_name#|#agent_id##chr(10)#
+		#replace(agent_name,",","","all")#|#agent_id##chr(10)#
 	</cfloop>
 </cfoutput>

@@ -18,21 +18,17 @@
 		}
        	$element.autocomplete("/ajax/agent.cfm", {
    	 		width: 260,
-			//selectFirst: true,
+			selectFirst: true,
 			max: 30,
 			autoFill: false,
 			delay: 400,
-			//mustMatch: true,
+			mustMatch: true,
 			cacheLength: 1
 		});
 		$element.result(function(event, data, formatted) {
 			if (data) 
-				console.log('value: ' + this.value);
 				var theID=this.id + '_id';
-				console.log(theID);
-				jQuery('#' + theID).val(data[1]);
-				console.log(data[1]);
-				
+				jQuery('#' + theID).val(data[1]);				
 		});
         $element.attr("autocomplete.attached", true);
 	}
