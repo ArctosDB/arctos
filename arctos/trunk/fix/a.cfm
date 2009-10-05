@@ -1,19 +1,27 @@
-<cfif action is "f">
-		<cfquery name="a" datasource="uam_god">
-			insert into t1 values (#a#,#b#)
-		</cfquery>
-		<cfquery name="b" datasource="uam_god">
-			insert into t2 values (#b#,#a#)
-		</cfquery>
-</cfif>
+<cfinclude template="/includes/_header.cfm">
 
-<cfif action is "p">
-	<cftransaction>
-		<cfquery name="a" datasource="uam_god">
-			insert into t1 values (#a#,#b#)
-		</cfquery>
-		<cfquery name="b" datasource="uam_god">
-			insert into t2 values (#b#,#a#)
-		</cfquery>
-	</cftransaction>
-</cfif>
+
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  
+  <script>
+  $(document).ready(function(){
+    
+    $(document.body).click(function () {
+      $("div:hidden:first").fadeIn("slow");
+    });
+
+  });
+  </script>
+  <style>
+  span { color:red; cursor:pointer; }
+  div { margin:3px; width:80px; display:none;
+        height:80px; float:left; }
+  div#one { background:#f00; }
+  div#two { background:#0f0; }
+  div#three { background:#00f; }
+  </style>
+
+  <span>Click here...</span>
+  <div id="one"></div>
+  <div id="two"></div>
+  <div id="three"></div>
