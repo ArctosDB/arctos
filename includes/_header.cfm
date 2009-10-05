@@ -6,18 +6,18 @@
 </cfif>
 <script>
 	
-	$(document).ready(function(){
-  $('ul#menu > li').hover(
+	jQuery(document).ready(function(){
+  jQuery('ul#menu > li').hover(
     // mouseover
     function(){
-      $(this).find('>ul').fadeIn('fast');
+      jQuery(this).find('>ul').fadeIn('fast');
     },
     // mouseout
     function(){
   var el=this;
   setTimeout( function(){
     alert('fadeout');
-    $(el).find('>ul').fadeOut('fast')
+    jQuery(el).find('>ul').fadeOut('fast')
     }, 1000 );
 }
 
