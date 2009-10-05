@@ -21,7 +21,7 @@
 
 <cfoutput>
 <br>listlen(scientific_name," "): #listlen(scientific_name," ")#
-<br>listlast(scientific_name," "): #listlast(scientific_name," ")#
+<br>listlast(scientific_name," "): '#listlast(scientific_name," ")#'
 
 <br>tnid: #tnid#
 
