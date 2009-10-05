@@ -8,35 +8,17 @@
 	<cfif getTID.recordcount is 1>
 		<cfset tnid=#getTID.taxon_name_id#>
 	<cfelseif listlen(scientific_name," ") gt 1 and (listlast(scientific_name," ") is "sp." or listlast(scientific_name," ") is "ssp.")>
-		
 		<cfset s=listdeleteat(scientific_name,listlen(scientific_name," ")," ")>
 		<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT taxon_name_id FROM taxonomy WHERE upper(scientific_name)	= '#ucase(s)#'
 		</cfquery>
-		<cfdump var="#getTID#">
-		<cfset tnid=#getTID.taxon_name_id#>
-	<cfelse>
-		fail
+		<cfif getTID.recordcount is 1>
+			<cfheader statuscode="301" statustext="Moved permanently">
+			<cfheader name="Location" value="/name/#s#">
+		</cfif>
 	</cfif>
 </cfif>
 
-<cfoutput>
-	
-	<cfif listlen(scientific_name," ") gt 1 >yep</cfif>
-	<cfif trim(listlast(scientific_name," ")) is "sp.">yep2<cfelse>nope2: ----#listlast(scientific_name,' ')#-----</cfif>
-	<cfif trim(listlast(scientific_name," ")) is ".ssp">yep3</cfif>
-	<cfif (listlast(scientific_name," ") is ".sp" or listlast(scientific_name," ") is ".ssp")>yy</cfif>
-	
-	<cfset f=trim(listlast(scientific_name," "))>
-	<br>f:-#f#-
-	<cfif f is ".sp">f<cfelse>nof</cfif>
-<br>listlen(scientific_name," "): #listlen(scientific_name," ")#
-<br>listlast(scientific_name," "): '#listlast(scientific_name," ")#'
-
-<br>tnid: #tnid#
-
-</cfoutput>
-<cfabort>
 <cfif isdefined("taxon_name_id")>
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select scientific_name from taxonomy where taxon_name_id=#taxon_name_id# 
