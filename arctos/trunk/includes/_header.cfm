@@ -4,9 +4,7 @@
 <cfif not isdefined("session.header_color")>
 	<cfset setDbUser()>
 </cfif>
-<cfoutput>
-	
-	<script>
+<script>
 	
 	$(document).ready(function(){
   $('ul#menu > li').hover(
@@ -27,6 +25,10 @@
 });
 	
 	</script>
+	
+<cfoutput>
+	
+	
     <meta name="keywords" content="#session.meta_keywords#">
     <LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
