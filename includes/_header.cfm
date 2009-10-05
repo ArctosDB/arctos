@@ -7,7 +7,7 @@
 <script>
 	
 	jQuery(document).ready(function(){
-  jQuery('ul#menu > li').hover(
+  jQuery('#menu > li').hover(
     // mouseover
     function(){
       jQuery(this).find('>ul').fadeIn('fast');
@@ -24,7 +24,7 @@
 }
 
   );
-});
+	});
 	
 	</script>
 	
