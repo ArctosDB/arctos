@@ -7,7 +7,7 @@
 
 <script>
 function mainmenu(){
-jQuery(" #menu ul ").css({display: "none"}); // Opera Fix
+//jQuery(" #menu ul ").css({display: "none"}); // Opera Fix
 jQuery(" #menu li").hover(function(){
 		$(this).find('ul:first').css({visibility: "visible",display: "none"}).show(400);
 		},function(){
