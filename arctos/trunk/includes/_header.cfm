@@ -6,10 +6,11 @@
 </cfif>
 
 <script>
+	/*
 function mainmenu(){
 //jQuery(" #menu ul ").css({display: "none"}); // Opera Fix
 jQuery(" #menu li").hover(function(){
-		$(this).find('ul:first').css({visibility: "visible",display: "none"}).show(4000);
+		$(this).find('ul:first').css({visibility: "visible",display: "none"}).show(400);
 		},function(){
 		jQuery(this).find('ul:first').css({visibility: "hidden"});
 		});
@@ -18,6 +19,26 @@ jQuery(" #menu li").hover(function(){
  jQuery(document).ready(function(){
 	mainmenu();
 });
+*/
+var config = {    
+     sensitivity: 3, // number = sensitivity threshold (must be 1 or higher)    
+     interval: 200, // number = milliseconds for onMouseOver polling interval    
+     timeout: 500, // number = milliseconds delay before onMouseOut    
+};
+
+jQuery(document).ready(function(){
+  jQuery('ul#menu > li').hoverIntent(
+    // mouseover
+    function(){
+      jQuery(this).find('>ul').fadeIn('fast');
+    },
+    // mouseout
+    function(){
+       jQuery(this).find('>ul').fadeOut('fast');
+    }  
+  );
+});
+
 </script>
 <cfoutput>
     <meta name="keywords" content="#session.meta_keywords#">
