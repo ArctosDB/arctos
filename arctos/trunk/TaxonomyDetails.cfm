@@ -5,6 +5,13 @@
 	</cfquery>
 	<cfif getTID.recordcount is 1>
 		<cfset tnid=#getTID.taxon_name_id#>
+	<cfelseif listlen(scientific_name," ") gt 1 and (listlast(scientific_name," ") is ".sp" or listlast(scientific_name," ") is ".ssp")>
+		<cfset scientific_name=listdeleteat(scientific_name,listlen(scientific_name)>
+		<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			SELECT taxon_name_id FROM taxonomy WHERE upper(scientific_name)	= '#ucase(scientific_name)#'
+		</cfquery>
+		<cfset tnid=#getTID.taxon_name_id#>
+	</cfif>
 </cfif>
 <cfif isdefined("taxon_name_id")>
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
