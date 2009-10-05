@@ -5,11 +5,6 @@
 	</cfquery>
 	<cfif getTID.recordcount is 1>
 		<cfset tnid=#getTID.taxon_name_id#>
-	<cfelse>
-	  	<div class="error">
-			<cfoutput>#scientific_name#</cfoutput> was not found.	
-		</div>
-	</cfif>
 </cfif>
 <cfif isdefined("taxon_name_id")>
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
