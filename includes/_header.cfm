@@ -12,7 +12,7 @@
 	jQuery(document).ready(function(){
 		
     
-    $("#menu > li").hover(
+    $("#menu").hover(
       function () {
         jQuery(this).addClass("ugly");
       }, 
