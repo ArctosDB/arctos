@@ -1,29 +1,121 @@
 <cfinclude template="/includes/_header.cfm">
+<script>
+jQuery(function(){
+			jQuery('ul.sf-menu').superfish();
+		});
+</script>
+<ul class="sf-menu">
+			<li class="current">
+				<a href="#a">menu item</a>
 
+				<ul>
+					<li>
+						<a href="#aa">menu item that is quite long</a>
+					</li>
+					<li class="current">
+						<a href="#ab">menu item</a>
+						<ul>
+							<li class="current"><a href="#">menu item</a></li>
 
-  <script src="http://code.jquery.com/jquery-latest.js"></script>
-  
-  <script>
-  $(document).ready(function(){
-    
-    $(document.body).click(function () {
-      $("div:hidden:first").fadeIn("slow");
-    });
+							<li><a href="#aba">menu item</a></li>
+							<li><a href="#abb">menu item</a></li>
+							<li><a href="#abc">menu item</a></li>
+							<li><a href="#abd">menu item</a></li>
+						</ul>
+					</li>
+					<li>
 
-  });
-  </script>
-  <style>
-  span { color:red; cursor:pointer; }
-  div { margin:3px; width:80px; display:none;
-        height:80px; float:left; }
-  div#one { background:#f00; }
-  div#two { background:#0f0; }
-  div#three { background:#00f; }
-  </style>
+						<a href="#">menu item</a>
+						<ul>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
 
+							<li><a href="#">menu item</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">menu item</a>
+						<ul>
+							<li><a href="#">menu item</a></li>
 
-<hr>
-  <span>Click here...</span>
-  <div id="one"></div>
-  <div id="two"></div>
-  <div id="three"></div>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+						</ul>
+					</li>
+				</ul>
+
+			</li>
+			<li>
+				<a href="#">menu item</a>
+			</li>
+			<li>
+				<a href="#">menu item</a>
+				<ul>
+					<li>
+
+						<a href="#">menu item</a>
+						<ul>
+							<li><a href="#">short</a></li>
+							<li><a href="#">short</a></li>
+							<li><a href="#">short</a></li>
+							<li><a href="#">short</a></li>
+
+							<li><a href="#">short</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">menu item</a>
+						<ul>
+							<li><a href="#">menu item</a></li>
+
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+						</ul>
+					</li>
+					<li>
+
+						<a href="#">menu item</a>
+						<ul>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+
+							<li><a href="#">menu item</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">menu item</a>
+						<ul>
+							<li><a href="#">menu item</a></li>
+
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+						</ul>
+					</li>
+					<li>
+
+						<a href="#">menu item</a>
+						<ul>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+
+							<li><a href="#">menu item</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">menu item</a>
+			</li>	
+		</ul>
