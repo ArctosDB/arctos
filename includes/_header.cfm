@@ -4,34 +4,6 @@
 <cfif not isdefined("session.header_color")>
 	<cfset setDbUser()>
 </cfif>
-<style>
-.ugly {font-size:3em;)
-</style>
-<script>
-	
-	jQuery(document).ready(function(){
-		
-    
-    jQuery("#menu ul").children.hover(
-      function () {
-        $(this).fadeIn('slow');
-      }, 
-     function(){
-  var el=this;
-  setTimeout( function(){
-    console.log(this.name + ' fadeout');
-    $(el).find('>ul').fadeOut('slow')
-    }, 1000 );
-}
-
-    );
-
-		
-		
-	});
-	
-	</script>
-	
 <cfoutput>
 	
 	
