@@ -12,7 +12,7 @@
 	jQuery(document).ready(function(){
 		
     
-    jQuery("#menu ul li").hover(
+    jQuery("#menu ul").hover(
       function () {
         $(this).fadeIn('slow');
       }, 
