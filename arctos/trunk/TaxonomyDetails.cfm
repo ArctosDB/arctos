@@ -22,7 +22,7 @@
 <cfoutput>
 	
 	<cfif listlen(scientific_name," ") gt 1 >yep</cfif>
-	<cfif #listlast(scientific_name,' ')# is ".sp">yep2<cfelse>nope2: #listlast(scientific_name,' ')#</cfif>
+	<cfif #listlast(scientific_name,' ')# is ".sp">yep2<cfelse>nope2: ----#listlast(scientific_name,' ')#-----</cfif>
 	<cfif listlast(scientific_name," ") is ".ssp">yep3</cfif>
 	<cfif (listlast(scientific_name," ") is ".sp" or listlast(scientific_name," ") is ".ssp")>yy</cfif>
 <br>listlen(scientific_name," "): #listlen(scientific_name," ")#
