@@ -1,4 +1,12 @@
 <cfinclude template="/includes/_header.cfm">
+
+<link rel="stylesheet" type="text/css" href="superfish.css" media="screen">
+		<script type="text/javascript" src="hoverIntent.js"></script>
+
+		<script type="text/javascript" src="superfish.js"></script>
+
+
+
 <script>
 jQuery(function(){
 			jQuery('ul.sf-menu').superfish();
