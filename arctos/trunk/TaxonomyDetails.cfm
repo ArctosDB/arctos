@@ -14,10 +14,10 @@
 		<cfif getTID.recordcount is 1>
 			<cfheader statuscode="301" statustext="Moved permanently">
 			<cfheader name="Location" value="/name/#s#">
+			<cfabort>
 		</cfif>
 	</cfif>
 </cfif>
-<cfabort>
 
 <cfif isdefined("taxon_name_id")>
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
