@@ -4,23 +4,6 @@
 <cfif not isdefined("session.header_color")>
 	<cfset setDbUser()>
 </cfif>
-
-<script>
-function mainmenu(){
-//jQuery(" #menu ul ").css({display: "none"}); // Opera Fix
-jQuery(" #menu li").hover(function(){
-		jQuery(this).find('ul:first').css({visibility: "visible",display: "none"}).show(400);
-		},function(){
-		//jQuery(this).find('ul:first').css({visibility: "hidden",display: ""}).show(400);
-		console.log('out');
-		});
-}
-
- jQuery(document).ready(function(){
-	mainmenu();
-});
-
-</script>
 <cfoutput>
     <meta name="keywords" content="#session.meta_keywords#">
     <LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico">
