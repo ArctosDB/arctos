@@ -10,6 +10,7 @@
 		<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT taxon_name_id FROM taxonomy WHERE upper(scientific_name)	= '#ucase(scientific_name)#'
 		</cfquery>
+		<cfdump var="#getTID#">
 		<cfset tnid=#getTID.taxon_name_id#>
 	</cfif>
 </cfif>
