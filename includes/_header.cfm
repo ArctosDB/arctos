@@ -5,6 +5,28 @@
 	<cfset setDbUser()>
 </cfif>
 <cfoutput>
+	
+	<script>
+	
+	$(document).ready(function(){
+  $('ul#menu > li').hover(
+    // mouseover
+    function(){
+      $(this).find('>ul').fadeIn('fast');
+    },
+    // mouseout
+    function(){
+  var el=this;
+  setTimeout( function(){
+    alert('fadeout');
+    $(el).find('>ul').fadeOut('fast')
+    }, 1000 );
+}
+
+  );
+});
+	
+	</script>
     <meta name="keywords" content="#session.meta_keywords#">
     <LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">

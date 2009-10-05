@@ -345,6 +345,11 @@
 				<a class="external" target="_blank" href="http://ispecies.org/?q=#srchName#">iSpecies</a>
 			</li>
 			<li>
+				<a class="external" target="_blank" href="http://wikipedia.org/wiki/#srchName#">
+					Wikipedia
+				</a>
+			</li>
+			<li>
 				<a class="external" target="_blank" href="http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?name=#srchName#">
 					NCBI
 				</a>
@@ -395,11 +400,6 @@
 			<li>
 				<a class="external" target="_blank" href="http://species.wikimedia.org/wiki/#srchName#">
 					WikiSpecies
-				</a>
-			</li>
-			<li>
-				<a class="external" target="_blank" href="http://wikipedia.org/wiki/#srchName#">
-					Wikipedia
 				</a>
 			</li>
 		</ul>			
