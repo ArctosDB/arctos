@@ -11,10 +11,12 @@
     // mouseover
     function(){
       jQuery(this).find('>ul').fadeIn('fast');
+      console.log('over');
     },
     // mouseout
     function(){
   var el=this;
+  console.log('out');
   setTimeout( function(){
     alert('fadeout');
     jQuery(el).find('>ul').fadeOut('fast')
