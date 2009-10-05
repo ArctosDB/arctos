@@ -14,6 +14,9 @@
 		<cfset tnid=#getTID.taxon_name_id#>
 	</cfif>
 </cfif>
+
+
+<cfabort>
 <cfif isdefined("taxon_name_id")>
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select scientific_name from taxonomy where taxon_name_id=#taxon_name_id# 
