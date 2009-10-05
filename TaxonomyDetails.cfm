@@ -18,7 +18,14 @@
 		fail
 	</cfif>
 </cfif>
-tnid: #tnid#
+
+<cfoutput>
+<br>listlen(scientific_name," "): #listlen(scientific_name," ")#
+<br>listlast(scientific_name," "): #listlast(scientific_name," ")#
+
+<br>tnid: #tnid#
+
+</cfoutput>
 <cfabort>
 <cfif isdefined("taxon_name_id")>
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
