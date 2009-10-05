@@ -26,6 +26,7 @@
 	<cfif len(c.scientific_name) gt 0>
 		<cfheader statuscode="301" statustext="Moved permanently">
 		<cfheader name="Location" value="/name/#c.scientific_name#">
+		<cfabort>
 	</cfif>
 </cfif>
 <cfset taxaRanksList="Kingdom,Phylum,PHYLClass,Subclass,PHYLOrder,Suborder,Superfamily,Family,Subfamily,Genus,Subgenus,Species,Subspecies,Nomenclatural_Code">
