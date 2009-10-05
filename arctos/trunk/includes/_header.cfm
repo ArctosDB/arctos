@@ -7,23 +7,19 @@
 <script>
 	
 	jQuery(document).ready(function(){
-  jQuery('#menu > li').hover(
-    // mouseover
-    function(){
-      jQuery(this).find('>ul').fadeIn('fast');
-      console.log('over');
-    },
-    // mouseout
-    function(){
-  var el=this;
-  console.log('out');
-  setTimeout( function(){
-    alert('fadeout');
-    jQuery(el).find('>ul').fadeOut('fast')
-    }, 1000 );
-}
+		
+    
+    $("#menu").hover(
+      function () {
+        jQuery(this).append(jQuery("<span> ***</span>"));
+      }, 
+      function () {
+        jQuery(this).find("span:last").remove();
+      }
+    );
 
-  );
+		
+		
 	});
 	
 	</script>
