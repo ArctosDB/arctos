@@ -5,7 +5,7 @@
 	<cfset setDbUser()>
 </cfif>
 <style>
-.ugly {color:pink;font-size:large;background-color:black;)
+.ugly {font-size:3em;)
 </style>
 <script>
 	
