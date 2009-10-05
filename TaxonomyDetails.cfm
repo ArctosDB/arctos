@@ -1,5 +1,6 @@
 <cfinclude template = "includes/_header.cfm">
-<cfif isdefined("scientific_name") and len(#scientific_name#) gt 0>
+<cftry>
+<cfif isdefined("scientific_name") and len(scientific_name) gt 0>
 	<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT taxon_name_id FROM taxonomy WHERE upper(scientific_name)	= '#ucase(scientific_name)#'
 	</cfquery>
@@ -14,7 +15,8 @@
 		<cfset tnid=#getTID.taxon_name_id#>
 	</cfif>
 </cfif>
-
+<cfcatch>whatevs</cfcatch>
+</cftry>
 
 <cfabort>
 <cfif isdefined("taxon_name_id")>
