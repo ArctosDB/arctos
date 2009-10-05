@@ -12,12 +12,12 @@
 	jQuery(document).ready(function(){
 		
     
-    $("#menu ul li").hover(
+    jQuery("#menu ul li").hover(
       function () {
-        jQuery(this).addClass("ugly");
+        jQuery(this).append(jQuery("<span> ***</span>"));
       }, 
       function () {
-        jQuery(this).removeClass("ugly");
+			jQuery(this).find("span:last").remove();
       }
     );
 
