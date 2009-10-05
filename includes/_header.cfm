@@ -153,22 +153,21 @@
 			<cfset r = replace(session.roles,",","','","all")>
 			<cfset r = "'#r#'">
 			<!---    --->
-			<cfquery name="roles" datasource="cf_dbuser">
+			<cfquery name="roles" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
 				select form_path from cf_form_permissions 
 				where upper(role_name) IN (#ucase(preservesinglequotes(r))#)
 				minus select form_path from cf_form_permissions 
 				where upper(role_name)  not in (#ucase(preservesinglequotes(r))#)
 			</cfquery>
-			<cfdump var=#roles#>
-	        <cfset formList = valuelist(roles.form_path)>
-	        <cfdump var=#formList#>
+			 <cfset formList = valuelist(roles.form_path)>
 	        <ul>
 		        <li><h2>Specimen</h2>
 			        <ul>
 				        <li><a href="##" class="x">Enter Data</a>
 					        <ul>
-								<cfif listfind(formList,"/DataEntry.cfm")>
-									<li><a target="_top" href="/DataEntry.cfm">Data Entry</a></li>
+								<cfset elem="/DataEntry.cfm">
+								<cfif listfind(formList,elem)>
+									<li><a target="_top" href="#elem#">Data Entry</a></li>
 								</cfif>
 								<cfif listfind(formList,"/Bulkloader/bulkloader_status.cfm")>
 									<li><a target="_top" href="/Bulkloader/">Bulkload Specimens</a></li>
