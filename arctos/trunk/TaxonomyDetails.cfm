@@ -16,8 +16,7 @@
 		<cfset tnid=#getTID.taxon_name_id#>
 	</cfif>
 </cfif>
---->
-hi
+---><cfset 0=1>
 <cfcatch>whatevs</cfcatch>
 </cftry>
 
