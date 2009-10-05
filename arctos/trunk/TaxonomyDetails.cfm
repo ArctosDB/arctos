@@ -14,6 +14,8 @@
 		</cfquery>
 		<cfdump var="#getTID#">
 		<cfset tnid=#getTID.taxon_name_id#>
+	<cfelse>
+		fail
 	</cfif>
 </cfif>
 tnid: #tnid#
