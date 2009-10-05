@@ -16,9 +16,14 @@
       function () {
         $(this).fadeIn('slow');
       }, 
-      function () {
-			jQuery(this).find("span:last").remove();
-      }
+     function(){
+  var el=this;
+  setTimeout( function(){
+    alert('fadeout');
+    $(el).find('>ul').fadeOut('fast')
+    }, 1000 );
+}
+
     );
 
 		
