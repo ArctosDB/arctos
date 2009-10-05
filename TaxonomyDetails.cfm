@@ -20,6 +20,11 @@
 </cfif>
 
 <cfoutput>
+	
+	<cfif listlen(scientific_name," ") gt 1 >yep</cfif>
+	<cfif listlast(scientific_name," ") is ".sp">yep2</cfif>
+	<cfif listlast(scientific_name," ") is ".ssp">yep3</cfif>
+	<cfif (listlast(scientific_name," ") is ".sp" or listlast(scientific_name," ") is ".ssp")>yy</cfif>
 <br>listlen(scientific_name," "): #listlen(scientific_name," ")#
 <br>listlast(scientific_name," "): '#listlast(scientific_name," ")#'
 
