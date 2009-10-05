@@ -21,6 +21,8 @@
   div#three { background:#00f; }
   </style>
 
+
+<hr>
   <span>Click here...</span>
   <div id="one"></div>
   <div id="two"></div>
