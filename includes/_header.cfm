@@ -9,7 +9,7 @@
 	jQuery(document).ready(function(){
 		
     
-    $("#menu").hover(
+    $("#menu > li").hover(
       function () {
         jQuery(this).append(jQuery("<span> ***</span>"));
       }, 
