@@ -22,8 +22,8 @@
 <cfoutput>
 	
 	<cfif listlen(scientific_name," ") gt 1 >yep</cfif>
-	<cfif listlast(scientific_name," ") is ".sp">yep2<cfelse>nope2: ----#listlast(scientific_name,' ')#-----</cfif>
-	<cfif listlast(scientific_name," ") is ".ssp">yep3</cfif>
+	<cfif trim(listlast(scientific_name," ")) is ".sp">yep2<cfelse>nope2: ----#listlast(scientific_name,' ')#-----</cfif>
+	<cfif trim(listlast(scientific_name," ")) is ".ssp">yep3</cfif>
 	<cfif (listlast(scientific_name," ") is ".sp" or listlast(scientific_name," ") is ".ssp")>yy</cfif>
 	
 	<cfset f=listlast(scientific_name," ")>
