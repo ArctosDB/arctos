@@ -4,6 +4,9 @@
 <cfif not isdefined("session.header_color")>
 	<cfset setDbUser()>
 </cfif>
+<style>
+.ugly {color:pink;font-size:large;background-color:black;)
+</style>
 <script>
 	
 	jQuery(document).ready(function(){
@@ -11,10 +14,10 @@
     
     $("ul#menu > li").hover(
       function () {
-        jQuery(this).addClass("red");
+        jQuery(this).addClass("ugly");
       }, 
       function () {
-        jQuery(this).removeClass("red");
+        jQuery(this).removeClass("ugly");
       }
     );
 
