@@ -159,7 +159,9 @@
 				minus select form_path from cf_form_permissions 
 				where upper(role_name)  not in (#ucase(preservesinglequotes(r))#)
 			</cfquery>
+			<cfdump var=#roles#>
 	        <cfset formList = valuelist(roles.form_path)>
+	        <cfdump var=#formList#>
 	        <ul>
 		        <li><h2>Specimen</h2>
 			        <ul>
