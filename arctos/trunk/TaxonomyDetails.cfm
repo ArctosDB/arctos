@@ -17,6 +17,7 @@
 		</cfif>
 	</cfif>
 </cfif>
+<cfabort>
 
 <cfif isdefined("taxon_name_id")>
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
