@@ -12,7 +12,7 @@
 	jQuery(document).ready(function(){
 		
     
-    jQuery("#menu ul").hover(
+    jQuery("#menu ul").children.hover(
       function () {
         $(this).fadeIn('slow');
       }, 
@@ -20,7 +20,7 @@
   var el=this;
   setTimeout( function(){
     console.log(this.name + ' fadeout');
-    $(el).find('>ul').fadeOut('fast')
+    $(el).find('>ul').fadeOut('slow')
     }, 1000 );
 }
 
