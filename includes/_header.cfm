@@ -19,7 +19,7 @@
      function(){
   var el=this;
   setTimeout( function(){
-    alert('fadeout');
+    console.log(this.name + ' fadeout');
     $(el).find('>ul').fadeOut('fast')
     }, 1000 );
 }
