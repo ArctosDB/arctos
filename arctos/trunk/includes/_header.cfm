@@ -14,7 +14,7 @@
     
     jQuery("#menu ul li").hover(
       function () {
-        $(this).find('>ul').fadeIn('slow');
+        $(this).fadeIn('slow');
       }, 
       function () {
 			jQuery(this).find("span:last").remove();
