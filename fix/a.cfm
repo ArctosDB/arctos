@@ -60,13 +60,12 @@ font-weight:bold;}
 			</cfquery>
 			<cfset formList = valuelist(roles.form_path)>
 		</cfif>
-		<li><a href="##">Enter Data</a>
+		<li><a href="##">Specimen</a>
 			<ul>
-				<li><a href="##" class="x">Enter Data</a>
+				<li><a href="/DataEntry.cfm">Enter Data</a>
 					<ul>
-						<cfset elem="/DataEntry.cfm">
-						<cfif listfind(formList,elem)>
-							<li><a target="_top" href="#elem#">Data Entry</a></li>
+						<cfif listfind(formList,"/DataEntry.cfm")>
+							<li><a target="_top" href="/DataEntry.cfm">Data Entry</a></li>
 						</cfif>
 						<cfif listfind(formList,"/Bulkloader/bulkloader_status.cfm")>
 							<li><a target="_top" href="/Bulkloader/">Bulkload Specimens</a></li>
