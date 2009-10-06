@@ -20,7 +20,11 @@ jQuery(function(){
     
 </script>
 <style>
-.sampleTabContent { padding: 10px 25px; clear: left; background-color: #fff; margin: 0; border: 1px solid #ddd; height:1%; float:left; width:91%;}
+.sampleTabContent { 
+clear: left; 
+float:left; width:100%;
+font-size:small;
+font-weight:bold;}
 </style>
 <div class="sampleTabContent">
 <ul class="sf-menu">

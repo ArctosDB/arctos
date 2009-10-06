@@ -28,7 +28,7 @@
 .sf-menu li:hover ul,
 .sf-menu li.sfHover ul {
 	left:			0;
-	top:			2.5em; /* match top ul list item height */
+	top:			1.5em; /* match top ul list item height */
 	z-index:		99;
 }
 ul.sf-menu li:hover li ul,
@@ -58,7 +58,7 @@ ul.sf-menu li li li.sfHover ul {
 .sf-menu a {
 	border-left:	1px solid #fff;
 	border-top:		1px solid #CFDEFF;
-	padding: 		.75em 1em;
+	padding: 		.25em 1em;
 	text-decoration:none;
 }
 .sf-menu a, .sf-menu a:visited  { /* visited pseudo selector so IE6 applies text colour*/
@@ -88,7 +88,7 @@ color:red;
 .sf-sub-indicator {
 	position:		absolute;
 	display:		block;
-	right:			.75em;
+	right:			.25em;
 	top:			1.05em; /* IE6 only */
 	width:			10px;
 	height:			10px;
@@ -97,7 +97,7 @@ color:red;
 	background:		url('arrows-ffffff.png') no-repeat -10px -100px; /* 8-bit indexed alpha png. IE6 gets solid image only */
 }
 a > .sf-sub-indicator {  /* give all except IE6 the correct values */
-	top:			.8em;
+	top:			.6em;
 	background-position: 0 -100px; /* use translucent arrow for modern browsers*/
 }
 /* apply hovers to modern browsers */
