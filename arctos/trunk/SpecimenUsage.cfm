@@ -434,7 +434,16 @@
 						<li><a href="#link#" target="_blank">#description#</a></li>
 					</cfloop>
 				</ul>
-			</cfif>			
+			</cfif>
+			<cfquery name="pubmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select media_id from media_relations where media_relationship like '% publication' and
+				realted_primary_key=#publication_id#
+			</cfquery>
+			<cfif len(#pubmedia.media_id#) gt 0>
+				<ul>
+					<li><a href="/MediaSearch.cfm?action=search&media_id=#valuelist(pubmedia.media_id)" target="_blank">Media</a></li>
+				</ul>
+			</cfif>
 		</div>
 		<cfset i=#i#+1>
 	</cfloop>
