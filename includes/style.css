@@ -1321,6 +1321,10 @@ li.sfHover > a > .sf-sub-indicator {
 	background: transparent;
 }
 .sf-mainMenuWrapper { 
+	clear:left;
+	float:left;
 	width:100%;
 	font-size:small;
-	font-weight:400;}
+	font-weight:400;
+	background:#E7E7E7;
+}
