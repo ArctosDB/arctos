@@ -204,7 +204,6 @@
 										</ul>
 									</li>			
 								</cfif>
-								<cfif listfind(formList,"/agents.cfm") or listfind(formList,"/Admin/killBadAgentDups.cfm")>
 									<li>
 										<ul>
 											<cfif listfind(formList,"/agents.cfm")>
@@ -215,7 +214,6 @@
 											</cfif>
 										</ul>
 									</li>
-								</cfif>
 								<cfif listfind(formList,"/EditContainer.cfm") OR listfind(formList,"/tools/dgr_locator.cfm")>
 									<li><a target="_top" href="##">Object Tracking</a>
 										<ul>
