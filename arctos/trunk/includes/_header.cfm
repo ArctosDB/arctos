@@ -149,9 +149,9 @@
 							where upper(role_name)  not in (#ucase(preservesinglequotes(r))#)
 						</cfquery>
 						<cfset formList = valuelist(roles.form_path)>
-						<li><a href="##">Specimen</a>
+						<li><a href="##">Enter Data</a>
 							<ul>
-								<li><a href="/DataEntry.cfm">Enter Data</a>
+								<li><a href="/DataEntry.cfm">Specimens</a>
 									<ul>
 										<cfif listfind(formList,"/DataEntry.cfm")>
 											<li><a target="_top" href="/DataEntry.cfm">Data Entry</a></li>
@@ -189,6 +189,10 @@
 										</ul>
 									</li>
 								</cfif>
+							</ul>
+						</li>
+						<li><a target="_top" href="##">Manage Data</a>
+							<ul>
 								<cfif listfind(formList,"/Locality.cfm")>
 									<li><a target="_top" href="##">Location</a>
 										<ul>
@@ -200,23 +204,7 @@
 										</ul>
 									</li>			
 								</cfif>
-						        <cfif listfind(formList,"/agents.cfm")><li><a target="_top" href="/agents.cfm">Agents</a></li></cfif>				
-							</ul>
-						</li>
-						<li><a target="_top" href="##">Management</a>
-							<ul>
-								<cfif listfind(formList,"/info/svn.cfm")>
-									<li>
-										<a target="_top" href="##">Developer Widgets</a>
-										<ul>
-											<li><a target="_top" href="/ScheduledTasks/index.cfm">Scheduled Tasks</a></li>
-											<li><a target="_top" href="/info/svn.cfm">SVN</a></li>
-											<li><a target="_top" href="/Admin/dumpAll.cfm">dump</a></li>
-											<li><a target="_top" href="/CFIDE/administrator/">Manage ColdFusion</a></li>
-											<li><a target="_top" href="/tools/imageList.cfm">Image List</a></li>
-										</ul>
-									</li>
-								</cfif>
+								<cfif listfind(formList,"/agents.cfm")><li><a target="_top" href="/agents.cfm">Agents</a></li></cfif>
 								<cfif listfind(formList,"/EditContainer.cfm") OR listfind(formList,"/tools/dgr_locator.cfm")>
 									<li><a target="_top" href="##">Object Tracking</a>
 										<ul>
@@ -251,6 +239,21 @@
 											<li><a target="_top" href="/borrow.cfm">Find Borrow</a></li>
 											<li><a target="_top" href="/Permit.cfm?action=newPermit">Create Permit</a></li>
 											<li><a target="_top" href="/Permit.cfm">Find Permit</a></li>
+										</ul>
+									</li>
+								</cfif>	
+							</ul>
+						<li><a target="_top" href="##">Manage Arctos</a>
+							<ul>
+								<cfif listfind(formList,"/info/svn.cfm")>
+									<li>
+										<a target="_top" href="##">Developer Widgets</a>
+										<ul>
+											<li><a target="_top" href="/ScheduledTasks/index.cfm">Scheduled Tasks</a></li>
+											<li><a target="_top" href="/info/svn.cfm">SVN</a></li>
+											<li><a target="_top" href="/Admin/dumpAll.cfm">dump</a></li>
+											<li><a target="_top" href="/CFIDE/administrator/">Manage ColdFusion</a></li>
+											<li><a target="_top" href="/tools/imageList.cfm">Image List</a></li>
 										</ul>
 									</li>
 								</cfif>
