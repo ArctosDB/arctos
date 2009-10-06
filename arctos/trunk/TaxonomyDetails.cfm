@@ -16,9 +16,40 @@
 			<cfheader name="Location" value="/name/#s#">
 			<cfabort>
 		</cfif>
+	<cfelseif listlen(scientific_name," ") is 3>
+		<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			SELECT 
+				scientific_name 
+			FROM 
+				taxonomy 
+			WHERE 
+				upper(genus)	= '#ucase(listgetat(scientific_name,1," ")#' and
+				upper(species)	= '#ucase(listgetat(scientific_name,2," ")#' and
+				upper(subspecies)	= '#ucase(listgetat(scientific_name,3," ")#'
+		</cfquery>
+		<cfif getTID.recordcount is 1>
+			<cfheader statuscode="301" statustext="Moved permanently">
+			<cfheader name="Location" value="/name/#getTID.scientific_name#">
+			<cfabort>
+		</cfif>
+	<cfelseif listlen(scientific_name," ") is 4>
+		<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			SELECT 
+				scientific_name 
+			FROM 
+				taxonomy 
+			WHERE 
+				upper(genus)	= '#ucase(listgetat(scientific_name,1," ")#' and
+				upper(species)	= '#ucase(listgetat(scientific_name,2," ")#' and
+				upper(subspecies)	= '#ucase(listgetat(scientific_name,4," ")#'
+		</cfquery>
+		<cfif getTID.recordcount is 1>
+			<cfheader statuscode="301" statustext="Moved permanently">
+			<cfheader name="Location" value="/name/#getTID.scientific_name#">
+			<cfabort>
+		</cfif>
 	</cfif>
 </cfif>
-
 <cfif isdefined("taxon_name_id")>
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select scientific_name from taxonomy where taxon_name_id=#taxon_name_id# 
