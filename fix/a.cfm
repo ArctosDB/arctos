@@ -19,6 +19,10 @@ jQuery(function(){
       
     
 </script>
+<style>
+.sampleTabContent { padding: 10px 25px; clear: left; background-color: #fff; margin: 0; border: 1px solid #ddd; height:1%; float:left; width:91%;}
+</style>
+<div class="sampleTabContent">
 <ul class="sf-menu">
 			<li class="current">
 				<a href="#a">menu item</a>
@@ -134,3 +138,4 @@ jQuery(function(){
 				<a href="#">menu item</a>
 			</li>	
 		</ul>
+</div>
