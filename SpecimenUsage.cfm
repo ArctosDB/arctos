@@ -437,7 +437,7 @@
 			</cfif>
 			<cfquery name="pubmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select media_id from media_relations where media_relationship like '% publication' and
-				realted_primary_key=#publication_id#
+				related_primary_key=#publication_id#
 			</cfquery>
 			<cfif len(#pubmedia.media_id#) gt 0>
 				<ul>
