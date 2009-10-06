@@ -250,17 +250,19 @@
 										</ul>
 									</li>
 								</cfif>
+								<cfif listfind(formList,"/Encumbrances.cfm")>
+									<li><a target="_top" href="/Encumbrances.cfm">Encumbrances</a></li>
+								</cfif>
 								<cfif listfind(formList,"/info/reviewAnnotation.cfm")>
 									<li><a target="_top" href="##">Tools</a>
 										<ul>
+											<li><a target="_top" href="/Admin/Collection.cfm">Manage Collection</a></li>
 											<li><a target="_top" href="/tools/PublicationStatus.cfm">Publication Staging</a></li>
 											<li><a target="_top" href="/tools/parent_child_taxonomy.cfm">Sync parent/child taxonomy</a></li>
 											<cfif listfind(formList,"/CodeTableEditor.cfm")>
-												<li><a target="_top" href="/CodeTableEditor.cfm">Code tables</a></li>
+												<li><a target="_top" href="/CodeTableEditor.cfm">Code Tables</a></li>
 											</cfif>
 											<li><a target="_top" href="/tools/pendingRelations.cfm">Pending Relationships</a></li>
-											<li><a target="_top" href="/Admin/Collection.cfm">Manage Collection</a></li>
-											<li><a target="_top" href="/Encumbrances.cfm">Encumbrances</a></li>
 											<cfif listfind(formList,"/tools/sqlTaxonomy.cfm")>
 												<li><a target="_top" href="/tools/sqlTaxonomy.cfm">SQL Taxonomy</a></li>
 											</cfif>
