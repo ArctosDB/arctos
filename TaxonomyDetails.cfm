@@ -23,9 +23,9 @@
 			FROM 
 				taxonomy 
 			WHERE 
-				upper(genus)	= '#ucase(listgetat(scientific_name,1," ")#' and
-				upper(species)	= '#ucase(listgetat(scientific_name,2," ")#' and
-				upper(subspecies)	= '#ucase(listgetat(scientific_name,3," ")#'
+				upper(genus) = '#ucase(listgetat(scientific_name,1," "))#' and
+				upper(species) = '#ucase(listgetat(scientific_name,2," "))#' and
+				upper(subspecies) = '#ucase(listgetat(scientific_name,3," "))#'
 		</cfquery>
 		<cfif getTID.recordcount is 1>
 			<cfheader statuscode="301" statustext="Moved permanently">
@@ -39,9 +39,9 @@
 			FROM 
 				taxonomy 
 			WHERE 
-				upper(genus)	= '#ucase(listgetat(scientific_name,1," ")#' and
-				upper(species)	= '#ucase(listgetat(scientific_name,2," ")#' and
-				upper(subspecies)	= '#ucase(listgetat(scientific_name,4," ")#'
+				upper(genus) = '#ucase(listgetat(scientific_name,1," "))#' and
+				upper(species) = '#ucase(listgetat(scientific_name,2," "))#' and
+				upper(subspecies) = '#ucase(listgetat(scientific_name,4," "))#'
 		</cfquery>
 		<cfif getTID.recordcount is 1>
 			<cfheader statuscode="301" statustext="Moved permanently">
