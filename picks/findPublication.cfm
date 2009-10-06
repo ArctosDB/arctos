@@ -31,7 +31,7 @@
 				formatted_publication
 		</cfquery>
 		<cfif #getPub.recordcount# is 0>
-			Nothing matched #publication_title#. <a href="findPublication.cfm?formName=#formName&pubIdFld=#pubIdFld#&pubStringFld=#pubStringFld#">Try again.</a>
+			Nothing matched #publication_title#. <a href="findPublication.cfm?formName=#formName#&pubIdFld=#pubIdFld#&pubStringFld=#pubStringFld#">Try again.</a>
 		<cfelse>
 	<table border>
 		<tr>
