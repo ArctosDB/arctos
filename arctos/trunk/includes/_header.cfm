@@ -126,8 +126,11 @@
 				We're upgrading! Things may be a little goofy until Monday, February 16.
 			</div>
 			--->
-			<!-----
 			<div class="sf-mainMenuWrapper">
+			this is text
+			</div>
+			<!-----
+			
 				<ul class="sf-menu">
 					<li>
 						<a target="_top" href="/SpecimenSearch.cfm">Search</a>
@@ -331,7 +334,6 @@
 			</div>
 			---->
 			
-			this is text
 		</div>
 		<cf_rolecheck>
 	</cfoutput>
