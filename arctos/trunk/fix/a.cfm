@@ -16,7 +16,7 @@
             extraWidth:  1     // extra width can ensure lines don't sometimes turn over 
                                // due to slight rounding differences and font-family 
         }).superfish({ 
-            delay:       1000,                            // one second delay on mouseout 
+            delay:       600,                            // one second delay on mouseout 
             animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
             speed:       'fast',                          // faster animation speed 
         });  // call supersubs first, then superfish, so that subs are 
@@ -32,7 +32,7 @@
 clear: left; 
 float:left; width:100%;
 font-size:small;
-font-weight:bold;}
+font-weight:400;}
 </style>
 <cfoutput>
 <div class="sampleTabContent">
