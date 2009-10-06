@@ -1,4 +1,5 @@
 <cfcache action="clientcache">
+I'm new
 <div class="sf-mainMenuWrapper">
 	<ul class="sf-menu">
 		<li>
