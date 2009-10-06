@@ -1327,4 +1327,5 @@ li.sfHover > a > .sf-sub-indicator {
 	font-size:small;
 	font-weight:400;
 	background:#E7E7E7;
+	border-top:1px solid white;
 }
