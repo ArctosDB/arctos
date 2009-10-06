@@ -127,10 +127,6 @@
 			</div>
 			--->
 			<div class="sf-mainMenuWrapper">
-			this is text
-			</div>
-			<!-----
-			
 				<ul class="sf-menu">
 					<li>
 						<a target="_top" href="/SpecimenSearch.cfm">Search</a>
@@ -332,8 +328,6 @@
 					</li>		
 				</ul>
 			</div>
-			---->
-			
 		</div>
 		<cf_rolecheck>
 	</cfoutput>
