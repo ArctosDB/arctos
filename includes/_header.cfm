@@ -126,7 +126,7 @@
 				We're upgrading! Things may be a little goofy until Monday, February 16.
 			</div>
 			--->
-			<cfinclude template="/includes/mainMenu.cfm">
+			<cfinclude template="/includes/mainMenu.cfm?u=session.username">
 		</div>
 		<cf_rolecheck>
 	</cfoutput>
