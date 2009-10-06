@@ -5,6 +5,7 @@
 
 		<script type="text/javascript" src="superfish.js"></script>
 
+		<script type="text/javascript" src="supersubs.js"></script>
 
 
 <script>
