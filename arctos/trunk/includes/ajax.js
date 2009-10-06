@@ -1944,7 +1944,7 @@ function pickCollEvent(collIdFld,formName,collObjId){
 function getPublication(pubStringFld,pubIdFld,publication_title,formName){
 	var url="/picks/findPublication.cfm";
 	var pubwin=url+"?pubStringFld="+pubStringFld+"&pubIdFld="+pubIdFld+"&publication_title="+publication_title+"&formName="+formName;
-	geogpickwin=window.open(geogwin,"","width=400,height=338, resizable,scrollbars");
+	pubwin=window.open(pubwin,"","width=400,height=338, resizable,scrollbars");
 }
 function getGeog(geogIdFld,geogStringFld,formName,geogString){
 	var url="/picks/findHigherGeog.cfm";
