@@ -29,17 +29,52 @@ font-weight:bold;}
 <cfoutput>
 <div class="sampleTabContent">
 	<ul class="sf-menu">
-		<li><a target="_top" href="/SpecimenSearch.cfm">Search</h2>
+		<li>
+			<a target="_top" href="/SpecimenSearch.cfm">Search</h2>
 			<ul>
 				<li><a target="_top" href="/SpecimenSearch.cfm">Specimens</a></li>
 				<li><a target="_top" href="/SpecimenUsage.cfm">Publications/Projects</a></li>
 				<li><a target="_top" href="/TaxonomySearch.cfm">Taxonomy</a></li>
-                   <li><a target="_top" href="/MediaSearch.cfm">Media</a></li>
-                   <li><a target="_top" href="/document.cfm">Documents (BETA)</a></li>
-                   <li><a target="_top" href="/SpecimenSearchHTML.cfm">Specimens (no JavaScript)</a></li>
+                <li><a target="_top" href="/MediaSearch.cfm">Media</a></li>
+                <li><a target="_top" href="/document.cfm">Documents (BETA)</a></li>
+                <li><a target="_top" href="/SpecimenSearchHTML.cfm">Specimens (no JavaScript)</a></li>
 			</ul>
-		</li> 
+		</li>
+		<cfif len(session.roles) gt 0 and session.roles is not "public">
+			<cfset r = replace(session.roles,",","','","all")>
+			<cfset r = "'#r#'">
+			<!---    --->
+			<cfquery name="roles" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
+				select form_path from cf_form_permissions 
+				where upper(role_name) IN (#ucase(preservesinglequotes(r))#)
+				minus select form_path from cf_form_permissions 
+				where upper(role_name)  not in (#ucase(preservesinglequotes(r))#)
+			</cfquery>
+			<cfset formList = valuelist(roles.form_path)>
+		</cfif>
+		<li>menuthingee
+			<ul>
+				<li><a href="##" class="x">Enter Data</a>
+					<ul>
+						<cfset elem="/DataEntry.cfm">
+						<cfif listfind(formList,elem)>
+							<li><a target="_top" href="#elem#">Data Entry</a></li>
+						</cfif>
+						<cfif listfind(formList,"/Bulkloader/bulkloader_status.cfm")>
+							<li><a target="_top" href="/Bulkloader/">Bulkload Specimens</a></li>
+							<li><a target="_top" href="/Bulkloader/bulkloader_status.cfm">Bulkloader Status</a></li>
+							<li><a target="_top" href="/Bulkloader/bulkloaderBuilder.cfm">Bulkloader Builder</a></li>
+							<li><a target="_top" href="##" onclick="getDocs('Bulkloader/index')">Bulkloader Docs</a></li>
+						</cfif>
+						<cfif listfind(formList,"/Bulkloader/browseBulk.cfm")>
+							<li><a target="_top" href="/Bulkloader/browseBulk.cfm">Browse and Edit</a></li>
+						</cfif>
+					</ul>
+				</li>
+			</ul>
+		</li>
 	</ul>
+	<!----------
 	<cfif len(session.roles) gt 0 and session.roles is not "public">
 			<!--- see what forms this user gets access to --->
 			<cfset r = replace(session.roles,",","','","all")>
@@ -238,7 +273,7 @@ font-weight:bold;}
 				</ul>
 			</li>		
 		</ul>
-		
+		--------------->
 		</cfoutput>
 		<!----
 <ul class="sf-menu">
