@@ -28,14 +28,14 @@
     
 </script>
 <style>
-.sampleTabContent { 
+.mainMenuWrapper { 
 clear: left; 
 float:left; width:100%;
 font-size:small;
 font-weight:400;}
 </style>
 <cfoutput>
-<div class="sampleTabContent">
+<div class="mainMenuWrapper">
 	<ul class="sf-menu">
 		<li>
 			<a target="_top" href="/SpecimenSearch.cfm">Search</a>
