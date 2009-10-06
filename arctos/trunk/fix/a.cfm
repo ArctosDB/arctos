@@ -111,18 +111,10 @@ font-weight:bold;}
 						</ul>
 					</li>			
 				</cfif>
+		        <cfif listfind(formList,"/agents.cfm")><li><a target="_top" href="/agents.cfm">Agents</a></li></cfif>				
 			</ul>
 		</li>
-	</ul>
-	<!----------
-	
-						
-				        <cfif listfind(formList,"/agents.cfm")><li><a target="_top" href="/agents.cfm">Agents</a></li></cfif>				
-			        </ul>
-		        </li>
-			</ul>
-			<ul>
-		        <li><h2>Management</h2>
+		<li><h2>Management</h2>
 			        <ul>
 						<cfif listfind(formList,"/info/svn.cfm")>
 							<li>
@@ -204,6 +196,15 @@ font-weight:bold;}
 						</cfif>		
 			        </ul>
 	            </li>
+	</ul>
+	<!----------
+	
+						
+			        </ul>
+		        </li>
+			</ul>
+			<ul>
+		        
 	        </ul>	
 	        <cfif listfind(formList,"/Admin/ActivityLog.cfm")>
 				<ul>
