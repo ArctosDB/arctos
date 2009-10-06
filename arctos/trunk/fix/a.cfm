@@ -25,7 +25,7 @@ jQuery(function(){
 
 				<ul>
 					<li>
-						<a href="#aa">menu item that is quite long</a>
+						<a href="#aa">menu item</a>
 					</li>
 					<li class="current">
 						<a href="#ab">menu item</a>
