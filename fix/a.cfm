@@ -30,7 +30,7 @@ font-weight:bold;}
 <div class="sampleTabContent">
 	<ul class="sf-menu">
 		<li>
-			<a target="_top" href="/SpecimenSearch.cfm">Search</h2>
+			<a target="_top" href="/SpecimenSearch.cfm">Search</a>
 			<ul>
 				<li><a target="_top" href="/SpecimenSearch.cfm">Specimens</a></li>
 				<li><a target="_top" href="/SpecimenUsage.cfm">Publications/Projects</a></li>
