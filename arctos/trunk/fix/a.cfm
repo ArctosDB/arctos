@@ -29,7 +29,7 @@ font-weight:bold;}
 <cfoutput>
 <div class="sampleTabContent">
 	<ul class="sf-menu">
-		<li><h2 onclick="document.location='/SpecimenSearch.cfm';">Search</h2>
+		<li><a target="_top" href="/SpecimenSearch.cfm">Search</h2>
 			<ul>
 				<li><a target="_top" href="/SpecimenSearch.cfm">Specimens</a></li>
 				<li><a target="_top" href="/SpecimenUsage.cfm">Publications/Projects</a></li>
