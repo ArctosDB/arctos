@@ -165,7 +165,7 @@
 				<input type="hidden" name="action" value="makeUser">
 				<label for="pw">Enter your password:</label>
 				<input type="password" name="pw" id="pw" onkeyup="pwc(this.value,'#session.username#')">
-				<span id="pwstatus" style="background-color:white;></span>
+				<span id="pwstatus" style="background-color:white;"></span>
 				<br>
 				<span id="savBtn" class="noShow"><input type="submit" value="Authenticate" class="savBtn"></span>
 			</form>
