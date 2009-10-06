@@ -79,96 +79,44 @@ font-weight:bold;}
 					</ul>
 				</li>
 				<cfif listfind(formList,"/tools/BulkloadParts.cfm")>
-							<li><a target="_top" href="##" class="x">Bulkloaders</a>
-								<ul>
-									<li><a target="_top" href="/tools/BulkloadParts.cfm">Bulkload Parts</a></li>
-									<li><a target="_top" href="/tools/BulkPartSample.cfm">Bulkload Part Subsamples (Lots)</a></li>
-									<li><a target="_top" href="/tools/BulkloadAttributes.cfm">Bulkload Attributes</a></li>
-									<li><a target="_top" href="/tools/BulkloadCitations.cfm">Bulkload Citations</a></li>
-									<li><a target="_top" href="/tools/BulkloadOtherId.cfm">Bulkload Identifiers</a></li>
-									<li><a target="_top" href="/tools/loanBulkload.cfm">Bulkload Loan Items</a></li>
-									<li><a target="_top" href="/tools/BulkloadAgents.cfm">Bulkload Agents</a></li>
-									<li><a target="_top" href="/tools/BulkloadPartContainer.cfm">Parts>>Containers</a></li>
-									<li><a target="_top" href="/tools/BulkloadIdentification.cfm">Identifications</a></li>
-									<li><a target="_top" href="/tools/BulkloadContEditParent.cfm">Bulk Edit Container</a></li>
-									<li><a target="_top" href="/tools/BulkloadMedia.cfm">Bulkload Media</a></li>
-									<li><a target="_top" href="/tools/BulkloadRelations.cfm">Bulkload Relationships</a></li>
-									<li><a target="_top" href="/tools/BulkloadGeoref.cfm">Bulkload Georeference</a></li>
-									<cfif listfind(formList,"/tools/BulkloadTaxonomy.cfm")>
-										<li><a target="_top" href="/tools/BulkloadTaxonomy.cfm">Bulk Taxonomy</a></li>
-									</cfif>
-								</ul>
-							</li>
-						</cfif>
+					<li><a target="_top" href="##" class="x">Bulkloaders</a>
+						<ul>
+							<li><a target="_top" href="/tools/BulkloadParts.cfm">Bulkload Parts</a></li>
+							<li><a target="_top" href="/tools/BulkPartSample.cfm">Bulkload Part Subsamples (Lots)</a></li>
+							<li><a target="_top" href="/tools/BulkloadAttributes.cfm">Bulkload Attributes</a></li>
+							<li><a target="_top" href="/tools/BulkloadCitations.cfm">Bulkload Citations</a></li>
+							<li><a target="_top" href="/tools/BulkloadOtherId.cfm">Bulkload Identifiers</a></li>
+							<li><a target="_top" href="/tools/loanBulkload.cfm">Bulkload Loan Items</a></li>
+							<li><a target="_top" href="/tools/BulkloadAgents.cfm">Bulkload Agents</a></li>
+							<li><a target="_top" href="/tools/BulkloadPartContainer.cfm">Parts>>Containers</a></li>
+							<li><a target="_top" href="/tools/BulkloadIdentification.cfm">Identifications</a></li>
+							<li><a target="_top" href="/tools/BulkloadContEditParent.cfm">Bulk Edit Container</a></li>
+							<li><a target="_top" href="/tools/BulkloadMedia.cfm">Bulkload Media</a></li>
+							<li><a target="_top" href="/tools/BulkloadRelations.cfm">Bulkload Relationships</a></li>
+							<li><a target="_top" href="/tools/BulkloadGeoref.cfm">Bulkload Georeference</a></li>
+							<cfif listfind(formList,"/tools/BulkloadTaxonomy.cfm")>
+								<li><a target="_top" href="/tools/BulkloadTaxonomy.cfm">Bulk Taxonomy</a></li>
+							</cfif>
+						</ul>
+					</li>
+				</cfif>
+				<cfif listfind(formList,"/Locality.cfm")>
+					<li><a target="_top" href="##">Location</a>
+						<ul>
+							<li><a target="_top" href="/Locality.cfm?action=findHG">Find Geography</a></li>
+							<li><a target="_top" href="/Locality.cfm?action=newHG">Create Geography</a></li>
+							<li><a target="_top" href="/Locality.cfm?action=findLO">Find Locality</a></li>
+							<li><a target="_top" href="/Locality.cfm?action=newLocality">Create Locality</a></li>
+							<li><a target="_top" href="/Locality.cfm?action=findCO">Find Event</a></li>
+						</ul>
+					</li>			
+				</cfif>
 			</ul>
 		</li>
 	</ul>
 	<!----------
-	<cfif len(session.roles) gt 0 and session.roles is not "public">
-			<!--- see what forms this user gets access to --->
-			<cfset r = replace(session.roles,",","','","all")>
-			<cfset r = "'#r#'">
-			<!---    --->
-			<cfquery name="roles" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
-				select form_path from cf_form_permissions 
-				where upper(role_name) IN (#ucase(preservesinglequotes(r))#)
-				minus select form_path from cf_form_permissions 
-				where upper(role_name)  not in (#ucase(preservesinglequotes(r))#)
-			</cfquery>
-			 <cfset formList = valuelist(roles.form_path)>
-	        <ul sf-menu>
-		        <li><h2>Specimen</h2>
-			        <ul>
-				        <li><a href="##" class="x">Enter Data</a>
-					        <ul>
-								<cfset elem="/DataEntry.cfm">
-								<cfif listfind(formList,elem)>
-									<li><a target="_top" href="#elem#">Data Entry</a></li>
-								</cfif>
-								<cfif listfind(formList,"/Bulkloader/bulkloader_status.cfm")>
-									<li><a target="_top" href="/Bulkloader/">Bulkload Specimens</a></li>
-									<li><a target="_top" href="/Bulkloader/bulkloader_status.cfm">Bulkloader Status</a></li>
-									<li><a target="_top" href="/Bulkloader/bulkloaderBuilder.cfm">Bulkloader Builder</a></li>
-									<li><a target="_top" href="##" onclick="getDocs('Bulkloader/index')">Bulkloader Docs</a></li>
-								</cfif>
-								<cfif listfind(formList,"/Bulkloader/browseBulk.cfm")>
-									<li><a target="_top" href="/Bulkloader/browseBulk.cfm">Browse and Edit</a></li>
-								</cfif>
-							</ul>
-				        </li>
-						<cfif listfind(formList,"/tools/BulkloadParts.cfm")>
-							<li><a target="_top" href="##" class="x">Bulkloaders</a>
-								<ul>
-									<li><a target="_top" href="/tools/BulkloadParts.cfm">Bulkload Parts</a></li>
-									<li><a target="_top" href="/tools/BulkPartSample.cfm">Bulkload Part Subsamples (Lots)</a></li>
-									<li><a target="_top" href="/tools/BulkloadAttributes.cfm">Bulkload Attributes</a></li>
-									<li><a target="_top" href="/tools/BulkloadCitations.cfm">Bulkload Citations</a></li>
-									<li><a target="_top" href="/tools/BulkloadOtherId.cfm">Bulkload Identifiers</a></li>
-									<li><a target="_top" href="/tools/loanBulkload.cfm">Bulkload Loan Items</a></li>
-									<li><a target="_top" href="/tools/BulkloadAgents.cfm">Bulkload Agents</a></li>
-									<li><a target="_top" href="/tools/BulkloadPartContainer.cfm">Parts>>Containers</a></li>
-									<li><a target="_top" href="/tools/BulkloadIdentification.cfm">Identifications</a></li>
-									<li><a target="_top" href="/tools/BulkloadContEditParent.cfm">Bulk Edit Container</a></li>
-									<li><a target="_top" href="/tools/BulkloadMedia.cfm">Bulkload Media</a></li>
-									<li><a target="_top" href="/tools/BulkloadRelations.cfm">Bulkload Relationships</a></li>
-									<li><a target="_top" href="/tools/BulkloadGeoref.cfm">Bulkload Georeference</a></li>
-									<cfif listfind(formList,"/tools/BulkloadTaxonomy.cfm")>
-										<li><a target="_top" href="/tools/BulkloadTaxonomy.cfm">Bulk Taxonomy</a></li>
-									</cfif>
-								</ul>
-							</li>
-						</cfif>
-						<cfif listfind(formList,"/Locality.cfm")>
-							<li><a target="_top" href="##" class="x">Location</a>
-								<ul>
-									<li><a target="_top" href="/Locality.cfm?action=findHG">Find Geography</a></li>
-									<li><a target="_top" href="/Locality.cfm?action=newHG">Create Geography</a></li>
-									<li><a target="_top" href="/Locality.cfm?action=findLO">Find Locality</a></li>
-									<li><a target="_top" href="/Locality.cfm?action=newLocality">Create Locality</a></li>
-									<li><a target="_top" href="/Locality.cfm?action=findCO">Find Event</a></li>
-								</ul>
-							</li>			
-						</cfif>
+	
+						
 				        <cfif listfind(formList,"/agents.cfm")><li><a target="_top" href="/agents.cfm">Agents</a></li></cfif>				
 			        </ul>
 		        </li>
