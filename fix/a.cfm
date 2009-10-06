@@ -71,6 +71,28 @@ font-weight:bold;}
 						</cfif>
 					</ul>
 				</li>
+				<cfif listfind(formList,"/tools/BulkloadParts.cfm")>
+							<li><a target="_top" href="##" class="x">Bulkloaders</a>
+								<ul>
+									<li><a target="_top" href="/tools/BulkloadParts.cfm">Bulkload Parts</a></li>
+									<li><a target="_top" href="/tools/BulkPartSample.cfm">Bulkload Part Subsamples (Lots)</a></li>
+									<li><a target="_top" href="/tools/BulkloadAttributes.cfm">Bulkload Attributes</a></li>
+									<li><a target="_top" href="/tools/BulkloadCitations.cfm">Bulkload Citations</a></li>
+									<li><a target="_top" href="/tools/BulkloadOtherId.cfm">Bulkload Identifiers</a></li>
+									<li><a target="_top" href="/tools/loanBulkload.cfm">Bulkload Loan Items</a></li>
+									<li><a target="_top" href="/tools/BulkloadAgents.cfm">Bulkload Agents</a></li>
+									<li><a target="_top" href="/tools/BulkloadPartContainer.cfm">Parts>>Containers</a></li>
+									<li><a target="_top" href="/tools/BulkloadIdentification.cfm">Identifications</a></li>
+									<li><a target="_top" href="/tools/BulkloadContEditParent.cfm">Bulk Edit Container</a></li>
+									<li><a target="_top" href="/tools/BulkloadMedia.cfm">Bulkload Media</a></li>
+									<li><a target="_top" href="/tools/BulkloadRelations.cfm">Bulkload Relationships</a></li>
+									<li><a target="_top" href="/tools/BulkloadGeoref.cfm">Bulkload Georeference</a></li>
+									<cfif listfind(formList,"/tools/BulkloadTaxonomy.cfm")>
+										<li><a target="_top" href="/tools/BulkloadTaxonomy.cfm">Bulk Taxonomy</a></li>
+									</cfif>
+								</ul>
+							</li>
+						</cfif>
 			</ul>
 		</li>
 	</ul>
