@@ -738,12 +738,7 @@ div.infoBox {
 .likeLink:hover {
 	text-decoration: underline;
 	color: #CC0000;}
-span.helpPopupLink {
-	cursor: pointer;
-	color: blue;}
-span.helpPopupLink:hover {
-	color: red;
-	border-bottom: 1px solid red;}
+
 div.helpPopup {
 	font-weight: normal;
 	background-color: #FFFF99;
@@ -757,9 +752,6 @@ div.helpPopup {
 	font-size: .7em;
 	text-decoration: none;
 	cursor: default;}
-div.helpPopupHidden {
-	display: none;}
-.selectedLink {color:#FF0000;}	
 div.group {
 	background-color:#EFEFEF;
 	padding: 5px;
@@ -786,68 +778,23 @@ div.group {
 	border:1px solid;
 	padding:2px;
 	text-align:center;}
-div.isAButton {
-	color:	black;
-	font-size:10pt;
-	font-weight:bold;
-	font-family: Arial, Helvetica, sans-serif;
-	background-color:#F5F5F5;
-	border-color: #336666;
-	border: 1px solid;
-	padding:2px;
-	width:80%;
-	text-align:left;
-	text-indent:10px;}
-div.HalfAButton {
-	color:	black;
-	font-size:10pt;
-	font-weight:bold;
-	font-family: Arial, Helvetica, sans-serif;
-	background-color:#F5F5F5;
-	border-color: #336666;
-	border: 1px solid;
-	padding:2px;
-	width:40%;
-	text-align:left;
-	text-indent:10px;
-	float:left;}
 body {
 	font-family:arial,sans-serif;
 	background-color:#FFFFFF;}
-A:link {
+a:link {
 	text-decoration: none; 
 	color: blue;}
-A:visited:hover {
+a:visited:hover {
 	text-decoration: underline;
 	color: #CC0000;}
-A:visited {
+a:visited {
 	text-decoration: none;
 	color:#660099;}
-A:hover  {
+a:hover  {
 	text-decoration: underline;
 	color: #CC0000;}
-A.novisit {
+a.novisit {
 	color: blue;}
-	/*
-A:novisit:hover {
-	text-decoration: underline;
-	color: #CC0000;}
-	*/
-div.pagewidth {
-	margin-left:5%;
-	margin-right:5%;}
-div.leftHome {
-	text-align:left;
-	width:400px;
-	float:left;	
-	padding:2px;}
-div.rightHome {
-	text-align:left;
-	width:192px;
-	float:right;
-	border-color:#000066;
-	border-style:solid;
-	border-width:2px;}
 .evenRow {
 	background-color:#E5E5E5;}
 .oddRow {
@@ -961,58 +908,6 @@ input.readClr, select.readClr {
 	border-right-color:#FF6666 ;
 	border-bottom-color:#FF6666 ;
 	cursor:pointer;}
-pre {text-indent: 30px}
-#tabmenu {
-	color: blue;
-	border-bottom: 2px solid black;
-	margin: 12px 0px 0px 0px;
-	padding: 0px;
-	z-index: 1;
-	padding-left: 10px;
-	font-weight:bolder;
-	font-size:small;}
-#tabmenu li {
-	display: inline;
-	overflow:scroll;
-	list-style-type: none;}
-#tabmenu a, a.active {
-	color: blue;
-	background-color:#E7E7E7;
-	border-right:1px solid black;
-	text-decoration: none;
-	border-left:1px solid black;
-	border-top:1px solid black;
-	padding: 0px 5px 0px 5px;
-	margin: 0px;
-	font-family:Arial, Helvetica, sans-serif;}
-#tabmenu a.active {
-	background: #FFFFFF;
-	border-bottom: 4px solid #FFFFFF;
-	font-weight:bolder;
-	font-size:small; }
-#tabmenu a:hover {
-	color:red;
-	background: #E7E7E7;}
-#tabmenu a:visited {
-	color: #0000FF; 
-	font-family:Arial, Helvetica, sans-serif;}
-#tabmenu a.active:hover {
-	background: #FFFFFF;
-	color: #FF0000;
-	border-bottom: 3px solid #FFFFFF; }
-.style2 {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: small;}
-.style3 {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: xx-large;}
-.style4 {
-	font-size: x-large;
-	font-family: Arial, Helvetica, sans-serif;}
-.style5 {font-size: large;}
-.style6 {font-family: Arial, Helvetica, sans-serif;}
-.style8 {font-family: Arial, Helvetica, sans-serif; font-size: small; }
-/* \a0 is the iso8859-1 encoding for nbsp */
 .external:after {
 	text-decoration: none !important;
 	content: "\a0" url(/images/linkOut.gif);
@@ -1033,157 +928,6 @@ a.external:hover:visited:after {
 	text-decoration: none !important;
 	content: "\a0" url(/images/linkOutHover.gif);
 	}
-#menu {
-width: 100%;
-float: left;
-background:#E7E7E7;
-}
-
-#menu ul {
-list-style: none;
-margin: 0;
-padding: 0;
-width: 10em;
-float: left;
-}
-
-#menu a, #menu h2 {
-font: bold 11px/16px arial, helvetica, sans-serif;
-display: block;
-border-width: 1px;
-border-style: solid;
-border-color: #ccc #888 #555 #bbb;
-margin: 0;
-padding: 2px 3px;
-}
-
-#menu h2 {
-color: #0000FF;
-background:#E7E7E7 url(/images/small-black-down-arrow.gif) no-repeat 100% 100%;
-cursor:pointer;
-}
-
-#menu a {
-color: #0000FF;
-background: #E7E7E7;
-text-decoration: none;
-}
-/*all links below main */
-#menu a:hover {
-color: red;
-background: #E7E7E7;
-}
-
-#menu li {position: relative;}
-
-#menu ul ul {
-position: absolute;
-z-index: 500;
-}
-
-#menu ul ul ul {
-position: absolute;
-top: 0;
-left: 100%;
-}
-
-div#menu ul ul,
-div#menu ul li:hover ul ul,
-div#menu ul ul li:hover ul ul
-{display: none;}
-
-div#menu ul li:hover ul,
-div#menu ul ul li:hover ul,
-div#menu ul ul ul li:hover ul
-{display: block;}
-
-div#menu h2:hover{
-background:#E7E7E7 url(/images/small-black-down-arrow.gif) no-repeat 100% 100%;
-color:red;
-}
-
-#menu a.x, #menu a.x:visited{
-font-weight:bold;
-color:#0000FF;
-background:#E7E7E7 url(/images/right_arrow.gif) no-repeat 100% 100%;
-}
-
-#menu a.x:hover{
-color:red;
-background:#E7E7E7 url(/images/right_arrow.gif) no-repeat 100% 100%;
-}
-
-#menu a.x:active{
-color:#0000FF;
-background:#E7E7E7;
-}
-/* ------------------ submenus ----------------------------------- */
-div.submenu {
-width:100%;
-float: left;
-}
-
-div.submenu ul {
-list-style: none;
-margin: 0;
-padding: 0;
-width: 100%;
-float: left;
-}
-
-div.submenu a, div.submenu h2 {
-font: bold 11px/16px arial, helvetica, sans-serif;
-display: block;
-border-width: 1px;
-border-style: solid;
-border-color: #ccc #888 #555 #bbb;
-margin: 0;
-padding: 2px 3px;
-}
-
-div.submenu h2 {
-color: #0000FF;
-background:url(/images/small-black-down-arrow.gif) no-repeat 100% 100%;
-cursor:pointer;
-}
-
-div.submenu a {
-color: #0000FF;
-background: #E7E7E7;
-text-decoration: none;
-}
-
-div.submenu a:hover {
-color: red;
-}
-
-div.submenu li {position: relative;}
-
-div.submenu ul ul {
-position: absolute;
-z-index: 500;
-}
-
-div.submenu ul ul ul {
-position: absolute;
-top: 0;
-left: 100%;
-}
-
-div.submenu ul ul,
-div.submenu ul li:hover ul ul,
-div.submenu ul ul li:hover ul ul
-{display: none;}
-
-div.submenu ul li:hover ul,
-div.submenu ul ul li:hover ul,
-div.submenu ul ul ul li:hover ul
-{display: block;}
-
-div.submenu h2:hover{
-background:#E7E7E7 url(/images/small-black-down-arrow.gif) no-repeat 100% 100%;
-color:#0000FF;
-}
 /*************************************************** Superfish ********************************************************/
 .sf-menu, .sf-menu * {
 	margin:			0;
@@ -1236,7 +980,6 @@ ul.sf-menu li li li.sfHover ul {
 	left:			10em; /* match ul width */
 	top:			0;
 }
-
 /*** DEMO SKIN ***/
 .sf-menu {
 	float:			left;
@@ -1262,12 +1005,10 @@ ul.sf-menu li li li.sfHover ul {
 }
 .sf-menu li:hover, .sf-menu li.sfHover,
 .sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active {
-	background:		#E7E7E7;
+	background:		#D0D0D0;
 	outline:		0;
-color:red;
+	color:red;
 }
-
-/*** arrows **/
 .sf-menu a.sf-with-ul {
 	padding-right: 	2.25em;
 	min-width:		1px; /* trigger IE7 hasLayout so spans position accurately */
