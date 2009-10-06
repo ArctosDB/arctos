@@ -52,7 +52,7 @@ font-weight:bold;}
 			</cfquery>
 			<cfset formList = valuelist(roles.form_path)>
 		</cfif>
-		<li>menuthingee
+		<li><a href="##">Enter Data</a>
 			<ul>
 				<li><a href="##" class="x">Enter Data</a>
 					<ul>
