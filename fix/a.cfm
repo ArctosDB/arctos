@@ -196,6 +196,46 @@ font-weight:bold;}
 				</cfif>		
 			</ul>
 		</li>
+		<cfif listfind(formList,"/Admin/ActivityLog.cfm")>
+			<li><a target="_top" href="##">Reports</a>
+				<ul>
+					<li><a target="_top" href="/Reports/reporter.cfm">Reporter</a></li>
+					<li><a target="_top" href="/info/mia_in_genbank.cfm">GenBank MIA</a></li>
+					<li><a target="_top" href="/info/reviewAnnotation.cfm">Annotations</a></li>
+					<li><a target="_top" href="/info/loanStats.cfm">Loan/Citation Stats</a></li>
+					<li><a target="_top" href="/Admin/download.cfm">Download Stats</a></li>
+					<li><a target="_top" href="/info/queryStats.cfm">Query Stats</a></li>
+					<li><a target="_top" href="/info/Citations.cfm">Citation Stats</a></li>
+					<li><a target="_top" href="/Admin/ActivityLog.cfm">Audit SQL</a></li>
+					<li><a target="_top" href="/tools/downloadData.cfm">Download Tables</a></li>
+					<li><a target="_top" href="/tools/access_report.cfm">Oracle Roles</a></li>
+                           <cfif listfind(formList,"/tools/userSQL.cfm")>
+					    <li><a target="_top" href="/tools/userSQL.cfm">Write SQL</a></li>
+                    </cfif>
+                    <li><a target="_top" href="##">Funky Data</a>
+						<ul>
+							<li><a target="_top" href="/info/slacker.cfm">Suspect Data</a></li>
+							<li><a target="_top" href="/info/noParts.cfm">Partless Specimens</a></li>
+							<li><a target="_top" href="/tools/TaxonomyGaps.cfm">Messy Taxonomy</a></li>
+							<li><a target="_top" href="/tools/findGap.cfm">Catalog Number Gaps</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+	    </cfif>
+	    <li><a target="_top" href="/myArctos.cfm">My Stuff</a>
+	   		<ul>
+				<cfif len(session.username) gt 0>
+					<li><a target="_top" href="/myArctos.cfm">Profile</a></li>
+				<cfelse>
+					<li><a target="_top" href="/myArctos.cfm">Log In</a></li>
+				</cfif>
+				<li><a target="_top" href="/home.cfm">Home</a></li>
+				<li><a target="_top" href="/Collections/index.cfm">Collections (Loans)</a></li>
+				<li><a target="_top" href="/saveSearch.cfm?action=manage">Saved Searches</a></li>
+				<li><a target="_top" href="/info/api.cfm">API</a></li>
+			</ul>
+		</li>		
 	</ul>
 	<!----------
 	
@@ -206,50 +246,9 @@ font-weight:bold;}
 			<ul>
 		        
 	        </ul>	
-	        <cfif listfind(formList,"/Admin/ActivityLog.cfm")>
-				<ul>
-					<li><h2>Reports</h2>
-						<ul>
-							<li><a target="_top" href="/Reports/reporter.cfm">Reporter</a></li>
-							<li><a target="_top" href="/info/mia_in_genbank.cfm">GenBank MIA</a></li>
-							<li><a target="_top" href="/info/reviewAnnotation.cfm">Annotations</a></li>
-							<li><a target="_top" href="/info/loanStats.cfm">Loan/Citation Stats</a></li>
-							<li><a target="_top" href="/Admin/download.cfm">Download Stats</a></li>
-							<li><a target="_top" href="/info/queryStats.cfm">Query Stats</a></li>
-							<li><a target="_top" href="/info/Citations.cfm">Citation Stats</a></li>
-							<li><a target="_top" href="/Admin/ActivityLog.cfm">Audit SQL</a></li>
-							<li><a target="_top" href="/tools/downloadData.cfm">Download Tables</a></li>
-							<li><a target="_top" href="/tools/access_report.cfm">Oracle Roles</a></li>
-                             <cfif listfind(formList,"/tools/userSQL.cfm")>
-							    <li><a target="_top" href="/tools/userSQL.cfm">Write SQL</a></li>
-		                    </cfif>
-		                    <li><a target="_top" href="##">Funky Data</a>
-								<ul>
-									<li><a target="_top" href="/info/slacker.cfm">Suspect Data</a></li>
-									<li><a target="_top" href="/info/noParts.cfm">Partless Specimens</a></li>
-									<li><a target="_top" href="/tools/TaxonomyGaps.cfm">Messy Taxonomy</a></li>
-									<li><a target="_top" href="/tools/findGap.cfm">Catalog Number Gaps</a></li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-				</ul>
-	        </cfif>	
-	    </cfif>
+	        
 		<ul>
-			<li><h2 onclick="document.location='/myArctos.cfm';">My Stuff</h2>
-				<ul>
-					<cfif len(session.username) gt 0>
-						<li><a target="_top" href="/myArctos.cfm">Profile</a></li>
-					<cfelse>
-						<li><a target="_top" href="/myArctos.cfm">Log In</a></li>
-					</cfif>
-					<li><a target="_top" href="/home.cfm">Home</a></li>
-					<li><a target="_top" href="/Collections/index.cfm">Collections (Loans)</a></li>
-					<li><a target="_top" href="/saveSearch.cfm?action=manage">Saved Searches</a></li>
-					<li><a target="_top" href="/info/api.cfm">API</a></li>
-				</ul>
-			</li>		
+			
 		</ul>
 		--------------->
 		</cfoutput>
