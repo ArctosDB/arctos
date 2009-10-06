@@ -36,8 +36,8 @@ font-weight:bold;}
 				<li><a target="_top" href="/SpecimenUsage.cfm">Publications/Projects</a></li>
 				<li><a target="_top" href="/TaxonomySearch.cfm">Taxonomy</a></li>
                 <li><a target="_top" href="/MediaSearch.cfm">Media</a></li>
-                <li><a target="_top" href="/document.cfm">Documents (BETA)</a></li>
-                <li><a target="_top" href="/SpecimenSearchHTML.cfm">Specimens (no JavaScript)</a></li>
+                <li><a target="_top" href="/document.cfm">Documents&nbsp;(BETA)</a></li>
+                <li><a target="_top" href="/SpecimenSearchHTML.cfm">Specimens&nbsp;(no&nbsp;JavaScript)</a></li>
 			</ul>
 		</li>
 		<cfif len(session.roles) gt 0 and session.roles is not "public">
