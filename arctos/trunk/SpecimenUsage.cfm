@@ -441,7 +441,7 @@
 			</cfquery>
 			<cfif len(#pubmedia.media_id#) gt 0>
 				<ul>
-					<li><a href="/MediaSearch.cfm?action=search&media_id=#valuelist(pubmedia.media_id)" target="_blank">Media</a></li>
+					<li><a href="/MediaSearch.cfm?action=search&media_id=#valuelist(pubmedia.media_id)#" target="_blank">Media</a></li>
 				</ul>
 			</cfif>
 		</div>
