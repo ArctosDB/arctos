@@ -292,6 +292,13 @@
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
             <cfset temp = QuerySetCell(result, "link", "/media.cfm?action=edit&media_id=#related_primary_key#", i)>
+		<cfelseif table_name is "publication">
+			<cfquery name="d" datasource="uam_god">
+				select formatted_publication data from formatted_publication where format_style='long' and 
+				publication_id=#related_primary_key#
+			</cfquery>
+			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
+            <cfset temp = QuerySetCell(result, "link", "/media.cfm?action=edit&media_id=#related_primary_key#", i)>
 		<cfelseif #table_name# is "project">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select project_name data from 
