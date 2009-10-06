@@ -79,7 +79,7 @@ font-weight:bold;}
 					</ul>
 				</li>
 				<cfif listfind(formList,"/tools/BulkloadParts.cfm")>
-					<li><a target="_top" href="##" class="x">Bulkloaders</a>
+					<li><a target="_top" href="##">Bulkloaders</a>
 						<ul>
 							<li><a target="_top" href="/tools/BulkloadParts.cfm">Bulkload Parts</a></li>
 							<li><a target="_top" href="/tools/BulkPartSample.cfm">Bulkload Part Subsamples (Lots)</a></li>
@@ -114,88 +114,88 @@ font-weight:bold;}
 		        <cfif listfind(formList,"/agents.cfm")><li><a target="_top" href="/agents.cfm">Agents</a></li></cfif>				
 			</ul>
 		</li>
-		<li><h2>Management</h2>
-			        <ul>
-						<cfif listfind(formList,"/info/svn.cfm")>
-							<li>
-								<a target="_top" href="##" class="x">Developer Widgets</a>
-								<ul>
-									<li><a target="_top" href="/ScheduledTasks/index.cfm">Scheduled Tasks</a></li>
-									<li><a target="_top" href="/info/svn.cfm">SVN</a></li>
-									<li><a target="_top" href="/Admin/dumpAll.cfm">dump</a></li>
-									<li><a target="_top" href="/CFIDE/administrator/">Manage ColdFusion</a></li>
-									<li><a target="_top" href="/tools/imageList.cfm">Image List</a></li>
-								</ul>
-							</li>
-						</cfif>
-						<cfif listfind(formList,"/EditContainer.cfm") OR listfind(formList,"/tools/dgr_locator.cfm")>
-							<li><a target="_top" href="##" class="x">Object Tracking</a>
-								<ul>
-									<cfif listfind(formList,"/tools/dgr_locator.cfm")>
-										<li><a target="_top" href="/tools/dgr_locator.cfm">DGR Locator</a></li>
-									</cfif>
-									<cfif listfind(formList,"/moveContainer.cfm")>
-										<li><a target="_top" href="/findContainer.cfm">Find Container</a></li>
-										<li><a target="_top" href="/moveContainer.cfm">Move Container</a></li>
-										<li><a target="_top" href="/batchScan.cfm">Batch Scan</a></li>
-										<li><a target="_top" href="/labels2containers.cfm">Label>Container</a></li>
-										<li><a target="_top" href="/part2container.cfm">Object+BC>>Container</a></li>
-									</cfif>	
-									<cfif listfind(formList,"/EditContainer.cfm")>
-										<li><a target="_top" href="/LoadBarcodes.cfm">Upload Scan File</a></li>
-										<li><a target="_top" href="/EditContainer.cfm?action=newContainer">Create Container</a></li>
-										<li><a target="_top" href="/CreateContainersForBarcodes.cfm">Create Container Series</a></li>
-										<li><a target="_top" href="/SpecimenContainerLabels.cfm">Clear Part Flags</a></li>
-									</cfif>
-										
-								</ul>
-							</li>
-						</cfif>
-						<cfif listfind(formList,"/Loan.cfm")>
-							<li><a target="_top" href="##" class="x">Transactions</a>
-								<ul>
-									<li><a target="_top" href="/newAccn.cfm">Create Accession</a></li>
-									<li><a target="_top" href="/editAccn.cfm">Find Accession</a></li>
-									<li><a target="_top" href="/Loan.cfm?Action=newLoan">Create Loan</a></li>
-									<li><a target="_top" href="/Loan.cfm?Action=addItems">Find Loan</a></li>
-									<li><a target="_top" href="/borrow.cfm?action=new">Create Borrow</a></li>
-									<li><a target="_top" href="/borrow.cfm">Find Borrow</a></li>
-									<li><a target="_top" href="/Permit.cfm?action=newPermit">Create Permit</a></li>
-									<li><a target="_top" href="/Permit.cfm">Find Permit</a></li>
-								</ul>
-							</li>
-						</cfif>
-						<cfif listfind(formList,"/AdminUsers.cfm")>
-							<li><a target="_top" href="##" class="x">Arctos</a>
-								<ul>
-									<li><a target="_top" href="/Admin/form_roles.cfm">Form Permissions</a></li>
-									<li><a target="_top" href="/tools/uncontrolledPages.cfm">See Form Permissions</a></li>
-									<li><a target="_top" href="/AdminUsers.cfm">Arctos Users</a></li>
-									<li><a target="_top" href="/Admin/user_roles.cfm">Database Roles</a></li>
-									<li><a target="_top" href="/Admin/user_report.cfm">All User Stats</a></li>
-									<li><a target="_top" href="/Admin/manage_user_loan_request.cfm">User Loan</a></li>
-								</ul>
-							</li>
-						</cfif>
-						<cfif listfind(formList,"/info/reviewAnnotation.cfm")>
-							<li><a target="_top" href="##" class="x">Misc.</a>
-								<ul>
-									<li><a target="_top" href="/tools/PublicationStatus.cfm">Publication Staging</a></li>
-									<li><a target="_top" href="/tools/parent_child_taxonomy.cfm">Sync parent/child taxonomy</a></li>
-									<li><a target="_top" href="/Admin/killBadAgentDups.cfm">Merge bad dup agents</a></li>
-									<li><a target="_top" href="/CodeTableEditor.cfm">Code tables</a></li>
-									<li><a target="_top" href="/info/geol_hierarchy.cfm">Geol. Att. Hierarchy</a></li>
-									<li><a target="_top" href="/tools/pendingRelations.cfm">Pending Relationships</a></li>
-									<li><a target="_top" href="/Admin/Collection.cfm">Manage collections</a></li>
-									<li><a target="_top" href="/Encumbrances.cfm">Encumbrances</a></li>
-									<cfif listfind(formList,"/tools/sqlTaxonomy.cfm")>
-										<li><a target="_top" href="/tools/sqlTaxonomy.cfm">SQL Taxonomy</a></li>
-									</cfif>
-								</ul>
-							</li>
-						</cfif>		
-			        </ul>
-	            </li>
+		<li><a target="_top" href="##">Management</a>
+			<ul>
+				<cfif listfind(formList,"/info/svn.cfm")>
+					<li>
+						<a target="_top" href="##">Developer Widgets</a>
+						<ul>
+							<li><a target="_top" href="/ScheduledTasks/index.cfm">Scheduled Tasks</a></li>
+							<li><a target="_top" href="/info/svn.cfm">SVN</a></li>
+							<li><a target="_top" href="/Admin/dumpAll.cfm">dump</a></li>
+							<li><a target="_top" href="/CFIDE/administrator/">Manage ColdFusion</a></li>
+							<li><a target="_top" href="/tools/imageList.cfm">Image List</a></li>
+						</ul>
+					</li>
+				</cfif>
+				<cfif listfind(formList,"/EditContainer.cfm") OR listfind(formList,"/tools/dgr_locator.cfm")>
+					<li><a target="_top" href="##">Object Tracking</a>
+						<ul>
+							<cfif listfind(formList,"/tools/dgr_locator.cfm")>
+								<li><a target="_top" href="/tools/dgr_locator.cfm">DGR Locator</a></li>
+							</cfif>
+							<cfif listfind(formList,"/moveContainer.cfm")>
+								<li><a target="_top" href="/findContainer.cfm">Find Container</a></li>
+								<li><a target="_top" href="/moveContainer.cfm">Move Container</a></li>
+								<li><a target="_top" href="/batchScan.cfm">Batch Scan</a></li>
+								<li><a target="_top" href="/labels2containers.cfm">Label>Container</a></li>
+								<li><a target="_top" href="/part2container.cfm">Object+BC>>Container</a></li>
+							</cfif>	
+							<cfif listfind(formList,"/EditContainer.cfm")>
+								<li><a target="_top" href="/LoadBarcodes.cfm">Upload Scan File</a></li>
+								<li><a target="_top" href="/EditContainer.cfm?action=newContainer">Create Container</a></li>
+								<li><a target="_top" href="/CreateContainersForBarcodes.cfm">Create Container Series</a></li>
+								<li><a target="_top" href="/SpecimenContainerLabels.cfm">Clear Part Flags</a></li>
+							</cfif>
+								
+						</ul>
+					</li>
+				</cfif>
+				<cfif listfind(formList,"/Loan.cfm")>
+					<li><a target="_top" href="##">Transactions</a>
+						<ul>
+							<li><a target="_top" href="/newAccn.cfm">Create Accession</a></li>
+							<li><a target="_top" href="/editAccn.cfm">Find Accession</a></li>
+							<li><a target="_top" href="/Loan.cfm?Action=newLoan">Create Loan</a></li>
+							<li><a target="_top" href="/Loan.cfm?Action=addItems">Find Loan</a></li>
+							<li><a target="_top" href="/borrow.cfm?action=new">Create Borrow</a></li>
+							<li><a target="_top" href="/borrow.cfm">Find Borrow</a></li>
+							<li><a target="_top" href="/Permit.cfm?action=newPermit">Create Permit</a></li>
+							<li><a target="_top" href="/Permit.cfm">Find Permit</a></li>
+						</ul>
+					</li>
+				</cfif>
+				<cfif listfind(formList,"/AdminUsers.cfm")>
+					<li><a target="_top" href="##">Arctos</a>
+						<ul>
+							<li><a target="_top" href="/Admin/form_roles.cfm">Form Permissions</a></li>
+							<li><a target="_top" href="/tools/uncontrolledPages.cfm">See Form Permissions</a></li>
+							<li><a target="_top" href="/AdminUsers.cfm">Arctos Users</a></li>
+							<li><a target="_top" href="/Admin/user_roles.cfm">Database Roles</a></li>
+							<li><a target="_top" href="/Admin/user_report.cfm">All User Stats</a></li>
+							<li><a target="_top" href="/Admin/manage_user_loan_request.cfm">User Loan</a></li>
+						</ul>
+					</li>
+				</cfif>
+				<cfif listfind(formList,"/info/reviewAnnotation.cfm")>
+					<li><a target="_top" href="##">Misc.</a>
+						<ul>
+							<li><a target="_top" href="/tools/PublicationStatus.cfm">Publication Staging</a></li>
+							<li><a target="_top" href="/tools/parent_child_taxonomy.cfm">Sync parent/child taxonomy</a></li>
+							<li><a target="_top" href="/Admin/killBadAgentDups.cfm">Merge bad dup agents</a></li>
+							<li><a target="_top" href="/CodeTableEditor.cfm">Code tables</a></li>
+							<li><a target="_top" href="/info/geol_hierarchy.cfm">Geol. Att. Hierarchy</a></li>
+							<li><a target="_top" href="/tools/pendingRelations.cfm">Pending Relationships</a></li>
+							<li><a target="_top" href="/Admin/Collection.cfm">Manage collections</a></li>
+							<li><a target="_top" href="/Encumbrances.cfm">Encumbrances</a></li>
+							<cfif listfind(formList,"/tools/sqlTaxonomy.cfm")>
+								<li><a target="_top" href="/tools/sqlTaxonomy.cfm">SQL Taxonomy</a></li>
+							</cfif>
+						</ul>
+					</li>
+				</cfif>		
+			</ul>
+		</li>
 	</ul>
 	<!----------
 	
@@ -223,7 +223,7 @@ font-weight:bold;}
                              <cfif listfind(formList,"/tools/userSQL.cfm")>
 							    <li><a target="_top" href="/tools/userSQL.cfm">Write SQL</a></li>
 		                    </cfif>
-		                    <li><a target="_top" href="##" class="x">Funky Data</a>
+		                    <li><a target="_top" href="##">Funky Data</a>
 								<ul>
 									<li><a target="_top" href="/info/slacker.cfm">Suspect Data</a></li>
 									<li><a target="_top" href="/info/noParts.cfm">Partless Specimens</a></li>
