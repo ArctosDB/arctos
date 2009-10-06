@@ -27,7 +27,6 @@
 				upper(species) = '#ucase(listgetat(scientific_name,2," "))#' and
 				upper(subspecies) = '#ucase(listgetat(scientific_name,3," "))#'
 		</cfquery>
-		<cfdump var=#getTID#>
 		<cfif getTID.recordcount is 1>
 			<cfheader statuscode="301" statustext="Moved permanently">
 			<cfheader name="Location" value="/name/#getTID.scientific_name#">
