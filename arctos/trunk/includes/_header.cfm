@@ -151,11 +151,9 @@
 						<cfset formList = valuelist(roles.form_path)>
 						<li><a href="##">Enter Data</a>
 							<ul>
-								<li><a href="/DataEntry.cfm">Specimens</a>
+								<li><a target="_top" href="/DataEntry.cfm">Data Entry</a></li>
+								<li><a target="_top" href="##">Bulkloader</a>
 									<ul>
-										<cfif listfind(formList,"/DataEntry.cfm")>
-											<li><a target="_top" href="/DataEntry.cfm">Data Entry</a></li>
-										</cfif>
 										<cfif listfind(formList,"/Bulkloader/bulkloader_status.cfm")>
 											<li><a target="_top" href="/Bulkloader/">Bulkload Specimens</a></li>
 											<li><a target="_top" href="/Bulkloader/bulkloader_status.cfm">Bulkloader Status</a></li>
