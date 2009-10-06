@@ -199,6 +199,7 @@
 											<li><a target="_top" href="/Locality.cfm?action=findLO">Find Locality</a></li>
 											<li><a target="_top" href="/Locality.cfm?action=newLocality">Create Locality</a></li>
 											<li><a target="_top" href="/Locality.cfm?action=findCO">Find Event</a></li>
+											<li><a target="_top" href="/info/geol_hierarchy.cfm">Geology Attributes Hierarchy</a></li>
 										</ul>
 									</li>			
 								</cfif>
@@ -257,7 +258,6 @@
 											<cfif listfind(formList,"/CodeTableEditor.cfm")>
 												<li><a target="_top" href="/CodeTableEditor.cfm">Code tables</a></li>
 											</cfif>
-											<li><a target="_top" href="/info/geol_hierarchy.cfm">Geol. Att. Hierarchy</a></li>
 											<li><a target="_top" href="/tools/pendingRelations.cfm">Pending Relationships</a></li>
 											<li><a target="_top" href="/Admin/Collection.cfm">Manage Collection</a></li>
 											<li><a target="_top" href="/Encumbrances.cfm">Encumbrances</a></li>
