@@ -41,7 +41,7 @@
 		<cfif #getPub.recordcount# is 1>
 			<script>
 				opener.document.#formName#.#pubIdFld#.value='#publication_id#';
-				opener.document.#formName#.#pubStringFld#.value=escape('#formatted_publication#');
+				opener.document.#formName#.#pubStringFld#.value='#formatted_publication#';
 				opener.document.#formName#.#pubStringFld#.style.background='##8BFEB9';
 				self.close();
 			</script>
@@ -49,7 +49,7 @@
 			<tr>
 				<td>
 					<a href="##" onClick="javascript: opener.document.#formName#.#pubIdFld#.value='#publication_id#';
-						opener.document.#formName#.#pubStringFld#.value=escape('#formatted_publication#');self.close();">#formatted_publication#</a>
+						opener.document.#formName#.#pubStringFld#.value='#formatted_publication#';self.close();">#formatted_publication#</a>
 				</td>
 			</tr>
 		</cfif>
