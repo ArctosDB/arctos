@@ -204,7 +204,18 @@
 										</ul>
 									</li>			
 								</cfif>
-								<cfif listfind(formList,"/agents.cfm")><li><a target="_top" href="/agents.cfm">Agents</a></li></cfif>
+								<cfif listfind(formList,"/agents.cfm") or listfind(formList,"/Admin/killBadAgentDups.cfm")>
+									<li>
+										<ul>
+											<cfif listfind(formList,"/agents.cfm")>
+												<li><a target="_top" href="/agents.cfm">Agents</a></li>
+											</cfif>
+											<cfif listfind(formList,"/Admin/killBadAgentDups.cfm")>
+												<li><a target="_top" href="/Admin/killBadAgentDups.cfm">Merge bad dup agents</a></li>
+											</cfif>
+										</ul>
+									</li>
+								</cfif>
 								<cfif listfind(formList,"/EditContainer.cfm") OR listfind(formList,"/tools/dgr_locator.cfm")>
 									<li><a target="_top" href="##">Object Tracking</a>
 										<ul>
@@ -241,7 +252,25 @@
 											<li><a target="_top" href="/Permit.cfm">Find Permit</a></li>
 										</ul>
 									</li>
-								</cfif>	
+								</cfif>
+								<cfif listfind(formList,"/info/reviewAnnotation.cfm")>
+									<li><a target="_top" href="##">Tools</a>
+										<ul>
+											<li><a target="_top" href="/tools/PublicationStatus.cfm">Publication Staging</a></li>
+											<li><a target="_top" href="/tools/parent_child_taxonomy.cfm">Sync parent/child taxonomy</a></li>
+											<cfif listfind(formList,"/CodeTableEditor.cfm")>
+												<li><a target="_top" href="/CodeTableEditor.cfm">Code tables</a></li>
+											</cfif>
+											<li><a target="_top" href="/info/geol_hierarchy.cfm">Geol. Att. Hierarchy</a></li>
+											<li><a target="_top" href="/tools/pendingRelations.cfm">Pending Relationships</a></li>
+											<li><a target="_top" href="/Admin/Collection.cfm">Manage collections</a></li>
+											<li><a target="_top" href="/Encumbrances.cfm">Encumbrances</a></li>
+											<cfif listfind(formList,"/tools/sqlTaxonomy.cfm")>
+												<li><a target="_top" href="/tools/sqlTaxonomy.cfm">SQL Taxonomy</a></li>
+											</cfif>
+										</ul>
+									</li>
+								</cfif>		
 							</ul>
 						<li><a target="_top" href="##">Manage Arctos</a>
 							<ul>
@@ -258,7 +287,7 @@
 									</li>
 								</cfif>
 								<cfif listfind(formList,"/AdminUsers.cfm")>
-									<li><a target="_top" href="##">Arctos</a>
+									<li><a target="_top" href="##">Roles/Permissions</a>
 										<ul>
 											<li><a target="_top" href="/Admin/form_roles.cfm">Form Permissions</a></li>
 											<li><a target="_top" href="/tools/uncontrolledPages.cfm">See Form Permissions</a></li>
@@ -269,23 +298,6 @@
 										</ul>
 									</li>
 								</cfif>
-								<cfif listfind(formList,"/info/reviewAnnotation.cfm")>
-									<li><a target="_top" href="##">Misc.</a>
-										<ul>
-											<li><a target="_top" href="/tools/PublicationStatus.cfm">Publication Staging</a></li>
-											<li><a target="_top" href="/tools/parent_child_taxonomy.cfm">Sync parent/child taxonomy</a></li>
-											<li><a target="_top" href="/Admin/killBadAgentDups.cfm">Merge bad dup agents</a></li>
-											<li><a target="_top" href="/CodeTableEditor.cfm">Code tables</a></li>
-											<li><a target="_top" href="/info/geol_hierarchy.cfm">Geol. Att. Hierarchy</a></li>
-											<li><a target="_top" href="/tools/pendingRelations.cfm">Pending Relationships</a></li>
-											<li><a target="_top" href="/Admin/Collection.cfm">Manage collections</a></li>
-											<li><a target="_top" href="/Encumbrances.cfm">Encumbrances</a></li>
-											<cfif listfind(formList,"/tools/sqlTaxonomy.cfm")>
-												<li><a target="_top" href="/tools/sqlTaxonomy.cfm">SQL Taxonomy</a></li>
-											</cfif>
-										</ul>
-									</li>
-								</cfif>		
 							</ul>
 						</li>
 						<cfif listfind(formList,"/Admin/ActivityLog.cfm")>
