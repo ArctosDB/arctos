@@ -25,7 +25,7 @@
 			FROM
 				formatted_publication
 			WHERE
-				UPPER(regexp_replace(publication_title,'<[^>]*>')) LIKE '%#ucase(escapeQuotes(publication_title))#%'and
+				UPPER(regexp_replace(formatted_publication,'<[^>]*>')) LIKE '%#ucase(escapeQuotes(publication_title))#%'and
 				format_style='long'
 			ORDER BY
 				formatted_publication
