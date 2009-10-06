@@ -126,6 +126,7 @@
 				We're upgrading! Things may be a little goofy until Monday, February 16.
 			</div>
 			--->
+			<!-----
 			<div class="sf-mainMenuWrapper">
 				<ul class="sf-menu">
 					<li>
@@ -328,6 +329,9 @@
 					</li>		
 				</ul>
 			</div>
+			---->
+			
+			this is text
 		</div>
 		<cf_rolecheck>
 	</cfoutput>
