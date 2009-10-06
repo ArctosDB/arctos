@@ -85,6 +85,8 @@ function pickedRelationship (id){
 		getProject(idInputName,dispInputName,'newMedia');
 	} else if (relatedTable=='taxonomy'){
 		taxaPick(idInputName,dispInputName,'newMedia');
+	} else if (relatedTable=='publication'){
+		getPublication(dispInputName,idInputName,'','newMedia');
 	} else if (relatedTable=='delete'){
 		document.getElementById(dispInputName).value='Marked for deletion.....';
 	} else {

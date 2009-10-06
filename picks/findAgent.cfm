@@ -3,7 +3,7 @@
 	<!--- make sure we're searching for something --->
 	<cfif len(#agent_name#) is 0>
 		<form name="searchForAgent" action="findAgent.cfm" method="post">
-			<label for+"agent_name">Agent Name</label>
+			<label for="agent_name">Agent Name</label>
 			<input type="text" name="agent_name" id="agent_name">
 			<input type="submit" 
 				value="Search" 

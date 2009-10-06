@@ -1941,6 +1941,11 @@ function pickCollEvent(collIdFld,formName,collObjId){
 	var covwin=url+"?collIdFld="+collIdFld+"&collection_object_id="+collObjId+"&formName="+formName;
 	ColPickwin=window.open(covwin,"","width=800,height=600, resizable,scrollbars");
 }
+function getPublication(pubStringFld,pubIdFld,publication_title,formName){
+	var url="/picks/findPublication.cfm";
+	var pubwin=url+"?pubStringFld="+pubStringFld+"&pubIdFld="+pubIdFld+"&publication_title="+publication_title+"&formName="+formName;
+	geogpickwin=window.open(geogwin,"","width=400,height=338, resizable,scrollbars");
+}
 function getGeog(geogIdFld,geogStringFld,formName,geogString){
 	var url="/picks/findHigherGeog.cfm";
 	var geogIdFld;
