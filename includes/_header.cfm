@@ -127,6 +127,7 @@
 			</div>
 			--->
 			<cfinclude template="/includes/mainMenu.cfm">
+		</div>
 		<cf_rolecheck>
 	</cfoutput>
 <br><br>
