@@ -28,22 +28,19 @@ font-weight:bold;}
 </style>
 <cfoutput>
 <div class="sampleTabContent">
-	
-	
-	 <div id="menu">
-		<ul>
-			<li><h2 onclick="document.location='/SpecimenSearch.cfm';">Search</h2>
-				<ul>
-					<li><a target="_top" href="/SpecimenSearch.cfm">Specimens</a></li>
-					<li><a target="_top" href="/SpecimenUsage.cfm">Publications/Projects</a></li>
-					<li><a target="_top" href="/TaxonomySearch.cfm">Taxonomy</a></li>
-                    <li><a target="_top" href="/MediaSearch.cfm">Media</a></li>
-                    <li><a target="_top" href="/document.cfm">Documents (BETA)</a></li>
-                    <li><a target="_top" href="/SpecimenSearchHTML.cfm">Specimens (no JavaScript)</a></li>
-				</ul>
-			</li> 
-		</ul>
-		<cfif len(session.roles) gt 0 and session.roles is not "public">
+	<ul class="sf-menu">
+		<li><h2 onclick="document.location='/SpecimenSearch.cfm';">Search</h2>
+			<ul>
+				<li><a target="_top" href="/SpecimenSearch.cfm">Specimens</a></li>
+				<li><a target="_top" href="/SpecimenUsage.cfm">Publications/Projects</a></li>
+				<li><a target="_top" href="/TaxonomySearch.cfm">Taxonomy</a></li>
+                   <li><a target="_top" href="/MediaSearch.cfm">Media</a></li>
+                   <li><a target="_top" href="/document.cfm">Documents (BETA)</a></li>
+                   <li><a target="_top" href="/SpecimenSearchHTML.cfm">Specimens (no JavaScript)</a></li>
+			</ul>
+		</li> 
+	</ul>
+	<cfif len(session.roles) gt 0 and session.roles is not "public">
 			<!--- see what forms this user gets access to --->
 			<cfset r = replace(session.roles,",","','","all")>
 			<cfset r = "'#r#'">
