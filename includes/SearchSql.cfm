@@ -1209,7 +1209,7 @@
 		<cfset basJoin = " #basJoin# INNER JOIN citation ON 
 		(cataloged_item.collection_object_id = citation.collection_object_id)">
 	</cfif>
-	<cfset basQual = " #basQual# AND citation.taxon_name_id = #cited_taxon_name_id#">
+	<cfset basQual = " #basQual# AND citation.cited_taxon_name_id = #cited_taxon_name_id#">
 	<cfset mapurl = "#mapurl#&cited_taxon_name_id=#cited_taxon_name_id#">
 </cfif>
 <cfif isdefined("publication_id") AND #publication_id# is not "">

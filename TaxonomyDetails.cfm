@@ -344,7 +344,7 @@
 		<ul>
 			<li>
 				 <a href="/SpecimenResults.cfm?cited_taxon_name_id=#one.taxon_name_id#">
-					Cited as #one.display_name#
+					Specimens cited as #one.display_name#
 				</a>
 			</li>
 			<li>
