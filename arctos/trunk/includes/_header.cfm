@@ -38,7 +38,7 @@
 				Some features of this site may not work in your browser. <a href="/home.cfm##requirements">Learn more</a>
 			</div>
 		</cfif>
-		<div id="header_color" style='background-color:#session.header_color#;border:2px solid red;'>
+		<div id="header_color" style='background-color:#session.header_color#;'>
 			<table width="95%" cellpadding="0" cellspacing="0" border="0" id="headerContent">
 				<tr>
 					<td width="95" nowrap="nowrap" class="headerImageCell" id="headerImageCell">
