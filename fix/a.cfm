@@ -1,41 +1,17 @@
 <cfinclude template="/includes/_header.cfm">
 
 <link rel="stylesheet" type="text/css" href="superfish.css" media="screen">
-		<script type="text/javascript" src="hoverIntent.js"></script>
+<script type="text/javascript" src="hoverIntent.js"></script>
 
 		<script type="text/javascript" src="superfish.js"></script>
 
 		<script type="text/javascript" src="supersubs.js"></script>
 
 
-<script>
-	jQuery(document).ready(function(){ 
-        $("ul.sf-menu").supersubs({ 
-            minWidth:    12,   // minimum width of sub-menus in em units 
-            maxWidth:    27,   // maximum width of sub-menus in em units 
-            extraWidth:  1     // extra width can ensure lines don't sometimes turn over 
-                               // due to slight rounding differences and font-family 
-        }).superfish({ 
-            delay:       600,                            // one second delay on mouseout 
-            animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
-            speed:       'fast',                          // faster animation speed 
-        });  // call supersubs first, then superfish, so that subs are 
-                         // not display:none when measuring. Call before initialising 
-                         // containing tabs for same reason. 
-    }); 
-		
-      
-    
-</script>
-<style>
-.mainMenuWrapper { 
-clear: left; 
-float:left; width:100%;
-font-size:small;
-font-weight:400;}
-</style>
+
+
 <cfoutput>
-<div class="mainMenuWrapper">
+<div class="sf-mainMenuWrapper">
 	<ul class="sf-menu">
 		<li>
 			<a target="_top" href="/SpecimenSearch.cfm">Search</a>
