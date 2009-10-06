@@ -343,6 +343,11 @@
 		Arctos Links:
 		<ul>
 			<li>
+				 <a href="/SpecimenResults.cfm?cited_taxon_name_id=#one.taxon_name_id#">
+					Cited as #one.display_name#
+				</a>
+			</li>
+			<li>
 				 <a href="/SpecimenResults.cfm?taxon_name_id=#one.taxon_name_id#">
 					Specimen Results: exactly #one.display_name#
 				</a>

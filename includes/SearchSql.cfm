@@ -1204,7 +1204,14 @@
 		 UPPER(common_name.Common_Name) LIKE '%#ucase(stripQuotes(Common_Name))#%'">
 	<cfset mapurl = "#mapurl#&Common_Name=#Common_Name#">
 </cfif>
-
+<cfif isdefined("cited_taxon_name_id") AND len(cited_taxon_name_id) gt 0>
+	<cfif #basJoin# does not contain " citation ">
+		<cfset basJoin = " #basJoin# INNER JOIN citation ON 
+		(cataloged_item.collection_object_id = citation.collection_object_id)">
+	</cfif>
+	<cfset basQual = " #basQual# AND citation.taxon_name_id = #cited_taxon_name_id#">
+	<cfset mapurl = "#mapurl#&cited_taxon_name_id=#cited_taxon_name_id#">
+</cfif>
 <cfif isdefined("publication_id") AND #publication_id# is not "">
 	<cfif #basJoin# does not contain " citation ">
 		<cfset basJoin = " #basJoin# INNER JOIN citation ON 
