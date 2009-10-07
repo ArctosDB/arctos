@@ -14,24 +14,7 @@ function changeCollection(v){
 		s.value=i + ':' + c;
 	}
 }
-function compareDates(date1,dateformat1,date2,dateformat2) {
-	var d1=getDateFromFormat(date1,dateformat1);
-	var d2=getDateFromFormat(date2,dateformat2);
-	if (d1==0 || d2==0) {
-		return -1;
-	}
-	else if (d1 > d2) {
-		return 1;
-	}
-	return 0;
-}
-function _isInteger(val) {
-	var digits="1234567890";
-	for (var i=0; i < val.length; i++) {
-		if (digits.indexOf(val.charAt(i))==-1) { return false; }
-	}
-	return true;
-}
+/* recheck */
 function _getInt(str,i,minlength,maxlength) {
 	for (var x=maxlength; x>=minlength; x--) {
 		var token=str.substring(i,i+x);
@@ -216,7 +199,6 @@ function MSBBirdDefault () {
 		  }
 	 }
 }
-
 function clearAll () {
 	var theForm = document.getElementById('dataEntry');
 	for(i=0; i<theForm.elements.length; i++) {
@@ -225,7 +207,6 @@ function clearAll () {
 		}
 	}	
 }
-
 function changeSex(sex) {
 	var thisCC = document.getElementById('collection_cde').value;
 	if (thisCC == 'Bird') {	
@@ -233,10 +214,6 @@ function changeSex(sex) {
 		var thisAttUnit = document.getElementById('attribute_units_7');
 		thisAttUnit.className='readClr';
 		thisAttUnit.readOnly=true;
-		//alert(sex);
-		// change attribute 7 to repro
-		// default in some value
-		// and make the units unwritable
 		var a7 = document.getElementById('attribute_7');
 		a7.value = 'reproductive data';
 		if (sex.indexOf('female') > -1) {
@@ -278,7 +255,6 @@ function switchActive(OrigUnits) {
 		u.className='doShow';
 	}
 }
-	
 function saveNewRecord () {
 	if (cleanup()) {
 		var de = document.getElementById('dataEntry');
@@ -287,7 +263,6 @@ function saveNewRecord () {
 		de.submit();
 	}
 }
-	
 function saveEditedRecord () {
 	if (cleanup()) {
 		var de = document.getElementById('dataEntry');
@@ -296,7 +271,6 @@ function saveEditedRecord () {
 		de.submit();
 	}
 }
-	
 function deleteThisRec () {
 	yesDelete = window.confirm('Are you sure you want to delete this record?');
 	if (yesDelete == true) {
@@ -306,7 +280,6 @@ function deleteThisRec () {
 		de.submit();
 	}
 }
-
 function setPartLabel (thisID) {
 	var thePartNum = thisID.replace('part_barcode_','');
 	var theOIDType = document.getElementById('other_id_num_type_5').value;
@@ -376,9 +349,7 @@ function changeMode (mode,collobjid) {
 	var tlmdc = lmdc.replace(/^\s+/g, '').replace(/\s+$/g, '');
 	var isGoodSave = tlmdc.length;
 	var clrDefBtn = document.getElementById('clearDefault');	
-	
 	if (mode == 'edit') {
-		// don't let them edit the templates
 		if (collobjid < 20) {
 			alert('You cannot enter edit mode until you\'ve entered a record! Select \'start where you left off\' from the initial menu if you have entered records previously and wish to edit them.');
 			return false;
@@ -391,18 +362,12 @@ function changeMode (mode,collobjid) {
 		Bty.style.display='';
 		clrDefBtn.style.display='none';// allow clearing of data in entry mode ONLY (not here!)
 		if (isGoodSave > 0) {
-			// bad save, loadedmsg contains something besides spaces
 			pgClr.style.backgroundColor = '#FF6EC7';
 		} else {
-			// good save
 			pgClr.style.backgroundColor = '#00CCCC';
 			tDiv.style.display='none';
 		}
-		
 	} else { // entry mode
-		//alert(mode);
-		//tDiv.innerHTML='enter mode';
-		
 		tTab.style.border='';
 		tNew.style.display='';
 		tSav.style.display='none';
@@ -414,33 +379,18 @@ function changeMode (mode,collobjid) {
 		tBS.value='';
 		Bty.style.display='none';
 		clrDefBtn.style.display=''; // allow clearing of data in entry mode 
-		// get rid of the title
 		if (isGoodSave > 0) {
-			// bad save, loadedmsg contains something besides spaces
 			pgClr.style.backgroundColor = '#669999';
-			// clear defaults
 		} else {
-			// good save
 			pgClr.style.backgroundColor = '#bed88f';
 			tDiv.style.display='none';
-			//alert('clearing defaults...');
 			setNewRecDefaults();
-			/*
-			var cc = document.getElementById('collection_cde').value;
-			var ia = document.getElementById('institution_acronym').value;
-			if(cc == 'Mamm' && ia == 'UAM') {
-					catNumGap();
-			} else if(cc == 'Bird' && ia == 'MSB') {
-				MSBBirdDefault();	
-			}
-			*/
 		}
 	}
 	var splashPg = document.getElementById('splash');
 	splashPg.style.display='none';
 	pgClr.style.display='';	
 }
-
 function setNewRecDefaults () {
 	var defBlank = new Array();
 	defBlank.push('attribute_value_1');
@@ -490,7 +440,6 @@ function setNewRecDefaults () {
 	defBlank.push('related_to_num_type');
 	defBlank.push('related_to_number');
 	defBlank.push('cat_num');
-		
 	for (i=0;i<defBlank.length;i++) {
 		try {
 			var thisFld = document.getElementById(defBlank[i]);
@@ -501,17 +450,14 @@ function setNewRecDefaults () {
 	}	
 	var thisFld = document.getElementById('condition');
 	thisFld.value='unchecked';
-	// reset code tables etc for attributes
 	var attribute_7 = document.getElementById('attribute_7').value;
 	var attribute_8 = document.getElementById('attribute_8').value;
 	var attribute_9 = document.getElementById('attribute_9').value;
 	var attribute_10 = document.getElementById('attribute_10').value;
-	//alert('attribute switch');
 	getAttributeStuff(attribute_7,'attribute_7');
 	getAttributeStuff(attribute_8,'attribute_8');
 	getAttributeStuff(attribute_9,'attribute_9');
 	getAttributeStuff(attribute_10,'attribute_10');
-
 	var partLotCount = new Array();
 	partLotCount.push('part_lot_count_1');
 	partLotCount.push('part_lot_count_2');
@@ -533,9 +479,8 @@ function setNewRecDefaults () {
 	}	
 	var cc = document.getElementById('collection_cde').value;
 	var ia = document.getElementById('institution_acronym').value;
-	
 	if(cc == 'Mamm' && ia == 'UAM') {
-		catNumGap();
+		//catNumGap();
 	} else if(cc == 'Bird' && ia == 'MSB') {
 		MSBBirdDefault();
 	} else if(cc == 'Fish' && ia == 'UAM') {
@@ -602,9 +547,7 @@ function copyAllDates(theID) {
 		}	
 	}
 }
-
 function copyAttributeDates(theID) {
-	//alert(':' + theID + ':');
 	var theDate = document.getElementById(theID).value;
 	if (theDate.length > 0) {
 		var date_array = new Array();
@@ -630,7 +573,6 @@ function copyAttributeDates(theID) {
 		}	
 	}
 }
-
 function copyAttributeDetr(theID) {
 	var theAgent = document.getElementById(theID).value;
 	if (theAgent.length > 0) {
@@ -649,9 +591,7 @@ function copyAttributeDetr(theID) {
 			try {
 				var thisFld = document.getElementById(agnt_array[i]);
 				var theValue = thisFld.value;
-				//if (theValue.length == 0) {
-					thisFld.value=theAgent;
-				//}
+				thisFld.value=theAgent;
 			}
 			catch ( err ){// nothing, just ignore 
 			}
@@ -659,7 +599,6 @@ function copyAttributeDetr(theID) {
 		}	
 	}
 }
-
 function copyAllAgents(theID) {
 	var theAgent = document.getElementById(theID).value;
 	if (theAgent.length > 0) {
@@ -680,9 +619,7 @@ function copyAllAgents(theID) {
 			try {
 				var thisFld = document.getElementById(agnt_array[i]);
 				var theValue = thisFld.value;
-				//if (theValue.length == 0) {
-					thisFld.value=theAgent;
-				//}
+				thisFld.value=theAgent;
 			}
 			catch ( err ){// nothing, just ignore 
 			}
@@ -690,7 +627,6 @@ function copyAllAgents(theID) {
 		}	
 	}
 }
-
 function highlightErrors (loadedMsg) {
 	var prob_array = loadedMsg.split(" ");
 	for (var loop=0; loop < prob_array.length; loop++) {
@@ -891,22 +827,7 @@ function cleanup () {
 		return false;
 	}
 	return true;
-}		
-
-	
-function SpecToVerb (verbLoc) {
-	var verbLoc;
-	var isVerb=verbLoc.length;
-	var a = document.getElementById('verbatim_locality');
-	var b = document.getElementById('spec_locality').value;
-	a.value=b;
 }
-function showNext(idName) {
-	var idName;
-	var thisElement=document.getElementById(idName);
-	thisElement.className='doShow f12t';
-}
-
 setInterval ( "checkPicked()", 5000 );
 setInterval ( "checkPickedEvnt()", 5000 );
 function checkPicked(){
@@ -934,20 +855,18 @@ function rememberLastOtherId (yesno) {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_rememberLastOtherId
+		function(yesno){
+			var theSpan = document.getElementById('rememberLastId');
+			if (yesno==0){
+				theSpan.innerHTML='<span class="infoLink" onclick="rememberLastOtherId(1)">Increment This</span>';
+			} else if (yesno == 1) {
+				theSpan.innerHTML='<span class="infoLink" onclick="rememberLastOtherId(0)">Nevermind</span>';
+			} else {
+				alert('Something goofy happened. Remembering your next Other ID may not have worked.');
+			}
+		}
 	);
 }
-function success_rememberLastOtherId (yesno) {
-	var theSpan = document.getElementById('rememberLastId');
-	if (yesno==0){
-		theSpan.innerHTML='<span class="infoLink" onclick="rememberLastOtherId(1)">Increment This</span>';
-	} else if (yesno == 1) {
-		theSpan.innerHTML='<span class="infoLink" onclick="rememberLastOtherId(0)">Nevermind</span>';
-	} else {
-		alert('Something goofy happened. Remembering your next Other ID may not have worked.');
-	}	
-}
-
 function isGoodAccn () {
 	var accn = document.getElementById('accn').value;
 	var institution_acronym = document.getElementById('institution_acronym').value;
@@ -959,23 +878,21 @@ function isGoodAccn () {
 			returnformat : "json",
 			queryformat : 'column'
 		},
-		success_isGoodAccn
+		function (result) {
+			var accn = document.getElementById('accn');
+			if (result == 1) {
+				accn.className = 'd11a reqdClr';
+			} else if (result == 0) {
+				alert('You must enter a valid, pre-existing accn.');
+				accn.className = 'hasProbs';
+			} else {
+				alert('An error occured while validating accn. \nYou must enter a valid, pre-existing accn.\n' + result );
+				accn.className = 'hasProbs';
+			}
+		}
 	);
 	return null;
 }
-function success_isGoodAccn (result) {
-	var accn = document.getElementById('accn');
-	if (result == 1) {
-		accn.className = 'd11a reqdClr';
-	} else if (result == 0) {
-		alert('You must enter a valid, pre-existing accn.');
-		accn.className = 'hasProbs';
-	} else {
-		alert('An error occured while validating accn. \nYou must enter a valid, pre-existing accn.\n' + result );
-		accn.className = 'hasProbs';
-	}
-}
-
 function turnSaveOn () {
 	document.getElementById('localityPicker').style.display='none';
 	document.getElementById('localityUnPicker').style.display='none';
@@ -1074,13 +991,10 @@ function unpickLocality () {
 	document.getElementById('lat_long_remarks').removeAttribute('readonly');
 	document.getElementById('orig_lat_long_units').className='d11a';
 	document.getElementById('orig_lat_long_units').removeAttribute('readonly');
-
 	document.getElementById('locality_id').value='';
 	document.getElementById('fetched_locid').value='';
 	document.getElementById('fetched_eventid').value='';
-	
 	document.getElementById('localityUnPicker').style.display='none';
-	//document.getElementById('pickedSomething').style.display='none';	
 	document.getElementById('localityPicker').style.display='';
 	try {
 		for (i=0;i<6;i++) {
@@ -1107,7 +1021,6 @@ function unpickLocality () {
 	} catch(err) {
 		// whatever
 	}
-
 }
 function pickedEvent () {
 	var collecting_event_id = document.getElementById('collecting_event_id').value;
@@ -1144,47 +1057,36 @@ function success_pickedEvent(r){
 		var COLLECTING_SOURCE = result.COLLECTING_SOURCE;
 		var COLLECTING_METHOD = result.COLLECTING_METHOD;
 		var HABITAT_DESC = result.HABITAT_DESC;
-		
 		document.getElementById('began_date').value = BEGAN_DATE;
 		document.getElementById('began_date').className='d11a readClr';
 		document.getElementById('began_date').setAttribute('readonly','readonly');
-		
 		document.getElementById('ended_date').value = ENDED_DATE;
 		document.getElementById('ended_date').className='d11a readClr';
 		document.getElementById('ended_date').setAttribute('readonly','readonly');
-		
 		document.getElementById('verbatim_locality').value = VERBATIM_LOCALITY;
 		document.getElementById('verbatim_locality').className='d11a readClr';
 		document.getElementById('verbatim_locality').setAttribute('readonly','readonly');
-		
 		document.getElementById('verbatim_date').value = VERBATIM_DATE;
 		document.getElementById('verbatim_date').className='d11a readClr';
 		document.getElementById('verbatim_date').setAttribute('readonly','readonly');
-		
 		document.getElementById('coll_event_remarks').value = COLL_EVENT_REMARKS;
 		document.getElementById('coll_event_remarks').className='d11a readClr';
 		document.getElementById('coll_event_remarks').setAttribute('readonly','readonly');
-		
 		document.getElementById('collecting_source').value = COLLECTING_SOURCE;
 		document.getElementById('collecting_source').className='d11a readClr';
 		document.getElementById('collecting_source').setAttribute('readonly','readonly');
-		
 		document.getElementById('collecting_method').value = COLLECTING_METHOD;
 		document.getElementById('collecting_method').className='d11a readClr';
 		document.getElementById('collecting_method').setAttribute('readonly','readonly');
-		
 		document.getElementById('habitat_desc').value = HABITAT_DESC;
 		document.getElementById('habitat_desc').className='d11a readClr';
 		document.getElementById('habitat_desc').setAttribute('readonly','readonly');
-		
 		document.getElementById('eventPicker').style.display='none';
 		document.getElementById('eventUnPicker').style.display='';
-		
 		success_pickedLocality(r);
 	}
 }
 function pickedLocality () {
-	//alert('this is data entry pickedLocality');	
 	var locality_id = document.getElementById('locality_id').value;
 	var pid = document.getElementById('fetched_locid').value;
 	var collecting_event_id = document.getElementById('collecting_event_id').value;
@@ -1193,7 +1095,6 @@ function pickedLocality () {
 		return false;
 	}
 	if (locality_id==pid){
-		// already got updated info for this locality
 		return false;
 	}
 	if (locality_id.length > 0) {
@@ -1208,15 +1109,12 @@ function pickedLocality () {
 		);
 	}
 }
-
 function success_pickedLocality (r) {
 	result=r.DATA;
 	var locality_id=result.LOCALITY_ID[0];
 	if (locality_id < 0) {
 		alert('Oops! Something bad happend with the locality pick. ' + result.MSG[0]);
 	} else {
-		//alert('good');
-		// "one" stuff will be in result[0]; need to loop for geology stuff
 		var HIGHER_GEOG = result.HIGHER_GEOG[0];
 		var MAXIMUM_ELEVATION = result.MAXIMUM_ELEVATION[0];
 		var MINIMUM_ELEVATION = result.MINIMUM_ELEVATION[0];
@@ -1247,138 +1145,103 @@ function success_pickedLocality (r) {
 		var GPSACCURACY = result.GPSACCURACY[0];
 		var GEOREFMETHOD = result.GEOREFMETHOD[0];
 		var VERIFICATIONSTATUS = result.VERIFICATIONSTATUS[0];
-		
-		// this is our last-fetched locid number
 		document.getElementById('fetched_locid').value=locality_id;
-		
 		document.getElementById('higher_geog').value = HIGHER_GEOG;
 		document.getElementById('higher_geog').className='d11a readClr';
 		document.getElementById('higher_geog').setAttribute('readonly','readonly');
-		
 		document.getElementById('maximum_elevation').value = MAXIMUM_ELEVATION;
 		document.getElementById('maximum_elevation').className='d11a readClr';
 		document.getElementById('maximum_elevation').setAttribute('readonly','readonly');
-		
 		document.getElementById('minimum_elevation').value = MINIMUM_ELEVATION;
 		document.getElementById('minimum_elevation').className='d11a readClr';
 		document.getElementById('minimum_elevation').setAttribute('readonly','readonly');
-		
 		document.getElementById('orig_elev_units').value = ORIG_ELEV_UNITS;
 		document.getElementById('orig_elev_units').className='d11a readClr';
 		document.getElementById('orig_elev_units').setAttribute('readonly','readonly');
-		
 		document.getElementById('spec_locality').value = SPEC_LOCALITY;
 		document.getElementById('spec_locality').className='d11a readClr';
 		document.getElementById('spec_locality').setAttribute('readonly','readonly');
-		
 		document.getElementById('locality_remarks').value = LOCALITY_REMARKS;
 		document.getElementById('locality_remarks').className='d11a readClr';
 		document.getElementById('locality_remarks').setAttribute('readonly','readonly');
-		
 		document.getElementById('latdeg').value = LAT_DEG;
 		document.getElementById('latdeg').className='d11a readClr';
 		document.getElementById('latdeg').setAttribute('readonly','readonly');
-		
 		document.getElementById('decLAT_DEG').value = LAT_DEG;
 		document.getElementById('decLAT_DEG').className='d11a readClr';
 		document.getElementById('decLAT_DEG').setAttribute('readonly','readonly');
-		
 		document.getElementById('latmin').value = LAT_MIN;
 		document.getElementById('latmin').className='d11a readClr';
 		document.getElementById('latmin').setAttribute('readonly','readonly');
-		
 		document.getElementById('latsec').value = LAT_SEC;
 		document.getElementById('latsec').className='d11a readClr';
 		document.getElementById('latsec').setAttribute('readonly','readonly');
-		
 		document.getElementById('latdir').value = LAT_DIR;
 		document.getElementById('latdir').className='d11a readClr';
 		document.getElementById('latdir').setAttribute('readonly','readonly');
-		
 		document.getElementById('longdeg').value = LONG_DEG;
 		document.getElementById('longdeg').className='d11a readClr';
 		document.getElementById('longdeg').setAttribute('readonly','readonly');
-		
 		document.getElementById('longmin').value = LONG_MIN;
 		document.getElementById('longmin').className='d11a readClr';
 		document.getElementById('longmin').setAttribute('readonly','readonly');
-		
 		document.getElementById('longsec').value = LONG_SEC;
 		document.getElementById('longsec').className='d11a readClr';
 		document.getElementById('longsec').setAttribute('readonly','readonly');
-		
 		document.getElementById('longdir').value = LONG_DIR;
 		document.getElementById('longdir').className='d11a readClr';
 		document.getElementById('longdir').setAttribute('readonly','readonly');
-		
 		document.getElementById('dec_lat_min').value = DEC_LAT_MIN;
 		document.getElementById('dec_lat_min').className='d11a readClr';
 		document.getElementById('dec_lat_min').setAttribute('readonly','readonly');
-		
 		document.getElementById('decLAT_DIR').value = LAT_DIR;
 		document.getElementById('decLAT_DIR').className='d11a readClr';
 		document.getElementById('decLAT_DIR').setAttribute('readonly','readonly');
-		
 		document.getElementById('decLONGDEG').value = LONG_DEG;
 		document.getElementById('decLONGDEG').className='d11a readClr';
 		document.getElementById('decLONGDEG').setAttribute('readonly','readonly');
-		
 		document.getElementById('dec_long_min').value = DEC_LONG_MIN;
 		document.getElementById('dec_long_min').className='d11a readClr';
 		document.getElementById('dec_long_min').setAttribute('readonly','readonly');
-		
 		document.getElementById('decLONGDIR').value = LONG_DIR;
 		document.getElementById('decLONGDIR').className='d11a readClr';
 		document.getElementById('decLONGDIR').setAttribute('readonly','readonly');
-		
 		document.getElementById('dec_lat').value = DEC_LAT;
 		document.getElementById('dec_lat').className='d11a readClr';
 		document.getElementById('dec_lat').setAttribute('readonly','readonly');
-		
 		document.getElementById('dec_long').value = DEC_LONG;
 		document.getElementById('dec_long').className='d11a readClr';
 		document.getElementById('dec_long').setAttribute('readonly','readonly');
-		
 		document.getElementById('max_error_distance').value = MAX_ERROR_DISTANCE;
 		document.getElementById('max_error_distance').className='d11a readClr';
 		document.getElementById('max_error_distance').setAttribute('readonly','readonly');		
-		
 		document.getElementById('max_error_units').value = MAX_ERROR_UNITS;
 		document.getElementById('max_error_units').className='d11a readClr';
 		document.getElementById('max_error_units').setAttribute('readonly','readonly');	
-		
 		document.getElementById('extent').value = EXTENT;
 		document.getElementById('extent').className='d11a readClr';
 		document.getElementById('extent').setAttribute('readonly','readonly');
-		
 		document.getElementById('gpsaccuracy').value = GPSACCURACY;
 		document.getElementById('gpsaccuracy').className='d11a readClr';
 		document.getElementById('gpsaccuracy').setAttribute('readonly','readonly');
-		
 		document.getElementById('datum').value = DATUM;
 		document.getElementById('datum').className='d11a readClr';
 		document.getElementById('datum').setAttribute('readonly','readonly');
-		
 		document.getElementById('determined_by_agent').value = DETERMINED_BY;
 		document.getElementById('determined_by_agent').className='d11a readClr';
 		document.getElementById('determined_by_agent').setAttribute('readonly','readonly');		
-		
 		document.getElementById('determined_date').value = DETERMINED_DATE;
 		document.getElementById('determined_date').className='d11a readClr';
 		document.getElementById('determined_date').setAttribute('readonly','readonly');	
-		
 		document.getElementById('lat_long_ref_source').value = LAT_LONG_REF_SOURCE;
 		document.getElementById('lat_long_ref_source').className='d11a readClr';
 		document.getElementById('lat_long_ref_source').setAttribute('readonly','readonly');
-		
 		document.getElementById('georefmethod').value = GEOREFMETHOD;
 		document.getElementById('georefmethod').className='d11a readClr';
 		document.getElementById('georefmethod').setAttribute('readonly','readonly');
-		
 		document.getElementById('verificationstatus').value = VERIFICATIONSTATUS;
 		document.getElementById('verificationstatus').className='d11a readClr';
 		document.getElementById('verificationstatus').setAttribute('readonly','readonly');
-		
 		document.getElementById('lat_long_remarks').value = LAT_LONG_REMARKS;
 		document.getElementById('lat_long_remarks').className='d11a readClr';
 		document.getElementById('lat_long_remarks').setAttribute('readonly','readonly');
@@ -1386,18 +1249,12 @@ function success_pickedLocality (r) {
 		document.getElementById('orig_lat_long_units').value = ORIG_LAT_LONG_UNITS;
 		document.getElementById('orig_lat_long_units').className='d11a readClr';
 		document.getElementById('orig_lat_long_units').setAttribute('readonly','readonly');
-		
 		document.getElementById('localityPicker').style.display='none';
-		//document.getElementById('pickedSomething').style.display='none';
 		document.getElementById('localityUnPicker').style.display='';
-		
-		// now geology loop
 		if (result.length > 6) {
 			alert('Whoa! That is a lot of geology attribtues. They will not all be displayed here, but the locality will still have them.');
 		}
-		// this stuff will all fail most of the time, for those collections that don't use geology
 		try {
-			// clean up and lock everything
 			for (i=0;i<6;i++) {
 				var eNum=parseInt(i+1);
 				var aID='geology_attribute_' + eNum;
@@ -1427,7 +1284,6 @@ function success_pickedLocality (r) {
 			}
 			for (i=0;i<result.length;i++) {
 				if (i<5) {
-					// don't try to create stuff when we have no room for it
 					var eNum=parseInt(i+1);
 					var aID='geology_attribute_' + eNum;
 					var vID='geo_att_value_' + eNum;
@@ -1449,7 +1305,6 @@ function success_pickedLocality (r) {
 					document.getElementById(rID).value = rV;
 				}
 			}
-			
 		} catch(err) {
 			// whatever
 		}		
@@ -1469,13 +1324,12 @@ function catNumSeq () {
 				returnformat : "json",
 				queryformat : 'column'
 			},
-			success_catNumSeq
+			function(result){
+				var catnum = document.getElementById('cat_num');
+				catnum.value=result;
+			}
 		);
 	}
-}
-function success_catNumSeq (result) {
-	var catnum = document.getElementById('cat_num');
-	catnum.value=result;
 }
 function getAttributeStuff (attribute,element) {
 	var isSomething = attribute.length;
@@ -1559,7 +1413,6 @@ function success_getAttributeStuff (r) {
 			}
 		}
 	} else if (resType == 'NONE') {
-		// text value, no units
 		theDiv.innerHTML = '';
 		theText.innerHTML = '';
 		var theNewText = document.createElement('INPUT');

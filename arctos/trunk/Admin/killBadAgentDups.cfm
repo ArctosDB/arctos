@@ -69,10 +69,12 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 ---#agent_id#-----#related_agent_id#----
 <cfflush>
 <!---------- have to disable triggers outside the transaction ------------------>
-<cfquery name="disableTrig" datasource="uam_god">
-	alter trigger DEL_AGENT_NAME disable
-</cfquery>
+
 <cftransaction>
+	
+	<cfquery name="disableTrig" datasource="uam_god">
+	alter trigger TR_AGENT_NAME_BIUD disable
+</cfquery>
 <hr>
 <cfset nogo="false">
 <cfquery name="name" datasource="uam_god">
@@ -339,12 +341,14 @@ agent IDs in a big pile-O-tables; make sure you really want to first!
 	</cfquery>
 	del agnt<br><cfflush>
 </cfif>
-</cftransaction>
+
 
 <cfquery name="enableTrig" datasource="uam_god">
-	alter trigger DEL_AGENT_NAME enable
+	alter trigger TR_AGENT_NAME_BIUD enable
 </cfquery>
 	
+</cftransaction>
+
 </cfloop>
 
 
