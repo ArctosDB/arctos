@@ -432,7 +432,7 @@ div.code {
 }
 span.helpDiv{
     position:relative; /*this is the key*/
-    z-index:99;
+    z-index:2001;
     color:#0000FF;
     text-decoration:none;}
 .red {background-color:#FF0000;}
