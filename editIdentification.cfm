@@ -34,10 +34,10 @@
         $element.attr("autocomplete.attached", true);
         console.log('attached');
 	}
-	
+	/*
 	jQuery(document).ready(function() {
 		jQuery(".agntPick").each
-	
+	*/
 </script>
 </div><!--- kill content div --->
 <!----------------------------------------------------------------------------------->
