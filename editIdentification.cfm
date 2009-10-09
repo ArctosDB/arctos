@@ -18,7 +18,7 @@
 		}
        	$element.autocomplete("/ajax/agent.cfm", {
    	 		width: 260,
-			selectFirst: true,
+			selectFirst: false,
 			max: 30,
 			autoFill: false,
 			delay: 400,
