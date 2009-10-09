@@ -30,7 +30,9 @@
 		<body>
 		<noscript>
 			<div class="browserCheck">
-				JavaScript is turned off in your web browser. Please turn it on to take full advantage of Arctos.
+				JavaScript is turned off in your web browser. Please turn it on to take full advantage of Arctos, or 
+				try our <a target="_top" href="/SpecimenSearchHTML.cfm">HTML SpecimenSearch</a> option.
+
 			</div>
 		</noscript>
 		<cfif cgi.HTTP_USER_AGENT does not contain "Firefox">
@@ -136,7 +138,6 @@
 							<li><a target="_top" href="/TaxonomySearch.cfm">Taxonomy</a></li>
 			                <li><a target="_top" href="/MediaSearch.cfm">Media</a></li>
 			                <li><a target="_top" href="/document.cfm">Documents&nbsp;(BETA)</a></li>
-			                <li><a target="_top" href="/SpecimenSearchHTML.cfm">Specimens&nbsp;(no&nbsp;JavaScript)</a></li>
 						</ul>
 					</li>
 					<cfif len(session.roles) gt 0 and session.roles is not "public">
