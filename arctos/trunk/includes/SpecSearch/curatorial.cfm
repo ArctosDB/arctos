@@ -1,22 +1,15 @@
 <script language="JavaScript" src="/includes/jquery/jquery.ui.core.js" type="text/javascript"></script>
 <script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.js" type="text/javascript"></script>
-
-
-
-
-
-<div class="demo">
-
-<p>Date: <input type="text" id="datepicker"></p>
-</div>
-
 <script type="text/javascript">
 	jQuery(document).ready(function() {
 		jQuery(function() {
-			jQuery("#datepicker").datepicker();
+			jQuery("#beg_entered_date").datepicker();
+			jQuery("#end_entered_date").datepicker();
+			jQuery("#beg_last_edit_date").datepicker();
+			jQuery("#end_last_edit_date").datepicker();
 		});
 	});
-	</script>
+</script>
 <cfoutput>
 <cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from ctpermit_type
@@ -113,10 +106,7 @@
 			last Edited Date:
 		</td>
 		<td class="srch">
-			<input type="text" name="beg_last_edit_date" id="beg_last_edit_date" size="10">
-			<span 
-			onclick="cal1.select(document.SpecData.beg_last_edit_date,'anchorbeg_last_edit_date','dd-MMM-yyyy');">boogity</span>-
-								<a name="anchorbeg_last_edit_date" id="anchorbeg_last_edit_date"></a>
+			<input type="text" name="beg_last_edit_date" id="beg_last_edit_date" size="10">-
 			<input type="text" name="end_last_edit_date" id="end_last_edit_date" size="10">
 		</td>
 	</tr>
