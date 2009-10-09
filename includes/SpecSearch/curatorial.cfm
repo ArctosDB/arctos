@@ -101,10 +101,11 @@
 			last Edited Date:
 		</td>
 		<td class="srch">
-			<input type="text" name="beg_last_edit_date" id="beg_last_edit_date" size="10" 
-			onclick="cal1.select(document.SpecData.beg_last_edit_date,'anchorbeg_last_edit_date','dd-MMM-yyyy');"/>-
+			<input type="text" name="beg_last_edit_date" id="beg_last_edit_date" size="10">
+			<span 
+			onclick="cal1.select(document.SpecData.beg_last_edit_date,'anchorbeg_last_edit_date','dd-MMM-yyyy');">boogity</span>-
 								<a name="anchorbeg_last_edit_date" id="anchorbeg_last_edit_date"></a>
-			<input type="text" name="end_last_edit_date" id="end_last_edit_date" size="10" />
+			<input type="text" name="end_last_edit_date" id="end_last_edit_date" size="10">
 		</td>
 	</tr>
 	<tr>
