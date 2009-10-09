@@ -2,11 +2,7 @@
 <script language="JavaScript" src="/includes/jquery/jquery.ui.core.js" type="text/javascript"></script>
 <script language="JavaScript" src="/includes/jquery/jquery.datepicker.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-	jQuery(function() {
-		jQuery("#datepicker").datepicker();
-	});
-	</script>
+
 
 
 
@@ -14,6 +10,12 @@
 
 <p>Date: <input type="text" id="datepicker"></p>
 </div>
+
+<script type="text/javascript">
+	jQuery(function() {
+		jQuery("#datepicker").datepicker();
+	});
+	</script>
 <cfoutput>
 <cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from ctpermit_type
