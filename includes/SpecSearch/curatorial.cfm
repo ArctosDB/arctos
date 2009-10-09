@@ -3,8 +3,8 @@
 <script language="JavaScript" src="/includes/jquery/jquery.datepicker.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-	$(function() {
-		$("#beg_entered_date").datepicker();
+	jQuery(function() {
+		jQuery("#beg_entered_date").datepicker();
 	});
 	</script>
 
