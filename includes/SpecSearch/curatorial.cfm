@@ -1,10 +1,19 @@
-<script language="JavaScript" src="/includes/CalendarPopup.js" type="text/javascript"></script>
-<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-	var cal1 = new CalendarPopup("theCalendar");
-	cal1.showYearNavigation();
-	cal1.showYearNavigationInput();
-</SCRIPT>
-<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
+<cfinclude template="/includes/_header.cfm">
+<script language="JavaScript" src="/includes/jquery/jquery.ui.core.js" type="text/javascript"></script>
+<script language="JavaScript" src="/includes/jquery/jquery.datepicker.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	$(function() {
+		$("#beg_entered_date").datepicker();
+	});
+	</script>
+
+
+
+<div class="demo">
+
+<p>Date: <input type="text" id="datepicker"></p>
+
 <cfoutput>
 <cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from ctpermit_type
@@ -131,4 +140,3 @@
 	</tr>				
 </table>
 </cfoutput>
-<DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>
