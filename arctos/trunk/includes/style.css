@@ -1356,6 +1356,10 @@ color:#0000FF;
     height: 200px; /*must have*/
 }/* Dialog
 ----------------------------------*/
+div.ui-datepicker{
+ font-size:10px;
+}
+
 .ui-dialog { position: relative; padding: .2em; width: 300px; }
 .ui-dialog .ui-dialog-titlebar { padding: .5em .3em .3em 1em; position: relative;  }
 .ui-dialog .ui-dialog-title { float: left; margin: .1em 0 .2em; } 
