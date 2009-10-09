@@ -1,3 +1,10 @@
+<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
+<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+	var cal2 = new CalendarPopup("theCalendar");
+	cal2.showYearNavigation();
+	cal2.showYearNavigationInput();
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
 <cfoutput>
 <cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from ctpermit_type
@@ -91,6 +98,17 @@
 	</tr>
 	<tr>
 		<td class="lbl">
+			last Edited Date:
+		</td>
+		<td class="srch">
+			<input type="text" name="beg_last_edit_date" id="beg_last_edit_date" size="10" 
+			onclick="cal2.select(document.SpecData.beg_last_edit_date,'anchorbeg_last_edit_date','dd-MMM-yyyy');"/>-
+								<a name="anchorbeg_last_edit_date" id="anchorbeg_last_edit_date"></a>
+			<input type="text" name="end_last_edit_date" id="end_last_edit_date" size="10" />
+		</td>
+	</tr>
+	<tr>
+		<td class="lbl">
 			Remarks:
 		</td>
 		<td class="srch">
@@ -112,3 +130,4 @@
 	</tr>				
 </table>
 </cfoutput>
+<DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>

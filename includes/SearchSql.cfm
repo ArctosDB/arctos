@@ -166,6 +166,16 @@
 	<cfset mapurl = "#mapurl#&beg_entered_date=#beg_entered_date#">
 	<cfset mapurl = "#mapurl#&end_entered_date=#end_entered_date#">
 </cfif>
+<cfif isdefined("beg_last_edit_date") AND len(beg_last_edit_date) gt 0>
+	<cfif not isdefined("end_last_edit_date")>
+		<cfset end_last_edit_date=beg_last_edit_date>
+	</cfif>
+	<cfset basQual = "#basQual#  AND (
+					to_date(to_char(#flatTableName#.last_edited_date,'dd-mon-yyy')) between 
+						to_date('#dateformat(beg_last_edit_date,"dd-mmm-yyyy")#')
+						and to_date('#dateformat(end_last_edit_date,"dd-mmm-yyyy")#')
+				)" >
+</cfif>
 <cfif isdefined("print_fg") AND len(#print_fg#) gt 0>
 	<!---- get data for printing labels ---->
 	<cfset basQual = "#basQual#  AND cataloged_item.collection_object_id IN (
