@@ -12,8 +12,10 @@
 </div>
 
 <script type="text/javascript">
+	jQuery(document).ready(function() {
 	jQuery(function() {
 		jQuery("#datepicker").datepicker();
+	});
 	});
 	</script>
 <cfoutput>
