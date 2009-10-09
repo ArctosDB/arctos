@@ -13,7 +13,7 @@
 <script type="text/javascript">
 	jQuery(document).ready(function() {
 		jQuery(function() {
-			jQuery("#datepicker").datepicker({ dateFormat: 'dd-MM-yy' });
+			jQuery("#datepicker").datepicker({ dateFormat: 'dd-M-yy' });
 		});
 	});
 	</script>
