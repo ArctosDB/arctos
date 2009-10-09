@@ -14,7 +14,6 @@
 <br><a href="build_sitemap.cfm?action=build_sitemaps_pub">build_sitemaps_pub</a>
 <br><a href="build_sitemap.cfm?action=build_sitemaps_proj">build_sitemaps_proj</a>
 <br><a href="build_sitemap.cfm?action=build_sitemaps_stat">build_sitemaps_stat</a>
-
 </cfif>
 <cfset chunkSize=45000>
 <cfif action is "build_map">

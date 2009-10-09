@@ -31,7 +31,12 @@
 				jQuery('#' + theID).val(data[1]);				
 		});
         $element.attr("autocomplete.attached", true);
+        console.log('attached');
 	}
+	/*
+	jQuery(document).ready(function() {
+		jQuery(".agntPick").live('click', function(e){
+	*/
 </script>
 </div><!--- kill content div --->
 <!----------------------------------------------------------------------------------->
@@ -138,7 +143,7 @@
 			<div class="helpLink" id="id_by">ID By:</div>
 		</td>
         <td>
-			<input type="text" name="newIdBy" id="newIdBy" class="reqdClr" size="50" onfocus="attachAgentPick(this);">
+			<input type="text" name="newIdBy" id="newIdBy" class="reqdClr agntPick" size="50" onfocus="attachAgentPick(this);">
             <input type="hidden" name="newIdBy_id" id="newIdBy_id" class="reqdClr"> 
 			<span class="infoLink" onclick="addNewIdBy('two');">more...</span>
 		</td>
