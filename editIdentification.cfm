@@ -7,7 +7,7 @@
 	</SCRIPT>
 	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
-<script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
+<script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.min.js'></script>
 <script type='text/javascript' src='/includes/checkForm.js'></script>
 
 <script language="javascript" type="text/javascript">
@@ -34,10 +34,10 @@
         $element.attr("autocomplete.attached", true);
         console.log('attached');
 	}
-	/*
+	
 	jQuery(document).ready(function() {
-		jQuery(".agntPick").live('click', function(e){
-	*/
+		jQuery(".agntPick").each
+	
 </script>
 </div><!--- kill content div --->
 <!----------------------------------------------------------------------------------->
