@@ -1,4 +1,4 @@
-<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
+<script language="JavaScript" src="/includes/CalendarPopup.js" type="text/javascript"></script>
 <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
 	var cal1 = new CalendarPopup("theCalendar");
 	cal1.showYearNavigation();
