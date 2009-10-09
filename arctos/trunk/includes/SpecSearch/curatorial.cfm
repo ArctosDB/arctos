@@ -4,7 +4,7 @@
 
 <script type="text/javascript">
 	jQuery(function() {
-		jQuery("#beg_entered_date").datepicker();
+		jQuery("#datepicker").datepicker();
 	});
 	</script>
 
@@ -13,7 +13,7 @@
 <div class="demo">
 
 <p>Date: <input type="text" id="datepicker"></p>
-
+</div>
 <cfoutput>
 <cfquery name="ctPermitType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select * from ctpermit_type
