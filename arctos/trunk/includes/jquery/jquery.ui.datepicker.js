@@ -72,9 +72,9 @@ function Datepicker() {
 			// if not applicable, false to just disable them
 		navigationAsDateFormat: false, // True if date formatting applied to prev/today/next links
 		gotoCurrent: false, // True if today link goes back to current selection instead
-		changeMonth: false, // True if month can be selected directly, false if only prev/next
-		changeYear: false, // True if year can be selected directly, false if only prev/next
-		yearRange: '-10:+10', // Range of years to display in drop-down,
+		changeMonth: true, // True if month can be selected directly, false if only prev/next
+		changeYear: true, // True if year can be selected directly, false if only prev/next
+		yearRange: '-100:+10', // Range of years to display in drop-down,
 			// either relative to current year (-nn:+nn) or absolute (nnnn:nnnn)
 		showOtherMonths: false, // True to show dates in other months, false to leave blank
 		selectOtherMonths: false, // True to allow selection of dates in other months, false for unselectable
