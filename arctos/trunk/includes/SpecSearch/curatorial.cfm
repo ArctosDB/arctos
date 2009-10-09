@@ -1,8 +1,8 @@
 <script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
 <SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-	var cal2 = new CalendarPopup("theCalendar");
-	cal2.showYearNavigation();
-	cal2.showYearNavigationInput();
+	var cal1 = new CalendarPopup("theCalendar");
+	cal1.showYearNavigation();
+	cal1.showYearNavigationInput();
 </SCRIPT>
 <SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
 <cfoutput>
@@ -102,7 +102,7 @@
 		</td>
 		<td class="srch">
 			<input type="text" name="beg_last_edit_date" id="beg_last_edit_date" size="10" 
-			onclick="cal2.select(document.SpecData.beg_last_edit_date,'anchorbeg_last_edit_date','dd-MMM-yyyy');"/>-
+			onclick="cal1.select(document.SpecData.beg_last_edit_date,'anchorbeg_last_edit_date','dd-MMM-yyyy');"/>-
 								<a name="anchorbeg_last_edit_date" id="anchorbeg_last_edit_date"></a>
 			<input type="text" name="end_last_edit_date" id="end_last_edit_date" size="10" />
 		</td>
