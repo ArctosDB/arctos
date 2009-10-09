@@ -12,9 +12,9 @@
 
 <script type="text/javascript">
 	jQuery(document).ready(function() {
-	jQuery(function() {
-		jQuery("#datepicker").datepicker();
-	});
+		jQuery(function() {
+			jQuery("#datepicker").datepicker('option', {dateFormat: 'd MM, y'});
+		});
 	});
 	</script>
 <cfoutput>
