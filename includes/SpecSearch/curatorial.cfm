@@ -103,7 +103,7 @@
 	</tr>
 	<tr>
 		<td class="lbl">
-			last Edited Date:
+			Last Edited Date:
 		</td>
 		<td class="srch">
 			<input type="text" name="beg_last_edit_date" id="beg_last_edit_date" size="10">-

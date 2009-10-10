@@ -1,3 +1,16 @@
+<script language="JavaScript" src="/includes/jquery/jquery.ui.core.js" type="text/javascript"></script>
+<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.js" type="text/javascript"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery(function() {
+			jQuery("#begDate").datepicker();
+			jQuery("#endDate").datepicker();
+		});
+	});
+</script>
+
+		
+		
 <cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select collecting_source from ctcollecting_source
 </cfquery>
@@ -102,7 +115,7 @@
 		<td class="srch">
 			<input name="begDate" id="begDate" type="text" size="15">
 			&nbsp;<span class="infoLink" onclick="SpecData.endDate.value=SpecData.begDate.value;">-->&nbsp;Copy&nbsp;--></span>&nbsp;
-			<input name="endDate" type="text" size="15">
+			<input name="endDate" id="endDate" type="text" size="15">
 		</td>
 	</tr>
 	<tr>
