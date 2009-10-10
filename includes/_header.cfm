@@ -6,7 +6,7 @@
 	</cfif>
 	<script language="javascript" type="text/javascript">
 		jQuery(document).ready(function(){ 
-	        $("ul.sf-menu").supersubs({ 
+	        jQuery("ul.sf-menu").supersubs({ 
 	            minWidth:    12,
 	            maxWidth:    27,
 	            extraWidth:  1
