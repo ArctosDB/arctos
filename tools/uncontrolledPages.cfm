@@ -7,7 +7,7 @@
 </cffunction>
 <cfinclude template="/includes/_header.cfm">
 <cfset dl=d('/',"root")>
-<cfset q = querynew("path,privs,type")>
+<cfset rslt = querynew("path,privs,type")>
 <cfset r=1>
 <cfloop query="q">
 	<cfif #directory# does not contain ".svn" and #name# is not ".svn"
@@ -24,15 +24,15 @@
 			group by ROLE_NAME
 		</cfquery>
 		<br>adding #thisPath#/#name#.....
-		<cfset temp = queryaddrow(q,1)>
-		<cfset temp = QuerySetCell(q, "path", "#thisPath#/#name#", r)>
-		<cfset temp = QuerySetCell(q, "privs", "#valuelist(current.role_name)#", r)>
-		<cfset temp = QuerySetCell(q, "type", "#type#", r)>	
+		<cfset temp = queryaddrow(rslt,1)>
+		<cfset temp = QuerySetCell(rslt, "path", "#thisPath#/#name#", r)>
+		<cfset temp = QuerySetCell(rslt, "privs", "#valuelist(current.role_name)#", r)>
+		<cfset temp = QuerySetCell(rslt, "type", "#type#", r)>	
 		<cfset r=r+1>
 	</cfif>
 </cfloop>
 
-<cfdump var=#q#>
+<cfdump var=#rslt#>
 <!----
 <table border>
 	
