@@ -14,7 +14,7 @@
 		and #directory# does not contain "CFIDE" and #name# is not "CFIDE"
 		and #directory# does not contain "fix" and #name# is not "fix"
 		and #directory# does not contain "WEB-INF" and #name# is not "WEB-INF"
-			cfdocs
+		and #directory# does not contain "cfdocs" and #name# is not "cfdocs"			
 		and #directory# does not contain "WEB-INF" and #name# is not "META-INF" and
 		#name# contains ".cfm">
 		<cfset thisPath=replace(directory,application.webDirectory,"","all")>
