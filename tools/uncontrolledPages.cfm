@@ -33,6 +33,14 @@
 </cfloop>
 
 <cfdump var=#rslt#>
+
+
+<cfquery name="ghost" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select ROLE_NAME, count(*) c from cf_form_permissions where form_path not in (#ListQualify(valuelist(rslt.path),"'")#)
+</cfquery>
+
+<cfdump var="#ghost#">
+
 <!----
 <table border>
 	
