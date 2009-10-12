@@ -26,10 +26,9 @@
 		<cfset temp = queryaddrow(q,1)>
 		<cfset temp = QuerySetCell(q, "path", "#thisPath#/#name#", r)>
 		<cfset temp = QuerySetCell(q, "privs", "#valuelist(current.role_name)#", r)>
-		<cfset temp = QuerySetCell(q, "type", "#type#", r)>
-	
-	
-	<cfset r=r+1>
+		<cfset temp = QuerySetCell(q, "type", "#type#", r)>	
+		<cfset r=r+1>
+	</cfif>
 </cfloop>
 
 <cfdump var=#q#>
