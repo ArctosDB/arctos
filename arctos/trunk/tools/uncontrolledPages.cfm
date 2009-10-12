@@ -12,6 +12,7 @@
 <cfloop query="q">
 	<cfif #directory# does not contain ".svn" and #name# is not ".svn"
 		and #directory# does not contain "CFIDE" and #name# is not "CFIDE"
+		and #directory# does not contain "fix" and #name# is not "fix"
 		and #directory# does not contain "WEB-INF" and #name# is not "WEB-INF"
 		and #directory# does not contain "WEB-INF" and #name# is not "META-INF" and
 		#name# contains ".cfm">
