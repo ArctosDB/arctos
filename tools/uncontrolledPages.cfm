@@ -6,6 +6,8 @@
 	<cfreturn q>
 </cffunction>
 <cfinclude template="/includes/_header.cfm">
+	<script src="/includes/sorttable.js"></script>
+
 <cfset dl=d('/',"root")>
 <cfset rslt = querynew("path,privs,type")>
 <cfset r=1>
@@ -30,8 +32,24 @@
 		<cfset r=r+1>
 	</cfif>
 </cfloop>
-
-<cfdump var=#rslt#>
+<table border class="sortable">
+	<tr>
+		<th>form</th>
+		<th>Perms</th>
+		<th>type</th>
+		<th></th>
+		<th></th>
+	</tr>
+	<cfloop query="rslt">
+		<tr>
+			<td>#path#</td>
+			<td>privs##</td>
+			<td>#type#</td>
+			<td><a href="/Admin/form_roles.cfm?action=setRoles&filter=#path#">set permissions</a></td>
+			<td><a href="#thisPath#/#name#">Visit Form</a></td>
+		</tr>
+	</cfloop>
+</table>
 
 <!--- clean up any permissions for nonexistent forms --->
 <cfquery name="ghost" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -53,10 +71,10 @@
 				#valuelist(current.role_name)#
 			</td>
 			<td>
-				<a href="/Admin/form_roles.cfm?action=setRoles&filter=#thisPath#/#name#">set permissions</a>
+				
 			</td>
 			<td>
-				<a href="#thisPath#/#name#">Visit Form</a>
+				
 			</td>
 		</tr>
 </cfif>
