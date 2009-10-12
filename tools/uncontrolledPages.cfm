@@ -43,7 +43,7 @@
 	<cfloop query="rslt">
 		<tr>
 			<td>#path#</td>
-			<td>privs##</td>
+			<td>#privs#</td>
 			<td>#type#</td>
 			<td><a href="/Admin/form_roles.cfm?action=setRoles&filter=#path#">set permissions</a></td>
 			<td><a href="#path#">Visit Form</a></td>
