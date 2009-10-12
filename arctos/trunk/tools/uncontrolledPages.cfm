@@ -23,7 +23,6 @@
 			select ROLE_NAME, count(*) c from cf_form_permissions where form_path='#thisName#'
 			group by ROLE_NAME
 		</cfquery>
-		<br>adding #thisPath#/#name#.....
 		<cfset temp = queryaddrow(rslt,1)>
 		<cfset temp = QuerySetCell(rslt, "path", "#thisPath#/#name#", r)>
 		<cfset temp = QuerySetCell(rslt, "privs", "#valuelist(current.role_name)#", r)>
@@ -36,7 +35,7 @@
 
 
 <cfquery name="ghost" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select ROLE_NAME, count(*) c from cf_form_permissions where form_path not in (#ListQualify(valuelist(rslt.path),"'")#)
+	select ROLE_NAME from cf_form_permissions where form_path not in (#ListQualify(valuelist(rslt.path),"'")#)
 </cfquery>
 
 <cfdump var="#ghost#">
