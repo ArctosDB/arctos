@@ -32,7 +32,7 @@
 		<cfset r=r+1>
 	</cfif>
 </cfloop>
-<table border class="sortable">
+<table border id="v" class="sortable">
 	<tr>
 		<th>form</th>
 		<th>Perms</th>
