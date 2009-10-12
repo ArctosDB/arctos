@@ -46,7 +46,7 @@
 			<td>privs##</td>
 			<td>#type#</td>
 			<td><a href="/Admin/form_roles.cfm?action=setRoles&filter=#path#">set permissions</a></td>
-			<td><a href="#thisPath#/#name#">Visit Form</a></td>
+			<td><a href="#path#">Visit Form</a></td>
 		</tr>
 	</cfloop>
 </table>
