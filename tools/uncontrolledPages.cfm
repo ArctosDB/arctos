@@ -23,6 +23,7 @@
 			select ROLE_NAME, count(*) c from cf_form_permissions where form_path='#thisName#'
 			group by ROLE_NAME
 		</cfquery>
+		<br>adding #thisPath#/#name#.....
 		<cfset temp = queryaddrow(q,1)>
 		<cfset temp = QuerySetCell(q, "path", "#thisPath#/#name#", r)>
 		<cfset temp = QuerySetCell(q, "privs", "#valuelist(current.role_name)#", r)>
