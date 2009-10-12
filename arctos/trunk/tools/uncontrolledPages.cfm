@@ -33,13 +33,11 @@
 
 <cfdump var=#rslt#>
 
-
+<!--- clean up any permissions for nonexistent forms --->
 <cfquery name="ghost" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select form_path from cf_form_permissions where form_path not in (#ListQualify(valuelist(rslt.path),"'")#)
-	group by form_path
+	delete from cf_form_permissions where form_path not in (#ListQualify(valuelist(rslt.path),"'")#)
 </cfquery>
 
-<cfdump var="#ghost#">
 
 <!----
 <table border>
