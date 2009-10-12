@@ -6,22 +6,39 @@
 	<cfreturn q>
 </cffunction>
 <cfinclude template="/includes/_header.cfm">
-
 <cfset dl=d('/',"root")>
-<table border>
+<cfset q = querynew("path,privs,type")>
+<cfset r=1>
 <cfloop query="q">
 	<cfif #directory# does not contain ".svn" and #name# is not ".svn"
 		and #directory# does not contain "CFIDE" and #name# is not "CFIDE"
 		and #directory# does not contain "fix" and #name# is not "fix"
 		and #directory# does not contain "WEB-INF" and #name# is not "WEB-INF"
+			cfdocs
 		and #directory# does not contain "WEB-INF" and #name# is not "META-INF" and
 		#name# contains ".cfm">
-	<cfset thisPath=replace(directory,application.webDirectory,"","all")>
-	<cfset thisName="#thisPath#/#name#">
-	<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select ROLE_NAME, count(*) c from cf_form_permissions where form_path='#thisName#'
-		group by ROLE_NAME
-	</cfquery>
+		<cfset thisPath=replace(directory,application.webDirectory,"","all")>
+		<cfset thisName="#thisPath#/#name#">
+		<cfquery name="current" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select ROLE_NAME, count(*) c from cf_form_permissions where form_path='#thisName#'
+			group by ROLE_NAME
+		</cfquery>
+		<cfset temp = queryaddrow(q,1)>
+		<cfset temp = QuerySetCell(q, "path", "#thisPath#/#name#", r)>
+		<cfset temp = QuerySetCell(q, "privs", "#valuelist(current.role_name)#", r)>
+		<cfset temp = QuerySetCell(q, "type", "#type#", r)>
+	
+	
+	<cfset r=r+1>
+</cfloop>
+
+<cfdump var=#q#>
+<!----
+<table border>
+	
+	
+	
+
 		<tr>
 			<td>
 				<span <cfif current.c is 0> style="color:red;"</cfif>>#thisPath#/#name# (#type#)</span>
@@ -39,7 +56,7 @@
 </cfif>
 </cfloop>
 </table>
-
+---->
 </cfoutput>
 <!---
 <cfdump var="#dl#">
