@@ -320,6 +320,7 @@
 			<div style="float:right;width:250px;border:1px solid green;">
 				floaty div
 			</div>
+			<br>
 		</cfform>
 	</cfoutput>
 <cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
