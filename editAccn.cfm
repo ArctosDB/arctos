@@ -154,6 +154,38 @@
 							</td>
 						</tr>
 					</table>
+					<strong>Media associated with this Accn:</strong>
+					<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select 
+							media.media_id,
+							preview_uri,
+							media_uri,
+							media_type
+						from 
+							media,
+							media_relations
+						where
+							media.media_id=media_relations.media_id and
+							media_relationship like '% accn' and
+							related_primary_key=#transaction_id#
+					</cfquery>
+					<ul>
+						<cfif #media.recordcount# gt 0>
+							<cfloop query="projs">
+								<li>
+									<a href="//MediaSearch.cfm?action=search&media_id=#media_id#">
+										<cfif len(preview_uri) gt 0>
+											<img src="#preview_uri#">
+										<cfelse>
+											<img src="/images/noThumb.jpg">
+										</cfif>
+									</a>
+								</li>
+							</cfloop>
+						<cfelse>
+							<li>None</li>
+						</cfif>
+					</ul>
 				</td>
 			</tr>
 			<tr>
