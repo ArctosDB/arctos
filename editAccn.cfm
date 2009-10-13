@@ -1,6 +1,18 @@
 <cfinclude template="includes/_header.cfm">
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
+<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
+<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery(function() {
+			jQuery("#ent_date").datepicker();
+			jQuery("#rec_date").datepicker();
+			jQuery("#rec_until_date").datepicker();	
+			jQuery("#issued_date").datepicker();
+			jQuery("#renewed_date").datepicker();
+			jQuery("#exp_date").datepicker();
+		});
+	});
 	function removeMediaDiv() {
 		if(document.getElementById('bgDiv')){
 			jQuery('#bgDiv').remove();
@@ -323,9 +335,9 @@
 				permit.permit_id,
 				issuedBy.agent_name as IssuedByAgent,
 				issuedTo.agent_name as IssuedToAgent,
-				issued_Date,
-				renewed_Date,
-				exp_Date,
+				issued_date,
+				renewed_date,
+				exp_date,
 				permit_Num,
 				permit_Type,
 				permit_remarks	
@@ -343,7 +355,7 @@
 		<div style="float:left;width:55%;">
 			<br><strong>Permits:</strong>  
 			<cfloop query="getPermits">
-				<p><strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to #IssuedToAgent# by #IssuedByAgent# on #dateformat(issued_Date,"dd mmm yyyy")#. <cfif len(#renewed_Date#) gt 0> (renewed #renewed_Date#)</cfif>Expires #dateformat(exp_Date,"dd mmm yyyy")#  <cfif len(#permit_remarks#) gt 0>Remarks: #permit_remarks# </cfif> 
+				<p><strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to #IssuedToAgent# by #IssuedByAgent# on #dateformat(issued_date,"dd mmm yyyy")#. <cfif len(#renewed_date#) gt 0> (renewed #renewed_date#)</cfif>Expires #dateformat(exp_date,"dd mmm yyyy")#  <cfif len(#permit_remarks#) gt 0>Remarks: #permit_remarks# </cfif> 
 				<form name="killPerm#currentRow#" method="post" action="editAccn.cfm">
 					<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
 					<input type="hidden" name="action" value="delePermit">
@@ -470,7 +482,7 @@
 							<option selected value="=" >Is</option>
 							<option value=">=">After</option>
 						</select>
-						<input type="text" name="ent_Date" id="ent_Date">
+						<input type="text" name="ent_date" id="ent_date">
 					</td>
 					<td colspan=2 nowrap>
 						<table cellspacing='0' cellpadding='0'>
@@ -501,17 +513,17 @@
 				<tr>
 					<td>
 						<label  for="IssuedByAgent">Issued Date</label>
-						<input type="text" name="issued_Date" id="issued_Date">
+						<input type="text" name="issued_date" id="issued_date">
 					</td>
 					<td>
 						<label  for="IssuedByAgent">Renewed Date</label>
-						<input type="text" name="renewed_Date" id="renewed_Date">
+						<input type="text" name="renewed_date" id="renewed_date">
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<label  for="IssuedByAgent">Expiration Date</label>
-						<input type="text" name="exp_Date" id="exp_Date">
+						<input type="text" name="exp_date" id="exp_date">
 					</td>
 					<td>
 						<label  for="IssuedByAgent">Permit Number</label>
@@ -673,14 +685,14 @@
 		<cfif isdefined("IssuedToAgent") and len(#IssuedToAgent#) gt 0>
 			<cfset sql = "#sql# AND upper(issuedTo.agent_name) like '%#ucase(IssuedToAgent)#%'">
 		</cfif>
-		<cfif  isdefined("issued_Date") and len(#issued_Date#) gt 0>
-			<cfset sql = "#sql# AND upper(issued_Date) like '%#ucase(issued_Date)#%'">
+		<cfif  isdefined("issued_date") and len(#issued_date#) gt 0>
+			<cfset sql = "#sql# AND upper(issued_date) like '%#ucase(issued_date)#%'">
 		</cfif>
-		<cfif  isdefined("renewed_Date") and len(#renewed_Date#) gt 0>
-			<cfset sql = "#sql# AND upper(renewed_Date) like '%#ucase(renewed_Date)#%'">
+		<cfif  isdefined("renewed_date") and len(#renewed_date#) gt 0>
+			<cfset sql = "#sql# AND upper(renewed_date) like '%#ucase(renewed_date)#%'">
 		</cfif>
-		<cfif isdefined("exp_Date") and  len(#exp_Date#) gt 0>
-			<cfset sql = "#sql# AND upper(exp_Date) like '%#ucase(exp_Date)#%'">
+		<cfif isdefined("exp_date") and  len(#exp_date#) gt 0>
+			<cfset sql = "#sql# AND upper(exp_date) like '%#ucase(exp_date)#%'">
 		</cfif>
 		<cfif isdefined("permit_id") and len(#permit_id#) gt 0>
 			<cfset sql = "#sql# AND permit.permit_id = '#permit_id#'">
