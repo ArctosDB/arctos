@@ -246,7 +246,7 @@
 					</tr>
 				</table>
 			</div>
-			<div style="float:right;width:250px;border:1px solid green;">
+			<div style="float:right;width:25%;border:1px solid green;">
 							<strong>Projects associated with this Accn:</strong>
 							<ul>
 								<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
