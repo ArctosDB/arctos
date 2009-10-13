@@ -23,7 +23,7 @@
 		var theDiv = document.createElement('div');
 		theDiv.id = 'mediaDiv';
 		theDiv.className = 'annotateBox';
-		ctl='<span style="position:absolute;right:0px;top:0px;border:1px solid red">clicky mee</span>';
+		ctl='<span style="position:absolute;right:0px;top:0px;border:1px solid red;color:red;" onclick="removeMediaDiv();">Close Window</span>';
 		theDiv.innerHTML=ctl;
 		document.body.appendChild(theDiv);
 		
