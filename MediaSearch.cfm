@@ -126,6 +126,9 @@
 <cfloop query="findIDs">
 	<tr #iif(r MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td>
+			<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
+		        <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">edit</a>
+		    </cfif>
 			URI: 
             <a href="#media_uri#" target="_blank">#media_uri#</a>
             <cfif len(#preview_uri#) gt 0>
@@ -134,9 +137,7 @@
             </cfif>
 			<br>MIME Type: #mime_type# 
             <br>Media Type: #media_type#
-             <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-		        <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">edit</a>
-		    </cfif>            
+               
 			<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select
 					media_label,
