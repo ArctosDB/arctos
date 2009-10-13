@@ -283,7 +283,7 @@
 						<tr>
 							<td valign="top">
 								<span class="f11a">Coll:</span>
-								<select name="colln" id="colln" class="reqdClr d11a" onchange="changeCollection(this.value)">
+								<select name="colln" id="colln" class="reqdClr" onchange="changeCollection(this.value)">
 									<cfloop query="ctcollection">
 										<option <cfif data.collection_cde is ctcollection.collection_cde and data.institution_acronym is ctcollection.institution_acronym> selected="selected"</cfif>
 											value="#institution_acronym#:#collection_cde#">#collection#</option>
@@ -433,96 +433,97 @@
 							</td>
 						</tr>
 					</table><!---- / agents------------->	
-	<table cellpadding="0" cellspacing="0" class="fs"><!------ other IDs ------------------->
-			<tr>
-				<td rowspan="99" valign="top">
-					<img src="/images/info.gif" border="0" onClick="getDocs('cataloged_item','other_id')" class="likeLink" alt="[ help ]">
-				</td>
-			<td>
-					<cfset thisIdType=#other_id_num_type_1#>
-					<span class="f11a">OtherID 1</span>
-					<select name="other_id_num_type_1" size="1" style="width:250px"
-						id="other_id_num_type_1"
-						class="d11a"
-						onChange="this.className='reqdClr d11a';
-							dataEntry.other_id_num_1.className='reqdClr d11a';dataEntry.other_id_num_1.focus();">
-						<option value=""></option>
-						<cfloop query="ctOtherIdType">
-							<option 
-								<cfif #ctOtherIdType.other_id_type# is #thisIdType#> selected </cfif>
-								value="#other_id_type#">#other_id_type#</option>
-						</cfloop>
-					</select>
-					<input type="text" name="other_id_num_1" 
-						class="d11a"
-						value="#other_id_num_1#"
-						id="other_id_num_1">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<span class="f11a">OtherID 2</span>
-					<cfset thisIdType=#other_id_num_type_2#>
-					<select name="other_id_num_type_2" size="1" style="width:250px"
-						class="d11a"
-						id="other_id_num_type_2"
-						onChange="dataEntry.other_id_num_2.className='reqdClr d11a';
-							dataEntry.other_id_num_2.focus();">
-						<option value=""></option>
-						<cfloop query="ctOtherIdType">
-							<option <cfif #ctOtherIdType.other_id_type# is #thisIdType#> selected </cfif>
-							value="#other_id_type#">#other_id_type#</option>
-						</cfloop>
-					</select>
-					<input type="text" 
-						name="other_id_num_2" 
-						value="#other_id_num_2#"
-						class="d11a"
-						id="other_id_num_2"
-						onChange="dataEntry.other_id_num_type_3.focus();">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<span class="f11a">OtherID 3</span>
-					<cfset thisIdType=#other_id_num_type_3#>
-					<select name="other_id_num_type_3" size="1" style="width:250px"
-						class="d11a"
-						id="other_id_num_type_3"
-						onChange="dataEntry.other_id_num_3.className='d11a reqdClr';
-							dataEntry.other_id_num_3.focus();">
-						<option  value=""></option>
-						<cfloop query="ctOtherIdType">
-							<option <cfif #ctOtherIdType.other_id_type# is #thisIdType#> selected </cfif>
-								value="#other_id_type#">#other_id_type#</option>
-						</cfloop>
-					</select>
-					<input type="text" name="other_id_num_3" value="#other_id_num_3#"
-						class="d11a"
-						id="other_id_num_3">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<span class="f11a">OtherID 4</span>
-					<cfset thisIdType=#other_id_num_type_4#>
-					<select name="other_id_num_type_4" size="1" style="width:250px"
-						class="d11a"
-						id="other_id_num_type_4"
-						onChange="dataEntry.other_id_num_4.className='d11a reqdClr';
-							dataEntry.other_id_num_4.focus();">
-						<option  value=""></option>
-						<cfloop query="ctOtherIdType">
-							<option <cfif #ctOtherIdType.other_id_type# is #thisIdType#> selected </cfif>
-								value="#other_id_type#">#other_id_type#</option>
-						</cfloop>
-					</select>
-					<input type="text" name="other_id_num_4" value="#other_id_num_4#"
-						class="d11a"
-						id="other_id_num_4">
-				</td>
-			</tr>
-		</table><!---- /other IDs ---->
+					<table cellpadding="0" cellspacing="0" class="fs"><!------ other IDs ------------------->
+						<tr>
+							<td rowspan="99" valign="top">
+								<img src="/images/info.gif" border="0" onClick="getDocs('cataloged_item','other_id')" class="likeLink" alt="[ help ]">
+							</td>
+						<tr>
+							<td>
+								<cfset thisIdType=#other_id_num_type_1#>
+								<span class="f11a">OtherID 1</span>
+								<select name="other_id_num_type_1" size="1" style="width:250px"
+									id="other_id_num_type_1"
+									class="d11a"
+									onChange="this.className='reqdClr d11a';
+										dataEntry.other_id_num_1.className='reqdClr d11a';dataEntry.other_id_num_1.focus();">
+									<option value=""></option>
+									<cfloop query="ctOtherIdType">
+										<option 
+											<cfif #ctOtherIdType.other_id_type# is #thisIdType#> selected </cfif>
+											value="#other_id_type#">#other_id_type#</option>
+									</cfloop>
+								</select>
+								<input type="text" name="other_id_num_1" 
+									class="d11a"
+									value="#other_id_num_1#"
+									id="other_id_num_1">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="f11a">OtherID 2</span>
+								<cfset thisIdType=#other_id_num_type_2#>
+								<select name="other_id_num_type_2" size="1" style="width:250px"
+									class="d11a"
+									id="other_id_num_type_2"
+									onChange="dataEntry.other_id_num_2.className='reqdClr d11a';
+										dataEntry.other_id_num_2.focus();">
+									<option value=""></option>
+									<cfloop query="ctOtherIdType">
+										<option <cfif #ctOtherIdType.other_id_type# is #thisIdType#> selected </cfif>
+										value="#other_id_type#">#other_id_type#</option>
+									</cfloop>
+								</select>
+								<input type="text" 
+									name="other_id_num_2" 
+									value="#other_id_num_2#"
+									class="d11a"
+									id="other_id_num_2"
+									onChange="dataEntry.other_id_num_type_3.focus();">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="f11a">OtherID 3</span>
+								<cfset thisIdType=#other_id_num_type_3#>
+								<select name="other_id_num_type_3" size="1" style="width:250px"
+									class="d11a"
+									id="other_id_num_type_3"
+									onChange="dataEntry.other_id_num_3.className='d11a reqdClr';
+										dataEntry.other_id_num_3.focus();">
+									<option  value=""></option>
+									<cfloop query="ctOtherIdType">
+										<option <cfif #ctOtherIdType.other_id_type# is #thisIdType#> selected </cfif>
+											value="#other_id_type#">#other_id_type#</option>
+									</cfloop>
+								</select>
+								<input type="text" name="other_id_num_3" value="#other_id_num_3#"
+									class="d11a"
+									id="other_id_num_3">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="f11a">OtherID 4</span>
+								<cfset thisIdType=#other_id_num_type_4#>
+								<select name="other_id_num_type_4" size="1" style="width:250px"
+									class="d11a"
+									id="other_id_num_type_4"
+									onChange="dataEntry.other_id_num_4.className='d11a reqdClr';
+										dataEntry.other_id_num_4.focus();">
+									<option  value=""></option>
+									<cfloop query="ctOtherIdType">
+										<option <cfif #ctOtherIdType.other_id_type# is #thisIdType#> selected </cfif>
+											value="#other_id_type#">#other_id_type#</option>
+									</cfloop>
+								</select>
+								<input type="text" name="other_id_num_4" value="#other_id_num_4#"
+									class="d11a"
+									id="other_id_num_4">
+							</td>
+						</tr>
+					</table><!---- /other IDs ---->
 <!------------------------------------------------- identification ---------------------------------->		
 		<table cellpadding="0" cellspacing="0" class="fs">
 		<tr>
