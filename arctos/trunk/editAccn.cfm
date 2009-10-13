@@ -97,12 +97,12 @@
 				agent_name
 		</cfquery>	
 		<strong>Edit Accession</strong>
-		<cfform action="editAccn.cfm" method="post" name="editAccn">
-			<input type="hidden" name="Action" value="saveChanges">
-			<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
-			<cfset tIA=accnData.collection_id>
-			<div style="float:left;width:55%;">
-	  			<table border>
+		<div style="float:left;width:55%;">
+			<cfform action="editAccn.cfm" method="post" name="editAccn">
+				<input type="hidden" name="Action" value="saveChanges">
+				<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
+				<cfset tIA=accnData.collection_id>
+				<table border>
 					<tr>
 						<td>
 							<label for="collection_id">Collection</label>
@@ -245,131 +245,122 @@
 						</td>
 					</tr>
 				</table>
-			</div>
-			<div style="float:right;width:40%;border:1px solid green;margin-right:2em;">
-							<strong>Projects associated with this Accn:</strong>
-							<ul>
-								<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-									select project_name, project.project_id from project,
-									project_trans where 
-									project_trans.project_id =  project.project_id
-									and transaction_id=#transaction_id#
-								</cfquery>
-								<cfif #projs.recordcount# gt 0>
-									<cfloop query="projs">
-										<li>
-											<a href="/Project.cfm?Action=editProject&project_id=#project_id#"><strong>#project_name#</strong></a><br>
-										</li>
-									</cfloop>
+			</cfform>
+		</div>
+		<div style="float:right;width:40%;border:1px solid green;margin-right:2em;">
+			<strong>Projects associated with this Accn:</strong>
+			<ul>
+				<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select project_name, project.project_id from project,
+					project_trans where 
+					project_trans.project_id =  project.project_id
+					and transaction_id=#transaction_id#
+				</cfquery>
+				<cfif #projs.recordcount# gt 0>
+					<cfloop query="projs">
+						<li>
+							<a href="/Project.cfm?Action=editProject&project_id=#project_id#"><strong>#project_name#</strong></a><br>
+						</li>
+					</cfloop>
+				<cfelse>
+					<li>None</li>
+				</cfif>
+			</ul>
+			<table class="newRec" width="100%">
+				<tr>
+					<td>
+						<label for="project_name">New Project</label>
+						<input type="hidden" name="project_id">
+						<input type="text" 
+							size="50"
+							name="project_name"
+							id="project_name" 
+							class="reqdClr" 
+							onchange="getProject('project_id','project_name','editAccn',this.value); return false;"
+							onKeyPress="return noenter(event);">
+					</td>
+				</tr>
+			</table>
+			<strong>Media associated with this Accn:</strong>
+			<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					media.media_id,
+					preview_uri,
+					media_uri,
+					media_type
+				from 
+					media,
+					media_relations
+				where
+					media.media_id=media_relations.media_id and
+					media_relationship like '% accn' and
+					related_primary_key=#transaction_id#
+			</cfquery>
+			<ul>
+				<cfif #media.recordcount# gt 0>
+					<cfloop query="media">
+						<li>
+							<a href="/MediaSearch.cfm?action=search&media_id=#media_id#">
+								<cfif len(preview_uri) gt 0>
+									<img src="#preview_uri#">
 								<cfelse>
-									<li>None</li>
+									<img src="/images/noThumb.jpg">
 								</cfif>
-							</ul>
-							<table class="newRec" width="100%">
-								<tr>
-									<td>
-											<label for="project_name">New Project</label>
-											<input type="hidden" name="project_id">
-											<input type="text" 
-												size="50"
-												name="project_name"
-												id="project_name" 
-												class="reqdClr" 
-												onchange="getProject('project_id','project_name','editAccn',this.value); return false;"
-												onKeyPress="return noenter(event);">
-									</td>
-								</tr>
-							</table>
-							<strong>Media associated with this Accn:</strong>
-							<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-								select 
-									media.media_id,
-									preview_uri,
-									media_uri,
-									media_type
-								from 
-									media,
-									media_relations
-								where
-									media.media_id=media_relations.media_id and
-									media_relationship like '% accn' and
-									related_primary_key=#transaction_id#
-							</cfquery>
-							<ul>
-								<cfif #media.recordcount# gt 0>
-									<cfloop query="media">
-										<li>
-											<a href="/MediaSearch.cfm?action=search&media_id=#media_id#">
-												<cfif len(preview_uri) gt 0>
-													<img src="#preview_uri#">
-												<cfelse>
-													<img src="/images/noThumb.jpg">
-												</cfif>
-											</a>
-										</li>
-									</cfloop>
-								<cfelse>
-									<li>None</li>
-								</cfif>
-							</ul>
-							<br><span class="likeLink"
-									onclick="addMediaHere('#accnData.collection# #accnData.accn_number#','#transaction_id#');">
-										Create Media
-								</span>&nbsp;~&nbsp;<a href="/MediaSearch.cfm" target="_blank">Link Media</a>
-						
-			</div>
-		</cfform>
+							</a>
+						</li>
+					</cfloop>
+				<cfelse>
+					<li>None</li>
+				</cfif>
+			</ul>
+			<br><span class="likeLink"
+					onclick="addMediaHere('#accnData.collection# #accnData.accn_number#','#transaction_id#');">
+						Create Media
+				</span>&nbsp;~&nbsp;<a href="/MediaSearch.cfm" target="_blank">Link Media</a>
+		</div>
+		<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			SELECT 
+				permit.permit_id,
+				issuedBy.agent_name as IssuedByAgent,
+				issuedTo.agent_name as IssuedToAgent,
+				issued_Date,
+				renewed_Date,
+				exp_Date,
+				permit_Num,
+				permit_Type,
+				permit_remarks	
+			FROM
+				permit, 
+				permit_trans, 
+				preferred_agent_name issuedTo, 
+				preferred_agent_name issuedBy
+			WHERE
+				permit.permit_id = permit_trans.permit_id AND
+				permit.issued_by_agent_id = issuedBy.agent_id AND
+				permit.issued_to_agent_id = issuedTo.agent_id AND
+				permit_trans.transaction_id = #accnData.transaction_id#
+		</cfquery>
+		<div style="float:left;width:55%;">
+			<br><strong>Permits:</strong>  
+			<cfloop query="getPermits">
+				<p><strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to #IssuedToAgent# by #IssuedByAgent# on #dateformat(issued_Date,"dd mmm yyyy")#. <cfif len(#renewed_Date#) gt 0> (renewed #renewed_Date#)</cfif>Expires #dateformat(exp_Date,"dd mmm yyyy")#  <cfif len(#permit_remarks#) gt 0>Remarks: #permit_remarks# </cfif> 
+				<form name="killPerm#currentRow#" method="post" action="editAccn.cfm">
+					<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
+					<input type="hidden" name="action" value="delePermit">
+					<input type="hidden" name="permit_id" value="#permit_id#">
+					 <input type="submit" value="Remove this Permit" class="delBtn">	
+				</form>
+			</cfloop>
+			<form name="addPermit" action="editAccn.cfm" method="post">
+				<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
+				<input type="hidden" name="permit_id">
+				  <input type="button" value="Add a permit" class="picBtn"
+			   		onClick="javascript: window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick', 
+						'resizable,scrollbars=yes,width=600,height=600')">
+			</form>
+		</div>
+		<div style="clear:both">&nbsp;</div>
 	</cfoutput>
-<cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	SELECT 
-		permit.permit_id,
-		issuedBy.agent_name as IssuedByAgent,
-		issuedTo.agent_name as IssuedToAgent,
-		issued_Date,
-		renewed_Date,
-		exp_Date,
-		permit_Num,
-		permit_Type,
-		permit_remarks	
-	FROM
-		permit, 
-		permit_trans, 
-		preferred_agent_name issuedTo, 
-		preferred_agent_name issuedBy
-	WHERE
-		permit.permit_id = permit_trans.permit_id AND
-		permit.issued_by_agent_id = issuedBy.agent_id AND
-		permit.issued_to_agent_id = issuedTo.agent_id AND
-		permit_trans.transaction_id = #accnData.transaction_id#
-</cfquery>
-<div style="border:2px solid red;float:left;width:55%;">
-<br><strong>Permits:</strong>  
-<cfoutput query="getPermits">
-<form name="killPerm#currentRow#" method="post" action="editAccn.cfm">
-<p><strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to #IssuedToAgent# by #IssuedByAgent# on #dateformat(issued_Date,"dd mmm yyyy")#. <cfif len(#renewed_Date#) gt 0> (renewed #renewed_Date#)</cfif>Expires #dateformat(exp_Date,"dd mmm yyyy")#  <cfif len(#permit_remarks#) gt 0>Remarks: #permit_remarks# </cfif> 
-<br>
-<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
-	<input type="hidden" name="action" value="delePermit">
-	<input type="hidden" name="permit_id" value="#permit_id#">
-	 <input type="submit" value="Remove this Permit" class="delBtn"
-   onmouseover="this.className='delBtn btnhov'" onmouseout="this.className='delBtn'">	
-</form>
-<!---<input type='button' value='Permit Report' class='lnkBtn'
-	onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-	onclick="document.location=--->
-</cfoutput>
-<cfform name="addPermit" action="editAccn.cfm" method="post">
-	<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
-	<input type="hidden" name="permit_id">
-	<cfoutput>
-	  <input type="button" value="Add a permit" class="picBtn"
-   onmouseover="this.className='picBtn btnhov'" onmouseout="this.className='picBtn'"
-   onClick="javascript: window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick', 
-'resizable,scrollbars=yes,width=600,height=600')">	
-</div>
-<div style="clear:both">header below</div>
-</cfoutput>
-</cfform>
 </cfif>
 <!-------------------------------------------------------------------->
 <cfif #action# is "nothing">
