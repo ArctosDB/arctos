@@ -270,6 +270,22 @@
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
             <cfset temp = QuerySetCell(result, "link", "/SpecimenResults.cfm?collecting_event_id=#related_primary_key#", i)>
 		<cfelseif #table_name# is "cataloged_item">
+	<cfelseif table_name is "accn">
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					collection || ' ' || accn_number data 
+				from 
+					collection,
+					trans, 
+					accn 
+				where 
+					collection.collection_id=trans.collection_id and
+					trans.transaction_id=accn.transaction_id and
+					accn.transaction_id=#related_primary_key#
+			</cfquery>
+			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
+            <cfset temp = QuerySetCell(result, "link", "/editAccn.cfm?Action=edit&transaction_id=#related_primary_key#", i)>
+		<cfelseif #table_name# is "cataloged_item">
 		<!--- upping this to uam_god for now - see Issue 135
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		---->
