@@ -28,6 +28,14 @@
 		jQuery('#mediaDiv').append('<iframe id="mediaIframe" />');
 		jQuery('#mediaIframe').attr('src', '/media.cfm?action=newMedia').attr('width','100%').attr('height','100%');
 		
+		
+	    $('iframe#mediaIframe').load(function() {
+	        jQuery('#mediaIframe').contents().find('#related_value__1').val('something');
+	    });
+
+		
+		
+		
 		/*
 		var guts = "/info/annotate.cfm?q=" + q;
 		jQuery('#annotateDiv').load(guts,{},function(){
@@ -36,10 +44,10 @@
 		});
 		*/
 		
-		jQuery('#mediaIframe').contents().find('#related_value__1').val('something');
+		
 		
 	}
-	</script>
+</script>
 					
 					
 					
