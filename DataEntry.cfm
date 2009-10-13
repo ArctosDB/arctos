@@ -1,5 +1,6 @@
 <cfset btime=now()>
 <cfinclude template="/includes/_header.cfm">
+<cfset title="Data Entry">
 <link rel="stylesheet" type="text/css" href="/includes/_DEstyle.css">
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>
 <script type='text/javascript' src='/includes/_DEhead.js'></script>
@@ -25,44 +26,36 @@
 	<cfset ImAGod = "no">
 </cfif>
 <cfif isdefined("CFGRIDKEY") and not isdefined("collection_object_id")>
-	<cfset collection_object_id = #CFGRIDKEY#>
+	<cfset collection_object_id = CFGRIDKEY>
 </cfif>
 <cfset collid = 1>
-<cfif not isdefined("pMode") or len(#pMode#) is 0>
+<cfif not isdefined("pMode") or len(pMode) is 0>
 	<cfset pMode = "enter">
 </cfif>
-	
-<cfset title="Data Entry">
 <cfset thisDate = #dateformat(now(),"dd mmm yyyy")#>
-<!------------ default page --------------------------------------------------------------------------------------------->
-<cfif #action# is "nothing">
-<!--- prime the bulkloader table with templates for each collection ---->
-<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select * from collection ORDER BY COLLECTION
-</cfquery>
-<cfoutput>
-	<cfloop query="c">
-		<!--- see if the template already exists --->
-		<cfquery  name="isBL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select * from bulkloader where collection_object_id = #collection_id#
+<!--------------------------------------------------------------------------------------------------------->
+<cfif action is "nothing">
+	<cfoutput>
+		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select * from collection ORDER BY COLLECTION
 		</cfquery>
-		<cfif #isBl.recordcount# is 0>
-			<!--- re-create the template --->
-			<cfquery name="prime" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				insert into bulkloader (
-					collection_object_id, 
-					institution_acronym,
-					collection_cde,
-					loaded) VALUES (
-					#collection_id#,
-					'#institution_acronym#',
-					'#collection_cde#',
-					'#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE')
+		<cfloop query="c">
+			<cfquery  name="isBL" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select * from bulkloader where collection_object_id = #collection_id#
 			</cfquery>
-		<cfelse>
-		<!--- see if it's our template --->
-			<cfif #isBL.loaded# is not "#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE">
-				<!--- shiyite - move the barged-in record and create template --->
+			<cfif isBl.recordcount is 0>
+				<cfquery name="prime" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					insert into bulkloader (
+						collection_object_id, 
+						institution_acronym,
+						collection_cde,
+						loaded) VALUES (
+						#collection_id#,
+						'#institution_acronym#',
+						'#collection_cde#',
+						'#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE')
+				</cfquery>
+			<cfelseif isBL.loaded is not "#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE">
 				<cfquery name="move" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					update bulkloader set collection_object_id = bulkloader_PKEY.nextval
 					where collection_object_id = #collection_id#
@@ -79,196 +72,177 @@
 						'#ucase(institution_acronym)# #ucase(collection_cde)# TEMPLATE')
 				</cfquery>			
 			</cfif>
-		</cfif>
-	</cfloop>
-	Welcome to Data Entry, #session.username# 
-	<ul>
-		<li>Green Screen: You are entering data to a new record.</li>
-		<li>Blue Screen: you are editing an unloaded record that you've previously entered.</li>
-		<li>Yellow Screen: A record has been saved but has errors that must be corrected. Fix and save to continue.</li>
-	</ul>
-    <p>
-        <a href="/Bulkloader/cloneWithBarcodes.cfm">Clone records by Barcode</a>
-    </p>
-				<cfquery name="theirLast" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select 
-						max(collection_object_id) theId,
-						collection_cde collnCde,
-						institution_acronym instAc
-					from bulkloader where enteredby = '#session.username#'
-					GROUP BY
-						collection_cde,
-						institution_acronym
-				</cfquery>
-				Begin at....<br>	
-					<form name="begin" method="post" action="DataEntry.cfm">
-						<input type="hidden" name="action" value="editEnterData" />
-						<select name="collection_object_id" size="1">
-							<cfif #theirLast.recordcount# gt 0>
-								<cfloop query="theirLast">
-									<cfquery name="temp" dbtype="query">
-										select collection from c where institution_acronym='#instAc#' and collection_cde='#collnCde#'
-									</cfquery>
-									<option value="#theId#">Your Last #temp.collection#</option>									
-								</cfloop>								
-							</cfif>
-							<cfloop query="c">
-								<option value="#collection_id#">Enter a new #collection# Record</option>
-							</cfloop>
-						</select>
-						<input class="lnkBtn" onmouseover="this.className='lnkBtn btnhov'"
-							onmouseout="this.className='lnkBtn'"
-							type="submit" value="Enter Data"/>
-					</form>
-</cfoutput>	
+		</cfloop>
+		Welcome to Data Entry, #session.username# 
+		<ul>
+			<li>Green Screen: You are entering data to a new record.</li>
+			<li>Blue Screen: you are editing an unloaded record that you've previously entered.</li>
+			<li>Yellow Screen: A record has been saved but has errors that must be corrected. Fix and save to continue.</li>
+		</ul>
+    	<p><a href="/Bulkloader/cloneWithBarcodes.cfm">Clone records by Barcode</a></p>
+		<cfquery name="theirLast" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				max(collection_object_id) theId,
+				collection_cde collnCde,
+				institution_acronym instAc
+			from bulkloader where enteredby = '#session.username#'
+			GROUP BY
+				collection_cde,
+				institution_acronym
+		</cfquery>
+		Begin at....<br>	
+		<form name="begin" method="post" action="DataEntry.cfm">
+			<input type="hidden" name="action" value="editEnterData" />
+			<select name="collection_object_id" size="1">
+				<cfif #theirLast.recordcount# gt 0>
+					<cfloop query="theirLast">
+						<cfquery name="temp" dbtype="query">
+							select collection from c where institution_acronym='#instAc#' and collection_cde='#collnCde#'
+						</cfquery>
+						<option value="#theId#">Your Last #temp.collection#</option>									
+					</cfloop>								
+				</cfif>
+				<cfloop query="c">
+					<option value="#collection_id#">Enter a new #collection# Record</option>
+				</cfloop>
+			</select>
+			<input class="lnkBtn" type="submit" value="Enter Data"/>
+		</form>
+	</cfoutput>	
 </cfif>
 <!------------ editEnterData --------------------------------------------------------------------------------------------->
 <cfif action is "editEnterData">
-<cfoutput>
-<cfif not isdefined("collection_object_id") or len(#collection_object_id#) is 0>
-	you don't have an ID. <cfabort>
-</cfif>
-<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select * from bulkloader where collection_object_id=#collection_object_id#
-</cfquery>
-<!------------------- check these data ------------------->
-<cfif #collection_OBJECT_ID# GT 50>
-	<cfquery name="chk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select bulk_check_one(#collection_object_id#) rslt from dual
-	</cfquery>
-	<cfset loadedMsg=chk.rslt>
-<cfelse>
-	<cfset loadedMsg = "">
-</cfif>
-</cfoutput>
-<!------------------- end check these data ------------------->
-<cfoutput query="data">
-	<!---- get data for dropdowns; cache it to speed up the form; refresh every hour---->
-	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		SELECT institution_acronym || ' ' || collection_cde as instcoll, collection_id FROM collection
+	<cfoutput>
+		<cfif not isdefined("collection_object_id") or len(#collection_object_id#) is 0>
+			you don't have an ID. <cfabort>
+		</cfif>
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select * from bulkloader where collection_object_id=#collection_object_id#
+		</cfquery>
+		<cfif collection_object_id GT 50>
+			<cfquery name="chk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select bulk_check_one(#collection_object_id#) rslt from dual
+			</cfquery>
+			<cfset loadedMsg=chk.rslt>
+		<cfelse>
+			<cfset loadedMsg = "">
+		</cfif>
+		<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			SELECT institution_acronym || ' ' || collection_cde as instcoll, collection_id FROM collection
+				<cfif len(#collection_cde#) gt 0>
+					WHERE collection_cde='#collection_cde#'
+				</cfif>
+		</cfquery>
+		<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select collection_cde,institution_acronym,collection from collection order by collection
+		</cfquery>
+		<cfquery name="ctnature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select nature_of_id from ctnature_of_id order by nature_of_id
+		</cfquery>
+		<cfquery name="ctunits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	       select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS order by orig_lat_long_units
+	    </cfquery>
+		<cfquery name="ctflags" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	       select flags from ctflags order by flags
+	    </cfquery>
+		<cfquery name="CTCOLL_OBJ_DISP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	       select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP order by coll_obj_DISPOSITION
+	    </cfquery>	 
+		<cfquery name="cterror" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	    	select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS order by lat_long_error_units
+	    </cfquery>
+		<cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select datum from ctdatum order by datum
+	    </cfquery>    
+		<cfquery name="ctgeorefmethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	       	select georefmethod from ctgeorefmethod order by georefmethod
+	    </cfquery>
+		<cfquery name="ctverificationstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	       	select verificationstatus from ctverificationstatus order by verificationstatus
+	    </cfquery>
+		<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	       	select collecting_source from ctcollecting_source order by collecting_source
+	    </cfquery>			
+	    <cfquery name="ctew" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	    	select e_or_w from ctew order by e_or_w
+	    </cfquery>
+	    <cfquery name="ctns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	       	select n_or_s from ctns order by n_or_s
+	    </cfquery>
+		<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			SELECT distinct(other_id_type) FROM ctColl_Other_id_type
+			order by other_id_type
+	    </cfquery>
+		<cfquery name="ctSex_Cde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			SELECT distinct(sex_cde) as sex_cde FROM ctSex_Cde
 			<cfif len(#collection_cde#) gt 0>
 				WHERE collection_cde='#collection_cde#'
 			</cfif>
-	</cfquery>
-	<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select collection_cde,institution_acronym,collection from collection order by collection
-	</cfquery>
-	<cfquery name="ctnature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select nature_of_id from ctnature_of_id order by nature_of_id
-	</cfquery>
-	<cfquery name="ctunits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-       select ORIG_LAT_LONG_UNITS from ctLAT_LONG_UNITS order by orig_lat_long_units
-    </cfquery>
-	<cfquery name="ctflags" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-       select flags from ctflags order by flags
-    </cfquery>
-	<cfquery name="CTCOLL_OBJ_DISP" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-       select COLL_OBJ_DISPOSITION from CTCOLL_OBJ_DISP order by coll_obj_DISPOSITION
-    </cfquery>	 
-	<cfquery name="cterror" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-    	select LAT_LONG_ERROR_UNITS from ctLAT_LONG_ERROR_UNITS order by lat_long_error_units
-    </cfquery>
-	<cfquery name="ctdatum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select datum from ctdatum order by datum
-    </cfquery>    
-	<cfquery name="ctgeorefmethod" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-       	select georefmethod from ctgeorefmethod order by georefmethod
-    </cfquery>
-	<cfquery name="ctverificationstatus" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-       	select verificationstatus from ctverificationstatus order by verificationstatus
-    </cfquery>
-	<cfquery name="ctcollecting_source" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-       	select collecting_source from ctcollecting_source order by collecting_source
-    </cfquery>			
-    <cfquery name="ctew" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-    	select e_or_w from ctew order by e_or_w
-    </cfquery>
-    <cfquery name="ctns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-       	select n_or_s from ctns order by n_or_s
-    </cfquery>
-	<cfquery name="ctOtherIdType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		SELECT distinct(other_id_type) FROM ctColl_Other_id_type
-		order by other_id_type
-    </cfquery>
-	<cfquery name="ctSex_Cde" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		SELECT distinct(sex_cde) as sex_cde FROM ctSex_Cde
-		<cfif len(#collection_cde#) gt 0>
-			WHERE collection_cde='#collection_cde#'
-		</cfif>
-		order by sex_cde
-	</cfquery>
-	<cfquery name="ctOrigElevUnits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-       	select orig_elev_units from ctorig_elev_units
-    </cfquery>
-	<cfquery name="ctbiol_relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-      	select BIOL_INDIV_RELATIONSHIP from ctbiol_relations
-		order by BIOL_INDIV_RELATIONSHIP
-    </cfquery>
-	<cfquery name="ctPartName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		SELECT distinct(part_name) FROM ctSpecimen_part_name
-		<cfif len(#collection_cde#) gt 0>
-			WHERE collection_cde='#collection_cde#'
-		</cfif>
-		order by part_name
-    </cfquery>
-	<cfquery name="ctPartModifier" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		SELECT distinct(part_modifier) FROM ctSpecimen_part_modifier
-		order by part_modifier
-    </cfquery>
-	<cfquery name="ctPresMeth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select preserve_method from ctspecimen_preserv_method
-		<cfif len(#collection_cde#) gt 0>
-			WHERE collection_cde='#collection_cde#'
-		</cfif>
-		order by preserve_method
-	</cfquery>
-	<cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select distinct(attribute_type) from ctattribute_type
-		<cfif len(#collection_cde#) gt 0>
-			WHERE collection_cde='#collection_cde#'
-		</cfif>
-		order by attribute_type
-	</cfquery>
-	<cfquery name="ctLength_Units" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select length_units from ctLength_Units order by length_units
-	</cfquery>
-	<cfquery name="ctWeight_Units" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select Weight_Units from ctWeight_Units order by weight_units
-	</cfquery>
-	<cfquery name="ctattribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		SELECT attribute_type FROM ctattribute_type 
-		<cfif len(#collection_cde#) gt 0>
-			WHERE collection_cde='#collection_cde#'
-		</cfif>
-		order by attribute_type
-	</cfquery>
-	<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select geology_attribute from ctgeology_attribute order by geology_attribute
-	</cfquery>
-	<cfquery name="ctCodes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-		select 
-			attribute_type,
-			value_code_table,
-			units_code_table
-	 	from ctattribute_code_tables
-	</cfquery>
-<!----------------- end dropdowns --------------------->
-<cfset thisUser = "#session.username#">
-<cfset sql = "select collection_object_id from bulkloader
-	where collection_object_id > 10">
-	<cfif #ImAGod# is "no">
-		 <cfset sql = "#sql# AND enteredby = '#thisUser#'">
-	<cfelse>
-		<cfset afg = "">
-		<cfloop list="#adminForUsers#" index="m">
-			<cfif len(#afg#) is 0>
-				<cfset afg="'#m#'">
-			<cfelse>
-				<cfset afg="#afg#,'#m#'">
+			order by sex_cde
+		</cfquery>
+		<cfquery name="ctOrigElevUnits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	       	select orig_elev_units from ctorig_elev_units
+	    </cfquery>
+		<cfquery name="ctbiol_relations" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+	      	select BIOL_INDIV_RELATIONSHIP from ctbiol_relations
+			order by BIOL_INDIV_RELATIONSHIP
+	    </cfquery>
+		<cfquery name="ctPartName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			SELECT distinct(part_name) FROM ctSpecimen_part_name
+			<cfif len(#collection_cde#) gt 0>
+				WHERE collection_cde='#collection_cde#'
 			</cfif>
-		</cfloop>
-		<cfset sql = "#sql# AND enteredby IN (#afg#)">
-	</cfif>
+			order by part_name
+	    </cfquery>
+		<cfquery name="ctPartModifier" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			SELECT distinct(part_modifier) FROM ctSpecimen_part_modifier
+			order by part_modifier
+	    </cfquery>
+		<cfquery name="ctPresMeth" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select preserve_method from ctspecimen_preserv_method
+			<cfif len(#collection_cde#) gt 0>
+				WHERE collection_cde='#collection_cde#'
+			</cfif>
+			order by preserve_method
+		</cfquery>
+		<cfquery name="ctAttributeType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select distinct(attribute_type) from ctattribute_type
+			<cfif len(#collection_cde#) gt 0>
+				WHERE collection_cde='#collection_cde#'
+			</cfif>
+			order by attribute_type
+		</cfquery>
+		<cfquery name="ctLength_Units" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select length_units from ctLength_Units order by length_units
+		</cfquery>
+		<cfquery name="ctWeight_Units" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select Weight_Units from ctWeight_Units order by weight_units
+		</cfquery>
+		<cfquery name="ctattribute_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			SELECT attribute_type FROM ctattribute_type 
+			<cfif len(#collection_cde#) gt 0>
+				WHERE collection_cde='#collection_cde#'
+			</cfif>
+			order by attribute_type
+		</cfquery>
+		<cfquery name="ctgeology_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select geology_attribute from ctgeology_attribute order by geology_attribute
+		</cfquery>
+		<cfquery name="ctCodes" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
+			select 
+				attribute_type,
+				value_code_table,
+				units_code_table
+		 	from ctattribute_code_tables
+		</cfquery>
+	</cfoutput>
+	<cfoutput query="data">
+		<cfset sql = "select collection_object_id from bulkloader where collection_object_id > 10">
+		<cfif ImAGod is "no">
+			 <cfset sql = "#sql# AND enteredby = '#session.username#'">
+		<cfelse>
+			<cfset sql = "#sql# AND enteredby IN (#listqualify(adminForUsers,'''')#)">
+		</cfif>
 	<cfset sql = "#sql# order by collection_object_id">
 <cfquery name="whatIds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#
@@ -3224,10 +3198,6 @@
 </tr>
 </table>
 </form>
-<!--- do not allow change to new entry mode if there's a problem --->
-<!--- crude but effective: set up an invisible DIV here to hold loadedMsg. 
-		After we've switched bgcolor based on mode, switch it again 
-		based on the contents of the DIV --->
 	<div style="display:none;" id="loadedMsgDiv">
 		#loadedMsg#
 	</div>
