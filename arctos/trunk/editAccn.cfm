@@ -36,7 +36,7 @@
 		});
 		*/
 		
-		jQuery('#mediaIframe').contents().find('#media_type').val('image');
+		jQuery('#mediaIframe').contents().find('#related_value__1').val('something');
 		
 	}
 	</script>
