@@ -243,26 +243,22 @@
 		<cfelse>
 			<cfset sql = "#sql# AND enteredby IN (#listqualify(adminForUsers,'''')#)">
 		</cfif>
-	<cfset sql = "#sql# order by collection_object_id">
-<cfquery name="whatIds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	#preservesinglequotes(sql)#
-</cfquery>
-<cfset idList = "">
-	<cfloop query="whatIds">
-		<cfset idList = "#idList#,#collection_object_id#">
-	</cfloop>
-	<cfset currentPos = listFind(idList,data.collection_object_id)>
-<cfif len(#loadedMsg#) gt 0>
-	<!--- peel the first "; " off loadedMsg --->
-	<cfset loadedMsg = right(loadedMsg,len(loadedMsg) - 2)>
-	<cfset pageTitle = replace(loadedMsg,"::","","all")>
-<cfelse>
-	<cfset pageTitle = "This record has passed all bulkloader checks!">
-</cfif>
-<cfif not isdefined("inEntryGroups") OR #len(inEntryGroups)# eq 0>
-	You have group issues! You must be in a Data Entry group to use this form.
-	<cfabort>
-</cfif>
+		<cfset sql = "#sql# order by collection_object_id">
+		<cfquery name="whatIds" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(sql)#
+		</cfquery>
+		<cfset idList=valuelist(whatIds.collection_object_id)>
+		<cfset currentPos = listFind(idList,data.collection_object_id)>
+		<cfif len(loadedMsg) gt 0>
+			<cfset loadedMsg = right(loadedMsg,len(loadedMsg) - 2)>
+			<cfset pageTitle = replace(loadedMsg,"::","","all")>
+		<cfelse>
+			<cfset pageTitle = "This record has passed all bulkloader checks!">
+		</cfif>
+		<cfif not isdefined("inEntryGroups") OR len(inEntryGroups) eq 0>
+			You have group issues! You must be in a Data Entry group to use this form.
+			<cfabort>
+		</cfif>
 <div align="center">
 <div id="splash"align="center">
 	<span style="background-color:##FF0000; font-size:large;">
