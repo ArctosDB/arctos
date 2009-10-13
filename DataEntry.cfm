@@ -486,7 +486,7 @@
 			<td>
 					<cfset thisIdType=#other_id_num_type_1#>
 					<span class="f11a">OtherID 1</span>
-					<select name="other_id_num_type_1" size="1" style="width:100px"
+					<select name="other_id_num_type_1" size="1" style="width:150px"
 						id="other_id_num_type_1"
 						class="d11a"
 						onChange="this.className='reqdClr d11a';
