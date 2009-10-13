@@ -27,7 +27,7 @@
 		document.body.appendChild(theDiv);
 		
 		jQuery('#mediaDiv').append('<iframe id="commentiframe" />');
-		jQuery('#commentiframe').attr('src', '/media.cfm').attr('width','100%');
+		jQuery('#commentiframe').attr('src', '/media.cfm').attr('width','100%').attr('height','100%');
 		
 		/*
 		var guts = "/info/annotate.cfm?q=" + q;
