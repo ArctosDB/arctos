@@ -14,6 +14,7 @@
 			jQuery("#determined_date").datepicker();
 			for (i=1;i<=12;i++){
 				jQuery("#geo_att_determined_date_" + i).datepicker();
+				jQuery("#attribute_date_" + i).datepicker();
 			}
 		});
 	});
@@ -723,7 +724,7 @@
 				</td>
 			</tr>			
 			<tr>
-				<td align="right"><span class="f11a">Date</span></td>
+				<td align="right"><span class="f11a">VerbatimDate</span></td>
 				<td>
 					<input type="text" 
 						name="verbatim_date" 
@@ -1381,13 +1382,6 @@
 				<input type="text" name="attribute_date_1" value="#attribute_date_1#"
 					id="attribute_date_1" 
 					class="d11a" size="10">
-					<img src="images/pick.gif" 
-						class="likeLink" 
-						border="0" 
-						alt="[calendar]"
-						name="anchor5"
-						id="anchor5"
-						onClick="cal1.select(document.dataEntry.attribute_date_1,'anchor5','dd-MMM-yyyy'); return false;"/>					
 					<span class="infoLink"
 						onclick="copyAttributeDates('attribute_date_1');">Sync Att.</span>
 							
@@ -1495,9 +1489,7 @@
 				<input type="text" name="attribute_date_2"
 					id="attribute_date_2" 
 					class="d11a"
-					value="#attribute_date_2#">
-					<A HREF="##" onClick="cal1.select(document.dataEntry.attribute_date_2,'anchor3','dd MMM yyyy'); return false;" 
-					NAME="anchor3" ID="anchor3"><img src="images/pick.gif" border="0" alt="pick"/></A>				
+					value="#attribute_date_2#">		
 			</td>
 			<td>
 				<input type="text" 
@@ -1586,8 +1578,6 @@
 					id="attribute_date_2" 
 					class="d11a"
 					value="#attribute_date_2#">
-					<A HREF="##" onClick="cal1.select(document.dataEntry.attribute_date_2,'anchor3','dd MMM yyyy'); return false;" 
-					NAME="anchor3" ID="anchor3"><img src="images/pick.gif" border="0" alt="pick"/></A>				
 			</td>
 			<td>
 				<input type="text" 
@@ -1596,7 +1586,6 @@
 					onchange="getAgent('nothing','attribute_determiner_2','dataEntry',this.value); return false;"
 					id="attribute_determiner_2"
 					value="#attribute_determiner_2#">
-				
 			</td>
 		</tr>
 		<!--------------------------------- /Bird-specific attributes --------------------------------------------->
