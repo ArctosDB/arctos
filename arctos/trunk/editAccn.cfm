@@ -186,6 +186,7 @@
 							<li>None</li>
 						</cfif>
 					</ul>
+				</cfoutput>
 					<script>
 						function removeMediaDiv() {
 							if(document.getElementById('bgDiv')){
@@ -218,6 +219,7 @@
 						}
 						}
 					</script>
+					<cfoutput>
 					<br><span onclick="addMediaHere();">addmediahere</span>
 				</td>
 			</tr>
