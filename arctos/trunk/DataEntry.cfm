@@ -8,12 +8,13 @@
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		jQuery(function() {
-			jQuery("#ent_date").datepicker();
-			jQuery("#rec_date").datepicker();
-			jQuery("#rec_until_date").datepicker();	
-			jQuery("#issued_date").datepicker();
-			jQuery("#renewed_date").datepicker();
-			jQuery("#exp_date").datepicker();
+			jQuery("#made_date").datepicker();
+			jQuery("#began_date").datepicker();
+			jQuery("#ended_date").datepicker();	
+			jQuery("#determined_date").datepicker();
+			for (i=1;i<=12;i++){
+				jQuery("#geo_att_determined_date_" + i).datepicker();
+			}
 		});
 	});
 </script>
@@ -627,13 +628,6 @@
 				<input type="text" name="made_date" value="#made_date#"
 					id="made_date" 
 					class="d11a">
-					<img src="images/pick.gif" 
-						class="likeLink" 
-						border="0" 
-						alt="[calendar]"
-						name="anchor1"
-						id="anchor1"
-						onClick="cal1.select(document.dataEntry.made_date,'anchor1','dd-MMM-yyyy'); return false;"/>					
 					<img src="/images/copyall.gif"
 							border="0"  
 							height="18" 
@@ -751,13 +745,6 @@
 						value="#began_date#"
 						id="began_date"
 						size="10">
-					<img src="images/pick.gif" 
-						class="likeLink" 
-						border="0" 
-						alt="[calendar]"
-						name="anchor2"
-						id="anchor2"
-						onClick="cal1.select(document.dataEntry.began_date,'anchor2','dd-MMM-yyyy'); return false;"/>					
 					<img src="/images/copyall.gif"
 							border="0"  
 							height="18" 
@@ -772,13 +759,6 @@
 						value="#ended_date#"
 						id="ended_date"
 						size="10">
-					<img src="images/pick.gif" 
-						class="likeLink" 
-						border="0" 
-						alt="[calendar]"
-						name="anchor3"
-						id="anchor3"
-						onClick="cal1.select(document.dataEntry.ended_date,'anchor3','dd-MMM-yyyy'); return false;"/>					
 					<img src="/images/copyall.gif"
 							border="0"  
 							height="18" 
@@ -786,7 +766,6 @@
 							class="likeLink" 
 							alt="[ copy ]"
 							onclick="copyAllDates('ended_date');" />
-							
 				</td>
 			</tr>
 			<tr>
@@ -1012,20 +991,13 @@
 						class="d11a reqdClr"
 						value="#determined_date#"
 						id="determined_date">
-					<img src="images/pick.gif" 
-						class="likeLink" 
-						border="0" 
-						alt="[calendar]"
-						name="anchor4"
-						id="anchor4"
-						onClick="cal1.select(document.dataEntry.determined_date,'anchor4','dd-MMM-yyyy'); return false;"/>					
 					<img src="/images/copyall.gif"
-							border="0"  
-							height="18" 
-							width="18" 
-							class="likeLink" 
-							alt="[ copy ]"
-							onclick="copyAllDates('determined_date');" />
+						border="0"  
+						height="18" 
+						width="18" 
+						class="likeLink" 
+						alt="[ copy ]"
+						onclick="copyAllDates('determined_date');" />
 				</td>
 			</tr>
 			<tr>
@@ -1349,18 +1321,7 @@
 									id="geo_att_determined_date_#i#"
 									value="#thisDate#"
 									class="d11a"
-									size="10"
-									onclick="cal1.select(document.dataEntry.geo_att_determined_date_#i#,'anchor1#i#','dd-MMM-yyyy');">
-								<a name="anchor1#i#" id="anchor1#i#"></a>
-								<!---
-								<img src="images/pick.gif" 
-									class="likeLink" 
-									border="0" 
-									alt="[calendar]"
-									name="anchor1#i#"
-									id="anchor1#i#"
-									onClick="cal1.select(document.dataEntry.geo_att_determined_date_#i#,'anchor1#i#','dd-MMM-yyyy'); return false;"/>
-									--->	
+									size="10">
 							</td>
 							<td>
 								<input type="text" 
