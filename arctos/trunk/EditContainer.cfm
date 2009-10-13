@@ -123,7 +123,7 @@ sho err
 	<cfset udQual="#udqual#, container_type = '#container_type#'">
 	</cfif>
 <cfif #description# is not "">
-	<cfset #udQual# = "#udqual#, description = '#description#'">
+	<cfset #udQual# = "#udqual#, description = '#escapeQuotes(description)#'">
 <cfelse>
 	<cfset #udQual# = "#udqual#, description = NULL">
 </cfif>
@@ -164,7 +164,7 @@ sho err
 	<cfset #udQual# = "#udQual# , parent_install_date = #parent_install_date#">
 </cfif>
 <cfif #container_remarks# is not "">
-	<cfset #udQual# = "#udQual# , container_remarks = '#container_remarks#'">
+	<cfset #udQual# = "#udQual# , container_remarks = '#escapeQuotes(container_remarks)#'">
 <cfelse>
 	<cfset #udQual# = "#udQual# , container_remarks = null">
 </cfif>
@@ -714,7 +714,7 @@ select fluid_type from ctFluid_Type ORDER BY fluid_type
 						#label#,
 						#description#,
 						to_date(#parent_install_date#),
-						#container_remarks#,
+						#escapeQuotes(container_remarks)#,
 						#barcode#,
 						#width#,
 						#height#,

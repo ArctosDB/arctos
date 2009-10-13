@@ -1946,6 +1946,11 @@ function getPublication(pubStringFld,pubIdFld,publication_title,formName){
 	var pubwin=url+"?pubStringFld="+pubStringFld+"&pubIdFld="+pubIdFld+"&publication_title="+publication_title+"&formName="+formName;
 	pubwin=window.open(pubwin,"","width=400,height=338, resizable,scrollbars");
 }
+function getAccn(StringFld,IdFld,formName){
+	var url="/picks/findAccn.cfm";
+	var pickwin=url+"?AccnNumFld="+StringFld+"&AccnIdFld="+IdFld+"&formName="+formName;
+	pickwin=window.open(pickwin,"","width=400,height=338, resizable,scrollbars");
+}
 function getGeog(geogIdFld,geogStringFld,formName,geogString){
 	var url="/picks/findHigherGeog.cfm";
 	var geogIdFld;
