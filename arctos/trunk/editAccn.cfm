@@ -23,6 +23,7 @@
 		var theDiv = document.createElement('div');
 		theDiv.id = 'mediaDiv';
 		theDiv.className = 'annotateBox';
+		theDiv.innerHTML='clicky';
 		document.body.appendChild(theDiv);
 		
 		jQuery('#mediaDiv').append('<iframe id="mediaIframe" />');
