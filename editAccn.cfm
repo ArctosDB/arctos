@@ -25,6 +25,10 @@
 		theDiv.className = 'annotateBox';
 		theDiv.innerHTML='I am a new div';
 		document.body.appendChild(theDiv);
+		
+		jQuery('#mediaDiv').append('<iframe id="commentiframe" />');
+		jQuery('#commentiframe').attr('src', '/media.cfm');
+		
 		/*
 		var guts = "/info/annotate.cfm?q=" + q;
 		jQuery('#annotateDiv').load(guts,{},function(){
