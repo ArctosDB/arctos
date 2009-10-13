@@ -4,7 +4,7 @@
 		<cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select collection_id,collection from collection order by collection
 		</cfquery>
-		<form name="searchForAccn" action="findPublication.cfm" method="post">
+		<form name="searchForAccn" action="findAccn.cfm" method="post">
 			<input type="hidden" name="action" value="srch">
 			<input type="hidden" name="AccnNumFld" value="#AccnNumFld#">
 			<input type="hidden" name="AccnIdFld" value="#AccnIdFld#">
