@@ -342,7 +342,7 @@
 		permit.issued_to_agent_id = issuedTo.agent_id AND
 		permit_trans.transaction_id = #accnData.transaction_id#
 </cfquery>
-<div style="border:2px solid red;clear:both;float:left;width:55%;">
+<div style="border:2px solid red;float:left;width:55%;">
 <br><strong>Permits:</strong>  
 <cfoutput query="getPermits">
 <form name="killPerm#currentRow#" method="post" action="editAccn.cfm">
@@ -367,6 +367,7 @@
    onClick="javascript: window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick', 
 'resizable,scrollbars=yes,width=600,height=600')">	
 </div>
+<div style="clear:both">header below</div>
 </cfoutput>
 </cfform>
 </cfif>
