@@ -101,7 +101,7 @@
 			<input type="hidden" name="Action" value="saveChanges">
 			<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
 			<cfset tIA=accnData.collection_id>
-			<div style="float:left;width:75%;">
+			<div style="float:left;width:59%;">
 	  			<table border>
 					<tr>
 						<td>
@@ -246,7 +246,7 @@
 					</tr>
 				</table>
 			</div>
-			<div style="float:right;width:20%;border:1px solid green;margin-right:2em;">
+			<div style="float:right;width:40%;border:1px solid green;margin-right:2em;">
 							<strong>Projects associated with this Accn:</strong>
 							<ul>
 								<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
