@@ -49,28 +49,29 @@
 		<cfif #getAccn.recordcount# is 0>
 			Nothing matched. <a href="findAccn.cfm?formName=#formName#&AccnNumFld=#AccnNumFld#&AccnIdFld=#AccnIdFld#">Try again.</a>
 		<cfelse>
-		<table border>
-			<tr>
-				<td>Accn</td>
-			</tr>
-			<cfloop query="getPub">
-				<cfif #getAccn.recordcount# is 1>
-					<script>
-						opener.document.#formName#.#AccnNumFld#.value='#collection# #accn_number#';
-						opener.document.#formName#.#AccnIdFld#.value='#transaction_id#';
-						opener.document.#formName#.#pubStringFld#.style.background='##8BFEB9';
-						self.close();
-					</script>
-				<cfelse>
-					<tr>
-						<td>
-							<a href="##" onClick="javascript: opener.document.#formName#.#AccnNumFld#.value='#collection# #accn_number#';
-								opener.document.#formName#.#AccnIdFld#.value='#transaction_id#';self.close();">#collection# #accn_number#</a>
-						</td>
-					</tr>
-				</cfif>
-			</cfloop>
-		</table>
+			<table border>
+				<tr>
+					<td>Accn</td>
+				</tr>
+				<cfloop query="getPub">
+					<cfif #getAccn.recordcount# is 1>
+						<script>
+							opener.document.#formName#.#AccnNumFld#.value='#collection# #accn_number#';
+							opener.document.#formName#.#AccnIdFld#.value='#transaction_id#';
+							opener.document.#formName#.#pubStringFld#.style.background='##8BFEB9';
+							self.close();
+						</script>
+					<cfelse>
+						<tr>
+							<td>
+								<a href="##" onClick="javascript: opener.document.#formName#.#AccnNumFld#.value='#collection# #accn_number#';
+									opener.document.#formName#.#AccnIdFld#.value='#transaction_id#';self.close();">#collection# #accn_number#</a>
+							</td>
+						</tr>
+					</cfif>
+				</cfloop>
+			</table>
+		</cfif>
 	</cfif>
 </cfoutput>
 <cfinclude template="../includes/_pickFooter.cfm">
