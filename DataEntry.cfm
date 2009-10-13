@@ -127,6 +127,8 @@
 		<cfelse>
 			<cfset loadedMsg = "">
 		</cfif>
+	</cfoutput>
+	<cfoutput query="data">
 		<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT institution_acronym || ' ' || collection_cde as instcoll, collection_id FROM collection
 				<cfif len(#collection_cde#) gt 0>
@@ -235,8 +237,6 @@
 				units_code_table
 		 	from ctattribute_code_tables
 		</cfquery>
-	</cfoutput>
-	<cfoutput query="data">
 		<cfset sql = "select collection_object_id from bulkloader where collection_object_id > 10">
 		<cfif ImAGod is "no">
 			 <cfset sql = "#sql# AND enteredby = '#session.username#'">
