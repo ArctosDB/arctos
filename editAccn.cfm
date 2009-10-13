@@ -23,14 +23,14 @@
 		document.body.appendChild(theDiv);
 		jQuery('#mediaDiv').append('<iframe id="mediaIframe" />');
 		jQuery('#mediaIframe').attr('src', '/media.cfm?action=newMedia').attr('width','100%').attr('height','100%');
-	    $('iframe#mediaIframe').load(function() {
+	    jQuery('iframe#mediaIframe').load(function() {
 	        jQuery('#mediaIframe').contents().find('#relationship__1').val('documents accn');
 	        jQuery('#mediaIframe').contents().find('#related_value__1').val(accnnum);
 	        jQuery('#mediaIframe').contents().find('#related_id__1').val(transid);
-	        
+	        viewport.init("#mediaDiv");
 	    });
 	}
-</script>			
+</script>		
 <cfset title="Edit Accession">
 <cfif not isdefined("project_id")>
 	<cfset project_id = -1>
