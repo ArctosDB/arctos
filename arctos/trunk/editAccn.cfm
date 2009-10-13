@@ -23,11 +23,10 @@
 		var theDiv = document.createElement('div');
 		theDiv.id = 'mediaDiv';
 		theDiv.className = 'annotateBox';
-		theDiv.innerHTML='I am a new div';
 		document.body.appendChild(theDiv);
 		
-		jQuery('#mediaDiv').append('<iframe id="commentiframe" />');
-		jQuery('#commentiframe').attr('src', '/media.cfm?action=newMedia').attr('width','100%').attr('height','100%');
+		jQuery('#mediaDiv').append('<iframe id="mediaIframe" />');
+		jQuery('#mediaIframe').attr('src', '/media.cfm?action=newMedia').attr('width','100%').attr('height','100%');
 		
 		/*
 		var guts = "/info/annotate.cfm?q=" + q;
@@ -36,6 +35,9 @@
 			viewport.init("#bgDiv");
 		});
 		*/
+		
+		jQuery('#mediaIframe').contents().find('#media_type').val('image');
+		
 	}
 	</script>
 					
