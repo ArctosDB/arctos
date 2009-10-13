@@ -18,7 +18,7 @@
 		var theDiv = document.createElement('div');
 		theDiv.id = 'mediaDiv';
 		theDiv.className = 'annotateBox';
-		ctl='<span style="position:absolute;right:0px;top:0px;padding:5px;color:red;" onclick="removeMediaDiv();">Close Frame</span>';
+		ctl='<span class="likeLink" style="position:absolute;right:0px;top:0px;padding:5px;color:red;" onclick="removeMediaDiv();">Close Frame</span>';
 		theDiv.innerHTML=ctl;
 		document.body.appendChild(theDiv);
 		jQuery('#mediaDiv').append('<iframe id="mediaIframe" />');
