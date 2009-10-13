@@ -363,210 +363,187 @@
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------->
-<cfif #action# is "nothing">
-<strong>Find Accession
-
-<cfset title = "Find Accession">
-<cfhtmlhead text="<title>#variables.title#</title>">
-<cfif #project_id# gt 0>
-to add to project # <cfoutput>#project_id#</cfoutput></cfif></strong>
-
-<cfoutput>
-<form action="editAccn.cfm" method="post" name="SpecData" preservedata="yes">
-<input type="hidden" name="Action" value="findAccessions">
-<input type="hidden" name="project_id" <cfif #project_id# gt 0> value = "#project_id#" </cfif>>
-<table border>
-	<tr>
-		<td>
-			<label  for="accn_number">Accn Number</label>
-			<input type="text" name="accn_number" id="accn_number">
-			<span class="smaller">&nbsp;Exact Match?</span> <input type="checkbox" name="exactAccnNumMatch" value="1">
-		</td>
-		<td align="right">
-			<label  for="collection_id">Collection</label>
-			<select name="collection_id" size="1" id="collection_id">
-				<option value=""></option>
-					<cfloop query="ctcoll">
-						<option value="#ctcoll.collection_id#">#ctcoll.collection#</option>
-					</cfloop>
-			</select>
-		</td>
-		<td>
-			<label  for="accn_status">Status</label>
-			<select name="accn_status" id="accn_status" size="1">
-				<option value=""></option>
-					<cfloop query="ctStatus">
-						<option value="#ctStatus.accn_status#">#ctStatus.accn_status#</option>
-					</cfloop>
-			</select>
-			
-		</td>
-	</tr>
-	<tr>
-		<td align="right">
-			Agent:<select name="trans_agent_role_1">
-				<option value=""></option>
-				<cfloop query="cttrans_agent_role">
-					<option value="#trans_agent_role#">#trans_agent_role#</option>
-				</cfloop>
-			</select>
-		</td>
-		<td colspan="2">
-			<input type="text" name="agent_1"  size="50">
-		 </td>
-	</tr>
-	
-	<tr>
-		<td align="right">
-			Agent:<select name="trans_agent_role_2">
-				<option value=""></option>
-				<cfloop query="cttrans_agent_role">
-					<option value="#trans_agent_role#">#trans_agent_role#</option>
-				</cfloop>
-			</select>
-		</td>
-		<td colspan="2">
-			<input type="text" name="agent_2"  size="50">
-		 </td>
-	</tr>
-	<tr>
-		<td align="right">
-			Agent:<select name="trans_agent_role_3">
-				<option value=""></option>
-				<cfloop query="cttrans_agent_role">
-					<option value="#trans_agent_role#">#trans_agent_role#</option>
-				</cfloop>
-			</select>
-		</td>
-		<td colspan="2">
-			<input type="text" name="agent_3"  size="50">
-		 </td>
-	</tr>
-	<tr>
-		<td colspan="3">
-			<label  for="nature_of_material">Nature of Material</label>
-			<textarea name="nature_of_material" id="nature_of_material" rows="5" cols="90"><cfif isdefined("accnNumber")>#nature_of_material#</cfif></textarea>
-		</td>
-	</tr>
-	<tr>
-			<td >
-				<label  for="accn_type">Accn Type</label>
-				<select name="accn_type" id="accn_type" size="1">
-				<option value=""></option>
-				<cfloop query="cttype">
-					<option value="#cttype.accn_type#">#cttype.accn_type#</option>
-				</cfloop>
-			</select>
-		</td>
-	
-	</tr>
-	
-	<tr>
-		<td colspan="3">
-			<label  for="remarks">Remarks</label>
-			<textarea name="remarks" id="remarks" rows="5" cols="90"><cfif isdefined("remarks")>#remarks#</cfif></textarea>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<label for="ent_Date">Entry Date</label>
-		<select name="entDateOper" id="entDateOper" size="1">
-			<option value="<=">Before</option>
-			<option selected value="=" >Is</option>
-			<option value=">=">After</option>
-		</select><input type="text" name="ent_Date" id="ent_Date">
-		<!---<img src="images/nada.gif" width="60" height="1">--->
-		</td>
-		<td colspan=2 nowrap>
-			<table cellspacing='0' cellpadding='0'>
-				<td>
-		<label  for="rec_date">Received Date:</label>
-		<input type="text" name="rec_date" id="rec_date">
-				</td> <td>
-		<label for="rec_until_date">Until: (leave blank otherwise)</label>
-		<input type='text' name='rec_until_date' id='rec_until_date'>
-				</td>
+<cfif action is "nothing">
+	<cfset title = "Find Accession">
+		<cfoutput>
+		<strong>Find Accession
+			<cfif #project_id# gt 0>to add to project ## #project_id#</cfif>
+		</strong>
+		<form action="editAccn.cfm" method="post" name="SpecData" preservedata="yes">
+			<input type="hidden" name="Action" value="findAccessions">
+			<input type="hidden" <cfif project_id gt 0> value = "#project_id#" </cfif> name="project_id">
+			<table border>
+				<tr>
+					<td>
+						<label  for="accn_number">Accn Number</label>
+						<input type="text" name="accn_number" id="accn_number">
+						<span class="smaller">&nbsp;Exact Match?</span> <input type="checkbox" name="exactAccnNumMatch" value="1">
+					</td>
+					<td align="right">
+						<label  for="collection_id">Collection</label>
+						<select name="collection_id" size="1" id="collection_id">
+							<option value=""></option>
+								<cfloop query="ctcoll">
+									<option value="#ctcoll.collection_id#">#ctcoll.collection#</option>
+								</cfloop>
+						</select>
+					</td>
+					<td>
+						<label  for="accn_status">Status</label>
+						<select name="accn_status" id="accn_status" size="1">
+							<option value=""></option>
+								<cfloop query="ctStatus">
+									<option value="#ctStatus.accn_status#">#ctStatus.accn_status#</option>
+								</cfloop>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						Agent:<select name="trans_agent_role_1">
+							<option value=""></option>
+							<cfloop query="cttrans_agent_role">
+								<option value="#trans_agent_role#">#trans_agent_role#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td colspan="2">
+						<input type="text" name="agent_1"  size="50">
+					 </td>
+				</tr>
+				<tr>
+					<td align="right">
+						Agent:<select name="trans_agent_role_2">
+							<option value=""></option>
+							<cfloop query="cttrans_agent_role">
+								<option value="#trans_agent_role#">#trans_agent_role#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td colspan="2">
+						<input type="text" name="agent_2"  size="50">
+					 </td>
+				</tr>
+				<tr>
+					<td align="right">
+						Agent:<select name="trans_agent_role_3">
+							<option value=""></option>
+							<cfloop query="cttrans_agent_role">
+								<option value="#trans_agent_role#">#trans_agent_role#</option>
+							</cfloop>
+						</select>
+					</td>
+					<td colspan="2">
+						<input type="text" name="agent_3"  size="50">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<label  for="nature_of_material">Nature of Material</label>
+						<textarea name="nature_of_material" id="nature_of_material" rows="5" cols="90"><cfif isdefined("accnNumber")>#nature_of_material#</cfif></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label  for="accn_type">Accn Type</label>
+						<select name="accn_type" id="accn_type" size="1">
+							<option value=""></option>
+							<cfloop query="cttype">
+								<option value="#cttype.accn_type#">#cttype.accn_type#</option>
+							</cfloop>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<label  for="remarks">Remarks</label>
+						<textarea name="remarks" id="remarks" rows="5" cols="90"><cfif isdefined("remarks")>#remarks#</cfif></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="ent_Date">Entry Date</label>
+						<select name="entDateOper" id="entDateOper" size="1">
+							<option value="<=">Before</option>
+							<option selected value="=" >Is</option>
+							<option value=">=">After</option>
+						</select>
+						<input type="text" name="ent_Date" id="ent_Date">
+					</td>
+					<td colspan=2 nowrap>
+						<table cellspacing='0' cellpadding='0'>
+							<td>
+								<label  for="rec_date">Received Date:</label>
+								<input type="text" name="rec_date" id="rec_date">
+							</td> 
+							<td>
+								<label for="rec_until_date">Until: (leave blank otherwise)</label>
+								<input type='text' name='rec_until_date' id='rec_until_date'>
+							</td>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td><strong>Permits:</strong></td>
+				</tr>
+				<tr>
+					<td>
+						<label  for="IssuedByAgent">Issued By</label>
+						<input type="text" name="IssuedByAgent" id="IssuedByAgent">
+					</td>
+					<td>
+						<label  for="IssuedByAgent">Issued To</label>
+						<input type="text" name="IssuedToAgent" id="IssuedToAgent">
+					</td>
+			 	</tr>
+				<tr>
+					<td>
+						<label  for="IssuedByAgent">Issued Date</label>
+						<input type="text" name="issued_Date" id="issued_Date">
+					</td>
+					<td>
+						<label  for="IssuedByAgent">Renewed Date</label>
+						<input type="text" name="renewed_Date" id="renewed_Date">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label  for="IssuedByAgent">Expiration Date</label>
+						<input type="text" name="exp_Date" id="exp_Date">
+					</td>
+					<td>
+						<label  for="IssuedByAgent">Permit Number</label>
+						<input type="text" name="permit_num" id="permit_num">			
+						<span class="infoLink" onclick="getHelp('get_permit_number');">Pick</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label  for="permit_Type">Permit Type</label>
+						<select name="permit_Type" size="1" id="permit_Type">
+							<option value=""></option>
+							<cfloop query="ctPermitType">
+								<option value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
+							</cfloop>				
+						</select>
+					</td>
+					<td>
+						<label  for="permit_remarks">Remarks</label>
+						<input type="text" name="permit_remarks" id="permit_remarks">
+					</td>		
+				<tr>
+					<td colspan="4" align="center">
+				 		<input type="submit" value="Find Accession" class="schBtn">	
+						<input type="button" value="Create a new accession" class="insBtn"
+							onClick="document.location = 'newAccn.cfm';">	
+						<input type="button" value="Clear Form" class="clrBtn" onClick="document.location='editAccn.cfm';">	
+						<input type="button" value="Add Specimens to an Accn" class="lnkBtn"
+						   onclick = "window.open('SpecimenSearch.cfm?Action=addAccn');">	
+					</td>
+				</tr>
 			</table>
-		</td>
-		
-	</tr>
-	
-	<tr>
-		<td><strong>Permits:</strong></td>
-	</tr>
-	<tr>
-			<td>
-				<label  for="IssuedByAgent">Issued By</label>
-				<input type="text" name="IssuedByAgent" id="IssuedByAgent">
-			</td>
-			<td>
-				<label  for="IssuedByAgent">Issued To</label>
-				<input type="text" name="IssuedToAgent" id="IssuedToAgent">
-			</td>
-	  </tr>
-		<tr>
-			<td>
-				<label  for="IssuedByAgent">Issued Date</label>
-				<input type="text" name="issued_Date" id="issued_Date">
-			</td>
-			<td>
-				<label  for="IssuedByAgent">Renewed Date</label>
-				<input type="text" name="renewed_Date" id="renewed_Date">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label  for="IssuedByAgent">Expiration Date</label>
-				<input type="text" name="exp_Date" id="exp_Date">
-			</td>
-			<td>
-				<label  for="IssuedByAgent">Permit Number</label>
-				<input type="text" name="permit_num" id="permit_num">			
-			 <span class="infoLink" 
-				 onclick="getHelp('get_permit_number');">Pick</span>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label  for="permit_Type">Permit Type</label>
-				<select name="permit_Type" size="1" id="permit_Type">
-					<option value=""></option>
-					<cfloop query="ctPermitType">
-						<option value = "#ctPermitType.permit_type#">#ctPermitType.permit_type#</option>
-					</cfloop>				
-				</select>
-			</td>
-			<td>
-				<label  for="permit_remarks">Remarks</label>
-				<input type="text" name="permit_remarks" id="permit_remarks">
-			</td>		
-	<tr>
-		<td colspan="4" align="center">
-		 <input type="submit" value="Find Accession" class="schBtn"
-   onmouseover="this.className='schBtn btnhov'" onmouseout="this.className='schBtn'">	
-
- <input type="button" value="Create a new accession" class="insBtn"
-   onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'"
-    onClick="document.location = 'newAccn.cfm';">	
-
-
- <input type="button" value="Clear Form" class="clrBtn"
-   onmouseover="this.className='clrBtn btnhov'" onmouseout="this.className='clrBtn'"
-   onClick="document.location='editAccn.cfm';">	
-
-<input type="button" value="Add Specimens to an Accn" class="lnkBtn"
-   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-   onclick = "window.open('SpecimenSearch.cfm?Action=addAccn');">	
-
-	
-		</td>
-	</tr>
-	
-</table>
-
-</form>
-
-</cfoutput>
+		</form>
+	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "findAccessions">
