@@ -1,8 +1,22 @@
 <cfset btime=now()>
 <cfinclude template="/includes/_header.cfm">
+<link rel="stylesheet" type="text/css" href="/includes/_DEstyle.css">
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>
-<script type='text/javascript' src='/includes/_DEhead.js'></script>	
-<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
+<script type='text/javascript' src='/includes/_DEhead.js'></script>
+<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
+<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery(function() {
+			jQuery("#ent_date").datepicker();
+			jQuery("#rec_date").datepicker();
+			jQuery("#rec_until_date").datepicker();	
+			jQuery("#issued_date").datepicker();
+			jQuery("#renewed_date").datepicker();
+			jQuery("#exp_date").datepicker();
+		});
+	});
+</script>
 <cf_showMenuOnly>
 <cf_setDataEntryGroups>
 <cfif not isdefined("ImAGod") or len(#ImAGod#) is 0>
@@ -15,14 +29,7 @@
 <cfif not isdefined("pMode") or len(#pMode#) is 0>
 	<cfset pMode = "enter">
 </cfif>
-	<link rel="stylesheet" type="text/css" href="/includes/_DEstyle.css">
 	
-	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-		var cal1 = new CalendarPopup("theCalendar");
-		cal1.showYearNavigation();
-		cal1.showYearNavigationInput();
-	</SCRIPT>
-	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
 <cfset title="Data Entry">
 <cfset thisDate = #dateformat(now(),"dd mmm yyyy")#>
 <!------------ default page --------------------------------------------------------------------------------------------->
@@ -3415,5 +3422,4 @@
 	<cflocation url="">
 </cfoutput>
 </cfif>
-<DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>
 <cfinclude template="/includes/_footer.cfm">
