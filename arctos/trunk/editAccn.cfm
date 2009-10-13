@@ -171,9 +171,9 @@
 					</cfquery>
 					<ul>
 						<cfif #media.recordcount# gt 0>
-							<cfloop query="projs">
+							<cfloop query="media">
 								<li>
-									<a href="//MediaSearch.cfm?action=search&media_id=#media_id#">
+									<a href="/MediaSearch.cfm?action=search&media_id=#media_id#">
 										<cfif len(preview_uri) gt 0>
 											<img src="#preview_uri#">
 										<cfelse>
