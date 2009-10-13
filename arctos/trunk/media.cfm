@@ -340,6 +340,7 @@
 	    return results[1];
 	}
 if (top.location!=document.location) {
+    try(
     	document.getElementById('_header').style.display='none';
 		document.getElementById('_footer').style.display='none';
 		parent.dyniframesize();
@@ -349,6 +350,7 @@ if (top.location!=document.location) {
 	    	document.getElementById('related_value__1').value="This Specimen";
 	    	document.getElementById('related_id__1').value=tl;
 		}
+	) catch(){}
 	}
 </script>
 
