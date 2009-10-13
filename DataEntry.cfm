@@ -264,193 +264,179 @@
 				Page Loading....
 			</span>
 		</div>
-<form name="dataEntry" method="post" action="DataEntry.cfm" onsubmit="return cleanup(); return noEnter();" id="dataEntry">
-	<input type="hidden" name="action" value="" id="action">
-	<input type="hidden" name="nothing" value="" id="nothing"/><!--- trashcan for picks - don't delete --->
-	<input type="hidden" name="ImAGod" value="#ImAGod#" id="ImAGod"><!--- allow power users to browse other's records --->
-	<input type="hidden" name="collection_cde" value="#collection_cde#" id="collection_cde">
-	<input type="hidden" name="institution_acronym" value="#institution_acronym#" id="institution_acronym">
-	<input type="hidden" name="collection_object_id" value="#collection_object_id#"  id="collection_object_id"/>  
-	<input type="hidden" name="loaded" value="waiting approval"  id="loaded"/>
-<table width="100%" cellspacing="0" cellpadding="0" id="theTable" style="display:none;"> <!--- whole page table --->
-	<tr>
-		<td colspan="2" style="border-bottom: 1px solid black; " align="center">
-			<div id="pageTitle"><strong>#pageTitle#</strong></div>	
-		</td>
-	</tr>
-	<tr>
-		<td width="50%" valign="top"><!--- left top of page --->		
-
-	<table cellpadding="0" cellspacing="0" class="fs"><!--- cat item IDs --->
-		<tr>
-			<td valign="top">
-					<span class="f11a">Coll:</span>
-					<select name="colln" id="colln" class="reqdClr d11a" onchange="changeCollection(this.value)">
-						<cfloop query="ctcollection">
-							<option <cfif data.collection_cde is ctcollection.collection_cde and data.institution_acronym is ctcollection.institution_acronym> selected="selected"</cfif>
-								value="#institution_acronym#:#collection_cde#">#collection#</option>
-						</cfloop>
-					</select>
-					<span class="f11a">Cat##</span>
-					<input type="text" name="cat_num" value="#cat_num#"  size="6"
-						id="cat_num" class="d11a">
-						<cfif isdefined("session.CustomOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
-							<span class="f11a">#session.CustomOtherIdentifier#</span>
-							<input type="hidden" name="other_id_num_type_5" value="#session.CustomOtherIdentifier#" id="other_id_num_type_5" />
-							<input type="text" name="other_id_num_5" value="#other_id_num_5#" 
-								size="8"
-								id="other_id_num_5" class="d11a">
-							<span id="rememberLastId">
-							<cfif isdefined("session.rememberLastOtherId") and #session.rememberLastOtherId# is 1>
-								<span class="infoLink" onclick="rememberLastOtherId(0)">Nevermind</span>
-							<cfelse>
-								<span class="infoLink" onclick="rememberLastOtherId(1)">Increment this</span>
-							</cfif>
-						</cfif>
-						</span>
-					<span class="f11a">Accn</span>
-						<input type="text" name="accn" value="#accn#" size="13"
-						class="d11a reqdClr" id="accn" onchange="isGoodAccn();">
-			</td>
-		</tr>
-	</table>
-<!---------------------------------- / cat item IDs ---------------------------------------------->
-<!------------------------------------- agents ---------------------------------------------------->
-	<table cellpadding="0" cellspacing="0" class="fs">
-		<tr>
-			<td rowspan="99" valign="top">
-				<img src="/images/info.gif" border="0" onClick="getDocs('agent')" class="likeLink" alt="[ help ]">
-			</td>
-			<td align="right">
-				<select name="collector_role_1" 
-					size="1"
-					class="reqdClr d11a"
-					id="collector_role_1">
-					<option selected value="c">Collector&nbsp;&nbsp;&nbsp;</option>
-				</select> 
-			</td>
-			<td nowrap="nowrap">
-				<span class="f11a">1</span>
-				<input type="text" 
-					name="collector_agent_1" 
-					value="#collector_agent_1#" 
-					class="reqdClr d11a" 
-					onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_1','dataEntry',this.value); return false;}"
-					id="collector_agent_1">
-					<img src="/images/copyall.gif" 
-						border="0"  
-						height="18" 
-						width="18" 
-						class="likeLink"
-						alt="[ help ]"
-						onclick="copyAllAgents('collector_agent_1');" />
-			</td>
-			<!--- 2 --->
-			<td align="right">
-				<cfset thisRole=#collector_role_2#>
-				<select 
-					name="collector_role_2" 
-					size="1"
-					class="d11a"
-					id="collector_role_2"
-					onChange="dataEntry.collector_agent_2.className='looky';
-						dataEntry.collector_agent_2.focus();">
-					<option value=""></option>
-					<option <cfif #collector_role_2# is "c"> selected </cfif>value="c">Collector</option>
-					<option <cfif #collector_role_2# is "p"> selected </cfif>value="p">Preparator</option>
-				</select>
-			</td>
-			<td>
-				<span class="f11a">2</span>
-				<input type="text" 
-					name="collector_agent_2" 
-					class="d11a"
-					value="#collector_agent_2#" 
-					onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_2','dataEntry',this.value); return false;}"
-					onblur = "this.className='d11a';"
-					id="collector_agent_2">
-				<img src="/images/copyall.gif" 
-						border="0"  
-						height="18" 
-						width="18" 
-						class="likeLink"
-						alt="[ help ]"
-						onclick="copyAllAgents('collector_agent_2');" />
-			</td>
-		</tr>	
-		<tr>
-			<td align="right">
-				<cfset thisRole=#collector_role_3#>
-				<select name="collector_role_3" 
-					size="1"
-					class="d11a"
-					id="collector_role_3"
-					onChange="dataEntry.collector_agent_3.className='d11a';
-					dataEntry.collector_agent_3.focus();">
-					<option value=""></option>
-					<option <cfif #collector_role_3# is "c"> selected </cfif>value="c">Collector</option>
-					<option <cfif #collector_role_3# is "p"> selected </cfif>value="p">Preparator</option>
-				</select>
-			</td>
-			<td>
-				<span class="f11a">3</span>
-				<input type="text" name="collector_agent_3" value="#collector_agent_3#"
-					onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_3','dataEntry',this.value); return false;}"
-					id="collector_agent_3"
-					class="d11a">
-			</td>
-			<td align="right">
-				<cfset thisRole=#collector_role_4#>
-				<select name="collector_role_4" 
-					size="1"
-					class="d11a"
-					id="collector_role_4"
-					onChange="dataEntry.collector_agent_4.className='d11a';
-					dataEntry.collector_agent_4.focus();">
-					<option value=""></option>
-					<option <cfif #collector_role_4# is "c"> selected </cfif>value="c">Collector</option>
-					<option <cfif #collector_role_4# is "p"> selected </cfif>value="p">Preparator</option>
-				</select>
-	
-			</td>
-			<td width="100%"><!--- force this as wide as possible to align stuff left --->
-				<span class="f11a">4</span>
-				<input type="text" name="collector_agent_4" value="#collector_agent_4#"
-					onchange="getAgent('nothing','collector_agent_4','dataEntry',this.value); return false;"
-					id="collector_agent_4"
-					class="d11a">
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-				<cfset thisRole=#collector_role_5#>
-				<select name="collector_role_5" 
-					size="1"
-					class="d11a"
-					id="collector_role_5"
-					onChange="dataEntry.collector_agent_5.className='d11a';dataEntry.collector_agent_5.focus();">
-					<option value=""></option>
-					<option <cfif #collector_role_5# is "c"> selected </cfif>value="c">Collector</option>
-					<option <cfif #collector_role_5# is "p"> selected </cfif>value="p">Preparator</option>
-				</select>
-			</td>
-			<td>
-				<span class="f11a">5</span>
-				<input type="text" name="collector_agent_5" value="#collector_agent_5#"
-					onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_5','dataEntry',this.value); return false;}"
-					id="collector_agent_5"
-					class="d11a">
-			</td>
-		</tr>
-	</table>
-<!-------------------------------------- / agents------------------------------------------->	
-<!---------------------------------------- other IDs --------------------------------------->
-	<table cellpadding="0" cellspacing="0" class="fs">
+		<form name="dataEntry" method="post" action="DataEntry.cfm" onsubmit="return cleanup(); return noEnter();" id="dataEntry">
+			<input type="hidden" name="action" value="" id="action">
+			<input type="hidden" name="nothing" value="" id="nothing"/><!--- trashcan for picks - don't delete --->
+			<input type="hidden" name="ImAGod" value="#ImAGod#" id="ImAGod"><!--- allow power users to browse other's records --->
+			<input type="hidden" name="collection_cde" value="#collection_cde#" id="collection_cde">
+			<input type="hidden" name="institution_acronym" value="#institution_acronym#" id="institution_acronym">
+			<input type="hidden" name="collection_object_id" value="#collection_object_id#"  id="collection_object_id"/>  
+			<input type="hidden" name="loaded" value="waiting approval"  id="loaded"/>
+			<table width="100%" cellspacing="0" cellpadding="0" id="theTable" style="display:none;"> <!--- whole page table --->
+				<tr>
+					<td colspan="2" style="border-bottom: 1px solid black; " align="center">
+						<div id="pageTitle"><strong>#pageTitle#</strong></div>	
+					</td>
+				</tr>
+				<tr><td width="50%" valign="top"><!--- left top of page --->		
+					<table cellpadding="0" cellspacing="0" class="fs"><!--- cat item IDs --->
+						<tr>
+							<td valign="top">
+								<span class="f11a">Coll:</span>
+								<select name="colln" id="colln" class="reqdClr d11a" onchange="changeCollection(this.value)">
+									<cfloop query="ctcollection">
+										<option <cfif data.collection_cde is ctcollection.collection_cde and data.institution_acronym is ctcollection.institution_acronym> selected="selected"</cfif>
+											value="#institution_acronym#:#collection_cde#">#collection#</option>
+									</cfloop>
+								</select>
+								<span class="f11a">Cat##</span>
+								<input type="text" name="cat_num" value="#cat_num#"  size="6" id="cat_num" class="d11a">
+								<cfif isdefined("session.CustomOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
+									<span class="f11a">#session.CustomOtherIdentifier#</span>
+									<input type="hidden" name="other_id_num_type_5" value="#session.CustomOtherIdentifier#" id="other_id_num_type_5" />
+									<input type="text" name="other_id_num_5" value="#other_id_num_5#" size="8" id="other_id_num_5" class="d11a">
+									<span id="rememberLastId">
+										<cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1>
+											<span class="infoLink" onclick="rememberLastOtherId(0)">Nevermind</span>
+										<cfelse>
+											<span class="infoLink" onclick="rememberLastOtherId(1)">Increment this</span>
+										</cfif>
+									</span>
+								</cfif>
+								<span class="f11a">Accn</span>
+								<input type="text" name="accn" value="#accn#" size="13" class="d11a reqdClr" id="accn" onchange="isGoodAccn();">
+							</td>
+						</tr>
+					</table><!---------------------------------- / cat item IDs ---------------------------------------------->
+					<table cellpadding="0" cellspacing="0" class="fs"><!--- agents --->
+						<tr>
+							<td rowspan="99" valign="top">
+								<img src="/images/info.gif" border="0" onClick="getDocs('agent')" class="likeLink" alt="[ help ]">
+							</td>
+							<td align="right">
+								<select name="collector_role_1" 
+									size="1"
+									class="reqdClr d11a"
+									id="collector_role_1">
+									<option selected value="c">Collector&nbsp;&nbsp;&nbsp;</option>
+								</select> 
+							</td>
+							<td nowrap="nowrap">
+								<span class="f11a">1</span>
+								<input type="text" 
+									name="collector_agent_1" 
+									value="#collector_agent_1#" 
+									class="reqdClr d11a" 
+									onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_1','dataEntry',this.value); return false;}"
+									id="collector_agent_1">
+									<img src="/images/copyall.gif" 
+										border="0"  
+										height="18" 
+										width="18" 
+										class="likeLink"
+										alt="[ help ]"
+										onclick="copyAllAgents('collector_agent_1');" />
+							</td>
+							<td align="right">
+								<cfset thisRole=#collector_role_2#>
+								<select 
+									name="collector_role_2" 
+									size="1"
+									class="d11a"
+									id="collector_role_2"
+									onChange="dataEntry.collector_agent_2.className='looky';dataEntry.collector_agent_2.focus();">
+									<option value=""></option>
+									<option <cfif collector_role_2 is "c"> selected </cfif>value="c">Collector</option>
+									<option <cfif collector_role_2 is "p"> selected </cfif>value="p">Preparator</option>
+								</select>
+							</td>
+							<td>
+								<span class="f11a">2</span>
+								<input type="text" 
+									name="collector_agent_2" 
+									class="d11a"
+									value="#collector_agent_2#" 
+									onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_2','dataEntry',this.value); return false;}"
+									onblur = "this.className='d11a';"
+									id="collector_agent_2">
+								<img src="/images/copyall.gif" 
+										border="0"  
+										height="18" 
+										width="18" 
+										class="likeLink"
+										alt="[ help ]"
+										onclick="copyAllAgents('collector_agent_2');" />
+							</td>
+						</tr>	
+						<tr>
+							<td align="right">
+								<cfset thisRole=#collector_role_3#>
+								<select name="collector_role_3" 
+									size="1"
+									class="d11a"
+									id="collector_role_3"
+									onChange="dataEntry.collector_agent_3.className='d11a';
+									dataEntry.collector_agent_3.focus();">
+									<option value=""></option>
+									<option <cfif collector_role_3 is "c"> selected </cfif>value="c">Collector</option>
+									<option <cfif collector_role_3 is "p"> selected </cfif>value="p">Preparator</option>
+								</select>
+							</td>
+							<td>
+								<span class="f11a">3</span>
+								<input type="text" name="collector_agent_3" value="#collector_agent_3#"
+									onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_3','dataEntry',this.value); return false;}"
+									id="collector_agent_3"
+									class="d11a">
+							</td>
+							<td align="right">
+								<cfset thisRole=#collector_role_4#>
+								<select name="collector_role_4" 
+									size="1"
+									class="d11a"
+									id="collector_role_4"
+									onChange="dataEntry.collector_agent_4.className='d11a';
+									dataEntry.collector_agent_4.focus();">
+									<option value=""></option>
+									<option <cfif collector_role_4 is "c"> selected </cfif>value="c">Collector</option>
+									<option <cfif collector_role_4 is "p"> selected </cfif>value="p">Preparator</option>
+								</select>
+					
+							</td>
+							<td width="100%">
+								<span class="f11a">4</span>
+								<input type="text" name="collector_agent_4" value="#collector_agent_4#"
+									onchange="getAgent('nothing','collector_agent_4','dataEntry',this.value); return false;"
+									id="collector_agent_4"
+									class="d11a">
+							</td>
+						</tr>
+						<tr>
+							<td align="right">
+								<cfset thisRole=#collector_role_5#>
+								<select name="collector_role_5" 
+									size="1"
+									class="d11a"
+									id="collector_role_5"
+									onChange="dataEntry.collector_agent_5.className='d11a';dataEntry.collector_agent_5.focus();">
+									<option value=""></option>
+									<option <cfif collector_role_5 is "c"> selected </cfif>value="c">Collector</option>
+									<option <cfif collector_role_5 is "p"> selected </cfif>value="p">Preparator</option>
+								</select>
+							</td>
+							<td>
+								<span class="f11a">5</span>
+								<input type="text" name="collector_agent_5" value="#collector_agent_5#"
+									onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_5','dataEntry',this.value); return false;}"
+									id="collector_agent_5"
+									class="d11a">
+							</td>
+						</tr>
+					</table><!---- / agents------------->	
+	<table cellpadding="0" cellspacing="0" class="fs"><!------ other IDs ------------------->
 			<tr>
 				<td rowspan="99" valign="top">
-					<!----
-					<img src="/images/info.gif" border="0" onClick="getDocs('agent')" class="likeLink" alt="[ help ]">
-					---->
+					<img src="/images/info.gif" border="0" onClick="getDocs('cataloged_item','other_id')" class="likeLink" alt="[ help ]">
 				</td>
 			<td>
 					<cfset thisIdType=#other_id_num_type_1#>
