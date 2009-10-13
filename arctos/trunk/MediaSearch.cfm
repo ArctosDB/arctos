@@ -127,7 +127,7 @@
 	<tr #iif(r MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td>
 			<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-		        <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">edit</a>
+		        <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">[ edit ]</a>
 		    </cfif>
 			URI: 
             <a href="#media_uri#" target="_blank">#media_uri#</a>
