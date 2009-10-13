@@ -342,7 +342,7 @@
 if (top.location!=document.location) {
     	document.getElementById('_header').style.display='none';
 		document.getElementById('_footer').style.display='none';
-		try(
+		try {
 			parent.dyniframesize();
 			var tl=idInTop("collection_object_id")
 			if ('#action#'=='newMedia' && tl.length>0) {
@@ -350,7 +350,7 @@ if (top.location!=document.location) {
 		    	document.getElementById('related_value__1').value="This Specimen";
 		    	document.getElementById('related_id__1').value=tl;
 			}
-		) catch(){}
+		} catch(e){}		
 	}
 </script>
 
