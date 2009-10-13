@@ -96,7 +96,7 @@
 				trans_agent_role,
 				agent_name
 		</cfquery>	
-		<strong>Edit Accession</strong>
+		<div style="clear:both"><strong>Edit Accession</strong></div>
 		<div style="float:left;width:55%;">
 			<cfform action="editAccn.cfm" method="post" name="editAccn">
 				<input type="hidden" name="Action" value="saveChanges">
