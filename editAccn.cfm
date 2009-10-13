@@ -186,6 +186,7 @@
 							<li>None</li>
 						</cfif>
 					</ul>
+					<br><a href="/MediaSearch.cfm">Add Media</a>
 				</td>
 			</tr>
 			<tr>

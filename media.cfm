@@ -280,7 +280,6 @@
 				onmouseover="this.className='insBtn btnhov'" 
 				onmouseout="this.className='insBtn'">
 		</form>
-   
 	</cfoutput>    
 </cfif>
 <!------------------------------------------------------------------------------------------>
