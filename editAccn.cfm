@@ -13,7 +13,7 @@
 		}
 	}
 	
-	function addMediaHere (){
+	function addMediaHere (accnnum,transid){
 		var bgDiv = document.createElement('div');
 		bgDiv.id = 'bgDiv';
 		bgDiv.className = 'bgDiv';
@@ -30,7 +30,10 @@
 		
 		
 	    $('iframe#mediaIframe').load(function() {
-	        jQuery('#mediaIframe').contents().find('#related_value__1').val('something');
+	        jQuery('#mediaIframe').contents().find('#relationship__1').val('documents accn');
+	        jQuery('#mediaIframe').contents().find('#related_value__1').val(accnnum);
+	        jQuery('#mediaIframe').contents().find('#related_id__1').val(transid);
+	        
 	    });
 
 		
@@ -239,7 +242,8 @@
 						</cfif>
 					</ul>
 					
-					<br><span onclick="addMediaHere();">addmediahere</span>
+					<br><span onclick="addMediaHere('#accnData.accn_number#','#transaction_id#');">addmediahere</span>
+	
 				</td>
 			</tr>
 			<tr>
