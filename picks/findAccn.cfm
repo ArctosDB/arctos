@@ -39,7 +39,7 @@
 				accn.transaction_id=trans.transaction_id and
 				trans.collection_id=collection.collection_id and
 				<cfif len(collection_id) gt 0>
-					collection.collection_id=#collection# and
+					collection.collection_id=#collection_id# and
 				</cfif>
 				upper(accn_number) like '%#ucase(accn_number)#%'
 			ORDER BY
