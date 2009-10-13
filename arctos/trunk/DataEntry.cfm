@@ -508,7 +508,7 @@
 				<td>
 					<span class="f11a">OtherID 2</span>
 					<cfset thisIdType=#other_id_num_type_2#>
-					<select name="other_id_num_type_2" size="1" style="width: 120"
+					<select name="other_id_num_type_2" size="1" style="width:250px"
 						class="d11a"
 						id="other_id_num_type_2"
 						onChange="dataEntry.other_id_num_2.className='reqdClr d11a';
@@ -531,7 +531,7 @@
 				<td>
 					<span class="f11a">OtherID 3</span>
 					<cfset thisIdType=#other_id_num_type_3#>
-					<select name="other_id_num_type_3" size="1" style="width: 120"
+					<select name="other_id_num_type_3" size="1" style="width:250px"
 						class="d11a"
 						id="other_id_num_type_3"
 						onChange="dataEntry.other_id_num_3.className='d11a reqdClr';
@@ -551,7 +551,7 @@
 				<td>
 					<span class="f11a">OtherID 4</span>
 					<cfset thisIdType=#other_id_num_type_4#>
-					<select name="other_id_num_type_4" size="1" style="width: 120"
+					<select name="other_id_num_type_4" size="1" style="width:250px"
 						class="d11a"
 						id="other_id_num_type_4"
 						onChange="dataEntry.other_id_num_4.className='d11a reqdClr';
@@ -1019,7 +1019,7 @@
 				<td>
 					<cfset thisgeorefmethod = #georefmethod#>
 					<select name="georefmethod" size="1" class="reqdClr d11a" 
-						style="width:130 "
+						style="width:130px"
 						id="georefmethod">
 							<cfloop query="ctgeorefmethod">
 							  <option <cfif #thisgeorefmethod# is #georefmethod#> selected </cfif>
@@ -1371,7 +1371,7 @@
 				 <select name="attribute_value_1" size="1" onChange="changeSex(this.value)"
 					id="attribute_value_1"
 					class="reqdClr d11a"
-					style="width: 80">
+					style="width: 80px">
 					<option value=""></option>
 					<cfloop query="ctSex_Cde">
 						<option 
@@ -1614,7 +1614,7 @@
 			<tr>
 				<td>
 					<select name="attribute_7" size="1" onChange="getAttributeStuff(this.value,this.id);"
-						style="width:100;"
+						style="width:100px;"
 						id="attribute_7"
 						class="d11a">
 						<option value="">&nbsp;&nbsp;&nbsp;&nbsp;</option>						
@@ -1678,7 +1678,7 @@
 			<tr>
 				<td>
 					<select name="attribute_8" size="1" onChange="getAttributeStuff(this.value,this.id);"
-						style="width:100;"
+						style="width:100px;"
 						id="attribute_8"
 						class="d11a">
 						<option value=""></option>
@@ -1742,7 +1742,7 @@
 			<tr>
 				<td>
 					<select name="attribute_9" size="1" onChange="getAttributeStuff(this.value,this.id);"
-						style="width:100;"
+						style="width:100px;"
 						id="attribute_9"
 						class="d11a">
 						<option value=""></option>
@@ -1806,7 +1806,7 @@
 			<tr>
 				<td>
 					<select name="attribute_10" size="1"  onChange="getAttributeStuff(this.value,this.id);"
-						style="width:100;"
+						style="width:100px;"
 						id="attribute_10"
 						class="d11a">
 						<option value=""></option>
@@ -1934,7 +1934,7 @@
 								</cfloop>							
 							</select>
 							<cfset thisRELATED_TO_NUM_TYPE = #RELATED_TO_NUM_TYPE#>
-							<select name="related_to_num_type" size="1" id="related_to_num_type" class="d11a" style="width: 80">
+							<select name="related_to_num_type" size="1" id="related_to_num_type" class="d11a" style="width:80px">
 								<option value=""></option>
 								<option <cfif #thisRELATED_TO_NUM_TYPE# is "catalog number">selected="selected"</cfif> value="catalog number">catalog number (UAM Mamm 123 format)</option>
 								<cfloop query="ctOtherIdType">
@@ -1963,7 +1963,7 @@
 				<td>
 					<span class="f11a">Missing....</span>
 					<cfset thisflags = #flags#>
-					<select name="flags" size="1" style="width: 120"
+					<select name="flags" size="1" style="width:120px"
 						class="d11a"
 						id="flags">
 						<option  value=""></option>
