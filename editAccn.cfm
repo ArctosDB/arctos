@@ -440,7 +440,8 @@
 				<tr>
 					<td colspan="3">
 						<label  for="nature_of_material">Nature of Material</label>
-						<textarea name="nature_of_material" id="nature_of_material" rows="5" cols="90"><cfif isdefined("accnNumber")>#nature_of_material#</cfif></textarea>
+						<input <cfif isdefined("accnNumber")>value="#nature_of_material#"</cfif>
+							type="text" name="nature_of_material" id="nature_of_material" size="90">
 					</td>
 				</tr>
 				<tr>
