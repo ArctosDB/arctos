@@ -3,8 +3,7 @@
 <cfelse>
 	<cfset flatTableName = "filtered_flat">
 </cfif>
-
-<cfinclude template = "includes/_header.cfm">
+<cfinclude template = "/includes/_header.cfm">
 <cfset title="Specimen Results">
 <cfif not isdefined("displayrows")>
 	<cfset displayrows = session.displayrows>
