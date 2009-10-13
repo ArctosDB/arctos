@@ -20,11 +20,10 @@
 		bgDiv.setAttribute('onclick','removeMediaDiv()');
 		document.body.appendChild(bgDiv);
 		
-		var theDiv = document.createElement('iFrame');
+		var theDiv = document.createElement('div');
 		theDiv.id = 'mediaDiv';
 		theDiv.className = 'annotateBox';
-		theDiv.innerHTML='';
-		theDiv.src = "/media.cfm";
+		theDiv.innerHTML='I am a new div';
 		document.body.appendChild(theDiv);
 		/*
 		var guts = "/info/annotate.cfm?q=" + q;
