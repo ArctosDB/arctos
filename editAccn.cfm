@@ -4,37 +4,37 @@
 
 
 <script>
-						function removeMediaDiv() {
-							if(document.getElementById('bgDiv')){
-								jQuery('#bgDiv').remove();
-							}
-							if (document.getElementById('mediaDiv')) {
-								jQuery('#mediaDiv').remove();
-							}
-						}
-						function addMediaHere (){
-							var bgDiv = document.createElement('div');
-							bgDiv.id = 'bgDiv';
-							bgDiv.className = 'bgDiv';
-							bgDiv.setAttribute('onclick','removeMediaDiv()');
-							document.body.appendChild(bgDiv);
-							
-							var theDiv = document.createElement('iFrame');
-							theDiv.id = 'mediaDiv';
-							theDiv.className = 'annotateBox';
-							theDiv.innerHTML='';
-							theDiv.src = "/media.cfm";
-							document.body.appendChild(theDiv);
-							/*
-							var guts = "/info/annotate.cfm?q=" + q;
-							jQuery('#annotateDiv').load(guts,{},function(){
-								viewport.init("#annotateDiv");
-								viewport.init("#bgDiv");
-							});
-							*/
-						}
-						}
-					</script>
+	function removeMediaDiv() {
+		if(document.getElementById('bgDiv')){
+			jQuery('#bgDiv').remove();
+		}
+		if (document.getElementById('mediaDiv')) {
+			jQuery('#mediaDiv').remove();
+		}
+	}
+	
+	function addMediaHere (){
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		bgDiv.setAttribute('onclick','removeMediaDiv()');
+		document.body.appendChild(bgDiv);
+		
+		var theDiv = document.createElement('iFrame');
+		theDiv.id = 'mediaDiv';
+		theDiv.className = 'annotateBox';
+		theDiv.innerHTML='';
+		theDiv.src = "/media.cfm";
+		document.body.appendChild(theDiv);
+		/*
+		var guts = "/info/annotate.cfm?q=" + q;
+		jQuery('#annotateDiv').load(guts,{},function(){
+			viewport.init("#annotateDiv");
+			viewport.init("#bgDiv");
+		});
+		*/
+	}
+	</script>
 					
 					
 					
