@@ -244,7 +244,7 @@
 						</cfif>
 					</ul>
 					
-					<br><span onclick="addMediaHere('#accnData.accn_number#','#transaction_id#');">addmediahere</span>
+					<br><span onclick="addMediaHere('#accnData.collection# #accnData.accn_number#','#transaction_id#');">addmediahere</span>
 	
 				</td>
 			</tr>
