@@ -244,7 +244,10 @@
 						</cfif>
 					</ul>
 					
-					<br><span onclick="addMediaHere('#accnData.collection# #accnData.accn_number#','#transaction_id#');">addmediahere</span>
+					<br><span class="likeLink"
+							onclick="addMediaHere('#accnData.collection# #accnData.accn_number#','#transaction_id#');">
+								Create Media
+						</span>&nbsp;~&nbsp;<a href="/MediaSearch.cfm" target="_blank">Link Media</a>
 	
 				</td>
 			</tr>
