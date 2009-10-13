@@ -1,5 +1,44 @@
 <cfinclude template="includes/_header.cfm">
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
+
+
+
+<script>
+						function removeMediaDiv() {
+							if(document.getElementById('bgDiv')){
+								jQuery('#bgDiv').remove();
+							}
+							if (document.getElementById('mediaDiv')) {
+								jQuery('#mediaDiv').remove();
+							}
+						}
+						function addMediaHere (){
+							var bgDiv = document.createElement('div');
+							bgDiv.id = 'bgDiv';
+							bgDiv.className = 'bgDiv';
+							bgDiv.setAttribute('onclick','removeMediaDiv()');
+							document.body.appendChild(bgDiv);
+							
+							var theDiv = document.createElement('iFrame');
+							theDiv.id = 'mediaDiv';
+							theDiv.className = 'annotateBox';
+							theDiv.innerHTML='';
+							theDiv.src = "/media.cfm";
+							document.body.appendChild(theDiv);
+							/*
+							var guts = "/info/annotate.cfm?q=" + q;
+							jQuery('#annotateDiv').load(guts,{},function(){
+								viewport.init("#annotateDiv");
+								viewport.init("#bgDiv");
+							});
+							*/
+						}
+						}
+					</script>
+					
+					
+					
+					
 <cfset title="Edit Accession">
 <cfif not isdefined("project_id")>
 	<cfset project_id = -1>
@@ -186,40 +225,7 @@
 							<li>None</li>
 						</cfif>
 					</ul>
-				</cfoutput>
-					<script>
-						function removeMediaDiv() {
-							if(document.getElementById('bgDiv')){
-								jQuery('#bgDiv').remove();
-							}
-							if (document.getElementById('mediaDiv')) {
-								jQuery('#mediaDiv').remove();
-							}
-						}
-						function addMediaHere (){
-							var bgDiv = document.createElement('div');
-							bgDiv.id = 'bgDiv';
-							bgDiv.className = 'bgDiv';
-							bgDiv.setAttribute('onclick','removeMediaDiv()');
-							document.body.appendChild(bgDiv);
-							
-							var theDiv = document.createElement('iFrame');
-							theDiv.id = 'mediaDiv';
-							theDiv.className = 'annotateBox';
-							theDiv.innerHTML='';
-							theDiv.src = "/media.cfm";
-							document.body.appendChild(theDiv);
-							/*
-							var guts = "/info/annotate.cfm?q=" + q;
-							jQuery('#annotateDiv').load(guts,{},function(){
-								viewport.init("#annotateDiv");
-								viewport.init("#bgDiv");
-							});
-							*/
-						}
-						}
-					</script>
-					<cfoutput>
+					
 					<br><span onclick="addMediaHere();">addmediahere</span>
 				</td>
 			</tr>
