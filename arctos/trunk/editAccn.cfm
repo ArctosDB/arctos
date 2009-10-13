@@ -101,7 +101,7 @@
 			<input type="hidden" name="Action" value="saveChanges">
 			<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
 			<cfset tIA=accnData.collection_id>
-			<div style="float:left;width:59%;">
+			<div style="float:left;width:55%;">
 	  			<table border>
 					<tr>
 						<td>
