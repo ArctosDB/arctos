@@ -101,6 +101,7 @@
 			<input type="hidden" name="Action" value="saveChanges">
 			<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
 			<cfset tIA=accnData.collection_id>
+			<div>
 			<div style="float:left;width:75%;">
   			<table border>
 				<tr>
@@ -320,7 +321,7 @@
 			<div style="float:right;width:250px;border:1px solid green;">
 				floaty div
 			</div>
-			<br>
+</div>
 		</cfform>
 	</cfoutput>
 <cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
