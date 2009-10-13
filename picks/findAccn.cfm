@@ -41,7 +41,7 @@
 				<cfif len(collection_id) gt 0>
 					collection.collection_id=#collection# and
 				</cfif>
-				upper(accn_number) like '%#
+				upper(accn_number) like '%#ucase(accn_number)#%'
 			ORDER BY
 				collection,
 				accn_number
