@@ -53,12 +53,12 @@
 				<tr>
 					<td>Accn</td>
 				</tr>
-				<cfloop query="getPub">
+				<cfloop query="getAccn">
 					<cfif #getAccn.recordcount# is 1>
 						<script>
 							opener.document.#formName#.#AccnNumFld#.value='#collection# #accn_number#';
 							opener.document.#formName#.#AccnIdFld#.value='#transaction_id#';
-							opener.document.#formName#.#pubStringFld#.style.background='##8BFEB9';
+							opener.document.#formName#.#AccnNumFld#.style.background='##8BFEB9';
 							self.close();
 						</script>
 					<cfelse>
