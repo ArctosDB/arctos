@@ -401,7 +401,7 @@ Found #summary.cnt# records.
     <td><span class="browseLink" type="Species" dval="#Species#">#Species#</span></td>
     <td nowrap="nowrap"><span class="browseLink" type="author_text" dval="#author_text#">#author_text#</span></td>
     <td>#infraspecific_rank#&nbsp;</td>	
-    <td>#Subspecies#&nbsp;</td>
+    <td><span class="browseLink" type="Subspecies" dval="#Subspecies#">#Subspecies#</span></td>
     <td nowrap="nowrap"><span class="browseLink" type="infraspecific_author" dval="#infraspecific_author#">#infraspecific_author#</span></td>
     <td nowrap="nowrap">#source_authority#&nbsp;</td>
     <td nowrap="nowrap">#taxon_remarks#&nbsp;</td>
