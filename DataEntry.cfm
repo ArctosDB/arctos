@@ -340,7 +340,7 @@
 										id="collector_agent_#i#">
 									<span class="infoLink" onclick="copyAllAgents('collector_agent_#i#');">Copy2All</span>
 								</td>
-								<cfif i is 1 or i is 3 or i is 5>
+								<cfif i is 2 or i is 4 or i is 5>
 									</tr>
 								</cfif>
 							</cfloop>
