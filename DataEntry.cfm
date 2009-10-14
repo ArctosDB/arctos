@@ -1719,7 +1719,8 @@
 					<cfloop from="1" to="12" index="i">
 						<tr>
 							<td>
-								<select name="part_name_#i#" <cfif i is 1>class="reqdClr"</cfif> id="part_name_#i#">
+								<select name="part_name_#i#" <cfif i is 1>class="reqdClr"</cfif> id="part_name_#i#"
+									onchange="requirePartAtts('#i#',this.value)">
 									<cfset lc=1>
 									<cfloop query="ctPartName">
 										<cfif lc is 1 and i gt 1><option value=""></option></cfif>
