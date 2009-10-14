@@ -392,7 +392,7 @@ Found #summary.cnt# records. (Note: This form will not return >1000 records; you
     <td><span class="browseLink" type="Tribe" dval="#Tribe#">#Tribe#</span></td>
     <td><span class="browseLink" type="Genus" dval="#Genus#">#Genus#</span></td>
     <td><span class="browseLink" type="Subgenus" dval="#Subgenus#">#Subgenus#</span></td>
-    <td><span class="browseLink" type="genus==#genus#&Species" dval="#Species#">#Species#</span></td>
+    <td><span class="browseLink" type="Species" dval="#Species#">#Species#</span></td>
     <td nowrap="nowrap"><span class="browseLink" type="author_text" dval="#author_text#">#author_text#</span></td>
     <td>#infraspecific_rank#&nbsp;</td>	
     <td>#Subspecies#&nbsp;</td>
