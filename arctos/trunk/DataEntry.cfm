@@ -1719,8 +1719,9 @@
 					<cfloop from="1" to="12" index="i">
 						<tr>
 							<td>
-								<select name="part_name_#i#" id="part_name_#i#" class="reqdClr">
+								<select name="part_name_#i#" <cfif i is 1>class="reqdClr"</cfif> id="part_name_#i#">
 									<cfloop query="ctPartName">
+										<cfif i gt 1><option value=""></option></cfif>
 										<option <cfif evaluate("data.part_name_" & i) is ctPartName.part_name> selected="selected" </cfif>
 											value="#part_name#">#part_name#</option>
 									</cfloop>
