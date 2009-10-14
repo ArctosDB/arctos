@@ -15,6 +15,23 @@ function changeCollection(v){
 	}
 }
 /* recheck */
+function requirePartAtts(i,v){
+	var pn=document.getElementBuId('part_name_' + i);
+	var pc=document.getElementBuId('part_condition_' + i);
+	if (v.length > 0) {
+		pn.className='reqdClr';
+		pc.className='reqdClr';
+	} else {
+		pn.className='';
+		pc.className='';
+	}
+	/*
+	onchange="this.className='reqdClr';
+		part_condition_2.className='reqdClr';
+		part_lot_count_2.className='reqdClr';
+		part_disposition_2.className='reqdClr';">
+		*/
+}
 function _isInteger(val){var digits="1234567890";for(var i=0;i < val.length;i++){if(digits.indexOf(val.charAt(i))==-1){return false;}}return true;}
 
 function _getInt(str,i,minlength,maxlength) {
