@@ -20,9 +20,9 @@
 		theDiv.id = 'browseDiv';
 		theDiv.className = 'sscustomBox';
 		theDiv.style.position="absolute";
-		ih='<span onclick="closeBrowse()" class="likeLink" style="position:absolute;top:0;right:0;color:red;">Close Window</span>';
-		ih+='<p>Search for ' + type + ' ='
-		ih+='<a href="/TaxonomyResults.cfm?' + type + '==' + dval + '"> ' + dval + '</a></p>';
+		ih='<span onclick="closeBrowse()" class="likeLink" style="position:absolute;top:0;right:0;color:red;">Close&nbsp;Window</span>';
+		ih+='<p>Search&nbsp;for&nbsp;' + type + '&nbsp;=&nbsp;'
+		ih+='<a href="/TaxonomyResults.cfm?' + type + '==' + dval + '">' + dval + '</a></p>';
 		theDiv.innerHTML=ih;
 		document.body.appendChild(theDiv);
 		viewport.init("#browseDiv");
