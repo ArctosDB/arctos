@@ -578,417 +578,344 @@
 						<tr>
 							<td align="right"><span class="f11a">ID Remk</span></td>
 							<td><input type="text" name="IDENTIFICATION_REMARKS" value="#IDENTIFICATION_REMARKS#"
-								id="IDENTIFICATION_REMARKS"
-								 size="80">
+								id="IDENTIFICATION_REMARKS" size="80">
 							</td>
 						</tr>
-					</table>
-<!----------------------------- /identification --------------------------------------------------------->
-<!----------------------------- locality ---------------------------------------------------------------->
-	<table cellspacing="0" cellpadding="0" class="fs">
-		 	<tr>
-				<td rowspan="99" valign="top">
-					<img src="/images/info.gif" border="0" onClick="getDocs('locality')" class="likeLink" alt="[ help ]">
-				</td>
-				<td align="right"><span class="f11a">Higher Geog</span></td>
-				<td width="100%">
-					<input type="text" name="higher_geog" 
-						class="reqdClr"
-						onchange="getGeog('nothing','higher_geog','dataEntry',this.value); return false;"
-						id="higher_geog"
-						value="#higher_geog#"
-						size="80">
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><span class="f11a">Spec&nbsp;Locality&nbsp;</span></td>
-				<td nowrap="nowrap">
-					<input type="text" name="spec_locality" class="reqdClr"
-						id="spec_locality"
-						value="#stripQuotes(spec_locality)#" size="80">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<table>
-						<tr>
-							<td align="right"><span class="f11a">Existing&nbsp;LocalityID:&nbsp;</span></td>
-							<td>
-								<input type="hidden" id="fetched_locid">
-								<input type="text" name="locality_id" id="locality_id" value="#locality_id#" readonly="readonly" class="readClr" size="8">
-								<span class="infoLink" 
-										id="localityPicker"
-										onclick="LocalityPick('locality_id','spec_locality','dataEntry','turnSaveOn'); return false;">
-											Pick&nbsp;Locality
-									</span>
-									<span class="infoLink" 
-										id="localityUnPicker"
-										style="display:none;"
-										onclick="unpickLocality()">
-											Depick&nbsp;Locality
-									</span>
+					</table><!------ /identification -------->
+					<table cellspacing="0" cellpadding="0" class="fs"><!----- locality ---------->
+					 	<tr>
+							<td rowspan="99" valign="top">
+								<img src="/images/info.gif" border="0" onClick="getDocs('locality')" class="likeLink" alt="[ help ]">
 							</td>
-							<td align="right"><span class="f11a">Existing&nbsp;EventID:&nbsp;</span></td>
-							<td>
-								<input type="text" name="collecting_event_id" id="collecting_event_id" value="#collecting_event_id#" readonly="readonly" class="readClr" size="8">
-								<input type="hidden" id="fetched_eventid">
-								<span class="infoLink" 
-										id="eventPicker"
-										onclick="findCollEvent('collecting_event_id','dataEntry','verbatim_locality'); return false;">
-											Pick&nbsp;Event
-									</span>
-									<span class="infoLink" 
-										id="eventUnPicker"
-										style="display:none;"
-										onclick="unpickEvent()">
-											Depick&nbsp;Event
-									</span>									
+							<td align="right"><span class="f11a">Higher Geog</span></td>
+							<td width="100%">
+								<input type="text" name="higher_geog" 
+									class="reqdClr"
+									onchange="getGeog('nothing','higher_geog','dataEntry',this.value); return false;"
+									id="higher_geog"
+									value="#higher_geog#"
+									size="80">
 							</td>
 						</tr>
-					</table>
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><span class="f11a">Verbatim Locality</span></td>
-				<td>
-					<input type="text"  name="verbatim_locality"
-						class="reqdClr"
-						size="80"
-						id="verbatim_locality" value="#stripQuotes(verbatim_locality)#">
-					<span class="infoLink" 
-						onclick="document.getElementById('verbatim_locality').value=document.getElementById('spec_locality').value;">&nbsp;Use&nbsp;Specloc
-					</span>
-				</td>
-			</tr>			
-			<tr>
-				<td align="right"><span class="f11a">VerbatimDate</span></td>
-				<td>
-					<input type="text" 
-						name="verbatim_date" 
-						class="reqdClr" 
-						value="#verbatim_date#"
-						id="verbatim_date"
-						size="20">
-					<img
-						src="/images/rt_arrow.gif" 
-						class="likeLink"
-						border="0"
-						alt="[ copy ]"
-						onClick="dataEntry.began_date.value=dataEntry.verbatim_date.value;
-						dataEntry.ended_date.value=dataEntry.verbatim_date.value;">
-					<span class="f11a">Begin</span>
-					<input type="text" 
-						name="began_date" 
-						class="reqdClr" 
-						value="#began_date#"
-						id="began_date"
-						size="10">
-					<img src="/images/copyall.gif"
-							border="0"  
-							height="18" 
-							width="18" 
-							class="likeLink" 
-							alt="[ copy ]"
-							onclick="copyAllDates('began_date');" />
-					<span class="f11a">End</span>
-					<input type="text" 
-						name="ended_date" 
-						class="reqdClr" 
-						value="#ended_date#"
-						id="ended_date"
-						size="10">
-					<img src="/images/copyall.gif"
-							border="0"  
-							height="18" 
-							width="18" 
-							class="likeLink" 
-							alt="[ copy ]"
-							onclick="copyAllDates('ended_date');" />
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><span class="f11a">Coll. Meth.:</span></td>
-				<td>
-					<table cellspacing="0" cellpadding="0">
 						<tr>
+							<td align="right"><span class="f11a">Spec&nbsp;Locality&nbsp;</span></td>
+							<td nowrap="nowrap">
+								<input type="text" name="spec_locality" class="reqdClr"
+									id="spec_locality"	value="#stripQuotes(spec_locality)#" size="80">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<table>
+									<tr>
+										<td align="right"><span class="f11a">Existing&nbsp;LocalityID:&nbsp;</span></td>
+										<td>
+											<input type="hidden" id="fetched_locid">
+											<input type="text" name="locality_id" id="locality_id" value="#locality_id#" readonly="readonly" class="readClr" size="8">
+											<span class="infoLink" id="localityPicker"
+												onclick="LocalityPick('locality_id','spec_locality','dataEntry','turnSaveOn'); return false;">
+												Pick&nbsp;Locality
+											</span>
+											<span class="infoLink" 
+												id="localityUnPicker"
+												style="display:none;"
+												onclick="unpickLocality()">
+												Depick&nbsp;Locality
+											</span>
+										</td>
+										<td align="right"><span class="f11a">Existing&nbsp;EventID:&nbsp;</span></td>
+										<td>
+											<input type="text" name="collecting_event_id" id="collecting_event_id" value="#collecting_event_id#" readonly="readonly" class="readClr" size="8">
+											<input type="hidden" id="fetched_eventid">
+											<span class="infoLink" id="eventPicker" onclick="findCollEvent('collecting_event_id','dataEntry','verbatim_locality'); return false;">
+												Pick&nbsp;Event
+											</span>
+											<span class="infoLink" id="eventUnPicker" style="display:none;" onclick="unpickEvent()">
+												Depick&nbsp;Event
+											</span>									
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><span class="f11a">Verbatim Locality</span></td>
 							<td>
+								<input type="text"  name="verbatim_locality"
+									class="reqdClr" size="80"
+									id="verbatim_locality" value="#stripQuotes(verbatim_locality)#">
+								<span class="infoLink" onclick="document.getElementById('verbatim_locality').value=document.getElementById('spec_locality').value;">
+									&nbsp;Use&nbsp;Specloc
+								</span>
+							</td>
+						</tr>			
+						<tr>
+							<td align="right"><span class="f11a">VerbatimDate</span></td>
+							<td>
+								<input type="text" name="verbatim_date" class="reqdClr" 
+									value="#verbatim_date#"
+									id="verbatim_date"
+									size="20">
+								<span class="infoLink"
+									onClick="dataEntry.began_date.value=dataEntry.verbatim_date.value;
+									dataEntry.ended_date.value=dataEntry.verbatim_date.value;">--></span>
+								<span class="f11a">Begin</span>
 								<input type="text" 
-									name="collecting_method" 
-									 
-									value="#collecting_method#"
-									id="collecting_method">
+									name="began_date" 
+									class="reqdClr" 
+									value="#began_date#"
+									id="began_date"
+									size="10">
+								<span class="infoLink" onclick="copyAllDates('began_date');">Copy2All</span>
+								<span class="f11a">End</span>
+								<input type="text" 
+									name="ended_date" 
+									class="reqdClr" 
+									value="#ended_date#"
+									id="ended_date"
+									size="10">
+								<span class="infoLink" onclick="copyAllDates('ended_date');">Copy2All</span>
 							</td>
-							<td align="right"><span class="f11a">Coll. Src.:</span></td>
+						</tr>
+						<tr>
+							<td align="right"><span class="f11a">Coll. Meth.:</span></td>
 							<td>
-								<cfif len(#collecting_source#) gt 0>
-									<cfset thisCollSrc=#collecting_source#>
-								<cfelse>
-									<cfset thisCollSrc="wild caught">
-								</cfif>
-								<select name="collecting_source" 
-									size="1" 
-									id="collecting_source"
-									class="reqdClr">										
-									<cfloop query="ctcollecting_source">
-										<option 
-											<cfif #collecting_source# is #thisCollSrc#> selected </cfif>
-											value="#collecting_source#">#collecting_source#</option>
-									</cfloop>
+								<table cellspacing="0" cellpadding="0">
+									<tr>
+										<td>
+											<input type="text" 
+												name="collecting_method" 
+												value="#collecting_method#"
+												id="collecting_method">
+										</td>
+										<td align="right"><span class="f11a">Coll. Src.:</span></td>
+										<td>
+											<cfif len(#collecting_source#) gt 0>
+												<cfset thisCollSrc=collecting_source>
+											<cfelse>
+												<cfset thisCollSrc="wild caught">
+											</cfif>
+											<select name="collecting_source" 
+												size="1" 
+												id="collecting_source"
+												class="reqdClr">										
+												<cfloop query="ctcollecting_source">
+													<option 
+														<cfif #collecting_source# is #thisCollSrc#> selected </cfif>
+														value="#collecting_source#">#collecting_source#</option>
+												</cfloop>
+											</select>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><span class="f11a">Habitat</span></td>
+							<td>
+								<input type="text" name="habitat_desc" size="50" id="habitat_desc" value="#habitat_desc#">
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><span class="f11a">Associated&nbsp;Species</span></td>
+							<td>
+								<input type="text" name="associated_species" size="80" id="associated_species" value="#associated_species#">
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><span class="f11a">Microhabitat</span></td>
+							<td>
+								<input type="text" name="coll_object_habitat" size="80" id="coll_object_habitat" value="#coll_object_habitat#">
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><span class="f11a">Elevation (min-max)</span></td>
+							<td>
+								<span class="f11a">&nbsp;between</span>
+								<input type="text" 
+									name="minimum_elevation" 
+									size="4" 
+									value="#minimum_elevation#"
+									id="minimum_elevation">
+								<span class="infoLink" 
+									onclick="document.getElementById('maximum_elevation').value=document.getElementById('minimum_elevation').value";>&nbsp;>>&nbsp;</span>
+								<input type="text" 
+										name="maximum_elevation" 
+										size="4" 
+										value="#maximum_elevation#"
+										id="maximum_elevation">
+									<cfset thisElUn=#orig_elev_units#>
+									<select name="orig_elev_units" 
+										size="1" 
+										id="orig_elev_units">
+										<option value=""></option>
+										<cfloop query="ctOrigElevUnits">
+											<option 
+												<cfif #thisElUn# is #orig_elev_units#> selected </cfif>
+												value="#orig_elev_units#">#orig_elev_units#</option>
+										</cfloop>
 									</select>
 							</td>
 						</tr>
-					</table>
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><span class="f11a">Habitat</span></td>
-				<td>
-					<input type="text"  
-							name="habitat_desc" 
-						
-						size="50"
-						id="habitat_desc" value="#habitat_desc#">
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><span class="f11a">Associated&nbsp;Species</span></td>
-				<td>
-					<input type="text"  
-							name="associated_species" 
-						
-						size="80"
-						id="associated_species" value="#associated_species#">
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><span class="f11a">Microhabitat</span></td>
-				<td>
-					<input type="text"  name="COLL_OBJECT_HABITAT"
-						
-						size="80"
-						id="COLL_OBJECT_HABITAT" value="#COLL_OBJECT_HABITAT#">
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><span class="f11a">Elevation (min-max)</span></td>
-				<td>
-					<span class="f11a">&nbsp;between</span>
-					<input type="text" 
-						name="minimum_elevation" 
-						size="4" 
-						value="#minimum_elevation#"
-						id="minimum_elevation"
-						>
-					<span class="infoLink" 
-						onclick="document.getElementById('maximum_elevation').value=document.getElementById('minimum_elevation').value";>&nbsp;>>&nbsp;</span>
-					<input type="text" 
-							name="maximum_elevation" 
-							size="4" 
-							value="#maximum_elevation#"
-							id="maximum_elevation"
-							>
-						<cfset thisElUn=#orig_elev_units#>
-						<select name="orig_elev_units" 
-							size="1" 
-							id="orig_elev_units"
-							>
-								<option value=""></option>
-								<cfloop query="ctOrigElevUnits">
-									<option 
-										<cfif #thisElUn# is #orig_elev_units#> selected </cfif>
-										value="#orig_elev_units#">#orig_elev_units#</option>
-								</cfloop>
-						</select>
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><span class="f11a">CollEvntRemk</span></td>
-				<td>
-					<input type="text" 
-						name="coll_event_remarks" 
-						size="80" 
-						value="#coll_event_remarks#"
-						id="coll_event_remarks"
-						>
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><span class="f11a">LocalityRemk</span></td>
-				<td>
-					<input type="text" 
-						name="locality_remarks" 
-						size="80" 
-						value="#locality_remarks#"
-						id="locality_remarks"
-						>
-				</td>
-			</tr>
-		 </table>
-<!--------------------------------------- /locality -------------------------------------------------------------->
-</td> <!---- end top left --->		
-<td valign="top"><!----- right column ---->	
-<!-------------------------------------- coordinates ------------------------------------------------------------->		
-	<table cellpadding="0" cellspacing="0" class="fs">
-		<tr>
-			<td rowspan="99" valign="top">
-				<img src="/images/info.gif" border="0" onClick="getDocs('lat_long')" class="likeLink" alt="[ help ]">
-			</td>
-			<td>
-				<table>
+						<tr>
+							<td align="right"><span class="f11a">CollEvntRemk</span></td>
+							<td>
+								<input type="text" 
+									name="coll_event_remarks" 
+									size="80" 
+									value="#coll_event_remarks#"
+									id="coll_event_remarks">
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><span class="f11a">LocalityRemk</span></td>
+							<td>
+								<input type="text" name="locality_remarks" size="80" value="#locality_remarks#" id="locality_remarks">
+							</td>
+						</tr>
+					</table><!----- /locality ---------->
+				</td> <!---- end top left --->		
+				<td valign="top"><!----- right column ---->	
+				<table cellpadding="0" cellspacing="0" class="fs"><!------- coordinates ------->
 					<tr>
-						<td align="right"><span class="f11a">Original&nbsp;lat/long&nbsp;Units</span></td>
-						<td colspan="99" width="100%">
-							<cfset thisLLUnits=#ORIG_LAT_LONG_UNITS#>
-							<select name="orig_lat_long_units"
-								size="1"  
-								id="orig_lat_long_units"
-								
-								onChange="switchActive(this.value);
-									dataEntry.max_error_distance.focus();"
-								>
-									<option value=""></option>
-										<cfloop query="ctunits">
-										  <option <cfif #ORIG_LAT_LONG_UNITS# is #thisLLUnits#> selected </cfif>
-										  value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
-										</cfloop>
-							</select> 
+						<td rowspan="99" valign="top">
+							<img src="/images/info.gif" border="0" onClick="getDocs('lat_long')" class="likeLink" alt="[ help ]">
+						</td>
+						<td>
+							<table>
+								<tr>
+									<td align="right"><span class="f11a">Original&nbsp;lat/long&nbsp;Units</span></td>
+									<td colspan="99" width="100%">
+										<cfset thisLLUnits=#ORIG_LAT_LONG_UNITS#>
+										<select name="orig_lat_long_units"
+											size="1"  
+											id="orig_lat_long_units"
+											onChange="switchActive(this.value);dataEntry.max_error_distance.focus();">
+											<option value=""></option>
+											<cfloop query="ctunits">
+											  <option <cfif #ORIG_LAT_LONG_UNITS# is #thisLLUnits#> selected </cfif>
+											  value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
+											</cfloop>
+										</select> 
+									</td>
+								</tr>
+							</table>
 						</td>
 					</tr>
-				</table>
-			</td>
-			
-				
-			</tr>
-	<tr>
-		<td>
-	<div id="lat_long_meta" class="noShow">
-		<table cellpadding="0" cellspacing="0">
-			<tr>
-				<td align="right"><span class="f11a">Max Error</span></td>
-				<td>
-					<input type="text" name="max_error_distance" 
-						  id="max_error_distance"
-						value="#max_error_distance#" size="10">
-					<cfset thisMEUnit = #max_error_units#>
-					<select name="max_error_units" 
-						 size="1" 
-						
-						id="max_error_units">
-								<option value=""></option>
-								<cfloop query="cterror">
-								  <option 
-								  <cfif #cterror.LAT_LONG_ERROR_UNITS# is #thisMEUnit#> selected </cfif>
-								  value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
-								</cfloop>
-							</select> 
-				</td>
-				<td align="right"><span class="f11a">Extent</span></td>
-				<td>
-					<input type="text" name="extent" 
-						  id="extent"
-						value="#extent#" size="10">
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><span class="f11a">GPS Accuracy</span></td>
-				<td>
-					<input type="text" name="gpsaccuracy" 
-						  id="gpsaccuracy"
-						value="#gpsaccuracy#" size="10">
-				</td>
-				<td align="right"><span class="f11a">Datum</span></td>
-				<td>
-					<cfset thisDatum=#datum#>
-					<select name="datum" size="1"
-						class="reqdClr"
-						id="datum">
-							<option value=""></option>
-							<cfloop query="ctdatum">
-							  <option <cfif #thisDatum# is #datum#> selected </cfif>
-							  value="#datum#">#datum#</option>
-							</cfloop>
-					</select> 
-				</td>
-			</tr>
-			<tr>
-				<td align="right">
-					<span class="f11a">Determiner</span>
-				</td>
-				<td>
-					<input type="text"
-						name="determined_by_agent" 
-						value="#determined_by_agent#" 
-						class="reqdClr" 
-						onchange="getAgent('nothing','determined_by_agent','dataEntry',this.value); return false;"
-						id="determined_by_agent">
-				</td>
-				<td align="right"><span class="f11a">Date</span></td>
-				<td>
-					<input type="text" 
-						 name="determined_date" 
-						class="reqdClr"
-						value="#determined_date#"
-						id="determined_date">
-					<img src="/images/copyall.gif"
-						border="0"  
-						height="18" 
-						width="18" 
-						class="likeLink" 
-						alt="[ copy ]"
-						onclick="copyAllDates('determined_date');" />
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><span class="f11a">Reference</span></td>
-				<td colspan="3" nowrap="nowrap">
-					<input type="text" 
-						name="lat_long_ref_source" 
-						id="lat_long_ref_source" 
-						class="reqdClr" 
-						size="60"
-						value="#lat_long_ref_source#">
-						<span class="infoLink" 
-					  		onclick="getHelp('lat_long_ref_source');">Pick</span>
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><span class="f11a">Georef Meth</span></td>
-				<td>
-					<cfset thisgeorefmethod = #georefmethod#>
-					<select name="georefmethod" size="1" class="reqdClr" 
-						style="width:130px"
-						id="georefmethod">
-							<cfloop query="ctgeorefmethod">
-							  <option <cfif #thisgeorefmethod# is #georefmethod#> selected </cfif>
-							  value="#ctgeorefmethod.georefmethod#">#ctgeorefmethod.georefmethod#</option>
-							</cfloop>
-					</select> 
-				</td>
-				<td align="right"><span class="f11a">Verification</span></td>
-				<td>
-					<cfset thisverificationstatus = #verificationstatus#>
-					<select name="verificationstatus" size="1" class="reqdClr" 
-						 id="verificationstatus">
-							<cfloop query="ctverificationstatus">
-							  <option <cfif #thisverificationstatus# is #verificationstatus#> selected </cfif>
-							  value="#ctverificationstatus.verificationstatus#">#ctverificationstatus.verificationstatus#</option>
-							</cfloop>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td align="right"><span class="f11a">LatLongRemk</span></td>
-				<td colspan="3">
-					<input type="text" 
-						name="LAT_LONG_REMARKS" 
-						size="80" 
-						value="#LAT_LONG_REMARKS#"
-						id="lat_long_remarks"
-						>
-				</td>
-			</tr>
-		</table>
-	</div>
+					<tr>
+						<td>
+							<div id="lat_long_meta" class="noShow">
+								<table cellpadding="0" cellspacing="0">
+									<tr>
+										<td align="right"><span class="f11a">Max Error</span></td>
+										<td>
+											<input type="text" name="max_error_distance" id="max_error_distance" value="#max_error_distance#" size="10">
+											<cfset thisMEUnit = max_error_units>
+											<select name="max_error_units" size="1" id="max_error_units">
+												<option value=""></option>
+												<cfloop query="cterror">
+												  <option 
+												  <cfif #cterror.LAT_LONG_ERROR_UNITS# is #thisMEUnit#> selected </cfif>
+												  value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
+												</cfloop>
+											</select> 
+										</td>
+										<td align="right"><span class="f11a">Extent</span></td>
+										<td>
+											<input type="text" name="extent" id="extent" value="#extent#" size="10">
+										</td>
+									</tr>
+									<tr>
+										<td align="right"><span class="f11a">GPS Accuracy</span></td>
+										<td>
+											<input type="text" name="gpsaccuracy" id="gpsaccuracy" value="#gpsaccuracy#" size="10">
+										</td>
+										<td align="right"><span class="f11a">Datum</span></td>
+										<td>
+											<cfset thisDatum=datum>
+											<select name="datum" size="1"
+												class="reqdClr" id="datum">
+												<option value=""></option>
+												<cfloop query="ctdatum">
+												  <option <cfif #thisDatum# is #datum#> selected </cfif>
+												  value="#datum#">#datum#</option>
+												</cfloop>
+											</select> 
+										</td>
+									</tr>
+									<tr>
+										<td align="right">
+											<span class="f11a">Determiner</span>
+										</td>
+										<td>
+											<input type="text"
+												name="determined_by_agent" 
+												value="#determined_by_agent#" 
+												class="reqdClr" 
+												onchange="getAgent('nothing','determined_by_agent','dataEntry',this.value); return false;"
+												id="determined_by_agent">
+										</td>
+										<td align="right"><span class="f11a">Date</span></td>
+										<td>
+											<input type="text" 
+												 name="determined_date" 
+												class="reqdClr"
+												value="#determined_date#"
+												id="determined_date">
+											<span class="infoLink" onclick="copyAllDates('determined_date');">Copy2All</span>
+										</td>
+									</tr>
+									<tr>
+										<td align="right"><span class="f11a">Reference</span></td>
+										<td colspan="3" nowrap="nowrap">
+											<input type="text" 
+												name="lat_long_ref_source" 
+												id="lat_long_ref_source" 
+												class="reqdClr" 
+												size="60"
+												value="#lat_long_ref_source#">
+												<span class="infoLink" 
+											  		onclick="getHelp('lat_long_ref_source');">Pick</span>
+										</td>
+									</tr>
+									<tr>
+										<td align="right"><span class="f11a">Georef Meth</span></td>
+										<td>
+											<cfset thisgeorefmethod = #georefmethod#>
+											<select name="georefmethod" size="1" class="reqdClr" 
+												style="width:130px"
+												id="georefmethod">
+													<cfloop query="ctgeorefmethod">
+													  <option <cfif #thisgeorefmethod# is #georefmethod#> selected </cfif>
+													  value="#ctgeorefmethod.georefmethod#">#ctgeorefmethod.georefmethod#</option>
+													</cfloop>
+											</select> 
+										</td>
+										<td align="right"><span class="f11a">Verification</span></td>
+										<td>
+											<cfset thisverificationstatus = #verificationstatus#>
+											<select name="verificationstatus" size="1" class="reqdClr" 
+												 id="verificationstatus">
+													<cfloop query="ctverificationstatus">
+													  <option <cfif #thisverificationstatus# is #verificationstatus#> selected </cfif>
+													  value="#ctverificationstatus.verificationstatus#">#ctverificationstatus.verificationstatus#</option>
+													</cfloop>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td align="right"><span class="f11a">LatLongRemk</span></td>
+										<td colspan="3">
+											<input type="text" 
+												name="LAT_LONG_REMARKS" 
+												size="80" 
+												value="#LAT_LONG_REMARKS#"
+												id="lat_long_remarks"
+												>
+										</td>
+									</tr>
+								</table>
+							</div>
 	<div id="dms" class="noShow">
 		<table cellpadding="0" cellspacing="0">
 			<tr>
