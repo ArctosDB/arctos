@@ -1746,7 +1746,7 @@
 							</td>
 							<td>
 								<input type="text" name="part_condition_#i#" id="part_condition_#i#"
-									value="evaluate("data.part_condition_" & i)" class="reqdClr">
+									value="#evaluate("data.part_condition_" & i)#" class="reqdClr">
 							</td>
 						</tr>
 					</cfloop>
