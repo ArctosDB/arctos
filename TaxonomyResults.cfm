@@ -381,28 +381,22 @@ Found #summary.cnt# records. (Note: This form will not return >1000 records; you
 	</td>
 	<td>#nomenclatural_code#&nbsp;</td>
 	<td>#kingdom#&nbsp;</td>
-	<td>#phylum#&nbsp;</td>
-	<td>#Phylclass#&nbsp;</td>
-	<td>#subclass#&nbsp;</td>
-    <td>#Phylorder#&nbsp;</td>
-    <td>
-		<span class="browseLink" type="Suborder" dval="#Suborder#">#Suborder#</span>
-	</td>
-    <td>#superfamily#&nbsp;</td>
-    <td>
-		<span class="browseLink" type="family" dval="#family#">#family#</span>
-	</td>
-	<td>#Subfamily#&nbsp;</td>
-    <td>#Tribe#&nbsp;</td>
-    <td>
-		<span class="browseLink" type="Genus" dval="#Genus#">#Genus#</span>
-	</td>
-    <td>#Subgenus#&nbsp;</td>
-    <td>#Species#&nbsp;</td>
-    <td nowrap="nowrap">#author_text#&nbsp;</td>
+	<td><span class="browseLink" type="phylum" dval="#phylum#">#phylum#</span></td>
+	<td><span class="browseLink" type="Phylclass" dval="#Phylclass#">#Phylclass#</span></td>
+	<td><span class="browseLink" type="subclass" dval="#subclass#">#subclass#</span></td>
+    <td><span class="browseLink" type="Phylorder" dval="#Phylorder#">#Phylorder#</span></td>
+    <td><span class="browseLink" type="Suborder" dval="#Suborder#">#Suborder#</span></td>
+    <td><span class="browseLink" type="superfamily" dval="#superfamily#">#superfamily#</span></td>
+    <td><span class="browseLink" type="family" dval="#family#">#family#</span></td>
+	<td><span class="browseLink" type="Subfamily" dval="#Subfamily#">#Subfamily#</span></td>
+    <td><span class="browseLink" type="Tribe" dval="#Tribe#">#Tribe#</span></td>
+    <td><span class="browseLink" type="Genus" dval="#Genus#">#Genus#</span></td>
+    <td><span class="browseLink" type="Subgenus" dval="#Subgenus#">#Subgenus#</span></td>
+    <td><span class="browseLink" type="genus==#genus#&Species" dval="#Species#">#Species#</span></td>
+    <td nowrap="nowrap"><span class="browseLink" type="author_text" dval="#author_text#">#author_text#</span></td>
     <td>#infraspecific_rank#&nbsp;</td>	
     <td>#Subspecies#&nbsp;</td>
-    <td nowrap="nowrap">#infraspecific_author#&nbsp;</td>
+    <td nowrap="nowrap"><span class="browseLink" type="infraspecific_author" dval="#infraspecific_author#">#infraspecific_author#</span></td>
     <td nowrap="nowrap">#source_authority#&nbsp;</td>
     <td nowrap="nowrap">#taxon_remarks#&nbsp;</td>
   </tr>
