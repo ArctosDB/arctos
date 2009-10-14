@@ -1739,7 +1739,7 @@
 								<select name="preserv_method_#i#" id="preserv_method_#i#">
 									<option value=""></option>
 									<cfloop query="ctPresMeth">
-										<option <cfif evaluate("data.preserve_method_" & i) is ctPresMeth.preserve_method> selected="selected" </cfif>
+										<option <cfif evaluate("data.preserv_method_" & i) is ctPresMeth.preserve_method> selected="selected" </cfif>
 											value="#ctPresMeth.preserve_method#">#ctPresMeth.preserve_method#</option>
 									</cfloop>
 								</select>
