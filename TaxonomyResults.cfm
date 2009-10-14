@@ -364,11 +364,11 @@ Found #summary.cnt# records. (Note: This form will not return >1000 records; you
     <td>#Genus#&nbsp;</td>
     <td>#Subgenus#&nbsp;</td>
     <td>#Species#&nbsp;</td>
-    <td>#author_text#&nbsp;</td>
+    <td nowrap="nowrap">#author_text#&nbsp;</td>
     <td>#infraspecific_rank#&nbsp;</td>	
     <td>#Subspecies#&nbsp;</td>
-    <td>#infraspecific_author#&nbsp;</td>
-    <td>#source_authority#&nbsp;</td>
+    <td nowrap="nowrap">#infraspecific_author#&nbsp;</td>
+    <td nowrap="nowrap">#source_authority#&nbsp;</td>
     <td nowrap="nowrap">#taxon_remarks#&nbsp;</td>
   </tr>
   <cfset i=#i#+1>
