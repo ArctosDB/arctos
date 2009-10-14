@@ -1676,7 +1676,7 @@
 					<tr>
 						<td colspan="2">
 							<span class="f11a">Spec Remark</span>
-								<textarea name="coll_object_remarks" id="coll_object_remarks" rows="2" cols="100">#coll_object_remarks#</textarea>
+								<textarea name="coll_object_remarks" id="coll_object_remarks" rows="2" cols="80">#coll_object_remarks#</textarea>
 						</td>
 					</tr>
 					<tr>
