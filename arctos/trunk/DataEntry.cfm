@@ -317,7 +317,7 @@
 								<img src="/images/info.gif" border="0" onClick="getDocs('agent')" class="likeLink" alt="[ help ]">
 							</td>
 							<cfloop from="1" to="5" index="i">
-								<cfif i MOD 2 IS 0>
+								<cfif i is 3 or i is 5>
 									<tr>
 								</cfif>
 
@@ -340,7 +340,7 @@
 										id="collector_agent_#i#">
 									<span class="infoLink" onclick="copyAllAgents('collector_agent_#i#');">Copy2All</span>
 								</td>
-								<cfif i MOD 2 IS 0>
+								<cfif i is 3 or i is 5>
 									</tr>
 								</cfif>
 							</cfloop>
