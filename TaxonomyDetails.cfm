@@ -449,7 +449,7 @@
 		</cfquery>
 		<div>
 			<cfif len(one.scientific_name) gt 0>
-				Additional Arctos entries for <a href="/TaxonomyResults.cfm?genus=#one.genus#">genus=#one.genus#</a>
+				Additional Arctos entries for <a href="/TaxonomyResults.cfm?genus==#one.genus#">genus=#one.genus#</a>
 				<ul>
 					<cfloop query="samegen">
 						<li><a href="/name/#scientific_name#">#display_name#</a></li>
