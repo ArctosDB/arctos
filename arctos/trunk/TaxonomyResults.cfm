@@ -385,14 +385,18 @@ Found #summary.cnt# records. (Note: This form will not return >1000 records; you
 	<td>#Phylclass#&nbsp;</td>
 	<td>#subclass#&nbsp;</td>
     <td>#Phylorder#&nbsp;</td>
-    <td>#Suborder#&nbsp;</td>
+    <td>
+		<span class="browseLink" type="Suborder" dval="#Suborder#">#Suborder#</span>
+	</td>
     <td>#superfamily#&nbsp;</td>
     <td>
 		<span class="browseLink" type="family" dval="#family#">#family#</span>
 	</td>
 	<td>#Subfamily#&nbsp;</td>
     <td>#Tribe#&nbsp;</td>
-    <td>#Genus#&nbsp;</td>
+    <td>
+		<span class="browseLink" type="Genus" dval="#Genus#">#Genus#</span>
+	</td>
     <td>#Subgenus#&nbsp;</td>
     <td>#Species#&nbsp;</td>
     <td nowrap="nowrap">#author_text#&nbsp;</td>
