@@ -446,10 +446,8 @@
 								<cfset thisIdType=#other_id_num_type_1#>
 								<span class="f11a">OtherID 1</span>
 								<select name="other_id_num_type_1" size="1" style="width:250px"
-									id="other_id_num_type_1"
-									
-									onChange="this.className='reqdClr';
-										dataEntry.other_id_num_1.className='reqdClr';dataEntry.other_id_num_1.focus();">
+									id="other_id_num_type_1" 
+									onChange="this.className='reqdClr';dataEntry.other_id_num_1.className='reqdClr';dataEntry.other_id_num_1.focus();">
 									<option value=""></option>
 									<cfloop query="ctOtherIdType">
 										<option 
@@ -457,10 +455,7 @@
 											value="#other_id_type#">#other_id_type#</option>
 									</cfloop>
 								</select>
-								<input type="text" name="other_id_num_1" 
-									
-									value="#other_id_num_1#"
-									id="other_id_num_1">
+								<input type="text" name="other_id_num_1" value="#other_id_num_1#" id="other_id_num_1">
 							</td>
 						</tr>
 						<tr>
@@ -468,7 +463,6 @@
 								<span class="f11a">OtherID 2</span>
 								<cfset thisIdType=#other_id_num_type_2#>
 								<select name="other_id_num_type_2" size="1" style="width:250px"
-									
 									id="other_id_num_type_2"
 									onChange="dataEntry.other_id_num_2.className='reqdClr';
 										dataEntry.other_id_num_2.focus();">
@@ -481,7 +475,6 @@
 								<input type="text" 
 									name="other_id_num_2" 
 									value="#other_id_num_2#"
-									
 									id="other_id_num_2"
 									onChange="dataEntry.other_id_num_type_3.focus();">
 							</td>
@@ -491,7 +484,6 @@
 								<span class="f11a">OtherID 3</span>
 								<cfset thisIdType=#other_id_num_type_3#>
 								<select name="other_id_num_type_3" size="1" style="width:250px"
-									
 									id="other_id_num_type_3"
 									onChange="dataEntry.other_id_num_3.className='reqdClr';
 										dataEntry.other_id_num_3.focus();">
@@ -501,9 +493,7 @@
 											value="#other_id_type#">#other_id_type#</option>
 									</cfloop>
 								</select>
-								<input type="text" name="other_id_num_3" value="#other_id_num_3#"
-									
-									id="other_id_num_3">
+								<input type="text" name="other_id_num_3" value="#other_id_num_3#" id="other_id_num_3">
 							</td>
 						</tr>
 						<tr>
@@ -511,7 +501,6 @@
 								<span class="f11a">OtherID 4</span>
 								<cfset thisIdType=#other_id_num_type_4#>
 								<select name="other_id_num_type_4" size="1" style="width:250px"
-									
 									id="other_id_num_type_4"
 									onChange="dataEntry.other_id_num_4.className='reqdClr';
 										dataEntry.other_id_num_4.focus();">
@@ -521,90 +510,79 @@
 											value="#other_id_type#">#other_id_type#</option>
 									</cfloop>
 								</select>
-								<input type="text" name="other_id_num_4" value="#other_id_num_4#"
-									
-									id="other_id_num_4">
+								<input type="text" name="other_id_num_4" value="#other_id_num_4#" id="other_id_num_4">
 							</td>
 						</tr>
 					</table><!---- /other IDs ---->
-<!------------------------------------------------- identification ---------------------------------->		
-		<table cellpadding="0" cellspacing="0" class="fs">
-		<tr>
-			<td rowspan="99" valign="top">
-				<img src="/images/info.gif" border="0" onClick="getDocs('identification')" class="likeLink" alt="[ help ]">
-			</td>
-			<td align="right">
-			<span class="f11a">Scientific&nbsp;Name</span>
-			</td>
-			<td width="100%">
-				<input 
-					type="text" 
-					name="taxon_name" 
-					value="#taxon_name#" 
-					class="reqdClr" 
-					size="40"
-					onchange="taxaPick('nothing','taxon_name','dataEntry',this.value); return false;"
-					id="taxon_name">
-			</td>
-		</tr>
-		<tr>
-			<td align="right"><span class="f11a">ID By</span></td>
-			<td>
-				<input type="text" 
-					name="id_made_by_agent" 
-					value="#id_made_by_agent#" 
-					class="reqdClr"
-					size="40" 
-					onchange="getAgent('nothing','id_made_by_agent','dataEntry',this.value); return false;"
-					id="id_made_by_agent">
-					<img src="/images/copyall.gif" 
-						border="0"  
-						height="18" 
-						width="18" 
-						class="likeLink" 
-						alt="[ copy ]"
-						onclick="copyAllAgents('id_made_by_agent');" />
-			</td>
-		</tr>
-		<tr>
-			<td align="right"><span class="f11a">Nature</span></td>
-			<td>
-				<cfset thisNature=#nature_of_id#>
-				<select name="nature_of_id" 
-					size="1" 
-					class="reqdClr"
-					id="nature_of_id">
-						  <cfloop query="ctnature">
-							<option 
-							<cfif #nature_of_id# is #thisNature#> selected </cfif> 
-							value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
-						  </cfloop>
-						</select>
-			</td>
-		</tr>
-		<tr>
-			<td align="right"><span class="f11a">Date</span></td>
-			<td>
-				<input type="text" name="made_date" value="#made_date#"
-					id="made_date" 
-					>
-					<img src="/images/copyall.gif"
-							border="0"  
-							height="18" 
-							width="18" 
-							class="likeLink" 
-							alt="[ copy ]"
-							onclick="copyAllDates('made_date');" />
-			</td>
-		</tr>
-		<tr>
-			<td align="right"><span class="f11a">ID Remk</span></td>
-			<td><input type="text" name="IDENTIFICATION_REMARKS" value="#IDENTIFICATION_REMARKS#"
-				id="IDENTIFICATION_REMARKS"
-				 size="80">
-			</td>
-		</tr>
-	</table>
+					<table cellpadding="0" cellspacing="0" class="fs"><!----- identification ----->		
+						<tr>
+							<td rowspan="99" valign="top">
+								<img src="/images/info.gif" border="0" onClick="getDocs('identification')" class="likeLink" alt="[ help ]">
+							</td>
+							<td align="right">
+								<span class="f11a">Scientific&nbsp;Name</span>
+							</td>
+							<td width="100%">
+								<input 
+									type="text" 
+									name="taxon_name" 
+									value="#taxon_name#" 
+									class="reqdClr" 
+									size="40"
+									onchange="taxaPick('nothing','taxon_name','dataEntry',this.value); return false;"
+									id="taxon_name">
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><span class="f11a">ID By</span></td>
+							<td>
+								<input type="text" 
+									name="id_made_by_agent" 
+									value="#id_made_by_agent#" 
+									class="reqdClr"
+									size="40" 
+									onchange="getAgent('nothing','id_made_by_agent','dataEntry',this.value); return false;"
+									id="id_made_by_agent">
+									<img src="/images/copyall.gif" 
+										border="0"  
+										height="18" 
+										width="18" 
+										class="likeLink" 
+										alt="[ copy ]"
+										onclick="copyAllAgents('id_made_by_agent');" />
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><span class="f11a">Nature</span></td>
+							<td>
+								<cfset thisNature=#nature_of_id#>
+								<select name="nature_of_id" 
+									size="1" 
+									class="reqdClr"
+									id="nature_of_id">
+									<cfloop query="ctnature">
+									<option 
+									<cfif #nature_of_id# is #thisNature#> selected </cfif> 
+									value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
+									</cfloop>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><span class="f11a">Date</span></td>
+							<td>
+								<input type="text" name="made_date" value="#made_date#" id="made_date">
+								<span class="infoLink" onclick="copyAllDates('made_date');">Copy2All</span>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><span class="f11a">ID Remk</span></td>
+							<td><input type="text" name="IDENTIFICATION_REMARKS" value="#IDENTIFICATION_REMARKS#"
+								id="IDENTIFICATION_REMARKS"
+								 size="80">
+							</td>
+						</tr>
+					</table>
 <!----------------------------- /identification --------------------------------------------------------->
 <!----------------------------- locality ---------------------------------------------------------------->
 	<table cellspacing="0" cellpadding="0" class="fs">
