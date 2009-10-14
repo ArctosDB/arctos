@@ -228,7 +228,7 @@
 				TAXON_REMARKS,
 				NOMENCLATURAL_CODE,
 				INFRASPECIFIC_AUTHOR
-					) where rownum<1000">
+					) where rownum<1001">
 		<cfif #stringOfStuffToClean# contains "'">
 			You searched for an illegal character.
 			<cfabort>
