@@ -236,7 +236,7 @@
 <cfset title = "Taxonomy Results: " & titleTerms>
 <CFSET SQL = "create table #session.TaxSrchTab# as #SQL#">
 
-<hr>#sql#<hr>
+<hr><cfoutput>#sql#</cfoutput><hr>
 <cftry>
 	<cfquery name="die" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		drop table #session.TaxSrchTab#
