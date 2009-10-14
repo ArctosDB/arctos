@@ -290,11 +290,11 @@
 									</cfloop>
 								</select>
 								<span class="f11a">Cat##</span>
-								<input type="text" name="cat_num" value="#cat_num#"  size="6" id="cat_num" class="d11a">
+								<input type="text" name="cat_num" value="#cat_num#"  size="6" id="cat_num">
 								<cfif isdefined("session.CustomOtherIdentifier") and len(#session.CustomOtherIdentifier#) gt 0>
 									<span class="f11a">#session.CustomOtherIdentifier#</span>
 									<input type="hidden" name="other_id_num_type_5" value="#session.CustomOtherIdentifier#" id="other_id_num_type_5" />
-									<input type="text" name="other_id_num_5" value="#other_id_num_5#" size="8" id="other_id_num_5" class="d11a">
+									<input type="text" name="other_id_num_5" value="#other_id_num_5#" size="8" id="other_id_num_5">
 									<span id="rememberLastId">
 										<cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1>
 											<span class="infoLink" onclick="rememberLastOtherId(0)">Nevermind</span>
@@ -304,7 +304,7 @@
 									</span>
 								</cfif>
 								<span class="f11a">Accn</span>
-								<input type="text" name="accn" value="#accn#" size="13" class="d11a reqdClr" id="accn" onchange="isGoodAccn();">
+								<input type="text" name="accn" value="#accn#" size="13" class="reqdClr" id="accn" onchange="isGoodAccn();">
 							</td>
 						</tr>
 					</table><!---------------------------------- / cat item IDs ---------------------------------------------->
@@ -316,7 +316,7 @@
 							<td align="right">
 								<select name="collector_role_1" 
 									size="1"
-									class="reqdClr d11a"
+									class="reqdClr"
 									id="collector_role_1">
 									<option selected value="c">Collector&nbsp;&nbsp;&nbsp;</option>
 								</select> 
@@ -326,7 +326,7 @@
 								<input type="text" 
 									name="collector_agent_1" 
 									value="#collector_agent_1#" 
-									class="reqdClr d11a" 
+									class="reqdClr" 
 									onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_1','dataEntry',this.value); return false;}"
 									id="collector_agent_1">
 									<img src="/images/copyall.gif" 
@@ -342,7 +342,7 @@
 								<select 
 									name="collector_role_2" 
 									size="1"
-									class="d11a"
+									
 									id="collector_role_2"
 									onChange="dataEntry.collector_agent_2.className='looky';dataEntry.collector_agent_2.focus();">
 									<option value=""></option>
@@ -354,7 +354,7 @@
 								<span class="f11a">2</span>
 								<input type="text" 
 									name="collector_agent_2" 
-									class="d11a"
+									
 									value="#collector_agent_2#" 
 									onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_2','dataEntry',this.value); return false;}"
 									onblur = "this.className='d11a';"
@@ -373,7 +373,7 @@
 								<cfset thisRole=#collector_role_3#>
 								<select name="collector_role_3" 
 									size="1"
-									class="d11a"
+									
 									id="collector_role_3"
 									onChange="dataEntry.collector_agent_3.className='d11a';
 									dataEntry.collector_agent_3.focus();">
@@ -387,13 +387,13 @@
 								<input type="text" name="collector_agent_3" value="#collector_agent_3#"
 									onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_3','dataEntry',this.value); return false;}"
 									id="collector_agent_3"
-									class="d11a">
+									>
 							</td>
 							<td align="right">
 								<cfset thisRole=#collector_role_4#>
 								<select name="collector_role_4" 
 									size="1"
-									class="d11a"
+									
 									id="collector_role_4"
 									onChange="dataEntry.collector_agent_4.className='d11a';
 									dataEntry.collector_agent_4.focus();">
@@ -408,7 +408,7 @@
 								<input type="text" name="collector_agent_4" value="#collector_agent_4#"
 									onchange="getAgent('nothing','collector_agent_4','dataEntry',this.value); return false;"
 									id="collector_agent_4"
-									class="d11a">
+									>
 							</td>
 						</tr>
 						<tr>
@@ -416,7 +416,7 @@
 								<cfset thisRole=#collector_role_5#>
 								<select name="collector_role_5" 
 									size="1"
-									class="d11a"
+									
 									id="collector_role_5"
 									onChange="dataEntry.collector_agent_5.className='d11a';dataEntry.collector_agent_5.focus();">
 									<option value=""></option>
@@ -429,7 +429,7 @@
 								<input type="text" name="collector_agent_5" value="#collector_agent_5#"
 									onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_5','dataEntry',this.value); return false;}"
 									id="collector_agent_5"
-									class="d11a">
+									>
 							</td>
 						</tr>
 					</table><!---- / agents------------->	
@@ -444,9 +444,9 @@
 								<span class="f11a">OtherID 1</span>
 								<select name="other_id_num_type_1" size="1" style="width:250px"
 									id="other_id_num_type_1"
-									class="d11a"
-									onChange="this.className='reqdClr d11a';
-										dataEntry.other_id_num_1.className='reqdClr d11a';dataEntry.other_id_num_1.focus();">
+									
+									onChange="this.className='reqdClr';
+										dataEntry.other_id_num_1.className='reqdClr';dataEntry.other_id_num_1.focus();">
 									<option value=""></option>
 									<cfloop query="ctOtherIdType">
 										<option 
@@ -455,7 +455,7 @@
 									</cfloop>
 								</select>
 								<input type="text" name="other_id_num_1" 
-									class="d11a"
+									
 									value="#other_id_num_1#"
 									id="other_id_num_1">
 							</td>
@@ -465,9 +465,9 @@
 								<span class="f11a">OtherID 2</span>
 								<cfset thisIdType=#other_id_num_type_2#>
 								<select name="other_id_num_type_2" size="1" style="width:250px"
-									class="d11a"
+									
 									id="other_id_num_type_2"
-									onChange="dataEntry.other_id_num_2.className='reqdClr d11a';
+									onChange="dataEntry.other_id_num_2.className='reqdClr';
 										dataEntry.other_id_num_2.focus();">
 									<option value=""></option>
 									<cfloop query="ctOtherIdType">
@@ -478,7 +478,7 @@
 								<input type="text" 
 									name="other_id_num_2" 
 									value="#other_id_num_2#"
-									class="d11a"
+									
 									id="other_id_num_2"
 									onChange="dataEntry.other_id_num_type_3.focus();">
 							</td>
@@ -488,9 +488,9 @@
 								<span class="f11a">OtherID 3</span>
 								<cfset thisIdType=#other_id_num_type_3#>
 								<select name="other_id_num_type_3" size="1" style="width:250px"
-									class="d11a"
+									
 									id="other_id_num_type_3"
-									onChange="dataEntry.other_id_num_3.className='d11a reqdClr';
+									onChange="dataEntry.other_id_num_3.className='reqdClr';
 										dataEntry.other_id_num_3.focus();">
 									<option  value=""></option>
 									<cfloop query="ctOtherIdType">
@@ -499,7 +499,7 @@
 									</cfloop>
 								</select>
 								<input type="text" name="other_id_num_3" value="#other_id_num_3#"
-									class="d11a"
+									
 									id="other_id_num_3">
 							</td>
 						</tr>
@@ -508,9 +508,9 @@
 								<span class="f11a">OtherID 4</span>
 								<cfset thisIdType=#other_id_num_type_4#>
 								<select name="other_id_num_type_4" size="1" style="width:250px"
-									class="d11a"
+									
 									id="other_id_num_type_4"
-									onChange="dataEntry.other_id_num_4.className='d11a reqdClr';
+									onChange="dataEntry.other_id_num_4.className='reqdClr';
 										dataEntry.other_id_num_4.focus();">
 									<option  value=""></option>
 									<cfloop query="ctOtherIdType">
@@ -519,7 +519,7 @@
 									</cfloop>
 								</select>
 								<input type="text" name="other_id_num_4" value="#other_id_num_4#"
-									class="d11a"
+									
 									id="other_id_num_4">
 							</td>
 						</tr>
@@ -538,7 +538,7 @@
 					type="text" 
 					name="taxon_name" 
 					value="#taxon_name#" 
-					class="reqdClr  d11a" 
+					class="reqdClr" 
 					size="40"
 					onchange="taxaPick('nothing','taxon_name','dataEntry',this.value); return false;"
 					id="taxon_name">
@@ -550,7 +550,7 @@
 				<input type="text" 
 					name="id_made_by_agent" 
 					value="#id_made_by_agent#" 
-					class="reqdClr d11a"
+					class="reqdClr"
 					size="40" 
 					onchange="getAgent('nothing','id_made_by_agent','dataEntry',this.value); return false;"
 					id="id_made_by_agent">
@@ -569,7 +569,7 @@
 				<cfset thisNature=#nature_of_id#>
 				<select name="nature_of_id" 
 					size="1" 
-					class="reqdClr d11a"
+					class="reqdClr"
 					id="nature_of_id">
 						  <cfloop query="ctnature">
 							<option 
@@ -584,7 +584,7 @@
 			<td>
 				<input type="text" name="made_date" value="#made_date#"
 					id="made_date" 
-					class="d11a">
+					>
 					<img src="/images/copyall.gif"
 							border="0"  
 							height="18" 
@@ -598,7 +598,7 @@
 			<td align="right"><span class="f11a">ID Remk</span></td>
 			<td><input type="text" name="IDENTIFICATION_REMARKS" value="#IDENTIFICATION_REMARKS#"
 				id="IDENTIFICATION_REMARKS"
-				class="d11a" size="80">
+				 size="80">
 			</td>
 		</tr>
 	</table>
@@ -612,7 +612,7 @@
 				<td align="right"><span class="f11a">Higher Geog</span></td>
 				<td width="100%">
 					<input type="text" name="higher_geog" 
-						class="reqdClr d11a"
+						class="reqdClr"
 						onchange="getGeog('nothing','higher_geog','dataEntry',this.value); return false;"
 						id="higher_geog"
 						value="#higher_geog#"
@@ -622,7 +622,7 @@
 			<tr>
 				<td align="right"><span class="f11a">Spec&nbsp;Locality&nbsp;</span></td>
 				<td nowrap="nowrap">
-					<input type="text" name="spec_locality" class="reqdClr d11a"
+					<input type="text" name="spec_locality" class="reqdClr"
 						id="spec_locality"
 						value="#stripQuotes(spec_locality)#" size="80">
 				</td>
@@ -671,7 +671,7 @@
 				<td align="right"><span class="f11a">Verbatim Locality</span></td>
 				<td>
 					<input type="text"  name="verbatim_locality"
-						class="reqdClr d11a"
+						class="reqdClr"
 						size="80"
 						id="verbatim_locality" value="#stripQuotes(verbatim_locality)#">
 					<span class="infoLink" 
@@ -684,7 +684,7 @@
 				<td>
 					<input type="text" 
 						name="verbatim_date" 
-						class="reqdClr d11a" 
+						class="reqdClr" 
 						value="#verbatim_date#"
 						id="verbatim_date"
 						size="20">
@@ -698,7 +698,7 @@
 					<span class="f11a">Begin</span>
 					<input type="text" 
 						name="began_date" 
-						class="reqdClr d11a" 
+						class="reqdClr" 
 						value="#began_date#"
 						id="began_date"
 						size="10">
@@ -712,7 +712,7 @@
 					<span class="f11a">End</span>
 					<input type="text" 
 						name="ended_date" 
-						class="reqdClr d11a" 
+						class="reqdClr" 
 						value="#ended_date#"
 						id="ended_date"
 						size="10">
@@ -733,7 +733,7 @@
 							<td>
 								<input type="text" 
 									name="collecting_method" 
-									class="d11a" 
+									 
 									value="#collecting_method#"
 									id="collecting_method">
 							</td>
@@ -747,7 +747,7 @@
 								<select name="collecting_source" 
 									size="1" 
 									id="collecting_source"
-									class="d11a reqdClr">										
+									class="reqdClr">										
 									<cfloop query="ctcollecting_source">
 										<option 
 											<cfif #collecting_source# is #thisCollSrc#> selected </cfif>
@@ -764,7 +764,7 @@
 				<td>
 					<input type="text"  
 							name="habitat_desc" 
-						class="d11a"
+						
 						size="50"
 						id="habitat_desc" value="#habitat_desc#">
 				</td>
@@ -774,7 +774,7 @@
 				<td>
 					<input type="text"  
 							name="associated_species" 
-						class="d11a"
+						
 						size="80"
 						id="associated_species" value="#associated_species#">
 				</td>
@@ -783,7 +783,7 @@
 				<td align="right"><span class="f11a">Microhabitat</span></td>
 				<td>
 					<input type="text"  name="COLL_OBJECT_HABITAT"
-						class="d11a"
+						
 						size="80"
 						id="COLL_OBJECT_HABITAT" value="#COLL_OBJECT_HABITAT#">
 				</td>
@@ -797,7 +797,7 @@
 						size="4" 
 						value="#minimum_elevation#"
 						id="minimum_elevation"
-						class="d11a">
+						>
 					<span class="infoLink" 
 						onclick="document.getElementById('maximum_elevation').value=document.getElementById('minimum_elevation').value";>&nbsp;>>&nbsp;</span>
 					<input type="text" 
@@ -805,12 +805,12 @@
 							size="4" 
 							value="#maximum_elevation#"
 							id="maximum_elevation"
-							class="d11a">
+							>
 						<cfset thisElUn=#orig_elev_units#>
 						<select name="orig_elev_units" 
 							size="1" 
 							id="orig_elev_units"
-							class="d11a">
+							>
 								<option value=""></option>
 								<cfloop query="ctOrigElevUnits">
 									<option 
@@ -828,7 +828,7 @@
 						size="80" 
 						value="#coll_event_remarks#"
 						id="coll_event_remarks"
-						class="d11a">
+						>
 				</td>
 			</tr>
 			<tr>
@@ -839,7 +839,7 @@
 						size="80" 
 						value="#locality_remarks#"
 						id="locality_remarks"
-						class="d11a">
+						>
 				</td>
 			</tr>
 		 </table>
@@ -861,7 +861,7 @@
 							<select name="orig_lat_long_units"
 								size="1"  
 								id="orig_lat_long_units"
-								class="d11a"
+								
 								onChange="switchActive(this.value);
 									dataEntry.max_error_distance.focus();"
 								>
@@ -885,13 +885,13 @@
 			<tr>
 				<td align="right"><span class="f11a">Max Error</span></td>
 				<td>
-					<input type="text" name="max_error_distance"  class="d11a"
+					<input type="text" name="max_error_distance" 
 						  id="max_error_distance"
 						value="#max_error_distance#" size="10">
 					<cfset thisMEUnit = #max_error_units#>
 					<select name="max_error_units" 
 						 size="1" 
-						class="d11a"
+						
 						id="max_error_units">
 								<option value=""></option>
 								<cfloop query="cterror">
@@ -903,7 +903,7 @@
 				</td>
 				<td align="right"><span class="f11a">Extent</span></td>
 				<td>
-					<input type="text" name="extent"  class="d11a"
+					<input type="text" name="extent" 
 						  id="extent"
 						value="#extent#" size="10">
 				</td>
@@ -911,7 +911,7 @@
 			<tr>
 				<td align="right"><span class="f11a">GPS Accuracy</span></td>
 				<td>
-					<input type="text" name="gpsaccuracy"  class="d11a"
+					<input type="text" name="gpsaccuracy" 
 						  id="gpsaccuracy"
 						value="#gpsaccuracy#" size="10">
 				</td>
@@ -919,7 +919,7 @@
 				<td>
 					<cfset thisDatum=#datum#>
 					<select name="datum" size="1"
-						class="reqdClr d11a"
+						class="reqdClr"
 						id="datum">
 							<option value=""></option>
 							<cfloop query="ctdatum">
@@ -937,7 +937,7 @@
 					<input type="text"
 						name="determined_by_agent" 
 						value="#determined_by_agent#" 
-						class="reqdClr d11a" 
+						class="reqdClr" 
 						onchange="getAgent('nothing','determined_by_agent','dataEntry',this.value); return false;"
 						id="determined_by_agent">
 				</td>
@@ -945,7 +945,7 @@
 				<td>
 					<input type="text" 
 						 name="determined_date" 
-						class="d11a reqdClr"
+						class="reqdClr"
 						value="#determined_date#"
 						id="determined_date">
 					<img src="/images/copyall.gif"
@@ -963,7 +963,7 @@
 					<input type="text" 
 						name="lat_long_ref_source" 
 						id="lat_long_ref_source" 
-						class="reqdClr d11a" 
+						class="reqdClr" 
 						size="60"
 						value="#lat_long_ref_source#">
 						<span class="infoLink" 
@@ -974,7 +974,7 @@
 				<td align="right"><span class="f11a">Georef Meth</span></td>
 				<td>
 					<cfset thisgeorefmethod = #georefmethod#>
-					<select name="georefmethod" size="1" class="reqdClr d11a" 
+					<select name="georefmethod" size="1" class="reqdClr" 
 						style="width:130px"
 						id="georefmethod">
 							<cfloop query="ctgeorefmethod">
@@ -986,7 +986,7 @@
 				<td align="right"><span class="f11a">Verification</span></td>
 				<td>
 					<cfset thisverificationstatus = #verificationstatus#>
-					<select name="verificationstatus" size="1" class="reqdClr d11a" 
+					<select name="verificationstatus" size="1" class="reqdClr" 
 						 id="verificationstatus">
 							<cfloop query="ctverificationstatus">
 							  <option <cfif #thisverificationstatus# is #verificationstatus#> selected </cfif>
@@ -1003,7 +1003,7 @@
 						size="80" 
 						value="#LAT_LONG_REMARKS#"
 						id="lat_long_remarks"
-						class="d11a">
+						>
 				</td>
 			</tr>
 		</table>
@@ -1017,7 +1017,7 @@
 						 name="latdeg" 
 						size="4"
 						id="latdeg"
-						class="reqdClr d11a"
+						class="reqdClr"
 						value="#latdeg#">
 				</td>
 				<td align="right"><span class="f11a">Min</span></td>
@@ -1026,7 +1026,7 @@
 						 name="LATMIN" 
 						size="4"
 						id="latmin"
-						class="reqdClr d11a"						
+						class="reqdClr"						
 						value="#LATMIN#">
 				</td>
 				<td align="right"><span class="f11a">Sec</span></td>
@@ -1035,7 +1035,7 @@
 						 name="latsec" 
 						size="6"
 						id="latsec"
-						class="reqdClr d11a"
+						class="reqdClr"
 						value="#latsec#">
 					</td>
 				<td align="right"><span class="f11a">Dir</span></td>
@@ -1043,7 +1043,7 @@
 					<select name="latdir"
 						 size="1"
 						id="latdir"
-						class="reqdClr d11a"
+						class="reqdClr"
 						>
 							<option value=""></option>
 							<option <cfif #LATDIR# is "N"> selected </cfif>value="N">N</option>
@@ -1058,7 +1058,7 @@
 						name="longdeg" 
 						size="4"
 						id="longdeg"
-						class="reqdClr d11a"	
+						class="reqdClr"	
 						value="#longdeg#">
 				</td>
 				<td align="right"><span class="f11a">Min</span></td>
@@ -1067,7 +1067,7 @@
 						name="longmin" 
 						size="4"
 						id="longmin"
-						class="reqdClr d11a"	
+						class="reqdClr"	
 						value="#longmin#">
 				</td>
 				<td align="right"><span class="f11a">Sec</span></td>
@@ -1076,7 +1076,7 @@
 						 name="longsec" 
 						size="6"
 						id="longsec"
-						class="reqdClr d11a"	
+						class="reqdClr"	
 						value="#longsec#">
 				</td>
 				<td align="right"><span class="f11a">Dir</span></td>
@@ -1084,7 +1084,7 @@
 					<select name="longdir"
 						 size="1"
 						id="longdir"
-						class="reqdClr d11a"
+						class="reqdClr"
 						>
 						<option value=""></option>
 						<option <cfif #LONGDIR# is "E"> selected </cfif>value="E">E</option>
@@ -1103,7 +1103,7 @@
 						 name="decLAT_DEG" 
 						size="4"
 						id="decLAT_DEG"
-						class="reqdClr d11a"
+						class="reqdClr"
 						value="#latdeg#"
 						onchange="dataEntry.latdeg.value=this.value;">
 				</td>
@@ -1113,7 +1113,7 @@
 						name="dec_lat_min" 
 						 size="8"
 						id="dec_lat_min"
-						class="reqdClr d11a"
+						class="reqdClr"
 						value="#dec_lat_min#">
 				</td>
 				<td align="right"><span class="f11a">Dir</span></td>
@@ -1121,7 +1121,7 @@
 					<select name="decLAT_DIR"
 						 size="1"
 						id="decLAT_DIR"
-						class="reqdClr d11a"						
+						class="reqdClr"						
 						onchange="dataEntry.latdir.value=this.value;"
 						>
 						<option value=""></option>
@@ -1137,7 +1137,7 @@
 						 name="decLONGDEG" 
 						size="4"
 						id="decLONGDEG"
-						class="reqdClr d11a"
+						class="reqdClr"
 						value="#longdeg#"																
 						onchange="dataEntry.longdeg.value=this.value;">
 				</td>
@@ -1147,7 +1147,7 @@
 						  name="DEC_LONG_MIN" 
 						size="8"
 						id="dec_long_min"
-						class="reqdClr d11a"
+						class="reqdClr"
 						value="#DEC_LONG_MIN#">
 				</td>
 				<td align="right"><span class="f11a">Dir</span></td>
@@ -1155,7 +1155,7 @@
 					<select name="decLONGDIR"
 						 size="1"
 						id="decLONGDIR"
-						class="reqdClr d11a"											
+						class="reqdClr"											
 						onchange="dataEntry.longdir.value=this.value;"
 						>
 						<option value=""></option>
@@ -1172,14 +1172,14 @@
 						 name="dec_lat" 
 						size="8"
 						id="dec_lat"
-						class="reqdClr d11a"
+						class="reqdClr"
 						value="#dec_lat#">
 		<span class="f11a">Dec Long</span>
 					<input type="text" 
 						 name="dec_long" 
 						size="8"
 						id="dec_long"
-						class="reqdClr d11a"
+						class="reqdClr"
 						value="#dec_long#">
 	</div>
 	<div id="utm" class="noShow">
@@ -1188,21 +1188,21 @@
 						 name="utm_zone" 
 						size="8"
 						id="utm_zone"
-						class="reqdClr d11a"
+						class="reqdClr"
 						value="#utm_zone#">
 		<span class="f11a">UTM E/W</span>
 					<input type="text" 
 						 name="utm_ew" 
 						size="8"
 						id="utm_ew"
-						class="reqdClr d11a"
+						class="reqdClr"
 						value="#utm_ew#">
 		<span class="f11a">UTM N/S</span>
 					<input type="text" 
 						 name="utm_ns" 
 						size="8"
 						id="utm_ns"
-						class="reqdClr d11a"
+						class="reqdClr"
 						value="#utm_ns#">
 	</div>
 	</td>
@@ -1247,7 +1247,7 @@
 						<div id="#i#">
 						<tr>
 							<td>
-								<select name="geology_attribute_#i#" id="geology_attribute_#i#" size="1" class="d11a">
+								<select name="geology_attribute_#i#" id="geology_attribute_#i#" size="1">
 									<option value=""></option>
 									<cfloop query="ctgeology_attribute">
 										<option 
@@ -1261,7 +1261,7 @@
 									name="geo_att_value_#i#"
 									id="geo_att_value_#i#"
 									value="#thisVal#"
-									class="d11a"
+									
 									size="25">	
 							</td>
 							<td>
@@ -1269,7 +1269,7 @@
 									name="geo_att_determiner_#i#"
 									id="geo_att_determiner_#i#"
 									value="#thisDeterminer#" 
-									class="d11a" 
+									 
 									onchange="getAgent('nothing','geo_att_determiner_#i#','dataEntry',this.value); return false;"/>
 							</td>
 							<td>
@@ -1277,7 +1277,7 @@
 									name="geo_att_determined_date_#i#"
 									id="geo_att_determined_date_#i#"
 									value="#thisDate#"
-									class="d11a"
+									
 									size="10">
 							</td>
 							<td>
@@ -1285,7 +1285,7 @@
 									name="geo_att_determined_method_#i#"
 									id="geo_att_determined_method_#i#"
 									value="#thisMeth#"
-									class="d11a"
+									
 									size="15">						
 							</td>
 							<td>
@@ -1293,7 +1293,7 @@
 									name="geo_att_remark_#i#"
 									id="geo_att_remark_#i#"
 									value="#thisRemark#"
-									class="d11a"
+									
 									size="15">						
 							</td>
 						</tr>
@@ -1326,7 +1326,7 @@
 				 <input type="hidden" name="attribute_1" value="sex">
 				 <select name="attribute_value_1" size="1" onChange="changeSex(this.value)"
 					id="attribute_value_1"
-					class="reqdClr d11a"
+					class="reqdClr"
 					style="width: 80px">
 					<option value=""></option>
 					<cfloop query="ctSex_Cde">
@@ -1337,7 +1337,7 @@
 				<span class="f11a">Date</span>
 				<input type="text" name="attribute_date_1" value="#attribute_date_1#"
 					id="attribute_date_1" 
-					class="d11a" size="10">
+					 size="10">
 					<span class="infoLink"
 						onclick="copyAttributeDates('attribute_date_1');">Sync Att.</span>
 							
@@ -1345,7 +1345,7 @@
 				<input type="text" 
 					name="attribute_determiner_1" 
 					value="#attribute_determiner_1#" 
-					class="reqdClr d11a" 
+					class="reqdClr" 
 					onchange="getAgent('nothing','attribute_determiner_1','dataEntry',this.value); return false;"
 					onblur="doAttributeDefaults();"
 					id="attribute_determiner_1" />
@@ -1355,7 +1355,7 @@
 				<input type="text" 
 					name="ATTRIBUTE_DET_METH_1" 
 					value="#ATTRIBUTE_DET_METH_1#" 
-					class="d11a" 
+					 
 					id="ATTRIBUTE_DET_METH_1">
 			</td>
 		</tr>
@@ -1385,7 +1385,7 @@
 				<input type="hidden" name="attribute_2" value="total length" />
 				<input type="text" name="attribute_value_2" value="#attribute_value_2#" size="3"
 					id="attribute_value_2" 
-					class="d11a">
+					>
 			</td>
 			<td>
 				<input type="hidden" name="attribute_units_3" value="#attribute_units_3#" id="attribute_units_3" />
@@ -1394,7 +1394,7 @@
 				<input type="hidden" name="attribute_3" value="tail length" />
 				<input type="text" name="attribute_value_3" value="#attribute_value_3#" size="3"
 					id="attribute_value_3" 
-					class="d11a">
+					>
 			</td>
 			<td align='center'>
 				<input type="hidden" name="attribute_units_4" value="#attribute_units_4#" id="attribute_units_4" />
@@ -1403,7 +1403,7 @@
 				<input type="hidden" name="attribute_4" value="hind foot with claw" />
 				<input type="text" name="attribute_value_4" value="#attribute_value_4#" size="3"
 					id="attribute_value_4" 
-					class="d11a">
+					>
 			</td>
 			<td align='center'>
 				<input type="hidden" name="attribute_units_5" value="#attribute_units_5#" id="attribute_units_5" />
@@ -1412,11 +1412,11 @@
 				<input type="hidden" name="attribute_5" value="ear from notch" />
 				<input type="text" name="attribute_value_5" value="#attribute_value_5#" size="3"
 					id="attribute_value_5" 
-					class="d11a">
+					>
 			</td>
 			<td>
 				<select name="attribute_units_2" size="1"
-					class="d11a"
+					
 					id="attribute_units_2">
 					<cfloop query="ctLength_Units">
 						<option <cfif #data.attribute_units_2# is #Length_Units#> selected </cfif> 
@@ -1430,12 +1430,12 @@
 				<input type="hidden" name="attribute_6" value="weight" />
 				<input type="text" name="attribute_value_6" value="#attribute_value_6#" size="3"
 					id="attribute_value_6" 
-					class="d11a">
+					>
 			</td>
 			<td>
 				<select name="attribute_units_6" size="1"
 						id="attribute_units_6"
-						class="d11a">
+						>
 					<cfloop query="ctWeight_Units">
 						<option <cfif #data.attribute_units_6# is #Weight_Units#> selected </cfif>value="#Weight_Units#">#Weight_Units#</option>
 					</cfloop>
@@ -1444,13 +1444,13 @@
 			<td>
 				<input type="text" name="attribute_date_2"
 					id="attribute_date_2" 
-					class="d11a"
+					
 					value="#attribute_date_2#">		
 			</td>
 			<td>
 				<input type="text" 
 					name="attribute_determiner_2" 
-					class="d11a" 
+					 
 					onchange="getAgent('nothing','attribute_determiner_2','dataEntry',this.value); return false;"
 					id="attribute_determiner_2"
 					value="#attribute_determiner_2#">
@@ -1474,7 +1474,7 @@
 				<input type="hidden" name="attribute_2" value="age" />
 				<input type="text" name="attribute_value_2" value="#attribute_value_2#" size="3"
 					id="attribute_value_2" 
-					class="d11a">
+					>
 			</td>
 			<td>
 				<input type="hidden" name="attribute_date_3" value="#attribute_date_3#" id="attribute_date_3" />
@@ -1482,7 +1482,7 @@
 				<input type="hidden" name="attribute_3" value="fat deposition" />
 				<input type="text" name="attribute_value_3" value="#attribute_value_3#" size="15"
 					id="attribute_value_3" 
-					class="d11a">
+					>
 			</td>
 			<td>
 				<input type="hidden" name="attribute_date_4" value="#attribute_date_4#" id="attribute_date_4" />
@@ -1490,7 +1490,7 @@
 				<input type="hidden" name="attribute_4" value="molt condition" />
 				<input type="text" name="attribute_value_4" value="#attribute_value_4#" size="15"
 					id="attribute_value_4" 
-					class="d11a">
+					>
 			</td>
 			<td>
 				<input type="hidden" name="attribute_date_5" value="#attribute_date_5#" id="attribute_date_5" />
@@ -1498,12 +1498,12 @@
 				<input type="hidden" name="attribute_5" value="skull ossification" />
 				<input type="text" name="attribute_value_5" value="#attribute_value_5#" size="15"
 					id="attribute_value_5" 
-					class="d11a">
+					>
 			</td>
 			<!---
 			<td>
 				<select name="attribute_units_2" size="1"
-					class="d11a"
+					
 					id="attribute_units_2">
 					<cfloop query="ctLength_Units">
 						<option <cfif #data.attribute_units_2# is #Length_Units#> selected </cfif> 
@@ -1518,12 +1518,12 @@
 				<input type="hidden" name="attribute_6" value="weight" />
 				<input type="text" name="attribute_value_6" value="#attribute_value_6#" size="2"
 					id="attribute_value_6" 
-					class="d11a">
+					>
 			</td>
 			<td>
 				<select name="attribute_units_6" size="1"
 						id="attribute_units_6"
-						class="d11a">
+						>
 					<cfloop query="ctWeight_Units">
 						<option <cfif #data.attribute_units_6# is #Weight_Units#> selected </cfif>value="#Weight_Units#">#Weight_Units#</option>
 					</cfloop>
@@ -1532,13 +1532,13 @@
 			<td>
 				<input type="text" name="attribute_date_2"
 					id="attribute_date_2" 
-					class="d11a"
+					
 					value="#attribute_date_2#">
 			</td>
 			<td>
 				<input type="text" 
 					name="attribute_determiner_2" 
-					class="d11a" 
+					 
 					onchange="getAgent('nothing','attribute_determiner_2','dataEntry',this.value); return false;"
 					id="attribute_determiner_2"
 					value="#attribute_determiner_2#">
@@ -1572,7 +1572,7 @@
 					<select name="attribute_7" size="1" onChange="getAttributeStuff(this.value,this.id);"
 						style="width:100px;"
 						id="attribute_7"
-						class="d11a">
+						>
 						<option value="">&nbsp;&nbsp;&nbsp;&nbsp;</option>						
 						<cfloop query="ctAttributeType">
 							<option 
@@ -1587,7 +1587,7 @@
 						name="attribute_value_7" 
 						value="#attribute_value_7#" 
 						id="attribute_value_7"
-						class="d11a"
+						
 						size="15">
 						</div>
 				</td>
@@ -1598,12 +1598,12 @@
 						value="#attribute_units_7#" 
 						id="attribute_units_7"
 						size="6"
-						class="d11a">
+						>
 					</div>
 				</td>
 				<td>
 					<input type="text" 
-						class="d11a"
+						
 						name="attribute_date_7" 
 						value="#attribute_date_7#" 
 						id="attribute_date_7"
@@ -1611,7 +1611,7 @@
 				</td>
 				<td>
 					 <input type="text" name="attribute_determiner_7"
-						class="d11a"
+						
 						onchange="getAgent('nothing','attribute_determiner_7','dataEntry',this.value);"
 						id="attribute_determiner_7"
 						size="15"
@@ -1619,14 +1619,14 @@
 				</td>
 				<td>
 					<input type="text" name="attribute_det_meth_7"
-						class="d11a"
+						
 						id="attribute_det_meth_7"
 						size="15"
 						value="#attribute_det_meth_7#">
 				</td>
 				<td>
 					<input type="text" name="attribute_remarks_7"
-						class="d11a"
+						
 						id="attribute_remarks_7"
 						value="#attribute_remarks_7#">
 				</td>
@@ -1636,7 +1636,7 @@
 					<select name="attribute_8" size="1" onChange="getAttributeStuff(this.value,this.id);"
 						style="width:100px;"
 						id="attribute_8"
-						class="d11a">
+						>
 						<option value=""></option>
 						<cfloop query="ctAttributeType">
 							<option 
@@ -1651,7 +1651,7 @@
 						name="attribute_value_8" 
 						value="#attribute_value_8#" 
 						id="attribute_value_8"
-						class="d11a"						
+												
 						size="15">
 					</div>
 				</td>
@@ -1662,12 +1662,12 @@
 						value="#attribute_units_8#" 
 						id="attribute_units_8"
 						size="6"
-						class="d11a">
+						>
 						</div>
 				</td>
 				<td>
 					<input type="text" 
-						class="d11a"
+						
 						name="attribute_date_8" 
 						value="#attribute_date_8#" 
 						id="attribute_date_8"
@@ -1675,7 +1675,7 @@
 				</td>
 				<td>
 					 <input type="text" name="attribute_determiner_8"
-						class="d11a"
+						
 						onchange="getAgent('nothing','attribute_determiner_8','dataEntry',this.value);"
 						id="attribute_determiner_8"
 						size="15"
@@ -1683,14 +1683,14 @@
 				</td>
 				<td>
 					<input type="text" name="attribute_det_meth_8"
-						class="d11a"
+						
 						id="attribute_det_meth_8"
 						size="15"
 						value="#attribute_det_meth_8#">
 				</td>
 				<td>
 					<input type="text" name="attribute_remarks_8"
-						class="d11a"
+						
 						id="attribute_remarks_8"
 						value="#attribute_remarks_8#">
 				</td>
@@ -1700,7 +1700,7 @@
 					<select name="attribute_9" size="1" onChange="getAttributeStuff(this.value,this.id);"
 						style="width:100px;"
 						id="attribute_9"
-						class="d11a">
+						>
 						<option value=""></option>
 						<cfloop query="ctAttributeType">
 							<option 
@@ -1715,7 +1715,7 @@
 						name="attribute_value_9" 
 						value="#attribute_value_9#" 
 						id="attribute_value_9"
-						class="d11a"
+						
 						size="15">
 					</div>
 				</td>
@@ -1726,12 +1726,12 @@
 						value="#attribute_units_9#" 
 						id="attribute_units_9"
 						size="6"
-						class="d11a">
+						>
 					</div>
 				</td>
 				<td>
 					<input type="text" 
-						class="d11a"
+						
 						name="attribute_date_9" 
 						value="#attribute_date_9#" 
 						id="attribute_date_9"
@@ -1739,7 +1739,7 @@
 				</td>
 				<td>
 					 <input type="text" name="attribute_determiner_9"
-						class="d11a"
+						
 						onchange="getAgent('nothing','attribute_determiner_9','dataEntry',this.value);"
 						id="attribute_determiner_9"
 						size="15"
@@ -1747,14 +1747,14 @@
 				</td>
 				<td>
 					<input type="text" name="attribute_det_meth_9"
-						class="d11a"
+						
 						id="attribute_det_meth_9"
 						size="15"
 						value="#attribute_det_meth_9#">
 				</td>
 				<td>
 					<input type="text" name="attribute_remarks_9"
-						class="d11a"
+						
 						id="attribute_remarks_9"
 						value="#attribute_remarks_9#">
 				</td>
@@ -1764,7 +1764,7 @@
 					<select name="attribute_10" size="1"  onChange="getAttributeStuff(this.value,this.id);"
 						style="width:100px;"
 						id="attribute_10"
-						class="d11a">
+						>
 						<option value=""></option>
 						<cfloop query="ctAttributeType">
 							<option 
@@ -1779,7 +1779,7 @@
 						name="attribute_value_10" 
 						value="#attribute_value_10#" 
 						id="attribute_value_10"
-						class="d11a"
+						
 						size="15">
 					</div>
 				</td>
@@ -1790,12 +1790,12 @@
 						value="#attribute_units_10#" 
 						id="attribute_units_10"
 						size="6"
-						class="d11a">
+						>
 						</div>
 				</td>
 				<td>
 					<input type="text" 
-						class="d11a"
+						
 						name="attribute_date_10" 
 						value="#attribute_date_10#" 
 						id="attribute_date_10"
@@ -1803,7 +1803,7 @@
 				</td>
 				<td>
 					 <input type="text" name="attribute_determiner_10"
-						class="d11a"
+						
 						onchange="getAgent('nothing','attribute_determiner_10','dataEntry',this.value);"
 						id="attribute_determiner_10"
 						size="15"
@@ -1811,14 +1811,14 @@
 				</td>
 				<td>
 					<input type="text" name="attribute_det_meth_10"
-						class="d11a"
+						
 						id="attribute_det_meth_10"
 						size="15"
 						value="#attribute_det_meth_10#">
 				</td>
 				<td>
 					<input type="text" name="attribute_remarks_10"
-						class="d11a"
+						
 						id="attribute_remarks_10"
 						value="#attribute_remarks_10#">
 				</td>
@@ -1837,7 +1837,7 @@
 								value="#session.username#"
 								
 								id="enteredby"
-								class="d11a readClr"/>
+								class="readClr"/>
 								
 							<input type="text" name="fake" value="#session.username#" disabled="disabled" /> 
 								<cfelseif #ImAGod# is "yes">
@@ -1846,8 +1846,7 @@
 								
 								value="#enteredby#"
 								
-								id="enteredby"
-								class="d11a "/>
+								id="enteredby"/>
 								<cfelse>
 								ERROR!!!
 								</cfif> 
@@ -1857,7 +1856,7 @@
 						<td align="right"><span class="f11a">Disposition</span></td>
 						<td>
 							<cfset thisDisp = #COLL_OBJ_DISPOSITION#>
-							<select name="coll_obj_disposition" size="1" class="d11a reqdClr" id="coll_obj_disposition">
+							<select name="coll_obj_disposition" size="1" class="reqdClr" id="coll_obj_disposition">
 								<cfloop query="CTCOLL_OBJ_DISP">
 									<option
 										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
@@ -1870,7 +1869,7 @@
 						<td align="right"><span class="f11a">Condition</span></td>
 						<td>
 							<input type="text" 
-								class="d11a reqdClr"
+								class="reqdClr"
 								name="condition" 
 								value="#condition#" 
 								id="condition"
@@ -1881,7 +1880,7 @@
 						<td align="right"><span class="f11a">Relations</span></td>
 						<td>
 							 <cfset thisRELATIONSHIP = #RELATIONSHIP#>
-							<select name="relationship" size="1" class="d11a" id="relationship">
+							<select name="relationship" size="1" id="relationship">
 								<option value=""></option>
 								<cfloop query="ctbiol_relations">
 									<option
@@ -1890,7 +1889,7 @@
 								</cfloop>							
 							</select>
 							<cfset thisRELATED_TO_NUM_TYPE = #RELATED_TO_NUM_TYPE#>
-							<select name="related_to_num_type" size="1" id="related_to_num_type" class="d11a" style="width:80px">
+							<select name="related_to_num_type" size="1" id="related_to_num_type" style="width:80px">
 								<option value=""></option>
 								<option <cfif #thisRELATED_TO_NUM_TYPE# is "catalog number">selected="selected"</cfif> value="catalog number">catalog number (UAM Mamm 123 format)</option>
 								<cfloop query="ctOtherIdType">
@@ -1899,7 +1898,7 @@
 									 value="#other_id_type#">#other_id_type#</option>
 								</cfloop>							
 							</select>
-							<input type="text" value="#related_to_number#" name="related_to_number" id="related_to_number" size="10" class="d11a" />
+							<input type="text" value="#related_to_number#" name="related_to_number" id="related_to_number" size="10" />
 						</td>
 					</tr>
 				</table>
@@ -1909,10 +1908,7 @@
 			<tr>
 				<td colspan="2">
 					<span class="f11a">Spec Remark</span>
-						<textarea name="coll_object_remarks"
-						class="d11a"
-						id="coll_object_remarks"
-						rows="2" cols="100">#coll_object_remarks#</textarea>
+						<textarea name="coll_object_remarks" id="coll_object_remarks" rows="2" cols="100">#coll_object_remarks#</textarea>
 				</td>
 			</tr>
 			<tr>
@@ -1920,7 +1916,7 @@
 					<span class="f11a">Missing....</span>
 					<cfset thisflags = #flags#>
 					<select name="flags" size="1" style="width:120px"
-						class="d11a"
+						
 						id="flags">
 						<option  value=""></option>
 						<cfloop query="ctflags">
@@ -1963,7 +1959,7 @@
 							<select name="part_name_1" size="1"
 								id="part_name_1"
 								onFocus="self.status='First Part Name'"
-								class="reqdClr d11a">
+								class="reqdClr">
 									<cfloop query="ctPartName">
 										<option <cfif #part1# is #ctPartName.part_name#> selected </cfif>
 											value="#part_name#">#part_name#</option>
@@ -1975,7 +1971,7 @@
 							<select name="part_modifier_1" 
 								size="1"
 								id="part_modifier_1"
-								class="d11a"
+								
 						onFocus="self.status='First Part Modifier'">
 								<option value=""></option>
 								<cfloop query="ctPartModifier">
@@ -1988,7 +1984,7 @@
 							<cfset presmeth1 = #preserv_method_1#>
 							<select name="preserv_method_1" size="1"
 								id="preserv_method_1"
-								class="d11a"
+								
 								onFocus="self.status='First Part Preservation Method'">
 									<option value=""></option>
 									<cfloop query="ctPresMeth">
@@ -2002,11 +1998,11 @@
 								id="part_condition_1"
 								onFocus="self.status='First Part Condition'"
 								value="#part_condition_1#"
-								class="reqdClr d11a">
+								class="reqdClr">
 						</td>
 						<td>
 							<cfset thisDisp = #part_disposition_1#>
-							<select name="part_disposition_1" size="1" class="d11a reqdClr" id="part_disposition_1">
+							<select name="part_disposition_1" size="1" class="reqdClr" id="part_disposition_1">
 								<cfloop query="CTCOLL_OBJ_DISP">
 									<option
 										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
@@ -2019,29 +2015,29 @@
 								name="part_lot_count_1" 
 								id="part_lot_count_1"
 								value="#part_lot_count_1#" 
-								class="d11a reqdClr" size="1">
+								class="reqdClr" size="1">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_barcode_1" 
 								id="part_barcode_1"
 								value="#part_barcode_1#" 
-								class="d11a" size="6"
-								onchange="part_container_label_1.className='reqdClr d11a';setPartLabel(this.id);">
+								 size="6"
+								onchange="part_container_label_1.className='reqdClr';setPartLabel(this.id);">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_container_label_1" 
 								id="part_container_label_1"
 								value="#part_container_label_1#" 
-								class="d11a" size="10">
+								 size="10">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_remark_1" 
 								id="part_remark_1"
 								value="#part_remark_1#" 
-								class="d11a" size="40">
+								 size="40">
 						</td>
 					</tr>
 					<tr>
@@ -2049,11 +2045,11 @@
 							<cfset part2 = #part_name_2#>
 							<select name="part_name_2" size="1"
 								id="part_name_2"
-								class="d11a"
-								onchange="this.className='d11a reqdClr';
-									part_condition_2.className='d11a reqdClr';
-									part_lot_count_2.className='d11a reqdClr';
-									part_disposition_2.className='d11a reqdClr';">
+								
+								onchange="this.className='reqdClr';
+									part_condition_2.className='reqdClr';
+									part_lot_count_2.className='reqdClr';
+									part_disposition_2.className='reqdClr';">
 									<option value=""></option>
 									<cfloop query="ctPartName">
 										<option <cfif #part2# is #ctPartName.part_name#> selected </cfif>
@@ -2066,7 +2062,7 @@
 							<select name="part_modifier_2" 
 								size="1"
 								id="part_modifier_2"
-								class="d11a">
+								>
 								<option value=""></option>
 								<cfloop query="ctPartModifier">
 									<option <cfif #partmod2# is #part_modifier#> selected </cfif>
@@ -2078,7 +2074,7 @@
 							<cfset presmeth2 = #preserv_method_2#>
 							<select name="preserv_method_2" size="1"
 								id="preserv_method_2"
-								class="d11a"
+								
 								onFocus="self.status='First Part Preservation Method'">
 									<option value=""></option>
 									<cfloop query="ctPresMeth">
@@ -2092,14 +2088,14 @@
 								id="part_condition_2"
 								onFocus="self.status='First Part Condition'"
 								value="#part_condition_2#"
-								class="d11a">
+								>
 						</td>
 						<td>
 							<cfset thisDisp = #part_disposition_2#>
 							<select name="part_disposition_2"
 								id="part_disposition_2"
 								size="1" 
-								class="d11a">
+								>
 								<cfloop query="CTCOLL_OBJ_DISP">
 									<option
 										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
@@ -2112,29 +2108,29 @@
 								id="part_lot_count_2"
 								name="part_lot_count_2" 
 								value="#part_lot_count_2#" 
-								class="d11a" size="1">
+								 size="1">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_barcode_2" 
 								value="#part_barcode_2#" 
-								class="d11a" size="6"
+								 size="6"
 								id="part_barcode_2"
-								onchange="part_container_label_2.className='reqdClr d11a';setPartLabel(this.id);">
+								onchange="part_container_label_2.className='reqdClr';setPartLabel(this.id);">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_container_label_2"
 								id="part_container_label_2" 
 								value="#part_container_label_2#" 
-								class="d11a" size="10">
+								 size="10">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_remark_2" 
 								id="part_remark_2"
 								value="#part_remark_2#" 
-								class="d11a" size="40">
+								 size="40">
 						</td>
 					</tr>
 					<tr>
@@ -2142,11 +2138,11 @@
 							<cfset part3 = #part_name_3#>
 							<select name="part_name_3" size="1"
 								id="part_name_3"
-								class="d11a"
-								onchange="this.className='d11a reqdClr';
-									part_condition_3.className='d11a reqdClr';
-									part_lot_count_3.className='d11a reqdClr';
-									part_disposition_3.className='d11a reqdClr';">
+								
+								onchange="this.className='reqdClr';
+									part_condition_3.className='reqdClr';
+									part_lot_count_3.className='reqdClr';
+									part_disposition_3.className='reqdClr';">
 									<option value=""></option>
 									<cfloop query="ctPartName">
 										<option <cfif #part3# is #ctPartName.part_name#> selected </cfif>
@@ -2159,7 +2155,7 @@
 							<select name="part_modifier_3" 
 								size="1"
 								id="part_modifier_3"
-								class="d11a">
+								>
 								<option value=""></option>
 								<cfloop query="ctPartModifier">
 									<option <cfif #partmod3# is #part_modifier#> selected </cfif>
@@ -2171,7 +2167,7 @@
 							<cfset presmeth3 = #preserv_method_3#>
 							<select name="preserv_method_3" size="1"
 								id="preserv_method_3"
-								class="d11a">
+								>
 									<option value=""></option>
 									<cfloop query="ctPresMeth">
 										<option <cfif #presmeth3# is #preserve_method#> selected </cfif>
@@ -2183,14 +2179,14 @@
 							<input type="text" name="part_condition_3"
 								id="part_condition_3"
 								value="#part_condition_3#"
-								class="d11a">
+								>
 						</td>
 						<td>
 							<cfset thisDisp = #part_disposition_3#>
 							<select name="part_disposition_3"
 								id="part_disposition_3"
 								size="1" 
-								class="d11a">
+								>
 								<cfloop query="CTCOLL_OBJ_DISP">
 									<option
 										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
@@ -2203,29 +2199,29 @@
 								name="part_lot_count_3" 
 								id="part_lot_count_3"
 								value="#part_lot_count_3#" 
-								class="d11a" size="1">
+								 size="1">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_barcode_3" 
 								id="part_barcode_3"
 								value="#part_barcode_3#" 
-								class="d11a" size="6"
-								onchange="part_container_label_3.className='reqdClr d11a';setPartLabel(this.id);">
+								 size="6"
+								onchange="part_container_label_3.className='reqdClr';setPartLabel(this.id);">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_container_label_3" 
 								id="part_container_label_3"
 								value="#part_container_label_3#" 
-								class="d11a" size="10">
+								 size="10">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_remark_3" 
 								id="part_remark_3"
 								value="#part_remark_3#" 
-								class="d11a" size="40">
+								 size="40">
 						</td>
 					</tr>
 					<tr>
@@ -2233,11 +2229,11 @@
 							<cfset part4 = #part_name_4#>
 							<select name="part_name_4" size="1"
 								id="part_name_4"
-								class="d11a"
-								onchange="this.className='d11a reqdClr';
-									part_condition_4.className='d11a reqdClr';
-									part_lot_count_4.className='d11a reqdClr';
-									part_disposition_4.className='d11a reqdClr';">
+								
+								onchange="this.className='reqdClr';
+									part_condition_4.className='reqdClr';
+									part_lot_count_4.className='reqdClr';
+									part_disposition_4.className='reqdClr';">
 									<option value=""></option>
 									<cfloop query="ctPartName">
 										<option <cfif #part4# is #ctPartName.part_name#> selected </cfif>
@@ -2250,7 +2246,7 @@
 							<select name="part_modifier_4" 
 								size="1"
 								id="part_modifier_4"
-								class="d11a">
+								>
 								<option value=""></option>
 								<cfloop query="ctPartModifier">
 									<option <cfif #partmod4# is #part_modifier#> selected </cfif>
@@ -2262,7 +2258,7 @@
 							<cfset presmeth4 = #preserv_method_4#>
 							<select name="preserv_method_4" size="1"
 								id="preserv_method_4"
-								class="d11a"
+								
 								onFocus="self.status='First Part Preservation Method'">
 									<option value=""></option>
 									<cfloop query="ctPresMeth">
@@ -2276,14 +2272,14 @@
 								id="part_condition_4"
 								onFocus="self.status='First Part Condition'"
 								value="#part_condition_4#"
-								class="d11a">
+								>
 						</td>
 						<td>
 							<cfset thisDisp = #part_disposition_4#>
 							<select name="part_disposition_4"
 								id="part_disposition_4"
 								size="1" 
-								class="d11a">
+								>
 								<cfloop query="CTCOLL_OBJ_DISP">
 									<option
 										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
@@ -2296,29 +2292,29 @@
 								id="part_lot_count_4"
 								name="part_lot_count_4" 
 								value="#part_lot_count_4#" 
-								class="d11a" size="1">
+								 size="1">
 						</td>
 						<td>
 							<input type="text" 
 								id="part_barcode_4"
 								name="part_barcode_4" 
 								value="#part_barcode_4#" 
-								class="d11a" size="6"
-								onchange="part_container_label_4.className='reqdClr d11a';setPartLabel(this.id);">
+								 size="6"
+								onchange="part_container_label_4.className='reqdClr';setPartLabel(this.id);">
 						</td>
 						<td>
 							<input type="text" 
 								id="part_container_label_4"
 								name="part_container_label_4" 
 								value="#part_container_label_4#" 
-								class="d11a" size="10">
+								 size="10">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_remark_4" 
 								id="part_remark_4"
 								value="#part_remark_4#" 
-								class="d11a" size="40">
+								 size="40">
 						</td>
 					</tr>
 					<tr>
@@ -2326,11 +2322,11 @@
 							<cfset part5 = #part_name_5#>
 							<select name="part_name_5" size="1"
 								id="part_name_5"
-								onchange="this.className='d11a reqdClr';
-									part_condition_5.className='d11a reqdClr';
-									part_lot_count_5.className='d11a reqdClr';
-									part_disposition_5.className='d11a reqdClr';"
-								class="d11a">
+								onchange="this.className='reqdClr';
+									part_condition_5.className='reqdClr';
+									part_lot_count_5.className='reqdClr';
+									part_disposition_5.className='reqdClr';"
+								>
 									<option value=""></option>
 									<cfloop query="ctPartName">
 										<option <cfif #part5# is #ctPartName.part_name#> selected </cfif>
@@ -2343,7 +2339,7 @@
 							<select name="part_modifier_5" 
 								size="1"
 								id="part_modifier_5"
-								class="d11a"
+								
 						onFocus="self.status='First Part Modifier'">
 								<option value=""></option>
 								<cfloop query="ctPartModifier">
@@ -2356,7 +2352,7 @@
 							<cfset presmeth5 = #preserv_method_5#>
 							<select name="preserv_method_5" size="1"
 								id="preserv_method_5"
-								class="d11a"
+								
 								onFocus="self.status='First Part Preservation Method'">
 									<option value=""></option>
 									<cfloop query="ctPresMeth">
@@ -2370,14 +2366,14 @@
 								id="part_condition_5"
 								onFocus="self.status='First Part Condition'"
 								value="#part_condition_5#"
-								class="d11a">
+								>
 						</td>
 						<td>
 							<cfset thisDisp = #part_disposition_5#>
 							<select name="part_disposition_5"
 								id="part_disposition_5"
 								size="1" 
-								class="d11a">
+								>
 								<cfloop query="CTCOLL_OBJ_DISP">
 									<option
 										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
@@ -2390,29 +2386,29 @@
 								id="part_lot_count_5"
 								name="part_lot_count_5" 
 								value="#part_lot_count_5#" 
-								class="d11a" size="1">
+								 size="1">
 						</td>
 						<td>
 							<input type="text" 
 								id="part_barcode_5"
 								name="part_barcode_5" 
 								value="#part_barcode_5#" 
-								class="d11a" size="6"
-								onchange="part_container_label_5.className='reqdClr d11a';setPartLabel(this.id);">
+								 size="6"
+								onchange="part_container_label_5.className='reqdClr';setPartLabel(this.id);">
 						</td>
 						<td>
 							<input type="text" 
 								id="part_container_label_5"
 								name="part_container_label_5" 
 								value="#part_container_label_5#" 
-								class="d11a" size="10">
+								 size="10">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_remark_5" 
 								id="part_remark_5"
 								value="#part_remark_5#" 
-								class="d11a" size="40">
+								 size="40">
 						</td>
 					</tr>
 					<tr>
@@ -2420,11 +2416,11 @@
 							<cfset part6 = #part_name_6#>
 							<select name="part_name_6" size="1"
 								id="part_name_6"
-								class="d11a" 
-								onchange="this.className='d11a reqdClr';
-									part_condition_6.className='d11a reqdClr';
-									part_lot_count_6.className='d11a reqdClr';
-									part_disposition_6.className='d11a reqdClr';">
+								 
+								onchange="this.className='reqdClr';
+									part_condition_6.className='reqdClr';
+									part_lot_count_6.className='reqdClr';
+									part_disposition_6.className='reqdClr';">
 									<option value=""></option>
 									<cfloop query="ctPartName">
 										<option <cfif #part6# is #ctPartName.part_name#> selected </cfif>
@@ -2437,7 +2433,7 @@
 							<select name="part_modifier_6" 
 								size="1"
 								id="part_modifier_6"
-								class="d11a"
+								
 						onFocus="self.status='First Part Modifier'">
 								<option value=""></option>
 								<cfloop query="ctPartModifier">
@@ -2450,7 +2446,7 @@
 							<cfset presmeth6 = #preserv_method_6#>
 							<select name="preserv_method_6" size="1"
 								id="preserv_method_6"
-								class="d11a"
+								
 								onFocus="self.status='First Part Preservation Method'">
 									<option value=""></option>
 									<cfloop query="ctPresMeth">
@@ -2463,14 +2459,14 @@
 							<input type="text" name="part_condition_6"
 								id="part_condition_6"
 								value="#part_condition_6#"
-								class="d11a">
+								>
 						</td>
 						<td>
 							<cfset thisDisp = #part_disposition_6#>
 							<select name="part_disposition_6"
 								id="part_disposition_6"
 								size="1" 
-								class="d11a">
+								>
 								<cfloop query="CTCOLL_OBJ_DISP">
 									<option
 										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
@@ -2483,29 +2479,29 @@
 								name="part_lot_count_6"
 								id="part_lot_count_6" 
 								value="#part_lot_count_6#" 
-								class="d11a" size="1">
+								 size="1">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_barcode_6" 
 								id="part_barcode_6"
 								value="#part_barcode_6#" 
-								class="d11a" size="6"
-								onchange="part_container_label_6.className='reqdClr d11a';setPartLabel(this.id);">
+								 size="6"
+								onchange="part_container_label_6.className='reqdClr';setPartLabel(this.id);">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_container_label_6"
 								id="part_container_label_6" 
 								value="#part_container_label_6#" 
-								class="d11a" size="10">
+								 size="10">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_remark_6" 
 								id="part_remark_6"
 								value="#part_remark_6#" 
-								class="d11a" size="40">
+								 size="40">
 						</td>
 					</tr>
 					<tr>
@@ -2513,11 +2509,11 @@
 							<cfset part7 = #part_name_7#>
 							<select name="part_name_7" size="1"
 								id="part_name_7"
-								class="d11a"
-								onchange="this.className='d11a reqdClr';
-									part_condition_7.className='d11a reqdClr';
-									part_lot_count_7.className='d11a reqdClr';
-									part_disposition_7.className='d11a reqdClr';">
+								
+								onchange="this.className='reqdClr';
+									part_condition_7.className='reqdClr';
+									part_lot_count_7.className='reqdClr';
+									part_disposition_7.className='reqdClr';">
 									<option value=""></option>
 									<cfloop query="ctPartName">
 										<option <cfif #part7# is #ctPartName.part_name#> selected </cfif>
@@ -2530,7 +2526,7 @@
 							<select name="part_modifier_7" 
 								size="1"
 								id="part_modifier_7"
-								class="d11a">
+								>
 								<option value=""></option>
 								<cfloop query="ctPartModifier">
 									<option <cfif #partmod7# is #part_modifier#> selected </cfif>
@@ -2542,7 +2538,7 @@
 							<cfset presmeth7 = #preserv_method_7#>
 							<select name="preserv_method_7" size="1"
 								id="preserv_method_7"
-								class="d11a">
+								>
 									<option value=""></option>
 									<cfloop query="ctPresMeth">
 										<option <cfif #presmeth7# is #preserve_method#> selected </cfif>
@@ -2554,14 +2550,14 @@
 							<input type="text" name="part_condition_7"
 								id="part_condition_7"
 								value="#part_condition_7#"
-								class="d11a">
+								>
 						</td>
 						<td>
 							<cfset thisDisp = #part_disposition_7#>
 							<select name="part_disposition_7"
 								id="part_disposition_7"
 								size="1" 
-								class="d11a">
+								>
 								<cfloop query="CTCOLL_OBJ_DISP">
 									<option
 										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
@@ -2574,29 +2570,29 @@
 								id="part_lot_count_7"
 								name="part_lot_count_7" 
 								value="#part_lot_count_7#" 
-								class="d11a" size="1">
+								 size="1">
 						</td>
 						<td>
 							<input type="text" 
 								id="part_barcode_7"
 								name="part_barcode_7" 
 								value="#part_barcode_7#" 
-								class="d11a" size="6"
-								onchange="part_container_label_7.className='reqdClr d11a';setPartLabel(this.id);">
+								 size="6"
+								onchange="part_container_label_7.className='reqdClr';setPartLabel(this.id);">
 						</td>
 						<td>
 							<input type="text" 
 								id="part_container_label_7"
 								name="part_container_label_7" 
 								value="#part_container_label_7#" 
-								class="d11a" size="10">
+								 size="10">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_remark_7" 
 								id="part_remark_7"
 								value="#part_remark_7#" 
-								class="d11a" size="40">
+								 size="40">
 						</td>
 					</tr>
 					<tr>
@@ -2604,11 +2600,11 @@
 							<cfset part8 = #part_name_8#>
 							<select name="part_name_8" size="1"
 								id="part_name_8"
-								class="d11a"
-								onchange="this.className='d11a reqdClr';
-									part_condition_8.className='d11a reqdClr';
-									part_lot_count_8.className='d11a reqdClr';
-									part_disposition_8.className='d11a reqdClr';">
+								
+								onchange="this.className='reqdClr';
+									part_condition_8.className='reqdClr';
+									part_lot_count_8.className='reqdClr';
+									part_disposition_8.className='reqdClr';">
 									<option value=""></option>
 									<cfloop query="ctPartName">
 										<option <cfif #part8# is #ctPartName.part_name#> selected </cfif>
@@ -2621,7 +2617,7 @@
 							<select name="part_modifier_8" 
 								size="1"
 								id="part_modifier_8"
-								class="d11a">
+								>
 								<option value=""></option>
 								<cfloop query="ctPartModifier">
 									<option <cfif #partmod8# is #part_modifier#> selected </cfif>
@@ -2633,7 +2629,7 @@
 							<cfset presmeth8 = #preserv_method_8#>
 							<select name="preserv_method_8" size="1"
 								id="preserv_method_8"
-								class="d11a">
+								>
 									<option value=""></option>
 									<cfloop query="ctPresMeth">
 										<option <cfif #presmeth8# is #preserve_method#> selected </cfif>
@@ -2646,14 +2642,14 @@
 								id="part_condition_8"
 								onFocus="self.status='First Part Condition'"
 								value="#part_condition_8#"
-								class="d11a">
+								>
 						</td>
 						<td>
 							<cfset thisDisp = #part_disposition_8#>
 							<select name="part_disposition_8"
 								id="part_disposition_8"
 								size="1" 
-								class="d11a">
+								>
 								<cfloop query="CTCOLL_OBJ_DISP">
 									<option
 										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
@@ -2666,29 +2662,29 @@
 								id="part_lot_count_8"
 								name="part_lot_count_8" 
 								value="#part_lot_count_8#" 
-								class="d11a" size="1">
+								 size="1">
 						</td>
 						<td>
 							<input type="text" 
 								id="part_barcode_8"
 								name="part_barcode_8" 
 								value="#part_barcode_8#" 
-								class="d11a" size="6"
-								onchange="part_container_label_8.className='reqdClr d11a';setPartLabel(this.id);">
+								 size="6"
+								onchange="part_container_label_8.className='reqdClr';setPartLabel(this.id);">
 						</td>
 						<td>
 							<input type="text" 
 								id="part_container_label_8"
 								name="part_container_label_8" 
 								value="#part_container_label_8#" 
-								class="d11a" size="10">
+								 size="10">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_remark_8" 
 								id="part_remark_8"
 								value="#part_remark_8#" 
-								class="d11a" size="40">
+								 size="40">
 						</td>
 					</tr>
 					<tr>
@@ -2696,11 +2692,11 @@
 							<cfset part9 = #part_name_9#>
 							<select name="part_name_9" size="1"
 								id="part_name_9"
-								class="d11a"
-								onchange="this.className='d11a reqdClr';
-									part_condition_9.className='d11a reqdClr';
-									part_lot_count_9.className='d11a reqdClr';
-									part_disposition_9.className='d11a reqdClr';">
+								
+								onchange="this.className='reqdClr';
+									part_condition_9.className='reqdClr';
+									part_lot_count_9.className='reqdClr';
+									part_disposition_9.className='reqdClr';">
 									<option value=""></option>
 									<cfloop query="ctPartName">
 										<option <cfif #part9# is #ctPartName.part_name#> selected </cfif>
@@ -2713,7 +2709,7 @@
 							<select name="part_modifier_9" 
 								size="1"
 								id="part_modifier_9"
-								class="d11a">
+								>
 								<option value=""></option>
 								<cfloop query="ctPartModifier">
 									<option <cfif #partmod9# is #part_modifier#> selected </cfif>
@@ -2725,7 +2721,7 @@
 							<cfset presmeth9 = #preserv_method_9#>
 							<select name="preserv_method_9" size="1"
 								id="preserv_method_9"
-								class="d11a">
+								>
 									<option value=""></option>
 									<cfloop query="ctPresMeth">
 										<option <cfif #presmeth9# is #preserve_method#> selected </cfif>
@@ -2738,14 +2734,14 @@
 								id="part_condition_9"
 								onFocus="self.status='First Part Condition'"
 								value="#part_condition_9#"
-								class="d11a">
+								>
 						</td>
 						<td>
 							<cfset thisDisp = #part_disposition_9#>
 							<select name="part_disposition_9"
 								id="part_disposition_9"
 								size="1" 
-								class="d11a">
+								>
 								<cfloop query="CTCOLL_OBJ_DISP">
 									<option
 										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
@@ -2758,29 +2754,29 @@
 								id="part_lot_count_9"
 								name="part_lot_count_9" 
 								value="#part_lot_count_9#" 
-								class="d11a" size="1">
+								 size="1">
 						</td>
 						<td>
 							<input type="text" 
 								id="part_barcode_9"
 								name="part_barcode_9" 
 								value="#part_barcode_9#" 
-								class="d11a" size="6"
-								onchange="part_container_label_9.className='reqdClr d11a';setPartLabel(this.id);">
+								 size="6"
+								onchange="part_container_label_9.className='reqdClr';setPartLabel(this.id);">
 						</td>
 						<td>
 							<input type="text" 
 								id="part_container_label_9"
 								name="part_container_label_9" 
 								value="#part_container_label_9#" 
-								class="d11a" size="10">
+								 size="10">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_remark_9" 
 								id="part_remark_9"
 								value="#part_remark_9#" 
-								class="d11a" size="40">
+								 size="40">
 						</td>
 					</tr>
 					<tr>
@@ -2788,11 +2784,11 @@
 							<cfset part10 = #part_name_10#>
 							<select name="part_name_10" size="1"
 								id="part_name_10"
-								class="d11a"
-								onchange="this.className='d11a reqdClr';
-									part_condition_10.className='d11a reqdClr';
-									part_lot_count_10.className='d11a reqdClr';
-									part_disposition_10.className='d11a reqdClr';">
+								
+								onchange="this.className='reqdClr';
+									part_condition_10.className='reqdClr';
+									part_lot_count_10.className='reqdClr';
+									part_disposition_10.className='reqdClr';">
 									<option value=""></option>
 									<cfloop query="ctPartName">
 										<option <cfif #part10# is #ctPartName.part_name#> selected </cfif>
@@ -2805,7 +2801,7 @@
 							<select name="part_modifier_10" 
 								size="1"
 								id="part_modifier_10"
-								class="d11a">
+								>
 								<option value=""></option>
 								<cfloop query="ctPartModifier">
 									<option <cfif #partmod10# is #part_modifier#> selected </cfif>
@@ -2817,7 +2813,7 @@
 							<cfset presmeth10 = #preserv_method_10#>
 							<select name="preserv_method_10" size="1"
 								id="preserv_method_10"
-								class="d11a">
+								>
 									<option value=""></option>
 									<cfloop query="ctPresMeth">
 										<option <cfif #presmeth10# is #preserve_method#> selected </cfif>
@@ -2829,14 +2825,14 @@
 							<input type="text" name="part_condition_10"
 								id="part_condition_10"
 								value="#part_condition_10#"
-								class="d11a">
+								>
 						</td>
 						<td>
 							<cfset thisDisp = #part_disposition_10#>
 							<select name="part_disposition_10"
 								id="part_disposition_10"
 								size="1" 
-								class="d11a">
+								>
 								<cfloop query="CTCOLL_OBJ_DISP">
 									<option
 										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
@@ -2849,29 +2845,29 @@
 								id="part_lot_count_10"
 								name="part_lot_count_10" 
 								value="#part_lot_count_10#" 
-								class="d11a" size="1">
+								 size="1">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_barcode_10" 
 								id="part_barcode_10"
 								value="#part_barcode_10#" 
-								class="d11a" size="6"
-								onchange="part_container_label_10.className='reqdClr d11a';setPartLabel(this.id);">
+								 size="6"
+								onchange="part_container_label_10.className='reqdClr';setPartLabel(this.id);">
 						</td>
 						<td>
 							<input type="text" 
 								id="part_container_label_10"
 								name="part_container_label_10" 
 								value="#part_container_label_10#" 
-								class="d11a" size="10">
+								 size="10">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_remark_10" 
 								id="part_remark_10"
 								value="#part_remark_10#" 
-								class="d11a" size="40">
+								 size="40">
 						</td>
 					</tr>
 					<tr>
@@ -2879,11 +2875,11 @@
 							<cfset part11 = #part_name_11#>
 							<select name="part_name_11" size="1"
 								id="part_name_11"
-								class="d11a"
-								onchange="this.className='d11a reqdClr';
-									part_condition_11.className='d11a reqdClr';
-									part_lot_count_11.className='d11a reqdClr';
-									part_disposition_11.className='d11a reqdClr';">
+								
+								onchange="this.className='reqdClr';
+									part_condition_11.className='reqdClr';
+									part_lot_count_11.className='reqdClr';
+									part_disposition_11.className='reqdClr';">
 									<option value=""></option>
 									<cfloop query="ctPartName">
 										<option <cfif #part11# is #ctPartName.part_name#> selected </cfif>
@@ -2896,7 +2892,7 @@
 							<select name="part_modifier_11" 
 								size="1"
 								id="part_modifier_11"
-								class="d11a">
+								>
 								<option value=""></option>
 								<cfloop query="ctPartModifier">
 									<option <cfif #partmod11# is #part_modifier#> selected </cfif>
@@ -2908,7 +2904,7 @@
 							<cfset presmeth11 = #preserv_method_11#>
 							<select name="preserv_method_11" size="1"
 								id="preserv_method_11"
-								class="d11a">
+								>
 									<option value=""></option>
 									<cfloop query="ctPresMeth">
 										<option <cfif #presmeth11# is #preserve_method#> selected </cfif>
@@ -2920,14 +2916,14 @@
 							<input type="text" name="part_condition_11"
 								id="part_condition_11"
 								value="#part_condition_11#"
-								class="d11a">
+								>
 						</td>
 						<td>
 							<cfset thisDisp = #part_disposition_11#>
 							<select name="part_disposition_11"
 								id="part_disposition_11"
 								size="1" 
-								class="d11a">
+								>
 								<cfloop query="CTCOLL_OBJ_DISP">
 									<option
 										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
@@ -2940,29 +2936,29 @@
 								id="part_lot_count_11"
 								name="part_lot_count_11" 
 								value="#part_lot_count_11#" 
-								class="d11a" size="1">
+								 size="1">
 						</td>
 						<td>
 							<input type="text" 
 								id="part_barcode_11"
 								name="part_barcode_11" 
 								value="#part_barcode_11#" 
-								class="d11a" size="6"
-								onchange="part_container_label_11.className='reqdClr d11a';setPartLabel(this.id);">
+								 size="6"
+								onchange="part_container_label_11.className='reqdClr';setPartLabel(this.id);">
 						</td>
 						<td>
 							<input type="text" 
 								id="part_container_label_11"
 								name="part_container_label_11" 
 								value="#part_container_label_11#" 
-								class="d11a" size="10">
+								 size="10">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_remark_11" 
 								id="part_remark_11"
 								value="#part_remark_11#" 
-								class="d11a" size="40">
+								 size="40">
 						</td>
 					</tr>
 					<tr>
@@ -2970,11 +2966,11 @@
 							<cfset part12 = #part_name_12#>
 							<select name="part_name_12" size="1"
 								id="part_name_12"
-								class="d11a"
-								onchange="this.className='d11a reqdClr';
-									part_condition_12.className='d11a reqdClr';
-									part_lot_count_12.className='d11a reqdClr';
-									part_disposition_12.className='d11a reqdClr';">
+								
+								onchange="this.className='reqdClr';
+									part_condition_12.className='reqdClr';
+									part_lot_count_12.className='reqdClr';
+									part_disposition_12.className='reqdClr';">
 									<option value=""></option>
 									<cfloop query="ctPartName">
 										<option <cfif #part12# is #ctPartName.part_name#> selected </cfif>
@@ -2987,7 +2983,7 @@
 							<select name="part_modifier_12" 
 								size="1"
 								id="part_modifier_12"
-								class="d11a">
+								>
 								<option value=""></option>
 								<cfloop query="ctPartModifier">
 									<option <cfif #partmod12# is #part_modifier#> selected </cfif>
@@ -2999,7 +2995,7 @@
 							<cfset presmeth12 = #preserv_method_12#>
 							<select name="preserv_method_12" size="1"
 								id="preserv_method_12"
-								class="d11a">
+								>
 									<option value=""></option>
 									<cfloop query="ctPresMeth">
 										<option <cfif #presmeth12# is #preserve_method#> selected </cfif>
@@ -3011,14 +3007,14 @@
 							<input type="text" name="part_condition_12"
 								id="part_condition_12"
 								value="#part_condition_12#"
-								class="d11a">
+								>
 						</td>
 						<td>
 							<cfset thisDisp = #part_disposition_12#>
 							<select name="part_disposition_12"
 								id="part_disposition_12"
 								size="1" 
-								class="d11a">
+								>
 								<cfloop query="CTCOLL_OBJ_DISP">
 									<option
 										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
@@ -3031,29 +3027,29 @@
 								id="part_lot_count_12"
 								name="part_lot_count_12" 
 								value="#part_lot_count_12#" 
-								class="d11a" size="1">
+								 size="1">
 						</td>
 						<td>
 							<input type="text" 
 								id="part_barcode_12"
 								name="part_barcode_12" 
 								value="#part_barcode_12#" 
-								class="d11a" size="6"
-								onchange="part_container_label_12.className='reqdClr d11a';setPartLabel(this.id);">
+								 size="6"
+								onchange="part_container_label_12.className='reqdClr';setPartLabel(this.id);">
 						</td>
 						<td>
 							<input type="text" 
 								id="part_container_label_12"
 								name="part_container_label_12" 
 								value="#part_container_label_12#" 
-								class="d11a" size="10">
+								 size="10">
 						</td>
 						<td>
 							<input type="text" 
 								name="part_remark_12" 
 								id="part_remark_12"
 								value="#part_remark_12#" 
-								class="d11a" size="40">
+								 size="40">
 						</td>
 					</tr>
 				</table>
