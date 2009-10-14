@@ -1,6 +1,7 @@
 input, select {
-	font-size:11px;
-	user-focus: select-all;
+font-size:0.65em;
+padding:0px;
+margin:0px;
 	}
 .pickdiv {
 		background-color:#CCCCCC;
