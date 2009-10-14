@@ -1184,435 +1184,432 @@
 				<table cellpadding="0" cellspacing="0" class="fs"><!----- attributes ------->
 					<tr>
 						<td>
-						<cfif #collection_cde# is not "Crus" and #collection_cde# is not "Herb"
-							and #collection_cde# is not "ES" and #collection_cde# is not "Fish"
-							and #collection_cde# is not "Para" and #collection_cde# is not "Art">
-							<table cellpadding="0" cellspacing="0">
+							<cfif #collection_cde# is not "Crus" and #collection_cde# is not "Herb"
+								and #collection_cde# is not "ES" and #collection_cde# is not "Fish"
+								and #collection_cde# is not "Para" and #collection_cde# is not "Art">
+								<table cellpadding="0" cellspacing="0">
+									<tr>
+										<td rowspan="99" valign="top">
+											<img src="/images/info.gif" border="0" onClick="getDocs('attributes')" class="likeLink" alt="[ help ]">
+										</td>
+										<td nowrap="nowrap">
+											<span class="f11a">Sex</span>
+											 <input type="hidden" name="attribute_1" value="sex">
+											 <select name="attribute_value_1" size="1" onChange="changeSex(this.value)"
+												id="attribute_value_1"
+												class="reqdClr"
+												style="width: 80px">
+												<option value=""></option>
+												<cfloop query="ctSex_Cde">
+													<option 
+														<cfif data.attribute_value_1 is Sex_Cde> selected </cfif>value="#Sex_Cde#">#Sex_Cde#</option>
+												</cfloop>
+											 </select>
+											<span class="f11a">Date</span>
+											<input type="text" name="attribute_date_1" value="#attribute_date_1#" id="attribute_date_1" size="10">
+											<span class="infoLink" onclick="copyAttributeDates('attribute_date_1');">Sync Att.</span>
+											<span class="f11a">Detr</span>
+											<input type="text" 
+												name="attribute_determiner_1" 
+												value="#attribute_determiner_1#" 
+												class="reqdClr" 
+												onchange="getAgent('nothing','attribute_determiner_1','dataEntry',this.value); return false;"
+												onblur="doAttributeDefaults();"
+												id="attribute_determiner_1" />
+											<span class="infoLink" onclick="copyAttributeDetr('attribute_determiner_1');">Sync Att.</span>
+											<span class="f11a">Meth</span>
+											<input type="text" name="attribute_det_meth_1" 
+												value="#attribute_det_meth_1#" 
+												id="attribute_det_meth_1">
+										</td>
+									</tr>
+								</table>
+							<cfelse>
+								<input type="hidden" name="attribute_1" id="attribute_1" value="">
+								<input type="hidden" name="attribute_value_1"  id="attribute_value_1" value="">
+								<input type="hidden" name="attribute_date_1"  id="attribute_date_1" value="">
+								<input type="hidden" name="attribute_determiner_1"  id="attribute_determiner_1" value="">
+								<input type="hidden" name="attribute_det_meth_1"  id="attribute_det_meth_1" value="">
+							</cfif>
+							<table cellpadding="1" cellspacing="0">
+								<cfif collection_cde is "Mamm">
+									<tr>
+										<td><span class="f11a">len</span></td>
+										<td><span class="f11a">tail</span></td>
+										<td><span class="f11a">Hind Foot</span></td>
+										<td><span class="f11a">Ear From Notch</span></td>
+										<td><span class="f11a">Units</span></td>
+										<td colspan="2" align="center"><span class="f11a">Weight</span></td>
+										<td><span class="f11a">Date</span></td>
+										<td><span class="f11a">Determiner</span></td>
+									<tr>
+										<td>
+											<input type="hidden" name="attribute_2" value="total length" />
+											<input type="text" name="attribute_value_2" value="#attribute_value_2#" size="3" id="attribute_value_2">
+										</td>
+										<td>
+											<input type="hidden" name="attribute_units_3" value="#attribute_units_3#" id="attribute_units_3" />
+											<input type="hidden" name="attribute_date_3" value="#attribute_date_3#" id="attribute_date_3" />
+											<input type="hidden" name="attribute_determiner_3" value="#attribute_determiner_3#" id="attribute_determiner_3" />
+											<input type="hidden" name="attribute_3" value="tail length" />
+											<input type="text" name="attribute_value_3" value="#attribute_value_3#" size="3" id="attribute_value_3">
+										</td>
+										<td align='center'>
+											<input type="hidden" name="attribute_units_4" value="#attribute_units_4#" id="attribute_units_4" />
+											<input type="hidden" name="attribute_date_4" value="#attribute_date_4#" id="attribute_date_4" />
+											<input type="hidden" name="attribute_determiner_4" value="#attribute_determiner_4#" id="attribute_determiner_4" />
+											<input type="hidden" name="attribute_4" value="hind foot with claw" />
+											<input type="text" name="attribute_value_4" value="#attribute_value_4#" size="3" id="attribute_value_4">
+										</td>
+										<td align='center'>
+											<input type="hidden" name="attribute_units_5" value="#attribute_units_5#" id="attribute_units_5" />
+											<input type="hidden" name="attribute_date_5" value="#attribute_date_5#" id="attribute_date_5" />
+											<input type="hidden" name="attribute_determiner_5" value="#attribute_determiner_5#" id="attribute_determiner_5" />
+											<input type="hidden" name="attribute_5" value="ear from notch" />
+											<input type="text" name="attribute_value_5" value="#attribute_value_5#" size="3" id="attribute_value_5">
+										</td>
+										<td>
+											<select name="attribute_units_2" size="1"
+												id="attribute_units_2">
+												<cfloop query="ctLength_Units">
+													<option <cfif #data.attribute_units_2# is #Length_Units#> selected </cfif> 
+													value="#Length_Units#">#Length_Units#</option>
+												</cfloop>
+											</select>
+										</td>
+										<td>
+											<input type="hidden" name="attribute_date_6" value="#attribute_date_6#" id="attribute_date_6" />
+											<input type="hidden" name="attribute_determiner_6" value="#attribute_determiner_6#" id="attribute_determiner_6" />
+											<input type="hidden" name="attribute_6" value="weight" />
+											<input type="text" name="attribute_value_6" value="#attribute_value_6#" size="3" id="attribute_value_6">
+										</td>
+										<td>
+											<select name="attribute_units_6" size="1"
+													id="attribute_units_6">
+												<cfloop query="ctWeight_Units">
+													<option <cfif #data.attribute_units_6# is #Weight_Units#> selected </cfif>value="#Weight_Units#">#Weight_Units#</option>
+												</cfloop>
+											</select>
+										</td>
+										<td>
+											<input type="text" name="attribute_date_2" id="attribute_date_2" value="#attribute_date_2#">		
+										</td>
+										<td>
+											<input type="text" 
+												name="attribute_determiner_2" 
+												onchange="getAgent('nothing','attribute_determiner_2','dataEntry',this.value); return false;"
+												id="attribute_determiner_2"
+												value="#attribute_determiner_2#">
+											
+										</td>
+									</tr>
+								<cfelseif collection_cde is "Bird">
+									<tr>
+										<td><span class="f11a">Age</span></td>
+										<td><span class="f11a">Fat</span></td>
+										<td><span class="f11a">Molt</span></td>
+										<td><span class="f11a">Ossification</span></td>
+										<td colspan="2" align="center"><span class="f11a">Weight</span></td>
+										<td><span class="f11a">Date</span></td>
+										<td><span class="f11a">Determiner</span></td>
+									<tr>
+										<td>
+											<input type="hidden" name="attribute_2" value="age" />
+											<input type="text" name="attribute_value_2" value="#attribute_value_2#" size="3" id="attribute_value_2">
+										</td>
+										<td>
+											<input type="hidden" name="attribute_date_3" value="#attribute_date_3#" id="attribute_date_3" />
+											<input type="hidden" name="attribute_determiner_3" value="#attribute_determiner_3#" id="attribute_determiner_3" />
+											<input type="hidden" name="attribute_3" value="fat deposition" />
+											<input type="text" name="attribute_value_3" value="#attribute_value_3#" size="15" id="attribute_value_3">
+										</td>
+										<td>
+											<input type="hidden" name="attribute_date_4" value="#attribute_date_4#" id="attribute_date_4" />
+											<input type="hidden" name="attribute_determiner_4" value="#attribute_determiner_4#" id="attribute_determiner_4" />
+											<input type="hidden" name="attribute_4" value="molt condition" />
+											<input type="text" name="attribute_value_4" value="#attribute_value_4#" size="15" id="attribute_value_4">
+										</td>
+										<td>
+											<input type="hidden" name="attribute_date_5" value="#attribute_date_5#" id="attribute_date_5" />
+											<input type="hidden" name="attribute_determiner_5" value="#attribute_determiner_5#" id="attribute_determiner_5" />
+											<input type="hidden" name="attribute_5" value="skull ossification" />
+											<input type="text" name="attribute_value_5" value="#attribute_value_5#" size="15" id="attribute_value_5">
+										</td>
+										<td>
+											<input type="hidden" name="attribute_date_6" value="#attribute_date_6#" id="attribute_date_6" />
+											<input type="hidden" name="attribute_determiner_6" value="#attribute_determiner_6#" id="attribute_determiner_6" />
+											<input type="hidden" name="attribute_6" value="weight" />
+											<input type="text" name="attribute_value_6" value="#attribute_value_6#" size="2" id="attribute_value_6">
+										</td>
+										<td>
+											<select name="attribute_units_6" size="1" id="attribute_units_6" >
+												<cfloop query="ctWeight_Units">
+													<option <cfif #data.attribute_units_6# is #Weight_Units#> selected </cfif>value="#Weight_Units#">#Weight_Units#</option>
+												</cfloop>
+											</select>
+										</td>
+										<td>
+											<input type="text" name="attribute_date_2" id="attribute_date_2" value="#attribute_date_2#">
+										</td>
+										<td>
+											<input type="text" 
+												name="attribute_determiner_2" 
+												onchange="getAgent('nothing','attribute_determiner_2','dataEntry',this.value); return false;"
+												id="attribute_determiner_2"
+												value="#attribute_determiner_2#">
+										</td>
+									</tr>
+								<cfelse><!--- maintain attributes 2-6 as hiddens to not break the JS --->
+									<cfloop from="2" to="6" index="i">
+										<input type="hidden" name="attribute_#i#" id="attribute_#i#" value="">
+										<input type="hidden" name="attribute_value_#i#"  id="attribute_value_#i#" value="">
+										<input type="hidden" name="attribute_date_#i#"  id="attribute_date_#i#" value="">
+										<input type="hidden" name="attribute_determiner_#i#"  id="attribute_determiner_#i#" value="">
+										<input type="hidden" name="attribute_det_meth_#i#"  id="attribute_det_meth_#i#" value="">
+									</cfloop>
+								</cfif>
+							</table>
+							<table cellspacing="0" cellpadding="0">
 								<tr>
-									<td rowspan="99" valign="top">
-										<img src="/images/info.gif" border="0" onClick="getDocs('attributes')" class="likeLink" alt="[ help ]">
-									</td>
-									<td nowrap="nowrap">
-										<span class="f11a">Sex</span>
-										 <input type="hidden" name="attribute_1" value="sex">
-										 <select name="attribute_value_1" size="1" onChange="changeSex(this.value)"
-											id="attribute_value_1"
-											class="reqdClr"
-											style="width: 80px">
-											<option value=""></option>
-											<cfloop query="ctSex_Cde">
+									<th><span class="f11a">Attribute</span></th>
+									<th><span class="f11a">Value</span></th>
+									<th><span class="f11a">Units</span></th>
+									<th><span class="f11a">Date</span></th>
+									<th><span class="f11a">Determiner</span></th>
+									<th><span class="f11a">Method</span></th>
+									<th><span class="f11a">Remarks</span></th>
+								</tr>
+								<tr>
+									<td>
+										<select name="attribute_7" size="1" onChange="getAttributeStuff(this.value,this.id);"
+											style="width:100px;" id="attribute_7">
+											<option value="">&nbsp;&nbsp;&nbsp;&nbsp;</option>						
+											<cfloop query="ctAttributeType">
 												<option 
-													<cfif data.attribute_value_1 is Sex_Cde> selected </cfif>value="#Sex_Cde#">#Sex_Cde#</option>
+													<cfif #data.attribute_7# is #attribute_type#> selected </cfif>
+														value="#attribute_type#">#attribute_type#</option>
 											</cfloop>
-										 </select>
-										<span class="f11a">Date</span>
-										<input type="text" name="attribute_date_1" value="#attribute_date_1#" id="attribute_date_1" size="10">
-										<span class="infoLink" onclick="copyAttributeDates('attribute_date_1');">Sync Att.</span>
-										<span class="f11a">Detr</span>
+										  </select>
+									</td>
+									<td>
+										<div id="attribute_value_cell_7">
+											<input type="text" 
+												name="attribute_value_7" 
+												value="#attribute_value_7#" 
+												id="attribute_value_7"
+												size="15">
+										</div>
+									</td>
+									<td>
+										<div id="attribute_units_cell_7">
+										<input type="text"
+											name="attribute_units_7" 
+											value="#attribute_units_7#" 
+											id="attribute_units_7"
+											size="6"
+											>
+										</div>
+									</td>
+									<td>
 										<input type="text" 
-											name="attribute_determiner_1" 
-											value="#attribute_determiner_1#" 
-											class="reqdClr" 
-											onchange="getAgent('nothing','attribute_determiner_1','dataEntry',this.value); return false;"
-											onblur="doAttributeDefaults();"
-											id="attribute_determiner_1" />
-										<span class="infoLink" onclick="copyAttributeDetr('attribute_determiner_1');">Sync Att.</span>
-										<span class="f11a">Meth</span>
-										<input type="text" name="attribute_det_meth_1" 
-											value="#attribute_det_meth_1#" 
-											id="attribute_det_meth_1">
+											name="attribute_date_7" 
+											value="#attribute_date_7#" 
+											id="attribute_date_7"
+											size="10">
+									</td>
+									<td>
+										 <input type="text" name="attribute_determiner_7"
+											onchange="getAgent('nothing','attribute_determiner_7','dataEntry',this.value);"
+											id="attribute_determiner_7"
+											size="15"
+											value="#attribute_determiner_7#">
+									</td>
+									<td>
+										<input type="text" name="attribute_det_meth_7"
+											id="attribute_det_meth_7"
+											size="15"
+											value="#attribute_det_meth_7#">
+									</td>
+									<td>
+										<input type="text" name="attribute_remarks_7"
+											id="attribute_remarks_7"
+											value="#attribute_remarks_7#">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<select name="attribute_8" size="1" onChange="getAttributeStuff(this.value,this.id);"
+											style="width:100px;"
+											id="attribute_8">
+											<option value=""></option>
+											<cfloop query="ctAttributeType">
+												<option 
+													<cfif #data.attribute_8# is #attribute_type#> selected </cfif>
+														value="#attribute_type#">#attribute_type#</option>
+											</cfloop>
+										  </select>
+									</td>
+									<td>
+										<div id="attribute_value_cell_8">
+										<input type="text" 
+											name="attribute_value_8" 
+											value="#attribute_value_8#" 
+											id="attribute_value_8"
+											size="15">
+										</div>
+									</td>
+									<td>
+										<div id="attribute_units_cell_8">
+										<input type="text" 
+											name="attribute_units_8" 
+											value="#attribute_units_8#" 
+											id="attribute_units_8"
+											size="6">
+										</div>
+									</td>
+									<td>
+										<input type="text" 
+											name="attribute_date_8" 
+											value="#attribute_date_8#" 
+											id="attribute_date_8"
+											size="10">
+									</td>
+									<td>
+										 <input type="text" name="attribute_determiner_8"
+											onchange="getAgent('nothing','attribute_determiner_8','dataEntry',this.value);"
+											id="attribute_determiner_8"
+											size="15"
+											value="#attribute_determiner_8#">
+									</td>
+									<td>
+										<input type="text" name="attribute_det_meth_8"
+											id="attribute_det_meth_8"
+											size="15"
+											value="#attribute_det_meth_8#">
+									</td>
+									<td>
+										<input type="text" name="attribute_remarks_8"
+											id="attribute_remarks_8"
+											value="#attribute_remarks_8#">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<select name="attribute_9" size="1" onChange="getAttributeStuff(this.value,this.id);"
+											style="width:100px;"
+											id="attribute_9">
+											<option value=""></option>
+											<cfloop query="ctAttributeType">
+												<option 
+													<cfif #data.attribute_9# is #attribute_type#> selected </cfif>
+														value="#attribute_type#">#attribute_type#</option>
+											</cfloop>
+										  </select>
+									</td>
+									<td>
+										<div id="attribute_value_cell_9">
+										<input type="text" 
+											name="attribute_value_9" 
+											value="#attribute_value_9#" 
+											id="attribute_value_9"
+											size="15">
+										</div>
+									</td>
+									<td>
+										<div id="attribute_units_cell_9">
+										<input type="text" 
+											name="attribute_units_9" 
+											value="#attribute_units_9#" 
+											id="attribute_units_9"
+											size="6">
+										</div>
+									</td>
+									<td>
+										<input type="text" 
+											name="attribute_date_9" 
+											value="#attribute_date_9#" 
+											id="attribute_date_9"
+											size="10">
+									</td>
+									<td>
+										 <input type="text" name="attribute_determiner_9"
+											onchange="getAgent('nothing','attribute_determiner_9','dataEntry',this.value);"
+											id="attribute_determiner_9"
+											size="15"
+											value="#attribute_determiner_9#">
+									</td>
+									<td>
+										<input type="text" name="attribute_det_meth_9"
+											id="attribute_det_meth_9"
+											size="15"
+											value="#attribute_det_meth_9#">
+									</td>
+									<td>
+										<input type="text" name="attribute_remarks_9"
+											id="attribute_remarks_9"
+											value="#attribute_remarks_9#">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<select name="attribute_10" size="1"  onChange="getAttributeStuff(this.value,this.id);"
+											style="width:100px;"
+											id="attribute_10">
+											<option value=""></option>
+											<cfloop query="ctAttributeType">
+												<option 
+													<cfif #data.attribute_10# is #attribute_type#> selected </cfif>
+														value="#attribute_type#">#attribute_type#</option>
+											</cfloop>
+										  </select>
+									</td>
+									<td>
+										<div id="attribute_value_cell_10">
+											<input type="text" 
+												name="attribute_value_10" 
+												value="#attribute_value_10#" 
+												id="attribute_value_10"
+												size="15">
+										</div>
+									</td>
+									<td>
+										<div id="attribute_units_cell_10">
+											<input type="text" 
+												name="attribute_units_10" 
+												value="#attribute_units_10#" 
+												id="attribute_units_10"
+												size="6">
+										</div>
+									</td>
+									<td>
+										<input type="text" 
+											name="attribute_date_10" 
+											value="#attribute_date_10#" 
+											id="attribute_date_10"
+											size="10">
+									</td>
+									<td>
+										 <input type="text" name="attribute_determiner_10"
+											onchange="getAgent('nothing','attribute_determiner_10','dataEntry',this.value);"
+											id="attribute_determiner_10"
+											size="15"
+											value="#attribute_determiner_10#">
+									</td>
+									<td>
+										<input type="text" name="attribute_det_meth_10"
+											id="attribute_det_meth_10"
+											size="15"
+											value="#attribute_det_meth_10#">
+									</td>
+									<td>
+										<input type="text" name="attribute_remarks_10" id="attribute_remarks_10" value="#attribute_remarks_10#">
 									</td>
 								</tr>
 							</table>
-						<cfelse>
-							<input type="hidden" name="attribute_1" id="attribute_1" value="">
-							<input type="hidden" name="attribute_value_1"  id="attribute_value_1" value="">
-							<input type="hidden" name="attribute_date_1"  id="attribute_date_1" value="">
-							<input type="hidden" name="attribute_determiner_1"  id="attribute_determiner_1" value="">
-							<input type="hidden" name="attribute_det_meth_1"  id="attribute_det_meth_1" value="">
-						</cfif>
-						<table cellpadding="1" cellspacing="0">
-							<cfif collection_cde is "Mamm">
-								<tr>
-									<td><span class="f11a">len</span></td>
-									<td><span class="f11a">tail</span></td>
-									<td><span class="f11a">Hind Foot</span></td>
-									<td><span class="f11a">Ear From Notch</span></td>
-									<td><span class="f11a">Units</span></td>
-									<td colspan="2" align="center"><span class="f11a">Weight</span></td>
-									<td><span class="f11a">Date</span></td>
-									<td><span class="f11a">Determiner</span></td>
-								<tr>
-									<td>
-										<input type="hidden" name="attribute_2" value="total length" />
-										<input type="text" name="attribute_value_2" value="#attribute_value_2#" size="3" id="attribute_value_2">
-									</td>
-									<td>
-										<input type="hidden" name="attribute_units_3" value="#attribute_units_3#" id="attribute_units_3" />
-										<input type="hidden" name="attribute_date_3" value="#attribute_date_3#" id="attribute_date_3" />
-										<input type="hidden" name="attribute_determiner_3" value="#attribute_determiner_3#" id="attribute_determiner_3" />
-										<input type="hidden" name="attribute_3" value="tail length" />
-										<input type="text" name="attribute_value_3" value="#attribute_value_3#" size="3" id="attribute_value_3">
-									</td>
-									<td align='center'>
-										<input type="hidden" name="attribute_units_4" value="#attribute_units_4#" id="attribute_units_4" />
-										<input type="hidden" name="attribute_date_4" value="#attribute_date_4#" id="attribute_date_4" />
-										<input type="hidden" name="attribute_determiner_4" value="#attribute_determiner_4#" id="attribute_determiner_4" />
-										<input type="hidden" name="attribute_4" value="hind foot with claw" />
-										<input type="text" name="attribute_value_4" value="#attribute_value_4#" size="3" id="attribute_value_4">
-									</td>
-									<td align='center'>
-										<input type="hidden" name="attribute_units_5" value="#attribute_units_5#" id="attribute_units_5" />
-										<input type="hidden" name="attribute_date_5" value="#attribute_date_5#" id="attribute_date_5" />
-										<input type="hidden" name="attribute_determiner_5" value="#attribute_determiner_5#" id="attribute_determiner_5" />
-										<input type="hidden" name="attribute_5" value="ear from notch" />
-										<input type="text" name="attribute_value_5" value="#attribute_value_5#" size="3" id="attribute_value_5">
-									</td>
-									<td>
-										<select name="attribute_units_2" size="1"
-											id="attribute_units_2">
-											<cfloop query="ctLength_Units">
-												<option <cfif #data.attribute_units_2# is #Length_Units#> selected </cfif> 
-												value="#Length_Units#">#Length_Units#</option>
-											</cfloop>
-										</select>
-									</td>
-									<td>
-										<input type="hidden" name="attribute_date_6" value="#attribute_date_6#" id="attribute_date_6" />
-										<input type="hidden" name="attribute_determiner_6" value="#attribute_determiner_6#" id="attribute_determiner_6" />
-										<input type="hidden" name="attribute_6" value="weight" />
-										<input type="text" name="attribute_value_6" value="#attribute_value_6#" size="3" id="attribute_value_6">
-									</td>
-									<td>
-										<select name="attribute_units_6" size="1"
-												id="attribute_units_6">
-											<cfloop query="ctWeight_Units">
-												<option <cfif #data.attribute_units_6# is #Weight_Units#> selected </cfif>value="#Weight_Units#">#Weight_Units#</option>
-											</cfloop>
-										</select>
-									</td>
-									<td>
-										<input type="text" name="attribute_date_2" id="attribute_date_2" value="#attribute_date_2#">		
-									</td>
-									<td>
-										<input type="text" 
-											name="attribute_determiner_2" 
-											onchange="getAgent('nothing','attribute_determiner_2','dataEntry',this.value); return false;"
-											id="attribute_determiner_2"
-											value="#attribute_determiner_2#">
-										
-									</td>
-								</tr>
-							<cfelseif collection_cde is "Bird">
-								<tr>
-									<td><span class="f11a">Age</span></td>
-									<td><span class="f11a">Fat</span></td>
-									<td><span class="f11a">Molt</span></td>
-									<td><span class="f11a">Ossification</span></td>
-									<td colspan="2" align="center"><span class="f11a">Weight</span></td>
-									<td><span class="f11a">Date</span></td>
-									<td><span class="f11a">Determiner</span></td>
-								<tr>
-									<td>
-										<input type="hidden" name="attribute_2" value="age" />
-										<input type="text" name="attribute_value_2" value="#attribute_value_2#" size="3" id="attribute_value_2">
-									</td>
-									<td>
-										<input type="hidden" name="attribute_date_3" value="#attribute_date_3#" id="attribute_date_3" />
-										<input type="hidden" name="attribute_determiner_3" value="#attribute_determiner_3#" id="attribute_determiner_3" />
-										<input type="hidden" name="attribute_3" value="fat deposition" />
-										<input type="text" name="attribute_value_3" value="#attribute_value_3#" size="15" id="attribute_value_3">
-									</td>
-									<td>
-										<input type="hidden" name="attribute_date_4" value="#attribute_date_4#" id="attribute_date_4" />
-										<input type="hidden" name="attribute_determiner_4" value="#attribute_determiner_4#" id="attribute_determiner_4" />
-										<input type="hidden" name="attribute_4" value="molt condition" />
-										<input type="text" name="attribute_value_4" value="#attribute_value_4#" size="15" id="attribute_value_4">
-									</td>
-									<td>
-										<input type="hidden" name="attribute_date_5" value="#attribute_date_5#" id="attribute_date_5" />
-										<input type="hidden" name="attribute_determiner_5" value="#attribute_determiner_5#" id="attribute_determiner_5" />
-										<input type="hidden" name="attribute_5" value="skull ossification" />
-										<input type="text" name="attribute_value_5" value="#attribute_value_5#" size="15" id="attribute_value_5">
-									</td>
-									<td>
-										<input type="hidden" name="attribute_date_6" value="#attribute_date_6#" id="attribute_date_6" />
-										<input type="hidden" name="attribute_determiner_6" value="#attribute_determiner_6#" id="attribute_determiner_6" />
-										<input type="hidden" name="attribute_6" value="weight" />
-										<input type="text" name="attribute_value_6" value="#attribute_value_6#" size="2" id="attribute_value_6">
-									</td>
-									<td>
-										<select name="attribute_units_6" size="1" id="attribute_units_6" >
-											<cfloop query="ctWeight_Units">
-												<option <cfif #data.attribute_units_6# is #Weight_Units#> selected </cfif>value="#Weight_Units#">#Weight_Units#</option>
-											</cfloop>
-										</select>
-									</td>
-									<td>
-										<input type="text" name="attribute_date_2" id="attribute_date_2" value="#attribute_date_2#">
-									</td>
-									<td>
-										<input type="text" 
-											name="attribute_determiner_2" 
-											onchange="getAgent('nothing','attribute_determiner_2','dataEntry',this.value); return false;"
-											id="attribute_determiner_2"
-											value="#attribute_determiner_2#">
-									</td>
-								</tr>
-							<cfelse><!--- maintain attributes 2-6 as hiddens to not break the JS --->
-								<cfloop from="2" to="6" index="i">
-									<input type="hidden" name="attribute_#i#" id="attribute_#i#" value="">
-									<input type="hidden" name="attribute_value_#i#"  id="attribute_value_#i#" value="">
-									<input type="hidden" name="attribute_date_#i#"  id="attribute_date_#i#" value="">
-									<input type="hidden" name="attribute_determiner_#i#"  id="attribute_determiner_#i#" value="">
-									<input type="hidden" name="attribute_det_meth_#i#"  id="attribute_det_meth_#i#" value="">
-								</cfloop>
-							</cfif>
-						</table>
-						<table cellspacing="0" cellpadding="0">
-							<tr>
-								<th><span class="f11a">Attribute</span></th>
-								<th><span class="f11a">Value</span></th>
-								<th><span class="f11a">Units</span></th>
-								<th><span class="f11a">Date</span></th>
-								<th><span class="f11a">Determiner</span></th>
-								<th><span class="f11a">Method</span></th>
-								<th><span class="f11a">Remarks</span></th>
-							</tr>
-							<tr>
-								<td>
-									<select name="attribute_7" size="1" onChange="getAttributeStuff(this.value,this.id);"
-										style="width:100px;"
-										id="attribute_7">
-										<option value="">&nbsp;&nbsp;&nbsp;&nbsp;</option>						
-										<cfloop query="ctAttributeType">
-											<option 
-												<cfif #data.attribute_7# is #attribute_type#> selected </cfif>
-													value="#attribute_type#">#attribute_type#</option>
-										</cfloop>
-									  </select>
-								</td>
-								<td>
-									<div id="attribute_value_cell_7">
-										<input type="text" 
-											name="attribute_value_7" 
-											value="#attribute_value_7#" 
-											id="attribute_value_7"
-											size="15">
-									</div>
-								</td>
-								<td>
-									<div id="attribute_units_cell_7">
-									<input type="text"
-										name="attribute_units_7" 
-										value="#attribute_units_7#" 
-										id="attribute_units_7"
-										size="6"
-										>
-									</div>
-								</td>
-								<td>
-									<input type="text" 
-										name="attribute_date_7" 
-										value="#attribute_date_7#" 
-										id="attribute_date_7"
-										size="10">
-								</td>
-								<td>
-									 <input type="text" name="attribute_determiner_7"
-										onchange="getAgent('nothing','attribute_determiner_7','dataEntry',this.value);"
-										id="attribute_determiner_7"
-										size="15"
-										value="#attribute_determiner_7#">
-								</td>
-								<td>
-									<input type="text" name="attribute_det_meth_7"
-										id="attribute_det_meth_7"
-										size="15"
-										value="#attribute_det_meth_7#">
-								</td>
-								<td>
-									<input type="text" name="attribute_remarks_7"
-										id="attribute_remarks_7"
-										value="#attribute_remarks_7#">
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<select name="attribute_8" size="1" onChange="getAttributeStuff(this.value,this.id);"
-										style="width:100px;"
-										id="attribute_8">
-										<option value=""></option>
-										<cfloop query="ctAttributeType">
-											<option 
-												<cfif #data.attribute_8# is #attribute_type#> selected </cfif>
-													value="#attribute_type#">#attribute_type#</option>
-										</cfloop>
-									  </select>
-								</td>
-								<td>
-									<div id="attribute_value_cell_8">
-									<input type="text" 
-										name="attribute_value_8" 
-										value="#attribute_value_8#" 
-										id="attribute_value_8"
-										size="15">
-									</div>
-								</td>
-								<td>
-									<div id="attribute_units_cell_8">
-									<input type="text" 
-										name="attribute_units_8" 
-										value="#attribute_units_8#" 
-										id="attribute_units_8"
-										size="6">
-									</div>
-								</td>
-								<td>
-									<input type="text" 
-										name="attribute_date_8" 
-										value="#attribute_date_8#" 
-										id="attribute_date_8"
-										size="10">
-								</td>
-								<td>
-									 <input type="text" name="attribute_determiner_8"
-										onchange="getAgent('nothing','attribute_determiner_8','dataEntry',this.value);"
-										id="attribute_determiner_8"
-										size="15"
-										value="#attribute_determiner_8#">
-								</td>
-								<td>
-									<input type="text" name="attribute_det_meth_8"
-										id="attribute_det_meth_8"
-										size="15"
-										value="#attribute_det_meth_8#">
-								</td>
-								<td>
-									<input type="text" name="attribute_remarks_8"
-										id="attribute_remarks_8"
-										value="#attribute_remarks_8#">
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<select name="attribute_9" size="1" onChange="getAttributeStuff(this.value,this.id);"
-										style="width:100px;"
-										id="attribute_9">
-										<option value=""></option>
-										<cfloop query="ctAttributeType">
-											<option 
-												<cfif #data.attribute_9# is #attribute_type#> selected </cfif>
-													value="#attribute_type#">#attribute_type#</option>
-										</cfloop>
-									  </select>
-								</td>
-								<td>
-									<div id="attribute_value_cell_9">
-									<input type="text" 
-										name="attribute_value_9" 
-										value="#attribute_value_9#" 
-										id="attribute_value_9"
-										size="15">
-									</div>
-								</td>
-								<td>
-									<div id="attribute_units_cell_9">
-									<input type="text" 
-										name="attribute_units_9" 
-										value="#attribute_units_9#" 
-										id="attribute_units_9"
-										size="6">
-									</div>
-								</td>
-								<td>
-									<input type="text" 
-										name="attribute_date_9" 
-										value="#attribute_date_9#" 
-										id="attribute_date_9"
-										size="10">
-								</td>
-								<td>
-									 <input type="text" name="attribute_determiner_9"
-										onchange="getAgent('nothing','attribute_determiner_9','dataEntry',this.value);"
-										id="attribute_determiner_9"
-										size="15"
-										value="#attribute_determiner_9#">
-								</td>
-								<td>
-									<input type="text" name="attribute_det_meth_9"
-										id="attribute_det_meth_9"
-										size="15"
-										value="#attribute_det_meth_9#">
-								</td>
-								<td>
-									<input type="text" name="attribute_remarks_9"
-										id="attribute_remarks_9"
-										value="#attribute_remarks_9#">
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<select name="attribute_10" size="1"  onChange="getAttributeStuff(this.value,this.id);"
-										style="width:100px;"
-										id="attribute_10">
-										<option value=""></option>
-										<cfloop query="ctAttributeType">
-											<option 
-												<cfif #data.attribute_10# is #attribute_type#> selected </cfif>
-													value="#attribute_type#">#attribute_type#</option>
-										</cfloop>
-									  </select>
-								</td>
-								<td>
-									<div id="attribute_value_cell_10">
-										<input type="text" 
-											name="attribute_value_10" 
-											value="#attribute_value_10#" 
-											id="attribute_value_10"
-											size="15">
-									</div>
-								</td>
-								<td>
-									<div id="attribute_units_cell_10">
-										<input type="text" 
-											name="attribute_units_10" 
-											value="#attribute_units_10#" 
-											id="attribute_units_10"
-											size="6">
-									</div>
-								</td>
-								<td>
-									<input type="text" 
-										name="attribute_date_10" 
-										value="#attribute_date_10#" 
-										id="attribute_date_10"
-										size="10">
-								</td>
-								<td>
-									 <input type="text" name="attribute_determiner_10"
-										onchange="getAgent('nothing','attribute_determiner_10','dataEntry',this.value);"
-										id="attribute_determiner_10"
-										size="15"
-										value="#attribute_determiner_10#">
-								</td>
-								<td>
-									<input type="text" name="attribute_det_meth_10"
-										id="attribute_det_meth_10"
-										size="15"
-										value="#attribute_det_meth_10#">
-								</td>
-								<td>
-									<input type="text" name="attribute_remarks_10"
-										id="attribute_remarks_10"
-										value="#attribute_remarks_10#">
-								</td>
-							</tr>
-						</table>
-					</td></tr></table>
-<!---------------------------------------- /attributes ---------------------------------------------->
-<!---------------------------------------- random admin stuff ---------------------------------------------->
-				<table cellpadding="0" cellspacing="0" class="fs">
+						</td>
+					</tr>
+				</table><!---- /attributes ----->
+				<table cellpadding="0" cellspacing="0" class="fs"><!--- random admin stuff ---->
 					<tr>
 						<td align="right"><span class="f11a">Entered&nbsp;By</span></td>
 						<td width="100%">
@@ -1674,69 +1671,60 @@
 							<input type="text" value="#related_to_number#" name="related_to_number" id="related_to_number" size="10" />
 						</td>
 					</tr>
-				</table>
-<!---------------------------------------- random admin stuff ---------------------------------------------->
-<!---------------------------------------- remarkey stuff ---------------------------------------------->				
-		<table cellpadding="0" cellspacing="0" class="fs">
-			<tr>
-				<td colspan="2">
-					<span class="f11a">Spec Remark</span>
-						<textarea name="coll_object_remarks" id="coll_object_remarks" rows="2" cols="100">#coll_object_remarks#</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<span class="f11a">Missing....</span>
-					<cfset thisflags = #flags#>
-					<select name="flags" size="1" style="width:120px"
-						
-						id="flags">
-						<option  value=""></option>
-						<cfloop query="ctflags">
-							<option <cfif #flags# is #thisflags#> selected </cfif>
-								value="#flags#">#flags#</option>
-						</cfloop>
-					</select>
-				</td>
-				<td>
-					<span class="f11a">Status</span>
-					#loaded#
-				</td>
-			</tr>
-		</table>
-<!---------------------------------------- remarkey stuff ---------------------------------------------->				
-
-</td><!--- end right column --->
-</tr><!---- end top row of page --->
-<tr><!---- start bottom row of page --->
-	<td colspan="2"><!--- parts block --->
-		<table cellpadding="0" cellspacing="0" class="fs">
+				</table><!------ random admin stuff ---------->
+				<table cellpadding="0" cellspacing="0" class="fs"><!------- remarkey stuff --->
 					<tr>
-						<td rowspan="99" valign="top">
-				<img src="/images/info.gif" border="0" onClick="getDocs('parts')" class="likeLink" alt="[ help ]">
-			</td>
-						<td><span class="f11a">Part Name</span></td>
-						<td><span class="f11a">Part Modifier</span></td>
-						<td><span class="f11a">Preserv Method</span></td>
-						<td><span class="f11a">Condition</span></td>
-						<td><span class="f11a">Disposition</span></td>
-						<td><span class="f11a">##</span></td>
-						<td><span class="f11a">Barcode</span></td>
-						<td><span class="f11a">Vial Label</span></td>
-						<td width="100%"><span class="f11a">Remark</span></td>
+						<td colspan="2">
+							<span class="f11a">Spec Remark</span>
+								<textarea name="coll_object_remarks" id="coll_object_remarks" rows="2" cols="100">#coll_object_remarks#</textarea>
+						</td>
 					</tr>
 					<tr>
 						<td>
-							<cfset part1 = #part_name_1#>
-							<select name="part_name_1" size="1"
-								id="part_name_1"
-								onFocus="self.status='First Part Name'"
-								class="reqdClr">
-									<cfloop query="ctPartName">
-										<option <cfif #part1# is #ctPartName.part_name#> selected </cfif>
-											value="#part_name#">#part_name#</option>
-									</cfloop>
-								</select>
+							<span class="f11a">Missing....</span>
+							<cfset thisflags = #flags#>
+							<select name="flags" size="1" style="width:120px" id="flags">
+								<option  value=""></option>
+								<cfloop query="ctflags">
+									<option <cfif #flags# is #thisflags#> selected </cfif>
+										value="#flags#">#flags#</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<span class="f11a">Status</span>
+							#loaded#
+						</td>
+					</tr>
+				</table><!------- /remarkey stuff --->
+			</td><!--- end right column --->
+		</tr><!---- end top row of page --->
+		<tr><!---- start bottom row of page --->
+			<td colspan="2"><!--- parts block --->
+				<table cellpadding="0" cellspacing="0" class="fs">
+					<tr>
+						<td rowspan="99" valign="top">
+							<img src="/images/info.gif" border="0" onClick="getDocs('parts')" class="likeLink" alt="[ help ]">
+						</td>
+						<th><span class="f11a">Part Name</span></th>
+						<th><span class="f11a">Part Modifier</span></th>
+						<th><span class="f11a">Preserv Method</span></th>
+						<th><span class="f11a">Condition</span></th>
+						<th><span class="f11a">Disposition</span></th>
+						<th><span class="f11a">##</span></th>
+						<th><span class="f11a">Barcode</span></th>
+						<th><span class="f11a">Vial Label</span></th>
+						<th width="100%"><span class="f11a">Remark</span></th>
+					</tr>
+					<tr>
+						<td>
+							<cfset part1 = part_name_1>
+							<select name="part_name_1" id="part_name_1" class="reqdClr">
+								<cfloop query="ctPartName">
+									<option <cfif data.part_name_1 is ctPartName.part_name> selected </cfif>
+										value="#part_name#">#part_name#</option>
+								</cfloop>
+							</select>
 						</td>
 						<td>
 							<cfset partmod1 = #part_modifier_1#>
