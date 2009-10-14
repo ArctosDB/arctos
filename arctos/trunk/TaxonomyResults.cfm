@@ -336,7 +336,7 @@ Found #summary.cnt# records.
 		<cfset thisSearch = "#thisSearch# OR %22#cName.common_name#%22">
 	</cfloop>
 	<cfset thisSearch = replace(thisSearch,"'","\'","all")>
-  	<tr>
+    <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td nowrap>
 
 			<div class="submenu">
@@ -406,7 +406,7 @@ Found #summary.cnt# records.
     <td nowrap="nowrap">#source_authority#&nbsp;</td>
     <td nowrap="nowrap">#taxon_remarks#&nbsp;</td>
   </tr>
-  <cfset i=#i#+1>
+  <cfset i=i+1>
   </cfoutput>
 </table> 
 <cfinclude template = "includes/_footer.cfm">
