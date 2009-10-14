@@ -1371,13 +1371,13 @@
 						</table>
 						<table cellspacing="0" cellpadding="0">
 							<tr>
-								<td><span class="f11a">Attribute</span></td>
-								<td><span class="f11a">Value</span></td>
-								<td><span class="f11a">Units</span></td>
-								<td><span class="f11a">Date</span></td>
-								<td><span class="f11a">Determiner</span></td>
-								<td><span class="f11a">Method</span></td>
-								<td><span class="f11a">Remarks</span></td>
+								<th><span class="f11a">Attribute</span></th>
+								<th><span class="f11a">Value</span></th>
+								<th><span class="f11a">Units</span></th>
+								<th><span class="f11a">Date</span></th>
+								<th><span class="f11a">Determiner</span></th>
+								<th><span class="f11a">Method</span></th>
+								<th><span class="f11a">Remarks</span></th>
 							</tr>
 							<tr>
 								<td>
@@ -2601,10 +2601,7 @@
 						</td>
 						<td>
 							<cfset thisDisp = #part_disposition_10#>
-							<select name="part_disposition_10"
-								id="part_disposition_10"
-								size="1" 
-								>
+							<select name="part_disposition_10" id="part_disposition_10" size="1">
 								<cfloop query="CTCOLL_OBJ_DISP">
 									<option
 										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
@@ -2754,8 +2751,7 @@
 							<cfset partmod12 = #part_modifier_12#>
 							<select name="part_modifier_12" 
 								size="1"
-								id="part_modifier_12"
-								>
+								id="part_modifier_12">
 								<option value=""></option>
 								<cfloop query="ctPartModifier">
 									<option <cfif #partmod12# is #part_modifier#> selected </cfif>
@@ -2766,8 +2762,7 @@
 						<td>
 							<cfset presmeth12 = #preserv_method_12#>
 							<select name="preserv_method_12" size="1"
-								id="preserv_method_12"
-								>
+								id="preserv_method_12">
 									<option value=""></option>
 									<cfloop query="ctPresMeth">
 										<option <cfif #presmeth12# is #preserve_method#> selected </cfif>
@@ -2778,8 +2773,7 @@
 						<td>
 							<input type="text" name="part_condition_12"
 								id="part_condition_12"
-								value="#part_condition_12#"
-								>
+								value="#part_condition_12#">
 						</td>
 						<td>
 							<cfset thisDisp = #part_disposition_12#>
