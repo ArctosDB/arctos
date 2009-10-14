@@ -269,7 +269,12 @@
 
 <CFOUTPUT>
 <H4>
-Found #summary.cnt# records. (Note: This form will not return >1000 records; you may need to narrow your search to return all matches.)
+Found #summary.cnt# records. 
+<cfif summary.cnt is 1000>
+	<div style="color:red;">
+		Note: This form will not return >1000 records; you may need to narrow your search to return all matches.
+	</div>
+</cfif>
 <cfset numPages= ceiling(summary.cnt/dr)>
 		<cfset loopTo=numPages-2>
 		<label for="page_record">Records...</label>
