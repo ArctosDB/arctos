@@ -317,12 +317,12 @@
 								<img src="/images/info.gif" border="0" onClick="getDocs('agent')" class="likeLink" alt="[ help ]">
 							</td>
 							<cfloop from="1" to="5" index="i">
-								<cfif i is 3 or i is 5>
+								<cfif i is 1 or i is 3 or i is 5>
 									<tr>
 								</cfif>
 
 								<td align="right">
-									--#i MOD 2#--
+									--#i#--
 									<select name="collector_role_#i#" size="1" <cfif i is 1>class="reqdClr"</cfif> id="collector_role_#i#">
 										<option <cfif evaluate("data.collector_role_" & i) is "c">selected="selected"</cfif> value="c">Collector</option>
 										<cfif i gt 1>
@@ -340,7 +340,7 @@
 										id="collector_agent_#i#">
 									<span class="infoLink" onclick="copyAllAgents('collector_agent_#i#');">Copy2All</span>
 								</td>
-								<cfif i is 3 or i is 5>
+								<cfif i is 1 or i is 3 or i is 5>
 									</tr>
 								</cfif>
 							</cfloop>
