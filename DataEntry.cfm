@@ -344,78 +344,26 @@
 							<td rowspan="99" valign="top">
 								<img src="/images/info.gif" border="0" onClick="getDocs('cataloged_item','other_id')" class="likeLink" alt="[ help ]">
 							</td>
-						<tr>
-							<td>
-								<cfset thisIdType=#other_id_num_type_1#>
-								<span class="f11a">OtherID 1</span>
-								<select name="other_id_num_type_1" size="1" style="width:250px"
-									id="other_id_num_type_1" 
-									onChange="this.className='reqdClr';dataEntry.other_id_num_1.className='reqdClr';dataEntry.other_id_num_1.focus();">
-									<option value=""></option>
-									<cfloop query="ctOtherIdType">
-										<option 
-											<cfif #ctOtherIdType.other_id_type# is #thisIdType#> selected </cfif>
-											value="#other_id_type#">#other_id_type#</option>
-									</cfloop>
-								</select>
-								<input type="text" name="other_id_num_1" value="#other_id_num_1#" id="other_id_num_1">
-							</td>
 						</tr>
-						<tr>
-							<td>
-								<span class="f11a">OtherID 2</span>
-								<cfset thisIdType=#other_id_num_type_2#>
-								<select name="other_id_num_type_2" size="1" style="width:250px"
-									id="other_id_num_type_2"
-									onChange="dataEntry.other_id_num_2.className='reqdClr';
-										dataEntry.other_id_num_2.focus();">
-									<option value=""></option>
-									<cfloop query="ctOtherIdType">
-										<option <cfif #ctOtherIdType.other_id_type# is #thisIdType#> selected </cfif>
-										value="#other_id_type#">#other_id_type#</option>
-									</cfloop>
-								</select>
-								<input type="text" 
-									name="other_id_num_2" 
-									value="#other_id_num_2#"
-									id="other_id_num_2"
-									onChange="dataEntry.other_id_num_type_3.focus();">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<span class="f11a">OtherID 3</span>
-								<cfset thisIdType=#other_id_num_type_3#>
-								<select name="other_id_num_type_3" size="1" style="width:250px"
-									id="other_id_num_type_3"
-									onChange="dataEntry.other_id_num_3.className='reqdClr';
-										dataEntry.other_id_num_3.focus();">
-									<option  value=""></option>
-									<cfloop query="ctOtherIdType">
-										<option <cfif #ctOtherIdType.other_id_type# is #thisIdType#> selected </cfif>
-											value="#other_id_type#">#other_id_type#</option>
-									</cfloop>
-								</select>
-								<input type="text" name="other_id_num_3" value="#other_id_num_3#" id="other_id_num_3">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<span class="f11a">OtherID 4</span>
-								<cfset thisIdType=#other_id_num_type_4#>
-								<select name="other_id_num_type_4" size="1" style="width:250px"
-									id="other_id_num_type_4"
-									onChange="dataEntry.other_id_num_4.className='reqdClr';
-										dataEntry.other_id_num_4.focus();">
-									<option  value=""></option>
-									<cfloop query="ctOtherIdType">
-										<option <cfif #ctOtherIdType.other_id_type# is #thisIdType#> selected </cfif>
-											value="#other_id_type#">#other_id_type#</option>
-									</cfloop>
-								</select>
-								<input type="text" name="other_id_num_4" value="#other_id_num_4#" id="other_id_num_4">
-							</td>
-						</tr>
+						<cfloop from="1" to="4" index="i">
+							<tr>
+								<td>
+									<cfset thisIdType=#other_id_num_type_1#>
+									<span class="f11a">OtherID #i#</span>
+									<select name="other_id_num_type_#i#" style="width:250px"
+										id="other_id_num_type_#i#" 
+										onChange="this.className='reqdClr';dataEntry.other_id_num_#i#.className='reqdClr';dataEntry.other_id_num_#i#.focus();">
+										<option value=""></option>
+										<cfloop query="ctOtherIdType">
+											<option 
+												<cfif evaluate("data.other_id_type" & i) is ctOtherIdType.other_id_type> selected="selected" </cfif>
+												value="#other_id_type#">#other_id_type#</option>
+										</cfloop>
+									</select>
+									<input type="text" name="other_id_num_#i#" value="#evaluate("data.other_id_num_" & i)#" id="other_id_num_#i#">
+								</td>
+							</tr>
+						</cfloop>
 					</table><!---- /other IDs ---->
 					<table cellpadding="0" cellspacing="0" class="fs"><!----- identification ----->		
 						<tr>
