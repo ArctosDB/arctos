@@ -348,7 +348,6 @@
 						<cfloop from="1" to="4" index="i">
 							<tr>
 								<td>
-									<cfset thisIdType=#other_id_num_type_1#>
 									<span class="f11a">OtherID #i#</span>
 									<select name="other_id_num_type_#i#" style="width:250px"
 										id="other_id_num_type_#i#" 
@@ -374,47 +373,25 @@
 								<span class="f11a">Scientific&nbsp;Name</span>
 							</td>
 							<td width="100%">
-								<input 
-									type="text" 
-									name="taxon_name" 
-									value="#taxon_name#" 
-									class="reqdClr" 
-									size="40"
-									onchange="taxaPick('nothing','taxon_name','dataEntry',this.value); return false;"
-									id="taxon_name">
+								<input type="text" name="taxon_name" value="#taxon_name#" class="reqdClr" size="40"
+									onchange="taxaPick('nothing','taxon_name','dataEntry',this.value); return false;" id="taxon_name">
 							</td>
 						</tr>
 						<tr>
 							<td align="right"><span class="f11a">ID By</span></td>
 							<td>
-								<input type="text" 
-									name="id_made_by_agent" 
-									value="#id_made_by_agent#" 
-									class="reqdClr"
-									size="40" 
-									onchange="getAgent('nothing','id_made_by_agent','dataEntry',this.value); return false;"
-									id="id_made_by_agent">
-									<img src="/images/copyall.gif" 
-										border="0"  
-										height="18" 
-										width="18" 
-										class="likeLink" 
-										alt="[ copy ]"
-										onclick="copyAllAgents('id_made_by_agent');" />
+								<input type="text" name="id_made_by_agent" value="#id_made_by_agent#" class="reqdClr" size="40" 
+									onchange="getAgent('nothing','id_made_by_agent','dataEntry',this.value); return false;" id="id_made_by_agent">
+								<span class="infoLink" onclick="copyAllAgents('id_made_by_agent');">Copy2All</span>
 							</td>
 						</tr>
 						<tr>
 							<td align="right"><span class="f11a">Nature</span></td>
 							<td>
-								<cfset thisNature=#nature_of_id#>
-								<select name="nature_of_id" 
-									size="1" 
-									class="reqdClr"
-									id="nature_of_id">
+								<select name="nature_of_id" class="reqdClr" id="nature_of_id">
 									<cfloop query="ctnature">
-									<option 
-									<cfif #nature_of_id# is #thisNature#> selected </cfif> 
-									value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
+										<option <cfif data.nature_of_id is ctnature.nature_of_id> selected="selected" </cfif> 
+											value="#ctnature.nature_of_id#">#ctnature.nature_of_id#</option>
 									</cfloop>
 								</select>
 							</td>
@@ -440,12 +417,8 @@
 							</td>
 							<td align="right"><span class="f11a">Higher Geog</span></td>
 							<td width="100%">
-								<input type="text" name="higher_geog" 
-									class="reqdClr"
-									onchange="getGeog('nothing','higher_geog','dataEntry',this.value); return false;"
-									id="higher_geog"
-									value="#higher_geog#"
-									size="80">
+								<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" value="#higher_geog#" size="80"
+									onchange="getGeog('nothing','higher_geog','dataEntry',this.value); return false;">
 							</td>
 						</tr>
 						<tr>
@@ -503,28 +476,15 @@
 						<tr>
 							<td align="right"><span class="f11a">VerbatimDate</span></td>
 							<td>
-								<input type="text" name="verbatim_date" class="reqdClr" 
-									value="#verbatim_date#"
-									id="verbatim_date"
-									size="20">
+								<input type="text" name="verbatim_date" class="reqdClr" value="#verbatim_date#" id="verbatim_date" size="20">
 								<span class="infoLink"
 									onClick="dataEntry.began_date.value=dataEntry.verbatim_date.value;
 									dataEntry.ended_date.value=dataEntry.verbatim_date.value;">--></span>
 								<span class="f11a">Begin</span>
-								<input type="text" 
-									name="began_date" 
-									class="reqdClr" 
-									value="#began_date#"
-									id="began_date"
-									size="10">
+								<input type="text" name="began_date" class="reqdClr" value="#began_date#" id="began_date" size="10">
 								<span class="infoLink" onclick="copyAllDates('began_date');">Copy2All</span>
 								<span class="f11a">End</span>
-								<input type="text" 
-									name="ended_date" 
-									class="reqdClr" 
-									value="#ended_date#"
-									id="ended_date"
-									size="10">
+								<input type="text" name="ended_date" class="reqdClr" value="#ended_date#" id="ended_date" size="10">
 								<span class="infoLink" onclick="copyAllDates('ended_date');">Copy2All</span>
 							</td>
 						</tr>
@@ -534,14 +494,11 @@
 								<table cellspacing="0" cellpadding="0">
 									<tr>
 										<td>
-											<input type="text" 
-												name="collecting_method" 
-												value="#collecting_method#"
-												id="collecting_method">
+											<input type="text" name="collecting_method" value="#collecting_method#" id="collecting_method">
 										</td>
 										<td align="right"><span class="f11a">Coll. Src.:</span></td>
 										<td>
-											<cfif len(#collecting_source#) gt 0>
+											<cfif len(collecting_source) gt 0>
 												<cfset thisCollSrc=collecting_source>
 											<cfelse>
 												<cfset thisCollSrc="wild caught">
@@ -583,39 +540,24 @@
 							<td align="right"><span class="f11a">Elevation (min-max)</span></td>
 							<td>
 								<span class="f11a">&nbsp;between</span>
-								<input type="text" 
-									name="minimum_elevation" 
-									size="4" 
-									value="#minimum_elevation#"
-									id="minimum_elevation">
+								<input type="text" name="minimum_elevation" size="4" value="#minimum_elevation#" id="minimum_elevation">
 								<span class="infoLink" 
 									onclick="document.getElementById('maximum_elevation').value=document.getElementById('minimum_elevation').value";>&nbsp;>>&nbsp;</span>
-								<input type="text" 
-										name="maximum_elevation" 
-										size="4" 
-										value="#maximum_elevation#"
-										id="maximum_elevation">
-									<cfset thisElUn=#orig_elev_units#>
-									<select name="orig_elev_units" 
-										size="1" 
-										id="orig_elev_units">
-										<option value=""></option>
-										<cfloop query="ctOrigElevUnits">
-											<option 
-												<cfif #thisElUn# is #orig_elev_units#> selected </cfif>
-												value="#orig_elev_units#">#orig_elev_units#</option>
-										</cfloop>
-									</select>
+								<input type="text" name="maximum_elevation" size="4" value="#maximum_elevation#" id="maximum_elevation">
+								<select name="orig_elev_units" size="1" id="orig_elev_units">
+									<option value=""></option>
+									<cfloop query="ctOrigElevUnits">
+										<option 
+											<cfif data.orig_elev_units is ctOrigElevUnits.orig_elev_units> selected="selected" </cfif>
+											value="#orig_elev_units#">#orig_elev_units#</option>
+									</cfloop>
+								</select>
 							</td>
 						</tr>
 						<tr>
 							<td align="right"><span class="f11a">CollEvntRemk</span></td>
 							<td>
-								<input type="text" 
-									name="coll_event_remarks" 
-									size="80" 
-									value="#coll_event_remarks#"
-									id="coll_event_remarks">
+								<input type="text" name="coll_event_remarks" size="80" value="#coll_event_remarks#" id="coll_event_remarks">
 							</td>
 						</tr>
 						<tr>
@@ -638,14 +580,12 @@
 									<td align="right"><span class="f11a">Original&nbsp;lat/long&nbsp;Units</span></td>
 									<td colspan="99" width="100%">
 										<cfset thisLLUnits=#ORIG_LAT_LONG_UNITS#>
-										<select name="orig_lat_long_units"
-											size="1"  
-											id="orig_lat_long_units"
+										<select name="orig_lat_long_units" id="orig_lat_long_units"
 											onChange="switchActive(this.value);dataEntry.max_error_distance.focus();">
 											<option value=""></option>
 											<cfloop query="ctunits">
-											  <option <cfif #ORIG_LAT_LONG_UNITS# is #thisLLUnits#> selected </cfif>
-											  value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
+											  <option <cfif data.orig_lat_long_units is ctunits.orig_lat_long_units> selected="selected" </cfif>
+											  	value="#ctunits.ORIG_LAT_LONG_UNITS#">#ctunits.ORIG_LAT_LONG_UNITS#</option>
 											</cfloop>
 										</select> 
 									</td>
@@ -661,13 +601,12 @@
 										<td align="right"><span class="f11a">Max Error</span></td>
 										<td>
 											<input type="text" name="max_error_distance" id="max_error_distance" value="#max_error_distance#" size="10">
-											<cfset thisMEUnit = max_error_units>
 											<select name="max_error_units" size="1" id="max_error_units">
 												<option value=""></option>
 												<cfloop query="cterror">
 												  <option 
-												  <cfif #cterror.LAT_LONG_ERROR_UNITS# is #thisMEUnit#> selected </cfif>
-												  value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
+												  <cfif cterror.LAT_LONG_ERROR_UNITS is data.max_error_units> selected="selected" </cfif>
+												  	value="#cterror.LAT_LONG_ERROR_UNITS#">#cterror.LAT_LONG_ERROR_UNITS#</option>
 												</cfloop>
 											</select> 
 										</td>
@@ -683,13 +622,11 @@
 										</td>
 										<td align="right"><span class="f11a">Datum</span></td>
 										<td>
-											<cfset thisDatum=datum>
-											<select name="datum" size="1"
-												class="reqdClr" id="datum">
+											<select name="datum" size="1" class="reqdClr" id="datum">
 												<option value=""></option>
 												<cfloop query="ctdatum">
-												  <option <cfif #thisDatum# is #datum#> selected </cfif>
-												  value="#datum#">#datum#</option>
+													<option <cfif data.datim is ctdatum.datum> selected="selected" </cfif>
+												 		value="#datum#">#datum#</option>
 												</cfloop>
 											</select> 
 										</td>
@@ -699,57 +636,42 @@
 											<span class="f11a">Determiner</span>
 										</td>
 										<td>
-											<input type="text"
-												name="determined_by_agent" 
-												value="#determined_by_agent#" 
-												class="reqdClr" 
+											<input type="text" name="determined_by_agent" value="#determined_by_agent#" class="reqdClr" 
 												onchange="getAgent('nothing','determined_by_agent','dataEntry',this.value); return false;"
 												id="determined_by_agent">
 										</td>
 										<td align="right"><span class="f11a">Date</span></td>
 										<td>
-											<input type="text" 
-												 name="determined_date" 
-												class="reqdClr"
-												value="#determined_date#"
-												id="determined_date">
+											<input type="text" name="determined_date" class="reqdClr" value="#determined_date#" id="determined_date">
 											<span class="infoLink" onclick="copyAllDates('determined_date');">Copy2All</span>
 										</td>
 									</tr>
 									<tr>
 										<td align="right"><span class="f11a">Reference</span></td>
 										<td colspan="3" nowrap="nowrap">
-											<input type="text" 
-												name="lat_long_ref_source" 
-												id="lat_long_ref_source" 
-												class="reqdClr" 
-												size="60"
-												value="#lat_long_ref_source#">
-												<span class="infoLink" onclick="getHelp('lat_long_ref_source');">Pick</span>
+											<input type="text" name="lat_long_ref_source" id="lat_long_ref_source"  class="reqdClr" 
+												size="60" value="#lat_long_ref_source#">
+											<span class="infoLink" onclick="getHelp('lat_long_ref_source');">Pick</span>
 										</td>
 									</tr>
 									<tr>
 										<td align="right"><span class="f11a">Georef Meth</span></td>
 										<td>
-											<cfset thisgeorefmethod = #georefmethod#>
-											<select name="georefmethod" size="1" class="reqdClr" 
-												style="width:130px"
-												id="georefmethod">
-													<cfloop query="ctgeorefmethod">
-													  <option <cfif #thisgeorefmethod# is #georefmethod#> selected </cfif>
-													  value="#ctgeorefmethod.georefmethod#">#ctgeorefmethod.georefmethod#</option>
-													</cfloop>
+											<select name="georefmethod" size="1" class="reqdClr" style="width:130px" id="georefmethod">
+												<cfloop query="ctgeorefmethod">
+													<option <cfif data.georefmethod is ctgeorefmethod.georefmethod> selected="selected" </cfif>
+														value="#ctgeorefmethod.georefmethod#">#ctgeorefmethod.georefmethod#</option>
+												</cfloop>
 											</select> 
 										</td>
 										<td align="right"><span class="f11a">Verification</span></td>
 										<td>
 											<cfset thisverificationstatus = #verificationstatus#>
-											<select name="verificationstatus" size="1" class="reqdClr" 
-												 id="verificationstatus">
-													<cfloop query="ctverificationstatus">
-													  <option <cfif #thisverificationstatus# is #verificationstatus#> selected </cfif>
-													  value="#ctverificationstatus.verificationstatus#">#ctverificationstatus.verificationstatus#</option>
-													</cfloop>
+											<select name="verificationstatus" size="1" class="reqdClr" id="verificationstatus">
+												<cfloop query="ctverificationstatus">
+													<option <cfif data.verificationstatus is ctverificationstatus.verificationstatus> selected="selected" </cfif>
+												  		value="#ctverificationstatus.verificationstatus#">#ctverificationstatus.verificationstatus#</option>
+												</cfloop>
 											</select>
 										</td>
 									</tr>
@@ -766,12 +688,7 @@
 									<tr>
 										<td align="right"><span class="f11a">Lat Deg</span></td>
 										<td>
-											<input type="text"
-												 name="latdeg" 
-												size="4"
-												id="latdeg"
-												class="reqdClr"
-												value="#latdeg#">
+											<input type="text" name="latdeg" size="4" id="latdeg" class="reqdClr" value="#latdeg#">
 										</td>
 										<td align="right"><span class="f11a">Min</span></td>
 										<td>
@@ -1237,9 +1154,8 @@
 												style="width:100px;" id="attribute_#i#">
 												<option value="">&nbsp;&nbsp;&nbsp;&nbsp;</option>						
 												<cfloop query="ctAttributeType">
-													<option 
-														<cfif evaluate("data.attribute_" & i) is ctAttributeType.attribute_type> selected="selected" </cfif>
-															value="#attribute_type#">#attribute_type#</option>
+													<option <cfif evaluate("data.attribute_" & i) is ctAttributeType.attribute_type> selected="selected" </cfif>
+														value="#attribute_type#">#attribute_type#</option>
 												</cfloop>
 											</select>
 										</td>
@@ -1578,110 +1494,99 @@
 </cfif>
 </cfoutput>
 </cfif>
-
 <!---------------------------------------------------------------------------->
-<cfif #action# is "deleteThisRec">
+<cfif action is "deleteThisRec">
 	<cfoutput>
-	<cftransaction>
-	<cfquery name="kill" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		delete from bulkloader where collection_object_id = #collection_object_id#
-	</cfquery>
-	</cftransaction>
-	<cfquery name="next" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select max(collection_object_id) as collection_object_id from bulkloader 
-		where enteredby = '#session.username#'
-	</cfquery>
-	<cfif #len(next.collection_object_id)# is 0>
-		<cflocation url="DataEntry.cfm">
-	</cfif>
-	
-	<cfif #imAGod# is "yes">
-		<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#next.collection_object_id#&imagod=yes">
-	<cfelse>
-		<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#next.collection_object_id#">
-	</cfif>
-	<cflocation url="#theLink#">
+		<cftransaction>
+			<cfquery name="kill" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				delete from bulkloader where collection_object_id = #collection_object_id#
+			</cfquery>
+		</cftransaction>
+		<cfquery name="next" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select max(collection_object_id) as collection_object_id from bulkloader 
+			where enteredby = '#session.username#'
+		</cfquery>
+		<cfif len(next.collection_object_id) is 0>
+			<cflocation url="DataEntry.cfm">
+		</cfif>
+		<cfif imAGod is "yes">
+			<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#next.collection_object_id#&imagod=yes">
+		<cfelse>
+			<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#next.collection_object_id#">
+		</cfif>
+		<cflocation url="#theLink#">
 	</cfoutput>
 </cfif>
 <!---------------------------------------------------------------------------->
-<cfif #action# is "saveEditRecord">
-
+<cfif action is "saveEditRecord">
 	<cfoutput>
-	<cfquery name="getCols" datasource="uam_god">
-		select column_name from sys.user_tab_cols
-		where table_name='BULKLOADER'
-		order by internal_column_id
-	</cfquery>
-	<!--- do this dynamically, everything is varchar --->
-	<cfset sql = "UPDATE bulkloader SET ">
-	<cfloop query="getCols">
-		<cfif isDefined("Form.#column_name#")>
+		<cfquery name="getCols" datasource="uam_god">
+			select column_name from sys.user_tab_cols
+			where table_name='BULKLOADER'
+			order by internal_column_id
+		</cfquery>
+		<cfset sql = "UPDATE bulkloader SET ">
+		<cfloop query="getCols">
+			<cfif isDefined("Form.#column_name#")>
 				<cfset thisData = evaluate("form." & column_name)>
 				<cfset thisData = replace(thisData,"'","''","all")>
 				<cfset sql = "#SQL#,#COLUMN_NAME# = '#thisData#'">
+			</cfif>
+		</cfloop>
+		<cfset sql = "#SQL# where collection_object_id = #collection_object_id#">
+		<cfset sql = replace(sql,"UPDATE bulkloader SET ,","UPDATE bulkloader SET ")>
+		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(sql)#
+		</cfquery>
+		<cfif imAGod is "yes">
+			<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#collection_object_id#&imagod=yes">
+		<cfelse>
+			<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#collection_object_id#">
 		</cfif>
-	</cfloop>
-	<cfset sql = "#SQL# where collection_object_id = #collection_object_id#">
-	<!--- KILL THE first comma in sql --->
-	<cfset sql = replace(sql,"UPDATE bulkloader SET ,","UPDATE bulkloader SET ")>
-	<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		#preservesinglequotes(sql)#
-	</cfquery>
-	<cfif #imAGod# is "yes">
-		<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#collection_object_id#&imagod=yes">
-	<cfelse>
-		<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#collection_object_id#">
-	</cfif>
-	<cflocation url="#theLink#">
+		<cflocation url="#theLink#">
 	</cfoutput>
-	
 </cfif>
 <!-------------------------------------------------------------------------------------------->
-<cfif #action# is "saveEntry">
-
+<cfif action is "saveEntry">
 	<cfoutput>
-	<!--- saving a new record --->
-	<cfquery name="getCols" datasource="uam_god">
-		select column_name from sys.user_tab_cols
-		where table_name='BULKLOADER'
-		order by internal_column_id
-	</cfquery>
-	<!--- do this dynamically, everything is varchar --->
-	<cfset sql = "INSERT INTO bulkloader (">
-	<cfset flds = "">
-	<cfset data = "">
-	<cfloop query="getCols">
-		<cfif isDefined("Form.#column_name#")>
-			<cfif #column_name# is not "collection_object_id">
-				<cfset flds = "#flds#,#column_name#">
-				<cfset thisData = evaluate("form." & column_name)>
-				<cfset thisData = replace(thisData,"'","''","all")>
-				<cfset data = "#data#,'#thisData#'">
+		<cfquery name="getCols" datasource="uam_god">
+			select column_name from sys.user_tab_cols
+			where table_name='BULKLOADER'
+			order by internal_column_id
+		</cfquery>
+		<cfset sql = "INSERT INTO bulkloader (">
+		<cfset flds = "">
+		<cfset data = "">
+		<cfloop query="getCols">
+			<cfif isDefined("Form.#column_name#")>
+				<cfif column_name is not "collection_object_id">
+					<cfset flds = "#flds#,#column_name#">
+					<cfset thisData = evaluate("form." & column_name)>
+					<cfset thisData = replace(thisData,"'","''","all")>
+					<cfset data = "#data#,'#thisData#'">
+				</cfif>
 			</cfif>
+		</cfloop>
+		<cfset flds = trim(flds)>
+		<cfset flds=right(flds,len(flds)-1)>
+		<cfset data = trim(data)>
+		<cfset data=right(data,len(data)-1)>
+		<cfset flds = "collection_object_id,#flds#">
+		<cfset data = "bulkloader_PKEY.nextval,#data#">
+		<cfset sql = "insert into bulkloader (#flds#) values (#data#)">	
+		<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(sql)#
+		</cfquery>
+		<cfquery name="tVal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select bulkloader_PKEY.currval as currval from dual
+		</cfquery>
+		<cfif imAGod is "yes">
+			<cfset theLink = "DataEntry.cfm?action=editEnterData&collection_object_id=#tVal.currval#&imagod=yes">
+		<cfelse>
+			<cfset theLink = "DataEntry.cfm?action=editEnterData&collection_object_id=#tVal.currval#">
 		</cfif>
-	</cfloop>
-	<!--- flds and data will start with a comma - remove it --->
-	<cfset flds = trim(flds)>
-	<cfset flds=right(flds,len(flds)-1)>
-	<cfset data = trim(data)>
-	<cfset data=right(data,len(data)-1)>
-	<!--- tack on collectin object ID handling for new records --->
-	<cfset flds = "collection_object_id,#flds#">
-	<cfset data = "bulkloader_PKEY.nextval,#data#">
-	<cfset sql = "insert into bulkloader (#flds#) values (#data#)">	
-	<cfquery name="new" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		#preservesinglequotes(sql)#
-	</cfquery>
-	<cfquery name="tVal" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select bulkloader_PKEY.currval as currval from dual
-	</cfquery>
-	<cfif #imAGod# is "yes">
-		<cfset theLink = "DataEntry.cfm?action=editEnterData&collection_object_id=#tVal.currval#&imagod=yes">
-	<cfelse>
-		<cfset theLink = "DataEntry.cfm?action=editEnterData&collection_object_id=#tVal.currval#">
-	</cfif>
-	<cflocation url="#theLink#">
-	<cflocation url="">
-</cfoutput>
+		<cflocation url="#theLink#">
+		<cflocation url="">
+	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">

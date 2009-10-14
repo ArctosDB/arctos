@@ -932,13 +932,13 @@ function unpickEvent() {
 	document.getElementById('verbatim_date').removeAttribute('readonly');
 	document.getElementById('verbatim_locality').className='reqdClr';
 	document.getElementById('verbatim_locality').removeAttribute('readonly');
-	document.getElementById('coll_event_remarks').className='d11a';
+	document.getElementById('coll_event_remarks').className='';
 	document.getElementById('coll_event_remarks').removeAttribute('readonly');
 	document.getElementById('collecting_source').className='reqdClr';
 	document.getElementById('collecting_source').removeAttribute('readonly');
-	document.getElementById('collecting_method').className='d11a';
+	document.getElementById('collecting_method').className='';
 	document.getElementById('collecting_method').removeAttribute('readonly');
-	document.getElementById('habitat_desc').className='d11a';
+	document.getElementById('habitat_desc').className='';
 	document.getElementById('habitat_desc').removeAttribute('readonly');
 	document.getElementById('eventUnPicker').style.display='none';
 	document.getElementById('eventPicker').style.display='';
@@ -949,15 +949,15 @@ function unpickLocality () {
 	switchActive(u);
 	document.getElementById('higher_geog').className='reqdClr';
 	document.getElementById('higher_geog').removeAttribute('readonly');
-	document.getElementById('maximum_elevation').className='d11a';
+	document.getElementById('maximum_elevation').className='';
 	document.getElementById('maximum_elevation').removeAttribute('readonly');
-	document.getElementById('minimum_elevation').className='d11a';
+	document.getElementById('minimum_elevation').className='';
 	document.getElementById('minimum_elevation').removeAttribute('readonly');
-	document.getElementById('orig_elev_units').className='d11a';
+	document.getElementById('orig_elev_units').className='';
 	document.getElementById('orig_elev_units').removeAttribute('readonly');
 	document.getElementById('spec_locality').className='reqdClr';
 	document.getElementById('spec_locality').removeAttribute('readonly');
-	document.getElementById('locality_remarks').className='d11a';
+	document.getElementById('locality_remarks').className='';
 	document.getElementById('locality_remarks').removeAttribute('readonly');
 	document.getElementById('latdeg').className='reqdClr';
 	document.getElementById('latdeg').removeAttribute('readonly');
@@ -991,13 +991,13 @@ function unpickLocality () {
 	document.getElementById('dec_lat').removeAttribute('readonly');
 	document.getElementById('dec_long').className='reqdClr';
 	document.getElementById('dec_long').removeAttribute('readonly');
-	document.getElementById('max_error_distance').className='d11a';
+	document.getElementById('max_error_distance').className='';
 	document.getElementById('max_error_distance').removeAttribute('readonly');
-	document.getElementById('max_error_units').className='d11a';
+	document.getElementById('max_error_units').className='';
 	document.getElementById('max_error_units').removeAttribute('readonly');
-	document.getElementById('extent').className='d11a';
+	document.getElementById('extent').className='';
 	document.getElementById('extent').removeAttribute('readonly');
-	document.getElementById('gpsaccuracy').className='d11a';
+	document.getElementById('gpsaccuracy').className='';
 	document.getElementById('gpsaccuracy').removeAttribute('readonly');
 	document.getElementById('datum').className='reqdClr';
 	document.getElementById('datum').removeAttribute('readonly');
@@ -1011,9 +1011,9 @@ function unpickLocality () {
 	document.getElementById('georefmethod').removeAttribute('readonly');
 	document.getElementById('verificationstatus').className='reqdClr';
 	document.getElementById('verificationstatus').removeAttribute('readonly');
-	document.getElementById('lat_long_remarks').className='d11a';
+	document.getElementById('lat_long_remarks').className='';
 	document.getElementById('lat_long_remarks').removeAttribute('readonly');
-	document.getElementById('orig_lat_long_units').className='d11a';
+	document.getElementById('orig_lat_long_units').className='';
 	document.getElementById('orig_lat_long_units').removeAttribute('readonly');
 	document.getElementById('locality_id').value='';
 	document.getElementById('fetched_locid').value='';
@@ -1033,13 +1033,13 @@ function unpickLocality () {
 			document.getElementById(aID).removeAttribute('readonly');
 			document.getElementById(vID).className='reqdClr';
 			document.getElementById(vID).removeAttribute('readonly');
-			document.getElementById(dID).className='d11a';
+			document.getElementById(dID).className='';
 			document.getElementById(dID).removeAttribute('readonly');
-			document.getElementById(ddID).className='d11a';
+			document.getElementById(ddID).className='';
 			document.getElementById(ddID).removeAttribute('readonly');
-			document.getElementById(mID).className='d11a';
+			document.getElementById(mID).className='';
 			document.getElementById(mID).removeAttribute('readonly');
-			document.getElementById(rID).className='d11a';
+			document.getElementById(rID).className='';
 			document.getElementById(rID).removeAttribute('readonly');
 		}
 	} catch(err) {
@@ -1413,7 +1413,7 @@ function success_getAttributeStuff (r) {
 				var sWid = '90px;';
 			}
 			theNewSelect.style.width=sWid;
-			theNewSelect.className = "d11a";
+			theNewSelect.className = "";
 			var a = document.createElement("option");
 			a.text = '';
     		a.value = '';
@@ -1432,7 +1432,7 @@ function success_getAttributeStuff (r) {
 				theNewText.id = theTextName;	
 				theNewText.type="text";
 				theNewText.style.width='95px';
-				theNewText.className = "d11a";
+				theNewText.className = "";
 				theText.appendChild(theNewText);
 			}
 		}
@@ -1444,7 +1444,7 @@ function success_getAttributeStuff (r) {
 		theNewText.id = theSelectName;	
 		theNewText.type="text";
 		theNewText.style.width='95px';
-		theNewText.className = "d11a";
+		theNewText.className = "";
 		theDiv.appendChild(theNewText);
 	} else {
 		alert('Something bad happened! Try selecting nothing, then re-selecting an attribute or reloading this page');
