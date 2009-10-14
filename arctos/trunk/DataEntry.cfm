@@ -1379,232 +1379,52 @@
 									<th><span class="f11a">Method</span></th>
 									<th><span class="f11a">Remarks</span></th>
 								</tr>
-								<tr>
-									<td>
-										<select name="attribute_7" size="1" onChange="getAttributeStuff(this.value,this.id);"
-											style="width:100px;" id="attribute_7">
-											<option value="">&nbsp;&nbsp;&nbsp;&nbsp;</option>						
-											<cfloop query="ctAttributeType">
-												<option 
-													<cfif #data.attribute_7# is #attribute_type#> selected </cfif>
-														value="#attribute_type#">#attribute_type#</option>
-											</cfloop>
-										  </select>
-									</td>
-									<td>
-										<div id="attribute_value_cell_7">
-											<input type="text" 
-												name="attribute_value_7" 
-												value="#attribute_value_7#" 
-												id="attribute_value_7"
-												size="15">
-										</div>
-									</td>
-									<td>
-										<div id="attribute_units_cell_7">
-										<input type="text"
-											name="attribute_units_7" 
-											value="#attribute_units_7#" 
-											id="attribute_units_7"
-											size="6"
-											>
-										</div>
-									</td>
-									<td>
-										<input type="text" 
-											name="attribute_date_7" 
-											value="#attribute_date_7#" 
-											id="attribute_date_7"
-											size="10">
-									</td>
-									<td>
-										 <input type="text" name="attribute_determiner_7"
-											onchange="getAgent('nothing','attribute_determiner_7','dataEntry',this.value);"
-											id="attribute_determiner_7"
-											size="15"
-											value="#attribute_determiner_7#">
-									</td>
-									<td>
-										<input type="text" name="attribute_det_meth_7"
-											id="attribute_det_meth_7"
-											size="15"
-											value="#attribute_det_meth_7#">
-									</td>
-									<td>
-										<input type="text" name="attribute_remarks_7"
-											id="attribute_remarks_7"
-											value="#attribute_remarks_7#">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<select name="attribute_8" size="1" onChange="getAttributeStuff(this.value,this.id);"
-											style="width:100px;"
-											id="attribute_8">
-											<option value=""></option>
-											<cfloop query="ctAttributeType">
-												<option 
-													<cfif #data.attribute_8# is #attribute_type#> selected </cfif>
-														value="#attribute_type#">#attribute_type#</option>
-											</cfloop>
-										  </select>
-									</td>
-									<td>
-										<div id="attribute_value_cell_8">
-										<input type="text" 
-											name="attribute_value_8" 
-											value="#attribute_value_8#" 
-											id="attribute_value_8"
-											size="15">
-										</div>
-									</td>
-									<td>
-										<div id="attribute_units_cell_8">
-										<input type="text" 
-											name="attribute_units_8" 
-											value="#attribute_units_8#" 
-											id="attribute_units_8"
-											size="6">
-										</div>
-									</td>
-									<td>
-										<input type="text" 
-											name="attribute_date_8" 
-											value="#attribute_date_8#" 
-											id="attribute_date_8"
-											size="10">
-									</td>
-									<td>
-										 <input type="text" name="attribute_determiner_8"
-											onchange="getAgent('nothing','attribute_determiner_8','dataEntry',this.value);"
-											id="attribute_determiner_8"
-											size="15"
-											value="#attribute_determiner_8#">
-									</td>
-									<td>
-										<input type="text" name="attribute_det_meth_8"
-											id="attribute_det_meth_8"
-											size="15"
-											value="#attribute_det_meth_8#">
-									</td>
-									<td>
-										<input type="text" name="attribute_remarks_8"
-											id="attribute_remarks_8"
-											value="#attribute_remarks_8#">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<select name="attribute_9" size="1" onChange="getAttributeStuff(this.value,this.id);"
-											style="width:100px;"
-											id="attribute_9">
-											<option value=""></option>
-											<cfloop query="ctAttributeType">
-												<option 
-													<cfif #data.attribute_9# is #attribute_type#> selected </cfif>
-														value="#attribute_type#">#attribute_type#</option>
-											</cfloop>
-										  </select>
-									</td>
-									<td>
-										<div id="attribute_value_cell_9">
-										<input type="text" 
-											name="attribute_value_9" 
-											value="#attribute_value_9#" 
-											id="attribute_value_9"
-											size="15">
-										</div>
-									</td>
-									<td>
-										<div id="attribute_units_cell_9">
-										<input type="text" 
-											name="attribute_units_9" 
-											value="#attribute_units_9#" 
-											id="attribute_units_9"
-											size="6">
-										</div>
-									</td>
-									<td>
-										<input type="text" 
-											name="attribute_date_9" 
-											value="#attribute_date_9#" 
-											id="attribute_date_9"
-											size="10">
-									</td>
-									<td>
-										 <input type="text" name="attribute_determiner_9"
-											onchange="getAgent('nothing','attribute_determiner_9','dataEntry',this.value);"
-											id="attribute_determiner_9"
-											size="15"
-											value="#attribute_determiner_9#">
-									</td>
-									<td>
-										<input type="text" name="attribute_det_meth_9"
-											id="attribute_det_meth_9"
-											size="15"
-											value="#attribute_det_meth_9#">
-									</td>
-									<td>
-										<input type="text" name="attribute_remarks_9"
-											id="attribute_remarks_9"
-											value="#attribute_remarks_9#">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<select name="attribute_10" size="1"  onChange="getAttributeStuff(this.value,this.id);"
-											style="width:100px;"
-											id="attribute_10">
-											<option value=""></option>
-											<cfloop query="ctAttributeType">
-												<option 
-													<cfif #data.attribute_10# is #attribute_type#> selected </cfif>
-														value="#attribute_type#">#attribute_type#</option>
-											</cfloop>
-										  </select>
-									</td>
-									<td>
-										<div id="attribute_value_cell_10">
-											<input type="text" 
-												name="attribute_value_10" 
-												value="#attribute_value_10#" 
-												id="attribute_value_10"
-												size="15">
-										</div>
-									</td>
-									<td>
-										<div id="attribute_units_cell_10">
-											<input type="text" 
-												name="attribute_units_10" 
-												value="#attribute_units_10#" 
-												id="attribute_units_10"
-												size="6">
-										</div>
-									</td>
-									<td>
-										<input type="text" 
-											name="attribute_date_10" 
-											value="#attribute_date_10#" 
-											id="attribute_date_10"
-											size="10">
-									</td>
-									<td>
-										 <input type="text" name="attribute_determiner_10"
-											onchange="getAgent('nothing','attribute_determiner_10','dataEntry',this.value);"
-											id="attribute_determiner_10"
-											size="15"
-											value="#attribute_determiner_10#">
-									</td>
-									<td>
-										<input type="text" name="attribute_det_meth_10"
-											id="attribute_det_meth_10"
-											size="15"
-											value="#attribute_det_meth_10#">
-									</td>
-									<td>
-										<input type="text" name="attribute_remarks_10" id="attribute_remarks_10" value="#attribute_remarks_10#">
-									</td>
-								</tr>
+								<cfloop from="7" to="10" index="i">
+									<tr>
+										<td>
+											<select name="attribute_#i#" onChange="getAttributeStuff(this.value,this.id);"
+												style="width:100px;" id="attribute_#i#">
+												<option value="">&nbsp;&nbsp;&nbsp;&nbsp;</option>						
+												<cfloop query="ctAttributeType">
+													<option 
+														<cfif evaluate("data.attribute_" & i) is ctAttributeType.attribute_type> selected="selected" </cfif>
+															value="#attribute_type#">#attribute_type#</option>
+												</cfloop>
+											</select>
+										</td>
+										<td>
+											<div id="attribute_value_cell_#i#">
+												<input type="text" name="attribute_value_#i#" value="#evaluate("data.attribute_value_" & i)#" 
+													id="attribute_value_#i#"size="15">
+											</div>
+										</td>
+										<td>
+											<div id="attribute_units_cell_#i#">
+											<input type="text" name="attribute_units_#i#"  value="#evaluate("data.attribute_units_" & i)#" 
+												id="attribute_units_#i#" size="6">
+											</div>
+										</td>
+										<td>
+											<input type="text" name="attribute_date_#i#" value="#evaluate("data.attribute_date_" & i)#" 
+												id="attribute_date_#i#" size="10">
+										</td>
+										<td>
+											 <input type="text" name="attribute_determiner_#i#"
+												onchange="getAgent('nothing','attribute_determiner_#i#','dataEntry',this.value);"
+												id="attribute_determiner_#i#" size="15"
+												value="#evaluate("data.attribute_determiner_" & i)#">
+										</td>
+										<td>
+											<input type="text" name="attribute_det_meth_#i#"
+												id="attribute_det_meth_#i#" size="15" value="#evaluate("data.attribute_det_meth_" & i)#">
+										</td>
+										<td>
+											<input type="text" name="attribute_remarks_#i#"
+												id="attribute_remarks_#i#"
+												value="#evaluate("data.attribute_remarks_" & i)#">
+										</td>
+									</tr>
+								</cfloop>
 							</table>
 						</td>
 					</tr>
@@ -1779,1187 +1599,129 @@
 							</td>
 						</tr>
 					</cfloop>
-					
-					<!-----
-					<tr>
-						
-						
-						
-						
-						
-						
-						
-						
-						
-					</tr>
-					
-					
-					----->
-					<!---
-					<tr>
-						<td>
-							<cfset part2 = #part_name_2#>
-							<select name="part_name_2" size="1"
-								id="part_name_2"
-								
-								onchange="this.className='reqdClr';
-									part_condition_2.className='reqdClr';
-									part_lot_count_2.className='reqdClr';
-									part_disposition_2.className='reqdClr';">
-									<option value=""></option>
-									<cfloop query="ctPartName">
-										<option <cfif #part2# is #ctPartName.part_name#> selected </cfif>
-											value="#part_name#">#part_name#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<cfset partmod2 = #part_modifier_2#>
-							<select name="part_modifier_2" 
-								size="1"
-								id="part_modifier_2"
-								>
-								<option value=""></option>
-								<cfloop query="ctPartModifier">
-									<option <cfif #partmod2# is #part_modifier#> selected </cfif>
-									value="#part_modifier#">#part_modifier#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<cfset presmeth2 = #preserv_method_2#>
-							<select name="preserv_method_2" size="1"
-								id="preserv_method_2"
-								
-								onFocus="self.status='First Part Preservation Method'">
-									<option value=""></option>
-									<cfloop query="ctPresMeth">
-										<option <cfif #presmeth2# is #preserve_method#> selected </cfif>
-										value="#ctPresMeth.preserve_method#">#ctPresMeth.preserve_method#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<input type="text" name="part_condition_2"
-								id="part_condition_2"
-								onFocus="self.status='First Part Condition'"
-								value="#part_condition_2#"
-								>
-						</td>
-						<td>
-							<cfset thisDisp = #part_disposition_2#>
-							<select name="part_disposition_2"
-								id="part_disposition_2"
-								size="1" 
-								>
-								<cfloop query="CTCOLL_OBJ_DISP">
-									<option
-										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
-									 value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" 
-								id="part_lot_count_2"
-								name="part_lot_count_2" 
-								value="#part_lot_count_2#" 
-								 size="1">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_barcode_2" 
-								value="#part_barcode_2#" 
-								 size="6"
-								id="part_barcode_2"
-								onchange="part_container_label_2.className='reqdClr';setPartLabel(this.id);">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_container_label_2"
-								id="part_container_label_2" 
-								value="#part_container_label_2#" 
-								 size="10">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_remark_2" 
-								id="part_remark_2"
-								value="#part_remark_2#" 
-								 size="40">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<cfset part3 = #part_name_3#>
-							<select name="part_name_3" size="1"
-								id="part_name_3"
-								
-								onchange="this.className='reqdClr';
-									part_condition_3.className='reqdClr';
-									part_lot_count_3.className='reqdClr';
-									part_disposition_3.className='reqdClr';">
-									<option value=""></option>
-									<cfloop query="ctPartName">
-										<option <cfif #part3# is #ctPartName.part_name#> selected </cfif>
-											value="#part_name#">#part_name#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<cfset partmod3 = #part_modifier_3#>
-							<select name="part_modifier_3" 
-								size="1"
-								id="part_modifier_3"
-								>
-								<option value=""></option>
-								<cfloop query="ctPartModifier">
-									<option <cfif #partmod3# is #part_modifier#> selected </cfif>
-									value="#part_modifier#">#part_modifier#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<cfset presmeth3 = #preserv_method_3#>
-							<select name="preserv_method_3" size="1"
-								id="preserv_method_3"
-								>
-									<option value=""></option>
-									<cfloop query="ctPresMeth">
-										<option <cfif #presmeth3# is #preserve_method#> selected </cfif>
-										value="#ctPresMeth.preserve_method#">#ctPresMeth.preserve_method#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<input type="text" name="part_condition_3"
-								id="part_condition_3"
-								value="#part_condition_3#"
-								>
-						</td>
-						<td>
-							<cfset thisDisp = #part_disposition_3#>
-							<select name="part_disposition_3"
-								id="part_disposition_3"
-								size="1" 
-								>
-								<cfloop query="CTCOLL_OBJ_DISP">
-									<option
-										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
-									 value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" 
-								name="part_lot_count_3" 
-								id="part_lot_count_3"
-								value="#part_lot_count_3#" 
-								 size="1">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_barcode_3" 
-								id="part_barcode_3"
-								value="#part_barcode_3#" 
-								 size="6"
-								onchange="part_container_label_3.className='reqdClr';setPartLabel(this.id);">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_container_label_3" 
-								id="part_container_label_3"
-								value="#part_container_label_3#" 
-								 size="10">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_remark_3" 
-								id="part_remark_3"
-								value="#part_remark_3#" 
-								 size="40">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<cfset part4 = #part_name_4#>
-							<select name="part_name_4" size="1"
-								id="part_name_4"
-								
-								onchange="this.className='reqdClr';
-									part_condition_4.className='reqdClr';
-									part_lot_count_4.className='reqdClr';
-									part_disposition_4.className='reqdClr';">
-									<option value=""></option>
-									<cfloop query="ctPartName">
-										<option <cfif #part4# is #ctPartName.part_name#> selected </cfif>
-											value="#part_name#">#part_name#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<cfset partmod4 = #part_modifier_4#>
-							<select name="part_modifier_4" 
-								size="1"
-								id="part_modifier_4"
-								>
-								<option value=""></option>
-								<cfloop query="ctPartModifier">
-									<option <cfif #partmod4# is #part_modifier#> selected </cfif>
-									value="#part_modifier#">#part_modifier#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<cfset presmeth4 = #preserv_method_4#>
-							<select name="preserv_method_4" size="1"
-								id="preserv_method_4"
-								
-								onFocus="self.status='First Part Preservation Method'">
-									<option value=""></option>
-									<cfloop query="ctPresMeth">
-										<option <cfif #presmeth4# is #preserve_method#> selected </cfif>
-										value="#ctPresMeth.preserve_method#">#ctPresMeth.preserve_method#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<input type="text" name="part_condition_4"
-								id="part_condition_4"
-								onFocus="self.status='First Part Condition'"
-								value="#part_condition_4#"
-								>
-						</td>
-						<td>
-							<cfset thisDisp = #part_disposition_4#>
-							<select name="part_disposition_4"
-								id="part_disposition_4"
-								size="1" 
-								>
-								<cfloop query="CTCOLL_OBJ_DISP">
-									<option
-										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
-									 value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" 
-								id="part_lot_count_4"
-								name="part_lot_count_4" 
-								value="#part_lot_count_4#" 
-								 size="1">
-						</td>
-						<td>
-							<input type="text" 
-								id="part_barcode_4"
-								name="part_barcode_4" 
-								value="#part_barcode_4#" 
-								 size="6"
-								onchange="part_container_label_4.className='reqdClr';setPartLabel(this.id);">
-						</td>
-						<td>
-							<input type="text" 
-								id="part_container_label_4"
-								name="part_container_label_4" 
-								value="#part_container_label_4#" 
-								 size="10">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_remark_4" 
-								id="part_remark_4"
-								value="#part_remark_4#" 
-								 size="40">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<cfset part5 = #part_name_5#>
-							<select name="part_name_5" size="1"
-								id="part_name_5"
-								onchange="this.className='reqdClr';
-									part_condition_5.className='reqdClr';
-									part_lot_count_5.className='reqdClr';
-									part_disposition_5.className='reqdClr';"
-								>
-									<option value=""></option>
-									<cfloop query="ctPartName">
-										<option <cfif #part5# is #ctPartName.part_name#> selected </cfif>
-											value="#part_name#">#part_name#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<cfset partmod5 = #part_modifier_5#>
-							<select name="part_modifier_5" 
-								size="1"
-								id="part_modifier_5"
-								
-						onFocus="self.status='First Part Modifier'">
-								<option value=""></option>
-								<cfloop query="ctPartModifier">
-									<option <cfif #partmod5# is #part_modifier#> selected </cfif>
-									value="#part_modifier#">#part_modifier#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<cfset presmeth5 = #preserv_method_5#>
-							<select name="preserv_method_5" size="1"
-								id="preserv_method_5"
-								
-								onFocus="self.status='First Part Preservation Method'">
-									<option value=""></option>
-									<cfloop query="ctPresMeth">
-										<option <cfif #presmeth5# is #preserve_method#> selected </cfif>
-										value="#ctPresMeth.preserve_method#">#ctPresMeth.preserve_method#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<input type="text" name="part_condition_5"
-								id="part_condition_5"
-								onFocus="self.status='First Part Condition'"
-								value="#part_condition_5#"
-								>
-						</td>
-						<td>
-							<cfset thisDisp = #part_disposition_5#>
-							<select name="part_disposition_5"
-								id="part_disposition_5"
-								size="1" 
-								>
-								<cfloop query="CTCOLL_OBJ_DISP">
-									<option
-										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
-									 value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" 
-								id="part_lot_count_5"
-								name="part_lot_count_5" 
-								value="#part_lot_count_5#" 
-								 size="1">
-						</td>
-						<td>
-							<input type="text" 
-								id="part_barcode_5"
-								name="part_barcode_5" 
-								value="#part_barcode_5#" 
-								 size="6"
-								onchange="part_container_label_5.className='reqdClr';setPartLabel(this.id);">
-						</td>
-						<td>
-							<input type="text" 
-								id="part_container_label_5"
-								name="part_container_label_5" 
-								value="#part_container_label_5#" 
-								 size="10">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_remark_5" 
-								id="part_remark_5"
-								value="#part_remark_5#" 
-								 size="40">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<cfset part6 = #part_name_6#>
-							<select name="part_name_6" size="1"
-								id="part_name_6"
-								 
-								onchange="this.className='reqdClr';
-									part_condition_6.className='reqdClr';
-									part_lot_count_6.className='reqdClr';
-									part_disposition_6.className='reqdClr';">
-									<option value=""></option>
-									<cfloop query="ctPartName">
-										<option <cfif #part6# is #ctPartName.part_name#> selected </cfif>
-											value="#part_name#">#part_name#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<cfset partmod6 = #part_modifier_6#>
-							<select name="part_modifier_6" 
-								size="1"
-								id="part_modifier_6"
-								
-						onFocus="self.status='First Part Modifier'">
-								<option value=""></option>
-								<cfloop query="ctPartModifier">
-									<option <cfif #partmod6# is #part_modifier#> selected </cfif>
-									value="#part_modifier#">#part_modifier#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<cfset presmeth6 = #preserv_method_6#>
-							<select name="preserv_method_6" size="1"
-								id="preserv_method_6"
-								
-								onFocus="self.status='First Part Preservation Method'">
-									<option value=""></option>
-									<cfloop query="ctPresMeth">
-										<option <cfif #presmeth6# is #preserve_method#> selected </cfif>
-										value="#ctPresMeth.preserve_method#">#ctPresMeth.preserve_method#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<input type="text" name="part_condition_6"
-								id="part_condition_6"
-								value="#part_condition_6#"
-								>
-						</td>
-						<td>
-							<cfset thisDisp = #part_disposition_6#>
-							<select name="part_disposition_6"
-								id="part_disposition_6"
-								size="1" 
-								>
-								<cfloop query="CTCOLL_OBJ_DISP">
-									<option
-										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
-									 value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" 
-								name="part_lot_count_6"
-								id="part_lot_count_6" 
-								value="#part_lot_count_6#" 
-								 size="1">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_barcode_6" 
-								id="part_barcode_6"
-								value="#part_barcode_6#" 
-								 size="6"
-								onchange="part_container_label_6.className='reqdClr';setPartLabel(this.id);">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_container_label_6"
-								id="part_container_label_6" 
-								value="#part_container_label_6#" 
-								 size="10">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_remark_6" 
-								id="part_remark_6"
-								value="#part_remark_6#" 
-								 size="40">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<cfset part7 = #part_name_7#>
-							<select name="part_name_7" size="1"
-								id="part_name_7"
-								
-								onchange="this.className='reqdClr';
-									part_condition_7.className='reqdClr';
-									part_lot_count_7.className='reqdClr';
-									part_disposition_7.className='reqdClr';">
-									<option value=""></option>
-									<cfloop query="ctPartName">
-										<option <cfif #part7# is #ctPartName.part_name#> selected </cfif>
-											value="#part_name#">#part_name#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<cfset partmod7 = #part_modifier_7#>
-							<select name="part_modifier_7" 
-								size="1"
-								id="part_modifier_7"
-								>
-								<option value=""></option>
-								<cfloop query="ctPartModifier">
-									<option <cfif #partmod7# is #part_modifier#> selected </cfif>
-									value="#part_modifier#">#part_modifier#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<cfset presmeth7 = #preserv_method_7#>
-							<select name="preserv_method_7" size="1"
-								id="preserv_method_7"
-								>
-									<option value=""></option>
-									<cfloop query="ctPresMeth">
-										<option <cfif #presmeth7# is #preserve_method#> selected </cfif>
-										value="#ctPresMeth.preserve_method#">#ctPresMeth.preserve_method#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<input type="text" name="part_condition_7"
-								id="part_condition_7"
-								value="#part_condition_7#"
-								>
-						</td>
-						<td>
-							<cfset thisDisp = #part_disposition_7#>
-							<select name="part_disposition_7"
-								id="part_disposition_7"
-								size="1" 
-								>
-								<cfloop query="CTCOLL_OBJ_DISP">
-									<option
-										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
-									 value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" 
-								id="part_lot_count_7"
-								name="part_lot_count_7" 
-								value="#part_lot_count_7#" 
-								 size="1">
-						</td>
-						<td>
-							<input type="text" 
-								id="part_barcode_7"
-								name="part_barcode_7" 
-								value="#part_barcode_7#" 
-								 size="6"
-								onchange="part_container_label_7.className='reqdClr';setPartLabel(this.id);">
-						</td>
-						<td>
-							<input type="text" 
-								id="part_container_label_7"
-								name="part_container_label_7" 
-								value="#part_container_label_7#" 
-								 size="10">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_remark_7" 
-								id="part_remark_7"
-								value="#part_remark_7#" 
-								 size="40">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<cfset part8 = #part_name_8#>
-							<select name="part_name_8" size="1"
-								id="part_name_8"
-								
-								onchange="this.className='reqdClr';
-									part_condition_8.className='reqdClr';
-									part_lot_count_8.className='reqdClr';
-									part_disposition_8.className='reqdClr';">
-									<option value=""></option>
-									<cfloop query="ctPartName">
-										<option <cfif #part8# is #ctPartName.part_name#> selected </cfif>
-											value="#part_name#">#part_name#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<cfset partmod8 = #part_modifier_8#>
-							<select name="part_modifier_8" 
-								size="1"
-								id="part_modifier_8"
-								>
-								<option value=""></option>
-								<cfloop query="ctPartModifier">
-									<option <cfif #partmod8# is #part_modifier#> selected </cfif>
-									value="#part_modifier#">#part_modifier#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<cfset presmeth8 = #preserv_method_8#>
-							<select name="preserv_method_8" size="1"
-								id="preserv_method_8"
-								>
-									<option value=""></option>
-									<cfloop query="ctPresMeth">
-										<option <cfif #presmeth8# is #preserve_method#> selected </cfif>
-										value="#ctPresMeth.preserve_method#">#ctPresMeth.preserve_method#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<input type="text" name="part_condition_8"
-								id="part_condition_8"
-								onFocus="self.status='First Part Condition'"
-								value="#part_condition_8#"
-								>
-						</td>
-						<td>
-							<cfset thisDisp = #part_disposition_8#>
-							<select name="part_disposition_8"
-								id="part_disposition_8"
-								size="1" 
-								>
-								<cfloop query="CTCOLL_OBJ_DISP">
-									<option
-										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
-									 value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" 
-								id="part_lot_count_8"
-								name="part_lot_count_8" 
-								value="#part_lot_count_8#" 
-								 size="1">
-						</td>
-						<td>
-							<input type="text" 
-								id="part_barcode_8"
-								name="part_barcode_8" 
-								value="#part_barcode_8#" 
-								 size="6"
-								onchange="part_container_label_8.className='reqdClr';setPartLabel(this.id);">
-						</td>
-						<td>
-							<input type="text" 
-								id="part_container_label_8"
-								name="part_container_label_8" 
-								value="#part_container_label_8#" 
-								 size="10">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_remark_8" 
-								id="part_remark_8"
-								value="#part_remark_8#" 
-								 size="40">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<cfset part9 = #part_name_9#>
-							<select name="part_name_9" size="1"
-								id="part_name_9"
-								
-								onchange="this.className='reqdClr';
-									part_condition_9.className='reqdClr';
-									part_lot_count_9.className='reqdClr';
-									part_disposition_9.className='reqdClr';">
-									<option value=""></option>
-									<cfloop query="ctPartName">
-										<option <cfif #part9# is #ctPartName.part_name#> selected </cfif>
-											value="#part_name#">#part_name#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<cfset partmod9 = #part_modifier_9#>
-							<select name="part_modifier_9" 
-								size="1"
-								id="part_modifier_9"
-								>
-								<option value=""></option>
-								<cfloop query="ctPartModifier">
-									<option <cfif #partmod9# is #part_modifier#> selected </cfif>
-									value="#part_modifier#">#part_modifier#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<cfset presmeth9 = #preserv_method_9#>
-							<select name="preserv_method_9" size="1"
-								id="preserv_method_9"
-								>
-									<option value=""></option>
-									<cfloop query="ctPresMeth">
-										<option <cfif #presmeth9# is #preserve_method#> selected </cfif>
-										value="#ctPresMeth.preserve_method#">#ctPresMeth.preserve_method#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<input type="text" name="part_condition_9"
-								id="part_condition_9"
-								onFocus="self.status='First Part Condition'"
-								value="#part_condition_9#"
-								>
-						</td>
-						<td>
-							<cfset thisDisp = #part_disposition_9#>
-							<select name="part_disposition_9"
-								id="part_disposition_9"
-								size="1" 
-								>
-								<cfloop query="CTCOLL_OBJ_DISP">
-									<option
-										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
-									 value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" 
-								id="part_lot_count_9"
-								name="part_lot_count_9" 
-								value="#part_lot_count_9#" 
-								 size="1">
-						</td>
-						<td>
-							<input type="text" 
-								id="part_barcode_9"
-								name="part_barcode_9" 
-								value="#part_barcode_9#" 
-								 size="6"
-								onchange="part_container_label_9.className='reqdClr';setPartLabel(this.id);">
-						</td>
-						<td>
-							<input type="text" 
-								id="part_container_label_9"
-								name="part_container_label_9" 
-								value="#part_container_label_9#" 
-								 size="10">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_remark_9" 
-								id="part_remark_9"
-								value="#part_remark_9#" 
-								 size="40">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<cfset part10 = #part_name_10#>
-							<select name="part_name_10" size="1"
-								id="part_name_10"
-								
-								onchange="this.className='reqdClr';
-									part_condition_10.className='reqdClr';
-									part_lot_count_10.className='reqdClr';
-									part_disposition_10.className='reqdClr';">
-									<option value=""></option>
-									<cfloop query="ctPartName">
-										<option <cfif #part10# is #ctPartName.part_name#> selected </cfif>
-											value="#part_name#">#part_name#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<cfset partmod10 = #part_modifier_10#>
-							<select name="part_modifier_10" 
-								size="1"
-								id="part_modifier_10"
-								>
-								<option value=""></option>
-								<cfloop query="ctPartModifier">
-									<option <cfif #partmod10# is #part_modifier#> selected </cfif>
-									value="#part_modifier#">#part_modifier#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<cfset presmeth10 = #preserv_method_10#>
-							<select name="preserv_method_10" size="1"
-								id="preserv_method_10"
-								>
-									<option value=""></option>
-									<cfloop query="ctPresMeth">
-										<option <cfif #presmeth10# is #preserve_method#> selected </cfif>
-										value="#ctPresMeth.preserve_method#">#ctPresMeth.preserve_method#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<input type="text" name="part_condition_10"
-								id="part_condition_10"
-								value="#part_condition_10#"
-								>
-						</td>
-						<td>
-							<cfset thisDisp = #part_disposition_10#>
-							<select name="part_disposition_10" id="part_disposition_10" size="1">
-								<cfloop query="CTCOLL_OBJ_DISP">
-									<option
-										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
-									 value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" 
-								id="part_lot_count_10"
-								name="part_lot_count_10" 
-								value="#part_lot_count_10#" 
-								 size="1">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_barcode_10" 
-								id="part_barcode_10"
-								value="#part_barcode_10#" 
-								 size="6"
-								onchange="part_container_label_10.className='reqdClr';setPartLabel(this.id);">
-						</td>
-						<td>
-							<input type="text" 
-								id="part_container_label_10"
-								name="part_container_label_10" 
-								value="#part_container_label_10#" 
-								 size="10">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_remark_10" 
-								id="part_remark_10"
-								value="#part_remark_10#" 
-								 size="40">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<cfset part11 = #part_name_11#>
-							<select name="part_name_11" size="1"
-								id="part_name_11"
-								
-								onchange="this.className='reqdClr';
-									part_condition_11.className='reqdClr';
-									part_lot_count_11.className='reqdClr';
-									part_disposition_11.className='reqdClr';">
-									<option value=""></option>
-									<cfloop query="ctPartName">
-										<option <cfif #part11# is #ctPartName.part_name#> selected </cfif>
-											value="#part_name#">#part_name#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<cfset partmod11 = #part_modifier_11#>
-							<select name="part_modifier_11" 
-								size="1"
-								id="part_modifier_11"
-								>
-								<option value=""></option>
-								<cfloop query="ctPartModifier">
-									<option <cfif #partmod11# is #part_modifier#> selected </cfif>
-									value="#part_modifier#">#part_modifier#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<cfset presmeth11 = #preserv_method_11#>
-							<select name="preserv_method_11" size="1"
-								id="preserv_method_11"
-								>
-									<option value=""></option>
-									<cfloop query="ctPresMeth">
-										<option <cfif #presmeth11# is #preserve_method#> selected </cfif>
-										value="#ctPresMeth.preserve_method#">#ctPresMeth.preserve_method#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<input type="text" name="part_condition_11"
-								id="part_condition_11"
-								value="#part_condition_11#"
-								>
-						</td>
-						<td>
-							<cfset thisDisp = #part_disposition_11#>
-							<select name="part_disposition_11"
-								id="part_disposition_11"
-								size="1" 
-								>
-								<cfloop query="CTCOLL_OBJ_DISP">
-									<option
-										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
-									 value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" 
-								id="part_lot_count_11"
-								name="part_lot_count_11" 
-								value="#part_lot_count_11#" 
-								 size="1">
-						</td>
-						<td>
-							<input type="text" 
-								id="part_barcode_11"
-								name="part_barcode_11" 
-								value="#part_barcode_11#" 
-								 size="6"
-								onchange="part_container_label_11.className='reqdClr';setPartLabel(this.id);">
-						</td>
-						<td>
-							<input type="text" 
-								id="part_container_label_11"
-								name="part_container_label_11" 
-								value="#part_container_label_11#" 
-								 size="10">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_remark_11" 
-								id="part_remark_11"
-								value="#part_remark_11#" 
-								 size="40">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<cfset part12 = #part_name_12#>
-							<select name="part_name_12" size="1"
-								id="part_name_12"
-								
-								onchange="this.className='reqdClr';
-									part_condition_12.className='reqdClr';
-									part_lot_count_12.className='reqdClr';
-									part_disposition_12.className='reqdClr';">
-									<option value=""></option>
-									<cfloop query="ctPartName">
-										<option <cfif #part12# is #ctPartName.part_name#> selected </cfif>
-											value="#part_name#">#part_name#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<cfset partmod12 = #part_modifier_12#>
-							<select name="part_modifier_12" 
-								size="1"
-								id="part_modifier_12">
-								<option value=""></option>
-								<cfloop query="ctPartModifier">
-									<option <cfif #partmod12# is #part_modifier#> selected </cfif>
-									value="#part_modifier#">#part_modifier#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<cfset presmeth12 = #preserv_method_12#>
-							<select name="preserv_method_12" size="1"
-								id="preserv_method_12">
-									<option value=""></option>
-									<cfloop query="ctPresMeth">
-										<option <cfif #presmeth12# is #preserve_method#> selected </cfif>
-										value="#ctPresMeth.preserve_method#">#ctPresMeth.preserve_method#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<input type="text" name="part_condition_12"
-								id="part_condition_12"
-								value="#part_condition_12#">
-						</td>
-						<td>
-							<cfset thisDisp = #part_disposition_12#>
-							<select name="part_disposition_12"
-								id="part_disposition_12"
-								size="1" 
-								>
-								<cfloop query="CTCOLL_OBJ_DISP">
-									<option
-										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
-									 value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" 
-								id="part_lot_count_12"
-								name="part_lot_count_12" 
-								value="#part_lot_count_12#" 
-								 size="1">
-						</td>
-						<td>
-							<input type="text" 
-								id="part_barcode_12"
-								name="part_barcode_12" 
-								value="#part_barcode_12#" 
-								 size="6"
-								onchange="part_container_label_12.className='reqdClr';setPartLabel(this.id);">
-						</td>
-						<td>
-							<input type="text" 
-								id="part_container_label_12"
-								name="part_container_label_12" 
-								value="#part_container_label_12#" 
-								 size="10">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_remark_12" 
-								id="part_remark_12"
-								value="#part_remark_12#" 
-								 size="40">
-						</td>
-					</tr>
-					---->
 				</table>
-	
-	</td><!--- end parts block --->
-</tr>
-<tr>
-	<td colspan="2">
-		<table cellpadding="0" cellspacing="0" width="100%" style="background-color:##339999">
-			<tr>
-				<td width="16%">
-					<span id="theNewButton" style="display:none;">
-					<input type="button" value="Save This Entry As A New Record" class="insBtn"
-					   onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'"
-					  onclick="saveNewRecord();"/>
-					 </span>
-				</td>
-				<td width="16%">
-					<span id="enterMode" style="display:none">
-						<input type="button" 
-							value="Enter Edit Mode" 
-							class="lnkBtn"
-							onmouseover="this.className='lnkBtn btnhov'" 
-							onmouseout="this.className='lnkBtn'" 
-							onclick="click_changeMode('edit','#collection_object_id#')">			
-					</span>
-					<span id="editMode" style="display:none">
-						<cfif len(#loadedMsg#) is 0>
-						<input type="button" 
-								value="Clone This Record" 
+			</td><!--- end parts block --->
+		</tr>
+		<tr>
+		<td colspan="2">
+			<table cellpadding="0" cellspacing="0" width="100%" style="background-color:##339999">
+				<tr>
+					<td width="16%">
+						<span id="theNewButton" style="display:none;">
+							<input type="button" value="Save This Entry As A New Record" class="insBtn"
+								onclick="saveNewRecord();"/>
+						 </span>
+					</td>
+					<td width="16%">
+						<span id="enterMode" style="display:none">
+							<input type="button" 
+								value="Enter Edit Mode" 
 								class="lnkBtn"
-								onmouseover="this.className='lnkBtn btnhov'" 
-								onmouseout="this.className='lnkBtn'" 
-								onclick="click_changeMode('enter')">	
-						</cfif>
-					</span>
-				</td>
-				
-				<td width="16%" nowrap="nowrap">
-					 <span id="theSaveButton" style="display:none;">
-						<input type="button" value="Save Edits" class="savBtn"
-						   	onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'"
-							onclick="saveEditedRecord();" />
-						<input type="button" value="Delete Record" class="delBtn"
-						   	onmouseover="this.className='delBtn btnhov'" onmouseout="this.className='delBtn'"
-							onclick="deleteThisRec();" />
-					</span>
-				</td>
-				<td width="16%">	
-					<cfif #institution_acronym# is "MSB" and #collection_cde# is "Bird" and #pMode# is "enter">
-						<span id="clearDefault">
-						<input type="button" value="Clear All" class="delBtn"
-								onmouseover="this.className='delBtn btnhov'" onmouseout="this.className='delBtn'"
-								onclick="clearAll();" />
+								onclick="click_changeMode('edit','#collection_object_id#')">			
 						</span>
-						<script>
-							// good a place as any to get the next catnum
-							catNumSeq();
-						</script>
-					<cfelse>
-						<span id="clearDefault">
-						<input type="button" value="Clear Defaults" class="delBtn"
-								onmouseover="this.className='delBtn btnhov'" onmouseout="this.className='delBtn'"
-								onclick="setNewRecDefaults();" />
+						<span id="editMode" style="display:none">
+							<cfif len(#loadedMsg#) is 0>
+								<input type="button" 
+									value="Clone This Record" 
+									class="lnkBtn"
+									onclick="click_changeMode('enter')">	
+							</cfif>
 						</span>
-					</cfif>
-				</td>
-				<td width="16%">	
-					<input type="button" value="Table View" class="lnkBtn"
-						   	onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-							onclick="window.open('userBrowseBulkedGrid.cfm','_browseDE');" />
-				</td>
-				<td align="right" width="16%" nowrap="nowrap">
-					<span id="browseThingy">
-					<cfif currentPos gt 1>
-					<cfset prevCollObjId = listgetat(idList,currentPos - 1)>
-					<cfif #imAGod# is "yes">
-						<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#prevCollObjId#&imagod=yes">
-					<cfelse>
-						<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#prevCollObjId#">
-					</cfif>
-					<a href="#theLink#">
-						<img src="/images/previous.gif" class="likeLink" border="0" alt="[ back ]"/></a>
-					<cfelse>
-							<img src="/images/no_previous.gif" border="0" alt="[ null ]" />
-					</cfif>
-					<cfset recposn = 1>
-					Record 
-					<cfif #imAGod# is "yes">
-						<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&imagod=yes&collection_object_id=">
-					<cfelse>
-						<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=">
-					</cfif>
-					<select name="browseRecs" size="1" id="selectbrowse"
-						onchange="document.location='#theLink#' + this.value;">
-					<cfloop query="whatIds">
-						<option 
-							<cfif #recposn# is #currentPos#> selected </cfif>
-							value="#collection_object_id#">#recposn#</option>
-						<cfset idList = "#idList#,">
-						<cfset recposn = #recposn# + 1>
-					</cfloop>
-					</select>
-					of #whatIds.recordcount#
-					
-					<cfif currentPos is listlen(idList)>
-						<img src="/images/no_next.gif" border="0" alt="[ null ]" />
-					<cfelse>
-						<cfset nextCollObjId = listgetat(idList,currentPos + 1)>
-						<cfif #imAGod# is "yes">
-							<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#nextCollObjId#&imagod=yes">
+					</td>
+					<td width="16%" nowrap="nowrap">
+						 <span id="theSaveButton" style="display:none;">
+							<input type="button" value="Save Edits" class="savBtn" onclick="saveEditedRecord();" />
+							<input type="button" value="Delete Record" class="delBtn" onclick="deleteThisRec();" />
+						</span>
+					</td>
+					<td width="16%">	
+						<cfif institution_acronym is "MSB" and collection_cde is "Bird" and pMode is "enter">
+							<span id="clearDefault">
+								<input type="button" value="Clear All" class="delBtn" onclick="clearAll();" />
+							</span>
+							<script language="javascript" type="text/javascript">
+								catNumSeq();
+							</script>
 						<cfelse>
-							<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#nextCollObjId#">
+							<span id="clearDefault">
+								<input type="button" value="Clear Defaults" class="delBtn" onclick="setNewRecDefaults();" />
+							</span>
 						</cfif>
-						<a href="#theLink#">
-						<img src="/images/next.gif" class="likeLink"  border="0"/ alt="[ next ]"></a>
-					</cfif>		
-					</span>									
-				</td>
-				
-			</tr>
-		</table>
-   </td>
-</tr>
+					</td>
+					<td width="16%">	
+						<input type="button" value="Table View" class="lnkBtn" onclick="window.open('userBrowseBulkedGrid.cfm','_browseDE');" />
+					</td>
+					<td align="right" width="16%" nowrap="nowrap">
+						<span id="browseThingy">
+							<cfif currentPos gt 1>
+								<cfset prevCollObjId = listgetat(idList,currentPos - 1)>
+								<cfif imAGod is "yes">
+									<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#prevCollObjId#&imagod=yes">
+								<cfelse>
+									<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#prevCollObjId#">
+								</cfif>
+								<a href="#theLink#"><img src="/images/previous.gif" class="likeLink" border="0" alt="[ back ]"/></a>
+							<cfelse>
+								<img src="/images/no_previous.gif" border="0" alt="[ null ]" />
+							</cfif>
+							<cfset recposn = 1>
+							Record 
+							<cfif imAGod is "yes">
+								<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&imagod=yes&collection_object_id=">
+							<cfelse>
+								<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=">
+							</cfif>
+							<select name="browseRecs" size="1" id="selectbrowse" onchange="document.location='#theLink#' + this.value;">
+								<cfloop query="whatIds">
+									<option 
+										<cfif recposn is currentPos> selected </cfif>
+										value="#collection_object_id#">#recposn#</option>
+									<cfset idList = "#idList#,">
+									<cfset recposn = #recposn# + 1>
+								</cfloop>
+							</select>
+							of #whatIds.recordcount#
+							<cfif currentPos is listlen(idList)>
+								<img src="/images/no_next.gif" border="0" alt="[ null ]" />
+							<cfelse>
+								<cfset nextCollObjId = listgetat(idList,currentPos + 1)>
+								<cfif imAGod is "yes">
+									<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#nextCollObjId#&imagod=yes">
+								<cfelse>
+									<cfset theLink = "DataEntry.cfm?action=editEnterData&pMode=edit&collection_object_id=#nextCollObjId#">
+								</cfif>
+								<a href="#theLink#"><img src="/images/next.gif" class="likeLink" border="0"/ alt="[ next ]"></a>
+							</cfif>		
+						</span>									
+					</td>
+				</tr>
+			</table>
+   		</td>
+	</tr>
 </table>
 </form>
 	<div style="display:none;" id="loadedMsgDiv">
 		#loadedMsg#
 	</div>
-<cfif len(#loadedMsg#) gt 0>
+<cfif len(loadedMsg) gt 0>
 	<cfset pMode = 'edit'>
 </cfif>
 <cfset loadedMsg = replace(loadedMsg,"'","`","all")>
 <script language="javascript" type="text/javascript">
 	switchActive('#orig_lat_long_units#');
-	// loadedMsg, with ::field_name:: format, can be used to highlight goofy stuff
 	highlightErrors('#trim(loadedMsg)#');
-	// SEE WHAT mod ewe're in
 	changeMode('#pMode#');
 	pickedLocality();
 </script>
-<!---
-<cfif #thisEntryGroup# is "UAM" and #pMode# is "enter">
-	<script>
-		catNumGap();
-	</script>
-</cfif>
---->
-<!--- after all else is loaded, see if we're carrying an ID over --->
-<cfif isdefined("session.rememberLastOtherId") and #session.rememberLastOtherId# is 1 and #pMode# is "enter">
+<cfif isdefined("session.rememberLastOtherId") and session.rememberLastOtherId is 1 and pMode is "enter">
 	<cfset cVal="">
-	<cfif isnumeric(#other_id_num_5#)>
-		<cfset cVal = #other_id_num_5# + 1>
+	<cfif isnumeric(other_id_num_5)>
+		<cfset cVal = other_id_num_5 + 1>
 	<cfelseif isnumeric(right(other_id_num_5,len(other_id_num_5)-1))>
 		<cfset temp = (right(other_id_num_5,len(other_id_num_5)-1)) + 1>
 		<cfset cVal = left(other_id_num_5,1) & temp>
 	</cfif>
-	<script>
-		//alert('carry');
+	<script language="javascript" type="text/javascript">
 		var cid = document.getElementById('other_id_num_5').value='#cVal#';
 	</script>
 </cfif>
