@@ -332,7 +332,7 @@
 										name="collector_agent_#i#" 
 										value="#evaluate("data.collector_agent_" & i)#" 
 										<cfif i is 1>class="reqdClr"</cfif>
-										onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_1','dataEntry',this.value); return false;}"
+										onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_#i#','dataEntry',this.value); return false;}"
 										id="collector_agent_#i#">
 									<span class="infoLink" onclick="copyAllAgents('collector_agent_#i#');">Copy2All</span>
 								</td>
