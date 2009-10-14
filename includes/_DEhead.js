@@ -392,6 +392,7 @@ function changeMode (mode,collobjid) {
 	pgClr.style.display='';	
 }
 function setNewRecDefaults () {
+	try{
 	var defBlank = new Array();
 	defBlank.push('attribute_value_1');
 	defBlank.push('attribute_value_2');
@@ -489,7 +490,8 @@ function setNewRecDefaults () {
 		UAMArtDefaults();
 	} else if(ia == 'MVZ') {
 		MVZDefaults();
-	}	
+	}
+	} catch(){}
 }
 function UAMArtDefaults() {
 	var i=1;
