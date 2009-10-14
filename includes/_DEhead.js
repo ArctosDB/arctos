@@ -491,7 +491,10 @@ function setNewRecDefaults () {
 	} else if(ia == 'MVZ') {
 		MVZDefaults();
 	}
-	} catch(){}
+	} 
+	catch(err){
+		//null
+	}
 }
 function UAMArtDefaults() {
 	var i=1;
