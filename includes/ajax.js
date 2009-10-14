@@ -70,7 +70,6 @@ function openAnnotation(q) {
 		viewport.init("#bgDiv");
 	});
 }
-
 function closeAnnotation() {
 	var theDiv = document.getElementById('bgDiv');
 	document.body.removeChild(theDiv);

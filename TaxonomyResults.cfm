@@ -7,6 +7,35 @@
 		var goTo = ar[1];
 		document.location='TaxonomyResults.cfm?startAt=' + startAt + "&goTo=" + goTo; 
 	}
+	jQuery(".browseLink").live('click', function(e){
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		bgDiv.setAttribute('onclick','closeBrowse()');
+		document.body.appendChild(bgDiv);
+		var type=this.type;
+		var type=$(this).attr('type');
+		var dval=$(this).attr('dval');
+		var theDiv = document.createElement('div');
+		theDiv.id = 'browseDiv';
+		theDiv.className = 'sscustomBox';
+		theDiv.style.position="absolute";
+		ih='<span onclick="closeBrowse()" class="likeLink" style="position:absolute;top:0;right:0;color:red;">Close Window</span>';
+		ih+='<p>Search for ' + type + ' ='
+		ih+='<a href="/TaxonomyResults.cfm?' + type + '==' + dval + '"> ' + dval + '</a></p>';
+		theDiv.innerHTML=ih;
+		document.body.appendChild(theDiv);
+		viewport.init("##browseDiv");
+		viewport.init("##bgDiv");
+	});
+	function closeBrowse() {
+		if(document.getElementById('bgDiv')){
+			jQuery('#bgDiv').remove();
+		}
+		if (document.getElementById('browseDiv')) {
+			jQuery('#browseDiv').remove();
+		}
+	}
 </script>
 <cfset titleTerms="">
 <cfif isdefined("session.displayrows") and isnumeric(session.displayrows) and session.displayrows gt 0>
@@ -358,7 +387,9 @@ Found #summary.cnt# records. (Note: This form will not return >1000 records; you
     <td>#Phylorder#&nbsp;</td>
     <td>#Suborder#&nbsp;</td>
     <td>#superfamily#&nbsp;</td>
-    <td>#Family#&nbsp;</td>
+    <td>
+		<span class="browseLink" type="family" dval="#family#">#family#</span>
+	</td>
 	<td>#Subfamily#&nbsp;</td>
     <td>#Tribe#&nbsp;</td>
     <td>#Genus#&nbsp;</td>
