@@ -1749,10 +1749,10 @@
 							</td>
 							<td>
 								<input type="text" name="part_condition_#i#" id="part_condition_#i#"
-									value="#evaluate("data.part_condition_" & i)#" class="reqdClr">
+									<cfif i is 1>class="reqdClr" </cfif>value="#evaluate("data.part_condition_" & i)#">
 							</td>
 							<td>
-								<select name="part_disposition_#i#" class="reqdClr" id="part_disposition_#i#">
+								<select name="part_disposition_#i#" <cfif i is 1>class="reqdClr" </cfif> id="part_disposition_#i#">
 									<cfloop query="CTCOLL_OBJ_DISP">
 										<option
 											<cfif evaluate("data.part_disposition_" & i) is CTCOLL_OBJ_DISP.COLL_OBJ_DISPOSITION> selected="selected" </cfif>
@@ -1762,7 +1762,7 @@
 							</td>
 							<td>
 								<input type="text" name="part_lot_count_#i#" id="part_lot_count_#i#" value="#evaluate("data.part_lot_count_" & i)#" 
-									class="reqdClr" size="1">
+									<cfif i is 1>class="reqdClr" </cfif>size="1">
 							</td>
 							<td>
 								<input type="text" name="part_barcode_#i#" id="part_barcode_#i#" value="#evaluate("data.part_barcode_" & i)#" 
