@@ -356,7 +356,7 @@
 										<option value=""></option>
 										<cfloop query="ctOtherIdType">
 											<option 
-												<cfif evaluate("data.other_id_type" & i) is ctOtherIdType.other_id_type> selected="selected" </cfif>
+												<cfif evaluate("data.other_id_type_" & i) is ctOtherIdType.other_id_type> selected="selected" </cfif>
 												value="#other_id_type#">#other_id_type#</option>
 										</cfloop>
 									</select>
