@@ -15,6 +15,8 @@ function changeCollection(v){
 	}
 }
 /* recheck */
+function _isInteger(val){var digits="1234567890";for(var i=0;i < val.length;i++){if(digits.indexOf(val.charAt(i))==-1){return false;}}return true;}
+
 function _getInt(str,i,minlength,maxlength) {
 	for (var x=maxlength; x>=minlength; x--) {
 		var token=str.substring(i,i+x);
