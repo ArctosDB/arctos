@@ -1800,6 +1800,7 @@
 								 size="40">
 						</td>
 					</tr>
+					<!---
 					<tr>
 						<td>
 							<cfset part2 = #part_name_2#>
@@ -2806,6 +2807,7 @@
 								 size="40">
 						</td>
 					</tr>
+					---->
 				</table>
 	
 	</td><!--- end parts block --->
