@@ -1716,6 +1716,20 @@
 						<th><span class="f11a">Vial Label</span></th>
 						<th width="100%"><span class="f11a">Remark</span></th>
 					</tr>
+					<cfloop from="1" to="12" index="i">
+						<tr>
+							<td>
+								<select name="part_name_#i#" id="part_name_#i#" class="reqdClr">
+									<cfloop query="ctPartName">
+										<option <cfif data.part_name_#i# is ctPartName.part_name> selected="selected" </cfif>
+											value="#part_name#">#part_name#</option>
+									</cfloop>
+								</select>
+							</td>
+						</tr>
+					</cfloop>
+					
+					<!-----
 					<tr>
 						<td>
 							<cfset part1 = part_name_1>
@@ -1800,6 +1814,9 @@
 								 size="40">
 						</td>
 					</tr>
+					
+					
+					----->
 					<!---
 					<tr>
 						<td>
