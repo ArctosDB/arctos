@@ -18,19 +18,19 @@ function changeCollection(v){
 function requirePartAtts(i,v){
 	var pn=document.getElementById('part_name_' + i);
 	var pc=document.getElementById('part_condition_' + i);
+	var pl=document.getElementById('part_lot_count_' + i);
+	var pd=document.getElementById('part_disposition_' + i);
 	if (v.length > 0) {
 		pn.className='reqdClr';
 		pc.className='reqdClr';
+		pl.className='reqdClr';
+		pd.className='reqdClr';
 	} else {
 		pn.className='';
 		pc.className='';
+		pl.className='';
+		pd.className='';
 	}
-	/*
-	onchange="this.className='reqdClr';
-		part_condition_2.className='reqdClr';
-		part_lot_count_2.className='reqdClr';
-		part_disposition_2.className='reqdClr';">
-		*/
 }
 function _isInteger(val){var digits="1234567890";for(var i=0;i < val.length;i++){if(digits.indexOf(val.charAt(i))==-1){return false;}}return true;}
 
