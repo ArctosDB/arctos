@@ -1726,54 +1726,37 @@
 									</cfloop>
 								</select>
 							</td>
+							<td>
+								<select name="part_modifier_#i#" id="part_modifier_#i#">
+									<option value=""></option>
+									<cfloop query="ctPartModifier">
+										<option <cfif evaluate("data.part_modifier_" & i) is ctPartModifier.part_modifier> selected="selected" </cfif>
+											value="#part_modifier#">#part_modifier#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td>
+								<select name="preserv_method_#i#" id="preserv_method_#i#">
+									<option value=""></option>
+									<cfloop query="ctPresMeth">
+										<option <cfif evaluate("data.preserve_method_" & i) is ctPresMeth.preserve_method> selected="selected" </cfif>
+											value="#ctPresMeth.preserve_method#">#ctPresMeth.preserve_method#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td>
+								<input type="text" name="part_condition_#i#" id="part_condition_#i#"
+									value="evaluate("data.part_condition_" & i)" class="reqdClr">
+							</td>
 						</tr>
 					</cfloop>
 					
 					<!-----
 					<tr>
-						<td>
-							<cfset part1 = part_name_1>
-							<select name="part_name_1" id="part_name_1" class="reqdClr">
-								<cfloop query="ctPartName">
-									<option <cfif data.part_name_1 is ctPartName.part_name> selected </cfif>
-										value="#part_name#">#part_name#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<cfset partmod1 = #part_modifier_1#>
-							<select name="part_modifier_1" 
-								size="1"
-								id="part_modifier_1"
-								
-						onFocus="self.status='First Part Modifier'">
-								<option value=""></option>
-								<cfloop query="ctPartModifier">
-									<option <cfif #partmod1# is #part_modifier#> selected </cfif>
-									value="#part_modifier#">#part_modifier#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<cfset presmeth1 = #preserv_method_1#>
-							<select name="preserv_method_1" size="1"
-								id="preserv_method_1"
-								
-								onFocus="self.status='First Part Preservation Method'">
-									<option value=""></option>
-									<cfloop query="ctPresMeth">
-										<option <cfif #presmeth1# is #preserve_method#> selected </cfif>
-										value="#ctPresMeth.preserve_method#">#ctPresMeth.preserve_method#</option>
-									</cfloop>
-								</select>
-						</td>
-						<td>
-							<input type="text" name="part_condition_1"
-								id="part_condition_1"
-								onFocus="self.status='First Part Condition'"
-								value="#part_condition_1#"
-								class="reqdClr">
-						</td>
+						
+						
+						
+						
 						<td>
 							<cfset thisDisp = #part_disposition_1#>
 							<select name="part_disposition_1" size="1" class="reqdClr" id="part_disposition_1">
