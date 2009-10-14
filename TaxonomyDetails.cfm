@@ -444,13 +444,12 @@
 	<cfif len(one.genus) gt 0>
 		<cfquery name="samegen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select scientific_name,display_name from taxonomy where genus='#one.genus#'
-			and scientific_name != '#one.scientific_name#' and
-			rownum <= 25
+			and scientific_name != '#one.scientific_name#'
 			order by scientific_name
 		</cfquery>
 		<div>
 			<cfif len(one.scientific_name) gt 0>
-				First 25 Arctos entries for genus=#one.genus# <a href="/TaxonomyResults.cfm?genus=#one.genus#">See all</a>
+				Additional Arctos entries for <a href="/TaxonomyResults.cfm?genus=#one.genus#">genus=#one.genus#</a>
 				<ul>
 					<cfloop query="samegen">
 						<li><a href="/name/#scientific_name#">#display_name#</a></li>
