@@ -625,7 +625,7 @@
 											<select name="datum" size="1" class="reqdClr" id="datum">
 												<option value=""></option>
 												<cfloop query="ctdatum">
-													<option <cfif data.datim is ctdatum.datum> selected="selected" </cfif>
+													<option <cfif data.datum is ctdatum.datum> selected="selected" </cfif>
 												 		value="#datum#">#datum#</option>
 												</cfloop>
 											</select> 
