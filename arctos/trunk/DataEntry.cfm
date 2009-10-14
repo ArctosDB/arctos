@@ -1748,6 +1748,31 @@
 								<input type="text" name="part_condition_#i#" id="part_condition_#i#"
 									value="#evaluate("data.part_condition_" & i)#" class="reqdClr">
 							</td>
+							<td>
+								<select name="part_disposition_#i#" class="reqdClr" id="part_disposition_#i#">
+									<cfloop query="CTCOLL_OBJ_DISP">
+										<option
+											<cfif evaluate("data.part_disposition_" & i) is CTCOLL_OBJ_DISP.COLL_OBJ_DISPOSITION> selected="selected" </cfif>
+										 	value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
+									</cfloop>
+								</select>
+							</td>
+							<td>
+								<input type="text" name="part_lot_count_#i#" id="part_lot_count_#i#" value="#evaluate("data.part_lot_count_" & i)#" 
+									class="reqdClr" size="1">
+							</td>
+							<td>
+								<input type="text" name="part_barcode_#i#" id="part_barcode_#i#" value="#evaluate("data.part_barcode_" & i)#" 
+									 size="6" onchange="part_container_label_#i#.className='reqdClr';setPartLabel(this.id);">
+							</td>
+							<td>
+								<input type="text" name="part_container_label_#i#" id="part_container_label_#i#"
+									value="#evaluate("data.part_container_label_" & i)#" size="10">
+							</td>
+							<td>
+								<input type="text" name="part_remark_#i#" id="part_remark_#i#"
+									value="#evaluate("data.part_remark_" & i)#" size="40">
+							</td>
 						</tr>
 					</cfloop>
 					
@@ -1757,45 +1782,11 @@
 						
 						
 						
-						<td>
-							<cfset thisDisp = #part_disposition_1#>
-							<select name="part_disposition_1" size="1" class="reqdClr" id="part_disposition_1">
-								<cfloop query="CTCOLL_OBJ_DISP">
-									<option
-										<cfif #thisDisp# is #COLL_OBJ_DISPOSITION#> selected </cfif>
-									 value="#COLL_OBJ_DISPOSITION#">#COLL_OBJ_DISPOSITION#</option>
-								</cfloop>
-							</select>
-						</td>
-						<td>
-							<input type="text" 
-								name="part_lot_count_1" 
-								id="part_lot_count_1"
-								value="#part_lot_count_1#" 
-								class="reqdClr" size="1">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_barcode_1" 
-								id="part_barcode_1"
-								value="#part_barcode_1#" 
-								 size="6"
-								onchange="part_container_label_1.className='reqdClr';setPartLabel(this.id);">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_container_label_1" 
-								id="part_container_label_1"
-								value="#part_container_label_1#" 
-								 size="10">
-						</td>
-						<td>
-							<input type="text" 
-								name="part_remark_1" 
-								id="part_remark_1"
-								value="#part_remark_1#" 
-								 size="40">
-						</td>
+						
+						
+						
+						
+						
 					</tr>
 					
 					
