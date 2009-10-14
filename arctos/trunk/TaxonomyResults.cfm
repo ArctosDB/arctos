@@ -45,7 +45,7 @@
 </cfif>
 <cfif not isdefined("startAt") or len(#startAt#) is 0>
 <cfset stringOfStuffToClean = "">
-		<cfset SQL = "SELECT 
+		<cfset SQL = "select * from (SELECT 
 				taxonomy.TAXON_NAME_ID,
 				phylum,
 				PHYLCLASS,
@@ -72,7 +72,7 @@
 				NOMENCLATURAL_CODE,
 				INFRASPECIFIC_AUTHOR
 			 from taxonomy, common_name
-				WHERE rownum<1000 and taxonomy.taxon_name_id = common_name.taxon_name_id (+)">
+				WHERE taxonomy.taxon_name_id = common_name.taxon_name_id (+)">
 		<cfif isdefined("common_name") AND len(#common_name#) gt 0>
 			<CFSET SQL = "#SQL# AND upper(common_name) LIKE '%#ucase(common_name)#%'">
 			<cfset stringOfStuffToClean = "#stringOfStuffToClean##common_name#">
@@ -227,7 +227,8 @@
 				SUBCLASS,
 				TAXON_REMARKS,
 				NOMENCLATURAL_CODE,
-				INFRASPECIFIC_AUTHOR">
+				INFRASPECIFIC_AUTHOR
+					) where rownum<1000">
 		<cfif #stringOfStuffToClean# contains "'">
 			You searched for an illegal character.
 			<cfabort>
