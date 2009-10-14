@@ -16,8 +16,8 @@ function changeCollection(v){
 }
 /* recheck */
 function requirePartAtts(i,v){
-	var pn=document.getElementBuId('part_name_' + i);
-	var pc=document.getElementBuId('part_condition_' + i);
+	var pn=document.getElementById('part_name_' + i);
+	var pc=document.getElementById('part_condition_' + i);
 	if (v.length > 0) {
 		pn.className='reqdClr';
 		pc.className='reqdClr';
