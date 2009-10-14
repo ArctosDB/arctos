@@ -317,12 +317,8 @@
 								<img src="/images/info.gif" border="0" onClick="getDocs('agent')" class="likeLink" alt="[ help ]">
 							</td>
 							<cfloop from="1" to="5" index="i">
-								<cfif i is 1 or i is 3 or i is 5>
-									<tr>
-								</cfif>
-
+								<cfif i is 1 or i is 3 or i is 5><tr></cfif>
 								<td align="right">
-									--#i#--
 									<select name="collector_role_#i#" size="1" <cfif i is 1>class="reqdClr"</cfif> id="collector_role_#i#">
 										<option <cfif evaluate("data.collector_role_" & i) is "c">selected="selected"</cfif> value="c">Collector</option>
 										<cfif i gt 1>
@@ -340,108 +336,8 @@
 										id="collector_agent_#i#">
 									<span class="infoLink" onclick="copyAllAgents('collector_agent_#i#');">Copy2All</span>
 								</td>
-								<cfif i is 2 or i is 4 or i is 5>
-									</tr>
-								</cfif>
+								<cfif i is 2 or i is 4 or i is 5></tr></cfif>
 							</cfloop>
-						</tr>
-							<!----
-							
-							<td align="right">
-								<cfset thisRole=#collector_role_2#>
-								<select 
-									name="collector_role_2" 
-									size="1"
-									
-									id="collector_role_2"
-									onChange="dataEntry.collector_agent_2.className='looky';dataEntry.collector_agent_2.focus();">
-									<option value=""></option>
-									<option <cfif collector_role_2 is "c"> selected </cfif>value="c">Collector</option>
-									<option <cfif collector_role_2 is "p"> selected </cfif>value="p">Preparator</option>
-								</select>
-							</td>
-							<td>
-								<span class="f11a">2</span>
-								<input type="text" 
-									name="collector_agent_2" 
-									value="#collector_agent_2#" 
-									onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_2','dataEntry',this.value); return false;}"
-									onblur = "this.className='d11a';"
-									id="collector_agent_2">
-								<img src="/images/copyall.gif" 
-										border="0"  
-										height="18" 
-										width="18" 
-										class="likeLink"
-										alt="[ help ]"
-										onclick="copyAllAgents('collector_agent_2');" />
-							</td>
-						</tr>	
-						<tr>
-							<td align="right">
-								<cfset thisRole=#collector_role_3#>
-								<select name="collector_role_3" 
-									size="1"
-									
-									id="collector_role_3"
-									onChange="dataEntry.collector_agent_3.className='d11a';
-									dataEntry.collector_agent_3.focus();">
-									<option value=""></option>
-									<option <cfif collector_role_3 is "c"> selected </cfif>value="c">Collector</option>
-									<option <cfif collector_role_3 is "p"> selected </cfif>value="p">Preparator</option>
-								</select>
-							</td>
-							<td>
-								<span class="f11a">3</span>
-								<input type="text" name="collector_agent_3" value="#collector_agent_3#"
-									onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_3','dataEntry',this.value); return false;}"
-									id="collector_agent_3"
-									>
-							</td>
-							<td align="right">
-								<cfset thisRole=#collector_role_4#>
-								<select name="collector_role_4" 
-									size="1"
-									
-									id="collector_role_4"
-									onChange="dataEntry.collector_agent_4.className='d11a';
-									dataEntry.collector_agent_4.focus();">
-									<option value=""></option>
-									<option <cfif collector_role_4 is "c"> selected </cfif>value="c">Collector</option>
-									<option <cfif collector_role_4 is "p"> selected </cfif>value="p">Preparator</option>
-								</select>
-					
-							</td>
-							<td width="100%">
-								<span class="f11a">4</span>
-								<input type="text" name="collector_agent_4" value="#collector_agent_4#"
-									onchange="getAgent('nothing','collector_agent_4','dataEntry',this.value); return false;"
-									id="collector_agent_4"
-									>
-							</td>
-						</tr>
-						<tr>
-							<td align="right">
-								<cfset thisRole=#collector_role_5#>
-								<select name="collector_role_5" 
-									size="1"
-									
-									id="collector_role_5"
-									onChange="dataEntry.collector_agent_5.className='d11a';dataEntry.collector_agent_5.focus();">
-									<option value=""></option>
-									<option <cfif collector_role_5 is "c"> selected </cfif>value="c">Collector</option>
-									<option <cfif collector_role_5 is "p"> selected </cfif>value="p">Preparator</option>
-								</select>
-							</td>
-							<td>
-								<span class="f11a">5</span>
-								<input type="text" name="collector_agent_5" value="#collector_agent_5#"
-									onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_5','dataEntry',this.value); return false;}"
-									id="collector_agent_5"
-									>
-							</td>
-						</tr>
-						---->
 					</table><!---- / agents------------->	
 					<table cellpadding="0" cellspacing="0" class="fs"><!------ other IDs ------------------->
 						<tr>
