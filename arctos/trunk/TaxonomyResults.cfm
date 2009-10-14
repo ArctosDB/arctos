@@ -25,8 +25,8 @@
 		ih+='<a href="/TaxonomyResults.cfm?' + type + '==' + dval + '"> ' + dval + '</a></p>';
 		theDiv.innerHTML=ih;
 		document.body.appendChild(theDiv);
-		viewport.init("##browseDiv");
-		viewport.init("##bgDiv");
+		viewport.init("#browseDiv");
+		viewport.init("#bgDiv");
 	});
 	function closeBrowse() {
 		if(document.getElementById('bgDiv')){
