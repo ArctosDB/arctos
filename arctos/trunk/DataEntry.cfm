@@ -18,6 +18,9 @@
 				jQuery("#attribute_date_" + i).datepicker();
 			}
 		});
+		jQuery("input[type=text]").focus(function(){
+		    this.select();
+		});
 	});
 </script>
 <cf_showMenuOnly>
