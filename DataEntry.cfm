@@ -316,30 +316,29 @@
 							<td rowspan="99" valign="top">
 								<img src="/images/info.gif" border="0" onClick="getDocs('agent')" class="likeLink" alt="[ help ]">
 							</td>
-							<td align="right">
-								<select name="collector_role_1" 
-									size="1"
-									class="reqdClr"
-									id="collector_role_1">
-									<option selected value="c">Collector&nbsp;&nbsp;&nbsp;</option>
-								</select> 
-							</td>
-							<td nowrap="nowrap">
-								<span class="f11a">1</span>
-								<input type="text" 
-									name="collector_agent_1" 
-									value="#collector_agent_1#" 
-									class="reqdClr" 
-									onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_1','dataEntry',this.value); return false;}"
-									id="collector_agent_1">
-									<img src="/images/copyall.gif" 
-										border="0"  
-										height="18" 
-										width="18" 
-										class="likeLink"
-										alt="[ help ]"
-										onclick="copyAllAgents('collector_agent_1');" />
-							</td>
+							<cfloop from="1" to="5" index="i">
+								<td align="right">
+									<select name="collector_role_#i#" size="1" <cfif i is 1>class="reqdClr"</cfif> id="collector_role_#i#">
+										<option <cfif evaluate("data.collector_role_" & i) is "c">selected="selected"</cfif> value="c">Collector</option>
+										<cfif i gt 1>
+											<option <cfif evaluate("data.collector_role_" & i) is "p">selected="selected"</cfif> value="p">Preparator</option>
+										</cfif>
+									</select> 
+								</td>
+								<td nowrap="nowrap">
+									<span class="f11a">#i#</span>
+									<input type="text" 
+										name="collector_agent_#i#" 
+										value="#evaluate("data.collector_agent_" & i)#" 
+										<cfif i is 1>class="reqdClr"</cfif>
+										onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_1','dataEntry',this.value); return false;}"
+										id="collector_agent_#i#">
+									<span class="infoLink" onclick="copyAllAgents('collector_agent_#i#');">Copy2All</span>
+								</td>
+							</cfloop>
+						</tr>
+							<!----
+							
 							<td align="right">
 								<cfset thisRole=#collector_role_2#>
 								<select 
@@ -357,7 +356,6 @@
 								<span class="f11a">2</span>
 								<input type="text" 
 									name="collector_agent_2" 
-									
 									value="#collector_agent_2#" 
 									onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_2','dataEntry',this.value); return false;}"
 									onblur = "this.className='d11a';"
@@ -435,6 +433,7 @@
 									>
 							</td>
 						</tr>
+						---->
 					</table><!---- / agents------------->	
 					<table cellpadding="0" cellspacing="0" class="fs"><!------ other IDs ------------------->
 						<tr>
