@@ -1319,7 +1319,7 @@
 						<th><span class="f11a">##</span></th>
 						<th><span class="f11a">Barcode</span></th>
 						<th><span class="f11a">Vial Label</span></th>
-						<th width="100%"><span class="f11a">Remark</span></th>
+						<th><span class="f11a">Remark</span></th>
 					</tr>
 					<cfloop from="1" to="12" index="i">
 						<tr>
