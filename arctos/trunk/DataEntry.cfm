@@ -55,7 +55,7 @@
 			max: 30,
 			autoFill: false,
 			delay: 400,
-			mustMatch: true,
+			mustMatch: false,
 			cacheLength: 1
 		});
 		$element.result(function(event, data, formatted) {
