@@ -65,6 +65,27 @@
 		});
         $element.attr("autocomplete.attached", true);
 	}
+	function attachGeogPick(element){
+	    var $element = jQuery(element);
+		if($element.attr("autocomplete.attached")){
+	       	return;
+		}
+       	$element.autocomplete("/ajax/higher_geog.cfm", {
+   	 		width: 260,
+			selectFirst: true,
+			max: 30,
+			autoFill: false,
+			delay: 400,
+			mustMatch: true,
+			cacheLength: 1
+		});
+		$element.result(function(event, data, formatted) {
+			if (data) 
+				var theID='nothing';
+				jQuery('#' + theID).val(data[1]);
+		});
+        $element.attr("autocomplete.attached", true);
+	}
 </script>
 <cf_showMenuOnly>
 <cf_setDataEntryGroups>
@@ -457,7 +478,7 @@
 							<td align="right"><span class="f11a">Higher Geog</span></td>
 							<td width="100%">
 								<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" value="#higher_geog#" size="80"
-									onchange="getGeog('nothing','higher_geog','dataEntry',this.value); return false;">
+									onfocus="attachGeogPick(this)">
 							</td>
 						</tr>
 						<tr>
