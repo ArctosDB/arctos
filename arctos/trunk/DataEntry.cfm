@@ -351,20 +351,8 @@
 								<td nowrap="nowrap">
 									<span class="f11a">#i#</span>
 									 
-									<input type="text" 
-										name="collector_agent_#i#" 
-										value="#evaluate("data.collector_agent_" & i)#" 
-										<cfif i is 1>class="reqdClr"</cfif>
-										onfocus="attachAgentPick(this);"
-										id="collector_agent_#i#">
-										<!---
-									<input type="text" 
-										name="collector_agent_#i#" 
-										value="#evaluate("data.collector_agent_" & i)#" 
-										<cfif i is 1>class="reqdClr"</cfif>
-										onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_#i#','dataEntry',this.value); return false;}"
-										id="collector_agent_#i#">
-									--->
+									<input type="text" name="collector_agent_#i#" value="#evaluate("data.collector_agent_" & i)#" 
+										<cfif i is 1>class="reqdClr"</cfif> onfocus="attachAgentPick(this);" id="collector_agent_#i#">
 									<span class="infoLink" onclick="copyAllAgents('collector_agent_#i#');">Copy2All</span>
 								</td>
 								<cfif i is 2 or i is 4 or i is 5></tr></cfif>
@@ -411,7 +399,7 @@
 							<td align="right"><span class="f11a">ID By</span></td>
 							<td>
 								<input type="text" name="id_made_by_agent" value="#id_made_by_agent#" class="reqdClr" size="40" 
-									onchange="getAgent('nothing','id_made_by_agent','dataEntry',this.value); return false;" id="id_made_by_agent">
+									onfocus="attachAgentPick(this);" id="id_made_by_agent">
 								<span class="infoLink" onclick="copyAllAgents('id_made_by_agent');">Copy2All</span>
 							</td>
 						</tr>
@@ -667,7 +655,7 @@
 										</td>
 										<td>
 											<input type="text" name="determined_by_agent" value="#determined_by_agent#" class="reqdClr" 
-												onchange="getAgent('nothing','determined_by_agent','dataEntry',this.value); return false;"
+												onfocus="attachAgentPick(this);"
 												id="determined_by_agent">
 										</td>
 										<td align="right"><span class="f11a">Date</span></td>
@@ -944,7 +932,7 @@
 														name="geo_att_determiner_#i#"
 														id="geo_att_determiner_#i#"
 														value="#thisDeterminer#" 
-														onchange="getAgent('nothing','geo_att_determiner_#i#','dataEntry',this.value); return false;"/>
+														onfocus="attachAgentPick(this);"/>
 												</td>
 												<td>
 													<input type="text" 
@@ -1011,7 +999,7 @@
 												name="attribute_determiner_1" 
 												value="#attribute_determiner_1#" 
 												class="reqdClr" 
-												onchange="getAgent('nothing','attribute_determiner_1','dataEntry',this.value); return false;"
+												onfocus="attachAgentPick(this);"
 												onblur="doAttributeDefaults();"
 												id="attribute_determiner_1" />
 											<span class="infoLink" onclick="copyAttributeDetr('attribute_determiner_1');">Sync Att.</span>
@@ -1095,7 +1083,7 @@
 										<td>
 											<input type="text" 
 												name="attribute_determiner_2" 
-												onchange="getAgent('nothing','attribute_determiner_2','dataEntry',this.value); return false;"
+												onfocus="attachAgentPick(this);"
 												id="attribute_determiner_2"
 												value="#attribute_determiner_2#">
 											
@@ -1152,7 +1140,7 @@
 										<td>
 											<input type="text" 
 												name="attribute_determiner_2" 
-												onchange="getAgent('nothing','attribute_determiner_2','dataEntry',this.value); return false;"
+												onfocus="attachAgentPick(this);"
 												id="attribute_determiner_2"
 												value="#attribute_determiner_2#">
 										</td>
@@ -1207,7 +1195,7 @@
 										</td>
 										<td>
 											 <input type="text" name="attribute_determiner_#i#"
-												onchange="getAgent('nothing','attribute_determiner_#i#','dataEntry',this.value);"
+												onfocus="attachAgentPick(this);"
 												id="attribute_determiner_#i#" size="15"
 												value="#evaluate("data.attribute_determiner_" & i)#">
 										</td>
