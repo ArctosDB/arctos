@@ -44,6 +44,27 @@
 		});
         $element.attr("autocomplete.attached", true);
 	}
+	function attachTaxonPick(element){
+	    var $element = jQuery(element);
+		if($element.attr("autocomplete.attached")){
+	       	return;
+		}
+       	$element.autocomplete("/ajax/scientific_name.cfm", {
+   	 		width: 260,
+			selectFirst: true,
+			max: 30,
+			autoFill: false,
+			delay: 400,
+			mustMatch: true,
+			cacheLength: 1
+		});
+		$element.result(function(event, data, formatted) {
+			if (data) 
+				var theID='nothing';
+				jQuery('#' + theID).val(data[1]);
+		});
+        $element.attr("autocomplete.attached", true);
+	}
 </script>
 <cf_showMenuOnly>
 <cf_setDataEntryGroups>
@@ -392,7 +413,7 @@
 							</td>
 							<td width="100%">
 								<input type="text" name="taxon_name" value="#taxon_name#" class="reqdClr" size="40"
-									onchange="taxaPick('nothing','taxon_name','dataEntry',this.value); return false;" id="taxon_name">
+									onfocus="attachTaxonPick(this)" id="taxon_name">
 							</td>
 						</tr>
 						<tr>

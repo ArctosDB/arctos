@@ -1,6 +1,6 @@
 <cfoutput>
 	<cfif not isdefined("limit") or not isnumeric(limit)>
-		<cfset limit=20>
+		<cfset limit=100>
 	</cfif>
 	<cfquery name="pn" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 		select * from (
