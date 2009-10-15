@@ -6,6 +6,7 @@
 <script type='text/javascript' src='/includes/_DEhead.js'></script>
 <script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
 <script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
+<script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		jQuery(function() {
@@ -22,6 +23,27 @@
 		    this.select();
 		});
 	});
+	function attachAgentPick(element){
+	    var $element = jQuery(element);
+		if($element.attr("autocomplete.attached")){
+	       	return;
+		}
+       	$element.autocomplete("/ajax/agent.cfm", {
+   	 		width: 260,
+			selectFirst: true,
+			max: 30,
+			autoFill: false,
+			delay: 400,
+			mustMatch: true,
+			cacheLength: 1
+		});
+		$element.result(function(event, data, formatted) {
+			if (data) 
+				var theID='nothing';
+				jQuery('#' + theID).val(data[1]);
+		});
+        $element.attr("autocomplete.attached", true);
+	}
 </script>
 <cf_showMenuOnly>
 <cf_setDataEntryGroups>
@@ -328,12 +350,21 @@
 								</td>
 								<td nowrap="nowrap">
 									<span class="f11a">#i#</span>
+									 
+									<input type="text" 
+										name="collector_agent_#i#" 
+										value="#evaluate("data.collector_agent_" & i)#" 
+										<cfif i is 1>class="reqdClr"</cfif>
+										onfocus="attachAgentPick(this);"
+										id="collector_agent_#i#">
+										<!---
 									<input type="text" 
 										name="collector_agent_#i#" 
 										value="#evaluate("data.collector_agent_" & i)#" 
 										<cfif i is 1>class="reqdClr"</cfif>
 										onchange="if(this.value.length>0) {getAgent('nothing','collector_agent_#i#','dataEntry',this.value); return false;}"
 										id="collector_agent_#i#">
+									--->
 									<span class="infoLink" onclick="copyAllAgents('collector_agent_#i#');">Copy2All</span>
 								</td>
 								<cfif i is 2 or i is 4 or i is 5></tr></cfif>
