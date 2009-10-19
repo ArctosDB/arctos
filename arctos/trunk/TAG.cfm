@@ -52,8 +52,8 @@
 		$("#width").val($('#' + id).width());
 		
 		
-		$("#top").val($("#" + id).position().top);
-		$("#left").val($("#" + id).position().left);
+		//$("#top").val($("#" + id).position().top);
+		//$("#left").val($("#" + id).position().left);
 		
 		
 	}
