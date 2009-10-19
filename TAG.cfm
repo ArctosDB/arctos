@@ -18,8 +18,6 @@
 <script type="text/javascript"> 
 	jQuery(document).ready(function () { 
 		//jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: imgCallback, instance: true }); 
-	
-		
 	}); 
 	
 	function imgCallback(img, selection) {
@@ -32,18 +30,18 @@
 		
 	}
 	
-	function d(c,nid,t,l,h,w) {
-		var dv='<div id="' + nid + '" class="' + c + '" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
+	function d(c,id,t,l,h,w) {
+		var dv='<div id="' + id + '" class="' + c + '" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
 		
 		$("#theDiv").append(dv);
 		
-		$("#" + nid).draggable({
+		$("#" + id).draggable({
 			containment: 'parent',
-			stop: function(event,ui){showDim(event, ui);}
+			stop: function(event,ui){showDim(id,event, ui);}
 		});
-		$("#" + nid).resizable({
+		$("#" + id).resizable({
 			containment: 'parent',
-			stop: function(event,ui){showDim(event, ui);}
+			stop: function(event,ui){showDim(id,event, ui);}
 		});
 		
 		$("#top").val(t);
@@ -53,7 +51,10 @@
 		
 	}
 	
-	function showDim(event,ui){
+	function showDim(id,event,ui){
+		try{
+			$("#id").val(id);
+		} catch(e){}
 		try{
 			$("#top").val(ui.position.top);
 		} catch(e){}
@@ -77,6 +78,8 @@
 <span onclick="d('old','o1',200,200,100,100);">d</span>
 
 <span onclick="d('new','n1',100,100,100,100);">d</span>
+id: <input id="id">
+
 top: <input id="top">
 left: <input id="left">
 height: <input id="height">
