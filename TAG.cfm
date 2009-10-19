@@ -49,10 +49,12 @@
 		
 		$("#height").val($('#' + id).height());
 		
+		$("#width").val($('#' + id).width());
+		
+		
 		$("#top").val($("#" + id).position().top);
 		$("#left").val($("#" + id).position().left);
 		
-		$("#width").val($('#' + id).width());
 		
 	}
 	
