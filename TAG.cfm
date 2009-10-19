@@ -30,11 +30,15 @@
 		
 	}
 	
-	function d(c,id,t,l,h,w) {
-		var dv='<div id="' + id + '" class="' + c + '" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
-		
+	function addArea(id,t,l,h,w) {
+		var dv='<div id="' + id + '" class="old" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
 		$("#theDiv").append(dv);
+	}
+	
 		
+	}
+	
+	function modArea(id) {
 		$("#" + id).draggable({
 			containment: 'parent',
 			stop: function(event,ui){showDim(id,event, ui);}
@@ -75,9 +79,14 @@
 </script>
 
 
-<span onclick="d('old','o1',200,200,100,100);">d</span>
+<span onclick="addArea('o1',200,200,100,100);">d</span>
 
-<span onclick="d('new','n1',100,100,100,100);">d</span>
+<span onclick="addArea('n1',100,100,100,100);">d</span>
+
+
+<span onclick="modArea('n1');">d</span>
+
+
 id: <input id="id">
 
 top: <input id="top">
