@@ -51,10 +51,10 @@
 	}
 	
 	function showDim(event,ui){
-		$("#top").val(ui.position.top);
-		if (ui.position && ui.position.top) {
+		try{
 			$("#top").val(ui.position.top);
-		}
+		} catch(){}
+		
 		if (ui.position && ui.position.left) {
 			$("#left").val(ui.position.left);
 		}
