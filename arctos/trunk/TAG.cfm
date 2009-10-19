@@ -82,7 +82,7 @@
 </script>
 
 
-<span onclick="addArea('o1',1,2,4,4);">d</span>
+<span onclick="addArea('o1',10,20,30,40);">d</span>
 
 <span onclick="addArea('n1',100,100,100,100);">d</span>
 
