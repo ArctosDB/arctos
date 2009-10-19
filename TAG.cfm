@@ -26,8 +26,8 @@
 	}
 	
 	function d() {
-		$("#d1").draggable();
-		$("#d1").resizable();
+		//$("#d1").draggable();
+		$("#d1").resizable('option', 'alsoResize');
 		
 	}
 </script>
