@@ -21,12 +21,16 @@
 	
 	function a(){
 		console.log('a');
-		var d='<div id="d1" style="position:absolute;width:100px;height:75px;top:25px;left:25px;border:1px solid red">hello world</div>';
-		$("#theDiv").append(d);
+		
 	}
 	
 	function d() {
-		$("#d1").draggable();
+		var d='<div id="d1" style="position:absolute;width:100px;height:75px;top:25px;left:25px;border:1px solid red">hello world</div>';
+		$("#theDiv").append(d);
+		
+		$("#d1").draggable({
+			stop: function(event,ui){showDim(event, ui);}
+		});
 		$("#d1").resizable({
 			stop: function(event,ui){showDim(event, ui);}
 		});
