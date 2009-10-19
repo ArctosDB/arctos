@@ -1,9 +1,65 @@
+<!----
+
+create table tag (
+	tag_id number not null,
+	media_id number not null,
+	collection_object_id number,
+	collecting_event_id number,
+	remark varchar2(4000)
+);
+
+alter table tag add x number;
+alter table tag add y number;
+alter table tag add h number;
+alter table tag add w number;
+
+
+alter table tag add img_h number;
+alter table tag add img_w number;
+
+
+create or replace public synonym tag for tag;
+
+grant select on tag to public;
+
+grant all on tag to manage_media;
+
+create sequence sq_tag_id;
+
+CREATE OR REPLACE TRIGGER tag_seq before insert ON tag for each row
+   begin     
+       IF :new.tag_id IS NULL THEN
+           select sq_tag_id.nextval into :new.tag_id from dual;
+       END IF;
+   end;                                                                                            
+/
+sho err
+
+ALTER TABLE tag
+    add CONSTRAINT pk_tag
+    PRIMARY  KEY (tag_id);
+
+ALTER TABLE tag
+    add CONSTRAINT fk_tag_media
+    FOREIGN KEY (media_id)
+    REFERENCES media(media_id);
+	
+ALTER TABLE tag
+    add CONSTRAINT fk_tag_specimen
+    FOREIGN KEY (collection_object_id)
+    REFERENCES cataloged_item(collection_object_id);
+	
+ALTER TABLE tag
+    add CONSTRAINT fk_tag_event
+    FOREIGN KEY (collecting_event_id)
+    REFERENCES collecting_event(collecting_event_id);
+	
+---->
+
 <cfinclude template = "/includes/_header.cfm">
 <script language="JavaScript" src="/includes/jquery/jquery.imgareaselect.pack.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="/includes/jquery/css/imgareaselect-default.css">
 <link rel="stylesheet" type="text/css" href="/includes/jquery/css/ui-lightness/jquery-ui-1.7.2.custom.css">
-
-
 <script language="JavaScript" src="/includes/jquery/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
 <style>
 	.new {
@@ -14,9 +70,10 @@
 	}
 </style>
 
-
 <script type="text/javascript"> 
 	jQuery(document).ready(function () { 
+		addArea('o1',10,20,30,40);
+		addArea('o2',110,120,130,140);
 		//jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: imgCallback, instance: true }); 
 	}); 
 	
@@ -46,16 +103,14 @@
 			containment: 'parent',
 			stop: function(event,ui){showDim(id,event, ui);}
 		});
-		
 		$("#height").val($('#' + id).height());
-		
 		$("#width").val($('#' + id).width());
-		
-		
 		$("#top").val($("#" + id).position().top);
 		$("#left").val($("#" + id).position().left);
+		$("#id").val(id);	
 		
-		
+		console.log('imgH: ' + $('#theImage').height());
+		console.log('imgW: ' + $('#theImage').width());
 	}
 	
 	function showDim(id,event,ui){
@@ -74,10 +129,6 @@
 		try{
 			$("#width").val(ui.size.width);
 		} catch(e){}
-		
-		
-		
-		//console.log('p,t: ' + ui.position.top + 'p,b: ' + ui.position.left +'; s,h: ' + ui.size.height + '; s,w: ' + ui.size.width);	
 	}
 </script>
 
