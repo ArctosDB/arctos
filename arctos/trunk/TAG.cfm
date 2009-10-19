@@ -23,16 +23,19 @@
 	}
 	
 	function d() {
-		
 		$("#d1").draggable();
 	}
 </script>
 
 
+<span onclick="a();">a</span>
+
+<span onclick="d();">d</span>
+
+<hr>
+
 <div id="theDiv" style="position:absolute;border:1px solid purple;">
 	<img src="http://bscit.berkeley.edu/mvz/notebookjpegs/v1318_s2/v1318_s2_p001.jpg" id="theImage">
 </div>
 
-<span onclick="a();">a</span>
-
-<span onclick="d();">d</span>
+<hr>
