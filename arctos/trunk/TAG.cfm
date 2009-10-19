@@ -56,7 +56,7 @@
 		console.log(tt.top);
 		
 		$("#top").val(tt.top);
-		//$("#left").val($("#" + id).position().left);
+		$("#left").val($("#" + id).position().left);
 		
 		
 	}
@@ -87,7 +87,7 @@
 
 <span onclick="addArea('o1',10,20,30,40);">d</span>
 
-<span onclick="addArea('n1',100,100,100,100);">d</span>
+<span onclick="addArea('n1',101,102,103,104);">d</span>
 
 
 <span onclick="modArea('n1');">d</span>
