@@ -30,7 +30,7 @@
 		var h="100";
 		var w="100";
 		
-		var d='<div id="d1" style="position:absolute;width:" + w + "px;height:" + h + "px;top:" + t + "px;left:" + l + "px;border:1px solid red">hello world</div>';
+		var d='<div id="d1" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;border:1px solid red">hello world</div>';
 		console.log(d);
 		
 		$("#theDiv").append(d);
