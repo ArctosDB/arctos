@@ -10,28 +10,18 @@
 
 <script type="text/javascript"> 
 	jQuery(document).ready(function () { 
-		jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: imgCallback, instance: true }); 
+		jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: showDim, instance: true }); 
 	
 		
 	}); 
 	
-	function imgCallback(img, selection) {
-		console.log('img.x1: ' + img.x1 + '; img.y1: ' + img.y1 + '; img.x2: ' + img.x2 + '; img.y2: ' + img.y2 + '; selection.x1: ' + selection.x1 + '; selection.y1: ' + selection.y1 + '; selection.x2: ' + selection.x2 + '; selection.y2: ' + selection.y2);
-	}
-	
-	function a(){
-		console.log('a');
-		
-	}
-	
-	function d() {
+		function d() {
 		var t="100";
 		var l="100";
 		var h="100";
 		var w="100";
 		
-		var d='<div id="d1" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;border:1px solid red">hello world</div>';
-		console.log(d);
+		var d='<div id="d1" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;border:1px solid red"></div>';
 		
 		$("#theDiv").append(d);
 		
