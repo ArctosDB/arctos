@@ -24,6 +24,8 @@
 	
 	function d() {
 		$("#d1").draggable();
+		$("#d1").resizable();
+		
 	}
 </script>
 
