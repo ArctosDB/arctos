@@ -5,31 +5,43 @@
 
 
 <script language="JavaScript" src="/includes/jquery/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
-
+<style>
+	.new {
+		border:1px solid green;
+	}
+	.old{
+		border:1px solid red;
+	}
+</style>
 
 
 <script type="text/javascript"> 
 	jQuery(document).ready(function () { 
-		jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: showDim, instance: true }); 
+		//jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: imgCallback, instance: true }); 
 	
 		
 	}); 
 	
-		function d() {
-		var t="100";
-		var l="100";
-		var h="100";
-		var w="100";
+	function imgCallback(img, selection) {
+		// just reformat and pass off 
+		console.log('img.x1: ' + img.x1 + '; img.y1: ' + img.y1 + '; img.x2: ' + img.x2 + '; img.y2: ' + img.y2 + '; selection.x1: ' + selection.x1 + '; selection.y1: ' + selection.y1 + '; selection.x2: ' + selection.x2 + '; selection.y2: ' + selection.y2);
+	}
+	
+	function a(){
+		console.log('a');
 		
-		var d='<div id="d1" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;border:1px solid red"></div>';
+	}
+	
+	function d(c,id,t,l,h,w) {
+		var dv='<div id="' + id + '" class="' + c + " style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
 		
-		$("#theDiv").append(d);
+		$("#theDiv").append(dv);
 		
-		$("#d1").draggable({
+		$("#" + id).draggable({
 			containment: 'parent',
 			stop: function(event,ui){showDim(event, ui);}
 		});
-		$("#d1").resizable({
+		$("#" + id).resizable({
 			containment: 'parent',
 			stop: function(event,ui){showDim(event, ui);}
 		});
@@ -62,9 +74,9 @@
 </script>
 
 
-<span onclick="a();">a</span>
+<span onclick="d('old',o1,200,200,100,100);">d</span>
 
-<span onclick="d();">d</span>
+<span onclick="d('new',n1,100,100,100,100);">d</span>
 top: <input id="top">
 left: <input id="left">
 height: <input id="height">
