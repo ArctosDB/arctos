@@ -50,9 +50,9 @@
 		$("#height").val($('#' + id).height());
 		
 		$("#top").val($("#" + id).position().top);
-		$("#left").val(l);
+		$("#left").val($("#" + id).position().left);
 		
-		$("#width").val(w);
+		$("#width").val($('#' + id).width());
 		
 	}
 	
@@ -80,7 +80,7 @@
 </script>
 
 
-<span onclick="addArea('o1',200,200,100,100);">d</span>
+<span onclick="addArea('o1',1,2,4,4);">d</span>
 
 <span onclick="addArea('n1',100,100,100,100);">d</span>
 
