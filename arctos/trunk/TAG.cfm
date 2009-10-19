@@ -138,7 +138,7 @@ ALTER TABLE tag
 <span onclick="addArea('n1',101,102,103,104);">d</span>
 
 
-<span onclick="modArea('n1');">d</span>
+<span onclick="modArea('o1');">modArea - o1</span>
 
 
 id: <input id="id">
