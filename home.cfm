@@ -102,19 +102,18 @@ encumbered for proprietary reasons, data are open to the public.
 	<li>
 		Virtual Private Databases (VPD), also known as Row-Level Security (RLS), allow collections to maintain
 		control of their data while sharing certain nodes, such as Agents and Taxonomy. The cool kids call this 
-		Cloud Computing or Grid Computing. ColdFusion and Oracle are both scalable to essentially any number of servers 
-		running any hardware configuration.
+		Cloud Computing or Grid Computing.
 	</li>
 	<li>Everything is over the web in real time, and 
 		independent of client-side operating systems. 
-		You need moderate bandwidth, a reasonably modern browser, 
+		You need moderate bandwidth, a modern browser, 
 		and nothing more.</li>
 	<li>Specimen-search screen is user-customizable 
 		to about 100 search terms.  
-		Find specimens by project and/or publication.  
+		Find specimens by project, publication, usage, taxonomy, spatial attributes, and much more.  
 		Save and e-mail  searches.</li>
 	<li>Customizable table for result sets,	summarize 
-		and graph result sets, download (as text, CVS, or XML).</li>
+		and graph result sets, download (as text, CSV, or XML).</li>
 	<li>Customizable by individual collection using 
 		headers and footers of their own design, and CSS.</li>
 	<li>Any catalog item can have any number of attributes, 
@@ -128,22 +127,23 @@ encumbered for proprietary reasons, data are open to the public.
 	<li>Maintains history of determinations for taxonomic 
 		identifications, georeferencing, and biological attributes.</li>
 	<li>Specimen records, specimen parts, attributes, 
-		and citations can be entered or edited individually, 
+		citations, and much more can be entered or edited individually 
 		or in batches.</li>
 	<li>Object-tracking using nested-containers model, 
 		bar codes, and container-condition history.</li>
 	<li>
 		E-mail <a href="http://arctosblog.blogspot.com/2009/08/suspect-data.html">reminders</a> for loans due, 
-		permit expirations, etc. Reports detailing possible GenBank matches,
+		permit expirations, etc. Intelligent reports detailing possible GenBank matches,
 		missing citations, unlikely publications, and various other potentially faulty or missing data. 
 	</li>
 	<li>Encumbrances can mask localities, collector names, 
 		or entire records from unprivileged users.</li>
-	<li>Print labels, reports, transaction documents, etc.</li>
+	<li>Design and print labels, reports, transaction documents, etc.</li>
 	<li>Arctos is a 
 		<a href="http://www.digir.net" target="_blank">DiGIR</a> 
 		provider.</li>
 	<li>User annotation of specimens, taxonomy, publications, and projects.</li>
+	<li>Media links images, moves, sound files, and documents to specimens, taxonomy, publications, projects, events, or people.</li>
 </ul>
 </p>
 <p><a name="participation"><strong>Participation</strong></a><br/>
@@ -185,8 +185,7 @@ but we have made some exceptions:
 	 <li><strong>Popups:</strong>
 		Users may wish to enable popups. Some informational windows use popups. We promise to only pop up things you ask for.
 		<br>
-		Operators must enable popups. Many browsers block this, sometimes cryptically, by default. Pick windows will not function
-		if your browser is blocking popups.
+		Operators must enable popups. Many browsers block this, sometimes cryptically, by default.
 	</li>
 </ul></p>
 
@@ -205,7 +204,7 @@ but we have made some exceptions:
 
 <p><a name="data_usage"><strong>Data Usage</strong></a><br/>
 The collections data available through Arctos are separately 
-copyrighted &#169; 2001 - 2007 by the University of Alaska Museum of the North 
+copyrighted &#169; 2001 - 2009 by the University of Alaska Museum of the North 
 (University of Alaska, Fairbanks, AK),
 and by the Museum of Southwestern Biology (University of New Mexico, Albuquerque, NM),
 and the Museum of Vertebrate Zoology (University of California, Berkeley, CA).
@@ -233,7 +232,7 @@ The data providers are not responsible for loss or damages due to use of these d
 <div class="a">
 	A: We impose no strict limits. Queries almost always take less than 5 seconds. Getting the data to your browser often then
 	becomes a bottleneck. If you have a reasonably fast browser and connection, it should be possible to return 
-	at least 100,000 records with a single query. We have no idea why you'd want to. <a href="info/bugs.cfm" target="_blank">Let us know</a> 
+	at least 100,000 basic records with a single query. We have no idea why you'd want to. <a href="info/bugs.cfm" target="_blank">Let us know</a> 
 	if you find something excessively slow.
 </div>
 <div class="q">
@@ -254,7 +253,8 @@ The data providers are not responsible for loss or damages due to use of these d
 	Arctos proper offers little in the way of storage. However, we have a partnership with the
 	<a href="http://www.tacc.utexas.edu/" class="external" target="_blank">
 	Texas Advanced Computing Center</a> which provides us access to essentially unlimited storage space. Arctos currently
-	links to around 10 terabytes of high-resolution images of ALA herbarium sheets on TACC's servers.	
+	links to around 10 terabytes of Media, primarily high-resolution images of ALA herbarium sheets and historical MVZ images, both
+	on TACC's servers.	
 </div>
 <div class="q">
 	Q: Why Oracle and ColdFusion?
@@ -294,5 +294,4 @@ Please <cfoutput><a href="mailto:#application.technicalEmail#">contact us</a></c
 	<td valign="top"><img src="images/arctos_schema.png"/></td>
 	</tr>
 </table>
-
 <cfinclude template="/includes/_footer.cfm">
