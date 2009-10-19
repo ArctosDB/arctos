@@ -1,8 +1,9 @@
 <cfinclude template = "/includes/_header.cfm">
 <script language="JavaScript" src="/includes/jquery/jquery.imgareaselect.pack.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="/includes/jquery/css/imgareaselect-default.css">
+<script language="JavaScript" src="/includes/jquery/jjquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
 
-jquery-ui-1.7.2.custom.min.js
+
 
 <script type="text/javascript"> 
 	jQuery(document).ready(function () { 
@@ -17,8 +18,13 @@ jquery-ui-1.7.2.custom.min.js
 	
 	function a(){
 		console.log('a');
-		var d='<div style="position:absolute;width:100px;height:75px;top:25px;left:25px;border:1px solid red">hello world</div>';
+		var d='<div id="d1" style="position:absolute;width:100px;height:75px;top:25px;left:25px;border:1px solid red">hello world</div>';
 		$("#theDiv").append(d);
+	}
+	
+	function d() {
+		
+		$("#d1").draggable();
 	}
 </script>
 
@@ -28,3 +34,5 @@ jquery-ui-1.7.2.custom.min.js
 </div>
 
 <span onclick="a();">a</span>
+
+<span onclick="d();">d</span>
