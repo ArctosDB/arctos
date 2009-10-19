@@ -32,16 +32,16 @@
 		
 	}
 	
-	function d(c,id,t,l,h,w) {
-		var dv='<div id="' + id + '" class="' + c + " style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
+	function d(c,nid,t,l,h,w) {
+		var dv='<div id="' + nid + '" class="' + c + " style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
 		
 		$("#theDiv").append(dv);
 		
-		$("#" + id).draggable({
+		$("#" + nid).draggable({
 			containment: 'parent',
 			stop: function(event,ui){showDim(event, ui);}
 		});
-		$("#" + id).resizable({
+		$("#" + nid).resizable({
 			containment: 'parent',
 			stop: function(event,ui){showDim(event, ui);}
 		});
