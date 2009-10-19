@@ -40,6 +40,7 @@
 			stop: function(event,ui){showDim(event, ui);}
 		});
 		$("#d1").resizable({
+			containment: 'parent',
 			stop: function(event,ui){showDim(event, ui);}
 		});
 		
