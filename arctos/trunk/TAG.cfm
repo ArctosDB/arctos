@@ -25,6 +25,10 @@
 	}
 	
 	function d() {
+		var t="100";
+		var l="100";
+		var h="100";
+		var w="100";
 		var d='<div id="d1" style="position:absolute;width:100px;height:75px;top:25px;left:25px;border:1px solid red">hello world</div>';
 		$("#theDiv").append(d);
 		
@@ -34,6 +38,9 @@
 		$("#d1").resizable({
 			stop: function(event,ui){showDim(event, ui);}
 		});
+		
+		$("#top").val(t);
+		
 	}
 	
 	function showDim(event,ui){
@@ -45,7 +52,10 @@
 <span onclick="a();">a</span>
 
 <span onclick="d();">d</span>
-
+top: <input id="top">
+left: <input id="left">
+height: <input id="height">
+width: <input id="width">
 <hr>
 
 <div id="theDiv" style="position:absolute;border:1px solid purple;">
