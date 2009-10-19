@@ -1,7 +1,7 @@
 <cfinclude template = "/includes/_header.cfm">
 <script language="JavaScript" src="/includes/jquery/jquery.imgareaselect.pack.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="/includes/jquery/css/imgareaselect-default.css">
-<script language="JavaScript" src="/includes/jquery/jjquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+<script language="JavaScript" src="/includes/jquery/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
 
 
 
