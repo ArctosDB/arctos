@@ -7,7 +7,7 @@
 		jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: imgCallback }); 
 	}); 
 	
-	function imgCallback((img, selection) {
+	function imgCallback(img, selection) {
 		console.log('width: ' + selection.width + '; height: ' + selection.height); 
 	}
 </script>
