@@ -35,8 +35,7 @@
 		$("#theDiv").append(dv);
 	}
 	
-		
-	}
+	
 	
 	function modArea(id) {
 		$("#" + id).draggable({
