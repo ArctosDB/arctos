@@ -49,7 +49,7 @@
 		
 		$("#height").val($('#' + id).height());
 		
-		$("#top").val($("#" + id).position().top());
+		$("#top").val($("#" + id).position().top);
 		$("#left").val(l);
 		
 		$("#width").val(w);
