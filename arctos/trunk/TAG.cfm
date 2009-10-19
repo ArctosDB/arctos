@@ -36,6 +36,7 @@
 		$("#theDiv").append(d);
 		
 		$("#d1").draggable({
+			containment: 'parent',
 			stop: function(event,ui){showDim(event, ui);}
 		});
 		$("#d1").resizable({
