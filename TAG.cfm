@@ -28,7 +28,7 @@
 	function d() {
 		$("#d1").draggable();
 		$("#d1").resizable({
-			stop: showDim(event, ui);
+			stop: function(event,ui){showDim(event, ui);}
 		});
 	}
 	
