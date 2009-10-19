@@ -16,8 +16,10 @@ jquery-ui-1.7.2.custom.min.js
 	}
 	
 	function a(){
-		$("#theDiv").append('<div style="position:absolute;width:100px;height:75px;top:25px;left:25px;border:1px solid red">hello world</div>');
-		}
+		console.log('a');
+		var d='<div style="position:absolute;width:100px;height:75px;top:25px;left:25px;border:1px solid red">hello world</div>';
+		$("#theDiv").append(d);
+	}
 </script>
 
 
@@ -25,4 +27,4 @@ jquery-ui-1.7.2.custom.min.js
 	<img src="http://bscit.berkeley.edu/mvz/notebookjpegs/v1318_s2/v1318_s2_p001.jpg" id="theImage">
 </div>
 
-<span onclick="a">a</span>
+<span onclick="a();">a</span>
