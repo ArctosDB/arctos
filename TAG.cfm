@@ -36,7 +36,7 @@
 		$("#theDiv").append(d);
 		
 		$("#d1").draggable({
-			//containment: '#theDiv',
+			containment: 'parent',
 			stop: function(event,ui){showDim(event, ui);}
 		});
 		$("#d1").resizable({
@@ -53,7 +53,7 @@
 	function showDim(event,ui){
 		try{
 			$("#top").val(ui.position.top);
-		} catch(){}
+		} catch(e){}
 		
 		if (ui.position && ui.position.left) {
 			$("#left").val(ui.position.left);
