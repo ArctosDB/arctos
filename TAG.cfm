@@ -40,11 +40,27 @@
 		});
 		
 		$("#top").val(t);
+		$("#left").val(l);
+		$("#height").val(h);
+		$("#width").val(w);
 		
 	}
 	
 	function showDim(event,ui){
-		console.log('p,t: ' + ui.position.top + 'p,b: ' + ui.position.left +'; s,h: ' + ui.size.height + '; s,w: ' + ui.size.width);	
+		if (ui.position.top) {
+			$("#top").val(ui.position.top);
+		}
+		if (ui.position.left) {
+			$("#left").val(ui.position.left);
+		}
+		if (ui.size.height) {
+			$("#height").val(ui.size.height);
+		}
+		if (ui.size.width) {
+			$("#width").val(ui.size.width);
+		}
+		
+		//console.log('p,t: ' + ui.position.top + 'p,b: ' + ui.position.left +'; s,h: ' + ui.size.height + '; s,w: ' + ui.size.width);	
 	}
 </script>
 
