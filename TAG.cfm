@@ -29,7 +29,7 @@
 		var l="100";
 		var h="100";
 		var w="100";
-		var d='<div id="d1" style="position:absolute;width:100px;height:75px;top:25px;left:25px;border:1px solid red">hello world</div>';
+		var d='<div id="d1" style="position:absolute;width:" + w + "px;height:" + h + "px;top:" + t + "px;left:" + l + "px;border:1px solid red">hello world</div>';
 		$("#theDiv").append(d);
 		
 		$("#d1").draggable({
