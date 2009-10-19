@@ -28,10 +28,12 @@
 	function d() {
 		$("#d1").draggable();
 		$("#d1").resizable({
-			stop: function(event, ui) {
-				console.log('p,t: ' + ui.position.top + 'p,b: ' + ui.position.left +'; s,h: ' + ui.size.height + '; s,w: ' + ui.size.width);	
-			}
+			stop: showDim(event, ui);
 		});
+	}
+	
+	function showDim(event,ui){
+		console.log('p,t: ' + ui.position.top + 'p,b: ' + ui.position.left +'; s,h: ' + ui.size.height + '; s,w: ' + ui.size.width);	
 	}
 </script>
 
