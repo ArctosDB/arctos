@@ -74,9 +74,9 @@
 </script>
 
 
-<span onclick="d('old',o1,200,200,100,100);">d</span>
+<span onclick="d('old','o1',200,200,100,100);">d</span>
 
-<span onclick="d('new',n1,100,100,100,100);">d</span>
+<span onclick="d('new','n1',100,100,100,100);">d</span>
 top: <input id="top">
 left: <input id="left">
 height: <input id="height">
