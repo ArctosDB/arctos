@@ -47,9 +47,11 @@
 			stop: function(event,ui){showDim(id,event, ui);}
 		});
 		
+		$("#height").val($('#' + id).height());
+		
 		$("#top").val(t);
 		$("#left").val(l);
-		$("#height").val(h);
+		
 		$("#width").val(w);
 		
 	}
