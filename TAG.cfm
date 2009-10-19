@@ -51,6 +51,7 @@
 	}
 	
 	function showDim(event,ui){
+		$("#top").val(ui.position.top);
 		if (ui.position && ui.position.top) {
 			$("#top").val(ui.position.top);
 		}
