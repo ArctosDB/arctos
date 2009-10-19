@@ -4,12 +4,18 @@
 
 <script type="text/javascript"> 
 	jQuery(document).ready(function () { 
-		jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: imgCallback }); 
+		var ias=jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: imgCallback, instance: true }); 
+	
+		ias.setSelection(50, 50, 150, 200, true); 
+		ias.setOptions({ show: true }); 
+		ias.update();
+		
 	}); 
 	
 	function imgCallback(img, selection) {
 		console.log('img.x1: ' + img.x1 + '; img.y1: ' + img.y1 + '; img.x2: ' + img.x2 + '; img.y2: ' + img.y2 + '; selection.x1: ' + selection.x1 + '; selection.y1: ' + selection.y1 + '; selection.x2: ' + selection.x2 + '; selection.y2: ' + selection.y2);
 	}
+	
 </script>
 
 
