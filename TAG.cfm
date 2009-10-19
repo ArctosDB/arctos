@@ -51,8 +51,11 @@
 		
 		$("#width").val($('#' + id).width());
 		
+		var tt=$("#" + id).position();
+		console.log(tt);
+		console.log(tt.top);
 		
-		//$("#top").val($("#" + id).position().top);
+		$("#top").val(tt.top);
 		//$("#left").val($("#" + id).position().left);
 		
 		
