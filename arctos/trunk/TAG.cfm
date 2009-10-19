@@ -26,9 +26,12 @@
 	}
 	
 	function d() {
-		//$("#d1").draggable();
-		$("#d1").resizable('option', 'alsoResize');
-		
+		$("#d1").draggable();
+		$("#d1").resizable({
+			stop: function(event, ui) {
+				console.log('p: ' + ui.position + '; s: ' + ui.size);	
+			}
+		});
 	}
 </script>
 
