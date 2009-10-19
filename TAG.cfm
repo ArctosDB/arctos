@@ -6,11 +6,8 @@ jquery-ui-1.7.2.custom.min.js
 
 <script type="text/javascript"> 
 	jQuery(document).ready(function () { 
-		var ias=jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: imgCallback, instance: true }); 
+		jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: imgCallback, instance: true }); 
 	
-		ias.setSelection(50, 50, 150, 200, true); 
-		ias.setOptions({ show: true }); 
-		ias.update();
 		
 	}); 
 	
@@ -19,7 +16,7 @@ jquery-ui-1.7.2.custom.min.js
 	}
 	
 	function a(){
-		$("#theDiv").append('<div style="position:absolute;width:100px;height:75px;top:25px;left:25px;border:1px solid red'>hello world</div>")
+		$("#theDiv").append('<div style="position:absolute;width:100px;height:75px;top:25px;left:25px;border:1px solid red">hello world</div>');
 		}
 </script>
 
