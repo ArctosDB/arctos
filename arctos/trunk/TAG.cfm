@@ -29,7 +29,7 @@
 		$("#d1").draggable();
 		$("#d1").resizable({
 			stop: function(event, ui) {
-				console.log('p: ' + ui.position.top + '; s: ' + ui.size.height);	
+				console.log('p,t: ' + ui.position.top + 'p,b: ' + ui.position.bottom +'; s,h: ' + ui.size.height + '; s,w: ' + ui.size.width);	
 			}
 		});
 	}
