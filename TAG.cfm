@@ -54,16 +54,17 @@
 		try{
 			$("#top").val(ui.position.top);
 		} catch(e){}
-		
-		if (ui.position && ui.position.left) {
+		try{
 			$("#left").val(ui.position.left);
-		}
-		if (ui.size && ui.size.height) {
+		} catch(e){}
+		try{
 			$("#height").val(ui.size.height);
-		}
-		if (ui.size && ui.size.width) {
+		} catch(e){}
+		try{
 			$("#width").val(ui.size.width);
-		}
+		} catch(e){}
+		
+		
 		
 		//console.log('p,t: ' + ui.position.top + 'p,b: ' + ui.position.left +'; s,h: ' + ui.size.height + '; s,w: ' + ui.size.width);	
 	}
