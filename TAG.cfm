@@ -53,7 +53,7 @@
 		if (ui.position.left) {
 			$("#left").val(ui.position.left);
 		}
-		if (ui.size.height) {
+		if (ui.size && ui.size.height) {
 			$("#height").val(ui.size.height);
 		}
 		if (ui.size.width) {
