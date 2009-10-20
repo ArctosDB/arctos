@@ -129,9 +129,9 @@ ALTER TABLE tag
 			$("#newRefComment").show();
 			$("#newRefBtn").show();
 			if (v=='cataloged_item') {
-				findCatalogedItem(newRefId,newRefStr,'f');
+				findCatalogedItem('newRefId','newRefStr','f');
 			} else if (v=='collecting_event') {
-				findCollEvent(newRefId,'f',newRefStr);
+				findCollEvent('newRefId','f','newRefStr');
 			} else {
 				alert('Dude... I have no idea what you are trying to do. Srsly. Stoppit.');
 			}
