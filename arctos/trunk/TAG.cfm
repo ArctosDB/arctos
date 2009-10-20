@@ -109,7 +109,7 @@ ALTER TABLE tag
 		var w=iw/2;
 		addArea('newRef',t,l,h,w);
 		setTimeout("modArea('newRef')",500);
-		$("#info").text('Drag/resize the red box on the image, then click done.');
+		$("#info").text('Drag/resize the red box on the image, pick a reference and/or enter a comment, then click done.');
 		$("#newRefType").show();
 		$("#newRefClick").hide();
 	}
@@ -117,6 +117,14 @@ ALTER TABLE tag
 		// just reformat and pass off 
 		console.log('img.x1: ' + img.x1 + '; img.y1: ' + img.y1 + '; img.x2: ' + img.x2 + '; img.y2: ' + img.y2 + '; selection.x1: ' + selection.x1 + '; selection.y1: ' + selection.y1 + '; selection.x2: ' + selection.x2 + '; selection.y2: ' + selection.y2);
 	}
+	jQuery("#newRefBtn").click(function(e){
+		if ($("#newRefId").val().length==0 && $("#newRefComment").val('').length==0) {
+			alert('Pick a reference and/or enter a comment.');
+			return false;
+		} else {
+			console.log('savey');
+		}
+	});
 	
 	function f_newRefType(v){
 		if (v=='cancel' || v.length==0) {
