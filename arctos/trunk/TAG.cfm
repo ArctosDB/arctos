@@ -1,21 +1,23 @@
 <!----
 
+drop table tag;
+drop sequence sq_tag_id;
+
+
 create table tag (
 	tag_id number not null,
 	media_id number not null,
 	collection_object_id number,
 	collecting_event_id number,
-	remark varchar2(4000)
+	remark varchar2(4000),
+	reftop number,
+	refleft number,
+	refh number,
+	refw number,
+	imgh number,
+	imgw number
 );
 
-alter table tag add x number;
-alter table tag add y number;
-alter table tag add h number;
-alter table tag add w number;
-
-
-alter table tag add img_h number;
-alter table tag add img_w number;
 
 
 create or replace public synonym tag for tag;
@@ -93,18 +95,42 @@ ALTER TABLE tag
 				queryformat : 'column'
 			},
 			function (r) {
-				//alert(r);
+				console.log(r);
 			}
 		);
 	
 		$("#newRefBtn").click(function(e){
 			console.log($("#newRefId").val().length);
 			console.log($("#newRefComment").val().length);
+			if ($("#top").val().length==0 || $("#left").val().length==0) || $("#height").val().length==0) || $("#width").val().length==0) {
+				alert('You must have a graphical reference.');
+				return false;
+			}
+			
 			if ($("#newRefId").val().length==0 && $("#newRefComment").val().length==0) {
 				alert('Pick a reference and/or enter a comment.');
 				return false;
 			} else {
-				console.log('savey');
+				jQuery.getJSON("/component/tag.cfc",
+					{
+						method : "newRef",
+						media_id : $("#media_id").val(),
+						reftype: $("#newRefType").val(),
+						refid : $("#newRefId").val(),
+						refcomment: $("#newRefComment").val(),
+						top: $("#top").val(),
+						left: $("#left").val(),
+						height: $("#height").val(),
+						width: $("#width").val(),
+						img_h: $('#theImage').height(),
+						img_w: $('#theImage').width(),
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					function (r) {
+						console.log(r);
+					}
+				);
 			}
 		});
 	
