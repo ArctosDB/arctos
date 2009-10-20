@@ -64,12 +64,12 @@
 			<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select * from tag where tag_id=#pkey.n#
 			</cfquery>
+			<cfreturn r>
 		</cftransaction>
 	<cfcatch>
 		<cfreturn "fail: #cfcatch.message# #cfcatch.detail#">
 	</cfcatch>
-	</cftry>				
-	<cfreturn "select * from tag where tag_id=#pkey.n#">
+	</cftry>	
 	</cfoutput>
 </cffunction>
 <!--------------------------------------->
