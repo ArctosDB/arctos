@@ -121,7 +121,9 @@ ALTER TABLE tag
 		console.log('here i am');	
 	});
 	
-	
+	function fu(v){
+		console.log('fu: ' + v);
+	}
 	function addArea(id,t,l,h,w) {
 		var dv='<div id="' + id + '" class="old" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
 		$("#imgDiv").append(dv);
@@ -195,7 +197,7 @@ ALTER TABLE tag
 <div id="navDiv">
 	<div id="info"></div>
 	<span class="likeLink" id="newRefClick" onclick="newArea();">Create Reference</span>
-	<select id="newRefType" name="newRefType">
+	<select id="newRefType" name="newRefType" onchange="fu(this.value);">
 		<option value="">Pick Something...</option>
 		<option value="cancel">Nevermind...</option>
 		<option value="cataloged_item">Cataloged Item</option>
