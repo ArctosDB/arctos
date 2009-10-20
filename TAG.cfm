@@ -180,8 +180,9 @@ ALTER TABLE tag
 		//jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: imgCallback, instance: true }); 
 	}); 
 	function die(){
-		$("#1").draggable("disable");
-		$("#1").resizable("disable");
+		$("div .editing").draggable("disable");
+		$("div .editing").resizable("disable");
+		$("div .editing").removeClass("editing").addClass("old");
 	}
 	function newArea() {
 		var ih = $('#theImage').height();
