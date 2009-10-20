@@ -31,7 +31,7 @@
 	</cfform>
 </cfif>
 
-<cfif action is "p">
+<cfif isdefined("action") and action is "p">
 	<cfif hash(ucase(form.captcha)) neq form.captchaHash>
 	    <cfset errors = errors & "You did not enter the right text.">
 		<cfabort>
