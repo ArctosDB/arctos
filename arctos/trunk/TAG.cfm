@@ -118,14 +118,7 @@ ALTER TABLE tag
 		console.log('img.x1: ' + img.x1 + '; img.y1: ' + img.y1 + '; img.x2: ' + img.x2 + '; img.y2: ' + img.y2 + '; selection.x1: ' + selection.x1 + '; selection.y1: ' + selection.y1 + '; selection.x2: ' + selection.x2 + '; selection.y2: ' + selection.y2);
 	}
 	$("#newRefType").change(function(e){
-		console.log('here i am');
-		console.log('v' + this.value);
-		
-		if (this.value=='cancel') {
-			console.log('craps....');
-		} else {
-			console.log(this.value);
-		}		
+		console.log('here i am');	
 	});
 	
 	
@@ -134,6 +127,17 @@ ALTER TABLE tag
 		$("#imgDiv").append(dv);
 	}
 	
+	/*
+	
+	
+		console.log('v' + this.value);
+		
+		if (this.value=='cancel') {
+			console.log('craps....');
+		} else {
+			console.log(this.value);
+		}		
+	*/
 	
 	
 	function modArea(id) {
@@ -191,7 +195,7 @@ ALTER TABLE tag
 <div id="navDiv">
 	<div id="info"></div>
 	<span class="likeLink" id="newRefClick" onclick="newArea();">Create Reference</span>
-	<select id="newRefType" style="display:none">
+	<select id="newRefType" name="newRefType" style="display:none">
 		<option value="">Pick Something...</option>
 		<option value="cancel">Nevermind...</option>
 		<option value="cataloged_item">Cataloged Item</option>
