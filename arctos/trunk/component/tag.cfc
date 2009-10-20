@@ -9,6 +9,7 @@
 </cffunction>
 <!--------------------------------------->
 <cffunction name="newRef" access="remote">
+	<cfoutput>
 	<cfargument name="media_id" required="yes">
 	<cfargument name="reftype" required="yes">
 	<cfargument name="refcomment" required="yes">
@@ -67,7 +68,8 @@
 		<cfreturn "fail: #cfcatch.message# #cfcatch.detail#">
 	</cfcatch>
 	</cftry>				
-	<cfreturn r>
+	<cfreturn "#select * from tag where tag_id=#pkey.n#">
+	</cfoutput>
 </cffunction>
 <!--------------------------------------->
 
