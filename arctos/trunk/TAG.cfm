@@ -142,7 +142,14 @@ ALTER TABLE tag
 					},
 					function (r) {
 						if (r.ROWCOUNT && r.ROWCOUNT==1){
-							console.log(r);
+							removeNewRef();
+							addArea(
+								r.DATA.TAG_ID[0],
+								r.DATA.REFTOP[0],
+								r.DATA.REFLEFT[0],
+								r.DATA.REFH[0],
+								r.DATA.REFW[0]);
+							
 						} else {
 							alert(r);
 						}
@@ -173,22 +180,24 @@ ALTER TABLE tag
 		// just reformat and pass off 
 		console.log('img.x1: ' + img.x1 + '; img.y1: ' + img.y1 + '; img.x2: ' + img.x2 + '; img.y2: ' + img.y2 + '; selection.x1: ' + selection.x1 + '; selection.y1: ' + selection.y1 + '; selection.x2: ' + selection.x2 + '; selection.y2: ' + selection.y2);
 	}
+	function removeNewRef() {
+		$("#newRefType").val('');
+		$("#newRefId").val('');
+		$("#newRefStr").val('');
+		$("#newRefComment").val('');
+		$("#newRefType").hide();
+		$("#newRefStr").hide();
+		$("#newRefBtn").hide();
+		$("#newRefComment").hide();			
+		$("#c_newRefComment").hide();
+		
+		$("#newRefClick").show();
+		$("#newRef").remove();
+	}
 	
 	function f_newRefType(v){
 		if (v=='cancel' || v.length==0) {
-			$("#newRefType").val('');
-			$("#newRefId").val('');
-			$("#newRefStr").val('');
-			$("#newRefComment").val('');
-			$("#newRefType").hide();
-			$("#newRefStr").hide();
-			$("#newRefBtn").hide();
-			$("#newRefComment").hide();			
-			$("#c_newRefComment").hide();
-			
-			$("#newRefClick").show();
-			$("#newRef").remove();
-			
+			removeNewRef();			
 		} else {
 			$("#newRefStr").show();
 			$("#newRefComment").show();
