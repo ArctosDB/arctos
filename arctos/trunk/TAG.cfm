@@ -108,6 +108,7 @@ ALTER TABLE tag
 		var h=ih/2;
 		var w=iw/2;
 		addArea('newRef',t,l,h,w);
+		setTimeout("modArea('newRef')",500);
 	}
 	function imgCallback(img, selection) {
 		// just reformat and pass off 
