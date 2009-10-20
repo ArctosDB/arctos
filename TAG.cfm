@@ -215,7 +215,7 @@ ALTER TABLE tag
 			<option value="collecting_event">Collecting Event</option>
 		</select>
 		<input type="text" id="newRefStr" name="newRefStr" style="display:none">
-		<input type="text" id="newRefId" name="newRefId" style="display:none">
+		<input type="text" id="newRefId" name="newRefId">
 		<input type="text" id="newRefComment" style="display:none">
 		<input type="button" id="newRefBtn" value="save reference" style="display:none">
 	</form>
