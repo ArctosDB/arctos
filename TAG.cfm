@@ -110,19 +110,26 @@ ALTER TABLE tag
 		addArea('newRef',t,l,h,w);
 		setTimeout("modArea('newRef')",500);
 		$("#info").text('Drag/resize the red box on the image, then click done.');
-		//$("#newRefType").show();
-		//$("#newRefClick").hide();
+		$("#newRefType").show();
+		$("#newRefClick").hide();
 	}
 	function imgCallback(img, selection) {
 		// just reformat and pass off 
 		console.log('img.x1: ' + img.x1 + '; img.y1: ' + img.y1 + '; img.x2: ' + img.x2 + '; img.y2: ' + img.y2 + '; selection.x1: ' + selection.x1 + '; selection.y1: ' + selection.y1 + '; selection.x2: ' + selection.x2 + '; selection.y2: ' + selection.y2);
 	}
-	$("#newRefType").change(function(e){
-		console.log('here i am');	
-	});
 	
-	function fu(v){
-		console.log('fu: ' + v);
+	function f_newRefType(v){
+		console.log('v' + this.value);
+		
+		if (v=='cancel') {
+			console.log('craps....');
+			$("#newRefType").hide();
+			$("#newRefClick").show();
+			$("#newRef").remove();
+			
+		} else {
+			console.log(v);
+		}		
 	}
 	function addArea(id,t,l,h,w) {
 		var dv='<div id="' + id + '" class="old" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
@@ -132,13 +139,7 @@ ALTER TABLE tag
 	/*
 	
 	
-		console.log('v' + this.value);
 		
-		if (this.value=='cancel') {
-			console.log('craps....');
-		} else {
-			console.log(this.value);
-		}		
 	*/
 	
 	
@@ -197,7 +198,7 @@ ALTER TABLE tag
 <div id="navDiv">
 	<div id="info"></div>
 	<span class="likeLink" id="newRefClick" onclick="newArea();">Create Reference</span>
-	<select id="newRefType" name="newRefType" onchange="fu(this.value);">
+	<select id="newRefType" name="newRefType" onchange="f_newRefType(this.value);">
 		<option value="">Pick Something...</option>
 		<option value="cancel">Nevermind...</option>
 		<option value="cataloged_item">Cataloged Item</option>
