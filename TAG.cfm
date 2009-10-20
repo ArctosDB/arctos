@@ -96,7 +96,7 @@ ALTER TABLE tag
 				queryformat : 'column'
 			},
 			function (r) {
-				if (r.substr(1,4) is 'fail'){
+				if (r.substr(1,4) == 'fail'){
 					alert(r);
 				} else {
 					console.log(r);
