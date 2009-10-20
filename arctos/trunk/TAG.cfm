@@ -100,11 +100,11 @@ ALTER TABLE tag
 				if (r.ROWCOUNT){
 					for (i=0; i<r.ROWCOUNT; ++i) {
 						addArea(
-							r.DATA.tag_id[i],
-							r.DATA.reftop[i],
-							r.DATA.refleft[i],
-							r.DATA.refh[i],
-							r.DATA.refw[i]);
+							r.DATA.TAG_ID[i],
+							r.DATA.REFTOP[i],
+							r.DATA.REFLEFT[i],
+							r.DATA.REFH[i],
+							r.DATA.REFW[i]);
 					}
 				} else {
 					alert(r);
