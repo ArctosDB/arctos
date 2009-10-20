@@ -1,3 +1,4 @@
+<cfdump var=#cgi#>
 <cffunction name="makeRandomString" returnType="string" output="false">
     <cfset var chars = "23456789ABCDEFGHJKMNPQRS">
     <cfset var length = randRange(4,7)>
@@ -44,5 +45,6 @@
 		
 		---#c#---
 	</cfmail>
+	Your message has been delivered.
 	</cfoutput>
 </cfif>
