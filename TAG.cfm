@@ -76,6 +76,10 @@ ALTER TABLE tag
 	#navDiv {
 		float:right;
 		border:2px solid green;
+		width:300px;
+		}
+	#newRef {
+		border:1px solid red;
 		}
 </style>
 
@@ -96,7 +100,15 @@ ALTER TABLE tag
 		//addArea('o2',110,120,130,140);
 		//jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: imgCallback, instance: true }); 
 	}); 
-	
+	function newArea() {
+		var ih = $('#theImage').height());
+		var iw = $('#theImage').width());
+		var t = ih/4;
+		var l= iw/4;
+		var h=ih/2;
+		var w=iw/2;
+		addArea('newRef',t,l,h,w);
+	}
 	function imgCallback(img, selection) {
 		// just reformat and pass off 
 		console.log('img.x1: ' + img.x1 + '; img.y1: ' + img.y1 + '; img.x2: ' + img.x2 + '; img.y2: ' + img.y2 + '; selection.x1: ' + selection.x1 + '; selection.y1: ' + selection.y1 + '; selection.x2: ' + selection.x2 + '; selection.y2: ' + selection.y2);
@@ -167,6 +179,7 @@ ALTER TABLE tag
 	<img src="#c.media_uri#" id="theImage" style="max-width:600px;max-height:800px;">
 </div>
 <div id="navDiv">
+	<span onclick="newArea();">New Reference</span>
 	
 <span onclick="addArea('o1',10,20,30,40);">d</span>
 
