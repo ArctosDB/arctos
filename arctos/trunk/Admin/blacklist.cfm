@@ -10,7 +10,7 @@
 <cfoutput>
 <cfif action is "nothing">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select ip from blacklist
+		select ip from uam.blacklist
 	</cfquery>
 	<cfset application.blacklist=valuelist(d.ip)>
 	<form name="i" method="post" action="blacklist.cfm">
@@ -25,13 +25,13 @@
 </cfif>
 <cfif action is "ins">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		insert into blacklist (ip) values ('#ip#')
+		insert into uam.blacklist (ip) values ('#ip#')
 	</cfquery>
 	<cflocation url="/Admin/blacklist.cfm">
 </cfif>
 <cfif action is "del">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		delete from blacklist where ip = '#ip#'
+		delete from uam.blacklist where ip = '#ip#'
 	</cfquery>
 	<cflocation url="/Admin/blacklist.cfm">
 </cfif>
