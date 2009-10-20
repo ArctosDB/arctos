@@ -124,10 +124,13 @@ ALTER TABLE tag
 			$("#newRefType").hide();
 			$("#newRefClick").show();
 			$("#newRef").remove();
+			$("#c_newRefComment").hide();
+			
 		} else {
 			$("#newRefStr").show();
 			$("#newRefComment").show();
 			$("#newRefBtn").show();
+			$("#c_newRefComment").show();
 			if (v=='cataloged_item') {
 				findCatalogedItem('newRefId','newRefStr','f');
 			} else if (v=='collecting_event') {
@@ -216,6 +219,7 @@ ALTER TABLE tag
 		</select>
 		<input type="text" id="newRefStr" name="newRefStr" style="display:none">
 		<input type="text" id="newRefId" name="newRefId">
+		<label for="newRefComment" id="c_newRefComment" style="display:none">Comment</label>
 		<input type="text" id="newRefComment" style="display:none">
 		<input type="button" id="newRefBtn" value="save reference" style="display:none">
 	</form>
