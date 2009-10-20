@@ -35,16 +35,16 @@
 
 <cfif isdefined("action") and action is "p">
 	<cfif hash(ucase(form.captcha)) neq form.captchaHash>
-	    <cfset errors = errors & "You did not enter the right text.">
+		You did not enter the right text.
 		<cfabort>
 	</cfif>
 	<cfoutput>
-	<cfmail subject="BlackList Objection" to="dustymc@gmail.com" from="blacklist@#application.fromEmail#" type="html">
-		#Application.PageProblemEmail#
-		IP #cgi.REMOTE_ADDR# had this to say:
-		
-		---#c#---
-	</cfmail>
-	Your message has been delivered.
+		<cfmail subject="BlackList Objection" to="dustymc@gmail.com" from="blacklist@#application.fromEmail#" type="html">
+			#Application.PageProblemEmail#
+			IP #cgi.REMOTE_ADDR# had this to say:
+			
+			---#c#---
+		</cfmail>
+		Your message has been delivered.
 	</cfoutput>
 </cfif>
