@@ -24,7 +24,7 @@
 		<label for="c">Explain yourself</label>
 		<textarea name="c" id="c" rows="6" cols="50"></textarea>
 		<br>
-	    <cfimage action="captcha" width="300" height="75" text="#captcha#">
+	    <cfimage action="captcha" width="300" height="50" text="#captcha#">
 	   	<br>
 	    <label for="captcha">Enter the text above</label>
 	    <input type="text" name="captcha" id="captcha">
@@ -34,11 +34,15 @@
 </cfif>
 
 <cfif isdefined("action") and action is "p">
-	<cfif hash(ucase(form.captcha)) neq form.captchaHash>
-		You did not enter the right text.
-		<cfabort>
-	</cfif>
 	<cfoutput>
+		<cfif hash(ucase(form.captcha)) neq form.captchaHash>
+			You did not enter the right text.
+			
+			<br>#hash(ucase(form.captcha))#
+			<br>#form.captchaHash#
+			<cfabort>
+		</cfif>
+	
 		<cfmail subject="BlackList Objection" to="dustymc@gmail.com" from="blacklist@#application.fromEmail#" type="html">
 			#Application.PageProblemEmail#
 			IP #cgi.REMOTE_ADDR# had this to say:
