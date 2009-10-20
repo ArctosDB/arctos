@@ -264,8 +264,8 @@ ALTER TABLE tag
 		$("#left").val($("#" + id).position().left);
 		$("#id").val(id);	
 		
-		console.log('imgH: ' + $('#theImage').height());
-		console.log('imgW: ' + $('#theImage').width());
+		console.log('modArea: imgH: ' + $('#theImage').height());
+		console.log('modArea: imgW: ' + $('#theImage').width());
 	}
 	function showDim(id,event,ui){
 		try{
