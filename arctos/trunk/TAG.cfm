@@ -72,6 +72,17 @@ ALTER TABLE tag
 
 <script type="text/javascript"> 
 	jQuery(document).ready(function () { 
+		jQuery.getJSON("/component/tag.cfc",
+			{
+				method : "getTags",
+				media_id : $("#media_id#").val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				alert(r);
+			}
+		);
 		//addArea('o1',10,20,30,40);
 		//addArea('o2',110,120,130,140);
 		//jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: imgCallback, instance: true }); 
@@ -139,6 +150,8 @@ ALTER TABLE tag
 		FAIL@images only.
 		<cfabort>
 	</cfif>
+	<input id="media_id" value="#c.media_id#">
+	
 <span onclick="addArea('o1',10,20,30,40);">d</span>
 
 <span onclick="addArea('n1',101,102,103,104);">d</span>
