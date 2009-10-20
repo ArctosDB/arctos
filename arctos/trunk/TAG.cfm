@@ -97,7 +97,7 @@ ALTER TABLE tag
 			},
 			function (r) {
 				
-				if (r.substr(1,4) == 'fail'){
+				if (r.substring(1,4) == 'fail') {
 					alert(r);
 				} else {
 					console.log(r);
