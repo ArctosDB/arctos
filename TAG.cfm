@@ -119,8 +119,8 @@ ALTER TABLE tag
 	}
 	
 	function f_newRefType(v){
-		if (v=='cancel') {
-			console.log('craps....');
+		if (v=='cancel' || v.length==0) {
+			$("#newRefType").val('');
 			$("#newRefType").hide();
 			$("#newRefClick").show();
 			$("#newRef").remove();
