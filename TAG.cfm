@@ -151,6 +151,13 @@ ALTER TABLE tag
 		<cfabort>
 	</cfif>
 	<input id="media_id" value="#c.media_id#">
+
+<hr>
+
+<div id="theDiv" style="position:absolute;border:8px solid purple;float: left;">
+	<img src="#c.media_uri#" id="theImage" style="max-width:600px;max-height:800px;">
+</div>
+<div id="ctl" style="border:2px solid green">
 	
 <span onclick="addArea('o1',10,20,30,40);">d</span>
 
@@ -166,10 +173,6 @@ top: <input id="top">
 left: <input id="left">
 height: <input id="height">
 width: <input id="width">
-<hr>
-
-<div id="theDiv" style="position:absolute;border:8px solid purple">
-	<img src="#c.media_uri#" id="theImage" style="max-width:600px;max-height:800px;">
 </div>
 </cfoutput>
 
