@@ -96,18 +96,17 @@ ALTER TABLE tag
 				//alert(r);
 			}
 		);
-		//$("input[id$='newRefBtn']").click(function() {
 	
-	$("#newRefBtn").click(function(e){
-		console.log('newRefBtn clicky');
-		
-		if ($("#newRefId").val().length==0 && $("#newRefComment").val('').length==0) {
-			alert('Pick a reference and/or enter a comment.');
-			return false;
-		} else {
-			console.log('savey');
-		}
-	});
+		$("#newRefBtn").click(function(e){
+			console.log($("#newRefId").val().length);
+			console.log($("#newRefComment").val('').length);
+			if ($("#newRefId").val().length==0 && $("#newRefComment").val('').length==0) {
+				alert('Pick a reference and/or enter a comment.');
+				return false;
+			} else {
+				console.log('savey');
+			}
+		});
 	
 		//addArea('o1',10,20,30,40);
 		//addArea('o2',110,120,130,140);
