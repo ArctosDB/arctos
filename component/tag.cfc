@@ -68,7 +68,7 @@
 		<cfreturn "fail: #cfcatch.message# #cfcatch.detail#">
 	</cfcatch>
 	</cftry>				
-	<cfreturn "#select * from tag where tag_id=#pkey.n#">
+	<cfreturn "select * from tag where tag_id=#pkey.n#">
 	</cfoutput>
 </cffunction>
 <!--------------------------------------->
