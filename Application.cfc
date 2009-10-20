@@ -186,15 +186,17 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="false">
-	<cfparam name="request.fixAmp" type="boolean" default="false">
 	<cfset gtfo="131.247.116.157,216.115.113.1,172.16.200.9">
 	<cfif listfindnocase(gtfo,cgi.REMOTE_ADDR)>
 		<cfif cgi.script_name is not "/errors/gtfo.cfm">
-			<cfinclude template="/errors/gtfo.cfm">
-		</cfif>
+			<cfscript>
+				getPageContext().forward("/errors/gtfo.cfm");
+			</cfscript>
 		<cfabort>
+		</cfif>
 	</cfif>
 	
+	<cfparam name="request.fixAmp" type="boolean" default="false">
 	<cfif (NOT request.fixAmp) AND (findNoCase("&amp;", cgi.query_string ) gt 0)>
 		<cfscript>
 			request.fixAmp = true;
