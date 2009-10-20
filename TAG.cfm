@@ -111,6 +111,7 @@ ALTER TABLE tag
 		setTimeout("modArea('newRef')",500);
 		$("#info").text('Drag/resize the red box on the image, then click done.');
 		$("#newRefType").show();
+		$("#newRefClick").hide();
 	}
 	function imgCallback(img, selection) {
 		// just reformat and pass off 
@@ -184,7 +185,7 @@ ALTER TABLE tag
 
 <div id="navDiv">
 	<div id="info"></div>
-	<span class="likeLink" onclick="newArea();">Create Reference</span>
+	<span class="likeLink" id="newRefClick" onclick="newArea();">Create Reference</span>
 	<select id="newRefType"  style="display:none">
 		<option value="cataloged_item">Cataloged Item</option>
 		<option value="collecting_event">Collecting Event</option>
