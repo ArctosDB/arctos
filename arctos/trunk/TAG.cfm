@@ -124,17 +124,18 @@ ALTER TABLE tag
 			$("#newRefType").hide();
 			$("#newRefClick").show();
 			$("#newRef").remove();
-		} else if (v=='cataloged_item') {
-			$("#newRefStr" style="display:none">
-	<input type="text" id="newRefId" name="newRefStr" style="display:none">
-	<input type="text" id="newRefComment" style="display:none">
-	<input type="button" id="newRefBtn" value="save reference" style="display:none">
-			findCatalogedItem(newRefId,newRefStr,'f');
-		} else if (v=='collecting_event') {
-			findCollEvent(newRefId,'f',newRefStr);
 		} else {
-			alert('Dude... I have no idea what you're trying to do. Srsly. Stoppit.');
-		}		
+			$("#newRefStr").show();
+			$("#newRefComment").show();
+			$("#newRefBtn").show();
+			if (v=='cataloged_item') {
+				findCatalogedItem(newRefId,newRefStr,'f');
+			} else if (v=='collecting_event') {
+				findCollEvent(newRefId,'f',newRefStr);
+			} else {
+				alert('Dude... I have no idea what you're trying to do. Srsly. Stoppit.');
+			}
+		}	
 	}
 	
 	
