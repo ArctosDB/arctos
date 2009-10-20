@@ -190,7 +190,6 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="false">
-	<cfset gtfo="131.247.116.157">
 	<cfif listfindnocase(application.blacklist,cgi.REMOTE_ADDR)>
 		<cfif cgi.script_name is not "/errors/gtfo.cfm">
 			<cfscript>
