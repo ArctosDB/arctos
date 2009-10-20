@@ -192,6 +192,7 @@
 		<cfif cgi.script_name is not "/errors/gtfo.cfm">
 			<cflocation url="/errors/gtfo.cfm">
 		</cfif>
+		<cfabort>
 	</cfif>
 	
 	<cfif (NOT request.fixAmp) AND (findNoCase("&amp;", cgi.query_string ) gt 0)>
