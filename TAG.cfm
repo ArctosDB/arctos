@@ -102,7 +102,7 @@ ALTER TABLE tag
 		$("#newRefBtn").click(function(e){
 			console.log($("#newRefId").val().length);
 			console.log($("#newRefComment").val().length);
-			if ($("#top").val().length==0 || $("#left").val().length==0) || $("#height").val().length==0) || $("#width").val().length==0) {
+			if ($("#top").val().length==0 || $("#left").val().length==0 || $("#height").val().length==0 || $("#width").val().length==0) {
 				alert('You must have a graphical reference.');
 				return false;
 			}
