@@ -190,7 +190,7 @@
 	<cfset gtfo="131.247.116.157,216.115.113.1,172.16.200.9">
 	<cfif listfindnocase(gtfo,cgi.REMOTE_ADDR)>
 		<cfif cgi.script_name is not "/errors/gtfo.cfm">
-			<cflocation url="/errors/gtfo.cfm">
+			<cfinclude template="/errors/gtfo.cfm">
 		</cfif>
 		<cfabort>
 	</cfif>
