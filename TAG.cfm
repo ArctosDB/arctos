@@ -97,7 +97,7 @@ ALTER TABLE tag
 			},
 			function (r) {
 				console.log(r);
-				if (r.ROWCOUNT && r.ROWCOUNT==1){
+				if (r.ROWCOUNT){
 					console.log(r);
 				} else {
 					alert(r);
@@ -134,7 +134,11 @@ ALTER TABLE tag
 						queryformat : 'column'
 					},
 					function (r) {
-						console.log(r);
+						if (r.ROWCOUNT && r.ROWCOUNT==1){
+							console.log(r);
+						} else {
+							alert(r);
+						}
 					}
 				);
 			}
