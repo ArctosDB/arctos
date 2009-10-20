@@ -117,7 +117,9 @@ ALTER TABLE tag
 		// just reformat and pass off 
 		console.log('img.x1: ' + img.x1 + '; img.y1: ' + img.y1 + '; img.x2: ' + img.x2 + '; img.y2: ' + img.y2 + '; selection.x1: ' + selection.x1 + '; selection.y1: ' + selection.y1 + '; selection.x2: ' + selection.x2 + '; selection.y2: ' + selection.y2);
 	}
-	jQuery("#newRefBtn").click(function(e){
+	$("#newRefBtn").click(function(e){
+		console.log('newRefBtn clicky');
+		
 		if ($("#newRefId").val().length==0 && $("#newRefComment").val('').length==0) {
 			alert('Pick a reference and/or enter a comment.');
 			return false;
