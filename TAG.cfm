@@ -117,7 +117,7 @@ ALTER TABLE tag
 		// just reformat and pass off 
 		console.log('img.x1: ' + img.x1 + '; img.y1: ' + img.y1 + '; img.x2: ' + img.x2 + '; img.y2: ' + img.y2 + '; selection.x1: ' + selection.x1 + '; selection.y1: ' + selection.y1 + '; selection.x2: ' + selection.x2 + '; selection.y2: ' + selection.y2);
 	}
-	$("#newRefType").click(function(e){
+	$("#newRefType").change(function(e){
 		if (this.value=='cancel') {
 			console.log('craps....');
 		} else {
@@ -189,8 +189,9 @@ ALTER TABLE tag
 <div id="navDiv">
 	<div id="info"></div>
 	<span class="likeLink" id="newRefClick" onclick="newArea();">Create Reference</span>
-	<select id="newRefType"  style="display:none">
-		<option value="cancel">Nevermind....</option>
+	<select id="newRefType" style="display:none">
+		<option value="">Pick Something...</option>
+		<option value="cancel">Nevermind...</option>
 		<option value="cataloged_item">Cataloged Item</option>
 		<option value="collecting_event">Collecting Event</option>
 	</select>
