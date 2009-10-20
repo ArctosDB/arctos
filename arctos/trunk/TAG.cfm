@@ -68,6 +68,15 @@ ALTER TABLE tag
 	.old{
 		border:1px solid red;
 	}
+	#imgDiv{
+		position:absolute;
+		border:8px solid purple;
+		float: left;
+	}
+	#navDiv {
+		float:right;
+		border:2px solid green;
+		}
 </style>
 
 <script type="text/javascript"> 
@@ -100,7 +109,7 @@ ALTER TABLE tag
 	
 	function addArea(id,t,l,h,w) {
 		var dv='<div id="' + id + '" class="old" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
-		$("#theDiv").append(dv);
+		$("#imgDiv").append(dv);
 	}
 	
 	
@@ -154,10 +163,10 @@ ALTER TABLE tag
 
 <hr>
 
-<div id="theDiv" style="position:absolute;border:8px solid purple;float: left;">
+<div id="imgDiv">
 	<img src="#c.media_uri#" id="theImage" style="max-width:600px;max-height:800px;">
 </div>
-<div id="ctl" style="border:2px solid green">
+<div id="navDiv">
 	
 <span onclick="addArea('o1',10,20,30,40);">d</span>
 
