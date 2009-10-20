@@ -75,7 +75,7 @@ ALTER TABLE tag
 		jQuery.getJSON("/component/tag.cfc",
 			{
 				method : "getTags",
-				media_id : $("#media_id#").val(),
+				media_id : $("#media_id").val(),
 				returnformat : "json",
 				queryformat : 'column'
 			},
