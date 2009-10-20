@@ -101,8 +101,8 @@ ALTER TABLE tag
 		//jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: imgCallback, instance: true }); 
 	}); 
 	function newArea() {
-		var ih = $('#theImage').height());
-		var iw = $('#theImage').width());
+		var ih = $('#theImage').height();
+		var iw = $('#theImage').width();
 		var t = ih/4;
 		var l= iw/4;
 		var h=ih/2;
