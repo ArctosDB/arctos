@@ -118,6 +118,9 @@ ALTER TABLE tag
 		console.log('img.x1: ' + img.x1 + '; img.y1: ' + img.y1 + '; img.x2: ' + img.x2 + '; img.y2: ' + img.y2 + '; selection.x1: ' + selection.x1 + '; selection.y1: ' + selection.y1 + '; selection.x2: ' + selection.x2 + '; selection.y2: ' + selection.y2);
 	}
 	$("#newRefType").change(function(e){
+		console.log('here i am');
+		console.log('v' + this.value);
+		
 		if (this.value=='cancel') {
 			console.log('craps....');
 		} else {
