@@ -68,8 +68,12 @@ ALTER TABLE tag
 	.new {
 		border:1px solid green;
 	}
+	.editing {
+		border:1px solid yellow;
+	}
 	.old{
 		border:1px solid blue;
+		cursor:hand;
 	}
 	#imgDiv{
 		position:absolute;
@@ -113,6 +117,9 @@ ALTER TABLE tag
 		);
 		jQuery("div .old").live('click', function(e){
 			console.log('you clicked ' + this.id);
+			$jQuery("div .editing").removeClass("editing").addClass("old");
+			this.removeClass("old").addClass("editing");
+			
 		});
 	
 	
