@@ -112,7 +112,7 @@ ALTER TABLE tag
 			}
 		);
 		jQuery("div .old").live('click', function(e){
-			console.log('you clicked it');
+			console.log('you clicked ' + this.id);
 		});
 	
 	
