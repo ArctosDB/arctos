@@ -261,7 +261,7 @@
 												<li><a target="_top" href="/CodeTableEditor.cfm">Code Tables</a></li>
 											</cfif>
 											<cfif listfind(formList,"/Admin/Collection.cfm")>
-												<li><a target="_top" href="">Manage Collection</a></li>
+												<li><a target="_top" href="/Admin/Collection.cfm">Manage Collection</a></li>
 											</cfif>
 										</ul>
 									</li>
