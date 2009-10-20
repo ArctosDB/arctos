@@ -72,8 +72,8 @@ ALTER TABLE tag
 
 <script type="text/javascript"> 
 	jQuery(document).ready(function () { 
-		addArea('o1',10,20,30,40);
-		addArea('o2',110,120,130,140);
+		//addArea('o1',10,20,30,40);
+		//addArea('o2',110,120,130,140);
 		//jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: imgCallback, instance: true }); 
 	}); 
 	
@@ -131,8 +131,14 @@ ALTER TABLE tag
 		} catch(e){}
 	}
 </script>
-
-
+<cfoutput>
+	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from media where media_id=#media_id#
+	</cfquery>
+	<cfif c.media_type is not "image" or c.mime_type does not contain 'image/'>
+		FAIL@images only.
+		<cfabort>
+	</cfif>
 <span onclick="addArea('o1',10,20,30,40);">d</span>
 
 <span onclick="addArea('n1',101,102,103,104);">d</span>
@@ -150,7 +156,8 @@ width: <input id="width">
 <hr>
 
 <div id="theDiv" style="position:absolute;border:1px solid purple;">
-	<img src="http://bscit.berkeley.edu/mvz/notebookjpegs/v1318_s2/v1318_s2_p001.jpg" id="theImage">
+	<img src="#c.media_uri#" id="theImage">
 </div>
+</cfoutput>
 
 <hr>
