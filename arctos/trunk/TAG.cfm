@@ -118,12 +118,12 @@ ALTER TABLE tag
 						reftype: $("#newRefType").val(),
 						refid : $("#newRefId").val(),
 						refcomment: $("#newRefComment").val(),
-						top: $("#top").val(),
-						left: $("#left").val(),
-						height: $("#height").val(),
-						width: $("#width").val(),
-						img_h: $('#theImage').height(),
-						img_w: $('#theImage').width(),
+						reftop: $("#top").val(),
+						refleft: $("#left").val(),
+						refh: $("#height").val(),
+						refw: $("#width").val(),
+						imgh: $('#theImage').height(),
+						imgw: $('#theImage').width(),
 						returnformat : "json",
 						queryformat : 'column'
 					},
@@ -133,6 +133,7 @@ ALTER TABLE tag
 				);
 			}
 		});
+		
 	
 		//addArea('o1',10,20,30,40);
 		//addArea('o2',110,120,130,140);

@@ -13,12 +13,12 @@
 	<cfargument name="reftype" required="yes">
 	<cfargument name="refcomment" required="yes">
 	<cfargument name="refid" required="yes">
-	<cfargument name="top" required="yes">
-	<cfargument name="left" required="yes">
-	<cfargument name="height" required="yes">
-	<cfargument name="width" required="yes">
-	<cfargument name="img_h" required="yes">
-	<cfargument name="img_w" required="yes">					
+	<cfargument name="reftop" required="yes">
+	<cfargument name="refleft" required="yes">
+	<cfargument name="refh" required="yes">
+	<cfargument name="refw" required="yes">
+	<cfargument name="imgh" required="yes">
+	<cfargument name="imgw" required="yes">					
 	<cftry>
 		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			insert into tag (
