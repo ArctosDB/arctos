@@ -49,7 +49,7 @@
 					,#refid#
 				</cfif>
 				<cfif len(refcomment) gt 0>
-					,'#remark#'
+					,'#refcomment#'
 				</cfif>
 			)
 		</cfquery>
