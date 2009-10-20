@@ -179,6 +179,10 @@ ALTER TABLE tag
 		//addArea('o2',110,120,130,140);
 		//jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: imgCallback, instance: true }); 
 	}); 
+	function die(){
+		$("#1").draggable("disable");
+		$("#1").resizable("disable");
+	}
 	function newArea() {
 		var ih = $('#theImage').height();
 		var iw = $('#theImage').width();
@@ -296,7 +300,8 @@ ALTER TABLE tag
 <div id="imgDiv">
 	<img src="#c.media_uri#" id="theImage" style="max-width:600px;max-height:800px;">
 </div>
-
+<span onclick="die()">-----------die--------------</span>
+------------
 <div id="navDiv">
 	<div id="info"></div>
 	<span class="likeLink" id="newRefClick" onclick="newArea();">Create Reference</span>
