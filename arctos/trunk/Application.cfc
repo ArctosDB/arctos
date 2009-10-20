@@ -189,7 +189,9 @@
 	<cfparam name="request.fixAmp" type="boolean" default="false">
 	<cfset gtfo="131.247.116.157,216.115.113.1,172.16.200.9">
 	<cfif listfindnocase(gtfo,cgi.REMOTE_ADDR)>
-		<cfinclude template="/errors/gtfo.cfm")">
+		<cfif cgi.script_name is not "/errors/gtfo.cfm">
+			<cflocation url="/errors/gtfo.cfm">
+		</cfif>
 	</cfif>
 	
 	<cfif (NOT request.fixAmp) AND (findNoCase("&amp;", cgi.query_string ) gt 0)>
