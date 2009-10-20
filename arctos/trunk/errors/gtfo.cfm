@@ -15,15 +15,16 @@
     <cfreturn result>
 </cffunction>
 <cfif not isdefined("action") or action is not "p">
-	Oops. Looks like you are on our blacklist. If this is in error, please use the form below.
+	Oops. Looks like you are on our blacklist. If this is in error, please tell us why.
 	<cfset captcha = makeRandomString()>
 	<cfset captchaHash = hash(captcha)>
 	<cfform name="g" method="post" action="gtfo.cfm">
 		<input type="hidden" name="action" value="p">
 		<label for="c">Explain yourself</label>
-		<textarea name="c" id="c" rows="6" columns="50"></textarea>
+		<textarea name="c" id="c" rows="6" cols="50"></textarea>
 		<br>
 	    <cfimage action="captcha" width="300" height="75" text="#captcha#">
+	   	<br>
 	    <label for="captcha">Enter the text above</label>
 	    <input type="text" name="captcha" id="captcha">
 	    <input type="hidden" name="captchaHash" value="#captchaHash#">
