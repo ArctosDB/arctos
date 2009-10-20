@@ -18,7 +18,8 @@ create table tag (
 	imgw number
 );
 
-
+create public synonym sq_tag_id for sq_tag_id;
+grant select on sq_tag_id to public;
 
 create or replace public synonym tag for tag;
 
@@ -95,7 +96,11 @@ ALTER TABLE tag
 				queryformat : 'column'
 			},
 			function (r) {
-				console.log(r);
+				if (r.substr(1,4) is 'fail'){
+					alert(r);
+				} else {
+					console.log(r);
+				}
 			}
 		);
 	
