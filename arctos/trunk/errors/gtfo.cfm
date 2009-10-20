@@ -19,7 +19,7 @@
 	Oops. Looks like you are on our blacklist. If this is in error, please tell us why.
 	<cfset captcha = makeRandomString()>
 	<cfset captchaHash = hash(captcha)>
-	<cfform name="g" method="post" action="gtfo.cfm">
+	<cfform name="g" method="post" action="/errors/gtfo.cfm">
 		<input type="hidden" name="action" value="p">
 		<label for="c">Explain yourself</label>
 		<textarea name="c" id="c" rows="6" cols="50"></textarea>
