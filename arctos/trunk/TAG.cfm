@@ -117,10 +117,11 @@ ALTER TABLE tag
 		);
 		jQuery("div .old").live('click', function(e){
 			console.log('you clicked ' + this.id);
-			$("div .editing").removeClass("editing").addClass("old");
-			$("#" + this.id).removeClass("old").addClass("editing");
 			$("div .editing").draggable("disable");
 			$("div .editing").resizable("disable");
+			$("div .editing").removeClass("editing").addClass("old");
+			$("#" + this.id).removeClass("old").addClass("editing");
+			
 			
 		
 			modArea(this.id);
