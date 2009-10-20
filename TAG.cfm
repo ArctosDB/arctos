@@ -119,7 +119,7 @@ ALTER TABLE tag
 			console.log('you clicked ' + this.id);
 			$("div .editing").removeClass("editing").addClass("old");
 			$("#" + this.id).removeClass("old").addClass("editing");
-			
+			modArea(this.id);
 		});
 	
 	
@@ -311,6 +311,23 @@ ALTER TABLE tag
 		<input type="button" id="newRefBtn" value="save reference" style="display:none">
 	</form>
 	<hr>
+	<div id="editRefDiv" style="display:none">
+		<form name="f">
+			<select id="RefType" name="RefType" onchange="f_RefType(this.value);" style="display:none">
+				<option value=""></option>
+				<option value="cancel">Nevermind...</option>
+				<option value="comment">Comment Only</option>
+				<option value="cataloged_item">Cataloged Item</option>
+				<option value="collecting_event">Collecting Event</option>
+			</select>
+			<input type="text" id="newRefStr" name="newRefStr" style="display:none">
+			<input type="hidden" id="newRefId" name="newRefId">
+			<label for="newRefComment" id="c_newRefComment" style="display:none">Comment</label>
+			<input type="text" id="newRefComment" name="newRefComment" style="display:none">
+			
+			<input type="button" id="newRefBtn" value="save reference" style="display:none">
+		</form>
+	</div>
 <span onclick="addArea('o1',10,20,30,40);">d</span>
 
 <span onclick="addArea('n1',101,102,103,104);">d</span>
