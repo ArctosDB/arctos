@@ -133,9 +133,9 @@ ALTER TABLE tag
 			} else if (v=='collecting_event') {
 				findCollEvent(newRefId,'f',newRefStr);
 			} else {
-				alert('Dude... I have no idea what you're trying to do. Srsly. Stoppit.');
+				alert('Dude... I have no idea what you are trying to do. Srsly. Stoppit.');
 			}
-		}	
+		}
 	}
 	
 	
