@@ -155,7 +155,7 @@ height: <input id="height">
 width: <input id="width">
 <hr>
 
-<div id="theDiv" style="position:absolute;border:1px solid purple;">
+<div id="theDiv" style="position:absolute;border:1px solid purple;max-width:600px;">
 	<img src="#c.media_uri#" id="theImage">
 </div>
 </cfoutput>
