@@ -117,7 +117,7 @@ ALTER TABLE tag
 		);
 		jQuery("div .old").live('click', function(e){
 			console.log('you clicked ' + this.id);
-			$jQuery("div .editing").removeClass("editing").addClass("old");
+			$("div .editing").removeClass("editing").addClass("old");
 			this.removeClass("old").addClass("editing");
 			
 		});
