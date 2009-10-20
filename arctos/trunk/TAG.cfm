@@ -213,7 +213,7 @@ ALTER TABLE tag
 	<div id="info"></div>
 	<span class="likeLink" id="newRefClick" onclick="newArea();">Create Reference</span>
 	<form name="f">
-		<select id="newRefType" name="newRefType" onchange="f_newRefType(this.value);">
+		<select id="newRefType" name="newRefType" onchange="f_newRefType(this.value);" style="display:none">
 			<option value="">Pick Something...</option>
 			<option value="cancel">Nevermind...</option>
 			<option value="cataloged_item">Cataloged Item</option>
