@@ -69,7 +69,7 @@ ALTER TABLE tag
 		border:1px solid green;
 	}
 	.old{
-		border:1px solid red;
+		border:1px solid blue;
 	}
 	#imgDiv{
 		position:absolute;
