@@ -28,7 +28,9 @@
 	   	<br>
 	    <label for="captcha">Enter the text above</label>
 	    <input type="text" name="captcha" id="captcha">
+	    <cfoutput>
 	    <input type="hidden" name="captchaHash" value="#captchaHash#">
+	    </cfoutput>
 		<br><input type="submit" value="go">
 	</cfform>
 </cfif>
