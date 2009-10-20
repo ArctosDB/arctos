@@ -111,6 +111,10 @@ ALTER TABLE tag
 				}
 			}
 		);
+		jQuery("div .old").live('click', function(e){
+			console.log('you clicked it');
+		});
+	
 	
 		$("#newRefBtn").click(function(e){
 			console.log($("#newRefId").val().length);
