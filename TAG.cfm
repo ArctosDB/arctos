@@ -182,7 +182,7 @@ ALTER TABLE tag
 	function die(){
 		$("div .editing").draggable("disable");
 		$("div .editing").resizable("disable");
-		$("div .editing").removeClass("editing").addClass("old");
+		$("div .editing").removeClass().addClass("old");
 	}
 	function newArea() {
 		var ih = $('#theImage').height();
