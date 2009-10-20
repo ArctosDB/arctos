@@ -98,7 +98,14 @@ ALTER TABLE tag
 			function (r) {
 				console.log(r);
 				if (r.ROWCOUNT){
-					console.log(r);
+					for (i=0; i<r.ROWCOUNT; ++i) {
+						addArea(
+							r.DATA.tag_id[i],
+							r.DATA.reftop[i],
+							r.DATA.refleft[i],
+							r.DATA.refh[i],
+							r.DATA.refw[i]);
+					}
 				} else {
 					alert(r);
 				}
