@@ -9,7 +9,6 @@
 </cffunction>
 <!--------------------------------------->
 <cffunction name="newRef" access="remote">
-	<cfoutput>
 	<cfargument name="media_id" required="yes">
 	<cfargument name="reftype" required="yes">
 	<cfargument name="refcomment" required="yes">
@@ -20,6 +19,8 @@
 	<cfargument name="refw" required="yes">
 	<cfargument name="imgh" required="yes">
 	<cfargument name="imgw" required="yes">					
+		<cfoutput>
+
 	<cftry>
 		<cftransaction>
 			<cfquery name="pkey" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
