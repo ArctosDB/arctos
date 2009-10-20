@@ -122,6 +122,8 @@ ALTER TABLE tag
 		if (v=='cancel' || v.length==0) {
 			$("#newRefType").val('');
 			$("#newRefType").hide();
+			$("#newRefStr").hide();
+			
 			$("#newRefClick").show();
 			$("#newRef").remove();
 			$("#c_newRefComment").hide();
@@ -218,7 +220,7 @@ ALTER TABLE tag
 			<option value="collecting_event">Collecting Event</option>
 		</select>
 		<input type="text" id="newRefStr" name="newRefStr" style="display:none">
-		<input type="text" id="newRefId" name="newRefId">
+		<input type="hidden" id="newRefId" name="newRefId">
 		<label for="newRefComment" id="c_newRefComment" style="display:none">Comment</label>
 		<input type="text" id="newRefComment" style="display:none">
 		<input type="button" id="newRefBtn" value="save reference" style="display:none">
