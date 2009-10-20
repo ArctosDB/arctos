@@ -119,18 +119,26 @@ ALTER TABLE tag
 	}
 	
 	function f_newRefType(v){
-		console.log('v' + this.value);
-		
 		if (v=='cancel') {
 			console.log('craps....');
 			$("#newRefType").hide();
 			$("#newRefClick").show();
 			$("#newRef").remove();
-			
+		} else if (v=='cataloged_item') {
+			$("#newRefStr" style="display:none">
+	<input type="text" id="newRefId" name="newRefStr" style="display:none">
+	<input type="text" id="newRefComment" style="display:none">
+	<input type="button" id="newRefBtn" value="save reference" style="display:none">
+			findCatalogedItem(newRefId,newRefStr,'f');
+		} else if (v=='collecting_event') {
+			findCollEvent(newRefId,'f',newRefStr);
 		} else {
-			console.log(v);
+			alert('Dude... I have no idea what you're trying to do. Srsly. Stoppit.');
 		}		
 	}
+	
+	
+	
 	function addArea(id,t,l,h,w) {
 		var dv='<div id="' + id + '" class="old" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
 		$("#imgDiv").append(dv);
@@ -198,17 +206,18 @@ ALTER TABLE tag
 <div id="navDiv">
 	<div id="info"></div>
 	<span class="likeLink" id="newRefClick" onclick="newArea();">Create Reference</span>
+	<form name="f">
 	<select id="newRefType" name="newRefType" onchange="f_newRefType(this.value);">
 		<option value="">Pick Something...</option>
 		<option value="cancel">Nevermind...</option>
 		<option value="cataloged_item">Cataloged Item</option>
 		<option value="collecting_event">Collecting Event</option>
 	</select>
-	<input type="text" id="newRefStr" style="display:none">
-	<input type="text" id="newRefId" style="display:none">
+	<input type="text" id="newRefStr" name="newRefStr" style="display:none">
+	<input type="text" id="newRefId" name="newRefStr" style="display:none">
 	<input type="text" id="newRefComment" style="display:none">
 	<input type="button" id="newRefBtn" value="save reference" style="display:none">
-	
+	</form>
 	<hr>
 <span onclick="addArea('o1',10,20,30,40);">d</span>
 
