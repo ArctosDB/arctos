@@ -187,7 +187,7 @@
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="false">
 	<cfparam name="request.fixAmp" type="boolean" default="false">
-	<cfset gtfo="131.247.116.157,216.115.113.1">
+	<cfset gtfo="131.247.116.157,216.115.113.1,172.16.200.9">
 	<cfif listfindnocase(gtfo,cgi.REMOTE_ADDR)>
 		<cfabort>
 	</cfif>
