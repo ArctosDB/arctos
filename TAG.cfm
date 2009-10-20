@@ -119,6 +119,10 @@ ALTER TABLE tag
 			console.log('you clicked ' + this.id);
 			$("div .editing").removeClass("editing").addClass("old");
 			$("#" + this.id).removeClass("old").addClass("editing");
+			$("div .editing").draggable("disable");
+			$("div .editing").resizable("disable");
+			
+		
 			modArea(this.id);
 		});
 	
