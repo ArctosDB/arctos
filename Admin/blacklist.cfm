@@ -1,11 +1,3 @@
-<!----
-	create table blacklist (
-		ip varchar2(40) not null
-	);
-	
-	grant all on blacklist to GLOBAL_ADMIN;
-	
----->
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
 <cfif action is "nothing">
