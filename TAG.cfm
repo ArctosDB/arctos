@@ -234,7 +234,7 @@ ALTER TABLE tag
 		<input type="text" id="newRefStr" name="newRefStr" style="display:none">
 		<input type="hidden" id="newRefId" name="newRefId">
 		<label for="newRefComment" id="c_newRefComment" style="display:none">Comment</label>
-		<input type="text" id="newRefComment" style="display:none">
+		<input type="text" id="newRefComment" name="newRefComment" style="display:none">
 		
 		<input type="button" id="newRefBtn" value="save reference" style="display:none">
 	</form>
