@@ -208,16 +208,16 @@ ALTER TABLE tag
 	<div id="info"></div>
 	<span class="likeLink" id="newRefClick" onclick="newArea();">Create Reference</span>
 	<form name="f">
-	<select id="newRefType" name="newRefType" onchange="f_newRefType(this.value);">
-		<option value="">Pick Something...</option>
-		<option value="cancel">Nevermind...</option>
-		<option value="cataloged_item">Cataloged Item</option>
-		<option value="collecting_event">Collecting Event</option>
-	</select>
-	<input type="text" id="newRefStr" name="newRefStr" style="display:none">
-	<input type="text" id="newRefId" name="newRefStr" style="display:none">
-	<input type="text" id="newRefComment" style="display:none">
-	<input type="button" id="newRefBtn" value="save reference" style="display:none">
+		<select id="newRefType" name="newRefType" onchange="f_newRefType(this.value);">
+			<option value="">Pick Something...</option>
+			<option value="cancel">Nevermind...</option>
+			<option value="cataloged_item">Cataloged Item</option>
+			<option value="collecting_event">Collecting Event</option>
+		</select>
+		<input type="text" id="newRefStr" name="newRefStr" style="display:none">
+		<input type="text" id="newRefId" name="newRefId" style="display:none">
+		<input type="text" id="newRefComment" style="display:none">
+		<input type="button" id="newRefBtn" value="save reference" style="display:none">
 	</form>
 	<hr>
 <span onclick="addArea('o1',10,20,30,40);">d</span>
