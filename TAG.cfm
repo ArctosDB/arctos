@@ -300,9 +300,9 @@ ALTER TABLE tag
 <div id="imgDiv">
 	<img src="#c.media_uri#" id="theImage" style="max-width:600px;max-height:800px;">
 </div>
-<span onclick="die()">-----------die--------------</span>
-------------
 <div id="navDiv">
+<span onclick="die()">-----------die--------------</span>
+
 	<div id="info"></div>
 	<span class="likeLink" id="newRefClick" onclick="newArea();">Create Reference</span>
 	<form name="f">
