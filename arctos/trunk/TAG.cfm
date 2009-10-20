@@ -99,8 +99,8 @@ ALTER TABLE tag
 	
 		$("#newRefBtn").click(function(e){
 			console.log($("#newRefId").val().length);
-			console.log($("#newRefComment").val('').length);
-			if ($("#newRefId").val().length==0 && $("#newRefComment").val('').length==0) {
+			console.log($("#newRefComment").val().length);
+			if ($("#newRefId").val().length==0 && $("#newRefComment").val().length==0) {
 				alert('Pick a reference and/or enter a comment.');
 				return false;
 			} else {
@@ -133,6 +133,9 @@ ALTER TABLE tag
 	function f_newRefType(v){
 		if (v=='cancel' || v.length==0) {
 			$("#newRefType").val('');
+			$("#newRefId").val('');
+			$("#newRefStr").val('');
+			$("#newRefComment").val('');
 			$("#newRefType").hide();
 			$("#newRefStr").hide();
 			
