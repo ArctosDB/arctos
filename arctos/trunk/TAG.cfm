@@ -138,10 +138,12 @@ ALTER TABLE tag
 			$("#newRefComment").val('');
 			$("#newRefType").hide();
 			$("#newRefStr").hide();
+			$("#newRefBtn").hide();
+			$("#newRefComment").hide();			
+			$("#c_newRefComment").hide();
 			
 			$("#newRefClick").show();
 			$("#newRef").remove();
-			$("#c_newRefComment").hide();
 			
 		} else {
 			$("#newRefStr").show();
@@ -152,6 +154,8 @@ ALTER TABLE tag
 				findCatalogedItem('newRefId','newRefStr','f');
 			} else if (v=='collecting_event') {
 				findCollEvent('newRefId','f','newRefStr');
+			} else if (v=='comment') {
+				$("#newRefStr").hide();
 			} else {
 				alert('Dude... I have no idea what you are trying to do. Srsly. Stoppit.');
 			}
@@ -229,8 +233,9 @@ ALTER TABLE tag
 	<span class="likeLink" id="newRefClick" onclick="newArea();">Create Reference</span>
 	<form name="f">
 		<select id="newRefType" name="newRefType" onchange="f_newRefType(this.value);" style="display:none">
-			<option value="">Pick Something...</option>
+			<option value=""></option>
 			<option value="cancel">Nevermind...</option>
+			<option value="comment">Comment Only</option>
 			<option value="cataloged_item">Cataloged Item</option>
 			<option value="collecting_event">Collecting Event</option>
 		</select>
