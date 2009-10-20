@@ -93,7 +93,7 @@ ALTER TABLE tag
 				queryformat : 'column'
 			},
 			function (r) {
-				alert(r);
+				//alert(r);
 			}
 		);
 		//addArea('o1',10,20,30,40);
@@ -154,7 +154,6 @@ ALTER TABLE tag
 		console.log('imgH: ' + $('#theImage').height());
 		console.log('imgW: ' + $('#theImage').width());
 	}
-	ui-icons_222222_256x240.png
 	function showDim(id,event,ui){
 		try{
 			$("#id").val(id);
