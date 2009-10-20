@@ -97,10 +97,10 @@ ALTER TABLE tag
 			},
 			function (r) {
 				console.log(r);
-				if (r.substring(1,4) == 'fail') {
-					alert(r);
-				} else {
+				if (r.ROWCOUNT && r.ROWCOUNT==1){
 					console.log(r);
+				} else {
+					alert(r);
 				}
 			}
 		);
