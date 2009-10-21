@@ -389,7 +389,7 @@ close l_cur;
 		<input type="button" id="newRefBtn" value="save reference" style="display:none">
 	</form>
 	<hr>
-	<div id="editRefDiv" style="display:none">
+	<div id="editRefDiv">
 		
 	</div>
 <span onclick="addArea('o1',10,20,30,40);">d</span>
