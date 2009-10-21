@@ -177,8 +177,8 @@ close l_cur;
 			var tagID=this.id.replace('refDiv_','');
 			var oid=this.id.replace('refDiv','refPane');
 			
-			$("#" + this.id).addClass("editing");
-			$("#" + oid).addClass('editing');
+			$("#" + this.id).removeClass("refDiv").addClass("editing");
+			$("#" + oid).removeClass("refPane").addClass('editing');
 			
 			
 			//$("#" + this.id).addClass("hovering");
