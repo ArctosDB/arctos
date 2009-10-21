@@ -183,6 +183,12 @@ close l_cur;
 			$("#" + oid).addClass('hovering');
 		});
 		
+		jQuery("div[class^='rp_']").live('mouseout', function(e){
+			var oid=this.id.replace('rd_','');
+			console.log('mouseout ' + this.className + ' ' + this.id + '; oid: ' + oid);
+			$("#" + this.id).removeClass('hovering');
+			$("#" + oid).removeClass('hovering');
+		});
 		
 	
 		$("#newRefBtn").click(function(e){
