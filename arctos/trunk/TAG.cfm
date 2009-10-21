@@ -235,7 +235,8 @@ close l_cur;
 			d+='<input type="text" id="Remark_' + id + '" name="Remark_' + id + '" value="' + remark + '">';
 			
 			d+='</div>';
-			console.log(d);	
+			console.log(d);
+			$("#editRefDiv").append(d);
 		}
 	
 		//addArea('o1',10,20,30,40);
