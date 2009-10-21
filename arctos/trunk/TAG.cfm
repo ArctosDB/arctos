@@ -170,6 +170,8 @@ close l_cur;
 			$("div .editing").removeClass("editing").addClass("old");
 			$("#" + this.id).removeClass("refDiv").addClass("editing");
 			var tagID=this.id.replace('refDiv_','');
+			var oid=this.id.replace('refDiv','refPane');
+			$("#" + oid).addClass('hovering');
 			modArea(tagID);
 		});
 		
@@ -194,8 +196,7 @@ close l_cur;
 			if ($("#top").val().length==0 || $("#left").val().length==0 || $("#height").val().length==0 || $("#width").val().length==0) {
 				alert('You must have a graphical reference.');
 				return false;
-			}
-			
+			}			
 			if ($("#newRefId").val().length==0 && $("#newRemark").val().length==0) {
 				alert('Pick a reference and/or enter a comment.');
 				return false;
