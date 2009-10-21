@@ -105,10 +105,12 @@ close l_cur;
 	}
 	#navDiv {
 		float:right;
-		border:2px solid green;
+		border:1px solid green;
 		width:400px;
 		height:400px;
 		overflow:scroll;
+		margin:5px;
+		padding:5px;
 	}
 	
 	.refpane_cataloged_item {
@@ -422,7 +424,6 @@ close l_cur;
 				<input type="button" id="newRefBtn" value="save reference">
 			</span>
 		</form>
-		<hr>
 		<div id="editRefDiv"></div>
 	</div>
 </cfoutput>
