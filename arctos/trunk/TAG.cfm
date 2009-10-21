@@ -399,15 +399,16 @@ close l_cur;
 				<option value="collecting_event">Collecting Event</option>
 			</select>
 			<span id="newRefHidden" style="display:none">
+				<label for="RefStr_new">Reference</label>
 				<input type="text" id="RefStr_new" name="RefStr_new">
 				<input type="hidden" id="RefId_new" name="RefId_new">
-				<label for="Remark_new" id="c_newRemark" >Remark</label>
+				<label for="Remark_new">Remark</label>
 				<input type="text" id="Remark_new" name="Remark_new">
 				<input id="t_new">
 				<input id="l_new">
 				<input id="h_new">
 				<input id="w_new">
-				<input type="button" id="newRefBtn" value="save reference" style="display:none">
+				<input type="button" id="newRefBtn" value="save reference">
 			</span>
 		</form>
 		<hr>
