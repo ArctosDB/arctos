@@ -21,7 +21,7 @@
 			<cfset rt="cataloged_item">
 			<cfset rs="#d.guid#">
 			<cfset ri="#r.collection_object_id#">
-			<cfset rl="/guid/#d.guid">
+			<cfset rl="/guid/#d.guid#">
 		<cfelseif r.collecting_event_id gt 0>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select verbatim_date, verbatim_locality from collecting_event where collecting_event_id=#r.collecting_event_id#
