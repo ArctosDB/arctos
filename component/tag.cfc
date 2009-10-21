@@ -2,6 +2,7 @@
 <!----------------------------------------------------------------------------------------->
 <cffunction name="getTags" access="remote">
 	<cfargument name="media_id" required="yes">
+	<cfinclude template="/includes/functionLib.cfm">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
 			tag_id,
