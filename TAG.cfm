@@ -186,12 +186,21 @@ close l_cur;
 		});
 		$("#savAllBtn").live('click', function(e){
 			console.log('savAllBtn');
+			//PrefixesICareAbout
+			//All values of importance will start with a PICA, contain a _, and not end with new
+			var PICA='RefType_,RefId_,Remark_,t_,l_,h_,w_';
 			$(":input").each(function(){
-				console.log(this.id);
-				console.log($(this).val());
+				console.log('------------------------------');
+				console.log('checking ' + this.id);
+				if (this.id.indexOf('_')){
+					console.log('has a _');
+				}
+				if (this.id.substr(this.id.length-4,4)!='_new' {
+					console.log('does not end with new');
+				}
 			});
 			
-
+		
 
 		});
 		
