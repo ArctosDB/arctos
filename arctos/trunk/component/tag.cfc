@@ -62,8 +62,22 @@
 				)
 			</cfquery>
 			<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select * from tag where tag_id=#pkey.n#
+				select
+					tag_id,
+					media_id,
+					reftop,
+					refleft,
+					refh,
+					refw,
+					imgh,
+					imgw,
+					'#reftype#' reftype,
+					#refid# refid,
+					'#refcomment#' refcomment,
+					'stuff' REFSTRING
+				from tag where tag_id=#pkey.n#
 			</cfquery>
+			
 			<cfreturn r>
 		</cftransaction>
 	<cfcatch>
