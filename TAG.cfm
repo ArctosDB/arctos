@@ -116,7 +116,7 @@ close l_cur;
 	}
 	
 	.refPane_cataloged_item {
-		border:2px solid orange;
+		background-color: orange;
 		margin:2px;
 	}
 	.refPane_collecting_event {
