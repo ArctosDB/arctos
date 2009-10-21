@@ -10,7 +10,7 @@
 	</cfquery>
 	<cfset i=1>
 	<cfloop query="data">
-		<cfset t#i#=getTagReln(data.tag_id)>
+		<cfset "t#i#"=getTagReln(data.tag_id)>
 		<cfset i=i+1>
 	</cfloop>
 	<cfif i gt 1>
