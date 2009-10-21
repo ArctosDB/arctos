@@ -121,9 +121,6 @@ ALTER TABLE tag
 			$("div .editing").resizable("destroy");
 			$("div .editing").removeClass("editing").addClass("old");
 			$("#" + this.id).removeClass("old").addClass("editing");
-			
-			
-		
 			modArea(this.id);
 		});
 	
@@ -165,7 +162,13 @@ ALTER TABLE tag
 								r.DATA.REFLEFT[0],
 								r.DATA.REFH[0],
 								r.DATA.REFW[0]);
-							
+							addRefPane(
+								r.DATA.TAG_ID[0],
+								r.DATA.REFTYPE[0],
+								r.DATA.REFSTRING[0],								
+								r.DATA.REFID[0],								
+								r.DATA.REFCOMMENT[0]);
+								 
 						} else {
 							alert(r);
 						}
@@ -235,7 +238,37 @@ ALTER TABLE tag
 			}
 		}
 	}
-	
+	function addRefPane(id,reftype,refStr,refId,refComment) {
+		var d='<div id="rd_' + id + '">';
+		d+='<select id="RefType+"' + id + ' name="RefType_"' + id + ' onchange="f_RefType(this.id,this.value);">';
+		d+='<option';
+		if (reftype=='comment'){
+			d+=' selected="selected"';
+		}
+		d+=' value="comment">Comment Only</option>';
+		d+='<option';
+		if (reftype=='cataloged_item'){
+			d+=' selected="selected"';
+		}
+		d+=' value="cataloged_item">Cataloged Item</option>';
+		d+='<option';
+		if (reftype=='collecting_event'){
+			d+=' selected="selected"';
+		}
+		d+=' value="collecting_event">Collecting Event</option>';
+		d+='</select>';
+		d+='<label for="RefStr_' + id + '">Reference</label>';
+		d+='<input type="text" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + refStr + '">';
+		d=='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + refId + '">';
+		d=='<label for="RefComment_' + id + '">Comment</label>';
+		d+='<input type="text" id="RefComment_' + id + '" name="RefComment_' + id + '" value="' + refComment + '">';
+		
+		d+='</div>';
+		console.log(d);	
+	}
+		
+			
+			
 	
 	
 	function addArea(id,t,l,h,w) {
@@ -323,21 +356,7 @@ ALTER TABLE tag
 	</form>
 	<hr>
 	<div id="editRefDiv" style="display:none">
-		<form name="f">
-			<select id="RefType" name="RefType" onchange="f_RefType(this.value);" style="display:none">
-				<option value=""></option>
-				<option value="cancel">Nevermind...</option>
-				<option value="comment">Comment Only</option>
-				<option value="cataloged_item">Cataloged Item</option>
-				<option value="collecting_event">Collecting Event</option>
-			</select>
-			<input type="text" id="newRefStr" name="newRefStr" style="display:none">
-			<input type="hidden" id="newRefId" name="newRefId">
-			<label for="newRefComment" id="c_newRefComment" style="display:none">Comment</label>
-			<input type="text" id="newRefComment" name="newRefComment" style="display:none">
-			
-			<input type="button" id="newRefBtn" value="save reference" style="display:none">
-		</form>
+		
 	</div>
 <span onclick="addArea('o1',10,20,30,40);">d</span>
 
