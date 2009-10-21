@@ -146,13 +146,13 @@ close l_cur;
 				if (r.ROWCOUNT){
 					for (i=0; i<r.ROWCOUNT; ++i) {
 						addArea(
-							ref + '_' + r.DATA.TAG_ID[i],
+							'ref_' + r.DATA.TAG_ID[i],
 							r.DATA.REFTOP[i],
 							r.DATA.REFLEFT[i],
 							r.DATA.REFH[i],
 							r.DATA.REFW[i]);
 						addRefPane(
-							ref + '_' + r.DATA.TAG_ID[i],
+							'ref_' + r.DATA.TAG_ID[i],
 							r.DATA.REFTYPE[i],
 							r.DATA.REFSTRING[i],								
 							r.DATA.REFID[i],							
@@ -223,13 +223,13 @@ close l_cur;
 						if (r.ROWCOUNT && r.ROWCOUNT==1){
 							removeNewRef();
 							addArea(
-								ref + '_' + r.DATA.TAG_ID[0],
+								'ref_' + r.DATA.TAG_ID[0],
 								r.DATA.REFTOP[0],
 								r.DATA.REFLEFT[0],
 								r.DATA.REFH[0],
 								r.DATA.REFW[0]);
 							addRefPane(
-								ref + '_' + r.DATA.TAG_ID[0],
+								'ref_' + r.DATA.TAG_ID[0],
 								r.DATA.REFTYPE[0],
 								r.DATA.REFSTRING[0],								
 								r.DATA.REFID[0],								
