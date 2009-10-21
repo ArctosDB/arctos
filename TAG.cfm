@@ -326,7 +326,7 @@ close l_cur;
 	
 	function addArea(id,t,l,h,w) {
 		if(id=='new'){
-			c='editing;
+			c='editing';
 		}else{
 			c='refDiv';
 		}
