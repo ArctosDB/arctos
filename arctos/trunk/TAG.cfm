@@ -215,7 +215,7 @@ close l_cur;
 						remark: $("#newRemark").val(),
 						reftop: $("#t_new").val(),
 						refleft: $("#l_new").val(),
-						refh: $("#h_newt").val(),
+						refh: $("#h_new").val(),
 						refw: $("#w_new").val(),
 						imgh: $('#theImage').height(),
 						imgw: $('#theImage').width(),
