@@ -436,8 +436,13 @@ close l_cur;
 <cfif action is "fd">
 	<cfoutput>
 	<cfdump var="#form#">
-	<cfset x=listcontains(form.fieldnames,"REFTYPE")>
-	<cfdump var=#x#>
+	<cfloop list="#form.fieldnames#" index="e">
+		<cfif e contains "REFTYPE">
+			<br>--#e#--
+		</cfif>
+	</cfloop>
+	
+	
 	</cfoutput>
 </cfif>
 <hr>
