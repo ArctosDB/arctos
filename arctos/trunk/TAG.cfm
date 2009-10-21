@@ -336,6 +336,8 @@ close l_cur;
 	function modArea(id) {
 		console.log('modarea got id ' + id);
 		var elemID='refDiv_' + id;
+		console.llog(elemID);
+		
 		$("#" + elemID).draggable({
 			containment: 'parent',
 			stop: function(event,ui){showDim(id,event, ui);}
@@ -347,7 +349,7 @@ close l_cur;
 		$("#h_" + id).val($('#' + elemID).height());
 		$("#w_" + id).val($('#' + elemID).width());
 		$("#t_" + id).val($("#" + elemID).position().top);
-		$("#l_" + id).val($("#" + id).position().left);
+		$("#l_" + id).val($("#" + elemID).position().left);
 	}
 	
 	function showDim(tagID,event,ui){
