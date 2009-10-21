@@ -42,7 +42,7 @@
 			<cfset rfs[i]="">
 		</cfif>
 		
-		<cfif listgetat(t,,"|")>
+		<cfif listgetat(t,4,"|")>
 			<cfset rfl[i]=listgetat(t,4,"|")>
 		<cfelse>
 			<cfset rfl[i]="">
