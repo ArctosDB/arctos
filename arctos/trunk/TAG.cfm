@@ -171,6 +171,7 @@ close l_cur;
 			$("#" + this.id).removeClass("refDiv").addClass("editing");
 			var tagID=this.id.replace('refDiv_','');
 			var oid=this.id.replace('refDiv','refPane');
+			$(".hovering").removeClass('hovering');
 			$("#" + oid).addClass('hovering');
 			modArea(tagID);
 		});
