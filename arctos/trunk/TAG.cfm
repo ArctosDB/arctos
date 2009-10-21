@@ -179,7 +179,8 @@ close l_cur;
 			
 			//modArea(tagID);
 		});
-		jQuery("[id^='editRefClk_']").live('click', function(e){
+		$("span[id^='editRefClk_']").live('click', function(e){
+			console.log('editRefClk_');
 			var tagID=this.id.replace('editRefClk_','');
 			modArea(tagID);
 		});
