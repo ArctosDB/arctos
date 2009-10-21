@@ -179,6 +179,11 @@ close l_cur;
 			
 			//modArea(tagID);
 		});
+		jQuery("[id^='editRefClk_']").live('click', function(e){
+			var tagID=this.id.replace('editRefClk_','');
+			modArea(tagID);
+		});
+		
 		
 		jQuery("div[class^='refPane_']").live('mouseover', function(e){
 			var oid=this.id.replace('refPane','refDiv');
@@ -251,6 +256,7 @@ close l_cur;
 		});
 		function addRefPane(id,reftype,refStr,refId,remark,t,l,h,w) {
 			var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
+			d+='<span class="likeLink" id="editRefClk_' + id + '">Edit Reference</span';
 			d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="f_RefType(this.id,this.value);">';
 			d+='<option';
 			if (reftype=='comment'){
