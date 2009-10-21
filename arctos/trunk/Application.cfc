@@ -235,7 +235,7 @@
 			<cfset r=replace(#currentPath#,#application.webDirectory#,"")>
 			<cflocation url="/errors/forbidden.cfm?ref=#r#" addtoken="false">
 	</cfif>
-	<cfif cgi.HTTP_HOST is "yyyyarctos-test.arctos.database.museum" and 
+	<cfif cgi.HTTP_HOST is "arctos-test.arctos.database.museum" and 
 			#GetTemplatePath()# does not contain "/errors/dev_login.cfm" and
 			#GetTemplatePath()# does not contain "/login.cfm" and
 			len(session.username) is 0>

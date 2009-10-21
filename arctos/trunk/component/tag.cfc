@@ -12,6 +12,7 @@
 			refw,
 			imgh,
 			imgw,
+			
 			'#reftype#' reftype,
 			#refid# refid,
 			'#refcomment#' refcomment,
