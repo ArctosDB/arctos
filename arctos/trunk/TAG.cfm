@@ -230,7 +230,8 @@ close l_cur;
 					},
 					function (r) {
 						if (r.ROWCOUNT && r.ROWCOUNT==1){
-							removeNewRef();
+							$("#newRefHidden").hide();
+							$("#RefType_new").val('');
 							addArea(
 								r.DATA.TAG_ID[0],
 								r.DATA.REFTOP[0],
@@ -255,10 +256,14 @@ close l_cur;
 				);
 			}
 		});
+		function f_RefType(id,val) {
+			
+		}
+		
 		function addRefPane(id,reftype,refStr,refId,remark,t,l,h,w) {
 			var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
 			d+='<span class="likeLink" id="editRefClk_' + id + '">Edit Reference</span';
-			d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="f_RefType(this.id,this.value);">';
+			d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="pickRefType(this.id,this.value);">';
 			d+='<option';
 			if (reftype=='comment'){
 				d+=' selected="selected"';
@@ -299,43 +304,31 @@ close l_cur;
 		addArea('new',t,l,h,w);
 		setTimeout("modArea('new')",500);
 		$("#info").text('Drag/resize the red box on the image, pick a reference and/or enter a comment, then click done.');
-		$("#newRefType").show();
-		$("#newRefClick").hide();
-	}
-	function removeNewRef() {
-		$("#newRefType").val('');
-		$("#newRefId").val('');
-		$("#newRefStr").val('');
-		$("#newRemark").val('');
-		$("#newRefType").hide();
-		$("#newRefStr").hide();
-		$("#newRefBtn").hide();
-		$("#newRemark").hide();			
-		$("#c_newRemark").hide();
-		$("#newRefClick").show();
-		$("#new").remove();
 	}
 	
-	function f_newRefType(v){
-		if (v=='cancel' || v.length==0) {
-			removeNewRef();			
+	
+	function pickRefType(id,v){
+		var tagID id.replace('RefType_','');
+		if (id=='RefType_new'){
+			if (v.length==0) {
+				$("#newRefHidden").hide();
+				return false;			
+			} else {
+				$("#newRefHidden").show();
+				newArea();
+			}			
 		} else {
-			$("#newRefStr").show();
-			$("#newRemark").show();
-			$("#newRefBtn").show();
-			$("#c_newRemark").show();
 			if (v=='cataloged_item') {
-				findCatalogedItem('newRefId','newRefStr','f');
+				findCatalogedItem(id,'RefStr_' + tagID,'f');
 			} else if (v=='collecting_event') {
-				findCollEvent('newRefId','f','newRefStr');
+				findCollEvent(id,'f','RefStr_' + tagID);
 			} else if (v=='comment') {
-				$("#newRefStr").hide();
+				$("#RefStr_" + tagID).hide();
 			} else {
 				alert('Dude... I have no idea what you are trying to do. Srsly. Stoppit.');
 			}
 		}
-	}
-	
+	}	
 	function addArea(id,t,l,h,w) {
 		if(id=='new'){
 			c='editing';
@@ -344,8 +337,7 @@ close l_cur;
 		}
 		var dv='<div id="refDiv_' + id + '" class="' + c + '" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
 		$("#imgDiv").append(dv);
-	}
-		
+	}		
 	function modArea(id) {
 		console.log('modarea got id ' + id);
 		var elemID='refDiv_' + id;
@@ -395,25 +387,26 @@ close l_cur;
 	</div>
 	<div id="navDiv">
 		<div id="info"></div>
-		<span class="likeLink" id="newRefClick" onclick="newArea();">Create Reference</span>
 		<form name="f">
 			<input typ="hidden" id="media_id" value="#c.media_id#">
-			<select id="newRefType" name="newRefType" onchange="f_newRefType(this.value);" style="display:none">
+			<label for="RefType_new">Pick a reference type....</label>
+			<select id="RefType_new" name="RefType_new" onchange="pickRefType(this.id,this.value);">
 				<option value=""></option>
-				<option value="cancel">Nevermind...</option>
 				<option value="comment">Comment Only</option>
 				<option value="cataloged_item">Cataloged Item</option>
 				<option value="collecting_event">Collecting Event</option>
 			</select>
-			<input type="text" id="newRefStr" name="newRefStr" style="display:none">
-			<input type="hidden" id="newRefId" name="newRefId">
-			<label for="newRemark" id="c_newRemark" style="display:none">Remark</label>
-			<input type="text" id="newRemark" name="newRemark" style="display:none">
-			<input id="t_new">
-			<input id="l_new">
-			<input id="h_new">
-			<input id="w_new">
-			<input type="button" id="newRefBtn" value="save reference" style="display:none">
+			<span id="newRefHidden" style="display:none">
+				<input type="text" id="RefStr_new" name="RefStr_new">
+				<input type="hidden" id="RefId_new" name="RefId_new">
+				<label for="Remark_new" id="c_newRemark" >Remark</label>
+				<input type="text" id="Remark_new" name="Remark_new">
+				<input id="t_new">
+				<input id="l_new">
+				<input id="h_new">
+				<input id="w_new">
+				<input type="button" id="newRefBtn" value="save reference" style="display:none">
+			</span>
 		</form>
 		<hr>
 		<div id="editRefDiv"></div>
