@@ -244,7 +244,7 @@ close l_cur;
 			}
 		});
 		function addRefPane(id,reftype,refStr,refId,remark,t,l,h,w) {
-			var d='<div id="refDiv_' + id + '" class="refPane_' + reftype + '">';
+			var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
 			d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="f_RefType(this.id,this.value);">';
 			d+='<option';
 			if (reftype=='comment'){
@@ -334,6 +334,7 @@ close l_cur;
 	}
 		
 	function modArea(id) {
+		console.log('modarea got id ' + id);
 		var tagID=id.replace('refDiv_','');
 		$("#" + id).draggable({
 			containment: 'parent',
