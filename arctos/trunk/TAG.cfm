@@ -211,7 +211,7 @@ close l_cur;
 		});
 		function addRefPane(id,reftype,refStr,refId,refComment) {
 			var d='<div id="rd_' + id + '">';
-			d+='<select id="RefType_' + id + "' name="RefType_' + id + '" onchange="f_RefType(this.id,this.value);">';
+			d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="f_RefType(this.id,this.value);">';
 			d+='<option';
 			if (reftype=='comment'){
 				d+=' selected="selected"';
