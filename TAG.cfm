@@ -447,8 +447,29 @@ close l_cur;
 	</cfloop>
 	<p>
 	looking for #tagids#
-	
-	
+	<cfloop list="#tagids#" index="i">
+		<cfset TAG_ID =  #i#>
+		
+		update tags set...where tag_id=#tag_id#
+		<hr>
+		
+			
+
+	</cfloop>
+		<hr>
+									     NOT NULL NUMBER
+ MEDIA_ID									     NOT NULL NUMBER
+ COLLECTION_OBJECT_ID									      NUMBER
+ COLLECTING_EVENT_ID									      NUMBER
+ REMARK 										      VARCHAR2(4000)
+ REFTOP 										      NUMBER
+ REFLEFT										      NUMBER
+ REFH											      NUMBER
+ REFW											      NUMBER
+ IMGH											      NUMBER
+ IMGW											      NUMBER
+
+test-uam> 
 	
 	</cfoutput>
 </cfif>
