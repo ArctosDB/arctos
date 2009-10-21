@@ -55,7 +55,7 @@
 	</cfloop>
 	
 	<cfset temp = QueryAddColumn(data, "REFTYPE", "VarChar",rft)>
-	<cfset temp = QueryAddColumn(data, "REFID", "NUMERIC",rfi)>
+	<cfset temp = QueryAddColumn(data, "REFID", "Integer",rfi)>
 	<cfset temp = QueryAddColumn(data, "REFSTRING", "VarChar",rfs)>
 	<cfset temp = QueryAddColumn(data, "REFLINK", "VarChar",rfl)>
 			
