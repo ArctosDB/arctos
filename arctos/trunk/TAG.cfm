@@ -423,8 +423,14 @@ close l_cur;
 				<input type="button" id="newRefBtn" value="save reference">
 			</span>
 		</form>
+		<form name="ef" method="post" action="TAG.cfm">
 		<div id="editRefDiv"></div>
+		<input type="hidden" name="action" value="fd">
+		<input type="submit">
+		</form>
 	</div>
 </cfoutput>
-
+<cfif action is "fd">
+	<cfdump var="#form#">
+</cfif>
 <hr>
