@@ -186,8 +186,13 @@ close l_cur;
 		});
 		$("#savAllBtn").live('click', function(e){
 			console.log('savAllBtn');
-			var allInputs = $(":input");
-			console.log(allInputs);
+			$(":input").each(function(){
+				console.log(this.id);
+				console.log($(this).val());
+			});
+			
+
+
 		});
 		
 		jQuery("div[class^='refPane_']").live('click', function(e){
