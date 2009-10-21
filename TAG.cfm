@@ -176,10 +176,10 @@ close l_cur;
 			
 			var tagID=this.id.replace('refDiv_','');
 			var oid=this.id.replace('refDiv','refPane');
-			$("#" + this.id).addClass("hovering");
-			$("#" + oid).addClass('hovering');
+			//$("#" + this.id).addClass("hovering");
+			//$("#" + oid).addClass('hovering');
 			
-			//modArea(tagID);
+			modArea(tagID);
 		});
 		$("span[id^='editRefClk_']").live('click', function(e){
 			console.log('editRefClk_');
