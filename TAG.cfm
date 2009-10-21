@@ -227,7 +227,7 @@ close l_cur;
 			}
 		});
 		function addRefPane(id,reftype,refStr,refId,remark,t,l,h,w) {
-			var d='<div id="rd_' + id + '" style="rp_' + reftype + '">';
+			var d='<div id="rd_' + id + '" class="rp_' + reftype + '">';
 			d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="f_RefType(this.id,this.value);">';
 			d+='<option';
 			if (reftype=='comment'){
@@ -276,8 +276,8 @@ close l_cur;
 		var l= iw/4;
 		var h=ih/2;
 		var w=iw/2;
-		addArea('newRef',t,l,h,w);
-		setTimeout("modArea('newRef')",500);
+		addArea('new',t,l,h,w);
+		setTimeout("modArea('new')",500);
 		$("#info").text('Drag/resize the red box on the image, pick a reference and/or enter a comment, then click done.');
 		$("#newRefType").show();
 		$("#newRefClick").hide();
@@ -298,7 +298,7 @@ close l_cur;
 		$("#c_newRemark").hide();
 		
 		$("#newRefClick").show();
-		$("#newRef").remove();
+		$("#new").remove();
 	}
 	
 	function f_newRefType(v){
@@ -347,10 +347,10 @@ close l_cur;
 			containment: 'parent',
 			stop: function(event,ui){showDim(id,event, ui);}
 		});
-		$("#height").val($('#' + id).height());
-		$("#width").val($('#' + id).width());
-		$("#top").val($("#" + id).position().top);
-		$("#left").val($("#" + id).position().left);
+		$("#h_" + id).val($('#' + id).height());
+		$("#w_" + id).val($('#' + id).width());
+		$("#t_" + id).val($("#" + id).position().top);
+		$("#l_" + id).val($("#" + id).position().left);
 		$("#id").val(id);	
 		
 		console.log('modArea: imgH: ' + $('#theImage').height());
@@ -423,10 +423,10 @@ close l_cur;
 
 id: <input id="id">
 
-top: <input id="top">
-left: <input id="left">
-height: <input id="height">
-width: <input id="width">
+top: <input id="t_new">
+left: <input id="l_new">
+height: <input id="h_new">
+width: <input id="w_new">
 </div>
 </cfoutput>
 
