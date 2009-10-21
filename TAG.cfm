@@ -314,10 +314,10 @@ close l_cur;
 			}			
 		} 
 		if (v=='cataloged_item') {
-			findCatalogedItem(id,'RefStr_' + tagID,'f');
+			findCatalogedItem('RefId_' + tagID,'RefStr_' + tagID,'f');
 			console.log('findCatalogedItem(' + id + ',RefStr_' + tagID + ',f');
 		} else if (v=='collecting_event') {
-			findCollEvent(id,'f','RefStr_' + tagID);
+			findCollEvent('RefId_' + tagID,'f','RefStr_' + tagID);
 		} else if (v=='comment') {
 			$("#RefStr_" + tagID).hide();
 		} else {
