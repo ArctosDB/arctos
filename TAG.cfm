@@ -195,7 +195,7 @@ close l_cur;
 				if (this.id.indexOf('_')){
 					console.log('has a _');
 				}
-				if (this.id.substr(this.id.length-4,4)!='_new' {
+				if (this.id.substr(this.id.length-4,4)!='_new') {
 					console.log('does not end with new');
 				}
 			});
