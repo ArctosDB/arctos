@@ -180,7 +180,7 @@ ALTER TABLE tag
 		//jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: imgCallback, instance: true }); 
 	}); 
 	function die(){
-		$("div .editing").draggable("disable");
+		$("div .editing").draggable("destroy");
 		$("div .editing").resizable("destroy");
 		$("div .editing").removeClass().addClass("old");
 	}
