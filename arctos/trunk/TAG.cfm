@@ -315,6 +315,7 @@ close l_cur;
 		} 
 		if (v=='cataloged_item') {
 			findCatalogedItem(id,'RefStr_' + tagID,'f');
+			console.log('findCatalogedItem(' + id + ',RefStr_' + tagID + ','f');
 		} else if (v=='collecting_event') {
 			findCollEvent(id,'f','RefStr_' + tagID);
 		} else if (v=='comment') {
@@ -400,7 +401,7 @@ close l_cur;
 			<span id="newRefHidden" style="display:none">
 				<label for="RefStr_new">Reference</label>
 				<input type="text" id="RefStr_new" name="RefStr_new">
-				<input type="hidden" id="RefId_new" name="RefId_new">
+				<input type="text" id="RefId_new" name="RefId_new">
 				<label for="Remark_new">Remark</label>
 				<input type="text" id="Remark_new" name="Remark_new">
 				<input id="t_new">
