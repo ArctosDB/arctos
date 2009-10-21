@@ -189,7 +189,7 @@ close l_cur;
 		
 		jQuery("div[class^='refPane_']").live('click', function(e){
 			// remove all hover panes
-			$().removeClass('hovering');
+			$(".hovering").removeClass('hovering');
 			var oid=this.id.replace('refPane','refDiv');
 			//console.log('mouseover ' + this.className + ' ' + this.id + '; oid: ' + oid);
 			$("#" + this.id).addClass('hovering');
