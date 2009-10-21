@@ -436,11 +436,18 @@ close l_cur;
 <cfif action is "fd">
 	<cfoutput>
 	<cfdump var="#form#">
+	
+	<cfset tagids="">
 	<cfloop list="#form.fieldnames#" index="e">
 		<cfif e contains "REFTYPE">
+			<cfset tid=replace(e,"reftype_","")>
+			<cfset tagids=listappend(tagids,tid)>
 			<br>--#e#--
 		</cfif>
 	</cfloop>
+	<p>
+	looking for #tagids#
+	
 	
 	
 	</cfoutput>
