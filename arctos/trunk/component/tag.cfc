@@ -20,13 +20,38 @@
 	<cfloop query="data">
 		<cfset t=getTagReln(data.tag_id)>
 		<cfset rft = ArrayNew(1)>
-		<cfset rft[i]=listgetat(t,1,"|")>
 		<cfset rfi = ArrayNew(1)>
-		<cfset rfi[i]=listgetat(t,2,"|")>
 		<cfset rfs = ArrayNew(1)>
-		<cfset rfs[i]=listgetat(t,3,"|")>
 		<cfset rfl = ArrayNew(1)>
-		<cfset rfl[i]=listgetat(t,4,"|")>
+
+		<cfif listgetat(t,1,"|")>
+			<cfset rft[i]=listgetat(t,1,"|")>
+		<cfelse>
+			<cfset rft[i]="">
+		</cfif>
+		
+		<cfif listgetat(t,2,"|")>
+			<cfset rfi[i]=listgetat(t,2,"|")>
+		<cfelse>
+			<cfset rfi[i]="">
+		</cfif>
+		
+		<cfif listgetat(t,3,"|")>
+			<cfset rfs[i]=listgetat(t,3,"|")>
+		<cfelse>
+			<cfset rfs[i]="">
+		</cfif>
+		
+		<cfif listgetat(t,,"|")>
+			<cfset rfl[i]=listgetat(t,4,"|")>
+		<cfelse>
+			<cfset rfl[i]="">
+		</cfif>
+		
+		
+		
+		
+		
 	</cfloop>
 	
 	<cfset temp = QueryAddColumn(data, "REFTYPE", "VarChar",rft)>
