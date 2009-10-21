@@ -244,10 +244,8 @@ close l_cur;
 			}
 		});
 		function addRefPane(id,reftype,refStr,refId,remark,t,l,h,w) {
-			console.log('got id ' + id);
-			var tagID= String(id).replace('ref_','');
-			var d='<div id="refdiv_' + numericId + '" class="rp_' + reftype + '">';
-			d+='<select id="RefType_' + numericId + '" name="RefType_' + numericId + '" onchange="f_RefType(this.id,this.value);">';
+			var d='<div id="refDiv_' + id + '" class="refPane_' + reftype + '">';
+			d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="f_RefType(this.id,this.value);">';
 			d+='<option';
 			if (reftype=='comment'){
 				d+=' selected="selected"';
