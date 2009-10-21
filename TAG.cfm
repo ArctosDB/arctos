@@ -244,7 +244,8 @@ close l_cur;
 			}
 		});
 		function addRefPane(id,reftype,refStr,refId,remark,t,l,h,w) {
-			var numericId=id.replace('ref_','');
+			console.log('got id ' + id);
+			var tagID=id.replace('ref_','');
 			var d='<div id="refdiv_' + numericId + '" class="rp_' + reftype + '">';
 			d+='<select id="RefType_' + numericId + '" name="RefType_' + numericId + '" onchange="f_RefType(this.id,this.value);">';
 			d+='<option';
