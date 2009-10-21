@@ -171,10 +171,10 @@ close l_cur;
 			$(".hovering").removeClass('hovering');
 			
 			$("div .editing").removeClass("editing").addClass("refDiv");
-			$("#" + this.id).removeClass("refDiv").addClass("editing");
+			
 			var tagID=this.id.replace('refDiv_','');
 			var oid=this.id.replace('refDiv','refPane');
-			
+			$("#" + this.id).addClass("hovering");
 			$("#" + oid).addClass('hovering');
 			
 			//modArea(tagID);
