@@ -209,7 +209,34 @@ close l_cur;
 				);
 			}
 		});
-		
+		function addRefPane(id,reftype,refStr,refId,refComment) {
+			var d='<div id="rd_' + id + '">';
+			d+='<select id="RefType_' + id + "' name="RefType_' + id + '" onchange="f_RefType(this.id,this.value);">';
+			d+='<option';
+			if (reftype=='comment'){
+				d+=' selected="selected"';
+			}
+			d+=' value="comment">Comment Only</option>';
+			d+='<option';
+			if (reftype=='cataloged_item'){
+				d+=' selected="selected"';
+			}
+			d+=' value="cataloged_item">Cataloged Item</option>';
+			d+='<option';
+			if (reftype=='collecting_event'){
+				d+=' selected="selected"';
+			}
+			d+=' value="collecting_event">Collecting Event</option>';
+			d+='</select>';
+			d+='<label for="RefStr_' + id + '">Reference</label>';
+			d+='<input type="text" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + refStr + '">';
+			d=='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + refId + '">';
+			d=='<label for="RefComment_' + id + '">Comment</label>';
+			d+='<input type="text" id="RefComment_' + id + '" name="RefComment_' + id + '" value="' + refComment + '">';
+			
+			d+='</div>';
+			console.log(d);	
+		}
 	
 		//addArea('o1',10,20,30,40);
 		//addArea('o2',110,120,130,140);
@@ -271,34 +298,7 @@ close l_cur;
 			}
 		}
 	}
-	function addRefPane(id,reftype,refStr,refId,refComment) {
-		var d='<div id="rd_' + id + '">';
-		d+='<select id="RefType+"' + id + ' name="RefType_"' + id + ' onchange="f_RefType(this.id,this.value);">';
-		d+='<option';
-		if (reftype=='comment'){
-			d+=' selected="selected"';
-		}
-		d+=' value="comment">Comment Only</option>';
-		d+='<option';
-		if (reftype=='cataloged_item'){
-			d+=' selected="selected"';
-		}
-		d+=' value="cataloged_item">Cataloged Item</option>';
-		d+='<option';
-		if (reftype=='collecting_event'){
-			d+=' selected="selected"';
-		}
-		d+=' value="collecting_event">Collecting Event</option>';
-		d+='</select>';
-		d+='<label for="RefStr_' + id + '">Reference</label>';
-		d+='<input type="text" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + refStr + '">';
-		d=='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + refId + '">';
-		d=='<label for="RefComment_' + id + '">Comment</label>';
-		d+='<input type="text" id="RefComment_' + id + '" name="RefComment_' + id + '" value="' + refComment + '">';
-		
-		d+='</div>';
-		console.log(d);	
-	}
+	
 		
 			
 			

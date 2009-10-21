@@ -1,24 +1,54 @@
 <!------------------------------------------------------------------------------------->
 <cffunction name="getTagReln" access="public" output="true">
-    <cfargument name="tag_is" required="true" type="numeric">
-	<cfoutput >
+    <cfargument name="tag_id" required="true" type="numeric">
+	<cfoutput>
 		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select * from tag where tag_id=#tag_id#
+			select
+				tag_id,
+				media_id,
+				reftop,
+				refleft,
+				refh,
+				refw,
+				imgh,
+				imgw
+			from tag where tag_id=#tag_id#
 		</cfquery>
 		<cfif r.collection_object_id gt 0>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select guid from flat where collection_object_id=#r.collection_object_id#
 			</cfquery>
-			<cfset rt="cataloged_item|#r.collection_object_id#|#d.guid#|/guid/#d.guid#">
+			<cfset rt="cataloged_item">
+			<cfset rs="#d.guid#">
+			<cfset ri="#r.collection_object_id#">
+			<cfset rl="/guid/#d.guid">
 		<cfelseif r.collecting_event_id gt 0>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select verbatim_date, verbatim_locality from collecting_event where collecting_event_id=#r.collecting_event_id#
 			</cfquery>
-			<cfset rt="collecting_event|#r.collecting_event_id#|#d.verbatim_locality# (#d.verbatim_date#)|/Locality.cfm?Action=editCollEvnt&collecting_event_id=#r.collecting_event_id#">
+			<cfset rt="collecting_event">
+			<cfset rs="#d.verbatim_locality# (#d.verbatim_date#)">
+			<cfset ri="#r.collecting_event_id#">
+			<cfset rl="/Locality.cfm?Action=editCollEvnt&collecting_event_id=#r.collecting_event_id#">
 		<cfelse>
-			<cfset rt="comment|||">
+			<cfset rt="comment">
+			<cfset rs="">
+			<cfset ri="">
+			<cfset rl="">
 		</cfif>
-		<cfreturn rt>
+		<cfset rft = ArrayNew(1)>
+		<cfset rfi = ArrayNew(1)>
+		<cfset rfs = ArrayNew(1)>
+		<cfset rfl = ArrayNew(1)>
+		<cfset rft[1]=rt>
+		<cfset rfi[1]=ri>
+		<cfset rfs[1]=rs>
+		<cfset rfl[1]=rl>
+		<cfset temp = QueryAddColumn(r, "REFTYPE", "VarChar",rft)>
+		<cfset temp = QueryAddColumn(r, "REFID", "Integer",rfi)>
+		<cfset temp = QueryAddColumn(r, "REFSTRING", "VarChar",rfs)>
+		<cfset temp = QueryAddColumn(r, "REFLINK", "VarChar",rfl)>
+		<cfreturn r>
 	</cfoutput>
 </cffunction>
 <!------------------------------------------------------------------------------------->
