@@ -115,6 +115,15 @@ close l_cur;
 	#newRef {
 		border:1px solid red;
 		}
+	.rp_cataloged_item {
+		border:1px solid orange;
+	}
+	.rp_collecting_event {
+		border:1px solid yellow;
+	}
+	.rp_comment {
+		border:1px solid purple;
+	}
 </style>
 
 <script type="text/javascript"> 
@@ -200,7 +209,11 @@ close l_cur;
 								r.DATA.REFTYPE[0],
 								r.DATA.REFSTRING[0],								
 								r.DATA.REFID[0],								
-								r.DATA.REMARK[0]);
+								r.DATA.REMARK[0],
+								r.DATA.REFTOP[0],
+								r.DATA.REFLEFT[0],
+								r.DATA.REFH[0],
+								r.DATA.REFW[0]);
 								 
 						} else {
 							alert(r);
@@ -209,8 +222,8 @@ close l_cur;
 				);
 			}
 		});
-		function addRefPane(id,reftype,refStr,refId,remark) {
-			var d='<div id="rd_' + id + '">';
+		function addRefPane(id,reftype,refStr,refId,remark,t,l,h,w) {
+			var d='<div id="rd_' + id + '" style="rp_' + reftype + '">';
 			d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="f_RefType(this.id,this.value);">';
 			d+='<option';
 			if (reftype=='comment'){
@@ -233,6 +246,10 @@ close l_cur;
 			d=='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + refId + '">';
 			d=='<label for="Remark_' + id + '">Remark</label>';
 			d+='<input type="text" id="Remark_' + id + '" name="Remark_' + id + '" value="' + remark + '">';
+			d+='<input type="text" id="t_' + id + '" name="t_' + id + '" value="' + t + '">';
+			d+='<input type="text" id="l_' + id + '" name="l_' + id + '" value="' + l + '">';
+			d+='<input type="text" id="h_' + id + '" name="h_' + id + '" value="' + h + '">';
+			d+='<input type="text" id="w_' + id + '" name="w_' + id + '" value="' + w + '">';
 			
 			d+='</div>';
 			console.log(d);
