@@ -170,12 +170,17 @@ close l_cur;
 			$("div .editing").draggable("destroy");
 			$("div .editing").resizable("destroy");
 			
-			$(".hovering").removeClass('hovering');
+			//$(".hovering").removeClass('hovering');
 			
 			$("div .editing").removeClass("editing").addClass("refDiv");
 			
 			var tagID=this.id.replace('refDiv_','');
 			var oid=this.id.replace('refDiv','refPane');
+			
+			$("#" + this.id).addClass("editing");
+			$("#" + oid).addClass('editing');
+			
+			
 			//$("#" + this.id).addClass("hovering");
 			//$("#" + oid).addClass('hovering');
 			
