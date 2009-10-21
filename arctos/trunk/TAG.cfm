@@ -207,6 +207,7 @@ close l_cur;
 				return false;
 			}			
 			if ($("#RefId_new").val().length==0 && $("#Remark_new").val().length==0) {
+				console.log('fail@ ' + $("#RefId_new").val());
 				alert('Pick a reference and/or enter a comment.');
 				return false;
 			} else {
