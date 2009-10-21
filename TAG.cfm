@@ -92,15 +92,11 @@ close l_cur;
 <link rel="stylesheet" type="text/css" href="/includes/jquery/css/ui-lightness/jquery-ui-1.7.2.custom.css">
 <script language="JavaScript" src="/includes/jquery/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
 <style>
-	.new {
-		border:1px solid green;
-	}
 	.editing {
 		border:1px solid yellow;
 	}
-	.old{
+	.refDiv{
 		border:1px solid blue;
-		cursor:hand;
 	}
 	#imgDiv{
 		position:absolute;
@@ -111,24 +107,26 @@ close l_cur;
 		float:right;
 		border:2px solid green;
 		width:300px;
-		}
-	#newRef {
-		border:1px solid red;
-		}
-	.rp_cataloged_item {
+	}
+	
+	.refpane_cataloged_item {
 		border:2px solid orange;
 		margin:2px;
 	}
-	.rp_collecting_event {
+	.refPane_collecting_event {
 		border:2px solid yellow;
 		margin:2px;
 	}
-	.rp_comment {
+	.refPane_comment {
 		border:2px solid purple;
 		margin:2px;
 	}
 	.hovering {
 		border:3px solid green;
+	}
+	
+	#newRef {
+		border:1px solid red;
 	}
 </style>
 
@@ -142,17 +140,16 @@ close l_cur;
 				queryformat : 'column'
 			},
 			function (r) {
-				console.log(r);
 				if (r.ROWCOUNT){
 					for (i=0; i<r.ROWCOUNT; ++i) {
 						addArea(
-							'ref_' + r.DATA.TAG_ID[i],
+							r.DATA.TAG_ID[i],
 							r.DATA.REFTOP[i],
 							r.DATA.REFLEFT[i],
 							r.DATA.REFH[i],
 							r.DATA.REFW[i]);
 						addRefPane(
-							'ref_' + r.DATA.TAG_ID[i],
+							r.DATA.TAG_ID[i],
 							r.DATA.REFTYPE[i],
 							r.DATA.REFSTRING[i],								
 							r.DATA.REFID[i],							
@@ -167,24 +164,24 @@ close l_cur;
 				}
 			}
 		);
-		jQuery("div .old").live('click', function(e){
-			console.log('you clicked ' + this.id);
+		jQuery("div .refDiv").live('click', function(e){
 			$("div .editing").draggable("destroy");
 			$("div .editing").resizable("destroy");
 			$("div .editing").removeClass("editing").addClass("old");
-			$("#" + this.id).removeClass("old").addClass("editing");
-			modArea(this.id);
+			$("#" + this.id).removeClass("refDiv").addClass("editing");
+			var tagID=this.id.replace('refDiv_','');
+			modArea(tagID);
 		});
 		
-		jQuery("div[class^='rp_']").live('mouseover', function(e){
+		jQuery("div[class^='refPane_']").live('mouseover', function(e){
 			var oid=this.id.replace('rd_','ref_');
 			console.log('mouseover ' + this.className + ' ' + this.id + '; oid: ' + oid);
 			$("#" + this.id).addClass('hovering');
 			$("#" + oid).addClass('hovering');
 		});
 		
-		jQuery("div[class^='rp_']").live('mouseout', function(e){
-			var oid=this.id.replace('rd_','ref_');
+		jQuery("div[class^='refPane_']").live('mouseout', function(e){
+			var oid=this.id.replace('refPane','refDiv');
 			console.log('mouseout ' + this.className + ' ' + this.id + '; oid: ' + oid);
 			$("#" + this.id).removeClass('hovering');
 			$("#" + oid).removeClass('hovering');
@@ -223,13 +220,13 @@ close l_cur;
 						if (r.ROWCOUNT && r.ROWCOUNT==1){
 							removeNewRef();
 							addArea(
-								'ref_' + r.DATA.TAG_ID[0],
+								r.DATA.TAG_ID[0],
 								r.DATA.REFTOP[0],
 								r.DATA.REFLEFT[0],
 								r.DATA.REFH[0],
 								r.DATA.REFW[0]);
 							addRefPane(
-								'ref_' + r.DATA.TAG_ID[0],
+								r.DATA.TAG_ID[0],
 								r.DATA.REFTYPE[0],
 								r.DATA.REFSTRING[0],								
 								r.DATA.REFID[0],								
@@ -247,8 +244,9 @@ close l_cur;
 			}
 		});
 		function addRefPane(id,reftype,refStr,refId,remark,t,l,h,w) {
-			var d='<div id="rd_' + id + '" class="rp_' + reftype + '">';
-			d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="f_RefType(this.id,this.value);">';
+			var numericId=id.replace('ref_','');
+			var d='<div id="refdiv_' + numericId + '" class="rp_' + reftype + '">';
+			d+='<select id="RefType_' + numericId + '" name="RefType_' + numericId + '" onchange="f_RefType(this.id,this.value);">';
 			d+='<option';
 			if (reftype=='comment'){
 				d+=' selected="selected"';
@@ -276,19 +274,9 @@ close l_cur;
 			d+='<input type="text" id="w_' + id + '" name="w_' + id + '" value="' + w + '">';
 			
 			d+='</div>';
-			console.log(d);
 			$("#editRefDiv").append(d);
 		}
-	
-		//addArea('o1',10,20,30,40);
-		//addArea('o2',110,120,130,140);
-		//jQuery('img#theImage').imgAreaSelect({ handles: true, onSelectEnd: imgCallback, instance: true }); 
 	}); 
-	function die(){
-		$("div .editing").draggable("destroy");
-		$("div .editing").resizable("destroy");
-		$("div .editing").removeClass().addClass("old");
-	}
 	function newArea() {
 		var ih = $('#theImage').height();
 		var iw = $('#theImage').width();
@@ -302,10 +290,6 @@ close l_cur;
 		$("#newRefType").show();
 		$("#newRefClick").hide();
 	}
-	function imgCallback(img, selection) {
-		// just reformat and pass off 
-		console.log('img.x1: ' + img.x1 + '; img.y1: ' + img.y1 + '; img.x2: ' + img.x2 + '; img.y2: ' + img.y2 + '; selection.x1: ' + selection.x1 + '; selection.y1: ' + selection.y1 + '; selection.x2: ' + selection.x2 + '; selection.y2: ' + selection.y2);
-	}
 	function removeNewRef() {
 		$("#newRefType").val('');
 		$("#newRefId").val('');
@@ -316,7 +300,6 @@ close l_cur;
 		$("#newRefBtn").hide();
 		$("#newRemark").hide();			
 		$("#c_newRemark").hide();
-		
 		$("#newRefClick").show();
 		$("#new").remove();
 	}
@@ -341,56 +324,44 @@ close l_cur;
 		}
 	}
 	
-		
-			
-			
-	
-	
 	function addArea(id,t,l,h,w) {
-		var dv='<div id="' + id + '" class="old" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
+		if(id=='new){
+			c='editing;
+		}else{
+			c='refDiv';
+		}
+		var dv='<div id="refDiv_' + id + '" class="' + c + '" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
 		$("#imgDiv").append(dv);
 	}
-	
-	/*
-	
-	
 		
-	*/
-	
-	
 	function modArea(id) {
+		var tagID=id.replace('refDiv_','');
 		$("#" + id).draggable({
 			containment: 'parent',
-			stop: function(event,ui){showDim(id,event, ui);}
+			stop: function(event,ui){showDim(tagID,event, ui);}
 		});
 		$("#" + id).resizable({
 			containment: 'parent',
-			stop: function(event,ui){showDim(id,event, ui);}
+			stop: function(event,ui){showDim(tagID,event, ui);}
 		});
-		$("#h_" + id).val($('#' + id).height());
-		$("#w_" + id).val($('#' + id).width());
-		$("#t_" + id).val($("#" + id).position().top);
-		$("#l_" + id).val($("#" + id).position().left);
-		$("#id").val(id);	
-		
-		console.log('modArea: imgH: ' + $('#theImage').height());
-		console.log('modArea: imgW: ' + $('#theImage').width());
+		$("#h_" + tagID).val($('#' + id).height());
+		$("#w_" + tagID).val($('#' + id).width());
+		$("#t_" + tagID).val($("#" + id).position().top);
+		$("#l_" + tagID).val($("#" + id).position().left);
 	}
-	function showDim(id,event,ui){
+	
+	function showDim(tagID,event,ui){
 		try{
-			$("#id").val(id);
+			$("#t_" + tagID).val(ui.position.top);
 		} catch(e){}
 		try{
-			$("#top").val(ui.position.top);
+			$("#l_" + tagID).val(ui.position.left);
 		} catch(e){}
 		try{
-			$("#left").val(ui.position.left);
+			$("#h_" + tagID).val(ui.size.height);
 		} catch(e){}
 		try{
-			$("#height").val(ui.size.height);
-		} catch(e){}
-		try{
-			$("#width").val(ui.size.width);
+			$("#w_" + tagID).val(ui.size.width);
 		} catch(e){}
 	}
 </script>
@@ -402,52 +373,34 @@ close l_cur;
 		FAIL@images only.
 		<cfabort>
 	</cfif>
-	<input id="media_id" value="#c.media_id#">
-
-<hr>
-
-<div id="imgDiv">
-	<img src="#c.media_uri#" id="theImage" style="max-width:600px;max-height:800px;">
-</div>
-<div id="navDiv">
-<span onclick="die()">-----------die--------------</span>
-
-	<div id="info"></div>
-	<span class="likeLink" id="newRefClick" onclick="newArea();">Create Reference</span>
-	<form name="f">
-		<select id="newRefType" name="newRefType" onchange="f_newRefType(this.value);" style="display:none">
-			<option value=""></option>
-			<option value="cancel">Nevermind...</option>
-			<option value="comment">Comment Only</option>
-			<option value="cataloged_item">Cataloged Item</option>
-			<option value="collecting_event">Collecting Event</option>
-		</select>
-		<input type="text" id="newRefStr" name="newRefStr" style="display:none">
-		<input type="hidden" id="newRefId" name="newRefId">
-		<label for="newRemark" id="c_newRemark" style="display:none">Remark</label>
-		<input type="text" id="newRemark" name="newRemark" style="display:none">
-		
-		<input type="button" id="newRefBtn" value="save reference" style="display:none">
-	</form>
-	<hr>
-	<div id="editRefDiv">
-		
+	<div id="imgDiv">
+		<img src="#c.media_uri#" id="theImage" style="max-width:600px;max-height:800px;">
 	</div>
-<span onclick="addArea('o1',10,20,30,40);">d</span>
-
-<span onclick="addArea('n1',101,102,103,104);">d</span>
-
-
-<span onclick="modArea('o1');">modArea - o1</span>
-
-
-id: <input id="id">
-
-top: <input id="t_new">
-left: <input id="l_new">
-height: <input id="h_new">
-width: <input id="w_new">
-</div>
+	<div id="navDiv">
+		<div id="info"></div>
+		<span class="likeLink" id="newRefClick" onclick="newArea();">Create Reference</span>
+		<form name="f">
+			<input typ="hidden" id="media_id" value="#c.media_id#">
+			<select id="newRefType" name="newRefType" onchange="f_newRefType(this.value);" style="display:none">
+				<option value=""></option>
+				<option value="cancel">Nevermind...</option>
+				<option value="comment">Comment Only</option>
+				<option value="cataloged_item">Cataloged Item</option>
+				<option value="collecting_event">Collecting Event</option>
+			</select>
+			<input type="text" id="newRefStr" name="newRefStr" style="display:none">
+			<input type="hidden" id="newRefId" name="newRefId">
+			<label for="newRemark" id="c_newRemark" style="display:none">Remark</label>
+			<input type="text" id="newRemark" name="newRemark" style="display:none">
+			<input id="t_new">
+			<input id="l_new">
+			<input id="h_new">
+			<input id="w_new">
+			<input type="button" id="newRefBtn" value="save reference" style="display:none">
+		</form>
+		<hr>
+		<div id="editRefDiv"></div>
+	</div>
 </cfoutput>
 
 <hr>
