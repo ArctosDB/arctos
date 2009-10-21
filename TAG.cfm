@@ -308,7 +308,7 @@ close l_cur;
 	
 	
 	function pickRefType(id,v){
-		var tagID id.replace('RefType_','');
+		var tagID=id.replace('RefType_','');
 		if (id=='RefType_new'){
 			if (v.length==0) {
 				$("#newRefHidden").hide();
