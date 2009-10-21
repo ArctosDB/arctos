@@ -146,13 +146,13 @@ close l_cur;
 				if (r.ROWCOUNT){
 					for (i=0; i<r.ROWCOUNT; ++i) {
 						addArea(
-							r.DATA.TAG_ID[i],
+							ref + '_' + r.DATA.TAG_ID[i],
 							r.DATA.REFTOP[i],
 							r.DATA.REFLEFT[i],
 							r.DATA.REFH[i],
 							r.DATA.REFW[i]);
 						addRefPane(
-							r.DATA.TAG_ID[i],
+							ref + '_' + r.DATA.TAG_ID[i],
 							r.DATA.REFTYPE[i],
 							r.DATA.REFSTRING[i],								
 							r.DATA.REFID[i],							
@@ -177,14 +177,14 @@ close l_cur;
 		});
 		
 		jQuery("div[class^='rp_']").live('mouseover', function(e){
-			var oid=this.id.replace('rd_','');
+			var oid=this.id.replace('rd_','ref_');
 			console.log('mouseover ' + this.className + ' ' + this.id + '; oid: ' + oid);
 			$("#" + this.id).addClass('hovering');
 			$("#" + oid).addClass('hovering');
 		});
 		
 		jQuery("div[class^='rp_']").live('mouseout', function(e){
-			var oid=this.id.replace('rd_','');
+			var oid=this.id.replace('rd_','ref_');
 			console.log('mouseout ' + this.className + ' ' + this.id + '; oid: ' + oid);
 			$("#" + this.id).removeClass('hovering');
 			$("#" + oid).removeClass('hovering');
@@ -223,13 +223,13 @@ close l_cur;
 						if (r.ROWCOUNT && r.ROWCOUNT==1){
 							removeNewRef();
 							addArea(
-								r.DATA.TAG_ID[0],
+								ref + '_' + r.DATA.TAG_ID[0],
 								r.DATA.REFTOP[0],
 								r.DATA.REFLEFT[0],
 								r.DATA.REFH[0],
 								r.DATA.REFW[0]);
 							addRefPane(
-								r.DATA.TAG_ID[0],
+								ref + '_' + r.DATA.TAG_ID[0],
 								r.DATA.REFTYPE[0],
 								r.DATA.REFSTRING[0],								
 								r.DATA.REFID[0],								
