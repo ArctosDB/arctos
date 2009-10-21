@@ -109,6 +109,12 @@ ALTER TABLE tag
 							r.DATA.REFLEFT[i],
 							r.DATA.REFH[i],
 							r.DATA.REFW[i]);
+						addRefPane(
+							r.DATA.TAG_ID[0],
+							r.DATA.REFTYPE[0],
+							r.DATA.REFSTRING[0],								
+							r.DATA.REFID[0],								
+							r.DATA.REFCOMMENT[0]);
 					}
 				} else {
 					alert(r);
