@@ -364,7 +364,7 @@ close l_cur;
 		$("#t_" + id).val($("#" + elemID).position().top);
 		$("#l_" + id).val($("#" + elemID).position().left);
 		// flip the div to editing
-		$("#" + elemID).removeClass('hovering').removeClass('refDiv').addClass('editing');
+		$("#" + elemID).removeClass('hovering').addClass('editing');
 		// and the pane
 		console.log('change class for ' + elemID);
 		var paneID='refPane_' + id;
