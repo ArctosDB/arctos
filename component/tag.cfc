@@ -24,25 +24,25 @@
 		<cfset rfs = ArrayNew(1)>
 		<cfset rfl = ArrayNew(1)>
 
-		<cfif listgetat(t,1,"|")>
+		<cfif listlen(t,"|") gte 1>
 			<cfset rft[i]=listgetat(t,1,"|")>
 		<cfelse>
 			<cfset rft[i]="">
 		</cfif>
 		
-		<cfif listgetat(t,2,"|")>
+		<cfif listlen(t,"|") gte 2>
 			<cfset rfi[i]=listgetat(t,2,"|")>
 		<cfelse>
 			<cfset rfi[i]="">
 		</cfif>
 		
-		<cfif listgetat(t,3,"|")>
+		<cfif listlen(t,"|") gte 3>
 			<cfset rfs[i]=listgetat(t,3,"|")>
 		<cfelse>
 			<cfset rfs[i]="">
 		</cfif>
 		
-		<cfif listgetat(t,4,"|")>
+		<cfif listlen(t,"|") gte 4>
 			<cfset rfl[i]=listgetat(t,4,"|")>
 		<cfelse>
 			<cfset rfl[i]="">
