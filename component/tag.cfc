@@ -5,61 +5,25 @@
 	<cfinclude template="/includes/functionLib.cfm">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
-			tag_id,
-			media_id,
-			reftop,
-			refleft,
-			refh,
-			refw,
-			imgh,
-			imgw,
-			remark refcomment
+			tag_id
 		from tag where media_id=#media_id#
 	</cfquery>
 	<cfset i=1>
 	<cfloop query="data">
-		<cfset t=getTagReln(data.tag_id)>
-		<cfset rft = ArrayNew(1)>
-		<cfset rfi = ArrayNew(1)>
-		<cfset rfs = ArrayNew(1)>
-		<cfset rfl = ArrayNew(1)>
-
-		<cfif listlen(t,"|") gte 1>
-			<cfset rft[i]=listgetat(t,1,"|")>
-		<cfelse>
-			<cfset rft[i]="">
-		</cfif>
-		
-		<cfif listlen(t,"|") gte 2>
-			<cfset rfi[i]=listgetat(t,2,"|")>
-		<cfelse>
-			<cfset rfi[i]="">
-		</cfif>
-		
-		<cfif listlen(t,"|") gte 3>
-			<cfset rfs[i]=listgetat(t,3,"|")>
-		<cfelse>
-			<cfset rfs[i]="">
-		</cfif>
-		
-		<cfif listlen(t,"|") gte 4>
-			<cfset rfl[i]=listgetat(t,4,"|")>
-		<cfelse>
-			<cfset rfl[i]="">
-		</cfif>
-		
-		
-		
-		
-		
+		<cfset t#i#=getTagReln(data.tag_id)>
+		<cfset i=i+1>
 	</cfloop>
-	
-	<cfset temp = QueryAddColumn(data, "REFTYPE", "VarChar",rft)>
-	<cfset temp = QueryAddColumn(data, "REFID", "Integer",rfi)>
-	<cfset temp = QueryAddColumn(data, "REFSTRING", "VarChar",rfs)>
-	<cfset temp = QueryAddColumn(data, "REFLINK", "VarChar",rfl)>
-			
-	<cfreturn data>
+	<cfif i gt 1>
+	<cfquery name="q" dbtype="query">
+		select * from t1
+		<cfloop from="2" to="#i#" index="o">
+			union select * from t#o#
+		</cfloop>
+	</cfquery>
+		<cfreturn q>
+	<cfelse>
+		<cfreturn />
+	</cfif>
 </cffunction>
 <!--------------------------------------->
 <cffunction name="newRef" access="remote">
@@ -72,9 +36,9 @@
 	<cfargument name="refh" required="yes">
 	<cfargument name="refw" required="yes">
 	<cfargument name="imgh" required="yes">
-	<cfargument name="imgw" required="yes">					
-		<cfoutput>
-
+	<cfargument name="imgw" required="yes">
+	<cfinclude template="/includes/functionLib.cfm">
+	<cfoutput>
 	<cftry>
 		<cftransaction>
 			<cfquery name="pkey" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -115,24 +79,8 @@
 					</cfif>
 				)
 			</cfquery>
-			<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select
-					tag_id,
-					media_id,
-					reftop,
-					refleft,
-					refh,
-					refw,
-					imgh,
-					imgw,
-					'#reftype#' reftype,
-					#refid# refid,
-					'#refcomment#' refcomment,
-					'stuff' REFSTRING
-				from tag where tag_id=#pkey.n#
-			</cfquery>
-			
-			<cfreturn r>
+			<cfset rx=getTagReln(pkey.n)>
+			<cfreturn rx>
 		</cftransaction>
 	<cfcatch>
 		<cfreturn "fail: #cfcatch.message# #cfcatch.detail#">
