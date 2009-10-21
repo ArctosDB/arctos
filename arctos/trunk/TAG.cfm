@@ -202,13 +202,11 @@ close l_cur;
 		
 	
 		$("#newRefBtn").click(function(e){
-			console.log($("#newRefId").val().length);
-			console.log($("#newRemark").val().length);
 			if ($("#t_new").val().length==0 || $("#l_new").val().length==0 || $("#h_new").val().length==0 || $("#w_new").val().length==0) {
 				alert('You must have a graphical reference.');
 				return false;
 			}			
-			if ($("#newRefId").val().length==0 && $("#newRemark").val().length==0) {
+			if ($("#RefId_new").val().length==0 && $("#Remark_new").val().length==0) {
 				alert('Pick a reference and/or enter a comment.');
 				return false;
 			} else {
@@ -216,9 +214,9 @@ close l_cur;
 					{
 						method : "newRef",
 						media_id : $("#media_id").val(),
-						reftype: $("#newRefType").val(),
-						refid : $("#newRefId").val(),
-						remark: $("#newRemark").val(),
+						reftype: $("#RefType_new").val(),
+						refid : $("#RefId_new").val(),
+						remark: $("#Remark_new").val(),
 						reftop: $("#t_new").val(),
 						refleft: $("#l_new").val(),
 						refh: $("#h_new").val(),
