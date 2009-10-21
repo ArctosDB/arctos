@@ -87,6 +87,8 @@ close l_cur;
 ---->
 
 <cfinclude template = "/includes/_header.cfm">
+
+<cfif action is "nothing">
 <script language="JavaScript" src="/includes/jquery/jquery.imgareaselect.pack.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="/includes/jquery/css/imgareaselect-default.css">
 <link rel="stylesheet" type="text/css" href="/includes/jquery/css/ui-lightness/jquery-ui-1.7.2.custom.css">
@@ -430,6 +432,7 @@ close l_cur;
 		</form>
 	</div>
 </cfoutput>
+</cfif>
 <cfif action is "fd">
 	<cfdump var="#form#">
 </cfif>
