@@ -106,7 +106,9 @@ close l_cur;
 	#navDiv {
 		float:right;
 		border:2px solid green;
-		width:300px;
+		width:400px;
+		height:400px;
+		overflow:scroll;
 	}
 	
 	.refpane_cataloged_item {
