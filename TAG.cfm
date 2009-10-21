@@ -453,7 +453,7 @@ close l_cur;
 				<cfset REFW = evaluate("W_" & i)>
 				<cfset reftype = evaluate("REFTYPE_" & i)>
 				<cfset refid = evaluate("REFID_" & i)>
-				<cfset s="update tags set
+				<cfset s="update tag set
 					REMARK='#REMARK#',
 					REFH=#REFH#,
 					REFTOP=#REFTOP#,
