@@ -178,21 +178,21 @@ close l_cur;
 		
 		jQuery("div .rp_cataloged_item").live('mouseover', function(e){
 			var oid=this.id.replace('rp_','');
-			console.log('mouseover rp_cataloged_item ' + this.id);
+			console.log('mouseover rp_cataloged_item ' + this.id + '; oid: ' + oid);
 			$("#" + this.id).addClass('hovering');
 			$("#" + oid).addClass('hovering');
 		});
 		
 		jQuery("div .rp_collecting_event").live('mouseover', function(e){
 			var oid=this.id.replace('rp_','');
-			console.log('mouseover rp_collecting_event ' + this.id);
+			console.log('mouseover rp_collecting_event ' + this.id + '; oid: ' + oid);
 			$("#" + this.id).addClass('hovering');
 			$("#" + oid).addClass('hovering');
 		});
 		
 		jQuery("div .rp_comment").live('mouseover', function(e){
 			var oid=this.id.replace('rp_','');
-			console.log('mouseover rp_comment ' + this.id);
+			console.log('mouseover rp_comment ' + this.id + '; oid: ' + oid);
 			$("#" + this.id).addClass('hovering');
 			$("#" + oid).addClass('hovering');
 		});
