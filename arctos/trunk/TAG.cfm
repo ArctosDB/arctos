@@ -315,7 +315,7 @@ close l_cur;
 		} 
 		if (v=='cataloged_item') {
 			findCatalogedItem(id,'RefStr_' + tagID,'f');
-			console.log('findCatalogedItem(' + id + ',RefStr_' + tagID + ','f');
+			console.log('findCatalogedItem(' + id + ',RefStr_' + tagID + ',f');
 		} else if (v=='collecting_event') {
 			findCollEvent(id,'f','RefStr_' + tagID);
 		} else if (v=='comment') {
