@@ -113,7 +113,7 @@ close l_cur;
 		padding:5px;
 	}
 	
-	.refpane_cataloged_item {
+	.refPane_cataloged_item {
 		border:2px solid orange;
 		margin:2px;
 	}
@@ -127,10 +127,6 @@ close l_cur;
 	}
 	.hovering {
 		border:3px solid green;
-	}
-	
-	#newRef {
-		border:1px solid red;
 	}
 </style>
 
@@ -188,6 +184,9 @@ close l_cur;
 			var tagID=this.id.replace('editRefClk_','');
 			modArea(tagID);
 		});
+		$("#savAllBtn").live('click', function(e){
+			console.log('savAllBtn');
+		});
 		
 		jQuery("div[class^='refPane_']").live('click', function(e){
 			// remove all hover panes
@@ -197,23 +196,6 @@ close l_cur;
 			$("#" + this.id).addClass('hovering');
 			$("#" + oid).addClass('hovering');
 		});
-		
-		/*
-		jQuery("div[class^='refPane_']").live('mouseover', function(e){
-			var oid=this.id.replace('refPane','refDiv');
-			console.log('mouseover ' + this.className + ' ' + this.id + '; oid: ' + oid);
-			$("#" + this.id).addClass('hovering');
-			$("#" + oid).addClass('hovering');
-		});
-		
-		jQuery("div[class^='refPane_']").live('mouseout', function(e){
-			var oid=this.id.replace('refPane','refDiv');
-			console.log('mouseout ' + this.className + ' ' + this.id + '; oid: ' + oid);
-			$("#" + this.id).removeClass('hovering');
-			$("#" + oid).removeClass('hovering');
-		});
-		*/
-	
 		$("#newRefBtn").click(function(e){
 			if ($("#t_new").val().length==0 || $("#l_new").val().length==0 || $("#h_new").val().length==0 || $("#w_new").val().length==0) {
 				alert('You must have a graphical reference.');
@@ -401,6 +383,7 @@ close l_cur;
 		<img src="#c.media_uri#" id="theImage" style="max-width:600px;max-height:800px;">
 	</div>
 	<div id="navDiv">
+		<input type="button" value="save all" id="savAllBtn">
 		<div id="info"></div>
 		<form name="f">
 			<input typ="hidden" id="media_id" value="#c.media_id#">
