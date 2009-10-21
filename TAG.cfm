@@ -176,7 +176,7 @@ close l_cur;
 			modArea(this.id);
 		});
 		
-		jQuery("div[id^='rp_']").live('mouseover', function(e){
+		jQuery("div[class^='rp_']").live('mouseover', function(e){
 			var oid=this.id.replace('rd_','');
 			console.log('mouseover rp_something ' + this.id + '; oid: ' + oid);
 			$("#" + this.id).addClass('hovering');
