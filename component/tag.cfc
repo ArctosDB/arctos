@@ -3,7 +3,20 @@
 <cffunction name="getTags" access="remote">
 	<cfargument name="media_id" required="yes">
 	<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from tag where media_id=#media_id#
+		select
+			tag_id,
+			media_id,
+			reftop,
+			refleft,
+			refh,
+			refw,
+			imgh,
+			imgw,
+			'#reftype#' reftype,
+			#refid# refid,
+			'#refcomment#' refcomment,
+			'stuff' REFSTRING
+		from tag where media_id=#media_id#
 	</cfquery>
 	<cfreturn data>
 </cffunction>
