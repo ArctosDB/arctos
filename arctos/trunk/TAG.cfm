@@ -270,6 +270,8 @@ close l_cur;
 		});
 	});
 	function addRefPane(id,reftype,refStr,refId,remark,t,l,h,w) {
+		if (refStr==null){refStr='';}
+		if (remark==null){remark='';}
 		var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
 		d+='<span class="likeLink" id="editRefClk_' + id + '">Edit Reference</span';
 		d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="pickRefType(this.id,this.value);">';
