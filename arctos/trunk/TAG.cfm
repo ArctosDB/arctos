@@ -167,14 +167,17 @@ close l_cur;
 		jQuery("div .refDiv").live('click', function(e){
 			$("div .editing").draggable("destroy");
 			$("div .editing").resizable("destroy");
-			$("div .editing").removeClass("editing").addClass("old");
+			
+			$(".hovering").removeClass('hovering');
+			
+			$("div .editing").removeClass("editing").addClass("refDiv");
 			$("#" + this.id).removeClass("refDiv").addClass("editing");
 			var tagID=this.id.replace('refDiv_','');
 			var oid=this.id.replace('refDiv','refPane');
-			$(".hovering").removeClass('hovering');
-			$("div[id^='refDiv']").addClass('refDiv');
+			
 			$("#" + oid).addClass('hovering');
-			modArea(tagID);
+			
+			//modArea(tagID);
 		});
 		
 		jQuery("div[class^='refPane_']").live('mouseover', function(e){
