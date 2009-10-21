@@ -363,6 +363,7 @@ close l_cur;
 		$("#w_" + id).val($('#' + elemID).width());
 		$("#t_" + id).val($("#" + elemID).position().top);
 		$("#l_" + id).val($("#" + elemID).position().left);
+		$("#refDiv_" + id).removeClass('hovering').addClass('editing');
 	}
 	
 	function showDim(tagID,event,ui){
