@@ -180,6 +180,7 @@ close l_cur;
 			$("#" + this.id).removeClass("refDiv").addClass("editing");
 			$("#" + oid).removeClass("refPane").addClass('editing');
 			
+			console.log('refDiv click: thisid=' + this.id + '; paneID=' + oid);
 			
 			//$("#" + this.id).addClass("hovering");
 			//$("#" + oid).addClass('hovering');
