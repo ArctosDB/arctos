@@ -256,44 +256,40 @@ close l_cur;
 				);
 			}
 		});
-		function f_RefType(id,val) {
-			
+	});
+	function addRefPane(id,reftype,refStr,refId,remark,t,l,h,w) {
+		var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
+		d+='<span class="likeLink" id="editRefClk_' + id + '">Edit Reference</span';
+		d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="pickRefType(this.id,this.value);">';
+		d+='<option';
+		if (reftype=='comment'){
+			d+=' selected="selected"';
 		}
+		d+=' value="comment">Comment Only</option>';
+		d+='<option';
+		if (reftype=='cataloged_item'){
+			d+=' selected="selected"';
+		}
+		d+=' value="cataloged_item">Cataloged Item</option>';
+		d+='<option';
+		if (reftype=='collecting_event'){
+			d+=' selected="selected"';
+		}
+		d+=' value="collecting_event">Collecting Event</option>';
+		d+='</select>';
+		d+='<label for="RefStr_' + id + '">Reference</label>';
+		d+='<input type="text" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + refStr + '">';
+		d=='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + refId + '">';
+		d=='<label for="Remark_' + id + '">Remark</label>';
+		d+='<input type="text" id="Remark_' + id + '" name="Remark_' + id + '" value="' + remark + '">';
+		d+='<input type="text" id="t_' + id + '" name="t_' + id + '" value="' + t + '">';
+		d+='<input type="text" id="l_' + id + '" name="l_' + id + '" value="' + l + '">';
+		d+='<input type="text" id="h_' + id + '" name="h_' + id + '" value="' + h + '">';
+		d+='<input type="text" id="w_' + id + '" name="w_' + id + '" value="' + w + '">';
 		
-		function addRefPane(id,reftype,refStr,refId,remark,t,l,h,w) {
-			var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
-			d+='<span class="likeLink" id="editRefClk_' + id + '">Edit Reference</span';
-			d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="pickRefType(this.id,this.value);">';
-			d+='<option';
-			if (reftype=='comment'){
-				d+=' selected="selected"';
-			}
-			d+=' value="comment">Comment Only</option>';
-			d+='<option';
-			if (reftype=='cataloged_item'){
-				d+=' selected="selected"';
-			}
-			d+=' value="cataloged_item">Cataloged Item</option>';
-			d+='<option';
-			if (reftype=='collecting_event'){
-				d+=' selected="selected"';
-			}
-			d+=' value="collecting_event">Collecting Event</option>';
-			d+='</select>';
-			d+='<label for="RefStr_' + id + '">Reference</label>';
-			d+='<input type="text" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + refStr + '">';
-			d=='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + refId + '">';
-			d=='<label for="Remark_' + id + '">Remark</label>';
-			d+='<input type="text" id="Remark_' + id + '" name="Remark_' + id + '" value="' + remark + '">';
-			d+='<input type="text" id="t_' + id + '" name="t_' + id + '" value="' + t + '">';
-			d+='<input type="text" id="l_' + id + '" name="l_' + id + '" value="' + l + '">';
-			d+='<input type="text" id="h_' + id + '" name="h_' + id + '" value="' + h + '">';
-			d+='<input type="text" id="w_' + id + '" name="w_' + id + '" value="' + w + '">';
-			
-			d+='</div>';
-			$("#editRefDiv").append(d);
-		}
-	}); 
+		d+='</div>';
+		$("#editRefDiv").append(d);
+	}
 	function newArea() {
 		var ih = $('#theImage').height();
 		var iw = $('#theImage').width();
@@ -306,8 +302,8 @@ close l_cur;
 		$("#info").text('Drag/resize the red box on the image, pick a reference and/or enter a comment, then click done.');
 	}
 	
-	
 	function pickRefType(id,v){
+		console.log('picked ' + id);
 		var tagID=id.replace('RefType_','');
 		if (id=='RefType_new'){
 			if (v.length==0) {
@@ -317,16 +313,15 @@ close l_cur;
 				$("#newRefHidden").show();
 				newArea();
 			}			
+		} 
+		if (v=='cataloged_item') {
+			findCatalogedItem(id,'RefStr_' + tagID,'f');
+		} else if (v=='collecting_event') {
+			findCollEvent(id,'f','RefStr_' + tagID);
+		} else if (v=='comment') {
+			$("#RefStr_" + tagID).hide();
 		} else {
-			if (v=='cataloged_item') {
-				findCatalogedItem(id,'RefStr_' + tagID,'f');
-			} else if (v=='collecting_event') {
-				findCollEvent(id,'f','RefStr_' + tagID);
-			} else if (v=='comment') {
-				$("#RefStr_" + tagID).hide();
-			} else {
-				alert('Dude... I have no idea what you are trying to do. Srsly. Stoppit.');
-			}
+			alert('Dude... I have no idea what you are trying to do. Srsly. Stoppit.');
 		}
 	}	
 	function addArea(id,t,l,h,w) {
