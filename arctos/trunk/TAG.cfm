@@ -336,7 +336,7 @@ close l_cur;
 	function modArea(id) {
 		console.log('modarea got id ' + id);
 		var elemID='refDiv_' + id;
-		console.llog(elemID);
+		console.log(elemID);
 		
 		$("#" + elemID).draggable({
 			containment: 'parent',
