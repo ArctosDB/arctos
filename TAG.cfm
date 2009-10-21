@@ -137,11 +137,11 @@ close l_cur;
 							r.DATA.REFH[i],
 							r.DATA.REFW[i]);
 						addRefPane(
-							r.DATA.TAG_ID[0],
-							r.DATA.REFTYPE[0],
-							r.DATA.REFSTRING[0],								
-							r.DATA.REFID[0],								
-							r.DATA.REMARK[0]);
+							r.DATA.TAG_ID[i],
+							r.DATA.REFTYPE[i],
+							r.DATA.REFSTRING[i],								
+							r.DATA.REFID[i],							
+							r.DATA.REMARK[i]);
 					}
 				} else {
 					alert(r);
