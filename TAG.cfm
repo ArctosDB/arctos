@@ -405,7 +405,7 @@ close l_cur;
 		<input type="button" value="save all" id="savAllBtn">
 		<div id="info"></div>
 		<form name="f">
-			<input typ="hidden" id="media_id" value="#c.media_id#">
+			<input type="hidden" id="media_id" name="media_id" value="#c.media_id#">
 			<label for="RefType_new">Pick a reference type....</label>
 			<select id="RefType_new" name="RefType_new" onchange="pickRefType(this.id,this.value);">
 				<option value=""></option>
@@ -436,6 +436,7 @@ close l_cur;
 </cfif>
 <cfif action is "fd">
 	<cfoutput>
+		<cfdump var=#form#>
 		<cfset tagids="">
 		<cfloop list="#form.fieldnames#" index="e">
 			<cfif e contains "REFTYPE">
