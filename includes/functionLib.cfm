@@ -1,4 +1,25 @@
 <!------------------------------------------------------------------------------------->
+<cffunction name="getTagReln" access="public" output="true">
+    <cfargument name="tag_is" required="true" type="numeric">
+	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select * from tag where tag_id=#tag_id#
+	</cfquery>
+	<cfif r.collection_object_id gt 0>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select guid from flat where collection_object_id=r.collection_object_id
+		</cfquery>
+		<cfset rt="cataloged_item|#r.collection_object_id#|#d.guid#|/guid/#d.guid#">
+	<cfelseif r.collecting_event_id gt 0>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select verbatim_date, verbatim_locality from collecting_event where collecting_event_id=r.collecting_event_id
+		</cfquery>
+		<cfset rt="collecting_event|#r.collecting_event_id#|#d.verbatim_locality# (#d.verbatim_date#)|/Locality.cfm?Action=editCollEvnt&collecting_event_id=#r.collecting_event_id#">
+	<cfelse>
+		<cfset rt="comment|||">
+	</cfif>
+	<cfreturn rt>
+</cffunction>
+<!------------------------------------------------------------------------------------->
 <cffunction name="checkSql" access="public" output="true" returntype="boolean">
     <cfargument name="sql" required="true" type="string">
     <cfset nono="update,insert,delete,drop,create,alter,set,execute,exec,begin,declare,all_tables,v$session,cast,sys.,ascii">
