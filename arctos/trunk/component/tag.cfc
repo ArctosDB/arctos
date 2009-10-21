@@ -21,10 +21,7 @@
 				union select * from t#o#
 			</cfloop>
 		</cfquery>
-		<cfquery name="u" dbtype="query">
-			update q set remark='' where remark is null
-		</cfquery>
-
+		
 		<cfreturn q>
 	<cfelse>
 		<cfreturn />
