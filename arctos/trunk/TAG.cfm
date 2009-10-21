@@ -187,7 +187,14 @@ close l_cur;
 			modArea(tagID);
 		});
 		
+		jQuery("div[class^='refPane_']").live('click', function(e){
+			var oid=this.id.replace('refPane','refDiv');
+			console.log('mouseover ' + this.className + ' ' + this.id + '; oid: ' + oid);
+			$("#" + this.id).addClass('hovering');
+			$("#" + oid).addClass('hovering');
+		});
 		
+		/*
 		jQuery("div[class^='refPane_']").live('mouseover', function(e){
 			var oid=this.id.replace('refPane','refDiv');
 			console.log('mouseover ' + this.className + ' ' + this.id + '; oid: ' + oid);
@@ -201,7 +208,7 @@ close l_cur;
 			$("#" + this.id).removeClass('hovering');
 			$("#" + oid).removeClass('hovering');
 		});
-		
+		*/
 	
 		$("#newRefBtn").click(function(e){
 			if ($("#t_new").val().length==0 || $("#l_new").val().length==0 || $("#h_new").val().length==0 || $("#w_new").val().length==0) {
