@@ -186,22 +186,6 @@ close l_cur;
 			var tagID=this.id.replace('editRefClk_','');
 			modArea(tagID);
 		});
-		$("#savAllBtn").live('click', function(e){
-			console.log('savAllBtn');
-			//PrefixesICareAbout
-			//All values of importance will start with a PICA, contain a _, and not end with new
-			var PICA='RefType_,RefId_,Remark_,t_,l_,h_,w_';
-			$(":input").each(function(){
-				console.log('------------------------------');
-				console.log('checking ' + this.id);
-				if (this.id.indexOf('_')){
-					console.log('has a _');
-				}
-				if (this.id.substr(this.id.length-4,4)!='_new') {
-					console.log('does not end with new');
-				}
-			});
-		});
 		
 		jQuery("div[class^='refPane_']").live('click', function(e){
 			// remove all hover panes
@@ -210,6 +194,9 @@ close l_cur;
 			//console.log('mouseover ' + this.className + ' ' + this.id + '; oid: ' + oid);
 			$("#" + this.id).addClass('hovering');
 			$("#" + oid).addClass('hovering');
+			
+			var tagID=this.id.replace('refPane_','');
+			modArea(tagID);
 		});
 		$("#newRefBtn").click(function(e){
 			if ($("#t_new").val().length==0 || $("#l_new").val().length==0 || $("#h_new").val().length==0 || $("#w_new").val().length==0) {
@@ -399,7 +386,7 @@ close l_cur;
 		<img src="#c.media_uri#" id="theImage" style="max-width:600px;max-height:800px;">
 	</div>
 	<div id="navDiv">
-		<input type="button" value="save all" id="savAllBtn">
+		<input type="button" value="save all" onclick="ef.submit();">
 		<div id="info"></div>
 		<form name="f">
 			<label for="RefType_new">Pick a reference type....</label>
@@ -426,7 +413,7 @@ close l_cur;
 		<div id="editRefDiv"></div>
 		<input type="hidden" id="media_id" name="media_id" value="#c.media_id#">
 		<input type="hidden" name="action" value="fd">
-		<input type="submit">
+		<input type="submit" value="save all">
 		</form>
 	</div>
 </cfoutput>
