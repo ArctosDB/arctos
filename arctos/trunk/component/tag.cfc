@@ -12,13 +12,29 @@
 			refw,
 			imgh,
 			imgw,
-			
 			'#reftype#' reftype,
 			#refid# refid,
-			'#refcomment#' refcomment,
-			'stuff' REFSTRING
+			remark refcomment
 		from tag where media_id=#media_id#
 	</cfquery>
+	<cfset i=1>
+	<cfloop query="data">
+		<cfset t=getTagReln(data.tag_id)>
+		<cfset rft = ArrayNew(1)>
+		<cfset rft[i]=listgetat(t,1,"|")>
+		<cfset rfi = ArrayNew(1)>
+		<cfset rfi[i]=listgetat(t,2,"|")>
+		<cfset rfs = ArrayNew(1)>
+		<cfset rfs[i]=listgetat(t,3,"|")>
+		<cfset rfl = ArrayNew(1)>
+		<cfset rfl[i]=listgetat(t,4,"|")>
+	</cfloop>
+	
+	<cfset temp = QueryAddColumn(data, "REFTYPE", "VarChar",rft)>
+	<cfset temp = QueryAddColumn(data, "REFID", "NUMERIC",rfi)>
+	<cfset temp = QueryAddColumn(data, "REFSTRING", "VarChar",rfs)>
+	<cfset temp = QueryAddColumn(data, "REFLINK", "VarChar",rfl)>
+			
 	<cfreturn data>
 </cffunction>
 <!--------------------------------------->
