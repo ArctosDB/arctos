@@ -440,7 +440,7 @@ close l_cur;
 	<cfset tagids="">
 	<cfloop list="#form.fieldnames#" index="e">
 		<cfif e contains "REFTYPE">
-			<cfset tid=replace(e,"reftype_","")>
+			<cfset tid=replace(e,"REFTYPE_","")>
 			<cfset tagids=listappend(tagids,tid)>
 			<br>--#e#--
 		</cfif>
