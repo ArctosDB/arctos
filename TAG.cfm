@@ -201,9 +201,6 @@ close l_cur;
 					console.log('does not end with new');
 				}
 			});
-			
-		
-
 		});
 		
 		jQuery("div[class^='refPane_']").live('click', function(e){
@@ -361,7 +358,6 @@ close l_cur;
 			containment: 'parent',
 			stop: function(event,ui){showDim(id,event, ui);}
 		});
-		
 		// grab current dimensions
 		$("#h_" + id).val($('#' + elemID).height());
 		$("#w_" + id).val($('#' + elemID).width());
@@ -370,9 +366,10 @@ close l_cur;
 		// flip the div to editing
 		$("#" + elemID).removeClass('hovering').removeClass('refDiv').addClass('editing');
 		// and the pane
+		console.log('change class for ' + elemID);
 		var paneID='refPane_' + id;
 		$("#" + paneID).removeClass('hovering').addClass('editing');
-		console.log('change class for ' + elemID);
+		console.log('change class for ' + paneID);
 	}
 	
 	function showDim(tagID,event,ui){
@@ -436,7 +433,6 @@ close l_cur;
 </cfif>
 <cfif action is "fd">
 	<cfoutput>
-		<cfdump var=#form#>
 		<cfset tagids="">
 		<cfloop list="#form.fieldnames#" index="e">
 			<cfif e contains "REFTYPE">
