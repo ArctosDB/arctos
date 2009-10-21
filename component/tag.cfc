@@ -84,7 +84,7 @@
 			<cfreturn rx>
 		</cftransaction>
 	<cfcatch>
-		<cfreturn "fail: #cfcatch.message# #cfcatch.detail#">
+		<cfreturn "fail: #cfcatch.message# #cfcatch.detail# #cfcatch.sql#">
 	</cfcatch>
 	</cftry>	
 	</cfoutput>
