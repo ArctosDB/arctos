@@ -363,7 +363,7 @@ close l_cur;
 		$("#w_" + id).val($('#' + elemID).width());
 		$("#t_" + id).val($("#" + elemID).position().top);
 		$("#l_" + id).val($("#" + elemID).position().left);
-		$("#" + elemID).removeClass('hovering').addClass('editing');
+		$("#" + elemID).removeClass('hovering').removeClass('refDiv').addClass('editing');
 		console.log('change class for ' + elemID);
 	}
 	
