@@ -181,7 +181,7 @@ ALTER TABLE tag
 	}); 
 	function die(){
 		$("div .editing").draggable("disable");
-		$("div .editing").resizable("disable");
+		$("div .editing").resizable("destroy");
 		$("div .editing").removeClass().addClass("old");
 	}
 	function newArea() {
