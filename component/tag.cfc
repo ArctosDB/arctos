@@ -14,12 +14,13 @@
 		<cfset i=i+1>
 	</cfloop>
 	<cfif i gt 1>
-	<cfquery name="q" dbtype="query">
-		select * from t1
-		<cfloop from="2" to="#i#-1" index="o">
-			union select * from t#o#
-		</cfloop>
-	</cfquery>
+		<cfset x=i-1>
+		<cfquery name="q" dbtype="query">
+			select * from t1
+			<cfloop from="2" to="#x#" index="o">
+				union select * from t#o#
+			</cfloop>
+		</cfquery>
 		<cfreturn q>
 	<cfelse>
 		<cfreturn />
