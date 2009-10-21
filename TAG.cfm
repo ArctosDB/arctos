@@ -186,6 +186,8 @@ close l_cur;
 		});
 		$("#savAllBtn").live('click', function(e){
 			console.log('savAllBtn');
+			var allInputs = $(":input");
+			console.log(allInputs);
 		});
 		
 		jQuery("div[class^='refPane_']").live('click', function(e){
