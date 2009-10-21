@@ -16,7 +16,7 @@
 	<cfif i gt 1>
 	<cfquery name="q" dbtype="query">
 		select * from t1
-		<cfloop from="2" to="#i#" index="o">
+		<cfloop from="2" to="#i#-1" index="o">
 			union select * from t#o#
 		</cfloop>
 	</cfquery>
