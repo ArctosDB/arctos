@@ -30,7 +30,7 @@
 <cffunction name="newRef" access="remote">
 	<cfargument name="media_id" required="yes">
 	<cfargument name="reftype" required="yes">
-	<cfargument name="refcomment" required="yes">
+	<cfargument name="remark" required="yes">
 	<cfargument name="refid" required="yes">
 	<cfargument name="reftop" required="yes">
 	<cfargument name="refleft" required="yes">
@@ -60,7 +60,7 @@
 					<cfelseif reftype is "collecting_event">
 						,collecting_event_id
 					</cfif>
-					<cfif len(refcomment) gt 0>
+					<cfif len(remark) gt 0>
 						,remark
 					</cfif>
 				) values (
@@ -75,8 +75,8 @@
 					<cfif reftype is "cataloged_item" or reftype is "collecting_event">
 						,#refid#
 					</cfif>
-					<cfif len(refcomment) gt 0>
-						,'#refcomment#'
+					<cfif len(remark) gt 0>
+						,'#remark#'
 					</cfif>
 				)
 			</cfquery>
