@@ -141,7 +141,7 @@ close l_cur;
 							r.DATA.REFTYPE[0],
 							r.DATA.REFSTRING[0],								
 							r.DATA.REFID[0],								
-							r.DATA.REFCOMMENT[0]);
+							r.DATA.REMARK[0]);
 					}
 				} else {
 					alert(r);
@@ -160,13 +160,13 @@ close l_cur;
 	
 		$("#newRefBtn").click(function(e){
 			console.log($("#newRefId").val().length);
-			console.log($("#newRefComment").val().length);
+			console.log($("#newRemark").val().length);
 			if ($("#top").val().length==0 || $("#left").val().length==0 || $("#height").val().length==0 || $("#width").val().length==0) {
 				alert('You must have a graphical reference.');
 				return false;
 			}
 			
-			if ($("#newRefId").val().length==0 && $("#newRefComment").val().length==0) {
+			if ($("#newRefId").val().length==0 && $("#newRemark").val().length==0) {
 				alert('Pick a reference and/or enter a comment.');
 				return false;
 			} else {
@@ -176,7 +176,7 @@ close l_cur;
 						media_id : $("#media_id").val(),
 						reftype: $("#newRefType").val(),
 						refid : $("#newRefId").val(),
-						refcomment: $("#newRefComment").val(),
+						remark: $("#newRemark").val(),
 						reftop: $("#top").val(),
 						refleft: $("#left").val(),
 						refh: $("#height").val(),
@@ -200,7 +200,7 @@ close l_cur;
 								r.DATA.REFTYPE[0],
 								r.DATA.REFSTRING[0],								
 								r.DATA.REFID[0],								
-								r.DATA.REFCOMMENT[0]);
+								r.DATA.REMARK[0]);
 								 
 						} else {
 							alert(r);
@@ -209,7 +209,7 @@ close l_cur;
 				);
 			}
 		});
-		function addRefPane(id,reftype,refStr,refId,refComment) {
+		function addRefPane(id,reftype,refStr,refId,remark) {
 			var d='<div id="rd_' + id + '">';
 			d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="f_RefType(this.id,this.value);">';
 			d+='<option';
@@ -231,8 +231,8 @@ close l_cur;
 			d+='<label for="RefStr_' + id + '">Reference</label>';
 			d+='<input type="text" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + refStr + '">';
 			d=='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + refId + '">';
-			d=='<label for="RefComment_' + id + '">Comment</label>';
-			d+='<input type="text" id="RefComment_' + id + '" name="RefComment_' + id + '" value="' + refComment + '">';
+			d=='<label for="Remark_' + id + '">Remark</label>';
+			d+='<input type="text" id="Remark_' + id + '" name="Remark_' + id + '" value="' + remark + '">';
 			
 			d+='</div>';
 			console.log(d);	
@@ -268,12 +268,12 @@ close l_cur;
 		$("#newRefType").val('');
 		$("#newRefId").val('');
 		$("#newRefStr").val('');
-		$("#newRefComment").val('');
+		$("#newRemark").val('');
 		$("#newRefType").hide();
 		$("#newRefStr").hide();
 		$("#newRefBtn").hide();
-		$("#newRefComment").hide();			
-		$("#c_newRefComment").hide();
+		$("#newRemark").hide();			
+		$("#c_newRemark").hide();
 		
 		$("#newRefClick").show();
 		$("#newRef").remove();
@@ -284,9 +284,9 @@ close l_cur;
 			removeNewRef();			
 		} else {
 			$("#newRefStr").show();
-			$("#newRefComment").show();
+			$("#newRemark").show();
 			$("#newRefBtn").show();
-			$("#c_newRefComment").show();
+			$("#c_newRemark").show();
 			if (v=='cataloged_item') {
 				findCatalogedItem('newRefId','newRefStr','f');
 			} else if (v=='collecting_event') {
@@ -382,8 +382,8 @@ close l_cur;
 		</select>
 		<input type="text" id="newRefStr" name="newRefStr" style="display:none">
 		<input type="hidden" id="newRefId" name="newRefId">
-		<label for="newRefComment" id="c_newRefComment" style="display:none">Comment</label>
-		<input type="text" id="newRefComment" name="newRefComment" style="display:none">
+		<label for="newRemark" id="c_newRemark" style="display:none">Remark</label>
+		<input type="text" id="newRemark" name="newRemark" style="display:none">
 		
 		<input type="button" id="newRefBtn" value="save reference" style="display:none">
 	</form>
