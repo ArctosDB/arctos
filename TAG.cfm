@@ -95,7 +95,7 @@ close l_cur;
 <script language="JavaScript" src="/includes/jquery/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
 <style>
 	.editing {
-		border:1px solid yellow;
+		border:1px solid red;
 	}
 	.refDiv{
 		border:1px solid blue;
@@ -345,6 +345,8 @@ close l_cur;
 			containment: 'parent',
 			stop: function(event,ui){showDim(id,event, ui);}
 		});
+		
+		/*
 		// grab current dimensions
 		$("#h_" + id).val($('#' + elemID).height());
 		$("#w_" + id).val($('#' + elemID).width());
@@ -357,6 +359,8 @@ close l_cur;
 		var paneID='refPane_' + id;
 		$("#" + paneID).removeClass('hovering').addClass('editing');
 		console.log('change class for ' + paneID);
+		
+		*/
 	}
 	
 	function showDim(tagID,event,ui){
