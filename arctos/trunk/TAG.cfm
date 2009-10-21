@@ -454,22 +454,22 @@ close l_cur;
 				<cfset reftype = evaluate("REFTYPE_" & i)>
 				<cfset refid = evaluate("REFID_" & i)>
 				<cfset s="update tags set
-				REMARK='#REMARK#',
-				REFH=#REFH#,
-				REFTOP=#REFTOP#,
-				REFLEFT=#REFLEFT#,
-				REFW=#REFW#
+					REMARK='#REMARK#',
+					REFH=#REFH#,
+					REFTOP=#REFTOP#,
+					REFLEFT=#REFLEFT#,
+					REFW=#REFW#">
 				<cfif reftype is "collecting_event">
-					,COLLECTION_OBJECT_ID=null
-					,COLLECTING_EVENT_ID=#refid#
+					<cfset s=s & ",COLLECTION_OBJECT_ID=null
+					,COLLECTING_EVENT_ID=#refid#">
 				<cfelseif reftype is "cataloged_item">
-					,COLLECTING_EVENT_ID=null
-					,COLLECTION_OBJECT_ID=#refid#
+					<cfset s=s & ",COLLECTING_EVENT_ID=null
+					,COLLECTION_OBJECT_ID=#refid#">
 				<cfelse>
-					,COLLECTION_OBJECT_ID=null
-					,COLLECTING_EVENT_ID=null
+					<cfset s=s & ",COLLECTION_OBJECT_ID=null
+					,COLLECTING_EVENT_ID=null">
 				</cfif>
-				where tag_id=#tag_id#">
+				<cfset s=s & "where tag_id=#tag_id#">
 				<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					#preservesinglequotes(s)#
 				</cfquery>
