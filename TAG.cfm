@@ -469,7 +469,7 @@ close l_cur;
 					<cfset s=s & ",COLLECTION_OBJECT_ID=null
 					,COLLECTING_EVENT_ID=null">
 				</cfif>
-				<cfset s=s & "where tag_id=#tag_id#">
+				<cfset s=s & " where tag_id=#tag_id#">
 				<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					#preservesinglequotes(s)#
 				</cfquery>
