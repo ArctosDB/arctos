@@ -116,13 +116,16 @@ close l_cur;
 		border:1px solid red;
 		}
 	.rp_cataloged_item {
-		border:1px solid orange;
+		border:2px solid orange;
+		margin:2px;
 	}
 	.rp_collecting_event {
-		border:1px solid yellow;
+		border:2px solid yellow;
+		margin:2px;
 	}
 	.rp_comment {
-		border:1px solid purple;
+		border:2px solid purple;
+		margin:2px;
 	}
 </style>
 
@@ -169,7 +172,18 @@ close l_cur;
 			$("#" + this.id).removeClass("old").addClass("editing");
 			modArea(this.id);
 		});
-	
+		
+		jQuery("div .rp_cataloged_item").live('mouseover', function(e){
+			console.log('mouseover rp_cataloged_item ' + this.id);
+		});
+		
+		jQuery("div .rp_collecting_event").live('mouseover', function(e){
+			console.log('mouseover rp_collecting_event ' + this.id);
+		});
+		
+		jQuery("div .rp_comment").live('mouseover', function(e){
+			console.log('mouseover rp_comment ' + this.id);
+		});
 	
 		$("#newRefBtn").click(function(e){
 			console.log($("#newRefId").val().length);
