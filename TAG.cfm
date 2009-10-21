@@ -150,7 +150,11 @@ close l_cur;
 							r.DATA.REFTYPE[i],
 							r.DATA.REFSTRING[i],								
 							r.DATA.REFID[i],							
-							r.DATA.REMARK[i]);
+							r.DATA.REMARK[i],
+							r.DATA.REFTOP[i],
+							r.DATA.REFLEFT[i],
+							r.DATA.REFH[i],
+							r.DATA.REFW[i]);
 					}
 				} else {
 					alert(r);
