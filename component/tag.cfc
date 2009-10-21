@@ -12,8 +12,6 @@
 			refw,
 			imgh,
 			imgw,
-			'#reftype#' reftype,
-			#refid# refid,
 			remark refcomment
 		from tag where media_id=#media_id#
 	</cfquery>
