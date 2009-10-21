@@ -405,7 +405,6 @@ close l_cur;
 		<input type="button" value="save all" id="savAllBtn">
 		<div id="info"></div>
 		<form name="f">
-			<input type="hidden" id="media_id" name="media_id" value="#c.media_id#">
 			<label for="RefType_new">Pick a reference type....</label>
 			<select id="RefType_new" name="RefType_new" onchange="pickRefType(this.id,this.value);">
 				<option value=""></option>
@@ -428,6 +427,7 @@ close l_cur;
 		</form>
 		<form name="ef" method="post" action="TAG.cfm">
 		<div id="editRefDiv"></div>
+		<input type="hidden" id="media_id" name="media_id" value="#c.media_id#">
 		<input type="hidden" name="action" value="fd">
 		<input type="submit">
 		</form>
