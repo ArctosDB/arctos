@@ -178,7 +178,7 @@ close l_cur;
 		
 		jQuery("div[class^='rp_']").live('mouseover', function(e){
 			var oid=this.id.replace('rd_','');
-			console.log('mouseover ' + this.className + ' + this.id + '; oid: ' + oid);
+			console.log('mouseover ' + this.className + ' ' + this.id + '; oid: ' + oid);
 			$("#" + this.id).addClass('hovering');
 			$("#" + oid).addClass('hovering');
 		});
