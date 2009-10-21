@@ -300,7 +300,6 @@ close l_cur;
 		d+='<input type="text" id="l_' + id + '" name="l_' + id + '" value="' + l + '">';
 		d+='<input type="text" id="h_' + id + '" name="h_' + id + '" value="' + h + '">';
 		d+='<input type="text" id="w_' + id + '" name="w_' + id + '" value="' + w + '">';
-		
 		d+='</div>';
 		$("#editRefDiv").append(d);
 	}
@@ -437,67 +436,45 @@ close l_cur;
 </cfif>
 <cfif action is "fd">
 	<cfoutput>
-	<cfdump var="#form#">
-	
-	<cfset tagids="">
-	<cfloop list="#form.fieldnames#" index="e">
-		<cfif e contains "REFTYPE">
-			<cfset tid=replace(e,"REFTYPE_","")>
-			<cfset tagids=listappend(tagids,tid)>
-			<br>--#e#--
-		</cfif>
-	</cfloop>
-	<p>
-	looking for #tagids#
-	
-			<hr>
-
-	<cfloop list="#tagids#" index="i">
-		<cfset TAG_ID =  #i#>
-		<cfset REMARK = evaluate("REMARK_" & i)>
-		<cfset REFH = evaluate("H_" & i)>
-		<cfset REFTOP = evaluate("T_" & i)>
-		<cfset REFLEFT = evaluate("L_" & i)>
-		<cfset REFW = evaluate("W_" & i)>
-		<cfset reftype = evaluate("REFTYPE_" & i)>
-		<cfset refid = evaluate("REFID_" & i)>
-		update tags set
-		REMARK='#REMARK#',
-		REFH=#REFH#,
-		REFTOP=#REFTOP#,
-		REFLEFT=#REFLEFT#,
-		REFW=#REFW#
-		<cfif reftype is "collecting_event">
-			,COLLECTION_OBJECT_ID=null
-			,COLLECTING_EVENT_ID=#refid#
-		<cfelseif reftype is "cataloged_item">
-			,COLLECTING_EVENT_ID=null
-			,COLLECTION_OBJECT_ID=#refid#
-		<cfelse>
-			,COLLECTION_OBJECT_ID=null
-			,COLLECTING_EVENT_ID=null
-		</cfif>
-		where tag_id=#tag_id#
-		<hr>
-		
-			
-
-	</cfloop>
-		<hr>
-									     NOT NULL NUMBER
- MEDIA_ID									     NOT NULL NUMBER
- 									      NUMBER
- 									      NUMBER
-  										      VARCHAR2(4000)
-  										      NUMBER
- 										      NUMBER
- 											      NUMBER
- 											      NUMBER
- IMGH											      NUMBER
- IMGW											      NUMBER
-
-test-uam> 
-	
+		<cfset tagids="">
+		<cfloop list="#form.fieldnames#" index="e">
+			<cfif e contains "REFTYPE">
+				<cfset tid=replace(e,"REFTYPE_","")>
+				<cfset tagids=listappend(tagids,tid)>
+			</cfif>
+		</cfloop>
+		<cftransaction>
+			<cfloop list="#tagids#" index="i">
+				<cfset TAG_ID =  #i#>
+				<cfset REMARK = evaluate("REMARK_" & i)>
+				<cfset REFH = evaluate("H_" & i)>
+				<cfset REFTOP = evaluate("T_" & i)>
+				<cfset REFLEFT = evaluate("L_" & i)>
+				<cfset REFW = evaluate("W_" & i)>
+				<cfset reftype = evaluate("REFTYPE_" & i)>
+				<cfset refid = evaluate("REFID_" & i)>
+				<cfset s="update tags set
+				REMARK='#REMARK#',
+				REFH=#REFH#,
+				REFTOP=#REFTOP#,
+				REFLEFT=#REFLEFT#,
+				REFW=#REFW#
+				<cfif reftype is "collecting_event">
+					,COLLECTION_OBJECT_ID=null
+					,COLLECTING_EVENT_ID=#refid#
+				<cfelseif reftype is "cataloged_item">
+					,COLLECTING_EVENT_ID=null
+					,COLLECTION_OBJECT_ID=#refid#
+				<cfelse>
+					,COLLECTION_OBJECT_ID=null
+					,COLLECTING_EVENT_ID=null
+				</cfif>
+				where tag_id=#tag_id#">
+				<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					#preservesinglequotes(s)#
+				</cfquery>
+			</cfloop>
+		</cftransaction>
+		<cflocation url="TAG.cfm?media_id=#media_id#" addtoken="false">
 	</cfoutput>
 </cfif>
-<hr>
