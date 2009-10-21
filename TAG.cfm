@@ -177,18 +177,24 @@ close l_cur;
 		});
 		
 		jQuery("div .rp_cataloged_item").live('mouseover', function(e){
+			var oid=this.id.replace('rp_','');
 			console.log('mouseover rp_cataloged_item ' + this.id);
 			$("#" + this.id).addClass('hovering');
+			$("#" + oid).addClass('hovering');
 		});
 		
 		jQuery("div .rp_collecting_event").live('mouseover', function(e){
+			var oid=this.id.replace('rp_','');
 			console.log('mouseover rp_collecting_event ' + this.id);
 			$("#" + this.id).addClass('hovering');
+			$("#" + oid).addClass('hovering');
 		});
 		
 		jQuery("div .rp_comment").live('mouseover', function(e){
+			var oid=this.id.replace('rp_','');
 			console.log('mouseover rp_comment ' + this.id);
 			$("#" + this.id).addClass('hovering');
+			$("#" + oid).addClass('hovering');
 		});
 	
 		$("#newRefBtn").click(function(e){
