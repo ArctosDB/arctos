@@ -453,10 +453,29 @@ close l_cur;
 	<cfloop list="#tagids#" index="i">
 		<cfset TAG_ID =  #i#>
 		<cfset REMARK = evaluate("REMARK_" & i)>
-		
+		<cfset REFH = evaluate("H_" & i)>
+		<cfset REFTOP = evaluate("T_" & i)>
+		<cfset REFLEFT = evaluate("L_" & i)>
+		<cfset REFW = evaluate("W_" & i)>
+		<cfset reftype = evaluate("REFTYPE_" & i)>
+		<cfset refid = evaluate("REFID_" & i)>
 		update tags set
 		REMARK='#REMARK#',
-		...where tag_id=#tag_id#
+		REFH=#REFH#,
+		REFTOP=#REFTOP#,
+		REFLEFT=#REFLEFT#,
+		REFW=#REFW#
+		<cfif reftype is "collecting_event">
+			,COLLECTION_OBJECT_ID=null
+			,COLLECTING_EVENT_ID=#refid#
+		<cfelseif reftype is "collection_object">
+			,COLLECTING_EVENT_ID=null
+			,COLLECTION_OBJECT_ID=#refid#
+		<cfelse>
+			,COLLECTION_OBJECT_ID=null
+			,COLLECTING_EVENT_ID=null
+		</cfif>
+		where tag_id=#tag_id#
 		<hr>
 		
 			
@@ -465,13 +484,13 @@ close l_cur;
 		<hr>
 									     NOT NULL NUMBER
  MEDIA_ID									     NOT NULL NUMBER
- 	COLLECTION_OBJECT_ID								      NUMBER
- COLLECTING_EVENT_ID									      NUMBER
+ 									      NUMBER
+ 									      NUMBER
   										      VARCHAR2(4000)
- REFTOP 										      NUMBER
- REFLEFT										      NUMBER
- REFH											      NUMBER
- REFW											      NUMBER
+  										      NUMBER
+ 										      NUMBER
+ 											      NUMBER
+ 											      NUMBER
  IMGH											      NUMBER
  IMGW											      NUMBER
 
