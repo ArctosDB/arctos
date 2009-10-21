@@ -468,7 +468,7 @@ close l_cur;
 		<cfif reftype is "collecting_event">
 			,COLLECTION_OBJECT_ID=null
 			,COLLECTING_EVENT_ID=#refid#
-		<cfelseif reftype is "collection_object">
+		<cfelseif reftype is "cataloged_item">
 			,COLLECTING_EVENT_ID=null
 			,COLLECTION_OBJECT_ID=#refid#
 		<cfelse>
