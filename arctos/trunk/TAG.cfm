@@ -335,19 +335,19 @@ close l_cur;
 		
 	function modArea(id) {
 		console.log('modarea got id ' + id);
-		var tagID=id.replace('refDiv_','');
-		$("#" + id).draggable({
+		var elemID='refDiv_' + id;
+		$("#" + elemID).draggable({
 			containment: 'parent',
-			stop: function(event,ui){showDim(tagID,event, ui);}
+			stop: function(event,ui){showDim(id,event, ui);}
 		});
-		$("#" + id).resizable({
+		$("#" + elemID).resizable({
 			containment: 'parent',
-			stop: function(event,ui){showDim(tagID,event, ui);}
+			stop: function(event,ui){showDim(id,event, ui);}
 		});
-		$("#h_" + tagID).val($('#' + id).height());
-		$("#w_" + tagID).val($('#' + id).width());
-		$("#t_" + tagID).val($("#" + id).position().top);
-		$("#l_" + tagID).val($("#" + id).position().left);
+		$("#h_" + id).val($('#' + elemID).height());
+		$("#w_" + id).val($('#' + elemID).width());
+		$("#t_" + id).val($("#" + elemID).position().top);
+		$("#l_" + id).val($("#" + id).position().left);
 	}
 	
 	function showDim(tagID,event,ui){
