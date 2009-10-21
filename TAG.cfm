@@ -342,20 +342,27 @@ close l_cur;
 		console.log('modarea got id ' + id);
 		var elemID='refDiv_' + id;
 		console.log(elemID);
-		
+		// draggable
 		$("#" + elemID).draggable({
 			containment: 'parent',
 			stop: function(event,ui){showDim(id,event, ui);}
 		});
+		// resizeable
 		$("#" + elemID).resizable({
 			containment: 'parent',
 			stop: function(event,ui){showDim(id,event, ui);}
 		});
+		
+		// grab current dimensions
 		$("#h_" + id).val($('#' + elemID).height());
 		$("#w_" + id).val($('#' + elemID).width());
 		$("#t_" + id).val($("#" + elemID).position().top);
 		$("#l_" + id).val($("#" + elemID).position().left);
+		// flip the div to editing
 		$("#" + elemID).removeClass('hovering').removeClass('refDiv').addClass('editing');
+		// and the pane
+		var paneID='refPane_' + id;
+		$("#" + paneID).removeClass('hovering').addClass('editing');
 		console.log('change class for ' + elemID);
 	}
 	
