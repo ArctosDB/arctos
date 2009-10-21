@@ -434,6 +434,10 @@ close l_cur;
 </cfoutput>
 </cfif>
 <cfif action is "fd">
+	<cfoutput>
 	<cfdump var="#form#">
+	<cfset x=listcontains(form.fieldnames,"REFTYPE")>
+	<cfdump var=#x#>
+	</cfoutput>
 </cfif>
 <hr>
