@@ -110,7 +110,7 @@
 			if ($("#t_new").val().length==0 || $("#l_new").val().length==0 || $("#h_new").val().length==0 || $("#w_new").val().length==0) {
 				alert('You must have a graphical reference.');
 				return false;
-			}			
+			}
 			if ($("#RefId_new").val().length==0 && $("#Remark_new").val().length==0) {
 				alert('Pick a reference and/or enter a comment.');
 				return false;
@@ -220,6 +220,11 @@
 		var h=ih/2;
 		var w=iw/2;
 		addArea('new',t,l,h,w);
+		$("#t_new").val(t);
+		$("#l_new").val(l);
+		$("#h_new").val(h);
+		$("#w_new").val(w);
+		
 		setTimeout("modArea('new')",500);
 		$("#info").text('Drag/resize the new red box on the image, pick a reference and/or enter a comment, then click "create reference."');
 	}
