@@ -188,6 +188,7 @@ close l_cur;
 			//$("#" + oid).addClass('hovering');
 			
 			var tagID=this.id.replace('refPane_','');
+			console.log('clicked pane - going modArea' + tagID);
 			modArea(tagID);
 		});
 		$("#newRefBtn").click(function(e){
