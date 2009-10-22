@@ -186,6 +186,9 @@ close l_cur;
 					},
 					function (r) {
 						if (r=='success') {
+							$("#refDiv_" + tagID).remove();
+							$("#refPane_" + tagID).remove();
+							
 							console.log('gone');
 						} else {
 							alert('Error deleting reference: ' + r);
@@ -329,10 +332,10 @@ close l_cur;
 		d+='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + refId + '">';
 		d+='<label for="Remark_' + id + '">Remark</label>';
 		d+='<input type="text" id="Remark_' + id + '" name="Remark_' + id + '" value="' + remark + '">';
-		d+='<input type="text" id="t_' + id + '" name="t_' + id + '" value="' + t + '">';
-		d+='<input type="text" id="l_' + id + '" name="l_' + id + '" value="' + l + '">';
-		d+='<input type="text" id="h_' + id + '" name="h_' + id + '" value="' + h + '">';
-		d+='<input type="text" id="w_' + id + '" name="w_' + id + '" value="' + w + '">';
+		d+='<input type="hidden" id="t_' + id + '" name="t_' + id + '" value="' + t + '">';
+		d+='<input type="hidden" id="l_' + id + '" name="l_' + id + '" value="' + l + '">';
+		d+='<input type="hidden" id="h_' + id + '" name="h_' + id + '" value="' + h + '">';
+		d+='<input type="hidden" id="w_' + id + '" name="w_' + id + '" value="' + w + '">';
 		d+='</div>';
 		$("#editRefDiv").append(d);
 	}
@@ -426,10 +429,10 @@ close l_cur;
 				<input type="text" id="RefId_new" name="RefId_new">
 				<label for="Remark_new">Remark</label>
 				<input type="text" id="Remark_new" name="Remark_new">
-				<input id="t_new">
-				<input id="l_new">
-				<input id="h_new">
-				<input id="w_new">
+				<input type="hidden" id="t_new">
+				<input type="hidden" id="l_new">
+				<input type="hidden" id="h_new">
+				<input type="hidden" id="w_new">
 				<input type="button" id="newRefBtn" value="save reference">
 			</span>
 		</form>
