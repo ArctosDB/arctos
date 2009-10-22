@@ -33,9 +33,9 @@
 				*/
 				
 				
-				 $('<div />').addClass('bgDiv').bind("click",removeDetail).appendTo('body').show();
+				 $('<div />').addClass('bgDiv').attr("id","bgDiv").bind("click",removeDetail).appendTo('body').show();
             //add modal window
-            $('<div />').html(d).attr("id","bgDiv").addClass('sscustomBox').appendTo('body');
+            $('<div />').html(d).attr("id","customDiv").addClass('sscustomBox').appendTo('body');
 				
 				//var bgDiv = $('<div id="bgDiv" class="bgDiv" onclick="removeDetail()"></div>').appendTo(document.body); 
 				//var cDiv = $('<div id="customDiv" class="sscustomBox" onclick="removeDetail()">' + d + '</div>').prependTo("#bgDiv"); 
