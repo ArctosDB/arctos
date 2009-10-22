@@ -20,7 +20,9 @@ width:70%;
 	.grouped {
 		border:1px solid green;
 	}
-
+	.subheading {
+		font-weight:bold;
+	}
 
 </style>
 <cfoutput>
@@ -335,7 +337,7 @@ width:70%;
 				<table class="grouped" width="95%">
 				<cfloop query="coords">
 					<tr>
-						<td class="lblCell">
+						<td class="subheading">
 							<cfif ACCEPTED_LAT_LONG_FG is 1>
 								Accepted Coordinates
 							<cfelse>
