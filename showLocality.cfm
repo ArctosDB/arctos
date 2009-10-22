@@ -75,10 +75,10 @@
 		        </cfif>
 		        <tr>
 					<td>
-						<a href="showLocality.cfm?geog_auth_rec_id=#geog_auth_rec_id#">#higher_geog#</a>
+						<a href="showLocality.cfm?action=srch&geog_auth_rec_id=#geog_auth_rec_id#">#higher_geog#</a>
 					</td>
 					<td>
-						<a href="showLocality.cfm?locality_id=#locality_id#">#spec_locality#</a>
+						<a href="showLocality.cfm?action=srch&locality_id=#locality_id#">#spec_locality#</a>
 						<cfif len(geolAtts) gt 0>[#geolAtts#]</cfif>
 						<cfif len(#VerbatimLatitude#) gt 0>
 							<br>#VerbatimLatitude#/#VerbatimLongitude#
@@ -86,7 +86,7 @@
 							<br>#nogeorefbecause#
 						</cfif> 
 					<td>
-						<a href="showLocality.cfm?collecting_event_id=#collecting_event_id#">
+						<a href="showLocality.cfm?action=srch&collecting_event_id=#collecting_event_id#">
 							<cfif len(verbatim_locality) gt 0>
 								#verbatim_locality#
 							<cfelse>
