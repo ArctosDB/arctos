@@ -94,8 +94,6 @@
 						if (r=='success') {
 							$("#refDiv_" + tagID).remove();
 							$("#refPane_" + tagID).remove();
-							
-							console.log('gone');
 						} else {
 							alert('Error deleting reference: ' + r);
 						}
@@ -113,7 +111,6 @@
 				return false;
 			}			
 			if ($("#RefId_new").val().length==0 && $("#Remark_new").val().length==0) {
-				console.log('fail@ ' + $("#RefId_new").val());
 				alert('Pick a reference and/or enter a comment.');
 				return false;
 			} else {
@@ -223,10 +220,9 @@
 		var w=iw/2;
 		addArea('new',t,l,h,w);
 		setTimeout("modArea('new')",500);
-		$("#info").text('Drag/resize the red box on the image, pick a reference and/or enter a comment, then click done.');
+		$("#info").text('Drag/resize the new red box on the image, pick a reference and/or enter a comment, then click "create reference."');
 	}
 	function pickRefType(id,v){
-		console.log('picked ' + id);
 		var tagID=id.replace('RefType_','');
 		var fname='ef';
 		if (id=='RefType_new'){
@@ -300,12 +296,13 @@
 				<input type="text" id="RefStr_new" name="RefStr_new">
 				<input type="text" id="RefId_new" name="RefId_new">
 				<label for="Remark_new">Remark</label>
-				<input type="text" id="Remark_new" name="Remark_new">
+				<input type="text" id="Remark_new" name="Remark_new" sixe="60">
 				<input type="hidden" id="t_new">
 				<input type="hidden" id="l_new">
 				<input type="hidden" id="h_new">
 				<input type="hidden" id="w_new">
-				<input type="button" id="newRefBtn" value="save reference">
+				<br>
+				<input type="button" id="newRefBtn" value="create reference">
 			</span>
 		</form>
 		<form name="ef" method="post" action="TAG.cfm">
