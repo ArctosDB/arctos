@@ -92,6 +92,10 @@
 			modArea(tagID);
 		});
 	});
+	function addArea(id,t,l,h,w) {
+		var dv='<div id="refDiv_' + id + '" class="' + c + '" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
+		$("#imgDiv").append(dv);
+	}		
 
 	function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 		if (refStr==null){refStr='';}
