@@ -70,7 +70,7 @@
 		if($element.attr("autocomplete.attached")){
 	       	return;
 		}
-       	$element.autocomplete("/ajax/higher_geog.cfm", {
+       	$element.autocomplete("/ajax/tData.cfm", {
    	 		width: 260,
 			selectFirst: true,
 			max: 30,
@@ -79,6 +79,20 @@
 			mustMatch: true,
 			cacheLength: 1
 		});
+		/*
+		jQuery("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", {
+		width: 320,
+		max: 20,
+		autofill: true,
+		highlight: false,
+		multiple: true,
+		multipleSeparator: "|",
+		scroll: true,
+		scrollHeight: 300
+	});	
+	*/
+	
+	
 		$element.result(function(event, data, formatted) {
 			if (data) 
 				var theID='nothing';
