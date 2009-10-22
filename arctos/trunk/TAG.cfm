@@ -331,7 +331,7 @@ close l_cur;
 	function modArea(id) {
 		console.log('modarea got id ' + id);
 		var divID='refDiv_' + id;
-		var paneID='paneDiv_' + id;
+		var paneID='refPane_' + id;
 		console.log('divID: ' + divID);
 		console.log('paneID: ' + paneID);
 		// draggable
