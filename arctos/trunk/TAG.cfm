@@ -20,13 +20,13 @@
 		float:right;
 		border:1px solid green;
 		width:400px;
-		height:400px;
+		height:600px;
 		overflow:scroll;
 		margin:5px;
 		padding:5px;
 	}
 	.refPane_cataloged_item {
-		background-color:#66CC99;
+		background-color:#AFC7C7;
 		padding:3px;
 		border:1px solid black;
 	}
@@ -43,7 +43,10 @@
 	.refPane_editing {
 		border:3px solid red;
 	}
-	
+	#theImage{
+		max-width:600px;
+		max-height:800px;
+	}
 </style>
 <script type="text/javascript" language="javascript"> 
 	jQuery(document).ready(function () { 
@@ -248,13 +251,10 @@
 		var fname='ef';
 		if (id=='RefType_new'){
 			var fname='f';
-			console.log(v);
 			if(v=='comment'){
-				console.log('hide');
 				$("#RefStr_new").hide();
 			} else {
 				$("#RefStr_new").show();
-				console.log('show');
 			}
 			if (v.length==0) {
 				$("#newRefHidden").hide();
@@ -307,7 +307,7 @@
 		<cfabort>
 	</cfif>
 	<div id="imgDiv">
-		<img src="#c.media_uri#" id="theImage" style="max-width:600px;max-height:800px;">
+		<img src="#c.media_uri#" id="theImage">
 	</div>
 	<div id="navDiv">
 		<div id="info"></div>
