@@ -1,5 +1,18 @@
 <cfinclude template="includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
+<style>
+	.infoPop {
+		border:3px solid green;
+		padding:.5em;
+		z-index:9999;
+		position:absolute;
+		top:5%;
+		left:5%;
+		background-color:white;
+		max-width:80%;
+		max-height:60%;
+	}
+</style>
 <script>
 	function removeDetail(){
 		$("#bgDiv").remove();
@@ -48,7 +61,7 @@
  						d+='<br>Source: <strong>' + r.DATA.SOURCE_AUTHORITY[0] + '</strong>'; 						
  					}
 					$('<div />').addClass('bgDiv').attr("id","bgDiv").bind("click",removeDetail).appendTo('body').show();
-		            $('<div />').html(d).attr("id","customDiv").addClass('sscustomBox').appendTo('body');
+		            $('<div />').html(d).attr("id","customDiv").addClass('infoPop').appendTo('body');
 					viewport.init("#customDiv");
 					viewport.init("#bgDiv");
 				} else {
