@@ -308,10 +308,10 @@
 				<input type="text" id="RefId_new" name="RefId_new">
 				<label for="Remark_new">Remark</label>
 				<input type="text" id="Remark_new" name="Remark_new" size="50">
-				<input type="text" id="t_new">
-				<input type="text" id="l_new">
-				<input type="text" id="h_new">
-				<input type="text" id="w_new">
+				<input type="hidden" id="t_new">
+				<input type="hidden" id="l_new">
+				<input type="hidden" id="h_new">
+				<input type="hidden" id="w_new">
 				<br>
 				<input type="button" id="newRefBtn" value="create reference">
 			</span>
