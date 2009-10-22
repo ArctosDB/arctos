@@ -283,8 +283,8 @@
 			geology_attribute_hierarchy
 		WHERE 
 			attribute='#attribute#'
-		order by attribute_value
 		group by attribute_value
+		order by attribute_value
 	</cfquery>
 	<cfreturn d>
 </cffunction>
