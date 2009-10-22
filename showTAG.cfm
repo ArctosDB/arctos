@@ -122,7 +122,7 @@
 	
 </script>
 <cfoutput>
-	<input id="media_id" value="#media_id#">
+	<input type="hidden" id="media_id" value="#media_id#">
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from media where media_id=#media_id#
 	</cfquery>
