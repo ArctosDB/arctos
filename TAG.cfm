@@ -153,6 +153,7 @@
 							$("#refDiv_new").remove();
 							$("#newRefHidden").hide();
 							$("#RefType_new").val('');
+							$("#Remark_new").val('');
 							addArea(
 								r.DATA.TAG_ID[0],
 								r.DATA.REFTOP[0],
