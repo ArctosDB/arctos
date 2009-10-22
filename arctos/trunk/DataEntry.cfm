@@ -22,6 +22,7 @@
 		jQuery("input[type=text]").focus(function(){
 		    this.select();
 		});
+		console.log('document is ready...');
 		$("input[id^='geology_attribute_']").each(function(i){
 			console.log('found geology: ' + i);
 			
