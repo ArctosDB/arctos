@@ -18,43 +18,39 @@
  					var d='<div align="right" class="infoLink" onclick="removeDetail()">close</div>';
  					d+="Detail for geography <strong>" + r.DATA.HIGHER_GEOG[0] + '</strong>';
  					if(r.DATA.CONTINENT_OCEAN[0]){
- 						 					d+='<br>Continent or Ocean: <strong>' + r.DATA.CONTINENT_OCEAN[0] + '</strong>';
- 						
+ 						 d+='<br>Continent or Ocean: <strong>' + r.DATA.CONTINENT_OCEAN[0] + '</strong>';
  					}
- 					d+='<br>Country: <strong>' + r.DATA.COUNTRY[0] + '</strong>';
- 					d+='<br>State or Province: <strong>' + r.DATA.STATE_PROV[0] + '</strong>';
- 					d+='<br>County: <strong>' + r.DATA.COUNTY[0] + '</strong>';
+ 					if(r.DATA.COUNTRY[0]){
+ 						d+='<br>Country: <strong>' + r.DATA.COUNTRY[0] + '</strong>';
+ 					}
+ 					if(r.DATA.STATE_PROV[0]){
+ 						d+='<br>State or Province: <strong>' + r.DATA.STATE_PROV[0] + '</strong>';
+ 					}
+ 					if(r.DATA.COUNTY[0]){
+ 						d+='<br>County: <strong>' + r.DATA.COUNTY[0] + '</strong>';
+ 					}
  					if(r.DATA.QUAD[0]){
  						d+='<br>USGS Quad: <strong>' + r.DATA.QUAD[0] + '</strong>'; 						
  					}
- 					
- 					
- 					/*
- 					,
-				,
-				STATE_PROV,
-				,
-				,
-				FEATURE,
-				ISLAND,
-				ISLAND_GROUP,
-				SEA,
-				VALID_CATALOG_TERM_FG,
-				SOURCE_AUTHORITY,
-				
-				""
-				*/
-				
-				
-				 $('<div />').addClass('bgDiv').attr("id","bgDiv").bind("click",removeDetail).appendTo('body').show();
-            //add modal window
-            $('<div />').html(d).attr("id","customDiv").addClass('sscustomBox').appendTo('body');
-				
-				//var bgDiv = $('<div id="bgDiv" class="bgDiv" onclick="removeDetail()"></div>').appendTo(document.body); 
-				//var cDiv = $('<div id="customDiv" class="sscustomBox" onclick="removeDetail()">' + d + '</div>').prependTo("#bgDiv"); 
-				
-				viewport.init("#customDiv");
-				viewport.init("#bgDiv");
+ 					if(r.DATA.FEATURE[0]){
+ 						d+='<br>Feature: <strong>' + r.DATA.FEATURE[0] + '</strong>'; 						
+ 					}
+ 					if(r.DATA.ISLAND_GROUP[0]){
+ 						d+='<br>Island Group: <strong>' + r.DATA.ISLAND_GROUP[0] + '</strong>'; 						
+ 					}
+ 					if(r.DATA.ISLAND[0]){
+ 						d+='<br>Island: <strong>' + r.DATA.ISLAND[0] + '</strong>'; 						
+ 					}
+ 					if(r.DATA.SEA[0]){
+ 						d+='<br>Sea: <strong>' + r.DATA.SEA[0] + '</strong>'; 						
+ 					}
+ 					if(r.DATA.SOURCE_AUTHORITY[0]){
+ 						d+='<br>Source: <strong>' + r.DATA.SOURCE_AUTHORITY[0] + '</strong>'; 						
+ 					}
+					$('<div />').addClass('bgDiv').attr("id","bgDiv").bind("click",removeDetail).appendTo('body').show();
+		            $('<div />').html(d).attr("id","customDiv").addClass('sscustomBox').appendTo('body');
+					viewport.init("#customDiv");
+					viewport.init("#bgDiv");
 				} else {
 					alert('An error occurred. \n' + r);
 				}
