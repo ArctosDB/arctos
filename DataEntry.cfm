@@ -22,6 +22,11 @@
 		jQuery("input[type=text]").focus(function(){
 		    this.select();
 		});
+		
+		function populateGeology(id) {
+			console.log('changed ' + id);	
+		}
+		
 	});
 	function attachAgentPick(element){
 	    var $element = jQuery(element);
@@ -65,7 +70,11 @@
 		});
         $element.attr("autocomplete.attached", true);
 	}
-	function attachGeogPick(element){
+	
+	
+		/*
+		
+		function attachGeogPick(element){
 	    var $element = jQuery(element);
 		if($element.attr("autocomplete.attached")){
 	       	return;
@@ -79,7 +88,8 @@
 			mustMatch: true,
 			cacheLength: 1
 		});
-		/*
+		
+		
 		jQuery("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", {
 		width: 320,
 		max: 20,
@@ -90,7 +100,7 @@
 		scroll: true,
 		scrollHeight: 300
 	});	
-	*/
+	
 	
 	
 		$element.result(function(event, data, formatted) {
@@ -99,6 +109,9 @@
 				jQuery('#' + theID).val(data[1]);
 		});
         $element.attr("autocomplete.attached", true);
+        
+        
+        */
 	}
 </script>
 <cf_showMenuOnly>
@@ -967,7 +980,7 @@
 											<div id="#i#">
 											<tr>
 												<td>
-													<select name="geology_attribute_#i#" id="geology_attribute_#i#" size="1">
+													<select name="geology_attribute_#i#" id="geology_attribute_#i#" size="1" onchange="populateGeology(this.id);">
 														<option value=""></option>
 														<cfloop query="ctgeology_attribute">
 															<option 
@@ -981,7 +994,8 @@
 														name="geo_att_value_#i#"
 														id="geo_att_value_#i#"
 														value="#thisVal#"
-														size="25">	
+														size="25"
+														readonly="readonly">	
 												</td>
 												<td>
 													<input type="text" 
