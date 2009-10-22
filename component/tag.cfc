@@ -1,5 +1,18 @@
 <cfcomponent>
 <!----------------------------------------------------------------------------------------->
+<cffunction name="deleteTag" access="remote">
+	<cfargument name="tag_id" required="yes">
+	<cftry>
+		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			delete from tag where tag_id=#tag_id#
+		</cfquery>
+			<cfreturn "success">
+		<cfcatch>
+			<cfreturn "#cfcatch.message# #cfcatch.detail# #cfcatch.sql#">
+		</cfcatch>
+	</cftry>
+</cffunction>
+<!----------------------------------------------------------------------------------------->
 <cffunction name="getTags" access="remote">
 	<cfargument name="media_id" required="yes">
 	<cfinclude template="/includes/functionLib.cfm">

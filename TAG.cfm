@@ -172,6 +172,28 @@ close l_cur;
 			var tagID=this.id.replace('refDiv_','');
 			modArea(tagID);
 		});
+		$("span[id^='killRefClk_']").live('click', function(e){
+			var tagID=this.id.replace('killRefClk_','');
+			var q = confirm("Are you sure you want to delete this reference?");
+			if(q){
+				jQuery.getJSON("/component/tag.cfc",
+					{
+						method : "deleteTag",
+						tag_id : tagID,
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					function (r) {
+						if (r=='success')
+							console.log('gone');
+						} else {
+							alert('Error deleting reference: ' + r);
+						}
+					}
+				);
+			}
+		});
+		
 		/*
 		$("span[id^='editRefClk_']").live('click', function(e){
 			console.log('editRefClk_');
@@ -191,39 +213,7 @@ close l_cur;
 			console.log('clicked pane - going modArea' + tagID);
 			modArea(tagID);
 		});
-		function modArea(id) {
-			console.log('modarea got id ' + id);
-			var divID='refDiv_' + id;
-			var paneID='refPane_' + id;
-			console.log('divID: ' + divID);
-			console.log('paneID: ' + paneID);
-			
-			// remove all draggables
-			$("div .editing").draggable("destroy");
-			$("div .editing").resizable("destroy");
-			
-			// remove all editing and refPane_editing classes
-			$("div .editing").removeClass("editing").addClass("refDiv");
-			$("div .refPane_editing").removeClass("refPane_editing");
-				
-			
-			$("#" + divID).removeClass("refDiv").addClass("editing");
-			$("#" + paneID).addClass('refPane_editing');
-			// draggable
-			
-			$("#" + divID).draggable({
-				containment: 'parent',
-				stop: function(event,ui){showDim(id,event, ui);}
-			});
-			// resizeable
-			$("#" + divID).resizable({
-				containment: 'parent',
-				stop: function(event,ui){showDim(id,event, ui);}
-			});
-			
-			
-				
-		}
+		
 		$("#newRefBtn").click(function(e){
 			if ($("#t_new").val().length==0 || $("#l_new").val().length==0 || $("#h_new").val().length==0 || $("#w_new").val().length==0) {
 				alert('You must have a graphical reference.');
@@ -279,16 +269,35 @@ close l_cur;
 			}
 		});
 	});
-	function makeActive(tagID) {
-		
-			//$("#" + this.id).addClass("hovering");
-			//$("#" + oid).addClass('hovering');
+	function modArea(id) {
+		var divID='refDiv_' + id;
+		var paneID='refPane_' + id;
+		// remove all draggables
+		$("div .editing").draggable("destroy");
+		$("div .editing").resizable("destroy");
+		// remove all editing and refPane_editing classes
+		$("div .editing").removeClass("editing").addClass("refDiv");
+		$("div .refPane_editing").removeClass("refPane_editing");
+		// add editing classes to our 2 objects		
+		$("#" + divID).removeClass("refDiv").addClass("editing");
+		$("#" + paneID).addClass('refPane_editing');
+		// draggable
+		$("#" + divID).draggable({
+			containment: 'parent',
+			stop: function(event,ui){showDim(id,event, ui);}
+		});
+		// resizeable
+		$("#" + divID).resizable({
+			containment: 'parent',
+			stop: function(event,ui){showDim(id,event, ui);}
+		});
 	}
 	function addRefPane(id,reftype,refStr,refId,remark,t,l,h,w) {
 		if (refStr==null){refStr='';}
 		if (remark==null){remark='';}
 		var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
 		d+='<span class="likeLink" id="editRefClk_' + id + '">Edit Reference</span';
+		d+=' ~ <span class="likeLink" id="killRefClk_' + id + '">Delete Reference</span';
 		d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="pickRefType(this.id,this.value);">';
 		d+='<option';
 		if (reftype=='comment'){
