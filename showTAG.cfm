@@ -82,12 +82,12 @@
 				}
 			}
 		);
-		jQuery("div .refDiv").live('click', function(e){
+		jQuery("div .refDiv").live('mouseover', function(e){
 			var tagID=this.id.replace('refDiv_','');
 			modArea(tagID);
 		});
 		
-		jQuery("div[class^='refPane_']").live('click', function(e){
+		jQuery("div[class^='refPane_']").live('mouseover', function(e){
 			var tagID=this.id.replace('refPane_','');
 			modArea(tagID);
 		});
@@ -96,7 +96,15 @@
 		var dv='<div id="refDiv_' + id + '" class=refDiv style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
 		$("#imgDiv").append(dv);
 	}		
-
+	function modArea(id) {
+		var divID='refDiv_' + id;
+		var paneID='refPane_' + id;
+		$("div .editing").removeClass("editing").addClass("refDiv");
+		$("div .refPane_editing").removeClass("refPane_editing");
+		// add editing classes to our 2 objects		
+		$("#" + divID).removeClass("refDiv").addClass("editing");
+		$("#" + paneID).addClass('refPane_editing');
+	}
 	function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 		if (refStr==null){refStr='';}
 		if (remark==null){remark='';}
@@ -125,38 +133,5 @@
 		<img src="#c.media_uri#" id="theImage">
 	</div>
 	<div id="navDiv">
-		<div id="info"></div>
-		<form name="f">
-			<label for="RefType_new">Create TAG type....</label>
-			<div id="newRefCell" class="newRec">
-			<select id="RefType_new" name="RefType_new" onchange="pickRefType(this.id,this.value);">
-				<option value=""></option>
-				<option value="comment">Comment Only</option>
-				<option value="cataloged_item">Cataloged Item</option>
-				<option value="collecting_event">Collecting Event</option>
-			</select>
-			<span id="newRefHidden" style="display:none">
-				<label for="RefStr_new">Reference</label>
-				<input type="text" id="RefStr_new" name="RefStr_new" size="50">
-				<input type="hidden" id="RefId_new" name="RefId_new">
-				<label for="Remark_new">Remark</label>
-				<input type="text" id="Remark_new" name="Remark_new" size="50">
-				<input type="hidden" id="t_new">
-				<input type="hidden" id="l_new">
-				<input type="hidden" id="h_new">
-				<input type="hidden" id="w_new">
-				<br>
-				<input type="button" id="newRefBtn" value="create TAG">
-			</span>
-			</div>
-		</form>
-		<hr>
-		<form name="ef" method="post" action="TAG.cfm">
-		<input type="submit" value="save all">
-		<div id="editRefDiv"></div>
-		<input type="hidden" id="media_id" name="media_id" value="#c.media_id#">
-		<input type="hidden" name="action" value="fd">
-		<input type="submit" value="save all">
-		</form>
-	</div>
+	<div id="editRefDiv"></div>
 </cfoutput>
