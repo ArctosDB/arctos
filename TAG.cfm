@@ -114,9 +114,11 @@ close l_cur;
 		margin:5px;
 		padding:5px;
 	}
-	
-	.refPane_cataloged_item {
+	.refPane_editing {
 		background-color: orange;
+	}
+	.refPane_cataloged_item {
+		border:2px solid orange;
 		margin:2px;
 	}
 	.refPane_collecting_event {
@@ -173,12 +175,13 @@ close l_cur;
 			//$(".hovering").removeClass('hovering');
 			
 			$("div .editing").removeClass("editing").addClass("refDiv");
+			$("div .refPane_editing").removeClass("refPane_editing");
 			
 			var tagID=this.id.replace('refDiv_','');
 			var oid=this.id.replace('refDiv','refPane');
 			
 			$("#" + this.id).removeClass("refDiv").addClass("editing");
-			$("#" + oid).removeClass("refPane").addClass('editing');
+			$("#" + oid)..addClass('refPane_editing');
 			
 			console.log('refDiv click: thisid=' + this.id + '; paneID=' + oid);
 			
