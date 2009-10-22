@@ -295,7 +295,7 @@
 		<div id="info"></div>
 		<form name="f">
 			<label for="RefType_new">Create reference type....</label>
-			<span id="newRefCell" class="newRec">
+			<div id="newRefCell" class="newRec">
 			<select id="RefType_new" name="RefType_new" onchange="pickRefType(this.id,this.value);">
 				<option value=""></option>
 				<option value="comment">Comment Only</option>
@@ -315,7 +315,7 @@
 				<br>
 				<input type="button" id="newRefBtn" value="create reference">
 			</span>
-			</span>
+			</div>
 		</form>
 		<form name="ef" method="post" action="TAG.cfm">
 		<div id="editRefDiv"></div>
