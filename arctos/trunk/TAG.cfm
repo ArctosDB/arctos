@@ -26,20 +26,20 @@
 		padding:5px;
 	}
 	.refPane_cataloged_item {
-		background-color:#AFC7C7;
-		padding:3px;
-		border:1px solid black;
-	}
-	.refPane_collecting_event {
-		background-color:#669999;
-		padding:3px;
-		border:1px solid black;
-	}
-	.refPane_comment {
-		background-color:#6699CC;
-		padding:3px;
-		border:1px solid black;
-	}
+        background-color:#A7B3BC;
+        padding:3px;
+        border:1px solid black;
+    }
+    .refPane_collecting_event {
+        background-color:#A0C4DF;
+        padding:3px;
+        border:1px solid black;
+    }
+    .refPane_comment {
+        background-color:#76A5D4;
+        padding:3px;
+        border:1px solid black;
+    }
 	.refPane_editing {
 		border:3px solid red;
 	}
