@@ -1,12 +1,15 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <style>
-	.lblCell{
+.lblCell{
 		text-align:right;
 		white-space:nowrap;
+vertical-align:text-top;
+width:30%;
 	}
 	.dataCell {
 		font-weight:bold;
-		white-space:nowrap;
+width:70%;
+
 	}
 	.lblCell:after {
 		content: ": ";
@@ -17,6 +20,8 @@
 	.grouped {
 		border:1px solid green;
 	}
+
+
 </style>
 <cfoutput>
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -327,7 +332,7 @@
 					order by
 						ACCEPTED_LAT_LONG_FG desc
 				</cfquery>
-				<table class="grouped">
+				<table class="grouped" width="95%">
 				<cfloop query="coords">
 					<tr>
 						<td class="lblCell">
