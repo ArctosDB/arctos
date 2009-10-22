@@ -169,40 +169,23 @@ close l_cur;
 			}
 		);
 		jQuery("div .refDiv").live('click', function(e){
-			$("div .editing").draggable("destroy");
-			$("div .editing").resizable("destroy");
-			
-			//$(".hovering").removeClass('hovering');
-			
-			$("div .editing").removeClass("editing").addClass("refDiv");
-			$("div .refPane_editing").removeClass("refPane_editing");
-			
 			var tagID=this.id.replace('refDiv_','');
-			var oid=this.id.replace('refDiv','refPane');
-			
-			$("#" + this.id).removeClass("refDiv").addClass("editing");
-			$("#" + oid).addClass('refPane_editing');
-			
-			console.log('refDiv click: thisid=' + this.id + '; paneID=' + oid);
-			
-			//$("#" + this.id).addClass("hovering");
-			//$("#" + oid).addClass('hovering');
-			
 			modArea(tagID);
 		});
+		/*
 		$("span[id^='editRefClk_']").live('click', function(e){
 			console.log('editRefClk_');
 			var tagID=this.id.replace('editRefClk_','');
 			modArea(tagID);
 		});
-		
+		*/
 		jQuery("div[class^='refPane_']").live('click', function(e){
 			// remove all hover panes
-			$(".hovering").removeClass('hovering');
-			var oid=this.id.replace('refPane','refDiv');
+			//$(".hovering").removeClass('hovering');
+			//var oid=this.id.replace('refPane','refDiv');
 			//console.log('mouseover ' + this.className + ' ' + this.id + '; oid: ' + oid);
-			$("#" + this.id).addClass('hovering');
-			$("#" + oid).addClass('hovering');
+			//$("#" + this.id).addClass('hovering');
+			//$("#" + oid).addClass('hovering');
 			
 			var tagID=this.id.replace('refPane_','');
 			modArea(tagID);
@@ -262,6 +245,11 @@ close l_cur;
 			}
 		});
 	});
+	function makeActive(tagID) {
+		
+			//$("#" + this.id).addClass("hovering");
+			//$("#" + oid).addClass('hovering');
+	}
 	function addRefPane(id,reftype,refStr,refId,remark,t,l,h,w) {
 		if (refStr==null){refStr='';}
 		if (remark==null){remark='';}
@@ -342,8 +330,10 @@ close l_cur;
 	}		
 	function modArea(id) {
 		console.log('modarea got id ' + id);
-		var elemID='refDiv_' + id;
-		console.log(elemID);
+		var divID='refDiv_' + id;
+		var paneID='paneDiv_' + id;
+		console.log('divID: ' + divID);
+		console.log('paneID: ' + paneID);
 		// draggable
 		$("#" + elemID).draggable({
 			containment: 'parent',
@@ -355,6 +345,24 @@ close l_cur;
 			stop: function(event,ui){showDim(id,event, ui);}
 		});
 		
+		// remove all draggables
+		$("div .editing").draggable("destroy");
+		$("div .editing").resizable("destroy");
+		
+		// remove all editing and refPane_editing classes
+		$("div .editing").removeClass("editing").addClass("refDiv");
+		$("div .refPane_editing").removeClass("refPane_editing");
+			
+		
+		$("#" + divID).removeClass("refDiv").addClass("editing");
+		$("#" + paneID).addClass('refPane_editing');
+			
+			console.log('refDiv click: thisid=' + this.id + '; paneID=' + oid);
+			
+			
+			
+			
+			
 		/*
 		// grab current dimensions
 		$("#h_" + id).val($('#' + elemID).height());
