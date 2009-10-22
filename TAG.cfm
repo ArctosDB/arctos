@@ -233,10 +233,16 @@
 	function newArea() {
 		var ih = $('#theImage').height();
 		var iw = $('#theImage').width();
+		/*
 		var t = ih/4;
 		var l= iw/4;
 		var h=ih/2;
 		var w=iw/2;
+		*/
+		var t = 10;
+		var l= 	10;
+		var h=50;
+		var w=100;
 		addArea('new',t,l,h,w);
 		
 		$("#t_new").val(t);
