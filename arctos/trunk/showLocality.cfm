@@ -114,7 +114,6 @@
 		</cfquery>
 		<table border id="t" class="sortable">
 			<tr>
-				<th>&nbsp;</th>
 				<th>Geography</th>
 				<th>Locality</th>
 				<th>Event</th>
@@ -135,9 +134,7 @@
 		        </cfif>
 		        <tr>
 					<td>
-						<span id="ex#geog_auth_rec_id#" class="likeLink" onclick="expandLoc(#geog_auth_rec_id#)">details</span>
-					</td>
-					<td>
+						<span class="likeLink" onclick="expandLoc(#geog_auth_rec_id#)">details</span>
 						<a href="showLocality.cfm?action=srch&geog_auth_rec_id=#geog_auth_rec_id#">#higher_geog#</a>
 					</td>
 					<td>
