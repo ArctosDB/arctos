@@ -9,6 +9,9 @@
 	.lblCell:after {
 		content: ": ";
 	}
+	.subset {
+		text-indent:1em;
+	}
 </style>
 <cfoutput>
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -317,7 +320,155 @@
 						ACCEPTED_LAT_LONG_FG desc
 				</cfquery>
 				<cfloop query="coords">
-					--#ACCEPTED_LAT_LONG_FG#--
+					<tr>
+						<td class="lblCell">
+							<cfif ACCEPTED_LAT_LONG_FG is 1>
+								Accepted Coordinates
+							<cfelse>
+								Unaccepted Coordinates
+							</cfif>
+						</td>
+						<td class="dataCell"></td>
+					</tr>
+					<cfif ORIG_LAT_LONG_UNITS is "decimal degrees">
+						<tr>
+							<td class="lblCell subset">Decimal Latitude</td>
+							<td class="dataCell">#DEC_LAT#</td>
+						</tr>
+						<tr>
+							<td class="lblCell subset">Decimal Longitude</td>
+							<td class="dataCell">#DEC_LONG#</td>
+						</tr>
+					<cfelseif ORIG_LAT_LONG_UNITS is "degrees dec. minutes">
+						<tr>
+							<td class="lblCell subset">Degrees Latitude</td>
+							<td class="dataCell">#LAT_DEG#</td>
+						</tr>
+						<tr>
+							<td class="lblCell subset">Minutes Latitude</td>
+							<td class="dataCell">#DEC_LAT_MIN#</td>
+						</tr>
+						<tr>
+							<td class="lblCell subset">Latitude Direction</td>
+							<td class="dataCell">#LAT_DIR#</td>
+						</tr>
+						<tr>
+							<td class="lblCell subset">Degrees Longitude</td>
+							<td class="dataCell">#LONG_DEG#</td>
+						</tr>
+						<tr>
+							<td class="lblCell subset">Minutes Longitude</td>
+							<td class="dataCell">#DEC_LONG_MIN#</td>
+						</tr>
+						<tr>
+							<td class="lblCell subset">Longitude Direction</td>
+							<td class="dataCell">#LONG_DIR#</td>
+						</tr>
+					<cfelseif ORIG_LAT_LONG_UNITS is "deg. min. sec.">
+						<tr>
+							<td class="lblCell subset">Degrees Latitude</td>
+							<td class="dataCell">#LAT_DEG#</td>
+						</tr>
+						<tr>
+							<td class="lblCell subset">Minutes Latitude</td>
+							<td class="dataCell">#LAT_MIN#</td>
+						</tr>
+						<tr>
+							<td class="lblCell subset">Seconds Latitude</td>
+							<td class="dataCell">#LAT_SEC#</td>
+						</tr>
+						<tr>
+							<td class="lblCell subset">Latitude Direction</td>
+							<td class="dataCell">#LAT_DIR#</td>
+						</tr>
+						<tr>
+							<td class="lblCell subset">Degrees Longitude</td>
+							<td class="dataCell">#LONG_DEG#</td>
+						</tr>
+						<tr>
+							<td class="lblCell subset">Minutes Longitude</td>
+							<td class="dataCell">#LONG_MIN#</td>
+						</tr>
+						<tr>
+							<td class="lblCell subset">Seconds Longitude</td>
+							<td class="dataCell">#LONG_SEC#</td>
+						</tr>
+						<tr>
+							<td class="lblCell subset">Longitude Direction</td>
+							<td class="dataCell">#LONG_DIR#</td>
+						</tr>
+					<cfelseif ORIG_LAT_LONG_UNITS is "UTM">
+						<tr>
+							<td class="lblCell subset">UTM Zone</td>
+							<td class="dataCell">#UTM_ZONE#</td>
+						</tr>
+						<tr>
+							<td class="lblCell subset">UTM E/W</td>
+							<td class="dataCell">#UTM_EW#</td>
+						</tr>
+						<tr>
+							<td class="lblCell subset">UTM N/S</td>
+							<td class="dataCell">#UTM_NS#</td>
+						</tr>
+					</cfif>
+					<tr>
+						<td class="lblCell subset">Datum</td>
+						<td class="dataCell">#DATUM#</td>
+					</tr>
+					<tr>
+						<td class="lblCell subset">Reference</td>
+						<td class="dataCell">#LAT_LONG_REF_SOURCE#</td>
+					</tr>
+					<tr>
+						<td class="lblCell subset">Reference</td>
+						<td class="dataCell">#LAT_LONG_REF_SOURCE#</td>
+					</tr>
+					<cfif len(MAX_ERROR_DISTANCE) gt 0>
+						<tr>
+							<td class="lblCell subset">Error</td>
+							<td class="dataCell">#MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#</td>
+						</tr>
+					</cfif>
+					<tr>
+						<td class="lblCell subset">Determiner</td>
+						<td class="dataCell">#coordinateDeterminer#</td>
+					</tr>
+					<tr>
+						<td class="lblCell subset">Determined Date</td>
+						<td class="dataCell">#dateformat(DETERMINED_DATE,"dd mmm yyyy")#</td>
+					</tr>
+					<tr>
+						<td class="lblCell subset">Method</td>
+						<td class="dataCell">#GEOREFMETHOD#</td>
+					</tr>
+					<tr>
+						<td class="lblCell subset">Verification Status</td>
+						<td class="dataCell">#VERIFICATIONSTATUS#</td>
+					</tr>
+					<cfif len(EXTENT) gt 0>
+						<tr>
+							<td class="lblCell subset">Extent</td>
+							<td class="dataCell">#EXTENT# #MAX_ERROR_UNITS#</td>
+						</tr>
+					</cfif>
+					<cfif len(GPSACCURACY) gt 0>
+						<tr>
+							<td class="lblCell subset">GPS Accuracy</td>
+							<td class="dataCell">#GPSACCURACY# #MAX_ERROR_UNITS#</td>
+						</tr>
+					</cfif>
+					<cfif len(GEOREFMETHOD) gt 0>
+						<tr>
+							<td class="lblCell subset">Method</td>
+							<td class="dataCell">#GEOREFMETHOD#</td>
+						</tr>
+					</cfif>
+					<cfif len(LAT_LONG_REMARKS) gt 0>
+						<tr>
+							<td class="lblCell subset">Remark</td>
+							<td class="dataCell">#LAT_LONG_REMARKS#</td>
+						</tr>
+					</cfif>
 				</cfloop>
 			</cfif>
 			<cfif isdefined("collecting_event_id")>
