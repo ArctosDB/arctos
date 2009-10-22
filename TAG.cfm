@@ -26,15 +26,15 @@
 		padding:5px;
 	}
 	.refPane_cataloged_item {
-		background-color:orange;
+		background-color:#66CC99;
 		padding:3px;
 	}
 	.refPane_collecting_event {
-		background-color:yellow;
+		background-color:#669999;
 		padding:3px;
 	}
 	.refPane_comment {
-		background-color:purple;
+		background-color:#6699CC;
 		padding:3px;
 	}
 	.refPane_editing {
