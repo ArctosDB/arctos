@@ -1,93 +1,4 @@
-<!----
-
-drop table tag;
-drop sequence sq_tag_id;
-
-
-create table tag (
-	tag_id number not null,
-	media_id number not null,
-	collection_object_id number,
-	collecting_event_id number,
-	remark varchar2(4000),
-	reftop number,
-	refleft number,
-	refh number,
-	refw number,
-	imgh number,
-	imgw number
-);
-
-create public synonym sq_tag_id for sq_tag_id;
-grant select on sq_tag_id to public;
-
-create or replace public synonym tag for tag;
-
-grant select on tag to public;
-
-grant all on tag to manage_media;
-
-create sequence sq_tag_id;
-
-CREATE OR REPLACE TRIGGER tag_seq before insert ON tag for each row
-   begin     
-       IF :new.tag_id IS NULL THEN
-           select sq_tag_id.nextval into :new.tag_id from dual;
-       END IF;
-   end;                                                                                            
-/
-sho err
-
-ALTER TABLE tag
-    add CONSTRAINT pk_tag
-    PRIMARY  KEY (tag_id);
-
-ALTER TABLE tag
-    add CONSTRAINT fk_tag_media
-    FOREIGN KEY (media_id)
-    REFERENCES media(media_id);
-	
-ALTER TABLE tag
-    add CONSTRAINT fk_tag_specimen
-    FOREIGN KEY (collection_object_id)
-    REFERENCES cataloged_item(collection_object_id);
-	
-ALTER TABLE tag
-    add CONSTRAINT fk_tag_event
-    FOREIGN KEY (collecting_event_id)
-    REFERENCES collecting_event(collecting_event_id);
-	
-CREATE OR REPLACE FUNCTION getTagRelations" (tid  in number id out number val out string )
-return varchar2
-as
-type rc is ref cursor;
-l_str    varchar2(4000);
-l_sep    varchar2(3);
-l_val    varchar2(4000);
-l_cur    rc;
-begin
-open l_cur for 'select agent_name
-from preferred_agent_name,collector
-where
-collector_role=''c'' AND
-collector.agent_id=preferred_agent_name.agent_id AND
-collection_object_id = :x
-order by coll_order'
-using p_key_val;
-loop
-fetch l_cur into l_val;
-exit when l_cur%notfound;
-l_str := l_str || l_sep || l_val;
-l_sep := ', ';
-end loop;
-close l_cur;
-
-       return l_str;
-  end;
----->
-
 <cfinclude template = "/includes/_header.cfm">
-
 <cfif action is "nothing">
 <script language="JavaScript" src="/includes/jquery/jquery.imgareaselect.pack.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="/includes/jquery/css/imgareaselect-default.css">
@@ -129,12 +40,8 @@ close l_cur;
 		border:2px solid purple;
 		margin:2px;
 	}
-	.hovering {
-		border:3px solid green;
-	}
 </style>
-
-<script type="text/javascript"> 
+<script type="text/javascript" language="javascript"> 
 	jQuery(document).ready(function () { 
 		jQuery.getJSON("/component/tag.cfc",
 			{
@@ -164,7 +71,7 @@ close l_cur;
 							r.DATA.REFW[i]);
 					}
 				} else {
-					alert(r);
+					alert('error: ' + r);
 				}
 			}
 		);
@@ -172,7 +79,6 @@ close l_cur;
 			var tagID=this.id.replace('refDiv_','');
 			modArea(tagID);
 		});
-		
 		$("span[id^='killRefClk_']").live('click', function(e){
 			var tagID=this.id.replace('killRefClk_','');
 			var str = confirm("Are you sure you want to delete this reference?");
@@ -197,34 +103,10 @@ close l_cur;
 				);
 			}
 		});
-		
-		/*
-		
-		
-				
-				
-				
-				
-				
-		$("span[id^='editRefClk_']").live('click', function(e){
-			console.log('editRefClk_');
-			var tagID=this.id.replace('editRefClk_','');
-			modArea(tagID);
-		});
-		*/
 		jQuery("div[class^='refPane_']").live('click', function(e){
-			// remove all hover panes
-			//$(".hovering").removeClass('hovering');
-			//var oid=this.id.replace('refPane','refDiv');
-			//console.log('mouseover ' + this.className + ' ' + this.id + '; oid: ' + oid);
-			//$("#" + this.id).addClass('hovering');
-			//$("#" + oid).addClass('hovering');
-			
 			var tagID=this.id.replace('refPane_','');
-			console.log('clicked pane - going modArea' + tagID);
 			modArea(tagID);
 		});
-		
 		$("#newRefBtn").click(function(e){
 			if ($("#t_new").val().length==0 || $("#l_new").val().length==0 || $("#h_new").val().length==0 || $("#w_new").val().length==0) {
 				alert('You must have a graphical reference.');
@@ -312,19 +194,12 @@ close l_cur;
 		d+='<label for="RefType_' + id + '">Reference Type</label>';
 		d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="pickRefType(this.id,this.value);">';
 		d+='<option';
-		if (reftype=='comment'){
-			d+=' selected="selected"';
-		}
+		if (reftype=='comment'){d+=' selected="selected"';}
 		d+=' value="comment">Comment Only</option>';
 		d+='<option';
-		if (reftype=='cataloged_item'){
-			d+=' selected="selected"';
-		}
+		if (reftype=='cataloged_item'){d+=' selected="selected"';}
 		d+=' value="cataloged_item">Cataloged Item</option>';
-		d+='<option';
-		if (reftype=='collecting_event'){
-			d+=' selected="selected"';
-		}
+		d+='<option';if (reftype=='collecting_event'){d+=' selected="selected"';}
 		d+=' value="collecting_event">Collecting Event</option>';
 		d+='</select>';
 		d+='<label for="RefStr_' + id + '">Reference</label>';
@@ -350,7 +225,6 @@ close l_cur;
 		setTimeout("modArea('new')",500);
 		$("#info").text('Drag/resize the red box on the image, pick a reference and/or enter a comment, then click done.');
 	}
-	
 	function pickRefType(id,v){
 		console.log('picked ' + id);
 		var tagID=id.replace('RefType_','');
@@ -383,9 +257,7 @@ close l_cur;
 		}
 		var dv='<div id="refDiv_' + id + '" class="' + c + '" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
 		$("#imgDiv").append(dv);
-	}		
-	
-	
+	}			
 	function showDim(tagID,event,ui){
 		try{
 			$("#t_" + tagID).val(ui.position.top);
