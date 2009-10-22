@@ -519,17 +519,12 @@ padding-right:2em;
 				</cfquery>
 				<cfif geology.recordcount gt 0>
 					<table class="grouped" width="95%">
-						<tr>
-							<td class="subheading">
-								Geology Attributes
-							</td>
-							<td class="dataCell"></td>
-						</tr>
+						
 				</cfif>
 				<cfloop query="geology">
 					<tr>
-						<td class="lblCell">Geology Attribute</td>
-						<td class="dataCell">#GEOLOGY_ATTRIBUTE#</td>
+						<td class="lblCell subheading">#GEOLOGY_ATTRIBUTE#</td>
+						<td class="dataCell"></td>
 					</tr>
 					<tr>
 						<td class="lblCell subset">Attribute Value</td>
