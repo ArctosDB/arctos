@@ -52,7 +52,7 @@
 					}
 					s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
 				}
-				s+='</select>	
+				s+='</select>';
 								
 				console.log(s);
 			}
