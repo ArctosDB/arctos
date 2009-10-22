@@ -14,7 +14,7 @@
 				ISLAND,
 				ISLAND_GROUP,
 				SEA,
-				VALID_CATALOG_TERM_FG,
+				SOURCE_AUTHORITY,
 				HIGHER_GEOG
 			from
 				geog_auth_rec
