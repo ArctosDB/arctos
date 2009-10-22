@@ -15,7 +15,8 @@
 			},
 			function (r) {
 				if (r.ROWCOUNT){
- 					var d="Detail for geography <strong>" + r.DATA.HIGHER_GEOG[0] + '</strong>';
+ 					var d='<div align="right" class="infoLink" onclick="removeDetail()">close</div>';
+ 					d+="Detail for geography <strong>" + r.DATA.HIGHER_GEOG[0] + '</strong>';
  					/*
  					CONTINENT_OCEAN,
 				COUNTRY,
@@ -40,7 +41,7 @@
 				//var bgDiv = $('<div id="bgDiv" class="bgDiv" onclick="removeDetail()"></div>').appendTo(document.body); 
 				//var cDiv = $('<div id="customDiv" class="sscustomBox" onclick="removeDetail()">' + d + '</div>').prependTo("#bgDiv"); 
 				
-				//viewport.init("#customDiv");
+				viewport.init("#customDiv");
 				viewport.init("#bgDiv");
 				} else {
 					alert('An error occurred. \n' + r);
