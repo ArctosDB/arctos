@@ -30,8 +30,9 @@
 				
 				""
 				*/
+				
 				var bgDiv = $('<div id="bgDiv" class="bgDiv" onclick="removeDetail()"></div>').appendTo(document.body); 
-				var cDiv = $('<div id="customDiv" class="sscustomBox" onclick="removeDetail()">' + d + '</div>').append("#bgDiv"); 
+				var cDiv = $('<div id="customDiv" class="sscustomBox" onclick="removeDetail()">' + d + '</div>').prependTo("#bgDiv"); 
 				
 				//viewport.init("#customDiv");
 				//viewport.init("#bgDiv");
