@@ -16,6 +16,10 @@
 				collection_object_id,
 				collecting_event_id
 			from tag where tag_id=#tag_id#
+			order by
+				collection_object_id,
+				collecting_event_id,
+				remark
 		</cfquery>
 		<cfif r.collection_object_id gt 0>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
