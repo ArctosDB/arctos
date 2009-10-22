@@ -72,10 +72,10 @@
 		);
 	}
 	
-	function expandLocality(localityID){
+	function expand(variable, value){
 		$('<div />').addClass('bgDiv').attr("id","bgDiv").bind("click",removeDetail).appendTo('body').show();
 		$('<div />').attr("id","customDiv").addClass('infoPop').appendTo('body');
-		var ptl="/includes/forms/locationDetail.cfm?locality_id=" + localityID;
+		var ptl="/includes/forms/locationDetail.cfm?" + variable + "=" + value;
 		jQuery("#customDiv").load(ptl,{},function(){
 			viewport.init("#customDiv");
 			viewport.init("#bgDiv");
@@ -158,12 +158,12 @@
 		        </cfif>
 		        <tr>
 					<td>
-						<span class="infoLink" onclick="expandGeog(#geog_auth_rec_id#)">details</span>
+						<span class="infoLink" onclick="expand('geog_auth_rec_id', #geog_auth_rec_id#)">details</span>
 						<a href="showLocality.cfm?action=srch&geog_auth_rec_id=#geog_auth_rec_id#">#higher_geog#</a>
 					</td>
 					<td>
 						<cfif len(locality_id) gt 0>
-							<span class="infoLink" onclick="expandLocality(#locality_id#)">details</span>
+							<span class="infoLink" onclick="expand('locality_id', #locality_id#)">details</span>
 							<cfif len(spec_locality) gt 0>
 								<a href="showLocality.cfm?action=srch&locality_id=#locality_id#">#spec_locality#</a>
 							<cfelse>
@@ -180,6 +180,7 @@
 						</cfif> 
 					<td>
 						<cfif len(collecting_event_id) gt 0>
+							<span class="infoLink" onclick="expand('collecting_event_id', #collecting_event_id#)">details</span>
 							<a href="showLocality.cfm?action=srch&collecting_event_id=#collecting_event_id#">
 							<cfif len(verbatim_locality) gt 0>
 								#verbatim_locality#
