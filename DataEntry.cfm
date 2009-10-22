@@ -53,7 +53,7 @@
 					s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
 				}
 				s+='</select>';
-								
+				$("#geoAttCell_" + idNum).html(s);				
 				console.log(s);
 			}
 		);
@@ -1021,7 +1021,7 @@
 														</cfloop>
 													</select>								
 												</td>
-												<td>
+												<td id="geoAttCell_#i#">
 													<input type="text" 
 														name="geo_att_value_#i#"
 														id="geo_att_value_#i#"
