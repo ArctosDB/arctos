@@ -24,7 +24,7 @@
 		});
 		console.log('document is ready...');
 		$(":input[id^='geology_attribute_']").each(function(e){
-			var gid=e+1;
+			var gid='geology_attribute_' + String(e+1);
 			populateGeology(gid);
 			console.log('found geology: ' + e);
 			
