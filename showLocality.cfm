@@ -17,16 +17,19 @@
 				if (r.ROWCOUNT){
  					var d='<div align="right" class="infoLink" onclick="removeDetail()">close</div>';
  					d+="Detail for geography <strong>" + r.DATA.HIGHER_GEOG[0] + '</strong>';
- 					d+='<br>Continent or Ocean: ' + r.DATA.CONTINENT_OCEAN[0];
- 					d+='<br>Country: ' + r.DATA.COUNTRY[0];
+ 					d+='<br>Continent or Ocean: <strong>' + r.DATA.CONTINENT_OCEAN[0] + '</strong>';
+ 					d+='<br>Country: <strong' + r.DATA.COUNTRY[0] + '</strong>';
+ 					d+='<br>State or Province: <strong' + r.DATA.STATE_PROV[0] + '</strong>';
+ 					d+='<br>County: <strong' + r.DATA.COUNTY[0] + '</strong>';
+ 					d+='<br>USGS Quad: <strong' + r.DATA.QUAD[0] + '</strong>';
  					
  					
  					/*
  					,
 				,
 				STATE_PROV,
-				COUNTY,
-				QUAD,
+				,
+				,
 				FEATURE,
 				ISLAND,
 				ISLAND_GROUP,
