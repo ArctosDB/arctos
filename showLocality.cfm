@@ -1,6 +1,9 @@
 <cfinclude template="includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <script>
+	function removeDetail(){
+		console.log('remove');
+	}
 	function expandLoc(geogID){
 		jQuery.getJSON("/component/functions.cfc",
 			{
@@ -26,7 +29,7 @@
 				SOURCE_AUTHORITY,
 				*/
 				var bgDiv = $('<div id="bgDiv" class="bgDiv" onclick="removeDetail()"></div>').appendTo(document.body); 
-				var cDiv = $('<div id="customDiv" class="sscustomBox" onclick="removeDetail()">d</div>').appendTo(bgDiv); 
+				var cDiv = $('<div id="customDiv" class="sscustomBox" onclick="removeDetail()">d</div>').appendTo("#bgDiv"); 
 				
 				viewport.init("#customDiv");
 				viewport.init("#bgDiv");
