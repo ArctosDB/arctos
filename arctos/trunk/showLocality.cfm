@@ -61,7 +61,7 @@
 	function expandLocality(localityID){
 		$('<div />').addClass('bgDiv').attr("id","bgDiv").bind("click",removeDetail).appendTo('body').show();
 		$('<div />').attr("id","customDiv").addClass('sscustomBox').appendTo('body');
-		var ptl="/includes/forms/locationDetail.cfm?locaity_id=" + localityID;
+		var ptl="/includes/forms/locationDetail.cfm?locality_id=" + localityID;
 		jQuery("#customDiv").load(ptl,{},function(){
 			viewport.init("#customDiv");
 			viewport.init("#bgDiv");
