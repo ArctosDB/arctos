@@ -131,13 +131,19 @@
 						<td class="dataCell">#CONTINENT_OCEAN#</td>
 					</tr>
 				</cfif>
+				<cfif len(COUNTRY) gt 0>
+					<tr>
+						<td class="lblCell">Country</td>
+						<td class="dataCell">#COUNTRY#</td>
+					</tr>
+				</cfif>
 				<!----
 				<div class="lrPair">
 					<div class="leftS"></div>
 					<div class="rightS"></div>
 				</div>
 				<div class="lrPair">
-					<div class="leftS">Country</div>
+					<div class="leftS"></div>
 					<div class="rightS">#COUNTRY#</div>
 				</div>
 				<div class="lrPair">
