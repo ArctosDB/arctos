@@ -36,7 +36,7 @@
 			<cfset rt="collecting_event">
 			<cfset rs="#d.verbatim_locality# (#d.verbatim_date#)">
 			<cfset ri="#r.collecting_event_id#">
-			<cfset rl="/Locality.cfm?Action=editCollEvnt&collecting_event_id=#r.collecting_event_id#">
+			<cfset rl="/showLocality.cfm?action=srch&collecting_event_id=#r.collecting_event_id#">
 		<cfelse>
 			<cfset rt="comment">
 			<cfset rs="">
