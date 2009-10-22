@@ -32,7 +32,7 @@
 				*/
 				
 				
-				 $('<div />').addClass('bgDiv').bind("click","removeDetail").appendTo('body').show();
+				 $('<div />').addClass('bgDiv').bind("click",,"removeDetail").appendTo('body').show();
             //add modal window
             $('<div />').text('I am your modal example').attr("id","bgDiv").addClass('sscustomBox').appendTo('body');
 				
