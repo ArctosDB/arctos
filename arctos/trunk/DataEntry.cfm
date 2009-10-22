@@ -23,11 +23,16 @@
 		    this.select();
 		});
 		console.log('document is ready...');
-		$("input[id^='geology_attribute_']").each(function(i){
-			console.log('found geology: ' + i);
+		$("input[id^='geology_attribute_']").each(function(e){
+			console.log('found geology: ' + e);
 			
 		});
 		
+		
+		$("input[id^='geology_attribute_']").live('mouseover', function(e){
+			console.log('found geology: ' + e);
+			
+		});
 	});
 	
 	function populateGeology(id) {
