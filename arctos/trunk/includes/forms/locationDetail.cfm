@@ -85,7 +85,7 @@
 			preferred_agent_name gdet,
 			collecting_event
 		where
-			locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
+			geog_auth_rec.geog_auth_rec_id=locality.geog_auth_rec_id(+) and
 			locality.locality_id=lat_long.locality_id(+) and
 			lat_long.determined_by_agent_id=cdet.agent_id(+) and
 			locality.locality_id=geology_attributes.locality_id(+) and
