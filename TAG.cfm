@@ -237,6 +237,11 @@
 		var fname='ef';
 		if (id=='RefType_new'){
 			var fname='f';
+			if(v=='comment'){
+				$("#RefStr_new").hide();
+			} else {
+				$("#RefStr_new").show();
+			}
 			if (v.length==0) {
 				$("#newRefHidden").hide();
 				return false;			
