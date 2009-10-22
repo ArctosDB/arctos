@@ -17,9 +17,13 @@
 				if (r.ROWCOUNT){
  					var d='<div align="right" class="infoLink" onclick="removeDetail()">close</div>';
  					d+="Detail for geography <strong>" + r.DATA.HIGHER_GEOG[0] + '</strong>';
+ 					d+='<br>Continent or Ocean: ' + r.DATA.CONTINENT_OCEAN[0];
+ 					d+='<br>Country: ' + r.DATA.COUNTRY[0];
+ 					
+ 					
  					/*
- 					CONTINENT_OCEAN,
-				COUNTRY,
+ 					,
+				,
 				STATE_PROV,
 				COUNTY,
 				QUAD,
