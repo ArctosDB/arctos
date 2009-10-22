@@ -25,21 +25,22 @@
 		margin:5px;
 		padding:5px;
 	}
-	.refPane_editing {
-		background-color: orange;
-	}
 	.refPane_cataloged_item {
-		border:2px solid orange;
-		margin:2px;
+		background-color:orange;
+		padding:3px;
 	}
 	.refPane_collecting_event {
-		border:2px solid yellow;
-		margin:2px;
+		background-color:yellow;
+		padding:3px;
 	}
 	.refPane_comment {
-		border:2px solid purple;
-		margin:2px;
+		background-color:purple;
+		padding:3px;
 	}
+	.refPane_editing {
+		border:3px solid red;
+	}
+	
 </style>
 <script type="text/javascript" language="javascript"> 
 	jQuery(document).ready(function () { 
