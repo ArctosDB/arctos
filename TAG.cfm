@@ -350,7 +350,9 @@ close l_cur;
 	function pickRefType(id,v){
 		console.log('picked ' + id);
 		var tagID=id.replace('RefType_','');
+		var fname='ef';
 		if (id=='RefType_new'){
+			var fname='f';
 			if (v.length==0) {
 				$("#newRefHidden").hide();
 				return false;			
@@ -360,10 +362,9 @@ close l_cur;
 			}			
 		} 
 		if (v=='cataloged_item') {
-			findCatalogedItem('RefId_' + tagID,'RefStr_' + tagID,'f');
-			console.log('findCatalogedItem(' + id + ',RefStr_' + tagID + ',f');
+			findCatalogedItem('RefId_' + tagID,'RefStr_' + tagID,fname);
 		} else if (v=='collecting_event') {
-			findCollEvent('RefId_' + tagID,'f','RefStr_' + tagID);
+			findCollEvent('RefId_' + tagID,fname,'RefStr_' + tagID);
 		} else if (v=='comment') {
 			$("#RefStr_" + tagID).hide();
 		} else {
