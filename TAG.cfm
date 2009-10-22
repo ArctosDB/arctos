@@ -59,12 +59,12 @@
  					var imgh=$('#theImage').height();
  					var imgw=$('#theImage').width();
  					for (i=0; i<r.ROWCOUNT; ++i) {
-						if (r.DATA.IMGH!=imgh || r.DATA.IMGW!=imgw){
+						if (r.DATA.IMGH[i]!=imgh || r.DATA.IMGW[i]!=imgw){
 							var t='Saved and current image dimensions do not jive. That\'s bad. Reload, maybe?';
 							t+=' \n imgh ' + imgh;
-							t+=' \n r.DATA.IMGH ' + r.DATA.IMGH;
+							t+=' \n r.DATA.IMGH ' + r.DATA.IMGH[i];
 							t+=' \n imgw ' + imgw;
-							t+=' \n r.DATA.IMGW ' + r.DATA.IMGW;
+							t+=' \n r.DATA.IMGW ' + r.DATA.IMGW[i];
 							alert(t);
 							return false;
 						}						
