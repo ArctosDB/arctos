@@ -227,7 +227,7 @@
 		d+='</select>';
 		d+='<label for="RefStr_' + id + '">Reference';
 		if(reflink){
-			d+='&nbsp;&nbsp;&nbsp;<a href="' + reflink + '" target="_blank" class="infoLink">Click for details</a>';
+			d+='&nbsp;&nbsp;&nbsp;<a href="' + reflink + '" target="_blank">Click for details</a>';
 		}	
 		d+='</label>';
 		d+='<input type="text" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + refStr + '" size="50">';
