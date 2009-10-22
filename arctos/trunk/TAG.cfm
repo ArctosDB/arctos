@@ -181,7 +181,7 @@ close l_cur;
 			var oid=this.id.replace('refDiv','refPane');
 			
 			$("#" + this.id).removeClass("refDiv").addClass("editing");
-			$("#" + oid)..addClass('refPane_editing');
+			$("#" + oid).addClass('refPane_editing');
 			
 			console.log('refDiv click: thisid=' + this.id + '; paneID=' + oid);
 			
