@@ -145,6 +145,12 @@ padding-right:2em;
 		</cfquery>
 		<table class="grouped" width="95%">
 			<cfloop query="geog">
+				<tr>
+					<td class="subheading">
+						Geography
+					</td>
+					<td class="dataCell"></td>
+				</tr>
 				<cfif len(CONTINENT_OCEAN) gt 0>
 					<tr>
 						<td class="lblCell">Continent/Ocean</td>
@@ -232,6 +238,12 @@ padding-right:2em;
 				</cfquery>
 				<table class="grouped" width="95%">
 				<cfloop query="locality">
+					<tr>
+						<td class="subheading">
+							Locality
+						</td>
+						<td class="dataCell"></td>
+					</tr>
 					<cfif len(SPEC_LOCALITY) gt 0>
 						<tr>
 							<td class="lblCell">Specific Locality</td>
@@ -489,6 +501,68 @@ padding-right:2em;
 					</cfif>
 				</cfloop>
 				</table>
+				<cfquery name="geology" dbtype="query">
+					select
+						GEOLOGY_ATTRIBUTE,
+						GEO_ATT_VALUE,
+						geologyDeterminer,
+						GEO_ATT_DETERMINED_DATE,
+						GEO_ATT_DETERMINED_METHOD,
+						GEO_ATT_REMARK
+					from r group by
+						GEOLOGY_ATTRIBUTE,
+						GEO_ATT_VALUE,
+						geologyDeterminer,
+						GEO_ATT_DETERMINED_DATE,
+						GEO_ATT_DETERMINED_METHOD,
+						GEO_ATT_REMARK
+				</cfquery>
+				<cfif geology.recordcount gt 0>
+					<table class="grouped" width="95%">
+						<tr>
+							<td class="subheading">
+								Geology Attributes
+							</td>
+							<td class="dataCell"></td>
+						</tr>
+				</cfif>
+				<cfloop query="geology">
+					<tr>
+						<td class="lblCell">Geology Attribute</td>
+						<td class="dataCell">#GEOLOGY_ATTRIBUTE#</td>
+					</tr>
+					<tr>
+						<td class="lblCell subset">Attribute Value</td>
+						<td class="dataCell">#GEO_ATT_VALUE#</td>
+					</tr>
+					<cfif len(geologyDeterminer) gt 0>
+						<tr>
+							<td class="lblCell subset">Determiner</td>
+							<td class="dataCell">#geologyDeterminer#</td>
+						</tr>
+					</cfif>
+					<cfif len(GEO_ATT_DETERMINED_METHOD) gt 0>
+						<tr>
+							<td class="lblCell subset">Method</td>
+							<td class="dataCell">#GEO_ATT_DETERMINED_METHOD#</td>
+						</tr>
+					</cfif>
+					<cfif len(GEO_ATT_DETERMINED_DATE) gt 0>
+						<tr>
+							<td class="lblCell subset">Determined Date</td>
+							<td class="dataCell">#GEO_ATT_DETERMINED_DATE#</td>
+						</tr>
+					</cfif>
+					<cfif len(GEO_ATT_REMARK) gt 0>
+						<tr>
+							<td class="lblCell subset">Remark</td>
+							<td class="dataCell">#GEO_ATT_REMARK#</td>
+						</tr>
+					</cfif>
+				</cfloop>
+				<cfif geology.recordcount gt 0>
+					</table>
+				</cfif>
 			</cfif>
 			<cfif isdefined("collecting_event_id")>
 				<cfquery name="event" dbtype="query">
@@ -527,36 +601,42 @@ padding-right:2em;
 						    <cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")# - #dateformat(ended_date,"dd mmm yyyy")#)">
 				        </cfif>
 				        <tr>
-							<td class="lblCell subset">Date</td>
+							<td class="subheading">
+								Collecting Event
+							</td>
+							<td class="dataCell"></td>
+						</tr>
+				        <tr>
+							<td class="lblCell">Date</td>
 							<td class="dataCell">#thisDate#</td>
 						</tr>
 						<cfif len(VERBATIM_LOCALITY) gt 0>
 							<tr>
-								<td class="lblCell subset">Verbatim Locality</td>
+								<td class="lblCell">Verbatim Locality</td>
 								<td class="dataCell">#VERBATIM_LOCALITY#</td>
 							</tr>
 						</cfif>
 						<cfif len(COLLECTING_SOURCE) gt 0>
 							<tr>
-								<td class="lblCell subset">Collecting Sourcey</td>
+								<td class="lblCell">Collecting Sourcey</td>
 								<td class="dataCell">#COLLECTING_SOURCE#</td>
 							</tr>
 						</cfif>
 						<cfif len(COLLECTING_METHOD) gt 0>
 							<tr>
-								<td class="lblCell subset">Collecting Method</td>
+								<td class="lblCell">Collecting Method</td>
 								<td class="dataCell">#COLLECTING_METHOD#</td>
 							</tr>
 						</cfif>
 						<cfif len(HABITAT_DESC) gt 0>
 							<tr>
-								<td class="lblCell subset">Habitat</td>
+								<td class="lblCell">Habitat</td>
 								<td class="dataCell">#HABITAT_DESC#</td>
 							</tr>
 						</cfif>
 						<cfif len(COLL_EVENT_REMARKS) gt 0>
 							<tr>
-								<td class="lblCell subset">Event Remarks</td>
+								<td class="lblCell">Event Remarks</td>
 								<td class="dataCell">#COLL_EVENT_REMARKS#</td>
 							</tr>
 						</cfif>							
