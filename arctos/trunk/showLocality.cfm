@@ -18,6 +18,8 @@
 <cfif action is "srch">
 	<cfoutput>
 		<cf_findLocality>
+				<cfdump var="#localityResults#">
+
 		<cfquery name="localityResults" dbtype="query">
 			select
 				collecting_event_id,
@@ -58,6 +60,7 @@
 				<th>Geography</th>
 				<th>Locality</th>
 				<th>Event</th>
+				<th>&nbsp;</th>
 			</tr>
 			<cfloop query="localityResults">
 		        <cfif (verbatim_date is began_date) AND
@@ -74,6 +77,9 @@
 				    <cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")# - #dateformat(ended_date,"dd mmm yyyy")#)">
 		        </cfif>
 		        <tr>
+					<td>
+						<span id="ex#geog_auth_rec_id#" class="infoLink" onclick="expandLoc(#geog_auth_rec_id#)">details</span>
+					</td>
 					<td>
 						<a href="showLocality.cfm?action=srch&geog_auth_rec_id=#geog_auth_rec_id#">#higher_geog#</a>
 					</td>
