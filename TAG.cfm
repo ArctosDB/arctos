@@ -13,7 +13,7 @@
 	}
 	#imgDiv{
 		position:absolute;
-		border:8px solid purple;
+		border:2px solid black;
 		float: left;
 	}
 	#navDiv {
