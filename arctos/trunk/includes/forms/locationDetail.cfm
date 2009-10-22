@@ -19,9 +19,12 @@ width:70%;
 	}
 	.grouped {
 		border:1px solid green;
+		margin-left:1.5em;
 	}
 	.subheading {
 		font-weight:bold;
+text-align:right;
+padding-right:2em;
 	}
 
 </style>
@@ -82,7 +85,6 @@ width:70%;
 			GEO_ATT_DETERMINED_DATE,
 			GEO_ATT_DETERMINED_METHOD,
 			GEO_ATT_REMARK,
-			COLLECTING_EVENT_ID,
 			BEGAN_DATE,
 			ENDED_DATE,
 			VERBATIM_DATE,
@@ -489,8 +491,76 @@ width:70%;
 				</table>
 			</cfif>
 			<cfif isdefined("collecting_event_id")>
-			
+				<cfquery name="event" dbtype="query">
+					select
+						BEGAN_DATE,
+						ENDED_DATE,
+						VERBATIM_DATE,
+						VERBATIM_LOCALITY,
+						COLL_EVENT_REMARKS,
+						COLLECTING_SOURCE,
+						COLLECTING_METHOD,
+						HABITAT_DESC
+					from r group by
+						BEGAN_DATE,
+						ENDED_DATE,
+						VERBATIM_DATE,
+						VERBATIM_LOCALITY,
+						COLL_EVENT_REMARKS,
+						COLLECTING_SOURCE,
+						COLLECTING_METHOD,
+						HABITAT_DESC	
+				</cfquery>
+				<table class="grouped" width="95%">
+					<cfloop query="event">
+						<cfif (verbatim_date is began_date) AND
+				 		    (verbatim_date is ended_date)>
+						    <cfset thisDate = dateformat(began_date,"dd mmm yyyy")>
+				        <cfelseif (
+							(verbatim_date is not began_date) OR
+				 			(verbatim_date is not ended_date)
+						    )
+					    	AND
+					    	began_date is ended_date>
+						    <cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")#)">
+				        <cfelse>
+						    <cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")# - #dateformat(ended_date,"dd mmm yyyy")#)">
+				        </cfif>
+				        <tr>
+							<td class="lblCell subset">Date</td>
+							<td class="dataCell">#thisDate#</td>
+						</tr>
+						<cfif len(VERBATIM_LOCALITY) gt 0>
+							<tr>
+								<td class="lblCell subset">Verbatim Locality</td>
+								<td class="dataCell">#VERBATIM_LOCALITY#</td>
+							</tr>
+						</cfif>
+						<cfif len(COLLECTING_SOURCE) gt 0>
+							<tr>
+								<td class="lblCell subset">Collecting Sourcey</td>
+								<td class="dataCell">#COLLECTING_SOURCE#</td>
+							</tr>
+						</cfif>
+						<cfif len(COLLECTING_METHOD) gt 0>
+							<tr>
+								<td class="lblCell subset">Collecting Method</td>
+								<td class="dataCell">#COLLECTING_METHOD#</td>
+							</tr>
+						</cfif>
+						<cfif len(HABITAT_DESC) gt 0>
+							<tr>
+								<td class="lblCell subset">Habitat</td>
+								<td class="dataCell">#HABITAT_DESC#</td>
+							</tr>
+						</cfif>
+						<cfif len(COLL_EVENT_REMARKS) gt 0>
+							<tr>
+								<td class="lblCell subset">Event Remarks</td>
+								<td class="dataCell">#COLL_EVENT_REMARKS#</td>
+							</tr>
+						</cfif>							
+					</cfloop>
+				</table>
 			</cfif>
-			
-		
-	</cfoutput>	
+		</cfoutput>	
