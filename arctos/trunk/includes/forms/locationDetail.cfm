@@ -6,6 +6,9 @@
 	.dataCell {
 		font-weight:bold;
 	}
+	.lblCell:after {
+		content: ": ";
+	}
 </style>
 <cfoutput>
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -137,59 +140,183 @@
 						<td class="dataCell">#COUNTRY#</td>
 					</tr>
 				</cfif>
-				<!----
-				<div class="lrPair">
-					<div class="leftS"></div>
-					<div class="rightS"></div>
-				</div>
-				<div class="lrPair">
-					<div class="leftS"></div>
-					<div class="rightS">#COUNTRY#</div>
-				</div>
-				<div class="lrPair">
-					<div class="leftS">State/Province</div>
-					<div class="rightS">#STATE_PROV#</div>
-				</div>
-				<div class="lrPair">
-					<div class="leftS">County</div>
-					<div class="rightS">#COUNTY#</div>
-				</div>
-				<div class="lrPair">
-					<div class="leftS">Country</div>
-					<div class="rightS">#COUNTRY#</div>
-				</div>
-				<div class="lrPair">
-					<div class="leftS">Country</div>
-					<div class="rightS">#COUNTRY#</div>
-				</div>
-				<div class="lrPair">
-					<div class="leftS">Country</div>
-					<div class="rightS">#COUNTRY#</div>
-				</div>
-				<div class="lrPair">
-					<div class="leftS">Country</div>
-					<div class="rightS">#COUNTRY#</div>
-				</div>
-				<div class="lrPair">
-					<div class="leftS">Country</div>
-					<div class="rightS">#COUNTRY#</div>
-				</div>
-				<div class="lrPair">
-					<div class="leftS">Country</div>
-					<div class="rightS">#COUNTRY#</div>
-				</div>
-				,
-				,
-				,
-				,
-				QUAD,
-				FEATURE,
-				ISLAND,
-				ISLAND_GROUP,
-				SEA,
-				SOURCE_AUTHORITY,
-				HIGHER_GEOG
-				---->
+				<cfif len(STATE_PROV) gt 0>
+					<tr>
+						<td class="lblCell">State/Province</td>
+						<td class="dataCell">#STATE_PROV#</td>
+					</tr>
+				</cfif>
+				<cfif len(COUNTY) gt 0>
+					<tr>
+						<td class="lblCell">County</td>
+						<td class="dataCell">#COUNTY#</td>
+					</tr>
+				</cfif>
+				<cfif len(QUAD) gt 0>
+					<tr>
+						<td class="lblCell">USGS Quad</td>
+						<td class="dataCell">#QUAD#</td>
+					</tr>
+				</cfif>
+				<cfif len(FEATURE) gt 0>
+					<tr>
+						<td class="lblCell">Feature</td>
+						<td class="dataCell">#FEATURE#</td>
+					</tr>
+				</cfif>
+				<cfif len(ISLAND) gt 0>
+					<tr>
+						<td class="lblCell">Island</td>
+						<td class="dataCell">#ISLAND#</td>
+					</tr>
+				</cfif>
+				<cfif len(ISLAND_GROUP) gt 0>
+					<tr>
+						<td class="lblCell">Island Group</td>
+						<td class="dataCell">#ISLAND_GROUP#</td>
+					</tr>
+				</cfif>
+				<cfif len(SEA) gt 0>
+					<tr>
+						<td class="lblCell">Sea</td>
+						<td class="dataCell">#SEA#</td>
+					</tr>
+				</cfif>
+				<cfif len(SOURCE_AUTHORITY) gt 0>
+					<tr>
+						<td class="lblCell">Source</td>
+						<td class="dataCell">#SOURCE_AUTHORITY#</td>
+					</tr>
+				</cfif>
+			</cfloop>
+			<cfquery name="locality" dbtype="query">
+				select
+					MAXIMUM_ELEVATION,
+					MINIMUM_ELEVATION,
+					ORIG_ELEV_UNITS,
+					SPEC_LOCALITY,
+					LOCALITY_REMARKS,
+					DEPTH_UNITS,
+					MIN_DEPTH,
+					MAX_DEPTH,
+					NOGEOREFBECAUSE
+				from r group by
+					MAXIMUM_ELEVATION,
+					MINIMUM_ELEVATION,
+					ORIG_ELEV_UNITS,
+					SPEC_LOCALITY,
+					LOCALITY_REMARKS,
+					DEPTH_UNITS,
+					MIN_DEPTH,
+					MAX_DEPTH,
+					NOGEOREFBECAUSE
+			</cfquery>
+			<cfloop query="locality">
+				<cfif len(SPEC_LOCALITY) gt 0>
+					<tr>
+						<td class="lblCell">Specific Locality</td>
+						<td class="dataCell">#SPEC_LOCALITY#</td>
+					</tr>
+				</cfif>
+				<cfif len(ORIG_ELEV_UNITS) gt 0>
+					<cfif MINIMUM_ELEVATION is MAXIMUM_ELEVATION>
+						<cfset e="#MINIMUM_ELEVATION# #ORIG_ELEV_UNITS#">
+					<cfelse>
+						<cfset e="Between #MINIMUM_ELEVATION# and #MAXIMUM_ELEVATION# #ORIG_ELEV_UNITS#">
+					</cfif>
+					<tr>
+						<td class="lblCell">Elevation</td>
+						<td class="dataCell">#e#</td>
+					</tr>
+				</cfif>
+				<cfif len(DEPTH_UNITS) gt 0>
+					<cfif MIN_DEPTH is MAX_DEPTH>
+						<cfset e="#MAX_DEPTH# #DEPTH_UNITS#">
+					<cfelse>
+						<cfset e="Between #MIN_DEPTH# and #MAX_DEPTH# #DEPTH_UNITS#">
+					</cfif>
+					<tr>
+						<td class="lblCell">Depth</td>
+						<td class="dataCell">#e#</td>
+					</tr>
+				</cfif>
+				<cfif len(LOCALITY_REMARKS) gt 0>
+					<tr>
+						<td class="lblCell">Locality Remarks</td>
+						<td class="dataCell">#LOCALITY_REMARKS#</td>
+					</tr>
+				</cfif>
+				<cfif len(NOGEOREFBECAUSE) gt 0>
+					<tr>
+						<td class="lblCell">Not georeferenced because</td>
+						<td class="dataCell">#NOGEOREFBECAUSE#</td>
+					</tr>
+				</cfif>
+			</cfloop>
+			<cfquery name="coords" dbtype="query">
+				select
+					LAT_DEG,
+					DEC_LAT_MIN,
+					LAT_MIN,
+					LAT_SEC,
+					LAT_DIR,
+					LONG_DEG,
+					DEC_LONG_MIN,
+					LONG_MIN,
+					LONG_SEC,
+					LONG_DIR,
+					DEC_LAT,
+					DEC_LONG,
+					DATUM,
+					UTM_ZONE,
+					UTM_EW,
+					UTM_NS,
+					ORIG_LAT_LONG_UNITS,
+					LAT_LONG_REF_SOURCE,
+					LAT_LONG_REMARKS,
+					MAX_ERROR_DISTANCE,
+					MAX_ERROR_UNITS,
+					ACCEPTED_LAT_LONG_FG,
+					EXTENT,
+					GPSACCURACY,
+					GEOREFMETHOD,
+					VERIFICATIONSTATUS,
+					coordinateDeterminer,
+					DETERMINED_DATE
+				from r group by
+					LAT_DEG,
+					DEC_LAT_MIN,
+					LAT_MIN,
+					LAT_SEC,
+					LAT_DIR,
+					LONG_DEG,
+					DEC_LONG_MIN,
+					LONG_MIN,
+					LONG_SEC,
+					LONG_DIR,
+					DEC_LAT,
+					DEC_LONG,
+					DATUM,
+					UTM_ZONE,
+					UTM_EW,
+					UTM_NS,
+					ORIG_LAT_LONG_UNITS,
+					LAT_LONG_REF_SOURCE,
+					LAT_LONG_REMARKS,
+					MAX_ERROR_DISTANCE,
+					MAX_ERROR_UNITS,
+					ACCEPTED_LAT_LONG_FG,
+					EXTENT,
+					GPSACCURACY,
+					GEOREFMETHOD,
+					VERIFICATIONSTATUS,
+					coordinateDeterminer,
+					DETERMINED_DATE
+				order by
+					ACCEPTED_LAT_LONG_FG desc
+			</cfquery>
+			<cfloop query="coords">
+				--#ACCEPTED_LAT_LONG_FG#--
 			</cfloop>
 		</table>
 	</cfoutput>	
