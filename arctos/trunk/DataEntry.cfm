@@ -23,11 +23,15 @@
 		    this.select();
 		});
 		
-		function populateGeology(id) {
+		
+		
+	});
+	
+	function populateGeology(id) {
 			console.log('changed ' + id);	
 		}
 		
-	});
+		
 	function attachAgentPick(element){
 	    var $element = jQuery(element);
 		if($element.attr("autocomplete.attached")){
