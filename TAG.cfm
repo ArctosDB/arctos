@@ -99,7 +99,7 @@
 		});
 		$("span[id^='killRefClk_']").live('click', function(e){
 			var tagID=this.id.replace('killRefClk_','');
-			var str = confirm("Are you sure you want to delete this reference?");
+			var str = confirm("Are you sure you want to delete this TAG?");
 			if (str) {
 				jQuery.getJSON("/component/tag.cfc",
 					{
@@ -113,7 +113,7 @@
 							$("#refDiv_" + tagID).remove();
 							$("#refPane_" + tagID).remove();
 						} else {
-							alert('Error deleting reference: ' + r);
+							alert('Error deleting TAG: ' + r);
 						}
 					}
 				);
@@ -125,11 +125,11 @@
 		});
 		$("#newRefBtn").click(function(e){
 			if ($("#t_new").val().length==0 || $("#l_new").val().length==0 || $("#h_new").val().length==0 || $("#w_new").val().length==0) {
-				alert('You must have a graphical reference.');
+				alert('You must have a TAG.');
 				return false;
 			}
 			if ($("#RefId_new").val().length==0 && $("#Remark_new").val().length==0) {
-				alert('Pick a reference and/or enter a comment.');
+				alert('Pick a TAG type and/or enter a comment.');
 				return false;
 			} else {
 				jQuery.getJSON("/component/tag.cfc",
@@ -154,6 +154,10 @@
 							$("#newRefHidden").hide();
 							$("#RefType_new").val('');
 							$("#Remark_new").val('');
+							$("#RefStr_new").val('');
+							$("#RefId_new").val('');
+							
+							
 							addArea(
 								r.DATA.TAG_ID[0],
 								r.DATA.REFTOP[0],
@@ -206,9 +210,9 @@
 		if (refStr==null){refStr='';}
 		if (remark==null){remark='';}
 		var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
-		d+='<span class="likeLink" id="editRefClk_' + id + '">Edit Reference</span>';
-		d+=' ~ <span class="likeLink" id="killRefClk_' + id + '">Delete Reference</span>';
-		d+='<label for="RefType_' + id + '">Reference Type</label>';
+		d+='<span class="likeLink" id="editRefClk_' + id + '">Edit TAG</span>';
+		d+=' ~ <span class="likeLink" id="killRefClk_' + id + '">Delete TAG</span>';
+		d+='<label for="RefType_' + id + '">TAG Type</label>';
 		d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="pickRefType(this.id,this.value);">';
 		d+='<option';
 		if (reftype=='comment'){d+=' selected="selected"';}
@@ -251,7 +255,7 @@
 		$("#h_new").val(h);
 		$("#w_new").val(w);
 		setTimeout("modArea('new')",500);
-		//$("#info").text('Drag/resize the new red box on the image, pick a reference and/or enter a comment, then click "create reference."');
+		//$("#info").text('Drag/resize the new red box on the image, pick a TAG and/or enter a comment, then click "create TAG."');
 	}
 	function pickRefType(id,v){
 		var tagID=id.replace('RefType_','');
@@ -319,7 +323,7 @@
 	<div id="navDiv">
 		<div id="info"></div>
 		<form name="f">
-			<label for="RefType_new">Create reference type....</label>
+			<label for="RefType_new">Create TAG type....</label>
 			<div id="newRefCell" class="newRec">
 			<select id="RefType_new" name="RefType_new" onchange="pickRefType(this.id,this.value);">
 				<option value=""></option>
@@ -338,7 +342,7 @@
 				<input type="hidden" id="h_new">
 				<input type="hidden" id="w_new">
 				<br>
-				<input type="button" id="newRefBtn" value="create reference">
+				<input type="button" id="newRefBtn" value="create TAG">
 			</span>
 			</div>
 		</form>
