@@ -299,7 +299,6 @@
 		<img src="#c.media_uri#" id="theImage" style="max-width:600px;max-height:800px;">
 	</div>
 	<div id="navDiv">
-		<input type="button" value="save all" onclick="ef.submit();">
 		<div id="info"></div>
 		<form name="f">
 			<label for="RefType_new">Create reference type....</label>
@@ -325,7 +324,9 @@
 			</span>
 			</div>
 		</form>
+		<hr>
 		<form name="ef" method="post" action="TAG.cfm">
+		<input type="submit" value="save all">
 		<div id="editRefDiv"></div>
 		<input type="hidden" id="media_id" name="media_id" value="#c.media_id#">
 		<input type="hidden" name="action" value="fd">
