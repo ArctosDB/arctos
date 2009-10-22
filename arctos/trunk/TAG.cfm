@@ -60,8 +60,7 @@
  					var imgw=$('#theImage').width();
  					for (i=0; i<r.ROWCOUNT; ++i) {
 						if (r.DATA.IMGH!=imgh || r.DATA.IMGW!=imgw){
-							alert('Saved and current image dimensions do not jive. That\'s bad. Reload, maybe? \n
-							imgh ' + imgh);
+							alert('Saved and current image dimensions do not jive. That\'s bad. Reload, maybe? \n imgh ' + imgh);
 							return false;
 						}						
 						addArea(
