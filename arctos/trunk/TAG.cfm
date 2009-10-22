@@ -239,9 +239,11 @@
 			var fname='f';
 			console.log(v);
 			if(v=='comment'){
+				console.log('hide');
 				$("#RefStr_new").hide();
 			} else {
 				$("#RefStr_new").show();
+				console.log('show');
 			}
 			if (v.length==0) {
 				$("#newRefHidden").hide();
