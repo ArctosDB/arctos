@@ -28,8 +28,14 @@
 	});
 	
 	function populateGeology(id) {
-			console.log('changed ' + id);	
-		}
+		var idNum=id.replace('geology_attribute_','');
+		console.log('changed ' + id);
+		console.log('idNum ' + idNum);
+		var thisValue=$("#geology_attribute_" + idNum).val();;
+		var dataValue=$("#geo_att_value_" + idNum).val();
+		console.log('thisValue ' + thisValue);
+		console.log('dataValue ' + dataValue);
+	}
 		
 		
 	function attachAgentPick(element){
