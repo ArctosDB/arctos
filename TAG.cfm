@@ -237,6 +237,7 @@
 		var fname='ef';
 		if (id=='RefType_new'){
 			var fname='f';
+			console.log(v);
 			if(v=='comment'){
 				$("#RefStr_new").hide();
 			} else {
