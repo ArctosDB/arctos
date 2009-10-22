@@ -133,6 +133,7 @@
 					},
 					function (r) {
 						if (r.ROWCOUNT && r.ROWCOUNT==1){
+							$("#refDiv_new").remove();
 							$("#newRefHidden").hide();
 							$("#RefType_new").val('');
 							addArea(
