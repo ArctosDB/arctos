@@ -1,5 +1,34 @@
 <cfcomponent>
-	
+<!------------------------------------------------------->
+<cffunction name="getGeogDetails" access="remote">
+	<cfargument name="geogID" type="numeric" required="yes">
+	<cftry>
+		<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select
+				CONTINENT_OCEAN,
+				COUNTRY,
+				STATE_PROV,
+				COUNTY,
+				QUAD,
+				FEATURE,
+				ISLAND,
+				ISLAND_GROUP,
+				SEA,
+				VALID_CATALOG_TERM_FG,
+				SOURCE_AUTHORITY,
+				HIGHER_GEOG
+			from
+				geog_auth_rec
+			where
+				geog_auth_rec_id=#geogID#
+		</cfquery>
+		<cfreturn r>
+	<cfcatch>
+		<cfreturn "fail: #cfcatch.Message# #cfcatch.Detail# #cfcatch.sql#">
+	</cfcatch>
+	</cftry>
+</cffunction>
+<!------------------------------------------------------->
 <cffunction name="cloneCatalogedItem" access="remote">
 	<cfargument name="collection_object_id" type="numeric" required="yes">	
 	<cftry>

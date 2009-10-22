@@ -1,5 +1,42 @@
 <cfinclude template="includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
+<script>
+	function expandLoc(geogID){
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "getGeogDetails",
+				geogID : geogID,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				if (r.ROWCOUNT){
+ 					var d="Detail for geography <strong>" + r.DATA.HIGHER_GEOG[0] + '</strong>';
+ 					/*
+ 					CONTINENT_OCEAN,
+				COUNTRY,
+				STATE_PROV,
+				COUNTY,
+				QUAD,
+				FEATURE,
+				ISLAND,
+				ISLAND_GROUP,
+				SEA,
+				VALID_CATALOG_TERM_FG,
+				SOURCE_AUTHORITY,
+				*/
+				var bgDiv = $('<div id="bgDiv" class="bgDiv" onclick="removeDetail()"></div>').appendTo(document.body); 
+				var cDiv = $('<div id="customDiv" class="sscustomBox" onclick="removeDetail()">d</div>').appendTo(bgDiv); 
+				
+				viewport.init("#customDiv");
+				viewport.init("#bgDiv");
+				} else {
+					alert('An error occurred. \n' + r);
+				}
+			}
+		);
+	}
+</script>
 <!---------------------------------------------------------------------------------------------------->
 <cfif action is "nothing">
 <cfoutput> 
@@ -57,10 +94,10 @@
 		</cfquery>
 		<table border id="t" class="sortable">
 			<tr>
+				<th>&nbsp;</th>
 				<th>Geography</th>
 				<th>Locality</th>
 				<th>Event</th>
-				<th>&nbsp;</th>
 			</tr>
 			<cfloop query="localityResults">
 		        <cfif (verbatim_date is began_date) AND
@@ -78,7 +115,7 @@
 		        </cfif>
 		        <tr>
 					<td>
-						<span id="ex#geog_auth_rec_id#" class="infoLink" onclick="expandLoc(#geog_auth_rec_id#)">details</span>
+						<span id="ex#geog_auth_rec_id#" class="likeLink" onclick="expandLoc(#geog_auth_rec_id#)">details</span>
 					</td>
 					<td>
 						<a href="showLocality.cfm?action=srch&geog_auth_rec_id=#geog_auth_rec_id#">#higher_geog#</a>
