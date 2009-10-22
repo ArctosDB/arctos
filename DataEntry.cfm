@@ -109,10 +109,10 @@
 				jQuery('#' + theID).val(data[1]);
 		});
         $element.attr("autocomplete.attached", true);
-        
-        
+       
+        }
         */
-	}
+	
 </script>
 <cf_showMenuOnly>
 <cf_setDataEntryGroups>
