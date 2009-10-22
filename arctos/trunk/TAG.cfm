@@ -172,10 +172,11 @@ close l_cur;
 			var tagID=this.id.replace('refDiv_','');
 			modArea(tagID);
 		});
+		
 		$("span[id^='killRefClk_']").live('click', function(e){
 			var tagID=this.id.replace('killRefClk_','');
-			var q = confirm("Are you sure you want to delete this reference?");
-			if(q){
+			var str = confirm("Are you sure you want to delete this reference?");
+			if (str) {
 				jQuery.getJSON("/component/tag.cfc",
 					{
 						method : "deleteTag",
@@ -184,7 +185,7 @@ close l_cur;
 						queryformat : 'column'
 					},
 					function (r) {
-						if (r=='success')
+						if (r=='success') {
 							console.log('gone');
 						} else {
 							alert('Error deleting reference: ' + r);
@@ -195,6 +196,13 @@ close l_cur;
 		});
 		
 		/*
+		
+		
+				
+				
+				
+				
+				
 		$("span[id^='editRefClk_']").live('click', function(e){
 			console.log('editRefClk_');
 			var tagID=this.id.replace('editRefClk_','');
