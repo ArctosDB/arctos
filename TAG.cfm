@@ -191,6 +191,39 @@ close l_cur;
 			console.log('clicked pane - going modArea' + tagID);
 			modArea(tagID);
 		});
+		function modArea(id) {
+			console.log('modarea got id ' + id);
+			var divID='refDiv_' + id;
+			var paneID='refPane_' + id;
+			console.log('divID: ' + divID);
+			console.log('paneID: ' + paneID);
+			
+			// remove all draggables
+			$("div .editing").draggable("destroy");
+			$("div .editing").resizable("destroy");
+			
+			// remove all editing and refPane_editing classes
+			$("div .editing").removeClass("editing").addClass("refDiv");
+			$("div .refPane_editing").removeClass("refPane_editing");
+				
+			
+			$("#" + divID).removeClass("refDiv").addClass("editing");
+			$("#" + paneID).addClass('refPane_editing');
+			// draggable
+			
+			$("#" + divID).draggable({
+				containment: 'parent',
+				stop: function(event,ui){showDim(id,event, ui);}
+			});
+			// resizeable
+			$("#" + divID).resizable({
+				containment: 'parent',
+				stop: function(event,ui){showDim(id,event, ui);}
+			});
+			
+			
+				
+		}
 		$("#newRefBtn").click(function(e){
 			if ($("#t_new").val().length==0 || $("#l_new").val().length==0 || $("#h_new").val().length==0 || $("#w_new").val().length==0) {
 				alert('You must have a graphical reference.');
@@ -329,57 +362,7 @@ close l_cur;
 		var dv='<div id="refDiv_' + id + '" class="' + c + '" style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
 		$("#imgDiv").append(dv);
 	}		
-	function modArea(id) {
-		console.log('modarea got id ' + id);
-		var divID='refDiv_' + id;
-		var paneID='refPane_' + id;
-		console.log('divID: ' + divID);
-		console.log('paneID: ' + paneID);
-		// draggable
-		
-		$("#" + divID).draggable({
-			containment: 'parent',
-			stop: function(event,ui){showDim(id,event, ui);}
-		});
-		// resizeable
-		$("#" + divID).resizable({
-			containment: 'parent',
-			stop: function(event,ui){showDim(id,event, ui);}
-		});
-		
-		// remove all draggables
-		$("div .editing").draggable("destroy");
-		$("div .editing").resizable("destroy");
-		
-		// remove all editing and refPane_editing classes
-		$("div .editing").removeClass("editing").addClass("refDiv");
-		$("div .refPane_editing").removeClass("refPane_editing");
-			
-		
-		$("#" + divID).removeClass("refDiv").addClass("editing");
-		$("#" + paneID).addClass('refPane_editing');
-			
-			
-			
-			
-			
-			
-		/*
-		// grab current dimensions
-		$("#h_" + id).val($('#' + elemID).height());
-		$("#w_" + id).val($('#' + elemID).width());
-		$("#t_" + id).val($("#" + elemID).position().top);
-		$("#l_" + id).val($("#" + elemID).position().left);
-		// flip the div to editing
-		$("#" + elemID).removeClass('hovering').addClass('editing');
-		// and the pane
-		console.log('change class for ' + elemID);
-		var paneID='refPane_' + id;
-		$("#" + paneID).removeClass('hovering').addClass('editing');
-		console.log('change class for ' + paneID);
-		
-		*/
-	}
+	
 	
 	function showDim(tagID,event,ui){
 		try{
