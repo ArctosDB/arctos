@@ -319,6 +319,7 @@
 					order by
 						ACCEPTED_LAT_LONG_FG desc
 				</cfquery>
+				<cfdump var=#coords#>
 				<cfloop query="coords">
 					<tr>
 						<td class="lblCell">
