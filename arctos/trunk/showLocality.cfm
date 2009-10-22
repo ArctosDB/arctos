@@ -11,6 +11,7 @@
 		background-color:white;
 		max-width:80%;
 		max-height:60%;
+		overflow:auto;
 	}
 </style>
 <script>

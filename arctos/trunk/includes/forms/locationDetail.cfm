@@ -28,6 +28,7 @@ padding-right:2em;
 	}
 
 </style>
+<div class="infoLink" stlye="text-align:right;" onclick="removeDetail()">close</div>
 <cfoutput>
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
