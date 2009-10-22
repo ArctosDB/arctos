@@ -78,24 +78,36 @@
 						<a href="showLocality.cfm?action=srch&geog_auth_rec_id=#geog_auth_rec_id#">#higher_geog#</a>
 					</td>
 					<td>
-						<a href="showLocality.cfm?action=srch&locality_id=#locality_id#">#spec_locality#</a>
-						<cfif len(geolAtts) gt 0>[#geolAtts#]</cfif>
-						<cfif len(#VerbatimLatitude#) gt 0>
-							<br>#VerbatimLatitude#/#VerbatimLongitude#
+						<cfif len(locality_id) gt 0>
+							<cfif len(spec_locality) gt 0>
+								<a href="showLocality.cfm?action=srch&locality_id=#locality_id#">#spec_locality#</a>
+							<cfelse>
+								[null]
+							</cfif>
+							<cfif len(geolAtts) gt 0>[#geolAtts#]</cfif>
+							<cfif len(#VerbatimLatitude#) gt 0>
+								<br>#VerbatimLatitude#/#VerbatimLongitude#
+							<cfelse>
+								<br>#nogeorefbecause#
+							</cfif>
 						<cfelse>
-							<br>#nogeorefbecause#
+							[no localities]
 						</cfif> 
 					<td>
-						<a href="showLocality.cfm?action=srch&collecting_event_id=#collecting_event_id#">
+						<cfif len(collecting_event_id) gt 0>
+							<a href="showLocality.cfm?action=srch&collecting_event_id=#collecting_event_id#">
 							<cfif len(verbatim_locality) gt 0>
 								#verbatim_locality#
 							<cfelse>
 								[null]
 							</cfif>
-						</a>
-						<br>#thisDate#; #collecting_source#
-						<cfif len(collecting_method) gt 0> 
-							(#collecting_method#)
+							</a>
+							<br>#thisDate#; #collecting_source#
+							<cfif len(collecting_method) gt 0> 
+								(#collecting_method#)
+							</cfif>
+						<cfelse>
+							[no events]
 						</cfif>
 					</td>
 				</tr>
