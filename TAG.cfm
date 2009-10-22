@@ -60,8 +60,11 @@
  					var imgw=$('#theImage').width();
  					for (i=0; i<r.ROWCOUNT; ++i) {
 						if (r.DATA.IMGH!=imgh || r.DATA.IMGW!=imgw){
-							var t='Saved and current image dimensions do not jive. That\'s bad. Reload, maybe? \n';
-							t+=' imgh ' + imgh + \n;
+							var t='Saved and current image dimensions do not jive. That\'s bad. Reload, maybe?';
+							t+=' \n imgh ' + imgh;
+							t+=' \n r.DATA.IMGH ' + r.DATA.IMGH;
+							t+=' \n imgw ' + imgw;
+							t+=' \n r.DATA.IMGW ' + r.DATA.IMGW;
 							alert(t);
 							return false;
 						}						
