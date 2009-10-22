@@ -49,8 +49,7 @@
 			GEOREFMETHOD,
 			VERIFICATIONSTATUS,
 			cdet.agent_name coordinateDeterminer,
-			DETERMINED_DATE
-			GEOLOGY_ATTRIBUTE_ID,
+			DETERMINED_DATE,
 			GEOLOGY_ATTRIBUTE,
 			GEO_ATT_VALUE,
 			GEO_ATT_DETERMINER_ID,
@@ -66,20 +65,26 @@
 			COLLECTING_SOURCE,
 			COLLECTING_METHOD,
 			HABITAT_DESC	
-			from
-				geog_auth_rec,
-				locality,
-				lat_long,
-				geology_attributes,
-				preferred_agent_name cdet,
-				collecting_event
-			where
-				locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
-				locality.locality_id=lat_long.locality_id(+) and
-				lat_long.determined_by_agent_id=cdet.agent_id(+) and
-				locality.locality_id=geology_attributes.locality_id(+) and
-				locality.locality_id=collecting_event.locality_id(+) and
+		from
+			geog_auth_rec,
+			locality,
+			lat_long,
+			geology_attributes,
+			preferred_agent_name cdet,
+			collecting_event
+		where
+			locality.geog_auth_rec_id=geog_auth_rec.geog_auth_rec_id and
+			locality.locality_id=lat_long.locality_id(+) and
+			lat_long.determined_by_agent_id=cdet.agent_id(+) and
+			locality.locality_id=geology_attributes.locality_id(+) and
+			locality.locality_id=collecting_event.locality_id(+) and
+			<cfif isdefined("geog_auth_rec_id") and len(geog_auth_rec_id) gt 0>
+				geog_auth_rec.geog_auth_rec_id=#geog_auth_rec_id#
+			<cfelseif isdefined("locality_id") and len(locality_id) gt 0>
 				locality.locality_id=#locality_ID#
+			<cfelseif isdefined("collecting_event_id") and len(collecting_event_id) gt 0>
+				collecting_event.collecting_event_id=#collecting_event_id#
+			</cfif>
 		</cfquery>
 		<cfdump var=#r#>
 	</cfoutput>	
