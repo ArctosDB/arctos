@@ -35,6 +35,18 @@
 		var dataValue=$("#geo_att_value_" + idNum).val();
 		console.log('thisValue ' + thisValue);
 		console.log('dataValue ' + dataValue);
+		
+		jQuery.getJSON("/ajax/tData.cfm",
+			{
+				action : "suggestGeologyAttVal",
+				t : thisValue,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				console.log(r);
+			}
+		);
 	}
 		
 		
