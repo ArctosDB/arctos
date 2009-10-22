@@ -56,7 +56,13 @@
 			},
 			function (r) {
 				if (r.ROWCOUNT){
-					for (i=0; i<r.ROWCOUNT; ++i) {
+ 					var imgh=$('#theImage').height();
+ 					var imgw=$('#theImage').width();
+ 					for (i=0; i<r.ROWCOUNT; ++i) {
+						if (r.DATA.IMGH!=imgh || r.DATA.IMGW!=imgw){
+							alert('Saved and current image dimensions do not jive. That\'s bad. Reload, maybe?');
+							return false;
+						}						
 						addArea(
 							r.DATA.TAG_ID[i],
 							r.DATA.REFTOP[i],
