@@ -134,7 +134,7 @@
 				SOURCE_AUTHORITY,
 				HIGHER_GEOG
 		</cfquery>
-		<table class="grouped">
+		<table class="grouped" width="95%">
 			<cfloop query="geog">
 				<cfif len(CONTINENT_OCEAN) gt 0>
 					<tr>
@@ -221,7 +221,7 @@
 						MAX_DEPTH,
 						NOGEOREFBECAUSE
 				</cfquery>
-				<table class="grouped">
+				<table class="grouped" width="95%">
 				<cfloop query="locality">
 					<cfif len(SPEC_LOCALITY) gt 0>
 						<tr>
