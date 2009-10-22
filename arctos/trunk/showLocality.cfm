@@ -2,7 +2,8 @@
 <script src="/includes/sorttable.js"></script>
 <script>
 	function removeDetail(){
-		console.log('remove');
+		$("#bgDiv").remove();
+		$("#customDiv").remove();
 	}
 	function expandLoc(geogID){
 		jQuery.getJSON("/component/functions.cfc",
@@ -34,7 +35,7 @@
 				
 				 $('<div />').addClass('bgDiv').bind("click",removeDetail).appendTo('body').show();
             //add modal window
-            $('<div />').text('I am your modal example').attr("id","bgDiv").addClass('sscustomBox').appendTo('body');
+            $('<div />').text(d).attr("id","bgDiv").addClass('sscustomBox').appendTo('body');
 				
 				//var bgDiv = $('<div id="bgDiv" class="bgDiv" onclick="removeDetail()"></div>').appendTo(document.body); 
 				//var cDiv = $('<div id="customDiv" class="sscustomBox" onclick="removeDetail()">' + d + '</div>').prependTo("#bgDiv"); 
