@@ -86,7 +86,13 @@
 							<br>#nogeorefbecause#
 						</cfif> 
 					<td>
-						<a href="showLocality.cfm?collecting_event_id=#collecting_event_id#">#verbatim_locality#</a>
+						<a href="showLocality.cfm?collecting_event_id=#collecting_event_id#">
+							<cfif len(verbatim_locality) gt 0>
+								#verbatim_locality#
+							<cfelse>
+								[null]
+							</cfif>
+						</a>
 						<br>#thisDate#; #collecting_source#
 						<cfif len(collecting_method) gt 0> 
 							(#collecting_method#)
