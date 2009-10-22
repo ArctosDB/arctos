@@ -82,7 +82,8 @@
 							r.DATA.REFTYPE[i],
 							r.DATA.REFSTRING[i],								
 							r.DATA.REFID[i],							
-							r.DATA.REMARK[i],
+							r.DATA.REMARK[i],						
+							r.DATA.REFLINK[i],
 							r.DATA.REFTOP[i],
 							r.DATA.REFLEFT[i],
 							r.DATA.REFH[i],
@@ -169,7 +170,8 @@
 								r.DATA.REFTYPE[0],
 								r.DATA.REFSTRING[0],								
 								r.DATA.REFID[0],								
-								r.DATA.REMARK[0],
+								r.DATA.REMARK[0],						
+								r.DATA.REFLINK[0],								
 								r.DATA.REFTOP[0],
 								r.DATA.REFLEFT[0],
 								r.DATA.REFH[0],
@@ -206,7 +208,7 @@
 			stop: function(event,ui){showDim(id,event, ui);}
 		});
 	}
-	function addRefPane(id,reftype,refStr,refId,remark,t,l,h,w) {
+	function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 		if (refStr==null){refStr='';}
 		if (remark==null){remark='';}
 		var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
@@ -223,7 +225,11 @@
 		d+='<option';if (reftype=='collecting_event'){d+=' selected="selected"';}
 		d+=' value="collecting_event">Collecting Event</option>';
 		d+='</select>';
-		d+='<label for="RefStr_' + id + '">Reference</label>';
+		d+='<label for="RefStr_' + id + '">Reference';
+		if(reflink){
+			d+='&nbsp;&nbsp;&nbsp;<a href="' + reflink + '" target="_blank" class="infoLink">Click for details</a>';
+		}	
+		d+='</label>';
 		d+='<input type="text" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + refStr + '" size="50">';
 		d+='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + refId + '">';
 		d+='<label for="Remark_' + id + '">Remark</label>';
