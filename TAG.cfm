@@ -304,8 +304,9 @@ close l_cur;
 		if (refStr==null){refStr='';}
 		if (remark==null){remark='';}
 		var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
-		d+='<span class="likeLink" id="editRefClk_' + id + '">Edit Reference</span';
-		d+=' ~ <span class="likeLink" id="killRefClk_' + id + '">Delete Reference</span';
+		d+='<span class="likeLink" id="editRefClk_' + id + '">Edit Reference</span>';
+		d+=' ~ <span class="likeLink" id="killRefClk_' + id + '">Delete Reference</span>';
+		d+='<label for="RefType_' + id + '">Reference Type</label>';
 		d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="pickRefType(this.id,this.value);">';
 		d+='<option';
 		if (reftype=='comment'){
