@@ -79,7 +79,7 @@
 				lat_long.determined_by_agent_id=cdet.agent_id(+) and
 				locality.locality_id=geology_attributes.locality_id(+) and
 				locality.locality_id=collecting_event.locality_id(+) and
-				locality.locality_id=#localityID#
+				locality.locality_id=#locality_ID#
 		</cfquery>
 		<cfdump var=#r#>
 	</cfoutput>	
