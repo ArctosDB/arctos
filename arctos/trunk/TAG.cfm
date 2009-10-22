@@ -313,7 +313,7 @@
 			<span id="newRefHidden" style="display:none">
 				<label for="RefStr_new">Reference</label>
 				<input type="text" id="RefStr_new" name="RefStr_new" size="50">
-				<input type="text" id="RefId_new" name="RefId_new">
+				<input type="hidden" id="RefId_new" name="RefId_new">
 				<label for="Remark_new">Remark</label>
 				<input type="text" id="Remark_new" name="Remark_new" size="50">
 				<input type="hidden" id="t_new">
