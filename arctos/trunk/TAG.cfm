@@ -335,12 +335,13 @@ close l_cur;
 		console.log('divID: ' + divID);
 		console.log('paneID: ' + paneID);
 		// draggable
-		$("#" + elemID).draggable({
+		
+		$("#" + divID).draggable({
 			containment: 'parent',
 			stop: function(event,ui){showDim(id,event, ui);}
 		});
 		// resizeable
-		$("#" + elemID).resizable({
+		$("#" + divID).resizable({
 			containment: 'parent',
 			stop: function(event,ui){showDim(id,event, ui);}
 		});
