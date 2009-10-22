@@ -274,7 +274,33 @@
 	</cftry>
 </cffunction>
 
+<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		SELECT 
+			attribute_value
+		FROM 
+			geology_attribute_hierarchy
+		WHERE 
+			upper(attribute_value) LIKE '%#ucase(q)#%'
+			<cfif isdefined("t") and len(#t#) gt 0>and attribute='#t#'</cfif>
+			group by attribute_value
+	</cfquery>
 
+
+<!------------------------------------------------------->
+<cffunction name="getGeologyValues" access="remote">
+	<cfargument name="attribute" type="string" required="yes">
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		SELECT 
+			attribute_value
+		FROM 
+			geology_attribute_hierarchy
+		WHERE 
+			attribute='#attribute#'
+		order by attribute_value
+		group by attribute_value
+	</cfquery>
+	<cfreturn d>
+</cffunction>
 
 <!------------------------------------------------------->
 <cffunction name="saveAgentRank" access="remote">

@@ -36,10 +36,10 @@
 		console.log('thisValue ' + thisValue);
 		console.log('dataValue ' + dataValue);
 		
-		jQuery.getJSON("/ajax/tData.cfm",
+		jQuery.getJSON("/component/functions.cfc",
 			{
-				action : "suggestGeologyAttVal",
-				t : thisValue,
+				method : "getGeologyValues",
+				attribute : thisValue,
 				returnformat : "json",
 				queryformat : 'column'
 			},
