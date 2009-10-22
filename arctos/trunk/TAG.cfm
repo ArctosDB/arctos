@@ -416,7 +416,7 @@ close l_cur;
 		<input type="button" value="save all" onclick="ef.submit();">
 		<div id="info"></div>
 		<form name="f">
-			<label for="RefType_new">Pick a reference type....</label>
+			<label for="RefType_new">Create reference type....</label>
 			<select id="RefType_new" name="RefType_new" onchange="pickRefType(this.id,this.value);">
 				<option value=""></option>
 				<option value="comment">Comment Only</option>
