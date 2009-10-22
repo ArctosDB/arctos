@@ -23,7 +23,7 @@
 		    this.select();
 		});
 		console.log('document is ready...');
-		$(":input[id^='geology_attribute_']").each(function(e){
+		$("select[id^='geology_attribute_']").each(function(e){
 			var gid='geology_attribute_' + String(e+1);
 			populateGeology(gid);			
 		});		
@@ -41,7 +41,7 @@
 				queryformat : 'column'
 			},
 			function (r) {
-				var s;
+				var s='';
 				for (i=0; i<r.ROWCOUNT; ++i) {
 					s+='<option value="' + r.DATA.ATTRIBUTE_VALUE[i] + '"';
 					if (r.DATA.ATTRIBUTE_VALUE[i]==dataValue) {
@@ -49,7 +49,8 @@
 					}
 					s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
 				}
-				$("#geo_att_value_" + idNum).html(s);				
+				console.log(s);
+				$("select#geo_att_value_" + idNum).html(s);				
 			}
 		);
 	}
@@ -1016,7 +1017,7 @@
 														</cfloop>
 													</select>								
 												</td>
-												<td id="geoAttCell_#i#">
+												<td>
 													<select name="geo_att_value_#i#" id="geo_att_value_#i#">
 														<option value="#thisVal#">#thisVal#</option>
 													</select>	
@@ -1051,9 +1052,6 @@
 												</td>
 											</tr>
 											</div>
-											<script>
-												jQuery("##geo_att_value_#i#").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"geology_attribute_#i#"});
-											</script>
 										</cfloop>
 									</table>
 								</td>
