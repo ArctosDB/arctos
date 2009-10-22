@@ -2,15 +2,20 @@
 <style>
 	.lblCell{
 		text-align:right;
+		white-space:nowrap;
 	}
 	.dataCell {
 		font-weight:bold;
+		white-space:nowrap;
 	}
 	.lblCell:after {
 		content: ": ";
 	}
 	.subset {
 		text-indent:1em;
+	}
+	.grouped {
+		border:1px solid green;
 	}
 </style>
 <cfoutput>
@@ -129,7 +134,7 @@
 				SOURCE_AUTHORITY,
 				HIGHER_GEOG
 		</cfquery>
-		<table>
+		<table class="grouped">
 			<cfloop query="geog">
 				<cfif len(CONTINENT_OCEAN) gt 0>
 					<tr>
@@ -192,6 +197,7 @@
 					</tr>
 				</cfif>
 			</cfloop>
+		</table>
 			<cfif isdefined("locality_id") or isdefined("collecting_event_id")>
 				<cfquery name="locality" dbtype="query">
 					select
@@ -215,6 +221,7 @@
 						MAX_DEPTH,
 						NOGEOREFBECAUSE
 				</cfquery>
+				<table class="grouped">
 				<cfloop query="locality">
 					<cfif len(SPEC_LOCALITY) gt 0>
 						<tr>
@@ -257,6 +264,7 @@
 						</tr>
 					</cfif>
 				</cfloop>
+				</table>
 				<cfquery name="coords" dbtype="query">
 					select
 						LAT_DEG,
@@ -319,6 +327,7 @@
 					order by
 						ACCEPTED_LAT_LONG_FG desc
 				</cfquery>
+				<table class="grouped">
 				<cfloop query="coords">
 					<tr>
 						<td class="lblCell">
@@ -470,10 +479,11 @@
 						</tr>
 					</cfif>
 				</cfloop>
+				</table>
 			</cfif>
 			<cfif isdefined("collecting_event_id")>
 			
 			</cfif>
 			
-		</table>
+		
 	</cfoutput>	
