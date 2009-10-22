@@ -358,7 +358,6 @@ close l_cur;
 		$("#" + divID).removeClass("refDiv").addClass("editing");
 		$("#" + paneID).addClass('refPane_editing');
 			
-			console.log('refDiv click: thisid=' + this.id + '; paneID=' + oid);
 			
 			
 			
