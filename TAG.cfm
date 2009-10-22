@@ -302,7 +302,7 @@
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from media where media_id=#media_id#
 	</cfquery>
-	<cfif c.media_type is not "image" or c.mime_type does not contain 'image/'>
+	<cfif (c.media_type is not "image" and c.media_type is not "multi-page document") or c.mime_type does not contain 'image/'>
 		FAIL@images only.
 		<cfabort>
 	</cfif>
