@@ -44,8 +44,8 @@
 		border:3px solid red;
 	}
 	#theImage{
-		max-width:600px;
-		max-height:800px;
+		max-width:800px;
+		max-height:1200px;
 	}
 </style>
 <script type="text/javascript" language="javascript"> 
