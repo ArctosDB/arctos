@@ -28,14 +28,17 @@
 	.refPane_cataloged_item {
 		background-color:#66CC99;
 		padding:3px;
+		border:1px solid black;
 	}
 	.refPane_collecting_event {
 		background-color:#669999;
 		padding:3px;
+		border:1px solid black;
 	}
 	.refPane_comment {
 		background-color:#6699CC;
 		padding:3px;
+		border:1px solid black;
 	}
 	.refPane_editing {
 		border:3px solid red;
@@ -226,9 +229,8 @@
 		$("#l_new").val(l);
 		$("#h_new").val(h);
 		$("#w_new").val(w);
-		
 		setTimeout("modArea('new')",500);
-		$("#info").text('Drag/resize the new red box on the image, pick a reference and/or enter a comment, then click "create reference."');
+		//$("#info").text('Drag/resize the new red box on the image, pick a reference and/or enter a comment, then click "create reference."');
 	}
 	function pickRefType(id,v){
 		var tagID=id.replace('RefType_','');
@@ -293,6 +295,7 @@
 		<div id="info"></div>
 		<form name="f">
 			<label for="RefType_new">Create reference type....</label>
+			<span id="newRefCell" class="newRec">
 			<select id="RefType_new" name="RefType_new" onchange="pickRefType(this.id,this.value);">
 				<option value=""></option>
 				<option value="comment">Comment Only</option>
@@ -311,6 +314,7 @@
 				<input type="text" id="w_new">
 				<br>
 				<input type="button" id="newRefBtn" value="create reference">
+			</span>
 			</span>
 		</form>
 		<form name="ef" method="post" action="TAG.cfm">
