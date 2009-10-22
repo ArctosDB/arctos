@@ -91,7 +91,7 @@
 			var tagID=this.id.replace('refPane_','');
 			modArea(tagID);
 		});
-		
+	});
 
 	function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 		if (refStr==null){refStr='';}
