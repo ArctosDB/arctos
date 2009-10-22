@@ -618,7 +618,7 @@ padding-right:2em;
 						</cfif>
 						<cfif len(COLLECTING_SOURCE) gt 0>
 							<tr>
-								<td class="lblCell">Collecting Sourcey</td>
+								<td class="lblCell">Collecting Source</td>
 								<td class="dataCell">#COLLECTING_SOURCE#</td>
 							</tr>
 						</cfif>
