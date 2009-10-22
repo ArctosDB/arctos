@@ -44,7 +44,17 @@
 				queryformat : 'column'
 			},
 			function (r) {
-				console.log(r);
+				var s = '<select name="geo_att_value_' + idNum + '" id="geo_att_value_' + idNum + '">';
+				for (i=0; i<r.ROWCOUNT; ++i) {
+					s+='<option value="' + r.DATA.ATTRIBUTE_VALUE[i] + '"';
+					if (r.DATA.ATTRIBUTE_VALUE[i]==dataValue) {
+						s+=' selected="selected"';
+					}
+					s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
+				}
+				s+='</select>	
+								
+				console.log(s);
 			}
 		);
 	}
