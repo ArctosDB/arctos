@@ -25,23 +25,14 @@
 		console.log('document is ready...');
 		$(":input[id^='geology_attribute_']").each(function(e){
 			var gid='geology_attribute_' + String(e+1);
-			populateGeology(gid);
-			console.log('found geology: ' + e);
-			
-		});
-		
-		
+			populateGeology(gid);			
+		});		
 	});
 	
 	function populateGeology(id) {
 		var idNum=id.replace('geology_attribute_','');
-		console.log('changed ' + id);
-		console.log('idNum ' + idNum);
 		var thisValue=$("#geology_attribute_" + idNum).val();;
 		var dataValue=$("#geo_att_value_" + idNum).val();
-		console.log('thisValue ' + thisValue);
-		console.log('dataValue ' + dataValue);
-		
 		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "getGeologyValues",
@@ -50,7 +41,7 @@
 				queryformat : 'column'
 			},
 			function (r) {
-				var s = '<select name="geo_att_value_' + idNum + '" id="geo_att_value_' + idNum + '">';
+				var s;
 				for (i=0; i<r.ROWCOUNT; ++i) {
 					s+='<option value="' + r.DATA.ATTRIBUTE_VALUE[i] + '"';
 					if (r.DATA.ATTRIBUTE_VALUE[i]==dataValue) {
@@ -58,9 +49,7 @@
 					}
 					s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
 				}
-				s+='</select>';
-				$("#geoAttCell_" + idNum).html(s);				
-				console.log(s);
+				$("#geo_att_value_" + idNum).html(s);				
 			}
 		);
 	}
@@ -1028,12 +1017,9 @@
 													</select>								
 												</td>
 												<td id="geoAttCell_#i#">
-													<input type="text" 
-														name="geo_att_value_#i#"
-														id="geo_att_value_#i#"
-														value="#thisVal#"
-														size="25"
-														readonly="readonly">	
+													<select name="geo_att_value_#i#" id="geo_att_value_#i#">
+														<option value="#thisVal#">#thisVal#</option>
+													</select>	
 												</td>
 												<td>
 													<input type="text" 
