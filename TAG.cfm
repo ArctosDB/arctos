@@ -200,10 +200,10 @@
 		d+=' value="collecting_event">Collecting Event</option>';
 		d+='</select>';
 		d+='<label for="RefStr_' + id + '">Reference</label>';
-		d+='<input type="text" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + refStr + '">';
+		d+='<input type="text" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + refStr + '" size="50">';
 		d+='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + refId + '">';
 		d+='<label for="Remark_' + id + '">Remark</label>';
-		d+='<input type="text" id="Remark_' + id + '" name="Remark_' + id + '" value="' + remark + '">';
+		d+='<input type="text" id="Remark_' + id + '" name="Remark_' + id + '" value="' + remark + '" size="50">';
 		d+='<input type="hidden" id="t_' + id + '" name="t_' + id + '" value="' + t + '">';
 		d+='<input type="hidden" id="l_' + id + '" name="l_' + id + '" value="' + l + '">';
 		d+='<input type="hidden" id="h_' + id + '" name="h_' + id + '" value="' + h + '">';
@@ -293,10 +293,10 @@
 			</select>
 			<span id="newRefHidden" style="display:none">
 				<label for="RefStr_new">Reference</label>
-				<input type="text" id="RefStr_new" name="RefStr_new">
+				<input type="text" id="RefStr_new" name="RefStr_new" size="50">
 				<input type="text" id="RefId_new" name="RefId_new">
 				<label for="Remark_new">Remark</label>
-				<input type="text" id="Remark_new" name="Remark_new" sixe="60">
+				<input type="text" id="Remark_new" name="Remark_new" size="50">
 				<input type="hidden" id="t_new">
 				<input type="hidden" id="l_new">
 				<input type="hidden" id="h_new">
