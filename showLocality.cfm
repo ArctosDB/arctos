@@ -88,7 +88,9 @@
 					<td>
 						<a href="showLocality.cfm?collecting_event_id=#collecting_event_id#">#verbatim_locality#</a>
 						<br>#thisDate#; #collecting_source#
-						<cfif len(collecting_method) gt 0)> (#collecting_method#)</cfif>
+						<cfif len(collecting_method) gt 0)> 
+							(#collecting_method#)
+						</cfif>
 					</td>
 				</tr>
 			</cfloop>
