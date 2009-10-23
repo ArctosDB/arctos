@@ -8,20 +8,11 @@
 			jQuery("#began_date").datepicker();
 			jQuery("#ended_date").datepicker();	
 			jQuery("#determined_date").datepicker();
-			$("select[id^='geology_attribute_']").each(function(e){
-				console.log($this);	
+			$(":input[id^='geology_attribute_']").each(function(e){
+				console.log(this);	
 			}
 		});
-		/*
-
-		jQuery("input[type=text]").focus(function(){
-		    this.select();
-		});
-		$("select[id^='geology_attribute_']").each(function(e){
-			var gid='geology_attribute_' + String(e+1);
-			populateGeology(gid);			
-		});		
-		*/
+		
 	});
 	
 </script>
