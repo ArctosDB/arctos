@@ -73,6 +73,8 @@
 						,collection_object_id
 					<cfelseif reftype is "collecting_event">
 						,collecting_event_id
+					<cfelseif reftype is "locality">
+						,locality_id
 					</cfif>
 					<cfif len(remark) gt 0>
 						,remark
@@ -86,7 +88,7 @@
 					#refw#,
 					#imgh#,
 					#imgw#
-					<cfif reftype is "cataloged_item" or reftype is "collecting_event">
+					<cfif reftype is "cataloged_item" or reftype is "collecting_event" or reftype is "locality">
 						,#refid#
 					</cfif>
 					<cfif len(remark) gt 0>
