@@ -75,7 +75,6 @@
 						,collecting_event_id
 					<cfelseif reftype is "locality">
 						,locality_id
-					</cfif>
 					<cfelseif reftype is "agent">
 						,agent_id
 					</cfif>
