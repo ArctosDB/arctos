@@ -73,6 +73,21 @@
 		});
         $element.attr("autocomplete.attached", true);
 	}
+	function attachGeogPick(element){
+		var $element = jQuery(element);
+		if($element.attr("autocomplete.attached")){
+			return;
+		}
+		$element.autocomplete("/ajax/tData.cfm", {
+			width: 260,
+			selectFirst: true,
+			max: 30,
+			autoFill: false,
+			delay: 400,
+			mustMatch: true,
+			cacheLength: 1
+		});
+	}
 	function attachTaxonPick(element){
 	    var $element = jQuery(element);
 		if($element.attr("autocomplete.attached")){
