@@ -35,6 +35,11 @@
         padding:3px;
         border:1px solid black;
     }
+	.refPane_locality {
+        background-color:yellow;
+        padding:3px;
+        border:1px solid black;
+    }
     .refPane_comment {
         background-color:#76A5D4;
         padding:3px;
@@ -224,6 +229,8 @@
 		d+=' value="cataloged_item">Cataloged Item</option>';
 		d+='<option';if (reftype=='collecting_event'){d+=' selected="selected"';}
 		d+=' value="collecting_event">Collecting Event</option>';
+		d+='<option';if (reftype=='locality'){d+=' selected="selected"';}
+		d+=' value="locality">Locality</option>';
 		d+='</select>';
 		d+='<label for="RefStr_' + id + '">Reference';
 		if(reflink){
@@ -286,6 +293,8 @@
 			findCollEvent('RefId_' + tagID,fname,'RefStr_' + tagID);
 		} else if (v=='comment') {
 			$("#RefStr_" + tagID).hide();
+		} else if (v=='locality') {
+			LocalityPick('RefId_' + tagID,'RefStr_' + tagID,fname);
 		} else {
 			alert('Dude... I have no idea what you are trying to do. Srsly. Stoppit.');
 		}
@@ -335,6 +344,7 @@
 				<option value="comment">Comment Only</option>
 				<option value="cataloged_item">Cataloged Item</option>
 				<option value="collecting_event">Collecting Event</option>
+				<option value="locality">Locality</option>
 			</select>
 			<span id="newRefHidden" style="display:none">
 				<label for="RefStr_new">Reference</label>
