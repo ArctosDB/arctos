@@ -1,8 +1,47 @@
 <cfinclude template="includes/_header.cfm">
-<script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
 <cfif #action# is "nothing">
 <cfset title="Edit Locality">
-<script>
+<script language="javascript" type="text/javascript">
+	jQuery(document).ready(function() {
+		$("select[id^='geology_attribute_']").each(function(e){
+			populateGeology(this.id);			
+		});	
+	});
+	
+	function populateGeology(id) {
+		if (id.indexOf('_') > -1) {
+			var idNum=id.replace('geology_attribute_','');
+			var thisValue=$("#geology_attribute_" + idNum).val();;
+			var dataValue=$("#geo_att_value_" + idNum).val();
+			var theSelect="geo_att_value_";
+		} else {
+			// new geol attribute
+			var idNum='';
+			var thisValue=$("#geology_attribute").val();
+			var dataValue=$("#geo_att_value").val();
+			var theSelect="geo_att_value";
+		}
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "getGeologyValues",
+				attribute : thisValue,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				var s='';
+				for (i=0; i<r.ROWCOUNT; ++i) {
+					s+='<option value="' + r.DATA.ATTRIBUTE_VALUE[i] + '"';
+					if (r.DATA.ATTRIBUTE_VALUE[i]==dataValue) {
+						s+=' selected="selected"';
+					}
+					s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
+				}
+				$("select#" + theSelect + idNum).html(s);
+			}
+		);
+	}	
+	
 	function showLLFormat(orig_units,recID) {
 		//alert(orig_units);
 		//alert(recID);
@@ -1006,9 +1045,9 @@
 						</select>
 						<span class="infoLink" onclick="document.getElementById('geology_attribute_#i#').value='delete'">Delete This</span>	
 						<label for="geo_att_value">Value</label>
-						<input type="text" 
-							name="geo_att_value_#i#" id="geo_att_value_#i#"
-							 size="60" class="reqdClr" value="#geo_att_value#">
+						<select name="geo_att_value_#i#" id="geo_att_value_#i#"
+							class="reqdClr">
+							<option value="#geo_att_value#">#geo_att_value#</option>
 						<label for="geo_att_determiner_#i#">Determiner</label>
 						<input type="text" name="geo_att_determiner_#i#"  size="40"
 							onchange="getAgent('geo_att_determiner_id','geo_att_determiner','newGeolDet',this.value); return false;"
@@ -1026,9 +1065,6 @@
 							size="60" value="#geo_att_remark#">
 					</td>
 				</tr>
-				<script>
-					jQuery("##geo_att_value_#i#").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"geology_attribute_#i#"});
-				</script>
 				<cfset i=i+1>
 			</cfloop>
 			<tr>
@@ -1078,9 +1114,6 @@
 					onmouseover="this.className='insBtn btnhov'"
 					onmouseout="this.className='insBtn'">
 			</td></tr>
-			<script>
-				jQuery("##geo_att_value").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"geology_attribute"});
-			</script>
 	</table>
 </cfoutput> 
 <cfinclude template="/includes/_footer.cfm">
