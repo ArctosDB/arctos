@@ -522,7 +522,10 @@ content: ": ";
 					GEO_ATT_DETERMINED_DATE,
 					GEO_ATT_DETERMINED_METHOD,
 					GEO_ATT_REMARK
-				from r group by
+				from r 
+				where
+					GEOLOGY_ATTRIBUTE is not null
+				group by
 					GEOLOGY_ATTRIBUTE,
 					GEO_ATT_VALUE,
 					geologyDeterminer,
