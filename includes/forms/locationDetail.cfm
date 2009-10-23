@@ -1,5 +1,21 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <style>
+.group {
+	border:1px solid green;
+}
+.pair {
+	border:1px solid red;
+}
+.label {
+	float:left;
+	width:30%;
+}
+.data {
+	float:right;
+	width:69%;
+}
+
+
 .lblCell{
 		text-align:right;
 		white-space:nowrap;
@@ -347,10 +363,6 @@ padding-right:2em;
 					order by
 						ACCEPTED_LAT_LONG_FG desc
 				</cfquery>
-				<cfdump var=#coords#>
-				
-				
-				
 				<div class="group">
 					<cfloop query="coords">
 						<div class="title">
@@ -500,145 +512,144 @@ padding-right:2em;
 							</div>
 						</cfif>
 					</cfloop>
+				</div>
+				<cfquery name="geology" dbtype="query">
+					select
+						GEOLOGY_ATTRIBUTE,
+						GEO_ATT_VALUE,
+						geologyDeterminer,
+						GEO_ATT_DETERMINED_DATE,
+						GEO_ATT_DETERMINED_METHOD,
+						GEO_ATT_REMARK
+					from r group by
+						GEOLOGY_ATTRIBUTE,
+						GEO_ATT_VALUE,
+						geologyDeterminer,
+						GEO_ATT_DETERMINED_DATE,
+						GEO_ATT_DETERMINED_METHOD,
+						GEO_ATT_REMARK
+				</cfquery>
+				<cfif geology.recordcount gt 0>
+					<div class="group">
+				</cfif>
+				<cfloop query="geology">
+					<div class="pair">
+						<td class="lblCell subheading">#GEOLOGY_ATTRIBUTE#</div>
+						<div class="value"></div>
 					</div>
-					<cfquery name="geology" dbtype="query">
-						select
-							GEOLOGY_ATTRIBUTE,
-							GEO_ATT_VALUE,
-							geologyDeterminer,
-							GEO_ATT_DETERMINED_DATE,
-							GEO_ATT_DETERMINED_METHOD,
-							GEO_ATT_REMARK
-						from r group by
-							GEOLOGY_ATTRIBUTE,
-							GEO_ATT_VALUE,
-							geologyDeterminer,
-							GEO_ATT_DETERMINED_DATE,
-							GEO_ATT_DETERMINED_METHOD,
-							GEO_ATT_REMARK
-					</cfquery>
-					<cfif geology.recordcount gt 0>
-						<div class="group">
-							
-					</cfif>
-					<cfloop query="geology">
+					<div class="pair">
+						<td class="lblCell subset">Attribute Value</div>
+						<div class="value">#GEO_ATT_VALUE#</div>
+					</div>
+					<cfif len(geologyDeterminer) gt 0>
 						<div class="pair">
-							<td class="lblCell subheading">#GEOLOGY_ATTRIBUTE#</div>
+							<td class="lblCell subset">Determiner</div>
+							<div class="value">#geologyDeterminer#</div>
+						</div>
+					</cfif>
+					<cfif len(GEO_ATT_DETERMINED_METHOD) gt 0>
+						<div class="pair">
+							<td class="lblCell subset">Method</div>
+							<div class="value">#GEO_ATT_DETERMINED_METHOD#</div>
+						</div>
+					</cfif>
+					<cfif len(GEO_ATT_DETERMINED_DATE) gt 0>
+						<div class="pair">
+							<td class="lblCell subset">Determined Date</div>
+							<div class="value">#GEO_ATT_DETERMINED_DATE#</div>
+						</div>
+					</cfif>
+					<cfif len(GEO_ATT_REMARK) gt 0>
+						<div class="pair">
+							<td class="lblCell subset">Remark</div>
+							<div class="value">#GEO_ATT_REMARK#</div>
+						</div>
+					</cfif>
+				</cfloop>
+				<cfif geology.recordcount gt 0>
+					</div>
+				</cfif>
+			</cfif>
+			<cfif isdefined("collecting_event_id")>
+				<cfquery name="event" dbtype="query">
+					select
+						BEGAN_DATE,
+						ENDED_DATE,
+						VERBATIM_DATE,
+						VERBATIM_LOCALITY,
+						COLL_EVENT_REMARKS,
+						COLLECTING_SOURCE,
+						COLLECTING_METHOD,
+						HABITAT_DESC
+					from r group by
+						BEGAN_DATE,
+						ENDED_DATE,
+						VERBATIM_DATE,
+						VERBATIM_LOCALITY,
+						COLL_EVENT_REMARKS,
+						COLLECTING_SOURCE,
+						COLLECTING_METHOD,
+						HABITAT_DESC	
+				</cfquery>
+				<div class="group">
+					<cfloop query="event">
+						<cfif (verbatim_date is began_date) AND
+				 		    (verbatim_date is ended_date)>
+						    <cfset thisDate = dateformat(began_date,"dd mmm yyyy")>
+				        <cfelseif (
+							(verbatim_date is not began_date) OR
+				 			(verbatim_date is not ended_date)
+						    )
+					    	AND
+					    	began_date is ended_date>
+						    <cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")#)">
+				        <cfelse>
+						    <cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")# - #dateformat(ended_date,"dd mmm yyyy")#)">
+				        </cfif>
+				        <div class="pair">
+							<div class="title">
+								Collecting Event
+							</div>
 							<div class="value"></div>
 						</div>
-						<div class="pair">
-							<td class="lblCell subset">Attribute Value</div>
-							<div class="value">#GEO_ATT_VALUE#</div>
+				        <div class="pair">
+							<div class="data">Date</div>
+							<div class="value">#thisDate#</div>
 						</div>
-						<cfif len(geologyDeterminer) gt 0>
+						<cfif len(VERBATIM_LOCALITY) gt 0>
 							<div class="pair">
-								<td class="lblCell subset">Determiner</div>
-								<div class="value">#geologyDeterminer#</div>
+								<div class="data">Verbatim Locality</div>
+								<div class="value">#VERBATIM_LOCALITY#</div>
 							</div>
 						</cfif>
-						<cfif len(GEO_ATT_DETERMINED_METHOD) gt 0>
+						<cfif len(COLLECTING_SOURCE) gt 0>
 							<div class="pair">
-								<td class="lblCell subset">Method</div>
-								<div class="value">#GEO_ATT_DETERMINED_METHOD#</div>
+								<div class="data">Collecting Source</div>
+								<div class="value">#COLLECTING_SOURCE#</div>
 							</div>
 						</cfif>
-						<cfif len(GEO_ATT_DETERMINED_DATE) gt 0>
+						<cfif len(COLLECTING_METHOD) gt 0>
 							<div class="pair">
-								<td class="lblCell subset">Determined Date</div>
-								<div class="value">#GEO_ATT_DETERMINED_DATE#</div>
+								<div class="data">Collecting Method</div>
+								<div class="value">#COLLECTING_METHOD#</div>
 							</div>
 						</cfif>
-						<cfif len(GEO_ATT_REMARK) gt 0>
+						<cfif len(HABITAT_DESC) gt 0>
 							<div class="pair">
-								<td class="lblCell subset">Remark</div>
-								<div class="value">#GEO_ATT_REMARK#</div>
+								<div class="data">Habitat</div>
+								<div class="value">#HABITAT_DESC#</div>
 							</div>
 						</cfif>
+						<cfif len(COLL_EVENT_REMARKS) gt 0>
+							<div class="pair">
+								<div class="data">Event Remarks</div>
+								<div class="value">#COLL_EVENT_REMARKS#</div>
+							</div>
+						</cfif>							
 					</cfloop>
-					<cfif geology.recordcount gt 0>
-						</div>
-					</cfif>
-				</cfif>
-				<cfif isdefined("collecting_event_id")>
-					<cfquery name="event" dbtype="query">
-						select
-							BEGAN_DATE,
-							ENDED_DATE,
-							VERBATIM_DATE,
-							VERBATIM_LOCALITY,
-							COLL_EVENT_REMARKS,
-							COLLECTING_SOURCE,
-							COLLECTING_METHOD,
-							HABITAT_DESC
-						from r group by
-							BEGAN_DATE,
-							ENDED_DATE,
-							VERBATIM_DATE,
-							VERBATIM_LOCALITY,
-							COLL_EVENT_REMARKS,
-							COLLECTING_SOURCE,
-							COLLECTING_METHOD,
-							HABITAT_DESC	
-					</cfquery>
-					<div class="group">
-						<cfloop query="event">
-							<cfif (verbatim_date is began_date) AND
-					 		    (verbatim_date is ended_date)>
-							    <cfset thisDate = dateformat(began_date,"dd mmm yyyy")>
-					        <cfelseif (
-								(verbatim_date is not began_date) OR
-					 			(verbatim_date is not ended_date)
-							    )
-						    	AND
-						    	began_date is ended_date>
-							    <cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")#)">
-					        <cfelse>
-							    <cfset thisDate = "#verbatim_date# (#dateformat(began_date,"dd mmm yyyy")# - #dateformat(ended_date,"dd mmm yyyy")#)">
-					        </cfif>
-					        <div class="pair">
-								<div class="title">
-									Collecting Event
-								</div>
-								<div class="value"></div>
-							</div>
-					        <div class="pair">
-								<div class="data">Date</div>
-								<div class="value">#thisDate#</div>
-							</div>
-							<cfif len(VERBATIM_LOCALITY) gt 0>
-								<div class="pair">
-									<div class="data">Verbatim Locality</div>
-									<div class="value">#VERBATIM_LOCALITY#</div>
-								</div>
-							</cfif>
-							<cfif len(COLLECTING_SOURCE) gt 0>
-								<div class="pair">
-									<div class="data">Collecting Source</div>
-									<div class="value">#COLLECTING_SOURCE#</div>
-								</div>
-							</cfif>
-							<cfif len(COLLECTING_METHOD) gt 0>
-								<div class="pair">
-									<div class="data">Collecting Method</div>
-									<div class="value">#COLLECTING_METHOD#</div>
-								</div>
-							</cfif>
-							<cfif len(HABITAT_DESC) gt 0>
-								<div class="pair">
-									<div class="data">Habitat</div>
-									<div class="value">#HABITAT_DESC#</div>
-								</div>
-							</cfif>
-							<cfif len(COLL_EVENT_REMARKS) gt 0>
-								<div class="pair">
-									<div class="data">Event Remarks</div>
-									<div class="value">#COLL_EVENT_REMARKS#</div>
-								</div>
-							</cfif>							
-						</cfloop>
-					</div>
-				</cfif>
-			</div>
+				</div>
+			</cfif>
+		</div>
 		
 		
 		
