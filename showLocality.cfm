@@ -9,8 +9,8 @@
 		top:5%;
 		left:5%;
 		background-color:white;
-		max-width:80%;
-		max-height:60%;
+		width:80%;
+		height:60%;
 		overflow:auto;
 	}
 </style>
