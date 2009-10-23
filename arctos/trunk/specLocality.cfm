@@ -1020,7 +1020,7 @@
 			</cfif>
 		</cfloop>
 		<cfif len(geology_attribute) gt 0><!--- new attribute --->
-			were making a new attribute
+			were making a new geology_attribute
 			<cfset hasGeol=1>
 			<cfquery name="gatt"  datasource="uam_god">
 				select min(GEOLOGY_ATTRIBUTE_ID) GEOLOGY_ATTRIBUTE_ID from geology_attributes where
@@ -1042,9 +1042,10 @@
 		</cfif>
 			
 		<cfif hasGeol is 0>
-			<cfset fLocS=fLocS & " and loc_acc_lat_long.locality_id NOT IN (select locality_id from 
-				geology_attributes)">
+			hasGeol is 0.....
+			<cfset fLocS=fLocS & " and loc_acc_lat_long.locality_id NOT IN (select locality_id from geology_attributes)">
 		<cfelse>
+			hasGeol is NOT 0....
 			<cfset fLocS=fLocS & " and loc_acc_lat_long.locality_id NOT IN (select locality_id from 
 				geology_attributes where GEOLOGY_ATTRIBUTE_ID not in (#gattlst#))">
 		</cfif>
