@@ -7,9 +7,9 @@
 		jQuery("#began_date").datepicker();
 		jQuery("#ended_date").datepicker();	
 		jQuery("#determined_date").datepicker();
-		$(":input[id^='geology_attribute_']").each(function(e){
-			console.log(e);	
-			console.log(this.id);	
+		
+		$(":input[id^='geo_att_determined_date']").each(function(e){
+			jQuery("#" + this.id).datepicker();
 		});
 	});
 	
