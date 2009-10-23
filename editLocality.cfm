@@ -9,13 +9,18 @@
 	});
 	
 	function populateGeology(id) {
+		console.log(id);
+		console.log(id.indexOf('_'));
+		
 		if (id.indexOf('_') > -1) {
+			console.log('yep');
 			var idNum=id.replace('geology_attribute_','');
 			var thisValue=$("#geology_attribute_" + idNum).val();;
 			var dataValue=$("#geo_att_value_" + idNum).val();
 			var theSelect="geo_att_value_";
 		} else {
 			// new geol attribute
+			console.log('nope');
 			var idNum='';
 			var thisValue=$("#geology_attribute").val();
 			var dataValue=$("#geo_att_value").val();
