@@ -1020,6 +1020,7 @@
 			</cfif>
 		</cfloop>
 		<cfif len(geology_attribute) gt 0><!--- new attribute --->
+			were making a new attribute
 			<cfset hasGeol=1>
 			<cfquery name="gatt"  datasource="uam_god">
 				select min(GEOLOGY_ATTRIBUTE_ID) GEOLOGY_ATTRIBUTE_ID from geology_attributes where
@@ -1443,8 +1444,8 @@ got cankill.....
 		</cfif>
 	</cftransaction>
 done.....
-	<cflocation url="specLocality.cfm?collection_object_id=#collection_object_id#">		
 <!---
+	<cflocation url="specLocality.cfm?collection_object_id=#collection_object_id#">		
 
 	--->
 </cfoutput>
