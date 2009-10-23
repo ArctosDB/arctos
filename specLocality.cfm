@@ -824,7 +824,7 @@
 		<td>
 			<cfset thisAttribute=g.geology_attribute>
 			<select name="geology_attribute__#geology_attribute_id#" 
-				id="geology_attribute__#geology_attribute_id#" size="1" class="reqdClr">
+				id="geology_attribute__#geology_attribute_id#" size="1" class="reqdClr" onchange="populateGeology(this.id)">
 				<option value="">DELETE THIS ROW</option>
 				<cfloop query="ctgeology_attribute">
 					<option 
@@ -875,7 +875,7 @@
 	</tr>
 	<tr  class="newRec">
 		<td>
-			<select name="geology_attribute" 
+			<select name="geology_attribute"  onchange="populateGeology(this.id)"
 				id="geology_attribute" size="1" class="reqdClr">
 				<option value=""></option>
 				<cfloop query="ctgeology_attribute">
