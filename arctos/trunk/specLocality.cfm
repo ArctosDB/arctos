@@ -32,6 +32,10 @@
 			var dataValue=$("#geo_att_value").val();
 			var theSelect="geo_att_value";
 		}
+		console.log('idNum: ' + idNum);
+		console.log('thisValue: ' + thisValue);
+		console.log('dataValue: ' + dataValue);
+		console.log('theSelect: ' + theSelect);
 		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "getGeologyValues",
