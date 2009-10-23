@@ -282,6 +282,7 @@
 		FROM 
 			geology_attribute_hierarchy
 		WHERE 
+			USABLE_VALUE_FG=1 and
 			attribute='#attribute#'
 		group by attribute_value
 		order by attribute_value
