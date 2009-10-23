@@ -1052,6 +1052,9 @@
 		<cfquery name="isLoc"  datasource="uam_god">
 			#preservesinglequotes(fLocS)#
 		</cfquery>
+		<hr>
+		#preservesinglequotes(fLocS)#
+		<hr>
 		ran the query....
 		<cfset nLocalityId=isLoc.locality_id>
 		<cfif len(nLocalityId) is 0>
