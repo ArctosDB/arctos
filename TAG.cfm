@@ -304,7 +304,7 @@
 		} else if (v=='locality') {
 			LocalityPick('RefId_' + tagID,'RefStr_' + tagID,fname);
 		} else if (v=='agent') {
-			getAgent('RefId_' + tagID,'RefStr_' + tagID,fname){
+			getAgent('RefId_' + tagID,'RefStr_' + tagID,fname);
 		} else {
 			alert('Dude... I have no idea what you are trying to do. Srsly. Stoppit.');
 		}
