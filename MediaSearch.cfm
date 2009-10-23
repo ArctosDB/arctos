@@ -131,14 +131,16 @@
                 <br>
                 <a href="#media_uri#" target="_blank"><img src="#preview_uri#" alt="Media Preview Image"></a>
             </cfif>
+			  <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select count(*) n from tag where media_id=#media_id#
+			</cfquery>
+			<br>
 			<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 		        <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">[ edit media ]</a>
 		        ~ <a href="TAG.cfm?media_id=#media_id#" class="infoLink">[ edit TAGs ]</a>
 		    </cfif>
-		    <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select count(*) from tag where media_id=#media_id#
-			</cfquery>
-			~ <a href="showTAG.cfm?media_id=#media_id#" class="infoLink">[ View #tag.recordcount# TAGs ]</a>
+		  
+			~ <a href="showTAG.cfm?media_id=#media_id#" class="infoLink">[ View #tag.n# TAGs ]</a>
 			<br>MIME Type: #mime_type# 
             <br>Media Type: #media_type#
                
