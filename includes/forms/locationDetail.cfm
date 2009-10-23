@@ -374,140 +374,140 @@ padding-right:2em;
 					</div>
 					<cfif ORIG_LAT_LONG_UNITS is "decimal degrees">
 						<div class="pair">
-							<td class="lblCell subset">Decimal Latitude</div>
+							<div class="data">Decimal Latitude</div>
 							<div class="value">#DEC_LAT#</div>
 						</div>
 						<div class="pair">
-							<td class="lblCell subset">Decimal Longitude</div>
+							<div class="data">Decimal Longitude</div>
 							<div class="value">#DEC_LONG#</div>
 						</div>
 					<cfelseif ORIG_LAT_LONG_UNITS is "degrees dec. minutes">
 						<div class="pair">
-							<td class="lblCell subset">Degrees Latitude</div>
+							<div class="data">Degrees Latitude</div>
 							<div class="value">#LAT_DEG#</div>
 						</div>
 						<div class="pair">
-							<td class="lblCell subset">Minutes Latitude</div>
+							<div class="data">Minutes Latitude</div>
 							<div class="value">#DEC_LAT_MIN#</div>
 						</div>
 						<div class="pair">
-							<td class="lblCell subset">Latitude Direction</div>
+							<div class="data">Latitude Direction</div>
 							<div class="value">#LAT_DIR#</div>
 						</div>
 						<div class="pair">
-							<td class="lblCell subset">Degrees Longitude</div>
+							<div class="data">Degrees Longitude</div>
 							<div class="value">#LONG_DEG#</div>
 						</div>
 						<div class="pair">
-							<td class="lblCell subset">Minutes Longitude</div>
+							<div class="data">Minutes Longitude</div>
 							<div class="value">#DEC_LONG_MIN#</div>
 						</div>
 						<div class="pair">
-							<td class="lblCell subset">Longitude Direction</div>
+							<div class="data">Longitude Direction</div>
 							<div class="value">#LONG_DIR#</div>
 						</div>
 					<cfelseif ORIG_LAT_LONG_UNITS is "deg. min. sec.">
 						<div class="pair">
-							<td class="lblCell subset">Degrees Latitude</div>
+							<div class="data">Degrees Latitude</div>
 							<div class="value">#LAT_DEG#</div>
 						</div>
 						<div class="pair">
-							<td class="lblCell subset">Minutes Latitude</div>
+							<div class="data">Minutes Latitude</div>
 							<div class="value">#LAT_MIN#</div>
 						</div>
 						<div class="pair">
-							<td class="lblCell subset">Seconds Latitude</div>
+							<div class="data">Seconds Latitude</div>
 							<div class="value">#LAT_SEC#</div>
 						</div>
 						<div class="pair">
-							<td class="lblCell subset">Latitude Direction</div>
+							<div class="data">Latitude Direction</div>
 							<div class="value">#LAT_DIR#</div>
 						</div>
 						<div class="pair">
-							<td class="lblCell subset">Degrees Longitude</div>
+							<div class="data">Degrees Longitude</div>
 							<div class="value">#LONG_DEG#</div>
 						</div>
 						<div class="pair">
-							<td class="lblCell subset">Minutes Longitude</div>
+							<div class="data">Minutes Longitude</div>
 							<div class="value">#LONG_MIN#</div>
 						</div>
 						<div class="pair">
-							<td class="lblCell subset">Seconds Longitude</div>
+							<div class="data">Seconds Longitude</div>
 							<div class="value">#LONG_SEC#</div>
 						</div>
 						<div class="pair">
-							<td class="lblCell subset">Longitude Direction</div>
+							<div class="data">Longitude Direction</div>
 							<div class="value">#LONG_DIR#</div>
 						</div>
 					<cfelseif ORIG_LAT_LONG_UNITS is "UTM">
 						<div class="pair">
-							<td class="lblCell subset">UTM Zone</div>
+							<div class="data">UTM Zone</div>
 							<div class="value">#UTM_ZONE#</div>
 						</div>
 						<div class="pair">
-							<td class="lblCell subset">UTM E/W</div>
+							<div class="data">UTM E/W</div>
 							<div class="value">#UTM_EW#</div>
 						</div>
 						<div class="pair">
-							<td class="lblCell subset">UTM N/S</div>
+							<div class="data">UTM N/S</div>
 							<div class="value">#UTM_NS#</div>
 						</div>
 					</cfif>
 					<div class="pair">
-						<td class="lblCell subset">Datum</div>
+						<div class="data">Datum</div>
 						<div class="value">#DATUM#</div>
 					</div>
 					<div class="pair">
-						<td class="lblCell subset">Reference</div>
+						<div class="data">Reference</div>
 						<div class="value">#LAT_LONG_REF_SOURCE#</div>
 					</div>
 					<div class="pair">
-						<td class="lblCell subset">Reference</div>
+						<div class="data">Reference</div>
 						<div class="value">#LAT_LONG_REF_SOURCE#</div>
 					</div>
 					<cfif len(MAX_ERROR_DISTANCE) gt 0>
 						<div class="pair">
-							<td class="lblCell subset">Error</div>
+							<div class="data">Error</div>
 							<div class="value">#MAX_ERROR_DISTANCE# #MAX_ERROR_UNITS#</div>
 						</div>
 					</cfif>
 					<div class="pair">
-						<td class="lblCell subset">Determiner</div>
+						<div class="data">Determiner</div>
 						<div class="value">#coordinateDeterminer#</div>
 					</div>
 					<div class="pair">
-						<td class="lblCell subset">Determined Date</div>
+						<div class="data">Determined Date</div>
 						<div class="value">#dateformat(DETERMINED_DATE,"dd mmm yyyy")#</div>
 					</div>
 					<div class="pair">
-						<td class="lblCell subset">Method</div>
+						<div class="data">Method</div>
 						<div class="value">#GEOREFMETHOD#</div>
 					</div>
 					<div class="pair">
-						<td class="lblCell subset">Verification Status</div>
+						<div class="data">Verification Status</div>
 						<div class="value">#VERIFICATIONSTATUS#</div>
 					</div>
 					<cfif len(EXTENT) gt 0>
 						<div class="pair">
-							<td class="lblCell subset">Extent</div>
+							<div class="data">Extent</div>
 							<div class="value">#EXTENT# #MAX_ERROR_UNITS#</div>
 						</div>
 					</cfif>
 					<cfif len(GPSACCURACY) gt 0>
 						<div class="pair">
-							<td class="lblCell subset">GPS Accuracy</div>
+							<div class="data">GPS Accuracy</div>
 							<div class="value">#GPSACCURACY# #MAX_ERROR_UNITS#</div>
 						</div>
 					</cfif>
 					<cfif len(GEOREFMETHOD) gt 0>
 						<div class="pair">
-							<td class="lblCell subset">Method</div>
+							<div class="data">Method</div>
 							<div class="value">#GEOREFMETHOD#</div>
 						</div>
 					</cfif>
 					<cfif len(LAT_LONG_REMARKS) gt 0>
 						<div class="pair">
-							<td class="lblCell subset">Remark</div>
+							<div class="data">Remark</div>
 							<div class="value">#LAT_LONG_REMARKS#</div>
 						</div>
 					</cfif>
@@ -532,34 +532,34 @@ padding-right:2em;
 			<div class="group">
 				<cfloop query="geology">
 					<div class="pair">
-						<td class="lblCell subheading">#GEOLOGY_ATTRIBUTE#</div>
+						<div class="data">#GEOLOGY_ATTRIBUTE#</div>
 						<div class="value"></div>
 					</div>
 					<div class="pair">
-						<td class="lblCell subset">Attribute Value</div>
+						<div class="data">Attribute Value</div>
 						<div class="value">#GEO_ATT_VALUE#</div>
 					</div>
 					<cfif len(geologyDeterminer) gt 0>
 						<div class="pair">
-							<td class="lblCell subset">Determiner</div>
+							<div class="data">Determiner</div>
 							<div class="value">#geologyDeterminer#</div>
 						</div>
 					</cfif>
 					<cfif len(GEO_ATT_DETERMINED_METHOD) gt 0>
 						<div class="pair">
-							<td class="lblCell subset">Method</div>
+							<div class="data">Method</div>
 							<div class="value">#GEO_ATT_DETERMINED_METHOD#</div>
 						</div>
 					</cfif>
 					<cfif len(GEO_ATT_DETERMINED_DATE) gt 0>
 						<div class="pair">
-							<td class="lblCell subset">Determined Date</div>
+							<div class="data">Determined Date</div>
 							<div class="value">#GEO_ATT_DETERMINED_DATE#</div>
 						</div>
 					</cfif>
 					<cfif len(GEO_ATT_REMARK) gt 0>
 						<div class="pair">
-							<td class="lblCell subset">Remark</div>
+							<div class="data">Remark</div>
 							<div class="value">#GEO_ATT_REMARK#</div>
 						</div>
 					</cfif>
