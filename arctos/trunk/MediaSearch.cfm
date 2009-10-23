@@ -136,7 +136,7 @@
 		        ~ <a href="TAG.cfm?media_id=#media_id#" class="infoLink">[ edit TAGs ]</a>
 		    </cfif>
 		    <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select count(*) from tags where media_id=#media_id#
+				select count(*) from tag where media_id=#media_id#
 			</cfquery>
 			~ <a href="showTAG.cfm?media_id=#media_id#" class="infoLink">[ View #tag.recordcount# TAGs ]</a>
 			<br>MIME Type: #mime_type# 
