@@ -10,7 +10,7 @@
 	
 	function populateGeology(id) {
 		console.log(id);
-		console.log(id.indexOf('_'));
+		console.log('lastchar: ' + id.charAt(id.length));
 		if (isNaN(id.charAt(id.length))) {
 			console.log('yep');
 			var idNum=id.replace('geology_attribute_','');
