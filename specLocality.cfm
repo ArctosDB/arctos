@@ -20,17 +20,17 @@
 		
 		
 	function populateGeology(id) {
-		try{
-		var idNum=id.replace('geology_attribute__','');
-		var thisValue=$("#geology_attribute__" + idNum).val();;
-		var dataValue=$("#geo_att_value__" + idNum).val();
-		var theSelect="geo_att_value_">
-		} catch(e){
+		try {
+			var idNum=id.replace('geology_attribute__','');
+			var thisValue=$("#geology_attribute__" + idNum).val();;
+			var dataValue=$("#geo_att_value__" + idNum).val();
+			var theSelect="geo_att_value_">
+		} catch (e) {
 			// new geol attribute
 			var idNum='';
-			var thisValue=$("#geology_attribute").val();;
+			var thisValue=$("#geology_attribute").val();
 			var dataValue=$("#geo_att_value").val();
-			var theSelect="geo_att_value">
+			var theSelect="geo_att_value";
 		}
 		jQuery.getJSON("/component/functions.cfc",
 			{
