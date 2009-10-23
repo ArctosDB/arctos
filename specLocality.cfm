@@ -1058,7 +1058,7 @@
 		<hr>
 		ran the query....
 		<cfset nLocalityId=isLoc.locality_id>
-		<cfif len(nLocalityId) is 0 or len(gatt.GEOLOGY_ATTRIBUTE_ID is 0>
+		<cfif len(nLocalityId) is 0 or len(gatt.GEOLOGY_ATTRIBUTE_ID) is 0>
 makin a locality....
 <cfset etime=now()>
 <cfset tt=DateDiff("s", btime, etime)>
