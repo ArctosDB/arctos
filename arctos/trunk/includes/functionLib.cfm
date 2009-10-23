@@ -15,12 +15,14 @@
 				remark,
 				collection_object_id,
 				collecting_event_id,
-				locality_id
+				locality_id,
+				agent_id
 			from tag where tag_id=#tag_id#
 			order by
 				collection_object_id,
 				collecting_event_id,
 				locality_id,
+				agent_id,
 				remark
 		</cfquery>
 		<cfif r.collection_object_id gt 0>
@@ -39,6 +41,14 @@
 			<cfset rs="#d.verbatim_locality# (#d.verbatim_date#)">
 			<cfset ri="#r.collecting_event_id#">
 			<cfset rl="/showLocality.cfm?action=srch&collecting_event_id=#r.collecting_event_id#">
+		<cfelseif r.agent_id gt 0>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select agent_name from preferred_agent_name where agent_id=#r.agent_id#
+			</cfquery>
+			<cfset rt="agent">
+			<cfset rs="#d.agent_name#">
+			<cfset ri="#r.agent_id#">
+			<cfset rl="/info/agentActivity.cfm?agent_id=#r.agent_id#">
 		<cfelseif r.locality_id gt 0>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select spec_locality from locality where locality_id=#r.locality_id#
