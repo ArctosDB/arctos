@@ -3,20 +3,24 @@
 .outer {
 border:2px solid black;
 }
+
 .group {
-	border:1px solid green;
+border:1px solid green;
 }
+
 .pair {
-	border:1px solid red;
+border:1px solid red;
 }
+
 .value {
-	float:right;
-	width:50%;
+float:right;
+width:300px;
 color:blue;
 }
+
 .data {
-	float:left;
-	width:30%;
+float:left;
+width:200px;
 color:red;
 margin:1px;
 }
@@ -53,6 +57,7 @@ padding-right:2em;
 	}
 
 </style>
+</div><!--- close the header div --->
 <div class="infoLink" style="text-align:right;" onclick="removeDetail()">close</div>
 <cfoutput>
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
