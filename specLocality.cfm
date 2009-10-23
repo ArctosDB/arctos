@@ -20,12 +20,16 @@
 		
 		
 	function populateGeology(id) {
+		
+		console.log('id: ' + id);
 		try {
+			console.log('try');
 			var idNum=id.replace('geology_attribute__','');
 			var thisValue=$("#geology_attribute__" + idNum).val();;
 			var dataValue=$("#geo_att_value__" + idNum).val();
 			var theSelect="geo_att_value__";
 		} catch(e) {
+			console.log('catch');
 			// new geol attribute
 			var idNum='';
 			var thisValue=$("#geology_attribute").val();
@@ -886,7 +890,7 @@
 			</select>			
 		</td>
 		<td>
-			<select id="geo_att_value" class="reqdClr"	name="geo_att_value">
+			<select id="geo_att_value" class="reqdClr"  name="geo_att_value">
 			</select>
 		</td>
 		<td>
