@@ -9,23 +9,17 @@
 	});
 	
 	function populateGeology(id) {
-		console.log(id);
-		console.log('lastchar: ' + id.charAt(id.length-1));
-		if (isNaN(id.charAt(id.length-1))) {
+		if (id=='geology_attribute') {
 			// new geol attribute
-			console.log('not a number');
 			var idNum='';
 			var thisValue=$("#geology_attribute").val();
 			var dataValue=$("#geo_att_value").val();
 			var theSelect="geo_att_value";
 		} else {
-			console.log('number');
 			var idNum=id.replace('geology_attribute_','');
 			var thisValue=$("#geology_attribute_" + idNum).val();;
 			var dataValue=$("#geo_att_value_" + idNum).val();
 			var theSelect="geo_att_value_";
-			
-			
 		}
 		jQuery.getJSON("/component/functions.cfc",
 			{
@@ -44,7 +38,6 @@
 					s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
 				}
 				$("select#" + theSelect + idNum).html(s);
-				console.log(theSelect + idNum);
 			}
 		);
 	}	
