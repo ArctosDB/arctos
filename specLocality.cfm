@@ -1,13 +1,58 @@
 <cfinclude template="/includes/alwaysInclude.cfm">
-<script type='text/javascript' src='/includes/jquery/suggest.js'></script>	
+
+<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
+<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery(function() {
+			jQuery("#began_date").datepicker();
+			jQuery("#ended_date").datepicker();	
+			jQuery("#determined_date").datepicker();
+			$("select[id^='geology_attribute_']").each(function(e){
+				console.log($this);	
+			}
+		});
+		/*
+
+		jQuery("input[type=text]").focus(function(){
+		    this.select();
+		});
+		$("select[id^='geology_attribute_']").each(function(e){
+			var gid='geology_attribute_' + String(e+1);
+			populateGeology(gid);			
+		});		
+		*/
+	});
+	/*
+	function populateGeology(id) {
+		var idNum=id.replace('geology_attribute_','');
+		var thisValue=$("#geology_attribute_" + idNum).val();;
+		var dataValue=$("#geo_att_value_" + idNum).val();
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "getGeologyValues",
+				attribute : thisValue,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				var s='';
+				for (i=0; i<r.ROWCOUNT; ++i) {
+					s+='<option value="' + r.DATA.ATTRIBUTE_VALUE[i] + '"';
+					if (r.DATA.ATTRIBUTE_VALUE[i]==dataValue) {
+						s+=' selected="selected"';
+					}
+					s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
+				}
+				$("select#geo_att_value_" + idNum).html(s);				
+			}
+		);
+	}	
+	
+	*/
+</script>
+	
 <cf_showMenuOnly>
-<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
-	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-		var cal1 = new CalendarPopup("theCalendar");
-		cal1.showYearNavigation();
-		cal1.showYearNavigationInput();
-	</SCRIPT>
-	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
 	
 <span class="pageHelp likeLink" onClick="getDocs('pageHelp/specLocality');">
 	Page Help
@@ -307,14 +352,7 @@
 								value="#dateformat(l.began_date,'dd mmm yyyy')#"
 								class="reqdClr"
 								required="true" 
-								message="Began Date is a required Date field.">		
-								<span class="infoLink"
-										name="anchor1"
-										id="anchor1"
-										onClick="cal1.select(document.loc.began_date,'anchor1','dd-MMM-yyyy'); return false;">
-											Pick
-										</span>
-										
+								message="Began Date is a required Date field.">										
 						</td>
 						<td>
 							<label for="ended_date">
@@ -327,13 +365,7 @@
 								value="#dateformat(l.ended_date,'dd mmm yyyy')#"
 								class="reqdClr"
 								required="true" 
-								message="Ended Date is a required Date field.">	
-								<span class="infoLink"
-										name="anchor2"
-										id="anchor2"
-										onClick="cal1.select(document.loc.ended_date,'anchor2','dd-MMM-yyyy'); return false;">
-											Pick
-										</span>
+								message="Ended Date is a required Date field.">
 						</td>
 					</tr>
 				</table>
@@ -540,12 +572,6 @@
 				</label>
 				<input type="text" name="determined_date" id="determined_date"
 					value="#dateformat(l.determined_date,'dd mmm yyyy')#" class="reqdClr">
-				<span class="infoLink"
-					name="anchor3"
-					id="anchor3"
-					onClick="cal1.select(document.loc.determined_date,'anchor3','dd-MMM-yyyy'); return false;">
-						Pick
-				</span>
 			</td>
 		</tr>
 		<tr>
@@ -818,9 +844,7 @@
 			<input type="text" id="geo_att_determined_date__#geology_attribute_id#"
 				name="geo_att_determined_date__#geology_attribute_id#" 
 				value="#dateformat(geo_att_determined_date,'dd mmm yyyy')#"
-				size="10"
-				onclick="cal1.select(document.loc.geo_att_determined_date__#geology_attribute_id#,'anchor1#geology_attribute_id#','dd-MMM-yyyy');">
-				<a name="anchor1#geology_attribute_id#" id="anchor1#geology_attribute_id#"></a>
+				size="10">
 		</td>	
 		<td>
 			<input type="text" id="geo_att_determined_method__#geology_attribute_id#"
@@ -837,9 +861,6 @@
 		<td>
 			<img src="/images/del.gif" class="likeLink" onclick="document.getElementById('geology_attribute__#geology_attribute_id#').value='';">
 		</td>
-		<script>
-			jQuery("##geo_att_value__#geology_attribute_id#").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"geology_attribute__#geology_attribute_id#"});
-		</script>
 	</tr>
 		</cfloop>
 	<tr class="newRec">
@@ -870,9 +891,7 @@
 		<td>
 			<input type="text" id="geo_att_determined_date"
 				name="geo_att_determined_date" 
-				size="10"
-				onclick="cal1.select(document.loc.geo_att_determined_date,'anchor1t','dd-MMM-yyyy');">
-				<a name="anchor1t" id="anchor1t"></a>
+				size="10">
 		</td>	
 		<td>
 			<input type="text" id="geo_att_determined_method"
@@ -884,10 +903,7 @@
 				name="geo_att_remark"
 				size="10">		
 		</td>
-		<script>
-			jQuery("##geo_att_value").suggest("/ajax/tData.cfm?action=suggestGeologyAttVal",{minchars:1,typeField:"geology_attribute"});
-		</script>
-
+		
 	</tr>
 
 
@@ -1449,11 +1465,11 @@ got cankill.....
 		</cfif>
 	</cftransaction>
 done.....
-<!---
+
 	<cflocation url="specLocality.cfm?collection_object_id=#collection_object_id#">		
+
+<!---
 
 	--->
 </cfoutput>
-</cfif>	 
-<DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV> 
-	  
+</cfif>	  
