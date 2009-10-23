@@ -140,7 +140,7 @@
 			<br>
 			<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 		        <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">[ edit media ]</a>
-		        ~ <a href="TAG.cfm?media_id=#media_id#" class="infoLink">[ edit TAGs ]</a>
+		        ~ <a href="TAG.cfm?media_id=#media_id#" class="infoLink">[ add or edit TAGs ]</a>
 		    </cfif>
 		  
 			~ <a href="showTAG.cfm?media_id=#media_id#" class="infoLink">[ View #tag.n# TAGs ]</a>
