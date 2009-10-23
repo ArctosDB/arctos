@@ -6,7 +6,7 @@ width:95%;
 background-color:white;
 }
 
-.group {
+.grouped {
 
 }
 
@@ -161,7 +161,7 @@ content: ": ";
 	</cfquery>
 	<div id="headerDiv"></div>
 	<div class="outer">
-		<div class="group">
+		<div class="grouped">
 			<cfloop query="geog">
 				<div class="title">
 					Geography
@@ -251,7 +251,7 @@ content: ": ";
 					MAX_DEPTH,
 					NOGEOREFBECAUSE
 			</cfquery>
-			<div class="group">
+			<div class="grouped">
 				<cfloop query="locality">
 					<div class="title">
 						Locality
@@ -363,7 +363,7 @@ content: ": ";
 				order by
 					ACCEPTED_LAT_LONG_FG desc
 			</cfquery>
-			<div class="group">
+			<div class="grouped">
 				<cfloop query="coords">
 					<div class="title">
 						<cfif ACCEPTED_LAT_LONG_FG is 1>
@@ -530,7 +530,7 @@ content: ": ";
 					GEO_ATT_REMARK
 			</cfquery>
 			<cfif geology.recordcount gt 0>
-				<div class="group">
+				<div class="grouped">
 					<div class="title">
 						Collecting Event
 					</div>
@@ -592,7 +592,7 @@ content: ": ";
 					COLLECTING_METHOD,
 					HABITAT_DESC	
 			</cfquery>
-			<div class="group">
+			<div class="grouped">
 				<cfloop query="event">
 					<cfif (verbatim_date is began_date) AND (verbatim_date is ended_date)>
 					    <cfset thisDate = dateformat(began_date,"dd mmm yyyy")>
