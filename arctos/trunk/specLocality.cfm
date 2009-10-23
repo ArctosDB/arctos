@@ -23,33 +23,7 @@
 		});		
 		*/
 	});
-	/*
-	function populateGeology(id) {
-		var idNum=id.replace('geology_attribute_','');
-		var thisValue=$("#geology_attribute_" + idNum).val();;
-		var dataValue=$("#geo_att_value_" + idNum).val();
-		jQuery.getJSON("/component/functions.cfc",
-			{
-				method : "getGeologyValues",
-				attribute : thisValue,
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (r) {
-				var s='';
-				for (i=0; i<r.ROWCOUNT; ++i) {
-					s+='<option value="' + r.DATA.ATTRIBUTE_VALUE[i] + '"';
-					if (r.DATA.ATTRIBUTE_VALUE[i]==dataValue) {
-						s+=' selected="selected"';
-					}
-					s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
-				}
-				$("select#geo_att_value_" + idNum).html(s);				
-			}
-		);
-	}	
 	
-	*/
 </script>
 	
 <cf_showMenuOnly>
