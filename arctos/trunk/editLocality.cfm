@@ -1037,7 +1037,7 @@
 					<td>
 						<label for="geology_attribute_#i#">Geology Attribute</label>
 						<cfset ttAtt=#geology_attribute#>
-						<select name="geology_attribute_#i#" id="geology_attribute_#i#" class="reqdClr">
+						<select name="geology_attribute_#i#" id="geology_attribute_#i#" class="reqdClr" onchange="populateGeology(this.id)">
 							<option value="delete" class="red">Delete This</option>
 							<cfloop query="ctgeology_attribute">
 								<option <cfif #geology_attribute# is #ttAtt#> selected="selected" </cfif>value="#geology_attribute#">#geology_attribute#</option>
@@ -1088,14 +1088,14 @@
             <input type="hidden" name="Action" value="AddGeol">
             <input type="hidden" name="locality_id" value="#locDet.locality_id#">
 			<label for="geology_attribute">Geology Attribute</label>
-			<select name="geology_attribute" id="geology_attribute" class="reqdClr">
+			<select name="geology_attribute" id="geology_attribute" class="reqdClr" onchange="populateGeology(this.id)">
 				<option value=""></option>
 				<cfloop query="ctgeology_attribute">
 					<option value="#geology_attribute#">#geology_attribute#</option>
 				</cfloop>
 			</select>
 			<label for="geo_att_value">Value</label>
-			<input type="text" name="geo_att_value" id="geo_att_value" size="60" class="reqdClr">
+			<select name="geo_att_value" id="geo_att_value" class="reqdClr"></select>
 			<label for="geo_att_determiner">Determiner</label>
 			<input type="text" name="geo_att_determiner" id="geo_att_determiner" size="40"
 						onchange="getAgent('geo_att_determiner_id','geo_att_determiner','newGeolDet',this.value); return false;"
