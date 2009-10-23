@@ -1,61 +1,42 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <style>
 .outer {
-border:2px solid black;
+width:95%;
+background-color:white;
 }
 
 .group {
-border:1px solid green;
+
 }
 
 .pair {
-border:1px solid red;
+clear:both;
+
 }
 
 .value {
 float:right;
-width:300px;
-color:blue;
+width:69%;
+font-weight:600;
+text-align:left;
 }
 
 .data {
 float:left;
-width:200px;
-color:red;
-margin:1px;
+width:30%;
+text-align:right;
 }
 
-.title{font-weight:bold;}
+.title{
+font-weight:bold;
+clear:both;
+padding-top:3em;
+padding-left:4em;
+}
 
-
-
-.lblCell{
-		text-align:right;
-		white-space:nowrap;
-vertical-align:text-top;
-width:30%;
-	}
-	.dataCell {
-		font-weight:bold;
-width:70%;
-
-	}
-	.lblCell:after {
-		content: ": ";
-	}
-	.subset {
-		text-indent:1em;
-	}
-	.grouped {
-		border:1px solid green;
-		margin-left:1.5em;
-	}
-	.subheading {
-		font-weight:bold;
-text-align:right;
-padding-right:2em;
-	}
-
+.data:after{
+content: ": ";
+}
 </style>
 </div><!--- close the header div --->
 <div class="infoLink" style="text-align:right;" onclick="removeDetail()">close</div>
