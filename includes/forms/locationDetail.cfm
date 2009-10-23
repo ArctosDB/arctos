@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_frameHeader.cfm">
+</div><!--- close the header div --->
 <style>
 .outer {
 width:95%;
@@ -16,6 +17,7 @@ clear:both;
 
 .subset {
 	padding-left:2em;
+	font-size:.9em;
 }
 .value {
 float:right;
@@ -41,7 +43,6 @@ padding-left:4em;
 content: ": ";
 }
 </style>
-</div><!--- close the header div --->
 <div class="infoLink" style="text-align:right;" onclick="removeDetail()">close</div>
 <cfoutput>
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
