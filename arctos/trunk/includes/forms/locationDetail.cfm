@@ -159,6 +159,7 @@ content: ": ";
 			SOURCE_AUTHORITY,
 			HIGHER_GEOG
 	</cfquery>
+	<div id="headerDiv"></div>
 	<div class="outer">
 		<div class="group">
 			<cfloop query="geog">
@@ -641,4 +642,6 @@ content: ": ";
 			</div>
 		</cfif>
 	</div>
+		<div id="footerDiv"></div>
+
 </cfoutput>	
