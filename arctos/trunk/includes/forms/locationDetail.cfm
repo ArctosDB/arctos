@@ -14,6 +14,9 @@ clear:both;
 
 }
 
+.subset {
+	padding-left:1em;
+}
 .value {
 float:right;
 width:69%;
@@ -524,42 +527,47 @@ content: ": ";
 					GEO_ATT_DETERMINED_METHOD,
 					GEO_ATT_REMARK
 			</cfquery>
-			<div class="group">
-				<cfloop query="geology">
-					<div class="pair">
-						<div class="data">#GEOLOGY_ATTRIBUTE#</div>
-						<div class="value"></div>
+			<cfif geology.recordcount gt 0>
+				<div class="group">
+					<div class="title">
+						Collecting Event
 					</div>
-					<div class="pair">
-						<div class="data">Attribute Value</div>
-						<div class="value">#GEO_ATT_VALUE#</div>
-					</div>
-					<cfif len(geologyDeterminer) gt 0>
+					<cfloop query="geology">
 						<div class="pair">
-							<div class="data">Determiner</div>
-							<div class="value">#geologyDeterminer#</div>
+							<div class="data">Geology Attribute</div>
+							<div class="value">#GEOLOGY_ATTRIBUTE#</div>
 						</div>
-					</cfif>
-					<cfif len(GEO_ATT_DETERMINED_METHOD) gt 0>
-						<div class="pair">
-							<div class="data">Method</div>
-							<div class="value">#GEO_ATT_DETERMINED_METHOD#</div>
+						<div class="pair subset">
+							<div class="data">Attribute Value</div>
+							<div class="value">#GEO_ATT_VALUE#</div>
 						</div>
-					</cfif>
-					<cfif len(GEO_ATT_DETERMINED_DATE) gt 0>
-						<div class="pair">
-							<div class="data">Determined Date</div>
-							<div class="value">#GEO_ATT_DETERMINED_DATE#</div>
-						</div>
-					</cfif>
-					<cfif len(GEO_ATT_REMARK) gt 0>
-						<div class="pair">
-							<div class="data">Remark</div>
-							<div class="value">#GEO_ATT_REMARK#</div>
-						</div>
-					</cfif>
-				</cfloop>
-			</div>
+						<cfif len(geologyDeterminer) gt 0>
+							<div class="pair">
+								<div class="data">Determiner</div>
+								<div class="value">#geologyDeterminer#</div>
+							</div>
+						</cfif>
+						<cfif len(GEO_ATT_DETERMINED_METHOD) gt 0>
+							<div class="pair">
+								<div class="data">Method</div>
+								<div class="value">#GEO_ATT_DETERMINED_METHOD#</div>
+							</div>
+						</cfif>
+						<cfif len(GEO_ATT_DETERMINED_DATE) gt 0>
+							<div class="pair">
+								<div class="data">Determined Date</div>
+								<div class="value">#GEO_ATT_DETERMINED_DATE#</div>
+							</div>
+						</cfif>
+						<cfif len(GEO_ATT_REMARK) gt 0>
+							<div class="pair">
+								<div class="data">Remark</div>
+								<div class="value">#GEO_ATT_REMARK#</div>
+							</div>
+						</cfif>
+					</cfloop>
+				</div>
+			</cfif>
 		</cfif>
 		<cfif isdefined("collecting_event_id")>
 			<cfquery name="event" dbtype="query">
