@@ -405,7 +405,7 @@
 				<cfset reftype = evaluate("REFTYPE_" & i)>
 				<cfset refid = evaluate("REFID_" & i)>
 				<cfset s="update tag set
-					REMARK='#REMARK#',
+					REMARK='#escapeQuotes(REMARK)#',
 					REFH=#REFH#,
 					REFTOP=#REFTOP#,
 					REFLEFT=#REFLEFT#,
