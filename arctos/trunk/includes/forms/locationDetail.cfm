@@ -1,5 +1,8 @@
 <cfinclude template="/includes/_frameHeader.cfm">
 <style>
+.outer {
+border:2px solid black;
+}
 .group {
 	border:1px solid green;
 }
@@ -7,13 +10,20 @@
 	border:1px solid red;
 }
 .label {
-	float:left;
-	width:30%;
+	float:right;
+	width:50%;
+color:blue;
 }
 .data {
-	float:right;
-	width:69%;
+	float:left;
+	width:30%;
+color:red;
+border:1px solid green;
+margin:1px;
 }
+
+.title{font-weight:bold;}
+
 
 
 .lblCell{
