@@ -383,6 +383,7 @@
 		</form>
 	</div>
 </cfoutput>
+<cfinclude template="/includes/_footer.cfm">
 </cfif>
 <cfif action is "fd">
 	<cfoutput>
