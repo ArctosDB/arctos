@@ -9,7 +9,7 @@ border:2px solid black;
 .pair {
 	border:1px solid red;
 }
-.label {
+.value {
 	float:right;
 	width:50%;
 color:blue;
