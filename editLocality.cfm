@@ -38,6 +38,7 @@
 					s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
 				}
 				$("select#" + theSelect + idNum).html(s);
+				console.log(theSelect + idNum);
 			}
 		);
 	}	
@@ -1045,9 +1046,9 @@
 						</select>
 						<span class="infoLink" onclick="document.getElementById('geology_attribute_#i#').value='delete'">Delete This</span>	
 						<label for="geo_att_value">Value</label>
-						<select name="geo_att_value_#i#" id="geo_att_value_#i#"
-							class="reqdClr">
+						<select name="geo_att_value_#i#" id="geo_att_value_#i#" class="reqdClr">
 							<option value="#geo_att_value#">#geo_att_value#</option>
+						</select>
 						<label for="geo_att_determiner_#i#">Determiner</label>
 						<input type="text" name="geo_att_determiner_#i#"  size="40"
 							onchange="getAgent('geo_att_determiner_id','geo_att_determiner','newGeolDet',this.value); return false;"
