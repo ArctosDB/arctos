@@ -14,11 +14,13 @@
 				imgw,
 				remark,
 				collection_object_id,
-				collecting_event_id
+				collecting_event_id,
+				locality_id
 			from tag where tag_id=#tag_id#
 			order by
 				collection_object_id,
 				collecting_event_id,
+				locality_id,
 				remark
 		</cfquery>
 		<cfif r.collection_object_id gt 0>
@@ -37,6 +39,14 @@
 			<cfset rs="#d.verbatim_locality# (#d.verbatim_date#)">
 			<cfset ri="#r.collecting_event_id#">
 			<cfset rl="/showLocality.cfm?action=srch&collecting_event_id=#r.collecting_event_id#">
+		<cfelseif r.locality_id gt 0>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select spec_locality from locality where locality_id=#r.locality_id#
+			</cfquery>
+			<cfset rt="locality">
+			<cfset rs="#d.spec_locality#">
+			<cfset ri="#r.locality_id#">
+			<cfset rl="/showLocality.cfm?action=srch&locality_id=#r.locality_id#">
 		<cfelse>
 			<cfset rt="comment">
 			<cfset rs="">
