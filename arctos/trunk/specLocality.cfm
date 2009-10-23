@@ -4,12 +4,11 @@
 <script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
-		jQuery(function() {
-			jQuery("#began_date").datepicker();
-			jQuery("#ended_date").datepicker();	
-			jQuery("#determined_date").datepicker();
-			$(":input[id^='geology_attribute_']").each(function(e){
-				console.log(e);	
+		jQuery("#began_date").datepicker();
+		jQuery("#ended_date").datepicker();	
+		jQuery("#determined_date").datepicker();
+		$(":input[id^='geology_attribute_']").each(function(e){
+			console.log(e);	
 		});
 	});
 	
