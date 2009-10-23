@@ -76,6 +76,9 @@
 					<cfelseif reftype is "locality">
 						,locality_id
 					</cfif>
+					<cfelseif reftype is "agent">
+						,agent_id
+					</cfif>
 					<cfif len(remark) gt 0>
 						,remark
 					</cfif>
@@ -88,7 +91,7 @@
 					#refw#,
 					#imgh#,
 					#imgw#
-					<cfif reftype is "cataloged_item" or reftype is "collecting_event" or reftype is "locality">
+					<cfif reftype is "cataloged_item" or reftype is "collecting_event" or reftype is "locality" or reftype is "agent">
 						,#refid#
 					</cfif>
 					<cfif len(remark) gt 0>
