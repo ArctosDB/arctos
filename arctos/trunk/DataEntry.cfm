@@ -78,7 +78,7 @@
 		if($element.attr("autocomplete.attached")){
 			return;
 		}
-		$element.autocomplete("/ajax/tData.cfm", {
+		$element.autocomplete("/ajax/higher_geog.cfm", {
 			width: 260,
 			selectFirst: true,
 			max: 30,
