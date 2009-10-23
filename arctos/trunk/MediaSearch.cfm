@@ -22,6 +22,9 @@
 <cfif isdefined("media_type") and len(#media_type#) gt 0>
 	<cfset srch="#srch# AND upper(media_type) like '%#ucase(media_type)#%'">
 </cfif>
+<cfif isdefined("tag") and len(tag) gt 0>
+	<cfset whr="#whr# AND media.media_id in (select media_id from tag)">
+</cfif>
 <cfif isdefined("media_id") and len(#media_id#) gt 0>
 	<cfset whr="#whr# AND media.media_id in (#media_id#)">
 </cfif>
@@ -226,6 +229,8 @@
 						<option value="#media_type#">#media_type#</option>
 					</cfloop>
 			</select>
+			<label for="tag">Require TAG?</label>
+			<input type="checkbox" id="tag" name="tag" value="1">
 			<label for="relationships">Media Relationships</label>
 			<div id="relationships" style="border:1px dashed red;">
 				<select name="relationship__1" id="relationship__1" size="1">
