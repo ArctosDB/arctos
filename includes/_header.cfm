@@ -138,6 +138,7 @@
 							<li><a target="_top" href="/TaxonomySearch.cfm">Taxonomy</a></li>
 			                <li><a target="_top" href="/MediaSearch.cfm">Media</a></li>
 			                <li><a target="_top" href="/document.cfm">Documents&nbsp;(BETA)</a></li>
+			                <li><a target="_top" href="/showLocalitu.cfm">Places&nbsp;(BETA)</a></li>
 						</ul>
 					</li>
 					<cfif len(session.roles) gt 0 and session.roles is not "public">
