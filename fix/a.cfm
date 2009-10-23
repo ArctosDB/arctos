@@ -1,9 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html>
 <head>
 		
-<link rel="stylesheet" type="text/css" href="/includes/style.css" >
-<script type='text/javascript' language="javascript" src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js'></script>
-<script type='text/javascript' language="javascript" src='/includes/ajax.js'></script>
 	<title></title>
 </head>			
 <body>
