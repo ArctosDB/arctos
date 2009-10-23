@@ -312,7 +312,10 @@ padding-right:2em;
 						VERIFICATIONSTATUS,
 						coordinateDeterminer,
 						DETERMINED_DATE
-					from r group by
+					from r 
+					where
+						ACCEPTED_LAT_LONG_FG is not null
+					group by
 						LAT_DEG,
 						DEC_LAT_MIN,
 						LAT_MIN,
