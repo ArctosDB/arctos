@@ -1033,6 +1033,7 @@
 			</cfquery>
 			<cfif len(gatt.GEOLOGY_ATTRIBUTE_ID) is 0>
 				<!--- no such attribute already esists, make sure we return nothing --->
+				.....no such attribute already esists.....
 				<cfset gattlst=listappend(gattlst,-1)>
 			<cfelse>
 				<cfset gattlst=listappend(gattlst,gatt.GEOLOGY_ATTRIBUTE_ID)>
