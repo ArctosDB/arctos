@@ -22,7 +22,6 @@
 		jQuery("input[type=text]").focus(function(){
 		    this.select();
 		});
-		console.log('document is ready...');
 		$("select[id^='geology_attribute_']").each(function(e){
 			var gid='geology_attribute_' + String(e+1);
 			populateGeology(gid);			
@@ -49,13 +48,10 @@
 					}
 					s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
 				}
-				console.log(s);
 				$("select#geo_att_value_" + idNum).html(s);				
 			}
 		);
-	}
-		
-		
+	}	
 	function attachAgentPick(element){
 	    var $element = jQuery(element);
 		if($element.attr("autocomplete.attached")){
@@ -98,49 +94,6 @@
 		});
         $element.attr("autocomplete.attached", true);
 	}
-	
-	
-		/*
-		
-		function attachGeogPick(element){
-	    var $element = jQuery(element);
-		if($element.attr("autocomplete.attached")){
-	       	return;
-		}
-       	$element.autocomplete("/ajax/tData.cfm", {
-   	 		width: 260,
-			selectFirst: true,
-			max: 30,
-			autoFill: false,
-			delay: 400,
-			mustMatch: true,
-			cacheLength: 1
-		});
-		
-		
-		jQuery("#geology_attribute_value").autocomplete("/ajax/tData.cfm?action=suggestGeologyAttVal", {
-		width: 320,
-		max: 20,
-		autofill: true,
-		highlight: false,
-		multiple: true,
-		multipleSeparator: "|",
-		scroll: true,
-		scrollHeight: 300
-	});	
-	
-	
-	
-		$element.result(function(event, data, formatted) {
-			if (data) 
-				var theID='nothing';
-				jQuery('#' + theID).val(data[1]);
-		});
-        $element.attr("autocomplete.attached", true);
-       
-        }
-        */
-	
 </script>
 <cf_showMenuOnly>
 <cf_setDataEntryGroups>
