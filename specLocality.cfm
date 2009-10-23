@@ -22,13 +22,13 @@
 	function populateGeology(id) {
 		
 		console.log('id: ' + id);
-		try {
+		if (id.indexOf('__') > -1) {
 			console.log('try');
 			var idNum=id.replace('geology_attribute__','');
 			var thisValue=$("#geology_attribute__" + idNum).val();;
 			var dataValue=$("#geo_att_value__" + idNum).val();
 			var theSelect="geo_att_value__";
-		} catch(e) {
+		} else {
 			console.log('catch');
 			// new geol attribute
 			var idNum='';
