@@ -12,18 +12,20 @@
 		console.log(id);
 		console.log('lastchar: ' + id.charAt(id.length-1));
 		if (isNaN(id.charAt(id.length-1))) {
-			console.log('yep');
-			var idNum=id.replace('geology_attribute_','');
-			var thisValue=$("#geology_attribute_" + idNum).val();;
-			var dataValue=$("#geo_att_value_" + idNum).val();
-			var theSelect="geo_att_value_";
-		} else {
 			// new geol attribute
-			console.log('nope');
+			console.log('not a number');
 			var idNum='';
 			var thisValue=$("#geology_attribute").val();
 			var dataValue=$("#geo_att_value").val();
 			var theSelect="geo_att_value";
+		} else {
+			console.log('number');
+			var idNum=id.replace('geology_attribute_','');
+			var thisValue=$("#geology_attribute_" + idNum).val();;
+			var dataValue=$("#geo_att_value_" + idNum).val();
+			var theSelect="geo_att_value_";
+			
+			
 		}
 		jQuery.getJSON("/component/functions.cfc",
 			{
