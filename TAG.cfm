@@ -334,6 +334,7 @@
 	}
 </script>
 <cfoutput>
+	<cfset title="TAG Images">
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from media where media_id=#media_id#
 	</cfquery>
