@@ -11,8 +11,38 @@
 		$(":input[id^='geo_att_determined_date']").each(function(e){
 			jQuery("#" + this.id).datepicker();
 		});
+		$("select[id^='geology_attribute_']").each(function(e){
+			populateGeology(this.id);			
+		});	
 	});
 	
+		
+		
+		
+	function populateGeology(id) {
+		var idNum=id.replace('geology_attribute__','');
+		var thisValue=$("#geology_attribute__" + idNum).val();;
+		var dataValue=$("#geo_att_value__" + idNum).val();
+		jQuery.getJSON("/component/functions.cfc",
+			{
+				method : "getGeologyValues",
+				attribute : thisValue,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				var s='';
+				for (i=0; i<r.ROWCOUNT; ++i) {
+					s+='<option value="' + r.DATA.ATTRIBUTE_VALUE[i] + '"';
+					if (r.DATA.ATTRIBUTE_VALUE[i]==dataValue) {
+						s+=' selected="selected"';
+					}
+					s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
+				}
+				$("select#geo_att_value_" + idNum).html(s);				
+			}
+		);
+	}	
 </script>
 	
 <cf_showMenuOnly>
@@ -792,8 +822,10 @@
 			</select>			
 		</td>
 		<td>
-			<input type="text" id="geo_att_value__#geology_attribute_id#" class="reqdClr"
-				name="geo_att_value__#geology_attribute_id#" value="#geo_att_value#">
+			<select id="geo_att_value__#geology_attribute_id#" class="reqdClr"
+				name="geo_att_value__#geology_attribute_id#">
+				<option value="#geo_att_value#">#geo_att_value#</option>
+			</select>
 		</td>
 		<td>
 			<input type="text" id="geo_att_determiner__#geology_attribute_id#"
@@ -840,8 +872,8 @@
 			</select>			
 		</td>
 		<td>
-			<input type="text" id="geo_att_value" class="reqdClr"
-				name="geo_att_value">
+			<select id="geo_att_value" class="reqdClr"	name="geo_att_value">
+			</select>
 		</td>
 		<td>
 			<input type="text" id="geo_att_determiner"
