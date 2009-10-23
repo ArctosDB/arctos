@@ -136,6 +136,7 @@
 				collecting_source,
 				collecting_method
 		</cfquery>
+		<a href="showLocality.cfm">Search Again</a>
 		<table border id="t" class="sortable">
 			<tr>
 				<th>Geography</th>
