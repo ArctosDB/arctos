@@ -24,7 +24,7 @@
 			var idNum=id.replace('geology_attribute__','');
 			var thisValue=$("#geology_attribute__" + idNum).val();;
 			var dataValue=$("#geo_att_value__" + idNum).val();
-			var theSelect="geo_att_value_";
+			var theSelect="geo_att_value__";
 		} catch(e) {
 			// new geol attribute
 			var idNum='';
@@ -32,9 +32,6 @@
 			var dataValue=$("#geo_att_value").val();
 			var theSelect="geo_att_value";
 		}
-		
-  
-  
 		jQuery.getJSON("/component/functions.cfc",
 			{
 				method : "getGeologyValues",
@@ -51,7 +48,8 @@
 					}
 					s+='>' + r.DATA.ATTRIBUTE_VALUE[i] + '</option>';
 				}
-				$("select#" + theSelect + idNum).html(s);				
+				$("select#" + theSelect + idNum).html(s);
+				console.log('#' + theSelect + idNum);
 			}
 		);
 	}	
