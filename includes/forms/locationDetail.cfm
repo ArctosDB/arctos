@@ -2,12 +2,11 @@
 </div><!--- close the header div --->
 <style>
 .outer {
-width:95%;
-background-color:white;
+
 }
 
 .grouped {
-
+ //border:1px solid yellow;
 }
 
 .pair {
@@ -19,6 +18,7 @@ clear:both;
 	padding-left:2em;
 	font-size:.9em;
 }
+
 .value {
 float:right;
 width:69%;
@@ -35,13 +35,15 @@ text-align:right;
 .title{
 font-weight:bold;
 clear:both;
-padding-top:3em;
-padding-left:4em;
+padding-top:1em;
+margin: 1em 4em 1em 4em;
+border-bottom:1px solid green;;
 }
 
 .data:after{
 content: ": ";
 }
+
 </style>
 <div class="infoLink" style="text-align:right;" onclick="removeDetail()">close</div>
 <cfoutput>
@@ -159,7 +161,6 @@ content: ": ";
 			SOURCE_AUTHORITY,
 			HIGHER_GEOG
 	</cfquery>
-	<div id="headerDiv"></div>
 	<div class="outer">
 		<div class="grouped">
 			<cfloop query="geog">
@@ -532,7 +533,7 @@ content: ": ";
 			<cfif geology.recordcount gt 0>
 				<div class="grouped">
 					<div class="title">
-						Collecting Event
+						Geology
 					</div>
 					<cfloop query="geology">
 						<div class="pair">
@@ -642,6 +643,4 @@ content: ": ";
 			</div>
 		</cfif>
 	</div>
-		<div id="footerDiv"></div>
-
 </cfoutput>	
