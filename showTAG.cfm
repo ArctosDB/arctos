@@ -134,5 +134,11 @@
 		<img src="#c.media_uri#" id="theImage">
 	</div>
 	<div id="navDiv">
-	<div id="editRefDiv"></div>
+		<a href="MediaSearch.cfm?action=search&media_id=#media_id#">Back to Media</a>
+		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
+			<br><a href="media.cfm?action=edit&media_id=#media_id#">Edit Media</a>
+			<br><a href="TAG.cfm?media_id=#media_id#">Edit TAGs</a>
+		</cfif>
+		<div id="editRefDiv"></div>
+	</div>
 </cfoutput>
