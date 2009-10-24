@@ -110,12 +110,14 @@
 		if (remark==null){remark='';}
 		var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
 		d+='TAG Type: ' + reftype;
-		d+='<br>Reference: ' + refStr;
+		if(refStr){
+			d+='<br>Reference: ' + refStr;
+		}	
 		if(reflink){
 			d+='&nbsp;&nbsp;&nbsp;<a href="' + reflink + '" class="infoLink" target="_blank">[ Click for details ]</a>';
 		}	
 		if(remark){
-			d+='Remark: ' + remark;
+			d+='<br>Remark: ' + remark;
 		}
 		$("#editRefDiv").append(d);
 	}
