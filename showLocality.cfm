@@ -160,13 +160,13 @@
 		        <tr>
 					<td>
 						<span class="infoLink" onclick="expand('geog_auth_rec_id', #geog_auth_rec_id#)">details</span>
-						|<a class="infoLink" href="/SpecimenResults.cfm?geog_auth_rec_id=#geog_auth_rec_id#">specimens</a>
+						<a class="infoLink" href="/SpecimenResults.cfm?geog_auth_rec_id=#geog_auth_rec_id#">specimens</a>
 						<a href="showLocality.cfm?action=srch&geog_auth_rec_id=#geog_auth_rec_id#">#higher_geog#</a>
 					</td>
 					<td>
 						<cfif len(locality_id) gt 0>
 							<span class="infoLink" onclick="expand('locality_id', #locality_id#)">details</span>
-							|<a class="infoLink" href="/SpecimenResults.cfm?locality_id=#locality_id#">specimens</a>
+							<a class="infoLink" href="/SpecimenResults.cfm?locality_id=#locality_id#">specimens</a>
 							<cfif len(spec_locality) gt 0>
 								<a href="showLocality.cfm?action=srch&locality_id=#locality_id#">#spec_locality#</a>
 							<cfelse>
@@ -184,7 +184,7 @@
 					<td>
 						<cfif len(collecting_event_id) gt 0>
 							<span class="infoLink" onclick="expand('collecting_event_id', #collecting_event_id#)">details</span>
-							|<a class="infoLink" href="/SpecimenResults.cfm?collecting_event_id=#collecting_event_id#">specimens</a>
+							<a class="infoLink" href="/SpecimenResults.cfm?collecting_event_id=#collecting_event_id#">specimens</a>
 							<a href="showLocality.cfm?action=srch&collecting_event_id=#collecting_event_id#">
 							<cfif len(verbatim_locality) gt 0>
 								#verbatim_locality#
