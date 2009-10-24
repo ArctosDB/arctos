@@ -142,3 +142,5 @@
 		<div id="editRefDiv"></div>
 	</div>
 </cfoutput>
+<cfset title="View Media TAGs">
+<cfinclude template="/includes/_footer.cfm">
