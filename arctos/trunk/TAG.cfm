@@ -62,8 +62,9 @@ max-width:70%;
 	
 
 	$(document).ready(function () { 
+		console.log('getting image ' + $("#imgURL").val());
 		
-		$('#imgDiv').image($("#imgURL"),function() {
+		$('#imgDiv').image($("#imgURL").val(),function() {
 			$("#imgH").val($('#theImage').height());
 			$("#imgW").val($('#theImage').width());
 			loadInitial();	
