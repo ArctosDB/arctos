@@ -12,7 +12,8 @@
 			i.src = src;
 			i.onload = f;
 			i.id='theImage';
-			this.HTML(i);
+			this.html('');
+			this.appendChild(i);
 		});
 	}
 
