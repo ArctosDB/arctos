@@ -3,52 +3,6 @@
 <link rel="stylesheet" type="text/css" href="/includes/jquery/css/imgareaselect-default.css">
 <link rel="stylesheet" type="text/css" href="/includes/jquery/css/ui-lightness/jquery-ui-1.7.2.custom.css">
 <script language="JavaScript" src="/includes/jquery/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
-<style>
-	.editing {
-		border:1px solid red;
-	}
-	.refDiv{
-		border:1px solid blue;
-	}
-	#imgDiv{
-		position:absolute;
-		border:2px solid black;
-		float: left;
-max-width:70%;
-	}
-	#navDiv {
-		float:right;
-		border:1px solid green;
-		width:25%;
-		height:600px;
-		overflow:scroll;
-		margin:5px;
-		padding:5px;
-	}
-	.refPane_cataloged_item {
-        background-color:#A7B3BC;
-        padding:3px;
-        border:1px solid black;
-    }
-    .refPane_collecting_event {
-        background-color:#A0C4DF;
-        padding:3px;
-        border:1px solid black;
-    }
-    .refPane_comment {
-        background-color:#76A5D4;
-        padding:3px;
-        border:1px solid black;
-    }
-	.refPane_editing {
-		border:3px solid red;
-	}
-	#theImage{
-		width:100%;
-	}
-
-
-</style>
 <script type="text/javascript" language="javascript"> 
 	jQuery(document).ready(function () { 
 		jQuery.getJSON("/component/tag.cfc",
@@ -65,15 +19,12 @@ max-width:70%;
 						var scaledLeft=r.DATA.REFLEFT[i] * $('#theImage').width() / r.DATA.IMGW[i];
 						var scaledH=r.DATA.REFH[i] * $('#theImage').height() / r.DATA.IMGH[i];
 						var scaledW=r.DATA.REFW[i] * $('#theImage').width() / r.DATA.IMGW[i];
-						
-						
 						addArea(
 							r.DATA.TAG_ID[i],
 							scaledTop,
 							scaledLeft,
 							scaledH,
 							scaledW);
-							
 						addRefPane(
 							r.DATA.TAG_ID[i],
 							r.DATA.REFTYPE[i],
@@ -85,26 +36,6 @@ max-width:70%;
 							scaledLeft,
 							scaledH,
 							scaledW);
-							
-						/*
-						addArea(
-							r.DATA.TAG_ID[i],
-							r.DATA.REFTOP[i],
-							r.DATA.REFLEFT[i],
-							r.DATA.REFH[i],
-							r.DATA.REFW[i]);
-						addRefPane(
-							r.DATA.TAG_ID[i],
-							r.DATA.REFTYPE[i],
-							r.DATA.REFSTRING[i],								
-							r.DATA.REFID[i],							
-							r.DATA.REMARK[i],						
-							r.DATA.REFLINK[i],
-							r.DATA.REFTOP[i],
-							r.DATA.REFLEFT[i],
-							r.DATA.REFH[i],
-							r.DATA.REFW[i]);
-							*/
 					}
 				} else {
 					alert('An error occurred. Try reloading or file a detailed bug report.');
