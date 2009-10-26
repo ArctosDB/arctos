@@ -18,7 +18,7 @@
 	#navDiv {
 		float:right;
 		border:1px solid green;
-		width:400px;
+		width:25%;
 		height:600px;
 		overflow:scroll;
 		margin:5px;
@@ -43,8 +43,7 @@
 		border:3px solid red;
 	}
 	#theImage{
-		max-width:600px;
-		max-height:800px;
+		max-width:70%;
 	}
 </style>
 <script type="text/javascript" language="javascript"> 
