@@ -6,19 +6,19 @@
 <script language="JavaScript" src="/includes/jquery/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
 
 <script type="text/javascript" language="javascript"> 
-	$.fn.image = function(src, f){
+	$.fn.getImg2Tag = function(src, f){
 		return this.each(function(){
 			var i = new Image();
 			i.src = src;
 			i.onload = f;
 			i.id='theImage';
-			//this.html('');
+			$("#imgDiv").html('');
 			this.appendChild(i);
 		});
 	}
 
 	$(document).ready(function () {		
-		$('#imgDiv').image($("#imgURL").val(),function() {
+		$('#imgDiv').getImg2Tag($("#imgURL").val(),function() {
 			$("#imgH").val($('#theImage').height());
 			$("#imgW").val($('#theImage').width());
 			loadInitial();	
