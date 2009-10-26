@@ -15,11 +15,12 @@
 		position:absolute;
 		border:2px solid black;
 		float: left;
+max-width:70%;
 	}
 	#navDiv {
 		float:right;
 		border:1px solid green;
-		width:400px;
+		width:25%;
 		height:600px;
 		overflow:scroll;
 		margin:5px;
@@ -35,17 +36,6 @@
         padding:3px;
         border:1px solid black;
     }
-	.refPane_locality {
-        background-color:yellow;
-        padding:3px;
-        border:1px solid black;
-    }
-	
-	.refPane_agent {
-        background-color:orange;
-        padding:3px;
-        border:1px solid black;
-    }
     .refPane_comment {
         background-color:#76A5D4;
         padding:3px;
@@ -55,9 +45,9 @@
 		border:3px solid red;
 	}
 	#theImage{
-		max-width:800px;
-		max-height:1200px;
+		width:100%;
 	}
+
 </style>
 <script type="text/javascript" language="javascript"> 
 	jQuery(document).ready(function () { 
@@ -73,21 +63,24 @@
  					var imgh=$('#theImage').height();
  					var imgw=$('#theImage').width();
  					for (i=0; i<r.ROWCOUNT; ++i) {
-						if (r.DATA.IMGH[i]!=imgh || r.DATA.IMGW[i]!=imgw){
-							var t='Saved and current image dimensions do not jive. That\'s bad. Reload, maybe?';
-							t+=' \n imgh ' + imgh;
-							t+=' \n r.DATA.IMGH ' + r.DATA.IMGH[i];
-							t+=' \n imgw ' + imgw;
-							t+=' \n r.DATA.IMGW ' + r.DATA.IMGW[i];
-							alert(t);
-							return false;
-						}						
-						addArea(
+						var scaledTop=r.DATA.REFTOP[i] * $('#theImage').height() / r.DATA.IMGH[i];
+						var scaledLeft=r.DATA.REFLEFT[i] * $('#theImage').width() / r.DATA.IMGW[i];
+						var scaledH=r.DATA.REFH[i] * $('#theImage').height() / r.DATA.IMGH[i];
+						var scaledW=r.DATA.REFW[i] * $('#theImage').width() / r.DATA.IMGW[i];
+								
+						addRefPane(
 							r.DATA.TAG_ID[i],
-							r.DATA.REFTOP[i],
-							r.DATA.REFLEFT[i],
-							r.DATA.REFH[i],
-							r.DATA.REFW[i]);
+							r.DATA.REFTYPE[i],
+							r.DATA.REFSTRING[i],								
+							r.DATA.REFID[i],							
+							r.DATA.REMARK[i],						
+							r.DATA.REFLINK[i],
+							scaledTop,
+							scaledLeft,
+							scaledH,
+							scaledW);
+							
+							/*
 						addRefPane(
 							r.DATA.TAG_ID[i],
 							r.DATA.REFTYPE[i],
@@ -99,6 +92,7 @@
 							r.DATA.REFLEFT[i],
 							r.DATA.REFH[i],
 							r.DATA.REFW[i]);
+							*/
 					}
 				} else {
 					alert('error: ' + r);
@@ -169,13 +163,18 @@
 							$("#RefStr_new").val('');
 							$("#RefId_new").val('');
 							
+							var scaledTop=r.DATA.REFTOP[i] * $('#theImage').height() / r.DATA.IMGH[i];
+							var scaledLeft=r.DATA.REFLEFT[i] * $('#theImage').width() / r.DATA.IMGW[i];
+							var scaledH=r.DATA.REFH[i] * $('#theImage').height() / r.DATA.IMGH[i];
+							var scaledW=r.DATA.REFW[i] * $('#theImage').width() / r.DATA.IMGW[i];
+						
 							
 							addArea(
 								r.DATA.TAG_ID[0],
-								r.DATA.REFTOP[0],
-								r.DATA.REFLEFT[0],
-								r.DATA.REFH[0],
-								r.DATA.REFW[0]);
+								scaledTop,
+								scaledLeft,
+								scaledH,
+								scaledW);
 							addRefPane(
 								r.DATA.TAG_ID[0],
 								r.DATA.REFTYPE[0],
@@ -183,10 +182,10 @@
 								r.DATA.REFID[0],								
 								r.DATA.REMARK[0],						
 								r.DATA.REFLINK[0],								
-								r.DATA.REFTOP[0],
-								r.DATA.REFLEFT[0],
-								r.DATA.REFH[0],
-								r.DATA.REFW[0]);
+								scaledTop,
+								scaledLeft,
+								scaledH,
+								scaledW);
 								 
 						} else {
 							alert(r);
