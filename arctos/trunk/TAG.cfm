@@ -170,10 +170,10 @@ max-width:70%;
 							$("#RefStr_new").val('');
 							$("#RefId_new").val('');
 							
-							var scaledTop=r.DATA.REFTOP[i] * $('#theImage').height() / r.DATA.IMGH[i];
-							var scaledLeft=r.DATA.REFLEFT[i] * $('#theImage').width() / r.DATA.IMGW[i];
-							var scaledH=r.DATA.REFH[i] * $('#theImage').height() / r.DATA.IMGH[i];
-							var scaledW=r.DATA.REFW[i] * $('#theImage').width() / r.DATA.IMGW[i];
+							var scaledTop=r.DATA.REFTOP[0] * $('#theImage').height() / r.DATA.IMGH[0];
+							var scaledLeft=r.DATA.REFLEFT[0] * $('#theImage').width() / r.DATA.IMGW[0];
+							var scaledH=r.DATA.REFH[0] * $('#theImage').height() / r.DATA.IMGH[0];
+							var scaledW=r.DATA.REFW[0] * $('#theImage').width() / r.DATA.IMGW[0];
 						
 							
 							addArea(
