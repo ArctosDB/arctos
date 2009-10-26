@@ -412,6 +412,17 @@ max-width:70%;
 				<cfset REFW = evaluate("W_" & i)>
 				<cfset reftype = evaluate("REFTYPE_" & i)>
 				<cfset refid = evaluate("REFID_" & i)>
+				<cfif REFH lt 0 or
+					REFTOP lt 0 or
+					REFLEFT lt 0 or
+					REFW lt 0 or
+					(REFTOP + REFH) gt imgH or
+					(REFLEFT + REFW gt imgW)>
+					bad juju. 
+					<cfdump var=#form#>
+					<cfabort>
+				</cfif>
+				
 				<cfset s="update tag set
 					REMARK='#escapeQuotes(REMARK)#',
 					REFH=#REFH#,
