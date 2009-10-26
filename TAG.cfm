@@ -50,12 +50,11 @@ max-width:70%;
 
 </style>
 <script type="text/javascript" language="javascript"> 
-	$('#theImage').load(function() {
-		$("#imgH").val($('#theImage').height());
-		$("#imgW").val($('#theImage').width());
-	});
 	jQuery(document).ready(function () { 
-		
+		$('#theImage').load(function() {
+			$("#imgH").val($('#theImage').height());
+			$("#imgW").val($('#theImage').width());
+		});
 		jQuery.getJSON("/component/tag.cfc",
 			{
 				method : "getTags",
