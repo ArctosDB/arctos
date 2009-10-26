@@ -69,7 +69,8 @@
 						console.log('IMGW: ' + r.DATA.IMGW[i]);
 						console.log('currW: ' + $('#theImage').width());
 						console.log('currH: ' + $('#theImage').height());
-						
+						var newTop=r.DATA.REFTOP[i] * $('#theImage').height() / r.DATA.IMGH[i];
+						console.log('newTop: ' + newTop);
 						
 						
 						addArea(
