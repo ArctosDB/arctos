@@ -79,7 +79,12 @@ max-width:70%;
 							scaledLeft,
 							scaledH,
 							scaledW);
-							
+						addArea(
+							r.DATA.TAG_ID[i],
+							scaledTop,
+							scaledLeft,
+							scaledH,
+							scaledW);
 							/*
 						addRefPane(
 							r.DATA.TAG_ID[i],
