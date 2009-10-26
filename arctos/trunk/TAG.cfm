@@ -55,6 +55,7 @@ max-width:70%;
                 var i = new Image();
                         i.src = src;
                         i.onload = f;
+                        i.className='theImage';
                         this.appendChild(i);
                 });
         }
