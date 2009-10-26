@@ -71,7 +71,14 @@
 						console.log('currH: ' + $('#theImage').height());
 						var newTop=r.DATA.REFTOP[i] * $('#theImage').height() / r.DATA.IMGH[i];
 						console.log('newTop: ' + newTop);
+						var newLeft=r.DATA.REFLEFT[i] * $('#theImage').width() / r.DATA.IMGW[i];
+						console.log('newLeft: ' + newLeft);
 						
+						
+						var newH=r.DATA.REFH[i] * $('#theImage').height() / r.DATA.IMGH[i];
+						console.log('newH: ' + newH);
+						var newW=r.DATA.REFW[i] * $('#theImage').width() / r.DATA.IMGW[i];
+						console.log('newH: ' + newH);
 						
 						addArea(
 							r.DATA.TAG_ID[i],
