@@ -65,8 +65,8 @@
 						console.log('REFLEFT: ' + r.DATA.REFLEFT[i]);
 						console.log('REFH: ' + r.DATA.REFH[i]);
 						console.log('REFW: ' + r.DATA.REFW[i]);
-						console.log('IMGTOP: ' + r.DATA.IMGTOP[i]);
-						console.log('IMGLEFT: ' + r.DATA.IMGLEFT[i]);
+						console.log('IMGH: ' + r.DATA.IMGH[i]);
+						console.log('IMGW: ' + r.DATA.IMGW[i]);
 						
 						addArea(
 							r.DATA.TAG_ID[i],
