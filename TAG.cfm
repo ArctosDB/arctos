@@ -199,6 +199,8 @@
 			containment: 'parent',
 			stop: function(event,ui){showDim(id,event, ui);}
 		});
+		
+		$('##navDiv').scrollTo( $('#' + paneID), 800 );
 	}
 	function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 		if (refStr==null){refStr='';}
@@ -334,10 +336,7 @@
 	
 	<div id="navDiv">
 		<div id="info">
-		<span onclick="$('##navDiv').scrollTo( $('##refPane_49'), 800 );">scrolltorefPane_49</span>
 	
-	
-	<span onclick="$('##navDiv').scrollTo( $('##refPane_55'), 800 );">refPane_55</span>
 		</div>
 		<form name="f">
 			<label for="RefType_new">Create TAG type....</label>
