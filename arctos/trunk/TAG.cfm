@@ -50,12 +50,16 @@ max-width:70%;
 
 </style>
 <script type="text/javascript" language="javascript"> 
-	$.fn.image = function(src, f){
-	    return this.each(function(){
-	        var i = new Image();
-	        i.src = "">        i.>        this.appendChild(i);
-	    });
-	}
+	 $.fn.image = function(src, f){
+        return this.each(function(){
+                var i = new Image();
+                        i.src = src;
+                        i.onload = f;
+                        this.appendChild(i);
+                });
+        }
+
+	
 
 	$(document).ready(function () { 
 		
