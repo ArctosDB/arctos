@@ -417,7 +417,9 @@ max-width:70%;
 					REFH=#REFH#,
 					REFTOP=#REFTOP#,
 					REFLEFT=#REFLEFT#,
-					REFW=#REFW#">
+					REFW=#REFW#,
+					imgH=#imgH#,
+					imgW=#imgW#">
 				<cfif reftype is "collecting_event">
 					<cfset s=s & ",COLLECTION_OBJECT_ID=null
 					,COLLECTING_EVENT_ID=#refid#">
