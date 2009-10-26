@@ -61,33 +61,18 @@ max-width:70%;
 			function (r) {
 				if (r.ROWCOUNT){
  					for (i=0; i<r.ROWCOUNT; ++i) {
-						console.log('------------------------');
-						console.log('------------------------');
-						console.log('REFTOP: ' + r.DATA.REFTOP[i]);
-						console.log('REFLEFT: ' + r.DATA.REFLEFT[i]);
-						console.log('REFH: ' + r.DATA.REFH[i]);
-						console.log('REFW: ' + r.DATA.REFW[i]);
-						console.log('IMGH: ' + r.DATA.IMGH[i]);
-						console.log('IMGW: ' + r.DATA.IMGW[i]);
-						console.log('currW: ' + $('#theImage').width());
-						console.log('currH: ' + $('#theImage').height());
-						var newTop=r.DATA.REFTOP[i] * $('#theImage').height() / r.DATA.IMGH[i];
-						console.log('newTop: ' + newTop);
-						var newLeft=r.DATA.REFLEFT[i] * $('#theImage').width() / r.DATA.IMGW[i];
-						console.log('newLeft: ' + newLeft);
+						var scaledTop=r.DATA.REFTOP[i] * $('#theImage').height() / r.DATA.IMGH[i];
+						var scaledLeft=r.DATA.REFLEFT[i] * $('#theImage').width() / r.DATA.IMGW[i];
+						var scaledH=r.DATA.REFH[i] * $('#theImage').height() / r.DATA.IMGH[i];
+						var scaledW=r.DATA.REFW[i] * $('#theImage').width() / r.DATA.IMGW[i];
 						
-						
-						var newH=r.DATA.REFH[i] * $('#theImage').height() / r.DATA.IMGH[i];
-						console.log('newH: ' + newH);
-						var newW=r.DATA.REFW[i] * $('#theImage').width() / r.DATA.IMGW[i];
-						console.log('newW: ' + newW);
 						
 						addArea(
 							r.DATA.TAG_ID[i],
-							newTop,
-							newLeft,
-							newH,
-							newW);
+							scaledTop,
+							scaledLeft,
+							scaledH,
+							scaledW);
 							
 						addRefPane(
 							r.DATA.TAG_ID[i],
@@ -96,10 +81,10 @@ max-width:70%;
 							r.DATA.REFID[i],							
 							r.DATA.REMARK[i],						
 							r.DATA.REFLINK[i],
-							newTop,
-							newLeft,
-							newH,
-							newW);
+							scaledTop,
+							scaledLeft,
+							scaledH,
+							scaledW);
 							
 						/*
 						addArea(
