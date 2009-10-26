@@ -4,51 +4,7 @@
 <link rel="stylesheet" type="text/css" href="/includes/jquery/css/imgareaselect-default.css">
 <link rel="stylesheet" type="text/css" href="/includes/jquery/css/ui-lightness/jquery-ui-1.7.2.custom.css">
 <script language="JavaScript" src="/includes/jquery/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
-<style>
-	.editing {
-		border:1px solid red;
-	}
-	.refDiv{
-		border:1px solid blue;
-	}
-	#imgDiv{
-		position:absolute;
-		border:2px solid black;
-		float: left;
-width:60%;
-	}
-	#navDiv {
-		float:right;
-		border:1px solid green;
-		width:35%;
-		height:600px;
-		overflow:scroll;
-		margin:5px;
-		padding:5px;
-	}
-	.refPane_cataloged_item {
-        background-color:#A7B3BC;
-        padding:3px;
-        border:1px solid black;
-    }
-    .refPane_collecting_event {
-        background-color:#A0C4DF;
-        padding:3px;
-        border:1px solid black;
-    }
-    .refPane_comment {
-        background-color:#76A5D4;
-        padding:3px;
-        border:1px solid black;
-    }
-	.refPane_editing {
-		border:3px solid red;
-	}
-	#theImage{
-		width:100%;
-	}
 
-</style>
 <script type="text/javascript" language="javascript"> 
 	 $.fn.image = function(src, f){
         return this.each(function(){

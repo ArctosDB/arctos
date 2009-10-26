@@ -1,3 +1,60 @@
+/* TAG style */
+
+.editing {
+	border:1px solid red;
+}
+.refDiv{
+	border:1px solid blue;
+}
+#imgDiv{
+	position:absolute;
+	border:1px solid black;
+	float: left;
+	width:60%;
+}
+#navDiv {
+	float:right;
+	border:1px solid green;
+	width:35%;
+	height:600px;
+	overflow:scroll;
+	margin:5px;
+	padding:5px;
+}
+.refPane_cataloged_item {
+    background-color:#A7B3BC;
+    padding:3px;
+    border:1px solid black;
+}
+.refPane_collecting_event {
+    background-color:#A0C4DF;
+    padding:3px;
+    border:1px solid black;
+}
+.refPane_locality {
+    background-color:#yellow;
+    padding:3px;
+    border:1px solid black;
+}
+.refPane_agent {
+    background-color:orange;
+    padding:3px;
+    border:1px solid black;
+}
+.refPane_comment {
+    background-color:#76A5D4;
+    padding:3px;
+    border:1px solid black;
+}
+.refPane_editing {
+	border:3px solid red;
+}
+#theImage{
+	width:100%;
+}
+	
+/* end TAG style */
+
 .annotateBox {
 	border:3px solid green;
 	z-index:9999;
