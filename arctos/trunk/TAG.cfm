@@ -200,7 +200,7 @@
 			stop: function(event,ui){showDim(id,event, ui);}
 		});
 		
-		$('##navDiv').scrollTo( $('#' + paneID), 800 );
+		$('#navDiv').scrollTo( $('#' + paneID), 800 );
 	}
 	function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 		if (refStr==null){refStr='';}
