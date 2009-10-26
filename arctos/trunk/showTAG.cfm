@@ -59,6 +59,15 @@
 			function (r) {
 				if (r.ROWCOUNT){
  					for (i=0; i<r.ROWCOUNT; ++i) {
+						console.log('------------------------');
+						console.log('------------------------');
+						console.log('REFTOP: ' + r.DATA.REFTOP[i]);
+						console.log('REFLEFT: ' + r.DATA.REFLEFT[i]);
+						console.log('REFH: ' + r.DATA.REFH[i]);
+						console.log('REFW: ' + r.DATA.REFW[i]);
+						console.log('IMGTOP: ' + r.DATA.IMGTOP[i]);
+						console.log('IMGLEFT: ' + r.DATA.IMGLEFT[i]);
+						
 						addArea(
 							r.DATA.TAG_ID[i],
 							r.DATA.REFTOP[i],
