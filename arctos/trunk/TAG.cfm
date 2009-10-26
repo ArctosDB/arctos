@@ -309,6 +309,7 @@
 	</cfif>
 	<input type="hidden" id="imgURL" value="#c.media_uri#">
 	<div id="imgDiv">
+		Loading image and tags.....
 	</div>
 	<div id="navDiv">
 		<div id="info"></div>
