@@ -67,6 +67,10 @@
 						console.log('REFW: ' + r.DATA.REFW[i]);
 						console.log('IMGH: ' + r.DATA.IMGH[i]);
 						console.log('IMGW: ' + r.DATA.IMGW[i]);
+						console.log('currW: ' + $('#theImage').width());
+						console.log('currH: ' + $('#theImage').height());
+						
+						
 						
 						addArea(
 							r.DATA.TAG_ID[i],
