@@ -78,8 +78,28 @@
 						var newH=r.DATA.REFH[i] * $('#theImage').height() / r.DATA.IMGH[i];
 						console.log('newH: ' + newH);
 						var newW=r.DATA.REFW[i] * $('#theImage').width() / r.DATA.IMGW[i];
-						console.log('newH: ' + newH);
+						console.log('newW: ' + newW);
 						
+						addArea(
+							r.DATA.TAG_ID[i],
+							newTop,
+							newLeft,
+							newH,
+							newW);
+							
+						addRefPane(
+							r.DATA.TAG_ID[i],
+							r.DATA.REFTYPE[i],
+							r.DATA.REFSTRING[i],								
+							r.DATA.REFID[i],							
+							r.DATA.REMARK[i],						
+							r.DATA.REFLINK[i],
+							newTop,
+							newLeft,
+							newH,
+							newW);
+							
+						/*
 						addArea(
 							r.DATA.TAG_ID[i],
 							r.DATA.REFTOP[i],
@@ -97,6 +117,7 @@
 							r.DATA.REFLEFT[i],
 							r.DATA.REFH[i],
 							r.DATA.REFW[i]);
+							*/
 					}
 				} else {
 					alert('An error occurred. Try reloading or file a detailed bug report.');
