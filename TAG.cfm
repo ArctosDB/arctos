@@ -68,7 +68,7 @@ max-width:70%;
 	 					for (i=0; i<r.ROWCOUNT; ++i) {
 							var scaledTop=r.DATA.REFTOP[i] * $("#imgH").val() / r.DATA.IMGH[i];
 							var scaledLeft=r.DATA.REFLEFT[i] * $("#imgW").val() / r.DATA.IMGW[i];
-							var scaledH=r.DATA.REFH[i] * $("#imgH").val( / r.DATA.IMGH[i];
+							var scaledH=r.DATA.REFH[i] * $("#imgH").val() / r.DATA.IMGH[i];
 							var scaledW=r.DATA.REFW[i] * $("#imgW").val() / r.DATA.IMGW[i];
 									
 							addRefPane(
