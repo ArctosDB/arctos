@@ -12,7 +12,7 @@
 			i.src = src;
 			i.onload = f;
 			i.id='theImage';
-			this.html('');
+			//this.html('');
 			this.appendChild(i);
 		});
 	}
