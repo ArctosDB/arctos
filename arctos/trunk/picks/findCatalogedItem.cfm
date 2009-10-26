@@ -1,4 +1,7 @@
 <cfinclude template="../includes/_pickHeader.cfm">
+<cfif oidNum is "undefined">
+	<cfset oidNum=''>
+</cfif>
 <cfset title = "Cat Item Pick">
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(collection) from collection order by collection
@@ -30,7 +33,9 @@
         <br>
 		<input type="submit" value="Search" class="schBtn">
 	</form>
- 
+<cfif len(oidNum) is 0>
+	<cfabort>
+</cfif>
  <Cfset oidNumList = "">
  <cfloop list="#oidNum#" index="v" delimiters=",">
 	<cfif len(#oidNumList#) is 0>
