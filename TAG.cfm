@@ -51,6 +51,8 @@ max-width:70%;
 </style>
 <script type="text/javascript" language="javascript"> 
 	jQuery(document).ready(function () { 
+		$("#imgH").val($('#theImage').height());
+		$("#imgW").val($('#theImage').width());
 		jQuery.getJSON("/component/tag.cfc",
 			{
 				method : "getTags",
@@ -380,6 +382,8 @@ max-width:70%;
 		<hr>
 		<form name="ef" method="post" action="TAG.cfm">
 		<input type="submit" value="save all">
+		<input type="text" name="imgH" id="imgH">
+		<input type="text" name="imgW" id="imgW">
 		<div id="editRefDiv"></div>
 		<input type="hidden" id="media_id" name="media_id" value="#c.media_id#">
 		<input type="hidden" name="action" value="fd">
