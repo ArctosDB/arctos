@@ -50,64 +50,65 @@ max-width:70%;
 
 </style>
 <script type="text/javascript" language="javascript"> 
-	jQuery(document).ready(function () { 
+	$(document).ready(function () { 
 		$('#theImage').load(function() {
 			$("#imgH").val($('#theImage').height());
 			$("#imgW").val($('#theImage').width());
-		});
-		jQuery.getJSON("/component/tag.cfc",
-			{
-				method : "getTags",
-				media_id : $("#media_id").val(),
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (r) {
-				if (r.ROWCOUNT){
- 					var imgh=$('#theImage').height();
- 					var imgw=$('#theImage').width();
- 					for (i=0; i<r.ROWCOUNT; ++i) {
-						var scaledTop=r.DATA.REFTOP[i] * $('#theImage').height() / r.DATA.IMGH[i];
-						var scaledLeft=r.DATA.REFLEFT[i] * $('#theImage').width() / r.DATA.IMGW[i];
-						var scaledH=r.DATA.REFH[i] * $('#theImage').height() / r.DATA.IMGH[i];
-						var scaledW=r.DATA.REFW[i] * $('#theImage').width() / r.DATA.IMGW[i];
-								
-						addRefPane(
-							r.DATA.TAG_ID[i],
-							r.DATA.REFTYPE[i],
-							r.DATA.REFSTRING[i],								
-							r.DATA.REFID[i],							
-							r.DATA.REMARK[i],						
-							r.DATA.REFLINK[i],
-							scaledTop,
-							scaledLeft,
-							scaledH,
-							scaledW);
-						addArea(
-							r.DATA.TAG_ID[i],
-							scaledTop,
-							scaledLeft,
-							scaledH,
-							scaledW);
-							/*
-						addRefPane(
-							r.DATA.TAG_ID[i],
-							r.DATA.REFTYPE[i],
-							r.DATA.REFSTRING[i],								
-							r.DATA.REFID[i],							
-							r.DATA.REMARK[i],						
-							r.DATA.REFLINK[i],
-							r.DATA.REFTOP[i],
-							r.DATA.REFLEFT[i],
-							r.DATA.REFH[i],
-							r.DATA.REFW[i]);
-							*/
+			$.getJSON("/component/tag.cfc",
+				{
+					method : "getTags",
+					media_id : $("#media_id").val(),
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					if (r.ROWCOUNT){
+	 					var imgh=$("#imgH").val();
+	 					var imgw=$("#imgW").val();
+	 					for (i=0; i<r.ROWCOUNT; ++i) {
+							var scaledTop=r.DATA.REFTOP[i] * $("#imgH").val() / r.DATA.IMGH[i];
+							var scaledLeft=r.DATA.REFLEFT[i] * $("#imgW").val() / r.DATA.IMGW[i];
+							var scaledH=r.DATA.REFH[i] * $("#imgH").val( / r.DATA.IMGH[i];
+							var scaledW=r.DATA.REFW[i] * $("#imgW").val() / r.DATA.IMGW[i];
+									
+							addRefPane(
+								r.DATA.TAG_ID[i],
+								r.DATA.REFTYPE[i],
+								r.DATA.REFSTRING[i],								
+								r.DATA.REFID[i],							
+								r.DATA.REMARK[i],						
+								r.DATA.REFLINK[i],
+								scaledTop,
+								scaledLeft,
+								scaledH,
+								scaledW);
+							addArea(
+								r.DATA.TAG_ID[i],
+								scaledTop,
+								scaledLeft,
+								scaledH,
+								scaledW);
+								/*
+							addRefPane(
+								r.DATA.TAG_ID[i],
+								r.DATA.REFTYPE[i],
+								r.DATA.REFSTRING[i],								
+								r.DATA.REFID[i],							
+								r.DATA.REMARK[i],						
+								r.DATA.REFLINK[i],
+								r.DATA.REFTOP[i],
+								r.DATA.REFLEFT[i],
+								r.DATA.REFH[i],
+								r.DATA.REFW[i]);
+								*/
+						}
+					} else {
+						alert('error: ' + r);
 					}
-				} else {
-					alert('error: ' + r);
 				}
-			}
-		);
+			);
+		});
+		
 		jQuery("div .refDiv").live('click', function(e){
 			var tagID=this.id.replace('refDiv_','');
 			modArea(tagID);
@@ -158,8 +159,8 @@ max-width:70%;
 						refleft: $("#l_new").val(),
 						refh: $("#h_new").val(),
 						refw: $("#w_new").val(),
-						imgh: $('#theImage').height(),
-						imgw: $('#theImage').width(),
+						imgh: $("#imgH").val(),
+						imgw: $("#imgW").val(),
 						returnformat : "json",
 						queryformat : 'column'
 					},
@@ -172,10 +173,10 @@ max-width:70%;
 							$("#RefStr_new").val('');
 							$("#RefId_new").val('');
 							
-							var scaledTop=r.DATA.REFTOP[0] * $('#theImage').height() / r.DATA.IMGH[0];
-							var scaledLeft=r.DATA.REFLEFT[0] * $('#theImage').width() / r.DATA.IMGW[0];
-							var scaledH=r.DATA.REFH[0] * $('#theImage').height() / r.DATA.IMGH[0];
-							var scaledW=r.DATA.REFW[0] * $('#theImage').width() / r.DATA.IMGW[0];
+							var scaledTop=r.DATA.REFTOP[0] * $("#imgH").val() / r.DATA.IMGH[0];
+							var scaledLeft=r.DATA.REFLEFT[0] *  $("#imgW").val() / r.DATA.IMGW[0];
+							var scaledH=r.DATA.REFH[0] * $("#imgH").val() / r.DATA.IMGH[0];
+							var scaledW=r.DATA.REFW[0] *  $("#imgW").val() / r.DATA.IMGW[0];
 						
 							
 							addArea(
@@ -265,8 +266,8 @@ max-width:70%;
 		$("#editRefDiv").append(d);
 	}
 	function newArea() {
-		var ih = $('#theImage').height();
-		var iw = $('#theImage').width();
+		var ih = $("#imgH").val();
+		var iw = $("#imgW").val();
 		/*
 		var t = ih/4;
 		var l= iw/4;
