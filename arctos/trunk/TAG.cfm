@@ -50,7 +50,7 @@ max-width:70%;
 
 </style>
 <script type="text/javascript" language="javascript"> 
-	$(img).load(function() {
+	$('#theImage').load(function() {
 		$("#imgH").val($('#theImage').height());
 		$("#imgW").val($('#theImage').width());
 	});
