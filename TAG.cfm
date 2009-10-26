@@ -334,10 +334,10 @@
 	
 	<div id="navDiv">
 		<div id="info">
-		<span onclick="scrollTo( $('##navDiv').stop().$('##refPane_49'), 800 );">scrolltorefPane_49</span>
+		<span onclick="scrollTo( $('##navDiv').$('##refPane_49'), 800 );">scrolltorefPane_49</span>
 	
 	
-	<span onclick="scrollTo( $('##navDiv').stop().$('##refPane_55'), 800 );">refPane_55</span>
+	<span onclick="scrollTo( $('##navDiv').$('##refPane_55'), 800 );">refPane_55</span>
 		</div>
 		<form name="f">
 			<label for="RefType_new">Create TAG type....</label>
