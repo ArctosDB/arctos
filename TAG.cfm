@@ -54,61 +54,8 @@ max-width:70%;
 		$('#theImage').load(function() {
 			$("#imgH").val($('#theImage').height());
 			$("#imgW").val($('#theImage').width());
-			$.getJSON("/component/tag.cfc",
-				{
-					method : "getTags",
-					media_id : $("#media_id").val(),
-					returnformat : "json",
-					queryformat : 'column'
-				},
-				function (r) {
-					if (r.ROWCOUNT){
-	 					var imgh=$("#imgH").val();
-	 					var imgw=$("#imgW").val();
-	 					for (i=0; i<r.ROWCOUNT; ++i) {
-							var scaledTop=r.DATA.REFTOP[i] * $("#imgH").val() / r.DATA.IMGH[i];
-							var scaledLeft=r.DATA.REFLEFT[i] * $("#imgW").val() / r.DATA.IMGW[i];
-							var scaledH=r.DATA.REFH[i] * $("#imgH").val() / r.DATA.IMGH[i];
-							var scaledW=r.DATA.REFW[i] * $("#imgW").val() / r.DATA.IMGW[i];
-									
-							addRefPane(
-								r.DATA.TAG_ID[i],
-								r.DATA.REFTYPE[i],
-								r.DATA.REFSTRING[i],								
-								r.DATA.REFID[i],							
-								r.DATA.REMARK[i],						
-								r.DATA.REFLINK[i],
-								scaledTop,
-								scaledLeft,
-								scaledH,
-								scaledW);
-							addArea(
-								r.DATA.TAG_ID[i],
-								scaledTop,
-								scaledLeft,
-								scaledH,
-								scaledW);
-								/*
-							addRefPane(
-								r.DATA.TAG_ID[i],
-								r.DATA.REFTYPE[i],
-								r.DATA.REFSTRING[i],								
-								r.DATA.REFID[i],							
-								r.DATA.REMARK[i],						
-								r.DATA.REFLINK[i],
-								r.DATA.REFTOP[i],
-								r.DATA.REFLEFT[i],
-								r.DATA.REFH[i],
-								r.DATA.REFW[i]);
-								*/
-						}
-					} else {
-						alert('error: ' + r);
-					}
-				}
-			);
+			loadInitial();
 		});
-		
 		jQuery("div .refDiv").live('click', function(e){
 			var tagID=this.id.replace('refDiv_','');
 			modArea(tagID);
@@ -172,13 +119,10 @@ max-width:70%;
 							$("#Remark_new").val('');
 							$("#RefStr_new").val('');
 							$("#RefId_new").val('');
-							
 							var scaledTop=r.DATA.REFTOP[0] * $("#imgH").val() / r.DATA.IMGH[0];
 							var scaledLeft=r.DATA.REFLEFT[0] *  $("#imgW").val() / r.DATA.IMGW[0];
-							var scaledH=r.DATA.REFH[0] * $("#imgH").val() / r.DATA.IMGH[0];
+							var scaledH=r.DATA.REFH[0] * $('#theImage').height() / r.DATA.IMGH[0];
 							var scaledW=r.DATA.REFW[0] *  $("#imgW").val() / r.DATA.IMGW[0];
-						
-							
 							addArea(
 								r.DATA.TAG_ID[0],
 								scaledTop,
@@ -205,6 +149,49 @@ max-width:70%;
 			}
 		});
 	});
+		
+	function loadInitial() {
+		$.getJSON("/component/tag.cfc",
+			{
+				method : "getTags",
+				media_id : $("#media_id").val(),
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function (r) {
+				if (r.ROWCOUNT){
+ 					var imgh=$("#imgH").val();
+ 					var imgw=$("#imgW").val();
+ 					for (i=0; i<r.ROWCOUNT; ++i) {
+						var scaledTop=r.DATA.REFTOP[i] * $("#imgH").val() / r.DATA.IMGH[i];
+						var scaledLeft=r.DATA.REFLEFT[i] * $("#imgW").val() / r.DATA.IMGW[i];
+						var scaledH=r.DATA.REFH[i] * $("#imgH").val() / r.DATA.IMGH[i];
+						var scaledW=r.DATA.REFW[i] * $("#imgW").val() / r.DATA.IMGW[i];
+								
+						addRefPane(
+							r.DATA.TAG_ID[i],
+							r.DATA.REFTYPE[i],
+							r.DATA.REFSTRING[i],								
+							r.DATA.REFID[i],							
+							r.DATA.REMARK[i],						
+							r.DATA.REFLINK[i],
+							scaledTop,
+							scaledLeft,
+							scaledH,
+							scaledW);
+						addArea(
+							r.DATA.TAG_ID[i],
+							scaledTop,
+							scaledLeft,
+							scaledH,
+							scaledW);
+					}
+				} else {
+					alert('error: ' + r);
+				}
+			}
+		);
+	}
 	function modArea(id) {
 		var divID='refDiv_' + id;
 		var paneID='refPane_' + id;
