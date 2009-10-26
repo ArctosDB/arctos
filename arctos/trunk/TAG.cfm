@@ -62,9 +62,7 @@ width:60%;
 
 	
 
-	$(document).ready(function () { 
-		console.log('getting image ' + $("#imgURL").val());
-		
+	$(document).ready(function () {		
 		$('#imgDiv').image($("#imgURL").val(),function() {
 			$("#imgH").val($('#theImage').height());
 			$("#imgW").val($('#theImage').width());
