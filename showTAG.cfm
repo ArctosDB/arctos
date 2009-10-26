@@ -14,6 +14,7 @@
 		position:absolute;
 		border:2px solid black;
 		float: left;
+max-width:70%;
 	}
 	#navDiv {
 		float:right;
@@ -43,8 +44,10 @@
 		border:3px solid red;
 	}
 	#theImage{
-		max-width:70%;
+		width:100%;
 	}
+
+
 </style>
 <script type="text/javascript" language="javascript"> 
 	jQuery(document).ready(function () { 
