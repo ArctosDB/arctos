@@ -50,12 +50,21 @@ max-width:70%;
 
 </style>
 <script type="text/javascript" language="javascript"> 
+	$.fn.image = function(src, f){
+	    return this.each(function(){
+	        var i = new Image();
+	        i.src = "">        i.>        this.appendChild(i);
+	    });
+	}
+
 	$(document).ready(function () { 
-		$('#theImage').ready(function() {
+		
+		$('#imgDiv').image($("#imgURL"),function() {
 			$("#imgH").val($('#theImage').height());
 			$("#imgW").val($('#theImage').width());
-			loadInitial();
+			loadInitial();	
 		});
+		
 		jQuery("div .refDiv").live('click', function(e){
 			var tagID=this.id.replace('refDiv_','');
 			modArea(tagID);
@@ -338,8 +347,8 @@ max-width:70%;
 		FAIL@images only.
 		<cfabort>
 	</cfif>
+	<input type="hidden" id="imgURL" value="#c.media_uri#">
 	<div id="imgDiv">
-		<img src="#c.media_uri#" id="theImage">
 	</div>
 	<div id="navDiv">
 		<div id="info"></div>
