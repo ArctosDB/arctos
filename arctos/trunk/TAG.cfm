@@ -15,12 +15,12 @@
 		position:absolute;
 		border:2px solid black;
 		float: left;
-max-width:70%;
+width:60%;
 	}
 	#navDiv {
 		float:right;
 		border:1px solid green;
-		width:25%;
+		width:35%;
 		height:600px;
 		overflow:scroll;
 		margin:5px;
