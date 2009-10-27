@@ -109,7 +109,7 @@
 				agent_name
 		</cfquery>	
 		<div style="clear:both"><strong>Edit Accession</strong></div>
-		<table><tr><td>
+		<table><tr><td valign="top">
 			<cfform action="editAccn.cfm" method="post" name="editAccn">
 				<input type="hidden" name="Action" value="saveChanges">
 				<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
@@ -259,7 +259,7 @@
 				</table>
 			</cfform>
 		</div>
-		</td><td>
+		</td><td valign="top">
 			<strong>Projects associated with this Accn:</strong>
 			<ul>
 				<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
