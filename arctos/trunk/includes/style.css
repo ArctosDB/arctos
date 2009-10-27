@@ -2,9 +2,11 @@
 
 .editing {
 	border:1px solid red;
+	z-index:300;
 }
 .refDiv{
 	border:1px solid blue;
+	z-index:299;
 }
 #imgDiv{
 	position:absolute;
