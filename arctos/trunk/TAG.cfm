@@ -221,6 +221,12 @@
 		d+='<input type="hidden" id="w_' + id + '" name="w_' + id + '" value="' + w + '">';
 		d+='</div>';
 		$("#editRefDiv").append(d);
+		if (reftype=='comment'){
+			$("#RefType_" + id).hide();
+		} else
+			$("#RefType_" + id).show();
+		} 
+		
 	}
 	function newArea() {
 		var ih = $("#imgH").val();
@@ -260,7 +266,7 @@
 				$("#newRefHidden").show();
 				newArea();
 			}			
-		} 
+		}
 		if (v=='cataloged_item') {
 			findCatalogedItem('RefId_' + tagID,'RefStr_' + tagID,fname);
 		} else if (v=='collecting_event') {
