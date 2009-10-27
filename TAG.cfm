@@ -223,7 +223,7 @@
 		$("#editRefDiv").append(d);
 		if (reftype=='comment'){
 			$("#RefType_" + id).hide();
-		} else
+		} else {
 			$("#RefType_" + id).show();
 		} 
 		
