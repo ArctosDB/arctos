@@ -312,13 +312,14 @@
 				<cfif #media.recordcount# gt 0>
 					<cfloop query="media">
 						<li>
-							<a href="/MediaSearch.cfm?action=search&media_id=#media_id#">
+							<a href="#media_uri#">
 								<cfif len(preview_uri) gt 0>
 									<img src="#preview_uri#">
 								<cfelse>
 									<img src="/images/noThumb.jpg">
 								</cfif>
 							</a>
+							<br><a class="infoLink" href="/MediaSearch.cfm?action=search&media_id=#media_id#">edit</a>
 						</li>
 					</cfloop>
 				<cfelse>
