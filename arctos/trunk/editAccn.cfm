@@ -259,7 +259,7 @@
 				</table>
 			</cfform>
 		</div>
-		<div style="float:right;width:40%;border:1px solid green;margin-right:2em;">
+		<div style="float:right;width:30%;border:1px solid green;margin-right:1em;">
 			<strong>Projects associated with this Accn:</strong>
 			<ul>
 				<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
