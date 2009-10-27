@@ -109,7 +109,7 @@
 				agent_name
 		</cfquery>	
 		<div style="clear:both"><strong>Edit Accession</strong></div>
-		<div style="float:left;width:55%;">
+		<table><tr><td>
 			<cfform action="editAccn.cfm" method="post" name="editAccn">
 				<input type="hidden" name="Action" value="saveChanges">
 				<input type="hidden" name="transaction_id" value="#accnData.transaction_id#">
@@ -259,7 +259,7 @@
 				</table>
 			</cfform>
 		</div>
-		<div style="float:right;width:30%;border:1px solid green;margin-right:1em;">
+		</td><td>
 			<strong>Projects associated with this Accn:</strong>
 			<ul>
 				<cfquery name="projs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -370,8 +370,7 @@
 			   		onClick="javascript: window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick', 
 						'resizable,scrollbars=yes,width=600,height=600')">
 			</form>
-		</div>
-		<div style="clear:both">&nbsp;</div>
+		</td></tr></table>
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------->
