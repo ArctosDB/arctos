@@ -227,7 +227,7 @@
 			
 			
 			$("#RefStr_" + id).hide();
-			$("label[for='#RefStr_' + id]").hide();
+			$("label[for='RefStr_ + id']").hide();
 			
 			console.log('hide ID');
 		} else {
