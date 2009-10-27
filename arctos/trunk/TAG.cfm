@@ -223,17 +223,9 @@
 		$("#editRefDiv").append(d);
 				
 		if (reftype=='comment'){
-			
-			
-			//$('#foo, label[for="foo"]').hide ();
-			
-			$("#RefStr_" + id + ", label[for='RefStr_' + id']").hide();
-			//$("label[for='RefStr_ + id']").hide();
-			
-			console.log('hide ID');
+			$("#RefStr_" + id).hide();
 		} else {
 			$("#RefStr_" + id).show();
-			$("label[for='RefStr_' + id]").show();
 		} 
 		
 	}
