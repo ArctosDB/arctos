@@ -221,9 +221,15 @@
 		d+='<input type="hidden" id="w_' + id + '" name="w_' + id + '" value="' + w + '">';
 		d+='</div>';
 		$("#editRefDiv").append(d);
+		
+		var rsl="RefStr_" + id;
+		
 		if (reftype=='comment'){
-			$("#RefStr_" + id).hide();
-			$("label[for='RefStr_' + id]").hide();
+			
+			
+			
+			$("#" + rsl).hide();
+			$("label[for=: + rsl + "]").hide();
 			
 		} else {
 			$("#RefStr_" + id).show();
