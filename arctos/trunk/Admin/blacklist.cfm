@@ -2,7 +2,7 @@
 <cfoutput>
 <cfif action is "nothing">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select ip from uam.blacklist
+		select ip from uam.blacklist order by ip
 	</cfquery>
 	<cfset application.blacklist=valuelist(d.ip)>
 	<form name="i" method="post" action="blacklist.cfm">

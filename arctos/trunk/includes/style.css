@@ -18,10 +18,13 @@
 	float:right;
 	border:1px solid green;
 	width:35%;
-	height:600px;
+	height:500px;
 	overflow:scroll;
 	margin:5px;
 	padding:5px;
+	position:fixed;
+	right:0px;
+	top:20%;
 }
 .refPane_cataloged_item {
     background-color:#A7B3BC;
