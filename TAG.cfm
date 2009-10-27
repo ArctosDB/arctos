@@ -366,6 +366,7 @@
 		</form>
 	</div>
 </cfoutput>
+<div style="clear:both;">&nbsp;</div>
 <cfinclude template="/includes/_footer.cfm">
 </cfif>
 <cfif action is "fd">
