@@ -225,9 +225,10 @@
 		if (reftype=='comment'){
 			
 			
+			//$('#foo, label[for="foo"]').hide ();
 			
-			$("#RefStr_" + id).hide();
-			$("label[for='RefStr_ + id']").hide();
+			$("#RefStr_" + id + ", label[for='RefStr_' + id']").hide();
+			//$("label[for='RefStr_ + id']").hide();
 			
 			console.log('hide ID');
 		} else {
