@@ -229,8 +229,9 @@
 			
 			
 			$("#" + rsl).hide();
-			$("label[for=:'" + rsl + "']").hide();
+			$("label[for='RefStr_'" + id + "]").hide();
 			
+			console.log('hide ID');
 		} else {
 			$("#RefStr_" + id).show();
 			$("label[for='RefStr_' + id]").show();
