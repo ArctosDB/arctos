@@ -229,7 +229,7 @@
 			
 			
 			$("#" + rsl).hide();
-			$("label[for=: + rsl + "]").hide();
+			$("label[for=:'" + rsl + "']").hide();
 			
 		} else {
 			$("#RefStr_" + id).show();
