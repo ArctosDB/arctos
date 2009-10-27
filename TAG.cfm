@@ -222,9 +222,12 @@
 		d+='</div>';
 		$("#editRefDiv").append(d);
 		if (reftype=='comment'){
-			$("#RefType_" + id).hide();
+			$("#RefStr_" + id).hide();
+			$("label[for='#RefStr_' + id]").hide();
+			
 		} else {
-			$("#RefType_" + id).show();
+			$("#RefStr_" + id).show();
+			$("label[for='#RefStr_' + id]").show();
 		} 
 		
 	}
