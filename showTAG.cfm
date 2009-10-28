@@ -59,6 +59,7 @@
 		});
 		jQuery("div[class^='refPane_']").live('click', function(e){
 			var tagID='refPane_' + this.id.replace('refPane_','');
+			console.log(tagID);
 			$('#navDiv').scrollTo( $('#' + tagID), 800 );
 		});
 	});
