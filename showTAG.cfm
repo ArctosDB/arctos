@@ -49,7 +49,6 @@
 		});
 		jQuery("div .refDiv, .editing").live('click', function(e){
 			var tagID='refPane_' + this.id.replace('refDiv_','');
-			console.log(tagID);
 			$('#navDiv').scrollTo( $('#' + tagID), 800 );
 		});
 		
@@ -61,7 +60,6 @@
 		
 		jQuery("div[class^='refPane_']").live('click', function(e){
 			var tagID='refDiv_' + this.id.replace('refPane_','');
-			console.log(tagID);
 			$(document).scrollTo( $('#' + tagID), 800 );
 		});
 	});

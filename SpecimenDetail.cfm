@@ -472,7 +472,7 @@
 							</li>
 							<li>
 								<span onclick="switchIFrame('MediaSearch')"
-									class="likeLink" id="editImagesSpan">Media</span>
+									class="likeLink" id="MediaSearchSpan">Media</span>
 							</li>
 							<li>
 								<span onclick="switchIFrame('Encumbrances')"
