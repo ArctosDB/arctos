@@ -182,7 +182,7 @@
 		$('#navDiv').scrollTo( $('#' + paneID), 800 );
 		
 		
-		$('#imgDiv').scrollTo( $('#' + divID), 800 );
+		$(document).scrollTo( $('#' + divID), 800 );
 	}
 	function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 		if (refStr==null){refStr='';}
