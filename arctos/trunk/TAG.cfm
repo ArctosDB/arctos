@@ -22,6 +22,9 @@
 			$("#imgW").val($('#theImage').width());
 			loadInitial();	
 		});
+		$("span[id^='scrollToTag_']").live('click', function(e){
+			$(document).scrollTo( $('#' + divID), 800 );
+		});
 		jQuery("div .refDiv").live('click', function(e){
 			var tagID=this.id.replace('refDiv_','');
 			modArea(tagID);
@@ -180,9 +183,6 @@
 		});
 		
 		$('#navDiv').scrollTo( $('#' + paneID), 800 );
-		
-		
-		$(document).scrollTo( $('#' + divID), 800 );
 	}
 	function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 		if (refStr==null){refStr='';}
@@ -190,6 +190,8 @@
 		var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
 		d+='<span class="likeLink" id="editRefClk_' + id + '">Edit TAG</span>';
 		d+=' ~ <span class="likeLink" id="killRefClk_' + id + '">Delete TAG</span>';
+		d+=' ~ <span class="likeLink" id="scrollToTag_' + id + '">Scroll to TAG</span>';
+		
 		d+='<label for="RefType_' + id + '">TAG Type</label>';
 		d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="pickRefType(this.id,this.value);">';
 		d+='<option';
