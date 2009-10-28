@@ -5,7 +5,6 @@
 <link rel="stylesheet" type="text/css" href="/includes/jquery/css/ui-lightness/jquery-ui-1.7.2.custom.css">
 <script language="JavaScript" src="/includes/jquery/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
-
 <script type="text/javascript" language="javascript">
 	$.fn.getImg2Tag = function(src, f){
 		return this.each(function(){
@@ -23,7 +22,6 @@
 			$("#imgW").val($('#theImage').width());
 			loadInitial();	
 		});
-		
 		jQuery("div .refDiv").live('click', function(e){
 			var tagID=this.id.replace('refDiv_','');
 			modArea(tagID);
@@ -116,8 +114,7 @@
 				);
 			}
 		});
-	});
-		
+	});		
 	function loadInitial() {
 		$.getJSON("/component/tag.cfc",
 			{
@@ -135,7 +132,6 @@
 						var scaledLeft=r.DATA.REFLEFT[i] * $("#imgW").val() / r.DATA.IMGW[i];
 						var scaledH=r.DATA.REFH[i] * $("#imgH").val() / r.DATA.IMGH[i];
 						var scaledW=r.DATA.REFW[i] * $("#imgW").val() / r.DATA.IMGW[i];
-								
 						addRefPane(
 							r.DATA.TAG_ID[i],
 							r.DATA.REFTYPE[i],
@@ -184,6 +180,9 @@
 		});
 		
 		$('#navDiv').scrollTo( $('#' + paneID), 800 );
+		
+		
+		$('#imgDiv').scrollTo( $('#' + divID), 800 );
 	}
 	function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 		if (refStr==null){refStr='';}
@@ -207,9 +206,7 @@
 		d+=' value="agent">Agent</option>';
 		d+='</select>';
 		d+='<label for="RefStr_' + id + '">Reference';
-		if(reflink){
-			d+='&nbsp;&nbsp;&nbsp;<a href="' + reflink + '" target="_blank">[ Click for details ]</a>';
-		}	
+		if(reflink){d+='&nbsp;&nbsp;&nbsp;<a href="' + reflink + '" target="_blank">[ Click for details ]</a>';}
 		d+='</label>';
 		d+='<input type="text" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + refStr + '" size="50">';
 		d+='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + refId + '">';
@@ -221,13 +218,11 @@
 		d+='<input type="hidden" id="w_' + id + '" name="w_' + id + '" value="' + w + '">';
 		d+='</div>';
 		$("#editRefDiv").append(d);
-				
 		if (reftype=='comment'){
 			$("#RefStr_" + id).hide();
 		} else {
 			$("#RefStr_" + id).show();
-		} 
-		
+		}
 	}
 	function newArea() {
 		var ih = $("#imgH").val();
@@ -279,7 +274,7 @@
 		} else if (v=='agent') {
 			getAgent('RefId_' + tagID,'RefStr_' + tagID,fname);
 		} else {
-			alert('Dude... I have no idea what you are trying to do. Srsly. Stoppit.');
+			alert('I have no idea what you are trying to do. Stoppit, Srsly.');
 		}
 	}	
 	function addArea(id,t,l,h,w) {
@@ -319,15 +314,8 @@
 	<div id="imgDiv">
 		Loading image and tags.....
 	</div>
-	
-	
-	
-	
-	
 	<div id="navDiv">
-		<div id="info">
-	
-		</div>
+		<div id="info"></div>
 		<form name="f">
 			<label for="RefType_new">Create TAG type....</label>
 			<div id="newRefCell" class="newRec">
@@ -395,10 +383,9 @@
 					(REFTOP + REFH) gt imgH or
 					(REFLEFT + REFW gt imgW)>
 					bad juju. 
-					<cfdump var=#form#>
+					<cfdump var="#form#">
 					<cfabort>
 				</cfif>
-				
 				<cfset s="update tag set
 					REMARK='#escapeQuotes(REMARK)#',
 					REFH=#REFH#,
