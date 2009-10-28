@@ -124,7 +124,14 @@
 <table>
 <cfset r=1>
 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-    <a href="media.cfm?action=newMedia">Create media</a>
+    <cfset h="media.cfm?action=newMedia">
+	<cfif isdefined("url.relationship__1")>
+		<cfset h=h & '&relationship__1=#url.relationship__1#'>
+	</cfif>
+	<cfif isdefined("url.related_primary_key__1")>
+		<cfset h=h & '&related_primary_key__1=#url.related_primary_key__1#'>
+	</cfif>
+	<a href="#h#">Create media</a>
 </cfif>
 <cfloop query="findIDs">
 	<tr #iif(r MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
