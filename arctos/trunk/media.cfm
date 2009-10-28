@@ -343,6 +343,7 @@
     	document.getElementById('_header').style.display='none';
 		document.getElementById('_footer').style.display='none';
 		//try {
+			console.log('hellooooo.....');
 			parent.dyniframesize();
 			var tl=idInTop("collection_object_id");
 			console.log('tl:  + tl);
