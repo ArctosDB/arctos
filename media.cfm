@@ -328,39 +328,21 @@
 <!--- deal with the possibility of being called in a frame from SpecimenDetail --->
 <cfoutput>
 <script language="javascript" type="text/javascript">
-    function idInTop( name )
-	{
-	  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-	  var regexS = "[\\?&]"+name+"=([^&##]*)";
-	  var regex = new RegExp( regexS );
-	  var results = regex.exec( top.location.href );
-	  if( results == null )
-	    return "";
-	  else
-	    return results[1];
-	}
 if (top.location!=document.location) {
     	document.getElementById('_header').style.display='none';
 		document.getElementById('_footer').style.display='none';
-		//try {
-			console.log('hellooooo.....');
+		try {
 			parent.dyniframesize();
 			name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
 	  		var regexS = "[\\?&]"+'collection_object_id'+"=([^&##]*)";
 	  		var regex = new RegExp( regexS );
 	  		var results = regex.exec( location.href );
-			console.log(location.href);
-			
-			console.log('r1: ' + results[1]);
-			
-			var tl=idInTop("collection_object_id");
-			console.log('tl: ' + tl);
 			if ('#action#'=='newMedia' && results[1].length>0) {
 		    	document.getElementById('relationship__1').value="shows cataloged_item";
-		    	document.getElementById('related_value__1').value="This Specimen";
+		    	document.getElementById('related_value__1').value="[ Current Record ]";
 		    	document.getElementById('related_id__1').value=results[1];
 			}
-		//} catch(e){}		
+		} catch(e){}		
 	}
 </script>
 
