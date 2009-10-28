@@ -355,10 +355,10 @@ if (top.location!=document.location) {
 			
 			var tl=idInTop("collection_object_id");
 			console.log('tl: ' + tl);
-			if ('#action#'=='newMedia' && tl.length>0) {
+			if ('#action#'=='newMedia' && results[1].length>0) {
 		    	document.getElementById('relationship__1').value="shows cataloged_item";
 		    	document.getElementById('related_value__1').value="This Specimen";
-		    	document.getElementById('related_id__1').value=tl;
+		    	document.getElementById('related_id__1').value=results[1];
 			}
 		//} catch(e){}		
 	}
