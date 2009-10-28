@@ -24,7 +24,7 @@
 		});
 		$("span[id^='scrollToTag_']").live('click', function(e){
 			var tagID='refDiv_' + this.id.replace('scrollToTag_','');
-			$(document).scrollTo( $('#' + tagID), 800 );
+			$(document).scrollTo( $('#' + tagID), 400 );
 		});
 		jQuery("div .refDiv").live('click', function(e){
 			var tagID=this.id.replace('refDiv_','');
