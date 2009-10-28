@@ -345,6 +345,12 @@ if (top.location!=document.location) {
 		//try {
 			console.log('hellooooo.....');
 			parent.dyniframesize();
+			name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+	  		var regexS = "[\\?&]"+name+"=([^&##]*)";
+	  		var regex = new RegExp( regexS );
+	  		var results = regex.exec( top.location.href );
+			console.log('r1: ' + results[1]);
+			
 			var tl=idInTop("collection_object_id");
 			console.log('tl: ' + tl);
 			if ('#action#'=='newMedia' && tl.length>0) {
