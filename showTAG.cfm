@@ -49,7 +49,7 @@
 		});
 		jQuery("div .refDiv").live('click', function(e){
 			var tagID='refPane_' + this.id.replace('refDiv_','');
-			$(document).scrollTo( $('#' + tagID), 800 );
+			$('#navDiv').scrollTo( $('#' + tagID), 800 );
 		});
 		
 			
@@ -61,7 +61,7 @@
 		jQuery("div[class^='refPane_']").live('click', function(e){
 			var tagID='refDiv_' + this.id.replace('refPane_','');
 			console.log(tagID);
-			$('#navDiv').scrollTo( $('#' + tagID), 800 );
+			$(document).scrollTo( $('#' + tagID), 800 );
 		});
 	});
 	function addArea(id,t,l,h,w) {
