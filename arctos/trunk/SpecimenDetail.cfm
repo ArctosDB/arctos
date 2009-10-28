@@ -171,7 +171,7 @@
 			var ctron = document.getElementById("findContainerSpan");
 			var bi = document.getElementById("editBiolIndivSpan");
 			var oid = document.getElementById("editIdentifiersSpan");
-			var img = document.getElementById("editImagesSpan");
+			var img = document.getElementById("MediaSearchSpan");
 			var enc = document.getElementById("EncumbrancesSpan");
 			var cce = document.getElementById("changeCollEventSpan");
 			var cspan = document.getElementById("catalogSpan");
@@ -296,8 +296,6 @@
 						    	<br><input type="button" 
 									value="BerkeleyMapper" 
 									class="lnkBtn"
-									onmouseover="this.className='lnkBtn btnhov'" 
-									onmouseout="this.className='lnkBtn'"
 									onClick="window.open('#bnhmUrl#', '_blank');">
 								<img src="/images/info.gif" border="0" onClick="getDocs('maps')" class="likeLink">
 		                </cfif>
