@@ -348,7 +348,7 @@ if (top.location!=document.location) {
 			name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
 	  		var regexS = "[\\?&]"+name+"=([^&##]*)";
 	  		var regex = new RegExp( regexS );
-	  		var results = regex.exec( top.location.href );
+	  		var results = regex.exec( location.href );
 			console.log('r1: ' + results[1]);
 			
 			var tl=idInTop("collection_object_id");
