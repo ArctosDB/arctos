@@ -57,8 +57,9 @@
 			var tagID=this.id.replace('refPane_','');
 			modArea(tagID);
 		});
+		
 		jQuery("div[class^='refPane_']").live('click', function(e){
-			var tagID='refPane_' + this.id.replace('refPane_','');
+			var tagID='refDiv_' + this.id.replace('refPane_','');
 			console.log(tagID);
 			$('#navDiv').scrollTo( $('#' + tagID), 800 );
 		});
