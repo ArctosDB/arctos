@@ -342,16 +342,16 @@
 //if (top.location!=document.location) {
     	document.getElementById('_header').style.display='none';
 		document.getElementById('_footer').style.display='none';
-		try {
+		//try {
 			parent.dyniframesize();
 			var tl=idInTop("collection_object_id");
-			console.log(tl);
+			console.log('tl:  + tl);
 			if ('#action#'=='newMedia' && tl.length>0) {
 		    	document.getElementById('relationship__1').value="shows cataloged_item";
 		    	document.getElementById('related_value__1').value="This Specimen";
 		    	document.getElementById('related_id__1').value=tl;
 			}
-		} catch(e){}		
+		//} catch(e){}		
 //	}
 </script>
 
