@@ -125,13 +125,13 @@
 <cfset r=1>
 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
     <cfset h="media.cfm?action=newMedia">
+	
 	<cfif isdefined("url.relationship__1") and isdefined("url.related_primary_key__1")>
 		<cfif url.relationship__1 is "cataloged_item">
-			<cfset h=h & '&collection_object_id=#url.related_primary_key__1#'>
+			<cfset h=h & 'collection_object_id=#url.related_primary_key__1#'>
 		</cfif>
 				
 	</cfif>
-	
 	<a href="#h#">Create media</a>
 </cfif>
 <cfloop query="findIDs">
