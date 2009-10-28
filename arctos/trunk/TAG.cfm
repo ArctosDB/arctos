@@ -23,7 +23,8 @@
 			loadInitial();	
 		});
 		$("span[id^='scrollToTag_']").live('click', function(e){
-			$(document).scrollTo( $('#' + divID), 800 );
+			var tagID='refDiv_' + this.id.replace('scrollToTag_','');
+			$(document).scrollTo( $('#' + tagID), 800 );
 		});
 		jQuery("div .refDiv").live('click', function(e){
 			var tagID=this.id.replace('refDiv_','');
