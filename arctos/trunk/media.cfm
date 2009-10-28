@@ -346,7 +346,7 @@ if (top.location!=document.location) {
 			console.log('hellooooo.....');
 			parent.dyniframesize();
 			name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-	  		var regexS = "[\\?&]"+name+"=([^&##]*)";
+	  		var regexS = "[\\?&]"+'collection_object_id'+"=([^&##]*)";
 	  		var regex = new RegExp( regexS );
 	  		var results = regex.exec( location.href );
 			console.log(location.href);
