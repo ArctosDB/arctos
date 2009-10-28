@@ -46,10 +46,19 @@
 			var tagID=this.id.replace('refDiv_','');
 			modArea(tagID);
 		});
+		jQuery("div .refDiv").live('click', function(e){
+			var tagID='refPane_' + this.id.replace('refDiv_','');
+			$(document).scrollTo( $('#' + tagID), 800 );
+		});
 		
+			
 		jQuery("div[class^='refPane_']").live('mouseover', function(e){
 			var tagID=this.id.replace('refPane_','');
 			modArea(tagID);
+		});
+		jQuery("div[class^='refPane_']").live('click', function(e){
+			var tagID='refPane_' + this.id.replace('refPane_','');
+			$('#navDiv').scrollTo( $('#' + tagID), 800 );
 		});
 	});
 	function addArea(id,t,l,h,w) {
