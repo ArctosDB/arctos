@@ -47,7 +47,7 @@
 			var tagID=this.id.replace('refDiv_','');
 			modArea(tagID);
 		});
-		jQuery("div .refDiv").live('click', function(e){
+		jQuery("div .refDiv, .editing").live('click', function(e){
 			var tagID='refPane_' + this.id.replace('refDiv_','');
 			console.log(tagID);
 			$('#navDiv').scrollTo( $('#' + tagID), 800 );
