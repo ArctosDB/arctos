@@ -13,11 +13,12 @@
 	</form>
 	<cfloop query="d">
 		<br>#ip# <a href="blacklist.cfm?action=del&ip=#ip#">Remove</a>
+		<a href="http://whois.domaintools.com/#ip#" target="_blank">whois</a>
 	</cfloop>
 </cfif>
 <cfif action is "ins">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		insert into uam.blacklist (ip) values ('#ip#')
+		insert into uam.blacklist (ip) values ('#trim(ip)#')
 	</cfquery>
 	<cflocation url="/Admin/blacklist.cfm">
 </cfif>
