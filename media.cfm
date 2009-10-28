@@ -344,7 +344,7 @@
 		document.getElementById('_footer').style.display='none';
 		//try {
 			console.log('hellooooo.....');
-			parent.dyniframesize();
+			//parent.dyniframesize();
 			var tl=idInTop("collection_object_id");
 			console.log('tl: ' + tl);
 			if ('#action#'=='newMedia' && tl.length>0) {
