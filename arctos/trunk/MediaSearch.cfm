@@ -128,6 +128,8 @@
 	<cfif isdefined("url.relationship__1") and isdefined("url.related_primary_key__1")>
 		<cfif url.relationship__1 is "cataloged_item">
 			<cfset h=h & '&collection_object_id=#url.related_primary_key__1#'>
+			( find Media and pick an item to link to existing Media )
+			<br>
 		</cfif>
 	</cfif>
 	<a href="#h#">Create media</a>
