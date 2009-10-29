@@ -781,7 +781,7 @@
 	<cfoutput>
 		<cftransaction>
 			<!--- see if they're adding project --->
-			<cfif isdefined("project_id") and len(#project_id#) gt 0>
+			<cfif isdefined("project_id") and project_id gt 0>
 				<cfquery name="newProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					INSERT INTO project_trans (
 						project_id, transaction_id)
