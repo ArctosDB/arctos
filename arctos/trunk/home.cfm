@@ -112,7 +112,7 @@ encumbered for proprietary reasons, data are open to the public.
 		User feedback concerning specimens, taxonomy, projects, publications, and media.
 	</li>
 	<li>
-		<a href="http://www.oracle.com/technology/obe/obe10gdb/security/vpd/vpd.htm" class="external">
+		<a href="http://www.oracle.com/technology/obe/obe10gdb/security/vpd/vpd.htm" target="_blank" class="external">
 		Virtual Private Databases</a> (VPD), also known as Row-Level Security (RLS), allow collections to maintain
 		control of their data while sharing certain nodes, such as Agents and Taxonomy. The cool kids call this 
 		Cloud Computing or Grid Computing.
@@ -126,16 +126,23 @@ encumbered for proprietary reasons, data are open to the public.
 		Find specimens by project, publication, usage, taxonomy, spatial attributes, and much more.  
 		Save and e-mail  searches.</li>
 	<li>Customizable table for result sets,	summarize 
-		and graph result sets, download (as text, CSV, or XML).</li>
+		and graph result sets, download (as text, CSV, or XML), map in 
+		<a href="http://berkeleymapper.berkeley.edu"  target="_blank" class="external">BerkeleyMapper</a>, 
+		<a href="http://maps.google.com/"  target="_blank" class="external">Google Maps</a>, 
+		or download
+		<a href="http://code.google.com/apis/kml/documentation/"  target="_blank" class="external">KML</a>
+		for
+		<a href="http://earth.google.com/"  target="_blank" class="external">Google Earth</a>.
+	</li>
 	<li>Customizable by individual collection using 
 		headers and footers of their own design, and CSS.</li>
 	<li>Any catalog item can have any number of attributes, 
 		and attributes are customized to collections.</li>
 	<li>Reciprocal linkages with external resources 
-		(<a href="http://berkeleymapper.berkeley.edu" target="_blank">BerkeleyMapper</a>, 
-		<a href="http://www.ncbi.nlm.nih.gov/Genbank/" target="_blank">GenBank</a>, 
-		<a href="www.tacc.utexas.edu" target="_blank">TACC</a>, 
-		and <a href="http://www.morphbank.net/" target="_blank">MorphBank</a>).</li>
+		(<a href="http://berkeleymapper.berkeley.edu"  target="_blank" class="external">BerkeleyMapper</a>, 
+		<a href="http://www.ncbi.nlm.nih.gov/Genbank/"  target="_blank" class="external">GenBank</a>, 
+		<a href="www.tacc.utexas.edu"  target="_blank" class="external">TACC</a>, 
+		and <a href="http://www.morphbank.net/"  target="_blank" class="external">MorphBank</a>).</li>
 	<li>Identifications can be formulaic combinations 
 		of terms drawn from a separate taxonomic authority.</li>
 	<li>Maintains history of determinations for taxonomic 
@@ -207,7 +214,7 @@ but we have made some exceptions:
 	<li><strong>Mozilla Firefox:</strong> 
 		All applications have been tested in Firefox. We highly recommend all users upgrade to the latest release
 		of Firefox,
-		 available from <a href="http://www.mozilla.com/firefox/" target="_blank">Mozilla</a>.</li>
+		 available from <a href="http://www.mozilla.com/firefox/" target="_blank" class="external">Mozilla</a>.</li>
 	<li><strong>The Rest:</strong> 
     	Most of Arctos should work most of the time in most other browsers.
 		<cfoutput><a href="#Application.ServerRootUrl#/info/bugs.cfm" target="_blank">Let us know</a></cfoutput> if
