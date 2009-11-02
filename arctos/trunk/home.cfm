@@ -99,6 +99,11 @@ encumbered for proprietary reasons, data are open to the public.
 <ul>
 	<li>Vaporware-free since 2001.</li>
 	<li>
+		<a href="MediaSearch.cfm">Media</a> links images, moves, sound files, and documents to 
+		specimens, taxonomy, publications, projects, events, or people.
+		<br>
+		Multi-page documents organize, paginate, and print PDFs of scanned media such as field notes.
+		<br>
 		TAGs comment on or relate specific areas of images to nodes such as specimens, places, and people.
 	</li>
 	<li>
@@ -148,7 +153,6 @@ encumbered for proprietary reasons, data are open to the public.
 		<a href="http://www.digir.net" target="_blank">DiGIR</a> 
 		provider.</li>
 	<li>User annotation of specimens, taxonomy, publications, and projects.</li>
-	<li>Media links images, moves, sound files, and documents to specimens, taxonomy, publications, projects, events, or people.</li>
 </ul>
 </p>
 <p><a name="participation"><strong>Participation</strong></a><br/>
