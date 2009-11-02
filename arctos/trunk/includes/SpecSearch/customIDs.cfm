@@ -93,12 +93,16 @@ function success_changefancyCOID (result) {
 			Filter By Collection
 		</td>
 		<td class="srch">
-
+			<cfif isdefined("session.portal_id")>
+				<cfset pid=session.portal_id>
+			<cfelse>
+				<cfset pid="">
+			</cfif>
 			<select name="exclusive_collection_id" id="exclusive_collection_id"
 				onchange="this.className='red';changeexclusive_collection_id(this.value);" size="1">
-			 	<option value="">All</option>
+			 	<option  <cfif pid is "" or pid is 0>selected="selected" </cfif> value="">All</option>
 			  	<cfloop query="collid"> 
-					<option value="#cf_collection_id#">#collection#</option>
+					<option <cfif pid is cf_collection_id>selected="selected" </cfif> value="#cf_collection_id#">#collection#</option>
 			  	</cfloop> 
 			</select>
 		</td>
