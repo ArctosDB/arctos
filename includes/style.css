@@ -837,23 +837,23 @@ input.readClr, select.readClr {
 	cursor:pointer;}
 .external:after {
 	text-decoration: none !important;
-	content: "&nbsp;" url(/images/linkOut.gif);
+	content: url(/images/linkOut.gif);
 	}
 a.external:link:after {
 	text-decoration: none !important;
-	content: "&nbsp;" url(/images/linkOut.gif);
+	content: url(/images/linkOut.gif);
 	}
 a.external:hover:after {
 	text-decoration: none !important;
-	content: "&nbsp;" url(/images/linkOutHover.gif);
+	content: url(/images/linkOutHover.gif);
 	}
 a.external:visited:after {
 	text-decoration: none !important;
-	content: "&nbsp;" url(/images/linkOutVisited.gif);
+	content: url(/images/linkOutVisited.gif);
 	}
 a.external:hover:visited:after {
 	text-decoration: none !important;
-	content: "&nbsp;" url(/images/linkOutHover.gif);
+	content: url(/images/linkOutHover.gif);
 	}
 /*************************************************** Superfish ********************************************************/
 .sf-menu, .sf-menu * {
