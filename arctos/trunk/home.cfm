@@ -109,7 +109,7 @@ encumbered for proprietary reasons, data are open to the public.
 		TAGs comment on or relate specific areas of images to nodes such as specimens, places, and people.
 	</li>
 	<li>
-		User feedback relating to specimens, taxonomy, projects, publications.
+		User feedback concerning specimens, taxonomy, projects, publications, and media.
 	</li>
 	<li>
 		Virtual Private Databases (VPD), also known as Row-Level Security (RLS), allow collections to maintain
@@ -133,6 +133,7 @@ encumbered for proprietary reasons, data are open to the public.
 	<li>Reciprocal linkages with external resources 
 		(<a href="http://berkeleymapper.berkeley.edu" target="_blank">BerkeleyMapper</a>, 
 		<a href="http://www.ncbi.nlm.nih.gov/Genbank/" target="_blank">GenBank</a>, 
+		<a href="www.tacc.utexas.edu" target="_blank">TACC</a>, 
 		and <a href="http://www.morphbank.net/" target="_blank">MorphBank</a>).</li>
 	<li>Identifications can be formulaic combinations 
 		of terms drawn from a separate taxonomic authority.</li>
@@ -150,11 +151,11 @@ encumbered for proprietary reasons, data are open to the public.
 	</li>
 	<li>Encumbrances can mask localities, collector names, 
 		or entire records from unprivileged users.</li>
-	<li>Design and print labels, reports, transaction documents, etc.</li>
+	<li>Design and print labels, reports, transaction documents, etc. with a 
+		<a href="http://www.adobe.com/support/coldfusion/downloads.html" target="_blank" class="external">GUI interface</a>.</li>
 	<li>Arctos is a 
 		<a href="http://www.digir.net" target="_blank">DiGIR</a> 
 		provider.</li>
-	<li>User annotation of specimens, taxonomy, publications, and projects.</li>
 </ul>
 </p>
 <p><a name="participation"><strong>Participation</strong></a><br/>
