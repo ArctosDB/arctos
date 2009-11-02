@@ -97,7 +97,7 @@ encumbered for proprietary reasons, data are open to the public.
 </p>
 <p><strong >Features:</strong>
 <ul>
-	<li>Vaporware-free since 2001.</li>
+	<li>Vaporware-free since 2001. All this stuff, and much more, really exists in a usable state.</li>
 	<li>
 		<a href="MediaSearch.cfm">Media</a> links images, moves, sound files, and documents to 
 		specimens, taxonomy, publications, projects, events, or people.
