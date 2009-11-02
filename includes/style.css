@@ -837,7 +837,7 @@ input.readClr, select.readClr {
 	cursor:pointer;}
 .external:after {
 	text-decoration: none !important;
-	content: "\a0" url(/images/linkOut.gif);
+	content: "&nbsp;" url(/images/linkOut.gif);
 	}
 a.external:link:after {
 	text-decoration: none !important;
