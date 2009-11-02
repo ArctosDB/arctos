@@ -33,15 +33,19 @@ function closeThis(){
 		</td>
 		<td valign="top">
 			<cfif len(session.roles) gt 0 and session.roles is "public">
-			<label for="exclusive_collection_id">Set your collection(s)</label>
-			<select name="exclusive_collection_id" id="exclusive_collection_id"
-				onchange="this.className='red';changeexclusive_collection_id(this.value);" size="1">
-			 	<option value=""></option>
-			 	<option value="">All</option>
-			  	<cfloop query="collid"> 
-					<option value="#cf_collection_id#">#collection#</option>
-			  	</cfloop> 
-			</select>
+				<cfif isdefined("session.portal_id")>
+					<cfset pid=session.portal_id>
+				<cfelse>
+					<cfset pid="">
+				</cfif>
+				<label for="exclusive_collection_id">Set your collection(s)</label>
+				<select name="exclusive_collection_id" id="exclusive_collection_id"
+					onchange="this.className='red';changeexclusive_collection_id(this.value);" size="1">
+				 	<option <cfif pid is "" or pid is 0>selected="selected" </cfif>value="">All</option>
+				  	<cfloop query="collid"> 
+						<option <cfif pid is cf_collection_id>selected="selected" </cfif> value="#cf_collection_id#">#collection#</option>
+				  	</cfloop> 
+				</select>
 			</cfif>
 		</td>
 	</tr>

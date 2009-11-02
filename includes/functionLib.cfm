@@ -121,9 +121,7 @@
 		<cfset session.dbuser=portalInfo.dbusername>
 		<cfset session.epw = encrypt(portalInfo.dbpwd,cfid)>
 	</cfif>
-	<cfif portal_id gt 0>
-		<cfset session.portal_id=portal_id>
-	</cfif>
+	<cfset session.portal_id=portal_id>
 	<!--- may need to get generic appearance --->
 	<cfif portalInfo.recordcount is 0 or
 		len(portalInfo.header_color) is 0 or
