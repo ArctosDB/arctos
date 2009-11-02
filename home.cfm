@@ -98,7 +98,7 @@ encumbered for proprietary reasons, data are open to the public.
 <p><strong >Features:</strong>
 <ul>
 	<li>Vaporware-free since 2001. All this stuff, and much more, really exists in a usable state, and we'll never claim
-		proposed or limited funtionality.
+		proposed or limited funtionality exists.
 	</li>
 	<li>
 		<a href="MediaSearch.cfm">Media</a> links images, moves, sound files, and documents to 
@@ -112,7 +112,8 @@ encumbered for proprietary reasons, data are open to the public.
 		User feedback concerning specimens, taxonomy, projects, publications, and media.
 	</li>
 	<li>
-		Virtual Private Databases (VPD), also known as Row-Level Security (RLS), allow collections to maintain
+		<a href="http://www.oracle.com/technology/obe/obe10gdb/security/vpd/vpd.htm" calss="external">
+		Virtual Private Databases</a> (VPD), also known as Row-Level Security (RLS), allow collections to maintain
 		control of their data while sharing certain nodes, such as Agents and Taxonomy. The cool kids call this 
 		Cloud Computing or Grid Computing.
 	</li>
