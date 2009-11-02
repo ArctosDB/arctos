@@ -182,7 +182,7 @@ the
 MCZ's Herp collection, with more collections coming soon.</p>
 
 <p>Arctos is rooted in the 
-<a href="http://mvz.berkeley.edu/cis/index.html" target="_blank">Collections Information System</a> at MVZ.  
+<a href="http://mvz.berkeley.edu/cis/index.html" target="_blank" class="external">Collections Information System</a> at MVZ.  
 Development efforts are being shared, 
 and programming is freely available.</p>
 
