@@ -97,7 +97,13 @@ Agent Names:
 					<div style="font-weight:bold;padding-left:.5em">Publications using this name:</div>
 					<ul>
 						<cfloop query="publication_author_name">
-							<li><a href="/Publication.cfm?PUBLICATION_ID=#PUBLICATION_ID#">#PUBLICATION_TITLE#</a></li>
+							<li>
+								<a href="/Publication.cfm?PUBLICATION_ID=#PUBLICATION_ID#">#PUBLICATION_TITLE#</a>
+								<cfquery name="citn" datasource="uam_god">
+									select count(*) c from citation where publication_id=#publication_id#
+								</cfquery>
+								<br>&nbsp;&nbsp;&nbsp;#citn.c# citations
+							</li>
 						</cfloop>
 					</ul>
 				</cfif>
