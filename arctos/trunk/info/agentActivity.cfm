@@ -102,7 +102,7 @@ Agent Names:
 								<cfquery name="citn" datasource="uam_god">
 									select count(*) c from citation where publication_id=#publication_id#
 								</cfquery>
-								<br>&nbsp;&nbsp;&nbsp;#citn.c# citations
+								<ul><li>#citn.c# citations</li></ul>
 							</li>
 						</cfloop>
 					</ul>
