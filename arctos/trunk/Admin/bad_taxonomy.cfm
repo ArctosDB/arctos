@@ -13,22 +13,47 @@ create table bad_taxonomy (
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfif action is "nothing">
-	<br><a href="bad_taxonomy.cfm?action=findBadSpecies">findBadSpecies</a>
-	<br><a href="bad_taxonomy.cfm?action=showBadSpecies">showBadSpecies</a>
-	<br><a href="bad_taxonomy.cfm?action=setUsedInIds">setUsedInIds</a>
-	<br><a href="bad_taxonomy.cfm?action=resetAll">resetAll</a>
+	This form provides a means to locate taxon names which do not fit the rules implemented
+	on table Taxonomy (enforced at UPDATE and INSERT). You can manually fix stuff, or request global updates.
+	
+	<br>Some stuff is still here because it is unfixable but has not yet been detached from specimens and deleted.
+	Carex #chr(215)#physocarpoides already exists, so Carex X_physocarpoides cannot be modified, for example.
+	
+	
+	
+	<p>
+		First, you'll probably want to delete everything from the table to make sure you're looking at fresh data.
+		<br><a href="bad_taxonomy.cfm?action=resetAll">resetAll</a>
+	</p>
+	
+	<p>
+		Second, you'll want to look for bad data in one or more of these categories.
+		<br><a href="bad_taxonomy.cfm?action=findBadSpecies">findBadSpecies</a>
+	
+	</p>
+	<p>
+		Third, you'll want to flag those records that are used in Identifications.
+		<br><a href="bad_taxonomy.cfm?action=setUsedInIds">setUsedInIds</a>
+
+	</p>
+	<p>
+		Finally, take a look at the table containing the records you found in Step 1.
+		<br><a href="bad_taxonomy.cfm?action=showBadSpecies">showBadSpecies</a>
+	</p>
 
 </cfif>
 <cfif action is "resetAll">
 	<cfquery name="d" datasource="uam_god">
 		delete from bad_taxonomy
 	</cfquery>
+	spiffy. Use your back button,
 </cfif>
 <cfif action is "setUsedInIds">
 	<cfquery name="d" datasource="uam_god">
 		update bad_taxonomy set used_in_id=1 where 
 		taxon_name_id in (select taxon_name_id from identification_taxonomy)
 	</cfquery>
+	spiffy. Use your back button,
 </cfif>
 <cfif action is "showBadSpecies">
 	<cfoutput>
@@ -83,6 +108,6 @@ create table bad_taxonomy (
 				not(regexp_like(replace(SPECIES,CHR (215 USING NCHAR_CS)),'^[a-z][a-z-]*[a-z]$'))
 		)
 	</cfquery>
-	spiffy. Use your back button to view badspecies
+	spiffy. Use your back button,
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
