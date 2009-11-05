@@ -84,9 +84,6 @@ alter table bad_taxonomy add genus varchar2(255);
 	</cfoutput>
 </cfif>
 <cfif action is "findBadGenus">
-	<cfquery name="u" datasource="uam_god">
-		delete from bad_taxonomy where probcode='badgenus'
-	</cfquery>
 	<cfquery name="i" datasource="uam_god">
 		insert into bad_taxonomy (
 			taxon_name_id,
@@ -100,9 +97,9 @@ alter table bad_taxonomy add genus varchar2(255);
 				genus,
 				'badgenus'
 			from taxonomy where
-				not(
-				regexp_like(genus,'^[A-Z][a-z-]*[a-z]+$') or 
-                (substr(genus,1,1) = CHR (215 USING NCHAR_CS) and regexp_like(genus,'^.[A-Z][a-z-]*[a-z]+$')))
+				not (
+					regexp_like(genus,'^[A-Z][a-z-]*[a-z]+$') or 
+                	(substr(genus,1,1) = CHR (215 USING NCHAR_CS) and regexp_like(genus,'^.[A-Z][a-z-]*[a-z]+$')))
 		)
 		
 	</cfquery>
