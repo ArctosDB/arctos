@@ -26,7 +26,7 @@ create table bad_taxonomy (
 <cfif action is "setUsedInIds">
 	<cfquery name="d" datasource="uam_god">
 		update bad_taxonomy set used_in_id=1 where 
-		taxon_name_id in (select taxon_name_id from identitication_taxonomy)
+		taxon_name_id in (select taxon_name_id from identification_taxonomy)
 	</cfquery>
 </cfif>
 <cfif action is "showBadSpecies">
