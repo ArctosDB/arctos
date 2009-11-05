@@ -11,6 +11,7 @@ create table bad_taxonomy (
 
 --->
 <cfinclude template="/includes/_header.cfm">
+<script src="/includes/sorttable.js"></script>
 <cfif action is "nothing">
 	<br><a href="bad_taxonomy.cfm?action=findBadSpecies">findBadSpecies</a>
 	<br><a href="bad_taxonomy.cfm?action=showBadSpecies">showBadSpecies</a>
@@ -34,11 +35,25 @@ create table bad_taxonomy (
 		<cfquery name="d" datasource="uam_god">
 			select * from bad_taxonomy where probcode='badspecies'
 		</cfquery>
-		<table border>
+		Everything on this page does not match the rules:
+		<ol>
+			<li>species must start with #chr(215)# or a lowercase a-z character</li>
+			<li>species must contain only #chr(215)#, lowercase a-z characters, and -</li>
+			<li>species must end with a lowercase a-z character</li>
+		</ol>
+		
+		<table border id="t" class="sortable">
+			<th>
+				<td>edit</td>
+				<td>name</td>
+				<td>species</td>
+				<td>used?</td>
+			</th>
 			<cfloop query="d">
 				<tr>
+					<td><a href="/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">edit</a></td>
 					<td>
-						<a href="/name/#scientific_name#">#scientific_name#</a> ~ <a href="/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">edit</a>
+						<a href="/name/#scientific_name#">#scientific_name#</a>
 					</td>
 					<td>#species#</td>
 					<td>#used_in_id#</td>
