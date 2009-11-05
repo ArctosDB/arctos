@@ -37,22 +37,21 @@ create table bad_taxonomy (
 	</cfquery>
 	<cfquery name="i" datasource="uam_god">
 		insert into bad_taxonomy (
-		taxon_name_id,
-		scientific_name,
-		species,
-		probcode,
-		problem
-	) (
-		select
 			taxon_name_id,
 			scientific_name,
 			species,
-			'badspecies',
-			'species (stripped of "' || CHR (215 USING NCHAR_CS) || "') does not fit rule "^[a-z][a-z-]*[a-z]$" (starts/ends with lowercase, contains only lowercase and dash)'
-		from taxonomy where
-			not(regexp_like(replace(SPECIES,CHR (215 USING NCHAR_CS)),'^[a-z][a-z-]*[a-z]$')))
-	);
-
+			probcode,
+			problem
+		) (
+			select
+				taxon_name_id,
+				scientific_name,
+				species,
+				'badspecies',
+				'species no match: starts/ends with lowercase, contains only lowercase and dash)'
+			from taxonomy where
+				not(regexp_like(replace(SPECIES,CHR (215 USING NCHAR_CS)),'^[a-z][a-z-]*[a-z]$'))
+		)
 	</cfquery>
 	spiffy. Use your back button to view badspecies
 </cfif>
