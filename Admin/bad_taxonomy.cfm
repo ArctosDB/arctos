@@ -41,7 +41,6 @@ create table bad_taxonomy (
 			<li>species must contain only #chr(215)#, lowercase a-z characters, and -</li>
 			<li>species must end with a lowercase a-z character</li>
 		</ol>
-		
 		<table border id="t" class="sortable">
 			<th>
 				<td>edit</td>
