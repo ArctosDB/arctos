@@ -14,7 +14,20 @@ create table bad_taxonomy (
 <cfif action is "nothing">
 	<br><a href="bad_taxonomy.cfm?action=findBadSpecies">findBadSpecies</a>
 	<br><a href="bad_taxonomy.cfm?action=showBadSpecies">showBadSpecies</a>
+	<br><a href="bad_taxonomy.cfm?action=setUsedInIds">setUsedInIds</a>
+	<br><a href="bad_taxonomy.cfm?action=resetAll">resetAll</a>
 
+</cfif>
+<cfif action is "resetAll">
+	<cfquery name="d" datasource="uam_god">
+		delete from bad_taxonomy
+	</cfquery>
+</cfif>
+<cfif action is "setUsedInIds">
+	<cfquery name="d" datasource="uam_god">
+		update bad_taxonomy set used_in_id=1 where 
+		taxon_name_id in (select taxon_name_id from identitication_taxonomy)
+	</cfquery>
 </cfif>
 <cfif action is "showBadSpecies">
 	<cfoutput>
@@ -28,6 +41,7 @@ create table bad_taxonomy (
 						<a href="/name/#scientific_name#">#scientific_name#</a> ~ <a href="/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">edit</a>
 					</td>
 					<td>#species#</td>
+					<td>#used_in_id#</td>
 				</tr>
 			</cfloop>
 		</table>
