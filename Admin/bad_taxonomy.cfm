@@ -98,7 +98,7 @@ alter table bad_taxonomy add genus varchar2(255);
 				taxon_name_id,
 				scientific_name,
 				genus,
-				'badgenus',
+				'badgenus'
 			from taxonomy where
 				not(
 				regexp_like(genus,'^[A-Z][a-z-]*[a-z]+$') or 
