@@ -1,0 +1,192 @@
+<h2>Catalog Data</h2>
+
+"Catalog data" form the core of Arctos, and are roughly equivalent to the traditional data recorded with museum specimens.<br>
+<br>
+<div style=MARGIN-LEFT:40px>
+  <b>Accessions </b>record groups of specimens coming into the Museum, and include agents, a description, and estimated specimen count.<b><br>
+  <br>
+  Collectors/Preparators:</b> Arctos records any number of agents acting as Collectors or Preparators.<br>
+  <br>
+  <b>Identifications:</b> Arctos records any number of identification determinations, only one of which may be accepted at any time. Identifications include any number of Agents, a data, and a method. Identifications are backed by formal taxonomy, but may consist of more than simply taxon names by way of formulae. Examples include:<br>
+  <br>
+</div>
+<div style=MARGIN-LEFT:40px>
+	<table border=1>
+		<tr>
+		    <th>
+		      Taxon Name(s)
+		    </th>
+		    <th>
+		      <b>Taxon Formula
+		    </th>
+		    <th>
+		      Result
+		    </th>
+		    <th>
+		      Comment
+		    </th>
+	  	</tr>
+	 	<tr>
+		    <td>
+		      <i>Sorex yukonicus</i><br>
+		    </td>
+		    <td>
+		      A<br>
+		    </td>
+		    <td>
+		      <i>Sorex yukonicus</i>
+		    </td>
+		    <td>
+		      Standard identification
+		    </td>
+	  	</tr>
+	  	<tr>
+		    <td>
+		      <i>Sorex</i>
+		    </td>
+		    <td>
+		      A + "sp."
+		    </td>
+		    <td>
+		      <i>Sorex sp.</i>
+		    </td>
+		    <td>
+		      Identified to genus level
+		    </td>
+	  	</tr>
+	  	<tr>
+		    <td>
+		      <i>Sorex cinereus<br>
+		      Sorex ugyunak</i>
+		    </td>
+		    <td>
+		      A or B<br>
+		    </td>
+		    <td>
+		      <i>Sorex cinereus</i> or <i>Sorex ugyunak</i><br>
+		    </td>
+		    <td>
+		      Better than genus, but uncertain species<br>
+		    </td>
+		  </tr>
+		  <tr>
+		    <td>
+		      unidentifiable<br>
+		    </td>
+		    <td>
+		      A {string}<br>
+		    </td>
+		    <td>
+		      The Mona Lisa<br>
+		    </td>
+		    <td>
+		      One formula allows users to type any string as identification.<br>
+		    </td>
+	  	</tr>
+	</table>
+</div>
+<div style=MARGIN-LEFT:40px>
+  <br>
+  <b>Locations</b> are split into several tables.<br>
+</div>
+<div style=MARGIN-LEFT:40px>
+  <div style=MARGIN-LEFT:40px>
+    <b>Higher Geography</b> is a formalized string which varies in specificity from continent to county.<br>
+    <b>Locality</b> adds an interpreted locality description and vertical dimension.<br>
+    <b>Coordinates</b> are recorded as determinations, of which only one may be accepted at any time. Coordinates include extensive information about precision and determination method, and may be recorded in any format.<br>
+    <b>Collecting Event</b> adds a verbatim locality description, method and source, and habitat information.<br>
+    <br>
+  </div>
+</div>
+<div style=MARGIN-LEFT:40px>
+  <b>Other Identifiers:</b> Any number of identifying "numbers" (consisting of strings, optionally split into prefix, integer 
+	number, and suffix) may be recorded with a specimen. If corresponding data are available, as in GenBank and BOLD, 
+	Other Identifiers may be structured to form external links.<br>
+  <br>
+  <b>Attributes</b> record measurements and determination. Any number of attributes may be recorded, and all attributes 
+	include a method, a date, and a determiner. Attributes are collection-specific, and may use code-table controlled vocabularies. 
+	Examples include:<br>
+  <br>
+  <div>
+    <table border=1>
+      <tr>
+        <th>
+          Collection
+        </th>
+        <th>
+          Attribute
+        </th>
+        <th>
+          Values<br>
+        </th>
+        <th>
+          Units<br>
+        </th>
+        <th>
+          Remark<br>
+        </th>
+      </tr>
+      <tr>
+        <td>
+          Mamm
+        </td>
+        <td>
+          age class
+        </td>
+        <td>
+          {controlled}
+        </td>
+        <td>
+          NULL<br>
+        </td>
+        <td>
+          categorical attribute
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Mamm<br>
+        </td>
+        <td>
+          numeric age
+        </td>
+        <td>
+          {numbers}
+        </td>
+        <td>
+          {controlled}
+        </td>
+        <td>
+          Measurement with units
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Mamm
+        </td>
+        <td>
+          reproductive data
+        </td>
+        <td>
+          {any text}
+        </td>
+        <td>
+          NULL
+        </td>
+        <td>
+          descriptive data
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <br>
+  <b>Parts</b> are the actionable units of Arctos. They are loaned, barcoded, and tracked. Cataloged Items are essentially 
+	groups of parts. Parts may have a modifier, preservation method, disposition, condition, and may be scanned into 
+	Containers.<br>
+</div>
+
+<h2>Usage</h2>
+
+Arctos records specimen usage by way of Citations, which explicitly link Publications to Specimens.
+
