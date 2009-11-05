@@ -17,19 +17,21 @@ create table bad_taxonomy (
 
 </cfif>
 <cfif action is "showBadSpecies">
-	<cfquery name="d" datasource="uam_god">
-		select * from bad_taxonomy where probcode='badspecies'
-	</cfquery>
-	<table border>
-		<cfloop query="d">
-			<tr>
-				<td>
-					<a href="/name/#scientific_name#">#scientific_name#</a> ~ <a href="/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">edit</a>
-				</td>
-				<td>#species#</td>
-			</tr>
-		</cfloop>
-	</table>
+	<cfoutput>
+		<cfquery name="d" datasource="uam_god">
+			select * from bad_taxonomy where probcode='badspecies'
+		</cfquery>
+		<table border>
+			<cfloop query="d">
+				<tr>
+					<td>
+						<a href="/name/#scientific_name#">#scientific_name#</a> ~ <a href="/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">edit</a>
+					</td>
+					<td>#species#</td>
+				</tr>
+			</cfloop>
+		</table>
+	</cfoutput>
 </cfif>
 <cfif action is "findBadSpecies">
 	<cfquery name="u" datasource="uam_god">
