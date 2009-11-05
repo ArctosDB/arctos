@@ -42,12 +42,12 @@ create table bad_taxonomy (
 			<li>species must end with a lowercase a-z character</li>
 		</ol>
 		<table border id="t" class="sortable">
-			<th>
-				<td>edit</td>
-				<td>name</td>
-				<td>species</td>
-				<td>used?</td>
-			</th>
+			<tr>
+				<th>edit</th>
+				<th>name</th>
+				<th>species</th>
+				<th>used?</th>
+			</tr>
 			<cfloop query="d">
 				<tr>
 					<td><a href="/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">edit</a></td>
