@@ -64,8 +64,14 @@ alter table bad_taxonomy add family varchar2(255);
 			<li>species/subspecies must contain only #chr(215)#, lowercase a-z characters, and -</li>
 			<li>species/subspecies must end with a lowercase a-z character</li>
 		</ol>
+		
+		<ol>
+			<li>higher taxa must start with uppercase A-Z</li>
+			<li>all subsequent characters must be lowercase a-z</li>
+		</ol>
 		<ul>
 			<li>Nomenclatural code is ignored here</li>
+			<li>Check leading/trailing spaces and nonprinting characters if something doesn't make sense</li>
 		</ul>	
 		
 		<table border id="t" class="sortable">
@@ -164,13 +170,13 @@ alter table bad_taxonomy add family varchar2(255);
 	<cfquery name="d" datasource="uam_god">
 		delete from bad_taxonomy
 	</cfquery>
-	spiffy. Use your back button,
+	spiffy. Use your back button
 </cfif>
 <cfif action is "setUsedInIds">
 	<cfquery name="d" datasource="uam_god">
 		update bad_taxonomy set used_in_id=1 where 
 		taxon_name_id in (select taxon_name_id from identification_taxonomy)
 	</cfquery>
-	spiffy. Use your back button,
+	spiffy. Use your back button
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
