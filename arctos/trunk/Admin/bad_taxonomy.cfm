@@ -13,6 +13,8 @@ alter table bad_taxonomy add subspecies varchar2(255);
 
 alter table bad_taxonomy add genus varchar2(255);
 
+alter table bad_taxonomy add family varchar2(255);
+
 --->
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
@@ -144,6 +146,7 @@ alter table bad_taxonomy add genus varchar2(255);
 		insert into bad_taxonomy (
 			taxon_name_id,
 			scientific_name,
+			family,
 			genus,
 			species,
 			subspecies,
@@ -152,6 +155,7 @@ alter table bad_taxonomy add genus varchar2(255);
 			select
 				taxon_name_id,
 				scientific_name,
+				family,
 				genus,
 				species,
 				subspecies,
