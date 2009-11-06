@@ -15,6 +15,8 @@ alter table bad_taxonomy add genus varchar2(255);
 
 alter table bad_taxonomy add family varchar2(255);
 
+alter table bad_taxonomy add family varchar2(255);
+
 --->
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
@@ -22,24 +24,18 @@ alter table bad_taxonomy add family varchar2(255);
 <cfoutput>
 	This form provides a means to locate taxon names which do not fit the rules implemented
 	on table Taxonomy (enforced at UPDATE and INSERT). You can manually fix stuff, or request global updates.
-	
 	<br>Some stuff is still here because it is unfixable but has not yet been detached from specimens and deleted.
 	Carex #chr(215)#physocarpoides already exists, so Carex X_physocarpoides cannot be modified, for example.
-	
-	
-	
 	<p>
 		First, you'll probably want to delete everything from the table to make sure you're looking at fresh data.
 		<br><a href="bad_taxonomy.cfm?action=resetAll">resetAll</a>
 	</p>
-	
 	<p>
 		Second, you'll want to look for bad data in one or more of these categories.
 		<br><a href="bad_taxonomy.cfm?action=findBadSpecies">findBadSpecies</a>
 		<br><a href="bad_taxonomy.cfm?action=findBadSubspecies">findBadSubspecies</a>
 		<br><a href="bad_taxonomy.cfm?action=findBadGenus">findBadGenus</a>
 		<br><a href="bad_taxonomy.cfm?action=findBadFamily">findBadFamily</a>
-	
 	</p>
 	<p>
 		Third, you'll want to flag those records that are used in Identifications.
@@ -52,8 +48,6 @@ alter table bad_taxonomy add family varchar2(255);
 	</p>
 </cfoutput>
 </cfif>
-
-
 <cfif action is "showBad">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
@@ -92,7 +86,7 @@ alter table bad_taxonomy add family varchar2(255);
 					<td>#probcode#</td>
 					<td>
 						<div 
-						<cfif probcode is "family">
+						<cfif probcode is "badfamily">
 							style="color:red;"
 						</cfif>
 						>#family#</div>
