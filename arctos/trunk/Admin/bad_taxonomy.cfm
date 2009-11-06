@@ -17,6 +17,7 @@ alter table bad_taxonomy add genus varchar2(255);
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfif action is "nothing">
+<cfoutput>
 	This form provides a means to locate taxon names which do not fit the rules implemented
 	on table Taxonomy (enforced at UPDATE and INSERT). You can manually fix stuff, or request global updates.
 	
@@ -35,6 +36,7 @@ alter table bad_taxonomy add genus varchar2(255);
 		<br><a href="bad_taxonomy.cfm?action=findBadSpecies">findBadSpecies</a>
 		<br><a href="bad_taxonomy.cfm?action=findBadSubspecies">findBadSubspecies</a>
 		<br><a href="bad_taxonomy.cfm?action=findBadGenus">findBadGenus</a>
+		<br><a href="bad_taxonomy.cfm?action=findBadFamily">findBadFamily</a>
 	
 	</p>
 	<p>
@@ -46,7 +48,7 @@ alter table bad_taxonomy add genus varchar2(255);
 		Finally, take a look at the table containing the records you found in Step 2.
 		<br><a href="bad_taxonomy.cfm?action=showBad">showBad</a>
 	</p>
-
+</cfoutput>
 </cfif>
 
 
@@ -75,6 +77,7 @@ alter table bad_taxonomy add genus varchar2(255);
 				<th>edit</th>
 				<th>name</th>
 				<th>problem</th>
+				<th>family</th>
 				<th>genus</th>
 				<th>species</th>
 				<th>subspecies</th>
@@ -85,6 +88,13 @@ alter table bad_taxonomy add genus varchar2(255);
 					<td><a href="/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">edit</a></td>
 					<td><a href="/name/#scientific_name#">#scientific_name#</a></td>
 					<td>#probcode#</td>
+					<td>
+						<div 
+						<cfif probcode is "family">
+							style="color:red;"
+						</cfif>
+						>#family#</div>
+					</td>
 					<td>
 						<div 
 						<cfif probcode is "badgenus">
@@ -126,6 +136,9 @@ alter table bad_taxonomy add genus varchar2(255);
 	<cfelseif replace(action,"findBad","") is "Species">
 		<cfset probcode="badspecies">
 		<cfset sql="not(regexp_like(replace(SPECIES,CHR (215 USING NCHAR_CS)),'^[a-z][a-z-]*[a-z]$'))">				
+	<cfelseif replace(action,"findBad","") is "Family">
+		<cfset probcode="badfamily">
+		<cfset sql="not (regexp_like(family,'^[A-Z][a-z]*$'))">
 	</cfif>
 	<cfquery name="i" datasource="uam_god">
 		insert into bad_taxonomy (
