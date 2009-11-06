@@ -43,179 +43,111 @@ alter table bad_taxonomy add genus varchar2(255);
 
 	</p>
 	<p>
-		Finally, take a look at the table containing the records you found in Step 1.
-		<br><a href="bad_taxonomy.cfm?action=showBadSpecies">showBadSpecies</a>
-		<br><a href="bad_taxonomy.cfm?action=showBadSubspecies">showBadSubspecies</a>
-		<br><a href="bad_taxonomy.cfm?action=showBadSubspecies">showBadGenus</a>
+		Finally, take a look at the table containing the records you found in Step 2.
+		<br><a href="bad_taxonomy.cfm?action=showBad">showBad</a>
 	</p>
 
 </cfif>
 
 
-<cfif action is "showBadGenus">
+<cfif action is "showBad">
 	<cfoutput>
 		<cfquery name="d" datasource="uam_god">
-			select * from bad_taxonomy where probcode='badgenus'
+			select * from bad_taxonomy
 		</cfquery>
-		Everything on this page does not match the rules:
+		Da Rulez:
 		<ol>
 			<li>genus must start with #chr(215)# + uppercase A-Z, or an uppercase A-Z character</li>
 			<li>genus must contain only #chr(215)#, upper- and lowercase A-Z characters, and -</li>
 			<li>genus must end with a lowercase a-z character</li>
 		</ol>
-		<table border id="t" class="sortable">
-			<tr>
-				<th>edit</th>
-				<th>name</th>
-				<th>genus</th>
-				<th>used?</th>
-			</tr>
-			<cfloop query="d">
-				<tr>
-					<td><a href="/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">edit</a></td>
-					<td>
-						<a href="/name/#scientific_name#">#scientific_name#</a>
-					</td>
-					<td>#genus#</td>
-					<td>#used_in_id#</td>
-				</tr>
-			</cfloop>
-		</table>
-	</cfoutput>
-</cfif>
-<cfif action is "findBadGenus">
-	<cfquery name="i" datasource="uam_god">
-		insert into bad_taxonomy (
-			taxon_name_id,
-			scientific_name,
-			genus,
-			probcode
-		) (
-			select
-				taxon_name_id,
-				scientific_name,
-				genus,
-				'badgenus'
-			from taxonomy where
-				not (
-					regexp_like(genus,'^[A-Z][a-z-]*[a-z]+$') or 
-                	(substr(genus,1,1) = CHR (215 USING NCHAR_CS) and regexp_like(genus,'^.[A-Z][a-z-]*[a-z]+$')))
-		)
-		
-	</cfquery>
-	spiffy. Use your back button,
-</cfif>
-
-<cfif action is "showBadSubspecies">
-	<cfoutput>
-		<cfquery name="d" datasource="uam_god">
-			select * from bad_taxonomy where probcode='badsubspecies'
-		</cfquery>
-		Everything on this page does not match the rules:
 		<ol>
-			<li>subspecies must start with #chr(215)# or a lowercase a-z character</li>
-			<li>subspecies must contain only #chr(215)#, lowercase a-z characters, and -</li>
-			<li>subspecies must end with a lowercase a-z character</li>
+			<li>species/subspecies must start with #chr(215)# or a lowercase a-z character</li>
+			<li>species/subspecies must contain only #chr(215)#, lowercase a-z characters, and -</li>
+			<li>species/subspecies must end with a lowercase a-z character</li>
 		</ol>
+		<ul>
+			<li>Nomenclatural code is ignored here</li>
+		</ul>	
+		
 		<table border id="t" class="sortable">
 			<tr>
 				<th>edit</th>
 				<th>name</th>
+				<th>problem</th>
+				<th>genus</th>
+				<th>species</th>
 				<th>subspecies</th>
 				<th>used?</th>
 			</tr>
 			<cfloop query="d">
 				<tr>
 					<td><a href="/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">edit</a></td>
+					<td><a href="/name/#scientific_name#">#scientific_name#</a></td>
+					<td>#probcode#</td>
 					<td>
-						<a href="/name/#scientific_name#">#scientific_name#</a>
+						<div 
+						<cfif probcode is "badgenus">
+							style="color:red;"
+						</cfif>
+						>#genus#</div>
 					</td>
-					<td>#subspecies#</td>
+					<td>
+						<div 
+						<cfif probcode is "badspecies">
+							style="color:red;"
+						</cfif>
+						>#species#</div>
+					</td>
+					<td>
+						<div 
+						<cfif probcode is "badsubspecies">
+							style="color:red;"
+						</cfif>
+						>#subspecies#</div>
+					</td>
 					<td>#used_in_id#</td>
 				</tr>
 			</cfloop>
 		</table>
 	</cfoutput>
-</cfif>
-<cfif action is "findBadSubspecies">
-	<cfquery name="u" datasource="uam_god">
-		delete from bad_taxonomy where probcode='badsubspecies'
-	</cfquery>
-	<cfquery name="i" datasource="uam_god">
-		insert into bad_taxonomy (
-			taxon_name_id,
-			scientific_name,
-			subspecies,
-			probcode,
-			problem
-		) (
-			select
-				taxon_name_id,
-				scientific_name,
-				subspecies,
-				'badsubspecies',
-				'subspecies no match: starts/ends with lowercase, contains only lowercase and dash)'
-			from taxonomy where
-				not(regexp_like(replace(subspecies,CHR (215 USING NCHAR_CS)),'^[a-z][a-z-]*[a-z]$'))
-		)
-	</cfquery>
-	spiffy. Use your back button,
 </cfif>
 
-<cfif action is "showBadSpecies">
-	<cfoutput>
-		<cfquery name="d" datasource="uam_god">
-			select * from bad_taxonomy where probcode='badspecies'
-		</cfquery>
-		Everything on this page does not match the rules:
-		<ol>
-			<li>species must start with #chr(215)# or a lowercase a-z character</li>
-			<li>species must contain only #chr(215)#, lowercase a-z characters, and -</li>
-			<li>species must end with a lowercase a-z character</li>
-		</ol>
-		<table border id="t" class="sortable">
-			<tr>
-				<th>edit</th>
-				<th>name</th>
-				<th>species</th>
-				<th>used?</th>
-			</tr>
-			<cfloop query="d">
-				<tr>
-					<td><a href="/Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">edit</a></td>
-					<td>
-						<a href="/name/#scientific_name#">#scientific_name#</a>
-					</td>
-					<td>#species#</td>
-					<td>#used_in_id#</td>
-				</tr>
-			</cfloop>
-		</table>
-	</cfoutput>
-</cfif>
-<cfif action is "findBadSpecies">
-	<cfquery name="u" datasource="uam_god">
-		delete from bad_taxonomy where probcode='badspecies'
-	</cfquery>
+<cfif action contains "findBad">
+<cfoutput>
+	<cfif replace(action,"findBad","") is "Genus">
+		<cfset probcode="badgenus">
+		<cfset sql="not (
+					regexp_like(genus,'^[A-Z][a-z-]*[a-z]+$') or 
+                	(substr(genus,1,1) = CHR (215 USING NCHAR_CS) and regexp_like(genus,'^.[A-Z][a-z-]*[a-z]+$')))">
+	<cfelseif replace(action,"findBad","") is "Subspecies">
+		<cfset probcode="badsubspecies">
+		<cfset sql="not(regexp_like(replace(subspecies,CHR (215 USING NCHAR_CS)),'^[a-z][a-z-]*[a-z]$'))">
+	<cfelseif replace(action,"findBad","") is "Species">
+		<cfset probcode="badspecies">
+		<cfset sql="not(regexp_like(replace(SPECIES,CHR (215 USING NCHAR_CS)),'^[a-z][a-z-]*[a-z]$'))">				
+	</cfif>
 	<cfquery name="i" datasource="uam_god">
 		insert into bad_taxonomy (
 			taxon_name_id,
 			scientific_name,
+			genus,
 			species,
-			probcode,
-			problem
+			subspecies,
+			probcode
 		) (
 			select
 				taxon_name_id,
 				scientific_name,
+				genus,
 				species,
-				'badspecies',
-				'species no match: starts/ends with lowercase, contains only lowercase and dash)'
-			from taxonomy where
-				not(regexp_like(replace(SPECIES,CHR (215 USING NCHAR_CS)),'^[a-z][a-z-]*[a-z]$'))
+				subspecies,
+				'#probcode#'
+			from taxonomy where #sql#				
 		)
 	</cfquery>
-	spiffy. Use your back button,
+	spiffy. Use your back button
+</cfoutput>	
 </cfif>
 <cfif action is "resetAll">
 	<cfquery name="d" datasource="uam_god">
