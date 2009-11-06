@@ -143,7 +143,7 @@ alter table bad_taxonomy add genus varchar2(255);
 				species,
 				subspecies,
 				'#probcode#'
-			from taxonomy where #sql#				
+			from taxonomy where #preservesinglequotes(sql)#				
 		)
 	</cfquery>
 	spiffy. Use your back button
