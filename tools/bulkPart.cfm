@@ -30,7 +30,6 @@
 	order by part_modifier
 </cfquery>
 
-	<script type='text/javascript' src='/includes/_specimenResults.js'></script>
 	<h3>Add Part(s) to all specimens listed below</h3>
 	<form name="newPart" method="post" action="bulkPart.cfm">
 		<input type="hidden" name="action" value="newPart">
