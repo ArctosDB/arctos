@@ -188,7 +188,8 @@ and programming is freely available.</p>
 
 <p>Collections or institutions interested in having their 
 data hosted in Arctos, or interested in participating in 
-the development of Arctos should <cfoutput><a href="mailto:#application.technicalEmail#">contact us</a></cfoutput>.</p>
+the development of Arctos should <a href="/info/participate.cfm">review the participation guidelines</a>, then
+<cfoutput><a href="mailto:#application.technicalEmail#">contact us</a></cfoutput> for additional information.</p>
 
 <p><a name="requirements"><strong>System Requirements</strong></a><br/>
 We attempt to keep the client-side of Arctos applications as generic as possible, 
