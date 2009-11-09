@@ -1413,7 +1413,7 @@ content: ": ";
 					</div>
 					
 						<div class="pair">
-							<div class="data">Verbatim Locality</div>
+							<div class="data">Verbatim_Locality</div>
 							<div class="value">W slope Mauna Kea, near Pu'u La'au doublequote--->" & two ""</div>
 						</div>
 					

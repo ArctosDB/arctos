@@ -314,7 +314,7 @@
 		<cfset temp = QuerySetCell(result, "created_agent_name", "#agent_name#", i)>
 		<cfset temp = QuerySetCell(result, "related_primary_key", "#related_primary_key#", i)>
 		<cfset table_name = listlast(media_relationship," ")>
-		<cfif #table_name# is "locality">
+		<cfif table_name is "locality">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					higher_geog || ': ' || spec_locality data 
@@ -332,7 +332,7 @@
 				select agent_name data from preferred_agent_name where agent_id=#related_primary_key#
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
-		<cfelseif #table_name# is "collecting_event">
+		<cfelseif table_name is "collecting_event">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					higher_geog || ': ' || verbatim_locality || ' (' || verbatim_date || ')' data 
@@ -347,8 +347,7 @@
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
             <cfset temp = QuerySetCell(result, "link", "/SpecimenResults.cfm?collecting_event_id=#related_primary_key#", i)>
-		<cfelseif #table_name# is "cataloged_item">
-	<cfelseif table_name is "accn">
+		<cfelseif table_name is "accn">
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					collection || ' ' || accn_number data 
@@ -363,7 +362,7 @@
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
             <cfset temp = QuerySetCell(result, "link", "/editAccn.cfm?Action=edit&transaction_id=#related_primary_key#", i)>
-		<cfelseif #table_name# is "cataloged_item">
+		<cfelseif table_name is "cataloged_item">
 		<!--- upping this to uam_god for now - see Issue 135
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		---->
@@ -380,7 +379,7 @@
 			</cfquery>
 			<cfset temp = QuerySetCell(result, "summary", "#d.data#", i)>
             <cfset temp = QuerySetCell(result, "link", "/SpecimenResults.cfm?collection_object_id=#related_primary_key#", i)>
-		<cfelseif #table_name# is "media">
+		<cfelseif table_name is "media">
 			<cfquery name="d" datasource="uam_god">
 				select media_uri data from media where media_id=#related_primary_key#
 			</cfquery>

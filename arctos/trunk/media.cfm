@@ -116,8 +116,15 @@
 			media_labels.assigned_by_agent_id=preferred_agent_name.agent_id (+) and
 			media_id=#media_id#
 	</cfquery>
+	<cfquery name="tag"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select count(*) c from tag where media_id=#media_id#
+	</cfquery>
+
 	<cfoutput>
 		Edit Media
+		<br><a href="/TAG.cfm?media_id=#media_id#">edit #tag.c#TAGs</a> ~
+		<a href="/showTAG.cfm?media_id=#media_id#">View #tag.c#TAGs</a> ~
+		<a href="/MediaSearch.cfm?action=search&media_id==#media_id#">Detail Page</a>
 		<form name="newMedia" method="post" action="media.cfm">
 			<input type="hidden" name="action" value="saveEdit">
 			<input type="hidden" id="number_of_relations" name="number_of_relations" value="#relns.recordcount#">
