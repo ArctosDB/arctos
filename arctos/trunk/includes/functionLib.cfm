@@ -6,7 +6,7 @@
 			<cfhttp method="head" url="#puri#">
 			<cfif cfhttp.responseheader.status_code is 200>
 				<cfset r=1>
-			<cfif>
+			</cfif>
 		</cfif>
 		<cfif r is 0>
 			<cfif mt is "image">
