@@ -211,7 +211,7 @@
 			<cfloop query="labels">
 				<cfset d=media_label>
 				<div id="labelsDiv__#i#">
-				<input type="hidden" id="media_label_id__#i#" name="media_label_id__#i#" value="#media_label_id#">
+				<input type="hidden" id="media_label_id__#i#" name="media_label_id__#i#" value="#escapeQuotes(media_label_id)#">
 				<select name="label__#i#" id="label__#i#" size="1">
 					<option value="delete">delete</option>
 					<cfloop query="ctmedia_label">
