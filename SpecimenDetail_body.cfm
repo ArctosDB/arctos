@@ -1255,11 +1255,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
                     <cfset mrel=getMediaRelations(#media_id#)>
                     <tr>
                         <td align="center" style="font-size:.8em">
-                            <cfif len(#preview_uri#) gt 0>
-								<cfset puri=preview_uri>
-							<cfelse>
-								<cfset puri='/images/noThumb.jpg'>
-							</cfif>
+                            
 							<cfset aTxt="#one.collection# #one.cat_num#: #one.scientific_name#">
 							<cfset niceMimeType="image/jpeg,text/html,application/pdf">
 							<cfset scaryMimeType="image/dng,image/tiff">
@@ -1275,7 +1271,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 									border:1px solid #bgc#;
 								}
 							</style>
-							<a href="#media_uri#" target="_blank"><img src="#preview_uri#" alt="#aTxt#" class="imgStyle #bgc#"></a>
+							<a href="#media_uri#" target="_blank"><img src="#puri#" alt="#aTxt#" class="imgStyle #bgc#"></a>
                             <br>#media_type# (#mime_type#)
                         </td>
                         <td style="font-size:.8em">
