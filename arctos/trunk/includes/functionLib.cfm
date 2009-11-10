@@ -1,10 +1,23 @@
 <cffunction name="getMediaPreview" access="public" output="true">
 	   <cfargument name="puri" required="true" type="string">
 	   <cfargument name="mt" required="false" type="string">
+	   <cfset r=0>
 	   <cfif len(puri) gt 0>
 			<cfhttp method="head" url="#puri#">
-			
-		<cfreturn cfhttp>
+			<cfif cfhttp.responseheader.status_code is 200>
+				<cfset r=1>
+			<cfif>
+		</cfif>
+		<cfif r is 0>
+			<cfif mt is "image">
+				<cfreturn "/images/noThumb.jpg">
+			<cfelseif mt is "audio">
+				<cfreturn "/images/audioNoThumb.png">
+			<cfelse>
+				<cfreturn "/images/noThumb.jpg">
+			</cfif>
+		<cfelse>
+			<cfreturn puri>
 		</cfif>
 </cffunction>
 <!------------------------------------------------------------------------------------->
