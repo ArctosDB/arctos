@@ -1185,7 +1185,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 		</div>
 		<div class="detailBlock">
 			<cfloop query="mediaTag">
-				<cfset puri=getMediaPreview(preview_uri,media_type)>
+				
 				 <span class="detailData">			
 					<a href="/showTAG.cfm?media_id=#media_id#" target="_blank"><img src="#puri#"></a>
 		        </span>	
@@ -1240,6 +1240,9 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
             <span class="detailData">			
 				<table border="1">
                 <cfloop query="media">
+					<cfset puri=getMediaPreview(preview_uri,media_type)>
+					<cfdump var=#puri#>
+					<hr>
                     <cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select
 							media_label,
