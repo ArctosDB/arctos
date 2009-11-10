@@ -1,3 +1,14 @@
+<cffunction name="getMediaPreview" access="public" output="true">
+	   <cfargument name="puri" required="true" type="string">
+	   <cfargument name="mt" required="false" type="string">
+	   <cfif len(puri) gt 0>
+			<cfhttp method="head" url="#puri#">
+			<cfdump var=#cfhttp#>
+		</cfif>
+	   <cfif len(mt) is 0>
+			
+		</cfif>
+</cffunction>
 <!------------------------------------------------------------------------------------->
 <cffunction name="getTagReln" access="public" output="true">
     <cfargument name="tag_id" required="true" type="numeric">
