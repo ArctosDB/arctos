@@ -211,13 +211,13 @@
 			<cfloop query="labels">
 				<cfset d=media_label>
 				<div id="labelsDiv__#i#">
-				<input type="hidden" id="media_label_id__#i#" name="media_label_id__#i#" value="#stripQuotes(media_label_id)#">
+				<input type="hidden" id="media_label_id__#i#" name="media_label_id__#i#" value="#media_label_id#">
 				<select name="label__#i#" id="label__#i#" size="1">
 					<option value="delete">delete</option>
 					<cfloop query="ctmedia_label">
 						<option <cfif #d# is #media_label#> selected="selected" </cfif>value="#media_label#">#media_label#</option>
 					</cfloop>
-				</select>:&nbsp;<input type="text" name="label_value__#i#" id="label_value__#i#" size="80" value="#label_value#">
+				</select>:&nbsp;<input type="text" name="label_value__#i#" id="label_value__#i#" size="80" value="#stripQuotes(label_value)#">
 				</div>
 				<cfset i=i+1>
 			</cfloop>
