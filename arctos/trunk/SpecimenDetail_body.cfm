@@ -1185,11 +1185,7 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 		</div>
 		<div class="detailBlock">
 			<cfloop query="mediaTag">
-				<cfif len(preview_uri) gt 0>
-					<cfset puri=preview_uri>
-				<cfelse>
-					<cfset puri='/images/noThumb.jpg'>
-				</cfif>
+				<cfset puri=getMediaPreview(preview_uri,media_type)>
 				 <span class="detailData">			
 					<a href="/showTAG.cfm?media_id=#media_id#" target="_blank"><img src="#puri#"></a>
 		        </span>	
