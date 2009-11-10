@@ -3,10 +3,8 @@
 	   <cfargument name="mt" required="false" type="string">
 	   <cfif len(puri) gt 0>
 			<cfhttp method="head" url="#puri#">
-			<cfdump var=#cfhttp#>
-		</cfif>
-	   <cfif len(mt) is 0>
 			
+		<cfreturn cfhttp>
 		</cfif>
 </cffunction>
 <!------------------------------------------------------------------------------------->
