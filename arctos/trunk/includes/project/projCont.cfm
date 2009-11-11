@@ -1,5 +1,4 @@
 <cfoutput>
-	<h2>Projects contributing specimens</h2>
 	<cfquery name="getContributors" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 			project.project_id,
@@ -52,11 +51,8 @@
 			ORDER BY 
 				project_name
 	</cfquery>
-	<cfif getContributors.recordcount is 0>
-		<div class="notFound">
-			This project used no specimens contributed by other projects.
-		</div>
-	<cfelse>
+	<cfif getContributors.recordcount gt 0>
+		<h2>Projects contributing specimens</h2>
 		#getContributors.recordcount# projects contributed specimens used by this project.
 		<ul>
 			<cfloop query="getContributors">

@@ -1,5 +1,4 @@
 <cfoutput>
-	<h2>Specimens Contributed</h2>
 	<cfquery name="getContSpecs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 			collection,
@@ -21,11 +20,8 @@
 			collection,
 			collection.collection_id
 	</cfquery>
-	<cfif getContSpecs.recordcount is 0>
-		<div class="notFound">
-			This project contributed no specimens.
-		</div>
-	<cfelse>
+	<cfif getContSpecs.recordcount gt 0>
+		<h2>Specimens Contributed</h2>
 		<cfquery name="ts" dbtype="query">
 			select sum(c) totspec from getContSpecs
 		</cfquery>

@@ -1,5 +1,4 @@
 <cfoutput>
-<h2>Publications</h2>
 	<cfquery name="pubs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 			formatted_publication.publication_id,
@@ -30,11 +29,8 @@
 		order by
 			formatted_publication
 	</cfquery>
-	<cfif pub.recordcount is 0>
-		<div class="notFound">
-			This project produced no publications.
-		</div>
-	<cfelse>
+	<cfif pub.recordcount gt 0>
+		<h2>Publications</h2>
 		This project produced #pub.recordcount# publications.
 		<cfset i=1>
 		<cfloop query="pub">
