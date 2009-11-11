@@ -151,7 +151,6 @@
 		<img src="/images/indicator.gif">
 	</div>
 	<div id="projMedia">
-		<h2>Media</h2>
 		<img src="/images/indicator.gif">
 	</div>
 </cfoutput>
