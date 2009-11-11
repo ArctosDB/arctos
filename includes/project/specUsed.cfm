@@ -1,5 +1,4 @@
 <cfoutput>
-<h2>Specimens Used</h2>
 	<cfquery name="getUsed" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
 			collection,
@@ -50,11 +49,8 @@
 	<cfquery name="ts" dbtype="query">
 		select sum(c) totspec from getUsed
 	</cfquery>
-	<cfif getUsed.recordcount is 0>
-		<div class="notFound">
-			This project used no specimens.
-		</div>
-	<cfelse>
+	<cfif getUsed.recordcount gt 0>
+		<h2>Specimens Used</h2>
 		This project used <a href="/SpecimenResults.cfm?loan_project_id=#project_id#">#ts.totspec# Specimens</a>
 		<ul>
 			<cfloop query="getUsed">

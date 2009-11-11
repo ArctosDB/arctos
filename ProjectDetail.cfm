@@ -131,19 +131,15 @@
 	<h2>Description</h2>
 	#p.project_description#
 	<div id="pubs">
-		<h2>Publications</h2>
 		<img src="/images/indicator.gif">
 	</div>
 	<div id="specUsed">
-		<h2>Specimens Used</h2>
 		<img src="/images/indicator.gif">
 	</div>
 	<div id="specCont">
-		<h2>Specimens Contributed</h2>
 		<img src="/images/indicator.gif">
 	</div>
 	<div id="projCont">
-		<h2>Projects contributing specimens</h2>
 		<img src="/images/indicator.gif">
 	</div>
 	<div id="projUseCont">
