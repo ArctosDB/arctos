@@ -147,7 +147,7 @@
 		<img src="/images/indicator.gif">
 	</div>
 	<div id="projUseCont">
-		<h2>Projects using contributed specimens</h2>
+		<!---<h2>Projects using contributed specimens</h2>--->
 		<img src="/images/indicator.gif">
 	</div>
 	<div id="projMedia">

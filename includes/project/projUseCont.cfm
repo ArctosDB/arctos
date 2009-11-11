@@ -1,5 +1,4 @@
 <cfoutput>
-	<h2>Projects using contributed specimens</h2>
 	<cfquery name="getUsers" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT 
 			project.project_id,
@@ -56,7 +55,8 @@
 			No projects have used specimens contributed by this project.
 		</div>
 	<cfelse>
-		#getUsers.recordcount# Projects used specimens contributed by this project.		
+		<h2>Projects using contributed specimens</h2>
+			#getUsers.recordcount# Projects used specimens contributed by this project.		
 		<ul>
 		<cfloop query="getUsers">
 			<li><a href="ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
