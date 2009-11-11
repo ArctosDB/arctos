@@ -50,11 +50,7 @@
 			project_name
 		order by project_name
 	</cfquery>
-	<cfif getUsers.recordcount is 0>
-		<div class="notFound">
-			No projects have used specimens contributed by this project.
-		</div>
-	<cfelse>
+	<cfif getUsers.recordcount gt 0>
 		<h2>Projects using contributed specimens</h2>
 			#getUsers.recordcount# Projects used specimens contributed by this project.		
 		<ul>
