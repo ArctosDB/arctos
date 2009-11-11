@@ -1,6 +1,5 @@
 <cfinclude template = "/includes/_frameHeader.cfm">
 <cfoutput>
-	<h2>Media</h2>
 	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	    select distinct 
 	        media.media_id,
@@ -19,7 +18,8 @@
 	         media_relations.related_primary_key = #project_id#
 	</cfquery>
 	<cfif #media.recordcount# gt 0>
-    	<div class="projMediaCell">
+    	<h2>Media</h2>
+		<div class="projMediaCell">
 			<cfloop query="media">
             	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
@@ -62,10 +62,6 @@
 					</cfif>
 				</div>
 			</cfloop>
-		</div>		
-	<cfelse>
-		<div class="notFound">
-			No Media is attached to this project.
 		</div>
 	</cfif>
 </cfoutput>
