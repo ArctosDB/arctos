@@ -1,11 +1,4 @@
 <cfinclude template = "includes/_header.cfm">
-<cfif not isdefined("project_id") or not isnumeric(project_id)>
-	<p style="color:#FF0000; font-size:14px;">
-		Did not get a project ID - aborting....
-	</p>
-	<cfabort>
-</cfif>
-<cfdump var=#cgi#>
 <cfif not listfindnocase(cgi.REDIRECT_URL,"project","/")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select project_name from project where project_id=#project_id#
