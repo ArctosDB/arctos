@@ -11,9 +11,7 @@
 	<cfif redir.recordcount is 1>
 		<cfset project_id=redir.project_id>
 	<cfelse>
-		<!---
 		<cfthrow detail="#redir.recordcount# projects found for #niceProjName#">
-		--->
 		fail
 	</cfif>
 </cfif>
