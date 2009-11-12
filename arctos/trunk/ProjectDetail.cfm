@@ -1,10 +1,21 @@
 <cfinclude template = "includes/_header.cfm">
-<cfif not isdefined("project_id") or not isnumeric(#project_id#)>
+<cfif not isdefined("project_id") or not isnumeric(project_id)>
 	<p style="color:#FF0000; font-size:14px;">
 		Did not get a project ID - aborting....
 	</p>
 	<cfabort>
-</cfif>	
+</cfif>
+<cfif url not like "/project/">
+	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select project_name from project where project_id=#project_id#
+	</cfquery>
+	<cflocation url="/project/#niceURL(project_name)#">
+<cfelse>
+	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select project_name from project where niceURL(project_name)=#niceProjName#
+	</cfquery>
+</cfif>
+
 
 <style>
 	.proj_title {font-size:2em;font-weight:900;text-align:center;}
