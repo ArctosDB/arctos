@@ -13,7 +13,10 @@
 		<cfif len(s) gt 150>
 			<cfset s=left(s,150)>
 		</cfif>
-		<br>S; #s#
+		<cfif right(s,1) is "-">
+			<cfset s=left(s,len(s)-1)>
+		</cfif>
+		<br>#s#
 	</cfloop>
 </cfoutput>
 <br />declare s varchar2(4000);
