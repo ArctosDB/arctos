@@ -380,14 +380,14 @@
 	<cfif go is "no">
 		<cfset basWhere = "#basWhere# AND 1=2">
 	</cfif>
-	<cfset basSql = "#basSQL# #basFrom# #basWhere# ORDER BY formatted_publication,publication_id
+	<cfset basSql = "#basSQL# #basFrom# #basWhere#
 			group by
 				publication.publication_title,
 			publication.publication_id,
 			publication.publication_type,
 			formatted_publication,
 			description,
-			link">
+			link ORDER BY formatted_publication,publication_id">
 	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(basSQL)#
 	</cfquery>
