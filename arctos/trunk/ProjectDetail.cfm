@@ -1,23 +1,25 @@
 <cfinclude template = "includes/_header.cfm">
-<cfdump var=#url#>
-<cfdump var=#variables#>
 <cfif not listfindnocase(cgi.REDIRECT_URL,"project","/")>
+	redirecting.....
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select project_name from project where project_id=#project_id#
 	</cfquery>
 	<cflocation url="/project/#niceURL(redir.project_name)#" addtoken="false">
 <cfelse>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select project_id from project where niceURL(project_name)=#niceProjName#
+		select project_id from project where niceURL(project_name)='#niceProjName#'
 	</cfquery>
 	<cfif redir.recordcount is 1>
 		<cfset project_id=redir.project_id>
 	<cfelse>
+		<!---
 		<cfthrow detail="#redir.recordcount# projects found for #niceProjName#">
+		--->
+		fail
 	</cfif>
 </cfif>
-
-
+spiffilicous
+<cfabort>
 <style>
 	.proj_title {font-size:2em;font-weight:900;text-align:center;}
 	.proj_sponsor {font-size:1.5em;font-weight:800;text-align:center;}
