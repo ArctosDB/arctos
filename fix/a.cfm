@@ -6,10 +6,10 @@
 		r=rereplace(r,'[^A-Za-z ]','',"all");
 		r=rereplace(s,' ','-',"all");
 		r=lcase(s);
-		if len(r) gt 150 {
+		if (len(r) gt 150) {
 			r=left(r,150);
 		}
-		if right(s,1) is "-" {
+		if (right(s,1) is "-") {
 			r=left(r,len(r)-1);
 		}
 		r=rereplace(s,'-*','-','all');
