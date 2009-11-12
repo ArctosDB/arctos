@@ -6,7 +6,7 @@
 
 	<cfloop query="d">
 		<hr>#project_name#
-		<cfset s=rereplace(trim(project_name,'<[^<>]+>'))>
+		<cfset s=trim(rereplace(project_name,'<[^<>]+>',''))>
 		<br>S; #s#
 	</cfloop>
 </cfoutput>
