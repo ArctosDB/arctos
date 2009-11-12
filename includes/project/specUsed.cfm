@@ -23,9 +23,11 @@
 	<cfquery name="ts" dbtype="query">
 		select sum(c) totspec from getUsed
 	</cfquery>
+	<cfquery name="nc" dbtype="query">
+			select collection from getUsed group by collection
+		</cfquery>
 	<cfif getUsed.recordcount gt 0>
 		<h2>Specimens Used</h2>
-		This project used <a href="/SpecimenResults.cfm?loan_project_id=#project_id#">#ts.totspec# Specimens</a>
 		<ul>
 			<cfloop query="getUsed">
 				<li>
@@ -33,6 +35,9 @@
 						#c# #collection# Specimens
 					</a>
 				</li>
+				<cfif nc.recordcount gt 1>
+					<li><a href="SpecimenResults.cfm?project_id=#project_id#">#ts.totspec# total specimens</a></li>
+				</cfif>
 			</cfloop>
 		</ul>
 	</cfif>
