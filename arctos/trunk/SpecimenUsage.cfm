@@ -271,7 +271,7 @@
 	</td><td width="50%" valign="top">
 	<cfset i=1>
 	<cfset go="no">
-	<cfset basSQL = "SELECT DISTINCT 
+	<cfset basSQL = "SELECT 
 			publication.publication_title,
 			publication.publication_id,
 			publication.publication_type,
@@ -380,7 +380,14 @@
 	<cfif go is "no">
 		<cfset basWhere = "#basWhere# AND 1=2">
 	</cfif>
-	<cfset basSql = "#basSQL# #basFrom# #basWhere# ORDER BY formatted_publication,publication_id">
+	<cfset basSql = "#basSQL# #basFrom# #basWhere# ORDER BY formatted_publication,publication_id
+			group by
+				publication.publication_title,
+			publication.publication_id,
+			publication.publication_type,
+			formatted_publication,
+			description,
+			link">
 	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(basSQL)#
 	</cfquery>
