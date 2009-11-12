@@ -5,7 +5,7 @@
 	</p>
 	<cfabort>
 </cfif>
-<cfif url not like "/project/">
+<cfif url does not contain "/project/">
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select project_name from project where project_id=#project_id#
 	</cfquery>
