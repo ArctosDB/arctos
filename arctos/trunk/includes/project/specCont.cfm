@@ -28,7 +28,6 @@
 		<cfquery name="nc" dbtype="query">
 			select collection from getContSpecs group by collection
 		</cfquery>
-		<cfdump var=#nc#>
 		<ul>
 			<cfloop query="getContSpecs">
 				<li>#c# #collection# <a href="SpecimenResults.cfm?project_id=#project_id#&collection_id=#collection_id#">Specimens</a></li>
