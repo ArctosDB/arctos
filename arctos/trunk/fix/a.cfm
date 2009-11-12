@@ -4,16 +4,16 @@
 		var r=trim(s);
 		r=trim(rereplace(r,'<[^>]*>','',"all"));
 		r=rereplace(r,'[^A-Za-z ]','',"all");
-		r=rereplace(s,' ','-',"all");
-		r=lcase(s);
+		r=rereplace(r,' ','-',"all");
+		r=lcase(r);
 		if (len(r) gt 150) {
 			r=left(r,150);
 		}
-		if (right(s,1) is "-") {
+		if (right(r,1) is "-") {
 			r=left(r,len(r)-1);
 		}
-		r=rereplace(s,'-+','-','all');
-		return r;		
+		r=rereplace(r,'-+','-','all');
+		return r;
 	</cfscript>
 	
 </cffunction>
