@@ -6,7 +6,7 @@
 
 	<cfloop query="d">
 		<hr>#project_name#
-		<cfset s=trim(rereplace(project_name,'<[^<>]>','',"all"))>
+		<cfset s=trim(rereplace(project_name,'<[^>]*>','',"all"))>
 		<cfset s=rereplace(s,'[^A-Za-z ]','',"all")>
 		<cfset s=rereplace(s,' ','-',"all")>
 		<cfset s=lcase(s)>
