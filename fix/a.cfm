@@ -12,7 +12,7 @@
 		if (right(s,1) is "-") {
 			r=left(r,len(r)-1);
 		}
-		r=rereplace(s,'-*','-','all');
+		r=rereplace(s,'-+','-','all');
 		return r;		
 	</cfscript>
 	
