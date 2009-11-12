@@ -419,22 +419,24 @@
 		<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 			<p class="indent">
 				#formatted_publication#
-				<br>
-				<a href="javascript: openAnnotation('publication_id=#publication_id#')">Annotate</a>
-				&nbsp;~&nbsp;
-				<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">Details</a>
-				&nbsp;~&nbsp;
-				<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#numCits# Cited Specimens</a>
+			</p>	
+			<ul>
+				<li><a href="javascript: openAnnotation('publication_id=#publication_id#')">Annotate</a></li>
+				<li>
+					<cfif numCits gt 0>
+						<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#numCits# Cited Specimens</a>
+					<cfelse>
+						No Citations
+					</cfif>
+				</li>
 				<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
-					&nbsp;~&nbsp;
-					<a href="/Publication.cfm?publication_id=#publication_id#">Edit</a>
-					&nbsp;~&nbsp;
-					<a href="/Citation.cfm?publication_id=#publication_id#">Citations</a>
+					<li><a href="/Publication.cfm?publication_id=#publication_id#">Edit</a></li>
+					<li><a href="/Citation.cfm?publication_id=#publication_id#">Manage Citations</a></li>
 					<cfif isdefined("toproject_id") and len("toproject_id") gt 0>
-						&nbsp;~&nbsp;<a href="/Project.cfm?action=addPub&publication_id=#publication_id#&project_id=#toproject_id#">Add to Project</a>
+						<li><a href="/Project.cfm?action=addPub&publication_id=#publication_id#&project_id=#toproject_id#">Add to Project</a></li>
 					</cfif>
 				</cfif>
-			</p>
+			</ul>
 			<cfquery name="links" dbtype="query">
 				select description,
 				link from publication
