@@ -25,11 +25,16 @@
 		<cfquery name="ts" dbtype="query">
 			select sum(c) totspec from getContSpecs
 		</cfquery>
-		This project contributed <a href="SpecimenResults.cfm?project_id=#project_id#">#ts.totspec# Specimens</a>
+		<cfquery name="nc" dbtype="query">
+			select count(collection) cc from getContSpecs group by collection
+		</cfquery>
 		<ul>
 			<cfloop query="getContSpecs">
 				<li>#c# #collection# <a href="SpecimenResults.cfm?project_id=#project_id#&collection_id=#collection_id#">Specimens</a></li>
 			</cfloop>
+			<cfif nc.cc gt 1>
+				<li><a href="SpecimenResults.cfm?project_id=#project_id#">#ts.totspec# total specimens</a></li>
+			</cfif>
 		</ul>
 	</cfif>
 </cfoutput>
