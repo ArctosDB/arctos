@@ -32,6 +32,7 @@
 			<cfloop query="getContSpecs">
 				<li>#c# #collection# <a href="SpecimenResults.cfm?project_id=#project_id#&collection_id=#collection_id#">Specimens</a></li>
 			</cfloop>
+			#nc.cc#
 			<cfif nc.cc gt 1>
 				<li><a href="SpecimenResults.cfm?project_id=#project_id#">#ts.totspec# total specimens</a></li>
 			</cfif>
