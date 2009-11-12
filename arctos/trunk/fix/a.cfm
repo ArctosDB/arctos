@@ -8,7 +8,7 @@
 		<hr>#project_name#
 		<cfset s=trim(rereplace(project_name,'<[^<>]+>',''))>
 		<cfset s=rereplace(s,'[^A-Za-z ]*','')>
-		<cfset s=rereplace(s,' ','-','',"all")>
+		<cfset s=rereplace(s,' ','-',"all")>
 		<cfset s=lcase(s)>
 		<cfif len(s) gt 150>
 			<cfset s=left(s,150)>
