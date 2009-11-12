@@ -10,7 +10,7 @@
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select project_name from project where project_id=#project_id#
 	</cfquery>
-	<cflocation url="/project/#niceURL(project_name)#">
+	<cflocation url="/project/#niceURL(redir.project_name)#">
 <cfelse>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select project_name from project where niceURL(project_name)=#niceProjName#
