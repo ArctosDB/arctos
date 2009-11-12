@@ -432,32 +432,30 @@
 				<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
 					<li><a href="/Publication.cfm?publication_id=#publication_id#">Edit</a></li>
 					<li><a href="/Citation.cfm?publication_id=#publication_id#">Manage Citations</a></li>
-					<cfif isdefined("toproject_id") and len("toproject_id") gt 0>
+					<cfif isdefined("toproject_id") and len(toproject_id) gt 0>
 						<li><a href="/Project.cfm?action=addPub&publication_id=#publication_id#&project_id=#toproject_id#">Add to Project</a></li>
 					</cfif>
 				</cfif>
-			</ul>
-			<cfquery name="links" dbtype="query">
-				select description,
-				link from publication
-				where publication_id=#publication_id#
-			</cfquery>
-			<cfif len(#links.description#) gt 0>
-				<ul>
+				<cfquery name="links" dbtype="query">
+					select description,
+					link from publication
+					where publication_id=#publication_id#
+				</cfquery>
+				<cfif len(#links.description#) gt 0>
 					<cfloop query="links">
-						<li><a href="#link#" target="_blank">#description#</a></li>
+						<li>View at <a href="#link#" target="_blank" class="external">#description#</a></li>
 					</cfloop>
-				</ul>
-			</cfif>
-			<cfquery name="pubmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select media_id from media_relations where media_relationship like '% publication' and
-				related_primary_key=#publication_id#
-			</cfquery>
-			<cfif len(#pubmedia.media_id#) gt 0>
-				<ul>
+				</cfif>
+				<cfquery name="pubmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select media_id from media_relations where media_relationship like '% publication' and
+					related_primary_key=#publication_id#
+				</cfquery>
+				<cfif len(#pubmedia.media_id#) gt 0>
 					<li><a href="/MediaSearch.cfm?action=search&media_id=#valuelist(pubmedia.media_id)#" target="_blank">Media</a></li>
-				</ul>
-			</cfif>
+				</cfif>
+			</ul>
+			
+			
 		</div>
 		<cfset i=#i#+1>
 	</cfloop>
