@@ -277,7 +277,8 @@
 			publication.publication_type,
 			formatted_publication,
 			description,
-			link ">
+			link,
+			count(distinct(citation.collection_object_id)) numCits">
 	<cfset basFrom = "
 		FROM 
 			publication,
@@ -286,10 +287,12 @@
 			agent_name pubAuth,
 			agent_name searchAuth,
 			formatted_publication,
-			publication_url">
+			publication_url,
+			citation">
 	<cfset basWhere = "
 		WHERE 
-		publication.publication_id = project_publication.publication_id (+) 
+		publication.publication_id = project_publication.publication_id (+) and
+		publication.publication_id = citation.publication_id (+) 
 		AND publication.publication_id = publication_author_name.publication_id (+) 
 		AND publication.publication_id = publication_url.publication_id (+) 
 		AND publication_author_name.agent_name_id = pubAuth.agent_name_id (+)
@@ -393,13 +396,15 @@
 		SELECT
 			publication_id,
 			publication_type,
-			formatted_publication
+			formatted_publication,
+			numCits
 		FROM
 			publication
 		GROUP BY
 			publication_id,
 			publication_type,
-			formatted_publication
+			formatted_publication,
+			numCits
 		ORDER BY
 			formatted_publication
 	</cfquery>
@@ -412,7 +417,7 @@
 				&nbsp;~&nbsp;
 				<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">Details</a>
 				&nbsp;~&nbsp;
-				<a href="/SpecimenResults.cfm?publication_id=#publication_id#">Cited Specimens</a>
+				<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#numCits# Cited Specimens</a>
 				<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
 					&nbsp;~&nbsp;
 					<a href="/Publication.cfm?publication_id=#publication_id#">Edit</a>
