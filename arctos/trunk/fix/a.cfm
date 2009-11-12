@@ -16,6 +16,7 @@
 		<cfif right(s,1) is "-">
 			<cfset s=left(s,len(s)-1)>
 		</cfif>
+		<cfset s=replace(s,'--','-','all')>
 		<br>#s#
 	</cfloop>
 </cfoutput>
