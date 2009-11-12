@@ -1344,17 +1344,7 @@
 			specimen_part.collection_object_id = loan_item.collection_object_id AND
 			loan_item.transaction_id = project_trans.transaction_id AND
 			project_trans.project_id = #loan_project_id#
-		UNION
-		SELECT 
-			cataloged_item.collection_object_id
-		FROM 
-			cataloged_item,
-			loan_item,
-			project_trans
-		WHERE
-			cataloged_item.collection_object_id = loan_item.collection_object_id AND
-			loan_item.transaction_id = project_trans.transaction_id AND
-			project_trans.project_id = #loan_project_id#)">
+		)">
 </cfif>
 <cfif isdefined("project_name") AND len(#project_name#) gt 0>
 	<cfif #basJoin# does not contain " projAccn ">
@@ -1421,8 +1411,6 @@
 <cfif isdefined("loan_trans_id") and len(#loan_trans_id#) gt 0>
 	<cfset mapurl = "#mapurl#&loan_trans_id=#loan_trans_id#">
 	<cfset basQual = " #basQual# AND cataloged_item.collection_object_id IN (
-		select loan_item.collection_object_id from loan_item where loan_item.transaction_id=#loan_trans_id#
-		UNION
 		select derived_from_cat_item from specimen_part,loan_item where 
 			specimen_part.collection_object_id=loan_item.collection_object_id and loan_item.transaction_id=#loan_trans_id#
 			)">

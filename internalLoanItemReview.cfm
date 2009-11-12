@@ -184,33 +184,7 @@
 	</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------->
-<!---
-<cfquery name="getTissLoanRequests" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select * from 
-		loan_item, 
-		loan,
-		tissue_sample, 
-		coll_object,
-		cataloged_item,
-		coll_object_encumbrance,
-		encumbrance,
-		agent_name,
-		identification,
-		taxonomy
-	WHERE
-		loan_item.collection_object_id = tissue_sample.collection_object_id AND
-		loan.transaction_id = loan_item.transaction_id AND
-		tissue_sample.derived_from_biol_indiv = cataloged_item.collection_object_id AND
-		tissue_sample.collection_object_id = coll_object.collection_object_id AND
-		coll_object.collection_object_id = coll_object_encumbrance.collection_object_id (+) and
-		coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id (+) AND
-		encumbrance.encumbering_agent_id = agent_name.agent_id (+) AND
-		cataloged_item.accepted_identification_id = identification.identification_id AND
-		identification.taxon_name_id = taxonomy.taxon_name_id AND
-	 loan_item.transaction_id = #transaction_id#
-</cfquery>
---->
-<cfif #action# is "nothing">
+<cfif action is "nothing">
 <cfquery name="getPartLoanRequests" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		cat_num, 
@@ -259,46 +233,6 @@
 	  loan_item.transaction_id = #transaction_id#
 	 ORDER BY af_num,cat_num
 </cfquery>
-<!--- handle legacy loans with cataloged items as the item --->
-<cfquery name="getCatItemLoanRequests" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select 
-		cat_num, 
-		cataloged_item.collection_object_id,
-		collection_cde,
-		af_num.af_num,
-		 item_descr,
-		 item_instructions,
-		 loan_item_remarks,
-		 scientific_name,
-		 Encumbrance,
-		 agent_name,
-		 loan_num,
-		 loan_num_prefix,
-		 loan_num_suffix
-	 from 
-		loan_item, 
-		loan,
-		af_num,
-		cataloged_item,
-		coll_object_encumbrance,
-		encumbrance,
-		agent_name,
-		identification
-	WHERE
-		loan_item.collection_object_id = cataloged_item.collection_object_id AND
-		loan.transaction_id = loan_item.transaction_id AND
-		cataloged_item.collection_object_id = coll_object_encumbrance.collection_object_id (+) and
-		coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id (+) AND
-		encumbrance.encumbering_agent_id = agent_name.agent_id (+) AND
-		cataloged_item.collection_object_id = identification.collection_object_id AND
-		cataloged_item.collection_object_id = af_num.collection_object_id (+) AND
-		identification.accepted_id_fg = 1 AND 
-	 loan_item.transaction_id = #transaction_id#
-	ORDER BY cat_num
-</cfquery>
-<cfquery name="catCnt" dbtype="query">
-	select distinct(collection_object_id) from getCatItemLoanRequests
-</cfquery>
 <cfquery name="prtCnt" dbtype="query">
 	select distinct(collection_object_id) from getPartLoanRequests
 </cfquery>
@@ -307,8 +241,8 @@
 </cfquery>
 
 
-<cfset itemcnt=#catCnt.recordcount# + #prtItemCnt.recordcount#>
-<cfset cnt=#catCnt.recordcount# + #prtCnt.recordcount#>
+<cfset itemcnt=prtItemCnt.recordcount>
+<cfset cnt=prtCnt.recordcount>
 
 
 
@@ -316,9 +250,6 @@
 Review items in loan<b>
 	<cfif len(#getPartLoanRequests.loan_num#) gt 0>
 		#getPartLoanRequests.loan_num_prefix# #getPartLoanRequests.loan_num# #getPartLoanRequests.loan_num_suffix#
-	</cfif>
-	<cfif len(#getCatItemLoanRequests.loan_num#) gt 0>
-		#getCatItemLoanRequests.loan_num_prefix# #getCatItemLoanRequests.loan_num# #getCatItemLoanRequests.loan_num_suffix#
 	</cfif>
 	</b>
 	.

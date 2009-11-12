@@ -62,27 +62,6 @@
 				group by
 					collection
 			</cfquery>
-			<cfif wtf.recordcount is 0>
-				<cfquery name="wtf" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select 
-						collection,
-						count(distinct(cataloged_item.collection_object_id)) CntCatNum,
-						count(distinct(citation.collection_object_id)) cntCited,
-						'catitem' ltype
-					from
-						loan_item,
-						cataloged_item,
-						collection,
-						citation
-					WHERE
-						loan_item.collection_object_id = cataloged_item.collection_object_id and
-						cataloged_item.collection_id=collection.collection_id and
-						cataloged_item.collection_object_id=citation.collection_object_id (+) and
-						transaction_id=#transaction_id#
-					group by
-						collection
-					</cfquery>
-				</cfif>
 			<td>
 				<cfloop query="wtf">
 					<a href="/SpecimenResults.cfm?loan_trans_id=#loanData.TRANSACTION_ID#&collection_id=#loanData.collection_id#">#CntCatNum# (#collection#: #ltype#)</a>

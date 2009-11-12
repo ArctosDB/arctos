@@ -807,17 +807,6 @@
 				GROUP BY project_name, project.project_id
 		  </cfquery>
 		  <cfquery name="isLoan" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		  		SELECT project_name, project.project_id FROM 
-					loan_item,
-					project,
-					project_trans
-				 WHERE 
-				 	loan_item.collection_object_id=#one.collection_object_id# AND
-					loan_item.transaction_id=project_trans.transaction_id AND
-					project_trans.project_id=project.project_id		
-				GROUP BY 
-					project_name, project.project_id
-				UNION
 				SELECT project_name, project.project_id FROM 
 					loan_item,
 					project,
@@ -836,15 +825,7 @@
 			loan_item,specimen_part
 			WHERE loan_item.collection_object_id=specimen_part.collection_object_id AND
 			specimen_part.derived_from_cat_item=#one.collection_object_id#
-			union
-			SELECT loan_item.collection_object_id FROM
-			loan_item,cataloged_item
-			WHERE loan_item.collection_object_id=cataloged_item.collection_object_id AND
-			cataloged_item.collection_object_id=#one.collection_object_id#
 		</cfquery>
-	
-	
-
 		</td>
 		<td valign="top" width="50%">
 <!------------------------------------ collectors ---------------------------------------------->

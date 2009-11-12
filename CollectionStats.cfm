@@ -78,27 +78,6 @@
  		FROM
 			cataloged_item,
 			loan_item,
-			collection,
-			loan,
-			trans
-		WHERE 
-			trans.transaction_id = loan.transaction_id AND
-			loan.transaction_id = loan_item.transaction_id AND
-			loan_item.collection_object_id = cataloged_item.collection_object_id AND
-			cataloged_item.collection_id = collection.collection_id 
-		group by 
-			collection.collection,
-			collection.collection_id,
-			to_char(trans_date, 'yyyy')
-		union
-			select 
-			collection.collection,
-			collection.collection_id,
-			to_char(trans_date, 'yyyy') tdate,
-			count(loan_item.collection_object_id) as cnt
- 		FROM
-			cataloged_item,
-			loan_item,
 			specimen_part,
 			collection,
 			loan,
