@@ -50,6 +50,17 @@
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
+	<cfelseif listfindnocase(rdurl,'project',"/")>
+		<cftry>
+			<cfset gPos=listfindnocase(rdurl,"project","/")>
+			<cfif listlen(rdurl,"/") gt 1>
+				<cfset niceProjName = listgetat(rdurl,gPos+1,"/")>
+			</cfif>
+			<cfinclude template="/ProjectDetail.cfm">
+			<cfcatch>
+				<cfinclude template="/errors/404.cfm">
+			</cfcatch>
+		</cftry>
 	<cfelseif listfindnocase(rdurl,'saved',"/")>
 		<Cfoutput>
 		<cftry>
