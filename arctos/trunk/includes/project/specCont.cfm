@@ -26,15 +26,14 @@
 			select sum(c) totspec from getContSpecs
 		</cfquery>
 		<cfquery name="nc" dbtype="query">
-			select count(collection) cc from getContSpecs group by collection
+			select collection from getContSpecs group by collection
 		</cfquery>
 		<cfdump var=#nc#>
 		<ul>
 			<cfloop query="getContSpecs">
 				<li>#c# #collection# <a href="SpecimenResults.cfm?project_id=#project_id#&collection_id=#collection_id#">Specimens</a></li>
 			</cfloop>
-			#nc.cc#
-			<cfif nc.cc gt 1>
+			<cfif nc.recordcount gt 1>
 				<li><a href="SpecimenResults.cfm?project_id=#project_id#">#ts.totspec# total specimens</a></li>
 			</cfif>
 		</ul>
