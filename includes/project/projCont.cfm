@@ -25,19 +25,6 @@
 							project,
 							project_trans,
 							loan_item,
-							cataloged_item 
-						WHERE 
-							loan_item.collection_object_id = cataloged_item.collection_object_id AND
-							project_trans.transaction_id = loan_item.transaction_id AND 
-							project_trans.project_id = project.project_id AND 
-							project.project_id = #project_id#
-						UNION
-						SELECT 
-							cataloged_item.collection_object_id 
-						FROM 
-							project,
-							project_trans,
-							loan_item,
 							specimen_part,
 							cataloged_item 
 						WHERE 
