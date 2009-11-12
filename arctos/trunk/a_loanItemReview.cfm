@@ -206,7 +206,6 @@
 		 agent_name,
 		 loan_number,
 		 specimen_part.collection_object_id as partID,
-		 CONCATSINGLEOTHERID(cataloged_item.collection_object_id,'Field Num') as fieldnum,
 		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID		 			 
 	 from 
 		loan_item, 
@@ -230,47 +229,7 @@
 		cataloged_item.collection_object_id = identification.collection_object_id AND
 		identification.accepted_id_fg = 1 AND
 		cataloged_item.collection_id=collection.collection_id AND
-	  loan_item.transaction_id = #transaction_id#
-	UNION
-		select 
-		cat_num, 
-		cataloged_item.collection_object_id,
-		collection,
-		'cataloged item' part_name,
-		 NULL part_modifier,
-		 NULL preserve_method,
-		NULL condition,
-		 NULL sampled_from_obj_id,
-		 item_descr,
-		 item_instructions,
-		 loan_item_remarks,
-		 NULL coll_obj_disposition,
-		 scientific_name,
-		 Encumbrance,
-		 agent_name,
-		 loan_number,
-		 cataloged_item.collection_object_id as partID,
-		 CONCATSINGLEOTHERID(cataloged_item.collection_object_id,'Field Num') as fieldnum,
-		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID		
-	 from 
-		loan_item, 
-		loan,
-		cataloged_item,
-		coll_object_encumbrance,
-		encumbrance,
-		agent_name,
-		identification,
-		collection
-	WHERE
-		loan_item.collection_object_id = cataloged_item.collection_object_id AND
-		loan.transaction_id = loan_item.transaction_id AND
-		cataloged_item.collection_object_id = coll_object_encumbrance.collection_object_id (+) and
-		coll_object_encumbrance.encumbrance_id = encumbrance.encumbrance_id (+) AND
-		encumbrance.encumbering_agent_id = agent_name.agent_id (+) AND
-		cataloged_item.collection_object_id = identification.collection_object_id AND
-		cataloged_item.collection_id=collection.collection_id AND
-		identification.accepted_id_fg = 1 AND 
-	 loan_item.transaction_id = #transaction_id#
+	  	loan_item.transaction_id = #transaction_id#
 	ORDER BY cat_num
 </cfquery>
 <!--- handle legacy loans with cataloged items as the item --->
@@ -344,10 +303,6 @@ Review items in loan<b>
 			#session.CustomOtherIdentifier#
 		</td>
 		<td>
-			Field Number
-		</td>
-		
-		<td>
 			Scientific Name
 		</td>
 		<td>
@@ -387,10 +342,7 @@ Review items in loan<b>
 		</td>
 		<td>
 			#CustomID#&nbsp;
-		</td>
-		<td>
-			#fieldnum#&nbsp;
-		</td>		
+		</td>	
 		<td>
 			<em>#scientific_name#</em>&nbsp;
 		</td>
