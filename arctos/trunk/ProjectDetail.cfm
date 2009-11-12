@@ -6,7 +6,7 @@
 	<cfabort>
 </cfif>
 <cfdump var=#cgi#>
-<cfif listfindnocase(cgi.REDIRECT_URL,"project","/")>
+<cfif not listfindnocase(cgi.REDIRECT_URL,"project","/")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select project_name from project where project_id=#project_id#
 	</cfquery>
