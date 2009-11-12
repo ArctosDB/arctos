@@ -35,10 +35,10 @@
 						#c# #collection# Specimens
 					</a>
 				</li>
-				<cfif nc.recordcount gt 1>
-					<li><a href="SpecimenResults.cfm?project_id=#project_id#">#ts.totspec# total specimens</a></li>
-				</cfif>
 			</cfloop>
+			<cfif nc.recordcount gt 1>
+				<li><a href="SpecimenResults.cfm?project_id=#project_id#">#ts.totspec# total specimens</a></li>
+			</cfif>
 		</ul>
 	</cfif>
 </cfoutput>
