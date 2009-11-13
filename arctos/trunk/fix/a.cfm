@@ -13,16 +13,23 @@
 			<th>Publication Type</th>
 			<th>Count</th>
 			<th>Percent Peer Reviewed</th>
+			<th>Citations</th>
 		</tr>
 		<cfloop query="pt">
 			<cfquery name="t" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select count(*) cnt from publication where IS_PEER_REVIEWED_FG=1 and publication_type='#publication_type#'
 			</cfquery>
-			<cfset ppr=t.cnt/pt.c>
+			<cfquery name="ctn" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+				select count(*) cnt from publication,citation where 
+				publication.publication_id=citation.publication_id and
+				publication_type='#publication_type#'
+			</cfquery>
+			<cfset ppr=t.cnt/pt.c * 100>
 			<tr>
 				<td>#publication_type#</td>
 				<td>#c#</td>
 				<td>#ppr#</td>
+				<td>#ctn.cnt#</td>
 			</tr>
 		</cfloop>
 	</table>
