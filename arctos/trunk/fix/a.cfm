@@ -41,7 +41,7 @@
 			select 
 				decode(sum(items_loaned_by_collection),
 					null,0,
-					sum(items_loaned_by_collection)	tot
+					sum(items_loaned_by_collection))	tot
 			from (
 				select 
 					collection,
