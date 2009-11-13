@@ -1,6 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
 <cfoutput>
-	<cfset thisTableName = "SearchResults_#cfid#_#cftoken#">	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
 			flat.guid,
@@ -15,7 +14,7 @@
 			specimen_part.part_modifier,
 			specimen_part.preserve_method
 		from
-			#thisTableName#,
+			#session.SpecSrchTab#,
 			flat,
 			cataloged_item,
 			specimen_part,
@@ -23,7 +22,7 @@
 			container c,
 			container p
 		where
-			#thisTableName#.collection_object_id=cataloged_item.collection_object_id and
+			#session.SpecSrchTab#.collection_object_id=cataloged_item.collection_object_id and
 			cataloged_item.collection_object_id=flat.collection_object_id and
 			cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
 			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
