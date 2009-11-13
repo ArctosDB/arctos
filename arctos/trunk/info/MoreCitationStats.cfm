@@ -36,6 +36,7 @@
 			</tr>
 		</cfloop>
 	</table>
+	<p>&nbsp;</p>
 	<cfquery name="total_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select count(*) c from project
 	</cfquery>
@@ -108,7 +109,7 @@
 			<td>#neither_projects.c#</td>
 		</tr>
 	</table>
-	
+	<p>&nbsp;</p>
 	<cfquery name="loan_projects_res" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
 			count(distinct(project.project_id)) c,
@@ -144,6 +145,7 @@
 			<td>#loan_projects_res.numCits#</td>
 		</tr>
 	</table>
+	<p>&nbsp;</p>
 	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select collection,collection_id from collection order by collection
 	</cfquery>
@@ -218,5 +220,6 @@
 		</tr>
 	</cfloop>
 	</table>
+	<p>&nbsp;</p>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
