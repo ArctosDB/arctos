@@ -174,16 +174,16 @@
 				citation
 		</cfquery>
 		<tr>
-			<td>All Collections</td>
-			<td>#numLoaned#</td>
-			<td>#cited.tot#</td>
+			<td><strong>All Collections</strong></td>
+			<td><strong>#numLoaned#</strong></td>
+			<td><strong>#cited.tot#</strong></td>
 			<cfset cr="">
 			<cfif numLoaned is 0 and cited.tot is 0>
 				<cfset cr=0>
 			<cfelseif numLoaned gte cited.tot and numLoaned gt 0>
 				<cfset cr=cited.tot/numLoaned>
 			</cfif>
-			<td>#cr#</td>
+			<td><strong>#cr#</strong></td>
 		</tr>
 	<cfloop query="c">
 		<cfquery name="loaned" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
