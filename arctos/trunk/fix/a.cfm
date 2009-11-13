@@ -8,6 +8,8 @@
 		group by publication_type 
 		order by publication_type
 	</cfquery>
+	
+	Publications by type, reviewed status, and citations.
 	<table border id="pubTotals">
 		<tr>
 			<th>Publication Type</th>
@@ -33,7 +35,6 @@
 			</tr>
 		</cfloop>
 	</table>
-	Publications by type, reviewed status, and citations.
 	<cfquery name="total_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select count(*) c from project
 	</cfquery>
@@ -89,6 +90,7 @@
 				select project_id from project_trans,accn 
 				where project_trans.transaction_id=accn.transaction_id)
 	</cfquery>
+	Projects by activity:
 	<table border>
 		<tr>
 			<th>Total</th>
@@ -99,14 +101,49 @@
 		</tr>
 		<tr>
 			<td>#total_projects.c#</td>
-			<td>#accn_projects.c#</td>
 			<td>#loan_projects.c#</td>
+			<td>#accn_projects.c#</td>
 			<td>#both_projects.c#</td>
 			<td>#neither_projects.c#</td>
 		</tr>
 	</table>
-
-
+	
+	<cfquery name="loan_projects_res" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select 
+			count(distinct(project.project_id)) c,
+			count(distinct(project_publication.publication_id)) numPubs,
+			count(distinct(citation.collection_object_id)) numCits,
+			count(distinct(citation.publication_id)) numPubsWithCits
+		from 
+			project,
+			project_publication,
+			citation
+		where 
+			project.project_id in (
+				select project_id from project_trans,loan 
+				where project_trans.transaction_id=loan.transaction_id)
+			and project.project_id not in (
+				select project_id from project_trans,accn 
+				where project_trans.transaction_id=accn.transaction_id)
+			and project.project_id = project_publication.project_id (+)
+			and project_publication.publication_id = citation.publication_id (+)
+	</cfquery>
+	Resutls of the projects borrowing specimens.
+	<table border>
+		<tr>
+			<th>Total Borrow Projects</th>
+			<th>Number Pubs Produced</th>
+			<th>Number Pubs that Cite</th>
+			<th>Number Cites</th>
+			
+		</tr>
+		<tr>
+			<td>#loan_projects_res.c#</td>
+			<td>#loan_projects_res.numPubs#</td>
+			<td>#loan_projects_res.numPubsWithCits#</td>
+			<td>#loan_projects_res.numCits#</td>
+		</tr>
+	</table>
 	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select collection,collection_id from collection order by collection
 	</cfquery>
