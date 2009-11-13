@@ -55,7 +55,6 @@
 		from 
 			project
 		where 
-			where
 			project_id in (
 				select project_id from project_trans,loan 
 				where project_trans.transaction_id=loan.transaction_id)
