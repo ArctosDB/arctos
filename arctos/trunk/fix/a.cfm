@@ -1,44 +1,84 @@
 
-<cfquery name="d" datasource="uam_god">
-	select project_name from project
+<cfquery name="total_projects" datasource="uam_god">
+	select count(*) total_projects from project
+</cfquery>
+<cfquery name="total_pubs" datasource="uam_god">
+	select count(*) total_pubs from publication
+</cfquery>
+<cfquery name="publication_type" datasource="uam_god">
+	select publication_type,count(*) pubs_of_type from publication group by publication_type order by publication_type
+</cfquery>
+<cfquery name="total_items_loaned" datasource="uam_god">
+	select count(*) total_items_loaned from loan_item
+</cfquery>
+
+<table border>
+	<tr>
+		<th>Publication Type</th>
+		<th>Count</th>
+	</tr>
+	<cfloop query="publication_type">
+		<tr>
+			<td>#publication_type#</td>
+			<td>#pubs_of_type#</td>
+		</tr>
+	</cfloop>
+</table>
+
+<cfquery name="c" datasource="uam_god">
+	select collection,collection_id from collection order by collection
 </cfquery>
 <cfoutput>
+	<table border>
+		<tr>
+			<th>Collection</th>
+			<th>Items Loaned</th>
+		</tr>
+	<cfloop query="c">
+		<cfquery name="loaned" datasource="uam_god">
+			select 
+				sum(items_loaned_by_collection) tot
+			from (
+				select 
+					collection,
+					count(*) items_loaned_by_collection
+				from
+					collection,
+					cataloged_item,
+					specimen_part,
+					loan_item
+				where
+					collection.collection_id=cataloged_item.collection_id and
+					cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
+					specimen_part.collection_object_id=loan_item.collection_object_id and
+					collection.collection_id=#collection_id#
+				group by collection
+				union
+				select 
+					collection,
+					count(*) items_loaned_by_collection
+				from
+					collection,
+					cataloged_item,
+					loan_item
+				where
+					collection.collection_id=cataloged_item.collection_id and
+					cataloged_item.collection_object_id=loan_item.collection_object_id and
+					collection.collection_id=#collection_id#
+				group by collection
+				)
+			 group by collection
+		</cfquery>
+		
+		
+ 
+ 
 
-	<cfloop query="d">
-		<hr>#project_name#
-		<cfset s=trim(rereplace(project_name,'<[^>]*>','',"all"))>
-		<cfset s=rereplace(s,'[^A-Za-z ]','',"all")>
-		<cfset s=rereplace(s,' ','-',"all")>
-		<cfset s=lcase(s)>
-		<cfif len(s) gt 150>
-			<cfset s=left(s,150)>
-		</cfif>
-		<cfif right(s,1) is "-">
-			<cfset s=left(s,len(s)-1)>
-		</cfif>
-		<cfset s=replace(s,'--','-','all')>
-		<br>#s#
-		<br>
-		<cfset q=niceURL(project_name)>
-		#q#
+		<tr>
+			<td>#collection#</td>
+			<td>#loaned.tot#</td>
+			
+		</tr>
 	</cfloop>
+	</table>
 </cfoutput>
-<br />declare s varchar2(4000);
-begin
-for r in (select project_name from project) loop
-	--dbms_output.put_line('------------------------------');
---	dbms_output.put_line(r.project_name);
-	s:=trim(regexp_replace(r.project_name,'<[^<>]+>'));
-	s:=regexp_replace(s,);
-	s:=regexp_replace(s,);
-	s:=lower(s);
-	if length(s)>100 then
-		dbms_output.put_line('==========================  chopped ======================================');
-		s:=substr(s,1,100);
-	end if;
-	dbms_output.put_line(s);
-	
-end loop;
-end;
-/
-
