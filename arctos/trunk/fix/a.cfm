@@ -22,7 +22,7 @@
 			<cfset ppr=pt.c/t.cnt>
 			<tr>
 				<td>#publication_type#</td>
-				<td>#pubs_of_type#</td>
+				<td>#c#</td>
 				<td>#ppr#</td>
 			</tr>
 		</cfloop>
