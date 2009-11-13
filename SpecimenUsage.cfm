@@ -170,7 +170,7 @@
 				<cfset whr = "#whr# AND 
 					project.project_id in (
 						select project_id from project_trans,loan 
-						where project_trans.transaction_id=loan.transaction_id))">
+						where project_trans.transaction_id=loan.transaction_id)">
 			<cfelseif project_type is "accn">
 				<cfset whr = "#whr# AND 
 					project.project_id in (
@@ -224,17 +224,9 @@
 			<cfset whr = "#whr# and 1=2">
 		</cfif>
 		<cfset sql = "#sel# #frm# #whr# ORDER BY project_name">
-		<cftry>
-			<cfquery name="projects" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				#preservesinglequotes(sql)#
-			</cfquery>
-			<cfcatch>
-				<cfset sql=cfcatch.sql>
-				<cfset message=cfcatch.message>
-				<cfset queryError=cfcatch.queryError>
-				<cf_queryError>
-			</cfcatch>
-		</cftry>
+		<cfquery name="projects" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(sql)#
+		</cfquery>
 		<cfquery name="projNames" dbtype="query">
 			SELECT 
 				project_id,
