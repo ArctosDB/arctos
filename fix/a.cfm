@@ -99,7 +99,7 @@
 			<td>#both_projects.c#</td>
 		</tr>
 	</table>
-<cfset x=total_projects.c + accn_projects.c + loan_projects.c + both_projects.c +both_projects.c>
+<cfset x=accn_projects.c + loan_projects.c + both_projects.c +both_projects.c>
 x: #x# 
 <cfquery name="total_items_loaned" datasource="uam_god">
 	select count(*) total_items_loaned from loan_item
