@@ -48,6 +48,14 @@
 					<h4>Project</h4>					
 					<label for="sponsor">Project Sponsor</label>
 					<input name="sponsor" id="sponsor" type="text">
+					<label for="project_type">Project Type</label>
+					<select name="project_type" id="project_type">
+						<option value=""></option>
+						<option value="loan">Uses Specimens</option>
+						<option value="accn">Contributes Specimens</option>
+						<option value="both">Uses and Contributes</option>
+						<option value="neither">Neither Uses nor Contributes</option>
+					</select>
 				</td>
 				<td>
 					<h4>Publication</h4>
@@ -157,6 +165,37 @@
 						upper(agent_name) like '%#ucase(author)#%' ))">
 				
 		</cfif>
+		<cfif isdefined("project_type") AND len(project_type) gt 0>
+			<cfif project_type is "loan">
+				<cfset whr = "#whr# AND 
+					project.project_id in (
+						select project_id from project_trans,loan 
+						where project_trans.transaction_id=loan.transaction_id))">
+			<cfelseif project_type is "accn">
+				<cfset whr = "#whr# AND 
+					project.project_id in (
+						select project_id from project_trans,accn 
+						where project_trans.transaction_id=accn.transaction_id)">
+			<cfelseif project_type is "both">
+				<cfset whr = "#whr# AND
+					project.project_id in (
+						select project_id from project_trans,loan 
+						where project_trans.transaction_id=loan.transaction_id)
+					and project.project_id in (
+						select project_id from project_trans,accn 
+						where project_trans.transaction_id=accn.transaction_id)">
+			<cfelseif project_type is "neither">
+				<cfset whr = "#whr# AND
+					project.project_id not in (
+						select project_id from project_trans,loan 
+						where project_trans.transaction_id=loan.transaction_id)
+					and project.project_id not in (
+						select project_id from project_trans,accn 
+						where project_trans.transaction_id=accn.transaction_id)">
+			</cfif>
+			
+		</cfif>
+		
 		<cfif isdefined("sponsor") AND len(#sponsor#) gt 0>
 			<cfset go="yes">
 			<cfset whr = "#whr# AND project.project_id IN 
@@ -454,8 +493,6 @@
 					<li><a href="/MediaSearch.cfm?action=search&media_id=#valuelist(pubmedia.media_id)#" target="_blank">Media</a></li>
 				</cfif>
 			</ul>
-			
-			
 		</div>
 		<cfset i=#i#+1>
 	</cfloop>
