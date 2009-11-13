@@ -33,11 +33,56 @@
 			</tr>
 		</cfloop>
 	</table>
-
-
-<cfquery name="total_projects" datasource="uam_god">
-	select count(*) total_projects from project
-</cfquery>
+	<cfquery name="total_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select count(*) c from project
+	</cfquery>
+	<cfquery name="accn_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select 
+			count(*) c
+		from 
+			project,
+			accn
+		where 
+			project.project_id=project_trans.project_id and
+			project_trans.transaction_id=accn.transaction_id and
+			project_trans.transaction_id not in (select transaction_id from loan)
+	</cfquery>
+	<cfquery name="loan_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select 
+			count(*) c
+		from 
+			project,
+			loan
+		where 
+			project.project_id=project_trans.project_id and
+			project_trans.transaction_id=loan.transaction_id and
+			project_trans.transaction_id not in (select transaction_id from accn)
+	</cfquery>
+	<cfquery name="both_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select 
+			count(*) c
+		from 
+			project,
+			loan
+		where 
+			project.project_id=project_trans.project_id and
+			project_trans.transaction_id=loan.transaction_id and
+			project_trans.transaction_id=accn.transaction_id
+	</cfquery>
+	<table border>
+		<tr>
+			<th>Total Projects</th>
+			<th>Projects Using Specimens</th>
+			<th>Projects Contributing Specimens</th>
+			<th>Projects Using and Contributing</th>
+		</tr>
+		<tr>
+			<td>#total_projects.c#</td>
+			<td>#accn_projects.c#</td>
+			<td>#loan_projects.c#</td>
+			<td>#both_projects.c#</td>
+		</tr>
+	</table>
 
 <cfquery name="total_items_loaned" datasource="uam_god">
 	select count(*) total_items_loaned from loan_item
