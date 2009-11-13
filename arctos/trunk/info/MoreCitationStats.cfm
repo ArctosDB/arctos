@@ -157,6 +157,34 @@
 			<th>Items Cited</th>
 			<th>Citations/Loaned Item</th>
 		</tr>
+		<cfquery name="loaned" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select 
+				count(collection_object_id) tot
+			from
+				loan_item
+		</cfquery>
+		<cfset numLoaned=0>
+		<cfif loaned.tot gt 0>
+			<cfset numLoaned=loaned.tot>
+		</cfif>
+		<cfquery name="cited" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select 
+				count(*) tot
+			from 
+				citation
+		</cfquery>
+		<tr>
+			<td>All Collections</td>
+			<td>#numLoaned#</td>
+			<td>#cited.tot#</td>
+			<cfset cr="">
+			<cfif numLoaned is 0 and cited.tot is 0>
+				<cfset cr=0>
+			<cfelseif numLoaned gte cited.tot and numLoaned gt 0>
+				<cfset cr=cited.tot/numLoaned>
+			</cfif>
+			<td>#cr#</td>
+		</tr>
 	<cfloop query="c">
 		<cfquery name="loaned" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select 
