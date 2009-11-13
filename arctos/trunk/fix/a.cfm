@@ -34,6 +34,7 @@
 			<th>Collection</th>
 			<th>Items Loaned</th>
 			<th>Items Cited</th>
+			<th>Citations/Loaned Item</th>
 		</tr>
 	<cfloop query="c">
 		<cfquery name="loaned" datasource="uam_god">
@@ -80,16 +81,12 @@
 				citation.collection_object_id=cataloged_item.collection_object_id and
 				cataloged_item.collection_id=#collection_id#
 		</cfquery>
-		
-		
- 
- 
-
 		<tr>
 			<td>#collection#</td>
 			<td>#loaned.tot#</td>
 			<td>#cited.tot#</td>
-			
+			<cfset cr=cited.tot/loaned.tot>
+			<td>#cr#</td>
 		</tr>
 	</cfloop>
 	</table>
