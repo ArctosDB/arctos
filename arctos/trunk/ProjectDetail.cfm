@@ -12,7 +12,7 @@
 		<cfset project_id=redir.project_id>
 	<cfelse>
 		<div class="error">
-			Yikes! Something bad happened. Please file a <a href="info/bugs.cfm">Bug Report</a>.
+			Yikes! Something bad happened. Please file a <a href="/info/bugs.cfm">Bug Report</a>.
 		</div>
 		<cfoutput>
 			<cfmail subject="Jacked Up Project" to="#Application.PageProblemEmail#" from="hosedProject@#Application.fromEmail#" type="html">
