@@ -51,7 +51,6 @@
 			</cfcatch>
 		</cftry>
 	<cfelseif listfindnocase(rdurl,'project',"/")>
-		there is a project
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"project","/")>
 			<cfif listlen(rdurl,"/") gt 1>
