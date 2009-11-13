@@ -33,6 +33,7 @@
 			</tr>
 		</cfloop>
 	</table>
+	Publications by type, reviewed status, and citations.
 	<cfquery name="total_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select count(*) c from project
 	</cfquery>
