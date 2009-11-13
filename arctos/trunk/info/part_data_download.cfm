@@ -4,7 +4,7 @@
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
 			flat.guid,
-			clat.collection,
+			flat.collection,
 			flat.cat_num,
 			concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 			specimen_part.part_name,
@@ -60,3 +60,4 @@
 		</cfloop>
 	</table>	
 </cfoutput>
+<cfinclude template="/includes/_footer.cfm">
