@@ -91,7 +91,7 @@
 			<td>#numLoaned#</td>
 			<td>#cited.tot#</td>
 			<cfset cr="">
-			<cfif numLoaned gt 0 and cited.tot gt 0>
+			<cfif numLoaned gt 0>
 				<cfset cr=cited.tot/numLoaned>
 			<cfelseif numLoaned is 0 and cited.tot gt 0>
 				<cfset cr=-1>
