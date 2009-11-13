@@ -91,14 +91,12 @@
 			<td>#numLoaned#</td>
 			<td>#cited.tot#</td>
 			<cfset cr="">
-			<cfif numLoaned gt 0>
-				<cfset cr=cited.tot/numLoaned>
-			<cfelseif numLoaned is 0 and cited.tot gt 0>
-				<cfset cr=-1>
-			<cfelseif numLoaned is 0 and cited.tot is 0>
+			<cfif numLoaned is 0 and cited.tot is 0>
 				<cfset cr=0>
+			<cfelseif numLoaned gte cited.tot and numLoaned gt 0>
+				<cfset cr=cited.tot/numLoaned>
 			<cfelse>
-				<cfset cr='WTF?'>
+				<cfset cr=-1>
 			</cfif>
 			<td>#cr#</td>
 		</tr>
