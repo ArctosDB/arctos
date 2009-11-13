@@ -45,7 +45,7 @@
 			#getUsers.recordcount# Projects used specimens contributed by this project.		
 		<ul>
 		<cfloop query="getUsers">
-			<li><a href="ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
+			<li><a href="/ProjectDetail.cfm?project_id=#project_id#">#project_name#</a></li>
 		</cfloop>
 		</ul>
 	</cfif>
