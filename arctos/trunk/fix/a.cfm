@@ -39,7 +39,9 @@
 	<cfloop query="c">
 		<cfquery name="loaned" datasource="uam_god">
 			select 
-				nvl(sum(items_loaned_by_collection),0) tot
+				decode(sum(items_loaned_by_collection),
+					null,0,
+					sum(items_loaned_by_collection)	tot
 			from (
 				select 
 					collection,
