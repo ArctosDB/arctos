@@ -148,8 +148,6 @@
 					project.project_id = project_sponsor.project_id (+) AND
 					project_sponsor.agent_name_id = s_name.agent_name_id (+) AND	
 					project_agent.agent_name_id = agent_name.agent_name_id (+)">
-					
-					
 		<cfset go="no">		
 		<cfif isdefined("p_title") AND len(#p_title#) gt 0>
 			<cfset title = "#p_title#">
@@ -166,6 +164,7 @@
 				
 		</cfif>
 		<cfif isdefined("project_type") AND len(project_type) gt 0>
+			<cfset go="yes">
 			<cfif project_type is "loan">
 				<cfset whr = "#whr# AND 
 					project.project_id in (
