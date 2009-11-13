@@ -38,7 +38,7 @@
 	</cfquery>
 	<cfquery name="accn_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
-			count(*) c
+			count(distinct(project.project_id)) c
 		from 
 			project,
 			project_trans,
@@ -50,7 +50,7 @@
 	</cfquery>
 	<cfquery name="loan_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
-			count(*) c
+			count(distinct(project.project_id)) c
 		from 
 			project,
 			project_trans,
@@ -62,7 +62,7 @@
 	</cfquery>
 	<cfquery name="both_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
-			count(*) c
+			count(distinct(project.project_id)) c
 		from 
 			project,
 			project_trans tl,
