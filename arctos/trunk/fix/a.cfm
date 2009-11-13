@@ -40,7 +40,7 @@
 		select 
 			count(distinct(project.project_id)) c
 		from 
-			project,,
+			project,
 			project_trans tl,
 			project_trans ta,
 			accn
