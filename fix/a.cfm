@@ -1,13 +1,12 @@
 <cfoutput>
-	<cfquery name="pt" datasource="uam_god">
+	<cfquery name="pt" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
 			publication_type,
-			count(*) c,
-			IS_PEER_REVIEWED_FG
+			count(*) c
 		from 
 			publication 
-		group by publication_type,IS_PEER_REVIEWED_FG 
-		order by publication_type,IS_PEER_REVIEWED_FG
+		group by publication_type 
+		order by publication_type
 	</cfquery>
 	<table border id="pubTotals">
 		<tr>
@@ -16,8 +15,8 @@
 			<th>Percent Peer Reviewed</th>
 		</tr>
 		<cfloop query="pt">
-			<cfquery name="t" dbtype="query">
-				select count(*) cnt from pt where IS_PEER_REVIEWED_FG=1 and publication_type='#publication_type#'
+			<cfquery name="t" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+				select count(*) cnt from publication where IS_PEER_REVIEWED_FG=1 and publication_type='#publication_type#'
 			</cfquery>
 			<cfdump var=#t#>
 			<cfset ppr=pt.c/t.cnt>
