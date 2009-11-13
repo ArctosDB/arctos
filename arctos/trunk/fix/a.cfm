@@ -104,33 +104,11 @@
 			<td>#neither_projects.c#</td>
 		</tr>
 	</table>
-<cfset x=accn_projects.c + loan_projects.c + both_projects.c +neither_projects.c>
-x: #x# 
 
 
-
-<cfquery name="total_items_loaned" datasource="uam_god">
-	select count(*) total_items_loaned from loan_item
-</cfquery>
-<cfquery name="ppr" datasource="uam_god">
-	select decode(IS_PEER_REVIEWED_FG,0,'no','yes') IS_PEER_REVIEWED_FG, count(*) pubs_of_type from publication group by IS_PEER_REVIEWED_FG order by IS_PEER_REVIEWED_FG
-</cfquery>
-<table border id="pubTotals">
-	<tr>
-		<th>Peer Reviewed?</th>
-		<th>Count</th>
-	</tr>
-	<cfloop query="ppr">
-		<tr>
-			<td>#IS_PEER_REVIEWED_FG#</td>
-			<td>#pubs_of_type#</td>
-		</tr>
-	</cfloop>
-</table>
-
-<cfquery name="c" datasource="uam_god">
-	select collection,collection_id from collection order by collection
-</cfquery>
+	<cfquery name="c" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select collection,collection_id from collection order by collection
+	</cfquery>
 	<table border>
 		<tr>
 			<th>Collection</th>
@@ -139,7 +117,7 @@ x: #x#
 			<th>Citations/Loaned Item</th>
 		</tr>
 	<cfloop query="c">
-		<cfquery name="loaned" datasource="uam_god">
+		<cfquery name="loaned" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select 
 				sum(items_loaned_by_collection)	tot
 			from (
@@ -177,7 +155,7 @@ x: #x#
 		<cfif loaned.tot gt 0>
 			<cfset numLoaned=loaned.tot>
 		</cfif>
-		<cfquery name="cited" datasource="uam_god">
+		<cfquery name="cited" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select 
 				count(*) tot
 			from 
