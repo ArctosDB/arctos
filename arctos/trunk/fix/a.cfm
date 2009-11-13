@@ -18,8 +18,7 @@
 			<cfquery name="t" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 				select count(*) cnt from publication where IS_PEER_REVIEWED_FG=1 and publication_type='#publication_type#'
 			</cfquery>
-			<cfdump var=#t#>
-			<cfset ppr=pt.c/t.cnt>
+			<cfset ppr=t.cnt/pt.c>
 			<tr>
 				<td>#publication_type#</td>
 				<td>#c#</td>
