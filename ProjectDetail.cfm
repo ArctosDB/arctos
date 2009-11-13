@@ -18,6 +18,9 @@
 		</div>
 			<cfmail subject="Jacked Up Project" to="#Application.PageProblemEmail#" from="hosedProject@#Application.fromEmail#" type="html">
 				Project #niceProjName# matches #redir.recordcount# projects. Fix it.
+				<cfif isdefined("project_id")>
+					<br>project_id=#project_id#
+				</cfif>
 			</cfmail>
 		<cfabort>
 	</cfif>
