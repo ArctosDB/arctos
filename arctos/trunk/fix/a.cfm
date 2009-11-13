@@ -79,12 +79,9 @@
 		select 
 			count(distinct(project.project_id)) c
 		from 
-			project,
-			project_trans
+			project
 		where 
-			project.project_id=project_trans.project_id and
-			project_trans.transaction_id not in (select transaction_id from accn) and
-			project_trans.transaction_id not in (select transaction_id from loan)
+			project_id not in (select project_id from project_trans)
 	</cfquery>
 	<table border>
 		<tr>
