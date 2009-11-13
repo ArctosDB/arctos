@@ -47,11 +47,11 @@
 			project
 		where
 			project_id in (
-				select project_id from project_trans,accn 
-				where project_trans.transaction_id=accn.transaction_id)
+				select project_id from project_trans,cataloged_item 
+				where project_trans.transaction_id=cataloged_item.accn_id)
 			and project_id not in (
-				select project_id from project_trans,loan 
-				where project_trans.transaction_id=loan.transaction_id)
+				select project_id from project_trans,loan_item 
+				where project_trans.transaction_id=loan_item.transaction_id)
 	</cfquery>
 	<cfquery name="loan_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
@@ -60,11 +60,11 @@
 			project
 		where 
 			project_id in (
-				select project_id from project_trans,loan 
-				where project_trans.transaction_id=loan.transaction_id)
+				select project_id from project_trans,loan_item 
+				where project_trans.transaction_id=loan_item.transaction_id)
 			and project_id not in (
-				select project_id from project_trans,accn 
-				where project_trans.transaction_id=accn.transaction_id)
+				select project_id from project_trans,cataloged_item 
+				where project_trans.transaction_id=cataloged_item.accn_id)
 	</cfquery>
 	<cfquery name="both_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
@@ -73,11 +73,11 @@
 			project
 		where
 			project_id in (
-				select project_id from project_trans,loan 
-				where project_trans.transaction_id=loan.transaction_id)
+				select project_id from project_trans,loan_item 
+				where project_trans.transaction_id=loan_item.transaction_id)
 			and project_id in (
-				select project_id from project_trans,accn 
-				where project_trans.transaction_id=accn.transaction_id)
+				select project_id from project_trans,cataloged_item 
+				where project_trans.transaction_id=cataloged_item.accn_id)
 	</cfquery>
 	<cfquery name="neither_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
@@ -86,11 +86,11 @@
 			project
 		where 
 			project_id not in (
-				select project_id from project_trans,loan 
-				where project_trans.transaction_id=loan.transaction_id)
+				select project_id from project_trans,loan_item 
+				where project_trans.transaction_id=loan_item.transaction_id)
 			and project_id not in (
-				select project_id from project_trans,accn 
-				where project_trans.transaction_id=accn.transaction_id)
+				select project_id from project_trans,cataloged_item 
+				where project_trans.transaction_id=cataloged_item.accn_id)
 	</cfquery>
 	<strong>Projects by activity:</strong>
 	<table border>
