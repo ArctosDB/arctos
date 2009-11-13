@@ -1,5 +1,5 @@
 <cfoutput>
-	<cfquery name="publication_type" datasource="uam_god">
+	<cfquery name="pt" datasource="uam_god">
 		select 
 			publication_type,
 			count(*) c,
@@ -15,11 +15,11 @@
 			<th>Count</th>
 			<th>Percent Peer Reviewed</th>
 		</tr>
-		<cfloop query="publication_type">
+		<cfloop query="pt">
 			<cfquery name="t" dbtype="query">
-				select count(*) c from publication_type where IS_PEER_REVIEWED_FG=1
+				select count(*) cnt from pt where IS_PEER_REVIEWED_FG=1 and publication_type='#publication_type#'
 			</cfquery>
-			<cfset ppr=publication_type.c/t.c>
+			<cfset ppr=pt.c/t.cnt>
 			<tr>
 				<td>#publication_type#</td>
 				<td>#pubs_of_type#</td>
