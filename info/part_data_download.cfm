@@ -29,7 +29,13 @@
 			cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
 			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
 			coll_obj_cont_hist.container_id=c.container_id and
-			c.parent_container_id = p.container_id (+)			
+			c.parent_container_id = p.container_id (+)
+		order by
+			flat.collection,
+			flat.cat_num,
+			specimen_part.part_name,
+			specimen_part.part_modifier,
+			specimen_part.preserve_method
 	</cfquery>
 	<table border="1" id="d" class="sortable">
 		<tr>
