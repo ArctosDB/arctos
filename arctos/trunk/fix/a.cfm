@@ -75,18 +75,31 @@
 			project.project_id=ta.project_id and
 			ta.transaction_id=accn.transaction_id
 	</cfquery>
+	<cfquery name="neither_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+		select 
+			count(distinct(project.project_id)) c
+		from 
+			project,
+			project_trans
+		where 
+			project.project_id=project_trans.project_id and
+			project_trans.transaction_id not in (select transaction_id from accn) and
+			project_trans.transaction_id not in (select transaction_id from loan)
+	</cfquery>
 	<table border>
 		<tr>
-			<th>Total Projects</th>
-			<th>Projects Using Specimens</th>
-			<th>Projects Contributing Specimens</th>
-			<th>Projects Using and Contributing</th>
+			<th>Total</th>
+			<th>Using</th>
+			<th>Contributing </th>
+			<th>Both</th>
+			<th>Neither</th>
 		</tr>
 		<tr>
 			<td>#total_projects.c#</td>
 			<td>#accn_projects.c#</td>
 			<td>#loan_projects.c#</td>
 			<td>#both_projects.c#</td>
+			<td>#neither_projects.c#</td>
 		</tr>
 	</table>
 
