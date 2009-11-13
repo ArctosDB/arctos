@@ -19,7 +19,7 @@
 			<cfquery name="t" dbtype="query">
 				select count(*) c from publication_type where IS_PEER_REVIEWED_FG=1
 			</cfquery>
-			<cfset ppr=c/t.c>
+			<cfset ppr=publication_type.c/t.c>
 			<tr>
 				<td>#publication_type#</td>
 				<td>#pubs_of_type#</td>
