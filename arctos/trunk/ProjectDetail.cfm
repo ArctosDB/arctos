@@ -1,9 +1,11 @@
 <cfinclude template = "includes/_header.cfm">
+<cfoutput>
 <cfif not listfindnocase(cgi.REDIRECT_URL,"project","/")>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select project_name from project where project_id=#project_id#
 	</cfquery>
-	<cflocation url="/project/#niceURL(redir.project_name)#" addtoken="false">
+	<cfheader statuscode="301" statustext="Moved permanently">
+	<cfheader name="Location" value="/project/#niceURL(redir.project_name)#">
 <cfelse>
 	<cfquery name="redir" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select project_id from project where niceURL(project_name)='#niceProjName#'
@@ -14,11 +16,9 @@
 		<div class="error">
 			Yikes! Something bad happened. Please file a <a href="/info/bugs.cfm">Bug Report</a>.
 		</div>
-		<cfoutput>
 			<cfmail subject="Jacked Up Project" to="#Application.PageProblemEmail#" from="hosedProject@#Application.fromEmail#" type="html">
 				Project #niceProjName# matches #redir.recordcount# projects. Fix it.
 			</cfmail>
-		</cfoutput>
 		<cfabort>
 	</cfif>
 </cfif>
@@ -28,7 +28,6 @@
 	.proj_agent {font-weight:800;text-align:center;}
 	.cdiv {text-align:center;}
 </style>
-<cfoutput>
 <script type="text/javascript" language="javascript">
 	function load(name){
 		var el=document.getElementById(name);
