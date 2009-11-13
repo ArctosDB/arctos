@@ -39,9 +39,7 @@
 	<cfloop query="c">
 		<cfquery name="loaned" datasource="uam_god">
 			select 
-				decode(sum(items_loaned_by_collection),
-					null,0,
-					sum(items_loaned_by_collection))	tot
+				sum(items_loaned_by_collection)	tot
 			from (
 				select 
 					collection,
@@ -73,6 +71,10 @@
 				)
 			 group by collection
 		</cfquery>
+		<cfset numLoaned=0>
+		<cfif loaned.tot gt 0>
+			<cfset numLoaned=loaned.tot>
+		</cfif>
 		<cfquery name="cited" datasource="uam_god">
 			select 
 				count(*) tot
@@ -85,9 +87,10 @@
 		</cfquery>
 		<tr>
 			<td>#collection#</td>
-			<td>#loaned.tot#</td>
+			
+			<td>#numLoaned#</td>
 			<td>#cited.tot#</td>
-			<cfset cr=cited.tot/loaned.tot>
+			<cfset cr=cited.tot/numLoaned>
 			<td>#cr#</td>
 		</tr>
 	</cfloop>
