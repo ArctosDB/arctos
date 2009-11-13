@@ -196,6 +196,7 @@
 		<tr>
 			<td><strong>All Collections</strong></td>
 			<td><strong>#numLoaned#</strong></td>
+			<td><strong>#loanedSpec.tot#</strong></td>
 			<td><strong>#cited.tot#</strong></td>
 			<cfset cr="">
 			<cfif numLoaned is 0 and cited.tot is 0>
@@ -240,6 +241,29 @@
 				)
 			 group by collection
 		</cfquery>
+		<cfquery name="loanedSpec" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select count(distinct(collection_object_id)) tot from (
+				select 
+					specimen_part.derived_from_cat_item collection_object_id
+				from
+					loan_item,
+					specimen_part,
+					cataloged_item
+				where
+					loan_item.collection_object_id=specimen_part.collection_object_id and
+					specimen_part.derived_from_cat_item=cataloged_item.collection_object_id and
+					cataloged_item.collection_id=#collection_id#
+				UNION
+				select 
+					cataloged_item.collection_object_id
+				from
+					loan_item,
+					cataloged_item
+				where
+					loan_item.collection_object_id=cataloged_item.collection_object_id and
+					cataloged_item.collection_id=#collection_id#
+				)					
+		</cfquery>
 		<cfset numLoaned=0>
 		<cfif loaned.tot gt 0>
 			<cfset numLoaned=loaned.tot>
@@ -257,6 +281,7 @@
 		<tr>
 			<td>#collection#</td>
 			<td>#numLoaned#</td>
+			<td>#loanedSpec.tot#</td>
 			<td>#cited.tot#</td>
 			<cfset cr="">
 			<cfif numLoaned is 0 and cited.tot is 0>
