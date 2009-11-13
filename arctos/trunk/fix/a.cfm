@@ -40,44 +40,44 @@
 		select 
 			count(distinct(project.project_id)) c
 		from 
-			project,
-			project_trans tl,
-			project_trans ta,
-			accn
-		where 
-			project.project_id=tl.project_id and
-			project.project_id=ta.project_id and
-			tl.transaction_id=accn.transaction_id and
-			ta.transaction_id not in (select transaction_id from loan)
+			project
+		where
+			project_id in (
+				select project_id from project_trans,accn 
+				where project_trans.transaction_id=accn.transaction_id)
+			and project_id not in (
+				(
+				select project_id from project_trans,loan 
+				where project_trans.transaction_id=loan.transaction_id)
 	</cfquery>
 	<cfquery name="loan_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
 			count(distinct(project.project_id)) c
 		from 
-			project,
-			project_trans tl,
-			project_trans ta,
-			loan
+			project
 		where 
-			project.project_id=tl.project_id and
-			project.project_id=ta.project_id and
-			tl.transaction_id=loan.transaction_id and
-			ta.transaction_id not in (select transaction_id from accn)
+			where
+			project_id in (
+				select project_id from project_trans,loan 
+				where project_trans.transaction_id=loan.transaction_id)
+			and project_id not in (
+				(
+				select project_id from project_trans,accn 
+				where project_trans.transaction_id=accn.transaction_id)
 	</cfquery>
 	<cfquery name="both_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
 			count(distinct(project.project_id)) c
 		from 
-			project,
-			project_trans tl,
-			project_trans ta,
-			loan,
-			accn
-		where 
-			project.project_id=tl.project_id and
-			tl.transaction_id=loan.transaction_id and
-			project.project_id=ta.project_id and
-			ta.transaction_id=accn.transaction_id
+			project
+		where
+			project_id in (
+				select project_id from project_trans,loan 
+				where project_trans.transaction_id=loan.transaction_id)
+			and project_id in (
+				(
+				select project_id from project_trans,accn 
+				where project_trans.transaction_id=accn.transaction_id)
 	</cfquery>
 	<cfquery name="neither_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
@@ -85,7 +85,13 @@
 		from 
 			project
 		where 
-			project_id not in (select project_id from project_trans)
+			project_id not in (
+				select project_id from project_trans,loan 
+				where project_trans.transaction_id=loan.transaction_id)
+			and project_id not in (
+				(
+				select project_id from project_trans,accn 
+				where project_trans.transaction_id=accn.transaction_id)
 	</cfquery>
 	<table border>
 		<tr>
