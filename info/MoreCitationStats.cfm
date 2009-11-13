@@ -153,7 +153,8 @@
 	<table border>
 		<tr>
 			<th>Collection</th>
-			<th>Items Loaned</th>
+			<th>Items Loaned</th>			
+			<th>Specimens Loaned</th>
 			<th>Items Cited</th>
 			<th>Citations/Loaned Item</th>
 		</tr>
@@ -162,6 +163,25 @@
 				count(collection_object_id) tot
 			from
 				loan_item
+		</cfquery>
+		<cfquery name="loanedSpec" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
+			select count(distinct(collection_object_id)) tot from (
+				select 
+					specimen_part.derived_from_cat_item collection_object_id
+				from
+					loan_item,
+					specimen_part
+				where
+					loan_item.collection_object_id=specimen_part.collection_object_id
+				UNION
+				select 
+					cataloged_item.collection_object_id
+				from
+					loan_item,
+					cataloged_item
+				where
+					loan_item.collection_object_id=cataloged_item.collection_object_id
+				)					
 		</cfquery>
 		<cfset numLoaned=0>
 		<cfif loaned.tot gt 0>
