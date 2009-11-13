@@ -48,26 +48,26 @@
 				<p class="indent">
 					#formatted_publication#
 				</p>
-				<a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">Details</a>
-				&nbsp;~&nbsp;
-				<cfif numCit gt 0>
-					<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#numCit# Cited Specimens</a>				
-				<cfelse>
-					No Citations
-				</cfif>
-				
-				<cfquery name="links" dbtype="query">
-					select description,
-					link from pubs
-					where publication_id=#publication_id#
-				</cfquery>
-				<cfif len(#links.description#) gt 0>
-					<ul>
+				<ul>
+					<li>
+						<cfif numCit gt 0>
+							<a href="/SpecimenResults.cfm?publication_id=#publication_id#">#numCit# Cited Specimens</a>				
+						<cfelse>
+							No Citations
+						</cfif>
+					</li>
+					<li><a href="/SpecimenUsage.cfm?action=search&publication_id=#publication_id#">Details</a></li>
+					<cfquery name="links" dbtype="query">
+						select description,
+						link from pubs
+						where publication_id=#publication_id#
+					</cfquery>
+					<cfif len(#links.description#) gt 0>
 						<cfloop query="links">
 							<li><a href="#link#" target="_blank" class="external">#description#</a></li>
 						</cfloop>
-					</ul>
-				</cfif>			
+					</cfif>	
+				</ul>
 			</div>
 			<cfset i=i+1>
 		</cfloop>
