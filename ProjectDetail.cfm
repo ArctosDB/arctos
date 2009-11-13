@@ -21,8 +21,9 @@
 				<cfif isdefined("project_id")>
 					<br>project_id=#project_id#
 				</cfif>
-				<cfdump var=#cgi.REDIRECT_URL#>
-				<cfdump var=#form#>
+				<cfif isdefined("cgi.REDIRECT_URL")>
+					<br>cgi.REDIRECT_URL=#cgi.REDIRECT_URL#
+				</cfif>
 				<cfdump var=#url#>
 				<cfdump var=#variables#>
 				<cfdump var=#redir#>
