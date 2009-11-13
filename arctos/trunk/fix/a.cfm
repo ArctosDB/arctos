@@ -46,7 +46,6 @@
 				select project_id from project_trans,accn 
 				where project_trans.transaction_id=accn.transaction_id)
 			and project_id not in (
-				(
 				select project_id from project_trans,loan 
 				where project_trans.transaction_id=loan.transaction_id)
 	</cfquery>
@@ -61,7 +60,6 @@
 				select project_id from project_trans,loan 
 				where project_trans.transaction_id=loan.transaction_id)
 			and project_id not in (
-				(
 				select project_id from project_trans,accn 
 				where project_trans.transaction_id=accn.transaction_id)
 	</cfquery>
@@ -75,7 +73,6 @@
 				select project_id from project_trans,loan 
 				where project_trans.transaction_id=loan.transaction_id)
 			and project_id in (
-				(
 				select project_id from project_trans,accn 
 				where project_trans.transaction_id=accn.transaction_id)
 	</cfquery>
@@ -89,7 +86,6 @@
 				select project_id from project_trans,loan 
 				where project_trans.transaction_id=loan.transaction_id)
 			and project_id not in (
-				(
 				select project_id from project_trans,accn 
 				where project_trans.transaction_id=accn.transaction_id)
 	</cfquery>
