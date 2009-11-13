@@ -11,7 +11,14 @@
 	<cfif redir.recordcount is 1>
 		<cfset project_id=redir.project_id>
 	<cfelse>
-		fail
+		<div class="error">
+			Yikes! Something bad happened. Please file a <a href="info/bugs.cfm">Bug Report</a>.
+		</div>
+		<cfoutput>
+			<cfmail subject="Jacked Up Project" to="#Application.PageProblemEmail#" from="hosedProject@#Application.fromEmail#" type="html">
+				Project #niceProjName# matches #redir.recordcount# projects. Fix it.
+			</cfmail>
+		</cfoutput>
 		<cfabort>
 	</cfif>
 </cfif>
