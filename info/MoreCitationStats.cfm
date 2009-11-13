@@ -153,9 +153,9 @@
 	<strong>Usage and results by collection:</strong>
 	<table border="1" id="d" class="sortable">
 		<tr>
-			<th>Collection</th>
-			<th>Items Loaned</th>			
+			<th>Collection</th>		
 			<th>Specimens Loaned</th>
+			<th>Items Loaned</th>
 			<th>Specimens Cited</th>
 			<th>Citations/Loaned Specimen</th>
 		</tr>
@@ -196,8 +196,8 @@
 		</cfquery>
 		<tr>
 			<td><strong>All Collections</strong></td>
-			<td><strong>#numLoaned#</strong></td>
 			<td><strong>#loanedSpec.tot#</strong></td>
+			<td><strong>#numLoaned#</strong></td>
 			<td><strong>#cited.tot#</strong></td>
 			<cfset cr="">
 			<cfif numLoaned is 0 and cited.tot is 0>
@@ -281,8 +281,8 @@
 		</cfquery>
 		<tr>
 			<td>#collection#</td>
-			<td>#numLoaned#</td>
 			<td>#loanedSpec.tot#</td>
+			<td>#numLoaned#</td>
 			<td>#cited.tot#</td>
 			<cfset cr="">
 			<cfif numLoaned is 0 and cited.tot is 0>
