@@ -1,8 +1,10 @@
 <cfinclude template="/includes/_header.cfm">
+<script src="/includes/sorttable.js"></script>
 <cfoutput>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
 			flat.guid,
+			clat.collection,
 			flat.cat_num,
 			concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 			specimen_part.part_name,
@@ -44,7 +46,7 @@
 		</tr>
 		<cfloop query="d">
 			<tr>
-				<td>#cat_num#</td>
+				<td><a href="/guid/#guid#">#collection# #cat_num#</a></td>
 				<td>#CustomID#</td>
 				<td>#scientific_name#</td>
 				<td>#dateformat(began_date,"dd mon yyyy")#</td>
