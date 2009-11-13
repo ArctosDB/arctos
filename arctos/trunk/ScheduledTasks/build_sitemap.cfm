@@ -164,10 +164,10 @@
 		 select * from (
          	select a.*, rownum rnum from (
             	select                
-                	project_id
+                	niceURL(project_name) project_name
 				from 
 					project 
-				order by project_id
+				order by niceURL(project_name)
 			) a
 		where rownum <= #maxRN#)
 		where rnum >=#minRN#
@@ -185,7 +185,7 @@
 	<cfloop query="d">
 		<cfscript>
 			a=chr(9) & "<url>" & chr(10) & 
-			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/ProjectDetail.cfm?project_id=#project_id#</loc>" & chr(10) &
+			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/project/#project_name#</loc>" & chr(10) &
 			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) & 
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
