@@ -65,13 +65,15 @@
 			count(*) c
 		from 
 			project,
-			project_trans,
+			project_trans tl,
+			project_trans ta,
 			loan,
 			accn
 		where 
-			project.project_id=project_trans.project_id and
-			project_trans.transaction_id=loan.transaction_id and
-			project_trans.transaction_id=accn.transaction_id
+			project.project_id=tl.project_id and
+			tl.transaction_id=loan.transaction_id and
+			project.project_id=ta.project_id and
+			ta.transaction_id=accn.transaction_id
 	</cfquery>
 	<table border>
 		<tr>
