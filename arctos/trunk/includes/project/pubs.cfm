@@ -49,7 +49,7 @@
 				<cfif len(#links.description#) gt 0>
 					<ul>
 						<cfloop query="links">
-							<li><a href="#link#" target="_blank">#description#</a></li>
+							<li><a href="#link#" target="_blank" class="external">#description#</a></li>
 						</cfloop>
 					</ul>
 				</cfif>			
