@@ -26,7 +26,6 @@
 				</cfif>
 				<cfdump var=#url#>
 				<cfdump var=#variables#>
-				<cfdump var=#redir#>
 			</cfmail>
 		<cfabort>
 	</cfif>
