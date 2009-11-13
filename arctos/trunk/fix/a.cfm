@@ -11,8 +11,9 @@
 <cfquery name="total_items_loaned" datasource="uam_god">
 	select count(*) total_items_loaned from loan_item
 </cfquery>
-
-<table border>
+<cfoutput>
+<label for="pubTotals">Total Publications in Arctos</label>
+<table border id="pubTotals">
 	<tr>
 		<th>Publication Type</th>
 		<th>Count</th>
@@ -28,7 +29,6 @@
 <cfquery name="c" datasource="uam_god">
 	select collection,collection_id from collection order by collection
 </cfquery>
-<cfoutput>
 	<table border>
 		<tr>
 			<th>Collection</th>
