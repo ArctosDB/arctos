@@ -33,11 +33,12 @@
 		<tr>
 			<th>Collection</th>
 			<th>Items Loaned</th>
+			<th>Items Cited</th>
 		</tr>
 	<cfloop query="c">
 		<cfquery name="loaned" datasource="uam_god">
 			select 
-				sum(items_loaned_by_collection) tot
+				nvl(sum(items_loaned_by_collection),0) tot
 			from (
 				select 
 					collection,
@@ -69,6 +70,16 @@
 				)
 			 group by collection
 		</cfquery>
+		<cfquery name="cited" datasource="uam_god">
+			select 
+				count(*) tot
+			from 
+				citation,
+				cataloged_item
+			where
+				citation.collection_object_id=cataloged_item.collection_object_id and
+				cataloged_item.collection_id=#collection_id#
+		</cfquery>
 		
 		
  
@@ -77,6 +88,7 @@
 		<tr>
 			<td>#collection#</td>
 			<td>#loaned.tot#</td>
+			<td>#cited.tot#</td>
 			
 		</tr>
 	</cfloop>
