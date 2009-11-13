@@ -41,6 +41,7 @@
 			count(*) c
 		from 
 			project,
+			project_trans,
 			accn
 		where 
 			project.project_id=project_trans.project_id and
@@ -52,6 +53,7 @@
 			count(*) c
 		from 
 			project,
+			project_trans,
 			loan
 		where 
 			project.project_id=project_trans.project_id and
@@ -63,7 +65,9 @@
 			count(*) c
 		from 
 			project,
-			loan
+			project_trans,
+			loan,
+			accn
 		where 
 			project.project_id=project_trans.project_id and
 			project_trans.transaction_id=loan.transaction_id and
