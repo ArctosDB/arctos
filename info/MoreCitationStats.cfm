@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<script src="/includes/sorttable.js"></script>
 <cfoutput>
 	<cfquery name="pt" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
@@ -11,7 +12,7 @@
 	</cfquery>
 	
 	<strong>Publications by type, reviewed status, and citations:</strong>
-	<table border id="pubTotals">
+	<table border="1" id="a" class="sortable">
 		<tr>
 			<th>Publication Type</th>
 			<th>Count</th>
@@ -93,7 +94,7 @@
 				where project_trans.transaction_id=cataloged_item.accn_id)
 	</cfquery>
 	<strong>Projects by activity:</strong>
-	<table border>
+	<table border="1" id="b" class="sortable">
 		<tr>
 			<th>Total</th>
 			<th>Using</th>
@@ -131,7 +132,7 @@
 			and project_publication.publication_id = citation.publication_id (+)
 	</cfquery>
 	<strong>Results of projects which borrow specimens:</strong>
-	<table border>
+	<table border="1" id="c" class="sortable">
 		<tr>
 			<th>Total Borrow Projects</th>
 			<th>Number Pubs Produced</th>
@@ -150,13 +151,13 @@
 		select collection,collection_id from collection order by collection
 	</cfquery>
 	<strong>Usage and results by collection:</strong>
-	<table border>
+	<table border="1" id="d" class="sortable">
 		<tr>
 			<th>Collection</th>
 			<th>Items Loaned</th>			
 			<th>Specimens Loaned</th>
-			<th>Items Cited</th>
-			<th>Citations/Loaned Item</th>
+			<th>Specimens Cited</th>
+			<th>Citations/Loaned Specimen</th>
 		</tr>
 		<cfquery name="loaned" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 			select 
