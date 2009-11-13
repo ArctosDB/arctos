@@ -40,14 +40,15 @@
 		select 
 			count(distinct(project.project_id)) c
 		from 
-			project,
+			project,,
 			project_trans tl,
 			project_trans ta,
 			accn
 		where 
+			project.project_id=tl.project_id and
 			project.project_id=ta.project_id and
-			ta.transaction_id=accn.transaction_id and
-			tl.transaction_id not in (select transaction_id from loan)
+			tl.transaction_id=accn.transaction_id and
+			ta.transaction_id not in (select transaction_id from loan)
 	</cfquery>
 	<cfquery name="loan_projects" datasource="uam_god" cachedwithin="#createtimespan(0,0,60,0)#">
 		select 
@@ -59,6 +60,7 @@
 			loan
 		where 
 			project.project_id=tl.project_id and
+			project.project_id=ta.project_id and
 			tl.transaction_id=loan.transaction_id and
 			ta.transaction_id not in (select transaction_id from accn)
 	</cfquery>
@@ -106,7 +108,6 @@ x: #x#
 
 
 
-<cfabort>
 <cfquery name="total_items_loaned" datasource="uam_god">
 	select count(*) total_items_loaned from loan_item
 </cfquery>
