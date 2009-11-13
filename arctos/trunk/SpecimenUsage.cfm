@@ -224,7 +224,6 @@
 		<cfquery name="projects" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
-		#preservesinglequotes(sql)#
 		<cfquery name="projNames" dbtype="query">
 			SELECT 
 				project_id,
