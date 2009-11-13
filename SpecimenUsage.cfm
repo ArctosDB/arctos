@@ -168,33 +168,31 @@
 			<cfif project_type is "loan">
 				<cfset whr = "#whr# AND 
 					project.project_id in (
-						select project_id from project_trans,loan 
-						where project_trans.transaction_id=loan.transaction_id)">
+						select project_id from project_trans,loan_item 
+						where project_trans.transaction_id=loan_item.transaction_id)">
 			<cfelseif project_type is "accn">
 				<cfset whr = "#whr# AND 
 					project.project_id in (
-						select project_id from project_trans,accn 
-						where project_trans.transaction_id=accn.transaction_id)">
+						select project_id from project_trans,cataloged_item 
+						where project_trans.transaction_id=cataloged_item.accn_id)">
 			<cfelseif project_type is "both">
 				<cfset whr = "#whr# AND
 					project.project_id in (
-						select project_id from project_trans,loan 
-						where project_trans.transaction_id=loan.transaction_id)
+						select project_id from project_trans,loan_item 
+						where project_trans.transaction_id=loan_item.transaction_id)
 					and project.project_id in (
-						select project_id from project_trans,accn 
-						where project_trans.transaction_id=accn.transaction_id)">
+						select project_id from project_trans,cataloged_item 
+						where project_trans.transaction_id=cataloged_item.accn_id)">
 			<cfelseif project_type is "neither">
 				<cfset whr = "#whr# AND
 					project.project_id not in (
-						select project_id from project_trans,loan 
-						where project_trans.transaction_id=loan.transaction_id)
+						select project_id from project_trans,loan_item 
+						where project_trans.transaction_id=loan_item.transaction_id)
 					and project.project_id not in (
-						select project_id from project_trans,accn 
-						where project_trans.transaction_id=accn.transaction_id)">
+						select project_id from project_trans,cataloged_item 
+						where project_trans.transaction_id=cataloged_item.accn_id)">
 			</cfif>
-			
 		</cfif>
-		
 		<cfif isdefined("sponsor") AND len(#sponsor#) gt 0>
 			<cfset go="yes">
 			<cfset whr = "#whr# AND project.project_id IN 
