@@ -1,30 +1,41 @@
+<cfoutput>
+	<cfquery name="publication_type" datasource="uam_god">
+		select 
+			publication_type,
+			count(*) c,
+			IS_PEER_REVIEWED_FG
+		from 
+			publication 
+		group by publication_type,IS_PEER_REVIEWED_FG 
+		order by publication_type,IS_PEER_REVIEWED_FG
+	</cfquery>
+	<table border id="pubTotals">
+		<tr>
+			<th>Publication Type</th>
+			<th>Count</th>
+			<th>Percent Peer Reviewed</th>
+		</tr>
+		<cfloop query="publication_type">
+			<cfquery name="t" dbtype="query">
+				select count(*) c from publication_type where IS_PEER_REVIEWED_FG=1
+			</cfquery>
+			<cfset ppr=c/t.c>
+			<tr>
+				<td>#publication_type#</td>
+				<td>#pubs_of_type#</td>
+				<td>#ppr#</td>
+			</tr>
+		</cfloop>
+	</table>
+
 
 <cfquery name="total_projects" datasource="uam_god">
 	select count(*) total_projects from project
 </cfquery>
-<cfquery name="total_pubs" datasource="uam_god">
-	select count(*) total_pubs from publication
-</cfquery>
-<cfquery name="publication_type" datasource="uam_god">
-	select publication_type,count(*) pubs_of_type from publication group by publication_type order by publication_type
-</cfquery>
+
 <cfquery name="total_items_loaned" datasource="uam_god">
 	select count(*) total_items_loaned from loan_item
 </cfquery>
-<cfoutput>
-<label for="pubTotals">Total Publications in Arctos</label>
-<table border id="pubTotals">
-	<tr>
-		<th>Publication Type</th>
-		<th>Count</th>
-	</tr>
-	<cfloop query="publication_type">
-		<tr>
-			<td>#publication_type#</td>
-			<td>#pubs_of_type#</td>
-		</tr>
-	</cfloop>
-</table>
 <cfquery name="ppr" datasource="uam_god">
 	select decode(IS_PEER_REVIEWED_FG,0,'no','yes') IS_PEER_REVIEWED_FG, count(*) pubs_of_type from publication group by IS_PEER_REVIEWED_FG order by IS_PEER_REVIEWED_FG
 </cfquery>
