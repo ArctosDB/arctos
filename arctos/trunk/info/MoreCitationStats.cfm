@@ -122,11 +122,11 @@
 			citation
 		where 
 			project.project_id in (
-				select project_id from project_trans,loan 
-				where project_trans.transaction_id=loan.transaction_id)
+				select project_id from project_trans,loan_item 
+				where project_trans.transaction_id=loan_item.transaction_id)
 			and project.project_id not in (
-				select project_id from project_trans,accn 
-				where project_trans.transaction_id=accn.transaction_id)
+				select project_id from project_trans,cataloged_item 
+				where project_trans.transaction_id=cataloged_item.accn_id)
 			and project.project_id = project_publication.project_id (+)
 			and project_publication.publication_id = citation.publication_id (+)
 	</cfquery>
