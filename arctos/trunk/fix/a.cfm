@@ -25,6 +25,21 @@
 		</tr>
 	</cfloop>
 </table>
+<cfquery name="ppr" datasource="uam_god">
+	select decode(IS_PEER_REVIEWED_FG,0,'no','yes') IS_PEER_REVIEWED_FG, count(*) pubs_of_type from publication group by IS_PEER_REVIEWED_FG order by IS_PEER_REVIEWED_FG
+</cfquery>
+<table border id="pubTotals">
+	<tr>
+		<th>Peer Reviewed?</th>
+		<th>Count</th>
+	</tr>
+	<cfloop query="ppr">
+		<tr>
+			<td>#IS_PEER_REVIEWED_FG#</td>
+			<td>#pubs_of_type#</td>
+		</tr>
+	</cfloop>
+</table>
 
 <cfquery name="c" datasource="uam_god">
 	select collection,collection_id from collection order by collection
@@ -95,8 +110,6 @@
 				<cfset cr=0>
 			<cfelseif numLoaned gte cited.tot and numLoaned gt 0>
 				<cfset cr=cited.tot/numLoaned>
-			<cfelse>
-				<cfset cr=-1>
 			</cfif>
 			<td>#cr#</td>
 		</tr>
