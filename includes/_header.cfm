@@ -316,13 +316,14 @@
 									<li><a target="_top" href="/info/mia_in_genbank.cfm">GenBank MIA</a></li>
 									<li><a target="_top" href="/info/reviewAnnotation.cfm">Annotations</a></li>
 									<li><a target="_top" href="/info/loanStats.cfm">Loan/Citation Stats</a></li>
+									<li><a target="_top" href="/info/Citations.cfm">More Citation Stats</a></li>
+									<li><a target="_top" href="/info/MoreCitationStats.cfm">Even More Citation Stats</a></li>
 									<li><a target="_top" href="/Admin/download.cfm">Download Stats</a></li>
 									<li><a target="_top" href="/info/queryStats.cfm">Query Stats</a></li>
-									<li><a target="_top" href="/info/Citations.cfm">Citation Stats</a></li>
 									<li><a target="_top" href="/Admin/ActivityLog.cfm">Audit SQL</a></li>
 									<li><a target="_top" href="/tools/downloadData.cfm">Download Tables</a></li>
-									<li><a target="_top" href="/tools/access_report.cfm">Oracle Roles</a></li>
-				                           <cfif listfind(formList,"/tools/userSQL.cfm")>
+									<li><a target="_top" href="/tools/access_report.cfm">Oracle Roles</a></li>									
+				                    <cfif listfind(formList,"/tools/userSQL.cfm")>
 									    <li><a target="_top" href="/tools/userSQL.cfm">Write SQL</a></li>
 				                    </cfif>
 				                    <li><a target="_top" href="##">Funky Data</a>
