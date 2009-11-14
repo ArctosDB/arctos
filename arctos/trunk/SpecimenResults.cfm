@@ -479,6 +479,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="/bnhmMaps/SpecimensByLocality.cfm">
 						Map By Locality
 					</option>
+					<option value="/info/part_data_download.cfm">
+						Parts table/download
+					</option>
                     <option value="/Reports/report_printer.cfm?collection_object_id=#collObjIdList#">
 						Print Any Report
 					</option>
