@@ -59,10 +59,10 @@
 				<td><a href="/guid/#guid#">#collection# #cat_num#</a></td>
 				<td>#CustomID#</td>
 				<td nowrap="nowrap">#scientific_name#</td>
-				<td>#dateformat(began_date,"dd mon yyyy")#</td>
-				<td>#dateformat(ended_date,"dd mon yyyy")#</td>
+				<td>#dateformat(began_date,"dd mmm yyyy")#</td>
+				<td>#dateformat(ended_date,"dd mmm yyyy")#</td>
 				<td>#verbatim_date#</td>
-				<td>#dateformat(received_date,"dd mon yyyy")#</td>
+				<td>#dateformat(received_date,"dd mmm yyyy")#</td>
 				<td>#part_name#</td>
 				<td>#part_modifier#</td>
 				<td>#preserve_method#</td>
