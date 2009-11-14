@@ -81,32 +81,31 @@
 		</table>
 	</cfif>
 	<cfif action is "download">
-		<cfoutput>
-			<cfset ac="CatNum,#session.CustomOtherIdentifier#,ScientificName,BeganDate,EndedDate,VerbatimDate,AccesionedDate,Part,Modifier,Pres,InBarcode">
-			<cfset variables.encoding="UTF-8">
-			<cfif fileFormat is "csv">
-				<cfset fname = "ArctosData_#cfid#_#cftoken#.csv">
-				<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-				<cfset header=#trim(ac)#>
+		<cfset ac="CatNum,#session.CustomOtherIdentifier#,ScientificName,BeganDate,EndedDate,VerbatimDate,AccesionedDate,Part,Modifier,Pres,InBarcode">
+		<cfset variables.encoding="UTF-8">
+		<cfif fileFormat is "csv">
+			<cfset fname = "ArctosData_#cfid#_#cftoken#.csv">
+			<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+			<cfset header=#trim(ac)#>
+			<cfscript>
+				variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+				variables.joFileWriter.writeLine(header); 
+			</cfscript>
+			<cfloop query="d">
+				<cfset oneLine = '"#collection# #cat_num#","#CustomID#","#scientific_name#","#dateformat(began_date,"dd mmm yyyy")#","#dateformat(ended_date,"dd mmm yyyy")#","#verbatim_date#","#dateformat(received_date,"dd mmm yyyy")#","#part_name#","#part_modifier#","#preserve_method#","#barcode#"'>
+				<cfset oneLine = trim(oneLine)>
 				<cfscript>
-					variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
-					variables.joFileWriter.writeLine(header); 
+					variables.joFileWriter.writeLine(oneLine);
 				</cfscript>
-				<cfloop query="d">
-					<cfset oneLine = '"#collection# #cat_num#","#CustomID#","#scientific_name#","#dateformat(began_date,"dd mmm yyyy")#","#dateformat(ended_date,"dd mmm yyyy")#","#verbatim_date#","#dateformat(received_date,"dd mmm yyyy")#","#part_name#","#part_modifier#","#preserve_method#","#barcode#"'>
-					<cfset oneLine = trim(oneLine)>
-					<cfscript>
-						variables.joFileWriter.writeLine(oneLine);
-					</cfscript>
-				</cfloop>
-				<cfscript>	
-					variables.joFileWriter.close();
-				</cfscript>
-				<cflocation url="/download.cfm?file=#fname#" addtoken="false">
-				<a href="/download/#fname#">Click here if your file does not automatically download.</a>
-			<cfelse>
-				That file format doesn't seem to be supported yet!
-			</cfif>
-		</cfoutput>
+			</cfloop>
+			<cfscript>	
+				variables.joFileWriter.close();
+			</cfscript>
+			<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+			<a href="/download/#fname#">Click here if your file does not automatically download.</a>
+		<cfelse>
+			That file format doesn't seem to be supported yet!
+		</cfif>
 	</cfif>
+</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
