@@ -40,15 +40,16 @@
 			specimen_part.part_modifier,
 			specimen_part.preserve_method
 	</cfquery>
-	<form method="post" action="part_data_download.cfm">
-		<input type="hidden" name="action" value="download">
-		<label for="fileFormat">Format</label>
-		<select name="fileFormat" size="1">
-			<option value="csv">CSV</option>
-		</select>
-		<input type="submit" value="Download">
-	</form>
+	
 	<cfif action is "nothing">
+		<form method="post" action="part_data_download.cfm">
+			<input type="hidden" name="action" value="download">
+			<label for="fileFormat">Format</label>
+			<select name="fileFormat" size="1">
+				<option value="csv">CSV</option>
+			</select>
+			<input type="submit" value="Download">
+		</form>
 		<table border="1" id="d" class="sortable">
 			<tr>
 				<th>CatNum</th>
