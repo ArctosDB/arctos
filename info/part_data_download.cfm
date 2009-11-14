@@ -1,6 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfoutput>
+	#action#
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
 			flat.guid,
@@ -43,7 +44,7 @@
 	
 	<cfif action is "nothing">
 		<form method="post" action="part_data_download.cfm">
-			<input type="hidden" name="action" value="download">
+			<input type="text" name="action" value="download">
 			<label for="fileFormat">Format</label>
 			<select name="fileFormat" size="1">
 				<option value="csv">CSV</option>
