@@ -40,35 +40,73 @@
 			specimen_part.part_modifier,
 			specimen_part.preserve_method
 	</cfquery>
-	<table border="1" id="d" class="sortable">
-		<tr>
-			<th>Cat Num</th>
-			<th>#session.CustomOtherIdentifier#</th>
-			<th>ScientificName</th>
-			<th>BeganDate</th>
-			<th>EndedDate</th>
-			<th>VerbatimDate</th>
-			<th>AccesionedDate</th>
-			<th>Part</th>
-			<th>Modifier</th>
-			<th>Pres</th>
-			<th>InBarcode</th>
-		</tr>
-		<cfloop query="d">
+	<form method="post" action="part_data_download.cfm">
+		<input type="hidden" name="action" value="download">
+		<label for="fileFormat">Format</label>
+		<select name="fileFormat" size="1">
+			<option value="csv">CSV</option>
+		</select>
+		<input type="submit" value="Download">
+	</form>
+	<cfif action is "nothing">
+		<table border="1" id="d" class="sortable">
 			<tr>
-				<td><a href="/guid/#guid#">#collection# #cat_num#</a></td>
-				<td>#CustomID#</td>
-				<td nowrap="nowrap">#scientific_name#</td>
-				<td>#dateformat(began_date,"dd mmm yyyy")#</td>
-				<td>#dateformat(ended_date,"dd mmm yyyy")#</td>
-				<td>#verbatim_date#</td>
-				<td>#dateformat(received_date,"dd mmm yyyy")#</td>
-				<td>#part_name#</td>
-				<td>#part_modifier#</td>
-				<td>#preserve_method#</td>
-				<td>#barcode#</td>
+				<th>CatNum</th>
+				<th>#session.CustomOtherIdentifier#</th>
+				<th>ScientificName</th>
+				<th>BeganDate</th>
+				<th>EndedDate</th>
+				<th>VerbatimDate</th>
+				<th>AccesionedDate</th>
+				<th>Part</th>
+				<th>Modifier</th>
+				<th>Pres</th>
+				<th>InBarcode</th>
 			</tr>
-		</cfloop>
-	</table>	
-</cfoutput>
+			<cfloop query="d">
+				<tr>
+					<td><a href="/guid/#guid#">#collection# #cat_num#</a></td>
+					<td>#CustomID#</td>
+					<td nowrap="nowrap">#scientific_name#</td>
+					<td>#dateformat(began_date,"dd mmm yyyy")#</td>
+					<td>#dateformat(ended_date,"dd mmm yyyy")#</td>
+					<td>#verbatim_date#</td>
+					<td>#dateformat(received_date,"dd mmm yyyy")#</td>
+					<td>#part_name#</td>
+					<td>#part_modifier#</td>
+					<td>#preserve_method#</td>
+					<td>#barcode#</td>
+				</tr>
+			</cfloop>
+		</table>
+	</cfif>
+	<cfif action is "download">
+		<cfoutput>
+			<cfset ac="CatNum,#session.CustomOtherIdentifier#,ScientificName,BeganDate,EndedDate,VerbatimDate,AccesionedDate,Part,Modifier,Pres,InBarcode">
+			<cfset variables.encoding="UTF-8">
+			<cfif fileFormat is "csv">
+				<cfset fname = "ArctosData_#cfid#_#cftoken#.csv">
+				<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+				<cfset header=#trim(ac)#>
+				<cfscript>
+					variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+					variables.joFileWriter.writeLine(header); 
+				</cfscript>
+				<cfloop query="d">
+					<cfset oneLine = '"#collection# #cat_num#","#CustomID#","#scientific_name#","#dateformat(began_date,"dd mmm yyyy")#","#dateformat(ended_date,"dd mmm yyyy")#","#verbatim_date#","#dateformat(received_date,"dd mmm yyyy")#","#part_name#","#part_modifier#","#preserve_method#","#barcode#"'>
+					<cfset oneLine = trim(oneLine)>
+					<cfscript>
+						variables.joFileWriter.writeLine(oneLine);
+					</cfscript>
+				</cfloop>
+				<cfscript>	
+					variables.joFileWriter.close();
+				</cfscript>
+				<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+				<a href="/download/#fname#">Click here if your file does not automatically download.</a>
+			<cfelse>
+				That file format doesn't seem to be supported yet!
+			</cfif>
+		</cfoutput>
+	</cfif>
 <cfinclude template="/includes/_footer.cfm">
