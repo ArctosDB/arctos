@@ -28,7 +28,7 @@
 		where
 			#session.SpecSrchTab#.collection_object_id=cataloged_item.collection_object_id and
 			cataloged_item.collection_object_id=flat.collection_object_id and
-			cataloged_item.accn_id=accn.accn_id and
+			cataloged_item.accn_id=accn.transaction_id and
 			cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
 			specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
 			coll_obj_cont_hist.container_id=c.container_id and
