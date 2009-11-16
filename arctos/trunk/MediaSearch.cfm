@@ -10,7 +10,7 @@
 </cfif>
 <script type='text/javascript' src='/includes/media.js'></script>
 <!----------------------------------------------------------------------------------------->
-<cfif #action# is "search">
+<cfif action is "search">
 <cfoutput>
 <cfset sel="select distinct media.media_id,media.media_uri,media.mime_type,media.media_type,media.preview_uri "> 
 <cfset frm="from media">			
@@ -120,6 +120,9 @@
 </cfquery>
 <cfif findIDs.recordcount is 0>
 	<div class="error">Nothing found.</div>
+<cfelseif findIDs.recordcount gt 1>
+	<cfset title="Media Results: #findIDs.recordcount# records found">
+	<cfset metaDesc="Results of Media search: Multiple records found.">
 </cfif>
 <table>
 <cfset r=1>
@@ -177,7 +180,11 @@
 								(Assigned by #agent_name#)
 							</cfif>
 						</li>
+						<cfif findIDs.recordcount is 1 and media_label is "description">
+							<cfset title = label_value>
+						</cfif>
 					</cfloop>
+					
 				</ul>
 			</cfif>
 			<br>Relationships:
