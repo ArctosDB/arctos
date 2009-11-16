@@ -138,12 +138,37 @@
 	<a href="#h#">Create media</a>
 </cfif>
 <cfloop query="findIDs">
+	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select
+			media_label,
+			label_value,
+			agent_name
+		from
+			media_labels,
+			preferred_agent_name
+		where
+			media_labels.assigned_by_agent_id=preferred_agent_name.agent_id (+) and
+			media_id=#media_id#
+	</cfquery>
+	<cfquery name="desc" dbtype="query">
+		select label_value from labels where media_label='description'
+	</cfquery>
+	<cfset alt="#media_uri#">
+	<cfif desc.recordcount is 1>
+		<cfif findIDs.recordcount is 1>
+			<cfset title = desc.label_value>
+			<cfset metaDesc = "#desc.label_value# for #media_type# (#mime_type#)">
+		</cfif>
+		<cfset alt=desc.label_value>
+	</cfif>
+	
+	
 	<tr #iif(r MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<td>
 			URI: <a href="#media_uri#" target="_blank">#media_uri#</a>
             <cfif len(#preview_uri#) gt 0>
                 <br>
-                <a href="#media_uri#" target="_blank"><img src="#preview_uri#" alt="Media Preview Image"></a>
+                <a href="#media_uri#" target="_blank"><img src="#preview_uri#" alt="#alt#"></a>
             </cfif>
 			  <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select count(*) n from tag where media_id=#media_id#
@@ -158,18 +183,7 @@
 			<br>MIME Type: #mime_type# 
             <br>Media Type: #media_type#
                
-			<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select
-					media_label,
-					label_value,
-					agent_name
-				from
-					media_labels,
-					preferred_agent_name
-				where
-					media_labels.assigned_by_agent_id=preferred_agent_name.agent_id (+) and
-					media_id=#media_id#
-			</cfquery>
+			
 			<br>Labels:	
 			<cfif labels.recordcount gt 0>
 				<ul>
@@ -180,11 +194,7 @@
 								(Assigned by #agent_name#)
 							</cfif>
 						</li>
-						<cfif findIDs.recordcount is 1 and media_label is "description">
-							<cfset title = label_value>
-						</cfif>
 					</cfloop>
-					
 				</ul>
 			</cfif>
 			<br>Relationships:
