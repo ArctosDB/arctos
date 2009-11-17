@@ -192,7 +192,7 @@
 			//var el=document.getElementById(name);
 			var ptl="/includes/taxonomy/" + name + ".cfm?taxon_name_id=#one.taxon_name_id#";
 			jQuery.get(ptl, function(data){
-				 jQuery('#' + name).html(data);
+				 jQuery('##' + name).html(data);
 			})
 		}	
 	</script>
