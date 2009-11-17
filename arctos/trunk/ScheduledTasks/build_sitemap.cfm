@@ -14,6 +14,7 @@
 <br><a href="build_sitemap.cfm?action=build_sitemaps_pub">build_sitemaps_pub</a>
 <br><a href="build_sitemap.cfm?action=build_sitemaps_proj">build_sitemaps_proj</a>
 <br><a href="build_sitemap.cfm?action=build_sitemaps_stat">build_sitemaps_stat</a>
+<br><a href="build_sitemap.cfm?action=build_sitemaps_media">build_sitemaps_media</a>
 </cfif>
 <cfset chunkSize=45000>
 <cfif action is "build_map">
@@ -57,6 +58,16 @@
 	<cfset numSiteMaps=Ceiling(t.c/chunkSize)>
 	<cfloop from="1" to="#numSiteMaps#" index="l">
 		<cfset thisFileName="project#l#.xml">
+		<cfquery name="i" datasource="uam_god">
+			insert into cf_sitemaps (filename) values ('#thisFileName#')
+		</cfquery>
+	</cfloop>
+	<cfquery name="t" datasource="uam_god">
+		select count(*) c from media
+	</cfquery>
+	<cfset numSiteMaps=Ceiling(t.c/chunkSize)>
+	<cfloop from="1" to="#numSiteMaps#" index="l">
+		<cfset thisFileName="media#l#.xml">
 		<cfquery name="i" datasource="uam_god">
 			insert into cf_sitemaps (filename) values ('#thisFileName#')
 		</cfquery>
@@ -126,6 +137,67 @@
 			a=chr(9) & "<url>" & chr(10) & 
 			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/#fn#</loc>" & chr(10) &
 			chr(9) & chr(9) & "<changefreq>monthly</changefreq>" & chr(10) & 
+			chr(9) & "</url>";
+			variables.joFileWriter.writeLine(a);
+		</cfscript>
+	</cfloop>	
+	<cfscript>
+		a="</urlset>";
+		variables.joFileWriter.writeLine(a);
+		variables.joFileWriter.close();
+		zip = CreateObject("component", "/component.Zip");
+		status = zip.gzipAddFile("#Application.webDirectory#", "#Application.webDirectory#/#colls.filename#"); 
+	</cfscript>
+	<cffile action="delete" file="#Application.webDirectory#/#colls.filename#">
+	<cfquery name="u" datasource="uam_god">
+		update cf_sitemaps set lastdate=sysdate where filename='#colls.filename#'
+	</cfquery>
+</cfoutput>
+</cfif>
+<!--------------------------------->
+<cfif action is "build_sitemaps_media">
+<cfoutput>
+	<cfquery name="colls" datasource="uam_god">
+		select filename
+		from cf_sitemaps
+		 where
+		 filename like 'media%' and
+		 rownum=1 and (lastdate is null or sysdate-LASTDATE > 1)
+	</cfquery>
+	<cfif colls.recordcount is 0>
+		<cfabort>
+	</cfif>
+	<cfset chunkNum=replace(colls.filename,".xml","","all")>
+	<cfset chunkNum=replace(chunkNum,"media","","all")>
+	<cfset maxRN=chunkNum*chunkSize>
+	<cfset minRN=maxRN-chunkSize>
+	<cfquery name="d" datasource="uam_god">
+		 select * from (
+         	select a.*, rownum rnum from (
+            	select                
+                	media_id
+				from 
+					media 
+				order by media_id
+			) a
+		where rownum <= #maxRN#)
+		where rnum >=#minRN#
+	</cfquery>
+	<cfset variables.fileName="#Application.webDirectory#/#colls.filename#">
+	<cfset variables.encoding="UTF-8">
+	<cfscript>
+		variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+	</cfscript>
+	<cfscript>
+		a='<?xml version="1.0" encoding="UTF-8"?>' & chr(10) & 
+		'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
+		variables.joFileWriter.writeLine(a);
+	</cfscript>			
+	<cfloop query="d">
+		<cfscript>
+			a=chr(9) & "<url>" & chr(10) & 
+			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/MediaSearch.cfm?action=search&media_id=#media_id#</loc>" & chr(10) &
+			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) & 
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
 		</cfscript>
