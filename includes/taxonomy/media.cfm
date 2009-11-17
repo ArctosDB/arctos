@@ -15,7 +15,7 @@
 		        identification_taxonomy
 		     where
 		        media.media_id=media_relations.media_id and
-		        media_relations.media_relationship like ' %cataloged_item' and
+		        media_relations.media_relationship like '% cataloged_item' and
 		        identification.accepted_id_fg=1 and
 		        media_relations.related_primary_key = identification.collection_object_id and
 		        identification.identification_id=identification_taxonomy.identification_id and
