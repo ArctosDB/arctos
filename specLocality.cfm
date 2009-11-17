@@ -23,9 +23,7 @@
 			var dataValue=$("#geo_att_value__" + idNum).val();
 			var theSelect="geo_att_value__";
 			if (thisValue == ''){
-				console.log('null');
 				return false;
-				$("#geo_att_value__" + idNum).val('-delete-');
 			}
 		} else {
 			// new geol attribute
