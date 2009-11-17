@@ -120,8 +120,9 @@
 </cfquery>
 <cfif findIDs.recordcount is 0>
 	<div class="error">Nothing found.</div>
-<cfelseif findIDs.recordcount is 1 and not listfindnocase(cgi.REDIRECT_UR,'media',"/")>
+<cfelseif findIDs.recordcount is 1 and not listfindnocase(cgi.REDIRECT_URL,'media',"/")>
 	should be redirecting to /media now.....
+	cgi.REDIRECT_URL: #cgi.REDIRECT_URL#
 	<!---
 	<cfheader statuscode="301" statustext="Moved permanently">
 	<cfheader name="Location" value="/media/#findIDs.media_id#">
