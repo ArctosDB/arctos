@@ -39,15 +39,9 @@
 				</cfif>
                 <cfset mrel=getMediaRelations(#media_id#)>
                <div class="oneMedia">
-	               <cfif len(#preview_uri#) gt 0>
-	                   <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#"></a>
+	               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#"></a>
 	                   <br>#media_type# (#mime_type#)
-	               <cfelse>
-	                   <cfset h=left(media_uri,40) & "...">
-	                   <a href="#media_uri#" target="_blank">#h#</a>
-	                   <br>#media_type# (#mime_type#)
-	               </cfif>
-                   <cfif #mrel.recordcount# gt 0>
+	               <cfif #mrel.recordcount# gt 0>
 						<br>Relations:
 							<ul>
 								<cfloop query="mrel">
