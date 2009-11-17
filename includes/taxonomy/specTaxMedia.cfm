@@ -5,11 +5,13 @@
   	}
 	div.thumbs {
   		border: 1px dashed black;
+overflow:scroll;
+height:220px;
   	}
 	div.one_thumb {
 	  float: left;
 	  width: 130px;
-	  padding: 5px;
+	  padding: 1px;
 border:1px solid green;
 height:180px;
 overflow:hidden;
@@ -22,9 +24,8 @@ font-size:smaller;
    }
 .theThumb{
 max-width:120px;
+max-height:120px;
 }
-
-
 
 
 
@@ -85,8 +86,7 @@ max-width:120px;
                <div class="one_thumb">
 	               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
 	                   	<p>
-		                   	#media_type# (#mime_type#)
-		                   	<br><a class="infoLink" href="/media/#media_id#" target="_blank">More Info</a>
+		                   	<a class="infoLink" href="/media/#media_id#" target="_blank">#media_type# (#mime_type#)</a>
 							<br>#alt#
 						</p>
 				</div>
