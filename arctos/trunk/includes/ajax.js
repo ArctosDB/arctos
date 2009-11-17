@@ -905,7 +905,7 @@ function success_getSpecResultsData(result){
 							if(thisMedia.DATA.preview_uri[m].length > 0) {
 								pURI=thisMedia.DATA.preview_uri[m];
 							} else {
-								if (thisMedia.DATA.media_type=='audio'){
+								if (thisMedia.DATA.media_type[m]=='audio'){
 									pURI='images/audioNoThumb.png';
 								} else {
 									pURI='/images/noThumb.jpg';
