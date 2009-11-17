@@ -15,11 +15,12 @@ height:400px;
 border:1px solid green;
 height:180px;
 overflow:hidden;
+   text-align: center;
+
 	}
   
 	
 div.one_thumb p {
-   text-align: center;
 font-size:smaller;
    }
 .theThumb{
@@ -63,7 +64,6 @@ max-height:120px;
 	</cfquery>
 	
 	<cfif media.recordcount gt 0>
-    	<h2>Media</h2>
 		<div class="thumbs">
 			<div class="thumb_spcr">&nbsp;</div>
 			<cfloop query="media">
@@ -85,10 +85,10 @@ max-height:120px;
 				</cfif>
                <div class="one_thumb">
 	               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
-	                   	<p>
-		                   	<a class="infoLink" href="/media/#media_id#" target="_blank">#media_type# (#mime_type#)</a>
-							<br>#alt#
-						</p>
+                   	<p>
+	                   	<a class="infoLink" href="/media/#media_id#" target="_blank">#media_type# (#mime_type#)</a>
+						<br>#alt#
+					</p>
 				</div>
 			</cfloop>
 			<div class="thumb_spcr">&nbsp;</div>
