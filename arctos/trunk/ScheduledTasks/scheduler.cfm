@@ -62,6 +62,15 @@
     startTime = "12:35 AM"
     interval = "1800"
     requestTimeOut = "600">
+
+<cfschedule action = "update"
+    task = "build_sitemaps_media" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/build_sitemap.cfm?action=build_sitemaps_media"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "12:45 AM"
+    interval = "1800"
+    requestTimeOut = "600">
 <!-----------------------------------   imaging    ------------------------------------------>
 <cfschedule action = "update"
     task = "ALA_ProblemReport" 

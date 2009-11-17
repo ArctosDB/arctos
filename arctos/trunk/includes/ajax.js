@@ -905,7 +905,11 @@ function success_getSpecResultsData(result){
 							if(thisMedia.DATA.preview_uri[m].length > 0) {
 								pURI=thisMedia.DATA.preview_uri[m];
 							} else {
-								pURI='/images/noThumb.jpg';
+								if (thisMedia.DATA.media_type=='audio'){
+									pURI='images/audioNoThumb.png';
+								} else {
+									pURI='/images/noThumb.jpg';
+								}
 							}
 							theInnerHtml += '<div class="imgDiv">';
 							theInnerHtml += '<a href="' + thisMedia.DATA.media_uri[m] + '">';
