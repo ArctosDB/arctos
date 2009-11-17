@@ -905,7 +905,6 @@ function success_getSpecResultsData(result){
 							if(thisMedia.DATA.preview_uri[m].length > 0) {
 								pURI=thisMedia.DATA.preview_uri[m];
 							} else {
-								theInnerHtml +='---' + thisMedia.DATA.mimecat[m] + '----';
 								if (thisMedia.DATA.mimecat[m]=='audio'){
 									pURI='images/audioNoThumb.png';
 								} else {
