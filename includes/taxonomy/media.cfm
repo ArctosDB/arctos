@@ -17,7 +17,9 @@ div.one_thumb {
 div.one_thumb p {
    text-align: center;
    }
-
+.theThumb{
+max-width:120px;
+}
 
 	</style>
 <cfoutput>
@@ -75,7 +77,7 @@ div.one_thumb p {
 					<cfset alt=desc.label_value>
 				</cfif>
                <div class="one_thumb">
-	               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#"></a>
+	               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
 	                   	<p>#media_type# (#mime_type#)
 		                   	<br><a class="infoLink" href="/SpecimenDetail.cfm?collection_object_id=#related_primary_key#" target="_blank">Specimen</a>
 							<br>#alt#
