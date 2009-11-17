@@ -22,6 +22,10 @@
 			var thisValue=$("#geology_attribute__" + idNum).val();;
 			var dataValue=$("#geo_att_value__" + idNum).val();
 			var theSelect="geo_att_value__";
+			if (thisValue == ''){
+				console.log('null');
+				$("#geo_att_value__" + idNum).val('');
+			}
 		} else {
 			// new geol attribute
 			var idNum='';
