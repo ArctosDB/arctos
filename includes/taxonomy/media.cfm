@@ -1,4 +1,25 @@
 <cfinclude template = "/includes/functionLib.cfm">
+<style>
+		div.thumb_spcr {
+  clear: both;
+  }
+
+div.thumbs {
+  border: 2px dashed #333;
+  background-color: #fff;
+  }
+div.one_thumb {
+  float: left;
+  width: 120px;
+  padding: 10px;
+  }
+  
+div.one_thumb p {
+   text-align: center;
+   }
+
+
+	</style>
 <cfoutput>
 	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	    select * from (
@@ -31,27 +52,7 @@
 		        media_relations.related_primary_key
 		  ) where rownum < 11
 	</cfquery>
-	<style>
-		div.thumb_spcr {
-  clear: both;
-  }
-
-div.thumbs {
-  border: 2px dashed #333;
-  background-color: #fff;
-  }
-div.one_thumb {
-  float: left;
-  width: 120px;
-  padding: 10px;
-  }
-  
-div.one_thumb p {
-   text-align: center;
-   }
-
-
-	</style>
+	
 	<cfif media.recordcount gt 0>
     	<h2>Media</h2>
 		<div class="thumbs">
