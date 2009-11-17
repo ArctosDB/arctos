@@ -190,7 +190,7 @@
 		});
 		function load(name){
 			//var el=document.getElementById(name);
-			var ptl="/includes/taxonomy/" + name + ".cfm?taxon_name_id=#taxon_name_id#";
+			var ptl="/includes/taxonomy/" + name + ".cfm?taxon_name_id=#one.taxon_name_id#";
 			jQuery.get(ptl, function(data){
 				 jQuery(el).html(data);
 			})
