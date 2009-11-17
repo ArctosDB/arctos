@@ -1,25 +1,33 @@
 <cfinclude template = "/includes/functionLib.cfm">
 <style>
-		div.thumb_spcr {
-  clear: both;
-  }
-
-div.thumbs {
-  border: 2px dashed #333;
-  background-color: #fff;
-  }
-div.one_thumb {
-  float: left;
-  width: 120px;
-  padding: 10px;
-  }
+	div.thumb_spcr {
+		clear: both;
+  	}
+	div.thumbs {
+  		border: 1px dashed black;
+  	}
+	div.one_thumb {
+	  float: left;
+	  width: 130px;
+	  padding: 5px;
+border:1px solid green;
+height:180px;
+overflow:hidden;
+	}
   
+	
 div.one_thumb p {
    text-align: center;
+font-size:smaller;
    }
 .theThumb{
 max-width:120px;
 }
+
+
+
+
+
 
 	</style>
 <cfoutput>
