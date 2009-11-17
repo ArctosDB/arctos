@@ -30,10 +30,17 @@
 					where
 						media_id=#media_id#
 				</cfquery>
+				<cfquery name="desc" dbtype="query">
+					select label_value from labels where media_label='description'
+				</cfquery>
+				<cfset alt="Media Preview Image">
+				<cfif desc.recordcount is 1>
+					<cfset alt=desc.label_value>
+				</cfif>
                 <cfset mrel=getMediaRelations(#media_id#)>
                <div class="oneMedia">
 	               <cfif len(#preview_uri#) gt 0>
-	                   <a href="#media_uri#" target="_blank"><img src="#preview_uri#" alt="Media Preview Image"></a>
+	                   <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#"></a>
 	                   <br>#media_type# (#mime_type#)
 	               <cfelse>
 	                   <cfset h=left(media_uri,40) & "...">
