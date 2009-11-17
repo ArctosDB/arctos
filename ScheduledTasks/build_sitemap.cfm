@@ -196,7 +196,7 @@
 	<cfloop query="d">
 		<cfscript>
 			a=chr(9) & "<url>" & chr(10) & 
-			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/MediaSearch.cfm?action=search&media_id=#media_id#</loc>" & chr(10) &
+			chr(9) & chr(9) & "<loc>#application.serverRootUrl#/media/#media_id#</loc>" & chr(10) &
 			chr(9) & chr(9) & "<changefreq>weekly</changefreq>" & chr(10) & 
 			chr(9) & "</url>";
 			variables.joFileWriter.writeLine(a);
