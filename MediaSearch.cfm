@@ -130,7 +130,7 @@
 <table>
 <cfset r=1>
 <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-    <cfset h="media.cfm?action=newMedia">
+    <cfset h="/media.cfm?action=newMedia">
 	<cfif isdefined("url.relationship__1") and isdefined("url.related_primary_key__1")>
 		<cfif url.relationship__1 is "cataloged_item">
 			<cfset h=h & '&collection_object_id=#url.related_primary_key__1#'>
@@ -178,11 +178,11 @@
 			</cfquery>
 			<br>
 			<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-		        <a href="media.cfm?action=edit&media_id=#media_id#" class="infoLink">[ edit media ]</a>
-		        ~ <a href="TAG.cfm?media_id=#media_id#" class="infoLink">[ add or edit TAGs ]</a>
+		        <a href="/media.cfm?action=edit&media_id=#media_id#" class="infoLink">[ edit media ]</a>
+		        ~ <a href="/TAG.cfm?media_id=#media_id#" class="infoLink">[ add or edit TAGs ]</a>
 		    </cfif>
 		  
-			~ <a href="showTAG.cfm?media_id=#media_id#" class="infoLink">[ View #tag.n# TAGs ]</a>
+			~ <a href="/showTAG.cfm?media_id=#media_id#" class="infoLink">[ View #tag.n# TAGs ]</a>
 			<br>MIME Type: #mime_type# 
             <br>Media Type: #media_type#
                
@@ -235,7 +235,7 @@
 	</cfquery>
 	Search for Media 
     <cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-        OR <a href="media.cfm?action=newMedia">Create media</a>
+        OR <a href="/media.cfm?action=newMedia">Create media</a>
     </cfif>
 		<form name="newMedia" method="post" action="">
 			<input type="hidden" name="action" value="search">
