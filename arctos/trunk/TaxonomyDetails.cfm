@@ -180,6 +180,22 @@
 		imp_related_display_name
 </cfquery>
 <cfoutput>
+	<script>
+		jQuery(document).ready(function(){
+			var elemsToLoad='specTaxMedia';
+			var elemAry = elemsToLoad.split(",");
+			for(var i=0; i<elemAry.length; i++){
+				load(elemAry[i]);
+			}
+		});
+		function load(name){
+			//var el=document.getElementById(name);
+			var ptl="/includes/taxonomy/" + name + ".cfm?taxon_name_id=#taxon_name_id#";
+			jQuery.get(ptl, function(data){
+				 jQuery(el).html(data);
+			})
+		}	
+	</script>
 	<cfset title="#one.scientific_name#">
 	<cfset metaDesc="Taxon Detail for #one.scientific_name#">
 	<cfset thisSearch = "%22#one.scientific_name#%22">
@@ -339,6 +355,7 @@
 			</cfloop>
 		</p>	
 	</cfif>
+	<p id="specTaxMedia"></p>
 	<p>
 		Arctos Links:
 		<ul>
