@@ -31,9 +31,31 @@
 		        media_relations.related_primary_key
 		  ) where rownum < 11
 	</cfquery>
+	<style>
+		div.thumb_spcr {
+  clear: both;
+  }
+
+div.thumbs {
+  border: 2px dashed #333;
+  background-color: #fff;
+  }
+div.one_thumb {
+  float: left;
+  width: 120px;
+  padding: 10px;
+  }
+  
+div.one_thumb p {
+   text-align: center;
+   }
+
+
+	</style>
 	<cfif media.recordcount gt 0>
     	<h2>Media</h2>
-		<div class="mc">
+		<div class="thumbs">
+			<div class="thumb_spcr">&nbsp;</div>
 			<cfloop query="media">
             	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
@@ -51,13 +73,15 @@
 				<cfif desc.recordcount is 1>
 					<cfset alt=desc.label_value>
 				</cfif>
-               <div class="om">
+               <div class="one_thumb">
 	               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#"></a>
-	                   	<br>#media_type# (#mime_type#)
-	                   	<br><a class="infoLink" href="/SpecimenDetail.cfm?collection_object_id=#related_primary_key#" target="_blank">Specimen</a>
-						<br>#alt#
+	                   	<p>#media_type# (#mime_type#)
+		                   	<br><a class="infoLink" href="/SpecimenDetail.cfm?collection_object_id=#related_primary_key#" target="_blank">Specimen</a>
+							<br>#alt#
+						</p>
 				</div>
 			</cfloop>
+			<div class="thumb_spcr">&nbsp;</div>
 		</div>
 	</cfif>
 </cfoutput>
