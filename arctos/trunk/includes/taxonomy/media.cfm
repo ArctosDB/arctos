@@ -7,7 +7,8 @@
 		        media.media_uri,
 		        media.mime_type,
 		        media.media_type,
-		        media.preview_uri
+		        media.preview_uri,
+		        media_relations.related_primary_key
 		     from
 		        media,
 		        media_relations,
@@ -26,12 +27,13 @@
 		        media.media_uri,
 		        media.mime_type,
 		        media.media_type,
-		        media.preview_uri
+		        media.preview_uri,
+		        media_relations.related_primary_key
 		  ) where rownum < 11
 	</cfquery>
 	<cfif media.recordcount gt 0>
     	<h2>Media</h2>
-		<div class="projMediaCell">
+		<div class="mc">
 			<cfloop query="media">
             	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
@@ -49,30 +51,11 @@
 				<cfif desc.recordcount is 1>
 					<cfset alt=desc.label_value>
 				</cfif>
-                <cfset mrel=getMediaRelations(#media_id#)>
-               <div class="oneMedia">
+               <div class="om">
 	               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#"></a>
-	                   <br>#media_type# (#mime_type#)
-	               <cfif #mrel.recordcount# gt 0>
-						<br>Relations:
-							<ul>
-								<cfloop query="mrel">
-									<li>#media_relationship#: #summary#
-										<cfif len(#link#) gt 0>
-					                        <a class="infoLink" href="#link#" target="_blank">More...</a>
-					                    </cfif>
-									</li>
-								</cfloop>
-							</ul>
-					</cfif>
-					<cfif #labels.recordcount# gt 0>
-						<br>Labels:
-						<ul>
-							<cfloop query="labels">
-								<li>#media_label#: #label_value#</li>
-							</cfloop>
-						</ul>
-					</cfif>
+	                   	<br>#media_type# (#mime_type#)
+	                   	<br><a class="infoLink" href="/SpecimenDetail.cfm?collection_object_id=#related_primary_key#" target="_blank">Specimen</a>
+						<br>#alt#
 				</div>
 			</cfloop>
 		</div>
