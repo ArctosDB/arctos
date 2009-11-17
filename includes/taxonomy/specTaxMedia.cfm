@@ -6,7 +6,7 @@
 	div.thumbs {
   		border: 1px dashed black;
 overflow:scroll;
-height:220px;
+height:400px;
   	}
 	div.one_thumb {
 	  float: left;
