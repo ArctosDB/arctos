@@ -61,6 +61,18 @@
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
+	<cfelseif listfindnocase(rdurl,'media',"/")>
+		<cftry>
+			<cfset gPos=listfindnocase(rdurl,"media","/")>
+			<cfif listlen(rdurl,"/") gt 1>
+				<cfset media_id = listgetat(rdurl,gPos+1,"/")>
+				<cfset action="search">
+			</cfif>
+			<cfinclude template="/MediaSearch.cfm">
+			<cfcatch>
+				<cfinclude template="/errors/404.cfm">
+			</cfcatch>
+		</cftry>
 	<cfelseif listfindnocase(rdurl,'saved',"/")>
 		<Cfoutput>
 		<cftry>
