@@ -32,8 +32,7 @@ max-width:120px;
 	</style>
 <cfoutput>
 	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	    select * from (
-		    select  
+	   select  
 		        media.media_id,
 		        media.media_uri,
 		        media.mime_type,
@@ -60,7 +59,6 @@ max-width:120px;
 		        media.media_type,
 		        media.preview_uri,
 		        media_relations.related_primary_key
-		  ) where rownum < 11
 	</cfquery>
 	
 	<cfif media.recordcount gt 0>
@@ -86,8 +84,9 @@ max-width:120px;
 				</cfif>
                <div class="one_thumb">
 	               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
-	                   	<p>#media_type# (#mime_type#)
-		                   	<br><a class="infoLink" href="/SpecimenDetail.cfm?collection_object_id=#related_primary_key#" target="_blank">Specimen</a>
+	                   	<p>
+		                   	#media_type# (#mime_type#)
+		                   	<br><a class="infoLink" href="/media/#media_id#" target="_blank">More Info</a>
 							<br>#alt#
 						</p>
 				</div>
