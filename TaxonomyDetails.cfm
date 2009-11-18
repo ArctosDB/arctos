@@ -298,63 +298,6 @@
 			</cfif>
 		</ul>    
     </div>
-	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	    select distinct 
-	        media.media_id,
-	        media.media_uri,
-	        media.mime_type,
-	        media.media_type,
-	        media.preview_uri
-	     from
-	         media,
-	         media_relations
-	     where
-	         media.media_id=media_relations.media_id and
-	         media_relations.media_relationship like '%taxonomy' and
-	         media_relations.related_primary_key = #one.taxon_name_id#
-	</cfquery>
-	<cfif media.recordcount gt 0>
-		<p>
-			Media:
-			<br>
-			<cfloop query="media">
-				<cfquery name="lbl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-					select * from media_labels where media_id=#media_id#
-				</cfquery>
-				<cfset relns=getMediaRelations(#media_id#)>
-				<cfif len(preview_uri) gt 0>
-					<cfset puri=preview_uri>
-				<cfelse>
-					<cfset puri='/images/noThumb.jpg'>
-				</cfif>
-				<div>
-					<a href="#media_uri#"><img src="#puri#" alt="#one.display_name#"></a>
-					<br><span style="font-size:small">#media_type#; #mime_type#</span>
-					<cfif lbl.recordcount gt 0>
-						<br />Labels:
-						<ul>
-							<cfloop query="lbl">
-								<li>#media_label#: #label_value#</li>
-							</cfloop>
-						</ul>
-					</cfif>
-					<cfif relns.recordcount gt 0>
-					<br>Relations:
-					<ul>
-						<cfloop query="relns">
-							<li>
-								#media_relationship#: #summary#
-								<cfif len(#link#) gt 0>
-									<a class="infoLink" href="#link#" target="_blank">More...</a>
-								</cfif>
-							</li>
-						</cfloop>
-					</ul>
-					</cfif>
-				</div>
-			</cfloop>
-		</p>	
-	</cfif>
 	<p id="specTaxMedia"></p>
 	<p>
 		Arctos Links:
