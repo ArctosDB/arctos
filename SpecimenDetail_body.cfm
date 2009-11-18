@@ -1258,10 +1258,12 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
                                 Relations:
                                 <ul>
 	                                <cfloop query="mrel">
-	                                    <li>#media_relationship#: #summary#
+	                                    <li>#media_relationship#: 
 										<cfif len(#link#) gt 0>
-					                        <a class="infoLink" href="#link#" target="_blank">More...</a>
-					                    </cfif></li>
+					                        <a href="#link#" target="_blank">#summary#</a>
+					                    <cfelse>
+											#summary#
+										</cfif></li>
 	                                </cfloop>
                                 </ul>
                             </cfif>
