@@ -912,8 +912,7 @@ function success_getSpecResultsData(result){
 									pURI='/images/noThumb.jpg';
 								}
 							}
-							
-							<div class="one_thumb">
+							theInnerHtml += '<div class="one_thumb">';
 							theInnerHtml += '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">';
 							theInnerHtml += '<img src="' + pURI + '" class="theThumb"></a>';
 							theInnerHtml += '<p>' + thisMedia.DATA.media_type[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
