@@ -24,10 +24,18 @@
 div.projMediaCell {
 	
 }
-
+p.imgCaption {
+	font-size:smaller;
+	margin-top:0px;
+}
+p.imgDetail {
+	font-size:smaller;
+	margin-top:0px;
+	text-align: left;
+}
 div.bigThumb {
  	float: left;
- 	width: 130px;
+ 	width: 200px;
  	padding: 1px;
 	border:1px solid green;
 	height:2500px;
@@ -35,12 +43,11 @@ div.bigThumb {
 	text-align: center;
 }
 div.one_thumb p {
-	font-size:smaller;
-	margin-top:0px;
+	
  }
-.theThumb{
-	max-width:120px;
-	max-height:120px;
+img.bigThumb{
+	max-width:180px;
+	max-height:180px;
 }
 	</style>
 	<cfif #media.recordcount# gt 0>
@@ -65,9 +72,11 @@ div.one_thumb p {
 				</cfif>
                 <cfset mrel=getMediaRelations(#media_id#)>
                <div class="bigThumb">
-	               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#"></a>
-	                   <p>#media_type# (#mime_type#)
+	               <a href="#media_uri#" target="_blank"><img class="bigThumb" src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#"></a>
+	                   <p class="imgCaption">#media_type# (#mime_type#)
 		               <br><a href="/media/#media_id#">Media Details</a>
+		            	</p>
+		            	<p class="imgDetail">
 		            	<cfloop query="mrel">
 			            	#media_relationship#: 
 							<cfif len(link) gt 0>
