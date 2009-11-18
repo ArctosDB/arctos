@@ -13,12 +13,9 @@
 		</script>
 		<cfabort>
 	</cfif>
-	
 	<script>
 		if (top.frames.length == 0) {
-		    //document.location='SpecimenDetail.cfm?collection_object_id=#collection_object_id#';
-		    document.write('<cfheader statuscode="301" statustext="Moved permanently">');
-			 document.write('<cfheader name="Location" value="SpecimenDetail.cfm?collection_object_id=#collection_object_id#">');
+		    document.location='/SpecimenDetail.cfm?collection_object_id=#collection_object_id#';
 	    }
 	</script>
 </cfoutput>
