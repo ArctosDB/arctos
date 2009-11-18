@@ -61,6 +61,20 @@ max-height:120px;
 		        media.media_type,
 		        media.preview_uri,
 		        media_relations.related_primary_key
+		    UNION
+		    select distinct 
+		        media.media_id,
+		        media.media_uri,
+		        media.mime_type,
+		        media.media_type,
+		        media.preview_uri
+		     from
+		         media,
+		         media_relations
+		     where
+		         media.media_id=media_relations.media_id and
+		         media_relations.media_relationship like '%taxonomy' and
+		         media_relations.related_primary_key = #taxon_name_id#
 	</cfquery>
 	
 	<cfif media.recordcount gt 0>
