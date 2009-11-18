@@ -60,12 +60,12 @@
        	$element.autocomplete("/ajax/agent.cfm", {
    	 		width: 260,
 			selectFirst: true,
-			max: 50,
+			max: 100,
 			autoFill: false,
 			delay: 400,
 			mustMatch: false,
-			cacheLength: 30,
-			minChars: 4
+			cacheLength: 50,
+			minChars: 3
 		});
 		$element.result(function(event, data, formatted) {
 			if (data) 
