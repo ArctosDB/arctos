@@ -47,7 +47,7 @@ div.bigThumb {
 div.one_thumb p {
 	
  }
-img.bigThumb{
+img.bigImgPrev{
 	max-width:180px;
 	max-height:180px;
 }
@@ -78,7 +78,7 @@ img.bigThumb{
 				</cfif>
                 <cfset mrel=getMediaRelations(#media_id#)>
                <div class="bigThumb">
-	               	<a href="#media_uri#" target="_blank"><img class="bigThumb" src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#"></a>
+	               	<a href="#media_uri#" target="_blank"><img class="bigImgPrev" src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#"></a>
                    	<p class="imgCaption">#media_type# (#mime_type#)
 	               	<br><a href="/media/#media_id#">Media Details</a>
 					
