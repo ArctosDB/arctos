@@ -15,7 +15,6 @@
 	</cfif>
 	
 	
-	<cfoutput>
 <cfloop collection="#CGI#" Item="x">
 #x# (value = #CGI[x]#)<BR>
 </cfloop>
