@@ -123,6 +123,14 @@
 			<cfset stringOfStuffToClean = "#stringOfStuffToClean##full_taxon_name#">
 			<cfset titleTerms=listappend(titleTerms,'#full_taxon_name#')>
 		</cfif>
+		<cfif isdefined("kingdom") AND len(#kingdom#) gt 0>
+			<cfif left(kingdom,1) is "=">
+				<CFSET SQL = "#SQL# AND upper(kingdom) = '#ucase(right(kingdom,len(kingdom)-1))#'">
+			<cfelse>
+				<CFSET SQL = "#SQL# AND upper(kingdom) LIKE '%#ucase(kingdom)#%'">
+			</cfif>
+			<cfset titleTerms=listappend(titleTerms,'#kingdom#')>
+		</cfif>
 		<cfif isdefined("phylclass") AND len(#phylclass#) gt 0>
 			<cfif left(phylclass,1) is "=">
 				<CFSET SQL = "#SQL# AND upper(phylclass) = '#ucase(right(phylclass,len(phylclass)-1))#'">

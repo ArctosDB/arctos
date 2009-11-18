@@ -367,19 +367,21 @@
 					uBio
 				</a>
 			</li>
-			<li>
-				<a class="external" target="_blank" href="http://www.efloras.org/browse.aspx?name_str=#srchName#">Flora of North America</a>
-			</li>
-			<li>
-				<a class="external" target="_blank" href="http://www.ipni.org/ipni/simplePlantNameSearch.do?find_wholeName=#srchName#">
-					The International Plant Names Index
-				</a>
-			</li>
-			<li>
-				<a class="external" target="_blank" href="http://epic.kew.org/searchepic/summaryquery.do?scientificName=#srchName#&searchAll=true&categories=names&categories=bibl&categories=colln&categories=taxon&categories=flora&categories=misc">
-					electronic plant information centre
-				</a>
-			</li>
+			<cfif one.kingdom is "Plantae">
+				<li>
+					<a class="external" target="_blank" href="http://www.efloras.org/browse.aspx?name_str=#srchName#">Flora of North America</a>
+				</li>
+				<li>
+					<a class="external" target="_blank" href="http://www.ipni.org/ipni/simplePlantNameSearch.do?find_wholeName=#srchName#">
+						The International Plant Names Index
+					</a>
+				</li>
+				<li>
+					<a class="external" target="_blank" href="http://epic.kew.org/searchepic/summaryquery.do?scientificName=#srchName#&searchAll=true&categories=names&categories=bibl&categories=colln&categories=taxon&categories=flora&categories=misc">
+						electronic plant information centre
+					</a>
+				</li>
+			</cfif>
 			<li>
 				<a class="external" target="_blank" href="http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=Scientific_Name&search_value=#srchName#&search_kingdom=every&search_span=containing&categories=All&source=html&search_credRating=all">
 					ITIS
