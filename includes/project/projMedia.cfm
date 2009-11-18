@@ -35,7 +35,7 @@ div.projMediaCell {
 }
 
 }
-div.bigThumb {
+.bigThumbDiv {
  	float: left;
  	width: 300px;
  	padding: 1px;
@@ -77,7 +77,7 @@ img.bigImgPrev{
 					<cfset alt=desc.label_value>
 				</cfif>
                 <cfset mrel=getMediaRelations(#media_id#)>
-				<div class="bigThumb">
+				<div class="bigThumbDiv">
 					<a href="#media_uri#" target="_blank"><img class="bigImgPrev" src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#"></a>
                    	<div class="imgCaption">
 						#media_type# (#mime_type#)
