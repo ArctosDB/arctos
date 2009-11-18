@@ -32,13 +32,17 @@ p.imgDetail {
 	font-size:smaller;
 	margin-top:0px;
 	text-align: left;
+	text-indent: -2em;
+	padding-left: 2em;
+}
+
 }
 div.bigThumb {
  	float: left;
- 	width: 200px;
+ 	width: 300px;
  	padding: 1px;
 	border:1px solid green;
-	height:2500px;
+	height:300px;
 	overflow:hidden;
 	text-align: center;
 }
