@@ -89,7 +89,7 @@ img.bigThumb{
 						    <cfelse>
 								#summary#
 							</cfif>
-							<p>
+							</p>
 						</cfloop>
 						<cfloop query="labels">
 							<p class="imgDetail">#media_label#: #label_value#</p>
