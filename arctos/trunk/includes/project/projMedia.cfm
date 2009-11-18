@@ -80,20 +80,21 @@ img.bigThumb{
                    	<p class="imgCaption">#media_type# (#mime_type#)
 	               		<a href="/media/#media_id#">Media Details</a>
 					</p>
-		            <p class="imgDetail">
+		            
 		            	<cfloop query="mrel">
+			            	<p class="imgDetail">
 			            	#media_relationship#: 
 							<cfif len(link) gt 0>
 					    		<a href="#link#" target="_blank">#summary#</a>
 						    <cfelse>
 								#summary#
 							</cfif>
-							<br>
+							<p>
 						</cfloop>
 						<cfloop query="labels">
-							#media_label#: #label_value#<br>
+							<p class="imgDetail">#media_label#: #label_value#</p>
 						</cfloop>
-					</p>
+					
 				</div>
 			</cfloop>
 		<div class="thumb_spcr">&nbsp;</div></div>
