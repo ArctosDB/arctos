@@ -1,38 +1,4 @@
 <cfinclude template = "/includes/functionLib.cfm">
-<style>
-	div.thumb_spcr {
-		clear: both;
-  	}
-	div.thumbs {
-  		border: 1px dashed black;
-overflow:scroll;
-height:400px;
-  	}
-	div.one_thumb {
-	  float: left;
-	  width: 130px;
-	  padding: 1px;
-border:1px solid green;
-height:180px;
-overflow:hidden;
-   text-align: center;
-
-	}
-  
-	
-div.one_thumb p {
-font-size:smaller;
-margin-top:0px;
-   }
-.theThumb{
-max-width:120px;
-max-height:120px;
-}
-
-
-
-
-	</style>
 <cfoutput>
 	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	   	select
