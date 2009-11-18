@@ -77,19 +77,19 @@ img.bigImgPrev{
 					<cfset alt=desc.label_value>
 				</cfif>
                 <cfset mrel=getMediaRelations(#media_id#)>
-               <div class="bigThumb">
-	               	<a href="#media_uri#" target="_blank"><img class="bigImgPrev" src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#"></a>
-                   	<p class="imgCaption">#media_type# (#mime_type#)
-	               	<br><a href="/media/#media_id#">Media Details</a>
-					
+				<div class="bigThumb">
+					<a href="#media_uri#" target="_blank"><img class="bigImgPrev" src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#"></a>
+                   	<p class="imgCaption">
+						#media_type# (#mime_type#)
+	               		<br><a href="/media/#media_id#">Media Details</a>
 		            	<cfloop query="mrel">
 			            	<div class="indent">
-			            	#media_relationship#: 
-							<cfif len(link) gt 0>
-					    		<a href="#link#" target="_blank">#summary#</a>
-						    <cfelse>
-								#summary#
-							</cfif>
+			            		#media_relationship#: 
+								<cfif len(link) gt 0>
+						    		<a href="#link#" target="_blank">#summary#</a>
+							    <cfelse>
+									#summary#
+								</cfif>
 							</div>
 						</cfloop>
 						<cfloop query="labels">
