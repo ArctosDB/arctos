@@ -60,48 +60,43 @@ Leading zeroes will be ignored.
 </cfoutput>
 </cfif>
 <!--------------------------------------->
-<!---
-<cfif #action# IS "change">
-<cfoutput>
-<cfif #origContType# does not contain "label">
-	You can't use this with #origContType#!
-	<cfabort>
-</cfif>
-<cfif len(#barcode_prefix#) gt 0>
-	<cfset sqlBC = "to_number(TRIM('#barcode_prefix#' FROM barcode))">
-<cfelse>
-	<cfset sqlBC = "to_number(barcode)">
-</cfif>
-<cfset sql="select barcode,container_id from container where 
-		#sqlBC# >= #begin_barcode# and
-		#sqlBC# <= #end_barcode# 
-		and container_type='#origContType#'">
-	<cfif len(#barcode_prefix#) gt 0>
-			<cfset sql="#sql# and barcode LIKE '#barcode_prefix#%'">
-		</cfif>
-	<cfquery name="contID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		#preservesinglequotes(sql)#
-	</cfquery>
-	<hr>
-	<cftransaction>
-	<cfloop query="contID">
-		<cfquery name="upCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			update container set container_type='#newContType#'
-			where container_id=#container_id#
-		</cfquery>
-	</cfloop>
-	</cftransaction>
-	Spiffy, changed #contID.recordcount# #origContType# to #newContType#.
-</cfoutput>
-</cfif>
---->
-<!--------------------------------------->
 <cfif #action# IS "change">
 <cfoutput>
 <cfif #origContType# is "collection object">
 	You can't use this with #origContType#!
 	<cfabort>
 </cfif>
+	<cfloop from-"##" to="##" index="i">
+		<cfset bc = barcode_prefix & i>
+		update container set 
+			container_type='#newContType#'
+			<cfif len(#DESCRIPTION#) gt 0>
+				,DESCRIPTION='#DESCRIPTION#'
+			</cfif>
+			<cfif len(#CONTAINER_REMARKS#) gt 0>
+				,CONTAINER_REMARKS='#CONTAINER_REMARKS#'
+			</cfif>
+			<cfif len(#WIDTH#) gt 0>
+				,WIDTH=#WIDTH#
+			</cfif>
+			<cfif len(#HEIGHT#) gt 0>
+				,HEIGHT=#HEIGHT#
+			</cfif>
+			<cfif len(#LENGTH#) gt 0>
+				,LENGTH=#LENGTH#
+			</cfif>
+			<cfif len(#NUMBER_POSITIONS#) gt 0>
+				,NUMBER_POSITIONS=#NUMBER_POSITIONS#
+			</cfif>
+		where
+			container_type='#origContType#' and
+			barcode = '#bc#'
+	<hr>
+	</cfloop>
+	
+	
+
+
 <cfset minBcF="">
 <cfquery name="testCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select barcode,container_type from container where
@@ -125,7 +120,7 @@ following table, and <a href="#curl#">click here to continue</a> if it all look 
 <!------------------------------------------------------->
 <cfif action is "update">
 <cfoutput>
-	<cftransaction>
+	<!---<cftransaction>
 	<cfquery name="testCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update container set 
 			container_type='#newContType#'
@@ -159,6 +154,7 @@ following table, and <a href="#curl#">click here to continue</a> if it all look 
 			</cfif>
 	</cfquery>
 	</cftransaction>
+	---->
 	It's done.
 </cfoutput>
 </cfif>
