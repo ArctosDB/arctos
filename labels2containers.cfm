@@ -66,7 +66,7 @@ Leading zeroes will be ignored.
 	You can't use this with #origContType#!
 	<cfabort>
 </cfif>
-	<cfloop from-"##" to="##" index="i">
+	<cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
 		<cfset bc = barcode_prefix & i>
 		update container set 
 			container_type='#newContType#'
