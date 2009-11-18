@@ -18,24 +18,13 @@
 	         media_relations.related_primary_key = #project_id#
 	</cfquery>
 	<style>
-	div.thumb_spcr {
-		clear: both;
-	}
+div.thumb_spcr {
+	clear: both;
+}
 div.projMediaCell {
-	
-}
-.imgCaption {
-	font-size:smaller;
-	margin-top:0px;
-}
-.imgDetail {
-	font-size:smaller;
-	margin-top:0px;
-	text-align: left;
-}
 
 }
-.bigThumbDiv {
+div.bigThumbDiv {
  	float: left;
  	width: 300px;
  	padding: 1px;
@@ -44,17 +33,27 @@ div.projMediaCell {
 	overflow:hidden;
 	text-align: center;
 }
-div.one_thumb p {
-	
+div.imgCaptionDiv {
+	font-size:smaller;
+	margin-top:0px;
  }
-img.bigImgPrev{
-	max-width:180px;
-	max-height:180px;
-}
-.indent {
-	text-indent: -2em;
+
+div.indent{
+ text-align:left;
+text-indent: -1em;
 	padding-left: 2em;
+padding-right:1em;
 }
+.theThumb{
+	max-width:120px;
+	max-height:120px;
+}
+bigImgPrev {
+	max-height:150px;
+	max-width:150px;
+}
+
+	
 	</style>
 	<cfif #media.recordcount# gt 0>
     	<h2>Media</h2>
@@ -78,8 +77,10 @@ img.bigImgPrev{
 				</cfif>
                 <cfset mrel=getMediaRelations(#media_id#)>
 				<div class="bigThumbDiv">
-					<a href="#media_uri#" target="_blank"><img class="bigImgPrev" src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#"></a>
-                   	<div class="imgCaption">
+					<a href="#media_uri#" target="_blank">
+						<img class="bigImgPrev" src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#">
+					</a>
+                   	<div class="imgCaptionDiv">
 						#media_type# (#mime_type#)
 	               		<br><a href="/media/#media_id#">Media Details</a>
 		            	<cfloop query="mrel">
