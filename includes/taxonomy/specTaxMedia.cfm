@@ -110,7 +110,8 @@ max-height:120px;
                <div class="one_thumb">
 	               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
                    	<p>
-	                   	<a class="infoLink" href="/media/#media_id#" target="_blank">#media_type# (#mime_type#)</a>
+						#media_type# (#mime_type#)
+	                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
 						<br>#alt#
 					</p>
 				</div>
