@@ -93,7 +93,7 @@ img.bigThumb{
 							</div>
 						</cfloop>
 						<cfloop query="labels">
-							div class="indent">#media_label#: #label_value#</div>
+							<div class="indent">#media_label#: #label_value#</div>
 						</cfloop>
 					</p>
 				</div>
