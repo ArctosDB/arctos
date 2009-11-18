@@ -32,8 +32,6 @@ p.imgDetail {
 	font-size:smaller;
 	margin-top:0px;
 	text-align: left;
-	text-indent: -2em;
-	padding-left: 2em;
 }
 
 }
@@ -52,6 +50,10 @@ div.one_thumb p {
 img.bigThumb{
 	max-width:180px;
 	max-height:180px;
+}
+.indent {
+	text-indent: -2em;
+	padding-left: 2em;
 }
 	</style>
 	<cfif #media.recordcount# gt 0>
@@ -80,21 +82,21 @@ img.bigThumb{
                    	<p class="imgCaption">#media_type# (#mime_type#)
 	               		<a href="/media/#media_id#">Media Details</a>
 					</p>
-		            
+			            <p class="imgDetail">
 		            	<cfloop query="mrel">
-			            	<p class="imgDetail">
+			            	<div class="indent">
 			            	#media_relationship#: 
 							<cfif len(link) gt 0>
 					    		<a href="#link#" target="_blank">#summary#</a>
 						    <cfelse>
 								#summary#
 							</cfif>
-							</p>
+							</div>
 						</cfloop>
 						<cfloop query="labels">
-							<p class="imgDetail">#media_label#: #label_value#</p>
+							div class="indent">#media_label#: #label_value#</div>
 						</cfloop>
-					
+					</p>
 				</div>
 			</cfloop>
 		<div class="thumb_spcr">&nbsp;</div></div>
