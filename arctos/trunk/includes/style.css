@@ -7,15 +7,15 @@ div.bigThumbDiv {
 	overflow:hidden;
 	text-align: center;
 }
-imgCaptionDiv {
+div.imgCaptionDiv {
 	font-size:smaller;
 	margin-top:0px;
  }
- bigImgPrev {
+.bigImgPrev {
 	max-height:180px;
 	max-width:180px;
 }
- div.smallPaddedIndent{
+div.smallPaddedIndent{
 	text-align:left;
 	text-indent: -1em;
 	padding-left: 2em;
