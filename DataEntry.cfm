@@ -64,7 +64,8 @@
 			autoFill: false,
 			delay: 400,
 			mustMatch: false,
-			cacheLength: 30
+			cacheLength: 30,
+			minChars: 4
 		});
 		$element.result(function(event, data, formatted) {
 			if (data) 
