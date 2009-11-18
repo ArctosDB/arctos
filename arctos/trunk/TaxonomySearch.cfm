@@ -145,6 +145,15 @@
 				</td>
 			</tr>
 			<tr>
+				<td align="right"><b><nobr>Kingdom:</nobr></b></td>
+				<td nowrap="nowrap">
+					<input size="25" name="kingdom" id="kingdom" maxlength="40">
+					<span class="infoLink" onclick="var e=document.getElementById('kingdom');e.value='='+e.value;">
+						Add = for exact match
+					</span>
+				</td>
+			</tr>
+			<tr>
 				<td align="right"><b><nobr>Phylum:</nobr></b></td>
 				<td nowrap="nowrap">
 					<input size="25" name="phylum" id="phylum" maxlength="40">
