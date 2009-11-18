@@ -400,6 +400,11 @@
 					WikiSpecies
 				</a>
 			</li>
+			<li>
+				<a class="external" target="_blank" href="http://www.biodiversitylibrary.org/Search.aspx?searchTerm=#srchName#">
+					Biodiversity Heritage Library
+				</a>
+			</li>
 		</ul>			
 	</p>
 	<cfif len(one.genus) gt 0>
