@@ -269,7 +269,7 @@
 			<cfloop query="common_name">
 				<li><b>#common_name#</b></li>
 			</cfloop>
-			<cfset title = title & '( #valuelist(common_name.common_name)# )'>
+			<cfset title = title & ' ( #valuelist(common_name.common_name)," ,"# )'>
 		</cfif>
 	</ul>
 	
