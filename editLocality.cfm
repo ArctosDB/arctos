@@ -1854,7 +1854,6 @@
 				,DEC_LONG_MIN = null
 				">
 		<cfelse>
-			<cfinclude template="/includes/alwaysInclude.cfm">
 			<div class="error">
 			You really can't load #ORIG_LAT_LONG_UNITS#. Really. I wouldn't lie to you! Clean up the code table!
 			Use your back button or	
@@ -1874,7 +1873,6 @@
 <cfif #getAcc.recordcount# is 1>
 	<cflocation url="editLocality.cfm?locality_id=#locality_id#" addtoken="no">
 <cfelseif #getAcc.recordcount# gt 1>
-	<cfinclude template="/includes/alwaysInclude.cfm">
 	<div class="error">
 	There are more than one accepted lat_longs for this locality. Please change all but one
 	of them to unaccepted. A better fix is coming soon.
@@ -1883,7 +1881,6 @@
 	</div>
 	<cfabort>
 <cfelseif #getAcc.recordcount# lt 1>
-	<cfinclude template="/includes/alwaysInclude.cfm">
 	<div class="error">
 	There are no accepted lat_longs for this locality. Is that what you meant to do?
 	<br><a href="editLocality.cfm?locality_id=#locality_id#">continue</a>
@@ -1956,7 +1953,6 @@
 			 	,UTM_EW
 			 	,UTM_NS">
 		<cfelse>
-			<cfinclude template="/includes/alwaysInclude.cfm">
 			<div class="error">
 			You really can't load #ORIG_LAT_LONG_UNITS#. Really. I wouldn't lie to you! Clean up the code table!
 			Use your back button or	
@@ -2031,7 +2027,6 @@
 <cfif #getAcc.recordcount# is 1>
 	<cflocation url="editLocality.cfm?locality_id=#locality_id#" addtoken="no">
 <cfelseif #getAcc.recordcount# gt 1>
-	<cfinclude template="/includes/alwaysInclude.cfm">
 	<div class="error">
 	There are more than one accepted lat_longs for this locality. Please change all but one
 	of them to unaccepted. A better fix is coming soon.
@@ -2040,7 +2035,6 @@
 	</div>
 	<cfabort>
 <cfelseif #getAcc.recordcount# lt 1>
-	<cfinclude template="/includes/alwaysInclude.cfm">
 	<div class="error">
 	There are no accepted lat_longs for this locality. Is that what you meant to do?
 	<br><a href="editLocality.cfm?locality_id=#locality_id#">continue</a>
@@ -2051,12 +2045,9 @@
 </cfoutput>		
 </cfif>
 <!---------------------------------------------------------------------------------------------------->
-  
-<!---------------------------------------------------------------------------------------------------->
 <cfif #Action# is "deleteLatLong">
 	<cfoutput>
 		<cfif #ACCEPTED_LAT_LONG_FG# is "1">
-			<cfinclude template="/includes/alwaysInclude.cfm">
 			<div class="error">
 			I can't delete the accepted lat/long!
 			<cfabort>

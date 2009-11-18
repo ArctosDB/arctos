@@ -60,7 +60,7 @@
        	$element.autocomplete("/ajax/agent.cfm", {
    	 		width: 260,
 			selectFirst: true,
-			max: 30,
+			max: 50,
 			autoFill: false,
 			delay: 400,
 			mustMatch: false,
