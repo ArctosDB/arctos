@@ -80,9 +80,8 @@ img.bigThumb{
                <div class="bigThumb">
 	               	<a href="#media_uri#" target="_blank"><img class="bigThumb" src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#"></a>
                    	<p class="imgCaption">#media_type# (#mime_type#)
-	               		<a href="/media/#media_id#">Media Details</a>
-					</p>
-			            <p class="imgDetail">
+	               	<br><a href="/media/#media_id#">Media Details</a>
+					
 		            	<cfloop query="mrel">
 			            	<div class="indent">
 			            	#media_relationship#: 
