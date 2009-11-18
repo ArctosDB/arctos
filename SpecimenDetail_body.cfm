@@ -14,22 +14,13 @@
 		<cfabort>
 	</cfif>
 	
-	
-<cfloop collection="#CGI#" Item="x">
-#x# (value = #CGI[x]#)<BR>
-</cfloop>
-	CGIdump
-	cgi.REDIRECT_URL: #cgi.REDIRECT_URL#
-	
-	CGI.REQUEST_URI: #CGI.REQUEST_URI#
-	<cfdump var=#cgi#>
-	<!---
 	<script>
 		if (top.frames.length == 0) {
-		    document.location='SpecimenDetail.cfm?collection_object_id=#collection_object_id#';
+		    //document.location='SpecimenDetail.cfm?collection_object_id=#collection_object_id#';
+		    document.write('<cfheader statuscode="301" statustext="Moved permanently">');
+			 document.write('<cfheader name="Location" value="SpecimenDetail.cfm?collection_object_id=#collection_object_id#">');
 	    }
 	</script>
-	---->
 </cfoutput>
 <cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
 	<cfset oneOfUs = 1>
