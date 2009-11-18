@@ -13,6 +13,7 @@
 		</script>
 		<cfabort>
 	</cfif>
+	CGIdump
 	<cfdump var=#cgi#>
 	<!---
 	<script>
