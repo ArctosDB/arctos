@@ -24,11 +24,11 @@
 div.projMediaCell {
 	
 }
-p.imgCaption {
+.imgCaption {
 	font-size:smaller;
 	margin-top:0px;
 }
-p.imgDetail {
+.imgDetail {
 	font-size:smaller;
 	margin-top:0px;
 	text-align: left;
@@ -79,7 +79,7 @@ img.bigImgPrev{
                 <cfset mrel=getMediaRelations(#media_id#)>
 				<div class="bigThumb">
 					<a href="#media_uri#" target="_blank"><img class="bigImgPrev" src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#"></a>
-                   	<p class="imgCaption">
+                   	<div class="imgCaption">
 						#media_type# (#mime_type#)
 	               		<br><a href="/media/#media_id#">Media Details</a>
 		            	<cfloop query="mrel">
@@ -95,7 +95,7 @@ img.bigImgPrev{
 						<cfloop query="labels">
 							<div class="indent">#media_label#: #label_value#</div>
 						</cfloop>
-					</p>
+					</div>
 				</div>
 			</cfloop>
 		<div class="thumb_spcr">&nbsp;</div></div>
