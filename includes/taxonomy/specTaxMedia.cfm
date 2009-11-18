@@ -75,6 +75,7 @@ max-height:120px;
 		         media_relations
 		     where
 		         media.media_id=media_relations.media_id and
+		         media.preview_uri is not null and
 		         media_relations.media_relationship like '%taxonomy' and
 		         media_relations.related_primary_key = #taxon_name_id#
 		 ) group by
