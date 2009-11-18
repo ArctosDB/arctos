@@ -15,6 +15,8 @@
 	</cfif>
 	CGIdump
 	cgi.REDIRECT_URL: #cgi.REDIRECT_URL#
+	
+	CGI.REQUEST_URI: #CGI.REQUEST_URI#
 	<cfdump var=#cgi#>
 	<!---
 	<script>
