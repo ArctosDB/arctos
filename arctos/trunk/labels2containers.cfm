@@ -97,5 +97,6 @@ Leading zeroes will be ignored.
 		</cfloop>
 	</cftransaction>
 </cfoutput>
+done.
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
