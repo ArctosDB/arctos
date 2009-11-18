@@ -900,7 +900,7 @@ function success_getSpecResultsData(result){
 				}
 				if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
 					theInnerHtml += '<td>';
-					theInnerHtml += '<div class="thumbs"><div class="thumb_spcr">&nbsp;</div>';
+					theInnerHtml += '<div class="div.shortThumb"><div class="thumb_spcr">&nbsp;</div>';
 						var thisMedia=JSON.parse(data.MEDIA[i]);
 						for (m=0; m<thisMedia.ROWCOUNT; ++m) {
 							if(thisMedia.DATA.preview_uri[m].length > 0) {
