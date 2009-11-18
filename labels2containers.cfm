@@ -66,96 +66,36 @@ Leading zeroes will be ignored.
 	You can't use this with #origContType#!
 	<cfabort>
 </cfif>
-	<cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
-		<cfset bc = barcode_prefix & i>
-		update container set 
-			container_type='#newContType#'
-			<cfif len(#DESCRIPTION#) gt 0>
-				,DESCRIPTION='#DESCRIPTION#'
-			</cfif>
-			<cfif len(#CONTAINER_REMARKS#) gt 0>
-				,CONTAINER_REMARKS='#CONTAINER_REMARKS#'
-			</cfif>
-			<cfif len(#WIDTH#) gt 0>
-				,WIDTH=#WIDTH#
-			</cfif>
-			<cfif len(#HEIGHT#) gt 0>
-				,HEIGHT=#HEIGHT#
-			</cfif>
-			<cfif len(#LENGTH#) gt 0>
-				,LENGTH=#LENGTH#
-			</cfif>
-			<cfif len(#NUMBER_POSITIONS#) gt 0>
-				,NUMBER_POSITIONS=#NUMBER_POSITIONS#
-			</cfif>
-		where
-			container_type='#origContType#' and
-			barcode = '#bc#'
-	<hr>
-	</cfloop>
-	
-	
-
-
-<cfset minBcF="">
-<cfquery name="testCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select barcode,container_type from container where
-	container_type='#origContType#' and
-	<cfif len(barcode_prefix) gt 0>
-		substr(barcode,1,#len(barcode_prefix)#)='#barcode_prefix#' and
-	</cfif>
-	<cfif len(barcode_prefix) gt 0>
-		substr(barcode,#len(barcode_prefix)#+1,length(barcode)) between #begin_barcode# and #end_barcode#
-	<cfelse>
-		barcode between #begin_barcode# and #end_barcode#
-	</cfif>
-</cfquery>
-<cfset curl="labels2containers.cfm?action=update&origContType=#origContType#&newContType=#newContType#&barcode_prefix=#barcode_prefix#&begin_barcode=#begin_barcode#&end_barcode=#end_barcode#&description=#description#&container_remarks=#container_remarks#&height=#height#&length=#length#&width=#width#&number_positions=#number_positions#">
-
-Your criteria matched #testCont.recordcount# containers. Carefully review what you're about the update in the 
-following table, and <a href="#curl#">click here to continue</a> if it all look good.
-<cfdump var=#testCont#>
-</cfoutput>
-</cfif>
-<!------------------------------------------------------->
-<cfif action is "update">
-<cfoutput>
-	<!---<cftransaction>
-	<cfquery name="testCont" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		update container set 
-			container_type='#newContType#'
-			<cfif len(#DESCRIPTION#) gt 0>
-				,DESCRIPTION='#DESCRIPTION#'
-			</cfif>
-			<cfif len(#CONTAINER_REMARKS#) gt 0>
-				,CONTAINER_REMARKS='#CONTAINER_REMARKS#'
-			</cfif>
-			<cfif len(#WIDTH#) gt 0>
-				,WIDTH=#WIDTH#
-			</cfif>
-			<cfif len(#HEIGHT#) gt 0>
-				,HEIGHT=#HEIGHT#
-			</cfif>
-			<cfif len(#LENGTH#) gt 0>
-				,LENGTH=#LENGTH#
-			</cfif>
-			<cfif len(#NUMBER_POSITIONS#) gt 0>
-				,NUMBER_POSITIONS=#NUMBER_POSITIONS#
-			</cfif>
-		where
-			container_type='#origContType#' and
-			<cfif len(barcode_prefix) gt 0>
-				substr(barcode,1,#len(barcode_prefix)#)='#barcode_prefix#' and
-			</cfif>
-			<cfif len(barcode_prefix) gt 0>
-				substr(barcode,#len(barcode_prefix)#+1,length(barcode)) between #begin_barcode# and #end_barcode#
-			<cfelse>
-				barcode between #begin_barcode# and #end_barcode#
-			</cfif>
-	</cfquery>
+	<cftransaction>
+		<cfloop from="#begin_barcode#" to="#end_barcode#" index="i">
+			<cfset bc = barcode_prefix & i>
+			<cfquery name="upContainer" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				update container set 
+					container_type='#newContType#'
+					<cfif len(#DESCRIPTION#) gt 0>
+						,DESCRIPTION='#DESCRIPTION#'
+					</cfif>
+					<cfif len(#CONTAINER_REMARKS#) gt 0>
+						,CONTAINER_REMARKS='#CONTAINER_REMARKS#'
+					</cfif>
+					<cfif len(#WIDTH#) gt 0>
+						,WIDTH=#WIDTH#
+					</cfif>
+					<cfif len(#HEIGHT#) gt 0>
+						,HEIGHT=#HEIGHT#
+					</cfif>
+					<cfif len(#LENGTH#) gt 0>
+						,LENGTH=#LENGTH#
+					</cfif>
+					<cfif len(#NUMBER_POSITIONS#) gt 0>
+						,NUMBER_POSITIONS=#NUMBER_POSITIONS#
+					</cfif>
+				where
+					container_type='#origContType#' and
+					barcode = '#bc#'
+			</cfquery>
+		</cfloop>
 	</cftransaction>
-	---->
-	It's done.
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
