@@ -900,6 +900,7 @@ function success_getSpecResultsData(result){
 				}
 				if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
 					theInnerHtml += '<td>';
+					theInnerHtml += '<div class="thumbs"><div class="thumb_spcr">&nbsp;</div>';
 						var thisMedia=JSON.parse(data.MEDIA[i]);
 						for (m=0; m<thisMedia.ROWCOUNT; ++m) {
 							if(thisMedia.DATA.preview_uri[m].length > 0) {
@@ -911,13 +912,16 @@ function success_getSpecResultsData(result){
 									pURI='/images/noThumb.jpg';
 								}
 							}
-							theInnerHtml += '<div class="imgDiv">';
-							theInnerHtml += '<a href="' + thisMedia.DATA.media_uri[m] + '">';
-							theInnerHtml += '<img src="' + pURI + '"></a>';
-							theInnerHtml += '<p class="imgCaption">' + thisMedia.DATA.mime_type[m] + '</p></div>';
+							
+							<div class="one_thumb">
+							theInnerHtml += '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">';
+							theInnerHtml += '<img src="' + pURI + '" class="theThumb"></a>';
+							theInnerHtml += '<p>' + thisMedia.DATA.media_type[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
+							theInnerHtml += '<br><a href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></p></div>';							
 						}
+					theInnerHtml += '<div class="thumb_spcr">&nbsp;</div></div>';
 					theInnerHtml += '</td>';
-				}
+				}		
 				theInnerHtml += '<td>';
 				theInnerHtml += '<span class="browseLink" type="scientific_name" dval="' + encodeURI(data.SCIENTIFIC_NAME[i]) + '">' + spaceStripper(data.SCIENTIFIC_NAME[i]);
 				theInnerHtml += '</span>'; 					

@@ -22,6 +22,7 @@ overflow:hidden;
 	
 div.one_thumb p {
 font-size:smaller;
+margin-top:0px;
    }
 .theThumb{
 max-width:120px;
