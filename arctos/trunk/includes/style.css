@@ -2,7 +2,6 @@ div.thumb_spcr {
 	clear: both;
 }
 div.shortThumb {
-	border: 1px dashed black;
 	overflow:scroll;
 	height:200px;
 }

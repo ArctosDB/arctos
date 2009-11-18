@@ -916,7 +916,7 @@ function success_getSpecResultsData(result){
 							theInnerHtml += '<a href="' + thisMedia.DATA.media_uri[m] + '" target="_blank">';
 							theInnerHtml += '<img src="' + pURI + '" class="theThumb"></a>';
 							theInnerHtml += '<p>' + thisMedia.DATA.media_type[m] + ' (' + thisMedia.DATA.mime_type[m] + ')';
-							theInnerHtml += '<br><a href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></p></div>';							
+							theInnerHtml += '<br><a target="_blank" href="/media/' + thisMedia.DATA.media_id[m] + '">Media Detail</a></p></div>';							
 						}
 					theInnerHtml += '<div class="thumb_spcr">&nbsp;</div></div>';
 					theInnerHtml += '</td>';
