@@ -401,7 +401,7 @@
 				</a>
 			</li>
 			<li>
-				<a class="external" target="_blank" href="http://www.biodiversitylibrary.org/Search.aspx?searchTerm=#srchName#">
+				<a class="external" target="_blank" href="http://www.biodiversitylibrary.org/name/#srchName#">
 					Biodiversity Heritage Library
 				</a>
 			</li>
