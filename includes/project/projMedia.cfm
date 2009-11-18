@@ -72,21 +72,22 @@ img.bigThumb{
 				</cfif>
                 <cfset mrel=getMediaRelations(#media_id#)>
                <div class="bigThumb">
-	               <a href="#media_uri#" target="_blank"><img class="bigThumb" src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#"></a>
-	                   <p class="imgCaption">#media_type# (#mime_type#)
-		               <br><a href="/media/#media_id#">Media Details</a>
-		            	</p>
-		            	<p class="imgDetail">
+	               	<a href="#media_uri#" target="_blank"><img class="bigThumb" src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#"></a>
+                   	<p class="imgCaption">#media_type# (#mime_type#)
+	               		<a href="/media/#media_id#">Media Details</a>
+					</p>
+		            <p class="imgDetail">
 		            	<cfloop query="mrel">
-			            	<br>#media_relationship#: 
+			            	#media_relationship#: 
 							<cfif len(link) gt 0>
 					    		<a href="#link#" target="_blank">#summary#</a>
 						    <cfelse>
 								#summary#
 							</cfif>
+							<br>
 						</cfloop>
 						<cfloop query="labels">
-							<br>#media_label#: #label_value#
+							#media_label#: #label_value#<br>
 						</cfloop>
 					</p>
 				</div>
