@@ -14,6 +14,7 @@
 		<cfabort>
 	</cfif>
 	CGIdump
+	cgi.REDIRECT_URL: #cgi.REDIRECT_URL#
 	<cfdump var=#cgi#>
 	<!---
 	<script>
