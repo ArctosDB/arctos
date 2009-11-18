@@ -13,6 +13,12 @@
 		</script>
 		<cfabort>
 	</cfif>
+	
+	
+	<cfoutput>
+<cfloop collection="#CGI#" Item="x">
+#x# (value = #CGI[x]#)<BR>
+</cfloop>
 	CGIdump
 	cgi.REDIRECT_URL: #cgi.REDIRECT_URL#
 	
