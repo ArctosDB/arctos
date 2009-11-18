@@ -17,47 +17,9 @@
 	         media_relations.media_relationship like '% project' and
 	         media_relations.related_primary_key = #project_id#
 	</cfquery>
-	<style>
-div.thumb_spcr {
-	clear: both;
-}
-div.projMediaCell {
-
-}
-div.bigThumbDiv {
- 	float: left;
- 	width: 300px;
- 	padding: 1px;
-	border:1px solid green;
-	height:300px;
-	overflow:hidden;
-	text-align: center;
-}
-div.imgCaptionDiv {
-	font-size:smaller;
-	margin-top:0px;
- }
-
-div.indent{
- text-align:left;
-text-indent: -1em;
-	padding-left: 2em;
-padding-right:1em;
-}
-.theThumb{
-	max-width:120px;
-	max-height:120px;
-}
-bigImgPrev {
-	max-height:150px;
-	max-width:150px;
-}
-
-	
-	</style>
 	<cfif #media.recordcount# gt 0>
     	<h2>Media</h2>
-		<div class="projMediaCell"><div class="thumb_spcr">&nbsp;</div>
+		<div><div class="thumb_spcr">&nbsp;</div>
 			<cfloop query="media">
             	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select
@@ -84,7 +46,7 @@ bigImgPrev {
 						#media_type# (#mime_type#)
 	               		<br><a href="/media/#media_id#">Media Details</a>
 		            	<cfloop query="mrel">
-			            	<div class="indent">
+			            	<div class="smallPaddedIndent">
 			            		#media_relationship#: 
 								<cfif len(link) gt 0>
 						    		<a href="#link#" target="_blank">#summary#</a>
