@@ -34,7 +34,15 @@ max-height:120px;
 	</style>
 <cfoutput>
 	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	   select  
+	   	select
+	   		 media_id,
+		     media_uri,
+		     mime_type,
+		     media_type,
+		     preview_uri,
+		     related_primary_key
+		from (
+	   		select  
 		        media.media_id,
 		        media.media_uri,
 		        media.mime_type,
@@ -54,20 +62,14 @@ max-height:120px;
 		        identification.identification_id=identification_taxonomy.identification_id and
 		        media.preview_uri is not null and
 		        identification_taxonomy.taxon_name_id=#taxon_name_id#
-		     group by
-		     	media.media_id,
+		    UNION
+		    select 
+		        media.media_id,
 		        media.media_uri,
 		        media.mime_type,
 		        media.media_type,
 		        media.preview_uri,
 		        media_relations.related_primary_key
-		    UNION
-		    select distinct 
-		        media.media_id,
-		        media.media_uri,
-		        media.mime_type,
-		        media.media_type,
-		        media.preview_uri
 		     from
 		         media,
 		         media_relations
@@ -75,6 +77,13 @@ max-height:120px;
 		         media.media_id=media_relations.media_id and
 		         media_relations.media_relationship like '%taxonomy' and
 		         media_relations.related_primary_key = #taxon_name_id#
+		 ) group by
+		 	media_id,
+		    media_uri,
+		    mime_type,
+		    media_type,
+		    preview_uri,
+		    related_primary_key
 	</cfquery>
 	
 	<cfif media.recordcount gt 0>
