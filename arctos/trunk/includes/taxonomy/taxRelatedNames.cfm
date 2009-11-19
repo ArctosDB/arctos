@@ -26,7 +26,7 @@
 					scientific_name
 			</cfquery>
 			<cfif d.recordcount gt 0>
-				<br>Subspecies:
+				<br><cfif len(t.subspecies) gt 0>Related </cfif>Subspecies:
 			</cfif>
 			<ul>
 				<cfloop query="d">
