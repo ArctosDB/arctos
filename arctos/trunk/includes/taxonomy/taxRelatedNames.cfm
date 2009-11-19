@@ -5,7 +5,8 @@
 		</cfquery>
 		<cfif len(t.subspecies) is 0 and len(t.species) gt 0 and len(t.genus) gt 0>
 			<!--- additional species --->
-			<cfset q=" genus = '#t.genus#' and species = '#t.species#' and subspecies is null">		
+			<cfset q=" genus = '#t.genus#' and species = '#t.species#' and subspecies is null
+				and scientific_name != '#t.scientific_name#'">		
 		</cfif>
 		<cfif isdefined("q")>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
