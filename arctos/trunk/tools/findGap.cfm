@@ -10,11 +10,12 @@
 <cfif #action# is "nothing">
 	Find gaps in catalog numbers:
 	<cfquery name="oidnum" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select distinct(other_id_type) from coll_obj_other_id_num
+		select distinct(other_id_type) from coll_obj_other_id_num order by other_id_type
 	</cfquery>
 	<cfquery name="collection_id" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select institution_acronym||' '||collection_cde CID, collection_id from collection
 		group by institution_acronym||' '||collection_cde,collection_id
+		order by institution_acronym||' '||collection_cde
 	</cfquery>
 	<form name="go" method="post" action="findGap.cfm">
 		<input type="hidden" name="action" value="cat_num">
