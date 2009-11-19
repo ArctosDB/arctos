@@ -15,7 +15,7 @@
 				from 
 					taxonomy 
 				where
-					#q#
+					#preservesinglequotes(q)#
 			</cfquery>
 			<cfif d.recordcount gt 0>
 				Related Names:
