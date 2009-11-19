@@ -9,7 +9,7 @@
 					select scientific_name,display_name from taxonomy where genus='#t.genus#' and species='#t.species#' and subspecies is null
 				</cfquery>
 				<cfif len(ssp.scientific_name) gt 0>
-					<br>Parent Species: <a href="/name/#ssp.scientific_name#">#ssp.display_name#</a>
+					<p>Parent Species: <a href="/name/#ssp.scientific_name#">#ssp.display_name#</a></p>
 				</cfif>
 			</cfif>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
