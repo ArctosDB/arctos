@@ -1,4 +1,3 @@
-<cfinclude template = "/includes/_frameHeader.cfm">
 <cfoutput>
 		<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from taxonomy where taxon_name_id=#taxon_name_id#
