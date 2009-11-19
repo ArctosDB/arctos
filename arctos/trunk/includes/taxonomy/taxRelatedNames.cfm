@@ -3,7 +3,7 @@
 		<cfquery name="t" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select * from taxonomy where taxon_name_id=#taxon_name_id#
 		</cfquery>
-		<cfif len(t.subspecies) is 0 and len(t.species) gt 0 and len(t.genus) gt 0>
+		<cfif len(t.species) gt 0 and len(t.genus) gt 0>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					scientific_name,
@@ -14,6 +14,8 @@
 					 genus = '#t.genus#' and 
 					 species = '#t.species#' and 
 					 scientific_name != '#t.scientific_name#'
+				order by
+					scientific_name
 			</cfquery>
 			<cfif d.recordcount gt 0>
 				<br>Related Subspecies
@@ -33,6 +35,8 @@
 					 genus = '#t.genus#' and 
 					 species != '#t.species#' and
 					 subspecies is null
+				order by
+					scientific_name
 			</cfquery>
 			<cfif d.recordcount gt 0>
 				<br>Related Species
@@ -41,6 +45,6 @@
 				<cfloop query="d">
 					<li><a href="/name/#scientific_name#">#display_name#</a></li>
 				</cfloop>
-			</ul>		
+			</ul>
 		</cfif>
 </cfoutput>
