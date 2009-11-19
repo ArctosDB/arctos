@@ -63,6 +63,7 @@
 					taxonomy 
 				where
 					 genus = '#t.genus#' and
+					 species is not null and
 					 subspecies is null
 				order by
 					scientific_name
