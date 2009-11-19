@@ -54,5 +54,26 @@
 					<li><a href="/name/#scientific_name#">#display_name#</a></li>
 				</cfloop>
 			</ul>
+		<cfelseif len(t.genus) gt 0 and len(t.species) is 0>
+			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select 
+					scientific_name,
+					display_name 
+				from 
+					taxonomy 
+				where
+					 genus = '#t.genus#' and
+					 subspecies is null
+				order by
+					scientific_name
+			</cfquery>
+			<cfif d.recordcount gt 0>
+				<br>Related Species
+			</cfif>
+			<ul>
+				<cfloop query="d">
+					<li><a href="/name/#scientific_name#">#display_name#</a></li>
+				</cfloop>
+			</ul>
 		</cfif>
 </cfoutput>
