@@ -182,7 +182,7 @@
 <cfoutput>
 	<script>
 		jQuery(document).ready(function(){
-			var elemsToLoad='specTaxMedia';
+			var elemsToLoad='specTaxMedia,taxRelatedNames';
 			var elemAry = elemsToLoad.split(",");
 			for(var i=0; i<elemAry.length; i++){
 				load(elemAry[i]);
@@ -409,6 +409,8 @@
 			</li>
 		</ul>			
 	</p>
+	<p id="taxRelatedNames"></p>
+	<!-------
 	<cfif len(one.genus) gt 0>
 		<cfquery name="samegen" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select scientific_name,display_name from taxonomy where genus='#one.genus#'
@@ -428,5 +430,6 @@
 			</cfif>			
 		</div>
 	</cfif>
+	----->
 </cfoutput>
 <cfinclude template = "includes/_footer.cfm">
