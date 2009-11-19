@@ -4,8 +4,8 @@
 			select * from taxonomy where taxon_name_id=#taxon_name_id#
 		</cfquery>
 		<cfif len(t.subspecies) is 0 and len(t.species) gt 0 and len(t.genus) gt 0>
-			<!--- additional species --->
-			<cfset q=" genus = '#t.genus#' and species = '#t.species#' and subspecies is null
+			<cfset desc="Related subspecies">
+			<cfset q=" genus = '#t.genus#' and species = '#t.species#'
 				and scientific_name != '#t.scientific_name#'">		
 		</cfif>
 		<cfif isdefined("q")>
@@ -19,7 +19,7 @@
 					#preservesinglequotes(q)#
 			</cfquery>
 			<cfif d.recordcount gt 0>
-				Related Names:
+				#desc#:
 				<ul>
 					<cfloop query="d">
 						<li><a href="/name/#scientific_name#">#display_name#</a></li>
