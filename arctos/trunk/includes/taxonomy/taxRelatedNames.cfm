@@ -4,6 +4,14 @@
 			select * from taxonomy where taxon_name_id=#taxon_name_id#
 		</cfquery>
 		<cfif len(t.species) gt 0 and len(t.genus) gt 0>
+			<cfif len(t.subspecies) gt 0>
+				<cfquery name="ssp" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select scientific_name,display_name from taxonomy where genus='#t.genus#' and species='#t.species#' and subspecies is null
+				</cfquery>
+				<cfif ss.c is 1>
+					<br>Parent Species: <a href="/name/#ssp.scientific_name#">#ssp.display_name#</a>
+				</cfif>
+			</cfif>
 			<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
 					scientific_name,
@@ -13,6 +21,7 @@
 				where
 					 genus = '#t.genus#' and 
 					 species = '#t.species#' and 
+					 subspecies is not null and
 					 scientific_name != '#t.scientific_name#'
 				order by
 					scientific_name
