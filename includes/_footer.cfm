@@ -97,11 +97,6 @@ pageTracker._trackPageview();
 	<meta name="description" content="#metaDesc#">
 	'>
 	<cfcatch type="template">
-		<!--- 
-			do nothing, couldn't process the header
-			This is almost certainly because a CFFLUSH was called - we 
-			just don't get a title on the pages
-		 --->
 	</cfcatch>
 </cftry>
 </body>
