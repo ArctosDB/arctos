@@ -711,11 +711,14 @@
 		<cfquery name="getAccns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(thisSQL)#
 		</cfquery>
-		<cfif #getAccns.recordcount# is 0>
+		<cfquery name="c" dbtype="query">
+			select count(distinct(transaction_id)) c from getAccns
+		</cfquery>
+		<cfif getAccns.recordcount is 0>
 			Nothing matched your search criteria.
 		<cfelse>
 			<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(getAccns.transaction_id)#">
-				View all items in these Accessions</a>
+				View all items in these #c.c# Accessions</a>
 		</cfif>
 		<cfset i=1>
 		<cfif #project_id# gt 0>
