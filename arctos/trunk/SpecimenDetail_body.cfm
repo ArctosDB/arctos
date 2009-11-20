@@ -1252,29 +1252,22 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 							</style>
 							<a href="#media_uri#" target="_blank"><img src="#puri#" alt="#aTxt#" class="imgStyle #bgc#"></a>
                             <br>#media_type# (#mime_type#)
+							<br><a href="/media/#media_id#">Media Details</a>
                         </td>
                         <td style="font-size:.8em">
-                            <cfif #mrel.recordcount# gt 0>
-                                Relations:
-                                <ul>
-	                                <cfloop query="mrel">
-	                                    <li>#media_relationship#: 
-										<cfif len(#link#) gt 0>
-					                        <a href="#link#" target="_blank">#summary#</a>
-					                    <cfelse>
-											#summary#
-										</cfif></li>
-	                                </cfloop>
-                                </ul>
-                            </cfif>
-                            <cfif #labels.recordcount# gt 0>
-                                Labels:
-                                <ul>
-		                            <cfloop query="labels">
-		                                <li>#media_label#: #label_value#</li>
-		                            </cfloop>
-                                </ul>
-                            </cfif>
+                            <ul>
+								<cfloop query="mrel">
+	                            	<li>#media_relationship#: 
+									<cfif len(#link#) gt 0>
+					                	<a href="#link#" target="_blank">#summary#</a>
+					                <cfelse>
+										#summary#
+									</cfif></li>
+	                            </cfloop>
+                                <cfloop query="labels">
+		                            <li>#media_label#: #label_value#</li>
+		                        </cfloop>
+                            </ul>
                         </td>
                     </tr>
                 </cfloop>

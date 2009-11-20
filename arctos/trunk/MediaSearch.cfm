@@ -178,15 +178,14 @@
 			</cfquery>
 			<br>
 			<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-		        <a href="/media.cfm?action=edit&media_id=#media_id#" class="infoLink">[ edit media ]</a>
-		        ~ <a href="/TAG.cfm?media_id=#media_id#" class="infoLink">[ add or edit TAGs ]</a>
+		        <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
+		        ~ <a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a> ~ 
 		    </cfif>
-		  
-			~ <a href="/showTAG.cfm?media_id=#media_id#" class="infoLink">[ View #tag.n# TAGs ]</a>
+		    <cfif mime_type contains "/image"> and tag.n gt 0>
+				<a href="/showTAG.cfm?media_id=#media_id#">[ View #tag.n# TAGs ]</a>
+			</cfif>
 			<br>MIME Type: #mime_type# 
             <br>Media Type: #media_type#
-               
-			
 			<br>Labels:	
 			<cfif labels.recordcount gt 0>
 				<ul>
