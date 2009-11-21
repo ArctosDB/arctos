@@ -717,7 +717,6 @@
 		<cfquery name="specs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select count(*) c from cataloged_item where accn_id in (#valuelist(getAccns.transaction_id)#)
 		</cfquery>
-
 		<cfif getAccns.recordcount is 0>
 			Nothing matched your search criteria.
 		<cfelse>
@@ -772,7 +771,6 @@
 		<cfset i=#i#+1>
 	</cfoutput>
 </cfif>
-<!------------------------------------------------------------------------------------------->
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "delePermit">
 	<cfoutput>
