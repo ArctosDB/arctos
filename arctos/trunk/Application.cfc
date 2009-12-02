@@ -189,7 +189,7 @@
 	<cfset initSession()>
 </cffunction>
 <!-------------------------------------------------------------->
-<cffunction name="onRequestStart" returnType="boolean" output="false">
+<cffunction name="onRequestStart" returnType="boolean" output="true">
 	<cfif listfindnocase(application.blacklist,cgi.REMOTE_ADDR)>
 		<cfif cgi.script_name is not "/errors/gtfo.cfm">
 			<cfscript>
