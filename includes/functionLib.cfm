@@ -225,6 +225,8 @@
 		<cfquery name="getPrefs" datasource="cf_dbuser">
 			select * from cf_users where username = '#username#' and password='#hash(pwd)#'
 		</cfquery>
+		<cfdump var="#getPrefs#">
+		<cfabort>
 		<cfif getPrefs.recordcount is 0>
 			<cfset session.username = "">
 			<cfset session.epw = "">
@@ -297,20 +299,20 @@
 				<cfabort>
 			</cfif>
 			<cfset session.myAgentId=#ckUserName.agent_id#>		
-		</cfif>
 		<cfset pwtime =  round(now() - getPrefs.pw_change_date)>
 		<cfset pwage = Application.max_pw_age - pwtime>
 		<cfif pwage lte 0>
 			<cfset session.force_password_change = "yes">
 			<cflocation url="ChangePassword.cfm">
 		</cfif>
+		</cfif>
 	</cfif>
-	<cfif isdefined("getPrefs.exclusive_collection_id") and len(#getPrefs.exclusive_collection_id#) gt 0>
-		<cfset ecid="#getPrefs.exclusive_collection_id#">
+	<cfif isdefined("getPrefs.exclusive_collection_id") and len(getPrefs.exclusive_collection_id) gt 0>
+		<cfset ecid=getPrefs.exclusive_collection_id>
 	<cfelse>
 		<cfset ecid="">
 	</cfif>
-	<cfset setDbUser(#ecid#)>
+	<cfset setDbUser(ecid)>
 	</cfoutput>
 	<cfreturn true>
 </cffunction>

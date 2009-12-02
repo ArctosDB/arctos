@@ -124,7 +124,7 @@ function expandNode_success (r) {
 		post(1,error);
 	} else{
 		var didSomething = "";
-		for (i = 0; i < DATA.ROWCOUNT; i++) { 
+		for (i = 0; i < r.ROWCOUNT; i++) { 
 		 	var CONTAINER_ID = result.CONTAINER_ID[i];
 			var n = "newTree.getLevel('" + CONTAINER_ID + "')";
 			var nE = eval(n);
@@ -134,7 +134,7 @@ function expandNode_success (r) {
 				var DESCRIPTION = result.DESCRIPTION[i];
 				var PARENT_INSTALL_DATE = result.PARENT_INSTALL_DATE[i];
 				var CONTAINER_REMARKS = result.CONTAINER_REMARKS[i];
-				var LABEL = result[i].LABEL;
+				var LABEL = result.LABEL[i];
 				var thisIns = 'newTree.insertNewChild("' + PARENT_CONTAINER_ID + '","' + CONTAINER_ID + '","' + LABEL + ' (' + CONTAINER_TYPE + ')",0,0,0,0,"",1)';
 				eval(thisIns);
 				didSomething = 'yep';
