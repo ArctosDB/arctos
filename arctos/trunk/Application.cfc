@@ -238,11 +238,9 @@
 	<cfif cgi.HTTP_HOST is "arctos-test.arctos.database.museum" and 
 			#GetTemplatePath()# does not contain "/errors/dev_login.cfm" and
 			#GetTemplatePath()# does not contain "/login.cfm" and
+			#GetTemplatePath()# does not contain "/ChangePassword.cfm" and
 			len(session.username) is 0>
-			-------------#GetTemplatePath()#-------------------
-		<!---
 		<cflocation url="/errors/dev_login.cfm">	
-		---->
 	<cfelseif cgi.HTTP_HOST is "mvzarctos.berkeley.edu">
 		<cfset rurl="http://arctos.database.museum">
 		<cfif isdefined("cgi.redirect_url") and len(cgi.redirect_url) gt 0>
