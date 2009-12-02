@@ -1,6 +1,7 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfset title="Arctos Holdings">
+<cfset metaDesc="Links to individual collections web pages and loan policy.">
 <cfquery name="colls" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select 
 		collection.collection,
