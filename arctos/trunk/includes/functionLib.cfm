@@ -225,8 +225,6 @@
 		<cfquery name="getPrefs" datasource="cf_dbuser">
 			select * from cf_users where username = '#username#' and password='#hash(pwd)#'
 		</cfquery>
-		<cfdump var="#getPrefs#">
-		<cfabort>
 		<cfif getPrefs.recordcount is 0>
 			<cfset session.username = "">
 			<cfset session.epw = "">
