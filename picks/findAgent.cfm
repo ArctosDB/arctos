@@ -1,5 +1,5 @@
 <cfinclude template="/includes/_pickHeader.cfm">
-<cfif #action# is "nothing">
+<cfif actions is "nothing">
 	<!--- make sure we're searching for something --->
 	<cfif len(#agent_name#) is 0>
 		<form name="searchForAgent" action="findAgent.cfm" method="post">
