@@ -204,8 +204,9 @@
 	ORDER BY 
 		collection_object_id
 </cfquery>
+<br><b>#specimenList.recordcount# Specimens Being Re-Identified:</b>
+
 </cfoutput>
-<br><b>Specimens Being Re-Identified:</b>
 
 <table width="95%" border="1">
 <tr>
