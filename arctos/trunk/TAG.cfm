@@ -248,6 +248,7 @@
 		$("#h_new").val(h);
 		$("#w_new").val(w);
 		setTimeout("modArea('new')",500);
+		viewport.init("#new");
 		//$("#info").text('Drag/resize the new red box on the image, pick a TAG and/or enter a comment, then click "create TAG."');
 	}
 	function pickRefType(id,v){
