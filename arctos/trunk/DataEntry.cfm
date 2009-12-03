@@ -51,28 +51,6 @@
 				$("select#geo_att_value_" + idNum).html(s);				
 			}
 		);
-	}	
-	function attachAgentPick(element){
-	    var $element = jQuery(element);
-		if($element.attr("autocomplete.attached")){
-	       	return;
-		}
-       	$element.autocomplete("/ajax/agent.cfm", {
-   	 		width: 260,
-			selectFirst: true,
-			max: 100,
-			autoFill: false,
-			delay: 400,
-			mustMatch: false,
-			cacheLength: 50,
-			minChars: 3
-		});
-		$element.result(function(event, data, formatted) {
-			if (data) 
-				var theID='nothing';
-				jQuery('#' + theID).val(data[1]);
-		});
-        $element.attr("autocomplete.attached", true);
 	}
 	function attachGeogPick(element){
 		var $element = jQuery(element);
@@ -466,7 +444,9 @@
 							<td align="right"><span class="f11a">ID By</span></td>
 							<td>
 								<input type="text" name="id_made_by_agent" value="#id_made_by_agent#" class="reqdClr" size="40" 
-									onfocus="attachAgentPick(this);" id="id_made_by_agent">
+									id="id_made_by_agent"
+									onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
+									onkeypress="return noenter(event);">
 								<span class="infoLink" onclick="copyAllAgents('id_made_by_agent');">Copy2All</span>
 							</td>
 						</tr>
@@ -722,8 +702,9 @@
 										</td>
 										<td>
 											<input type="text" name="determined_by_agent" value="#determined_by_agent#" class="reqdClr" 
-												onfocus="attachAgentPick(this);"
-												id="determined_by_agent">
+												id="determined_by_agent"
+												onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
+												onkeypress="return noenter(event);">
 										</td>
 										<td align="right"><span class="f11a">Date</span></td>
 										<td>
@@ -997,7 +978,8 @@
 														name="geo_att_determiner_#i#"
 														id="geo_att_determiner_#i#"
 														value="#thisDeterminer#" 
-														onfocus="attachAgentPick(this);"/>
+														onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
+														onkeypress="return noenter(event);">
 												</td>
 												<td>
 													<input type="text" 
@@ -1061,7 +1043,8 @@
 												name="attribute_determiner_1" 
 												value="#attribute_determiner_1#" 
 												class="reqdClr" 
-												onfocus="attachAgentPick(this);"
+												onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
+												onkeypress="return noenter(event);"
 												onblur="doAttributeDefaults();"
 												id="attribute_determiner_1" />
 											<span class="infoLink" onclick="copyAttributeDetr('attribute_determiner_1');">Sync Att.</span>
@@ -1143,11 +1126,10 @@
 											<input type="text" name="attribute_date_2" id="attribute_date_2" value="#attribute_date_2#">		
 										</td>
 										<td>
-											<input type="text" 
-												name="attribute_determiner_2" 
-												onfocus="attachAgentPick(this);"
-												id="attribute_determiner_2"
-												value="#attribute_determiner_2#">
+											<input type="text" name="attribute_determiner_2" id="attribute_determiner_2"
+												value="#attribute_determiner_2#"
+												onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
+												onkeypress="return noenter(event);">
 											
 										</td>
 									</tr>
@@ -1202,9 +1184,10 @@
 										<td>
 											<input type="text" 
 												name="attribute_determiner_2" 
-												onfocus="attachAgentPick(this);"
 												id="attribute_determiner_2"
-												value="#attribute_determiner_2#">
+												value="#attribute_determiner_2#"
+												onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
+												onkeypress="return noenter(event);">
 										</td>
 									</tr>
 								<cfelse><!--- maintain attributes 2-6 as hiddens to not break the JS --->
@@ -1257,9 +1240,10 @@
 										</td>
 										<td>
 											 <input type="text" name="attribute_determiner_#i#"
-												onfocus="attachAgentPick(this);"
 												id="attribute_determiner_#i#" size="15"
-												value="#evaluate("data.attribute_determiner_" & i)#">
+												value="#evaluate("data.attribute_determiner_" & i)#"
+												onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
+												onkeypress="return noenter(event);">
 										</td>
 										<td>
 											<input type="text" name="attribute_det_meth_#i#"
