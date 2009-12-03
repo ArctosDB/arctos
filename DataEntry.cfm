@@ -416,9 +416,10 @@
 								</td>
 								<td nowrap="nowrap">
 									<span class="f11a">#i#</span>
-									 
 									<input type="text" name="collector_agent_#i#" value="#evaluate("data.collector_agent_" & i)#" 
-										<cfif i is 1>class="reqdClr"</cfif> onfocus="attachAgentPick(this);" id="collector_agent_#i#">
+										<cfif i is 1>class="reqdClr"</cfif> id="collector_agent_#i#"
+										onchange="getAgent('DataEntry',this.id,'nothing',this.value);"
+										onkeypress="return noenter(event);">
 									<span class="infoLink" onclick="copyAllAgents('collector_agent_#i#');">Copy2All</span>
 								</td>
 								<cfif i is 2 or i is 4 or i is 5></tr></cfif>
