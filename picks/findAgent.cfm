@@ -81,10 +81,7 @@
 		<cfoutput query="getAgentId">
 		<br>
 		<cfset thisName = #replace(agent_name,"'","\'","all")#>
-
-		<a href="##"
-			onfocus="this.border='1px dashed red'"
-			onClick="javascript: opener.document.#formName#.#agentIdFld#.value='#agent_id#';opener.document.#formName#.#agentNameFld#.value='#thisName#';opener.document.#formName#.#agentNameFld#.style.background='##8BFEB9';self.close();">#agent_name# (#agent_id#)</a>
+		<a href="##" onClick="javascript: opener.document.#formName#.#agentIdFld#.value='#agent_id#';opener.document.#formName#.#agentNameFld#.value='#thisName#';opener.document.#formName#.#agentNameFld#.style.background='##8BFEB9';self.close();">#agent_name# (#agent_id#)</a>
 	</cfoutput>
 	</cfif>
 </cfif>

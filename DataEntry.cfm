@@ -52,21 +52,6 @@
 			}
 		);
 	}
-	function attachGeogPick(element){
-		var $element = jQuery(element);
-		if($element.attr("autocomplete.attached")){
-			return;
-		}
-		$element.autocomplete("/ajax/higher_geog.cfm", {
-			width: 260,
-			selectFirst: true,
-			max: 30,
-			autoFill: false,
-			delay: 400,
-			mustMatch: true,
-			cacheLength: 1
-		});
-	}
 	function attachTaxonPick(element){
 	    var $element = jQuery(element);
 		if($element.attr("autocomplete.attached")){
@@ -437,7 +422,8 @@
 							</td>
 							<td width="100%">
 								<input type="text" name="taxon_name" value="#taxon_name#" class="reqdClr" size="40"
-									onfocus="attachTaxonPick(this)" id="taxon_name">
+									id="taxon_name"
+									onchange="taxaPick('nothing',this.id,'dataEntry',this.value)">
 							</td>
 						</tr>
 						<tr>
@@ -483,7 +469,7 @@
 							<td align="right"><span class="f11a">Higher Geog</span></td>
 							<td width="100%">
 								<input type="text" name="higher_geog" class="reqdClr" id="higher_geog" value="#higher_geog#" size="80"
-									onfocus="attachGeogPick(this)">
+									onchange="getGeog('nothing',this.id,'dataEntry',this.value)">
 							</td>
 						</tr>
 						<tr>
