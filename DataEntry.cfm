@@ -2,11 +2,14 @@
 <cfinclude template="/includes/_header.cfm">
 <cfset title="Data Entry">
 <link rel="stylesheet" type="text/css" href="/includes/_DEstyle.css">
+<!---
 <script type='text/javascript' src='/includes/jquery/suggest.js'></script>
+<script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
+
+--->
 <script type='text/javascript' src='/includes/_DEhead.js'></script>
 <script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
 <script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
-<script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
 <script language="javascript" type="text/javascript">
 	jQuery(document).ready(function() {
 		jQuery(function() {
@@ -51,27 +54,6 @@
 				$("select#geo_att_value_" + idNum).html(s);				
 			}
 		);
-	}
-	function attachTaxonPick(element){
-	    var $element = jQuery(element);
-		if($element.attr("autocomplete.attached")){
-	       	return;
-		}
-       	$element.autocomplete("/ajax/scientific_name.cfm", {
-   	 		width: 260,
-			selectFirst: true,
-			max: 30,
-			autoFill: false,
-			delay: 400,
-			mustMatch: false,
-			cacheLength: 1
-		});
-		$element.result(function(event, data, formatted) {
-			if (data) 
-				var theID='nothing';
-				jQuery('#' + theID).val(data[1]);
-		});
-        $element.attr("autocomplete.attached", true);
 	}
 </script>
 <cf_showMenuOnly>
