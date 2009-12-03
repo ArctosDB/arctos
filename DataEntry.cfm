@@ -418,7 +418,7 @@
 									<span class="f11a">#i#</span>
 									<input type="text" name="collector_agent_#i#" value="#evaluate("data.collector_agent_" & i)#" 
 										<cfif i is 1>class="reqdClr"</cfif> id="collector_agent_#i#"
-										onchange="getAgent('nothing',this.id,'DataEntry',this.value);"
+										onchange="getAgent('nothing',this.id,'dataEntry',this.value);"
 										onkeypress="return noenter(event);">
 									<span class="infoLink" onclick="copyAllAgents('collector_agent_#i#');">Copy2All</span>
 								</td>
