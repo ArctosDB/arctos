@@ -237,10 +237,19 @@
 		var w=100;
 		
 		*/
+		var scrollTop = $(window).scrollTop() + 30;
+		var winH=$(window).height();
+		var h=ih/2;
+		if (h>winH){
+			h=winH-50;
+		}
 		
 		var t = ih/4;
+		if (t>scrollTop){
+			t=scrollTop + 50;
+		}
 		var l= iw/4;
-		var h=ih/2;
+		
 		var w=iw/2;
 		addArea('new',t,l,h,w);	
 		$("#t_new").val(t);
@@ -248,7 +257,7 @@
 		$("#h_new").val(h);
 		$("#w_new").val(w);
 		setTimeout("modArea('new')",500);
-		viewport.init("#new");
+		//viewport.init("#new");
 		//$("#info").text('Drag/resize the new red box on the image, pick a TAG and/or enter a comment, then click "create TAG."');
 	}
 	function pickRefType(id,v){
