@@ -65,6 +65,7 @@
 				alert('Pick a TAG type and/or enter a comment.');
 				return false;
 			} else {
+				$("#info").text('');
 				jQuery.getJSON("/component/tag.cfc",
 					{
 						method : "newRef",
