@@ -245,12 +245,12 @@
 		
 		console.log('h: ' + h);
 		if (h>winH){
-			h=winH;
+			h=winH-50;
 		}
 		
 		var t = ih/4;
 		if (t>scrollTop){
-			t=scrollTop;
+			t=scrollTop+30;
 		}
 		
 		
