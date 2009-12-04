@@ -230,7 +230,7 @@
 	}
 	function nevermindNew(){
 		$('#refDiv_new').remove();
-		pickRefType('');
+		pickRefType('RefType_new');
 		$("#info").text('');
 	}
 		
