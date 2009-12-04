@@ -262,7 +262,7 @@
 		$("#w_new").val(w);
 		setTimeout("modArea('new')",500);
 		//viewport.init("#new");
-		$("#info").text('Drag/resize the new red box on the image, pick a TAG and/or enter a comment, then click "create TAG," or <span class="likeLink" onclick="nevermindNew()">cancel</span>');
+		$("#info").html('Drag/resize the new red box on the image, pick a TAG and/or enter a comment, then click "create TAG," or <span class="likeLink" onclick="nevermindNew()">cancel</span>');
 	}
 	function pickRefType(id,v){
 		var tagID=id.replace('RefType_','');
