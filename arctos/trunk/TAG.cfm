@@ -245,7 +245,7 @@
 		var portBot=portTop+winH;
 		console.log('portBot: ' + portBot);
 		
-		var portH=portTop-portBot;
+		var portH=portBot-portTop;
 		console.log('portH: ' + portH);
 		
 		var h = portH/2;
