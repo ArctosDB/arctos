@@ -229,6 +229,10 @@
 		}
 	}
 	function newArea() {
+		if($('#new')){
+			alert('There is already a new TAG.');
+			return false;
+		}
 		var ih = $("#imgH").val();
 		var iw = $("#imgW").val();
 		var l= iw/4;
