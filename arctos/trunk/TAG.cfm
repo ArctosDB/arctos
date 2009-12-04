@@ -252,16 +252,20 @@
 		var h = portH/2;
 		
 		console.log('h: ' + h);
+		var t = portTop + 50;
 		if (h > ih/2){
 			// never make the box bigger than half the image height
 			h=ih/2;
 			
 			console.log('h recalc: ' + h);
 		}
-		
+		h=5000;
+		if (t+h > ih){
+			h=t+((ih-t-20));	
+		}
 		// default, put the image near the top of the port
-		var t = portTop + 50;
-		t=5000;
+		
+		
 		console.log('t: ' + t);
 		//var t = ih/4;
 		
