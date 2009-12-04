@@ -261,6 +261,7 @@
 		}
 		h=5000;
 		if (t+h > ih){
+			console.log('too tall....');
 			h=t+((ih-t-20));	
 		}
 		// default, put the image near the top of the port
