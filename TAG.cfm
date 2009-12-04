@@ -230,35 +230,45 @@
 	function newArea() {
 		var ih = $("#imgH").val();
 		var iw = $("#imgW").val();
-		/*
-		var t = 10;
-		var l= 	10;
-		var h=50;
-		var w=100;
+		// new div is always half the image width, centered
+		var l= iw/4;
+		var w=iw/2;
 		
-		*/
-		var scrollTop = $(window).scrollTop() + 30;
+		// calculate vertical viewport
+		
+		var portTop = $(window).scrollTop();
+		console.log('portTop: ' + portTop);
+			
 		var winH=$(window).height();
-		
-		var h=ih/2;
 		console.log('winH: ' + winH);
 		
+		var portBot=portTop+winH;
+		console.log('portBot: ' + portBot);
+		
+		var portH=portTop-portBot;
+		console.log('portH: ' + portH);
+		
+		var h = portH/2;
+		
 		console.log('h: ' + h);
-		if (h>winH){
-			h=winH-50;
+		if (h > ih/2){
+			// never make the box bigger than half the image height
+			h=ih/2;
+			
+			console.log('h recalc: ' + h);
 		}
 		
-		var t = ih/4;
-		if (t>scrollTop){
-			t=scrollTop+30;
-		}
-		
+		// default, put the image near the top of the port
+		var t = portTop + 50;
 		
 		console.log('t: ' + t);
-		console.log('scrollTop: ' + scrollTop);
-		var l= iw/4;
+		//var t = ih/4;
 		
-		var w=iw/2;
+		
+		//console.log('scrollTop: ' + scrollTop);
+		
+		
+		
 		addArea('new',t,l,h,w);	
 		$("#t_new").val(t);
 		$("#l_new").val(l);
