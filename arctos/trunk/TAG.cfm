@@ -239,10 +239,11 @@
 		*/
 		var scrollTop = $(window).scrollTop() + 30;
 		var winH=$(window).height();
+		
+		var h=ih/2;
 		console.log('winH: ' + winH);
 		
 		console.log('h: ' + h);
-		var h=ih/2;
 		if (h>winH){
 			h=winH-50;
 		}
