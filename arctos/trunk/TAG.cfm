@@ -261,7 +261,7 @@
 		
 		// default, put the image near the top of the port
 		var t = portTop + 50;
-		
+		t=5000;
 		console.log('t: ' + t);
 		//var t = ih/4;
 		
