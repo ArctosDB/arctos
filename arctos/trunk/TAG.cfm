@@ -229,7 +229,7 @@
 		}
 	}
 	function newArea() {
-		if($('#new')){
+		if($('#new').length == 0){
 			alert('There is already a new TAG.');
 			return false;
 		}
