@@ -7,11 +7,8 @@
 	}
 </style>
 <!-------------------------------------------------------------->
-<cfoutput>
-	<cfif action is "ajaxGrid" or action is "viewTable">
-		<a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#">Mark all records to load</a>	
-	</cfif>
-	<cfif action is "loadAll">
+<cfif action is "loadAll">
+	<cfoutput>
 		<cfset sql="UPDATE bulkloader SET LOADED = NULL WHERE enteredby IN (#enteredby#)">
 		<cfif len(#accn#) gt 0>
 			<cfset sql = "#sql# AND accn IN (#accn#)">
@@ -25,8 +22,8 @@
 			<cfabort>
 			--->
 		<cflocation url="browseBulk.cfm?action=#returnAction#&enteredby=#enteredby#&accn=#accn#" addtoken="false">
-	</cfif>
-</cfoutput>
+	</cfoutput>
+</cfif>
 
 <cfif action is "ajaxGrid">
 <cfoutput>
@@ -45,6 +42,7 @@
 <cfset args.bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection},{accn},{enteredby})">
 <cfset args.name="blGrid">
 <cfset args.pageSize="20">
+<a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#&returnAction=ajaxGrid">Mark all to load</a>
 <cfform method="post" action="browseBulk.cfm">
 	<cfinput type="hidden" name="returnAction" value="ajaxGrid">
 	<cfinput type="hidden" name="action" value="saveGridUpdate">
