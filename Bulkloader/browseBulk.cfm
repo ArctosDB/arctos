@@ -7,31 +7,26 @@
 	}
 </style>
 <!-------------------------------------------------------------->
-<cfif action is "ajaxGrid" or action is "viewTable">
-	<cfoutput>
-		<a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#">Mark all records to load</a>
-		<cfif action is "loadAll">
-			<cfset sql="UPDATE bulkloader SET LOADED = NULL WHERE enteredby IN (#enteredby#)">
-			<cfif len(#accn#) gt 0>
-				<cfset sql = "#sql# AND accn IN (#accn#)">
-			</cfif>
-			<cfquery name="upBulk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				#preservesinglequotes(sql)#
-			</cfquery>
+<cfoutput>
+	<cfif action is "ajaxGrid" or action is "viewTable">
+		<a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#">Mark all records to load</a>	
+	</cfif>
+	<cfif action is "loadAll">
+		<cfset sql="UPDATE bulkloader SET LOADED = NULL WHERE enteredby IN (#enteredby#)">
+		<cfif len(#accn#) gt 0>
+			<cfset sql = "#sql# AND accn IN (#accn#)">
+		</cfif>
+		<cfquery name="upBulk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(sql)#
+		</cfquery>
 			<!---
 			#preservesinglequotes(sql)#
 			
 			<cfabort>
-			
-			
 			--->
-			
-			
-			<cflocation url="browseBulk.cfm?action=#returnAction#&enteredby=#enteredby#&accn=#accn#" addtoken="false">
-		</cfif>
-	</cfoutput>
-</cfif>
-
+		<cflocation url="browseBulk.cfm?action=#returnAction#&enteredby=#enteredby#&accn=#accn#" addtoken="false">
+	</cfif>
+</cfoutput>
 
 <cfif action is "ajaxGrid">
 <cfoutput>
