@@ -5,7 +5,7 @@
 	select column_name from user_tab_cols where table_name='BULKLOADER'
 	order by internal_column_id
 </cfquery>
-<cfset accn="">
+<cfset accn="''">
 <cfset enteredby="'session.username'">
 <cfset ColNameList = valuelist(cNames.column_name)>
 <cfset ColNameList = replace(ColNameList,"COLLECTION_OBJECT_ID","","all")>
