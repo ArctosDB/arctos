@@ -128,7 +128,8 @@
 					from
 						raw
 					where
-						partID=#partID#
+						partID=#partID# and
+						loan_number is not null
 					group by
 						loan_number,
 						TRANS_DATE
@@ -139,7 +140,7 @@
 				<td>
 					<cfset ll=''>
 					<cfloop query="l">
-						<cfset ll=listappend(ll,"#loan_number# (#dateformat(TRANS_DATE,'dd mon yyyy')#)",";")>
+						<cfset ll=listappend(ll,"#loan_number# (#dateformat(TRANS_DATE,'dd mmm yyyy')#)",";")>
 					</cfloop>
 					#ll#
 				</td>
