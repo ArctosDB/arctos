@@ -1,5 +1,6 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
+<cfset title="part/loan summary">
 <cfoutput>
 	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
@@ -149,7 +150,7 @@
 	</table>
 </cfif>
 <cfif action is "download">
-	<cfset ac="CatNum,#session.CustomOtherIdentifier#,ScientificName,BeganDate,EndedDate,VerbatimDate,AccesionedDate,Part,Modifier,Pres,InBarcode">
+	<cfset ac="CatNum,#session.CustomOtherIdentifier#,ScientificName,BeganDate,EndedDate,VerbatimDate,AccesionedDate,Part,Modifier,Pres,InBarcode,Loan">
 	<cfset variables.encoding="UTF-8">
 	<cfset fname = "ArctosData_#cfid#_#cftoken#.csv">
 	<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
@@ -159,7 +160,34 @@
 		variables.joFileWriter.writeLine(header); 
 	</cfscript>
 	<cfloop query="d">
-		<cfset oneLine = '"#collection# #cat_num#","#CustomID#","#scientific_name#","#dateformat(began_date,"dd mmm yyyy")#","#dateformat(ended_date,"dd mmm yyyy")#","#verbatim_date#","#dateformat(received_date,"dd mmm yyyy")#","#part_name#","#part_modifier#","#preserve_method#","#barcode#"'>
+		<cfset oneLine = '"#collection# #cat_num#","#CustomID#","#scientific_name#","#dateformat(began_date,"dd mmm yyyy")#","#dateformat(ended_date,"dd mmm yyyy")#","#verbatim_date#","#dateformat(received_date,"dd mmm yyyy")#",'>
+		<cfif SAMPLED_FROM_OBJ_ID gt 0>
+			<cfset p=part_name & ' (subsample)'>
+		<cfelse>
+			<cfset p=part_name>
+		</cfif>
+		<cfset oneLine=oneLine & '"#p#","#part_modifier#","#preserve_method#","#barcode#"'>
+		<cfquery name="l" dbtype="query">
+			select
+				loan_number,
+				TRANS_DATE
+			from
+				raw
+			where
+				partID=#partID# and
+				loan_number is not null
+			group by
+				loan_number,
+				TRANS_DATE
+			order by
+				loan_number,
+				TRANS_DATE
+		</cfquery>
+		<cfset ll=''>
+		<cfloop query="l">
+			<cfset ll=listappend(ll,"#loan_number# (#dateformat(TRANS_DATE,'dd mmm yyyy')#)",";")>
+		</cfloop>
+		<cfset oneLine=oneLine & ',"#ll#"'>
 		<cfset oneLine = trim(oneLine)>
 		<cfscript>
 			variables.joFileWriter.writeLine(oneLine);
