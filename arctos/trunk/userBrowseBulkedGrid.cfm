@@ -7,6 +7,8 @@
 </cfquery>
 <cfset ColNameList = valuelist(cNames.column_name)>
 <cfset ColNameList = replace(ColNameList,"COLLECTION_OBJECT_ID","","all")>
+
+<cfset ColNameList = replace(ColNameList,"LOADED","","all")>
 <cfset args.width="1200">
 <cfset args.stripeRows = true>
 <cfset args.selectColor = "##D9E8FB">
@@ -24,6 +26,7 @@
 	<cfgrid attributeCollection="#args#">
 		<cfgridcolumn name="collection_object_id" select="no" href="/DataEntry.cfm?action=editEnterData&pMode=edit" 
 			hrefkey="collection_object_id" header="Key">
+		<cfgridcolumn name="loaded" select="no" header="status">
 		<cfloop list="#ColNameList#" index="thisName">
 			<cfgridcolumn name="#thisName#">
 		</cfloop>

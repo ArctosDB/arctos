@@ -7,7 +7,11 @@
 	}
 </style>
 <!-------------------------------------------------------------->
-<cfif #action# is "ajaxGrid">
+<cfif action is loadAll>
+	
+</cfif>
+
+<cfif action is "ajaxGrid">
 <cfoutput>
 <cfquery name="cNames" datasource="uam_god">
 	select column_name from user_tab_cols where table_name='BULKLOADER'
