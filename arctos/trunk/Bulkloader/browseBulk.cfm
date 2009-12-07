@@ -7,7 +7,9 @@
 	}
 </style>
 <!-------------------------------------------------------------->
+<cfif isdefined("enteredby") and isdefined("accn")>
 <cfoutput>
+
 <a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#">Mark all records to load</a>
 <cfif action is "loadAll">
 		<cfset sql="UPDATE bulkloader SET LOADED = NULL
@@ -29,6 +31,9 @@
 
 </cfif>
 </cfoutput>
+</cfif>
+
+
 <cfif action is "ajaxGrid">
 <cfoutput>
 <cfquery name="cNames" datasource="uam_god">
