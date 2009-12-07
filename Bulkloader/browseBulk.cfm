@@ -7,10 +7,28 @@
 	}
 </style>
 <!-------------------------------------------------------------->
+<cfoutput>
+<a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#">Mark all records to load</a>
 <cfif action is loadAll>
-	
-</cfif>
+		<cfset sql="UPDATE bulkloader SET LOADED = NULL
+				 WHERE 
+			enteredby IN (#enteredby#)">
+		<cfif len(#accn#) gt 0>
+			<cfset sql = "#sql# AND accn IN (#accn#)">
+		</cfif>
+			#preservesinglequotes(sql)#
+		<!---
+		<cfquery name="upBulk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(sql)#
+		</cfquery>
+		
+		--->
+		
+		<cfabort>
+		
 
+</cfif>
+</cfoutput>
 <cfif action is "ajaxGrid">
 <cfoutput>
 <cfquery name="cNames" datasource="uam_god">
