@@ -82,7 +82,11 @@
 			<cfset subject="locked form">
 		<cfelse>
 			<cfif isdefined("exception.detail")>
-				<cfset subject="#exception.detail#">
+				<cfif exception.detail contains "[Macromedia][Oracle JDBC Driver][Oracle]ORA-00600">
+					<cfset subject="[Macromedia][Oracle JDBC Driver][Oracle]ORA-00600">
+				<cfelse>
+					<cfset subject="#exception.detail#">
+				</cfif>
 			<cfelse>
 				<cfset subject="Unknown Error">
 			</cfif>
