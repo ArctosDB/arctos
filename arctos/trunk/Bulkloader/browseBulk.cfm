@@ -9,7 +9,7 @@
 <!-------------------------------------------------------------->
 <cfoutput>
 <a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#">Mark all records to load</a>
-<cfif action is loadAll>
+<cfif action is "loadAll">
 		<cfset sql="UPDATE bulkloader SET LOADED = NULL
 				 WHERE 
 			enteredby IN (#enteredby#)">
