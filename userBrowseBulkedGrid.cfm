@@ -1,4 +1,43 @@
 <cfinclude template="/includes/_header.cfm">
+<cfif #action# is "ajaxGrid">
+<cfoutput>
+<cfquery name="cNames" datasource="uam_god">
+	select column_name from user_tab_cols where table_name='BULKLOADER'
+	order by internal_column_id
+</cfquery>
+<cfset ColNameList = valuelist(cNames.column_name)>
+<cfset ColNameList = replace(ColNameList,"COLLECTION_OBJECT_ID","","all")>
+<cfset args.width="1200">
+<cfset args.stripeRows = true>
+<cfset args.selectColor = "##D9E8FB">
+<cfset args.selectmode = "edit">
+<cfset args.format="html">
+<cfset args.onchange = "cfc:component.Bulkloader.editRecord({cfgridaction},{cfgridrow},{cfgridchanged})">
+<cfset args.bind="cfc:component.Bulkloader.getPage({cfgridpage},{cfgridpagesize},{cfgridsortcolumn},{cfgridsortdirection},{accn},{enteredby})">
+<cfset args.name="blGrid">
+<cfset args.pageSize="20">
+<cfform method="post" action="userBrowseBulkedGrid.cfm">
+	<cfinput type="hidden" name="returnAction" value="ajaxGrid">
+	<cfinput type="hidden" name="action" value="saveGridUpdate">
+	<cfinput type="hidden" name="enteredby" value="#enteredby#">
+	<cfinput type="hidden" name="accn" value="#accn#">
+	<cfgrid attributeCollection="#args#">
+		<cfgridcolumn name="collection_object_id" select="no" href="/DataEntry.cfm?action=editEnterData&pMode=edit" 
+			hrefkey="collection_object_id" header="Key">
+		<cfloop list="#ColNameList#" index="thisName">
+			<cfgridcolumn name="#thisName#">
+		</cfloop>
+	</cfgrid>
+</cfform>
+</cfoutput>
+</cfif>
+
+
+
+
+
+
+
 <cfif #action# is "nothing">
 
 <cfquery name="getCols" datasource="uam_god">
