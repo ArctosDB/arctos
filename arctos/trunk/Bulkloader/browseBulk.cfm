@@ -16,15 +16,55 @@
 		<cfquery name="upBulk" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
-			<!---
-			#preservesinglequotes(sql)#
-			
-			<cfabort>
-			--->
 		<cflocation url="browseBulk.cfm?action=#returnAction#&enteredby=#enteredby#&accn=#accn#" addtoken="false">
 	</cfoutput>
 </cfif>
-
+<cfif action is "download">
+	<cfoutput>
+		<cfquery name="cNames" datasource="uam_god">
+			select column_name from user_tab_cols where table_name='BULKLOADER'
+			order by internal_column_id
+		</cfquery>
+		<cfset sql = "select * from bulkloader where enteredby IN (#enteredby#)">
+		<cfif len(accn) gt 0>
+			<cfset sql = "#sql# AND accn IN (#accn#)">
+		</cfif>
+		<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			#preservesinglequotes(sql)#	
+		</cfquery>
+		<cfset variables.encoding="UTF-8">
+		<cfset fname = "BulkPendingData_#cfid#_#cftoken#.csv">
+		<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
+		<cfset header=#trim(valuelist(cNames.column_name))#>
+		<cfscript>
+			variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
+			variables.joFileWriter.writeLine(header); 
+		</cfscript>
+		<cfloop query="data">
+			<cfset oneLine = "">
+			<cfloop list="#valuelist(cNames.column_name)#" index="c">
+				<cfset thisData = #evaluate(c)#>
+				<cfif c is "BEGAN_DATE" or c is "ENDED_DATE">
+					<cfset thisData=dateformat(thisData,"dd-mmm-yyyy")>
+				</cfif>
+				<cfif len(oneLine) is 0>
+					<cfset oneLine = '"#thisData#"'>
+				<cfelse>
+					<cfset oneLine = '#oneLine#,"#thisData#"'>
+				</cfif>
+			</cfloop>
+			<cfset oneLine = trim(oneLine)>
+			<cfscript>
+				variables.joFileWriter.writeLine(oneLine);
+			</cfscript>
+		</cfloop>
+		<cfscript>	
+			variables.joFileWriter.close();
+		</cfscript>
+		<cflocation url="/download.cfm?file=#fname#" addtoken="false">
+		<a href="/download/#fname#">Click here if your file does not automatically download.</a>
+	</cfoutput>
+</cfif>
 <cfif action is "ajaxGrid">
 <cfoutput>
 <cfquery name="cNames" datasource="uam_god">
@@ -43,6 +83,8 @@
 <cfset args.name="blGrid">
 <cfset args.pageSize="20">
 <a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#&returnAction=ajaxGrid">Mark all to load</a>
+<a href="browseBulk.cfm?action=download&enteredby=#enteredby#&accn=#accn#">Download CSV</a>
+
 <cfform method="post" action="browseBulk.cfm">
 	<cfinput type="hidden" name="returnAction" value="ajaxGrid">
 	<cfinput type="hidden" name="action" value="saveGridUpdate">
