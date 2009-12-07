@@ -20,7 +20,6 @@
 	<cfinput type="hidden" name="returnAction" value="ajaxGrid">
 	<cfinput type="hidden" name="action" value="saveGridUpdate">
 	<cfinput type="hidden" name="enteredby" value="#session.username#">
-	<cfinput type="hidden" name="accn" value="#accn#">
 	<cfgrid attributeCollection="#args#">
 		<cfgridcolumn name="collection_object_id" select="no" href="/DataEntry.cfm?action=editEnterData&pMode=edit" 
 			hrefkey="collection_object_id" header="Key">
