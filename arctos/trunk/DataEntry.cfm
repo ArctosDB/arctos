@@ -1448,7 +1448,8 @@
 						</cfif>
 					</td>
 					<td width="16%">	
-						<input type="button" value="Table View" class="lnkBtn" onclick="window.open('userBrowseBulkedGrid.cfm','_browseDE');" />
+						<input type="button" value="JAVA table" class="lnkBtn" onclick="window.open('userBrowseBulkedGrid.cfm','_browseDE');" />
+						<input type="button" value="AJAX table" class="lnkBtn" onclick="window.open('userBrowseBulkedGrid.cfm?action=ajaxGrid','_browseDE');" />
 					</td>
 					<td align="right" width="16%" nowrap="nowrap">
 						<span id="browseThingy">
