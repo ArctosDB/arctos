@@ -1,13 +1,14 @@
 <cfinclude template="/includes/_header.cfm">
 <script src="/includes/sorttable.js"></script>
 <cfoutput>
-	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	<cfquery name="raw" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select
 		flat.guid,
 		flat.collection,
 		flat.cat_num,
 		concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 		specimen_part.part_name,
+		specimen_part.collection_object_id partID,
 		p.barcode,
 		flat.began_date,
 		flat.ended_date,
@@ -15,7 +16,10 @@
 		flat.scientific_name,
 		specimen_part.part_modifier,
 		specimen_part.preserve_method,
-		accn.received_date
+		accn.received_date,
+		loan.loan_number,
+		trans.TRANS_DATE,
+		specimen_part.SAMPLED_FROM_OBJ_ID
 	from
 		#session.SpecSrchTab#,
 		flat,
@@ -24,7 +28,10 @@
 		specimen_part,
 		coll_obj_cont_hist,
 		container c,
-		container p
+		container p,
+		loan_item,
+		loan,
+		trans
 	where
 		#session.SpecSrchTab#.collection_object_id=cataloged_item.collection_object_id and
 		cataloged_item.collection_object_id=flat.collection_object_id and
@@ -32,13 +39,51 @@
 		cataloged_item.collection_object_id=specimen_part.derived_from_cat_item and
 		specimen_part.collection_object_id=coll_obj_cont_hist.collection_object_id and
 		coll_obj_cont_hist.container_id=c.container_id and
-		c.parent_container_id = p.container_id (+)
+		c.parent_container_id = p.container_id (+) and
+		specimen_part.collection_object_id=loan_item.collection_object_id (+) and
+		loan_item.transaction_id=loan.transaction_id (+) and
+		loan.transaction_id=trans.transaction_id (+)
 	order by
 		flat.collection,
 		flat.cat_num,
 		specimen_part.part_name,
 		specimen_part.part_modifier,
-		specimen_part.preserve_method
+		specimen_part.preserve_method,
+		loan_number
+</cfquery>
+<cfquery name="d" dbtype="query">
+	select
+		guid,
+		partID,
+		collection,
+		cat_num,
+		CustomID,
+		part_name,
+		barcode,
+		began_date,
+		ended_date,
+		verbatim_date,
+		scientific_name,
+		part_modifier,
+		preserve_method,
+		received_date,
+		SAMPLED_FROM_OBJ_ID
+	from raw group by
+		guid,
+		partID,
+		collection,
+		cat_num,
+		CustomID,
+		part_name,
+		barcode,
+		began_date,
+		ended_date,
+		verbatim_date,
+		scientific_name,
+		part_modifier,
+		preserve_method,
+		received_date,
+		SAMPLED_FROM_OBJ_ID
 </cfquery>
 
 <cfif action is "nothing">
@@ -56,6 +101,7 @@
 			<th>Modifier</th>
 			<th>Pres</th>
 			<th>InBarcode</th>
+			<th>Loan</th>
 		</tr>
 		<cfloop query="d">
 			<tr>
@@ -66,10 +112,37 @@
 				<td>#dateformat(ended_date,"dd mmm yyyy")#</td>
 				<td>#verbatim_date#</td>
 				<td>#dateformat(received_date,"dd mmm yyyy")#</td>
-				<td>#part_name#</td>
+				<td>
+					#part_name#
+					<cfif SAMPLED_FROM_OBJ_ID gt 0>
+						(subsample)
+					</cfif>
+				</td>
 				<td>#part_modifier#</td>
 				<td>#preserve_method#</td>
 				<td>#barcode#</td>
+				<cfquery name="l" dbtype="query">
+					select
+						loan_number,
+						TRANS_DATE
+					from
+						raw
+					where
+						partID=#partID#
+					group by
+						loan_number,
+						TRANS_DATE
+					order by
+						loan_number,
+						TRANS_DATE
+				</cfquery>
+				<td>
+					<cfset ll=''>
+					<cfloop query="l">
+						<cfset ll=listappend(ll,"#loan_number# (#dateformat(TRANS_DATE,'dd mon yyyy')#)",";")>
+					</cfloop>
+					#ll#
+				</td>
 			</tr>
 		</cfloop>
 	</table>

@@ -232,8 +232,7 @@
 		$('#refDiv_new').remove();
 		pickRefType('RefType_new','');
 		$("#info").text('');
-	}
-		
+	}	
 	function newArea() {
 		if($('#refDiv_new').length > 0){
 			alert('There is already a new TAG.');
@@ -249,20 +248,15 @@
 		var portH=portBot-portTop;
 		var h = portH/2;
 		var t = portTop + 50;
-		if (h > ih/2){
-			h=ih/2;
-		}
-		if (t+h > ih){
-			h=(ih-t)-60;	
-		}		
+		if (h > ih/2){h=ih/2;}
+		if (t+h > ih){h=(ih-t)-60;}		
 		addArea('new',t,l,h,w);	
 		$("#t_new").val(t);
 		$("#l_new").val(l);
 		$("#h_new").val(h);
 		$("#w_new").val(w);
 		setTimeout("modArea('new')",500);
-		//viewport.init("#new");
-		$("#info").html('Drag/resize the new red box on the image, pick a TAG and/or enter a comment, then click "create TAG," or <span class="likeLink" onclick="nevermindNew()">cancel</span>');
+		$("#info").html('Drag/resize the new red box on the image, pick a TAG and/or enter a comment, then click "create TAG" - or <span class="likeLink" onclick="nevermindNew()">cancel</span>');
 	}
 	function pickRefType(id,v){
 		var tagID=id.replace('RefType_','');
