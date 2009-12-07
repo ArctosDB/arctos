@@ -567,6 +567,7 @@
 	select column_name from user_tab_cols where table_name='BULKLOADER'
 	order by internal_column_id
 </cfquery>
+<!---
 <div style="background-color:##FFFFCC;">
 Roll yer own:
 <cfset columnList = "SPEC_LOCALITY,HIGHER_GEOG,ENTEREDBY,LOADED,ACCN,OTHER_ID_NUM_5">
@@ -597,6 +598,7 @@ Roll yer own:
 				onmouseout="this.className='savBtn'">
 </form>
 </div>
+---->
 <hr /><cfset ColNameList = valuelist(cNames.column_name)>
 <cfset ColNameList = replace(ColNameList,"COLLECTION_OBJECT_ID","","all")>
 <!---
@@ -619,6 +621,8 @@ Roll yer own:
 			<cfgridcolumn name="#thisName#">
 		</cfloop>
 	<cfinput type="submit" name="save" value="Save Changes In Grid">
+	<a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#&returnAction=viewTable">Mark all to load</a>
+
 	</cfgrid>
 </cfform>
 
