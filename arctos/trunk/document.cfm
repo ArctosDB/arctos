@@ -166,9 +166,9 @@ Nothing to see here yet. Documents are still at
 	
 	
 	<strong>#doc.mtitle#</strong>
-	<a href="document.cfm?action=pdf&mtitle=#mtitle#">PDF</a>
+	<a href="document.cfm?action=pdf&mtitle=#doc.mtitle#">PDF</a>
 	<form name="fn" method="post" action="document.cfm">
-		<input type="hidden" name="mtitle" value="#mtitle#">
+		<input type="hidden" name="mtitle" value="#doc.mtitle#">
 		<input type="hidden" name="action" value="show">
 		<table>
 			<tr>
