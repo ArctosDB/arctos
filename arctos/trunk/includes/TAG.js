@@ -23,6 +23,7 @@ $(document).ready(function () {
 	
 	jQuery("div .refDiv").live('click', function(e){
 		var tagID=this.id.replace('refDiv_','');
+		console.log('click@' + tagID);
 		//modArea(tagID);
 		$('#navDiv').scrollTo( $('#' + tagID), 800 );
 	});
