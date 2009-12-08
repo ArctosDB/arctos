@@ -16,15 +16,15 @@ $(document).ready(function () {
 	});
 	$("span[id^='scrollToTag_']").live('click', function(e){
 		var tagID='refDiv_' + this.id.replace('scrollToTag_','');
-		showScroll(tagID);
-		//$(document).scrollTo( $('#' + tagID), 800 );
+		scrollToTag(tagID);
+		//
 	});
 	
 	
 	
 	jQuery("div .refDiv").live('click', function(e){
 		var tagID=this.id.replace('refDiv_','');
-		showScroll(tagID);
+		scrollToLabel(tagID);
 	});
 	
 	
@@ -168,7 +168,7 @@ $(document).ready(function () {
 		);
 	}
 	
-	function showScroll(id) {
+	function scrollToLabel(id) {
 		var divID='refDiv_' + id;
 		var paneID='refPane_' + id;
 		// add editing classes to our 2 objects		
@@ -180,6 +180,20 @@ $(document).ready(function () {
 		$("#" + paneID).addClass('refPane_highlight');
 		$('#navDiv').scrollTo( $('#' + paneID), 800 );
 	}
+	
+	function scrollToTag(id) {
+		var divID='refDiv_' + id;
+		var paneID='refPane_' + id;
+		// add editing classes to our 2 objects		
+
+		$("div .highlight").removeClass("highlight").addClass("refDiv");
+		$("div .refPane_highlight").removeClass("refPane_highlight");
+		
+		$("#" + divID).removeClass("refDiv").addClass("highlight");
+		$("#" + paneID).addClass('refPane_highlight');
+		$(document).scrollTo( $('#' + tagID), 800 );	}
+	
+	
 	function modArea(id) {
 		var divID='refDiv_' + id;
 		var paneID='refPane_' + id;
