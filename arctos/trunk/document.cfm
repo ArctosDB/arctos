@@ -161,7 +161,7 @@ Nothing to see here yet. Documents are still at
 	<cfset maxPage=pg.npgs>
 	
 	
-	<cfset title=mtitle>
+	<cfset title=doc.mtitle>
 	
 	
 	
