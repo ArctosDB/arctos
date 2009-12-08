@@ -165,12 +165,18 @@ Nothing to see here yet. Documents are still at
 		<script language="JavaScript" src="/includes/jquery/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
 		<script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 		<script language="JavaScript" src="/includes/showTAG.js" type="text/javascript"></script>
+		
+		<div id="navDiv">
+		<a href="MediaSearch.cfm?action=search&media_id=#media_id#">Back to Media</a>
+		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
+			<br><a href="media.cfm?action=edit&media_id=#media_id#">Edit Media</a>
+			<br><a href="TAG.cfm?media_id=#media_id#">Edit TAGs</a>
+		</cfif>
+		<div id="editRefDiv"></div>
+	</div>
 	</cfif>
 	<div id="imgDiv">
-	<img src="#cpg.media_uri#" alt="This should be a field notebook page" id="theImage">
-	</div>
-	<div id="navDiv">
-		<div id="editRefDiv"></div>
+		<img src="#cpg.media_uri#" alt="This should be a field notebook page" id="theImage">
 	</div>
 </cfoutput>
 </cfif>
