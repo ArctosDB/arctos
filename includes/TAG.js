@@ -37,7 +37,6 @@ jQuery("span[id^='editRefClk_']").live('click', function(e){
 		d+='</div>';
 		
 		
-		/*
 		d+='<label for="RefType_' + id + '">TAG Type</label>';
 		d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="pickRefType(this.id,this.value);">';
 		d+='<option';
@@ -64,7 +63,6 @@ jQuery("span[id^='editRefClk_']").live('click', function(e){
 		d+='<input type="hidden" id="l_' + id + '" name="l_' + id + '" value="' + l + '">';
 		d+='<input type="hidden" id="h_' + id + '" name="h_' + id + '" value="' + h + '">';
 		d+='<input type="hidden" id="w_' + id + '" name="w_' + id + '" value="' + w + '">';
-		*/
 	
 	
 	*/
