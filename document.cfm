@@ -184,21 +184,28 @@ Nothing to see here yet. Documents are still at
 				<td>Page</td>
 				<td>
 					<cfif p gt 1>
+						<cfset pp=p-1>
+						<a class="infoLink" href="/document/#ttl#/#pp#">Previous</a>
+						<!---
 						<span class="infoLink" 
 							onclick="fn.p.value=fn.p.value-1;fn.submit();">Previous</span>
+							--->
 					</Cfif>
 				</td>
 				<td>
-					<select name="p" id="p" onchange="fn.submit();">
+					<select name="p" id="p" onchange="document.location=this.value">
 						<cfloop from="1" to="#maxPage#" index="pg">
-							<option <cfif pg is p> selected </cfif>value="#pg#">#pg#</option>
+							<option <cfif pg is p> selected="selected" </cfif>value="/document/#ttl#/#pg#">#pg#</option>
 						</cfloop>
 					</select>
 				</td>			
 				<td>
 					<cfif p lt maxPage>
-						<span class="infoLink" 
-							onclick="fn.p.value=parseInt(fn.p.value)+1;fn.submit();">Next</span>
+						<cfset np=p+1>
+						<a class="infoLink" href="/document/#ttl#/#np#">Next</a>
+						<!---<span class="infoLink" 
+							onclick="fn.p.value=parseInt(fn.p.value)+1;fn.submit();"></span>
+							--->
 					</Cfif>
 				</td>
 				<td> of #maxPage#</td>
