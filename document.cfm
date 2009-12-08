@@ -78,7 +78,7 @@ Nothing to see here yet. Documents are still at
 		<cflocation url="/document/#d.ttl#" addtoken="false">
 	<cfelse>
 		<cfloop query="d">
-			<a href="#/document/#d.ttl##">#label_value#</a><br>
+			<a href="/document/#ttl#">#label_value#</a><br>
 		</cfloop>	
 	</cfif>
 </cfoutput>
