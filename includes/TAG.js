@@ -16,14 +16,14 @@ $(document).ready(function () {
 	});
 	$("span[id^='scrollToTag_']").live('click', function(e){
 		var tagID='refDiv_' + this.id.replace('scrollToTag_','');
-		$(document).scrollTo( $('#' + tagID), 800 );
+		showScroll(tagID);
+		//$(document).scrollTo( $('#' + tagID), 800 );
 	});
 	
 	
 	
 	jQuery("div .refDiv").live('click', function(e){
 		var tagID=this.id.replace('refDiv_','');
-		console.log('click@' + tagID);
 		showScroll(tagID);
 	});
 	
@@ -57,7 +57,7 @@ $(document).ready(function () {
 	jQuery("div[class^='refPane_']").live('click', function(e){
 		var tagID=this.id.replace('refPane_','');
 
-		showScroll(tagID);
+		//showScroll(tagID);
 		//modArea(tagID);
 	});
 	
