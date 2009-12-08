@@ -31,6 +31,29 @@
 <cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
 	<cfoutput>
 	we have cgi.REDIRECT_URL: #cgi.REDIRECT_URL#
+	<cfset rdurl=cgi.REDIRECT_URL>
+	<cfif rdurl contains chr(195) & chr(151)>
+		<cfset rdurl=replace(rdurl,chr(195) & chr(151),chr(215))>
+	</cfif>
+	<br>rdurl: #rdurl#
+	<cfset gPos=listfindnocase(rdurl,"document","/")>
+	
+	<br>gPos: #gPos#
+	<cftry>
+		<cfset ttl = listgetat(rdurl,gPos+1,"/")>
+		<cfcatch>
+			fail@can't get title
+		</cfcatch>
+	</cftry>
+	<cftry>
+		<cfset p=listgetat(rdurl,gPos+2,"/")>
+		<cfcatch>
+			<cfset p=1>
+		</cfcatch>
+	</cftry>	
+			
+	<br>ttl:#ttl#
+	<br>p:#p#
 	</cfoutput>
 </cfif>
 Nothing to see here yet. Documents are still at 
