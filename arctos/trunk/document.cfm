@@ -153,7 +153,10 @@ Nothing to see here yet. Documents are still at
 	<cfquery name="cpg" dbtype="query">
 		select media_uri from doc where page=#showPage#
 	</cfquery>
+	<div id="imgDiv">
 	<img src="#cpg.media_uri#" alt="This should be a field notebook page">
+	</div>
+	<div id="navDiv"></div>
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
