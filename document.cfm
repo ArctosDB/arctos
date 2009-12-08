@@ -159,63 +159,37 @@ Nothing to see here yet. Documents are still at
 		select max(page) npgs from doc
 	</cfquery>
 	<cfset maxPage=pg.npgs>
-	
-	
 	<cfset title=doc.mtitle>
-	
-	
-	
 	<strong>#doc.mtitle#</strong>
-	<script>
-		function pageJump(){
-			var tt=document.getElementById('ttl').value;
-			var p=document.getElementById('p').value;
-			//document.location="/document/" + ttl + "/" + p;
-			console.log("/document/" + ttl + "/" + p);
-			return false;	
-		}
-	</script>
 	<a href="document.cfm?action=pdf&mtitle=#doc.mtitle#">PDF</a>
-	<form name="fn" method="post" onsubmit="pageJump()">
-		<input type="hidden" name="ttl" id="ttl" value="#ttl#">
-		<input type="hidden" name="action" value="show">
-		<table>
-			<tr>
-				<td>Page</td>
-				<td>
-					<cfif p gt 1>
-						<cfset pp=p-1>
-						<a class="infoLink" href="/document/#ttl#/#pp#">Previous</a>
-						<!---
-						<span class="infoLink" 
-							onclick="fn.p.value=fn.p.value-1;fn.submit();">Previous</span>
-							--->
-					</Cfif>
-				</td>
-				<td>
-					<select name="p" id="p" onchange="document.location=this.value">
-						<cfloop from="1" to="#maxPage#" index="pg">
-							<option <cfif pg is p> selected="selected" </cfif>value="/document/#ttl#/#pg#">#pg#</option>
-						</cfloop>
-					</select>
-				</td>			
-				<td>
-					<cfif p lt maxPage>
-						<cfset np=p+1>
-						<a class="infoLink" href="/document/#ttl#/#np#">Next</a>
-						<!---<span class="infoLink" 
-							onclick="fn.p.value=parseInt(fn.p.value)+1;fn.submit();"></span>
-							--->
-					</Cfif>
-				</td>
-				<td> of #maxPage#</td>
-			</tr>
-		</table>
-	</form>
+	<table>
+		<tr>
+			<td>Page</td>
+			<td>
+				<cfif p gt 1>
+					<cfset pp=p-1>
+					<a class="infoLink" href="/document/#ttl#/#pp#">Previous</a>
+				</Cfif>
+			</td>
+			<td>
+				<select name="p" id="p" onchange="document.location=this.value">
+					<cfloop from="1" to="#maxPage#" index="pg">
+						<option <cfif pg is p> selected="selected" </cfif>value="/document/#ttl#/#pg#">#pg#</option>
+					</cfloop>
+				</select>
+			</td>			
+			<td>
+				<cfif p lt maxPage>
+					<cfset np=p+1>
+					<a class="infoLink" href="/document/#ttl#/#np#">Next</a>
+				</Cfif>
+			</td>
+			<td> of #maxPage#</td>
+		</tr>
+	</table>
 	<cfquery name="cpg" dbtype="query">
 		select media_uri,media_id from doc where page=#p#
 	</cfquery>
-	<cfdump var=#cpg#>
 	 <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) n from tag where media_id=#cpg.media_id#
 	</cfquery>
