@@ -44,9 +44,6 @@
 			<cfset oneLine = "">
 			<cfloop list="#valuelist(cNames.column_name)#" index="c">
 				<cfset thisData = #evaluate(c)#>
-				<cfif c is "BEGAN_DATE" or c is "ENDED_DATE">
-					<cfset thisData=dateformat(thisData,"dd-mmm-yyyy")>
-				</cfif>
 				<cfif len(oneLine) is 0>
 					<cfset oneLine = '"#thisData#"'>
 				<cfelse>
@@ -664,7 +661,7 @@ Roll yer own:
 		</cfloop>
 	<cfinput type="submit" name="save" value="Save Changes In Grid">
 	<a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#&returnAction=viewTable">Mark all to load</a>
-
+	<a href="browseBulk.cfm?action=download&enteredby=#enteredby#&accn=#accn#">Download CSV</a>
 	</cfgrid>
 </cfform>
 
