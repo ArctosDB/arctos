@@ -54,7 +54,34 @@ Nothing to see here yet. Documents are still at
 <a href="http://bscit.berkeley.edu/mvz/volumes.html" target="_blank">http://bscit.berkeley.edu/mvz/volumes.html</a>.
  <hr>
 <cfif action is 'srchResult'>
-	<cfdump var=#form#>
+<cfoutput >
+	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select
+			label_value,
+			niceURLNumbers(label_value) ttl
+		from
+			media_labels,
+			media
+		where
+			media.media_id=media_labels.media_id and
+			media_type='multi-page document' and 
+			media_label='title'
+		<cfif isdefined("mtitle") and len(mtitle) gt 0>
+			and label_value='#mtitle#'
+		</cfif>
+		group by
+			label_value
+	</cfquery>
+	<cfif d.recordcount is 0>
+		Nothing matched your query.
+	<cfelseif d.recordcount is 1>
+		<cflocation url="/document/#d.ttl#" addtoken="false">
+	<cfelse>
+		<cfloop query="d">
+			<a href="#/document/#d.ttl##">#label_value#</a><br>
+		</cfloop>	
+	</cfif>
+</cfoutput>
 </cfif>
 <cfif action is 'nothing'>
 	<cfset title='Document Viewer'>
