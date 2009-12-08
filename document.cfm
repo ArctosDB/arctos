@@ -24,6 +24,7 @@ Nothing to see here yet. Documents are still at
 <a href="http://bscit.berkeley.edu/mvz/volumes.html" target="_blank">http://bscit.berkeley.edu/mvz/volumes.html</a>.
  <hr>
 <cfif action is 'nothing'>
+	<cfset title='Document Viewer'>
 <cfoutput>
 	<cfquery name="titles" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
@@ -93,6 +94,7 @@ Nothing to see here yet. Documents are still at
 <!------------------------------->
 <cfif action is 'show'>
 <cfoutput>
+	<cfset title=mtitle>
 	<cfif not isdefined("showPage")>
 		<cfset showPage=1>
 	</cfif>
