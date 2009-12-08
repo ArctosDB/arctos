@@ -28,7 +28,11 @@
 		</cfif>
 	</cfoutput>
 </cfif>
-
+<cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
+	<cfoutput>
+	we have cgi.REDIRECT_URL: #cgi.REDIRECT_URL#
+	</cfoutput>
+</cfif>
 Nothing to see here yet. Documents are still at 
 <a href="http://bscit.berkeley.edu/mvz/volumes.html" target="_blank">http://bscit.berkeley.edu/mvz/volumes.html</a>.
  <hr>

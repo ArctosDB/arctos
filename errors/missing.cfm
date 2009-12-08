@@ -19,7 +19,6 @@
 		<cfoutput>
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"document","/")>
-			gPos---#gPos#
 			<cftry>
 				<cfset ttl = listgetat(rdurl,gPos+1,"/")>
 				<cfcatch></cfcatch>
