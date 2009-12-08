@@ -167,7 +167,7 @@ Nothing to see here yet. Documents are still at
 		<script language="JavaScript" src="/includes/showTAG.js" type="text/javascript"></script>
 	</cfif>
 	<div id="imgDiv">
-	<img src="#cpg.media_uri#" alt="This should be a field notebook page">
+	<img src="#cpg.media_uri#" alt="This should be a field notebook page" id="theImage">
 	</div>
 	<div id="navDiv"></div>
 </cfoutput>
