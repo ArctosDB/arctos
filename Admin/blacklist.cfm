@@ -17,10 +17,15 @@
 	</cfloop>
 </cfif>
 <cfif action is "ins">
+	<cftry>
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		insert into uam.blacklist (ip) values ('#trim(ip)#')
 	</cfquery>
 	<cflocation url="/Admin/blacklist.cfm">
+	<cfcatch>
+		<cfdump var=#cftry#>
+	</cfcatch>
+	</cftry>
 </cfif>
 <cfif action is "del">
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
