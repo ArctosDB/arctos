@@ -55,9 +55,9 @@ jQuery("span[id^='editRefClk_']").live('click', function(e){
 	}
 	d+=' value="agent">Agent</option>';
 	d+='</select>';
-	d+='<label for="RefStr_' + id + '">Reference';
+	d+='<label for="RefStr_' + tagID + '">Reference';
 	if(RefLink){
-		d+='&nbsp;&nbsp;&nbsp;<a href="' + reflink + '" target="_blank">[ Click for details ]</a>';
+		d+='&nbsp;&nbsp;&nbsp;<a href="' + RefLink + '" target="_blank">[ Click for details ]</a>';
 	}
 	d+='</label>';
 	d+='<input type="text" id="RefStr_' + tagID + '" name="RefStr_' + tagID + '" value="' + RefStr + '" size="50">';
