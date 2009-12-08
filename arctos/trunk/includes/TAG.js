@@ -12,6 +12,12 @@ $.fn.getImg2Tag = function(src, f){
 
 jQuery("span[id^='editRefClk_']").live('click', function(e){
 	console.log('clicked ' + this.id);
+	
+	$.each($("span[id^='editRefClk_']"), function() {
+	      $("#" + this).hide();
+    });
+
+	editRefClk_41
 	var tagID=this.id.replace('editRefClk_','');
 	// get values out of hiddens that we'll change later
 	var RefType=$('#RefType_' + tagID).val();
