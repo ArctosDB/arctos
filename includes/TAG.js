@@ -191,7 +191,7 @@ $(document).ready(function () {
 		
 		$("#" + divID).removeClass("refDiv").addClass("highlight");
 		$("#" + paneID).addClass('refPane_highlight');
-		$(document).scrollTo( $('#' + tagID), 800 );	}
+		$(document).scrollTo( $('#' + divID), 800 );	}
 	
 	
 	function modArea(id) {
