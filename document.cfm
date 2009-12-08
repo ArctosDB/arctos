@@ -166,9 +166,16 @@ Nothing to see here yet. Documents are still at
 	
 	
 	<strong>#doc.mtitle#</strong>
+	<script>
+		function pageJump(){
+			var tt=document.getElementById('ttl').value;
+			var p=document.getElementById('p').value;
+			document.location="/document/" + ttl + "/" + p;				
+		}
+	</script>
 	<a href="document.cfm?action=pdf&mtitle=#doc.mtitle#">PDF</a>
-	<form name="fn" method="post" action="document.cfm">
-		<input type="hidden" name="mtitle" value="#doc.mtitle#">
+	<form name="fn" method="post" onsubmit="pageJump()">
+		<input type="hidden" name="ttl" id="ttl" value="#ttl#">
 		<input type="hidden" name="action" value="show">
 		<table>
 			<tr>
