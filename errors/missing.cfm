@@ -16,6 +16,7 @@
 			</cfcatch>
 		</cftry>
 	<cfelseif listfindnocase(rdurl,'document',"/")>
+		<cfoutput>
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"document","/")>
 			gPos---#gPos#
@@ -34,7 +35,8 @@
 				<cfinclude template="/errors/404.cfm">
 				--->
 			</cfcatch>
-		</cftry>		
+		</cftry>
+		</cfoutput>	
 	<cfelseif listfindnocase(rdurl,'guid',"/")>
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"guid","/")>
