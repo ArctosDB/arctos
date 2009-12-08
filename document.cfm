@@ -152,14 +152,14 @@ Nothing to see here yet. Documents are still at
 		</table>
 	</form>
 	<cfquery name="cpg" dbtype="query">
-		select media_uri from doc where page=#showPage#
+		select media_uri,media_id from doc where page=#showPage#
 	</cfquery>
 	 <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select count(*) n from tag where media_id=#doc.media_id#
+		select count(*) n from tag where media_id=#cpg.media_id#
 	</cfquery>
 	<cfif tag.n gt 0>
-		<input type="hidden" id="media_id" value="#doc.media_id#">		
-		<input type="hidden" id="imgURL" value="#doc.media_uri#">
+		<input type="hidden" id="media_id" value="#cpg.media_id#">		
+		<input type="hidden" id="imgURL" value="#cpg.media_uri#">
 		<script language="JavaScript" src="/includes/jquery/jquery.imgareaselect.pack.js" type="text/javascript"></script>
 		<link rel="stylesheet" type="text/css" href="/includes/jquery/css/imgareaselect-default.css">
 		<link rel="stylesheet" type="text/css" href="/includes/jquery/css/ui-lightness/jquery-ui-1.7.2.custom.css">
@@ -171,7 +171,7 @@ Nothing to see here yet. Documents are still at
 			<script language="JavaScript" src="/includes/showTAG.js" type="text/javascript"></script>
 		</cfif>		
 		<div id="navDiv">
-		<a href="MediaSearch.cfm?action=search&media_id=#doc.media_id#">Back to Media</a>
+		<a href="MediaSearch.cfm?action=search&media_id=#cpg.media_id#">Back to Media</a>
 		<div id="info"></div>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 			<form name="f">
@@ -206,7 +206,7 @@ Nothing to see here yet. Documents are still at
 		<input type="hidden" name="imgH" id="imgH">
 		<input type="hidden" name="imgW" id="imgW">
 		<div id="editRefDiv"></div>
-		<input type="hidden" id="media_id" name="media_id" value="#doc.media_id#">
+		<input type="hidden" id="media_id" name="media_id" value="#cpg.media_id#">
 		<input type="hidden" name="action" value="fd">
 		<input type="submit" value="save all">
 		</form>
