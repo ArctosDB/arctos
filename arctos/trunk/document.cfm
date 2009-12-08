@@ -29,16 +29,11 @@
 	</cfoutput>
 </cfif>
 <cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
-	<cfoutput>
-	we have cgi.REDIRECT_URL: #cgi.REDIRECT_URL#
 	<cfset rdurl=cgi.REDIRECT_URL>
 	<cfif rdurl contains chr(195) & chr(151)>
 		<cfset rdurl=replace(rdurl,chr(195) & chr(151),chr(215))>
 	</cfif>
-	<br>rdurl: #rdurl#
 	<cfset gPos=listfindnocase(rdurl,"document","/")>
-	
-	<br>gPos: #gPos#
 	<cftry>
 		<cfset ttl = listgetat(rdurl,gPos+1,"/")>
 		<cfcatch>
@@ -51,14 +46,9 @@
 			<cfset p=1>
 		</cfcatch>
 	</cftry>	
-			
-	<br>ttl:#ttl#
-	<br>p:#p#
-	
 	<cfif action is not "pdf">
 		<cfset action="show">
 	</cfif>
-	</cfoutput>
 </cfif>
 Nothing to see here yet. Documents are still at 
 <a href="http://bscit.berkeley.edu/mvz/volumes.html" target="_blank">http://bscit.berkeley.edu/mvz/volumes.html</a>.
@@ -108,7 +98,7 @@ Nothing to see here yet. Documents are still at
 			title.media_label='title' and
 			page.media_label='page' and
 			media_type='multi-page document' and 
-			title.label_value='#mtitle#'
+			niceURLNumbers(title.label_value)='#ttl#'
 		order by
 			to_number(page.label_value)			
 	</cfquery>
