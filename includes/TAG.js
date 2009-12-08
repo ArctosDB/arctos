@@ -28,7 +28,7 @@ function saveTagEdit(id){
 			queryformat : 'column'
 		},
 		function (r) {
-			$("#info").text(r);
+			$("#info").text('saved Ithink.....');
 		}
 	);
 }
