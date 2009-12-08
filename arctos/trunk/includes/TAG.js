@@ -14,7 +14,7 @@ jQuery("span[id^='editRefClk_']").live('click', function(e){
 	console.log('clicked ' + this.id);
 	
 	$.each($("span[id^='editRefClk_']"), function() {
-	      $("#" + this).hide();
+	      console.log($("#" + this));
     });
 
 	editRefClk_41
