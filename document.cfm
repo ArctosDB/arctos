@@ -54,6 +54,10 @@
 			
 	<br>ttl:#ttl#
 	<br>p:#p#
+	
+	<cfif action is not "pdf">
+		<cfset action="show">
+	</cfif>
 	</cfoutput>
 </cfif>
 Nothing to see here yet. Documents are still at 
