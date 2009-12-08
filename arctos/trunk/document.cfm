@@ -153,6 +153,17 @@ Nothing to see here yet. Documents are still at
 	<cfquery name="cpg" dbtype="query">
 		select media_uri from doc where page=#showPage#
 	</cfquery>
+	 <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select count(*) n from tag where media_id=#media_id#
+	</cfquery>
+	<cfif tag.n gt 0>
+		<script language="JavaScript" src="/includes/jquery/jquery.imgareaselect.pack.js" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="/includes/jquery/css/imgareaselect-default.css">
+		<link rel="stylesheet" type="text/css" href="/includes/jquery/css/ui-lightness/jquery-ui-1.7.2.custom.css">
+		<script language="JavaScript" src="/includes/jquery/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+		<script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
+		<script language="JavaScript" src="/includes/showTAG.js" type="text/javascript"></script>
+	</cfif>
 	<div id="imgDiv">
 	<img src="#cpg.media_uri#" alt="This should be a field notebook page">
 	</div>
