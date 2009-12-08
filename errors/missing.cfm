@@ -20,18 +20,26 @@
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"document","/")>
 			gPos---#gPos#
-			<cfif listgetat(rdurl,gPos+1,"/")>
+			<cftry>
 				<cfset ttl = listgetat(rdurl,gPos+1,"/")>
-			</cfif>
+				<cfcatch></cfcatch>
+			</cftry>
+			<cftry>
+				<cfset p=listgetat(rdurl,gPos+2,"/")>
+				<cfcatch></cfcatch>
+			</cftry>
+			
+			<cfinclude template="/document.cfm">
+			<cfcatch>
+				<cfdump var=#cfcatch#>
+				<!---
+				
+				
 			<cfif listgetat(rdurl,gPos+2,"/")>
 				<cfset p=listgetat(rdurl,gPos+2,"/")>
 			<cfelse>
 				<cfset p=1>
 			</cfif>
-			<cfinclude template="/document.cfm">
-			<cfcatch>
-				<cfdump var=#cfcatch#>
-				<!---
 				<cfinclude template="/errors/404.cfm">
 				--->
 			</cfcatch>
