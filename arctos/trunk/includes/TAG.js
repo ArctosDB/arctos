@@ -18,10 +18,20 @@ $(document).ready(function () {
 		var tagID='refDiv_' + this.id.replace('scrollToTag_','');
 		$(document).scrollTo( $('#' + tagID), 800 );
 	});
+	
+	
+	
 	jQuery("div .refDiv").live('click', function(e){
 		var tagID=this.id.replace('refDiv_','');
-		modArea(tagID);
+		//modArea(tagID);
+		$('#navDiv').scrollTo( $('#' + tagID), 800 );
 	});
+	
+	
+	
+	
+	
+	
 	$("span[id^='killRefClk_']").live('click', function(e){
 		var tagID=this.id.replace('killRefClk_','');
 		var str = confirm("Are you sure you want to delete this TAG?");
