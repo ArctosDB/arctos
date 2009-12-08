@@ -171,7 +171,8 @@ Nothing to see here yet. Documents are still at
 			var tt=document.getElementById('ttl').value;
 			var p=document.getElementById('p').value;
 			//document.location="/document/" + ttl + "/" + p;
-			console.log("/document/" + ttl + "/" + p);		
+			console.log("/document/" + ttl + "/" + p);
+			return false;	
 		}
 	</script>
 	<a href="document.cfm?action=pdf&mtitle=#doc.mtitle#">PDF</a>
