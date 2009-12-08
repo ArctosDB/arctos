@@ -7,7 +7,15 @@
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 
 <script language="JavaScript" src="/includes/TAG.js" type="text/javascript"></script>
-
+<style>
+.highlight {
+	border:2px solid yellow;
+	z-index:300;
+}
+.refPane_highlight {
+	border:3px solid yellow;
+}
+</style>
 <cfoutput>
 	<cfset title="TAG Images">
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">

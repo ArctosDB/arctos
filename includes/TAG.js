@@ -170,8 +170,12 @@ $(document).ready(function () {
 		var divID='refDiv_' + id;
 		var paneID='refPane_' + id;
 		// add editing classes to our 2 objects		
-		$("#" + divID).removeClass("refDiv").addClass("editing");
-		$("#" + paneID).addClass('refPane_editing');
+
+		$("div .highlight").removeClass("highlight").addClass("refDiv");
+		$("div .refPane_highlight").removeClass("refPane_highlight");
+		
+		$("#" + divID).removeClass("refDiv").addClass("highlight");
+		$("#" + paneID).addClass('refPane_highlight');
 		$('#navDiv').scrollTo( $('#' + paneID), 800 );
 	}
 	function modArea(id) {
