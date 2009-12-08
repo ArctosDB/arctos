@@ -1,5 +1,4 @@
 <cfinclude template="/includes/_header.cfm">
-<cfdump var=#action#>
 <cfif isdefined("media_id") and media_id gt 0>
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
@@ -59,7 +58,8 @@ Nothing to see here yet. Documents are still at
 <cfoutput>
 	<cfquery name="titles" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
-			label_value
+			label_value,
+			media.media_id
 		from
 			media_labels,
 			media
@@ -73,12 +73,12 @@ Nothing to see here yet. Documents are still at
 	<form name="g" method="post" action="document.cfm">
 		<input type="hidden" name="action" value="show">
 		<label for="mtitle">Title</label>
-		<select name="mtitle" id="mtitle" size="1">
+		<select name="media_id" id="media_id" size="1">
 			<cfloop query="titles">
-				<option value="#label_value#">#label_value#</option>
+				<option value="#media_id#">#label_value#</option>
 			</cfloop>
 		</select>
-		<input type="submit">
+		<input type="submit" class="lnkBtn" value="Go">
 	</form>
 </cfoutput>
 </cfif>
