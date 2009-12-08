@@ -165,15 +165,50 @@ Nothing to see here yet. Documents are still at
 		<script language="JavaScript" src="/includes/jquery/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
 		<script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-		
+			<script language="JavaScript" src="/includes/TAG.js" type="text/javascript"></script>
 		<cfelse>
 			<script language="JavaScript" src="/includes/showTAG.js" type="text/javascript"></script>
 		</cfif>		
 		<div id="navDiv">
 		<a href="MediaSearch.cfm?action=search&media_id=#doc.media_id#">Back to Media</a>
+		<div id="info"></div>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-			<br><a href="media.cfm?action=edit&media_id=#doc.media_id#">Edit Media</a>
-			<br><a href="TAG.cfm?media_id=#doc.media_id#">Edit TAGs</a>
+			<form name="f">
+			<label for="RefType_new">Create TAG type....</label>
+			<div id="newRefCell" class="newRec">
+			<select id="RefType_new" name="RefType_new" onchange="pickRefType(this.id,this.value);">
+				<option value=""></option>
+				<option value="comment">Comment Only</option>
+				<option value="cataloged_item">Cataloged Item</option>
+				<option value="collecting_event">Collecting Event</option>
+				<option value="locality">Locality</option>
+				<option value="agent">Agent</option>
+			</select>
+			<span id="newRefHidden" style="display:none">
+				<label for="RefStr_new">Reference</label>
+				<input type="text" id="RefStr_new" name="RefStr_new" size="50">
+				<input type="hidden" id="RefId_new" name="RefId_new">
+				<label for="Remark_new">Remark</label>
+				<input type="text" id="Remark_new" name="Remark_new" size="50">
+				<input type="hidden" id="t_new">
+				<input type="hidden" id="l_new">
+				<input type="hidden" id="h_new">
+				<input type="hidden" id="w_new">
+				<br>
+				<input type="button" id="newRefBtn" value="create TAG">
+			</span>
+			</div>
+		</form>
+		<hr>
+		<form name="ef" method="post" action="TAG.cfm">
+		<input type="submit" value="save all">
+		<input type="hidden" name="imgH" id="imgH">
+		<input type="hidden" name="imgW" id="imgW">
+		<div id="editRefDiv"></div>
+		<input type="hidden" id="media_id" name="media_id" value="#c.media_id#">
+		<input type="hidden" name="action" value="fd">
+		<input type="submit" value="save all">
+		</form>
 		</cfif>
 		<div id="editRefDiv"></div>
 	</div>
