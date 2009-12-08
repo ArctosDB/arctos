@@ -25,7 +25,7 @@ jQuery("span[id^='editRefClk_']").live('click', function(e){
 	$('#RefId_' + tagID).remove();
 	$('#RefLink_' + tagID).remove();
 	$('#Remark_' + tagID).remove();
-	
+	$('#tagDetails_' + tagID).html('');
 	
 	
 	console.log('editing reftype ' + RefType);
@@ -370,7 +370,7 @@ $(document).ready(function () {
 		if(remark){
 			d+='<br>Remark: ' + remark;
 		}
-		
+		d+='</div>';
 		d+='<input type="hidden" id="RefType_' + id + '" name="RefType_' + id + '" value="' + reftype + '">';
 		d+='<input type="hidden" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + refStr + '">';
 		d+='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + refId + '">';
@@ -383,7 +383,7 @@ $(document).ready(function () {
 		
 		
 		
-		d+='</div>';
+		
 		
 		
 		/*
