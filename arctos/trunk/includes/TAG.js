@@ -28,9 +28,9 @@ function saveTagEdit(id){
 			queryformat : 'column'
 		},
 		function (r) {
-			console.log(substr.r(0,4));
+			console.log(r.substr(0,4));
 			
-			if (substr.r(0,4)=='fail:'){
+			if (r.substr(0,4)=='fail:'){
 				$("#info").text(r);
 			} else {
 				$("#info").text('happy');
@@ -43,11 +43,9 @@ jQuery("span[id^='editRefClk_']").live('click', function(e){
 	console.log('clicked ' + this.id);
 	// hide all edit links
 	$.each($("div[id^='refControl_']"), function() {
-	      console.log(this.id);
 	      $("#" + this.id).hide();
     });
 
-	//editRefClk_41
 	var tagID=this.id.replace('editRefClk_','');
 	// get values out of hiddens that we'll change later
 	var RefType=$('#RefType_' + tagID).val();
