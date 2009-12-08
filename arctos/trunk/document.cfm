@@ -152,7 +152,7 @@ Nothing to see here yet. Documents are still at
 	<cfset maxPage=pg.npgs>
 	<cfset title=doc.mtitle>
 	<strong>#doc.mtitle#</strong>
-	<a href="/document.cfm?action=pdf&mtitle=#doc.mtitle#">PDF</a>
+	<a href="/document/#ttl#?action=pdf">PDF</a>
 	<table>
 		<tr>
 			<td>Page</td>
