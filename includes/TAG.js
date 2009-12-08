@@ -13,7 +13,7 @@ $.fn.getImg2Tag = function(src, f){
 jQuery("span[id^='editRefClk_']").live('click', function(e){
 	console.log('clicked ' + this.id);
 	// hide all edit links
-	$.each($("span[id^='editRefClk_']"), function() {
+	$.each($("div[id^='refControl_']"), function() {
 	      console.log(this.id);
 	      $("#" + this.id).hide();
     });
@@ -376,13 +376,15 @@ $(document).ready(function () {
 		if (remark==null){remark='';}
 		var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
 		
-		
-		d+='<div id="tagDetails_' + id + '">';
-		
-		
+		d+='<div id="refControl_' + id + '">';
 		d+='<span class="likeLink" id="editRefClk_' + id + '">Edit TAG</span>';
 		d+=' ~ <span class="likeLink" id="killRefClk_' + id + '">Delete TAG</span>';
 		d+=' ~ <span class="likeLink" id="scrollToTag_' + id + '">Scroll to TAG</span>';
+		
+		d+='</div>';
+		d+='<div id="tagDetails_' + id + '">';
+		
+		
 		
 		
 		
