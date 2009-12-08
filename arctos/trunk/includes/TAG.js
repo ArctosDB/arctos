@@ -48,6 +48,11 @@ $(document).ready(function () {
 		var tagID=this.id.replace('refPane_','');
 		modArea(tagID);
 	});
+	jQuery("input[id^='RefStr_']").live('click', function(e){
+		console.log('clicked ' + e);
+	});
+	
+	
 		$("#newRefBtn").click(function(e){
 			if ($("#t_new").val().length==0 || $("#l_new").val().length==0 || $("#h_new").val().length==0 || $("#w_new").val().length==0) {
 				alert('You must have a TAG.');
