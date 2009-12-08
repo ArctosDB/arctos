@@ -100,7 +100,8 @@ Nothing to see here yet. Documents are still at
 		select 
 			media_uri,
 			title.label_value mtitle,
-			to_number(page.label_value) page
+			to_number(page.label_value) page,
+			media.media_id
 		from
 			media,
 			media_labels title,
@@ -154,7 +155,7 @@ Nothing to see here yet. Documents are still at
 		select media_uri from doc where page=#showPage#
 	</cfquery>
 	 <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select count(*) n from tag where media_id=#media_id#
+		select count(*) n from tag where media_id=#doc.media_id#
 	</cfquery>
 	<cfif tag.n gt 0>
 		<script language="JavaScript" src="/includes/jquery/jquery.imgareaselect.pack.js" type="text/javascript"></script>
