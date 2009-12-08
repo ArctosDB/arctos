@@ -24,8 +24,7 @@ $(document).ready(function () {
 	jQuery("div .refDiv").live('click', function(e){
 		var tagID=this.id.replace('refDiv_','');
 		console.log('click@' + tagID);
-		//modArea(tagID);
-		$('#navDiv').scrollTo( $('#' + tagID), 800 );
+		showScroll(tagID);
 	});
 	
 	
@@ -58,9 +57,6 @@ $(document).ready(function () {
 	jQuery("div[class^='refPane_']").live('click', function(e){
 		var tagID=this.id.replace('refPane_','');
 		modArea(tagID);
-	});
-	jQuery("input[id^='RefStr_']").live('click', function(e){
-		console.log('clicked ' + e);
 	});
 	
 	
@@ -168,6 +164,15 @@ $(document).ready(function () {
 				}
 			}
 		);
+	}
+	
+	function showScroll(id) {
+		var divID='refDiv_' + id;
+		var paneID='refPane_' + id;
+		// add editing classes to our 2 objects		
+		$("#" + divID).removeClass("refDiv").addClass("editing");
+		$("#" + paneID).addClass('refPane_editing');
+		$('#navDiv').scrollTo( $('#' + paneID), 800 );
 	}
 	function modArea(id) {
 		var divID='refDiv_' + id;
