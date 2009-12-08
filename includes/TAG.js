@@ -15,9 +15,10 @@ jQuery("span[id^='editRefClk_']").live('click', function(e){
 	
 	$.each($("span[id^='editRefClk_']"), function() {
 	      console.log(this.id);
+	      $("#" + this.id).hide();
     });
 
-	editRefClk_41
+	//editRefClk_41
 	var tagID=this.id.replace('editRefClk_','');
 	// get values out of hiddens that we'll change later
 	var RefType=$('#RefType_' + tagID).val();
