@@ -14,7 +14,9 @@
 			t.media_label='title'
 	</cfquery>
 	<cfoutput>
-		document.cfm?action=show&showpage=#r.pg#&mtitle=#r.ttl#
+		<cfif r.pg gt 0 and len(r.ttl) gt 0>
+			<cflocation url="/document.cfm?action=show&showpage=#r.pg#&mtitle=#r.ttl#" addtoken="false">
+		</cfif>
 	</cfoutput>
 </cfif>
 
