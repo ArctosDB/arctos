@@ -19,6 +19,8 @@
 			<cfheader name="Location" value="/document/#r.ttl#/#r.pg#">
 			<!---
 			<cflocation url="/document.cfm?action=show&showpage=#r.pg#&mtitle=#r.ttl#" addtoken="false">
+			<cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
+
 			---->
 		<cfelse>
 			fail
@@ -26,7 +28,6 @@
 		</cfif>
 	</cfoutput>
 </cfif>
-<cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
 
 Nothing to see here yet. Documents are still at 
 <a href="http://bscit.berkeley.edu/mvz/volumes.html" target="_blank">http://bscit.berkeley.edu/mvz/volumes.html</a>.
