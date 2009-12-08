@@ -114,8 +114,7 @@ Nothing to see here yet. Documents are still at
 			 <cfpdfparam source="#thisName#">
 		</cfloop> 
 	</cfpdf>
-	<cfset fname = replace(mtitle, " ", "_", "ALL") />
-	<cfset fname = REReplace(fname, "[^a-zA-Z0-9-_]", "", "ALL") />
+	<cfset fname = ttl>
 	<cfset filePath="#application.webDirectory#/temp/#fname#.pdf"> 
 	<cffile action="write" file="#filePath#" output="#toBinary(mergedpdf)#">
 	<cfheader name="Content-Disposition" value="attachment; filename=#getFileFromPath(filePath)#">
