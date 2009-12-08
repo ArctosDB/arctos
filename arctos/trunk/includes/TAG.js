@@ -62,6 +62,17 @@ $(document).ready(function () {
 		//modArea(tagID);
 	});
 	
+	jQuery("span[id^='editRefClk_']").live('click', function(e){
+		console.log('clicked ' + this.id);
+		//var tagID=this.id.replace('refPane_','');
+
+		//showScroll(tagID);
+		//modArea(tagID);
+	});
+	
+	
+	
+	
 	
 		$("#newRefBtn").click(function(e){
 			if ($("#t_new").val().length==0 || $("#l_new").val().length==0 || $("#h_new").val().length==0 || $("#w_new").val().length==0) {
