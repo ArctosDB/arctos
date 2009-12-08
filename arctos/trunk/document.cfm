@@ -181,8 +181,8 @@ Nothing to see here yet. Documents are still at
 				</td>
 				<td>
 					<select name="p" id="p" onchange="fn.submit();">
-						<cfloop from="1" to="#maxPage#" index="p">
-							<option <cfif p is p> selected </cfif>value="#p#">#p#</option>
+						<cfloop from="1" to="#maxPage#" index="pg">
+							<option <cfif pg is p> selected </cfif>value="#pg#">#pg#</option>
 						</cfloop>
 					</select>
 				</td>			
