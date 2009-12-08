@@ -1,53 +1,53 @@
 $.fn.getImg2Tag = function(src, f){
-		return this.each(function(){
-			var i = new Image();
-			i.src = src;
-			i.onload = f;
-			i.id='theImage';
-			$("#imgDiv").html('');
-			this.appendChild(i);
-		});
-	}	
-	$(document).ready(function () {		
-		$('#imgDiv').getImg2Tag($("#imgURL").val(),function() {
-			$("#imgH").val($('#theImage').height());
-			$("#imgW").val($('#theImage').width());
-			loadInitial();	
-		});
-		$("span[id^='scrollToTag_']").live('click', function(e){
-			var tagID='refDiv_' + this.id.replace('scrollToTag_','');
-			$(document).scrollTo( $('#' + tagID), 800 );
-		});
-		jQuery("div .refDiv").live('click', function(e){
-			var tagID=this.id.replace('refDiv_','');
-			modArea(tagID);
-		});
-		$("span[id^='killRefClk_']").live('click', function(e){
-			var tagID=this.id.replace('killRefClk_','');
-			var str = confirm("Are you sure you want to delete this TAG?");
-			if (str) {
-				jQuery.getJSON("/component/tag.cfc",
-					{
-						method : "deleteTag",
-						tag_id : tagID,
-						returnformat : "json",
-						queryformat : 'column'
-					},
-					function (r) {
-						if (r=='success') {
-							$("#refDiv_" + tagID).remove();
-							$("#refPane_" + tagID).remove();
-						} else {
-							alert('Error deleting TAG: ' + r);
-						}
+	return this.each(function(){
+		var i = new Image();
+		i.src = src;
+		i.onload = f;
+		i.id='theImage';
+		$("#imgDiv").html('');
+		this.appendChild(i);
+	});
+}	
+$(document).ready(function () {		
+	$('#imgDiv').getImg2Tag($("#imgURL").val(),function() {
+		$("#imgH").val($('#theImage').height());
+		$("#imgW").val($('#theImage').width());
+		loadInitial();	
+	});
+	$("span[id^='scrollToTag_']").live('click', function(e){
+		var tagID='refDiv_' + this.id.replace('scrollToTag_','');
+		$(document).scrollTo( $('#' + tagID), 800 );
+	});
+	jQuery("div .refDiv").live('click', function(e){
+		var tagID=this.id.replace('refDiv_','');
+		modArea(tagID);
+	});
+	$("span[id^='killRefClk_']").live('click', function(e){
+		var tagID=this.id.replace('killRefClk_','');
+		var str = confirm("Are you sure you want to delete this TAG?");
+		if (str) {
+			jQuery.getJSON("/component/tag.cfc",
+				{
+					method : "deleteTag",
+					tag_id : tagID,
+					returnformat : "json",
+					queryformat : 'column'
+				},
+				function (r) {
+					if (r=='success') {
+						$("#refDiv_" + tagID).remove();
+						$("#refPane_" + tagID).remove();
+					} else {
+						alert('Error deleting TAG: ' + r);
 					}
-				);
-			}
-		});
-		jQuery("div[class^='refPane_']").live('click', function(e){
-			var tagID=this.id.replace('refPane_','');
-			modArea(tagID);
-		});
+				}
+			);
+		}
+	});
+	jQuery("div[class^='refPane_']").live('click', function(e){
+		var tagID=this.id.replace('refPane_','');
+		modArea(tagID);
+	});
 		$("#newRefBtn").click(function(e){
 			if ($("#t_new").val().length==0 || $("#l_new").val().length==0 || $("#h_new").val().length==0 || $("#w_new").val().length==0) {
 				alert('You must have a TAG.');

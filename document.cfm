@@ -158,7 +158,8 @@ Nothing to see here yet. Documents are still at
 		select count(*) n from tag where media_id=#doc.media_id#
 	</cfquery>
 	<cfif tag.n gt 0>
-		<input type="hidden" id="media_id" value="#doc.media_id#">
+		<input type="hidden" id="media_id" value="#doc.media_id#">		
+		<input type="hidden" id="imgURL" value="#doc.media_uri#">
 		<script language="JavaScript" src="/includes/jquery/jquery.imgareaselect.pack.js" type="text/javascript"></script>
 		<link rel="stylesheet" type="text/css" href="/includes/jquery/css/imgareaselect-default.css">
 		<link rel="stylesheet" type="text/css" href="/includes/jquery/css/ui-lightness/jquery-ui-1.7.2.custom.css">
