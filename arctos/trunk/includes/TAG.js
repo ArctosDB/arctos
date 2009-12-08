@@ -28,7 +28,7 @@ jQuery("span[id^='editRefClk_']").live('click', function(e){
 	
 	
 	var d='<label for="RefType_' + tagID + '">TAG Type</label>';
-	d+='<select id="RefType_' + tagID + '" name="RefType_' + id + '" onchange="pickRefType(this.id,this.value);">';
+	d+='<select id="RefType_' + tagID + '" name="RefType_' + tagID + '" onchange="pickRefType(this.id,this.value);">';
 	d+='<option';
 	if (RefType=='comment'){
 		d+=' selected="selected"';
