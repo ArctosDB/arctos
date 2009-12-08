@@ -15,6 +15,19 @@ jQuery("span[id^='editRefClk_']").live('click', function(e){
 	var tagID=this.id.replace('editRefClk_','');
 	// get values out of hiddens that we'll change later
 	var RefType=$('#RefType_' + tagID).val();
+	var RefStr=$('#RefStr_' + tagID).val();
+	var RefId=$('#RefId_' + tagID).val();
+	var RefLink=$('#RefLink_' + tagID).val();
+	var Remark=$('#Remark_' + tagID).val();
+	// remove hiddens
+	$('#RefType_' + tagID).remove();
+	$('#RefStr_' + tagID).remove();
+	$('#RefId_' + tagID).remove();
+	$('#RefLink_' + tagID).remove();
+	$('#Remark_' + tagID).remove();
+	
+	
+	
 	console.log('editing reftype ' + RefType);
 	
 	
