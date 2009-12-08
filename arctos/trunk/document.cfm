@@ -11,7 +11,7 @@
 			p.media_id=#media_id# and
 			p.media_label='page' and
 			t.media_id=#media_id# and
-			t.media_label='title' and
+			t.media_label='title'
 	</cfquery>
 	<cfoutput>
 		document.cfm?action=show&showpage=#r.pg#&mtitle=#r.ttl#
