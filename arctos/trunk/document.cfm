@@ -68,7 +68,8 @@ Nothing to see here yet. Documents are still at
 			media_type='multi-page document' and 
 			media_label='title'
 		group by
-			label_value
+			label_value,
+			media.media_id
 	</cfquery>
 	<form name="g" method="post" action="document.cfm">
 		<input type="hidden" name="action" value="show">
