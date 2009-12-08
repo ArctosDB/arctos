@@ -1,5 +1,22 @@
 <cfinclude template="/includes/_header.cfm">
-
+<cfif isdefined("media_id") and media_id gt 0>
+	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select 
+			p.label_value pg,
+			t.label_value ttl
+		from
+			media_labels p,
+			media_labels t
+		where
+			p.media_id=#media_id# and
+			p.media_label='page' and
+			t.media_id=#media_id# and
+			t.media_label='title' and
+	</cfquery>
+	<cfoutput>
+		document.cfm?action=show&showpage=#r.pg#&mtitle=#r.ttl#
+	</cfoutput>
+</cfif>
 
 Nothing to see here yet. Documents are still at 
 <a href="http://bscit.berkeley.edu/mvz/volumes.html" target="_blank">http://bscit.berkeley.edu/mvz/volumes.html</a>.
