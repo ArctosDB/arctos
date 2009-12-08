@@ -27,8 +27,8 @@ jQuery("span[id^='editRefClk_']").live('click', function(e){
 	$('#Remark_' + tagID).remove();
 	
 	
-	var d='<label for="RefType_' + id + '">TAG Type</label>';
-	d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="pickRefType(this.id,this.value);">';
+	var d='<label for="RefType_' + tagID + '">TAG Type</label>';
+	d+='<select id="RefType_' + tagID + '" name="RefType_' + id + '" onchange="pickRefType(this.id,this.value);">';
 	d+='<option';
 	if (RefType=='comment'){
 		d+=' selected="selected"';
@@ -60,10 +60,10 @@ jQuery("span[id^='editRefClk_']").live('click', function(e){
 		d+='&nbsp;&nbsp;&nbsp;<a href="' + reflink + '" target="_blank">[ Click for details ]</a>';
 	}
 	d+='</label>';
-	d+='<input type="text" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + RefStr + '" size="50">';
-	d+='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + RefId + '">';
+	d+='<input type="text" id="RefStr_' + id + '" name="RefStr_' + tagID + '" value="' + RefStr + '" size="50">';
+	d+='<input type="hidden" id="RefId_' + id + '" name="RefId_' + tagID + '" value="' + RefId + '">';
 	d+='<label for="Remark_' + id + '">Remark</label>';
-	d+='<input type="text" id="Remark_' + id + '" name="Remark_' + id + '" value="' + Remark + '" size="50">';
+	d+='<input type="text" id="Remark_' + id + '" name="Remark_' + tagID + '" value="' + Remark + '" size="50">';
 	
 	$('#tagDetails_' + tagID).html(d);
 	
