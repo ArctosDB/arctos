@@ -177,7 +177,7 @@
 				select count(*) n from tag where media_id=#media_id#
 			</cfquery>
 			<br>
-			<cfif findIDs.recorcount gt 1>
+			<cfif findIDs.recordcount gt 1>
 				<a href="/media/#media_id#">[ details ]</a>
 			</cfif>
 			<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
