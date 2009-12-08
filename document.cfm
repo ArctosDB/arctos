@@ -199,6 +199,7 @@ Nothing to see here yet. Documents are still at
 	<cfquery name="cpg" dbtype="query">
 		select media_uri,media_id from doc where page=#p#
 	</cfquery>
+	<cfdump var=#cpg#>
 	 <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) n from tag where media_id=#cpg.media_id#
 	</cfquery>
