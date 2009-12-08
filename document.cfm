@@ -169,7 +169,9 @@ Nothing to see here yet. Documents are still at
 	<div id="imgDiv">
 	<img src="#cpg.media_uri#" alt="This should be a field notebook page" id="theImage">
 	</div>
-	<div id="navDiv"></div>
+	<div id="navDiv">
+		<div id="editRefDiv"></div>
+	</div>
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
