@@ -56,7 +56,9 @@ $(document).ready(function () {
 	});
 	jQuery("div[class^='refPane_']").live('click', function(e){
 		var tagID=this.id.replace('refPane_','');
-		modArea(tagID);
+
+		showScroll(tagID);
+		//modArea(tagID);
 	});
 	
 	
