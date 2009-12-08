@@ -3,7 +3,7 @@
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			p.label_value pg,
-			niceURL(t.label_value) ttl
+			niceURL2(t.label_value) ttl
 		from
 			media_labels p,
 			media_labels t
