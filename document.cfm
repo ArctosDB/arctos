@@ -3,7 +3,7 @@
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			p.label_value pg,
-			t.label_value ttl
+			niceURL(t.label_value) ttl
 		from
 			media_labels p,
 			media_labels t
@@ -15,7 +15,11 @@
 	</cfquery>
 	<cfoutput>
 		<cfif r.pg gt 0 and len(r.ttl) gt 0>
+			<cfheader statuscode="301" statustext="Moved permanently">
+			<cfheader name="Location" value="/document/#ttl#/#pg#">
+			<!---
 			<cflocation url="/document.cfm?action=show&showpage=#r.pg#&mtitle=#r.ttl#" addtoken="false">
+			---->
 		</cfif>
 	</cfoutput>
 </cfif>

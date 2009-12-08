@@ -1,9 +1,3 @@
-<!--- 
-	requires httpd.conf to contain ErrorDocument 404 /errors/missing.cfm 
-	Allows accepting URLs of the formats:
-	 .../bla/whatever/specimen/{institution}/{collection}/{catnum}
-	 .../bla/whatever/guid/{institution}:{collection}:{catnum}
---->
 <cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
 	<cfset rdurl=cgi.REDIRECT_URL>
 	<cfif rdurl contains chr(195) & chr(151)>
@@ -21,6 +15,23 @@
 				<cfinclude template="/errors/404.cfm">
 			</cfcatch>
 		</cftry>
+	<cfelseif listfindnocase(rdurl,'document',"/")>
+		<cftry>
+			<cfset gPos=listfindnocase(rdurl,"document","/")>
+			<cfset ttl = listgetat(rdurl,gPos+1,"/")>
+			<cfif listgetat(rdurl,gPos+2,"/")>
+				<cfset p=listgetat(rdurl,gPos+2,"/")>
+			<cfelse>
+				<cfset p=1>
+			</cfif>
+			<cfinclude template="/document.cfm">
+			<cfcatch>
+				<cfdump var=#cfcatch#>
+				<!---
+				<cfinclude template="/errors/404.cfm">
+				--->
+			</cfcatch>
+		</cftry>		
 	<cfelseif listfindnocase(rdurl,'guid',"/")>
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"guid","/")>
