@@ -28,9 +28,9 @@ function saveTagEdit(id){
 			queryformat : 'column'
 		},
 		function (r) {
-			console.log(r.substr(0,4));
+			console.log(r.substr(0,5));
 			
-			if (r.substr(0,4)=='fail:'){
+			if (r.substr(0,5)=='fail:'){
 				$("#info").text(r);
 			} else {
 				$("#info").text('happy');
