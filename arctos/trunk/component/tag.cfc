@@ -40,6 +40,68 @@
 		<cfreturn />
 	</cfif>
 </cffunction>
+
+
+
+<!--------------------------------------->
+<cffunction name="saveEdit" access="remote">
+	<cfargument name="tag_id" required="yes">
+	<cfargument name="reftype" required="yes">
+	<cfargument name="remark" required="yes">
+	<cfargument name="refid" required="yes">
+	<cfargument name="reftop" required="yes">
+	<cfargument name="refleft" required="yes">
+	<cfargument name="refh" required="yes">
+	<cfargument name="refw" required="yes">
+	<cfargument name="imgh" required="yes">
+	<cfargument name="imgw" required="yes">
+	<cfinclude template="/includes/functionLib.cfm">
+	<cfoutput>
+	<cftry>
+		<cftransaction>
+			<cfquery name="reset" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				update tag set
+					collection_object_id=NULL,
+					collecting_event_id=NULL,
+					locality_id=NULL,
+					agent_id=NULL,
+					remark=NULL
+				where
+					tag_id=#tag_id#
+			</cfquery>
+
+			<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				update tag set
+					reftop=#reftop#,
+					refleft=#refleft#,
+					refh=#refh#,
+					refw=#refw#,
+					imgh=#imgh#,
+					imgw=#imgw#
+					<cfif reftype is "cataloged_item">
+						,collection_object_id=#refid#
+					<cfelseif reftype is "collecting_event">
+						,collecting_event_id=#refid#
+					<cfelseif reftype is "locality">
+						,locality_id=#refid#
+					<cfelseif reftype is "agent">
+						,agent_id=#refid#
+					</cfif>
+					<cfif len(remark) gt 0>
+						,remark='#escapeQuotes(remark)#'
+					</cfif>
+				where
+					tag_id=#tag_id#
+			</cfquery>
+			<cfset rx=getTagReln(tag_id)>
+			<cfreturn rx>
+		</cftransaction>
+	<cfcatch>
+		<cfreturn "fail: #cfcatch.message# #cfcatch.detail# #cfcatch.sql#">
+	</cfcatch>
+	</cftry>	
+	</cfoutput>
+</cffunction>
 <!--------------------------------------->
 <cffunction name="newRef" access="remote">
 	<cfargument name="media_id" required="yes">

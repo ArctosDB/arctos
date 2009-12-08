@@ -9,7 +9,28 @@ $.fn.getImg2Tag = function(src, f){
 	});
 }	
 function saveTagEdit(id){
-	console.log(id);
+
+	$("#info").text('saving....');
+	jQuery.getJSON("/component/tag.cfc",
+		{
+			method : "saveEdit",
+			tag_id : id,
+			reftype: $('#RefType_' + id).val(),
+			refid : $('#RefId_' + id).val(),
+			remark: $('#Remark_' + id).val(),
+			reftop: $('#t_' + id).val(),
+			refleft: $('#l_' + id).val(),
+			refh: $('#h_' + id).val(),
+			refw: $('#w_' + id).val(),
+			imgh: $("#imgH").val(),
+			imgw: $("#imgW").val(),
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (r) {
+			$("#info").text(r);
+		}
+	);
 }
 
 jQuery("span[id^='editRefClk_']").live('click', function(e){
