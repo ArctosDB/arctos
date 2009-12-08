@@ -8,7 +8,9 @@ $.fn.getImg2Tag = function(src, f){
 		this.appendChild(i);
 	});
 }	
-
+function saveTagEdit(id){
+	console.log(id);
+}
 
 jQuery("span[id^='editRefClk_']").live('click', function(e){
 	console.log('clicked ' + this.id);
@@ -34,7 +36,7 @@ jQuery("span[id^='editRefClk_']").live('click', function(e){
 	$('#Remark_' + tagID).remove();
 	
 	
-	var d='save edits ~ cancel'; 
+	var d='<span class="likeLink" onclick="saveTagEdit(' + tagID + ')">save edits</span> ~ cancel'; 
 	d+='<br><label for="RefType_' + tagID + '">TAG Type</label>';
 	d+='<select id="RefType_' + tagID + '" name="RefType_' + tagID + '" onchange="pickRefType(this.id,this.value);">';
 	d+='<option';
