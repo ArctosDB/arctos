@@ -167,10 +167,10 @@ Nothing to see here yet. Documents are still at
 		<script language="JavaScript" src="/includes/showTAG.js" type="text/javascript"></script>
 		
 		<div id="navDiv">
-		<a href="MediaSearch.cfm?action=search&media_id=#media_id#">Back to Media</a>
+		<a href="MediaSearch.cfm?action=search&media_id=#doc.media_id#">Back to Media</a>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-			<br><a href="media.cfm?action=edit&media_id=#media_id#">Edit Media</a>
-			<br><a href="TAG.cfm?media_id=#media_id#">Edit TAGs</a>
+			<br><a href="media.cfm?action=edit&media_id=#doc.media_id#">Edit Media</a>
+			<br><a href="TAG.cfm?media_id=#doc.media_id#">Edit TAGs</a>
 		</cfif>
 		<div id="editRefDiv"></div>
 	</div>
