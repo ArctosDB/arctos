@@ -184,6 +184,7 @@ $(document).ready(function () {
 	function scrollToTag(id) {
 		var divID='refDiv_' + id;
 		var paneID='refPane_' + id;
+		console.log('divID=' + divID + ';paneID='+paneID);
 		// add editing classes to our 2 objects		
 
 		$("div .highlight").removeClass("highlight").addClass("refDiv");
@@ -191,6 +192,7 @@ $(document).ready(function () {
 		
 		$("#" + divID).removeClass("refDiv").addClass("highlight");
 		$("#" + paneID).addClass('refPane_highlight');
+		
 		$(document).scrollTo( $('#' + divID), 800 );	}
 	
 	
