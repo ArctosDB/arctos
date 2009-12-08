@@ -191,6 +191,22 @@ $(document).ready(function () {
 		d+=' ~ <span class="likeLink" id="killRefClk_' + id + '">Delete TAG</span>';
 		d+=' ~ <span class="likeLink" id="scrollToTag_' + id + '">Scroll to TAG</span>';
 		
+		d+='<div id="tagDetails_' + id + '">';
+		d+='TAG Type: ' + reftype;
+		d+='<br>Reference: ';
+		if(reflink){
+			d+='<a href="' + reflink + '" target="_blank">' + refStr + '</a>';
+		} else {
+			d+=reflink;
+		}
+		if(remark){
+			d+='<br>Remark: ' + remark;
+		}
+		
+		d+='</div>';
+		
+		
+		/*
 		d+='<label for="RefType_' + id + '">TAG Type</label>';
 		d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="pickRefType(this.id,this.value);">';
 		d+='<option';
@@ -217,6 +233,7 @@ $(document).ready(function () {
 		d+='<input type="hidden" id="l_' + id + '" name="l_' + id + '" value="' + l + '">';
 		d+='<input type="hidden" id="h_' + id + '" name="h_' + id + '" value="' + h + '">';
 		d+='<input type="hidden" id="w_' + id + '" name="w_' + id + '" value="' + w + '">';
+		*/
 		d+='</div>';
 		$("#editRefDiv").append(d);
 		if (reftype=='comment'){
