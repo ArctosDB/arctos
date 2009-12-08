@@ -180,6 +180,9 @@
 			<cfif findIDs.recordcount gt 1>
 				<a href="/media/#media_id#">[ details ]</a>
 			</cfif>
+			<cfif media_type is "multi-page document">
+				<a href="/document.cfm?media_id=#media_id#">[ document ]</a>
+			</cfif>
 			<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 		        ~ <a href="/media.cfm?action=edit&media_id=#media_id#">[ edit media ]</a>
 		        ~ <a href="/TAG.cfm?media_id=#media_id#">[ add or edit TAGs ]</a>
