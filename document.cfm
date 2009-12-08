@@ -134,10 +134,7 @@ Nothing to see here yet. Documents are still at
 <!------------------------------->
 <cfif action is 'show'>
 <cfoutput>
-	<cfset title=mtitle>
-	<cfif not isdefined("showPage")>
-		<cfset showPage=1>
-	</cfif>
+	
 	<cfquery name="doc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			media_uri,
@@ -154,7 +151,7 @@ Nothing to see here yet. Documents are still at
 			title.media_label='title' and
 			page.media_label='page' and
 			media_type='multi-page document' and 
-			title.label_value='#mtitle#'
+			niceURLNumbers(title.label_value)='#ttl#'
 		order by
 			to_number(page.label_value)			
 	</cfquery>
@@ -162,7 +159,13 @@ Nothing to see here yet. Documents are still at
 		select max(page) npgs from doc
 	</cfquery>
 	<cfset maxPage=pg.npgs>
-	<strong>#mtitle#</strong>
+	
+	
+	<cfset title=mtitle>
+	
+	
+	
+	<strong>#doc.mtitle#</strong>
 	<a href="document.cfm?action=pdf&mtitle=#mtitle#">PDF</a>
 	<form name="fn" method="post" action="document.cfm">
 		<input type="hidden" name="mtitle" value="#mtitle#">
@@ -171,22 +174,22 @@ Nothing to see here yet. Documents are still at
 			<tr>
 				<td>Page</td>
 				<td>
-					<cfif showPage gt 1>
+					<cfif p gt 1>
 						<span class="infoLink" 
-							onclick="fn.showPage.value=fn.showPage.value-1;fn.submit();">Previous</span>
+							onclick="fn.p.value=fn.p.value-1;fn.submit();">Previous</span>
 					</Cfif>
 				</td>
 				<td>
-					<select name="showPage" id="showPage" onchange="fn.submit();">
+					<select name="p" id="p" onchange="fn.submit();">
 						<cfloop from="1" to="#maxPage#" index="p">
-							<option <cfif p is showPage> selected </cfif>value="#p#">#p#</option>
+							<option <cfif p is p> selected </cfif>value="#p#">#p#</option>
 						</cfloop>
 					</select>
 				</td>			
 				<td>
-					<cfif showPage lt maxPage>
+					<cfif p lt maxPage>
 						<span class="infoLink" 
-							onclick="fn.showPage.value=parseInt(fn.showPage.value)+1;fn.submit();">Next</span>
+							onclick="fn.p.value=parseInt(fn.p.value)+1;fn.submit();">Next</span>
 					</Cfif>
 				</td>
 				<td> of #maxPage#</td>
@@ -194,7 +197,7 @@ Nothing to see here yet. Documents are still at
 		</table>
 	</form>
 	<cfquery name="cpg" dbtype="query">
-		select media_uri,media_id from doc where page=#showPage#
+		select media_uri,media_id from doc where page=#p#
 	</cfquery>
 	 <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) n from tag where media_id=#cpg.media_id#
