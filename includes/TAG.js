@@ -375,11 +375,17 @@ $(document).ready(function () {
 		if (refStr==null){refStr='';}
 		if (remark==null){remark='';}
 		var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
+		
+		
+		d+='<div id="tagDetails_' + id + '">';
+		
+		
 		d+='<span class="likeLink" id="editRefClk_' + id + '">Edit TAG</span>';
 		d+=' ~ <span class="likeLink" id="killRefClk_' + id + '">Delete TAG</span>';
 		d+=' ~ <span class="likeLink" id="scrollToTag_' + id + '">Scroll to TAG</span>';
 		
-		d+='<div id="tagDetails_' + id + '">';
+		
+		
 		d+='TAG Type: ' + reftype;
 		d+='<br>Reference: ';
 		if(reflink){
