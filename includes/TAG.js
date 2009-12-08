@@ -16,7 +16,7 @@ $(document).ready(function () {
 	});
 	$("span[id^='scrollToTag_']").live('click', function(e){
 		var tagID='refDiv_' + this.id.replace('scrollToTag_','');
-		console.log('scrollong to ' + tagID);
+		console.log('id: ' + this.id + ' scrollong to ' + tagID);
 		scrollToTag(tagID);
 		//
 	});
