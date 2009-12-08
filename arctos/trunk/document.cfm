@@ -16,10 +16,13 @@
 	<cfoutput>
 		<cfif r.pg gt 0 and len(r.ttl) gt 0>
 			<cfheader statuscode="301" statustext="Moved permanently">
-			<cfheader name="Location" value="/document/#ttl#/#pg#">
+			<cfheader name="Location" value="/document/#r.ttl#/#r.pg#">
 			<!---
 			<cflocation url="/document.cfm?action=show&showpage=#r.pg#&mtitle=#r.ttl#" addtoken="false">
 			---->
+		<cfelse>
+			fail
+			<cfabort>
 		</cfif>
 	</cfoutput>
 </cfif>
