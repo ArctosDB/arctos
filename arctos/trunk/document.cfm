@@ -53,13 +53,15 @@
 Nothing to see here yet. Documents are still at 
 <a href="http://bscit.berkeley.edu/mvz/volumes.html" target="_blank">http://bscit.berkeley.edu/mvz/volumes.html</a>.
  <hr>
+<cfif action is 'srchResult'>
+	<cfdump var=#form#>
+</cfif>
 <cfif action is 'nothing'>
 	<cfset title='Document Viewer'>
 <cfoutput>
 	<cfquery name="titles" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select
-			label_value,
-			media.media_id
+			label_value
 		from
 			media_labels,
 			media
@@ -68,15 +70,14 @@ Nothing to see here yet. Documents are still at
 			media_type='multi-page document' and 
 			media_label='title'
 		group by
-			label_value,
-			media.media_id
+			label_value
 	</cfquery>
 	<form name="g" method="post" action="document.cfm">
-		<input type="hidden" name="action" value="show">
+		<input type="hidden" name="action" value="srchResult">
 		<label for="mtitle">Title</label>
-		<select name="media_id" id="media_id" size="1">
+		<select name="mtitle" id="mtitle" size="1">
 			<cfloop query="titles">
-				<option value="#media_id#">#label_value#</option>
+				<option value="#label_value#">#label_value#</option>
 			</cfloop>
 		</select>
 		<input type="submit" class="lnkBtn" value="Go">
