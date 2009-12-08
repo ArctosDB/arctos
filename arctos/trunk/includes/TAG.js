@@ -25,8 +25,47 @@ jQuery("span[id^='editRefClk_']").live('click', function(e){
 	$('#RefId_' + tagID).remove();
 	$('#RefLink_' + tagID).remove();
 	$('#Remark_' + tagID).remove();
-	$('#tagDetails_' + tagID).html('');
 	
+	
+	var d='<label for="RefType_' + id + '">TAG Type</label>';
+	d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="pickRefType(this.id,this.value);">';
+	d+='<option';
+	if (RefType=='comment'){
+		d+=' selected="selected"';
+	}
+	d+=' value="comment">Comment Only</option>';
+	d+='<option';
+	if (RefType=='cataloged_item'){
+		d+=' selected="selected"';
+	}
+	d+=' value="cataloged_item">Cataloged Item</option>';
+	d+='<option';
+	if (RefType=='collecting_event'){
+		d+=' selected="selected"';
+	}
+	d+=' value="collecting_event">Collecting Event</option>';
+	d+='<option';
+	if (RefType=='locality'){
+		d+=' selected="selected"';
+	}
+	d+=' value="locality">Locality</option>';
+	d+='<option';
+	if (RefType=='agent'){
+		d+=' selected="selected"';
+	}
+	d+=' value="agent">Agent</option>';
+	d+='</select>';
+	d+='<label for="RefStr_' + id + '">Reference';
+	if(RefLink){
+		d+='&nbsp;&nbsp;&nbsp;<a href="' + reflink + '" target="_blank">[ Click for details ]</a>';
+	}
+	d+='</label>';
+	d+='<input type="text" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + RefStr + '" size="50">';
+	d+='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + RefId + '">';
+	d+='<label for="Remark_' + id + '">Remark</label>';
+	d+='<input type="text" id="Remark_' + id + '" name="Remark_' + id + '" value="' + Remark + '" size="50">';
+	
+	$('#tagDetails_' + tagID).html(d);
 	
 	console.log('editing reftype ' + RefType);
 	
@@ -47,34 +86,7 @@ jQuery("span[id^='editRefClk_']").live('click', function(e){
 	 * 
 	 * 
 	 * 
-	 * d+='<label for="RefType_' + id + '">TAG Type</label>';
-	d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="pickRefType(this.id,this.value);">';
-	d+='<option';
-	if (reftype=='comment'){d+=' selected="selected"';}
-	d+=' value="comment">Comment Only</option>';
-	d+='<option';
-	if (reftype=='cataloged_item'){d+=' selected="selected"';}
-	d+=' value="cataloged_item">Cataloged Item</option>';
-	d+='<option';if (reftype=='collecting_event'){d+=' selected="selected"';}
-	d+=' value="collecting_event">Collecting Event</option>';
-	d+='<option';if (reftype=='locality'){d+=' selected="selected"';}
-	d+=' value="locality">Locality</option>';
-	d+='<option';if (reftype=='agent'){d+=' selected="selected"';}
-	d+=' value="agent">Agent</option>';
-	d+='</select>';
-	d+='<label for="RefStr_' + id + '">Reference';
-	if(reflink){d+='&nbsp;&nbsp;&nbsp;<a href="' + reflink + '" target="_blank">[ Click for details ]</a>';}
-	d+='</label>';
-	d+='<input type="text" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + refStr + '" size="50">';
-	d+='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + refId + '">';
-	d+='<label for="Remark_' + id + '">Remark</label>';
-	d+='<input type="text" id="Remark_' + id + '" name="Remark_' + id + '" value="' + remark + '" size="50">';
-	d+='<input type="hidden" id="t_' + id + '" name="t_' + id + '" value="' + t + '">';
-	d+='<input type="hidden" id="l_' + id + '" name="l_' + id + '" value="' + l + '">';
-	d+='<input type="hidden" id="h_' + id + '" name="h_' + id + '" value="' + h + '">';
-	d+='<input type="hidden" id="w_' + id + '" name="w_' + id + '" value="' + w + '">'
-	
-	
+	 * 
 	
 	
 	 * 
