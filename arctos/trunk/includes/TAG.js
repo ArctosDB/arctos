@@ -28,7 +28,13 @@ function saveTagEdit(id){
 			queryformat : 'column'
 		},
 		function (r) {
-			$("#info").text('saved Ithink.....');
+			console.log(substr.r(0,4));
+			
+			if (substr.r(0,4)=='fail:'){
+				$("#info").text(r);
+			} else {
+				$("#info").text('happy');
+			}
 		}
 	);
 }
