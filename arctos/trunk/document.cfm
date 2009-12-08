@@ -1,4 +1,5 @@
 <cfinclude template="/includes/_header.cfm">
+<cfdump var=#action#>
 <cfif isdefined("media_id") and media_id gt 0>
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
