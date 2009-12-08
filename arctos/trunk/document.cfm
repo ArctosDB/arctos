@@ -164,8 +164,11 @@ Nothing to see here yet. Documents are still at
 		<link rel="stylesheet" type="text/css" href="/includes/jquery/css/ui-lightness/jquery-ui-1.7.2.custom.css">
 		<script language="JavaScript" src="/includes/jquery/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
 		<script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
-		<script language="JavaScript" src="/includes/showTAG.js" type="text/javascript"></script>
+		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 		
+		<cfelse>
+			<script language="JavaScript" src="/includes/showTAG.js" type="text/javascript"></script>
+		</cfif>		
 		<div id="navDiv">
 		<a href="MediaSearch.cfm?action=search&media_id=#doc.media_id#">Back to Media</a>
 		<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
