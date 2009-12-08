@@ -18,7 +18,9 @@
 	<cfelseif listfindnocase(rdurl,'document',"/")>
 		<cftry>
 			<cfset gPos=listfindnocase(rdurl,"document","/")>
-			<cfset ttl = listgetat(rdurl,gPos+1,"/")>
+			<cfif listgetat(rdurl,gPos+1,"/")>
+				<cfset ttl = listgetat(rdurl,gPos+1,"/")>
+			</cfif>
 			<cfif listgetat(rdurl,gPos+2,"/")>
 				<cfset p=listgetat(rdurl,gPos+2,"/")>
 			<cfelse>

@@ -3,7 +3,7 @@
 	<cfquery name="r" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			p.label_value pg,
-			niceURL2(t.label_value) ttl
+			niceURLNumbers(t.label_value) ttl
 		from
 			media_labels p,
 			media_labels t
@@ -26,6 +26,7 @@
 		</cfif>
 	</cfoutput>
 </cfif>
+<cfif isdefined("cgi.REDIRECT_URL") and len(cgi.REDIRECT_URL) gt 0>
 
 Nothing to see here yet. Documents are still at 
 <a href="http://bscit.berkeley.edu/mvz/volumes.html" target="_blank">http://bscit.berkeley.edu/mvz/volumes.html</a>.
