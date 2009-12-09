@@ -11,7 +11,7 @@ $.fn.getImg2Tag = function(src, f){
 	
 function loadTAG(mid,muri){
 	console.log('loading');
-	$("imgDiv").text('Loading image and tags.....');
+	$("imgDiv").html('Loading image and tags.....');
 	var d='<div id="navDiv"><div id="info"></div>';
 	d+='<a href="/media/' + mid + '">Back to Media</a>';	
 	d+='</div>';
@@ -23,8 +23,13 @@ function loadTAG(mid,muri){
 		$("#imgW").val($('#theImage').width());
 		loadInitial();	
 	});
+	
+	console.log('going to loadInitial');
 }
 function loadInitial(){
+	
+	console.log('at to loadInitial');
+
 	jQuery.getJSON("/component/tag.cfc",
 		{
 			method : "getTags",
