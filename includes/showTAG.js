@@ -63,7 +63,7 @@ function loadInitial(){
 			}
 		);
 }
-*/
+
 jQuery(document).ready(function () { 
 		jQuery("div .refDiv").live('mouseover', function(e){
 			var tagID=this.id.replace('refDiv_','');
@@ -85,6 +85,7 @@ jQuery(document).ready(function () {
 			$(document).scrollTo( $('#' + tagID), 800 );
 		});
 	});
+*/
 	function addArea(id,t,l,h,w) {
 		var dv='<div id="refDiv_' + id + '" class=refDiv style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
 		$("#imgDiv").append(dv);
