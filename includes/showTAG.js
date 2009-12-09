@@ -17,6 +17,7 @@ function loadTAG(mid,muri){
 	d+='<a href="/media/' + mid + '">Back to Media</a>';
 	d+='<form name="f"><input type="hidden" id="imgURL" value="' + muri + '">';
 	d+='<input type="hidden" id="media_id" name="media_id" value="' + mid + '"></form>';
+	d+='<div id="editRefDiv"></div>';
 	d+='</div>';
 	$('body').append(d);
 	
