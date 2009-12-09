@@ -10,6 +10,7 @@ $.fn.getImg2Tag = function(src, f){
 }
 
 function loadTAG(mid,muri){
+	console.log('loading....');
 	var d='<div id="imgDiv">Loading image and tags.....</div>';
 	$(document).append(d);
 	var d='<div id="navDiv"><div id="info"></div></div>';
