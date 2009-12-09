@@ -7,7 +7,6 @@
 <script language="JavaScript" src="/includes/showTAG.js" type="text/javascript"></script>
 
 <cfoutput>
-	<input type="hidden" id="media_id" value="#media_id#">
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from media where media_id=#media_id#
 	</cfquery>
@@ -16,7 +15,12 @@
 		<cfabort>
 	</cfif>
 	
-	<!---<div id="imgDiv">
+	<!---
+	
+	<input type="hidden" id="media_id" value="#media_id#">
+	
+	
+	<div id="imgDiv">
 		<img src="#c.media_uri#" id="theImage">
 	</div>
 	<div id="navDiv">
