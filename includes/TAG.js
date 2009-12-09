@@ -29,7 +29,18 @@ function saveTagEdit(id){
 		},
 		function (r) {
 			if (r.ROWCOUNT && r.ROWCOUNT==1){
+				// remove inputs
+				var id=r.DATA.TAG_ID[0]
+				$('#tagDetails_' + id).html('');
+				
+				
+				
+				
 				/*
+				 * var scaledTop=r.DATA.REFTOP[0] * $("#imgH").val() / r.DATA.IMGH[0];
+				var scaledLeft=r.DATA.REFLEFT[0] *  $("#imgW").val() / r.DATA.IMGW[0];
+				var scaledH=r.DATA.REFH[0] * $('#theImage').height() / r.DATA.IMGH[0];
+				var scaledW=r.DATA.REFW[0] *  $("#imgW").val() / r.DATA.IMGW[0];
 				$("#refDiv_new").remove();
 				$("#newRefHidden").hide();
 				
@@ -38,10 +49,7 @@ function saveTagEdit(id){
 				$("#Remark_new").val('');
 				$("#RefStr_new").val('');
 				$("#RefId_new").val('');
-				var scaledTop=r.DATA.REFTOP[0] * $("#imgH").val() / r.DATA.IMGH[0];
-				var scaledLeft=r.DATA.REFLEFT[0] *  $("#imgW").val() / r.DATA.IMGW[0];
-				var scaledH=r.DATA.REFH[0] * $('#theImage').height() / r.DATA.IMGH[0];
-				var scaledW=r.DATA.REFW[0] *  $("#imgW").val() / r.DATA.IMGW[0];
+				
 				
 				
 				function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
