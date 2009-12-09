@@ -280,7 +280,7 @@
 	<div id="imgDiv">
 		<img src="#cpg.media_uri#" alt="This should be a field notebook page" id="theImage">
 	</div>
-	<cfif (isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media") or tag.n gt 0>
+	<cfif (isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")) or tag.n gt 0>
 		<script>
 		$(document).ready(function () {		
 			loadTAG(#cpg.media_id#,'#cpg.media_uri#');
