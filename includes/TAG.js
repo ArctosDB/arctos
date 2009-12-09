@@ -229,7 +229,6 @@ $("#newRefBtn").click(function(e){
 			} else {
 				alert(r);
 			}
-		}
 	});
 });
 	function loadInitial() {
