@@ -120,7 +120,7 @@ jQuery(document).ready(function () {
 			if (reftype!='agent'){
 				d+='Reference: <a href="' + reflink + '" class="infoLink" target="_blank">' + refStr + '</a>';
 			} else {
-				d+='Reference: ' + refStr';
+				d+='Reference: ' + refStr;
 			}
 		}	
 		if(remark){
