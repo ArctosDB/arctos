@@ -23,6 +23,7 @@ function loadTAG(mid,muri){
 	});
 	*/
 }
+/*
 function loadInitial(){
 	jQuery.getJSON("/component/tag.cfc",
 		{
@@ -62,7 +63,7 @@ function loadInitial(){
 			}
 		);
 }
-
+*/
 jQuery(document).ready(function () { 
 		jQuery("div .refDiv").live('mouseover', function(e){
 			var tagID=this.id.replace('refDiv_','');
