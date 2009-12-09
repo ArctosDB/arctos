@@ -59,13 +59,11 @@
 		</form>
 		<hr>
 		<form name="ef" method="post" action="TAG.cfm">
-		<input type="submit" value="save all">
 		<input type="hidden" name="imgH" id="imgH">
 		<input type="hidden" name="imgW" id="imgW">
 		<div id="editRefDiv"></div>
 		<input type="hidden" id="media_id" name="media_id" value="#c.media_id#">
 		<input type="hidden" name="action" value="fd">
-		<input type="submit" value="save all">
 		</form>
 	</div>
 </cfoutput>
