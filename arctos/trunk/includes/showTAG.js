@@ -118,9 +118,9 @@ jQuery(document).ready(function () {
 		//}	
 		if(reflink && refStr){
 			if (reftype!='agent'){
-				d+='Reference: <a href="' + reflink + '" class="infoLink" target="_blank">' + refStr + '</a>';
+				d+='<br>Reference: <a href="' + reflink + '" target="_blank">' + refStr + '</a>';
 			} else {
-				d+='Reference: ' + refStr;
+				d+='<br>Reference: ' + refStr;
 			}
 		}	
 		if(remark){
