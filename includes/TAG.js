@@ -66,7 +66,17 @@ function saveTagEdit(id){
 				     $("#" + this.id).show();
 			    });
 				
-				$("#info").text('happy');
+				
+				$("div .highlight").removeClass("highlight").addClass("refDiv");
+				$("div .refPane_highlight").removeClass("refPane_highlight");
+				
+				$("div .editing").draggable("destroy");
+				$("div .editing").resizable("destroy");
+				$("div .editing").removeClass("editing").addClass("refDiv");
+				$("div .refPane_editing").removeClass("refPane_editing");
+				
+				
+				$("#info").text('');
 			} else {
 				$("#info").text(r);
 			}
