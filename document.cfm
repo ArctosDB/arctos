@@ -280,6 +280,11 @@
 	<div id="imgDiv">
 		<img src="#cpg.media_uri#" alt="This should be a field notebook page" id="theImage">
 	</div>
+	<script>
+		$(document).ready(function () {		
+			loadTAG(#c.media_id#,'#c.media_uri#');
+		});
+	</script>
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
