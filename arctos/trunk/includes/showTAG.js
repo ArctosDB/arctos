@@ -113,11 +113,15 @@ jQuery(document).ready(function () {
 		if (remark==null){remark='';}
 		var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
 		d+='TAG Type: ' + reftype;
-		if(refStr){
-			d+='<br>Reference: ' + refStr;
-		}	
-		if(reflink){
-			d+='&nbsp;&nbsp;&nbsp;<a href="' + reflink + '" class="infoLink" target="_blank">[ Click for details ]</a>';
+		//if(refStr){
+		//	d+='<br>Reference: ' + refStr;
+		//}	
+		if(reflink && refStr){
+			if (reftype!='agent'){
+				d+='Reference: <a href="' + reflink + '" class="infoLink" target="_blank">' + refStr + '</a>';
+			} else {
+				d+='Reference: ' + refStr';
+			}
 		}	
 		if(remark){
 			d+='<br>Remark: ' + remark;
