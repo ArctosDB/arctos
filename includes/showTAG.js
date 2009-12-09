@@ -1,43 +1,18 @@
+$.fn.getImg2Tag = function(src, f){
+	return this.each(function(){
+		var i = new Image();
+		i.src = src;
+		i.onload = f;
+		i.id='theImage';
+		$("#imgDiv").html('');
+		this.appendChild(i);
+	});
 function loadTAG(mid,muri){
 	$("imgDiv").text('Loading image and tags.....');
 	var d='<div id="navDiv"><div id="info"></div>';
 	d+='<a href="/media/' + mid + '">Back to Media</a>';	
 	d+='</div>';
 	$('body').append(d);
-	
-	
-	var d='<form name="f">';
-	d+='<label for="RefType_new">Create TAG type....</label>';
-	d+='<div id="newRefCell" class="newRec">';
-	d+='<select id="RefType_new" name="RefType_new" onchange="pickRefType(this.id,this.value);">';
-	d+='<option value=""></option>';
-	d+='<option value="comment">Comment Only</option>';
-	d+='<option value="cataloged_item">Cataloged Item</option>';
-	d+='<option value="collecting_event">Collecting Event</option>';
-	d+='<option value="locality">Locality</option>';
-	d+='<option value="agent">Agent</option>';
-	d+='</select>';
-	d+='<span id="newRefHidden" style="display:none">';
-	d+='<label for="RefStr_new">Reference</label>';
-	d+='<input type="text" id="RefStr_new" name="RefStr_new" size="50">';
-	d+='<input type="hidden" id="RefId_new" name="RefId_new">';
-	d+='<label for="Remark_new">Remark</label>';
-	d+='<input type="text" id="Remark_new" name="Remark_new" size="50">';
-	d+='<input type="hidden" id="t_new">';
-	d+='<input type="hidden" id="l_new">';
-	d+='<input type="hidden" id="h_new">';
-	d+='<input type="hidden" id="w_new">';
-	d+='<br>';
-	d+='<input type="button" id="newRefBtn" value="create TAG">';
-	d+='</span>';
-	d+='<input type="hidden" id="imgURL" value="' + muri + '">';
-	d+='<input type="hidden" id="media_id" name="media_id" value="' + mid + '">';
-	d+='<input type="hidden" name="imgH" id="imgH">';
-	d+='<input type="hidden" name="imgW" id="imgW">';
-	d+='<div id="editRefDiv"></div>';
-	d+='</form>';	
-	$("#navDiv").append(d);
-	
 	
 
 	$('#imgDiv').getImg2Tag($("#imgURL").val(),function() {
@@ -46,45 +21,46 @@ function loadTAG(mid,muri){
 		loadInitial();	
 	});
 }
-
-jQuery(document).ready(function () { 
-		jQuery.getJSON("/component/tag.cfc",
-			{
-				method : "getTags",
-				media_id : $("#media_id").val(),
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (r) {
-				if (r.ROWCOUNT){
- 					for (i=0; i<r.ROWCOUNT; ++i) {
-						var scaledTop=r.DATA.REFTOP[i] * $('#theImage').height() / r.DATA.IMGH[i];
-						var scaledLeft=r.DATA.REFLEFT[i] * $('#theImage').width() / r.DATA.IMGW[i];
-						var scaledH=r.DATA.REFH[i] * $('#theImage').height() / r.DATA.IMGH[i];
-						var scaledW=r.DATA.REFW[i] * $('#theImage').width() / r.DATA.IMGW[i];
-						addArea(
-							r.DATA.TAG_ID[i],
-							scaledTop,
-							scaledLeft,
-							scaledH,
-							scaledW);
-						addRefPane(
-							r.DATA.TAG_ID[i],
-							r.DATA.REFTYPE[i],
-							r.DATA.REFSTRING[i],								
-							r.DATA.REFID[i],							
-							r.DATA.REMARK[i],						
-							r.DATA.REFLINK[i],
-							scaledTop,
-							scaledLeft,
-							scaledH,
-							scaledW);
-					}
-				} else {
-					alert('An error occurred. Try reloading or file a detailed bug report.');
+function loadInitial(){
+	jQuery.getJSON("/component/tag.cfc",
+		{
+			method : "getTags",
+			media_id : $("#media_id").val(),
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (r) {
+			if (r.ROWCOUNT){
+				for (i=0; i<r.ROWCOUNT; ++i) {
+					var scaledTop=r.DATA.REFTOP[i] * $('#theImage').height() / r.DATA.IMGH[i];
+					var scaledLeft=r.DATA.REFLEFT[i] * $('#theImage').width() / r.DATA.IMGW[i];
+					var scaledH=r.DATA.REFH[i] * $('#theImage').height() / r.DATA.IMGH[i];
+					var scaledW=r.DATA.REFW[i] * $('#theImage').width() / r.DATA.IMGW[i];
+					addArea(
+						r.DATA.TAG_ID[i],
+						scaledTop,
+						scaledLeft,
+						scaledH,
+						scaledW);
+					addRefPane(
+						r.DATA.TAG_ID[i],
+						r.DATA.REFTYPE[i],
+						r.DATA.REFSTRING[i],								
+						r.DATA.REFID[i],							
+						r.DATA.REMARK[i],						
+						r.DATA.REFLINK[i],
+						scaledTop,
+						scaledLeft,
+						scaledH,
+						scaledW);
+				}
+			} else {
+				alert('An error occurred. Try reloading or file a detailed bug report.');
 				}
 			}
 		);
+}
+jQuery(document).ready(function () { 
 		jQuery("div .refDiv").live('mouseover', function(e){
 			var tagID=this.id.replace('refDiv_','');
 			modArea(tagID);
