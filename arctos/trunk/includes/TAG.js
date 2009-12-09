@@ -36,8 +36,6 @@ function saveTagEdit(id){
 				var remark=r.DATA.REMARK[0];
 				var refStr=r.DATA.REFSTRING[0];
 				var refId=r.DATA.REFID[0];
-				
-				
 				var d='TAG Type: ' + reftype;
 				d+='<br>Reference: ';
 				if(reflink){
@@ -48,66 +46,47 @@ function saveTagEdit(id){
 				if(remark){
 					d+='<br>Remark: ' + remark;
 				}
-				
-
 				$('#tagDetails_' + id).html(d);
-				
 				var d='<input type="hidden" id="RefType_' + id + '" name="RefType_' + id + '" value="' + reftype + '">';
 				d+='<input type="hidden" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + refStr + '">';
 				d+='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + refId + '">';
 				d+='<input type="hidden" id="RefLink_' + id + '" name="RefLink_' + id + '" value="' + reflink + '">';
 				d+='<input type="hidden" id="Remark_' + id + '" name="Remark_' + id + '" value="' + remark + '">';
-				
 				$('#refControl_' + id).append(d);
-				
-				
-				
 				$.each($("div[id^='refControl_']"), function() {
 				     $("#" + this.id).show();
 			    });
-				
-				
 				$("div .highlight").removeClass("highlight").addClass("refDiv");
 				$("div .refPane_highlight").removeClass("refPane_highlight");
-				
 				$("div .editing").draggable("destroy");
 				$("div .editing").resizable("destroy");
 				$("div .editing").removeClass("editing").addClass("refDiv");
 				$("div .refPane_editing").removeClass("refPane_editing");
-				
-				
 				$("#info").text('');
 			} else {
 				$("#info").text(r);
 			}
-			
 		}
 	);
 }
 
 jQuery("span[id^='editRefClk_']").live('click', function(e){
 	console.log('clicked ' + this.id);
-	// hide all edit links
 	$.each($("div[id^='refControl_']"), function() {
 	      $("#" + this.id).hide();
     });
-
 	var tagID=this.id.replace('editRefClk_','');
-	// get values out of hiddens that we'll change later
 	var RefType=$('#RefType_' + tagID).val();
 	var RefStr=$('#RefStr_' + tagID).val();
 	var RefId=$('#RefId_' + tagID).val();
 	var RefLink=$('#RefLink_' + tagID).val();
 	var Remark=$('#Remark_' + tagID).val();
-	// remove hiddens
 	$('#RefType_' + tagID).remove();
 	$('#RefStr_' + tagID).remove();
 	$('#RefId_' + tagID).remove();
 	$('#RefLink_' + tagID).remove();
 	$('#Remark_' + tagID).remove();
-	
-	
-	var d='<span class="likeLink" onclick="saveTagEdit(' + tagID + ')">save edits</span> ~ cancel'; 
+	var d='<span class="likeLink" onclick="saveTagEdit(' + tagID + ')">save edits</span>'; 
 	d+='<br><label for="RefType_' + tagID + '">TAG Type</label>';
 	d+='<select id="RefType_' + tagID + '" name="RefType_' + tagID + '" onchange="pickRefType(this.id,this.value);">';
 	d+='<option';
@@ -145,17 +124,21 @@ jQuery("span[id^='editRefClk_']").live('click', function(e){
 	d+='<input type="hidden" id="RefId_' + tagID + '" name="RefId_' + tagID + '" value="' + RefId + '">';
 	d+='<label for="Remark_' + tagID + '">Remark</label>';
 	d+='<input type="text" id="Remark_' + tagID + '" name="Remark_' + tagID + '" value="' + Remark + '" size="50">';
-	
 	$('#tagDetails_' + tagID).html(d);
-	
-	console.log('editing reftype ' + RefType);
-	
 	modArea(tagID);
+});
+$("span[id^='scrollToTag_']").live('click', function(e){
+	var tagID=this.id.replace('scrollToTag_','');
+	console.log('id: ' + this.id + ' scrollong to ' + tagID);
+	scrollToTag(tagID);
 });
 
 
 
-
+jQuery("div .refDiv").live('click', function(e){
+	var tagID=this.id.replace('refDiv_','');
+	scrollToLabel(tagID);
+});
 $(document).ready(function () {		
 	// build the forms and controls
 	
@@ -164,19 +147,7 @@ $(document).ready(function () {
 		$("#imgW").val($('#theImage').width());
 		loadInitial();	
 	});
-	$("span[id^='scrollToTag_']").live('click', function(e){
-		var tagID=this.id.replace('scrollToTag_','');
-		console.log('id: ' + this.id + ' scrollong to ' + tagID);
-		scrollToTag(tagID);
-		//
-	});
 	
-	
-	
-	jQuery("div .refDiv").live('click', function(e){
-		var tagID=this.id.replace('refDiv_','');
-		scrollToLabel(tagID);
-	});
 	
 	
 	
