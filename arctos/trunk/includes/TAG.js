@@ -12,9 +12,9 @@ $.fn.getImg2Tag = function(src, f){
 function loadTAG(mid,muri){
 	console.log('loading....');
 	var d='<div id="imgDiv">Loading image and tags.....</div>';
-	$(body).append(d);
+	$('bod'y).append(d);
 	var d='<div id="navDiv"><div id="info"></div></div>';
-	$(body).append(d);
+	$('body').append(d);
 	var d='<form name="f">';
 	d+='<label for="RefType_new">Create TAG type....</label>';
 	d+='<div id="newRefCell" class="newRec">';
