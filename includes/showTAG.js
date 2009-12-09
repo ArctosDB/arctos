@@ -1,12 +1,14 @@
 $.fn.getImg2Tag = function(src, f){
 	return this.each(function(){
-	var i = new Image();
-	i.src = src;
-	i.onload = f;
-	i.id='theImage';
-	$("#imgDiv").html('');
-	this.appendChild(i);
-});
+		var i = new Image();
+		i.src = src;
+		i.onload = f;
+		i.id='theImage';
+		$("#imgDiv").html('');
+		this.appendChild(i);
+	});
+}
+	
 function loadTAG(mid,muri){
 	console.log('loading');
 	$("imgDiv").text('Loading image and tags.....');
@@ -22,7 +24,6 @@ function loadTAG(mid,muri){
 		loadInitial();	
 	});
 }
-/*
 function loadInitial(){
 	jQuery.getJSON("/component/tag.cfc",
 		{
@@ -114,4 +115,3 @@ jQuery(document).ready(function () {
 		}
 		$("#editRefDiv").append(d);
 	}
-*/
