@@ -68,8 +68,7 @@ $.fn.getImg2Tag = function(src, f){
 		this.appendChild(i);
 	});
 }
-
-zzzzzfunction loadTAG(mid,muri){
+function loadTAG(mid,muri){
 	$("imgDiv").text('Loading image and tags.....');
 	var d='<div id="navDiv"><div id="info"></div></div>';
 	$('body').append(d);
