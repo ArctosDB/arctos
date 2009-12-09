@@ -112,7 +112,13 @@ div.one_thumb p {
 #theImage{
 	width:100%;
 }
-	
+.highlight {
+	border:2px solid yellow;
+	z-index:300;
+}
+.refPane_highlight {
+	border:3px solid yellow;
+}
 /* end TAG style */
 
 .annotateBox {
