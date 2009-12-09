@@ -209,9 +209,6 @@
 	 <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select count(*) n from tag where media_id=#cpg.media_id#
 	</cfquery>
-	
-	<input type="hidden" id="media_id" value="#cpg.media_id#">		
-	<input type="hidden" id="imgURL" value="#cpg.media_uri#">
 	<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
 		<script language="JavaScript" src="/includes/jquery/jquery.imgareaselect.pack.js" type="text/javascript"></script>
 		<link rel="stylesheet" type="text/css" href="/includes/jquery/css/imgareaselect-default.css">
@@ -229,66 +226,16 @@
 			<script language="JavaScript" src="/includes/showTAG.js" type="text/javascript"></script>
 		</cfif>
 	</cfif>
-	<!----
-	<div id="navDiv">
-		<a href="MediaSearch.cfm?action=search&media_id=#cpg.media_id#">Back to Media</a>
-		<div id="info"></div>
-			<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-				<form name="f">
-					<label for="RefType_new">Create TAG type....</label>
-					<div id="newRefCell" class="newRec">
-					<select id="RefType_new" name="RefType_new" onchange="pickRefType(this.id,this.value);">
-						<option value=""></option>
-						<option value="comment">Comment Only</option>
-						<option value="cataloged_item">Cataloged Item</option>
-						<option value="collecting_event">Collecting Event</option>
-						<option value="locality">Locality</option>
-						<option value="agent">Agent</option>
-					</select>
-					<span id="newRefHidden" style="display:none">
-						<label for="RefStr_new">Reference</label>
-						<input type="text" id="RefStr_new" name="RefStr_new" size="50">
-						<input type="hidden" id="RefId_new" name="RefId_new">
-						<label for="Remark_new">Remark</label>
-						<input type="text" id="Remark_new" name="Remark_new" size="50">
-						<input type="hidden" id="t_new">
-						<input type="hidden" id="l_new">
-						<input type="hidden" id="h_new">
-						<input type="hidden" id="w_new">
-						<br>
-						<input type="button" id="newRefBtn" value="create TAG">
-					</span>
-					</div>
-				</form>
-				<hr>
-				<form name="ef" method="post" action="TAG.cfm">
-					<input type="submit" value="save all">
-					<input type="hidden" name="imgH" id="imgH">
-					<input type="hidden" name="imgW" id="imgW">
-					<div id="editRefDiv"></div>
-					<input type="hidden" id="media_id" name="media_id" value="#cpg.media_id#">
-					<input type="hidden" name="action" value="fd">
-					<input type="submit" value="save all">
-				</form>
-			</cfif>
-		<div id="editRefDiv"></div>
-	</div>
-	<div id="imgDiv">
-		<img src="#cpg.media_uri#" alt="This should be a field notebook page" id="theImage">
-	</div>
-	---->
 	<div id="imgDiv">
 		<img src="#cpg.media_uri#" alt="This should be a field notebook page" id="theImage">
 	</div>
 	<cfif (isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")) or tag.n gt 0>
-		<script>
-		$(document).ready(function () {		
-			loadTAG(#cpg.media_id#,'#cpg.media_uri#');
-		});
-	</script>
+		<script type="text/javascript" language="javascript">
+			jQuery(document).ready(function () {		
+				loadTAG(#cpg.media_id#,'#cpg.media_uri#');
+			});
+		</script>
 	</cfif>
-			
-	
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
