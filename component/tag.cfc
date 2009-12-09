@@ -77,7 +77,7 @@
 					refh=#refh#,
 					refw=#refw#,
 					imgh=#imgh#,
-					imgw=#imgw#,
+					imgw=#imgw#
 					<cfif reftype is "cataloged_item">
 						,collection_object_id=#refid#
 					<cfelseif reftype is "collecting_event">
