@@ -226,11 +226,18 @@
 			order by BIOL_INDIV_RELATIONSHIP
 	    </cfquery>
 		<cfquery name="ctPartName" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
-			SELECT distinct(part_name) FROM ctSpecimen_part_name
-			<cfif len(#collection_cde#) gt 0>
-				WHERE collection_cde='#collection_cde#'
-			</cfif>
-			order by part_name
+			SELECT 
+				specimen_part.part_name 
+			FROM 
+				ctSpecimen_part_name,
+				specimen_part
+			WHERE
+				ctSpecimen_part_name.part_name=specimen_part.part_name
+				<cfif len(collection_cde) gt 0>
+					and ctSpecimen_part_name.collection_cde='#collection_cde#'
+				</cfif>
+			group by specimen_part.part_name
+			order by count(*) desc
 	    </cfquery>
 		<cfquery name="ctPartModifier" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#" cachedwithin="#createtimespan(0,0,60,0)#">
 			SELECT distinct(part_modifier) FROM ctSpecimen_part_modifier
