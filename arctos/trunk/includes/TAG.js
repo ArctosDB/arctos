@@ -1,5 +1,4 @@
-$(document).ready(function () {
-	$("#newRefBtn").click(function(e){
+	jQuery("#newRefBtn").live('click', function(e){
 		console.log('newRefBtn click');
 		if ($("#t_new").val().length==0 || $("#l_new").val().length==0 || $("#h_new").val().length==0 || $("#w_new").val().length==0) {
 			alert('You must have a TAG.');
@@ -60,7 +59,6 @@ $(document).ready(function () {
 				}
 		});
 	});
-});
 $.fn.getImg2Tag = function(src, f){
 	return this.each(function(){
 		var i = new Image();
