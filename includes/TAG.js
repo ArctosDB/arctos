@@ -157,6 +157,8 @@ jQuery("span[id^='editRefClk_']").live('click', function(e){
 
 
 $(document).ready(function () {		
+	// build the forms and controls
+	
 	$('#imgDiv').getImg2Tag($("#imgURL").val(),function() {
 		$("#imgH").val($('#theImage').height());
 		$("#imgW").val($('#theImage').width());
@@ -280,6 +282,7 @@ $(document).ready(function () {
 		});
 	});		
 	function loadInitial() {
+		
 		$.getJSON("/component/tag.cfc",
 			{
 				method : "getTags",

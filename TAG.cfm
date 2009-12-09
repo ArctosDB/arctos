@@ -29,6 +29,7 @@
 	<div id="imgDiv">
 		Loading image and tags.....
 	</div>
+	
 	<div id="navDiv">
 		<div id="info"></div>
 		<form name="f">
