@@ -1,3 +1,4 @@
+/*
 $.fn.getImg2Tag = function(src, f){
 	return this.each(function(){
 	var i = new Image();
@@ -23,7 +24,8 @@ function loadTAG(mid,muri){
 	});
 	*/
 }
-/*
+
+ * */
 function loadInitial(){
 	jQuery.getJSON("/component/tag.cfc",
 		{
@@ -85,7 +87,7 @@ jQuery(document).ready(function () {
 			$(document).scrollTo( $('#' + tagID), 800 );
 		});
 	});
-*/
+
 	function addArea(id,t,l,h,w) {
 		var dv='<div id="refDiv_' + id + '" class=refDiv style="position:absolute;width:' + w + 'px;height:' + h + 'px;top:' + t + 'px;left:' + l + 'px;"></div>';
 		$("#imgDiv").append(dv);
