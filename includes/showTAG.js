@@ -5,13 +5,11 @@ $.fn.getImg2Tag = function(src, f){
 		i.onload = f;
 		i.id='theImage';
 		$("#imgDiv").html('');
-		console.log('getImg2Tag' + src);
 		this.appendChild(i);
 	});
 }
 	
 function loadTAG(mid,muri){
-	console.log('loading');
 	$("imgDiv").html('Loading image and tags.....');
 	var d='<div id="navDiv"><div id="info"></div>';
 	d+='<a href="/media/' + mid + '">Back to Media</a>';
@@ -20,20 +18,13 @@ function loadTAG(mid,muri){
 	d+='<div id="editRefDiv"></div>';
 	d+='</div>';
 	$('body').append(d);
-	
-
 	$('#imgDiv').getImg2Tag($("#imgURL").val(),function() {
 		$("#imgH").val($('#theImage').height());
 		$("#imgW").val($('#theImage').width());
 		loadInitial();	
 	});
-	
-	console.log('going to loadInitial');
 }
 function loadInitial(){
-	
-	console.log('at to loadInitial');
-
 	jQuery.getJSON("/component/tag.cfc",
 		{
 			method : "getTags",
@@ -113,9 +104,6 @@ jQuery(document).ready(function () {
 		if (remark==null){remark='';}
 		var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
 		d+='TAG Type: ' + reftype;
-		//if(refStr){
-		//	d+='<br>Reference: ' + refStr;
-		//}	
 		if(reflink && refStr){
 			if (reftype!='agent'){
 				d+='<br>Reference: <a href="' + reflink + '" target="_blank">' + refStr + '</a>';
