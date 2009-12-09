@@ -26,7 +26,7 @@ function loadTAG(mid,muri){
 	});
 	*/
 }
-
+/*
 function loadInitial(){
 	jQuery.getJSON("/component/tag.cfc",
 		{
@@ -118,3 +118,4 @@ jQuery(document).ready(function () {
 		}
 		$("#editRefDiv").append(d);
 	}
+*/
