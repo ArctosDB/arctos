@@ -69,7 +69,7 @@ jQuery(document).ready(function () {
 			var tagID=this.id.replace('refDiv_','');
 			modArea(tagID);
 		});
-		jQuery("div .refDiv, .editing").live('click', function(e){
+		jQuery("div .refDiv, .highlight").live('click', function(e){
 			var tagID='refPane_' + this.id.replace('refDiv_','');
 			$('#navDiv').scrollTo( $('#' + tagID), 800 );
 		});
@@ -93,11 +93,11 @@ jQuery(document).ready(function () {
 	function modArea(id) {
 		var divID='refDiv_' + id;
 		var paneID='refPane_' + id;
-		$("div .editing").removeClass("editing").addClass("refDiv");
-		$("div .refPane_editing").removeClass("refPane_editing");
+		$("div .highlight").removeClass("highlight").addClass("refDiv");
+		$("div .refPane_highlight").removeClass("refPane_highlight");
 		// add editing classes to our 2 objects		
-		$("#" + divID).removeClass("refDiv").addClass("editing");
-		$("#" + paneID).addClass('refPane_editing');
+		$("#" + divID).removeClass("refDiv").addClass("highlight");
+		$("#" + paneID).addClass('refPane_highlight');
 	}
 	function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
 		if (refStr==null){refStr='';}
