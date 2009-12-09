@@ -131,14 +131,11 @@ function saveTagEdit(id){
 				
 				
 				
-					$("#info").text('happy');
-				} else {
-					$("#info").text(r);
-				}
-				
-				
-				
+				$("#info").text('happy');
+			} else {
+				$("#info").text(r);
 			}
+			
 		}
 	);
 }
