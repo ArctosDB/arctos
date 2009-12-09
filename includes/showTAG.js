@@ -5,6 +5,7 @@ $.fn.getImg2Tag = function(src, f){
 		i.onload = f;
 		i.id='theImage';
 		$("#imgDiv").html('');
+		console.log('getImg2Tag');
 		this.appendChild(i);
 	});
 }
