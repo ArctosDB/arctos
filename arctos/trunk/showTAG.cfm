@@ -15,7 +15,8 @@
 		FAIL@images only.
 		<cfabort>
 	</cfif>
-	<div id="imgDiv">
+	
+	<!---<div id="imgDiv">
 		<img src="#c.media_uri#" id="theImage">
 	</div>
 	<div id="navDiv">
@@ -26,6 +27,13 @@
 		</cfif>
 		<div id="editRefDiv"></div>
 	</div>
+	--->
+	<div id="imgDiv"></div>
+	<script>
+		$(document).ready(function () {		
+			loadTAG(#c.media_id#,'#c.media_uri#');
+		});
+	</script>
 </cfoutput>
 <cfset title="View Media TAGs">
 <cfinclude template="/includes/_footer.cfm">

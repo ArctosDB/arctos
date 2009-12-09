@@ -1,64 +1,63 @@
-	jQuery("#newRefBtn").live('click', function(e){
-		console.log('newRefBtn click');
-		if ($("#t_new").val().length==0 || $("#l_new").val().length==0 || $("#h_new").val().length==0 || $("#w_new").val().length==0) {
-			alert('You must have a TAG.');
-			return false;
-		}
-		if ($("#RefId_new").val().length==0 && $("#Remark_new").val().length==0) {
-			alert('Pick a TAG type and/or enter a comment.');
-			return false;
-		}
-		$("#info").text('');
-		jQuery.getJSON("/component/tag.cfc",
-			{
-				method : "newRef",
-				media_id : $("#media_id").val(),
-				reftype: $("#RefType_new").val(),
-				refid : $("#RefId_new").val(),
-				remark: $("#Remark_new").val(),
-				reftop: $("#t_new").val(),
-				refleft: $("#l_new").val(),
-				refh: $("#h_new").val(),
-				refw: $("#w_new").val(),
-				imgh: $("#imgH").val(),
-				imgw: $("#imgW").val(),
-				returnformat : "json",
-				queryformat : 'column'
-			},
-			function (r) {
-				if (r.ROWCOUNT && r.ROWCOUNT==1){
-					$("#refDiv_new").remove();
-					$("#newRefHidden").hide();
-					$("#RefType_new").val('');
-					$("#Remark_new").val('');
-					$("#RefStr_new").val('');
-					$("#RefId_new").val('');
-					var scaledTop=r.DATA.REFTOP[0] * $("#imgH").val() / r.DATA.IMGH[0];
-					var scaledLeft=r.DATA.REFLEFT[0] *  $("#imgW").val() / r.DATA.IMGW[0];
-					var scaledH=r.DATA.REFH[0] * $('#theImage').height() / r.DATA.IMGH[0];
-					var scaledW=r.DATA.REFW[0] *  $("#imgW").val() / r.DATA.IMGW[0];
-					addArea(
-						r.DATA.TAG_ID[0],
-						scaledTop,
-						scaledLeft,
-						scaledH,
-						scaledW);
-					addRefPane(
-						r.DATA.TAG_ID[0],
-						r.DATA.REFTYPE[0],
-						r.DATA.REFSTRING[0],								
-						r.DATA.REFID[0],								
-						r.DATA.REMARK[0],						
-						r.DATA.REFLINK[0],								
-						scaledTop,
-						scaledLeft,
-						scaledH,
-						scaledW);
-				} else {
-					alert(r);
-				}
-		});
+jQuery("#newRefBtn").live('click', function(e){
+	if ($("#t_new").val().length==0 || $("#l_new").val().length==0 || $("#h_new").val().length==0 || $("#w_new").val().length==0) {
+		alert('You must have a TAG.');
+		return false;
+	}
+	if ($("#RefId_new").val().length==0 && $("#Remark_new").val().length==0) {
+		alert('Pick a TAG type and/or enter a comment.');
+		return false;
+	}
+	$("#info").text('');
+	jQuery.getJSON("/component/tag.cfc",
+		{
+			method : "newRef",
+			media_id : $("#media_id").val(),
+			reftype: $("#RefType_new").val(),
+			refid : $("#RefId_new").val(),
+			remark: $("#Remark_new").val(),
+			reftop: $("#t_new").val(),
+			refleft: $("#l_new").val(),
+			refh: $("#h_new").val(),
+			refw: $("#w_new").val(),
+			imgh: $("#imgH").val(),
+			imgw: $("#imgW").val(),
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (r) {
+			if (r.ROWCOUNT && r.ROWCOUNT==1){
+				$("#refDiv_new").remove();
+				$("#newRefHidden").hide();
+				$("#RefType_new").val('');
+				$("#Remark_new").val('');
+				$("#RefStr_new").val('');
+				$("#RefId_new").val('');
+				var scaledTop=r.DATA.REFTOP[0] * $("#imgH").val() / r.DATA.IMGH[0];
+				var scaledLeft=r.DATA.REFLEFT[0] *  $("#imgW").val() / r.DATA.IMGW[0];
+				var scaledH=r.DATA.REFH[0] * $('#theImage').height() / r.DATA.IMGH[0];
+				var scaledW=r.DATA.REFW[0] *  $("#imgW").val() / r.DATA.IMGW[0];
+				addArea(
+					r.DATA.TAG_ID[0],
+					scaledTop,
+					scaledLeft,
+					scaledH,
+					scaledW);
+				addRefPane(
+					r.DATA.TAG_ID[0],
+					r.DATA.REFTYPE[0],
+					r.DATA.REFSTRING[0],								
+					r.DATA.REFID[0],								
+					r.DATA.REMARK[0],						
+					r.DATA.REFLINK[0],								
+					scaledTop,
+					scaledLeft,
+					scaledH,
+					scaledW);
+			} else {
+				alert(r);
+			}
 	});
+});
 $.fn.getImg2Tag = function(src, f){
 	return this.each(function(){
 		var i = new Image();
@@ -70,8 +69,7 @@ $.fn.getImg2Tag = function(src, f){
 	});
 }
 
-function loadTAG(mid,muri){
-	console.log('loading....');
+zzzzzfunction loadTAG(mid,muri){
 	$("imgDiv").text('Loading image and tags.....');
 	var d='<div id="navDiv"><div id="info"></div></div>';
 	$('body').append(d);
