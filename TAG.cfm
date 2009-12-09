@@ -5,17 +5,7 @@
 <link rel="stylesheet" type="text/css" href="/includes/jquery/css/ui-lightness/jquery-ui-1.7.2.custom.css">
 <script language="JavaScript" src="/includes/jquery/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
 <script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
-
 <script language="JavaScript" src="/includes/TAG.js" type="text/javascript"></script>
-<style>
-.highlight {
-	border:2px solid yellow;
-	z-index:300;
-}
-.refPane_highlight {
-	border:3px solid yellow;
-}
-</style>
 <cfoutput>
 	<cfset title="TAG Images">
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -25,6 +15,7 @@
 		FAIL@images only.
 		<cfabort>
 	</cfif>
+	<div id="imgDiv"></div>
 	<script>
 		$(document).ready(function () {		
 			loadTAG(#c.media_id#,'#c.media_uri#');

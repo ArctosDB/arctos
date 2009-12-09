@@ -229,6 +229,7 @@
 			<script language="JavaScript" src="/includes/showTAG.js" type="text/javascript"></script>
 		</cfif>
 	</cfif>
+	<!----
 	<div id="navDiv">
 		<a href="MediaSearch.cfm?action=search&media_id=#cpg.media_id#">Back to Media</a>
 		<div id="info"></div>
@@ -272,6 +273,10 @@
 			</cfif>
 		<div id="editRefDiv"></div>
 	</div>
+	<div id="imgDiv">
+		<img src="#cpg.media_uri#" alt="This should be a field notebook page" id="theImage">
+	</div>
+	---->
 	<div id="imgDiv">
 		<img src="#cpg.media_uri#" alt="This should be a field notebook page" id="theImage">
 	</div>
