@@ -31,110 +31,34 @@ function saveTagEdit(id){
 			if (r.ROWCOUNT && r.ROWCOUNT==1){
 				// remove inputs
 				var id=r.DATA.TAG_ID[0]
-				$('#tagDetails_' + id).html('');
+				var reftype=r.DATA.REFTYPE[0];
+				var reflink=r.DATA.REFLINK[0];
+				var remark=r.DATA.REMARK[0];
+				var refStr=r.DATA.REFSTRING[0];
+				var refId=r.DATA.REFID[0];
 				
 				
+				var d='TAG Type: ' + reftype;
+				d+='<br>Reference: ';
+				if(reflink){
+					d+='<a href="' + reflink + '" target="_blank">' + refStr + '</a>';
+				} else {
+					d+=reflink;
+				}
+				if(remark){
+					d+='<br>Remark: ' + remark;
+				}
 				
-				
-				/*
-				 * var scaledTop=r.DATA.REFTOP[0] * $("#imgH").val() / r.DATA.IMGH[0];
-				var scaledLeft=r.DATA.REFLEFT[0] *  $("#imgW").val() / r.DATA.IMGW[0];
-				var scaledH=r.DATA.REFH[0] * $('#theImage').height() / r.DATA.IMGH[0];
-				var scaledW=r.DATA.REFW[0] *  $("#imgW").val() / r.DATA.IMGW[0];
-				$("#refDiv_new").remove();
-				$("#newRefHidden").hide();
-				
-				
-				$("#RefType_new").val('');
-				$("#Remark_new").val('');
-				$("#RefStr_new").val('');
-				$("#RefId_new").val('');
-				
-				
-				
-				function addRefPane(id,reftype,refStr,refId,remark,reflink,t,l,h,w) {
-					if (refStr==null){refStr='';}
-					if (remark==null){remark='';}
-					var d='<div id="refPane_' + id + '" class="refPane_' + reftype + '">';
-					
-					d+='<div id="refControl_' + id + '">';
-					d+='<span class="likeLink" id="editRefClk_' + id + '">Edit TAG</span>';
-					d+=' ~ <span class="likeLink" id="killRefClk_' + id + '">Delete TAG</span>';
-					d+=' ~ <span class="likeLink" id="scrollToTag_' + id + '">Scroll to TAG</span>';
-					
-					d+='</div>';
-					d+='<div id="tagDetails_' + id + '">';
-					
-					
-					
-					
-					
-					d+='TAG Type: ' + reftype;
-					d+='<br>Reference: ';
-					if(reflink){
-						d+='<a href="' + reflink + '" target="_blank">' + refStr + '</a>';
-					} else {
-						d+=reflink;
-					}
-					if(remark){
-						d+='<br>Remark: ' + remark;
-					}
-					d+='</div>';
-					d+='<input type="hidden" id="RefType_' + id + '" name="RefType_' + id + '" value="' + reftype + '">';
-					d+='<input type="hidden" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + refStr + '">';
-					d+='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + refId + '">';
-					d+='<input type="hidden" id="RefLink_' + id + '" name="RefLink_' + id + '" value="' + reflink + '">';
-					d+='<input type="hidden" id="Remark_' + id + '" name="Remark_' + id + '" value="' + remark + '">';
-					d+='<input type="hidden" id="t_' + id + '" name="t_' + id + '" value="' + t + '">';
-					d+='<input type="hidden" id="l_' + id + '" name="l_' + id + '" value="' + l + '">';
-					d+='<input type="hidden" id="h_' + id + '" name="h_' + id + '" value="' + h + '">';
-					d+='<input type="hidden" id="w_' + id + '" name="w_' + id + '" value="' + w + '">';
-					
-					
-					
-					
-					
-					
-					d+='<label for="RefType_' + id + '">TAG Type</label>';
-					d+='<select id="RefType_' + id + '" name="RefType_' + id + '" onchange="pickRefType(this.id,this.value);">';
-					d+='<option';
-					if (reftype=='comment'){d+=' selected="selected"';}
-					d+=' value="comment">Comment Only</option>';
-					d+='<option';
-					if (reftype=='cataloged_item'){d+=' selected="selected"';}
-					d+=' value="cataloged_item">Cataloged Item</option>';
-					d+='<option';if (reftype=='collecting_event'){d+=' selected="selected"';}
-					d+=' value="collecting_event">Collecting Event</option>';
-					d+='<option';if (reftype=='locality'){d+=' selected="selected"';}
-					d+=' value="locality">Locality</option>';
-					d+='<option';if (reftype=='agent'){d+=' selected="selected"';}
-					d+=' value="agent">Agent</option>';
-					d+='</select>';
-					d+='<label for="RefStr_' + id + '">Reference';
-					if(reflink){d+='&nbsp;&nbsp;&nbsp;<a href="' + reflink + '" target="_blank">[ Click for details ]</a>';}
-					d+='</label>';
-					d+='<input type="text" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + refStr + '" size="50">';
-					d+='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + refId + '">';
-					d+='<label for="Remark_' + id + '">Remark</label>';
-					d+='<input type="text" id="Remark_' + id + '" name="Remark_' + id + '" value="' + remark + '" size="50">';
-					d+='<input type="hidden" id="t_' + id + '" name="t_' + id + '" value="' + t + '">';
-					d+='<input type="hidden" id="l_' + id + '" name="l_' + id + '" value="' + l + '">';
-					d+='<input type="hidden" id="h_' + id + '" name="h_' + id + '" value="' + h + '">';
-					d+='<input type="hidden" id="w_' + id + '" name="w_' + id + '" value="' + w + '">';
 
-					
-					d+='</div>';
-					$("#editRefDiv").append(d);
-					if (reftype=='comment'){
-						$("#RefStr_" + id).hide();
-					} else {
-						$("#RefStr_" + id).show();
-					}
-					
-				*/
+				$('#tagDetails_' + id).html(d);
 				
+				var d='<input type="hidden" id="RefType_' + id + '" name="RefType_' + id + '" value="' + reftype + '">';
+				d+='<input type="hidden" id="RefStr_' + id + '" name="RefStr_' + id + '" value="' + refStr + '">';
+				d+='<input type="hidden" id="RefId_' + id + '" name="RefId_' + id + '" value="' + refId + '">';
+				d+='<input type="hidden" id="RefLink_' + id + '" name="RefLink_' + id + '" value="' + reflink + '">';
+				d+='<input type="hidden" id="Remark_' + id + '" name="Remark_' + id + '" value="' + remark + '">';
 				
-				
+				$('#refControl_' + id).append(d);
 				
 				
 				
