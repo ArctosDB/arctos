@@ -282,7 +282,7 @@
 	</div>
 	<script>
 		$(document).ready(function () {		
-			loadTAG(#c.media_id#,'#c.media_uri#');
+			loadTAG(#cpg.media_id#,'#cpg.media_uri#');
 		});
 	</script>
 </cfoutput>
