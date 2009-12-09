@@ -62,6 +62,9 @@ function saveTagEdit(id){
 				
 				
 				
+				$.each($("div[id^='refControl_']"), function() {
+				     $("#" + this.id).show();
+			    });
 				
 				$("#info").text('happy');
 			} else {
