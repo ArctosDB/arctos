@@ -16,13 +16,13 @@ function loadTAG(mid,muri){
 	d+='</div>';
 	$('body').append(d);
 	
-/*
+
 	$('#imgDiv').getImg2Tag($("#imgURL").val(),function() {
 		$("#imgH").val($('#theImage').height());
 		$("#imgW").val($('#theImage').width());
 		loadInitial();	
 	});
-	*/
+	
 }
 
  * */
