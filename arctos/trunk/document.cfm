@@ -280,20 +280,15 @@
 	<div id="imgDiv">
 		<img src="#cpg.media_uri#" alt="This should be a field notebook page" id="theImage">
 	</div>
-	<cfif isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media")>
-		<script language="JavaScript" src="/includes/jquery/jquery.imgareaselect.pack.js" type="text/javascript"></script>
-		<link rel="stylesheet" type="text/css" href="/includes/jquery/css/imgareaselect-default.css">
-		<link rel="stylesheet" type="text/css" href="/includes/jquery/css/ui-lightness/jquery-ui-1.7.2.custom.css">
-		<script language="JavaScript" src="/includes/jquery/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
-		<script language="JavaScript" src="/includes/jquery/scrollTo.js" type="text/javascript"></script>
-		<script language="JavaScript" src="/includes/TAG.js" type="text/javascript"></script>
-	<cfelse><!--- public user --->
-		<cfif tag.n gt 0>
-	<script>
+	<cfif (isdefined("session.roles") and listcontainsnocase(session.roles,"manage_media") or tag.n gt 0>
+		<script>
 		$(document).ready(function () {		
 			loadTAG(#cpg.media_id#,'#cpg.media_uri#');
 		});
 	</script>
+	</cfif>
+			
+	
 </cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
