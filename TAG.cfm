@@ -25,10 +25,12 @@
 		FAIL@images only.
 		<cfabort>
 	</cfif>
-	<input type="hidden" id="imgURL" value="#c.media_uri#">
-	<div id="imgDiv">
-		Loading image and tags.....
-	</div>
+	<script>
+		$(document).ready(function () {		
+			loadTAG(#c.media_id#,'#c.media_uri#');
+		});
+	</script>
+	<!---
 	
 	<div id="navDiv">
 		<div id="info"></div>
@@ -67,6 +69,7 @@
 		<input type="hidden" name="action" value="fd">
 		</form>
 	</div>
+	---->
 </cfoutput>
 <div style="clear:both;">&nbsp;</div>
 <cfinclude template="/includes/_footer.cfm">
