@@ -1,12 +1,13 @@
 $.fn.getImg2Tag = function(src, f){
 	return this.each(function(){
-		var i = new Image();
-		i.src = src;
-		i.onload = f;
-		i.id='theImage';
-		$("#imgDiv").html('');
-		this.appendChild(i);
-	});
+	var i = new Image();
+	i.src = src;
+	i.onload = f;
+	i.id='theImage';
+	$("#imgDiv").html('');
+	this.appendChild(i);
+});
+	
 function loadTAG(mid,muri){
 	$("imgDiv").text('Loading image and tags.....');
 	var d='<div id="navDiv"><div id="info"></div>';
@@ -14,12 +15,13 @@ function loadTAG(mid,muri){
 	d+='</div>';
 	$('body').append(d);
 	
-
+/*
 	$('#imgDiv').getImg2Tag($("#imgURL").val(),function() {
 		$("#imgH").val($('#theImage').height());
 		$("#imgW").val($('#theImage').width());
 		loadInitial();	
 	});
+	*/
 }
 function loadInitial(){
 	jQuery.getJSON("/component/tag.cfc",
@@ -60,6 +62,7 @@ function loadInitial(){
 			}
 		);
 }
+
 jQuery(document).ready(function () { 
 		jQuery("div .refDiv").live('mouseover', function(e){
 			var tagID=this.id.replace('refDiv_','');
