@@ -37,7 +37,7 @@ function loadTAG(mid,muri){
 	d+='<input type="hidden" id="w_new">';
 	d+='<br>';
 	d+='<input type="button" id="newRefBtn" value="create TAG">';
-	d+='</span>
+	d+='</span>';
 	d+='<input type="hidden" id="imgURL" value="' + muri + '">';
 	d+='<input type="hidden" id="media_id" name="media_id" value="' + mid + '">';
 	d+='<input type="hidden" name="imgH" id="imgH">';
