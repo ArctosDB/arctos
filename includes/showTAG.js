@@ -1,4 +1,4 @@
-
+/*
 $.fn.getImg2Tag = function(src, f){
 	return this.each(function(){
 	var i = new Image();
@@ -8,6 +8,7 @@ $.fn.getImg2Tag = function(src, f){
 	$("#imgDiv").html('');
 	this.appendChild(i);
 });
+*/
 function loadTAG(mid,muri){
 	console.log('loading');
 	/*
