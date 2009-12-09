@@ -342,6 +342,12 @@ $(document).ready(function () {
 	function modArea(id) {
 		var divID='refDiv_' + id;
 		var paneID='refPane_' + id;
+		
+		
+		$("div .highlight").removeClass("highlight").addClass("refDiv");
+		$("div .refPane_highlight").removeClass("refPane_highlight");
+		
+		
 		// remove all draggables
 		$("div .editing").draggable("destroy");
 		$("div .editing").resizable("destroy");
