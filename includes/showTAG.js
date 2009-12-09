@@ -14,7 +14,9 @@ function loadTAG(mid,muri){
 	console.log('loading');
 	$("imgDiv").html('Loading image and tags.....');
 	var d='<div id="navDiv"><div id="info"></div>';
-	d+='<a href="/media/' + mid + '">Back to Media</a>';	
+	d+='<a href="/media/' + mid + '">Back to Media</a>';
+	d+='<form name="f"><input type="hidden" id="imgURL" value="' + muri + '">';
+	d+='<input type="hidden" id="media_id" name="media_id" value="' + mid + '"></form>';
 	d+='</div>';
 	$('body').append(d);
 	
