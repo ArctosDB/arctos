@@ -8,15 +8,52 @@ $.fn.getImg2Tag = function(src, f){
 		this.appendChild(i);
 	});
 }
-$(document).ready(function () {		
-	// build the forms and controls
+
+function loadTAG(mid,muri){
+	var d='<div id="imgDiv">Loading image and tags.....</div>';
+	$(document).append(d);
+	var d='<div id="navDiv"><div id="info"></div></div>';
+	$(document).append(d);
+	var d='<form name="f">';
+	d+='<label for="RefType_new">Create TAG type....</label>';
+	d+='<div id="newRefCell" class="newRec">';
+	d+='<select id="RefType_new" name="RefType_new" onchange="pickRefType(this.id,this.value);">';
+	d+='<option value=""></option>';
+	d+='<option value="comment">Comment Only</option>';
+	d+='<option value="cataloged_item">Cataloged Item</option>';
+	d+='<option value="collecting_event">Collecting Event</option>';
+	d+='<option value="locality">Locality</option>';
+	d+='<option value="agent">Agent</option>';
+	d+='</select>';
+	d+='<span id="newRefHidden" style="display:none">';
+	d+='<label for="RefStr_new">Reference</label>';
+	d+='<input type="text" id="RefStr_new" name="RefStr_new" size="50">';
+	d+='<input type="hidden" id="RefId_new" name="RefId_new">';
+	d+='<label for="Remark_new">Remark</label>';
+	d+='<input type="text" id="Remark_new" name="Remark_new" size="50">';
+	d+='<input type="hidden" id="t_new">';
+	d+='<input type="hidden" id="l_new">';
+	d+='<input type="hidden" id="h_new">';
+	d+='<input type="hidden" id="w_new">';
+	d+='<br>
+	d+='<input type="button" id="newRefBtn" value="create TAG">';
+	d+='</span>
+	d+='<input type="hidden" id="imgURL" value="' + muri + '">';
+	d+='<input type="hidden" id="media_id" name="media_id" value="' + mid + '">';
+	d+='<input type="hidden" name="imgH" id="imgH">';
+	d+='<input type="hidden" name="imgW" id="imgW">';
+	d+='<div id="editRefDiv"></div>';
+	d+='</form>';	
+	$("#navDiv").append(d);
 	
 	$('#imgDiv').getImg2Tag($("#imgURL").val(),function() {
 		$("#imgH").val($('#theImage').height());
 		$("#imgW").val($('#theImage').width());
 		loadInitial();	
-	});	
-});
+	});
+}
+
+
 function saveTagEdit(id){
 	$("#info").text('saving....');
 	jQuery.getJSON("/component/tag.cfc",
@@ -382,9 +419,8 @@ function newArea() {
 }
 function pickRefType(id,v){
 	var tagID=id.replace('RefType_','');
-	var fname='ef';
+	var fname='f';
 	if (id=='RefType_new'){
-		var fname='f';
 		if(v=='comment'){
 			$("#RefStr_new").hide();
 		} else {
