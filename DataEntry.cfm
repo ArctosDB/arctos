@@ -149,7 +149,6 @@
 <!------------ editEnterData --------------------------------------------------------------------------------------------->
 <cfif action is "editEnterData">
 	<cfoutput>
-		---#collection_id#-------
 		<cfif not isdefined("collection_object_id") or len(#collection_object_id#) is 0>
 			you don't have an ID. <cfabort>
 		</cfif>
