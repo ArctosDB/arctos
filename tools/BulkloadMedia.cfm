@@ -262,6 +262,27 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 					<cfelse>
 						<cfset rec_stat=listappend(rec_stat,'Agent #lv# matched #c.recordcount# records.',";")>
 					</cfif>
+				<cfelseif table_name is "locality">
+					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select locality_id from locality where locality_id ='#lv#'
+					</cfquery>
+					<cfif c.recordcount is 1 and len(c.locality_id) gt 0>
+						<cfquery name="i" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							insert into cf_temp_media_relations (
+ 								key,
+								MEDIA_RELATIONSHIP,
+								CREATED_BY_AGENT_ID,
+								RELATED_PRIMARY_KEY
+							) values (
+								#key#,
+								'#ln#',
+								#session.myAgentId#,
+								#c.locality_id#
+							)
+						</cfquery>
+					<cfelse>
+						<cfset rec_stat=listappend(rec_stat,'locality_id #lv# matched #c.recordcount# records.',";")>
+					</cfif>
 				<cfelseif table_name is "collecting_event">
 					<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select collecting_event_id from collecting_event where collecting_event_id ='#lv#'
