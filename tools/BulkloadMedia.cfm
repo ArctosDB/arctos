@@ -401,7 +401,8 @@ Columns in <span style="color:red">red</span> are required; others are optional:
 	<cfdump var=#bad#>
 <cfelse>
 	Yay! Everything looks OK. Check it over in the tables below, then 
-	<a href="BulkloadMedia.cfm?action=load">click here</a> to proceed.
+	<a href="BulkloadMedia.cfm?action=load"><strong>click here</strong></a> to proceed.
+	<br>^^^ that thing. You must click it.
 	(Note that the table below is "flattened." Media entries are repeated for every Label and Relationship.)
 	<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 

@@ -1614,7 +1614,8 @@ jQuery(document).ready(function() {
 		theDiv.id = 'helpDiv';
 		theDiv.className = 'helpBox';
 		theDiv.innerHTML='<br>Loading...';
-		document.body.appendChild(theDiv);
+		//document.body.appendChild(theDiv);
+		bgDiv.appendChild(theDiv);
 		jQuery("#helpDiv").css({position:"absolute", top: e.pageY, left: e.pageX});
 		jQuery(theDiv).load("/service/get_doc_rest.cfm",{fld: id, addCtl: 1});
 	});
