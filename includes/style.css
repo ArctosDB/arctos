@@ -336,6 +336,7 @@ label.badPickLbl {
 	background-color:#99C68E;
 	max-width:20em;
 	padding:.1em;
+	z-index:2001;
 }
 .sscustomBox {
 	border:3px solid green;
