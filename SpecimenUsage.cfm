@@ -388,11 +388,11 @@
 		<cfset go="yes">
 		<cfset basFrom = "#basFrom# ,
 			citation CURRENT_NAME_CITATION, 
-			cataloged_item,
+			cataloged_item ci_current,
 			identification catItemTaxa">
 		<cfset basWhere = "#basWhere# AND publication.publication_id = CURRENT_NAME_CITATION.publication_id (+)
-			AND CURRENT_NAME_CITATION.collection_object_id = cataloged_item.collection_object_id (+)
-			AND cataloged_item.collection_object_id = catItemTaxa.collection_object_id
+			AND CURRENT_NAME_CITATION.collection_object_id = ci_current.collection_object_id (+)
+			AND ci_current.collection_object_id = catItemTaxa.collection_object_id
 			AND catItemTaxa.accepted_id_fg = 1
 			AND upper(catItemTaxa.scientific_name) LIKE '%#ucase(current_Sci_Name)#%'">
 	</cfif>
