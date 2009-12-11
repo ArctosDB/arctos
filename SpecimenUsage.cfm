@@ -302,7 +302,7 @@
 			publication.publication_title,
 			publication.publication_id,
 			publication.publication_type,
-			formatted_publication,
+			formatted_publication.formatted_publication,
 			publication_url.description,
 			publication_url.link,
 			count(distinct(citation.collection_object_id)) numCits">
@@ -324,15 +324,15 @@
 		AND publication.publication_id = publication_url.publication_id (+) 
 		AND publication_author_name.agent_name_id = pubAuth.agent_name_id (+)
 		AND pubAuth.agent_id = searchAuth.agent_id
-		AND formatted_publication.publication_id (+) = publication.publication_id 
+		AND formatted_publication.publication_id = publication.publication_id 
 		AND formatted_publication.format_style = 'long'">
 		
 	<cfif isdefined("p_title") AND len(#p_title#) gt 0>
-		<cfset basWhere = "#basWhere# AND UPPER(regexp_replace(publication_title,'<[^>]*>')) LIKE '%#ucase(escapeQuotes(p_title))#%'">
+		<cfset basWhere = "#basWhere# AND UPPER(regexp_replace(publication.publication_title,'<[^>]*>')) LIKE '%#ucase(escapeQuotes(p_title))#%'">
 		<cfset go="yes">
 	</cfif>
 	<cfif isdefined("publication_type") AND len(#publication_type#) gt 0>
-		<cfset basWhere = "#basWhere# AND publication_type = '#publication_type#'">
+		<cfset basWhere = "#basWhere# AND publication.publication_type = '#publication_type#'">
 		<cfset go="yes">
 	</cfif>
 	<cfif isdefined("publication_id") AND len(#publication_id#) gt 0>
@@ -356,7 +356,7 @@
 	</cfif>
 	<cfif isdefined("year") AND isnumeric(#year#)>
 		<cfset go="yes">
-		<cfset basWhere = "#basWhere# AND PUBLISHED_YEAR = #year#">
+		<cfset basWhere = "#basWhere# AND publication.PUBLISHED_YEAR = #year#">
 	</cfif>
 	<cfif isdefined("journal") AND len(journal) gt 0>
 		<cfset go="yes">
@@ -410,12 +410,14 @@
 	<cfset basSql = "#basSQL# #basFrom# #basWhere#
 			group by
 				publication.publication_title,
-			publication.publication_id,
-			publication.publication_type,
-			formatted_publication.formatted_publication,
-			publication_url.description,
-			publication_url.link 
-				ORDER BY formatted_publication.formatted_publication,formatted_publication.publication_id">
+				publication.publication_id,
+				publication.publication_type,
+				formatted_publication.formatted_publication,
+				publication_url.description,
+				publication_url.link 
+			ORDER BY 
+				formatted_publication.formatted_publication,
+				formatted_publication.publication_id">
 	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(basSQL)#
 	</cfquery>
