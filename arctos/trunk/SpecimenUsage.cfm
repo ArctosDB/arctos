@@ -5,7 +5,7 @@
 	</cfif>
 	<cfset title = "Search for Results">
 	<cfquery name="ctColl" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select collection,collection_id from collection order by collection_id
+		select collection,collection_id from collection order by collection
 	</cfquery>
 	<cfquery name="ctjournal_name" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select journal_name from ctjournal_name order by journal_name
@@ -303,8 +303,8 @@
 			publication.publication_id,
 			publication.publication_type,
 			formatted_publication,
-			description,
-			link,
+			publication_url.description,
+			publication_url.link,
 			count(distinct(citation.collection_object_id)) numCits">
 	<cfset basFrom = "
 		FROM 
@@ -412,8 +412,8 @@
 				publication.publication_title,
 			publication.publication_id,
 			publication.publication_type,
-			formatted_publication,
-			description,
+			publication_url.formatted_publication,
+			publication_url.description,
 			link ORDER BY formatted_publication,publication_id">
 	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(basSQL)#
