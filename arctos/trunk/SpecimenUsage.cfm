@@ -412,9 +412,10 @@
 				publication.publication_title,
 			publication.publication_id,
 			publication.publication_type,
-			publication_url.formatted_publication,
+			formatted_publication.formatted_publication,
 			publication_url.description,
-			link ORDER BY formatted_publication.formatted_publication,formatted_publication.publication_id">
+			publication_url.link 
+				ORDER BY formatted_publication.formatted_publication,formatted_publication.publication_id">
 	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(basSQL)#
 	</cfquery>
