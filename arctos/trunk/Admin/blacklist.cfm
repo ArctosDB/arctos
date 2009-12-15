@@ -23,7 +23,7 @@
 	</cfquery>
 	<cflocation url="/Admin/blacklist.cfm">
 	<cfcatch>
-		<cfdump var=#cftry#>
+		<cfdump var=#cfcatch#>
 	</cfcatch>
 	</cftry>
 </cfif>
