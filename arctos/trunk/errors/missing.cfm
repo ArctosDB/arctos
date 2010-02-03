@@ -115,7 +115,7 @@
 					<cfinclude template="/SpecimenResults.cfm">
 				<cfelse>
 					<script>
-						document.location='#d.url#';
+						document.location='/#d.url#';
 					</script>
 				</cfif>
 			<cfelse>

@@ -873,7 +873,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml +=data.COLLECTION_OBJECT_ID[i] + "'" + ',this.checked);"></td>';
 				}
 				theInnerHtml += '<td nowrap="nowrap" id="CatItem_'+data.COLLECTION_OBJECT_ID[i]+'">';
-					theInnerHtml += '<a href="SpecimenDetail.cfm?collection_object_id=';
+					theInnerHtml += '<a href="/SpecimenDetail.cfm?collection_object_id=';
 					theInnerHtml += data.COLLECTION_OBJECT_ID[i];
 					theInnerHtml += '">';
 					theInnerHtml += data.COLLECTION[i];

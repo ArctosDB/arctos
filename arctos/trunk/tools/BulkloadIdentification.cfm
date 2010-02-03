@@ -333,7 +333,7 @@ Include column headings, spelled exactly as below.
 				TAXON_NAME_ID,
 				VARIABLE
 			) values (
-				q_identification_id.currval,
+				sq_identification_id.currval,
 				#TAXON_NAME_ID#,
 				'A'
 			)
@@ -344,7 +344,7 @@ Include column headings, spelled exactly as below.
 				AGENT_ID,
 				IDENTIFIER_ORDER
 			) values (
-				q_identification_id.currval,
+				sq_identification_id.currval,
 				#agent_1_id#,
 				1
 			)
@@ -356,7 +356,7 @@ Include column headings, spelled exactly as below.
 					AGENT_ID,
 					IDENTIFIER_ORDER
 				) values (
-					q_identification_id.currval,
+					sq_identification_id.currval,
 					#agent_2_id#,
 					2
 				)
