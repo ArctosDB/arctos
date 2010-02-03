@@ -193,7 +193,6 @@
 </cffunction>
 <!-------------------------------------------------------------->
 <cffunction name="onRequestStart" returnType="boolean" output="true">
-	hello, cupcake
 	<cfif listfindnocase(application.blacklist,cgi.REMOTE_ADDR)>
 		<cfif cgi.script_name is not "/errors/gtfo.cfm">
 			<cfscript>
@@ -235,6 +234,7 @@
 		currentPath contains "/fix/" or
 		currentPath contains "/picks/" or
 		currentPath contains "/tools/" or
+		currentPath contains "/includes/" or
 		currentPath contains "/ScheduledTasks/")>
 			----currentPath: #currentPath#----
 			<cfset r=replace(#currentPath#,#application.webDirectory#,"")>
