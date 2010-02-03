@@ -236,8 +236,11 @@
 		currentPath contains "/tools/" or
 		currentPath contains "/includes/" or
 		currentPath contains "/ScheduledTasks/")>
-			----currentPath: #currentPath#----
 			<cfset r=replace(#currentPath#,#application.webDirectory#,"")>
+			<cfscript>
+				getPageContext().forward("/errors/forbidden.cfm");
+			</cfscript>
+			<cfabort>
 			<!---
 			<cflocation url="/errors/forbidden.cfm?ref=#r#" addtoken="false">
 			----->
