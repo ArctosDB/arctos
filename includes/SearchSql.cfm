@@ -127,8 +127,8 @@
 	<cfif #basJoin# does not contain "CatItemCollObject">
 		<cfset basJoin = " #basJoin# INNER JOIN coll_object CatItemCollObject ON (cataloged_item.collection_object_id = CatItemCollObject.collection_object_id)">
 	</cfif>
-	<cfset basJoin = " #basJoin# INNER JOIN agent_name entered_agent coll_object ON	(CatItemCollObject.entered_person_id = entered_agent.agent_id)">
-	<cfset basQual = "#basQual#  AND upper(entered_agent.agent_name) = '%#ucase(entered_by)#%'" >
+	<cfset basJoin = " #basJoin# INNER JOIN agent_name entered_agent ON	(CatItemCollObject.entered_person_id = entered_agent.agent_id)">
+	<cfset basQual = "#basQual#  AND upper(entered_agent.agent_name) like '%#ucase(entered_by)#%'" >
 </cfif>
 
 <cfif isdefined("media_type") AND len(#media_type#) gt 0>

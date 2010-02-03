@@ -186,7 +186,6 @@
 	</cfif>	
 	<cfreturn true>
 </cffunction>
-
 <!-------------------------------------------------------------->
 <cffunction name="onSessionStart" output="false">
 	<cfinclude template="/includes/functionLib.cfm">
@@ -236,6 +235,7 @@
 		currentPath contains "/picks/" or
 		currentPath contains "/tools/" or
 		currentPath contains "/ScheduledTasks/")>
+			----currentPath: #currentPath#----
 			<cfset r=replace(#currentPath#,#application.webDirectory#,"")>
 			<cflocation url="/errors/forbidden.cfm?ref=#r#" addtoken="false">
 	</cfif>

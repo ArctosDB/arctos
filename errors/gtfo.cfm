@@ -15,7 +15,7 @@
 <cfif not isdefined("action") or action is not "p">
 	Oops. Looks like you are on our blacklist. That's probably because someone from your IP 
 	made a lame attempt to hack us, or possibly we were just feeling exceptionally paranoid when you 
-	tried to do something legit, but ended up in our logs anyway. We get like that sometimes, and we'd
+	tried to do something legit, but you ended up in our logs anyway. We get like that sometimes, and we'd
 	like to apologize now if you are neither a robot nor a hacker.
 	Use the form below to convince us that you 
 	are a non-malicious carbon-based life form and we'll happily restore your access.
