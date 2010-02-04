@@ -28,7 +28,7 @@
 		</cfmail>
 		<cfinclude template="/errors/gtfo.cfm">
 		<script>
-			jQuery('#loading').hide;
+			document.getElementById('loading').style.display='none';
 		</script>
 		bla bla bla stuff bla
 		<cfabort>
