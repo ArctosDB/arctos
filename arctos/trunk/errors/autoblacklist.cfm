@@ -1,10 +1,10 @@
 <CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
-		<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
-	<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
-		<CFSET ipaddress=CGI.Remote_Addr>
-	<cfelse>
-		<cfset ipaddress='unknown'>
-	</CFIF>
+	<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
+<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
+	<CFSET ipaddress=CGI.Remote_Addr>
+<cfelse>
+	<cfset ipaddress='unknown'>
+</CFIF>
 	<cftry>
 		<!---
 		<cfquery name="d" datasource="uam_god">
@@ -46,7 +46,4 @@
 			<cfdump var="#form#">
 			<cfdump var="#session#">
 		</cfmail>
-	<cfscript>
-		getPageContext().forward("/errors/gtfo.cfm");
-	</cfscript>
-	<cfabort>
+	<cflocation url="/errors/gtfo.cfm" addtoken="false">
