@@ -26,8 +26,9 @@
 			<cfdump var="#form#">
 			<cfdump var="#session#">
 		</cfmail>
+		<cfinclude template="/errors/gtfo.cfm">
 		<script>
-			document.removeChild('loading');
+			$('##loading').hide;
 		</script>
 		bla bla bla stuff bla
 		<cfabort>
