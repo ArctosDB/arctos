@@ -26,6 +26,9 @@
 			<cfdump var="#form#">
 			<cfdump var="#session#">
 		</cfmail>
+		<script>
+			document.getElementById('loading').innerHTML='whatever';
+		</script>
 		bla bla bla stuff bla
 		<cfabort>
 		<cfcatch>
