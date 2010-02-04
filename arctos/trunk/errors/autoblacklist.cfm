@@ -26,10 +26,7 @@
 			<cfdump var="#form#">
 			<cfdump var="#session#">
 		</cfmail>
-		<!---
 		<cflocation url="/errors/gtfo.cfm" addtoken="false">
-		---->
-		<cfabort>
 		<cfcatch>
 			<cfmail subject="Autoblacklist Fail" to="#Application.PageProblemEmail#" from="blfail@#application.fromEmail#" type="html">
 				Auto-blacklisting failed.
