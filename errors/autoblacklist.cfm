@@ -29,10 +29,11 @@
 	</cftry>
 		<cfmail subject="Autoblacklist Success" to="#Application.PageProblemEmail#" from="blacklisted@#application.fromEmail#" type="html">
 			Arctos automatically blacklisted IP
-			<br>The IP requesting the dead link was <a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#</a>
+			<a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#</a>
 			- <a href="#application.serverRootUrl#/Admin/blacklist.cfm?action=ins&ip=#ipaddress#">blacklist</a>
 			
 			<p></p>
+			<cfdump var="#cgi.redirect_url#">
 			<cfdump var="#cgi#">
 			<cfdump var="#url#">
 			<cfdump var="#form#">
