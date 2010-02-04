@@ -1,8 +1,11 @@
 <cftry>
+		<!---
 		<cfquery name="d" datasource="uam_god">
 			insert into uam.blacklist (ip) values ('#trim(ipaddress)#')
 		</cfquery>
 		<cfset application.blacklist=listappend(application.blacklist,trim(ipaddress))>
+		---->
+		bl'd
 		<cfcatch>
 			<cfmail subject="Autoblacklist Fail" to="#Application.PageProblemEmail#" from="blfail@#application.fromEmail#" type="html">
 				Auto-blacklisting failed.
