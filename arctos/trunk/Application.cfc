@@ -109,7 +109,7 @@
 						</cfoutput></i>
 					</cfif>
 					<p>This message has been logged. Please submit a <a href="/info/bugs.cfm">bug report</a> 
-					with any infomation that might help us to resolve this problem.</p>
+					with any information that might help us to resolve this problem.</p>
 				</td>
 			</tr>
 		</table>
@@ -234,7 +234,6 @@
 		currentPath contains "/fix/" or
 		currentPath contains "/picks/" or
 		currentPath contains "/tools/" or
-		currentPath contains "/includes/" or
 		currentPath contains "/ScheduledTasks/")>
 			<cfset r=replace(#currentPath#,#application.webDirectory#,"")>
 			<cfscript>
