@@ -44,7 +44,10 @@
 			You did not enter the right text.
 			<cfabort>
 		</cfif>
-	
+		<cfif len(c) lt 20>
+			You need to explain how you got here.
+			<cfabort>
+		</cfif>
 		<cfmail subject="BlackList Objection" to="#Application.PageProblemEmail#" from="blacklist@#application.fromEmail#" type="html">
 			IP #cgi.REMOTE_ADDR# had this to say:
 			<p>
