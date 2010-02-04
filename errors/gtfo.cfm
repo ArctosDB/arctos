@@ -19,6 +19,7 @@
 	like to apologize now if you are neither a robot nor a hacker.
 	<p>Use the form below to convince us that you 
 	are a non-malicious carbon-based life form and we'll happily restore your access.</p>
+	<p>Sometimes the text gets messed up, so just click reload if you can't read it.</p>
 	<cfset captcha = makeRandomString()>
 	<cfset captchaHash = hash(captcha)>
 	<cfform name="g" method="post" action="/errors/gtfo.cfm">
