@@ -12,8 +12,6 @@
 		</cfquery>
 		<cfset application.blacklist=listappend(application.blacklist,trim(ipaddress))>
 		---->
-		bl'd
-		
 		<cfmail subject="Autoblacklist Success" to="#Application.PageProblemEmail#" from="blacklisted@#application.fromEmail#" type="html">
 			Arctos automatically blacklisted IP
 			<a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#</a>
@@ -30,7 +28,6 @@
 		<script>
 			document.getElementById('loading').style.display='none';
 		</script>
-		bla bla bla stuff bla
 		<cfabort>
 		<cfcatch>
 			<cfmail subject="Autoblacklist Fail" to="#Application.PageProblemEmail#" from="blfail@#application.fromEmail#" type="html">
