@@ -257,7 +257,6 @@
 						</td>
 					</tr>
 				</table>
-			</cfform>
 		</div>
 		</td><td valign="top">
 			<strong>Projects associated with this Accn:</strong>
@@ -293,6 +292,8 @@
 					</td>
 				</tr>
 			</table>
+						</cfform>
+
 			<strong>Media associated with this Accn:</strong>
 			<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select 
