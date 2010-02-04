@@ -240,10 +240,6 @@
 				getPageContext().forward("/errors/forbidden.cfm");
 			</cfscript>
 			<cfabort>
-			<!---
-			<cflocation url="/errors/forbidden.cfm?ref=#r#" addtoken="false">
-			----->
-			@fail - abort, etc.
 	</cfif>
 	<cfif cgi.HTTP_HOST is "arctos-test.arctos.database.museum" and 
 			#GetTemplatePath()# does not contain "/errors/dev_login.cfm" and
