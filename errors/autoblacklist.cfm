@@ -26,8 +26,8 @@
 			<cfdump var="#form#">
 			<cfdump var="#session#">
 		</cfmail>
-		<cfheader statuscode="301" statustext="Moved permanently">
-	<cfheader name="Location" value="/errors/gtfo.cfm">
+		bla bla bla stuff bla
+		<cfabort>
 		<cfcatch>
 			<cfmail subject="Autoblacklist Fail" to="#Application.PageProblemEmail#" from="blfail@#application.fromEmail#" type="html">
 				Auto-blacklisting failed.
