@@ -117,7 +117,7 @@
 <!------------------------------------------------------------------------------------->
 <cffunction name="checkSql" access="public" output="true" returntype="boolean">
     <cfargument name="sql" required="true" type="string">
-    <cfset nono="update,insert,delete,drop,create, alter,set,execute,exec,begin,declare,all_tables,v$session,cast,sys.,ascii">
+    <cfset nono="update,insert,delete,drop,create,alter ,set,execute,exec,begin,declare,all_tables,v$session,cast,sys.,ascii">
     <cfset dels="';','|',">
     <cfset safe=0>
     <cfloop index="i" list="#sql#" delimiters=" .,?!;:%$&""'/|[]{}()#chr(10)##chr(13)##chr(9)#@">
