@@ -13,6 +13,20 @@
 		<cfset application.blacklist=listappend(application.blacklist,trim(ipaddress))>
 		---->
 		bl'd
+		
+		<cfmail subject="Autoblacklist Success" to="#Application.PageProblemEmail#" from="blacklisted@#application.fromEmail#" type="html">
+			Arctos automatically blacklisted IP
+			<a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#</a>
+			- <a href="#application.serverRootUrl#/Admin/blacklist.cfm?action=ins&ip=#ipaddress#">blacklist</a>
+			
+			<p></p>
+			<cfdump var="#cgi.redirect_url#">
+			<cfdump var="#cgi#">
+			<cfdump var="#url#">
+			<cfdump var="#form#">
+			<cfdump var="#session#">
+		</cfmail>
+	<cflocation url="/errors/gtfo.cfm" addtoken="false">
 		<cfcatch>
 			<cfmail subject="Autoblacklist Fail" to="#Application.PageProblemEmail#" from="blfail@#application.fromEmail#" type="html">
 				Auto-blacklisting failed.
@@ -34,16 +48,4 @@
 			</cfmail>
 		</cfcatch>
 	</cftry>
-		<cfmail subject="Autoblacklist Success" to="#Application.PageProblemEmail#" from="blacklisted@#application.fromEmail#" type="html">
-			Arctos automatically blacklisted IP
-			<a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#</a>
-			- <a href="#application.serverRootUrl#/Admin/blacklist.cfm?action=ins&ip=#ipaddress#">blacklist</a>
-			
-			<p></p>
-			<cfdump var="#cgi.redirect_url#">
-			<cfdump var="#cgi#">
-			<cfdump var="#url#">
-			<cfdump var="#form#">
-			<cfdump var="#session#">
-		</cfmail>
-	<cflocation url="/errors/gtfo.cfm" addtoken="false">
+		
