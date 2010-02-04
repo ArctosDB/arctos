@@ -27,7 +27,7 @@
 			<cfdump var="#session#">
 		</cfmail>
 		<script>
-			document.getElementById('loading').innerHTML='whatever';
+			document.removeChild('loading');
 		</script>
 		bla bla bla stuff bla
 		<cfabort>
