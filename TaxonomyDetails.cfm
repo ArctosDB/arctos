@@ -1,6 +1,7 @@
 <cfinclude template = "includes/_header.cfm">
 
 <cfif isdefined("scientific_name") and len(scientific_name) gt 0>
+	<cfset checkSql(scientific_name)>
 	<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		SELECT taxon_name_id FROM taxonomy WHERE upper(scientific_name)	= '#ucase(scientific_name)#'
 	</cfquery>
@@ -8,6 +9,7 @@
 		<cfset tnid=#getTID.taxon_name_id#>
 	<cfelseif listlen(scientific_name," ") gt 1 and (listlast(scientific_name," ") is "sp." or listlast(scientific_name," ") is "ssp.")>
 		<cfset s=listdeleteat(scientific_name,listlen(scientific_name," ")," ")>
+			<cfset checkSql(s)>
 		<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT taxon_name_id FROM taxonomy WHERE upper(scientific_name)	= '#ucase(s)#'
 		</cfquery>
@@ -17,6 +19,7 @@
 			<cfabort>
 		</cfif>
 	<cfelseif listlen(scientific_name," ") is 3>
+		<cfset checkSql(scientific_name)>
 		<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				scientific_name 
@@ -33,6 +36,7 @@
 			<cfabort>
 		</cfif>
 	<cfelseif listlen(scientific_name," ") is 4>
+		<cfset checkSql(scientific_name)>
 		<cfquery name="getTID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				scientific_name 
@@ -52,6 +56,7 @@
 </cfif>
 
 <cfif isdefined("taxon_name_id")>
+	<cfset checkSql(taxon_name_id)>
 	<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select scientific_name from taxonomy where taxon_name_id=#taxon_name_id# 
 	</cfquery>
@@ -61,6 +66,7 @@
 		<cfabort>
 	</cfif>
 </cfif>
+<cfset checkSql(tnid)>
 <cfset taxaRanksList="Kingdom,Phylum,PHYLClass,Subclass,PHYLOrder,Suborder,Superfamily,Family,Subfamily,Genus,Subgenus,Species,Subspecies,Nomenclatural_Code">
 <cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT 
