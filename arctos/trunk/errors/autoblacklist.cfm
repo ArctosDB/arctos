@@ -26,7 +26,7 @@
 		</cfmail>
 		<cfinclude template="/errors/gtfo.cfm">
 		<script>
-			document.getElementById('loading').style.display='none';
+			try{document.getElementById('loading').style.display='none';}catch(e){}
 		</script>
 		<cfabort>
 		<cfcatch>

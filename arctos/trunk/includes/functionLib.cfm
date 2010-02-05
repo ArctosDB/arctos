@@ -128,25 +128,8 @@
     <cfif safe is 0>
         <cfreturn true>
     <cfelse>
-	 <!---
-		<div class="error">
-			Your query contains invalid characters. If you believe you have received this message in error, 
-			please file a <a href="/info/bugs.cfm">bug report</a>.
-		</div>
-		<cfmail subject="check SQL" to="#Application.PageProblemEmail#" from="sqlCheck@#Application.fromEmail#" type="html">
-			<br>
-			The following SQL failed:
-			<br>
-			#sql#
-			<br>Session: <cfdump var="#session#">
-			<br>CGI: <cfdump var="#cgi#">
-		</cfmail>	
-		<cfabort>
-		--->
 		<cfinclude template="/errors/autoblacklist.cfm">
-		
-		    <cfreturn false>   
-
+		<cfreturn false>
     </cfif>
 </cffunction>
 <!--------------------------------------------------------------------->
