@@ -42,7 +42,8 @@
 	<cfquery name="d" datasource="uam_god">
 		select COLUMN_NAME from cf_spec_res_cols where category='attribute' and column_name != 'sex' order by DISP_ORDER	
 	</cfquery>
-	Now update JS funtion ....cleanup
+	You aren't done here yet. JS variable "attributes" in function "success_getSpecResultsData" (in ajax.js)
+	must be updated to the following attribute list
 	
 	<hr>#valuelist(d.COLUMN_NAME)#
 	<hr>
