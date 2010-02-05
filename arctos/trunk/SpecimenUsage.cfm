@@ -276,6 +276,7 @@
 				ORDER BY 
 					sponsor_name
 			</cfquery>
+<!---
 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<a href="/ProjectDetail.cfm?project_id=#project_id#">
 					<div class="indent">
@@ -294,6 +295,7 @@
 					<br><a href="/Project.cfm?Action=editProject&project_id=#project_id#">Edit</a>
 				</cfif>
 			</div>
+			--->
 			<cfset i=#i#+1>
 		</cfloop>
 	</td><td width="50%" valign="top">
