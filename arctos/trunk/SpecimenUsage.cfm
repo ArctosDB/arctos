@@ -220,6 +220,7 @@
 			<cfset whr = "#whr# and 1=2">
 		</cfif>
 		<cfset sql = "#sel# #frm# #whr# ORDER BY project_name">
+		<cfset checkSql(sql)>	
 		<cfquery name="projects" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
@@ -418,6 +419,7 @@
 			ORDER BY 
 				formatted_publication.formatted_publication,
 				publication.publication_id">
+	<cfset checkSql(basSQL)>	
 	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(basSQL)#
 	</cfquery>
