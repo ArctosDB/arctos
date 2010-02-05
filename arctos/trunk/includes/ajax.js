@@ -545,6 +545,9 @@ function getSpecResultsData (startrow,numrecs,orderBy,orderOrder) {
 }
 function success_getSpecResultsData(result){
 	var data = result.DATA;
+	var attributes="SNV_results,abundance,age,age_class,appraised_value,axillary_girth,body_condition,body_width,breadth,bursa,carapace_length,caste,clutch_size,clutch_size_nest_parasite,colors,crown_rump_length,curvilinear_length,diploid_number,ear_from_crown,ear_from_notch,egg_content_weight,eggshell_thickness,fat_deposition,forearm_length,gonad,head_length,head_width,height,hind_foot_with_claw,hind_foot_without_claw,image_confirmed,incubation_stage,molt_condition,neck_width,nest_description,number_of_labels,numeric_age,ovum,reproductive_condition,reproductive_data,skull_ossification,snout_vent_length,soft_part_colors,soft_parts,stomach_contents,tail_base_width,tail_condition,tail_length,title,total_length,tragus_length,trap_identifier,trap_type,unformatted_measurements,verbatim_host_ID,verbatim_preservation_date,weight,width,wing_span";
+	var attAry=attributes.split(",");
+	var nAtt=attAry.length;
 	var collection_object_id = data.COLLECTION_OBJECT_ID[0];
 	if (collection_object_id < 1) {
 		var msg = data.message[0];
@@ -724,6 +727,14 @@ function success_getSpecResultsData(result){
 			if (data.COLUMNLIST[0].indexOf('COLL_OBJ_DISPOSITION')> -1) {
 				theInnerHtml += '<th>Specimen&nbsp;Disposition</th>';
 			}
+			
+			for (a=0; a<nAtt; a++) {
+				if (data.COLUMNLIST[0].indexOf(upper(attAry[a]))> -1) {
+					theInnerHtml += '<th>' + attAry[a] + '</th>';
+				}
+			}
+			
+			/*
 			// attribtues
 			if (data.COLUMNLIST[0].indexOf('SNV_RESULTS')> -1) {
 				theInnerHtml += '<th>SNV&nbsp;Results</th>';
@@ -845,6 +856,7 @@ function success_getSpecResultsData(result){
 			if (data.COLUMNLIST[0].indexOf('WEIGHT')> -1) {
 				theInnerHtml += '<th>Weight</th>';
 			}
+			*/
 			if (data.COLUMNLIST[0].indexOf('DEC_LAT')> -1) {
 				theInnerHtml += '<th>Dec.&nbsp;Lat.</th>';
 			}
