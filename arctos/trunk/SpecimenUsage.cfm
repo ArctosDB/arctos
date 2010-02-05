@@ -246,7 +246,6 @@
 				No projects matched your criteria.
 			</div>
 		</cfif>
-				<!----
 
 		<cfloop query="projNames">
 			<cfquery name="thisAuth" dbtype="query">
@@ -278,6 +277,8 @@
 				ORDER BY 
 					sponsor_name
 			</cfquery>
+							<!----
+
 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<a href="/ProjectDetail.cfm?project_id=#project_id#">
 					<div class="indent">
@@ -297,8 +298,9 @@
 				</cfif>
 			</div>
 			<cfset i=#i#+1>
+					--->
+
 		</cfloop>
-		--->
 	</td><td width="50%" valign="top">
 	<cfset i=1>
 	<cfset go="no">
