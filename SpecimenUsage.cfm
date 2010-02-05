@@ -119,7 +119,7 @@
 </cfif>
 <!-------------------------------------------------------------------------------------->
 <cfif action is "search">
-	<cfoutput>
+<cfoutput>
 	<cfset title = "Usage Search Results">
 	<cfset i=1>
 	<table border width="90%"><tr><td width="50%" valign="top">
@@ -148,12 +148,12 @@
 					project_sponsor.agent_name_id = s_name.agent_name_id (+) AND	
 					project_agent.agent_name_id = agent_name.agent_name_id (+)">
 		<cfset go="no">		
-		<cfif isdefined("p_title") AND len(#p_title#) gt 0>
+		<cfif isdefined("p_title") AND len(p_title) gt 0>
 			<cfset title = "#p_title#">
 			<cfset go="yes">
 			<cfset whr = "#whr# AND upper(regexp_replace(project.project_name,'<[^>]*>')) like '%#ucase(escapeQuotes(p_title))#%'">
 		</cfif>
-		<cfif isdefined("author") AND len(#author#) gt 0>
+		<cfif isdefined("author") AND len(author) gt 0>
 			<cfset go="yes">
 			<cfset whr = "#whr# AND project.project_id IN 
 				( select project_id FROM project_agent
@@ -240,6 +240,7 @@
 			ORDER BY
 				project_name
 		</cfquery>
+		<!----
 		<h3>Projects</h3>
 		<cfif projNames.recordcount is 0>
 			<div class="notFound">
@@ -276,7 +277,6 @@
 				ORDER BY 
 					sponsor_name
 			</cfquery>
-<!---
 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<a href="/ProjectDetail.cfm?project_id=#project_id#">
 					<div class="indent">
@@ -295,9 +295,9 @@
 					<br><a href="/Project.cfm?Action=editProject&project_id=#project_id#">Edit</a>
 				</cfif>
 			</div>
-			--->
 			<cfset i=#i#+1>
 		</cfloop>
+		--->
 	</td><td width="50%" valign="top">
 	<cfset i=1>
 	<cfset go="no">
