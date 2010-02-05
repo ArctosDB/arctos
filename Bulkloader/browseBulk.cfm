@@ -80,7 +80,7 @@
 <cfset args.name="blGrid">
 <cfset args.pageSize="20">
 <a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#&returnAction=ajaxGrid">Mark all to load</a>
-<a href="browseBulk.cfm?action=download&enteredby=#enteredby#&accn=#accn#">Download CSV</a>
+&nbsp;~&nbsp;<a href="browseBulk.cfm?action=download&enteredby=#enteredby#&accn=#accn#">Download CSV</a>
 
 <cfform method="post" action="browseBulk.cfm">
 	<cfinput type="hidden" name="returnAction" value="ajaxGrid">
@@ -661,7 +661,7 @@ Roll yer own:
 		</cfloop>
 	<cfinput type="submit" name="save" value="Save Changes In Grid">
 	<a href="browseBulk.cfm?action=loadAll&enteredby=#enteredby#&accn=#accn#&returnAction=viewTable">Mark all to load</a>
-	<a href="browseBulk.cfm?action=download&enteredby=#enteredby#&accn=#accn#">Download CSV</a>
+	&nbsp;~&nbsp;<a href="browseBulk.cfm?action=download&enteredby=#enteredby#&accn=#accn#">Download CSV</a>
 	</cfgrid>
 </cfform>
 
