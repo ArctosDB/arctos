@@ -39,7 +39,7 @@
 		</cftry>
 	</cftransaction>
 	<cfquery name="d" datasource="uam_god">
-		select COLUMN_NAME from cf_spec_res_cols where category='attribute' order by DISP_ORDER	
+		select COLUMN_NAME from cf_spec_res_cols where category='attribute' and column_name != 'sex' order by DISP_ORDER	
 	</cfquery>
 	Now update JS funtion ....cleanup
 	
