@@ -43,7 +43,7 @@
 	</cfif>
 	<cfset name=left(fileName,dotPos-1)>
 	<cfset extension=right(fileName,len(fileName)-dotPos+1)>
-	<cfif REFind("[^A-Za-z0-9_]",name,1) gt 0>
+	<cfif REFind("[^A-Za-z0-9_-]",name,1) gt 0>
 		<font color="##FF0000" size="+2">The filename (<strong>#fileName#</strong>) you entered contains characters that are not alphanumeric.
 		Please rename your file and try again.</font>
 		<a href="javascript:back()">Go Back</a>
