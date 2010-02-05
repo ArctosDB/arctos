@@ -240,13 +240,14 @@
 			ORDER BY
 				project_name
 		</cfquery>
-		<!----
 		<h3>Projects</h3>
 		<cfif projNames.recordcount is 0>
 			<div class="notFound">
 				No projects matched your criteria.
 			</div>
 		</cfif>
+				<!----
+
 		<cfloop query="projNames">
 			<cfquery name="thisAuth" dbtype="query">
 				SELECT 
