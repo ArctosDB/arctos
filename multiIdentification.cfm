@@ -263,26 +263,29 @@
 <cfif #Action# is "createManyNew">
 
 <cfoutput>
-<cfif #taxa_formula# is "A">
-	<cfset scientific_name = "#taxa_a#">
-<cfelseif #taxa_formula# is "A or B">
-	<cfset scientific_name = "#taxa_a# or #taxa_b#">
-<cfelseif #taxa_formula# is "A x B">
-	<cfset scientific_name = "#taxa_a# x #taxa_b#">
-<cfelseif #taxa_formula# is "A ?">
-		<cfset scientific_name = "#taxa_a# ?">
-<cfelseif #taxa_formula# is "A sp.">
-		<cfset scientific_name = "#taxa_a# sp.">
-<cfelseif #taxa_formula# is "A cf.">
-	<cfset scientific_name = "#taxa_a# cf.">
-<cfelseif #taxa_formula# is "A aff.">
-	<cfset scientific_name = "#taxa_a# aff.">
-<cfelseif #taxa_formula# is "A ssp.">
-	<cfset scientific_name = "#taxa_a# ssp.">
-<cfelseif #taxa_formula# is "A / B intergrade">
-	<cfset scientific_name = "#taxa_a# / #taxa_b# intergrade.">
-<cfelseif #taxa_formula# is "A and B">
-	<cfset scientific_name = "#taxa_a# and #taxa_b#">
+
+<cfif taxa_formula is "A {string}">
+	<cfset scientific_name = user_id>
+<cfelseif taxa_formula is "A">
+	<cfset scientific_name = taxona>
+<cfelseif taxa_formula is "A or B">
+	<cfset scientific_name = "#taxona# or #taxonb#">
+<cfelseif taxa_formula is "A and B">
+	<cfset scientific_name = "#taxona# and #taxonb#">
+<cfelseif taxa_formula is "A x B">
+	<cfset scientific_name = "#taxona# x #taxonb#">
+<cfelseif taxa_formula is "A ?">
+	<cfset scientific_name = "#taxona# ?">
+<cfelseif taxa_formula is "A sp.">
+	<cfset scientific_name = "#taxona# sp.">
+<cfelseif taxa_formula is "A ssp.">
+	<cfset scientific_name = "#taxona# ssp.">
+<cfelseif taxa_formula is "A cf.">
+	<cfset scientific_name = "#taxona# cf.">
+<cfelseif taxa_formula is "A aff.">
+	<cfset scientific_name = "#taxona# aff.">
+<cfelseif taxa_formula is "A / B intergrade">
+	<cfset scientific_name = "#taxona# / #taxonb# intergrade">
 <cfelse>
 	The taxa formula you entered isn't handled yet! Please submit a bug report.
 	<cfabort>
@@ -297,7 +300,7 @@
 			INSERT INTO identification (
 				IDENTIFICATION_ID,
 				COLLECTION_OBJECT_ID
-				<cfif len(#MADE_DATE#) gt 0>
+				<cfif len(MADE_DATE) gt 0>
 					,MADE_DATE
 				</cfif>
 				,NATURE_OF_ID
