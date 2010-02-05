@@ -1072,6 +1072,19 @@ function success_getSpecResultsData(result){
 				if (data.COLUMNLIST[0].indexOf('COLL_OBJ_DISPOSITION')> -1) {
 					theInnerHtml += '<td>' + data.COLL_OBJ_DISPOSITION[i] + '</td>';
 				}
+				
+				
+				
+				for (a=0; a<nAtt; a++) {
+					if (data.COLUMNLIST[0].indexOf(attAry[a].toUpperCase())> -1) {
+						theInnerHtml += '<td>' + data.attAry[a].toUpperCase()[i] + '</td>';
+						
+					}
+				}
+				
+				
+				
+				/*
 				// attributes
 				if (data.COLUMNLIST[0].indexOf('SNV_RESULTS')> -1) {
 					theInnerHtml += '<td>' + data.SNV_RESULTS[i] + '</td>';
@@ -1193,6 +1206,7 @@ function success_getSpecResultsData(result){
 				if (data.COLUMNLIST[0].indexOf('WEIGHT')> -1) {
 					theInnerHtml += '<td>' + data.WEIGHT[i] + '</td>';
 				}
+				*/
 				if (data.COLUMNLIST[0].indexOf('DEC_LAT')> -1) {
 					theInnerHtml += '<td style="font-size:small">' + data.DEC_LAT[i] + '</td>';
 				}
