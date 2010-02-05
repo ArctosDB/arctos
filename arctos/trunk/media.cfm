@@ -246,15 +246,17 @@
 			<input type="text" name="preview_uri" id="preview_uri" size="90">
 			<label for="mime_type">MIME Type</label>
 			<select name="mime_type" id="mime_type" class="reqdClr">
-					<cfloop query="ctmime_type">
-						<option value="#mime_type#">#mime_type#</option>
-					</cfloop>
+				<option value=""></option>
+				<cfloop query="ctmime_type">
+					<option value="#mime_type#">#mime_type#</option>
+				</cfloop>
 			</select>
             <label for="media_type">Media Type</label>
 			<select name="media_type" id="media_type" class="reqdClr">
-					<cfloop query="ctmedia_type">
-						<option value="#media_type#">#media_type#</option>
-					</cfloop>
+				<option value=""></option>
+				<cfloop query="ctmedia_type">
+					<option value="#media_type#">#media_type#</option>
+				</cfloop>
 			</select>
 			<label for="relationships">Media Relationships</label>
 			<div id="relationships" style="border:1px dashed red;">
