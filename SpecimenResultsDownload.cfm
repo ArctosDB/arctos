@@ -79,8 +79,8 @@
 		<td align="right">File Format</td>
 		<td>
 			<select name="fileFormat" size="1">
-				<option value="text">tab-delimited text</option>
 				<option value="csv">CSV</option>
+				<option value="text">tab-delimited text</option>
 				<option value="xml">XML</option>
 			</select>
 		</td>
