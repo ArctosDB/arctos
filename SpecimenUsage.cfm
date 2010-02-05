@@ -279,11 +279,13 @@
 			</cfquery>
 							
 
-			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+			<div >
 				<a href="/ProjectDetail.cfm?project_id=#project_id#">
 					<div class="indent">
 					<!---
 					#project_name#
+					
+					#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#
 					--->
 					</div>
 				</a>
