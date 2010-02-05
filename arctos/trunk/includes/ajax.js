@@ -1076,8 +1076,9 @@ function success_getSpecResultsData(result){
 				
 				
 				for (a=0; a<nAtt; a++) {
-					if (data.COLUMNLIST[0].indexOf(attAry[a].toUpperCase())> -1) {
-						theInnerHtml += '<td>' + data.attAry[a].toUpperCase()[i] + '</td>';
+					var thisAtt=attAry[a].toUpperCase();
+					if (data.COLUMNLIST[0].indexOf(thisAtt)> -1) {
+						theInnerHtml += '<td>' + data.thisAtt[i] + '</td>';
 						
 					}
 				}
