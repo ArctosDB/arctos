@@ -31,6 +31,7 @@
 				<cfset n=n+1>
 			</cfloop>
 		<cfcatch>
+			fail
 			<cftransaction action="rollback" />
 			<cfmail to="#Application.PageProblemEmail#" subject="cf_spec_res_cols job fail" from="scheduler@#Application.fromEmail#" type="html">
 				<cfdump var=#cfcatch#>
