@@ -118,8 +118,8 @@
 	</form>
 </cfif>
 <!-------------------------------------------------------------------------------------->
-<cfif #action# is "search">
-<cfoutput>
+<cfif action is "search">
+	<cfoutput>
 	<cfset title = "Usage Search Results">
 	<cfset i=1>
 	<table border width="90%"><tr><td width="50%" valign="top">
@@ -419,7 +419,7 @@
 			ORDER BY 
 				formatted_publication.formatted_publication,
 				publication.publication_id">
-	<cfset checkSql(basSQL)>	
+	<!---<cfset checkSql(basSQL)>--->	
 	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(basSQL)#
 	</cfquery>
