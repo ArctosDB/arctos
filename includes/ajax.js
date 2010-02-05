@@ -729,7 +729,7 @@ function success_getSpecResultsData(result){
 			}
 			
 			for (a=0; a<nAtt; a++) {
-				if (data.COLUMNLIST[0].indexOf(upper(attAry[a]))> -1) {
+				if (data.COLUMNLIST[0].indexOf(attAry[a].toUpperCase())> -1) {
 					theInnerHtml += '<th>' + attAry[a] + '</th>';
 				}
 			}
