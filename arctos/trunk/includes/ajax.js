@@ -1190,7 +1190,7 @@ function success_getSpecResultsData(result){
 			theInnerHtml += '</tr>';
 		}
 		theInnerHtml += '</table>';		
-	    theInnerHtml = theInnerHtml.replace(/^null&nbsp;$/g,"--"); 
+	    theInnerHtml = theInnerHtml.replace(/^null$/g,"--"); 
 		tgt.innerHTML = theInnerHtml;
 		if (action == 'dispCollObj'){
 			makePartThingy();
