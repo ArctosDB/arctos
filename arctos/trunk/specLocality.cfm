@@ -97,7 +97,7 @@
 		parent.dyniframesize();
 	}
 </script>
-<cfif #Action# is "nothing">
+<cfif action is "nothing">
 <cfoutput> 
 	<cfquery name="l" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
     	select 
@@ -1232,8 +1232,7 @@ got llid....
 <cfset tt=DateDiff("s", btime, etime)>
 <br>Runtime: #tt#
 <br>
-gonna try this:
-
+gonna try this:				
 				<cfquery name="newCoor" datasource="uam_god">
 					INSERT INTO lat_long (
 						LAT_LONG_ID,
