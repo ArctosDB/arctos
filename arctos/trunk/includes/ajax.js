@@ -1191,6 +1191,7 @@ function success_getSpecResultsData(result){
 		}
 		theInnerHtml += '</table>';		
 	    theInnerHtml = theInnerHtml.replace(/<td>null<\/td>/g,"<td>&nbsp;</td>"); 
+	    theInnerHtml = theInnerHtml.replace(/<td><div class="wrapLong">null<\/div><\/td>/g,"<td>&nbsp;</td>");
 		tgt.innerHTML = theInnerHtml;
 		if (action == 'dispCollObj'){
 			makePartThingy();
