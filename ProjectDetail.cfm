@@ -152,7 +152,7 @@
 		#dateformat(p.start_date,"dd mmmm yyyy")# - #dateformat(p.end_date,"dd mmmm yyyy")#
 	</div>
 	<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_publications")>
-		<p><a href="/Project.cfm?Action=editProject&project_id=#p.project_id">Edit Project</a></p>
+		<p><a href="/Project.cfm?Action=editProject&project_id=#p.project_id#">Edit Project</a></p>
 	</cfif>
 	<h2>Description</h2>
 	#p.project_description#
