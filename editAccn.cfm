@@ -712,18 +712,20 @@
 		<cfquery name="getAccns" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(thisSQL)#
 		</cfquery>
-		<cfquery name="c" dbtype="query">
-			select count(distinct(transaction_id)) c from getAccns
-		</cfquery>
-		<cfquery name="specs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-			select count(*) c from cataloged_item where accn_id in (#valuelist(getAccns.transaction_id)#)
-		</cfquery>
 		<cfif getAccns.recordcount is 0>
 			Nothing matched your search criteria.
+			<cfabort>
 		<cfelse>
+			<cfquery name="c" dbtype="query">
+				select count(distinct(transaction_id)) c from getAccns
+			</cfquery>
+			<cfquery name="specs" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select count(*) c from cataloged_item where accn_id in (#valuelist(getAccns.transaction_id)#)
+			</cfquery>
 			<a href="/SpecimenResults.cfm?accn_trans_id=#valuelist(getAccns.transaction_id)#">
 				View #specs.c# items in these #c.c# Accessions</a>
 		</cfif>
+		
 		<cfset i=1>
 		<cfif #project_id# gt 0>
 			<cfquery name="sfproj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
