@@ -277,16 +277,10 @@
 				ORDER BY 
 					sponsor_name
 			</cfquery>
-							
-
-			<div >
+			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 				<a href="/ProjectDetail.cfm?project_id=#project_id#">
 					<div class="indent">
-					<!---
 					#project_name#
-					
-					#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#
-					--->
 					</div>
 				</a>
 				<cfloop query="thisSponsor">
@@ -302,7 +296,6 @@
 				</cfif>
 			</div>
 			<cfset i=i+1>
-
 		</cfloop>
 	</td><td width="50%" valign="top">
 	<cfset i=1>
