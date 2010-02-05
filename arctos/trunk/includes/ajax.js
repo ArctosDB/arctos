@@ -1077,7 +1077,7 @@ function success_getSpecResultsData(result){
 				
 				for (a=0; a<nAtt; a++) {
 					var thisAtt=attAry[a].toUpperCase();
-					var thisAttVal=eval('data.' + thisAtt + '[' + i + ']');
+					var thisAttVal='data.' + eval(thisAtt + '[' + i + ']');
 					if (data.COLUMNLIST[0].indexOf(thisAtt)> -1) {
 						theInnerHtml += '<td>' + thisAttVal + '</td>';
 						
