@@ -781,9 +781,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml +='<td id="partCell_' + data.COLLECTION_OBJECT_ID[i] + '"></td>';
 				}				
 				if (data.COLUMNLIST[0].indexOf('CUSTOMID')> -1) {
-					theInnerHtml += '<td>';
-						theInnerHtml += data.CUSTOMID[i] + '&nbsp;';
-					theInnerHtml += '</td>';
+					theInnerHtml += '<td>' + data.CUSTOMID[i] + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('MEDIA')> -1) {
 					theInnerHtml += '<td>';
