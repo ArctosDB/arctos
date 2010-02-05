@@ -300,7 +300,8 @@
 								nature_of_id,
 								identification_remarks,
 								identification.identification_id,
-								accepted_id_fg
+								accepted_id_fg,
+								taxa_formula
 							FROM
 								identification 
 							WHERE
@@ -326,7 +327,7 @@
 						    <cfelse>
 					        	<div class="unAcceptedIdDiv">
 					        </cfif>
-					        <cfif #getTaxa.recordcount# is 1>
+					        <cfif getTaxa.recordcount is 1 and taxa_formula is 'a'>
 								<a href="/name/#getTaxa.scientific_name#" target="_blank">
 									#getTaxa.display_name#</a> 
 							<cfelse>
