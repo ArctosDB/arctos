@@ -89,6 +89,14 @@
 				<input type="hidden" name="TaxonAID"> 
 			  </td>
             </tr>
+			<tr id="userID" style="display:none;"> 
+		    	<td>
+					<div class="helpLink" id="user_identification">Identification:</div>
+				</td>
+		         <td>
+				  	<input type="text" name="user_id" id="user_id" size="50">
+				</td>
+		  	</tr>
 			<tr id="taxon_b_row" style="display:none;"> 
               <td><div align="right">Taxon B:</div></td>
               <td>
