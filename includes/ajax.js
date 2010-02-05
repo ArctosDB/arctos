@@ -1077,13 +1077,13 @@ function success_getSpecResultsData(result){
 				
 				for (a=0; a<nAtt; a++) {
 					if (data.COLUMNLIST[0].indexOf(attAry[a].toUpperCase())> -1) {
-					var thisAtt=attAry[a].toUpperCase();
-					var attStr='data.' + thisAtt + '[' + i + ']';
-					console.log(attStr);
-					var thisAttVal=eval(attStr);
-					console.log(thisAttVal);
+					//var thisAtt=attAry[a].toUpperCase();
+					var attStr='data.' + attAry[a].toUpperCase() + '[' + i + ']';
+					//console.log(attStr);
+					//var thisAttVal=eval(attStr);
+					//console.log(thisAttVal);
 					
-						theInnerHtml += '<td>' + thisAttVal + '</td>';
+						theInnerHtml += '<td>' + eval(attStr) + '</td>';
 						
 					}
 				}
