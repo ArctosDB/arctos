@@ -23,7 +23,7 @@
 						DISP_ORDER
 					) values (
 						'#cname#',
-						ConcatAttributeValue(flatTableName.collection_object_id,'#attribute_type#'),
+						'ConcatAttributeValue(flatTableName.collection_object_id,''#attribute_type#'')',
 						'attribute',
 						#n#
 					)
