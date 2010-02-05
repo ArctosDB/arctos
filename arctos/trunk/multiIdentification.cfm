@@ -83,10 +83,10 @@
             <tr> 
               <td><div align="right">Taxon A:</div></td>
               <td>
-			  	<input type="text" name="taxona" class="reqdClr" size="50" 
-				onChange="taxaPick('TaxonAID','taxona','newID',this.value); return false;"
+			  	<input type="text" name="taxona" id="taxona" class="reqdClr" size="50" 
+				onChange="taxaPick('taxona_id','taxona','newID',this.value); return false;"
 				onKeyPress="return noenter(event);">
-				<input type="hidden" name="TaxonAID"> 
+				<input type="hidden" name="taxona_id" id="taxona_id"> 
 			  </td>
             </tr>
 			<tr id="userID" style="display:none;"> 
@@ -101,9 +101,9 @@
               <td><div align="right">Taxon B:</div></td>
               <td>
 			  	<input type="text" name="taxonb" id="taxonb" class="reqdClr" size="50" 
-					onChange="taxaPick('TaxonBID','taxonb','newID',this.value); return false;"
+					onChange="taxaPick('taxonb_id','taxonb','newID',this.value); return false;"
 					onKeyPress="return noenter(event);">
-				<input type="hidden" name="TaxonBID" id="TaxonBID">
+				<input type="hidden" name="taxonb_id" id="taxonb_id">
 			  </td>
             </tr>
             <tr> 
