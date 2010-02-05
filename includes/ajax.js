@@ -1076,13 +1076,13 @@ function success_getSpecResultsData(result){
 				
 				
 				for (a=0; a<nAtt; a++) {
+					if (data.COLUMNLIST[0].indexOf(attAry[a].toUpperCase())> -1) {
 					var thisAtt=attAry[a].toUpperCase();
 					var attStr='data.' + thisAtt + '[' + i + ']';
 					console.log(attStr);
 					var thisAttVal=eval(attStr);
 					console.log(thisAttVal);
 					
-					if (data.COLUMNLIST[0].indexOf(thisAtt)> -1) {
 						theInnerHtml += '<td>' + thisAttVal + '</td>';
 						
 					}
