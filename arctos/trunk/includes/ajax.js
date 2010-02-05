@@ -1080,6 +1080,8 @@ function success_getSpecResultsData(result){
 					var attStr='data.' + thisAtt + '[' + i + ']';
 					console.log(attStr);
 					var thisAttVal=eval(attStr);
+					console.log(thisAttVal);
+					
 					if (data.COLUMNLIST[0].indexOf(thisAtt)> -1) {
 						theInnerHtml += '<td>' + thisAttVal + '</td>';
 						
