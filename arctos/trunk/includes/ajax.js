@@ -1149,7 +1149,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + data.REPRODUCTIVE_CONDITION[i] + '&nbsp;</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('REPRODUCTIVE_DATA')> -1) {
-					theInnerHtml += '<td>' + data.REPRODUCTIVE_DATA[i] + '&nbsp;</td>';
+					theInnerHtml += '<td>' + data.REPRODUCTIVE_DATA[i] + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('SKULL_OSSIFICATION')> -1) {
 					theInnerHtml += '<td>' + data.SKULL_OSSIFICATION[i] + '&nbsp;</td>';
@@ -1176,7 +1176,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + data.UNFORMATTED_MEASUREMENTS[i] + '&nbsp;</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('VERBATIM_PRESERVATION_DATE')> -1) {
-					theInnerHtml += '<td>' + data.VERBATIM_PRESERVATION_DATE[i] + '&nbsp;</td>';
+					theInnerHtml += '<td>' + data.VERBATIM_PRESERVATION_DATE[i] + '</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('WEIGHT')> -1) {
 					theInnerHtml += '<td>' + data.WEIGHT[i] + '&nbsp;</td>';
@@ -1190,7 +1190,7 @@ function success_getSpecResultsData(result){
 			theInnerHtml += '</tr>';
 		}
 		theInnerHtml += '</table>';		
-	    theInnerHtml = theInnerHtml.replace(/<td>null&nbsp;<\/td>/g,"<td>&nbsp;</td>"); 
+	    theInnerHtml = theInnerHtml.replace(/<td>null<\/td>/g,"<td>&nbsp;</td>"); 
 		tgt.innerHTML = theInnerHtml;
 		if (action == 'dispCollObj'){
 			makePartThingy();
