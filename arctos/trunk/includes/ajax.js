@@ -1149,7 +1149,7 @@ function success_getSpecResultsData(result){
 					theInnerHtml += '<td>' + data.REPRODUCTIVE_CONDITION[i] + '&nbsp;</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('REPRODUCTIVE_DATA')> -1) {
-					theInnerHtml += '<td>' + data.REPRODUCTIVE_DATA[i] + '&nbsp;</td>';
+					theInnerHtml += '<td>--' + data.REPRODUCTIVE_DATA[i] + '&nbsp;</td>';
 				}
 				if (data.COLUMNLIST[0].indexOf('SKULL_OSSIFICATION')> -1) {
 					theInnerHtml += '<td>' + data.SKULL_OSSIFICATION[i] + '&nbsp;</td>';
