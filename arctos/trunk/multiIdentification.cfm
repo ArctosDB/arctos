@@ -368,7 +368,7 @@
 					variable)
 				VALUES (
 					sq_identification_id.currval,
-					#TaxonAID#,
+					#taxona_id#,
 					'A')
 			 </cfquery>
 			 <cfif #taxa_formula# contains "B">
@@ -379,7 +379,7 @@
 						variable)
 					VALUES (
 						sq_identification_id.currval,
-						#TaxonBID#,
+						#taxonb_id#,
 						'B')
 				 </cfquery>
 			 </cfif>
