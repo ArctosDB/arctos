@@ -246,7 +246,7 @@
 				No projects matched your criteria.
 			</div>
 		</cfif>
-
+		<cfset i=1>
 		<cfloop query="projNames">
 			<cfquery name="thisAuth" dbtype="query">
 				SELECT 
@@ -301,7 +301,7 @@
 					<br><a href="/Project.cfm?Action=editProject&project_id=#project_id#">Edit</a>
 				</cfif>
 			</div>
-			<cfset i=#i#+1>
+			<cfset i=i+1>
 
 		</cfloop>
 	</td><td width="50%" valign="top">
