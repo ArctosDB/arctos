@@ -38,4 +38,11 @@
 		</cfcatch>
 		</cftry>
 	</cftransaction>
+	<cfquery name="d" datasource="uam_god">
+		select COLUMN_NAME from cf_spec_res_cols where category='attribute' order by DISP_ORDER	
+	</cfquery>
+	Now update JS funtion ....cleanup
+	
+	<hr>#valuelist(d.COLUMN_NAME)#
+	<hr>
 </cfoutput>
