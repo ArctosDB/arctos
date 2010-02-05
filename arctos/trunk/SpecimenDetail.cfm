@@ -5,6 +5,7 @@
 	<cfset flatTableName = "filtered_flat">
 </cfif>
 <cfif isdefined("collection_object_id")>
+	<cfset checkSql(collection_object_id)>
 	<cfoutput>
 		<cfquery name="c" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select GUID from #flatTableName# where collection_object_id=#collection_object_id# 
@@ -13,6 +14,7 @@
 	</cfoutput>	
 </cfif>
 <cfif isdefined("guid")>
+	<cfset checkSql(guid)>
 	<cfif guid contains ":">
 		<cfoutput>
 			<cfset sql="select collection_object_id from 
