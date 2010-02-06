@@ -415,6 +415,11 @@ UPDATE encumbrance SET
 	<cfquery name="deleteEnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		DELETE FROM encumbrance WHERE encumbrance_id = #encumbrance_id#
 	</cfquery>
+	
+	Deleted. 
+	
+	<a href="Encumbrances.cfm">Return to Encumbrances</a>
+
 </cfoutput>	
 </cfif>
 <!-------------------------------------------------------------------------------------------->
