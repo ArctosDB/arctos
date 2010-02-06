@@ -90,15 +90,12 @@
 	<cfif len(#remarks#) gt 0>
 		<cfset sql = "#sql# AND upper(remarks) like '%#ucase(remarks)#%'">	
 	</cfif>
-	<hr>#preservesinglequotes(sql)#<hr>
 	<cfquery name="getEnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-	</cfoutput>
 	<cfset i = 1>
 	<cfloop query="getEnc">
-	<cfoutput>
-		<br>
+		<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 		<form name="listEnc#i#" method="post" action="Encumbrances.cfm">
 			<input type="hidden" name="Action">
 			<input type="hidden" name="encumbrance_id" value="#encumbrance_id#">
@@ -106,49 +103,23 @@
 			#encumbrance# (#encumbrance_action#) by #agent_name# made #dateformat(made_date,"dd mmm yyyy")#, expires #dateformat(expiration_date,"dd mmm yyyy")# #expiration_event# #remarks#
 			<br>
 			<cfif len(collection_object_id) gt 0>
-			<input type="button" 
-		value="Add All Items To This Encumbrance" 
-		class="savBtn"
-		onmouseover="this.className='savBtn btnhov'"
-		onmouseout="this.className='savBtn'"
-		onClick="listEnc#i#.Action.value='saveEncumbrances';submit();">
-		
-		<input type="button" 
-		value="Remove Listed Items From This Encumbrance" 
-		class="delBtn"
-		onmouseover="this.className='delBtn btnhov'"
-		onmouseout="this.className='delBtn'"
-		onClick="listEnc#i#.Action.value='remListedItems';submit();">
-		
+				<span class="likeLink" onclick="listEnc#i#.Action.value='saveEncumbrances';listEnc#i#.submit();">
+					[ Add All Items To This Encumbrance ]
+				</span>
+				<span class="likeLink" onclick="listEnc#i#.Action.value='remListedItems';listEnc#i#.submit();">
+					[ Remove Listed Items From This Encumbrance ]
+				</span>
 			</cfif>
-				<input type="button" 
-		value="Delete This Encumbrance" 
-		class="delBtn"
-		onmouseover="this.className='delBtn btnhov'"
-		onmouseout="this.className='delBtn'"
-		onClick="listEnc#i#.Action.value='deleteEncumbrance';confirmDelete('listEnc#i#');">
-		
-		<input type="button" 
-		value="Modify This Encumbrance" 
-		class="lnkBtn"
-		onmouseover="this.className='lnkBtn btnhov'"
-		onmouseout="this.className='lnkBtn'"
-		onClick="listEnc#i#.Action.value='updateEncumbrance';submit();">
-		
-		<input type="button" 
-		value="See Specimens" 
-		class="lnkBtn"
-		onmouseover="this.className='lnkBtn btnhov'"
-		onmouseout="this.className='lnkBtn'"
-		onClick="document.location='/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#'">
-		
-		<input type="button" 
-		value="Delete Encumbered Specimens" 
-		class="delBtn"
-		onmouseover="this.className='delBtn btnhov'"
-		onmouseout="this.className='delBtn'"
-		onClick="document.location='/Admin/deleteSpecByEncumbrance.cfm?encumbrance_id=#encumbrance_id#'">
+			<span class="likeLink" onclick="listEnc#i#.Action.value='deleteEncumbrance';confirmDelete('listEnc#i#');">
+				[ Delete This Encumbrance ]
+			</span>
+			<span class="likeLink" onclick="listEnc#i#.Action.value='updateEncumbrance';listEnc#i#.submit();">
+				[ Modify This Encumbrance ]
+			</span>
+			<a href="/SpecimenResults.cfm?encumbrance_id=#encumbrance_id#">[ See Specimens ]</a>
+			<a href="/Admin/deleteSpecByEncumbrance.cfm?encumbrance_id=#encumbrance_id#">[ Delete Encumbered Specimens ]</a>
 		</form>
+		</div>
 		<cfset i = #i#+1>
 	</cfoutput>
 	</cfloop>
