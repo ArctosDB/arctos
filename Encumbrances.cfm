@@ -62,6 +62,8 @@
 </cfif>
 <!-------------------------------------------------------------------------------------------->
 <cfif action is "listEncumbrances">
+	<a href="Encumbrances.cfm">Back to Search Encumbrances</a>
+	<br>
 	<cfoutput>
 	<cfset sql = "select * from encumbrance, preferred_agent_name WHERE
 					encumbrance.encumbering_agent_id = preferred_agent_name.agent_id">
