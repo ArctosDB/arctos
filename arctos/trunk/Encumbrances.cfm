@@ -26,6 +26,84 @@
 <cfquery name="ctEncAct" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select encumbrance_action from ctencumbrance_action
 </cfquery>
+<!---------------------------------------------------------------------------->
+<cfif action is "create">
+	<strong><br>Create a new encumbrance.</strong>
+	<cfset title="Create Encumbrance">
+	<cfoutput>
+	<form name="encumber" method="post" action="nEncumbrance.cfm">
+		<input type="hidden" name="action" value="createEncumbrance">
+		<label for="encumberingAgent" class="likeLink" onclick="getDocs('encumbrance','encumbrancer')">
+			Encumbering Agent
+		</label>
+		<input type="text" name="encumberingAgent" id="encumberingAgent" class="reqdClr"
+			onchange="getAgent('encumberingAgentId','encumberingAgent','encumber',this.value); return false;"
+		  	onKeyPress="return noenter(event);">
+		 <input type="hidden" name="encumberingAgentId" id="encumberingAgentId"> 
+		
+        </td>
+      </tr>
+      <tr> 
+        <td> <div align="right">Made Date: </div></td>
+        <td><input type="text" name="made_date">
+		<span class="infoLink"
+				name="anchor1"
+				id="anchor1"
+				onClick="cal1.showCalendar('anchor1'); 
+					cal1.select(document.encumber.made_date,'anchor1','d NNN yyyy'); 
+						return false;">
+					Pick
+			</span>
+		</td>
+      </tr>
+      <tr> 
+        <td><div align="right"><a href="javascript:void(0);" 
+				class="novisit" 
+				onClick="getDocs('encumbrance','expiration')">Expiration Date:</a></div></td>
+        <td><input type="text" name="expiration_date">
+		<span class="infoLink"
+				name="anchor2"
+				id="anchor2"
+				onClick="cal1.showCalendar('anchor2'); 
+					cal1.select(document.encumber.expiration_date,'anchor2','d NNN yyyy'); 
+						return false;">
+					Pick
+			</span>
+		</td>
+        <td><div align="right"><a href="javascript:void(0);" 
+				class="novisit" 
+				onClick="getDocs('encumbrance','expiration')">Expiration Event:</a></div></td>
+        <td><input type="text" name="expiration_event"></td>
+      </tr>
+      <tr> 
+        <td><div align="right"><a href="javascript:void(0);" 
+				class="novisit" 
+				onClick="getDocs('encumbrance','encumbrance_name')">Encumbrance:</a></div></td>
+        <td><input type="text" name="encumbrance"></td>
+        <td><div align="right">Encumbrance Action</div></td>
+        <td><select name="encumbrance_action" size="1">
+            <cfloop query="ctEncAct">
+              <option value="#ctEncAct.encumbrance_action#">#ctEncAct.encumbrance_action#</option>
+            </cfloop>
+          </select></td>
+      </tr>
+      <tr> 
+        <td><div align="right">Remarks:</div></td>
+        <td colspan="3"><textarea name="remarks" rows="3" cols="50"></textarea></td>
+      </tr>
+      <tr> 
+        <td colspan="4"><div align="center">
+		<input type="submit" 
+			value="Create New Encumbrance"
+			class="insBtn"
+			onmouseover="this.className='insBtn btnhov'" />
+										
+          </div></td>
+      </tr>
+    </table>
+</form>
+</cfoutput>
+</cfif>
 <cfif #action# is "nothing">
 <cfoutput>
 	<p>
@@ -33,7 +111,7 @@
 			Now find an encumbrance to apply to the specimens below. If you need a new encumbrance, create it
 			first then come back here.
 		<cfelse>
-			Locate Encumbrances (or <a href="/newEncumbrance.cfm">Create a new encumbrance</a>)
+			Locate Encumbrances (or <a href="/Encumbrances.cfm?action=create">Create a new encumbrance</a>)
 		</cfif>
 	</p>
 <cfform name="encumber" method="post" action="Encumbrances.cfm">
@@ -65,6 +143,55 @@
 	<textarea name="remarks" id="remarks" rows="3" cols="50"></textarea>
 	<br><input type="submit" value="Find Encumbrance" class="schBtn">
 </cfform>
+</cfoutput>
+</cfif>
+<!-------------------------------------------------------------------->
+<cfif action is "createEncumbrance">
+	<cfoutput>
+	<cfquery name="nextEncumbrance" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select sq_encumbrance_id.nextval nextEncumbrance from dual
+	</cfquery>
+
+	<cfquery name="newEncumbrance" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		INSERT INTO encumbrance (
+			ENCUMBRANCE_ID,
+			ENCUMBERING_AGENT_ID,
+			ENCUMBRANCE,
+			ENCUMBRANCE_ACTION
+			<cfif len(#expiration_date#) gt 0>
+				,EXPIRATION_DATE	
+			</cfif>
+			<cfif len(#EXPIRATION_EVENT#) gt 0>
+				,EXPIRATION_EVENT	
+			</cfif>
+			<cfif len(#MADE_DATE#) gt 0>
+				,MADE_DATE	
+			</cfif>
+			<cfif len(#REMARKS#) gt 0>
+				,REMARKS	
+			</cfif>
+			
+			)
+		VALUES (
+			#nextEncumbrance.nextEncumbrance#,
+			#encumberingAgentId#,
+			'#ENCUMBRANCE#',
+			'#ENCUMBRANCE_ACTION#'
+			<cfif len(#expiration_date#) gt 0>
+				,'#dateformat(EXPIRATION_DATE,"dd-mmm-yyyy")#'
+			</cfif>
+			<cfif len(#EXPIRATION_EVENT#) gt 0>
+				,'#EXPIRATION_EVENT#'
+			</cfif>
+			<cfif len(#MADE_DATE#) gt 0>
+				,'#dateformat(MADE_DATE,"dd-mmm-yyyy")#'
+			</cfif>
+			<cfif len(#REMARKS#) gt 0>
+				,'#REMARKS#'
+			</cfif>
+			)
+	</cfquery>
+	<cflocation url="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#nextEncumbrance.nextEncumbrance#" addtoken="false">
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------->
