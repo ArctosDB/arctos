@@ -61,7 +61,7 @@
             </cfloop>
          </select>
 		<label for="remarks">Remarks</label>
-		<textarea name="" rows="3" cols="50"></textarea>
+		<textarea name="remarks" rows="3" cols="50"></textarea>
 		<br><input type="submit" 
 			value="Create New Encumbrance"
 			class="insBtn">
