@@ -1,15 +1,21 @@
-
 <div id="theHead">
 	<cfinclude template="includes/_header.cfm">
 </div>
-</div><!--- kill content div --->
-<script language="JavaScript" src="includes/CalendarPopup.js" type="text/javascript"></script>
-<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-	var cal1 = new CalendarPopup("theCalendar");
-	cal1.showYearNavigation();
-	cal1.showYearNavigationInput();
-</SCRIPT>
-<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
+
+
+
+<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
+<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery(function() {
+			jQuery("#made_date_after").datepicker();
+			jQuery("#made_date_before").datepicker();
+			jQuery("#expiration_date_after").datepicker();	
+			jQuery("#expiration_date_before").datepicker();
+		});
+	});
+</script>
 
 <cfset title = "Search for specimens or encumbrances">
 <cfif not isdefined("collection_object_id")>
@@ -20,110 +26,37 @@
 </cfquery>
 <cfif #action# is "nothing">
 <cfoutput>
-<strong>Manage Encumbrances</strong>
-<cfform name="encumber" method="post" action="Encumbrances.cfm">
-<p><a href="/newEncumbrance.cfm">Create a new encumbrance</a></p>
 	<p>
-		Locate Existing Encumbrances
+		Locate Encumbrances (or <a href="/newEncumbrance.cfm">Create a new encumbrance</a>)
 	</p>
+<cfform name="encumber" method="post" action="Encumbrances.cfm">
 
 	<input type="hidden" name="Action" value="listEncumbrances">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
-	<table border="0">
-		<tr>
-			<td colspan="2">
-				<label for="">Encumbering Agent</label>
-				<input name="encumberingAgent" id="encumberingAgent" type="text">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="made_date_after">Made Date After</label>
-				<input type="text" name="made_date_after" id="made_date_after">
-				<span class="infoLink"
-					name="anchor1"
-					id="anchor1"
-					onClick="cal1.showCalendar('anchor1'); 
-						cal1.select(document.encumber.made_date_after,'anchor1','d NNN yyyy'); 
-							return false;">
-						Pick
-				</span>
-			</td>
-			<td>
-				<label for="made_date_before">Made Date Before</label>
-				<input type="text" name="made_date_before" id="made_date_before">
-				<span class="infoLink"
-					name="anchor1"
-					id="anchor1"
-					onClick="cal1.showCalendar('anchor1'); 
-						cal1.select(document.encumber.made_date_before,'anchor1','d NNN yyyy'); 
-							return false;">
-						Pick
-				</span>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="expiration_date_after">Expiration Date After</label>
-				<input type="text" name="expiration_date_after" id="expiration_date_after">
-				<span class="infoLink"
-					name="anchor1"
-					id="anchor1"
-					onClick="cal1.showCalendar('anchor1'); 
-						cal1.select(document.encumber.expiration_date_after,'anchor1','d NNN yyyy'); 
-							return false;">
-						Pick
-				</span>
-			</td>
-			<td>
-				<label for="expiration_date_before">Expiration Date Before</label>
-				<input type="text" name="expiration_date_before" id="expiration_date_before">
-				<span class="infoLink"
-					name="anchor1"
-					id="anchor1"
-					onClick="cal1.showCalendar('anchor1'); 
-						cal1.select(document.encumber.expiration_date_before,'anchor1','d NNN yyyy'); 
-							return false;">
-						Pick
-				</span>
-			</td>
-		</tr>	
-			<td colspan="2">
-				<label for="expiration_event">Expiration Event</label>
-				<input type="text" id="expiration_event" name="expiration_event">
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<label for="encumbrance">Encumbrance Event</label>
-				<input type="text" name="encumbrance" id="encumbrance">
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<label for="encumbrance_action">Encumbrance Action</label>
-				<select name="encumbrance_action" id="encumbrance_action" size="1">
-					<option value=""></option>
-					<cfloop query="ctEncAct">
-						<option value="#ctEncAct.encumbrance_action#">#ctEncAct.encumbrance_action#</option>
-					</cfloop>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<label for="remarks">Remarks</label>
-				<textarea name="remarks" id="remarks" rows="3" cols="50"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-			
-			 <input type="submit" value="Find Encumbrance" class="schBtn"
-   onmouseover="this.className='schBtn btnhov'" onmouseout="this.className='schBtn'">	
-			</td>
-		</tr>
-	</table>
+	<label for="">Encumbering Agent</label>
+	<input name="encumberingAgent" id="encumberingAgent" type="text">
+	<label for="made_date_after">Made Date After</label>
+	<input type="text" name="made_date_after" id="made_date_after">
+	<label for="made_date_before">Made Date Before</label>
+	<input type="text" name="made_date_before" id="made_date_before">
+	<label for="expiration_date_after">Expiration Date After</label>
+	<input type="text" name="expiration_date_after" id="expiration_date_after">
+	<label for="expiration_date_before">Expiration Date Before</label>
+	<input type="text" name="expiration_date_before" id="expiration_date_before">
+	<label for="expiration_event">Expiration Event</label>
+	<input type="text" id="expiration_event" name="expiration_event">
+	<label for="encumbrance">Encumbrance Event</label>
+	<input type="text" name="encumbrance" id="encumbrance">
+	<label for="encumbrance_action">Encumbrance Action</label>
+	<select name="encumbrance_action" id="encumbrance_action" size="1">
+		<option value=""></option>
+		<cfloop query="ctEncAct">
+			<option value="#ctEncAct.encumbrance_action#">#ctEncAct.encumbrance_action#</option>
+		</cfloop>
+	</select>
+	<label for="remarks">Remarks</label>
+	<textarea name="remarks" id="remarks" rows="3" cols="50"></textarea>
+	<br><input type="submit" value="Find Encumbrance" class="schBtn">
 </cfform>
 </cfoutput>
 </cfif>
@@ -601,7 +534,6 @@ UPDATE encumbrance SET
 	</table>
 </cfif>
 <!------------------------------------------------------------------------------------------------------->	
-<DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>
 <div id="theFoot">
 	<cfinclude template = "includes/_footer.cfm">
 </div>
