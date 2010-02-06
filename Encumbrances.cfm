@@ -14,6 +14,7 @@
 			jQuery("#expiration_date_after").datepicker();	
 			jQuery("#made_date").datepicker();
 			jQuery("#expiration_date_before").datepicker();
+			jQuery("#expiration_date").datepicker();
 		});
 	});
 </script>
@@ -83,7 +84,9 @@
 	<cfif isdefined("expiration_date_before") and len(#expiration_date_before#) gt 0>
 		<cfset sql = "#sql# AND expiration_date <= to_date('#expiration_date_before#')">	
 	</cfif>
-				
+	<cfif isdefined("encumbrance_id") and len(encumbrance_id) gt 0>
+		<cfset sql = "#sql# AND encumbrance_id = #encumbrance_id#">	
+	</cfif>
 	<cfif len(#encumbrance#) gt 0>
 		<cfset sql = "#sql# AND upper(encumbrance) like '%#ucase(encumbrance)#%'">	
 	</cfif>
@@ -163,8 +166,10 @@
 <!-------------------------------------------------------------------------------------------->
 <cfif #Action# is "updateEncumbrance">
 <cfset title = "Update Encumbrance">
-Edit Encumbrance:
 <cfoutput>
+
+<br><a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#">Back to Encumbrance</a>
+Edit Encumbrance:
 <cfquery name="encDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT
 		 * 
@@ -205,7 +210,7 @@ Edit Encumbrance:
 				class="novisit" 
 				onClick="getDocs('encumbrance','expiration')">Expiration Date:</a>
 				</td>
-			<td><input type="text" name="expiration_date"  value="#dateformat(expiration_date,'dd-mmm-yyyy')#"></td>
+			<td><input type="text" name="expiration_date" id="expiration_date"  value="#dateformat(expiration_date,'dd-mmm-yyyy')#"></td>
 			<td align="right">
 			<a href="javascript:void(0);" 
 				class="novisit" 
