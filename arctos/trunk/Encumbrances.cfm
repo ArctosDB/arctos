@@ -29,7 +29,12 @@
 <cfif #action# is "nothing">
 <cfoutput>
 	<p>
-		Locate Encumbrances (or <a href="/newEncumbrance.cfm">Create a new encumbrance</a>)
+		<cfif len(collection_object_id) gt 0>
+			Now find an encumbrance to apply to the specimens below. If you need a new encumbrance, create it
+			first then come back here.
+		<cfelse>
+			Locate Encumbrances (or <a href="/newEncumbrance.cfm">Create a new encumbrance</a>)
+		</cfif>
 	</p>
 <cfform name="encumber" method="post" action="Encumbrances.cfm">
 
