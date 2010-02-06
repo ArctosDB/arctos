@@ -164,6 +164,10 @@
 	</cfcatch>
 
 	</cftry>
+	<p>
+		All items listed below have been removed from this encumbrance.
+		 <a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#">Return to Encumbrance.</a>
+	</p>
 </cfoutput>	
 </cfif>
 
