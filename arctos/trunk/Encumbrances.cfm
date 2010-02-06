@@ -13,7 +13,7 @@
 
 <cfset title = "Search for specimens or encumbrances">
 <cfif not isdefined("collection_object_id")>
-	<cfset collection_object_id=-1>
+	<cfset collection_object_id="">
 </cfif>
 <cfquery name="ctEncAct" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select encumbrance_action from ctencumbrance_action
@@ -22,25 +22,10 @@
 <cfoutput>
 <strong>Manage Encumbrances</strong>
 <cfform name="encumber" method="post" action="Encumbrances.cfm">
-<strong>
-	<br>Search for an encumbrance <cfif isdefined("collection_object_id")>
-										to add these items to
-								<cfelse>
-										to alter below
-								</cfif>
-	<br> OR  
-	 <input type="button" value="Find Specimens to encumber" class="lnkBtn"
-   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-   onClick="window.open('SpecimenSearch.cfm?Action=encumber');">	
-
-	
-	<br> OR 
-	<input type="button" value="Create A New Encumbrance" class="insBtn"
-   onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'"
-   onClick="window.open('newEncumbrance.cfm')">	
-
-</strong>
-
+<p><a href="/newEncumbrance.cfm">Create a new encumbrance</a></p>
+	<p>
+		Locate Existing Encumbrances
+	</p>
 
 	<input type="hidden" name="Action" value="listEncumbrances">
 	<input type="hidden" name="collection_object_id" value="#collection_object_id#">
@@ -147,7 +132,7 @@
 <!-------------------------------------------------------------------------------------------->
 <cfif #Action# is "listEncumbrances">
 
-	<cfif len(#collection_object_id#) is 0>
+	<cfif len(collection_object_id) is 0>
 		Didn't get a collection_object_id!!<cfabort>
 	</cfif>
 	<cfoutput>
@@ -193,7 +178,7 @@
 			<input type="hidden" name="collection_object_id" value="#collection_object_id#">
 			#encumbrance# (#encumbrance_action#) by #agent_name# made #dateformat(made_date,"dd mmm yyyy")#, expires #dateformat(expiration_date,"dd mmm yyyy")# #expiration_event# #remarks#
 			<br>
-			<cfif #collection_object_id# gt 0>
+			<cfif len(collection_object_id) gt 0>
 			<input type="button" 
 		value="Add All Items To This Encumbrance" 
 		class="savBtn"
@@ -249,7 +234,7 @@
 	<cfif len(#encumbrance_id#) is 0>
 		Didn't get an encumbrance_id!!<cfabort>
 	</cfif>
-	<cfif len(#collection_object_id#) is 0>
+	<cfif len(collection_object_id) is 0>
 		Didn't get a collection_object_id!!<cfabort>
 	</cfif>
 	<cftry>
@@ -436,7 +421,7 @@ UPDATE encumbrance SET
 	<cfif len(#encumbrance_id#) is 0>
 		Didn't get an encumbrance_id!!<cfabort>
 	</cfif>
-	<cfif len(#collection_object_id#) is 0>
+	<cfif len(collection_object_id) is 0>
 		Didn't get a collection_object_id!!<cfabort>
 	</cfif>
 
@@ -457,7 +442,7 @@ UPDATE encumbrance SET
 </cfif>
 <!-------------------------------------------------------------------------------------------->
 <!-------------------------------------------------------------------------------------------->
-<cfif #collection_object_id# gt 0>
+<cfif len(collection_object_id) gt 0>
 	<Cfset title = "Encumber these specimens">
 		<cfoutput>
 			<cfquery name="getData" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
