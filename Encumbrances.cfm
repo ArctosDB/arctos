@@ -61,13 +61,7 @@
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------->
-
-<!-------------------------------------------------------------------------------------------->
-<cfif #Action# is "listEncumbrances">
-
-	<cfif len(collection_object_id) is 0>
-		Didn't get a collection_object_id!!<cfabort>
-	</cfif>
+<cfif action is "listEncumbrances">
 	<cfoutput>
 	<cfset sql = "select * from encumbrance, preferred_agent_name WHERE
 					encumbrance.encumbering_agent_id = preferred_agent_name.agent_id">
