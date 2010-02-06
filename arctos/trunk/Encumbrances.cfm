@@ -39,71 +39,36 @@
 		<input type="text" name="encumberingAgent" id="encumberingAgent" class="reqdClr"
 			onchange="getAgent('encumberingAgentId','encumberingAgent','encumber',this.value); return false;"
 		  	onKeyPress="return noenter(event);">
-		 <input type="hidden" name="encumberingAgentId" id="encumberingAgentId"> 
-		
-        </td>
-      </tr>
-      <tr> 
-        <td> <div align="right">Made Date: </div></td>
-        <td><input type="text" name="made_date">
-		<span class="infoLink"
-				name="anchor1"
-				id="anchor1"
-				onClick="cal1.showCalendar('anchor1'); 
-					cal1.select(document.encumber.made_date,'anchor1','d NNN yyyy'); 
-						return false;">
-					Pick
-			</span>
-		</td>
-      </tr>
-      <tr> 
-        <td><div align="right"><a href="javascript:void(0);" 
-				class="novisit" 
-				onClick="getDocs('encumbrance','expiration')">Expiration Date:</a></div></td>
-        <td><input type="text" name="expiration_date">
-		<span class="infoLink"
-				name="anchor2"
-				id="anchor2"
-				onClick="cal1.showCalendar('anchor2'); 
-					cal1.select(document.encumber.expiration_date,'anchor2','d NNN yyyy'); 
-						return false;">
-					Pick
-			</span>
-		</td>
-        <td><div align="right"><a href="javascript:void(0);" 
-				class="novisit" 
-				onClick="getDocs('encumbrance','expiration')">Expiration Event:</a></div></td>
-        <td><input type="text" name="expiration_event"></td>
-      </tr>
-      <tr> 
-        <td><div align="right"><a href="javascript:void(0);" 
-				class="novisit" 
-				onClick="getDocs('encumbrance','encumbrance_name')">Encumbrance:</a></div></td>
-        <td><input type="text" name="encumbrance"></td>
-        <td><div align="right">Encumbrance Action</div></td>
-        <td><select name="encumbrance_action" size="1">
+		<input type="hidden" name="encumberingAgentId" id="encumberingAgentId"> 
+		<label for="made_date">Made Date</label>
+		<input type="text" name="made_date" id="made_date" class="reqdClr">
+		<label for="expiration_date" class="likeLink" onclick="getDocs('encumbrance','expiration')">
+			Expiration Date
+		</label>
+		<input type="text" name="expiration_date" id="expiration_date">
+        <label for="expiration_event" class="likeLink" onclick="getDocs('encumbrance','expiration')">
+			Expiration Event
+		</label>
+		<input type="text" name="expiration_event" id="expiration_event">
+		<label for="encumbrance" class="likeLink" onclick="getDocs('encumbrance','encumbrance_name')">
+			Encumbrance
+		</label>
+		<input type="text" name="encumbrance" id="encumbrance" size="50" class="reqdClr">
+		<label for="encumbrance_action">Encumbrance Action</label>
+        <select name="encumbrance_action" id="encumbrance_action" size="1" class="reqdClr">
             <cfloop query="ctEncAct">
               <option value="#ctEncAct.encumbrance_action#">#ctEncAct.encumbrance_action#</option>
             </cfloop>
-          </select></td>
-      </tr>
-      <tr> 
-        <td><div align="right">Remarks:</div></td>
-        <td colspan="3"><textarea name="remarks" rows="3" cols="50"></textarea></td>
-      </tr>
-      <tr> 
-        <td colspan="4"><div align="center">
-		<input type="submit" 
+         </select>
+		<label for="remarks">Remarks</label>
+		<textarea name="" rows="3" cols="50"></textarea>
+		<br><input type="submit" 
 			value="Create New Encumbrance"
-			class="insBtn"
-			onmouseover="this.className='insBtn btnhov'" />
-										
-          </div></td>
-      </tr>
-    </table>
-</form>
+			class="insBtn">
+	</form>
 </cfoutput>
 </cfif>
+<!-------------------------------------------------->
 <cfif #action# is "nothing">
 <cfoutput>
 	<p>
