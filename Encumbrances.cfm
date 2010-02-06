@@ -166,7 +166,7 @@
 	</cftry>
 	<p>
 		All items listed below have been removed from this encumbrance.
-		 <a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#">Return to Encumbrance.</a>
+		 <a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#&collection_object_id=#collection_object_id#">Return to Encumbrance.</a>
 	</p>
 </cfoutput>	
 </cfif>
@@ -352,7 +352,7 @@ UPDATE encumbrance SET
 	</cfloop>
 	<p>
 		All items listed below have been encumbered.
-		 <a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#">Return to Encumbrance.</a>
+		 <a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#&collection_object_id=#collection_object_id#">Return to Encumbrance.</a>
 	</p>
 </cfoutput>	
 </cfif>
