@@ -12,6 +12,7 @@
 			jQuery("#made_date_after").datepicker();
 			jQuery("#made_date_before").datepicker();
 			jQuery("#expiration_date_after").datepicker();	
+			jQuery("#made_date").datepicker();
 			jQuery("#expiration_date_before").datepicker();
 		});
 	});
@@ -124,14 +125,12 @@
 		</div>
 		<cfset i = #i#+1>
 	</cfloop>
-		</cfoutput>
-
-	
+</cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------->
 <cfif #Action# is "remListedItems">
 	<cfoutput>
-	<cfif len(#encumbrance_id#) is 0>
+	<cfif len(encumbrance_id) is 0>
 		Didn't get an encumbrance_id!!<cfabort>
 	</cfif>
 	<cfif len(collection_object_id) is 0>
@@ -198,7 +197,7 @@ Edit Encumbrance:
 			<td align="right">
 				Made Date:
 			</td>
-			<td><input type="text" name="made_date" value="#dateformat(made_date,'dd-mmm-yyyy')#"></td>
+			<td><input type="text" name="made_date" id="made_date" value="#dateformat(made_date,'dd-mmm-yyyy')#"></td>
 		</tr>
 		<tr>
 			<td align="right">
