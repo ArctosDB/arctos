@@ -203,9 +203,14 @@
 			<cfset sql = "#sql# AND upper(remarks) like '%#ucase(remarks)#%'">	
 		</cfif>
 		<cfset sql=s & q & sql>
+		#sql#
 		<cfquery name="getEnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>
+		<cfif getEnc.recordcount is 0>
+			<div class="error">Nothing Found</div>
+			<cfabort>
+		</cfif>
 		<cfset i = 1>
 		<cfloop query="getEnc">
 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
