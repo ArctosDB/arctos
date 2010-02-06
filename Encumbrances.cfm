@@ -69,7 +69,7 @@
 	<cfoutput>
 	<cfset sql = "select * from encumbrance, preferred_agent_name WHERE
 					encumbrance.encumbering_agent_id = preferred_agent_name.agent_id">
-	<cfif len(#encumberingAgent#) gt 0>
+	<cfif isdefined("encumberingAgent") and len(encumberingAgent) gt 0>
 		<cfset sql = "#sql# AND upper(agent_name) like '%#ucase(encumberingAgent)#%'">	
 	</cfif>
 	<cfif isdefined("made_date_after") and len(#made_date_after#) gt 0>
@@ -168,7 +168,7 @@
 <cfset title = "Update Encumbrance">
 <cfoutput>
 
-<br><a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#">Back to Encumbrance</a>
+<p><a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#">Back to Encumbrance</a></p>
 Edit Encumbrance:
 <cfquery name="encDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	SELECT
