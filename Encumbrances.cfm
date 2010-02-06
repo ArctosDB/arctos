@@ -346,7 +346,10 @@ UPDATE encumbrance SET
 	
 	
 	</cfloop>
-	
+	<p>
+		All items listed below have been encumbered.
+		 <a href="Encumbrances.cfm?action=listEncumbrances&encumbrance_id=#encumbrance_id#">Return to Encumbrance.</a>
+	</p>
 </cfoutput>	
 </cfif>
 <!-------------------------------------------------------------------------------------------->
