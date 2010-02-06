@@ -31,7 +31,7 @@
 	<strong><br>Create a new encumbrance.</strong>
 	<cfset title="Create Encumbrance">
 	<cfoutput>
-	<form name="encumber" method="post" action="nEncumbrance.cfm">
+	<form name="encumber" method="post" action="Encumbrance.cfm">
 		<input type="hidden" name="action" value="createEncumbrance">
 		<label for="encumberingAgent" class="likeLink" onclick="getDocs('encumbrance','encumbrancer')">
 			Encumbering Agent
