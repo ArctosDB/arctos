@@ -499,7 +499,7 @@ UPDATE encumbrance SET
 						#expiration_event# #remarks#<br>
 						<form name="nothing#e#">
 							<input type="button" 
-								value="Delete Encumbrance" 
+								value="Remove This Encumbrance" 
 								class="delBtn"
 								onmouseover="this.className='delBtn btnhov'"
 								onmouseout="this.className='delBtn'"
