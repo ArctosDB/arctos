@@ -171,7 +171,7 @@
 				preferred_agent_name">
 		<cfset q = "
 			WHERE
-				encumbrance.encumbering_agent_id = agent_name.agent_id">
+				encumbrance.encumbering_agent_id = preferred_agent_name.agent_id">
 		<cfset sql=" ">
 		<cfif isdefined("encumberingAgent") and len(encumberingAgent) gt 0>
 			<cfset s=s & ",agent_name">
