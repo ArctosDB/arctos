@@ -87,13 +87,13 @@
 	<cfif isdefined("encumbrance_id") and len(encumbrance_id) gt 0>
 		<cfset sql = "#sql# AND encumbrance_id = #encumbrance_id#">	
 	</cfif>
-	<cfif len(#encumbrance#) gt 0>
+	<cfif isdefined("encumbrance") and len(encumbrance) gt 0>
 		<cfset sql = "#sql# AND upper(encumbrance) like '%#ucase(encumbrance)#%'">	
 	</cfif>
-	<cfif len(#encumbrance_action#) gt 0>
+	<cfif isdefined("encumbrance_action") and len(encumbrance_action) gt 0>
 		<cfset sql = "#sql# AND encumbrance_action = '#encumbrance_action#'">	
 	</cfif>
-	<cfif len(#remarks#) gt 0>
+	<cfif isdefined("remarks") and len(remarks) gt 0>
 		<cfset sql = "#sql# AND upper(remarks) like '%#ucase(remarks)#%'">	
 	</cfif>
 	<cfquery name="getEnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
