@@ -1,5 +1,7 @@
 <cfinclude template="../includes/_pickHeader.cfm">
-	<cfif not isdefined("media_uri") or media_uri is 'undefined'><cfset media_uri=''></cfif>
+	<cfif not isdefined("media_uri") or media_uri is 'undefined'>
+		<cfset media_uri=''>
+	</cfif>
 	<!--- make sure we're searching for something --->
 	<cfif len(media_uri) is 0>
 		<form name="searchForMedia" action="findMedia.cfm" method="post">
@@ -37,17 +39,17 @@
 	<cfloop query="d">
 		<cfif d.recordcount is 1>
 			<script>
-				opener.document.getElementById('#pubIdFld#').value='#media_id#';
-				opener.document.getElementById('#pubStringFld#').value='#media_uri#';
-				opener.document.getElementById('#pubStringFld#').style.background='##8BFEB9';
+				opener.document.getElementById('#mediaIdFld#').value='#media_id#';
+				opener.document.getElementById('#mediaStringFld#').value='#media_uri#';
+				opener.document.getElementById('#mediaStringFld#').style.background='##8BFEB9';
 				self.close();
 			</script>
 		<cfelse>
 			<tr>
 				<td>
-					<a href="##" onClick="javascript: opener.document.getElementById('#pubIdFld#').value='#media_id#';
-						opener.document.getElementById('#pubStringFld#').value='#media_uri#';
-						opener.document.getElementById('#pubStringFld#').style.background='##8BFEB9';
+					<a href="##" onClick="javascript: opener.document.getElementById('#mediaIdFld#').value='#media_id#';
+						opener.document.getElementById('#mediaStringFld#').value='#media_uri#';
+						opener.document.getElementById('#mediaStringFld#').style.background='##8BFEB9';
 						self.close();
 						">#media_uri#</a>
 				</td>
