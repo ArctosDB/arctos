@@ -1764,6 +1764,14 @@ function addLoanItem(coll_obj_id) {
 	var coll_obj_id;
 	loanItemWin=windowOpener("/user/loanItem.cfm?collection_object_id="+coll_obj_id,"loanItemWin","width=800,height=500, resizable,scrollbars,toolbar,menubar");
 }
+function findMedia(mediaStringFld,mediaIdFld,media_uri){
+	var url="/picks/findMedia.cfm";
+	var mediaIdFld;
+	var mediaStringFld;
+	var media_uri;
+	var popurl=url+"?mediaIdFld="+mediaIdFld+"&mediaStringFld="+mediaStringFld+"&media_uri="+media_uri;
+	mediapick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
+}
 function taxaPick(taxonIdFld,taxonNameFld,formName,scientificName){
 var url="/picks/TaxaPick.cfm";
 var taxonIdFld;
