@@ -203,7 +203,6 @@
 			<cfset sql = "#sql# AND upper(remarks) like '%#ucase(remarks)#%'">	
 		</cfif>
 		<cfset sql=s & q & sql>
-		#sql#
 		<cfquery name="getEnc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			#preservesinglequotes(sql)#
 		</cfquery>

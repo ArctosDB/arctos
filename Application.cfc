@@ -24,23 +24,24 @@
 		<cfset showErr=0>
 		<cfreturn/>
 	</cfif>
-	<cfif #showerr# is 1>
+	<cfif showErr is 1>
 		<cfsavecontent variable="errortext">
-			<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and #len(CGI.HTTP_X_Forwarded_For)# gt 0>
-				<CFSET ipaddress="#CGI.HTTP_X_Forwarded_For#">
-			<CFELSEif  isdefined("CGI.Remote_Addr") and #len(CGI.Remote_Addr)# gt 0>
-				<CFSET ipaddress="#CGI.Remote_Addr#">
+			<CFIF isdefined("CGI.HTTP_X_Forwarded_For") and len(CGI.HTTP_X_Forwarded_For) gt 0>
+				<CFSET ipaddress=CGI.HTTP_X_Forwarded_For>
+			<CFELSEif  isdefined("CGI.Remote_Addr") and len(CGI.Remote_Addr) gt 0>
+				<CFSET ipaddress=CGI.Remote_Addr>
 			<cfelse>
 				<cfset ipaddress='unknown'>
 			</CFIF>
 			<cfoutput>
-			<p>ipaddress: <a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#</a></p>
-			<cfif isdefined("session.username")>
-				<br>Username: #session.username#
-			</cfif>
-			<cfif isdefined("exception.Sql")>
-				<p>Sql: #exception.Sql#</p>
-			</cfif>			
+				<p>ipaddress: <a href="http://network-tools.com/default.asp?prog=network&host=#ipaddress#">#ipaddress#</a></p>
+				(<a href="http://arctos.database.museum/Admin/blacklist.cfm?action=ins&ip=#ipaddress#">blacklist</a>)
+				<cfif isdefined("session.username")>
+					<br>Username: #session.username#
+				</cfif>
+				<cfif isdefined("exception.Sql")>
+					<p>Sql: #exception.Sql#</p>
+				</cfif>			
 			</cfoutput>
 			<hr>
 			Exceptions:
