@@ -1,8 +1,8 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 <cffunction name="esc">
 	<cfargument name="in" required="yes">
-	<cfset out=replace(in,"'","\'","all")>
-	<cfset out=replace(out,'"','\"',"all")>
+	<cfset out=replace(in,"'","`","all")>
+	<cfset out=replace(out,'"','``',"all")>
 	<cfreturn out>
 </cffunction>
 <cfoutput>
