@@ -152,9 +152,7 @@
 			<div class="helpLink" id="identification.made_date">ID Date:</div>
 		</td>
         <td>
-			<input type="text" name="made_date" id="made_date"
-				onclick="cal1.select(document.newID.made_date,'anchor1','dd-MMM-yyyy');">
-				<a name="anchor1" id="anchor1"></a>
+			<input type="text" name="made_date" id="made_date">
 		</td>
 	</tr>
     <tr> 
