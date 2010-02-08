@@ -89,6 +89,8 @@ function pickedRelationship (id){
 		getPublication(dispInputName,idInputName,'','newMedia');
 	} else if (relatedTable=='accn'){
 		getAccn(dispInputName,idInputName,'newMedia');
+	} else if (relatedTable=='media'){
+		getAccn(dispInputName,idInputName);
 	} else if (relatedTable=='delete'){
 		document.getElementById(dispInputName).value='Marked for deletion.....';
 	} else {
