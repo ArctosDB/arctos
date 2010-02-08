@@ -17,10 +17,10 @@
 			UPPER(project_name) LIKE '%#ucase(project_name)#%'
 	</cfquery>
 	<cfif #getProj.recordcount# is 1>
-		<cfset thisName = #replace(getProj.project_name,"'","`","all")#>
+		<cfset thisName = replace(getProj.project_name,"'","`","all")>
 		<script>
 			opener.document.#formName#.#projIdFld#.value='#getProj.project_id#';
-			opener.document.#formName#.#projNameFld#.value='#thisName#';
+			opener.document.#formName#.#projNameFld#.value=pickEscape('#getProj.project_name#');
 			opener.document.#formName#.#projNameFld#.className='goodPick';
 			self.close();
 		</script>
@@ -29,8 +29,9 @@
 	<cfelse>
 		<cfloop query="getProj">
 			<br>
-			<cfset thisName = #replace(getProj.project_name,"'","`","all")#>
-			<a href="##" onClick="javascript: opener.document.#formName#.#projIdFld#.value='#project_id#';opener.document.#formName#.#projNameFld#.value='#thisName#';opener.document.#formName#.#projNameFld#.className='goodPick';self.close();">#project_name# (#project_id#)</a>
+			<cfset thisName = replace(getProj.project_name,"'","`","all")>
+			<a href="##" onClick="javascript: opener.document.#formName#.#projIdFld#.value='#project_id#';
+				opener.document.#formName#.#projNameFld#.value=pickEscape('#getProj.project_name#');opener.document.#formName#.#projNameFld#.className='goodPick';self.close();">#project_name# (#project_id#)</a>
 		</cfloop>
 	</cfif>
 </cfoutput>
