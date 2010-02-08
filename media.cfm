@@ -261,7 +261,7 @@
 			<label for="relationships">Media Relationships</label>
 			<div id="relationships" style="border:1px dashed red;">
 				<select name="relationship__1" id="relationship__1" size="1" onchange="pickedRelationship(this.id)">
-					<option value=""></option>
+					<option value="">None/Unpick</option>
 					<cfloop query="ctmedia_relationship">
 						<option value="#media_relationship#">#media_relationship#</option>
 					</cfloop>
