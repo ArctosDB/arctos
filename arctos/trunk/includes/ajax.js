@@ -25,7 +25,8 @@ var viewport = {
        }
    };
 function pickEscape(s){
-	var r= s.replace(/'/g, "\'");
+	var r=s.replace(/'/g, "\'");
+	var r=r.replace(/"/g, '\"');
 	return r;
 }
 function saveThisAnnotation() {
