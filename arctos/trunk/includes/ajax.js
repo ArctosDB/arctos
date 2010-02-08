@@ -24,11 +24,6 @@ var viewport = {
        jQuery(el).css("top",Math.round(viewport.o().innerHeight/2) + viewport.o().pageYOffset - Math.round(jQuery(el).height()/2));
        }
    };
-function pickEscape(s){
-	var r=s.replace(/'/g, "\'");
-	var r=r.replace(/"/g, '\"');
-	return r;
-}
 function saveThisAnnotation() {
 	var idType = document.getElementById("idtype").value;
 	var idvalue = document.getElementById("idvalue").value;
