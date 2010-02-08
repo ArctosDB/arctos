@@ -1,10 +1,5 @@
 <cfinclude template="../includes/_pickHeader.cfm">
-<cffunction name="jsescape">
-	<cfargument name="in" required="yes">
-	<cfset out=replace(in,"'","`","all")>
-	<cfset out=replace(out,'"','``',"all")>
-	<cfreturn out>
-</cffunction>
+
 <cfoutput>
 	<form name="p" method="post" action="findProject.cfm">
 		<input type="hidden" name="formName" value="#formName#">
@@ -26,7 +21,7 @@
 		<cfset thisName = replace(getProj.project_name,"'","`","all")>
 		<script>
 			opener.document.#formName#.#projIdFld#.value='#getProj.project_id#';
-			opener.document.#formName#.#projNameFld#.value=pickEscape('#getProj.project_name#');
+			opener.document.#formName#.#projNameFld#.value='#jsescape(getProj.project_name)#';
 			opener.document.#formName#.#projNameFld#.className='goodPick';
 			self.close();
 		</script>
@@ -34,9 +29,6 @@
 			Nothing matched #project_name#.
 	<cfelse>
 		<cfloop query="getProj">
-			<cfset rv=jsescape(getProj.project_name)>
-			<br>
-			rv:#rv#
 			<br>
 			<a href="##" onClick="javascript: opener.document.#formName#.#projIdFld#.value='#project_id#';
 				opener.document.#formName#.#projNameFld#.value='#jsescape(getProj.project_name)#';opener.document.#formName#.#projNameFld#.className='goodPick';self.close();">#project_name# (#project_id#)</a>

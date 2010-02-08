@@ -1,3 +1,9 @@
+<cffunction name="jsescape">
+	<cfargument name="in" required="yes">
+	<cfset out=replace(in,"'","`","all")>
+	<cfset out=replace(out,'"','``',"all")>
+	<cfreturn out>
+</cffunction>
 <cffunction name="niceURL" returntype="Any">
 	<cfargument name="s" type="string" required="yes">
 	<cfscript>
