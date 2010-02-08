@@ -1,5 +1,5 @@
 <cfinclude template="../includes/_pickHeader.cfm">
-<cffunction name="esc">
+<cffunction name="jsescape">
 	<cfargument name="in" required="yes">
 	<cfset out=replace(in,"'","`","all")>
 	<cfset out=replace(out,'"','``',"all")>
@@ -34,12 +34,12 @@
 			Nothing matched #project_name#.
 	<cfelse>
 		<cfloop query="getProj">
-			<cfset rv=esc(getProj.project_name)>
+			<cfset rv=jsescape(getProj.project_name)>
 			<br>
 			rv:#rv#
 			<br>
 			<a href="##" onClick="javascript: opener.document.#formName#.#projIdFld#.value='#project_id#';
-				opener.document.#formName#.#projNameFld#.value='#rv#';opener.document.#formName#.#projNameFld#.className='goodPick';self.close();">#project_name# (#project_id#)</a>
+				opener.document.#formName#.#projNameFld#.value='#jsescape(getProj.project_name)#';opener.document.#formName#.#projNameFld#.className='goodPick';self.close();">#project_name# (#project_id#)</a>
 		</cfloop>
 	</cfif>
 </cfoutput>
