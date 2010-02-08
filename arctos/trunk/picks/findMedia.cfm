@@ -1,4 +1,5 @@
 <cfinclude template="../includes/_pickHeader.cfm">
+	<cfif not isdefined("media_uri") or media_uri is 'undefined'><cfset media_uri=''></cfif>
 	<!--- make sure we're searching for something --->
 	<cfif len(media_uri) is 0>
 		<form name="searchForMedia" action="findMedia.cfm" method="post">
