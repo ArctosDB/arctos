@@ -1,42 +1,20 @@
 <cfinclude template="/includes/_frameHeader.cfm">
-	<script language="JavaScript" src="/includes/CalendarPopup.js" type="text/javascript"></script>
-	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
-		var cal1 = new CalendarPopup("theCalendar");
-		cal1.showYearNavigation();
-		cal1.showYearNavigationInput();
-	</SCRIPT>
-	<SCRIPT LANGUAGE="JavaScript" type="text/javascript">document.write(getCalendarStyles());</SCRIPT>
+
+<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
+<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <script type='text/javascript' src='/includes/_editIdentification.js'></script>
 <script type='text/javascript' src='/includes/jquery/jquery-autocomplete/jquery.autocomplete.pack.js'></script>
 <script type='text/javascript' src='/includes/checkForm.js'></script>
 
 <script language="javascript" type="text/javascript">
-	function attachAgentPick(element){
-	    var $element = jQuery(element);
-		if($element.attr("autocomplete.attached")){
-	       	return;
-		}
-       	$element.autocomplete("/ajax/agent.cfm", {
-   	 		width: 260,
-			selectFirst: true,
-			max: 30,
-			autoFill: false,
-			delay: 400,
-			mustMatch: true,
-			cacheLength: 1
+	jQuery(document).ready(function() {
+		jQuery(function() {
+			jQuery("#made_date").datepicker();
 		});
-		$element.result(function(event, data, formatted) {
-			if (data) 
-				var theID=this.id + '_id';
-				jQuery('#' + theID).val(data[1]);
-		});
-        $element.attr("autocomplete.attached", true);
-	}
+	});	
 </script>
-</div><!--- kill content div --->
 <!----------------------------------------------------------------------------------->
-
-<cfif #Action# is "nothing">
+<cfif action is "nothing">
 <cfoutput>
 <cfquery name="ctnature" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select nature_of_id from ctnature_of_id
@@ -625,4 +603,3 @@
 <script>
 	parent.dyniframesize();
 </script>
-<DIV ID="theCalendar" STYLE="position:absolute;visibility:hidden;background-color:white;layer-background-color:white;"></DIV>
