@@ -36,6 +36,8 @@
 		<cfloop query="getProj">
 			<cfset rv=esc(getProj.project_name)>
 			<br>
+			rv:#rv#
+			<br>
 			<a href="##" onClick="javascript: opener.document.#formName#.#projIdFld#.value='#project_id#';
 				opener.document.#formName#.#projNameFld#.value='#rv#';opener.document.#formName#.#projNameFld#.className='goodPick';self.close();">#project_name# (#project_id#)</a>
 		</cfloop>
