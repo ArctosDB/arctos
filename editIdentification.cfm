@@ -129,7 +129,8 @@
 			</div>
 		</td>
         <td>
-			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50" onfocus="attachAgentPick(this);">
+			<input type="text" name="newIdBy_two" id="newIdBy_two" size="50" 
+				onchange="getAgent('newIdBy_two_id',this.id,'newID',this.value);">
             <input type="hidden" name="newIdBy_two_id" id="newIdBy_two_id"> 
 			<span class="infoLink" onclick="addNewIdBy('three');">more...</span>			
 		 </td>
@@ -141,7 +142,8 @@
 			</div>
 		</td>
         <td>
-			<input type="text" name="newIdBy_three" id="newIdBy_three" size="50" onfocus="attachAgentPick(this);">
+			<input type="text" name="newIdBy_three" id="newIdBy_three" size="50" 
+				onchange="getAgent('newIdBy_three_id',this.id,'newID',this.value);">
             <input type="hidden" name="newIdBy_three_id" id="newIdBy_three_id"> 			
 		 </td>
     </tr>
@@ -290,7 +292,7 @@
 										value="#agent_name#" 
 										class="reqdClr"
 										size="50"
-										onfocus="attachAgentPick(this);"> 
+										onchange="getAgent('IdBy_#i#_#idnum#_id',this.id,'editIdentification',this.value);"> 
 									<input type="hidden" 
 										name="IdBy_#i#_#idnum#_id" 
 										id="IdBy_#i#_#idnum#_id" value="#agent_id#"
@@ -321,9 +323,14 @@
 			</td>
             <td>
 				<input type="text" value="#dateformat(made_date,'dd-mmm-yyyy')#" name="made_date_#i#"
-				 id="made_date_#i#"
-				 onclick="cal1.select(document.editIdentification.made_date_#i#,'anchor1#i#','dd-MMM-yyyy');">
-				<a name="anchor1#i#" id="anchor1#i#"></a>
+				 id="made_date_#i#">
+				 <script>
+					jQuery(document).ready(function() {
+						jQuery(function() {
+							jQuery("##made_date_#i#").datepicker();
+						});
+					});
+				</script>
            </td>
 		</tr>
         <tr> 
