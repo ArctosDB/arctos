@@ -1,4 +1,10 @@
 <cfinclude template="../includes/_pickHeader.cfm">
+<cffunction name="esc">
+	<cfargument name="in" required="yes">
+	<cfset out=replace(in,"'","\'","all")>
+	<cfset out=replace(out,'"','\"',"all")>
+	<cfreturn out>
+</cffunction>
 <cfoutput>
 	<form name="p" method="post" action="findProject.cfm">
 		<input type="hidden" name="formName" value="#formName#">
@@ -29,9 +35,8 @@
 	<cfelse>
 		<cfloop query="getProj">
 			<br>
-			<cfset thisName = replace(getProj.project_name,"'","`","all")>
 			<a href="##" onClick="javascript: opener.document.#formName#.#projIdFld#.value='#project_id#';
-				opener.document.#formName#.#projNameFld#.value=pickEscape('#getProj.project_name#');opener.document.#formName#.#projNameFld#.className='goodPick';self.close();">#project_name# (#project_id#)</a>
+				opener.document.#formName#.#projNameFld#.value=esc('#getProj.project_name#');opener.document.#formName#.#projNameFld#.className='goodPick';self.close();">#project_name# (#project_id#)</a>
 		</cfloop>
 	</cfif>
 </cfoutput>
