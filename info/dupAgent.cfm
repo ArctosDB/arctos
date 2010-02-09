@@ -8,8 +8,8 @@
 		The following links perform queries that attempt to locate duplicate agents. Not all results will be duplicates
 		(in the sense of one individual with multiple agent_ids). Please note this in agent remarks or elsewhere should you
 		discover it. 
-		<br>"Whodunit" links are sometimes provides, and these simply search the SQL logs 
-		(Reports/Audit SQL) for an insert of the relevant term. Log data is incomplete, and the suggested search
+		<br>"Whodunit" links, when provided, simply search the SQL logs 
+		(Reports/Audit SQL) for the relevant term. Log data is incomplete, and the suggested search
 		may not make sense.
 		<br>It may also be possible to determine who created duplicates by examining Agent Activity. Please do so.
 	</p>
