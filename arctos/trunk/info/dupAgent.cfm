@@ -93,9 +93,6 @@
 			b.agent_id=p2.agent_id
 	</cfquery>
 	Agents that fully share a namestring.
-	<br>
-	"Whodunit" links search the SQL logs for an insert of the relevant name, and will not be complete for legacy data.
-	Removing "Object" may find more results.
 	<table border id="t" class="sortable">
 		<tr>
 			<th>Name1</th>
