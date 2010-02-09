@@ -31,7 +31,7 @@
 		<tr>
 			<td>#name1#</td>
 			<td>
-				#id# - #id2#
+				#id1# - #id2#
 			</td>
 			
 		</tr>
