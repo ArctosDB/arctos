@@ -333,6 +333,7 @@
 											<li><a target="_top" href="/info/noParts.cfm">Partless Specimens</a></li>
 											<li><a target="_top" href="/tools/TaxonomyGaps.cfm">Messy Taxonomy</a></li>
 											<li><a target="_top" href="/tools/findGap.cfm">Catalog Number Gaps</a></li>
+											<li><a target="_top" href="/info/dupAgent.cfm">Duplicate Agents</a></li>
 										</ul>
 									</li>
 								</ul>
