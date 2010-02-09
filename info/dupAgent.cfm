@@ -13,6 +13,8 @@
 		select
 			a.agent_name name1,
 			b.agent_name name2,
+			a.agent_name_type t1,
+			b.agent_name_type t2,
 			a.agent_id id1,
 			b.agent_id id2,
 			p1.agent_name pn1,
@@ -30,19 +32,18 @@
 	</cfquery>
 	Citations by Taxonomy:
 	<table border id="t" class="sortable">
-		<th>
-			<td>Name1</td>
-			<td>Name2</td>
-			<td>Preferred1</td>
-			<td>Preferred2</td>
-		</th>
+		<tr>
+			<th>Name1</th>
+			<th>Name2</th>
+			<th>Preferred1</th>
+			<th>Preferred2</th>
+		</tr>
 	<cfloop query="d">
 		<tr>
-			<td>#name1#</td>
-			<td>#name2#</td>
+			<td>#name1# (#t1#)<a href="/agents.cfm?agent_id=#id1#">Edit</a></td>
+			<td>#name2# (#t2#)<a href="/agents.cfm?agent_id=#id2#">Edit</a></td>
 			<td>#pn1#</td>
 			<td>#pn2#</td>
-			
 		</tr>
 	</cfloop>
 	</table>
