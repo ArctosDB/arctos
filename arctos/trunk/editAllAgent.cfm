@@ -74,7 +74,6 @@
 			}
 		}
 		catch(e){
-			//console.log('Error with suggestName: ' + e);
 		}
 	}
 </script>
@@ -1262,8 +1261,6 @@
 </script>
 <cfoutput>
 <script type="text/javascript" language="javascript">
-	console.log(top.location);
-	console.log(document.location);
 	if (top.location==document.location) {
     	top.location='/agents.cfm?agent_id=#agent_id#';
 	}
