@@ -16,10 +16,10 @@
 <cfset frm="from media">			
 <cfset whr=" where media.media_id > 0">
 <cfset srch=" ">
-<cfif isdefined("media_uri") and len(#media_uri#) gt 0>
+<cfif isdefined("media_uri") and len(media_uri) gt 0>
 	<cfset srch="#srch# AND upper(media_uri) like '%#ucase(media_uri)#%'">
 </cfif>
-<cfif isdefined("media_type") and len(#media_type#) gt 0>
+<cfif isdefined("media_type") and len(media_type) gt 0>
 	<cfset srch="#srch# AND upper(media_type) like '%#ucase(media_type)#%'">
 </cfif>
 <cfif isdefined("tag") and len(tag) gt 0>
