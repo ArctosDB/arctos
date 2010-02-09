@@ -40,8 +40,16 @@
 		</tr>
 	<cfloop query="d">
 		<tr>
-			<td>#name1# (#t1#)<a href="/agents.cfm?agent_id=#id1#">Edit</a></td>
-			<td>#name2# (#t2#)<a href="/agents.cfm?agent_id=#id2#">Edit</a></td>
+			<td>
+				#name1# (#t1#)
+				[<a href="/agents.cfm?agent_id=#id1#">Edit</a>]
+				[<a href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name1#">Whodunit</a>]
+			</td>
+			<td>
+				#name2# (#t2#)
+				[<a href="/agents.cfm?agent_id=#id2#">Edit</a>]
+				[<a href="/Admin/ActivityLog.cfm?action=search&object=agent_name&sql=#name2#">Whodunit</a>]				
+			</td>
 			<td>#pn1#</td>
 			<td>#pn2#</td>
 		</tr>
