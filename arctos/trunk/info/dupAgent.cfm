@@ -5,7 +5,7 @@
 <cfset title="Agent Duplicates">
 <cfif action is "nothing">
 	<a href="dupAgent.cfm?action=fullDup">Agents that share a name</a>
-	<a href="dupAgent.cfm?action=shareFL">Person agents that share first and last name</a>
+	<br><a href="dupAgent.cfm?action=shareFL">Person agents that share first and last name</a>
 </cfif>
 
 <cfif action is "shareFL">
