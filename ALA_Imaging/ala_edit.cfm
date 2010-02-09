@@ -2,6 +2,11 @@
 <cfinclude template="/includes/_header.cfm">
 <a href="ala_edit.cfm">Search</a>~<a href="index.cfm">Enter</a>
 <cfif #action# is "nothing">
+<cfquery name="cts" datasource="uam_god">
+	select distinct(status) status from ala_plant_imaging order by status
+</cfquery>
+
+
 <cfoutput>
 	<cfset numberFolders = 20>
 <h2>
@@ -18,7 +23,8 @@
 	<input type="text" name="barcode" id="barcode" size="20">
 	<label for="idType">ID Type</label>
 	<select name="idType" id="" size="1">
-		<option value="ALAAC" selected >ALAAC</option>
+		<option value=""></option>
+		<option value="ALAAC" >ALAAC</option>
 		<option value="field number">field number</option>
 		<option value="ISC: Ada Hayden Herbarium, Iowa State University">ISC: Ada Hayden Herbarium, Iowa State University</option>
 	</select>
@@ -28,6 +34,13 @@
 	<input type="text" name="whodunit" id="whodunit" size="20">
 	<label for="whendunit">Entered Date</label>
 	<input type="text" name="whendunit" id="whendunit" size="20">
+	<label for="status">Status</label>
+	<select name="status" id="status" size="1">
+		<option value=""></option>
+		<cfloop query="cts">
+			<option value="#status#">#status#</option>
+		</cfloop>"
+	</select>
 	<input type="submit" 
 					class="lnkBtn"
 					onmouseover="this.className='lnkBtn btnhov'" 
@@ -44,6 +57,9 @@
 		where 1=1
 		<cfif isdefined("folder_identification") and len(#folder_identification#) gt 0>
 			AND folder_identification='#folder_identification#'
+		</cfif>
+		<cfif isdefined("status") and  len(#status#) gt 0>
+			AND status='#status#'
 		</cfif>
 		<cfif isdefined("folder_barcode") and  len(#folder_barcode#) gt 0>
 			AND folder_barcode='#folder_barcode#'

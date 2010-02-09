@@ -1,5 +1,20 @@
 <cfcomponent>
 <!------------------------------------------------------->
+<cffunction name="encumberThis" access="remote">
+	<cfargument name="cid" type="numeric" required="yes">	
+	<cfargument name="eid" type="numeric" required="yes">
+	<cftry>
+		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			insert into  coll_object_encumbrance (ENCUMBRANCE_ID,COLLECTION_OBJECT_ID)
+			values (#eid#,#cid#)
+		</cfquery>
+		<cfreturn cid>
+	<cfcatch>
+		<cfreturn cfcatch.message & ': ' & cfcatch.detail>
+	</cfcatch>
+	</cftry>
+</cffunction>
+
 <cffunction name="cloneCatalogedItem" access="remote">
 	<cfargument name="collection_object_id" type="numeric" required="yes">	
 	<cftry>
