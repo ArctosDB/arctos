@@ -6,6 +6,16 @@
 	<cfschedule action="delete" task="#allTasks[i].task#">
 </cfloop>
 <!-----------------------------------   sitemaps    ------------------------------------------>
+
+
+<cfschedule action = "update"
+    task = "CTupdates" 
+    operation = "HTTPRequest"
+    url = "127.0.0.1/ScheduledTasks/CTupdates.cfm"
+    startDate = "#dateformat(now(),'dd-mmm-yyyy')#"
+    startTime = "12:01 AM"
+    interval = "daily"
+    requestTimeOut = "600">
 <cfschedule action = "update"
     task = "cf_spec_res_cols" 
     operation = "HTTPRequest"

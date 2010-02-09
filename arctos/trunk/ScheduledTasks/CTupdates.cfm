@@ -17,7 +17,7 @@
 				date_stamp,
 				sql_statement
 		</cfquery>
-		<cfmail to="dustymc@gmail.com" subject="Code Table Activity Report" from="ctreport@#Application.fromEmail#" type="html">
+		<cfmail to="#Application.DataProblemReportEmail#" subject="Code Table Activity Report" from="ctreport@#Application.fromEmail#" type="html">
 			Last 24 hours of code table activity:
 			<table border>
 				<tr>
