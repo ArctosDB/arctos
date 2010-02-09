@@ -1,82 +1,99 @@
-<!--- take a string of non-DGR collection_object_id's, see if there's an equivilant --->
+<cfinclude template="/includes/_header.cfm">
+<a href="compareEncumberedRecs.cfm?action=moveMedia">Move Media - do this before deleting</a>
+
+<a href="compareEncumberedRecs.cfm?action=moveMediaISC">moveMediaISC - do this before deleting</a>
+
+
+<script>
+	function encumberThis(cid,eid){
+		$.getJSON("/component/functions.cfc",
+			{
+				method : "encumberThis",
+				cid : cid,
+				eid : eid,
+				returnformat : "json",
+				queryformat : 'column'
+			},
+			function(r) {
+				if (IsNumeric(r)) {
+					var n=parseInt(r)
+					$('#encbtn_' + n).addClass('red');
+				} else {
+					alert('An error occured! \n ' + r);
+				}	
+			}
+		);		
+	}
+	function KeepTheFirst(lst){
+		var lAry = lst.split(",");
+		var eid=10000019;
+		for (i = 0; i<lAry.length; i++) {
+			var cid=lAry[i];
+			encumberThis(cid,eid);
+			$('#encbtn_' + cid).addClass('red');
+		}
+	}
+	
+	function FlagAll(lst){
+		var lAry = lst.split(",");
+		var eid=10000020;
+		for (i = 0; i<lAry.length; i++) {
+			var cid=lAry[i];
+			encumberThis(cid,eid);
+			$('#encbtn_' + cid).addClass('red');
+		}	
+	}
+</script>
+
+<cfif action is "nothing">
+
 <cfset sql="
 	SELECT distinct
-		collection.collection,
-		cataloged_item.cat_num,
-		cataloged_item.collection_object_id as collection_object_id,
-		cataloged_item.collection_cde,
-		identification.scientific_name,
-		continent_ocean,
-		country,
-		geog_auth_rec.geog_auth_rec_id,
-		locality.locality_id,
-		accepted_lat_long.lat_long_id,
-		collecting_event.collecting_event_id,
-		state_prov,
-		quad,
-		county,
-		island,
-		island_group,
-		spec_locality,
-		verbatim_date,
-		BEGAN_DATE,
-		ended_date,
-		sea,
-		feature,
-		concatotherid(cataloged_item.collection_object_id) other_ids,
-		concatSingleOtherId(cataloged_item.collection_object_id,'ALAAC') alaac,
-		concatparts(cataloged_item.collection_object_id) as partString,
-		concatEncumbranceDetails(cataloged_item.collection_object_id) as encumbrance_action,
-		concatColls('collection_object_id', cataloged_item.collection_object_id, 'agent_name','coll_names') collectors,
-		dec_lat,
-		dec_long,
-		concatEncumbrances(cataloged_item.collection_object_id) encumbrances
+		flat.collection,
+		flat.cat_num,
+		flat.collection_object_id as collection_object_id,
+		flat.scientific_name,
+		flat.higher_geog,
+		flat.spec_locality,
+		flat.verbatim_date,
+		flat.BEGAN_DATE,
+		flat.ended_date,
+		concatotherid(flat.collection_object_id) other_ids,
+		coll_obj_other_id_num.DISPLAY_VALUE alaac,
+		flat.parts partString,
+		flat.encumbrances encumbrances,
+		flat.collectors,
+		flat.dec_lat,
+		flat.dec_long,
+		getMediaBySpecimen ('cataloged_item',flat.collection_object_id) media
 	FROM 
-		cataloged_item,
-		collection,
-		identification,
-		collecting_event,
-		locality,
-		geog_auth_rec,
-		Coll_object,
-		coll_obj_other_id_num,
-		accepted_lat_long,
-		coll_object_encumbrance
+		flat,
+		coll_obj_other_id_num
 	WHERE 
-		cataloged_item.collection_id = collection.collection_id and
-		cataloged_item.collection_object_id = identification.collection_object_id and		
-		identification.accepted_id_fg = 1 AND
-		cataloged_item.collecting_event_id = collecting_event.collecting_event_id AND
-		collecting_event.locality_id = locality.locality_id and
-		locality.geog_auth_rec_id = geog_auth_rec.geog_auth_rec_id and
-		cataloged_item.collection_object_id = coll_object.collection_object_id and
-		cataloged_item.collection_object_id = coll_obj_other_id_num.collection_object_id and
-		locality.locality_id = accepted_lat_long.locality_id (+) and
-		cataloged_item.collection_object_id=coll_object_encumbrance.collection_object_id and
-		cataloged_item.collection_object_id in 
+		flat.collection_object_id = coll_obj_other_id_num.collection_object_id and
+		OTHER_ID_TYPE='ALAAC' and				
+		coll_obj_other_id_num.DISPLAY_VALUE in 
 			(select 
-				coll_object_encumbrance.COLLECTION_OBJECT_ID 
+				coll_obj_other_id_num.DISPLAY_VALUE
 			from
-				BIOL_INDIV_RELATIONS,
-				coll_object_encumbrance
+				coll_obj_other_id_num
 			where
-				BIOL_INDIV_RELATIONS.COLLECTION_OBJECT_ID=coll_object_encumbrance.COLLECTION_OBJECT_ID and
-				coll_object_encumbrance.encumbrance_id=1000025
-			union all
-			select 
-				BIOL_INDIV_RELATIONS.RELATED_COLL_OBJECT_ID 
-			from
-				BIOL_INDIV_RELATIONS,
-				coll_object_encumbrance
-			where
-				BIOL_INDIV_RELATIONS.RELATED_COLL_OBJECT_ID=coll_object_encumbrance.COLLECTION_OBJECT_ID and
-				coll_object_encumbrance.encumbrance_id=1000025
+				OTHER_ID_TYPE='ALAAC'
+			having count(*) > 1
+			group by 
+				coll_obj_other_id_num.DISPLAY_VALUE
 			)
+			and flat.collection_object_id NOT IN (
+				select collection_object_id from coll_object_encumbrance where encumbrance_id=10000020
+			)			
 	ORDER BY
-		cat_num">
+		coll_obj_other_id_num.DISPLAY_VALUE
+		">
 <cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	#preservesinglequotes(sql)#
 </cfquery>
+<cfoutput>
+	
 <style>
 	.match {
 		color:green;
@@ -84,172 +101,407 @@
 	.nomatch {color:red;
 		}
 </style>
-<cfquery name="recOne" dbtype="query">
-	select * from data where encumbrances like '%mask record%'
+<cfquery name="dr" dbtype="query">
+	select distinct(alaac) from data order by alaac
 </cfquery>
-<cfoutput>
-	This form displays DGR data and non-DGR data compared by NK number ONLY. Records with only MSB catalog numbers are displayed; records with only DGR catalog numbers are NOT displayed.
+	-dr.recordcount: #dr.recordcount#-#data.recordcount#
 	<table border>
-		<tr>
-			<td width="50%">Collection Data</td>
-			<td>DGR Data</td>
-		</tr>
-			<cfset i=1>
-		<cfloop query="recOne">
-			<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-				<td>
-					<table border>
-						<tr>
+		<cfset i=1>
+			<cfloop query="dr">
+				<cfif i lt 101>
+					<cfquery name="stoopid" dbtype='query'>
+						select min(collection_object_id) collection_object_id from data where alaac='#alaac#'
+					</cfquery>
+					<cfquery name="recOne" dbtype="query">
+						select * from data where
+						collection_object_id=#stoopid.collection_object_id#
+					</cfquery>
+					
+					<cfloop query="recOne">
+						<cfquery name="recTwo" dbtype="query">
+							select * from data where
+							ALAAC='#ALAAC#'
+							and collection_object_id <> #collection_object_id#
+						</cfquery>
+						<cfset allId=listappend(valuelist(recTwo.collection_object_id),recOne.collection_object_id)>
+						<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 							<td>
-								ALAAC #ALAAC#: <a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#collection# #collection_cde# #cat_num#</a>
-							</td> 
-							<td>
-								#scientific_name#
+								<div id="encbtn_#collection_object_id#">
+									<span class="likeLink" 
+										onclick="KeepTheFirst('#valuelist(recTwo.collection_object_id)#')">DeleteOthers</span>
+									<br><span class="likeLink" onclick="FlagAll('#allId#')">FlagAndKeepAll</span>
+									<br><span class="likeLink" onclick="encumberThis('#collection_object_id#','10000019')">DeleteThis</span>
+								</div>
 							</td>
-						</tr>
-						<tr>
 							<td>
-								#continent_ocean# - #country# - #state_prov# - #quad# - #county# - #island# - #island_group#
+								<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#ALAAC#-#cat_num#</a>
+							</td>
+							<td>
+								#media#
+							</td>
+							<td>#scientific_name#</td>
+							<td>
+								#higher_geog#
 							</td>
 							<td>#spec_locality#</td>
-						</tr>
-						<tr>
 							<td>
 								#verbatim_date# - 
 								#dateformat(BEGAN_DATE,"dd-mmm-yyyy")#
 										- #dateformat(ended_date,"dd-mmm-yyyy")#
 							</td>
 							<td>#other_ids#</td>
-						</tr>
-						<tr>
-							<td>#dec_lat# - #dec_long#</td>
-							<td>#partString#</td>
-						</tr>
-						<tr>
 							<td>#collectors#</td>
-							<td>#encumbrance_action#</td>
+							<td>#encumbrances#</td>
 						</tr>
 						
-					</table>
-				</td>
-				<td>
-				<cfquery name="recTwo" dbtype="query">
-					select * from data where
-					ALAAC='#ALAAC#'
-					and collection_object_id <> #collection_object_id#
-				</cfquery>
-				<cfif #recTwo.recordcount# is 1>
-					<table border>
-						<tr>
-							<td>
-								ALAAC #recTwo.ALAAC#: <a href="/SpecimenDetail.cfm?collection_object_id=#recTwo.collection_object_id#">#recTwo.collection# #recTwo.collection_cde# #recTwo.cat_num#</a>
-							</td>
-							<td>
-								<span class="
-									<cfif #recTwo.scientific_name# is #scientific_name#>
-										match
+						
+		
+						<cfloop query="recTwo">
+							<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
+								<td>
+									<div id="encbtn_#collection_object_id#">
+										<br><span class="likeLink" onclick="encumberThis('#collection_object_id#','10000019')">DeleteThis</span>
+									</div>
+								</td>
+								<td>
+									<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#ALAAC#-#cat_num#</a>
+								</td> 
+								<td>
+									#media#
+								</td>
+								<td>
+									<cfif scientific_name is recOne.scientific_name>
+										<cfset c="match">
 									<cfelse>
-										nomatch
-									</cfif>">
-										#recTwo.scientific_name#
-									</span>
-									
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<span class="
-									<cfif #recTwo.geog_auth_rec_id# is #geog_auth_rec_id#>
-										match
+										<cfset c="nomatch">
+									</cfif>
+									<div class="#c#">#scientific_name#</div>
+								</td>
+								
+								<td>
+									<cfif higher_geog is recOne.higher_geog>
+										<cfset c="match">
 									<cfelse>
-										nomatch
-									</cfif>">
-										#recTwo.continent_ocean#  - #recTwo.country#
-										 - #recTwo.state_prov# - #recTwo.quad# - #recTwo.county# - #recTwo.island# - #recTwo.island_group#
-									</span>
-							</td>
-							<td>
-								<span class="
-									<cfif #recTwo.locality_id# is #locality_id#>
-										match
-									<cfelse>
-										nomatch
-									</cfif>">
-										#recTwo.spec_locality#
-									</span>
-									
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<span class="
-									<cfif #recTwo.collecting_event_id# is #collecting_event_id#>
-										match
-									<cfelse>
-										nomatch
-									</cfif>">
-										#recTwo.verbatim_date# - #dateformat(recTwo.BEGAN_DATE,"dd-mmm-yyyy")#
-										- #dateformat(recTwo.ended_date,"dd-mmm-yyyy")#
-									</span>
-							</td>
-							<td>
-								<span class="
-									<cfif #recTwo.other_ids# is #other_ids#>
-										match
-									<cfelse>
-										nomatch
-									</cfif>">
-										#recTwo.other_ids#
-									</span>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<span class="
-									<cfif #recTwo.lat_long_id# is #lat_long_id#>
-										match
-									<cfelse>
-										nomatch
-									</cfif>">
-										#recTwo.dec_lat# - #recTwo.dec_long#
-									</span>
-							</td>
-							
-							<td>
-								<span class="
-									<cfif #recTwo.partString# is #partString#>
-										match
-									<cfelse>
-										nomatch
-									</cfif>">
-										#recTwo.partString#
-									</span>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<span class="
-									<cfif #recTwo.collectors# is #collectors#>
-										match
-									<cfelse>
-										nomatch
-									</cfif>">
-										#recTwo.collectors#
-									</span>
-							</td>
-							<td>#recTwo.encumbrance_action#
-							<cfif #recTwo.encumbrance_action# does not contain "mask record by Jerry W. Dragoo on 13 Jan 2005">
-							<input type="button" name="delEnc" id="del#recTwo.collection_object_id#" onClick="window.open('picks/delEncThis.cfm?collection_object_id=#recTwo.collection_object_id#','width=700,height=400, resizable,scrollbars')" value="Mark For Deletion">
+										<cfset c="nomatch">
+									</cfif>
+									<div class="#c#">#higher_geog#</div>
+								</td>
+								<td>#spec_locality#</td>
+								<td>
+									#verbatim_date# - 
+									#dateformat(BEGAN_DATE,"dd-mmm-yyyy")#
+											- #dateformat(ended_date,"dd-mmm-yyyy")#
+								</td>
+								<td>#other_ids#</td>
+								<td>#collectors#</td>
+								<td>#encumbrances#</td>
+							</tr>
+						</cfloop>
+					</cfloop>
+					<cfset i=i+1>
 							</cfif>
-							</td>
-						</tr>
-					</table>
-				<cfelse>
-					No match for recTwo ALAAC## = #alaac#
-				</cfif>
-				</td>
-			</tr>
-			<cfset i=#i#+1>
-		</cfloop>
+
+				</cfloop>
 	</table>
 </cfoutput>
+
+</cfif>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<cfif action is "isc">
+
+<cfset sql="
+	SELECT distinct
+		flat.collection,
+		flat.cat_num,
+		flat.collection_object_id as collection_object_id,
+		flat.scientific_name,
+		flat.higher_geog,
+		flat.spec_locality,
+		flat.verbatim_date,
+		flat.BEGAN_DATE,
+		flat.ended_date,
+		concatotherid(flat.collection_object_id) other_ids,
+		coll_obj_other_id_num.DISPLAY_VALUE alaac,
+		flat.parts partString,
+		flat.encumbrances encumbrances,
+		flat.collectors,
+		flat.dec_lat,
+		flat.dec_long,
+		getMediaBySpecimen ('cataloged_item',flat.collection_object_id) media
+	FROM 
+		flat,
+		coll_obj_other_id_num
+	WHERE 
+		flat.collection_object_id = coll_obj_other_id_num.collection_object_id and
+		OTHER_ID_TYPE='ISC: Ada Hayden Herbarium, Iowa State University' and				
+		coll_obj_other_id_num.DISPLAY_VALUE in 
+			(select 
+				coll_obj_other_id_num.DISPLAY_VALUE
+			from
+				coll_obj_other_id_num
+			where
+				OTHER_ID_TYPE='ISC: Ada Hayden Herbarium, Iowa State University'
+			having count(*) > 1
+			group by 
+				coll_obj_other_id_num.DISPLAY_VALUE
+			)
+			and flat.collection_object_id NOT IN (
+				select collection_object_id from coll_object_encumbrance where encumbrance_id=10000020
+			)			
+	ORDER BY
+		coll_obj_other_id_num.DISPLAY_VALUE
+		">
+<cfquery name="data" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	#preservesinglequotes(sql)#
+</cfquery>
+<cfoutput>
+	
+<style>
+	.match {
+		color:green;
+		}
+	.nomatch {color:red;
+		}
+</style>
+<cfquery name="dr" dbtype="query">
+	select distinct(alaac) from data order by alaac
+</cfquery>
+	-dr.recordcount: #dr.recordcount#-#data.recordcount#
+	<table border>
+		<cfset i=1>
+			<cfloop query="dr">
+				<cfif i lt 101>
+					<cfquery name="stoopid" dbtype='query'>
+						select min(collection_object_id) collection_object_id from data where alaac='#alaac#'
+					</cfquery>
+					<cfquery name="recOne" dbtype="query">
+						select * from data where
+						collection_object_id=#stoopid.collection_object_id#
+					</cfquery>
+					
+					<cfloop query="recOne">
+						<cfquery name="recTwo" dbtype="query">
+							select * from data where
+							ALAAC='#ALAAC#'
+							and collection_object_id <> #collection_object_id#
+						</cfquery>
+						<cfset allId=listappend(valuelist(recTwo.collection_object_id),recOne.collection_object_id)>
+						<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
+							<td>
+								<div id="encbtn_#collection_object_id#">
+									<span class="likeLink" 
+										onclick="KeepTheFirst('#valuelist(recTwo.collection_object_id)#')">DeleteOthers</span>
+									<br><span class="likeLink" onclick="FlagAll('#allId#')">FlagAndKeepAll</span>
+									<br><span class="likeLink" onclick="encumberThis('#collection_object_id#','10000019')">DeleteThis</span>
+								</div>
+							</td>
+							<td>
+								<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#ALAAC#-#cat_num#</a>
+							</td>
+							<td>
+								#media#
+							</td>
+							<td>#scientific_name#</td>
+							<td>
+								#higher_geog#
+							</td>
+							<td>#spec_locality#</td>
+							<td>
+								#verbatim_date# - 
+								#dateformat(BEGAN_DATE,"dd-mmm-yyyy")#
+										- #dateformat(ended_date,"dd-mmm-yyyy")#
+							</td>
+							<td>#other_ids#</td>
+							<td>#collectors#</td>
+							<td>#encumbrances#</td>
+						</tr>
+						
+						
+		
+						<cfloop query="recTwo">
+							<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
+								<td>
+									<div id="encbtn_#collection_object_id#">
+										<br><span class="likeLink" onclick="encumberThis('#collection_object_id#','10000019')">DeleteThis</span>
+									</div>
+								</td>
+								<td>
+									<a href="/SpecimenDetail.cfm?collection_object_id=#collection_object_id#">#ALAAC#-#cat_num#</a>
+								</td> 
+								<td>
+									#media#
+								</td>
+								<td>
+									<cfif scientific_name is recOne.scientific_name>
+										<cfset c="match">
+									<cfelse>
+										<cfset c="nomatch">
+									</cfif>
+									<div class="#c#">#scientific_name#</div>
+								</td>
+								
+								<td>
+									<cfif higher_geog is recOne.higher_geog>
+										<cfset c="match">
+									<cfelse>
+										<cfset c="nomatch">
+									</cfif>
+									<div class="#c#">#higher_geog#</div>
+								</td>
+								<td>#spec_locality#</td>
+								<td>
+									#verbatim_date# - 
+									#dateformat(BEGAN_DATE,"dd-mmm-yyyy")#
+											- #dateformat(ended_date,"dd-mmm-yyyy")#
+								</td>
+								<td>#other_ids#</td>
+								<td>#collectors#</td>
+								<td>#encumbrances#</td>
+							</tr>
+						</cfloop>
+					</cfloop>
+					<cfset i=i+1>
+							</cfif>
+
+				</cfloop>
+	</table>
+</cfoutput>
+
+</cfif>
+
+
+
+
+<cfif action is "moveMedia">
+	<cfoutput>
+		<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				coll_object_encumbrance.collection_object_id,
+				display_value
+			from 
+				coll_object_encumbrance,
+				coll_obj_other_id_num
+			where
+				coll_object_encumbrance.collection_object_id=coll_obj_other_id_num.collection_object_id and
+				other_id_type='ALAAC' and
+				encumbrance_id=10000019
+		</cfquery>
+		<cftransaction>
+		<cfloop query="b">
+			<hr>
+				badrec:#collection_object_id#==#display_value#
+				<cfquery name="m" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select media_id from media_relations where media_relationship='shows cataloged_item' and
+					related_primary_key=#collection_object_id#
+				</cfquery>
+				<cfif m.recordcount is 0>
+					no media, just delete it
+				<cfelse>
+					<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select 
+							collection_object_id 
+						from 
+							coll_obj_other_id_num
+						where
+							other_id_type='ALAAC' and
+							collection_object_id!=#collection_object_id# and
+							display_value='#display_value#'	and
+							collection_object_id not in (
+								select collection_object_id from coll_object_encumbrance where encumbrance_id=10000019
+							)
+					</cfquery>
+					<cfif g.recordcount is 1>
+						<cfquery name="mm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							update media_relations set related_primary_key=#g.collection_object_id# where
+							media_relationship='shows cataloged_item' and
+							related_primary_key=#collection_object_id#
+						</cfquery>
+						spiffy
+					<cfelse>
+						goddammit, something failed.
+						<cfdump var=#g#>
+					</cfif>
+				</cfif>
+				
+
+			<hr>
+			
+		</cfloop>
+		</cftransaction>
+	</cfoutput>
+</cfif>
+
+
+
+
+
+<cfif action is "moveMediaISC">
+	<cfoutput>
+		<cfquery name="b" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				coll_object_encumbrance.collection_object_id,
+				display_value
+			from 
+				coll_object_encumbrance,
+				coll_obj_other_id_num
+			where
+				coll_object_encumbrance.collection_object_id=coll_obj_other_id_num.collection_object_id and
+				other_id_type='ISC: Ada Hayden Herbarium, Iowa State University' and
+				encumbrance_id=10000019
+		</cfquery>
+		<cftransaction>
+		<cfloop query="b">
+			<hr>
+				badrec:#collection_object_id#==#display_value#
+				<cfquery name="m" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					select media_id from media_relations where media_relationship='shows cataloged_item' and
+					related_primary_key=#collection_object_id#
+				</cfquery>
+				<cfif m.recordcount is 0>
+					no media, just delete it
+				<cfelse>
+					<cfquery name="g" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select 
+							collection_object_id 
+						from 
+							coll_obj_other_id_num
+						where
+							other_id_type='ISC: Ada Hayden Herbarium, Iowa State University' and
+							collection_object_id!=#collection_object_id# and
+							display_value='#display_value#'	and
+							collection_object_id not in (
+								select collection_object_id from coll_object_encumbrance where encumbrance_id=10000019
+							)
+					</cfquery>
+					<cfif g.recordcount is 1>
+						<cfquery name="mm" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							update media_relations set related_primary_key=#g.collection_object_id# where
+							media_relationship='shows cataloged_item' and
+							related_primary_key=#collection_object_id#
+						</cfquery>
+						spiffy
+					<cfelse>
+						goddammit, something failed.
+						<cfdump var=#g#>
+					</cfif>
+				</cfif>
+				
+
+			<hr>
+			
+		</cfloop>
+		</cftransaction>
+	</cfoutput>
+</cfif>

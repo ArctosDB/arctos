@@ -112,7 +112,6 @@ PROCEDURE set_ala_status
 			FROM container 
 			WHERE barcode = ala_plant_imaging.folder_barcode) AND
 		status = 'processing';
-	
 	UPDATE ala_plant_imaging 
 	SET status = 'dup_ala_num'
 	WHERE
@@ -133,24 +132,51 @@ PROCEDURE set_ala_status
 			HAVING count(display_value) > 1 
 			GROUP BY display_value) AND 
 		status = 'processing';
-	
+		
 	UPDATE ala_plant_imaging 
-	SET status = 'bad_alaac_number'
-	WHERE 
+		SET status = 'dup_ala_num_in_bulkloader'
+	WHERE
 		idtype = 'ALAAC' AND
-		is_number(REPLACE(idnum,'V')) = 0 OR
-		(
-			(
-				idnum NOT LIKE 'V%' AND
-				to_number(REPLACE(idnum,'V')) > 99065
-			) OR
-			(
-				idnum LIKE 'V%' AND
-				to_number(REPLACE(idnum,'V')) < 68725 OR
-				to_number(REPLACE(idnum,'V')) > 200000
-			 )
-		 )
-		 AND status = 'processing';
+        idnum IN (
+			SELECT other_id_num_1 
+			FROM bulkloader
+			where other_id_num_type_1='ALAAC' 
+		)
+	    AND 
+		status = 'processing';
+
+   	-- want to flag the following:
+   	-- not an integer
+   	-- not "V" + an integer
+   	-- Integer greater than 99065
+   	-- "V" + integer, but integer not between 68725 and 200000
+   	
+UPDATE ala_plant_imaging 
+ SET status = 'bad_alaac_number'
+WHERE 
+ idtype = 'ALAAC' AND
+ (
+  is_number(REPLACE(idnum,'V')) = 0 OR
+  (
+   (
+    idnum NOT LIKE 'V%' AND
+    is_number(idnum) = 0 AND
+    to_number(REPLACE(idnum,'V')) > 99065
+   )
+   OR
+   (
+    idnum LIKE 'V%' AND
+    is_number(REPLACE(idnum,'V')) = 0 AND 
+    (
+     to_number(REPLACE(idnum,'V')) < 68725 OR
+     to_number(REPLACE(idnum,'V')) > 200000
+    )
+   )
+  )
+ )
+AND status = 'processing';
+dbms_output.put_line('l154');
+
     UPDATE ala_plant_imaging 
 	    SET status = status || ':bad_barcode'
 	    WHERE 
@@ -341,7 +367,7 @@ PROCEDURE set_loaded_location
 	is
 	begin
 		--dbms_output.put_line('hi there');
-			execute immediate 'alter trigger MOVE_CONTAINER disable';
+		execute immediate 'alter trigger MOVE_CONTAINER disable';
 		FOR r IN (SELECT * FROM ala_plant_imaging WHERE status = 'loaded') LOOP
 		
 		select count(*) into still_waiting
@@ -349,12 +375,20 @@ PROCEDURE set_loaded_location
 		other_id_type=trim(r.idtype) and
 		display_value=trim(r.idnum);
 		/*
+		
+        			select count(*) 
+		from coll_obj_other_id_num where
+		other_id_type=trim('ALAAC') and
+		display_value=trim('148464');
+		*/
+		
+		/*
 		IF still_waiting = 0 THEN
 		    dbms_output.put_line('r.idnum:' || r.idnum || '; ' || r.idtype || ';');
 		END IF;
 		*/
 		if still_waiting = 1 then
-			got_issues := '';
+			got_issues := NULL;
 			SELECT COUNT(*) INTO num
     			FROM container 
     			WHERE barcode = r.barcode;
@@ -378,7 +412,7 @@ PROCEDURE set_loaded_location
     	    IF num != 1 THEN
 			    got_issues := 'specimen_part container not found';
 			END IF;
-			IF got_issues = '' THEN
+			IF got_issues IS NULL THEN
    	            SELECT container_id INTO cid
            			FROM container 
            			WHERE barcode = r.barcode;
@@ -422,7 +456,7 @@ PROCEDURE set_loaded_location
 			WHERE image_id = r.image_id;
 		ELSE
 		    UPDATE ala_plant_imaging 
-			SET status = 'loaded_not_found'  
+			SET status = 'loaded_not_found: ' || still_waiting
 			WHERE image_id = r.image_id;
 		end if;
 		
