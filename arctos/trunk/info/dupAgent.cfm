@@ -4,6 +4,15 @@
 <cfoutput>
 <cfset title="Agent Duplicates">
 <cfif action is "nothing">
+	<p>
+		The following links perform queries that attempt to locate duplicate agents. Not all results will be duplicates
+		(in the sense of one individual with multiple agent_ids). Please note this in agent remarks or elsewhere should you
+		discover it. 
+		<br>"Whodunit" links are sometimes provides, and these simply search the SQL logs 
+		(Reports/Audit SQL) for an insert of the relevant term. Log data is incomplete, and the suggested search
+		may not make sense.
+		<br>It may also be possible to determine who created duplicates by examining Agent Activity. Please do so.
+	</p>
 	<a href="dupAgent.cfm?action=fullDup">Agents that share a name</a>
 	<br><a href="dupAgent.cfm?action=shareFL">Person agents that share first and last name</a>
 </cfif>
@@ -32,9 +41,6 @@
 			per2.person_id=p2.agent_id
 	</cfquery>
 	Persons that share first and last name.
-	<br>
-	"Whodunit" links search the SQL logs for an insert of the relevant name, and will not be complete for legacy data.
-	Removing "Object" may find more results.
 	<table border id="t" class="sortable">
 		<tr>
 			<th>F/L 1</th>
