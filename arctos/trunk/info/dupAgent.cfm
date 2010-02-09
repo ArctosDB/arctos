@@ -24,7 +24,7 @@
 			preferred_agent_name p2
 		where 
 			a.agent_name=b.agent_name and
-			a.agent_id != b.agent_id
+			a.agent_id != b.agent_id and
 			a.agent_id=p1.agent_id and
 			b.agent_id=p2.agent_id
 	</cfquery>
