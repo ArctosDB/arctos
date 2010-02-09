@@ -11,7 +11,7 @@
 				uam.arctos_audit
 			where
 				TO_char(TIMESTAMP) > SYSDATE - 1 and
-				--upper(object_name) like 'CT%'
+				upper(object_name) like 'CT%'
 			ORDER BY 
 				username,
 				date_stamp,
