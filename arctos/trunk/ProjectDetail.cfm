@@ -45,7 +45,7 @@
 		})
 	}
 	jQuery(document).ready(function(){
-		var elemsToLoad='pubs,specUsed,specCont,projCont,projUseCont,projMedia';
+		var elemsToLoad='pubs,specUsed,specCont,projCont,projUseCont,projMedia,projTaxa';
 		var elemAry = elemsToLoad.split(",");
 		for(var i=0; i<elemAry.length; i++){
 			load(elemAry[i]);
@@ -173,6 +173,9 @@
 		<img src="/images/indicator.gif">
 	</div>
 	<div id="projMedia">
+		<img src="/images/indicator.gif">
+	</div>
+	<div id="projTaxa">
 		<img src="/images/indicator.gif">
 	</div>
 </cfoutput>
