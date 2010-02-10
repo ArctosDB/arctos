@@ -197,8 +197,8 @@ Projects are activities that have contributed specimens, used specimens, or both
 <!------------------------------------------------------------------------------------------->
 <cfif action is "editProject">
 	<cfset title="Edit Project">
-	<strong>Edit Project</strong>
 	<cfoutput>
+		<strong>Edit Project</strong> <a href="/ProjectDetail.cfm?project_id=#project_id#">[ Detail Page ]</a>
 		<cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				project.project_id,
