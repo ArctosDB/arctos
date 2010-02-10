@@ -535,64 +535,39 @@ Projects are activities that have contributed specimens, used specimens, or both
 					</tr>
 				</form>
 			</table>
-	
-	
-	
-	
-			
-			
-			
-			
-			
-			<table width="100%" border><tr><td width="50%" valign="top">
-				<!---- left column ---->
-				<table>
-					<tr>
+			<br><strong>Project Accessions:</strong> 
+			<cfset i=1>
+			<table>
+				<cfloop query="getAccns">
+ 					<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 						<td>
-							Associate things with this project:
+							<table>
+								<tr>
+									<td>
+										<a href="editAccn.cfm?action=edit&transaction_id=#getAccns.transaction_id#">
+											<strong>#collection#  #accn_number#</strong> 
+										</a>
+									</td>
+									<td align="right">
+										<input type="button"
+										value="Remove"
+										class="delBtn"
+										onClick="document.location='Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#';">
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<blockquote>
+											#nature_of_material# - #trans_remarks#
+										</blockquote>
+									</td>
+								</tr>
+							</table>
 						</td>
 					</tr>
-					<tr>
-						<td>
-							<strong>Project Accessions:</strong>
-							<br />
-							<input type="button"
-								value="Add Accession to this Project"
-								class="insBtn"
-								onClick="document.location='editAccn.cfm?project_id=#getDetails.project_id#';">
-							<hr>
-							<cfset i=1>
-							<table>
-								<cfloop query="getAccns">
-				 					<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-										<td>
-											<table>
-												<tr>
-													<td>
-														<a href="editAccn.cfm?action=edit&transaction_id=#getAccns.transaction_id#">
-															<strong>#collection#  #accn_number#</strong> 
-														</a>
-													</td>
-													<td align="right">
-														<input type="button"
-														value="Remove"
-														class="delBtn"
-														onClick="document.location='Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#';">
-													</td>
-												</tr>
-												<tr>
-													<td colspan="2">
-														<blockquote>
-															#nature_of_material# - #trans_remarks#
-														</blockquote>
-													</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-									<cfset i=i+1>		
-								</cfloop>
-							</table>
+					<cfset i=i+1>		
+				</cfloop>
+			</table>
 							<strong>Project Loans:</strong>
 							<br>
 							<input type="button"
