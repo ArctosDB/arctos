@@ -513,7 +513,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 					<input type="hidden" name="action" value="addSponsor">
 					<tr class="newRec">
 						<td colspan="3">
-							<h3>Add Sponsor</h3>
+							Add Sponsor
 						</td>
 					</tr>
 					<tr>
