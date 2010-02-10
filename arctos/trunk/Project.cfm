@@ -290,6 +290,24 @@ Projects are activities that have contributed specimens, used specimens, or both
 			order by 
 				scientific_name
 		</cfquery>
+		<cfquery name="proj" dbtype="query">
+			SELECT 
+				project_id,
+				project_name,
+				start_date,
+				end_date,
+				project_description
+				project_remarks
+			FROM 
+				getDetails
+			group by
+				project_id,
+				project_name,
+				start_date,
+				end_date,
+				project_description
+				project_remarks
+		</cfquery>
 		<cfquery name="numAgents" dbtype="query">
 			select max(agent_position) as  agent_position from agents
 		</cfquery>
@@ -311,6 +329,57 @@ Projects are activities that have contributed specimens, used specimens, or both
 				project_publication.publication_id = publication.publication_id AND 
 				format_style = 'long'
 			</cfquery>
+			<form name="project" action="Project.cfm" method="post">
+				<input type="hidden" name="action">
+				<input type="hidden" name="project_id" id="project_id" value="#proj.project_id#">
+				<label for="project_name" class="likeLink" onClick="getDocs('project','title')">Project&nbsp;Title</label>
+				<textarea name="project_name" id="project_name" cols="50" rows="2" class="reqdClr">#project_name#</textarea>
+				<tr>
+					<td align="right"><a href="javascript:void(0);" onClick="getDocs('project','date')">Start&nbsp;Date</a> </td>
+					<td><input type="text" name="start_date" value="#dateformat(start_date,"dd mmm yyyy")#"></td>
+					<td align="right">End Date</td>
+					<td><input type="text" name="end_date"  value="#dateformat(end_date,"dd mmm yyyy")#"></td>
+				</tr>
+				<tr>
+				<td align="right">
+					<a href="javascript:void(0);" onClick="getDocs('project','description')">Description</a>
+				</td>
+				<td colspan="3"><textarea name="project_description" cols="50" rows="6">#project_description#</textarea></td>
+				</tr>
+				<tr>
+				<td align="right">Remarks</td>
+				<td colspan="3"><textarea name="project_remarks" cols="50" rows="3">#project_remarks#</textarea></td>
+				</tr>
+				<tr>
+					<td colspan="4" align="center">
+					<input type="button" 
+						value="Save Updates" 
+						class="savBtn"
+						onmouseover="this.className='savBtn btnhov'" 
+						onmouseout="this.className='savBtn'"
+						onclick="document.project.Action.value='saveEdits';submit();">
+					<input type="button"
+						value="Delete"
+						class="delBtn"
+						onmouseover="this.className='delBtn btnhov'"
+						onmouseout="this.className='delBtn'"
+						onclick="document.project.Action.value='deleteProject';submit();">
+					<input type="button"
+						value="Quit"
+						class="qutBtn"
+						onmouseover="this.className='qutBtn btnhov'"
+						onmouseout="this.className='qutBtn'"
+						onClick="document.location='Project.cfm';">
+			</td>
+				</tr>
+				</cfoutput>
+				</form>
+			
+			
+			
+			
+			
+			
 			<table width="100%" border><tr><td width="50%" valign="top">
 				<!---- left column ---->
 				<table>
@@ -427,58 +496,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 			<td valign="top">
 				<!---- right column ---->
 				<table>
-				<form name="project" action="Project.cfm" method="post">
-				<input type="hidden" name="Action">
-				<cfoutput query="getDetails" group="project_id">
-				<input type="hidden" name="project_id" value="#getDetails.project_id#">
-				<tr>
-					<td align="right">
-						<a href="javascript:void(0);" onClick="getDocs('project','title')">Project&nbsp;Title</a>
-					</td>
-					<td colspan="3">
-						<textarea name="project_name" cols="50" rows="2" class="reqdClr">#project_name#</textarea>
-					</td>
-				</tr>
-				<tr>
-					<td align="right"><a href="javascript:void(0);" onClick="getDocs('project','date')">Start&nbsp;Date</a> </td>
-					<td><input type="text" name="start_date" value="#dateformat(start_date,"dd mmm yyyy")#"></td>
-					<td align="right">End Date</td>
-					<td><input type="text" name="end_date"  value="#dateformat(end_date,"dd mmm yyyy")#"></td>
-				</tr>
-				<tr>
-				<td align="right">
-					<a href="javascript:void(0);" onClick="getDocs('project','description')">Description</a>
-				</td>
-				<td colspan="3"><textarea name="project_description" cols="50" rows="6">#project_description#</textarea></td>
-				</tr>
-				<tr>
-				<td align="right">Remarks</td>
-				<td colspan="3"><textarea name="project_remarks" cols="50" rows="3">#project_remarks#</textarea></td>
-				</tr>
-				<tr>
-					<td colspan="4" align="center">
-					<input type="button" 
-						value="Save Updates" 
-						class="savBtn"
-						onmouseover="this.className='savBtn btnhov'" 
-						onmouseout="this.className='savBtn'"
-						onclick="document.project.Action.value='saveEdits';submit();">
-					<input type="button"
-						value="Delete"
-						class="delBtn"
-						onmouseover="this.className='delBtn btnhov'"
-						onmouseout="this.className='delBtn'"
-						onclick="document.project.Action.value='deleteProject';submit();">
-					<input type="button"
-						value="Quit"
-						class="qutBtn"
-						onmouseover="this.className='qutBtn btnhov'"
-						onmouseout="this.className='qutBtn'"
-						onClick="document.location='Project.cfm';">
-			</td>
-				</tr>
-				</cfoutput>
-				</form>
+				
 				</table>
 				<table>
 					<tr>
