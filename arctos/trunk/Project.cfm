@@ -333,22 +333,22 @@ Projects are activities that have contributed specimens, used specimens, or both
 				<input type="hidden" name="action">
 				<input type="hidden" name="project_id" id="project_id" value="#proj.project_id#">
 				<label for="project_name" class="likeLink" onClick="getDocs('project','title')">Project&nbsp;Title</label>
-				<textarea name="project_name" id="project_name" cols="50" rows="2" class="reqdClr">#project_name#</textarea>
+				<textarea name="project_name" id="project_name" cols="50" rows="2" class="reqdClr">#proj.project_name#</textarea>
 				<tr>
 					<td align="right"><a href="javascript:void(0);" onClick="getDocs('project','date')">Start&nbsp;Date</a> </td>
-					<td><input type="text" name="start_date" value="#dateformat(start_date,"dd mmm yyyy")#"></td>
+					<td><input type="text" name="start_date" value="#dateformat(proj.start_date,"dd mmm yyyy")#"></td>
 					<td align="right">End Date</td>
-					<td><input type="text" name="end_date"  value="#dateformat(end_date,"dd mmm yyyy")#"></td>
+					<td><input type="text" name="end_date"  value="#dateformat(proj.end_date,"dd mmm yyyy")#"></td>
 				</tr>
 				<tr>
 				<td align="right">
 					<a href="javascript:void(0);" onClick="getDocs('project','description')">Description</a>
 				</td>
-				<td colspan="3"><textarea name="project_description" cols="50" rows="6">#project_description#</textarea></td>
+				<td colspan="3"><textarea name="project_description" cols="50" rows="6">#proj.project_description#</textarea></td>
 				</tr>
 				<tr>
 				<td align="right">Remarks</td>
-				<td colspan="3"><textarea name="project_remarks" cols="50" rows="3">#project_remarks#</textarea></td>
+				<td colspan="3"><textarea name="project_remarks" cols="50" rows="3">#proj.project_remarks#</textarea></td>
 				</tr>
 				<tr>
 					<td colspan="4" align="center">
