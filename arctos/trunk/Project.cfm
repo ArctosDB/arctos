@@ -469,8 +469,76 @@ Projects are activities that have contributed specimens, used specimens, or both
 					</form>
 				</tr>
 			</table>
-			
-			
+			<table border>
+				<tr>
+					<th>Project Sponsor</th>
+					<th>Acknowledgement</th>
+				</tr>
+				<cfset i=1>
+				<cfloop query="sponsors">
+					<form name="sponsor#i#" method="post" action="Project.cfm">
+						<input type="hidden" name="action" value="saveSponsorChange">
+						<input type="hidden" name="project_id" value="#project_id#">
+						<input type="hidden" name="PROJECT_SPONSOR_ID" value="#PROJECT_SPONSOR_ID#">
+						<input type="hidden" name="agent_name_id" value="#project_name_id#">
+						<tr>
+							<td>
+								<input type="text" name="sponsor_name" 
+								class="reqdClr" 
+								onchange="findAgentName('agent_name_id','sponsor_name','sponsor#i#',this.value); return false;"
+								onKeyPress="return noenter(event);"
+								value="#sponsor_name#">
+							</td>
+							<td>
+								<input type="text" size="80" name="ACKNOWLEDGEMENT" value="#ACKNOWLEDGEMENT#" class="reqdClr">
+							</td>
+							<td>
+								<input type="submit" 
+									value="Save Edits" 
+									class="savBtn">
+							</td>
+							<td>
+								<input type="button" 
+									value="Delete Sponsor" 
+									class="delBtn"
+									onclick="sponsor#i#.action.value='deleteSponsor';submit();")>
+							</td>
+						</tr>
+					</form>
+					<cfset i=i#+1>
+				</cfloop>
+				<form name="addSponsor" method="post" action="Project.cfm">
+					<input type="hidden" name="new_sponsor_id">
+					<input type="hidden" name="project_id" value="#project_id#">
+					<input type="hidden" name="action" value="addSponsor">
+					<tr class="newRec">
+						<td colspan="3">
+							<h3>Add Sponsor</h3>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="text" name="new_sponsor_name" 
+								class="reqdClr" 
+								onchange="findAgentName('new_sponsor_id','new_sponsor_name','addSponsor',this.value); return false;"
+								onKeyPress="return noenter(event);">
+						</td>
+						<td>
+							<input type="text" size="50" name="newAcknowledgement" id="newAcknowledgement">
+						</td>
+						<td>
+							<label for="add">&nbsp;</label>
+							<input type="submit" 
+									value="Add Sponsor" 
+									class="savBtn">
+						</td>
+					</tr>
+				</form>
+			</table>
+	
+	
+	
+	
 			
 			
 			
@@ -596,92 +664,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 				</table>
 				
 
-	<cfif #sponsors.recordcount# gt 0>
-	<table border>
-		<tr>
-			<th>Sponsor</th>
-			<th>Acknowledgement</th>
-		</tr>
-		<cfoutput>
-			<cfset i=1>
-		<cfloop query="sponsors">
-			<form name="sponsor#i#" method="post" action="Project.cfm">
-				<input type="hidden" name="action" value="saveSponsorChange">
-				<input type="hidden" name="project_id" value="#project_id#">
-				<input type="hidden" name="PROJECT_SPONSOR_ID" value="#PROJECT_SPONSOR_ID#">
-				<input type="hidden" name="agent_name_id" value="#project_name_id#">
-			<tr>
-				<td>
-					<input type="text" name="sponsor_name" 
-					class="reqdClr" 
-					onchange="findAgentName('agent_name_id','sponsor_name','sponsor#i#',this.value); return false;"
-					onKeyPress="return noenter(event);"
-					value="#sponsor_name#">
-				</td>
-				<td>
-					<input type="text" size="50" name="ACKNOWLEDGEMENT" value="#ACKNOWLEDGEMENT#" class="reqdClr">
-				</td>
-				<td>
-					<input type="submit" 
-						value="Save Edits" 
-						class="savBtn"
-						onmouseover="this.className='savBtn btnhov'" 
-						onmouseout="this.className='savBtn'">
-				</td>
-				<td>
-					<input type="button" 
-						value="Delete Sponsor" 
-						class="delBtn"
-						onmouseover="this.className='delBtn btnhov'" 
-						onmouseout="this.className='delBtn'"
-						onclick="sponsor#i#.action.value='deleteSponsor';submit();")>
-				</td>
-			</tr>
-			</form>
-			<cfset i=#i#+1>
-		</cfloop>
-		
-		</cfoutput>
-		</tr>
-	</table>
-	</cfif><!--- end sponsors --->
-	<cfoutput>
-	<form name="addSponsor" method="post" action="Project.cfm">
-		<input type="hidden" name="new_sponsor_id">
-		<input type="hidden" name="project_id" value="#project_id#">
-		<input type="hidden" name="action" value="addSponsor">
-	<table class="newRec">
-		<tr>
-			<td colspan="3">
-				<h3>Add Sponsor</h3>
-			</td>
-		</tr>
-		<tr>
-			<td>
-			<label for="new_sponsor_name">Name</label>
-			
-			<input type="text" name="new_sponsor_name" 
-					class="reqdClr" 
-					onchange="findAgentName('new_sponsor_id','new_sponsor_name','addSponsor',this.value); return false;"
-					onKeyPress="return noenter(event);">
-				
-			</td>
-			<td>
-				<label for="newAcknowledgement">Acknowledgement</label>
-				<input type="text" size="50" name="newAcknowledgement" id="newAcknowledgement">
-			</td>
-			<td>
-				<label for="add">&nbsp;</label>
-				<input type="submit" 
-						value="Add Sponsor" 
-						class="savBtn"
-						onmouseover="this.className='savBtn btnhov'" 
-						onmouseout="this.className='savBtn'">
-			</td>
-		</tr>
-	</table>
-	</form>
-	</cfoutput>
+	
 </td><!--- end right column ---->
 		</tr>
 	</table>
