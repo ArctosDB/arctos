@@ -535,7 +535,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 					</tr>
 				</form>
 			</table>
-			<p>
+			<p style="border:1px solid green;">
 				<strong>Project Accessions:</strong>
 				[ <a href="editAccn.cfm?project_id=#getDetails.project_id#">Add Accession</a> ]
 				<cfset i=1>
@@ -553,7 +553,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 					<cfset i=i+1>		
 				</cfloop>
 			</p>
-			<p>
+			<p style="border:1px solid green;">
 				<strong>Project Loans:</strong>
 				<a href="/Loan.cfm?project_id=#getDetails.project_id#&Action=addItems">[ Add Loan ] </a>
 				<cfset i=1>
