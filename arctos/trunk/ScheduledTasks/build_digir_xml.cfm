@@ -145,7 +145,7 @@
 	'>
 	<cfset data = '#data#<recordBasis>PreservedSpecimen</recordBasis>
 	'>
-	<cfset data = '#data#<name>#collection# Specimens</name>
+	<cfset data = '#data#<name>#descr#</name>
 	'>
 	<cfset data = '#data#<abstract>#descr#</abstract>
 	'>
