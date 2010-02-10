@@ -535,7 +535,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 					</tr>
 				</form>
 			</table>
-			<p style="border:1px solid green;">
+			<p>
 				<strong>Project Accessions:</strong>
 				[ <a href="editAccn.cfm?project_id=#getDetails.project_id#">Add Accession</a> ]
 				<cfset i=1>
@@ -553,7 +553,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 					<cfset i=i+1>		
 				</cfloop>
 			</p>
-			<p style="border:1px solid green;">
+			<p>
 				<strong>Project Loans:</strong>
 				<a href="/Loan.cfm?project_id=#getDetails.project_id#&Action=addItems">[ Add Loan ] </a>
 				<cfset i=1>
@@ -574,6 +574,31 @@ Projects are activities that have contributed specimens, used specimens, or both
 			</p>
 			<p>
 				<strong>Project Publications:</strong>
+				<a href="/SpecimenUsage.cfm?toproject_id=#getDetails.project_id#">[ add Publication ]</a>
+				<cfset i=1>
+				<cfloop query="publications">
+		 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+						<div>
+							#formatted_publication#
+						</div>
+						<br>
+						<a href="/Publication.cfm?publication_id=#publication_id#">[ Edit Publication ]</a>
+						<a href="/Project.cfm?Action=delePub&publication_id=#publication_id#&project_id=#getDetails.project_id#">
+							[ Remove Publication ]
+						</a>
+					</div>
+					<cfset i=i+1>
+				</cfloop>
+			</p>
+			<p>
+				<strong>Project Taxonomy:</strong>
+				<form name="tpick" method="post" action="Project.cfm">
+					<input type='hidden' name='action' value='addtaxon'>
+					<label for="newtax">Add taxon name</label>
+					<input type="text" name="newtax" id="newtax" onchange="taxaPick('newTaxId',this.id,'tpick',this.value)">
+					<input type="submit" value="Add Taxon">
+				</form>
+				
 				<a href="/SpecimenUsage.cfm?toproject_id=#getDetails.project_id#">[ add Publication ]</a>
 				<cfset i=1>
 				<cfloop query="publications">
