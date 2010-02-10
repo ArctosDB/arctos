@@ -416,7 +416,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 					&nbsp;~&nbsp;
 					<a href="Project.cfm?Action=delePub&publication_id=#publication_id#&project_id=#getDetails.project_id#">Remove</a>
 				</blockquote>
-	</cfoutput>
+	</cfloop>
 
 		
 						</td>
