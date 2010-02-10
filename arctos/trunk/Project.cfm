@@ -297,7 +297,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 				project_taxonomy, 
 				taxonomy
 			where
-				project_taxonomy.taxon_name_id=project_taxonomy.taxon_name_id and
+				taxonomy.taxon_name_id=project_taxonomy.taxon_name_id and
 				project_id = #getDetails.project_id#
 			order by 
 				scientific_name
