@@ -597,7 +597,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 						alert('Choose a taxon name, then click the button');
 						return false;
 					} else {
-						document.getElementById('tpick').submit();
+						document.tpick.submit();
 					}
 				}
 			</script>
