@@ -61,15 +61,11 @@ Projects are activities that have contributed specimens, used specimens, or both
 <cfoutput>
 <input type="submit" 
 	value="Search" 
-	class="schBtn"
-    onmouseover="this.className='schBtn btnhov'" 
-    onmouseout="this.className='schBtn'">	
+	class="schBtn">	
 
 <input type="reset" 
 	value="Clear Form" 
-	class="clrBtn"
-	onmouseover="this.className='clrBtn btnhov'" 
-	onmouseout="this.className='clrBtn'">
+	class="clrBtn">
 
 			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 		<input type="button" 
@@ -187,38 +183,38 @@ Projects are activities that have contributed specimens, used specimens, or both
 </cfif>
 <!------------------------------------------------------------------------------------------->
 <!------------------------------------------------------------------------------------------->
-<cfif #Action# is "editProject">
-<cfset title="Edit Project">
-<strong>Edit Project</strong>
+<cfif action is "editProject">
+	<cfset title="Edit Project">
+	<strong>Edit Project</strong>
 	<cfoutput>
 		<cfquery name="getDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				SELECT 
-					project.project_id,
-					project_name,
-					start_date,
-					end_date,
-					project_description,
-					project_agent_name.agent_name,
-					project_agent_name.agent_name_id,
-					project_agent_role,
-					project_remarks,
-					agent_position,
-					PROJECT_SPONSOR_ID,
-					ACKNOWLEDGEMENT,
-					project_sponsor.agent_name_id project_name_id,
-					s_name.agent_name sponsor_name
-				FROM 
-					project,
-					project_sponsor,
-					agent_name project_agent_name,
-					agent_name s_name,
-					project_agent					
-				WHERE 
-					project.project_id = project_agent.project_id (+) AND 
-					project.project_id = project_sponsor.project_id (+) AND 
-					project_agent.agent_name_id = project_agent_name.agent_name_id (+) AND
-					project_sponsor.agent_name_id = s_name.agent_name_id (+) AND
-					project.project_id = #project_id# order by project_id
+			SELECT 
+				project.project_id,
+				project_name,
+				start_date,
+				end_date,
+				project_description,
+				project_agent_name.agent_name,
+				project_agent_name.agent_name_id,
+				project_agent_role,
+				project_remarks,
+				agent_position,
+				PROJECT_SPONSOR_ID,
+				ACKNOWLEDGEMENT,
+				project_sponsor.agent_name_id project_name_id,
+				s_name.agent_name sponsor_name
+			FROM 
+				project,
+				project_sponsor,
+				agent_name project_agent_name,
+				agent_name s_name,
+				project_agent					
+			WHERE 
+				project.project_id = project_agent.project_id (+) AND 
+				project.project_id = project_sponsor.project_id (+) AND 
+				project_agent.agent_name_id = project_agent_name.agent_name_id (+) AND
+				project_sponsor.agent_name_id = s_name.agent_name_id (+) AND
+				project.project_id = #project_id# order by project_id
 		</cfquery>
 		<cfquery name="sponsors" dbtype="query">
 			select
@@ -282,32 +278,40 @@ Projects are activities that have contributed specimens, used specimens, or both
 				project_id = #getDetails.project_id#
 				order by collection, accn_number
 		</cfquery>
+		<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select 
+				scientific_name
+			from 
+				project_taxonomy, 
+				taxonomy
+			where
+				project_taxonomy.taxon_name_id=project_taxonomy.taxon_name_id and
+				project_id = #getDetails.project_id#
+			order by 
+				scientific_name
+		</cfquery>
 		<cfquery name="numAgents" dbtype="query">
 			select max(agent_position) as  agent_position from agents
 		</cfquery>
-		
-		<cfif len(#numAgents.agent_position#) gt 0>
-			<cfset numberOfAgents = #numAgents.agent_position# + 1>
+		<cfif len(numAgents.agent_position) gt 0>
+			<cfset numberOfAgents = numAgents.agent_position + 1>
 		<cfelse>
 			<cfset numberOfAgents = 1>
 		</cfif>
 		<cfquery name="publications" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				SELECT 
-					formatted_publication, formatted_publication.publication_id  
-				FROM 
-					project_publication,
-					formatted_publication,
-					publication
-				WHERE 
-					project_publication.project_id = #project_id# AND  
-					project_publication.publication_id = formatted_publication.publication_id AND 
-					project_publication.publication_id = publication.publication_id AND 
-					format_style = 'long'
+			SELECT 
+				formatted_publication, formatted_publication.publication_id  
+			FROM 
+				project_publication,
+				formatted_publication,
+				publication
+			WHERE 
+				project_publication.project_id = #project_id# AND  
+				project_publication.publication_id = formatted_publication.publication_id AND 
+				project_publication.publication_id = publication.publication_id AND 
+				format_style = 'long'
 			</cfquery>
-		</cfoutput>
-	<table width="100%">
-		<tr>
-			<td width="50%" valign="top">
+			<table width="100%" border><tr><td width="50%" valign="top">
 				<!---- left column ---->
 				<table>
 					<tr>
@@ -317,123 +321,93 @@ Projects are activities that have contributed specimens, used specimens, or both
 					</tr>
 					<tr>
 						<td>
-						<strong>Project Accessions:</strong>
-	<cfoutput>
-		<br />
-		<input type="button"
-					value="Add Accession to this Project"
-					class="insBtn"
-					onmouseover="this.className='insBtn btnhov'"
-					onmouseout="this.className='insBtn'"
-					onClick="document.location='editAccn.cfm?project_id=#getDetails.project_id#';">
-					
-	
-		</cfoutput>
-		<hr>
-		<table>
-		<cfset i=1>
-		<cfoutput query="getAccns">
-			 <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-				<td>
-				<table>
-					<tr>
-						<td>
-							<a href="editAccn.cfm?action=edit&transaction_id=#getAccns.transaction_id#">
-								<strong>#collection#  #accn_number#</strong> 
-							</a>
-						</td>
-						<td align="right">
+							<strong>Project Accessions:</strong>
+							<br />
 							<input type="button"
-							value="Remove"
-							class="delBtn"
-							onmouseover="this.className='delBtn btnhov'"
-							onmouseout="this.className='delBtn'"
-							onClick="document.location='Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#';">
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<blockquote>
-							#nature_of_material# - #trans_remarks#
-							</blockquote>
-						</td>
-					</tr>
-				</table>
-				</td>
-				
-			</tr>
-			
-			
-			
-			<cfset i=#i#+1>		
-			
-		</cfoutput>
-		</table>
-		<strong>Project Loans:</strong>
-		<cfoutput>
-		<br>
-		<br />
-		<input type="button"
-					value="Add Loan to this Project"
-					class="insBtn"
-					onmouseover="this.className='insBtn btnhov'"
-					onmouseout="this.className='insBtn'"
-					onClick="document.location='Loan.cfm?project_id=#getDetails.project_id#&Action=addItems';">
-					
-	<hr>
-		</cfoutput>
-		<table>
-		<cfset i=1>
-		<cfoutput query="getLoans">
-		 <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-				<td>
-				<table>
-					<tr>
-						<td>
-			<strong>
-			<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">
-			#collection# #loan_number#</strong>
-			</a>
-			</td>
-						<td align="right">
-			<input type="button"
-					value="Remove"
-					class="delBtn"
-					onmouseover="this.className='delBtn btnhov'"
-					onmouseout="this.className='delBtn'"
-					onClick="document.location='Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#';">
-					</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<blockquote>
-								 #nature_of_material# - #LOAN_DESCRIPTION#
-							</blockquote>
-						</td>
-					</tr>
-				</table>
-				</td>
-				
-			</tr>
-			
-		<cfset i=#i#+1>		
-		</cfoutput>
-		</table>
-		
-	
-		<br><strong>Project Publications:</strong>
-		
-	<br>
-	<cfoutput>
-	<input type="button"
-					value="Add Publication to this Project"
-					class="insBtn"
-					onmouseover="this.className='insBtn btnhov'"
-					onmouseout="this.className='insBtn'"
-					onClick="document.location='SpecimenUsage.cfm?toproject_id=#getDetails.project_id#';">
-		<br>
-	</cfoutput>
-	<cfoutput query="publications">
+								value="Add Accession to this Project"
+								class="insBtn"
+								onClick="document.location='editAccn.cfm?project_id=#getDetails.project_id#';">
+							<hr>
+							<cfset i=1>
+							<table>
+								<cfloop query="getAccns">
+				 					<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+										<td>
+											<table>
+												<tr>
+													<td>
+														<a href="editAccn.cfm?action=edit&transaction_id=#getAccns.transaction_id#">
+															<strong>#collection#  #accn_number#</strong> 
+														</a>
+													</td>
+													<td align="right">
+														<input type="button"
+														value="Remove"
+														class="delBtn"
+														onClick="document.location='Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#';">
+													</td>
+												</tr>
+												<tr>
+													<td colspan="2">
+														<blockquote>
+															#nature_of_material# - #trans_remarks#
+														</blockquote>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<cfset i=i+1>		
+								</cfloop>
+							</table>
+							<strong>Project Loans:</strong>
+							<br>
+							<input type="button"
+								value="Add Loan to this Project"
+								class="insBtn"
+								onClick="document.location='Loan.cfm?project_id=#getDetails.project_id#&Action=addItems';">
+							<hr>
+							<cfset i=1>
+							<table>
+								<cfloop query="getLoans">
+		 							<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+										<td>
+											<table>
+												<tr>
+													<td>
+														<strong>
+															<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">
+																#collection# #loan_number#</a>
+														</strong>
+													</td>
+													<td align="right">
+														<input type="button"
+															value="Remove"
+															class="delBtn"
+															onClick="document.location='Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#';">
+													</td>
+												</tr>
+												<tr>
+													<td colspan="2">
+														<blockquote>
+															 #nature_of_material# - #LOAN_DESCRIPTION#
+														</blockquote>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<cfset i=i+1>
+								</cfloop>
+							</table>
+							<br><strong>Project Publications:</strong>
+							<br>
+							<input type="button"
+								value="Add Publication to this Project"
+								class="insBtn"
+								onClick="document.location='SpecimenUsage.cfm?toproject_id=#getDetails.project_id#';">
+							<br>
+	<cfloop query="publications">
 				<blockquote>
 					<p>
 					#formatted_publication#
