@@ -145,10 +145,7 @@ Include column headings, spelled exactly as below.
 	<cfset fileContent=replace(fileContent,"'","''","all")>
 	<cfset arrResult = CSVToArray(CSV = fileContent.Trim()) />	
 
-	<cfset numberOfColumns = arraylen(arrResult[1])>
-	numberOfColumns: #numberOfColumns#<br>
-	
-		<cfdump var="#arrResult#">
+	<cfset numberOfColumns = arraylen(arrResult[1])>	
 	<cfset colNames="">
 	<cfloop from="1" to ="#ArrayLen(arrResult)#" index="o">
 		<cfset colVals="">
@@ -169,17 +166,10 @@ Include column headings, spelled exactly as below.
 				insert into cf_temp_taxonomy (#colNames#) values (#preservesinglequotes(colVals)#)
 			</cfquery>
 		</cfif>
-
 	</cfloop>
-
-	
 	<cflocation url="BulkloadTaxonomy.cfm?action=validate" addtoken="false">
-
-	
 </cfoutput>
 </cfif>
-<!------------------------------------------------------->
-
 <!------------------------------------------------------->
 <cfif #action# is "validate">
 <cfoutput>	
@@ -219,7 +209,6 @@ Include column headings, spelled exactly as below.
 		<cfquery name="isProb" dbtype="query">
 			select count(*) c from valData where status is not null
 		</cfquery>
-		--#isProb.c# --
 		<cfif #isProb.c# is 0 or isprob.c is "">
 			Data validated. Carefully check the table below, then
 			<a href="BulkloadTaxonomy.cfm?action=loadData">continue to load</a>.
