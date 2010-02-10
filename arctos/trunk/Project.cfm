@@ -472,8 +472,8 @@ Projects are activities that have contributed specimens, used specimens, or both
 			</table>
 			<table border>
 				<tr>
-					<th>Project Sponsor</th>
-					<th>Acknowledgement</th>
+					<td>Project Sponsor</td>
+					<td>Acknowledgement</td>
 				</tr>
 				<cfset i=1>
 				<cfloop query="sponsors">
@@ -537,7 +537,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 				</form>
 			</table>
 			<p>
-				<strong>Project Accessions:</strong>
+				<strong>Project Accessions</strong>
 				[ <a href="editAccn.cfm?project_id=#getDetails.project_id#">Add Accession</a> ]
 				<cfset i=1>
 				<cfloop query="getAccns">
@@ -555,7 +555,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 				</cfloop>
 			</p>
 			<p>
-				<strong>Project Loans:</strong>
+				<strong>Project Loans</strong>
 				<a href="/Loan.cfm?project_id=#getDetails.project_id#&Action=addItems">[ Add Loan ] </a>
 				<cfset i=1>
 				<cfloop query="getLoans">
@@ -574,7 +574,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 				</cfloop>
 			</p>
 			<p>
-				<strong>Project Publications:</strong>
+				<strong>Project Publications</strong>
 				<a href="/SpecimenUsage.cfm?toproject_id=#getDetails.project_id#">[ add Publication ]</a>
 				<cfset i=1>
 				<cfloop query="publications">
@@ -591,15 +591,22 @@ Projects are activities that have contributed specimens, used specimens, or both
 					<cfset i=i+1>
 				</cfloop>
 			</p>
+			<script>
+				function addProjTaxon() {
+					if (document.getElementById('newTaxId').value.length == 0){
+						alert('Choose a taxon name, then click the button');
+						return false;
+					}
+			</script>
 			<p><a name="taxonomy"></a>
-				<strong>Project Taxonomy:</strong>
+				<strong>Project Taxonomy</strong>
 				<form name="tpick" method="post" action="Project.cfm">
 					<input type='hidden' name='project_id' value='#proj.project_id#'>
 					<input type='hidden' name='action' value='addtaxon'>
 					<label for="newtax">Add taxon name</label>
 					<input type="text" name="newtax" id="newtax" onchange="taxaPick('newTaxId',this.id,'tpick',this.value)">
 					<input type="hidden" name="newTaxId" id="newTaxId">
-					<input type="submit" value="Add Taxon">
+					<input type="button" onclick="addProjTaxon()" value="Add Taxon">
 				</form>
 				<cfset i=1>
 				<cfloop query="taxonomy">
