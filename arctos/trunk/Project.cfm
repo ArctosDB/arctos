@@ -625,7 +625,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 				#newTaxId#
 			)
 		</cfquery>
-	<cflocation url="Project.cfm##taxonomy?Action=editProject&project_id=#project_id#">
+	<cflocation url="Project.cfm?Action=editProject&project_id=#project_id###taxonomy" addtoken="false">
 	</cfoutput>
 </cfif>				
 <!------------------------------------------------------------------------------------------->
