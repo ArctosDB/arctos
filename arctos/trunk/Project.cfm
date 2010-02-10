@@ -296,7 +296,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 				project_name,
 				start_date,
 				end_date,
-				project_description
+				project_description,
 				project_remarks
 			FROM 
 				getDetails
@@ -305,7 +305,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 				project_name,
 				start_date,
 				end_date,
-				project_description
+				project_description,
 				project_remarks
 		</cfquery>
 		<cfquery name="numAgents" dbtype="query">
