@@ -537,37 +537,19 @@ Projects are activities that have contributed specimens, used specimens, or both
 			</table>
 			<br><strong>Project Accessions:</strong> 
 			<cfset i=1>
-			<table>
-				<cfloop query="getAccns">
- 					<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-						<td>
-							<table>
-								<tr>
-									<td>
-										<a href="editAccn.cfm?action=edit&transaction_id=#getAccns.transaction_id#">
-											<strong>#collection#  #accn_number#</strong> 
-										</a>
-									</td>
-									<td align="right">
-										<input type="button"
-										value="Remove"
-										class="delBtn"
-										onClick="document.location='Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#';">
-									</td>
-								</tr>
-								<tr>
-									<td colspan="2">
-										<blockquote>
-											#nature_of_material# - #trans_remarks#
-										</blockquote>
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<cfset i=i+1>		
-				</cfloop>
-			</table>
+			<cfloop query="getAccns">
+ 				<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>	
+					<a href="editAccn.cfm?action=edit&transaction_id=#getAccns.transaction_id#">
+						<strong>#collection#  #accn_number#</strong>
+					</a>
+					<a href="/Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#">
+						Remove
+					</a>
+					<br>
+						#nature_of_material# - #trans_remarks#
+				</div>
+				<cfset i=i+1>		
+			</cfloop>
 							<strong>Project Loans:</strong>
 							<br>
 							<input type="button"
