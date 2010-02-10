@@ -535,97 +535,62 @@ Projects are activities that have contributed specimens, used specimens, or both
 					</tr>
 				</form>
 			</table>
-			<br><strong>Project Accessions:</strong> 
-			[ <a href="editAccn.cfm?project_id=#getDetails.project_id#">Add Accession</a> ]
-			<cfset i=1>
-			<cfloop query="getAccns">
- 				<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>	
-					<a href="editAccn.cfm?action=edit&transaction_id=#getAccns.transaction_id#">
-						<strong>#collection#  #accn_number#</strong>
-					</a>
-					<a href="/Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#">
-						[ Remove ]
-					</a>
-					<br>
-						#nature_of_material# - #trans_remarks#
-				</div>
-				<cfset i=i+1>		
-			</cfloop>
-							<strong>Project Loans:</strong>
-							<br>
-							<input type="button"
-								value="Add Loan to this Project"
-								class="insBtn"
-								onClick="document.location='Loan.cfm?project_id=#getDetails.project_id#&Action=addItems';">
-							<hr>
-							<cfset i=1>
-							<table>
-								<cfloop query="getLoans">
-		 							<tr #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
-										<td>
-											<table>
-												<tr>
-													<td>
-														<strong>
-															<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">
-																#collection# #loan_number#</a>
-														</strong>
-													</td>
-													<td align="right">
-														<input type="button"
-															value="Remove"
-															class="delBtn"
-															onClick="document.location='Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#';">
-													</td>
-												</tr>
-												<tr>
-													<td colspan="2">
-														<blockquote>
-															 #nature_of_material# - #LOAN_DESCRIPTION#
-														</blockquote>
-													</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-									<cfset i=i+1>
-								</cfloop>
-							</table>
-							<br><strong>Project Publications:</strong>
-							<br>
-							<input type="button"
-								value="Add Publication to this Project"
-								class="insBtn"
-								onClick="document.location='SpecimenUsage.cfm?toproject_id=#getDetails.project_id#';">
-							<br>
-	<cfloop query="publications">
-				<blockquote>
-					<p>
-					#formatted_publication#
-					<br>
-					<a href="Publication.cfm?publication_id=#publication_id#">Edit</a>
-					&nbsp;~&nbsp;
-					<a href="Project.cfm?Action=delePub&publication_id=#publication_id#&project_id=#getDetails.project_id#">Remove</a>
-				</blockquote>
-	</cfloop>
-
+			<p>
+				<strong>Project Accessions:</strong>
+				[ <a href="editAccn.cfm?project_id=#getDetails.project_id#">Add Accession</a> ]
+				<cfset i=1>
+				<cfloop query="getAccns">
+	 				<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>	
+						<a href="editAccn.cfm?action=edit&transaction_id=#getAccns.transaction_id#">
+							<strong>#collection#  #accn_number#</strong>
+						</a>
+						<a href="/Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#">
+							[ Remove ]
+						</a>
+						<br>
+							#nature_of_material# - #trans_remarks#
+					</div>
+					<cfset i=i+1>		
+				</cfloop>
+			</p>
+			<p>
+				<strong>Project Loans:</strong>
+				<a href="/Loan.cfm?project_id=#getDetails.project_id#&Action=addItems">[ Add Loan ] </a>
+				<cfset i=1>
+				<cfloop query="getLoans">
+		 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+						<a href="Loan.cfm?action=editLoan&transaction_id=#transaction_id#">
+							<strong>#collection# #loan_number#</strong>
+						</a>
+						<a href="Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#">
+							[ Remove ]
+						</a>
+						<div>
+							#nature_of_material# - #LOAN_DESCRIPTION#
+						</div>
+					</div>
+					<cfset i=i+1>
+				</cfloop>
+			</p>
+			<p>
+				<strong>Project Publications:</strong>
+				<a href="/SpecimenUsage.cfm?toproject_id=#getDetails.project_id#">[ add Publication ]</a>
+				<cfset i=1>
+				<cfloop query="publications">
+		 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+						<div>
+							#formatted_publication#
+						</div>
+						<br>
+						<a href="/Publication.cfm?publication_id=#publication_id#">[ Edit Publication ]</a>
+						<a href="/Project.cfm?Action=delePub&publication_id=#publication_id#&project_id=#getDetails.project_id#">
+							[ Remove Publication ]
+						</a>
+					</div>
+					<cfset i=i+1>
+				</cfloop>
+			</p>	
 		</cfoutput>
-						</td>
-					</tr>
-				</table>
-				
-			</td>
-			<td valign="top">
-				<!---- right column ---->
-				<table>
-				
-				</table>
-				
-
-	
-</td><!--- end right column ---->
-		</tr>
-	</table>
 </cfif>
 
 
