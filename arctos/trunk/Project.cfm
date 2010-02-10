@@ -593,32 +593,41 @@ Projects are activities that have contributed specimens, used specimens, or both
 			<p>
 				<strong>Project Taxonomy:</strong>
 				<form name="tpick" method="post" action="Project.cfm">
+					<input type='hidden' name='project_id' value='#proj.project_id#'>
 					<input type='hidden' name='action' value='addtaxon'>
 					<label for="newtax">Add taxon name</label>
 					<input type="text" name="newtax" id="newtax" onchange="taxaPick('newTaxId',this.id,'tpick',this.value)">
+					<input type="hidden" name="newTaxId" id="newTaxId">
 					<input type="submit" value="Add Taxon">
 				</form>
 				
-				<a href="/SpecimenUsage.cfm?toproject_id=#getDetails.project_id#">[ add Publication ]</a>
 				<cfset i=1>
-				<cfloop query="publications">
+				<cfloop query="taxonomy">
 		 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 						<div>
-							#formatted_publication#
+							<a href="/name/#scientific_name#">#scientific_name#</a>
 						</div>
-						<br>
-						<a href="/Publication.cfm?publication_id=#publication_id#">[ Edit Publication ]</a>
-						<a href="/Project.cfm?Action=delePub&publication_id=#publication_id#&project_id=#getDetails.project_id#">
-							[ Remove Publication ]
-						</a>
 					</div>
 					<cfset i=i+1>
 				</cfloop>
 			</p>	
 		</cfoutput>
 </cfif>
-
-
+<!------------------------------------------------------------------------------------------->
+<cfif action is "addtaxon">
+	<cfoutput>
+		<cfquery name="addtaxon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			insert into project_taxonomy (
+			    project_id,
+			    taxon_name_id
+			) values (
+				#project_id#,
+				#newTaxId#
+			)
+		</cfquery>
+	<cflocation url="Project.cfm?Action=editProject&project_id=#project_id#">
+	</cfoutput>
+</cfif>				
 <!------------------------------------------------------------------------------------------->
 <cfif #Action# is "deleteSponsor">
 	<cfoutput>
