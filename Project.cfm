@@ -418,7 +418,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 				</blockquote>
 	</cfloop>
 
-		
+		</cfoutput>
 						</td>
 					</tr>
 				</table>
