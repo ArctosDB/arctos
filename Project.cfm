@@ -607,7 +607,8 @@ Projects are activities that have contributed specimens, used specimens, or both
 					<input type='hidden' name='project_id' value='#proj.project_id#'>
 					<input type='hidden' name='action' value='addtaxon'>
 					<label for="newtax">Add taxon name</label>
-					<input type="text" name="newtax" id="newtax" onchange="taxaPick('newTaxId',this.id,'tpick',this.value)">
+					<input type="text" name="newtax" id="newtax" onchange="taxaPick('newTaxId',this.id,'tpick',this.value)"
+						onKeyPress="return noenter(event);">
 					<input type="hidden" name="newTaxId" id="newTaxId">
 					<input type="button" onclick="addProjTaxon()" value="Add Taxon">
 				</form>
