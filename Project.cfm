@@ -536,6 +536,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 				</form>
 			</table>
 			<br><strong>Project Accessions:</strong> 
+			[ <a href="editAccn.cfm?project_id=#getDetails.project_id#">Add Accession</a> ]
 			<cfset i=1>
 			<cfloop query="getAccns">
  				<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>	
@@ -543,7 +544,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 						<strong>#collection#  #accn_number#</strong>
 					</a>
 					<a href="/Project.cfm?Action=delTrans&transaction_id=#transaction_id#&project_id=#getDetails.project_id#">
-						Remove
+						[ Remove ]
 					</a>
 					<br>
 						#nature_of_material# - #trans_remarks#
