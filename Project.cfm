@@ -505,7 +505,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 							</td>
 						</tr>
 					</form>
-					<cfset i=i#+1>
+					<cfset i=i+1>
 				</cfloop>
 				<form name="addSponsor" method="post" action="Project.cfm">
 					<input type="hidden" name="new_sponsor_id">
