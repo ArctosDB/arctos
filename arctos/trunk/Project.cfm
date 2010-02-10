@@ -292,6 +292,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 		</cfquery>
 		<cfquery name="taxonomy" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
+				taxonomy.taxon_name_id,
 				scientific_name
 			from 
 				project_taxonomy, 
@@ -600,12 +601,14 @@ Projects are activities that have contributed specimens, used specimens, or both
 					<input type="hidden" name="newTaxId" id="newTaxId">
 					<input type="submit" value="Add Taxon">
 				</form>
-				
 				<cfset i=1>
 				<cfloop query="taxonomy">
 		 			<div #iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
 						<div>
 							<a href="/name/#scientific_name#">#scientific_name#</a>
+							<a href="/Project.cfm?action=removeTaxonomy&taxon_name_id=#taxon_name_id#&project_id=#project_id#">
+								[ Remove Name ]
+							</a>
 						</div>
 					</div>
 					<cfset i=i+1>
@@ -613,6 +616,17 @@ Projects are activities that have contributed specimens, used specimens, or both
 			</p>	
 		</cfoutput>
 </cfif>
+<!------------------------------------------------------------------------------------------->
+<cfif action is "removeTaxonomy">
+	<cfoutput>
+		<cfquery name="addtaxon" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			delete from project_taxonomy where
+			project_id=#project_id# and
+			taxon_name_id=#taxon_name_id#
+		</cfquery>
+	<cflocation url="Project.cfm?Action=editProject&project_id=#project_id###taxonomy" addtoken="false">
+	</cfoutput>
+</cfif>				
 <!------------------------------------------------------------------------------------------->
 <cfif action is "addtaxon">
 	<cfoutput>
