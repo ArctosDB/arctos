@@ -155,7 +155,8 @@ encumbered for proprietary reasons, data are open to the public.
 	<li>
 		E-mail <a href="http://arctosblog.blogspot.com/2009/08/suspect-data.html">reminders</a> for loans due, 
 		permit expirations, etc. Intelligent reports detailing possible GenBank matches,
-		missing citations, unlikely publications, and various other potentially faulty or missing data. 
+		missing citations, unlikely publications, and various other potentially faulty or missing data.
+		<a href="/info/suspectData.cfm">more information</a> 
 	</li>
 	<li>Encumbrances can mask localities, collector names, 
 		or entire records from unprivileged users.</li>
