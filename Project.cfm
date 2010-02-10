@@ -1,4 +1,16 @@
 <cfinclude template="includes/_header.cfm">
+
+<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
+<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery(function() {
+			jQuery("#start_date").datepicker();
+			jQuery("#end_date").datepicker();
+			jQuery("#ended_date").datepicker();	
+		});		
+	});
+</script>
 <cfquery name="ctProjAgRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select project_agent_role from ctproject_agent_role
 </cfquery>
@@ -333,29 +345,131 @@ Projects are activities that have contributed specimens, used specimens, or both
 				<input type="hidden" name="action">
 				<input type="hidden" name="project_id" id="project_id" value="#proj.project_id#">
 				<label for="project_name" class="likeLink" onClick="getDocs('project','title')">Project&nbsp;Title</label>
-				<textarea name="project_name" id="project_name" cols="50" rows="2" class="reqdClr">#proj.project_name#</textarea>
+				<textarea name="project_name" id="project_name" cols="80" rows="2" class="reqdClr">#proj.project_name#</textarea>
 				<label for="start_date" class="likeLink" onClick="getDocs('project','date')">Start&nbsp;Date</label>
 				<input type="text" name="start_date" id="start_date" value="#dateformat(proj.start_date,"dd mmm yyyy")#">
 				<label for="end_date" class="likeLink" onClick="getDocs('project','date')">End&nbsp;Date</label>
 				<input type="text" name="end_date" id="end_date" value="#dateformat(proj.end_date,"dd mmm yyyy")#">
 				<label for="end_date" class="likeLink" onClick="getDocs('project','description')">Description</label>
-				<textarea name="project_description" id="project_description" cols="50" rows="6">#proj.project_description#</textarea>
+				<textarea name="project_description" id="project_description" cols="80" rows="6">#proj.project_description#</textarea>
 				<label for="project_remarks">Description</label>
-				<textarea name="project_remarks" id="project_remarks" cols="50" rows="3">#proj.project_remarks#</textarea>
+				<textarea name="project_remarks" id="project_remarks" cols="80" rows="3">#proj.project_remarks#</textarea>
 				<br>
-					<input type="button" 
-						value="Save Updates" 
-						class="savBtn"
-						onclick="document.project.Action.value='saveEdits';submit();">
-					<input type="button"
-						value="Delete"
-						class="delBtn"
-						onclick="document.project.Action.value='deleteProject';submit();">
-					<input type="button"
-						value="Quit"
-						class="qutBtn"
-						onClick="document.location='Project.cfm';">
+				<input type="button" 
+					value="Save Updates" 
+					class="savBtn"
+					onclick="document.project.Action.value='saveEdits';submit();">
+				<input type="button"
+					value="Delete"
+					class="delBtn"
+					onclick="document.project.Action.value='deleteProject';submit();">
+				<input type="button"
+					value="Quit"
+					class="qutBtn"
+					onClick="document.location='Project.cfm';">
 			</form>
+			<table>
+				<tr>
+					<td colspan="2">
+						<a href="javascript:void(0);" onClick="getDocs('project','agent')">Project&nbsp;Agents</a>
+					</td>
+					<td colspan="2">
+						<a href="javascript:void(0);" onClick="getDocs('project','agent_role')">Agent&nbsp;Role</a>
+					</td>
+				</tr>
+				<cfset i = 1>
+				<cfloop query="agents">
+					<form name="projAgents#i#" method="post" action="Project.cfm">
+					    <input type="hidden" name="Action" value="saveAgentChange">
+						<input type="hidden" name="project_id" value="#getDetails.project_id#">
+						<input type="hidden" name="agent_name_id" value="#agents.agent_name_id#">
+						<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
+							<td>
+								##
+								<select name="agent_position" size="1" class="reqdClr">
+									<cfloop from="1" to="#numberOfAgents#" index="a">
+										<option 
+											<cfif #agent_position# is #a#> selected="selected" </cfif>
+											value="#a#">#a#</option>
+									</cfloop>
+									<option value=""></option>
+								</select>
+							</td>
+							<td>			
+								<input type="text" name="agent_name" 
+									value="#AGENTS.agent_name#" 
+									class="reqdClr" 
+									onchange="findAgentName('new_name_id','agent_name','projAgents#i#',this.value); return false;"
+									onKeyPress="return noenter(event);">
+								<input type="hidden" name="new_name_id">
+							</td>
+							<td>
+								<cfset thisRole = agents.project_agent_role>
+								<select name="project_agent_role" size="1" class="reqdClr">
+									<cfloop query="ctProjAgRole">
+									<option 
+										<cfif #ctProjAgRole.project_agent_role# is "#thisRole#"> 
+											selected 
+										</cfif> value="#ctProjAgRole.project_agent_role#">#ctProjAgRole.project_agent_role#
+									</option>
+									</cfloop>
+								</select>
+							</td>
+							<td nowrap valign="center">			
+								<input type="button" 
+									value="Delete"
+									class="delBtn"
+									onclick="document.location='Project.cfm?Action=removeAgent&project_id=#project_id#&agent_name_id=#agent_name_id#';">
+								<input type="submit" 
+										value="Save" 
+										class="savBtn">
+							 </td>
+						     <cfset i = i+1>
+						</tr>
+					</form>
+				</cfloop>
+				<tr class="newRec">
+					<td colspan="5">
+						Add Agent:
+					</td>
+				</tr>
+				<tr class="newRec">
+					<form name="newAgent" method="post" action="Project.cfm">
+						<input type="hidden" name="Action" value="newAgent">
+						<input type="hidden" name="project_id" value="#getDetails.project_id#">
+						<td>	
+							##<select name="agent_position" size="1" class="reqdClr">
+								<cfloop from="1" to="#numberOfAgents#" index="i">
+									<option 
+										<cfif #numberOfAgents# is #i#> selected </cfif>	value="#i#">#i#</option>
+								</cfloop>
+								<option value=""></option>
+							</select>
+						</td>
+						<td>
+							<input type="text" name="newAgent_name" 
+								class="reqdClr" 
+								onchange="findAgentName('newAgent_name_id','newAgent_name','newAgent',this.value); return false;"
+								onKeyPress="return noenter(event);">
+							<input type="hidden" name="newAgent_name_id">
+						</td>
+						<td>
+							<select name="newRole" size="1" class="reqdClr">
+								<cfloop query="ctProjAgRole">
+									<option value="#ctProjAgRole.project_agent_role#">#ctProjAgRole.project_agent_role#
+									</option>
+								</cfloop>
+							</select>
+						</td>
+						<td>
+							<input type="submit" 
+									value="Save" 
+									class="savBtn">
+						</td>
+					</form>
+				</tr>
+			</table>
+			
 			
 			
 			
@@ -480,129 +594,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 				<table>
 				
 				</table>
-				<table>
-					<tr>
-						<td colspan="2">
-							<a href="javascript:void(0);" onClick="getDocs('project','agent')">Project&nbsp;Agents</a>
-						</td>
-						<td colspan="2">
-							<a href="javascript:void(0);" onClick="getDocs('project','agent_role')">Agent&nbsp;Role</a>
-						</td>
-					</tr>
-					
-					<cfset i = 1>
-					<cfif len(#agents.agent_name_id#) gt 0>
-						
-					<cfloop query="agents">
-					<CFOUTPUT>
-					<form name="projAgents#i#" method="post" action="Project.cfm">
-					    <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-						
-						<input type="hidden" name="Action" value="saveAgentChange">
-						<input type="hidden" name="project_id" value="#getDetails.project_id#">
-						<input type="hidden" name="agent_name_id" value="#agents.agent_name_id#">
-						<td>
-							##
-								<select name="agent_position" size="1" class="reqdClr">
-									<cfloop from="1" to="#numberOfAgents#" index="a">
-										<option 
-											<cfif #agent_position# is #a#> selected="selected" </cfif>
-											value="#a#">#a#</option>
-									</cfloop>
-									<option value=""></option>
-								</select>
-						</td>
-						<td>			
-							<input type="text" name="agent_name" 
-								value="#AGENTS.agent_name#" 
-								class="reqdClr" 
-								onchange="findAgentName('new_name_id','agent_name','projAgents#i#',this.value); return false;"
-								onKeyPress="return noenter(event);">
-							<input type="hidden" name="new_name_id">
-						</td>
-						<td>
-							<cfset thisRole = "#agents.project_agent_role#">
-							<select name="project_agent_role" size="1" class="reqdClr">
-								<cfloop query="ctProjAgRole">
-								<option 
-									<cfif #ctProjAgRole.project_agent_role# is "#thisRole#"> 
-										selected 
-									</cfif> value="#ctProjAgRole.project_agent_role#">#ctProjAgRole.project_agent_role#
-								</option>
-								</cfloop>
-							</select>
-						</td>
-						
-						<td nowrap valign="center">			
-							<input type="button" 
-								value="Delete"
-								class="delBtn"
-								onmouseover="this.className='delBtn btnhov'"
-								onmouseout="this.className='delBtn'"
-								onclick="document.location='Project.cfm?Action=removeAgent&project_id=#project_id#&agent_name_id=#agent_name_id#';">
-						
-							<input type="submit" 
-									value="Save" 
-									class="savBtn"
-									onmouseover="this.className='savBtn btnhov'" 
-									onmouseout="this.className='savBtn'">
-						 </td>
-						     
-						<cfset i = #i#+1>
-						</CFOUTPUT>
-				</tr>
-			</form>
-		</cfloop>
-	</cfif>
-		<tr class="newRec">
-			<td colspan="5">
-				Add Agent:
-			</td>
-		</tr>
-		<tr class="newRec">
-			<cfoutput>
-			<form name="newAgent" method="post" action="Project.cfm">
-				<input type="hidden" name="Action" value="newAgent">
-				<input type="hidden" name="project_id" value="#getDetails.project_id#">
-			<td>	
-				##<select name="agent_position" size="1" class="reqdClr">
-									<cfloop from="1" to="#numberOfAgents#" index="i">
-										<option 
-											<cfif #numberOfAgents# is #i#> selected </cfif>
-											value="#i#">#i#</option>
-									</cfloop>
-									<option value=""></option>
-								</select>
 				
-			</td>
-			<td>
-				<input type="text" name="newAgent_name" 
-					class="reqdClr" 
-					onchange="findAgentName('newAgent_name_id','newAgent_name','newAgent',this.value); return false;"
-					onKeyPress="return noenter(event);">
-				<input type="hidden" name="newAgent_name_id">
-			</td>
-			<td>
-				<select name="newRole" size="1" class="reqdClr">
-					<cfloop query="ctProjAgRole">
-						<option value="#ctProjAgRole.project_agent_role#">#ctProjAgRole.project_agent_role#
-						</option>
-					</cfloop>
-				</select>
-			</td>
-			  
-			<td>
-				<input type="submit" 
-						value="Save" 
-						class="savBtn"
-						onmouseover="this.className='savBtn btnhov'" 
-						onmouseout="this.className='savBtn'">
-			</td>
-		
-			</cfoutput>
-			</form>
-		</tr>
-	</table>
 
 	<cfif #sponsors.recordcount# gt 0>
 	<table border>
