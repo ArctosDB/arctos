@@ -372,7 +372,6 @@ Projects are activities that have contributed specimens, used specimens, or both
 						onClick="document.location='Project.cfm';">
 			</td>
 				</tr>
-				</cfoutput>
 				</form>
 			
 			
