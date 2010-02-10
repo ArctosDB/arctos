@@ -590,7 +590,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 					<cfset i=i+1>
 				</cfloop>
 			</p>
-			<p>
+			<p><a name="taxonomy"></a>
 				<strong>Project Taxonomy:</strong>
 				<form name="tpick" method="post" action="Project.cfm">
 					<input type='hidden' name='project_id' value='#proj.project_id#'>
@@ -625,7 +625,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 				#newTaxId#
 			)
 		</cfquery>
-	<cflocation url="Project.cfm?Action=editProject&project_id=#project_id#">
+	<cflocation url="Project.cfm##taxonomy?Action=editProject&project_id=#project_id#">
 	</cfoutput>
 </cfif>				
 <!------------------------------------------------------------------------------------------->
