@@ -10,6 +10,14 @@
 			jQuery("#ended_date").datepicker();	
 		});		
 	});
+	function addProjTaxon() {
+		if (document.getElementById('newTaxId').value.length == 0){
+			alert('Choose a taxon name, then click the button');
+			return false;
+		} else {
+			document.tpick.submit();
+		}
+	}
 </script>
 <cfquery name="ctProjAgRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select project_agent_role from ctproject_agent_role
@@ -369,6 +377,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 					class="qutBtn"
 					onClick="document.location='Project.cfm';">
 			</form>
+			<a name="agent"></a>
 			<table>
 				<tr>
 					<td colspan="2">
@@ -470,6 +479,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 					</form>
 				</tr>
 			</table>
+			<a name="sponsor"></a>
 			<table border>
 				<tr>
 					<td>Project Sponsor</td>
@@ -536,6 +546,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 					</tr>
 				</form>
 			</table>
+			<a name="trans"></a>
 			<p>
 				<strong>Project Accessions</strong>
 				[ <a href="editAccn.cfm?project_id=#getDetails.project_id#">Add Accession</a> ]
@@ -573,6 +584,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 					<cfset i=i+1>
 				</cfloop>
 			</p>
+			<a name="pub"></a>
 			<p>
 				<strong>Project Publications</strong>
 				<a href="/SpecimenUsage.cfm?toproject_id=#getDetails.project_id#">[ add Publication ]</a>
@@ -591,16 +603,6 @@ Projects are activities that have contributed specimens, used specimens, or both
 					<cfset i=i+1>
 				</cfloop>
 			</p>
-			<script>
-				function addProjTaxon() {
-					if (document.getElementById('newTaxId').value.length == 0){
-						alert('Choose a taxon name, then click the button');
-						return false;
-					} else {
-						document.tpick.submit();
-					}
-				}
-			</script>
 			<p><a name="taxonomy"></a>
 				<strong>Project Taxonomy</strong>
 				<form name="tpick" method="post" action="Project.cfm">
@@ -660,7 +662,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 			delete from project_sponsor
 			where PROJECT_SPONSOR_ID=#PROJECT_SPONSOR_ID#
 		</cfquery>
-	<cflocation url="Project.cfm?Action=editProject&project_id=#project_id#">
+	<cflocation url="Project.cfm?Action=editProject&project_id=#project_id###sponsor" addtoken="false">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------->
@@ -673,7 +675,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 			ACKNOWLEDGEMENT='#ACKNOWLEDGEMENT#'
 			where PROJECT_SPONSOR_ID=#PROJECT_SPONSOR_ID#
 		</cfquery>
-	<cflocation url="Project.cfm?action=editProject&project_id=#project_id#" addtoken="no">
+	<cflocation url="Project.cfm?action=editProject&project_id=#project_id###sponsor" addtoken="no">
 	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------->
@@ -725,7 +727,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 			'#newAcknowledgement#'			
 		)
 	</cfquery>
- <cflocation url="Project.cfm?Action=editProject&project_id=#project_id#">
+ <cflocation url="Project.cfm?Action=editProject&project_id=#project_id###sponsor" addtoken="false">
  </cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------->
@@ -734,7 +736,7 @@ Projects are activities that have contributed specimens, used specimens, or both
  	<cfquery name="deleAgnt" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
  	DELETE FROM project_agent where project_id=#project_id# and agent_name_id=#agent_name_id#
 	</cfquery>
-	 <cflocation url="Project.cfm?Action=editProject&project_id=#project_id#">
+	 <cflocation url="Project.cfm?Action=editProject&project_id=#project_id###agent" addtoken="false">
  </cfoutput>
 </cfif>
 
@@ -756,7 +758,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 	</cfif>
 	WHERE project_id = #project_id# AND agent_name_id = #agent_name_id#
 		</cfquery>
-	 <cflocation url="Project.cfm?Action=editProject&project_id=#project_id#">
+	 <cflocation url="Project.cfm?Action=editProject&project_id=#project_id###agent" addtoken="false">
  </cfoutput>
 </cfif>
 
@@ -777,7 +779,7 @@ VALUES (
 	 #agent_position#                  
  	)                 
  </cfquery>
- <cflocation url="Project.cfm?Action=editProject&project_id=#project_id#">
+ <cflocation url="Project.cfm?Action=editProject&project_id=#project_id###agent" addtoken="false">
  </cfoutput>
 </cfif>
 
@@ -811,7 +813,7 @@ VALUES (
  </cfif>
  where project_id=#project_id#
   </cfquery>
-  <cflocation url="Project.cfm?Action=editProject&project_id=#project_id#">
+  <cflocation url="Project.cfm?Action=editProject&project_id=#project_id#" addtoken="false">
  </cfoutput>
 </cfif>
 
@@ -824,7 +826,7 @@ VALUES (
  	INSERT INTO project_trans (project_id, transaction_id) values (#project_id#, #transaction_id#)
 
   </cfquery>
-   <cflocation url="Project.cfm?Action=editProject&project_id=#project_id#">
+   <cflocation url="Project.cfm?Action=editProject&project_id=#project_id###trans" addtoken="false">
  </cfoutput>
 </cfif>
 
@@ -837,7 +839,7 @@ VALUES (
  	INSERT INTO project_publication (project_id, publication_id) values (#project_id#, #publication_id#)
 
   </cfquery>
-   <cflocation url="Project.cfm?Action=editProject&project_id=#project_id#">
+   <cflocation url="Project.cfm?Action=editProject&project_id=#project_id###pub" addtoken="false">
  </cfoutput>
 </cfif>
 
@@ -850,7 +852,7 @@ VALUES (
  	DELETE FROM project_publication WHERE project_id = #project_id# and publication_id = #publication_id#
 
   </cfquery>
-   <cflocation url="Project.cfm?Action=editProject&project_id=#project_id#">
+   <cflocation url="Project.cfm?Action=editProject&project_id=#project_id###pub" addtoken="false">
  </cfoutput>
 </cfif>
 
@@ -863,7 +865,7 @@ VALUES (
  DELETE FROM  project_trans where project_id = #project_id# and transaction_id = #transaction_id#
 
   </cfquery>
-   <cflocation url="Project.cfm?Action=editProject&project_id=#project_id#">
+   <cflocation url="Project.cfm?Action=editProject&project_id=#project_id###trans" addtoken="false">
  </cfoutput>
 </cfif>
 
