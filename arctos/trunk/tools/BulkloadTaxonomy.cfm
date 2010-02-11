@@ -173,6 +173,10 @@ Include column headings, spelled exactly as below.
 <!------------------------------------------------------->
 <cfif #action# is "validate">
 <cfoutput>	
+	<cfquery name="reset" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		update cf_temp_taxonomy set status = null
+	</cfquery>
+
 	<cfquery name="bads" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		update cf_temp_taxonomy set status = 'Invalid source_authority'
 		where source_authority NOT IN (
