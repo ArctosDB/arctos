@@ -1,20 +1,4 @@
-<cfoutput>
-	<script>
-		jQuery(document).ready(function() {
-			var ptl="/includes/taxonomy/specTaxMedia.cfm?taxon_name_id=#taxon_name_id#";
-			jQuery.get(ptl, function(data){
-				 jQuery('##taxDiv#taxon_name_id#').html(data);
-			})
-		});
-	
-	function load(name){
-			//var el=document.getElementById(name);
-			
-			jQuery.get(ptl, function(data){
-				 jQuery('##' + name).html(data);
-			})
-		}
-	</script>	
+<cfoutput>	
 	<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			taxonomy.taxon_name_id,
@@ -34,6 +18,14 @@
 					<a href="/name/#scientific_name#">#scientific_name#</a>
 					<div id="taxDiv#taxon_name_id#">
 					</div>
+					<script>
+			var ptl="/includes/taxonomy/specTaxMedia.cfm?taxon_name_id=#taxon_name_id#";
+			jQuery.get(ptl, function(data){
+				 jQuery('##taxDiv#taxon_name_id#').html(data);
+			})
+	
+	
+	</script>
 				</li>
 			</cfloop>
 		</ul>
