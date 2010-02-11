@@ -698,6 +698,22 @@
 		<cfset basQual = " #basQual# AND upper(#flatTableName#.accession) LIKE '%#ucase(accn_number)#%'">
 	</cfif>
 </cfif>
+
+
+
+<cfif isdefined("loan_number") and len(loan_number) gt 0>
+	<cfset mapurl = "#mapurl#&loan_number=#loan_number#">
+	<cfset basJoin = " #basJoin# INNER JOIN specimen_part ON (#flatTableName#.collection_object_id=specimen_part.derived_from_cat_item)
+		INNER JOIN loan_item ON (specimen_part.collection_object_id=loan_item.collection_object_id)
+		INNER JOIN loan ON (loan_item.transaction_id=loan.transaction_id)">	
+	<cfif left(loan_number,1) is '='>
+		<cfset basQual = " #basQual# AND upper(loan.loan_number) = '#ucase(right(loan_number,len(loan_number)-1))#'">
+	<cfelse>
+		<cfset basQual = " #basQual# AND upper(loan.loan_number) LIKE '%#ucase(loan_number)#%'">
+	</cfif>
+</cfif>
+
+
 <cfif isdefined("accn_list") and len(#accn_list#) gt 0>
 	<cfset mapurl = "#mapurl#&accn_list=#accn_list#">
 	<cfif #basJoin# does not contain " accn ">
