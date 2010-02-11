@@ -14,7 +14,12 @@
 		<h2>Taxonomy</h2>
 		<ul>
 			<cfloop query="d">
-				<li><a href="/name/#scientific_name#">#scientific_name#</a></li>
+				<li>
+					<a href="/name/#scientific_name#">#scientific_name#</a>
+					<div>
+						<cfinclude template="/includes/taxonomy/specTaxMedia.cfm?taxon_name_id=#taxon_name_id#">
+					</div>
+				</li>
 			</cfloop>
 		</ul>
 	</cfif>
