@@ -367,11 +367,11 @@ Projects are activities that have contributed specimens, used specimens, or both
 				<input type="button" 
 					value="Save Updates" 
 					class="savBtn"
-					onclick="document.project.Action.value='saveEdits';submit();">
+					onclick="document.project.action.value='saveEdits';submit();">
 				<input type="button"
 					value="Delete"
 					class="delBtn"
-					onclick="document.project.Action.value='deleteProject';submit();">
+					onclick="document.project.action.value='deleteProject';submit();">
 				<input type="button"
 					value="Quit"
 					class="qutBtn"
