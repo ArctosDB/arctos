@@ -16,7 +16,7 @@
 			<cfloop query="d">
 				<li>
 					<a href="/name/#scientific_name#">#scientific_name#</a>
-					<div id="taxDiv#taxon_name_id#">
+					<!----<div id="taxDiv#taxon_name_id#">
 					</div>
 					<script>
 			var ptl="/includes/taxonomy/specTaxMedia.cfm?taxon_name_id=#taxon_name_id#";
@@ -26,6 +26,7 @@
 	
 	
 	</script>
+	---->
 				</li>
 			</cfloop>
 		</ul>
