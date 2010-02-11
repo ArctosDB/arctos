@@ -248,7 +248,7 @@ do not agree</font>.</a>
 			<cfif #fileFormat# is "csv">
 				<cfset fname = "ArctosData_#cfid#_#cftoken#.csv">
 				<cfset variables.fileName="#Application.webDirectory#/download/#fname#">
-				<cfset header=#trim(ac)#>
+				<cfset header=trim(ac)>
 				<cfscript>
 					variables.joFileWriter = createObject('Component', '/component.FileWriter').init(variables.fileName, variables.encoding, 32768);
 					variables.joFileWriter.writeLine(header); 
@@ -256,15 +256,16 @@ do not agree</font>.</a>
 				<cfloop query="getData">
 					<cfset oneLine = "">
 					<cfloop list="#ac#" index="c">
-						<cfset thisData = #evaluate(c)#>
-						<cfif #c# is "BEGAN_DATE" or #c# is "ENDED_DATE">
+						<cfset thisData = evaluate(c)>
+						<cfif c is "BEGAN_DATE" or c is "ENDED_DATE">
 							<cfset thisData=dateformat(thisData,"dd-mmm-yyyy")>
 						<cfelseif c is "MEDIA">
 							<cfset thisData='#application.serverRootUrl#/MediaSearch.cfm?collection_object_id=#collection_object_id#'>
 						</cfif>
-						<cfif len(#oneLine#) is 0>
+						<cfif len(oneLine) is 0>
 							<cfset oneLine = '"#thisData#"'>
 						<cfelse>
+							<cfset thisData=replace(thisData,'"','""','all')>
 							<cfset oneLine = '#oneLine#,"#thisData#"'>
 						</cfif>
 					</cfloop>
