@@ -151,16 +151,16 @@ Include column headings, spelled exactly as below.
 		<cfset colVals="">
 			<cfloop from="1"  to ="#ArrayLen(arrResult[o])#" index="i">
 				<cfset thisBit=arrResult[o][i]>
-				<cfif #o# is 1>
+				<cfif o is 1>
 					<cfset colNames="#colNames#,#thisBit#">
 				<cfelse>
 					<cfset colVals="#colVals#,'#thisBit#'">
 				</cfif>
 			</cfloop>
-		<cfif #o# is 1>
+		<cfif o is 1>
 			<cfset colNames=replace(colNames,",","","first")>
 		</cfif>	
-		<cfif len(#colVals#) gt 1>
+		<cfif len(colVals) gt 1>
 			<cfset colVals=replace(colVals,",","","first")>
 			<cfquery name="ins" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				insert into cf_temp_taxonomy (#colNames#) values (#preservesinglequotes(colVals)#)
@@ -217,7 +217,62 @@ Include column headings, spelled exactly as below.
 			you may delete them from your file (use the existing values), or 
 			<a href="BulkloadTaxonomy.cfm?action=fixDups">merge them now</a>.
 		</cfif>
-		<cfdump var=#valData#>
+		<table border>
+			<tr>
+				<th>KEY</th>
+				<th>FORCE_LOAD</th>
+				<th>STATUS</th>
+				<th>PHYLCLASS</th>
+				<th>PHYLORDER</th>
+				<th>SUBORDER</th>
+				<th>FAMILY</th>
+				<th>SUBFAMILY</th>
+				<th>GENUS</th>
+				<th>SUBGENUS</th>
+				<th>SPECIES</th>
+				<th>SUBSPECIES</th>
+				<th>VALID_CATALOG_TERM_FG</th>
+				<th>SOURCE_AUTHORITY</th>
+				<th>SCIENTIFIC_NAME</th>
+				<th>AUTHOR_TEXT</th>
+				<th>TRIBE</th>
+				<th>INFRASPECIFIC_RANK</th>
+				<th>PHYLUM</th>
+				<th>KINGDOM</th>
+				<th>NOMENCLATURAL_CODE</th>
+				<th>INFRASPECIFIC_AUTHOR</th>
+				<th>TAXON_REMARKS</th>
+				<th>TAXON_NAME_ID</th>
+			</tr>
+			<cfloop query="valData">
+				<tr>
+					<td>#KEY#</td>
+					<td>#FORCE_LOAD#</td>
+					<td>#STATUS#</td>
+					<td>#PHYLCLASS#</td>
+					<td>#PHYLORDER#</td>
+					<td>#SUBORDER#</td>
+					<td>#FAMILY#</td>
+					<td>#SUBFAMILY#</td>
+					<td>#GENUS#</td>
+					<td>#SUBGENUS#</td>
+					<td>#SPECIES#</td>
+					<td>#SUBSPECIES#</td>
+					<td>#VALID_CATALOG_TERM_FG#</td>
+					<td>#SOURCE_AUTHORITY#</td>
+					<td>#SCIENTIFIC_NAME#</td>
+					<td>#AUTHOR_TEXT#</td>
+					<td>#TRIBE#</td>
+					<td>#INFRASPECIFIC_RANK#</td>
+					<td>#PHYLUM#</td>
+					<td>#KINGDOM#</td>
+					<td>#NOMENCLATURAL_CODE#</td>
+					<td>#INFRASPECIFIC_AUTHOR#</td>
+					<td>#TAXON_REMARKS#</td>
+					<td>#TAXON_NAME_ID#</td>
+				</tr>
+			</cfloop>
+		</table>
 		<!---
 	<cflocation url="BulkloadCitations.cfm?action=loadData">
 	---->
