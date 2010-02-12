@@ -121,6 +121,7 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 				tid=#tid#
 			</cfquery>
 			<br>sciname:#sciname#
+			<br>commarepalce:#replace(sciname," ",",","all")#
 			<br>g:#g#
 			<br>s:#s#
 			<hr>
