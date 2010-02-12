@@ -203,53 +203,49 @@ end;
 
 	<table border id="t" class="sortable">
 		<tr>
-			
-			<td>wtf</td>
+			<!---	
 			<td>tid</td>
 			<td>parenttid</td>
 			<td>tidaccepted</td>
-			<td>g</td>
-			<td>sp</td>
-			<td>ir</td>
-			<td>ssp</td>
-			<td>ht</td>
-			<td>rank</td>
-			<td>sciname</td>
-			<td>author</td>
-			<td>source</td>
-			<td>uppertaxonomy</td>
+			--->
+			<td>genus</td>
+			<td>species</td>
+			<td>infRank</td>
+			<td>subsp</td>
 			<td>flat_family</td>
 			<td>nFamily</td>
 			<td>pOrder</td>
 			<td>Kingdom</td>
 			<td>Class</td>
 			<td>Division</td>
+			<td>author</td>
+			<td>source</td>
+			<td>term</td>
+			<td>uppertaxonomy</td>
 		</tr>
 		<cfloop query="d">
 			<tr>
-				<td>#wtf#</td>
+				<!---
 				<td>#tid#</td>
 				<td>#parenttid#</td>
 				<td>#tidaccepted#</td>
+				--->
 				<td>#g#</td>
 				<td>#sp#</td>
 				<td>#irnk#</td>
 				<td>#ssp#</td>
-				<td>#ht#</td>
-				<td>#rank#</td>
-				<td>#sciname#</td>
-				<td>#author#</td>
-				<td>#source#</td>
-				<td>#uppertaxonomy#</td>
 				<td>#family#</td>
 				<td>#nFamily#</td>
 				<td>#pOrder#</td>
 				<td>#Kingdom#</td>
 				<td>#Class#</td>
 				<td>#Division#</td>
+				<td>#author#</td>
+				<td>#source#</td>
+				<td>#sciname#</td>
+				<td>#uppertaxonomy#</td>
 			</tr>		
 		</cfloop>
 	</table>
-	--->
 </cfoutput>
 
