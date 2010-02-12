@@ -106,7 +106,7 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 
 2nd step
 <cfquery name="d" datasource="uam_god">
-	select * from lichen where rank='Species' and sp is null and  wtf is null
+	select * from lichen where rank='Species'
 </cfquery>
 <cfloop query="d">
 	<cftransaction>
