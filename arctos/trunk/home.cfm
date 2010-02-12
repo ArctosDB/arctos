@@ -51,6 +51,7 @@
 		<td valign="top" nowrap="nowrap">
 			<ul>
 			<li><a href="#participation">Participation</a></li>
+			<li><a href="#nodes">Components</a></li>
 			<li><a href="#requirements">System Requirements</a></li>
 			<li><a href="#browser_compatiblity">Browser Compatability</a></li>
 			<li><a href="#data_usage">Data Usage</a></li>
@@ -167,6 +168,57 @@ encumbered for proprietary reasons, data are open to the public.
 		<a href="http://www.digir.net" target="_blank">DiGIR</a> 
 		provider.</li>
 </ul>
+</p>
+<a name="nodes"></a>
+<p><strong>Nodes</strong></p>
+<p>
+	Arctos may be thought of as a number of overlapping nodes.
+	<ul>
+		<li>
+			<strong>Specimens</strong> are the core of Arctos. Traditional museum
+			"label data" lives here. Additionally Attributes allow collection-specific determinations
+			of most anything that can be determined from a specimen, such as sex, weight, age, and various 
+			measurements. Specimen Parts are the physical objects, and are grouped as Cataloged Items, which represent
+			one or more biological individuals. Cataloged items may be encumbered in order to restrict access to objects or data.
+			Other Identifiers record any number assigned to a specimen, and may form links to external resources, such as GenBank.
+		</li>
+		<li>
+			<strong>Containers</strong> hold specimen parts and other containers in a flexible recursive model. Containers may
+			be barcoded. Some containers hold fluid, and record a history of concentration and monitored dates. All
+			containers maintain a position and condition history.
+		</li>
+		<li>
+			<strong>Transactions</strong> consist of loans, accessions, and borrows, and may be grouped through projects.
+		</li>
+		<li>
+			<strong>Localities</strong> record descriptive spatial and coordinate data, along with collecting methods, 
+			habitat, and dates.
+		</li>
+		<li>
+			<strong>Agents</strong> are people, groups, or organizations that collect specimens, determine identifications, 
+			attributes, and coordinates, create, authorize, and participate in tranactions, author publications, 
+			and act in various other roles.
+		</li>
+		<li>
+			<strong>Publications</strong> are attached to specimens by way of citations, and are often created by projects.
+		</li>
+		<li>
+			<strong>Projects</strong> create and use specimens, produce publications, group taxonomy into checklists, and record usage of speciemns
+			in the absence of formal citations.
+		</li>
+		<li>
+			<strong>Taxonomy</strong> forms the basis for identifications and citations. Taxa may be related to each other,
+			and to any number of common names in any language.
+		</li>
+		<li>
+			<strong>Media</strong> attaches digital resources to specimens, people, places, and publications. TAGs graphically
+			reference images to specimens, places, and people.
+		</li>
+		<li>
+		
+		</li>
+		
+	</ul>
 </p>
 <p><a name="participation"><strong>Participation</strong></a><br/>
 Arctos is currently two systems sharing the same code. 
