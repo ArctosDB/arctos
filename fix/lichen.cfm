@@ -56,6 +56,13 @@ alter table lichen add wtf varchar2(255);
 	<script src="/includes/sorttable.js"></script>
 <cfoutput>
 	
+
+
+
+
+<!----
+
+
 first step
 <cfquery name="d" datasource="uam_god">
 	select * from lichen where rank='Subspecies'
@@ -83,13 +90,6 @@ first step
 		</cfif>
 	</cftransaction>
 </cfloop>
-
-
-
-
-
-<!----
-
 
 3rd step:
 
@@ -138,7 +138,6 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 
 
 
-<!----
 <cfquery name="d" datasource="uam_god">
 	select * from lichen where ht is null
 </cfquery>
