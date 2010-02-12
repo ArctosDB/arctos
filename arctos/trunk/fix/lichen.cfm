@@ -65,16 +65,17 @@ alter table lichen modify tid number;
 		</tr>
 		<cfloop query="d">
 			<cfquery name="r" datasource="uam_god">
-				SELECT sciname
+				SELECT sciname || '|' || rank t
 				FROM lichen
 				CONNECT BY tid = PRIOR parenttid
 				 START WITH tid=#tid#
 			</cfquery>
+			<cfset h=valuelist(r.t)>
 			<tr>
 				<td>#tid#</td>
 				<td>#parenttid#</td>
 				<td>#tidaccepted#</td>
-				<td><cfdump var=#r#></td>
+				<td>#h#</td>
 				<td>#rank#</td>
 				<td>#sciname#</td>
 				<td>#author#</td>
