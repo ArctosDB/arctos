@@ -30,6 +30,8 @@
 			jQuery("#to_trans_date").datepicker();
 			jQuery("#return_due_date").datepicker();	
 			jQuery("#to_return_due_date").datepicker();
+			jQuery("#initiating_date").datepicker();
+			
 		});
 	});
 	function setAccnNum(i,v) {
@@ -1338,14 +1340,14 @@ Shipment Information:
 	<tr>
 		<td align="right">Transaction Date:</td>
 		<td>
-		<input name="trans_date" id="trans_date" type="text"> To (optional):
+		<input name="trans_date" id="trans_date" type="text"> To:
 		<input type='text' name='to_trans_date' id="to_trans_date">
 		</td>
 	</tr>
 	<tr>
 		<td align="right">
 		Due Date:
-		</td><td><input type="text" name="return_due_date" id="return_due_date"> To (optional):
+		</td><td><input type="text" name="return_due_date" id="return_due_date"> To:
 		<input type='text' name='to_return_due_date' id="to_return_due_date">
 		</td>
 	</tr>
@@ -1549,8 +1551,6 @@ concattransagent(trans.transaction_id,'authorized by'),
  collection
 ORDER BY loan_number">
 		<cfoutput>
-
-#preservesinglequotes(sql)#
 	<cfquery name="allLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
