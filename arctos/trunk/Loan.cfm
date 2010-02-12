@@ -1502,7 +1502,7 @@ Shipment Information:
 		<cfset sql = "#sql# AND upper(nature_of_material) LIKE '%#ucase(nature_of_material)#%'">
 	</cfif>
 	<cfif isdefined("return_due_date") and len(return_due_date) gt 0>
-		<cfif not isdefined("to_return_due_date") or len(to_return_due_dat#) is 0>
+		<cfif not isdefined("to_return_due_date") or len(to_return_due_date) is 0>
 			<cfset to_return_due_date=return_due_date>
 		</cfif>
 		<cfset sql = "#sql# AND return_due_date between '#dateformat(return_due_date, "dd-mmm-yyyy")#'
