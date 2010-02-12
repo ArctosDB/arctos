@@ -62,6 +62,8 @@ alter table lichen add Division varchar2(255);
 update lichen set rank='porder' where rank='Order';
 update lichen set rank='nFamily' where rank='Family';
 
+alter table lichen add dht varchar2(4000);
+
 --->
 	<script src="/includes/sorttable.js"></script>
 <cfoutput>
@@ -169,8 +171,32 @@ end;
 
 
 <cfquery name="d" datasource="uam_god">
-	select * from lichen
+	select * from lichen where dht is null
 </cfquery>
+
+<cfloop query="d">
+	<cftransaction>
+		<cfloop list="#ht#" index="i" delimiters="|">
+			<cfset rnk=listgetat(i,1,":")>
+			<cfset trm=listgetat(i,2,":")>
+			<cfif rnk is not "Subspecies" and
+				rnk is not "Species" and
+				rnk is not "Genus">
+				<cfquery name="u" datasource="uam_god">
+					update lichen set #rnk#='#trm#'
+					where tid=#tid#
+				</cfquery>
+		
+			</cfif>
+		</cfloop>
+		<cfquery name="u" datasource="uam_god">
+			update lichen set dht=1
+			where tid=#tid#
+		</cfquery>
+	</cftransaction>
+</cfloop>
+
+			<!----
 	<table border id="t" class="sortable">
 		<tr>
 			
@@ -206,7 +232,15 @@ end;
 			</cfquery>
 			</cftransaction>
 			--->
-			
+			<cfloop list="#ht#" index="i" delimiters="|">
+				<cfset rnk=listgetat(i,1,":")>
+				<cfset trm=listgetat(i,2,":")>
+				<cfif rnk is not "Subspecies" and
+					rnk is not "Species" and
+					rnk is not "Genus">
+					
+				</cfif>
+			</cfloop>
 			
 			<tr>
 				<td>#wtf#</td>
