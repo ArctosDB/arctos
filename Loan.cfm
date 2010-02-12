@@ -1508,15 +1508,15 @@ Shipment Information:
 		<cfif not isdefined("to_return_due_date") or len(to_return_due_date) is 0>
 			<cfset to_return_due_date=return_due_date>
 		</cfif>
-		<cfset sql = "#sql# AND to_char(return_due_date,'dd-Mon-yyyy')  between '#dateformat(return_due_date, "dd-mmm-yyyy")#'
-															and '#dateformat(to_return_due_date, "dd-mmm-yyyy")#'">
+		<cfset sql = "#sql# AND return_due_date between to_date('#dateformat(return_due_date, "dd-mmm-yyyy")#')
+			and to_date('#dateformat(to_return_due_date, "dd-mmm-yyyy")#')">
 	</cfif>	
 	<cfif isdefined("trans_date") and len(#trans_date#) gt 0>
 		<cfif not isdefined("to_trans_date") or len(to_trans_date) is 0>
 			<cfset to_trans_date=trans_date>
 		</cfif>
-		<cfset sql = "#sql# AND to_char(trans_date,'dd-Mon-yyyy')  between '#dateformat(trans_date, "dd-mmm-yyyy")#'
-															and '#dateformat(to_trans_date, "dd-mmm-yyyy")#'">
+		<cfset sql = "#sql# AND trans_date between to_date('#dateformat(trans_date, "dd-mmm-yyyy")#')
+			and to_date('#dateformat(to_trans_date, "dd-mmm-yyyy")#')">
 	</cfif>
 	<cfif isdefined("trans_remarks") AND len(#trans_remarks#) gt 0>
 		<cfset sql = "#sql# AND upper(trans_remarks) LIKE '%#ucase(trans_remarks)#%'">
