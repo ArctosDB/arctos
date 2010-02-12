@@ -112,19 +112,19 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 	<cftransaction>
 		<cfif listlen(sciname," ") is 2>
 			<cfset cr=replace(sciname," ",",","all")>
-			<cfset g=listgetat(cr,1,",")>
-			<cfset s=listgetat(cr,2,",")>
+			<cfset gv=listgetat(cr,1,",")>
+			<cfset sv=listgetat(cr,2,",")>
 			<cfquery name="u" datasource="uam_god">
 				update lichen set
-				g='#g#',
-				sp='#s#'
+				g='#gv#',
+				sp='#sv#'
 				where
 				tid=#tid#
 			</cfquery>
 			<br>sciname:#sciname#
 			<br>cr:#cr#
-			<br>g:#g#
-			<br>s:#s#
+			<br>gv:#gv#
+			<br>sv:#sv#
 			<hr>
 		<cfelse>
 			<cfquery name="u" datasource="uam_god">
