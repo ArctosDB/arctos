@@ -163,7 +163,7 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 				<td>#sp#</td>
 				<td>#irnk#</td>
 				<td>#ssp#</td>
-				<td>#h#</td>
+				<td>--</td>
 				<td>#rank#</td>
 				<td>#sciname#</td>
 				<td>#author#</td>
