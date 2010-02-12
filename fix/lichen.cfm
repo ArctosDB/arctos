@@ -53,7 +53,7 @@ begin
 			<cfset l="">
 			<cfif len(parenttid) gt 0>
 				<cfloop condition="forever=1">
-					<cfquery name="p" datasource="query">
+					<cfquery name="p" dbtype="query">
 						select parenttid,sciname from d where tid=#parenttid#
 					</cfquery>
 					<cfif len(p.parenttid) eq 0>
