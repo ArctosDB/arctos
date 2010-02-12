@@ -40,6 +40,7 @@ begin
 			<td>tid</td>
 			<td>parenttid</td>
 			<td>tidaccepted</td>
+			<td>full</td>
 			<td>rank</td>
 			<td>sciname</td>
 			<td>author</td>
@@ -48,10 +49,25 @@ begin
 			<td>family</td>
 		</tr>
 		<cfloop query="d">
+			<cfset forever=1>
+			<cfset l="">
+			<cfif len(parenttid) gt 0>
+				<cfloop condition="forever=1">
+					<cfquery name="p" datasource="query">
+						select parenttid,sciname from d where tid=#parenttid#
+					</cfquery>
+					<cfif len(p.parenttid) eq 0>
+						<cfset forever=0>
+					<cfelse>
+						<cfset l=listprepend(l,p.sciname)>
+					</cfif>
+				</cfloop>
+			</cfif>
 			<tr>
 				<td>#tid#</td>
 				<td>#parenttid#</td>
 				<td>#tidaccepted#</td>
+				<td>#l#</td>
 				<td>#rank#</td>
 				<td>#sciname#</td>
 				<td>#author#</td>
