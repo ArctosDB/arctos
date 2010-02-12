@@ -12,14 +12,14 @@ update lichen set rank='Kingdom' where rankid='10';
 update lichen set rank='Class' where rankid='60';
 update lichen set rank='Division' where rankid='30';
 
-subspecific ranks are an inintelligible mess - kill em
+--subspecific ranks are an inintelligible mess - kill em
 
 update lichen set rank='Subspecies' where rank in (
 	'Form',
 	'Variety'
 	);
 
-useless duplicates
+--useless duplicates
 
 begin
  for r in (select sciname from lichen having count(*) > 1 group by sciname) loop
@@ -54,6 +54,7 @@ alter table lichen add wtf varchar2(255);
 
 --->
 	<script src="/includes/sorttable.js"></script>
+<cfoutput>
 	
 	
 <cfquery name="d" datasource="uam_god">
@@ -87,7 +88,6 @@ alter table lichen add wtf varchar2(255);
 <cfquery name="d" datasource="uam_god">
 	select * from lichen where ht is null
 </cfquery>
-<cfoutput>
 	<table border id="t" class="sortable">
 		<tr>
 			<td>tid</td>
