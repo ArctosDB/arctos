@@ -145,7 +145,7 @@ Use this to synchronize child ID to parent's. Check the boxes and click submit t
 				 TAXA_FORMULA,
 				 SCIENTIFIC_NAME
 				 ) values (
-				 q_identification_id.nextval,
+				 sq_identification_id.nextval,
 				 #i#,
 				 '#dateformat(now(),"dd-mmm-yyyy")#',
 				 'ID of kin',
@@ -160,7 +160,7 @@ Use this to synchronize child ID to parent's. Check the boxes and click submit t
 						 TAXON_NAME_ID,
 						 VARIABLE)
 						 values (
-						 	q_identification_id.currval,
+						 	sq_identification_id.currval,
 							#TAXON_NAME_ID#,
 							'#VARIABLE#')
 					 </cfquery>
@@ -171,7 +171,7 @@ Use this to synchronize child ID to parent's. Check the boxes and click submit t
 						AGENT_ID,
 						IDENTIFIER_ORDER
 					) values (
-						q_identification_id.currval,
+						sq_identification_id.currval,
 						#session.myAgentId#,
 						1
 					)

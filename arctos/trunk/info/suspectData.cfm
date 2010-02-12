@@ -138,7 +138,7 @@ encoded as database rules, rather than after-the-fact reports.
 	reconcile the information provided to create relationships. Anything here requires further attention.
 </p>
 <h3>User Feedback</h3>
-<p><strong>reports-->Annotations</strong></p>
+<p><strong>Reports-->Annotations</strong></p>
 <p>
 	This form provides access to user annotations. Users may annotate specimens, taxonomy, projects, and publications.
 	Annotations are also emailed to "data quality" curatorial contacts, which may be configured in the Manage Collection 
