@@ -56,7 +56,9 @@ alter table lichen add wtf varchar2(255);
 	<script src="/includes/sorttable.js"></script>
 <cfoutput>
 	
-	
+<!----
+
+first step
 <cfquery name="d" datasource="uam_god">
 	select * from lichen where rank='Subspecies' and ssp is null and  wtf is null
 </cfquery>
@@ -79,6 +81,33 @@ alter table lichen add wtf varchar2(255);
 		<cfelse>
 			<cfquery name="u" datasource="uam_god">
 				update lichen set wtf='r=ssp + #listlen(sciname)# part name' where tid=#tid#
+			</cfquery>
+		</cfif>
+	</cftransaction>
+</cfloop>
+
+---->
+
+
+2nd step
+<cfquery name="d" datasource="uam_god">
+	select * from lichen where rank='Species' and sp is null and  wtf is null
+</cfquery>
+<cfloop query="d">
+	<cftransaction>
+		<cfif listlen(sciname," ") is 2>
+			<cfset g=listgetat(sciname,1," ")>
+			<cfset s=listgetat(sciname,2," ")>
+			<cfquery name="u" datasource="uam_god">
+				update lichen set
+				g='#g#',
+				sp='#s#'
+				where
+				tid=#tid#
+			</cfquery>
+		<cfelse>
+			<cfquery name="u" datasource="uam_god">
+				update lichen set wtf='r=sp + #listlen(sciname)# part name' where tid=#tid#
 			</cfquery>
 		</cfif>
 	</cftransaction>
