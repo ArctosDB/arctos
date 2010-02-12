@@ -134,6 +134,26 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 
 
 
+step4:
+
+declare s varchar2(4000);
+
+begin
+for r in (select tid from lichen) loop
+
+	SELECT 
+		max(SYS_CONNECT_BY_PATH(rank || ':' || sciname,'|')) into s
+FROM lichen
+CONNECT BY tid = PRIOR parenttid
+START WITH tid= r.tid;
+
+update lichen set ht=s where tid=r.tid;
+
+end loop;
+end;
+/
+
+
 ---->
 
 
@@ -166,11 +186,6 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 			<cfquery name="r" datasource="uam_god">
 				SELECT sciname || '|' || rank t
 				FROM lichen
-				where rank not in (
-					'Genus',
-					'Species',
-					'Subspecies')
-					and ht is null
 				CONNECT BY tid = PRIOR parenttid
 				 START WITH tid=#tid#
 			</cfquery>
