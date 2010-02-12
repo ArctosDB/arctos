@@ -550,7 +550,7 @@
 	<tr>
 		<td align="right">Transaction Date: </td>
 		<td><input type="text" name="initiating_date" id="initiating_date" value="#dateformat(trans_date,"dd-mmm-yyyy")#" class="reqdClr">
-		<img src="images/nada.gif" width="60" height="1">Due Date:&nbsp;<input type="text" name="return_due_date" value="#dateformat(return_due_date,'dd mmm yyyy')#">
+		<img src="images/nada.gif" width="60" height="1">Due Date:&nbsp;<input type="text" id="return_due_date" name="return_due_date" value="#dateformat(return_due_date,'dd mmm yyyy')#">
 		</td>
 	</tr>
 	<tr>
