@@ -30,6 +30,7 @@
 			jQuery("#to_trans_date").datepicker();
 			jQuery("#return_due_date").datepicker();	
 			jQuery("#to_return_due_date").datepicker();
+		});
 	});
 	function setAccnNum(i,v) {
 		var e = document.getElementById('loan_number');
