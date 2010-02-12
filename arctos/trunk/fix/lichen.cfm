@@ -111,8 +111,9 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 <cfloop query="d">
 	<cftransaction>
 		<cfif listlen(sciname," ") is 2>
-			<cfset g=listgetat(sciname,1," ")>
-			<cfset s=listgetat(sciname,2," ")>
+			<cfset cr=replace(sciname," ",",","all")>
+			<cfset g=listgetat(cr,1,",")>
+			<cfset s=listgetat(cr,2,",")>
 			<cfquery name="u" datasource="uam_god">
 				update lichen set
 				g='#g#',
@@ -121,7 +122,7 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 				tid=#tid#
 			</cfquery>
 			<br>sciname:#sciname#
-			<br>commarepalce:#replace(sciname," ",",","all")#
+			<br>cr:#cr#
 			<br>g:#g#
 			<br>s:#s#
 			<hr>
