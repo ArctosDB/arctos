@@ -166,7 +166,6 @@ end;
 /
 
 
----->
 
 
 
@@ -196,7 +195,12 @@ end;
 	</cftransaction>
 </cfloop>
 
-			<!----
+---->
+<cfquery name="d" datasource="uam_god">
+	select * from lichen
+</cfquery>
+
+
 	<table border id="t" class="sortable">
 		<tr>
 			
@@ -214,34 +218,14 @@ end;
 			<td>author</td>
 			<td>source</td>
 			<td>uppertaxonomy</td>
-			<td>family</td>
+			<td>flat_family</td>
+			<td>nFamily</td>
+			<td>pOrder</td>
+			<td>Kingdom</td>
+			<td>Class</td>
+			<td>Division</td>
 		</tr>
 		<cfloop query="d">
-			<!---
-			<cftransaction>
-			<cfquery name="r" datasource="uam_god">
-				SELECT sciname || '|' || rank t
-				FROM lichen
-				CONNECT BY tid = PRIOR parenttid
-				 START WITH tid=#tid#
-			</cfquery>
-			
-			<cfset h=valuelist(r.t)>
-			<cfquery name="u" datasource="uam_god">
-				update lichen set ht='#h#' where tid=#tid#
-			</cfquery>
-			</cftransaction>
-			--->
-			<cfloop list="#ht#" index="i" delimiters="|">
-				<cfset rnk=listgetat(i,1,":")>
-				<cfset trm=listgetat(i,2,":")>
-				<cfif rnk is not "Subspecies" and
-					rnk is not "Species" and
-					rnk is not "Genus">
-					
-				</cfif>
-			</cfloop>
-			
 			<tr>
 				<td>#wtf#</td>
 				<td>#tid#</td>
@@ -258,8 +242,12 @@ end;
 				<td>#source#</td>
 				<td>#uppertaxonomy#</td>
 				<td>#family#</td>
-			</tr>
-			
+				<td>#nFamily#</td>
+				<td>#pOrder#</td>
+				<td>#Kingdom#</td>
+				<td>#Class#</td>
+				<td>#Division#</td>
+			</tr>		
 		</cfloop>
 	</table>
 	--->
