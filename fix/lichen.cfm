@@ -27,7 +27,22 @@ begin
 	end loop;
 	end;
 	/
-	
+
+alter table lichen add temp number;
+update lichen set temp=tid;
+alter table lichen drop column tid;
+alter table lichen rename column temp to tid;
+
+
+
+alter table lichen add temp number;
+update lichen set temp=parenttid;
+alter table lichen drop column parenttid;
+alter table lichen rename column temp to parenttid;
+
+
+alter table lichen modify tid number;
+
 --->
 	<script src="/includes/sorttable.js"></script>
 
@@ -49,25 +64,17 @@ begin
 			<td>family</td>
 		</tr>
 		<cfloop query="d">
-			<cfset forever=1>
-			<cfset l="">
-			<cfif len(parenttid) gt 0>
-				<cfloop condition="forever=1">
-					<cfquery name="p" dbtype="query">
-						select parenttid,sciname from d where tid=#parenttid#
-					</cfquery>
-					<cfif len(p.parenttid) eq 0>
-						<cfset forever=0>
-					<cfelse>
-						<cfset l=listprepend(l,p.sciname)>
-					</cfif>
-				</cfloop>
-			</cfif>
+			<cfquery name="r" datasource="uam_god">
+				SELECT sciname
+				FROM lichen
+				CONNECT BY tid = PRIOR parenttid
+				 START WITH tid=#tid#
+			</cfquery>
 			<tr>
 				<td>#tid#</td>
 				<td>#parenttid#</td>
 				<td>#tidaccepted#</td>
-				<td>#l#</td>
+				<td><cfdump var=#r#></td>
 				<td>#rank#</td>
 				<td>#sciname#</td>
 				<td>#author#</td>
