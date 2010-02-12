@@ -52,6 +52,16 @@ alter table lichen add irnk varchar2(255);
 
 alter table lichen add wtf varchar2(255);
 
+
+alter table lichen add pOrder varchar2(255);
+alter table lichen add nFamily varchar2(255);
+alter table lichen add Kingdom varchar2(255);
+alter table lichen add Class varchar2(255);
+alter table lichen add Division varchar2(255);
+
+update lichen set rank='porder' where rank='Order';
+update lichen set rank='nFamily' where rank='Family';
+
 --->
 	<script src="/includes/sorttable.js"></script>
 <cfoutput>
@@ -196,6 +206,8 @@ end;
 			</cfquery>
 			</cftransaction>
 			--->
+			
+			
 			<tr>
 				<td>#wtf#</td>
 				<td>#tid#</td>
