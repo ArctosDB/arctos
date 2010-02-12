@@ -41,13 +41,14 @@ alter table lichen drop column parenttid;
 alter table lichen rename column temp to parenttid;
 
 
-alter table lichen modify tid number;
+
+alter table lichen add ht varchar2(4000);
 
 --->
 	<script src="/includes/sorttable.js"></script>
 
 <cfquery name="d" datasource="uam_god">
-	select * from lichen
+	select * from lichen where ht is null
 </cfquery>
 <cfoutput>
 	<table border id="t" class="sortable">
@@ -64,13 +65,21 @@ alter table lichen modify tid number;
 			<td>family</td>
 		</tr>
 		<cfloop query="d">
+			<cftransaction>
 			<cfquery name="r" datasource="uam_god">
 				SELECT sciname || '|' || rank t
 				FROM lichen
 				CONNECT BY tid = PRIOR parenttid
 				 START WITH tid=#tid#
 			</cfquery>
+			
 			<cfset h=valuelist(r.t)>
+			<cfquery name="u" datasource="uam_god">
+				update lichen set ht='#h#' where tid=#tid#
+			</cfquery>
+			</cftransaction>
+			
+			<!----
 			<tr>
 				<td>#tid#</td>
 				<td>#parenttid#</td>
@@ -83,6 +92,8 @@ alter table lichen modify tid number;
 				<td>#uppertaxonomy#</td>
 				<td>#family#</td>
 			</tr>
+			
+			---->
 		</cfloop>
 	</table>
 	
