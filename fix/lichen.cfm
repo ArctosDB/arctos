@@ -64,6 +64,89 @@ update lichen set rank='nFamily' where rank='Family';
 
 alter table lichen add dht varchar2(4000);
 
+
+
+------------ for loading
+
+insert into cttaxonomic_authority (SOURCE_AUTHORITY) values ('USDA');
+update lichen set source='USDA' where source='USDA PLANTS DB';
+insert into cttaxonomic_authority (SOURCE_AUTHORITY) values ('ASU Herbarium');
+update lichen set source='ASU Herbarium' where source='ASU Lichens';
+update lichen set source='ASU Herbarium' where source='ASU Lichen Herbarium';
+insert into cttaxonomic_authority (SOURCE_AUTHORITY) values ('Ted Esslinger');
+insert into cttaxonomic_authority (SOURCE_AUTHORITY) values ('Tom Nash');
+update lichen set source='Tom Nash' where source is null;
+
+
+alter table lichen add ifa varchar2(255);
+update lichen set ifa=AUTHOR,author=null where ssp is not null;
+update lichen set 
+	author=(select author from lichen p where p.g=lichen.g and p.sp=lichen.sp and p.ssp is null) where ssp is not null; 
+
+
+update lichen set nfamily = null where nfamily='Uncertain Lichen Family';
+
+select g,sp,ssp from lichen where genus like '% %';
+-- somehow missed some split genera
+update lichen set 
+g=SUBSTR(g, 1  ,INSTR(g, ' ', 1, 1)-1),
+sp=SUBSTR(g, INSTR(g,' ', 1, 1)+1)
+where g like '% %';
+
+
+-- nonprinting
+update lichen set g='Vermilacinia' where g like 'Vermilacinia%' and g != 'Vermilacinia';
+update lichen set irnk='forma' where irnk='f.';
+update lichen set ssp='hirta' where ssp='Hirta';
+update lichen set sp='tornoensis' where sp like 'torno_nsis%';
+
+
+
+
+declare n number :=0;
+begin
+for r in (select * from lichen) loop
+BEGIN
+	 insert into taxonomy(
+	 	PHYLCLASS,
+	 	PHYLORDER,
+	 	FAMILY,
+	 	GENUS	,
+	 	SPECIES,
+	 	SUBSPECIES,
+	 	VALID_CATALOG_TERM_FG,
+	 	SOURCE_AUTHORITY,
+	 	AUTHOR_TEXT,
+	 	INFRASPECIFIC_RANK,
+	 	PHYLUM,
+	 	KINGDOM,
+	 	NOMENCLATURAL_CODE,
+	 	INFRASPECIFIC_AUTHOR
+	 ) VALUES (
+	 	 r.CLASS,
+	 	 r.PORDER,
+	 	 r.NFAMILY,
+	 	 r.G,
+	 	 r.SP,
+	 	 r.SSP,
+	 	 1,
+	 	 r.source,
+	 	 r.author,
+	 	 r.IRNK,
+	 	 r.DIVISION,
+	 	 r.KINGDOM,
+	 	 'ICBN',
+	 	 r.ifa
+	 	);
+	 	exception when DUP_VAL_ON_INDEX then
+	 		dbms_output.put_line('already got a ' || r.ht);
+	 		n:=n+1;
+	 	end;
+	 end loop;
+	 dbms_output.put_line('skipped ' || n || ' existing records');
+end;
+/
+
 --->
 	<script src="/includes/sorttable.js"></script>
 <cfoutput>
