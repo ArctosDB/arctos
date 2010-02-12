@@ -88,6 +88,22 @@ first step
 
 
 
+
+3rd step:
+
+update lichen set g=sciname where rank='Genus' and wtf is null;
+
+
+
+
+
+
+
+---->
+
+
+
+
 2nd step
 <cfquery name="d" datasource="uam_god">
 	select * from lichen where rank='Species' and sp is null and  wtf is null
@@ -104,6 +120,10 @@ first step
 				where
 				tid=#tid#
 			</cfquery>
+			<br>sciname:#sciname#
+			<br>g:#g#
+			<br>s:#s#
+			<hr>
 		<cfelse>
 			<cfquery name="u" datasource="uam_god">
 				update lichen set wtf='r=sp + #listlen(sciname)# part name' where tid=#tid#
@@ -113,17 +133,15 @@ first step
 </cfloop>
 
 
-3rd step:
 
-update lichen set g=sciname where rank='Genus' and wtf is null;
-
----->
-
+<!----
 <cfquery name="d" datasource="uam_god">
 	select * from lichen where ht is null
 </cfquery>
 	<table border id="t" class="sortable">
 		<tr>
+			
+			<td>wtf</td>
 			<td>tid</td>
 			<td>parenttid</td>
 			<td>tidaccepted</td>
@@ -156,6 +174,7 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 			</cftransaction>
 			--->
 			<tr>
+				<td>#wtf#</td>
 				<td>#tid#</td>
 				<td>#parenttid#</td>
 				<td>#tidaccepted#</td>
