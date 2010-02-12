@@ -11,13 +11,22 @@ update lichen set rank='Variety' where rankid='240';
 update lichen set rank='Kingdom' where rankid='10';
 update lichen set rank='Class' where rankid='60';
 update lichen set rank='Division' where rankid='30';
+
+subspecific ranks are an inintelligible mess - kill em
+
+update lichen set rank='Subspecies' where rank in (
+	'Form',
+	'Variety'
+	);
+
 --->
+	<script src="/includes/sorttable.js"></script>
 
 <cfquery name="d" datasource="uam_god">
 	select * from lichen
 </cfquery>
 <cfoutput>
-	<table border>
+	<table border id="t" class="sortable">
 		<tr>
 			<td>tid</td>
 			<td>rank</td>
