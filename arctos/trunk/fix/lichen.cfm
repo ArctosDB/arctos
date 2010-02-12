@@ -161,11 +161,14 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 			<td>family</td>
 		</tr>
 		<cfloop query="d">
-			<!---
 			<cftransaction>
 			<cfquery name="r" datasource="uam_god">
 				SELECT sciname || '|' || rank t
 				FROM lichen
+				where rank not in (
+					'Genus',
+					'Species',
+					'Subspecies'
 				CONNECT BY tid = PRIOR parenttid
 				 START WITH tid=#tid#
 			</cfquery>
@@ -175,7 +178,6 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 				update lichen set ht='#h#' where tid=#tid#
 			</cfquery>
 			</cftransaction>
-			--->
 			<tr>
 				<td>#wtf#</td>
 				<td>#tid#</td>
@@ -185,7 +187,7 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 				<td>#sp#</td>
 				<td>#irnk#</td>
 				<td>#ssp#</td>
-				<td>--</td>
+				<td>#h#</td>
 				<td>#rank#</td>
 				<td>#sciname#</td>
 				<td>#author#</td>
