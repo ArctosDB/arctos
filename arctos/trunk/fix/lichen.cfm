@@ -58,7 +58,7 @@ alter table lichen add wtf varchar2(255);
 	
 first step
 <cfquery name="d" datasource="uam_god">
-	select * from lichen where rank='Subspecies' and ssp is null and  wtf is null
+	select * from lichen where rank='Subspecies'
 </cfquery>
 <cfloop query="d">
 	<cftransaction>
