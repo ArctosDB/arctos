@@ -159,7 +159,7 @@ end;
 
 
 <cfquery name="d" datasource="uam_god">
-	select * from lichen where ht is null
+	select * from lichen
 </cfquery>
 	<table border id="t" class="sortable">
 		<tr>
