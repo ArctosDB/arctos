@@ -1,5 +1,7 @@
 <cfinclude template="includes/_header.cfm">
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
+<script language="JavaScript" src="/includes/jquery/jquery.ui.core.min.js" type="text/javascript"></script>
+<script language="JavaScript" src="/includes/jquery/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 <cfif not isdefined("project_id")>
 	<cfset project_id = -1>
 </cfif>
@@ -22,6 +24,13 @@
 	.cntr {font-size:.7em;}
 </style>
 <script>
+	jQuery(document).ready(function() {
+		jQuery(function() {
+			jQuery("#trans_date").datepicker();
+			jQuery("#to_trans_date").datepicker();
+			jQuery("#return_due_date").datepicker();	
+			jQuery("#to_return_due_date").datepicker();
+	});
 	function setAccnNum(i,v) {
 		var e = document.getElementById('loan_number');
 		e.value=v;
@@ -1328,15 +1337,15 @@ Shipment Information:
 	<tr>
 		<td align="right">Transaction Date:</td>
 		<td>
-		<input name="trans_date" type="text"> To (optional):
-		<input type='text' name='to_trans_date'>
+		<input name="trans_date" id="trans_date" type="text"> To (optional):
+		<input type='text' name='to_trans_date' id="to_trans_date">
 		</td>
 	</tr>
 	<tr>
 		<td align="right">
 		Due Date:
-		</td><td><input type="text" name="return_due_date"> To (optional):
-		<input type='text' name='to_return_due_date'>
+		</td><td><input type="text" name="return_due_date" id="return_due_date"> To (optional):
+		<input type='text' name='to_return_due_date' id="to_return_due_date">
 		</td>
 	</tr>
 	<tr>
@@ -1492,21 +1501,19 @@ Shipment Information:
 	<cfif isdefined("nature_of_material") AND len(#nature_of_material#) gt 0>
 		<cfset sql = "#sql# AND upper(nature_of_material) LIKE '%#ucase(nature_of_material)#%'">
 	</cfif>
-	<cfif isdefined("return_due_date") and len(#return_due_date#) gt 0>
-		<cfif isdefined("to_return_due_date") and len(#to_return_due_date#) gt 0>
-			<cfset sql = "#sql# AND return_due_date between '#dateformat(return_due_date, "dd-mmm-yyyy")#'
-															and '#dateformat(to_return_due_date, "dd-mmm-yyyy")#'">
-		<cfelse>
-			<cfset sql = "#sql# AND return_due_date like '#dateformat(return_due_date, "dd-mmm-yyyy")#'">
+	<cfif isdefined("return_due_date") and len(return_due_date) gt 0>
+		<cfif not isdefined("to_return_due_date") or len(to_return_due_dat#) is 0>
+			<cfset to_return_due_date=return_due_date>
 		</cfif>
+		<cfset sql = "#sql# AND return_due_date between '#dateformat(return_due_date, "dd-mmm-yyyy")#'
+															and '#dateformat(to_return_due_date, "dd-mmm-yyyy")#'">
 	</cfif>	
 	<cfif isdefined("trans_date") and len(#trans_date#) gt 0>
-		<cfif isdefined("to_trans_date") and len(#to_trans_date#) gt 0>
-			<cfset sql = "#sql# AND trans_date between '#dateformat(trans_date, "dd-mmm-yyyy")#'
-															and '#dateformat(to_trans_date, "dd-mmm-yyyy")#'">
-		<cfelse>
-			<cfset sql = "#sql# AND trans_date like '#dateformat(trans_date, "dd-mmm-yyyy")#'">
+		<cfif not isdefined("to_trans_date") or len(to_trans_date) is 0>
+			<cfset to_trans_date=trans_date>
 		</cfif>
+		<cfset sql = "#sql# AND trans_date between '#dateformat(trans_date, "dd-mmm-yyyy")#'
+															and '#dateformat(to_trans_date, "dd-mmm-yyyy")#'">
 	</cfif>
 	<cfif isdefined("trans_remarks") AND len(#trans_remarks#) gt 0>
 		<cfset sql = "#sql# AND upper(trans_remarks) LIKE '%#ucase(trans_remarks)#%'">
