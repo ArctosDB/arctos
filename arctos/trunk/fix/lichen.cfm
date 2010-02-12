@@ -44,9 +44,46 @@ alter table lichen rename column temp to parenttid;
 
 alter table lichen add ht varchar2(4000);
 
+
+alter table lichen add g varchar2(255);
+alter table lichen add sp varchar2(255);
+alter table lichen add ssp varchar2(255);
+alter table lichen add irnk varchar2(255);
+
+alter table lichen add wtf varchar2(255);
+
 --->
 	<script src="/includes/sorttable.js"></script>
+	
+	
+<cfquery name="d" datasource="uam_god">
+	select * from lichen where rank='Subspecies' and ssp is null and  wtf is null
+</cfquery>
+<cfloop query="d">
+	<cftransaction>
+		<cfif listlen(sciname," ") is 4>
+			<cfset g=listgetat(sciname,1," ")>
+			<cfset s=listgetat(sciname,2," ")>
+			<cfset ir=listgetat(sciname,3," ")>
+			<cfset ss=listgetat(sciname,4," ")>
+			<cfquery name="u" datasource="uam_god">
+				update lichen set
+				g='#g#',
+				sp='#s#',
+				ssp='#ss#',
+				irnk='#ir#'
+				where
+				tid=#tid#
+			</cfquery>
+		<cfelse>
+			<cfquery name="u" datasource="uam_god">
+				update lichen set wtf='r=ssp + #listlen(sciname)# part name' where tid=#tid#
+			</cfquery>
+		</cfif>
+	</cftransaction>
+</cfloop>
 
+<!----
 <cfquery name="d" datasource="uam_god">
 	select * from lichen where ht is null
 </cfquery>
@@ -96,6 +133,6 @@ alter table lichen add ht varchar2(4000);
 			---->
 		</cfloop>
 	</table>
-	
+	--->
 </cfoutput>
 
