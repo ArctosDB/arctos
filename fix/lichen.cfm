@@ -168,7 +168,7 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 				where rank not in (
 					'Genus',
 					'Species',
-					'Subspecies'
+					'Subspecies')
 				CONNECT BY tid = PRIOR parenttid
 				 START WITH tid=#tid#
 			</cfquery>
