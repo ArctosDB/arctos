@@ -19,6 +19,15 @@ update lichen set rank='Subspecies' where rank in (
 	'Variety'
 	);
 
+useless duplicates
+
+begin
+ for r in (select sciname from lichen having count(*) > 1 group by sciname) loop
+	delete from lichen where sciname=r.sciname and rownum=1;
+	end loop;
+	end;
+	/
+	
 --->
 	<script src="/includes/sorttable.js"></script>
 
@@ -29,26 +38,26 @@ update lichen set rank='Subspecies' where rank in (
 	<table border id="t" class="sortable">
 		<tr>
 			<td>tid</td>
+			<td>parenttid</td>
+			<td>tidaccepted</td>
 			<td>rank</td>
 			<td>sciname</td>
 			<td>author</td>
 			<td>source</td>
-			<td>tidaccepted</td>
 			<td>uppertaxonomy</td>
 			<td>family</td>
-			<td>parenttid</td>
 		</tr>
 		<cfloop query="d">
 			<tr>
 				<td>#tid#</td>
+				<td>#parenttid#</td>
+				<td>#tidaccepted#</td>
 				<td>#rank#</td>
 				<td>#sciname#</td>
 				<td>#author#</td>
 				<td>#source#</td>
-				<td>#tidaccepted#</td>
 				<td>#uppertaxonomy#</td>
 				<td>#family#</td>
-				<td>#parenttid#</td>
 			</tr>
 		</cfloop>
 	</table>
