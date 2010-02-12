@@ -169,6 +169,7 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 					'Genus',
 					'Species',
 					'Subspecies')
+					and ht is null
 				CONNECT BY tid = PRIOR parenttid
 				 START WITH tid=#tid#
 			</cfquery>
