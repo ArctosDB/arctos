@@ -152,7 +152,7 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 			<td>sp</td>
 			<td>ir</td>
 			<td>ssp</td>
-			<td>full</td>
+			<td>ht</td>
 			<td>rank</td>
 			<td>sciname</td>
 			<td>author</td>
@@ -161,6 +161,7 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 			<td>family</td>
 		</tr>
 		<cfloop query="d">
+			<!---
 			<cftransaction>
 			<cfquery name="r" datasource="uam_god">
 				SELECT sciname || '|' || rank t
@@ -179,6 +180,7 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 				update lichen set ht='#h#' where tid=#tid#
 			</cfquery>
 			</cftransaction>
+			--->
 			<tr>
 				<td>#wtf#</td>
 				<td>#tid#</td>
@@ -188,7 +190,7 @@ update lichen set g=sciname where rank='Genus' and wtf is null;
 				<td>#sp#</td>
 				<td>#irnk#</td>
 				<td>#ssp#</td>
-				<td>#h#</td>
+				<td>#ht#</td>
 				<td>#rank#</td>
 				<td>#sciname#</td>
 				<td>#author#</td>
