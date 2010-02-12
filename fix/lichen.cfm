@@ -86,7 +86,6 @@ first step
 	</cftransaction>
 </cfloop>
 
----->
 
 
 2nd step
@@ -113,7 +112,13 @@ first step
 	</cftransaction>
 </cfloop>
 
-<!----
+
+3rd step:
+
+update lichen set g=sciname where rank='Genus' and wtf is null;
+
+---->
+
 <cfquery name="d" datasource="uam_god">
 	select * from lichen where ht is null
 </cfquery>
@@ -122,6 +127,10 @@ first step
 			<td>tid</td>
 			<td>parenttid</td>
 			<td>tidaccepted</td>
+			<td>g</td>
+			<td>sp</td>
+			<td>ir</td>
+			<td>ssp</td>
 			<td>full</td>
 			<td>rank</td>
 			<td>sciname</td>
@@ -131,6 +140,7 @@ first step
 			<td>family</td>
 		</tr>
 		<cfloop query="d">
+			<!---
 			<cftransaction>
 			<cfquery name="r" datasource="uam_god">
 				SELECT sciname || '|' || rank t
@@ -144,12 +154,15 @@ first step
 				update lichen set ht='#h#' where tid=#tid#
 			</cfquery>
 			</cftransaction>
-			
-			<!----
+			--->
 			<tr>
 				<td>#tid#</td>
 				<td>#parenttid#</td>
 				<td>#tidaccepted#</td>
+				<td>#g#</td>
+				<td>#sp#</td>
+				<td>#irnk#</td>
+				<td>#ssp#</td>
 				<td>#h#</td>
 				<td>#rank#</td>
 				<td>#sciname#</td>
@@ -159,7 +172,6 @@ first step
 				<td>#family#</td>
 			</tr>
 			
-			---->
 		</cfloop>
 	</table>
 	--->
