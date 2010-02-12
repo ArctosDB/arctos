@@ -8,12 +8,16 @@
 <cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select count(*) as cnt from taxonomy
 </cfquery>
+<cfquery name="CTTAXONOMIC_AUTHORITY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select source_authority from CTTAXONOMIC_AUTHORITY order by source_authority
+</cfquery>
+			
 <cfoutput>
 <br>
 	<form ACTION="TaxonomyResults.cfm" METHOD="post" name="taxa">
 		<table width="90%" border="0" cellspacing="0" cellpadding="0">
 			<tr> 
-				<td rowspan="18" valign="top" align="left">
+				<td rowspan="20" valign="top" align="left">
 					<table border="0" cellpadding="10" cellspacing="10">
 						<tr>
 							<td>
@@ -231,9 +235,6 @@
 					</span>
 				</td>
 			</tr>
-			<cfquery name="CTTAXONOMIC_AUTHORITY" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select source_authority from CTTAXONOMIC_AUTHORITY order by source_authority
-			</cfquery>
 			<tr>
 				<td align="right"><b><nobr>Authority:</nobr></b></td>
 				<td nowrap="nowrap">

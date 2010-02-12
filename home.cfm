@@ -180,7 +180,7 @@ encumbered for proprietary reasons, data are open to the public.
 			of most anything that can be recorded from a specimen, such as sex, weight, age, and various 
 			measurements. Specimen Parts are the physical objects, and are grouped as Cataloged Items, which represent
 			one or more biological individuals. Cataloged items may be encumbered in order to restrict access to objects or data.
-			Other Identifiers record any number assigned to a specimen, and may form links to external resources, such as GenBank.
+			Other Identifiers record any number assigned to a specimen, and may form links to external resources such as GenBank.
 		</li>
 		<li>
 			<strong>Containers</strong> hold specimen parts and other containers in a flexible recursive model. Containers may
@@ -214,10 +214,6 @@ encumbered for proprietary reasons, data are open to the public.
 			<strong>Media</strong> attaches digital resources to specimens, people, places, and publications. TAGs graphically
 			reference images to specimens, places, and people. Documents paginate scanned publications, such as field notes.
 		</li>
-		<li>
-		
-		</li>
-		
 	</ul>
 </p>
 <p><a name="participation"><strong>Participation</strong></a><br/>
