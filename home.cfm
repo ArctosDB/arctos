@@ -106,16 +106,17 @@ encumbered for proprietary reasons, data are open to the public.
 		<br>
 		Multi-page documents organize, paginate, and print PDFs of scanned media such as field notes.
 		<br>
-		TAGs comment on or relate specific areas of images to nodes such as specimens, places, and people.
+		TAGs comment on specific areas of images, or relate them to nodes such as specimens, places, and people.
 	</li>
 	<li>
-		User feedback concerning specimens, taxonomy, projects, publications, and media.
+		Users may annotate specimens, taxonomy, projects, publications, and media.
 	</li>
 	<li>
 		<a href="http://www.oracle.com/technology/obe/obe10gdb/security/vpd/vpd.htm" target="_blank" class="external">
 		Virtual Private Databases</a> (VPD), also known as Row-Level Security (RLS), allow collections to maintain
 		control of their data while sharing certain nodes, such as Agents and Taxonomy. The cool kids call this 
-		Cloud Computing or Grid Computing.
+		Cloud Computing or Grid Computing. It allows us to confidently support most any application, not just
+		the ones we write.
 	</li>
 	<li>Everything is over the web in real time, and 
 		independent of client-side operating systems. 
@@ -136,7 +137,7 @@ encumbered for proprietary reasons, data are open to the public.
 	</li>
 	<li>Customizable by individual collection using 
 		headers and footers of their own design, and CSS.</li>
-	<li>Any catalog item can have any number of attributes, 
+	<li>Any cataloged item can have any number of attributes, 
 		and attributes are customized to collections.</li>
 	<li>Reciprocal linkages with external resources 
 		(<a href="http://berkeleymapper.berkeley.edu"  target="_blank" class="external">BerkeleyMapper</a>, 
@@ -184,7 +185,7 @@ MCZ's Herp collection, with more collections coming soon.</p>
 
 <p>Arctos is rooted in the 
 <a href="http://mvz.berkeley.edu/cis/index.html" target="_blank" class="external">Collections Information System</a> at MVZ.  
-Development efforts are being shared, 
+Development efforts are shared, 
 and programming is freely available.</p>
 
 <p>Collections or institutions interested in having their 
