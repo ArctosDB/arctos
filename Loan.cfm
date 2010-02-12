@@ -1548,6 +1548,7 @@ concattransagent(trans.transaction_id,'authorized by'),
  project.project_id, 
  collection
 ORDER BY loan_number">
+		<cfoutput>
 
 #preservesinglequotes(sql)#
 	<cfquery name="allLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -1555,19 +1556,18 @@ ORDER BY loan_number">
 	</cfquery>
 	
 	
-	<cfif #allLoans.recordcount# is 0>
+	<cfif allLoans.recordcount is 0>
 		Nothing matched your search criteria.
 	<cfelse>
-		<cfoutput>
 			Go to....<select name="nav" id="nav" onchange="document.location=this.value">
 				<option value=""></option>
 				<option value="/SpecimenResults.cfm?loan_permit_trans_id=#valuelist(allLoans.transaction_id)#">Specimen Results</option>
 				<option value="/Reports/report_printer.cfm?report=multi_loan_report&transaction_id=#valuelist(allLoans.transaction_id)#">UAM Mammals report</option>
 				<option value="/Reports/report_printer.cfm?transaction_id=#valuelist(allLoans.transaction_id)#">Reporter</option>
 			</select>
-		</cfoutput>
+		
 	</cfif>
-	
+	</cfoutput>
 	<!----
 	<!--- get preferred agent_names to display --->
 	<cfquery name="allLoans" dbtype="query">
