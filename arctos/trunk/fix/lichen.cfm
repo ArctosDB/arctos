@@ -100,6 +100,22 @@ update lichen set irnk='forma' where irnk='f.';
 update lichen set ssp='hirta' where ssp='Hirta';
 update lichen set sp='tornoensis' where sp like 'torno_nsis%';
 
+uam> select count(*) from taxonomy;
+
+  COUNT(*)
+----------
+   1530603
+
+Elapsed: 00:00:01.56
+uam> select max(taxon_name_id) from taxonomy;
+
+MAX(TAXON_NAME_ID)
+------------------
+	  10030411
+
+
+
+
 
 
 
