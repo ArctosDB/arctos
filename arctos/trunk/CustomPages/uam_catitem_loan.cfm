@@ -3,7 +3,8 @@
 	<cfif action is "c">
 		<cfquery name="d" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			select 
-				guid
+				guid,
+				scientific_name
 			from
 				flat,
 				loan_item
@@ -13,7 +14,7 @@
 			order by guid		
 		</cfquery>
 		<cfloop query="d">
-			<br><a href="/guid/#guid#">#guid#</a>
+			<br><a href="/guid/#guid#">#guid#</a> #scientific_name#
 		</cfloop>
 	</cfif>
 	<cfif action is "nothing">
