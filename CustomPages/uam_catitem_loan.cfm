@@ -36,7 +36,8 @@
 		<hr>
 		<p>Loans with cataloged items:</p>
 		<cfloop query="d">
-			<br><a href="uam_catitem_loan.cfm?action=c&transaction_id=#transaction_id#">#l#</a>
+			<br><a href="uam_catitem_loan.cfm?action=c&transaction_id=#transaction_id#">#l#</a> - 
+			<a href="/Loan.cfm?action=editLoan&transaction_id=#transaction_id#">edit loan</a>
 		</cfloop>
 	</cfif>
 </cfoutput>
