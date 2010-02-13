@@ -30,7 +30,7 @@
 				cataloged_item.collection_id=collection.collection_id and
 				loan.transaction_id=loan_item.transaction_id and
 				loan_item.collection_object_id=cataloged_item.collection_object_id
-			group by collection || ' ' || loan_number
+			group by collection || ' ' || loan_number,loan.transaction_id
 		</cfquery>
 		<hr>
 		<p>Loans with cataloged items:</p>
