@@ -28,7 +28,7 @@
 		<cfinput type="text" id="email" name="email" size="60" validate="email" required="true" class="reqdClr">
 		<label for="msg">Message</label>
 		<cftextarea name="msg" id="msg" rows="10" cols="50" required="true" class="reqdClr"></cftextarea>
-		<br>
+		<label for="captcha">Can't read the text? Just reload to get a new CAPTCHA.</label>
 	    <cfimage action="captcha" width="300" height="50" text="#captcha#" difficulty="low">
 	   	<br>
 		<label for="captcha">Enter the text above</label>
