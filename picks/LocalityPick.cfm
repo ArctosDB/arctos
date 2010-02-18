@@ -10,7 +10,7 @@
 	}
 </script>
 <cfset title = "Locality Pick Search">
-<cfif #Action# is "nothing">
+<cfif action is "nothing">
 <cfoutput>
 <cfset showLocality=1>
 <form name="getLoc" method="post" action="LocalityPick.cfm">
@@ -55,11 +55,10 @@
     	 <cfloop query="localityResults"> 
       		<tr #iif(currentrow MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#>
        			<td>
-		  			<cfset thisValue=replace(spec_locality,"'","`","all")>
 		  			<input type="button" value="Accept" class="lnkBtn"
    						onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
   						onClick="javascript: opener.document.#formName#.#localityIdFld#.value='#locality_id#';
-						opener.document.#formName#.#speclocFld#.value='#thisValue#';
+						opener.document.#formName#.#speclocFld#.value='#jsescape(spec_locality)#';
 						self.close();">
 				</td>
 				<td> 
