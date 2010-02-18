@@ -40,7 +40,7 @@
 </cfif>
 <cfif action is "sendMail">
 	<cfoutput>
-		<cfif hash((form.captcha)) neq form.captchaHash>
+		<cfif hash(ucase(form.captcha)) neq form.captchaHash>
 			You did not enter the right text. Please use your back button.
 			<cfabort>
 		</cfif>
