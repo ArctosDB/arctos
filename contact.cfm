@@ -29,7 +29,7 @@
 		<label for="msg">Message</label>
 		<cftextarea name="msg" id="msg" rows="10" cols="50" required="true" class="reqdClr"></cftextarea>
 		<br>
-	    <cfimage action="captcha" width="300" height="50" text="#captcha#">
+	    <cfimage action="captcha" width="300" height="50" text="#captcha#" difficulty="low">
 	   	<br>
 		<label for="captcha">Enter the text above</label>
 	    <cfinput type="text" name="captcha" id="captcha">
