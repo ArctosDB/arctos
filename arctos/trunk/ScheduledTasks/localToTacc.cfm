@@ -196,6 +196,9 @@
 					<cfquery name="fit" datasource="uam_god">
 						update media set media_uri='#remote_uri#' where media_id=#media_id#
 					</cfquery>
+					<cfquery name="fpt" datasource="uam_god">
+						update publication_url set LINK='#remote_uri#' where LINK='#LOCAL_URI#'
+					</cfquery>
 					<cfquery name="fit" datasource="uam_god">
 						update 
 							cf_tacc_transfer 
