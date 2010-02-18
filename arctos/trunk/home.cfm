@@ -239,7 +239,7 @@ and programming is freely available.</p>
 <p>Collections or institutions interested in having their 
 data hosted in Arctos, or interested in participating in 
 the development of Arctos should <a href="/info/participate.cfm">review the participation guidelines</a>, then
-<cfoutput><a href="mailto:#application.technicalEmail#">contact us</a></cfoutput> for additional information.</p>
+<a href="/contact.cfm">contact us</a> for additional information.</p>
 
 <p><a name="requirements"><strong>System Requirements</strong></a><br/>
 We attempt to keep the client-side of Arctos applications as generic as possible, 
@@ -359,7 +359,7 @@ The data providers are not responsible for loss or damages due to use of these d
  If you have a suggestion to make, let's hear it.
  We accommodate many special requests through custom forms or custom queries,
  and many of these are then incorporated into Arctos.
-Please <cfoutput><a href="mailto:#application.technicalEmail#">contact us</a></cfoutput> if you have any questions, comments, or suggestions. 
+Please <a href="/contact.cfm">contact us</a> if you have any questions, comments, or suggestions. 
 </p>
 	</td>
 	<td valign="top"><img src="images/arctos_schema.png"/></td>
