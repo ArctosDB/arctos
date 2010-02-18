@@ -41,11 +41,15 @@
 <cfif action is "sendMail">
 	<cfoutput>
 		<cfif hash((form.captcha)) neq form.captchaHash>
-			You did not enter the right text.
+			You did not enter the right text. Please use your back button.
 			<cfabort>
 		</cfif>
-		<cfif len(c) lt 20>
-			A message of at least 20 characters is required to proceed.
+		<cfif len(msg) lt 20>
+			A message of at least 20 characters is required to proceed. Please use your back button.
+			<cfabort>
+		</cfif>
+		<cfif len(name) eq 0>
+			A name is required to proceed. Please use your back button.
 			<cfabort>
 		</cfif>
 		<cfmail subject="Arctos Contact" to="#Application.technicalEmail#" from="contact@#application.fromEmail#" type="html">
