@@ -40,7 +40,7 @@
 </cfif>
 <cfif action is "sendMail">
 	<cfoutput>
-		<cfif hash(ucase(form.captcha)) neq form.captchaHash>
+		<cfif hash((form.captcha)) neq form.captchaHash>
 			You did not enter the right text.
 			<cfabort>
 		</cfif>
@@ -48,11 +48,10 @@
 			A message of at least 20 characters is required to proceed.
 			<cfabort>
 		</cfif>
-		<cfmail subject="BlackList Objection" to="#Application.PageProblemEmail#" from="blacklist@#application.fromEmail#" type="html">
-			IP #cgi.REMOTE_ADDR# had this to say:
-			<p>
-				#c#
-			</p>
+		<cfmail subject="Arctos Contact" to="#Application.technicalEmail#" from="contact@#application.fromEmail#" type="html">
+			Name: #name#
+			<br>Email: #email#
+			<br>Message: #msg#
 		</cfmail>
 		Your message has been delivered.
 	</cfoutput>
