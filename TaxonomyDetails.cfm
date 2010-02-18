@@ -6,7 +6,7 @@
 		SELECT taxon_name_id FROM taxonomy WHERE upper(scientific_name)	= '#ucase(scientific_name)#'
 	</cfquery>
 	<cfif getTID.recordcount is 1>
-		<cfset tnid=#getTID.taxon_name_id#>
+		<cfset tnid=getTID.taxon_name_id>
 	<cfelseif listlen(scientific_name," ") gt 1 and (listlast(scientific_name," ") is "sp." or listlast(scientific_name," ") is "ssp.")>
 		<cfset s=listdeleteat(scientific_name,listlen(scientific_name," ")," ")>
 		<cfset checkSql(s)>
@@ -65,6 +65,10 @@
 		<cfheader name="Location" value="/name/#c.scientific_name#">
 		<cfabort>
 	</cfif>
+</cfif>
+<cfif not isdefined("tnid") or not tnid gt 0>
+	<div class="error">Not Found</div>
+	<cfabort>
 </cfif>
 <cfset checkSql(tnid)>
 <cfset taxaRanksList="Kingdom,Phylum,PHYLClass,Subclass,PHYLOrder,Suborder,Superfamily,Family,Subfamily,Genus,Subgenus,Species,Subspecies,Nomenclatural_Code">
