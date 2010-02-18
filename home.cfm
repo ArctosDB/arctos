@@ -292,7 +292,7 @@ The data providers are not responsible for loss or damages due to use of these d
 	Q: Are these live data?
 </div>
 <div class="a">
-	A: Almost. Live data are stored in a <a href="http://arctos.googlecode.com/files/Arctos_1page.pdf" class="external" target="_blank">
+	A: Almost. Live data are stored in a <a href="http://code.google.com/p/arctos/downloads/list" class="external" target="_blank">
 	highly normalized relational structure</a> - fabulous for 
 	organization, not so hot for query. Some data are then optimized for 
 	query performance by way of Database Triggers. Presentation data are generally less than one minute stale.
