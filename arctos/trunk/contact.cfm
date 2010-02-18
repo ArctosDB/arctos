@@ -19,9 +19,9 @@
 <cfoutput>
 	<cfset captcha = makeRandomString()>
 	<cfset captchaHash = hash(captcha)>
-	
+	<h2>Contact the Arctos folks</h2>
 	<cfform action="contact.cfm" method="post" name="contact">
-		<input type="text" name="action" value="sendMail">
+		<input type="hidden" name="action" value="sendMail">
 		<label for="name">Your Name</label>
 		<cfinput type="text" id="name" name="name" size="60" value="#session.username#" required="true" class="reqdClr">
 		<label for="email">Your Email</label>
