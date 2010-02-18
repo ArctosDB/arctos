@@ -21,20 +21,40 @@
 	<cfset captchaHash = hash(captcha)>
 	
 	<cfform action="contact.cfm" method="post" name="contact">
+		<input type="text" name="action" value="sendMail">
 		<label for="name">Your Name</label>
-		<input type="text" id="name" name="name" size="60" value="#session.username#">
+		<cfinput type="text" id="name" name="name" size="60" value="#session.username#" required="true" class="reqdClr">
 		<label for="email">Your Email</label>
-		<cfinput type="text" id="email" name="email" size="60" validate="email">
+		<cfinput type="text" id="email" name="email" size="60" validate="email" required="true" class="reqdClr">
 		<label for="msg">Message</label>
-		<textarea name="msg" id="msg" rows="10" cols="50"></textarea>
+		<cftextarea name="msg" id="msg" rows="10" cols="50" required="true" class="reqdClr" range="20,2000"></cftextarea>
 		<br>
 	    <cfimage action="captcha" width="300" height="50" text="#captcha#">
 	   	<br>
 		<label for="captcha">Enter the text above</label>
-	    <input type="text" name="captcha" id="captcha">
-	    <input type="hidden" name="captchaHash" value="#captchaHash#">
-	    <br><input type="submit" value="Send Message">
+	    <cfinput type="text" name="captcha" id="captcha">
+	    <cfinput type="hidden" name="captchaHash" value="#captchaHash#">
+	    <br><cfinput name="s" type="submit" value="Send Message" class="savBtn">
 	</cfform>
 </cfoutput>
+</cfif>
+<cfif action is "sendMail">
+	<cfoutput>
+		<cfif hash(ucase(form.captcha)) neq form.captchaHash>
+			You did not enter the right text.
+			<cfabort>
+		</cfif>
+		<cfif len(c) lt 20>
+			A message of at least 20 characters is required to proceed.
+			<cfabort>
+		</cfif>
+		<cfmail subject="BlackList Objection" to="#Application.PageProblemEmail#" from="blacklist@#application.fromEmail#" type="html">
+			IP #cgi.REMOTE_ADDR# had this to say:
+			<p>
+				#c#
+			</p>
+		</cfmail>
+		Your message has been delivered.
+	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
