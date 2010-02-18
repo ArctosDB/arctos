@@ -256,6 +256,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 		</cfquery>
 		<cfquery name="agents" dbtype="query">
 			select agent_name, agent_position, agent_name_id, project_agent_role from getDetails 
+			where agent_name is not null
 			group by agent_name, agent_position, agent_name_id, project_agent_role
 			order by agent_position
 		</cfquery>
