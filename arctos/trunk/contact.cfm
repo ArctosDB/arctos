@@ -31,8 +31,8 @@
 		<label for="captcha">Can't read the text? Just reload to get a new CAPTCHA.</label>
 	    <cfimage action="captcha" width="300" height="50" text="#captcha#" difficulty="low">
 	   	<br>
-		<label for="captcha">Enter the text above</label>
-	    <cfinput type="text" name="captcha" id="captcha">
+		<label for="captcha">Enter the text above. Case doesn't matter.</label>
+	    <cfinput type="text" name="captcha" id="captcha" class="reqdClr" size="30">
 	    <cfinput type="hidden" name="captchaHash" value="#captchaHash#">
 	    <br><cfinput name="s" type="submit" value="Send Message" class="savBtn">
 	</cfform>
