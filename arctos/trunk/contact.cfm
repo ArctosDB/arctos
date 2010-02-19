@@ -22,17 +22,17 @@
 	<h2>Contact the Arctos folks</h2>
 	<cfform action="contact.cfm" method="post" name="contact">
 		<input type="hidden" name="action" value="sendMail">
-		<label for="name">Your Name</label>
+		<label for="name">Your Name or Arctos username (required)</label>
 		<cfinput type="text" id="name" name="name" size="60" value="#session.username#" required="true" class="reqdClr">
-		<label for="email">Your Email</label>
+		<label for="email">Your Email Address (required)</label>
 		<cfinput type="text" id="email" name="email" size="60" validate="email" required="true" class="reqdClr">
-		<label for="msg">Message</label>
+		<label for="msg">Your Message for us (20 characters minimum)</label>
 		<cftextarea name="msg" id="msg" rows="10" cols="50" required="true" class="reqdClr"></cftextarea>
 		<label for="captcha">Can't read the text? Just reload to get a new CAPTCHA.</label>
 	    <cfimage action="captcha" width="300" height="50" text="#captcha#" difficulty="low">
 	   	<br>
-		<label for="captcha">Enter the text above. Case doesn't matter.</label>
-	    <cfinput type="text" name="captcha" id="captcha" class="reqdClr" size="30">
+		<label for="captcha">Enter the text above. Case doesn't matter. (required)</label>
+	    <cfinput type="text" name="captcha" id="captcha" class="reqdClr" size="60">
 	    <cfinput type="hidden" name="captchaHash" value="#captchaHash#">
 	    <br><cfinput name="s" type="submit" value="Send Message" class="savBtn">
 	</cfform>
@@ -57,7 +57,7 @@
 			<br>Email: #email#
 			<br>Message: #msg#
 		</cfmail>
-		Your message has been delivered.
+		Thanks for contacting us. Your message has been delivered.
 	</cfoutput>
 </cfif>
 <cfinclude template="/includes/_footer.cfm">
