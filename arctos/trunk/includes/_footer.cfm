@@ -1,4 +1,4 @@
-<cfif #cgi.HTTP_HOST# contains "database.museum">
+<cfif cgi.HTTP_HOST contains "database.museum">
   <table>
 	<tr>
 		<td align="left" valign="middle">
@@ -15,13 +15,13 @@
 					<a href="/info/bugs.cfm"><font size="-1">Report Errors</font></a>
 				</li>
 				<li>
-					<cfoutput><a HREF="mailto:#Application.technicalEmail#"><font size="-1">System Administrator</font></a></cfoutput>
+					<a HREF="/contact.cfm"><font size="-1">Contact Us</font></a>
 				</li>
 			</ul>
 		</td>
 	</tr>
 </table>
-<cfelseif #cgi.HTTP_HOST# contains "harvard.edu" >
+<cfelseif cgi.HTTP_HOST contains "harvard.edu" >
 	<br>
 	<table width="95%" border="0" cellspacing="0" cellpadding="0">
 	  	<tr>
