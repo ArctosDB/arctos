@@ -1,9 +1,12 @@
-<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select media_type from ctmedia_type order by media_type
-</cfquery>
+
 <cfoutput>
 <table id="t_identifiers" class="ssrch">
-	<tr>
+
+    <!------
+	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+	select media_type from ctmedia_type order by media_type
+</cfquery>
+		<tr>
         <td class="lbl">
             <span class="helpLink" id="_media_type">Media Type:</span>
         </td>
@@ -17,7 +20,6 @@
 			</select>
 		</td>
     </tr>
-    <!------
     <tr>
 		<td class="lbl">
 			<span class="helpLink" id="images">Find items with images:</span>

@@ -7,6 +7,9 @@
 <cfquery name="getCount" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select count(collection_object_id) as cnt from cataloged_item
 </cfquery>
+<cfquery name="ctmedia_type" datasource="cf_dbuser" cachedwithin="#createtimespan(0,0,60,0)#">
+	select media_type from ctmedia_type order by media_type
+</cfquery>
 <cfquery name="hasCanned" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select SEARCH_NAME,URL
 	from cf_canned_search,cf_users
@@ -141,11 +144,18 @@
 	</tr>
 </table>
 <div>
-	Show&nbsp;<span class="helpLink" id="observations">Observations?</span>
-			<input type="checkbox" name="showObservations" id="showObservations" value="1" onchange="changeshowObservations(this.checked);"<cfif #session.showObservations# eq 1> checked="checked" </cfif>>
-	
-	<span class="helpLink" id="_is_tissue">Tissues?</span>
+	Include&nbsp;<span class="helpLink" id="observations">Observations?</span>
+			<input type="checkbox" name="showObservations" id="showObservations" value="1" onchange="changeshowObservations(this.checked);"<cfif session.showObservations eq 1> checked="checked"</cfif>>
+	Require&nbsp;<span class="helpLink" id="_is_tissue">Tissues?</span>
 			<input type="checkbox" name="is_tissue" id="is_tissue" value="1">
+	Require&nbsp;<span class="helpLink" id="_media_type">Media</span>:&nbsp;	
+			<select name="media_type" id="media_type" size="1">
+				<option value=""></option>
+                <option value="any">Any</option>
+				<cfloop query="ctmedia_type">
+					<option value="#ctmedia_type.media_type#">#ctmedia_type.media_type#</option>
+				</cfloop>
+			</select>
 </div>
 <input type="hidden" name="Action" value="#Action#">
 <div class="secDiv">
