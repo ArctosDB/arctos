@@ -53,7 +53,7 @@
 	</tr>
 </table>	
 <form method="post" action="SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues()">
-<table border="0">
+<table border="1">
 	<tr>
 		<td valign="top">
 			<input type="submit" value="Search" class="schBtn" onmouseover="this.className='schBtn btnhov'" onmouseout="this.className='schBtn'">
@@ -130,6 +130,9 @@
 				</select>
 			</div>
 		</td>
+		
+	</tr>
+	<tr>
 		<td valign="top">
 			Show&nbsp;<span class="helpLink" id="observations">Observations?</span>
 			<input type="checkbox" name="showObservations" id="showObservations" value="1" onchange="changeshowObservations(this.checked);"<cfif #session.showObservations# eq 1> checked="checked" </cfif>>
