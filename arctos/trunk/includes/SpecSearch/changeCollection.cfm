@@ -32,8 +32,6 @@ function closeThis(){
 			</select>
 		</td>
 		<td valign="top">
-			session.roles: #session.roles#
-			session.portal_id: #session.portal_id#
 			<cfif len(session.roles) gt 0 and session.roles is "public">
 				<cfif isdefined("session.portal_id")>
 					<cfset pid=session.portal_id>
