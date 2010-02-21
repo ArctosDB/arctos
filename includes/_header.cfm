@@ -11,7 +11,7 @@
 	            maxWidth:    27,
 	            extraWidth:  1
 	        }).superfish({ 
-	            delay:       600,
+	            delay:       100,
 	            animation:   {opacity:'show',height:'show'},
 	            speed:       'fast',
 	        });
