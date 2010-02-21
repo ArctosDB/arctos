@@ -56,7 +56,7 @@
 	</tr>
 </table>	
 <form method="post" action="SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues()">
-<table border="1">
+<table border="0">
 	<tr>
 		<td valign="top">
 			<input type="submit" value="Search" class="schBtn" onmouseover="this.className='schBtn btnhov'" onmouseout="this.className='schBtn'">
@@ -135,20 +135,13 @@
 		</td>
 		
 	</tr>
-	<tr>
-		<td valign="top">
-				</td>
-		<td valign="top">
-			
-		</td>
-	</tr>
 </table>
 <div>
 	Include&nbsp;<span class="helpLink" id="observations">Observations?</span>
 			<input type="checkbox" name="showObservations" id="showObservations" value="1" onchange="changeshowObservations(this.checked);"<cfif session.showObservations eq 1> checked="checked"</cfif>>
-	Require&nbsp;<span class="helpLink" id="_is_tissue">Tissues?</span>
+	&nbsp;&nbsp;&nbsp;Require&nbsp;<span class="helpLink" id="_is_tissue">Tissues?</span>
 			<input type="checkbox" name="is_tissue" id="is_tissue" value="1">
-	Require&nbsp;<span class="helpLink" id="_media_type">Media</span>:&nbsp;	
+	&nbsp;&nbsp;&nbsp;Require&nbsp;<span class="helpLink" id="_media_type">Media</span>:&nbsp;	
 			<select name="media_type" id="media_type" size="1">
 				<option value=""></option>
                 <option value="any">Any</option>
