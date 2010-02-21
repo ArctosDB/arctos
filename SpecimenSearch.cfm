@@ -134,15 +134,19 @@
 	</tr>
 	<tr>
 		<td valign="top">
-			Show&nbsp;<span class="helpLink" id="observations">Observations?</span>
-			<input type="checkbox" name="showObservations" id="showObservations" value="1" onchange="changeshowObservations(this.checked);"<cfif #session.showObservations# eq 1> checked="checked" </cfif>>
-		</td>
+				</td>
 		<td valign="top">
-			<span class="helpLink" id="_is_tissue">Tissues?</span>
-			<input type="checkbox" name="is_tissue" id="is_tissue" value="1">
+			
 		</td>
 	</tr>
 </table>
+<div>
+	Show&nbsp;<span class="helpLink" id="observations">Observations?</span>
+			<input type="checkbox" name="showObservations" id="showObservations" value="1" onchange="changeshowObservations(this.checked);"<cfif #session.showObservations# eq 1> checked="checked" </cfif>>
+	
+	<span class="helpLink" id="_is_tissue">Tissues?</span>
+			<input type="checkbox" name="is_tissue" id="is_tissue" value="1">
+</div>
 <input type="hidden" name="Action" value="#Action#">
 <div class="secDiv">
 	<cfquery name="ctInst" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
