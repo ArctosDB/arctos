@@ -137,12 +137,9 @@
 	</tr>
 </table>
 <div>
-	Include&nbsp;<span class="helpLink" id="observations">Observations?</span>
-			<input type="checkbox" name="showObservations" id="showObservations" value="1" onchange="changeshowObservations(this.checked);"<cfif session.showObservations eq 1> checked="checked"</cfif>>
-	&nbsp;&nbsp;&nbsp;Require&nbsp;<span class="helpLink" id="_is_tissue">Tissues?</span>
-			<input type="checkbox" name="is_tissue" id="is_tissue" value="1">
-	&nbsp;&nbsp;&nbsp;Require&nbsp;<span class="helpLink" id="_media_type">Media</span>:&nbsp;	
-			<select name="media_type" id="media_type" size="1">
+	Include&nbsp;<span class="helpLink" id="observations">Observations?</span><input type="checkbox" name="showObservations" id="showObservations" value="1" onchange="changeshowObservations(this.checked);"<cfif session.showObservations eq 1> checked="checked"</cfif>>
+	&nbsp;&nbsp;&nbsp;Require&nbsp;<span class="helpLink" id="_is_tissue">Tissues?</span><input type="checkbox" name="is_tissue" id="is_tissue" value="1">
+	&nbsp;&nbsp;&nbsp;Require&nbsp;<span class="helpLink" id="_media_type">Media</span>:<select name="media_type" id="media_type" size="1">
 				<option value=""></option>
                 <option value="any">Any</option>
 				<cfloop query="ctmedia_type">
