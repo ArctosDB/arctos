@@ -13,7 +13,7 @@
 	        }).superfish({ 
 	            delay:       600,
 	            animation:   {opacity:'show',height:'show'},
-	            speed:       100,
+	            speed:       0,
 	        });
 	    });
 	</script>
