@@ -68,7 +68,7 @@
 			<input type="button" name="Previous" value="Use Last Values" class="lnkBtn"	onclick="setPrevSearch()">
 		</td>
 		<td align="right" valign="top">
-			<b>See&nbsp;results&nbsp;as:</b>
+			&nbsp;&nbsp;&nbsp;<b>See&nbsp;results&nbsp;as:</b>
 		</td>
 		<td valign="top">
 		 	<select name="tgtForm1" id="tgtForm1" size="1"  onChange="changeTarget(this.id,this.value);">
