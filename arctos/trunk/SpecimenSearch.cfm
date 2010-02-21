@@ -56,7 +56,7 @@
 	</tr>
 </table>	
 <form method="post" action="SpecimenResults.cfm" name="SpecData" id="SpecData" onSubmit="getFormValues()">
-<table border="1" width="50em">
+<table>
 	<tr>
 		<td valign="top">
 			<input type="submit" value="Search" class="schBtn" onmouseover="this.className='schBtn btnhov'" onmouseout="this.className='schBtn'">
