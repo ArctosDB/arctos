@@ -67,6 +67,7 @@
 	</cfif>
 </cfif>
 <cfif not isdefined("tnid") or not tnid gt 0>
+	<cfheader statuscode="404" statustext="Not found">
 	<div class="error">Not Found</div>
 	<cfabort>
 </cfif>
