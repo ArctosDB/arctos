@@ -24,13 +24,16 @@
 	<cfset captchaHash = hash(captcha)>
 	<cfform name="g" method="post" action="/errors/gtfo.cfm">
 		<input type="hidden" name="action" value="p">
-		<label for="c">Explain yourself</label>
-		<textarea name="c" id="c" rows="6" cols="50"></textarea>
+		<label for="c">Your request (min 20 characters)</label><br>
+		<textarea name="c" id="c" rows="6" cols="50" class="reqdClr"></textarea>
+		<br>
+		<label for="c">Your email</label><br>
+		<input type="text" name="email" id="email" class="reqdClr">
 		<br>
 	    <cfimage action="captcha" width="300" height="50" text="#captcha#">
 	   	<br>
 	    <label for="captcha">Enter the text above</label>
-	    <input type="text" name="captcha" id="captcha">
+	    <input type="text" name="captcha" id="captcha" class="reqdClr">
 	    <cfoutput>
 	    <input type="hidden" name="captchaHash" value="#captchaHash#">
 	    </cfoutput>
@@ -48,8 +51,12 @@
 			You need to explain how you got here.
 			<cfabort>
 		</cfif>
+		<cfif len(email) is 0>
+			Email is required.
+			<cfabort>
+		</cfif>
 		<cfmail subject="BlackList Objection" to="#Application.PageProblemEmail#" from="blacklist@#application.fromEmail#" type="html">
-			IP #cgi.REMOTE_ADDR# had this to say:
+			IP #cgi.REMOTE_ADDR# (#email#) had this to say:
 			<p>
 				#c#
 			</p>
