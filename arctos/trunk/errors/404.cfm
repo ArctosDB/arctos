@@ -14,7 +14,8 @@
 	<cfheader name="Location" value="http://arctos.database.museum/digir/DiGIR.php"> 
 <cfelseif cgi.redirect_url contains ".php" or 
 	cgi.redirect_url contains ".dll" or
-	cgi.redirect_url contains ".asp">
+	cgi.redirect_url contains ".asp" or
+	cgi.redirect_url contains ".cgi">
 	<!--- auto blacklist them --->
 	<cfinclude template="/errors/autoblacklist.cfm">
 <cfelse>
