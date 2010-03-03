@@ -1,10 +1,11 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 	<!--- make sure we're searching for something --->
-	<cfif len(agentname) is 0>
-		You must enter search criteria.
-		<cfabort>
-	</cfif>
-	<cfoutput>
+		<cfoutput>
+	<form method="post" action="findAgentName.cfm">
+		<label for="agentname">Agent Name</label>
+		<input type="text" id="agentname" name="agentname" value="#agentname#">
+		<br><input type="submit" class="lnkBtn" value="Search">
+	</form>
 		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				dispNames.agent_id,
@@ -24,7 +25,7 @@
 				dispNames.agent_id,
 				dispNames.agent_name
 		</cfquery>
-		<cfif #getAgentId.recordcount# is 0>
+		<cfif getAgentId.recordcount is 0>
 			Nothing matched #agentname#. <a href="javascript:void(0);" onClick="opener.document.#formName#.#agentIdFld#.value='';opener.document.#formName#.#agentNameFld#.value='';opener.document.#formName#.#agentNameFld#.focus();self.close();">Try again.</a>
 		<cfelse>
 	<table border>
@@ -33,7 +34,6 @@
 			<td><font size="-2">Name ID</font></td>
 			<td><font size="-2">ID</font></td>
 		</tr>
-		#getAgentId.recordcount#
 	<cfloop query="getAgentId">
 		<cfset thisName = #replace(agent_name,"'","`","all")#>
 		<cfif #getAgentId.recordcount# is 1>
