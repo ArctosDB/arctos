@@ -10,7 +10,11 @@
 	</form>
 	<script>
 		function makeNewName(name,id) {
-			prompt("Enter a new name for " + name);
+			var a = prompt("Enter a new name for " + name);
+			if(a){
+				alert('y');
+			} else { alert('n');
+				}
 		}
 	</script>
 		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
