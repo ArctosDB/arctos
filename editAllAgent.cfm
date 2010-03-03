@@ -1260,11 +1260,13 @@
 	parent.resizeCaller();
 </script>
 <cfoutput>
+<cfif action is "nothing">
 <script type="text/javascript" language="javascript">
 	if (top.location==document.location) {
     	top.location='/agents.cfm?agent_id=#agent_id#';
 	}
 </script>
+</cfif>
 </cfoutput>
 <!------------------------------------------------------------------------------------------------------------->
 <cfinclude template="includes/_pickFooter.cfm">
