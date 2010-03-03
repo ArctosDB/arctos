@@ -60,7 +60,7 @@
 					self.close();
 					">#agent_name#</a></td>
 				<td><font size="-2">#agent_name_id#</font></td>
-				<td><font size="-2">#agent_id#</font></td>
+				<td><font size="-2">#agent_id#</font>-----#i#---------</td>
 			</tr>
 		</cfif>
 	</cfloop>
