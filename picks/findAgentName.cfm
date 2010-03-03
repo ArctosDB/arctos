@@ -31,7 +31,8 @@
 		</cfquery>
 		<cfif getAgentId.recordcount is 0>
 			Nothing matched #agentname#.
-			<cfif isdefined("session.roles") and listfindnocase(session.roles,"mangage_agent")>
+			---#session.roles#----------
+			<cfif listfindnocase(session.roles,"mangage_agents")>
 				If you're really sure that agent doesn't exist, you can
 				create a <a target="blank" href="/editAllAgent.cfm?action=newPerson">new person</a> or a 
 				<a  target="blank" href="/editAllAgent.cfm?action=newOtherAgent">new non-person agent.</a>
