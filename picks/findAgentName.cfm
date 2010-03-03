@@ -56,7 +56,8 @@
 	<cfset i=0>
 	<cfset laid=0>
 	<cfloop query="getAgentId">
-		<cfset thisName = #replace(agent_name,"'","`","all")#>
+		<cfset thisName = jsescape(agent_name)>
+		<!----
 		<cfif #getAgentId.recordcount# is 1>
 			<script>
 				opener.getElementById('#agentIdFld#').value='#agent_name_id#';
@@ -65,6 +66,9 @@
 				self.close();
 			</script>
 		<cfelse>
+				</cfif>
+
+		---->
 		    <cfif agent_id neq laid>
 				<cfset i=i+1>
 			</cfif>
@@ -79,7 +83,6 @@
 				<td><font size="-2">#agent_name_id#</font></td>
 				<td><font size="-2">#agent_id#</font></td>
 			</tr>
-		</cfif>
 	</cfloop>
 	</table>
 </cfif>
