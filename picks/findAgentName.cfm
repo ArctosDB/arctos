@@ -30,27 +30,7 @@
 				dispNames.agent_name
 		</cfquery>
 		
-		
-		
-		SELECT 
-				dispNames.agent_id,
-				dispNames.agent_name_id,
-				dispNames.agent_name_type,
-				dispNames.agent_name 
-			FROM
-				agent_name dispNames,
-				agent_name searchNames
-			WHERE
-				searchNames.agent_id = dispNames.agent_id (+)
-				AND UPPER(searchNames.agent_name) LIKE '%#ucase(agentname)#%'
-			GROUP BY
-				dispNames.agent_id,
-				dispNames.agent_name_id,
-				dispNames.agent_name_type,
-				dispNames.agent_name
-			ORDER BY
-				dispNames.agent_id,
-				dispNames.agent_name
+		<cfdump var=#getAgentId#>
 				
 				
 				
