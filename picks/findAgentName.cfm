@@ -57,32 +57,21 @@
 	<cfset laid=0>
 	<cfloop query="getAgentId">
 		<cfset thisName = jsescape(agent_name)>
-		<!----
-		<cfif #getAgentId.recordcount# is 1>
-			<script>
-				opener.getElementById('#agentIdFld#').value='#agent_name_id#';
-				opener.getElementById('#agentNameFld#').value='#thisName#';
-				opener.getElementById('#agentNameFld#').style.background='##8BFEB9';
+	    <cfif agent_id neq laid>
+			<cfset i=i+1>
+		</cfif>
+		<cfset laid=agent_id>
+	    <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
+			<td><a href="##" onClick="javascript: 
+				opener.document.getElementById('#agentIdFld#').value='#agent_name_id#';
+				opener.document.getElementById('#agentNameFld#').value='#thisName#';
+				opener.document.getElementById('#agentNameFld#').style.background='##8BFEB9';
 				self.close();
-			</script>
-		<cfelse>
-				</cfif>
-
-		---->
-		    <cfif agent_id neq laid>
-				<cfset i=i+1>
-			</cfif>
-			<cfset laid=agent_id>
-		    <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
-				<td><a href="##" onClick="javascript: 
-					opener.document.getElementById('#agentIdFld#').value='#agent_name_id#';
-					opener.document.getElementById('#agentNameFld#').value='#thisName#';
-					opener.document.getElementById('#agentNameFld#').style.background='##8BFEB9';
-					self.close();
-					">#agent_name#</a></td>
-				<td><font size="-2">#agent_name_id#</font></td>
-				<td><font size="-2">#agent_id#</font></td>
-			</tr>
+				">#agent_name#</a></td>
+			<td><font size="-2">#agent_name_id#</font></td>
+			<td><font size="-2">#agent_id#</font></td>
+			<td><font size="-2"><a target="blank" href="/agents.cfm?agent_id=#agent_id#">Edit</a></font></td>
+		</tr>
 	</cfloop>
 	</table>
 </cfif>
