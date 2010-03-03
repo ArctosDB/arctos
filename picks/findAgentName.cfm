@@ -36,6 +36,8 @@
 			<td><font size="-2">Name ID</font></td>
 			<td><font size="-2">ID</font></td>
 		</tr>
+	<cfset i=0>
+	<cfset laid=0>
 	<cfloop query="getAgentId">
 		<cfset thisName = #replace(agent_name,"'","`","all")#>
 		<cfif #getAgentId.recordcount# is 1>
@@ -46,7 +48,11 @@
 				self.close();
 			</script>
 		<cfelse>
-			<tr>
+		    <cfif agent_id=laid>
+				<cfset i=i+1>
+			</cfif>
+			<cfset laid=agent_id>
+		    <tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 				<td><a href="##" onClick="javascript: 
 					opener.document.getElementById('#agentIdFld#').value='#agent_name_id#';
 					opener.document.getElementById('#agentNameFld#').value='#thisName#';
