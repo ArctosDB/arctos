@@ -11,7 +11,8 @@
 		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				dispNames.agent_id,
-				dispNames.agent_name_id ,
+				dispNames.agent_name_id,
+				dispNames.agent_name_type,
 				dispNames.agent_name 
 			FROM
 				agent_name dispNames,
@@ -22,6 +23,7 @@
 			GROUP BY
 				dispNames.agent_id,
 				dispNames.agent_name_id,
+				dispNames.agent_name_type,
 				dispNames.agent_name
 			ORDER BY
 				dispNames.agent_id,
@@ -29,6 +31,13 @@
 		</cfquery>
 		<cfif getAgentId.recordcount is 0>
 			Nothing matched #agentname#.
+			<cfif isdefined("session.roles") and listfindnocase(session.roles,"mangage_agents")>
+				If you're really sure that agent doesn't exist, you can
+				create a <a target="blank" href="/editAllAgent.cfm?action=newPerson">new person</a> or a 
+				<a  target="blank" href="/editAllAgent.cfm?action=newOtherAgent">new non-person agent.</a>
+				Reload or requery after you do so to get the new entry.
+			</cfif>
+
 		<cfelse>
 	<table border>
 		<tr>
@@ -60,7 +69,7 @@
 					self.close();
 					">#agent_name#</a></td>
 				<td><font size="-2">#agent_name_id#</font></td>
-				<td><font size="-2">#agent_id#</font>-----#i#---------</td>
+				<td><font size="-2">#agent_id#</font></td>
 			</tr>
 		</cfif>
 	</cfloop>
