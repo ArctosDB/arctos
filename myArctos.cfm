@@ -62,7 +62,7 @@
 				grant create table to #session.username#
 			</cfquery>
 			<cfquery name="grantVPD" datasource="uam_god">
-				grant execute on sys.app_security_context to #session.username#
+				grant execute on app_security_context to #session.username#
 			</cfquery>					
 			<cfquery name="usrInfo" datasource="uam_god">
 				select * from temp_allow_cf_user,cf_users where temp_allow_cf_user.user_id=cf_users.user_id and
