@@ -410,9 +410,9 @@ Projects are activities that have contributed specimens, used specimens, or both
 								<input type="text" name="agent_name" 
 									value="#AGENTS.agent_name#" 
 									class="reqdClr" 
-									onchange="findAgentName('new_name_id','agent_name','projAgents#i#',this.value); return false;"
+									onchange="findAgentName('new_name_id','agent_name',this.value); return false;"
 									onKeyPress="return noenter(event);">
-								<input type="hidden" name="new_name_id">
+								<input type="hidden" name="new_name_id" id="new_name_id">
 							</td>
 							<td>
 								<cfset thisRole = agents.project_agent_role>
@@ -460,9 +460,9 @@ Projects are activities that have contributed specimens, used specimens, or both
 						<td>
 							<input type="text" name="newAgent_name" 
 								class="reqdClr" 
-								onchange="findAgentName('newAgent_name_id','newAgent_name','newAgent',this.value); return false;"
+								onchange="findAgentName('newAgent_name_id','newAgent_name',this.value); return false;"
 								onKeyPress="return noenter(event);">
-							<input type="hidden" name="newAgent_name_id">
+							<input type="hidden" name="newAgent_name_id" id="newAgent_name_id">
 						</td>
 						<td>
 							<select name="newRole" size="1" class="reqdClr">
@@ -492,12 +492,12 @@ Projects are activities that have contributed specimens, used specimens, or both
 						<input type="hidden" name="action" value="saveSponsorChange">
 						<input type="hidden" name="project_id" value="#project_id#">
 						<input type="hidden" name="PROJECT_SPONSOR_ID" value="#PROJECT_SPONSOR_ID#">
-						<input type="hidden" name="agent_name_id" value="#project_name_id#">
+						<input type="hidden" name="agent_name_id" id="newAgent_name_id" value="#project_name_id#">
 						<tr>
 							<td>
 								<input type="text" name="sponsor_name" 
 								class="reqdClr" 
-								onchange="findAgentName('agent_name_id','sponsor_name','sponsor#i#',this.value); return false;"
+								onchange="findAgentName('agent_name_id','sponsor_name',this.value); return false;"
 								onKeyPress="return noenter(event);"
 								value="#sponsor_name#">
 							</td>
@@ -520,7 +520,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 					<cfset i=i+1>
 				</cfloop>
 				<form name="addSponsor" method="post" action="Project.cfm">
-					<input type="hidden" name="new_sponsor_id">
+					<input type="hidden" name="new_sponsor_id" id="new_sponsor_id">
 					<input type="hidden" name="project_id" value="#project_id#">
 					<input type="hidden" name="action" value="addSponsor">
 					<tr class="newRec">
@@ -532,7 +532,7 @@ Projects are activities that have contributed specimens, used specimens, or both
 						<td>
 							<input type="text" name="new_sponsor_name" 
 								class="reqdClr" 
-								onchange="findAgentName('new_sponsor_id','new_sponsor_name','addSponsor',this.value); return false;"
+								onchange="findAgentName('new_sponsor_id','new_sponsor_name',this.value); return false;"
 								onKeyPress="return noenter(event);">
 						</td>
 						<td>
