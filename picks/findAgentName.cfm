@@ -48,7 +48,7 @@
 				self.close();
 			</script>
 		<cfelse>
-		    <cfif agent_id is laid>
+		    <cfif agent_id neq laid>
 				<cfset i=i+1>
 			</cfif>
 			<cfset laid=agent_id>
