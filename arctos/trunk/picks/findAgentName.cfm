@@ -8,6 +8,11 @@
 		<input type="text" id="agentname" name="agentname" value="#agentname#">
 		<br><input type="submit" class="lnkBtn" value="Search">
 	</form>
+	<script>getAgentId
+		function makeNewName() {
+			prompt("Enter a new name for ...");
+		}
+	</script>
 		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				dispNames.agent_id,
@@ -71,6 +76,7 @@
 			<td><font size="-2">#agent_name_id#</font></td>
 			<td><font size="-2">#agent_id#</font></td>
 			<td><font size="-2"><a target="blank" href="/agents.cfm?agent_id=#agent_id#">Edit</a></font></td>
+			<td><span class="likeLink" onclick="makeNewName()">Add Name</span></td>
 		</tr>
 	</cfloop>
 	</table>
