@@ -25,8 +25,7 @@
 		order by author_position
 	</cfquery>
 	<cfquery name="link" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from publication_url where 
-		publication_id=#publication_id#
+		select * from publication_url where publication_id=#publication_id#
 	</cfquery>
 	<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from publication_attributes where publication_id=#publication_id#
@@ -435,7 +434,7 @@
 					<td>
 						<input type="hidden" name="author_id_1" id="author_id_1">
 						<input type="text" name="author_name_1" id="author_name_1" class="reqdClr" size="50"
-							onchange="get_AgentName(this.value,this.id,'author_id_1');"
+							onchange="findAgentName('author_id_1',this.name,'newpub',this.value)"
 		 					onKeyPress="return noenter(event);">
 					</td>
 				</tr>
