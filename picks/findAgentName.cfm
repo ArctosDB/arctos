@@ -2,6 +2,8 @@
 	<!--- make sure we're searching for something --->
 		<cfoutput>
 	<form method="post" action="findAgentName.cfm">
+		<input type="hidden" name="agentIdFld" id="agentIdFld" value="#agentIdFld#">
+		<input type="hidden" name="agentNameFld" id="agentNameFld" value="#agentNameFld#">
 		<label for="agentname">Agent Name</label>
 		<input type="text" id="agentname" name="agentname" value="#agentname#">
 		<br><input type="submit" class="lnkBtn" value="Search">
