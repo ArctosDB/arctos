@@ -1,6 +1,6 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 	<!--- make sure we're searching for something --->
-	<cfif len(#agentname#) is 0>
+	<cfif len(agentname) is 0>
 		You must enter search criteria.
 		<cfabort>
 	</cfif>
@@ -38,14 +38,21 @@
 		<cfset thisName = #replace(agent_name,"'","`","all")#>
 		<cfif #getAgentId.recordcount# is 1>
 			<script>
-				opener.document.#formName#.#agentIdFld#.value='#agent_name_id#';
-				opener.document.#formName#.#agentNameFld#.value='#thisName#';
-				opener.document.#formName#.#agentNameFld#.style.background='##8BFEB9';
+				document.getElementById('#agentIdFld#').value='#agent_name_id#';
+				document.getElementById('#agentNameFld#').value='#thisName#';
+				document.getElementById('').value='';
+				document.getElementById('#agentNameFld#').style.background='##8BFEB9';
 				self.close();
 			</script>
 		<cfelse>
 			<tr>
-				<td><a href="##" onClick="javascript: opener.document.#formName#.#agentIdFld#.value='#agent_name_id#';opener.document.#formName#.#agentNameFld#.value='#thisName#';self.close();">#agent_name#</a></td>
+				<td><a href="##" onClick="javascript: 
+					document.getElementById('#agentIdFld#').value='#agent_name_id#';
+					document.getElementById('#agentNameFld#').value='#thisName#';
+					document.getElementById('').value='';
+					document.getElementById('#agentNameFld#').style.background='##8BFEB9';
+					self.close();
+					">#agent_name#</a></td>
 				<td><font size="-2">#agent_name_id#</font></td>
 				<td><font size="-2">#agent_id#</font></td>
 			</tr>

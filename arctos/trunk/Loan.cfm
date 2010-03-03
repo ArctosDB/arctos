@@ -398,11 +398,11 @@
 					<td colspan="2">
 						<input type="text" name="newAgent_name" 
 							class="reqdClr" 
-							onchange="findAgentName('newAgent_name_id','newAgent_name','editloan',this.value); return false;"
+							onchange="findAgentName('newAgent_name_id','newAgent_name',this.value); return false;"
 							onKeyPress="return noenter(event);"
 							value="">
 						<!--- need agent_name_id here --->
-						<input type="hidden" name="newAgent_name_id" value="">
+						<input type="hidden" name="newAgent_name_id" id="newAgent_name_id" value="">
 					</td>
 					<cfquery name="ctProjAgRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select project_agent_role from ctproject_agent_role
