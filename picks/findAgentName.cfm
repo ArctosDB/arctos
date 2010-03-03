@@ -10,11 +10,24 @@
 	</form>
 	<script>
 		function makeNewName(name,id) {
-			var a = prompt("Enter a new name for " + name);
-			if(a){
+			var a = prompt("Enter a new name (type=AKA) for " + name);
+			if(a) {
+				jQuery.getJSON("/component/functions.cfc",
+					{
+						method : "insertAgentName",
+						name : a,
+						id : id,
+						returnformat : "json",
+						queryformat : 'column'
+					},
+					function (result) {
+						alert(result);
+					}
+				);
+				
+				
 				alert('y');
-			} else { alert('n');
-				}
+			}
 		}
 	</script>
 		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">

@@ -1,4 +1,21 @@
 <cfcomponent>
+	<!------------------------------------------------------->
+<cffunction name="insertAgentName" access="remote">
+	<cfargument name="name" type="string" required="yes">	
+	<cfargument name="id" type="numeric" required="yes">
+	<cftry>
+		<cfquery name="k" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			INSERT INTO agent_name (
+				agent_name_id, agent_id, agent_name_type, agent_name)
+			VALUES (
+				sq_agent_name_id.nextval, #id#, 'AKA','#name#')
+		</cfquery>
+		<cfreturn "success">
+	<cfcatch>
+		<cfreturn cfcatch.message & ': ' & cfcatch.detail>
+	</cfcatch>
+	</cftry>
+</cffunction>
 <!------------------------------------------------------->
 <cffunction name="encumberThis" access="remote">
 	<cfargument name="cid" type="numeric" required="yes">	
