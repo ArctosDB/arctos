@@ -28,7 +28,7 @@
 				dispNames.agent_name
 		</cfquery>
 		<cfif getAgentId.recordcount is 0>
-			Nothing matched #agentname#. <a href="javascript:void(0);" onClick="opener.document.#formName#.#agentIdFld#.value='';opener.document.#formName#.#agentNameFld#.value='';opener.document.#formName#.#agentNameFld#.focus();self.close();">Try again.</a>
+			Nothing matched #agentname#.
 		<cfelse>
 	<table border>
 		<tr>
