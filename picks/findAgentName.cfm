@@ -38,19 +38,19 @@
 		<cfset thisName = #replace(agent_name,"'","`","all")#>
 		<cfif #getAgentId.recordcount# is 1>
 			<script>
-				document.getElementById('#agentIdFld#').value='#agent_name_id#';
-				document.getElementById('#agentNameFld#').value='#thisName#';
-				document.getElementById('').value='';
-				document.getElementById('#agentNameFld#').style.background='##8BFEB9';
+				parent.getElementById('#agentIdFld#').value='#agent_name_id#';
+				parent.getElementById('#agentNameFld#').value='#thisName#';
+				parent.getElementById('').value='';
+				parent.getElementById('#agentNameFld#').style.background='##8BFEB9';
 				self.close();
 			</script>
 		<cfelse>
 			<tr>
 				<td><a href="##" onClick="javascript: 
-					document.getElementById('#agentIdFld#').value='#agent_name_id#';
-					document.getElementById('#agentNameFld#').value='#thisName#';
-					document.getElementById('').value='';
-					document.getElementById('#agentNameFld#').style.background='##8BFEB9';
+					parent.getElementById('#agentIdFld#').value='#agent_name_id#';
+					parent.getElementById('#agentNameFld#').value='#thisName#';
+					parent.getElementById('').value='';
+					parent.getElementById('#agentNameFld#').style.background='##8BFEB9';
 					self.close();
 					">#agent_name#</a></td>
 				<td><font size="-2">#agent_name_id#</font></td>
