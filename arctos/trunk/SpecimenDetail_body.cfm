@@ -758,7 +758,7 @@
 						<div class="detailBlock">
 							<span class="detailData">
 								<span class="innerDetailLabel">#biol_indiv_relationship#</span>
-								<a href="/SpecimenDetail.cfm?collection_object_id=#related_coll_object_id#">
+								<a href="/SpecimenDetail.cfm?collection_object_id=#related_coll_object_id#" target="_top">
 									#related_collection# #related_cat_num#
 								</a>
 							</span>
@@ -769,7 +769,7 @@
 							<span class="detailData">
 								<span class="innerDetailLabel"></span>
 									&nbsp;&nbsp;&nbsp;<a href="SpecimenResults.cfm?collection_object_id=#valuelist(relns.related_coll_object_id)#" 
-											>"Related To" Specimens List</a>										
+											 target="_top">"Related To" Specimens List</a>										
 							</span>
 						</div>
 					</cfif>
@@ -793,7 +793,7 @@
 							<span class="detailData">
 								<span class="innerDetailLabel"></span>
 								&nbsp;&nbsp;&nbsp;<a href="SpecimenResults.cfm?collection_object_id=#valuelist(invRel.collection_object_id)#" 
-											>"Related IS" Specimens List</a>
+											 target="_top">"Related IS" Specimens List</a>
 							</span>
 						</div>
 					</cfif>
