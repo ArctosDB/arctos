@@ -47,10 +47,10 @@
 		<cfelse>
 			<tr>
 				<td><a href="##" onClick="javascript: 
-					opener.getElementById('#agentIdFld#').value='#agent_name_id#';
-					opener.getElementById('#agentNameFld#').value='#thisName#';
-					opener.getElementById('').value='';
-					opener.getElementById('#agentNameFld#').style.background='##8BFEB9';
+					opener.document.getElementById('#agentIdFld#').value='#agent_name_id#';
+					opener.document.getElementById('#agentNameFld#').value='#thisName#';
+					opener.document.getElementById('').value='';
+					opener.document.getElementById('#agentNameFld#').style.background='##8BFEB9';
 					self.close();
 					">#agent_name#</a></td>
 				<td><font size="-2">#agent_name_id#</font></td>
