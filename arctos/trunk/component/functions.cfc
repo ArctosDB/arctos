@@ -8,7 +8,7 @@
 			INSERT INTO agent_name (
 				agent_name_id, agent_id, agent_name_type, agent_name)
 			VALUES (
-				sq_agent_name_id.nextval, #id#, 'AKA','#name#')
+				sq_agent_name_id.nextval, #id#, 'aka','#name#')
 		</cfquery>
 		<cfreturn "success">
 	<cfcatch>

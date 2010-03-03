@@ -10,7 +10,7 @@
 	</form>
 	<script>
 		function makeNewName(name,id) {
-			var a = prompt("Enter a new name (type=AKA) for " + name);
+			var a = prompt("Enter a new name (name type=aka) for " + name);
 			if(a) {
 				jQuery.getJSON("/component/functions.cfc",
 					{
