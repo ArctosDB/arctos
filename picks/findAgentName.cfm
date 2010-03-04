@@ -66,8 +66,8 @@
 				create a
 				<cfset np=rdurl & "&action=newPerson">
 				<cfset no=rdurl & "&action=newOtherAgent">
-				<br><a target="blank" href="#np#">new person</a> or a 
-				<br><a  target="blank" href="#no#">new non-person agent.</a>
+				<br><a href="#np#">new person</a> or a 
+				<br><a href="#no#">new non-person agent.</a>
 				<br>Reload or requery after you do so to get the new entry.
 			<cfelse>no
 			</cfif>
