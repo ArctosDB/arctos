@@ -508,6 +508,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 
 	var f=document.getElementById('goWhere').value;
 	var i='#collObjIdList#';
+	var lla=i.split(',');
+	console.log(lla.length);
+	
 	var t='#session.SpecSrchTab#';
 	var o1=document.getElementById('orderBy1').value;
 	var o2=document.getElementById('orderBy2').value;
@@ -521,7 +524,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 	u += '&table_name=' + t;
 	u += '&sort=' + s;
 	//alert(u);	
-	var reportWin=window.open(u);
+	//var reportWin=window.open(u);
 }
 </script>
 </cfoutput>
