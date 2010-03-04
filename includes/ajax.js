@@ -1793,13 +1793,12 @@ function CatItemPick(collIdFld,catNumFld,formName,sciNameFld){
 	var popurl=url+"?collIdFld="+collIdFld+"&catNumFld="+catNumFld+"&formName="+formName+"&sciNameFld="+sciNameFld;
 	CatItemPick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
-function findAgentName(agentIdFld,agentNameFld,formName,agentNameString){
+function findAgentName(agentIdFld,agentNameFld,agentNameString){
 	var url="/picks/findAgentName.cfm";
 	var agentIdFld;
 	var agentNameFld;
-	var formName;
 	var agentNameString;
-	var popurl=url+"?agentIdFld="+agentIdFld+"&agentNameFld="+agentNameFld+"&formName="+formName+"&agentName="+agentNameString;
+	var popurl=url+"?agentIdFld="+agentIdFld+"&agentNameFld="+agentNameFld+"&agentName="+agentNameString;
 	agentpick=window.open(popurl,"","width=400,height=338, resizable,scrollbars");
 }
 function addrPick(addrIdFld,addrFld,formName){
