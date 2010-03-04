@@ -558,7 +558,35 @@
 					'#thisAttVal#'
 				)
 			</cfquery>
-		</cfloop>			
+		</cfloop>
+		<cfif len(media_uri) gt 0>
+			<cfquery name="mid" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select sq_media_id.nextval nv from dual
+			</cfquery>
+			<cfset media_id=mid.nv>
+			<cfquery name="makeMedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				insert into media (media_id,media_uri,mime_type,media_type,preview_uri)
+	            values (#media_id#,'#escapeQuotes(media_uri)#','#mime_type#','#media_type#','#preview_uri#')
+			</cfquery>
+			<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				insert into media_relations (
+					media_id,
+					media_relationship,
+					related_primary_key
+				) values (
+					#media_id#,
+					'shows publication',
+					#pid#
+				)
+			</cfquery>
+			<cfquery name="makeRelation" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				insert into media_labels (
+					media_id,
+					media_label,
+					label_value)
+				values (#media_id#,'description','#media_desc#')
+			</cfquery>
+		</cfif>					
 	</cftransaction>
 	<cfinvoke component="/component/publication" method="shortCitation" returnVariable="shortCitation">
 		<cfinvokeargument name="publication_id" value="#pid#">
