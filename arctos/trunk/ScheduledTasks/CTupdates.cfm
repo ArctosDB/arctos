@@ -17,24 +17,26 @@
 				date_stamp,
 				sql_statement
 		</cfquery>
-		<cfmail to="#Application.DataProblemReportEmail#" subject="Code Table Activity Report" from="ctreport@#Application.fromEmail#" type="html">
-			Last 24 hours of code table activity:
-			<table border>
-				<tr>
-					<th>When</th>
-					<th>Who</th>
-					<th>What</th>
-					<th>SQL</th>
-				</tr>
-				<cfloop query="activity">
+		<cfif activity.recordcount gt 0>
+			<cfmail to="#Application.DataProblemReportEmail#" subject="Code Table Activity Report" from="ctreport@#Application.fromEmail#" type="html">
+				Last 24 hours of code table activity:
+				<table border>
 					<tr>
-						<td>#date_stamp#</td>
-						<td>#username#</td>
-						<td>#object#</td>
-						<td>#sql_statement#</td>
+						<th>When</th>
+						<th>Who</th>
+						<th>What</th>
+						<th>SQL</th>
 					</tr>
-				</cfloop>
-			</table>
-		</cfmail>
+					<cfloop query="activity">
+						<tr>
+							<td>#date_stamp#</td>
+							<td>#username#</td>
+							<td>#object#</td>
+							<td>#sql_statement#</td>
+						</tr>
+					</cfloop>
+				</table>
+			</cfmail>
+		</cfif>
 	</cfoutput>
 <cfinclude template="/includes/_footer.cfm">
