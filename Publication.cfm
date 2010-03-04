@@ -465,7 +465,7 @@
 			</table>
 			</div>
 			<div class="cellDiv">
-				Media:
+				Media (yellow cells are only required if you supply or create a URI):
 				<label for="media_uri">Media URI</label>
 				<input type="text" name="media_uri" id="media_uri" size="90" class="reqdClr"><span class="infoLink" id="uploadMedia">Upload</span>
 				<label for="preview_uri">Preview URI</label>
@@ -486,14 +486,6 @@
 				</select>
 				<label for="media_desc">Media Description</label>
 				<input type="text" name="media_desc" id="media_desc" size="80">
-			</div>
-			<br>
-			<input type="submit" 
-				value="Create Media" 
-				class="insBtn"
-				onmouseover="this.className='insBtn btnhov'" 
-				onmouseout="this.className='insBtn'">
-		</form>
 			</div>
 			<br><input type="submit" value="create publication" class="insBtn">
 			
