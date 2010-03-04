@@ -22,7 +22,7 @@
 					},
 					function (result) {
 						if(result=='success'){
-							document.location='/findAgentName.cfm?agentIdFld=#agentIdFld#&agentNameFld=#agentNameFld#&agentname=' + a;
+							document.location='findAgentName.cfm?agentIdFld=#agentIdFld#&agentNameFld=#agentNameFld#&agentname=' + a;
 						}else{
 							alert(result);
 						}
