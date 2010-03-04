@@ -24,9 +24,6 @@
 		publication_id=#publication_id#
 		order by author_position
 	</cfquery>
-	<cfquery name="link" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-		select * from publication_url where publication_id=#publication_id#
-	</cfquery>
 	<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from publication_attributes where publication_id=#publication_id#
 	</cfquery>
@@ -148,38 +145,7 @@
 			</table>
 		</div>
 		<input type="hidden" name="origNumberAttributes" id="origNumberAttributes" value="#i#">
-			<input type="hidden" name="numberAttributes" id="numberAttributes" value="#i#">
-		<div class="cellDiv">
-		<span class="likeLink" onclick="getDocs('publication','url')">Links</span>:
-		<span class="infoLink" onclick="addLink()">Add Row</span>
-			<table border id="linkTab">
-				<tr>
-					<th>Link</th>
-					<th>Description</th>
-					<th></th>
-				</tr>
-				<cfset i=0>
-				<cfloop query="link">
-					<cfset i=i+1>
-					<input type="hidden" name="publication_url_id#i#" 
-								class="reqdClr" id="publication_url_id#i#" value="#publication_url_id#">							
-					<tr id="linkRow#i#">
-						<td>
-							<input type="text" name="link#i#" 
-								class="reqdClr" id="link#i#" value="#link#" size="60">
-						</td>
-						<td>
-							<input type="text" name="description#i#" 
-								class="reqdClr" id="description#i#" value="#description#" size="10">
-						</td>					
-						</td>
-						<td>
-							<span class="infoLink" onclick="deleteLink(#i#)">Delete</span>
-						</td>
-					</tr>
-				</cfloop>			
-			</table>
-		</div>
+		<input type="hidden" name="numberAttributes" id="numberAttributes" value="#i#">
 		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		    select distinct 
 		        media.media_id,
@@ -236,7 +202,7 @@
 			<div style="font-size:small">
 				 Yellow cells are only required if you supply or create a URI. You may leave this section blank.
 				 <br>Find Media and create a relationship to link existing Media to this Publication.
-			</div>():
+			</div>
 			<label for="media_uri">Media URI</label>
 			<input type="text" name="media_uri" id="media_uri" size="90" class="reqdClr"><span class="infoLink" id="uploadMedia">Upload</span>
 			<label for="preview_uri">Preview URI</label>
@@ -258,8 +224,6 @@
 			<label for="media_desc">Media Description</label>
 			<input type="text" name="media_desc" id="media_desc" size="80" class="reqdClr">
 		</div>
-		
-			
 			<input type="hidden" name="origNumberLinks" id="origNumberLinks" value="#i#">
 			<input type="hidden" name="numberLinks" id="numberLinks" value="#i#">
 			<br><input type="button" value="save" class="savBtn" onclick="editPub.action.value='saveEdit';editPub.submit();">
