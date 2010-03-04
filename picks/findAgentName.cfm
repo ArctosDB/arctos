@@ -21,12 +21,13 @@
 						queryformat : 'column'
 					},
 					function (result) {
-						alert(result);
+						if(result=='success'){
+							document.location='/findAgentName.cfm?agentIdFld=#agentIdFld#&agentNameFld=#agentNameFld#&agentname=' + a;
+						else{
+							alert(result);
+						}
 					}
 				);
-				
-				
-				alert('y');
 			}
 		}
 	</script>
