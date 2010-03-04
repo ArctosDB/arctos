@@ -1145,7 +1145,37 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 					</span>
 				</div>
 			</div>		
-
+<!------------------------------------ usage ---------------------------------------------->
+		<cfif isProj.recordcount gt 0 OR isLoan.recordcount gt 0 or (#oneOfUs# is 1 and #isLoanedItem.collection_object_id# gt 0)>
+			<div class="detailCell">
+				<div class="detailLabel">Usage</div>
+					<cfloop query="isProj">
+						<div class="detailBlock">
+							<span class="detailData">
+								<span class="innerDetailLabel">Contributed By Project:</span>
+									<a href="ProjectDetail.cfm?src=proj&project_id=#isProj.project_id#">#isProj.project_name#</a>
+							</span>
+						</div>
+					</cfloop>
+					<cfloop query="isLoan">
+						<div class="detailBlock">
+							<span class="detailData">
+								<span class="innerDetailLabel">Used By Project:</span>
+		 						<a href="ProjectDetail.cfm?src=proj&project_id=#isLoan.project_id#" target="_mainFrame">#isLoan.project_name#</a>
+							</span>
+						</div>
+					</cfloop>
+					<cfif #isLoanedItem.collection_object_id# gt 0 and #oneOfUs# is 1>
+						<div class="detailBlock">
+							<span class="detailData">
+								<span class="innerDetailLabel">Loan History:</span>
+									<a href="Loan.cfm?action=listLoans&collection_object_id=#valuelist(isLoanedItem.collection_object_id)#" 
+										target="_mainFrame">Click for loan list</a>
+							</span>
+						</div>
+					</cfif>
+				</div>
+		</cfif>
 <!------------------------------------ Media ---------------------------------------------->
 <cfquery name="mediaTag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
     select distinct 
@@ -1313,37 +1343,6 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 		</div>
 	</div>		
 </cfif>
-<!------------------------------------ usage ---------------------------------------------->
-		<cfif isProj.recordcount gt 0 OR isLoan.recordcount gt 0 or (#oneOfUs# is 1 and #isLoanedItem.collection_object_id# gt 0)>
-			<div class="detailCell">
-				<div class="detailLabel">Usage</div>
-					<cfloop query="isProj">
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">Contributed By Project:</span>
-									<a href="ProjectDetail.cfm?src=proj&project_id=#isProj.project_id#">#isProj.project_name#</a>
-							</span>
-						</div>
-					</cfloop>
-					<cfloop query="isLoan">
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">Used By Project:</span>
-		 						<a href="ProjectDetail.cfm?src=proj&project_id=#isLoan.project_id#" target="_mainFrame">#isLoan.project_name#</a>
-							</span>
-						</div>
-					</cfloop>
-					<cfif #isLoanedItem.collection_object_id# gt 0 and #oneOfUs# is 1>
-						<div class="detailBlock">
-							<span class="detailData">
-								<span class="innerDetailLabel">Loan History:</span>
-									<a href="Loan.cfm?action=listLoans&collection_object_id=#valuelist(isLoanedItem.collection_object_id)#" 
-										target="_mainFrame">Click for loan list</a>
-							</span>
-						</div>
-					</cfif>
-				</div>
-		</cfif>
 	</td><!--- end right half of table --->
 </table>
 </form>
