@@ -30,6 +30,12 @@
 	<cfquery name="atts" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select * from publication_attributes where publication_id=#publication_id#
 	</cfquery>
+	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select media_type from ctmedia_type order by media_type
+	</cfquery>
+	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select mime_type from ctmime_type order by mime_type
+	</cfquery>
 	<form name="editPub" method="post" action="Publication.cfm">
 		<div class="cellDiv">
 		The Basics:
