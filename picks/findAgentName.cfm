@@ -298,7 +298,7 @@
 			</cfquery>
 		</cftransaction>
 		<cfset rdurl=rdurl & "&agent_id=#agentID.nextAgentId#">	
-		<cflocation url=rdurl>
+		<cflocation url="#rdurl#">
 	</cfoutput>
 </cfif>
 
@@ -373,7 +373,7 @@
 			</cfquery>
 		</cftransaction>
 		<cfset rdurl=rdurl & "&agent_id=#agentID.nextAgentId#">	
-		<cflocation url=rdurl>
+		<cflocation url="#rdurl#">
 	</cfoutput>
 </cfif>
 <!----	
