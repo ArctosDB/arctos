@@ -434,7 +434,7 @@
 					<td>
 						<input type="hidden" name="author_id_1" id="author_id_1">
 						<input type="text" name="author_name_1" id="author_name_1" class="reqdClr" size="50"
-							onchange="findAgentName('author_id_1',this.name,'newpub',this.value)"
+							onchange="findAgentName('author_id_1',this.name,this.value)"
 		 					onKeyPress="return noenter(event);">
 					</td>
 				</tr>
