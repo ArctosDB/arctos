@@ -55,16 +55,10 @@
 			ORDER BY
 				dispNames.agent_id,
 				dispNames.agent_name
-		</cfquery>
-		
-		<cfdump var=#getAgentId#>
-				
-				
-				
+		</cfquery>	
 				
 		<cfif getAgentId.recordcount is 0>
 			Nothing matched #agentname#.
-			---#session.roles#----------
 			<cfif listfindnocase(session.roles,"manage_agents")>
 				If you're really sure that agent doesn't exist, you can
 				create a <a target="blank" href="/editAllAgent.cfm?action=newPerson">new person</a> or a 
