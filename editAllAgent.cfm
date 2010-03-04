@@ -3,7 +3,7 @@
 	select agent_name_type as agent_name_type from ctagent_name_type where agent_name_type != 'preferred' order by agent_name_type
 </cfquery>
 <cfquery name="ctAgentType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-	select agent_type from ctagent_type
+	select agent_type from ctagent_type order by agent_type
 </cfquery>
 <cfquery name="ctAddrType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select addr_type from ctaddr_type
