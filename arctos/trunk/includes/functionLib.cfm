@@ -33,6 +33,8 @@
 				<cfreturn "/images/noThumb.jpg">
 			<cfelseif mt is "audio">
 				<cfreturn "/images/audioNoThumb.png">
+			<cfelseif mt is "text">
+				<cfreturn "/images/documentNoThumb.png">
 			<cfelse>
 				<cfreturn "/images/noThumb.jpg">
 			</cfif>
