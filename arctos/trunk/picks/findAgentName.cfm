@@ -1,6 +1,7 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 	<!--- make sure we're searching for something --->
 	<cfoutput>
+	<cfset rdurl="findAgentName.cfm?agentIdFld=#agentIdFld#&agentNameFld=#agentNameFld#">
 	<cfif not isdefined("agentname")><cfset agentname=""></cfif>
 	<form method="post" action="findAgentName.cfm">
 		<input type="hidden" name="agentIdFld" id="agentIdFld" value="#agentIdFld#">
@@ -112,6 +113,9 @@
 	<cfoutput>
 		<form name="prefdName" action="findAgentName.cfm" method="post" target="_person">
 			<input type="hidden" name="action" value="makeNewAgent">
+			
+		<input type="hidden" name="agentIdFld" id="agentIdFld" value="#agentIdFld#">
+		<input type="hidden" name="agentNameFld" id="agentNameFld" value="#agentNameFld#">
 			<input type="hidden" name="agent_name_type" value="preferred">
 			<label for="agent_name">Preferred Name</label>
 			<input type="text" name="agent_name" id="agent_name" size="50" class="reqdClr">
@@ -140,6 +144,9 @@
 	</cfquery>
 	<form name="newPerson" action="findAgentName.cfm" method="post" target="_person">
 		<input type="hidden" name="Action" value="insertPerson">
+		
+		<input type="hidden" name="agentIdFld" id="agentIdFld" value="#agentIdFld#">
+		<input type="hidden" name="agentNameFld" id="agentNameFld" value="#agentNameFld#">
 		<label for="prefix">Prefix</label>
 		<select name="prefix" id="prefix" size="1">
 			<option value=""></option>
@@ -254,6 +261,9 @@
 					<p>Are you sure you want to continue?</p>
 					<form name="ac" method="post" action="findAgentName.cfm">
 						<input type="hidden" name="action" value="insertPerson">
+						
+		<input type="hidden" name="agentIdFld" id="agentIdFld" value="#agentIdFld#">
+		<input type="hidden" name="agentNameFld" id="agentNameFld" value="#agentNameFld#">
 						<input type="hidden" name="prefix" value="#prefix#">
 						<input type="hidden" name="LAST_NAME" value="#LAST_NAME#">
 						<input type="hidden" name="FIRST_NAME" value="#FIRST_NAME#">
@@ -282,8 +292,9 @@
 					0
 					)
 			</cfquery>
-		</cftransaction>	
-		<cflocation url="findAgentName.cfm?agent_id=#agentID.nextAgentId#">
+		</cftransaction>
+		<cfset rdurl=rdurl & "&agent_id=#agentID.nextAgentId#">	
+		<cflocation url=rdurl>
 	</cfoutput>
 </cfif>
 
@@ -328,6 +339,9 @@
 					<p>Are you sure you want to continue?</p>
 					<form name="ac" method="post" action="findAgentName.cfm">
 						<input type="hidden" name="action" value="makeNewAgent">
+						
+		<input type="hidden" name="agentIdFld" id="agentIdFld" value="#agentIdFld#">
+		<input type="hidden" name="agentNameFld" id="agentNameFld" value="#agentNameFld#">
 						<input type="hidden" name="agent_remarks" value="#agent_remarks#">
 						<input type="hidden" name="agent_type" value="#agent_type#">
 						<input type="hidden" name="agent_name" value="#agent_name#">
@@ -353,8 +367,9 @@
 					0
 					)
 			</cfquery>
-		</cftransaction>			
-		<cflocation url="findAgentName.cfm?agent_id=#agentID.nextAgentId#">
+		</cftransaction>
+		<cfset rdurl=rdurl & "&agent_id=#agentID.nextAgentId#">	
+		<cflocation url=rdurl>
 	</cfoutput>
 </cfif>
 <!----	
