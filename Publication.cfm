@@ -390,6 +390,12 @@
 	<cfquery name="ctpublication_attribute" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select publication_attribute from ctpublication_attribute order by publication_attribute
 	</cfquery>
+	<cfquery name="ctmedia_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select media_type from ctmedia_type order by media_type
+	</cfquery>
+	<cfquery name="ctmime_type" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+		select mime_type from ctmime_type order by mime_type
+	</cfquery>
 	<cfoutput>
 		<form name="newpub" method="post" action="Publication.cfm">
 			<div class="cellDiv">
@@ -458,7 +464,39 @@
 				</tr>			
 			</table>
 			</div>
+			<div class="cellDiv">
+				Media:
+				<label for="media_uri">Media URI</label>
+				<input type="text" name="media_uri" id="media_uri" size="90" class="reqdClr"><span class="infoLink" id="uploadMedia">Upload</span>
+				<label for="preview_uri">Preview URI</label>
+				<input type="text" name="preview_uri" id="preview_uri" size="90">
+				<label for="mime_type">MIME Type</label>
+				<select name="mime_type" id="mime_type" class="reqdClr">
+					<option value=""></option>
+					<cfloop query="ctmime_type">
+						<option value="#mime_type#">#mime_type#</option>
+					</cfloop>
+				</select>
+            	<label for="media_type">Media Type</label>
+				<select name="media_type" id="media_type" class="reqdClr">
+					<option value=""></option>
+					<cfloop query="ctmedia_type">
+						<option value="#media_type#">#media_type#</option>
+					</cfloop>
+				</select>
+				<label for="media_desc">Media Description</label>
+				<input type="text" name="media_desc" id="media_desc" size="80">
+			</div>
+			<br>
+			<input type="submit" 
+				value="Create Media" 
+				class="insBtn"
+				onmouseover="this.className='insBtn btnhov'" 
+				onmouseout="this.className='insBtn'">
+		</form>
+			</div>
 			<br><input type="submit" value="create publication" class="insBtn">
+			
 		</form>
 	</cfoutput>
 </cfif>
