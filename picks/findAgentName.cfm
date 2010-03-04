@@ -1,6 +1,7 @@
 <cfinclude template="../includes/_pickHeader.cfm">
 	<!--- make sure we're searching for something --->
-		<cfoutput>
+	<cfoutput>
+	<cfparam name="agentname">
 	<form method="post" action="findAgentName.cfm">
 		<input type="hidden" name="agentIdFld" id="agentIdFld" value="#agentIdFld#">
 		<input type="hidden" name="agentNameFld" id="agentNameFld" value="#agentNameFld#">
