@@ -1,4 +1,5 @@
 <cfinclude template="../includes/_pickHeader.cfm">
+<cfoutput>
 <cfset rdurl="findAgentName.cfm?agentIdFld=#agentIdFld#&agentNameFld=#agentNameFld#">
 <script>
 		function makeNewName(name,id) {
@@ -25,7 +26,6 @@
 	</script>
 	
 <cfif action is "nothing">
-<cfoutput>
 	<cfif not isdefined("agentname")><cfset agentname=""></cfif>
 	<form method="post" action="findAgentName.cfm">
 		<input type="hidden" name="agentIdFld" id="agentIdFld" value="#agentIdFld#">
@@ -108,13 +108,11 @@
 	</cfloop>
 	</table>
 </cfif>
-</cfoutput>
 </cfif>
 <cfif action is "newOtherAgent">
 	<cfquery name="ctAgentType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select agent_type from ctagent_type order by agent_type
 	</cfquery>
-	<cfoutput>
 		<form name="prefdName" action="findAgentName.cfm" method="post">
 			<input type="hidden" name="action" value="makeNewAgent">
 			
@@ -136,7 +134,6 @@
 			<br>
 			<input type="submit" value="Create Agent" class="savBtn">
 			</form>
-	</cfoutput>
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
 <cfif Action is "newPerson">
@@ -154,9 +151,9 @@
 		<label for="prefix">Prefix</label>
 		<select name="prefix" id="prefix" size="1">
 			<option value=""></option>
-			<cfoutput query="ctprefix"> 
+			<cfloop query="ctprefix"> 
 				<option value="#prefix#">#prefix#</option>
-			</cfoutput> 
+			</cfloop> 
 		</select>
 		<label for="first_name">First Name</label>
 		<input type="text" name="first_name" id="first_name">
@@ -167,9 +164,9 @@
 		<label for="suffix">Suffix</label>
 		<select name="suffix" size="1" id="suffix">
 			<option value=""></option>
-			<cfoutput query="ctsuffix"> 
+			<cfloop query="ctsuffix"> 
 				<option value="#suffix#">#suffix#</option>
-			</cfoutput> 
+			</cfloop> 
     	</select>
 		<label for="pref_name">Preferred Name</label>
 		<input type="text" name="pref_name" id="pref_name">
@@ -177,7 +174,6 @@
 	</form>
 </cfif>
 <cfif action is "insertPerson">
-	<cfoutput>
 		<cftransaction>
 			<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select sq_agent_id.nextval nextAgentId from dual
@@ -299,13 +295,11 @@
 		</cftransaction>
 		<cfset rdurl=rdurl & "&agent_id=#agentID.nextAgentId#">	
 		<cflocation url="#rdurl#">
-	</cfoutput>
 </cfif>
 
 
 
 <cfif #Action# is "makeNewAgent">
-	<cfoutput>
 		<cftransaction>
 			<cfquery name="agentID" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select sq_agent_id.nextval nextAgentId from dual
@@ -374,8 +368,9 @@
 		</cftransaction>
 		<cfset rdurl=rdurl & "&agent_id=#agentID.nextAgentId#">	
 		<cflocation url="#rdurl#">
-	</cfoutput>
 </cfif>
+	</cfoutput>
+
 <!----	
 	
 	<!--------------------------------------------------->
