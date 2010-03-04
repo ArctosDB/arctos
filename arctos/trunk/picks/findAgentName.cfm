@@ -1,4 +1,5 @@
 <cfinclude template="../includes/_pickHeader.cfm">
+<cfset rdurl="findAgentName.cfm?agentIdFld=#agentIdFld#&agentNameFld=#agentNameFld#">
 <script>
 		function makeNewName(name,id) {
 			var a = prompt("Enter a new name (name type=aka) for " + name);
@@ -25,7 +26,6 @@
 	
 <cfif action is "nothing">
 <cfoutput>
-	<cfset rdurl="findAgentName.cfm?agentIdFld=#agentIdFld#&agentNameFld=#agentNameFld#">
 	<cfif not isdefined("agentname")><cfset agentname=""></cfif>
 	<form method="post" action="findAgentName.cfm">
 		<input type="hidden" name="agentIdFld" id="agentIdFld" value="#agentIdFld#">
@@ -115,7 +115,7 @@
 		select agent_type from ctagent_type order by agent_type
 	</cfquery>
 	<cfoutput>
-		<form name="prefdName" action="findAgentName.cfm" method="post" target="_person">
+		<form name="prefdName" action="findAgentName.cfm" method="post">
 			<input type="hidden" name="action" value="makeNewAgent">
 			
 		<input type="hidden" name="agentIdFld" id="agentIdFld" value="#agentIdFld#">
@@ -146,7 +146,7 @@
 	<cfquery name="ctsuffix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select suffix from ctsuffix order by suffix
 	</cfquery>
-	<form name="newPerson" action="findAgentName.cfm" method="post" target="_person">
+	<form name="newPerson" action="findAgentName.cfm" method="post">
 		<input type="hidden" name="Action" value="insertPerson">
 		
 		<input type="hidden" name="agentIdFld" id="agentIdFld" value="#agentIdFld#">
