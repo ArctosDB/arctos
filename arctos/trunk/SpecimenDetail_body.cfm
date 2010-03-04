@@ -1220,9 +1220,42 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
 		</div>
 		<div class="detailBlock">
             <span class="detailData">			
+				<div class="thumbs">
+					<div class="thumb_spcr">&nbsp;</div>
+					<cfloop query="media">
+						<cfset puri=getMediaPreview(preview_uri,media_type)>
+		            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+							select
+								media_label,
+								label_value
+							from
+								media_labels
+							where
+								media_id=#media_id#
+						</cfquery>
+						<cfquery name="desc" dbtype="query">
+							select label_value from labels where media_label='description'
+						</cfquery>
+						<cfset alt="Media Preview Image">
+						<cfif desc.recordcount is 1>
+							<cfset alt=desc.label_value>
+						</cfif>
+		               <div class="one_thumb">
+			               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
+		                   	<p>
+								#media_type# (#mime_type#)
+			                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
+								<br>#alt#
+							</p>
+						</div>
+					</cfloop>
+					<div class="thumb_spcr">&nbsp;</div>
+				</div>
+				
+				<!--------
 				<table border="1">
                 <cfloop query="media">
-					<cfset puri=getMediaPreview(preview_uri,media_type)>
+					
 					<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select
 							media_label,
@@ -1273,6 +1306,9 @@ href="http://bg.berkeley.edu/gref/session.html?pageId=#gref.page_id#&publication
                     </tr>
                 </cfloop>
                 </table>
+				
+				
+				------------------->
 	        </span>		
 		</div>
 	</div>		
