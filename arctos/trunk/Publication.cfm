@@ -180,7 +180,56 @@
 				</cfloop>			
 			</table>
 		</div>
-		
+		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+    select distinct 
+        media.media_id,
+        media.media_uri,
+        media.mime_type,
+        media.media_type,
+        media.preview_uri
+     from
+         media,
+         media_relations,
+         media_labels
+     where
+         media.media_id=media_relations.media_id and
+         media.media_id=media_labels.media_id (+) and
+         media_relations.media_relationship like '%publication' and
+         media_relations.related_primary_key = #publication_id#
+</cfquery>
+		<div class="cellDiv">
+			<div class="thumbs">
+				<div class="thumb_spcr">&nbsp;</div>
+				<cfloop query="media">
+					<cfset puri=getMediaPreview(preview_uri,media_type)>
+	            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select
+							media_label,
+							label_value
+						from
+							media_labels
+						where
+							media_id=#media_id#
+					</cfquery>
+					<cfquery name="desc" dbtype="query">
+						select label_value from labels where media_label='description'
+					</cfquery>
+					<cfset alt="Media Preview Image">
+					<cfif desc.recordcount is 1>
+						<cfset alt=desc.label_value>
+					</cfif>
+	               <div class="one_thumb">
+		               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
+	                   	<p>
+							#media_type# (#mime_type#)
+		                   	<br><a href="/media/#media_id#" target="_blank">Media Details</a>
+							<br>#alt#
+						</p>
+					</div>
+				</cfloop>
+				<div class="thumb_spcr">&nbsp;</div>
+			</div>
+		</div>
 		<div class="cellDiv">
 			Add Media (yellow cells are only required if you supply or create a URI):
 			<label for="media_uri">Media URI</label>
@@ -204,7 +253,7 @@
 			<label for="media_desc">Media Description</label>
 			<input type="text" name="media_desc" id="media_desc" size="80">
 		</div>
-			
+		
 			
 			<input type="hidden" name="origNumberLinks" id="origNumberLinks" value="#i#">
 			<input type="hidden" name="numberLinks" id="numberLinks" value="#i#">
