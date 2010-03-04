@@ -138,6 +138,8 @@
 </cfif>
 <!------------------------------------------------------------------------------------------------------------->
 <cfif Action is "newPerson">
+	newperson
+	<cfabort>
 	<cfquery name="ctprefix" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select prefix from ctprefix order by prefix
 	</cfquery>
