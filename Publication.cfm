@@ -197,6 +197,7 @@
 		         media_relations.media_relationship like '%publication' and
 		         media_relations.related_primary_key = #publication_id#
 		</cfquery>
+		<cfdump var=#media#>
 		<cfif media.recordcount gt 0>
 			<div class="thumbs">
 				<div class="thumb_spcr">&nbsp;</div>
