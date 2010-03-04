@@ -509,8 +509,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 	var f=document.getElementById('goWhere').value;
 	var i='#collObjIdList#';
 	var lla=i.split(',');
-	console.log(lla.length);
-	
+	if (lla.length>999){
+		i='';
+	}
 	var t='#session.SpecSrchTab#';
 	var o1=document.getElementById('orderBy1').value;
 	var o2=document.getElementById('orderBy2').value;
