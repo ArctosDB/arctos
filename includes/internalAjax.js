@@ -326,7 +326,7 @@ function addAgent (n) {
 	newRow+='<td>';
 	newRow+='<input type="hidden" name="author_id_' + thisID + '" id="author_id_' + thisID + '">';
 	newRow+='<input type="text" name="author_name_' + thisID + '" id="author_name_' + thisID + '" class="reqdClr"  size="50" ';
-	newRow+='onchange="findAgentName(\'author_id_' + thisID + '\',this.name,\'newpub\',this.value);"';		
+	newRow+='onchange="findAgentName(\'author_id_' + thisID + '\',this.name,this.value);"';		
 	newRow+='onKeyPress="return noenter(event);">';
 	newRow+='</td>';
 	newRow+='</tr>';		
