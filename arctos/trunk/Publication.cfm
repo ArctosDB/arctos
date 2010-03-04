@@ -197,8 +197,8 @@
 		         media_relations.media_relationship like '%publication' and
 		         media_relations.related_primary_key = #publication_id#
 		</cfquery>
-		<cfdump var=#media#>
 		<cfif media.recordcount gt 0>
+			Click Media Details to edit Media or remove the link to this Publication.
 			<div class="thumbs">
 				<div class="thumb_spcr">&nbsp;</div>
 				<cfloop query="media">
@@ -232,7 +232,11 @@
 			</div>
 		</cfif>
 		<div class="cellDiv">
-			Add Media (yellow cells are only required if you supply or create a URI):
+			Add Media:
+			<div style="font-size:small">
+				 Yellow cells are only required if you supply or create a URI. You may leave this section blank.
+				 <br>Find Media and create a relationship to link existing Media to this Publication.
+			</div>():
 			<label for="media_uri">Media URI</label>
 			<input type="text" name="media_uri" id="media_uri" size="90" class="reqdClr"><span class="infoLink" id="uploadMedia">Upload</span>
 			<label for="preview_uri">Preview URI</label>
@@ -252,7 +256,7 @@
 				</cfloop>
 			</select>
 			<label for="media_desc">Media Description</label>
-			<input type="text" name="media_desc" id="media_desc" size="80">
+			<input type="text" name="media_desc" id="media_desc" size="80" class="reqdClr">
 		</div>
 		
 			
@@ -595,7 +599,7 @@
 					</cfloop>
 				</select>
 				<label for="media_desc">Media Description</label>
-				<input type="text" name="media_desc" id="media_desc" size="80">
+				<input type="text" name="media_desc" id="media_desc" size="80" class="reqdClr">
 			</div>
 			<br><input type="submit" value="create publication" class="insBtn">
 			
