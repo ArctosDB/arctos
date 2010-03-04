@@ -1,16 +1,5 @@
 <cfinclude template="../includes/_pickHeader.cfm">
-	<!--- make sure we're searching for something --->
-	<cfoutput>
-	<cfset rdurl="findAgentName.cfm?agentIdFld=#agentIdFld#&agentNameFld=#agentNameFld#">
-	<cfif not isdefined("agentname")><cfset agentname=""></cfif>
-	<form method="post" action="findAgentName.cfm">
-		<input type="hidden" name="agentIdFld" id="agentIdFld" value="#agentIdFld#">
-		<input type="hidden" name="agentNameFld" id="agentNameFld" value="#agentNameFld#">
-		<label for="agentname">Agent Name</label>
-		<input type="text" id="agentname" name="agentname" value="#agentname#">
-		<br><input type="submit" class="lnkBtn" value="Search">
-	</form>
-	<script>
+<script>
 		function makeNewName(name,id) {
 			var a = prompt("Enter a new name (name type=aka) for " + name);
 			if(a) {
@@ -33,6 +22,19 @@
 			}
 		}
 	</script>
+	
+<cfif action is "nothing">
+<cfoutput>
+	<cfset rdurl="findAgentName.cfm?agentIdFld=#agentIdFld#&agentNameFld=#agentNameFld#">
+	<cfif not isdefined("agentname")><cfset agentname=""></cfif>
+	<form method="post" action="findAgentName.cfm">
+		<input type="hidden" name="agentIdFld" id="agentIdFld" value="#agentIdFld#">
+		<input type="hidden" name="agentNameFld" id="agentNameFld" value="#agentNameFld#">
+		<label for="agentname">Agent Name</label>
+		<input type="text" id="agentname" name="agentname" value="#agentname#">
+		<br><input type="submit" class="lnkBtn" value="Search">
+	</form>
+	
 		<cfquery name="getAgentId" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 			SELECT 
 				dispNames.agent_id,
@@ -107,7 +109,7 @@
 	</table>
 </cfif>
 </cfoutput>
-
+</cfif>
 <cfif action is "newOtherAgent">
 	<cfquery name="ctAgentType" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select agent_type from ctagent_type order by agent_type
