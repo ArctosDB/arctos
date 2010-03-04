@@ -27,7 +27,7 @@
 		        identification.accepted_id_fg=1 and
 		        media_relations.related_primary_key = identification.collection_object_id and
 		        identification.identification_id=identification_taxonomy.identification_id and
-		        media.preview_uri is not null and
+		        --media.preview_uri is not null and
 		        identification_taxonomy.taxon_name_id=#taxon_name_id#
 		    UNION
 		    select 
@@ -42,7 +42,7 @@
 		         media_relations
 		     where
 		         media.media_id=media_relations.media_id and
-		         media.preview_uri is not null and
+		         --media.preview_uri is not null and
 		         media_relations.media_relationship like '%taxonomy' and
 		         media_relations.related_primary_key = #taxon_name_id#
 		 ) group by
