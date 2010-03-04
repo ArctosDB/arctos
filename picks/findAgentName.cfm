@@ -22,7 +22,7 @@
 					},
 					function (result) {
 						if(result=='success'){
-							document.location='findAgentName.cfm?agentIdFld=#agentIdFld#&agentNameFld=#agentNameFld#&agentname=' + a;
+							document.location='findAgentName.cfm?agentIdFld=#agentIdFld#&agentNameFld=#agentNameFld#&agent_is=' + id;
 						}else{
 							alert(result);
 						}
@@ -43,6 +43,9 @@
 			WHERE
 				searchNames.agent_id = dispNames.agent_id (+)
 				AND UPPER(searchNames.agent_name) LIKE '%#ucase(agentname)#%'
+				<cfif isdefined("agent_id") and agent_id gt 0>
+					and searchNames.agent_id=#agent_id#
+				</cfif>
 			GROUP BY
 				dispNames.agent_id,
 				dispNames.agent_name_id,
