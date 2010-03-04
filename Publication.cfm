@@ -181,23 +181,23 @@
 			</table>
 		</div>
 		<cfquery name="media" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-    select distinct 
-        media.media_id,
-        media.media_uri,
-        media.mime_type,
-        media.media_type,
-        media.preview_uri
-     from
-         media,
-         media_relations,
-         media_labels
-     where
-         media.media_id=media_relations.media_id and
-         media.media_id=media_labels.media_id (+) and
-         media_relations.media_relationship like '%publication' and
-         media_relations.related_primary_key = #publication_id#
-</cfquery>
-		<div class="cellDiv">
+		    select distinct 
+		        media.media_id,
+		        media.media_uri,
+		        media.mime_type,
+		        media.media_type,
+		        media.preview_uri
+		     from
+		         media,
+		         media_relations,
+		         media_labels
+		     where
+		         media.media_id=media_relations.media_id and
+		         media.media_id=media_labels.media_id (+) and
+		         media_relations.media_relationship like '%publication' and
+		         media_relations.related_primary_key = #publication_id#
+		</cfquery>
+		<cfif media.recordcount gt 0>
 			<div class="thumbs">
 				<div class="thumb_spcr">&nbsp;</div>
 				<cfloop query="media">
@@ -229,7 +229,7 @@
 				</cfloop>
 				<div class="thumb_spcr">&nbsp;</div>
 			</div>
-		</div>
+		</cfif>
 		<div class="cellDiv">
 			Add Media (yellow cells are only required if you supply or create a URI):
 			<label for="media_uri">Media URI</label>
