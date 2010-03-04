@@ -23,7 +23,7 @@
 					function (result) {
 						if(result=='success'){
 							document.location='/findAgentName.cfm?agentIdFld=#agentIdFld#&agentNameFld=#agentNameFld#&agentname=' + a;
-						else{
+						}else{
 							alert(result);
 						}
 					}
