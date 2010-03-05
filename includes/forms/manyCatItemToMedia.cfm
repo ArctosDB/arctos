@@ -55,9 +55,9 @@
 				AND other_id_type = '#oidType#'
 				AND display_value IN ( #oidNumList# )">
 		</cfif>
-	<cfif len(collID) gt 0>
-        <cfset sql = "#sql# AND collection='#collID#'">
-    </cfif>
+		<cfif len(collID) gt 0>
+	        <cfset sql = "#sql# AND collection='#collID#'">
+	    </cfif>
 					
 	
 	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -85,5 +85,6 @@
 				opener.document.#formName#.#CatNumStrFld#.value='#collection# #cat_num# (#scientific_name#)';self.close();">#collection# #cat_num# #scientific_name#</a>
 			</cfloop>
 			
+	</cfif>
 	</cfif>
 </cfoutput>
