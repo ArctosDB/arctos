@@ -16,7 +16,25 @@
 		var guts = "/includes/forms/manyCatItemToMedia.cfm?media_id=" + mid;
 		
 		
-		$('#bgDiv').append('<iframe id="mmif" class="annotateDiv" width="600" height="600" src="/includes/forms/manyCatItemToMedia.cfm?media_id=123">');
+		
+	
+	var theDiv = document.createElement('div');
+	theDiv.id = 'annotateDiv';
+	theDiv.className = 'annotateBox';
+	theDiv.innerHTML='';
+	theDiv.src = "";
+	document.body.appendChild(theDiv);
+	//var guts = "/info/annotate.cfm?q=" + q;
+	jQuery('#annotateDiv').load(guts,{},function(){
+		viewport.init("#annotateDiv");
+		viewport.init("#bgDiv");
+	});
+}
+
+
+
+
+	//	$('#bgDiv').append('<iframe id="mmif" class="annotateDiv" width="600" height="600" src="/includes/forms/manyCatItemToMedia.cfm?media_id=123">');
 		
     	//$('iframe#mmif').attr('src', guts);
 
@@ -30,8 +48,8 @@
 	
 		
 		//jQuery('iframe#mmif').load(guts,{},function(){
-			viewport.init("#annotateDiv");
-			viewport.init("#mmif");
+			//viewport.init("#annotateDiv");
+			//viewport.init("#mmif");
 		//});
 
 	}
