@@ -63,27 +63,19 @@
 	<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
-        <cfif #getItems.recordcount# is 0>
+        <cfif getItems.recordcount is 0>
 			-foundNothing-
 		<cfelse>
-			<cfset thisCollObjId = "">
-			<cfloop query="getItems">
-				<cfif len(#thisCollObjId#) is 0>
-					<cfset thisCollObjId = #collection_object_id#>
-				<cfelse>
-					<cfset thisCollObjId = "#thisCollObjId#,#collection_object_id#">
-				</cfif>
-				
-			</cfloop>
-			<p>
-				<br><a href="javascript: opener.document.#formName#.#collIdFld#.value='#thisCollObjId#';
-				opener.document.#formName#.#CatNumStrFld#.value='MULTIPLE';self.close();">Select All</a>
-			
-			</p>
-			<cfloop query="getItems">
-				<br><a href="javascript: opener.document.#formName#.#collIdFld#.value='#collection_object_id#';
-				opener.document.#formName#.#CatNumStrFld#.value='#collection# #cat_num# (#scientific_name#)';self.close();">#collection# #cat_num# #scientific_name#</a>
-			</cfloop>
+			<table border>
+				<tr>
+					<cfloop query="getItems">
+						<td>
+							#collection# #cat_num#
+						</td>
+						<td>#scientific_name#</td>
+					</cfloop>
+				</tr>
+			</table>
 			
 	</cfif>
 	</cfif>
