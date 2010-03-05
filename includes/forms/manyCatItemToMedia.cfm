@@ -12,14 +12,14 @@
         <select name="collID" id="collID" size="1">
 		    <option value="">Any</option>
 			<cfloop query="ctcollection">
-				<option <cfif #collID# is #collection#> selected="selected" </cfif>value="#collection#">#collection#</option>
+				<option value="#collection#">#collection#</option>
 			</cfloop>
 		</select>
 		<label for="oidType">Other ID Type</label>
         <select name="oidType" id="oidType" size="1">
-			<option <cfif #oidType# is "catalog_number"> selected </cfif>value="catalog_number">Catalog Number</option>
+			<option value="catalog_number">Catalog Number</option>
 			<cfloop query="ctOtherIdType">
-				<option <cfif #oidType# is #other_id_type#> selected </cfif>value="#other_id_type#">#other_id_type#</option>
+				<option value="#other_id_type#">#other_id_type#</option>
 			</cfloop>
 		</select>
 		<label for="oidNum">Other ID Num</label>
