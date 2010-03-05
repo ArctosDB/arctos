@@ -483,7 +483,9 @@
 					select 
 						media.media_id,
 						media_type,
-						mime_type
+						mime_type,
+						media_uri,
+						preview_uri
 					from 
 						media,
 						media_relations
