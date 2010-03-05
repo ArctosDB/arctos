@@ -495,7 +495,7 @@
 				<cfif len(#pubmedia.media_id#) gt 0>
 					<div class="thumbs">
 						<div class="thumb_spcr">&nbsp;</div>
-							<cfloop query="media">
+							<cfloop query="pubmedia">
 								<cfset puri=getMediaPreview(preview_uri,media_type)>
 				            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 									select
