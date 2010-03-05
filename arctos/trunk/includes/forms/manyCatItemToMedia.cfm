@@ -34,7 +34,7 @@
 						collection,
 						cataloged_item.collection_object_id,
 						scientific_name,
-						concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
+						concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID
 					 FROM 
 						cataloged_item,
 						identification,
