@@ -67,9 +67,10 @@
         <cfif getItems.recordcount is 0>
 			-foundNothing-
 		<cfelse>
-			Found #getItems.recordcount# specimens. <a href="manyCatItemToMedia.cfm?action=add&media_id=#media_id#&cid=#valuelist(getItems.collection_object_id)">
-														Add all to Media
-													</a>
+			Found #getItems.recordcount# specimens. 
+			<a href="manyCatItemToMedia.cfm?action=add&media_id=#media_id#&cid=#valuelist(getItems.collection_object_id)#">
+				Add all to Media
+			</a>
 			<table border>
 				<tr>
 					<th>Item</th>
