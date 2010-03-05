@@ -27,6 +27,8 @@
         <br>
 		<input type="submit" value="Search" class="schBtn">
 	</form>
+	
+	<!-----------
 <cfif len(oidNum) is 0>
 	<cfabort>
 </cfif>
@@ -101,6 +103,7 @@
 			
 			
 		</cfif>
+		----------->
 </cfoutput>
 
 <cfinclude template="../includes/_pickFooter.cfm">
