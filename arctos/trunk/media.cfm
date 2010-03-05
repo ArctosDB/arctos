@@ -33,10 +33,12 @@
 
 		
 		//var guts = "/info/annotate.cfm?q=" + q;
+		/*
 		jQuery('#annotateDiv').load(guts,{},function(){
 			viewport.init("#annotateDiv");
 			viewport.init("#bgDiv");
 		});
+		*/
 
 
 
