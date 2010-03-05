@@ -526,8 +526,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 	u += sep + 'collection_object_id=' + i;
 	u += '&table_name=' + t;
 	u += '&sort=' + s;
-	alert(u);	
-	var reportWin=window.open(u);
+	console.log(u);	
+	//var reportWin=window.open(u);
 }
 </script>
 </cfoutput>
