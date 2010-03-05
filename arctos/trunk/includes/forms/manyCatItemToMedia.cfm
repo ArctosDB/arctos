@@ -105,5 +105,3 @@
 		</cfif>
 		----------->
 </cfoutput>
-
-<cfinclude template="../includes/_pickFooter.cfm">
