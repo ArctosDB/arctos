@@ -16,7 +16,6 @@
 		var guts = "/includes/forms/manyCatItemToMedia.cfm?media_id=" + mid;
 		
 		
-		var guts = "/SpecimenSearch.cfm";
 		
 		
 	
