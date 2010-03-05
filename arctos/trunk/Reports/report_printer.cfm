@@ -69,6 +69,9 @@
 		<cfif sql contains "##session.CustomOtherIdentifier##">
 			<cfset sql=replace(sql,"##session.CustomOtherIdentifier##",#session.CustomOtherIdentifier#,"all")>
 		</cfif>
+		<cfif sql contains "##session.SpecSrchTab##">
+			<cfset sql=replace(sql,"##session.SpecSrchTab##",#session.SpecSrchTab#,"all")>
+		</cfif>
 		
 		
 		 
