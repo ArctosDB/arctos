@@ -66,15 +66,20 @@
         <cfif getItems.recordcount is 0>
 			-foundNothing-
 		<cfelse>
+			Found #getItems.recordcount# specimens.
 			<table border>
 				<tr>
-					<cfloop query="getItems">
+					<th>Item</th>
+					<th>ID</th>
+				</tr>
+				<cfloop query="getItems">
+					<tr>
 						<td>
 							#collection# #cat_num#
 						</td>
 						<td>#scientific_name#</td>
-					</cfloop>
-				</tr>
+					</tr>
+				</cfloop>
 			</table>
 			
 	</cfif>
