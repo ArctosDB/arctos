@@ -410,7 +410,7 @@
 				publication.publication_title,
 				publication.publication_id,
 				publication.publication_type,
-				formatted_publication.formatted_publication,
+				formatted_publication.formatted_publication
 			ORDER BY 
 				formatted_publication.formatted_publication,
 				publication.publication_id">
