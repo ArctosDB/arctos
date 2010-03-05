@@ -485,8 +485,10 @@
 						media_type,
 						mime_type
 					from 
+						media,
 						media_relations
 					where 
+						media.media_id=media_relations.media_id and
 						media_relationship like '% publication' and
 						related_primary_key=#publication_id#
 				</cfquery>
