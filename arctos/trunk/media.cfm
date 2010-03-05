@@ -22,13 +22,15 @@
 		theDiv.id = 'annotateDiv';
 		theDiv.className = 'annotateBox';
 		theDiv.innerHTML='';
-		theDiv.src = "";
+		theDiv.src = '<iframe src="' + guts + '">';
 		document.body.appendChild(theDiv);
-	//var guts = "/info/annotate.cfm?q=" + q;
-	jQuery('#annotateDiv').load(guts,{},function(){
-		viewport.init("#annotateDiv");
-		viewport.init("#bgDiv");
-	});
+		
+		
+		//var guts = "/info/annotate.cfm?q=" + q;
+		jQuery('#annotateDiv').load(guts,{},function(){
+			viewport.init("#annotateDiv");
+			viewport.init("#bgDiv");
+		});
 
 
 
