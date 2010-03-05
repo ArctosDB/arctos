@@ -2281,9 +2281,9 @@
 					<cfquery name="v" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						select LOCATOR_ID from dgr_locator
 						where								
-							FREEZER=#freezer#,
-							RACK=#rack#,
-							BOX=#box#,
+							FREEZER=#freezer# and
+							RACK=#rack# and
+							BOX=#box# and
 							PLACE=#place#	
 					</cfquery>
 					<cfquery name="newLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
