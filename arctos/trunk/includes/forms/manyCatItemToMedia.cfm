@@ -33,7 +33,8 @@
 						cat_num, 
 						collection,
 						cataloged_item.collection_object_id,
-						scientific_name
+						scientific_name,
+						concatSingleOtherId(cataloged_item.collection_object_id,'#session.CustomOtherIdentifier#') AS CustomID,
 					 FROM 
 						cataloged_item,
 						identification,
@@ -66,11 +67,14 @@
         <cfif getItems.recordcount is 0>
 			-foundNothing-
 		<cfelse>
-			Found #getItems.recordcount# specimens.
+			Found #getItems.recordcount# specimens. <a href="manyCatItemToMedia.cfm?action=add&media_id=#media_id#&cid=#valuelist(getItems.collection_object_id)">
+														Add all to Media
+													</a>
 			<table border>
 				<tr>
 					<th>Item</th>
 					<th>ID</th>
+					<th>#session.CustomOtherIdentifier#</th>
 				</tr>
 				<cfloop query="getItems">
 					<tr>
@@ -78,10 +82,14 @@
 							#collection# #cat_num#
 						</td>
 						<td>#scientific_name#</td>
+						<td>#CustomOtherIdentifier#</td>
 					</tr>
 				</cfloop>
 			</table>
 			
 	</cfif>
+	</cfif>
+	<cfif action is "add">
+		<cfdump var=#url#>
 	</cfif>
 </cfoutput>
