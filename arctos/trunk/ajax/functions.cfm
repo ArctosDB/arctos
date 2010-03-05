@@ -2276,10 +2276,45 @@
 			<cfset temp = QuerySetCell(result, "TISSUE_TYPE", "#tissue_type#", 1)>
 		</cftransaction>
 		<cfcatch>
-			<cfset result = querynew("LOCATOR_ID,FREEZER")>
-			<cfset temp = queryaddrow(result,1)>
-			<cfset temp = QuerySetCell(result, "LOCATOR_ID", "99999999", 1)>
-			<cfset temp = QuerySetCell(result, "FREEZER", "A query error occured: #cfcatch.Message# #cfcatch.Detail#", 1)>
+			<cftry>
+				<cftransaction>
+					<cfquery name="v" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						select LOCATOR_ID from dgr_locator
+						where								
+							FREEZER=#freezer#,
+							RACK=#rack#,
+							BOX=#box#,
+							PLACE=#place#	
+					</cfquery>
+					<cfquery name="newLoc" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+						update dgr_locator set
+							NK=#nk#,
+							TISSUE_TYPE='#tissue_type#'
+						where								
+							FREEZER=#freezer#,
+							RACK=#rack#,
+							BOX=#box#,
+							PLACE=#place#		
+					</cfquery>
+					<cfset result = querynew("LOCATOR_ID,FREEZER,RACK,BOX,PLACE,NK,TISSUE_TYPE")>
+					<cfset temp = queryaddrow(result,1)>
+					<cfset temp = QuerySetCell(result, "LOCATOR_ID", "#v.locator_id#", 1)>
+					<cfset temp = QuerySetCell(result, "FREEZER", "#freezer#", 1)>
+					<cfset temp = QuerySetCell(result, "RACK", "#rack#", 1)>
+					<cfset temp = QuerySetCell(result, "BOX", "#box#", 1)>
+					<cfset temp = QuerySetCell(result, "PLACE", "#place#", 1)>
+					<cfset temp = QuerySetCell(result, "NK", "#nk#", 1)>
+					<cfset temp = QuerySetCell(result, "TISSUE_TYPE", "#tissue_type#", 1)>
+				</cftransaction>
+			<cfcatch>
+				
+				<cfset result = querynew("LOCATOR_ID,FREEZER")>
+				<cfset temp = queryaddrow(result,1)>
+				<cfset temp = QuerySetCell(result, "LOCATOR_ID", "99999999", 1)>
+				<cfset temp = QuerySetCell(result, "FREEZER", "A query error occured: #cfcatch.Message# #cfcatch.Detail#", 1)>
+		
+			</cfcatch>
+			</cftry>
 		</cfcatch>
 	</cftry>
 		<cfreturn result>
