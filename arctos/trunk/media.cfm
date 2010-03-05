@@ -16,9 +16,9 @@
 		var guts = "/includes/forms/manyCatItemToMedia.cfm?media_id=" + mid;
 		
 		
-		$('#bgDiv').append('<iframe id="mmif" width="600" height="600">');
+		$('#bgDiv').append('<iframe id="mmif" width="600" height="600" src="/includes/forms/manyCatItemToMedia.cfm?media_id=123">');
 		
-    	$('iframe#mmif').attr('src', guts);
+    	//$('iframe#mmif').attr('src', guts);
 
 	 
 		
@@ -29,10 +29,10 @@
 
 	
 		
-		jQuery('iframe#mmif').load(guts,{},function(){
+		//jQuery('iframe#mmif').load(guts,{},function(){
 			viewport.init("#annotateDiv");
-			viewport.init("#bgDiv");
-		});
+			viewport.init("#mmif");
+		//});
 
 	}
 </script>
