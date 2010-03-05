@@ -154,7 +154,7 @@
 					<option <cfif #media.media_type# is #ctmedia_type.media_type#> selected="selected"</cfif> value="#media_type#">#media_type#</option>
 				</cfloop>
 			</select>
-			<label for="relationships">Media Relationships</label>
+			<label for="relationships">Media Relationships | <span class="likeLink" onclick="manyCatItemToMedia()">Add multiple cataloged items</span></label>
 			<div id="relationships" style="border:1px dashed red;">
 				<cfset i=1>
 				<cfif relns.recordcount is 0>
