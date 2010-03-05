@@ -12,7 +12,7 @@
 		document.body.appendChild(bgDiv);
 		
 		$('#bgDiv').append('<iframe id="mmif" />');
-		var guts = "/includes/forms/namyCatItemToMedia.cfm?media_id=" + mid;
+		var guts = "/includes/forms/manyCatItemToMedia.cfm?media_id=" + mid;
 
 
 	
