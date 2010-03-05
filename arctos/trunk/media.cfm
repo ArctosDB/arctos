@@ -29,7 +29,8 @@
 		viewport.init("#annotateDiv");
 		viewport.init("#bgDiv");
 	});
-}
+
+
 
 
 
