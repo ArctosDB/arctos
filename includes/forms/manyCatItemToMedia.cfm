@@ -24,7 +24,7 @@
 			</cfloop>
 		</select>
 		<label for="oidNum">Other ID Num (comma-list)</label>
-        <textarea id="" name="" rows="4" cols="40"></textarea>
+        <textarea id="oidNum" name="oidNum" rows="4" cols="40"></textarea>
         <br>
 		<input type="submit" value="Search" class="schBtn">
 	</form>
