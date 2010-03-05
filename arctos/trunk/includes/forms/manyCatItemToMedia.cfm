@@ -1,4 +1,4 @@
-<cf_rolecheck>
+<cfinclude template="/includes/_pickHeader.cfm">
 <cfquery name="ctcollection" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select distinct(collection) from collection order by collection
 </cfquery>
