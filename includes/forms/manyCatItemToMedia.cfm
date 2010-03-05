@@ -23,7 +23,7 @@
 			</cfloop>
 		</select>
 		<label for="oidNum">Other ID Num</label>
-        <input type="text" name="oidNum" id="oidNum" value="#oidNum#">
+        <input type="text" name="oidNum" id="oidNum">
         <br>
 		<input type="submit" value="Search" class="schBtn">
 	</form>
