@@ -505,31 +505,34 @@ If your item needs to be sorted in a special way, then do that here. --->
 </script>
 <script language="javascript" type="text/javascript">
 	function reporter() {
-
-	var f=document.getElementById('goWhere').value;
-	var i='#collObjIdList#';
-	var lla=i.split(',');
-	console.log(lla.length);
-	
-	if (lla.length>999){
-		var i='';
-		console.log('new i ' + i);
+		var f=document.getElementById('goWhere').value;
+		
+		
+		var t='#session.SpecSrchTab#';
+		var o1=document.getElementById('orderBy1').value;
+		var o2=document.getElementById('orderBy2').value;
+		var s=o1 + ',' + o2;
+		var u = f;
+		var sep="?";
+		if (f.indexOf('?') > 0) {
+			sep='&';
+		}
+		
+		var lla=i.split(',');
+		console.log(lla.length);
+		var i;
+		if (lla.length>999){
+			i='';
+			console.log('new i ' + i);
+		} else {
+			i='#collObjIdList#';
+		}
+		u += sep + 'collection_object_id=' + i;
+		u += '&table_name=' + t;
+		u += '&sort=' + s;
+		console.log(u);	
+		//var reportWin=window.open(u);
 	}
-	var t='#session.SpecSrchTab#';
-	var o1=document.getElementById('orderBy1').value;
-	var o2=document.getElementById('orderBy2').value;
-	var s=o1 + ',' + o2;
-	var u = f;
-	var sep="?";
-	if (f.indexOf('?') > 0) {
-		sep='&';
-	}
-	u += sep + 'collection_object_id=' + i;
-	u += '&table_name=' + t;
-	u += '&sort=' + s;
-	console.log(u);	
-	//var reportWin=window.open(u);
-}
 </script>
 </cfoutput>
 <cfinclude template="/includes/_footer.cfm">
