@@ -3,6 +3,27 @@
     <cfinclude template="/includes/_header.cfm">
 </div>
 <script type='text/javascript' src='/includes/internalAjax.js'></script>
+<script>
+	function manyCatItemToMedia(mid){
+		var bgDiv = document.createElement('div');
+		bgDiv.id = 'bgDiv';
+		bgDiv.className = 'bgDiv';
+		bgDiv.setAttribute('onclick','closeManyMedia()');
+		document.body.appendChild(bgDiv);
+		
+		$('#bgDiv').append('<iframe id="mmif" />');
+		var guts = "/includes/forms/namyCatItemToMedia.cfm?media_id=" + mid;
+
+
+	
+		
+		jQuery('#mmif').load(guts,{},function(){
+			viewport.init("#annotateDiv");
+			viewport.init("#bgDiv");
+		});
+
+	}
+</script>
 <cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select media_relationship from ctmedia_relationship order by media_relationship
 </cfquery>
@@ -154,7 +175,7 @@
 					<option <cfif #media.media_type# is #ctmedia_type.media_type#> selected="selected"</cfif> value="#media_type#">#media_type#</option>
 				</cfloop>
 			</select>
-			<label for="relationships">Media Relationships | <span class="likeLink" onclick="manyCatItemToMedia()">Add multiple cataloged items</span></label>
+			<label for="relationships">Media Relationships | <span class="likeLink" onclick="manyCatItemToMedia('#media_id#')">Add multiple cataloged items</span></label>
 			<div id="relationships" style="border:1px dashed red;">
 				<cfset i=1>
 				<cfif relns.recordcount is 0>
