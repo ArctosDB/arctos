@@ -16,15 +16,22 @@
 		var guts = "/includes/forms/manyCatItemToMedia.cfm?media_id=" + mid;
 		
 		
+		var guts = "/SpecimenSearch.cfm";
+		
 		
 	
 		var theDiv = document.createElement('div');
 		theDiv.id = 'annotateDiv';
 		theDiv.className = 'annotateBox';
 		theDiv.innerHTML='';
-		theDiv.src = '<iframe src="' + guts + '">';
+		theDiv.src = '';
 		document.body.appendChild(theDiv);
 		
+		
+		$('#annotateDiv').append('<iframe id="commentiframe" />');
+		$('#commentiframe').attr('src', guts);
+
+
 		
 		//var guts = "/info/annotate.cfm?q=" + q;
 		jQuery('#annotateDiv').load(guts,{},function(){
