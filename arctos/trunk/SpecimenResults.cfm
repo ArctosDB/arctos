@@ -517,8 +517,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 		if (f.indexOf('?') > 0) {
 			sep='&';
 		}
-		
-		var lla=i.split(',');
+		var lla='#collObjIdList#'.split(',');
 		console.log(lla.length);
 		var i;
 		if (lla.length>999){
