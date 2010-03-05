@@ -27,7 +27,7 @@
 		document.body.appendChild(theDiv);
 		
 		
-		$('#annotateDiv').append('<iframe id="commentiframe" />');
+		$('#annotateDiv').append('<iframe id="commentiframe" width="100%" height="100%">');
 		$('#commentiframe').attr('src', guts);
 
 
