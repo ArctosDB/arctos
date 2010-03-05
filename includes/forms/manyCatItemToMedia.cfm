@@ -83,7 +83,7 @@
 							#collection# #cat_num#
 						</td>
 						<td>#scientific_name#</td>
-						<td>#CustomOtherIdentifier#</td>
+						<td>#CustomID#</td>
 					</tr>
 				</cfloop>
 			</table>
