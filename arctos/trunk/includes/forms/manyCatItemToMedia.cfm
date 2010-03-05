@@ -69,7 +69,7 @@
 		<cfelse>
 			Found #getItems.recordcount# specimens. 
 			<a href="manyCatItemToMedia.cfm?action=add&media_id=#media_id#&cid=#valuelist(getItems.collection_object_id)#">
-				Add all to Media
+				Add all to Media as "shows cataloged_item"
 			</a>
 			<table border>
 				<tr>
@@ -91,6 +91,23 @@
 	</cfif>
 	</cfif>
 	<cfif action is "add">
-		<cfdump var=#url#>
+		<cftransaction>
+			<cfloop list="#cid#" index="i">
+				<cfquery name="getItems" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+					insert into media_relations (
+						media_id,
+						MEDIA_RELATIONSHIP,
+						RELATED_PRIMARY_KEY
+					) values (
+						#media_id#,
+						'shows cataloged_item',
+						#i#
+					)
+				</cfquery>
+			</cfloop>
+		</cftransaction>
+		<script>
+			top.location="/media.cfm?action=edit&media_id=" + #media_id#;
+		</script>
 	</cfif>
 </cfoutput>
