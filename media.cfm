@@ -11,13 +11,25 @@
 		bgDiv.setAttribute('onclick','closeManyMedia()');
 		document.body.appendChild(bgDiv);
 		
-		$('#bgDiv').append('<iframe id="mmif" />');
+		
+		
 		var guts = "/includes/forms/manyCatItemToMedia.cfm?media_id=" + mid;
+		
+		
+		$('#bgDiv').append('<iframe id="mmif" />');
+		
+    	$('iframe#mmif').attr('src', guts);
+
+	 
+		
+		
+		
+		
 
 
 	
 		
-		jQuery('#mmif').load(guts,{},function(){
+		jQuery('iframe#mmif').load(guts,{},function(){
 			viewport.init("#annotateDiv");
 			viewport.init("#bgDiv");
 		});
