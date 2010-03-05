@@ -8,7 +8,7 @@
 <cfoutput>
 	<form name="findCatItem" method="post" action="manyCatItemToMedia.cfm">
         <input type="hidden" name="action" value="search">
-		<input type="hidden" name="media_id" value="media_id">
+		<input type="hidden" name="media_id" value="#media_id#">
 		<label for="collID">Collection</label>
         <select name="collID" id="collID" size="1">
 		    <option value="">Any</option>
