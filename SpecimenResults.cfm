@@ -512,7 +512,8 @@ If your item needs to be sorted in a special way, then do that here. --->
 	console.log(lla.length);
 	
 	if (lla.length>999){
-		i='';
+		var i='';
+		console.log('new i ' + i);
 	}
 	var t='#session.SpecSrchTab#';
 	var o1=document.getElementById('orderBy1').value;

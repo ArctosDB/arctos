@@ -357,7 +357,7 @@ Found #summary.cnt# records.
 						<ul>
 							<cfif isdefined("session.roles") and listfindnocase(session.roles,"manage_taxonomy")>
 								<li>
-									<a href="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">Edit</a>					
+									<a target="_blank" href="Taxonomy.cfm?Action=edit&taxon_name_id=#taxon_name_id#">Edit</a>					
 								</li>
 							</cfif>
 							<li>
