@@ -16,7 +16,7 @@
 		var guts = "/includes/forms/manyCatItemToMedia.cfm?media_id=" + mid;
 		
 		
-		$('#bgDiv').append('<iframe id="mmif" width="600" height="600" src="/includes/forms/manyCatItemToMedia.cfm?media_id=123">');
+		$('#bgDiv').append('<iframe id="mmif" class="annotateDiv" width="600" height="600" src="/includes/forms/manyCatItemToMedia.cfm?media_id=123">');
 		
     	//$('iframe#mmif').attr('src', guts);
 
