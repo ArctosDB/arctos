@@ -482,7 +482,7 @@ If your item needs to be sorted in a special way, then do that here. --->
 					<option value="/info/part_data_download.cfm">
 						Parts table/download
 					</option>
-                    <option value="/Reports/report_printer.cfm?collection_object_id=#collObjIdList#">
+                    <option value="/Reports/report_printer.cfm">
 						Print Any Report
 					</option>
 				</select>
@@ -506,8 +506,6 @@ If your item needs to be sorted in a special way, then do that here. --->
 <script language="javascript" type="text/javascript">
 	function reporter() {
 		var f=document.getElementById('goWhere').value;
-		
-		
 		var t='#session.SpecSrchTab#';
 		var o1=document.getElementById('orderBy1').value;
 		var o2=document.getElementById('orderBy2').value;
@@ -518,11 +516,9 @@ If your item needs to be sorted in a special way, then do that here. --->
 			sep='&';
 		}
 		var lla='#collObjIdList#'.split(',');
-		console.log(lla.length);
 		var i;
 		if (lla.length>999){
 			i='';
-			console.log('new i ' + i);
 		} else {
 			i='#collObjIdList#';
 		}
