@@ -305,8 +305,6 @@
 			publication.publication_id,
 			publication.publication_type,
 			formatted_publication.formatted_publication,
-			publication_url.description,
-			publication_url.link,
 			count(distinct(citation.collection_object_id)) numCits">
 	<cfset basFrom = "
 		FROM 
@@ -316,14 +314,12 @@
 			agent_name pubAuth,
 			agent_name searchAuth,
 			formatted_publication,
-			publication_url,
 			citation">
 	<cfset basWhere = "
 		WHERE 
 		publication.publication_id = project_publication.publication_id (+) and
 		publication.publication_id = citation.publication_id (+) 
 		AND publication.publication_id = publication_author_name.publication_id (+) 
-		AND publication.publication_id = publication_url.publication_id (+) 
 		AND publication_author_name.agent_name_id = pubAuth.agent_name_id (+)
 		AND pubAuth.agent_id = searchAuth.agent_id
 		AND formatted_publication.publication_id = publication.publication_id 
@@ -415,8 +411,6 @@
 				publication.publication_id,
 				publication.publication_type,
 				formatted_publication.formatted_publication,
-				publication_url.description,
-				publication_url.link 
 			ORDER BY 
 				formatted_publication.formatted_publication,
 				publication.publication_id">
@@ -468,16 +462,6 @@
 					<cfif isdefined("toproject_id") and len(toproject_id) gt 0>
 						<li><a href="/Project.cfm?action=addPub&publication_id=#publication_id#&project_id=#toproject_id#">Add to Project</a></li>
 					</cfif>
-				</cfif>
-				<cfquery name="links" dbtype="query">
-					select description,
-					link from publication
-					where publication_id=#publication_id#
-				</cfquery>
-				<cfif len(#links.description#) gt 0>
-					<cfloop query="links">
-						<li>View at <a href="#link#" target="_blank" class="external">#description#</a></li>
-					</cfloop>
 				</cfif>
 				<cfquery name="pubmedia" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 					select 
