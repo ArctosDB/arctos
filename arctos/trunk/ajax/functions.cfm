@@ -2291,9 +2291,9 @@
 							NK=#nk#,
 							TISSUE_TYPE='#tissue_type#'
 						where								
-							FREEZER=#freezer#,
-							RACK=#rack#,
-							BOX=#box#,
+							FREEZER=#freezer# and
+							RACK=#rack# and
+							BOX=#box# and
 							PLACE=#place#		
 					</cfquery>
 					<cfset result = querynew("LOCATOR_ID,FREEZER,RACK,BOX,PLACE,NK,TISSUE_TYPE")>
