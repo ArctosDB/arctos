@@ -16,7 +16,7 @@
 		var guts = "/includes/forms/manyCatItemToMedia.cfm?media_id=" + mid;
 		
 		
-		$('#bgDiv').append('<iframe id="mmif" />');
+		$('#bgDiv').append('<iframe id="mmif" width="600" height="600">');
 		
     	$('iframe#mmif').attr('src', guts);
 
