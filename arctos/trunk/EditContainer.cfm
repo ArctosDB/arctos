@@ -58,13 +58,13 @@ sho err
 		var isP=p.value.length;
 		if (type == 'freezer box') {
 			if (isH == 0) {
-				h.value='13';
+				h.value='5';
 			}
 			if (isD == 0) {
 				d.value='13';
 			}
 			if (isW == 0) {
-				w.value='5';
+				w.value='13';
 			}
 			if (isP == 0) {
 				p.value='100';
