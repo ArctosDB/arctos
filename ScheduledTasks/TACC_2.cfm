@@ -57,8 +57,33 @@ select status ||chr(9) || count(*) from tcb2 group by status;
 			<cfif ixrel.c is 0>
 				<cftransaction>
 				<cfquery name="ala" datasource="uam_god">
-					select display_value from coll_obj_other_id_num where other_id_type='ALAAC' and collection_object_id=#collection_object_id#
+					select 
+						'ALA Accession ' || display_value ala,
+						scientific_name
+					from 
+						coll_obj_other_id_num,
+						identification
+					where 
+						coll_obj_other_id_num.collection_object_id=identification.collection_object_id and
+						accepted_id_fg=1 and
+						other_id_type='ALAAC' and 
+						coll_obj_other_id_num.collection_object_id=#collection_object_id#
 				</cfquery>
+				<cfif ala.recordcount is not 1>
+					<cfquery name="ala" datasource="uam_god">
+						select 
+							'ISC ' || display_value ala,
+							scientific_name
+						from 
+							coll_obj_other_id_num,
+							identification
+						where 
+							coll_obj_other_id_num.collection_object_id=identification.collection_object_id and
+							accepted_id_fg=1 and
+							other_id_type='ISC: Ada Hayden Herbarium, Iowa State University' and 
+							coll_obj_other_id_num.collection_object_id=#collection_object_id#
+					</cfquery>
+				</cfif>
 				<cfquery name="nid" datasource="uam_god">
 					select sq_media_id.nextval media_id from dual
 				</cfquery>
@@ -111,7 +136,7 @@ select status ||chr(9) || count(*) from tcb2 group by status;
 					) values (
 						#nid.media_id#,
 						'description',
-						'Original DNG of ALA Accession #ala.display_value# herbarium sheet.',
+						'Original DNG of #ala.ala# (#ala.scientific_name#).',
 						2072
 					)
 				</cfquery>
