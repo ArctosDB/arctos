@@ -261,16 +261,7 @@
 					</cfloop>
 					<div class="thumb_spcr">&nbsp;</div>
 				</div>
-				<!---
-				
-				<ul>
-					<cfloop query="relM">
-						<li><a href="/media/#media_id#"></a></li>
-					</cfloop>
-				</ul>
-				---->
 			</cfif>
-			<cfdump var=#relM#>
 		</td>
 	</tr>
 	<cfset r=r+1>
