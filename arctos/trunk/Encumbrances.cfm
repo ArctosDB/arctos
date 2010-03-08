@@ -388,23 +388,19 @@ Edit Encumbrance:
 <cfquery name="newEncumbrance" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 UPDATE encumbrance SET
 	encumbrance_id = #encumbrance_id#
-	<cfif len(#encumberingAgentId#) gt 0>
-		,ENCUMBERING_AGENT_ID = #encumberingAgentId#	
-	</cfif>
+	,ENCUMBERING_AGENT_ID = #encumberingAgentId#	
 	,ENCUMBRANCE = '#ENCUMBRANCE#'
 	,ENCUMBRANCE_ACTION = '#ENCUMBRANCE_ACTION#'
-	<cfif len(#expiration_date#) gt 0>
+	<cfif len(expiration_date) gt 0>
 		,EXPIRATION_DATE = '#dateformat(EXPIRATION_DATE,"dd-mmm-yyyy")#'	
+	<cfelse>
+		,expiration_date=null
 	</cfif>
-	<cfif len(#EXPIRATION_EVENT#) gt 0>
-		,EXPIRATION_EVENT = '#EXPIRATION_EVENT#'	
-	</cfif>
+	,EXPIRATION_EVENT = '#EXPIRATION_EVENT#'	
 	<cfif len(#MADE_DATE#) gt 0>
 		,MADE_DATE = '#dateformat(MADE_DATE,'dd-mmm-yyyy')#'	
 	</cfif>
-	<cfif len(#REMARKS#) gt 0>
-		,REMARKS = '#REMARKS#'	
-	</cfif>
+	,REMARKS = '#REMARKS#'	
 	where encumbrance_id = #encumbrance_id#
 </cfquery>
 
