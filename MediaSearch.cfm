@@ -232,7 +232,7 @@
 				<br>Related Media
 				<div class="thumbs">
 					<div class="thumb_spcr">&nbsp;</div>
-					<cfloop query="media">
+					<cfloop query="relM">
 						<cfset puri=getMediaPreview(preview_uri,media_type)>
 		            	<cfquery name="labels"  datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							select
