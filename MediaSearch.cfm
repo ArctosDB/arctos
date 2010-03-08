@@ -217,7 +217,7 @@
 				select * from media_relations
 				where
 				media_relationship like '% media' and
-				(media_id=#media_id# OR related_media_id=#media_id#)
+				(media_id=#media_id# OR related_primary_key=#media_id#)
 			</cfquery>
 			<cfdump var=#relM#>
 		</td>
