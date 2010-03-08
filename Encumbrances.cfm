@@ -308,7 +308,7 @@ Edit Encumbrance:
 				class="novisit" 
 				onClick="getDocs('encumbrance','encumbrancer')">Encumbering Agent:</a></td>
 				</td>
-			<td><input type="hidden" name="encumberingAgentId">
+			<td><input type="hidden" name="encumberingAgentId" id="encumberingAgentId" value="#encumbering_agent_id#">
 			
 		<input type="text" name="encumberingAgent" class="reqdClr" value="#agent_name#"
 		 onchange="getAgent('encumberingAgentId','encumberingAgent','updateEncumbrance',this.value); return false;"
