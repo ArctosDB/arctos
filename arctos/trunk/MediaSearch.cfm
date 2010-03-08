@@ -226,7 +226,7 @@
 				where
 					media.media_id=media_relations.media_id and
 					media_relationship like '% media' and
-					(media_relationsmedia_id=#media_id# OR related_primary_key=#media_id#)
+					(media_relations.media_id=#media_id# OR related_primary_key=#media_id#)
 			</cfquery>
 			<cfif relM.recordcount gt 0>
 				<br>Related Media
