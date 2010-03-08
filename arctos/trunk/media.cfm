@@ -10,65 +10,17 @@
 		bgDiv.className = 'bgDiv';
 		bgDiv.setAttribute('onclick','closeManyMedia()');
 		document.body.appendChild(bgDiv);
-		
-		
-		
 		var guts = "/includes/forms/manyCatItemToMedia.cfm?media_id=" + mid;
-		
-		
-		
-		
-	
 		var theDiv = document.createElement('div');
 		theDiv.id = 'annotateDiv';
 		theDiv.className = 'annotateBox';
 		theDiv.innerHTML='';
 		theDiv.src = '';
 		document.body.appendChild(theDiv);
-		
-		
 		$('#annotateDiv').append('<iframe id="commentiframe" width="100%" height="100%">');
 		$('#commentiframe').attr('src', guts);
-
-
-		
-		//var guts = "/info/annotate.cfm?q=" + q;
-		/*
-		jQuery('#annotateDiv').load(guts,{},function(){
-			viewport.init("#annotateDiv");
-			viewport.init("#bgDiv");
-		});
-		*/
-
-
-
-
-
-
-		
-    	//$('iframe#mmif').attr('src', guts);
-
-	 
-		
-		
-		
-		
-
-
-	
-		
-		//jQuery('iframe#mmif').load(guts,{},function(){
-			//viewport.init("#annotateDiv");
-			//viewport.init("#mmif");
-		//});
-
 	}
 </script>
-
-<!----
-	//	$('#bgDiv').append('<iframe id="mmif" class="annotateDiv" width="600" height="600" src="/includes/forms/manyCatItemToMedia.cfm?media_id=123">');
-
----->
 <cfquery name="ctmedia_relationship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 	select media_relationship from ctmedia_relationship order by media_relationship
 </cfquery>
