@@ -213,6 +213,13 @@
                 </li>
 			</cfloop>
 			</ul>
+			<cfquery name="rel<" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+				select * from media_relations
+				where
+				media_relationship like '% media' and
+				(media_id=#media_id# OR related_media_id=#media_id#)
+			</cfquery>
+			<cfdump var=#relM#>
 		</td>
 	</tr>
 	<cfset r=r+1>
