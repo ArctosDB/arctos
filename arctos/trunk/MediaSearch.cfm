@@ -213,7 +213,7 @@
                 </li>
 			</cfloop>
 			</ul>
-			<cfquery name="rel<" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			<cfquery name="relM" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select * from media_relations
 				where
 				media_relationship like '% media' and
