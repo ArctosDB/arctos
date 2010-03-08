@@ -42,7 +42,6 @@
 		         media_relations
 		     where
 		         media.media_id=media_relations.media_id and
-		         --media.preview_uri is not null and
 		         media_relations.media_relationship like '%taxonomy' and
 		         media_relations.related_primary_key = #taxon_name_id#
 		 ) group by
@@ -73,6 +72,9 @@
 				<cfset alt="Media Preview Image">
 				<cfif desc.recordcount is 1>
 					<cfset alt=desc.label_value>
+				</cfif>
+				<cfif len(alt) gt 37>
+					<cfset alt=left(alt,34) & "...">
 				</cfif>
                <div class="one_thumb">
 	               <a href="#media_uri#" target="_blank"><img src="#getMediaPreview(preview_uri,media_type)#" alt="#alt#" class="theThumb"></a>
