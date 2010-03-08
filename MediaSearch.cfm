@@ -169,12 +169,11 @@
 			URI: <a href="#media_uri#" target="_blank">#media_uri#</a>
             <cfset mp=getMediaPreview(preview_uri,media_type)>
 			<br>
-                <a href="#mp#" target="_blank"><img src="#mp#" alt="#alt#"></a>
-			  <cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+            <a href="#media_uri#" target="_blank"><img src="#mp#" alt="#alt#"></a>
+			<cfquery name="tag" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 				select count(*) n from tag where media_id=#media_id#
 			</cfquery>
 			<br>
-			
 			<cfif media_type is "multi-page document">
 				<a href="/document.cfm?media_id=#media_id#">[ view as document ]</a>
 			</cfif>
