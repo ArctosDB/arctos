@@ -340,11 +340,11 @@ function addTransAgent (id,name,role) {
 			console.log('i: ' + i);
 			
 			var d='<tr><td>';
-			d+='<input type="text" name="trans_agent_' + i + '" class="reqdClr" size="30" value="' + name + '"';
+			d+='<input type="text" id="trans_agent_' + i + '" name="trans_agent_' + i + '" class="reqdClr" size="30" value="' + name + '"';
   			d+=' onchange="getAgent(\'trans_agent_id_' + i + '\',\'trans_agent_' + i + '\',\'editloan\',this.value);"';
   			d+=' return false;"	onKeyPress="return noenter(event);">';
   			console.log(d);
-  			d+='<input type="hidden" name="trans_agent_id_' + i + '" value="' + id + '">';
+  			d+='<input type="hidden" id="trans_agent_id_' + i + '" name="trans_agent_id_' + i + '" value="' + id + '">';
   			console.log(d);
   			d+='</td><td>';
   			d+='<select name="trans_agent_role_' + i + '" id="trans_agent_role_' + i + '">';
