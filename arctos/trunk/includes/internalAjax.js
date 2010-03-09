@@ -336,11 +336,17 @@ function addTransAgent (id,name) {
   			console.log(d);
   			d+='<input type="hidden" name="trans_agent_id_' + i + '" value="' + id + '">';
   			console.log(d);
+  			d+='</td><td>';
+  			d+='<select name="trans_agent_role_' + i + '" id="trans_agent_role_' + i + '">';
+  			for (i=0; i<d.ROWCOUNT; ++i) {
+				d+='<option value="' + d.DATA.TRANS_AGENT_ROLE[i] + '">'+ d.DATA.TRANS_AGENT_ROLE[i] +'</option>';
+			}
+  			
+  			console.log(d);
   			/*
   				
-			</td>
-			<td>
-				<select name="trans_agent_role_#trans_agent_id#">
+			
+				
 					<cfloop query="cttrans_agent_role">
 						<option 
 							<cfif cttrans_agent_role.trans_agent_role is loanAgents.trans_agent_role>
