@@ -402,26 +402,40 @@
 				<td>&nbsp;</td>
 			</tr>				
 		</table><!-- end agents table --->
-		<label for="loan_type">Loan Type</label>
-		<select name="loan_type" id="loan_type" class="reqdClr">
-			<cfloop query="ctLoanType">
-				<option <cfif ctLoanType.loan_type is loanDetails.loan_type> selected="selected" </cfif>
-					value="#ctLoanType.loan_type#">#ctLoanType.loan_type#</option>
-			</cfloop>
-		</select>
-		<label for="loan_status">Loan Status</label>
-		<select name="loan_status" id="loan_status" class="reqdClr">
-			<cfloop query="ctLoanStatus">
-				<option <cfif ctLoanStatus.loan_status is loanDetails.loan_status> selected="selected" </cfif>
-					value="#ctLoanStatus.loan_status#">#ctLoanStatus.loan_status#</option>
-			</cfloop>
-		</select>
-		<label for="initiating_date">Transaction Date</label>
-		<input type="text" name="initiating_date" id="initiating_date" 
-			value="#dateformat(loanDetails.trans_date,"dd-mmm-yyyy")#" class="reqdClr">
-		<label for="initiating_date">Due Date</label>
-		<input type="text" id="return_due_date" name="return_due_date"
-			value="#dateformat(loanDetails.return_due_date,'dd mmm yyyy')#">
+		<table width="100%">
+			<tr>
+				<td>
+					<label for="loan_type">Loan Type</label>
+					<select name="loan_type" id="loan_type" class="reqdClr">
+						<cfloop query="ctLoanType">
+							<option <cfif ctLoanType.loan_type is loanDetails.loan_type> selected="selected" </cfif>
+								value="#ctLoanType.loan_type#">#ctLoanType.loan_type#</option>
+						</cfloop>
+					</select>
+				</td>
+				<td>
+					<label for="loan_status">Loan Status</label>
+					<select name="loan_status" id="loan_status" class="reqdClr">
+						<cfloop query="ctLoanStatus">
+							<option <cfif ctLoanStatus.loan_status is loanDetails.loan_status> selected="selected" </cfif>
+								value="#ctLoanStatus.loan_status#">#ctLoanStatus.loan_status#</option>
+						</cfloop>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="initiating_date">Transaction Date</label>
+					<input type="text" name="initiating_date" id="initiating_date" 
+						value="#dateformat(loanDetails.trans_date,"dd-mmm-yyyy")#" class="reqdClr">
+				</td>
+				<td>
+					<label for="initiating_date">Due Date</label>
+					<input type="text" id="return_due_date" name="return_due_date"
+						value="#dateformat(loanDetails.return_due_date,'dd mmm yyyy')#">
+				</td>
+			</tr>
+		</table>
 		<label for="">Nature of Material (<span id="lbl_nature_of_material"></span>)</label>
 		<textarea name="nature_of_material" id="nature_of_material" rows="7" cols="60" 
 			class="reqdClr">#loanDetails.nature_of_material#</textarea>
