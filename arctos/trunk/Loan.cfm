@@ -350,7 +350,7 @@
 			</cfloop>
 		</select>
 		<input type="text" name="loan_number" id="loan_number" value="#loanDetails.loan_number#" class="reqdClr">
-		<br><span style="font-size:small;">Entered by #enteredby#</span>
+		<br><span style="font-size:small;">Entered by #loanDetails.enteredby#</span>
 		</td>
 			<td colspan="99" rowspan="99" valign="top">
 			
@@ -541,7 +541,7 @@
 		<td align="right">Type: </td>
 		<td><select name="loan_type" class="reqdClr">
 					<cfloop query="ctLoanType">
-						<option <cfif #ctLoanType.loan_type# is "#loanDetails.loan_type#"> selected </cfif>value="#ctLoanType.loan_type#">#ctLoanType.loan_type#</option>
+						<option <cfif ctLoanType.loan_type is loanDetails.loan_type> selected </cfif>value="#ctLoanType.loan_type#">#ctLoanType.loan_type#</option>
 					</cfloop>
 				</select>
 	<img src="images/nada.gif" width="60" height="1">
@@ -554,26 +554,26 @@
 	</tr>	
 	<tr>
 		<td align="right">Transaction Date: </td>
-		<td><input type="text" name="initiating_date" id="initiating_date" value="#dateformat(trans_date,"dd-mmm-yyyy")#" class="reqdClr">
-		<img src="images/nada.gif" width="60" height="1">Due Date:&nbsp;<input type="text" id="return_due_date" name="return_due_date" value="#dateformat(return_due_date,'dd mmm yyyy')#">
+		<td><input type="text" name="initiating_date" id="initiating_date" value="#dateformat(loanDetails.trans_date,"dd-mmm-yyyy")#" class="reqdClr">
+		<img src="images/nada.gif" width="60" height="1">Due Date:&nbsp;<input type="text" id="return_due_date" name="return_due_date" value="#dateformat(loanDetails.return_due_date,'dd mmm yyyy')#">
 		</td>
 	</tr>
 	<tr>
 		<td align="right">Nature of Material:<br><span class="cntr" id="lbl_nature_of_material"></span></td>
-		<td><textarea name="nature_of_material" id="nature_of_material" rows="7" cols="60" class="reqdClr">#nature_of_material#</textarea></td>
+		<td><textarea name="nature_of_material" id="nature_of_material" rows="7" cols="60" class="reqdClr">#loanDetails.nature_of_material#</textarea></td>
 	</tr>
 	<tr>
 		<td align="right">Description:<br><span class="cntr" id="lbl_loan_description"></span></td>
-		<td><textarea name="loan_description" id="loan_description" rows="7" cols="60">#loan_description#</textarea></td>
+		<td><textarea name="loan_description" id="loan_description" rows="7" cols="60">#loanDetails.loan_description#</textarea></td>
 	</tr>
 	<tr>
 		<td align="right">Instructions:<br><span class="cntr" id="lbl_loan_instructions"></span></td>
-		<td><textarea name="loan_instructions" id="loan_instructions" rows="7" cols="60">#loan_instructions#</textarea></td>
+		<td><textarea name="loan_instructions" id="loan_instructions" rows="7" cols="60">#loanDetails.loan_instructions#</textarea></td>
 	</tr>
 	
 	<tr>
 		<td align="right">Remarks:<br><span class="cntr" id="lbl_trans_remarks"></span></td>
-		<td><textarea name="trans_remarks" id="trans_remarks" rows="7" cols="60">#trans_remarks#</textarea></td>
+		<td><textarea name="trans_remarks" id="trans_remarks" rows="7" cols="60">#loanDetails.trans_remarks#</textarea></td>
 	</tr>
 	<tr>
 		<td colspan="2" align="center">
