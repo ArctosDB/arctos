@@ -338,6 +338,7 @@
 			trans_agent_role,
 			agent_name
 	</cfquery>
+	<table border><tr><td valign="top">
 	<form name="editloan" action="Loan.cfm" method="post">
 		<input type="hidden" name="action" value="saveEdits">
 		<input type="hidden" name="transaction_id" value="#loanDetails.transaction_id#">
