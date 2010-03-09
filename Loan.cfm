@@ -1012,7 +1012,13 @@ Shipment Information:
 					<cfset trans_agent_id_ = evaluate("trans_agent_id_" & n)>
 					<cfset agent_id_ = evaluate("agent_id_" & n)>
 					<cfset trans_agent_role_ = evaluate("trans_agent_role_" & n)>
-					<cfif evaluate("del_agnt_" & n) and evaluate("del_agnt_" & n) is "1" and trans_agent_id_ gt 0>
+					<cftry>
+						<cfset del_agnt_=evaluate("del_agnt_" & n)>
+					<cfcatch>
+						<cfset del_agnt_=0>
+					</cfcatch>
+					</cftry>
+					<cfif  del_agnt_ is "1" and trans_agent_id_ gt 0>
 						<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							delete from trans_agent where trans_agent_id=#trans_agent_id_#
 						</cfquery>
