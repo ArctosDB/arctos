@@ -1,8 +1,3 @@
-<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
-	<cfset flatTableName = "flat">
-<cfelse>
-	<cfset flatTableName = "filtered_flat">
-</cfif>
 <cfinclude template = "/includes/_header.cfm">
 <cfset title="Specimen Results">
 <cfif not isdefined("displayrows")>
@@ -40,62 +35,62 @@
 
 <!--- The progress bar --->
 <cfif #newQuery# is 1>
- <cfset basSelect = "SELECT COUNT(distinct(#flatTableName#.collection_object_id)) CountOfCatalogedItem,#flatTableName#.scientific_name">
- <cfset basJoin = "INNER JOIN cataloged_item ON (#flatTableName#.collection_object_id = cataloged_item.collection_object_id)">
- <cfset basFrom = " FROM #flatTableName#">
-  <cfset basWhere = " WHERE #flatTableName#.collection_object_id > 0">
-<cfset basGroup = "GROUP BY #flatTableName#.scientific_name">
+ <cfset basSelect = "SELECT COUNT(distinct(#session.flatTableName#.collection_object_id)) CountOfCatalogedItem,#session.flatTableName#.scientific_name">
+ <cfset basJoin = "INNER JOIN cataloged_item ON (#session.flatTableName#.collection_object_id = cataloged_item.collection_object_id)">
+ <cfset basFrom = " FROM #session.flatTableName#">
+  <cfset basWhere = " WHERE #session.flatTableName#.collection_object_id > 0">
+<cfset basGroup = "GROUP BY #session.flatTableName#.scientific_name">
 
 <cfif #groupBy# contains "continent_ocean">
-	 <cfset basSelect = "#basSelect#,#flatTableName#.continent_ocean">
-	 <cfset basGroup = "#basGroup#,#flatTableName#.continent_ocean">		
+	 <cfset basSelect = "#basSelect#,#session.flatTableName#.continent_ocean">
+	 <cfset basGroup = "#basGroup#,#session.flatTableName#.continent_ocean">		
 </cfif>
 <cfif #groupBy# contains "country">
-	 <cfset basSelect = "#basSelect#,#flatTableName#.country">
-	 <cfset basGroup = "#basGroup#,#flatTableName#.country">		
+	 <cfset basSelect = "#basSelect#,#session.flatTableName#.country">
+	 <cfset basGroup = "#basGroup#,#session.flatTableName#.country">		
 </cfif>
 <cfif #groupBy# contains "state_prov">
-	 <cfset basSelect = "#basSelect#,#flatTableName#.state_prov">
-	 <cfset basGroup = "#basGroup#,#flatTableName#.state_prov">		
+	 <cfset basSelect = "#basSelect#,#session.flatTableName#.state_prov">
+	 <cfset basGroup = "#basGroup#,#session.flatTableName#.state_prov">		
 </cfif>
 <cfif #groupBy# contains "county">
-	 <cfset basSelect = "#basSelect#,#flatTableName#.county">
-	 <cfset basGroup = "#basGroup#,#flatTableName#.county">		
+	 <cfset basSelect = "#basSelect#,#session.flatTableName#.county">
+	 <cfset basGroup = "#basGroup#,#session.flatTableName#.county">		
 </cfif>
 <cfif #groupBy# contains "quad">
-	 <cfset basSelect = "#basSelect#,#flatTableName#.quad">
-	 <cfset basGroup = "#basGroup#,#flatTableName#.quad">		
+	 <cfset basSelect = "#basSelect#,#session.flatTableName#.quad">
+	 <cfset basGroup = "#basGroup#,#session.flatTableName#.quad">		
 </cfif>
 <cfif #groupBy# contains "feature">
-	 <cfset basSelect = "#basSelect#,#flatTableName#.feature">
-	 <cfset basGroup = "#basGroup#,#flatTableName#.feature">		
+	 <cfset basSelect = "#basSelect#,#session.flatTableName#.feature">
+	 <cfset basGroup = "#basGroup#,#session.flatTableName#.feature">		
 </cfif>
 <cfif #groupBy# contains "island_group">
-	 <cfset basSelect = "#basSelect#,#flatTableName#.island_group">
-	 <cfset basGroup = "#basGroup#,#flatTableName#.island_group">		
+	 <cfset basSelect = "#basSelect#,#session.flatTableName#.island_group">
+	 <cfset basGroup = "#basGroup#,#session.flatTableName#.island_group">		
 	<!---
 	<cfset groupBy = #replace(groupBy,"flat.island_group","isl_group","all")#>
 	--->
 </cfif>
 <cfif #groupBy# contains "island">
-	 <cfset basSelect = "#basSelect#,#flatTableName#.island">
-	 <cfset basGroup = "#basGroup#,#flatTableName#.island">		
+	 <cfset basSelect = "#basSelect#,#session.flatTableName#.island">
+	 <cfset basGroup = "#basGroup#,#session.flatTableName#.island">		
 </cfif>
 <cfif #groupBy# contains "isl_group">
-	 <cfset basSelect = "#basSelect#,#flatTableName#.island_group">
-	 <cfset basGroup = "#basGroup#,#flatTableName#.island_group">		
+	 <cfset basSelect = "#basSelect#,#session.flatTableName#.island_group">
+	 <cfset basGroup = "#basGroup#,#session.flatTableName#.island_group">		
 </cfif>
 <cfif #groupBy# contains "sea">
-	 <cfset basSelect = "#basSelect#,#flatTableName#.sea">
-	 <cfset basGroup = "#basGroup#,#flatTableName#.sea">		
+	 <cfset basSelect = "#basSelect#,#session.flatTableName#.sea">
+	 <cfset basGroup = "#basGroup#,#session.flatTableName#.sea">		
 </cfif>
 <cfif #groupBy# contains "spec_locality">
-	 <cfset basSelect = "#basSelect#,#flatTableName#.spec_locality">
-	 <cfset basGroup = "#basGroup#,#flatTableName#.spec_locality">		
+	 <cfset basSelect = "#basSelect#,#session.flatTableName#.spec_locality">
+	 <cfset basGroup = "#basGroup#,#session.flatTableName#.spec_locality">		
 </cfif>
 <cfif #groupBy# contains "yr">
-	 <cfset basSelect = "#basSelect#,to_char(#flatTableName#.began_date,'yyyy') yr">
-	 <cfset basGroup = "#basGroup#,to_char(#flatTableName#.began_date,'yyyy')">		
+	 <cfset basSelect = "#basSelect#,to_char(#session.flatTableName#.began_date,'yyyy') yr">
+	 <cfset basGroup = "#basGroup#,to_char(#session.flatTableName#.began_date,'yyyy')">		
 </cfif>
 	
 	

@@ -70,15 +70,11 @@
 	</form>
 	<form action="Loan.cfm" method="post">
 		<input type="hidden" name="action" value="addItems">
-		<input type="submit" value="Manage an existing loan" class="schBtn"
-   onmouseover="this.className='schBtn btnhov'" onmouseout="this.className='schBtn'">	
-		
+		<input type="submit" value="Manage an existing loan" class="schBtn">	
 	</form>
-			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
+	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 		<form action="/loanBulkload.cfm" method="post">
-		<input type="submit" value="Bulk Add Loan Items" class="insBtn"
-   onmouseover="this.className='insBtn btnhov'" onmouseout="this.className='insBtn'">	
-		
+		<input type="submit" value="Bulk Add Loan Items" class="insBtn">	
 	</form>
 	</cfif>
 </cfoutput>
@@ -284,10 +280,23 @@
 </div>
 	</cfoutput>
 </cfif>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-------------------------------------------------------------------------------------------------->
-<!-------------------------------------------------------------------------------------------------->
-<cfif #Action# is "editLoan">
-<cfset title="Edit Loan">
+<cfif action is "editLoan">
+	<cfset title="Edit Loan">
+	<cfoutput>
 	<cfquery name="loanDetails" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		select 
 			trans.transaction_id,
@@ -329,23 +338,19 @@
 			trans_agent_role,
 			agent_name
 	</cfquery>
-<cfoutput query="loanDetails">
-<cfform name="editloan" action="Loan.cfm" method="post">
-			<input type="hidden" name="action" value="saveEdits">
-			<input type="hidden" name="transaction_id" value="#transaction_id#">
-<table>
-	<tr>
-		<td align="right"><strong>Edit Loan:</strong> </td>
-		<td>
-			<cfset tIA=#collection_id#>
-			<select name="collection_id" size="1">
-						<cfloop query="ctcollection">
-							<option <cfif #ctcollection.collection_id# is #tIA#> selected </cfif>value="#ctcollection.collection_id#">#ctcollection.collection#</option>
-						</cfloop>
-				</select>
-			
-			<input type="text" name="loan_number" value="#loan_number#" class="reqdClr">
-			<span style="font-size:small;">Entered by #enteredby#</span>
+	<form name="editloan" action="Loan.cfm" method="post">
+		<input type="hidden" name="action" value="saveEdits">
+		<input type="hidden" name="transaction_id" value="#loanDetails.transaction_id#">
+		<strong>Edit Loan #loanDetails.collection# #loanDetails.loan_number#</strong>
+		<label for="loan_number">Loan Number</label>
+		<select name="collection_id" id="collection_id" size="1">
+			<cfloop query="ctcollection">
+				<option <cfif ctcollection.collection_id is loanDetails.collection_id> selected </cfif>
+					value="#ctcollection.collection_id#">#ctcollection.collection#</option>
+			</cfloop>
+		</select>
+		<input type="text" name="loan_number" id="loan_number" value="#loan_number#" class="reqdClr">
+		<br><span style="font-size:small;">Entered by #enteredby#</span>
 		</td>
 			<td colspan="99" rowspan="99" valign="top">
 			
@@ -614,9 +619,8 @@
 			</td>
 	</tr>
 </table>
-</cfform>
+</form>
 
-	</cfoutput>
 	
 	
 <cfquery name="ship" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -675,7 +679,6 @@
 <hr>
 Shipment Information:
 <table>
-<cfoutput>
 	<cfform name="shipment" method="post" action="Loan.cfm">
 		<input type="hidden" name="Action" value="saveShip">
 		<input type="hidden" name="transaction_id" value="#transaction_id#">
@@ -776,7 +779,6 @@ Shipment Information:
 		
 	</cfform>
 	
-</cfoutput>
 </table>
 
 <cfquery name="getPermits" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -802,7 +804,7 @@ Shipment Information:
 		permit_trans.transaction_id = #loanDetails.transaction_id#
 </cfquery>
 <br><strong>Permits:</strong>  
-<cfoutput query="getPermits">
+<cfloop query="getPermits">
 
 <form name="killPerm#currentRow#" method="post" action="Loan.cfm">
 <p><strong>Permit ## #permit_Num# (#permit_Type#)</strong> issued to
@@ -819,11 +821,10 @@ Shipment Information:
 	 <input type="submit" value="Remove this Permit" class="delBtn"
    onmouseover="this.className='delBtn btnhov'" onmouseout="this.className='delBtn'">	
 </form>
-</cfoutput>
+</cfloop>
 <form name="addPermit" action="Loan.cfm" method="post">
 	<input type="hidden" name="transaction_id" value="#transaction_id#">
 	<input type="hidden" name="permit_id">
-	<cfoutput>
 	  <input type="button" value="Add a permit" class="picBtn"
    onmouseover="this.className='picBtn btnhov'" onmouseout="this.className='picBtn'"
    onClick="javascript: window.open('picks/PermitPick.cfm?transaction_id=#transaction_id#', 'PermitPick', 
