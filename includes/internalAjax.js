@@ -312,6 +312,27 @@ function addLink (n) {
 	jQuery('#linkTab tr:last').after(newRow);
 	document.getElementById('numberLinks').value=thisID;
 }
+function addTransAgent () {
+	var lid = jQuery('#authTab tr:last').attr("id");
+	var lastID=lid.replace('authortr','');
+	var thisID=parseInt(lastID) + 1;
+	var newRow='<tr id="authortr' + thisID + '">';
+	newRow+='<td>';
+	newRow+='<select name="author_role_' + thisID + '" id="author_role_' + thisID + '1">';
+	newRow+='<option value="author">author</option>';
+	newRow+='<option value="editor">editor</option>';
+	newRow+='</select>';
+	newRow+='</td>';
+	newRow+='<td>';
+	newRow+='<input type="hidden" name="author_id_' + thisID + '" id="author_id_' + thisID + '">';
+	newRow+='<input type="text" name="author_name_' + thisID + '" id="author_name_' + thisID + '" class="reqdClr"  size="50" ';
+	newRow+='onchange="findAgentName(\'author_id_' + thisID + '\',this.name,this.value);"';		
+	newRow+='onKeyPress="return noenter(event);">';
+	newRow+='</td>';
+	newRow+='</tr>';		
+	jQuery('#authTab tr:last').after(newRow);
+	document.getElementById('numberAuthors').value=thisID;
+}
 function addAgent (n) {
 	var lid = jQuery('#authTab tr:last').attr("id");
 	var lastID=lid.replace('authortr','');
