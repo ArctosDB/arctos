@@ -432,12 +432,8 @@
 					<cfset params=listappend(params,"#key#=#url[key]#","&")>
 			</cfif>
 		</cfloop>
-		<cfdump var=#form#>
-		<cfdump var=#url#>
-		----------#params#--------
-	</cfif>
-	
-	
+		<a href="/Reports/SpecUsageReport.cfm?p=#params#">Create Report Data</a>
+	</cfif>	
 	<h3>Publications</h3>
 	<cfif publication.recordcount is 0>
 		<div class="notFound">
