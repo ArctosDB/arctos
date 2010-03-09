@@ -26,7 +26,7 @@ function addTransAgent (id,name,role) {
 			var d='<tr><td>';
 			d+='<input type="hidden" name="trans_agent_id_' + i + '" id="trans_agent_id_' + i + '" value="new">';
 			d+='<input type="text" id="trans_agent_' + i + '" name="trans_agent_' + i + '" class="reqdClr" size="30" value="' + name + '"';
-  			d+=' onchange="getAgent(\'trans_agent_id_' + i + '\',\'trans_agent_' + i + '\',\'editloan\',this.value);"';
+  			d+=' onchange="getAgent(\'agent_id_' + i + '\',\'trans_agent_' + i + '\',\'editloan\',this.value);"';
   			d+=' return false;"	onKeyPress="return noenter(event);">';
   			d+='<input type="hidden" id="agent_id_' + i + '" name="agent_id_' + i + '" value="' + id + '">';
   			d+='</td><td>';
