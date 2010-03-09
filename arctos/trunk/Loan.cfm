@@ -876,8 +876,6 @@ Shipment Information:
 								#project_id#,#transaction_id#)
 					</cfquery>
 				</cfif>
-				------------#saveNewProject#--------
-				<CFABORT>
 				<cfif isdefined("saveNewProject") and saveNewProject is "yes">
 					<cfquery name="newProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						INSERT INTO project (
