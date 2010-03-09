@@ -1003,167 +1003,170 @@
 			<input type="hidden" name="Action" value="listLoans">
 			<input type="hidden" name="project_id" <cfif project_id gt 0> value="#project_id#" </cfif>>
 	<table>
-	<tr>
-		<td align="right"><strong>Find Loan:</strong> </td>
-		<td>
-			<select name="collection_id" size="1">
-				<option value=""></option>
-				<cfloop query="ctcollection">
-					<option value="#collection_id#">#collection#</option>
-				</cfloop>
-			</select>
-			<input type="text" name="loan_number">
-		</td>
-	</tr>
-	<tr>
-		<td align="right">
-			<select name="trans_agent_role_1">
-				<option value="">Please choose an agent role...</option>
-				<cfloop query="cttrans_agent_role">
-					<option value="#trans_agent_role#">-> #trans_agent_role#:</option>
-				</cfloop>
-			</select>
-		</td>
-		<td>
-			<input type="text" name="agent_1"  size="50">
-		 </td>
-	</tr>
-	<tr>
-		<td align="right">
-			<select name="trans_agent_role_2">
-				<option value="">Please choose an agent role...</option>
-				<cfloop query="cttrans_agent_role">
-					<option value="#trans_agent_role#">-> #trans_agent_role#:</option>
-				</cfloop>
-			</select>
-		</td>
-		<td>
-			<input type="text" name="agent_2"  size="50">
-		 </td>
-	</tr>
-	<tr>
-		<td align="right">
-			<select name="trans_agent_role_3">
-				<option value="">Please choose an agent role...</option>
-				<cfloop query="cttrans_agent_role">
-					<option value="#trans_agent_role#">-> #trans_agent_role#:</option>
-				</cfloop>
-			</select>
-		</td>
-		<td>
-			<input type="text" name="agent_3"  size="50">
-		 </td>
-	</tr>
-	
-	<tr>
-		<td align="right">Type: </td>
-		<td>
-			<select name="loan_type">
-				<option value=""></option>
-				<cfloop query="ctLoanType">
-					<option value="#ctLoanType.loan_type#">#ctLoanType.loan_type#</option>
-				</cfloop>
-			</select>
-			<img src="images/nada.gif" width="60" height="1">
-			Status:&nbsp;<select name="loan_status">
-				<option value=""></option>
-					<cfloop query="ctLoanStatus">
-						<option value="#ctLoanStatus.loan_status#">#ctLoanStatus.loan_status#</option>
+		<tr>
+			<td align="right"><strong>Find Loan:</strong></td>
+			<td>
+				<select name="collection_id" size="1">
+					<option value=""></option>
+					<cfloop query="ctcollection">
+						<option value="#collection_id#">#collection#</option>
 					</cfloop>
 				</select>
-	</td>
-	</tr>
-	<tr>
-		<td align="right">Transaction Date:</td>
-		<td>
-		<input name="trans_date" id="trans_date" type="text"> To:
-		<input type='text' name='to_trans_date' id="to_trans_date">
-		</td>
-	</tr>
-	<tr>
-		<td align="right">
-		Due Date:
-		</td><td><input type="text" name="return_due_date" id="return_due_date"> To:
-		<input type='text' name='to_return_due_date' id="to_return_due_date">
-		</td>
-	</tr>
-	<tr>
-		<td align="right">Permit Number:</td>
-		<td>
-			<input type="text" name="permit_num" size="50">
-				 <span class="infoLink" 
-					 onclick="getHelp('get_permit_number');">Pick</span>
+				<input type="text" name="loan_number">
 			</td>
-	</tr>
-	<tr>
-		<td align="right">Nature of Material:</td>
-		<td><textarea name="nature_of_material" rows="3" cols="50"></textarea></td>
-	</tr>
-	<tr>
-		<td align="right">Description: </td>
-		<td><textarea name="loan_description" rows="3" cols="50"></textarea></td>
-	</tr>
-	<tr>
-	<tr>
-		<td align="right">Instructions:</td>
-		<td><textarea name="loan_instructions" rows="3" cols="50"></textarea></td>
-	</tr>
-	
-	<tr>
-		<td align="right">Remarks: </td>
-		<td><textarea name="trans_remarks" rows="3" cols="50"></textarea></td>
-	</tr>
-	<td colspan="2" align="center">
-		<input type="submit" value="Find Loans" class="schBtn">	
-		&nbsp;
-		<input type="reset" value="Clear" class="qutBtn">	
-   </td>
-	</tr>
-</table>
+		</tr>
+		<tr>
+			<td align="right">
+				<select name="trans_agent_role_1">
+					<option value="">Please choose an agent role...</option>
+					<cfloop query="cttrans_agent_role">
+						<option value="#trans_agent_role#">-> #trans_agent_role#:</option>
+					</cfloop>
+				</select>
+			</td>
+			<td>
+				<input type="text" name="agent_1"  size="50">
+			 </td>
+		</tr>
+		<tr>
+			<td align="right">
+				<select name="trans_agent_role_2">
+					<option value="">Please choose an agent role...</option>
+					<cfloop query="cttrans_agent_role">
+						<option value="#trans_agent_role#">-> #trans_agent_role#:</option>
+					</cfloop>
+				</select>
+			</td>
+			<td>
+				<input type="text" name="agent_2"  size="50">
+			 </td>
+		</tr>
+		<tr>
+			<td align="right">
+				<select name="trans_agent_role_3">
+					<option value="">Please choose an agent role...</option>
+					<cfloop query="cttrans_agent_role">
+						<option value="#trans_agent_role#">-> #trans_agent_role#:</option>
+					</cfloop>
+				</select>
+			</td>
+			<td>
+				<input type="text" name="agent_3"  size="50">
+			 </td>
+		</tr>
+		<tr>
+			<td align="right">Type: </td>
+			<td>
+				<select name="loan_type">
+					<option value=""></option>
+					<cfloop query="ctLoanType">
+						<option value="#ctLoanType.loan_type#">#ctLoanType.loan_type#</option>
+					</cfloop>
+				</select>
+				<img src="images/nada.gif" width="60" height="1">
+				Status:&nbsp;
+				<select name="loan_status">
+					<option value=""></option>
+						<cfloop query="ctLoanStatus">
+							<option value="#ctLoanStatus.loan_status#">#ctLoanStatus.loan_status#</option>
+						</cfloop>
+				</select>
+			</td>
+			</tr>
+		<tr>
+			<td align="right">Transaction Date:</td>
+			<td>
+				<input name="trans_date" id="trans_date" type="text"> To:
+				<input type='text' name='to_trans_date' id="to_trans_date">
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+				Due Date:
+			</td>
+			<td>
+				<input type="text" name="return_due_date" id="return_due_date"> To:
+				<input type='text' name='to_return_due_date' id="to_return_due_date">
+			</td>
+		</tr>
+		<tr>
+			<td align="right">Permit Number:</td>
+			<td>
+				<input type="text" name="permit_num" size="50">
+				<span class="infoLink" onclick="getHelp('get_permit_number');">Pick</span>
+			</td>
+		</tr>
+		<tr>
+			<td align="right">Nature of Material:</td>
+			<td><textarea name="nature_of_material" rows="3" cols="50"></textarea></td>
+		</tr>
+		<tr>
+			<td align="right">Description: </td>
+			<td><textarea name="loan_description" rows="3" cols="50"></textarea></td>
+		</tr>
+		<tr>
+		<tr>
+			<td align="right">Instructions:</td>
+			<td><textarea name="loan_instructions" rows="3" cols="50"></textarea></td>
+		</tr>
+		
+		<tr>
+			<td align="right">Remarks: </td>
+			<td><textarea name="trans_remarks" rows="3" cols="50"></textarea></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<input type="submit" value="Find Loans" class="schBtn">	
+				&nbsp;
+				<input type="reset" value="Clear" class="qutBtn">	
+		   </td>
+		</tr>
+	</table>
 </form>
 </cfoutput>
 </cfif>
 <!-------------------------------------------------------------------------------------------------->
 <cfif action is "listLoans">
-<cfset title="Loan Item List">
-<cfset sel = "select 
-					trans.transaction_id,
-					loan_number,
-					loan_type,
-					loan_status,
-					loan_instructions,
-					loan_description,
-					concattransagent(trans.transaction_id,'authorized by') auth_agent,
-					concattransagent(trans.transaction_id,'entered by') ent_agent,
-					concattransagent(trans.transaction_id,'received by') rec_agent,
-					nature_of_material,
-					trans_remarks,
-					return_due_date,
-					trans_date,
-					project_name,
-					project.project_id pid,
-					collection">
-<cfset frm = " from 
-				loan, 
-				trans,
-				project_trans,
-				project,
-				permit_trans,
-				permit,
-				collection">
-<cfset sql = "where 
-				loan.transaction_id = trans.transaction_id AND
-				trans.collection_id = collection.collection_id AND
-				trans.transaction_id = project_trans.transaction_id (+) AND
-				project_trans.project_id = project.project_id (+) AND
-				loan.transaction_id = permit_trans.transaction_id (+) AND
-				permit_trans.permit_id = permit.permit_id (+)">
-	<cfif isdefined("trans_agent_role_1") AND len(#trans_agent_role_1#) gt 0>
+<cfoutput>
+	<cfset title="Loan Item List">
+	<cfset sel = "select 
+		trans.transaction_id,
+		loan_number,
+		loan_type,
+		loan_status,
+		loan_instructions,
+		loan_description,
+		concattransagent(trans.transaction_id,'authorized by') auth_agent,
+		concattransagent(trans.transaction_id,'entered by') ent_agent,
+		concattransagent(trans.transaction_id,'received by') rec_agent,
+		nature_of_material,
+		trans_remarks,
+		return_due_date,
+		trans_date,
+		project_name,
+		project.project_id pid,
+		collection">
+	<cfset frm = " from 
+		loan, 
+		trans,
+		project_trans,
+		project,
+		permit_trans,
+		permit,
+		collection">
+	<cfset sql = "where 
+		loan.transaction_id = trans.transaction_id AND
+		trans.collection_id = collection.collection_id AND
+		trans.transaction_id = project_trans.transaction_id (+) AND
+		project_trans.project_id = project.project_id (+) AND
+		loan.transaction_id = permit_trans.transaction_id (+) AND
+		permit_trans.permit_id = permit.permit_id (+)">
+	<cfif isdefined("trans_agent_role_1") AND len(trans_agent_role_1) gt 0>
 		<cfset frm="#frm#,trans_agent trans_agent_1">
 		<cfset sql="#sql# and trans.transaction_id = trans_agent_1.transaction_id">
 		<cfset sql = "#sql# AND trans_agent_1.trans_agent_role = '#trans_agent_role_1#'">
 	</cfif>
-	<cfif isdefined("agent_1") AND len(#agent_1#) gt 0>
+	<cfif isdefined("agent_1") AND len(agent_1) gt 0>
 		<cfif #sql# does not contain "trans_agent_1">
 			<cfset frm="#frm#,trans_agent trans_agent_1">
 			<cfset sql="#sql# and trans.transaction_id = trans_agent_1.transaction_id">
@@ -1172,12 +1175,12 @@
 		<cfset sql="#sql# and trans_agent_1.agent_id = trans_agent_name_1.agent_id">
 		<cfset sql = "#sql# AND upper(trans_agent_name_1.agent_name) like '%#ucase(agent_1)#%'">
 	</cfif>
-	<cfif isdefined("trans_agent_role_2") AND len(#trans_agent_role_2#) gt 0>
+	<cfif isdefined("trans_agent_role_2") AND len(trans_agent_role_2) gt 0>
 		<cfset frm="#frm#,trans_agent trans_agent_2">
 		<cfset sql="#sql# and trans.transaction_id = trans_agent_2.transaction_id">
 		<cfset sql = "#sql# AND trans_agent_2.trans_agent_role = '#trans_agent_role_2#'">
 	</cfif>
-	<cfif isdefined("agent_2") AND len(#agent_2#) gt 0>
+	<cfif isdefined("agent_2") AND len(agent_2) gt 0>
 		<cfif #sql# does not contain "trans_agent_2">
 			<cfset frm="#frm#,trans_agent trans_agent_2">
 			<cfset sql="#sql# and trans.transaction_id = trans_agent_2.transaction_id">
@@ -1200,7 +1203,6 @@
 		<cfset sql="#sql# and trans_agent_3.agent_id = trans_agent_name_3.agent_id">
 		<cfset sql = "#sql# AND upper(trans_agent_name_3.agent_name) like '%#ucase(agent_3)#%'">
 	</cfif>
-	
 	<cfif isdefined("loan_number") AND len(#loan_number#) gt 0>
 		<cfset sql = "#sql# AND upper(loan_number) like '%#ucase(loan_number)#%'">
 	</cfif>
@@ -1259,25 +1261,24 @@
 		<cfset sql = "#sql# AND loan_status <> 'closed'">
 	</cfif>
 	<cfset sql ="#sel# #frm# #sql# 				
-				 group by
-   trans.transaction_id, 
-   loan_number,
-    loan_type,
-     loan_status,
-      loan_instructions,
-       loan_description, 
-concattransagent(trans.transaction_id,'authorized by'),
- concattransagent(trans.transaction_id,'entered by'),
- concattransagent(trans.transaction_id,'received by'),
- nature_of_material, 
- trans_remarks, 
- return_due_date,
-  trans_date,
-   project_name, 
- project.project_id, 
- collection
-ORDER BY loan_number">
-		<cfoutput>
+		group by
+		 	trans.transaction_id, 
+		   	loan_number,
+		    loan_type,
+		    loan_status,
+		    loan_instructions,
+		    loan_description, 
+			concattransagent(trans.transaction_id,'authorized by'),
+		 	concattransagent(trans.transaction_id,'entered by'),
+		 	concattransagent(trans.transaction_id,'received by'),
+		 	nature_of_material, 
+		 	trans_remarks, 
+		 	return_due_date,
+		  	trans_date,
+		   	project_name, 
+		 	project.project_id, 
+		 	collection
+		ORDER BY loan_number">
 	<cfquery name="allLoans" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(sql)#
 	</cfquery>
@@ -1290,11 +1291,10 @@ ORDER BY loan_number">
 				<option value="/Reports/report_printer.cfm?report=multi_loan_report&transaction_id=#valuelist(allLoans.transaction_id)#">UAM Mammals report</option>
 				<option value="/Reports/report_printer.cfm?transaction_id=#valuelist(allLoans.transaction_id)#">Reporter</option>
 			</select>
-		
 	</cfif>
-	</cfoutput>
-			<table>
-			<cfset i=1>
+</cfoutput>
+	<table>
+	<cfset i=1>
 	<cfoutput query="allLoans" group="transaction_id">
 		<tr	#iif(i MOD 2,DE("class='evenRow'"),DE("class='oddRow'"))#	>
 			<td>
@@ -1305,7 +1305,7 @@ ORDER BY loan_number">
 					<tr>
 						<td colspan="3">
 							<strong>#collection# #loan_number#</strong>
-							<cfif #c.c# gt 0>(#c.c# items)</cfif>
+							<cfif c.c gt 0>(#c.c# items)</cfif>
 						</td>
 					</tr>
 					<tr>
@@ -1363,31 +1363,29 @@ ORDER BY loan_number">
 						<td nowrap><div align="right">Description:</div></td>
 						<td><strong>#loan_description#</strong></td>
 					</tr>
-					
-		<tr>
-		<td><img src="images/nada.gif" width="30" height="1"></td>
-			<td align="right">
-			Project:
-			</td>
-			<td>
-				<cfquery name="p" dbtype="query">
-					select project_name,pid from allLoans where transaction_id=#transaction_id#
-					group by project_name,pid
-				</cfquery>
-				
-				<cfloop query="p">
-				<cfif len(#P.project_name#)>
-					<CFIF #P.RECORDCOUNT# gt 1>
-						<img src="/images/li.gif" border="0">
-					</CFIF>
-					<a href="/Project.cfm?Action=editProject&project_id=#p.pid#"><strong>#P.project_name#</strong></a><BR>
-				<cfelse>
-					<strong>None</strong>
-				</cfif>
-				</cfloop>
-			</td>
-		</tr>
-		<tr>
+					<tr>
+						<td><img src="images/nada.gif" width="30" height="1"></td>
+						<td align="right">Project:</td>
+						<td>
+							<cfquery name="p" dbtype="query">
+								select project_name,pid from allLoans where transaction_id=#transaction_id#
+								group by project_name,pid
+							</cfquery>
+							<cfloop query="p">
+								<cfif len(P.project_name)>
+									<CFIF P.RECORDCOUNT gt 1>
+										<img src="/images/li.gif" border="0">
+									</CFIF>
+									<a href="/Project.cfm?Action=editProject&project_id=#p.pid#">
+										<strong>#P.project_name#</strong>
+									</a><BR>
+								<cfelse>
+									<strong>None</strong>
+								</cfif>
+							</cfloop>
+						</td>
+					</tr>
+					<tr>
 						<td><img src="images/nada.gif" width="30" height="1"></td>
 						<td nowrap colspan="2">
 						<table width="100%">
@@ -1395,7 +1393,7 @@ ORDER BY loan_number">
 								<td align="left">
 									<a href="a_loanItemReview.cfm?transaction_id=#transaction_id#">Review Items</a>
 								</td>
-			<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
+								<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>					
 									<td>
 										<a href="SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#">Add Items</a>
 									</td>
@@ -1405,7 +1403,7 @@ ORDER BY loan_number">
 									<cfif #project_id# gt 0>
 										<td>
 										<a href="Project.cfm?Action=addTrans&project_id=#project_id#&transaction_id=#transaction_id#">
-									Add To Project</a>
+											Add To Project</a>
 										</td>
 									</cfif>
 								</cfif>
@@ -1413,8 +1411,8 @@ ORDER BY loan_number">
 						</table>
 						</td>
 					</tr>
-					</table>
-					</td>
+				</table>
+			</td>
 		</tr>
 		<cfset i=#i#+1>
 	</cfoutput>
