@@ -418,6 +418,14 @@
 	<cfquery name="publication" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 		#preservesinglequotes(basSQL)#
 	</cfquery>
+	
+	<cfif isdefined("session.roles") and listfindnocase(session.roles,"coldfusion_user")>
+		<a href="/Reports/SpecUsageReport.cfm">Create Report Data</a>
+		----------#sql#--------
+		<hr>----------#basSQL#----------
+	</cfif>
+	
+	
 	<h3>Publications</h3>
 	<cfif publication.recordcount is 0>
 		<div class="notFound">
