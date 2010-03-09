@@ -354,7 +354,7 @@
 		<br><span style="font-size:small;">Entered by #loanDetails.enteredby#</span>
 		<table id="loanAgents" border>
 			<tr>
-				<th>Agent Name</th>
+				<th>Agent Name <span class="likeLink" onclick="addTransAgent()">Add Row</span></th>
 				<th>Role</th>
 				<th>Delete?</th>
 				<th></th>
@@ -387,26 +387,7 @@
 				<cfset i=i+1>
 			</cfloop>
 			<cfset na=i-1>
-			<input type="text" id="numAgents" name="numAgents" value="#na#">
-			<tr class="newRec">
-				<td>
-					<label for="new_trans_agent" onclick="addTransAgent()">Add Agent:</label>
-					<span onclick="addTransAgent (2072,'meeee','received by')">addMe</span>
-					<input type="text" name="new_trans_agent" id="new_trans_agent" class="reqdClr" size="50"
-	  					onchange="getAgent('new_trans_agent_id','new_trans_agent','editloan',this.value); return false;"
-	  					onKeyPress="return noenter(event);">
-	  				<input type="hidden" name="new_trans_agent_id">
-				</td>
-				<td>
-					<label for="new_trans_agent_role">&nbsp;</label>
-					<select name="new_trans_agent_role" id="new_trans_agent_role">
-						<cfloop query="cttrans_agent_role">
-							<option value="#trans_agent_role#">#trans_agent_role#</option>
-						</cfloop>
-					</select>
-				</td>
-				<td>&nbsp;</td>
-			</tr>				
+			<input type="text" id="numAgents" name="numAgents" value="#na#">				
 		</table><!-- end agents table --->
 		<table width="100%">
 			<tr>
