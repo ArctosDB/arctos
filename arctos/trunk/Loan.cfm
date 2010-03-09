@@ -425,52 +425,32 @@
 		<label for="">Nature of Material (<span id="lbl_nature_of_material"></span>)</label>
 		<textarea name="nature_of_material" id="nature_of_material" rows="7" cols="60" 
 			class="reqdClr">#loanDetails.nature_of_material#</textarea>
-	<tr>
-		<td align="right">Description:<br><span class="cntr" id="lbl_loan_description"></span></td>
-		<td><textarea name="loan_description" id="loan_description" rows="7" cols="60">#loanDetails.loan_description#</textarea></td>
-	</tr>
-	<tr>
-		<td align="right">Instructions:<br><span class="cntr" id="lbl_loan_instructions"></span></td>
-		<td><textarea name="loan_instructions" id="loan_instructions" rows="7" cols="60">#loanDetails.loan_instructions#</textarea></td>
-	</tr>
-	
-	<tr>
-		<td align="right">Remarks:<br><span class="cntr" id="lbl_trans_remarks"></span></td>
-		<td><textarea name="trans_remarks" id="trans_remarks" rows="7" cols="60">#loanDetails.trans_remarks#</textarea></td>
-	</tr>
-	<tr>
-		<td colspan="2" align="center">
-		
-		<input type="submit" value="Save Edits" class="savBtn"
-   onmouseover="this.className='savBtn btnhov'" onmouseout="this.className='savBtn'">	
-   
-			&nbsp;
-			 <input type="button" value="Quit" class="qutBtn"
-   onmouseover="this.className='qutBtn btnhov'" onmouseout="this.className='qutBtn'"
-   onClick="document.location = 'Loan.cfm?Action=addItems'">	
-
- <input type="button" value="Add Items" class="lnkBtn"
-   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-   onClick="window.open('SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#');">
-   
-   <input type="button" value="Review Items" class="lnkBtn"
-   onmouseover="this.className='lnkBtn btnhov'" onmouseout="this.className='lnkBtn'"
-   onClick="window.open('a_loanItemReview.cfm?transaction_id=#transaction_id#');">
-   <br />
-   Print: <select name="redir" size="1" onchange="if(this.value.length>0){window.open(this.value,'_blank')};">
+		<label for="loan_description">Description (<span id="lbl_loan_description"></span>)</label>
+		<textarea name="loan_description" id="loan_description" rows="7" 
+			cols="60">#loanDetails.loan_description#</textarea>
+		<label for="loan_instructions">Instructions (<span id="lbl_loan_instructions"></span>)</label>
+		<textarea name="loan_instructions" id="loan_instructions" rows="7" 
+			cols="60">#loanDetails.loan_instructions#</textarea>
+		<label for="trans_remarks">Remarks (<span id="lbl_trans_remarks"></span>)</label>
+		<textarea name="trans_remarks" id="trans_remarks" rows="7" cols="60">#loanDetails.trans_remarks#</textarea>
+		<br><input type="submit" value="Save Edits" class="savBtn">	
+   		<input type="button" value="Quit" class="qutBtn" onClick="document.location = 'Loan.cfm?Action=addItems'">	
+		<input type="button" value="Add Items" class="lnkBtn"
+			onClick="window.open('SpecimenSearch.cfm?Action=dispCollObj&transaction_id=#transaction_id#');">
+		<input type="button" value="Review Items" class="lnkBtn"
+			onClick="window.open('a_loanItemReview.cfm?transaction_id=#transaction_id#');">
+   		<br />
+   		<label for="redir">Print...</label>
+		<select name="redir" id="redir" size="1" onchange="if(this.value.length>0){window.open(this.value,'_blank')};">
    			<option value=""></option>
 			<option value="/Reports/report_printer.cfm?transaction_id=#transaction_id#&report=uam_mamm_loan_head">UAM Mammal Invoice Header</option>
 			<option value="/Reports/UAMMammLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemList">UAM Mammal Item Invoice</option>
 			<option value="/Reports/UAMMammLoanInvoice.cfm?transaction_id=#transaction_id#&Action=showCondition">UAM Mammal Item Conditions</option>
-			
 			<option value="/Reports/report_printer.cfm?transaction_id=#transaction_id#&report=UAM_ES_Loan_Header_II">UAM ES Invoice Header</option>
-			
 			<option value="/Reports/MSBMammLoanInvoice.cfm?transaction_id=#transaction_id#">MSB Mammal Invoice Header</option>
 			<option value="/Reports/MSBMammLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemList">MSB Mammal Item Invoice</option>
-			
 			<option value="/Reports/MSBBirdLoanInvoice.cfm?transaction_id=#transaction_id#">MSB Bird Invoice Header</option>
 			<option value="/Reports/MSBBirdLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemList">MSB Bird Item Invoice</option>
-			
 			<option value="/Reports/UAMLoanInvoice.cfm?transaction_id=#transaction_id#">UAM Generic Invoice Header</option>
 			<option value="/Reports/UAMLoanInvoice.cfm?transaction_id=#transaction_id#&Action=itemList">UAM Generic Item Invoice</option>
 			<option value="/Reports/UAMLoanInvoice.cfm?transaction_id=#transaction_id#&Action=showCondition">UAM Generic Item Conditions</option>
@@ -478,10 +458,6 @@
 			<option value="/Reports/report_printer.cfm?transaction_id=#transaction_id#&report=shipping_label">Shipping Label</option>
 			<option value="/Reports/report_printer.cfm?transaction_id=#transaction_id#">Any Report</option>
 		</select>
-			
-			</td>
-	</tr>
-	
 	</td><!---- end left cell --->
 	<td><!---- right cell ---->
 	
