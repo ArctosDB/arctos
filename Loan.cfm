@@ -1023,7 +1023,7 @@ Shipment Information:
 							delete from trans_agent where trans_agent_id=#trans_agent_id_#
 						</cfquery>
 					<cfelse>
-						<cfif thisTransAgentId is "new">
+						<cfif trans_agent_id_ is "new">
 							<cfquery name="newTransAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 								insert into trans_agent (
 									transaction_id,
