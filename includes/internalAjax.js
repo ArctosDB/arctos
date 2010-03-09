@@ -325,7 +325,7 @@ function addTransAgent (aid,name) {
 			
 			var d='<tr><td>';
 			d+='<input type="text" name="trans_agent_' + i + '" class="reqdClr" size="30" value="' + name + '"';
-  			d+=' onchange="getAgent(\'trans_agent_id_' + i + "\',\'trans_agent_' + i + '\','editloan',this.value);';" +
+  			d+=' onchange="getAgent(\'trans_agent_id_' + i + "\',\'trans_agent_' + i + '\','editloan',this.value);"';
   			d+=' return false;"	onKeyPress="return noenter(event);">';
   			console.log(d);
   			/*
