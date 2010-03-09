@@ -313,7 +313,70 @@ function addLink (n) {
 	document.getElementById('numberLinks').value=thisID;
 }
 function addTransAgent () {
-	var lid = jQuery('#authTab tr:last').attr("id");
+	jQuery.getJSON("/component/functions.cfc",
+		{
+			method : "getTrans_agent_role",
+			returnformat : "json",
+			queryformat : 'column'
+		},
+		function (d) {
+			var numAgents=jQuery('#numAgents#').val + 1;
+			console.log('numAgents: ' + numAgents);
+			
+			/*
+			var d='<tr><td>';
+			d+='<input type="text" name="trans_agent_#i#" class="reqdClr" size="30" value="#agent_name#"
+  					onchange="getAgent('trans_agent_id_#i#','trans_agent_#i#','editloan',this.value); return false;"
+  					onKeyPress="return noenter(event);">
+  				<input type="hidden" name="trans_agent_id_#i#" value="#agent_id#">
+			</td>
+			<td>
+				<select name="trans_agent_role_#trans_agent_id#">
+					<cfloop query="cttrans_agent_role">
+						<option 
+							<cfif cttrans_agent_role.trans_agent_role is loanAgents.trans_agent_role>
+								selected="selected"
+							</cfif>
+							value="#trans_agent_role#">#trans_agent_role#</option>
+					</cfloop>
+				</select>
+			</td>
+			<td>
+				<input type="checkbox" name="del_agnt_#i#">
+			</td>
+			<td><span class="infoLink" onclick="rankAgent('#agent_id#');">Rank</span></td>
+		</tr>
+			var lid=jQuery('#attTab tr:last').attr("id");
+			if(lid.length==0){
+				lid='attRow0';
+			}
+			var lastID=lid.replace('attRow','');
+			var thisID=parseInt(lastID) + 1;
+			var newRow='<tr id="attRow' + thisID + '"><td>' + v;
+			newRow+='<input type="hidden" name="attribute_type' + thisID + '"';
+			newRow+=' id="attribute_type' + thisID + '" class="reqdClr" value="' + v + '"></td><td>';
+			if(d.length>0 && d.substring(0,4)=='fail'){
+				alert(d);
+				return false;
+			} else if(d=='nocontrol'){
+				newRow+='<input type="text" name="attribute' + thisID + '" id="attribute' + thisID + '" size="50" class="reqdClr">';
+			} else {
+				newRow+='<select name="attribute' + thisID + '" id="attribute' + thisID + '" class="reqdClr">';
+				for (i=0; i<d.ROWCOUNT; ++i) {
+					newRow+='<option value="' + d.DATA.v[i] + '">'+ d.DATA.v[i] +'</option>';
+				}
+				newRow+='</select>';
+			}
+			newRow+="</td></tr>";
+			jQuery('#attTab tr:last').after(newRow);
+			document.getElementById('numberAttributes').value=thisID;
+			*/
+		}
+	); 	
+	
+	
+	/*
+	 * var lid = jQuery('#authTab tr:last').attr("id");
 	var lastID=lid.replace('authortr','');
 	var thisID=parseInt(lastID) + 1;
 	var newRow='<tr id="authortr' + thisID + '">';
@@ -332,6 +395,7 @@ function addTransAgent () {
 	newRow+='</tr>';		
 	jQuery('#authTab tr:last').after(newRow);
 	document.getElementById('numberAuthors').value=thisID;
+	*/
 }
 function addAgent (n) {
 	var lid = jQuery('#authTab tr:last').attr("id");

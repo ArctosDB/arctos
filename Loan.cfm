@@ -359,7 +359,6 @@
 				<th>Delete?</th>
 				<th></th>
 			</tr>
-			<input type="text" id="numAgents" name="numAgents" value="#loanAgents.recordcount#">
 			<cfset i=1>
 			<cfloop query="loanAgents">
 				<tr>
@@ -370,7 +369,6 @@
 		  				<input type="hidden" name="trans_agent_id_#i#" value="#agent_id#">
 					</td>
 					<td>
-						<cfset thisRole = #trans_agent_role#>
 						<select name="trans_agent_role_#trans_agent_id#">
 							<cfloop query="cttrans_agent_role">
 								<option 
@@ -388,9 +386,10 @@
 				</tr>
 				<cfset i=i+1>
 			</cfloop>
+			<input type="text" id="numAgents" name="numAgents" value="#i#">
 			<tr class="newRec">
 				<td>
-					<label for="new_trans_agent">Add Agent:</label>
+					<label for="new_trans_agent" onclick="addTransAgent()">Add Agent:</label>
 					<input type="text" name="new_trans_agent" id="new_trans_agent" class="reqdClr" size="50"
 	  					onchange="getAgent('new_trans_agent_id','new_trans_agent','editloan',this.value); return false;"
 	  					onKeyPress="return noenter(event);">
