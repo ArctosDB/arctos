@@ -364,13 +364,13 @@
 			<cfloop query="loanAgents">
 				<tr>
 					<td>
-						<input type="text" name="trans_agent_#i#" class="reqdClr" size="30" value="#agent_name#"
+						<input type="text" name="trans_agent_#i#" id="trans_agent_#i#" class="reqdClr" size="30" value="#agent_name#"
 		  					onchange="getAgent('trans_agent_id_#i#','trans_agent_#i#','editloan',this.value); return false;"
 		  					onKeyPress="return noenter(event);">
-		  				<input type="hidden" name="trans_agent_id_#i#" value="#agent_id#">
+		  				<input type="hidden" name="trans_agent_id_#i#" id="trans_agent_id_#i#" value="#agent_id#">
 					</td>
 					<td>
-						<select name="trans_agent_role_#trans_agent_id#">
+						<select name="trans_agent_role_#i#" id="trans_agent_role_#i#">
 							<cfloop query="cttrans_agent_role">
 								<option 
 									<cfif cttrans_agent_role.trans_agent_role is loanAgents.trans_agent_role>
