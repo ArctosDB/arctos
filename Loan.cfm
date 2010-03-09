@@ -1022,6 +1022,7 @@ Shipment Information:
 						<cfquery name="del" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 							delete from trans_agent where trans_agent_id=#trans_agent_id_#
 						</cfquery>
+						delete from trans_agent where trans_agent_id=#trans_agent_id_#<hr>
 					<cfelse>
 						<cfif trans_agent_id_ is "new">
 							<cfquery name="newTransAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
@@ -1035,6 +1036,15 @@ Shipment Information:
 									'#trans_agent_role_#'
 								)
 							</cfquery>
+							insert into trans_agent (
+									transaction_id,
+									agent_id,
+									trans_agent_role
+								) values (
+									#transaction_id#,
+									#trans_agent_id_#,
+									'#trans_agent_role_#'
+								)<hr>
 						<cfelse>
 							<cfquery name="upTransAgent" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 								update trans_agent set
@@ -1043,6 +1053,12 @@ Shipment Information:
 								where
 									trans_agent_id=#trans_agent_id_#
 							</cfquery>
+							update trans_agent set
+									agent_id = #agent_id_#,
+									trans_agent_role = '#trans_agent_role_#'
+								where
+									trans_agent_id=#trans_agent_id_#
+									<hr>
 						</cfif>	
 					</cfif>
 				</cfloop>
