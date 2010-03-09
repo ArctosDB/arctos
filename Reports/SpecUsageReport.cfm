@@ -4,6 +4,7 @@
 	<cfloop list="#url.p#" index="l">
 		<cfset k=listgetat(l,1,"=")>
 		<cfset v=listgetat(l,2,"=")>
+		<cfset "#k#"=v>
 	</cfloop>
 	<cfdump var=#variables#>
 </cfoutput>
