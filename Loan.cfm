@@ -361,7 +361,7 @@
 			<cfloop query="loanAgents">
 				<tr>
 					<td>
-						<input type="hidden" name="tr#i#" id="trans_agent_id_#i#" value="#trans_agent_id#">
+						<input type="hidden" name="trans_agent_id_#i#" id="trans_agent_id_#i#" value="#trans_agent_id#">
 						<input type="text" name="trans_agent_#i#" id="trans_agent_#i#" class="reqdClr" size="30" value="#agent_name#"
 		  					onchange="getAgent('trans_agent_id_#i#','trans_agent_#i#','editloan',this.value); return false;"
 		  					onKeyPress="return noenter(event);">
