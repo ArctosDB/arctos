@@ -459,52 +459,56 @@
 			project_trans.project_id =  project.project_id
 			and transaction_id=#transaction_id#
 		</cfquery>
-		<cfif projs.recordcount gt 0>
-			<cfloop query="projs">
-				<br><a href="/Project.cfm?Action=editProject&project_id=#project_id#"><strong>#project_name#</strong></a>
-			</cfloop>
-		<cfelse>
-			<br>None
-		</cfif>
-			<label for="project_id">Pick Project to associate with this loan</label>
-			<input type="hidden" name="project_id">
-			<input type="text" 
-				size="50"
-				name="pick_project_name" 
-				class="reqdClr" 
-				onchange="getProject('project_id','pick_project_name','editloan',this.value); return false;"
-				onKeyPress="return noenter(event);">
-			<label for="">Create a project from this loan</label>
-			<label for="newAgent_name">Project Agent Name</label>
-			<input type="text" name="newAgent_name" id="newAgent_name" 
-				class="reqdClr" 
-				onchange="findAgentName('newAgent_name_id','newAgent_name',this.value); return false;"
-				onKeyPress="return noenter(event);"
-				value="">
-			<input type="hidden" name="newAgent_name_id" id="newAgent_name_id" value="">
-			<cfquery name="ctProjAgRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
-				select project_agent_role from ctproject_agent_role order by project_agent_role
-			</cfquery>
-			<label for="">Project Agent Role</label>
-			<select name="project_agent_role" size="1" class="reqdClr">
-				<cfloop query="ctProjAgRole">
-					<option value="#ctProjAgRole.project_agent_role#">#ctProjAgRole.project_agent_role#</option>
+		<ul>
+			<cfif projs.recordcount gt 0>
+				<cfloop query="projs">
+					<li><a href="/Project.cfm?Action=editProject&project_id=#project_id#"><strong>#project_name#</strong></a></li>
 				</cfloop>
-			</select>
-			<label for="project_name" class="likeLink" onClick="getDocs('project','title')">Project Title</label>
-			<textarea name="project_name" cols="50" rows="2" class="reqdClr"></textarea>
-			<label for="start_date" class="likeLink" onClick="getDocs('project','date')">Project Start Date</label>
-			<input type="text" name="start_date" value="#dateformat(loanDetails.trans_date,"dd-mmm-yyyy")#">
-			<label for="">Project End Date</label>
-			<input type="text" name="end_date">
-			<label for="project_description" class="likeLink" onClick="getDocs('project','description')">Project Description</label>
-			<textarea name="project_description" 
-				id="project_description" cols="50" rows="6">#loanDetails.loan_description#</textarea>
-			<label for="project_remarks">Project Remark</label>
-			<textarea name="project_remarks" cols="50" rows="3">#loanDetails.trans_remarks#</textarea>
-			<label for="saveNewProject">Check to create project and associate it with this loan</label>
-			<input type="checkbox" value="yes" name="saveNewProject">
-		</form>
+			<cfelse>
+				<li>None</li>
+			</cfif>
+		</ul>
+		<hr>
+		<label for="project_id">Pick a Project to associate with this loan</label>
+		<input type="hidden" name="project_id">
+		<input type="text" 
+			size="50"
+			name="pick_project_name" 
+			class="reqdClr" 
+			onchange="getProject('project_id','pick_project_name','editloan',this.value); return false;"
+			onKeyPress="return noenter(event);">
+		<hr>
+		<label for=""><span style="font-size:large">Create a project from this loan</span></label>
+		<label for="newAgent_name">Project Agent Name</label>
+		<input type="text" name="newAgent_name" id="newAgent_name" 
+			class="reqdClr" 
+			onchange="findAgentName('newAgent_name_id','newAgent_name',this.value); return false;"
+			onKeyPress="return noenter(event);"
+			value="">
+		<input type="hidden" name="newAgent_name_id" id="newAgent_name_id" value="">
+		<cfquery name="ctProjAgRole" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
+			select project_agent_role from ctproject_agent_role order by project_agent_role
+		</cfquery>
+		<label for="">Project Agent Role</label>
+		<select name="project_agent_role" size="1" class="reqdClr">
+			<cfloop query="ctProjAgRole">
+				<option value="#ctProjAgRole.project_agent_role#">#ctProjAgRole.project_agent_role#</option>
+			</cfloop>
+		</select>
+		<label for="project_name" class="likeLink" onClick="getDocs('project','title')">Project Title</label>
+		<textarea name="project_name" cols="50" rows="2" class="reqdClr"></textarea>
+		<label for="start_date" class="likeLink" onClick="getDocs('project','date')">Project Start Date</label>
+		<input type="text" name="start_date" value="#dateformat(loanDetails.trans_date,"dd-mmm-yyyy")#">
+		<label for="">Project End Date</label>
+		<input type="text" name="end_date">
+		<label for="project_description" class="likeLink" onClick="getDocs('project','description')">Project Description</label>
+		<textarea name="project_description" 
+			id="project_description" cols="50" rows="6">#loanDetails.loan_description#</textarea>
+		<label for="project_remarks">Project Remark</label>
+		<textarea name="project_remarks" cols="50" rows="3">#loanDetails.trans_remarks#</textarea>
+		<label for="saveNewProject">Check to create project with save</label>
+		<input type="checkbox" value="yes" name="saveNewProject">
+	</form>
 	</td></tr></table>
 	
 	
@@ -868,7 +872,7 @@ Shipment Information:
 					,LOAN_INSTRUCTIONS = '#LOAN_INSTRUCTIONS#'						
 					where transaction_id = #transaction_id#
 				</cfquery>
-				<cfif isdefined("project_id") and len(#project_id#) gt 0>
+				<cfif isdefined("project_id") and len(project_id) gt 0>
 					<cfquery name="newProj" datasource="user_login" username="#session.dbuser#" password="#decrypt(session.epw,cfid)#">
 						INSERT INTO project_trans (
 							project_id, transaction_id)
